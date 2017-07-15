@@ -116,7 +116,6 @@
                                   'products_units_id' => oos_db_prepare_input($_POST['products_units_id']),
                                   'manufacturers_id' => oos_db_prepare_input($_POST['manufacturers_id']),
                                   'products_price_list' => oos_db_prepare_input($_POST['products_price_list']),
-                                  'products_discount_allowed' => oos_db_prepare_input($_POST['products_discount_allowed']),
                                   'products_quantity_decimal' => $products_quantity_decimal,
                                   'products_quantity_order_min' => oos_db_prepare_input($_POST['products_quantity_order_min']),
                                   'products_quantity_order_units' => oos_db_prepare_input($_POST['products_quantity_order_units']),
@@ -233,7 +232,7 @@
                                                  p.products_weight, p.products_date_added, p.products_last_modified,
                                                  date_format(p.products_date_available, '%Y-%m-%d') AS products_date_available,
                                                  p.products_status, p.products_tax_class_id, p.products_units_id, p.manufacturers_id,
-                                                 p.products_price_list, p.products_discount_allowed, p.products_quantity_decimal,
+                                                 p.products_price_list, p.products_quantity_decimal,
                                                  p.products_quantity_order_min, p.products_quantity_order_units,
                                                  p.products_discount1, p.products_discount2, p.products_discount3,
                                                  p.products_discount4, p.products_discount1_qty, p.products_discount2_qty,
@@ -573,10 +572,6 @@ function calcBasePriceFactor() {
           <tr>
             <td colspan="2"></td>
           </tr>
-           <tr>
-             <td class="main"><?php echo TEXT_PRODUCTS_DISCOUNT_ALLOWED; ?></td>
-             <td class="main">&nbsp;<?php echo oos_draw_input_field('products_discount_allowed', number_format($pInfo->products_discount_allowed, 2)); ?> %</td>
-          </tr>
           <tr>
             <td class="main"><?php echo TEXT_DISCOUNTS_TITLE; ?></td>
             <td class="main">
@@ -666,7 +661,7 @@ function calcBasePriceFactor() {
 
       $products_sort_order = $_POST['products_sort_order'];
     } else {
-      $product_result = $dbconn->Execute("SELECT pd.products_name, pd.products_description, pd.products_description_meta, products_keywords_meta, pd.products_url, p.products_id, p.products_quantity, p.products_reorder_level, p.products_model, p.products_ean, p.products_image, p.products_price, p.products_base_price, p.products_base_unit, p.products_weight, p.products_date_added, p.products_last_modified, date_format(p.products_date_available, '%Y-%m-%d') as products_date_available, p.products_status, p.products_tax_class_id, p.products_units_id, p.manufacturers_id, p.products_price_list, p.products_discount_allowed, p.products_quantity_order_min, p.products_quantity_order_units, p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4, p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty, p.products_discount4_qty, p.products_sort_order FROM " . $oostable['products'] . " p, " . $oostable['products_description'] . " pd WHERE p.products_id = '" . $_GET['pID'] . "' and p.products_id = pd.products_id and pd.products_languages_id = '" . intval($_SESSION['language_id']) . "'");
+      $product_result = $dbconn->Execute("SELECT pd.products_name, pd.products_description, pd.products_description_meta, products_keywords_meta, pd.products_url, p.products_id, p.products_quantity, p.products_reorder_level, p.products_model, p.products_ean, p.products_image, p.products_price, p.products_base_price, p.products_base_unit, p.products_weight, p.products_date_added, p.products_last_modified, date_format(p.products_date_available, '%Y-%m-%d') as products_date_available, p.products_status, p.products_tax_class_id, p.products_units_id, p.manufacturers_id, p.products_price_list, p.products_quantity_order_min, p.products_quantity_order_units, p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4, p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty, p.products_discount4_qty, p.products_sort_order FROM " . $oostable['products'] . " p, " . $oostable['products_description'] . " pd WHERE p.products_id = '" . $_GET['pID'] . "' and p.products_id = pd.products_id and pd.products_languages_id = '" . intval($_SESSION['language_id']) . "'");
       $product = $product_result->fields;
 
       $pInfo = new objectInfo($product);
@@ -702,9 +697,6 @@ function calcBasePriceFactor() {
   $oosPrice=round($oosPrice,TAX_DECIMAL_PLACES);
 ?>
       <td class="pageHeading" align="right"><?php echo $currencies->format($oosPrice); ?></td>
-          </tr>
-          <tr>
-            <td colspan="2" class="main" align="right"><?php echo TEXT_PRODUCTS_DISCOUNT_ALLOWED . ' ' . number_format($products_discount_allowed, 2); ?>%</td>
           </tr>
 <?php
   include 'includes/categories_discounts_price.php';

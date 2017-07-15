@@ -488,8 +488,7 @@
 
         // products price
         $productstable = $oostable['products'];
-        $product_sql = "SELECT products_id, products_model, products_price, products_discount_allowed,
-                               products_tax_class_id, products_weight
+        $product_sql = "SELECT products_id, products_model, products_price, products_tax_class_id, products_weight
                        FROM $productstable
                        WHERE products_id='" . oos_get_product_id($products_id) . "'";
         $product_result = $dbconn->Execute($product_sql);
@@ -620,7 +619,7 @@
         $productstable = $oostable['products'];
         $products_descriptiontable = $oostable['products_description'];
         $sql = "SELECT p.products_id, pd.products_name, p.products_image, p.products_model, p.products_ean,
-                       p.products_price, p.products_discount_allowed, p.products_weight, p.products_tax_class_id
+                       p.products_price, p.products_weight, p.products_tax_class_id
                 FROM $productstable p,
                      $products_descriptiontable pd
                 WHERE p.products_id = '" . oos_get_product_id($products_id) . "' AND
@@ -661,7 +660,6 @@
                                     'ean' => $products['products_ean'],
                                     'price' => $products_price,
                                     'spezial' => $spezial_price,
-                                    'discount_allowed' => $products['products_discount_allowed'],
                                     'quantity' => $this->contents[$products_id]['qty'],
                                     'weight' => $products['products_weight'],
                                     'final_price' => ($products_price + $attributes_price),

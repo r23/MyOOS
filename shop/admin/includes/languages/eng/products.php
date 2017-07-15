@@ -35,7 +35,6 @@ define('TEXT_PRODUCT_DATE_AVAILABLE', 'This product will be in stock on %s.');
 
 define('TEXT_TAX_INFO', ' ex VAT:');
 define('TEXT_PRODUCTS_LIST_PRICE', 'List:');
-define('TEXT_PRODUCTS_DISCOUNT_ALLOWED', 'Max Discount Allowed:');
 
 define('TEXT_PRODUCTS_BASE_PRICE', 'Base Price ');
 define('TEXT_PRODUCTS_BASE_UNIT', 'Base Unit:');

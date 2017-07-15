@@ -52,7 +52,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.ph
     $wl_products_id = oos_get_product_id($wishlist['products_id']);
     $sql = "SELECT p.products_id, pd.products_name, pd.products_description, p.products_model,
                    p.products_image, p.products_price, p.products_base_price, p.products_base_unit,
-                   p.products_discount_allowed, p.products_tax_class_id, p.products_units_id
+                   p.products_tax_class_id, p.products_units_id
             FROM " . $oostable['products'] . " p,
                  " . $oostable['products_description'] . " pd
             WHERE p.products_id = '" . intval($wl_products_id) . "'

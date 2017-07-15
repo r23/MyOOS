@@ -26,7 +26,7 @@ $whats_new_block = 'false';
 
 $productstable = $oostable['products'];
 $query = "SELECT products_id, products_image, products_tax_class_id, products_units_id, products_price,
-                   products_base_price, products_base_unit, products_discount_allowed
+                   products_base_price, products_base_unit
             FROM $productstable
             WHERE products_status >= '1'
             ORDER BY products_date_added DESC";

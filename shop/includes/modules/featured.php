@@ -27,8 +27,7 @@
   $products_descriptiontable = $oostable['products_description'];
   $featuredtable = $oostable['featured'];
   $sql = "SELECT p.products_id, p.products_image, p.products_price, p.products_tax_class_id,
-                 p.products_units_id, p.products_base_price, p.products_base_unit,
-                 p.products_discount_allowed, pd.products_name,
+                 p.products_units_id, p.products_base_price, p.products_base_unit, pd.products_name,
                  substring(pd.products_description, 1, 150) AS products_description
           FROM $productstable p,
                $products_descriptiontable pd,

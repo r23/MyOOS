@@ -62,7 +62,6 @@ define('TEXT_EDIT_SORT_ORDER', 'Sortierreihenfolge');
 define('TEXT_EDIT_STATUS', 'Status');
 define('TEXT_TAX_INFO', 'Netto:');
 define('TEXT_PRODUCTS_LIST_PRICE', 'empf VK:');
-define('TEXT_PRODUCTS_DISCOUNT_ALLOWED', 'Discountmaximum:');
 
 
 define('TEXT_INFO_COPY_TO_INTRO', 'Bitte wählen Sie eine neue Kategorie aus, in die Sie den Artikel kopieren möchten:');

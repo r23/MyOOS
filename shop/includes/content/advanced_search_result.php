@@ -176,7 +176,7 @@ if ($error == 1) {
                           p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4,
                           p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty,
                           p.products_discount4_qty, p.products_tax_class_id, p.products_units_id, p.products_quantity_order_min,
-                          p.products_price, p.products_price_list, p.products_base_price, p.products_base_unit, p.products_discount_allowed,
+                          p.products_price, p.products_price_list, p.products_base_price, p.products_base_unit,
                           IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price,
                           IF(s.status, s.specials_new_products_price, p.products_price) AS final_price ";
 

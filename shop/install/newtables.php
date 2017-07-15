@@ -924,7 +924,6 @@ $flds = "
   products_quantity_order_min N '10.2' NOTNULL DEFAULT '1.00',
   products_quantity_order_units I NOTNULL DEFAULT '1',
   products_price_list N '15.8'  DEFAULT '0.0000',
-  products_discount_allowed N '15.2' NOTNULL DEFAULT '0.00',
   products_discount1 N '15.8' NOTNULL DEFAULT '0.00000000',
   products_discount2 N '15.8' NOTNULL DEFAULT '0.00000000',
   products_discount3 N '15.8' NOTNULL DEFAULT '0.00000000',

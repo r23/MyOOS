@@ -33,8 +33,7 @@ $productstable = $oostable['products'];
 $products_descriptiontable = $oostable['products_description'];
 $product_info_sql = "SELECT p.products_id, pd.products_name, pd.products_description, pd.products_url,
                               pd.products_description_meta, p.products_model,
-                              p.products_quantity, p.products_image, 
-                              p.products_discount_allowed, p.products_price,
+                              p.products_quantity, p.products_image, p.products_price,
                               p.products_base_price, p.products_base_unit, p.products_quantity_order_min, p.products_quantity_order_units,
                               p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4,
                               p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty,

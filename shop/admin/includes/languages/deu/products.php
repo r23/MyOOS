@@ -35,7 +35,6 @@ define('TEXT_PRODUCT_DATE_AVAILABLE', 'Dieser Artikel ist erhältlich ab %s.');
 
 define('TEXT_TAX_INFO', 'Netto:');
 define('TEXT_PRODUCTS_LIST_PRICE', 'empf VK:');
-define('TEXT_PRODUCTS_DISCOUNT_ALLOWED', 'Discountmaximum:');
 
 define('TEXT_PRODUCTS_BASE_PRICE', 'Grundpreis ');
 define('TEXT_PRODUCTS_BASE_UNIT', 'Grundgrö&szlig;e:');

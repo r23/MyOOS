@@ -54,7 +54,7 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
     $products_descriptiontable = $oostable['products_description'];
     $products_new_result_raw = "SELECT p.products_id, pd.products_name, p.products_image, p.products_price,
                                        p.products_base_price, p.products_base_unit, p.products_units_id,
-                                       p.products_discount_allowed, p.products_tax_class_id, p.products_units_id,
+                                       p.products_tax_class_id, p.products_units_id,
                                        IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price,
                                        p.products_date_added, m.manufacturers_name
                                FROM $productstable p LEFT JOIN

@@ -56,7 +56,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/accoun
     $products_descriptiontable = $oostable['products_description'];
     $sql = "SELECT p.products_id, pd.products_name, pd.products_description, p.products_model,
                    p.products_image, p.products_price, p.products_base_price, p.products_base_unit,
-                   p.products_discount_allowed, p.products_tax_class_id, p.products_units_id
+                   p.products_tax_class_id, p.products_units_id
             FROM $productstable p,
                  $products_descriptiontable pd
             WHERE p.products_id = '" . intval($wl_products_id) . "'

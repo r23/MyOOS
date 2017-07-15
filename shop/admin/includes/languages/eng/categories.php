@@ -62,7 +62,6 @@ define('TEXT_EDIT_SORT_ORDER', 'Sort Order');
 define('TEXT_EDIT_STATUS', 'Status');
 define('TEXT_TAX_INFO', ' ex VAT:');
 define('TEXT_PRODUCTS_LIST_PRICE', 'List:');
-define('TEXT_PRODUCTS_DISCOUNT_ALLOWED', 'Max Discount Allowed:');
 
 
 define('TEXT_INFO_COPY_TO_INTRO', 'Please choose a new category you wish to copy this product to');

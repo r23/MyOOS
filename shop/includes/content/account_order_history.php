@@ -84,8 +84,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/accoun
     $manufacturerstable = $oostable['manufacturers'];
     $historytable = $oostable['specials'];
     $order_history_raw = "SELECT pd.products_name, p.products_id, p.products_quantity, p.products_image,
-                                 p.products_price, p.products_base_price, p.products_base_unit,
-                                 p.products_discount_allowed, p.products_tax_class_id, p.products_sort_order,
+                                 p.products_price, p.products_base_price, p.products_base_unit, p.products_tax_class_id, p.products_sort_order,
                                  IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price,
                                  IF(s.status, s.specials_new_products_price, p.products_price) AS final_price
                           FROM $products_descriptiontable pd,
