@@ -177,13 +177,13 @@
 						<li class="dropdown {if $account_active}active{/if}">
 							<a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{$lang.header_title_my_account}</a>
 								<ul class="dropdown-menu dropdown-menu-right">
-									<li><a href="{html_href_link content=$filename.account connection=SSL}">{$lang.login_block_my_account}</a></li>
-									<li><a href="{html_href_link content=$filename.account_edit connection=SSL}">{$lang.login_block_account_edit}</a></li>
-									<li><a href="{html_href_link content=$filename.account_history page=1 connection=SSL}">{$lang.login_block_account_history}</a></li>
-									<li><a href="{html_href_link content=$filename.account_order_history page=1 connection=SSL}">{$lang.login_block_order_history}</a></li>
-									<li><a href="{html_href_link content=$filename.account_address_book connection=SSL}">{$lang.login_block_address_book}</a></li>
+									<li><a href="{html_href_link content=$filename.account connection=SSL}" rel="nofollow">{$lang.login_block_my_account}</a></li>
+									<li><a href="{html_href_link content=$filename.account_edit connection=SSL}" rel="nofollow">{$lang.login_block_account_edit}</a></li>
+									<li><a href="{html_href_link content=$filename.account_history page=1 connection=SSL}" rel="nofollow">{$lang.login_block_account_history}</a></li>
+									<li><a href="{html_href_link content=$filename.account_order_history page=1 connection=SSL}" rel="nofollow">{$lang.login_block_order_history}</a></li>
+									<li><a href="{html_href_link content=$filename.account_address_book connection=SSL}" rel="nofollow">{$lang.login_block_address_book}</a></li>
 								{if $oEvent->installed_plugin('notify')}
-									<li><a href="{html_href_link content=$filename.product_notifications connection=SSL}">{$lang.login_block_product_notifications}</a></li>
+									<li><a href="{html_href_link content=$filename.product_notifications connection=SSL}" rel="nofollow">{$lang.login_block_product_notifications}</a></li>
 								{/if}
 					
 							</ul>
@@ -192,7 +192,7 @@
 							<a href="{html_href_link content=$filename.shopping_cart}">{$lang.header_title_cart_contents}</a>
 						</li>
 						<li {if $checkout_active}class="active"{/if}>
-							<a href="{html_href_link content=$filename.checkout_shipping connection=SSL}">{$lang.header_title_checkout}</a>
+							<a href="{html_href_link content=$filename.checkout_shipping connection=SSL}" rel="nofollow">{$lang.header_title_checkout}</a>
 						</li>
 					</ul>
 				</div><!-- /.navbar-collapse -->

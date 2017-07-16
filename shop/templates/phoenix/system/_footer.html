@@ -4,15 +4,15 @@
 					
 					<div class="col-md-3 col-sm-6 inner">
 						<h4>{$lang.header_title_my_account}</h4>
-						<a href="index.html"><img class="logo img-intext" src="assets/images/logo-white.svg" alt=""></a>
+						<a href="{html_href_link content=$filename.main}"><img class="logo img-intext" src="{$theme_image}/logo-white.svg" alt=""></a>
 					<ul class="link-list">
-						<li><a href="{html_href_link content=$filename.account connection=SSL}" title="{$lang.login_block_my_account}">{$lang.login_block_my_account}</a></li>
-						<li><a href="{html_href_link content=$filename.account_edit connection=SSL}" title="{$lang.login_block_account_edit}">{$lang.login_block_account_edit}</a></li>
-						<li><a href="{html_href_link content=$filename.account_history connection=SSL}" title="{$lang.login_block_account_history}">{$lang.login_block_account_history}</a></li>
-						<li><a href="{html_href_link content=$filename.account_order_history connection=SSL}" title="{$lang.login_block_order_history}">{$lang.login_block_order_history}</a></li>
-						<li><a href="{html_href_link content=$filename.account_address_book connection=SSL}" title="{$lang.login_block_address_book}">{$lang.login_block_address_book}</a></li>
+						<li><a href="{html_href_link content=$filename.account connection=SSL}" title="{$lang.login_block_my_account}" rel="nofollow">{$lang.login_block_my_account}</a></li>
+						<li><a href="{html_href_link content=$filename.account_edit connection=SSL}" title="{$lang.login_block_account_edit}" rel="nofollow">{$lang.login_block_account_edit}</a></li>
+						<li><a href="{html_href_link content=$filename.account_history connection=SSL}" title="{$lang.login_block_account_history}" rel="nofollow">{$lang.login_block_account_history}</a></li>
+						<li><a href="{html_href_link content=$filename.account_order_history connection=SSL}" title="{$lang.login_block_order_history}" rel="nofollow">{$lang.login_block_order_history}</a></li>
+						<li><a href="{html_href_link content=$filename.account_address_book connection=SSL}" title="{$lang.login_block_address_book}" rel="nofollow">{$lang.login_block_address_book}</a></li>
 				{if $oEvent->installed_plugin('notify')}
-						<li><a href="{html_href_link content=$filename.product_notifications connection=SSL}">{$lang.login_block_product_notifications}</a></li>
+						<li><a href="{html_href_link content=$filename.product_notifications connection=SSL}" rel="nofollow">{$lang.login_block_product_notifications}</a></li>
 				{/if}						
 					</ul>
 					</div><!-- .col -->
@@ -100,15 +100,12 @@
 		});
 	</script>
 {/literal}
-
 <!-- HTML5 shim and Respond.js IE support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
 	<script src="{$theme}/crossbrowserjs/html5shiv.js"></script>
 	<script src="{$theme}/crossbrowserjs/respond.min.js"></script>
 	<script src="{$theme}/crossbrowserjs/excanvas.min.js"></script>
 <![endif]-->
-
-
 
 </body>
 </html>
