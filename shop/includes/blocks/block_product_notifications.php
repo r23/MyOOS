@@ -22,7 +22,7 @@
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
 
-$notifications_block = 'false';
+$notifications_block = FALSE;
 
 if (isset($_GET['products_id'])) {
     if (!isset($nProductsID)) $nProductsID = oos_get_product_id($_GET['products_id']);

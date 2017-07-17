@@ -1,14 +1,11 @@
-{if $best_sellers_block eq 'true'}
+{if $best_sellers_block}
 <div class="panel panel-default sidebar-menu">
 	<div class="panel-heading">
 		<h3 class="panel-title">{$block_heading_best_sellers}</h3>
 	</div>
 
 	<div class="panel-body">
-
-	</div>
-</div>
-
+<table width="150" border="0" cellspacing="0" cellpadding="3">
 {foreach name=best item=best_seller from=$best_sellers_list}
           <tr>
             <td class="block_content" valign="top">{$smarty.foreach.best.iteration|number_format}.</td>
@@ -19,5 +16,8 @@
   {/if}
           </tr>
 {/foreach}
+        </table>
+	</div>
+</div>
 
 {/if}

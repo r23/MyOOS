@@ -22,7 +22,7 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-$currency_block = 'false';
+$currency_block = FALSE;
 if (isset($oCurrencies) && is_object($oCurrencies)) {
 
     reset($oCurrencies->currencies);
@@ -33,7 +33,7 @@ if (isset($oCurrencies) && is_object($oCurrencies)) {
     }
 	
 	if (count($aCurrencies) >= 2) {
-		$currency_block = 'true';
+		$currency_block = TRUE;
 
 		$currency_get_parameters = oos_get_all_get_parameters(array('language', 'currency'));
 		$currency_all_get_parameters = oos_remove_trailing($currency_get_parameters);

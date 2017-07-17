@@ -1,20 +1,11 @@
-{if $notifications_block eq 'true'}
+{if $notifications_block}
 <div class="panel panel-default sidebar-menu">
 	<div class="panel-heading">
 		<h3 class="panel-title">{$block_heading_notifications}</h3>
 	</div>
 
 	<div class="panel-body">
-
-	</div>
-</div>
-
-<table width="154" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td colspan="3"><table width="154" border="0" cellspacing="0" cellpadding="0">
-      <tr>
-        <td width="2" class="block_content_backgr_left"></td>
-        <td width="150"><table width="150" border="0" cellspacing="0" cellpadding="3">
+		<table width="150" border="0" cellspacing="0" cellpadding="3">
           <tr>
  {if $notification_exists}
             <td class="block_content"><a href="{html_href_link content=$page_file oos_get=$get_params action=notify_remove connection=$request_type}">{html_oos_image basedir=$smarty.const.OOS_IMAGES image="box_products_notifications_remove.gif" alt=$lang.button_remove_notifications}</a></td>
@@ -25,16 +16,11 @@
  {/if}
 
           </tr>
-        </table></td>
-        <td width="2" class="block_content_backgr_right"></td>
-      </tr>
-      <tr>
-        <td><img src="{$theme_image}/table_butt_left.gif" alt=" " width="2" height="8"></td>
-        <td></td>
+        </table>
+	</div>
+</div>
 
-        <td><img src="{$theme_image}/table_butt_right.gif" alt=" " width="2" height="8"></td>
-      </tr>
-    </table></td>
-  </tr>
-</table>
+	
+
+		
 {/if}

@@ -69,7 +69,7 @@
 					<div class="col-md-6">
 						<ul class="left-topbar list-inline">
 							<li class="hidden-xs"><a href="{html_href_link content=$filename.contact_us}">{$lang.block_service_contact}</a></li>					
-						{if $currency_block eq 'true'}
+						{if $currency_block}
                             <li>
                                 <a>{$lang.header_select_currencies}: ({$currency})</a>
                                 <ul class="currency">
@@ -87,7 +87,7 @@
                                 </ul>
                             </li>
 						{/if}	
-						{if $languages_block eq 'true'}
+						{if $languages_block}
                             <li>
                                 <a>{$lang.header_select_language}: ({$language})</a>
                                 <ul class="language">

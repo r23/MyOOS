@@ -4,10 +4,6 @@
 	</div>
 
 	<div class="panel-body">
-
-	</div>
-</div>
-
     <form name="quick_add" method="POST" action="{html_href_link content=$page_file oos_get=$get_params action=add_a_quickie}" role="form">
 {if $mySystem.sed}
     <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
@@ -19,4 +15,8 @@
     {html_image_submit image="cart.gif" alt=$block_heading_add_product_id}</div><br>{$lang.block_add_product_id_text}
 	
 	</form>
+	</div>
+</div>
+
+
 	

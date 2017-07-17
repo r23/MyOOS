@@ -1,25 +1,11 @@
-{if $whats_new_block eq 'true'}
+{if $whats_new_block}
 <div class="panel panel-default sidebar-menu">
 	<div class="panel-heading">
 		<h3 class="panel-title">{$block_heading_whats_new}</h3>
 	</div>
 
 	<div class="panel-body">
-
-	</div>
-</div>
-	
-<table width="154" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td width="19" class="block_head_background"><img src="{$theme_image}/table_head_arrow.gif" alt=" " width="21" height="19"></td>
-    <td width="115" class="block_head_background">{$block_heading_whats_new}</td>
-    <td width="20" class="block_head_background" nowrap="nowrap"><a href="{html_href_link content=$filename.products_new}"><img src="{$theme_image}/infobox/more.gif" border="0" alt="{$lang.icon_arrow_right}" width="15" height="19"></a><img src="{$theme_image}/table_head_right.gif" alt=" " width="5" height="19"></td>
-  </tr>
-  <tr>
-    <td colspan="3"><table width="154" border="0" cellspacing="0" cellpadding="0">
-      <tr>
-        <td width="2" class="block_content_backgr_left"></td>
-        <td width="150"><table width="150" border="0" cellspacing="0" cellpadding="3">
+		<table width="150" border="0" cellspacing="0" cellpadding="3">
           <tr>
             <td align="center" valign="top" class="block_content">
     <a href="{product_info_link products_id=$random_product.products_id}">{small_product_image image=$random_product.products_image alt=$random_product.products_name|strip_tags}</a><br>
@@ -34,23 +20,10 @@
     {if $random_product.products_base_price != 1}<br><span class="base_price">{$random_product.products_base_unit} = {$whats_new_base_product_price}</span><br>{/if}
 {/if}
 
-<br><span class="pangv">{$pangv}</span><br>
 
 </td>
           </tr>
-        </table></td>
-        <td width="2" class="block_content_backgr_right"></td>
-      </tr>
-      <tr>
-        <td><img src="{$theme_image}/table_butt_left.gif" alt=" " width="2" height="8"></td>
-        <td></td>
-
-        <td><img src="{$theme_image}/table_butt_right.gif" alt=" " width="2" height="8"></td>
-      </tr>
-    </table></td>
-  </tr>
-  <tr>
-    <td colspan="3"><img src="{$theme_image}/pixel.gif" alt=" " width="3" height="3"></td>
-  </tr>
-</table>
+        </table>
+	</div>
+</div>
 {/if}

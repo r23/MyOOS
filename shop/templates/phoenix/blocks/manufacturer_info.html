@@ -1,24 +1,10 @@
-{if $manufacturer_info_block eq 'true'}
+{if $manufacturer_info_block}
 <div class="panel panel-default sidebar-menu">
 	<div class="panel-heading">
 		<h3 class="panel-title">{$block_heading_manufacturer_info}</h3>
 	</div>
 	<div class="panel-body">
-
-	</div>
-</div>
-
-<table width="154" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td width="19" class="block_head_background"><img src="{$theme_image}/table_head_arrow.gif" alt=" " width="21" height="19"></td>
-    <td width="130" class="block_head_background">{$block_heading_manufacturer_info}</td>
-    <td width="5" class="block_head_background"><img src="{$theme_image}/table_head_right.gif" alt=" " width="5" height="19"></td>
-  </tr>
-  <tr>
-    <td colspan="3"><table width="154" border="0" cellspacing="0" cellpadding="0">
-      <tr>
-        <td width="2" class="block_content_backgr_left"></td>
-        <td width="150"><table width="150" border="0" cellspacing="0" cellpadding="3">
+<table width="150" border="0" cellspacing="0" cellpadding="3">
 {if $manufacturer.manufacturers_image != '' }
           <tr>
             <td align="center" class="block_content" colspan="2">{html_oos_image basedir=$smarty.const.OOS_IMAGES image=$manufacturer.manufacturers_image alt=$manufacturer.manufacturers_name}</td>
@@ -34,10 +20,10 @@
             <td valign="top" class="block_content">-&nbsp;</td>
             <td valign="top" class="block_content"><a href="{html_href_link content=$filename.shop manufacturers_id=$manufacturer.manufacturers_id}">{$lang.block_manufacturer_info_other_products}</a></td>
           </tr>
-        </table></td>
-        <td width="2" class="block_content_backgr_right"></td>
-      </tr>
-    </table></td>
-  </tr>
-</table>
+        </table>
+	</div>
+</div>
+
+
+		
 {/if}

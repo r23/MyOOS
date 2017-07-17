@@ -23,7 +23,7 @@
 
   if (!$oEvent->installed_plugin('manufacturers')) return FALSE;
 
-  $manufacturer_info_block = 'false';
+  $manufacturer_info_block = FALSE;
 
   if (isset($_GET['products_id'])) {
     if (!isset($nProductsID)) $nProductsID = oos_get_product_id($_GET['products_id']);
@@ -44,7 +44,7 @@
     if ($manufacturer_result->RecordCount()) {
 
       $manufacturer = $manufacturer_result->fields;
-      $manufacturer_info_block = 'true';
+      $manufacturer_info_block = TRUE;
 
       $smarty->assign(
           array(

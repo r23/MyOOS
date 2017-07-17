@@ -22,7 +22,7 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-$whats_new_block = 'false';
+$whats_new_block = FALSE;
 
 $productstable = $oostable['products'];
 $query = "SELECT products_id, products_image, products_tax_class_id, products_units_id, products_price,
@@ -32,7 +32,7 @@ $query = "SELECT products_id, products_image, products_tax_class_id, products_un
             ORDER BY products_date_added DESC";
 if ($random_product = oos_random_select($query, MAX_RANDOM_SELECT_NEW)) {
 
-	$whats_new_block = 'true';
+	$whats_new_block = TRUE;
 
     $random_product['products_name'] = oos_get_products_name($random_product['products_id']);
     $whats_new_product_price = '';
