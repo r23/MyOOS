@@ -42,7 +42,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     switch ($action) {
       case 'insert':
       case 'save':
-        $manufacturers_id = oos_db_prepare_input($_GET['mID']);
+        if (isset($_GET['mID'])) $manufacturers_id = oos_db_prepare_input($_GET['mID']);
+        $manufacturers_name = oos_db_prepare_input($_POST['manufacturers_name']);
 
         $sql_data_array = array('manufacturers_name' => $manufacturers_name);
 
@@ -58,7 +59,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
           $sql_data_array = array_merge($sql_data_array, $update_sql_data);
 
-          oos_db_perform($oostable['manufacturers'], $sql_data_array, 'update', "manufacturers_id = '" . oos_db_input($manufacturers_id) . "'");
+          oos_db_perform($oostable['manufacturers'], $sql_data_array, 'update', "manufacturers_id = '" . intval($manufacturers_id) . "'");
         }
 
         $manufacturers_image = oos_get_uploaded_file('manufacturers_image');
@@ -72,7 +73,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
               $messageStack->add_session(sprintf(ERROR_DIRECTORY_DOES_NOT_EXIST, $image_directory), 'error');
             }
           } else {
-            $dbconn->Execute("UPDATE " . $oostable['manufacturers'] . " SET manufacturers_image = '" . $manufacturers_image['name'] . "' WHERE manufacturers_id = '" . oos_db_input($manufacturers_id) . "'");
+            $dbconn->Execute("UPDATE " . $oostable['manufacturers'] . " SET manufacturers_image = '" . oos_db_input($manufacturers_image['name']) . "' WHERE manufacturers_id = '" . intval($manufacturers_id) . "'");
             oos_get_copy_uploaded_file($manufacturers_image, $image_directory);
           }
         }
@@ -92,7 +93,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
             oos_db_perform($oostable['manufacturers_info'], $sql_data_array);
           } elseif ($action == 'save') {
-            oos_db_perform($oostable['manufacturers_info'], $sql_data_array, 'update', "manufacturers_id = '" . oos_db_input($manufacturers_id) . "' and manufacturers_languages_id = '" . intval($lang_id) . "'");
+            oos_db_perform($oostable['manufacturers_info'], $sql_data_array, 'update', "manufacturers_id = '" . intval($manufacturers_id) . "' and manufacturers_languages_id = '" . intval($lang_id) . "'");
           }
         }
 
@@ -104,20 +105,20 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
         if (isset($_POST['delete_image']) && ($_POST['delete_image'] == 'on')) {
           $manufacturerstable = $oostable['manufacturers'];
-          $manufacturer_result = $dbconn->Execute("SELECT manufacturers_image FROM $manufacturerstable WHERE manufacturers_id = '" . oos_db_input($manufacturers_id) . "'");
+          $manufacturer_result = $dbconn->Execute("SELECT manufacturers_image FROM $manufacturerstable WHERE manufacturers_id = '" . intval($manufacturers_id) . "'");
           $manufacturer = $manufacturer_result->fields;
           $image_location = OOS_ABSOLUTE_PATH . OOS_IMAGES . $manufacturer['manufacturers_image'];
           if (file_exists($image_location)) @unlink($image_location);
         }
 
         $manufacturerstable = $oostable['manufacturers'];
-        $dbconn->Execute("DELETE FROM $manufacturerstable WHERE manufacturers_id = '" . oos_db_input($manufacturers_id) . "'");
+        $dbconn->Execute("DELETE FROM $manufacturerstable WHERE manufacturers_id = '" . intval($manufacturers_id) . "'");
         $manufacturers_infotable = $oostable['manufacturers_info'];
-        $dbconn->Execute("DELETE FROM $manufacturers_infotable WHERE manufacturers_id = '" . oos_db_input($manufacturers_id) . "'");
+        $dbconn->Execute("DELETE FROM $manufacturers_infotable WHERE manufacturers_id = '" . intval($manufacturers_id) . "'");
 
         if (isset($_POST['delete_products']) && ($_POST['delete_products'] == 'on')) {
           $productstable = $oostable['products'];
-          $products_result = $dbconn->Execute("SELECT products_id FROM $productstable WHERE manufacturers_id = '" . oos_db_input($manufacturers_id) . "'");
+          $products_result = $dbconn->Execute("SELECT products_id FROM $productstable WHERE manufacturers_id = '" . intval($manufacturers_id) . "'");
           while ($products = $products_result->fields) {
             oos_remove_product($products['products_id']);
 
@@ -128,7 +129,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
           $products_result->Close();
         } else {
           $productstable = $oostable['products'];
-          $dbconn->Execute("UPDATE $productstable SET manufacturers_id = '' WHERE manufacturers_id = '" . oos_db_input($manufacturers_id) . "'");
+          $dbconn->Execute("UPDATE $productstable SET manufacturers_id = '' WHERE manufacturers_id = '" . intval($manufacturers_id) . "'");
         }
 
         oos_redirect_admin(oos_href_link_admin($aContents['manufacturers'], 'page=' . $nPage));
@@ -217,8 +218,6 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     // Move that ADOdb pointer!
     $manufacturers_result->MoveNext();
   }
-  // Close result set
-  $manufacturers_result->Close();
 ?>
               <tr>
                 <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">

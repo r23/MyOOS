@@ -1,42 +1,27 @@
-{if $manufacturers_block eq 'true'}
+{if $manufacturers_block}
 <div class="panel panel-default sidebar-menu">
 	<div class="panel-heading">
 		<h3 class="panel-title">{$block_heading_manufacturers}</h3>
 	</div>
 
 	<div class="panel-body">
-
+{if $display_a_list}
+		<ul class="list-group list-unstyled">
+	{foreach item=manufacturer from=$manufacturers_list}
+			<li class="list-group-item"><a href="{html_href_link content=$filename.shop manufacturers_id=$manufacturer.id}">{$manufacturer.name}</a></li>
+	{/foreach}
+		</ul>	
+{else}
+	<form name="manufacturers" action="{html_get_link}" method="GET" role="form">
+		<input type="hidden" name="content" value="{$filename.shop}">
+	{if $mySystem.sed}
+		<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+		<input type="hidden" name="formid" value="{$mySystem.formid}">
+	{/if}
+		<select name="manufacturers_id" onChange="this.form.submit();" size="{$smarty.const.MAX_MANUFACTURERS_LIST}" style="width: 100%">{html_options values=$manufacturers_values selected=$select_manufacturers output=$manufacturers_names}</select>
+    </form>
+{/if}
 	</div>
 </div>
 
-<table width="154" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td colspan="3"><table width="154" border="0" cellspacing="0" cellpadding="0">
-      <tr>
-        <td width="2" class="block_content_backgr_left"></td>
-        <td width="150"><table width="150" border="0" cellspacing="0" cellpadding="3">
-          <tr>
-            <td align="left" valign="top" class="block_content">
-{if $display_a_list eq 'true'}
-{foreach item=manufacturer from=$manufacturers_list}
-	<a href="{html_href_link content=$filename.shop manufacturers_id=$manufacturer.id}">{$manufacturer.name}</a><br />
-{/foreach}
-{else}
-   <form name="manufacturers" action="{html_get_link}" method="GET" role="form">
-    <input type="hidden" name="content" value="{$filename.shop}">
-{if $mySystem.sed}
-    <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
-	<input type="hidden" name="formid" value="{$mySystem.formid}">
-{/if}
-    <select name="manufacturers_id" onChange="this.form.submit();" size="{$smarty.const.MAX_MANUFACTURERS_LIST}" style="width: 100%">{html_options values=$manufacturers_values selected=$select_manufacturers output=$manufacturers_names}</select>
-    </form>
-{/if}
-           </td>
-          </tr>
-        </table></td>
-        <td width="2" class="block_content_backgr_right"></td>
-      </tr>
-    </table></td>
-  </tr>
-</table>
 {/if}
