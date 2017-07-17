@@ -17,15 +17,13 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-$aLang['navbar_title'] = 'Down for Maintenance';
-$aLang['heading_title'] = 'Down for Maintenance';
+$aLang['navbar_title'] = 'Wartungsmodus';
+$aLang['heading_title'] = 'Wartungsmodus';
 
 $aLang['text_information'] = '
-  <br /><br />
-  We optimize our services, for this reason this page<br />
-  is not available yet.<br /><br />
-  We working highly on our updates, please visit<br />
-  us in 1-2 hours again.     
+  Entschuldigen Sie die Unannehmlichkeiten.<br />
+Diese Website befindet sich aktuell im Wartungsmodus.<br /><br />
+Vielen Dank für das Verständnis.<br />   
   <br /><br />
 ';
 
