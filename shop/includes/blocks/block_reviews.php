@@ -24,7 +24,6 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 if (!$oEvent->installed_plugin('reviews')) return FALSE;
 
 if ($sContent != $aContents['product_reviews_write']) {
-	$reviews_block = 'true';
 
 	$reviewstable  = $oostable['reviews'];
 	$productstable = $oostable['products'];

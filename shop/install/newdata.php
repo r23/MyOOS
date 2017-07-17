@@ -206,9 +206,6 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "block (block_id, block_
 
 $result = $db->Execute("INSERT INTO " . $prefix_table . "block (block_id, block_side, block_status, block_file, block_cache, block_type, block_sort_order, block_login_flag, date_added, last_modified, set_function) VALUES (27, 'sidebar', 1, 'information', 'system', 1, 27, 0, " . $db->DBTimeStamp($today) . ",  NULL, 'oos_block_select_option(array(\'left\', \'sidebar\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "block</b>");
 
-$result = $db->Execute("INSERT INTO " . $prefix_table . "block (block_id, block_side, block_status, block_file, block_cache, block_type, block_sort_order, block_login_flag, date_added, last_modified, set_function) VALUES (30, 'sidebar', 0, 'newsletter', 'system', 1, 30, 0, " . $db->DBTimeStamp($today) . ",  NULL, 'oos_block_select_option(array(\'left\', \'sidebar\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "block</b>");
-
-
 echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $prefix_table . "block " . UPDATED .'</font>';
 
 $result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (1, 1, 'Sprachen')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
