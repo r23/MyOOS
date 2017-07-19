@@ -402,7 +402,7 @@ HttpKernel
 Ldap
 ----
 
- * The `RenameEntryInterface` has been deprecated, and merged with `EntryManagerInterface`
+ * The `RenameEntryInterface` has been removed, and merged with `EntryManagerInterface`
 
 Process
 -------
@@ -443,7 +443,7 @@ SecurityBundle
 
  * The `UserPasswordEncoderCommand` class does not allow `null` as the first argument anymore.
 
- * `UserPasswordEncoderCommand` does not implement `ContainerAwareInterface` anymore.
+ * `UserPasswordEncoderCommand` does not extend `ContainerAwareCommand` nor implement `ContainerAwareInterface` anymore.
 
 Serializer
 ----------
