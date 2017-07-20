@@ -185,9 +185,6 @@ define('SUBCATEGORY_IMAGE_WIDTH_DESC', 'Die Breite von Unterkategorie-Bildern in
 define('SUBCATEGORY_IMAGE_HEIGHT_TITLE', 'Höhe Unterkategorie-Bilder');
 define('SUBCATEGORY_IMAGE_HEIGHT_DESC', 'Die Höhe von Unterkategorie-Bildern in Pixeln');
 
-define('CONFIG_CALCULATE_IMAGE_SIZE_TITLE', 'Berechnen der Bildgrösse');
-define('CONFIG_CALCULATE_IMAGE_SIZE_DESC', 'Soll die Bildgrösse berechnet werden?');
-
 define('IMAGE_REQUIRED_TITLE', 'Bild erforderlich');
 define('IMAGE_REQUIRED_DESC', 'Einschalten, um tote Links zu Bildern darzustellen. Hilfreich bei der Entwicklung.');
 

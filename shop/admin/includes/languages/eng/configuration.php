@@ -192,9 +192,6 @@ define('SUBCATEGORY_IMAGE_WIDTH_DESC', 'The pixel width of subcategory images');
 define('SUBCATEGORY_IMAGE_HEIGHT_TITLE', 'Subcategory Image Height');
 define('SUBCATEGORY_IMAGE_HEIGHT_DESC', 'The pixel height of subcategory images');
 
-define('CONFIG_CALCULATE_IMAGE_SIZE_TITLE', 'Calculate Image Size');
-define('CONFIG_CALCULATE_IMAGE_SIZE_DESC', 'Calculate the size of images?');
-
 define('IMAGE_REQUIRED_TITLE', 'Image Required');
 define('IMAGE_REQUIRED_DESC', 'Enable to display broken images. Good for development.');
 
