@@ -55,11 +55,13 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
     $products_new_result_raw = "SELECT p.products_id, pd.products_name, p.products_image, p.products_price,
                                        p.products_base_price, p.products_base_unit, p.products_units_id,
                                        p.products_tax_class_id, p.products_units_id,
+									   substring(pd.products_description, 1, 150) AS products_description,
                                        IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price,
                                        p.products_date_added, m.manufacturers_name
                                FROM $productstable p LEFT JOIN
                                     $manufacturersstable m ON p.manufacturers_id = m.manufacturers_id LEFT JOIN
-                                    $products_descriptiontable pd ON p.products_id = pd.products_id AND pd.products_languages_id = '" . intval($nLanguageID) . "' LEFT JOIN
+                                    $products_descriptiontable pd ON p.products_id = pd.products_id AND 
+									pd.products_languages_id = '" . intval($nLanguageID) . "' LEFT JOIN
                                     $specialsstable s ON p.products_id = s.products_id
                                WHERE p.products_status >= '1'
                                ORDER BY p.products_date_added DESC, pd.products_name";
@@ -95,6 +97,7 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 									'id' => $products_new['products_id'],
 									'name' => $products_new['products_name'],
                                     'image' => $products_new['products_image'],
+									'products_description' => oos_remove_tags($products_new['products_description']),
                                     'new_product_price' => $new_product_price,
                                     'new_product_units' => $new_product_units,
                                     'new_product_special_price' => $new_product_special_price,
@@ -123,10 +126,8 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 
            'page_split'			=> $products_new_split->display_count($products_new_numrows, MAX_DISPLAY_PRODUCTS_NEW, $nPage, $aLang['text_display_number_of_products_new']),
            'display_links'		=> $products_new_split->display_links($products_new_numrows, MAX_DISPLAY_PRODUCTS_NEW, MAX_DISPLAY_PAGE_LINKS, $nPage, oos_get_all_get_parameters(array('page', 'info'))),
-           'numrows'			=> $products_new_numrows,
 
-           'products_image_box'     => SMALL_IMAGE_WIDTH + 10,
-           'oos_products_new_array' => $products_new_array
+           'products_new' 		=> $products_new_array
 		)
     );
 }
