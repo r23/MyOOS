@@ -43,7 +43,7 @@ my $pcd_version='1.24.4';
 
 my $absolute_path_of_configdir="";
 my $cgibin_path=""; # this is needed for MIME::Lite if it is in cgi-bin
-my $default_configfile="mysqldumper.conf.php";
+my $default_configfile="myoosdumper.conf.php";
 
 ########################################################################################
 # nothing to edit below this line !!!
