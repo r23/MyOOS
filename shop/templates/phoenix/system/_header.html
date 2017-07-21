@@ -60,7 +60,7 @@
 							<input type="hidden" name="content" value="{$filename.advanced_search_result}">				
 							<input type="text" name="keywords" class="form-control" placeholder="{$lang.text_search}">
 						</form>
-						<div class="search-close"><i class="fa fa-plus-circle"></i></div>
+						<div class="search-close"><i class="fa fa-plus-circle" aria-hidden="true"></i></div>
 					</div>
 				</div>		
 		
@@ -80,7 +80,7 @@
 									<li>
 								{/if}
 										<a href="{html_href_link content=$page_file oos_get=$currency_get_parameters currency=$currencies.id connection=$request_type}">
-											{$currencies.text} {if $currencies.id == $currency}<i class="fa fa-check"></i>{/if}
+											{$currencies.text} {if $currencies.id == $currency}<i class="fa fa-check" aria-hidden="true"></i>{/if}
 										</a>
 									</li>
 							{/foreach}
@@ -98,7 +98,7 @@
 									<li>
 								{/if}
 										<a href="{html_href_link content=$page_file oos_get=$lang_get_parameters language=$languages.iso_639_2 connection=$request_type}">
-											{$languages.name} ({$languages.iso_639_2}){if $languages.iso_639_2 == $language}<i class="fa fa-check"></i>{/if}
+											{$languages.name} ({$languages.iso_639_2}){if $languages.iso_639_2 == $language}<i class="fa fa-check" aria-hidden="true"></i>{/if}
 										</a>
 									</li>
 							{/foreach}
@@ -118,7 +118,7 @@
 							</span></li>
 							<li><i class="search fa fa-search search-button"></i></li>
 							<li class="dropdown cart-dropdown">
-								<a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-shopping-cart"></i> {$cart_show_total}</a>
+								<a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-shopping-cart" aria-hidden="true"></i> {$cart_show_total}</a>
 								<ul class="dropdown-menu dropdown-menu-right">
 								{if $cart_count_contents > 0}
 

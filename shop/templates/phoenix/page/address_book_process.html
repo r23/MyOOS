@@ -50,9 +50,9 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="2" cellpadding="0">
           <tr>
-            <td class="main"><input type="hidden" name="action" value="update"><input type="hidden" name="entry_id" value="{$entry_id}"><a href="{html_href_link content=$filename.account_address_book connection=SSL}">{html_image_button image="back.gif" alt=$lang.button_back}</a></td>
+            <td class="main"><input type="hidden" name="action" value="update"><input type="hidden" name="entry_id" value="{$entry_id}"><a href="{html_href_link content=$filename.account_address_book connection=SSL}" class="btn btn-primary-filled" role="button"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> {$lang.button_back}</a></td>
             <td class="main" align="center"><a href="{html_href_link content=$filename.account_address_book_process action=remove entry_id=$entry_id connection=SSL}">{html_image_button image="delete.gif" alt=$lang.button_delete}</a></td>
-            <td class="main" align="right">{html_image_submit image="continue.gif" alt=$lang.button_continue}</td>
+            <td class="main" align="right">{html_image_submit image="continue.gif" alt=$lang.button_continue}<i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></td>
           </tr>
         </table></td>
       </tr>
@@ -60,8 +60,8 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="2" cellpadding="0">
           <tr>
-            <td class="main"><input type="hidden" name="action" value="update"><input type="hidden" name="entry_id" value="{$entry_id}"><a href="{html_href_link content=$filename.account_address_book connection=SSL}">{html_image_button image="back.gif" alt=$lang.button_back}</a></td>
-            <td class="main" align="right">{html_image_submit image="continue.gif" alt=$lang.button_continue}</td>
+            <td class="main"><input type="hidden" name="action" value="update"><input type="hidden" name="entry_id" value="{$entry_id}"><a href="{html_href_link content=$filename.account_address_book connection=SSL}" class="btn btn-primary-filled" role="button"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> {$lang.button_back}</a></td>
+            <td class="main" align="right">{html_image_submit image="continue.gif" alt=$lang.button_continue}<i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></td>
           </tr>
         </table></td>
       </tr>
@@ -69,8 +69,8 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="main"><a href="{$back_link}">{html_image_button image="back.gif" alt=$lang.button_back}</a></td>
-            <td align="right" class="main"><input type="hidden" name="entry_id" value="{$entry_id}"><input type="hidden" name="action" value="process">{html_image_submit image="continue.gif" alt=$lang.button_continue}</td>
+            <td class="main"><a href="{$back_link}"class="btn btn-primary-filled" role="button"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> {$lang.button_back}</a></td>
+            <td align="right" class="main"><input type="hidden" name="entry_id" value="{$entry_id}"><input type="hidden" name="action" value="process">{html_image_submit image="continue.gif" alt=$lang.button_continue}<i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></td>
           </tr>
         </table></td>
       </tr>

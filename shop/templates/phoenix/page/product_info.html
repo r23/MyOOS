@@ -119,22 +119,23 @@
         <td class="main">
 {if $oEvent->installed_plugin('reviews')}
    {if $reviews_total gt 0 }
-        <a href="{html_href_link content=$filename.product_reviews products_id=$product_info.products_id}">{html_image_button image="reviews.gif" alt=$lang.button_reviews}</a></td>
+        <a href="{html_href_link content=$filename.product_reviews products_id=$product_info.products_id}" class="btn btn-primary-filled" role="button">{$lang.button_reviews}</a></td>
    {else}
-        <a href="{html_href_link content=$filename.product_reviews_write products_id=$product_info.products_id}">{html_image_button image="write_review.gif" alt=$lang.button_write_review}</a></td>
+        <a href="{html_href_link content=$filename.product_reviews_write products_id=$product_info.products_id}" class="btn btn-primary-filled pull-left" role="button"><i class="fa fa-pencil" aria-hidden="true"></i> {$lang.button_write_review}</a></td>
    {/if}
         <td align="center" class="main">
 {/if}
 
+
 {if $cart_count_contents gt 0 }
    {if $myUser.show_price eq 1 }
-        <a href="{html_href_link content=$filename.checkout_payment connection=SSL}">{html_image_button image="checkout.gif" alt=$lang.button_checkout}</a></td>
+        <a href="{html_href_link content=$filename.checkout_payment connection=SSL}" class="btn btn-primary-filled" role="button"><i class="fa fa-shopping-basket" aria-hidden="true"></i> {$lang.button_checkout}</a></td>
    {/if}
 {/if}
         <td align="right" class="main"><input type="hidden" name="products_id" value="{$product_info.products_id}">
 
 {if $myUser.show_price eq 1 }
-	<button class="btn btn-success-filled pull-right" type="submit"><i class="fa fa-shopping-cart"></i> {$lang.button_in_cart}</button>
+	<button class="btn btn-success-filled pull-right" type="submit"><i class="fa fa-shopping-cart" aria-hidden="true"></i> {$lang.button_in_cart}</button>
 {else}
    <a href="{html_href_link content=$filename.login connection=SSL}">{html_image_button image="sign_in.gif" alt=$lang.button_login}</a>
 {/if}</td>

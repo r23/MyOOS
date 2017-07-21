@@ -217,7 +217,7 @@
               <tr>
                 <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
                 <td class="main"><strong>{$lang.title_continue_checkout_procedure}</strong><br>{$lang.text_continue_checkout_procedure}</td>
-                <td class="main" align="right"><input type="hidden" name="action" value="submit">{html_image_submit image="continue.gif" alt=$lang.button_continue}</td>
+                <td class="main" align="right"><input type="hidden" name="action" value="submit">{html_image_submit image="continue.gif" alt=$lang.button_continue}<i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></td>
                 <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
               </tr>
             </table></td>
@@ -238,7 +238,7 @@
 							<div class="well well-lg clearfix">
 								<ul class="pager">
 									<li class="previous"><a href="{html_href_link content=$filename.checkout_payment connection=SSL}">{$lang.button_back}</a></li>
-									<li class="next"><button class="btn btn-primary-filled pull-right" type="submit">{$lang.button_continue} <i class="fa fa-arrow-circle-right"></i></button></li>
+									<li class="next"><button class="btn btn-primary-filled pull-right" type="submit">{$lang.button_continue} <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button></li>
 								</ul>
 							</div>
 						</div>

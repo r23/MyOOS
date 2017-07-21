@@ -82,8 +82,8 @@
 							{if $myUser.show_price eq 1 }
 								<!-- buttons -->
 								<div class="shop-item-buttons">
-									<a class="btn btn-default" href="{html_href_link content=$filename.products_new action=buy_now products_id=$products_new[i].id}" role="button"><i class="fa fa-cart-plus"></i> {$lang.button_in_cart}</a>
-									<a class="btn btn-default add-wishlist" href="{html_href_link content=$filename.products_new action=add_wishlist products_id=$products_new[i].id}" role="button"><i class="fa fa-heart"></i> {$lang.button_add_wishlist}</a>
+									<a class="btn btn-default" href="{html_href_link content=$filename.products_new action=buy_now products_id=$products_new[i].id}" role="button"><i class="fa fa-cart-plus" aria-hidden="true"></i> {$lang.button_in_cart}</a>
+									<a class="btn btn-default add-wishlist" href="{html_href_link content=$filename.products_new action=add_wishlist products_id=$products_new[i].id}" role="button"><i class="fa fa-heart" aria-hidden="true"></i> {$lang.button_add_wishlist}</a>
 								</div>
 								<!-- /buttons -->
 							{/if}

@@ -56,7 +56,7 @@
           <tr>
             <td class="main" colspan="5"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="main"><a href="{product_info_link products_id=$smarty.get.products_id}">{html_image_button image="back.gif" alt=$lang.button_back}</a></td>
+                <td class="main"><a href="{product_info_link products_id=$smarty.get.products_id}"  class="btn btn-primary-filled" role="button"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> {$lang.button_back}</a></td>
                 <td align="right" class="main"><a href="{html_href_link content=$filename.product_reviews_write products_id=$smarty.get.products_id}">{html_image_button image="write_review.gif" alt=$lang.button_write_review}</a></td>
               </tr>
             </table></td>
