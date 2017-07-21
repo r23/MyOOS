@@ -235,7 +235,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.ph
                   $lc_image = 'no_picture_' . $sLanguage . '.gif';
                 }
               }
-              $lc_text .= oos_image(OOS_IMAGES . $lc_image, $listing['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a>';
+              $lc_text .= oos_image(OOS_IMAGES . $lc_image, $listing['products_name']) . '</a>';
               break;
 
             case 'PRODUCT_SLAVE_BUY_NOW':

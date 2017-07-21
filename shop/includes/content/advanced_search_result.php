@@ -260,11 +260,11 @@ if ($error == 1) {
               break;
 
             default:
-              $where_str .= "   (pd.products_name LIKE '%" . addslashes($search_keywords[$i]) . "%'
-                              OR p.products_model LIKE '%" . addslashes($search_keywords[$i]) . "%'
-                              OR p.products_ean LIKE '%" . addslashes($search_keywords[$i]) . "%'
-                              OR m.manufacturers_name LIKE '%" . addslashes($search_keywords[$i]) . "%'";
-              if (isset($_GET['search_in_description']) && ($_GET['search_in_description'] == '1')) $where_str .= " OR pd.products_description LIKE '%" . addslashes($search_keywords[$i]) . "%'";
+              $where_str .= "   (pd.products_name LIKE '%" . oos_db_input($search_keywords[$i]) . "%'
+                              OR p.products_model LIKE '%" . oos_db_input($search_keywords[$i]) . "%'
+                              OR p.products_ean LIKE '%" . oos_db_input($search_keywords[$i]) . "%'
+                              OR m.manufacturers_name LIKE '%" . oos_db_input($search_keywords[$i]) . "%'";
+              if (isset($_GET['search_in_description']) && ($_GET['search_in_description'] == '1')) $where_str .= " OR pd.products_description LIKE '%" . oos_db_input($search_keywords[$i]) . "%'";
                 $where_str .= ')';
               break;
           }
@@ -281,7 +281,7 @@ if ($error == 1) {
       $where_str .= " AND p.products_date_added <= '" . oos_date_raw($dto_to_check) . "'";
     }
 
-    $rate = $oCurrencies->get_value($_SESSION['currency']);
+    $rate = $oCurrencies->get_value($sCurrency);
     if ($rate) {
       $pfrom = oos_var_prep_for_os($_GET['pfrom'] / $rate);
       $pto = oos_var_prep_for_os($_GET['pto'] / $rate);
@@ -373,9 +373,7 @@ if ($error == 1) {
     require_once MYOOS_INCLUDE_PATH . '/includes/modules/product_listing.php';
 
     $smarty->assign('oos_get_all_get_params', oos_get_all_get_parameters(array('sort', 'page')));
-
     $smarty->assign('pagination', $smarty->fetch($aTemplate['pagination']));
-
 
     // display the template
 	$smarty->display($aTemplate['page']);

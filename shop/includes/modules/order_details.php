@@ -73,7 +73,7 @@
           $sProductImage = 'no_picture.gif';
         }
       }
-      $shopping_cart_detail .=  oos_image(OOS_IMAGES . $sProductImage, $products[$i]['name'], SMALL_IMAGE_WIDTH*SHOPPING_CART_MINI_IMAGE, SMALL_IMAGE_HEIGHT*SHOPPING_CART_MINI_IMAGE) . '</a></td>' . "\n";
+      $shopping_cart_detail .=  oos_image(OOS_IMAGES . $sProductImage, $products[$i]['name']) . '</a></td>' . "\n";
     }
 
 

@@ -144,8 +144,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/accoun
 			'page_split'		=> $order_history_split->display_count($order_history_numrows, MAX_DISPLAY_SEARCH_RESULTS, $nPage, $aLang['text_display_number_of_products']),
 			'display_links'		=> $order_history_split->display_links($order_history_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage, oos_get_all_get_parameters(array('page', 'info'))),
 			'numrows'        	=> $order_history_numrows,
-
-			'products_image_box'		=> SMALL_IMAGE_WIDTH + 10,
+			
 			'oos_order_history_array'	=> $order_history_array
        )
     );
@@ -158,7 +157,7 @@ $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['account_orde
 $smarty->assign(
 	array(
 		'breadcrumb'		=> $oBreadcrumb->trail(),
-		'heading_title'	=> $aLang['heading_title'],
+		'heading_title'		=> $aLang['heading_title'],
 		'robots'			=> 'noindex,nofollow,noodp,noydir',
 		'account_active'	=> 1,
 	)

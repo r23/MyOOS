@@ -22,10 +22,10 @@
 
 $aLang['heading_coupon_help'] = 'Rabatt Coupon Hilfe';
 $aLang['text_close_window'] = 'Fenster schliessen [x]';
-$aLang['text_coupon_help_header'] = 'Herzlichen Gl&uml;ckwunsch, sie haben ein Rabatt Coupon eingelöst.';
+$aLang['text_coupon_help_header'] = 'Herzlichen Glückwunsch, sie haben ein Rabatt Coupon eingelöst.';
 $aLang['text_coupon_help_name'] = '<br /><br />Coupon Name : %s';
 $aLang['text_coupon_help_fixed'] = '<br /><br />Mit diesem Coupon erhalten Sie %s Rabatt auf Ihre Bestellung';
-$aLang['text_coupon_help_minorder'] = '<br /><br />Sie m&uml;ssen %s ausgeben um den Coupon einzulösen';
+$aLang['text_coupon_help_minorder'] = '<br /><br />Sie müssen %s ausgeben um den Coupon einzulösen';
 $aLang['text_coupon_help_freeship'] = '<br /><br />Mit diesem Coupon bezahlen Sie keine Versandkosten bei dieser Bestellung';
 $aLang['text_coupon_help_desc'] = '<br /><br />Coupon Beschreibung : %s';
 $aLang['text_coupon_help_date'] = '<br /><br />Der Coupon ist gültig zwischen %s und %s';

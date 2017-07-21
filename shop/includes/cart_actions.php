@@ -21,30 +21,25 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
+if (isset($_GET['action'])) {
+    $action = oos_var_prep_for_os($_GET['action']);
+} elseif (isset($_POST['action'])) {
+    $action = oos_var_prep_for_os($_POST['action']);
+}
+
 if (DISPLAY_CART == 'true') {
     $goto_file = $aContents['shopping_cart'];
     $parameters = array('action', 'category', 'products_id', 'pid');
 } else {
     $goto_file = $sContent;
-    if ($_GET['action'] == 'buy_now') {
-      $parameters = array('action', 'pid', 'cart_quantity');
-    } elseif ($_POST['action'] == 'buy_now') {
-      $parameters = array('action', 'pid', 'cart_quantity');
-    } elseif ($_GET['action'] == 'buy_slave')  {
-      $parameters = array('action', 'pid', 'slave_id', 'cart_quantity');
-    } elseif ($_POST['action'] == 'buy_slave')  {
-      $parameters = array('action', 'pid', 'slave_id', 'cart_quantity');
+    if ($action == 'buy_now') {
+		$parameters = array('action', 'pid', 'cart_quantity');
+    } elseif ($action == 'buy_slave')  {
+		$parameters = array('action', 'pid', 'slave_id', 'cart_quantity');
     } else {
-      $parameters = array('action', 'pid', 'cart_quantity');
+		$parameters = array('action', 'pid', 'cart_quantity');
     }
-  }
-
-  if (isset($_GET['action'])) {
-    $action = oos_var_prep_for_os($_GET['action']);
-  } elseif (isset($_POST['action'])) {
-    $action = oos_var_prep_for_os($_POST['action']);
-  }
-
+}
 
 
 switch ($action) {
@@ -70,10 +65,10 @@ switch ($action) {
               $attributes = ($_POST['id'][$_POST['products_id'][$i]]) ? $_POST['id'][$_POST['products_id'][$i]] : '';
               $_SESSION['cart']->add_cart($_POST['products_id'][$i], $_POST['cart_quantity'][$i], $attributes, false, $_POST['to_wl_id'][$i]);
             } else {
-              $_SESSION['error_cart_msg'] = trim($_SESSION['error_cart_msg']) . '<br />' . trim(oos_image(OOS_IMAGES . 'pixel_trans.gif','', '11', '10') . $aLang['error_products_quantity_order_min_text'] . ' ' . oos_get_products_name($_POST['products_id'][$i]) . ' - ' . $aLang['error_products_units_invalid'] . ' ' . $_POST['cart_quantity'][$i] . ' - ' . $aLang['products_order_qty_unit_text_cart'] . ' ' . $products_order_units);
+              $_SESSION['error_cart_msg'] = oos_get_products_name($_POST['products_id'][$i]) . ' - ' . $aLang['error_products_units_invalid'] . ' ' . $_POST['cart_quantity'][$i] . ' - ' . $aLang['products_order_qty_unit_text_cart'] . ' ' . $products_order_units;
             }
           } else {
-            $_SESSION['error_cart_msg'] = trim($_SESSION['error_cart_msg']) . '<br />' . trim(oos_image(OOS_IMAGES . 'pixel_trans.gif','', '11', '10') . $aLang['error_products_quantity_order_min_text'] . ' ' . oos_get_products_name($_POST['products_id'][$i]) . ' - ' . $aLang['error_products_quantity_invalid'] . ' ' . $_POST['cart_quantity'][$i] . ' - ' . $aLang['products_order_qty_min_text_cart'] . ' ' . $products_order_min);
+            $_SESSION['error_cart_msg'] =  $aLang['error_products_quantity_order_min_text'] . ' ' . oos_get_products_name($_POST['products_id'][$i]) . ' - ' . $aLang['error_products_quantity_invalid'] . ' ' . $_POST['cart_quantity'][$i] . ' - ' . $aLang['products_order_qty_min_text_cart'] . ' ' . $products_order_min;
           }
         }
       }
@@ -258,14 +253,14 @@ switch ($action) {
 		}
 		break;
 
-    case 'buy_now' :
-		// start the session
-		if ( $session->hasStarted() === FALSE ) $session->start();
-		
+    case 'buy_now' :	
       if (isset($_GET['products_id'])) {
         if (oos_has_product_attributes($_GET['products_id'])) {
           oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_GET['products_id']));
         } else {
+			// start the session
+			if ( $session->hasStarted() === FALSE ) $session->start();	
+			
           if (isset($_GET['cart_quantity']) && is_numeric($_GET['cart_quantity'])) {
             $cart_quantity = oos_prepare_input($_GET['cart_quantity']);
           } else {
@@ -296,7 +291,9 @@ switch ($action) {
         if (oos_has_product_attributes($_POST['products_id'])) {
           oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_POST['products_id']));
         } else {
-
+			// start the session
+			if ( $session->hasStarted() === FALSE ) $session->start();
+			
           if (DECIMAL_CART_QUANTITY == 'true') {
             $_POST['cart_quantity'] = str_replace(',', '.', $_POST['cart_quantity']);
           }
@@ -330,14 +327,14 @@ switch ($action) {
       break;
 
 
-    case 'buy_slave' :
-		// start the session
-		if ( $session->hasStarted() === FALSE ) $session->start();
-		
+    case 'buy_slave' :	
       if (isset($_GET['slave_id'])) {
         if (oos_has_product_attributes($_GET['slave_id'])) {
           oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_GET['slave_id']));
         } else {
+			// start the session
+			if ( $session->hasStarted() === FALSE ) $session->start();
+			
           $cart_quantity = 1;
           $cart_qty = $_SESSION['cart']->get_quantity($_GET['slave_id']);
           $news_qty = $cart_qty + $cart_quantity;
@@ -364,7 +361,9 @@ switch ($action) {
         if (oos_has_product_attributes($_POST['slave_id'])) {
           oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_POST['slave_id']));
         } else {
-
+			// start the session
+			if ( $session->hasStarted() === FALSE ) $session->start();
+			
           if (DECIMAL_CART_QUANTITY == 'true') {
             $_POST['cart_quantity'] = str_replace(',', '.', $_POST['cart_quantity']);
           }
@@ -397,8 +396,7 @@ switch ($action) {
       break;
 
     case 'add_a_quickie' :
-		// start the session
-		if ( $session->hasStarted() === FALSE ) $session->start();
+
 		
       if (DECIMAL_CART_QUANTITY == 'true') {
         $_POST['cart_quantity'] = str_replace(',', '.', $_POST['cart_quantity']);
@@ -408,20 +406,22 @@ switch ($action) {
       if (isset($_POST['cart_quantity']) && is_numeric($_POST['cart_quantity'])) {
         if (isset($_POST['quickie'])) {
           $productstable = $oostable['products'];
-          $quickie_result = $dbconn->Execute("SELECT products_id FROM $productstable WHERE (products_model = '" . addslashes($quickie) . "' OR products_ean = '" . addslashes($quickie) . "')");
+          $quickie_result = $dbconn->Execute("SELECT products_id FROM $productstable WHERE (products_model = '" . oos_db_input($quickie) . "' OR products_ean = '" . oos_db_input($quickie) . "')");
           if (!$quickie_result->RecordCount()) {
             $productstable = $oostable['products'];
-            $quickie_result = $dbconn->Execute("SELECT products_id FROM $productstable WHERE (products_model LIKE '%" . addslashes($quickie) . "%' OR products_ean LIKE '%" . addslashes($quickie) . "%')");
+            $quickie_result = $dbconn->Execute("SELECT products_id FROM $productstable WHERE (products_model LIKE '%" . oos_db_input($quickie) . "%' OR products_ean LIKE '%" . oos_db_input($quickie) . "%')");
           }
           if ($quickie_result->RecordCount() != 1) {
-            oos_redirect(oos_href_link($aContents['advanced_search_result'], 'keywords=' . $quickie, 'NONSSL'));
+            oos_redirect(oos_href_link($aContents['advanced_search_result'], 'keywords=' . rawurlencode($quickie), 'NONSSL'));
           }
           $products_quickie = $quickie_result->fields;
 
           if (oos_has_product_attributes($products_quickie['products_id'])) {
             oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $products_quickie['products_id'], 'NONSSL'));
           } else {
-
+			// start the session
+			if ( $session->hasStarted() === FALSE ) $session->start();
+			
             $cart_qty = $_SESSION['cart']->get_quantity($products_quickie['products_id']);
             $news_qty = $cart_qty + $cart_quantity;
 
@@ -480,6 +480,10 @@ switch ($action) {
         }
         oos_redirect(oos_href_link($sContent, oos_get_all_get_parameters(array('action')), 'SSL'));
       } else {
+		// navigation history
+		if (!isset($_SESSION['navigation'])) {
+			$_SESSION['navigation'] = new oosNavigationHistory();
+		}		  
         $_SESSION['navigation']->set_snapshot();
         oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
       }
@@ -502,6 +506,10 @@ switch ($action) {
         }
         oos_redirect(oos_href_link($sContent, oos_get_all_get_parameters(array('action'))));
       } else {
+		// navigation history
+		if (!isset($_SESSION['navigation'])) {
+			$_SESSION['navigation'] = new oosNavigationHistory();
+		} 
         $_SESSION['navigation']->set_snapshot();
         oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
       }
