@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Yoast SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-07-03 09:24:47+0000\n"
+"PO-Revision-Date: 2017-07-18 09:51:10+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,10 +11,64 @@ msgstr ""
 "Language: de\n"
 "Project-Id-Version: Plugins - Yoast SEO - Stable (latest release)\n"
 
+#: admin/links/class-link-reindex-dashboard.php:164
+msgid "Good job! All the links in your texts have been counted."
+msgstr "Klasse! Alle Links in deinen Texten wurden gezählt."
+
+#: admin/links/class-link-reindex-dashboard.php:141
+msgid "Calculation completed."
+msgstr "Berechnung abgeschlossen."
+
+#: admin/links/class-link-reindex-dashboard.php:140
+msgid "Calculation in progress..."
+msgstr "Berechnung wird durchgeführt&hellip;"
+
+#: admin/links/class-link-reindex-dashboard.php:117
+msgid "Stop counting"
+msgstr "Berechnung abbrechen"
+
+#: admin/links/class-link-reindex-dashboard.php:110
+msgid "Counting links in your texts"
+msgstr "Zähle die Links in deinen Texten"
+
+#: admin/links/class-link-reindex-dashboard.php:94
+msgid "All your texts are already counted, there is no need to count them again."
+msgstr "Deine Texte sind bereits alle gezählt. Es besteht kein Bedarf, diese erneut zu zählen."
+
+#: admin/links/class-link-reindex-dashboard.php:69
+msgid "Count links in your texts"
+msgstr "Links in deinem Text zählen"
+
+#. translators: %s expands to Yoast
+#: admin/class-yoast-columns.php:26
+msgid "%s Columns"
+msgstr "%s Spalten"
+
+#: admin/class-meta-columns.php:65
+msgid "Readability score"
+msgstr "Lesbarkeitsbewertung"
+
+#: languages/yoast-seo-js.php:208
+msgid "The focus keyword appears only in %2$d (out of %1$d) subheadings in your copy. Try to use it in at least one more subheading."
+msgstr "Das Fokus-Keyword kommt lediglich in %2$d (von %1$d) Unterüberschriften in dieser Kopie vor. Versuche welche in mindestens einer Unterüberschrift hinzuzufügen."
+
+#: languages/yoast-seo-js.php:116
+msgid "No internal links appear in this page, consider adding some as appropriate."
+msgstr "Es gibt keine internen Links auf dieser Seite. Überlege dir, geeignete hinzuzufügen."
+
 #. Translators: %1$s expands to the number of internal links
 #: languages/yoast-seo-js.php:127
 msgid "This page has %1$s internal link(s)."
 msgstr "Diese Seite hat %1$s interne Links."
+
+#: languages/yoast-seo-js.php:123
+msgid "This page has %1$s nofollowed internal link(s) and %2$s normal internal link(s)."
+msgstr "Diese Seite hat %1$s interne Link(s) und %2$s normale interne Link(s)."
+
+#. Translators: %1$s expands the number of internal links
+#: languages/yoast-seo-js.php:120
+msgid "This page has %1$s internal link(s), all nofollowed."
+msgstr "Diese Seite hat %1$s interne(r) Link(s), alle mit Parameter nofollow."
 
 #. translators: %s expands to 'Yoast SEO Premium'.
 #: admin/metabox/class-metabox-add-keyword-tab.php:35
@@ -179,7 +233,7 @@ msgstr "Verfügbare Variablen"
 msgid "If you want more help creating awesome content, check out our %2$sSEO copywriting course%3$s. Do you want to know all about the features of the plugin, consider doing our %1$s!"
 msgstr "Wenn du Hilfe brauchst, um tollen Content zu schreiben, schau dir unseren %2$sSEO Copywriting Kurs%3$s an. Wenn du alles über die Funktionen des Plugins wissen möchtest, nimm an unserem %1$s teil!"
 
-#: admin/class-admin.php:652
+#: admin/class-admin.php:662
 msgid "Scroll to see the table content."
 msgstr "Scrollen um den Tabellen-Inhalt zu sehen."
 
@@ -356,7 +410,7 @@ msgstr "%1$s der Sätze enthalten %2$sindirekte Rede%3$s, was weniger oder gleic
 #: languages/yoast-seo-js.php:42
 msgid "%1$d of the paragraphs contains more than the recommended maximum of %2$d words. Are you sure all information is about the same topic, and therefore belongs in one single paragraph?"
 msgid_plural "%1$d of the paragraphs contain more than the recommended maximum of %2$d words. Are you sure all information within each of these paragraphs is about the same topic, and therefore belongs in a single paragraph?"
-msgstr[0] "%1$d der Absätze enthalten mehr als das empfohlene Maximum von %2$d Wörtern. Bist du sicher, dass alle Informationen zum selben Thema hierfür in einen einzigen Absatz gehören?"
+msgstr[0] "Einer der Absätze enthält mehr als das empfohlene Maximum von %2$d Wörtern. Bist du sicher, dass alle Informationen zum selben Thema hierfür in einen einzigen Absatz gehören?"
 msgstr[1] "%1$d der Absätze enthalten mehr als das empfohlene Maximum von %2$d Wörtern. Bist du sicher, dass alle Informationen in jedem Absatz zum selben Thema hierfür in einen einzigen Absatz gehören?"
 
 #: languages/yoast-seo-js.php:176
@@ -435,7 +489,7 @@ msgstr "Desktop-Vorschau"
 msgid "Use queries instead"
 msgstr "Verwende stattdessen Abfragen"
 
-#: admin/metabox/class-metabox.php:1244 admin/metabox/class-metabox.php:1266
+#: admin/metabox/class-metabox.php:1245 admin/metabox/class-metabox.php:1267
 #: deprecated/class-snippet-preview.php:9
 #: deprecated/class-snippet-preview.php:99
 #: deprecated/class-snippet-preview.php:109
@@ -578,16 +632,16 @@ msgid "None of the paragraphs are too long, which is great."
 msgstr "Keiner deiner Absätze ist zu lang. Das ist toll."
 
 #: languages/yoast-seo-js.php:202
-msgid "The page title is wider than the viewable limit."
-msgstr "Der Seiten-Titel ist länger als der sichtbare Bereich."
+msgid "The SEO title is wider than the viewable limit."
+msgstr "Der SEO-Titel ist länger als der sichtbare Bereich."
 
 #: languages/yoast-seo-js.php:199
-msgid "The page title has a nice length."
-msgstr "Der Seiten Titel hat eine gute Länge"
+msgid "The SEO title has a nice length."
+msgstr "Der SEO-Titel hat eine gute Länge."
 
 #: languages/yoast-seo-js.php:196
-msgid "The page title is too short. Use the space to add keyword variations or create compelling call-to-action copy."
-msgstr "Der Seiten-Titel ist zu kurz. Nutze den Platz um eine Keyword-Variation oder einen interessanten Handlungs-Aufruf einzufügen."
+msgid "The SEO title is too short. Use the space to add keyword variations or create compelling call-to-action copy."
+msgstr "Der SEO-Titel ist zu kurz. Nutze den Platz um eine Keyword-Variation oder einen interessanten Handlungs-Aufruf einzufügen."
 
 #: languages/yoast-seo-js.php:179
 msgid "The length of the meta description is sufficient."
@@ -858,7 +912,7 @@ msgstr "Eingabe des Fokus-Schlüsselworts"
 msgid "(no title)"
 msgstr "Kein Titel"
 
-#: admin/views/tabs/dashboard/features.php:63
+#: admin/views/tabs/dashboard/features.php:72
 msgid "%1$s comes with a lot of features. You can enable / disable some of them below."
 msgstr "%1$s hat viele Eigenschaften. Du kannst nachstehend einige von ihnen aktivieren oder deaktivieren."
 
@@ -883,7 +937,7 @@ msgstr "Die fortgeschrittenen Einstellungen fügen seitenweite Einstellungen fü
 msgid "Advanced settings pages"
 msgstr "Erweiterte Einstellungen"
 
-#: admin/pages/dashboard.php:60 admin/views/tabs/dashboard/features.php:60
+#: admin/pages/dashboard.php:60 admin/views/tabs/dashboard/features.php:69
 msgid "Features"
 msgstr "Funktionen"
 
@@ -1331,11 +1385,11 @@ msgstr "Filtere nach Beitragstyp"
 msgid "Show All Post Types"
 msgstr "Zeige alle Beitragstypen"
 
-#: admin/class-admin.php:161 admin/class-admin.php:249
+#: admin/class-admin.php:171 admin/class-admin.php:259
 msgid "Premium"
 msgstr "Premium"
 
-#: admin/class-admin.php:161 admin/metabox/class-metabox.php:436
+#: admin/class-admin.php:171 admin/metabox/class-metabox.php:436
 #: admin/taxonomy/class-taxonomy-metabox.php:229
 #: inc/wpseo-non-ajax-functions.php:312
 msgid "Go Premium"
@@ -1491,12 +1545,12 @@ msgstr "Zurück zu den Suchergebnissen"
 msgid "Search results"
 msgstr "Suchergebnisse"
 
-#: admin/class-admin.php:651
+#: admin/class-admin.php:661
 msgid "Yoast SEO video tutorial"
 msgstr "Yoast SEO Video Tutorial"
 
 #. translators: %s: number of notifications
-#: admin/class-admin.php:151 inc/wpseo-non-ajax-functions.php:88
+#: admin/class-admin.php:161 inc/wpseo-non-ajax-functions.php:88
 msgid "%s notification"
 msgid_plural "%s notifications"
 msgstr[0] "%s Benachrichtigung"
@@ -1519,7 +1573,6 @@ msgstr "Lesbarkeits-Analyse"
 msgid "Needs improvement"
 msgstr "Verbesserungsbedarf"
 
-#: admin/class-meta-columns.php:64
 #: admin/formatter/class-metabox-formatter.php:50
 #: admin/formatter/class-metabox-formatter.php:71
 #: admin/taxonomy/class-taxonomy-columns.php:55
@@ -1646,11 +1699,11 @@ msgstr "Nimm am Basic SEO Training Online-Kurs teil und lerne die Grundlagen der
 msgid "Take the online SEO Copywriting Training course and learn how to write awesome copy that ranks!"
 msgstr "Nimm online am SEO Copywriting Training teil und lerne, wie du einen hervorragenden Text schreibst, der gut rankt."
 
-#: admin/class-meta-columns.php:174
+#: admin/class-meta-columns.php:175
 msgid "Filter by SEO Score"
 msgstr "Filtere nach SEO-Wert"
 
-#: admin/class-meta-columns.php:99
+#: admin/class-meta-columns.php:100
 msgid "Meta description not set."
 msgstr "Meta Description nicht gesetzt."
 
@@ -1699,7 +1752,7 @@ msgstr "Durchsuche die Yoast Wissensdatenbank"
 msgid "No results found."
 msgstr "Keine Ergebnisse gefunden."
 
-#: admin/class-admin.php:154 admin/class-admin.php:266
+#: admin/class-admin.php:164 admin/class-admin.php:276
 #: admin/pages/dashboard.php:58 inc/wpseo-non-ajax-functions.php:268
 msgid "Dashboard"
 msgstr "Dashboard"
@@ -1945,7 +1998,7 @@ msgstr "Der erweiterte Bereich der %1$s Metabox ermöglicht dem Benutzer, Beitr�
 msgid "Advanced part of the %1$s meta box"
 msgstr "Erweiterter Bereich der %1$s Metabox"
 
-#: admin/class-yoast-form.php:301 admin/views/tabs/dashboard/features.php:73
+#: admin/class-yoast-form.php:301 admin/views/tabs/dashboard/features.php:82
 #: admin/views/tabs/dashboard/security.php:16
 #: admin/views/tabs/metas/archives.php:27
 #: admin/views/tabs/metas/archives.php:46
@@ -1954,8 +2007,8 @@ msgstr "Erweiterter Bereich der %1$s Metabox"
 msgid "Enabled"
 msgstr "Aktiviert"
 
-#: admin/class-admin.php:693 admin/class-yoast-form.php:301
-#: admin/views/tabs/dashboard/features.php:74
+#: admin/class-admin.php:703 admin/class-yoast-form.php:301
+#: admin/views/tabs/dashboard/features.php:83
 #: admin/views/tabs/dashboard/security.php:16
 #: admin/views/tabs/metas/archives.php:28
 #: admin/views/tabs/metas/archives.php:47
@@ -2042,6 +2095,10 @@ msgstr "Einmal wöchentlich"
 msgid "Add-ons"
 msgstr "Add-ons"
 
+#: admin/class-meta-columns.php:62
+msgid "SEO score"
+msgstr "SEO Wert"
+
 #: admin/metabox/class-metabox.php:67
 #: admin/taxonomy/class-taxonomy-content-fields.php:19
 msgid "Snippet editor"
@@ -2113,22 +2170,22 @@ msgstr "https://yoast.com/wordpress/plugins/seo/#utm_source=wpadmin&utm_medium=p
 msgid "Yoast SEO"
 msgstr "Yoast SEO"
 
-#: wp-seo-main.php:477
+#: wp-seo-main.php:488
 msgid "Activation failed:"
 msgstr "Aktivierungsfehler:"
 
-#: wp-seo-main.php:467
+#: wp-seo-main.php:478
 msgid "The filter extension seem to be unavailable. Please ask your web host to enable it."
 msgstr "Die Filter-Erweiterung scheint nicht verfügbar zu sein. Bitte deinen Hoster, sie einzuschalten."
 
 #. translators: %1$s expands to Yoast SEO, %2$s / %3$s: links to the
 #. installation manual in the Readme for the Yoast SEO code repository on
 #. GitHub
-#: wp-seo-main.php:443
+#: wp-seo-main.php:454
 msgid "The %1$s plugin installation is incomplete. Please refer to %2$sinstallation instructions%3$s."
 msgstr "Die Installation des %1$s Plugin ist unvollständig. Bitte schau in den %2$sInstallationsanweisungen%3$s nach."
 
-#: wp-seo-main.php:421
+#: wp-seo-main.php:432
 msgid "The Standard PHP Library (SPL) extension seem to be unavailable. Please ask your web host to enable it."
 msgstr "Die Standard PHP Library (SPL) Erweiterung scheint nicht verfügbar zu sein. Bitte frage Deinen Web-Hoster, dass er sie aktiviert."
 
@@ -3718,11 +3775,11 @@ msgid "Upload Image"
 msgstr "Bild hochladen"
 
 #. translators: %1$s expands to Yoast SEO Premium
-#: admin/banner/class-admin-banner-sidebar.php:383
+#: admin/banner/class-admin-banner-sidebar.php:393
 msgid "Upgrade to %1$s &raquo;"
 msgstr "Auf %1$s &raquo; erweitern"
 
-#: admin/banner/class-admin-banner-sidebar.php:377
+#: admin/banner/class-admin-banner-sidebar.php:387
 msgid "Remove these ads?"
 msgstr "Diese Anzeigen entfernen?"
 
@@ -4092,8 +4149,8 @@ msgid "The SEO title contains the focus keyword, at the beginning which is consi
 msgstr "Der Seitentitel enthält am Anfang das Fokus-Keyword, was das Ranking verbessern kann."
 
 #: languages/yoast-seo-js.php:205
-msgid "Please create a page title."
-msgstr "Bitte vergib einen Seitentitel."
+msgid "Please create an SEO title."
+msgstr "Bitte vergib einen SEO-Titel."
 
 #: languages/yoast-seo-js.php:284
 msgid "The slug for this page is a bit long, consider shortening it."
@@ -4125,20 +4182,20 @@ msgstr "Toll gemacht! Dieses Fokus-Keyword hast du noch nie zuvor benutzt!"
 msgid "No focus keyword was set for this page. If you do not set a focus keyword, no score can be calculated."
 msgstr "Es wurde kein Fokus-Keyword für diese Seite festgelegt. Wenn du kein Fokus-Keyword festlegst, kann keine Bewertung der Seite errechnet werden."
 
-#: admin/class-meta-columns.php:104 admin/class-meta-columns.php:349
+#: admin/class-meta-columns.php:105 admin/class-meta-columns.php:350
 #: admin/taxonomy/class-taxonomy-columns.php:130
 msgid "Focus keyword not set."
 msgstr "Es wurde kein Fokus-Schlüsselwort festgelegt."
 
-#: admin/class-meta-columns.php:70
+#: admin/class-meta-columns.php:71
 msgid "Focus KW"
 msgstr "Fokus-Stichwort"
 
-#: admin/class-meta-columns.php:67
+#: admin/class-meta-columns.php:68
 msgid "Meta Desc."
 msgstr "Meta Beschr."
 
-#: admin/class-meta-columns.php:176
+#: admin/class-meta-columns.php:177
 msgid "All SEO Scores"
 msgstr "Alle SEO-Werte"
 
@@ -4162,7 +4219,7 @@ msgstr "SEO: Schwach"
 msgid "SEO: No Focus Keyword"
 msgstr "SEO: Kein Fokus-Keyword"
 
-#: admin/metabox/class-metabox.php:913
+#: admin/metabox/class-metabox.php:914
 msgid "SEO issue: The featured image should be at least 200 by 200 pixels to be picked up by Facebook and other social media sites."
 msgstr "Das Bild muss mindestens 200x200 Pixel groß sein, um von Facebook und anderen Social Media Seiten aufgenommen zu werden."
 
@@ -4174,7 +4231,7 @@ msgstr "(kein Elternelement)"
 msgid "No focus keyword set."
 msgstr "Kein \"Focus Keyword\" gewählt."
 
-#: admin/class-meta-columns.php:344 admin/metabox/class-metabox.php:171
+#: admin/class-meta-columns.php:345 admin/metabox/class-metabox.php:171
 msgid "Post is set to noindex."
 msgstr "Der Artikel wird nicht indexiert."
 
@@ -4267,7 +4324,7 @@ msgstr "Meta Keywords"
 msgid "Meta description"
 msgstr "Meta-Beschreibung"
 
-#: admin/class-meta-columns.php:66
+#: admin/class-meta-columns.php:67
 msgid "SEO Title"
 msgstr "SEO-Titel"
 
@@ -4377,7 +4434,7 @@ msgstr "Entferne die Blogseite aus den Breadcrumbs"
 msgid "%s Breadcrumbs"
 msgstr "%s Breadcrumbs"
 
-#: admin/class-config.php:112 admin/metabox/class-metabox.php:926
+#: admin/class-config.php:112 admin/metabox/class-metabox.php:927
 #: admin/taxonomy/class-taxonomy.php:112
 msgid "Use Image"
 msgstr "Bild verwenden"
@@ -4465,27 +4522,27 @@ msgstr "Existierende Yoast Meta Beschreibung"
 msgid "a,about,above,after,again,against,all,am,an,and,any,are,as,at,be,because,been,before,being,below,between,both,but,by,could,did,do,does,doing,down,during,each,few,for,from,further,had,has,have,having,he,he'd,he'll,he's,her,here,here's,hers,herself,him,himself,his,how,how's,i,i'd,i'll,i'm,i've,if,in,into,is,it,it's,its,itself,let's,me,more,most,my,myself,nor,of,on,once,only,or,other,ought,our,ours,ourselves,out,over,own,same,she,she'd,she'll,she's,should,so,some,such,than,that,that's,the,their,theirs,them,themselves,then,there,there's,these,they,they'd,they'll,they're,they've,this,those,through,to,too,under,until,up,very,was,we,we'd,we'll,we're,we've,were,what,what's,when,when's,where,where's,which,while,who,who's,whom,why,why's,with,would,you,you'd,you'll,you're,you've,your,yours,yourself,yourselves"
 msgstr "aber, als, am, an, auch, auf, aus, bei, bin, bis, bist, da, dadurch, daher, darum, das, daß, dass, dein, deine, dem, den, der, des, dessen, deshalb, die, dies, dieser, dieses, doch, dort, du, durch, ein, eine, einem, einen, einer, eines, er, es, euer, eure, für, hatte, hatten, hattest, hattet, hier, hinter, ich, ihr, ihre, im, in, ist, ja, jede, jedem, jeden, jeder, jedes, jener, jenes, jetzt, kann, kannst, können, könnt, machen, mein, meine, mit, muß, mußt, musst, müssen, müßt, nach, nachdem, nein, nicht, nun, oder, seid, sein, seine, sich, sie, sind, soll, sollen, sollst, sollt, sonst, soweit, sowie, und, unser, unsere, unter, vom, von, vor, wann, warum, was, weiter, weitere, wenn, wer, werde, werden, werdet, weshalb, wie, wieder, wieso, wir, wird, wirst, wo, woher, wohin, zu, zum, zur, über"
 
-#: admin/class-admin.php:527
+#: admin/class-admin.php:537
 msgid "Facebook profile URL"
 msgstr "URL des Facebook Profils"
 
-#: admin/class-admin.php:525
+#: admin/class-admin.php:535
 msgid "Twitter username (without @)"
 msgstr "Twitter Benutzername (ohne @)"
 
-#: admin/class-admin.php:523 admin/pages/social.php:20
+#: admin/class-admin.php:533 admin/pages/social.php:20
 msgid "Google+"
 msgstr "Google+"
 
-#: admin/class-admin.php:486
+#: admin/class-admin.php:496
 msgid "FAQ"
 msgstr "FAQ"
 
-#: admin/class-admin.php:482
+#: admin/class-admin.php:492
 msgid "Premium Support"
 msgstr "Premium Unterstützung"
 
-#: admin/class-admin.php:470
+#: admin/class-admin.php:480
 #: admin/google_search_console/class-gsc-platform-tabs.php:40
 #: admin/taxonomy/class-taxonomy-metabox.php:147
 #: admin/taxonomy/class-taxonomy-metabox.php:155
@@ -4503,83 +4560,83 @@ msgstr "Geh bitte zu %1$sEinstellungen \"Lesen\"%2$s und entferne den Haken bei 
 msgid "Huge SEO Issue: You're blocking access to robots."
 msgstr "Wichtiges SEO-Problem: Du blockierst den Zugriff von Suchmaschinen."
 
-#: admin/class-admin.php:434
+#: admin/class-admin.php:444
 msgid "Posts"
 msgstr "Beiträge"
 
-#: admin/class-admin.php:354
+#: admin/class-admin.php:364
 msgid "Edit Files"
 msgstr "Dateien editieren"
 
-#: admin/class-admin.php:348 admin/pages/network.php:93
+#: admin/class-admin.php:358 admin/pages/network.php:93
 msgid "MultiSite Settings"
 msgstr "Netzwerk-Einstellungen"
 
-#: admin/class-admin.php:334 admin/class-admin.php:335 admin/pages/metas.php:61
+#: admin/class-admin.php:344 admin/class-admin.php:345 admin/pages/metas.php:61
 #: admin/pages/metas.php:63
 msgid "Advanced Variables"
 msgstr "Erweiterte Variablen"
 
-#: admin/class-admin.php:326 admin/class-admin.php:327 admin/pages/metas.php:53
+#: admin/class-admin.php:336 admin/class-admin.php:337 admin/pages/metas.php:53
 #: admin/pages/metas.php:55
 msgid "Basic Variables"
 msgstr "Grundvariablen"
 
-#: admin/class-admin.php:319 admin/pages/metas.php:47
+#: admin/class-admin.php:329 admin/pages/metas.php:47
 msgid "Note that not all variables can be used in every template."
 msgstr "Bitte beachte, dass nicht alle Variablen in jedem Template genutzt werden können."
 
 #. translators: %1$s expands to Yoast SEO.
-#: admin/class-admin.php:317 admin/pages/metas.php:45
+#: admin/class-admin.php:327 admin/pages/metas.php:45
 msgid "The title &amp; metas settings for %1$s are made up of variables that are replaced by specific values from the page when the page is displayed. The tabs on the left explain the available variables."
 msgstr "Die Titel &amp; Meta Einstellungen für WordPress SEO bestehen aus Variablen, die durch spezielle Inhalte der Seite ersetzt werden, wenn die Website dargestellt wird. Die Reiter auf der linken Seite erklären die verfügbaren Variablen."
 
-#: admin/class-admin.php:313 admin/class-admin.php:314 admin/pages/metas.php:40
+#: admin/class-admin.php:323 admin/class-admin.php:324 admin/pages/metas.php:40
 #: admin/pages/metas.php:42
 msgid "Template explanation"
 msgstr "Erläuterung der Vorlage"
 
-#: admin/class-admin.php:307
+#: admin/class-admin.php:317
 msgid "Why Google won't display the right page title"
 msgstr "Warum Google nicht den richtigen Seitentitel anzeigt"
 
-#: admin/class-admin.php:306
+#: admin/class-admin.php:316
 msgid "Title optimization"
 msgstr "Optimierung des Titels"
 
-#: admin/class-admin.php:305
+#: admin/class-admin.php:315
 msgid "For more information:"
 msgstr "Mehr Informationen:"
 
-#: admin/class-admin.php:168 admin/pages/dashboard.php:59
+#: admin/class-admin.php:178 admin/pages/dashboard.php:59
 #: admin/pages/metas.php:20 admin/pages/xml-sitemaps.php:30
 msgid "General"
 msgstr "Allgemein"
 
-#: admin/banner/class-admin-banner-sidebar.php:207 admin/class-admin.php:361
+#: admin/banner/class-admin-banner-sidebar.php:207 admin/class-admin.php:371
 #: admin/pages/licenses.php:112
 msgid "Extensions"
 msgstr "Erweiterungen"
 
-#: admin/class-admin.php:221 inc/wpseo-non-ajax-functions.php:306
+#: admin/class-admin.php:231 inc/wpseo-non-ajax-functions.php:306
 msgid "Search Console"
 msgstr "Suchkonsole"
 
-#: admin/class-admin.php:212 inc/wpseo-non-ajax-functions.php:299
+#: admin/class-admin.php:222 inc/wpseo-non-ajax-functions.php:299
 msgid "Tools"
 msgstr "Werkzeuge"
 
-#: admin/class-admin.php:203 admin/metabox/class-metabox.php:411
+#: admin/class-admin.php:213 admin/metabox/class-metabox.php:411
 #: admin/metabox/class-metabox.php:419 admin/metabox/class-metabox.php:422
 #: inc/wpseo-non-ajax-functions.php:293
 msgid "Advanced"
 msgstr "Fortgeschritten"
 
-#: admin/class-admin.php:194 inc/wpseo-non-ajax-functions.php:287
+#: admin/class-admin.php:204 inc/wpseo-non-ajax-functions.php:287
 msgid "XML Sitemaps"
 msgstr "XML-Sitemaps"
 
-#: admin/class-admin.php:185 admin/class-social-admin.php:114
+#: admin/class-admin.php:195 admin/class-social-admin.php:114
 #: admin/class-social-admin.php:117
 #: admin/taxonomy/class-taxonomy-metabox.php:212
 #: admin/taxonomy/class-taxonomy-metabox.php:215
@@ -4587,12 +4644,11 @@ msgstr "XML-Sitemaps"
 msgid "Social"
 msgstr "Social"
 
-#: admin/class-admin.php:177 inc/wpseo-non-ajax-functions.php:275
+#: admin/class-admin.php:187 inc/wpseo-non-ajax-functions.php:275
 msgid "Titles &amp; Metas"
 msgstr "Titel &amp; Metas"
 
-#: admin/class-admin.php:154 admin/class-admin.php:348
-#: admin/class-meta-columns.php:61
+#: admin/class-admin.php:164 admin/class-admin.php:358
 #: admin/formatter/class-metabox-formatter.php:72
 #: admin/taxonomy/class-taxonomy-columns.php:51
 #: inc/wpseo-non-ajax-functions.php:111
