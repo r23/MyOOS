@@ -18,22 +18,22 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  if (!$oEvent->installed_plugin('reviews')) {
-    oos_redirect(oos_href_link($aContents['main']));
-  }
+if (!$oEvent->installed_plugin('reviews')) {
+	oos_redirect(oos_href_link($aContents['main']));
+}
 
-  if (!isset($_GET['reviews_id'])) {
-    oos_redirect(oos_href_link($aContents['reviews']));
-  }
+if (!isset($_GET['reviews_id'])) {
+	oos_redirect(oos_href_link($aContents['reviews']));
+}
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/reviews_product_info.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/reviews_product_info.php';
 
 // lets retrieve all $_GET keys and values..
-  $get_parameters = oos_get_all_get_parameters(array('reviews_id'));
-  $get_parameters = oos_remove_trailing($get_parameters);
+$get_parameters = oos_get_all_get_parameters(array('reviews_id'));
+$get_parameters = oos_remove_trailing($get_parameters);
 
   $reviewstable  = $oostable['reviews'];
   $productstable = $oostable['products'];

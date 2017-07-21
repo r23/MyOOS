@@ -211,7 +211,38 @@ function oos_redirect($sUrl) {
 
     return $products_name;
   }
+  
+ /**
+  * Create a Wishlist Code. length may be between 1 and 16 Characters
+  *
+  * @param $salt
+  * @param $length
+  * @return string
+  */
+  function oos_create_wishlist_code($salt="secret", $length = SECURITY_CODE_LENGTH) {
 
+    // Get database information
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
+
+    $ccid = md5(uniqid("","salt"));
+    $ccid .= md5(uniqid("","salt"));
+    $ccid .= md5(uniqid("","salt"));
+    $ccid .= md5(uniqid("","salt"));
+    srand((double)microtime()*1000000); // seed the random number generator
+    $random_start = @rand(0, (128-$length));
+    $good_result = 0;
+    while ($good_result == 0) {
+      $id1 = substr($ccid, $random_start,$length);
+      $customerstable = $oostable['customers'];
+      $sql = "SELECT customers_wishlist_link_id
+              FROM $customerstable
+              WHERE customers_wishlist_link_id = '" . oos_db_input($id1) . "'";
+      $query = $dbconn->Execute($sql);
+      if ($query->RecordCount() == 0) $good_result = 1;
+    }
+    return $id1;
+  }
 
  /**
   * Return Wishlist Customer Name

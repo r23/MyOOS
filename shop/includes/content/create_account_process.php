@@ -334,10 +334,8 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php'
     }
 
     $time = mktime();
-    $wishlist_link_id = '';
-    for ($x=3;$x<10;$x++) {
-      $wishlist_link_id .= substr($time,$x,1) . oos_create_random_value(1, $type = 'chars');
-    }
+    $wishlist_link_id = oos_create_wishlist_code;
+
     $sql_data_array = array('customers_firstname' => $firstname,
                             'customers_lastname' => $lastname,
                             'customers_email_address' => $email_address,

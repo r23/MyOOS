@@ -27,22 +27,23 @@ if ( (isset($_GET['keywords']) && empty($_GET['keywords'])) &&
 	(isset($_GET['pfrom']) && !is_numeric($_GET['pfrom'])) &&
 	(isset($_GET['pto']) && !is_numeric($_GET['pto'])) ) {
 
-	oos_redirect(oos_href_link($aContents['advanced_search'], 'errorno=' . $errorno));
+	// error at least one input
+	oos_redirect(oos_href_link($aContents['advanced_search'], 'errorno=1'));
 
 } else {
 	  
-$keywords = $_GET['keywords'] = isset($_GET['keywords']) && !empty($_GET['keywords']) ? stripslashes(trim(urldecode($_GET['keywords']))) : false;
-$search_in_description = $_GET['search_in_description'] = isset($_GET['search_in_description']) && is_numeric($_GET['search_in_description']) ? (int)$_GET['search_in_description'] : 0;
-$categories_id = $_GET['categories_id'] = isset($_GET['categories_id']) && is_numeric($_GET['categories_id']) ? (int)$_GET['categories_id'] : false;
-$inc_subcat = isset($_GET['inc_subcat']) && is_numeric($_GET['inc_subcat']) ? (int)$_GET['inc_subcat'] : 0;
-$manufacturers_id  = $_GET['manufacturers_id'] = isset($_GET['manufacturers_id']) && is_numeric($_GET['manufacturers_id']) ? (int)$_GET['manufacturers_id'] : false;
-$pfrom = $_GET['pfrom'] = isset($_GET['pfrom']) && !empty($_GET['pfrom']) ? stripslashes($_GET['pfrom']) : false;
-$pto = $_GET['pto'] = isset($_GET['pto']) && !empty($_GET['pto']) ? stripslashes($_GET['pto']) : false;
-$dfrom = $_GET['dfrom'] = isset($_GET['dfrom']) && !empty($_GET['dfrom']) ? stripslashes($_GET['dfrom']) : false;
-$dto = $_GET['dto'] = isset($_GET['dto']) && !empty($_GET['dto']) ? stripslashes($_GET['dto']) : false;
+	$keywords = $_GET['keywords'] = isset($_GET['keywords']) && !empty($_GET['keywords']) ? stripslashes(trim(urldecode($_GET['keywords']))) : FALSE;
+	$search_in_description = $_GET['search_in_description'] = isset($_GET['search_in_description']) && is_numeric($_GET['search_in_description']) ? (int)$_GET['search_in_description'] : 0;
+	$categories_id = $_GET['categories_id'] = isset($_GET['categories_id']) && is_numeric($_GET['categories_id']) ? (int)$_GET['categories_id'] : FALSE;
+	$inc_subcat = isset($_GET['inc_subcat']) && is_numeric($_GET['inc_subcat']) ? (int)$_GET['inc_subcat'] : 0;
+	$manufacturers_id  = $_GET['manufacturers_id'] = isset($_GET['manufacturers_id']) && is_numeric($_GET['manufacturers_id']) ? (int)$_GET['manufacturers_id'] : FALSE;
+	$pfrom = $_GET['pfrom'] = isset($_GET['pfrom']) && !empty($_GET['pfrom']) ? stripslashes($_GET['pfrom']) : FALSE;
+	$pto = $_GET['pto'] = isset($_GET['pto']) && !empty($_GET['pto']) ? stripslashes($_GET['pto']) : FALSE;
+	$dfrom = $_GET['dfrom'] = isset($_GET['dfrom']) && !empty($_GET['dfrom']) ? stripslashes($_GET['dfrom']) : FALSE;
+	$dto = $_GET['dto'] = isset($_GET['dto']) && !empty($_GET['dto']) ? stripslashes($_GET['dto']) : FALSE;
 
 
-  $error = 0; // reset error flag to false
+  $error = 0; // reset error flag to FALSE
   $errorno = 0;
 
 
@@ -52,7 +53,7 @@ $dto = $_GET['dto'] = isset($_GET['dto']) && !empty($_GET['dto']) ? stripslashes
   if (strlen($dfrom_to_check) > 0) {
     if (!oos_checkdate($dfrom_to_check, DOB_FORMAT_STRING, $dfrom_array)) {
       $errorno += 10;
-      $error = 1;
+      $error = TRUE;
     }
   }
 

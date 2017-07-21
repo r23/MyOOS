@@ -99,7 +99,8 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 
     // links breadcrumb
     $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['reviews']));
-
+	$sCanonical = oos_href_link($aContents['gv_faq'], 'page=' . $nPage, 'NONSSL', FALSE, TRUE);
+	
     $smarty->assign(
         array(
             'breadcrumb'    => $oBreadcrumb->trail(),

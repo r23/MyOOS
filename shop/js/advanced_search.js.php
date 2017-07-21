@@ -32,7 +32,7 @@ function check_form() {
   var dfrom = document.advanced_search.dfrom.value;
   var dto = document.advanced_search.dto.value;
 <?php
-  if (isset($_SESSION) && ($_SESSION['member']->group['show_price'] == 1 )) {
+  if ($aUser['show_price'] == 1 ) {
 ?>
   var pfrom = document.advanced_search.pfrom.value;
   var pto = document.advanced_search.pto.value;
@@ -43,7 +43,7 @@ function check_form() {
   var pto_float;
 
 <?php
-  if (isset($_SESSION) && ($_SESSION['member']->group['show_price'] == 1 )) {
+  if ($aUser['show_price'] == 1 ) {
 ?>
   if ( ((keywords == '') || (keywords.length < 1)) && ((dfrom == '') || (dfrom == '<?php echo DOB_FORMAT_STRING; ?>') || (dfrom.length < 1)) && ((dto == '') || (dto == '<?php echo DOB_FORMAT_STRING; ?>') || (dto.length < 1)) && ((pfrom == '') || (pfrom.length < 1)) && ((pto == '') || (pto.length < 1)) ) {
     error_message = error_message + "<?php echo $aLang['js_at_least_one_input']; ?>";
@@ -85,7 +85,7 @@ function check_form() {
     }
   }
 <?php
-  if (isset($_SESSION) && ($_SESSION['member']->group['show_price'] == 1 )) {
+  if ($aUser['show_price'] == 1 ) {
 ?>
   if (pfrom.length > 0) {
     pfrom_float = parseFloat(pfrom);
@@ -125,7 +125,7 @@ function check_form() {
     return false;
   } else {
 <?php
-  if (isset($_SESSION) && ($_SESSION['member']->group['show_price'] == 1 )) {
+  if ($aUser['show_price'] == 1 ) {
 ?>
     RemoveFormatString(document.advanced_search.dfrom, "<?php echo DOB_FORMAT_STRING; ?>");
 <?php

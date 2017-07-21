@@ -18,29 +18,26 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  function oos_get_manufacturers() {
+function oos_get_manufacturers() {
 
-    if (!is_array($aManufacturers)) $aManufacturers = array();
+	if (!is_array($aManufacturers)) $aManufacturers = array();
 
-    $dbconn =& oosDBGetConn();
-    $oostable = oosDBGetTables();
+	$dbconn =& oosDBGetConn();
+	$oostable = oosDBGetTables();
 
-    $manufacturers_result = $dbconn->Execute("SELECT manufacturers_id, manufacturers_name FROM " . $oostable['manufacturers'] . " ORDER BY manufacturers_name");
-    while ($manufacturers = $manufacturers_result->fields) {
-      $aManufacturers[] = array('id' => $manufacturers['manufacturers_id'], 'text' => $manufacturers['manufacturers_name']);
-      $manufacturers_result->MoveNext();
-    }
-    return $aManufacturers;
-  }
+	$manufacturers_result = $dbconn->Execute("SELECT manufacturers_id, manufacturers_name FROM " . $oostable['manufacturers'] . " ORDER BY manufacturers_name");
+	while ($manufacturers = $manufacturers_result->fields) {
+		$aManufacturers[] = array('id' => $manufacturers['manufacturers_id'], 'text' => $manufacturers['manufacturers_name']);
+		$manufacturers_result->MoveNext();
+	}
+	return $aManufacturers;
+}
 
   
-  require 'includes/languages/' . $sLanguage . '/search_advanced.php';
-
-  // links breadcrumb
-  $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['advanced_search']));
+require 'includes/languages/' . $sLanguage . '/search_advanced.php';
 
   ob_start();
   require 'js/advanced_search.js.php';
@@ -118,29 +115,34 @@
 */
   $options_box .= '</table>';
 
-  $aTemplate['page'] = $sTheme . '/page/advanced_search.html';
+// links breadcrumb
+$oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['advanced_search']));
+$sCanonical = oos_href_link($aContents['advanced_search'], '', 'NONSSL', FALSE, TRUE);
+  
+  
+$aTemplate['page'] = $sTheme . '/page/advanced_search.html';
 
-  $nPageType = OOS_PAGE_TYPE_CATALOG;
-  $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
+$nPageType = OOS_PAGE_TYPE_CATALOG;
+$sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
-	require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
-    if (!isset($option)) {
-      require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-      require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
-    }
+require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
+if (!isset($option)) {
+	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+	require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+}
 
-  // assign Smarty variables;
-  $smarty->assign(
+// assign Smarty variables;
+$smarty->assign(
       array(
-          'breadcrumb'    => $oBreadcrumb->trail(),
-          'heading_title' => $aLang['heading_title'],
-
-          'info_message'      => $info_message,
-          'options_box'       => $options_box,
-          'oos_js'            => $javascript
-      )
-  ); 
-
+		'breadcrumb'    => $oBreadcrumb->trail(),
+		'heading_title' => $aLang['heading_title'],
+		'canonical'		=> $sCanonical,
+		
+		'info_message'      => $info_message,
+		'options_box'       => $options_box,
+		'oos_js'            => $javascript
+	)
+); 
 
 // display the template
 $smarty->display($aTemplate['page']);
