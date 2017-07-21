@@ -81,5 +81,5 @@ function smarty_function_html_oos_image($params, &$smarty)
         }
     }	
 
-    return '<img src="'.$image.'" alt="'.$alt.'"'.$extra.' />';
+    return '<img class="img-responsive" src="'.$image.'" alt="'.$alt.'"'.$extra.' />';
 }

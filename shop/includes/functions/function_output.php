@@ -123,26 +123,10 @@ function oos_href_link($page = '', $parameters = '', $connection = 'NONSSL', $ad
       return FALSE;
     }
 
-    if (!is_numeric($width)) {
-      $width = 0;
-    }
-
-    if (!is_numeric($height)) {
-      $height = 0;
-    }
-
-    $image = '<img src="' . oos_output_string($src) . '" border="0" alt="' . oos_output_string($title) . '"';
+    $image = '<img class="img-responsive" src="' . oos_output_string($src) . '" border="0" alt="' . oos_output_string($title) . '"';
 
     if (!empty($title)) {
       $image .= ' title="' . oos_output_string($title) . '"';
-    }
-
-    if ($width > 0) {
-      $image .= ' width="' . (int)$width . '"';
-    }
-
-    if ($height > 0) {
-      $image .= ' height="' . (int)$height . '"';
     }
 
     if (!empty($parameters)) {
