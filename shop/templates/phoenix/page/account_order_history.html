@@ -66,7 +66,7 @@
             {/if}
             <span class="pangv">{$pangv}</span><br>
             </td>
-            <td align="right" valign="middle" class="main"><a href="{html_href_link content=$filename.account_order_history action=buy_now products_id=$oos_order_history_array[i].id}"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i>{html_image_button image="in_cart.gif" alt=$lang.button_in_cart}</a></td>
+            <td align="right" valign="middle" class="main"><a href="{html_href_link content=$filename.account_order_history action=buy_now products_id=$oos_order_history_array[i].id}" class="btn btn-primary-filled" role="button"><i class="fa fa-cart-plus" aria-hidden="true"></i> {$lang.button_in_cart}</a></td>
           </tr>
           <tr>
             <td colspan="3" class="main">&nbsp;</td>

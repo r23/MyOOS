@@ -137,7 +137,7 @@
 {if $myUser.show_price eq 1 }
 	<button class="btn btn-success-filled pull-right" type="submit"><i class="fa fa-shopping-cart" aria-hidden="true"></i> {$lang.button_in_cart}</button>
 {else}
-   <a href="{html_href_link content=$filename.login connection=SSL}">{html_image_button image="sign_in.gif" alt=$lang.button_login}</a>
+   <a href="{html_href_link content=$filename.login connection=SSL}" class="btn btn-primary-filled" role="button">{$lang.button_login}</a>
 {/if}</td>
           </tr>
         </table></td>
