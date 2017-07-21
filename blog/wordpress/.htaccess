@@ -498,9 +498,9 @@ AddDefaultCharset utf-8
 # anyone to surf through every directory on your server (which may
 # includes rather private places such as the CMS's directories).
 
-<IfModule mod_autoindex.c>
+# <IfModule mod_autoindex.c>
 #    Options -Indexes
-</IfModule>
+# </IfModule>
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
