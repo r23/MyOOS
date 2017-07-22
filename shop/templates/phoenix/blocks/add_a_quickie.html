@@ -10,9 +10,10 @@
 	<input type="hidden" name="formid" value="{$mySystem.formid}">
 {/if}
     <div align="center">
-	<input type="text" name="cart_quantity" value="1" maxlength="3" size="2">&nbsp;
-	<input type="text" name="quickie" size="9">&nbsp;
-    {html_image_submit image="cart.gif" alt=$block_heading_add_product_id}</div><br>{$lang.block_add_product_id_text}
+		<input type="text" name="cart_quantity" value="1" maxlength="3" size="2">&nbsp;
+		<input type="text" name="quickie" size="9">&nbsp;
+		<button class="btn btn-success-filled" type="submit"><i class="fa fa-shopping-cart" aria-hidden="true"></i> {$lang.button_in_cart}</button>
+	</div><br>{$lang.block_add_product_id_text}
 	
 	</form>
 	</div>

@@ -62,7 +62,8 @@
 {/if}
          </td>
          <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
-          <td align="right" valign="baseline"><input type="hidden" name="products_id" value="{$wishlist_array[i].wl_products_id}"><input type="hidden" name="wl_products_id" value="$wishlist_array[i].products_id"><input type="hidden" name="cart_quantity" value="1">{html_image_submit image="cart.gif" alt=$lang.button_in_cart}</td>
+          <td align="right" valign="baseline"><input type="hidden" name="products_id" value="{$wishlist_array[i].wl_products_id}"><input type="hidden" name="wl_products_id" value="$wishlist_array[i].products_id"><input type="hidden" name="cart_quantity" value="1">
+		  <button class="btn btn-success-filled" type="submit"><i class="fa fa-shopping-cart" aria-hidden="true"></i> {$lang.button_in_cart}</button></td>
         </tr>
         <tr>
           <td valign="top" colspan="3" class="smallText">

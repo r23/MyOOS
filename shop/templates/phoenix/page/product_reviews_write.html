@@ -64,7 +64,7 @@
         <td class="main"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
             <td class="main"><a href="{html_href_link content=$filename.product_reviews products_id=$smarty.get.products_id}" class="btn btn-primary-filled" role="button"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> {$lang.button_back}</a></td>
-            <td align="right" class="main">{html_image_submit image="continue.gif" alt=$lang.button_continue}<i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></td>
+            <td align="right" class="main"><button class="btn btn-success-filled" type="submit">{$lang.button_continue}<i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></button></td>
           </tr>
         </table><input type="hidden" name="get_params" value="products_id={$smarty.get.products_id}"></form></td>
       </tr>
