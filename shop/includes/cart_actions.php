@@ -46,6 +46,11 @@ switch ($action) {
 	case 'update_product' :
 		// start the session
 		if ( $session->hasStarted() === FALSE ) $session->start();
+
+		// create the shopping cart
+		if (!isset($_SESSION['cart'])) {
+			$_SESSION['cart'] = new shoppingCart();
+		}
 		
       // customer wants to update the product quantity in their shopping cart
       for ($i=0; $i<count($_POST['products_id']);$i++) {
@@ -79,7 +84,12 @@ switch ($action) {
 	case 'add_product' :
 		// start the session
 		if ( $session->hasStarted() === FALSE ) $session->start();
-	
+		
+		// create the shopping cart
+		if (!isset($_SESSION['cart'])) {
+			$_SESSION['cart'] = new shoppingCart();
+		}
+		
       // customer adds a product from the products page
       if (isset($_POST['products_id']) && is_numeric($_POST['products_id'])) {
         $real_ids = $_POST['id'];
@@ -202,10 +212,7 @@ switch ($action) {
       }
       break;
 
-	case 'remove_wishlist' :
-		// start the session
-		if ( $session->hasStarted() === FALSE ) $session->start();
-		
+	case 'remove_wishlist' :	
       if (isset($_SESSION['customer_id']) && isset($_GET['pid'])) {
         $customers_wishlisttable = $oostable['customers_wishlist'];
         $dbconn->Execute("DELETE FROM $customers_wishlisttable WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'  AND products_id = '" . oos_db_input($_GET['pid']) . "'");
@@ -260,6 +267,11 @@ switch ($action) {
         } else {
 			// start the session
 			if ( $session->hasStarted() === FALSE ) $session->start();	
+
+			// create the shopping cart
+			if (!isset($_SESSION['cart'])) {
+				$_SESSION['cart'] = new shoppingCart();
+			}
 			
           if (isset($_GET['cart_quantity']) && is_numeric($_GET['cart_quantity'])) {
             $cart_quantity = oos_prepare_input($_GET['cart_quantity']);
@@ -293,7 +305,11 @@ switch ($action) {
         } else {
 			// start the session
 			if ( $session->hasStarted() === FALSE ) $session->start();
-			
+
+			// create the shopping cart
+			if (!isset($_SESSION['cart'])) {
+				$_SESSION['cart'] = new shoppingCart();
+			}			
           if (DECIMAL_CART_QUANTITY == 'true') {
             $_POST['cart_quantity'] = str_replace(',', '.', $_POST['cart_quantity']);
           }
@@ -334,7 +350,11 @@ switch ($action) {
         } else {
 			// start the session
 			if ( $session->hasStarted() === FALSE ) $session->start();
-			
+
+			// create the shopping cart
+			if (!isset($_SESSION['cart'])) {
+				$_SESSION['cart'] = new shoppingCart();
+			}			
           $cart_quantity = 1;
           $cart_qty = $_SESSION['cart']->get_quantity($_GET['slave_id']);
           $news_qty = $cart_qty + $cart_quantity;
@@ -363,7 +383,11 @@ switch ($action) {
         } else {
 			// start the session
 			if ( $session->hasStarted() === FALSE ) $session->start();
-			
+
+			// create the shopping cart
+			if (!isset($_SESSION['cart'])) {
+				$_SESSION['cart'] = new shoppingCart();
+			}			
           if (DECIMAL_CART_QUANTITY == 'true') {
             $_POST['cart_quantity'] = str_replace(',', '.', $_POST['cart_quantity']);
           }
@@ -421,7 +445,11 @@ switch ($action) {
           } else {
 			// start the session
 			if ( $session->hasStarted() === FALSE ) $session->start();
-			
+
+			// create the shopping cart
+			if (!isset($_SESSION['cart'])) {
+				$_SESSION['cart'] = new shoppingCart();
+			}			
             $cart_qty = $_SESSION['cart']->get_quantity($products_quickie['products_id']);
             $news_qty = $cart_qty + $cart_quantity;
 
@@ -518,7 +546,11 @@ switch ($action) {
     case 'cust_order' :
 		// start the session
 		if ( $session->hasStarted() === FALSE ) $session->start();
-		
+
+		// create the shopping cart
+		if (!isset($_SESSION['cart'])) {
+			$_SESSION['cart'] = new shoppingCart();
+		}		
       if (isset($_SESSION['customer_id']) && isset($_GET['pid'])) {
         if (oos_has_product_attributes($_GET['pid'])) {
           oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_GET['pid']));
@@ -534,7 +566,11 @@ switch ($action) {
     case 'cust_wishlist_add_product' :
 		// start the session
 		if ( $session->hasStarted() === FALSE ) $session->start();
-		
+
+		// create the shopping cart
+		if (!isset($_SESSION['cart'])) {
+			$_SESSION['cart'] = new shoppingCart();
+		}		
       if (isset($_SESSION['customer_id']) && isset($_POST['products_id'])) {
         if (isset($_POST['cart_quantity']) && is_numeric($_POST['cart_quantity'])) {
 
@@ -570,6 +606,11 @@ switch ($action) {
     case 'frend_wishlist_add_product' :
 		// start the session
 		if ( $session->hasStarted() === FALSE ) $session->start();
+
+		// create the shopping cart
+		if (!isset($_SESSION['cart'])) {
+			$_SESSION['cart'] = new shoppingCart();
+		}
 		
       if (isset($_POST['products_id']) && is_numeric($_POST['cart_quantity'])) {
 
