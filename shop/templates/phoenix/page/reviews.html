@@ -14,18 +14,15 @@
 			<div class="col-xs-12">
 				<div class="innerWrapper clearfix">
 
-    <table border="0" width="100%" cellspacing="0" cellpadding="0">
-      <tr>
-        <td>{$oosPageHeading}</td>
-      </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
-{if $numrows > 1 }
-   {$pagination}
-{/if}
-      <tr>
-        <td><table border="0" cellspacing="0" cellpadding="2">
+				<div class="clearfix shop-list-options margin-bottom-20">
+					<!-- Pagination -->
+					<div class="nomargin pull-right">
+						{$pagination}
+					</div>
+					<!-- /Pagination -->
+				</div>
+				
+      <table border="0" cellspacing="0" cellpadding="2">
 {section name=i loop=$oos_reviews_array}
   <tr>
     <td valign="top" class="main"><a href="{html_href_link content=$filename.product_reviews_info products_id=$oos_reviews_array[i].products_id reviews_id=$oos_reviews_array[i].reviews_id}">{small_product_image image=$oos_reviews_array[i].products_image alt=$oos_reviews_array[i].products_name|strip_tags}</a></td>
@@ -35,16 +32,21 @@
     <td colspan="2" class="main">&nbsp;</td>
   </tr>
 {sectionelse}
-  <tr>
-    <td class="main">{$lang.text_no_reviews}</td>
-  </tr>
+				<div class="alert alert-info" role="alert">
+					{$lang.text_no_reviews}
+				</div>
 {/section}
-        </table></td>
-      </tr>
-{if $numrows > 1 }
-  {$pagination}
-{/if}
-    </table>
+        </table>
+		
+		
+				<span class="pangv .margin-top-30">{$pangv}</span>
+				<hr />
+
+				<!-- Pagination -->
+				<div class="text-center">
+					{$pagination}
+				</div>
+				<!-- /Pagination -->
 
 
 				</div>
