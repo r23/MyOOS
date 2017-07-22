@@ -18,17 +18,17 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  if (!$oEvent->installed_plugin('spezials')) {
+if (!$oEvent->installed_plugin('spezials')) {
     oos_redirect(oos_href_link($aContents['main']));
-  }
+}
 
   require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.php'; 
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/products_specials.php';
 
-  $aTemplate['page'] = $sTheme . '/products/specials.html';
+  $aTemplate['page'] = $sTheme . '/page/specials.html';
   $aTemplate['pagination'] = $sTheme . '/system/_pagination.html';
 
   $nPageType = OOS_PAGE_TYPE_CATALOG;

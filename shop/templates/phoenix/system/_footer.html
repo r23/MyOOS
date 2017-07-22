@@ -11,9 +11,9 @@
 						<li><a href="{html_href_link content=$filename.account_history connection=SSL}" title="{$lang.login_block_account_history}" rel="nofollow">{$lang.login_block_account_history}</a></li>
 						<li><a href="{html_href_link content=$filename.account_order_history connection=SSL}" title="{$lang.login_block_order_history}" rel="nofollow">{$lang.login_block_order_history}</a></li>
 						<li><a href="{html_href_link content=$filename.account_address_book connection=SSL}" title="{$lang.login_block_address_book}" rel="nofollow">{$lang.login_block_address_book}</a></li>
-				{if $oEvent->installed_plugin('notify')}
+					{if $oEvent->installed_plugin('notify')}
 						<li><a href="{html_href_link content=$filename.product_notifications connection=SSL}" rel="nofollow">{$lang.login_block_product_notifications}</a></li>
-				{/if}						
+					{/if}						
 					</ul>
 					</div><!-- .col -->
 					
@@ -32,7 +32,9 @@
 						<h4>{$lang.header_title_service}</h4>
 						<ul class="link-list">
 							<li><a href="{html_href_link content=$filename.products_new}" title="{$lang.block_service_new}"><i class="fa fa-bullhorn" aria-hidden="true"></i> {$lang.block_service_new}</a></li>
+						{if $oEvent->installed_plugin('spezials')}
 							<li><a href="{html_href_link content=$filename.specials}" title="{$lang.block_service_specials}"><i class="fa fa-star" aria-hidden="true"></i> {$lang.block_service_specials}</a></li>
+						{/if}	
 							<li><a href="{html_href_link content=$filename.sitemap}" title="{$lang.block_service_sitemap}"><i class="fa fa-sitemap" aria-hidden="true"></i> {$lang.block_service_sitemap}</a></li>
 							<li><a href="{html_href_link content=$filename.advanced_search}" title="{$lang.block_service_advanced_search}"><i class="fa fa-search" aria-hidden="true"></i> {$lang.block_service_advanced_search}</a></li>
 						{if $oEvent->installed_plugin('reviews')}
