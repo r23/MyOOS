@@ -1129,7 +1129,8 @@ $flds = "
   reviews_rating I1,
   date_added T,
   last_modified T,
-  reviews_read I2 NOTNULL DEFAULT '0'
+  reviews_read I2 NOTNULL DEFAULT '0',
+  reviews_status I2 NOTNULL DEFAULT '0',
 ";
 dosql($table, $flds);
 

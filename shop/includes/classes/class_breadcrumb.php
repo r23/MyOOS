@@ -72,7 +72,7 @@ class breadcrumb {
 			}
 
 			if (isset($this->links[$i]['icon']) && !empty($this->links[$i]['icon']))	{
-				$link_output .= '<i class="fa fa-' . $this->links[$i]['icon'] . '"></i>';
+				$link_output .= '<i class="fa fa-' . $this->links[$i]['icon'] . '" aria-hidden="true"></i>';
 			} 
 
 			$link_output .= $this->links[$i]['title'];

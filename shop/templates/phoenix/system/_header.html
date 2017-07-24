@@ -148,20 +148,11 @@
 
     {/foreach}
     </table>
-  {else}
-    {$lang.block_shopping_cart_empty}
   {/if}
     </td>
   </tr>
 
-{if $cart_count_contents > 0}
-  <tr>
-    <td><img src="{$theme_image}/red.gif" border="0" alt=" " width="151" height="1"></td>
-   </tr>
-  <tr>
-    <td align="right" class="boxText">{$cart_show_total}</td>
-  </tr>
-{/if}
+
 
 {if $gv_amount_show > 0}
    <tr>

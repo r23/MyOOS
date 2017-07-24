@@ -314,6 +314,7 @@ $aLang['button_notifications'] = 'Notifications';
 $aLang['button_quick_find'] = 'Quick Find';
 $aLang['button_remove_notifications'] = 'Remove Notifications';
 $aLang['button_reviews'] = 'Reviews';
+$aLang['button_submit_a_review'] = 'Submit a review';
 $aLang['button_search'] = 'Search';
 $aLang['button_update'] = 'Update';
 $aLang['button_update_cart'] = 'Update Cart';
