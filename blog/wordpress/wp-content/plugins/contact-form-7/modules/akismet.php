@@ -99,8 +99,10 @@ function wpcf7_akismet_submitted_params() {
 
 				if ( 'author' == $akismet ) {
 					$params[$akismet] = trim( $params[$akismet] . ' ' . $val );
+					continue;
 				} elseif ( '' == $params[$akismet] ) {
 					$params[$akismet] = $val;
+					continue;
 				}
 			}
 		}
