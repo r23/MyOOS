@@ -191,8 +191,10 @@ $aLang['block_service_contact'] = 'Contact';
 // javascript messages
 $aLang['js_error'] = 'Errors have occured during the process of your form!\nPlease make the following corrections:\n\n';
 
-$aLang['js_review_text'] = '* The \'Review Text\' must have at least ' . REVIEW_TEXT_MIN_LENGTH . ' characters.\n';
-$aLang['js_review_rating'] = '* You must rate the product for your review.\n';
+$aLang['review_text'] = '* The \'Review Text\' must have at least ' . REVIEW_TEXT_MIN_LENGTH . ' characters.\n';
+$aLang['review_rating'] = '* You must rate the product for your review.\n';
+$aLang['review_headline'] = '* The \'Review Text\' must have at least 10 characters.\n';
+
 
 $aLang['js_gender'] = '* The \'Gender\' value must be chosen.\n';
 $aLang['js_first_name'] = '* The \'First Name\' entry must have at least ' . ENTRY_FIRST_NAME_MIN_LENGTH . ' characters.\n';

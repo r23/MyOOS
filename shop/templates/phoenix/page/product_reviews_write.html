@@ -11,70 +11,104 @@
 <section class="mainContent clearfix">
 	<div class="container">
 		<div class="row">
-			<div class="col-xs-12">
-				<div class="innerWrapper clearfix">
+		
+			<!-- left column -->
+			<div class="col-lg-9 col-md-9 col-sm-9">
 
-    <table border="0" width="100%" cellspacing="0" cellpadding="0">
-      <tr>
-        <td>{$oosPageHeading}</td>
-      </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
-{if $valid_product eq false }
-          <tr>
-            <td class="main"><br><strong>{$lang.error_invalid_product}</strong></td>
-          </tr>
-{else}
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-
-<form name="product_reviews_write" action="{html_href_link content=$filename.product_reviews_write action=process products_id=$smarty.get.products_id}" method="POST" onSubmit="return checkForm();">
-{if $mySystem.sed}
-    <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
-	<input type="hidden" name="formid" value="{$mySystem.formid}">
-{/if}
-
-          <tr>
-            <td class="main"><strong>{$lang.sub_title_product}</strong> {$product_info.products_name}</td>
-            <td rowspan="4" valign="top" align="right"><br><a href="{product_info_link products_id=$smarty.get.products_id}">{small_product_image image=$product_info.products_image alt=$product_info.products_name|strip_tags hspace=5 vspace=5}</a></td>
-          </tr>
-          <tr>
-            <td class="main"><strong>{$lang.sub_title_from}</strong> {$customer_info.customers_firstname} {$customer_info.customers_lastname}</td>
-          </tr>
-          <tr>
-            <td class="main"><br><strong>{$lang.sub_title_review}</strong></td>
-          </tr>
-          <tr>
-            <td>
-<span id="spell_container" style="background-color: #ddd"></span><br>
-<textarea id="tal" name="review" class="textarea">{$smarty.post.enquiry|stripslashes}</textarea>
-
-            </td>
-          </tr>
-          <tr>
-            <td class="smallText">{$lang.text_no_html}</td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td class="main"><br><strong>{$lang.sub_title_rating}</strong> {$lang.text_bad} <input type="radio" name="rating" value="1"> <input type="radio" name="rating" value="2"> <input type="radio" name="rating" value="3"> <input type="radio" name="rating" value="4"> <input type="radio" name="rating" value="5"> {$lang.text_good}</td>
-      </tr>
-      <tr>
-        <td class="main"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td class="main"><a href="{html_href_link content=$filename.product_reviews products_id=$smarty.get.products_id}" class="btn btn-primary-filled" role="button"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> {$lang.button_back}</a></td>
-            <td align="right" class="main"><button class="btn btn-success-filled" type="submit">{$lang.button_continue}<i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></button></td>
-          </tr>
-        </table><input type="hidden" name="get_params" value="products_id={$smarty.get.products_id}"></form></td>
-      </tr>
-{/if}
-    </table>
-
-				</div>
-			</div>
-		</div>
-	</div>
-</section>	
+			{if $valid_product eq false }
+				<div class="alert alert-danger" role="alert">{$lang.error_invalid_product}</div>
+			{else}				
 	
+	
+				<div class="thumbnail">
+					<!-- product image -->
+					<a class="shop-item-image" href="{product_info_link products_id=$product_info.id}">
+						{small_product_image image=$product_info.products_image alt=$product_info.products_name|strip_tags}
+					</a>
+					<!-- /product image -->
+				</div>
+				
+				<h2><a href="{product_info_link products_id=$product_info.id}">{$product_info.products_name}</a></h2>
+				
+
+	
+				<!-- Review Form-->
+				<form name="reviews-write" id="reviews-write" class="form-horizontal" action="{html_href_link content=$filename.product_reviews_write action=process products_id=$smarty.get.products_id}" method="POST">
+					<fieldset>
+						<input type="hidden" name="content" value="{$filename.advanced_search_result}">	
+						<input type="hidden" name="products_id" value="{$smarty.get.products_id}">
+						{if $mySystem.sed}
+							<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+							<input type="hidden" name="formid" value="{$mySystem.formid}">
+						{/if}
+
+						<section>
+							<div class="col-md-5">
+								<strong>{$lang.sub_title_rating}</strong> <span class="pull-right">{$lang.text_bad}</span>
+							</div>
+
+							<div class="col-md-2 text-center">
+								<select id="product-rating" name="rating" autocomplete="off">
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>	
+								</select>
+							</div>
+
+							<div class="col-md-5">
+								<span class="pull-left">{$lang.text_good}</span>			  
+							</div>										
+						</section>						
+						
+						
+						<section>
+							<div class="col-md-12">
+								<label for="headline">{$lang.subject} *</label>
+								<input type="text" value="{$smarty.post.headline|stripslashes}" class="form-control" name="headline" id="headline" placeholder="{$lang.headline_rating}">
+							</div>
+						</section>
+
+						<section>
+							<div class="col-md-12">
+								<label for="review">{$lang.sub_title_review} *</label>
+								<textarea maxlength="10000" rows="8" class="form-control" name="review" id="review" placeholder="{$lang.review_placeholder}">{$smarty.post.enquiry|stripslashes}</textarea>
+								<p class="note">{$lang.text_no_html}</p>
+							</div>
+						</section>
+																	
+					</fieldset>
+
+					<div class="row">
+						<div class="col-md-12">
+							<button class="btn btn-primary" type="submit"><i class="fa fa-commenting" aria-hidden="true" ></i> {$lang.button_submit_a_review}</button>
+						</div>
+					</div>
+				</form>			
+			{/if}			
+
+			</div><!-- .col -->
+
+			<!-- sidebar-->
+			<div class="col-lg-3 col-md-3">
+			{foreach $sidebar as $panel}
+				{if $panel.content}
+				<div class="panel-group" id="accordion-v{$panel@iteration}">
+					{$panel.content}
+				</div><!-- .panel group-->
+				{/if}
+			{/foreach}
+            </div><!-- .col -->
+			<!-- end sidebar -->
+		</div><!-- .row -->      
+	</div><!--end container-->
+</section>
+<!-- end content -->
+
+
+{if $smarty.const.NEWSLETTER eq true}
+	{include file="phoenix/system/_newsletter.html"}
+{/if}
+
 {include file="phoenix/system/_footer.html"}

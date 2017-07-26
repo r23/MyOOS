@@ -63,34 +63,40 @@ if (isset($_GET['action']) && $_GET['action'] == 'process') {
 
 		$review = oos_prepare_input($_POST['review']);
 		$rating = oos_prepare_input($_POST['rating']);
-
+		$headline = oos_prepare_input($_POST['headline']);
+		
+		
 		$bError = FALSE;
 		if (strlen($review) < REVIEW_TEXT_MIN_LENGTH) {
-			$$oMessage->add('product_reviews_write', $aLang['js_review_text']);
+			$oMessage->add('product_reviews_write', $aLang['review_text']);
 			$bError = TRUE;
 		}
 
 		if (!isset($_POST['rating'])) {
-			$$oMessage->add('product_reviews_write', $aLang['js_review_rating']);
+			$oMessage->add('product_reviews_write', $aLang['review_rating']);
 			$bError = TRUE;
 		}
 
+		if (strlen($headline) < 10) {
+			$oMessage->add('product_reviews_write', $aLang['review_headline']);
+			$bError = TRUE;
+		}		
  
 		if ($bError === FALSE) {
 
-			$customersstable = $oostable['customers'];
-			$sql = "SELECT customers_firstname, customers_lastname, customers_email_address
-					FROM $customersstable
+			$customerstable = $oostable['customers'];
+			$sql = "SELECT customers_firstname, customers_lastname
+					FROM $customerstable
 					WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'";
-			$customer = $dbconn->Execute($sql);
-			$customer_values = $customer->fields;
+			$customer_info_result = $dbconn->Execute($sql);
+			$customer_info = $customer_info_result->fields;
 
-			$firstname = ltrim($customer_values['customers_firstname']);
+			$firstname = ltrim($customer_info['customers_firstname']);
 			$firstname = substr($firstname, 0, 1);
-	  
-			$lastname = ltrim($customer_values['customers_lastname']);
+
+			$lastname = ltrim($customer_info['customers_lastname']);
 			$lastname = substr($lastname, 0, 1);
-			$customers_name = $firstname . '. ' . $customer_values['customers_lastname'];
+			$customers_name = $firstname . '. ' . $lastname . '. ';
 
 			$date_now = date('Ymd');
 			$reviewstable  = $oostable['reviews'];
@@ -109,8 +115,10 @@ if (isset($_GET['action']) && $_GET['action'] == 'process') {
 			$dbconn->Execute("INSERT INTO $reviews_descriptiontable
 							(reviews_id,
 							reviews_languages_id,
+							reviews_headline,
 							reviews_text) VALUES ('" . intval($insert_id) . "',
 												'" . intval($nLanguageID) . "',
+												'" . oos_db_input($headline) . "',
 												'" . oos_db_input($review) . "')");
 
 			$email_subject = 'Review: ' . $product_info['products_name'];
@@ -153,12 +161,8 @@ $lastname = ltrim($customer_info['customers_lastname']);
 $lastname = substr($lastname, 0, 1);
 $customers_name = $firstname . '. ' . $lastname . '. ';
 
-ob_start();
-require 'js/product_reviews_write.js.php';
-$javascript = ob_get_contents();
-ob_end_clean();
-
 $aTemplate['page'] = $sTheme . '/page/product_reviews_write.html';
+$aTemplate['javascript'] = $sTheme . '/js/product_reviews_write.html';
 
 $nPageType = OOS_PAGE_TYPE_REVIEWS;
 $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
@@ -181,6 +185,8 @@ $smarty->assign(
 		'customers_name'	=> $customers_name
 	)
 );
+
+$smarty->assign('javascript', $smarty->fetch($aTemplate['javascript']));
 
 // display the template
 $smarty->display($aTemplate['page']);

@@ -35,6 +35,7 @@ define('OOS_ADMIN', 'admin/');
 
 define('OOS_IMAGES', 'images/');
 define('OOS_POPUP_IMAGES', 'images_big/');
+define('OOS_CUSTOMERS_IMAGES', 'ci/');
 
 define('OOS_SHOP_IMAGES', '../' . OOS_IMAGES);
 define('OOS_ICONS', OOS_IMAGES . 'icons/');
@@ -49,7 +50,6 @@ define('OOS_FEEDS_EXPORT_PATH', OOS_ABSOLUTE_PATH . 'feed/');
 define('OOS_EXPORT_PATH', OOS_ABSOLUTE_PATH . OOS_ADMIN . 'export/');
 
 define('OOS_UPLOADS', OOS_ABSOLUTE_PATH . OOS_IMAGES . 'uploads/');
-
 
 define('OOS_TEMP_PATH', OOS_ABSOLUTE_PATH . 'temp/');
 define('ADODB_ERROR_LOG_DEST', OOS_TEMP_PATH . 'logs/adodb_error.log');

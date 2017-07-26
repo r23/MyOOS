@@ -1,4 +1,4 @@
-<?php 
+<?php
 /* ----------------------------------------------------------------------
    $Id: global.php 216 2013-04-02 08:24:45Z r23 $
 
@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: global.php,v 1.17.2.1 2002/04/03 21:03:19 jgm 
+   File: global.php,v 1.17.2.1 2002/04/03 21:03:19 jgm
    ----------------------------------------------------------------------
    POST-NUKE Content Management System
    Copyright (C) 2001 by the Post-Nuke Development Team.
@@ -21,7 +21,7 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-@setlocale(LC_TIME, 'en_US');  
+@setlocale(LC_TIME, 'en_US');
 define('DATE_FORMAT_LONG', '%A, %d. %B %Y'); // this is used for strftime()
 define('DATE_TIME_FORMAT', DATE_FORMAT_LONG . ' %H:%M:%S');
 
@@ -64,9 +64,9 @@ define('PHP_CHECK_8', 'magic_quotes_gpc is On.');
 define('PHP_CHECK_9', 'magic_quotes_runtime is On.');
 define('PHP_CHECK_10', 'Insert into its .htaccess file the Following line:<br />php_flag magic_quotes_runtime Off');
 define('PHP_CHECK_11', 'magic_quotes_runtime is Off.');
-define('PHP_CHECK_12', 'no Graphic-Functions'); 
+define('PHP_CHECK_12', 'no Graphic-Functions');
 define('PHP_CHECK_13', 'For Graphic-Functions you need the GD-Library gd-lib (recommended version 2.0 or more highly) <br />available under - <a href=\'http://www.boutell.com/gd/\' target=\'_blank\'>http://www.boutell.com/gd/</a>');
-define('PHP_CHECK_14', 'no truecolor Graphic-Functions'); 
+define('PHP_CHECK_14', 'no truecolor Graphic-Functions');
 define('PHP_CHECK_15', 'For Graphic-Functions in MyOOS [Shopsystem] we recommended <br />GD-Library gd-lib Version 2.0 or higher - <a href=\'http://www.boutell.com/gd/\' target=\'_blank\'>http://www.boutell.com/gd/</a>');
 define('PHP_CHECK_16', 'PHP_SELF');
 define('PHP_CHECK_17', 'The File name straight implemented Scripts, relative to the root listing of the document is not available.');

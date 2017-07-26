@@ -1130,7 +1130,7 @@ $flds = "
   date_added T,
   last_modified T,
   reviews_read I2 NOTNULL DEFAULT '0',
-  reviews_status I2 NOTNULL DEFAULT '0',
+  reviews_status I2 NOTNULL DEFAULT '0'
 ";
 dosql($table, $flds);
 
@@ -1139,6 +1139,7 @@ $table = $prefix_table . 'reviews_description';
 $flds = "
   reviews_id I NOTNULL PRIMARY,
   reviews_languages_id I NOTNULL DEFAULT '1' PRIMARY,
+  reviews_headline C(255) NOTNULL,
   reviews_text X NOTNULL
 ";
 dosql($table, $flds);

@@ -1,0 +1,45 @@
+<script type="text/javascript" src="js/plugins/validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="js/plugins/validate/localization/messages_{$content_language}.min.js"></script>
+<script type="text/javascript" src="js/plugins/bar-rating/jquery.barrating.min.js"></script>
+{literal}
+	<script>
+		$( document ).ready( function () {
+			$( "#reviews-write" ).validate( {
+				rules: {
+					headline: {
+						required: true,
+						minlength: 10
+					},
+					review: {
+						required: true,
+						minlength:  {/literal}{$smarty.const.REVIEW_TEXT_MIN_LENGTH}{literal}	
+					}
+				},
+				errorElement: "em",
+				errorPlacement: function ( error, element ) {
+					// Add the `help-block` class to the error element
+					error.addClass( "help-block" );
+
+					error.insertAfter( element );
+
+				},
+				highlight: function ( element, errorClass, validClass ) {
+					$( element ).parents( ".col-md-12" ).addClass( "has-error" ).removeClass( "has-success" );
+				},
+				unhighlight: function (element, errorClass, validClass) {
+					$( element ).parents( ".col-md-12" ).addClass( "has-success" ).removeClass( "has-error" );
+				}
+			} );		
+
+			function ratingEnable() {
+				$('#product-rating').barrating({
+					theme: 'fontawesome-stars',
+					AllowEmpty: false,
+					ShowSelectedRating: true
+				});
+			}
+
+			ratingEnable();
+		});		
+	</script>
+{/literal}

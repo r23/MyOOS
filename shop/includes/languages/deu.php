@@ -185,8 +185,10 @@ $aLang['block_service_contact'] = 'Kontakt';
 // javascript messages
 $aLang['js_error'] = 'Notwendige Angaben fehlen!\nBitte richtig ausfüllen.\n\n';
 
-$aLang['js_review_text'] = '* Der Text muss mindestens aus ' . REVIEW_TEXT_MIN_LENGTH . ' Buchstaben bestehen.\n';
-$aLang['js_review_rating'] = '* Geben Sie Ihre Bewertung ein.\n';
+$aLang['review_text'] = '* Der Text muss mindestens aus ' . REVIEW_TEXT_MIN_LENGTH . ' Buchstaben bestehen.\n';
+$aLang['review_rating'] = '* Geben Sie Ihre Bewertung ein.\n';
+$aLang['review_headline'] = '* Der Text muss mindestens aus 10 Buchstaben bestehen.\n';
+
 
 $aLang['js_gender'] = '* Anredeform festlegen.\n';
 $aLang['js_first_name'] = '* Der \'Vornname\' muss mindestens aus ' . ENTRY_FIRST_NAME_MIN_LENGTH . ' Buchstaben bestehen.\n';

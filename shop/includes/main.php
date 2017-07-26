@@ -34,7 +34,7 @@ if (is_readable('includes/local/configure.php')) {
 }
 
 // Version information
-define('OOS_VERSION', '2.0.94 -dev');
+define('OOS_VERSION', '2.0.96 -dev');
 // Complete software name string
 define('OOS_FULL_NAME', 'MyOOS ' . OOS_VERSION);
 
@@ -147,6 +147,9 @@ oos_secure_input();
 // set the language
 $sLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : DEFAULT_LANGUAGE;
 $nLanguageID = isset($_SESSION['language_id']) ? $_SESSION['language_id']+0 : DEFAULT_LANGUAGE_ID;
+$sLanguageCode = isset($_SESSION['iso_639_1']) ? $_SESSION['iso_639_1'] : DEFAULT_LANGUAGE_CODE;
+$sLanguageName = isset($_SESSION['languages_name']) ? $_SESSION['languages_name'] : DEFAULT_LANGUAGE_NAME;
+
 
 if (!isset($_SESSION['language']) || isset($_GET['language'])) {
     // include the language class
@@ -164,7 +167,9 @@ if (!isset($_SESSION['language']) || isset($_GET['language'])) {
 
     $sLanguage = $oLang->language['iso_639_2'];
     $nLanguageID = $oLang->language['id'];
-
+	$sLanguageCode = $oLang->language['iso_639_1'];
+	$sLanguageName = $oLang->language['name'];
+	
     if (isset($_SESSION)) {
         $_SESSION['language'] = $oLang->language['iso_639_2'];
         $_SESSION['language_id'] = $oLang->language['id'];

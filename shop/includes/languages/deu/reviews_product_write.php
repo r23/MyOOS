@@ -26,8 +26,12 @@ $aLang['sub_title_product'] = 'Produkt:';
 $aLang['sub_title_from'] = 'Autor:';
 $aLang['sub_title_review'] = 'Ihre Meinung:';
 $aLang['sub_title_rating'] = 'Bewertung:';
-$aLang['text_no_html'] = '<small><font color="#ff0000"><strong>ACHTUNG:</strong></font></small>&nbsp;HTML wird nicht unterstützt!';
-$aLang['text_bad'] = '<small><font color="#ff0000"><strong>SCHLECHT</strong></font></small>';
-$aLang['text_good'] = '<small><font color="#ff0000"><strong>SEHR GUT</strong></font></small>';
+$aLang['subject'] = 'Überschrift:';
+$aLang['headline_rating'] = 'Überschrift oder Zusammenfassung Ihrer Rezension (erforderlich)';
+$aLang['review_placeholder'] = 'Schreiben Sie hier Ihre Rezension (erforderlich)';
+$aLang['review_info'] = 'Überlegungen:<br>Warum haben Sie diese Bewertung gewählt?<br>Was hat Ihnen gefallen oder nicht gefallen?<br>Wem würden Sie diesen Artikel empfehlen?';
+$aLang['text_no_html'] = '<strong>ACHTUNG:</strong>&nbsp;HTML wird nicht unterstützt!';
+$aLang['text_bad'] = '<strong>SCHLECHT</strong>';
+$aLang['text_good'] = '<strong>SEHR GUT</strong>';
 $aLang['error_invalid_product'] = 'Das von Ihnen gewählte Produkt wurde nicht gefunden!';
 
