@@ -187,15 +187,12 @@ $aLang['block_service_reviews'] = 'Reviews';
 $aLang['block_service_shopping_cart'] = 'Cart Contents';
 $aLang['block_service_contact'] = 'Contact';
 
+$aLang['review_text'] = 'The \'Review Text\' must have at least ' . REVIEW_TEXT_MIN_LENGTH . ' characters.';
+$aLang['review_rating'] = 'You must rate the product for your review.';
+$aLang['review_headline'] = 'The \'Headline\' must have at least 10 characters.';
 
 // javascript messages
 $aLang['js_error'] = 'Errors have occured during the process of your form!\nPlease make the following corrections:\n\n';
-
-$aLang['review_text'] = '* The \'Review Text\' must have at least ' . REVIEW_TEXT_MIN_LENGTH . ' characters.\n';
-$aLang['review_rating'] = '* You must rate the product for your review.\n';
-$aLang['review_headline'] = '* The \'Review Text\' must have at least 10 characters.\n';
-
-
 $aLang['js_gender'] = '* The \'Gender\' value must be chosen.\n';
 $aLang['js_first_name'] = '* The \'First Name\' entry must have at least ' . ENTRY_FIRST_NAME_MIN_LENGTH . ' characters.\n';
 $aLang['js_last_name'] = '* The \'Last Name\' entry must have at least ' . ENTRY_LAST_NAME_MIN_LENGTH . ' characters.\n';

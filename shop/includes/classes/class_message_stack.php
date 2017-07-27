@@ -44,11 +44,11 @@ class messageStack {
     }
 
 // class methods
-    public function add($class, $message, $type = 'error') {
+    public function add($class, $message, $type = 'danger') {
 		$this->messages[] = array('class' => $class, 'type' => $type, 'text' => $message);
     }
 
-    public function add_session($class, $message, $type = 'error') {
+    public function add_session($class, $message, $type = 'danger') {
 		$messageToStack = array();
 		if (isset($_SESSION['messageToStack']) && is_array($_SESSION['messageToStack'])) {
 			$messageToStack = $_SESSION['messageToStack'];

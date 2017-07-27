@@ -182,14 +182,13 @@ $aLang['block_service_shopping_cart'] = 'Warenkorb';
 $aLang['block_service_contact'] = 'Kontakt';
 
 
+$aLang['review_text'] = 'Die Rezension muss mindestens aus ' . REVIEW_TEXT_MIN_LENGTH . ' Buchstaben bestehen.';
+$aLang['review_rating'] = 'Geben Sie Ihre Bewertung ein.';
+$aLang['review_headline'] = 'Die Überschrift muss mindestens aus 10 Buchstaben bestehen.';
+
+
 // javascript messages
 $aLang['js_error'] = 'Notwendige Angaben fehlen!\nBitte richtig ausfüllen.\n\n';
-
-$aLang['review_text'] = '* Der Text muss mindestens aus ' . REVIEW_TEXT_MIN_LENGTH . ' Buchstaben bestehen.\n';
-$aLang['review_rating'] = '* Geben Sie Ihre Bewertung ein.\n';
-$aLang['review_headline'] = '* Der Text muss mindestens aus 10 Buchstaben bestehen.\n';
-
-
 $aLang['js_gender'] = '* Anredeform festlegen.\n';
 $aLang['js_first_name'] = '* Der \'Vornname\' muss mindestens aus ' . ENTRY_FIRST_NAME_MIN_LENGTH . ' Buchstaben bestehen.\n';
 $aLang['js_last_name'] = '* Der \'Nachname\' muss mindestens aus ' . ENTRY_LAST_NAME_MIN_LENGTH . ' Buchstaben bestehen.\n';
