@@ -33,7 +33,7 @@
 
 	
 				<!-- Review Form-->
-				<form name="reviews-write" id="reviews-write" class="form-horizontal" action="{html_get_link connection=SSL}" method="POST">
+				<form name="reviews-write" id="reviews-write" class="form-horizontal" action="{html_get_link connection=SSL}" method="POST" role="form">
 					<fieldset>
 						<input type="hidden" name="action" value="reviews-write-process">
 						<input type="hidden" name="content" value="{$filename.product_reviews_write}">					
@@ -82,7 +82,7 @@
 
 					<div class="row">
 						<div class="col-md-12">
-							<button class="btn btn-primary" type="submit"><i class="fa fa-commenting" aria-hidden="true" ></i> {$lang.button_submit_a_review}</button>
+							<button class="btn btn-primary" type="submit"><i class="fa fa-commenting" aria-hidden="true"></i> {$lang.button_submit_a_review}</button>
 						</div>
 					</div>
 				</form>			
