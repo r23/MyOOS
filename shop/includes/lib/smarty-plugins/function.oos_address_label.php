@@ -53,7 +53,7 @@ function smarty_function_oos_address_label($params, &$smarty)
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    $address_result = $dbconn->Execute("SELECT entry_firstname AS firstname, entry_lastname AS lastname, entry_company AS company, entry_street_address AS street_address, entry_suburb AS suburb, entry_city AS city, entry_postcode AS postcode, entry_state AS state, entry_zone_id AS zone_id, entry_country_id AS country_id FROM " . $oostable['address_book'] . " WHERE customers_id = '" . (int)$customers_id . "' AND address_book_id = '" . (int)$address_id . "'");
+    $address_result = $dbconn->Execute("SELECT entry_firstname AS firstname, entry_lastname AS lastname, entry_company AS company, entry_street_address AS street_address, entry_city AS city, entry_postcode AS postcode, entry_state AS state, entry_zone_id AS zone_id, entry_country_id AS country_id FROM " . $oostable['address_book'] . " WHERE customers_id = '" . (int)$customers_id . "' AND address_book_id = '" . (int)$address_id . "'");
     $address = $address_result->fields;
 
     $format_id = oos_get_address_format_id($address['country_id']);
