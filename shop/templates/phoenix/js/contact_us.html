@@ -1,0 +1,43 @@
+<script type="text/javascript" src="js/plugins/validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="js/plugins/validate/localization/messages_{$content_language}.min.js"></script>
+{literal}
+	<script>
+		$( document ).ready( function () {
+			$( "#contact_us" ).validate( {
+				rules: {
+					name: {
+						required: true,
+						minlength: 5
+					},
+					email: {
+						required: true,
+						email: true
+					},
+					subject: {
+						required: true,
+						minlength: 8
+					},
+					enquiry: {
+						required: true,
+						minlength:  20
+					},					
+				},
+				errorElement: "em",
+				errorPlacement: function ( error, element ) {
+					// Add the `help-block` class to the error element
+					error.addClass( "help-block" );
+					error.insertAfter( element );
+
+				},
+				highlight: function ( element, errorClass, validClass ) {
+					$( element ).parents( ".col-md-4" ).addClass( "has-error" ).removeClass( "has-success" );
+					$( element ).parents( ".col-md-12" ).addClass( "has-error" ).removeClass( "has-success" );
+				},
+				unhighlight: function (element, errorClass, validClass) {
+					$( element ).parents( ".col-md-4" ).addClass( "has-success" ).removeClass( "has-error" );
+					$( element ).parents( ".col-md-12" ).addClass( "has-error" ).removeClass( "has-success" );
+				}
+			} );
+		});			
+	</script>
+{/literal}

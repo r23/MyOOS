@@ -11,67 +11,102 @@
 <section class="mainContent clearfix">
 	<div class="container">
 		<div class="row">
-			<div class="col-xs-12">
-				<div class="innerWrapper clearfix">
+		
+			<!-- left column -->
+			<div class="col-lg-9 col-md-9 col-sm-9">
+				
+				<!-- FORM -->
+				
+				{if $smarty.get.action eq 'success' }
 
-    <table border="0" width="100%" cellspacing="0" cellpadding="0">
-      <tr>
-        <td>{$oosPageHeading}</td>
-      </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
-{if $smarty.get.action eq 'success' }
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td class="main"><img src="{$theme_image}/heading/man_on_board.gif" border="0" alt="{$heading_title}" width="175" height="198" align="left">{$lang.text_success}</td>
-          </tr>
-          <tr>
-            <td align="right"><br><a href="{html_href_link content=$filename.main}" class="btn btn-primary-filled" role="button">{$lang.button_continue}<i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></a></td>
-          </tr>
-        </table></td>
-      </tr>
-{else}
-      <tr>
-        <td>
-<form name="contact_us" action="{html_href_link content=$filename.contact_us action=send}" method="POST" role="form">
-{if $mySystem.sed}
-    <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
-	<input type="hidden" name="formid" value="{$mySystem.formid}">
+					<!-- Alert Success -->
+					<div id="alert_success" class="alert alert-success margin-bottom-30">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+						{$lang.text_success}
+					</div><!-- /Alert Success -->
+
+				{else}
+				
+					{if $error}
+						<div id="alert_mandatory" class="alert alert-danger margin-bottom-30">
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+							{$lang.form_error}
+						</div>				
+					{/if}
+
+				
+					<form name="contact_us" id="contact_us" class="form-horizontal" action="{html_get_link connection=SSL}" method="POST" role="form">
+						<fieldset>
+							<input type="hidden" name="action" value="send">
+							<input type="hidden" name="content" value="{$filename.contact_us}">	
+							{if $mySystem.sed}
+							<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+							<input type="hidden" name="formid" value="{$mySystem.formid}">
+							{/if}
+
+									<div class="row">
+										<div class="form-group">
+											<div class="col-md-4">
+												<label for="contact:name">{$lang.entry_name} *</label>
+												<input type="text" value="{$smarty.post.name}" class="form-control" name="name" id="name">
+											</div>
+											<div class="col-md-4">
+												<label for="email">{$lang.entry_email} *</label>
+												<input type="email" value="{$smarty.post.email}" class="form-control" name="email" id="email">
+											</div>
+											<div class="col-md-4">
+												<label for="phone">{$lang.entry_telephone_number}</label>
+												<input type="text" value="{$smarty.post.phone}" class="form-control" name="phone" id="phone">
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group">
+											<div class="col-md-12">
+												<label for="subject">{$lang.entry_subject} *</label>
+												<input type="text" value="{$smarty.post.subject}" class="form-control" name="subject" id="subject">
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group">
+											<div class="col-md-12">
+												<label for="enquiry">{$lang.entry_enquiry} *</label>
+												<textarea maxlength="10000" rows="8" class="form-control" name="enquiry" id="enquiry">{$smarty.post.enquiry|stripslashes}</textarea>
+											</div>
+										</div>
+									</div>
+								</fieldset>
+
+								<div class="row">
+									<div class="col-md-12">
+										<button type="submit" class="btn btn-primary"><i class="fa fa-check" aria-hidden="true"></i> {$lang.button_send_message}</button>
+									</div>
+								</div>
+							</form>
+							<!-- /FORM -->
 {/if}
+			</div><!-- .col -->
 
-
-
-<table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td class="main">{$lang.entry_name}<br><input type="text" name="name" value="{$smarty.post.name}" size=40></td>
-          </tr>
-          <tr>
-            <td class="main">{$lang.entry_email}<br><input type="text" name="email" value="{$smarty.post.email}" size=40> {if $error eq 'true'}{$lang.entry_email_address_check_error}{/if}</td>
-          </tr>
-          <tr>
-            <td class="main">{$lang.entry_enquiry}</td>
-          </tr>
-          <tr>
-            <td>
-<span id="spell_container" style="background-color: #ddd"></span><br>
-<textarea id="tal" name="enquiry" class="textarea">{$smarty.post.enquiry|stripslashes}</textarea>
-         </td>
-          </tr>
-          <tr>
-            <td class="main" align="right"><br><button class="btn btn-success-filled" type="submit">{$lang.button_continue}<i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></button></td>
-          </tr>
-        </table></form></td>
-      </tr>
-{/if}
-    </table>
-
-				</div>
-			</div>
-		</div>
-	</div>
+			<!-- sidebar-->
+			<div class="col-lg-3 col-md-3">
+			{foreach $sidebar as $panel}
+				{if $panel.content}
+				<div class="panel-group" id="accordion-v{$panel@iteration}">
+					{$panel.content}
+				</div><!-- .panel group-->
+				{/if}
+			{/foreach}
+            </div><!-- .col -->
+			<!-- end sidebar -->
+		</div><!-- .row -->      
+	</div><!--end container-->
 </section>
-	
+<!-- end content -->
+
+{if $smarty.const.NEWSLETTER eq true}
+	{include file="phoenix/system/_newsletter.html"}
+{/if}
+
 {include file="phoenix/system/_footer.html"}
 	

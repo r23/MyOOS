@@ -25,20 +25,37 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/contact_us.php'; 
   
-$error = 'false';
-if (isset($_GET['action']) && ($_GET['action'] == 'send')) {
+$bError = FALSE;
 
-	$email_address = oos_prepare_input($_POST['email']);
+if ( isset($_POST['action']) && ($_POST['action'] == 'send')  ) { 
 	
-	if ( empty( $email_address ) || !is_string( $email_address ) ) {
-		oos_redirect(oos_href_link($aContents['403']));
-	}
+	$email_address = oos_prepare_input($_POST['email']);
+	$name = oos_prepare_input($_POST['name']);
+	$phone = oos_prepare_input($_POST['phone']);
+	$subject = oos_prepare_input($_POST['subject']);
+	$enquiry = oos_prepare_input($_POST['enquiry']);
+		
+	if (oos_validate_is_email(trim($email_address))) {
 
-	if (oos_validate_is_email(trim($email))) {
-		oos_mail(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, $aLang['email_subject'], $enquiry, $name, $email_address);
+		if ( empty( $subject )) {
+			$subject = $aLang['email_subject'];
+		}	
+
+		$email_text = "\n";
+		$email_text .= $aLang['entry_name'] . ' ' .  $name . "\n";
+		$email_text .= $aLang['entry_telephone_number'] . ' ' .  $phone . "\n";
+		$email_text .= $aLang['entry_email'] . ' ' .  $email_address . "\n";
+		$email_text .= "\n";
+		$email_text .= $aLang['entry_enquiry']  . ' ' . $enquiry . "\n";		
+	
+	echo $email_text;
+	exit;
+		
+		oos_mail(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, $subject, $enquiry, $name, $email_address);
 		oos_redirect(oos_href_link($aContents['contact_us'], 'action=success'));
 	} else {
-		$error = 'true';
+		$oMessage->add('contact_us', $aLang['error_email_address']);
+		$bError = TRUE;
 	}
 }
 
@@ -47,9 +64,14 @@ $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['contact_us']
 $sCanonical = oos_href_link($aContents['contact_us'], '', 'NONSSL', FALSE, TRUE);
 
 $aTemplate['page'] = $sTheme . '/page/contact_us.html';
+$aTemplate['javascript'] = $sTheme . '/js/contact_us.html';
 
 $nPageType = OOS_PAGE_TYPE_MAINPAGE;
 $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
+
+if ($oMessage->size('contact_us') > 0) {
+    $aInfoMessage = array_merge ($aInfoMessage, $oMessage->output('contact_us') );
+}
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
@@ -64,9 +86,12 @@ $smarty->assign(
 			'heading_title' => $aLang['heading_title'],
 			'canonical'		=> $sCanonical,
 
-			'error' => $error
+			'error' => $bError
 		)
 );
+
+$smarty->assign('javascript', $smarty->fetch($aTemplate['javascript']));
+
 
 // display the template
 $smarty->display($aTemplate['page']);

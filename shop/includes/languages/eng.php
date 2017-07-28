@@ -190,6 +190,8 @@ $aLang['block_service_contact'] = 'Contact';
 $aLang['review_text'] = 'The \'Review Text\' must have at least ' . REVIEW_TEXT_MIN_LENGTH . ' characters.';
 $aLang['review_rating'] = 'You must rate the product for your review.';
 $aLang['review_headline'] = 'The \'Headline\' must have at least 10 characters.';
+$aLang['form_error'] = '<strong>Sorry!</strong> You need to complete all mandatory (*) fields!';
+
 
 // javascript messages
 $aLang['js_error'] = 'Errors have occured during the process of your form!\nPlease make the following corrections:\n\n';
@@ -272,7 +274,7 @@ $aLang['entry_password_confirmation_text'] = '&nbsp;<small><font color="#AABBDD"
 $aLang['entry_password_error'] = '&nbsp;<small><font color="#FF0000">min ' . ENTRY_PASSWORD_MIN_LENGTH . ' chars</font></small>';
 $aLang['password_hidden'] = '--HIDDEN--';
 $aLang['entry_info_text'] = 'require_onced';
-
+$aLang['entry_subject'] = 'Subject';
 
 // constants for use in oos_prev_next_display function
 $aLang['text_result_page'] = 'Result Pages:';
@@ -314,6 +316,7 @@ $aLang['button_quick_find'] = 'Quick Find';
 $aLang['button_remove_notifications'] = 'Remove Notifications';
 $aLang['button_reviews'] = 'Reviews';
 $aLang['button_submit_a_review'] = 'Submit a review';
+$aLang['button_send_message'] = 'Send Message';
 $aLang['button_search'] = 'Search';
 $aLang['button_update'] = 'Update';
 $aLang['button_update_cart'] = 'Update Cart';

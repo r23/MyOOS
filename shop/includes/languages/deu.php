@@ -185,7 +185,7 @@ $aLang['block_service_contact'] = 'Kontakt';
 $aLang['review_text'] = 'Die Rezension muss mindestens aus ' . REVIEW_TEXT_MIN_LENGTH . ' Buchstaben bestehen.';
 $aLang['review_rating'] = 'Geben Sie Ihre Bewertung ein.';
 $aLang['review_headline'] = 'Die Überschrift muss mindestens aus 10 Buchstaben bestehen.';
-
+$aLang['form_error'] = '<strong>Notwendige Angaben fehlen!</strong> Bitte richtig ausfüllen.';
 
 // javascript messages
 $aLang['js_error'] = 'Notwendige Angaben fehlen!\nBitte richtig ausfüllen.\n\n';
@@ -263,7 +263,7 @@ $aLang['entry_password_confirmation'] = 'Bestätigung:';
 $aLang['entry_password_error'] = 'mindestens ' . ENTRY_PASSWORD_MIN_LENGTH . ' Zeichen';
 $aLang['password_hidden'] = '--VERSTECKT--';
 $aLang['entry_info_text'] = 'notwendige Eingabe';
-
+$aLang['entry_subject'] = 'Subject';
 
 // constants for use in oos_prev_next_display function
 $aLang['text_result_page'] = 'Seiten:';
@@ -305,6 +305,7 @@ $aLang['button_quick_find'] = 'Schnellsuche';
 $aLang['button_remove_notifications'] = 'Benachrichtigungen löschen';
 $aLang['button_reviews'] = 'Bewertungen';
 $aLang['button_submit_a_review'] = 'Bewertung abgeben';
+$aLang['button_send_message'] = 'Nachricht senden';
 $aLang['button_search'] = 'Suchen';
 $aLang['button_update'] = 'Aktualisieren';
 $aLang['button_update_cart'] = 'Warenkorb aktualisieren';
