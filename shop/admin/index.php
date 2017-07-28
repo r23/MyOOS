@@ -114,7 +114,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
 <title><?php echo TITLE; ?> - Administration [OOS]</title>
-<style type="text/css"><!--
+<style type="text/css">
 a { color:#080381; text-decoration:none; }
 a:hover { color:#aabbdd; text-decoration:underline; }
 a.text:link, a.text:visited { color: #000000; text-decoration: none; }
@@ -135,7 +135,7 @@ A.sub:hover { color: #dddddd; text-decoration: underline; }
 .messageBox { font-family: Verdana, Arial, sans-serif; font-size: 10px; }
 .messageStackError, .messageStackWarning { font-family: Verdana, Arial, sans-serif; font-size: 10px; background-color: #ffb3b5; }
 .messageStackSuccess { font-family: Verdana, Arial, sans-serif; font-size: 10px; background-color: #99ff00; }
-//--></style>
+</style>
 
 
 </head>
