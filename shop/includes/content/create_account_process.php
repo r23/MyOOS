@@ -277,7 +277,6 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validate_vatid.p
                           'city' => $city,
                           'country' => $country,
                           'telephone' => $telephone,
-                          'fax' => $fax,
                           'newsletter' => $newsletter,
                           'password' => $password,
                           'confirmation' => $confirmation));
@@ -345,7 +344,6 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validate_vatid.p
                             'customers_lastname' => $lastname,
                             'customers_email_address' => $email_address,
                             'customers_telephone' => $telephone,
-                            'customers_fax' => $fax,
                             'customers_newsletter' => $newsletter,
                             'customers_status' => $customers_status,
                             'customers_login' => $customers_login,
@@ -556,7 +554,6 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validate_vatid.p
                       $aLang['email_separator'] . "\n\n" .
                       $aLang['owner_email_contact'] . "\n" .
                       $aLang['owner_email_telephone_number'] . ' ' . $telephone . "\n" .
-                      $aLang['owner_email_fax_number'] . ' ' . $fax . "\n" .
                       $aLang['owner_email_address'] . ' ' . $email_address . "\n" .
                       $aLang['email_separator'] . "\n\n" .
                       $aLang['owner_email_options'] . "\n";

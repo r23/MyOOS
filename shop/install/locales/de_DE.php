@@ -197,7 +197,6 @@ define('ADMIN_FIRSTNAME', 'Admin Vorname');
 define('ADMIN_NAME', 'Admin Name');
 define('ADMIN_EMAIL','Admin E-Mail');
 define('ADMIN_PHONE', 'Admin Telefon');
-define('ADMIN_FAX', 'Admin Fax');
 define('ADMIN_PASS','Admin Passwort');
 define('ADMIN_REPEATPASS','Passwort bestätigen');
 define('PASSWORD_HIDDEN', '--VERSTECKT--');

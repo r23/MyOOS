@@ -80,7 +80,6 @@ $flds = "
    entry_firstname C(32) NOTNULL,
    entry_lastname C(32) NOTNULL,
    entry_street_address C(64) NOTNULL,
-   entry_suburb C(32),
    entry_postcode C(10) NOTNULL,
    entry_city C(32) NOTNULL,
    entry_state C(32),
@@ -108,7 +107,6 @@ $flds = "
   admin_lastname C(32) NULL,
   admin_email_address C(96) NOTNULL,
   admin_telephone C(32),
-  admin_fax C(32),
   admin_password C(40) NOTNULL,
   admin_created T,
   admin_modified T,
@@ -166,7 +164,6 @@ $flds = "
   banktransfer_blz C(8),
   banktransfer_status I,
   banktransfer_prz C(2),
-  banktransfer_fax C(2)
 ";
 dosql($table, $flds);
 
@@ -432,7 +429,6 @@ $flds = "
    customers_vat_id C(20) NULL,
    customers_vat_id_status I1 DEFAULT '0' NOTNULL,
    customers_telephone C(32) NOTNULL,
-   customers_fax C(32) NULL,
    customers_password C(40) NOTNULL,
    customers_wishlist_link_id C(32) NOTNULL,
    customers_newsletter C(1) NULL,

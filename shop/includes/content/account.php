@@ -40,8 +40,8 @@ $customerstable = $oostable['customers'];
 $address_bookstable = $oostable['address_book'];
 $sql = "SELECT c.customers_gender, c.customers_firstname, c.customers_lastname,
                  c.customers_dob, c.customers_number, c.customers_email_address,
-                 c.customers_vat_id, c.customers_telephone, c.customers_fax, c.customers_newsletter,
-                 a.entry_company, a.entry_owner, a.entry_street_address, a.entry_suburb,
+                 c.customers_vat_id, c.customers_telephone, c.customers_newsletter,
+                 a.entry_company, a.entry_owner, a.entry_street_address, 
                  a.entry_postcode, a.entry_city, a.entry_zone_id, a.entry_state,
                  a.entry_country_id
           FROM $customerstable c,

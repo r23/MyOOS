@@ -211,7 +211,7 @@ if ($_SESSION['navigation']->snapshot['content'] != $aContents['account_address_
   if (isset($_GET['action']) && ($_GET['action'] == 'modify') && oos_is_not_null($_GET['entry_id'])) {
     $address_booktable = $oostable['address_book'];
     $sql = "SELECT entry_gender, entry_company, entry_firstname, entry_lastname,
-                   entry_street_address, entry_suburb, entry_postcode, entry_city,
+                   entry_street_address, entry_postcode, entry_city,
                    entry_state, entry_zone_id, entry_country_id
             FROM $address_booktable
             WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'

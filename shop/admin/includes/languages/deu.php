@@ -234,7 +234,6 @@ define('ENTRY_CITY', 'Stadt:');
 define('ENTRY_STATE', 'Bundesland:');
 define('ENTRY_COUNTRY', 'Land:');
 define('ENTRY_TELEPHONE_NUMBER', 'Telefonnummer:');
-define('ENTRY_FAX_NUMBER', 'Telefaxnummer:');
 define('ENTRY_NEWSLETTER', 'Rundschreiben:');
 define('ENTRY_NEWSLETTER_YES', 'abonniert');
 define('ENTRY_NEWSLETTER_NO', 'nicht abonniert');

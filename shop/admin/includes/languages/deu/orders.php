@@ -102,7 +102,6 @@ define('TEXT_BANK_OWNER', 'Kontoinhaber:');
 define('TEXT_BANK_NUMBER', 'Kontonummer:');
 define('TEXT_BANK_BLZ', 'BLZ:');
 define('TEXT_BANK_NAME', 'Bank:');
-define('TEXT_BANK_FAX', 'Einzugsermächtigung wird per Fax bestätigt');
 define('TEXT_BANK_STATUS', 'Prüfstatus:');
 define('TEXT_BANK_PRZ', 'Prüfverfahren:');
 

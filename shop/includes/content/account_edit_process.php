@@ -267,12 +267,10 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php'
                           'owner' => $owner,
                           'vat_id' => $vat_id,
                           'street_address' => $street_address,
-                          'suburb' => $suburb,
                           'postcode' => $postcode,
                           'city' => $city,
                           'country' => $country,
                           'telephone' => $telephone,
-                          'fax' => $fax,
                           'newsletter' => $newsletter,
                           'password' => $password,
                           'confirmation' => $confirmation));
@@ -329,7 +327,6 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php'
                             'customers_lastname' => $lastname,
                             'customers_email_address' => $email_address,
                             'customers_telephone' => $telephone,
-                            'customers_fax' => $fax,
                             'customers_newsletter' => $newsletter,
                             'customers_password' => $new_encrypted_password);
 
@@ -429,7 +426,6 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php'
                       $aLang['email_separator'] . "\n\n" .
                       $aLang['owner_email_contact'] . "\n" .
                       $aLang['owner_email_telephone_number'] . ' ' . $telephone . "\n" .
-                      $aLang['owner_email_fax_number'] . ' ' . $fax . "\n" .
                       $aLang['owner_email_address'] . ' ' . $email_address . "\n" .
                       $aLang['email_separator'] . "\n\n" .
                       $aLang['owner_email_options'] . "\n";

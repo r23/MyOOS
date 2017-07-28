@@ -313,10 +313,6 @@ function print_Admin() {
         '  <td align="left"><font class="oos-normal">' . ADMIN_PHONE . '</font></td>' . "\n" .
         '  <td><input type="text" name="phone" SIZE=30 maxlength=80 value=""></td>' . "\n" .
         ' </tr>' . "\n" .
-        ' <tr>' . "\n" .
-        '  <td align="left"><font class="oos-normal">' . ADMIN_FAX . '</font></td>' . "\n" .
-        '  <td><input type="text" name="fax" SIZE=30 maxlength=80 value=""></td>' . "\n" .
-        ' </tr>' . "\n" .
         '</table>' . "\n" .
         '<br /><br />' . "\n";
    print_FormHidden();
@@ -329,7 +325,7 @@ function print_Admin() {
 
 
 function print_ChangeLogin() {
-   global $currentlang, $gender, $firstname, $name, $pwd, $repeatpwd, $email, $phone, $fax, $root_path, $oos_url;
+   global $currentlang, $gender, $firstname, $name, $pwd, $repeatpwd, $email, $phone, $root_path, $oos_url;
 
    echo '<font class="oos-title">' . CONTINUE_1 . '</font>' . "\n";
 
@@ -378,10 +374,6 @@ function print_ChangeLogin() {
         '  <td><input type="text" name="phone" SIZE=30 maxlength=80 value="' . $phone . '"></td>' . "\n" .
         ' </tr>' . "\n" .
         ' <tr>' . "\n" .
-        '  <td align="left"><font class="oos-normal">' . ADMIN_FAX . '</font></td>' . "\n" .
-        '  <td><input type="text" name="fax" SIZE=30 maxlength=80 value="' . $fax . '"></td>' . "\n" .
-        ' </tr>' . "\n" .
-        ' <tr>' . "\n" .
         '  <td align="left">&nbsp;</td>' . "\n" .
         '  <td>&nbsp;</td>' . "\n" .
         ' </tr>' . "\n" .
@@ -396,7 +388,7 @@ function print_ChangeLogin() {
 }
 
 function print_Login() {
-   global $currentlang, $gender, $firstname, $name, $pwd, $repeatpwd, $email, $phone, $fax, $root_path, $oos_url;
+   global $currentlang, $gender, $firstname, $name, $pwd, $repeatpwd, $email, $phone, $root_path, $oos_url;
 
    $oos_gender = ($gender == 'm') ? MALE : FEMALE;
 
@@ -431,10 +423,6 @@ function print_Login() {
         ' <tr>' . "\n" .
         '  <td align="left"><font class="oos-normal">' . ADMIN_PHONE . '</font></td>' . "\n" .
         '  <td><font class="oos-normal">' . $phone . '</font></td>' . "\n" .
-        ' </tr>' . "\n" .
-        ' <tr>' . "\n" .
-        '  <td align="left"><font class="oos-normal">' . ADMIN_FAX . '</font></td>' . "\n" .
-        '  <td><font class="oos-normal">' . $fax . '</font></td>' . "\n" .
         ' </tr>' . "\n" .
         ' <tr>' . "\n" .
         '  <td align="left">&nbsp;</td>' . "\n" .

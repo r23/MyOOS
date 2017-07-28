@@ -124,7 +124,7 @@ require_once '../includes/lib/adodb/adodb.inc.php';
 
     case 'Set Login':
       oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
-      oosInputData($gender, $firstname, $name, $pwd, $repeatpwd, $email, $phone, $fax, $prefix_table, $update);
+      oosInputData($gender, $firstname, $name, $pwd, $repeatpwd, $email, $phone, $prefix_table, $update);
       oosUpdateConfigShop(true); // Scott - added
 
       print_SetLogin();

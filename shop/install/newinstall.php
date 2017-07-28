@@ -68,7 +68,7 @@
   /**
    * This function inserts the default data on new installs
    */
-  function oosInputData($gender, $firstname, $name, $pwd, $repeatpwd, $email, $phone, $fax, $prefix_table, $update) {
+  function oosInputData($gender, $firstname, $name, $pwd, $repeatpwd, $email, $phone, $prefix_table, $update) {
     global $currentlang, $db, $update;
 
 
@@ -93,7 +93,6 @@
              admin_lastname,
              admin_email_address,
              admin_telephone,
-             admin_fax,
              admin_password,
              admin_created)
              VALUES (" . $db->qstr($admin_groups_id) . ','
@@ -102,7 +101,6 @@
                        . $db->qstr($name) . ','
                        . $db->qstr($email) . ','
                        . $db->qstr($phone) . ','
-                       . $db->qstr($fax) . ','
                        . $db->qstr($owp_pwd) . ','
                        . $db->DBTimeStamp($today) . ")";
     $result = $db->Execute($sql);
@@ -128,7 +126,6 @@
              customers_lastname,
              customers_email_address,
              customers_telephone,
-             customers_fax,
              customers_status,
              customers_login,
              customers_max_order,
@@ -140,7 +137,6 @@
                        . $db->qstr($name) . ','
                        . $db->qstr($email) . ','
                        . $db->qstr($phone) . ','
-                       . $db->qstr($fax) . ','
                        . $db->qstr($status) . ','
                        . $db->qstr($login) . ','
                        . $db->qstr($max_order) . ','

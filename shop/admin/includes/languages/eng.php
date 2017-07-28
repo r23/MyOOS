@@ -230,7 +230,6 @@ define('ENTRY_CITY', 'City:');
 define('ENTRY_STATE', 'State:');
 define('ENTRY_COUNTRY', 'Country:');
 define('ENTRY_TELEPHONE_NUMBER', 'Telephone Number:');
-define('ENTRY_FAX_NUMBER', 'Fax Number:');
 define('ENTRY_NEWSLETTER', 'Newsletter:');
 define('ENTRY_NEWSLETTER_YES', 'subscribes');
 define('ENTRY_NEWSLETTER_NO', 'unsubscribes');

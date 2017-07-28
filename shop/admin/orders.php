@@ -247,11 +247,6 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
   if (($action == 'edit') && ($order_exists == true)) {
     $order = new order($oID);
     $the_customers_id = $order->customer['id'];
-
-    // Look up things in customers
-    $customerstable = $oostable['customers'];
-    $the_extra_result= $dbconn->Execute("SELECT customers_fax FROM $customerstable WHERE customers_id = '" . (int)$the_customers_id . "'");
-    $the_customers_fax = $the_extra_result->fields['customers_fax'];
 ?>
 			<!-- Breadcrumbs //-->
 			<div class="row wrapper gray-bg page-heading">
@@ -307,10 +302,6 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
               <tr>
                 <td class="main"><b><?php echo ENTRY_TELEPHONE; ?></b></td>
                 <td class="main"><?php echo $order->customer['telephone']; ?></td>
-              </tr>
-              <tr>
-                <td class="main"><b><?php echo 'FAX #:'; ?></b></td>
-                <td class="main"><?php echo $the_customers_fax; ?></td>
               </tr>
             <tr>
                 <td class="main"><b><?php echo ENTRY_EMAIL_ADDRESS; ?></b></td>
@@ -376,7 +367,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     }
 
     $banktransfertable = $oostable['banktransfer'];
-    $banktransfer_result = $dbconn->Execute("SELECT banktransfer_prz, banktransfer_status, banktransfer_owner, banktransfer_number, banktransfer_bankname, banktransfer_blz, banktransfer_fax FROM $banktransfertable  WHERE orders_id = '" . oos_db_input($_GET['oID']) . "'");
+    $banktransfer_result = $dbconn->Execute("SELECT banktransfer_prz, banktransfer_status, banktransfer_owner, banktransfer_number, banktransfer_bankname, banktransfer_blz, FROM $banktransfertable  WHERE orders_id = '" . oos_db_input($_GET['oID']) . "'");
     $banktransfer = $banktransfer_result->fields;
     if (($banktransfer['banktransfer_bankname']) || ($banktransfer['banktransfer_blz']) || ($banktransfer['banktransfer_number'])) {
 ?>
@@ -434,14 +425,6 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
           </tr>
 <?php
       }
-    }
-    if ($banktransfer['banktransfer_fax']) {
-?>
-          <tr>
-            <td class="main"><?php echo TEXT_BANK_FAX; ?></td>
-            <td class="main"><?php echo $banktransfer['banktransfer_fax']; ?></td>
-          </tr>
-<?php
     }
 ?>
         </table></td>

@@ -176,7 +176,6 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                                 'customers_lastname' => $customers_lastname,
                                 'customers_email_address' => $customers_email_address,
                                 'customers_telephone' => $customers_telephone,
-                                'customers_fax' => $customers_fax,
                                 'customers_newsletter' => $customers_newsletter,
                                 'customers_max_order' => $customers_max_order);
 
@@ -408,7 +407,7 @@ function check_form() {
                                                  c.customers_email_address, c.customers_wishlist_link_id,
                                                  a.entry_company, a.entry_owner, a.entry_street_address, a.entry_suburb,
                                                  a.entry_postcode, a.entry_city, a.entry_state, a.entry_zone_id,
-                                                 a.entry_country_id, c.customers_telephone, c.customers_fax,
+                                                 a.entry_country_id, c.customers_telephone,
                                                  c.customers_newsletter, c.customers_default_address_id,
                                                  c.customers_status, c.customers_max_order
                                           FROM  $customerstable c LEFT JOIN
@@ -631,10 +630,6 @@ function check_form() {
           <tr>
             <td class="main"><?php echo ENTRY_TELEPHONE_NUMBER; ?></td>
             <td class="main"><?php echo oos_draw_input_field('customers_telephone', $cInfo->customers_telephone, 'maxlength="32"', true); ?></td>
-          </tr>
-          <tr>
-            <td class="main"><?php echo ENTRY_FAX_NUMBER; ?></td>
-            <td class="main"><?php echo oos_draw_input_field('customers_fax', $cInfo->customers_fax, 'maxlength="32"'); ?></td>
           </tr>
         </table></td>
       </tr>

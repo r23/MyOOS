@@ -89,7 +89,6 @@ $aLang['owner_email_city'] = 'Ort:';
 $aLang['owner_email_state'] = 'Bundesland:';
 $aLang['owner_email_country'] = 'Land:';
 $aLang['owner_email_telephone_number'] = 'Telefonnummer:';
-$aLang['owner_email_fax_number'] = 'Telefaxnummer:';
 $aLang['owner_email_newsletter'] = 'Newsletter:';
 $aLang['owner_email_newsletter_yes'] = 'abonniert';
 $aLang['owner_email_newsletter_no'] = 'nicht abonniert';

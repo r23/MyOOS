@@ -169,7 +169,7 @@
 
     $address_booktable = $oostable['address_book'];
     $query = "SELECT entry_firstname AS firstname, entry_lastname AS lastname, entry_company AS company,
-                     entry_street_address AS street_address, entry_suburb AS suburb, entry_city AS city,
+                     entry_street_address AS street_address, entry_city AS city,
                      entry_postcode AS postcode, entry_state AS state, entry_zone_id AS zone_id,
                      entry_country_id AS country_id
               FROM  $address_booktable

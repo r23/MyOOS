@@ -53,7 +53,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
 
     $address_booktable = $oostable['address_book'];
     $countriestable = $oostable['countries'];
-    $sql = "SELECT ab.entry_street_address, ab.entry_suburb, ab.entry_postcode, ab.entry_city,
+    $sql = "SELECT ab.entry_street_address, ab.entry_postcode, ab.entry_city,
                    ab.entry_state, ab.entry_country_id, ab.entry_zone_id, c.countries_name, c.address_format_id
             FROM $address_booktable ab,
                  $countriestable c
@@ -63,7 +63,6 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
     $address = $dbconn->GetRow($sql);
 
     $street_address = $address['entry_street_address'];
-    $suburb = $address['entry_suburb'];
     $postcode = $address['entry_postcode'];
     $city = $address['entry_city'];
     $state = oos_get_zone_code($address['entry_country_id'], $address['entry_zone_id'], $address['entry_state']);

@@ -214,7 +214,7 @@
       $zonestable = $oostable['zones'];
       $countriestable = $oostable['countries'];
       $sql = "SELECT c.customers_firstname, c.customers_lastname, c.customers_telephone, c.customers_email_address,
-                     ab.entry_company, ab.entry_street_address, ab.entry_suburb, ab.entry_postcode, ab.entry_city,
+                     ab.entry_company, ab.entry_street_address, ab.entry_postcode, ab.entry_city,
                      ab.entry_zone_id, z.zone_name, co.countries_id, co.countries_name, co.countries_iso_code_2,
                      co.countries_iso_code_3, co.address_format_id, ab.entry_state
               FROM $customerstable c,
@@ -232,7 +232,7 @@
       $zonestable = $oostable['zones'];
       $countriestable = $oostable['countries'];
       $sql = "SELECT ab.entry_firstname, ab.entry_lastname, ab.entry_company, ab.entry_street_address,
-                     ab.entry_suburb, ab.entry_postcode, ab.entry_city, ab.entry_zone_id, z.zone_name,
+                     ab.entry_postcode, ab.entry_city, ab.entry_zone_id, z.zone_name,
                      ab.entry_country_id, c.countries_id, c.countries_name, c.countries_iso_code_2,
                      c.countries_iso_code_3, c.address_format_id, ab.entry_state
               FROM $address_booktable ab LEFT JOIN
@@ -248,7 +248,7 @@
       $zonestable = $oostable['zones'];
       $countriestable = $oostable['countries'];
       $sql = "SELECT ab.entry_firstname, ab.entry_lastname, ab.entry_company, ab.entry_street_address,
-                     ab.entry_suburb, ab.entry_postcode, ab.entry_city, ab.entry_zone_id, z.zone_name,
+                     ab.entry_postcode, ab.entry_city, ab.entry_zone_id, z.zone_name,
                      ab.entry_country_id, c.countries_id, c.countries_name, c.countries_iso_code_2,
                      c.countries_iso_code_3, c.address_format_id, ab.entry_state
               FROM $address_booktable ab LEFT JOIN
@@ -290,7 +290,6 @@
                               'lastname' => $customer_address['customers_lastname'],
                               'company' => $customer_address['entry_company'],
                               'street_address' => $customer_address['entry_street_address'],
-                              'suburb' => $customer_address['entry_suburb'],
                               'city' => $customer_address['entry_city'],
                               'postcode' => $customer_address['entry_postcode'],
                               'state' => ((oos_is_not_null($customer_address['entry_state'])) ? $customer_address['entry_state'] : $customer_address['zone_name']),
@@ -304,7 +303,6 @@
                               'lastname' => $shipping_address['entry_lastname'],
                               'company' => $shipping_address['entry_company'],
                               'street_address' => $shipping_address['entry_street_address'],
-                              'suburb' => $shipping_address['entry_suburb'],
                               'city' => $shipping_address['entry_city'],
                               'postcode' => $shipping_address['entry_postcode'],
                               'state' => ((oos_is_not_null($shipping_address['entry_state'])) ? $shipping_address['entry_state'] : $shipping_address['zone_name']),
@@ -318,7 +316,6 @@
                              'lastname' => $billing_address['entry_lastname'],
                              'company' => $billing_address['entry_company'],
                              'street_address' => $billing_address['entry_street_address'],
-                             'suburb' => $billing_address['entry_suburb'],
                              'city' => $billing_address['entry_city'],
                              'postcode' => $billing_address['entry_postcode'],
                              'state' => ((oos_is_not_null($billing_address['entry_state'])) ? $billing_address['entry_state'] : $billing_address['zone_name']),
