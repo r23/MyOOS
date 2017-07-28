@@ -14,39 +14,36 @@
 			<div class="col-xs-12">
 				<div class="innerWrapper clearfix">
 
-{if $snapshot > 0 }
-<div class="alert alert-danger" role="alert">
-  <a href="#" class="alert-link">...</a>
-</div>
-{/if}
+				{if $snapshot > 0 }
+					<div class="alert alert-danger" role="alert">
+						{$login_orgin_text}
+					</div>
+				{/if}
+					<!-- REGISTER -->
+					
+					<form name="account_edit" class="form-horizontal" action="{html_get_link connection=SSL}" method="POST" role="form">
+						<fieldset>
+							<input type="hidden" name="action" value="send">
+							<input type="hidden" name="content" value="{$filename.create_account_process}">	
+						{if $mySystem.sed}
+							<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+							<input type="hidden" name="formid" value="{$mySystem.formid}">
+						{/if}
 
-<!-- body //-->
-    <form name="account_edit" action="{html_href_link content=$filename.create_account_process connection=SSL}" method="POST" role="form" onSubmit="return check_form();">
-{if $mySystem.sed}
-    <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
-	<input type="hidden" name="formid" value="{$mySystem.formid}">
-{/if}
-	
-	<input type="hidden" name="action" value="process"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-      <tr>
-        <td>{$oosPageHeading}</td>
-      </tr>
-{if $snapshot > 0 }
-      <tr>
-        <td class="smallText"><br>{$login_orgin_text}</td>
-      </tr>
-{/if}
-      <tr>
-        <td height="10"></td>
-      </tr>
-      <tr>
-        <td>
-{include file="phoenix/modules/user_account_details.html"}
-        </td>
-      </tr>
-    </table>
-    </form>
+						{include file="phoenix/modules/user_account_details.html"}
+
+						</fieldset>
+						<div class="row">
+							<div class="col-md-12">
+								<button type="submit" class="btn btn-primary"><i class="fa fa-check" aria-hidden="true"></i> REGISTER</button>
+							</div>
+						</div>
+
+					</form>
+								
 				</div>
+				<!-- /REGISTER -->
+
 			</div>
 		</div>
 	</div>

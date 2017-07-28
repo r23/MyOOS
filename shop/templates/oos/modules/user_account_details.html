@@ -88,12 +88,6 @@
             <td class="main">&nbsp;{$lang.entry_street_address}</td>
             <td class="main">&nbsp;<input type="text" name="street_address" value="{$account.entry_street_address}">&nbsp;&nbsp;<small><font color="#AABBDD">{$lang.entry_info_text}</font></small></td>
           </tr>
-{if $smarty.const.ACCOUNT_SUBURB eq 'true'}
-          <tr>
-            <td class="main">&nbsp;{$lang.entry_suburb}</td>
-            <td class="main">&nbsp;<input type="text" name="suburb" value="{$account.entry_suburb}"></td>
-          </tr>
-{/if}
           <tr>
             <td class="main">&nbsp;{$lang.entry_post_code}</td>
             <td class="main">&nbsp;<input type="text" name="postcode" value="{$account.entry_postcode}">&nbsp;&nbsp;<small><font color="#AABBDD">{$lang.entry_info_text}</font></small></td>

@@ -179,7 +179,6 @@ if (!isset($_SESSION['customer_id'])) {
 
         if (ACCOUNT_GENDER == 'true') $sql_data_array['entry_gender'] = $gender;
         if (ACCOUNT_COMPANY == 'true') $sql_data_array['entry_company'] = $company;
-        if (ACCOUNT_SUBURB == 'true') $sql_data_array['entry_suburb'] = $suburb;
         if (ACCOUNT_STATE == 'true') {
           if ($zone_id > 0) {
             $sql_data_array['entry_zone_id'] = $zone_id;

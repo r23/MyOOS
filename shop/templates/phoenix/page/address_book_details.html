@@ -136,18 +136,6 @@
   {/if}
 </td>
           </tr>
-{if $smarty.const.ACCOUNT_SUBURB eq 'true'}
-          <tr>
-            <td class="main">&nbsp;{$lang.entry_suburb}</td>
-            <td class="main">&nbsp;
-    {if $process eq 'true'}
-      {$suburb}<input type=hidden name="suburb" value="{$suburb}">
-    {else}
-       <input type="text" name="suburb" value="{$entry.entry_suburb}">
-    {/if}
-</td>
-          </tr>
-{/if}
           <tr>
             <td class="main">&nbsp;{$lang.entry_post_code}</td>
             <td class="main">&nbsp;

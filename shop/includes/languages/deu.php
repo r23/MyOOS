@@ -239,9 +239,6 @@ $aLang['entry_email_address_error_exists'] = 'Diese eMail-Adresse existiert scho
 $aLang['entry_street_address'] = 'Strasse/Nr.:';
 $aLang['entry_street_address_error'] = 'mindestens ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' Buchstaben';
 
-$aLang['entry_suburb'] = 'Stadtteil:';
-$aLang['entry_suburb_error'] = '';
-$aLang['entry_suburb_text'] = '';
 $aLang['entry_post_code'] = 'Postleitzahl:';
 $aLang['entry_post_code_error'] = 'mindestens ' . ENTRY_POSTCODE_MIN_LENGTH . ' Zahlen';
 $aLang['entry_city'] = 'Ort:';

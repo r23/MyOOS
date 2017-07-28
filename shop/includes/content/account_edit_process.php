@@ -363,7 +363,6 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php'
     if (ACCOUNT_GENDER == 'true') $sql_data_array['entry_gender'] = $gender;
     if (ACCOUNT_COMPANY == 'true') $sql_data_array['entry_company'] = $company;
     if (ACCOUNT_OWNER == 'true') $sql_data_array['entry_owner'] = $owner;
-    if (ACCOUNT_SUBURB == 'true') $sql_data_array['entry_suburb'] = $suburb;
 
     if (ACCOUNT_STATE == 'true') {
       if ($zone_id > 0) {

@@ -247,9 +247,8 @@ $aLang['entry_email_address_error_exists'] = '&nbsp;<small><font color="#FF0000"
 
 $aLang['entry_street_address'] = 'Street Address:';
 $aLang['entry_street_address_error'] = '&nbsp;<small><font color="#FF0000">min ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' chars</font></small>';
-$aLang['entry_suburb'] = 'Suburb:';
-$aLang['entry_suburb_error'] = '';
-$aLang['entry_suburb_text'] = '';
+
+
 $aLang['entry_post_code'] = 'Post Code:';
 $aLang['entry_post_code_error'] = '&nbsp;<small><font color="#FF0000">min ' . ENTRY_POSTCODE_MIN_LENGTH . ' chars</font></small>';
 $aLang['entry_city'] = 'City:';

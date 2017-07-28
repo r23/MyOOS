@@ -29,12 +29,17 @@
 // start the session
 if ( $session->hasStarted() === FALSE ) $session->start();  
 
+/*
+if ( isset($_POST['action']) && ($_POST['action'] == 'process') && 
+	( isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) ){
+*/
+
 // require  the password crypto functions
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_password.php';
 // require  validation functions (right now only email address)
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php';  
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_create_account_process.php';
-  require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validate_vatid.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_create_account_process.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validate_vatid.php';
 
   $firstname = oos_db_prepare_input($_POST['firstname']);
   $lastname = oos_db_prepare_input($_POST['lastname']);
@@ -377,7 +382,6 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php'
     if (ACCOUNT_GENDER == 'true') $sql_data_array['entry_gender'] = $gender;
     if (ACCOUNT_COMPANY == 'true') $sql_data_array['entry_company'] = $company;
     if (ACCOUNT_OWNER == 'true') $sql_data_array['entry_owner'] = $owner;
-    if (ACCOUNT_SUBURB == 'true') $sql_data_array['entry_suburb'] = $suburb;
     if (ACCOUNT_STATE == 'true') {
       if ($zone_id > 0) {
         $sql_data_array['entry_zone_id'] = $zone_id;

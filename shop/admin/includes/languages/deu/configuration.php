@@ -215,10 +215,6 @@ define('ACCOUNT_OWNER_DESC', 'Der Inhaber der Firmen bei gewerblichen Kunden kan
 define('ACCOUNT_VAT_ID_TITLE', 'Umsatzsteuer ID');
 define('ACCOUNT_VAT_ID_DESC', 'Die Umsatzsteuer ID bei gewerblichen Kunden kann eingegeben werden.');
 
-
-define('ACCOUNT_SUBURB_TITLE', 'Stadtteil');
-define('ACCOUNT_SUBURB_DESC', 'Stadtteil wird angezeigt und kann eingegeben werden. Eine Eingabe ist nicht zwingend notwendig.');
-
 define('ACCOUNT_STATE_TITLE', 'Bundesland');
 define('ACCOUNT_STATE_DESC', 'Die Anzeige und Eingabe des Bundeslandes wird ermöglicht. Die Eingabe ist bei Anzeige zwingend notwendig.');
 
