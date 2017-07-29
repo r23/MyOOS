@@ -261,7 +261,6 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php'
                           'firstname' => $firstname,
                           'lastname' => $lastname,
                           'dob' => $dob,
-                          'number' => $number,
                           'email_address' => $email_address,
                           'company' => $company,
                           'owner' => $owner,
@@ -320,7 +319,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php'
     $smarty->assign('newsletter', array($aLang['entry_newsletter_no'],$aLang['entry_newsletter_yes']));
   
 
-  $smarty->display($aTemplate['page']);
+    $smarty->display($aTemplate['page']);
   } else {
     $new_encrypted_password = oos_encrypt_password($password);
     $sql_data_array = array('customers_firstname' => $firstname,
@@ -396,10 +395,6 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php'
                      $aLang['email_separator'] . "\n" . 
                      $aLang['owner_email_date'] . ' ' . strftime(DATE_FORMAT_LONG) . "\n\n" .
                      $aLang['email_separator'] . "\n";
-      if (ACCOUNT_NUMBER == 'true') {
-        $email_owner .= $aLang['owner_email_number'] . ' ' . $number . "\n" .
-                        $aLang['email_separator'] . "\n\n";
-      }
       if (ACCOUNT_COMPANY == 'true') {
         $email_owner .= $aLang['owner_email_company_info'] . "\n" . 
                         $aLang['owner_email_company'] . ' ' . $company . "\n";

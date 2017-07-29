@@ -210,9 +210,6 @@ define('ACCOUNT_GENDER_DESC', 'Die Anrede wird angezeigt');
 define('ACCOUNT_DOB_TITLE', 'Geburtsdatum');
 define('ACCOUNT_DOB_DESC', 'Das Gebutsdatum wird zwingend gefordert');
 
-define('ACCOUNT_NUMBER_TITLE', 'Kundennummer');
-define('ACCOUNT_NUMBER_DESC', 'Verwaltung von eigenen Kundenummern');
-
 define('ACCOUNT_COMPANY_TITLE', 'Firmenname');
 define('ACCOUNT_COMPANY_DESC', 'Firmenname wird angezeigt');
 

@@ -76,7 +76,6 @@ $aLang['owner_email_contact'] = 'Kontaktinformationen';
 $aLang['owner_email_options'] = 'Optionen';
 $aLang['owner_email_company'] = 'Firmenname:';
 $aLang['owner_email_owner'] = 'Inhaber:';
-$aLang['owner_email_number'] = 'Kundennummer:';
 $aLang['owner_email_gender'] = 'Anrede:';
 $aLang['owner_email_first_name'] = 'Vorname:';
 $aLang['owner_email_last_name'] = 'Nachname:';

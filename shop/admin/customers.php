@@ -180,7 +180,6 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                                 'customers_max_order' => $customers_max_order);
 
         if (ACCOUNT_GENDER == 'true') $sql_data_array['customers_gender'] = $customers_gender;
-        if (ACCOUNT_NUMBER == 'true') $sql_data_array['customers_number'] = $customers_number;
         if (ACCOUNT_VAT_ID == 'true') {
           $sql_data_array['customers_vat_id'] = $customers_vat_id;
           $sql_data_array['customers_vat_id_status'] = $customers_vat_id_status;
@@ -403,7 +402,7 @@ function check_form() {
     $customerstable = $oostable['customers'];
     $address_booktable = $oostable['address_book'];
     $customers_result = $dbconn->Execute("SELECT c.customers_gender, c.customers_firstname, c.customers_lastname,
-                                                 c.customers_dob, c.customers_number, c.customers_vat_id, c.customers_vat_id_status,
+                                                 c.customers_dob, c.customers_vat_id, c.customers_vat_id_status,
                                                  c.customers_email_address, c.customers_wishlist_link_id,
                                                  a.entry_company, a.entry_owner, a.entry_street_address, a.entry_suburb,
                                                  a.entry_postcode, a.entry_city, a.entry_state, a.entry_zone_id,
@@ -497,14 +496,6 @@ function check_form() {
           <tr>
             <td class="main"><?php echo ENTRY_DATE_OF_BIRTH; ?></td>
             <td class="main"><?php echo oos_draw_input_field('customers_dob', oos_date_short($cInfo->customers_dob), 'maxlength="10"', true); ?></td>
-          </tr>
-<?php
-    }
-    if (ACCOUNT_NUMBER == 'true') {
-?>
-          <tr>
-            <td class="main"><?php echo ENTRY_NUMBER; ?></td>
-            <td class="main"><?php echo oos_draw_input_field('customers_number', $cInfo->customers_number, 'maxlength="32"'); ?></td>
           </tr>
 <?php
     }

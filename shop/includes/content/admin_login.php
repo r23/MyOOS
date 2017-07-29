@@ -102,13 +102,6 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'login_process') &&
         oos_redirect(oos_href_link($aContents['403']));
     }
 
-/*
-	// todo: $keya not null
-    if ( empty( $keya ) || !is_string( $keya ) ) {
-        oos_redirect(oos_href_link($aContents['403']));
-    }  
-*/
-
     if ( empty( $keyb ) || !is_string( $keyb ) ) {
         oos_redirect(oos_href_link($aContents['403']));
     }
@@ -173,6 +166,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'login_process') &&
 
 		// restore cart contents
 		$_SESSION['cart']->restore_contents();
+		
 		oos_redirect(oos_href_link($aContents['account'], '', 'SSL'));
 
     }
@@ -216,7 +210,7 @@ if (isset($_GET['action']) && ($_GET['action'] == 'login_admin')) {
     }
 
 	require_once MYOOS_INCLUDE_PATH . '/includes/modules/key_generate.php';
-	
+
 	$manual_infotable = $oostable['manual_info'];
 	$login_query = "SELECT man_key2, man_key3, status FROM $manual_infotable WHERE man_key = '" . oos_db_input($verif_key) . "' AND status = '1'";
 	$login_result_values = $dbconn->GetRow($login_query);

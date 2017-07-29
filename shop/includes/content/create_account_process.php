@@ -354,7 +354,6 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validate_vatid.p
                             'customers_default_address_id' => 1);
 
     if (ACCOUNT_GENDER == 'true') $sql_data_array['customers_gender'] = $gender;
-    if (ACCOUNT_NUMBER == 'true') $sql_data_array['customers_number'] = $number;
     if (ACCOUNT_DOB == 'true') $sql_data_array['customers_dob'] = oos_date_raw($dob);
     if (ACCOUNT_VAT_ID == 'true') {
       $sql_data_array['customers_vat_id'] = $vat_id;

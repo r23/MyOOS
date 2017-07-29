@@ -203,9 +203,6 @@ define('ACCOUNT_GENDER_DESC', 'Die Anrede wird angezeigt und als Eingabe zwingen
 define('ACCOUNT_DOB_TITLE', 'Geburtsdatum');
 define('ACCOUNT_DOB_DESC', 'Das Gebutsdatum wird als Eingabe zwingend gefordert, wenn auf \'true\' gesetzt wird. Sonst wird es als nicht als Eingabemöglichkeit angezeigt.');
 
-define('ACCOUNT_NUMBER_TITLE', 'Kundennummer');
-define('ACCOUNT_NUMBER_DESC', 'Verwaltung von eigenen Kundenummern, wenn auf \'true\' gesetzt wird. Sonst wird es als nicht als Eingabemöglichkeit angezeigt. Die Eingabe ist nicht zwingend notwendig.');
-
 define('ACCOUNT_COMPANY_TITLE', 'Firmenname');
 define('ACCOUNT_COMPANY_DESC', 'Ein Firmenname für gewerbliche Kunden kann eingegeben werden. Die Eingabe ist nicht zwingend notwendig.');
 

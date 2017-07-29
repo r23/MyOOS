@@ -422,7 +422,6 @@ $flds = "
    customers_firstname C(32) NOTNULL,
    customers_lastname C(32) NOTNULL,
    customers_image C(64) NULL,
-   customers_number C(16) NOTNULL,
    customers_dob T,
    customers_email_address C(96) NOTNULL,
    customers_default_address_id I2 DEFAULT '1' NOTNULL,
