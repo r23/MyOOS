@@ -57,4 +57,3 @@ function smarty_function_oos_check_stock($params, &$smarty)
     return $out_of_stock;
   }
 
-?>

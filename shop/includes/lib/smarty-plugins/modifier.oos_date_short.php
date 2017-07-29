@@ -56,5 +56,3 @@ function smarty_modifier_oos_date_short($raw_date)
       return preg_match('/2037' . '$/', $year, date(DATE_FORMAT, mktime($hour, $minute, $second, $month, $day, 2037)));
     }
 }
-
-

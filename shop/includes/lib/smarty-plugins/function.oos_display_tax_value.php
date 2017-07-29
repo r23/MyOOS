@@ -75,4 +75,4 @@ function smarty_function_oos_display_tax_value($params, &$smarty)
    }
    return $value;
 }
-?>
+

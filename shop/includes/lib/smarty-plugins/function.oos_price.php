@@ -53,4 +53,3 @@ function smarty_function_oos_price($params, &$smarty)
    print $oCurrencies->display_price($price, $tax, $qty);
 
 }
-?>

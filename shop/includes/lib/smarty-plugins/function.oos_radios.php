@@ -159,4 +159,3 @@ function oos_function_oos_radios_output($name, $value, $output, $selected, $extr
     return $_output;
 }
 
-?>

@@ -45,4 +45,3 @@ function smarty_modifier_close_tags($string)
   }
   return $string;
 }
-?>

@@ -40,5 +40,3 @@ function smarty_modifier_str_pad_trim($string, $length, $pad_string=' ', $pad_ty
     return substr($string,intval(($strlen-$length)/2),$length);
   }
 }
-
-?>

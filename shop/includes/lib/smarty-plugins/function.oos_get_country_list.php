@@ -92,4 +92,4 @@ function smarty_function_oos_get_country_list($params, &$smarty)
     print $html_result;
 }
 
-?>
+

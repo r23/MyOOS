@@ -40,5 +40,3 @@ function smarty_modifier_gravatar($email, $default=false, $size=false, $rating=f
     }
     return $gravurl. "' alt='Gravatar Image' />";
 }
-
-?>

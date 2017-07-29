@@ -39,5 +39,3 @@ function smarty_modifier_escape_wquotes ($text)
                            );
    return str_replace($badwordchars,$fixedwordchars,$text);
 }
-
-?>

@@ -45,5 +45,3 @@ function smarty_modifier_clean_text($string, $with_links = TRUE)
     return $string;
 
 }
-
-?>

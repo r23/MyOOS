@@ -27,6 +27,3 @@ function smarty_function_assign_array($params, &$smarty)
     
     return $values[$var];
 }
-
-
-?>

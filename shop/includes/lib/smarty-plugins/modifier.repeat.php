@@ -19,5 +19,3 @@ function smarty_modifier_repeat($level, $replace = ' ')
 { 
     return str_repeat($replace, $level); 
 }
-
-?>

@@ -50,4 +50,3 @@ function smarty_function_oos_cost($params, &$smarty)
    
    print $oCurrencies->format(oos_add_tax($price, $tax));
 }
-?>

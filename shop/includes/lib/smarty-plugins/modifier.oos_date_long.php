@@ -52,5 +52,3 @@ function smarty_modifier_oos_date_long($raw_date)
 
     return strftime(DATE_FORMAT_LONG, mktime($hour,$minute,$second,$month,$day,$year));
 }
-
-?>

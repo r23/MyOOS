@@ -56,6 +56,4 @@ function smarty_function_oos_get_zone_name($params, &$smarty)
       return $default_zone;
     }
 
-  }
-
-?>
+}

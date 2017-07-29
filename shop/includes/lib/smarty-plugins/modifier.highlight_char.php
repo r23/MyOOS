@@ -50,4 +50,4 @@ function smarty_modifier_highlight_char($string,$css_class,$tag_name="span")
 		return '';
 	}
 }
-?>
+

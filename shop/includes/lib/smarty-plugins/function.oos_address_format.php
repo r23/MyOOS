@@ -63,7 +63,6 @@ function smarty_function_oos_address_format($params, &$smarty)
    $firstname = addslashes($address['firstname']);
    $lastname = addslashes($address['lastname']);
    $street = addslashes($address['street_address']);
-   $suburb = addslashes($address['suburb']);
    $city = addslashes($address['city']);
    $state = addslashes($address['state']);
    $country_id = $address['country_id'];
@@ -111,4 +110,3 @@ function smarty_function_oos_address_format($params, &$smarty)
    print $boln . $address . $eoln;
 }
 
-?>

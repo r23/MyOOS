@@ -44,4 +44,3 @@ function smarty_function_categories_link($params, &$smarty)
   return smarty_function_html_href_link($result, $smarty);
 
 }
-

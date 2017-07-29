@@ -33,5 +33,3 @@ function smarty_modifier_quantity($number, $decimal_places = 2)
 
     return $number;
 }
-
-?>
