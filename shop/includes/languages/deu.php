@@ -163,6 +163,7 @@ $aLang['block_newsletter_unsubscribe'] = 'Austragen';
 $aLang['error_email_address'] =  '<strong>FEHLER Ihre E-Mail-Adresse:</strong> Keine oder ungültige Eingabe!';
 $aLang['newsletter_email_info'] =  'Ihre E-Mail-Adresse wurde in unser System eingetragen.<br />Gleichzeitig wurde Ihnen vom System eine E-Mail mit einem Aktivierungslink geschickt. Bitte klicken Sie nach dem Erhalt der E-Mail auf den Link, um Ihre Eintragung zu bestätigen.';
 $aLang['newsletter_email_subject'] = 'Bitte bestätigen Sie Ihre Anmeldung';
+$aLang['newsletter_notice'] = 'Sie können Ihr Einverständnis jederzeit widerrufen. Unsere Kontaktinformationen finden Sie u. a. in der Datenschutzerklärung.';
 $aLang['entry_newsletter_no'] = 'Nein';
 $aLang['entry_newsletter_yes'] = 'Ja';
 $aLang['text_email_active'] = 'Ihre E-Mail-Adresse wurde erfolgreich für den Newsletterempfang freigeschaltet!';

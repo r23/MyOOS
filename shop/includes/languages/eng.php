@@ -168,6 +168,7 @@ $aLang['block_newsletter_unsubscribe'] = 'Unsubscribe';
 $aLang['error_email_address'] =  '<strong>Your e-mail address:</strong> None or invalid input!';
 $aLang['newsletter_email_info'] =  'Your e-mail adress has been registered in our system.<br />An e-mail with a confirmation link has been send out. Click the link in order to complete registration!';
 $aLang['newsletter_email_subject'] = 'Your newsletter account';
+$aLang['newsletter_notice'] = 'You may unsubscribe at any moment. For that purpose, please find our contact info in the legal notice.';
 $aLang['entry_newsletter_no'] = 'No';
 $aLang['entry_newsletter_yes'] = 'Yes';
 $aLang['text_email_active'] = 'Your e-mail address has successfully been registered for the newsletter!';

@@ -37,7 +37,7 @@ if ( empty( $email_address ) || !is_string( $email_address ) ) {
 if ( ($bError === FALSE) && (!oos_validate_is_email($email_address)) ) {
 	$bError = TRUE;
 	$aInfoMessage[] = array('type' => 'danger',
-				'text' => $aLang['error_email_address']);
+							'text' => $aLang['error_email_address']);
 } 
 
 if ( isset($_POST['newsletter']) 
@@ -54,12 +54,11 @@ if ( isset($_POST['newsletter'])
 	if ($check_recipients_result->RecordCount()) {
 		$bError = TRUE;
 		$aInfoMessage[] = array('type' => 'danger',
-					'text' => $aLang['entry_email_address_error_exists']);
+								'text' => $aLang['entry_email_address_error_exists']);
 
 	} else {
-		$newsletter_recipients = $oostable['newsletter_recipients'];
-		$dbconn->Execute("DELETE FROM $newsletter_recipients WHERE customers_email_address = '" . oos_db_input($email_address) . "'"); 
-
+		oos_newsletter_subscribe_mail($email_address); 
+exit;
 		$sRandom = oos_create_random_value(25);
 		$sBefor = oos_create_random_value(4);
 	
@@ -108,6 +107,9 @@ if ( isset($_POST['newsletter'])
 		// create mails	
 		$email_html = $smarty->fetch($sTheme . '/email/' . $sLanguage . '/newsletter_subscribe.html');
 		$email_txt = $smarty->fetch($sTheme . '/email/' . $sLanguage . '/newsletter_subscribe.tpl');
+
+echo $email_txt;
+exit;
 		
 		oos_mail('', $email_address, $aLang['newsletter_email_subject'], $email_txt, $email_html, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
 

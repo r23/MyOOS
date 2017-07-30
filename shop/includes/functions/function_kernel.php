@@ -1314,3 +1314,75 @@ function oos_mail($to_name, $to_email_address, $subject, $email_text, $email_htm
 	}
 }
 
+function oos_newsletter_subscribe_mail ($email_address) {
+    global $aLang, $sTheme;
+	
+	if (empty($email_address)) {
+      return FALSE;
+    }
+	
+	$sLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : DEFAULT_LANGUAGE;
+	
+	if (oos_validate_is_email($email_address)) {	
+	
+		$aContents = oos_get_content();
+
+		// Get database information
+		$dbconn =& oosDBGetConn();
+		$oostable =& oosDBGetTables();
+
+		$newsletter_recipients = $oostable['newsletter_recipients'];
+		$dbconn->Execute("DELETE FROM $newsletter_recipients WHERE customers_email_address = '" . oos_db_input($email_address) . "'"); 
+
+		$sRandom = oos_create_random_value(25);
+		$sBefor = oos_create_random_value(4);
+	
+		$dbconn->Execute("INSERT INTO $newsletter_recipients 
+                            (customers_email_address,
+							mail_key,
+							key_sent,
+							status) VALUES ('" . oos_db_input($email_address) . "',
+											'" . oos_db_input($sRandom) . "',
+											now(),
+											'0')");
+
+		$nInsert_ID = $dbconn->Insert_ID();	  
+		$newsletter_recipients = $oostable['newsletter_recipients_history'];
+		$dbconn->Execute("INSERT INTO $newsletter_recipients 
+                                    (recipients_id,
+                                    date_added) VALUES ('" . intval($nInsert_ID) . "',
+                                                        now())");
+											   
+		$sStr =  $sBefor . $nInsert_ID . 'f00d';
+		$sSha1 = sha1($sStr);
+
+		$newsletter_recipients = $oostable['newsletter_recipients'];
+		$dbconn->Execute("UPDATE $newsletter_recipients
+                          SET mail_sha1 = '" . oos_db_input($sSha1) . "'
+                          WHERE recipients_id = '" . intval($nInsert_ID) . "'");			
+		//smarty
+		require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
+		$smarty = new myOOS_Smarty();						
+
+		// dont allow cache
+		$smarty->caching = false;
+
+		$smarty->assign(
+				array(
+					'shop_name'		=> STORE_NAME,
+					'shop_url'		=> OOS_HTTP_SERVER . OOS_SHOP,
+					'shop_logo'		=> STORE_LOGO,
+					'services_url'	=> COMMUNITY,
+					'blog_url'		=> BLOG_URL,
+					'imprint_url'	=> oos_href_link($aContents['information'], 'information_id=1', 'NONSSL', FALSE, TRUE),
+					'subscribe'		=> oos_href_link($aContents['newsletter'], 'subscribe=confirm&u=' .  $sSha1 . '&id=' . $sStr . '&e=' . $sRandom, 'SSL', FALSE, TRUE)
+				)
+		);
+
+		// create mails	
+		$email_html = $smarty->fetch($sTheme . '/email/' . $sLanguage . '/newsletter_subscribe.html');
+		$email_txt = $smarty->fetch($sTheme . '/email/' . $sLanguage . '/newsletter_subscribe.tpl');
+		
+		oos_mail('', $email_address, $aLang['newsletter_email_subject'], $email_txt, $email_html, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
+	}
+}

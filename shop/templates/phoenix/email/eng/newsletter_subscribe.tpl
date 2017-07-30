@@ -5,6 +5,7 @@ Please click the following activation link to receive newsletters. If you haven'
 Your activation link:
 {$subscribe}
 
+You may unsubscribe at any moment. For that purpose, please find our contact info in the legal notice.
 
 {$smarty.const.STORE_NAME}
 
