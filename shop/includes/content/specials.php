@@ -96,17 +96,17 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
                      );
       $specials_result->MoveNext();
     }
-    // Close result set
-    $specials_result->Close();
 
     // links breadcrumb
     $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['specials']));
+	$sCanonical = oos_href_link($aContents['specials'], 'page='. $nPage, 'NONSSL', FALSE, TRUE);
 
     // assign Smarty variables;
     $smarty->assign(
         array(
-            'breadcrumb'     => $oBreadcrumb->trail(),
-            'heading_title'  => $aLang['heading_title'],
+            'breadcrumb'	=> $oBreadcrumb->trail(),
+            'heading_title'	=> $aLang['heading_title'],
+			'canonical'		=> $sCanonical,
 
             'page_split'     => $specials_split->display_count($specials_numrows, MAX_DISPLAY_SPECIAL_PRODUCTS, $nPage, $aLang['text_display_number_of_specials']),
             'display_links'  => $specials_split->display_links($specials_numrows, MAX_DISPLAY_SPECIAL_PRODUCTS, MAX_DISPLAY_PAGE_LINKS, $nPage, oos_get_all_get_parameters(array('page', 'info'))),

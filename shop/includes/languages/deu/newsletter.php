@@ -12,6 +12,6 @@
    ---------------------------------------------------------------------- */
 
 $aLang['navbar_title'] = 'Ihr Newsletter';
-$aLang['heading_title'] = 'Abonnieren Sie unseren Newletter';
+$aLang['heading_title'] = 'Abonnieren Sie unseren Newsletter';
 
 

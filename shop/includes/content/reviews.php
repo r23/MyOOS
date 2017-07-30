@@ -100,16 +100,17 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 
     // links breadcrumb
     $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['reviews']));
-	$sCanonical = oos_href_link($aContents['gv_faq'], 'page=' . $nPage, 'NONSSL', FALSE, TRUE);
+	$sCanonical = oos_href_link($aContents['reviews'], 'page=' . $nPage, 'NONSSL', FALSE, TRUE);
 	
     $smarty->assign(
         array(
             'breadcrumb'    => $oBreadcrumb->trail(),
             'heading_title' => $aLang['heading_title'],
+			'canonical'		=> $sCanonical,
 
             'page_split'    => $reviews_split->display_count($reviews_numrows, MAX_DISPLAY_NEW_REVIEWS, $nPage, $aLang['text_display_number_of_reviews']),
             'display_links' => $reviews_split->display_links($reviews_numrows, MAX_DISPLAY_NEW_REVIEWS, MAX_DISPLAY_PAGE_LINKS, $nPage, oos_get_all_get_parameters(array('page', 'info'))),
-            'numrows'  => $reviews_numrows,
+            'numrows'  		=> $reviews_numrows,
 
             'oos_reviews_array' => $aReviews
         )

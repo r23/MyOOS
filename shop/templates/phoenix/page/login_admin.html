@@ -17,7 +17,7 @@
 					<h3 class="first-child">{$lang.heading_admin_login}</h3>
 					<hr>
 					{if ( $login_result_values.man_key2 eq $newkey2 and $login_result_values.status != 0 ) }
-					<form role="form" name="admin_login" action="{html_get_link connection=SSL}" method="POST" role="form">
+					<form name="admin_login" action="{html_get_link connection=SSL}" method="POST" role="form">
 					{if $mySystem.sed}
 						<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
 						<input type="hidden" name="formid" value="{$mySystem.formid}">
