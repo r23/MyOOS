@@ -38,7 +38,6 @@ $aLang['owner_email_last_name'] = 'Nachname:';
 $aLang['owner_email_date_of_birth'] = 'Geburtsdatum:';
 $aLang['owner_email_address'] = 'eMail-Adresse:';
 $aLang['owner_email_street'] = 'Strasse/Nr.:';
-$aLang['owner_email_suburb'] = 'Stadtteil:';
 $aLang['owner_email_post_code'] = 'Postleitzahl:';
 $aLang['owner_email_city'] = 'Ort:';
 $aLang['owner_email_state'] = 'Bundesland:';

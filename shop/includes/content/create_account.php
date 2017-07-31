@@ -22,10 +22,26 @@
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_create_account.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_create_account_process.php';
+
+// require  the password crypto functions
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_password.php';
+// require  validation functions (right now only email address)
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php';  
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validate_vatid.php';
+
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_create_account.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_create_account_process.php';
 
 // start the session
 if ( $session->hasStarted() === FALSE ) $session->start();
 
+if ( $_SESSION['login_count'] > 3) {
+	oos_redirect(oos_href_link($aContents['403']));
+}
+
+if ( isset($_POST['action']) && ($_POST['action'] == 'process') && 
+	( isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) ){
 
 
 
@@ -34,11 +50,13 @@ if ( $session->hasStarted() === FALSE ) $session->start();
 
 
 
+	if (NEWSLETTER == 'true') {
+		if ( isset($_POST['newsletter']) && ($_POST['newsletter'] == 'subscriber') ) {
+			oos_newsletter_subscribe_mail($email_address);
+		}
+	}
 
-
-
-
-
+}
 
 
 // links breadcrumb
@@ -70,8 +88,8 @@ if (!isset($option)) {
 	require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
-$read = 'false';
-$smarty->assign('read', $read); 
+$bRead = 'false';
+$smarty->assign('read', $bRead); 
 $smarty->assign('oos_js', $javascript);
 
 // assign Smarty variables;
@@ -88,11 +106,11 @@ $smarty->assign('account', $account);
 $smarty->assign('email_address', $email_address);
 
 if (CUSTOMER_NOT_LOGIN == 'true') {
-	$show_password = 'false';
+	$bShowPassword = FALSE;
 } else {
-	$show_password = 'true';
+	$bShowPassword = TRUE;
 }
-$smarty->assign('show_password', $show_password);
+$smarty->assign('$bShowPassword', $bShowPassword);
 
 $smarty->assign('snapshot', $snapshot);
 $smarty->assign('login_orgin_text', sprintf($aLang['text_origin_login'], oos_href_link($aContents['login'], '', 'SSL')));
