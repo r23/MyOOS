@@ -88,7 +88,6 @@ $aContents['account'] = $prefix_filename . 'account';
 $aContents['account_edit'] = $prefix_filename . 'account_edit';
 $aContents['account_edit_process'] = $prefix_filename . 'account_edit_process';
 $aContents['create_account'] = $prefix_filename . 'create_account'; 
-$aContents['create_account_process'] = $prefix_filename . 'create_account_process';
 $aContents['create_account_success'] = $prefix_filename . 'create_account_success';
 $aContents['login'] = $prefix_filename . 'login';
 $aContents['logoff'] = $prefix_filename . 'logoff';
