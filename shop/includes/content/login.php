@@ -28,6 +28,12 @@ $bError = FALSE;
 // start the session
 if ( $session->hasStarted() === FALSE ) $session->start();
 
+if (!isset($_SESSION['user'])) {
+	$_SESSION['user'] = new oosUser();
+	$_SESSION['user']->anonymous();
+}
+
+
 // require  the password crypto functions
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_password.php';
 // require  validation functions (right now only email address)
@@ -109,7 +115,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 			if (ACCOUNT_VAT_ID == 'true') $_SESSION['customers_vat_id_status'] = $check_customer['customers_vat_id_status'];
 
 			$_SESSION['user']->restore_group();
-			$aUser = isset($_SESSION['user']) ? $_SESSION['user']->group : $oUser->group;
+			$aUser = $_SESSION['user']->group;
 			
 			$customers_infotable = $oostable['customers_info'];
 			$dbconn->Execute("UPDATE $customers_infotable

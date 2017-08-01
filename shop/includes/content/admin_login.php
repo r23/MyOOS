@@ -162,7 +162,9 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'login_process') &&
 		$_SESSION['customer_shopping_points'] = $check_customer['customers_shopping_points'];
 
 		$_SESSION['man_key'] = $keya;
+		
 		$_SESSION['user']->restore_group();
+		$aUser = $_SESSION['user']->group;
 
 		// restore cart contents
 		$_SESSION['cart']->restore_contents();

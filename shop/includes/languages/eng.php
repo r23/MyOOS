@@ -49,13 +49,13 @@
   * @param $reverse
   * @return string
   */
-  function oos_date_raw($date, $reverse = FALSE) {
-    if ($reverse) {
-      return substr($date, 3, 2) . substr($date, 0, 2) . substr($date, 6, 4);
-    } else {
-      return substr($date, 6, 4) . substr($date, 0, 2) . substr($date, 3, 2);
-    }
-  }
+function oos_date_raw($date, $reverse = FALSE) {
+	if ($reverse) {
+		return substr($date, 3, 2) . substr($date, 0, 2) . substr($date, 6, 4);
+	} else {
+		return substr($date, 6, 4) . substr($date, 0, 2) . substr($date, 3, 2);
+	}
+}
 
 
 // Global entries for the <html> tag
@@ -229,38 +229,33 @@ $aLang['entry_owner_text'] = '';
 $aLang['entry_vat_id'] = 'VAT ID';
 $aLang['entry_vat_id_error'] = 'The chosen VatID is not valid or not proofable at this moment! Please fill in a valid ID or leave the field empty.';
 $aLang['entry_vat_id_text'] = '* for Germany and EU-Countries only';
-$aLang['entry_number'] = 'Customer number';
-$aLang['entry_number_error'] = '';
-$aLang['entry_number_text'] = '';
-$aLang['entry_gender'] = 'Gender:';
-$aLang['entry_gender_error'] = '&nbsp;<small><font color="#AABBDD">require_onced</font></small>';
+$aLang['entry_gender'] = 'Gender';
+$aLang['entry_gender_error'] = 'Please select your Gender.';
 $aLang['entry_first_name'] = 'First Name:';
-$aLang['entry_first_name_error'] = '&nbsp;<small><font color="#FF0000">min ' . ENTRY_FIRST_NAME_MIN_LENGTH . ' chars</font></small>';
-$aLang['entry_first_name_text'] = '&nbsp;<small><font color="#AABBDD">require_onced</font></small>';
+$aLang['entry_first_name_error'] = 'Your First Name must contain a minimum of ' . ENTRY_FIRST_NAME_MIN_LENGTH . ' characters.';
 $aLang['entry_last_name'] = 'Last Name:';
-$aLang['entry_last_name_error'] = '&nbsp;<small><font color="#FF0000">min ' . ENTRY_LAST_NAME_MIN_LENGTH . ' chars</font></small>';
+$aLang['entry_last_name_error'] = 'Your Last Name must contain a minimum of ' . ENTRY_LAST_NAME_MIN_LENGTH . ' characters.';
 $aLang['entry_date_of_birth'] = 'Date of Birth:';
-$aLang['entry_date_of_birth_error'] = '&nbsp;<small><font color="#FF0000">(eg. 05/21/1970)</font></small>';
+$aLang['entry_date_of_birth_error'] = 'Your Date of Birth must be in this format: MM/DD/YYYY (eg 05/21/1970)';
 $aLang['entry_date_of_birth_text'] = '(eg. 05/21/1970)';
-$aLang['entry_email_address_error'] = '&nbsp;<small><font color="#FF0000">min ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' chars</font></small>';
-$aLang['entry_email_address_check_error'] = '&nbsp;<small><font color="#FF0000">Your email address doesn\'t appear to be valid!</font></small>';
-$aLang['entry_email_address_error_exists'] = '&nbsp;<small><font color="#FF0000">email address already exists!</font></small>';
+$aLang['entry_email_address_error'] = 'Your E-Mail Address must contain a minimum of ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' characters.';
+$aLang['entry_email_address_check_error'] = 'Your E-Mail Address does not appear to be valid - please make any necessary corrections.';
+$aLang['entry_email_address_error_exists'] = 'Your E-Mail Address already exists in our records - please log in with the e-mail address or create an account with a different address.';
 
 $aLang['entry_street_address'] = 'Street Address:';
-$aLang['entry_street_address_error'] = '&nbsp;<small><font color="#FF0000">min ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' chars</font></small>';
-
-
+$aLang['entry_street_address_error'] = 'Your Street Address must contain a minimum of ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' characters.';
 $aLang['entry_post_code'] = 'Post Code:';
-$aLang['entry_post_code_error'] = '&nbsp;<small><font color="#FF0000">min ' . ENTRY_POSTCODE_MIN_LENGTH . ' chars</font></small>';
+$aLang['entry_post_code_error'] = 'Your Post Code must contain a minimum of ' . ENTRY_POSTCODE_MIN_LENGTH . ' characters.';
 $aLang['entry_city'] = 'City:';
-$aLang['entry_city_error'] = '&nbsp;<small><font color="#FF0000">min ' . ENTRY_CITY_MIN_LENGTH . ' chars</font></small>';
+$aLang['entry_city_error'] = 'Your City must contain a minimum of ' . ENTRY_CITY_MIN_LENGTH . ' characters.';
 $aLang['entry_state'] = 'State/Province:';
-$aLang['entry_state_error'] = '&nbsp;<small><font color="#FF0000">require_onced</font></small>';
+$aLang['entry_state_error'] = 'Your State must contain a minimum of ' . ENTRY_STATE_MIN_LENGTH . ' characters.';
+$aLang['entry_state_error_select'] = 'Please select a state from the States pull down menu.';
+
 $aLang['entry_country'] = 'Country:';
-$aLang['entry_country_error'] = '';
-$aLang['entry_country_text'] = '&nbsp;<small><font color="#AABBDD">require_onced</font></small>';
+$aLang['entry_country_error'] = 'You must select a country from the Countries pull down menu.';
 $aLang['entry_telephone_number'] = 'Telephone Number:';
-$aLang['entry_telephone_number_error'] = '&nbsp;<small><font color="#FF0000">min ' . ENTRY_TELEPHONE_MIN_LENGTH . ' chars</font></small>';
+$aLang['entry_telephone_number_error'] = 'Your Telephone Number must contain a minimum of ' . ENTRY_TELEPHONE_MIN_LENGTH . ' characters.';
 $aLang['entry_newsletter'] = 'Newsletter:';
 $aLang['entry_newsletter_text'] = '';
 $aLang['entry_newsletter_yes'] = 'Subscribed';
@@ -268,7 +263,8 @@ $aLang['entry_newsletter_no'] = 'Unsubscribed';
 $aLang['entry_newsletter_error'] = '';
 $aLang['entry_password_confirmation'] = 'Password Confirmation:';
 $aLang['entry_password_confirmation_text'] = '&nbsp;<small><font color="#AABBDD">require_onced</font></small>';
-$aLang['entry_password_error'] = '&nbsp;<small><font color="#FF0000">min ' . ENTRY_PASSWORD_MIN_LENGTH . ' chars</font></small>';
+$aLang['entry_password_error'] = 'Your Password must contain a minimum of ' . ENTRY_PASSWORD_MIN_LENGTH . ' characters.';
+$aLang['entry_password_error_not_matching'] = 'The Password Confirmation must match your Password.';
 $aLang['password_hidden'] = '--HIDDEN--';
 $aLang['entry_info_text'] = 'require_onced';
 $aLang['entry_subject'] = 'Subject';

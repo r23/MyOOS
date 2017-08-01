@@ -36,7 +36,7 @@ function oos_validate_password($sPlain, $sEncrypted) {
 			require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpass/PasswordHash.php';
 		}
 
-		$oHasher = new PasswordHash( 8, true );
+		$oHasher = new PasswordHash( 8, TRUE );
 
 		return $oHasher->CheckPassword($sPlain, $sEncrypted);
 	}
@@ -57,7 +57,7 @@ function oos_encrypt_password($sPlain) {
 		require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpass/PasswordHash.php';
 	}
 
-	$oHasher = new PasswordHash( 8, true );
+	$oHasher = new PasswordHash( 8, TRUE );
 
     return $oHasher->HashPassword($sPlain);
 }

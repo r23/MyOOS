@@ -29,10 +29,7 @@
 // start the session
 if ( $session->hasStarted() === FALSE ) $session->start();  
 
-/*
-if ( isset($_POST['action']) && ($_POST['action'] == 'process') && 
-	( isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) ){
-*/
+
 
 // require  the password crypto functions
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_password.php';
@@ -523,10 +520,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validate_vatid.p
                      $aLang['email_separator'] . "\n" .
                      $aLang['owner_email_date'] . ' ' . strftime(DATE_FORMAT_LONG) . "\n\n" .
                      $aLang['email_separator'] . "\n";
-      if (ACCOUNT_NUMBER == 'true') {
-        $email_owner .= $aLang['owner_email_number'] . ' ' . $number . "\n" .
-                        $aLang['email_separator'] . "\n\n";
-      }
+
       if (ACCOUNT_COMPANY == 'true') {
         $email_owner .= $aLang['owner_email_company_info'] . "\n" .
                         $aLang['owner_email_company'] . ' ' . $company . "\n";
