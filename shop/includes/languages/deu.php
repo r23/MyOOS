@@ -214,7 +214,7 @@ $aLang['category_address'] = 'Ihre Adresse';
 $aLang['category_contact'] = 'Ihre Kontaktinformationen';
 $aLang['category_options'] = 'Optionen';
 $aLang['category_password'] = 'Ihr Passwort';
-$aLang['entry_company'] = 'Firmenname:';
+$aLang['entry_company'] = 'Firmenname';
 $aLang['entry_company_error'] = '';
 $aLang['entry_company_text'] = '';
 $aLang['entry_owner'] = 'Inhaber';
@@ -225,43 +225,43 @@ $aLang['entry_vat_id_error'] = 'Die Eingegebene USt-IdNr. ist ungültig oder kan
 $aLang['entry_vat_id_text'] = 'Nur für Deutschland und EU!';
 
 $aLang['entry_number_text'] = '';
-$aLang['entry_gender'] = 'Anrede:';
+$aLang['entry_gender'] = 'Anrede';
 $aLang['entry_gender_error'] = 'Bitte wählen Sie Ihre Anrede.';
-$aLang['entry_first_name'] = 'Vorname:';
+$aLang['entry_first_name'] = 'Vorname';
 $aLang['entry_first_name_error'] = 'Ihr Vorname muss mindestens ' . ENTRY_FIRST_NAME_MIN_LENGTH . ' Buchstaben enthalten';
-$aLang['entry_last_name'] = 'Nachname:';
+$aLang['entry_last_name'] = 'Nachname';
 $aLang['entry_last_name_error'] = 'Ihr Nachname muss mindestens ' . ENTRY_LAST_NAME_MIN_LENGTH . ' Buchstaben enthalten';
-$aLang['entry_date_of_birth'] = 'Geburtsdatum:';
+$aLang['entry_date_of_birth'] = 'Geburtsdatum';
 $aLang['entry_date_of_birth_text'] = '(z.B. 21.05.1970)';
 $aLang['entry_date_of_birth_error'] = 'Ihr Geburtsdatum muss im Format TT.MM.JJJJ (zB. 21.05.1970) eingeben werden';
 
 $aLang['entry_email_address_error'] = 'Ihre E-Mail muss mindestens ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' Buchstaben enthalten';
 $aLang['entry_email_address_check_error'] = 'Bitte überprüfen Sie Ihre E-Mail Adresse';
 $aLang['entry_email_address_error_exists'] = 'Ihre E-Mail Adresse existiert bereits in unserem Online Shop - bitte melden Sie sich mit der E-Mail Adresse an oder erstellen Sie ein Konto mit einer anderen E-Mail Adresse.';
-$aLang['entry_street_address'] = 'Straße/Nr.:';
+$aLang['entry_street_address'] = 'Straße/Nr.';
 $aLang['entry_street_address_error'] = 'Ihre Straße muss mindestens ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' Buchstaben enthalten';
 
-$aLang['entry_post_code'] = 'Postleitzahl:';
+$aLang['entry_post_code'] = 'Postleitzahl';
 $aLang['entry_post_code_error'] = 'Ihre Postleitzahl muss mindestens ' . ENTRY_POSTCODE_MIN_LENGTH . ' Zahlen enthalten';
-$aLang['entry_city'] = 'Ort:';
+$aLang['entry_city'] = 'Ort';
 $aLang['entry_city_error'] = 'Ihr Ort muss mindestens ' . ENTRY_CITY_MIN_LENGTH . ' Buchstaben enthalten';
-$aLang['entry_state'] = 'Bundesland:';
+$aLang['entry_state'] = 'Bundesland';
 $aLang['entry_state_error'] = 'Ihr Bundesland muss mindestens ' . ENTRY_STATE_MIN_LENGTH . ' Buchstaben enthalten';
 $aLang['entry_state_error_select'] = 'Bitte wählen Sie Ihr Bundesland aus der Liste aus.';
 
-$aLang['entry_country'] = 'Land:';
+$aLang['entry_country'] = 'Land';
 $aLang['entry_country_error'] = 'Bitte wählen Sie Ihr Land aus der Liste aus.';
 
 
 
-$aLang['entry_telephone_number'] = 'Telefonnummer:';
+$aLang['entry_telephone_number'] = 'Telefonnummer';
 $aLang['entry_telephone_number_error'] = 'Ihre Telefonnummer muss mindestens ' . ENTRY_TELEPHONE_MIN_LENGTH . ' Zahlen enthalten';
-$aLang['entry_newsletter'] = 'Newsletter:';
+$aLang['entry_newsletter'] = 'Newsletter';
 $aLang['entry_newsletter_text'] = '';
 $aLang['entry_newsletter_yes'] = 'abonniert';
 $aLang['entry_newsletter_no'] = 'nicht abonniert';
 $aLang['entry_newsletter_error'] = '';
-$aLang['entry_password_confirmation'] = 'Bestätigung:';
+$aLang['entry_password_confirmation'] = 'Bestätigung';
 $aLang['entry_password_error'] = 'Ihr Passwort muss mindestens '  . ENTRY_PASSWORD_MIN_LENGTH . ' Zeichen enthalten';
 $aLang['entry_password_error_not_matching'] = 'Ihre Passwörter stimmen leider nicht überein.';
 

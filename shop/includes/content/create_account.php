@@ -465,8 +465,6 @@ if (!isset($option)) {
 	require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
-$bRead = 'false';
-$smarty->assign('read', $bRead); 
 
 // assign Smarty variables;
 $smarty->assign(
@@ -481,18 +479,8 @@ $smarty->assign(
 $smarty->assign('account', $account);
 $smarty->assign('email_address', $email_address);
 
-if (CUSTOMER_NOT_LOGIN == 'true') {
-	$bShowPassword = FALSE;
-} else {
-	$bShowPassword = TRUE;
-}
-$smarty->assign('$bShowPassword', $bShowPassword);
-
 $smarty->assign('snapshot', $snapshot);
 $smarty->assign('login_orgin_text', sprintf($aLang['text_origin_login'], oos_href_link($aContents['login'], '', 'SSL')));
-
-$smarty->assign('newsletter_ids', array(0,1));
-$smarty->assign('newsletter', array($aLang['entry_newsletter_no'],$aLang['entry_newsletter_yes']));
 
 $smarty->assign('javascript', $smarty->fetch($aTemplate['javascript']));
 

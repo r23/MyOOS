@@ -70,7 +70,7 @@ function smarty_function_oos_get_country_list($params, &$smarty)
       $countries_values[] = $countries[$i]['countries_id'];
       $countries_names[] = $countries[$i]['countries_name'];
     }   
-  	
+
     $html_result .= '<select name="' . $name . '"';
     if (null !== $size){
         $html_result .= ' size="' . $size . '"';
@@ -79,7 +79,7 @@ function smarty_function_oos_get_country_list($params, &$smarty)
         $html_result .= ' ' . $extra;
     }
 
-    $html_result .= '>'."\n";
+    $html_result .= 'class="form-control pointer">'."\n";
     
     $html_result .= smarty_function_html_options(array('output'       => $countries_names,
                                                        'values'       => $countries_values,
