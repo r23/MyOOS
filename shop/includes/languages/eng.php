@@ -269,6 +269,11 @@ $aLang['password_hidden'] = '--HIDDEN--';
 $aLang['entry_info_text'] = 'require_onced';
 $aLang['entry_subject'] = 'Subject';
 
+$aLang['entry_agree_error'] = 'Please accept our <strong>Terms and Conditions</strong> and <strong>Privacy Policy</strong>!';
+$aLang['agree'] = 'By creating an account, you agree to the <a href="%s" target="_blank"><strong>Terms and Conditions</strong></a> and <a href="%s" target="_blank"><strong>Privacy Policy</strong></a>.';
+$aLang['newsletter_agree'] = 'Yes, I wish to receive occasional emails about special offers, new products and exclusive promotions. I can cancel my subscription at any time. (Optional)';
+
+
 // constants for use in oos_prev_next_display function
 $aLang['text_result_page'] = 'Result Pages:';
 $aLang['text_display_number_of_products'] = 'Displaying <strong>%d</strong> to <strong>%d</strong> (of <strong>%d</strong> products)';
@@ -320,6 +325,8 @@ $aLang['button_in_wishlist'] = 'Wishlist';
 $aLang['button_add_wishlist'] = 'Wishlist';
 $aLang['button_redeem_voucher'] = 'Redeem';
 $aLang['button_callaction'] = 'Request a quote';
+
+$aLang['button_register'] = 'Register';
 
 $aLang['icon_button_mail'] = 'E-mail';
 $aLang['icon_button_movie'] = 'Movie';

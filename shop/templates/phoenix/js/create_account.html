@@ -1,0 +1,88 @@
+<script type="text/javascript" src="js/plugins/validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="js/plugins/validate/localization/messages_{$content_language}.min.js"></script>
+{literal}
+	<script>
+		$( document ).ready( function () {
+			$( "#create_account" ).validate( {
+				rules: {{/literal}{if $smarty.const.ACCOUNT_GENDER eq 'true'}{literal}					
+					gender: "required",{/literal}{/if}{literal}					
+					firstname: {
+						required: true,
+						minlength: {/literal}{$smarty.const.ENTRY_FIRST_NAME_MIN_LENGTH}{literal}
+					},			
+					lastname: {
+						required: true,
+						minlength: {/literal}{$smarty.const.ENTRY_LAST_NAME_MIN_LENGTH}{literal}
+					},{/literal}{if $smarty.const.ACCOUNT_DOB eq 'true'}{literal}
+					dob: {
+						required: true,
+						minlength: {/literal}{$smarty.const.ENTRY_DOB_MIN_LENGTH}{literal}
+					},{/literal}{/if}{literal}
+					street_address: {
+						required: true,
+						minlength: {/literal}{$smarty.const.ENTRY_STREET_ADDRESS_MIN_LENGTH}{literal}
+					},					
+					postcode: {
+						required: true,
+						minlength: {/literal}{$smarty.const.ENTRY_POSTCODE_MIN_LENGTH}{literal}
+					},
+					city: {
+						required: true,
+						minlength: {/literal}{$smarty.const.ENTRY_CITY_MIN_LENGTH}{literal}
+					},
+					country: "required",{/literal}{if $smarty.const.CUSTOMER_NOT_LOGIN eq 'false'}{literal}					
+					password: {
+						required: true,
+						minlength: {/literal}{$smarty.const.ENTRY_PASSWORD_MIN_LENGTH}{literal}
+					},
+					confirmation: {
+						required: true,
+						minlength: {/literal}{$smarty.const.ENTRY_PASSWORD_MIN_LENGTH}{literal},
+						equalTo: "#password"
+					},{/literal}{/if}{literal}					
+					email_address: {
+						required: true,
+						email: true
+					},
+					agree: "required"
+				},
+				errorElement: "em",
+				errorPlacement: function ( error, element ) {
+					// Add the `help-block` class to the error element
+					error.addClass( "help-block" );
+
+					// Add `has-feedback` class to the parent div.form-group
+					// in order to add icons to inputs
+					element.parents( ".col-sm-5" ).addClass( "has-feedback" );
+					
+					if ( element.prop( "type" ) === "checkbox" ) {
+						error.insertAfter( element.parent( "label" ) );
+					} else if ( element.prop( "type" ) === "radio" ) {
+						error.insertAfter( element.parent( ".col-sm-5" ) );
+					} else {
+						error.insertAfter( element );
+					}
+
+					// Add the span element, if doesn't exists, and apply the icon classes to it.
+					if ( !element.next( "span" )[ 0 ] ) {
+						$( "<span class='glyphicon glyphicon-remove form-control-feedback'></span>" ).insertAfter( element );
+					}
+				},
+				success: function ( label, element ) {
+					// Add the span element, if doesn't exists, and apply the icon classes to it.
+					if ( !$( element ).next( "span" )[ 0 ] ) {
+						$( "<span class='glyphicon glyphicon-ok form-control-feedback'></span>" ).insertAfter( $( element ) );
+					}
+				},
+				highlight: function ( element, errorClass, validClass ) {
+					$( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
+					$( element ).next( "span" ).addClass( "glyphicon-remove" ).removeClass( "glyphicon-ok" );
+				},
+				unhighlight: function ( element, errorClass, validClass ) {
+					$( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
+					$( element ).next( "span" ).addClass( "glyphicon-ok" ).removeClass( "glyphicon-remove" );
+				}
+			} );
+		} );	
+	</script>
+{/literal}

@@ -76,12 +76,15 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
     }
     $country = oos_db_prepare_input($_POST['country']);
     $telephone = oos_db_prepare_input($_POST['telephone']);
-    if (isset($_POST['newsletter'])) {
-      $newsletter = oos_db_prepare_input($_POST['newsletter']);
-    } 
     $password = oos_db_prepare_input($_POST['password']);
     $confirmation = oos_db_prepare_input($_POST['confirmation']);
-
+    if (isset($_POST['newsletter'])) {
+		$newsletter = oos_db_prepare_input($_POST['newsletter']);
+    } 
+    if (isset($_POST['agree'])) {
+		$agree = oos_db_prepare_input($_POST['agree']);
+    } 
+	
 	$bError = FALSE; // reset error flag
     if (ACCOUNT_GENDER == 'true') {
 		if ( ($gender != 'm') && ($gender != 'f') ) {
@@ -129,7 +132,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
     }
 
 	if (ACCOUNT_COMPANY_VAT_ID_CHECK == 'true'){
-		if (!oos_validate_is_vatid($vat_id)) {
+		if (!empty($vat_id) && (!oos_validate_is_vatid($vat_id))) {
 			$bError = TRUE;
 			$oMessage->add('create_account', $aLang['entry_vat_id_error']);
 		} else {
@@ -187,12 +190,13 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 			}
 		}
 	}	
-  
+
+/*	
 	if (strlen($telephone) < ENTRY_TELEPHONE_MIN_LENGTH) {
 		$bError = TRUE;
 		$oMessage->add('create_account', $aLang['entry_telephone_number_error']);
 	}
- 
+*/ 
 	if (CUSTOMER_NOT_LOGIN == 'false') {
 		if (strlen($password) < ENTRY_PASSWORD_MIN_LENGTH) {
 			$bError = TRUE;
@@ -203,6 +207,11 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 		}
 	}
 
+	if (empty($agree)) {
+		$bError = TRUE;
+		$oMessage->add('create_account', $aLang['entry_agree_error']);
+	}	
+	
 	if ($bError == FALSE) {
 		$customer_max_order = DEFAULT_MAX_ORDER;
 		$customers_status = DEFAULT_CUSTOMERS_STATUS_ID;
@@ -426,7 +435,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 	
 	
 		if (NEWSLETTER == 'true') {
-			if ( isset($newsletter) && ($newsletter == 'subscriber') ) {
+			if ( isset($newsletter) && ($newsletter == 'yes') ) {
 				oos_newsletter_subscribe_mail($email_address);
 			}
 		}
@@ -481,6 +490,7 @@ $smarty->assign('email_address', $email_address);
 
 $smarty->assign('snapshot', $snapshot);
 $smarty->assign('login_orgin_text', sprintf($aLang['text_origin_login'], oos_href_link($aContents['login'], '', 'SSL')));
+$smarty->assign('login_agree', sprintf($aLang['agree'], oos_href_link($aContents['information'], 'information_id=2', 'SSL'), oos_href_link($aContents['information'], 'information_id=4', 'SSL')));
 
 $smarty->assign('javascript', $smarty->fetch($aTemplate['javascript']));
 

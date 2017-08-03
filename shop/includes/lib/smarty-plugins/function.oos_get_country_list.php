@@ -79,7 +79,7 @@ function smarty_function_oos_get_country_list($params, &$smarty)
         $html_result .= ' ' . $extra;
     }
 
-    $html_result .= 'class="form-control pointer">'."\n";
+    $html_result .= ' class="form-control pointer">'."\n";
     
     $html_result .= smarty_function_html_options(array('output'       => $countries_names,
                                                        'values'       => $countries_values,

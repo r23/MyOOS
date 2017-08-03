@@ -269,6 +269,10 @@ $aLang['password_hidden'] = '--VERSTECKT--';
 $aLang['entry_info_text'] = 'notwendige Eingabe';
 $aLang['entry_subject'] = 'Subject';
 
+$aLang['entry_agree_error'] = 'Bitte akzeptieren Sie unsere AGB und Datenschutzbestimmungen!';
+$aLang['agree'] = 'Ja, ich stimme den <a href="%s" target="_blank"><strong>AGB</strong></a> und den <a href="%s" target="_blank"><strong>Datenschutzbestimmungen</strong></a> zu.';
+$aLang['newsletter_agree'] = 'Ja, ich möchte per E-Mail Newsletter über Trends, Aktionen &amp; Gutscheine informiert werden. Abmeldung jederzeit möglich. (optional)';
+
 // constants for use in oos_prev_next_display function
 $aLang['text_result_page'] = 'Seiten:';
 $aLang['text_display_number_of_products'] = 'angezeigte Produkte: <strong>%d</strong> bis <strong>%d</strong> (von <strong>%d</strong> insgesamt)';
@@ -320,6 +324,7 @@ $aLang['button_in_wishlist'] = 'Wunschliste';
 $aLang['button_add_wishlist'] = 'Wunschliste';
 $aLang['button_redeem_voucher'] = 'Gutschein einlösen';
 $aLang['button_callaction'] = 'Fordern Sie ein Angebot';
+$aLang['button_register'] = 'Jetzt registrieren';
 
 $aLang['button_hp_buy'] = 'In den Warenkorb';
 $aLang['button_hp_more'] = 'Zeige mehr';

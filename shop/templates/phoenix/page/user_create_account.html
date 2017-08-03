@@ -19,9 +19,8 @@
 						{$login_orgin_text}
 					</div>
 				{/if}
-					<!-- REGISTER -->
-					
-
+				
+				<!-- REGISTER -->
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h3 class="panel-title">{$lang.category_personal}</h3>
@@ -29,12 +28,21 @@
 					<div class="panel-body">
 					<form name="create_account" id="create_account" class="form-horizontal" action="{html_get_link connection=SSL}" method="POST" role="form">
 						<fieldset>
-							<input type="hidden" name="action" value="send">
+							<input type="hidden" name="action" value="process">
 							<input type="hidden" name="content" value="{$filename.create_account}">	
 						{if $mySystem.sed}
 							<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
 							<input type="hidden" name="formid" value="{$mySystem.formid}">
 						{/if}
+						{if $smarty.const.ACCOUNT_GENDER eq 'true'}
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="gender">{$lang.entry_gender} *</label>
+								<div class="col-sm-5">
+									<input type="radio" id="gender" name="gender" value="m"> {$lang.male} <input type="radio" id="gender" name="gender" value="f"> {$lang.female}
+								</div>						
+							</div>
+						{/if}				
+						
 							<div class="form-group">
 								<label class="col-sm-4 control-label" for="firstname">{$lang.entry_first_name} *</label>
 								<div class="col-sm-5">
@@ -50,7 +58,7 @@
 							</div>
 						{if $smarty.const.ACCOUNT_DOB eq 'true'}
 							<div class="form-group">
-								<label class="col-sm-4 control-label" for="dob">{$lang.entry_date_of_birth}</label>
+								<label class="col-sm-4 control-label" for="dob">{$lang.entry_date_of_birth} *</label>
 								<div class="col-sm-5">
 									<input type="text" value="{$smarty.post.dob}" class="form-control" id="dob" name="dob" placeholder="{$lang.entry_date_of_birth_text}" />
 								</div>
@@ -131,23 +139,25 @@
 							</div>
 
 							<div class="form-group">
-								<label class="col-sm-4 control-label" for="telephone">{$lang.entry_telephone_number} *</label>
+								<label class="col-sm-4 control-label" for="telephone">{$lang.entry_telephone_number}</label>
 								<div class="col-sm-5">
-									<input type="text"value="{$smarty.post.telephone}" class="form-control" id="telephone" name="telephone" placeholder="{$lang.entry_telephone_number}" />
+									<input type="text" value="{$smarty.post.telephone}" class="form-control" id="telephone" name="telephone" placeholder="{$lang.entry_telephone_number}" />
 								</div>
 							</div>
 		
-						{if $smarty.const.CUSTOMER_NOT_LOGIN == 'false'}
+						{if $smarty.const.CUSTOMER_NOT_LOGIN eq 'false'}
+							<hr />
+							<h3>{$lang.category_password}</h3>
 							<div class="form-group">
-								<label class="col-sm-4 control-label" for="password">Password</label>
+								<label class="col-sm-4 control-label" for="password">{$lang.entry_password} *</label>
 								<div class="col-sm-5">
-									<input type="password" class="form-control" id="password" name="password" placeholder="Password" />
+									<input type="password" value="{$smarty.post.password}" class="form-control" id="password" name="password" placeholder="{$lang.entry_password}" />
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-4 control-label" for="confirm_password">Confirm password</label>
+								<label class="col-sm-4 control-label" for="confirmation">{$lang.entry_password_confirmation} *</label>
 								<div class="col-sm-5">
-									<input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm password" />
+									<input type="password" value="{$smarty.post.confirmation}" class="form-control" id="confirmation" name="confirmation" placeholder="{$lang.entry_password_confirmation}" />
 								</div>
 							</div>
 						{/if}
@@ -156,11 +166,11 @@
 								<div class="col-sm-5 col-sm-offset-4">
 									<div class="checkbox">
 										<label class="checkbox nomargin">
-											<input type="checkbox" id="agree" name="agree" value="agree" />I agree to the <a href="#" data-toggle="modal" data-target="#termsModal">Terms of Service</a>
+											<input type="checkbox" id="agree" name="agree" value="yes" />{$login_agree}
 										</label>
 									{if $smarty.const.NEWSLETTER eq 'true'}
 										<label class="checkbox nomargin">
-											<input type="checkbox" id="agree" name="agree" value="agree" />I want to receive news and  special offers
+											<input type="checkbox" id="agree" name="newsletter" value="yes" />{$lang.newsletter_agree}
 										</label>
 									{/if}
 									</div>
@@ -170,17 +180,14 @@
 							</fieldset>
 							<div class="form-group">
 								<div class="col-sm-9 col-sm-offset-4">
-									<button type="submit" class="btn btn-primary"><i class="fa fa-check" aria-hidden="true"></i> REGISTER</button>
+									<button type="submit" class="btn btn-primary"><i class="fa fa-check" aria-hidden="true"></i> {$lang.button_register}</button>
 								</div>
 							</div>
 						</form>
 					</div>
 				</div>
-						{include file="phoenix/modules/user_account_details.html"}
-								
-				</div>
 				<!-- /REGISTER -->
-
+				</div>
 			</div>
 		</div>
 	</div>
