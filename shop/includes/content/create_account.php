@@ -458,7 +458,7 @@ if (isset($_GET['email_address'])) {
 $account['entry_country_id'] = STORE_COUNTRY;
 
 
-$aTemplate['page'] = $sTheme . '/page/user_create_account.html';
+$aTemplate['page'] = $sTheme . '/page/create_account.html';
 $aTemplate['javascript'] = $sTheme . '/js/create_account.html';
 
 $nPageType = OOS_PAGE_TYPE_ACCOUNT;

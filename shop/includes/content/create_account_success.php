@@ -33,7 +33,7 @@
     $origin_href = oos_href_link($aContents['main']);
   }
 
-  $aTemplate['page'] = $sTheme . '/page/user_create_account_success.html';
+  $aTemplate['page'] = $sTheme . '/page/create_account_success.html';
 
   $nPageType = OOS_PAGE_TYPE_ACCOUNT;
   $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
