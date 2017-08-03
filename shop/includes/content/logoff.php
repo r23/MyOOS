@@ -33,7 +33,7 @@ if (!isset($_SESSION['customer_id'])) {
 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_logoff.php';
 
-# unset($_SESSION['customer_id']);
+unset($_SESSION['customer_id']);
 unset($_SESSION['customer_wishlist_link_id']);
 unset($_SESSION['customer_default_address_id']);
 unset($_SESSION['customer_gender']);
