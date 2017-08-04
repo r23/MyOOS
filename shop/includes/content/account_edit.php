@@ -35,7 +35,7 @@ if (!isset($_SESSION['customer_id'])) {
 }
 
   
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_account_edit.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_edit.php';
 
   $customerstable = $oostable['customers'];
   $address_bookstable = $oostable['address_book'];
