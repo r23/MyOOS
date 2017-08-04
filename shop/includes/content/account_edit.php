@@ -60,11 +60,6 @@ if (!isset($_SESSION['customer_id'])) {
   $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['account'], '', 'SSL'));
   $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['account_edit'], '', 'SSL'));
   
-  ob_start();
-  require 'js/form_check.js.php';
-  $javascript = ob_get_contents();
-  ob_end_clean();
-
   $aTemplate['page'] = $sTheme . '/page/user_account_edit.html';
 
   $nPageType = OOS_PAGE_TYPE_ACCOUNT;
@@ -90,9 +85,6 @@ $smarty->assign(
 
 	)
 );
-
-  // JavaScript
-  $smarty->assign('oos_js', $javascript);
 
   $smarty->assign('newsletter_ids', array(0,1));
   $smarty->assign('newsletter', array($aLang['entry_newsletter_no'],$aLang['entry_newsletter_yes']));
