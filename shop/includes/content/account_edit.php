@@ -39,17 +39,14 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_password.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validate_vatid.php';
 
-require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_account_edit_process.php';
-  
-
-
-
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_edit.php';
 
 if ( isset($_POST['action']) && ($_POST['action'] == 'process') && 
 	( isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) ){
 
 
+
+}
 
   $customerstable = $oostable['customers'];
   $address_bookstable = $oostable['address_book'];
@@ -74,7 +71,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
   $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['account'], '', 'SSL'));
   $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['account_edit'], '', 'SSL'));
   
-  $aTemplate['page'] = $sTheme . '/page/user_account_edit.html';
+  $aTemplate['page'] = $sTheme . '/page/account_edit.html';
 
   $nPageType = OOS_PAGE_TYPE_ACCOUNT;
   $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
