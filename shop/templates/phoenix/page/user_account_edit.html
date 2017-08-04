@@ -25,43 +25,172 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<div class="innerWrapper">
-				
 
+                <div class="orderBox">
+                  <h3>{$lang.category_personal}</h3>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12">
+					<form name="account_edit" id="account_edit" class="form-horizontal" action="{html_get_link connection=SSL}" method="POST" role="form">
+						<fieldset>
+							<input type="hidden" name="action" value="process">
+							<input type="hidden" name="content" value="{$filename.account_edit}">	
+						{if $mySystem.sed}
+							<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+							<input type="hidden" name="formid" value="{$mySystem.formid}">
+						{/if}
+						{if $smarty.const.ACCOUNT_GENDER eq 'true'}
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="gender">{$lang.entry_gender} *</label>
+								<div class="col-sm-5">
+									<input type="radio" id="gender" name="gender" value="m"> {$lang.male} <input type="radio" id="gender" name="gender" value="f"> {$lang.female}
+								</div>						
+							</div>
+						{/if}				
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="firstname">{$lang.entry_first_name} *</label>
+								<div class="col-sm-5">
+									<input type="text" value="{$smarty.post.firstname}" class="form-control" id="firstname" name="firstname" placeholder="{$lang.entry_first_name}" />
+								</div>
+							</div>
 
-    <form name="account_edit" action="{html_href_link content=$filename.account_edit_process connection=SSL}" method="POST" role="form" onSubmit="return check_form();">
-{if $mySystem.sed}
-    <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
-	<input type="hidden" name="formid" value="{$mySystem.formid}">
-{/if}	
-	<input type="hidden" name="action" value="process">
-	
-	<table border="0" width="100%" cellspacing="0" cellpadding="0">
-      <tr>
-        <td>{$oosPageHeading}</td>
-      </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
-      <tr>
-        <td>
-{include file="phoenix/modules/user_account_details.html"}
-        </td>
-      </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td class="main"></td>
-            <td class="main" align="right"><button class="btn btn-success-filled" type="submit">{$lang.button_continue}<i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></button></td>
-          </tr>
-        </table></td>
-      </tr>
-    </table>
-    </form>
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="lastname">{$lang.entry_last_name} *</label>
+								<div class="col-sm-5">
+									<input type="text" value="{$smarty.post.lastname}" class="form-control" id="lastname" name="lastname" placeholder="{$lang.entry_last_name}" />
+								</div>
+							</div>
+						{if $smarty.const.ACCOUNT_DOB eq 'true'}
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="dob">{$lang.entry_date_of_birth} *</label>
+								<div class="col-sm-5">
+									<input type="text" value="{$smarty.post.dob}" class="form-control" id="dob" name="dob" placeholder="{$lang.entry_date_of_birth_text}" />
+								</div>
+							</div>
+						{/if}
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="email_address">{$lang.entry_email_address} *</label>
+								<div class="col-sm-5">
+									<input type="text" value="{$smarty.post.email_address}" class="form-control" id="email_address" name="email_address" placeholder="{$lang.entry_email_address}" />
+								</div>
+							</div>							
+						
+						{if $smarty.const.ACCOUNT_COMPANY eq 'true'}
+						<hr />
+						<h4>{$lang.category_company}</h4>
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="company">{$lang.entry_company}</label>
+								<div class="col-sm-5">
+									<input type="text" value="{$smarty.post.company}" class="form-control" id="company" name="company" placeholder="{$lang.entry_company}" />
+								</div>
+							</div>
+												
+							{if $smarty.const.ACCOUNT_OWNER eq 'true'}
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="company">{$lang.entry_owner}</label>
+								<div class="col-sm-5">
+									<input type="text" value="{$smarty.post.owner}" class="form-control" id="owner" name="owner" placeholder="{$lang.entry_owner}" />
+								</div>
+							</div>
+							{/if}
 
+							{if $smarty.const.ACCOUNT_VAT_ID eq 'true'}
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="company">{$lang.entry_vat_id}</label>
+								<div class="col-sm-5">
+									<input type="text" value="{$smarty.post.vat_id}" class="form-control" id="vat_id" name="vat_id" placeholder="{$lang.entry_vat_id}" />
+								</div>
+							</div>
+							{/if}							
 
+						{/if}
+							<hr />	
+							<h4>{$lang.category_address}</h4>
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="street_address">{$lang.entry_street_address} *</label>
+								<div class="col-sm-5">
+									<input type="text" value="{$smarty.post.street_address}" class="form-control" id="street_address" name="street_address" placeholder="{$lang.entry_street_address}" />
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="postcode">{$lang.entry_post_code} *</label>
+								<div class="col-sm-5">
+									<input type="text" value="{$smarty.post.postcode}" class="form-control" id="postcode" name="postcode" placeholder="{$lang.entry_post_code}" />
+								</div>
+							</div>	
+
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="city">{$lang.entry_city} *</label>
+								<div class="col-sm-5">
+									<input type="text" value="{$smarty.post.city}" class="form-control" id="city" name="city" placeholder="{$lang.entry_city}" />
+								</div>
+							</div>
+							
+						{if $smarty.const.ACCOUNT_STATE eq 'true'}
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="state">{$lang.entry_state} *</label>
+								<div class="col-sm-5">
+									{oos_get_zone_name country_id=$account.entry_country_id zone_id=$account.entry_zone_id default_zone=$account.entry_state}
+								</div>
+							</div>
+						{/if}
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="country">{$lang.entry_country} *</label>
+								<div class="col-sm-5">
+									{oos_get_country_list name=country selected=$account.entry_country_id}
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="telephone">{$lang.entry_telephone_number}</label>
+								<div class="col-sm-5">
+									<input type="text" value="{$smarty.post.telephone}" class="form-control" id="telephone" name="telephone" placeholder="{$lang.entry_telephone_number}" />
+								</div>
+							</div>
+		
+						{if $smarty.const.CUSTOMER_NOT_LOGIN eq 'false'}
+							<hr />
+							<h4>{$lang.category_password}</h4>
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="password">{$lang.entry_password} *</label>
+								<div class="col-sm-5">
+									<input type="password" value="{$smarty.post.password}" class="form-control" id="password" name="password" placeholder="{$lang.entry_password}" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="confirmation">{$lang.entry_password_confirmation} *</label>
+								<div class="col-sm-5">
+									<input type="password" value="{$smarty.post.confirmation}" class="form-control" id="confirmation" name="confirmation" placeholder="{$lang.entry_password_confirmation}" />
+								</div>
+							</div>
+						{/if}
+
+							<div class="form-group">
+								<div class="col-sm-5 col-sm-offset-4">
+									<div class="checkbox">
+										<label class="checkbox nomargin">
+											<input type="checkbox" id="agree" name="agree" value="yes" />{$login_agree}
+										</label>
+									{if $smarty.const.NEWSLETTER eq 'true'}
+										<label class="checkbox nomargin">
+											<input type="checkbox" id="agree" name="newsletter" value="yes" />{$lang.newsletter_agree}
+										</label>
+									{/if}
+									</div>
+								</div>
+							</div>							
+							<hr />							
+							</fieldset>
+							<div class="form-group">
+								<div class="col-sm-9 col-sm-offset-4">
+									<button type="submit" class="btn btn-primary"><i class="fa fa-check" aria-hidden="true"></i> {$lang.button_register}</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
 
 				</div>
 			</div>

@@ -1,15 +1,16 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: user_create_account_process.php,v 1.3 2007/06/12 16:36:39 r23 Exp $
+   $Id: user_create_account.php,v 1.3 2007/06/12 16:36:39 r23 Exp $
 
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
-
+   
+   
    Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
-   File: create_account_process.php,v 1.15 2003/02/16 00:42:03 harley_vb
+   File: create_account.php,v 1.12 2003/02/16 00:42:03 harley_vb
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -19,54 +20,54 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-$aLang['navbar_title_1'] = 'Konto erstellen';
-$aLang['navbar_title_2'] = 'Bearbeitung';
+$aLang['navbar_title'] = 'Konto erstellen';
 $aLang['heading_title'] = 'Informationen zu Ihrem Kundenkonto';
+$aLang['text_origin_login'] = '<strong>ACHTUNG:</strong> Wenn Sie bereits ein Konto besitzen, so melden Sie sich bitte <a href="%s" class="alert-link"><strong>hier</strong></a> an.';
 
 $aLang['email_subject'] = 'Willkommen zu ' . STORE_NAME;
 $aLang['email_greet_mr'] = 'Sehr geehrter Herr ' . stripslashes($lastname) . ',' . "\n\n";
 $aLang['email_greet_ms'] = 'Sehr geehrte Frau ' . stripslashes($lastname) . ',' . "\n\n";
 $aLang['email_greet_none'] = 'Sehr geehrte ' . stripslashes($firstname) . ',' . "\n\n";
 $aLang['email_welcome'] = 'willkommen zu <strong>' . STORE_NAME . '</strong>.' . "\n\n";
-$aLang['email_text'] = 'Sie können jetzt unseren <strong>Online-Service</strong> nutzen. Der Service bietet unter anderem:' . "\n\n" . '<li><strong>Kundenwarenkorb</strong> - Jeder Artikel bleibt registriert bis Sie zur Kasse gehen, oder die Produkte aus dem Warenkorb entfernen.' . "\n" . '<li><strong>Adressbuch</strong> - Wir können jetzt die Produkte zu der von Ihnen ausgesuchten Adresse senden. Der perfekte Weg ein Geburtstagsgeschenk zu versenden.' . "\n" . '<li><strong>Vorherige Bestellungen</strong> - Sie können jederzeit Ihre vorherigen Bestellungen überprüfen.' . "\n" . '<li><strong>Meinungen über Produkte</strong> - Teilen Sie Ihre Meinung zu unseren Produkten mit anderen Kunden.' . "\n\n";
+$aLang['email_text'] = 'Sie kÃ¶nnen jetzt unseren <strong>Online-Service</strong> nutzen. Der Service bietet unter anderem:' . "\n\n" . '<li><strong>Kundenwarenkorb</strong> - Jeder Artikel bleibt registriert bis Sie zur Kasse gehen, oder die Produkte aus dem Warenkorb entfernen.' . "\n" . '<li><strong>Adressbuch</strong> - Wir kÃ¶nnen jetzt die Produkte zu der von Ihnen ausgesuchten Adresse senden. Der perfekte Weg ein Geburtstagsgeschenk zu versenden.' . "\n" . '<li><strong>Vorherige Bestellungen</strong> - Sie kÃ¶nnen jederzeit Ihre vorherigen Bestellungen Ã¼berprÃ¼fen.' . "\n" . '<li><strong>Meinungen Ã¼ber Produkte</strong> - Teilen Sie Ihre Meinung zu unseren Produkten mit anderen Kunden.' . "\n\n";
 $aLang['email_contact'] = 'Falls Sie Fragen zu unserem Kunden-Service haben, wenden Sie sich bitte an den Vertrieb: ' . STORE_OWNER_EMAIL_ADDRESS . '.' . "\n\n";
 $aLang['email_warning'] = '<strong>Achtung:</strong> Diese eMail-Adresse wurde uns von einem Kunden bekannt gegeben. Falls Sie sich nicht angemeldet haben, senden Sie bitte eine eMail an ' . STORE_OWNER_EMAIL_ADDRESS . '.' . "\n";
 
-$aLang['email_gv_incentive_header'] = 'Um Sie als Neukunden zu begrüßen, haben wir Ihnen einen Gutschein über %s gesendet.';
-$aLang['email_gv_redeem'] = 'Der Gutscheincode lautet: %s. Sie können diesen, beim Abschluß Ihrer Bestellung eingeben';
+$aLang['email_gv_incentive_header'] = 'Um Sie als Neukunden zu begrÃ¼ÃŸen, haben wir Ihnen einen Gutschein Ã¼ber %s gesendet.';
+$aLang['email_gv_redeem'] = 'Der Gutscheincode lautet: %s. Sie kÃ¶nnen diesen, beim AbschluÃŸ Ihrer Bestellung eingeben';
 $aLang['email_gv_link'] = 'Oder Sie benutzen den folgenden Link: ';
-$aLang['email_coupon_incentive_header'] = 'Herzlichen Glückwunsch! Um den ersten Besuch in unserm Shop attraktiver zu machen erhalten Sie diesen Gutschein!' . "\n" .
-                                         'Es folgen weitere Details über Ihren persönlichen Einkaufsgutschein.' . "\n\n";
+$aLang['email_coupon_incentive_header'] = 'Herzlichen GlÃ¼ckwunsch! Um den ersten Besuch in unserm Shop attraktiver zu machen erhalten Sie diesen Gutschein!' . "\n" .
+                                         'Es folgen weitere Details Ã¼ber Ihren persÃ¶nlichen Einkaufsgutschein.' . "\n\n";
 $aLang['email_coupon_redeem'] = 'Um den Einkaufsgutschein zu nutzen geben Sie bitte den Gutscheincode %s ' . "\n" .
                                'beim Beenden Ihrer Bestellung ein!';
 
-$aLang['email_password'] = 'Ihr Passwort für \'' . STORE_NAME . '\' lautet:' . "\n\n" . '   %s' . "\n\n";
+$aLang['email_password'] = 'Ihr Passwort fÃ¼r \'' . STORE_NAME . '\' lautet:' . "\n\n" . '   %s' . "\n\n";
 
 
 $aLang['email_disclaimer'] = '--- Disclaimer ------------------------------------------------------------ ' . "\n\n" .
-                            'Ihre Privatsphäre:' . "\n\n" .
+                            'Ihre PrivatsphÃ¤re:' . "\n\n" .
                             'Wir verpflichten uns Ihre Daten (Name, E-Mail etc.) in keinem Fall an' . "\n" .
                             'dritte Parteien weitergegeben, sofern dieses nicht rechtlich erzwungen' . "\n" .
-                            'wird. Ausser dass diese Weitergabe illegal wäre, sehen wir darin keine' . "\n" .
-                            'Bereicherung für Sie oder für uns. Ihr Name und E-Mail-Adresse sind aber' . "\n" .
-                            'natürlich für alle sichtbar, die Ihre Beiträge auf ' . oos_server_get_base_url() . ' lesen.' . "\n" .
-                            'Da die Kommunikation und Anmeldung im World Wide Web in vielen Fällen' . "\n" .
-                            'unverschlüsselt erfolgt, so dass auch Ihr Benutzername und Ihr Passwort' . "\n" .
-                            'für andere lesbar übertragen werden, benutzen Sie für den Zugang' . "\n" .
+                            'wird. Ausser dass diese Weitergabe illegal wÃ¤re, sehen wir darin keine' . "\n" .
+                            'Bereicherung fÃ¼r Sie oder fÃ¼r uns. Ihr Name und E-Mail-Adresse sind aber' . "\n" .
+                            'natÃ¼rlich fÃ¼r alle sichtbar, die Ihre BeitrÃ¤ge auf ' . oos_server_get_base_url() . ' lesen.' . "\n" .
+                            'Da die Kommunikation und Anmeldung im World Wide Web in vielen FÃ¤llen' . "\n" .
+                            'unverschlÃ¼sselt erfolgt, so dass auch Ihr Benutzername und Ihr Passwort' . "\n" .
+                            'fÃ¼r andere lesbar Ã¼bertragen werden, benutzen Sie fÃ¼r den Zugang' . "\n" .
                             'zu ' . oos_server_get_base_url() . ' sicherheitshalber eine andere' . "\n" .
                             'Benutzername/Passwort-Kombination als die, die z.B. Zugriff zu Ihrem' . "\n" .
-                            'persönlichen Computer gestattet.' . "\n\n" .
+                            'persÃ¶nlichen Computer gestattet.' . "\n\n" .
                             'Sie haben diese E-Mail nicht angefordert?' . "\n\n" .
                             'Diese E-Mail wurde am ' . strftime(DATE_FORMAT_LONG) . ' von der IP ' . oos_server_get_remote() . ' ' . oos_server_get_var('REMOTE_HOST') . ' ' . "\n" .
-                            'initiiert. Falls das nicht Ihre (auch temporäre) IP Adresse ist, löschen' . "\n" .
+                            'initiiert. Falls das nicht Ihre (auch temporÃ¤re) IP Adresse ist, lÃ¶schen' . "\n" .
                             'Sie diese E-Mail nicht, und wenden sich bitte freundlich an den' . "\n" .
                             'verantwortlichen Webmaster unter ' . STORE_OWNER_EMAIL_ADDRESS . '. Dieser kann Ihnen' . "\n" .
-                            'in dem meisten Fällen weiterhelfen. Sollte Ihnen diese Hilfe nicht' . "\n" .
+                            'in dem meisten FÃ¤llen weiterhelfen. Sollte Ihnen diese Hilfe nicht' . "\n" .
                             'ausreichend erscheinen, wenden Sie sich bitte direkt an den Provider' . "\n" .
                             'von ' . oos_server_get_var('REMOTE_HOST') . "\n\n" .
                             'Wichtig: Der Betreiber von ' . oos_server_get_base_url() . ' ist nur bedingt in der Lage' . "\n" .
                             'solchen Missbrauch zu kontrollieren, und ist i.d.R. nicht verantwortlich' . "\n" .
-                            'für diese E-Mail.';
+                            'fÃ¼r diese E-Mail.';
 
 
 $aLang['owner_email_subject'] = 'Neuer Kunde';

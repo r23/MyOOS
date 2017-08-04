@@ -1,15 +1,16 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: user_create_account_process.php,v 1.3 2007/06/12 16:51:19 r23 Exp $
+   $Id: user_create_account.php,v 1.3 2007/06/12 16:51:19 r23 Exp $
 
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
-
+   
+   
    Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
-   File: create_account_process.php,v 1.13 2002/11/19 01:48:08 dgw_
+   File: create_account.php,v 1.8 2002/11/19 01:48:08 dgw_
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -19,9 +20,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-$aLang['navbar_title_1'] = 'Create an Account';
-$aLang['navbar_title_2'] = 'Process';
+$aLang['navbar_title'] = 'Create an Account';
 $aLang['heading_title'] = 'My Account Information';
+$aLang['text_origin_login'] = '<strong>NOTE:</strong> If you already have an account with us, please login at the <a href="%s" class="alert-link"><u>login page</u></a>.';
 
 $aLang['email_subject'] = 'Welcome to ' . STORE_NAME;
 $aLang['email_greet_mr'] = 'Dear Mr. ' . stripslashes($lastname) . ',' . "\n\n";
@@ -89,5 +90,3 @@ $aLang['owner_email_newsletter'] = 'Newsletter:';
 $aLang['owner_email_newsletter_yes'] = 'Subscribed';
 $aLang['owner_email_newsletter_no'] = 'Unsubscribed';
 $aLang['email_separator'] = '------------------------------------------------------';
-
-
