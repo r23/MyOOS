@@ -86,7 +86,6 @@ $aContents['popup_search_help'] = $prefix_filename . 'popup_search_help';
 //user
 $aContents['account'] = $prefix_filename . 'account';
 $aContents['account_edit'] = $prefix_filename . 'account_edit';
-$aContents['account_edit_process'] = $prefix_filename . 'account_edit_process';
 $aContents['create_account'] = $prefix_filename . 'create_account'; 
 $aContents['create_account_success'] = $prefix_filename . 'create_account_success';
 $aContents['login'] = $prefix_filename . 'login';

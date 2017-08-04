@@ -24,7 +24,6 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 // start the session
 if ( $session->hasStarted() === FALSE ) $session->start();   
 
- 
 if (!isset($_SESSION['customer_id'])) {
 	// navigation history
 	if (!isset($_SESSION['navigation'])) {
@@ -34,8 +33,23 @@ if (!isset($_SESSION['customer_id'])) {
     oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
 }
 
+// require  the password crypto functions
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_password.php';
+// require  validation functions (right now only email address)
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validate_vatid.php';
+
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_account_edit_process.php';
   
+
+
+
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_edit.php';
+
+if ( isset($_POST['action']) && ($_POST['action'] == 'process') && 
+	( isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) ){
+
+
 
   $customerstable = $oostable['customers'];
   $address_bookstable = $oostable['address_book'];
