@@ -2890,6 +2890,15 @@
                     "topic_visibility",
                     "topic_last_post_id"
                 ]
+            ],
+            "latest_topics": [
+                "INDEX",
+                [
+                    "forum_id",
+                    "topic_last_post_time",
+                    "topic_last_post_id",
+                    "topic_moved_id"
+                ]
             ]
         }
     },
@@ -3016,7 +3025,7 @@
     "phpbb_user_notifications": {
         "COLUMNS": {
             "item_type": [
-                "VCHAR:255",
+                "VCHAR:165",
                 ""
             ],
             "item_id": [
@@ -3028,12 +3037,44 @@
                 0
             ],
             "method": [
-                "VCHAR:255",
+                "VCHAR:165",
                 ""
             ],
             "notify": [
                 "BOOL",
                 1
+            ]
+        },
+        "KEYS": {
+            "user_id": [
+                "INDEX",
+                [
+                    "user_id"
+                ]
+            ],
+            "uid_itm_id": [
+                "INDEX",
+                [
+                    "user_id",
+                    "item_id"
+                ]
+            ],
+            "usr_itm_tpe": [
+                "INDEX",
+                [
+                    "user_id",
+                    "item_type",
+                    "item_id"
+                ]
+            ],
+            "itm_usr_mthd": [
+                "UNIQUE",
+                [
+                    "item_type",
+                    "item_id",
+                    "user_id",
+                    "method"
+                ]
             ]
         }
     },

@@ -2,7 +2,7 @@
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2016 The s9e Authors
+* @copyright Copyright (c) 2010-2017 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Plugins\Censor;
@@ -12,6 +12,7 @@ class Helper
 	public $attrName = 'with';
 	public $defaultReplacement = '****';
 	public $regexp = '/(?!)/';
+	public $regexpHtml = '/(?!)/';
 	public $replacements = array();
 	public $tagName = 'CENSOR';
 	public function __construct(array $config)
@@ -25,18 +26,18 @@ class Helper
 		$attributesExpr = '';
 		if ($censorAttributes)
 			$attributesExpr = '|[^<">]*+(?=<|$|"(?> [-\\w]+="[^"]*+")*+\\/?>)';
-		$delim  = $this->regexp[0];
-		$pos    = \strrpos($this->regexp, $delim);
+		$delim  = $this->regexpHtml[0];
+		$pos    = \strrpos($this->regexpHtml, $delim);
 		$regexp = $delim
 		        . '(?<!&#)(?<!&)'
-		        . \substr($this->regexp, 1, $pos - 1)
+		        . \substr($this->regexpHtml, 1, $pos - 1)
 		        . '(?=[^<>]*+(?=<|$)' . $attributesExpr . ')'
-		        . \substr($this->regexp, $pos);
+		        . \substr($this->regexpHtml, $pos);
 		return \preg_replace_callback(
 			$regexp,
 			function ($m) use ($_this)
 			{
-				return \htmlspecialchars($_this->getReplacement($m[0]), \ENT_QUOTES);
+				return \htmlspecialchars($_this->getReplacement(\html_entity_decode($m[0], \ENT_QUOTES, 'UTF-8')), \ENT_QUOTES);
 			},
 			$html
 		);
@@ -56,44 +57,6 @@ class Helper
 	public function isCensored($word)
 	{
 		return (\preg_match($this->regexp, $word) && !$this->isAllowed($word));
-	}
-	public function reparse($xml)
-	{
-		$_this = $this;
-		if (\strpos($xml, '</' . $this->tagName . '>') !== \false)
-		{
-			$xml = \preg_replace_callback(
-				'#<' . $this->tagName . '[^>]*>([^<]+)</' . $this->tagName . '>#',
-				function ($m) use ($_this)
-				{
-					return ($_this->isCensored($m[1])) ? $_this->buildTag($m[1]) : $m[1];
-				},
-				$xml
-			);
-		}
-		$delim  = $this->regexp[0];
-		$pos    = \strrpos($this->regexp, $delim);
-		$regexp = $delim
-		        . '(?<!&)'
-		        . \substr($this->regexp, 1, $pos - 1)
-		        . '(?=[^<>]*+<(?!\\/(?-i)' . $this->tagName . '>))'
-		        . \substr($this->regexp, $pos);
-		$xml = \preg_replace_callback(
-			$regexp,
-			function ($m) use ($_this)
-			{
-				return ($_this->isAllowed($m[0])) ? $m[0] : $_this->buildTag($m[0]);
-			},
-			$xml,
-			-1,
-			$cnt
-		);
-		if ($cnt > 0 && $xml[1] === 't')
-		{
-			$xml[1] = 'r';
-			$xml[\strlen($xml) - 2] = 'r';
-		}
-		return $xml;
 	}
 	public function buildTag($word)
 	{

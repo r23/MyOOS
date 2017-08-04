@@ -85,7 +85,7 @@ $lang = array_merge($lang, array(
 	'ACP_LINK'	=> '<a href="%1$s">Zum Administrations-Bereich</a>',
 
 	'INSTALL_PHPBB_INSTALLED'		=> 'phpBB ist bereits installiert.',
-	'INSTALL_PHPBB_NOT_INSTALLED'	=> 'phpBB ist noch nicht installiert.'
+	'INSTALL_PHPBB_NOT_INSTALLED'	=> 'phpBB ist noch nicht installiert.',
 ));
 
 // Requirements translation
@@ -121,7 +121,7 @@ $lang = array_merge($lang, array(
 
 	'RETEST_REQUIREMENTS'	=> 'Systemanforderungen erneut prüfen',
 
-	'STAGE_REQUIREMENTS'	=> 'Systemanforderungen prüfen'
+	'STAGE_REQUIREMENTS'	=> 'Systemanforderungen prüfen',
 ));
 
 // General error messages
@@ -201,6 +201,7 @@ $lang = array_merge($lang, array(
 	'INST_ERR_DB_NO_NAME'			=> 'Kein Datenbank-Name angegeben.',
 	'INST_ERR_DB_FORUM_PATH'		=> 'Die angegebene Datenbank-Datei liegt innerhalb Ihres Board-Verzeichnisses. Sie sollten sie an einem nicht über das Web zugänglichen Ort ablegen.',
 	'INST_ERR_DB_CONNECT'			=> 'Es kann keine Verbindung zur Datenbank aufgebaut werden. Details stehen in unten angezeigter Fehlermeldung.',
+	'INST_ERR_DB_NO_WRITABLE'		=> 'Sowohl die Datenbank als auch das Verzeichnis, dass die Datenbank beinhaltet, müssen beschreibbar sein.',
 	'INST_ERR_DB_NO_ERROR'			=> 'Es wurde keine Fehlermeldung übergeben.',
 	'INST_ERR_PREFIX'				=> 'Es existieren bereits Tabellen mit dem angegebenen Präfix, bitte wählen Sie ein alternatives.',
 	'INST_ERR_DB_NO_MYSQLI'			=> 'Die auf diesem System installierte MySQL-Version ist nicht kompatibel mit der „MySQL mit MySQLi-Erweiterung“-Option, die von Ihnen gewählt wurde. Bitte versuchen Sie stattdessen die „MySQL“-Option.',
@@ -226,6 +227,7 @@ $lang = array_merge($lang, array(
 	// Server data
 	//
 	// Form labels
+	'UPGRADE_INSTRUCTIONS'		=> 'Ein neues Feature-Release <strong>%1$s</strong> ist verfügbar. Bitte lesen Sie <a href="%2$s" title="%2$s"><strong>die Release-Bekanntmachung</strong></a>, um die Neuerungen zu erfahren und eine Anleitung zum Upgrade zu erhalten.',
 	'SERVER_CONFIG'				=> 'Server-Konfiguration',
 	'SCRIPT_PATH'				=> 'Scriptpfad',
 	'SCRIPT_PATH_EXPLAIN'		=> 'Der Pfad, in dem die phpBB-Dateien abgelegt sind, relativ zum Domainnamen. Z.&nbsp;B. <samp>/phpBB3</samp>.',
@@ -298,9 +300,10 @@ $lang = array_merge($lang, array(
 	'TASK_CREATE_TABLES'				=> 'Erstelle Tabellen',
 
 	// Install data
-	'TASK_ADD_BOTS'			=> 'Registriere Bots',
-	'TASK_ADD_LANGUAGES'	=> 'Installiere verfügbare Sprachen',
-	'TASK_ADD_MODULES'		=> 'Installiere Module',
+	'TASK_ADD_BOTS'				=> 'Registriere Bots',
+	'TASK_ADD_LANGUAGES'		=> 'Installiere verfügbare Sprachen',
+	'TASK_ADD_MODULES'			=> 'Installiere Module',
+	'TASK_CREATE_SEARCH_INDEX'	=> 'Erstelle Such-Index',
 
 	// Install finish tasks
 	'TASK_INSTALL_EXTENSIONS'	=> 'Installiere mitgelieferte Erweiterungen',

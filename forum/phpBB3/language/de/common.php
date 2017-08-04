@@ -184,6 +184,7 @@ $lang = array_merge($lang, array(
 	'COOKIE_CONSENT_INFO'	=> 'Mehr erfahren',
 	'COOKIE_CONSENT_MSG'	=> 'Diese Website nutzt Cookies, um dir den bestmöglichen Komfort bei der Nutzung zu bieten.',
 	'COOKIE_CONSENT_OK'		=> 'Verstanden!',
+	'COOKIE_CONSENT_HREF'	=> 'https://de.wikipedia.org/wiki/HTTP-Cookie',
 	'COOKIES_DELETED'		=> 'Alle Cookies des Boards wurden erfolgreich gelöscht.',
 	'CURRENT_TIME'			=> 'Aktuelle Zeit: %s',
 
@@ -819,7 +820,7 @@ $lang = array_merge($lang, array(
 	'UNWATCHED_FORUMS'			=> 'Die Abonnements für die ausgewählten Foren wurden beendet.',
 	'UNWATCHED_TOPICS'			=> 'Die Abonnements für die ausgewählten Themen wurden beendet.',
 	'UNWATCHED_FORUMS_TOPICS'	=> 'Die Abonnements für die ausgewählten Elemente wurden beendet.',
-	'UPDATE'				=> 'Aktualisiere',
+	'UPDATE'				=> 'Aktualisieren',
 	'UPLOAD_IN_PROGRESS'	=> 'Die Datei wird hochgeladen.',
 	'URL_REDIRECT'			=> 'Wenn dein Browser keine META-Weiterleitung unterstützt, %sklicke hier, um auf die nächste Seite weitergeleitet zu werden%s.',
 	'USERGROUPS'			=> 'Gruppen',

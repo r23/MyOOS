@@ -1,9 +1,9 @@
 {
 	"name": "phpbb/viglink",
 	"type": "phpbb-extension",
-	"description": "VigLink can convert your existing links into links that earn revenue.",
+	"description": "The VigLink extension for phpBB makes it possible to earn revenue, without any change to the user experience, when users post and follow links to commercial sites.",
 	"homepage": "https://www.phpbb.com",
-	"version": "1.0.0",
+	"version": "1.0.2",
 	"keywords": ["phpbb", "extension", "viglink"],
 	"license": "GPL-2.0",
 	"authors": [

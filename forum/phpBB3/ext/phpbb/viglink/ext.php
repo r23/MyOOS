@@ -44,7 +44,7 @@ class ext extends \phpbb\extension\base
 		if ($old_state === false)
 		{
 			$viglink_helper = new \phpbb\viglink\acp\viglink_helper(
-				$this->container->get('cache'),
+				$this->container->get('cache.driver'),
 				$this->container->get('config'),
 				$this->container->get('file_downloader'),
 				$this->container->get('language'),

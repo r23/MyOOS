@@ -36,9 +36,9 @@ class listener implements EventSubscriberInterface
 	}
 
 	/**
-	* {@inheritDoc}
-	*/
-	static public function getSubscribedEvents()
+	 * {@inheritDoc}
+	 */
+	public static function getSubscribedEvents()
 	{
 		return array(
 			'core.viewtopic_post_row_after'		=> 'display_viglink',

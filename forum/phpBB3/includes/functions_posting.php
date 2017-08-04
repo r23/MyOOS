@@ -1165,7 +1165,7 @@ function topic_review($topic_id, $forum_id, $mode = 'topic_review', $cur_post_id
 */
 function delete_post($forum_id, $topic_id, $post_id, &$data, $is_soft = false, $softdelete_reason = '')
 {
-	global $db, $user, $phpbb_container;
+	global $db, $user, $phpbb_container, $phpbb_dispatcher;
 	global $config, $phpEx, $phpbb_root_path;
 
 	// Specify our post mode
@@ -1415,6 +1415,34 @@ function delete_post($forum_id, $topic_id, $post_id, &$data, $is_soft = false, $
 	{
 		sync('topic_reported', 'topic_id', array($topic_id));
 	}
+
+	/**
+	* This event is used for performing actions directly after a post or topic
+	* has been deleted.
+	*
+	* @event core.delete_post_after
+	* @var	int		forum_id			Post forum ID
+	* @var	int		topic_id			Post topic ID
+	* @var	int		post_id				Post ID
+	* @var	array	data				Post data
+	* @var	bool	is_soft				Soft delete flag
+	* @var	string	softdelete_reason	Soft delete reason
+	* @var	string	post_mode			delete_topic, delete_first_post, delete_last_post or delete
+	* @var	mixed	next_post_id		Next post ID in the topic (post ID or false)
+	*
+	* @since 3.1.11-RC1
+	*/
+	$vars = array(
+		'forum_id',
+		'topic_id',
+		'post_id',
+		'data',
+		'is_soft',
+		'softdelete_reason',
+		'post_mode',
+		'next_post_id',
+	);
+	extract($phpbb_dispatcher->trigger_event('core.delete_post_after', compact($vars)));
 
 	return $next_post_id;
 }
@@ -1676,7 +1704,7 @@ function submit_post($mode, $subject, $username, $topic_type, &$poll_ary, &$data
 				'topic_first_poster_name'	=> (!$user->data['is_registered'] && $username) ? $username : (($user->data['user_id'] != ANONYMOUS) ? $user->data['username'] : ''),
 				'topic_first_poster_colour'	=> $user->data['user_colour'],
 				'topic_type'				=> $topic_type,
-				'topic_time_limit'			=> ($topic_type == POST_STICKY || $topic_type == POST_ANNOUNCE) ? ($data_ary['topic_time_limit'] * 86400) : 0,
+				'topic_time_limit'			=> $topic_type != POST_NORMAL ? ($data_ary['topic_time_limit'] * 86400) : 0,
 				'topic_attachment'			=> (!empty($data_ary['attachment_data'])) ? 1 : 0,
 				'topic_status'				=> (isset($data_ary['topic_status'])) ? $data_ary['topic_status'] : ITEM_UNLOCKED,
 			);
@@ -1771,7 +1799,7 @@ function submit_post($mode, $subject, $username, $topic_type, &$poll_ary, &$data
 				'topic_title'				=> $subject,
 				'topic_first_poster_name'	=> $username,
 				'topic_type'				=> $topic_type,
-				'topic_time_limit'			=> ($topic_type == POST_STICKY || $topic_type == POST_ANNOUNCE) ? ($data_ary['topic_time_limit'] * 86400) : 0,
+				'topic_time_limit'			=> $topic_type != POST_NORMAL ? ($data_ary['topic_time_limit'] * 86400) : 0,
 				'poll_title'				=> (isset($poll_ary['poll_options'])) ? $poll_ary['poll_title'] : '',
 				'poll_start'				=> (isset($poll_ary['poll_options'])) ? $poll_start : 0,
 				'poll_max_options'			=> (isset($poll_ary['poll_options'])) ? $poll_ary['poll_max_options'] : 1,
@@ -2386,7 +2414,7 @@ function submit_post($mode, $subject, $username, $topic_type, &$poll_ary, &$data
 	* @var	string	url					The "Return to topic" URL
 	*
 	* @since 3.1.0-a3
-	* @change 3.1.0-RC3 Added vars mode, subject, username, topic_type,
+	* @changed 3.1.0-RC3 Added vars mode, subject, username, topic_type,
 	*		poll, update_message, update_search_index
 	*/
 	$vars = array(
@@ -2543,16 +2571,54 @@ function phpbb_upload_popup($forum_style = 0)
 
 /**
 * Do the various checks required for removing posts as well as removing it
+*
+* @param int		$forum_id		The id of the forum
+* @param int		$topic_id		The id of the topic
+* @param int		$post_id		The id of the post
+* @param array		$post_data		Array with the post data
+* @param bool		$is_soft		The flag indicating whether it is the soft delete mode
+* @param string		$delete_reason	Description for the post deletion reason
+*
+* @return null
 */
 function phpbb_handle_post_delete($forum_id, $topic_id, $post_id, &$post_data, $is_soft = false, $delete_reason = '')
 {
 	global $user, $auth, $config, $request;
-	global $phpbb_root_path, $phpEx, $phpbb_log;
+	global $phpbb_root_path, $phpEx, $phpbb_log, $phpbb_dispatcher;
 
+	$force_delete_allowed = $force_softdelete_allowed = false;
 	$perm_check = ($is_soft) ? 'softdelete' : 'delete';
 
+	/**
+	* This event allows to modify the conditions for the post deletion
+	*
+	* @event core.handle_post_delete_conditions
+	* @var	int		forum_id		The id of the forum
+	* @var	int		topic_id		The id of the topic
+	* @var	int		post_id			The id of the post
+	* @var	array	post_data		Array with the post data
+	* @var	bool	is_soft			The flag indicating whether it is the soft delete mode
+	* @var	string	delete_reason	Description for the post deletion reason
+	* @var	bool	force_delete_allowed		Allow the user to delete the post (all permissions and conditions are ignored)
+	* @var	bool	force_softdelete_allowed	Allow the user to softdelete the post (all permissions and conditions are ignored)
+	* @var	string	perm_check		The deletion mode softdelete|delete
+	* @since 3.1.11-RC1
+	*/
+	$vars = array(
+		'forum_id',
+		'topic_id',
+		'post_id',
+		'post_data',
+		'is_soft',
+		'delete_reason',
+		'force_delete_allowed',
+		'force_softdelete_allowed',
+		'perm_check',
+	);
+	extract($phpbb_dispatcher->trigger_event('core.handle_post_delete_conditions', compact($vars)));
+
 	// If moderator removing post or user itself removing post, present a confirmation screen
-	if ($auth->acl_get("m_$perm_check", $forum_id) || ($post_data['poster_id'] == $user->data['user_id'] && $user->data['is_registered'] && $auth->acl_get("f_$perm_check", $forum_id) && $post_id == $post_data['topic_last_post_id'] && !$post_data['post_edit_locked'] && ($post_data['post_time'] > time() - ($config['delete_time'] * 60) || !$config['delete_time'])))
+	if ($force_delete_allowed || ($is_soft && $force_softdelete_allowed) || $auth->acl_get("m_$perm_check", $forum_id) || ($post_data['poster_id'] == $user->data['user_id'] && $user->data['is_registered'] && $auth->acl_get("f_$perm_check", $forum_id) && $post_id == $post_data['topic_last_post_id'] && !$post_data['post_edit_locked'] && ($post_data['post_time'] > time() - ($config['delete_time'] * 60) || !$config['delete_time'])))
 	{
 		$s_hidden_fields = array(
 			'p'		=> $post_id,
@@ -2622,10 +2688,10 @@ function phpbb_handle_post_delete($forum_id, $topic_id, $post_id, &$post_data, $
 		}
 		else
 		{
-			global $user, $template, $request;
+			global $template;
 
-			$can_delete = $auth->acl_get('m_delete', $forum_id) || ($post_data['poster_id'] == $user->data['user_id'] && $user->data['is_registered'] && $auth->acl_get('f_delete', $forum_id));
-			$can_softdelete = $auth->acl_get('m_softdelete', $forum_id) || ($post_data['poster_id'] == $user->data['user_id'] && $user->data['is_registered'] && $auth->acl_get('f_softdelete', $forum_id));
+			$can_delete = $force_delete_allowed || ($auth->acl_get('m_delete', $forum_id) || ($post_data['poster_id'] == $user->data['user_id'] && $user->data['is_registered'] && $auth->acl_get('f_delete', $forum_id)));
+			$can_softdelete = $force_softdelete_allowed || ($auth->acl_get('m_softdelete', $forum_id) || ($post_data['poster_id'] == $user->data['user_id'] && $user->data['is_registered'] && $auth->acl_get('f_softdelete', $forum_id)));
 
 			$template->assign_vars(array(
 				'S_SOFTDELETED'			=> $post_data['post_visibility'] == ITEM_DELETED,

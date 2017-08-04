@@ -397,7 +397,8 @@ $lang = array_merge($lang, array(
 	'NUMBER_USERS'		=> 'Anzahl Benutzer',
 	'NUMBER_ORPHAN'		=> 'Verwaiste Dateianhänge',
 
-	'PHP_VERSION_OLD'	=> 'Die PHP-Version auf diesem Server wird von künftigen phpBB-Versionen nicht mehr unterstützt. %sWeitere Informationen%s',
+	'PHP_VERSION'		=> 'PHP-Version',
+	'PHP_VERSION_OLD'	=> 'Die PHP-Version auf diesem Server (%1$s) wird von künftigen phpBB-Versionen nicht mehr unterstützt. Es wird mindestens PHP %2$s erforderlich sein. %3$sWeitere Informationen%4$s',
 
 	'POSTS_PER_DAY'		=> 'Beiträge pro Tag',
 
@@ -441,16 +442,19 @@ $lang = array_merge($lang, array(
 	'UPLOAD_DIR_SIZE'	=> 'Größe der hochgeladenen Dateien',
 	'USERS_PER_DAY'		=> 'Benutzer pro Tag',
 
-	'VALUE'						=> 'Wert',
-	'VERSIONCHECK_FAIL'			=> 'Die Informationen über die aktuelle Version konnten nicht abgerufen werden.',
-	'VERSIONCHECK_FORCE_UPDATE'	=> 'Version erneut prüfen',
-	'VERSION_CHECK'				=> 'Versionsprüfung',
-	'VERSION_CHECK_EXPLAIN'		=> 'Prüft, ob die phpBB-Installation aktuell ist.',
+	'VALUE'							=> 'Wert',
+	'VERSIONCHECK_FAIL'				=> 'Die Informationen über die aktuelle Version konnten nicht abgerufen werden.',
+	'VERSIONCHECK_FORCE_UPDATE'		=> 'Version erneut prüfen',
+	'VERSION_CHECK'					=> 'Versionsprüfung',
+	'VERSION_CHECK_EXPLAIN'			=> 'Prüft, ob die phpBB-Installation aktuell ist.',
+	'VERSIONCHECK_INVALID_ENTRY'	=> 'Die Information über die aktuelle Version enthält einen nicht unterstützten Eintrag.',
+	'VERSIONCHECK_INVALID_URL'		=> 'Die Information über die aktuelle Version enthält eine ungültige URL.',
+	'VERSIONCHECK_INVALID_VERSION'	=> 'Die Information über die aktuelle Version enthält eine ungültige Version.',
 	'VERSION_NOT_UP_TO_DATE_ACP'	=> 'Deine phpBB-Installation ist nicht aktuell.<br />Unten ist ein Link zur Release-Bekanntmachung, die zusätzliche Informationen und Anweisung für die Aktualisierung enthält.',
 	'VERSION_NOT_UP_TO_DATE_TITLE'	=> 'Deine phpBB-Installation ist nicht aktuell.',
-	'VERSION_UP_TO_DATE_ACP'	=> 'Deine phpBB-Installation ist aktuell. Zurzeit sind keine Updates verfügbar.',
-	'VIEW_ADMIN_LOG'			=> 'Administrations-Protokoll anzeigen',
-	'VIEW_INACTIVE_USERS'		=> 'Inaktive Benutzer anzeigen',
+	'VERSION_UP_TO_DATE_ACP'		=> 'Deine phpBB-Installation ist aktuell. Zurzeit sind keine Updates verfügbar.',
+	'VIEW_ADMIN_LOG'				=> 'Administrations-Protokoll anzeigen',
+	'VIEW_INACTIVE_USERS'			=> 'Inaktive Benutzer anzeigen',
 
 	'WELCOME_PHPBB'			=> 'Willkommen bei phpBB',
 	'WRITABLE_CONFIG'		=> 'Deine Konfigurations-Datei (config.php) ist momentan von jedermann beschreibbar. Es wird dringend empfohlen, die Berechtigungen auf 640 oder zumindest auf 644 (z.&nbsp;B.: <a href="http://de.wikipedia.org/wiki/Chmod" rel="external">chmod</a> 640 config.php) zu setzen.',

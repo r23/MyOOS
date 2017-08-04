@@ -11,7 +11,7 @@
 namespace phpbb\viglink\migrations;
 
 /**
- * Migration to remove VigLink data
+ * Migration to ask admin about viglink
  */
 class viglink_ask_admin extends \phpbb\db\migration\migration
 {

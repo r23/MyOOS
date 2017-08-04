@@ -83,7 +83,7 @@ $lang = array_merge($lang, array(
 	'ACP_LINK'	=> 'Take me to <a href="%1$s">the ACP</a>',
 
 	'INSTALL_PHPBB_INSTALLED'		=> 'phpBB is already installed.',
-	'INSTALL_PHPBB_NOT_INSTALLED'	=> 'phpBB is not installed yet.'
+	'INSTALL_PHPBB_NOT_INSTALLED'	=> 'phpBB is not installed yet.',
 ));
 
 // Requirements translation
@@ -119,7 +119,7 @@ $lang = array_merge($lang, array(
 
 	'RETEST_REQUIREMENTS'	=> 'Retest requirements',
 
-	'STAGE_REQUIREMENTS'	=> 'Check requirements'
+	'STAGE_REQUIREMENTS'	=> 'Check requirements',
 ));
 
 // General error messages
@@ -199,6 +199,7 @@ $lang = array_merge($lang, array(
 	'INST_ERR_DB_NO_NAME'			=> 'No database name specified.',
 	'INST_ERR_DB_FORUM_PATH'		=> 'The database file specified is within your board directory tree. You should put this file in a non web-accessible location.',
 	'INST_ERR_DB_CONNECT'			=> 'Could not connect to the database, see error message below.',
+	'INST_ERR_DB_NO_WRITABLE'		=> 'Both the database and the directory containing it must be writable.',
 	'INST_ERR_DB_NO_ERROR'			=> 'No error message given.',
 	'INST_ERR_PREFIX'				=> 'Tables with the specified prefix already exist, please choose an alternative.',
 	'INST_ERR_DB_NO_MYSQLI'			=> 'The version of MySQL installed on this machine is incompatible with the “MySQL with MySQLi Extension” option you have selected. Please try the “MySQL” option instead.',
@@ -224,6 +225,7 @@ $lang = array_merge($lang, array(
 	// Server data
 	//
 	// Form labels
+	'UPGRADE_INSTRUCTIONS'			=> 'A new feature release <strong>%1$s</strong> is available. Please read <a href="%2$s" title="%2$s"><strong>the release announcement</strong></a> to learn about what it has to offer, and how to upgrade.',
 	'SERVER_CONFIG'				=> 'Server configuration',
 	'SCRIPT_PATH'				=> 'Script path',
 	'SCRIPT_PATH_EXPLAIN'		=> 'The path where phpBB is located relative to the domain name, e.g. <samp>/phpBB3</samp>.',
@@ -296,9 +298,10 @@ $lang = array_merge($lang, array(
 	'TASK_CREATE_TABLES'				=> 'Creating tables',
 
 	// Install data
-	'TASK_ADD_BOTS'			=> 'Registering bots',
-	'TASK_ADD_LANGUAGES'	=> 'Installing available languages',
-	'TASK_ADD_MODULES'		=> 'Installing modules',
+	'TASK_ADD_BOTS'				=> 'Registering bots',
+	'TASK_ADD_LANGUAGES'		=> 'Installing available languages',
+	'TASK_ADD_MODULES'			=> 'Installing modules',
+	'TASK_CREATE_SEARCH_INDEX'	=> 'Creating search index',
 
 	// Install finish tasks
 	'TASK_INSTALL_EXTENSIONS'	=> 'Installing packaged extensions',

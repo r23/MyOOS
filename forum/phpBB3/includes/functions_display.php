@@ -442,7 +442,7 @@ function display_forums($root_data = '', $display_moderators = true, $return_mod
 			* @var	array	root_data		Array with the root forum data
 			* @var	array	row				The data of the 'category'
 			* @since 3.1.0-RC4
-			* @change 3.1.7-RC1 Removed undefined catless variable
+			* @changed 3.1.7-RC1 Removed undefined catless variable
 			*/
 			$vars = array(
 				'cat_row',
@@ -648,7 +648,7 @@ function display_forums($root_data = '', $display_moderators = true, $return_mod
 		* @var	array	row				The data of the forum
 		* @var	array	subforums_row	Template data of subforums
 		* @since 3.1.0-a1
-		* @change 3.1.0-b5 Added var subforums_row
+		* @changed 3.1.0-b5 Added var subforums_row
 		*/
 		$vars = array('forum_row', 'row', 'subforums_row');
 		extract($phpbb_dispatcher->trigger_event('core.display_forums_modify_template_vars', compact($vars)));
@@ -1165,12 +1165,13 @@ function display_reasons($reason_id = 0)
 */
 function display_user_activity(&$userdata_ary)
 {
-	global $auth, $template, $db, $user;
+	global $auth, $template, $db, $user, $config;
 	global $phpbb_root_path, $phpEx;
 	global $phpbb_container, $phpbb_dispatcher;
 
-	// Do not display user activity for users having more than 5000 posts...
-	if ($userdata_ary['user_posts'] > 5000)
+	// Do not display user activity for users having too many posts...
+	$limit = $config['load_user_activity_limit'];
+	if ($userdata_ary['user_posts'] > $limit && $limit != 0)
 	{
 		return;
 	}

@@ -280,7 +280,7 @@ function compose_pm($id, $mode, $action, $user_folders = array())
 		* @var	bool	delete					Whether the user is deleting the PM
 		* @var	int		reply_to_all			Value of reply_to_all request variable.
 		* @since 3.1.0-RC5
-		* @change 3.2.0-a1 Removed undefined variables
+		* @changed 3.2.0-a1 Removed undefined variables
 		*/
 		$vars = array(
 			'sql',
@@ -345,7 +345,7 @@ function compose_pm($id, $mode, $action, $user_folders = array())
 			* @var	bool	delete				If deleting message
 			* @var	int		reply_to_all		Value of reply_to_all request variable.
 			* @since 3.1.0-RC5
-			* @change 3.2.0-a1 Removed undefined variables
+			* @changed 3.2.0-a1 Removed undefined variables
 			*/
 			$vars = array(
 				'sql',
@@ -448,6 +448,17 @@ function compose_pm($id, $mode, $action, $user_folders = array())
 	{
 		$message_attachment = 0;
 		$message_text = $message_subject = '';
+
+		/**
+		* Predefine message text and subject
+		*
+		* @event core.ucp_pm_compose_predefined_message
+		* @var	string	message_text	Message text
+		* @var	string	message_subject	Messate subject
+		* @since 3.1.11-RC1
+		*/
+		$vars = array('message_text', 'message_subject');
+		extract($phpbb_dispatcher->trigger_event('core.ucp_pm_compose_predefined_message', compact($vars)));
 
 		if ($to_user_id && $to_user_id != ANONYMOUS && $action == 'post')
 		{

@@ -70,7 +70,7 @@ class acp_listener implements EventSubscriberInterface
 	/**
 	 * {@inheritDoc}
 	 */
-	static public function getSubscribedEvents()
+	public static function getSubscribedEvents()
 	{
 		return array(
 			'core.acp_main_notice'				=> 'set_viglink_services',
@@ -96,8 +96,10 @@ class acp_listener implements EventSubscriberInterface
 			$this->helper->log_viglink_error($e->getMessage());
 		}
 
-		if (empty($this->config['viglink_ask_admin']) && $this->user->data['user_type'] == USER_FOUNDER)
+		// Only redirect once every 24 hours
+		if (empty($this->config['viglink_ask_admin']) && $this->user->data['user_type'] == USER_FOUNDER && (time() - intval($this->config['viglink_ask_admin_last']) > 86400))
 		{
+			$this->config->set('viglink_ask_admin_last', time());
 			redirect(append_sid($this->phpbb_root_path . 'adm/index.' . $this->php_ext, 'i=acp_help_phpbb&mode=help_phpbb'));
 		}
 	}
@@ -126,6 +128,7 @@ class acp_listener implements EventSubscriberInterface
 
 		$this->template->assign_vars(array(
 			'S_ENABLE_VIGLINK'				=> !empty($this->config['viglink_enabled']) || !$this->config['help_send_statistics_time'],
+			'S_VIGLINK_ASK_ADMIN'			=> empty($this->config['viglink_ask_admin']) && $this->user->data['user_type'] == USER_FOUNDER,
 			'ACP_VIGLINK_SETTINGS_CHANGE'	=> $this->language->lang('ACP_VIGLINK_SETTINGS_CHANGE', append_sid($this->phpbb_root_path . 'adm/index.' . $this->php_ext, 'i=-phpbb-viglink-acp-viglink_module&mode=settings')),
 		));
 	}

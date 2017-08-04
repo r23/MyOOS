@@ -578,7 +578,7 @@ function finalizeOutput()
 	do
 	{
 		tmp = output;
-		output = output.replace(/<([^ />]+)><\/\1>/g, '');
+		output = output.replace(/<([^ />]+)[^>]*><\/\1>/g, '');
 	}
 	while (output !== tmp);
 
@@ -1180,11 +1180,13 @@ function closeAncestor(tag)
 
 				if (tagConfig.rules.closeAncestor[ancestorName])
 				{
+					++currentFixingCost;
+
 					// We have to close this ancestor. First we reinsert this tag...
 					tagStack.push(tag);
 
-					// ...then we add a new end tag for it
-					addMagicEndTag(ancestor, tag.getPos());
+					// ...then we add a new end tag for it with a better priority
+					addMagicEndTag(ancestor, tag.getPos(), tag.getSortPriority() - 1);
 
 					return true;
 				}
@@ -1220,11 +1222,13 @@ function closeParent(tag)
 
 			if (tagConfig.rules.closeParent[parentName])
 			{
+				++currentFixingCost;
+
 				// We have to close that parent. First we reinsert the tag...
 				tagStack.push(tag);
 
-				// ...then we add a new end tag for it
-				addMagicEndTag(parent, tag.getPos());
+				// ...then we add a new end tag for it with a better priority
+				addMagicEndTag(parent, tag.getPos(), tag.getSortPriority() - 1);
 
 				return true;
 			}
@@ -1293,10 +1297,7 @@ function fosterParent(tag)
 			{
 				if (parentName !== tagName && currentFixingCost < maxFixingCost)
 				{
-					// Add a 0-width copy of the parent tag right after this tag, with a worse
-					// priority and make it depend on this tag
-					var child = addCopyTag(parent, tag.getPos() + tag.getLen(), 0, tag.getSortPriority() + 1);
-					tag.cascadeInvalidationTo(child);
+					addFosterTag(tag, parent)
 				}
 
 				// Reinsert current tag
@@ -1361,6 +1362,23 @@ function requireAncestor(tag)
 //==========================================================================
 
 /**
+* Create and add a copy of a tag as a child of a given tag
+*
+* @param {!Tag} tag       Current tag
+* @param {!Tag} fosterTag Tag to foster
+*/
+function addFosterTag(tag, fosterTag)
+{
+	var coords    = getMagicStartCoords(tag.getPos() + tag.getLen()),
+		childPos  = coords[0],
+		childPrio = coords[1];
+
+	// Add a 0-width copy of the parent tag after this tag and make it depend on this tag
+	var childTag = addCopyTag(fosterTag, childPos, 0, childPrio);
+	tag.cascadeInvalidationTo(childTag);
+}
+
+/**
 * Create and add an end tag for given start tag at given position
 *
 * @param  {!Tag}    startTag Start tag
@@ -1372,9 +1390,9 @@ function addMagicEndTag(startTag, tagPos)
 	var tagName = startTag.getName();
 
 	// Adjust the end tag's position if whitespace is to be minimized
-	if (HINT.RULE_IGNORE_WHITESPACE && (startTag.getFlags() & RULE_IGNORE_WHITESPACE))
+	if (HINT.RULE_IGNORE_WHITESPACE && ((currentTag.getFlags() | startTag.getFlags()) & RULE_IGNORE_WHITESPACE))
 	{
-		tagPos = getMagicPos(tagPos);
+		tagPos = getMagicEndPos(tagPos);
 	}
 
 	// Add a 0-width end tag that is paired with the given start tag
@@ -1390,7 +1408,7 @@ function addMagicEndTag(startTag, tagPos)
 * @param  {!number} tagPos Rightmost possible position for the tag
 * @return {!number}
 */
-function getMagicPos(tagPos)
+function getMagicEndPos(tagPos)
 {
 	// Back up from given position to the cursor's position until we find a character that
 	// is not whitespace
@@ -1400,6 +1418,40 @@ function getMagicPos(tagPos)
 	}
 
 	return tagPos;
+}
+
+/**
+* Compute the position and priority of a magic start tag, adjusted for whitespace
+*
+* @param  {!number}   tagPos Leftmost possible position for the tag
+* @return {!number[]}        [Tag pos, priority]
+*/
+function getMagicStartCoords(tagPos)
+{
+	var nextPos, nextPrio, nextTag, prio;
+	if (!tagStack.length)
+	{
+		// Set the next position outside the text boundaries
+		nextPos  = textLen + 1;
+		nextPrio = 0;
+	}
+	else
+	{
+		nextTag  = tagStack[tagStack.length - 1];
+		nextPos  = nextTag.getPos();
+		nextPrio = nextTag.getSortPriority();
+	}
+
+	// Find the first non-whitespace position before next tag or the end of text
+	while (tagPos < nextPos && WHITESPACE.indexOf(text[tagPos]) > -1)
+	{
+		++tagPos;
+	}
+
+	// Set a priority that ensures this tag appears before the next tag
+	prio = (tagPos === nextPos) ? nextPrio - 1 : 0;
+
+	return [tagPos, prio];
 }
 
 /**
@@ -1589,10 +1641,13 @@ function processStartTag(tag)
 		return;
 	}
 
-	if (fosterParent(tag) || closeParent(tag) || closeAncestor(tag))
+	if (currentFixingCost < maxFixingCost)
 	{
-		// This tag parent/ancestor needs to be closed, we just return (the tag is still valid)
-		return;
+		if (fosterParent(tag) || closeParent(tag) || closeAncestor(tag))
+		{
+			// This tag parent/ancestor needs to be closed, we just return (the tag is still valid)
+			return;
+		}
 	}
 
 	if (cntOpen[tagName] >= tagConfig.nestingLimit)
@@ -1707,6 +1762,14 @@ function processEndTag(tag)
 		return;
 	}
 
+	// Accumulate flags to determine whether whitespace should be trimmed
+	var flags = tag.getFlags();
+	closeTags.forEach(function(openTag)
+	{
+		flags |= openTag.getFlags();
+	});
+	var ignoreWhitespace = (HINT.RULE_IGNORE_WHITESPACE && (flags & RULE_IGNORE_WHITESPACE));
+
 	// Only reopen tags if we haven't exceeded our "fixing" budget
 	var keepReopening = HINT.RULE_AUTO_REOPEN && (currentFixingCost < maxFixingCost),
 		reopenTags    = [];
@@ -1729,9 +1792,9 @@ function processEndTag(tag)
 
 		// Find the earliest position we can close this open tag
 		var tagPos = tag.getPos();
-		if (HINT.RULE_IGNORE_WHITESPACE && openTag.getFlags() & RULE_IGNORE_WHITESPACE)
+		if (ignoreWhitespace)
 		{
-			tagPos = getMagicPos(tagPos);
+			tagPos = getMagicEndPos(tagPos);
 		}
 
 		// Output an end tag to close this start tag, then update the context

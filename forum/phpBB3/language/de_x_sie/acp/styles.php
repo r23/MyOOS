@@ -84,6 +84,7 @@ $lang = array_merge($lang, array(
 	'STYLE_UNINSTALL_DEPENDENT'	=> 'Style „%s“ kann nicht deinstalliert werden, da untegeordnete Styles auf ihn aufbauen.',
 	'STYLE_UNINSTALLED'			=> 'Style „%s“ wurde erfolgreich deinstalliert.',
 	'STYLE_USED_BY'				=> 'Verwendet von (inklusive Spiders/Robots)',
+	'STYLE_VERSION'				=> 'Style-Version',
 
 	'UNINSTALL_DEFAULT'		=> 'Der Standard-Style kann nicht deinstalliert werden.',
 

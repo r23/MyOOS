@@ -197,6 +197,7 @@ INSERT INTO phpbb_config (config_name, config_value) VALUES ('load_search', '1')
 INSERT INTO phpbb_config (config_name, config_value) VALUES ('load_tplcompile', '0');
 INSERT INTO phpbb_config (config_name, config_value) VALUES ('load_unreads_search', '1');
 INSERT INTO phpbb_config (config_name, config_value) VALUES ('load_user_activity', '1');
+INSERT INTO phpbb_config (config_name, config_value) VALUES ('load_user_activity_limit', '5000');
 INSERT INTO phpbb_config (config_name, config_value) VALUES ('max_attachments', '3');
 INSERT INTO phpbb_config (config_name, config_value) VALUES ('max_attachments_pm', '1');
 INSERT INTO phpbb_config (config_name, config_value) VALUES ('max_autologin_time', '0');
@@ -278,7 +279,7 @@ INSERT INTO phpbb_config (config_name, config_value) VALUES ('tpl_allow_php', '0
 INSERT INTO phpbb_config (config_name, config_value) VALUES ('upload_icons_path', 'images/upload_icons');
 INSERT INTO phpbb_config (config_name, config_value) VALUES ('upload_path', 'files');
 INSERT INTO phpbb_config (config_name, config_value) VALUES ('use_system_cron', '0');
-INSERT INTO phpbb_config (config_name, config_value) VALUES ('version', '3.2.0');
+INSERT INTO phpbb_config (config_name, config_value) VALUES ('version', '3.2.1');
 INSERT INTO phpbb_config (config_name, config_value) VALUES ('warnings_expire_days', '90');
 INSERT INTO phpbb_config (config_name, config_value) VALUES ('warnings_gc', '14400');
 

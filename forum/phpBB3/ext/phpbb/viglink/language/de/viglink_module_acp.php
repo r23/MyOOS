@@ -43,7 +43,8 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge($lang, array(
 	'ACP_VIGLINK_SETTINGS'			=> 'VigLink-Einstellungen',
 	'ACP_VIGLINK_SETTINGS_EXPLAIN'	=> 'VigLink ist ein externer Affiliate-Dienst, der Provisionen aus Links generiert, die Benutzer in deinem Forum erstellen. Dazu werden die Links von VigLink um Tracking-Informationen ergänzt, ohne dass sich für den Benutzer beim Aufruf des Links etwas ändert (VigLink Convert). Wenn Besucher auf der Ziel-Website zum Beispiel Waren oder Dienstleistungen einkaufen, dann zahlen einige Händler VigLink eine Provision. Hiervon wird ein Anteil an das phpBB-Projekt weitergegeben. Indem du der Verwendung von VigLink und der Weitergabe der Provision an phpBB Limited zustimmst, unterstützt du das Open-Source-Projekt und trägst zu seiner finanziellen Absicherung bei.',
-	'ACP_VIGLINK_SETTINGS_CHANGE'	=> 'Du kannst diese Einstellungen jederzeit in den „<a href="%1$s">VigLink-Einstellungen</a>“ ändern.',
+	'ACP_VIGLINK_SETTINGS_CHANGE'	=> 'Du kannst diese Einstellungen jederzeit unter „<a href="%1$s">VigLink-Einstellungen</a>“ ändern.',
+	'ACP_VIGLINK_SUPPORT_EXPLAIN'	=> 'Du wirst nicht länger auf diese Seite weitergeleitet, sobald du unten auf dieser Seite deine gewünschten Einstellungen vorgenommen und auf „Absenden“ geklickt hast.',
 	'ACP_VIGLINK_ENABLE'			=> 'VigLink aktivieren',
 	'ACP_VIGLINK_ENABLE_EXPLAIN'	=> 'Aktiviert die Verwendung des VigLink-Dienstes.',
 	'ACP_VIGLINK_EARNINGS'			=> 'Beanspruche deine eigenen Provisionen (optional)',
