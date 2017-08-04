@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 4.8.x package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-07-25 06:31:17+0000\n"
+"PO-Revision-Date: 2017-08-03 16:58:53+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10983,11 +10983,6 @@ msgstr "Seitenleiste"
 msgid "Medium"
 msgstr "Mittel"
 
-#: wp-includes/class-wp-customize-control.php:625
-#: wp-includes/class-wp-customize-nav-menus.php:1032
-msgid "Add"
-msgstr "Neu"
-
 #: wp-includes/taxonomy.php:111
 msgid "Link Categories"
 msgstr "Linkkategorien"
@@ -11028,6 +11023,11 @@ msgstr "Beschriftung"
 #: wp-includes/script-loader.php:566
 msgid "Save as Pending"
 msgstr "Als Review speichern"
+
+#: wp-includes/class-wp-customize-control.php:625
+#: wp-includes/class-wp-customize-nav-menus.php:1032
+msgid "Add"
+msgstr "OK"
 
 #: wp-activate.php:85 wp-includes/script-loader.php:707
 #: wp-includes/script-loader.php:708
