@@ -7,6 +7,9 @@ require_once( AMP__DIR__ . '/includes/sanitizers/class-amp-base-sanitizer.php' )
  *
  * See following for blacklist:
  *     https://github.com/ampproject/amphtml/blob/master/spec/amp-html-format.md#html-tags
+ *
+ * As of AMP 0.5 this has been replaced by AMP_Tag_And_Attribute_Sanitizer but is kept around for back-compat.
+ *
  */
 class AMP_Blacklist_Sanitizer extends AMP_Base_Sanitizer {
 	const PATTERN_REL_WP_ATTACHMENT = '#wp-att-([\d]+)#';
@@ -28,7 +31,7 @@ class AMP_Blacklist_Sanitizer extends AMP_Base_Sanitizer {
 	}
 
 	private function strip_attributes_recursive( $node, $bad_attributes, $bad_protocols ) {
-		if ( $node->nodeType !== XML_ELEMENT_NODE ) {
+		if ( XML_ELEMENT_NODE !== $node->nodeType ) {
 			return;
 		}
 
@@ -36,7 +39,7 @@ class AMP_Blacklist_Sanitizer extends AMP_Base_Sanitizer {
 
 		// Some nodes may contain valid content but are themselves invalid.
 		// Remove the node but preserve the children.
- 		if ( 'font' === $node_name ) {
+		if ( 'font' === $node_name ) {
 			$this->replace_node_with_children( $node, $bad_attributes, $bad_protocols );
 			return;
 		} elseif ( 'a' === $node_name && false === $this->validate_a_node( $node ) ) {
@@ -49,13 +52,13 @@ class AMP_Blacklist_Sanitizer extends AMP_Base_Sanitizer {
 			for ( $i = $length - 1; $i >= 0; $i-- ) {
 				$attribute = $node->attributes->item( $i );
 				$attribute_name = strtolower( $attribute->name );
-				if ( in_array( $attribute_name, $bad_attributes ) ) {
+				if ( in_array( $attribute_name, $bad_attributes, true ) ) {
 					$node->removeAttribute( $attribute_name );
 					continue;
 				}
 
 				// on* attributes (like onclick) are a special case
-				if ( 0 === stripos( $attribute_name, 'on' ) && $attribute_name != 'on' ) {
+				if ( 0 === stripos( $attribute_name, 'on' ) && 'on' !== $attribute_name ) {
 					$node->removeAttribute( $attribute_name );
 					continue;
 				} elseif ( 'a' === $node_name ) {
@@ -124,15 +127,10 @@ class AMP_Blacklist_Sanitizer extends AMP_Base_Sanitizer {
 		// Get the href attribute
 		$href = $node->getAttribute( 'href' );
 
-		// If no href is set and this isn't an anchor, it's invalid
 		if ( empty( $href ) ) {
-			$name_attr = $node->getAttribute( 'name' );
-			if ( ! empty( $name_attr ) ) {
-				// No further validation is required
-				return true;
-			} else {
-				return false;
-			}
+			// If no href, check that a is an anchor or not.
+			// We don't need to validate anchors any further.
+			return $node->hasAttribute( 'name' ) || $node->hasAttribute( 'id' );
 		}
 
 		// If this is an anchor link, just return true
@@ -150,11 +148,11 @@ class AMP_Blacklist_Sanitizer extends AMP_Base_Sanitizer {
 		$protocol = strtok( $href, ':' );
 
 		if ( false === filter_var( $href, FILTER_VALIDATE_URL )
-			&& ! in_array( $protocol, $special_protocols ) ) {
+			&& ! in_array( $protocol, $special_protocols, true ) ) {
 			return false;
 		}
 
-		if ( ! in_array( $protocol, $valid_protocols ) ) {
+		if ( ! in_array( $protocol, $valid_protocols, true ) ) {
 			return false;
 		}
 

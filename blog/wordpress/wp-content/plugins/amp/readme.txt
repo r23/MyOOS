@@ -1,9 +1,9 @@
 === AMP ===
 Contributors: batmoo, joen, automattic, potatomaster
 Tags: amp, mobile
-Requires at least: 4.4
-Tested up to: 4.6
-Stable tag: 0.4.2
+Requires at least: 4.7
+Tested up to: 4.8
+Stable tag: 0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,7 +13,7 @@ Enable Accelerated Mobile Pages (AMP) on your WordPress site.
 
 This plugin adds support for the [Accelerated Mobile Pages](https://www.ampproject.org) (AMP) Project, which is an an open source initiative that aims to provide mobile optimized content that can load instantly everywhere.
 
-With the plugin active, all posts on your site will have dynamically generated AMP-compatible versions, accessible by appending `/amp/` to the end your post URLs. For example, if your post URL is `http://example.com/2016/01/01/amp-on/`, you can access the AMP version at `http://example.com/2016/01/01/amp-on/amp/`. If you do not have [pretty permalinks](https://codex.wordpress.org/Using_Permalinks#mod_rewrite:_.22Pretty_Permalinks.22) enabled, you can do the same thing by appending `?amp=1`, i.e. `http://example.com/2016/01/01/amp-on/?amp=1`
+With the plugin active, all posts on your site will have dynamically generated AMP-compatible versions, accessible by appending `/amp/` to the end your post URLs. For example, if your post URL is `http://example.com/2016/01/01/amp-on/`, you can access the AMP version at `http://example.com/2016/01/01/amp-on/amp/`. If you do not have [pretty permalinks](https://codex.wordpress.org/Using_Permalinks#mod_rewrite:_.22Pretty_Permalinks.22) enabled, you can do the same thing by appending `?amp=1`, i.e. `http://example.com/?p=123&amp=1`
 
 Note #1: that Pages and archives are not currently supported. Pages support is being worked on.
 
@@ -25,13 +25,13 @@ Follow along with or contribute to the development of this plugin at https://git
 
 1. Upload the folder to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
-1. You may need to refresh your permalinks by going to `Settings > Permalinks` and tapping the `Save` button. 
+1. You may need to refresh your permalinks by going to `Settings > Permalinks` and tapping the `Save` button.
 
 == Frequently Asked Questions ==
 
 = How do I customize the AMP output for my site? =
 
-You can tweak a few things like colours from the AMP Customizer. From the Dashboard, go to `Appearance > AMP`.
+You can tweak a few things like colors from the AMP Customizer. From the Dashboard, go to `Appearance > AMP`.
 
 For deeper level customizations, please see the readme at https://github.com/Automattic/amp-wp/blob/master/readme.md
 
@@ -53,6 +53,22 @@ A wise green Yoda once said, "Patience you must have, my young padawan." We're w
 
 == Changelog ==
 
+= 0.5 (2017-08-04) =
+
+- Whitelist Sanitizer: Replace Blacklist Sanitizer with a whitelist-based approach using the AMP spec (props delputnam)
+- Image Dimensions: Replace fastimage with fasterimage for PHP 5.4+. Enables faster downloads and wider support (props gititon)
+- Embed Handlers: Added support for Vimeo, SoundCloud, Pinterest (props amedina) and PlayBuzz (props lysk88)
+- Analytics: UI for easier addition of analytics tags (props amedina)
+- Fix: parse query strings properly (props amyevans)
+- Fix: Old slug redirect for AMP URLs (props rahulsprajapati)
+- Fix: Handle issues with data uri images in CSS (props trepmal)
+- Fix: Add amp-video js for amp-video tags (props ptbello)
+- Fix: Output CSS for feature image (props mjangda)
+- Fix: Fix attribute when adding AMP Mustache lib (props luigitec)
+- Fix: Various documentation updates (props piersb, bhhaskin)
+- Fix: PHP Warnings from `register_customizer_ui` (props jahvi)
+- Fix: Coding Standards (props paulschreiber)
+
 = 0.4.2 (2016-10-13) =
 
 - Fix: Prevent validation errors for `html` tag (h/t Maxime2 and everyone else that reported this error)
@@ -72,7 +88,7 @@ A wise green Yoda once said, "Patience you must have, my young padawan." We're w
 
 - New template: spiffy, shiny, and has the fresh theme smell (props allancole and the Automattic Theme Team).
 - *Warning*: The template update has potential breaking changes. Please see https://wordpress.org/support/topic/v0-4-whats-new-and-possible-breaking-changes/
-- AMP Customizer: Pick your colours and make the template your own (props DrewAPicture and 10up)
+- AMP Customizer: Pick your colors and make the template your own (props DrewAPicture and 10up)
 - Fix: support for inline styles (props coreymckrill).
 - Fix: no more fatal errors when tags not supported by post type (props david-binda)
 - Fix: no more unnecessary `<br>` tags.

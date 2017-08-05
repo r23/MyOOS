@@ -5,7 +5,7 @@
  * Plugin URI: https://github.com/automattic/amp-wp
  * Author: Automattic
  * Author URI: https://automattic.com
- * Version: 0.4.2
+ * Version: 0.5
  * Text Domain: amp
  * Domain Path: /languages/
  * License: GPLv2 or later
@@ -13,7 +13,7 @@
 
 define( 'AMP__FILE__', __FILE__ );
 define( 'AMP__DIR__', dirname( __FILE__ ) );
-define( 'AMP__VERSION', '0.4.2' );
+define( 'AMP__VERSION', '0.5' );
 
 require_once( AMP__DIR__ . '/back-compat/back-compat.php' );
 require_once( AMP__DIR__ . '/includes/amp-helper-functions.php' );
@@ -60,6 +60,9 @@ function amp_init() {
 
 	add_filter( 'request', 'amp_force_query_var_value' );
 	add_action( 'wp', 'amp_maybe_add_actions' );
+
+	// Redirect the old url of amp page to the updated url.
+	add_filter( 'old_slug_redirect_url', 'amp_redirect_old_slug_to_new_url' );
 
 	if ( class_exists( 'Jetpack' ) && ! ( defined( 'IS_WPCOM' ) && IS_WPCOM ) ) {
 		require_once( AMP__DIR__ . '/jetpack-helper.php' );
@@ -114,6 +117,7 @@ function amp_add_frontend_actions() {
 function amp_add_post_template_actions() {
 	require_once( AMP__DIR__ . '/includes/amp-post-template-actions.php' );
 	require_once( AMP__DIR__ . '/includes/amp-post-template-functions.php' );
+	amp_post_template_init_hooks();
 }
 
 function amp_prepare_render() {
@@ -121,15 +125,24 @@ function amp_prepare_render() {
 }
 
 function amp_render() {
+	$post_id = get_queried_object_id();
+	amp_render_post( $post_id );
+	exit;
+}
+
+function amp_render_post( $post_id ) {
+	$post = get_post( $post_id );
+	if ( ! $post ) {
+		return;
+	}
+
 	amp_load_classes();
 
-	$post_id = get_queried_object_id();
 	do_action( 'pre_amp_render_post', $post_id );
 
 	amp_add_post_template_actions();
 	$template = new AMP_Post_Template( $post_id );
 	$template->load();
-	exit;
 }
 
 /**
@@ -157,3 +170,20 @@ function _amp_bootstrap_customizer() {
 	}
 }
 add_action( 'plugins_loaded', '_amp_bootstrap_customizer', 9 );
+
+/**
+ * Redirects the old AMP URL to the new AMP URL.
+ * If post slug is updated the amp page with old post slug will be redirected to the updated url.
+ *
+ * @param  string $link New URL of the post.
+ *
+ * @return string $link URL to be redirected.
+ */
+function amp_redirect_old_slug_to_new_url( $link ) {
+
+	if ( is_amp_endpoint() ) {
+		$link = trailingslashit( trailingslashit( $link ) . AMP_QUERY_VAR );
+	}
+
+	return $link;
+}
