@@ -79,22 +79,31 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
 
     return $address;
   }
-
+  
 
   $address_booktable = $oostable['address_book'];
-  $sql = "SELECT address_book_id, entry_firstname, entry_lastname
+  $sql = "SELECT address_book_id, entry_company, entry_firstname, entry_lastname,
+				entry_street_address, entry_postcode, entry_city, entry_state,
+				entry_country_id, entry_zone_id
           FROM $address_booktable
           WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'
-            AND address_book_id > 1
-          ORDER BY address_book_id";
+          ORDER BY entry_firstname, entry_lastname";
   $address_book_result = $dbconn->Execute($sql);
 
   $aAddressBook = array();
   while ($address_book = $address_book_result->fields) {
+	$state = $address_book['entry_state'];
+    $country_id = $address_book['entry_country_id'];
+    $zone_id = $address_book['entry_zone_id'];
+    $country = oos_get_country_name($country_id);
+
+	if (ACCOUNT_STATE == 'true') {
+		$state = oos_get_zone_code($country_id, $zone_id, $state);		  
+	} 
+	  
     $aAddressBook[] = array('address_book_id' => $address_book['address_book_id'],
                             'entry_firstname' => $address_book['entry_firstname'],
-                            'entry_lastname' => $address_book['entry_lastname'],
-                            'address_summary' => oos_address_summary($_SESSION['customer_id'], $address_book['address_book_id']));
+                            'entry_lastname' => $address_book['entry_lastname']);
     $address_book_result->MoveNext();
   }
 

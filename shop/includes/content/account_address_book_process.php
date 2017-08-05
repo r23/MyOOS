@@ -18,8 +18,8 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
 // start the session
 if ( $session->hasStarted() === FALSE ) $session->start();
@@ -33,30 +33,27 @@ if (!isset($_SESSION['customer_id'])) {
     oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
 }
 
-if ($_SESSION['navigation']->snapshot['content'] != $aContents['account_address_book']) {
-    $_SESSION['navigation']->set_path_as_snapshot(1);
-}
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_address_book_process.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_address_book_process.php';
 
-  if (isset($_GET['action']) && ($_GET['action'] == 'remove') && oos_is_not_null($_GET['entry_id']) ) {
+if (isset($_GET['action']) && ($_GET['action'] == 'remove') && isset($_GET['entry_id']) && is_numeric($_GET['entry_id']) ) {
+	  
     $entry_id = oos_db_prepare_input($_GET['entry_id']);
 
-    $address_booktable = $oostable['address_book'];
-    $query = "DELETE FROM $address_booktable
-              WHERE address_book_id = '" . oos_db_input($entry_id) . "' AND
-                    customers_id = '" . intval($_SESSION['customer_id']) . "'";
-    $dbconn->Execute($query);
+    if ($entry_id == $_SESSION['customer_default_address_id']) {
+    //  $oMessage->add_session('addressbook', WARNING_PRIMARY_ADDRESS_DELETION, 'warning');
+    } else {	
+	
+		$address_booktable = $oostable['address_book'];
+		$query = "DELETE FROM $address_booktable
+					WHERE address_book_id = '" . oos_db_input($entry_id) . "' 
+					AND	customers_id = '" . intval($_SESSION['customer_id']) . "'";
+		$dbconn->Execute($query);
 
-    $address_booktable = $oostable['address_book'];
-    $query = "UPDATE $address_booktable
-                 SET address_book_id = address_book_id - 1
-               WHERE address_book_id > " . oos_db_input($entry_id)  . " AND
-                     customers_id = '" . intval($_SESSION['customer_id']) . "'";
-    $dbconn->Execute($query);
-
-    oos_redirect(oos_href_link($aContents['account_address_book'], '', 'SSL'));
-  }
+		// $oMessage->add_session('addressbook', SUCCESS_ADDRESS_BOOK_ENTRY_DELETED, 'success');
+		oos_redirect(oos_href_link($aContents['account_address_book'], '', 'SSL'));
+	}
+}
 
 // Post-entry error checking when updating or adding an entry
   $process = 'false';
@@ -228,18 +225,14 @@ if ($_SESSION['navigation']->snapshot['content'] != $aContents['account_address_
   $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['account'], '', 'SSL'));
   $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['account_address_book'], '', 'SSL'));
 
+
   if ( (isset($_GET['action']) && ($_GET['action'] == 'modify')) || (isset($_POST['action']) && ($_POST['action'] == 'update') && oos_is_not_null($_POST['entry_id'])) ) {
     $oBreadcrumb->add($aLang['navbar_title_modify_entry'], oos_href_link($aContents['account_address_book_process'], 'action=modify&amp;entry_id=' . ((isset($_GET['entry_id'])) ? $_GET['entry_id'] : $_POST['entry_id']), 'SSL'));
   } else {
     $oBreadcrumb->add($aLang['navbar_title_add_entry'], oos_href_link($aContents['account_address_book_process'], '', 'SSL'));
   }
 
-  if (count($_SESSION['navigation']->snapshot) > 0) {
-    $back_link = oos_href_link($_SESSION['navigation']->snapshot['content'], $_SESSION['navigation']->snapshot['get'], $_SESSION['navigation']->snapshot['mode']);
-  } else {
-    $back_link = oos_href_link($aContents['account_address_book'], '', 'SSL');
-  }
-
+   $back_link = oos_href_link($aContents['account_address_book'], '', 'SSL');
   if (isset($_GET['entry_id'])) {
     $entry_id = oos_var_prep_for_os($_GET['entry_id']);
   }

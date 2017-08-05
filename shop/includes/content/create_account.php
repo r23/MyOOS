@@ -248,7 +248,6 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 		$customer_id = $dbconn->Insert_ID();
 
 		$sql_data_array = array('customers_id' => $customer_id,
-                            'address_book_id' => 1,
                             'entry_firstname' => $firstname,
                             'entry_lastname' => $lastname,
                             'entry_street_address' => $street_address,
@@ -271,6 +270,11 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 
 		oos_db_perform($oostable['address_book'], $sql_data_array);
 
+		$address_id = $dbconn->Insert_ID();
+
+		$customers_table = $oostable['customers'];
+		$dbconn->Execute("UPDATE $customers_table SET customers_default_address_id = '" . intval($address_id) . "' WHERE customers_id = '" . intval($customer_id) . "'");		
+		
 		$customers_infotable = $oostable['customers_info'];
 		$dbconn->Execute("INSERT INTO $customers_infotable
 						(customers_info_id,
@@ -279,13 +283,12 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 																	'0',
 																	now())");
 
-
 		if (CUSTOMER_NOT_LOGIN != 'true') {
 			$_SESSION['customer_id'] = $customer_id;
 			if (ACCOUNT_GENDER == 'true') $_SESSION['customer_gender'] = $gender;
 			$_SESSION['customer_first_name'] = $firstname;
 			$_SESSION['customer_lastname'] = $lastname;
-			$_SESSION['customer_default_address_id'] = 1;
+			$_SESSION['customer_default_address_id'] = $address_id;
 			$_SESSION['customer_country_id'] = $country;
 			$_SESSION['customer_zone_id'] = $zone_id;
 			$_SESSION['customer_wishlist_link_id'] = $wishlist_link_id;

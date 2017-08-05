@@ -72,8 +72,8 @@ function idxsql($idxname, $table, $idxflds) {
 
 $table = $prefix_table . 'address_book';
 $flds = "
+   address_book_id I NOTNULL AUTO PRIMARY,
    customers_id I NOTNULL DEFAULT '0' PRIMARY,
-   address_book_id I NOTNULL DEFAULT '1' PRIMARY,
    entry_gender C(1) NOTNULL,
    entry_company C(32),
    entry_owner C(32),
