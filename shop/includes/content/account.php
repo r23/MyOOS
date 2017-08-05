@@ -40,7 +40,7 @@ $customerstable = $oostable['customers'];
 $address_bookstable = $oostable['address_book'];
 $sql = "SELECT c.customers_gender, c.customers_firstname, c.customers_lastname,
                  c.customers_dob, c.customers_email_address,
-                 c.customers_vat_id, c.customers_telephone, c.customers_newsletter,
+                 c.customers_vat_id, c.customers_telephone, 
                  a.entry_company, a.entry_owner, a.entry_street_address, 
                  a.entry_postcode, a.entry_city, a.entry_zone_id, a.entry_state,
                  a.entry_country_id
@@ -58,11 +58,6 @@ if ($account['customers_gender'] == 'm') {
 }
 $sCountryName = oos_get_country_name($account['entry_country_id']);
 
-if ($account['customers_newsletter'] == '1') {
-	$newsletter = $aLang['entry_newsletter_yes'];
-} else {
-	$newsletter = $aLang['entry_newsletter_no'];
-}
 
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['account'], '', 'SSL'));

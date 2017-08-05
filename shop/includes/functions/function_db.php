@@ -164,13 +164,13 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
     return addslashes($sStr);
   }
 
-  function oos_db_perform($table, $data, $action = 'insert', $parameters = '') {
+  function oos_db_perform($table, $data, $action = 'INSERT', $parameters = '') {
 
     // Get database information
     $dbconn =& oosDBGetConn();
 
     reset($data);
-    if ($action == 'insert') {
+    if ($action == 'INSERT') {
       $query = 'INSERT INTO ' . $table . ' (';
       while (list($columns, ) = each($data)) {
         $query .= $columns . ', ';
@@ -193,7 +193,7 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
         }
       }
       $query = substr($query, 0, -2) . ')';
-    } elseif ($action == 'update') {
+    } elseif ($action == 'UPDATE') {
       $query = 'UPDATE ' . $table . ' set ';
       while (list($columns, $value) = each($data)) {
         switch ((string)$value) {

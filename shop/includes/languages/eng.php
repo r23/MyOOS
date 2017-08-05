@@ -327,6 +327,8 @@ $aLang['button_redeem_voucher'] = 'Redeem';
 $aLang['button_callaction'] = 'Request a quote';
 
 $aLang['button_register'] = 'Register';
+$aLang['button_save_info'] = 'Save Info';
+
 
 $aLang['icon_button_mail'] = 'E-mail';
 $aLang['icon_button_movie'] = 'Movie';

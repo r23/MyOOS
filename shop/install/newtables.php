@@ -430,7 +430,6 @@ $flds = "
    customers_telephone C(32) NOTNULL,
    customers_password C(40) NOTNULL,
    customers_wishlist_link_id C(32) NOTNULL,
-   customers_newsletter C(1) NULL,
    customers_status  C(1) DEFAULT '1' NOTNULL,
    customers_login C(1) DEFAULT '0' NOTNULL,
    customers_language C(3),

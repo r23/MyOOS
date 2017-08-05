@@ -191,7 +191,7 @@ if ($_SESSION['navigation']->snapshot['content'] != $aContents['account_address_
       }
 
       if ($_POST['action'] == 'update') {
-        oos_db_perform($oostable['address_book'], $sql_data_array, 'update', "address_book_id = '" . oos_db_input($entry_id) . "' AND customers_id ='" . intval($_SESSION['customer_id']) . "'");
+        oos_db_perform($oostable['address_book'], $sql_data_array, 'UPDATE', "address_book_id = '" . oos_db_input($entry_id) . "' AND customers_id ='" . intval($_SESSION['customer_id']) . "'");
       } else {
         $sql_data_array['customers_id'] = $_SESSION['customer_id'];
         $sql_data_array['address_book_id'] = $entry_id;

@@ -68,7 +68,6 @@ $aContents['product_info'] = $prefix_filename . 'product_info';
 $aContents['products_new'] = $prefix_filename . 'products_new';
 $aContents['specials'] = $prefix_filename . 'specials';
 
-
 //pub
 $aContents['download'] = $prefix_filename . 'download';
 

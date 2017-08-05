@@ -132,7 +132,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 			$bError = TRUE;
 			$oMessage->add('create_account', $aLang['entry_vat_id_error']);
 		} else {
-			$vatid_check_error == FALSE;
+			$vatid_check_error = FALSE;
 		}
 	}
 
@@ -225,7 +225,6 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 								'customers_lastname' => $lastname,
 								'customers_email_address' => $email_address,
 								'customers_telephone' => $telephone,
-								'customers_newsletter' => $newsletter,
 								'customers_status' => $customers_status,
 								'customers_login' => $customers_login,
 								'customers_language' => $sLanguage,
