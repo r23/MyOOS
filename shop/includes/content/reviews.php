@@ -69,8 +69,8 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
     $productstable = $oostable['products'];
     $reviews_descriptiontable  = $oostable['reviews_description'];
     $products_descriptiontable = $oostable['products_description'];
-    $reviews_result_raw = "SELECT r.reviews_id, left(rd.reviews_text, 100) as reviews_text
-	rd.reviews_text, r.reviews_rating, r.date_added, p.products_id,
+    $reviews_result_raw = "SELECT r.reviews_id, rd.reviews_text,
+								  r.reviews_rating, r.date_added, p.products_id,
                                   pd.products_name, p.products_image, r.customers_name
                            FROM $reviewstable r,  $reviews_descriptiontable rd,
                                 $productstable p, $products_descriptiontable pd
@@ -91,7 +91,7 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
                           'products_name' => $reviews['products_name'],
                           'products_image' => $reviews['products_image'],
                           'authors_name' => $reviews['customers_name'],
-                          'review' => $reviews['reviews_text'],
+                          'review' => htmlspecialchars(substr($reviews['reviews_text'], 0, 250)) . '..',
                           'rating' => $reviews['reviews_rating'],
                           'word_count' => oosWordCount($reviews['reviews_text'], ' '),
                           'date_added' => oos_date_long($reviews['date_added']));

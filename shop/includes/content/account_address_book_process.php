@@ -33,7 +33,6 @@ if (!isset($_SESSION['customer_id'])) {
     oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
 }
 
-
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_address_book_process.php';
 
 if (isset($_GET['action']) && ($_GET['action'] == 'delete') && isset($_GET['entry_id']) && is_numeric($_GET['entry_id']) ) {
@@ -46,19 +45,23 @@ if (isset($_GET['action']) && ($_GET['action'] == 'delete') && isset($_GET['entr
 	
 		$address_booktable = $oostable['address_book'];
 		$query = "DELETE FROM $address_booktable
-					WHERE address_book_id = '" . oos_db_input($entry_id) . "' 
+					WHERE address_book_id = '" . intval($entry_id) . "' 
 					AND	customers_id = '" . intval($_SESSION['customer_id']) . "'";
 		$dbconn->Execute($query);
 
 		// $oMessage->add_session('addressbook', SUCCESS_ADDRESS_BOOK_ENTRY_DELETED, 'success');
-		oos_redirect(oos_href_link($aContents['account_address_book'], '', 'SSL'));
 	}
+	
+	oos_redirect(oos_href_link($aContents['account_address_book'], '', 'SSL'));
 }
 
 // Post-entry error checking when updating or adding an entry
-  $process = 'false';
-  if (isset($_POST['action']) && (($_POST['action'] == 'process') || ($_POST['action'] == 'update'))) {
-    $process = 'true';
+$bProcess = FALSE;
+if ( isset($_POST['action']) && ($_POST['action'] == 'process') || ($_POST['action'] == 'update') && 
+	( isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) ){	  
+	  
+	  
+    $bProcess = TRUE;
     $error = 'false';
 
     if (ACCOUNT_GENDER == 'true') {
@@ -194,18 +197,13 @@ if (isset($_GET['action']) && ($_GET['action'] == 'delete') && isset($_GET['entr
         $sql_data_array['address_book_id'] = $entry_id;
         oos_db_perform($oostable['address_book'], $sql_data_array);
 
-        if (count($_SESSION['navigation']->snapshot) > 0) {
-          $origin_href = oos_href_link($_SESSION['navigation']->snapshot['content'], $_SESSION['navigation']->snapshot['get'], $_SESSION['navigation']->snapshot['mode']);
-          $_SESSION['navigation']->clear_snapshot();
-          oos_redirect($origin_href);
-        }
       }
 
       oos_redirect(oos_href_link($aContents['account_address_book'], '', 'SSL'));
     }
   }
 
-  if (isset($_GET['action']) && ($_GET['action'] == 'modify') && oos_is_not_null($_GET['entry_id'])) {
+  if (isset($_GET['action']) && ($_GET['action'] == 'modify') && && isset($_GET['entry_id']) && is_numeric($_GET['entry_id'])) {
     $address_booktable = $oostable['address_book'];
     $sql = "SELECT entry_gender, entry_company, entry_firstname, entry_lastname,
                    entry_street_address, entry_postcode, entry_city,
@@ -217,8 +215,8 @@ if (isset($_GET['action']) && ($_GET['action'] == 'delete') && isset($_GET['entr
   } else {
     $entry = array('entry_country_id' => STORE_COUNTRY);
   }
-  if (!isset($process)) {
-    $process = 'false';
+  if (!isset($bProcess)) {
+    $bProcess = FALSE;
   }
 
   // links breadcrumb
@@ -226,7 +224,7 @@ if (isset($_GET['action']) && ($_GET['action'] == 'delete') && isset($_GET['entr
   $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['account_address_book'], '', 'SSL'));
 
 
-  if ( (isset($_GET['action']) && ($_GET['action'] == 'modify')) || (isset($_POST['action']) && ($_POST['action'] == 'update') && oos_is_not_null($_POST['entry_id'])) ) {
+  if ( (isset($_GET['action']) && ($_GET['action'] == 'modify')) || (isset($_POST['action']) && ($_POST['action'] == 'update') && isset($_GET['entry_id']) && is_numeric($_GET['entry_id'])) ) {
     $oBreadcrumb->add($aLang['navbar_title_modify_entry'], oos_href_link($aContents['account_address_book_process'], 'action=modify&amp;entry_id=' . ((isset($_GET['entry_id'])) ? $_GET['entry_id'] : $_POST['entry_id']), 'SSL'));
   } else {
     $oBreadcrumb->add($aLang['navbar_title_add_entry'], oos_href_link($aContents['account_address_book_process'], '', 'SSL'));
@@ -237,21 +235,16 @@ if (isset($_GET['action']) && ($_GET['action'] == 'delete') && isset($_GET['entr
     $entry_id = oos_var_prep_for_os($_GET['entry_id']);
   }
 
-  ob_start();
-  require 'js/address_book_process.js.php';
-  $javascript = ob_get_contents();
-  ob_end_clean();
+$aTemplate['page'] = $sTheme . '/page/address_book_process.html';
 
-  $aTemplate['page'] = $sTheme . '/page/address_book_process.html';
+$nPageType = OOS_PAGE_TYPE_ACCOUNT;
+$sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
-  $nPageType = OOS_PAGE_TYPE_ACCOUNT;
-  $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
-
-  require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
-  if (!isset($option)) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
-  }
+require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
+if (!isset($option)) {
+	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+	require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+}
 
 // assign Smarty variables;
 $smarty->assign(
@@ -261,9 +254,8 @@ $smarty->assign(
 			
 		'back_link'      => $back_link,
 		'entry_id'       => $entry_id,
-		'process'        => $process,
+		'process'        => $process
 
-		'oos_js'         => $javascript
 	)
 );
 
@@ -340,5 +332,5 @@ $smarty->assign(
 
 
 
-   // display the template
- $smarty->display($aTemplate['page']);
+// display the template
+$smarty->display($aTemplate['page']);
