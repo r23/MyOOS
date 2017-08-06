@@ -53,20 +53,38 @@
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
-  function oos_set_login_status($man_info_id, $status) {
+
+function RandomPassword( $passwordLength ) {
+	$newkey2 = "";
+	for ($index = 1; $index <= $passwordLength; $index++) {
+		// Pick random number between 1 and 62
+		$randomNumber = rand(1, 62);
+		// Select random character based on mapping.
+		if ($randomNumber < 11)
+			$newkey2 .= Chr($randomNumber + 48 - 1); // [ 1,10] => [0,9]
+		else if ($randomNumber < 37)
+			$newkey2 .= Chr($randomNumber + 65 - 10); // [11,36] => [A,Z]
+		else
+			$newkey2 .= Chr($randomNumber + 97 - 36); // [37,62] => [a,z]
+    }
+	return $newkey2;
+}
+
+function oos_set_login_status($man_info_id, $status) {
 
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable = oosDBGetTables();
 
+	$passwordLength = 24 ;
+	$newkey = RandomPassword($passwordLength);
+	$newkey2 = RandomPassword($passwordLength);
     if ($status == '1') {
-      return $dbconn->Execute("UPDATE " . $oostable['manual_info'] . " SET status = '1', expires_date = NULL, manual_last_modified = now(), date_status_change =now() WHERE man_info_id = '" . $man_info_id . "'");
-    } elseif ($status == '0') {
-      return $dbconn->Execute("UPDATE " . $oostable['manual_info'] . " SET status = '0', man_key = '', man_key2 = '', manual_last_modified = now() WHERE man_info_id = '" . $man_info_id . "'");
+		return $dbconn->Execute("UPDATE " . $oostable['manual_info'] . " SET status = '1', man_key  = '" . oos_db_input($newkey) . "', man_key2  = '" . oos_db_input($newkey2) . "', expires_date = NULL, manual_last_modified = now(), date_status_change =now() WHERE man_info_id = '" . $man_info_id . "'");
     } else {
-      return -1;
-    }
-  }
+		return $dbconn->Execute("UPDATE " . $oostable['manual_info'] . " SET status = '0', man_key = '', man_key2 = '', manual_last_modified = now() WHERE man_info_id = '" . $man_info_id . "'");
+    } 
+}
 
 $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
 $action = (isset($_GET['action']) ? $_GET['action'] : '');

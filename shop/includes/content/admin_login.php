@@ -60,7 +60,14 @@ $login = $dbconn->GetRow($sql);
 if ($login['status'] == '0') {
 	oos_redirect(oos_href_link($aContents['403']));
 }
-
+	echo '<pre>';
+	print_r($_SESSION);
+	echo '<br />';
+	print_r($_GET);
+	echo '<br />';
+	print_r($_POST);
+	echo '</pre>';
+	
 $bError = FALSE;
 
 // start the session
@@ -204,19 +211,35 @@ $smarty->assign(
 if (isset($_GET['action']) && ($_GET['action'] == 'login_admin')) {
 
     $email_address = oos_prepare_input($_POST['email_address']);
-    $keya = oos_prepare_input($_POST['keya']);
-    $keyb = oos_prepare_input($_POST['keyb']);
+	$verif_key = oos_prepare_input($_POST['verif_key']);
 	
     if ( empty( $email_address ) || !is_string( $email_address ) ) {
         oos_redirect(oos_href_link($aContents['403']));
     }
 
+	if ( empty( $verif_key ) || !is_string( $verif_key ) ) {
+        oos_redirect(oos_href_link($aContents['403']));
+    }
+	
+	
 	require_once MYOOS_INCLUDE_PATH . '/includes/modules/key_generate.php';
 
+	$passwordLength = 24 ;
+	$newkey2 = RandomPassword($passwordLength);
+
+	$manual_infotable = $oostable['manual_info'];
+	$dbconn->Execute("UPDATE $manual_infotable
+                    SET man_key2  = '" . oos_db_input($newkey2) . "'
+                    WHERE man_key = '" . oos_db_input($verif_key) . "' 
+					  AND man_info_id = '1'");
+	
 	$manual_infotable = $oostable['manual_info'];
 	$login_query = "SELECT man_key2, man_key3, status FROM $manual_infotable WHERE man_key = '" . oos_db_input($verif_key) . "' AND status = '1'";
-	$login_result_values = $dbconn->GetRow($login_query);
-
+	$login_result_values = $dbconn->Execute($login_query);
+	if (!$login_result_values->RecordCount()) {
+		oos_redirect(oos_href_link($aContents['403']));	
+	}
+	
     $smarty->assign(
         array('newkey2'             => $newkey2,
               'email_address'       => $email_address,
