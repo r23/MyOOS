@@ -60,22 +60,16 @@ $login = $dbconn->GetRow($sql);
 if ($login['status'] == '0') {
 	oos_redirect(oos_href_link($aContents['403']));
 }
-	echo '<pre>';
-	print_r($_SESSION);
-	echo '<br />';
-	print_r($_GET);
-	echo '<br />';
-	print_r($_POST);
-	echo '</pre>';
-	
-$bError = FALSE;
 
 // start the session
 if ( $session->hasStarted() === FALSE ) $session->start();
 
 // require  validation functions (right now only email address)
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/key_generate.php';
+
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/admin_login.php';
+
 
 if (isset($_SESSION['customer_id'])) {
     unset($_SESSION['customer_id']);
@@ -220,9 +214,6 @@ if (isset($_GET['action']) && ($_GET['action'] == 'login_admin')) {
 	if ( empty( $verif_key ) || !is_string( $verif_key ) ) {
         oos_redirect(oos_href_link($aContents['403']));
     }
-	
-	
-	require_once MYOOS_INCLUDE_PATH . '/includes/modules/key_generate.php';
 
 	$passwordLength = 24 ;
 	$newkey2 = RandomPassword($passwordLength);

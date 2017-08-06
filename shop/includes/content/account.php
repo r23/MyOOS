@@ -51,8 +51,6 @@ $sql = "SELECT c.customers_gender, c.customers_firstname, c.customers_lastname,
             AND a.address_book_id = '" . intval($_SESSION['customer_default_address_id']) . "'";
 $account = $dbconn->GetRow($sql);
 
-print_r($sql);
-
 if ($account['customers_gender'] == 'm') {
 	$gender = $aLang['male'];
 } elseif ($account['customers_gender'] == 'f') {

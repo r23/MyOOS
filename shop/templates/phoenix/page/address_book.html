@@ -16,7 +16,7 @@
 				<div class="btn-group" role="group" aria-label="...">
 					<a href="{html_href_link content=$filename.account connection=SSL}" class="btn btn-default" role="button"><i class="fa fa-th" aria-hidden="true"></i>{$lang.login_block_my_account}</a>
 					<a href="{html_href_link content=$filename.account_edit connection=SSL}" class="btn btn-default" role="button"><i class="fa fa-user" aria-hidden="true"></i>{$lang.login_block_account_edit}</a>
-					<a href="{html_href_link content=$filename.account_address_book connection=SSL}" class="btn btn-default active" role="button"><i class="fa fa-map-marker" aria-hidden="true"></i>{$lang.button_address_book}</a>
+					<a href="{html_href_link content=$filename.account_address_book connection=SSL}" class="btn btn-default active" role="button"><i class="fa fa-address-book" aria-hidden="true"></i>{$lang.button_address_book}</a>
 					<a href="{html_href_link content=$filename.account_history page=1 connection=SSL}" class="btn btn-default" role="button"><i class="fa fa-list" aria-hidden="true"></i>{$lang.button_history}</a>
 					<a href="{html_href_link content=$filename.account_wishlist page=1 connection=SSL}" class="btn btn-default" role="button"><i class="fa fa-gift" aria-hidden="true"></i>{$lang.button_wishlist}</a>
 				</div>
@@ -25,76 +25,66 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<div class="innerWrapper">
-				
+					<div class="orderBox myAddress">
+					
+						<h4>{$lang.heading_title}</h4>
+						
+						<div class="table-responsive">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>{$lang.table_heading_number}</th>
+									{if $smarty.const.ACCOUNT_COMPANY eq 'true'}
+							            <th>Company</th>
+									{/if}
+										<th>{$lang.table_heading_name}</th>
+										<th>{$lang.table_heading_location}</th>
+										<th>Country</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+			{section name=i loop=$address_book}
+									<td>{$smarty.section.i.rownum|number_format}</td>
+									{if $smarty.const.ACCOUNT_COMPANY eq 'true'}
+									<td>{$address_book[i].company}</td>
+									{/if}
+									<td>{$address_book[i].firstname} {$address_book[i].lastname}</td>
+									<td>{$address_book[i].street_address}, {$address_book[i].postcode}, {$address_book[i].city}</td>
+									<td>{$address_book[i].country}</td>
+									<td>
+										<div class="btn-group" role="group">
+											<a href="{html_href_link content=$filename.account_address_book_process action=modify entry_id=$address_book[i].address_book_id connection=SSL}" class="btn btn-primary" role="button"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+										{if $address_book[i].address_book_id neq $smarty.session.customer_default_address_id}	
+											<a href="{html_href_link content=$filename.account_address_book_process action=delete entry_id=$address_book[i].address_book_id connection=SSL}" class="btn btn-primary" role="button"><i class="fa fa-times" aria-hidden="true"></i></a>
+										{/if}
+										</div>
+									</td>
+				{if $smarty.section.i.last}
+								</tbody>
+							</table>
+						</div>
 
-    <table border="0" width="100%" cellspacing="0" cellpadding="0">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td class="tableHeading" align="center">{$lang.table_heading_number}</td>
-            <td class="tableHeading">{$lang.table_heading_name}</td>
-            <td class="tableHeading" align="right">{$lang.table_heading_location}</td>
-          </tr>
-          <tr>
-            <td colspan="3"><img src="{$theme_image}/black.gif" border="0" alt=" " width="100%" height="1"></td>
-          </tr>
-{section name=i loop=$oos_address_book_array}
-  {if $smarty.section.i.rownum is even}
-          <tr class="addressBook-even">
-  {else}
-          <tr class="addressBook-odd">
-  {/if}
-            <td class="smallText">{$smarty.section.i.rownum|number_format}</td>
-            <td class="smallText"><a href="{html_href_link content=$filename.account_address_book_process action=modify entry_id=$oos_address_book_array[i].address_book_id connection=SSL}">{$oos_address_book_array[i].entry_firstname} {$oos_address_book_array[i].entry_lastname}</a></td>
-            <td class="smallText" align="right">{$oos_address_book_array[i].address_summary}</td>
-          </tr>
-  {if $smarty.section.i.last}
-          <tr>
-            <td colspan="3"><img src="{$theme_image}/black.gif" border="0" alt=" " width="100%" height="1"></td>
-          </tr>
-          <tr>
-            <td height="10"></td>
-          </tr>
-    {if $smarty.section.i.rownum < $smarty.const.MAX_ADDRESS_BOOK_ENTRIES}
-          <tr>
-            <td colspan="3"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr>
-                <td class="smallText" valign="top">{$smarty.const.MAX_ADDRESS_BOOK_ENTRIES|string_format:$lang.text_maximum_entries}</td>
-                <td class="smallText" align="right" valign="top"><a href="{html_href_link content=$filename.account_address_book_process addentry_id=$smarty.section.i.rownum connection=SSL}" class="btn btn-primary-filled" role="button">{$lang.button_add_address}</a></td>
-              </tr>
-            </table></td>
-          </tr>
-    {else}
-          <tr>
-            <td colspan="3"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr>
-                <td class="smallText">{$smarty.const.MAX_ADDRESS_BOOK_ENTRIES|string_format:$lang.text_maximum_entries_reached}</td>
-                <td class="smallText" align="right"><a href="{html_href_link content=$filename.account connection=SSL}" class="btn btn-primary-filled" role="button"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> {$lang.button_back}</a></td>
-              </tr>
-            </table></td>
-          </tr>
-    {/if}
-  {/if}
-{sectionelse}
-	<div class="alert alert-info alert-dismissible" role="alert">
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		{$lang.text_no_entries_in_address_book}
-	</div>
+					{if $smarty.section.i.rownum < $smarty.const.MAX_ADDRESS_BOOK_ENTRIES}
+						<div class="alert alert-info alert-dismissible" role="alert">
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							{$smarty.const.MAX_ADDRESS_BOOK_ENTRIES|string_format:$lang.text_maximum_entries}
+						</div>					
 
-          <tr>
-            <td colspan="3"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr>
-                <td class="smallText" valign="top">{$smarty.const.MAX_ADDRESS_BOOK_ENTRIES|string_format:$lang.text_maximum_entries}</td>
-                <td class="smallText" align="right" valign="top"><a href="{html_href_link content=$filename.account_address_book_process entry_id=2 connection=SSL}" class="btn btn-primary-filled" role="button">{$lang.button_add_address}</a></td>
-              </tr>
-            </table></td>
-          </tr>
-{/section}
-        </table></td>
-      </tr>
-    </table>
-
-
+						<!-- button -->
+						<div class="margin-bottom-40 text-right clearfix">
+							<a href="{html_href_link content=$filename.account_address_book_process addentry_id=$smarty.section.i.rownum connection=SSL}" class="btn btn-primary" role="button"><i class="fa fa-map-marker" aria-hidden="true"></i> {$lang.button_add_address}</a>
+						</div>
+						<!-- /button -->
+					{else}
+						<div class="alert  alert-danger alert-dismissible" role="alert">
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							{$smarty.const.MAX_ADDRESS_BOOK_ENTRIES|string_format:$lang.text_maximum_entries_reached}
+						</div>
+					{/if}
+				{/if}		
+			{/section}
+					</div>
 				</div>
 			</div>
 		</div>

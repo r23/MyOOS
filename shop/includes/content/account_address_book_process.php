@@ -36,7 +36,7 @@ if (!isset($_SESSION['customer_id'])) {
 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_address_book_process.php';
 
-if (isset($_GET['action']) && ($_GET['action'] == 'remove') && isset($_GET['entry_id']) && is_numeric($_GET['entry_id']) ) {
+if (isset($_GET['action']) && ($_GET['action'] == 'delete') && isset($_GET['entry_id']) && is_numeric($_GET['entry_id']) ) {
 	  
     $entry_id = oos_db_prepare_input($_GET['entry_id']);
 
