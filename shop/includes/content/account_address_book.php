@@ -77,6 +77,10 @@ $aTemplate['page'] = $sTheme . '/page/address_book.html';
 $nPageType = OOS_PAGE_TYPE_ACCOUNT;
 $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
+if ($oMessage->size('addressbook') > 0) {
+	$aInfoMessage = array_merge ($aInfoMessage, $oMessage->output('addressbook') );
+}
+
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
 	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';

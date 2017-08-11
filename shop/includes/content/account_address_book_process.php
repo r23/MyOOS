@@ -40,18 +40,17 @@ if (isset($_GET['action']) && ($_GET['action'] == 'delete') && isset($_GET['entr
     $entry_id = oos_db_prepare_input($_GET['entry_id']);
 
     if ($entry_id == $_SESSION['customer_default_address_id']) {
-    //  $oMessage->add_session('addressbook', WARNING_PRIMARY_ADDRESS_DELETION, 'warning');
+		$oMessage->add_session('addressbook', $aLang['warning_primary_address_deletion'], 'warning');
     } else {	
-	
 		$address_booktable = $oostable['address_book'];
 		$query = "DELETE FROM $address_booktable
 					WHERE address_book_id = '" . intval($entry_id) . "' 
 					AND	customers_id = '" . intval($_SESSION['customer_id']) . "'";
 		$dbconn->Execute($query);
 
-		// $oMessage->add_session('addressbook', SUCCESS_ADDRESS_BOOK_ENTRY_DELETED, 'success');
+		$oMessage->add_session('addressbook', $aLang['success_address_book_entry_deleted'], 'success');
 	}
-	
+
 	oos_redirect(oos_href_link($aContents['account_address_book'], '', 'SSL'));
 }
 
@@ -60,126 +59,126 @@ $bProcess = FALSE;
 if ( isset($_POST['action']) && ($_POST['action'] == 'process') || ($_POST['action'] == 'update') && 
 	( isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) ){	  
 	  
-	  
     $bProcess = TRUE;
-    $error = 'false';
 
     if (ACCOUNT_GENDER == 'true') {
-      if (($gender == 'm') || ($gender == 'f')) {
-        $gender_error = 'false';
-      } else {
-        $gender_error = 'true';
-        $error = 'true';
-      }
+		if (isset($_POST['gender'])) {
+			$gender = oos_db_prepare_input($_POST['gender']);
+		} else {
+			$gender = FALSE;
+		}
     }
+    $firstname = oos_db_prepare_input($_POST['firstname']);
+    $lastname = oos_db_prepare_input($_POST['lastname']);	
+    if (ACCOUNT_COMPANY == 'true') $company = oos_db_prepare_input($_POST['company']);
+    if (ACCOUNT_OWNER == 'true') $owner = oos_db_prepare_input($_POST['owner']);
+    if (ACCOUNT_VAT_ID == 'true') $vat_id = oos_db_prepare_input($_POST['vat_id']);
+    $street_address = oos_db_prepare_input($_POST['street_address']);
+    $postcode = oos_db_prepare_input($_POST['postcode']);
+    $city = oos_db_prepare_input($_POST['city']);
+    if (ACCOUNT_STATE == 'true') {
+		$state = oos_db_prepare_input($_POST['state']);
+		if (isset($_POST['zone_id'])) {
+			$zone_id = oos_db_prepare_input($_POST['zone_id']);
+		} else {
+			$zone_id = FALSE;
+		}
+    }
+    $country = oos_db_prepare_input($_POST['country']);
 
-    if (ACCOUNT_COMPANY == 'true') {
-      if (strlen($company) < ENTRY_COMPANY_MIN_LENGTH) {
-        $company_error = 'true';
-        $error = 'true';
-      } else {
-        $company_error = 'false';
-      }
+	$bError = FALSE; // reset error flag
+    if (ACCOUNT_GENDER == 'true') {
+		if ( ($gender != 'm') && ($gender != 'f') ) {
+			$bError = TRUE;
+			$oMessage->add('addressbook', $aLang['entry_gender_error']);
+		}
     }
 
     if (strlen($firstname) < ENTRY_FIRST_NAME_MIN_LENGTH) {
-      $firstname_error = 'true';
-      $error = 'true';
-    } else {
-      $firstname_error = 'false';
+		$bError = TRUE;
+		$oMessage->add('addressbook', $aLang['entry_first_name_error'] );
+    }	
+
+	if (strlen($lastname) < ENTRY_LAST_NAME_MIN_LENGTH) {
+		$bError = TRUE;
+		$oMessage->add('addressbook', $aLang['entry_last_name_error'] );
     }
 
-    if (strlen($lastname) < ENTRY_LAST_NAME_MIN_LENGTH) {
-      $lastname_error = 'true';
-      $error = 'true';
-    } else {
-      $lasttname_error = 'false';
+
+	if (ACCOUNT_COMPANY_VAT_ID_CHECK == 'true'){
+		if (!empty($vat_id) && (!oos_validate_is_vatid($vat_id))) {
+			$bError = TRUE;
+			$oMessage->add('addressbook', $aLang['entry_vat_id_error']);
+		} else {
+			$vatid_check_error = FALSE;
+		}
+	}
+
+	if (strlen($street_address) < ENTRY_STREET_ADDRESS_MIN_LENGTH) {
+		$bError = TRUE;
+		$oMessage->add('addressbook', $aLang['entry_street_address_error']);
+	}	
+
+	if (strlen($postcode) < ENTRY_POSTCODE_MIN_LENGTH) {
+		$bError = TRUE;
+		$oMessage->add('addressbook', $aLang['entry_post_code_error']);
+	}
+ 
+	if (strlen($city) < ENTRY_CITY_MIN_LENGTH) {
+		$bError = TRUE;
+		$oMessage->add('addressbook', $aLang['entry_city_error']);
+	}
+
+	if (is_numeric($country) == FALSE) {
+		$bError = TRUE;
+		$oMessage->add('addressbook', $aLang['entry_country_error']);
     }
+	
+	if (ACCOUNT_STATE == 'true') {
+		$zone_id = 0;
+		$zonestable = $oostable['zones'];
+		$country_check_sql = "SELECT COUNT(*) AS total
+								FROM $zonestable
+								WHERE zone_country_id = '" . intval($country) . "'";
+		$country_check = $dbconn->Execute($country_check_sql);
+		$entry_state_has_zones = ($country_check->fields['total'] > 0);
+		if ($entry_state_has_zones == TRUE) {
+			$zonestable = $oostable['zones'];
+			$zone_query = "SELECT DISTINCT zone_id
+                           FROM $zonestable
+                           WHERE zone_country_id = '" . intval($country) . "'
+                             AND (zone_name = '" . oos_db_input($state) . "'
+							OR zone_code = '" . oos_db_input($state) . "')";							
+			$zone_result = $dbconn->Execute($zone_query);
+			if ($zone_result->RecordCount() == 1) {
+				$zone = $zone_result->fields;
+				$zone_id = $zone['zone_id'];
+			} else {
+				$bError = TRUE;
+				$oMessage->add('addressbook', $aLang['entry_state_error_select']);
+			}
+		} else {
+			if (strlen($state) < ENTRY_STATE_MIN_LENGTH) {
+				$bError = TRUE;
+				$oMessage->add('addressbook', $aLang['entry_state_error']);
+			}
+		}
+	}	
+	
 
-    if (strlen($street_address) < ENTRY_STREET_ADDRESS_MIN_LENGTH) {
-      $street_address_error = 'true';
-      $error = 'true';
-    } else {
-      $street_address_error = 'false';
-    }
-
-    if (strlen($postcode) < ENTRY_POSTCODE_MIN_LENGTH) {
-      $postcode_error = 'true';
-      $error = 'true';
-    } else {
-      $postcode_error = 'false';
-    }
-
-    if (strlen($city) < ENTRY_CITY_MIN_LENGTH) {
-      $city_error = 'true';
-      $error = 'true';
-    } else {
-      $city_error = 'false';
-    }
-
-    if (!$country) {
-      $country_error = 'true';
-      $error = 'true';
-    } else {
-      $country_error = 'false';
-    }
-
-    if (ACCOUNT_STATE == 'true') {
-      if ($entry_country_error) {
-        $state_error = 'true';
-      } else {
-        $zone_id = 0;
-        $state_error = 'false';
-
-        $zonestable = $oostable['zones'];
-        $country_check_sql = "SELECT COUNT(*) AS total
-                              FROM $zonestable
-                              WHERE zone_country_id = '" . oos_db_input($country) . "'";
-        $country_check = $dbconn->Execute($country_check_sql);
-        if ($entry_state_has_zones = ($country_check->fields['total'] > 0)) {
-          $state_has_zones = 'true';
-
-          $zonestable = $oostable['zones'];
-          $match_zone_sql = "SELECT zone_id
-                             FROM $zonestable
-                             WHERE zone_country_id = '" . oos_db_input($country) . "'
-                               AND zone_name = '" . oos_db_input($state) . "'";
-          $match_zone_result = $dbconn->Execute($match_zone_sql);
-          if ($match_zone_result->RecordCount() == 1) {
-            $match_zone = $match_zone_result->fields;
-            $zone_id = $match_zone['zone_id'];
-          } else {
-            $zonestable = $oostable['zones'];
-            $match_zone_sql2 = "SELECT zone_id
-                                FROM $zonestable
-                                WHERE zone_country_id = '" . oos_db_input($country) . "'
-                                  AND zone_code = '" . oos_db_input($state) . "'";
-            $match_zone_result = $dbconn->Execute($match_zone_sql2);
-            if ($match_zone_result->RecordCount() == 1) {
-              $match_zone = $match_zone_result->fields;
-              $zone_id = $match_zone['zone_id'];
-            } else {
-              $error = 'true';
-              $state_error = 'true';
-            }
-          }
-        } elseif (strlen($state) < ENTRY_STATE_MIN_LENGTH) {
-          $error = 'true';
-          $state_error = 'true';
-        }
-      }
-    }
-
-    if ($error == 'false') {
-      $sql_data_array = array('entry_firstname' => $firstname,
+    if ($bError == FALSE) {
+		$sql_data_array = array('entry_firstname' => $firstname,
                               'entry_lastname' => $lastname,
                               'entry_street_address' => $street_address,
                               'entry_postcode' => $postcode,
                               'entry_city' => $city,
                               'entry_country_id' => $country);
 
-      if (ACCOUNT_GENDER == 'true') $sql_data_array['entry_gender'] = $gender;
-      if (ACCOUNT_COMPANY == 'true') $sql_data_array['entry_company'] = $company;
+		if (ACCOUNT_GENDER == 'true') $sql_data_array['entry_gender'] = $gender;
+		if (ACCOUNT_COMPANY == 'true') $sql_data_array['entry_company'] = $company;
+		if (ACCOUNT_OWNER == 'true') $sql_data_array['entry_owner'] = $owner;	  
+	  
+	  
       if (ACCOUNT_STATE == 'true') {
         if ($zone_id > 0) {
           $sql_data_array['entry_zone_id'] = $zone_id;
@@ -203,7 +202,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') || ($_POST['acti
     }
   }
 
-  if (isset($_GET['action']) && ($_GET['action'] == 'modify') && && isset($_GET['entry_id']) && is_numeric($_GET['entry_id'])) {
+  if (isset($_GET['action']) && ($_GET['action'] == 'modify') && isset($_GET['entry_id']) && is_numeric($_GET['entry_id'])) {
     $address_booktable = $oostable['address_book'];
     $sql = "SELECT entry_gender, entry_company, entry_firstname, entry_lastname,
                    entry_street_address, entry_postcode, entry_city,
@@ -224,7 +223,8 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') || ($_POST['acti
   $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['account_address_book'], '', 'SSL'));
 
 
-  if ( (isset($_GET['action']) && ($_GET['action'] == 'modify')) || (isset($_POST['action']) && ($_POST['action'] == 'update') && isset($_GET['entry_id']) && is_numeric($_GET['entry_id'])) ) {
+  if ( isset($_GET['action']) && ($_GET['action'] == 'modify') && isset($_GET['entry_id']) && is_numeric($_GET['entry_id']) || isset($_POST['action']) && ($_POST['action'] == 'update') ) {
+		   
     $oBreadcrumb->add($aLang['navbar_title_modify_entry'], oos_href_link($aContents['account_address_book_process'], 'action=modify&amp;entry_id=' . ((isset($_GET['entry_id'])) ? $_GET['entry_id'] : $_POST['entry_id']), 'SSL'));
   } else {
     $oBreadcrumb->add($aLang['navbar_title_add_entry'], oos_href_link($aContents['account_address_book_process'], '', 'SSL'));

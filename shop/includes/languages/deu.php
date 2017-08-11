@@ -273,6 +273,9 @@ $aLang['entry_agree_error'] = 'Bitte akzeptieren Sie unsere AGB und Datenschutzb
 $aLang['agree'] = 'Ja, ich stimme den <a href="%s" target="_blank"><strong>AGB</strong></a> und den <a href="%s" target="_blank"><strong>Datenschutzbestimmungen</strong></a> zu.';
 $aLang['newsletter_agree'] = 'Ja, ich möchte per E-Mail Newsletter über Trends, Aktionen &amp; Gutscheine informiert werden. Abmeldung jederzeit möglich. (optional)';
 
+$aLang['success_address_book_entry_deleted'] = 'Die ausgewählte Adresse wurde erfolgreich gelöscht.';
+$aLang['warning_primary_address_deletion'] = 'Die Standardadresse kann nicht gelöscht werden.';
+
 // constants for use in oos_prev_next_display function
 $aLang['text_result_page'] = 'Seiten:';
 $aLang['text_display_number_of_products'] = 'angezeigte Produkte: <strong>%d</strong> bis <strong>%d</strong> (von <strong>%d</strong> insgesamt)';

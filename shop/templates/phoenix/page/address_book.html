@@ -55,7 +55,7 @@
 									<td>
 										<div class="btn-group" role="group">
 											<a href="{html_href_link content=$filename.account_address_book_process action=modify entry_id=$address_book[i].address_book_id connection=SSL}" class="btn btn-primary" role="button"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-										{if $address_book[i].address_book_id neq $smarty.session.customer_default_address_id}	
+										{if $address_book[i].address_book_id neq $smarty.session.customer_default_address_id_test}	
 											<a href="{html_href_link content=$filename.account_address_book_process action=delete entry_id=$address_book[i].address_book_id connection=SSL}" class="btn btn-primary" role="button"><i class="fa fa-times" aria-hidden="true"></i></a>
 										{/if}
 										</div>

@@ -72,7 +72,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 	$customerstable = $oostable['customers'];
 	$sql = "SELECT customers_id, customers_gender, customers_firstname, customers_lastname,
                    customers_password, customers_wishlist_link_id, customers_language,
-                   customers_vat_id_status, customers_email_address, customers_default_address_id, customers_max_order 
+                   customers_email_address, customers_default_address_id, customers_max_order 
             FROM $customerstable
             WHERE customers_login = '1'
               AND customers_email_address = '" . oos_db_input($email_address) . "'";
@@ -88,10 +88,10 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 			$bError = TRUE;
 		} else {
 			$address_booktable = $oostable['address_book'];
-			$sql = "SELECT entry_country_id, entry_zone_id
+			$sql = "SELECT entry_vat_id, entry_vat_id_status, entry_country_id, entry_zone_id
 					FROM $address_booktable
-					WHERE customers_id = '" . $check_customer['customers_id'] . "'
-						AND address_book_id = '1'";
+					WHERE customers_id = '" . intval($check_customer['customers_id']) . "'
+						AND address_book_id = '" . intval($check_customer['customers_default_address_id']) . "'";
 			$check_country = $dbconn->GetRow($sql);
 
 			if ($check_customer['customers_language'] == '') {
@@ -112,8 +112,8 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 			$_SESSION['customer_max_order'] = $check_customer['customers_max_order'];
 			$_SESSION['customer_country_id'] = $check_country['entry_country_id'];
 			$_SESSION['customer_zone_id'] = $check_country['entry_zone_id'];
-			if (ACCOUNT_VAT_ID == 'true') $_SESSION['customers_vat_id_status'] = $check_customer['customers_vat_id_status'];
-
+			if (ACCOUNT_VAT_ID == 'true') $_SESSION['customers_vat_id_status'] = $check_country['entry_vat_id_status'];
+			
 			$_SESSION['user']->restore_group();
 			$aUser = $_SESSION['user']->group;
 			

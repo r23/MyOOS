@@ -144,10 +144,10 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'login_process') &&
 		$login_result_values = $login_result->fields;
 		// Check that status is 1 and
 		$address_booktable = $oostable['address_book'];
-		$sql = "SELECT entry_country_id, entry_zone_id
+		$sql = "SELECT entry_vat_id, entry_vat_id_status, entry_country_id, entry_zone_id
 		        FROM $address_booktable
-		        WHERE customers_id = '" . $check_customer['customers_id'] . "'
-		          AND address_book_id = '1'";
+		        WHERE customers_id = '" . intval($check_customer['customers_id']) . "'
+		          AND address_book_id = '" . intval($check_customer['customers_default_address_id']) . "'";
 		$check_country = $dbconn->GetRow($sql);
 
 		$_SESSION['customer_wishlist_link_id'] = $check_customer['customers_wishlist_link_id'];
@@ -159,8 +159,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'login_process') &&
 		$_SESSION['customer_max_order'] = $check_customer['customers_max_order'];
 		$_SESSION['customer_country_id'] = $check_country['entry_country_id'];
 		$_SESSION['customer_zone_id'] = $check_country['entry_zone_id'];
-		if (ACCOUNT_VAT_ID == 'true') $_SESSION['customers_vat_id_status'] = $check_customer['customers_vat_id_status'];
-		$_SESSION['customer_shopping_points'] = $check_customer['customers_shopping_points'];
+		if (ACCOUNT_VAT_ID == 'true') $_SESSION['customers_vat_id_status'] = $check_customer['entry_vat_id_status'];
 
 		$_SESSION['man_key'] = $keya;
 		

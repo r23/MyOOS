@@ -273,6 +273,8 @@ $aLang['entry_agree_error'] = 'Please accept our <strong>Terms and Conditions</s
 $aLang['agree'] = 'By creating an account, you agree to the <a href="%s" target="_blank"><strong>Terms and Conditions</strong></a> and <a href="%s" target="_blank"><strong>Privacy Policy</strong></a>.';
 $aLang['newsletter_agree'] = 'Yes, I wish to receive occasional emails about special offers, new products and exclusive promotions. I can cancel my subscription at any time. (Optional)';
 
+$aLang['success_address_book_entry_deleted'] = 'The selected entry has been deleted successfully.';
+$aLang['warning_primary_address_deletion'] = 'The standard postal address can not be deleted.';
 
 // constants for use in oos_prev_next_display function
 $aLang['text_result_page'] = 'Result Pages:';

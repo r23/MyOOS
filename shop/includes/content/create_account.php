@@ -177,7 +177,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 				$zone_id = $zone['zone_id'];
 			} else {
 				$bError = TRUE;
-				$oMessage->add('create_account', $$aLang['entry_state_error_select']);
+				$oMessage->add('create_account', $aLang['entry_state_error_select']);
 			}
 		} else {
 			if (strlen($state) < ENTRY_STATE_MIN_LENGTH) {
@@ -235,14 +235,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 
 		if (ACCOUNT_GENDER == 'true') $sql_data_array['customers_gender'] = $gender;
 		if (ACCOUNT_DOB == 'true') $sql_data_array['customers_dob'] = oos_date_raw($dob);
-		if (ACCOUNT_VAT_ID == 'true') {
-			$sql_data_array['customers_vat_id'] = $vat_id;
-			if ((ACCOUNT_COMPANY_VAT_ID_CHECK == 'true') && ($vatid_check_error == FALSE) && ($country != STORE_COUNTRY)) {
-				$sql_data_array['customers_vat_id_status'] = 1;
-			} else {
-				$sql_data_array['customers_vat_id_status'] = 0;
-			}
-		}
+
 		oos_db_perform($oostable['customers'], $sql_data_array);
 
 		$customer_id = $dbconn->Insert_ID();
@@ -258,6 +251,15 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 		if (ACCOUNT_GENDER == 'true') $sql_data_array['entry_gender'] = $gender;
 		if (ACCOUNT_COMPANY == 'true') $sql_data_array['entry_company'] = $company;
 		if (ACCOUNT_OWNER == 'true') $sql_data_array['entry_owner'] = $owner;
+		if (ACCOUNT_VAT_ID == 'true') {
+			$sql_data_array['entry_vat_id'] = $vat_id;
+			if ((ACCOUNT_COMPANY_VAT_ID_CHECK == 'true') && ($vatid_check_error == FALSE) && ($country != STORE_COUNTRY)) {
+				$sql_data_array['entry_vat_id_status'] = 1;
+			} else {
+				$sql_data_array['entry_vat_id_status'] = 0;
+			}
+		}		
+		
 		if (ACCOUNT_STATE == 'true') {
 			if ($zone_id > 0) {
 				$sql_data_array['entry_zone_id'] = $zone_id;

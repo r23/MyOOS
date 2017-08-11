@@ -25,21 +25,18 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<div class="innerWrapper">
-				
-    <form name="add_entry" action="{html_get_link connection=SSL}" method="POST" role="form" onSubmit="return check_form();">
-	<input type="content" name="formid" value="{$filename.account_address_book_process}">
-{if $mySystem.sed}
-    <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
-	<input type="hidden" name="formid" value="{$mySystem.formid}">
-{/if}	
+					
+				<form name="add_entry" id="add_entry" class="form-horizontal" action="{html_get_link connection=SSL}" method="POST" role="form">
+					<fieldset>
+						<input type="hidden" name="action" value="process">
+						<input type="hidden" name="content" value="{$filename.account_address_book_process}">	
+					{if $mySystem.sed}
+						<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+						<input type="hidden" name="formid" value="{$mySystem.formid}">
+					{/if}	
+	
 	
 	<table border="0" width="100%" cellspacing="0" cellpadding="0">
-      <tr>
-        <td>{$oosPageHeading}</td>
-      </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
       <tr>
         <td>{include file="phoenix/modules/address_book_details.html"}</td>
       </tr>
