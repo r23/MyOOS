@@ -11,8 +11,13 @@ class Sitebrowser extends \WP_List_Table {
 	
 	public function __construct($wpPiwik) {
 		$this->wpPiwik = $wpPiwik;
-		$cnt = $this->prepare_items ();
+        if( isset($_POST['s']) ){
+            $cnt = $this->prepare_items ($_POST['s']);
+        } else {
+            $cnt = $this->prepare_items ();
+        }
 		global $status, $page;
+		$this->showSearchForm();
 		parent::__construct ( array (
 				'singular' => __ ( 'site', 'wp-piwik' ),
 				'plural' => __ ( 'sites', 'wp-piwik' ),
@@ -34,17 +39,17 @@ class Sitebrowser extends \WP_List_Table {
 		return $columns;
 	}
 	
-	public function prepare_items() {
+	public function prepare_items($search = '') {
 		$current_page = $this->get_pagenum ();
 		$per_page = 10;
 		global $blog_id;
 		global $wpdb;
 		global $pagenow;
 		if (is_plugin_active_for_network ( 'wp-piwik/wp-piwik.php' )) {
-			$total_items = $wpdb->get_var ( 'SELECT COUNT(*) FROM ' . $wpdb->blogs );
-			$blogs = \WP_Piwik\Settings::getBlogList($per_page, $current_page);
+			$total_items = $wpdb->get_var ( $wpdb->prepare('SELECT COUNT(*) FROM ' . $wpdb->blogs . ' WHERE CONCAT(domain, path) LIKE "%%%s%%" AND spam = 0 AND deleted = 0', $search));
+			$blogs = \WP_Piwik\Settings::getBlogList($per_page, $current_page, $search);
 			foreach ( $blogs as $blog ) {
-				$blogDetails = get_blog_details ( $blog['blog_id'], true );
+            	$blogDetails = get_blog_details ( $blog['blog_id'], true );
 				$this->data [] = array (
 						'name' => $blogDetails->blogname,
 						'id' => $blogDetails->blog_id,
@@ -95,4 +100,13 @@ class Sitebrowser extends \WP_List_Table {
 				return print_r ( $item, true );
 		}
 	}
+
+	private function showSearchForm() {
+        ?>
+        <form method="post">
+            <input type="hidden" name="page" value="<?php echo $_REQUEST['page'] ?>" />
+            <?php $this->search_box('Search domain and path', 'wpPiwikSiteSearch'); ?>
+        </form>
+        <?php
+    }
 }

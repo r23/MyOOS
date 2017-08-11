@@ -66,6 +66,10 @@ class TrackingCode {
 			$code = str_replace ( "_paq.push(['trackPageView']);", "_paq.push(['setDownloadExtensions', '" . ($settings->getGlobalOption ( 'set_download_extensions' )) . "']);\n_paq.push(['trackPageView']);", $code );
 		if ($settings->getGlobalOption ( 'add_download_extensions' ))
 			$code = str_replace ( "_paq.push(['trackPageView']);", "_paq.push(['addDownloadExtensions', '" . ($settings->getGlobalOption ( 'add_download_extensions' )) . "']);\n_paq.push(['trackPageView']);", $code );
+        if ($settings->getGlobalOption ( 'set_download_classes' ))
+            $code = str_replace ( "_paq.push(['trackPageView']);", "_paq.push(['setDownloadClasses', '" . ($settings->getGlobalOption ( 'set_download_classes' )) . "']);\n_paq.push(['trackPageView']);", $code );
+        if ($settings->getGlobalOption ( 'set_link_classes' ))
+            $code = str_replace ( "_paq.push(['trackPageView']);", "_paq.push(['setLinkClasses', '" . ($settings->getGlobalOption ( 'set_link_classes' )) . "']);\n_paq.push(['trackPageView']);", $code );
 		if ($settings->getGlobalOption ( 'limit_cookies' ))
 			$code = str_replace ( "_paq.push(['trackPageView']);", "_paq.push(['setVisitorCookieTimeout', '" . $settings->getGlobalOption ( 'limit_cookies_visitor' ) . "']);\n_paq.push(['setSessionCookieTimeout', '" . $settings->getGlobalOption ( 'limit_cookies_session' ) . "']);\n_paq.push(['setReferralCookieTimeout', '" . $settings->getGlobalOption ( 'limit_cookies_referral' ) . "']);\n_paq.push(['trackPageView']);", $code );
 		if ($settings->getGlobalOption ( 'force_protocol' ) != 'disabled')
@@ -76,9 +80,6 @@ class TrackingCode {
 			$code = str_replace ( "_paq.push(['trackPageView']);", "_paq.push(['trackPageView']);\n_paq.push(['trackVisibleContentImpressions']);", $code );
 		if ((int) $settings->getGlobalOption ( 'track_heartbeat' ) > 0)
 			$code = str_replace ( "_paq.push(['trackPageView']);", "_paq.push(['trackPageView']);\n_paq.push(['enableHeartBeatTimer', ".(int) $settings->getGlobalOption ( 'track_heartbeat' )."]);", $code );
-
-		if ($settings->getGlobalOption ( 'piwik_mode' ) == 'pro')
-			$code = str_replace ( '.piwik.pro', '.piwikpro.com', $code );
 
 		$noScript = array ();
 		preg_match ( '/<noscript>(.*)<\/noscript>/', $code, $noScript );
