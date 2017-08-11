@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Yoast SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-08-03 09:00:56+0000\n"
+"PO-Revision-Date: 2017-08-07 08:48:51+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -22,6 +22,10 @@ msgstr "Ausgeblendete Benachrichtigungen:"
 #: admin/views/partial-alerts-errors.php:12
 msgid "Muted problems:"
 msgstr "Ausgeblendete Probleme:"
+
+#: admin/class-premium-upsell-admin-block.php:64
+msgid "Find out why you should upgrade to %s &raquo;"
+msgstr "Finde heraus, warum du zu %s &raquo; upgraden solltest"
 
 #: admin/class-premium-upsell-admin-block.php:61
 msgid "Go premium!"
@@ -225,6 +229,11 @@ msgstr "Deine Seite könnte mit einer neueren PHP-Version schneller und sicherer
 #: vendor/yoast/whip/src/messages/Whip_HostMessage.php:54
 msgid "A message from %1$s"
 msgstr "Eine Nachricht von %1$s"
+
+#. translators: %s expands to Yoast SEO Premium
+#: admin/views/partial-help-center-video.php:31
+msgid "Get %s now &raquo;"
+msgstr "Hol dir %s jetzt &raquo;"
 
 #: admin/banner/class-admin-banner-sidebar.php:97
 #: admin/class-help-center.php:78 admin/class-premium-upsell-admin-block.php:49
