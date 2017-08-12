@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Yoast SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-08-07 08:48:51+0000\n"
+"PO-Revision-Date: 2017-08-10 07:40:02+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,15 @@ msgstr ""
 "X-Generator: GlotPress/2.4.0-alpha\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Yoast SEO - Stable (latest release)\n"
+
+#: vendor/yoast/whip/src/facades/wordpress.php:29
+msgid "Remind me again in 4 weeks."
+msgstr "Erinnere mich wieder in 4 Wochen."
+
+#. translators: %1$s expands to the request method
+#: admin/class-remote-request.php:67
+msgid "Request method %1$s is not valid."
+msgstr "Anforderungsmethode %1$s ist nicht gültig."
 
 #: admin/views/tabs/tool/import-seo.php:27
 msgid "Import from Jetpack SEO"
@@ -23,13 +32,25 @@ msgstr "Ausgeblendete Benachrichtigungen:"
 msgid "Muted problems:"
 msgstr "Ausgeblendete Probleme:"
 
+#. translators: %1$s expands to the social network's name, %2$s to Yoast SEO
+#. Premium.
+#: admin/class-social-admin.php:170
+msgid "Do you want to preview what it will look like if people share this post on %1$s? You can, with %2$s."
+msgstr ""
+"Möchtest Du sehen, wie es aussieht, wenn die Leute diesen Beitrag auf %1$s teilen?\n"
+"Kannst Du, mit %2$s."
+
 #: admin/class-premium-upsell-admin-block.php:64
 msgid "Find out why you should upgrade to %s &raquo;"
-msgstr "Finde heraus, warum du zu %s &raquo; upgraden solltest"
+msgstr "Finde heraus, warum du zu %s upgraden solltest &raquo;"
 
 #: admin/class-premium-upsell-admin-block.php:61
 msgid "Go premium!"
 msgstr "Zu Premium wechseln!"
+
+#: admin/class-premium-upsell-admin-block.php:58
+msgid "Dismiss %s upgrade motivation"
+msgstr "%s Update Empfehlung ausblenden"
 
 #: admin/views/tabs/dashboard/features.php:54
 msgid "This feature helps you improve the internal link structure of your site. If you want to know more about the why and how of internal linking, check out the %1$sarticle about internal linking on Yoast.com%2$s."
@@ -267,6 +288,11 @@ msgstr "Weitere Vorteile von %1$s für dich:"
 msgid "Want to add more than one keyword?"
 msgstr "Möchtet du mehr als ein Keyword hinzufügen?"
 
+#: admin/banner/class-admin-banner-sidebar.php:102
+#: admin/class-premium-upsell-admin-block.php:65
+msgid "Prices start as low as 69,- for one site"
+msgstr "Der Preis für eine Website beginnt bei 69€"
+
 #: admin/banner/class-admin-banner-sidebar.php:98
 #: admin/class-help-center.php:79 admin/class-premium-upsell-admin-block.php:50
 #: admin/metabox/class-metabox-add-keyword-tab.php:51
@@ -342,7 +368,7 @@ msgstr "Wenn du Hilfe brauchst, um tollen Content zu schreiben, schau dir unsere
 msgid "Scroll to see the table content."
 msgstr "Scrollen um den Tabellen-Inhalt zu sehen."
 
-#: admin/banner/class-admin-banner-sidebar.php:362
+#: admin/banner/class-admin-banner-sidebar.php:352
 msgid "Take the online Technical SEO Training course and learn essential technical SEO-concepts!"
 msgstr "Nimm am Online-Kurs „Technical SEO Training“ teil und lerne essentielle technische SEO-Konzepte!"
 
@@ -501,14 +527,14 @@ msgstr[1] "Dein Text enthält %1$d Instanzen, in denen %2$d oder mehr aufeinande
 #. expands to the recommended value.
 #: languages/yoast-seo-js.php:52
 msgid "%1$s of the sentences contain %2$spassive voice%3$s, which is more than the recommended maximum of %4$s. Try to use their active counterparts."
-msgstr "%1$s der Sätze enthalten %2$sindirekte Rede%3$s, was mehr als das empfohlene Maximum von %4$s ist. Versuche, mehr aktive Entsprechungen einzusetzen."
+msgstr "%1$s der Sätze enthalten %2$seinen Passiv%3$s, was mehr als das empfohlene Maximum von %4$s ist. Versuche, mehr aktive Entsprechungen einzusetzen."
 
 #. Translators: %1$s expands to the number of sentences in passive voice, %2$s
 #. expands to a link on yoast.com, 	   %3$s expands to the anchor end tag, %4$s
 #. expands to the recommended value.
 #: languages/yoast-seo-js.php:47
 msgid "%1$s of the sentences contain %2$spassive voice%3$s, which is less than or equal to the recommended maximum of %4$s."
-msgstr "%1$s der Sätze enthalten %2$sindirekte Rede%3$s, was weniger oder gleich als das empfohlene Maximum von %4$s ist. "
+msgstr "%1$s der Sätze enthalten %2$seinen Passiv%3$s, was weniger oder gleich als das empfohlene Maximum von %4$s ist. "
 
 #. Translators: %1$d expands to the number of paragraphs, %2$d expands to the
 #. recommended value
@@ -610,7 +636,7 @@ msgstr "Stattdessen JavaScript benutzen."
 msgid "Select redirect"
 msgstr "Umleitung auswählen"
 
-#: admin/banner/class-admin-banner-sidebar.php:352
+#: admin/banner/class-admin-banner-sidebar.php:342
 msgid "Take the online Site Structure Training course and learn how to structure your website!"
 msgstr "Nimm am Online-Kurs „Site Structure Training“ teil und lerne wie du deine Website strukturierst!"
 
@@ -954,10 +980,6 @@ msgstr "Lass unsere Experten dein %1$s Plugin einrichten!"
 msgid "Do you want to know how to improve your rankings? %1$sLet team %2$s help you!%3$s"
 msgstr "Willst Du wissen wie sich Dein Ranking verbessern lässt? %1$sLass Dir vom Team %2$s helfen!%3$s"
 
-#: admin/banner/class-admin-banner-sidebar.php:342
-msgid "Take the online Keyword Research Training course and learn how to rank with your keywords!"
-msgstr "Nimm am Online-Kurs für die Keyword-Suche teil und lerne, wie du mit deinen Schlüsselwörtern besser gefunden wirst."
-
 #: admin/banner/class-admin-banner-sidebar.php:290
 msgid "Courses"
 msgstr "Kurse"
@@ -1029,10 +1051,6 @@ msgstr "Die %1$s Adminleiste enthält nützliche Links zu Tools von Drittanbiete
 #: admin/views/tabs/dashboard/features.php:35
 msgid "Admin bar menu"
 msgstr "Adminbar-Menü"
-
-#: admin/views/tabs/dashboard/features.php:29
-msgid "OnPage.org"
-msgstr "OnPage.org"
 
 #: admin/views/tabs/dashboard/features.php:26
 msgid "The advanced settings include site-wide settings for your titles and meta descriptions, social metadata, sitemaps and much more."
@@ -2121,10 +2139,10 @@ msgstr "Aktiviert"
 msgid "Disabled"
 msgstr "Deaktiviert"
 
-#. translators: %s expands to Yoast SEO.
-#: admin/views/dashboard-widget.php:86
-msgid "%s has not fetched your site's indexability status yet from OnPage.org"
-msgstr "%s hat den Seiten Indexierbarkeitsstatus bisher noch nicht von OnPage.org abgerufen."
+#. translators: %1$s: expands to Yoast SEO, %2$s: expands to Ryte.
+#: admin/views/dashboard-widget.php:87
+msgid "%1$s has not fetched your site's indexability status yet from %2$s"
+msgstr "%1$s hat den Indexierbarkeitsstatus deiner Website bisher noch nicht von %2$s abgerufen"
 
 #. translators: %s: wp_title() function
 #: inc/class-wpseo-replace-vars.php:1116
@@ -2149,11 +2167,11 @@ msgstr "Entferne die %s Variablen. "
 msgid "Strip the category base (usually %s) from the category URL."
 msgstr "Entferne die Basiskategorie (gewöhnlich %s) von der Kategorie-URL."
 
-#: admin/views/dashboard-widget.php:100
+#: admin/views/dashboard-widget.php:102
 msgid "Analyze entire site"
 msgstr "Gesamte Website analysieren."
 
-#: admin/views/dashboard-widget.php:97
+#: admin/views/dashboard-widget.php:99
 msgid "Fetch the current status"
 msgstr "Aktuellen Status abfragen."
 
@@ -2161,7 +2179,7 @@ msgstr "Aktuellen Status abfragen."
 msgid "Your homepage can be indexed by search engines."
 msgstr "Deine Homepage kann von Suchmaschinen indiziert werden."
 
-#. translators: 1: expands to OnPage.org
+#. translators: %1$s expands to Ryte.
 #: admin/views/dashboard-widget.php:47
 msgid "Indexability check by %1$s"
 msgstr "Indexierbarkeits-Check von %1$s"
@@ -2187,7 +2205,9 @@ msgstr "Wenn du nicht den Beitragstitel verwenden willst, um den Beitrag auf Goo
 
 #. translators: 1: opens a link to a related knowledge base article. 2: closes
 #. the link
-#: admin/onpage/class-onpage.php:116 admin/views/dashboard-widget.php:67
+#. translators: %1$s: opens a link to a related knowledge base article. %2$s:
+#. closes the link.
+#: admin/onpage/class-onpage.php:117 admin/views/dashboard-widget.php:67
 msgid "%1$sYour homepage cannot be indexed by search engines%2$s. This is very bad for SEO and should be fixed."
 msgstr "%1$sSuchmaschinen können deine Homepage nicht indizieren%2$s. Dies ist sehr ungünstig für die SEO und sollte repariert werden."
 
@@ -2244,7 +2264,7 @@ msgid "%1$s of %2$s done."
 msgstr "%1$s von %2$s erledigt"
 
 #. translators: %s expands to the actual filter/action that has been used.
-#: admin/class-admin-init.php:509
+#: admin/class-admin-init.php:511
 msgid "%s filter/action"
 msgstr "%s Filter/Aktion"
 
@@ -2757,7 +2777,7 @@ msgstr "Eine Platzhalter-Variable kann nicht mit \"%%cf_\" oder \"%%ct_\" beginn
 msgid "A replacement variable can only contain alphanumeric characters, an underscore or a dash. Try renaming your variable."
 msgstr "Eine Ersatzvariable kann nur alphanumerische Zeichen sowie einen Unterstrich oder eine Leertaste enthalten. Bitte versuche, deine Variable umzubenennen."
 
-#: frontend/class-frontend.php:1243
+#: frontend/class-frontend.php:1252
 msgid "Admin only notice: this page doesn't show a meta description because it doesn't have one, either write it for this page specifically or go into the SEO -> Titles menu and set up a template."
 msgstr "Nur für Administratoren: diese Seite zeigt keine Meta Description, da bisher keine vorhanden ist. Verfasse entweder eine spezielle oder definiere sie unter SEO -> Titel Menü ein Template"
 
@@ -3879,11 +3899,11 @@ msgid "Upload Image"
 msgstr "Bild hochladen"
 
 #. translators: %1$s expands to Yoast SEO Premium
-#: admin/banner/class-admin-banner-sidebar.php:393
+#: admin/banner/class-admin-banner-sidebar.php:383
 msgid "Upgrade to %1$s &raquo;"
 msgstr "Auf %1$s &raquo; erweitern"
 
-#: admin/banner/class-admin-banner-sidebar.php:387
+#: admin/banner/class-admin-banner-sidebar.php:377
 msgid "Remove these ads?"
 msgstr "Diese Anzeigen entfernen?"
 
