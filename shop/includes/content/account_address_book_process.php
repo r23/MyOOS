@@ -60,7 +60,11 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') || ($_POST['acti
 	( isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) ){	  
 	  
     $bProcess = TRUE;
-
+	
+	if ( isset($_GET['entry_id']) && is_numeric($_GET['entry_id']) ) {
+		$entry_id = oos_db_prepare_input($_GET['entry_id']);
+	}
+	
     if (ACCOUNT_GENDER == 'true') {
 		if (isset($_POST['gender'])) {
 			$gender = oos_db_prepare_input($_POST['gender']);
@@ -176,21 +180,41 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') || ($_POST['acti
 
 		if (ACCOUNT_GENDER == 'true') $sql_data_array['entry_gender'] = $gender;
 		if (ACCOUNT_COMPANY == 'true') $sql_data_array['entry_company'] = $company;
-		if (ACCOUNT_OWNER == 'true') $sql_data_array['entry_owner'] = $owner;	  
-	  
-	  
-      if (ACCOUNT_STATE == 'true') {
-        if ($zone_id > 0) {
-          $sql_data_array['entry_zone_id'] = $zone_id;
-          $sql_data_array['entry_state'] = '';
-        } else {
-          $sql_data_array['entry_zone_id'] = '0';
-          $sql_data_array['entry_state'] = $state;
-        }
-      }
+		if (ACCOUNT_OWNER == 'true') $sql_data_array['entry_owner'] = $owner; 
+		if (ACCOUNT_STATE == 'true') {
+			if ($zone_id > 0) {
+				$sql_data_array['entry_zone_id'] = $zone_id;
+				$sql_data_array['entry_state'] = '';
+			} else {
+				$sql_data_array['entry_zone_id'] = '0';
+				$sql_data_array['entry_state'] = $state;
+			}
+		}
 
-      if ($_POST['action'] == 'update') {
-        oos_db_perform($oostable['address_book'], $sql_data_array, 'UPDATE', "address_book_id = '" . oos_db_input($entry_id) . "' AND customers_id ='" . intval($_SESSION['customer_id']) . "'");
+		if ($_POST['action'] == 'update') {
+			$address_booktable = $oostable['address_book'];
+			$check_query = "SELECT address_book_id FROM $address_booktable WHERE address_book_id = '" . intval($entry_id) . "'' AND customers_id = '" . intval($_SESSION['customer_id']) . "'";
+			$check_result = $dbconn->Execute($check_query);
+
+			if (!$check_result->RecordCount()) {
+				oos_db_perform($oostable['address_book'], $sql_data_array, 'UPDATE', "address_book_id = '" . intval($entry_id) . "' AND customers_id ='" . intval($_SESSION['customer_id']) . "'");
+			
+				if ( (isset($_POST['primary']) && ($_POST['primary'] == 'on')) || ($entry_id == $_SESSION['customer_default_address_id']) ) {
+			  
+				
+					if (ACCOUNT_GENDER == 'true') $_SESSION['customer_gender'] = $gender;
+					$_SESSION['customer_first_name'] = $firstname;
+					$_SESSION['customer_lastname'] = $lastname;
+					$_SESSION['customer_country_id'] = $country;
+					$_SESSION['customer_zone_id'] = (($zone_id > 0) ? (int)$zone_id : '0');
+					$_SESSION['customer_default_address_id'] = intval($entry_id);
+
+					if ((ACCOUNT_COMPANY_VAT_ID_CHECK == 'true') && ($vatid_check_error == FALSE)) {
+						$_SESSION['customers_vat_id_status'] = '1';
+					}					
+				}
+			}					
+
       } else {
         $sql_data_array['customers_id'] = $_SESSION['customer_id'];
         $sql_data_array['address_book_id'] = $entry_id;

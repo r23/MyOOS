@@ -361,10 +361,6 @@ function check_form() {
     error = 1;
   }
 
-  if (customers_telephone == "" || customers_telephone.length < <?php echo ENTRY_TELEPHONE_MIN_LENGTH; ?>) {
-    error_message = error_message + "<?php echo JS_TELEPHONE; ?>";
-    error = 1;
-  }
 
   if (error == 1) {
     alert(error_message);

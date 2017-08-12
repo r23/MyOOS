@@ -206,7 +206,6 @@ $aLang['js_post_code'] = '* The \'Post Code\' entry must have at least ' . ENTRY
 $aLang['js_city'] = '* The \'City\' entry must have at least ' . ENTRY_CITY_MIN_LENGTH . ' characters.\n';
 $aLang['js_state'] = '* The \'State\' entry must be selected.\n';
 $aLang['js_country'] = '* The \'Country\' entry must be selected.\n';
-$aLang['js_telephone'] = '* The \'Telephone Number\' entry must have at least ' . ENTRY_TELEPHONE_MIN_LENGTH . ' characters.\n';
 $aLang['js_password'] = '* The \'Password\' and \'Confirmation\' entries must match and have at least ' . ENTRY_PASSWORD_MIN_LENGTH . ' characters.\n';
 
 $aLang['js_error_no_payment_module_selected'] = '* Please select a payment method for your order.\n';
@@ -255,7 +254,6 @@ $aLang['entry_state_error_select'] = 'Please select a state from the States pull
 $aLang['entry_country'] = 'Country';
 $aLang['entry_country_error'] = 'You must select a country from the Countries pull down menu.';
 $aLang['entry_telephone_number'] = 'Telephone Number';
-$aLang['entry_telephone_number_error'] = 'Your Telephone Number must contain a minimum of ' . ENTRY_TELEPHONE_MIN_LENGTH . ' characters.';
 $aLang['entry_newsletter'] = 'Newsletter';
 $aLang['entry_newsletter_text'] = '';
 $aLang['entry_newsletter_yes'] = 'Subscribed';

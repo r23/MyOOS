@@ -200,7 +200,6 @@ $aLang['js_post_code'] = '* Die \'Postleitzahl\' muss mindestens aus ' . ENTRY_P
 $aLang['js_city'] = '* Die \'Stadt\' muss mindestens aus ' . ENTRY_CITY_MIN_LENGTH . ' Buchstaben bestehen.\n';
 $aLang['js_state'] = '* Das \'Bundesland\' muss ausgewählt werden.\n';
 $aLang['js_country'] = '* Das \'Land\' muss ausgewählt werden.\n';
-$aLang['js_telephone'] = '* Die \'Telefonnummer\' muss mindestens aus ' . ENTRY_TELEPHONE_MIN_LENGTH . ' Zahlen bestehen.\n';
 $aLang['js_password'] = '* Das \'Passwort\' und die \'Bestätigung\' müssen übereinstimmen und mindestens ' . ENTRY_PASSWORD_MIN_LENGTH . ' Buchstaben enthalten.\n';
 
 $aLang['js_error_no_payment_module_selected'] = '* Bitte wählen Sie eine Zahlungsweise für Ihre Bestellung.\n';
@@ -252,10 +251,7 @@ $aLang['entry_state_error_select'] = 'Bitte wählen Sie Ihr Bundesland aus der L
 $aLang['entry_country'] = 'Land';
 $aLang['entry_country_error'] = 'Bitte wählen Sie Ihr Land aus der Liste aus.';
 
-
-
 $aLang['entry_telephone_number'] = 'Telefonnummer';
-$aLang['entry_telephone_number_error'] = 'Ihre Telefonnummer muss mindestens ' . ENTRY_TELEPHONE_MIN_LENGTH . ' Zahlen enthalten';
 $aLang['entry_newsletter'] = 'Newsletter';
 $aLang['entry_newsletter_text'] = '';
 $aLang['entry_newsletter_yes'] = 'abonniert';

@@ -207,7 +207,6 @@ define('JS_STATE', '* Das \'Bundesland\' muss ausgewählt werden.\n');
 define('JS_STATE_SELECT', '-- Wählen Sie oberhalb --');
 define('JS_ZONE', '* Das \'Bundesland\' muss aus der Liste fr dieses Land ausgewählt werden.');
 define('JS_COUNTRY', '* Das \'Land\' muss ausgewählt werden.\n');
-define('JS_TELEPHONE', '* Die \'Telefonnummer\' muss aus mindestens ' . ENTRY_TELEPHONE_MIN_LENGTH . ' Zeichen bestehen.\n');
 define('JS_PASSWORD', '* Das \'Passwort\' sowie die \'Passwortbestätigung\' müssen übereinstimmen und aus mindestens ' . ENTRY_PASSWORD_MIN_LENGTH . ' Zeichen bestehen.\n');
 
 define('JS_ORDER_DOES_NOT_EXIST', 'Auftragsnummer %s existiert nicht!');
