@@ -33,9 +33,10 @@ if (!isset($_SESSION['customer_id'])) {
     oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
 }
 
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_address_book_process.php';
 
-if (isset($_GET['action']) && ($_GET['action'] == 'delete') && isset($_GET['entry_id']) && is_numeric($_GET['entry_id']) ) {
+if (isset($_GET['action']) && ($_GET['action'] == 'deleteconfirm') && isset($_GET['entry_id']) && is_numeric($_GET['entry_id']) ) {
 	  
     $entry_id = oos_db_prepare_input($_GET['entry_id']);
 
@@ -94,25 +95,25 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') || ($_POST['acti
     if (ACCOUNT_GENDER == 'true') {
 		if ( ($gender != 'm') && ($gender != 'f') ) {
 			$bError = TRUE;
-			$oMessage->add('addressbook', $aLang['entry_gender_error']);
+			$oMessage->add_session('addressbook', $aLang['entry_gender_error']);
 		}
     }
 
     if (strlen($firstname) < ENTRY_FIRST_NAME_MIN_LENGTH) {
 		$bError = TRUE;
-		$oMessage->add('addressbook', $aLang['entry_first_name_error'] );
+		$oMessage->add_session('addressbook', $aLang['entry_first_name_error'] );
     }	
 
 	if (strlen($lastname) < ENTRY_LAST_NAME_MIN_LENGTH) {
 		$bError = TRUE;
-		$oMessage->add('addressbook', $aLang['entry_last_name_error'] );
+		$oMessage->add_session('addressbook', $aLang['entry_last_name_error'] );
     }
 
 
 	if (ACCOUNT_COMPANY_VAT_ID_CHECK == 'true'){
 		if (!empty($vat_id) && (!oos_validate_is_vatid($vat_id))) {
 			$bError = TRUE;
-			$oMessage->add('addressbook', $aLang['entry_vat_id_error']);
+			$oMessage->add_session('addressbook', $aLang['entry_vat_id_error']);
 		} else {
 			$vatid_check_error = FALSE;
 		}
@@ -120,22 +121,22 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') || ($_POST['acti
 
 	if (strlen($street_address) < ENTRY_STREET_ADDRESS_MIN_LENGTH) {
 		$bError = TRUE;
-		$oMessage->add('addressbook', $aLang['entry_street_address_error']);
+		$oMessage->add_session('addressbook', $aLang['entry_street_address_error']);
 	}	
 
 	if (strlen($postcode) < ENTRY_POSTCODE_MIN_LENGTH) {
 		$bError = TRUE;
-		$oMessage->add('addressbook', $aLang['entry_post_code_error']);
+		$oMessage->add_session('addressbook', $aLang['entry_post_code_error']);
 	}
  
 	if (strlen($city) < ENTRY_CITY_MIN_LENGTH) {
 		$bError = TRUE;
-		$oMessage->add('addressbook', $aLang['entry_city_error']);
+		$oMessage->add_session('addressbook', $aLang['entry_city_error']);
 	}
 
 	if (is_numeric($country) == FALSE) {
 		$bError = TRUE;
-		$oMessage->add('addressbook', $aLang['entry_country_error']);
+		$oMessage->add_session('addressbook', $aLang['entry_country_error']);
     }
 	
 	if (ACCOUNT_STATE == 'true') {
@@ -159,12 +160,12 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') || ($_POST['acti
 				$zone_id = $zone['zone_id'];
 			} else {
 				$bError = TRUE;
-				$oMessage->add('addressbook', $aLang['entry_state_error_select']);
+				$oMessage->add_session('addressbook', $aLang['entry_state_error_select']);
 			}
 		} else {
 			if (strlen($state) < ENTRY_STATE_MIN_LENGTH) {
 				$bError = TRUE;
-				$oMessage->add('addressbook', $aLang['entry_state_error']);
+				$oMessage->add_session('addressbook', $aLang['entry_state_error']);
 			}
 		}
 	}	
@@ -190,18 +191,22 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') || ($_POST['acti
 				$sql_data_array['entry_state'] = $state;
 			}
 		}
+		if ((ACCOUNT_COMPANY_VAT_ID_CHECK == 'true') && ($vatid_check_error == FALSE)) {
+			$sql_data_array['entry_vat_id_status'] = '1';
+		} else {
+			$sql_data_array['entry_vat_id_status'] = '0';
+		}
 
 		if ($_POST['action'] == 'update') {
 			$address_booktable = $oostable['address_book'];
 			$check_query = "SELECT address_book_id FROM $address_booktable WHERE address_book_id = '" . intval($entry_id) . "'' AND customers_id = '" . intval($_SESSION['customer_id']) . "'";
 			$check_result = $dbconn->Execute($check_query);
 
-			if (!$check_result->RecordCount()) {
+			if ($check_result->RecordCount()) {
 				oos_db_perform($oostable['address_book'], $sql_data_array, 'UPDATE', "address_book_id = '" . intval($entry_id) . "' AND customers_id ='" . intval($_SESSION['customer_id']) . "'");
 			
 				if ( (isset($_POST['primary']) && ($_POST['primary'] == 'on')) || ($entry_id == $_SESSION['customer_default_address_id']) ) {
-			  
-				
+			  				
 					if (ACCOUNT_GENDER == 'true') $_SESSION['customer_gender'] = $gender;
 					$_SESSION['customer_first_name'] = $firstname;
 					$_SESSION['customer_lastname'] = $lastname;
@@ -211,45 +216,127 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') || ($_POST['acti
 
 					if ((ACCOUNT_COMPANY_VAT_ID_CHECK == 'true') && ($vatid_check_error == FALSE)) {
 						$_SESSION['customers_vat_id_status'] = '1';
-					}					
+					} else {
+						$_SESSION['customers_vat_id_status'] = '0';						
+					}
+
+					$sql_data_array = array('customers_firstname' => $firstname,
+											'customers_lastname' => $lastname,
+											'customers_default_address_id' => intval($entry_id));
+
+					if (ACCOUNT_GENDER == 'true') $sql_data_array['customers_gender'] = $gender;
+
+					oos_db_perform($oostable['customers'], $sql_data_array, 'UPDATE', "customers_id = '" . intval($_SESSION['customer_id']) . "'");
+
+					$update_info_sql = "UPDATE " . $oostable['customers_info'] . " 
+										SET customers_info_date_account_last_modified = now() 
+										WHERE customers_info_id = '" . intval($_SESSION['customer_id']) . "'";
+					$dbconn->Execute($update_info_sql);
+										
 				}
 			}					
+		} else {
+			$sql_data_array['customers_id'] = intval($_SESSION['customer_id']);
+			oos_db_perform($oostable['address_book'], $sql_data_array);
 
-      } else {
-        $sql_data_array['customers_id'] = $_SESSION['customer_id'];
-        $sql_data_array['address_book_id'] = $entry_id;
-        oos_db_perform($oostable['address_book'], $sql_data_array);
+			$new_address_book_id = $dbconn->Insert_ID();
 
-      }
+			
+			if (isset($_POST['primary']) && ($_POST['primary'] == 'on')) {
+				
+				if (ACCOUNT_GENDER == 'true') $_SESSION['customer_gender'] = $gender;
+				$_SESSION['customer_first_name'] = $firstname;
+				$_SESSION['customer_lastname'] = $lastname;
+				$_SESSION['customer_country_id'] = $country;
+				$_SESSION['customer_zone_id'] = (($zone_id > 0) ? (int)$zone_id : '0');
+				$_SESSION['customer_default_address_id'] = $new_address_book_id;
 
-      oos_redirect(oos_href_link($aContents['account_address_book'], '', 'SSL'));
-    }
-  }
+				if ((ACCOUNT_COMPANY_VAT_ID_CHECK == 'true') && ($vatid_check_error == FALSE)) {
+					$_SESSION['customers_vat_id_status'] = '1';
+				} else {
+					$_SESSION['customers_vat_id_status'] = '0';						
+				}				
+				
+				$sql_data_array = array('customers_firstname' => $firstname,
+										'customers_lastname' => $lastname);
 
-  if (isset($_GET['action']) && ($_GET['action'] == 'modify') && isset($_GET['entry_id']) && is_numeric($_GET['entry_id'])) {
+				if (ACCOUNT_GENDER == 'true') $sql_data_array['customers_gender'] = $gender;
+				$sql_data_array['customers_default_address_id'] = $new_address_book_id;
+
+				oos_db_perform($oostable['customers'], $sql_data_array, 'UPDATE', "customers_id = '" . intval($_SESSION['customer_id']) . "'");
+				
+				$update_info_sql = "UPDATE " . $oostable['customers_info'] . " 
+									SET customers_info_date_account_last_modified = now() 
+									WHERE customers_info_id = '" . intval($_SESSION['customer_id']) . "'";
+				$dbconn->Execute($update_info_sql);							
+			}
+
+			$oMessage->add_session('addressbook', $aLang['success_address_book_entry_updated'], 'success');
+			oos_redirect(oos_href_link($aContents['account_address_book'], '', 'SSL'));
+		}
+	}
+}
+
+if (isset($_GET['action']) && ($_GET['action'] == 'edit') && isset($_GET['entry_id']) && is_numeric($_GET['entry_id'])) {
     $address_booktable = $oostable['address_book'];
-    $sql = "SELECT entry_gender, entry_company, entry_firstname, entry_lastname,
-                   entry_street_address, entry_postcode, entry_city,
-                   entry_state, entry_zone_id, entry_country_id
-            FROM $address_booktable
-            WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'
-              AND address_book_id = '" . intval($_GET['entry_id']) . "'";
-    $entry = $dbconn->GetRow($sql);
-  } else {
+    $address_sql = "SELECT entry_gender, entry_company, entry_owner, entry_vat_id, entry_vat_id_status,
+						entry_firstname, entry_lastname, entry_street_address, entry_postcode, entry_city,
+						entry_state, entry_zone_id, entry_country_id				   
+					FROM $address_booktable
+					WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'
+					AND address_book_id = '" . intval($_GET['entry_id']) . "'";
+	$entry_result = $dbconn->Execute($address_sql);
+
+	if (!$entry_result->RecordCount()) {	
+		$oMessage->add_session('addressbook', $aLang['error_nonexisting_address_book_entry']);
+
+		oos_redirect(oos_href_link($aContents['account_address_book'], '', 'SSL'));
+    }
+
+    $entry = $entry_result->fields;	
+
+} elseif (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
+    $delete = oos_db_prepare_input($_GET['delete']);
+
+    if ($delete == $_SESSION['customer_default_address_id']) {
+		$oMessage->add_session('addressbook', $aLang['warning_primary_address_deletion'], 'warning');
+
+		oos_redirect(oos_href_link($aContents['account_address_book'], '', 'SSL'));
+    } else {
+		$address_booktable = $oostable['address_book'];
+		$check_query = "SELECT count(*) as total FROM $address_booktable WHERE address_book_id = '" . intval($delete) . "'' AND customers_id = '" . intval($_SESSION['customer_id']) . "'";
+		$check_result = $dbconn->Execute($check_query);
+
+		if ($check_result->fields['total'] < 1) {
+			$oMessage->add_session('addressbook', $aLang['error_nonexisting_address_book_entry']);
+
+			oos_redirect(oos_href_link($aContents['account_address_book'], '', 'SSL'));
+		}
+    }
+ 
+} else {
     $entry = array('entry_country_id' => STORE_COUNTRY);
-  }
-  if (!isset($bProcess)) {
-    $bProcess = FALSE;
-  }
+}
+  
+if (!isset($_GET['delete']) && !isset($_GET['edit'])) {
+	if (oos_count_customer_address_book_entries() >= MAX_ADDRESS_BOOK_ENTRIES) {
+		$oMessage->add_session('addressbook', $aLang['error_address_book_full']);
 
-  // links breadcrumb
-  $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['account'], '', 'SSL'));
-  $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['account_address_book'], '', 'SSL'));
+		oos_redirect(oos_href_link($aContents['account_address_book'], '', 'SSL'));
+	}
+}  
 
+if ( isset($_GET['entry_id']) && is_numeric($_GET['entry_id']) ) {
+	$entry_id = oos_db_prepare_input($_GET['entry_id']);
+}  
+ 
+// links breadcrumb
+$oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['account'], '', 'SSL'));
+$oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['account_address_book'], '', 'SSL'));
 
-  if ( isset($_GET['action']) && ($_GET['action'] == 'modify') && isset($_GET['entry_id']) && is_numeric($_GET['entry_id']) || isset($_POST['action']) && ($_POST['action'] == 'update') ) {
-		   
-    $oBreadcrumb->add($aLang['navbar_title_modify_entry'], oos_href_link($aContents['account_address_book_process'], 'action=modify&amp;entry_id=' . ((isset($_GET['entry_id'])) ? $_GET['entry_id'] : $_POST['entry_id']), 'SSL'));
+if (isset ($_GET['edit']) && is_numeric($_GET['edit'])) {
+
+    $oBreadcrumb->add($aLang['navbar_title_modify_entry'], oos_href_link($aContents['account_address_book_process'], 'action=edit&amp;entry_id=' . ((isset($_GET['entry_id'])) ? $_GET['entry_id'] : $_POST['entry_id']), 'SSL'));
   } else {
     $oBreadcrumb->add($aLang['navbar_title_add_entry'], oos_href_link($aContents['account_address_book_process'], '', 'SSL'));
   }
@@ -283,7 +370,7 @@ $smarty->assign(
 	)
 );
 
-if (isset($_GET['action']) && $_GET['action'] == 'modify') {
+if (isset($_GET['action']) && $_GET['action'] == 'edit') {
 	$smarty->assign(
 		array(
             'heading_title' => $aLang['heading_title_modify_entry']

@@ -187,12 +187,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 		}
 	}	
 
-/*	
-	if (strlen($telephone) < ENTRY_TELEPHONE_MIN_LENGTH) {
-		$bError = TRUE;
-		$oMessage->add('create_account', $aLang['entry_telephone_number_error']);
-	}
-*/ 
+
 	if (CUSTOMER_NOT_LOGIN == 'false') {
 		if (strlen($password) < ENTRY_PASSWORD_MIN_LENGTH) {
 			$bError = TRUE;

@@ -273,6 +273,10 @@ $aLang['newsletter_agree'] = 'Yes, I wish to receive occasional emails about spe
 
 $aLang['success_address_book_entry_deleted'] = 'The selected entry has been deleted successfully.';
 $aLang['warning_primary_address_deletion'] = 'The standard postal address can not be deleted.';
+$aLang['success_address_book_entry_updated'] = 'Your address book has been updated sucessfully!';
+$aLang['error_nonexisting_address_book_entry'] = 'This address book entry is not available.';
+$aLang['error_address_book_full'] = 'Your addressbook is full. In order to add new addresses, please erase previous ones first.';
+
 
 // constants for use in oos_prev_next_display function
 $aLang['text_result_page'] = 'Result Pages:';

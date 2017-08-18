@@ -183,3 +183,38 @@
   }
 
 
+/**
+ * Counts the customer address book entries
+ *
+ * @param string $id
+ * @param bool $check_session
+ * @return int
+ */
+function oos_count_customer_address_book_entries($id = '', $check_session = true) {
+
+    // Get database information
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
+
+	if (is_numeric($id) == false) {
+		if ($_SESSION['customer_id']) {
+			$id = $_SESSION['customer_id'];
+		} else {
+			return 0;
+		}
+	}
+
+	if ($check_session == true) {
+		if ( ($_SESSION['customer_id'] == false) || ($id != $_SESSION['customer_id']) ) {
+			return 0;
+		}
+	}
+
+	$address_booktable = $oostable['address_book'];
+    $addresses_query = "SELECT COUNT(*) AS total
+                        FROM $address_booktable
+                        WHERE customers_id = " . intval($id);
+    $addresses = $dbconn->Execute($addresses_query);
+
+    return $addresses->fields['total'];
+}

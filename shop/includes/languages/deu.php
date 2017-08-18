@@ -271,6 +271,9 @@ $aLang['newsletter_agree'] = 'Ja, ich möchte per E-Mail Newsletter über Trends
 
 $aLang['success_address_book_entry_deleted'] = 'Die ausgewählte Adresse wurde erfolgreich gelöscht.';
 $aLang['warning_primary_address_deletion'] = 'Die Standardadresse kann nicht gelöscht werden.';
+$aLang['success_address_book_entry_updated'] = 'Ihr Adressbuch wurde erfolgreich aktualisiert!';
+$aLang['error_nonexisting_address_book_entry'] = 'Dieser Adressbucheintrag ist leider nicht vorhanden.';
+$aLang['error_address_book_full'] = 'Ihr Adressbuch kann leider keine weiteren Adressen aufnehmen. Bitte löschen Sie eine nicht mehr benötigte Adresse. Danach können Sie eine neue Adresse speichern.';
 
 // constants for use in oos_prev_next_display function
 $aLang['text_result_page'] = 'Seiten:';
