@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 4.8.x - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-07-30 10:51:45+0000\n"
+"PO-Revision-Date: 2017-08-16 19:34:38+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10924,7 +10924,7 @@ msgstr "Entwurf wurde um %s Uhr gespeichert."
 #. translators: draft saved date format, see https://secure.php.net/date
 #: wp-admin/includes/misc.php:885
 msgid "g:i:s a"
-msgstr "H:i:s"
+msgstr "H:i:s Uhr"
 
 #: wp-admin/includes/ajax-actions.php:1315
 #: wp-admin/includes/ajax-actions.php:1320
