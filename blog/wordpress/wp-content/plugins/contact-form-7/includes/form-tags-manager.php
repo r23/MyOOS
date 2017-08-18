@@ -96,7 +96,7 @@ class WPCF7_FormTagsManager {
 		return false;
 	}
 
-	public function collect_tag_types( $feature = null ) {
+	public function collect_tag_types( $feature = null, $invert = false ) {
 		$tag_types = array_keys( $this->tag_types );
 
 		if ( empty( $feature ) ) {
@@ -106,7 +106,8 @@ class WPCF7_FormTagsManager {
 		$output = array();
 
 		foreach ( $tag_types as $tag ) {
-			if ( $this->tag_type_supports( $tag, $feature ) ) {
+			if ( ! $invert && $this->tag_type_supports( $tag, $feature )
+			|| $invert && ! $this->tag_type_supports( $tag, $feature ) ) {
 				$output[] = $tag;
 			}
 		}

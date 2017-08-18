@@ -11,6 +11,7 @@ class WPCF7_ConfigValidator {
 	const error_file_not_found = 106;
 	const error_unavailable_names = 107;
 	const error_invalid_mail_header = 108;
+	const error_deprecated_settings = 109;
 
 	public static function get_doc_link( $error_code = '' ) {
 		$url = __( 'https://contactform7.com/configuration-errors/',
@@ -139,6 +140,8 @@ class WPCF7_ConfigValidator {
 				return __( "Multiple form controls are in a single label element.", 'contact-form-7' );
 			case self::error_invalid_mail_header:
 				return __( "There are invalid mail header fields.", 'contact-form-7' );
+			case self::error_deprecated_settings:
+				return __( "Deprecated settings are used.", 'contact-form-7' );
 			default:
 				return '';
 		}
@@ -178,6 +181,7 @@ class WPCF7_ConfigValidator {
 		$this->validate_mail( 'mail' );
 		$this->validate_mail( 'mail_2' );
 		$this->validate_messages();
+		$this->validate_additional_settings();
 
 		do_action( 'wpcf7_config_validator_validate', $this );
 
@@ -576,4 +580,20 @@ class WPCF7_ConfigValidator {
 
 		return false;
 	}
+
+	public function validate_additional_settings() {
+		$deprecated_settings_used =
+			$this->contact_form->additional_setting( 'on_sent_ok' ) ||
+			$this->contact_form->additional_setting( 'on_submit' );
+
+		if ( $deprecated_settings_used ) {
+			return $this->add_error( 'additional_settings.body',
+				self::error_deprecated_settings,
+				array(
+					'link' => self::get_doc_link( 'deprecated_settings' ),
+				)
+			);
+		}
+	}
+
 }

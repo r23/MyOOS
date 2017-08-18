@@ -74,7 +74,7 @@ function wpcf7_akismet_submitted_params() {
 	$has_akismet_option = false;
 
 	foreach ( (array) $_POST as $key => $val ) {
-		if ( '_wpcf7' == substr( $key, 0, 6 ) ) {
+		if ( '_wpcf7' == substr( $key, 0, 6 ) || '_wpnonce' == $key ) {
 			continue;
 		}
 

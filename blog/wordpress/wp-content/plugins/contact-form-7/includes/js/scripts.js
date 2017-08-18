@@ -169,11 +169,13 @@
 			} );
 		} );
 
+		// URL Input Correction
 		$form.on( 'change', '.wpcf7-validates-as-url', function() {
 			var val = $.trim( $( this ).val() );
 
-			// check the scheme part
-			if ( val && ! val.match( /^[a-z][a-z0-9.+-]*:/i ) ) {
+			if ( val
+			&& ! val.match( /^[a-z][a-z0-9.+-]*:/i )
+			&& -1 !== val.indexOf( '.' ) ) {
 				val = val.replace( /^\/+/, '' );
 				val = 'http://' + val;
 			}
@@ -183,51 +185,58 @@
 	};
 
 	wpcf7.submit = function( form ) {
+		if ( typeof window.FormData !== 'function' ) {
+			return;
+		}
+
 		var $form = $( form );
+
+		$( '.ajax-loader', $form ).addClass( 'is-active' );
 
 		$( '[placeholder].placeheld', $form ).each( function( i, n ) {
 			$( n ).val( '' );
 		} );
 
 		wpcf7.clearResponse( $form );
-		$( '.ajax-loader', $form ).addClass( 'is-active' );
-
-		if ( typeof window.FormData !== 'function' ) {
-			return;
-		}
 
 		var formData = new FormData( $form.get( 0 ) );
 
-		var ajaxSuccess = function( data, status, xhr, $form ) {
-			var detail = {
-				id: $( data.into ).attr( 'id' ),
-				status: data.status,
-				inputs: []
-			};
+		var detail = {
+			id: $form.closest( 'div.wpcf7' ).attr( 'id' ),
+			status: 'init',
+			inputs: [],
+			formData: formData
+		};
 
-			$.each( $form.serializeArray(), function( i, field ) {
-				if ( '_wpcf7' == field.name ) {
-					detail.contactFormId = field.value;
-				} else if ( '_wpcf7_version' == field.name ) {
-					detail.pluginVersion = field.value;
-				} else if ( '_wpcf7_locale' == field.name ) {
-					detail.contactFormLocale = field.value;
-				} else if ( '_wpcf7_unit_tag' == field.name ) {
-					detail.unitTag = field.value;
-				} else if ( '_wpcf7_container_post' == field.name ) {
-					detail.containerPostId = field.value;
-				} else if ( field.name.match( /^_wpcf7_\w+_free_text_/ ) ) {
-					var owner = field.name.replace( /^_wpcf7_\w+_free_text_/, '' );
-					detail.inputs.push( {
-						name: owner + '-free-text',
-						value: field.value
-					} );
-				} else if ( field.name.match( /^_/ ) ) {
-					// do nothing
-				} else {
-					detail.inputs.push( field );
-				}
-			} );
+		$.each( $form.serializeArray(), function( i, field ) {
+			if ( '_wpcf7' == field.name ) {
+				detail.contactFormId = field.value;
+			} else if ( '_wpcf7_version' == field.name ) {
+				detail.pluginVersion = field.value;
+			} else if ( '_wpcf7_locale' == field.name ) {
+				detail.contactFormLocale = field.value;
+			} else if ( '_wpcf7_unit_tag' == field.name ) {
+				detail.unitTag = field.value;
+			} else if ( '_wpcf7_container_post' == field.name ) {
+				detail.containerPostId = field.value;
+			} else if ( field.name.match( /^_wpcf7_\w+_free_text_/ ) ) {
+				var owner = field.name.replace( /^_wpcf7_\w+_free_text_/, '' );
+				detail.inputs.push( {
+					name: owner + '-free-text',
+					value: field.value
+				} );
+			} else if ( field.name.match( /^_/ ) ) {
+				// do nothing
+			} else {
+				detail.inputs.push( field );
+			}
+		} );
+
+		wpcf7.triggerEvent( $form.closest( 'div.wpcf7' ), 'beforesubmit', detail );
+
+		var ajaxSuccess = function( data, status, xhr, $form ) {
+			detail.id = $( data.into ).attr( 'id' );
+			detail.status = data.status;
 
 			var $message = $( '.wpcf7-response-output', $form );
 

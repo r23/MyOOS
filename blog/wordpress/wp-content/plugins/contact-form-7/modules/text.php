@@ -47,7 +47,7 @@ function wpcf7_text_form_tag_handler( $tag ) {
 
 	$atts['class'] = $tag->get_class_option( $class );
 	$atts['id'] = $tag->get_id_option();
-	$atts['tabindex'] = $tag->get_option( 'tabindex', 'int', true );
+	$atts['tabindex'] = $tag->get_option( 'tabindex', 'signed_int', true );
 
 	$atts['autocomplete'] = $tag->get_option( 'autocomplete',
 		'[-0-9a-zA-Z]+', true );

@@ -296,7 +296,7 @@ var recaptchaCallback = function() {
 			}
 		}
 	}
-}
+};
 
 document.addEventListener( 'wpcf7submit', function( event ) {
 	switch ( event.detail.status ) {
@@ -340,7 +340,7 @@ function wpcf7_recaptcha_form_tag_handler( $tag ) {
 	$atts['data-theme'] = $tag->get_option( 'theme', '(dark|light)', true );
 	$atts['data-badge'] = $tag->get_option(
 		'badge', '(bottomright|bottomleft|inline)', true );
-	$atts['data-tabindex'] = $tag->get_option( 'tabindex', 'int', true );
+	$atts['data-tabindex'] = $tag->get_option( 'tabindex', 'signed_int', true );
 	$atts['data-callback'] = $tag->get_option( 'callback', '', true );
 	$atts['data-expired-callback'] =
 		$tag->get_option( 'expired_callback', '', true );

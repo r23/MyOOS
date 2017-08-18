@@ -19,7 +19,8 @@ function wpcf7_upload_dir( $type = false ) {
 
 	$uploads = apply_filters( 'wpcf7_upload_dir', array(
 		'dir' => $uploads['basedir'],
-		'url' => $uploads['baseurl'] ) );
+		'url' => $uploads['baseurl'],
+	) );
 
 	if ( 'dir' == $type ) {
 		return $uploads['dir'];
@@ -30,16 +31,12 @@ function wpcf7_upload_dir( $type = false ) {
 	return $uploads;
 }
 
-function wpcf7_verify_nonce( $nonce, $action = -1 ) {
-	if ( substr( wp_hash( $action, 'nonce' ), -12, 10 ) == $nonce ) {
-		return true;
-	}
-
-	return false;
+function wpcf7_verify_nonce( $nonce, $action = 'wp_rest' ) {
+	return wp_verify_nonce( $nonce, $action );
 }
 
-function wpcf7_create_nonce( $action = -1 ) {
-	return substr( wp_hash( $action, 'nonce' ), -12, 10 );
+function wpcf7_create_nonce( $action = 'wp_rest' ) {
+	return wp_create_nonce( $action );
 }
 
 function wpcf7_blacklist_check( $target ) {

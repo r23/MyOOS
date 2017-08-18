@@ -3,8 +3,8 @@ Contributors: takayukister
 Donate link: https://contactform7.com/donate/
 Tags: contact, form, contact form, feedback, email, ajax, captcha, akismet, multilingual
 Requires at least: 4.7
-Tested up to: 4.8
-Stable tag: 4.8.1
+Tested up to: 4.8.1
+Stable tag: 4.9
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,18 @@ Do you have questions or issues with Contact Form 7? Use these support channels 
 == Changelog ==
 
 For more information, see [Releases](https://contactform7.com/category/releases/).
+
+= 4.9 =
+
+* Supports subscribers_only setting
+* Changes the default value of WPCF7_VERIFY_NONCE to false
+* WPCF7_FormTagsManager::collect_tag_types() supports invert option
+* New filter hooks: wpcf7_verify_nonce, wpcf7_subscribers_only_notice, wpcf7_remote_ip_addr, and wpcf7_submission_is_blacklisted
+* Fixed: Form-tag's tabindex option did not accept 0 or negative integer values
+* Shows a validation error when no option in a radio buttons group is checked
+* Config validator: Adds a validation rule against the use of deprecated settings (on_sent_ok and on_submit)
+* Allows to pass the skip_mail option through the WPCF7_ContactForm::submit() and WPCF7_Submission::get_instance() function parameters.
+* Triggers wpcf7beforesubmit custom DOM event. You can manipulate the formData object through an event handler.
 
 = 4.8.1 =
 

@@ -42,7 +42,7 @@ function wpcf7_quiz_form_tag_handler( $tag ) {
 
 	$atts['class'] = $tag->get_class_option( $class );
 	$atts['id'] = $tag->get_id_option();
-	$atts['tabindex'] = $tag->get_option( 'tabindex', 'int', true );
+	$atts['tabindex'] = $tag->get_option( 'tabindex', 'signed_int', true );
 	$atts['autocomplete'] = 'off';
 	$atts['aria-required'] = 'true';
 	$atts['aria-invalid'] = $validation_error ? 'true' : 'false';

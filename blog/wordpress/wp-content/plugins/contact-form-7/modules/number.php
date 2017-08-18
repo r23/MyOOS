@@ -33,7 +33,7 @@ function wpcf7_number_form_tag_handler( $tag ) {
 
 	$atts['class'] = $tag->get_class_option( $class );
 	$atts['id'] = $tag->get_id_option();
-	$atts['tabindex'] = $tag->get_option( 'tabindex', 'int', true );
+	$atts['tabindex'] = $tag->get_option( 'tabindex', 'signed_int', true );
 	$atts['min'] = $tag->get_option( 'min', 'signed_int', true );
 	$atts['max'] = $tag->get_option( 'max', 'signed_int', true );
 	$atts['step'] = $tag->get_option( 'step', 'int', true );

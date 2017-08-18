@@ -289,6 +289,18 @@ class WPCF7_ContactForm {
 				. esc_html( $this->prop( 'form' ) ) . '</code></pre>';
 		}
 
+		if ( $this->is_true( 'subscribers_only' )
+		&& ! current_user_can( 'wpcf7_submit', $this->id() ) ) {
+			$notice = __(
+				"This contact form is available only for logged in users.",
+				'contact-form-7' );
+			$notice = sprintf(
+				'<p class="wpcf7-subscribers-only">%s</p>',
+				esc_html( $notice ) );
+
+			return apply_filters( 'wpcf7_subscribers_only_notice', $notice, $this );
+		}
+
 		$this->unit_tag = self::get_unit_tag( $this->id );
 
 		$lang_tag = str_replace( '_', '-', $this->locale );
@@ -409,8 +421,8 @@ class WPCF7_ContactForm {
 			$hidden_fields['_wpcf7_container_post'] = (int) get_the_ID();
 		}
 
-		if ( WPCF7_VERIFY_NONCE ) {
-			$hidden_fields['_wpcf7_nonce'] = wpcf7_create_nonce( $this->id );
+		if ( $this->nonce_is_active() ) {
+			$hidden_fields['_wpnonce'] = wpcf7_create_nonce();
 		}
 
 		$hidden_fields += (array) apply_filters(
@@ -616,7 +628,7 @@ class WPCF7_ContactForm {
 
 		$mailtags = array_unique( array_filter( $mailtags ) );
 
-		return apply_filters( 'wpcf7_collect_mail_tags', $mailtags );
+		return apply_filters( 'wpcf7_collect_mail_tags', $mailtags, $args, $this );
 	}
 
 	public function suggest_mail_tags( $for = 'mail' ) {
@@ -648,8 +660,27 @@ class WPCF7_ContactForm {
 		}
 	}
 
-	public function submit() {
-		$submission = WPCF7_Submission::get_instance( $this );
+	public function submit( $args = '' ) {
+		$args = wp_parse_args( $args, array(
+			'skip_mail' => $this->in_demo_mode() || ! empty( $this->skip_mail ),
+		) );
+
+		if ( $this->is_true( 'subscribers_only' )
+		&& ! current_user_can( 'wpcf7_submit', $this->id() ) ) {
+			$result = array(
+				'contact_form_id' => $this->id(),
+				'status' => 'error',
+				'message' => __(
+					"This contact form is available only for logged in users.",
+					'contact-form-7' ),
+			);
+
+			return $result;
+		}
+
+		$submission = WPCF7_Submission::get_instance( $this, array(
+			'skip_mail' => $args['skip_mail'],
+		) );
 
 		$result = array(
 			'contact_form_id' => $this->id(),
@@ -737,6 +768,16 @@ class WPCF7_ContactForm {
 
 	public function in_demo_mode() {
 		return $this->is_true( 'demo_mode' );
+	}
+
+	public function nonce_is_active() {
+		$is_active = WPCF7_VERIFY_NONCE;
+
+		if ( $this->is_true( 'subscribers_only' ) ) {
+			$is_active = true;
+		}
+
+		return (bool) apply_filters( 'wpcf7_verify_nonce', $is_active, $this );
 	}
 
 	/* Upgrade */

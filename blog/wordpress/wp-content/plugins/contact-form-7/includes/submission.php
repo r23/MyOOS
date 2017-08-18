@@ -15,7 +15,11 @@ class WPCF7_Submission {
 
 	private function __construct() {}
 
-	public static function get_instance( WPCF7_ContactForm $contact_form = null ) {
+	public static function get_instance( WPCF7_ContactForm $contact_form = null, $args = '' ) {
+		$args = wp_parse_args( $args, array(
+			'skip_mail' => false,
+		) );
+
 		if ( empty( self::$instance ) ) {
 			if ( null == $contact_form ) {
 				return null;
@@ -23,7 +27,7 @@ class WPCF7_Submission {
 
 			self::$instance = new self;
 			self::$instance->contact_form = $contact_form;
-			self::$instance->skip_mail = $contact_form->in_demo_mode();
+			self::$instance->skip_mail = (bool) $args['skip_mail'];
 			self::$instance->setup_posted_data();
 			self::$instance->submit();
 		} elseif ( null != $contact_form ) {
@@ -31,6 +35,10 @@ class WPCF7_Submission {
 		}
 
 		return self::$instance;
+	}
+
+	public static function is_restful() {
+		return defined( 'REST_REQUEST' ) && REST_REQUEST;
 	}
 
 	public function get_status() {
@@ -71,8 +79,7 @@ class WPCF7_Submission {
 
 	private function setup_posted_data() {
 		$posted_data = (array) $_POST;
-		$posted_data = array_diff_key(
-			$posted_data, array( '_wpcf7_nonce' => '' ) );
+		$posted_data = array_diff_key( $posted_data, array( '_wpnonce' => '' ) );
 		$posted_data = $this->sanitize_posted_data( $posted_data );
 
 		$tags = $this->contact_form->scan_form_tags();
@@ -176,19 +183,20 @@ class WPCF7_Submission {
 	}
 
 	private function get_remote_ip_addr() {
+		$ip_addr = '';
+
 		if ( isset( $_SERVER['REMOTE_ADDR'] )
 		&& WP_Http::is_ip_address( $_SERVER['REMOTE_ADDR'] ) ) {
-			return $_SERVER['REMOTE_ADDR'];
+			$ip_addr = $_SERVER['REMOTE_ADDR'];
 		}
 
-		return '';
+		return apply_filters( 'wpcf7_remote_ip_addr', $ip_addr );
 	}
 
 	private function get_request_url() {
 		$home_url = untrailingslashit( home_url() );
 
-		if ( isset( $_SERVER['HTTP_X_REQUESTED_WITH'] )
-		&& 'XMLHttpRequest' == $_SERVER['HTTP_X_REQUESTED_WITH'] ) {
+		if ( self::is_restful() ) {
 			$referer = isset( $_SERVER['HTTP_REFERER'] )
 				? trim( $_SERVER['HTTP_REFERER'] ) : '';
 
@@ -232,17 +240,22 @@ class WPCF7_Submission {
 	private function spam() {
 		$spam = false;
 
+		if ( $this->contact_form->is_true( 'subscribers_only' )
+		&& current_user_can( 'wpcf7_submit', $this->contact_form->id() ) ) {
+			return $spam;
+		}
+
 		$user_agent = (string) $this->get_meta( 'user_agent' );
 
 		if ( strlen( $user_agent ) < 2 ) {
 			$spam = true;
 		}
 
-		if ( WPCF7_VERIFY_NONCE && ! $this->verify_nonce() ) {
+		if ( ! $this->verify_nonce() ) {
 			$spam = true;
 		}
 
-		if ( $this->blacklist_check() ) {
+		if ( $this->is_blacklisted() ) {
 			$spam = true;
 		}
 
@@ -250,18 +263,21 @@ class WPCF7_Submission {
 	}
 
 	private function verify_nonce() {
-		return wpcf7_verify_nonce(
-			$_POST['_wpcf7_nonce'], $this->contact_form->id() );
+		if ( ! $this->contact_form->nonce_is_active() ) {
+			return true;
+		}
+
+		return wpcf7_verify_nonce( $_POST['_wpnonce'] );
 	}
 
-	private function blacklist_check() {
+	private function is_blacklisted() {
 		$target = wpcf7_array_flatten( $this->posted_data );
 		$target[] = $this->get_meta( 'remote_ip' );
 		$target[] = $this->get_meta( 'user_agent' );
-
 		$target = implode( "\n", $target );
 
-		return wpcf7_blacklist_check( $target );
+		return (bool) apply_filters( 'wpcf7_submission_is_blacklisted',
+			wpcf7_blacklist_check( $target ), $this );
 	}
 
 	/* Mail */
@@ -271,8 +287,7 @@ class WPCF7_Submission {
 
 		do_action( 'wpcf7_before_send_mail', $contact_form );
 
-		$skip_mail = $this->skip_mail || ! empty( $contact_form->skip_mail );
-		$skip_mail = apply_filters( 'wpcf7_skip_mail', $skip_mail, $contact_form );
+		$skip_mail = apply_filters( 'wpcf7_skip_mail', $this->skip_mail, $contact_form );
 
 		if ( $skip_mail ) {
 			return true;

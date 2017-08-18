@@ -301,9 +301,11 @@ function wpcf7_admin_enqueue_scripts( $hook_suffix ) {
 
 	$args = array(
 		'apiSettings' => array(
-			'root' => esc_url_raw( get_rest_url() ),
+			'root' => esc_url_raw( rest_url( 'contact-form-7/v1' ) ),
+			'namespace' => 'contact-form-7/v1',
 			'nonce' => ( wp_installing() && ! is_multisite() )
-				? '' : wp_create_nonce( 'wp_rest' ) ),
+				? '' : wp_create_nonce( 'wp_rest' ),
+		),
 		'pluginUrl' => wpcf7_plugin_url(),
 		'saveAlert' => __(
 			"The changes you made will be lost if you navigate away from this page.",
