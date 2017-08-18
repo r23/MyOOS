@@ -28,7 +28,11 @@ class ProjectServiceContainer extends Container
     {
         $this->services = array();
         $this->methodMap = array(
-            'foo' => 'getFooService',
+            'private_foo' => 'getPrivateFooService',
+            'public_foo' => 'getPublicFooService',
+        );
+        $this->privates = array(
+            'private_foo' => true,
         );
 
         $this->aliases = array();
@@ -61,12 +65,22 @@ class ProjectServiceContainer extends Container
     }
 
     /**
-     * Gets the public 'foo' shared autowired service.
+     * Gets the public 'public_foo' shared service.
      *
-     * @return \Foo
+     * @return \stdClass
      */
-    protected function getFooService()
+    protected function getPublicFooService()
     {
-        return $this->services['foo'] = new \Foo();
+        return $this->services['public_foo'] = new \stdClass(${($_ = isset($this->services['private_foo']) ? $this->services['private_foo'] : $this->getPrivateFooService()) && false ?: '_'});
+    }
+
+    /**
+     * Gets the private 'private_foo' shared service.
+     *
+     * @return \stdClass
+     */
+    protected function getPrivateFooService()
+    {
+        return $this->services['private_foo'] = new \stdClass();
     }
 }
