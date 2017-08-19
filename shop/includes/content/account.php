@@ -39,11 +39,10 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_a
 $customerstable = $oostable['customers'];
 $address_bookstable = $oostable['address_book'];
 $sql = "SELECT c.customers_gender, c.customers_firstname, c.customers_lastname,
-                 c.customers_dob, c.customers_email_address,
-                 c.customers_vat_id, c.customers_telephone, 
-                 a.entry_company, a.entry_owner, a.entry_street_address, 
-                 a.entry_postcode, a.entry_city, a.entry_zone_id, a.entry_state,
-                 a.entry_country_id
+                 c.customers_dob, c.customers_email_address, c.customers_telephone, 
+                 a.entry_company, a.entry_owner, a.entry_vat_id, a.entry_vat_id_status,
+				 a.entry_street_address, a.entry_postcode, a.entry_city, 
+				 a.entry_zone_id, a.entry_state, a.entry_country_id
           FROM $customerstable c,
              $address_bookstable a
           WHERE c.customers_id = '" . intval($_SESSION['customer_id']) . "'

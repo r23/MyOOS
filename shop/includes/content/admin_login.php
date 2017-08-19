@@ -126,7 +126,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'login_process') &&
     // Check if email exists
     $customerstable = $oostable['customers'];
     $sql = "SELECT customers_id, customers_gender, customers_firstname, customers_lastname,
-                   customers_password, customers_wishlist_link_id, customers_vat_id_status,
+                   customers_password, customers_wishlist_link_id, 
                    customers_email_address, customers_default_address_id, customers_max_order
             FROM $customerstable
             WHERE customers_login = '1'
@@ -139,9 +139,10 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'login_process') &&
 							SET man_key2  = ''
 						WHERE where man_info_id = '1'");
 		oos_redirect(oos_href_link($aContents['403']));						
-    } else {
+    } else {		
 		$check_customer = $check_customer_result->fields;
 		$login_result_values = $login_result->fields;
+
 		// Check that status is 1 and
 		$address_booktable = $oostable['address_book'];
 		$sql = "SELECT entry_vat_id, entry_vat_id_status, entry_country_id, entry_zone_id
