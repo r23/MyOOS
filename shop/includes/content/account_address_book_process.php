@@ -335,12 +335,17 @@ $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['account'],
 $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['account_address_book'], '', 'SSL'));
 
 if (isset ($_GET['edit']) && is_numeric($_GET['edit'])) {
-
-    $oBreadcrumb->add($aLang['navbar_title_modify_entry'], oos_href_link($aContents['account_address_book_process'], 'action=edit&amp;entry_id=' . ((isset($_GET['entry_id'])) ? $_GET['entry_id'] : $_POST['entry_id']), 'SSL'));
-  } else {
+    $oBreadcrumb->add($aLang['navbar_title_modify_entry'], oos_href_link($aContents['account_address_book_process'], 'edit=' . intval($_GET['edit']), 'SSL'));
+} elseif (isset ($_GET['delete']) && is_numeric($_GET['delete'])) {
+	$oBreadcrumb->add($aLang['navbar_title_delete_entry'], oos_href_link($aContents['account_address_book_process'], 'delete=' . intval($_GET['delete']), 'SSL'));
+} else {
     $oBreadcrumb->add($aLang['navbar_title_add_entry'], oos_href_link($aContents['account_address_book_process'], '', 'SSL'));
-  }
+}
 
+
+  
+  
+  
    $back_link = oos_href_link($aContents['account_address_book'], '', 'SSL');
   if (isset($_GET['entry_id'])) {
     $entry_id = oos_var_prep_for_os($_GET['entry_id']);

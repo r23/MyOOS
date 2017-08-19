@@ -24,6 +24,7 @@ $aLang['navbar_title_1'] = 'Ihr Konto';
 $aLang['navbar_title_2'] = 'Adressbuch';
 $aLang['navbar_title_add_entry'] = 'Neuer Eintrag';
 $aLang['navbar_title_modify_entry'] = 'Eintrag ändern';
+$aLang['navbar_title_delete_entry'] = 'Eintrag löschen';
 $aLang['heading_title_add_entry'] = 'Adressbuch: Neuer Eintrag';
 $aLang['heading_title_modify_entry'] = 'Adressbuch: Eintrag ändern';
-
+$aLang['heading_title_delete_entry'] = 'Eintrag löschen';
