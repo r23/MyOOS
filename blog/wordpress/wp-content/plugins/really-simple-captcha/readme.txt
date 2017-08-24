@@ -3,8 +3,8 @@ Contributors: takayukister
 Donate link: https://contactform7.com/donate/
 Tags: captcha
 Requires at least: 4.7
-Tested up to: 4.8
-Stable tag: 2.0
+Tested up to: 4.8.1
+Stable tag: 2.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -90,6 +90,10 @@ If you have any further questions, please submit them [to the support forum](htt
 1. screenshot-1.png
 
 == Changelog ==
+
+= 2.0.1 =
+
+* Does a file existence check before attempting to remove the file.
 
 = 2.0 =
 
