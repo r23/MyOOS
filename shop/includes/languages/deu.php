@@ -327,7 +327,7 @@ $aLang['button_add_wishlist'] = 'Wunschliste';
 $aLang['button_redeem_voucher'] = 'Gutschein einlösen';
 $aLang['button_callaction'] = 'Fordern Sie ein Angebot';
 $aLang['button_register'] = 'Jetzt registrieren';
-$aLang['button_save_info'] = 'Daten ändern';
+$aLang['button_save_info'] = 'Daten speichern';
 
 
 $aLang['button_hp_buy'] = 'In den Warenkorb';

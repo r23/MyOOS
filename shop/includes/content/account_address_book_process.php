@@ -277,14 +277,14 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') || ($_POST['acti
 	}
 }
 
-if (isset($_GET['action']) && ($_GET['action'] == 'edit') && isset($_GET['entry_id']) && is_numeric($_GET['entry_id'])) {
+if (isset($_GET['edit']) && is_numeric($_GET['edit'])) {
     $address_booktable = $oostable['address_book'];
     $address_sql = "SELECT entry_gender, entry_company, entry_owner, entry_vat_id, entry_vat_id_status,
 						entry_firstname, entry_lastname, entry_street_address, entry_postcode, entry_city,
 						entry_state, entry_zone_id, entry_country_id				   
 					FROM $address_booktable
 					WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'
-					AND address_book_id = '" . intval($_GET['entry_id']) . "'";
+					AND address_book_id = '" . intval($_GET['edit']) . "'";
 	$entry_result = $dbconn->Execute($address_sql);
 
 	if (!$entry_result->RecordCount()) {	
@@ -341,15 +341,11 @@ if (isset ($_GET['edit']) && is_numeric($_GET['edit'])) {
 } else {
     $oBreadcrumb->add($aLang['navbar_title_add_entry'], oos_href_link($aContents['account_address_book_process'], '', 'SSL'));
 }
-
-
-  
+ 
   
   
    $back_link = oos_href_link($aContents['account_address_book'], '', 'SSL');
-  if (isset($_GET['entry_id'])) {
-    $entry_id = oos_var_prep_for_os($_GET['entry_id']);
-  }
+
 
 $aTemplate['page'] = $sTheme . '/page/address_book_process.html';
 
@@ -444,9 +440,7 @@ $smarty->assign(
    $country_name = oos_get_country_name($country);
    $smarty->assign('country_name', $country_name);
 
-   $smarty->assign('entry', $entry);
-
-
+$smarty->assign('entry', $entry);
 
 // display the template
 $smarty->display($aTemplate['page']);

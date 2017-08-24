@@ -45,21 +45,23 @@
 								</thead>
 								<tbody>
 			{section name=i loop=$address_book}
-									<td>{$smarty.section.i.rownum|number_format}</td>
+									<tr>
+										<td>{$smarty.section.i.rownum|number_format}</td>
 									{if $smarty.const.ACCOUNT_COMPANY eq 'true'}
-									<td>{$address_book[i].company}</td>
+										<td>{$address_book[i].company}</td>
 									{/if}
-									<td>{$address_book[i].firstname} {$address_book[i].lastname}</td>
-									<td>{$address_book[i].street_address}, {$address_book[i].postcode}, {$address_book[i].city}</td>
-									<td>{$address_book[i].country}</td>
-									<td>
-										<div class="btn-group" role="group">
-											<a href="{html_href_link content=$filename.account_address_book_process edit=$address_book[i].address_book_id connection=SSL}" class="btn btn-primary" role="button"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-										{if $address_book[i].address_book_id neq $smarty.session.customer_default_address_id_test}	
-											<a href="{html_href_link content=$filename.account_address_book_process delete=$address_book[i].address_book_id connection=SSL}" class="btn btn-primary" role="button"><i class="fa fa-times" aria-hidden="true"></i></a>
-										{/if}
-										</div>
-									</td>
+										<td>{$address_book[i].firstname} {$address_book[i].lastname}</td>
+										<td>{$address_book[i].street_address}, {$address_book[i].postcode}, {$address_book[i].city}</td>
+										<td>{$address_book[i].country}</td>
+										<td>
+											<div class="btn-group" role="group">
+												<a href="{html_href_link content=$filename.account_address_book_process edit=$address_book[i].address_book_id connection=SSL}" class="btn btn-primary" role="button"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+											{if $address_book[i].address_book_id neq $smarty.session.customer_default_address_id}	
+												<a href="{html_href_link content=$filename.account_address_book_process delete=$address_book[i].address_book_id connection=SSL}" class="btn btn-primary" role="button"><i class="fa fa-times" aria-hidden="true"></i></a>
+											{/if}
+											</div>
+										</td>
+									</tr>
 				{if $smarty.section.i.last}
 								</tbody>
 							</table>
