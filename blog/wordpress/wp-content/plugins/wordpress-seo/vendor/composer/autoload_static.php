@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitde1907b7ee86aa0be73c58a6445b1f6a
+class ComposerStaticInit47d354f13c4edf3f343deb33d9dc4a09
 {
     public static $files = array (
         '995b589e693a50f54393aa31ee1c3763' => __DIR__ . '/..' . '/yoast/whip/src/facades/wordpress.php',
@@ -189,6 +189,9 @@ class ComposerStaticInitde1907b7ee86aa0be73c58a6445b1f6a
         'WPSEO_Customizer' => __DIR__ . '/../..' . '/admin/class-customizer.php',
         'WPSEO_Database_Proxy' => __DIR__ . '/../..' . '/admin/class-database-proxy.php',
         'WPSEO_Export' => __DIR__ . '/../..' . '/admin/class-export.php',
+        'WPSEO_Extension' => __DIR__ . '/../..' . '/admin/class-extension.php',
+        'WPSEO_Extension_Manager' => __DIR__ . '/../..' . '/admin/class-extension-manager.php',
+        'WPSEO_Extensions' => __DIR__ . '/../..' . '/admin/class-extensions.php',
         'WPSEO_Features' => __DIR__ . '/../..' . '/inc/class-wpseo-features.php',
         'WPSEO_Frontend' => __DIR__ . '/../..' . '/frontend/class-frontend.php',
         'WPSEO_Frontend_Primary_Category' => __DIR__ . '/../..' . '/frontend/class-primary-category.php',
@@ -222,6 +225,7 @@ class ComposerStaticInitde1907b7ee86aa0be73c58a6445b1f6a
         'WPSEO_Installable' => __DIR__ . '/../..' . '/admin/interface-installable.php',
         'WPSEO_Installation' => __DIR__ . '/../..' . '/inc/class-wpseo-installation.php',
         'WPSEO_JSON_LD' => __DIR__ . '/../..' . '/frontend/class-json-ld.php',
+        'WPSEO_License_Page_Manager' => __DIR__ . '/../..' . '/admin/class-license-page-manager.php',
         'WPSEO_Link' => __DIR__ . '/../..' . '/admin/links/class-link.php',
         'WPSEO_Link_Cleanup_Transient' => __DIR__ . '/../..' . '/admin/links/class-link-cleanup-transient.php',
         'WPSEO_Link_Column_Count' => __DIR__ . '/../..' . '/admin/links/class-link-column-count.php',
@@ -394,10 +398,10 @@ class ComposerStaticInitde1907b7ee86aa0be73c58a6445b1f6a
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitde1907b7ee86aa0be73c58a6445b1f6a::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitde1907b7ee86aa0be73c58a6445b1f6a::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitde1907b7ee86aa0be73c58a6445b1f6a::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitde1907b7ee86aa0be73c58a6445b1f6a::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit47d354f13c4edf3f343deb33d9dc4a09::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit47d354f13c4edf3f343deb33d9dc4a09::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit47d354f13c4edf3f343deb33d9dc4a09::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit47d354f13c4edf3f343deb33d9dc4a09::$classMap;
 
         }, null, ClassLoader::class);
     }
