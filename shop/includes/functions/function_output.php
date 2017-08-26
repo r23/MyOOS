@@ -123,7 +123,7 @@ function oos_href_link($page = '', $parameters = '', $connection = 'NONSSL', $ad
       return FALSE;
     }
 
-    $image = '<img class="img-responsive" src="' . oos_output_string($src) . '" border="0" alt="' . oos_output_string($title) . '"';
+    $image = '<img class="img-fluid" src="' . oos_output_string($src) . '" border="0" alt="' . oos_output_string($title) . '"';
 
     if (!empty($title)) {
       $image .= ' title="' . oos_output_string($title) . '"';

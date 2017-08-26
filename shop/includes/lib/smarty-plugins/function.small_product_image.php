@@ -84,7 +84,7 @@ function smarty_function_small_product_image($params, &$smarty)
       }
     } 
 
-    return '<img class="img-responsive" src="' . $image . '"' . $extra . ' />';
+    return '<img class="img-fluid" src="' . $image . '"' . $extra . ' />';
 
 }
 

@@ -6,7 +6,7 @@
 	{foreach item=new_product from=$new_products_array}
             <div class="col-md-3 col-sm-6 md-margin-bottom-30">
                 <div class="product-img">
-                    <a href="{product_info_link products_id=$new_product.products_id}"><img class="full-width img-responsive" src="{$new_product.products_image}" alt="{$new_product.products_name}"></a>
+                    <a href="{product_info_link products_id=$new_product.products_id}"><img class="full-width img-fluid" src="{$new_product.products_image}" alt="{$new_product.products_name}"></a>
                 </div> 
                 <div class="product-description product-description-brd">
                     <div class="overflow-h margin-bottom-5">

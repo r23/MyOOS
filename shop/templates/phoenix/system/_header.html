@@ -66,7 +66,7 @@
 				<div class="row">		
 					<div class="col-md-6">
 						<ul class="left-topbar list-inline">
-							<li class="hidden-xs"><a href="{html_href_link content=$filename.contact_us}">{$lang.block_service_contact}</a></li>					
+							<li class="hidden-xs-down"><a href="{html_href_link content=$filename.contact_us}">{$lang.block_service_contact}</a></li>					
 						{if $currency_block}
                             <li>
                                 <a>{$lang.header_select_currencies}: ({$currency})</a>
@@ -106,7 +106,7 @@
                         </ul>
                     </div>	
 					<div class="col-md-6">
-						<ul class="right-topbar list-inline pull-right">
+						<ul class="right-topbar list-inline float-right">
 							<li class="account-login"><span>
 							{if (isset($smarty.session.customer_id)) }
 								<a href="{html_href_link content=$filename.logoff connection=SSL}">{$lang.header_title_logoff}</a>
@@ -185,7 +185,7 @@ document.write('<a href="javascript:couponpopupWindow(\'{html_href_link content=
 									<div class="subtotal">
 										<div class="overflow-h margin-bottom-10">
 											<span>{$lang.sub_title_sub_total}</span>
-											<span class="pull-right subtotal-cost">{$cart_show_total}</span>
+											<span class="float-right subtotal-cost">{$cart_show_total}</span>
 										</div>
 										<div class="row">
 											<div class="col-xs-6">

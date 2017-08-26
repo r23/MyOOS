@@ -20,7 +20,7 @@
  *                     is environment variable DOCUMENT_ROOT
  *
  * Examples: {html_oos_image file="images/masthead.gif"}
- * Output:   <img  class="img-responsive"src="images/masthead.gif" alt=" " />
+ * Output:   <img  class="img-fluid"src="images/masthead.gif" alt=" " />
  * @link http://smarty.php.net/manual/en/language.function.html.image.php {html_oos_image}
  *      (Smarty online manual)
  * @author   Monte Ohrt <monte@ispi.net>
@@ -81,5 +81,5 @@ function smarty_function_html_oos_image($params, &$smarty)
         }
     }	
 
-    return '<img class="img-responsive" src="'.$image.'" alt="'.$alt.'"'.$extra.' />';
+    return '<img class="img-fluid" src="'.$image.'" alt="'.$alt.'"'.$extra.' />';
 }
