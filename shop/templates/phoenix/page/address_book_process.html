@@ -30,16 +30,52 @@
 					<h3>{$lang.category_personal}</h3>
 					</div>
 					<div class="row">
-						<div class="col-xs-12">			
+						<div class="col-xs-12">	
+						
 							<form name="add_entry" id="add_entry" class="form-horizontal" action="{html_get_link connection=SSL}" method="POST" role="form">
 								<fieldset>
-									<input type="hidden" name="action" value="process">
+								{if $smarty.get.delete}
+									<input type="hidden" name="action" value="deleteconfirm">
+								{else}
+									<input type="hidden" name="action" value="process">									
+								{/if}
+									<input type="hidden" name="entry_id" value="{$entry_id}">								
 									<input type="hidden" name="content" value="{$filename.account_address_book_process}">	
 								{if $mySystem.sed}
 									<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
 									<input type="hidden" name="formid" value="{$mySystem.formid}">
 								{/if}	
 
+					{if $smarty.get.delete}	
+					
+						<div class="col-md-6 col-sm-6">
+							<!-- Map -->
+							<div id="map" class="height-450">
+							</div>
+							<!-- End Map -->
+						</div>
+						<div class="col-md-6 col-sm-6">
+							<p>
+								<i class="fa fa-home" aria-hidden="true"></i> {oos_address_label customers_id=$smarty.session.customer_id address_id=$entry_id}
+							</p>
+
+							<hr>
+
+						<div class="form-group">
+							<div class="col-sm-9">
+                          <button type="submit" class="btn btn-primary pull-left"><i class="fa fa-facebook" aria-hidden="true"></i><span>log in with facebook</span></button>
+                          <button type="submit" class="btn btn-danger pull-right"><i class="fa fa-google-plus" aria-hidden="true"></i><span>log in with google plus</span></button>
+							</div>
+						</div>								
+							
+							
+						</div>					
+
+					{else}	
+	
+								
+								
+								
 								{if $smarty.const.ACCOUNT_GENDER eq 'true'}
 									<div class="form-group">
 										<label class="col-sm-4 control-label" for="gender">{$lang.entry_gender} *</label>
@@ -131,7 +167,7 @@
 									<hr />							
 								</fieldset>
 {if $smarty.get.edit}
-		{if ($smarty.session.customer_id != $smarty.get.edit }
+		{if $smarty.session.customer_default_address_id != $entry_id }
 							<div class="form-group">
 								<div class="col-sm-5 col-sm-offset-4">
 									<div class="checkbox">
@@ -142,6 +178,7 @@
 								</div>
 							</div>	
 		{/if}
+
 
 
 
@@ -172,6 +209,7 @@
 						</div>					
 						
 {/if}
+				{/if}
 
 							</form>
 						</div>

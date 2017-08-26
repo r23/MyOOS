@@ -36,9 +36,10 @@ if (!isset($_SESSION['customer_id'])) {
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_address_book_process.php';
 
-if (isset($_GET['action']) && ($_GET['action'] == 'deleteconfirm') && isset($_GET['entry_id']) && is_numeric($_GET['entry_id']) ) {
-	  
-    $entry_id = oos_db_prepare_input($_GET['entry_id']);
+if ( isset($_POST['action']) && ($_POST['action'] == 'deleteconfirm') && isset($_POST['entry_id']) && is_numeric($_POST['entry_id'])  && 
+	( isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) ){
+
+    $entry_id = oos_db_prepare_input($_POST['entry_id']);
 
     if ($entry_id == $_SESSION['customer_default_address_id']) {
 		$oMessage->add_session('addressbook', $aLang['warning_primary_address_deletion'], 'warning');
@@ -62,8 +63,8 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') || ($_POST['acti
 	  
     $bProcess = TRUE;
 	
-	if ( isset($_GET['entry_id']) && is_numeric($_GET['entry_id']) ) {
-		$entry_id = oos_db_prepare_input($_GET['entry_id']);
+	if ( isset($_POST['entry_id']) && is_numeric($_POST['entry_id']) ) {
+		$entry_id = oos_db_prepare_input($_POST['entry_id']);
 	}
 	
     if (ACCOUNT_GENDER == 'true') {
@@ -296,7 +297,7 @@ if (isset($_GET['edit']) && is_numeric($_GET['edit'])) {
     $entry = $entry_result->fields;	
 
 } elseif (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
-    $delete = oos_db_prepare_input($_GET['delete']);
+    $entry_id = oos_db_prepare_input($_GET['delete']);
 
     if ($delete == $_SESSION['customer_default_address_id']) {
 		$oMessage->add_session('addressbook', $aLang['warning_primary_address_deletion'], 'warning');
@@ -304,7 +305,7 @@ if (isset($_GET['edit']) && is_numeric($_GET['edit'])) {
 		oos_redirect(oos_href_link($aContents['account_address_book'], '', 'SSL'));
     } else {
 		$address_booktable = $oostable['address_book'];
-		$check_query = "SELECT count(*) as total FROM $address_booktable WHERE address_book_id = '" . intval($delete) . "'' AND customers_id = '" . intval($_SESSION['customer_id']) . "'";
+		$check_query = "SELECT count(*) as total FROM $address_booktable WHERE address_book_id = '" . intval($entry_id) . "' AND customers_id = '" . intval($_SESSION['customer_id']) . "'";
 		$check_result = $dbconn->Execute($check_query);
 
 		if ($check_result->fields['total'] < 1) {
@@ -325,11 +326,11 @@ if (!isset($_GET['delete']) && !isset($_GET['edit'])) {
 		oos_redirect(oos_href_link($aContents['account_address_book'], '', 'SSL'));
 	}
 }  
-
 if ( isset($_GET['entry_id']) && is_numeric($_GET['entry_id']) ) {
 	$entry_id = oos_db_prepare_input($_GET['entry_id']);
-}  
- 
+} 
+$back_link = oos_href_link($aContents['account_address_book'], '', 'SSL');
+
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['account'], '', 'SSL'));
 $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['account_address_book'], '', 'SSL'));
@@ -341,10 +342,6 @@ if (isset ($_GET['edit']) && is_numeric($_GET['edit'])) {
 } else {
     $oBreadcrumb->add($aLang['navbar_title_add_entry'], oos_href_link($aContents['account_address_book_process'], '', 'SSL'));
 }
- 
-  
-  
-   $back_link = oos_href_link($aContents['account_address_book'], '', 'SSL');
 
 
 $aTemplate['page'] = $sTheme . '/page/address_book_process.html';
@@ -357,6 +354,9 @@ if (!isset($option)) {
 	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
 	require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
+
+
+
 
 // assign Smarty variables;
 $smarty->assign(
@@ -402,20 +402,6 @@ $smarty->assign(
       )
   );
 
-  $smarty->assign(
-      array(
-          'error'                => $error,
-          'gender_error'         => $gender_error,
-          'firstname_error'      => $firstname_error,
-          'lastname_error'       => $lastname_error,
-          'street_address_error' => $street_address_error,
-          'post_code_error'      => $post_code_error,
-          'city_error'           => $city_error,
-          'country_error'        => $country_error,
-          'state_error'          => $state_error,
-          'state_has_zones'      => $state_has_zones
-      )
-  );
 
   if ($state_has_zones == 'true') {
      $aZonesNames = array();
