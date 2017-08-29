@@ -5,10 +5,10 @@
 	</div>
 
 	<div class="panel-body">
-{if $display_a_list-inline-item"}
-		<ul class="list-inline-item"-group list-inline-item"-unstyled">
-	{foreach item=manufacturer from=$manufacturers_list-inline-item"}
-			<li class="list-inline-item"-group-item"><a href="{html_href_link content=$filename.shop manufacturers_id=$manufacturer.id}">{$manufacturer.name}</a></li>
+{if $display_a_list}
+		<ul class="list-group list-unstyled">
+	{foreach item=manufacturer from=$manufacturers_list}
+			<li class="list-group-item"><a href="{html_href_link content=$filename.shop manufacturers_id=$manufacturer.id}">{$manufacturer.name}</a></li>
 	{/foreach}
 		</ul>	
 {else}
@@ -18,7 +18,7 @@
 		<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
 		<input type="hidden" name="formid" value="{$mySystem.formid}">
 	{/if}
-		<select name="manufacturers_id" onChange="this.form.submit();" size="{$smarty.const.MAX_MANUFACTURERS_list-inline-item"}" style="width: 100%">{html_options values=$manufacturers_values selected=$select_manufacturers output=$manufacturers_names}</select>
+		<select name="manufacturers_id" onChange="this.form.submit();" size="{$smarty.const.MAX_MANUFACTURERS_LIST}" style="width: 100%">{html_options values=$manufacturers_values selected=$select_manufacturers output=$manufacturers_names}</select>
     </form>
 {/if}
 	</div>
