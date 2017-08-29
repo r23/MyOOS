@@ -65,7 +65,7 @@
 			<div class="container">
 				<div class="row">		
 					<div class="col-md-6">
-						<ul class="left-topbar list-inline">
+						<ul class="left-topbar llist-inline-item">
 							<li class="hidden-xs-down"><a href="{html_href_link content=$filename.contact_us}">{$lang.block_service_contact}</a></li>					
 						{if $currency_block}
                             <li>
@@ -106,7 +106,7 @@
                         </ul>
                     </div>	
 					<div class="col-md-6">
-						<ul class="right-topbar list-inline float-right">
+						<ul class="right-topbar list-inline-item float-right">
 							<li class="account-login"><span>
 							{if (isset($smarty.session.customer_id)) }
 								<a href="{html_href_link content=$filename.logoff connection=SSL}">{$lang.header_title_logoff}</a>

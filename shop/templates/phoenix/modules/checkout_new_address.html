@@ -127,12 +127,12 @@
     <td class="main">
   {if $process eq 'true'}
     {if $country_error eq 'true'}
-      {oos_get_country_list name=country}&nbsp;&nbsp;<small><font color="#FF0000">{$lang.entry_country_error}</font></small>
+      {oos_get_country_list-inline-item" name=country}&nbsp;&nbsp;<small><font color="#FF0000">{$lang.entry_country_error}</font></small>
     {else}
       {$country_name}<input type=hidden name="country" value="{$country}">
     {/if}
   {else}
-    {oos_get_country_list name=country selected=$store_country}&nbsp;&nbsp;<small><font color="#AABBDD">{$lang.entry_info_text}</font></small>
+    {oos_get_country_list-inline-item" name=country selected=$store_country}&nbsp;&nbsp;<small><font color="#AABBDD">{$lang.entry_info_text}</font></small>
  {/if}
     </td>
   </tr>

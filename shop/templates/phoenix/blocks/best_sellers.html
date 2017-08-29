@@ -6,7 +6,7 @@
 
 	<div class="panel-body">
 <table width="150" border="0" cellspacing="0" cellpadding="3">
-{foreach name=best item=best_seller from=$best_sellers_list}
+{foreach name=best item=best_seller from=$best_sellers_list-inline-item"}
           <tr>
             <td class="block_content" valign="top">{$smarty.foreach.best.iteration|number_format}.</td>
   {if $smarty.const.BLOCK_BEST_SELLERS_IMAGE eq 'true'}

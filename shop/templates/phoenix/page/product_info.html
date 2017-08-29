@@ -52,7 +52,7 @@
     <br><br><a href="{$smarty.const.OOS_IMAGES}{$smarty.const.OOS_POPUP_IMAGES}{$product_info.products_image}" rel="lightbox" title= {$product_info.products_name} >zoom.gif{$lang.text_click_to_enlarge}</a>
   {/if}
 {/if}
-<button class="btn btn-success-filled" name="button[wishlist][] type="submit"><i class="fa fa-heart"></i> {$lang.button_in_wishlist}</button>
+<button class="btn btn-success-filled" name="button[wishlist-inline-item"][] type="submit"><i class="fa fa-heart"></i> {$lang.button_in_wishlist-inline-item"}</button>
 
             </td>
           </tr>
@@ -145,7 +145,7 @@
    {$pagination}
 {/if}
 <tr>
-	<td>{include file="phoenix/products/slavery_product_listing.html"}</td>
+	<td>{include file="phoenix/products/slavery_product_list-inline-item"ing.html"}</td>
 </tr>
 {if $numrows > 1 }
    {$pagination}

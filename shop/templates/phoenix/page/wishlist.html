@@ -27,9 +27,9 @@
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-{section name=i loop=$wishlist_array}
+{section name=i loop=$wishlist-inline-item"_array}
       <td width="50%">
-<form name="cart_quantity" action="{html_href_link content=$filename.shopping_cart action=frend_wishlist_add_product}" method="POST" role="form">
+<form name="cart_quantity" action="{html_href_link content=$filename.shopping_cart action=frend_wishlist-inline-item"_add_product}" method="POST" role="form">
 
 {if $mySystem.sed}
     <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
@@ -37,46 +37,46 @@
 {/if}	  
 	  <table border="0" width="100%" cellspacing="0" cellpadding="0">
        <tr>
-         <td align="left" width="{$smarty.const.SMALL_IMAGE_WIDTH}" class="smallText"><a href="{product_info_link products_id=$wishlist_array[i].products_id}">{small_product_image image=$wishlist_array[i].products_image alt=$wishlist_array[i].products_name|strip_tags hspace=5 vspace=5}</a></td>
+         <td align="left" width="{$smarty.const.SMALL_IMAGE_WIDTH}" class="smallText"><a href="{product_info_link products_id=$wishlist-inline-item"_array[i].products_id}">{small_product_image image=$wishlist-inline-item"_array[i].products_image alt=$wishlist-inline-item"_array[i].products_name|strip_tags hspace=5 vspace=5}</a></td>
          <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
-         <td valign="top" class="smallText"><a href="{product_info_link products_id=$wishlist_array[i].products_id}"><strong>{$wishlist_array[i].products_name}</strong></a><br>
-           <br>{$wishlist_array[i].products_description|truncate:120:" [...]":false|close_tags}<br>
-           {if $wishlist_array[i].attributes_print != ''}
-              <br>{$wishlist_array[i].attributes_print}<br>
+         <td valign="top" class="smallText"><a href="{product_info_link products_id=$wishlist-inline-item"_array[i].products_id}"><strong>{$wishlist-inline-item"_array[i].products_name}</strong></a><br>
+           <br>{$wishlist-inline-item"_array[i].products_description|truncate:120:" [...]":false|close_tags}<br>
+           {if $wishlist-inline-item"_array[i].attributes_print != ''}
+              <br>{$wishlist-inline-item"_array[i].attributes_print}<br>
            {/if}
        </tr>
        <tr>
          <td valign="bottom" class="smallText" nowrap="nowrap">
 {if $myUser.show_price eq 1 }
-  {if (!empty($wishlist_array[i].special_price))}
-     <s>{$wishlist_array[i].product_price}</s><br>
-     <span class="special_price">{$wishlist_array[i].product_special_price}</span>
+  {if (!empty($wishlist-inline-item"_array[i].special_price))}
+     <s>{$wishlist-inline-item"_array[i].product_price}</s><br>
+     <span class="special_price">{$wishlist-inline-item"_array[i].product_special_price}</span>
   {else}
-    {if $wishlist_array[i].product_discount != 0}
-      <s>{$wishlist_array[i].product_price}</s>&nbsp;-{$wishlist_array[i].product_discount}%<br>
-      <span class="discount_price">{$wishlist_array[i].product_discount_price}</span>
+    {if $wishlist-inline-item"_array[i].product_discount != 0}
+      <s>{$wishlist-inline-item"_array[i].product_price}</s>&nbsp;-{$wishlist-inline-item"_array[i].product_discount}%<br>
+      <span class="discount_price">{$wishlist-inline-item"_array[i].product_discount_price}</span>
     {else}
-      {$wishlist_array[i].product_price}
+      {$wishlist-inline-item"_array[i].product_price}
     {/if}
   {/if}
 {/if}
          </td>
          <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
-          <td align="right" valign="baseline"><input type="hidden" name="products_id" value="{$wishlist_array[i].wl_products_id}"><input type="hidden" name="wl_products_id" value="$wishlist_array[i].products_id"><input type="hidden" name="cart_quantity" value="1">
+          <td align="right" valign="baseline"><input type="hidden" name="products_id" value="{$wishlist-inline-item"_array[i].wl_products_id}"><input type="hidden" name="wl_products_id" value="$wishlist-inline-item"_array[i].products_id"><input type="hidden" name="cart_quantity" value="1">
 		  <button class="btn btn-success-filled" type="submit"><i class="fa fa-shopping-cart" aria-hidden="true"></i> {$lang.button_in_cart}</button></td>
         </tr>
         <tr>
           <td valign="top" colspan="3" class="smallText">
 {if $myUser.show_price eq 1 }
-  {if $wishlist_array[i].products_base_price != 1}
+  {if $wishlist-inline-item"_array[i].products_base_price != 1}
     <span class="smallText">{$lang.text_products_base_price}: </span>
-    {if (!empty($wishlist_array[i].special_price))}
-    <span class="special_base_price">{$wishlist_array[i].products_base_unit} = {$wishlist_array[i].base_product_special_price}</span></s><br>
+    {if (!empty($wishlist-inline-item"_array[i].special_price))}
+    <span class="special_base_price">{$wishlist-inline-item"_array[i].products_base_unit} = {$wishlist-inline-item"_array[i].base_product_special_price}</span></s><br>
     {else}
-      {if $wishlist_array[i].product_discount != 0}
-      <span class="discount_base_price">{$wishlist_array[i].products_base_unit} = {$wishlist_array[i].base_product_special_price}</span></s><br>
+      {if $wishlist-inline-item"_array[i].product_discount != 0}
+      <span class="discount_base_price">{$wishlist-inline-item"_array[i].products_base_unit} = {$wishlist-inline-item"_array[i].base_product_special_price}</span></s><br>
       {else}
-      <span class="base_price">{$wishlist_array[i].products_base_unit} = {$wishlist_array[i].base_product_price}</span><br>
+      <span class="base_price">{$wishlist-inline-item"_array[i].products_base_unit} = {$wishlist-inline-item"_array[i].base_product_price}</span><br>
       {/if}
     {/if}
   {/if}
