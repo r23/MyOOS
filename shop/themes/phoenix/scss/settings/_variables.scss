@@ -1,0 +1,75 @@
+//
+// Typography
+//
+
+// Font Families
+$m-font-primary: "Open Sans", Helvetica, Arial, sans-serif !default;
+
+// Font Sizes
+$m-font-primary-size: 16px !default;
+
+
+
+//
+// Colors
+//
+
+// Primary Color
+$m-color-primary: #72c02c !default;
+$m-color-primary-dark-v1: darken($m-color-primary, 2%) !default;
+$m-color-primary-dark-v2: darken($m-color-primary, 5%) !default;
+$m-color-primary-dark-v3: darken($m-color-primary, 10%) !default;
+$m-color-primary-light-v1: rgba($m-color-primary, .2) !default;
+$m-color-primary-light-v2: rgba($m-color-primary, .8) !default; 
+
+// Main Colors
+$m-color-main: #555 !default;
+// $m-color-main: #6f7885 !default;
+$m-bg-color-main: #fff !default;
+
+// Main Secondary
+$m-bg-color-secondary: #fafafa !default;
+
+// Color Black
+$m-color-black: #000;
+
+// Color White
+$m-color-white: #fff;
+
+// Color Gray
+$m-color-gray-light-v1: #bbb !default; 
+$m-color-gray-light-v2: #ccc !default; 
+$m-color-gray-light-v3: #ddd !default; 
+$m-color-gray-light-v4: #eee !default; 
+$m-color-gray-light-v5: #f7f7f7 !default; 
+
+$m-color-gray-dark-v1: #111 !default; 
+$m-color-gray-dark-v2: #333 !default;  
+$m-color-gray-dark-v3: #555 !default; 
+$m-color-gray-dark-v4: #777 !default; 
+$m-color-gray-dark-v5: #999 !default; 
+
+//
+// Status Colors
+
+// Color Green
+$m-color-success:             #5cb85c !default;
+$m-color-success-dark-v1:     darken($m-color-success, 2%) !default;
+$m-color-success-dark-v2:     darken($m-color-success, 5%) !default;
+
+// Color Green
+$m-color-info:                #5bc0de !default;
+$m-color-info-dark-v1:        darken($m-color-info, 2%) !default;
+$m-color-info-dark-v2:        darken($m-color-info, 5%) !default;
+
+// Color Green
+$m-color-warning:             #f0ad4e !default;
+$m-color-warning-dark-v1:     darken($m-color-warning, 2%) !default;
+$m-color-warning-dark-v2:     darken($m-color-warning, 5%) !default;
+
+// Color Green
+$m-color-danger:              #d9534f !default;
+$m-color-danger-dark-v1:      darken($m-color-danger, 2%) !default;
+$m-color-danger-dark-v2:      darken($m-color-danger, 5%) !default;
+
+

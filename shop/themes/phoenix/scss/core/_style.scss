@@ -1,0 +1,49 @@
+/*------------------------------------
+  Default Styles
+------------------------------------*/
+html, body {
+	height:100%;
+	direction: ltr;
+}
+
+body {
+  color: $m-color-main;
+  background-color: $m-bg-color-main;
+  font-family: $m-font-primary;
+  -webkit-font-smoothing: antialiased;
+
+  font-size: $m-font-primary-size;
+  line-height: 1.6;
+  
+}
+
+
+a {
+  color: $m-color-primary;
+  outline: none;
+}
+a:focus,
+a:hover {
+  color: $m-color-primary-dark-v2;
+}
+
+.nav-link {
+  color: $m-color-main;
+}
+.nav-link:focus,
+.nav-link:hover {
+  color: $m-color-main;
+}
+
+figure {
+  margin-bottom: 0;
+}
+
+/*------------------------------------
+  Headings
+------------------------------------*/
+.h1, .h2, .h3, .h4, .h5, .h6, 
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.4;
+}
+
