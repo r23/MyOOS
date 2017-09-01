@@ -22,17 +22,19 @@
 {/if}
 <base href="{$oos_base}">		
 <!-- Bootstrap style  --> 
-<link href="{$theme}/css/bootstrap.min.css" rel="stylesheet" />
-<link href="{$theme}/css/font-awesome.min.css" rel="stylesheet" />
-<link href="{$theme}/css/style.min.css" rel="stylesheet" />
-<!-- Included Custom CSS Files -->
+<link rel="stylesheet" href="{$theme}/css/bootstrap.min.css" />
+<link rel="stylesheet" href="{$theme}/css/font-awesome.min.css" />
+<link rel="stylesheet" href="{$theme}/css/style.min.css" />
+<!-- CSS MyOOS Theme -->
+<link rel="stylesheet" href="{$theme}/css/myoos.min.css">
+<!-- CSS Customization -->
+<link rel="stylesheet" href="{$theme}/css/custom.css">
 <!-- Place favicon.ico and apple-touch-icon.png -->
 <link rel="shortcut icon" href="{$theme}/images/ico/favicon.ico">
 <link rel="apple-touch-fa fa-precomposed" sizes="144x144" href="{$theme}/images/ico/apple-touch-fa fa-144-precomposed.png">
 <link rel="apple-touch-fa fa-precomposed" sizes="114x114" href="{$theme}/images/ico/apple-touch-fa fa-114-precomposed.png">
 <link rel="apple-touch-fa fa-precomposed" sizes="72x72" href="{$theme}/images/ico/apple-touch-fa fa-72-precomposed.png">
 <link rel="apple-touch-fa fa-precomposed" href="{$theme}/images/ico/apple-touch-fa fa-57-precomposed.png">
-
 <!-- Fonts -->
 <link href="//fonts.googleapis.com/css?family=Lato:400,900,300,700" rel="stylesheet">
 <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic,700italic" rel="stylesheet">
@@ -65,7 +67,7 @@
 			<div class="container">
 				<div class="row">		
 					<div class="col-md-6">
-						<ul class="left-topbar llist>
+						<ul class="left-topbar list-inline">
 							<li class="hidden-xs-down"><a href="{html_href_link content=$filename.contact_us}">{$lang.block_service_contact}</a></li>					
 						{if $currency_block}
                             <li>
@@ -263,3 +265,6 @@ document.write('<a href="javascript:couponpopupWindow(\'{html_href_link content=
 	</div>
 	</header>
 	<!-- end header -->
+
+	
+	
