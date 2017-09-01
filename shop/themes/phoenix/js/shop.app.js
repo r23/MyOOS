@@ -50,8 +50,11 @@ var App = function () {
             handleSearch();
             handleToggle();
             handleHeader();
+			// Botostrap Tootltips
+			jQuery('[data-toggle="tooltip"]').tooltip();			
+			
         },
-
+		
         initScrollBar: function () {
             jQuery('.mCustomScrollbar').mCustomScrollbar({
                 theme:"minimal",
