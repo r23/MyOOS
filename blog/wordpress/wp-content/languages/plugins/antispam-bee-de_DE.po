@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Antispam Bee - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-04-20 19:05:02+0000\n"
+"PO-Revision-Date: 2017-09-04 01:50:13+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -153,7 +153,7 @@ msgstr "https://github.com/pluginkollektiv/antispam-bee/wiki/de-Dokumentation#ko
 
 #: inc/gui.class.php:216
 msgid "No review of already commented users"
-msgstr "Keine Prüfung bereits kommentierender Nutzer"
+msgstr "Keine Prüfung bereits kommentierender Benutzer"
 
 #: antispam_bee.php:540 inc/gui.class.php:526
 msgid "Support"

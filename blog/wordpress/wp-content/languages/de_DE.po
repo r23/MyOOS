@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 4.8.x package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-08-23 12:13:52+0000\n"
+"PO-Revision-Date: 2017-09-04 15:29:31+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -844,7 +844,7 @@ msgstr "Die Beschreibung des Anhangs."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-attachments-controller.php:396
 msgid "The attachment caption."
-msgstr "Der Untertitel des Anhangs."
+msgstr "Die Beschriftung des Anhangs."
 
 #: wp-includes/option.php:1820
 msgid "Default post category."
@@ -1189,7 +1189,7 @@ msgstr "Kategorien"
 #: wp-includes/theme.php:1984
 msgctxt "Theme starter content"
 msgid "Search"
-msgstr "Suchen"
+msgstr "Suche"
 
 #: wp-includes/theme.php:1951
 msgctxt "Theme starter content"
@@ -1258,13 +1258,13 @@ msgstr "Beschreibung für das Objekt, wie sie in der Datenbank vorliegt."
 msgid "HTML description for the object, transformed for display."
 msgstr "HTML-Beschreibung für das Objekt, transformiert für die Anzeige."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-attachments-controller.php:404
-msgid "Caption for the attachment, as it exists in the database."
-msgstr "Bildunterschrift für den Anhang, wie er in der Datenbank vorliegt."
-
 #: wp-includes/rest-api/endpoints/class-wp-rest-attachments-controller.php:409
 msgid "HTML caption for the attachment, transformed for display."
-msgstr "Für die Anzeige umgewandelter HTML-Untertitel für den Anhang."
+msgstr "Für die Anzeige umgewandelte HTML-Beschriftung für den Anhang."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-attachments-controller.php:404
+msgid "Caption for the attachment, as it exists in the database."
+msgstr "Beschriftung für den Anhang, wie sie in der Datenbank vorliegt."
 
 #: wp-includes/class-wp-customize-manager.php:4215
 msgid "CSS allows you to customize the appearance and layout of your site with code. Separate CSS is saved for each of your themes. In the editing area the Tab key enters a tab character. To move below this area by pressing Tab, press the Esc key followed by the Tab key."
@@ -1946,7 +1946,7 @@ msgstr "Die Eltern-ID des Objektes."
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:1249
 #: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1763
 msgid "URL to the object."
-msgstr "URL des Objekts."
+msgstr "URL zum Objekt."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:68
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:1167
@@ -2178,10 +2178,6 @@ msgstr "Änderungs-Set"
 msgid "%1$s %2$s, %3$s ago (%4$s)"
 msgstr "%1$s %2$s vor %3$s (%4$s)"
 
-#: wp-includes/option.php:1853
-msgid "Allow people to post comments on new articles."
-msgstr "Erlaube Besuchern, neue Beiträge zu kommentieren."
-
 #. translators: %s: misc
 #. translators: %s: privacy
 #. translators: %s: misc
@@ -2190,6 +2186,10 @@ msgstr "Erlaube Besuchern, neue Beiträge zu kommentieren."
 #: wp-includes/option.php:1965 wp-includes/option.php:1975
 msgid "The \"%s\" options group has been removed. Use another settings group."
 msgstr "Die Optionsgruppe „%s“ wurde entfernt. Verwende eine andere Einstellungsgruppe."
+
+#: wp-includes/option.php:1853
+msgid "Allow people to post comments on new articles."
+msgstr "Besuchern erlauben, neue Beiträge zu kommentieren."
 
 #: wp-includes/option.php:1806
 msgid "WordPress locale code."
@@ -3572,16 +3572,16 @@ msgid "JSONP support is disabled on this site."
 msgstr "JSONP Unterstützung ist auf dieser Website deaktiviert."
 
 #: wp-includes/post.php:1393
-msgid "Pages list"
-msgstr "Seitenliste "
-
-#: wp-includes/post.php:1393
 msgid "Posts list"
 msgstr "Beitragsliste"
 
 #: wp-includes/post.php:1392
 msgid "Pages list navigation"
 msgstr "Navigation der Seitenliste"
+
+#: wp-includes/post.php:1393
+msgid "Pages list"
+msgstr "Seitenliste"
 
 #: wp-includes/post.php:1383
 msgid "Post Archives"
@@ -4270,10 +4270,6 @@ msgstr "Inhalt:"
 msgid "Default shortcuts,"
 msgstr "Standard-Shortcuts,"
 
-#: wp-includes/class-wp-xmlrpc-server.php:559
-msgid "Allow link notifications from other blogs (pingbacks and trackbacks) on new articles"
-msgstr "Erlaube Link-Benachrichtigungen von anderen Blogs (Pingbacks und Trackbacks) bei neuen Beiträgen"
-
 #: wp-includes/class-wp-editor.php:1273
 msgid "Ctrl + letter:"
 msgstr "Strg + Zeichen:"
@@ -4289,6 +4285,10 @@ msgstr "Shift + Alt + Zeichen:"
 #: wp-includes/class-wp-editor.php:1270
 msgid "Ctrl + Alt + letter:"
 msgstr "Strg + Alt + Zeichen:"
+
+#: wp-includes/class-wp-xmlrpc-server.php:559
+msgid "Allow link notifications from other blogs (pingbacks and trackbacks) on new articles"
+msgstr "Link-Benachrichtigungen von anderen Blogs (Pingbacks und Trackbacks) bei neuen Beiträgen erlauben"
 
 #: wp-includes/class-wp-customize-section.php:248
 #: wp-includes/customize/class-wp-customize-themes-section.php:55
@@ -6787,20 +6787,6 @@ msgstr ""
 "\n"
 "Nach dem Aktivieren erhältst du *eine weitere E-Mail* mit deinen Zugangsdaten."
 
-#. translators: New user notification email. 1: User login, 2: User IP address,
-#. 3: Settings screen URL
-#: wp-includes/ms-functions.php:1292
-msgid ""
-"New User: %1$s\n"
-"Remote IP: %2$s\n"
-"\n"
-"Disable these notifications: %3$s"
-msgstr ""
-"Neuer Benutzer: %1$s\n"
-"Remote-IP: %2$s\n"
-"\n"
-"Deaktiviere diese Mitteilungen: %3$s"
-
 #. translators: New site notification email. 1: Site URL, 2: User IP address,
 #. 3: Settings screen URL
 #: wp-includes/ms-functions.php:1249
@@ -6811,11 +6797,25 @@ msgid ""
 "\n"
 "Disable these notifications: %4$s"
 msgstr ""
-"Neue Seite: %1$s\n"
+"Neue Website: %1$s\n"
 "URL: %2$s\n"
 "Remote IP: %3$s\n"
 "\n"
 "Diese Benachrichtigungen deaktivieren: %4$s"
+
+#. translators: New user notification email. 1: User login, 2: User IP address,
+#. 3: Settings screen URL
+#: wp-includes/ms-functions.php:1292
+msgid ""
+"New User: %1$s\n"
+"Remote IP: %2$s\n"
+"\n"
+"Disable these notifications: %3$s"
+msgstr ""
+"Neuer Benutzer: %1$s\n"
+"Remote IP: %2$s\n"
+"\n"
+"Deaktiviere diese Benachrichtigungen: %3$s"
 
 #: wp-includes/media-template.php:640 wp-includes/media-template.php:718
 #: wp-includes/media-template.php:866 wp-includes/media-template.php:970
@@ -8096,13 +8096,13 @@ msgstr "Neue Kategorie erstellen"
 msgid "Wait a little longer. Sometimes delivery of email can be delayed by processes outside of our control."
 msgstr "Bitte warte noch ein bisschen. Manchmal verzögert sich die Zustellung von E-Mails, ohne dass wir etwas dagegen tun können."
 
-#: wp-signup.php:887
-msgid "Sorry, new registrations are not allowed at this time."
-msgstr "Neue Registrierungen sind derzeit leider nicht möglich."
-
 #: wp-signup.php:761
 msgid "Check the junk or spam folder of your email client. Sometime emails wind up there by mistake."
 msgstr "Überprüfe den Junk/Spam-Ordner deines E-Mail-Postfachs, da E-Mails manchmal fälschlicherweise als Spam gekennzeichnet werden."
+
+#: wp-signup.php:887
+msgid "Sorry, new registrations are not allowed at this time."
+msgstr "Neue Registrierungen sind derzeit leider nicht erlaubt."
 
 #: wp-signup.php:240
 msgid "We send your registration email to this address. (Double-check your email address before continuing.)"
@@ -8306,7 +8306,7 @@ msgstr "Diese E-Mail-Adresse scheint keine gültige E-Mail-Adresse zu sein. Bitt
 
 #: wp-includes/formatting.php:4178
 msgid "The Site address you entered did not appear to be a valid URL. Please enter a valid URL."
-msgstr "Die Website-Adresse, die du eingegeben hast, scheint keine gültige URL zu sein. Bitte gebe eine gültige URL ein."
+msgstr "Die Website-Adresse, die du eingegeben hast, scheint keine gültige URL zu sein. Bitte gib eine gültige URL ein."
 
 #: wp-includes/taxonomy.php:2056
 msgid "A term with the name provided already exists with this parent."
@@ -8690,10 +8690,6 @@ msgstr "Entweder gibt es keine Beiträge oder es ging etwas schief."
 msgid "Sorry, no such post."
 msgstr "Diesen Beitrag gibt es leider nicht."
 
-#: wp-includes/class-wp-xmlrpc-server.php:504
-msgid "Allow new users to sign up"
-msgstr "Erlaube neuen Benutzern, sich zu registrieren"
-
 #: wp-includes/class-wp-xmlrpc-server.php:4733
 #: wp-includes/class-wp-xmlrpc-server.php:5407
 #: wp-includes/class-wp-xmlrpc-server.php:6217
@@ -8754,6 +8750,10 @@ msgstr "Du bist leider nicht berechtigt, Beiträge in diesem Inhaltstyp zu verö
 #: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:645
 msgid "Sorry, you are not allowed to update posts as this user."
 msgstr "Du bist mit deiner Benutzerrolle leider nicht berechtigt, Beiträge zu aktualisieren."
+
+#: wp-includes/class-wp-xmlrpc-server.php:504
+msgid "Allow new users to sign up"
+msgstr "Neuen Benutzern erlauben, sich zu registrieren"
 
 #: wp-includes/class-wp-editor.php:1081 wp-includes/script-loader.php:267
 #: wp-includes/widgets/class-wp-widget-media-image.php:26
@@ -10494,10 +10494,6 @@ msgstr "Beiträge von %s"
 msgid "Feed for all posts filed under %s"
 msgstr "Feed für alle unter %s abgelegten Beiträge"
 
-#: wp-includes/class-wp-xmlrpc-server.php:554
-msgid "Allow people to post comments on new articles"
-msgstr "Erlaube Besuchern, neue Beiträge zu kommentieren"
-
 #: wp-includes/class-wp-xmlrpc-server.php:4748
 msgid "For some strange yet very annoying reason, this post could not be edited."
 msgstr "Aus einem seltsam unerfreulichen Grund kann dieser Beitrag nicht bearbeitet werden."
@@ -10595,6 +10591,10 @@ msgstr "Zum Antworten anmelden"
 #: wp-includes/script-loader.php:761
 msgid "No results found."
 msgstr "Es wurden keine Ergebnisse gefunden, die deinen Suchkriterien entsprechen."
+
+#: wp-includes/class-wp-xmlrpc-server.php:554
+msgid "Allow people to post comments on new articles"
+msgstr "Besuchern erlauben, neue Beiträge zu kommentieren"
 
 #: wp-includes/media-template.php:330 wp-includes/media-template.php:528
 #: wp-includes/media.php:3562
