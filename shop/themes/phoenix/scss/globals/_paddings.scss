@@ -1,0 +1,29 @@
+//
+// Paddings
+//
+  
+/* P */  
+.m-py-10 {
+	@include px-to-rem(padding-top, 10px !important);
+	@include px-to-rem(padding-bottom, 10px !important);
+}
+/* P */  
+.m-py-15 {
+	@include px-to-rem(padding-top, 15px !important);
+	@include px-to-rem(padding-bottom, 15px !important);
+}
+/* P */  
+.m-py-20 {
+	@include px-to-rem(padding-top, 20px !important);
+	@include px-to-rem(padding-bottom, 20px !important);
+}
+/* P */  
+.m-py-25 {
+	@include px-to-rem(padding-top, 25px !important);
+	@include px-to-rem(padding-bottom, 25px !important);
+}
+/* P */  
+.m-py-60 {
+	@include px-to-rem(padding-top, 60px !important);
+	@include px-to-rem(padding-bottom, 60px !important);
+}
