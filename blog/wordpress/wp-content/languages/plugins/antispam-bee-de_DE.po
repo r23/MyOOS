@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Antispam Bee - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-09-04 01:50:13+0000\n"
+"PO-Revision-Date: 2017-09-07 07:15:19+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -93,13 +93,13 @@ msgstr "Kommentare nur in einer bestimmten Sprache zulassen"
 #. </a> tag.
 #: inc/gui.class.php:339
 msgid "Whitelist  %1$sISO Codes%2$s for this option."
-msgstr "%1$sISO Codes%2$s, die immer erlaubt sind. (Whitelist)"
+msgstr "%1$sISO-Codes%2$s, die immer erlaubt sind. (Whitelist)"
 
 #. translators: 1: opening <a> tag with link to ISO codes reference. 2: closing
 #. </a> tag.
 #: inc/gui.class.php:327
 msgid "Blacklist  %1$sISO Codes%2$s for this option."
-msgstr "%1$sISO Codes%2$s, die nicht erlaubt sind. (Blacklist)"
+msgstr "%1$sISO-Codes%2$s, die nicht erlaubt sind. (Blacklist)"
 
 #: inc/gui.class.php:322 inc/gui.class.php:334
 msgid "e.g. BF, SG, YE"
@@ -201,7 +201,7 @@ msgstr "Kommentarzeit"
 
 #: antispam_bee.php:399
 msgid "CSS Hack"
-msgstr "CSS Hack"
+msgstr "CSS-Hack"
 
 #. Author URI of the plugin/theme
 msgid "http://pluginkollektiv.org"
@@ -241,11 +241,11 @@ msgstr "Eingehende Ping- und Trackbacks ignorieren"
 
 #: inc/gui.class.php:493
 msgid "Amount of identified spam comments"
-msgstr "Menge an identifizierten Spam-Kommentaren"
+msgstr "Menge an identifizierten Spamkommentaren"
 
 #: inc/gui.class.php:492
 msgid "Spam counter on the dashboard"
-msgstr "Spam-Zähler auf dem Dashboard anzeigen"
+msgstr "Spamzähler auf dem Dashboard anzeigen"
 
 #: inc/gui.class.php:485
 msgid "Daily updates of spam detection rate"
@@ -265,7 +265,7 @@ msgstr "Bei definierten Spamgründen sofort löschen"
 
 #: inc/gui.class.php:444
 msgid "Other types of spam will be deleted immediately"
-msgstr "Andere Spam-Typen werden sofort gelöscht"
+msgstr "Andere Spamtypen werden sofort gelöscht"
 
 #: inc/gui.class.php:434
 msgid "Limit approval to %s"
@@ -277,11 +277,11 @@ msgstr "Säuberung der Datenbank von alten Einträgen"
 
 #: inc/gui.class.php:423
 msgid "Delete existing spam after %s days"
-msgstr "Spam nach %s Tagen löschen"
+msgstr "Vorhandenen Spam nach %s Tagen löschen"
 
 #: inc/gui.class.php:415
 msgid "Spam reason as a table column in the spam overview"
-msgstr "Spamgrund als Spalte in der Spam-Übersicht"
+msgstr "Spamgrund als Spalte in der Spamübersicht"
 
 #: inc/gui.class.php:414
 msgid "Do not save the spam reason"
@@ -313,7 +313,7 @@ msgstr "Öffentliche Spamdatenbank berücksichtigen"
 
 #: inc/gui.class.php:273
 msgid "Look in the local spam database"
-msgstr "Lokale Spamdatenbank einbeziehen"
+msgstr "Lokale Spamdatenbank miteinbeziehen"
 
 #: inc/gui.class.php:265
 msgid "Use regular expressions"
@@ -333,7 +333,7 @@ msgstr "BBCode als Spam einstufen"
 
 #: inc/gui.class.php:242
 msgid "Not recommended when using page caching"
-msgstr "Nicht empfohlen beim Caching von Blogseiten"
+msgstr "Nicht empfohlen beim Caching von Blog-Seiten"
 
 #: inc/gui.class.php:241
 msgid "Consider the comment time"
@@ -397,7 +397,7 @@ msgstr "Autor"
 
 #: antispam_bee.php:2458
 msgid "New spam comment on your post"
-msgstr "Neuer Spam-Kommentar zu deinem Beitrag"
+msgstr "Neuer Spamkommentar zu deinem Beitrag"
 
 #: antispam_bee.php:2451
 msgid "Content removed by Antispam Bee"
