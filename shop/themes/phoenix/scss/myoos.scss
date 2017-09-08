@@ -31,7 +31,7 @@
 //
 
 @import "core/style";
-
+@import "core/typo-font-sizes";
 
 
 //
@@ -39,10 +39,11 @@
 //
 
 @import "globals/colors";
+@import "globals/bg-colors";
 
 // Spaces (Margins & Paddings)
 @import "globals/paddings";
-
+@import "globals/margin";
 
 //
 // Custom
