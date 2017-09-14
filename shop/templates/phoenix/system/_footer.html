@@ -1,11 +1,10 @@
-		<!-- Footer -->
-		<div class="m-bg-black-opacity-0_9 m-color-white-opacity-0_8 m-py-60">
-			<div class="container">
-				<div class="row">
+	<!-- Footer -->
+	<div class="m-bg-black-opacity-0_9 m-color-white-opacity-0_8 m-py-60">
+		<div class="container">
+			<div class="row">
 					
-					<div class="col-md-3 col-sm-6">
-						<h4>{$lang.header_title_my_account}</h4>
-						<a href="{html_href_link content=$filename.main}"><img class="logo img-intext" src="{$theme_image}/logo-white.svg" alt=""></a>
+				<div class="col-md-3 col-sm-6">
+					<h4>{$lang.header_title_my_account}</h4>
 					<ul class="list-unstyled">
 						<li><a class="m-color-white-opacity-0_8 m-color-white--hover" href="{html_href_link content=$filename.account connection=SSL}" title="{$lang.login_block_my_account}" rel="nofollow">{$lang.login_block_my_account}</a></li>
 						<li><a class="m-color-white-opacity-0_8 m-color-white--hover" href="{html_href_link content=$filename.account_edit connection=SSL}" title="{$lang.login_block_account_edit}" rel="nofollow">{$lang.login_block_account_edit}</a></li>
@@ -16,91 +15,90 @@
 						<li><a class="m-color-white-opacity-0_8 m-color-white--hover" href="{html_href_link content=$filename.product_notifications connection=SSL}" rel="nofollow">{$lang.login_block_product_notifications}</a></li>
 					{/if}						
 					</ul>
-					</div><!-- .col -->
+				</div><!-- .col -->
 					
-					<div class="col-md-3 col-sm-6">
-						<h4>{$block_heading_information}</h4>
-						
-						<ul class="list-unstyled">
-						{foreach $information as $info}
-							<li><a class="m-color-white-opacity-0_8 m-color-white--hover" href="{html_href_link content=$filename.information information_id=$info.information_id}" title="{$info.information_name}">{$info.information_name}</a></li>
-						{/foreach}	
-						</ul>
-					</div><!-- .col -->
+				<div class="col-md-3 col-sm-6">
+					<h4>{$block_heading_information}</h4>
 					
+					<ul class="list-unstyled">
+					{foreach $information as $info}
+						<li><a class="m-color-white-opacity-0_8 m-color-white--hover" href="{html_href_link content=$filename.information information_id=$info.information_id}" title="{$info.information_name}">{$info.information_name}</a></li>
+					{/foreach}	
+					</ul>
+				</div><!-- .col -->
 					
-					<div class="col-md-3 col-sm-6">
-						<h4>{$lang.header_title_service}</h4>
-						<ul class="list-unstyled">
-							<li><a class="m-color-white-opacity-0_8 m-color-white--hover" href="{html_href_link content=$filename.products_new}" title="{$lang.block_service_new}"><i class="fa fa-bullhorn" aria-hidden="true"></i> {$lang.block_service_new}</a></li>
-						{if $oEvent->installed_plugin('spezials')}
-							<li><a class="m-color-white-opacity-0_8 m-color-white--hover" href="{html_href_link content=$filename.specials}" title="{$lang.block_service_specials}"><i class="fa fa-star" aria-hidden="true"></i> {$lang.block_service_specials}</a></li>
-						{/if}	
-							<li><a class="m-color-white-opacity-0_8 m-color-white--hover" href="{html_href_link content=$filename.sitemap}" title="{$lang.block_service_sitemap}"><i class="fa fa-sitemap" aria-hidden="true"></i> {$lang.block_service_sitemap}</a></li>
-							<li><a class="m-color-white-opacity-0_8 m-color-white--hover" href="{html_href_link content=$filename.advanced_search}" title="{$lang.block_service_advanced_search}"><i class="fa fa-search" aria-hidden="true"></i> {$lang.block_service_advanced_search}</a></li>
-						{if $oEvent->installed_plugin('reviews')}
-							<li><a class="m-color-white-opacity-0_8 m-color-white--hover" href="{html_href_link content=$filename.reviews}" title="{$lang.block_service_reviews}"><i class="fa fa-comments" aria-hidden="true"></i> {$lang.block_service_reviews}</a></li>
-						{/if}
-							<li><a class="m-color-white-opacity-0_8 m-color-white--hover" href="{html_href_link content=$filename.shopping_cart}" title="{$lang.block_service_shopping_cart}"><i class="fa fa-shopping-cart" aria-hidden="true"></i> {$lang.block_service_shopping_cart}</a></li>
-						</ul>
-					</div><!-- .col -->
+				<div class="col-md-3 col-sm-6">
+					<h4>{$lang.header_title_service}</h4>
+					<ul class="list-unstyled">
+						<li><a class="m-color-white-opacity-0_8 m-color-white--hover" href="{html_href_link content=$filename.products_new}" title="{$lang.block_service_new}"><i class="fa fa-bullhorn" aria-hidden="true"></i> {$lang.block_service_new}</a></li>
+					{if $oEvent->installed_plugin('spezials')}
+						<li><a class="m-color-white-opacity-0_8 m-color-white--hover" href="{html_href_link content=$filename.specials}" title="{$lang.block_service_specials}"><i class="fa fa-star" aria-hidden="true"></i> {$lang.block_service_specials}</a></li>
+					{/if}	
+						<li><a class="m-color-white-opacity-0_8 m-color-white--hover" href="{html_href_link content=$filename.sitemap}" title="{$lang.block_service_sitemap}"><i class="fa fa-sitemap" aria-hidden="true"></i> {$lang.block_service_sitemap}</a></li>
+						<li><a class="m-color-white-opacity-0_8 m-color-white--hover" href="{html_href_link content=$filename.advanced_search}" title="{$lang.block_service_advanced_search}"><i class="fa fa-search" aria-hidden="true"></i> {$lang.block_service_advanced_search}</a></li>
+					{if $oEvent->installed_plugin('reviews')}
+						<li><a class="m-color-white-opacity-0_8 m-color-white--hover" href="{html_href_link content=$filename.reviews}" title="{$lang.block_service_reviews}"><i class="fa fa-comments" aria-hidden="true"></i> {$lang.block_service_reviews}</a></li>
+					{/if}
+						<li><a class="m-color-white-opacity-0_8 m-color-white--hover" href="{html_href_link content=$filename.shopping_cart}" title="{$lang.block_service_shopping_cart}"><i class="fa fa-shopping-cart" aria-hidden="true"></i> {$lang.block_service_shopping_cart}</a></li>
+					</ul>
+				</div><!-- .col -->
 					
-					<div class="col-md-3 col-sm-6">
-						<h4>{$lang.get_in_touch_with_us}</h4>
+				<div class="col-md-3 col-sm-6">
+					<h4>{$lang.get_in_touch_with_us}</h4>
 
-						<address class="g-bg-no-repeat m-font-size-12 mb-0" style="background-image: url({$theme}/images/maps/map.png);">
-						<!-- Location -->
-						<div class="d-flex m-mb-10">
-							<div class="m-mr-10">
-								<span class="m-color-white-opacity-0_6">
-									<i class="fa fa-map-marker" aria-hidden="true"></i>
-								</span>
-							</div>
-							<p class="mb-0"><strong> {$smarty.const.STORE_NAME}</strong><br>
-								{$smarty.const.STORE_ADDRESS_STREET}<br>
-								{$smarty.const.STORE_ADDRESS_POSTCODE} {$smarty.const.STORE_ADDRESS_CITY} 				  
-							</p>
+					<address class="g-bg-no-repeat m-font-size-12 mb-0" style="background-image: url({$theme}/images/maps/map.png);">
+					<!-- Location -->
+					<div class="d-flex m-mb-10">
+						<div class="m-mr-10">
+							<span class="m-color-white-opacity-0_6">
+								<i class="fa fa-map-marker" aria-hidden="true"></i>
+							</span>
 						</div>
-						<!-- End Location -->
+						<p class="mb-0"><strong> {$smarty.const.STORE_NAME}</strong><br>
+							{$smarty.const.STORE_ADDRESS_STREET}<br>
+							{$smarty.const.STORE_ADDRESS_POSTCODE} {$smarty.const.STORE_ADDRESS_CITY} 				  
+						</p>
+					</div>
+					<!-- End Location -->
 
-						<!-- Phone -->
-						<div class="d-flex m-mb-10">
-							<div class="m-mr-10">
-								<span class="m-color-white-opacity-0_6">
-									<i class="fa fa-phone" aria-hidden="true"></i>
-								</span>
-							</div>
-							<p class="mb-0">{$smarty.const.STORE_ADDRESS_TELEPHONE_NUMBER}</p>
+					<!-- Phone -->
+					<div class="d-flex m-mb-10">
+						<div class="m-mr-10">
+							<span class="m-color-white-opacity-0_6">
+								<i class="fa fa-phone" aria-hidden="true"></i>
+							</span>
 						</div>
-						<!-- End Phone -->						
+						<p class="mb-0">{$smarty.const.STORE_ADDRESS_TELEPHONE_NUMBER}</p>
+					</div>
+					<!-- End Phone -->						
 
-						<!-- Email and Website -->
-						<div class="d-flex m-mb-10">
-							<div class="m-mr-10">
-								<span class="m-color-white-opacity-0_6">
-									<i class="fa fa-globe" aria-hidden="true"></i>
-								</span>
-							</div>
-							<p class="mb-0">
-								<a class="m-color-white-opacity-0_8 m-color-white--hover" href="{html_href_link content=$filename.contact_us}" title="{$lang.block_service_contact}">{$smarty.const.STORE_ADDRESS_EMAIL}</a>
-								<br>
-								<a class="m-color-white-opacity-0_8 m-color-white--hover" href="{$smarty.const.OOS_HTTPS_SERVER}">{$smarty.const.OOS_HTTPS_SERVER}</a>
-							</p>
+					<!-- Email and Website -->
+					<div class="d-flex m-mb-10">
+						<div class="m-mr-10">
+							<span class="m-color-white-opacity-0_6">
+								<i class="fa fa-globe" aria-hidden="true"></i>
+							</span>
 						</div>
-						<!-- End Email and Website -->						
-						</address>
-					</div><!-- .col -->
+						<p class="mb-0">
+							<a class="m-color-white-opacity-0_8 m-color-white--hover" href="{html_href_link content=$filename.contact_us}" title="{$lang.block_service_contact}">{$smarty.const.STORE_ADDRESS_EMAIL}</a>
+							<br>
+							<a class="m-color-white-opacity-0_8 m-color-white--hover" href="{$smarty.const.OOS_HTTPS_SERVER}">{$smarty.const.OOS_HTTPS_SERVER}</a>
+						</p>
+					</div>
+					<!-- End Email and Website -->						
+					</address>
+				</div><!-- .col -->
 					
-				</div><!-- .row --> 
-			</div><!--end container-->
-		</div>	
+			</div><!-- .row --> 
+		</div><!--end container-->
+	</div>	
 
-		<!-- Copyright Footer -->
-		<footer class="footer-bottom g-bg-gray-dark-v1 m-color-white-opacity-0_8 m-py-20">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-8 text-center text-md-left">
-						<div class="d-lg-flex">
+	<!-- Copyright Footer -->
+	<footer class="footer-bottom g-bg-gray-dark-v1 m-color-white-opacity-0_8 m-py-20">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 text-center text-md-left">
+					<div class="d-lg-flex">
 						{*
 							GERMAN:
 							Diese Rueckverlinkung darf nur entfernt werden,
@@ -115,51 +113,51 @@
 							http://www.myoos.de/Projektbezogene-Gebuehr-p-38.html
 						*}				  
 			  
-							<p class="text-left">
-								<span>Copyright &copy; {$smarty.now|date_format:"%Y"}</span> <a class="m-color-white-opacity-0_8 m-color-white--hover" href="{html_href_link content=$filename.main}">{$smarty.const.STORE_NAME}</a> Powered by <a class="m-color-white-opacity-0_8 m-color-white--hover" href="http://www.oos-shop.de" target="_blank" rel="noopener">MyOOS [Shopsystem]</a>. Alle Rechte vorbehalten. 
-							</p>
-						</div>
-					</div>				
+						<p class="text-left">
+							<span>Copyright &copy; {$smarty.now|date_format:"%Y"}</span> <a class="m-color-white-opacity-0_8 m-color-white--hover" href="{html_href_link content=$filename.main}">{$smarty.const.STORE_NAME}</a> Powered by <a class="m-color-white-opacity-0_8 m-color-white--hover" href="http://www.oos-shop.de" target="_blank" rel="noopener">MyOOS [Shopsystem]</a>. Alle Rechte vorbehalten. 
+						</p>
+					</div>
+				</div>				
 	
 
-					<div class="col-md-4 align-self-center">
-						<ul class="list-inline text-center text-md-right">
-							<li class="list-inline-item m-mx-10" data-toggle="tooltip" data-placement="top" title="Facebook">
-								<a href="#" target="_blank" rel="noopener" class="m-color-white-opacity-0_5 m-color-white--hover">
-									<i class="fa fa-facebook" aria-hidden="true"></i>
-								</a>
-							</li>
-							<li class="list-inline-item m-mx-10" data-toggle="tooltip" data-placement="top" title="Skype">
-								<a href="#" target="_blank" rel="noopener" class="m-color-white-opacity-0_5 m-color-white--hover">
-									<i class="fa fa-skype" aria-hidden="true"></i>
-								</a>
-							</li>
-							<li class="list-inline-item m-mx-10" data-toggle="tooltip" data-placement="top" title="Linkedin">
-								<a href="#" target="_blank" rel="noopener" class="m-color-white-opacity-0_5 m-color-white--hover">
-									<i class="fa fa-linkedin" aria-hidden="true"></i>
-								</a>
-							</li>
-							<li class="list-inline-item m-mx-10" data-toggle="tooltip" data-placement="top" title="Pinterest">
-								<a href="#" target="_blank" rel="noopener" class="m-color-white-opacity-0_5 m-color-white--hover">
-									<i class="fa fa-pinterest" aria-hidden="true"></i>
-								</a>
-							</li>
-							<li class="list-inline-item m-mx-10" data-toggle="tooltip" data-placement="top" title="Twitter">
-								<a href="#" target="_blank" rel="noopener" class="m-color-white-opacity-0_5 m-color-white--hover">
-									<i class="fa fa-twitter" aria-hidden="true"></i>
-								</a>
-							</li>
-							<li class="list-inline-item m-mx-10" data-toggle="tooltip" data-placement="top" title="Dribbble">
-								<a href="#" target="_blank" rel="noopener" class="m-color-white-opacity-0_5 m-color-white--hover">
-									<i class="fa fa-dribbble" aria-hidden="true"></i>
-								</a>
-							</li>
-						</ul>
-					</div>						
-			
-				</div>
-			</div><!--end container-->
-		</footer>	
+				<div class="col-md-4 align-self-center">
+					<ul class="list-inline text-center text-md-right">
+						<li class="list-inline-item m-mx-10" data-toggle="tooltip" data-placement="top" title="Facebook">
+							<a href="#" target="_blank" rel="noopener" class="m-color-white-opacity-0_5 m-color-white--hover">
+								<i class="fa fa-facebook" aria-hidden="true"></i>
+							</a>
+						</li>
+						<li class="list-inline-item m-mx-10" data-toggle="tooltip" data-placement="top" title="Skype">
+							<a href="#" target="_blank" rel="noopener" class="m-color-white-opacity-0_5 m-color-white--hover">
+								<i class="fa fa-skype" aria-hidden="true"></i>
+							</a>
+						</li>
+						<li class="list-inline-item m-mx-10" data-toggle="tooltip" data-placement="top" title="Linkedin">
+							<a href="#" target="_blank" rel="noopener" class="m-color-white-opacity-0_5 m-color-white--hover">
+								<i class="fa fa-linkedin" aria-hidden="true"></i>
+							</a>
+						</li>
+						<li class="list-inline-item m-mx-10" data-toggle="tooltip" data-placement="top" title="Pinterest">
+							<a href="#" target="_blank" rel="noopener" class="m-color-white-opacity-0_5 m-color-white--hover">
+								<i class="fa fa-pinterest" aria-hidden="true"></i>
+							</a>
+						</li>
+						<li class="list-inline-item m-mx-10" data-toggle="tooltip" data-placement="top" title="Twitter">
+							<a href="#" target="_blank" rel="noopener" class="m-color-white-opacity-0_5 m-color-white--hover">
+								<i class="fa fa-twitter" aria-hidden="true"></i>
+							</a>
+						</li>
+						<li class="list-inline-item m-mx-10" data-toggle="tooltip" data-placement="top" title="Dribbble">
+							<a href="#" target="_blank" rel="noopener" class="m-color-white-opacity-0_5 m-color-white--hover">
+								<i class="fa fa-dribbble" aria-hidden="true"></i>
+							</a>
+						</li>
+					</ul>
+				</div>						
+		
+			</div><!-- .row -->
+		</div><!--end container-->
+	</footer>	
 		
 </div><!--/wrapper-->
 <!-- JS Global Compulsory umd-->           

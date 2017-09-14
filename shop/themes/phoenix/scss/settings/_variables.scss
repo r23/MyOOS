@@ -9,6 +9,20 @@ $m-font-primary: "Open Sans", Helvetica, Arial, sans-serif !default;
 $m-font-primary-size: 16px !default;
 
 
+//
+// Breakpoints
+//
+
+$m-2xs: 446px !default; // Double extra small devices (<=445px)
+// Extra small devices (portrait phones, <=575px)
+$m-sm: 576px !default; // Small devices (landscape phones, >=576 & <=767)
+$m-md: 768px !default; // Medium devices (tablets, >=768 & <=991)
+$m-lg: 992px !default; // Large devices (desktops, >=992 & <=1199)
+$m-xl: 1200px !default; // Extra large devices (large desktops, >=1200)
+// If you want to use "max-width" than var-1. For exmaple: @media (max-width: #{$m-lg}-1) {...}
+
+
+
 
 //
 // Colors

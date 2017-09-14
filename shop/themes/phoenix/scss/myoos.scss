@@ -23,7 +23,8 @@
 //
 
 @import "tools/mixins";
-
+// Block Components
+@import "tools/button-sizes";
 
 
 //
@@ -32,6 +33,29 @@
 
 @import "core/style";
 @import "core/typo-font-sizes";
+
+
+
+//
+// Components
+//
+
+// Bases
+@import "base/alerts";
+@import "base/arrows";
+
+// Badges
+@import "base/badges";
+
+// Dividers
+@import "base/dividers";
+
+// Headers
+@import "base/headers";
+
+// Buttons
+@import "base/buttons";
+
 
 
 //
@@ -45,6 +69,9 @@
 @import "globals/paddings";
 @import "globals/margin";
 
+
+
+//
 //
 // Custom
 //
