@@ -3,8 +3,8 @@
 /*
  * This file is part of Twig.
  *
- * (c) 2009 Fabien Potencier
- * (c) 2009 Armin Ronacher
+ * (c) Fabien Potencier
+ * (c) Armin Ronacher
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -627,11 +627,14 @@ abstract class Twig_Template implements Twig_TemplateInterface
                     continue;
                 }
 
-                if (!isset($cache[$name])) {
-                    $cache[$name] = $method;
-                }
-                if (!isset($cache[$lcName])) {
-                    $cache[$lcName] = $method;
+                // skip get() and is() methods (in which case, $name is empty)
+                if ($name) {
+                    if (!isset($cache[$name])) {
+                        $cache[$name] = $method;
+                    }
+                    if (!isset($cache[$lcName])) {
+                        $cache[$lcName] = $method;
+                    }
                 }
             }
             self::$cache[$class] = $cache;
@@ -699,3 +702,5 @@ abstract class Twig_Template implements Twig_TemplateInterface
         return $ret;
     }
 }
+
+class_alias('Twig_Template', 'Twig\Template', false);

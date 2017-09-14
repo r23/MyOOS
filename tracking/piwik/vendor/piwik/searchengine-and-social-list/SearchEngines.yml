@@ -359,11 +359,13 @@ Bing:
     urls:
       - bing.com
       - '{}.bing.com'
+      - 'global.bing.com'
     params:
       - q
       - Q
     backlink: 'search?q={k}'
     hiddenkeyword:
+      - '/\/cr\?.*/'
       - '/^$/'
       - '/'
   -
@@ -585,6 +587,9 @@ Ecosia:
     params:
       - q
     backlink: 'search?q={k}'
+    hiddenkeyword:
+      - '/^$/'
+      - '/'
 El Mundo:
   - 
     urls:
@@ -832,7 +837,6 @@ Google:
       - 'gppgle.{}'
       - googel.com
       - 'googel.{}'
-      - com.google.android.googlequicksearchbox
       - search.avg.com
       - isearch.avg.com
     params:
@@ -840,9 +844,18 @@ Google:
     hiddenkeyword:
       - '/^$/'
       - '/'
-      - '/search'
+      - '/\/search(\?.*)?/'
+      - '/\/url\?.*/'
     backlink: 'search?q={k}'
-  - 
+  -
+    urls:
+      - com.google.android.googlequicksearchbox
+      - android-app//com.google.android.googlequicksearchbox/https/www.google.com
+    params:
+      - 'q'
+    hiddenkeyword:
+      - '/.*/'
+  -
     urls:
       - search.chedot.com
     params:
@@ -1772,6 +1785,7 @@ SearchLock:
   -
     urls:
       - searchlock.com
+      - results.searchlock.com
     params:
       - q
     hiddenkeyword:
@@ -1896,9 +1910,12 @@ Sogou:
     backlink: 'web?query={k}'
     charsets:
       - gb2312
-  - 
+    hiddenkeyword:
+      - '/link\?url=.*/'
+  -
     urls:
       - m.sogou.com
+      - wap.sogou.com
     params:
       - keyword
 Soso:
@@ -2253,6 +2270,7 @@ Yahoo!:
       - q
     backlink: 'search?p={k}'
     hiddenkeyword:
+      - '/\/r\/.*/'
       - '/^$/'
       - '/'
   -
@@ -2312,6 +2330,10 @@ Yahoo! Japan:
       - utf-8
       - euc-jp
       - ms932
+    hiddenkeyword:
+      - '/\/r\/.*/'
+      - '/^$/'
+      - '/'
   -
     urls:
       - jp.hao123.com
@@ -2368,6 +2390,14 @@ Yandex:
     params:
       - text
     backlink: 'yandsearch?text={k}'
+    hiddenkeyword:
+      - '/^$/'
+      - '/'
+  -
+    urls:
+      - yabs.yandex.{}
+    params:
+      - q
 Yandex Images:
   - 
     urls:

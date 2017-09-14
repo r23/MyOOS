@@ -3,7 +3,7 @@
 /*
  * This file is part of Twig.
  *
- * (c) 2015 Fabien Potencier
+ * (c) Fabien Potencier
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -49,8 +49,13 @@ class Twig_Cache_Filesystem implements Twig_CacheInterface
     {
         $dir = dirname($key);
         if (!is_dir($dir)) {
-            if (false === @mkdir($dir, 0777, true) && !is_dir($dir)) {
-                throw new RuntimeException(sprintf('Unable to create the cache directory (%s).', $dir));
+            if (false === @mkdir($dir, 0777, true)) {
+                if (PHP_VERSION_ID >= 50300) {
+                    clearstatcache(true, $dir);
+                }
+                if (!is_dir($dir)) {
+                    throw new RuntimeException(sprintf('Unable to create the cache directory (%s).', $dir));
+                }
             }
         } elseif (!is_writable($dir)) {
             throw new RuntimeException(sprintf('Unable to write in the cache directory (%s).', $dir));
@@ -84,3 +89,5 @@ class Twig_Cache_Filesystem implements Twig_CacheInterface
         return (int) @filemtime($key);
     }
 }
+
+class_alias('Twig_Cache_Filesystem', 'Twig\Cache\FilesystemCache', false);

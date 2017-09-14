@@ -202,8 +202,8 @@
   category: 'Crawler'
   url: 'http://law.di.unimi.it/BUbiNG.html'
   producer:
-    name: ''
-    url: ''
+    name: 'The Laboratory for Web Algorithmics (LAW)'
+    url: 'http://law.di.unimi.it/software.php#buging'
 
 - regex: '(?<!HTC)[ _]Butterfly/'
   name: 'Butterfly Robot'
@@ -445,6 +445,14 @@
     name: 'Genieo'
     url: 'http://www.genieo.com'
 
+- regex: 'GigablastOpenSource'
+  name: 'Gigablast'
+  category: 'Search bot'
+  url: 'https://github.com/gigablast/open-source-search-engine'
+  producer:
+    name: 'Matt Wells'
+    url: 'http://www.gigablast.com/faq.html'
+
 - regex: 'Gluten Free Crawler'
   name: 'Gluten Free Crawler'
   category: 'Crawler'
@@ -493,7 +501,7 @@
     name: 'Google Inc.'
     url: 'http://www.google.com'
 
-- regex: 'Googlebot(-Mobile|-Image|-Video|-News)?|Feedfetcher-Google|Google-Test|Google-Site-Verification|Google Web Preview|AdsBot-Google(-Mobile)?|Mediapartners-Google|Google.*/\+/web/snippet|GoogleProducer|Google[ -]Publisher[ -]Plugin'
+- regex: 'Googlebot(-Mobile|-Image|-Video|-News)?|Feedfetcher-Google|Google-Test|Google-Site-Verification|Google Web Preview|AdsBot-Google(-Mobile)?|Google-Adwords-Instant|Mediapartners-Google|Google.*/\+/web/snippet|GoogleProducer|Google[ -]Publisher[ -]Plugin'
   name: 'Googlebot'
   category: 'Search bot'
   url: 'http://www.google.com/bot.html'
@@ -532,6 +540,14 @@
   producer:
     name: 'Microsoft Corporation'
     url: 'http://www.microsoft.com'
+
+- regex: 'IP-Guide\.com'
+  name: 'IP-Guide Crawler'
+  category: 'Crawler'
+  url: ''
+  producer:
+    name: ''
+    url: 'https://ip-guide.com'
 
 - regex: 'kouio'
   name: 'Kouio'
@@ -667,7 +683,7 @@
     name: 'Jaroslav Kuboš'
     url: ''
 
-- regex: 'Netcraft (Web Server Survey|SSL Server Survey)'
+- regex: 'Netcraft( Web Server Survey| SSL Server Survey|SurveyAgent)'
   name: 'Netcraft Survey Bot'
   category: 'Search bot'
   url: ''
@@ -714,6 +730,14 @@
   producer:
     name: 'Northern Light'
     url: 'http://northernlight.com'
+
+- regex: 'Nmap Scripting Engine'
+  name: 'Nmap'
+  category: 'Security Checker'
+  url: 'https://nmap.org/book/nse.html'
+  producer:
+    name: 'Nmap'
+    url: 'https://nmap.org/'
 
 - regex: 'omgilibot'
   name: 'Omgili bot'
@@ -832,6 +856,14 @@
     name: 'reddit inc.'
     url: 'http://www.reddit.com'
 
+- regex: 'Riddler'
+  name: 'Riddler'
+  category: 'Security search bot'
+  url: 'https://riddler.io/about'
+  producer:
+    name: 'F-Secure'
+    url: 'https://www.f-secure.com'
+
 - regex: 'rogerbot'
   name: 'Rogerbot'
   category: 'Crawler'
@@ -900,6 +932,11 @@
   producer:
     name: 'SEO Engine'
     url: 'http://www.seoengine.com'
+
+- regex: 'seoscanners\.net'
+  name: 'Seoscanners.net'
+  category: 'Crawler'
+  url: ''
 
 - regex: 'SkypeUriPreview'
   name: 'Skype URI Preview'
@@ -1081,6 +1118,14 @@
     name: 'Kurt McKee'
     url: 'https://github.com/kurtmckee'
 
+- regex: 'Uptimebot'
+  name: 'Uptimebot'
+  category: 'Site Monitor'
+  url: 'https://uptime.com/uptimebot'
+  producer:
+    name: 'Uptime'
+    url: 'https://uptime.com'
+
 - regex: 'UptimeRobot'
   name: 'Uptime Robot'
   category: 'Site Monitor'
@@ -1254,6 +1299,11 @@
     name: 'YunYun'
     url: 'http://www.yunyun.com'
 
+- regex: 'zgrab'
+  name: 'zgrab'
+  category: 'Security Checker'
+  url: 'https://github.com/zmap/zgrab'
+
 - regex: 'Zookabot'
   name: 'Zookabot'
   category: 'Crawler'
@@ -1349,6 +1399,14 @@
   producer:
     name: 'Catchpoint Systems'
     url: 'http://www.catchpoint.com/'
+
+- regex: 'bitlybot'
+  name: 'BitlyBot'
+  category: 'Crawler'
+  url: 'https://bitly.com'
+  producer:
+    name: 'Bitly, Inc.'
+    url: 'https://bitly.com'
 
 - regex: 'Zao/'
   name: 'Zao'

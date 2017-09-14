@@ -3,7 +3,7 @@
 /*
  * This file is part of Twig.
  *
- * (c) 2009 Fabien Potencier
+ * (c) Fabien Potencier
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -80,7 +80,7 @@ class Twig_Loader_Array implements Twig_LoaderInterface, Twig_ExistsLoaderInterf
             throw new Twig_Error_Loader(sprintf('Template "%s" is not defined.', $name));
         }
 
-        return $this->templates[$name];
+        return $name.':'.$this->templates[$name];
     }
 
     public function isFresh($name, $time)
@@ -93,3 +93,5 @@ class Twig_Loader_Array implements Twig_LoaderInterface, Twig_ExistsLoaderInterf
         return true;
     }
 }
+
+class_alias('Twig_Loader_Array', 'Twig\Loader\ArrayLoader', false);

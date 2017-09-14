@@ -14,8 +14,8 @@ Build status (master branch) [![Build Status](https://travis-ci.org/piwik/piwik-
 
 The script will import all standard web server log files, and some files with non-standard formats. The following log formats are supported:
  * all default log formats for: Nginx, Apache, IIS, Tomcat
- * all log formats commonly used such as: NCSA Common log format, Extended log format, W3C Extended log files, Nginx JSON
- * log files of some popular Cloud Saas services: Amazon CloudFront logs, Amazon S3 logs
+ * all log formats commonly used such as: NCSA Common log format, Extended log format, W3C Extended log files, Nginx JSON, OVH
+ * log files of some popular Cloud services: Amazon AWS CloudFront logs, AWS S3 logs, AWS ELB logs.
  * streaming media server log files such as: Icecast
  * log files with and without the virtual host will be imported
 
@@ -31,7 +31,7 @@ The Log Analytics importer is designed to detect and import into Piwik as many l
 
  * Implement your new log format in the import_logs.py file (look for `FORMATS = {` variable where the log formats are defined),
  * Add a new test in [tests/tests.py](https://github.com/piwik/piwik-log-analytics/blob/master/tests/tests.py),
- * Test that the logs are imported successfully as you expected,
+ * Test that the logs are imported successfully as you expected (`tests/run_tests.sh`),
  * Open a Pull Request,
  * Check the test you have added works (the build should be green),
  * One Piwik team member will review and merge the Pull Request as soon as possible.
@@ -69,6 +69,9 @@ If you wish to track all requests the following command would be used:
   the time-taken field in seconds while most other formats use milliseconds. Using this option will ensure that the
   log importer interprets the field correctly.
 
+* Some log formats can't be detected automatically as they would conflict with other formats. In order to import those logfiles make sure to specify the `--log-format-name` option.
+  Those log formats are: OVH
+
 ## How to import your logs automatically every day?
 
 You must first make sure your logs are automatically rotated every day. The most
@@ -105,7 +108,7 @@ Apache configuration:
 
 cron job:
 ```
-5 0 * * * /var/www/html/piwik/misc/log-analytics/import_logs.py --url https://www.mysite.com/piwik --auth-user=someuser --auth-password=somepassword --exclude-path=/piwik/index.php --enable-http-errors --enable-reverse-dns --idsite=1 date --date=yesterday +/var/log/apache2/access-ssl-\%Y-\%m-\%d.log > /opt/scripts/import-logs.log
+5 0 * * * /var/www/html/piwik/misc/log-analytics/import_logs.py --url https://www.mysite.com/piwik --auth-user=someuser --auth-password=somepassword --exclude-path=*/piwik/index.php --enable-http-errors --enable-reverse-dns --idsite=1 date --date=yesterday +/var/log/apache2/access-ssl-\%Y-\%m-\%d.log > /opt/scripts/import-logs.log
 ```
 
 Security tips:
@@ -393,6 +396,10 @@ Use piwiklog %v vhost_common main " "
 	Use piwiklog domain.com/%{vhostLogName}e vhost_domain_com_subsites domain_com_subsites env=vhostLogName
 </VirtualHost>
 ```
+
+### License
+
+As [piwik](`https://github.com/piwik/piwik`) (which includes this code as a git reference), piwik-log-analytics is released under the GPLv3 or later.  Please refer to  [LEGALNOTICE](LEGALNOTICE) for copyright and trademark statements and [LICENSE.txt](LICENSE.txt) for the full text of the GPLv3.
 
 ### And that's all !
 

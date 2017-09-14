@@ -400,6 +400,7 @@ class AmazonCloudFrontFormat(W3cExtendedFormat):
             return super(AmazonCloudFrontFormat, self).get(key)
 
 _HOST_PREFIX = '(?P<host>[\w\-\.]*)(?::\d+)?\s+'
+
 _COMMON_LOG_FORMAT = (
     '(?P<ip>\S+)\s+\S+\s+(?P<userid>\S+)\s+\[(?P<date>.*?)\s+(?P<timezone>.*?)\]\s+'
     '"\S+\s+(?P<path>.*?)\s+\S+"\s+(?P<status>\S+)\s+(?P<length>\S+)'
@@ -421,6 +422,12 @@ _ELB_LOG_FORMAT = (
     '"\S+\s+\w+:\/\/(?P<host>[\w\-\.]*):\d+(?P<path>\/\S*)\s+[^"]+"\s+"(?P<user_agent>[^"]+)"\s+\S+\s+\S+'
 )
 
+_OVH_FORMAT = (
+    '(?P<ip>\S+)\s+' + _HOST_PREFIX + '(?P<userid>\S+)\s+\[(?P<date>.*?)\s+(?P<timezone>.*?)\]\s+'
+    '"\S+\s+(?P<path>.*?)\s+\S+"\s+(?P<status>\S+)\s+(?P<length>\S+)'
+    '\s+"(?P<referrer>.*?)"\s+"(?P<user_agent>.*?)"'
+)
+
 FORMATS = {
     'common': RegexFormat('common', _COMMON_LOG_FORMAT),
     'common_vhost': RegexFormat('common_vhost', _HOST_PREFIX + _COMMON_LOG_FORMAT),
@@ -434,6 +441,7 @@ FORMATS = {
     'icecast2': RegexFormat('icecast2', _ICECAST2_LOG_FORMAT),
     'elb': RegexFormat('elb', _ELB_LOG_FORMAT, '%Y-%m-%dT%H:%M:%S'),
     'nginx_json': JsonFormat('nginx_json'),
+    'ovh': RegexFormat('ovh', _OVH_FORMAT)
 }
 
 ##
@@ -459,6 +467,7 @@ class Configuration(object):
             usage='Usage: %prog [options] log_file [ log_file [...] ]',
             description="Import HTTP access logs to Piwik. "
                          "log_file is the path to a server access log file (uncompressed, .gz, .bz2, or specify - to read from stdin). "
+		         " You may also import many log files at once (for example set log_file to *.log or *.log.gz)."
                          " By default, the script will try to produce clean reports and will exclude bots, static files, discard http error and redirects, etc. This is customizable, see below.",
             epilog="About Piwik Server Log Analytics: http://piwik.org/log-analytics/ "
                    "              Found a bug? Please create a ticket in http://dev.piwik.org/ "
@@ -564,15 +573,20 @@ class Configuration(object):
         option_parser.add_option(
             '--hostname', dest='hostnames', action='append', default=[],
             help="Accepted hostname (requests with other hostnames will be excluded). "
-            "Can be specified multiple times"
+            " You may use the star character * "
+            " Example: --hostname=*domain.com"
+            " Can be specified multiple times"
         )
         option_parser.add_option(
             '--exclude-path', dest='excluded_paths', action='append', default=[],
-            help="Any URL path matching this exclude-path will not be imported in Piwik. Can be specified multiple times"
+            help="Any URL path matching this exclude-path will not be imported in Piwik. "
+            " You must use the star character *. "
+            " Example: --exclude-path=*/admin/*"
+            " Can be specified multiple times. "
         )
         option_parser.add_option(
             '--exclude-path-from', dest='exclude_path_from',
-            help="Each line from this file is a path to exclude (see: --exclude-path)"
+            help="Each line from this file is a path to exclude. Each path must contain the character * to match a string. (see: --exclude-path)"
         )
         option_parser.add_option(
             '--include-path', dest='included_paths', action='append', default=[],
@@ -1393,15 +1407,22 @@ class Piwik(object):
                 if hasattr(e, 'read'):
                     message = message + ", response: " + e.read()
 
+                try:
+                    delay_after_failure = config.options.delay_after_failure
+                    max_attempts = config.options.max_attempts
+                except NameError:
+                    delay_after_failure = PIWIK_DEFAULT_DELAY_AFTER_FAILURE
+                    max_attempts = PIWIK_DEFAULT_MAX_ATTEMPTS
+
                 errors += 1
-                if errors == config.options.max_attempts:
+                if errors == max_attempts:
                     logging.info("Max number of attempts reached, server is unreachable!")
 
                     raise Piwik.Error(message, code)
                 else:
                     logging.info("Retrying request, attempt number %d" % (errors + 1))
 
-                    time.sleep(config.options.delay_after_failure)
+                    time.sleep(delay_after_failure)
 
     @classmethod
     def call(cls, path, args, expected_content=None, headers=None, data=None, on_failure=None):
@@ -1549,6 +1570,9 @@ class DynamicResolver(object):
             # We only consider requests with piwik.php which don't need host to be imported
             return self._resolve_when_replay_tracking(hit)
         else:
+            # Workaround for empty Host bug issue #126
+            if hit.host.strip() == '':
+                hit.host = 'no-hostname-found-in-log'
             return self._resolve_by_host(hit)
 
     def check_format(self, format):
@@ -1995,6 +2019,10 @@ class Parser(object):
         format_groups = 0
         for name, candidate_format in FORMATS.iteritems():
             logging.debug("Check format %s", name)
+
+            # skip auto detection for formats that can't be detected automatically
+            if name == 'ovh':
+                continue
 
             match = None
             try:
