@@ -1,12 +1,4 @@
 <FilesMatch "\.pdf$">
-    # Apache < 2.3
-    <IfModule !mod_authz_core.c>
-        Order allow,deny
-        Deny from all
-    </IfModule>
-
-    # Apache ≥ 2.3
-    <IfModule mod_authz_core.c>
-        Require all denied
-    </IfModule>
+Order allow,deny
+Deny from all
 </FilesMatch>
