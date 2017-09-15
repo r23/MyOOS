@@ -116,8 +116,8 @@ DependencyInjection
 
  * Using unsupported options to configure service aliases raises an exception.
 
- * Setting or unsetting a private service with the `Container::set()` method is
-   no longer supported. Only public services can be set or unset.
+ * Setting or unsetting a service with the `Container::set()` method is
+   no longer supported. Only synthetic services can be set or unset.
 
  * Checking the existence of a private service with the `Container::has()`
    method is no longer supported and will return `false`.
@@ -222,9 +222,6 @@ Form
 
 FrameworkBundle
 ---------------
-
- * The `cache:clear` command does not warmup the cache anymore. Warmup should
-   be done via the `cache:warmup` command.
 
  * The "framework.trusted_proxies" configuration option and the corresponding "kernel.trusted_proxies" parameter have been removed. Use the `Request::setTrustedProxies()` method in your front controller instead.
 

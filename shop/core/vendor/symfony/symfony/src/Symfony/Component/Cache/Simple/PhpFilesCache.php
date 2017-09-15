@@ -35,5 +35,6 @@ class PhpFilesCache extends AbstractCache
 
         $e = new \Exception();
         $this->includeHandler = function () use ($e) { throw $e; };
+        $this->zendDetectUnicode = ini_get('zend.detect_unicode');
     }
 }

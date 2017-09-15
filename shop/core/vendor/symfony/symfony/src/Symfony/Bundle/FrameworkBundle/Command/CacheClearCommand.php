@@ -15,6 +15,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Finder\Finder;
 
@@ -56,6 +57,10 @@ EOF
     {
         $io = new SymfonyStyle($input, $output);
 
+        if (Kernel::VERSION_ID >= 30400) {
+            throw new \LogicException('The "cache:clear" command in Symfony 3.3 is incompatible with HttpKernel 3.4, please upgrade "symfony/framework-bundle" or downgrade "symfony/http-kernel".');
+        }
+
         $realCacheDir = $this->getContainer()->getParameter('kernel.cache_dir');
         // the old cache dir name must not be longer than the real one to avoid exceeding
         // the maximum length of a directory or file path within it (esp. Windows MAX_PATH)
@@ -77,12 +82,6 @@ EOF
         if ($input->getOption('no-warmup')) {
             $filesystem->rename($realCacheDir, $oldCacheDir);
         } else {
-            $warning = 'Calling cache:clear without the --no-warmup option is deprecated since version 3.3. Cache warmup should be done with the cache:warmup command instead.';
-
-            @trigger_error($warning, E_USER_DEPRECATED);
-
-            $io->warning($warning);
-
             $this->warmupCache($input, $output, $realCacheDir, $oldCacheDir);
         }
 
@@ -132,8 +131,6 @@ EOF
      * @param string $warmupDir
      * @param string $realCacheDir
      * @param bool   $enableOptionalWarmers
-     *
-     * @internal to be removed in 4.0
      */
     protected function warmup($warmupDir, $realCacheDir, $enableOptionalWarmers = true)
     {
@@ -200,8 +197,6 @@ EOF
      * @param string          $warmupDir
      *
      * @return KernelInterface
-     *
-     * @internal to be removed in 4.0
      */
     protected function getTempKernel(KernelInterface $parent, $namespace, $parentClass, $warmupDir)
     {
