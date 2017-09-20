@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit01d8399845318768695310e0ee7301c0
+class ComposerStaticInit18259f4ab23c61d183f43a8cc6fcba07
 {
     public static $files = array (
         '04c6c5c2f7095ccf6c481d3e53e1776f' => __DIR__ . '/..' . '/mustangostang/spyc/Spyc.php',
@@ -575,6 +575,8 @@ class ComposerStaticInit01d8399845318768695310e0ee7301c0
         'Piwik\\Archive\\ArchiveInvalidator' => __DIR__ . '/../..' . '/core/Archive/ArchiveInvalidator.php',
         'Piwik\\Archive\\ArchiveInvalidator\\InvalidationResult' => __DIR__ . '/../..' . '/core/Archive/ArchiveInvalidator/InvalidationResult.php',
         'Piwik\\Archive\\ArchivePurger' => __DIR__ . '/../..' . '/core/Archive/ArchivePurger.php',
+        'Piwik\\Archive\\ArchiveQuery' => __DIR__ . '/../..' . '/core/Archive/ArchiveQuery.php',
+        'Piwik\\Archive\\ArchiveQueryFactory' => __DIR__ . '/../..' . '/core/Archive/ArchiveQueryFactory.php',
         'Piwik\\Archive\\Chunk' => __DIR__ . '/../..' . '/core/Archive/Chunk.php',
         'Piwik\\Archive\\DataCollection' => __DIR__ . '/../..' . '/core/Archive/DataCollection.php',
         'Piwik\\Archive\\DataTableFactory' => __DIR__ . '/../..' . '/core/Archive/DataTableFactory.php',
@@ -2948,11 +2950,11 @@ class ComposerStaticInit01d8399845318768695310e0ee7301c0
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit01d8399845318768695310e0ee7301c0::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit01d8399845318768695310e0ee7301c0::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit01d8399845318768695310e0ee7301c0::$prefixesPsr0;
-            $loader->fallbackDirsPsr0 = ComposerStaticInit01d8399845318768695310e0ee7301c0::$fallbackDirsPsr0;
-            $loader->classMap = ComposerStaticInit01d8399845318768695310e0ee7301c0::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit18259f4ab23c61d183f43a8cc6fcba07::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit18259f4ab23c61d183f43a8cc6fcba07::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit18259f4ab23c61d183f43a8cc6fcba07::$prefixesPsr0;
+            $loader->fallbackDirsPsr0 = ComposerStaticInit18259f4ab23c61d183f43a8cc6fcba07::$fallbackDirsPsr0;
+            $loader->classMap = ComposerStaticInit18259f4ab23c61d183f43a8cc6fcba07::$classMap;
 
         }, null, ClassLoader::class);
     }

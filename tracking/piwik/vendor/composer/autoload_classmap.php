@@ -375,6 +375,8 @@ return array(
     'Piwik\\Archive\\ArchiveInvalidator' => $baseDir . '/core/Archive/ArchiveInvalidator.php',
     'Piwik\\Archive\\ArchiveInvalidator\\InvalidationResult' => $baseDir . '/core/Archive/ArchiveInvalidator/InvalidationResult.php',
     'Piwik\\Archive\\ArchivePurger' => $baseDir . '/core/Archive/ArchivePurger.php',
+    'Piwik\\Archive\\ArchiveQuery' => $baseDir . '/core/Archive/ArchiveQuery.php',
+    'Piwik\\Archive\\ArchiveQueryFactory' => $baseDir . '/core/Archive/ArchiveQueryFactory.php',
     'Piwik\\Archive\\Chunk' => $baseDir . '/core/Archive/Chunk.php',
     'Piwik\\Archive\\DataCollection' => $baseDir . '/core/Archive/DataCollection.php',
     'Piwik\\Archive\\DataTableFactory' => $baseDir . '/core/Archive/DataTableFactory.php',
