@@ -1,68 +1,46 @@
 
+	window.width 	= jQuery(window).width();
+	window.height 	= jQuery(window).height();
 
-var App = function () {
-
-    function handleBootstrap() {
-        /*Bootstrap Carousel*/
-        jQuery('.carousel').carousel({
-            interval: 15000,
-            pause: 'hover'
-        });
-
-    }
-
-    function handleSearch() {
-        jQuery('.search-button').click(function () {
-            jQuery('.search-open').slideDown();
-        });
-
-        jQuery('.search-close').click(function () {
-            jQuery('.search-open').slideUp();
-        });
-
-        jQuery(window).scroll(function(){
-          if(jQuery(this).scrollTop() > 1) jQuery('.search-open').fadeOut('fast');
-        });
-
-    }
-
-    function handleToggle() {
-        jQuery('.list-toggle').on('click', function() {
-            jQuery(this).toggleClass('active');
-        });
-    }
-
-    function handleHeader() {
-         jQuery(window).scroll(function() {
-            if (jQuery(window).scrollTop()>100){
-                jQuery(".header-fixed .header-static").addClass("header-fixed-shrink");
-            }
-            else {
-                jQuery(".header-fixed .header-static").removeClass("header-fixed-shrink");
-            }
-        });
-    }
+	/* Init */
+	jQuery(window).ready(function () {
 
 
-    return {
-        init: function () {
-            handleBootstrap();
-            handleSearch();
-            handleToggle();
-            handleHeader();
-			// Botostrap Tootltips
-			jQuery('[data-toggle="tooltip"]').tooltip();			
-			
-        },
+		// jQuery 3.x do no support size() - should be replaceced with .legth
+		// We use this hack to make old plugins working
+		jQuery.fn.extend({
+		  size: function() {
+		    return this.length;
+		  }
+		});
+
+		// Init
+		Init(false);
+
+
+	});
+
+
+/** Init
+	Ajax Reinit:		Init(true);
+ **************************************************************** **/
+	function Init(is_ajax) {
+
+		// First Load Only
+		if(is_ajax != true) {
 		
-        initScrollBar: function () {
-            jQuery('.mCustomScrollbar').mCustomScrollbar({
-                theme:"minimal",
-                scrollInertia: 300,
-                scrollEasing: "linear"
-            });
-        },
+		//	_topNav();
 
-    };
+		}
 
-}();
+
+		/** Bootstrap Tooltip **/ 
+		jQuery('[data-toggle="tooltip"]').tooltip({
+			placement: $(this).data('placement'),
+			html: true
+		});
+
+	}
+
+
+
