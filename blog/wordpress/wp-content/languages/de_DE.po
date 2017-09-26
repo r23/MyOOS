@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 4.8.x package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-09-04 15:29:31+0000\n"
+"PO-Revision-Date: 2017-09-24 16:11:38+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10306,12 +10306,6 @@ msgstr "Keine Kategorien"
 msgid "Your comment is awaiting moderation."
 msgstr "Dein Kommentar wartet auf Freischaltung."
 
-#. translators: 1: comment date, 2: comment time
-#: wp-includes/class-walker-comment.php:291
-#: wp-includes/class-walker-comment.php:346
-msgid "%1$s at %2$s"
-msgstr "%1$s um %2$s"
-
 #: wp-includes/class-walker-comment.php:291
 msgid "(Edit)"
 msgstr "(Bearbeiten)"
@@ -10595,6 +10589,12 @@ msgstr "Es wurden keine Ergebnisse gefunden, die deinen Suchkriterien entspreche
 #: wp-includes/class-wp-xmlrpc-server.php:554
 msgid "Allow people to post comments on new articles"
 msgstr "Besuchern erlauben, neue Beiträge zu kommentieren"
+
+#. translators: 1: comment date, 2: comment time
+#: wp-includes/class-walker-comment.php:291
+#: wp-includes/class-walker-comment.php:346
+msgid "%1$s at %2$s"
+msgstr "%1$s um %2$s Uhr"
 
 #: wp-includes/media-template.php:330 wp-includes/media-template.php:528
 #: wp-includes/media.php:3562

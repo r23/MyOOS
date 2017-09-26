@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Yoast SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-09-06 09:30:36+0000\n"
+"PO-Revision-Date: 2017-09-25 20:37:39+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -182,7 +182,7 @@ msgstr "Belege den online Structured Data Training Kurs und lerne wie man Rich S
 
 #: languages/yoast-seo-js.php:208
 msgid "The focus keyword appears only in %2$d (out of %1$d) subheadings in your copy. Try to use it in at least one more subheading."
-msgstr "Das Fokus-Keyword kommt lediglich in %2$d (von %1$d) Unterüberschriften in dieser Kopie vor. Versuche welche in mindestens einer Unterüberschrift hinzuzufügen."
+msgstr "Das Fokus-Keyword kommt lediglich in %2$d (von %1$d) Zwischenüberschriften in dieser Kopie vor. Versuche welche in mindestens einer Zwischenüberschrift hinzuzufügen."
 
 #: languages/yoast-seo-js.php:116
 msgid "No internal links appear in this page, consider adding some as appropriate."
@@ -228,7 +228,7 @@ msgstr "%1$sSocial-Media Vorschau%2$s: Facebook &amp; Twitter"
 msgid "Scroll to see the preview content."
 msgstr "Scrolle, um die Vorschau zu sehen."
 
-#: languages/yoast-components.php:81
+#: languages/yoast-components.php:84
 msgid "Enter authorization code here..."
 msgstr "Autorisierungscode hier eingeben&hellip;"
 
@@ -258,6 +258,11 @@ msgstr "Lerne wie man Texte schreibt, die ranken"
 msgid "Upgrade to Premium"
 msgstr "Upgrade zu Premium"
 
+#. translators: %s resolves to Yoast SEO Premium
+#: admin/config-ui/components/class-component-suggestions.php:32
+msgid "Outrank the competition with %s"
+msgstr "Mit %s die Wettbewerber übtertrumpfen"
+
 #: admin/config-ui/components/class-component-configuration-choices.php:67
 msgid "Configuration service"
 msgstr "Konfigurations-Hilfe"
@@ -274,6 +279,10 @@ msgstr "Du könntest Gefallen finden an"
 #: admin/config-ui/class-configuration-structure.php:57
 msgid "Newsletter"
 msgstr "Newsletter"
+
+#: admin/config-ui/class-configuration-page.php:224
+msgid "The configuration wizard helps you to easily configure your site to have the optimal SEO settings."
+msgstr "Der Konfigurationsassistent hilft die, deine Website einfach zu konfigurieren, um die optimalen SEO-Einstellungen zu haben."
 
 #: admin/class-cornerstone-filter.php:39
 msgid "Cornerstone articles"
@@ -320,6 +329,10 @@ msgstr "Eine Nachricht von %1$s"
 msgid "Get %s now &raquo;"
 msgstr "Hol dir %s jetzt &raquo;"
 
+#: admin/views/partial-help-center-video.php:28
+msgid "Go Premium and our experts will be there for you to answer any questions you might have about the setup and use of the plugin."
+msgstr "Premium bestellen und unsere Experten werden für dich da sein, um Fragen zu beantworten, die du über die Installation und die Verwendung des Plugins haben könntest."
+
 #: admin/banner/class-admin-banner-sidebar.php:97
 #: admin/class-help-center.php:78 admin/class-premium-upsell-admin-block.php:49
 #: admin/metabox/class-metabox-add-keyword-tab.php:50
@@ -360,6 +373,10 @@ msgstr "%1$sKeine verwaisten Links mehr%2$s: Einfacher Redirect-Manager"
 #: admin/class-help-center.php:65
 msgid "Other benefits of %1$s for you:"
 msgstr "Weitere Vorteile von %1$s für dich:"
+
+#: admin/class-help-center.php:63
+msgid "Go Premium and our experts will be there for you to answer any questions you might have about the set-up and use of the plug-in!"
+msgstr "Premium bestellen und unsere Experten werden für dich da sein, um Fragen zu beantworten, die du über die Installation und die Verwendung des Plugins haben könntest."
 
 #: admin/metabox/class-metabox-add-keyword-tab.php:31
 msgid "Want to add more than one keyword?"
@@ -547,12 +564,12 @@ msgstr[1] "Der Text enthält %1$d Wörter."
 #: languages/yoast-seo-js.php:88
 msgid "%1$d subheading is followed by more than the recommended maximum of %2$d words. Try to insert another subheading."
 msgid_plural "%1$d of the subheadings are followed by more than the recommended maximum of %2$d words. Try to insert additional subheadings."
-msgstr[0] "Auf %1$d der Unterüberschriften folgen mehr als das empfohlene Maximum von %2$d Wörtern. Versuche noch eine Unterüberschrift einzufügen."
-msgstr[1] "Auf %1$d der Unterüberschriften folgen mehr als das empfohlene Maximum von %2$d Wörtern. Versuche noch Unterüberschriften einzufügen."
+msgstr[0] "Auf %1$d der Zwischenüberschriften folgen mehr als das empfohlene Maximum von %2$d Wörtern. Versuche noch eine Zwischenüberschrift einzufügen."
+msgstr[1] "Auf %1$d der Zwischenüberschriften folgen mehr als das empfohlene Maximum von %2$d Wörtern. Versuche noch Zwischenüberschriften einzufügen."
 
 #: languages/yoast-seo-js.php:85
 msgid "The amount of words following each of the subheadings doesn't exceed the recommended maximum of %1$d words, which is great."
-msgstr "Die Anzahl der Wörter nach jeder deiner Unterüberschriften übersteigt nicht das empfohlene Maximum von %1$d Wörtern. Das ist toll. "
+msgstr "Die Anzahl der Wörter nach jeder deiner Zwischenüberschriften übersteigt nicht das empfohlene Maximum von %1$d Wörtern. Das ist toll."
 
 #. Translators: %1$d expands to percentage of sentences, %2$s expands to a link
 #. on yoast.com, 	   %3$s expands to the recommended maximum sentence length,
@@ -626,7 +643,7 @@ msgstr "Die Meta-Beschreibung enthält mehr als %1$d Zeichen. Eine geringere Lä
 msgid "The keyword density is %1$s, which is too low; the focus keyword was found %2$d times."
 msgstr "Die Keyword-Dichte beträgt %1$s, was ein wenig niedrig ist. Das Fokus-Keyword wurde %2$d mal gefunden."
 
-#: languages/yoast-components.php:26
+#: languages/yoast-components.php:29
 msgid "Step %1$d: %2$s"
 msgstr "Schritt %1$d: %2$s"
 
@@ -828,7 +845,7 @@ msgstr "Die Bilder auf dieser Seite enthalten ALT-Attribute mit dem Fokus-Keywor
 
 #: languages/yoast-seo-js.php:82
 msgid "The text does not contain any subheadings. Add at least one subheading."
-msgstr "Der Text enthält keine Unterüberschrift. Füge mindestens eine Unterüberschrift hinzu."
+msgstr "Der Text enthält keine Zwischenüberschriften. Füge mindestens eine Zwischenüberschrift hinzu."
 
 #: languages/yoast-seo-js.php:38
 msgid "None of the paragraphs are too long, which is great."
@@ -862,107 +879,111 @@ msgstr "Die Suchkette ist länger als 10 Wörter, sie sollte kürzer sein."
 msgid "ok"
 msgstr "OK"
 
-#: languages/yoast-components.php:121
+#: languages/yoast-components.php:124
 msgid "Choose an image"
 msgstr "Wähle ein Bild"
 
-#: languages/yoast-components.php:117
+#: languages/yoast-components.php:120
 msgid "Remove the image"
 msgstr "Bild entfernen"
 
-#: languages/yoast-components.php:114
+#: languages/yoast-components.php:117
 msgid "company logo image preview"
 msgstr "Vorschau des Firmenlogos"
 
-#: languages/yoast-components.php:111
+#: languages/yoast-components.php:114
 msgid "Choose image"
 msgstr "Bild wählen"
 
-#: languages/yoast-components.php:108
+#: languages/yoast-components.php:111
 msgid "MailChimp signup failed:"
 msgstr "MailChimp-Registrierung fehlgeschlagen:"
 
-#: languages/yoast-components.php:105
+#: languages/yoast-components.php:108
 msgid "Sign Up!"
 msgstr "Anmelden"
 
-#: languages/yoast-components.php:102
+#: languages/yoast-components.php:105
 msgid "Name"
 msgstr "Name"
 
-#: languages/yoast-components.php:96
+#: languages/yoast-components.php:99
 msgid "There is an error with the request."
 msgstr "Es ist ein Fehler bei der Anfrage aufgetreten."
 
-#: languages/yoast-components.php:90
+#: languages/yoast-components.php:93
 msgid "Select profile"
 msgstr "Profil wählen"
 
-#: languages/yoast-components.php:87
+#: languages/yoast-components.php:90
 msgid "Choose a profile"
 msgstr "Wähle ein Profil"
 
-#: languages/yoast-components.php:75
+#: languages/yoast-components.php:78
 msgid "Reauthenticate with Google"
 msgstr "Erneute Identifizierung mit Google"
 
-#: languages/yoast-components.php:66
+#: languages/yoast-components.php:75
+msgid "To allow %s to fetch your Google Search Console information, please enter your Google Authorization Code. Clicking the button below will open a new window."
+msgstr "Damit %s deine Google Search Console-Informationen abrufen kann, gebe bitte deinen Google Authorization Code ein. Wenn du auf den Button unten klickst, öffnet sich ein neues Fenster."
+
+#: languages/yoast-components.php:69
 msgid "Search Result Preview"
 msgstr "Suchergebnis Vorschau"
 
-#: languages/yoast-components.php:63
+#: languages/yoast-components.php:66
 msgid "URL preview: "
 msgstr "URL Vorschau:"
 
-#: languages/yoast-components.php:60 languages/yoast-seo-js.php:395
+#: languages/yoast-components.php:63 languages/yoast-seo-js.php:395
 msgid "Please provide a meta description by editing the snippet below."
 msgstr "Bitte lege eine Meta-Beschreibung fest, indem du den Code-Schnipsel bearbeitest."
 
-#: languages/yoast-components.php:57 languages/yoast-seo-js.php:353
+#: languages/yoast-components.php:60 languages/yoast-seo-js.php:353
 msgid "Edit snippet"
 msgstr "Code-Schnipsel bearbeiten"
 
-#: languages/yoast-components.php:54
+#: languages/yoast-components.php:57
 msgid "Search Result Form"
 msgstr "Suchergebnis Formular"
 
-#: languages/yoast-components.php:51 languages/yoast-seo-js.php:380
+#: languages/yoast-components.php:54 languages/yoast-seo-js.php:380
 msgid "You can click on each element in the preview to jump to the Snippet Editor."
 msgstr "Du kannst auf jedes Element in der Vorschau klicken, um zum Snippet-Editor zu springen."
 
-#: languages/yoast-components.php:47
+#: languages/yoast-components.php:50
 msgid "SEO title preview: "
 msgstr "SEO-Titel Vorschau:"
 
-#: languages/yoast-components.php:43
+#: languages/yoast-components.php:46
 msgid "This is an example title - edit by clicking here"
 msgstr "Dies ist ein Beispiel Titel - Zum Bearbeiten hier klicken"
 
-#: languages/yoast-components.php:39
+#: languages/yoast-components.php:42
 msgid "Slug preview: "
 msgstr "Slug Vorschau:"
 
-#: languages/yoast-components.php:36
+#: languages/yoast-components.php:39
 msgid "Meta description preview: "
 msgstr "Meta Description Vorschau:"
 
-#: languages/yoast-components.php:32
+#: languages/yoast-components.php:35
 msgid "Please provide a meta description by editing it here."
 msgstr "Bitte gebe eine meta Beschreibung ein, indem Du sie hier bearbeitest."
 
-#: languages/yoast-components.php:29
+#: languages/yoast-components.php:32
 msgid "Close search result form"
 msgstr "Schließe das Suchergebnis Formular"
 
-#: languages/yoast-components.php:17
+#: languages/yoast-components.php:20
 msgid "Close the Wizard"
 msgstr "Schließe den Assistenten "
 
-#: languages/yoast-components.php:11
+#: languages/yoast-components.php:14
 msgid "Previous step"
 msgstr "Schritt zurück"
 
-#: languages/yoast-components.php:5
+#: languages/yoast-components.php:8
 msgid "Next step"
 msgstr "Nächster Schritt"
 
@@ -1112,6 +1133,10 @@ msgstr "Eingabe des Fokus-Schlüsselworts"
 msgid "(no title)"
 msgstr "Kein Titel"
 
+#: languages/yoast-components.php:5
+msgid "%s installation wizard"
+msgstr "%s Installationsassistent"
+
 #: admin/views/tabs/dashboard/features.php:72
 msgid "%1$s comes with a lot of features. You can enable / disable some of them below."
 msgstr "%1$s hat viele Eigenschaften. Du kannst nachstehend einige von ihnen aktivieren oder deaktivieren."
@@ -1124,6 +1149,11 @@ msgstr "Die %1$s Adminleiste enthält nützliche Links zu Tools von Drittanbiete
 #: admin/views/tabs/dashboard/features.php:35
 msgid "Admin bar menu"
 msgstr "Adminbar-Menü"
+
+#. translators: %1$s expands to Ryte.
+#: admin/views/tabs/dashboard/features.php:32
+msgid "The %1$s integration checks daily if your site is still indexable by search engines and notifies you when this is not the case."
+msgstr "Die %1$s Integration prüft täglich, ob deine Website immer noch durch Suchmaschinen indexierbar ist und benachrichtigt dich, wenn dies nicht der Fall ist."
 
 #: admin/views/tabs/dashboard/features.php:26
 msgid "The advanced settings include site-wide settings for your titles and meta descriptions, social metadata, sitemaps and much more."
@@ -1720,7 +1750,7 @@ msgid "Content optimization"
 msgstr "Optimierung der Inhalte"
 
 #: admin/google_search_console/views/gsc-display.php:47
-#: languages/yoast-components.php:84
+#: languages/yoast-components.php:87
 msgid "Enter your Google Authorization Code and press the Authenticate button."
 msgstr "Gib den Autorisierungscode von Google ein und klicke auf \"Authentifizieren\"."
 
@@ -1858,11 +1888,23 @@ msgstr "Leiter R&D"
 msgid "Product Management"
 msgstr "Produkt Management"
 
+#. translators: 1: link open tag; 2: link close tag.
+#: admin/metabox/class-metabox.php:80
+#: admin/taxonomy/class-taxonomy-content-fields.php:35
+msgid "Pick the main keyword or keyphrase that this post/page is about. %1$sLearn more about the Focus Keyword%2$s."
+msgstr "Wähle das Haupt-Keyword oder den Kernsatz aus, um den es in diesem Beitrag/Seite geht. %1$s Mehr über das Focus Keyword erfahren%2$s."
+
 #: admin/metabox/class-metabox.php:72 admin/metabox/class-metabox.php:576
 #: admin/taxonomy/class-taxonomy-content-fields.php:39
 #: admin/taxonomy/class-taxonomy-fields-presenter.php:97
 msgid "Analysis"
 msgstr "Analyse"
+
+#. translators: 1: link open tag; 2: link close tag.
+#: admin/metabox/class-metabox.php:69
+#: admin/taxonomy/class-taxonomy-content-fields.php:25
+msgid "This is a rendering of what this post might look like in Google's search results. %1$sLearn more about the Snippet Preview%2$s."
+msgstr "Dies ist ein Vorschau, wie dieser Beitrag in den Suchergebnissen von Google aussehen könnte. %1$sMehr über die Snippet Vorschau erfahren%2$s."
 
 #: admin/formatter/class-metabox-formatter.php:75 inc/class-wpseo-rank.php:101
 msgid "Not available"
@@ -3773,7 +3815,7 @@ msgid "Save Profile"
 msgstr "Profil speichern"
 
 #: admin/google_search_console/views/gsc-display.php:80
-#: languages/yoast-components.php:93
+#: languages/yoast-components.php:96
 msgid "There were no profiles found"
 msgstr "Kein Profil gefunden."
 
@@ -3790,12 +3832,12 @@ msgid "Reauthenticate with Google "
 msgstr "Erneut mit Google authentifizieren"
 
 #: admin/google_search_console/views/gsc-display.php:51
-#: languages/yoast-components.php:78
+#: languages/yoast-components.php:81
 msgid "Authenticate"
 msgstr "Authentifizieren"
 
 #: admin/google_search_console/views/gsc-display.php:45
-#: languages/yoast-components.php:69
+#: languages/yoast-components.php:72
 msgid "Get Google Authorization Code"
 msgstr "Google-Autorisierungscode abrufen"
 
@@ -4139,20 +4181,20 @@ msgstr "Anderes"
 msgid "Archives"
 msgstr "Archive"
 
-#: languages/yoast-components.php:99
+#: languages/yoast-components.php:102
 msgid "Email"
 msgstr "E-Mail"
 
-#: languages/yoast-components.php:14
+#: languages/yoast-components.php:17
 msgid "Previous"
 msgstr "Vorherige"
 
-#: languages/yoast-components.php:8
+#: languages/yoast-components.php:11
 msgid "Next"
 msgstr "Weiter"
 
 #: admin/google_search_console/views/gsc-redirect-nopremium.php:18
-#: languages/yoast-components.php:20
+#: languages/yoast-components.php:23
 msgid "Close"
 msgstr "Schließen"
 
@@ -4310,7 +4352,7 @@ msgstr "Die Meta-Beschreibung hat weniger als %1$d Zeichen. Es stehen also noch 
 
 #: languages/yoast-seo-js.php:211
 msgid "You have not used the focus keyword in any subheading (such as an H2) in your copy."
-msgstr "Du hast das Fokus-Keyword in keiner Unterüberschrift (wie z.B. H2) verwendet."
+msgstr "Du hast das Fokus-Keyword in keiner Zwischenüberschrift (wie z.B. H2) verwendet."
 
 #: languages/yoast-seo-js.php:266
 msgid "The images on this page are missing alt attributes."

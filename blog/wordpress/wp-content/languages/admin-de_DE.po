@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 4.8.x - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-09-14 20:03:25+0000\n"
+"PO-Revision-Date: 2017-09-24 16:12:04+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -4264,7 +4264,7 @@ msgstr "Das Backup dieses Beitrags in deinem Browser stimmt nicht mit der unten 
 #. translators: 1: Post creation date, 2: Post creation time
 #: wp-admin/includes/ajax-actions.php:1302
 msgid "Draft created on %1$s at %2$s"
-msgstr "Entwurf erstellt am %1$s um %2$s"
+msgstr "Entwurf erstellt am %1$s um %2$s Uhr"
 
 #: wp-admin/post.php:218
 msgid "You cannot move this item to the Trash. %s is currently editing."
@@ -7590,8 +7590,8 @@ msgstr "Menüeintrag bearbeiten"
 #: wp-admin/includes/class-wp-plugins-list-table.php:429
 msgid "Drop-ins <span class=\"count\">(%s)</span>"
 msgid_plural "Drop-ins <span class=\"count\">(%s)</span>"
-msgstr[0] "DropIns <span class=\"count\">(%s)</span>"
-msgstr[1] "DropIns <span class=\"count\">(%s)</span>"
+msgstr[0] "Drop-ins <span class=\"count\">(%s)</span>"
+msgstr[1] "Drop-ins <span class=\"count\">(%s)</span>"
 
 #: wp-admin/options-general.php:260
 msgid "This timezone does not observe daylight saving time."
@@ -10594,13 +10594,13 @@ msgstr "Kommentar aktualisieren"
 #. translators: 1: Post edited date, 2: Post edited time
 #: wp-admin/edit-form-advanced.php:645 wp-admin/includes/ajax-actions.php:2337
 msgid "Last edited on %1$s at %2$s"
-msgstr "Zuletzt geändert am %1$s um %2$s"
+msgstr "Zuletzt geändert am %1$s um %2$s Uhr"
 
 #. translators: 1: Name of most recent post author, 2: Post edited date, 3:
 #. Post edited time
 #: wp-admin/edit-form-advanced.php:642 wp-admin/includes/ajax-actions.php:2335
 msgid "Last edited by %1$s on %2$s at %3$s"
-msgstr "Zuletzt geändert von %1$s am %2$s um %3$s"
+msgstr "Zuletzt geändert von %1$s am %2$s um %3$s Uhr"
 
 #: wp-admin/edit-form-advanced.php:309 wp-admin/edit-tag-form.php:126
 #: wp-admin/edit-tags.php:397
