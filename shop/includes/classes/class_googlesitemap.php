@@ -90,7 +90,7 @@ class GoogleSitemap {
 		$filename = $this->savepath . $this->filename . $type;
 		$compress = defined('GOOGLE_SITEMAP_COMPRESS') ? GOOGLE_SITEMAP_COMPRESS : 'false';
 		if ($type == 'index') $compress = 'false';
-		
+
 		switch($compress){
 			case 'true':
 				$filename .= '.xml.gz';
@@ -176,7 +176,7 @@ class GoogleSitemap {
 
 
     /**
-     * public function to generate sitemap index file 
+     * public function to generate sitemap index file
      *
      * @return boolean
      */
@@ -230,7 +230,7 @@ class GoogleSitemap {
 				$lastmod = oos_is_not_null($result['last_mod']) ? $result['last_mod'] : $result['date_added'];
 				$changefreq = GOOGLE_SITEMAP_PROD_CHANGE_FREQ;
 				$ratio = $top > 0 ? $result['products_ordered']/$top : 0;
-				$priority = $ratio < .1 ? .1 : number_format($ratio, 1, '.', ''); 
+				$priority = $ratio < .1 ? .1 : number_format($ratio, 1, '.', '');
 
 				$container[] = array('loc' => htmlspecialchars(utf8_encode($location)),
 									'lastmod' => date ("Y-m-d", strtotime($lastmod)),
@@ -313,7 +313,7 @@ class GoogleSitemap {
 
 
     /**
-     * public function to retrieve full cPath from category ID 
+     * public function to retrieve full cPath from category ID
      *
      * @param mixed $cID Could contain cPath or single category_id
      * @return string Full cPath string
@@ -343,7 +343,7 @@ class GoogleSitemap {
 		$dbconn =& oosDBGetConn();
 		$oostable =& oosDBGetTables();
 
-		$sql = "SELECT parent_id 
+		$sql = "SELECT parent_id
                FROM " . $oostable['categories'] . "
                WHERE categories_id='" . intval($categories_id) . "'";
 
