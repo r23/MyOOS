@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Yoast SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-09-26 12:55:34+0000\n"
+"PO-Revision-Date: 2017-09-30 08:15:45+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,29 +11,43 @@ msgstr ""
 "Language: de\n"
 "Project-Id-Version: Plugins - Yoast SEO - Stable (latest release)\n"
 
+#. translators: %1$s expands to the translated name of the post type, %2$s
+#. expands to the anchor opening tag, %3$s to the anchor closing tag.
+#: admin/watchers/class-slug-change-watcher.php:103
+msgid "You just changed the URL of this %1$s. To ensure your visitors do not see a 404 on the old URL, you should create a redirect. %2$sLearn how to create redirects here.%3$s"
+msgstr "Du hast gerade die URL von %1$s geändert. Um sicher zu gehen, dass deine Besucher keinen 404 auf deiner alten URL senden, solltest du eine Weiterleitung erstellen. %2$sLerne hier, wie man Weiterleitungen erstellt.%3$s"
+
 #. translators: %1$s expands to an opening strong tag, %2$s expands to a
 #. closing strong tag
 #: admin/statistics/class-statistics-service.php:201
 msgid "Posts with a %1$sgood%2$s SEO score"
-msgstr "Beiträge mit %1$sguter%2$s SEO Score"
+msgstr "Beiträge mit %1$sguten%2$s SEO-Wert"
 
 #. translators: %1$s expands to an opening strong tag, %2$s expands to a
 #. closing strong tag
 #: admin/statistics/class-statistics-service.php:199
 msgid "Posts with an %1$sOK%2$s SEO score"
-msgstr "Beiträge mit %1$sOK%2$s SEO Score"
+msgstr "Beiträge mit %1$sakzeptablen%2$s SEO-Wert"
 
 #. translators: %1$s expands to an opening strong tag, %2$s expands to a
 #. closing strong tag
 #: admin/statistics/class-statistics-service.php:197
 msgid "Posts with a %1$sneeds improvement%2$s SEO score"
-msgstr "Beiträge mit %1$sverbesserungsfähiger%2$s SEO Score"
+msgstr "Beiträge mit %1$sverbesserungsfähigen%2$s SEO-Wert"
 
 #. translators: %1$s expands to an opening strong tag, %2$s expands to a
 #. closing strong tag
 #: admin/statistics/class-statistics-service.php:195
 msgid "Posts %1$swithout%2$s a focus keyword"
 msgstr "Beiträge %1$sohne%2$s ein Fokus-Keyword"
+
+#: admin/statistics/class-statistics-service.php:63
+msgid "Hey, your SEO is doing pretty well! Check out the stats:"
+msgstr "Hey, dein SEO ist ziemlich gut! Sieh dir die Statistiken an:"
+
+#: admin/statistics/class-statistics-service.php:59
+msgid "You don't have any published posts, your SEO scores will appear here once you make your first post!"
+msgstr "Du hast noch keine veröffentlichten Beiträge, deine SEO-Werte werden hier erscheinen, wenn du deinen ersten Beitrag erstellt hast!"
 
 #: admin/config-ui/fields/class-field-site-type.php:26
 msgid "Something else"
@@ -62,6 +76,26 @@ msgstr "Ein Online-Shop"
 #: admin/config-ui/fields/class-field-site-type.php:20
 msgid "A blog"
 msgstr "Ein Blog"
+
+#: admin/config-ui/fields/class-field-environment.php:23
+msgid "Option B: My site is under construction and should not be indexed"
+msgstr "Option B: Meine Seite befindet sich im Aufbau und sollte nicht indiziert werden."
+
+#: admin/config-ui/fields/class-field-environment.php:22
+msgid "Option A: My site is live and ready to be indexed"
+msgstr "Option A: Meine Seite ist live und bereit für die Indexierung"
+
+#: admin/config-ui/fields/class-field-environment.php:16
+msgid "Please specify if your site is under construction or already active."
+msgstr "Bitte wähle ob deine Seite sich im Aufbau befindet oder bereits aktiv ist."
+
+#: admin/config-ui/fields/class-field-company-or-person.php:19
+msgid ""
+"This information will be used in Google's Knowledge Graph Card, the big\n"
+" block of information you see on the right side of the search results."
+msgstr ""
+"Diese Information wird in der Google's Knowledge Graph Karte verwendet, der große\n"
+"Block mit Informationen, den du auf der rechten Seite in den Suchergebnissen siehst."
 
 #. translators: %s expands to Yoast SEO.
 #: admin/config-ui/class-configuration-page.php:131
@@ -852,27 +886,27 @@ msgstr "Markierungen sind in der aktuellen Ansicht deaktiviert."
 
 #: languages/yoast-seo-js.php:338
 msgid "Content optimization: Good SEO score"
-msgstr "Inhalts-Optimierung: guter SEO Wert"
+msgstr "Inhalts-Optimierung: guter SEO-Wert"
 
 #: languages/yoast-seo-js.php:335
 msgid "Good SEO score"
-msgstr "Guter SEO Wert"
+msgstr "Guter SEO-Wert"
 
 #: languages/yoast-seo-js.php:329
 msgid "Content optimization: OK SEO score"
-msgstr "Inhalts-Optimierung: akzeptabler SEO Wert"
+msgstr "Inhalts-Optimierung: akzeptabler SEO-Wert"
 
 #: languages/yoast-seo-js.php:326
 msgid "OK SEO score"
-msgstr "Ausreichender SEO Wert"
+msgstr "Ausreichender SEO-Wert"
 
 #: languages/yoast-seo-js.php:320
 msgid "Content optimization: Bad SEO score"
-msgstr "Inhalts-Optimierung: schwacher SEO Wert"
+msgstr "Inhalts-Optimierung: schwacher SEO-Wert"
 
 #: languages/yoast-seo-js.php:317
 msgid "Bad SEO score"
-msgstr "Schlechter SEO Wert"
+msgstr "Schlechter SEO-Wert"
 
 #: languages/yoast-seo-js.php:314
 msgid "Content optimization: Has feedback"
@@ -2349,7 +2383,7 @@ msgstr "Add-ons"
 
 #: admin/class-meta-columns.php:65 admin/taxonomy/class-taxonomy-columns.php:51
 msgid "SEO score"
-msgstr "SEO Wert"
+msgstr "SEO-Wert"
 
 #: admin/metabox/class-metabox.php:67
 #: admin/taxonomy/class-taxonomy-content-fields.php:19
