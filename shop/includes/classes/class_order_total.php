@@ -35,7 +35,7 @@
         $sLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : DEFAULT_LANGUAGE;
 
         reset($this->modules);
-        while (list(, $value) = each($this->modules)) {
+        foreach ($this->modules as $value) {
           include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/modules/order_total/' . $value;
           include_once MYOOS_INCLUDE_PATH . '/includes/modules/order_total/' . $value;
 
@@ -49,7 +49,7 @@
       $order_total_array = array();
       if (is_array($this->modules)) {
         reset($this->modules);
-        while (list(, $value) = each($this->modules)) {
+        foreach ($this->modules as $value) {
           $class = substr($value, 0, strrpos($value, '.'));
           if ($GLOBALS[$class]->enabled) {
             $GLOBALS[$class]->output = array();
@@ -75,7 +75,7 @@
       $output_string = '';
       if (is_array($this->modules)) {
         reset($this->modules);
-        while (list(, $value) = each($this->modules)) {
+        foreach ($this->modules as $value) {
           $class = substr($value, 0, strrpos($value, '.'));
           if ($GLOBALS[$class]->enabled) {
             $size = count($GLOBALS[$class]->output);
@@ -128,7 +128,7 @@
         $close_string  .= '<tr><td width="100%"></td></tr>';
         reset($this->modules);
         $output_string = '';
-        while (list(, $value) = each($this->modules)) {
+        foreach ($this->modules as $value) {
           $class = substr($value, 0, strrpos($value, '.'));
           if ($GLOBALS[$class]->enabled) {
             if ($GLOBALS[$class]->credit_class) {
@@ -169,7 +169,7 @@
     public function update_credit_account($i) {
       if (MODULE_ORDER_TOTAL_INSTALLED) {
         reset($this->modules);
-        while (list(, $value) = each($this->modules)) {
+        foreach ($this->modules as $value) {
           $class = substr($value, 0, strrpos($value, '.'));
           if ( ($GLOBALS[$class]->enabled && $GLOBALS[$class]->credit_class) ) {
             $GLOBALS[$class]->update_credit_account($i);
@@ -190,7 +190,7 @@
 
       if (MODULE_ORDER_TOTAL_INSTALLED) {
         reset($this->modules);
-        while (list(, $value) = each($this->modules)) {
+        foreach ($this->modules as $value) {
           $class = substr($value, 0, strrpos($value, '.'));
           if ( ($GLOBALS[$class]->enabled && $GLOBALS[$class]->credit_class) ) {
             $post_var = 'c' . $GLOBALS[$class]->code;
@@ -215,7 +215,7 @@
         $total_deductions  = 0;
         reset($this->modules);
         $order_total = $oOrder->info['total'];
-        while (list(, $value) = each($this->modules)) {
+        foreach ($this->modules as $value) {
           $class = substr($value, 0, strrpos($value, '.'));
           if ( ($GLOBALS[$class]->enabled && $GLOBALS[$class]->credit_class) ) {
             $total_deductions += $GLOBALS[$class]->pre_confirmation_check($order_total);
@@ -236,7 +236,7 @@
     public function apply_credit() {
       if (MODULE_ORDER_TOTAL_INSTALLED) {
         reset($this->modules);
-        while (list(, $value) = each($this->modules)) {
+        foreach ($this->modules as $value) {
           $class = substr($value, 0, strrpos($value, '.'));
           if ( ($GLOBALS[$class]->enabled && $GLOBALS[$class]->credit_class) ) {
             $GLOBALS[$class]->apply_credit();
@@ -252,7 +252,7 @@
 
       if (MODULE_ORDER_TOTAL_INSTALLED) {
         reset($this->modules);
-        while (list(, $value) = each($this->modules)) {
+        foreach ($this->modules as $value) {
           $class = substr($value, 0, strrpos($value, '.'));
           if ( ($GLOBALS[$class]->enabled && $GLOBALS[$class]->credit_class) ) {
             $_SESSION[$post_var] = 'c' . $GLOBALS[$class]->code;

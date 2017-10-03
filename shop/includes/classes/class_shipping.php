@@ -37,7 +37,7 @@
           $include_modules[] = array('class' => substr($module['id'], 0, strpos($module['id'], '_')), 'file' => substr($module['id'], 0, strpos($module['id'], '_')) . '.' . substr($_SERVER['PHP_SELF'], (strrpos($_SERVER['PHP_SELF'], '.')+1)));
         } else {
           reset($this->modules);
-          while (list(, $value) = each($this->modules)) {
+          foreach ($this->modules as $value) {
             $class = substr($value, 0, strrpos($value, '.'));
             $include_modules[] = array('class' => $class, 'file' => $value);
           }
@@ -78,7 +78,7 @@
         $include_quotes = array();
 
         reset($this->modules);
-        while (list(, $value) = each($this->modules)) {
+        foreach ($this->modules as $value) {
           $class = substr($value, 0, strrpos($value, '.'));
           if (oos_is_not_null($module)) {
             if ( ($module == $class) && ($GLOBALS[$class]->enabled) ) {
@@ -104,7 +104,7 @@
         $rates = array();
 
         reset($this->modules);
-        while (list(, $value) = each($this->modules)) {
+        foreach ($this->modules as $value) {
           $class = substr($value, 0, strrpos($value, '.'));
           if ($GLOBALS[$class]->enabled) {
             $quotes = $GLOBALS[$class]->quotes;
