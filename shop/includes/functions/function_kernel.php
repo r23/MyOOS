@@ -489,7 +489,7 @@ function oos_redirect($sUrl) {
     $sUrl = '';
     if (is_array($urlValues) && (count($urlValues) > 0)) {
       reset($urlValues);
-      while (list($sKey, $sValue) = each($urlValues)) {
+      foreach($urlValues as $sKey => $sValue) {	  
         if (!empty($sValue)) {
           if ( ($sKey != $session->getName()) && (!in_array($sKey, $aParameters)) && (!in_array($sKey, $aExclude)) ) {
             $sUrl .= $sKey . '=' . rawurlencode($sValue) . '&amp;';
@@ -518,7 +518,8 @@ function oos_redirect($sUrl) {
     $sUrl = '';
     if (is_array($_POST) && (count($_POST) > 0)) {
       reset($_POST);
-      while (list($sKey, $sValue) = each($_POST)) {
+	  foreach($_POST as $sKey => $sValue) {		  
+		  
         if ( (!empty($sValue)) && (!is_array($sValue)) ) {
           if ( ($sKey != $session->getName())  && (!in_array($sKey, $aParameters))  && (!in_array($sKey, $aExclude)) ) {
             $sUrl .= $sKey . '=' . rawurlencode($sValue) . '&amp;';
@@ -956,7 +957,7 @@ function oos_round($number, $precision) {
   * Return a product ID with attributes
   *
   * @param $prid
-  * @param $params
+  * @param $parameters
   * @return string
   */
   function oos_get_uprid($prid, $parameters) {
@@ -967,8 +968,7 @@ function oos_round($number, $precision) {
         $attributes_check = TRUE;
         $attributes_ids = '';
 
-        reset($parameters);
-        while (list($option, $sValue) = each($parameters)) {
+		foreach($parameters as $option => $sValue) {	
           if (is_numeric($option) && is_numeric($sValue)) {
             $attributes_ids .= '{' . intval($option) . '}' . intval($sValue);
           } elseif (strstr($option, TEXT_PREFIX)) {

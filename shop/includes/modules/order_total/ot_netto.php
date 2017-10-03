@@ -40,7 +40,7 @@
       $tax_total = 0;
 
       reset($oOrder->info['tax_groups']);
-      while (list($key, $value) = each($oOrder->info['tax_groups'])) {
+      foreach($oOrder->info['tax_groups'] as $key => $value) {		  
         // sum all tax values to calculate total tax:
         if ($value > 0) $tax_total += $value;
       }

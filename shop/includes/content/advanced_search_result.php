@@ -31,7 +31,8 @@ if ( (isset($_GET['keywords']) && empty($_GET['keywords'])) &&
 	oos_redirect(oos_href_link($aContents['advanced_search'], 'errorno=1'));
 
 } else {
-	  
+	require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_search.php';
+	
 	$keywords = $_GET['keywords'] = isset($_GET['keywords']) && !empty($_GET['keywords']) ? stripslashes(trim(urldecode($_GET['keywords']))) : FALSE;
 	$search_in_description = $_GET['search_in_description'] = isset($_GET['search_in_description']) && is_numeric($_GET['search_in_description']) ? (int)$_GET['search_in_description'] : 0;
 	$categories_id = $_GET['categories_id'] = isset($_GET['categories_id']) && is_numeric($_GET['categories_id']) ? (int)$_GET['categories_id'] : FALSE;
@@ -125,7 +126,7 @@ if ($error == 1) {
 
     $column_list = array();
     reset($define_list);
-    while (list($column, $value) = each($define_list)) {
+    foreach($define_list as $column => $value) {
       if ($value) $column_list[] = $column;
     }
 

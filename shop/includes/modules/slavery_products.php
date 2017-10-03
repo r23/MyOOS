@@ -36,7 +36,7 @@
 
   $column_list = array();
   reset($define_list);
-  while (list($column, $value) = each($define_list)) {
+  foreach($define_list as $column => $value) {	  
     if ($value) $column_list[] = $column;
   }
 

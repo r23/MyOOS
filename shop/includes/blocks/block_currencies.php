@@ -28,7 +28,7 @@ if (isset($oCurrencies) && is_object($oCurrencies)) {
     reset($oCurrencies->currencies);
 
     $aCurrencies = array();	
-    while (list($sKey, $value) = each($oCurrencies->currencies)) {
+    foreach($oCurrencies->currencies as $sKey => $value) {		
 		$aCurrencies[] = array('id' => $sKey, 'text' => $value['title']);
     }
 	

@@ -351,7 +351,7 @@
           } else {  
             $ratio1 = $od_amount/$amount;
             reset($oOrder->info['tax_groups']);
-            while (list($key, $value) = each($oOrder->info['tax_groups'])) {
+            foreach($oOrder->info['tax_groups'] as $key => $value) {				
               $tax_rate = oos_get_tax_rate_from_desc($key);
               $net = $tax_rate * $oOrder->info['tax_groups'][$key];
               if ($net>0) {
@@ -371,7 +371,7 @@
             $oOrder->info['tax_groups'][$tax_desc] -= $tod_amount;
           } else {
             reset($oOrder->info['tax_groups']);
-            while (list($key, $value) = each($oOrder->info['tax_groups'])) {
+            foreach($oOrder->info['tax_groups'] as $key => $value) {				
               $god_amout=0;
               $tax_rate = oos_get_tax_rate_from_desc($key);
               $net = $tax_rate * $oOrder->info['tax_groups'][$key];
@@ -528,8 +528,7 @@ function get_product_price($product_id) {
 // attributes price
       if (isset($_SESSION['cart']->contents[$product_id]['attributes'])) {
         reset($_SESSION['cart']->contents[$product_id]['attributes']);
-        while (list($option, $value) = each($_SESSION['cart']->contents[$product_id]['attributes'])) {
-
+        foreach($_SESSION['cart']->contents[$product_id]['attributes'] as $option => $value) {
           $products_attributestable = $oostable['products_attributes'];
           $attribute_price_query = $dbconn->Execute("SELECT options_values_price, price_prefix FROM $products_attributestable WHERE products_id = '" . (int)$prid . "' AND options_id = '" . oos_db_input($option) . "' AND options_values_id = '" . oos_db_input($value) . "'");
           $attribute_price = $attribute_price_query->fields;

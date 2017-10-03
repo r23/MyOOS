@@ -177,7 +177,7 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
       }
       $query = substr($query, 0, -2) . ') values (';
       reset($data);
-      while (list(, $value) = each($data)) {
+      foreach ($data as $value) {		  
         switch ((string)$value) {
           case 'now()':
             $query .= 'now(), ';
@@ -195,7 +195,7 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
       $query = substr($query, 0, -2) . ')';
     } elseif ($action == 'UPDATE') {
       $query = 'UPDATE ' . $table . ' set ';
-      while (list($columns, $value) = each($data)) {
+      foreach($data as $columns => $value) {		  
         switch ((string)$value) {
           case 'now()':
             $query .= $columns . ' = now(), ';
@@ -220,7 +220,8 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
       return trim(stripslashes($sStr));
     } elseif (is_array($sStr)) {
       reset($sStr);
-      while (list($key, $value) = each($sStr)) {
+      foreach($sStr as $key => $value) {		  
+		  
         $sStr[$key] = oos_db_prepare_input($value);
       }
       return $sStr;

@@ -315,13 +315,13 @@
         $ratio1 = round($od_amount / $amount,2);
         $tod_amount = 0;
         reset($oOrder->info['tax_groups']);
-        while (list($key, $value) = each($oOrder->info['tax_groups'])) {
+        foreach($oOrder->info['tax_groups'] as $key => $value) {			
           $tax_rate = oos_get_tax_rate_from_desc($key);
           $total_net += $tax_rate * $oOrder->info['tax_groups'][$key];
         }
         if ($od_amount > $total_net) $od_amount = $total_net;
         reset($oOrder->info['tax_groups']);
-        while (list($key, $value) = each($oOrder->info['tax_groups'])) {
+        foreach($oOrder->info['tax_groups'] as $key => $value) {			
           $tax_rate = oos_get_tax_rate_from_desc($key);
           $net = $tax_rate * $oOrder->info['tax_groups'][$key];
           if ($net > 0) {

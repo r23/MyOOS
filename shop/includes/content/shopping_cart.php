@@ -38,8 +38,7 @@ if (isset($_SESSION)) {
 
 				// Push all attributes information in an array
 				if (isset($products[$i]['attributes']) && is_array($products[$i]['attributes'])) {
-					while (list($option, $value) = each($products[$i]['attributes'])) {
-
+					foreach($products[$i]['attributes'] as $option => $value) {
 						$products_id = oos_get_product_id($products[$i]['id']);
 
 						$products_optionstable = $oostable['products_options'];
