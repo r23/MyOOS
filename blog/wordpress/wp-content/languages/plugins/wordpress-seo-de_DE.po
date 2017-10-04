@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Yoast SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-09-30 08:15:45+0000\n"
+"PO-Revision-Date: 2017-10-01 12:50:57+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -15,25 +15,25 @@ msgstr ""
 #. expands to the anchor opening tag, %3$s to the anchor closing tag.
 #: admin/watchers/class-slug-change-watcher.php:103
 msgid "You just changed the URL of this %1$s. To ensure your visitors do not see a 404 on the old URL, you should create a redirect. %2$sLearn how to create redirects here.%3$s"
-msgstr "Du hast gerade die URL von %1$s geändert. Um sicher zu gehen, dass deine Besucher keinen 404 auf deiner alten URL senden, solltest du eine Weiterleitung erstellen. %2$sLerne hier, wie man Weiterleitungen erstellt.%3$s"
+msgstr "Du hast gerade die URL von %1$s geändert. Um sicherzugehen, dass deine Besucher keinen 404-Fehler auf deiner alten URL sehen, solltest du eine Weiterleitung erstellen. %2$sLerne hier, wie man Weiterleitungen erstellt.%3$s"
 
 #. translators: %1$s expands to an opening strong tag, %2$s expands to a
 #. closing strong tag
 #: admin/statistics/class-statistics-service.php:201
 msgid "Posts with a %1$sgood%2$s SEO score"
-msgstr "Beiträge mit %1$sguten%2$s SEO-Wert"
+msgstr "Beiträge mit %1$sgutem%2$s SEO-Wert"
 
 #. translators: %1$s expands to an opening strong tag, %2$s expands to a
 #. closing strong tag
 #: admin/statistics/class-statistics-service.php:199
 msgid "Posts with an %1$sOK%2$s SEO score"
-msgstr "Beiträge mit %1$sakzeptablen%2$s SEO-Wert"
+msgstr "Beiträge mit %1$sakzeptablem%2$s SEO-Wert"
 
 #. translators: %1$s expands to an opening strong tag, %2$s expands to a
 #. closing strong tag
 #: admin/statistics/class-statistics-service.php:197
 msgid "Posts with a %1$sneeds improvement%2$s SEO score"
-msgstr "Beiträge mit %1$sverbesserungsfähigen%2$s SEO-Wert"
+msgstr "Beiträge mit %1$sverbesserungswürdigem%2$s SEO-Wert"
 
 #. translators: %1$s expands to an opening strong tag, %2$s expands to a
 #. closing strong tag
@@ -77,6 +77,27 @@ msgstr "Ein Online-Shop"
 msgid "A blog"
 msgstr "Ein Blog"
 
+#. translators: %1$s resolves to the home_url of the blog.
+#: admin/config-ui/fields/class-field-site-type.php:18
+msgid "What does the site %1$s represent?"
+msgstr "Was wird durch die Website %1$s repräsentiert?"
+
+#: admin/config-ui/fields/class-field-multiple-authors.php:18
+msgid ""
+"If you choose no, your author archives will be deactivated to prevent\n"
+" duplicate content issues."
+msgstr ""
+"Wenn du Nein wählst, werden deine Autor-Archive deaktiviert,\n"
+"um Fälle von Duplicate Content zu vermeiden."
+
+#: admin/config-ui/fields/class-field-google-search-console-intro.php:28
+msgid ""
+"Note: we don't store your data in any way and don't have full access to your account. \n"
+"Your privacy is safe with us."
+msgstr ""
+"Hinweis: Wir speichern deine Daten in keiner Weise und haben keinen vollständigen Zugang zu deinem Konto.\n"
+"Deine Privatsphäre ist bei uns sicher."
+
 #: admin/config-ui/fields/class-field-environment.php:23
 msgid "Option B: My site is under construction and should not be indexed"
 msgstr "Option B: Meine Seite befindet sich im Aufbau und sollte nicht indiziert werden."
@@ -84,6 +105,16 @@ msgstr "Option B: Meine Seite befindet sich im Aufbau und sollte nicht indiziert
 #: admin/config-ui/fields/class-field-environment.php:22
 msgid "Option A: My site is live and ready to be indexed"
 msgstr "Option A: Meine Seite ist live und bereit für die Indexierung"
+
+#: admin/config-ui/fields/class-field-environment.php:18
+msgid ""
+"Choose under construction if you want to keep the site out of the index\n"
+" of search engines. Don't forget to activate it once you're ready to\n"
+" publish your site."
+msgstr ""
+"Wähle Im Aufbau, falls du deine Website aus dem Index von\n"
+"Suchmachinen heraushalten willst. Denke daran, es zu aktivieren,\n"
+"sobald du soweit bist, deine Website zu veröffentlichen."
 
 #: admin/config-ui/fields/class-field-environment.php:16
 msgid "Please specify if your site is under construction or already active."
@@ -96,6 +127,10 @@ msgid ""
 msgstr ""
 "Diese Information wird in der Google's Knowledge Graph Karte verwendet, der große\n"
 "Block mit Informationen, den du auf der rechten Seite in den Suchergebnissen siehst."
+
+#: admin/config-ui/fields/class-field-company-or-person.php:17
+msgid "Does your site represent a person or company?"
+msgstr "Repräsentiert deine Website eine Person oder ein Unternehmen?"
 
 #. translators: %s expands to Yoast SEO.
 #: admin/config-ui/class-configuration-page.php:131
@@ -331,9 +366,19 @@ msgstr "Scrolle, um die Vorschau zu sehen."
 msgid "Enter authorization code here..."
 msgstr "Autorisierungscode hier eingeben&hellip;"
 
+#. translators: 1: open link tag 2: close link tag
+#: admin/views/tabs/dashboard/features.php:45
+msgid "The Cornerstone content functionality enables you to mark and filter cornerstone content on your website. %1$sRead more about how cornerstone content can help you improve your site structure.%2$s"
+msgstr "Die Cornerstone Content Funktionalität ermöglicht es dir, Cornerstone Content auf deiner Website zu markieren und zu filtern. %1$sErfahre mehr darüber, wie Cornerstone Content dir dabei helfen kann, die Struktur deiner Website zu verbessern.%2$s"
+
 #: admin/views/tabs/dashboard/features.php:41
 msgid "Cornerstone content"
-msgstr "Cornerstone Inhalt"
+msgstr "Cornerstone Content"
+
+#. translators: %s expands to Yoast SEO.
+#: admin/config-ui/fields/class-field-mailchimp-signup.php:25
+msgid "Your %1$s plugin is now set up. SEO, however, is subject to constant change. Sign up for our newsletter if you would like to keep up-to-date regarding %1$s, other plugins by Yoast and important news in the world of SEO."
+msgstr "Dein %1$s Plugin ist nun eingerichtet. SEO unterliegt jedoch ständigen Änderungen. Abonniere unseren Newsletter, falls du auf dem Laufenden bleiben möchtest bezüglich %1$s, weiterer Plugins von Yoast und über wichtige Neuigkeiten aus der Welt des SEO."
 
 #: admin/config-ui/fields/class-field-mailchimp-signup.php:20
 msgid "Stay up-to-date"
@@ -371,6 +416,11 @@ msgstr "Konfigurations-Hilfe"
 msgid "Configure %s"
 msgstr "Konfiguriere %s"
 
+#. translators: %s expands to 'Yoast SEO'.
+#: admin/config-ui/components/class-component-configuration-choices.php:30
+msgid "Please choose the %s configuration of your liking:"
+msgstr "Bitte wähle die gewünschte %s Konfiguration:"
+
 #: admin/config-ui/class-configuration-structure.php:64
 msgid "You might like"
 msgstr "Du könntest Gefallen finden an"
@@ -386,6 +436,11 @@ msgstr "Der Konfigurationsassistent hilft die, deine Website einfach zu konfigur
 #: admin/class-cornerstone-filter.php:39
 msgid "Cornerstone articles"
 msgstr "Cornerstone Beiträge"
+
+#. translators: 1: link open tag; 2: link close tag.
+#: admin/class-cornerstone-field.php:30
+msgid "This article is %1$scornerstone content%2$s"
+msgstr "Dieser Beitrag ist %1$sCornerstone Content%2$s"
 
 #: vendor/yoast/whip/src/messages/Whip_UpgradePhpMessage.php:49
 msgid "If you cannot upgrade your PHP version yourself, you can send an email to your host. We have %1$sexamples here%2$s. If they don't want to upgrade your PHP version, we would suggest you switch hosts. Have a look at one of our recommended %3$sWordPress hosting partners%4$s, they've all been vetted by our Yoast support team and provide all the features a modern host should provide."
@@ -847,6 +902,10 @@ msgstr "AKTIV"
 #: vendor/yoast/license-manager/class-license-manager.php:136
 msgid "<b>Warning!</b> Your %s license is inactive which means you're missing out on updates and support! <a href=\"%s\">Activate your license</a> or <a href=\"%s\" target=\"_blank\">get a license here</a>."
 msgstr "<b>Warnung!</b> Deine %s Lizenz ist abgelaufen und Du profitierst zur Zeit nicht mehr von den Aktualisierungen und unserem Support! <a href=\"%s\">Aktiviere Deine Lizenz</a> oder <a href=\"%s\" target=\"_blank\">hole Dir eine Lizenz</a>."
+
+#: vendor/yoast/license-manager/class-license-manager.php:134
+msgid "<b>Warning!</b> You didn't set your %s license key yet, which means you're missing out on updates and support! <a href=\"%s\">Enter your license key</a> or <a href=\"%s\" target=\"_blank\">get a license here</a>."
+msgstr "<b>Warnung!</b> Du hast deinen %s-Lizenzschlüssel bisher nicht eingetragen und erhältst so keine Aktualisierungen und Support! <a href=\"%s\">Gib deinen Lizenzschlüssel ein</a> oder <a href=\"%s\" target=\"_blank\">erhalte hier eine Lizenz</a>."
 
 #: languages/yoast-seo-js.php:392
 msgid "Please provide an SEO title by editing the snippet below."
@@ -2337,6 +2396,12 @@ msgstr "Gesamte Website analysieren."
 msgid "Fetch the current status"
 msgstr "Aktuellen Status abfragen."
 
+#. translators: %1$s: opens a link to a related knowledge base article, %2$s:
+#. expands to Yoast SEO, %3$s: closes the link, %4$s: expands to Ryte.
+#: admin/onpage/class-ryte-service.php:75
+msgid "%1$s%2$s has not been able to fetch your site's indexability status%3$s from %4$s"
+msgstr "%1$s%2$s konnte den Indexierbarkeitsstatus deiner Website%3$s von %4$s nicht abrufen"
+
 #: admin/onpage/class-ryte-service.php:52
 msgid "Your homepage can be indexed by search engines."
 msgstr "Deine Homepage kann von Suchmaschinen indiziert werden."
@@ -3643,6 +3708,16 @@ msgstr "Metarobots"
 msgid "Take note:"
 msgstr "Beachte:"
 
+#. translators: 1: link open tag; 2: link close tag.
+#: admin/views/tabs/metas/home.php:30
+msgid "You can determine the title and description for the blog page by %1$sediting the blog page itself &raquo;%2$s"
+msgstr "Du kannst Titel und Beschreibung der Blogseite bestimmen, durch %1$sBearbeiten der Blogseite selbst &raquo;%2$s "
+
+#. translators: 1: link open tag; 2: link close tag.
+#: admin/views/tabs/metas/home.php:26
+msgid "You can determine the title and description for the front page by %1$sediting the front page itself &raquo;%2$s"
+msgstr "Du kannst Titel und Beschreibung der Startseite bestimmen, durch %1$sBearbeiten der Startseite selbst &raquo;%2$s "
+
 #: admin/views/tabs/metas/home.php:23
 msgid "Homepage &amp; Front page"
 msgstr "Homepage &amp; Startseite"
@@ -4435,7 +4510,7 @@ msgstr "Das Fokus-Keyword ist nicht in der URL dieser Seite enthalten. Wenn du d
 #. cornerstone content
 #: languages/yoast-seo-js.php:308
 msgid "You've used this focus keyword %1$s%2$d times before%3$s, it's probably a good idea to read %4$sthis post on cornerstone content%5$s and improve your keyword strategy."
-msgstr "Du hast dieses Fokus-Keyword %1$s%2$d mal zuvor verwendet%3$s, es ist vielleicht eine gute Idee, %4$sdiesen Beitrag über die Grundlagen zu Inhalten%5$s zu lesen und deine Keyword-Strategie zu verbessern. "
+msgstr "Du hast dieses Fokus-Keyword %1$s%2$d mal zuvor verwendet%3$s, es ist vielleicht eine gute Idee, %4$sdiesen Beitrag über Cornerstone Content%5$s zu lesen und deine Keyword-Strategie zu verbessern."
 
 #. Translators: %1$s and %2$s expand to an admin link where the focus keyword
 #. is already used
@@ -4577,6 +4652,11 @@ msgstr "Standard fuer diesen Artikeltyp, aktuell: %s"
 #: admin/taxonomy/class-taxonomy-settings-fields.php:101
 msgid "Warning: even though you can set the meta robots setting here, the entire site is set to noindex in the sitewide privacy settings, so these settings won't have an effect."
 msgstr "Achtung: Auch wenn hier die Meta-Robots-Einstellungen gesetzt werden können, - falls die gesamte Website auf \"noindex\" gesetzt ist, bleiben die Eintragungen hier ohne Wirkung."
+
+#. translators: 1: link open tag; 2: link close tag.
+#: admin/metabox/class-metabox.php:90
+msgid "If you type something above it will override your %1$smeta keywords template%2$s."
+msgstr "Falls du oben etwas eingibst, wird es deine %1$sMeta Suchbegriffe-Vorlage%2$s überschreiben."
 
 #: admin/metabox/class-metabox.php:87
 #: admin/taxonomy/class-taxonomy-settings-fields.php:37
