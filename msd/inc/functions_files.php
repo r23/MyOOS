@@ -274,7 +274,7 @@ function FileList($multi=0)
 		ksort($db_summary_size);
 
 		$i=0;
-		while (list ($key,$val)=each($db_summary_anzahl))
+		foreach($db_summary_anzahl as $key => $val) 		
 		{
 			$cl=($i++%2) ? "dbrow":"dbrow1";
 			$keyaus=($key=="~unknown") ? '<em>'.$lang['L_NO_MSD_BACKUPFILE'].'</em>':$key;
