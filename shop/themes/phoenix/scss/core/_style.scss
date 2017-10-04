@@ -17,6 +17,20 @@ body {
   
 }
 
+body {
+  &.has-image-bg section, &.has-video-bg section {
+    background-color: #fff;
+  }
+}
+
+body #wrapper {
+  overflow: hidden;
+  min-height: 100%;
+}
+
+.container {
+	position:relative;
+}
 
 a {
   color: $m-color-primary;

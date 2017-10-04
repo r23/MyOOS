@@ -86,7 +86,12 @@ $m-color-danger:              #d9534f !default;
 $m-color-danger-dark-v1:      darken($m-color-danger, 2%) !default;
 $m-color-danger-dark-v2:      darken($m-color-danger, 5%) !default;
 
-
+//colors
+$white: #fff;
+$black_5: rgba(0,0,0,0.05);
+$black_10: rgba(0,0,0,.1);
+$color_storm_dust_approx: #666;
+$color_mine_shaft_approx: #333;
 
 //
 // Colors

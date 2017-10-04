@@ -2,6 +2,33 @@
 // Buttons
 //
 
+/** Mobile Button 
+ ********************** **/
+
+#topNav button.btn-mobile {
+  display: none;
+  color: #333;
+  display: none;
+  padding: 6px 10px;
+  float: right;
+  margin-top: 13px;
+  margin-right: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  i {
+    padding: 0;
+    margin: 0;
+    font-size: 21px;
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  #topNav button.btn-mobile {
+    display: inline-block;
+  }
+}
+	
 /* Button Styles
 ------------------------------------*/
 /* General Button Styles */

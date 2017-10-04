@@ -1,0 +1,130 @@
+#topMain>li>a {
+	display: block;
+	position: relative;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+#topMain>li>a>.badge {
+	margin-top: 8px;
+}
+#topMain .dropdown-toggle::after {
+	border: 0;
+}
+#header .badge,
+#slider .badge,
+#slider .page-header {
+	border-radius: 2px;
+}
+
+.breadcrumb>li+li:before {
+    padding: 0 7px 0 5px;
+}
+
+ul.nav>li>a {
+	display: block;
+}
+ul.list-group>li {
+	list-style: none;
+}
+.breadcrumb>li {
+	display: inline-block;
+}
+ul.nav.nav-pills>li {
+	display: inline-block;
+}
+ul.list-group li>a,
+ul.list-group ul:not(.collapse) {
+	display: block;
+	width: 100%;
+}
+ul.list-group ul {
+	width: 100%;
+}
+ul.list-group li>a:after {
+	border: 0;
+}
+ul.dropdown-menu a {
+	display: block;
+	width: 100%;
+}
+ul.row.list-inline>li,
+ul.list-unstyled.list-inline>li {
+	margin-right: 0;
+}
+.list-inline>li {
+    display: inline-block;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+.badge {
+	padding:.3em .6em .4em;
+}
+pre {
+	font-size:13px;
+}
+ul.list-unstyled .dropdown-toggle::after {
+	border:0;
+}
+.card-default>.card-heading {
+    color: #333;
+    background-color: #f5f5f5;
+    border-color: #ddd;
+}
+.card-heading {
+    padding: 10px 15px;
+}
+.card-heading>h1,
+.card-heading>h2,
+.card-heading>h3,
+.card-heading>h4,
+.card-heading>h5,
+.card-heading>h6 {
+	margin:0;
+}
+h1.card-title,
+h2.card-title,
+h3.card-title,
+h4.card-title,
+h5.card-title,
+h6.card-title {
+	font-size:16px;
+}
+.card-title a {
+	display: block;
+	width: 100%;
+}
+.media-body, 
+.media-left, 
+.media-right {
+    display: table-cell;
+    vertical-align: top;
+}
+.media {
+    margin-top: 15px;
+}
+.dropdown-menu>li>a {
+    font-weight: 400;
+    color: #333;
+}
+.dropdown-menu>.active>a, .dropdown-menu>.active>a:focus, .dropdown-menu>.active>a:hover {
+    color: #fff;
+    text-decoration: none;
+    background-color: #337ab7;
+    outline: 0;
+}
+.dropdown-menu .divider {
+    height: 1px;
+    margin: 9px 0;
+    overflow: hidden;
+    background-color: #e5e5e5;
+    padding: 0;
+}
+ul.pagination {
+	display: inline-block;
+	margin: 20px 0;
+}
+ul.pagination>li {
+	float: left;
+}
+
+
