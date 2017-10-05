@@ -165,7 +165,7 @@
 
 							<!-- QUICK SHOP CART -->
 							<li class="quick-cart">
-								<a href="#">
+								<a href="{html_href_link content=$filename.shopping_cart}">
 									<span class="badge badge-aqua btn-sm badge-corner">{$cart_count_contents}</span>
 									<i class="fa fa-shopping-cart"></i> 
 								</a>
@@ -195,8 +195,8 @@
 										<span class="float-left"><strong>{$lang.sub_title_sub_total}:</strong> {$cart_show_total}</span>
 									</div>
 									<!-- /quick cart footer -->
-
-								{/if}									
+								{/if}	
+								
 
 								</div>
 							</li>

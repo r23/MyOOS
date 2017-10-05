@@ -600,10 +600,6 @@ section.featured-grid div.row > div .ribbon:before, .modal-content {
 }
 
 
-.breadcrumb > li + li:before {
-  padding: 0 7px 0 5px;
-}
-
 ul {
   &.nav > li > a {
     display: block;
@@ -613,9 +609,6 @@ ul {
   }
 }
 
-.breadcrumb > li {
-  display: inline-block;
-}
 
 ul {
   &.nav.nav-pills > li {

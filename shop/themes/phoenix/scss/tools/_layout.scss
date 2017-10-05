@@ -16,19 +16,13 @@
 	border-radius: 2px;
 }
 
-.breadcrumb>li+li:before {
-    padding: 0 7px 0 5px;
-}
-
 ul.nav>li>a {
 	display: block;
 }
 ul.list-group>li {
 	list-style: none;
 }
-.breadcrumb>li {
-	display: inline-block;
-}
+
 ul.nav.nav-pills>li {
 	display: inline-block;
 }
