@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Yoast SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-10-01 12:50:57+0000\n"
+"PO-Revision-Date: 2017-10-04 20:56:18+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1991,6 +1991,12 @@ msgid "Product Management"
 msgstr "Produkt Management"
 
 #. translators: 1: link open tag; 2: link close tag.
+#: admin/metabox/class-metabox.php:74
+#: admin/taxonomy/class-taxonomy-content-fields.php:45
+msgid "This is the content analysis, a collection of content checks that analyze the content of your page. %1$sLearn more about the Content Analysis Tool%2$s."
+msgstr "Dies ist die Inhaltsanalyse, eine Sammlung von Inhalt-Überprüfungen, die den Inhalt deiner Seite analysieren. %1$sLerne mehr über das Inhaltsanalyse Werkzeug%2$s."
+
+#. translators: 1: link open tag; 2: link close tag.
 #: admin/metabox/class-metabox.php:80
 #: admin/taxonomy/class-taxonomy-content-fields.php:35
 msgid "Pick the main keyword or keyphrase that this post/page is about. %1$sLearn more about the Focus Keyword%2$s."
@@ -3055,6 +3061,11 @@ msgstr "Importiere aus All-in-One SEO"
 #: admin/views/tabs/tool/import-seo.php:25
 msgid "Import from HeadSpace2"
 msgstr "Importiere aus HeadSpace2"
+
+#. translators: 1: link open tag; 2: link close tag.
+#: admin/views/tabs/tool/import-seo.php:17
+msgid "If you've used another SEO plugin, try the %1$sSEO Data Transporter%2$s plugin to move your data into this plugin, it rocks!"
+msgstr "Wenn du ein anderes SEO Plugin genutzt hast, versuche mit dem %1$sSEO Data Transporter%2$s Plugin deine Daten in dieses Plugin zu verschieben."
 
 #: admin/views/tabs/tool/import-seo.php:13
 msgid "No doubt you've used an SEO plugin before if this site isn't new. Let's make it easy on you, you can import the data below. If you want, you can import first, check if it was imported correctly, and then import &amp; delete. No duplicate data will be imported."
