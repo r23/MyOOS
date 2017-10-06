@@ -1,9 +1,9 @@
-<div class="panel panel-default sidebar-menu">
-	<div class="panel-heading">
-		<h3 class="panel-title">{$block_heading_categories}</h3>
+<div class="card sidebar-menu">
+	<div class="card-header">
+		<h3 class="card-title">{$block_heading_categories}</h3>
 	</div>
 	
-	<div class="panel-body">
+	<div class="card-body">
 {strip}
 {foreach item=category from=$categories_contents}
 	{if $category.isGroupStart eq 1}<ul>{/if}

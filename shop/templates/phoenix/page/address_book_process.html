@@ -12,7 +12,7 @@
 <section class="mainContent clearfix userProfile">
 	<div class="container">
 		<div class="row">
-			<div class="col-xs-12">
+			<div class="col-md-12">
 				<div class="btn-group" role="group" aria-label="...">
 					<a href="{html_href_link content=$filename.account connection=SSL}" class="btn btn-secondary" role="button"><i class="fa fa-th" aria-hidden="true"></i>{$lang.login_block_my_account}</a>
 					<a href="{html_href_link content=$filename.account_edit connection=SSL}" class="btn btn-secondary" role="button"><i class="fa fa-user" aria-hidden="true"></i>{$lang.login_block_account_edit}</a>
@@ -23,14 +23,14 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-12">
+			<div class="col-md-12">
 				<div class="innerWrapper">
 
 					<div class="orderBox">
 					<h3>{$lang.category_personal}</h3>
 					</div>
 					<div class="row">
-						<div class="col-xs-12">	
+						<div class="col-md-12">	
 						
 							<form name="add_entry" id="add_entry" class="form-horizontal" action="{html_get_link connection=SSL}" method="POST" role="form">
 								<fieldset>
@@ -78,7 +78,7 @@
 								
 								{if $smarty.const.ACCOUNT_GENDER eq 'true'}
 									<div class="form-group">
-										<label class="col-sm-4 control-label" for="gender">{$lang.entry_gender} *</label>
+										<label class="col-sm-4 form-control-label" for="gender">{$lang.entry_gender} *</label>
 										<div class="col-sm-5">
 											<input type="radio" id="gender" name="gender" value="m" {if $male}checked="checked"{/if}> {$lang.male} <input type="radio" id="gender" name="gender" value="f" {if $female}checked="checked"{/if}> {$lang.female}
 										</div>						
@@ -86,13 +86,13 @@
 								{/if}
 								
 									<div class="form-group">
-										<label class="col-sm-4 control-label" for="firstname">{$lang.entry_first_name} *</label>
+										<label class="col-sm-4 form-control-label" for="firstname">{$lang.entry_first_name} *</label>
 										<div class="col-sm-5">
 											<input type="text" value="{$entry.entry_firstname}" class="form-control" id="firstname" name="firstname" placeholder="{$lang.entry_first_name}" />
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-sm-4 control-label" for="lastname">{$lang.entry_last_name} *</label>
+										<label class="col-sm-4 form-control-label" for="lastname">{$lang.entry_last_name} *</label>
 										<div class="col-sm-5">
 											<input type="text" value="{$entry.entry_lastname}" class="form-control" id="lastname" name="lastname" placeholder="{$lang.entry_last_name}" />
 										</div>
@@ -102,7 +102,7 @@
 									<hr />
 									<h3>{$lang.category_company}</h3>
 									<div class="form-group">
-										<label class="col-sm-4 control-label" for="company">{$lang.entry_company}</label>
+										<label class="col-sm-4 form-control-label" for="company">{$lang.entry_company}</label>
 										<div class="col-sm-5">
 											<input type="text" value="{$entry.entry_company}" class="form-control" id="company" name="company" placeholder="{$lang.entry_company}" />
 										</div>
@@ -110,7 +110,7 @@
 												
 								{if $smarty.const.ACCOUNT_OWNER eq 'true'}
 									<div class="form-group">
-										<label class="col-sm-4 control-label" for="company">{$lang.entry_owner}</label>
+										<label class="col-sm-4 form-control-label" for="company">{$lang.entry_owner}</label>
 										<div class="col-sm-5">
 											<input type="text" value="{$entry.entry_owner}" class="form-control" id="owner" name="owner" placeholder="{$lang.entry_owner}" />
 										</div>
@@ -119,7 +119,7 @@
 
 								{if $smarty.const.ACCOUNT_VAT_ID eq 'true'}
 									<div class="form-group">
-										<label class="col-sm-4 control-label" for="company">{$lang.entry_vat_id}</label>
+										<label class="col-sm-4 form-control-label" for="company">{$lang.entry_vat_id}</label>
 										<div class="col-sm-5">
 											<input type="text" value="{$entry.entry_vat_id}" class="form-control" id="vat_id" name="vat_id" placeholder="{$lang.entry_vat_id}" />
 										</div>
@@ -130,21 +130,21 @@
 									<hr />	
 									<h3>{$lang.category_address}</h3>
 									<div class="form-group">
-										<label class="col-sm-4 control-label" for="street_address">{$lang.entry_street_address} *</label>
+										<label class="col-sm-4 form-control-label" for="street_address">{$lang.entry_street_address} *</label>
 										<div class="col-sm-5">
 											<input type="text" value="{$entry.entry_street_address}" class="form-control" id="street_address" name="street_address" placeholder="{$lang.entry_street_address}" />
 										</div>
 									</div>
 							
 									<div class="form-group">
-										<label class="col-sm-4 control-label" for="postcode">{$lang.entry_post_code} *</label>
+										<label class="col-sm-4 form-control-label" for="postcode">{$lang.entry_post_code} *</label>
 										<div class="col-sm-5">
 											<input type="text" value="{$entry.entry_postcode}" class="form-control" id="postcode" name="postcode" placeholder="{$lang.entry_post_code}" />
 										</div>
 									</div>	
 
 									<div class="form-group">
-										<label class="col-sm-4 control-label" for="city">{$lang.entry_city} *</label>
+										<label class="col-sm-4 form-control-label" for="city">{$lang.entry_city} *</label>
 										<div class="col-sm-5">
 											<input type="text" value="{$entry.entry_city}" class="form-control" id="city" name="city" placeholder="{$lang.entry_city}" />
 										</div>
@@ -152,14 +152,14 @@
 							
 								{if $smarty.const.ACCOUNT_STATE eq 'true'}
 									<div class="form-group">
-										<label class="col-sm-4 control-label" for="state">{$lang.entry_state} *</label>
+										<label class="col-sm-4 form-control-label" for="state">{$lang.entry_state} *</label>
 										<div class="col-sm-5">
 											{oos_get_zone_name country_id=$entry.entry_country_id zone_id=$entry.entry_zone_id default_zone=$entry.entry_state}
 										</div>
 									</div>
 								{/if}
 									<div class="form-group">
-										<label class="col-sm-4 control-label" for="country">{$lang.entry_country} *</label>
+										<label class="col-sm-4 form-control-label" for="country">{$lang.entry_country} *</label>
 										<div class="col-sm-5">
 											{oos_get_country_list name=country selected=$entry.entry_country_id}
 										</div>

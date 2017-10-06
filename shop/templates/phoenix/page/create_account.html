@@ -11,7 +11,7 @@
 <section class="mainContent clearfix">
 	<div class="container">
 		<div class="row">
-			<div class="col-xs-12">
+			<div class="col-md-12">
 				<div class="innerWrapper clearfix">
 
 				{if $snapshot > 0 }
@@ -21,11 +21,11 @@
 				{/if}
 				
 				<!-- REGISTER -->
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h3 class="panel-title">{$lang.category_personal}</h3>
+				<div class="card ">
+					<div class="card-header">
+						<h3 class="card-title">{$lang.category_personal}</h3>
 					</div>
-					<div class="panel-body">
+					<div class="card-body">
 					<form name="create_account" id="create_account" class="form-horizontal" action="{html_get_link connection=SSL}" method="POST" role="form">
 						<fieldset>
 							<input type="hidden" name="action" value="process">
@@ -36,7 +36,7 @@
 						{/if}
 						{if $smarty.const.ACCOUNT_GENDER eq 'true'}
 							<div class="form-group">
-								<label class="col-sm-4 control-label" for="gender">{$lang.entry_gender} *</label>
+								<label class="col-sm-4 form-control-label" for="gender">{$lang.entry_gender} *</label>
 								<div class="col-sm-5">
 									<input type="radio" id="gender" name="gender" value="m"> {$lang.male} <input type="radio" id="gender" name="gender" value="f"> {$lang.female}
 								</div>						
@@ -44,28 +44,28 @@
 						{/if}				
 						
 							<div class="form-group">
-								<label class="col-sm-4 control-label" for="firstname">{$lang.entry_first_name} *</label>
+								<label class="col-sm-4 form-control-label" for="firstname">{$lang.entry_first_name} *</label>
 								<div class="col-sm-5">
 									<input type="text" value="{$smarty.post.firstname}" class="form-control" id="firstname" name="firstname" placeholder="{$lang.entry_first_name}" />
 								</div>
 							</div>
 
 							<div class="form-group">
-								<label class="col-sm-4 control-label" for="lastname">{$lang.entry_last_name} *</label>
+								<label class="col-sm-4 form-control-label" for="lastname">{$lang.entry_last_name} *</label>
 								<div class="col-sm-5">
 									<input type="text" value="{$smarty.post.lastname}" class="form-control" id="lastname" name="lastname" placeholder="{$lang.entry_last_name}" />
 								</div>
 							</div>
 						{if $smarty.const.ACCOUNT_DOB eq 'true'}
 							<div class="form-group">
-								<label class="col-sm-4 control-label" for="dob">{$lang.entry_date_of_birth} *</label>
+								<label class="col-sm-4 form-control-label" for="dob">{$lang.entry_date_of_birth} *</label>
 								<div class="col-sm-5">
 									<input type="text" value="{$smarty.post.dob}" class="form-control" id="dob" name="dob" placeholder="{$lang.entry_date_of_birth_text}" />
 								</div>
 							</div>
 						{/if}
 							<div class="form-group">
-								<label class="col-sm-4 control-label" for="email_address">{$lang.entry_email_address} *</label>
+								<label class="col-sm-4 form-control-label" for="email_address">{$lang.entry_email_address} *</label>
 								<div class="col-sm-5">
 									<input type="text" value="{$smarty.post.email_address}" class="form-control" id="email_address" name="email_address" placeholder="{$lang.entry_email_address}" />
 								</div>
@@ -75,7 +75,7 @@
 						<hr />
 						<h3>{$lang.category_company}</h3>
 							<div class="form-group">
-								<label class="col-sm-4 control-label" for="company">{$lang.entry_company}</label>
+								<label class="col-sm-4 form-control-label" for="company">{$lang.entry_company}</label>
 								<div class="col-sm-5">
 									<input type="text" value="{$smarty.post.company}" class="form-control" id="company" name="company" placeholder="{$lang.entry_company}" />
 								</div>
@@ -83,7 +83,7 @@
 												
 							{if $smarty.const.ACCOUNT_OWNER eq 'true'}
 							<div class="form-group">
-								<label class="col-sm-4 control-label" for="company">{$lang.entry_owner}</label>
+								<label class="col-sm-4 form-control-label" for="company">{$lang.entry_owner}</label>
 								<div class="col-sm-5">
 									<input type="text" value="{$smarty.post.owner}" class="form-control" id="owner" name="owner" placeholder="{$lang.entry_owner}" />
 								</div>
@@ -92,7 +92,7 @@
 
 							{if $smarty.const.ACCOUNT_VAT_ID eq 'true'}
 							<div class="form-group">
-								<label class="col-sm-4 control-label" for="company">{$lang.entry_vat_id}</label>
+								<label class="col-sm-4 form-control-label" for="company">{$lang.entry_vat_id}</label>
 								<div class="col-sm-5">
 									<input type="text" value="{$smarty.post.vat_id}" class="form-control" id="vat_id" name="vat_id" placeholder="{$lang.entry_vat_id}" />
 								</div>
@@ -103,21 +103,21 @@
 							<hr />	
 							<h3>{$lang.category_address}</h3>
 							<div class="form-group">
-								<label class="col-sm-4 control-label" for="street_address">{$lang.entry_street_address} *</label>
+								<label class="col-sm-4 form-control-label" for="street_address">{$lang.entry_street_address} *</label>
 								<div class="col-sm-5">
 									<input type="text" value="{$smarty.post.street_address}" class="form-control" id="street_address" name="street_address" placeholder="{$lang.entry_street_address}" />
 								</div>
 							</div>
 							
 							<div class="form-group">
-								<label class="col-sm-4 control-label" for="postcode">{$lang.entry_post_code} *</label>
+								<label class="col-sm-4 form-control-label" for="postcode">{$lang.entry_post_code} *</label>
 								<div class="col-sm-5">
 									<input type="text" value="{$smarty.post.postcode}" class="form-control" id="postcode" name="postcode" placeholder="{$lang.entry_post_code}" />
 								</div>
 							</div>	
 
 							<div class="form-group">
-								<label class="col-sm-4 control-label" for="city">{$lang.entry_city} *</label>
+								<label class="col-sm-4 form-control-label" for="city">{$lang.entry_city} *</label>
 								<div class="col-sm-5">
 									<input type="text" value="{$smarty.post.city}" class="form-control" id="city" name="city" placeholder="{$lang.entry_city}" />
 								</div>
@@ -125,21 +125,21 @@
 							
 						{if $smarty.const.ACCOUNT_STATE eq 'true'}
 							<div class="form-group">
-								<label class="col-sm-4 control-label" for="state">{$lang.entry_state} *</label>
+								<label class="col-sm-4 form-control-label" for="state">{$lang.entry_state} *</label>
 								<div class="col-sm-5">
 									{oos_get_zone_name country_id=$account.entry_country_id zone_id=$account.entry_zone_id default_zone=$account.entry_state}
 								</div>
 							</div>
 						{/if}
 							<div class="form-group">
-								<label class="col-sm-4 control-label" for="country">{$lang.entry_country} *</label>
+								<label class="col-sm-4 form-control-label" for="country">{$lang.entry_country} *</label>
 								<div class="col-sm-5">
 									{oos_get_country_list name=country selected=$account.entry_country_id}
 								</div>
 							</div>
 
 							<div class="form-group">
-								<label class="col-sm-4 control-label" for="telephone">{$lang.entry_telephone_number}</label>
+								<label class="col-sm-4 form-control-label" for="telephone">{$lang.entry_telephone_number}</label>
 								<div class="col-sm-5">
 									<input type="text" value="{$smarty.post.telephone}" class="form-control" id="telephone" name="telephone" placeholder="{$lang.entry_telephone_number}" />
 								</div>
@@ -149,13 +149,13 @@
 							<hr />
 							<h3>{$lang.category_password}</h3>
 							<div class="form-group">
-								<label class="col-sm-4 control-label" for="password">{$lang.entry_password} *</label>
+								<label class="col-sm-4 form-control-label" for="password">{$lang.entry_password} *</label>
 								<div class="col-sm-5">
 									<input type="password" value="{$smarty.post.password}" class="form-control" id="password" name="password" placeholder="{$lang.entry_password}" />
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-4 control-label" for="confirmation">{$lang.entry_password_confirmation} *</label>
+								<label class="col-sm-4 form-control-label" for="confirmation">{$lang.entry_password_confirmation} *</label>
 								<div class="col-sm-5">
 									<input type="password" value="{$smarty.post.confirmation}" class="form-control" id="confirmation" name="confirmation" placeholder="{$lang.entry_password_confirmation}" />
 								</div>

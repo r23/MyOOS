@@ -1,10 +1,10 @@
 {if $oEvent->installed_plugin('reviews')}
-<div class="panel panel-default sidebar-menu">
-	<div class="panel-heading">
-		<h3 class="panel-title">{$block_heading_reviews}</h3>
+<div class="card sidebar-menu">
+	<div class="card-header">
+		<h3 class="card-title">{$block_heading_reviews}</h3>
 	</div>
 
-	<div class="panel-body">
+	<div class="card-body">
 {if $random_product.reviews_text}
      <div align="center"><a href="{html_href_link content=$filename.product_reviews_info products_id=$random_product.products_id reviews_id=$random_product.reviews_id}">{small_product_image image=$random_product.products_image alt=$random_product.products_name|strip_tags}</a></div>
      <div align="left"><a href="{html_href_link content=$filename.product_reviews_info products_id=$random_product.products_id reviews_id=$random_product.reviews_id}">{$random_product.reviews_text|strip|truncate:55:"...":true|close_tags}</a></div>

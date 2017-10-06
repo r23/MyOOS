@@ -1,10 +1,10 @@
 {if $specials_block}
-<div class="panel panel-default sidebar-menu">
-	<div class="panel-heading">
-		<h3 class="panel-title">{$block_heading_specials}</h3>
+<div class="card sidebar-menu">
+	<div class="card-header">
+		<h3 class="card-title">{$block_heading_specials}</h3>
 	</div>
 
-	<div class="panel-body">
+	<div class="card-body">
 		<table width="150" border="0" cellspacing="0" cellpadding="3">
           <tr>
             <td align="center" valign="top" class="block_content"><a href="{product_info_link products_id=$specials_random_product.products_id}">{small_product_image image=$specials_random_product.products_image alt=$specials_random_product.products_name|strip_tags}</a><br>

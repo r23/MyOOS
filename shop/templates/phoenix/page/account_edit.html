@@ -12,7 +12,7 @@
 <section class="mainContent clearfix userProfile">
 	<div class="container">
 		<div class="row">
-			<div class="col-xs-12">
+			<div class="col-md-12">
 				<div class="btn-group" role="group" aria-label="...">
 					<a href="{html_href_link content=$filename.account connection=SSL}" class="btn btn-secondary" role="button"><i class="fa fa-th" aria-hidden="true"></i>{$lang.login_block_my_account}</a>
 					<a href="{html_href_link content=$filename.account_edit connection=SSL}" class="btn btn-secondary active" role="button"><i class="fa fa-user" aria-hidden="true"></i>{$lang.login_block_account_edit}</a>
@@ -23,14 +23,14 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-12">
+			<div class="col-md-12">
 				<div class="innerWrapper">
 
 					<div class="orderBox">
 					<h3>{$lang.category_personal}</h3>
 					</div>
 					<div class="row">
-						<div class="col-xs-12">
+						<div class="col-md-12">
 							<form name="account_edit" id="account_edit" class="form-horizontal" action="{html_get_link connection=SSL}" method="POST" role="form">
 								<fieldset>
 									<input type="hidden" name="action" value="process">
@@ -41,7 +41,7 @@
 								{/if}
 								{if $smarty.const.ACCOUNT_GENDER eq 'true'}
 									<div class="form-group">
-										<label class="col-sm-4 control-label" for="gender">{$lang.entry_gender} *</label>
+										<label class="col-sm-4 form-control-label" for="gender">{$lang.entry_gender} *</label>
 										<div class="col-sm-5">
 											<input type="radio" id="gender" name="gender" value="m" {if $male}checked="checked"{/if}> {$lang.male} <input type="radio" id="gender" name="gender" value="f" {if $female}checked="checked"{/if}> {$lang.female}
 										</div>						
@@ -49,33 +49,33 @@
 								{/if}
 								
 									<div class="form-group">
-										<label class="col-sm-4 control-label" for="firstname">{$lang.entry_first_name} *</label>
+										<label class="col-sm-4 form-control-label" for="firstname">{$lang.entry_first_name} *</label>
 										<div class="col-sm-5">
 											<input type="text" value="{$account.customers_firstname}" class="form-control" id="firstname" name="firstname" placeholder="{$lang.entry_first_name}" />
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-sm-4 control-label" for="lastname">{$lang.entry_last_name} *</label>
+										<label class="col-sm-4 form-control-label" for="lastname">{$lang.entry_last_name} *</label>
 										<div class="col-sm-5">
 											<input type="text" value="{$account.customers_lastname}" class="form-control" id="lastname" name="lastname" placeholder="{$lang.entry_last_name}" />
 										</div>
 									</div>
 								{if $smarty.const.ACCOUNT_DOB eq 'true'}
 									<div class="form-group">
-										<label class="col-sm-4 control-label" for="dob">{$lang.entry_date_of_birth} *</label>
+										<label class="col-sm-4 form-control-label" for="dob">{$lang.entry_date_of_birth} *</label>
 										<div class="col-sm-5">
 											<input type="text" value="{$account.customers_dob|oos_date_short}" class="form-control" id="dob" name="dob" placeholder="{$lang.entry_date_of_birth_text}" />
 										</div>
 									</div>
 								{/if}
 									<div class="form-group">
-										<label class="col-sm-4 control-label" for="email_address">{$lang.entry_email_address} *</label>
+										<label class="col-sm-4 form-control-label" for="email_address">{$lang.entry_email_address} *</label>
 										<div class="col-sm-5">
 											<input type="text" value="{$account.customers_email_address}" class="form-control" id="email_address" name="email_address" placeholder="{$lang.entry_email_address}" />
 										</div>
 									</div>						
 									<div class="form-group">
-										<label class="col-sm-4 control-label" for="telephone">{$lang.entry_telephone_number}</label>
+										<label class="col-sm-4 form-control-label" for="telephone">{$lang.entry_telephone_number}</label>
 										<div class="col-sm-5">
 											<input type="text" value="{$account.customers_telephone}" class="form-control" id="telephone" name="telephone" placeholder="{$lang.entry_telephone_number}" />
 										</div>
@@ -84,13 +84,13 @@
 									<hr />
 									<h4>{$lang.category_password}</h4>
 									<div class="form-group">
-										<label class="col-sm-4 control-label" for="password">{$lang.entry_password} *</label>
+										<label class="col-sm-4 form-control-label" for="password">{$lang.entry_password} *</label>
 										<div class="col-sm-5">
 											<input type="password" value="{$smarty.post.password}" class="form-control" id="password" name="password" placeholder="{$lang.entry_password}" />
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-sm-4 control-label" for="confirmation">{$lang.entry_password_confirmation} *</label>
+										<label class="col-sm-4 form-control-label" for="confirmation">{$lang.entry_password_confirmation} *</label>
 										<div class="col-sm-5">
 											<input type="password" value="{$smarty.post.confirmation}" class="form-control" id="confirmation" name="confirmation" placeholder="{$lang.entry_password_confirmation}" />
 										</div>
