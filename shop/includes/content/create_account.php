@@ -454,7 +454,6 @@ $account['entry_country_id'] = STORE_COUNTRY;
 
 
 $aTemplate['page'] = $sTheme . '/page/create_account.html';
-$aTemplate['javascript'] = $sTheme . '/js/create_account.html';
 
 $nPageType = OOS_PAGE_TYPE_ACCOUNT;
 $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
@@ -486,8 +485,6 @@ $smarty->assign('email_address', $email_address);
 $smarty->assign('snapshot', $snapshot);
 $smarty->assign('login_orgin_text', sprintf($aLang['text_origin_login'], oos_href_link($aContents['login'], '', 'SSL')));
 $smarty->assign('login_agree', sprintf($aLang['agree'], oos_href_link($aContents['information'], 'information_id=2', 'SSL'), oos_href_link($aContents['information'], 'information_id=4', 'SSL')));
-
-$smarty->assign('javascript', $smarty->fetch($aTemplate['javascript']));
 
 // display the template
 $smarty->display($aTemplate['page']);

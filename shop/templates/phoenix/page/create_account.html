@@ -21,7 +21,7 @@
 				{/if}
 				
 				<!-- REGISTER -->
-				<div class="card ">
+				<div class="card">
 					<div class="card-header">
 						<h3 class="card-title">{$lang.category_personal}</h3>
 					</div>
@@ -38,7 +38,7 @@
 							<div class="form-group">
 								<label class="col-sm-4 form-control-label" for="gender">{$lang.entry_gender} *</label>
 								<div class="col-sm-5">
-									<input type="radio" id="gender" name="gender" value="m"> {$lang.male} <input type="radio" id="gender" name="gender" value="f"> {$lang.female}
+									<input type="radio" id="gender" name="gender" value="m" required> {$lang.male} <input type="radio" id="gender" name="gender" value="f" required> {$lang.female}
 								</div>						
 							</div>
 						{/if}				
@@ -46,28 +46,28 @@
 							<div class="form-group">
 								<label class="col-sm-4 form-control-label" for="firstname">{$lang.entry_first_name} *</label>
 								<div class="col-sm-5">
-									<input type="text" value="{$smarty.post.firstname}" class="form-control" id="firstname" name="firstname" placeholder="{$lang.entry_first_name}" />
+									<input type="text" value="{$smarty.post.firstname}" class="form-control" id="firstname" name="firstname" placeholder="{$lang.entry_first_name}" required>
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="col-sm-4 form-control-label" for="lastname">{$lang.entry_last_name} *</label>
 								<div class="col-sm-5">
-									<input type="text" value="{$smarty.post.lastname}" class="form-control" id="lastname" name="lastname" placeholder="{$lang.entry_last_name}" />
+									<input type="text" value="{$smarty.post.lastname}" class="form-control" id="lastname" name="lastname" placeholder="{$lang.entry_last_name}" required>
 								</div>
 							</div>
 						{if $smarty.const.ACCOUNT_DOB eq 'true'}
 							<div class="form-group">
 								<label class="col-sm-4 form-control-label" for="dob">{$lang.entry_date_of_birth} *</label>
 								<div class="col-sm-5">
-									<input type="text" value="{$smarty.post.dob}" class="form-control" id="dob" name="dob" placeholder="{$lang.entry_date_of_birth_text}" />
+									<input type="text" value="{$smarty.post.dob}" class="form-control" id="dob" name="dob" placeholder="{$lang.entry_date_of_birth_text}" required>
 								</div>
 							</div>
 						{/if}
 							<div class="form-group">
 								<label class="col-sm-4 form-control-label" for="email_address">{$lang.entry_email_address} *</label>
 								<div class="col-sm-5">
-									<input type="text" value="{$smarty.post.email_address}" class="form-control" id="email_address" name="email_address" placeholder="{$lang.entry_email_address}" />
+									<input type="text" value="{$smarty.post.email_address}" class="form-control" id="email_address" name="email_address" placeholder="{$lang.entry_email_address}" required>
 								</div>
 							</div>							
 						
@@ -77,7 +77,7 @@
 							<div class="form-group">
 								<label class="col-sm-4 form-control-label" for="company">{$lang.entry_company}</label>
 								<div class="col-sm-5">
-									<input type="text" value="{$smarty.post.company}" class="form-control" id="company" name="company" placeholder="{$lang.entry_company}" />
+									<input type="text" value="{$smarty.post.company}" class="form-control" id="company" name="company" placeholder="{$lang.entry_company}" >
 								</div>
 							</div>
 												
@@ -105,21 +105,21 @@
 							<div class="form-group">
 								<label class="col-sm-4 form-control-label" for="street_address">{$lang.entry_street_address} *</label>
 								<div class="col-sm-5">
-									<input type="text" value="{$smarty.post.street_address}" class="form-control" id="street_address" name="street_address" placeholder="{$lang.entry_street_address}" />
+									<input type="text" value="{$smarty.post.street_address}" class="form-control" id="street_address" name="street_address" placeholder="{$lang.entry_street_address}" required>
 								</div>
 							</div>
-							
+																
 							<div class="form-group">
 								<label class="col-sm-4 form-control-label" for="postcode">{$lang.entry_post_code} *</label>
 								<div class="col-sm-5">
-									<input type="text" value="{$smarty.post.postcode}" class="form-control" id="postcode" name="postcode" placeholder="{$lang.entry_post_code}" />
+									<input type="text" value="{$smarty.post.postcode}" class="form-control" id="postcode" name="postcode" placeholder="{$lang.entry_post_code}" required>
 								</div>
 							</div>	
 
 							<div class="form-group">
 								<label class="col-sm-4 form-control-label" for="city">{$lang.entry_city} *</label>
 								<div class="col-sm-5">
-									<input type="text" value="{$smarty.post.city}" class="form-control" id="city" name="city" placeholder="{$lang.entry_city}" />
+									<input type="text" value="{$smarty.post.city}" class="form-control" id="city" name="city" placeholder="{$lang.entry_city}"required>
 								</div>
 							</div>
 							
@@ -141,7 +141,7 @@
 							<div class="form-group">
 								<label class="col-sm-4 form-control-label" for="telephone">{$lang.entry_telephone_number}</label>
 								<div class="col-sm-5">
-									<input type="text" value="{$smarty.post.telephone}" class="form-control" id="telephone" name="telephone" placeholder="{$lang.entry_telephone_number}" />
+									<input type="text" value="{$smarty.post.telephone}" class="form-control" id="telephone" name="telephone" placeholder="{$lang.entry_telephone_number}" >
 								</div>
 							</div>
 		
@@ -151,13 +151,13 @@
 							<div class="form-group">
 								<label class="col-sm-4 form-control-label" for="password">{$lang.entry_password} *</label>
 								<div class="col-sm-5">
-									<input type="password" value="{$smarty.post.password}" class="form-control" id="password" name="password" placeholder="{$lang.entry_password}" />
+									<input type="password" value="{$smarty.post.password}" class="form-control" id="password" name="password" placeholder="{$lang.entry_password}" required>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-4 form-control-label" for="confirmation">{$lang.entry_password_confirmation} *</label>
 								<div class="col-sm-5">
-									<input type="password" value="{$smarty.post.confirmation}" class="form-control" id="confirmation" name="confirmation" placeholder="{$lang.entry_password_confirmation}" />
+									<input type="password" value="{$smarty.post.confirmation}" class="form-control" id="confirmation" name="confirmation" placeholder="{$lang.entry_password_confirmation}" required>
 								</div>
 							</div>
 						{/if}
@@ -166,11 +166,11 @@
 								<div class="col-sm-5 col-sm-offset-4">
 									<div class="checkbox">
 										<label class="checkbox nomargin">
-											<input type="checkbox" id="agree" name="agree" value="yes" />{$login_agree}
+											<input type="checkbox" id="agree" name="agree" value="yes" required>{$login_agree}
 										</label>
 									{if $smarty.const.NEWSLETTER eq 'true'}
 										<label class="checkbox nomargin">
-											<input type="checkbox" id="agree" name="newsletter" value="yes" />{$lang.newsletter_agree}
+											<input type="checkbox" id="agree" name="newsletter" value="yes">{$lang.newsletter_agree}
 										</label>
 									{/if}
 									</div>
