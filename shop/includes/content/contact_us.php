@@ -61,7 +61,6 @@ $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['contact_us']
 $sCanonical = oos_href_link($aContents['contact_us'], '', 'NONSSL', FALSE, TRUE);
 
 $aTemplate['page'] = $sTheme . '/page/contact_us.html';
-$aTemplate['javascript'] = $sTheme . '/js/contact_us.html';
 
 $nPageType = OOS_PAGE_TYPE_MAINPAGE;
 $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
@@ -86,9 +85,6 @@ $smarty->assign(
 			'error' => $bError
 		)
 );
-
-$smarty->assign('javascript', $smarty->fetch($aTemplate['javascript']));
-
 
 // display the template
 $smarty->display($aTemplate['page']);

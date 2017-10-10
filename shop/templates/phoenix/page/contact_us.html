@@ -36,6 +36,7 @@
 
 				
 					<form name="contact_us" id="contact_us" class="form-horizontal" action="{html_get_link connection=SSL}" method="POST" role="form">
+
 						<fieldset>
 							<input type="hidden" name="action" value="send">
 							<input type="hidden" name="content" value="{$filename.contact_us}">	
@@ -44,47 +45,43 @@
 							<input type="hidden" name="formid" value="{$mySystem.formid}">
 							{/if}
 
-									<div class="row">
-										<div class="form-group">
-											<div class="col-md-4">
-												<label for="contact:name">{$lang.entry_name} *</label>
-												<input type="text" value="{$smarty.post.name}" class="form-control" name="name" id="name">
-											</div>
-											<div class="col-md-4">
-												<label for="email">{$lang.entry_email} *</label>
-												<input type="email" value="{$smarty.post.email}" class="form-control" name="email" id="email">
-											</div>
-											<div class="col-md-4">
-												<label for="phone">{$lang.entry_telephone_number}</label>
-												<input type="text" value="{$smarty.post.phone}" class="form-control" name="phone" id="phone">
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="form-group">
-											<div class="col-md-12">
-												<label for="subject">{$lang.entry_subject} *</label>
-												<input type="text" value="{$smarty.post.subject}" class="form-control" name="subject" id="subject">
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="form-group">
-											<div class="col-md-12">
-												<label for="enquiry">{$lang.entry_enquiry} *</label>
-												<textarea maxlength="10000" rows="8" class="form-control" name="enquiry" id="enquiry">{$smarty.post.enquiry|stripslashes}</textarea>
-											</div>
-										</div>
-									</div>
-								</fieldset>
-
 								<div class="row">
-									<div class="col-md-12">
-										<button type="submit" class="btn btn-primary"><i class="fa fa-check" aria-hidden="true"></i> {$lang.button_send_message}</button>
+									<div class="col-md-6">
+										<label for="name">{$lang.entry_name} *</label>
+										<input required type="text" value="{$smarty.post.name}" class="form-control" name="name" id="name">										
+									</div>
+									<div class="col-md-6">
+										<label for="email">{$lang.entry_email} *</label>
+										<input required type="email" value="{$smarty.post.email}" class="form-control" name="email" id="email">											
 									</div>
 								</div>
-							</form>
-							<!-- /FORM -->
+								<div class="row">
+									<div class="col-md-8">
+										<label for="subject">{$lang.entry_subject} *</label>
+										<input required type="text" value="{$smarty.post.subject}" class="form-control" name="subject" id="subject">												
+									</div>
+									<div class="col-md-4">
+										<label for="phone">{$lang.entry_telephone_number}</label>
+										<input type="text" value="{$smarty.post.phone}" class="form-control" name="phone" id="phone">
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12">
+										<label for="enquiry">{$lang.entry_enquiry} *</label>
+										<textarea required maxlength="10000" rows="8" class="form-control" name="enquiry" id="enquiry">{$smarty.post.enquiry|stripslashes}</textarea>												
+									</div>
+								</div>
+
+						</fieldset>					
+					
+						<div class="row">
+							<div class="col-md-12">
+								<button type="submit" class="btn btn-primary"><i class="fa fa-check" aria-hidden="true"></i> {$lang.button_send_message}</button>
+							</div>
+						</div>
+
+					</form>
+					<!-- /FORM -->
 {/if}
 			</div><!-- .col -->
 
