@@ -1,20 +1,18 @@
 # 
 # Translators:
-# Andre Braekling <webmaster@braekling.de>, 2009
-# FatCow http://www.fatcow.com, 2009
-# Moo, 2016-2017
+# Janko Harej <janko.harej@tscng.org>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: WP-Piwik\n"
 "POT-Creation-Date: 2017-10-09 20:37+0200\n"
 "PO-Revision-Date: 2017-10-09 20:41+0000\n"
 "Last-Translator: André Bräkling\n"
-"Language-Team: Lithuanian (Lithuania) (http://www.transifex.com/piwik/wp-piwik/language/lt_LT/)\n"
+"Language-Team: Slovenian (Slovenia) (http://www.transifex.com/piwik/wp-piwik/language/sl_SI/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: lt_LT\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: sl_SI\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
 
 #: classes/WP_Piwik.php:203
 #, php-format
@@ -36,7 +34,7 @@ msgstr ""
 
 #: classes/WP_Piwik.php:269 classes/WP_Piwik.php:527
 msgid "Settings"
-msgstr "Nustatymai"
+msgstr ""
 
 #: classes/WP_Piwik.php:272
 msgid "Important"
@@ -44,7 +42,7 @@ msgstr ""
 
 #: classes/WP_Piwik.php:387 classes/WP_Piwik.php:409
 msgid "Piwik Statistics"
-msgstr "Piwik statistika"
+msgstr ""
 
 #: classes/WP_Piwik.php:499
 msgid "Configure WP-Piwik"
@@ -52,11 +50,11 @@ msgstr ""
 
 #: classes/WP_Piwik.php:992
 msgid "An error occured"
-msgstr "Įvyko klaida"
+msgstr ""
 
 #: classes/WP_Piwik.php:992 classes/WP_Piwik/Admin/Settings.php:89
 msgid "Support"
-msgstr ""
+msgstr "Podpora"
 
 #: classes/WP_Piwik.php:1275
 msgid "Cheatin&#8217; uh?"
@@ -64,25 +62,25 @@ msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:24
 msgid "Reload"
-msgstr "Įkelti iš naujo"
+msgstr "Naloži znova"
 
 #: classes/WP_Piwik/Admin/Settings.php:27
 msgid "Changes saved."
-msgstr "Pakeitimai įrašyti."
+msgstr "Spremembe so shranjene"
 
 #: classes/WP_Piwik/Admin/Settings.php:55
 msgid "Thanks for using WP-Piwik!"
-msgstr "Dėkojame, kad naudojatės WP-Piwik!"
+msgstr "Hvala, ker uporabljate WP-Piwik!"
 
 #: classes/WP_Piwik/Admin/Settings.php:58
 #, php-format
 msgid "WP-Piwik %s is successfully connected to Piwik %s."
-msgstr ""
+msgstr "WP-Piwik %s se je uspešno povezal z Piwik-om %s."
 
 #: classes/WP_Piwik/Admin/Settings.php:58
 #, php-format
 msgid "You are running WordPress %s."
-msgstr "Jūs naudojate WordPress %s."
+msgstr "Uporabljate Wordpress %s."
 
 #: classes/WP_Piwik/Admin/Settings.php:58
 #, php-format
@@ -114,23 +112,23 @@ msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:71
 msgid "Connect to Piwik"
-msgstr ""
+msgstr "Poveži se s sistemom Piwik"
 
 #: classes/WP_Piwik/Admin/Settings.php:76
 msgid "Show Statistics"
-msgstr "Rodyti statistiką"
+msgstr "Prikaži statistike"
 
 #: classes/WP_Piwik/Admin/Settings.php:80
 msgid "Enable Tracking"
-msgstr ""
+msgstr "Omogoči sledenje"
 
 #: classes/WP_Piwik/Admin/Settings.php:85
 msgid "Expert Settings"
-msgstr ""
+msgstr "Napredne nastavitve"
 
 #: classes/WP_Piwik/Admin/Settings.php:93
 msgid "Credits"
-msgstr ""
+msgstr "Zasluge"
 
 #: classes/WP_Piwik/Admin/Settings.php:106
 msgid ""
@@ -146,7 +144,7 @@ msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:106
 msgid "or"
-msgstr ""
+msgstr "ali"
 
 #: classes/WP_Piwik/Admin/Settings.php:106
 msgid "a cloud-hosted Piwik by InnoCraft"
@@ -161,16 +159,16 @@ msgstr ""
 #: classes/WP_Piwik/Admin/Settings.php:109
 #: classes/WP_Piwik/Template/MetaBoxCustomVars.php:30
 msgid "More information"
-msgstr ""
+msgstr "Več informacij"
 
 #: classes/WP_Piwik/Admin/Settings.php:111
 msgid "You can choose between three connection methods:"
-msgstr ""
+msgstr "Izbirate lahko med tremi načini povezav:"
 
 #: classes/WP_Piwik/Admin/Settings.php:111
 #: classes/WP_Piwik/Admin/Settings.php:114
 msgid "Self-hosted (HTTP API, default)"
-msgstr ""
+msgstr "Samostojno gostovanje (HTTP API, privzeto)"
 
 #: classes/WP_Piwik/Admin/Settings.php:111
 msgid ""
@@ -181,7 +179,7 @@ msgstr ""
 #: classes/WP_Piwik/Admin/Settings.php:111
 #: classes/WP_Piwik/Admin/Settings.php:115
 msgid "Self-hosted (PHP API)"
-msgstr ""
+msgstr "Samostojno gostovanje (PHP API)"
 
 #: classes/WP_Piwik/Admin/Settings.php:111
 msgid ""
@@ -202,15 +200,15 @@ msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:112
 msgid "Piwik Mode"
-msgstr "Piwik veiksena"
+msgstr "Piwik način"
 
 #: classes/WP_Piwik/Admin/Settings.php:113
 msgid "Disabled (WP-Piwik will not connect to Piwik)"
-msgstr ""
+msgstr "Onemogočen (WP-Piwik se ne bo povezal z Piwik-om)"
 
 #: classes/WP_Piwik/Admin/Settings.php:119
 msgid "Piwik URL"
-msgstr "Piwik URL"
+msgstr "URL sistema Piwik"
 
 #: classes/WP_Piwik/Admin/Settings.php:119
 msgid ""
@@ -220,7 +218,7 @@ msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:120
 msgid "Piwik path"
-msgstr "Piwik kelias"
+msgstr "Pot do sistema Piwik"
 
 #: classes/WP_Piwik/Admin/Settings.php:120
 msgid "Enter the file path to your Piwik instance, e.g. /var/www/piwik/."
@@ -238,7 +236,7 @@ msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:122
 msgid "Auth token"
-msgstr "Autentifikavimo požymis"
+msgstr "Auth žeton"
 
 #: classes/WP_Piwik/Admin/Settings.php:122
 msgid ""
@@ -312,7 +310,7 @@ msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:164
 msgid "Show SEO data"
-msgstr "Rodyti SEO duomenis"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:164
 msgid "Display SEO ranking data on statistics page."
@@ -342,7 +340,7 @@ msgstr ""
 #: classes/WP_Piwik/Admin/Settings.php:285
 #: classes/WP_Piwik/Admin/Settings.php:340
 msgid "Disabled"
-msgstr "Išjungta"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:171
 msgid "Last 30 days"
@@ -654,7 +652,7 @@ msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:264
 msgid "Tracking filter"
-msgstr "Stebėjimo filtras"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:268
 msgid "Choose users by user role you do <strong>not</strong> want to track."
@@ -735,15 +733,15 @@ msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:286
 msgid "WP User ID"
-msgstr "WP naudotojo ID"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:287
 msgid "Email Address"
-msgstr "El. pašto adresas"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:288
 msgid "Username"
-msgstr "Naudotojo vardas"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:289
 msgid "Display Name (Not Recommended!)"
@@ -764,7 +762,7 @@ msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:297
 msgid "Enable cache"
-msgstr "Įjungti podėlį"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:297
 msgid "Cache API calls, which not contain today's values, for a week."
@@ -777,12 +775,12 @@ msgstr ""
 #: classes/WP_Piwik/Admin/Settings.php:301
 #: classes/WP_Piwik/Admin/Settings.php:590
 msgid "cURL"
-msgstr "cURL"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:302
 #: classes/WP_Piwik/Admin/Settings.php:590
 msgid "fopen"
-msgstr "fopen"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:303
 msgid ""
@@ -797,12 +795,12 @@ msgstr ""
 #: classes/WP_Piwik/Admin/Settings.php:306
 #: classes/WP_Piwik/Admin/Settings.php:590
 msgid "POST"
-msgstr "POST"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:307
 #: classes/WP_Piwik/Admin/Settings.php:590
 msgid "GET"
-msgstr "GET"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:308
 msgid "Choose whether WP-Piwik should use POST or GET in HTTP or Cloud mode."
@@ -883,11 +881,11 @@ msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:327
 msgid "CDN URL"
-msgstr "CDN URL"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:329
 msgid "CDN URL (SSL)"
-msgstr "CDN URL (SSL)"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:331
 msgid "Force Piwik to use a specific protocol"
@@ -899,11 +897,11 @@ msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:333
 msgid "http"
-msgstr "http"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:334
 msgid "https (SSL)"
-msgstr "https (SSL)"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:335
 msgid ""
@@ -1083,15 +1081,15 @@ msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:600
 msgid "Clear cache"
-msgstr "Išvalyti podėlį"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:601
 msgid "Are you sure you want to clear all settings?"
-msgstr "Ar tikrai norite išvalyti visus nustatymus?"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:601
 msgid "Reset WP-Piwik"
-msgstr "Atstatyti WP-Piwik"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:603
 msgid "Latest support threads on WordPress.org"
@@ -1103,7 +1101,7 @@ msgstr ""
 
 #: classes/WP_Piwik/Admin/Settings.php:670
 msgid "Cache cleared."
-msgstr "Podėlis išvalytas."
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Sitebrowser.php:22
 msgid "site"
@@ -1119,7 +1117,7 @@ msgstr ""
 
 #: classes/WP_Piwik/Admin/Sitebrowser.php:34
 msgid "Blog ID"
-msgstr "Tinklaraščio ID"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Sitebrowser.php:35
 msgid "Title"
@@ -1127,7 +1125,7 @@ msgstr ""
 
 #: classes/WP_Piwik/Admin/Sitebrowser.php:36
 msgid "URL"
-msgstr "URL"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Sitebrowser.php:37
 msgid "Site ID (Piwik)"
@@ -1139,7 +1137,7 @@ msgstr ""
 
 #: classes/WP_Piwik/Admin/Statistics.php:12
 msgid "Statistics"
-msgstr "Statistika"
+msgstr ""
 
 #: classes/WP_Piwik/Admin/Statistics.php:21
 msgid "Currently shown stats:"
@@ -1193,7 +1191,7 @@ msgstr ""
 #: classes/WP_Piwik/Widget/Systems.php:33
 #: classes/WP_Piwik/Widget/Visitors.php:35
 msgid "Piwik error"
-msgstr "Piwik klaida"
+msgstr ""
 
 #: classes/WP_Piwik/Widget.php:100
 #: classes/WP_Piwik/Widget/BrowserDetails.php:39
@@ -1204,12 +1202,12 @@ msgstr "Piwik klaida"
 #: classes/WP_Piwik/Widget/Systems.php:35
 #: classes/WP_Piwik/Widget/Visitors.php:57
 msgid "Unique"
-msgstr "Unikalus"
+msgstr ""
 
 #: classes/WP_Piwik/Widget.php:102 classes/WP_Piwik/Widget/Plugins.php:25
 #: classes/WP_Piwik/Widget/Visitors.php:57
 msgid "Visits"
-msgstr "Apsilankymai"
+msgstr ""
 
 #: classes/WP_Piwik/Widget.php:104
 msgid "Hits"
@@ -1266,7 +1264,7 @@ msgstr ""
 #: classes/WP_Piwik/Widget/BrowserDetails.php:39
 #: classes/WP_Piwik/Widget/Browsers.php:39
 msgid "Browser"
-msgstr "Naršyklė"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/BrowserDetails.php:39
 #: classes/WP_Piwik/Widget/Browsers.php:39
@@ -1276,7 +1274,7 @@ msgstr "Naršyklė"
 #: classes/WP_Piwik/Widget/SystemDetails.php:35
 #: classes/WP_Piwik/Widget/Systems.php:35
 msgid "Percent"
-msgstr "Procentai"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/BrowserDetails.php:66
 #: classes/WP_Piwik/Widget/Browsers.php:66
@@ -1295,7 +1293,7 @@ msgstr ""
 #: classes/WP_Piwik/Widget/Overview.php:48 classes/WP_Piwik/Widget/Post.php:37
 #: classes/WP_Piwik/Widget/Visitors.php:17
 msgid "Visitors"
-msgstr "Lankytojai"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/Chart.php:71
 msgid ""
@@ -1407,7 +1405,7 @@ msgstr ""
 
 #: classes/WP_Piwik/Widget/Keywords.php:16
 msgid "Keywords"
-msgstr "Raktiniai žodžiai"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/Noresult.php:16
 #: classes/WP_Piwik/Widget/Search.php:16
@@ -1417,7 +1415,7 @@ msgstr ""
 #: classes/WP_Piwik/Widget/Noresult.php:25
 #: classes/WP_Piwik/Widget/Search.php:25
 msgid "Keyword"
-msgstr "Raktinis žodis"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/Noresult.php:25
 #: classes/WP_Piwik/Widget/Search.php:25
@@ -1428,11 +1426,11 @@ msgstr ""
 #: classes/WP_Piwik/Widget/Search.php:25
 #: classes/WP_Piwik/Widget/Visitors.php:57
 msgid "Bounced"
-msgstr "Atsisakymai"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/Overview.php:17 classes/WP_Piwik/Widget/Post.php:18
 msgid "Overview"
-msgstr "Aprašymas"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/Overview.php:17
 msgid "dashboard"
@@ -1440,11 +1438,11 @@ msgstr ""
 
 #: classes/WP_Piwik/Widget/Overview.php:50 classes/WP_Piwik/Widget/Post.php:38
 msgid "Unique visitors"
-msgstr "Unikalių lankytojų"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/Overview.php:52 classes/WP_Piwik/Widget/Post.php:39
 msgid "Page views"
-msgstr "Puslapio peržiūros"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/Overview.php:53 classes/WP_Piwik/Widget/Post.php:40
 msgid "Total time spent"
@@ -1452,7 +1450,7 @@ msgstr ""
 
 #: classes/WP_Piwik/Widget/Overview.php:54 classes/WP_Piwik/Widget/Post.php:42
 msgid "Bounce count"
-msgstr "Atsisakymų skaičius"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/Overview.php:57 classes/WP_Piwik/Widget/Post.php:41
 msgid "Time/visit"
@@ -1460,7 +1458,7 @@ msgstr ""
 
 #: classes/WP_Piwik/Widget/Overview.php:57
 msgid "Max. page views in one visit"
-msgstr "Maksimalus puslapių peržiūrų skaičius per vieną apsilankymą"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/Pages.php:16
 msgid "Pages"
@@ -1496,11 +1494,11 @@ msgstr ""
 
 #: classes/WP_Piwik/Widget/Screens.php:37
 msgid "Resolution"
-msgstr "Rezoliucija"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/Seo.php:13
 msgid "SEO"
-msgstr "SEO"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/SystemDetails.php:14
 msgid "Operation System Details"
@@ -1517,7 +1515,7 @@ msgstr ""
 
 #: classes/WP_Piwik/Widget/Visitors.php:57
 msgid "Date"
-msgstr "Data"
+msgstr ""
 
 #: classes/WP_Piwik/Widget/Visitors.php:57
 msgid "Page Views"
