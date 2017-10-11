@@ -43,9 +43,10 @@
 							<input type="hidden" name="formid" value="{$mySystem.formid}">
 						{/if}
 
-						<section>
+						<div class="row">
 							<div class="col-md-5">
-								<strong>{$lang.sub_title_rating}</strong> <span class="float-right">{$lang.text_bad}</span>
+								<strong>{$lang.sub_title_rating}</strong>
+								<span class="float-right">{$lang.text_bad}</span>
 							</div>
 
 							<div class="col-md-2 text-center">
@@ -60,23 +61,24 @@
 
 							<div class="col-md-5">
 								<span class="text-left">{$lang.text_good}</span>			  
-							</div>										
-						</section>				
+							</div>	
+						</div>							
+		
 						
-						<section>
+						<div class="row">
 							<div class="col-md-12">
 								<label for="headline">{$lang.subject} *</label>
-								<input type="text" value="{$smarty.post.headline|stripslashes}" class="form-control" name="headline" id="headline" placeholder="{$lang.headline_rating}">
+								<input required type="text" value="{$smarty.post.headline|stripslashes}" class="form-control" name="headline" id="headline" placeholder="{$lang.headline_rating}">
 							</div>
-						</section>
+						</div>	
 
-						<section>
+						<div class="row">
 							<div class="col-md-12">
 								<label for="review">{$lang.sub_title_review} *</label>
-								<textarea maxlength="10000" rows="8" class="form-control" name="review" id="review" placeholder="{$lang.review_placeholder}">{$smarty.post.review|stripslashes}</textarea>
+								<textarea required maxlength="10000" rows="8" class="form-control" name="review" id="review" placeholder="{$lang.review_placeholder}">{$smarty.post.review|stripslashes}</textarea>
 								<p class="note">{$lang.text_no_html}</p>
 							</div>
-						</section>
+						</div>	
 																	
 					</fieldset>
 
@@ -105,10 +107,5 @@
 	</div><!--end container-->
 </section>
 <!-- end content -->
-
-
-{if $smarty.const.NEWSLETTER eq 'true'}
-	{include file="phoenix/system/_newsletter.html"}
-{/if}
 
 {include file="phoenix/system/_footer.html"}
