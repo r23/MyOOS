@@ -204,8 +204,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 }
 
 $customerstable = $oostable['customers'];
-$sql = "SELECT customers_gender, customers_firstname, customers_lastname, customers_dob, customers_email_address,
-			customers_vat_id, customers_vat_id_status, customers_telephone
+$sql = "SELECT customers_gender, customers_firstname, customers_lastname, customers_dob, customers_email_address, customers_telephone
           FROM $customerstable
           WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'";
 $account = $dbconn->GetRow($sql);
@@ -243,7 +242,6 @@ $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['account'],
 $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['account_edit'], '', 'SSL'));
   
 $aTemplate['page'] = $sTheme . '/page/account_edit.html';
-$aTemplate['javascript'] = $sTheme . '/js/account_edit.html';
 
 $nPageType = OOS_PAGE_TYPE_ACCOUNT;
 $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
@@ -272,7 +270,6 @@ $smarty->assign(
 	)
 );
 
-$smarty->assign('javascript', $smarty->fetch($aTemplate['javascript']));
 
 // display the template
 $smarty->display($aTemplate['page']);
