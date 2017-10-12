@@ -501,7 +501,7 @@
     name: 'Google Inc.'
     url: 'http://www.google.com'
 
-- regex: 'Googlebot(-Mobile|-Image|-Video|-News)?|Feedfetcher-Google|Google-Test|Google-Site-Verification|Google Web Preview|AdsBot-Google(-Mobile)?|Google-Adwords-Instant|Mediapartners-Google|Google.*/\+/web/snippet|GoogleProducer|Google[ -]Publisher[ -]Plugin'
+- regex: 'Googlebot(-Mobile|-Image|-Video|-News)?|Feedfetcher-Google|Google-Test|Google-Site-Verification|Google Web Preview|AdsBot-Google(-Mobile)?|Google-Adwords-Instant|Mediapartners-Google|Google.*/\+/web/snippet|GoogleProducer|Google[ -]Publisher[ -]Plugin|Google-Shopping-Quality'
   name: 'Googlebot'
   category: 'Search bot'
   url: 'http://www.google.com/bot.html'
@@ -1078,6 +1078,14 @@
     name: ''
     url: ''
 
+- regex: 'trendictionbot'
+  name: 'Trendiction Bot'
+  category: 'Crawler'
+  url: 'http://www.trendiction.de/bot'
+  producer:
+    name: 'Talkwalker Inc.'
+    url: 'http://www.talkwalker.com'
+
 - regex: 'TurnitinBot'
   name: 'TurnitinBot'
   category: 'Crawler'
@@ -1141,6 +1149,14 @@
   producer:
     name: 'Profound Networks'
     url: 'http://www.profound.net'
+
+- regex: 'Vagabondo'
+  name: 'Vagabondo'
+  category: 'Crawler'
+  url: ''
+  producer:
+    name: 'WiseGuys'
+    url: 'http://www.wise-guys.nl/'
 
 - regex: 'VSMCrawler'
   name: 'Visual Site Mapper Crawler'
