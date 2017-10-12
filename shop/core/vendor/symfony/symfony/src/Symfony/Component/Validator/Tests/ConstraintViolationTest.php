@@ -11,10 +11,9 @@
 
 namespace Symfony\Component\Validator\Tests;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\ConstraintViolation;
 
-class ConstraintViolationTest extends TestCase
+class ConstraintViolationTest extends \PHPUnit_Framework_TestCase
 {
     public function testToStringHandlesArrays()
     {

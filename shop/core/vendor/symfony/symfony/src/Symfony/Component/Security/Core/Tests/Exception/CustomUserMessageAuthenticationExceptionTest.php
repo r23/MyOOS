@@ -11,10 +11,9 @@
 
 namespace Symfony\Component\Security\Core\Tests\Exception;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 
-class CustomUserMessageAuthenticationExceptionTest extends TestCase
+class CustomUserMessageAuthenticationExceptionTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstructWithSAfeMessage()
     {

@@ -1,5 +1,5 @@
 {
-    "Version": "2.1.31.86",
+    "Version": "2.1.22.93",
     "Names": {
         "ADP": [
             "ADP",
@@ -91,7 +91,7 @@
         ],
         "BAD": [
             "BAD",
-            "Dínear Bhoisnia-Heirseagaivéin (1992–1994)"
+            "Dínear Bhoisnia-Heirseagaivéin"
         ],
         "BAM": [
             "BAM",
@@ -213,13 +213,9 @@
             "BYB",
             "Rúbal Nua na Bealarúise (1994–1999)"
         ],
-        "BYN": [
-            "BYN",
-            "Rúbal na Bealarúise"
-        ],
         "BYR": [
             "BYR",
-            "Rúbal na Bealarúise (2000–2016)"
+            "Rúbal na Bealarúise"
         ],
         "BZD": [
             "BZD",
@@ -739,7 +735,7 @@
         ],
         "PEN": [
             "PEN",
-            "Sol Pheiriú"
+            "Nuevo Sol Pheiriú"
         ],
         "PES": [
             "PES",
@@ -943,7 +939,7 @@
         ],
         "UAK": [
             "UAK",
-            "Karbovanets Úcránach"
+            "Karbovanetz Úcránach"
         ],
         "UGS": [
             "UGS",
@@ -1043,11 +1039,11 @@
         ],
         "YUD": [
             "YUD",
-            "Dínear Crua Iúgslavach (1966–1990)"
+            "Dínear Crua Iúgslavach"
         ],
         "YUM": [
             "YUM",
-            "Dínear Nua Iúgslavach (1994–2002)"
+            "Noviy Dinar Iúgslavach"
         ],
         "YUN": [
             "YUN",
@@ -1083,7 +1079,7 @@
         ],
         "ZWD": [
             "ZWD",
-            "Dollar Siombábach (1980–2008)"
+            "Dollar Siombábach"
         ]
     }
 }

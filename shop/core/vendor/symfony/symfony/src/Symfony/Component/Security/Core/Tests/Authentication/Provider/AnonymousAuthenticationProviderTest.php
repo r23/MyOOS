@@ -11,10 +11,9 @@
 
 namespace Symfony\Component\Security\Core\Tests\Authentication\Provider;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider;
 
-class AnonymousAuthenticationProviderTest extends TestCase
+class AnonymousAuthenticationProviderTest extends \PHPUnit_Framework_TestCase
 {
     public function testSupports()
     {

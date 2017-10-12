@@ -11,87 +11,114 @@
 
 namespace Symfony\Component\DependencyInjection\Compiler;
 
-use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\Definition;
-use Symfony\Component\DependencyInjection\Exception\ExceptionInterface;
+use Symfony\Component\DependencyInjection\DefinitionDecorator;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Exception\RuntimeException;
 
 /**
- * This replaces all ChildDefinition instances with their equivalent fully
+ * This replaces all DefinitionDecorator instances with their equivalent fully
  * merged Definition instance.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class ResolveDefinitionTemplatesPass extends AbstractRecursivePass
+class ResolveDefinitionTemplatesPass implements CompilerPassInterface
 {
-    protected function processValue($value, $isRoot = false)
+    private $compiler;
+    private $formatter;
+    private $currentId;
+
+    /**
+     * Process the ContainerBuilder to replace DefinitionDecorator instances with their real Definition instances.
+     *
+     * @param ContainerBuilder $container
+     */
+    public function process(ContainerBuilder $container)
     {
-        if (!$value instanceof Definition) {
-            return parent::processValue($value, $isRoot);
-        }
-        if ($isRoot) {
-            // yes, we are specifically fetching the definition from the
-            // container to ensure we are not operating on stale data
-            $value = $this->container->getDefinition($this->currentId);
-        }
-        if ($value instanceof ChildDefinition) {
-            $value = $this->resolveDefinition($value);
+        $this->compiler = $container->getCompiler();
+        $this->formatter = $this->compiler->getLoggingFormatter();
+
+        $container->setDefinitions($this->resolveArguments($container, $container->getDefinitions(), true));
+    }
+
+    /**
+     * Resolves definition decorator arguments.
+     *
+     * @param ContainerBuilder $container The ContainerBuilder
+     * @param array            $arguments An array of arguments
+     * @param bool             $isRoot    If we are processing the root definitions or not
+     *
+     * @return array
+     */
+    private function resolveArguments(ContainerBuilder $container, array $arguments, $isRoot = false)
+    {
+        foreach ($arguments as $k => $argument) {
             if ($isRoot) {
-                $this->container->setDefinition($this->currentId, $value);
+                // yes, we are specifically fetching the definition from the
+                // container to ensure we are not operating on stale data
+                $arguments[$k] = $argument = $container->getDefinition($k);
+                $this->currentId = $k;
+            }
+            if (is_array($argument)) {
+                $arguments[$k] = $this->resolveArguments($container, $argument);
+            } elseif ($argument instanceof Definition) {
+                if ($argument instanceof DefinitionDecorator) {
+                    $arguments[$k] = $argument = $this->resolveDefinition($container, $argument);
+                    if ($isRoot) {
+                        $container->setDefinition($k, $argument);
+                    }
+                }
+                $argument->setArguments($this->resolveArguments($container, $argument->getArguments()));
+                $argument->setMethodCalls($this->resolveArguments($container, $argument->getMethodCalls()));
+                $argument->setProperties($this->resolveArguments($container, $argument->getProperties()));
+
+                $configurator = $this->resolveArguments($container, array($argument->getConfigurator()));
+                $argument->setConfigurator($configurator[0]);
+
+                $factory = $this->resolveArguments($container, array($argument->getFactory()));
+                $argument->setFactory($factory[0]);
             }
         }
 
-        return parent::processValue($value, $isRoot);
+        return $arguments;
     }
 
     /**
      * Resolves the definition.
      *
+     * @param ContainerBuilder    $container  The ContainerBuilder
+     * @param DefinitionDecorator $definition
+     *
      * @return Definition
      *
-     * @throws RuntimeException When the definition is invalid
+     * @throws \RuntimeException When the definition is invalid
      */
-    private function resolveDefinition(ChildDefinition $definition)
+    private function resolveDefinition(ContainerBuilder $container, DefinitionDecorator $definition)
     {
-        try {
-            return $this->doResolveDefinition($definition);
-        } catch (ExceptionInterface $e) {
-            $r = new \ReflectionProperty($e, 'message');
-            $r->setAccessible(true);
-            $r->setValue($e, sprintf('Service "%s": %s', $this->currentId, $e->getMessage()));
-
-            throw $e;
-        }
-    }
-
-    private function doResolveDefinition(ChildDefinition $definition)
-    {
-        if (!$this->container->has($parent = $definition->getParent())) {
-            throw new RuntimeException(sprintf('Parent definition "%s" does not exist.', $parent));
+        if (!$container->has($parent = $definition->getParent())) {
+            throw new RuntimeException(sprintf('The parent definition "%s" defined for definition "%s" does not exist.', $parent, $this->currentId));
         }
 
-        $parentDef = $this->container->findDefinition($parent);
-        if ($parentDef instanceof ChildDefinition) {
+        $parentDef = $container->findDefinition($parent);
+        if ($parentDef instanceof DefinitionDecorator) {
             $id = $this->currentId;
             $this->currentId = $parent;
-            $parentDef = $this->resolveDefinition($parentDef);
-            $this->container->setDefinition($parent, $parentDef);
+            $parentDef = $this->resolveDefinition($container, $parentDef);
+            $container->setDefinition($parent, $parentDef);
             $this->currentId = $id;
         }
 
-        $this->container->log($this, sprintf('Resolving inheritance for "%s" (parent: %s).', $this->currentId, $parent));
+        $this->compiler->addLogMessage($this->formatter->formatResolveInheritance($this, $this->currentId, $parent));
         $def = new Definition();
 
         // merge in parent definition
-        // purposely ignored attributes: abstract, shared, tags, autoconfigured
+        // purposely ignored attributes: abstract, tags
         $def->setClass($parentDef->getClass());
         $def->setArguments($parentDef->getArguments());
         $def->setMethodCalls($parentDef->getMethodCalls());
         $def->setProperties($parentDef->getProperties());
-        if ($parentDef->getAutowiringTypes(false)) {
-            $def->setAutowiringTypes($parentDef->getAutowiringTypes(false));
-        }
+        $def->setAutowiringTypes($parentDef->getAutowiringTypes());
         if ($parentDef->isDeprecated()) {
             $def->setDeprecated(true, $parentDef->getDeprecationMessage('%service_id%'));
         }
@@ -101,7 +128,6 @@ class ResolveDefinitionTemplatesPass extends AbstractRecursivePass
         $def->setPublic($parentDef->isPublic());
         $def->setLazy($parentDef->isLazy());
         $def->setAutowired($parentDef->isAutowired());
-        $def->setChanges($parentDef->getChanges());
 
         // overwrite with values specified in the decorator
         $changes = $definition->getChanges();
@@ -126,11 +152,8 @@ class ResolveDefinitionTemplatesPass extends AbstractRecursivePass
         if (isset($changes['deprecated'])) {
             $def->setDeprecated($definition->isDeprecated(), $definition->getDeprecationMessage('%service_id%'));
         }
-        if (isset($changes['autowired'])) {
+        if (isset($changes['autowire'])) {
             $def->setAutowired($definition->isAutowired());
-        }
-        if (isset($changes['shared'])) {
-            $def->setShared($definition->isShared());
         }
         if (isset($changes['decorated_service'])) {
             $decoratedService = $definition->getDecoratedService();
@@ -145,11 +168,15 @@ class ResolveDefinitionTemplatesPass extends AbstractRecursivePass
         foreach ($definition->getArguments() as $k => $v) {
             if (is_numeric($k)) {
                 $def->addArgument($v);
-            } elseif (0 === strpos($k, 'index_')) {
-                $def->replaceArgument((int) substr($k, strlen('index_')), $v);
-            } else {
-                $def->setArgument($k, $v);
+                continue;
             }
+
+            if (0 !== strpos($k, 'index_')) {
+                throw new RuntimeException(sprintf('Invalid argument key "%s" found.', $k));
+            }
+
+            $index = (int) substr($k, strlen('index_'));
+            $def->replaceArgument($index, $v);
         }
 
         // merge properties
@@ -158,21 +185,19 @@ class ResolveDefinitionTemplatesPass extends AbstractRecursivePass
         }
 
         // append method calls
-        if ($calls = $definition->getMethodCalls()) {
+        if (count($calls = $definition->getMethodCalls()) > 0) {
             $def->setMethodCalls(array_merge($def->getMethodCalls(), $calls));
         }
 
         // merge autowiring types
-        foreach ($definition->getAutowiringTypes(false) as $autowiringType) {
+        foreach ($definition->getAutowiringTypes() as $autowiringType) {
             $def->addAutowiringType($autowiringType);
         }
 
         // these attributes are always taken from the child
         $def->setAbstract($definition->isAbstract());
+        $def->setShared($definition->isShared());
         $def->setTags($definition->getTags());
-        // autoconfigure is never taken from parent (on purpose)
-        // and it's not legal on an instanceof
-        $def->setAutoconfigured($definition->isAutoconfigured());
 
         return $def;
     }

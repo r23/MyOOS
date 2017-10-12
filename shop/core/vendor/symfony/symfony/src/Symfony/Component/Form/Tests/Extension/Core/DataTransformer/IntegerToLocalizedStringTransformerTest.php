@@ -11,11 +11,10 @@
 
 namespace Symfony\Component\Form\Tests\Extension\Core\DataTransformer;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\DataTransformer\IntegerToLocalizedStringTransformer;
 use Symfony\Component\Intl\Util\IntlTestHelper;
 
-class IntegerToLocalizedStringTransformerTest extends TestCase
+class IntegerToLocalizedStringTransformerTest extends \PHPUnit_Framework_TestCase
 {
     protected function setUp()
     {

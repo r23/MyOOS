@@ -11,11 +11,10 @@
 
 namespace Symfony\Component\Security\Http\Tests\Firewall;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener;
 
-class AnonymousAuthenticationListenerTest extends TestCase
+class AnonymousAuthenticationListenerTest extends \PHPUnit_Framework_TestCase
 {
     public function testHandleWithTokenStorageHavingAToken()
     {

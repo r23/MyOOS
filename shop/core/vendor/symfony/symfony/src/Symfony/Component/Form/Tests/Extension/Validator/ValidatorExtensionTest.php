@@ -11,10 +11,9 @@
 
 namespace Symfony\Component\Form\Tests\Extension\Validator;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
 
-class ValidatorExtensionTest extends TestCase
+class ValidatorExtensionTest extends \PHPUnit_Framework_TestCase
 {
     public function test2Dot5ValidationApi()
     {

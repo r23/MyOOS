@@ -11,7 +11,6 @@
 
 namespace Symfony\Component\Form\Tests\Extension\Validator;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Validator\ValidatorTypeGuesser;
 use Symfony\Component\Form\Guess\Guess;
 use Symfony\Component\Form\Guess\ValueGuess;
@@ -28,7 +27,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
  * @author franek <franek@chicour.net>
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class ValidatorTypeGuesserTest extends TestCase
+class ValidatorTypeGuesserTest extends \PHPUnit_Framework_TestCase
 {
     const TEST_CLASS = 'Symfony\Component\Form\Tests\Extension\Validator\ValidatorTypeGuesserTest_TestClass';
 

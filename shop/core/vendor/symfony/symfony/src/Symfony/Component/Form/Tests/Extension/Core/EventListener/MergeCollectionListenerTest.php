@@ -11,11 +11,10 @@
 
 namespace Symfony\Component\Form\Tests\Extension\Core\EventListener;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\Extension\Core\EventListener\MergeCollectionListener;
 
-abstract class MergeCollectionListenerTest extends TestCase
+abstract class MergeCollectionListenerTest extends \PHPUnit_Framework_TestCase
 {
     protected $dispatcher;
     protected $factory;

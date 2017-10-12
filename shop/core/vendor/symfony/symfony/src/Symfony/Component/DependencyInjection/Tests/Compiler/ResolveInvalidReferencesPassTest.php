@@ -11,14 +11,12 @@
 
 namespace Symfony\Component\DependencyInjection\Tests\Compiler;
 
-use PHPUnit\Framework\TestCase;
-use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\Compiler\ResolveInvalidReferencesPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class ResolveInvalidReferencesPassTest extends TestCase
+class ResolveInvalidReferencesPassTest extends \PHPUnit_Framework_TestCase
 {
     public function testProcess()
     {
@@ -107,24 +105,6 @@ class ResolveInvalidReferencesPassTest extends TestCase
         $this->process($container);
 
         $this->assertEquals(array(), $def->getProperties());
-    }
-
-    public function testProcessRemovesArgumentsOnInvalid()
-    {
-        $container = new ContainerBuilder();
-        $def = $container
-            ->register('foo')
-            ->addArgument(array(
-                array(
-                    new Reference('bar', ContainerInterface::IGNORE_ON_INVALID_REFERENCE),
-                    new ServiceClosureArgument(new Reference('baz', ContainerInterface::IGNORE_ON_INVALID_REFERENCE)),
-                ),
-            ))
-        ;
-
-        $this->process($container);
-
-        $this->assertSame(array(array(array())), $def->getArguments());
     }
 
     protected function process(ContainerBuilder $container)

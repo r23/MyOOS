@@ -11,11 +11,9 @@
 
 namespace Symfony\Component\Form\Extension\Validator\Util;
 
-use Symfony\Component\Form\Util\ServerParams as BaseServerParams;
-
 /**
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class ServerParams extends BaseServerParams
+class ServerParams extends \Symfony\Component\Form\Util\ServerParams
 {
 }

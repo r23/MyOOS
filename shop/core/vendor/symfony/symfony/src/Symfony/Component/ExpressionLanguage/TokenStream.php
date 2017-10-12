@@ -22,19 +22,16 @@ class TokenStream
 
     private $tokens;
     private $position = 0;
-    private $expression;
 
     /**
      * Constructor.
      *
-     * @param array  $tokens     An array of tokens
-     * @param string $expression
+     * @param array $tokens An array of tokens
      */
-    public function __construct(array $tokens, $expression = '')
+    public function __construct(array $tokens)
     {
         $this->tokens = $tokens;
         $this->current = $tokens[0];
-        $this->expression = $expression;
     }
 
     /**
@@ -53,7 +50,7 @@ class TokenStream
     public function next()
     {
         if (!isset($this->tokens[$this->position])) {
-            throw new SyntaxError('Unexpected end of expression', $this->current->cursor, $this->expression);
+            throw new SyntaxError('Unexpected end of expression', $this->current->cursor);
         }
 
         ++$this->position;
@@ -72,7 +69,7 @@ class TokenStream
     {
         $token = $this->current;
         if (!$token->test($type, $value)) {
-            throw new SyntaxError(sprintf('%sUnexpected token "%s" of value "%s" ("%s" expected%s)', $message ? $message.'. ' : '', $token->type, $token->value, $type, $value ? sprintf(' with value "%s"', $value) : ''), $token->cursor, $this->expression);
+            throw new SyntaxError(sprintf('%sUnexpected token "%s" of value "%s" ("%s" expected%s)', $message ? $message.'. ' : '', $token->type, $token->value, $type, $value ? sprintf(' with value "%s"', $value) : ''), $token->cursor);
         }
         $this->next();
     }
@@ -85,15 +82,5 @@ class TokenStream
     public function isEOF()
     {
         return $this->current->type === Token::EOF_TYPE;
-    }
-
-    /**
-     * @internal
-     *
-     * @return string
-     */
-    public function getExpression()
-    {
-        return $this->expression;
     }
 }

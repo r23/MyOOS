@@ -11,14 +11,12 @@
 
 namespace Symfony\Component\Intl\Tests\Globals;
 
-use PHPUnit\Framework\TestCase;
-
 /**
  * Test case for intl function implementations.
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-abstract class AbstractIntlGlobalsTest extends TestCase
+abstract class AbstractIntlGlobalsTest extends \PHPUnit_Framework_TestCase
 {
     public function errorNameProvider()
     {

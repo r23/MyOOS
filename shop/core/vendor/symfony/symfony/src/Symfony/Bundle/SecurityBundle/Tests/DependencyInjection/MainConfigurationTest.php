@@ -11,11 +11,10 @@
 
 namespace Symfony\Bundle\SecurityBundle\Tests\DependencyInjection;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\SecurityBundle\DependencyInjection\MainConfiguration;
 use Symfony\Component\Config\Definition\Processor;
 
-class MainConfigurationTest extends TestCase
+class MainConfigurationTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * The minimal, required config needed to not have any required validation

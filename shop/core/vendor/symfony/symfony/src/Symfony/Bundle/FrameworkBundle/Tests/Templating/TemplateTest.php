@@ -19,9 +19,21 @@ class TemplateTest extends TestCase
     /**
      * @dataProvider getTemplateToPathProvider
      */
-    public function testGetPathForTemplate($template, $path)
+    public function testGetPathForTemplatesInABundle($template, $path)
     {
-        $this->assertSame($template->getPath(), $path);
+        if ($template->get('bundle')) {
+            $this->assertEquals($template->getPath(), $path);
+        }
+    }
+
+    /**
+     * @dataProvider getTemplateToPathProvider
+     */
+    public function testGetPathForTemplatesOutOfABundle($template, $path)
+    {
+        if (!$template->get('bundle')) {
+            $this->assertEquals($template->getPath(), $path);
+        }
     }
 
     public function getTemplateToPathProvider()

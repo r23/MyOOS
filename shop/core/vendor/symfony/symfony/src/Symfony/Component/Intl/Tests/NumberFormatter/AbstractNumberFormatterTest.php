@@ -11,7 +11,6 @@
 
 namespace Symfony\Component\Intl\Tests\NumberFormatter;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Intl\Globals\IntlGlobals;
 use Symfony\Component\Intl\NumberFormatter\NumberFormatter;
 use Symfony\Component\Intl\Util\IntlTestHelper;
@@ -20,7 +19,7 @@ use Symfony\Component\Intl\Util\IntlTestHelper;
  * Note that there are some values written like -2147483647 - 1. This is the lower 32bit int max and is a known
  * behavior of PHP.
  */
-abstract class AbstractNumberFormatterTest extends TestCase
+abstract class AbstractNumberFormatterTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider formatCurrencyWithDecimalStyleProvider
@@ -83,8 +82,6 @@ abstract class AbstractNumberFormatterTest extends TestCase
      */
     public function testFormatCurrencyWithCurrencyStyleCostaRicanColonsRounding($value, $currency, $symbol, $expected)
     {
-        IntlTestHelper::requireIntl($this, '58.1');
-
         $formatter = $this->getNumberFormatter('en', NumberFormatter::CURRENCY);
         $this->assertEquals(sprintf($expected, $symbol), $formatter->formatCurrency($value, $currency));
     }
@@ -92,9 +89,9 @@ abstract class AbstractNumberFormatterTest extends TestCase
     public function formatCurrencyWithCurrencyStyleCostaRicanColonsRoundingProvider()
     {
         return array(
-            array(100, 'CRC', 'CRC', '%s100.00'),
-            array(-100, 'CRC', 'CRC', '-%s100.00'),
-            array(1000.12, 'CRC', 'CRC', '%s1,000.12'),
+            array(100, 'CRC', 'CRC', '%s100'),
+            array(-100, 'CRC', 'CRC', '-%s100'),
+            array(1000.12, 'CRC', 'CRC', '%s1,000'),
         );
     }
 
@@ -308,17 +305,10 @@ abstract class AbstractNumberFormatterTest extends TestCase
 
     /**
      * @dataProvider formatTypeCurrencyProvider
+     * @expectedException \PHPUnit_Framework_Error_Warning
      */
     public function testFormatTypeCurrency($formatter, $value)
     {
-        $exceptionCode = 'PHPUnit\Framework\Error\Warning';
-
-        if (class_exists('PHPUnit_Framework_Error_Warning')) {
-            $exceptionCode = 'PHPUnit_Framework_Error_Warning';
-        }
-
-        $this->{method_exists($this, $_ = 'expectException') ? $_ : 'setExpectedException'}($exceptionCode);
-
         $formatter->format($value, NumberFormatter::TYPE_CURRENCY);
     }
 
@@ -650,16 +640,11 @@ abstract class AbstractNumberFormatterTest extends TestCase
         );
     }
 
+    /**
+     * @expectedException \PHPUnit_Framework_Error_Warning
+     */
     public function testParseTypeDefault()
     {
-        $exceptionCode = 'PHPUnit\Framework\Error\Warning';
-
-        if (class_exists('PHPUnit_Framework_Error_Warning')) {
-            $exceptionCode = 'PHPUnit_Framework_Error_Warning';
-        }
-
-        $this->{method_exists($this, $_ = 'expectException') ? $_ : 'setExpectedException'}($exceptionCode);
-
         $formatter = $this->getNumberFormatter('en', NumberFormatter::DECIMAL);
         $formatter->parse('1', NumberFormatter::TYPE_DEFAULT);
     }
@@ -776,16 +761,11 @@ abstract class AbstractNumberFormatterTest extends TestCase
         );
     }
 
+    /**
+     * @expectedException \PHPUnit_Framework_Error_Warning
+     */
     public function testParseTypeCurrency()
     {
-        $exceptionCode = 'PHPUnit\Framework\Error\Warning';
-
-        if (class_exists('PHPUnit_Framework_Error_Warning')) {
-            $exceptionCode = 'PHPUnit_Framework_Error_Warning';
-        }
-
-        $this->{method_exists($this, $_ = 'expectException') ? $_ : 'setExpectedException'}($exceptionCode);
-
         $formatter = $this->getNumberFormatter('en', NumberFormatter::DECIMAL);
         $formatter->parse('1', NumberFormatter::TYPE_CURRENCY);
     }

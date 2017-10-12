@@ -1,5 +1,5 @@
 {
-    "Version": "2.1.32.59",
+    "Version": "2.1.23.73",
     "Names": {
         "ADP": [
             "ADP",
@@ -217,13 +217,9 @@
             "BYB",
             "Yeni Beyaz Rusya Rublesi (1994–1999)"
         ],
-        "BYN": [
-            "BYN",
-            "Beyaz Rusya Rublesi"
-        ],
         "BYR": [
             "BYR",
-            "Beyaz Rusya Rublesi (2000–2016)"
+            "Beyaz Rusya Rublesi"
         ],
         "BZD": [
             "BZD",
@@ -779,11 +775,11 @@
         ],
         "PEN": [
             "PEN",
-            "Peru Solü"
+            "Peru Nuevo Solü"
         ],
         "PES": [
             "PES",
-            "Peru Solü (1863–1965)"
+            "Peru Solu"
         ],
         "PGK": [
             "PGK",

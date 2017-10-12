@@ -11,10 +11,9 @@
 
 namespace Symfony\Component\HttpFoundation\Tests;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class JsonResponseTest extends TestCase
+class JsonResponseTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstructorEmptyCreatesJsonObject()
     {
@@ -199,12 +198,6 @@ class JsonResponseTest extends TestCase
         $this->assertEquals('{"0":{"0":1,"1":2,"2":3}}', $response->getContent());
     }
 
-    public function testItAcceptsJsonAsString()
-    {
-        $response = JsonResponse::fromJsonString('{"foo":"bar"}');
-        $this->assertSame('{"foo":"bar"}', $response->getContent());
-    }
-
     /**
      * @expectedException \InvalidArgumentException
      */
@@ -228,10 +221,6 @@ class JsonResponseTest extends TestCase
      */
     public function testSetContentJsonSerializeError()
     {
-        if (!interface_exists('JsonSerializable', false)) {
-            $this->markTestSkipped('JsonSerializable is required.');
-        }
-
         $serializable = new JsonSerializableObject();
 
         JsonResponse::create($serializable);
@@ -246,7 +235,7 @@ class JsonResponseTest extends TestCase
     }
 }
 
-if (interface_exists('JsonSerializable', false)) {
+if (interface_exists('JsonSerializable')) {
     class JsonSerializableObject implements \JsonSerializable
     {
         public function jsonSerialize()

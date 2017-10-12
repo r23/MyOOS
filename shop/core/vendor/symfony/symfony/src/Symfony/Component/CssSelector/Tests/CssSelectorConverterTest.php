@@ -11,10 +11,9 @@
 
 namespace Symfony\Component\CssSelector\Tests;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\CssSelector\CssSelectorConverter;
 
-class CssSelectorConverterTest extends TestCase
+class CssSelectorConverterTest extends \PHPUnit_Framework_TestCase
 {
     public function testCssToXPath()
     {

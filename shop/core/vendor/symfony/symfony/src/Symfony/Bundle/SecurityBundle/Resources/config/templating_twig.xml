@@ -5,14 +5,12 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <defaults public="false" />
-
-        <service id="twig.extension.logout_url" class="Symfony\Bridge\Twig\Extension\LogoutUrlExtension">
+        <service id="twig.extension.logout_url" class="Symfony\Bridge\Twig\Extension\LogoutUrlExtension" public="false">
             <tag name="twig.extension" />
             <argument type="service" id="security.logout_url_generator" />
         </service>
 
-        <service id="twig.extension.security" class="Symfony\Bridge\Twig\Extension\SecurityExtension">
+        <service id="twig.extension.security" class="Symfony\Bridge\Twig\Extension\SecurityExtension" public="false">
             <tag name="twig.extension" />
             <argument type="service" id="security.authorization_checker" on-invalid="ignore" />
         </service>

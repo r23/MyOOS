@@ -296,14 +296,9 @@ class Swift_Transport_Esmtp_Auth_NTLMAuthenticator implements Swift_Transport_Es
             return explode('\\', $name);
         }
 
-        if (false !== strpos($name, '@')) {
-            list($user, $domain) = explode('@', $name);
+        list($user, $domain) = explode('@', $name);
 
-            return array($domain, $user);
-        }
-
-        // no domain passed
-        return array('', $name);
+        return array($domain, $user);
     }
 
     /**
@@ -366,9 +361,11 @@ class Swift_Transport_Esmtp_Auth_NTLMAuthenticator implements Swift_Transport_Es
     protected function getCorrectTimestamp($time)
     {
         // Get our timestamp (tricky!)
+        bcscale(0);
+
         $time = number_format($time, 0, '.', ''); // save microtime to string
-        $time = bcadd($time, '11644473600000', 0); // add epoch time
-        $time = bcmul($time, 10000, 0); // tenths of a microsecond.
+        $time = bcadd($time, '11644473600000'); // add epoch time
+        $time = bcmul($time, 10000); // tenths of a microsecond.
 
         $binary = $this->si2bin($time, 64); // create 64 bit binary string
         $timestamp = '';
@@ -462,7 +459,6 @@ class Swift_Transport_Esmtp_Auth_NTLMAuthenticator implements Swift_Transport_Es
     }
 
     /** HELPER FUNCTIONS */
-
     /**
      * Create our security buffer depending on length and offset.
      *
@@ -565,7 +561,6 @@ class Swift_Transport_Esmtp_Auth_NTLMAuthenticator implements Swift_Transport_Es
     }
 
     /** ENCRYPTION ALGORITHMS */
-
     /**
      * DES Encryption.
      *

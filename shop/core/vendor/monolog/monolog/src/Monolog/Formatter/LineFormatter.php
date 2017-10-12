@@ -141,7 +141,7 @@ class LineFormatter extends NormalizerFormatter
 
         $str = '[object] ('.get_class($e).'(code: '.$e->getCode().'): '.$e->getMessage().' at '.$e->getFile().':'.$e->getLine().$previousText.')';
         if ($this->includeStacktraces) {
-            $str .= "\n[stacktrace]\n".$e->getTraceAsString()."\n";
+            $str .= "\n[stacktrace]\n".$e->getTraceAsString();
         }
 
         return $str;
@@ -167,10 +167,6 @@ class LineFormatter extends NormalizerFormatter
     protected function replaceNewlines($str)
     {
         if ($this->allowInlineLineBreaks) {
-            if (0 === strpos($str, '{')) {
-                return str_replace(array('\r', '\n'), array("\r", "\n"), $str);
-            }
-
             return $str;
         }
 

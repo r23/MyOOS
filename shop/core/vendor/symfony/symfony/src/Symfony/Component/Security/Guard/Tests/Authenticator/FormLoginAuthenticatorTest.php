@@ -11,7 +11,6 @@
 
 namespace Symfony\Component\Security\Guard\Tests\Authenticator;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -21,7 +20,7 @@ use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticato
 /**
  * @author Jean Pasdeloup <jpasdeloup@sedona.fr>
  */
-class FormLoginAuthenticatorTest extends TestCase
+class FormLoginAuthenticatorTest extends \PHPUnit_Framework_TestCase
 {
     private $requestWithoutSession;
     private $requestWithSession;

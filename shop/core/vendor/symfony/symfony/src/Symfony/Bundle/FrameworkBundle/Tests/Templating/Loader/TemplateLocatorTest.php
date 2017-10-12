@@ -33,9 +33,6 @@ class TemplateLocatorTest extends TestCase
         $locator = new TemplateLocator($fileLocator);
 
         $this->assertEquals('/path/to/template', $locator->locate($template));
-
-        // Assert cache is used as $fileLocator->locate should be called only once
-        $this->assertEquals('/path/to/template', $locator->locate($template));
     }
 
     public function testLocateATemplateFromCacheDir()

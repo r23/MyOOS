@@ -11,11 +11,10 @@
 
 namespace Symfony\Component\Security\Http\Tests;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Http\FirewallMap;
 use Symfony\Component\HttpFoundation\Request;
 
-class FirewallMapTest extends TestCase
+class FirewallMapTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetListeners()
     {

@@ -11,13 +11,37 @@
 
 namespace Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler;
 
-use Symfony\Component\Validator\DependencyInjection\AddConstraintValidatorsPass as BaseAddConstraintValidatorsPass;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 
-@trigger_error(sprintf('The %s class is deprecated since version 3.3 and will be removed in 4.0. Use %s instead.', AddConstraintValidatorsPass::class, BaseAddConstraintValidatorsPass::class), E_USER_DEPRECATED);
-
-/**
- * @deprecated since version 3.3, to be removed in 4.0. Use {@link BaseAddConstraintValidatorsPass} instead
- */
-class AddConstraintValidatorsPass extends BaseAddConstraintValidatorsPass
+class AddConstraintValidatorsPass implements CompilerPassInterface
 {
+    public function process(ContainerBuilder $container)
+    {
+        if (!$container->hasDefinition('validator.validator_factory')) {
+            return;
+        }
+
+        $validators = array();
+        foreach ($container->findTaggedServiceIds('validator.constraint_validator') as $id => $attributes) {
+            if (isset($attributes[0]['alias'])) {
+                $validators[$attributes[0]['alias']] = $id;
+            }
+
+            $definition = $container->getDefinition($id);
+
+            if (!$definition->isPublic()) {
+                throw new InvalidArgumentException(sprintf('The service "%s" must be public as it can be lazy-loaded.', $id));
+            }
+
+            if ($definition->isAbstract()) {
+                throw new InvalidArgumentException(sprintf('The service "%s" must not be abstract as it can be lazy-loaded.', $id));
+            }
+
+            $validators[$definition->getClass()] = $id;
+        }
+
+        $container->getDefinition('validator.validator_factory')->replaceArgument(1, $validators);
+    }
 }

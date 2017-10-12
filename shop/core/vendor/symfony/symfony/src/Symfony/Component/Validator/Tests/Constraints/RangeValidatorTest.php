@@ -14,9 +14,8 @@ namespace Symfony\Component\Validator\Tests\Constraints;
 use Symfony\Component\Intl\Util\IntlTestHelper;
 use Symfony\Component\Validator\Constraints\Range;
 use Symfony\Component\Validator\Constraints\RangeValidator;
-use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
-class RangeValidatorTest extends ConstraintValidatorTestCase
+class RangeValidatorTest extends AbstractConstraintValidatorTest
 {
     protected function createValidator()
     {
@@ -276,7 +275,7 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
     {
         // Conversion of dates to string differs between ICU versions
         // Make sure we have the correct version loaded
-        IntlTestHelper::requireIntl($this, '57.1');
+        IntlTestHelper::requireIntl($this);
 
         $constraint = new Range(array(
             'min' => 'March 10, 2014',
@@ -299,7 +298,7 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
     {
         // Conversion of dates to string differs between ICU versions
         // Make sure we have the correct version loaded
-        IntlTestHelper::requireIntl($this, '57.1');
+        IntlTestHelper::requireIntl($this);
 
         $constraint = new Range(array(
             'max' => 'March 20, 2014',
@@ -322,7 +321,7 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
     {
         // Conversion of dates to string differs between ICU versions
         // Make sure we have the correct version loaded
-        IntlTestHelper::requireIntl($this, '57.1');
+        IntlTestHelper::requireIntl($this);
 
         $constraint = new Range(array(
             'min' => 'March 10, 2014',
@@ -347,7 +346,7 @@ class RangeValidatorTest extends ConstraintValidatorTestCase
     {
         // Conversion of dates to string differs between ICU versions
         // Make sure we have the correct version loaded
-        IntlTestHelper::requireIntl($this, '57.1');
+        IntlTestHelper::requireIntl($this);
 
         $constraint = new Range(array(
             'min' => 'March 10, 2014',

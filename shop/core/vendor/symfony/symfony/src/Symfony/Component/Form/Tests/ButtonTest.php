@@ -11,14 +11,13 @@
 
 namespace Symfony\Component\Form\Tests;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\ButtonBuilder;
 use Symfony\Component\Form\FormBuilder;
 
 /**
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class ButtonTest extends TestCase
+class ButtonTest extends \PHPUnit_Framework_TestCase
 {
     private $dispatcher;
 

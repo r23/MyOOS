@@ -70,4 +70,14 @@ class SwitchUserTest extends WebTestCase
 
         return $client;
     }
+
+    public static function setUpBeforeClass()
+    {
+        parent::deleteTmpDir('StandardFormLogin');
+    }
+
+    public static function tearDownAfterClass()
+    {
+        parent::deleteTmpDir('StandardFormLogin');
+    }
 }

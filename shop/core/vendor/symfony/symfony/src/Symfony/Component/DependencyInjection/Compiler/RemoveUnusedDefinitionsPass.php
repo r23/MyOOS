@@ -37,7 +37,9 @@ class RemoveUnusedDefinitionsPass implements RepeatablePassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        $graph = $container->getCompiler()->getServiceReferenceGraph();
+        $compiler = $container->getCompiler();
+        $formatter = $compiler->getLoggingFormatter();
+        $graph = $compiler->getServiceReferenceGraph();
 
         $hasChanged = false;
         foreach ($container->getDefinitions() as $id => $definition) {
@@ -67,11 +69,10 @@ class RemoveUnusedDefinitionsPass implements RepeatablePassInterface
                 $container->setDefinition((string) reset($referencingAliases), $definition);
                 $definition->setPublic(true);
                 $container->removeDefinition($id);
-                $container->log($this, sprintf('Removed service "%s"; reason: replaces alias %s.', $id, reset($referencingAliases)));
+                $compiler->addLogMessage($formatter->formatRemoveService($this, $id, 'replaces alias '.reset($referencingAliases)));
             } elseif (0 === count($referencingAliases) && false === $isReferenced) {
                 $container->removeDefinition($id);
-                $container->resolveEnvPlaceholders(serialize($definition));
-                $container->log($this, sprintf('Removed service "%s"; reason: unused.', $id));
+                $compiler->addLogMessage($formatter->formatRemoveService($this, $id, 'unused'));
                 $hasChanged = true;
             }
         }

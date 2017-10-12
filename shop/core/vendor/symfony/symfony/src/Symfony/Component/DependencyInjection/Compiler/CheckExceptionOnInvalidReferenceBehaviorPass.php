@@ -11,27 +11,53 @@
 
 namespace Symfony\Component\DependencyInjection\Compiler;
 
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * Checks that all references are pointing to a valid service.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class CheckExceptionOnInvalidReferenceBehaviorPass extends AbstractRecursivePass
+class CheckExceptionOnInvalidReferenceBehaviorPass implements CompilerPassInterface
 {
-    protected function processValue($value, $isRoot = false)
-    {
-        if ($value instanceof Reference && ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE === $value->getInvalidBehavior()) {
-            $destId = (string) $value;
+    private $container;
+    private $sourceId;
 
-            if (!$this->container->has($destId)) {
-                throw new ServiceNotFoundException($destId, $this->currentId);
+    public function process(ContainerBuilder $container)
+    {
+        $this->container = $container;
+
+        foreach ($container->getDefinitions() as $id => $definition) {
+            $this->sourceId = $id;
+            $this->processDefinition($definition);
+        }
+    }
+
+    private function processDefinition(Definition $definition)
+    {
+        $this->processReferences($definition->getArguments());
+        $this->processReferences($definition->getMethodCalls());
+        $this->processReferences($definition->getProperties());
+    }
+
+    private function processReferences(array $arguments)
+    {
+        foreach ($arguments as $argument) {
+            if (is_array($argument)) {
+                $this->processReferences($argument);
+            } elseif ($argument instanceof Definition) {
+                $this->processDefinition($argument);
+            } elseif ($argument instanceof Reference && ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE === $argument->getInvalidBehavior()) {
+                $destId = (string) $argument;
+
+                if (!$this->container->has($destId)) {
+                    throw new ServiceNotFoundException($destId, $this->sourceId);
+                }
             }
         }
-
-        return parent::processValue($value, $isRoot);
     }
 }

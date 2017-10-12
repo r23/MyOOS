@@ -11,12 +11,11 @@
 
 namespace Symfony\Component\Security\Http\Tests\EntryPoint;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
-class FormAuthenticationEntryPointTest extends TestCase
+class FormAuthenticationEntryPointTest extends \PHPUnit_Framework_TestCase
 {
     public function testStart()
     {
@@ -64,6 +63,6 @@ class FormAuthenticationEntryPointTest extends TestCase
         $entryPointResponse = $entryPoint->start($request);
 
         $this->assertEquals($response, $entryPointResponse);
-        $this->assertEquals(401, $entryPointResponse->getStatusCode());
+        $this->assertEquals(401, $entryPointResponse->headers->get('X-Status-Code'));
     }
 }

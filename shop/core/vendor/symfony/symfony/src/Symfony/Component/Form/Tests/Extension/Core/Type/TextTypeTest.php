@@ -11,51 +11,27 @@
 
 namespace Symfony\Component\Form\Tests\Extension\Core\Type;
 
-class TextTypeTest extends BaseTypeTest
-{
-    const TESTED_TYPE = 'Symfony\Component\Form\Extension\Core\Type\TextType';
+use Symfony\Component\Form\Test\TypeTestCase as TestCase;
 
-    public function testSubmitNull($expected = null, $norm = null, $view = null)
+class TextTypeTest extends TestCase
+{
+    public function testSubmitNullReturnsNull()
     {
-        parent::testSubmitNull($expected, $norm, '');
+        $form = $this->factory->create('Symfony\Component\Form\Extension\Core\Type\TextType', 'name');
+
+        $form->submit(null);
+
+        $this->assertNull($form->getData());
     }
 
-    public function testSubmitNullReturnsNullWithEmptyDataAsString()
+    public function testSubmitNullReturnsEmptyStringWithEmptyDataAsString()
     {
-        $form = $this->factory->create(static::TESTED_TYPE, 'name', array(
+        $form = $this->factory->create('Symfony\Component\Form\Extension\Core\Type\TextType', 'name', array(
             'empty_data' => '',
         ));
 
         $form->submit(null);
+
         $this->assertSame('', $form->getData());
-        $this->assertSame('', $form->getNormData());
-        $this->assertSame('', $form->getViewData());
-    }
-
-    public function provideZeros()
-    {
-        return array(
-            array(0, '0'),
-            array('0', '0'),
-            array('00000', '00000'),
-        );
-    }
-
-    /**
-     * @dataProvider provideZeros
-     *
-     * @see https://github.com/symfony/symfony/issues/1986
-     */
-    public function testSetDataThroughParamsWithZero($data, $dataAsString)
-    {
-        $form = $this->factory->create(static::TESTED_TYPE, null, array(
-            'data' => $data,
-        ));
-        $view = $form->createView();
-
-        $this->assertFalse($form->isEmpty());
-
-        $this->assertSame($dataAsString, $view->vars['value']);
-        $this->assertSame($dataAsString, $form->getData());
     }
 }

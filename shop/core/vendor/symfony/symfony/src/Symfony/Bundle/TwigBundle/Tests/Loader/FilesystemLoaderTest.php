@@ -52,7 +52,7 @@ class FilesystemLoaderTest extends TestCase
     }
 
     /**
-     * @expectedException \Twig\Error\LoaderError
+     * @expectedException \Twig_Error_Loader
      */
     public function testTwigErrorIfLocatorThrowsInvalid()
     {
@@ -76,7 +76,7 @@ class FilesystemLoaderTest extends TestCase
     }
 
     /**
-     * @expectedException \Twig\Error\LoaderError
+     * @expectedException \Twig_Error_Loader
      */
     public function testTwigErrorIfLocatorReturnsFalse()
     {
@@ -100,7 +100,7 @@ class FilesystemLoaderTest extends TestCase
     }
 
     /**
-     * @expectedException \Twig\Error\LoaderError
+     * @expectedException \Twig_Error_Loader
      * @expectedExceptionMessageRegExp /Unable to find template "name\.format\.engine" \(looked into: .*Tests.Loader.\.\..DependencyInjection.Fixtures.Resources.views\)/
      */
     public function testTwigErrorIfTemplateDoesNotExist()

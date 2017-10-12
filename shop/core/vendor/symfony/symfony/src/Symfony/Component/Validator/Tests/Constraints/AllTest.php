@@ -11,14 +11,13 @@
 
 namespace Symfony\Component\Validator\Tests\Constraints;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints\All;
 use Symfony\Component\Validator\Constraints\Valid;
 
 /**
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class AllTest extends TestCase
+class AllTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @expectedException \Symfony\Component\Validator\Exception\ConstraintDefinitionException

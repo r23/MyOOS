@@ -64,7 +64,7 @@ class DelegatingLoader extends BaseDelegatingLoader
             // - this handles the case and prevents the second fatal error
             //   by triggering an exception beforehand.
 
-            throw new FileLoaderLoadException($resource, null, null, null, $type);
+            throw new FileLoaderLoadException($resource);
         }
         $this->loading = true;
 

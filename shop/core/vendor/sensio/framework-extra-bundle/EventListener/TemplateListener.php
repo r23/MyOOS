@@ -55,8 +55,14 @@ class TemplateListener implements EventSubscriberInterface
         $request = $event->getRequest();
         $template = $request->attributes->get('_template');
 
-        if (!$template instanceof Template) {
+        // no @Template present
+        if (null === $template) {
             return;
+        }
+
+        // we need the @Template annotation object or we cannot continue
+        if (!$template instanceof Template) {
+            throw new \InvalidArgumentException('Request attribute "_template" is reserved for @Template annotations.');
         }
 
         $template->setOwner($controller = $event->getController());
@@ -80,7 +86,7 @@ class TemplateListener implements EventSubscriberInterface
         $request = $event->getRequest();
         $template = $request->attributes->get('_template');
 
-        if (!$template instanceof Template) {
+        if (null === $template) {
             return;
         }
 
@@ -103,12 +109,12 @@ class TemplateListener implements EventSubscriberInterface
             };
 
             $event->setResponse(new StreamedResponse($callback));
-        } else {
-            $event->setResponse($templating->renderResponse($template->getTemplate(), $parameters));
         }
 
         // make sure the owner (controller+dependencies) is not cached or stored elsewhere
         $template->setOwner(array());
+
+        $event->setResponse($templating->renderResponse($template->getTemplate(), $parameters));
     }
 
     public static function getSubscribedEvents()
@@ -137,18 +143,14 @@ class TemplateListener implements EventSubscriberInterface
 
             $arguments = array();
             foreach ($r->getMethod($action)->getParameters() as $param) {
-                $arguments[] = $param;
+                $arguments[] = $param->getName();
             }
         }
 
         // fetch the arguments of @Template.vars or everything if desired
         // and assign them to the designated template
         foreach ($arguments as $argument) {
-            if ($argument instanceof \ReflectionParameter) {
-                $parameters[$name = $argument->getName()] = !$request->attributes->has($name) && $argument->isDefaultValueAvailable() ? $argument->getDefaultValue() : $request->attributes->get($name);
-            } else {
-                $parameters[$argument] = $request->attributes->get($argument);
-            }
+            $parameters[$argument] = $request->attributes->get($argument);
         }
 
         return $parameters;

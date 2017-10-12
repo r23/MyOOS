@@ -43,4 +43,14 @@ class FirewallEntryPointTest extends WebTestCase
             "Custom entry point wasn't started"
         );
     }
+
+    public static function setUpBeforeClass()
+    {
+        parent::deleteTmpDir('FirewallEntryPoint');
+    }
+
+    public static function tearDownAfterClass()
+    {
+        parent::deleteTmpDir('FirewallEntryPoint');
+    }
 }

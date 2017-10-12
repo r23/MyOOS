@@ -11,10 +11,9 @@
 
 namespace Symfony\Component\Serializer\Tests\Normalizer;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 
-class AbstractObjectNormalizerTest extends TestCase
+class AbstractObjectNormalizerTest extends \PHPUnit_Framework_TestCase
 {
     public function testDenormalize()
     {
@@ -24,32 +23,6 @@ class AbstractObjectNormalizerTest extends TestCase
         $this->assertSame('foo', $normalizedData->foo);
         $this->assertNull($normalizedData->bar);
         $this->assertSame('baz', $normalizedData->baz);
-    }
-
-    public function testInstantiateObjectDenormalizer()
-    {
-        $data = array('foo' => 'foo', 'bar' => 'bar', 'baz' => 'baz');
-        $class = __NAMESPACE__.'\Dummy';
-        $context = array();
-
-        $normalizer = new AbstractObjectNormalizerDummy();
-
-        $this->assertInstanceOf(__NAMESPACE__.'\Dummy', $normalizer->instantiateObject($data, $class, $context, new \ReflectionClass($class), array()));
-    }
-
-    /**
-     * @expectedException \Symfony\Component\Serializer\Exception\ExtraAttributesException
-     * @expectedExceptionMessage Extra attributes are not allowed ("fooFoo", "fooBar" are unknown).
-     */
-    public function testDenormalizeWithExtraAttributes()
-    {
-        $normalizer = new AbstractObjectNormalizerDummy();
-        $normalizer->denormalize(
-            array('fooFoo' => 'foo', 'fooBar' => 'bar'),
-            __NAMESPACE__.'\Dummy',
-            'any',
-            array('allow_extra_attributes' => false)
-        );
     }
 }
 
@@ -71,11 +44,6 @@ class AbstractObjectNormalizerDummy extends AbstractObjectNormalizer
     protected function isAllowedAttribute($classOrObject, $attribute, $format = null, array $context = array())
     {
         return in_array($attribute, array('foo', 'baz'));
-    }
-
-    public function instantiateObject(array &$data, $class, array &$context, \ReflectionClass $reflectionClass, $allowedAttributes, $format = null)
-    {
-        return parent::instantiateObject($data, $class, $context, $reflectionClass, $allowedAttributes, $format);
     }
 }
 

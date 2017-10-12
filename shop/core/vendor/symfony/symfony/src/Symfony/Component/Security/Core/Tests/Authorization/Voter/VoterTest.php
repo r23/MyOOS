@@ -11,12 +11,11 @@
 
 namespace Symfony\Component\Security\Core\Tests\Authorization\Voter;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 
-class VoterTest extends TestCase
+class VoterTest extends \PHPUnit_Framework_TestCase
 {
     protected $token;
 

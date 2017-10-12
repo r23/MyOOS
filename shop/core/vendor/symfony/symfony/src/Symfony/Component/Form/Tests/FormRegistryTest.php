@@ -11,7 +11,6 @@
 
 namespace Symfony\Component\Form\Tests;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormRegistry;
 use Symfony\Component\Form\FormTypeGuesserChain;
 use Symfony\Component\Form\ResolvedFormType;
@@ -25,7 +24,7 @@ use Symfony\Component\Form\Tests\Fixtures\TestExtension;
 /**
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class FormRegistryTest extends TestCase
+class FormRegistryTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var FormRegistry

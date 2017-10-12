@@ -11,10 +11,9 @@
 
 namespace Symfony\Component\Security\Core\Tests\User;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\User\UserChecker;
 
-class UserCheckerTest extends TestCase
+class UserCheckerTest extends \PHPUnit_Framework_TestCase
 {
     public function testCheckPostAuthNotAdvancedUserInterface()
     {

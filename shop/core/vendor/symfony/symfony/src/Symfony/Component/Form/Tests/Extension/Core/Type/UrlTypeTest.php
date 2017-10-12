@@ -11,13 +11,13 @@
 
 namespace Symfony\Component\Form\Tests\Extension\Core\Type;
 
-class UrlTypeTest extends TextTypeTest
-{
-    const TESTED_TYPE = 'Symfony\Component\Form\Extension\Core\Type\UrlType';
+use Symfony\Component\Form\Test\TypeTestCase as TestCase;
 
+class UrlTypeTest extends TestCase
+{
     public function testSubmitAddsDefaultProtocolIfNoneIsIncluded()
     {
-        $form = $this->factory->create(static::TESTED_TYPE, 'name');
+        $form = $this->factory->create('Symfony\Component\Form\Extension\Core\Type\UrlType', 'name');
 
         $form->submit('www.domain.com');
 
@@ -27,7 +27,7 @@ class UrlTypeTest extends TextTypeTest
 
     public function testSubmitAddsNoDefaultProtocolIfAlreadyIncluded()
     {
-        $form = $this->factory->create(static::TESTED_TYPE, null, array(
+        $form = $this->factory->create('Symfony\Component\Form\Extension\Core\Type\UrlType', null, array(
             'default_protocol' => 'http',
         ));
 
@@ -39,7 +39,7 @@ class UrlTypeTest extends TextTypeTest
 
     public function testSubmitAddsNoDefaultProtocolIfEmpty()
     {
-        $form = $this->factory->create(static::TESTED_TYPE, null, array(
+        $form = $this->factory->create('Symfony\Component\Form\Extension\Core\Type\UrlType', null, array(
             'default_protocol' => 'http',
         ));
 
@@ -51,7 +51,7 @@ class UrlTypeTest extends TextTypeTest
 
     public function testSubmitAddsNoDefaultProtocolIfNull()
     {
-        $form = $this->factory->create(static::TESTED_TYPE, null, array(
+        $form = $this->factory->create('Symfony\Component\Form\Extension\Core\Type\UrlType', null, array(
             'default_protocol' => 'http',
         ));
 
@@ -63,7 +63,7 @@ class UrlTypeTest extends TextTypeTest
 
     public function testSubmitAddsNoDefaultProtocolIfSetToNull()
     {
-        $form = $this->factory->create(static::TESTED_TYPE, null, array(
+        $form = $this->factory->create('Symfony\Component\Form\Extension\Core\Type\UrlType', null, array(
             'default_protocol' => null,
         ));
 
@@ -78,7 +78,7 @@ class UrlTypeTest extends TextTypeTest
      */
     public function testThrowExceptionIfDefaultProtocolIsInvalid()
     {
-        $this->factory->create(static::TESTED_TYPE, null, array(
+        $this->factory->create('Symfony\Component\Form\Extension\Core\Type\UrlType', null, array(
             'default_protocol' => array(),
         ));
     }

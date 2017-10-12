@@ -11,27 +11,22 @@
 
 namespace Symfony\Component\Form\Tests\Extension\Core\Type;
 
-class FileTypeTest extends BaseTypeTest
+class FileTypeTest extends \Symfony\Component\Form\Test\TypeTestCase
 {
-    const TESTED_TYPE = 'Symfony\Component\Form\Extension\Core\Type\FileType';
-
     // https://github.com/symfony/symfony/pull/5028
     public function testSetData()
     {
-        $form = $this->factory->createBuilder(static::TESTED_TYPE)->getForm();
-        $data = $this->getMockBuilder('Symfony\Component\HttpFoundation\File\File')
-            ->setConstructorArgs(array(__DIR__.'/../../../Fixtures/foo', 'foo'))
-            ->getMock();
+        $form = $this->factory->createBuilder('Symfony\Component\Form\Extension\Core\Type\FileType')->getForm();
+        $data = $this->createUploadedFileMock('abcdef', 'original.jpg', true);
 
         $form->setData($data);
 
-        // Ensures the data class is defined to accept File instance
         $this->assertSame($data, $form->getData());
     }
 
     public function testSubmit()
     {
-        $form = $this->factory->createBuilder(static::TESTED_TYPE)->getForm();
+        $form = $this->factory->createBuilder('Symfony\Component\Form\Extension\Core\Type\FileType')->getForm();
         $data = $this->createUploadedFileMock('abcdef', 'original.jpg', true);
 
         $form->submit($data);
@@ -39,9 +34,31 @@ class FileTypeTest extends BaseTypeTest
         $this->assertSame($data, $form->getData());
     }
 
+    // https://github.com/symfony/symfony/issues/6134
+    public function testSubmitEmpty()
+    {
+        $form = $this->factory->createBuilder('Symfony\Component\Form\Extension\Core\Type\FileType')->getForm();
+
+        $form->submit(null);
+
+        $this->assertNull($form->getData());
+    }
+
+    public function testSubmitEmptyMultiple()
+    {
+        $form = $this->factory->createBuilder('Symfony\Component\Form\Extension\Core\Type\FileType', null, array(
+            'multiple' => true,
+        ))->getForm();
+
+        // submitted data when an input file is uploaded without choosing any file
+        $form->submit(array(null));
+
+        $this->assertSame(array(), $form->getData());
+    }
+
     public function testSetDataMultiple()
     {
-        $form = $this->factory->createBuilder(static::TESTED_TYPE, null, array(
+        $form = $this->factory->createBuilder('Symfony\Component\Form\Extension\Core\Type\FileType', null, array(
             'multiple' => true,
         ))->getForm();
 
@@ -56,7 +73,7 @@ class FileTypeTest extends BaseTypeTest
 
     public function testSubmitMultiple()
     {
-        $form = $this->factory->createBuilder(static::TESTED_TYPE, null, array(
+        $form = $this->factory->createBuilder('Symfony\Component\Form\Extension\Core\Type\FileType', null, array(
             'multiple' => true,
         ))->getForm();
 
@@ -75,38 +92,13 @@ class FileTypeTest extends BaseTypeTest
 
     public function testDontPassValueToView()
     {
-        $form = $this->factory->create(static::TESTED_TYPE);
+        $form = $this->factory->create('Symfony\Component\Form\Extension\Core\Type\FileType');
         $form->submit(array(
-            'file' => $this->createUploadedFileMock('abcdef', 'original.jpg', true),
+            'Symfony\Component\Form\Extension\Core\Type\FileType' => $this->createUploadedFileMock('abcdef', 'original.jpg', true),
         ));
+        $view = $form->createView();
 
-        $this->assertEquals('', $form->createView()->vars['value']);
-    }
-
-    public function testPassMultipartFalseToView()
-    {
-        $view = $this->factory->create(static::TESTED_TYPE)
-            ->createView();
-
-        $this->assertTrue($view->vars['multipart']);
-    }
-
-    public function testSubmitNull($expected = null, $norm = null, $view = null)
-    {
-        parent::testSubmitNull($expected, $norm, '');
-    }
-
-    public function testSubmitNullWhenMultiple()
-    {
-        $form = $this->factory->create(static::TESTED_TYPE, null, array(
-            'multiple' => true,
-        ));
-        // submitted data when an input file is uploaded without choosing any file
-        $form->submit(array(null));
-
-        $this->assertSame(array(), $form->getData());
-        $this->assertSame(array(), $form->getNormData());
-        $this->assertSame(array(), $form->getViewData());
+        $this->assertEquals('', $view->vars['value']);
     }
 
     private function createUploadedFileMock($name, $originalName, $valid)

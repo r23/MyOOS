@@ -11,10 +11,9 @@
 
 namespace Symfony\Component\Security\Core\Tests\Authentication;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\AuthenticationTrustResolver;
 
-class AuthenticationTrustResolverTest extends TestCase
+class AuthenticationTrustResolverTest extends \PHPUnit_Framework_TestCase
 {
     public function testIsAnonymous()
     {

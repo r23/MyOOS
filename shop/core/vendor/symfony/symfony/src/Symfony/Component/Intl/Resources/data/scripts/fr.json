@@ -1,5 +1,5 @@
 {
-    "Version": "2.1.32.59",
+    "Version": "2.1.23.79",
     "Names": {
         "Arab": "arabe",
         "Armi": "araméen impérial",
@@ -37,7 +37,6 @@
         "Grek": "grec",
         "Gujr": "goudjarâtî",
         "Guru": "gourmoukhî",
-        "Hanb": "Hanb",
         "Hang": "hangûl",
         "Hani": "sinogrammes",
         "Hano": "hanounóo",
@@ -50,7 +49,6 @@
         "Hung": "ancien hongrois",
         "Inds": "indus",
         "Ital": "ancien italique",
-        "Jamo": "Jamo",
         "Java": "javanais",
         "Jpan": "japonais",
         "Kali": "kayah li",
@@ -129,7 +127,6 @@
         "Yiii": "yi",
         "Zinh": "hérité",
         "Zmth": "notation mathématique",
-        "Zsye": "Zsye",
         "Zsym": "symboles",
         "Zxxx": "non écrit",
         "Zyyy": "commun",

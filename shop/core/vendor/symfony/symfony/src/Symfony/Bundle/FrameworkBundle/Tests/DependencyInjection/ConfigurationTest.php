@@ -11,13 +11,10 @@
 
 namespace Symfony\Bundle\FrameworkBundle\Tests\DependencyInjection;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\DependencyInjection\Configuration;
-use Symfony\Bundle\FullStack;
-use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Config\Definition\Processor;
 
-class ConfigurationTest extends TestCase
+class ConfigurationTest extends \PHPUnit_Framework_TestCase
 {
     public function testDefaultConfig()
     {
@@ -44,40 +41,6 @@ class ConfigurationTest extends TestCase
     }
 
     /**
-     * @group legacy
-     * @expectedDeprecation The "framework.trusted_proxies" configuration key has been deprecated in Symfony 3.3. Use the Request::setTrustedProxies() method in your front controller instead.
-     */
-    public function testTrustedProxiesSetToNullIsDeprecated()
-    {
-        $processor = new Processor();
-        $configuration = new Configuration(true);
-        $processor->processConfiguration($configuration, array(array('trusted_proxies' => null)));
-    }
-
-    /**
-     * @group legacy
-     * @expectedDeprecation The "framework.trusted_proxies" configuration key has been deprecated in Symfony 3.3. Use the Request::setTrustedProxies() method in your front controller instead.
-     */
-    public function testTrustedProxiesSetToEmptyArrayIsDeprecated()
-    {
-        $processor = new Processor();
-        $configuration = new Configuration(true);
-        $processor->processConfiguration($configuration, array(array('trusted_proxies' => array())));
-    }
-
-    /**
-     * @group legacy
-     * @expectedDeprecation The "framework.trusted_proxies" configuration key has been deprecated in Symfony 3.3. Use the Request::setTrustedProxies() method in your front controller instead.
-     */
-    public function testTrustedProxiesSetToNonEmptyArrayIsInvalid()
-    {
-        $processor = new Processor();
-        $configuration = new Configuration(true);
-        $processor->processConfiguration($configuration, array(array('trusted_proxies' => array('127.0.0.1'))));
-    }
-
-    /**
-     * @group legacy
      * @dataProvider getTestValidTrustedProxiesData
      */
     public function testValidTrustedProxies($trustedProxies, $processedProxies)
@@ -108,7 +71,6 @@ class ConfigurationTest extends TestCase
     }
 
     /**
-     * @group legacy
      * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
      */
     public function testInvalidTypeTrustedProxies()
@@ -124,7 +86,6 @@ class ConfigurationTest extends TestCase
     }
 
     /**
-     * @group legacy
      * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
      */
     public function testInvalidValueTrustedProxies()
@@ -154,67 +115,54 @@ class ConfigurationTest extends TestCase
             'base_path' => '',
             'base_urls' => array(),
             'packages' => array(),
-            'json_manifest_path' => null,
         );
 
         $this->assertEquals($defaultConfig, $config['assets']);
     }
 
     /**
-     * @dataProvider provideInvalidAssetConfigurationTests
+     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
+     * @expectedExceptionMessage You cannot use both "version_strategy" and "version" at the same time under "assets".
      */
-    public function testInvalidAssetsConfiguration(array $assetConfig, $expectedMessage)
+    public function testInvalidVersionStrategy()
     {
-        $this->{method_exists($this, $_ = 'expectException') ? $_ : 'setExpectedException'}(
-            InvalidConfigurationException::class,
-            $expectedMessage
-        );
-        if (method_exists($this, 'expectExceptionMessage')) {
-            $this->expectExceptionMessage($expectedMessage);
-        }
-
         $processor = new Processor();
         $configuration = new Configuration(true);
         $processor->processConfiguration($configuration, array(
-                array(
-                    'assets' => $assetConfig,
+            array(
+                'assets' => array(
+                    'base_urls' => '//example.com',
+                    'version' => 1,
+                    'version_strategy' => 'foo',
                 ),
-            ));
+            ),
+        ));
     }
 
-    public function provideInvalidAssetConfigurationTests()
+    /**
+     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
+     * @expectedExceptionMessage  You cannot use both "version_strategy" and "version" at the same time under "assets" packages.
+     */
+    public function testInvalidPackageVersionStrategy()
     {
-        // helper to turn config into embedded package config
-        $createPackageConfig = function (array $packageConfig) {
-            return array(
-                'base_urls' => '//example.com',
-                'version' => 1,
-                'packages' => array(
-                    'foo' => $packageConfig,
+        $processor = new Processor();
+        $configuration = new Configuration(true);
+
+        $processor->processConfiguration($configuration, array(
+            array(
+                'assets' => array(
+                    'base_urls' => '//example.com',
+                    'version' => 1,
+                    'packages' => array(
+                        'foo' => array(
+                            'base_urls' => '//example.com',
+                            'version' => 1,
+                            'version_strategy' => 'foo',
+                        ),
+                    ),
                 ),
-            );
-        };
-
-        $config = array(
-            'version' => 1,
-            'version_strategy' => 'foo',
-        );
-        yield array($config, 'You cannot use both "version_strategy" and "version" at the same time under "assets".');
-        yield array($createPackageConfig($config), 'You cannot use both "version_strategy" and "version" at the same time under "assets" packages.');
-
-        $config = array(
-            'json_manifest_path' => '/foo.json',
-            'version_strategy' => 'foo',
-        );
-        yield array($config, 'You cannot use both "version_strategy" and "json_manifest_path" at the same time under "assets".');
-        yield array($createPackageConfig($config), 'You cannot use both "version_strategy" and "json_manifest_path" at the same time under "assets" packages.');
-
-        $config = array(
-            'json_manifest_path' => '/foo.json',
-            'version' => '1',
-        );
-        yield array($config, 'You cannot use both "version" and "json_manifest_path" at the same time under "assets".');
-        yield array($createPackageConfig($config), 'You cannot use both "version" and "json_manifest_path" at the same time under "assets" packages.');
+            ),
+        ));
     }
 
     protected static function getBundleDefaultConfig()
@@ -228,7 +176,7 @@ class ConfigurationTest extends TestCase
                 'enabled' => false,
             ),
             'form' => array(
-                'enabled' => !class_exists(FullStack::class),
+                'enabled' => false,
                 'csrf_protection' => array(
                     'enabled' => null, // defaults to csrf_protection.enabled
                     'field_name' => '_token',
@@ -252,31 +200,27 @@ class ConfigurationTest extends TestCase
                 ),
             ),
             'translator' => array(
-                'enabled' => !class_exists(FullStack::class),
+                'enabled' => false,
                 'fallbacks' => array('en'),
                 'logging' => true,
                 'paths' => array(),
             ),
             'validation' => array(
-                'enabled' => !class_exists(FullStack::class),
-                'enable_annotations' => !class_exists(FullStack::class),
+                'enabled' => false,
+                'enable_annotations' => false,
                 'static_method' => array('loadValidatorMetadata'),
                 'translation_domain' => 'validators',
                 'strict_email' => false,
-                'mapping' => array(
-                    'paths' => array(),
-                ),
+                'cache' => 'validator.mapping.cache.symfony',
             ),
             'annotations' => array(
-                'cache' => 'php_array',
+                'cache' => 'file',
                 'file_cache_dir' => '%kernel.cache_dir%/annotations',
                 'debug' => true,
-                'enabled' => true,
             ),
             'serializer' => array(
-                'enabled' => !class_exists(FullStack::class),
-                'enable_annotations' => !class_exists(FullStack::class),
-                'mapping' => array('paths' => array()),
+                'enabled' => false,
+                'enable_annotations' => false,
             ),
             'property_access' => array(
                 'magic_call' => false,
@@ -314,14 +258,13 @@ class ConfigurationTest extends TestCase
                 'loaders' => array(),
             ),
             'assets' => array(
-                'enabled' => !class_exists(FullStack::class),
+                'enabled' => false,
                 'version_strategy' => null,
                 'version' => null,
                 'version_format' => '%%s?%%s',
                 'base_path' => '',
                 'base_urls' => array(),
                 'packages' => array(),
-                'json_manifest_path' => null,
             ),
             'cache' => array(
                 'pools' => array(),
@@ -329,15 +272,6 @@ class ConfigurationTest extends TestCase
                 'system' => 'cache.adapter.system',
                 'directory' => '%kernel.cache_dir%/pools',
                 'default_redis_provider' => 'redis://localhost',
-                'default_memcached_provider' => 'memcached://localhost',
-            ),
-            'workflows' => array(),
-            'php_errors' => array(
-                'log' => true,
-                'throw' => true,
-            ),
-            'web_link' => array(
-                'enabled' => !class_exists(FullStack::class),
             ),
         );
     }

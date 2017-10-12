@@ -11,7 +11,6 @@
 
 namespace Symfony\Component\Templating\Tests;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Templating\PhpEngine;
 use Symfony\Component\Templating\Loader\Loader;
 use Symfony\Component\Templating\Storage\StringStorage;
@@ -20,7 +19,7 @@ use Symfony\Component\Templating\TemplateNameParser;
 use Symfony\Component\Templating\TemplateReferenceInterface;
 use Symfony\Component\Templating\TemplateReference;
 
-class PhpEngineTest extends TestCase
+class PhpEngineTest extends \PHPUnit_Framework_TestCase
 {
     protected $loader;
 
@@ -86,7 +85,7 @@ class PhpEngineTest extends TestCase
         $foo = new \Symfony\Component\Templating\Tests\Fixtures\SimpleHelper('foo');
         $engine->set($foo);
 
-        $this->{method_exists($this, $_ = 'expectException') ? $_ : 'setExpectedException'}('\LogicException');
+        $this->setExpectedException('\LogicException');
 
         unset($engine['foo']);
     }

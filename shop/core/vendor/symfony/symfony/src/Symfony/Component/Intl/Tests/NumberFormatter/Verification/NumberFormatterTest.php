@@ -34,7 +34,7 @@ class NumberFormatterTest extends AbstractNumberFormatterTest
 
     public function testGetTextAttribute()
     {
-        IntlTestHelper::requireFullIntl($this, '57.1');
+        IntlTestHelper::requireFullIntl($this);
 
         parent::testGetTextAttribute();
     }

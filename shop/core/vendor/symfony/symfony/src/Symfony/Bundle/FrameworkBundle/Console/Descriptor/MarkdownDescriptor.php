@@ -97,16 +97,16 @@ class MarkdownDescriptor extends Descriptor
     /**
      * {@inheritdoc}
      */
-    protected function describeContainerService($service, array $options = array(), ContainerBuilder $builder = null)
+    protected function describeContainerService($service, array $options = array())
     {
         if (!isset($options['id'])) {
             throw new \InvalidArgumentException('An "id" option must be provided.');
         }
 
-        $childOptions = array_merge($options, array('id' => $options['id'], 'as_array' => true));
+        $childOptions = array('id' => $options['id'], 'as_array' => true);
 
         if ($service instanceof Alias) {
-            $this->describeContainerAlias($service, $childOptions, $builder);
+            $this->describeContainerAlias($service, $childOptions);
         } elseif ($service instanceof Definition) {
             $this->describeContainerDefinition($service, $childOptions);
         } else {
@@ -128,20 +128,14 @@ class MarkdownDescriptor extends Descriptor
         $this->write($title."\n".str_repeat('=', strlen($title)));
 
         $serviceIds = isset($options['tag']) && $options['tag'] ? array_keys($builder->findTaggedServiceIds($options['tag'])) : $builder->getServiceIds();
-        $showArguments = isset($options['show_arguments']) && $options['show_arguments'];
+        $showPrivate = isset($options['show_private']) && $options['show_private'];
         $services = array('definitions' => array(), 'aliases' => array(), 'services' => array());
-
-        if (isset($options['filter'])) {
-            $serviceIds = array_filter($serviceIds, $options['filter']);
-        }
 
         foreach ($this->sortServiceIds($serviceIds) as $serviceId) {
             $service = $this->resolveServiceDefinition($builder, $serviceId);
 
             if ($service instanceof Alias) {
-                if ($showPrivate || $service->isPublic()) {
-                    $services['aliases'][$serviceId] = $service;
-                }
+                $services['aliases'][$serviceId] = $service;
             } elseif ($service instanceof Definition) {
                 if (($showPrivate || $service->isPublic())) {
                     $services['definitions'][$serviceId] = $service;
@@ -155,7 +149,7 @@ class MarkdownDescriptor extends Descriptor
             $this->write("\n\nDefinitions\n-----------\n");
             foreach ($services['definitions'] as $id => $service) {
                 $this->write("\n");
-                $this->describeContainerDefinition($service, array('id' => $id, 'show_arguments' => $showArguments));
+                $this->describeContainerDefinition($service, array('id' => $id));
             }
         }
 
@@ -185,18 +179,20 @@ class MarkdownDescriptor extends Descriptor
             ."\n".'- Public: '.($definition->isPublic() ? 'yes' : 'no')
             ."\n".'- Synthetic: '.($definition->isSynthetic() ? 'yes' : 'no')
             ."\n".'- Lazy: '.($definition->isLazy() ? 'yes' : 'no')
-            ."\n".'- Shared: '.($definition->isShared() ? 'yes' : 'no')
-            ."\n".'- Abstract: '.($definition->isAbstract() ? 'yes' : 'no')
-            ."\n".'- Autowired: '.($definition->isAutowired() ? 'yes' : 'no')
-            ."\n".'- Autoconfigured: '.($definition->isAutoconfigured() ? 'yes' : 'no')
         ;
 
-        foreach ($definition->getAutowiringTypes(false) as $autowiringType) {
-            $output .= "\n".'- Autowiring Type: `'.$autowiringType.'`';
+        if (method_exists($definition, 'isShared')) {
+            $output .= "\n".'- Shared: '.($definition->isShared() ? 'yes' : 'no');
         }
 
-        if (isset($options['show_arguments']) && $options['show_arguments']) {
-            $output .= "\n".'- Arguments: '.($definition->getArguments() ? 'yes' : 'no');
+        $output .= "\n".'- Abstract: '.($definition->isAbstract() ? 'yes' : 'no');
+
+        if (method_exists($definition, 'isAutowired')) {
+            $output .= "\n".'- Autowired: '.($definition->isAutowired() ? 'yes' : 'no');
+
+            foreach ($definition->getAutowiringTypes() as $autowiringType) {
+                $output .= "\n".'- Autowiring Type: `'.$autowiringType.'`';
+            }
         }
 
         if ($definition->getFile()) {
@@ -240,23 +236,12 @@ class MarkdownDescriptor extends Descriptor
     /**
      * {@inheritdoc}
      */
-    protected function describeContainerAlias(Alias $alias, array $options = array(), ContainerBuilder $builder = null)
+    protected function describeContainerAlias(Alias $alias, array $options = array())
     {
         $output = '- Service: `'.$alias.'`'
             ."\n".'- Public: '.($alias->isPublic() ? 'yes' : 'no');
 
-        if (!isset($options['id'])) {
-            return $this->write($output);
-        }
-
-        $this->write(sprintf("### %s\n\n%s\n", $options['id'], $output));
-
-        if (!$builder) {
-            return;
-        }
-
-        $this->write("\n");
-        $this->describeContainerDefinition($builder->getDefinition((string) $alias), array_merge($options, array('id' => (string) $alias)));
+        $this->write(isset($options['id']) ? sprintf("### %s\n\n%s\n", $options['id'], $output) : $output);
     }
 
     /**
@@ -371,7 +356,7 @@ class MarkdownDescriptor extends Descriptor
      */
     private function formatRouterConfig(array $array)
     {
-        if (!$array) {
+        if (!count($array)) {
             return 'NONE';
         }
 

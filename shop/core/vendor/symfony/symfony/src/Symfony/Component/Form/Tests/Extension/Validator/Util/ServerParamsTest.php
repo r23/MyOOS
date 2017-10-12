@@ -11,11 +11,10 @@
 
 namespace Symfony\Component\Form\Tests\Extension\Validator\Util;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Validator\Util\ServerParams;
 use Symfony\Component\HttpFoundation\Request;
 
-class ServerParamsTest extends TestCase
+class ServerParamsTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetContentLengthFromSuperglobals()
     {

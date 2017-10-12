@@ -15,7 +15,6 @@ use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
-use Symfony\Component\Workflow\Workflow;
 
 /**
  * @author Jean-François Simon <jeanfrancois.simon@sensiolabs.com>
@@ -61,7 +60,10 @@ class ExtensionPass implements CompilerPassInterface
             $container->getDefinition('twig.extension.httpkernel')->addTag('twig.extension');
 
             // inject Twig in the hinclude service if Twig is the only registered templating engine
-            if ((!$container->hasParameter('templating.engines') || array('twig') == $container->getParameter('templating.engines')) && $container->hasDefinition('fragment.renderer.hinclude')) {
+            if (
+                !$container->hasParameter('templating.engines')
+                || array('twig') == $container->getParameter('templating.engines')
+            ) {
                 $container->getDefinition('fragment.renderer.hinclude')
                     ->addTag('kernel.fragment_renderer', array('alias' => 'hinclude'))
                     ->replaceArgument(0, new Reference('twig'))
@@ -71,6 +73,10 @@ class ExtensionPass implements CompilerPassInterface
 
         if ($container->has('request_stack')) {
             $container->getDefinition('twig.extension.httpfoundation')->addTag('twig.extension');
+        }
+
+        if ($container->hasParameter('templating.helper.code.file_link_format')) {
+            $container->getDefinition('twig.extension.code')->replaceArgument(0, $container->getParameter('templating.helper.code.file_link_format'));
         }
 
         if ($container->getParameter('kernel.debug')) {
@@ -86,29 +92,10 @@ class ExtensionPass implements CompilerPassInterface
             $twigLoader->clearTag('twig.loader');
         } else {
             $container->setAlias('twig.loader.filesystem', new Alias('twig.loader.native_filesystem', false));
-            $container->removeDefinition('templating.engine.twig');
         }
 
         if ($container->has('assets.packages')) {
             $container->getDefinition('twig.extension.assets')->addTag('twig.extension');
-        }
-
-        if ($container->hasDefinition('twig.extension.yaml')) {
-            $container->getDefinition('twig.extension.yaml')->addTag('twig.extension');
-        }
-
-        if (class_exists('Symfony\Component\Stopwatch\Stopwatch')) {
-            $container->getDefinition('twig.extension.debug.stopwatch')->addTag('twig.extension');
-        }
-
-        if ($container->hasDefinition('twig.extension.expression')) {
-            $container->getDefinition('twig.extension.expression')->addTag('twig.extension');
-        }
-
-        if (!class_exists(Workflow::class) || !$container->has('workflow.registry')) {
-            $container->removeDefinition('workflow.twig_extension');
-        } else {
-            $container->getDefinition('workflow.twig_extension')->addTag('twig.extension');
         }
     }
 }

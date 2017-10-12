@@ -11,7 +11,6 @@
 
 namespace Symfony\Bundle\WebProfilerBundle\Controller;
 
-use Symfony\Bundle\WebProfilerBundle\Csp\ContentSecurityPolicyHandler;
 use Symfony\Bundle\WebProfilerBundle\Profiler\TemplateManager;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +19,6 @@ use Symfony\Component\HttpFoundation\Session\Flash\AutoExpireFlashBag;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Profiler\Profiler;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Twig\Environment;
 
 /**
  * ProfilerController.
@@ -35,29 +33,23 @@ class ProfilerController
     private $twig;
     private $templates;
     private $toolbarPosition;
-    private $cspHandler;
-    private $baseDir;
 
     /**
      * Constructor.
      *
-     * @param UrlGeneratorInterface        $generator       The URL Generator
-     * @param Profiler                     $profiler        The profiler
-     * @param Environment                  $twig            The twig environment
-     * @param array                        $templates       The templates
-     * @param string                       $toolbarPosition The toolbar position (top, bottom, normal, or null -- use the configuration)
-     * @param ContentSecurityPolicyHandler $cspHandler      The Content-Security-Policy handler
-     * @param string                       $baseDir         The project root directory
+     * @param UrlGeneratorInterface $generator       The URL Generator
+     * @param Profiler              $profiler        The profiler
+     * @param \Twig_Environment     $twig            The twig environment
+     * @param array                 $templates       The templates
+     * @param string                $toolbarPosition The toolbar position (top, bottom, normal, or null -- use the configuration)
      */
-    public function __construct(UrlGeneratorInterface $generator, Profiler $profiler = null, Environment $twig, array $templates, $toolbarPosition = 'bottom', ContentSecurityPolicyHandler $cspHandler = null, $baseDir = null)
+    public function __construct(UrlGeneratorInterface $generator, Profiler $profiler = null, \Twig_Environment $twig, array $templates, $toolbarPosition = 'normal')
     {
         $this->generator = $generator;
         $this->profiler = $profiler;
         $this->twig = $twig;
         $this->templates = $templates;
         $this->toolbarPosition = $toolbarPosition;
-        $this->cspHandler = $cspHandler;
-        $this->baseDir = $baseDir;
     }
 
     /**
@@ -96,10 +88,6 @@ class ProfilerController
 
         $this->profiler->disable();
 
-        if (null !== $this->cspHandler) {
-            $this->cspHandler->disableCsp();
-        }
-
         $panel = $request->query->get('panel', 'request');
         $page = $request->query->get('page', 'home');
 
@@ -125,6 +113,30 @@ class ProfilerController
             'templates' => $this->getTemplateManager()->getNames($profile),
             'is_ajax' => $request->isXmlHttpRequest(),
             'profiler_markup_version' => 2, // 1 = original profiler, 2 = Symfony 2.8+ profiler
+        )), 200, array('Content-Type' => 'text/html'));
+    }
+
+    /**
+     * Displays information page.
+     *
+     * @param Request $request The current HTTP Request
+     * @param string  $about   The about message
+     *
+     * @return Response A Response instance
+     *
+     * @throws NotFoundHttpException
+     */
+    public function infoAction(Request $request, $about)
+    {
+        if (null === $this->profiler) {
+            throw new NotFoundHttpException('The profiler must be enabled.');
+        }
+
+        $this->profiler->disable();
+
+        return new Response($this->twig->render('@WebProfiler/Profiler/info.html.twig', array(
+            'about' => $about,
+            'request' => $request,
         )), 200, array('Content-Type' => 'text/html'));
     }
 
@@ -173,7 +185,7 @@ class ProfilerController
             // the profiler is not enabled
         }
 
-        return $this->renderWithCspNonces($request, '@WebProfiler/Profiler/toolbar.html.twig', array(
+        return new Response($this->twig->render('@WebProfiler/Profiler/toolbar.html.twig', array(
             'request' => $request,
             'position' => $position,
             'profile' => $profile,
@@ -181,7 +193,7 @@ class ProfilerController
             'profiler_url' => $url,
             'token' => $token,
             'profiler_markup_version' => 2, // 1 = original toolbar, 2 = Symfony 2.8+ toolbar
-        ));
+        )), 200, array('Content-Type' => 'text/html'));
     }
 
     /**
@@ -200,10 +212,6 @@ class ProfilerController
         }
 
         $this->profiler->disable();
-
-        if (null !== $this->cspHandler) {
-            $this->cspHandler->disableCsp();
-        }
 
         if (null === $session = $request->getSession()) {
             $ip =
@@ -259,10 +267,6 @@ class ProfilerController
         }
 
         $this->profiler->disable();
-
-        if (null !== $this->cspHandler) {
-            $this->cspHandler->disableCsp();
-        }
 
         $profile = $this->profiler->loadProfile($token);
 
@@ -360,48 +364,11 @@ class ProfilerController
 
         $this->profiler->disable();
 
-        if (null !== $this->cspHandler) {
-            $this->cspHandler->disableCsp();
-        }
-
         ob_start();
         phpinfo();
         $phpinfo = ob_get_clean();
 
         return new Response($phpinfo, 200, array('Content-Type' => 'text/html'));
-    }
-
-    /**
-     * Displays the source of a file.
-     *
-     * @return Response A Response instance
-     *
-     * @throws NotFoundHttpException
-     */
-    public function openAction(Request $request)
-    {
-        if (null === $this->baseDir) {
-            throw new NotFoundHttpException('The base dir should be set.');
-        }
-
-        if ($this->profiler) {
-            $this->profiler->disable();
-        }
-
-        $file = $request->query->get('file');
-        $line = $request->query->get('line');
-
-        $filename = $this->baseDir.DIRECTORY_SEPARATOR.$file;
-
-        if (preg_match("'(^|[/\\\\])\.\.?([/\\\\]|$)'", $file) || !is_readable($filename)) {
-            throw new NotFoundHttpException(sprintf('The file "%s" cannot be opened.', $file));
-        }
-
-        return new Response($this->twig->render('@WebProfiler/Profiler/open.html.twig', array(
-            'filename' => $filename,
-            'file' => $file,
-            'line' => $line,
-         )), 200, array('Content-Type' => 'text/html'));
     }
 
     /**
@@ -416,19 +383,5 @@ class ProfilerController
         }
 
         return $this->templateManager;
-    }
-
-    private function renderWithCspNonces(Request $request, $template, $variables, $code = 200, $headers = array('Content-Type' => 'text/html'))
-    {
-        $response = new Response('', $code, $headers);
-
-        $nonces = $this->cspHandler ? $this->cspHandler->getNonces($request, $response) : array();
-
-        $variables['csp_script_nonce'] = isset($nonces['csp_script_nonce']) ? $nonces['csp_script_nonce'] : null;
-        $variables['csp_style_nonce'] = isset($nonces['csp_style_nonce']) ? $nonces['csp_style_nonce'] : null;
-
-        $response->setContent($this->twig->render($template, $variables));
-
-        return $response;
     }
 }

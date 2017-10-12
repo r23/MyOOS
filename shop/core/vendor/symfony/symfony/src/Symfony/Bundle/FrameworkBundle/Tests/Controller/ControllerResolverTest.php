@@ -11,18 +11,15 @@
 
 namespace Symfony\Bundle\FrameworkBundle\Tests\Controller;
 
-use Psr\Container\ContainerInterface as Psr11ContainerInterface;
 use Psr\Log\LoggerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\FrameworkBundle\Controller\ControllerNameParser;
 use Symfony\Bundle\FrameworkBundle\Controller\ControllerResolver;
-use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Tests\Controller\ContainerControllerResolverTest;
+use Symfony\Component\HttpKernel\Tests\Controller\ControllerResolverTest as BaseControllerResolverTest;
 
-class ControllerResolverTest extends ContainerControllerResolverTest
+class ControllerResolverTest extends BaseControllerResolverTest
 {
     public function testGetControllerOnContainerAware()
     {
@@ -58,7 +55,7 @@ class ControllerResolverTest extends ContainerControllerResolverTest
             ->will($this->returnValue('Symfony\Bundle\FrameworkBundle\Tests\Controller\ContainerAwareController::testAction'))
         ;
 
-        $resolver = $this->createControllerResolver(null, null, $parser);
+        $resolver = $this->createControllerResolver(null, $parser);
         $request = Request::create('/');
         $request->attributes->set('_controller', $shortName);
 
@@ -69,101 +66,105 @@ class ControllerResolverTest extends ContainerControllerResolverTest
         $this->assertSame('testAction', $controller[1]);
     }
 
-    public function testContainerAwareControllerGetsContainerWhenNotSet()
+    public function testGetControllerService()
     {
-        class_exists(AbstractControllerTest::class);
+        $container = $this->createMockContainer();
+        $container->expects($this->once())
+            ->method('get')
+            ->with('foo')
+            ->will($this->returnValue($this))
+        ;
 
-        $controller = new ContainerAwareController();
-
-        $container = new Container();
-        $container->set(TestAbstractController::class, $controller);
-
-        $resolver = $this->createControllerResolver(null, $container);
-
+        $resolver = $this->createControllerResolver(null, null, $container);
         $request = Request::create('/');
-        $request->attributes->set('_controller', TestAbstractController::class.':testAction');
+        $request->attributes->set('_controller', 'foo:controllerMethod1');
 
-        $this->assertSame(array($controller, 'testAction'), $resolver->getController($request));
-        $this->assertSame($container, $controller->getContainer());
+        $controller = $resolver->getController($request);
+
+        $this->assertInstanceOf(get_class($this), $controller[0]);
+        $this->assertSame('controllerMethod1', $controller[1]);
     }
 
-    public function testAbstractControllerGetsContainerWhenNotSet()
+    public function testGetControllerInvokableService()
     {
-        class_exists(AbstractControllerTest::class);
+        $invokableController = new InvokableController('bar');
 
-        $controller = new TestAbstractController(false);
+        $container = $this->createMockContainer();
+        $container->expects($this->once())
+            ->method('has')
+            ->with('foo')
+            ->will($this->returnValue(true))
+        ;
+        $container->expects($this->once())
+            ->method('get')
+            ->with('foo')
+            ->will($this->returnValue($invokableController))
+        ;
 
-        $container = new Container();
-        $container->set(TestAbstractController::class, $controller);
-
-        $resolver = $this->createControllerResolver(null, $container);
-
+        $resolver = $this->createControllerResolver(null, null, $container);
         $request = Request::create('/');
-        $request->attributes->set('_controller', TestAbstractController::class.'::fooAction');
+        $request->attributes->set('_controller', 'foo');
 
-        $this->assertSame(array($controller, 'fooAction'), $resolver->getController($request));
-        $this->assertSame($container, $controller->setContainer($container));
+        $controller = $resolver->getController($request);
+
+        $this->assertEquals($invokableController, $controller);
     }
 
-    public function testAbstractControllerServiceWithFcqnIdGetsContainerWhenNotSet()
+    public function testGetControllerInvokableServiceWithClassNameAsName()
     {
-        class_exists(AbstractControllerTest::class);
+        $invokableController = new InvokableController('bar');
+        $className = __NAMESPACE__.'\InvokableController';
 
-        $controller = new DummyController();
+        $container = $this->createMockContainer();
+        $container->expects($this->once())
+            ->method('has')
+            ->with($className)
+            ->will($this->returnValue(true))
+        ;
+        $container->expects($this->once())
+            ->method('get')
+            ->with($className)
+            ->will($this->returnValue($invokableController))
+        ;
 
-        $container = new Container();
-        $container->set(DummyController::class, $controller);
-
-        $resolver = $this->createControllerResolver(null, $container);
-
+        $resolver = $this->createControllerResolver(null, null, $container);
         $request = Request::create('/');
-        $request->attributes->set('_controller', DummyController::class.':fooAction');
+        $request->attributes->set('_controller', $className);
 
-        $this->assertSame(array($controller, 'fooAction'), $resolver->getController($request));
-        $this->assertSame($container, $controller->getContainer());
+        $controller = $resolver->getController($request);
+
+        $this->assertEquals($invokableController, $controller);
     }
 
-    public function testAbstractControllerGetsNoContainerWhenSet()
+    /**
+     * @dataProvider getUndefinedControllers
+     */
+    public function testGetControllerOnNonUndefinedFunction($controller, $exceptionName = null, $exceptionMessage = null)
     {
-        class_exists(AbstractControllerTest::class);
-
-        $controller = new TestAbstractController(false);
-        $controllerContainer = new Container();
-        $controller->setContainer($controllerContainer);
-
-        $container = new Container();
-        $container->set(TestAbstractController::class, $controller);
-
-        $resolver = $this->createControllerResolver(null, $container);
+        // All this logic needs to be duplicated, since calling parent::testGetControllerOnNonUndefinedFunction will override the expected excetion and not use the regex
+        $resolver = $this->createControllerResolver();
+        $this->setExpectedExceptionRegExp($exceptionName, $exceptionMessage);
 
         $request = Request::create('/');
-        $request->attributes->set('_controller', TestAbstractController::class.'::fooAction');
-
-        $this->assertSame(array($controller, 'fooAction'), $resolver->getController($request));
-        $this->assertSame($controllerContainer, $controller->setContainer($container));
+        $request->attributes->set('_controller', $controller);
+        $resolver->getController($request);
     }
 
-    public function testAbstractControllerServiceWithFcqnIdGetsNoContainerWhenSet()
+    public function getUndefinedControllers()
     {
-        class_exists(AbstractControllerTest::class);
-
-        $controller = new DummyController();
-        $controllerContainer = new Container();
-        $controller->setContainer($controllerContainer);
-
-        $container = new Container();
-        $container->set(DummyController::class, $controller);
-
-        $resolver = $this->createControllerResolver(null, $container);
-
-        $request = Request::create('/');
-        $request->attributes->set('_controller', DummyController::class.':fooAction');
-
-        $this->assertSame(array($controller, 'fooAction'), $resolver->getController($request));
-        $this->assertSame($controllerContainer, $controller->getContainer());
+        return array(
+            array('foo', '\LogicException', '/Unable to parse the controller name "foo"\./'),
+            array('oof::bar', '\InvalidArgumentException', '/Class "oof" does not exist\./'),
+            array('stdClass', '\LogicException', '/Unable to parse the controller name "stdClass"\./'),
+            array(
+                'Symfony\Component\HttpKernel\Tests\Controller\ControllerResolverTest::bar',
+                '\InvalidArgumentException',
+                '/.?[cC]ontroller(.*?) for URI "\/" is not callable\.( Expected method(.*) Available methods)?/',
+            ),
+        );
     }
 
-    protected function createControllerResolver(LoggerInterface $logger = null, Psr11ContainerInterface $container = null, ControllerNameParser $parser = null)
+    protected function createControllerResolver(LoggerInterface $logger = null, ControllerNameParser $parser = null, ContainerInterface $container = null)
     {
         if (!$parser) {
             $parser = $this->createMockParser();
@@ -210,14 +211,13 @@ class ContainerAwareController implements ContainerAwareInterface
     }
 }
 
-class DummyController extends AbstractController
+class InvokableController
 {
-    public function getContainer()
+    public function __construct($bar) // mandatory argument to prevent automatic instantiation
     {
-        return $this->container;
     }
 
-    public function fooAction()
+    public function __invoke()
     {
     }
 }

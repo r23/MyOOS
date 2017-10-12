@@ -298,8 +298,6 @@ class CompoundFormTest extends AbstractFormTest
     public function testRemoveIgnoresUnknownName()
     {
         $this->form->remove('notexisting');
-
-        $this->assertCount(0, $this->form);
     }
 
     public function testArrayAccess()

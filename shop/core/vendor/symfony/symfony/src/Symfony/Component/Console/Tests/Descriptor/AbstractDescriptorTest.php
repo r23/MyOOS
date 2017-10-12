@@ -11,7 +11,6 @@
 
 namespace Symfony\Component\Console\Tests\Descriptor;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -19,7 +18,7 @@ use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\BufferedOutput;
 
-abstract class AbstractDescriptorTest extends TestCase
+abstract class AbstractDescriptorTest extends \PHPUnit_Framework_TestCase
 {
     /** @dataProvider getDescribeInputArgumentTestData */
     public function testDescribeInputArgument(InputArgument $argument, $expectedDescription)
@@ -98,10 +97,10 @@ abstract class AbstractDescriptorTest extends TestCase
         return $data;
     }
 
-    protected function assertDescription($expectedDescription, $describedObject, array $options = array())
+    protected function assertDescription($expectedDescription, $describedObject)
     {
         $output = new BufferedOutput(BufferedOutput::VERBOSITY_NORMAL, true);
-        $this->getDescriptor()->describe($output, $describedObject, $options + array('raw_output' => true));
+        $this->getDescriptor()->describe($output, $describedObject, array('raw_output' => true));
         $this->assertEquals(trim($expectedDescription), trim(str_replace(PHP_EOL, "\n", $output->fetch())));
     }
 }

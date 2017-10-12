@@ -13,12 +13,11 @@ namespace Symfony\Component\Validator\Tests\Constraints;
 
 use Symfony\Component\Validator\Constraints\Uuid;
 use Symfony\Component\Validator\Constraints\UuidValidator;
-use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
 /**
  * @author Colin O'Dell <colinodell@gmail.com>
  */
-class UuidValidatorTest extends ConstraintValidatorTestCase
+class UuidValidatorTest extends AbstractConstraintValidatorTest
 {
     protected function createValidator()
     {

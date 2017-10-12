@@ -11,7 +11,6 @@
 
 namespace Symfony\Component\Serializer\Tests\Mapping\Loader;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Mapping\Loader\YamlFileLoader;
 use Symfony\Component\Serializer\Mapping\ClassMetadata;
 use Symfony\Component\Serializer\Tests\Mapping\TestClassMetadataFactory;
@@ -19,7 +18,7 @@ use Symfony\Component\Serializer\Tests\Mapping\TestClassMetadataFactory;
 /**
  * @author Kévin Dunglas <dunglas@gmail.com>
  */
-class YamlFileLoaderTest extends TestCase
+class YamlFileLoaderTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var YamlFileLoader

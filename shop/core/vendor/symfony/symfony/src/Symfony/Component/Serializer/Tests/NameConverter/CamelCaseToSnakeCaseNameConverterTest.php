@@ -11,13 +11,12 @@
 
 namespace Symfony\Component\Serializer\Tests\NameConverter;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
 
 /**
  * @author Kévin Dunglas <dunglas@gmail.com>
  */
-class CamelCaseToSnakeCaseNameConverterTest extends TestCase
+class CamelCaseToSnakeCaseNameConverterTest extends \PHPUnit_Framework_TestCase
 {
     public function testInterface()
     {
@@ -28,30 +27,27 @@ class CamelCaseToSnakeCaseNameConverterTest extends TestCase
     /**
      * @dataProvider attributeProvider
      */
-    public function testNormalize($underscored, $camelCased, $useLowerCamelCase)
+    public function testNormalize($underscored, $lowerCamelCased)
     {
-        $nameConverter = new CamelCaseToSnakeCaseNameConverter(null, $useLowerCamelCase);
-        $this->assertEquals($nameConverter->normalize($camelCased), $underscored);
+        $nameConverter = new CamelCaseToSnakeCaseNameConverter();
+        $this->assertEquals($nameConverter->normalize($lowerCamelCased), $underscored);
     }
 
     /**
      * @dataProvider attributeProvider
      */
-    public function testDenormalize($underscored, $camelCased, $useLowerCamelCase)
+    public function testDenormalize($underscored, $lowerCamelCased)
     {
-        $nameConverter = new CamelCaseToSnakeCaseNameConverter(null, $useLowerCamelCase);
-        $this->assertEquals($nameConverter->denormalize($underscored), $camelCased);
+        $nameConverter = new CamelCaseToSnakeCaseNameConverter();
+        $this->assertEquals($nameConverter->denormalize($underscored), $lowerCamelCased);
     }
 
     public function attributeProvider()
     {
         return array(
-            array('coop_tilleuls', 'coopTilleuls', true),
-            array('_kevin_dunglas', '_kevinDunglas', true),
-            array('this_is_a_test', 'thisIsATest', true),
-            array('coop_tilleuls', 'CoopTilleuls', false),
-            array('_kevin_dunglas', '_kevinDunglas', false),
-            array('this_is_a_test', 'ThisIsATest', false),
+            array('coop_tilleuls', 'coopTilleuls'),
+            array('_kevin_dunglas', '_kevinDunglas'),
+            array('this_is_a_test', 'thisIsATest'),
         );
     }
 }

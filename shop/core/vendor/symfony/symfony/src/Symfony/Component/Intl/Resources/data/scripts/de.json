@@ -1,5 +1,5 @@
 {
-    "Version": "2.1.32.59",
+    "Version": "2.1.22.93",
     "Names": {
         "Afak": "Afaka",
         "Aghb": "Kaukasisch-Albanisch",
@@ -44,7 +44,6 @@
         "Grek": "Griechisch",
         "Gujr": "Gujarati",
         "Guru": "Gurmukhi",
-        "Hanb": "Hanb",
         "Hang": "Hangul",
         "Hani": "Chinesisch",
         "Hano": "Hanunoo",
@@ -54,11 +53,10 @@
         "Hira": "Hiragana",
         "Hluw": "Hieroglyphen-Luwisch",
         "Hmng": "Pahawh Hmong",
-        "Hrkt": "Japanische Silbenschrift",
+        "Hrkt": "Katakana oder Hiragana",
         "Hung": "Altungarisch",
         "Inds": "Indus-Schrift",
         "Ital": "Altitalisch",
-        "Jamo": "Jamo",
         "Java": "Javanesisch",
         "Jpan": "Japanisch",
         "Jurc": "Jurchen",
@@ -163,10 +161,9 @@
         "Yiii": "Yi",
         "Zinh": "Geerbter Schriftwert",
         "Zmth": "Mathematische Notation",
-        "Zsye": "Emoji",
         "Zsym": "Symbole",
         "Zxxx": "Schriftlos",
-        "Zyyy": "Verbreitet",
+        "Zyyy": "Unbestimmt",
         "Zzzz": "Unbekannte Schrift"
     }
 }

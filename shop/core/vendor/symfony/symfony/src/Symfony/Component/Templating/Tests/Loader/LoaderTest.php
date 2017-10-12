@@ -11,11 +11,10 @@
 
 namespace Symfony\Component\Templating\Tests\Loader;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Templating\Loader\Loader;
 use Symfony\Component\Templating\TemplateReferenceInterface;
 
-class LoaderTest extends TestCase
+class LoaderTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetSetLogger()
     {

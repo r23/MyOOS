@@ -11,11 +11,10 @@
 
 namespace Symfony\Component\Security\Core\Tests\Authorization;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManager;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 
-class AccessDecisionManagerTest extends TestCase
+class AccessDecisionManagerTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @expectedException \InvalidArgumentException

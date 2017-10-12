@@ -11,11 +11,10 @@
 
 namespace Symfony\Component\Security\Http\Tests\EntryPoint;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Http\EntryPoint\BasicAuthenticationEntryPoint;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
-class BasicAuthenticationEntryPointTest extends TestCase
+class BasicAuthenticationEntryPointTest extends \PHPUnit_Framework_TestCase
 {
     public function testStart()
     {

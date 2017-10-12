@@ -11,12 +11,8 @@
 
 namespace Symfony\Component\HttpKernel\DependencyInjection;
 
-use Symfony\Component\DependencyInjection\Compiler\ServiceLocatorTagPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use Symfony\Component\DependencyInjection\Reference;
-use Symfony\Component\HttpKernel\Fragment\FragmentRendererInterface;
 
 /**
  * Adds services tagged kernel.fragment_renderer as HTTP content rendering strategies.
@@ -45,23 +41,30 @@ class FragmentRendererPass implements CompilerPassInterface
         }
 
         $definition = $container->getDefinition($this->handlerService);
-        $renderers = array();
-        foreach ($container->findTaggedServiceIds($this->rendererTag, true) as $id => $tags) {
+        foreach ($container->findTaggedServiceIds($this->rendererTag) as $id => $tags) {
             $def = $container->getDefinition($id);
-            $class = $container->getParameterBag()->resolveValue($def->getClass());
-
-            if (!$r = $container->getReflectionClass($class)) {
-                throw new InvalidArgumentException(sprintf('Class "%s" used for service "%s" cannot be found.', $class, $id));
+            if (!$def->isPublic()) {
+                throw new \InvalidArgumentException(sprintf('The service "%s" must be public as fragment renderer are lazy-loaded.', $id));
             }
-            if (!$r->isSubclassOf(FragmentRendererInterface::class)) {
-                throw new InvalidArgumentException(sprintf('Service "%s" must implement interface "%s".', $id, FragmentRendererInterface::class));
+
+            if ($def->isAbstract()) {
+                throw new \InvalidArgumentException(sprintf('The service "%s" must not be abstract as fragment renderer are lazy-loaded.', $id));
+            }
+
+            $class = $container->getParameterBag()->resolveValue($def->getClass());
+            $interface = 'Symfony\Component\HttpKernel\Fragment\FragmentRendererInterface';
+
+            if (!is_subclass_of($class, $interface)) {
+                if (!class_exists($class, false)) {
+                    throw new \InvalidArgumentException(sprintf('Class "%s" used for service "%s" cannot be found.', $class, $id));
+                }
+
+                throw new \InvalidArgumentException(sprintf('Service "%s" must implement interface "%s".', $id, $interface));
             }
 
             foreach ($tags as $tag) {
-                $renderers[$tag['alias']] = new Reference($id);
+                $definition->addMethodCall('addRendererService', array($tag['alias'], $id));
             }
         }
-
-        $definition->replaceArgument(0, ServiceLocatorTagPass::register($container, $renderers));
     }
 }

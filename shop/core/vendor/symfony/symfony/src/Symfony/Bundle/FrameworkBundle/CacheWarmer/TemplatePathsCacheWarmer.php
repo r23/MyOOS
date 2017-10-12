@@ -11,7 +11,6 @@
 
 namespace Symfony\Bundle\FrameworkBundle\CacheWarmer;
 
-use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\CacheWarmer\CacheWarmer;
 use Symfony\Bundle\FrameworkBundle\Templating\Loader\TemplateLocator;
 
@@ -44,16 +43,13 @@ class TemplatePathsCacheWarmer extends CacheWarmer
      */
     public function warmUp($cacheDir)
     {
-        $filesystem = new Filesystem();
         $templates = array();
 
         foreach ($this->finder->findAllTemplates() as $template) {
-            $templates[$template->getLogicalName()] = rtrim($filesystem->makePathRelative($this->locator->locate($template), $cacheDir), '/');
+            $templates[$template->getLogicalName()] = $this->locator->locate($template);
         }
 
-        $templates = str_replace("' => '", "' => __DIR__.'/", var_export($templates, true));
-
-        $this->writeCacheFile($cacheDir.'/templates.php', sprintf("<?php return %s;\n", $templates));
+        $this->writeCacheFile($cacheDir.'/templates.php', sprintf('<?php return %s;', var_export($templates, true)));
     }
 
     /**

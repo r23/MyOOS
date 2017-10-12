@@ -13,12 +13,11 @@ namespace Symfony\Component\Validator\Tests\Constraints;
 
 use Symfony\Component\Validator\Constraints\Count;
 use Symfony\Component\Validator\Constraints\CountValidator;
-use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
 /**
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-abstract class CountValidatorTest extends ConstraintValidatorTestCase
+abstract class CountValidatorTest extends AbstractConstraintValidatorTest
 {
     protected function createValidator()
     {

@@ -11,11 +11,10 @@
 
 namespace Symfony\Component\Config\Tests\Loader;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Loader\LoaderResolver;
 use Symfony\Component\Config\Loader\DelegatingLoader;
 
-class DelegatingLoaderTest extends TestCase
+class DelegatingLoaderTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstructor()
     {

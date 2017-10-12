@@ -1,11 +1,6 @@
 CHANGELOG
 =========
 
-3.3.0
------
-
-  * The ContainerAwareEventDispatcher class has been deprecated. Use EventDispatcher with closure factories instead.
-
 3.0.0
 -----
 

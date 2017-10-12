@@ -72,7 +72,7 @@ class NodeExtension extends AbstractExtension
      */
     public function hasFlag($flag)
     {
-        return (bool) ($this->flags & $flag);
+        return $this->flags & $flag;
     }
 
     /**

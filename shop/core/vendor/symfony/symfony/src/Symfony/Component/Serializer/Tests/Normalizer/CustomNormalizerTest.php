@@ -11,12 +11,11 @@
 
 namespace Symfony\Component\Serializer\Tests\Normalizer;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Tests\Fixtures\ScalarDummy;
 use Symfony\Component\Serializer\Normalizer\CustomNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
-class CustomNormalizerTest extends TestCase
+class CustomNormalizerTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var CustomNormalizer

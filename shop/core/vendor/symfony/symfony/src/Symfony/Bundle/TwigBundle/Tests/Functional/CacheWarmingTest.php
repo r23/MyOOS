@@ -17,7 +17,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\TwigBundle\TwigBundle;
 
-class CacheWarmingTest extends TestCase
+class NewCacheWamingTest extends \PHPUnit_Framework_TestCase
 {
     public function testCacheIsProperlyWarmedWhenTemplatingIsAvailable()
     {
@@ -90,7 +90,6 @@ class CacheWarmingKernel extends Kernel
         $loader->load(function ($container) {
             $container->loadFromExtension('framework', array(
                 'secret' => '$ecret',
-                'form' => array('enabled' => false),
             ));
         });
 
@@ -100,7 +99,6 @@ class CacheWarmingKernel extends Kernel
                     'secret' => '$ecret',
                     'templating' => array('engines' => array('twig')),
                     'router' => array('resource' => '%kernel.root_dir%/Resources/config/empty_routing.yml'),
-                    'form' => array('enabled' => false),
                 ));
             });
         }

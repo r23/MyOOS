@@ -39,13 +39,11 @@ class TranslationUpdateCommand extends ContainerAwareCommand
                 new InputArgument('locale', InputArgument::REQUIRED, 'The locale'),
                 new InputArgument('bundle', InputArgument::OPTIONAL, 'The bundle name or directory where to load the messages, defaults to app/Resources folder'),
                 new InputOption('prefix', null, InputOption::VALUE_OPTIONAL, 'Override the default prefix', '__'),
-                new InputOption('no-prefix', null, InputOption::VALUE_NONE, 'If set, no prefix is added to the translations'),
                 new InputOption('output-format', null, InputOption::VALUE_OPTIONAL, 'Override the default output format', 'yml'),
                 new InputOption('dump-messages', null, InputOption::VALUE_NONE, 'Should the messages be dumped in the console'),
                 new InputOption('force', null, InputOption::VALUE_NONE, 'Should the update be done'),
                 new InputOption('no-backup', null, InputOption::VALUE_NONE, 'Should backup be disabled'),
                 new InputOption('clean', null, InputOption::VALUE_NONE, 'Should clean not found messages'),
-                new InputOption('domain', null, InputOption::VALUE_OPTIONAL, 'Specify the domain to update'),
             ))
             ->setDescription('Updates the translation file')
             ->setHelp(<<<'EOF'
@@ -70,26 +68,13 @@ EOF
     /**
      * {@inheritdoc}
      */
-    public function isEnabled()
-    {
-        if (!class_exists('Symfony\Component\Translation\Translator')) {
-            return false;
-        }
-
-        return parent::isEnabled();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $io = new SymfonyStyle($input, $output);
-        $errorIo = $io->getErrorStyle();
 
         // check presence of force or dump-message
         if ($input->getOption('force') !== true && $input->getOption('dump-messages') !== true) {
-            $errorIo->error('You must choose one of --force or --dump-messages');
+            $io->error('You must choose one of --force or --dump-messages');
 
             return 1;
         }
@@ -98,7 +83,7 @@ EOF
         $writer = $this->getContainer()->get('translation.writer');
         $supportedFormats = $writer->getFormats();
         if (!in_array($input->getOption('output-format'), $supportedFormats)) {
-            $errorIo->error(array('Wrong output format', 'Supported formats are: '.implode(', ', $supportedFormats).'.'));
+            $io->error(array('Wrong output format', 'Supported formats are: '.implode(', ', $supportedFormats).'.'));
 
             return 1;
         }
@@ -128,14 +113,14 @@ EOF
             }
         }
 
-        $errorIo->title('Translation Messages Extractor and Dumper');
-        $errorIo->comment(sprintf('Generating "<info>%s</info>" translation files for "<info>%s</info>"', $input->getArgument('locale'), $currentName));
+        $io->title('Translation Messages Extractor and Dumper');
+        $io->comment(sprintf('Generating "<info>%s</info>" translation files for "<info>%s</info>"', $input->getArgument('locale'), $currentName));
 
         // load any messages from templates
         $extractedCatalogue = new MessageCatalogue($input->getArgument('locale'));
-        $errorIo->comment('Parsing templates...');
+        $io->comment('Parsing templates...');
         $extractor = $this->getContainer()->get('translation.extractor');
-        $extractor->setPrefix($input->getOption('no-prefix') ? '' : $input->getOption('prefix'));
+        $extractor->setPrefix($input->getOption('prefix'));
         foreach ($transPaths as $path) {
             $path .= 'views';
             if (is_dir($path)) {
@@ -145,18 +130,13 @@ EOF
 
         // load any existing messages from the translation files
         $currentCatalogue = new MessageCatalogue($input->getArgument('locale'));
-        $errorIo->comment('Loading translation files...');
+        $io->comment('Loading translation files...');
         $loader = $this->getContainer()->get('translation.loader');
         foreach ($transPaths as $path) {
             $path .= 'translations';
             if (is_dir($path)) {
                 $loader->loadMessages($path, $currentCatalogue);
             }
-        }
-
-        if (null !== $domain = $input->getOption('domain')) {
-            $currentCatalogue = $this->filterCatalogue($currentCatalogue, $domain);
-            $extractedCatalogue = $this->filterCatalogue($extractedCatalogue, $domain);
         }
 
         // process catalogues
@@ -166,7 +146,7 @@ EOF
 
         // Exit if no messages found.
         if (!count($operation->getDomains())) {
-            $errorIo->warning('No translation messages were found.');
+            $io->warning('No translation messages were found.');
 
             return;
         }
@@ -200,7 +180,7 @@ EOF
             }
 
             if ($input->getOption('output-format') == 'xlf') {
-                $errorIo->comment('Xliff output version is <info>1.2</info>');
+                $io->comment('Xliff output version is <info>1.2</info>');
             }
 
             $resultMessage = sprintf('%d message%s successfully extracted', $extractedMessagesCount, $extractedMessagesCount > 1 ? 's were' : ' was');
@@ -212,7 +192,7 @@ EOF
 
         // save the files
         if ($input->getOption('force') === true) {
-            $errorIo->comment('Writing files...');
+            $io->comment('Writing files...');
 
             $bundleTransPath = false;
             foreach ($transPaths as $path) {
@@ -233,25 +213,6 @@ EOF
             }
         }
 
-        $errorIo->success($resultMessage.'.');
-    }
-
-    private function filterCatalogue(MessageCatalogue $catalogue, $domain)
-    {
-        $filteredCatalogue = new MessageCatalogue($catalogue->getLocale());
-
-        if ($messages = $catalogue->all($domain)) {
-            $filteredCatalogue->add($messages, $domain);
-        }
-        foreach ($catalogue->getResources() as $resource) {
-            $filteredCatalogue->addResource($resource);
-        }
-        if ($metadata = $catalogue->getMetadata('', $domain)) {
-            foreach ($metadata as $k => $v) {
-                $filteredCatalogue->setMetadata($k, $v, $domain);
-            }
-        }
-
-        return $filteredCatalogue;
+        $io->success($resultMessage.'.');
     }
 }

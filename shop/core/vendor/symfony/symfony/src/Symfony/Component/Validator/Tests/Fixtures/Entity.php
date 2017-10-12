@@ -71,10 +71,6 @@ class Entity extends EntityParent implements EntityInterfaceB
         return $this->lastName;
     }
 
-    public function getValid()
-    {
-    }
-
     /**
      * @Assert\IsTrue
      */

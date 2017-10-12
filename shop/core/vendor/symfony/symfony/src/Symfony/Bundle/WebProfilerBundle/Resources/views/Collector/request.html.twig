@@ -1,19 +1,21 @@
 {% extends '@WebProfiler/Profiler/layout.html.twig' %}
 
 {% block toolbar %}
-    {% import _self as helper %}
     {% set request_handler %}
+        {% import _self as helper %}
         {{ helper.set_handler(collector.controller) }}
     {% endset %}
 
     {% if collector.redirect %}
         {% set redirect_handler %}
+            {% import _self as helper %}
             {{ helper.set_handler(collector.redirect.controller, collector.redirect.route, 'GET' != collector.redirect.method ? collector.redirect.method) }}
         {% endset %}
     {% endif %}
 
     {% if collector.forward|default(false) %}
         {% set forward_handler %}
+            {% import _self as helper %}
             {{ helper.set_handler(collector.forward.controller) }}
         {% endset %}
     {% endif %}
@@ -106,12 +108,6 @@
 {% endblock %}
 
 {% block panel %}
-    {% import _self as helper %}
-
-    <h2>
-        {{ helper.set_handler(collector.controller) }}
-    </h2>
-
     <div class="sf-tabs">
         <div class="tab">
             <h3 class="tab-title">Request</h3>
@@ -124,7 +120,7 @@
                         <p>No GET parameters</p>
                     </div>
                 {% else %}
-                    {{ include('@WebProfiler/Profiler/bag.html.twig', { bag: collector.requestquery, maxDepth: 1 }, with_context = false) }}
+                    {{ include('@WebProfiler/Profiler/bag.html.twig', { bag: collector.requestquery }, with_context = false) }}
                 {% endif %}
 
                 <h3>POST Parameters</h3>
@@ -134,7 +130,7 @@
                         <p>No POST parameters</p>
                     </div>
                 {% else %}
-                    {{ include('@WebProfiler/Profiler/bag.html.twig', { bag: collector.requestrequest, maxDepth: 1 }, with_context = false) }}
+                    {{ include('@WebProfiler/Profiler/bag.html.twig', { bag: collector.requestrequest }, with_context = false) }}
                 {% endif %}
 
                 <h3>Request Attributes</h3>
@@ -147,8 +143,18 @@
                     {{ include('@WebProfiler/Profiler/bag.html.twig', { bag: collector.requestattributes }, with_context = false) }}
                 {% endif %}
 
+                <h3>Cookies</h3>
+
+                {% if collector.requestcookies.all is empty %}
+                    <div class="empty">
+                        <p>No cookies</p>
+                    </div>
+                {% else %}
+                    {{ include('@WebProfiler/Profiler/bag.html.twig', { bag: collector.requestcookies }, with_context = false) }}
+                {% endif %}
+
                 <h3>Request Headers</h3>
-                {{ include('@WebProfiler/Profiler/bag.html.twig', { bag: collector.requestheaders, labels: ['Header', 'Value'], maxDepth: 1 }, with_context = false) }}
+                {{ include('@WebProfiler/Profiler/bag.html.twig', { bag: collector.requestheaders, labels: ['Header', 'Value'] }, with_context = false) }}
 
                 <h3>Request Content</h3>
 
@@ -177,33 +183,7 @@
             <div class="tab-content">
                 <h3>Response Headers</h3>
 
-                {{ include('@WebProfiler/Profiler/bag.html.twig', { bag: collector.responseheaders, labels: ['Header', 'Value'], maxDepth: 1 }, with_context = false) }}
-            </div>
-        </div>
-
-        <div class="tab {{ collector.requestcookies.all is empty and collector.responsecookies.all is empty ? 'disabled' }}">
-            <h3 class="tab-title">Cookies</h3>
-
-            <div class="tab-content">
-                <h3>Request Cookies</h3>
-
-                {% if collector.requestcookies.all is empty %}
-                    <div class="empty">
-                        <p>No request cookies</p>
-                    </div>
-                {% else %}
-                    {{ include('@WebProfiler/Profiler/bag.html.twig', { bag: collector.requestcookies }, with_context = false) }}
-                {% endif %}
-
-                <h3>Response Cookies</h3>
-
-                {% if collector.responsecookies.all is empty %}
-                    <div class="empty">
-                        <p>No response cookies</p>
-                    </div>
-                {% else %}
-                    {{ include('@WebProfiler/Profiler/bag.html.twig', { bag: collector.responsecookies }, with_context = true) }}
-                {% endif %}
+                {{ include('@WebProfiler/Profiler/bag.html.twig', { bag: collector.responseheaders, labels: ['Header', 'Value'] }, with_context = false) }}
             </div>
         </div>
 
@@ -272,7 +252,7 @@
                 {% for child in profile.children %}
                     <h3>
                         <a href="{{ path('_profiler', { token: child.token }) }}">
-                            {{ helper.set_handler(child.getcollector('request').controller) }}
+                            {{- child.getcollector('request').requestattributes.get('_controller') -}}
                         </a>
                         <small>(token = {{ child.token }})</small>
                     </h3>

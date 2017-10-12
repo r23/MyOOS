@@ -1,5 +1,5 @@
 {
-    "Version": "2.1.32.59",
+    "Version": "2.1.23.81",
     "Names": {
         "ADP": [
             "ADP",
@@ -217,13 +217,9 @@
             "BYB",
             "Wit-Russische nieuwe roebel (1994–1999)"
         ],
-        "BYN": [
-            "BYN",
-            "Wit-Russische roebel"
-        ],
         "BYR": [
             "BYR",
-            "Wit-Russische roebel (2000–2016)"
+            "Wit-Russische roebel"
         ],
         "BZD": [
             "BZD",
@@ -779,11 +775,11 @@
         ],
         "PEN": [
             "PEN",
-            "Peruaanse sol"
+            "Peruaanse nieuwe sol"
         ],
         "PES": [
             "PES",
-            "Peruaanse sol (1863–1965)"
+            "Peruaanse sol"
         ],
         "PGK": [
             "PGK",

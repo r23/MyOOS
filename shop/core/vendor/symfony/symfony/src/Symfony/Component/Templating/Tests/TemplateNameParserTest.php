@@ -11,11 +11,10 @@
 
 namespace Symfony\Component\Templating\Tests;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Templating\TemplateNameParser;
 use Symfony\Component\Templating\TemplateReference;
 
-class TemplateNameParserTest extends TestCase
+class TemplateNameParserTest extends \PHPUnit_Framework_TestCase
 {
     protected $parser;
 

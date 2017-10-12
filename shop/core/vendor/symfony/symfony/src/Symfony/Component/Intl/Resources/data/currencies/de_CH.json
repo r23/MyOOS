@@ -1,13 +1,13 @@
 {
-    "Version": "2.1.31.33",
+    "Version": "2.1.19.87",
     "Names": {
-        "BYN": [
-            "BYN",
-            "Weissrussischer Rubel"
-        ],
         "BYR": [
             "BYR",
-            "Weissrussischer Rubel (2000–2016)"
+            "Weissrussischer Rubel"
+        ],
+        "EUR": [
+            "EUR",
+            "Euro"
         ]
     }
 }

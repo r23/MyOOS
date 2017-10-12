@@ -11,14 +11,13 @@
 
 namespace Symfony\Component\Security\Http\Tests\Firewall;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Security\Http\Firewall\SimplePreAuthenticationListener;
 use Symfony\Component\Security\Http\SecurityEvents;
 
-class SimplePreAuthenticationListenerTest extends TestCase
+class SimplePreAuthenticationListenerTest extends \PHPUnit_Framework_TestCase
 {
     private $authenticationManager;
     private $dispatcher;

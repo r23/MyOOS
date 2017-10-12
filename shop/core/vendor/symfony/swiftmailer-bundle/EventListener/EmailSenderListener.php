@@ -30,22 +30,15 @@ class EmailSenderListener implements EventSubscriberInterface
 
     private $logger;
 
-    private $wasExceptionThrown = false;
-
     public function __construct(ContainerInterface $container, LoggerInterface $logger = null)
     {
         $this->container = $container;
         $this->logger = $logger;
     }
 
-    public function onException()
-    {
-        $this->wasExceptionThrown = true;
-    }
-
     public function onTerminate()
     {
-        if (!$this->container->has('mailer') || $this->wasExceptionThrown) {
+        if (!$this->container->has('mailer')) {
             return;
         }
         $mailers = array_keys($this->container->getParameter('swiftmailer.mailers'));
@@ -73,13 +66,9 @@ class EmailSenderListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        $listeners = array(
-            KernelEvents::EXCEPTION => 'onException',
-            KernelEvents::TERMINATE => 'onTerminate'
-        );
+        $listeners = array(KernelEvents::TERMINATE => 'onTerminate');
 
         if (class_exists('Symfony\Component\Console\ConsoleEvents')) {
-            $listeners[class_exists('Symfony\Component\Console\Event\ConsoleErrorEvent') ? ConsoleEvents::ERROR :  ConsoleEvents::EXCEPTION] = 'onException';
             $listeners[ConsoleEvents::TERMINATE] = 'onTerminate';
         }
 

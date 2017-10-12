@@ -1,5 +1,5 @@
 {
-    "Version": "2.1.32.59",
+    "Version": "2.1.22.93",
     "Names": {
         "AED": [
             "AED",
@@ -93,13 +93,9 @@
             "BWP",
             "Botswana pula"
         ],
-        "BYN": [
-            "BYN",
-            "Belo-Russiese roebel"
-        ],
         "BYR": [
             "BYR",
-            "Belo-Russiese roebel (2000–2016)"
+            "Belo-Russiese roebel"
         ],
         "BZD": [
             "BZD",
@@ -451,7 +447,7 @@
         ],
         "PEN": [
             "PEN",
-            "Peruaanse sol"
+            "Peruaanse nuwe sol"
         ],
         "PGK": [
             "PGK",

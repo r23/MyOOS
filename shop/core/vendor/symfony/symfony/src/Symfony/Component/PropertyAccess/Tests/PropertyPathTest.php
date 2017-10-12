@@ -11,10 +11,9 @@
 
 namespace Symfony\Component\PropertyAccess\Tests;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\PropertyAccess\PropertyPath;
 
-class PropertyPathTest extends TestCase
+class PropertyPathTest extends \PHPUnit_Framework_TestCase
 {
     public function testToString()
     {
@@ -87,9 +86,7 @@ class PropertyPathTest extends TestCase
 
     public function testZeroIsValidPropertyPath()
     {
-        $propertyPath = new PropertyPath('0');
-
-        $this->assertSame('0', (string) $propertyPath);
+        new PropertyPath('0');
     }
 
     public function testGetParentWithDot()

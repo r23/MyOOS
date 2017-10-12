@@ -11,11 +11,10 @@
 
 namespace Symfony\Component\Serializer\Tests\Encoder;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Encoder\JsonDecode;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 
-class JsonDecodeTest extends TestCase
+class JsonDecodeTest extends \PHPUnit_Framework_TestCase
 {
     /** @var \Symfony\Component\Serializer\Encoder\JsonDecode */
     private $decode;

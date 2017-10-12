@@ -11,10 +11,9 @@
 
 namespace Symfony\Component\Form\Tests;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\CallbackTransformer;
 
-class CallbackTransformerTest extends TestCase
+class CallbackTransformerTest extends \PHPUnit_Framework_TestCase
 {
     public function testTransform()
     {

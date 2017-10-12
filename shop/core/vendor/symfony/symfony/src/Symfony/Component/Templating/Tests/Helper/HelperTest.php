@@ -11,10 +11,9 @@
 
 namespace Symfony\Component\Templating\Tests\Helper;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Templating\Helper\Helper;
 
-class HelperTest extends TestCase
+class HelperTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetSetCharset()
     {

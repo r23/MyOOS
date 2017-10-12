@@ -11,10 +11,9 @@
 
 namespace Symfony\Bundle\SecurityBundle\DependencyInjection\Compiler;
 
-use Symfony\Component\DependencyInjection\Argument\IteratorArgument;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceTrait;
 use Symfony\Component\DependencyInjection\Exception\LogicException;
 
 /**
@@ -24,8 +23,6 @@ use Symfony\Component\DependencyInjection\Exception\LogicException;
  */
 class AddSecurityVotersPass implements CompilerPassInterface
 {
-    use PriorityTaggedServiceTrait;
-
     /**
      * {@inheritdoc}
      */
@@ -35,12 +32,20 @@ class AddSecurityVotersPass implements CompilerPassInterface
             return;
         }
 
-        $voters = $this->findAndSortTaggedServices('security.voter', $container);
+        $voters = new \SplPriorityQueue();
+        foreach ($container->findTaggedServiceIds('security.voter') as $id => $attributes) {
+            $priority = isset($attributes[0]['priority']) ? $attributes[0]['priority'] : 0;
+            $voters->insert(new Reference($id), $priority);
+        }
+
+        $voters = iterator_to_array($voters);
+        ksort($voters);
+
         if (!$voters) {
             throw new LogicException('No security voters found. You need to tag at least one with "security.voter"');
         }
 
-        $adm = $container->getDefinition('security.access.decision_manager');
-        $adm->replaceArgument(0, new IteratorArgument($voters));
+        $adm = $container->getDefinition($container->hasDefinition('debug.security.access.decision_manager') ? 'debug.security.access.decision_manager' : 'security.access.decision_manager');
+        $adm->addMethodCall('setVoters', array(array_values($voters)));
     }
 }

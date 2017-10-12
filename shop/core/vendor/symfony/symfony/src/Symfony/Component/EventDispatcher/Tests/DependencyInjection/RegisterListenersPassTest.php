@@ -11,13 +11,10 @@
 
 namespace Symfony\Component\EventDispatcher\Tests\DependencyInjection;
 
-use PHPUnit\Framework\TestCase;
-use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\EventDispatcher\DependencyInjection\RegisterListenersPass;
 
-class RegisterListenersPassTest extends TestCase
+class RegisterListenersPassTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Tests that event subscribers not implementing EventSubscriberInterface
@@ -33,6 +30,9 @@ class RegisterListenersPassTest extends TestCase
         );
 
         $definition = $this->getMockBuilder('Symfony\Component\DependencyInjection\Definition')->getMock();
+        $definition->expects($this->atLeastOnce())
+            ->method('isPublic')
+            ->will($this->returnValue(true));
         $definition->expects($this->atLeastOnce())
             ->method('getClass')
             ->will($this->returnValue('stdClass'));
@@ -63,6 +63,9 @@ class RegisterListenersPassTest extends TestCase
 
         $definition = $this->getMockBuilder('Symfony\Component\DependencyInjection\Definition')->getMock();
         $definition->expects($this->atLeastOnce())
+            ->method('isPublic')
+            ->will($this->returnValue(true));
+        $definition->expects($this->atLeastOnce())
             ->method('getClass')
             ->will($this->returnValue('Symfony\Component\EventDispatcher\Tests\DependencyInjection\SubscriberService'));
 
@@ -90,7 +93,35 @@ class RegisterListenersPassTest extends TestCase
 
     /**
      * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage The service "foo" tagged "kernel.event_listener" must not be abstract.
+     * @expectedExceptionMessage The service "foo" must be public as event listeners are lazy-loaded.
+     */
+    public function testPrivateEventListener()
+    {
+        $container = new ContainerBuilder();
+        $container->register('foo', 'stdClass')->setPublic(false)->addTag('kernel.event_listener', array());
+        $container->register('event_dispatcher', 'stdClass');
+
+        $registerListenersPass = new RegisterListenersPass();
+        $registerListenersPass->process($container);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage The service "foo" must be public as event subscribers are lazy-loaded.
+     */
+    public function testPrivateEventSubscriber()
+    {
+        $container = new ContainerBuilder();
+        $container->register('foo', 'stdClass')->setPublic(false)->addTag('kernel.event_subscriber', array());
+        $container->register('event_dispatcher', 'stdClass');
+
+        $registerListenersPass = new RegisterListenersPass();
+        $registerListenersPass->process($container);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage The service "foo" must not be abstract as event listeners are lazy-loaded.
      */
     public function testAbstractEventListener()
     {
@@ -104,7 +135,7 @@ class RegisterListenersPassTest extends TestCase
 
     /**
      * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage The service "foo" tagged "kernel.event_subscriber" must not be abstract.
+     * @expectedExceptionMessage The service "foo" must not be abstract as event subscribers are lazy-loaded.
      */
     public function testAbstractEventSubscriber()
     {
@@ -128,17 +159,16 @@ class RegisterListenersPassTest extends TestCase
         $registerListenersPass->process($container);
 
         $definition = $container->getDefinition('event_dispatcher');
-        $expectedCalls = array(
+        $expected_calls = array(
             array(
-                'addListener',
+                'addSubscriberService',
                 array(
-                    'event',
-                    array(new ServiceClosureArgument(new Reference('foo')), 'onEvent'),
-                    0,
+                    'foo',
+                    'Symfony\Component\EventDispatcher\Tests\DependencyInjection\SubscriberService',
                 ),
             ),
         );
-        $this->assertEquals($expectedCalls, $definition->getMethodCalls());
+        $this->assertSame($expected_calls, $definition->getMethodCalls());
     }
 
     /**
@@ -160,8 +190,5 @@ class SubscriberService implements \Symfony\Component\EventDispatcher\EventSubsc
 {
     public static function getSubscribedEvents()
     {
-        return array(
-            'event' => 'onEvent',
-        );
     }
 }

@@ -11,17 +11,15 @@
 
 namespace Symfony\Bundle\FrameworkBundle\Tests\Command;
 
-use PHPUnit\Framework\TestCase;
-use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Bundle\FrameworkBundle\Command\RouterMatchCommand;
 use Symfony\Bundle\FrameworkBundle\Command\RouterDebugCommand;
-use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Routing\RequestContext;
 
-class RouterMatchCommandTest extends TestCase
+class RouterMatchCommandTest extends \PHPUnit_Framework_TestCase
 {
     public function testWithMatchPath()
     {
@@ -46,14 +44,20 @@ class RouterMatchCommandTest extends TestCase
      */
     private function createCommandTester()
     {
-        $application = new Application($this->getKernel());
-        $application->add(new RouterMatchCommand());
-        $application->add(new RouterDebugCommand());
+        $application = new Application();
+
+        $command = new RouterMatchCommand();
+        $command->setContainer($this->getContainer());
+        $application->add($command);
+
+        $command = new RouterDebugCommand();
+        $command->setContainer($this->getContainer());
+        $application->add($command);
 
         return new CommandTester($application->find('router:match'));
     }
 
-    private function getKernel()
+    private function getContainer()
     {
         $routeCollection = new RouteCollection();
         $routeCollection->add('foo', new Route('foo'));
@@ -70,29 +74,22 @@ class RouterMatchCommandTest extends TestCase
             ->will($this->returnValue($requestContext))
         ;
 
+        $loader = $this->getMockBuilder('Symfony\Bundle\FrameworkBundle\Routing\DelegatingLoader')
+             ->disableOriginalConstructor()
+             ->getMock();
+
         $container = $this->getMockBuilder('Symfony\Component\DependencyInjection\ContainerInterface')->getMock();
         $container
-            ->expects($this->atLeastOnce())
+            ->expects($this->once())
             ->method('has')
             ->with('router')
             ->will($this->returnValue(true));
-        $container
-            ->expects($this->any())
-            ->method('get')
-            ->willReturn($router);
+        $container->method('get')
+            ->will($this->returnValueMap(array(
+                array('router', 1, $router),
+                array('controller_name_converter', 1, $loader),
+            )));
 
-        $kernel = $this->getMockBuilder(KernelInterface::class)->getMock();
-        $kernel
-            ->expects($this->any())
-            ->method('getContainer')
-            ->willReturn($container)
-        ;
-        $kernel
-            ->expects($this->once())
-            ->method('getBundles')
-            ->willReturn(array())
-        ;
-
-        return $kernel;
+        return $container;
     }
 }

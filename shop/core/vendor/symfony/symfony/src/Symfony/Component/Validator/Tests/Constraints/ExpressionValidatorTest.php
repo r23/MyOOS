@@ -13,10 +13,9 @@ namespace Symfony\Component\Validator\Tests\Constraints;
 
 use Symfony\Component\Validator\Constraints\Expression;
 use Symfony\Component\Validator\Constraints\ExpressionValidator;
-use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 use Symfony\Component\Validator\Tests\Fixtures\Entity;
 
-class ExpressionValidatorTest extends ConstraintValidatorTestCase
+class ExpressionValidatorTest extends AbstractConstraintValidatorTest
 {
     protected function createValidator()
     {

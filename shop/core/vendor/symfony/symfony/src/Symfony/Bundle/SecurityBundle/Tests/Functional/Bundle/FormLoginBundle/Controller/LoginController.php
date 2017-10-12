@@ -17,13 +17,12 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 class LoginController implements ContainerAwareInterface
 {
     use ContainerAwareTrait;
 
-    public function loginAction(Request $request, UserInterface $user = null)
+    public function loginAction(Request $request)
     {
         // get the login error if there is one
         if ($request->attributes->has(Security::AUTHENTICATION_ERROR)) {
@@ -32,16 +31,16 @@ class LoginController implements ContainerAwareInterface
             $error = $request->getSession()->get(Security::AUTHENTICATION_ERROR);
         }
 
-        return new Response($this->container->get('twig')->render('@FormLogin/Login/login.html.twig', array(
+        return $this->container->get('templating')->renderResponse('FormLoginBundle:Login:login.html.twig', array(
             // last username entered by the user
             'last_username' => $request->getSession()->get(Security::LAST_USERNAME),
             'error' => $error,
-        )));
+        ));
     }
 
-    public function afterLoginAction(UserInterface $user)
+    public function afterLoginAction()
     {
-        return new Response($this->container->get('twig')->render('@FormLogin/Login/after_login.html.twig', array('user' => $user)));
+        return $this->container->get('templating')->renderResponse('FormLoginBundle:Login:after_login.html.twig');
     }
 
     public function loginCheckAction()

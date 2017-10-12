@@ -11,14 +11,13 @@
 
 namespace Symfony\Component\HttpFoundation\Tests\Session\Storage\Handler;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler;
 
 /**
  * @requires extension pdo_sqlite
  * @group time-sensitive
  */
-class PdoSessionHandlerTest extends TestCase
+class PdoSessionHandlerTest extends \PHPUnit_Framework_TestCase
 {
     private $dbFile;
 

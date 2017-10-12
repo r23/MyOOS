@@ -38,16 +38,15 @@ class SlackWebhookHandler extends AbstractProcessingHandler
     /**
      * @param  string      $webhookUrl             Slack Webhook URL
      * @param  string|null $channel                Slack channel (encoded ID or name)
-     * @param  string|null $username               Name of a bot
+     * @param  string      $username               Name of a bot
      * @param  bool        $useAttachment          Whether the message should be added to Slack as attachment (plain text otherwise)
      * @param  string|null $iconEmoji              The emoji name to use (or null)
      * @param  bool        $useShortAttachment     Whether the the context/extra messages added to Slack as attachments are in a short style
      * @param  bool        $includeContextAndExtra Whether the attachment should include context and extra data
      * @param  int         $level                  The minimum logging level at which this handler will be triggered
      * @param  bool        $bubble                 Whether the messages that are handled can bubble up the stack or not
-     * @param  array       $excludeFields          Dot separated list of fields to exclude from slack message. E.g. ['context.field1', 'extra.field2']
      */
-    public function __construct($webhookUrl, $channel = null, $username = null, $useAttachment = true, $iconEmoji = null, $useShortAttachment = false, $includeContextAndExtra = false, $level = Logger::CRITICAL, $bubble = true, array $excludeFields = array())
+    public function __construct($webhookUrl, $channel = null, $username = 'Monolog', $useAttachment = true, $iconEmoji = null, $useShortAttachment = false, $includeContextAndExtra = false, $level = Logger::CRITICAL, $bubble = true)
     {
         parent::__construct($level, $bubble);
 
@@ -60,7 +59,6 @@ class SlackWebhookHandler extends AbstractProcessingHandler
             $iconEmoji,
             $useShortAttachment,
             $includeContextAndExtra,
-            $excludeFields,
             $this->formatter
         );
     }
@@ -81,18 +79,13 @@ class SlackWebhookHandler extends AbstractProcessingHandler
         $postString = json_encode($postData);
 
         $ch = curl_init();
-        $options = array(
-            CURLOPT_URL => $this->webhookUrl,
-            CURLOPT_POST => true,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => array('Content-type: application/json'),
-            CURLOPT_POSTFIELDS => $postString
-        );
+        curl_setopt($ch, CURLOPT_URL, $this->webhookUrl);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         if (defined('CURLOPT_SAFE_UPLOAD')) {
-            $options[CURLOPT_SAFE_UPLOAD] = true;
+            curl_setopt($ch, CURLOPT_SAFE_UPLOAD, true);
         }
-
-        curl_setopt_array($ch, $options);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, array('payload' => $postString));
 
         Curl\Util::execute($ch);
     }

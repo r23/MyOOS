@@ -21,8 +21,6 @@ use Symfony\Component\Serializer\SerializerInterface;
  * Denormalizes arrays of objects.
  *
  * @author Alexander M. Turek <me@derrabus.de>
- *
- * @final since version 3.3.
  */
 class ArrayDenormalizer implements DenormalizerInterface, SerializerAwareInterface
 {
@@ -33,6 +31,8 @@ class ArrayDenormalizer implements DenormalizerInterface, SerializerAwareInterfa
 
     /**
      * {@inheritdoc}
+     *
+     * @throws UnexpectedValueException
      */
     public function denormalize($data, $class, $format = null, array $context = array())
     {
@@ -64,12 +64,10 @@ class ArrayDenormalizer implements DenormalizerInterface, SerializerAwareInterfa
     /**
      * {@inheritdoc}
      */
-    public function supportsDenormalization($data, $type, $format = null/*, array $context = array()*/)
+    public function supportsDenormalization($data, $type, $format = null)
     {
-        $context = func_num_args() > 3 ? func_get_arg(3) : array();
-
         return substr($type, -2) === '[]'
-            && $this->serializer->supportsDenormalization($data, substr($type, 0, -2), $format, $context);
+            && $this->serializer->supportsDenormalization($data, substr($type, 0, -2), $format);
     }
 
     /**

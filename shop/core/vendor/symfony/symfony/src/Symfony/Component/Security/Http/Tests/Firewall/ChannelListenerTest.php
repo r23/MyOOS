@@ -11,11 +11,10 @@
 
 namespace Symfony\Component\Security\Http\Tests\Firewall;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Http\Firewall\ChannelListener;
 use Symfony\Component\HttpFoundation\Response;
 
-class ChannelListenerTest extends TestCase
+class ChannelListenerTest extends \PHPUnit_Framework_TestCase
 {
     public function testHandleWithNotSecuredRequestAndHttpChannel()
     {

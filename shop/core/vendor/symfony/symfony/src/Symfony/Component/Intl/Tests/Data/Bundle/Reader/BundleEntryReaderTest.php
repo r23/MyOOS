@@ -11,14 +11,13 @@
 
 namespace Symfony\Component\Intl\Tests\Data\Bundle\Reader;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Intl\Exception\ResourceBundleNotFoundException;
 use Symfony\Component\Intl\Data\Bundle\Reader\BundleEntryReader;
 
 /**
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class BundleEntryReaderTest extends TestCase
+class BundleEntryReaderTest extends \PHPUnit_Framework_TestCase
 {
     const RES_DIR = '/res/dir';
 

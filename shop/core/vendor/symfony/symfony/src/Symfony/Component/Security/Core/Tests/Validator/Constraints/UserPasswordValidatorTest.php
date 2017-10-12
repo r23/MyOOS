@@ -91,29 +91,6 @@ abstract class UserPasswordValidatorTest extends AbstractConstraintValidatorTest
     }
 
     /**
-     * @dataProvider emptyPasswordData
-     */
-    public function testEmptyPasswordsAreNotValid($password)
-    {
-        $constraint = new UserPassword(array(
-            'message' => 'myMessage',
-        ));
-
-        $this->validator->validate($password, $constraint);
-
-        $this->buildViolation('myMessage')
-            ->assertRaised();
-    }
-
-    public function emptyPasswordData()
-    {
-        return array(
-            array(null),
-            array(''),
-        );
-    }
-
-    /**
      * @expectedException \Symfony\Component\Validator\Exception\ConstraintDefinitionException
      */
     public function testUserIsNotValid()

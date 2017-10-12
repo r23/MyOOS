@@ -11,12 +11,11 @@
 
 namespace Symfony\Component\Form\Tests\Extension\Core\Type;
 
+use Symfony\Component\Form\Test\TypeTestCase as TestCase;
 use Symfony\Component\Intl\Util\IntlTestHelper;
 
-class NumberTypeTest extends BaseTypeTest
+class NumberTypeTest extends TestCase
 {
-    const TESTED_TYPE = 'Symfony\Component\Form\Extension\Core\Type\NumberType';
-
     protected function setUp()
     {
         parent::setUp();
@@ -29,38 +28,37 @@ class NumberTypeTest extends BaseTypeTest
 
     public function testDefaultFormatting()
     {
-        $form = $this->factory->create(static::TESTED_TYPE);
+        $form = $this->factory->create('Symfony\Component\Form\Extension\Core\Type\NumberType');
         $form->setData('12345.67890');
+        $view = $form->createView();
 
-        $this->assertSame('12345,679', $form->createView()->vars['value']);
+        $this->assertSame('12345,679', $view->vars['value']);
     }
 
     public function testDefaultFormattingWithGrouping()
     {
-        $form = $this->factory->create(static::TESTED_TYPE, null, array('grouping' => true));
+        $form = $this->factory->create('Symfony\Component\Form\Extension\Core\Type\NumberType', null, array('grouping' => true));
         $form->setData('12345.67890');
+        $view = $form->createView();
 
-        $this->assertSame('12.345,679', $form->createView()->vars['value']);
+        $this->assertSame('12.345,679', $view->vars['value']);
     }
 
     public function testDefaultFormattingWithScale()
     {
-        $form = $this->factory->create(static::TESTED_TYPE, null, array('scale' => 2));
+        $form = $this->factory->create('Symfony\Component\Form\Extension\Core\Type\NumberType', null, array('scale' => 2));
         $form->setData('12345.67890');
+        $view = $form->createView();
 
-        $this->assertSame('12345,68', $form->createView()->vars['value']);
+        $this->assertSame('12345,68', $view->vars['value']);
     }
 
     public function testDefaultFormattingWithRounding()
     {
-        $form = $this->factory->create(static::TESTED_TYPE, null, array('scale' => 0, 'rounding_mode' => \NumberFormatter::ROUND_UP));
+        $form = $this->factory->create('Symfony\Component\Form\Extension\Core\Type\NumberType', null, array('scale' => 0, 'rounding_mode' => \NumberFormatter::ROUND_UP));
         $form->setData('12345.54321');
+        $view = $form->createView();
 
-        $this->assertSame('12346', $form->createView()->vars['value']);
-    }
-
-    public function testSubmitNull($expected = null, $norm = null, $view = null)
-    {
-        parent::testSubmitNull($expected, $norm, '');
+        $this->assertSame('12346', $view->vars['value']);
     }
 }

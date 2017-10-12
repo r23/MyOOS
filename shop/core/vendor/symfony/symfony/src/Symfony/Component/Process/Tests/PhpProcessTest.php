@@ -11,10 +11,10 @@
 
 namespace Symfony\Component\Process\Tests;
 
-use PHPUnit\Framework\TestCase;
+use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Process\PhpProcess;
 
-class PhpProcessTest extends TestCase
+class PhpProcessTest extends \PHPUnit_Framework_TestCase
 {
     public function testNonBlockingWorks()
     {
@@ -31,18 +31,19 @@ PHP
     public function testCommandLine()
     {
         $process = new PhpProcess(<<<'PHP'
-<?php echo phpversion().PHP_SAPI;
+<?php echo 'foobar';
 PHP
         );
 
         $commandLine = $process->getCommandLine();
+
+        $f = new PhpExecutableFinder();
+        $this->assertContains($f->find(), $commandLine, '::getCommandLine() returns the command line of PHP before start');
 
         $process->start();
         $this->assertContains($commandLine, $process->getCommandLine(), '::getCommandLine() returns the command line of PHP after start');
 
         $process->wait();
         $this->assertContains($commandLine, $process->getCommandLine(), '::getCommandLine() returns the command line of PHP after wait');
-
-        $this->assertSame(phpversion().PHP_SAPI, $process->getOutput());
     }
 }

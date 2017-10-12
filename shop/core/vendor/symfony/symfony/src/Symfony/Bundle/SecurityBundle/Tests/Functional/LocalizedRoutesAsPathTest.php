@@ -76,4 +76,14 @@ class LocalizedRoutesAsPathTest extends WebTestCase
     {
         return array(array('en'), array('de'));
     }
+
+    public static function setUpBeforeClass()
+    {
+        parent::deleteTmpDir('StandardFormLogin');
+    }
+
+    public static function tearDownAfterClass()
+    {
+        parent::deleteTmpDir('StandardFormLogin');
+    }
 }

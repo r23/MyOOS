@@ -123,7 +123,7 @@ abstract class Client
     public function setServerParameters(array $server)
     {
         $this->server = array_merge(array(
-            'HTTP_USER_AGENT' => 'Symfony BrowserKit',
+            'HTTP_USER_AGENT' => 'Symfony2 BrowserKit',
         ), $server);
     }
 
@@ -468,14 +468,13 @@ abstract class Client
 
         if (-1 !== $this->maxRedirects) {
             if ($this->redirectCount > $this->maxRedirects) {
-                $this->redirectCount = 0;
                 throw new \LogicException(sprintf('The maximum number (%d) of redirections was reached.', $this->maxRedirects));
             }
         }
 
         $request = $this->internalRequest;
 
-        if (in_array($this->internalResponse->getStatus(), array(301, 302, 303))) {
+        if (in_array($this->internalResponse->getStatus(), array(302, 303))) {
             $method = 'GET';
             $files = array();
             $content = null;

@@ -11,11 +11,10 @@
 
 namespace Symfony\Component\Form\Tests\Extension\Core\EventListener;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\Extension\Core\EventListener\TrimListener;
 
-class TrimListenerTest extends TestCase
+class TrimListenerTest extends \PHPUnit_Framework_TestCase
 {
     public function testTrim()
     {

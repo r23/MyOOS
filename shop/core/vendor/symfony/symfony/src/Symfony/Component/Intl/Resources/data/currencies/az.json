@@ -1,5 +1,5 @@
 {
-    "Version": "2.1.32.59",
+    "Version": "2.1.23.7",
     "Names": {
         "ADP": [
             "ADP",
@@ -189,13 +189,9 @@
             "BYB",
             "Belarus Yeni Rublu (1994–1999)"
         ],
-        "BYN": [
-            "BYN",
-            "Belarus Rublu"
-        ],
         "BYR": [
             "BYR",
-            "Belarus Rublu (2000–2016)"
+            "Belarus Rublu"
         ],
         "BZD": [
             "BZD",
@@ -703,11 +699,11 @@
         ],
         "PEN": [
             "PEN",
-            "Peru Solu"
+            "Peru Nuevo Solu"
         ],
         "PES": [
             "PES",
-            "Peru Solu (1863–1965)"
+            "Peru Solu"
         ],
         "PGK": [
             "PGK",

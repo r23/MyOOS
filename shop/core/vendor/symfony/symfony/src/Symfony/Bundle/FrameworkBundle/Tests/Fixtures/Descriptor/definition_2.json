@@ -5,14 +5,9 @@
     "lazy": false,
     "shared": true,
     "abstract": false,
-    "autowire": false,
-    "autoconfigure": false,
     "file": "\/path\/to\/file",
     "factory_service": "factory.service",
     "factory_method": "get",
-    "calls": [
-        "setMailer"
-    ],
     "tags": [
         {
             "name": "tag1",
@@ -29,7 +24,14 @@
         },
         {
             "name": "tag2",
-            "parameters": []
+            "parameters": [
+
+            ]
         }
-    ]
+    ],
+    "calls": [
+        "setMailer"
+    ],
+    "autowire": false,
+    "autowiring_types": []
 }

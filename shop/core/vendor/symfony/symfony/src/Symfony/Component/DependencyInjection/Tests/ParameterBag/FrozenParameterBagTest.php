@@ -11,10 +11,9 @@
 
 namespace Symfony\Component\DependencyInjection\Tests\ParameterBag;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 
-class FrozenParameterBagTest extends TestCase
+class FrozenParameterBagTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstructor()
     {

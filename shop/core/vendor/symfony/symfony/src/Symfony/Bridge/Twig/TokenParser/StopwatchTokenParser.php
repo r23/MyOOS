@@ -12,16 +12,13 @@
 namespace Symfony\Bridge\Twig\TokenParser;
 
 use Symfony\Bridge\Twig\Node\StopwatchNode;
-use Twig\Node\Expression\AssignNameExpression;
-use Twig\Token;
-use Twig\TokenParser\AbstractTokenParser;
 
 /**
  * Token Parser for the stopwatch tag.
  *
  * @author Wouter J <wouter@wouterj.nl>
  */
-class StopwatchTokenParser extends AbstractTokenParser
+class StopwatchTokenParser extends \Twig_TokenParser
 {
     protected $stopwatchIsAvailable;
 
@@ -30,7 +27,7 @@ class StopwatchTokenParser extends AbstractTokenParser
         $this->stopwatchIsAvailable = $stopwatchIsAvailable;
     }
 
-    public function parse(Token $token)
+    public function parse(\Twig_Token $token)
     {
         $lineno = $token->getLine();
         $stream = $this->parser->getStream();
@@ -38,20 +35,20 @@ class StopwatchTokenParser extends AbstractTokenParser
         // {% stopwatch 'bar' %}
         $name = $this->parser->getExpressionParser()->parseExpression();
 
-        $stream->expect(Token::BLOCK_END_TYPE);
+        $stream->expect(\Twig_Token::BLOCK_END_TYPE);
 
         // {% endstopwatch %}
         $body = $this->parser->subparse(array($this, 'decideStopwatchEnd'), true);
-        $stream->expect(Token::BLOCK_END_TYPE);
+        $stream->expect(\Twig_Token::BLOCK_END_TYPE);
 
         if ($this->stopwatchIsAvailable) {
-            return new StopwatchNode($name, $body, new AssignNameExpression($this->parser->getVarName(), $token->getLine()), $lineno, $this->getTag());
+            return new StopwatchNode($name, $body, new \Twig_Node_Expression_AssignName($this->parser->getVarName(), $token->getLine()), $lineno, $this->getTag());
         }
 
         return $body;
     }
 
-    public function decideStopwatchEnd(Token $token)
+    public function decideStopwatchEnd(\Twig_Token $token)
     {
         return $token->test('endstopwatch');
     }

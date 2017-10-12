@@ -11,9 +11,7 @@
 
 namespace Symfony\Component\Form\Tests\Extension\Core\DataTransformer;
 
-use PHPUnit\Framework\TestCase;
-
-class BaseDateTimeTransformerTest extends TestCase
+class BaseDateTimeTransformerTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @expectedException \Symfony\Component\Form\Exception\InvalidArgumentException

@@ -148,7 +148,7 @@ abstract class PropertyAccessorCollectionTest extends PropertyAccessorArrayAcces
 
     /**
      * @expectedException \Symfony\Component\PropertyAccess\Exception\NoSuchPropertyException
-     * @expectedExceptionMessageRegExp /Could not determine access type for property "axes" in class "Mock_PropertyAccessorCollectionTest_CarNoAdderAndRemover_[^"]*"./
+     * @expectedExceptionMessage Could not determine access type for property "axes".
      */
     public function testSetValueFailsIfNoAdderNorRemoverFound()
     {

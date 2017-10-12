@@ -11,7 +11,6 @@
 
 namespace Symfony\Component\Security\Core\Tests\User;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Ldap\Adapter\CollectionInterface;
 use Symfony\Component\Ldap\Adapter\QueryInterface;
 use Symfony\Component\Ldap\Entry;
@@ -22,7 +21,7 @@ use Symfony\Component\Ldap\Exception\ConnectionException;
 /**
  * @requires extension ldap
  */
-class LdapUserProviderTest extends TestCase
+class LdapUserProviderTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @expectedException \Symfony\Component\Security\Core\Exception\UsernameNotFoundException
@@ -152,7 +151,10 @@ class LdapUserProviderTest extends TestCase
         );
     }
 
-    public function testLoadUserByUsernameShouldNotFailIfEntryHasNoUidKeyAttribute()
+    /**
+     * @expectedException \Symfony\Component\Security\Core\Exception\InvalidArgumentException
+     */
+    public function testLoadUserByUsernameFailsIfEntryHasNoUidKeyAttribute()
     {
         $result = $this->getMockBuilder(CollectionInterface::class)->getMock();
         $query = $this->getMockBuilder(QueryInterface::class)->getMock();

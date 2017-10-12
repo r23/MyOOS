@@ -11,7 +11,6 @@
 
 namespace Symfony\Component\Serializer\Tests;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -28,7 +27,7 @@ use Symfony\Component\Serializer\Tests\Fixtures\NormalizableTraversableDummy;
 use Symfony\Component\Serializer\Tests\Normalizer\TestNormalizer;
 use Symfony\Component\Serializer\Tests\Normalizer\TestDenormalizer;
 
-class SerializerTest extends TestCase
+class SerializerTest extends \PHPUnit_Framework_TestCase
 {
     public function testInterface()
     {
@@ -337,15 +336,6 @@ class SerializerTest extends TestCase
 
         new Serializer(array($denormalizerAware));
     }
-
-    public function testDeserializeObjectConstructorWithObjectTypeHint()
-    {
-        $jsonData = '{"bar":{"value":"baz"}}';
-
-        $serializer = new Serializer(array(new ObjectNormalizer()), array('json' => new JsonEncoder()));
-
-        $this->assertEquals(new Foo(new Bar('baz')), $serializer->deserialize($jsonData, Foo::class, 'json'));
-    }
 }
 
 class Model
@@ -389,25 +379,5 @@ class Model
     public function toArray()
     {
         return array('title' => $this->title, 'numbers' => $this->numbers);
-    }
-}
-
-class Foo
-{
-    private $bar;
-
-    public function __construct(Bar $bar)
-    {
-        $this->bar = $bar;
-    }
-}
-
-class Bar
-{
-    private $value;
-
-    public function __construct($value)
-    {
-        $this->value = $value;
     }
 }

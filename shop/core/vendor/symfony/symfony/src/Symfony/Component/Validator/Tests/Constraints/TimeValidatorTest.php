@@ -13,9 +13,8 @@ namespace Symfony\Component\Validator\Tests\Constraints;
 
 use Symfony\Component\Validator\Constraints\Time;
 use Symfony\Component\Validator\Constraints\TimeValidator;
-use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
-class TimeValidatorTest extends ConstraintValidatorTestCase
+class TimeValidatorTest extends AbstractConstraintValidatorTest
 {
     protected function createValidator()
     {
@@ -98,12 +97,5 @@ class TimeValidatorTest extends ConstraintValidatorTestCase
             array('00:60:00', Time::INVALID_TIME_ERROR),
             array('00:00:60', Time::INVALID_TIME_ERROR),
         );
-    }
-
-    public function testDateTimeImmutableIsValid()
-    {
-        $this->validator->validate(new \DateTimeImmutable(), new Time());
-
-        $this->assertNoViolation();
     }
 }

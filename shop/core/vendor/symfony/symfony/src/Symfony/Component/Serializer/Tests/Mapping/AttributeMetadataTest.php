@@ -11,13 +11,12 @@
 
 namespace Symfony\Component\Serializer\Tests\Mapping;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Mapping\AttributeMetadata;
 
 /**
  * @author Kévin Dunglas <dunglas@gmail.com>
  */
-class AttributeMetadataTest extends TestCase
+class AttributeMetadataTest extends \PHPUnit_Framework_TestCase
 {
     public function testInterface()
     {

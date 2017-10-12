@@ -11,12 +11,11 @@
 
 namespace Symfony\Component\Security\Core\Tests\User;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\ChainUserProvider;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 
-class ChainUserProviderTest extends TestCase
+class ChainUserProviderTest extends \PHPUnit_Framework_TestCase
 {
     public function testLoadUserByUsername()
     {

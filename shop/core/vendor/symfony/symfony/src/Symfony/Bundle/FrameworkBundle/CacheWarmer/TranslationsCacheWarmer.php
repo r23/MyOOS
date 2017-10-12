@@ -11,7 +11,6 @@
 
 namespace Symfony\Bundle\FrameworkBundle\CacheWarmer;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerInterface;
 use Symfony\Component\HttpKernel\CacheWarmer\WarmableInterface;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -23,24 +22,11 @@ use Symfony\Component\Translation\TranslatorInterface;
  */
 class TranslationsCacheWarmer implements CacheWarmerInterface
 {
-    private $container;
     private $translator;
 
-    /**
-     * TranslationsCacheWarmer constructor.
-     *
-     * @param ContainerInterface|TranslatorInterface $container
-     */
-    public function __construct($container)
+    public function __construct(TranslatorInterface $translator)
     {
-        // As this cache warmer is optional, dependencies should be lazy-loaded, that's why a container should be injected.
-        if ($container instanceof ContainerInterface) {
-            $this->container = $container;
-        } elseif ($container instanceof TranslatorInterface) {
-            $this->translator = $container;
-        } else {
-            throw new \InvalidArgumentException(sprintf('%s only accepts instance of Symfony\Component\DependencyInjection\ContainerInterface or Symfony\Component\Translation\TranslatorInterface as first argument.', __CLASS__));
-        }
+        $this->translator = $translator;
     }
 
     /**
@@ -48,10 +34,6 @@ class TranslationsCacheWarmer implements CacheWarmerInterface
      */
     public function warmUp($cacheDir)
     {
-        if (null === $this->translator) {
-            $this->translator = $this->container->get('translator');
-        }
-
         if ($this->translator instanceof WarmableInterface) {
             $this->translator->warmUp($cacheDir);
         }

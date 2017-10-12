@@ -11,11 +11,9 @@
 
 namespace Symfony\Component\Security\Core\Tests\Authentication\Token;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\Token\AbstractToken;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\Role\SwitchUserRole;
-use Symfony\Component\Security\Core\User\User;
 
 class TestUser
 {
@@ -59,8 +57,7 @@ class ConcreteToken extends AbstractToken
     }
 }
 
-/** @noinspection PhpUndefinedClassInspection */
-class AbstractTokenTest extends TestCase
+class AbstractTokenTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetUsername()
     {
@@ -90,26 +87,13 @@ class AbstractTokenTest extends TestCase
 
     public function testSerialize()
     {
-        $token = $this->getToken(array('ROLE_FOO', new Role('ROLE_BAR')));
+        $token = $this->getToken(array('ROLE_FOO'));
         $token->setAttributes(array('foo' => 'bar'));
 
         $uToken = unserialize(serialize($token));
 
         $this->assertEquals($token->getRoles(), $uToken->getRoles());
         $this->assertEquals($token->getAttributes(), $uToken->getAttributes());
-    }
-
-    public function testSerializeWithRoleObjects()
-    {
-        $user = new User('name', 'password', array(new Role('ROLE_FOO'), new Role('ROLE_BAR')));
-        $token = new ConcreteToken($user, $user->getRoles());
-
-        $serialized = serialize($token);
-        $unserialized = unserialize($serialized);
-
-        $roles = $unserialized->getRoles();
-
-        $this->assertEquals($roles, $user->getRoles());
     }
 
     public function testSerializeParent()

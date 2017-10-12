@@ -11,12 +11,11 @@
 
 namespace Symfony\Component\Validator\Tests\Mapping\Loader;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Mapping\Loader\StaticMethodLoader;
 use Symfony\Component\Validator\Tests\Fixtures\ConstraintA;
 
-class StaticMethodLoaderTest extends TestCase
+class StaticMethodLoaderTest extends \PHPUnit_Framework_TestCase
 {
     private $errorLevel;
 

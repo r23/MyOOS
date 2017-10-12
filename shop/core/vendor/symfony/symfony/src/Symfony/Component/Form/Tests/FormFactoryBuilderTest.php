@@ -11,11 +11,10 @@
 
 namespace Symfony\Component\Form\Tests;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormFactoryBuilder;
 use Symfony\Component\Form\Tests\Fixtures\FooType;
 
-class FormFactoryBuilderTest extends TestCase
+class FormFactoryBuilderTest extends \PHPUnit_Framework_TestCase
 {
     private $registry;
     private $guesser;

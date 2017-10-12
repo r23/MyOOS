@@ -11,10 +11,9 @@
 
 namespace Symfony\Component\Security\Core\Tests\Encoder;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 
-class MessageDigestPasswordEncoderTest extends TestCase
+class MessageDigestPasswordEncoderTest extends \PHPUnit_Framework_TestCase
 {
     public function testIsPasswordValid()
     {

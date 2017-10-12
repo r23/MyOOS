@@ -13,7 +13,6 @@ Definitions
 - Shared: yes
 - Abstract: yes
 - Autowired: no
-- Autoconfigured: no
 - Factory Class: `Full\Qualified\FactoryClass`
 - Factory Method: `get`
 
@@ -25,6 +24,11 @@ Aliases
 
 - Service: `service_1`
 - Public: yes
+
+### alias_2
+
+- Service: `service_2`
+- Public: no
 
 
 Services

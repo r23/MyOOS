@@ -11,16 +11,15 @@
 
 namespace Symfony\Component\ExpressionLanguage\Tests;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\ExpressionLanguage\Parser;
 use Symfony\Component\ExpressionLanguage\Lexer;
 use Symfony\Component\ExpressionLanguage\Node;
 
-class ParserTest extends TestCase
+class ParserTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @expectedException        \Symfony\Component\ExpressionLanguage\SyntaxError
-     * @expectedExceptionMessage Variable "foo" is not valid around position 1 for expression `foo`.
+     * @expectedExceptionMessage Variable "foo" is not valid around position 1.
      */
     public function testParseWithInvalidName()
     {
@@ -31,7 +30,7 @@ class ParserTest extends TestCase
 
     /**
      * @expectedException        \Symfony\Component\ExpressionLanguage\SyntaxError
-     * @expectedExceptionMessage Variable "foo" is not valid around position 1 for expression `foo`.
+     * @expectedExceptionMessage Variable "foo" is not valid around position 1.
      */
     public function testParseWithZeroInNames()
     {
@@ -99,24 +98,24 @@ class ParserTest extends TestCase
                 '(3 - 3) * 2',
             ),
             array(
-                new Node\GetAttrNode(new Node\NameNode('foo'), new Node\ConstantNode('bar', true), new Node\ArgumentsNode(), Node\GetAttrNode::PROPERTY_CALL),
+                new Node\GetAttrNode(new Node\NameNode('foo'), new Node\ConstantNode('bar'), new Node\ArgumentsNode(), Node\GetAttrNode::PROPERTY_CALL),
                 'foo.bar',
                 array('foo'),
             ),
             array(
-                new Node\GetAttrNode(new Node\NameNode('foo'), new Node\ConstantNode('bar', true), new Node\ArgumentsNode(), Node\GetAttrNode::METHOD_CALL),
+                new Node\GetAttrNode(new Node\NameNode('foo'), new Node\ConstantNode('bar'), new Node\ArgumentsNode(), Node\GetAttrNode::METHOD_CALL),
                 'foo.bar()',
                 array('foo'),
             ),
             array(
-                new Node\GetAttrNode(new Node\NameNode('foo'), new Node\ConstantNode('not', true), new Node\ArgumentsNode(), Node\GetAttrNode::METHOD_CALL),
+                new Node\GetAttrNode(new Node\NameNode('foo'), new Node\ConstantNode('not'), new Node\ArgumentsNode(), Node\GetAttrNode::METHOD_CALL),
                 'foo.not()',
                 array('foo'),
             ),
             array(
                 new Node\GetAttrNode(
                     new Node\NameNode('foo'),
-                    new Node\ConstantNode('bar', true),
+                    new Node\ConstantNode('bar'),
                     $arguments,
                     Node\GetAttrNode::METHOD_CALL
                 ),
@@ -160,7 +159,7 @@ class ParserTest extends TestCase
 
     private function createGetAttrNode($node, $item, $type)
     {
-        return new Node\GetAttrNode($node, new Node\ConstantNode($item, Node\GetAttrNode::ARRAY_CALL !== $type), new Node\ArgumentsNode(), $type);
+        return new Node\GetAttrNode($node, new Node\ConstantNode($item), new Node\ArgumentsNode(), $type);
     }
 
     /**

@@ -11,12 +11,11 @@
 
 namespace Symfony\Component\Security\Core\Tests\Authorization\Voter;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authorization\Voter\RoleVoter;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Security\Core\Role\Role;
 
-class RoleVoterTest extends TestCase
+class RoleVoterTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider getVoteTests

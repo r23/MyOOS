@@ -12,7 +12,6 @@
 namespace Symfony\Component\Serializer\Tests\Normalizer;
 
 use Doctrine\Common\Annotations\AnnotationReader;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
 use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
 use Symfony\Component\PropertyInfo\PropertyInfoExtractor;
@@ -33,7 +32,7 @@ use Symfony\Component\Serializer\Tests\Fixtures\GroupDummy;
 /**
  * @author Kévin Dunglas <dunglas@gmail.com>
  */
-class ObjectNormalizerTest extends TestCase
+class ObjectNormalizerTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var ObjectNormalizer
@@ -158,49 +157,6 @@ class ObjectNormalizerTest extends TestCase
         $obj = $this->normalizer->denormalize($data, __NAMESPACE__.'\ObjectConstructorDummy', 'any');
         $this->assertEquals('foo', $obj->getFoo());
         $this->assertEquals('bar', $obj->bar);
-    }
-
-    public function testConstructorWithObjectTypeHintDenormalize()
-    {
-        $data = array(
-            'id' => 10,
-            'inner' => array(
-                'foo' => 'oof',
-                'bar' => 'rab',
-            ),
-        );
-
-        $normalizer = new ObjectNormalizer();
-        $serializer = new Serializer(array($normalizer));
-        $normalizer->setSerializer($serializer);
-
-        $obj = $normalizer->denormalize($data, DummyWithConstructorObject::class);
-        $this->assertInstanceOf(DummyWithConstructorObject::class, $obj);
-        $this->assertEquals(10, $obj->getId());
-        $this->assertInstanceOf(ObjectInner::class, $obj->getInner());
-        $this->assertEquals('oof', $obj->getInner()->foo);
-        $this->assertEquals('rab', $obj->getInner()->bar);
-    }
-
-    /**
-     * @expectedException \Symfony\Component\Serializer\Exception\RuntimeException
-     * @expectedExceptionMessage Could not determine the class of the parameter "unknown".
-     */
-    public function testConstructorWithUnknownObjectTypeHintDenormalize()
-    {
-        $data = array(
-            'id' => 10,
-            'unknown' => array(
-                'foo' => 'oof',
-                'bar' => 'rab',
-            ),
-        );
-
-        $normalizer = new ObjectNormalizer();
-        $serializer = new Serializer(array($normalizer));
-        $normalizer->setSerializer($serializer);
-
-        $normalizer->denormalize($data, DummyWithConstructorInexistingObject::class);
     }
 
     public function testGroupsNormalize()
@@ -509,11 +465,6 @@ class ObjectNormalizerTest extends TestCase
         $this->assertEquals(array('foo' => 'K'), $this->normalizer->normalize(new ObjectWithStaticPropertiesAndMethods()));
     }
 
-    public function testNormalizeUpperCaseAttributes()
-    {
-        $this->assertEquals(array('Foo' => 'Foo', 'Bar' => 'BarBar'), $this->normalizer->normalize(new ObjectWithUpperCaseAttributeNames()));
-    }
-
     public function testNormalizeNotSerializableContext()
     {
         $objectDummy = new ObjectDummy();
@@ -648,70 +599,6 @@ class ObjectNormalizerTest extends TestCase
         $data->bar = 'foo';
 
         $this->assertSame(array('foo' => 'bar', 'bar' => 'foo'), $normalizer->normalize($data, null, array('include_foo_and_bar' => true)));
-    }
-
-    public function testAttributesContextNormalize()
-    {
-        $normalizer = new ObjectNormalizer();
-        $serializer = new Serializer(array($normalizer));
-
-        $objectInner = new ObjectInner();
-        $objectInner->foo = 'innerFoo';
-        $objectInner->bar = 'innerBar';
-
-        $objectDummy = new ObjectDummy();
-        $objectDummy->setFoo('foo');
-        $objectDummy->setBaz(true);
-        $objectDummy->setObject($objectInner);
-
-        $context = array('attributes' => array('foo', 'baz', 'object' => array('foo')));
-        $this->assertEquals(
-            array(
-                'foo' => 'foo',
-                'baz' => true,
-                'object' => array('foo' => 'innerFoo'),
-            ),
-            $serializer->normalize($objectDummy, null, $context)
-        );
-    }
-
-    public function testAttributesContextDenormalize()
-    {
-        $normalizer = new ObjectNormalizer(null, null, null, new ReflectionExtractor());
-        $serializer = new Serializer(array($normalizer));
-
-        $objectInner = new ObjectInner();
-        $objectInner->foo = 'innerFoo';
-
-        $objectOuter = new ObjectOuter();
-        $objectOuter->bar = 'bar';
-        $objectOuter->setInner($objectInner);
-
-        $context = array('attributes' => array('bar', 'inner' => array('foo')));
-        $this->assertEquals($objectOuter, $serializer->denormalize(
-            array(
-                'foo' => 'foo',
-                'bar' => 'bar',
-                'date' => '2017-02-03',
-                'inner' => array('foo' => 'innerFoo', 'bar' => 'innerBar'),
-            ), ObjectOuter::class, null, $context));
-    }
-
-    public function testAttributesContextDenormalizeConstructor()
-    {
-        $normalizer = new ObjectNormalizer(null, null, null, new ReflectionExtractor());
-        $serializer = new Serializer(array($normalizer));
-
-        $objectInner = new ObjectInner();
-        $objectInner->bar = 'bar';
-
-        $obj = new DummyWithConstructorObjectAndDefaultValue('a', $objectInner);
-
-        $context = array('attributes' => array('inner' => array('bar')));
-        $this->assertEquals($obj, $serializer->denormalize(array(
-            'foo' => 'b',
-            'inner' => array('foo' => 'foo', 'bar' => 'bar'),
-        ), DummyWithConstructorObjectAndDefaultValue::class, null, $context));
     }
 }
 
@@ -883,8 +770,6 @@ class ObjectTypeHinted
 
 class ObjectOuter
 {
-    public $foo;
-    public $bar;
     private $inner;
     private $date;
 
@@ -946,72 +831,10 @@ class FormatAndContextAwareNormalizer extends ObjectNormalizer
     }
 }
 
-class DummyWithConstructorObject
-{
-    private $id;
-    private $inner;
-
-    public function __construct($id, ObjectInner $inner)
-    {
-        $this->id = $id;
-        $this->inner = $inner;
-    }
-
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function getInner()
-    {
-        return $this->inner;
-    }
-}
-
-class DummyWithConstructorInexistingObject
-{
-    public function __construct($id, Unknown $unknown)
-    {
-    }
-}
-
 class JsonNumber
 {
     /**
      * @var float
      */
     public $number;
-}
-
-class DummyWithConstructorObjectAndDefaultValue
-{
-    private $foo;
-    private $inner;
-
-    public function __construct($foo = 'a', ObjectInner $inner)
-    {
-        $this->foo = $foo;
-        $this->inner = $inner;
-    }
-
-    public function getFoo()
-    {
-        return $this->foo;
-    }
-
-    public function getInner()
-    {
-        return $this->inner;
-    }
-}
-
-class ObjectWithUpperCaseAttributeNames
-{
-    private $Foo = 'Foo';
-    public $Bar = 'BarBar';
-
-    public function getFoo()
-    {
-        return $this->Foo;
-    }
 }

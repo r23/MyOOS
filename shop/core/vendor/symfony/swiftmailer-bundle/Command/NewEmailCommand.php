@@ -125,7 +125,7 @@ EOF
      */
     private function createMessage(InputInterface $input)
     {
-        $message = new \Swift_Message(
+        $message = \Swift_Message::newInstance(
             $input->getOption('subject'),
             $input->getOption('body'),
             $input->getOption('content-type'),

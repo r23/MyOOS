@@ -134,4 +134,18 @@ class SessionTest extends WebTestCase
             array('config.yml', false),
         );
     }
+
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->deleteTmpDir('SessionTest');
+    }
+
+    protected function tearDown()
+    {
+        parent::tearDown();
+
+        $this->deleteTmpDir('SessionTest');
+    }
 }

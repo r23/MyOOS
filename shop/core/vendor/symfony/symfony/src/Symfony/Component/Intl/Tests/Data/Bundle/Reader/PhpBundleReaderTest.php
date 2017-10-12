@@ -11,13 +11,12 @@
 
 namespace Symfony\Component\Intl\Tests\Data\Bundle\Reader;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Intl\Data\Bundle\Reader\PhpBundleReader;
 
 /**
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class PhpBundleReaderTest extends TestCase
+class PhpBundleReaderTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var PhpBundleReader

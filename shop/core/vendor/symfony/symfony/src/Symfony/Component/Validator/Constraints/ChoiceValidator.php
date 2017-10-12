@@ -47,8 +47,7 @@ class ChoiceValidator extends ConstraintValidator
         }
 
         if ($constraint->callback) {
-            if (!is_callable($choices = array($this->context->getObject(), $constraint->callback))
-                && !is_callable($choices = array($this->context->getClassName(), $constraint->callback))
+            if (!is_callable($choices = array($this->context->getClassName(), $constraint->callback))
                 && !is_callable($choices = $constraint->callback)
             ) {
                 throw new ConstraintDefinitionException('The Choice constraint expects a valid callback');
@@ -56,10 +55,6 @@ class ChoiceValidator extends ConstraintValidator
             $choices = call_user_func($choices);
         } else {
             $choices = $constraint->choices;
-        }
-
-        if (false === $constraint->strict) {
-            @trigger_error('Setting the strict option of the Choice constraint to false is deprecated since version 3.2 and will be removed in 4.0.', E_USER_DEPRECATED);
         }
 
         if ($constraint->multiple) {

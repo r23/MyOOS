@@ -78,7 +78,6 @@ class FormValidator extends ConstraintValidator
         } else {
             $childrenSynchronized = true;
 
-            /** @var FormInterface $child */
             foreach ($form as $child) {
                 if (!$child->isSynchronized()) {
                     $childrenSynchronized = false;

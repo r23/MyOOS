@@ -14,7 +14,6 @@ namespace Symfony\Component\Console\Helper;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Exception\LogicException;
-use Symfony\Component\Console\Terminal;
 
 /**
  * The ProgressBar provides helpers to display progress output.
@@ -22,7 +21,7 @@ use Symfony\Component\Console\Terminal;
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Chris Jones <leeked@gmail.com>
  */
-final class ProgressBar
+class ProgressBar
 {
     // options
     private $barWidth = 28;
@@ -45,13 +44,14 @@ final class ProgressBar
     private $formatLineCount;
     private $messages = array();
     private $overwrite = true;
-    private $terminal;
     private $firstRun = true;
 
     private static $formatters;
     private static $formats;
 
     /**
+     * Constructor.
+     *
      * @param OutputInterface $output An OutputInterface instance
      * @param int             $max    Maximum steps (0 if unknown)
      */
@@ -63,7 +63,6 @@ final class ProgressBar
 
         $this->output = $output;
         $this->setMaxSteps($max);
-        $this->terminal = new Terminal();
 
         if (!$this->output->isDecorated()) {
             // disable overwrite when output does not support ANSI codes.
@@ -219,7 +218,7 @@ final class ProgressBar
      */
     public function setBarWidth($size)
     {
-        $this->barWidth = max(1, (int) $size);
+        $this->barWidth = (int) $size;
     }
 
     /**
@@ -339,6 +338,8 @@ final class ProgressBar
      * Advances the progress output X steps.
      *
      * @param int $step Number of steps to advance
+     *
+     * @throws LogicException
      */
     public function advance($step = 1)
     {
@@ -359,15 +360,18 @@ final class ProgressBar
      * Sets the current progress.
      *
      * @param int $step The current progress
+     *
+     * @throws LogicException
      */
     public function setProgress($step)
     {
         $step = (int) $step;
+        if ($step < $this->step) {
+            throw new LogicException('You can\'t regress the progress bar.');
+        }
 
         if ($this->max && $step > $this->max) {
             $this->max = $step;
-        } elseif ($step < 0) {
-            $step = 0;
         }
 
         $prevPeriod = (int) ($this->step / $this->redrawFreq);
@@ -409,7 +413,21 @@ final class ProgressBar
             $this->setRealFormat($this->internalFormat ?: $this->determineBestFormat());
         }
 
-        $this->overwrite($this->buildLine());
+        $this->overwrite(preg_replace_callback("{%([a-z\-_]+)(?:\:([^%]+))?%}i", function ($matches) {
+            if ($formatter = $this::getPlaceholderFormatterDefinition($matches[1])) {
+                $text = call_user_func($formatter, $this, $this->output);
+            } elseif (isset($this->messages[$matches[1]])) {
+                $text = $this->messages[$matches[1]];
+            } else {
+                return $matches[0];
+            }
+
+            if (isset($matches[2])) {
+                $text = sprintf('%'.$matches[2], $text);
+            }
+
+            return $text;
+        }, $this->format));
     }
 
     /**
@@ -578,45 +596,5 @@ final class ProgressBar
             'debug' => ' %current%/%max% [%bar%] %percent:3s%% %elapsed:6s%/%estimated:-6s% %memory:6s%',
             'debug_nomax' => ' %current% [%bar%] %elapsed:6s% %memory:6s%',
         );
-    }
-
-    /**
-     * @return string
-     */
-    private function buildLine()
-    {
-        $regex = "{%([a-z\-_]+)(?:\:([^%]+))?%}i";
-        $callback = function ($matches) {
-            if ($formatter = $this::getPlaceholderFormatterDefinition($matches[1])) {
-                $text = call_user_func($formatter, $this, $this->output);
-            } elseif (isset($this->messages[$matches[1]])) {
-                $text = $this->messages[$matches[1]];
-            } else {
-                return $matches[0];
-            }
-
-            if (isset($matches[2])) {
-                $text = sprintf('%'.$matches[2], $text);
-            }
-
-            return $text;
-        };
-        $line = preg_replace_callback($regex, $callback, $this->format);
-
-        // gets string length for each sub line with multiline format
-        $linesLength = array_map(function ($subLine) {
-            return Helper::strlenWithoutDecoration($this->output->getFormatter(), rtrim($subLine, "\r"));
-        }, explode("\n", $line));
-
-        $linesWidth = max($linesLength);
-
-        $terminalWidth = $this->terminal->getWidth();
-        if ($linesWidth <= $terminalWidth) {
-            return $line;
-        }
-
-        $this->setBarWidth($this->barWidth - $linesWidth + $terminalWidth);
-
-        return preg_replace_callback($regex, $callback, $this->format);
     }
 }

@@ -11,13 +11,12 @@
 
 namespace Symfony\Component\PropertyAccess\Tests;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\PropertyAccess\StringUtil;
 
 /**
  * @group legacy
  */
-class StringUtilTest extends TestCase
+class StringUtilTest extends \PHPUnit_Framework_TestCase
 {
     public function singularifyProvider()
     {

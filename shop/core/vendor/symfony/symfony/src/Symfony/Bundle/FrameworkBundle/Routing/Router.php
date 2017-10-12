@@ -11,9 +11,6 @@
 
 namespace Symfony\Bundle\FrameworkBundle\Routing;
 
-use Symfony\Component\Config\Loader\LoaderInterface;
-use Symfony\Component\DependencyInjection\Config\ContainerParametersResource;
-use Symfony\Component\DependencyInjection\ServiceSubscriberInterface;
 use Symfony\Component\Routing\Router as BaseRouter;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -27,10 +24,9 @@ use Symfony\Component\DependencyInjection\Exception\RuntimeException;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class Router extends BaseRouter implements WarmableInterface, ServiceSubscriberInterface
+class Router extends BaseRouter implements WarmableInterface
 {
     private $container;
-    private $collectedParameters = array();
 
     /**
      * Constructor.
@@ -57,7 +53,6 @@ class Router extends BaseRouter implements WarmableInterface, ServiceSubscriberI
         if (null === $this->collection) {
             $this->collection = $this->container->get('routing.loader')->load($this->resource, $this->options['resource_type']);
             $this->resolveParameters($this->collection);
-            $this->collection->addResource(new ContainerParametersResource($this->collectedParameters));
         }
 
         return $this->collection;
@@ -151,15 +146,9 @@ class Router extends BaseRouter implements WarmableInterface, ServiceSubscriberI
                 return '%%';
             }
 
-            if (preg_match('/^env\(\w+\)$/', $match[1])) {
-                throw new RuntimeException(sprintf('Using "%%%s%%" is not allowed in routing configuration.', $match[1]));
-            }
-
             $resolved = $container->getParameter($match[1]);
 
             if (is_string($resolved) || is_numeric($resolved)) {
-                $this->collectedParameters[$match[1]] = $resolved;
-
                 return (string) $resolved;
             }
 
@@ -174,15 +163,5 @@ class Router extends BaseRouter implements WarmableInterface, ServiceSubscriberI
         }, $value);
 
         return str_replace('%%', '%', $escapedValue);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public static function getSubscribedServices()
-    {
-        return array(
-            'routing.loader' => LoaderInterface::class,
-        );
     }
 }

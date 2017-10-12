@@ -11,12 +11,11 @@
 
 namespace Symfony\Component\Serializer\Tests\Encoder;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Normalizer\CustomNormalizer;
 
-class JsonEncoderTest extends TestCase
+class JsonEncoderTest extends \PHPUnit_Framework_TestCase
 {
     private $encoder;
     private $serializer;

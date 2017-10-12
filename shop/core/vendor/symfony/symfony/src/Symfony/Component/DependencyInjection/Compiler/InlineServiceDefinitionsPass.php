@@ -11,19 +11,22 @@
 
 namespace Symfony\Component\DependencyInjection\Compiler;
 
-use Symfony\Component\DependencyInjection\Argument\ArgumentInterface;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * Inline service definitions where this is possible.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class InlineServiceDefinitionsPass extends AbstractRecursivePass implements RepeatablePassInterface
+class InlineServiceDefinitionsPass implements RepeatablePassInterface
 {
     private $repeatedPass;
-    private $inlinedServiceIds = array();
+    private $graph;
+    private $compiler;
+    private $formatter;
+    private $currentId;
 
     /**
      * {@inheritdoc}
@@ -34,59 +37,85 @@ class InlineServiceDefinitionsPass extends AbstractRecursivePass implements Repe
     }
 
     /**
-     * Returns an array of all services inlined by this pass.
+     * Processes the ContainerBuilder for inline service definitions.
      *
-     * The key is the inlined service id and its value is the list of services it was inlined into.
-     *
-     * @return array
+     * @param ContainerBuilder $container
      */
-    public function getInlinedServiceIds()
+    public function process(ContainerBuilder $container)
     {
-        return $this->inlinedServiceIds;
+        $this->compiler = $container->getCompiler();
+        $this->formatter = $this->compiler->getLoggingFormatter();
+        $this->graph = $this->compiler->getServiceReferenceGraph();
+
+        $container->setDefinitions($this->inlineArguments($container, $container->getDefinitions(), true));
     }
 
     /**
-     * {@inheritdoc}
+     * Processes inline arguments.
+     *
+     * @param ContainerBuilder $container The ContainerBuilder
+     * @param array            $arguments An array of arguments
+     * @param bool             $isRoot    If we are processing the root definitions or not
+     *
+     * @return array
      */
-    protected function processValue($value, $isRoot = false)
+    private function inlineArguments(ContainerBuilder $container, array $arguments, $isRoot = false)
     {
-        if ($value instanceof ArgumentInterface) {
-            // Reference found in ArgumentInterface::getValues() are not inlineable
-            return $value;
-        }
-        if ($value instanceof Reference && $this->container->hasDefinition($id = (string) $value)) {
-            $definition = $this->container->getDefinition($id);
-
-            if ($this->isInlineableDefinition($id, $definition, $this->container->getCompiler()->getServiceReferenceGraph())) {
-                $this->container->log($this, sprintf('Inlined service "%s" to "%s".', $id, $this->currentId));
-                $this->inlinedServiceIds[$id][] = $this->currentId;
-
-                if ($definition->isShared()) {
-                    return $definition;
+        foreach ($arguments as $k => $argument) {
+            if ($isRoot) {
+                $this->currentId = $k;
+            }
+            if (is_array($argument)) {
+                $arguments[$k] = $this->inlineArguments($container, $argument);
+            } elseif ($argument instanceof Reference) {
+                if (!$container->hasDefinition($id = (string) $argument)) {
+                    continue;
                 }
-                $value = clone $definition;
+
+                if ($this->isInlineableDefinition($id, $definition = $container->getDefinition($id))) {
+                    $this->compiler->addLogMessage($this->formatter->formatInlineService($this, $id, $this->currentId));
+
+                    if ($definition->isShared()) {
+                        $arguments[$k] = $definition;
+                    } else {
+                        $arguments[$k] = clone $definition;
+                    }
+                }
+            } elseif ($argument instanceof Definition) {
+                $argument->setArguments($this->inlineArguments($container, $argument->getArguments()));
+                $argument->setMethodCalls($this->inlineArguments($container, $argument->getMethodCalls()));
+                $argument->setProperties($this->inlineArguments($container, $argument->getProperties()));
+
+                $configurator = $this->inlineArguments($container, array($argument->getConfigurator()));
+                $argument->setConfigurator($configurator[0]);
+
+                $factory = $this->inlineArguments($container, array($argument->getFactory()));
+                $argument->setFactory($factory[0]);
             }
         }
 
-        return parent::processValue($value, $isRoot);
+        return $arguments;
     }
 
     /**
      * Checks if the definition is inlineable.
      *
+     * @param string     $id
+     * @param Definition $definition
+     *
      * @return bool If the definition is inlineable
      */
-    private function isInlineableDefinition($id, Definition $definition, ServiceReferenceGraph $graph)
+    private function isInlineableDefinition($id, Definition $definition)
     {
         if (!$definition->isShared()) {
             return true;
         }
 
-        if ($definition->isDeprecated() || $definition->isPublic() || $definition->isLazy()) {
+        if ($definition->isPublic() || $definition->isLazy()) {
             return false;
         }
 
-        if (!$graph->hasNode($id)) {
+        if (!$this->graph->hasNode($id)) {
             return true;
         }
 
@@ -95,7 +124,7 @@ class InlineServiceDefinitionsPass extends AbstractRecursivePass implements Repe
         }
 
         $ids = array();
-        foreach ($graph->getNode($id)->getInEdges() as $edge) {
+        foreach ($this->graph->getNode($id)->getInEdges() as $edge) {
             $ids[] = $edge->getSourceNode()->getId();
         }
 

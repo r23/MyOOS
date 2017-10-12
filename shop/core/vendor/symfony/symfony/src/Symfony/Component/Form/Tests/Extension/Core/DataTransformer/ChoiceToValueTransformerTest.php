@@ -11,11 +11,10 @@
 
 namespace Symfony\Component\Form\Tests\Extension\Core\DataTransformer;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
 use Symfony\Component\Form\Extension\Core\DataTransformer\ChoiceToValueTransformer;
 
-class ChoiceToValueTransformerTest extends TestCase
+class ChoiceToValueTransformerTest extends \PHPUnit_Framework_TestCase
 {
     protected $transformer;
     protected $transformerWithNull;

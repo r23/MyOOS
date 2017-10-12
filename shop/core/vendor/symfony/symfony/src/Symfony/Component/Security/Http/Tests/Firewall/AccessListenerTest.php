@@ -11,10 +11,9 @@
 
 namespace Symfony\Component\Security\Http\Tests\Firewall;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Http\Firewall\AccessListener;
 
-class AccessListenerTest extends TestCase
+class AccessListenerTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @expectedException \Symfony\Component\Security\Core\Exception\AccessDeniedException

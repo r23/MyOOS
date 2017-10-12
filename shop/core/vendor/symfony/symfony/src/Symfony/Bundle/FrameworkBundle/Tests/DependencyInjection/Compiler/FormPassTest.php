@@ -11,7 +11,6 @@
 
 namespace Symfony\Bundle\FrameworkBundle\Tests\DependencyInjection\Compiler;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\FormPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -19,11 +18,9 @@ use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\Form\AbstractType;
 
 /**
- * @group legacy
- *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class FormPassTest extends TestCase
+class FormPassTest extends \PHPUnit_Framework_TestCase
 {
     public function testDoNothingIfFormExtensionNotLoaded()
     {
@@ -62,10 +59,7 @@ class FormPassTest extends TestCase
         ), $extDefinition->getArgument(1));
     }
 
-    /**
-     * @dataProvider addTaggedTypeExtensionsDataProvider
-     */
-    public function testAddTaggedTypeExtensions(array $extensions, array $expectedRegisteredExtensions)
+    public function testAddTaggedTypeExtensions()
     {
         $container = new ContainerBuilder();
         $container->addCompilerPass(new FormPass());
@@ -78,49 +72,26 @@ class FormPassTest extends TestCase
         ));
 
         $container->setDefinition('form.extension', $extDefinition);
-
-        foreach ($extensions as $serviceId => $tag) {
-            $container->register($serviceId, 'stdClass')->addTag('form.type_extension', $tag);
-        }
+        $container->register('my.type_extension1', 'stdClass')
+            ->addTag('form.type_extension', array('extended_type' => 'type1'));
+        $container->register('my.type_extension2', 'stdClass')
+            ->addTag('form.type_extension', array('extended_type' => 'type1'));
+        $container->register('my.type_extension3', 'stdClass')
+            ->addTag('form.type_extension', array('extended_type' => 'type2'));
 
         $container->compile();
 
         $extDefinition = $container->getDefinition('form.extension');
-        $this->assertSame($expectedRegisteredExtensions, $extDefinition->getArgument(2));
-    }
 
-    /**
-     * @return array
-     */
-    public function addTaggedTypeExtensionsDataProvider()
-    {
-        return array(
-            array(
-                array(
-                    'my.type_extension1' => array('extended_type' => 'type1'),
-                    'my.type_extension2' => array('extended_type' => 'type1'),
-                    'my.type_extension3' => array('extended_type' => 'type2'),
-                ),
-                array(
-                    'type1' => array('my.type_extension1', 'my.type_extension2'),
-                    'type2' => array('my.type_extension3'),
-                ),
+        $this->assertSame(array(
+            'type1' => array(
+                'my.type_extension1',
+                'my.type_extension2',
             ),
-            array(
-                array(
-                    'my.type_extension1' => array('extended_type' => 'type1', 'priority' => 1),
-                    'my.type_extension2' => array('extended_type' => 'type1', 'priority' => 2),
-                    'my.type_extension3' => array('extended_type' => 'type1', 'priority' => -1),
-                    'my.type_extension4' => array('extended_type' => 'type2', 'priority' => 2),
-                    'my.type_extension5' => array('extended_type' => 'type2', 'priority' => 1),
-                    'my.type_extension6' => array('extended_type' => 'type2', 'priority' => 1),
-                ),
-                array(
-                    'type1' => array('my.type_extension2', 'my.type_extension1', 'my.type_extension3'),
-                    'type2' => array('my.type_extension4', 'my.type_extension5', 'my.type_extension6'),
-                ),
+            'type2' => array(
+                'my.type_extension3',
             ),
-        );
+        ), $extDefinition->getArgument(2));
     }
 
     /**
@@ -181,7 +152,7 @@ class FormPassTest extends TestCase
     /**
      * @dataProvider privateTaggedServicesProvider
      */
-    public function testPrivateTaggedServices($id, $tagName)
+    public function testPrivateTaggedServices($id, $tagName, $expectedExceptionMessage)
     {
         $container = new ContainerBuilder();
         $container->addCompilerPass(new FormPass());
@@ -195,18 +166,19 @@ class FormPassTest extends TestCase
         ));
 
         $container->setDefinition('form.extension', $extDefinition);
-        $container->register($id, 'stdClass')->setPublic(false)->addTag($tagName, array('extended_type' => 'Foo'));
+        $container->register($id, 'stdClass')->setPublic(false)->addTag($tagName);
+
+        $this->setExpectedException('\InvalidArgumentException', $expectedExceptionMessage);
 
         $container->compile();
-        $this->assertTrue($container->getDefinition($id)->isPublic());
     }
 
     public function privateTaggedServicesProvider()
     {
         return array(
-            array('my.type', 'form.type'),
-            array('my.type_extension', 'form.type_extension'),
-            array('my.guesser', 'form.type_guesser'),
+            array('my.type', 'form.type', 'The service "my.type" must be public as form types are lazy-loaded'),
+            array('my.type_extension', 'form.type_extension', 'The service "my.type_extension" must be public as form type extensions are lazy-loaded'),
+            array('my.guesser', 'form.type_guesser', 'The service "my.guesser" must be public as form type guessers are lazy-loaded'),
         );
     }
 }

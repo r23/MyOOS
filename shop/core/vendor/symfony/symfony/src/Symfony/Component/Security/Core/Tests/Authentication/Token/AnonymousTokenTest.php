@@ -11,11 +11,10 @@
 
 namespace Symfony\Component\Security\Core\Tests\Authentication\Token;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\Security\Core\Role\Role;
 
-class AnonymousTokenTest extends TestCase
+class AnonymousTokenTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstructor()
     {

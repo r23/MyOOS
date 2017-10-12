@@ -11,7 +11,6 @@
 
 namespace Symfony\Component\Serializer\Tests\Normalizer;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Normalizer\JsonSerializableNormalizer;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -20,7 +19,7 @@ use Symfony\Component\Serializer\Tests\Fixtures\JsonSerializableDummy;
 /**
  * @author Fred Cox <mcfedr@gmail.com>
  */
-class JsonSerializableNormalizerTest extends TestCase
+class JsonSerializableNormalizerTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var JsonSerializableNormalizer

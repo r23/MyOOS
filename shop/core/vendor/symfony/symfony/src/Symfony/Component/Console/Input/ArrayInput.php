@@ -112,15 +112,9 @@ class ArrayInput extends Input
         $params = array();
         foreach ($this->parameters as $param => $val) {
             if ($param && '-' === $param[0]) {
-                if (is_array($val)) {
-                    foreach ($val as $v) {
-                        $params[] = $param.('' != $v ? '='.$this->escapeToken($v) : '');
-                    }
-                } else {
-                    $params[] = $param.('' != $val ? '='.$this->escapeToken($val) : '');
-                }
+                $params[] = $param.('' != $val ? '='.$this->escapeToken($val) : '');
             } else {
-                $params[] = is_array($val) ? array_map(array($this, 'escapeToken'), $val) : $this->escapeToken($val);
+                $params[] = $this->escapeToken($val);
             }
         }
 
@@ -185,9 +179,7 @@ class ArrayInput extends Input
                 throw new InvalidOptionException(sprintf('The "--%s" option requires a value.', $name));
             }
 
-            if (!$option->isValueOptional()) {
-                $value = true;
-            }
+            $value = $option->isValueOptional() ? $option->getDefault() : true;
         }
 
         $this->options[$name] = $value;

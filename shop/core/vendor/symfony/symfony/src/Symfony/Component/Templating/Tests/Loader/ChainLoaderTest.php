@@ -11,12 +11,11 @@
 
 namespace Symfony\Component\Templating\Tests\Loader;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Templating\Loader\ChainLoader;
 use Symfony\Component\Templating\Loader\FilesystemLoader;
 use Symfony\Component\Templating\TemplateReference;
 
-class ChainLoaderTest extends TestCase
+class ChainLoaderTest extends \PHPUnit_Framework_TestCase
 {
     protected $loader1;
     protected $loader2;

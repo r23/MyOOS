@@ -1,12 +1,6 @@
 {% if exception.trace|length %}
-<pre class="stacktrace">
-{{ exception.class }}:
-{% if exception.message is not empty %}
-    {{- exception.message }}
-{% endif %}
-
 {% for trace in exception.trace %}
-  {{ include('@Twig/Exception/trace.txt.twig', { trace: trace }, with_context = false) }}
+{% include '@Twig/Exception/trace.txt.twig' with { 'trace': trace } only %}
+
 {% endfor %}
-</pre>
 {% endif %}

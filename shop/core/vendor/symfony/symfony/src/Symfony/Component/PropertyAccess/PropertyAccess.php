@@ -31,7 +31,7 @@ final class PropertyAccess
     /**
      * Creates a property accessor builder.
      *
-     * @return PropertyAccessorBuilder
+     * @return PropertyAccessor
      */
     public static function createPropertyAccessorBuilder()
     {

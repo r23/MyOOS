@@ -11,13 +11,12 @@
 
 namespace Symfony\Component\Security\Http\Tests;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Security\Http\Firewall;
 
-class FirewallTest extends TestCase
+class FirewallTest extends \PHPUnit_Framework_TestCase
 {
     public function testOnKernelRequestRegistersExceptionListener()
     {

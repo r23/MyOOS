@@ -15,17 +15,8 @@
 
 error_reporting(-1);
 
-if (PHP_VERSION_ID >= 70200) {
-    // PHPUnit 6 is required for PHP 7.2+
-    $PHPUNIT_VERSION = getenv('SYMFONY_PHPUNIT_VERSION') ?: '6.3';
-} elseif (PHP_VERSION_ID >= 50600) {
-    // PHPUnit 4 does not support PHP 7
-    $PHPUNIT_VERSION = getenv('SYMFONY_PHPUNIT_VERSION') ?: '5.7';
-} else {
-    // PHPUnit 5.1 requires PHP 5.6+
-    $PHPUNIT_VERSION = '4.8';
-}
-
+// PHPUnit 4.8 does not support PHP 7, while 5.1 requires PHP 5.6+
+$PHPUNIT_VERSION = PHP_VERSION_ID >= 50600 ? getenv('SYMFONY_PHPUNIT_VERSION') ?: '5.3' : '4.8';
 $oldPwd = getcwd();
 $PHPUNIT_DIR = getenv('SYMFONY_PHPUNIT_DIR') ?: (__DIR__.'/.phpunit');
 $PHP = defined('PHP_BINARY') ? PHP_BINARY : 'php';
@@ -41,7 +32,7 @@ $COMPOSER = file_exists($COMPOSER = $oldPwd.'/composer.phar') || ($COMPOSER = rt
 if (!file_exists("$PHPUNIT_DIR/phpunit-$PHPUNIT_VERSION/phpunit") || md5_file(__FILE__)."\n".getenv('SYMFONY_PHPUNIT_REMOVE') !== @file_get_contents("$PHPUNIT_DIR/.$PHPUNIT_VERSION.md5")) {
     // Build a standalone phpunit without symfony/yaml nor prophecy by default
 
-    @mkdir($PHPUNIT_DIR, 0777, true);
+    @mkdir($PHPUNIT_DIR);
     chdir($PHPUNIT_DIR);
     if (file_exists("phpunit-$PHPUNIT_VERSION")) {
         passthru(sprintf('\\' === DIRECTORY_SEPARATOR ? '(del /S /F /Q %s & rmdir %1$s) >nul': 'rm -rf %s', "phpunit-$PHPUNIT_VERSION"));
@@ -51,9 +42,6 @@ if (!file_exists("$PHPUNIT_DIR/phpunit-$PHPUNIT_VERSION/phpunit") || md5_file(__
     } else {
         @unlink("$PHPUNIT_VERSION.zip");
         passthru("wget https://github.com/sebastianbergmann/phpunit/archive/$PHPUNIT_VERSION.zip");
-    }
-    if (!class_exists('ZipArchive')) {
-        throw new \Exception('simple-phpunit requires the "zip" PHP extension to be installed and enabled in order to uncompress the downloaded PHPUnit packages.');
     }
     $zip = new ZipArchive();
     $zip->open("$PHPUNIT_VERSION.zip");
@@ -195,10 +183,27 @@ if ($components) {
         }
     }
 } elseif (!isset($argv[1]) || 'install' !== $argv[1] || file_exists('install')) {
-    array_splice($argv, 1, 0, array('--colors=always'));
-    $_SERVER['argv'] = $argv;
-    $_SERVER['argc'] = ++$argc;
-    include "$PHPUNIT_DIR/phpunit-$PHPUNIT_VERSION/phpunit";
+    // Run regular phpunit in a subprocess
+
+    $errFile = tempnam(sys_get_temp_dir(), 'phpunit.stderr.');
+    if ($proc = proc_open(sprintf($cmd, '', ' 2> '.escapeshellarg($errFile)), array(1 => array('pipe', 'w')), $pipes)) {
+        stream_copy_to_stream($pipes[1], STDOUT);
+        fclose($pipes[1]);
+        $exit = proc_close($proc);
+
+        readfile($errFile);
+        unlink($errFile);
+    }
+
+    if (!file_exists($component = array_pop($argv))) {
+        $component = basename($oldPwd);
+    }
+
+    if ($exit) {
+        echo "\033[41mKO\033[0m $component\n\n";
+    } else {
+        echo "\033[32mOK\033[0m $component\n\n";
+    }
 }
 
 exit($exit);

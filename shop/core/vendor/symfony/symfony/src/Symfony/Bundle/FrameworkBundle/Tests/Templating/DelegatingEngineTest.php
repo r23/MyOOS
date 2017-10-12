@@ -11,11 +11,10 @@
 
 namespace Symfony\Bundle\FrameworkBundle\Tests\Templating;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Templating\DelegatingEngine;
 use Symfony\Component\HttpFoundation\Response;
 
-class DelegatingEngineTest extends TestCase
+class DelegatingEngineTest extends \PHPUnit_Framework_TestCase
 {
     public function testSupportsRetrievesEngineFromTheContainer()
     {

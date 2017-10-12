@@ -11,10 +11,9 @@
 
 namespace Symfony\Component\DomCrawler\Tests;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\DomCrawler\Image;
 
-class ImageTest extends TestCase
+class ImageTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @expectedException \LogicException

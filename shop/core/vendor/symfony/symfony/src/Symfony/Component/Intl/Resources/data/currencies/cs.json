@@ -1,5 +1,5 @@
 {
-    "Version": "2.1.32.59",
+    "Version": "2.1.22.93",
     "Names": {
         "ADP": [
             "ADP",
@@ -217,13 +217,9 @@
             "BYB",
             "běloruský rubl (1994–1999)"
         ],
-        "BYN": [
-            "BYN",
-            "běloruský rubl"
-        ],
         "BYR": [
             "BYR",
-            "běloruský rubl (2000–2016)"
+            "běloruský rubl"
         ],
         "BZD": [
             "BZD",
@@ -775,7 +771,7 @@
         ],
         "PEN": [
             "PEN",
-            "peruánský sol"
+            "peruánský nový sol"
         ],
         "PES": [
             "PES",
@@ -823,7 +819,7 @@
         ],
         "RON": [
             "RON",
-            "rumunský leu"
+            "rumunské leu"
         ],
         "RSD": [
             "RSD",

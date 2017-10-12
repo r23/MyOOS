@@ -55,6 +55,7 @@ abstract class HttpCache extends BaseHttpCache
     {
         $this->getKernel()->boot();
         $this->getKernel()->getContainer()->set('cache', $this);
+        $this->getKernel()->getContainer()->set($this->getSurrogate()->getName(), $this->getSurrogate());
 
         return parent::forward($request, $raw, $entry);
     }

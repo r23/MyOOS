@@ -1,5 +1,5 @@
 {
-    "Version": "2.1.32.59",
+    "Version": "2.1.23.7",
     "Names": {
         "AED": [
             "AED",
@@ -51,7 +51,7 @@
         ],
         "BAM": [
             "BAM",
-            "Bosnijas un Hercogovinas konvertējamā marka"
+            "Bosnijas un Hercogovinas marka"
         ],
         "BBD": [
             "BBD",
@@ -105,13 +105,9 @@
             "BWP",
             "Botsvanas pula"
         ],
-        "BYN": [
-            "BYN",
-            "Baltkrievijas rubelis"
-        ],
         "BYR": [
             "BYR",
-            "Baltkrievijas rubelis (2000–2016)"
+            "Baltkrievijas rubelis"
         ],
         "BZD": [
             "BZD",
@@ -311,7 +307,7 @@
         ],
         "ISK": [
             "ISK",
-            "Islandes krona"
+            "Īslandes krona"
         ],
         "ITL": [
             "ITL",
@@ -519,7 +515,7 @@
         ],
         "PEN": [
             "PEN",
-            "Peru sols"
+            "Peru jaunais sols"
         ],
         "PGK": [
             "PGK",

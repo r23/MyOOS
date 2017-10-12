@@ -81,23 +81,7 @@ class ParameterBag implements ParameterBagInterface
                 }
             }
 
-            $nonNestedAlternative = null;
-            if (!count($alternatives) && false !== strpos($name, '.')) {
-                $namePartsLength = array_map('strlen', explode('.', $name));
-                $key = substr($name, 0, -1 * (1 + array_pop($namePartsLength)));
-                while (count($namePartsLength)) {
-                    if ($this->has($key)) {
-                        if (is_array($this->get($key))) {
-                            $nonNestedAlternative = $key;
-                        }
-                        break;
-                    }
-
-                    $key = substr($key, 0, -1 * (1 + array_pop($namePartsLength)));
-                }
-            }
-
-            throw new ParameterNotFoundException($name, null, null, null, $alternatives, $nonNestedAlternative);
+            throw new ParameterNotFoundException($name, null, null, null, $alternatives);
         }
 
         return $this->parameters[$name];
@@ -205,14 +189,13 @@ class ParameterBag implements ParameterBagInterface
         // as the preg_replace_callback throw an exception when trying
         // a non-string in a parameter value
         if (preg_match('/^%([^%\s]+)%$/', $value, $match)) {
-            $key = $match[1];
-            $lcKey = strtolower($key);
+            $key = strtolower($match[1]);
 
-            if (isset($resolving[$lcKey])) {
+            if (isset($resolving[$key])) {
                 throw new ParameterCircularReferenceException(array_keys($resolving));
             }
 
-            $resolving[$lcKey] = true;
+            $resolving[$key] = true;
 
             return $this->resolved ? $this->get($key) : $this->resolveValue($this->get($key), $resolving);
         }
@@ -223,9 +206,8 @@ class ParameterBag implements ParameterBagInterface
                 return '%%';
             }
 
-            $key = $match[1];
-            $lcKey = strtolower($key);
-            if (isset($resolving[$lcKey])) {
+            $key = strtolower($match[1]);
+            if (isset($resolving[$key])) {
                 throw new ParameterCircularReferenceException(array_keys($resolving));
             }
 
@@ -236,7 +218,7 @@ class ParameterBag implements ParameterBagInterface
             }
 
             $resolved = (string) $resolved;
-            $resolving[$lcKey] = true;
+            $resolving[$key] = true;
 
             return $this->isResolved() ? $resolved : $this->resolveString($resolved, $resolving);
         }, $value);

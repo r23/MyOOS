@@ -11,7 +11,6 @@
 
 namespace Symfony\Component\Security\Core\Tests\Authentication\Provider;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Exception\AccountExpiredException;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Security\Core\Exception\CredentialsExpiredException;
@@ -19,7 +18,7 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\Role\SwitchUserRole;
 
-class UserAuthenticationProviderTest extends TestCase
+class UserAuthenticationProviderTest extends \PHPUnit_Framework_TestCase
 {
     public function testSupports()
     {
@@ -221,7 +220,7 @@ class UserAuthenticationProviderTest extends TestCase
         $this->assertInstanceOf('Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken', $authToken);
         $this->assertSame($user, $authToken->getUser());
         $this->assertContains(new Role('ROLE_FOO'), $authToken->getRoles(), '', false, false);
-        $this->assertContains($switchUserRole, $authToken->getRoles(), '', false, false);
+        $this->assertContains($switchUserRole, $authToken->getRoles());
         $this->assertEquals('foo', $authToken->getCredentials());
         $this->assertEquals(array('foo' => 'bar'), $authToken->getAttributes(), '->authenticate() copies token attributes');
     }

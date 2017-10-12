@@ -11,10 +11,9 @@
 
 namespace Symfony\Component\Form\Tests\Util;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Util\StringUtil;
 
-class StringUtilTest extends TestCase
+class StringUtilTest extends \PHPUnit_Framework_TestCase
 {
     public function testTrim()
     {

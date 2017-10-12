@@ -11,17 +11,16 @@
 
 namespace Symfony\Component\Validator\Tests\Mapping;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Mapping\GetterMetadata;
 use Symfony\Component\Validator\Tests\Fixtures\Entity;
 
-class GetterMetadataTest extends TestCase
+class GetterMetadataTest extends \PHPUnit_Framework_TestCase
 {
     const CLASSNAME = 'Symfony\Component\Validator\Tests\Fixtures\Entity';
 
     public function testInvalidPropertyName()
     {
-        $this->{method_exists($this, $_ = 'expectException') ? $_ : 'setExpectedException'}('Symfony\Component\Validator\Exception\ValidatorException');
+        $this->setExpectedException('Symfony\Component\Validator\Exception\ValidatorException');
 
         new GetterMetadata(self::CLASSNAME, 'foobar');
     }
@@ -48,7 +47,7 @@ class GetterMetadataTest extends TestCase
     public function testGetPropertyValueFromIsser()
     {
         $entity = new Entity();
-        $metadata = new GetterMetadata(self::CLASSNAME, 'valid', 'isValid');
+        $metadata = new GetterMetadata(self::CLASSNAME, 'valid');
 
         $this->assertEquals('valid', $metadata->getPropertyValue($entity));
     }
@@ -59,14 +58,5 @@ class GetterMetadataTest extends TestCase
         $metadata = new GetterMetadata(self::CLASSNAME, 'permissions');
 
         $this->assertEquals('permissions', $metadata->getPropertyValue($entity));
-    }
-
-    /**
-     * @expectedException \Symfony\Component\Validator\Exception\ValidatorException
-     * @expectedExceptionMessage The hasLastName() method does not exist in class Symfony\Component\Validator\Tests\Fixtures\Entity.
-     */
-    public function testUndefinedMethodNameThrowsException()
-    {
-        new GetterMetadata(self::CLASSNAME, 'lastName', 'hasLastName');
     }
 }

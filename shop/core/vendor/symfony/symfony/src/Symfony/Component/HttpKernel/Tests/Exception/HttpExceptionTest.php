@@ -2,10 +2,9 @@
 
 namespace Symfony\Component\HttpKernel\Tests\Exception;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-class HttpExceptionTest extends TestCase
+class HttpExceptionTest extends \PHPUnit_Framework_TestCase
 {
     public function headerDataProvider()
     {

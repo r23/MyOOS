@@ -11,14 +11,13 @@
 
 namespace Symfony\Component\HttpKernel\Tests\Fragment;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpKernel\Controller\ControllerReference;
 use Symfony\Component\HttpKernel\Fragment\SsiFragmentRenderer;
 use Symfony\Component\HttpKernel\HttpCache\Ssi;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\UriSigner;
 
-class SsiFragmentRendererTest extends TestCase
+class SsiFragmentRendererTest extends \PHPUnit_Framework_TestCase
 {
     public function testRenderFallbackToInlineStrategyIfSsiNotSupported()
     {

@@ -16,9 +16,6 @@ use Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-/**
- * @group legacy
- */
 class ContainerAwareEventDispatcherTest extends AbstractEventDispatcherTest
 {
     protected function createEventDispatcher()

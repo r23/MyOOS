@@ -11,13 +11,12 @@
 
 namespace Symfony\Bundle\SecurityBundle\Tests\DependencyInjection;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Bundle\SecurityBundle\SecurityBundle;
 use Symfony\Bundle\SecurityBundle\DependencyInjection\SecurityExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-abstract class CompleteConfigurationTest extends TestCase
+abstract class CompleteConfigurationTest extends \PHPUnit_Framework_TestCase
 {
     private static $containerCache = array();
 
@@ -66,81 +65,14 @@ abstract class CompleteConfigurationTest extends TestCase
     public function testFirewalls()
     {
         $container = $this->getContainer('container1');
+
         $arguments = $container->getDefinition('security.firewall.map')->getArguments();
         $listeners = array();
-        $configs = array();
-        foreach (array_keys($arguments[1]->getValues()) as $contextId) {
+        foreach (array_keys($arguments[1]) as $contextId) {
             $contextDef = $container->getDefinition($contextId);
             $arguments = $contextDef->getArguments();
-            $listeners[] = array_map('strval', $arguments['index_0']);
-
-            $configDef = $container->getDefinition((string) $arguments['index_2']);
-            $configs[] = array_values($configDef->getArguments());
+            $listeners[] = array_map(function ($ref) { return (string) $ref; }, $arguments['index_0']);
         }
-
-        $this->assertEquals(array(
-            array(
-                'simple',
-                'security.user_checker',
-                'security.request_matcher.707b20193d4cb9f2718114abcbebb32af48f948484fc166a03482f49bf14f25e271f72c7',
-                false,
-            ),
-            array(
-                'secure',
-                'security.user_checker',
-                null,
-                true,
-                true,
-                'security.user.provider.concrete.default',
-                null,
-                'security.authentication.form_entry_point.secure',
-                null,
-                null,
-                array(
-                    'logout',
-                    'switch_user',
-                    'x509',
-                    'remote_user',
-                    'form_login',
-                    'http_basic',
-                    'http_digest',
-                    'remember_me',
-                    'anonymous',
-                ),
-            ),
-            array(
-                'host',
-                'security.user_checker',
-                'security.request_matcher.dda8b565689ad8509623ee68fb2c639cd81cd4cb339d60edbaf7d67d30e6aa09bd8c63c3',
-                true,
-                false,
-                'security.user.provider.concrete.default',
-                'host',
-                'security.authentication.basic_entry_point.host',
-                null,
-                null,
-                array(
-                    'http_basic',
-                    'anonymous',
-                ),
-            ),
-            array(
-                'with_user_checker',
-                'app.user_checker',
-                null,
-                true,
-                false,
-                'security.user.provider.concrete.default',
-                'with_user_checker',
-                'security.authentication.basic_entry_point.with_user_checker',
-                null,
-                null,
-                array(
-                    'http_basic',
-                    'anonymous',
-                ),
-            ),
-        ), $configs);
 
         $this->assertEquals(array(
             array(),
@@ -172,8 +104,6 @@ abstract class CompleteConfigurationTest extends TestCase
                 'security.access_listener',
             ),
         ), $listeners);
-
-        $this->assertFalse($container->hasAlias('Symfony\Component\Security\Core\User\UserCheckerInterface', 'No user checker alias is registered when custom user checker services are registered'));
     }
 
     public function testFirewallRequestMatchers()
@@ -183,7 +113,7 @@ abstract class CompleteConfigurationTest extends TestCase
         $arguments = $container->getDefinition('security.firewall.map')->getArguments();
         $matchers = array();
 
-        foreach ($arguments[1]->getValues() as $reference) {
+        foreach ($arguments[1] as $reference) {
             if ($reference instanceof Reference) {
                 $definition = $container->getDefinition((string) $reference);
                 $matchers[] = $definition->getArguments();
@@ -200,14 +130,6 @@ abstract class CompleteConfigurationTest extends TestCase
                 array('GET', 'POST'),
             ),
         ), $matchers);
-    }
-
-    public function testUserCheckerAliasIsRegistered()
-    {
-        $container = $this->getContainer('no_custom_user_checker');
-
-        $this->assertTrue($container->hasAlias('Symfony\Component\Security\Core\User\UserCheckerInterface', 'Alias for user checker is registered when no custom user checker service is registered'));
-        $this->assertFalse($container->getAlias('Symfony\Component\Security\Core\User\UserCheckerInterface')->isPublic());
     }
 
     public function testAccess()
@@ -271,22 +193,12 @@ abstract class CompleteConfigurationTest extends TestCase
                 'arguments' => array(false),
             ),
             'JMS\FooBundle\Entity\User2' => array(
-                'algorithm' => 'sha1',
-                'encode_as_base64' => false,
-                'iterations' => 5,
-                'hash_algorithm' => 'sha512',
-                'key_length' => 40,
-                'ignore_case' => false,
-                'cost' => 13,
+                'class' => 'Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder',
+                'arguments' => array('sha1', false, 5),
             ),
             'JMS\FooBundle\Entity\User3' => array(
-                'algorithm' => 'md5',
-                'hash_algorithm' => 'sha512',
-                'key_length' => 40,
-                'ignore_case' => false,
-                'encode_as_base64' => true,
-                'iterations' => 5000,
-                'cost' => 13,
+                'class' => 'Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder',
+                'arguments' => array('md5', true, 5000),
             ),
             'JMS\FooBundle\Entity\User4' => new Reference('security.encoder.foo'),
             'JMS\FooBundle\Entity\User5' => array(
@@ -343,11 +255,6 @@ abstract class CompleteConfigurationTest extends TestCase
     public function testUserCheckerConfigWithNoCheckers()
     {
         $this->assertEquals('security.user_checker', $this->getContainer('container1')->getAlias('security.user_checker.secure'));
-    }
-
-    public function testUserPasswordEncoderCommandIsRegistered()
-    {
-        $this->assertTrue($this->getContainer('remember_me_options')->has('security.console.user_password_encoder_command'));
     }
 
     protected function getContainer($file)

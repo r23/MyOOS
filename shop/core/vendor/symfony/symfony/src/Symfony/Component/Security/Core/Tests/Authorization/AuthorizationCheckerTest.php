@@ -11,11 +11,10 @@
 
 namespace Symfony\Component\Security\Core\Tests\Authorization;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 
-class AuthorizationCheckerTest extends TestCase
+class AuthorizationCheckerTest extends \PHPUnit_Framework_TestCase
 {
     private $authenticationManager;
     private $accessDecisionManager;

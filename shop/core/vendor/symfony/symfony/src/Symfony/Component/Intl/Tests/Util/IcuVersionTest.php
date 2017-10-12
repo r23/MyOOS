@@ -11,13 +11,12 @@
 
 namespace Symfony\Component\Intl\Tests\Util;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Intl\Util\IcuVersion;
 
 /**
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class IcuVersionTest extends TestCase
+class IcuVersionTest extends \PHPUnit_Framework_TestCase
 {
     public function normalizeProvider()
     {

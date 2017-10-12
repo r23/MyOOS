@@ -11,12 +11,11 @@
 
 namespace Symfony\Bundle\DebugBundle\Tests\DependencyInjection;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\DebugBundle\DependencyInjection\DebugExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 
-class DebugExtensionTest extends TestCase
+class DebugExtensionTest extends \PHPUnit_Framework_TestCase
 {
     public function testLoadWithoutConfiguration()
     {

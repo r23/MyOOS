@@ -22,7 +22,7 @@ class Alias
      */
     public function __construct($id, $public = true)
     {
-        $this->id = (string) $id;
+        $this->id = strtolower($id);
         $this->public = $public;
     }
 

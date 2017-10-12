@@ -13,7 +13,6 @@ tag1
 - Shared: yes
 - Abstract: no
 - Autowired: no
-- Autoconfigured: no
 - File: `/path/to/file`
 - Factory Service: `factory.service`
 - Factory Method: `get`
@@ -32,7 +31,6 @@ tag2
 - Shared: yes
 - Abstract: no
 - Autowired: no
-- Autoconfigured: no
 - File: `/path/to/file`
 - Factory Service: `factory.service`
 - Factory Method: `get`

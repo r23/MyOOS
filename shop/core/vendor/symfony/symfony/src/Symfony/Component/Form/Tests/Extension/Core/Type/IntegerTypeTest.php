@@ -11,12 +11,11 @@
 
 namespace Symfony\Component\Form\Tests\Extension\Core\Type;
 
+use Symfony\Component\Form\Test\TypeTestCase as TestCase;
 use Symfony\Component\Intl\Util\IntlTestHelper;
 
-class IntegerTypeTest extends BaseTypeTest
+class IntegerTypeTest extends TestCase
 {
-    const TESTED_TYPE = 'Symfony\Component\Form\Extension\Core\Type\IntegerType';
-
     protected function setUp()
     {
         IntlTestHelper::requireIntl($this, false);
@@ -26,16 +25,11 @@ class IntegerTypeTest extends BaseTypeTest
 
     public function testSubmitCastsToInteger()
     {
-        $form = $this->factory->create(static::TESTED_TYPE);
+        $form = $this->factory->create('Symfony\Component\Form\Extension\Core\Type\IntegerType');
 
         $form->submit('1.678');
 
         $this->assertSame(1, $form->getData());
         $this->assertSame('1', $form->getViewData());
-    }
-
-    public function testSubmitNull($expected = null, $norm = null, $view = null)
-    {
-        parent::testSubmitNull($expected, $norm, '');
     }
 }

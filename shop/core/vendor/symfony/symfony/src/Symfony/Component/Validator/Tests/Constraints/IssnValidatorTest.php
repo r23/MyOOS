@@ -13,12 +13,11 @@ namespace Symfony\Component\Validator\Tests\Constraints;
 
 use Symfony\Component\Validator\Constraints\Issn;
 use Symfony\Component\Validator\Constraints\IssnValidator;
-use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
 /**
  * @see https://en.wikipedia.org/wiki/Issn
  */
-class IssnValidatorTest extends ConstraintValidatorTestCase
+class IssnValidatorTest extends AbstractConstraintValidatorTest
 {
     protected function createValidator()
     {

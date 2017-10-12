@@ -11,13 +11,12 @@
 
 namespace Symfony\Component\Intl\Tests\Data\Util;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Intl\Data\Util\RingBuffer;
 
 /**
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class RingBufferTest extends TestCase
+class RingBufferTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var RingBuffer

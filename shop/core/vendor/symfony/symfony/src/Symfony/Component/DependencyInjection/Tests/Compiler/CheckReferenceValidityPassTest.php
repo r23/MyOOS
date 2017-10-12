@@ -11,12 +11,11 @@
 
 namespace Symfony\Component\DependencyInjection\Tests\Compiler;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\Compiler\CheckReferenceValidityPass;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class CheckReferenceValidityPassTest extends TestCase
+class CheckReferenceValidityPassTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @expectedException \RuntimeException
@@ -38,8 +37,6 @@ class CheckReferenceValidityPassTest extends TestCase
         $container->register('b');
 
         $this->process($container);
-
-        $this->addToAssertionCount(1);
     }
 
     protected function process(ContainerBuilder $container)

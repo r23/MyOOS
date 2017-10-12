@@ -11,7 +11,6 @@
 
 namespace Symfony\Component\Intl\Tests\Collator;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Intl\Collator\Collator;
 
 /**
@@ -19,7 +18,7 @@ use Symfony\Component\Intl\Collator\Collator;
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-abstract class AbstractCollatorTest extends TestCase
+abstract class AbstractCollatorTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider asortProvider

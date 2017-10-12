@@ -11,14 +11,12 @@
 
 namespace Symfony\Component\Intl\Tests\Locale;
 
-use PHPUnit\Framework\TestCase;
-
 /**
  * Test case for Locale implementations.
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-abstract class AbstractLocaleTest extends TestCase
+abstract class AbstractLocaleTest extends \PHPUnit_Framework_TestCase
 {
     public function testSetDefault()
     {

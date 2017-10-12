@@ -11,11 +11,10 @@
 
 namespace Symfony\Bundle\TwigBundle\Tests\DependencyInjection;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\TwigBundle\DependencyInjection\Configuration;
 use Symfony\Component\Config\Definition\Processor;
 
-class ConfigurationTest extends TestCase
+class ConfigurationTest extends \PHPUnit_Framework_TestCase
 {
     public function testDoNoDuplicateDefaultFormResources()
     {

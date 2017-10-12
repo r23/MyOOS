@@ -156,7 +156,7 @@ class Profile
     /**
      * Returns the time.
      *
-     * @return int The time
+     * @return string The time
      */
     public function getTime()
     {
@@ -167,9 +167,6 @@ class Profile
         return $this->time;
     }
 
-    /**
-     * @param int The time
-     */
     public function setTime($time)
     {
         $this->time = $time;

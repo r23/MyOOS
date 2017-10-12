@@ -1,21 +1,6 @@
 CHANGELOG
 =========
 
-3.3.0
------
-
- * deprecated using "choices" option in ``CountryType``, ``CurrencyType``, ``LanguageType``, ``LocaleType``, and
-   ``TimezoneType`` when "choice_loader" is not ``null``
- * added `Symfony\Component\Form\FormErrorIterator::findByCodes()`
- * added `getTypedExtensions`, `getTypes`, and `getTypeGuessers` to `Symfony\Component\Form\Test\FormIntegrationTestCase`
- * added `FormPass`
-
-3.2.0
------
-
- * added `CallbackChoiceLoader`
- * implemented `ChoiceLoaderInterface` in children of `ChoiceType`
-
 3.1.0
 -----
 

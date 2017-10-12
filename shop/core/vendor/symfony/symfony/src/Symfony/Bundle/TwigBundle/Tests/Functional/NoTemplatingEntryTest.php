@@ -17,7 +17,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\TwigBundle\TwigBundle;
 
-class NoTemplatingEntryTest extends TestCase
+class NoTemplatingEntryTest extends \PHPUnit_Framework_TestCase
 {
     public function test()
     {
@@ -62,7 +62,6 @@ class NoTemplatingEntryKernel extends Kernel
         $loader->load(function ($container) {
             $container->loadFromExtension('framework', array(
                 'secret' => '$ecret',
-                'form' => array('enabled' => false),
             ));
         });
     }

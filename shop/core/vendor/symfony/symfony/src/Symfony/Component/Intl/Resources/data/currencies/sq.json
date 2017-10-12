@@ -1,5 +1,5 @@
 {
-    "Version": "2.1.32.59",
+    "Version": "2.1.22.93",
     "Names": {
         "AED": [
             "AED",
@@ -27,7 +27,7 @@
         ],
         "ARS": [
             "ARS",
-            "Pesoja argjentinase"
+            "Pezoja argjentinase"
         ],
         "AUD": [
             "A$",
@@ -93,13 +93,9 @@
             "BWP",
             "Pula botsuane"
         ],
-        "BYN": [
-            "BYN",
-            "Rubla bjelloruse"
-        ],
         "BYR": [
             "BYR",
-            "Rubla bjelloruse (2000–2016)"
+            "Rubla bjelloruse"
         ],
         "BZD": [
             "BZD",
@@ -119,7 +115,7 @@
         ],
         "CLP": [
             "CLP",
-            "Pesoja kiliane"
+            "Pezoja kiliane"
         ],
         "CNY": [
             "CN¥",
@@ -127,7 +123,7 @@
         ],
         "COP": [
             "COP",
-            "Pesoja kolumbiane"
+            "Pezoja kolumbiane"
         ],
         "CRC": [
             "CRC",
@@ -135,11 +131,11 @@
         ],
         "CUC": [
             "CUC",
-            "Pesoja kubaneze e shkëmbyeshme"
+            "Pezoja kubaneze e shkëmbyeshme"
         ],
         "CUP": [
             "CUP",
-            "Pesoja kubaneze"
+            "Pezoja kubaneze"
         ],
         "CVE": [
             "CVE",
@@ -159,7 +155,7 @@
         ],
         "DOP": [
             "DOP",
-            "Pesoja dominikane"
+            "Pezoja dominikane"
         ],
         "DZD": [
             "DZD",
@@ -187,7 +183,7 @@
         ],
         "FKP": [
             "FKP",
-            "Stërlina e Ishujve Falkland"
+            "Stërlina e Ishujve Folkland"
         ],
         "GBP": [
             "£",
@@ -387,7 +383,7 @@
         ],
         "MXN": [
             "MX$",
-            "Pesoja meksikane"
+            "Pezoja meksikane"
         ],
         "MYR": [
             "MYR",
@@ -431,7 +427,7 @@
         ],
         "PEN": [
             "PEN",
-            "Sola peruane"
+            "Sola nuevo-peruane"
         ],
         "PGK": [
             "PGK",
@@ -439,7 +435,7 @@
         ],
         "PHP": [
             "PHP",
-            "Pesoja filipinase"
+            "Pezoja filipinase"
         ],
         "PKR": [
             "PKR",
@@ -579,7 +575,7 @@
         ],
         "UYU": [
             "UYU",
-            "Pesoja uruguaiane"
+            "Pezoja uruguaiane"
         ],
         "UZS": [
             "UZS",
@@ -623,7 +619,7 @@
         ],
         "ZAR": [
             "ZAR",
-            "Randi afrikano-jugor"
+            "Randa afrikano-jugore"
         ],
         "ZMW": [
             "ZMW",

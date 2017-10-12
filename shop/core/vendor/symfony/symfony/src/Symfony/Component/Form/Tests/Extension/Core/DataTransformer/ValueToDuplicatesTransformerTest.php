@@ -11,10 +11,9 @@
 
 namespace Symfony\Component\Form\Tests\Extension\Core\DataTransformer;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\DataTransformer\ValueToDuplicatesTransformer;
 
-class ValueToDuplicatesTransformerTest extends TestCase
+class ValueToDuplicatesTransformerTest extends \PHPUnit_Framework_TestCase
 {
     private $transformer;
 

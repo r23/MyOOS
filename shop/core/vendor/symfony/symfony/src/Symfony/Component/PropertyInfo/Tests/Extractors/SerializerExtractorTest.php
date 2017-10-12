@@ -12,7 +12,6 @@
 namespace Symfony\Component\PropertyInfo\Tests\Extractors;
 
 use Doctrine\Common\Annotations\AnnotationReader;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\PropertyInfo\Extractor\SerializerExtractor;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
 use Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader;
@@ -20,7 +19,7 @@ use Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader;
 /**
  * @author Kévin Dunglas <dunglas@gmail.com>
  */
-class SerializerExtractorTest extends TestCase
+class SerializerExtractorTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var SerializerExtractor

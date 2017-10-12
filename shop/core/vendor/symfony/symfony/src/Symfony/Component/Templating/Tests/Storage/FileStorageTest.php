@@ -11,10 +11,9 @@
 
 namespace Symfony\Component\Templating\Tests\Storage;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Templating\Storage\FileStorage;
 
-class FileStorageTest extends TestCase
+class FileStorageTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetContent()
     {

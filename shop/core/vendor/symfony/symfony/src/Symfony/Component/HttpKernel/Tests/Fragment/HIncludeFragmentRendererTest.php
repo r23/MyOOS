@@ -11,13 +11,12 @@
 
 namespace Symfony\Component\HttpKernel\Tests\Fragment;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpKernel\Controller\ControllerReference;
 use Symfony\Component\HttpKernel\Fragment\HIncludeFragmentRenderer;
 use Symfony\Component\HttpKernel\UriSigner;
 use Symfony\Component\HttpFoundation\Request;
 
-class HIncludeFragmentRendererTest extends TestCase
+class HIncludeFragmentRendererTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @expectedException \LogicException

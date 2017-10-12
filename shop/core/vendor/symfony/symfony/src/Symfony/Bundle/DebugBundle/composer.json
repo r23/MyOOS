@@ -16,15 +16,14 @@
         }
     ],
     "require": {
-        "php": "^5.5.9|>=7.0.8",
-        "ext-xml": "*",
+        "php": ">=5.5.9",
         "symfony/http-kernel": "~2.8|~3.0",
         "symfony/twig-bridge": "~2.8|~3.0",
         "symfony/var-dumper": "~2.8|~3.0"
     },
     "require-dev": {
-        "symfony/config": "~3.3",
-        "symfony/dependency-injection": "~3.3",
+        "symfony/config": "~2.8|~3.0",
+        "symfony/dependency-injection": "~2.8|~3.0",
         "symfony/web-profiler-bundle": "~2.8|~3.0"
     },
     "suggest": {
@@ -40,7 +39,7 @@
     "minimum-stability": "dev",
     "extra": {
         "branch-alias": {
-            "dev-master": "3.3-dev"
+            "dev-master": "3.1-dev"
         }
     }
 }

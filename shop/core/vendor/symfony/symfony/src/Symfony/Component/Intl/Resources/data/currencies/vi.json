@@ -1,5 +1,5 @@
 {
-    "Version": "2.1.32.59",
+    "Version": "2.1.23.12",
     "Names": {
         "ADP": [
             "ADP",
@@ -213,13 +213,9 @@
             "BYB",
             "Đồng Rúp Mới của Belarus (1994–1999)"
         ],
-        "BYN": [
-            "BYN",
-            "Rúp Belarus"
-        ],
         "BYR": [
             "BYR",
-            "Rúp Belarus (2000–2016)"
+            "Rúp Belarus"
         ],
         "BZD": [
             "BZD",
@@ -759,7 +755,7 @@
         ],
         "PEN": [
             "PEN",
-            "Sol Peru"
+            "Nuevo Sol Peru"
         ],
         "PES": [
             "PES",

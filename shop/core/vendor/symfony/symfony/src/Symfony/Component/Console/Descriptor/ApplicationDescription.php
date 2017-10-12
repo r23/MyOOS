@@ -50,22 +50,15 @@ class ApplicationDescription
     private $aliases;
 
     /**
-     * @var bool
-     */
-    private $showHidden;
-
-    /**
      * Constructor.
      *
      * @param Application $application
      * @param string|null $namespace
-     * @param bool        $showHidden
      */
-    public function __construct(Application $application, $namespace = null, $showHidden = false)
+    public function __construct(Application $application, $namespace = null)
     {
         $this->application = $application;
         $this->namespace = $namespace;
-        $this->showHidden = $showHidden;
     }
 
     /**
@@ -119,7 +112,7 @@ class ApplicationDescription
 
             /** @var Command $command */
             foreach ($commands as $name => $command) {
-                if (!$command->getName() || (!$this->showHidden && $command->isHidden())) {
+                if (!$command->getName()) {
                     continue;
                 }
 

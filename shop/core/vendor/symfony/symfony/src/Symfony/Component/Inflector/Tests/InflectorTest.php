@@ -11,10 +11,9 @@
 
 namespace Symfony\Component\Inflector\Tests;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Inflector\Inflector;
 
-class InflectorTest extends TestCase
+class InflectorTest extends \PHPUnit_Framework_TestCase
 {
     public function singularizeProvider()
     {

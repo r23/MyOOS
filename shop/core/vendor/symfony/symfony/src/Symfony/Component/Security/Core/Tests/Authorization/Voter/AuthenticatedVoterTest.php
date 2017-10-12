@@ -11,12 +11,11 @@
 
 namespace Symfony\Component\Security\Core\Tests\Authorization\Voter;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\AuthenticationTrustResolver;
 use Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 
-class AuthenticatedVoterTest extends TestCase
+class AuthenticatedVoterTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider getVoteTests

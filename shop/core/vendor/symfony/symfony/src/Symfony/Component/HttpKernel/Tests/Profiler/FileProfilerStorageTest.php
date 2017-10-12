@@ -11,11 +11,10 @@
 
 namespace Symfony\Component\HttpKernel\Tests\Profiler;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpKernel\Profiler\FileProfilerStorage;
 use Symfony\Component\HttpKernel\Profiler\Profile;
 
-class FileProfilerStorageTest extends TestCase
+class FileProfilerStorageTest extends \PHPUnit_Framework_TestCase
 {
     private $tmpDir;
     private $storage;

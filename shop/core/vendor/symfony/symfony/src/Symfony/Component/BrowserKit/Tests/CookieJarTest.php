@@ -11,12 +11,11 @@
 
 namespace Symfony\Component\BrowserKit\Tests;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\BrowserKit\CookieJar;
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\BrowserKit\Response;
 
-class CookieJarTest extends TestCase
+class CookieJarTest extends \PHPUnit_Framework_TestCase
 {
     public function testSetGet()
     {

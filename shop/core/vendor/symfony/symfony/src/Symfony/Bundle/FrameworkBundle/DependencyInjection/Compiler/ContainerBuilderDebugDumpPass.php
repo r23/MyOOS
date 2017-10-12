@@ -11,10 +11,11 @@
 
 namespace Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler;
 
-use Symfony\Component\Config\ConfigCache;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Dumper\XmlDumper;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use Symfony\Component\Filesystem\Exception\IOException;
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * Dumps the ContainerBuilder to a cache file so that it can be used by
@@ -27,9 +28,14 @@ class ContainerBuilderDebugDumpPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)
     {
-        $cache = new ConfigCache($container->getParameter('debug.container.dump'), true);
-        if (!$cache->isFresh()) {
-            $cache->write((new XmlDumper($container))->dump(), $container->getResources());
+        $dumper = new XmlDumper($container);
+        $filename = $container->getParameter('debug.container.dump');
+        $filesystem = new Filesystem();
+        $filesystem->dumpFile($filename, $dumper->dump(), null);
+        try {
+            $filesystem->chmod($filename, 0666, umask());
+        } catch (IOException $e) {
+            // discard chmod failure (some filesystem may not support it)
         }
     }
 }

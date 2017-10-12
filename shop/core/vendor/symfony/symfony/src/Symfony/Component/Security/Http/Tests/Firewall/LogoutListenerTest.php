@@ -11,12 +11,11 @@
 
 namespace Symfony\Component\Security\Http\Tests\Firewall;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Http\Firewall\LogoutListener;
 
-class LogoutListenerTest extends TestCase
+class LogoutListenerTest extends \PHPUnit_Framework_TestCase
 {
     public function testHandleUnmatchedPath()
     {

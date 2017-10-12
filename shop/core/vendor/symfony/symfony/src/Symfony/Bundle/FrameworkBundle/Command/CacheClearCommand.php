@@ -15,7 +15,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Finder\Finder;
 
@@ -55,11 +54,8 @@ EOF
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $outputIsVerbose = $output->isVerbose();
         $io = new SymfonyStyle($input, $output);
-
-        if (Kernel::VERSION_ID >= 30400) {
-            throw new \LogicException('The "cache:clear" command in Symfony 3.3 is incompatible with HttpKernel 3.4, please upgrade "symfony/framework-bundle" or downgrade "symfony/http-kernel".');
-        }
 
         $realCacheDir = $this->getContainer()->getParameter('kernel.cache_dir');
         // the old cache dir name must not be longer than the real one to avoid exceeding
@@ -82,49 +78,41 @@ EOF
         if ($input->getOption('no-warmup')) {
             $filesystem->rename($realCacheDir, $oldCacheDir);
         } else {
-            $this->warmupCache($input, $output, $realCacheDir, $oldCacheDir);
+            // the warmup cache dir name must have the same length than the real one
+            // to avoid the many problems in serialized resources files
+            $realCacheDir = realpath($realCacheDir);
+            $warmupDir = substr($realCacheDir, 0, -1).('_' === substr($realCacheDir, -1) ? '-' : '_');
+
+            if ($filesystem->exists($warmupDir)) {
+                if ($outputIsVerbose) {
+                    $io->comment('Clearing outdated warmup directory...');
+                }
+                $filesystem->remove($warmupDir);
+            }
+
+            if ($outputIsVerbose) {
+                $io->comment('Warming up cache...');
+            }
+            $this->warmup($warmupDir, $realCacheDir, !$input->getOption('no-optional-warmers'));
+
+            $filesystem->rename($realCacheDir, $oldCacheDir);
+            if ('\\' === DIRECTORY_SEPARATOR) {
+                sleep(1);  // workaround for Windows PHP rename bug
+            }
+            $filesystem->rename($warmupDir, $realCacheDir);
         }
 
-        if ($output->isVerbose()) {
+        if ($outputIsVerbose) {
             $io->comment('Removing old cache directory...');
         }
 
         $filesystem->remove($oldCacheDir);
 
-        if ($output->isVerbose()) {
+        if ($outputIsVerbose) {
             $io->comment('Finished');
         }
 
         $io->success(sprintf('Cache for the "%s" environment (debug=%s) was successfully cleared.', $kernel->getEnvironment(), var_export($kernel->isDebug(), true)));
-    }
-
-    private function warmupCache(InputInterface $input, OutputInterface $output, $realCacheDir, $oldCacheDir)
-    {
-        $filesystem = $this->getContainer()->get('filesystem');
-        $io = new SymfonyStyle($input, $output);
-
-        // the warmup cache dir name must have the same length than the real one
-        // to avoid the many problems in serialized resources files
-        $realCacheDir = realpath($realCacheDir);
-        $warmupDir = substr($realCacheDir, 0, -1).('_' === substr($realCacheDir, -1) ? '-' : '_');
-
-        if ($filesystem->exists($warmupDir)) {
-            if ($output->isVerbose()) {
-                $io->comment('Clearing outdated warmup directory...');
-            }
-            $filesystem->remove($warmupDir);
-        }
-
-        if ($output->isVerbose()) {
-            $io->comment('Warming up cache...');
-        }
-        $this->warmup($warmupDir, $realCacheDir, !$input->getOption('no-optional-warmers'));
-
-        $filesystem->rename($realCacheDir, $oldCacheDir);
-        if ('\\' === DIRECTORY_SEPARATOR) {
-            sleep(1);  // workaround for Windows PHP rename bug
-        }
-        $filesystem->rename($warmupDir, $realCacheDir);
     }
 
     /**
@@ -159,7 +147,7 @@ EOF
         $safeTempKernel = str_replace('\\', '\\\\', get_class($tempKernel));
         $realKernelFQN = get_class($realKernel);
 
-        foreach (Finder::create()->files()->depth('<3')->name('*.meta')->in($warmupDir) as $file) {
+        foreach (Finder::create()->files()->name('*.meta')->in($warmupDir) as $file) {
             file_put_contents($file, preg_replace(
                 '/(C\:\d+\:)"'.$safeTempKernel.'"/',
                 sprintf('$1"%s"', $realKernelFQN),
@@ -171,16 +159,14 @@ EOF
         $search = array($warmupDir, str_replace('\\', '\\\\', $warmupDir));
         $replace = str_replace('\\', '/', $realCacheDir);
         foreach (Finder::create()->files()->in($warmupDir) as $file) {
-            $content = str_replace($search, $replace, file_get_contents($file), $count);
-            if ($count) {
-                file_put_contents($file, $content);
-            }
+            $content = str_replace($search, $replace, file_get_contents($file));
+            file_put_contents($file, $content);
         }
 
         // fix references to container's class
         $tempContainerClass = get_class($tempKernel->getContainer());
         $realContainerClass = get_class($realKernel->getContainer());
-        foreach (Finder::create()->files()->depth('<2')->name($tempContainerClass.'*')->in($warmupDir) as $file) {
+        foreach (Finder::create()->files()->name($tempContainerClass.'*')->in($warmupDir) as $file) {
             $content = str_replace($tempContainerClass, $realContainerClass, file_get_contents($file));
             file_put_contents($file, $content);
             rename($file, str_replace(DIRECTORY_SEPARATOR.$tempContainerClass, DIRECTORY_SEPARATOR.$realContainerClass, $file));
@@ -200,7 +186,6 @@ EOF
      */
     protected function getTempKernel(KernelInterface $parent, $namespace, $parentClass, $warmupDir)
     {
-        $projectDir = '';
         $cacheDir = var_export($warmupDir, true);
         $rootDir = var_export(realpath($parent->getRootDir()), true);
         $logDir = var_export(realpath($parent->getLogDir()), true);
@@ -209,18 +194,6 @@ EOF
         $class = substr($parentClass, 0, -1).'_';
         // the temp container class must be changed too
         $containerClass = var_export(substr(get_class($parent->getContainer()), 0, -1).'_', true);
-
-        if (method_exists($parent, 'getProjectDir')) {
-            $projectDir = var_export(realpath($parent->getProjectDir()), true);
-            $projectDir = <<<EOF
-        public function getProjectDir()
-        {
-            return $projectDir;
-        }
-        
-EOF;
-        }
-
         $code = <<<EOF
 <?php
 
@@ -238,7 +211,6 @@ namespace $namespace
             return $rootDir;
         }
 
-        $projectDir
         public function getLogDir()
         {
             return $logDir;

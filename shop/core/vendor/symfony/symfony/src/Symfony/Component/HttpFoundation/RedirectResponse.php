@@ -41,10 +41,6 @@ class RedirectResponse extends Response
         if (!$this->isRedirect()) {
             throw new \InvalidArgumentException(sprintf('The HTTP status code is not a redirect ("%s" given).', $status));
         }
-
-        if (301 == $status && !array_key_exists('cache-control', $headers)) {
-            $this->headers->remove('cache-control');
-        }
     }
 
     /**
@@ -87,7 +83,7 @@ class RedirectResponse extends Response
 <html>
     <head>
         <meta charset="UTF-8" />
-        <meta http-equiv="refresh" content="0;url=%1$s" />
+        <meta http-equiv="refresh" content="1;url=%1$s" />
 
         <title>Redirecting to %1$s</title>
     </head>

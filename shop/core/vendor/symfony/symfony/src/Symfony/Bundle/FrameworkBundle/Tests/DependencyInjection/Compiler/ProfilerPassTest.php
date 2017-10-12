@@ -11,11 +11,10 @@
 
 namespace Symfony\Bundle\FrameworkBundle\Tests\DependencyInjection\Compiler;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\ProfilerPass;
 
-class ProfilerPassTest extends TestCase
+class ProfilerPassTest extends \PHPUnit_Framework_TestCase
 {
     private $profilerDefinition;
 
@@ -41,7 +40,7 @@ class ProfilerPassTest extends TestCase
 
         $builder = $this->createContainerMock($services);
 
-        $this->{method_exists($this, $_ = 'expectException') ? $_ : 'setExpectedException'}('InvalidArgumentException');
+        $this->setExpectedException('InvalidArgumentException');
 
         $profilerPass = new ProfilerPass();
         $profilerPass->process($builder);

@@ -13,7 +13,6 @@ Definitions
 - Shared: yes
 - Abstract: yes
 - Autowired: no
-- Autoconfigured: no
 - Factory Class: `Full\Qualified\FactoryClass`
 - Factory Method: `get`
 
@@ -26,7 +25,6 @@ Definitions
 - Shared: yes
 - Abstract: no
 - Autowired: no
-- Autoconfigured: no
 - File: `/path/to/file`
 - Factory Service: `factory.service`
 - Factory Method: `get`

@@ -11,10 +11,9 @@
 
 namespace Symfony\Component\BrowserKit\Tests;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\BrowserKit\Response;
 
-class ResponseTest extends TestCase
+class ResponseTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetUri()
     {

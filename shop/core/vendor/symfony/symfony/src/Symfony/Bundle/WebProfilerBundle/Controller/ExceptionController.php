@@ -15,9 +15,6 @@ use Symfony\Component\HttpKernel\Profiler\Profiler;
 use Symfony\Component\Debug\ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Response;
-use Twig\Environment;
-use Twig\Error\LoaderError;
-use Twig\Loader\ExistsLoaderInterface;
 
 /**
  * ExceptionController.
@@ -30,7 +27,7 @@ class ExceptionController
     protected $debug;
     protected $profiler;
 
-    public function __construct(Profiler $profiler = null, Environment $twig, $debug)
+    public function __construct(Profiler $profiler = null, \Twig_Environment $twig, $debug)
     {
         $this->profiler = $profiler;
         $this->twig = $twig;
@@ -115,7 +112,7 @@ class ExceptionController
     protected function templateExists($template)
     {
         $loader = $this->twig->getLoader();
-        if ($loader instanceof ExistsLoaderInterface) {
+        if ($loader instanceof \Twig_ExistsLoaderInterface) {
             return $loader->exists($template);
         }
 
@@ -123,7 +120,7 @@ class ExceptionController
             $loader->getSource($template);
 
             return true;
-        } catch (LoaderError $e) {
+        } catch (\Twig_Error_Loader $e) {
         }
 
         return false;

@@ -11,10 +11,9 @@
 
 namespace Symfony\Component\Security\Core\Tests\Role;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Role\Role;
 
-class RoleTest extends TestCase
+class RoleTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetRole()
     {

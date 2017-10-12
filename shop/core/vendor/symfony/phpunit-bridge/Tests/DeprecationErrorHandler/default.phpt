@@ -18,19 +18,6 @@ require_once __DIR__.'/../../bootstrap.php';
 
 @trigger_error('root deprecation', E_USER_DEPRECATED);
 
-eval(<<<'EOPHP'
-namespace PHPUnit\Util;
-
-class Test
-{
-    public static function getGroups()
-    {
-        return array();
-    }
-}
-EOPHP
-);
-
 class PHPUnit_Util_Test
 {
     public static function getGroups()

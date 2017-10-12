@@ -11,23 +11,22 @@
 
 namespace Symfony\Component\Form\Tests\Extension\Core\DataTransformer;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\DataTransformer\DataTransformerChain;
 
-class DataTransformerChainTest extends TestCase
+class DataTransformerChainTest extends \PHPUnit_Framework_TestCase
 {
     public function testTransform()
     {
         $transformer1 = $this->getMockBuilder('Symfony\Component\Form\DataTransformerInterface')->getMock();
         $transformer1->expects($this->once())
-            ->method('transform')
-            ->with($this->identicalTo('foo'))
-            ->will($this->returnValue('bar'));
+                                 ->method('transform')
+                                 ->with($this->identicalTo('foo'))
+                                 ->will($this->returnValue('bar'));
         $transformer2 = $this->getMockBuilder('Symfony\Component\Form\DataTransformerInterface')->getMock();
         $transformer2->expects($this->once())
-            ->method('transform')
-            ->with($this->identicalTo('bar'))
-            ->will($this->returnValue('baz'));
+                                 ->method('transform')
+                                 ->with($this->identicalTo('bar'))
+                                 ->will($this->returnValue('baz'));
 
         $chain = new DataTransformerChain(array($transformer1, $transformer2));
 
@@ -38,14 +37,14 @@ class DataTransformerChainTest extends TestCase
     {
         $transformer2 = $this->getMockBuilder('Symfony\Component\Form\DataTransformerInterface')->getMock();
         $transformer2->expects($this->once())
-            ->method('reverseTransform')
-            ->with($this->identicalTo('foo'))
-            ->will($this->returnValue('bar'));
+                                 ->method('reverseTransform')
+                                 ->with($this->identicalTo('foo'))
+                                 ->will($this->returnValue('bar'));
         $transformer1 = $this->getMockBuilder('Symfony\Component\Form\DataTransformerInterface')->getMock();
         $transformer1->expects($this->once())
-            ->method('reverseTransform')
-            ->with($this->identicalTo('bar'))
-            ->will($this->returnValue('baz'));
+                                 ->method('reverseTransform')
+                                 ->with($this->identicalTo('bar'))
+                                 ->will($this->returnValue('baz'));
 
         $chain = new DataTransformerChain(array($transformer1, $transformer2));
 

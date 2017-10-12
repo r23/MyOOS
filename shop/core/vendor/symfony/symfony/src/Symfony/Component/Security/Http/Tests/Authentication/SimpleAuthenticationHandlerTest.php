@@ -11,7 +11,6 @@
 
 namespace Symfony\Component\Security\Http\Tests;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\SimpleAuthenticatorInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
@@ -19,7 +18,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationFailureHandlerI
 use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerInterface;
 use Symfony\Component\Security\Http\Authentication\SimpleAuthenticationHandler;
 
-class SimpleAuthenticationHandlerTest extends TestCase
+class SimpleAuthenticationHandlerTest extends \PHPUnit_Framework_TestCase
 {
     private $successHandler;
 

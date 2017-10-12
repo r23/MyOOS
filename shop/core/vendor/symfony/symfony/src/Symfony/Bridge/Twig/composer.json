@@ -16,15 +16,14 @@
         }
     ],
     "require": {
-        "php": "^5.5.9|>=7.0.8",
-        "twig/twig": "~1.34|~2.4"
+        "php": ">=5.5.9",
+        "twig/twig": "~1.28|~2.0"
     },
     "require-dev": {
-        "fig/link-util": "^1.0",
         "symfony/asset": "~2.8|~3.0",
         "symfony/finder": "~2.8|~3.0",
-        "symfony/form": "^3.2.10|^3.3.3",
-        "symfony/http-kernel": "~3.2",
+        "symfony/form": "~3.1.9|^3.2.2",
+        "symfony/http-kernel": "~2.8|~3.0",
         "symfony/polyfill-intl-icu": "~1.0",
         "symfony/routing": "~2.8|~3.0",
         "symfony/templating": "~2.8|~3.0",
@@ -34,12 +33,8 @@
         "symfony/security-acl": "~2.8|~3.0",
         "symfony/stopwatch": "~2.8|~3.0",
         "symfony/console": "~2.8|~3.0",
-        "symfony/var-dumper": "~2.8.10|~3.1.4|~3.2",
-        "symfony/expression-language": "~2.8|~3.0",
-        "symfony/web-link": "~3.3"
-    },
-    "conflict": {
-        "symfony/form": "<3.2.10|~3.3,<3.3.3"
+        "symfony/var-dumper": "~2.8.9|~3.0.9|~3.1.3|~3.2",
+        "symfony/expression-language": "~2.8|~3.0"
     },
     "suggest": {
         "symfony/finder": "",
@@ -53,8 +48,7 @@
         "symfony/security": "For using the SecurityExtension",
         "symfony/stopwatch": "For using the StopwatchExtension",
         "symfony/var-dumper": "For using the DumpExtension",
-        "symfony/expression-language": "For using the ExpressionExtension",
-        "symfony/web-link": "For using the WebLinkExtension"
+        "symfony/expression-language": "For using the ExpressionExtension"
     },
     "autoload": {
         "psr-4": { "Symfony\\Bridge\\Twig\\": "" },
@@ -65,7 +59,7 @@
     "minimum-stability": "dev",
     "extra": {
         "branch-alias": {
-            "dev-master": "3.3-dev"
+            "dev-master": "3.1-dev"
         }
     }
 }

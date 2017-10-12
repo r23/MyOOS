@@ -11,13 +11,12 @@
 
 namespace Symfony\Component\PropertyInfo\Tests;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\PropertyInfo\Type;
 
 /**
  * @author Kévin Dunglas <dunglas@gmail.com>
  */
-class TypeTest extends TestCase
+class TypeTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstruct()
     {

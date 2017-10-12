@@ -14,7 +14,6 @@ namespace Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use Symfony\Component\DependencyInjection\Compiler\ServiceLocatorTagPass;
 
 class TranslatorPass implements CompilerPassInterface
 {
@@ -25,9 +24,7 @@ class TranslatorPass implements CompilerPassInterface
         }
 
         $loaders = array();
-        $loaderRefs = array();
-        foreach ($container->findTaggedServiceIds('translation.loader', true) as $id => $attributes) {
-            $loaderRefs[$id] = new Reference($id);
+        foreach ($container->findTaggedServiceIds('translation.loader') as $id => $attributes) {
             $loaders[$id][] = $attributes[0]['alias'];
             if (isset($attributes[0]['legacy-alias'])) {
                 $loaders[$id][] = $attributes[0]['legacy-alias'];
@@ -38,15 +35,11 @@ class TranslatorPass implements CompilerPassInterface
             $definition = $container->getDefinition('translation.loader');
             foreach ($loaders as $id => $formats) {
                 foreach ($formats as $format) {
-                    $definition->addMethodCall('addLoader', array($format, $loaderRefs[$id]));
+                    $definition->addMethodCall('addLoader', array($format, new Reference($id)));
                 }
             }
         }
 
-        $container
-            ->findDefinition('translator.default')
-            ->replaceArgument(0, ServiceLocatorTagPass::register($container, $loaderRefs))
-            ->replaceArgument(3, $loaders)
-        ;
+        $container->findDefinition('translator.default')->replaceArgument(2, $loaders);
     }
 }

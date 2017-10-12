@@ -14,7 +14,6 @@ namespace Symfony\Bundle\FrameworkBundle\Templating;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 /**
  * GlobalVariables is the entry point for Symfony global variables in PHP templates.
@@ -34,20 +33,21 @@ class GlobalVariables
     }
 
     /**
-     * @return TokenInterface|null
+     * Returns the current user.
+     *
+     * @return mixed
+     *
+     * @see TokenInterface::getUser()
      */
-    public function getToken()
+    public function getUser()
     {
         if (!$this->container->has('security.token_storage')) {
             return;
         }
 
-        return $this->container->get('security.token_storage')->getToken();
-    }
+        $tokenStorage = $this->container->get('security.token_storage');
 
-    public function getUser()
-    {
-        if (!$token = $this->getToken()) {
+        if (!$token = $tokenStorage->getToken()) {
             return;
         }
 
@@ -60,6 +60,8 @@ class GlobalVariables
     }
 
     /**
+     * Returns the current request.
+     *
      * @return Request|null The HTTP request object
      */
     public function getRequest()
@@ -70,6 +72,8 @@ class GlobalVariables
     }
 
     /**
+     * Returns the current session.
+     *
      * @return Session|null The session
      */
     public function getSession()
@@ -80,6 +84,8 @@ class GlobalVariables
     }
 
     /**
+     * Returns the current app environment.
+     *
      * @return string The current environment string (e.g 'dev')
      */
     public function getEnvironment()
@@ -88,6 +94,8 @@ class GlobalVariables
     }
 
     /**
+     * Returns the current app debug mode.
+     *
      * @return bool The current debug mode
      */
     public function getDebug()

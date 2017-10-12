@@ -11,10 +11,9 @@
 
 namespace Symfony\Component\Form\Tests\Extension\DataCollector;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\DataCollector\DataCollectorExtension;
 
-class DataCollectorExtensionTest extends TestCase
+class DataCollectorExtensionTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var DataCollectorExtension

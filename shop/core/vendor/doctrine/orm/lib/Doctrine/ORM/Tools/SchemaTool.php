@@ -345,7 +345,7 @@ class SchemaTool
         $discrColumn = $class->discriminatorColumn;
 
         if ( ! isset($discrColumn['type']) ||
-            (strtolower($discrColumn['type']) == 'string' && ! isset($discrColumn['length']))
+            (strtolower($discrColumn['type']) == 'string' && $discrColumn['length'] === null)
         ) {
             $discrColumn['type'] = 'string';
             $discrColumn['length'] = 255;

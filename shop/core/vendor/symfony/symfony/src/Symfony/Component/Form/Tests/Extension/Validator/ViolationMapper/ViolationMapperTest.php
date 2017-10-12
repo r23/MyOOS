@@ -11,7 +11,6 @@
 
 namespace Symfony\Component\Form\Tests\Extension\Validator\ViolationMapper;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Validator\ViolationMapper\ViolationMapper;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 use Symfony\Component\Form\CallbackTransformer;
@@ -26,7 +25,7 @@ use Symfony\Component\Validator\ConstraintViolationInterface;
 /**
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class ViolationMapperTest extends TestCase
+class ViolationMapperTest extends \PHPUnit_Framework_TestCase
 {
     const LEVEL_0 = 0;
 

@@ -11,12 +11,11 @@
 
 namespace Symfony\Component\Form\Tests\Extension\Core\Type;
 
+use Symfony\Component\Form\Test\TypeTestCase as TestCase;
 use Symfony\Component\Intl\Util\IntlTestHelper;
 
-class MoneyTypeTest extends BaseTypeTest
+class MoneyTypeTest extends TestCase
 {
-    const TESTED_TYPE = 'Symfony\Component\Form\Extension\Core\Type\MoneyType';
-
     protected function setUp()
     {
         // we test against different locales, so we need the full
@@ -30,8 +29,8 @@ class MoneyTypeTest extends BaseTypeTest
     {
         \Locale::setDefault('de_DE');
 
-        $view = $this->factory->create(static::TESTED_TYPE)
-            ->createView();
+        $form = $this->factory->create('Symfony\Component\Form\Extension\Core\Type\MoneyType');
+        $view = $form->createView();
 
         $this->assertSame('{{ widget }} €', $view->vars['money_pattern']);
     }
@@ -40,9 +39,8 @@ class MoneyTypeTest extends BaseTypeTest
     {
         \Locale::setDefault('en_US');
 
-        $view = $this->factory->create(static::TESTED_TYPE, null, array('currency' => 'JPY'))
-            ->createView();
-
+        $form = $this->factory->create('Symfony\Component\Form\Extension\Core\Type\MoneyType', null, array('currency' => 'JPY'));
+        $view = $form->createView();
         $this->assertTrue((bool) strstr($view->vars['money_pattern'], '¥'));
     }
 
@@ -51,15 +49,12 @@ class MoneyTypeTest extends BaseTypeTest
     {
         \Locale::setDefault('de_DE');
 
-        $view1 = $this->factory->create(static::TESTED_TYPE, null, array('currency' => 'GBP'))->createView();
-        $view2 = $this->factory->create(static::TESTED_TYPE, null, array('currency' => 'EUR'))->createView();
+        $form1 = $this->factory->create('Symfony\Component\Form\Extension\Core\Type\MoneyType', null, array('currency' => 'GBP'));
+        $form2 = $this->factory->create('Symfony\Component\Form\Extension\Core\Type\MoneyType', null, array('currency' => 'EUR'));
+        $view1 = $form1->createView();
+        $view2 = $form2->createView();
 
         $this->assertSame('{{ widget }} £', $view1->vars['money_pattern']);
         $this->assertSame('{{ widget }} €', $view2->vars['money_pattern']);
-    }
-
-    public function testSubmitNull($expected = null, $norm = null, $view = null)
-    {
-        parent::testSubmitNull($expected, $norm, '');
     }
 }

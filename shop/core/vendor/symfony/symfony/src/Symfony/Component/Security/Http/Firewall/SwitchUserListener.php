@@ -122,10 +122,7 @@ class SwitchUserListener implements ListenerInterface
         }
 
         if (false === $this->accessDecisionManager->decide($token, array($this->role))) {
-            $exception = new AccessDeniedException();
-            $exception->setAttributes($this->role);
-
-            throw $exception;
+            throw new AccessDeniedException();
         }
 
         $username = $request->get($this->usernameParameter);
@@ -161,7 +158,7 @@ class SwitchUserListener implements ListenerInterface
      */
     private function attemptExitUser(Request $request)
     {
-        if (null === ($currentToken = $this->tokenStorage->getToken()) || false === $original = $this->getOriginalToken($currentToken)) {
+        if (false === $original = $this->getOriginalToken($this->tokenStorage->getToken())) {
             throw new AuthenticationCredentialsNotFoundException('Could not find original Token object.');
         }
 

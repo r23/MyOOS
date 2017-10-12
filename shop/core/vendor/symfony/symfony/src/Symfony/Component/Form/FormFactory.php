@@ -15,11 +15,20 @@ use Symfony\Component\Form\Exception\UnexpectedTypeException;
 
 class FormFactory implements FormFactoryInterface
 {
+    /**
+     * @var FormRegistryInterface
+     */
     private $registry;
 
-    public function __construct(FormRegistryInterface $registry)
+    /**
+     * @var ResolvedFormTypeFactoryInterface
+     */
+    private $resolvedTypeFactory;
+
+    public function __construct(FormRegistryInterface $registry, ResolvedFormTypeFactoryInterface $resolvedTypeFactory)
     {
         $this->registry = $registry;
+        $this->resolvedTypeFactory = $resolvedTypeFactory;
     }
 
     /**
@@ -115,13 +124,7 @@ class FormFactory implements FormFactoryInterface
 
         // user options may override guessed options
         if ($typeGuess) {
-            $attrs = array();
-            $typeGuessOptions = $typeGuess->getOptions();
-            if (isset($typeGuessOptions['attr']) && isset($options['attr'])) {
-                $attrs = array('attr' => array_merge($typeGuessOptions['attr'], $options['attr']));
-            }
-
-            $options = array_merge($typeGuessOptions, $options, $attrs);
+            $options = array_merge($typeGuess->getOptions(), $options);
         }
 
         return $this->createNamedBuilder($property, $type, $data, $options);

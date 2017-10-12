@@ -407,10 +407,6 @@ class Form implements \IteratorAggregate, FormInterface
         }
 
         if (!$this->defaultDataSet) {
-            if ($this->lockSetData) {
-                throw new RuntimeException('A cycle was detected. Listeners to the PRE_SET_DATA event must not call getData() if the form data has not already been set. You should call getData() on the FormEvent object instead.');
-            }
-
             $this->setData($this->config->getData());
         }
 
@@ -431,10 +427,6 @@ class Form implements \IteratorAggregate, FormInterface
         }
 
         if (!$this->defaultDataSet) {
-            if ($this->lockSetData) {
-                throw new RuntimeException('A cycle was detected. Listeners to the PRE_SET_DATA event must not call getNormData() if the form data has not already been set.');
-            }
-
             $this->setData($this->config->getData());
         }
 
@@ -455,10 +447,6 @@ class Form implements \IteratorAggregate, FormInterface
         }
 
         if (!$this->defaultDataSet) {
-            if ($this->lockSetData) {
-                throw new RuntimeException('A cycle was detected. Listeners to the PRE_SET_DATA event must not call getViewData() if the form data has not already been set.');
-            }
-
             $this->setData($this->config->getData());
         }
 
@@ -736,8 +724,6 @@ class Form implements \IteratorAggregate, FormInterface
     public function isValid()
     {
         if (!$this->submitted) {
-            @trigger_error('Call Form::isValid() with an unsubmitted form is deprecated since version 3.2 and will throw an exception in 4.0. Use Form::isSubmitted() before Form::isValid() instead.', E_USER_DEPRECATED);
-
             return false;
         }
 

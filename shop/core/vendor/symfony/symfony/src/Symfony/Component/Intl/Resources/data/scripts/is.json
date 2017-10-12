@@ -1,5 +1,5 @@
 {
-    "Version": "2.1.32.59",
+    "Version": "2.1.22.93",
     "Names": {
         "Arab": "arabískt",
         "Armn": "armenskt",
@@ -13,7 +13,6 @@
         "Grek": "grískt",
         "Gujr": "gújaratí",
         "Guru": "gurmukhi",
-        "Hanb": "hanb",
         "Hang": "hangul",
         "Hani": "kínverskt",
         "Hans": "einfaldað",
@@ -21,7 +20,6 @@
         "Hebr": "hebreskt",
         "Hira": "hiragana",
         "Hrkt": "katakana eða hiragana",
-        "Jamo": "jamo",
         "Jpan": "japanskt",
         "Kana": "katakana",
         "Khmr": "kmer",
@@ -39,8 +37,6 @@
         "Thaa": "thaana",
         "Thai": "taílenskt",
         "Tibt": "tíbeskt",
-        "Zmth": "stærðfræðitákn",
-        "Zsye": "emoji-tákn",
         "Zsym": "tákn",
         "Zxxx": "óskrifað",
         "Zyyy": "almennt",

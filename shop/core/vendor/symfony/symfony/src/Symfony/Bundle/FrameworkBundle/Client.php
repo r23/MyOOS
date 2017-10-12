@@ -163,36 +163,34 @@ class Client extends BaseClient
     {
         $kernel = str_replace("'", "\\'", serialize($this->kernel));
         $request = str_replace("'", "\\'", serialize($request));
-        $errorReporting = error_reporting();
 
-        $requires = '';
-        foreach (get_declared_classes() as $class) {
-            if (0 === strpos($class, 'ComposerAutoloaderInit')) {
-                $r = new \ReflectionClass($class);
-                $file = dirname(dirname($r->getFileName())).'/autoload.php';
-                if (file_exists($file)) {
-                    $requires .= "require_once '".str_replace("'", "\\'", $file)."';\n";
-                }
-            }
+        $r = new \ReflectionObject($this->kernel);
+
+        $autoloader = dirname($r->getFileName()).'/autoload.php';
+        if (is_file($autoloader)) {
+            $autoloader = str_replace("'", "\\'", $autoloader);
+        } else {
+            $autoloader = '';
         }
 
-        if (!$requires) {
-            throw new \RuntimeException('Composer autoloader not found.');
-        }
-
-        $requires .= "require_once '".str_replace("'", "\\'", (new \ReflectionObject($this->kernel))->getFileName())."';\n";
+        $path = str_replace("'", "\\'", $r->getFileName());
 
         $profilerCode = '';
         if ($this->profiler) {
             $profilerCode = '$kernel->getContainer()->get(\'profiler\')->enable();';
         }
 
+        $errorReporting = error_reporting();
+
         $code = <<<EOF
 <?php
 
 error_reporting($errorReporting);
 
-$requires
+if ('$autoloader') {
+    require_once '$autoloader';
+}
+require_once '$path';
 
 \$kernel = unserialize('$kernel');
 \$kernel->boot();

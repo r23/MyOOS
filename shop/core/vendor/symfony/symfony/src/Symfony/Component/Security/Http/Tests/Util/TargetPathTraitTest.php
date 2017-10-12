@@ -2,11 +2,10 @@
 
 namespace Symfony\Component\Security\Http\Tests\Util;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
-class TargetPathTraitTest extends TestCase
+class TargetPathTraitTest extends \PHPUnit_Framework_TestCase
 {
     public function testSetTargetPath()
     {

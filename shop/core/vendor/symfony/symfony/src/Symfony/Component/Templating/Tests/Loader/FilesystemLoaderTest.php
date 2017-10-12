@@ -11,11 +11,10 @@
 
 namespace Symfony\Component\Templating\Tests\Loader;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Templating\Loader\FilesystemLoader;
 use Symfony\Component\Templating\TemplateReference;
 
-class FilesystemLoaderTest extends TestCase
+class FilesystemLoaderTest extends \PHPUnit_Framework_TestCase
 {
     protected static $fixturesPath;
 

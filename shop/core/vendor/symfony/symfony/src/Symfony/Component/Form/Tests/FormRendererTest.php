@@ -11,9 +11,7 @@
 
 namespace Symfony\Component\Form\Tests;
 
-use PHPUnit\Framework\TestCase;
-
-class FormRendererTest extends TestCase
+class FormRendererTest extends \PHPUnit_Framework_TestCase
 {
     public function testHumanize()
     {

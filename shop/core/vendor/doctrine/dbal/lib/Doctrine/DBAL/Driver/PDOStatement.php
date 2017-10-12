@@ -85,20 +85,6 @@ class PDOStatement extends \PDOStatement implements Statement
     /**
      * {@inheritdoc}
      */
-    public function closeCursor()
-    {
-        try {
-            return parent::closeCursor();
-        } catch (\PDOException $exception) {
-            // Exceptions not allowed by the interface.
-            // In case driver implementations do not adhere to the interface, silence exceptions here.
-            return true;
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function execute($params = null)
     {
         try {

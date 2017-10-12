@@ -1,5 +1,5 @@
 {
-    "Version": "2.1.32.59",
+    "Version": "2.1.22.93",
     "Names": {
         "ADP": [
             "ADP",
@@ -193,13 +193,9 @@
             "BYB",
             "rubel białoruski (1994–1999)"
         ],
-        "BYN": [
-            "BYN",
-            "rubel białoruski"
-        ],
         "BYR": [
             "BYR",
-            "rubel białoruski (2000–2016)"
+            "rubel białoruski"
         ],
         "BZD": [
             "BZD",
@@ -327,7 +323,7 @@
         ],
         "FJD": [
             "FJD",
-            "dolar fidżyjski"
+            "dolar fidżi"
         ],
         "FKP": [
             "FKP",
@@ -611,7 +607,7 @@
         ],
         "MWK": [
             "MWK",
-            "kwacha malawijska"
+            "kwacha malawska"
         ],
         "MXN": [
             "MXN",
@@ -683,11 +679,11 @@
         ],
         "PEN": [
             "PEN",
-            "sol peruwiański"
+            "nowy sol peruwiański"
         ],
         "PES": [
             "PES",
-            "sol peruwiański (1863–1965)"
+            "sol peruwiański"
         ],
         "PGK": [
             "PGK",
@@ -931,11 +927,11 @@
         ],
         "VUV": [
             "VUV",
-            "vatu wanuackie"
+            "vatu Vanuatu"
         ],
         "WST": [
             "WST",
-            "tala samoańskie"
+            "tala samoańska"
         ],
         "XAF": [
             "FCFA",

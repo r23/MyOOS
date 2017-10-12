@@ -11,10 +11,9 @@
 
 namespace Symfony\Component\Validator\Tests\Util;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Util\PropertyPath;
 
-class PropertyPathTest extends TestCase
+class PropertyPathTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider provideAppendPaths

@@ -137,7 +137,7 @@ class MoFileLoader extends FileLoader
     }
 
     /**
-     * Reads an unsigned long from stream respecting endianness.
+     * Reads an unsigned long from stream respecting endianess.
      *
      * @param resource $stream
      * @param bool     $isBigEndian

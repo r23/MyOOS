@@ -1,5 +1,5 @@
 {
-    "Version": "2.1.32.59",
+    "Version": "2.1.23.76",
     "Names": {
         "ADP": [
             "ADP",
@@ -27,7 +27,7 @@
         ],
         "AOA": [
             "AOA",
-            "Kwanza angolano"
+            "Kwanza angoleño"
         ],
         "ARP": [
             "ARP",
@@ -43,7 +43,7 @@
         ],
         "AWG": [
             "AWG",
-            "Florín de Aruba"
+            "Florín arubeño"
         ],
         "AZN": [
             "AZN",
@@ -59,7 +59,7 @@
         ],
         "BDT": [
             "BDT",
-            "Taka de Bangladés"
+            "Taka de Bangladesh"
         ],
         "BEC": [
             "BEC",
@@ -79,11 +79,11 @@
         ],
         "BHD": [
             "BHD",
-            "Dinar de Bahrain"
+            "Dinar de Baréin"
         ],
         "BIF": [
             "BIF",
-            "Franco burundiano"
+            "Franco burundés"
         ],
         "BMD": [
             "BMD",
@@ -139,23 +139,19 @@
         ],
         "BWP": [
             "BWP",
-            "Pula botsuaniano"
-        ],
-        "BYN": [
-            "BYN",
-            "Rublo bielorruso"
+            "Pula botsuano"
         ],
         "BYR": [
             "BYR",
-            "Rublo bielorruso (2000–2016)"
+            "Rublo bielorruso"
         ],
         "BZD": [
             "BZD",
-            "Dólar belizense"
+            "Dólar beliceño"
         ],
         "CAD": [
             "$CA",
-            "Dólar canadense"
+            "Dólar canadiano"
         ],
         "CDF": [
             "CDF",
@@ -183,7 +179,7 @@
         ],
         "CRC": [
             "CRC",
-            "Colón costarriqueño"
+            "Colón costarricense"
         ],
         "CUC": [
             "CUC",
@@ -260,7 +256,7 @@
         ],
         "FJD": [
             "FJD",
-            "Dólar fidxiano"
+            "Dólar fixiano"
         ],
         "FKP": [
             "FKP",
@@ -280,11 +276,11 @@
         ],
         "GHS": [
             "GHS",
-            "Cedi de Ghana"
+            "Cedi de Gana"
         ],
         "GIP": [
             "GIP",
-            "libra xibraltareña"
+            "Libra de Xibraltar"
         ],
         "GMD": [
             "GMD",
@@ -315,7 +311,7 @@
             "Dólar güianés"
         ],
         "HKD": [
-            "HK$",
+            "$HK",
             "Dólar de Hong Kong"
         ],
         "HNL": [
@@ -375,16 +371,16 @@
             "Dinar xordano"
         ],
         "JPY": [
-            "JP¥",
+            "¥JP",
             "Ien xaponés"
         ],
         "KES": [
             "KES",
-            "Xilin kenyano"
+            "Chelín kenyano"
         ],
         "KGS": [
             "KGS",
-            "Som quirguicistano"
+            "Som quirguizo"
         ],
         "KHR": [
             "KHR",
@@ -480,7 +476,7 @@
         ],
         "MMK": [
             "MMK",
-            "Kyat birmano"
+            "Kiat birmano"
         ],
         "MNT": [
             "MNT",
@@ -496,11 +492,11 @@
         ],
         "MUR": [
             "MUR",
-            "Rupia mauriciana"
+            "Rupia de Mauricio"
         ],
         "MVR": [
             "MVR",
-            "Rupia maldivana"
+            "Rupia maldiva"
         ],
         "MWK": [
             "MWK",
@@ -540,7 +536,7 @@
         ],
         "NIO": [
             "NIO",
-            "Córdoba de ouro nicaraguano"
+            "Córdoba de ouro nicaragüense"
         ],
         "NLG": [
             "NLG",
@@ -572,15 +568,15 @@
         ],
         "PEN": [
             "PEN",
-            "Sol peruano"
+            "Sol novo peruano"
         ],
         "PES": [
             "PES",
-            "Sol peruano (1863–1965)"
+            "Sol peruano"
         ],
         "PGK": [
             "PGK",
-            "Kina de Papúa-Nova Guinea"
+            "Kina de Papúa Nova Guinea"
         ],
         "PHP": [
             "PHP",
@@ -660,7 +656,7 @@
         ],
         "SOS": [
             "SOS",
-            "Xilin somalí"
+            "Chelín somalí"
         ],
         "SRD": [
             "SRD",
@@ -672,7 +668,7 @@
         ],
         "STD": [
             "STD",
-            "Dobra de São Tomé e Príncipe"
+            "Dobra de San Tomé e Príncipe"
         ],
         "SUR": [
             "SUR",
@@ -688,7 +684,7 @@
         ],
         "SZL": [
             "SZL",
-            "Lilangeni de Suacilandia"
+            "Lilanxeni de Suacilandia"
         ],
         "THB": [
             "฿",
@@ -696,15 +692,15 @@
         ],
         "TJS": [
             "TJS",
-            "Somoni taxiquistano"
+            "Somoni taxico"
         ],
         "TMT": [
             "TMT",
-            "Manat turcomán"
+            "Manat turcomano"
         ],
         "TND": [
             "TND",
-            "Dinar tunisiano"
+            "Dinar tunesino"
         ],
         "TOP": [
             "TOP",
@@ -716,23 +712,23 @@
         ],
         "TTD": [
             "TTD",
-            "Dólar de Trinidad e Tobago"
+            "Dólar de Trinidade e Tobago"
         ],
         "TWD": [
-            "NT$",
+            "$NT",
             "Novo dólar taiwanés"
         ],
         "TZS": [
             "TZS",
-            "Xilin tanzano"
+            "Chelín tanzano"
         ],
         "UAH": [
             "UAH",
-            "Hrivna ucraína"
+            "Grivna ucraína"
         ],
         "UGX": [
             "UGX",
-            "Xilin ugandés"
+            "Chelín ugandés"
         ],
         "USD": [
             "$",
@@ -768,7 +764,7 @@
         ],
         "VUV": [
             "VUV",
-            "Vatu vanuatiano"
+            "Vatu vanuatense"
         ],
         "WST": [
             "WST",
@@ -776,15 +772,15 @@
         ],
         "XAF": [
             "FCFA",
-            "Franco CFA (BEAC)"
+            "Franco CFA BEAC"
         ],
         "XCD": [
             "EC$",
-            "Dólar do Caribe Oriental"
+            "Dólar Caribe-Leste"
         ],
         "XOF": [
             "CFA",
-            "Franco CFA (BCEAO)"
+            "Franco CFA BCEAO"
         ],
         "XPF": [
             "CFPF",
@@ -796,7 +792,7 @@
         ],
         "ZAR": [
             "ZAR",
-            "Rand surafricano"
+            "Rand sudafricano"
         ],
         "ZMK": [
             "ZMK",

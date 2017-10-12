@@ -11,14 +11,13 @@
 
 namespace Symfony\Component\HttpKernel\Tests\Profiler;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpKernel\DataCollector\RequestDataCollector;
 use Symfony\Component\HttpKernel\Profiler\FileProfilerStorage;
 use Symfony\Component\HttpKernel\Profiler\Profiler;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ProfilerTest extends TestCase
+class ProfilerTest extends \PHPUnit_Framework_TestCase
 {
     private $tmp;
     private $storage;
@@ -33,11 +32,10 @@ class ProfilerTest extends TestCase
         $profiler = new Profiler($this->storage);
         $profiler->add($collector);
         $profile = $profiler->collect($request, $response);
-        $profiler->saveProfile($profile);
 
         $this->assertSame(204, $profile->getStatusCode());
         $this->assertSame('GET', $profile->getMethod());
-        $this->assertSame('bar', $profile->getCollector('request')->getRequestQuery()->all()['foo']->getValue());
+        $this->assertEquals(array('foo' => 'bar'), $profiler->get('request')->getRequestQuery()->all());
     }
 
     public function testFindWorksWithDates()

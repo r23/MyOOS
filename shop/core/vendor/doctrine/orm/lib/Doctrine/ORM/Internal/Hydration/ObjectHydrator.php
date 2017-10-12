@@ -360,8 +360,8 @@ class ObjectHydrator extends AbstractHydrator
 
                 // Get a reference to the parent object to which the joined element belongs.
                 if ($this->_rsm->isMixed && isset($this->rootAliases[$parentAlias])) {
-                    $objectClass = $this->resultPointers[$parentAlias];
-                    $parentObject = $objectClass[key($objectClass)];
+                    $first = reset($this->resultPointers);
+                    $parentObject = $first[key($first)];
                 } else if (isset($this->resultPointers[$parentAlias])) {
                     $parentObject = $this->resultPointers[$parentAlias];
                 } else {

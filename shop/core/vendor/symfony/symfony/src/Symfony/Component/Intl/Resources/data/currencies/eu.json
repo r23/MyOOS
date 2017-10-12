@@ -1,5 +1,5 @@
 {
-    "Version": "2.1.32.59",
+    "Version": "2.1.22.93",
     "Names": {
         "AED": [
             "AED",
@@ -35,7 +35,7 @@
         ],
         "AWG": [
             "AWG",
-            "Arubako florina"
+            "Arubeko florina"
         ],
         "AZN": [
             "AZN",
@@ -93,13 +93,9 @@
             "BWP",
             "Bosniako pula"
         ],
-        "BYN": [
-            "BYN",
-            "Bielorrusiako errubloa"
-        ],
         "BYR": [
             "BYR",
-            "Bielorrusiako errubloa (2000–2016)"
+            "Bielorrusiako errubloa"
         ],
         "BZD": [
             "BZD",
@@ -151,7 +147,7 @@
         ],
         "DJF": [
             "DJF",
-            "Djibutiko frankoa"
+            "Djibouteko frankoa"
         ],
         "DKK": [
             "DKK",
@@ -163,7 +159,7 @@
         ],
         "DZD": [
             "DZD",
-            "Aljeriako dinarra"
+            "Algeriako dinarra"
         ],
         "EGP": [
             "EGP",
@@ -184,7 +180,7 @@
         ],
         "EUR": [
             "€",
-            "euroa"
+            "Euroa"
         ],
         "FJD": [
             "FJD",
@@ -252,7 +248,7 @@
         ],
         "ILS": [
             "₪",
-            "Israelgo shekel berria"
+            "Israeleko sheqel berria"
         ],
         "INR": [
             "₹",
@@ -364,7 +360,7 @@
         ],
         "MKD": [
             "MKD",
-            "Mazedoniako dinarra"
+            "Mazedoniako denara"
         ],
         "MMK": [
             "MMK",
@@ -440,7 +436,7 @@
         ],
         "PEN": [
             "PEN",
-            "Peruko sol"
+            "Peruko sol berria"
         ],
         "PGK": [
             "PGK",
@@ -484,7 +480,7 @@
         ],
         "SAR": [
             "SAR",
-            "Arabia Saudiko riala"
+            "Saudiko riala"
         ],
         "SBD": [
             "SBD",
@@ -536,7 +532,7 @@
         ],
         "SZL": [
             "SZL",
-            "Swazilandiako lilangenia"
+            "Swaziko lilangenia"
         ],
         "THB": [
             "฿",
@@ -564,7 +560,7 @@
         ],
         "TTD": [
             "TTD",
-            "Trinidad eta Tobagoko dolarra"
+            "Trinidadeko eta Tobagoko dolarra"
         ],
         "TWD": [
             "NT$",
@@ -584,7 +580,7 @@
         ],
         "USD": [
             "US$",
-            "AEBko dolarra"
+            "AEBetako dolarra"
         ],
         "UYU": [
             "UYU",
@@ -612,7 +608,7 @@
         ],
         "XAF": [
             "FCFA",
-            "Afrika erdialdeko CFA frankoa"
+            "Afrika erdialdeko frankoa BEAC"
         ],
         "XCD": [
             "EC$",
@@ -620,7 +616,7 @@
         ],
         "XOF": [
             "CFA",
-            "Afrika mendebaldeko CFA frankoa"
+            "Afrika ekialdeko frankoa BCEAO"
         ],
         "XPF": [
             "CFPF",

@@ -11,7 +11,6 @@
 
 namespace Symfony\Component\HttpKernel\Tests\DataCollector;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpKernel\DataCollector\DumpDataCollector;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +19,7 @@ use Symfony\Component\VarDumper\Cloner\Data;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class DumpDataCollectorTest extends TestCase
+class DumpDataCollectorTest extends \PHPUnit_Framework_TestCase
 {
     public function testDump()
     {
@@ -50,7 +49,7 @@ class DumpDataCollectorTest extends TestCase
         );
         $this->assertEquals($xDump, $dump);
 
-        $this->assertStringMatchesFormat('a:3:{i:0;a:5:{s:4:"data";%c:39:"Symfony\Component\VarDumper\Cloner\Data":%a', $collector->serialize());
+        $this->assertStringMatchesFormat('a:3:{i:0;a:5:{s:4:"data";O:39:"Symfony\Component\VarDumper\Cloner\Data":%a', $collector->serialize());
         $this->assertSame(0, $collector->getDumpsCount());
         $this->assertSame('a:2:{i:0;b:0;i:1;s:5:"UTF-8";}', $collector->serialize());
     }

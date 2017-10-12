@@ -11,7 +11,6 @@
 
 namespace Symfony\Component\Form\Tests;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\Form\Forms;
@@ -20,7 +19,7 @@ use Symfony\Component\Form\RequestHandlerInterface;
 /**
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-abstract class AbstractRequestHandlerTest extends TestCase
+abstract class AbstractRequestHandlerTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var RequestHandlerInterface

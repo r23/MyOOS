@@ -1,5 +1,5 @@
 {
-    "Version": "2.1.32.59",
+    "Version": "2.1.24.18",
     "Names": {
         "AC": "Ascension Island",
         "AD": "Andorra",
@@ -56,7 +56,7 @@
         "CW": "Curaçao",
         "CX": "Christmas Island",
         "CY": "Cyprus",
-        "CZ": "Czechia",
+        "CZ": "Czech Republic",
         "DE": "Germany",
         "DG": "Diego Garcia",
         "DJ": "Djibouti",
@@ -72,7 +72,6 @@
         "ER": "Eritrea",
         "ES": "Spain",
         "ET": "Ethiopia",
-        "EZ": "Eurozone",
         "FI": "Finland",
         "FJ": "Fiji",
         "FK": "Falkland Islands",
@@ -237,7 +236,6 @@
         "UA": "Ukraine",
         "UG": "Uganda",
         "UM": "U.S. Outlying Islands",
-        "UN": "United Nations",
         "US": "United States",
         "UY": "Uruguay",
         "UZ": "Uzbekistan",

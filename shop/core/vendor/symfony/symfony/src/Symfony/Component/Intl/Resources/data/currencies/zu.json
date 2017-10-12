@@ -1,5 +1,5 @@
 {
-    "Version": "2.1.31.74",
+    "Version": "2.1.22.93",
     "Names": {
         "AED": [
             "AED",
@@ -93,13 +93,9 @@
             "BWP",
             "i-Botswana Pula"
         ],
-        "BYN": [
-            "BYN",
-            "i-Belarusian Ruble"
-        ],
         "BYR": [
             "BYR",
-            "i-Belarusian Ruble (2000–2016)"
+            "i-Belarusian Ruble"
         ],
         "BZD": [
             "BZD",
@@ -607,7 +603,7 @@
         ],
         "XAF": [
             "FCFA",
-            "i-Central African CFA Franc"
+            "i-CFA Franc BCEA"
         ],
         "XCD": [
             "EC$",
@@ -615,7 +611,7 @@
         ],
         "XOF": [
             "CFA",
-            "i-West African CFA Franc"
+            "i-CFA Franc BCEAO"
         ],
         "XPF": [
             "CFPF",

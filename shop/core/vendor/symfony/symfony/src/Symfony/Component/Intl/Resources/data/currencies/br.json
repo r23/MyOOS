@@ -1,5 +1,5 @@
 {
-    "Version": "2.1.31.86",
+    "Version": "2.1.22.93",
     "Names": {
         "ADP": [
             "ADP",
@@ -217,13 +217,9 @@
             "BYB",
             "roubl nevez Belarus (1994–1999)"
         ],
-        "BYN": [
-            "BYN",
-            "roubl Belarus"
-        ],
         "BYR": [
             "BYR",
-            "roubl Belarus (2000–2016)"
+            "roubl Belarus"
         ],
         "BZD": [
             "BZD",
@@ -779,7 +775,7 @@
         ],
         "PEN": [
             "PEN",
-            "sol Perou"
+            "nuevo sol Perou"
         ],
         "PES": [
             "PES",

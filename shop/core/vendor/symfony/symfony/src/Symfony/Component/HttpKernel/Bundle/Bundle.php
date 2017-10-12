@@ -31,7 +31,6 @@ abstract class Bundle implements BundleInterface
     protected $name;
     protected $extension;
     protected $path;
-    private $namespace;
 
     /**
      * Boots the Bundle.
@@ -107,11 +106,9 @@ abstract class Bundle implements BundleInterface
      */
     public function getNamespace()
     {
-        if (null === $this->namespace) {
-            $this->parseClassName();
-        }
+        $class = get_class($this);
 
-        return $this->namespace;
+        return substr($class, 0, strrpos($class, '\\'));
     }
 
     /**
@@ -132,7 +129,7 @@ abstract class Bundle implements BundleInterface
     /**
      * Returns the bundle parent name.
      *
-     * @return string|null The Bundle parent name it overrides or null if no parent
+     * @return string The Bundle parent name it overrides or null if no parent
      */
     public function getParent()
     {
@@ -145,11 +142,14 @@ abstract class Bundle implements BundleInterface
      */
     final public function getName()
     {
-        if (null === $this->name) {
-            $this->parseClassName();
+        if (null !== $this->name) {
+            return $this->name;
         }
 
-        return $this->name;
+        $name = get_class($this);
+        $pos = strrpos($name, '\\');
+
+        return $this->name = false === $pos ? $name : substr($name, $pos + 1);
     }
 
     /**
@@ -183,9 +183,8 @@ abstract class Bundle implements BundleInterface
             }
             $class = $ns.'\\'.$file->getBasename('.php');
             if ($this->container) {
-                $commandIds = $this->container->hasParameter('console.command.ids') ? $this->container->getParameter('console.command.ids') : array();
                 $alias = 'console.command.'.strtolower(str_replace('\\', '_', $class));
-                if (isset($commandIds[$alias]) || $this->container->has($alias)) {
+                if ($this->container->has($alias)) {
                     continue;
                 }
             }
@@ -217,15 +216,6 @@ abstract class Bundle implements BundleInterface
     {
         if (class_exists($class = $this->getContainerExtensionClass())) {
             return new $class();
-        }
-    }
-
-    private function parseClassName()
-    {
-        $pos = strrpos(static::class, '\\');
-        $this->namespace = false === $pos ? '' : substr(static::class, 0, $pos);
-        if (null === $this->name) {
-            $this->name = false === $pos ? static::class : substr(static::class, $pos + 1);
         }
     }
 }

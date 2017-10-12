@@ -11,7 +11,6 @@
 
 namespace Symfony\Component\Intl\Tests\Data\Bundle\Writer;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Intl\Data\Bundle\Writer\TextBundleWriter;
 
@@ -20,7 +19,7 @@ use Symfony\Component\Intl\Data\Bundle\Writer\TextBundleWriter;
  *
  * @see http://source.icu-project.org/repos/icu/icuhtml/trunk/design/bnf_rb.txt
  */
-class TextBundleWriterTest extends TestCase
+class TextBundleWriterTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var TextBundleWriter

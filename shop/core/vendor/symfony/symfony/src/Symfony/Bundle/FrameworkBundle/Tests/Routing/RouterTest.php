@@ -11,13 +11,11 @@
 
 namespace Symfony\Bundle\FrameworkBundle\Tests\Routing;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
-use Symfony\Component\DependencyInjection\Config\ContainerParametersResource;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 
-class RouterTest extends TestCase
+class RouterTest extends \PHPUnit_Framework_TestCase
 {
     public function testGenerateWithServiceParam()
     {
@@ -133,20 +131,6 @@ class RouterTest extends TestCase
         );
     }
 
-    /**
-     * @expectedException \Symfony\Component\DependencyInjection\Exception\RuntimeException
-     * @expectedExceptionMessage Using "%env(FOO)%" is not allowed in routing configuration.
-     */
-    public function testEnvPlaceholders()
-    {
-        $routes = new RouteCollection();
-
-        $routes->add('foo', new Route('/%env(FOO)%'));
-
-        $router = new Router($this->getServiceContainer($routes), 'foo');
-        $router->getRouteCollection();
-    }
-
     public function testHostPlaceholders()
     {
         $routes = new RouteCollection();
@@ -216,20 +200,6 @@ class RouterTest extends TestCase
         $route = $router->getRouteCollection()->get('foo');
 
         $this->assertSame($value, $route->getDefault('foo'));
-    }
-
-    public function testGetRouteCollectionAddsContainerParametersResource()
-    {
-        $routeCollection = $this->getMockBuilder(RouteCollection::class)->getMock();
-        $routeCollection->method('getIterator')->willReturn(new \ArrayIterator(array(new Route('/%locale%'))));
-        $routeCollection->expects($this->once())->method('addResource')->with(new ContainerParametersResource(array('locale' => 'en')));
-
-        $sc = $this->getServiceContainer($routeCollection);
-        $sc->setParameter('locale', 'en');
-
-        $router = new Router($sc, 'foo');
-
-        $router->getRouteCollection();
     }
 
     public function getNonStringValues()

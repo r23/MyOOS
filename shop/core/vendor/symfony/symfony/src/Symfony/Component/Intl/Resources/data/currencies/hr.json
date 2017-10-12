@@ -1,5 +1,5 @@
 {
-    "Version": "2.1.32.59",
+    "Version": "2.1.23.7",
     "Names": {
         "ADP": [
             "ADP",
@@ -217,13 +217,9 @@
             "BYB",
             "bjeloruska nova rublja (1994–1999)"
         ],
-        "BYN": [
-            "BYN",
-            "bjeloruska rublja"
-        ],
         "BYR": [
             "BYR",
-            "bjeloruska rublja (2000–2016)"
+            "bjeloruska rublja"
         ],
         "BZD": [
             "BZD",
@@ -779,11 +775,11 @@
         ],
         "PEN": [
             "PEN",
-            "peruanski sol"
+            "peruanski novi sol"
         ],
         "PES": [
             "PES",
-            "peruanski sol (1863–1965)"
+            "peruanski sol"
         ],
         "PGK": [
             "PGK",
@@ -1043,7 +1039,7 @@
         ],
         "VUV": [
             "VUV",
-            "vanuatski vatu"
+            "vanuatuški vatu"
         ],
         "WST": [
             "WST",

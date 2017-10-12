@@ -11,11 +11,10 @@
 
 namespace Symfony\Component\ExpressionLanguage\Tests\Node;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\ExpressionLanguage\Node\Node;
 use Symfony\Component\ExpressionLanguage\Node\ConstantNode;
 
-class NodeTest extends TestCase
+class NodeTest extends \PHPUnit_Framework_TestCase
 {
     public function testToString()
     {

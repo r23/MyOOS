@@ -41,6 +41,7 @@ abstract class AbstractRedisAdapterTest extends AdapterTestCase
 
     public static function tearDownAfterClass()
     {
+        self::$redis->flushDB();
         self::$redis = null;
     }
 }

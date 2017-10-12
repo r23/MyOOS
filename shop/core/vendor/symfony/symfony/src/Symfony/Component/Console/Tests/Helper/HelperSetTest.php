@@ -11,11 +11,10 @@
 
 namespace Symfony\Component\Console\Tests\Helper;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Helper\HelperSet;
 use Symfony\Component\Console\Command\Command;
 
-class HelperSetTest extends TestCase
+class HelperSetTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstructor()
     {

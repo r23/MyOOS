@@ -11,11 +11,10 @@
 
 namespace Symfony\Component\DependencyInjection\Tests\Dumper;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Dumper\GraphvizDumper;
 
-class GraphvizDumperTest extends TestCase
+class GraphvizDumperTest extends \PHPUnit_Framework_TestCase
 {
     protected static $fixturesPath;
 

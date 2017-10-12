@@ -11,11 +11,10 @@
 
 namespace Symfony\Component\ExpressionLanguage\Tests;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\ExpressionLanguage\Node\ConstantNode;
 use Symfony\Component\ExpressionLanguage\ParsedExpression;
 
-class ParsedExpressionTest extends TestCase
+class ParsedExpressionTest extends \PHPUnit_Framework_TestCase
 {
     public function testSerialization()
     {

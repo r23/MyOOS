@@ -39,11 +39,9 @@ class Swift_Signers_DKIMSigner implements Swift_Signers_HeaderSigner
     /**
      * Hash algorithm used.
      *
-     * @see RFC6376 3.3: Signers MUST implement and SHOULD sign using rsa-sha256.
-     *
      * @var string
      */
-    protected $_hashAlgorithm = 'rsa-sha256';
+    protected $_hashAlgorithm = 'rsa-sha1';
 
     /**
      * Body canon method.
@@ -103,7 +101,7 @@ class Swift_Signers_DKIMSigner implements Swift_Signers_HeaderSigner
 
     /**
      * When will the signature expires false means not embedded, if sigTimestamp is auto
-     * Expiration is relative, otherwise it's absolute.
+     * Expiration is relative, otherwhise it's absolute.
      *
      * @var int
      */
@@ -125,7 +123,7 @@ class Swift_Signers_DKIMSigner implements Swift_Signers_HeaderSigner
     protected $_signedHeaders = array();
 
     /**
-     * If debugHeaders is set store debugData here.
+     * If debugHeaders is set store debugDatas here.
      *
      * @var string
      */
@@ -176,11 +174,6 @@ class Swift_Signers_DKIMSigner implements Swift_Signers_HeaderSigner
         $this->_domainName = $domainName;
         $this->_signerIdentity = '@'.$domainName;
         $this->_selector = $selector;
-
-        // keep fallback hash algorithm sha1 if php version is lower than 5.4.8
-        if (PHP_VERSION_ID < 50408) {
-            $this->_hashAlgorithm = 'rsa-sha1';
-        }
     }
 
     /**
@@ -190,7 +183,7 @@ class Swift_Signers_DKIMSigner implements Swift_Signers_HeaderSigner
      * @param string $domainName
      * @param string $selector
      *
-     * @return self
+     * @return Swift_Signers_DKIMSigner
      */
     public static function newInstance($privateKey, $domainName, $selector)
     {
@@ -230,7 +223,6 @@ class Swift_Signers_DKIMSigner implements Swift_Signers_HeaderSigner
      *
      * @return int
      */
-    // TODO fix return
     public function write($bytes)
     {
         $this->_canonicalizeBody($bytes);
@@ -242,6 +234,8 @@ class Swift_Signers_DKIMSigner implements Swift_Signers_HeaderSigner
     /**
      * For any bytes that are currently buffered inside the stream, force them
      * off the buffer.
+     *
+     * @throws Swift_IoException
      */
     public function commit()
     {
@@ -282,6 +276,8 @@ class Swift_Signers_DKIMSigner implements Swift_Signers_HeaderSigner
                 return;
             }
         }
+
+        return;
     }
 
     /**
@@ -296,28 +292,19 @@ class Swift_Signers_DKIMSigner implements Swift_Signers_HeaderSigner
     }
 
     /**
-     * Set hash_algorithm, must be one of rsa-sha256 | rsa-sha1.
+     * Set hash_algorithm, must be one of rsa-sha256 | rsa-sha1 defaults to rsa-sha256.
      *
-     * @param string $hash 'rsa-sha1' or 'rsa-sha256'
+     * @param string $hash
      *
-     * @throws Swift_SwiftException
-     *
-     * @return $this
+     * @return Swift_Signers_DKIMSigner
      */
     public function setHashAlgorithm($hash)
     {
-        switch ($hash) {
-            case 'rsa-sha1':
-                $this->_hashAlgorithm = 'rsa-sha1';
-                break;
-            case 'rsa-sha256':
-                $this->_hashAlgorithm = 'rsa-sha256';
-                if (!defined('OPENSSL_ALGO_SHA256')) {
-                    throw new Swift_SwiftException('Unable to set sha256 as it is not supported by OpenSSL.');
-                }
-                break;
-            default:
-                throw new Swift_SwiftException('Unable to set the hash algorithm, must be one of rsa-sha1 or rsa-sha256 (%s given).', $hash);
+        // Unable to sign with rsa-sha256
+        if ($hash == 'rsa-sha1') {
+            $this->_hashAlgorithm = 'rsa-sha1';
+        } else {
+            $this->_hashAlgorithm = 'rsa-sha256';
         }
 
         return $this;
@@ -328,7 +315,7 @@ class Swift_Signers_DKIMSigner implements Swift_Signers_HeaderSigner
      *
      * @param string $canon
      *
-     * @return $this
+     * @return Swift_Signers_DKIMSigner
      */
     public function setBodyCanon($canon)
     {
@@ -346,7 +333,7 @@ class Swift_Signers_DKIMSigner implements Swift_Signers_HeaderSigner
      *
      * @param string $canon
      *
-     * @return $this
+     * @return Swift_Signers_DKIMSigner
      */
     public function setHeaderCanon($canon)
     {
@@ -364,7 +351,7 @@ class Swift_Signers_DKIMSigner implements Swift_Signers_HeaderSigner
      *
      * @param string $identity
      *
-     * @return $this
+     * @return Swift_Signers_DKIMSigner
      */
     public function setSignerIdentity($identity)
     {
@@ -378,7 +365,7 @@ class Swift_Signers_DKIMSigner implements Swift_Signers_HeaderSigner
      *
      * @param mixed $len (bool or int)
      *
-     * @return $this
+     * @return Swift_Signers_DKIMSigner
      */
     public function setBodySignedLen($len)
     {
@@ -401,7 +388,7 @@ class Swift_Signers_DKIMSigner implements Swift_Signers_HeaderSigner
      *
      * @param int $time A timestamp
      *
-     * @return $this
+     * @return Swift_Signers_DKIMSigner
      */
     public function setSignatureTimestamp($time)
     {
@@ -415,7 +402,7 @@ class Swift_Signers_DKIMSigner implements Swift_Signers_HeaderSigner
      *
      * @param int $time A timestamp
      *
-     * @return $this
+     * @return Swift_Signers_DKIMSigner
      */
     public function setSignatureExpiration($time)
     {
@@ -596,7 +583,7 @@ class Swift_Signers_DKIMSigner implements Swift_Signers_HeaderSigner
     /**
      * @deprecated This method is currently useless in this class but it must be
      *             kept for BC reasons due to its "protected" scope. This method
-     *             might be overridden by custom client code.
+     *             might be overriden by custom client code.
      */
     protected function _endOfHeaders()
     {
@@ -691,7 +678,6 @@ class Swift_Signers_DKIMSigner implements Swift_Signers_HeaderSigner
     private function _getEncryptedHash()
     {
         $signature = '';
-
         switch ($this->_hashAlgorithm) {
             case 'rsa-sha1':
                 $algorithm = OPENSSL_ALGO_SHA1;

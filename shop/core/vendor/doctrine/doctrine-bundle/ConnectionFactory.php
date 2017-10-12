@@ -52,6 +52,7 @@ class ConnectionFactory
     {
         if (!$this->initialized) {
             $this->initializeTypes();
+            $this->initialized = true;
         }
 
         $connection = DriverManager::getConnection($params, $config, $eventManager);
@@ -61,9 +62,6 @@ class ConnectionFactory
             foreach ($mappingTypes as $dbType => $doctrineType) {
                 $platform->registerDoctrineTypeMapping($dbType, $doctrineType);
             }
-        }
-        if (!empty($this->commentedTypes)) {
-            $platform = $connection->getDatabasePlatform();
             foreach ($this->commentedTypes as $type) {
                 $platform->markDoctrineTypeCommented(Type::getType($type));
             }
@@ -87,6 +85,5 @@ class ConnectionFactory
                 $this->commentedTypes[] = $type;
             }
         }
-        $this->initialized = true;
     }
 }

@@ -11,14 +11,13 @@
 
 namespace Symfony\Component\Templating\Tests\Loader;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Templating\Loader\Loader;
 use Symfony\Component\Templating\Loader\CacheLoader;
 use Symfony\Component\Templating\Storage\StringStorage;
 use Symfony\Component\Templating\TemplateReferenceInterface;
 use Symfony\Component\Templating\TemplateReference;
 
-class CacheLoaderTest extends TestCase
+class CacheLoaderTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstructor()
     {

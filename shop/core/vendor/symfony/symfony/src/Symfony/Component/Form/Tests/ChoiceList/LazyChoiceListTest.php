@@ -11,14 +11,13 @@
 
 namespace Symfony\Component\Form\Tests\ChoiceList;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
 use Symfony\Component\Form\ChoiceList\LazyChoiceList;
 
 /**
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class LazyChoiceListTest extends TestCase
+class LazyChoiceListTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var LazyChoiceList

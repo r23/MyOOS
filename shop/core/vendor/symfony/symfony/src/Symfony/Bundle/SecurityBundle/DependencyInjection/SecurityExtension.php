@@ -14,18 +14,14 @@ namespace Symfony\Bundle\SecurityBundle\DependencyInjection;
 use Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory\SecurityFactoryInterface;
 use Symfony\Bundle\SecurityBundle\DependencyInjection\Security\UserProvider\UserProviderFactoryInterface;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
-use Symfony\Component\Console\Application;
+use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\DependencyInjection\Alias;
-use Symfony\Component\DependencyInjection\Argument\IteratorArgument;
-use Symfony\Component\DependencyInjection\ChildDefinition;
-use Symfony\Component\DependencyInjection\Compiler\ServiceLocatorTagPass;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Security\Core\Authorization\ExpressionLanguage;
-use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 
 /**
  * SecurityExtension.
@@ -100,34 +96,24 @@ class SecurityExtension extends Extension
             $this->createEncoders($config['encoders'], $container);
         }
 
-        if (class_exists(Application::class)) {
-            $loader->load('console.xml');
-            $container->getDefinition('security.console.user_password_encoder_command')->replaceArgument(1, array_keys($config['encoders']));
-        }
-
         // load ACL
         if (isset($config['acl'])) {
             $this->aclLoad($config['acl'], $container);
         }
 
-        $container->registerForAutoconfiguration(VoterInterface::class)
-            ->addTag('security.voter');
-
-        if (\PHP_VERSION_ID < 70000) {
-            // add some required classes for compilation
-            $this->addClassesToCompile(array(
-                'Symfony\Component\Security\Http\Firewall',
-                'Symfony\Component\Security\Core\User\UserProviderInterface',
-                'Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager',
-                'Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage',
-                'Symfony\Component\Security\Core\Authorization\AccessDecisionManager',
-                'Symfony\Component\Security\Core\Authorization\AuthorizationChecker',
-                'Symfony\Component\Security\Core\Authorization\Voter\VoterInterface',
-                'Symfony\Bundle\SecurityBundle\Security\FirewallConfig',
-                'Symfony\Bundle\SecurityBundle\Security\FirewallContext',
-                'Symfony\Component\HttpFoundation\RequestMatcher',
-            ));
-        }
+        // add some required classes for compilation
+        $this->addClassesToCompile(array(
+            'Symfony\Component\Security\Http\Firewall',
+            'Symfony\Component\Security\Core\User\UserProviderInterface',
+            'Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager',
+            'Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage',
+            'Symfony\Component\Security\Core\Authorization\AccessDecisionManager',
+            'Symfony\Component\Security\Core\Authorization\AuthorizationChecker',
+            'Symfony\Component\Security\Core\Authorization\Voter\VoterInterface',
+            'Symfony\Bundle\SecurityBundle\Security\FirewallMap',
+            'Symfony\Bundle\SecurityBundle\Security\FirewallContext',
+            'Symfony\Component\HttpFoundation\RequestMatcher',
+        ));
     }
 
     private function aclLoad($config, ContainerBuilder $container)
@@ -204,11 +190,9 @@ class SecurityExtension extends Extension
             return;
         }
 
-        if (\PHP_VERSION_ID < 70000) {
-            $this->addClassesToCompile(array(
-                'Symfony\\Component\\Security\\Http\\AccessMap',
-            ));
-        }
+        $this->addClassesToCompile(array(
+            'Symfony\\Component\\Security\\Http\\AccessMap',
+        ));
 
         foreach ($config['access_control'] as $access) {
             $matcher = $this->createRequestMatcher(
@@ -248,33 +232,21 @@ class SecurityExtension extends Extension
         $arguments[1] = $userProviders;
         $definition->setArguments($arguments);
 
-        $customUserChecker = false;
-
         // load firewall map
         $mapDef = $container->getDefinition('security.firewall.map');
-        $map = $authenticationProviders = $contextRefs = array();
+        $map = $authenticationProviders = array();
         foreach ($firewalls as $name => $firewall) {
-            if (isset($firewall['user_checker']) && 'security.user_checker' !== $firewall['user_checker']) {
-                $customUserChecker = true;
-            }
-
-            $configId = 'security.firewall.map.config.'.$name;
-
-            list($matcher, $listeners, $exceptionListener) = $this->createFirewall($container, $name, $firewall, $authenticationProviders, $providerIds, $configId);
+            list($matcher, $listeners, $exceptionListener) = $this->createFirewall($container, $name, $firewall, $authenticationProviders, $providerIds);
 
             $contextId = 'security.firewall.map.context.'.$name;
-            $context = $container->setDefinition($contextId, new ChildDefinition('security.firewall.context'));
+            $context = $container->setDefinition($contextId, new DefinitionDecorator('security.firewall.context'));
             $context
                 ->replaceArgument(0, $listeners)
                 ->replaceArgument(1, $exceptionListener)
-                ->replaceArgument(2, new Reference($configId))
             ;
-
-            $contextRefs[$contextId] = new Reference($contextId);
             $map[$contextId] = $matcher;
         }
-        $mapDef->replaceArgument(0, ServiceLocatorTagPass::register($container, $contextRefs));
-        $mapDef->replaceArgument(1, new IteratorArgument($map));
+        $mapDef->replaceArgument(1, $map);
 
         // add authentication providers to authentication manager
         $authenticationProviders = array_map(function ($id) {
@@ -282,21 +254,12 @@ class SecurityExtension extends Extension
         }, array_values(array_unique($authenticationProviders)));
         $container
             ->getDefinition('security.authentication.manager')
-            ->replaceArgument(0, new IteratorArgument($authenticationProviders))
+            ->replaceArgument(0, $authenticationProviders)
         ;
-
-        // register an autowire alias for the UserCheckerInterface if no custom user checker service is configured
-        if (!$customUserChecker) {
-            $container->setAlias('Symfony\Component\Security\Core\User\UserCheckerInterface', new Alias('security.user_checker', false));
-        }
     }
 
-    private function createFirewall(ContainerBuilder $container, $id, $firewall, &$authenticationProviders, $providerIds, $configId)
+    private function createFirewall(ContainerBuilder $container, $id, $firewall, &$authenticationProviders, $providerIds)
     {
-        $config = $container->setDefinition($configId, new ChildDefinition('security.firewall.config'));
-        $config->replaceArgument(0, $id);
-        $config->replaceArgument(1, $firewall['user_checker']);
-
         // Matcher
         $matcher = null;
         if (isset($firewall['request_matcher'])) {
@@ -308,15 +271,10 @@ class SecurityExtension extends Extension
             $matcher = $this->createRequestMatcher($container, $pattern, $host, $methods);
         }
 
-        $config->replaceArgument(2, $matcher ? (string) $matcher : null);
-        $config->replaceArgument(3, $firewall['security']);
-
         // Security disabled?
         if (false === $firewall['security']) {
             return array($matcher, array(), null);
         }
-
-        $config->replaceArgument(4, $firewall['stateless']);
 
         // Provider id (take the first registered provider if none defined)
         if (isset($firewall['provider'])) {
@@ -325,16 +283,12 @@ class SecurityExtension extends Extension
             $defaultProvider = reset($providerIds);
         }
 
-        $config->replaceArgument(5, $defaultProvider);
-
         // Register listeners
         $listeners = array();
-        $listenerKeys = array();
 
         // Channel listener
         $listeners[] = new Reference('security.channel_listener');
 
-        $contextKey = null;
         // Context serializer listener
         if (false === $firewall['stateless']) {
             $contextKey = $id;
@@ -345,13 +299,10 @@ class SecurityExtension extends Extension
             $listeners[] = new Reference($this->createContextListener($container, $contextKey));
         }
 
-        $config->replaceArgument(6, $contextKey);
-
         // Logout listener
         if (isset($firewall['logout'])) {
-            $listenerKeys[] = 'logout';
             $listenerId = 'security.logout_listener.'.$id;
-            $listener = $container->setDefinition($listenerId, new ChildDefinition('security.logout_listener'));
+            $listener = $container->setDefinition($listenerId, new DefinitionDecorator('security.logout_listener'));
             $listener->replaceArgument(3, array(
                 'csrf_parameter' => $firewall['logout']['csrf_parameter'],
                 'csrf_token_id' => $firewall['logout']['csrf_token_id'],
@@ -364,7 +315,7 @@ class SecurityExtension extends Extension
                 $logoutSuccessHandlerId = $firewall['logout']['success_handler'];
             } else {
                 $logoutSuccessHandlerId = 'security.logout.success_handler.'.$id;
-                $logoutSuccessHandler = $container->setDefinition($logoutSuccessHandlerId, new ChildDefinition('security.logout.success_handler'));
+                $logoutSuccessHandler = $container->setDefinition($logoutSuccessHandlerId, new DefinitionDecorator('security.logout.success_handler'));
                 $logoutSuccessHandler->replaceArgument(1, $firewall['logout']['target']);
             }
             $listener->replaceArgument(2, new Reference($logoutSuccessHandlerId));
@@ -382,7 +333,7 @@ class SecurityExtension extends Extension
             // add cookie logout handler
             if (count($firewall['logout']['delete_cookies']) > 0) {
                 $cookieHandlerId = 'security.logout.handler.cookie_clearing.'.$id;
-                $cookieHandler = $container->setDefinition($cookieHandlerId, new ChildDefinition('security.logout.handler.cookie_clearing'));
+                $cookieHandler = $container->setDefinition($cookieHandlerId, new DefinitionDecorator('security.logout.handler.cookie_clearing'));
                 $cookieHandler->addArgument($firewall['logout']['delete_cookies']);
 
                 $listener->addMethodCall('addHandler', array(new Reference($cookieHandlerId)));
@@ -402,7 +353,6 @@ class SecurityExtension extends Extension
                     $firewall['logout']['csrf_token_id'],
                     $firewall['logout']['csrf_parameter'],
                     isset($firewall['logout']['csrf_token_generator']) ? new Reference($firewall['logout']['csrf_token_generator']) : null,
-                    false === $firewall['stateless'] && isset($firewall['context']) ? $firewall['context'] : null,
                 ))
             ;
         }
@@ -413,13 +363,10 @@ class SecurityExtension extends Extension
         // Authentication listeners
         list($authListeners, $defaultEntryPoint) = $this->createAuthenticationListeners($container, $id, $firewall, $authenticationProviders, $defaultProvider, $configuredEntryPoint);
 
-        $config->replaceArgument(7, $configuredEntryPoint ?: $defaultEntryPoint);
-
         $listeners = array_merge($listeners, $authListeners);
 
         // Switch user listener
         if (isset($firewall['switch_user'])) {
-            $listenerKeys[] = 'switch_user';
             $listeners[] = new Reference($this->createSwitchUserListener($container, $id, $firewall['switch_user'], $defaultProvider));
         }
 
@@ -429,25 +376,7 @@ class SecurityExtension extends Extension
         // Exception listener
         $exceptionListener = new Reference($this->createExceptionListener($container, $firewall, $id, $configuredEntryPoint ?: $defaultEntryPoint, $firewall['stateless']));
 
-        $config->replaceArgument(8, isset($firewall['access_denied_handler']) ? $firewall['access_denied_handler'] : null);
-        $config->replaceArgument(9, isset($firewall['access_denied_url']) ? $firewall['access_denied_url'] : null);
-
-        $container->setAlias('security.user_checker.'.$id, new Alias($firewall['user_checker'], false));
-
-        foreach ($this->factories as $position) {
-            foreach ($position as $factory) {
-                $key = str_replace('-', '_', $factory->getKey());
-                if (array_key_exists($key, $firewall)) {
-                    $listenerKeys[] = $key;
-                }
-            }
-        }
-
-        if (isset($firewall['anonymous'])) {
-            $listenerKeys[] = 'anonymous';
-        }
-
-        $config->replaceArgument(10, $listenerKeys);
+        $container->setAlias(new Alias('security.user_checker.'.$id, false), $firewall['user_checker']);
 
         return array($matcher, $listeners, $exceptionListener);
     }
@@ -459,7 +388,7 @@ class SecurityExtension extends Extension
         }
 
         $listenerId = 'security.context_listener.'.count($this->contextListeners);
-        $listener = $container->setDefinition($listenerId, new ChildDefinition('security.context_listener'));
+        $listener = $container->setDefinition($listenerId, new DefinitionDecorator('security.context_listener'));
         $listener->replaceArgument(2, $contextKey);
 
         return $this->contextListeners[$contextKey] = $listenerId;
@@ -490,7 +419,7 @@ class SecurityExtension extends Extension
         if (isset($firewall['anonymous'])) {
             $listenerId = 'security.authentication.listener.anonymous.'.$id;
             $container
-                ->setDefinition($listenerId, new ChildDefinition('security.authentication.listener.anonymous'))
+                ->setDefinition($listenerId, new DefinitionDecorator('security.authentication.listener.anonymous'))
                 ->replaceArgument(1, $firewall['anonymous']['secret'])
             ;
 
@@ -498,7 +427,7 @@ class SecurityExtension extends Extension
 
             $providerId = 'security.authentication.provider.anonymous.'.$id;
             $container
-                ->setDefinition($providerId, new ChildDefinition('security.authentication.provider.anonymous'))
+                ->setDefinition($providerId, new DefinitionDecorator('security.authentication.provider.anonymous'))
                 ->replaceArgument(0, $firewall['anonymous']['secret'])
             ;
 
@@ -564,8 +493,15 @@ class SecurityExtension extends Extension
             );
         }
 
-        // run-time configured encoder
-        return $config;
+        // message digest encoder
+        return array(
+            'class' => 'Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder',
+            'arguments' => array(
+                $config['algorithm'],
+                $config['encode_as_base64'],
+                $config['iterations'],
+            ),
+        );
     }
 
     // Parses user providers and returns an array of their ids
@@ -583,7 +519,7 @@ class SecurityExtension extends Extension
     // Parses a <provider> tag and returns the id for the related user provider service
     private function createUserDaoProvider($name, $provider, ContainerBuilder $container)
     {
-        $name = $this->getUserProviderId($name);
+        $name = $this->getUserProviderId(strtolower($name));
 
         // Doctrine Entity and In-memory DAO provider are managed by factories
         foreach ($this->userProviderFactories as $factory) {
@@ -607,11 +543,11 @@ class SecurityExtension extends Extension
         if (isset($provider['chain'])) {
             $providers = array();
             foreach ($provider['chain']['providers'] as $providerName) {
-                $providers[] = new Reference($this->getUserProviderId($providerName));
+                $providers[] = new Reference($this->getUserProviderId(strtolower($providerName)));
             }
 
             $container
-                ->setDefinition($name, new ChildDefinition('security.user.provider.chain'))
+                ->setDefinition($name, new DefinitionDecorator('security.user.provider.chain'))
                 ->addArgument($providers);
 
             return $name;
@@ -622,13 +558,13 @@ class SecurityExtension extends Extension
 
     private function getUserProviderId($name)
     {
-        return 'security.user.provider.concrete.'.strtolower($name);
+        return 'security.user.provider.concrete.'.$name;
     }
 
     private function createExceptionListener($container, $config, $id, $defaultEntryPoint, $stateless)
     {
         $exceptionListenerId = 'security.exception_listener.'.$id;
-        $listener = $container->setDefinition($exceptionListenerId, new ChildDefinition('security.exception_listener'));
+        $listener = $container->setDefinition($exceptionListenerId, new DefinitionDecorator('security.exception_listener'));
         $listener->replaceArgument(3, $id);
         $listener->replaceArgument(4, null === $defaultEntryPoint ? null : new Reference($defaultEntryPoint));
         $listener->replaceArgument(8, $stateless);
@@ -648,7 +584,7 @@ class SecurityExtension extends Extension
         $userProvider = isset($config['provider']) ? $this->getUserProviderId($config['provider']) : $defaultProvider;
 
         $switchUserListenerId = 'security.authentication.switchuser_listener.'.$id;
-        $listener = $container->setDefinition($switchUserListenerId, new ChildDefinition('security.authentication.switchuser_listener'));
+        $listener = $container->setDefinition($switchUserListenerId, new DefinitionDecorator('security.authentication.switchuser_listener'));
         $listener->replaceArgument(1, new Reference($userProvider));
         $listener->replaceArgument(2, new Reference('security.user_checker.'.$id));
         $listener->replaceArgument(3, $id);

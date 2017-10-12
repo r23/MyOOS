@@ -155,8 +155,6 @@ class ContextListener implements ListenerInterface
             return $token;
         }
 
-        $userNotFoundByProvider = false;
-
         foreach ($this->userProviders as $provider) {
             try {
                 $refreshedUser = $provider->refreshUser($user);
@@ -174,12 +172,8 @@ class ContextListener implements ListenerInterface
                     $this->logger->warning('Username could not be found in the selected user provider.', array('username' => $e->getUsername(), 'provider' => get_class($provider)));
                 }
 
-                $userNotFoundByProvider = true;
+                return;
             }
-        }
-
-        if ($userNotFoundByProvider) {
-            return;
         }
 
         throw new \RuntimeException(sprintf('There is no user provider for user "%s".', get_class($user)));

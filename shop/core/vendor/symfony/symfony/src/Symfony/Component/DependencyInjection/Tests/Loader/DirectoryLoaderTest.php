@@ -11,7 +11,6 @@
 
 namespace Symfony\Component\DependencyInjection\Tests\Loader;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\DependencyInjection\Loader\IniFileLoader;
@@ -20,7 +19,7 @@ use Symfony\Component\DependencyInjection\Loader\DirectoryLoader;
 use Symfony\Component\Config\Loader\LoaderResolver;
 use Symfony\Component\Config\FileLocator;
 
-class DirectoryLoaderTest extends TestCase
+class DirectoryLoaderTest extends \PHPUnit_Framework_TestCase
 {
     private static $fixturesPath;
 

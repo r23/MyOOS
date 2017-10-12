@@ -18,8 +18,6 @@ use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
  * Lists available properties using Symfony Serializer Component metadata.
  *
  * @author Kévin Dunglas <dunglas@gmail.com>
- *
- * @final since version 3.3
  */
 class SerializerExtractor implements PropertyListExtractorInterface
 {
@@ -50,7 +48,7 @@ class SerializerExtractor implements PropertyListExtractorInterface
         $serializerClassMetadata = $this->classMetadataFactory->getMetadataFor($class);
 
         foreach ($serializerClassMetadata->getAttributesMetadata() as $serializerAttributeMetadata) {
-            if (array_intersect($context['serializer_groups'], $serializerAttributeMetadata->getGroups())) {
+            if (count(array_intersect($context['serializer_groups'], $serializerAttributeMetadata->getGroups())) > 0) {
                 $properties[] = $serializerAttributeMetadata->getName();
             }
         }

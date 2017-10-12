@@ -11,11 +11,10 @@
 
 namespace Symfony\Component\Security\Core\Tests\Authentication\Token;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Role\Role;
 
-class UsernamePasswordTokenTest extends TestCase
+class UsernamePasswordTokenTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstructor()
     {

@@ -1,5 +1,5 @@
 {
-    "Version": "2.1.31.86",
+    "Version": "2.1.24.13",
     "Names": {
         "Armn": "arménio",
         "Egyd": "egípcio demótico",
@@ -9,7 +9,6 @@
         "Sylo": "siloti nagri",
         "Tale": "tai le",
         "Telu": "telugu",
-        "Zsye": "emoji",
         "Zsym": "símbolos",
         "Zxxx": "não escrito"
     }

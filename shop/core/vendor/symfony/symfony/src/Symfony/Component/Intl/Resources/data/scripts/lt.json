@@ -1,5 +1,5 @@
 {
-    "Version": "2.1.32.59",
+    "Version": "2.1.22.93",
     "Names": {
         "Afak": "Afaka",
         "Aghb": "Kaukazo Albanijos",
@@ -44,7 +44,6 @@
         "Grek": "graikų",
         "Gujr": "gudžaratų",
         "Guru": "gurmuki",
-        "Hanb": "hanbų",
         "Hang": "hangul",
         "Hani": "han",
         "Hano": "hanuno",
@@ -58,7 +57,6 @@
         "Hung": "senasis vengrų",
         "Inds": "indus",
         "Ital": "senasis italų",
-        "Jamo": "Jamo simboliai",
         "Java": "javiečių",
         "Jpan": "japonų",
         "Jurc": "Jurchen",
@@ -163,7 +161,6 @@
         "Yiii": "ji",
         "Zinh": "paveldėtas",
         "Zmth": "matematiniai simboliai",
-        "Zsye": "jaustukai",
         "Zsym": "simbolių",
         "Zxxx": "neparašyta",
         "Zyyy": "bendri",

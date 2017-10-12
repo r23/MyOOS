@@ -62,18 +62,10 @@ class ObjectNormalizer extends AbstractObjectNormalizer
 
             if (0 === strpos($name, 'get') || 0 === strpos($name, 'has')) {
                 // getters and hassers
-                $attributeName = substr($name, 3);
-
-                if (!$reflClass->hasProperty($attributeName)) {
-                    $attributeName = lcfirst($attributeName);
-                }
+                $attributeName = lcfirst(substr($name, 3));
             } elseif (strpos($name, 'is') === 0) {
                 // issers
-                $attributeName = substr($name, 2);
-
-                if (!$reflClass->hasProperty($attributeName)) {
-                    $attributeName = lcfirst($attributeName);
-                }
+                $attributeName = lcfirst(substr($name, 2));
             }
 
             if (null !== $attributeName && $this->isAllowedAttribute($object, $attributeName, $format, $context)) {

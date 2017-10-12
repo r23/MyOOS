@@ -22,13 +22,6 @@ class ArgumentsNodeTest extends ArrayNodeTest
         );
     }
 
-    public function getDumpData()
-    {
-        return array(
-            array('"a", "b"', $this->getArrayNode()),
-        );
-    }
-
     protected function createArrayNode()
     {
         return new ArgumentsNode();

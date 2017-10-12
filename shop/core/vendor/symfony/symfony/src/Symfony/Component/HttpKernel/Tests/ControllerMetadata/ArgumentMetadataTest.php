@@ -11,10 +11,9 @@
 
 namespace Symfony\Component\HttpKernel\Tests\ControllerMetadata;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 
-class ArgumentMetadataTest extends TestCase
+class ArgumentMetadataTest extends \PHPUnit_Framework_TestCase
 {
     public function testWithBcLayerWithDefault()
     {

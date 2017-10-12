@@ -14,7 +14,6 @@ namespace Symfony\Component\Console\Style;
 use Symfony\Component\Console\Formatter\OutputFormatterInterface;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Output\ConsoleOutputInterface;
 
 /**
  * Decorates output to add console style guide helpers.
@@ -145,14 +144,5 @@ abstract class OutputStyle implements OutputInterface, StyleInterface
     public function isDebug()
     {
         return $this->output->isDebug();
-    }
-
-    protected function getErrorOutput()
-    {
-        if (!$this->output instanceof ConsoleOutputInterface) {
-            return $this->output;
-        }
-
-        return $this->output->getErrorOutput();
     }
 }

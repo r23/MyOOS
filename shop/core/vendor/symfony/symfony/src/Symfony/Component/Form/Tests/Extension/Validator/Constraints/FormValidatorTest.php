@@ -26,8 +26,6 @@ use Symfony\Component\Validator\Tests\Constraints\AbstractConstraintValidatorTes
 
 /**
  * @author Bernhard Schussek <bschussek@gmail.com>
- *
- * @todo use ConstraintValidatorTestCase when symfony/validator ~3.2 is required.
  */
 class FormValidatorTest extends AbstractConstraintValidatorTest
 {

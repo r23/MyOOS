@@ -11,8 +11,6 @@
 
 namespace Symfony\Bundle\FrameworkBundle\Tests;
 
-use Symfony\Component\HttpKernel\Bundle\Bundle;
-
-class TestBundle extends Bundle
+class TestBundle extends \Symfony\Component\HttpKernel\Bundle\Bundle
 {
 }

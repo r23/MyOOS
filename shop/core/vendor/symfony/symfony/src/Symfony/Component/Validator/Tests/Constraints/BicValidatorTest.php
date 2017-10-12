@@ -13,9 +13,8 @@ namespace Symfony\Component\Validator\Tests\Constraints;
 
 use Symfony\Component\Validator\Constraints\BicValidator;
 use Symfony\Component\Validator\Constraints\Bic;
-use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
-class BicValidatorTest extends ConstraintValidatorTestCase
+class BicValidatorTest extends AbstractConstraintValidatorTest
 {
     protected function createValidator()
     {

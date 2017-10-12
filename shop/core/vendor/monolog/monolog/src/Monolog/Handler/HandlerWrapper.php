@@ -16,17 +16,15 @@ use Monolog\Formatter\FormatterInterface;
 /**
  * This simple wrapper class can be used to extend handlers functionality.
  *
- * Example: A custom filtering that can be applied to any handler.
+ * Example: A filtering handle. Inherit from this class, override isHandling() like this
  *
- * Inherit from this class and override handle() like this:
- *
- *   public function handle(array $record)
- *   {
- *        if ($record meets certain conditions) {
- *            return false;
- *        }
- *        return $this->handler->handle($record);
- *   }
+ * public function isHandling(array $record)
+ * {
+ *      if ($record meets certain conditions) {
+ *          return false;
+ *      }
+ *      return $this->handler->isHandling($record);
+ * }
  *
  * @author Alexey Karapetov <alexey@karapetov.com>
  */

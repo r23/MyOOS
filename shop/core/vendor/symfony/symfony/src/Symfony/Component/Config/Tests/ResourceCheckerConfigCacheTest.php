@@ -11,12 +11,11 @@
 
 namespace Symfony\Component\Config\Tests;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Tests\Resource\ResourceStub;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\Config\ResourceCheckerConfigCache;
 
-class ResourceCheckerConfigCacheTest extends TestCase
+class ResourceCheckerConfigCacheTest extends \PHPUnit_Framework_TestCase
 {
     private $cacheFile = null;
 
@@ -128,17 +127,5 @@ class ResourceCheckerConfigCacheTest extends TestCase
         $cache->write('FOOBAR');
 
         $this->assertSame('FOOBAR', file_get_contents($cache->getPath()));
-    }
-
-    public function testCacheIsNotFreshIfNotExistsMetaFile()
-    {
-        $checker = $this->getMockBuilder('\Symfony\Component\Config\ResourceCheckerInterface')->getMock();
-        $cache = new ResourceCheckerConfigCache($this->cacheFile, array($checker));
-        $cache->write('foo', array(new FileResource(__FILE__)));
-
-        $metaFile = "{$this->cacheFile}.meta";
-        unlink($metaFile);
-
-        $this->assertFalse($cache->isFresh());
     }
 }

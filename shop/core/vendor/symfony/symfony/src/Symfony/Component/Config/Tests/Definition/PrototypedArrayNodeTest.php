@@ -11,13 +11,12 @@
 
 namespace Symfony\Component\Config\Tests\Definition;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\PrototypedArrayNode;
 use Symfony\Component\Config\Definition\ArrayNode;
 use Symfony\Component\Config\Definition\ScalarNode;
 use Symfony\Component\Config\Definition\VariableNode;
 
-class PrototypedArrayNodeTest extends TestCase
+class PrototypedArrayNodeTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetDefaultValueReturnsAnEmptyArrayForPrototypes()
     {

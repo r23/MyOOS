@@ -11,10 +11,9 @@
 
 namespace Symfony\Component\Form\Tests\Extension\Core\DataTransformer;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\DataTransformer\BooleanToStringTransformer;
 
-class BooleanToStringTransformerTest extends TestCase
+class BooleanToStringTransformerTest extends \PHPUnit_Framework_TestCase
 {
     const TRUE_VALUE = '1';
 

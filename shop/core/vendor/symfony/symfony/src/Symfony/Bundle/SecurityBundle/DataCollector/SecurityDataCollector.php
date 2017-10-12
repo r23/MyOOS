@@ -16,29 +16,22 @@ use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
-use Symfony\Component\HttpKernel\DataCollector\LateDataCollectorInterface;
 use Symfony\Component\Security\Core\Role\RoleInterface;
 use Symfony\Component\Security\Http\Logout\LogoutUrlGenerator;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
-use Symfony\Component\Security\Core\Authorization\TraceableAccessDecisionManager;
-use Symfony\Component\VarDumper\Caster\ClassStub;
-use Symfony\Component\VarDumper\Cloner\Data;
-use Symfony\Component\Security\Http\FirewallMapInterface;
-use Symfony\Bundle\SecurityBundle\Security\FirewallMap;
+use Symfony\Component\Security\Core\Authorization\DebugAccessDecisionManager;
 
 /**
  * SecurityDataCollector.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class SecurityDataCollector extends DataCollector implements LateDataCollectorInterface
+class SecurityDataCollector extends DataCollector
 {
     private $tokenStorage;
     private $roleHierarchy;
     private $logoutUrlGenerator;
     private $accessDecisionManager;
-    private $firewallMap;
-    private $hasVarDumper;
 
     /**
      * Constructor.
@@ -47,16 +40,13 @@ class SecurityDataCollector extends DataCollector implements LateDataCollectorIn
      * @param RoleHierarchyInterface|null         $roleHierarchy
      * @param LogoutUrlGenerator|null             $logoutUrlGenerator
      * @param AccessDecisionManagerInterface|null $accessDecisionManager
-     * @param FirewallMapInterface|null           $firewallMap
      */
-    public function __construct(TokenStorageInterface $tokenStorage = null, RoleHierarchyInterface $roleHierarchy = null, LogoutUrlGenerator $logoutUrlGenerator = null, AccessDecisionManagerInterface $accessDecisionManager = null, FirewallMapInterface $firewallMap = null)
+    public function __construct(TokenStorageInterface $tokenStorage = null, RoleHierarchyInterface $roleHierarchy = null, LogoutUrlGenerator $logoutUrlGenerator = null, AccessDecisionManagerInterface $accessDecisionManager = null)
     {
         $this->tokenStorage = $tokenStorage;
         $this->roleHierarchy = $roleHierarchy;
         $this->logoutUrlGenerator = $logoutUrlGenerator;
         $this->accessDecisionManager = $accessDecisionManager;
-        $this->firewallMap = $firewallMap;
-        $this->hasVarDumper = class_exists(ClassStub::class);
     }
 
     /**
@@ -68,7 +58,6 @@ class SecurityDataCollector extends DataCollector implements LateDataCollectorIn
             $this->data = array(
                 'enabled' => false,
                 'authenticated' => false,
-                'token' => null,
                 'token_class' => null,
                 'logout_url' => null,
                 'user' => '',
@@ -80,7 +69,6 @@ class SecurityDataCollector extends DataCollector implements LateDataCollectorIn
             $this->data = array(
                 'enabled' => true,
                 'authenticated' => false,
-                'token' => null,
                 'token_class' => null,
                 'logout_url' => null,
                 'user' => '',
@@ -113,56 +101,28 @@ class SecurityDataCollector extends DataCollector implements LateDataCollectorIn
             $this->data = array(
                 'enabled' => true,
                 'authenticated' => $token->isAuthenticated(),
-                'token' => $token,
-                'token_class' => $this->hasVarDumper ? new ClassStub(get_class($token)) : get_class($token),
+                'token_class' => get_class($token),
                 'logout_url' => $logoutUrl,
                 'user' => $token->getUsername(),
                 'roles' => array_map(function (RoleInterface $role) { return $role->getRole(); }, $assignedRoles),
-                'inherited_roles' => array_unique(array_map(function (RoleInterface $role) { return $role->getRole(); }, $inheritedRoles)),
+                'inherited_roles' => array_map(function (RoleInterface $role) { return $role->getRole(); }, $inheritedRoles),
                 'supports_role_hierarchy' => null !== $this->roleHierarchy,
             );
         }
 
         // collect voters and access decision manager information
-        if ($this->accessDecisionManager instanceof TraceableAccessDecisionManager) {
+        if ($this->accessDecisionManager instanceof DebugAccessDecisionManager) {
             $this->data['access_decision_log'] = $this->accessDecisionManager->getDecisionLog();
             $this->data['voter_strategy'] = $this->accessDecisionManager->getStrategy();
 
             foreach ($this->accessDecisionManager->getVoters() as $voter) {
-                $this->data['voters'][] = $this->hasVarDumper ? new ClassStub(get_class($voter)) : get_class($voter);
+                $this->data['voters'][] = get_class($voter);
             }
         } else {
             $this->data['access_decision_log'] = array();
             $this->data['voter_strategy'] = 'unknown';
             $this->data['voters'] = array();
         }
-
-        // collect firewall context information
-        $this->data['firewall'] = null;
-        if ($this->firewallMap instanceof FirewallMap) {
-            $firewallConfig = $this->firewallMap->getFirewallConfig($request);
-            if (null !== $firewallConfig) {
-                $this->data['firewall'] = array(
-                    'name' => $firewallConfig->getName(),
-                    'allows_anonymous' => $firewallConfig->allowsAnonymous(),
-                    'request_matcher' => $firewallConfig->getRequestMatcher(),
-                    'security_enabled' => $firewallConfig->isSecurityEnabled(),
-                    'stateless' => $firewallConfig->isStateless(),
-                    'provider' => $firewallConfig->getProvider(),
-                    'context' => $firewallConfig->getContext(),
-                    'entry_point' => $firewallConfig->getEntryPoint(),
-                    'access_denied_handler' => $firewallConfig->getAccessDeniedHandler(),
-                    'access_denied_url' => $firewallConfig->getAccessDeniedUrl(),
-                    'user_checker' => $firewallConfig->getUserChecker(),
-                    'listeners' => $firewallConfig->getListeners(),
-                );
-            }
-        }
-    }
-
-    public function lateCollect()
-    {
-        $this->data = $this->cloneVar($this->data);
     }
 
     /**
@@ -237,16 +197,6 @@ class SecurityDataCollector extends DataCollector implements LateDataCollectorIn
     }
 
     /**
-     * Get the full security token class as Data object.
-     *
-     * @return Data
-     */
-    public function getToken()
-    {
-        return $this->data['token'];
-    }
-
-    /**
      * Get the provider key (i.e. the name of the active firewall).
      *
      * @return string The provider key
@@ -284,16 +234,6 @@ class SecurityDataCollector extends DataCollector implements LateDataCollectorIn
     public function getAccessDecisionLog()
     {
         return $this->data['access_decision_log'];
-    }
-
-    /**
-     * Returns the configuration of the current firewall context.
-     *
-     * @return array
-     */
-    public function getFirewall()
-    {
-        return $this->data['firewall'];
     }
 
     /**

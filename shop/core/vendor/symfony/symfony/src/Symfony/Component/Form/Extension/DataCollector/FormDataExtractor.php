@@ -23,14 +23,11 @@ use Symfony\Component\Validator\ConstraintViolationInterface;
  */
 class FormDataExtractor implements FormDataExtractorInterface
 {
-    /**
-     * Constructs a new data extractor.
-     */
-    public function __construct(ValueExporter $valueExporter = null, $triggerDeprecationNotice = true)
+    private $valueExporter;
+
+    public function __construct(ValueExporter $valueExporter = null)
     {
-        if (null !== $valueExporter && $triggerDeprecationNotice) {
-            @trigger_error('Passing a ValueExporter instance to '.__METHOD__.'() is deprecated in version 3.2 and will be removed in 4.0.', E_USER_DEPRECATED);
-        }
+        $this->valueExporter = $valueExporter ?: new ValueExporter();
     }
 
     /**
@@ -42,17 +39,17 @@ class FormDataExtractor implements FormDataExtractorInterface
             'id' => $this->buildId($form),
             'name' => $form->getName(),
             'type_class' => get_class($form->getConfig()->getType()->getInnerType()),
-            'synchronized' => $form->isSynchronized(),
+            'synchronized' => $this->valueExporter->exportValue($form->isSynchronized()),
             'passed_options' => array(),
             'resolved_options' => array(),
         );
 
         foreach ($form->getConfig()->getAttribute('data_collector/passed_options', array()) as $option => $value) {
-            $data['passed_options'][$option] = $value;
+            $data['passed_options'][$option] = $this->valueExporter->exportValue($value);
         }
 
         foreach ($form->getConfig()->getOptions() as $option => $value) {
-            $data['resolved_options'][$option] = $value;
+            $data['resolved_options'][$option] = $this->valueExporter->exportValue($value);
         }
 
         ksort($data['passed_options']);
@@ -68,17 +65,17 @@ class FormDataExtractor implements FormDataExtractorInterface
     {
         $data = array(
             'default_data' => array(
-                'norm' => $form->getNormData(),
+                'norm' => $this->valueExporter->exportValue($form->getNormData()),
             ),
             'submitted_data' => array(),
         );
 
         if ($form->getData() !== $form->getNormData()) {
-            $data['default_data']['model'] = $form->getData();
+            $data['default_data']['model'] = $this->valueExporter->exportValue($form->getData());
         }
 
         if ($form->getViewData() !== $form->getNormData()) {
-            $data['default_data']['view'] = $form->getViewData();
+            $data['default_data']['view'] = $this->valueExporter->exportValue($form->getViewData());
         }
 
         return $data;
@@ -91,17 +88,17 @@ class FormDataExtractor implements FormDataExtractorInterface
     {
         $data = array(
             'submitted_data' => array(
-                'norm' => $form->getNormData(),
+                'norm' => $this->valueExporter->exportValue($form->getNormData()),
             ),
             'errors' => array(),
         );
 
         if ($form->getViewData() !== $form->getNormData()) {
-            $data['submitted_data']['view'] = $form->getViewData();
+            $data['submitted_data']['view'] = $this->valueExporter->exportValue($form->getViewData());
         }
 
         if ($form->getData() !== $form->getNormData()) {
-            $data['submitted_data']['model'] = $form->getData();
+            $data['submitted_data']['model'] = $this->valueExporter->exportValue($form->getData());
         }
 
         foreach ($form->getErrors() as $error) {
@@ -117,14 +114,24 @@ class FormDataExtractor implements FormDataExtractorInterface
 
             while (null !== $cause) {
                 if ($cause instanceof ConstraintViolationInterface) {
-                    $errorData['trace'][] = $cause;
+                    $errorData['trace'][] = array(
+                        'class' => $this->valueExporter->exportValue(get_class($cause)),
+                        'root' => $this->valueExporter->exportValue($cause->getRoot()),
+                        'path' => $this->valueExporter->exportValue($cause->getPropertyPath()),
+                        'value' => $this->valueExporter->exportValue($cause->getInvalidValue()),
+                    );
+
                     $cause = method_exists($cause, 'getCause') ? $cause->getCause() : null;
 
                     continue;
                 }
 
                 if ($cause instanceof \Exception) {
-                    $errorData['trace'][] = $cause;
+                    $errorData['trace'][] = array(
+                        'class' => $this->valueExporter->exportValue(get_class($cause)),
+                        'message' => $this->valueExporter->exportValue($cause->getMessage()),
+                    );
+
                     $cause = $cause->getPrevious();
 
                     continue;
@@ -138,7 +145,7 @@ class FormDataExtractor implements FormDataExtractorInterface
             $data['errors'][] = $errorData;
         }
 
-        $data['synchronized'] = $form->isSynchronized();
+        $data['synchronized'] = $this->valueExporter->exportValue($form->isSynchronized());
 
         return $data;
     }
@@ -148,14 +155,20 @@ class FormDataExtractor implements FormDataExtractorInterface
      */
     public function extractViewVariables(FormView $view)
     {
-        $data = array(
-            'id' => isset($view->vars['id']) ? $view->vars['id'] : null,
-            'name' => isset($view->vars['name']) ? $view->vars['name'] : null,
-            'view_vars' => array(),
-        );
+        $data = array();
+
+        // Set the ID in case no FormInterface object was collected for this
+        // view
+        if (!isset($data['id'])) {
+            $data['id'] = isset($view->vars['id']) ? $view->vars['id'] : null;
+        }
+
+        if (!isset($data['name'])) {
+            $data['name'] = isset($view->vars['name']) ? $view->vars['name'] : null;
+        }
 
         foreach ($view->vars as $varName => $value) {
-            $data['view_vars'][$varName] = $value;
+            $data['view_vars'][$varName] = $this->valueExporter->exportValue($value);
         }
 
         ksort($data['view_vars']);

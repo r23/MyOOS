@@ -11,10 +11,9 @@
 
 namespace Symfony\Component\Templating\Tests\Helper;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Templating\Helper\SlotsHelper;
 
-class SlotsHelperTest extends TestCase
+class SlotsHelperTest extends \PHPUnit_Framework_TestCase
 {
     public function testHasGetSet()
     {

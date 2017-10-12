@@ -51,30 +51,6 @@ class Dummy extends ParentDummy
      */
     public $B;
 
-    /**
-     * @var int
-     */
-    protected $Id;
-
-    /**
-     * @var string
-     */
-    public $Guid;
-
-    /**
-     * Nullable array.
-     *
-     * @var array|null
-     */
-    public $g;
-
-    /**
-     * This should not be removed.
-     *
-     * @var
-     */
-    public $emptyVar;
-
     public static function getStatic()
     {
     }
@@ -114,17 +90,6 @@ class Dummy extends ParentDummy
      * @return \DateTime
      */
     public function getDOB()
-    {
-    }
-
-    /**
-     * @return int
-     */
-    public function getId()
-    {
-    }
-
-    public function get123()
     {
     }
 }

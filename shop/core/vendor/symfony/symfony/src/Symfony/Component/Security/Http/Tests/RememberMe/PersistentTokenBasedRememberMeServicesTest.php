@@ -11,7 +11,6 @@
 
 namespace Symfony\Component\Security\Http\Tests\RememberMe;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Http\RememberMe\RememberMeServicesInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Authentication\RememberMe\PersistentToken;
@@ -22,14 +21,14 @@ use Symfony\Component\Security\Http\RememberMe\PersistentTokenBasedRememberMeSer
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 use Symfony\Component\Security\Core\Exception\CookieTheftException;
 
-class PersistentTokenBasedRememberMeServicesTest extends TestCase
+class PersistentTokenBasedRememberMeServicesTest extends \PHPUnit_Framework_TestCase
 {
     public static function setUpBeforeClass()
     {
         try {
             random_bytes(1);
         } catch (\Exception $e) {
-            self::markTestSkipped($e->getMessage());
+            throw new \PHPUnit_Framework_SkippedTestError($e->getMessage());
         }
     }
 

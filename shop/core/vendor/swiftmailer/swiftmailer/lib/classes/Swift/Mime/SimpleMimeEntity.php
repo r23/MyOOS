@@ -786,33 +786,30 @@ class Swift_Mime_SimpleMimeEntity implements Swift_Mime_MimeEntity
 
         // Sort in order of preference, if there is one
         if ($shouldSort) {
-            // Group the messages by order of preference
-            $sorted = array();
-            foreach ($this->_immediateChildren as $child) {
-                $type = $child->getContentType();
-                $level = array_key_exists($type, $this->_alternativePartOrder) ? $this->_alternativePartOrder[$type] : max($this->_alternativePartOrder) + 1;
-
-                if (empty($sorted[$level])) {
-                    $sorted[$level] = array();
-                }
-
-                $sorted[$level][] = $child;
-            }
-
-            ksort($sorted);
-
-            $this->_immediateChildren = array_reduce($sorted, 'array_merge', array());
+            usort($this->_immediateChildren, array($this, '_childSortAlgorithm'));
         }
     }
+
+    private function _childSortAlgorithm($a, $b)
+    {
+        $typePrefs = array();
+        $types = array(strtolower($a->getContentType()), strtolower($b->getContentType()));
+
+        foreach ($types as $type) {
+            $typePrefs[] = array_key_exists($type, $this->_alternativePartOrder) ? $this->_alternativePartOrder[$type] : max($this->_alternativePartOrder) + 1;
+        }
+
+        return $typePrefs[0] >= $typePrefs[1] ? 1 : -1;
+    }
+
+    // -- Destructor
 
     /**
      * Empties it's own contents from the cache.
      */
     public function __destruct()
     {
-        if ($this->_cache instanceof Swift_KeyCache) {
-            $this->_cache->clearAll($this->_cacheKey);
-        }
+        $this->_cache->clearAll($this->_cacheKey);
     }
 
     /**

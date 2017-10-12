@@ -5,13 +5,10 @@
          backupGlobals="false"
          colors="true"
          bootstrap="vendor/autoload.php"
-         failOnRisky="true"
-         failOnWarning="true"
 >
     <php>
         <ini name="error_reporting" value="-1" />
         <env name="REDIS_HOST" value="localhost" />
-        <env name="MEMCACHED_HOST" value="localhost" />
     </php>
 
     <testsuites>
@@ -34,14 +31,8 @@
         <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener">
             <arguments>
                 <array>
-                    <element key="time-sensitive">
-                        <array>
-                            <element><string>Cache\IntegrationTests</string></element>
-                            <element><string>Doctrine\Common\Cache</string></element>
-                            <element><string>Symfony\Component\Cache</string></element>
-                            <element><string>Symfony\Component\Cache\Traits</string></element>
-                        </array>
-                    </element>
+                    <element><string>Cache\IntegrationTests</string></element>
+                    <element><string>Doctrine\Common\Cache</string></element>
                 </array>
             </arguments>
         </listener>
