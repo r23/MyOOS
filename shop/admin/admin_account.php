@@ -69,7 +69,7 @@
                                   'admin_password' => oos_encrypt_password(oos_db_prepare_input($_POST['admin_password'])),
                                   'admin_modified' => 'now()');
 
-          oos_db_perform($oostable['admin'], $sql_data_array, 'update', 'admin_id = \'' . $admin_id . '\'');
+          oos_db_perform($oostable['admin'], $sql_data_array, 'UPDATE', 'admin_id = \'' . $admin_id . '\'');
 
         //oos_mail($_POST['admin_firstname'] . ' ' . $_POST['admin_lastname'], $_POST['admin_email_address'], ADMIN_EMAIL_SUBJECT, sprintf(ADMIN_EMAIL_TEXT, $_POST['admin_firstname'], OOS_HTTP_SERVER . OOS_SHOP . OOS_ADMIN, $_POST['admin_email_address'], $hiddenPassword, STORE_OWNER), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
 

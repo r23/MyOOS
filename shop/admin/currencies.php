@@ -49,7 +49,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
           oos_db_perform($oostable['currencies'], $sql_data_array);
           $currency_id = $dbconn->Insert_ID();
         } elseif ($action == 'save') {
-          oos_db_perform($oostable['currencies'], $sql_data_array, 'update', "currencies_id = '" . oos_db_input($currency_id) . "'");
+          oos_db_perform($oostable['currencies'], $sql_data_array, 'UPDATE', "currencies_id = '" . oos_db_input($currency_id) . "'");
         }
 
         if (isset($_POST['default']) && ($_POST['default'] == 'on')) {

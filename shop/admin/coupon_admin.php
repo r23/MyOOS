@@ -203,7 +203,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                                    );
           }
           if (isset($_GET['oldaction']) && ($_GET['oldaction'] == 'voucheredit')) {
-            oos_db_perform($oostable['coupons'], $sql_data_array, 'update', "coupon_id='" . $_GET['cID']."'"); 
+            oos_db_perform($oostable['coupons'], $sql_data_array, 'UPDATE', "coupon_id='" . $_GET['cID']."'"); 
             for ($i = 0, $n = count($languages); $i < $n; $i++) {
               $lang_id = $languages[$i]['id'];
               $update = $dbconn->Execute("UPDATE " . $oostable['coupons_description'] . " SET coupon_name = '" . oos_db_prepare_input($_POST['coupon_name'][$lang_id]) . "', coupon_description = '" . oos_db_prepare_input($_POST['coupon_desc'][$lang_id]) . "' WHERE coupon_id = '" . $_GET['cID'] . "' and coupon_languages_id = '" . intval($lang_id) . "'");

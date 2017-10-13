@@ -111,7 +111,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
             oos_db_perform($oostable['products_units'], $sql_data_array);
           } elseif ($action == 'save') {
-            oos_db_perform($oostable['products_units'], $sql_data_array, 'update', "products_units_id = '" . intval($products_units_id) . "' and languages_id = '" . intval($lang_id) . "'");
+            oos_db_perform($oostable['products_units'], $sql_data_array, 'UPDATE', "products_units_id = '" . intval($products_units_id) . "' AND languages_id = '" . intval($lang_id) . "'");
           }
         }
 

@@ -84,7 +84,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
             oos_db_perform($oostable['customers_status'], $sql_data_array);
           } elseif ($action == 'save') {
-            oos_db_perform($oostable['customers_status'], $sql_data_array, 'update', "customers_status_id = '" . oos_db_input($customers_status_id) . "' and customers_status_languages_id = '" . intval($lang_id) . "'");
+            oos_db_perform($oostable['customers_status'], $sql_data_array, 'UPDATE', "customers_status_id = '" . oos_db_input($customers_status_id) . "' AND customers_status_languages_id = '" . intval($lang_id) . "'");
           }
         }
         // Changes by Guido Start

@@ -62,7 +62,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
           $sql_data_array = array_merge($update_sql_data, $sql_data_array_sort);
 
-          oos_db_perform($oostable['information'], $sql_data_array, 'update', "information_id = '" . oos_db_input($information_id) . "'");
+          oos_db_perform($oostable['information'], $sql_data_array, 'UPDATE', "information_id = '" . oos_db_input($information_id) . "'");
         }
 
 
@@ -87,7 +87,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
             oos_db_perform($oostable['information_description'], $sql_data_array);
           } elseif ($action == 'save') {
-            oos_db_perform($oostable['information_description'], $sql_data_array, 'update', "information_id = '" . oos_db_input($information_id) . "' AND information_languages_id = '" . intval($lang_id) . "'");
+            oos_db_perform($oostable['information_description'], $sql_data_array, 'UPDATE', "information_id = '" . oos_db_input($information_id) . "' AND information_languages_id = '" . intval($lang_id) . "'");
           }
         }
 

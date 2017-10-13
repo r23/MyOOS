@@ -85,7 +85,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                                   'admin_email_address' => oos_db_prepare_input($_POST['admin_email_address']),
                                   'admin_modified' => 'now()');
 
-          oos_db_perform($oostable['admin'], $sql_data_array, 'update', 'admin_id = \'' . $admin_id . '\'');
+          oos_db_perform($oostable['admin'], $sql_data_array, 'UPDATE', 'admin_id = \'' . $admin_id . '\'');
 
           oos_mail($_POST['admin_firstname'] . ' ' . $_POST['admin_lastname'], $_POST['admin_email_address'], ADMIN_EMAIL_SUBJECT, sprintf(ADMIN_EMAIL_TEXT, $_POST['admin_firstname'], OOS_HTTP_SERVER . OOS_SHOP . OOS_ADMIN, $_POST['admin_email_address'], $hiddenPassword, STORE_OWNER), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
 
@@ -117,7 +117,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
             $sql_data_array = array('admin_groups_id' => oos_db_prepare_input($_POST['unchecked_' . $admin_files_id]));
             //$set_group_id = $_POST['unchecked_' . $admin_files_id];
           }
-          oos_db_perform($oostable['admin_files'], $sql_data_array, 'update', 'admin_files_id = \'' . $admin_files_id . '\'');
+          oos_db_perform($oostable['admin_files'], $sql_data_array, 'UPDATE', 'admin_files_id = \'' . $admin_files_id . '\'');
 
           // Move that ADOdb pointer!
           $define_files_result->MoveNext();

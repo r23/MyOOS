@@ -186,7 +186,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         }
         if (ACCOUNT_DOB == 'true') $sql_data_array['customers_dob'] = oos_date_raw($customers_dob);
 
-        oos_db_perform($oostable['customers'], $sql_data_array, 'update', "customers_id = '" . intval($customers_id) . "'");
+        oos_db_perform($oostable['customers'], $sql_data_array, 'UPDATE', "customers_id = '" . intval($customers_id) . "'");
 
         $customers_infotable = $oostable['customers_info'];
         $dbconn->Execute("UPDATE $customers_infotable SET customers_info_date_account_last_modified = now() WHERE customers_info_id = '" . intval($customers_id) . "'");
@@ -207,7 +207,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
           $sql_data_array['entry_zone_id'] = $entry_zone_id;
         }
 
-        oos_db_perform($oostable['address_book'], $sql_data_array, 'update', "customers_id = '" . intval($customers_id) . "' and address_book_id = '" . oos_db_input($default_address_id) . "'");
+        oos_db_perform($oostable['address_book'], $sql_data_array, 'UPDATE', "customers_id = '" . intval($customers_id) . "' and address_book_id = '" . oos_db_input($default_address_id) . "'");
 
         oos_redirect_admin(oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $customers_id));
         break;

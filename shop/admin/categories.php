@@ -52,7 +52,7 @@ if (!empty($action)) {
 			if ($product_check == TRUE) {
 				$sql_data_array = array('slave_id' => $_POST['slave_product_id'],
 										'master_id' => $_GET['pID']);
-				oos_db_perform($oostable['products_to_master'], $sql_data_array, 'insert');
+				oos_db_perform($oostable['products_to_master'], $sql_data_array, 'INSERT');
 				$messageStack->add_session('This product was successfully added as a slave', 'success');
 			} else {
 				$messageStack->add_session('This product does not exist or is already a slave', 'error');
@@ -117,7 +117,7 @@ if (!empty($action)) {
 
 				$sql_data_array = array_merge($sql_data_array, $update_sql_data);
 
-				oos_db_perform($oostable['categories'], $sql_data_array, 'update', 'categories_id = \'' . $categories_id . '\'');
+				oos_db_perform($oostable['categories'], $sql_data_array, 'UPDATE', 'categories_id = \'' . $categories_id . '\'');
 			}
 
 			$languages = oos_get_languages();
@@ -140,7 +140,7 @@ if (!empty($action)) {
 
 					oos_db_perform($oostable['categories_description'], $sql_data_array);
 				} elseif ($action == 'update_category') {
-					oos_db_perform($oostable['categories_description'], $sql_data_array, 'update', 'categories_id = \'' . intval($categories_id) . '\' and categories_languages_id = \'' . intval($languages[$i]['id']) . '\'');
+					oos_db_perform($oostable['categories_description'], $sql_data_array, 'UPDATE', 'categories_id = \'' . intval($categories_id) . '\' and categories_languages_id = \'' . intval($languages[$i]['id']) . '\'');
 				}
 			}
 			

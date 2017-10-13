@@ -59,7 +59,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
           $sql_data_array = array_merge($sql_data_array, $update_sql_data);
 
-          oos_db_perform($oostable['manufacturers'], $sql_data_array, 'update', "manufacturers_id = '" . intval($manufacturers_id) . "'");
+          oos_db_perform($oostable['manufacturers'], $sql_data_array, 'UPDATE', "manufacturers_id = '" . intval($manufacturers_id) . "'");
         }
 
         $manufacturers_image = oos_get_uploaded_file('manufacturers_image');
@@ -93,7 +93,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
             oos_db_perform($oostable['manufacturers_info'], $sql_data_array);
           } elseif ($action == 'save') {
-            oos_db_perform($oostable['manufacturers_info'], $sql_data_array, 'update', "manufacturers_id = '" . intval($manufacturers_id) . "' and manufacturers_languages_id = '" . intval($lang_id) . "'");
+            oos_db_perform($oostable['manufacturers_info'], $sql_data_array, 'UPDATE', "manufacturers_id = '" . intval($manufacturers_id) . "' AND manufacturers_languages_id = '" . intval($lang_id) . "'");
           }
         }
 

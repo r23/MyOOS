@@ -64,7 +64,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
             oos_db_perform($oostable['newsletters'], $sql_data_array);
             $newsletter_id = $dbconn->Insert_ID();
           } elseif ($action == 'update') {
-            oos_db_perform($oostable['newsletters'], $sql_data_array, 'update', 'newsletters_id = \'' . oos_db_input($newsletter_id) . '\'');
+            oos_db_perform($oostable['newsletters'], $sql_data_array, 'UPDATE', 'newsletters_id = \'' . oos_db_input($newsletter_id) . '\'');
           }
 
           oos_redirect_admin(oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $newsletter_id));

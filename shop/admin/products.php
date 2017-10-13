@@ -146,7 +146,7 @@
 
             $sql_data_array = array_merge($sql_data_array, $update_sql_data);
 
-            oos_db_perform($oostable['products'], $sql_data_array, 'update', 'products_id = \'' . oos_db_input($products_id) . '\'');
+            oos_db_perform($oostable['products'], $sql_data_array, 'UPDATE', 'products_id = \'' . oos_db_input($products_id) . '\'');
 
           }
 
@@ -172,7 +172,7 @@
 
               oos_db_perform($oostable['products_description'], $sql_data_array);
             } elseif ($action == 'update_product') {
-              oos_db_perform($oostable['products_description'], $sql_data_array, 'update', 'products_id = \'' . oos_db_input($products_id) . '\' and products_languages_id = \'' . $lang_id . '\'');
+              oos_db_perform($oostable['products_description'], $sql_data_array, 'UPDATE', 'products_id = \'' . oos_db_input($products_id) . '\' AND products_languages_id = \'' . $lang_id . '\'');
             }
           }
           oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $products_id));

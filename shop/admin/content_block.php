@@ -70,7 +70,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
           $sql_data_array = array_merge($sql_data_array, $update_sql_data);
 
-          oos_db_perform($oostable['block'], $sql_data_array, 'update', "block_id = '" . intval($block_content_id) . "'");
+          oos_db_perform($oostable['block'], $sql_data_array, 'UPDATE', "block_id = '" . intval($block_content_id) . "'");
           $dbconn->Execute("DELETE FROM " . $oostable['block_to_page_type'] . " WHERE block_id = '" . intval($block_content_id) . "'");
         }
 
@@ -89,7 +89,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
             oos_db_perform($oostable['block_info'], $sql_data_array);
           } elseif ($action == 'save') {
-            oos_db_perform($oostable['block_info'], $sql_data_array, 'update', "block_id = '" . intval($block_content_id) . "' AND block_languages_id = '" . intval($lang_id) . "'");
+            oos_db_perform($oostable['block_info'], $sql_data_array, 'UPDATE', "block_id = '" . intval($block_content_id) . "' AND block_languages_id = '" . intval($lang_id) . "'");
           }
         }
 
