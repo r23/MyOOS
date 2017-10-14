@@ -75,7 +75,7 @@ class splitPageResults {
      * @return string
      */
 	public function display_links($query_numrows, $max_rows_per_page, $max_page_links, $current_page_number, $parameters = '') {
-		global $aLang, $sContent;
+		global $aLang, $sContent, $request_type;
 
 		$display_link = '';
 
@@ -100,19 +100,20 @@ class splitPageResults {
 		if ($num_pages % $max_page_links) $max_window_num++;
 
 		// previous window of pages
-		if ($cur_window_num > 1) $display_link .= '<li><a href="' . oos_href_link($sContent, $parameters . 'page=' . (($cur_window_num - 1) * $max_page_links)) . '"></a></li>';
+		// if ($cur_window_num > 1) $display_link .= '<li class="page-item"><a class="page-link"' . oos_href_link($sContent, $parameters . 'page=' . (($cur_window_num - 1) * $max_page_links)) . '">...</a></li>';
 
 		// page nn button
 		for ($jump_to_page = 1 + (($cur_window_num - 1) * $max_page_links); ($jump_to_page <= ($cur_window_num * $max_page_links)) && ($jump_to_page <= $num_pages); $jump_to_page++) {
 			if ($jump_to_page == $current_page_number) {
-				$display_link .= '<li class="page-item active"><a class="page-link" href="' . oos_href_link($sContent, $parameters . 'page=' . $jump_to_page) . '">' . $jump_to_page . '<span class="sr-only"></span></a></li>';
+				// $display_link .= '<li class="page-item active"><a class="page-link" href="' . oos_href_link($sContent, $parameters . 'page=' . $jump_to_page) . '">' . $jump_to_page . '<span class="sr-only"></span></a></li>';
+				$display_link .= '<li class="page-item active"><span class="page-link">' . $jump_to_page . '<span class="sr-only"></span></a></li>';
 			} else {
 				$display_link .= '<li class="page-item"><a class="page-link" href="' . oos_href_link($sContent, $parameters . 'page=' . $jump_to_page) . '">' . $jump_to_page . '</a></li>';
 			}
-       }
+		}
 
 		// next window of pages
-		if ($cur_window_num < $max_window_num) $display_link .= '<li class="page-item"><a class="page-link" href="' . oos_href_link($sContent, $parameters . 'page=' . (($cur_window_num) * $max_page_links + 1)) . '"></a></li>';
+		// if ($cur_window_num < $max_window_num) $display_link .= '<li class="page-item"><a class="page-link" href="' . oos_href_link($sContent, $parameters . 'page=' . (($cur_window_num) * $max_page_links + 1)) . '">...</a></li>';
 
 		// next button
 		if (($current_page_number < $num_pages) && ($num_pages != 1)) $display_link .= '<li class="page-item"><a class="page-link" href="' . oos_href_link($sContent, $parameters . 'page=' . ($current_page_number + 1)) . '"><span aria-hidden="true">&raquo;</span><span class="sr-only">' . $aLang['prevnext_button_next'] . '</span></a></li>';
@@ -135,7 +136,9 @@ class splitPageResults {
 
 		$to_num = ($max_rows_per_page * $current_page_number);
 		if ($to_num > $query_numrows) $to_num = $query_numrows;
+
 		$from_num = ($max_rows_per_page * ($current_page_number - 1));
+
 		if ($to_num == 0) {
 			$from_num = 0;
 		} else {
