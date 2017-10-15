@@ -513,12 +513,12 @@ abstract class Smarty_Internal_TemplateCompilerBase
         // check nocache option flag
         foreach ($args as $arg) {
             if (!is_array($arg)) {
-                if ($arg == "'nocache'") {
+                if ($arg === "'nocache'" || $arg === 'nocache') {
                     $this->tag_nocache = true;
                 }
             } else {
                 foreach ($arg as $k => $v) {
-                    if ($k == "'nocache'" && (trim($v, "'\" ") == 'true')) {
+                    if (($k === "'nocache'" || $k === 'nocache') && (trim($v, "'\" ") == 'true')) {
                         $this->tag_nocache = true;
                     }
                 }
@@ -526,7 +526,8 @@ abstract class Smarty_Internal_TemplateCompilerBase
         }
         // compile the smarty tag (required compile classes to compile the tag are auto loaded)
         if (($_output = $this->callTagCompiler($tag, $args, $parameter)) === false) {
-            if (isset($this->parent_compiler->tpl_function[ $tag ])) {
+            if (isset($this->parent_compiler->tpl_function[ $tag ]) ||
+                (isset ($this->template->smarty->ext->_tplFunction) && $this->template->smarty->ext->_tplFunction->getTplFunction($this->template, $tag) !== false)) {
                 // template defined by {template} tag
                 $args[ '_attr' ][ 'name' ] = "'" . $tag . "'";
                 $_output = $this->callTagCompiler('call', $args, $parameter);
@@ -772,6 +773,61 @@ abstract class Smarty_Internal_TemplateCompilerBase
     }
 
     /**
+     * compile PHP function call
+     *
+     * @param string       $name
+     * @param        array $parameter
+     *
+     * @return string
+     */
+    public function compilePHPFunctionCall($name, $parameter)
+    {
+        if (!$this->smarty->security_policy || $this->smarty->security_policy->isTrustedPhpFunction($name, $this)) {
+            if (strcasecmp($name, 'isset') === 0 || strcasecmp($name, 'empty') === 0 ||
+                strcasecmp($name, 'array') === 0 || is_callable($name)
+            ) {
+                $func_name = strtolower($name);
+                $par = implode(',', $parameter);
+                $parHasFuction = strpos($par, '(') !== false;
+                if ($func_name == 'isset') {
+                    if (count($parameter) == 0) {
+                        $this->trigger_template_error('Illegal number of paramer in "isset()"');
+                    }
+                    if ($parHasFuction) {
+                        $prefixVar = $this->getNewPrefixVariable();
+                        $this->appendPrefixCode("<?php $prefixVar" . '=' . $par . ';?>');
+                        $isset_par = $prefixVar;
+                    } else {
+                        $isset_par = str_replace("')->value", "',null,true,false)->value", $par);
+                    }
+                    return $name . "(" . $isset_par . ")";
+                } elseif (in_array($func_name, array('empty', 'reset', 'current', 'end', 'prev', 'next'))) {
+                    if (count($parameter) != 1) {
+                        $this->trigger_template_error('Illegal number of paramer in "empty()"');
+                    }
+                    if ($func_name == 'empty') {
+                        if ($parHasFuction) {
+                            $prefixVar = $this->getNewPrefixVariable();
+                            $this->appendPrefixCode("<?php $prefixVar" . '=' . $par . ';?>');
+
+                            return $func_name . '(' . $prefixVar . ')';
+                        } else {
+                            return $func_name . '(' .
+                                   str_replace("')->value", "',null,true,false)->value", $parameter[ 0 ]) . ')';
+                        }
+                    } else {
+                        return $func_name . '(' . $parameter[ 0 ] . ')';
+                    }
+                } else {
+                    return $name . "(" . implode(',', $parameter) . ")";
+                }
+            } else {
+                $this->trigger_template_error("unknown function \"" . $name . "\"");
+            }
+        }
+    }
+
+    /**
      * This method is called from parser to process a text content section
      * - remove text from inheritance child templates as they may generate output
      * - strip text if strip is enabled
@@ -844,9 +900,26 @@ abstract class Smarty_Internal_TemplateCompilerBase
      * @param  mixed  $param2 optional parameter
      * @param  mixed  $param3 optional parameter
      *
-     * @return string compiled code
+     * @return string|bool compiled code or false
      */
     public function callTagCompiler($tag, $args, $param1 = null, $param2 = null, $param3 = null)
+    {
+        $tagCompiler = $this->getTagCompiler($tag);
+        // compile this tag
+        return $tagCompiler === false ? false : $tagCompiler->compile($args, $this, $param1, $param2, $param3);
+    }
+
+    /**
+     * lazy loads internal compile plugin for tag compile objects cached for reuse.
+     *
+     * class name format:  Smarty_Internal_Compile_TagName
+     * plugin filename format: Smarty_Internal_TagName.php
+     *
+     * @param  string $tag tag name
+     *
+     * @return Smarty_Internal_CompileBase|bool tag compiler object or false if not found
+     */
+    public function getTagCompiler($tag)
     {
         // re-use object if already exists
         if (!isset(self::$_tag_objects[ $tag ])) {
@@ -860,12 +933,9 @@ abstract class Smarty_Internal_TemplateCompilerBase
                 self::$_tag_objects[ $tag ] = new $class_name;
             } else {
                 self::$_tag_objects[ $tag ] = false;
-                return false;
             }
         }
-        // compile this tag
-        return self::$_tag_objects[ $tag ] === false ? false :
-            self::$_tag_objects[ $tag ]->compile($args, $this, $param1, $param2, $param3);
+        return self::$_tag_objects[ $tag ];
     }
 
     /**
