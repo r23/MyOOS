@@ -18,7 +18,7 @@ $version = '3.4';
  */
 function wpseo_display_contributors( $contributors ) {
 	foreach ( $contributors as $username => $dev ) {
-		echo '<li class="wp-person" id="wp-person-', $username, '">';
+		echo '<li class="wp-person">';
 		echo '<a href="https://github.com/', $username, '" class="web"><img src="//gravatar.com/avatar/', $dev->gravatar, '?s=120" class="gravatar" alt="">', $dev->name, '</a>';
 		echo '<span class="title">', $dev->role, "</span></li>\n";
 	}
@@ -105,7 +105,7 @@ function wpseo_display_contributors( $contributors ) {
 		<ul class="wp-people-group " id="wp-people-group-core-developers">
 			<?php
 			$people = array(
-				'andrea'        => (object) array(
+				'afercia'       => (object) array(
 					'name'     => 'Andrea Fercia',
 					'role'     => __( 'Developer', 'wordpress-seo' ),
 					'gravatar' => '074af62ea5ff218b6a6eeab89104f616',
@@ -140,7 +140,7 @@ function wpseo_display_contributors( $contributors ) {
 					'role'     => __( 'Developer', 'wordpress-seo' ),
 					'gravatar' => '59908788f406037240ee011388db29f8',
 				),
-				'irenestr2'      => (object) array(
+				'irenestr'      => (object) array(
 					'name'     => 'Irene Strikkers',
 					'role'     => __( 'Developer', 'wordpress-seo' ),
 					'gravatar' => '074d67179d52561e36e57e8e9ea8f8cf',
@@ -164,12 +164,17 @@ function wpseo_display_contributors( $contributors ) {
 					'role'     => __( 'QA & Translations Manager', 'wordpress-seo' ),
 					'gravatar' => 'd2d3ecb38cacd521926979b5c678297b',
 				),
+				'benvaassen'   => (object) array(
+					'name'     => 'Ben Vaassen',
+					'role'     => __( 'QA', 'wordpress-seo' ),
+					'gravatar' => 'e186ff6435b02a7bc1c7185dd66b7e64',
+				),
 				'monbauza'     => (object) array(
 					'name'     => 'Ramon Bauza',
 					'role'     => __( 'Tester', 'wordpress-seo' ),
 					'gravatar' => 'de09b8491ab1d927e770f7519219cfc9',
 				),
-				'boblinthorst2' => (object) array(
+				'boblinthorst' => (object) array(
 					'name'     => 'Bob Linthorst',
 					'role'     => __( 'Tester', 'wordpress-seo' ),
 					'gravatar' => '8063b1955f54681ef3a2deb21972faa1',
@@ -182,9 +187,15 @@ function wpseo_display_contributors( $contributors ) {
 		<?php
 		$patches_from = array();
 		if ( ! empty( $patches_from ) ) :
+			$call_to_contribute = sprintf(
+				/* translators: %1$s expands to Yoast SEO, %2$s to the version number of the plugin. */
+				__( 'We\'re always grateful for patches from non-regular contributors, in %1$s %2$s, patches from the following people made it in:', 'wordpress-seo' ),
+				'Yoast SEO',
+				$version
+			);
 			?>
 			<h3 class="wp-people-group"><?php _e( 'Community contributors', 'wordpress-seo' ); ?></h3>
-			<p><?php printf( __( 'We\'re always grateful for patches from non-regular contributors, in %1$s %2$s, patches from the following people made it in:', 'wordpress-seo' ), 'Yoast SEO', $version ); ?></p>
+			<p><?php echo $call_to_contribute; ?></p>
 			<ul class="ul-square">
 				<?php
 				foreach ( $patches_from as $patcher => $link ) {
@@ -204,12 +215,14 @@ function wpseo_display_contributors( $contributors ) {
 		</p>
 
 		<ol>
-			<li><a target="_blank" href="https://wordpress.org/plugins/yoast-seo-acf-analysis/">Yoast ACF
-					Integration</a> - an integration built by <a href="https://forsberg.ax">Marcus Forsberg</a> and Team
-				Yoast
+			<li><a href="https://wordpress.org/plugins/acf-content-analysis-for-yoast-seo/" target="_blank" rel="noreferrer noopener">Yoast ACF
+					Integration</a> - an integration built by <a href="https://forsberg.ax" target="_blank" rel="noreferrer noopener">Marcus Forsberg</a>,
+				<a href="http://kraftner.com/" target="_blank" rel="noreferrer noopener">Thomas Kräftner</a>,
+				<a href="https://angrycreative.se/" target="_blank" rel="noreferrer noopener">Angry Creative</a>
+				and Team Yoast
 			</li>
-			<li><a target="_blank" href="https://www.elegantthemes.com/plugins/divi-builder/">Divi Builder</a></li>
-			<li><a target="_blank" href="https://vc.wpbakery.com/">Visual Composer</a></li>
+			<li><a href="https://www.elegantthemes.com/plugins/divi-builder/" target="_blank" rel="noreferrer noopener">Divi Builder</a></li>
+			<li><a href="https://vc.wpbakery.com/" target="_blank" rel="noreferrer noopener">Visual Composer</a></li>
 		</ol>
 
 		<h3>Other integrations</h3>
@@ -218,13 +231,9 @@ function wpseo_display_contributors( $contributors ) {
 		</p>
 
 		<ol>
-			<li><a target="_blank" href="https://wordpress.org/plugins/glue-for-yoast-seo-amp/">Glue for Yoast SEO &amp;
-					AMP</a> - an integration between <a href="https://wordpress.org/plugins/amp/">the WordPress AMP
+			<li><a href="https://wordpress.org/plugins/glue-for-yoast-seo-amp/" target="_blank" rel="noreferrer noopener">Glue for Yoast SEO &amp;
+					AMP</a> - an integration between <a href="https://wordpress.org/plugins/amp/" target="_blank" rel="noreferrer noopener">the WordPress AMP
 					plugin</a> and Yoast SEO.
-			</li>
-			<li>
-				<a target="_blank" href="https://wordpress.org/plugins/fb-instant-articles/">Instant Articles for WP</a>
-				- Enable Instant Articles for Facebook on your WordPress site and integrates with Yoast SEO.
 			</li>
 		</ol>
 	</div>

@@ -262,6 +262,7 @@ class ComposerStaticInitde1907b7ee86aa0be73c58a6445b1f6a
         'WPSEO_Link_Type_Classifier' => __DIR__ . '/../..' . '/admin/links/class-link-type-classifier.php',
         'WPSEO_Link_Utils' => __DIR__ . '/../..' . '/admin/links/class-link-utils.php',
         'WPSEO_Link_Watcher' => __DIR__ . '/../..' . '/admin/links/class-link-watcher.php',
+        'WPSEO_Link_Watcher_Loader' => __DIR__ . '/../..' . '/admin/links/class-link-watcher-loader.php',
         'WPSEO_Menu' => __DIR__ . '/../..' . '/admin/menu/class-menu.php',
         'WPSEO_Meta' => __DIR__ . '/../..' . '/inc/class-wpseo-meta.php',
         'WPSEO_Meta_Columns' => __DIR__ . '/../..' . '/admin/class-meta-columns.php',

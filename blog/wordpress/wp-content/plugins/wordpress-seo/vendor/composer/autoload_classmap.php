@@ -233,6 +233,7 @@ return array(
     'WPSEO_Link_Type_Classifier' => $baseDir . '/admin/links/class-link-type-classifier.php',
     'WPSEO_Link_Utils' => $baseDir . '/admin/links/class-link-utils.php',
     'WPSEO_Link_Watcher' => $baseDir . '/admin/links/class-link-watcher.php',
+    'WPSEO_Link_Watcher_Loader' => $baseDir . '/admin/links/class-link-watcher-loader.php',
     'WPSEO_Menu' => $baseDir . '/admin/menu/class-menu.php',
     'WPSEO_Meta' => $baseDir . '/inc/class-wpseo-meta.php',
     'WPSEO_Meta_Columns' => $baseDir . '/admin/class-meta-columns.php',
