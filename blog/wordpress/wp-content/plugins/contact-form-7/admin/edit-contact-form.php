@@ -180,7 +180,10 @@ if ( $post ) :
 
 <div id="postbox-container-2" class="postbox-container">
 <div id="contact-form-editor">
-<div class="keyboard-interaction"><?php echo sprintf( esc_html( __( '%s keys switch panels', 'contact-form-7' ) ), '<span class="dashicons dashicons-leftright"></span>' ); ?></div>
+<div class="keyboard-interaction"><?php
+	/* translators: %s: ◀ ▶ dashicon */
+	echo sprintf( esc_html( __( '%s keys switch panels', 'contact-form-7' ) ), '<span class="dashicons dashicons-leftright"></span>' );
+?></div>
 
 <?php
 
@@ -206,6 +209,7 @@ if ( $post ) :
 
 		$panels['additional-settings-panel'] = array(
 			'title' => $additional_settings
+				/* translators: %d: number of additional settings */
 				? sprintf(
 					__( 'Additional Settings (%d)', 'contact-form-7' ),
 					$additional_settings )

@@ -175,11 +175,11 @@
 					var tab = section
 						.replace( /^mail_\d+\./, 'mail.' ).replace( /\..*$/, '' );
 
-					if ( ! errorCount[tab] ) {
-						errorCount[tab] = 0;
+					if ( ! errorCount[ tab ] ) {
+						errorCount[ tab ] = 0;
 					}
 
-					errorCount[tab] += 1;
+					errorCount[ tab ] += 1;
 
 					errorCount.total += 1;
 				} );
@@ -196,7 +196,7 @@
 			$.each( errors, function( key, val ) {
 				key = key.replace( /^mail_\d+\./, 'mail.' );
 
-				if ( key.replace( /\..*$/, '' ) == tab ) {
+				if ( key.replace( /\..*$/, '' ) == tab.replace( '-', '_' ) ) {
 					var $mark = $( '<span class="dashicons dashicons-warning"></span>' );
 					$item.find( 'a.ui-tabs-anchor' ).first().append( $mark );
 					return false;
@@ -206,13 +206,13 @@
 			var $tabPanelError = $( '#' + tab + '-panel > div.config-error:first' );
 			$tabPanelError.empty();
 
-			if ( errorCount[tab] ) {
+			if ( errorCount[ tab.replace( '-', '_' ) ] ) {
 				$tabPanelError
 					.append( '<span class="dashicons dashicons-warning"></span> ' );
 
-				if ( 1 < errorCount[tab] ) {
+				if ( 1 < errorCount[ tab.replace( '-', '_' ) ] ) {
 					var manyErrorsInTab = wpcf7.configValidator.manyErrorsInTab
-						.replace( '%d', errorCount[tab] );
+						.replace( '%d', errorCount[ tab ] );
 					$tabPanelError.append( manyErrorsInTab );
 				} else {
 					$tabPanelError.append( wpcf7.configValidator.oneErrorInTab );

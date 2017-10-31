@@ -119,7 +119,7 @@ function wpcf7_rest_create_contact_form( WP_REST_Request $request ) {
 	if ( $id ) {
 		return new WP_Error( 'wpcf7_post_exists',
 			__( "Cannot create existing contact form.", 'contact-form-7' ),
-			array( 'status' => 400 ) );
+			array( 'status' => 409 ) );
 	}
 
 	if ( ! current_user_can( 'wpcf7_edit_contact_forms' ) ) {

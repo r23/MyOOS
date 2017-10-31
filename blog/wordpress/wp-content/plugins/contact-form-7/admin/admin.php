@@ -376,6 +376,7 @@ function wpcf7_admin_management_page() {
 
 	if ( ! empty( $_REQUEST['s'] ) ) {
 		echo sprintf( '<span class="subtitle">'
+			/* translators: %s: search keywords */
 			. __( 'Search results for &#8220;%s&#8221;', 'contact-form-7' )
 			. '</span>', esc_html( $_REQUEST['s'] ) );
 	}
@@ -402,6 +403,7 @@ function wpcf7_admin_bulk_validate_page() {
 	$count = WPCF7_ContactForm::count();
 
 	$submit_text = sprintf(
+		/* translators: %s: number of contact forms */
 		_n(
 			"Validate %s Contact Form Now",
 			"Validate %s Contact Forms Now",
@@ -514,6 +516,7 @@ function wpcf7_admin_updated_message() {
 
 		if ( $count_invalid ) {
 			$updated_message = sprintf(
+				/* translators: %s: number of contact forms */
 				_n(
 					"Configuration validation completed. An invalid contact form was found.",
 					"Configuration validation completed. %s invalid contact forms were found.",
@@ -557,7 +560,10 @@ function wpcf7_old_wp_version_error() {
 
 ?>
 <div class="notice notice-warning">
-<p><?php echo sprintf( __( '<strong>Contact Form 7 %1$s requires WordPress %2$s or higher.</strong> Please <a href="%3$s">update WordPress</a> first.', 'contact-form-7' ), WPCF7_VERSION, WPCF7_REQUIRED_WP_VERSION, admin_url( 'update-core.php' ) ); ?></p>
+<p><?php
+	/* translators: 1: version of Contact Form 7, 2: version of WordPress, 3: URL */
+	echo sprintf( __( '<strong>Contact Form 7 %1$s requires WordPress %2$s or higher.</strong> Please <a href="%3$s">update WordPress</a> first.', 'contact-form-7' ), WPCF7_VERSION, WPCF7_REQUIRED_WP_VERSION, admin_url( 'update-core.php' ) );
+?></p>
 </div>
 <?php
 }
@@ -596,7 +602,11 @@ function wpcf7_notice_bulk_validate_config() {
 		return;
 	}
 
-	if ( WPCF7::get_option( 'bulk_validate' ) ) { // already done.
+	$result = WPCF7::get_option( 'bulk_validate' );
+	$last_important_update = '4.9';
+
+	if ( ! empty( $result['version'] )
+	&& version_compare( $last_important_update, $result['version'], '<=' ) ) {
 		return;
 	}
 

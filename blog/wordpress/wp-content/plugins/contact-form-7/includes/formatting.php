@@ -56,7 +56,9 @@ function wpcf7_autop( $pee, $br = 1 ) {
 
 	if ( $br ) {
 		/* wpcf7: add textarea */
-		$pee = preg_replace_callback( '/<(script|style|textarea).*?<\/\\1>/s', create_function( '$matches', 'return str_replace("\n", "<WPPreserveNewline />", $matches[0]);' ), $pee );
+		$pee = preg_replace_callback(
+			'/<(script|style|textarea).*?<\/\\1>/s',
+			'wpcf7_autop_preserve_newline_callback', $pee );
 		$pee = preg_replace( '|(?<!<br />)\s*\n|', "<br />\n", $pee ); // optionally make line breaks
 		$pee = str_replace( '<WPPreserveNewline />', "\n", $pee );
 
@@ -76,6 +78,10 @@ function wpcf7_autop( $pee, $br = 1 ) {
 	$pee = preg_replace( "|\n</p>$|", '</p>', $pee );
 
 	return $pee;
+}
+
+function wpcf7_autop_preserve_newline_callback( $matches ) {
+	return str_replace( "\n", '<WPPreserveNewline />', $matches[0] );
 }
 
 function wpcf7_sanitize_query_var( $text ) {

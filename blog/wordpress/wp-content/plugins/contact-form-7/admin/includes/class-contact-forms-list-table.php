@@ -113,6 +113,7 @@ class WPCF7_Contact_Form_List_Table extends WP_List_Table {
 		$output = sprintf(
 			'<a class="row-title" href="%1$s" title="%2$s">%3$s</a>',
 			esc_url( $edit_link ),
+			/* translators: %s: title of contact form */
 			esc_attr( sprintf( __( 'Edit &#8220;%s&#8221;', 'contact-form-7' ),
 				$item->title() ) ),
 			esc_html( $item->title() )
@@ -127,6 +128,7 @@ class WPCF7_Contact_Form_List_Table extends WP_List_Table {
 
 			if ( $count_errors = $config_validator->count_errors() ) {
 				$error_notice = sprintf(
+					/* translators: %s: number of errors detected */
 					_n(
 						'%s configuration error detected',
 						'%s configuration errors detected',
@@ -208,6 +210,7 @@ class WPCF7_Contact_Form_List_Table extends WP_List_Table {
 		$time_diff = time() - $time;
 
 		if ( $time_diff > 0 && $time_diff < 24*60*60 ) {
+			/* translators: %s: time since the creation of the contact form */
 			$h_time = sprintf(
 				__( '%s ago', 'contact-form-7' ), human_time_diff( $time ) );
 		} else {

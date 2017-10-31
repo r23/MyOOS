@@ -137,7 +137,9 @@ function wpcf7_install() {
 
 	$contact_form = WPCF7_ContactForm::get_template(
 		array(
-			'title' => sprintf( __( 'Contact form %d', 'contact-form-7' ), 1 ),
+			'title' =>
+				/* translators: title of your first contact form. %d: number fixed to '1' */
+				sprintf( __( 'Contact form %d', 'contact-form-7' ), 1 ),
 		)
 	);
 
