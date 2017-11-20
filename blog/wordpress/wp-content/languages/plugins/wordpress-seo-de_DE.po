@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Yoast SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-11-15 09:46:57+0000\n"
+"PO-Revision-Date: 2017-11-15 15:31:09+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -49,9 +49,45 @@ msgstr "Speichere die Änderungen der %s"
 msgid "%s file"
 msgstr "%s Datei"
 
+#. translators: 1: link open tag; 2: link close tag; 3: Yoast; 4: linked
+#. developer name.
+#: admin/views/about.php:236
+msgid "%1$s%3$s ACF Integration%2$s - an integration built by %4$s and Team %3$s"
+msgstr "%1$s%3$s ACF Integration%2$s - eine integration entwickelt von %4$s und Team %3$s"
+
+#. translators: 1,2: link open tag; 3: link close tag; 4: Yoast SEO.
+#: admin/views/about.php:260
+msgid "%1$sGlue for %4$s &amp; AMP%3$s - an integration between %2$sthe WordPress AMP plugin%3$s and %4$s."
+msgstr "%1$sGlue for %4$s &amp; AMP%3$s - eine integration zwischen %2$sdem WordPress AMP Plugin%3$s und %4$s."
+
+#: admin/views/about.php:252
+msgid "We've got other integrations we'd like to tell you about:"
+msgstr "Wir haben noch andere Integrationen, von denen wir dir erzählen möchten:"
+
+#: admin/views/about.php:250
+msgid "Other integrations"
+msgstr "Andere Integrationen"
+
+#. translators: %1$s expands to Yoast SEO, %2$s expands to the dependency name,
+#. %3$s expands to the install link, %4$s expands to the more info link.
+#: admin/class-suggested-plugins.php:107
+msgid "%1$s and %2$s can work together a lot better by adding a helper plugin. Please install %3$s to make your life better. %4$s."
+msgstr "%1$s und %2$s können viel besser zusammenarbeiten, indem du ein Hilfsplugin hinzufügst. Bitte installiere %3$s, um dein Leben besser zu machen. %4$s."
+
 #: admin/class-suggested-plugins.php:133
 msgid "More information"
 msgstr "Weitere Informationen"
+
+#. translators: %1$s expands to Yoast SEO, %2$s expands to the dependency name,
+#. %3$s expands to activation link.
+#: admin/class-suggested-plugins.php:147
+msgid "%1$s and %2$s can work together a lot better by adding a helper plugin. Please activate %3$s to make your life better."
+msgstr "%1$s und %2$s können viel besser zusammenarbeiten, indem du ein Hilfsplugin hinzufügst. Bitte aktiviere %3$s, um dein Leben besser zu machen."
+
+#. translators: %1$s expands to Yoast SEO
+#: admin/views/about.php:214
+msgid "%1$s Integrations"
+msgstr "%1$s Integrationen"
 
 #. translators: %1$s expands to the dependency name.
 #: admin/class-suggested-plugins.php:132
@@ -554,6 +590,11 @@ msgstr "Dein %1$s Plugin ist nun eingerichtet. SEO unterliegt jedoch ständigen 
 msgid "Stay up-to-date"
 msgstr "Bleibe up-to-date"
 
+#. translators: %1$s resolves to Local SEO
+#: admin/config-ui/components/class-component-suggestions.php:74
+msgid "If you want to outrank the competition in a specific town or region, check out our %1$s plugin! You’ll be able to easily insert Google maps, opening hours, contact information and a store locator. Besides that %1$s helps you to improve the usability of your contact page."
+msgstr "Wenn du die Konkurrenz in einer bestimmten Stadt oder Region überholen möchtest, dann schau dir unser %1$s Plugin an! Du kannst ganz einfach Google Maps, Öffnungszeiten, Kontaktinformationen und eine Filialsuche einfügen. Ausserdem hilft dir %1$s die Usability deiner Kontaktseite zu verbessern."
+
 #: admin/config-ui/components/class-component-suggestions.php:72
 msgid "Attract more customers near you"
 msgstr "Gewinne mehr Kunden in deiner Nähe"
@@ -600,6 +641,11 @@ msgstr "Konfigurations-Hilfe"
 #: admin/config-ui/components/class-component-configuration-choices.php:48
 msgid "Configure %s"
 msgstr "Konfiguriere %s"
+
+#. translators: %1$s expands to 'Yoast SEO'.
+#: admin/config-ui/components/class-component-configuration-choices.php:41
+msgid "Welcome to the %1$s configuration wizard. In a few simple steps we'll help you configure your SEO settings to match your website's needs! %1$s will take care of all the technical optimizations your site needs."
+msgstr "Willkommen beim %1$s Konfigurations-Assistenten. In wenigen einfachen Schritten helfen wir dir, deine SEO-Einstellungen an die Bedürfnisse deiner Website anzupassen! %1$s kümmert sich um alle technischen Optimierungen, die deine Website benötigt."
 
 #. translators: %s expands to 'Yoast SEO'.
 #: admin/config-ui/components/class-component-configuration-choices.php:30
@@ -1404,6 +1450,12 @@ msgstr "Meta-Keywords eingeben"
 #: admin/taxonomy/class-taxonomy-fields-presenter.php:108
 msgid "Enter a focus keyword"
 msgstr "Eingabe des Fokus-Schlüsselworts"
+
+#. translators: %1$s expands anchor to premium plugin page, %2$s expands to
+#. </a>
+#: admin/class-product-upsell-notice.php:118
+msgid "By the way, did you know we also have a %1$sPremium plugin%2$s? It offers advanced features, like a redirect manager and support for multiple keywords. It also comes with 24/7 personal support."
+msgstr "Übrigens, wusstest du, dass wir auch ein %1$sPremium Plugin%2$s haben? Es bietet erweiterte Funktionen, wie einen Redirect-Manager und Unterstützung für mehrere Keywords. Es kommt auch mit einem persönlichen 24/7-Support."
 
 #: admin/class-bulk-editor-list-table.php:789
 msgid "(no title)"
@@ -4620,7 +4672,7 @@ msgstr "301-Weiterleitung"
 #. translators: 1: link open tag; 2: link close tag.
 #: admin/metabox/class-metabox.php:120
 msgid "The canonical URL that this page should point to, leave empty to default to permalink. %1$sCross domain canonical%2$s supported too."
-msgstr "Die canonical URL auf die diese Seite zeigen soll. Ist das Feld leer, wird der Permalink übernommen. %sCross Domain canonical%s wird ebenfalls unterstützt. "
+msgstr "Die Canonical-URL auf die diese Seite zeigen soll. Ist das Feld leer, wird der Permalink übernommen. %1$sCross Domain canonical%2$s wird ebenfalls unterstützt."
 
 #: admin/metabox/class-metabox.php:118
 #: admin/taxonomy/class-taxonomy-settings-fields.php:63

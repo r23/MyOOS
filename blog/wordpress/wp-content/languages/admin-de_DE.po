@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 4.9.x - Development - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-11-15 10:27:38+0000\n"
+"PO-Revision-Date: 2017-11-19 02:56:31+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -294,14 +294,14 @@ msgstr "Herunterladen des Installationspakets von %s&#160;&hellip;"
 #. translators: %s: package URL
 #: wp-admin/includes/class-language-pack-upgrader.php:116
 msgid "Downloading translation from %s&#8230;"
-msgstr "Herunterladen der Übersetzung von %s"
+msgstr "Herunterladen der Übersetzung von %s&#160;&hellip;"
 
 #. translators: %s: package URL
 #: wp-admin/includes/class-core-upgrader.php:33
 #: wp-admin/includes/class-plugin-upgrader.php:50
 #: wp-admin/includes/class-theme-upgrader.php:49
 msgid "Downloading update from %s&#8230;"
-msgstr "Herunterladen der Aktualisierung von %s"
+msgstr "Herunterladen der Aktualisierung von %s&#160;&hellip;"
 
 #. translators: 1: wp-admin/includes/template.php 2: add_meta_box() 3:
 #. add_meta_boxes
@@ -4129,11 +4129,11 @@ msgstr "Kategorie hinzugefügt."
 
 #: wp-admin/revision.php:110
 msgid "Compare two different revisions by <strong>selecting the &#8220;Compare any two revisions&#8221; box</strong> to the side."
-msgstr "Vergleiche zwei verschiedene Überarbeitungen, indem du <strong>&#8222;Vergleiche beliebige zwei Revisionen&#8220; auswählst</strong>."
+msgstr "Vergleiche zwei verschiedene Überarbeitungen, indem du <strong>&#8222;Zwei beliebige Revisionen vergleichen&#8220;</strong> in der Box auf der Seite auswählst."
 
 #: wp-admin/includes/revision.php:343
 msgid "Compare any two revisions"
-msgstr "Vergleiche zwei beliebige Revisionen"
+msgstr "Zwei beliebige Revisionen vergleichen"
 
 #: wp-admin/includes/revision.php:381
 msgid "Restore This Autosave"
@@ -4259,11 +4259,11 @@ msgstr "In dieser Ansicht kannst du Revisionen ansehen, vergleichen und wiederhe
 
 #: wp-admin/revision.php:107
 msgid "Revisions are saved copies of your post or page, which are periodically created as you update your content. The red text on the left shows the content that was removed. The green text on the right shows the content that was added."
-msgstr "Revisionen sind gespeicherte Kopien deines Beitrags oder deiner Seite, die periodisch angelegt werden, wenn du deine Inhalte speicherst oder aktualisierst. Der rote Text links zeigt den Inhalt, der entfernt wurde. Der grüne Text rechts zeigt den Inhalt, der hinzugefügt wurde."
+msgstr "Revisionen sind gespeicherte Kopien deines Beitrags oder deiner Seite, die periodisch erstellt werden, wenn du deine Inhalte aktualisierst. Der rote Text auf der linken Seite zeigt entfernte Inhalte. Der grüne Text auf der rechten Seite zeigt neu hinzugefügte Inhalte."
 
 #: wp-admin/revision.php:106
 msgid "This screen is used for managing your content revisions."
-msgstr "Dieser Bildschirm wird verwendet, um die Inhalte deiner Revisionen zu verwalten."
+msgstr "Auf diesem Bildschirm werden die Revisionen deiner Inhalte verwaltet."
 
 #: wp-admin/includes/revision.php:354
 msgctxt "Followed by post revision info"
@@ -5741,9 +5741,7 @@ msgstr "Auf dieser Einstellungsseite hast du umfangreiche Möglichkeiten, das Ko
 
 #: wp-admin/user-edit.php:46
 msgid "You can change your password, turn on keyboard shortcuts, change the color scheme of your WordPress administration screens, and turn off the WYSIWYG (Visual) editor, among other things. You can hide the Toolbar (formerly called the Admin Bar) from the front end of your site, however it cannot be disabled on the admin screens."
-msgstr ""
-"Du kannst unter anderem dein Passwort ändern, Tastaturkürzel aktivieren, das Farbschema deines WordPress-Administrationsbereichs ändern oder den visuellen Editor deaktivieren.\n"
-"Du kannst die Werkzeugleiste (vorher Adminleiste genannt) im Frontend deiner Website verbergen, allerdings nicht im Administrationsbereich."
+msgstr "Du kannst unter anderem dein Passwort ändern, Tastaturkürzel aktivieren, das Farbschema deines WordPress-Administrationsbereichs ändern oder den visuellen Editor deaktivieren. Du kannst die Werkzeugleiste (vorher Adminleiste genannt) im Frontend deiner Website verbergen, allerdings nicht im Administrationsbereich."
 
 #: wp-admin/widgets.php:100
 msgid "This sidebar is no longer available and does not show anywhere on your site. Remove each of the widgets below to fully remove this inactive sidebar."
@@ -6845,7 +6843,7 @@ msgstr "https://de.wordpress.org/news/"
 
 #: wp-admin/options-discussion.php:68
 msgid "(Signup has been disabled. Only members of this site can comment.)"
-msgstr "(Die Registrierung ist deaktiviert. Nur Benutzer dieser Seite können kommentieren.)"
+msgstr "(Die Registrierung ist deaktiviert. Nur Benutzer dieser Website können kommentieren.)"
 
 #. translators: 1: theme name, 2: theme details URL, 3: additional link
 #. attributes, 4: version number
@@ -6957,7 +6955,7 @@ msgstr "Dein Profil enthält die Informationen deines Benutzerkontos und einige 
 #. translators: %s: /wp-content/themes
 #: wp-admin/theme-install.php:98
 msgid "You can Upload a theme manually if you have already downloaded its ZIP archive onto your computer (make sure it is from a trusted and original source). You can also do it the old-fashioned way and copy a downloaded theme&#8217;s folder via FTP into your %s directory."
-msgstr "Hast du bereits ein Theme in einer ZIP-Datei, kannst du es direkt über diese Oberfläche durch einen Klick auf „Hochladen“ hochladen und verwenden. Du kannst es aber auch auf deinem Computer entpacken und via FTP in das Verzeichnis %s laden."
+msgstr "Hast du bereits ein Theme in einer ZIP-Datei (stelle sicher, dass es von einer vertrauenswürdigen Quelle stammt), kannst du es direkt über diese Oberfläche durch einen Klick auf „Theme hochladen“ hochladen und verwenden. Du kannst es aber auch auf deinem Computer entpacken und den gesamten Theme-Ordner via FTP in das Verzeichnis %s kopieren."
 
 #: wp-admin/edit-form-advanced.php:463
 msgid "<strong>Send Trackbacks</strong> &mdash; Trackbacks are a way to notify legacy blog systems that you&#8217;ve linked to them. Enter the URL(s) you want to send trackbacks. If you link to other WordPress sites they&#8217;ll be notified automatically using pingbacks, and this field is unnecessary."
@@ -7111,7 +7109,7 @@ msgstr "Hier findest du eine Liste von Plugins, mit denen du Daten aus anderen B
 
 #: wp-admin/plugin-editor.php:121
 msgid "Choose a plugin to edit from the dropdown menu and click the Select button. Click once on any file name to load it in the editor, and make your changes. Don&#8217;t forget to save your changes (Update File) when you&#8217;re finished."
-msgstr "Wähle zuerst in der Auswahlbox das zu bearbeitende Plugin und klicke dann auf &#8222;-Wähle-&#8220;. Anschließend werden auf der rechten Seite alle zum Plugin zugehörigen Dateien angezeigt, die du mit einem Klick auf den jeweiligen Dateinamen bearbeiten kannst. Vergiss nicht, zum Schluss auch die Änderungen mit einem Klick auf &#8222;Datei aktualisieren&#8220; zu speichern."
+msgstr "Wähle zuerst im Drop-down-Menü das zu bearbeitende Plugin und klicke dann auf &#8222;Auswählen&#8220;. Anschließend werden auf der rechten Seite alle zum Plugin zugehörigen Dateien angezeigt, die du mit einem Klick auf den jeweiligen Dateinamen bearbeiten kannst. Vergiss nicht, zum Schluss die Änderungen mit einem Klick auf den Button &#8222;Datei aktualisieren&#8220; zu speichern."
 
 #: wp-admin/link-manager.php:55
 msgid "You can customize the display of this screen using the Screen Options tab and/or the dropdown filters above the links table."
