@@ -11,9 +11,10 @@
 
 namespace Symfony\Bundle\FrameworkBundle\Tests\DependencyInjection\Compiler;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\LoggingTranslatorPass;
 
-class LoggingTranslatorPassTest extends \PHPUnit_Framework_TestCase
+class LoggingTranslatorPassTest extends TestCase
 {
     public function testProcess()
     {
@@ -53,6 +54,11 @@ class LoggingTranslatorPassTest extends \PHPUnit_Framework_TestCase
         $container->expects($this->once())
             ->method('getParameterBag')
             ->will($this->returnValue($parameterBag));
+
+        $container->expects($this->once())
+            ->method('getReflectionClass')
+            ->with('Symfony\Bundle\FrameworkBundle\Translation\Translator')
+            ->will($this->returnValue(new \ReflectionClass('Symfony\Bundle\FrameworkBundle\Translation\Translator')));
 
         $pass = new LoggingTranslatorPass();
         $pass->process($container);

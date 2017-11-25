@@ -86,23 +86,30 @@ class ParamConverterListener implements EventSubscriberInterface
     private function autoConfigure(\ReflectionFunctionAbstract $r, Request $request, $configurations)
     {
         foreach ($r->getParameters() as $param) {
-            if (!$param->getClass() || $param->getClass()->isInstance($request)) {
+            if ($param->getClass() && $param->getClass()->isInstance($request)) {
                 continue;
             }
 
             $name = $param->getName();
+            $class = $param->getClass();
+            $hasType = $this->isParameterTypeSupported && $param->hasType();
 
-            if (!isset($configurations[$name])) {
-                $configuration = new ParamConverter(array());
-                $configuration->setName($name);
-                $configuration->setClass($param->getClass()->getName());
+            if ($class || $hasType) {
+                if (!isset($configurations[$name])) {
+                    $configuration = new ParamConverter(array());
+                    $configuration->setName($name);
 
-                $configurations[$name] = $configuration;
-            } elseif (null === $configurations[$name]->getClass()) {
-                $configurations[$name]->setClass($param->getClass()->getName());
+                    $configurations[$name] = $configuration;
+                }
+
+                if ($class && null === $configurations[$name]->getClass()) {
+                    $configurations[$name]->setClass($class->getName());
+                }
             }
 
-            $configurations[$name]->setIsOptional($param->isOptional() || $this->isParameterTypeSupported && $param->hasType() && $param->getType()->allowsNull());
+            if (isset($configurations[$name])) {
+                $configurations[$name]->setIsOptional($param->isOptional() || $param->isDefaultValueAvailable() || $hasType && $param->getType()->allowsNull());
+            }
         }
 
         return $configurations;

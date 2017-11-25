@@ -11,9 +11,12 @@
 
 namespace Symfony\Bundle\SecurityBundle;
 
+use Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory\JsonLoginFactory;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Bundle\SecurityBundle\DependencyInjection\Compiler\AddSecurityVotersPass;
+use Symfony\Bundle\SecurityBundle\DependencyInjection\Compiler\AddSessionDomainConstraintPass;
 use Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory\FormLoginFactory;
 use Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory\FormLoginLdapFactory;
 use Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory\HttpBasicFactory;
@@ -42,6 +45,7 @@ class SecurityBundle extends Bundle
         $extension = $container->getExtension('security');
         $extension->addSecurityListenerFactory(new FormLoginFactory());
         $extension->addSecurityListenerFactory(new FormLoginLdapFactory());
+        $extension->addSecurityListenerFactory(new JsonLoginFactory());
         $extension->addSecurityListenerFactory(new HttpBasicFactory());
         $extension->addSecurityListenerFactory(new HttpBasicLdapFactory());
         $extension->addSecurityListenerFactory(new HttpDigestFactory());
@@ -55,5 +59,6 @@ class SecurityBundle extends Bundle
         $extension->addUserProviderFactory(new InMemoryFactory());
         $extension->addUserProviderFactory(new LdapFactory());
         $container->addCompilerPass(new AddSecurityVotersPass());
+        $container->addCompilerPass(new AddSessionDomainConstraintPass(), PassConfig::TYPE_AFTER_REMOVING);
     }
 }

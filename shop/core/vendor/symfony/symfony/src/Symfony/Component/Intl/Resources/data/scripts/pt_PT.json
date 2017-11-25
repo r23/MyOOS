@@ -1,14 +1,16 @@
 {
-    "Version": "2.1.24.13",
+    "Version": "2.1.37.6",
     "Names": {
         "Armn": "arménio",
         "Egyd": "egípcio demótico",
         "Egyh": "egípcio hierático",
-        "Gujr": "guzerate",
+        "Hanb": "han com bopomofo",
         "Inds": "indus",
+        "Orya": "odia",
         "Sylo": "siloti nagri",
         "Tale": "tai le",
         "Telu": "telugu",
+        "Zsye": "emoji",
         "Zsym": "símbolos",
         "Zxxx": "não escrito"
     }

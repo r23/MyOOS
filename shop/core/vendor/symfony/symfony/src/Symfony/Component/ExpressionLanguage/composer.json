@@ -16,7 +16,8 @@
         }
     ],
     "require": {
-        "php": ">=5.5.9"
+        "php": "^5.5.9|>=7.0.8",
+        "symfony/cache": "~3.1"
     },
     "autoload": {
         "psr-4": { "Symfony\\Component\\ExpressionLanguage\\": "" },
@@ -27,7 +28,7 @@
     "minimum-stability": "dev",
     "extra": {
         "branch-alias": {
-            "dev-master": "3.1-dev"
+            "dev-master": "3.3-dev"
         }
     }
 }

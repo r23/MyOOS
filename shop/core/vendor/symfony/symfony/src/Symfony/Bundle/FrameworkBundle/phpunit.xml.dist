@@ -5,10 +5,13 @@
          backupGlobals="false"
          colors="true"
          bootstrap="vendor/autoload.php"
+         failOnRisky="true"
+         failOnWarning="true"
 >
     <php>
         <ini name="error_reporting" value="-1" />
         <env name="REDIS_HOST" value="localhost" />
+        <env name="MEMCACHED_HOST" value="localhost" />
     </php>
 
     <testsuites>

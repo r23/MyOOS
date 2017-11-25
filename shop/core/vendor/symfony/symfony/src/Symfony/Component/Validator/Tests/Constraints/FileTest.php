@@ -11,15 +11,13 @@
 
 namespace Symfony\Component\Validator\Tests\Constraints;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
 
-class FileTest extends \PHPUnit_Framework_TestCase
+class FileTest extends TestCase
 {
     /**
-     * @param mixed $maxSize
-     * @param int   $bytes
-     * @param bool  $binaryFormat
      * @dataProvider provideValidSizes
      */
     public function testMaxSize($maxSize, $bytes, $binaryFormat)
@@ -32,10 +30,6 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider provideValidSizes
-     *
-     * @param int|string $maxSize
-     * @param int        $bytes
-     * @param string     $binaryFormat
      */
     public function testMaxSizeCanBeSetAfterInitialization($maxSize, $bytes, $binaryFormat)
     {
@@ -49,8 +43,6 @@ class FileTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider provideInvalidSizes
      * @expectedException \Symfony\Component\Validator\Exception\ConstraintDefinitionException
-     *
-     * @param int|string $maxSize
      */
     public function testInvalidValueForMaxSizeThrowsExceptionAfterInitialization($maxSize)
     {
@@ -60,8 +52,6 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider provideInvalidSizes
-     *
-     * @param int|string $maxSize
      */
     public function testMaxSizeCannotBeSetToInvalidValueAfterInitialization($maxSize)
     {
@@ -76,7 +66,6 @@ class FileTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param mixed $maxSize
      * @dataProvider provideInValidSizes
      * @expectedException \Symfony\Component\Validator\Exception\ConstraintDefinitionException
      */
@@ -85,9 +74,6 @@ class FileTest extends \PHPUnit_Framework_TestCase
         new File(array('maxSize' => $maxSize));
     }
 
-    /**
-     * @return array
-     */
     public function provideValidSizes()
     {
         return array(
@@ -104,9 +90,6 @@ class FileTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @return array
-     */
     public function provideInvalidSizes()
     {
         return array(
@@ -120,9 +103,6 @@ class FileTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param mixed $maxSize
-     * @param bool  $guessedFormat
-     * @param bool  $binaryFormat
      * @dataProvider provideFormats
      */
     public function testBinaryFormat($maxSize, $guessedFormat, $binaryFormat)
@@ -132,9 +112,6 @@ class FileTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($binaryFormat, $file->binaryFormat);
     }
 
-    /**
-     * @return array
-     */
     public function provideFormats()
     {
         return array(

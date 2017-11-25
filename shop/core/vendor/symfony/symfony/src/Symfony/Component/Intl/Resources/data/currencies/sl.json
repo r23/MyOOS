@@ -1,5 +1,5 @@
 {
-    "Version": "2.1.22.93",
+    "Version": "2.1.37.1",
     "Names": {
         "ADP": [
             "ADP",
@@ -62,7 +62,7 @@
             "avstrijski šiling"
         ],
         "AUD": [
-            "A$",
+            "AUD",
             "avstralski dolar"
         ],
         "AWG": [
@@ -154,7 +154,7 @@
             "stari brazilski kruzeiro (1990–1993)"
         ],
         "BRL": [
-            "R$",
+            "BRL",
             "brazilski real"
         ],
         "BRN": [
@@ -185,9 +185,13 @@
             "BYB",
             "beloruski novi rubelj (1994–1999)"
         ],
+        "BYN": [
+            "BYN",
+            "beloruski rubelj"
+        ],
         "BYR": [
             "BYR",
-            "beloruski rubelj"
+            "beloruski rubelj (2000–2016)"
         ],
         "BZD": [
             "BZD",
@@ -220,6 +224,10 @@
         "CLP": [
             "CLP",
             "čilski peso"
+        ],
+        "CNH": [
+            "CNH",
+            "kitajski juan (offshore)"
         ],
         "CNY": [
             "CN¥",
@@ -346,7 +354,7 @@
             "francoski frank"
         ],
         "GBP": [
-            "£",
+            "GBP",
             "britanski funt"
         ],
         "GEK": [
@@ -630,7 +638,7 @@
             "malavijska kvača"
         ],
         "MXN": [
-            "MX$",
+            "MXN",
             "mehiški peso"
         ],
         "MXP": [
@@ -686,7 +694,7 @@
             "nepalska rupija"
         ],
         "NZD": [
-            "NZ$",
+            "NZD",
             "novozelandski dolar"
         ],
         "OMR": [
@@ -703,11 +711,11 @@
         ],
         "PEN": [
             "PEN",
-            "perujski novi sol"
+            "perujski sol"
         ],
         "PES": [
             "PES",
-            "perujski sol"
+            "perujski sol (1863–1965)"
         ],
         "PGK": [
             "PGK",
@@ -854,7 +862,7 @@
             "svazijski lilangeni"
         ],
         "THB": [
-            "฿",
+            "THB",
             "tajski baht"
         ],
         "TJR": [
@@ -898,7 +906,7 @@
             "dolar Trinidada in Tobaga"
         ],
         "TWD": [
-            "NT$",
+            "TWD",
             "novi tajvanski dolar"
         ],
         "TZS": [
@@ -970,7 +978,7 @@
             "CFA frank BEAC"
         ],
         "XCD": [
-            "EC$",
+            "XCD",
             "vzhodnokaribski dolar"
         ],
         "XEU": [

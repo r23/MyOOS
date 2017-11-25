@@ -12,6 +12,7 @@
 namespace Symfony\Component\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Exception\EnvParameterException;
 use Symfony\Component\DependencyInjection\Exception\RuntimeException;
 
 /**
@@ -31,8 +32,6 @@ class CheckDefinitionValidityPass implements CompilerPassInterface
     /**
      * Processes the ContainerBuilder to validate the Definition.
      *
-     * @param ContainerBuilder $container
-     *
      * @throws RuntimeException When the Definition is invalid
      */
     public function process(ContainerBuilder $container)
@@ -47,6 +46,15 @@ class CheckDefinitionValidityPass implements CompilerPassInterface
             if (!$definition->isAbstract() && !$definition->isSynthetic() && !$definition->getClass()) {
                 if ($definition->getFactory()) {
                     throw new RuntimeException(sprintf('Please add the class to service "%s" even if it is constructed by a factory since we might need to add method calls based on compile-time checks.', $id));
+                }
+                if (class_exists($id) || interface_exists($id, false)) {
+                    throw new RuntimeException(sprintf(
+                         'The definition for "%s" has no class attribute, and appears to reference a '
+                        .'class or interface in the global namespace. Leaving out the "class" attribute '
+                        .'is only allowed for namespaced classes. Please specify the class attribute '
+                        .'explicitly to get rid of this error.',
+                        $id
+                    ));
                 }
 
                 throw new RuntimeException(sprintf(
@@ -67,6 +75,18 @@ class CheckDefinitionValidityPass implements CompilerPassInterface
                         }
                     }
                 }
+            }
+
+            $resolvedId = $container->resolveEnvPlaceholders($id, null, $usedEnvs);
+            if (null !== $usedEnvs) {
+                throw new EnvParameterException(array($resolvedId), null, 'A service name ("%s") cannot contain dynamic values.');
+            }
+        }
+
+        foreach ($container->getAliases() as $id => $alias) {
+            $resolvedId = $container->resolveEnvPlaceholders($id, null, $usedEnvs);
+            if (null !== $usedEnvs) {
+                throw new EnvParameterException(array($resolvedId), null, 'An alias name ("%s") cannot contain dynamic values.');
             }
         }
     }

@@ -11,9 +11,10 @@
 
 namespace Symfony\Component\Security\Http\Tests\Firewall;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Http\Firewall\DigestData;
 
-class DigestDataTest extends \PHPUnit_Framework_TestCase
+class DigestDataTest extends TestCase
 {
     public function testGetResponse()
     {
@@ -99,6 +100,9 @@ class DigestDataTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('"u\\ser"', $digestAuth->getUsername());
     }
 
+    /**
+     * @group time-sensitive
+     */
     public function testValidateAndDecode()
     {
         $time = microtime(true);
@@ -111,11 +115,11 @@ class DigestDataTest extends \PHPUnit_Framework_TestCase
             'response="b52938fc9e6d7c01be7702ece9031b42"'
         );
 
-        try {
-            $digestAuth->validateAndDecode($key, 'Welcome, robot!');
-        } catch (\Exception $e) {
-            $this->fail(sprintf('testValidateAndDecode fail with message: %s', $e->getMessage()));
-        }
+        $digestAuth->validateAndDecode($key, 'Welcome, robot!');
+
+        sleep(1);
+
+        $this->assertTrue($digestAuth->isNonceExpired());
     }
 
     public function testCalculateServerDigest()

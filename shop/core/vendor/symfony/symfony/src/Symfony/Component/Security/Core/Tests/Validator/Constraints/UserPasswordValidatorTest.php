@@ -24,7 +24,6 @@ use Symfony\Component\Validator\Tests\Constraints\AbstractConstraintValidatorTes
 abstract class UserPasswordValidatorTest extends AbstractConstraintValidatorTest
 {
     const PASSWORD = 's3Cr3t';
-
     const SALT = '^S4lt$';
 
     /**
@@ -88,6 +87,29 @@ abstract class UserPasswordValidatorTest extends AbstractConstraintValidatorTest
 
         $this->buildViolation('myMessage')
             ->assertRaised();
+    }
+
+    /**
+     * @dataProvider emptyPasswordData
+     */
+    public function testEmptyPasswordsAreNotValid($password)
+    {
+        $constraint = new UserPassword(array(
+            'message' => 'myMessage',
+        ));
+
+        $this->validator->validate($password, $constraint);
+
+        $this->buildViolation('myMessage')
+            ->assertRaised();
+    }
+
+    public function emptyPasswordData()
+    {
+        return array(
+            array(null),
+            array(''),
+        );
     }
 
     /**

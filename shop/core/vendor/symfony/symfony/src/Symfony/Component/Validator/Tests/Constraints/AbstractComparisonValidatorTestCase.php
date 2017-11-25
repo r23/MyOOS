@@ -13,6 +13,7 @@ namespace Symfony\Component\Validator\Tests\Constraints;
 
 use Symfony\Component\Intl\Util\IntlTestHelper;
 use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
 class ComparisonTest_Class
 {
@@ -32,7 +33,7 @@ class ComparisonTest_Class
 /**
  * @author Daniel Holmes <daniel@danielholmes.org>
  */
-abstract class AbstractComparisonValidatorTestCase extends AbstractConstraintValidatorTest
+abstract class AbstractComparisonValidatorTestCase extends ConstraintValidatorTestCase
 {
     protected static function addPhp5Dot5Comparisons(array $comparisons)
     {
@@ -64,14 +65,21 @@ abstract class AbstractComparisonValidatorTestCase extends AbstractConstraintVal
         return $result;
     }
 
+    public function provideInvalidConstraintOptions()
+    {
+        return array(
+            array(null),
+            array(array()),
+        );
+    }
+
     /**
+     * @dataProvider provideInvalidConstraintOptions
      * @expectedException \Symfony\Component\Validator\Exception\ConstraintDefinitionException
      */
-    public function testThrowsConstraintExceptionIfNoValueOrProperty()
+    public function testThrowsConstraintExceptionIfNoValueOrProperty($options)
     {
-        $comparison = $this->createConstraint(array());
-
-        $this->validator->validate('some value', $comparison);
+        $this->createConstraint($options);
     }
 
     /**
@@ -124,7 +132,7 @@ abstract class AbstractComparisonValidatorTestCase extends AbstractConstraintVal
         // Conversion of dates to string differs between ICU versions
         // Make sure we have the correct version loaded
         if ($dirtyValue instanceof \DateTime || $dirtyValue instanceof \DateTimeInterface) {
-            IntlTestHelper::requireIntl($this);
+            IntlTestHelper::requireIntl($this, '57.1');
         }
 
         $constraint = $this->createConstraint(array('value' => $comparedValue));
@@ -162,11 +170,11 @@ abstract class AbstractComparisonValidatorTestCase extends AbstractConstraintVal
     abstract public function provideInvalidComparisons();
 
     /**
-     * @param array $options Options for the constraint
+     * @param array|null $options Options for the constraint
      *
      * @return Constraint
      */
-    abstract protected function createConstraint(array $options);
+    abstract protected function createConstraint(array $options = null);
 
     /**
      * @return string|null

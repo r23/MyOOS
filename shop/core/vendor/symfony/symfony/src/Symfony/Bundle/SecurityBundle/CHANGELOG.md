@@ -1,6 +1,23 @@
 CHANGELOG
 =========
 
+3.3.0
+-----
+
+ * Deprecated instantiating `UserPasswordEncoderCommand` without its constructor
+   arguments fully provided.
+ * Deprecated `UserPasswordEncoderCommand::getContainer()` and relying on the
+  `ContainerAwareCommand` sub class or `ContainerAwareInterface` implementation for this command.
+ * Deprecated the `FirewallMap::$map` and `$container` properties.
+ * [BC BREAK] Keys of the `users` node for `in_memory` user provider are no longer normalized.
+ * deprecated `FirewallContext::getListeners()`
+
+3.2.0
+-----
+
+ * Added the `SecurityUserValueResolver` to inject the security users in actions via
+   `Symfony\Component\Security\Core\User\UserInterface` in the method signature.
+
 3.0.0
 -----
 

@@ -38,34 +38,11 @@ use Symfony\Component\Validator\Util\PropertyPath;
  */
 class RecursiveContextualValidator implements ContextualValidatorInterface
 {
-    /**
-     * @var ExecutionContextInterface
-     */
     private $context;
-
-    /**
-     * @var string
-     */
     private $defaultPropertyPath;
-
-    /**
-     * @var array
-     */
     private $defaultGroups;
-
-    /**
-     * @var MetadataFactoryInterface
-     */
     private $metadataFactory;
-
-    /**
-     * @var ConstraintValidatorFactoryInterface
-     */
     private $validatorFactory;
-
-    /**
-     * @var ObjectInitializerInterface[]
-     */
     private $objectInitializers;
 
     /**
@@ -261,11 +238,13 @@ class RecursiveContextualValidator implements ContextualValidatorInterface
 
         if (is_object($objectOrClass)) {
             $object = $objectOrClass;
+            $class = get_class($object);
             $cacheKey = spl_object_hash($objectOrClass);
             $propertyPath = PropertyPath::append($this->defaultPropertyPath, $propertyName);
         } else {
             // $objectOrClass contains a class name
             $object = null;
+            $class = $objectOrClass;
             $cacheKey = null;
             $propertyPath = $this->defaultPropertyPath;
         }
@@ -280,7 +259,7 @@ class RecursiveContextualValidator implements ContextualValidatorInterface
             $this->validateGenericNode(
                 $value,
                 $object,
-                $cacheKey.':'.get_class($object).':'.$propertyName,
+                $cacheKey.':'.$class.':'.$propertyName,
                 $propertyMetadata,
                 $propertyPath,
                 $groups,
@@ -782,7 +761,7 @@ class RecursiveContextualValidator implements ContextualValidatorInterface
         $cascadedGroups = $cascadedGroup ? array($cascadedGroup) : null;
 
         foreach ($groupSequence->groups as $groupInSequence) {
-            $groups = array($groupInSequence);
+            $groups = (array) $groupInSequence;
 
             if ($metadata instanceof ClassMetadataInterface) {
                 $this->validateClassNode(

@@ -33,12 +33,10 @@ abstract class BaseNode implements NodeInterface
     protected $attributes = array();
 
     /**
-     * Constructor.
-     *
      * @param string        $name   The name of the node
      * @param NodeInterface $parent The parent of this node
      *
-     * @throws \InvalidArgumentException if the name contains a period.
+     * @throws \InvalidArgumentException if the name contains a period
      */
     public function __construct($name, NodeInterface $parent = null)
     {

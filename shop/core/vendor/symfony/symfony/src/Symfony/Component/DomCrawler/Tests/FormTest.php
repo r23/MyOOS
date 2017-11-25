@@ -11,10 +11,11 @@
 
 namespace Symfony\Component\DomCrawler\Tests;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\DomCrawler\Form;
 use Symfony\Component\DomCrawler\FormFieldRegistry;
 
-class FormTest extends \PHPUnit_Framework_TestCase
+class FormTest extends TestCase
 {
     public static function setUpBeforeClass()
     {
@@ -320,6 +321,12 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('PATCH', $form->getMethod(), '->getMethod() returns the method defined in the constructor if provided');
     }
 
+    public function testGetMethodWithOverride()
+    {
+        $form = $this->createForm('<form method="get"><input type="submit" formmethod="post" /></form>');
+        $this->assertEquals('POST', $form->getMethod(), '->getMethod() returns the method attribute value of the form');
+    }
+
     public function testGetSetValue()
     {
         $form = $this->createForm('<form><input type="text" name="foo" value="foo" /><input type="submit" /></form>');
@@ -455,6 +462,15 @@ class FormTest extends \PHPUnit_Framework_TestCase
 
         $form = $this->createForm('<form method="post"><input type="file" name="f.o o[bar][ba.z]" /><input type="file" name="f.o o[bar][]" /><input type="text" name="bar" value="bar" /><input type="submit" /></form>');
         $this->assertEquals(array('f.o o' => array('bar' => array('ba.z' => array('name' => '', 'type' => '', 'tmp_name' => '', 'error' => 4, 'size' => 0), array('name' => '', 'type' => '', 'tmp_name' => '', 'error' => 4, 'size' => 0)))), $form->getPhpFiles(), '->getPhpFiles() preserves periods and spaces in names recursively');
+
+        $form = $this->createForm('<form method="post"><input type="file" name="foo[bar]" /><input type="text" name="bar" value="bar" /><input type="submit" /></form>');
+        $files = $form->getPhpFiles();
+
+        $this->assertSame(0, $files['foo']['bar']['size'], '->getPhpFiles() converts size to int');
+        $this->assertSame(4, $files['foo']['bar']['error'], '->getPhpFiles() converts error to int');
+
+        $form = $this->createForm('<form method="post"><input type="file" name="size[error]" /><input type="text" name="error" value="error" /><input type="submit" /></form>');
+        $this->assertEquals(array('size' => array('error' => array('name' => '', 'type' => '', 'tmp_name' => '', 'error' => 4, 'size' => 0))), $form->getPhpFiles(), '->getPhpFiles() int conversion does not collide with file names');
     }
 
     /**
@@ -525,6 +541,12 @@ class FormTest extends \PHPUnit_Framework_TestCase
     {
         $form = $this->createForm('<form><input type="submit" /></form>', null, 'http://localhost/foo/bar');
         $this->assertEquals('http://localhost/foo/bar', $form->getUri(), '->getUri() returns path if no action defined');
+    }
+
+    public function testGetUriWithActionOverride()
+    {
+        $form = $this->createForm('<form action="/foo"><button type="submit" formaction="/bar" /></form>', null, 'http://localhost/foo/');
+        $this->assertEquals('http://localhost/bar', $form->getUri(), '->getUri() returns absolute URIs');
     }
 
     public function provideGetUriValues()

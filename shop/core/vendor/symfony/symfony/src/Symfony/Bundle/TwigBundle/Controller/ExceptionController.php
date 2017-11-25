@@ -15,6 +15,9 @@ use Symfony\Component\Debug\Exception\FlattenException;
 use Symfony\Component\HttpKernel\Log\DebugLoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Loader\ExistsLoaderInterface;
 
 /**
  * ExceptionController renders error or exception pages for a given
@@ -26,13 +29,13 @@ use Symfony\Component\HttpFoundation\Response;
 class ExceptionController
 {
     protected $twig;
-
-    /**
-     * @var bool Show error (false) or exception (true) pages by default
-     */
     protected $debug;
 
-    public function __construct(\Twig_Environment $twig, $debug)
+    /**
+     * @param Environment $twig
+     * @param bool        $debug Show error (false) or exception (true) pages by default
+     */
+    public function __construct(Environment $twig, $debug)
     {
         $this->twig = $twig;
         $this->debug = $debug;
@@ -44,10 +47,6 @@ class ExceptionController
      * A "showException" request parameter can be used to force display of an error page (when set to false) or
      * the exception page (when true). If it is not present, the "debug" value passed into the constructor will
      * be used.
-     *
-     * @param Request              $request   The request
-     * @param FlattenException     $exception A FlattenException instance
-     * @param DebugLoggerInterface $logger    A DebugLoggerInterface instance
      *
      * @return Response
      *
@@ -69,7 +68,7 @@ class ExceptionController
                 'logger' => $logger,
                 'currentContent' => $currentContent,
             )
-        ));
+        ), 200, array('Content-Type' => $request->getMimeType($request->getRequestFormat()) ?: 'text/html'));
     }
 
     /**
@@ -129,7 +128,7 @@ class ExceptionController
         $template = (string) $template;
 
         $loader = $this->twig->getLoader();
-        if ($loader instanceof \Twig_ExistsLoaderInterface || method_exists($loader, 'exists')) {
+        if ($loader instanceof ExistsLoaderInterface || method_exists($loader, 'exists')) {
             return $loader->exists($template);
         }
 
@@ -137,7 +136,7 @@ class ExceptionController
             $loader->getSourceContext($template)->getCode();
 
             return true;
-        } catch (\Twig_Error_Loader $e) {
+        } catch (LoaderError $e) {
         }
 
         return false;

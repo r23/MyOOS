@@ -1,13 +1,9 @@
 {
-    "Version": "2.1.22.17",
+    "Version": "2.1.37.22",
     "Names": {
-        "ILR": [
-            "ILR",
-            "Israeli Shekel (1980–1985)"
-        ],
-        "ILS": [
-            "₪",
-            "Israeli New Shekel"
+        "SHP": [
+            "SHP",
+            "St Helena Pound"
         ]
     }
 }

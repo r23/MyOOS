@@ -12,7 +12,11 @@
 namespace Symfony\Component\DependencyInjection\Dumper;
 
 use Symfony\Component\Yaml\Dumper as YmlDumper;
+use Symfony\Component\Yaml\Tag\TaggedValue;
 use Symfony\Component\DependencyInjection\Alias;
+use Symfony\Component\DependencyInjection\Argument\ArgumentInterface;
+use Symfony\Component\DependencyInjection\Argument\IteratorArgument;
+use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Parameter;
@@ -32,8 +36,6 @@ class YamlDumper extends Dumper
     /**
      * Dumps the service container as an YAML string.
      *
-     * @param array $options An array of options
-     *
      * @return string A YAML string representing of the service container
      */
     public function dump(array $options = array())
@@ -46,7 +48,7 @@ class YamlDumper extends Dumper
             $this->dumper = new YmlDumper();
         }
 
-        return $this->addParameters()."\n".$this->addServices();
+        return $this->container->resolveEnvPlaceholders($this->addParameters()."\n".$this->addServices());
     }
 
     /**
@@ -57,7 +59,7 @@ class YamlDumper extends Dumper
      *
      * @return string
      */
-    private function addService($id, $definition)
+    private function addService($id, Definition $definition)
     {
         $code = "    $id:\n";
         if ($class = $definition->getClass()) {
@@ -93,7 +95,7 @@ class YamlDumper extends Dumper
         }
 
         if ($definition->isSynthetic()) {
-            $code .= sprintf("        synthetic: true\n");
+            $code .= "        synthetic: true\n";
         }
 
         if ($definition->isDeprecated()) {
@@ -105,15 +107,23 @@ class YamlDumper extends Dumper
         }
 
         $autowiringTypesCode = '';
-        foreach ($definition->getAutowiringTypes() as $autowiringType) {
+        foreach ($definition->getAutowiringTypes(false) as $autowiringType) {
             $autowiringTypesCode .= sprintf("            - %s\n", $this->dumper->dump($autowiringType));
         }
         if ($autowiringTypesCode) {
             $code .= sprintf("        autowiring_types:\n%s", $autowiringTypesCode);
         }
 
+        if ($definition->isAutoconfigured()) {
+            $code .= "        autoconfigure: true\n";
+        }
+
+        if ($definition->isAbstract()) {
+            $code .= "        abstract: true\n";
+        }
+
         if ($definition->isLazy()) {
-            $code .= sprintf("        lazy: true\n");
+            $code .= "        lazy: true\n";
         }
 
         if ($definition->getArguments()) {
@@ -162,7 +172,7 @@ class YamlDumper extends Dumper
      *
      * @return string
      */
-    private function addServiceAlias($alias, $id)
+    private function addServiceAlias($alias, Alias $id)
     {
         if ($id->isPublic()) {
             return sprintf("    %s: '@%s'\n", $alias, $id);
@@ -209,7 +219,7 @@ class YamlDumper extends Dumper
             return '';
         }
 
-        $parameters = $this->prepareParameters($this->container->getParameterBag()->all(), $this->container->isFrozen());
+        $parameters = $this->prepareParameters($this->container->getParameterBag()->all(), $this->container->isCompiled());
 
         return $this->dumper->dump(array('parameters' => $parameters), 2);
     }
@@ -245,6 +255,19 @@ class YamlDumper extends Dumper
      */
     private function dumpValue($value)
     {
+        if ($value instanceof ServiceClosureArgument) {
+            $value = $value->getValues()[0];
+        }
+        if ($value instanceof ArgumentInterface) {
+            if ($value instanceof IteratorArgument) {
+                $tag = 'iterator';
+            } else {
+                throw new RuntimeException(sprintf('Unspecified Yaml tag for type "%s".', get_class($value)));
+            }
+
+            return new TaggedValue($tag, $this->dumpValue($value->getValues()));
+        }
+
         if (is_array($value)) {
             $code = array();
             foreach ($value as $k => $v) {
@@ -325,8 +348,6 @@ class YamlDumper extends Dumper
 
     /**
      * Escapes arguments.
-     *
-     * @param array $arguments
      *
      * @return array
      */

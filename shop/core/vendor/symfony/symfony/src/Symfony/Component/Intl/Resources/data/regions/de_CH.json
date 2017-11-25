@@ -1,13 +1,13 @@
 {
-    "Version": "2.1.19.87",
+    "Version": "2.1.37.8",
     "Names": {
-        "BD": "Bangladesh",
         "BN": "Brunei",
         "BW": "Botswana",
         "BY": "Weissrussland",
+        "CV": "Kapverden",
         "GB": "Grossbritannien",
-        "MH": "Marshall-Inseln",
         "SB": "Salomon-Inseln",
+        "TL": "Osttimor",
         "ZW": "Zimbabwe"
     }
 }

@@ -22,9 +22,6 @@ use Symfony\Component\Form\ChoiceList\View\ChoiceListView;
  */
 class CachingFactoryDecorator implements ChoiceListFactoryInterface
 {
-    /**
-     * @var ChoiceListFactoryInterface
-     */
     private $decoratedFactory;
 
     /**
@@ -48,7 +45,7 @@ class CachingFactoryDecorator implements ChoiceListFactoryInterface
      *
      * @return string The SHA-256 hash
      *
-     * @internal Should not be used by user-land code.
+     * @internal should not be used by user-land code
      */
     public static function generateHash($value, $namespace = '')
     {
@@ -89,11 +86,6 @@ class CachingFactoryDecorator implements ChoiceListFactoryInterface
         }
     }
 
-    /**
-     * Decorates the given factory.
-     *
-     * @param ChoiceListFactoryInterface $decoratedFactory The decorated factory
-     */
     public function __construct(ChoiceListFactoryInterface $decoratedFactory)
     {
         $this->decoratedFactory = $decoratedFactory;

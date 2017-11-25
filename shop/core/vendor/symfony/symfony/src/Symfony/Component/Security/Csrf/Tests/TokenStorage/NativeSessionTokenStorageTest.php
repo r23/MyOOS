@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\Security\Csrf\Tests\TokenStorage;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Csrf\TokenStorage\NativeSessionTokenStorage;
 
 /**
@@ -19,7 +20,7 @@ use Symfony\Component\Security\Csrf\TokenStorage\NativeSessionTokenStorage;
  * @runTestsInSeparateProcesses
  * @preserveGlobalState disabled
  */
-class NativeSessionTokenStorageTest extends \PHPUnit_Framework_TestCase
+class NativeSessionTokenStorageTest extends TestCase
 {
     const SESSION_NAMESPACE = 'foobar';
 
@@ -27,14 +28,6 @@ class NativeSessionTokenStorageTest extends \PHPUnit_Framework_TestCase
      * @var NativeSessionTokenStorage
      */
     private $storage;
-
-    public static function setUpBeforeClass()
-    {
-        ini_set('session.save_handler', 'files');
-        ini_set('session.save_path', sys_get_temp_dir());
-
-        parent::setUpBeforeClass();
-    }
 
     protected function setUp()
     {

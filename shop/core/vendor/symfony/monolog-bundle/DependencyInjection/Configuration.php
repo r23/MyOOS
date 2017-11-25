@@ -177,7 +177,7 @@ use Monolog\Logger;
  *   - [release]: release number of the application that will be attached to logs, defaults to null
  *   - [level]: level name or int value, defaults to DEBUG
  *   - [bubble]: bool, defaults to true
- *   - [auto_stack_logs]: bool, defaults to false
+ *   - [auto_log_stacks]: bool, defaults to false
  *
  * - newrelic:
  *   - [level]: level name or int value, defaults to DEBUG
@@ -281,6 +281,11 @@ use Monolog\Logger;
  *   - [level]: level name or int value, defaults to DEBUG
  *   - [bubble]: bool, defaults to true
  *
+ * - server_log:
+ *   - host: server log host. ex: 127.0.0.1:9911
+ *   - [level]: level name or int value, defaults to DEBUG
+ *   - [bubble]: bool, defaults to true
+ *
  * @author Jordi Boggiano <j.boggiano@seld.be>
  * @author Christophe Coevoet <stof@notk.org>
  */
@@ -380,7 +385,7 @@ class Configuration implements ConfigurationInterface
                             ->scalarNode('include_extra')->defaultFalse()->end() // slack & slackwebhook
                             ->scalarNode('icon_emoji')->defaultNull()->end() // slack & slackwebhook
                             ->scalarNode('webhook_url')->end() // slackwebhook
-                            ->scalarNode('slack_team')->end() // slackbot
+                            ->scalarNode('team')->end() // slackbot
                             ->scalarNode('notify')->defaultFalse()->end() // hipchat
                             ->scalarNode('nickname')->defaultValue('Monolog')->end() // hipchat
                             ->scalarNode('token')->end() // pushover & hipchat & loggly & logentries & flowdock & rollbar & slack & slackbot
@@ -528,7 +533,7 @@ class Configuration implements ConfigurationInterface
                                     ->ifArray()
                                     ->then(function ($v) {
                                         $map = array();
-                                        $verbosities = array('VERBOSITY_NORMAL', 'VERBOSITY_VERBOSE', 'VERBOSITY_VERY_VERBOSE', 'VERBOSITY_DEBUG');
+                                        $verbosities = array('VERBOSITY_QUIET', 'VERBOSITY_NORMAL', 'VERBOSITY_VERBOSE', 'VERBOSITY_VERY_VERBOSE', 'VERBOSITY_DEBUG');
                                         // allow numeric indexed array with ascendning verbosity and lowercase names of the constants
                                         foreach ($v as $verbosity => $level) {
                                             if (is_int($verbosity) && isset($verbosities[$verbosity])) {
@@ -542,6 +547,7 @@ class Configuration implements ConfigurationInterface
                                     })
                                 ->end()
                                 ->children()
+                                    ->scalarNode('VERBOSITY_QUIET')->defaultValue('ERROR')->end()
                                     ->scalarNode('VERBOSITY_NORMAL')->defaultValue('WARNING')->end()
                                     ->scalarNode('VERBOSITY_VERBOSE')->defaultValue('NOTICE')->end()
                                     ->scalarNode('VERBOSITY_VERY_VERBOSE')->defaultValue('INFO')->end()
@@ -645,7 +651,7 @@ class Configuration implements ConfigurationInterface
                             ->thenInvalid('Service handlers can not have a formatter configured in the bundle, you must reconfigure the service itself instead')
                         ->end()
                         ->validate()
-                            ->ifTrue(function ($v) { return ('fingers_crossed' === $v['type'] || 'buffer' === $v['type'] || 'filter' === $v['type']) && 1 !== count($v['handler']); })
+                            ->ifTrue(function ($v) { return ('fingers_crossed' === $v['type'] || 'buffer' === $v['type'] || 'filter' === $v['type']) && empty($v['handler']); })
                             ->thenInvalid('The handler has to be specified to use a FingersCrossedHandler or BufferHandler or FilterHandler')
                         ->end()
                         ->validate()
@@ -721,8 +727,8 @@ class Configuration implements ConfigurationInterface
                             ->thenInvalid('The webhook_url have to be specified to use a SlackWebhookHandler')
                         ->end()
                         ->validate()
-                            ->ifTrue(function ($v) { return 'slackbot' === $v['type'] && (empty($v['stack_team']) || empty($v['token']) || empty($v['channel'])); })
-                            ->thenInvalid('The stack_team, token and channel have to be specified to use a SlackbotHandler')
+                            ->ifTrue(function ($v) { return 'slackbot' === $v['type'] && (empty($v['team']) || empty($v['token']) || empty($v['channel'])); })
+                            ->thenInvalid('The team, token and channel have to be specified to use a SlackbotHandler')
                         ->end()
                         ->validate()
                             ->ifTrue(function ($v) { return 'cube' === $v['type'] && empty($v['url']); })
@@ -766,6 +772,10 @@ class Configuration implements ConfigurationInterface
                         ->validate()
                             ->ifTrue(function ($v) { return 'flowdock' === $v['type'] && empty($v['source']); })
                             ->thenInvalid('The source has to be specified to use a FlowdockHandler')
+                        ->end()
+                        ->validate()
+                            ->ifTrue(function ($v) { return 'server_log' === $v['type'] && empty($v['host']); })
+                            ->thenInvalid('The host has to be specified to use a ServerLogHandler')
                         ->end()
                     ->end()
                     ->validate()

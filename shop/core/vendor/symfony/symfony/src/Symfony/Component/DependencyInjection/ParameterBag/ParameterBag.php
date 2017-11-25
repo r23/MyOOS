@@ -81,7 +81,23 @@ class ParameterBag implements ParameterBagInterface
                 }
             }
 
-            throw new ParameterNotFoundException($name, null, null, null, $alternatives);
+            $nonNestedAlternative = null;
+            if (!count($alternatives) && false !== strpos($name, '.')) {
+                $namePartsLength = array_map('strlen', explode('.', $name));
+                $key = substr($name, 0, -1 * (1 + array_pop($namePartsLength)));
+                while (count($namePartsLength)) {
+                    if ($this->has($key)) {
+                        if (is_array($this->get($key))) {
+                            $nonNestedAlternative = $key;
+                        }
+                        break;
+                    }
+
+                    $key = substr($key, 0, -1 * (1 + array_pop($namePartsLength)));
+                }
+            }
+
+            throw new ParameterNotFoundException($name, null, null, null, $alternatives, $nonNestedAlternative);
         }
 
         return $this->parameters[$name];
@@ -151,7 +167,7 @@ class ParameterBag implements ParameterBagInterface
      *
      * @throws ParameterNotFoundException          if a placeholder references a parameter that does not exist
      * @throws ParameterCircularReferenceException if a circular reference if detected
-     * @throws RuntimeException                    when a given parameter has a type problem.
+     * @throws RuntimeException                    when a given parameter has a type problem
      */
     public function resolveValue($value, array $resolving = array())
     {
@@ -181,7 +197,7 @@ class ParameterBag implements ParameterBagInterface
      *
      * @throws ParameterNotFoundException          if a placeholder references a parameter that does not exist
      * @throws ParameterCircularReferenceException if a circular reference if detected
-     * @throws RuntimeException                    when a given parameter has a type problem.
+     * @throws RuntimeException                    when a given parameter has a type problem
      */
     public function resolveString($value, array $resolving = array())
     {
@@ -189,13 +205,14 @@ class ParameterBag implements ParameterBagInterface
         // as the preg_replace_callback throw an exception when trying
         // a non-string in a parameter value
         if (preg_match('/^%([^%\s]+)%$/', $value, $match)) {
-            $key = strtolower($match[1]);
+            $key = $match[1];
+            $lcKey = strtolower($key);
 
-            if (isset($resolving[$key])) {
+            if (isset($resolving[$lcKey])) {
                 throw new ParameterCircularReferenceException(array_keys($resolving));
             }
 
-            $resolving[$key] = true;
+            $resolving[$lcKey] = true;
 
             return $this->resolved ? $this->get($key) : $this->resolveValue($this->get($key), $resolving);
         }
@@ -206,8 +223,9 @@ class ParameterBag implements ParameterBagInterface
                 return '%%';
             }
 
-            $key = strtolower($match[1]);
-            if (isset($resolving[$key])) {
+            $key = $match[1];
+            $lcKey = strtolower($key);
+            if (isset($resolving[$lcKey])) {
                 throw new ParameterCircularReferenceException(array_keys($resolving));
             }
 
@@ -218,7 +236,7 @@ class ParameterBag implements ParameterBagInterface
             }
 
             $resolved = (string) $resolved;
-            $resolving[$key] = true;
+            $resolving[$lcKey] = true;
 
             return $this->isResolved() ? $resolved : $this->resolveString($resolved, $resolving);
         }, $value);

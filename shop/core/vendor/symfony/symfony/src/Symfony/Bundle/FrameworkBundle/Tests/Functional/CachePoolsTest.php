@@ -17,16 +17,6 @@ use Symfony\Component\Cache\Exception\InvalidArgumentException;
 
 class CachePoolsTest extends WebTestCase
 {
-    protected function setUp()
-    {
-        $_SERVER['SYMFONY__REDIS_HOST'] = getenv('REDIS_HOST');
-    }
-
-    protected function tearDown()
-    {
-        unset($_SERVER['SYMFONY__REDIS_HOST']);
-    }
-
     public function testCachePools()
     {
         $this->doTestCachePools(array(), FilesystemAdapter::class);
@@ -39,6 +29,11 @@ class CachePoolsTest extends WebTestCase
     {
         try {
             $this->doTestCachePools(array('root_config' => 'redis_config.yml', 'environment' => 'redis_cache'), RedisAdapter::class);
+        } catch (\PHPUnit\Framework\Error\Warning $e) {
+            if (0 !== strpos($e->getMessage(), 'unable to connect to')) {
+                throw $e;
+            }
+            $this->markTestSkipped($e->getMessage());
         } catch (\PHPUnit_Framework_Error_Warning $e) {
             if (0 !== strpos($e->getMessage(), 'unable to connect to')) {
                 throw $e;
@@ -59,6 +54,11 @@ class CachePoolsTest extends WebTestCase
     {
         try {
             $this->doTestCachePools(array('root_config' => 'redis_custom_config.yml', 'environment' => 'custom_redis_cache'), RedisAdapter::class);
+        } catch (\PHPUnit\Framework\Error\Warning $e) {
+            if (0 !== strpos($e->getMessage(), 'unable to connect to')) {
+                throw $e;
+            }
+            $this->markTestSkipped($e->getMessage());
         } catch (\PHPUnit_Framework_Error_Warning $e) {
             if (0 !== strpos($e->getMessage(), 'unable to connect to')) {
                 throw $e;

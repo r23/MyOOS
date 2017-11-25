@@ -26,6 +26,8 @@ use Symfony\Component\Validator\Tests\Constraints\AbstractConstraintValidatorTes
 
 /**
  * @author Bernhard Schussek <bschussek@gmail.com>
+ *
+ * @todo use ConstraintValidatorTestCase when symfony/validator ~3.2 is required.
  */
 class FormValidatorTest extends AbstractConstraintValidatorTest
 {
@@ -370,6 +372,7 @@ class FormValidatorTest extends AbstractConstraintValidatorTest
             ->getForm();
 
         $this->expectValidateAt(0, 'data', $object, new GroupSequence(array('group1', 'group2')));
+        $this->expectValidateAt(1, 'data', $object, new GroupSequence(array('group1', 'group2')));
 
         $this->validator->validate($form, new Form());
 

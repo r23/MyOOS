@@ -31,8 +31,6 @@ class AuthorizationChecker implements AuthorizationCheckerInterface
     private $alwaysAuthenticate;
 
     /**
-     * Constructor.
-     *
      * @param TokenStorageInterface          $tokenStorage
      * @param AuthenticationManagerInterface $authenticationManager An AuthenticationManager instance
      * @param AccessDecisionManagerInterface $accessDecisionManager An AccessDecisionManager instance
@@ -49,7 +47,7 @@ class AuthorizationChecker implements AuthorizationCheckerInterface
     /**
      * {@inheritdoc}
      *
-     * @throws AuthenticationCredentialsNotFoundException when the token storage has no authentication token.
+     * @throws AuthenticationCredentialsNotFoundException when the token storage has no authentication token
      */
     final public function isGranted($attributes, $object = null)
     {

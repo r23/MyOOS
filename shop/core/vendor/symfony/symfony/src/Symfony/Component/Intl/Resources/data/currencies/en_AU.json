@@ -1,13 +1,9 @@
 {
-    "Version": "2.1.24.13",
+    "Version": "2.1.37.6",
     "Names": {
         "AUD": [
             "$",
             "Australian Dollar"
-        ],
-        "AWG": [
-            "AWG",
-            "Aruba Guilder"
         ],
         "BAM": [
             "BAM",
@@ -32,6 +28,10 @@
         "CAD": [
             "CAD",
             "Canadian Dollar"
+        ],
+        "CNH": [
+            "CNH",
+            "CNH"
         ],
         "CNY": [
             "CNY",

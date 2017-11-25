@@ -11,12 +11,13 @@
 
 namespace Symfony\Component\Config\Tests\Definition\Builder;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\Definition\Builder\ScalarNodeDefinition;
 use Symfony\Component\Config\Definition\Exception\InvalidDefinitionException;
 
-class ArrayNodeDefinitionTest extends \PHPUnit_Framework_TestCase
+class ArrayNodeDefinitionTest extends TestCase
 {
     public function testAppendingSomeNode()
     {
@@ -144,13 +145,16 @@ class ArrayNodeDefinitionTest extends \PHPUnit_Framework_TestCase
 
     public function testNestedPrototypedArrayNodes()
     {
-        $node = new ArrayNodeDefinition('root');
-        $node
+        $nodeDefinition = new ArrayNodeDefinition('root');
+        $nodeDefinition
             ->addDefaultChildrenIfNoneSet()
             ->prototype('array')
                   ->prototype('array')
         ;
-        $node->getNode();
+        $node = $nodeDefinition->getNode();
+
+        $this->assertInstanceOf('Symfony\Component\Config\Definition\PrototypedArrayNode', $node);
+        $this->assertInstanceOf('Symfony\Component\Config\Definition\PrototypedArrayNode', $node->getPrototype());
     }
 
     public function testEnabledNodeDefaults()
@@ -225,6 +229,48 @@ class ArrayNodeDefinitionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($node, $result);
         $this->assertFalse($this->getField($node, 'normalizeKeys'));
+    }
+
+    public function testPrototypeVariable()
+    {
+        $node = new ArrayNodeDefinition('root');
+        $this->assertEquals($node->prototype('variable'), $node->variablePrototype());
+    }
+
+    public function testPrototypeScalar()
+    {
+        $node = new ArrayNodeDefinition('root');
+        $this->assertEquals($node->prototype('scalar'), $node->scalarPrototype());
+    }
+
+    public function testPrototypeBoolean()
+    {
+        $node = new ArrayNodeDefinition('root');
+        $this->assertEquals($node->prototype('boolean'), $node->booleanPrototype());
+    }
+
+    public function testPrototypeInteger()
+    {
+        $node = new ArrayNodeDefinition('root');
+        $this->assertEquals($node->prototype('integer'), $node->integerPrototype());
+    }
+
+    public function testPrototypeFloat()
+    {
+        $node = new ArrayNodeDefinition('root');
+        $this->assertEquals($node->prototype('float'), $node->floatPrototype());
+    }
+
+    public function testPrototypeArray()
+    {
+        $node = new ArrayNodeDefinition('root');
+        $this->assertEquals($node->prototype('array'), $node->arrayPrototype());
+    }
+
+    public function testPrototypeEnum()
+    {
+        $node = new ArrayNodeDefinition('root');
+        $this->assertEquals($node->prototype('enum'), $node->enumPrototype());
     }
 
     public function getEnableableNodeFixtures()

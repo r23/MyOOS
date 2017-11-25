@@ -11,10 +11,12 @@
 
 namespace Symfony\Bundle\FrameworkBundle\Translation;
 
+use Psr\Container\ContainerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface as SymfonyContainerInterface;
 use Symfony\Component\HttpKernel\CacheWarmer\WarmableInterface;
 use Symfony\Component\Translation\Translator as BaseTranslator;
 use Symfony\Component\Translation\MessageSelector;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Translation\Exception\InvalidArgumentException;
 
 /**
  * Translator.
@@ -38,38 +40,55 @@ class Translator extends BaseTranslator implements WarmableInterface
     private $resourceLocales;
 
     /**
-     * Constructor.
+     * Holds parameters from addResource() calls so we can defer the actual
+     * parent::addResource() calls until initialize() is executed.
      *
+     * @var array
+     */
+    private $resources = array();
+
+    /**
      * Available options:
      *
      *   * cache_dir: The cache directory (or null to disable caching)
      *   * debug:     Whether to enable debugging or not (false by default)
      *   * resource_files: List of translation resources available grouped by locale.
      *
-     * @param ContainerInterface $container A ContainerInterface instance
-     * @param MessageSelector    $selector  The message selector for pluralization
-     * @param array              $loaderIds An array of loader Ids
-     * @param array              $options   An array of options
+     * @param ContainerInterface $container     A ContainerInterface instance
+     * @param MessageSelector    $selector      The message selector for pluralization
+     * @param string             $defaultLocale
+     * @param array              $loaderIds     An array of loader Ids
+     * @param array              $options       An array of options
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    public function __construct(ContainerInterface $container, MessageSelector $selector, $loaderIds = array(), array $options = array())
+    public function __construct(ContainerInterface $container, MessageSelector $selector, $defaultLocale = null, array $loaderIds = array(), array $options = array())
     {
+        // BC 3.x, to be removed in 4.0 along with the $defaultLocale default value
+        if (is_array($defaultLocale) || 3 > func_num_args()) {
+            if (!$container instanceof SymfonyContainerInterface) {
+                throw new \InvalidArgumentException('Missing third $defaultLocale argument.');
+            }
+
+            $options = $loaderIds;
+            $loaderIds = $defaultLocale;
+            $defaultLocale = $container->getParameter('kernel.default_locale');
+            @trigger_error(sprintf('Method %s() takes the default locale as 3rd argument since version 3.3. Not passing it is deprecated and will trigger an error in 4.0.', __METHOD__), E_USER_DEPRECATED);
+        }
+
         $this->container = $container;
         $this->loaderIds = $loaderIds;
 
         // check option names
         if ($diff = array_diff(array_keys($options), array_keys($this->options))) {
-            throw new \InvalidArgumentException(sprintf('The Translator does not support the following options: \'%s\'.', implode('\', \'', $diff)));
+            throw new InvalidArgumentException(sprintf('The Translator does not support the following options: \'%s\'.', implode('\', \'', $diff)));
         }
 
         $this->options = array_merge($this->options, $options);
         $this->resourceLocales = array_keys($this->options['resource_files']);
-        if (null !== $this->options['cache_dir'] && $this->options['debug']) {
-            $this->loadResources();
-        }
+        $this->addResourceFiles($this->options['resource_files']);
 
-        parent::__construct($container->getParameter('kernel.default_locale'), $selector, $this->options['cache_dir'], $this->options['debug']);
+        parent::__construct($defaultLocale, $selector, $this->options['cache_dir'], $this->options['debug']);
     }
 
     /**
@@ -93,6 +112,11 @@ class Translator extends BaseTranslator implements WarmableInterface
         }
     }
 
+    public function addResource($format, $resource, $locale, $domain = null)
+    {
+        $this->resources[] = array($format, $resource, $locale, $domain);
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -104,7 +128,12 @@ class Translator extends BaseTranslator implements WarmableInterface
 
     protected function initialize()
     {
-        $this->loadResources();
+        foreach ($this->resources as $key => $params) {
+            list($format, $resource, $locale, $domain) = $params;
+            parent::addResource($format, $resource, $locale, $domain);
+        }
+        $this->resources = array();
+
         foreach ($this->loaderIds as $id => $aliases) {
             foreach ($aliases as $alias) {
                 $this->addLoader($alias, $this->container->get($id));
@@ -112,14 +141,13 @@ class Translator extends BaseTranslator implements WarmableInterface
         }
     }
 
-    private function loadResources()
+    private function addResourceFiles($filesByLocale)
     {
-        foreach ($this->options['resource_files'] as $locale => $files) {
+        foreach ($filesByLocale as $locale => $files) {
             foreach ($files as $key => $file) {
                 // filename is domain.locale.format
                 list($domain, $locale, $format) = explode('.', basename($file), 3);
                 $this->addResource($format, $file, $locale, $domain);
-                unset($this->options['resource_files'][$locale][$key]);
             }
         }
     }

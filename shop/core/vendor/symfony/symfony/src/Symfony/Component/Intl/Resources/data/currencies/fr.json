@@ -1,5 +1,5 @@
 {
-    "Version": "2.1.23.79",
+    "Version": "2.1.37.1",
     "Names": {
         "ADP": [
             "ADP",
@@ -189,9 +189,13 @@
             "BYB",
             "nouveau rouble biélorusse (1994–1999)"
         ],
+        "BYN": [
+            "BYN",
+            "rouble biélorusse"
+        ],
         "BYR": [
             "BYR",
-            "rouble biélorusse"
+            "rouble biélorusse (2000–2016)"
         ],
         "BZD": [
             "$BZ",
@@ -224,6 +228,10 @@
         "CLP": [
             "$CL",
             "peso chilien"
+        ],
+        "CNH": [
+            "CNH",
+            "yuan chinois (zone extracôtière)"
         ],
         "CNY": [
             "CNY",
@@ -459,7 +467,7 @@
         ],
         "IRR": [
             "IRR",
-            "rial iranien"
+            "riyal iranien"
         ],
         "ISK": [
             "ISK",
@@ -695,7 +703,7 @@
         ],
         "OMR": [
             "OMR",
-            "rial omanais"
+            "riyal omanais"
         ],
         "PAB": [
             "PAB",
@@ -707,11 +715,11 @@
         ],
         "PEN": [
             "PEN",
-            "nouveau sol péruvien"
+            "sol péruvien"
         ],
         "PES": [
             "PES",
-            "sol péruvien"
+            "sol péruvien (1863–1985)"
         ],
         "PGK": [
             "PGK",
@@ -743,7 +751,7 @@
         ],
         "QAR": [
             "QAR",
-            "rial qatari"
+            "riyal qatari"
         ],
         "RHD": [
             "$RH",
@@ -775,7 +783,7 @@
         ],
         "SAR": [
             "SAR",
-            "rial saoudien"
+            "riyal saoudien"
         ],
         "SBD": [
             "$SB",
@@ -1011,7 +1019,7 @@
         ],
         "YER": [
             "YER",
-            "rial yéménite"
+            "riyal yéménite"
         ],
         "YUD": [
             "YUD",

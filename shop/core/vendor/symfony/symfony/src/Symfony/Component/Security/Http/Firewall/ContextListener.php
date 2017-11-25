@@ -36,7 +36,6 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 class ContextListener implements ListenerInterface
 {
     private $tokenStorage;
-    private $contextKey;
     private $sessionKey;
     private $logger;
     private $userProviders;
@@ -58,7 +57,6 @@ class ContextListener implements ListenerInterface
 
         $this->tokenStorage = $tokenStorage;
         $this->userProviders = $userProviders;
-        $this->contextKey = $contextKey;
         $this->sessionKey = '_security_'.$contextKey;
         $this->logger = $logger;
         $this->dispatcher = $dispatcher;
@@ -67,8 +65,6 @@ class ContextListener implements ListenerInterface
 
     /**
      * Reads the Security Token from the session.
-     *
-     * @param GetResponseEvent $event A GetResponseEvent instance
      */
     public function handle(GetResponseEvent $event)
     {
@@ -107,8 +103,6 @@ class ContextListener implements ListenerInterface
 
     /**
      * Writes the security token into the session.
-     *
-     * @param FilterResponseEvent $event A FilterResponseEvent instance
      */
     public function onKernelResponse(FilterResponseEvent $event)
     {
@@ -142,8 +136,6 @@ class ContextListener implements ListenerInterface
     /**
      * Refreshes the user by reloading it from the user provider.
      *
-     * @param TokenInterface $token
-     *
      * @return TokenInterface|null
      *
      * @throws \RuntimeException
@@ -154,6 +146,8 @@ class ContextListener implements ListenerInterface
         if (!$user instanceof UserInterface) {
             return $token;
         }
+
+        $userNotFoundByProvider = false;
 
         foreach ($this->userProviders as $provider) {
             try {
@@ -172,8 +166,12 @@ class ContextListener implements ListenerInterface
                     $this->logger->warning('Username could not be found in the selected user provider.', array('username' => $e->getUsername(), 'provider' => get_class($provider)));
                 }
 
-                return;
+                $userNotFoundByProvider = true;
             }
+        }
+
+        if ($userNotFoundByProvider) {
+            return null;
         }
 
         throw new \RuntimeException(sprintf('There is no user provider for user "%s".', get_class($user)));

@@ -21,27 +21,12 @@ use Symfony\Component\Form\Exception\UnexpectedTypeException;
  */
 class MergeCollectionListener implements EventSubscriberInterface
 {
-    /**
-     * Whether elements may be added to the collection.
-     *
-     * @var bool
-     */
     private $allowAdd;
-
-    /**
-     * Whether elements may be removed from the collection.
-     *
-     * @var bool
-     */
     private $allowDelete;
 
     /**
-     * Creates a new listener.
-     *
-     * @param bool $allowAdd    Whether values might be added to the
-     *                          collection.
-     * @param bool $allowDelete Whether values might be removed from the
-     *                          collection.
+     * @param bool $allowAdd    Whether values might be added to the collection
+     * @param bool $allowDelete Whether values might be removed from the collection
      */
     public function __construct($allowAdd = false, $allowDelete = false)
     {
@@ -80,7 +65,7 @@ class MergeCollectionListener implements EventSubscriberInterface
             return;
         }
 
-        if (!$dataToMergeInto) {
+        if (null === $dataToMergeInto) {
             // No original data was set. Set it if allowed
             if ($this->allowAdd) {
                 $dataToMergeInto = $data;

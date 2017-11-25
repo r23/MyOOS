@@ -1,15 +1,14 @@
 {
-    "Version": "2.1.19.14",
+    "Version": "2.1.35.71",
     "Names": {
         "CVE": [
             "​",
-            "Escudo cabo-verdiano",
+            "escudo cabo-verdiano",
             {}
         ],
         "PTE": [
             "​PTE",
-            "Escudo português",
-            {}
+            "Escudo português"
         ]
     }
 }

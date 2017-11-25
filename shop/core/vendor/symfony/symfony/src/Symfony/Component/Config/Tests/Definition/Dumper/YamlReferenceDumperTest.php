@@ -11,10 +11,11 @@
 
 namespace Symfony\Component\Config\Tests\Definition\Dumper;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\Dumper\YamlReferenceDumper;
 use Symfony\Component\Config\Tests\Fixtures\Configuration\ExampleConfiguration;
 
-class YamlReferenceDumperTest extends \PHPUnit_Framework_TestCase
+class YamlReferenceDumperTest extends TestCase
 {
     public function testDumper()
     {
@@ -22,8 +23,62 @@ class YamlReferenceDumperTest extends \PHPUnit_Framework_TestCase
 
         $dumper = new YamlReferenceDumper();
 
-        $this->assertContains($this->getConfigurationAsString(), $dumper->dump($configuration));
-        $this->markTestIncomplete('The Yaml Dumper currently does not support prototyped arrays');
+        $this->assertEquals($this->getConfigurationAsString(), $dumper->dump($configuration));
+    }
+
+    public function provideDumpAtPath()
+    {
+        return array(
+            'Regular node' => array('scalar_true', <<<EOL
+scalar_true:          true
+EOL
+            ),
+            'Array node' => array('array', <<<EOL
+# some info
+array:
+    child1:               ~
+    child2:               ~
+
+    # this is a long
+    # multi-line info text
+    # which should be indented
+    child3:               ~ # Example: example setting
+EOL
+            ),
+            'Regular nested' => array('array.child2', <<<EOL
+child2:               ~
+EOL
+            ),
+            'Prototype' => array('cms_pages.page', <<<EOL
+# Prototype
+page:
+
+    # Prototype
+    locale:
+        title:                ~ # Required
+        path:                 ~ # Required
+EOL
+            ),
+            'Nested prototype' => array('cms_pages.page.locale', <<<EOL
+# Prototype
+locale:
+    title:                ~ # Required
+    path:                 ~ # Required
+EOL
+            ),
+        );
+    }
+
+    /**
+     * @dataProvider provideDumpAtPath
+     */
+    public function testDumpAtPath($path, $expected)
+    {
+        $configuration = new ExampleConfiguration();
+
+        $dumper = new YamlReferenceDumper();
+
+        $this->assertSame(trim($expected), trim($dumper->dumpAtPath($configuration, $path)));
     }
 
     private function getConfigurationAsString()
@@ -56,10 +111,31 @@ acme_root:
         # multi-line info text
         # which should be indented
         child3:               ~ # Example: example setting
+    scalar_prototyped:    []
     parameters:
 
         # Prototype: Parameter name
         name:                 ~
+    connections:
+
+        # Prototype
+        -
+            user:                 ~
+            pass:                 ~
+    cms_pages:
+
+        # Prototype
+        page:
+
+            # Prototype
+            locale:
+                title:                ~ # Required
+                path:                 ~ # Required
+    pipou:
+
+        # Prototype
+        name:                 []
+
 EOL;
     }
 }

@@ -24,37 +24,12 @@ class FormRenderer implements FormRendererInterface
 {
     const CACHE_KEY_VAR = 'unique_block_prefix';
 
-    /**
-     * @var FormRendererEngineInterface
-     */
     private $engine;
-
-    /**
-     * @var CsrfTokenManagerInterface
-     */
     private $csrfTokenManager;
-
-    /**
-     * @var array
-     */
     private $blockNameHierarchyMap = array();
-
-    /**
-     * @var array
-     */
     private $hierarchyLevelMap = array();
-
-    /**
-     * @var array
-     */
     private $variableStack = array();
 
-    /**
-     * Constructor.
-     *
-     * @param FormRendererEngineInterface    $engine
-     * @param CsrfTokenManagerInterface|null $csrfTokenManager
-     */
     public function __construct(FormRendererEngineInterface $engine, CsrfTokenManagerInterface $csrfTokenManager = null)
     {
         $this->engine = $engine;
@@ -305,6 +280,6 @@ class FormRenderer implements FormRendererInterface
      */
     public function humanize($text)
     {
-        return ucfirst(trim(strtolower(preg_replace(array('/([A-Z])/', '/[_\s]+/'), array('_$1', ' '), $text))));
+        return ucfirst(strtolower(trim(preg_replace(array('/([A-Z])/', '/[_\s]+/'), array('_$1', ' '), $text))));
     }
 }

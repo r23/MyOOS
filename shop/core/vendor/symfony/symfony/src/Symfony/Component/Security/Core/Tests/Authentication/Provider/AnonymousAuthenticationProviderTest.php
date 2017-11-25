@@ -11,9 +11,10 @@
 
 namespace Symfony\Component\Security\Core\Tests\Authentication\Provider;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider;
 
-class AnonymousAuthenticationProviderTest extends \PHPUnit_Framework_TestCase
+class AnonymousAuthenticationProviderTest extends TestCase
 {
     public function testSupports()
     {
@@ -23,11 +24,15 @@ class AnonymousAuthenticationProviderTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($provider->supports($this->getMockBuilder('Symfony\Component\Security\Core\Authentication\Token\TokenInterface')->getMock()));
     }
 
+    /**
+     * @expectedException \Symfony\Component\Security\Core\Exception\AuthenticationException
+     * @expectedExceptionMessage The token is not supported by this authentication provider.
+     */
     public function testAuthenticateWhenTokenIsNotSupported()
     {
         $provider = $this->getProvider('foo');
 
-        $this->assertNull($provider->authenticate($this->getMockBuilder('Symfony\Component\Security\Core\Authentication\Token\TokenInterface')->getMock()));
+        $provider->authenticate($this->getMockBuilder('Symfony\Component\Security\Core\Authentication\Token\TokenInterface')->getMock());
     }
 
     /**

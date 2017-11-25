@@ -1,6 +1,18 @@
 CHANGELOG
 =========
 
+3.3.0
+-----
+
+ * added `AddValidatorInitializersPass`
+ * added `AddConstraintValidatorsPass`
+ * added `ContainerConstraintValidatorFactory`
+
+3.2.0
+-----
+
+ * deprecated `Tests\Constraints\AbstractContraintValidatorTest` in favor of `Test\ConstraintValidatorTestCase`
+
 3.1.0
 -----
 

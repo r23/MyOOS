@@ -73,8 +73,6 @@ class ValidatorTypeGuesser implements FormTypeGuesserInterface
     /**
      * Guesses a field class name for a given constraint.
      *
-     * @param Constraint $constraint The constraint to guess for
-     *
      * @return TypeGuess|null The guessed field class and options
      */
     public function guessTypeForConstraint(Constraint $constraint)
@@ -151,8 +149,6 @@ class ValidatorTypeGuesser implements FormTypeGuesserInterface
             case 'Symfony\Component\Validator\Constraints\Count':
                 return new TypeGuess('Symfony\Component\Form\Extension\Core\Type\CollectionType', array(), Guess::LOW_CONFIDENCE);
 
-            case 'Symfony\Component\Validator\Constraints\True':
-            case 'Symfony\Component\Validator\Constraints\False':
             case 'Symfony\Component\Validator\Constraints\IsTrue':
             case 'Symfony\Component\Validator\Constraints\IsFalse':
                 return new TypeGuess('Symfony\Component\Form\Extension\Core\Type\CheckboxType', array(), Guess::MEDIUM_CONFIDENCE);
@@ -162,8 +158,6 @@ class ValidatorTypeGuesser implements FormTypeGuesserInterface
     /**
      * Guesses whether a field is required based on the given constraint.
      *
-     * @param Constraint $constraint The constraint to guess for
-     *
      * @return ValueGuess|null The guess whether the field is required
      */
     public function guessRequiredForConstraint(Constraint $constraint)
@@ -171,7 +165,6 @@ class ValidatorTypeGuesser implements FormTypeGuesserInterface
         switch (get_class($constraint)) {
             case 'Symfony\Component\Validator\Constraints\NotNull':
             case 'Symfony\Component\Validator\Constraints\NotBlank':
-            case 'Symfony\Component\Validator\Constraints\True':
             case 'Symfony\Component\Validator\Constraints\IsTrue':
                 return new ValueGuess(true, Guess::HIGH_CONFIDENCE);
         }
@@ -179,8 +172,6 @@ class ValidatorTypeGuesser implements FormTypeGuesserInterface
 
     /**
      * Guesses a field's maximum length based on the given constraint.
-     *
-     * @param Constraint $constraint The constraint to guess for
      *
      * @return ValueGuess|null The guess for the maximum length
      */
@@ -209,8 +200,6 @@ class ValidatorTypeGuesser implements FormTypeGuesserInterface
 
     /**
      * Guesses a field's pattern based on the given constraint.
-     *
-     * @param Constraint $constraint The constraint to guess for
      *
      * @return ValueGuess|null The guess for the pattern
      */
@@ -254,7 +243,7 @@ class ValidatorTypeGuesser implements FormTypeGuesserInterface
      * @param \Closure $closure      The closure that returns a guess
      *                               for a given constraint
      * @param mixed    $defaultValue The default value assumed if no other value
-     *                               can be guessed.
+     *                               can be guessed
      *
      * @return Guess|null The guessed value with the highest confidence
      */

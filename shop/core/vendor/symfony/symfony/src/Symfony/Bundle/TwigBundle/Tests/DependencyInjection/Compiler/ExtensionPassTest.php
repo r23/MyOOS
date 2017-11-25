@@ -11,25 +11,31 @@
 
 namespace Symfony\Bundle\TwigBundle\Tests\DependencyInjection\Compiler;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\TwigBundle\DependencyInjection\Compiler\ExtensionPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 
-class ExtensionPassTest extends \PHPUnit_Framework_TestCase
+class ExtensionPassTest extends TestCase
 {
     public function testProcessDoesNotDropExistingFileLoaderMethodCalls()
     {
         $container = new ContainerBuilder();
         $container->setParameter('kernel.debug', false);
+        $container->setParameter('kernel.root_dir', __DIR__);
 
         $container->register('twig.app_variable', '\Symfony\Bridge\Twig\AppVariable');
         $container->register('templating', '\Symfony\Bundle\TwigBundle\TwigEngine');
+        $container->register('twig.extension.yaml');
+        $container->register('twig.extension.debug.stopwatch');
+        $container->register('twig.extension.expression');
 
-        $nativeTwigLoader = new Definition('\Twig_Loader_Filesystem');
+        $nativeTwigLoader = new Definition('\Twig\Loader\FilesystemLoader');
         $nativeTwigLoader->addMethodCall('addPath', array());
         $container->setDefinition('twig.loader.native_filesystem', $nativeTwigLoader);
 
         $filesystemLoader = new Definition('\Symfony\Bundle\TwigBundle\Loader\FilesystemLoader');
+        $filesystemLoader->setArguments(array(null, null, null));
         $filesystemLoader->addMethodCall('addPath', array());
         $container->setDefinition('twig.loader.filesystem', $filesystemLoader);
 

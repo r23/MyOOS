@@ -1,5 +1,5 @@
 {
-    "Version": "2.1.24.16",
+    "Version": "2.1.37.5",
     "Names": {
         "AED": [
             "AED",
@@ -19,7 +19,7 @@
         ],
         "ANG": [
             "ANG",
-            "Guilder Antillean Netherland"
+            "Guilder Antillen Belanda"
         ],
         "AOA": [
             "AOA",
@@ -63,7 +63,7 @@
         ],
         "BIF": [
             "BIF",
-            "Franc Burundia"
+            "Franc Burundi"
         ],
         "BMD": [
             "BMD",
@@ -93,9 +93,13 @@
             "BWP",
             "Pula Botswana"
         ],
+        "BYN": [
+            "BYN",
+            "Rubel Belarus baharu"
+        ],
         "BYR": [
             "BYR",
-            "Ruble Belarus"
+            "Rubel Belarus (2000–2016)"
         ],
         "BZD": [
             "BZD",
@@ -116,6 +120,10 @@
         "CLP": [
             "CLP",
             "Peso Chile"
+        ],
+        "CNH": [
+            "CNH",
+            "Yuan China (luar pesisir)"
         ],
         "CNY": [
             "CN¥",
@@ -243,7 +251,7 @@
         ],
         "ILS": [
             "₪",
-            "Sheqel Baru Israel"
+            "Syekel Baharu Israel"
         ],
         "INR": [
             "₹",
@@ -375,7 +383,7 @@
         ],
         "MUR": [
             "MUR",
-            "Rupee Mauritia"
+            "Rupee Mauritius"
         ],
         "MVR": [
             "MVR",
@@ -431,7 +439,7 @@
         ],
         "PEN": [
             "PEN",
-            "Nuevo Sol Peru"
+            "Sol Peru"
         ],
         "PGK": [
             "PGK",
@@ -467,7 +475,7 @@
         ],
         "RUB": [
             "RUB",
-            "Ruble Rusia"
+            "Rubel Rusia"
         ],
         "RWF": [
             "RWF",
@@ -547,7 +555,7 @@
         ],
         "TOP": [
             "TOP",
-            "Tongan Paʻanga"
+            "Pa’anga Tonga"
         ],
         "TRY": [
             "TRY",
@@ -579,7 +587,7 @@
         ],
         "UYU": [
             "UYU",
-            "UYU"
+            "Peso Uruguay"
         ],
         "UZS": [
             "UZS",

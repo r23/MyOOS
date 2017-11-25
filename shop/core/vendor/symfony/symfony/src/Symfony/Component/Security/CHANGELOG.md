@@ -1,6 +1,18 @@
 CHANGELOG
 =========
 
+3.3.0
+-----
+
+ * deprecated `AccessDecisionManager::setVoters()` in favor of passing the
+   voters to the constructor.
+ * [EXPERIMENTAL] added a `json_login` listener for stateless authentication
+
+3.2.0
+-----
+
+ * added `$attributes` and `$subject` with getters/setters to `Symfony\Component\Security\Core\Exception\AccessDeniedException`
+
 3.0.0
 -----
 

@@ -11,13 +11,17 @@
 
 namespace Symfony\Bundle\FrameworkBundle\Tests\DependencyInjection\Compiler;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\ControllerArgumentValueResolverPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
 
-class ControllerArgumentValueResolverPassTest extends \PHPUnit_Framework_TestCase
+/**
+ * @group legacy
+ */
+class ControllerArgumentValueResolverPassTest extends TestCase
 {
     public function testServicesAreOrderedAccordingToPriority()
     {
@@ -42,7 +46,7 @@ class ControllerArgumentValueResolverPassTest extends \PHPUnit_Framework_TestCas
         }
 
         (new ControllerArgumentValueResolverPass())->process($container);
-        $this->assertEquals($expected, $definition->getArgument(1));
+        $this->assertEquals($expected, $definition->getArgument(1)->getValues());
     }
 
     public function testReturningEmptyArrayWhenNoService()
@@ -52,7 +56,7 @@ class ControllerArgumentValueResolverPassTest extends \PHPUnit_Framework_TestCas
         $container->setDefinition('argument_resolver', $definition);
 
         (new ControllerArgumentValueResolverPass())->process($container);
-        $this->assertEquals(array(), $definition->getArgument(1));
+        $this->assertEquals(array(), $definition->getArgument(1)->getValues());
     }
 
     public function testNoArgumentResolver()

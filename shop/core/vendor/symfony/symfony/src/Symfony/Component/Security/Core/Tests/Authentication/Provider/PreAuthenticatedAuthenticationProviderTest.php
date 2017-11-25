@@ -11,10 +11,11 @@
 
 namespace Symfony\Component\Security\Core\Tests\Authentication\Provider;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\Provider\PreAuthenticatedAuthenticationProvider;
 use Symfony\Component\Security\Core\Exception\LockedException;
 
-class PreAuthenticatedAuthenticationProviderTest extends \PHPUnit_Framework_TestCase
+class PreAuthenticatedAuthenticationProviderTest extends TestCase
 {
     public function testSupports()
     {
@@ -35,11 +36,15 @@ class PreAuthenticatedAuthenticationProviderTest extends \PHPUnit_Framework_Test
         $this->assertFalse($provider->supports($token));
     }
 
+    /**
+     * @expectedException \Symfony\Component\Security\Core\Exception\AuthenticationException
+     * @expectedExceptionMessage The token is not supported by this authentication provider.
+     */
     public function testAuthenticateWhenTokenIsNotSupported()
     {
         $provider = $this->getProvider();
 
-        $this->assertNull($provider->authenticate($this->getMockBuilder('Symfony\Component\Security\Core\Authentication\Token\TokenInterface')->getMock()));
+        $provider->authenticate($this->getMockBuilder('Symfony\Component\Security\Core\Authentication\Token\TokenInterface')->getMock());
     }
 
     /**

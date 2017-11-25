@@ -1,10 +1,10 @@
 | Q             | A
 | ------------- | ---
-| Branch?       | master / 2.7, 2.8, 3.1 or 3.2 <!--see comment below-->
+| Branch?       | master / 2.7, 2.8, 3.3, or 3.4 <!-- see comment below -->
 | Bug fix?      | yes/no
-| New feature?  | yes/no
+| New feature?  | yes/no <!-- don't forget to update src/**/CHANGELOG.md files -->
 | BC breaks?    | yes/no
-| Deprecations? | yes/no
+| Deprecations? | yes/no <!-- don't forget to update UPGRADE-*.md files -->
 | Tests pass?   | yes/no
 | Fixed tickets | #... <!-- #-prefixed issue number(s), if any -->
 | License       | MIT

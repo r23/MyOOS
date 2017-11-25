@@ -11,10 +11,16 @@
 
 namespace Symfony\Component\ClassLoader;
 
+if (\PHP_VERSION_ID >= 70000) {
+    @trigger_error('The '.__NAMESPACE__.'\ClassCollectionLoader class is deprecated since version 3.3 and will be removed in 4.0.', E_USER_DEPRECATED);
+}
+
 /**
  * ClassCollectionLoader.
  *
  * @author Fabien Potencier <fabien@symfony.com>
+ *
+ * @deprecated since version 3.3, to be removed in 4.0.
  */
 class ClassCollectionLoader
 {
@@ -98,6 +104,38 @@ class ClassCollectionLoader
             $declared = array_merge(get_declared_classes(), get_declared_interfaces(), get_declared_traits());
         }
 
+        $files = self::inline($classes, $cache, $declared);
+
+        if ($autoReload) {
+            // save the resources
+            self::writeCacheFile($metadata, serialize(array(array_values($files), $classes)));
+        }
+    }
+
+    /**
+     * Generates a file where classes and their parents are inlined.
+     *
+     * @param array  $classes  An array of classes to load
+     * @param string $cache    The file where classes are inlined
+     * @param array  $excluded An array of classes that won't be inlined
+     *
+     * @return array The source map of inlined classes, with classes as keys and files as values
+     *
+     * @throws \RuntimeException When class can't be loaded
+     */
+    public static function inline($classes, $cache, array $excluded)
+    {
+        $declared = array();
+        foreach (self::getOrderedClasses($excluded) as $class) {
+            $declared[$class->getName()] = true;
+        }
+
+        // cache the core classes
+        $cacheDir = dirname($cache);
+        if (!is_dir($cacheDir) && !@mkdir($cacheDir, 0777, true) && !is_dir($cacheDir)) {
+            throw new \RuntimeException(sprintf('Class Collection Loader was not able to create directory "%s"', $cacheDir));
+        }
+
         $spacesRegex = '(?:\s*+(?:(?:\#|//)[^\n]*+\n|/\*(?:(?<!\*/).)++)?+)*+';
         $dontInlineRegex = <<<REGEX
             '(?:
@@ -112,11 +150,12 @@ REGEX;
         $files = array();
         $content = '';
         foreach (self::getOrderedClasses($classes) as $class) {
-            if (in_array($class->getName(), $declared)) {
+            if (isset($declared[$class->getName()])) {
                 continue;
             }
+            $declared[$class->getName()] = true;
 
-            $files[] = $file = $class->getFileName();
+            $files[$class->getName()] = $file = $class->getFileName();
             $c = file_get_contents($file);
 
             if (preg_match($dontInlineRegex, $c)) {
@@ -152,10 +191,7 @@ REGEX;
         }
         self::writeCacheFile($cache, '<?php '.$content);
 
-        if ($autoReload) {
-            // save the resources
-            self::writeCacheFile($metadata, serialize(array($files, $classes)));
-        }
+        return $files;
     }
 
     /**
@@ -209,7 +245,7 @@ REGEX;
                 do {
                     $token = $tokens[++$i];
                     $output .= isset($token[1]) && 'b"' !== $token ? $token[1] : $token;
-                } while ($token[0] !== T_END_HEREDOC);
+                } while (T_END_HEREDOC !== $token[0]);
                 $output .= "\n";
                 $rawChunk = '';
             } elseif (T_CONSTANT_ENCAPSED_STRING === $token[0]) {
@@ -226,7 +262,7 @@ REGEX;
 
         $output .= self::compressCode($rawChunk);
 
-        if (PHP_VERSION_ID >= 70000) {
+        if (\PHP_VERSION_ID >= 70000) {
             // PHP 7 memory manager will not release after token_get_all(), see https://bugs.php.net/70098
             unset($tokens, $rawChunk);
             gc_mem_caches();
@@ -287,8 +323,6 @@ REGEX;
 
     /**
      * Gets an ordered array of passed classes including all their dependencies.
-     *
-     * @param array $classes
      *
      * @return \ReflectionClass[] An array of sorted \ReflectionClass instances (dependencies added if needed)
      *

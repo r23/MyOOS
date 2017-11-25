@@ -1,5 +1,5 @@
 {
-    "Version": "2.1.22.93",
+    "Version": "2.1.37.5",
     "Names": {
         "ADP": [
             "ADP",
@@ -71,7 +71,7 @@
         ],
         "ATS": [
             "ATS",
-            "Scilling Ostarach"
+            "ATS"
         ],
         "AUD": [
             "A$",
@@ -91,7 +91,7 @@
         ],
         "BAD": [
             "BAD",
-            "Dínear Bhoisnia-Heirseagaivéin"
+            "Dínear Bhoisnia-Heirseagaivéin (1992–1994)"
         ],
         "BAM": [
             "BAM",
@@ -111,7 +111,7 @@
         ],
         "BEC": [
             "BEC",
-            "Franc Beilgeach (inathraithe)"
+            "BEC"
         ],
         "BEF": [
             "BEF",
@@ -119,7 +119,7 @@
         ],
         "BEL": [
             "BEL",
-            "Franc Beilgeach (airgeadúil)"
+            "BEL"
         ],
         "BGL": [
             "BGL",
@@ -213,9 +213,13 @@
             "BYB",
             "Rúbal Nua na Bealarúise (1994–1999)"
         ],
+        "BYN": [
+            "BYN",
+            "Rúbal na Bealarúise"
+        ],
         "BYR": [
             "BYR",
-            "Rúbal na Bealarúise"
+            "Rúbal na Bealarúise (2000–2016)"
         ],
         "BZD": [
             "BZD",
@@ -244,6 +248,10 @@
         "CLP": [
             "CLP",
             "Peso na Sile"
+        ],
+        "CNH": [
+            "CNH",
+            "CNH"
         ],
         "CNY": [
             "CN¥",
@@ -291,7 +299,7 @@
         ],
         "DDM": [
             "DDM",
-            "Ostmark na hOirGhearmáine"
+            "DDM"
         ],
         "DEM": [
             "DEM",
@@ -367,7 +375,7 @@
         ],
         "FRF": [
             "FRF",
-            "Franc Francach"
+            "FRF"
         ],
         "GBP": [
             "£",
@@ -407,7 +415,7 @@
         ],
         "GQE": [
             "GQE",
-            "Ekwele Guineana na Guine Meánchriosaí"
+            "Ekwele Guineana na Guine Meánchiorclaí"
         ],
         "GRD": [
             "GRD",
@@ -573,6 +581,10 @@
             "LTT",
             "Talonas Liotuánach"
         ],
+        "LUC": [
+            "LUC",
+            "LUC"
+        ],
         "LUF": [
             "LUF",
             "Franc Lucsamburg"
@@ -583,7 +595,7 @@
         ],
         "LVR": [
             "LVR",
-            "Rúbal Laitviach"
+            "LVR"
         ],
         "LYD": [
             "LYD",
@@ -671,7 +683,7 @@
         ],
         "MXV": [
             "MXV",
-            "Unidad de Inversion (UDI) Meicsiceo"
+            "MXV"
         ],
         "MYR": [
             "MYR",
@@ -735,7 +747,7 @@
         ],
         "PEN": [
             "PEN",
-            "Nuevo Sol Pheiriú"
+            "Sol Pheiriú"
         ],
         "PES": [
             "PES",
@@ -895,7 +907,7 @@
         ],
         "TMM": [
             "TMM",
-            "Manat na An Tuircméanastáine"
+            "Manat na Tuircméanastáine (1993–2009)"
         ],
         "TMT": [
             "TMT",
@@ -939,7 +951,7 @@
         ],
         "UAK": [
             "UAK",
-            "Karbovanetz Úcránach"
+            "Karbovanets Úcránach"
         ],
         "UGS": [
             "UGS",
@@ -1039,15 +1051,15 @@
         ],
         "YUD": [
             "YUD",
-            "Dínear Crua Iúgslavach"
+            "Dínear Crua Iúgslavach (1966–1990)"
         ],
         "YUM": [
             "YUM",
-            "Noviy Dinar Iúgslavach"
+            "Dínear Nua Iúgslavach (1994–2002)"
         ],
         "YUN": [
             "YUN",
-            "Dínear Inathraithe Iúgslavach"
+            "YUN"
         ],
         "YUR": [
             "YUR",
@@ -1079,7 +1091,7 @@
         ],
         "ZWD": [
             "ZWD",
-            "Dollar Siombábach"
+            "Dollar Siombábach (1980–2008)"
         ]
     }
 }

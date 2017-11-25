@@ -31,11 +31,6 @@ class PersistentTokenBasedRememberMeServices extends AbstractRememberMeServices
 {
     private $tokenProvider;
 
-    /**
-     * Sets the token provider.
-     *
-     * @param TokenProviderInterface $tokenProvider
-     */
     public function setTokenProvider(TokenProviderInterface $tokenProvider)
     {
         $this->tokenProvider = $tokenProvider;
@@ -51,7 +46,7 @@ class PersistentTokenBasedRememberMeServices extends AbstractRememberMeServices
 
         // Delete cookie from the tokenProvider
         if (null !== ($cookie = $request->cookies->get($this->options['name']))
-            && count($parts = $this->decodeCookie($cookie)) === 2
+            && 2 === count($parts = $this->decodeCookie($cookie))
         ) {
             list($series) = $parts;
             $this->tokenProvider->deleteTokenBySeries($series);
@@ -63,7 +58,7 @@ class PersistentTokenBasedRememberMeServices extends AbstractRememberMeServices
      */
     protected function processAutoLoginCookie(array $cookieParts, Request $request)
     {
-        if (count($cookieParts) !== 2) {
+        if (2 !== count($cookieParts)) {
             throw new AuthenticationException('The cookie is invalid.');
         }
 

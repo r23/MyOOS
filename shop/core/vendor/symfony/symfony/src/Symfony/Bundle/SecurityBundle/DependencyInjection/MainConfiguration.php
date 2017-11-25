@@ -36,12 +36,6 @@ class MainConfiguration implements ConfigurationInterface
     private $factories;
     private $userProviderFactories;
 
-    /**
-     * Constructor.
-     *
-     * @param array $factories
-     * @param array $userProviderFactories
-     */
     public function __construct(array $factories, array $userProviderFactories)
     {
         $this->factories = $factories;
@@ -373,7 +367,7 @@ class MainConfiguration implements ConfigurationInterface
                 ->thenInvalid('You cannot set multiple provider types for the same provider')
             ->end()
             ->validate()
-                ->ifTrue(function ($v) { return count($v) === 0; })
+                ->ifTrue(function ($v) { return 0 === count($v); })
                 ->thenInvalid('You must set a provider definition for the provider.')
             ->end()
         ;

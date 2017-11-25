@@ -11,12 +11,13 @@
 
 namespace Symfony\Component\Intl\Tests\Data\Bundle\Reader;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Intl\Data\Bundle\Reader\PhpBundleReader;
 
 /**
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class PhpBundleReaderTest extends \PHPUnit_Framework_TestCase
+class PhpBundleReaderTest extends TestCase
 {
     /**
      * @var PhpBundleReader
@@ -59,5 +60,13 @@ class PhpBundleReaderTest extends \PHPUnit_Framework_TestCase
     public function testReadFailsIfNotAFile()
     {
         $this->reader->read(__DIR__.'/Fixtures/NotAFile', 'en');
+    }
+
+    /**
+     * @expectedException \Symfony\Component\Intl\Exception\ResourceBundleNotFoundException
+     */
+    public function testReaderDoesNotBreakOutOfGivenPath()
+    {
+        $this->reader->read(__DIR__.'/Fixtures/php', '../invalid_directory/en');
     }
 }

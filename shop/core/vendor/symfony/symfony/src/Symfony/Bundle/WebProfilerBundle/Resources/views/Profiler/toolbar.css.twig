@@ -26,6 +26,15 @@
     display: inline;
 }
 
+.sf-toolbar-clearer {
+    clear: both;
+    height: 36px;
+}
+
+.sf-display-none {
+    display: none;
+}
+
 .sf-toolbarreset * {
     -webkit-box-sizing: content-box;
     -moz-box-sizing: content-box;
@@ -241,6 +250,7 @@
     font-size: 12px;
     height: 17px;
     line-height: 17px;
+    margin-right: 5px;
 }
 
 .sf-toolbar-status-green .sf-toolbar-label,
@@ -249,11 +259,15 @@
     color: #FFF;
 }
 .sf-toolbar-status-green svg path,
+.sf-toolbar-status-green svg .sf-svg-path,
 .sf-toolbar-status-red svg path,
-.sf-toolbar-status-yellow svg path {
+.sf-toolbar-status-red svg .sf-svg-path,
+.sf-toolbar-status-yellow svg path,
+.sf-toolbar-status-yellow svg .sf-svg-path {
     fill: #FFF;
 }
-.sf-toolbar-block-config svg path {
+.sf-toolbar-block-config svg path,
+.sf-toolbar-block-config svg .sf-svg-path {
     fill: #FFF;
 }
 
@@ -360,6 +374,14 @@
     100% { background: #222; }
 }
 
+.sf-toolbar-block.sf-toolbar-block-dump .sf-toolbar-info {
+    max-width: none;
+    width: 100%;
+    position: fixed;
+    box-sizing: border-box;
+    left: 0;
+}
+
 .sf-toolbar-block-dump pre.sf-dump {
     background-color: #222;
     border-color: #777;
@@ -368,6 +390,13 @@
 }
 .sf-toolbar-block-dump pre.sf-dump:last-child {
     margin-bottom: 0;
+}
+.sf-toolbar-block-dump pre.sf-dump .sf-dump-search-wrapper {
+    margin-bottom: 5px;
+}
+.sf-toolbar-block-dump pre.sf-dump span.sf-dump-search-count {
+    color: #333;
+    font-size: 12px;
 }
 .sf-toolbar-block-dump .sf-toolbar-info-piece {
     display: block;
@@ -501,6 +530,43 @@
 
     .sf-toolbar-block .sf-toolbar-info-piece-additional:empty,
     .sf-toolbar-block .sf-toolbar-info-piece-additional-detail:empty {
+        display: none;
+    }
+}
+
+/***** Error Toolbar *****/
+.sf-error-toolbar .sf-toolbarreset {
+    background: #222;
+    color: #f5f5f5;
+    font: 13px/36px Arial, sans-serif;
+    height: 36px;
+    padding: 0 15px;
+    text-align: left;
+}
+
+.sf-error-toolbar .sf-toolbarreset svg {
+    height: auto;
+}
+
+.sf-error-toolbar .sf-toolbarreset a {
+    color: #99cdd8;
+    margin-left: 5px;
+    text-decoration: underline;
+}
+
+.sf-error-toolbar .sf-toolbarreset a:hover {
+    text-decoration: none;
+}
+
+.sf-error-toolbar .sf-toolbarreset .sf-toolbar-icon {
+    float: left;
+    padding: 5px 0;
+    margin-right: 10px;
+}
+
+/***** Media query print: Do not print the Toolbar. *****/
+@media print {
+    .sf-toolbar {
         display: none;
     }
 }

@@ -20,6 +20,7 @@ use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\HttpKernel\Kernel;
 
 class CacheClearCommandTest extends TestCase
 {
@@ -49,19 +50,29 @@ class CacheClearCommandTest extends TestCase
         $application = new Application($this->kernel);
         $application->setCatchExceptions(false);
 
+        if (Kernel::VERSION_ID >= 30400) {
+            $expectedMsg = 'The "cache:clear" command in Symfony 3.3 is incompatible with HttpKernel 3.4, please upgrade "symfony/framework-bundle" or downgrade "symfony/http-kernel".';
+
+            if (method_exists($this, 'expectException')) {
+                $this->expectException(\LogicException::class);
+                $this->expectExceptionMessage($expectedMsg);
+            } else {
+                $this->setExpectedException(\LogicException::class, $expectedMsg);
+            }
+        }
+
         $application->doRun($input, new NullOutput());
 
         // Ensure that all *.meta files are fresh
         $finder = new Finder();
         $metaFiles = $finder->files()->in($this->kernel->getCacheDir())->name('*.php.meta');
         // simply check that cache is warmed up
-        $this->assertGreaterThanOrEqual(1, count($metaFiles));
+        $this->assertNotEmpty($metaFiles);
         $configCacheFactory = new ConfigCacheFactory(true);
-        $that = $this;
 
         foreach ($metaFiles as $file) {
-            $configCacheFactory->cache(substr($file, 0, -5), function () use ($that, $file) {
-                $that->fail(sprintf('Meta file "%s" is not fresh', (string) $file));
+            $configCacheFactory->cache(substr($file, 0, -5), function () use ($file) {
+                $this->fail(sprintf('Meta file "%s" is not fresh', (string) $file));
             });
         }
 

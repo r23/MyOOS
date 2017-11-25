@@ -11,12 +11,13 @@
 
 namespace Symfony\Component\Serializer\Tests\Annotation;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @author Kévin Dunglas <dunglas@gmail.com>
  */
-class GroupsTest extends \PHPUnit_Framework_TestCase
+class GroupsTest extends TestCase
 {
     /**
      * @expectedException \Symfony\Component\Serializer\Exception\InvalidArgumentException
@@ -31,7 +32,7 @@ class GroupsTest extends \PHPUnit_Framework_TestCase
      */
     public function testNotAnArrayGroupsParameter()
     {
-        new Groups(array('value' => 'coopTilleuls'));
+        new Groups(array('value' => 12));
     }
 
     /**
@@ -48,5 +49,11 @@ class GroupsTest extends \PHPUnit_Framework_TestCase
 
         $groups = new Groups(array('value' => $validData));
         $this->assertEquals($validData, $groups->getGroups());
+    }
+
+    public function testSingleGroup()
+    {
+        $groups = new Groups(array('value' => 'a'));
+        $this->assertEquals(array('a'), $groups->getGroups());
     }
 }

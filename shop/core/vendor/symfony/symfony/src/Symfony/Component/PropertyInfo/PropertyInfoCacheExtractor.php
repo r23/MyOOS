@@ -17,22 +17,13 @@ use Psr\Cache\CacheItemPoolInterface;
  * Adds a PSR-6 cache layer on top of an extractor.
  *
  * @author Kévin Dunglas <dunglas@gmail.com>
+ *
+ * @final since version 3.3
  */
 class PropertyInfoCacheExtractor implements PropertyInfoExtractorInterface
 {
-    /**
-     * @var PropertyInfoExtractorInterface
-     */
     private $propertyInfoExtractor;
-
-    /**
-     * @var CacheItemPoolInterface
-     */
     private $cacheItemPool;
-
-    /**
-     * @var array
-     */
     private $arrayCache = array();
 
     public function __construct(PropertyInfoExtractorInterface $propertyInfoExtractor, CacheItemPoolInterface $cacheItemPool)
@@ -106,7 +97,8 @@ class PropertyInfoCacheExtractor implements PropertyInfoExtractorInterface
             return call_user_func_array(array($this->propertyInfoExtractor, $method), $arguments);
         }
 
-        $key = $this->escape($method.'.'.$serializedArguments);
+        // Calling rawurlencode escapes special characters not allowed in PSR-6's keys
+        $key = rawurlencode($method.'.'.$serializedArguments);
 
         if (array_key_exists($key, $this->arrayCache)) {
             return $this->arrayCache[$key];
@@ -123,30 +115,5 @@ class PropertyInfoCacheExtractor implements PropertyInfoExtractorInterface
         $this->cacheItemPool->save($item);
 
         return $this->arrayCache[$key] = $value;
-    }
-
-    /**
-     * Escapes a key according to PSR-6.
-     *
-     * Replaces characters forbidden by PSR-6 and the _ char by the _ char followed by the ASCII
-     * code of the escaped char.
-     *
-     * @param string $key
-     *
-     * @return string
-     */
-    private function escape($key)
-    {
-        return strtr($key, array(
-            '{' => '_123',
-            '}' => '_125',
-            '(' => '_40',
-            ')' => '_41',
-            '/' => '_47',
-            '\\' => '_92',
-            '@' => '_64',
-            ':' => '_58',
-            '_' => '_95',
-        ));
     }
 }

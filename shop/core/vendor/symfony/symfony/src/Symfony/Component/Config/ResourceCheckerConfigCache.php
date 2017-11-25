@@ -29,15 +29,15 @@ class ResourceCheckerConfigCache implements ConfigCacheInterface
     private $file;
 
     /**
-     * @var ResourceCheckerInterface[]
+     * @var iterable|ResourceCheckerInterface[]
      */
     private $resourceCheckers;
 
     /**
-     * @param string                     $file             The absolute cache path
-     * @param ResourceCheckerInterface[] $resourceCheckers The ResourceCheckers to use for the freshness check
+     * @param string                              $file             The absolute cache path
+     * @param iterable|ResourceCheckerInterface[] $resourceCheckers The ResourceCheckers to use for the freshness check
      */
-    public function __construct($file, array $resourceCheckers = array())
+    public function __construct($file, $resourceCheckers = array())
     {
         $this->file = $file;
         $this->resourceCheckers = $resourceCheckers;
@@ -70,11 +70,6 @@ class ResourceCheckerConfigCache implements ConfigCacheInterface
 
         if (!$this->resourceCheckers) {
             return true; // shortcut - if we don't have any checkers we don't need to bother with the meta file at all
-        }
-
-        $metadata = $this->getMetaFile();
-        if (!is_file($metadata)) {
-            return true;
         }
 
         $metadata = $this->getMetaFile();
@@ -140,7 +135,7 @@ class ResourceCheckerConfigCache implements ConfigCacheInterface
         $mode = 0666;
         $umask = umask();
         $filesystem = new Filesystem();
-        $filesystem->dumpFile($this->file, $content, null);
+        $filesystem->dumpFile($this->file, $content);
         try {
             $filesystem->chmod($this->file, $mode, $umask);
         } catch (IOException $e) {
@@ -148,12 +143,16 @@ class ResourceCheckerConfigCache implements ConfigCacheInterface
         }
 
         if (null !== $metadata) {
-            $filesystem->dumpFile($this->getMetaFile(), serialize($metadata), null);
+            $filesystem->dumpFile($this->getMetaFile(), serialize($metadata));
             try {
                 $filesystem->chmod($this->getMetaFile(), $mode, $umask);
             } catch (IOException $e) {
                 // discard chmod failure (some filesystem may not support it)
             }
+        }
+
+        if (\function_exists('opcache_invalidate') && ini_get('opcache.enable')) {
+            @opcache_invalidate($this->file, true);
         }
     }
 

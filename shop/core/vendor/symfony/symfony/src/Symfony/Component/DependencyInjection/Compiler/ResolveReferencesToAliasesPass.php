@@ -12,6 +12,7 @@
 namespace Symfony\Component\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Alias;
+use Symfony\Component\DependencyInjection\Argument\ArgumentInterface;
 use Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -27,8 +28,6 @@ class ResolveReferencesToAliasesPass implements CompilerPassInterface
 
     /**
      * Processes the ContainerBuilder to replace references to aliases with actual service references.
-     *
-     * @param ContainerBuilder $container
      */
     public function process(ContainerBuilder $container)
     {
@@ -42,7 +41,9 @@ class ResolveReferencesToAliasesPass implements CompilerPassInterface
             $definition->setArguments($this->processArguments($definition->getArguments()));
             $definition->setMethodCalls($this->processArguments($definition->getMethodCalls()));
             $definition->setProperties($this->processArguments($definition->getProperties()));
-            $definition->setFactory($this->processFactory($definition->getFactory()));
+            if (isset($definition->getChanges()['factory'])) {
+                $definition->setFactory($this->processFactory($definition->getFactory()));
+            }
         }
 
         foreach ($container->getAliases() as $id => $alias) {
@@ -65,6 +66,8 @@ class ResolveReferencesToAliasesPass implements CompilerPassInterface
         foreach ($arguments as $k => $argument) {
             if (is_array($argument)) {
                 $arguments[$k] = $this->processArguments($argument);
+            } elseif ($argument instanceof ArgumentInterface) {
+                $argument->setValues($this->processArguments($argument->getValues()));
             } elseif ($argument instanceof Reference) {
                 $defId = $this->getDefinitionId($id = (string) $argument);
 

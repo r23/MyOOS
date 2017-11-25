@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\Form\Tests;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\Form\Forms;
@@ -19,7 +20,7 @@ use Symfony\Component\Form\RequestHandlerInterface;
 /**
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-abstract class AbstractRequestHandlerTest extends \PHPUnit_Framework_TestCase
+abstract class AbstractRequestHandlerTest extends TestCase
 {
     /**
      * @var RequestHandlerInterface
@@ -352,11 +353,23 @@ abstract class AbstractRequestHandlerTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testUploadedFilesAreAccepted()
+    {
+        $this->assertTrue($this->requestHandler->isFileUpload($this->getMockFile()));
+    }
+
+    public function testInvalidFilesAreRejected()
+    {
+        $this->assertFalse($this->requestHandler->isFileUpload($this->getInvalidFile()));
+    }
+
     abstract protected function setRequestData($method, $data, $files = array());
 
     abstract protected function getRequestHandler();
 
     abstract protected function getMockFile($suffix = '');
+
+    abstract protected function getInvalidFile();
 
     protected function getMockForm($name, $method = null, $compound = true)
     {

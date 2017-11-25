@@ -11,6 +11,9 @@
 
 namespace Symfony\Bundle\FrameworkBundle\Routing;
 
+use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\DependencyInjection\Config\ContainerParametersResource;
+use Symfony\Component\DependencyInjection\ServiceSubscriberInterface;
 use Symfony\Component\Routing\Router as BaseRouter;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -24,13 +27,12 @@ use Symfony\Component\DependencyInjection\Exception\RuntimeException;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class Router extends BaseRouter implements WarmableInterface
+class Router extends BaseRouter implements WarmableInterface, ServiceSubscriberInterface
 {
     private $container;
+    private $collectedParameters = array();
 
     /**
-     * Constructor.
-     *
      * @param ContainerInterface $container A ContainerInterface instance
      * @param mixed              $resource  The main resource to load
      * @param array              $options   An array of options
@@ -53,6 +55,7 @@ class Router extends BaseRouter implements WarmableInterface
         if (null === $this->collection) {
             $this->collection = $this->container->get('routing.loader')->load($this->resource, $this->options['resource_type']);
             $this->resolveParameters($this->collection);
+            $this->collection->addResource(new ContainerParametersResource($this->collectedParameters));
         }
 
         return $this->collection;
@@ -81,8 +84,6 @@ class Router extends BaseRouter implements WarmableInterface
      * - the route host,
      * - the route schemes,
      * - the route methods.
-     *
-     * @param RouteCollection $collection
      */
     private function resolveParameters(RouteCollection $collection)
     {
@@ -146,9 +147,15 @@ class Router extends BaseRouter implements WarmableInterface
                 return '%%';
             }
 
+            if (preg_match('/^env\(\w+\)$/', $match[1])) {
+                throw new RuntimeException(sprintf('Using "%%%s%%" is not allowed in routing configuration.', $match[1]));
+            }
+
             $resolved = $container->getParameter($match[1]);
 
             if (is_string($resolved) || is_numeric($resolved)) {
+                $this->collectedParameters[$match[1]] = $resolved;
+
                 return (string) $resolved;
             }
 
@@ -163,5 +170,15 @@ class Router extends BaseRouter implements WarmableInterface
         }, $value);
 
         return str_replace('%%', '%', $escapedValue);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getSubscribedServices()
+    {
+        return array(
+            'routing.loader' => LoaderInterface::class,
+        );
     }
 }

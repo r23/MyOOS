@@ -52,12 +52,11 @@ class MonologExtension extends Extension
         if (isset($config['handlers'])) {
             $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
             $loader->load('monolog.xml');
-            $container->setAlias('logger', 'monolog.logger');
 
             $container->setParameter('monolog.use_microseconds', $config['use_microseconds']);
 
-            // always autowire the main logger, require Symfony >= 2.8
-            if (method_exists('Symfony\Component\DependencyInjection\Definition', 'addAutowiringType')) {
+            // always autowire the main logger, require Symfony >= 2.8, < 3.3
+            if (!method_exists('Symfony\Component\DependencyInjection\ContainerBuilder', 'fileExists') && method_exists('Symfony\Component\DependencyInjection\Definition', 'addAutowiringType')) {
                 $container->getDefinition('monolog.logger')->addAutowiringType('Psr\Log\LoggerInterface');
             }
 
@@ -550,9 +549,9 @@ class MonologExtension extends Extension
 
         case 'slackbot':
             $definition->setArguments(array(
-                $handler['slack_team'],
+                $handler['team'],
                 $handler['token'],
-                $handler['channel'],
+                urlencode($handler['channel']),
                 $handler['level'],
                 $handler['bubble'],
             ));
@@ -678,6 +677,17 @@ class MonologExtension extends Extension
                 $handler['app_name'],
             ));
             break;
+        case 'server_log':
+            if (!class_exists('Symfony\Bridge\Monolog\Handler\ServerLogHandler')) {
+                throw new \RuntimeException('The ServerLogHandler is not available. Please update "symfony/monolog-bridge" to 3.3.');
+            }
+
+            $definition->setArguments(array(
+                $handler['host'],
+                $handler['level'],
+                $handler['bubble'],
+            ));
+            break;
 
         // Handlers using the constructor of AbstractHandler without adding their own arguments
         case 'browser_console':
@@ -760,6 +770,7 @@ class MonologExtension extends Extension
             'filter' => 'Monolog\Handler\FilterHandler',
             'mongo' => 'Monolog\Handler\MongoDBHandler',
             'elasticsearch' => 'Monolog\Handler\ElasticSearchHandler',
+            'server_log' => 'Symfony\Bridge\Monolog\Handler\ServerLogHandler',
         );
 
         if (!isset($typeToClassMapping[$handlerType])) {

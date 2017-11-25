@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\BrowserKit\Tests;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\BrowserKit\Client;
 use Symfony\Component\BrowserKit\History;
 use Symfony\Component\BrowserKit\CookieJar;
@@ -71,7 +72,7 @@ EOF;
     }
 }
 
-class ClientTest extends \PHPUnit_Framework_TestCase
+class ClientTest extends TestCase
 {
     public function testGetHistory()
     {
@@ -432,7 +433,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $headers = array(
             'HTTP_HOST' => 'www.example.com',
-            'HTTP_USER_AGENT' => 'Symfony2 BrowserKit',
+            'HTTP_USER_AGENT' => 'Symfony BrowserKit',
             'CONTENT_TYPE' => 'application/vnd.custom+xml',
             'HTTPS' => false,
         );
@@ -459,7 +460,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $headers = array(
             'HTTP_HOST' => 'www.example.com:8080',
-            'HTTP_USER_AGENT' => 'Symfony2 BrowserKit',
+            'HTTP_USER_AGENT' => 'Symfony BrowserKit',
             'HTTPS' => false,
             'HTTP_REFERER' => 'http://www.example.com:8080/',
         );
@@ -507,6 +508,28 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('X_TEST_FOO', $client->getRequest()->getServer(), '->followRedirect() keeps $_SERVER with POST method');
         $this->assertEquals($content, $client->getRequest()->getContent(), '->followRedirect() keeps content with POST method');
         $this->assertEquals('POST', $client->getRequest()->getMethod(), '->followRedirect() keeps request method');
+    }
+
+    public function testFollowRedirectDropPostMethod()
+    {
+        $parameters = array('foo' => 'bar');
+        $files = array('myfile.foo' => 'baz');
+        $server = array('X_TEST_FOO' => 'bazbar');
+        $content = 'foobarbaz';
+
+        $client = new TestClient();
+
+        foreach (array(301, 302, 303) as $code) {
+            $client->setNextResponse(new Response('', $code, array('Location' => 'http://www.example.com/redirected')));
+            $client->request('POST', 'http://www.example.com/foo/foobar', $parameters, $files, $server, $content);
+
+            $this->assertEquals('http://www.example.com/redirected', $client->getRequest()->getUri(), '->followRedirect() follows a redirect with POST method on response code: '.$code.'.');
+            $this->assertEmpty($client->getRequest()->getParameters(), '->followRedirect() drops parameters with POST method on response code: '.$code.'.');
+            $this->assertEmpty($client->getRequest()->getFiles(), '->followRedirect() drops files with POST method on response code: '.$code.'.');
+            $this->assertArrayHasKey('X_TEST_FOO', $client->getRequest()->getServer(), '->followRedirect() keeps $_SERVER with POST method on response code: '.$code.'.');
+            $this->assertEmpty($client->getRequest()->getContent(), '->followRedirect() drops content with POST method on response code: '.$code.'.');
+            $this->assertEquals('GET', $client->getRequest()->getMethod(), '->followRedirect() drops request method to GET on response code: '.$code.'.');
+        }
     }
 
     public function testBack()
@@ -602,7 +625,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $client = new TestClient();
         $this->assertEquals('', $client->getServerParameter('HTTP_HOST'));
-        $this->assertEquals('Symfony2 BrowserKit', $client->getServerParameter('HTTP_USER_AGENT'));
+        $this->assertEquals('Symfony BrowserKit', $client->getServerParameter('HTTP_USER_AGENT'));
         $this->assertEquals('testvalue', $client->getServerParameter('testkey', 'testvalue'));
     }
 
@@ -611,7 +634,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $client = new TestClient();
 
         $this->assertEquals('', $client->getServerParameter('HTTP_HOST'));
-        $this->assertEquals('Symfony2 BrowserKit', $client->getServerParameter('HTTP_USER_AGENT'));
+        $this->assertEquals('Symfony BrowserKit', $client->getServerParameter('HTTP_USER_AGENT'));
 
         $client->setServerParameter('HTTP_HOST', 'testhost');
         $this->assertEquals('testhost', $client->getServerParameter('HTTP_HOST'));
@@ -625,7 +648,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $client = new TestClient();
 
         $this->assertEquals('', $client->getServerParameter('HTTP_HOST'));
-        $this->assertEquals('Symfony2 BrowserKit', $client->getServerParameter('HTTP_USER_AGENT'));
+        $this->assertEquals('Symfony BrowserKit', $client->getServerParameter('HTTP_USER_AGENT'));
 
         $client->request('GET', 'https://www.example.com/https/www.example.com', array(), array(), array(
             'HTTP_HOST' => 'testhost',
@@ -635,7 +658,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         ));
 
         $this->assertEquals('', $client->getServerParameter('HTTP_HOST'));
-        $this->assertEquals('Symfony2 BrowserKit', $client->getServerParameter('HTTP_USER_AGENT'));
+        $this->assertEquals('Symfony BrowserKit', $client->getServerParameter('HTTP_USER_AGENT'));
 
         $this->assertEquals('http://www.example.com/https/www.example.com', $client->getRequest()->getUri());
 

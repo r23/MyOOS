@@ -79,9 +79,6 @@ class DataUriNormalizer implements NormalizerInterface, DenormalizerInterface
      * Regex adapted from Brian Grinstead code.
      *
      * @see https://gist.github.com/bgrins/6194623
-     *
-     * @throws InvalidArgumentException
-     * @throws UnexpectedValueException
      */
     public function denormalize($data, $class, $format = null, array $context = array())
     {
@@ -113,7 +110,7 @@ class DataUriNormalizer implements NormalizerInterface, DenormalizerInterface
         $supportedTypes = array(
             \SplFileInfo::class => true,
             \SplFileObject::class => true,
-            'Symfony\Component\HttpFoundation\File\File' => true,
+            File::class => true,
         );
 
         return isset($supportedTypes[$type]);

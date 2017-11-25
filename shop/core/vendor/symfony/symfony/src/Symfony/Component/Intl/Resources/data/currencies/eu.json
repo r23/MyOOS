@@ -1,5 +1,5 @@
 {
-    "Version": "2.1.22.93",
+    "Version": "2.1.37.5",
     "Names": {
         "AED": [
             "AED",
@@ -35,7 +35,7 @@
         ],
         "AWG": [
             "AWG",
-            "Arubeko florina"
+            "Arubako florina"
         ],
         "AZN": [
             "AZN",
@@ -93,9 +93,13 @@
             "BWP",
             "Bosniako pula"
         ],
+        "BYN": [
+            "BYN",
+            "Bielorrusiako errubloa"
+        ],
         "BYR": [
             "BYR",
-            "Bielorrusiako errubloa"
+            "Bielorrusiako errubloa (2000–2016)"
         ],
         "BZD": [
             "BZD",
@@ -116,6 +120,10 @@
         "CLP": [
             "CLP",
             "Txileko pesoa"
+        ],
+        "CNH": [
+            "CNH",
+            "yuan txinatar (itsasoz haraindikoa)"
         ],
         "CNY": [
             "CN¥",
@@ -147,7 +155,7 @@
         ],
         "DJF": [
             "DJF",
-            "Djibouteko frankoa"
+            "Djibutiko frankoa"
         ],
         "DKK": [
             "DKK",
@@ -159,7 +167,7 @@
         ],
         "DZD": [
             "DZD",
-            "Algeriako dinarra"
+            "Aljeriako dinarra"
         ],
         "EGP": [
             "EGP",
@@ -180,7 +188,7 @@
         ],
         "EUR": [
             "€",
-            "Euroa"
+            "euroa"
         ],
         "FJD": [
             "FJD",
@@ -248,7 +256,7 @@
         ],
         "ILS": [
             "₪",
-            "Israeleko sheqel berria"
+            "Israelgo shekel berria"
         ],
         "INR": [
             "₹",
@@ -360,7 +368,7 @@
         ],
         "MKD": [
             "MKD",
-            "Mazedoniako denara"
+            "Mazedoniako dinarra"
         ],
         "MMK": [
             "MMK",
@@ -436,7 +444,7 @@
         ],
         "PEN": [
             "PEN",
-            "Peruko sol berria"
+            "Peruko sol"
         ],
         "PGK": [
             "PGK",
@@ -480,7 +488,7 @@
         ],
         "SAR": [
             "SAR",
-            "Saudiko riala"
+            "Arabia Saudiko riala"
         ],
         "SBD": [
             "SBD",
@@ -532,7 +540,7 @@
         ],
         "SZL": [
             "SZL",
-            "Swaziko lilangenia"
+            "Swazilandiako lilangenia"
         ],
         "THB": [
             "฿",
@@ -560,7 +568,7 @@
         ],
         "TTD": [
             "TTD",
-            "Trinidadeko eta Tobagoko dolarra"
+            "Trinidad eta Tobagoko dolarra"
         ],
         "TWD": [
             "NT$",
@@ -580,7 +588,7 @@
         ],
         "USD": [
             "US$",
-            "AEBetako dolarra"
+            "AEBko dolarra"
         ],
         "UYU": [
             "UYU",
@@ -608,7 +616,7 @@
         ],
         "XAF": [
             "FCFA",
-            "Afrika erdialdeko frankoa BEAC"
+            "Afrika erdialdeko CFA frankoa"
         ],
         "XCD": [
             "EC$",
@@ -616,7 +624,7 @@
         ],
         "XOF": [
             "CFA",
-            "Afrika ekialdeko frankoa BCEAO"
+            "Afrika mendebaldeko CFA frankoa"
         ],
         "XPF": [
             "CFPF",

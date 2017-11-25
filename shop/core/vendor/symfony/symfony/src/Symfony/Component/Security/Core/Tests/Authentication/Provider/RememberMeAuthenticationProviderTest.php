@@ -11,11 +11,12 @@
 
 namespace Symfony\Component\Security\Core\Tests\Authentication\Provider;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\Provider\RememberMeAuthenticationProvider;
 use Symfony\Component\Security\Core\Exception\DisabledException;
 use Symfony\Component\Security\Core\Role\Role;
 
-class RememberMeAuthenticationProviderTest extends \PHPUnit_Framework_TestCase
+class RememberMeAuthenticationProviderTest extends TestCase
 {
     public function testSupports()
     {
@@ -25,12 +26,16 @@ class RememberMeAuthenticationProviderTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($provider->supports($this->getMockBuilder('Symfony\Component\Security\Core\Authentication\Token\TokenInterface')->getMock()));
     }
 
+    /**
+     * @expectedException \Symfony\Component\Security\Core\Exception\AuthenticationException
+     * @expectedExceptionMessage The token is not supported by this authentication provider.
+     */
     public function testAuthenticateWhenTokenIsNotSupported()
     {
         $provider = $this->getProvider();
 
         $token = $this->getMockBuilder('Symfony\Component\Security\Core\Authentication\Token\TokenInterface')->getMock();
-        $this->assertNull($provider->authenticate($token));
+        $provider->authenticate($token);
     }
 
     /**

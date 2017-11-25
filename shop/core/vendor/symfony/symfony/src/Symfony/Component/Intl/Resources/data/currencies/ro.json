@@ -1,5 +1,5 @@
 {
-    "Version": "2.1.22.93",
+    "Version": "2.1.37.5",
     "Names": {
         "ADP": [
             "ADP",
@@ -67,7 +67,7 @@
         ],
         "BBD": [
             "BBD",
-            "dolar Barbados"
+            "dolar din Barbados"
         ],
         "BDT": [
             "BDT",
@@ -145,9 +145,13 @@
             "BWP",
             "pula Botswana"
         ],
+        "BYN": [
+            "BYN",
+            "rublă belarusă"
+        ],
         "BYR": [
             "BYR",
-            "rublă belarusă"
+            "rublă belarusă (2000–2016)"
         ],
         "BZD": [
             "BZD",
@@ -168,6 +172,10 @@
         "CLP": [
             "CLP",
             "peso chilian"
+        ],
+        "CNH": [
+            "CNH",
+            "yuan chinezesc (offshore)"
         ],
         "CNY": [
             "CNY",
@@ -443,7 +451,7 @@
         ],
         "LKR": [
             "LKR",
-            "rupie din Sri Lanka"
+            "rupie srilankeză"
         ],
         "LRD": [
             "LRD",
@@ -611,7 +619,7 @@
         ],
         "PEN": [
             "PEN",
-            "sol nou peruvian"
+            "sol peruvian"
         ],
         "PES": [
             "PES",
@@ -699,7 +707,7 @@
         ],
         "SGD": [
             "SGD",
-            "dolar Singapore"
+            "dolar singaporez"
         ],
         "SHP": [
             "SHP",
@@ -731,7 +739,7 @@
         ],
         "SSP": [
             "SSP",
-            "liră sud-sudaneză"
+            "liră din Sudanul de Sud"
         ],
         "STD": [
             "STD",

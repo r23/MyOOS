@@ -11,18 +11,20 @@
 
 namespace Symfony\Component\DependencyInjection\Tests\Loader;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\Config\FileLocator;
 
-class PhpFileLoaderTest extends \PHPUnit_Framework_TestCase
+class PhpFileLoaderTest extends TestCase
 {
     public function testSupports()
     {
         $loader = new PhpFileLoader(new ContainerBuilder(), new FileLocator());
 
         $this->assertTrue($loader->supports('foo.php'), '->supports() returns true if the resource is loadable');
-        $this->assertFalse($loader->supports('foo.foo'), '->supports() returns true if the resource is loadable');
+        $this->assertFalse($loader->supports('foo.foo'), '->supports() returns false if the resource is not loadable');
+        $this->assertTrue($loader->supports('with_wrong_ext.yml', 'php'), '->supports() returns true if the resource with forced type is loadable');
     }
 
     public function testLoad()
