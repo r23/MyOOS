@@ -163,7 +163,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                 $notify_comments = sprintf(EMAIL_TEXT_COMMENTS_UPDATE, $comments) . "\n\n";
               }
             }
-            $email = STORE_NAME . "\n" . EMAIL_SEPARATOR . "\n" . EMAIL_TEXT_ORDER_NUMBER . ' ' . $oID . "\n" . EMAIL_TEXT_INVOICE_URL . ' ' . oos_catalog_link($oosCatalogFilename['account_history_info'], 'order_id=' . $oID, 'SSL') . "\n" . EMAIL_TEXT_DATE_ORDERED . ' ' . oos_date_long($check_status['date_purchased']) . "\n\n" . $notify_comments . sprintf(EMAIL_TEXT_STATUS_UPDATE, $orders_status_array[$status]);
+            $email = STORE_NAME . "\n" . EMAIL_SEPARATOR . "\n" . EMAIL_TEXT_ORDER_NUMBER . ' ' . $oID . "\n" . EMAIL_TEXT_INVOICE_URL . ' ' . oos_catalog_link($oosCatalogFilename['account_history_info'], 'order_id=' . $oID) . "\n" . EMAIL_TEXT_DATE_ORDERED . ' ' . oos_date_long($check_status['date_purchased']) . "\n\n" . $notify_comments . sprintf(EMAIL_TEXT_STATUS_UPDATE, $orders_status_array[$status]);
             oos_mail($check_status['customers_name'], $check_status['customers_email_address'], EMAIL_TEXT_SUBJECT, nl2br($email), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
             $customer_notified = '1';
           }
@@ -461,7 +461,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
       $serial_number = "Add Serial #";
       if (oos_is_not_null($order->products[$i]['serial_number'])) $serial_number = $order->products[$i]['serial_number'];
-      echo '            <td class="dataTableContent" valign="top"><a href="' . oos_href_link_admin($aContents['orders'], 'action=edit&oID=' . $oID . '&serial=' . $i, 'NONSSL') . '">' . $serial_number . '</a></td>' . "\n" .
+      echo '            <td class="dataTableContent" valign="top"><a href="' . oos_href_link_admin($aContents['orders'], 'action=edit&oID=' . $oID . '&serial=' . $i) . '">' . $serial_number . '</a></td>' . "\n" .
            '            <td class="dataTableContent" valign="top">' . $order->products[$i]['model'] . '</td>' . "\n" .
            '            <td class="dataTableContent" align="right" valign="top">' . oos_display_tax_value($order->products[$i]['tax']) . '%</td>' . "\n" .
            '            <td class="dataTableContent" align="right" valign="top"><b>' . $currencies->format($order->products[$i]['final_price'], true, $order->info['currency'], $order->info['currency_value']) . '</b></td>' . "\n" .

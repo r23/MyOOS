@@ -35,7 +35,7 @@ if (!isset($_SESSION['customer_id'])) {
 		$_SESSION['navigation'] = new oosNavigationHistory();
 	}   
     $_SESSION['navigation']->set_snapshot();
-    oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
+    oos_redirect(oos_href_link($aContents['login'], ''));
 }
 
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_product_notifications.php';
@@ -56,7 +56,7 @@ if (!isset($_SESSION['customer_id'])) {
                               products_id IN (" . implode(',', $aRemove) . ")");
     }
 
-    oos_redirect(oos_href_link($aContents['product_notifications'], '', 'SSL'));
+    oos_redirect(oos_href_link($aContents['product_notifications'], ''));
 
   } elseif (isset($_GET['action']) && ($_GET['action'] == 'global_notify')) {
     if (isset($_POST['global']) && ($_POST['global'] == 'enable')) {
@@ -79,12 +79,12 @@ if (!isset($_SESSION['customer_id'])) {
       }
     }
 
-    oos_redirect(oos_href_link($aContents['product_notifications'], '', 'SSL'));
+    oos_redirect(oos_href_link($aContents['product_notifications'], ''));
   }
 
   // links breadcrumb
-  $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['account'], '', 'SSL'));
-  $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['product_notifications'], '', 'SSL'));
+  $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['account'], ''));
+  $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['product_notifications'], ''));
 
   $aTemplate['page'] = $sTheme . '/page/user_product_notifications.html';
 

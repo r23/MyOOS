@@ -1083,8 +1083,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       }
       if ($action == 'voucherdelete') {
         $contents[] = array('text'=> TEXT_CONFIRM_DELETE . '</br></br>' . 
-                '<a href="' . oos_href_link_admin('coupon_admin.php','action=confirmdelete&cID='.$_GET['cID'],'NONSSL').'">'.oos_button('confirm','Confirm Delete Voucher').'</a>' .
-                '<a href="' . oos_href_link_admin('coupon_admin.php','cID='.$cInfo->coupon_id,'NONSSL').'">'.oos_button('cancel', BUTTON_CANCEL).'</a>'
+                '<a href="' . oos_href_link_admin('coupon_admin.php','action=confirmdelete&cID='.$_GET['cID']).'">'.oos_button('confirm','Confirm Delete Voucher').'</a>' .
+                '<a href="' . oos_href_link_admin('coupon_admin.php','cID='.$cInfo->coupon_id).'">'.oos_button('cancel', BUTTON_CANCEL).'</a>'
                 );
       } else { 
         $prod_details = NONE;
@@ -1110,10 +1110,10 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                      COUPON_CATEGORIES . '&nbsp;::&nbsp; ' . $cat_details . '<br />' .
                      DATE_CREATED . '&nbsp;::&nbsp; ' . oos_date_short($cInfo->date_created) . '<br />' .
                      DATE_MODIFIED . '&nbsp;::&nbsp; ' . oos_date_short($cInfo->date_modified) . '<br /><br />' .
-                     '<center><a href="' . oos_href_link_admin('coupon_admin.php','action=email&cID='.$cInfo->coupon_id,'NONSSL').'">'.oos_button('email', 'Email Voucher').'</a>' .
-                     '<a href="' . oos_href_link_admin('coupon_admin.php','action=voucheredit&cID='.$cInfo->coupon_id,'NONSSL').'">'.oos_button('edit', 'Edit Voucher').'</a>' .
-                     '<a href="' . oos_href_link_admin('coupon_admin.php','action=voucherdelete&cID='.$cInfo->coupon_id,'NONSSL').'">'.oos_button('delete', 'Delete Voucher').'</a>' .
-                     '<br /><a href="' . oos_href_link_admin('coupon_admin.php','action=voucherreport&cID='.$cInfo->coupon_id,'NONSSL').'">'.oos_button('report', 'Voucher Report').'</a></center>'
+                     '<center><a href="' . oos_href_link_admin('coupon_admin.php','action=email&cID='.$cInfo->coupon_id).'">'.oos_button('email', 'Email Voucher').'</a>' .
+                     '<a href="' . oos_href_link_admin('coupon_admin.php','action=voucheredit&cID='.$cInfo->coupon_id).'">'.oos_button('edit', 'Edit Voucher').'</a>' .
+                     '<a href="' . oos_href_link_admin('coupon_admin.php','action=voucherdelete&cID='.$cInfo->coupon_id).'">'.oos_button('delete', 'Delete Voucher').'</a>' .
+                     '<br /><a href="' . oos_href_link_admin('coupon_admin.php','action=voucherreport&cID='.$cInfo->coupon_id).'">'.oos_button('report', 'Voucher Report').'</a></center>'
                      );
         }
         break;

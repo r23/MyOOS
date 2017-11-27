@@ -117,7 +117,7 @@ require 'includes/languages/' . $sLanguage . '/search_advanced.php';
 
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['advanced_search']));
-$sCanonical = oos_href_link($aContents['advanced_search'], '', 'NONSSL', FALSE, TRUE);
+$sCanonical = oos_href_link($aContents['advanced_search'], '', FALSE, TRUE);
   
   
 $aTemplate['page'] = $sTheme . '/page/advanced_search.html';

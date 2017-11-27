@@ -18,7 +18,7 @@
 						<div class="col-xs-3 progress-wizard-step complete">
 							<div class="text-center progress-wizard-stepnum">{$lang.checkout_bar_delivery}</div>
 							<div class="progress"><div class="progress-bar"></div></div>
-							<a href="{html_href_link modul=$modules.checkout file=$filename.checkout_shipping connection=SSL}" class="progress-wizard-dot"></a>
+							<a href="{html_href_link modul=$modules.checkout file=$filename.checkout_shipping}" class="progress-wizard-dot"></a>
 						</div>
 	  
 				  
@@ -41,7 +41,7 @@
 						</div>
 					</div>
             
-<form name="checkout_address" action="{html_get_link connection=SSL}" method="POST" role="form">
+<form name="checkout_address" action="{html_get_link}" method="POST" role="form">
 	<input type="hidden" name="content" value="{$filename.checkout_shipping}">
 {if $mySystem.sed}
     <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
@@ -67,7 +67,7 @@
             <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
                 <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                <td class="main" width="50%" valign="top">{$lang.text_choose_shipping_destination}<br><br><a href="{html_href_link content=$filename.checkout_shipping_address connection=SSL}" class="btn btn-primary-filled" role="button">{$lang.button_change_address}{$lang.button_change_address}</a></td>
+                <td class="main" width="50%" valign="top">{$lang.text_choose_shipping_destination}<br><br><a href="{html_href_link content=$filename.checkout_shipping_address}" class="btn btn-primary-filled" role="button">{$lang.button_change_address}{$lang.button_change_address}</a></td>
                 <td align="right" width="50%" valign="top"><table border="0" cellspacing="0" cellpadding="2">
                   <tr>
                     <td class="main" align="center" valign="top"><strong>{$lang.title_shipping_address}</strong><br><img src="{$theme_image}/arrow_south_east.gif" border="0" alt=" " width="50" height="31"></td>

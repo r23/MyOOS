@@ -95,7 +95,7 @@ if ( isset($_GET['newsletter'])
 									  '0',
                                       now())");
 
-		oos_redirect(oos_href_link($aContents['newsletter'], 'unsubscribe=success', 'SSL'));						
+		oos_redirect(oos_href_link($aContents['newsletter'], 'unsubscribe=success'));						
 	} else {
 		$bError = TRUE;
 		$aInfoMessage[] = array('type' => 'danger',

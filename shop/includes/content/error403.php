@@ -32,7 +32,7 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title']);
-$sCanonical = oos_href_link($aContents['404'], '', 'NONSSL', FALSE, TRUE);
+$sCanonical = oos_href_link($aContents['404'], '', FALSE, TRUE);
 
 // assign Smarty variables;
 $smarty->assign(

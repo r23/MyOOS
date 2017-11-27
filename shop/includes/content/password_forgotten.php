@@ -37,7 +37,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 
     if ( empty( $email_address ) || !is_string( $email_address ) ) {
         $_SESSION['error_message'] = $aLang['text_no_email_address_found'];
-        oos_redirect(oos_href_link($aContents['password_forgotten'], '', 'SSL'));
+        oos_redirect(oos_href_link($aContents['password_forgotten'], ''));
     }
 	
     if (!isset($_SESSION['password_forgotten_count'])) {
@@ -89,12 +89,12 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 		$smarty->assign(
 			array(
 				'shop_name'		=> STORE_NAME,
-				'shop_url'		=> OOS_HTTP_SERVER . OOS_SHOP,
+				'shop_url'		=> OOS_HTTPS_SERVER . OOS_SHOP,
 				'shop_logo'		=> STORE_LOGO,
 				'services_url'	=> COMMUNITY,
 				'blog_url'		=> BLOG_URL,
-				'imprint_url'	=> oos_href_link($aContents['information'], 'information_id=1', 'NONSSL', FALSE, TRUE),
-				'login_url'		=> oos_href_link($aContents['login'], '', 'SSL', FALSE, TRUE),
+				'imprint_url'	=> oos_href_link($aContents['information'], 'information_id=1', FALSE, TRUE),
+				'login_url'		=> oos_href_link($aContents['login'], '', FALSE, TRUE),
 				'greet'			=> $sGreet,
 				'password' 		=> $newpass
 			)
@@ -108,18 +108,18 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
  
 		$_SESSION['password_forgotten_count'] = 1;
         $_SESSION['success_message'] = $aLang['text_password_sent'];
-        oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
+        oos_redirect(oos_href_link($aContents['login'], ''));
     } else {
         $_SESSION['error_message'] = $aLang['text_no_email_address_found'];
-        oos_redirect(oos_href_link($aContents['password_forgotten'], '', 'SSL'));
+        oos_redirect(oos_href_link($aContents['password_forgotten'], ''));
     }
 
 } else {
 
     // links breadcrumb
-    $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['login'], '', 'SSL'));
-    $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['password_forgotten'], '', 'SSL'));
-    $sCanonical = oos_href_link($aContents['password_forgotten'], '', 'SSL', FALSE, TRUE);
+    $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['login'], ''));
+    $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['password_forgotten'], ''));
+    $sCanonical = oos_href_link($aContents['password_forgotten'], '', FALSE, TRUE);
 	
     $aTemplate['page'] = $sTheme . '/page/user_password_forgotten.html';
 

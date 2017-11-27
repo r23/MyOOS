@@ -127,23 +127,10 @@ function print_FormText() {
 
 function print_FormServer() {
 
-   if ($_POST['enable_ssl'] == false) {
-      $ssl = NO;
-   } else {
-      $ssl = YES;
-   }
    echo '<table class="content">' . "\n" .
-        ' <tr>' . "\n" .
-        '   <td align="left"><font class="oos-normal">HTTP Server</font></td>' . "\n" .
-        '   <td><font class="oos-normal">' . $_POST['oos_server'] . '</font></td>' . "\n" .
-        ' </tr>' . "\n" .
         ' <tr>' . "\n" .
         '   <td align="left"><font class="oos-normal">HTTPS SERVER</font></td>' . "\n" .
         '   <td><font class="oos-normal">' . $_POST['oos_ssl_server'] . '</font></td>' . "\n" .
-        ' </tr>' . "\n" .
-        ' <tr>' . "\n" .
-        '   <td align="left"><font class="oos-normal">' . CONFIG_VIRTUAL_1 . '</font></td>' . "\n" .
-        '   <td><font class="oos-normal">' . $ssl . '</font></td>' . "\n" .
         ' </tr>' . "\n" .
         ' <tr>' . "\n" .
         '   <td align="left"><font class="oos-normal">' . VIRTUAL_7 . '</font></td>' . "\n" .
@@ -250,9 +237,7 @@ function print_DBHidden() {
 
 function print_ServerHidden() {
    echo '<input type="hidden" name="host_conf" value="' . $_POST['host_conf'] . '">' . "\n" .
-        '<input type="hidden" name="oos_server" value="' . $_POST['oos_server'] . '">' . "\n" .
         '<input type="hidden" name="oos_ssl_server" value="' . $_POST['oos_ssl_server'] . '">' . "\n" .
-        '<input type="hidden" name="enable_ssl" value="' . $_POST['enable_ssl'] . '">' . "\n" .
         '<input type="hidden" name="oos_root_path" value="' . $_POST['oos_root_path'] . '">' . "\n" .
         '<input type="hidden" name="oos_shop_path" value="' . $_POST['oos_shop_path'] . '">' . "\n" .
         '<input type="hidden" name="oos_shop_dir" value="' . $_POST['oos_shop_dir'] . '">' . "\n";
@@ -574,28 +559,15 @@ function print_ConfigServerInfo() {
 
 
 function print_ChangeServer() {
-   global $oos_server, $oos_template_dir, $oos_ssl_server, $enable_ssl, $oos_root_path, $oos_shop_path, $oos_shop_dir, $oos_admin_dir;
+   global $oos_template_dir, $oos_ssl_server, $oos_root_path, $oos_shop_path, $oos_shop_dir, $oos_admin_dir;
 
    echo '<font class="oos-title">' . VIRTUAL_1 . '</font>' . "\n";
 
-   if ($_POST['enable_ssl'] == false) {
-     $ssl = '<input type="checkbox" name="enable_ssl">';
-   } else {
-     $ssl = '<input type="checkbox" name="enable_ssl" checked=checked>';
-   }
    echo '<br /><br />' . "\n" .
         '<center><form action="step.php" method="post"><table class="content">' . "\n" .
         ' <tr>' . "\n" .
-        '  <td align="left"><font class="oos-normal">HTTP Server</font></td>' . "\n" .
-        '  <td><input type="text" name="oos_server" SIZE=60 maxlength=180 value="' . $oos_server . '"></td>' . "\n" .
-        ' </tr>' . "\n" .
-        ' <tr>' . "\n" .
         '  <td align="left"><font class="oos-normal">HTTPS SERVER</font></td>' . "\n" .
         '  <td><input type="text" name="oos_ssl_server" SIZE=60 maxlength=180 value="' . $oos_ssl_server . '"></td>' . "\n" .
-        ' </tr>' . "\n" .
-        ' <tr>' . "\n" .
-        '  <td align="left"><font class="oos-normal">' . VIRTUAL_3 . '</font></td>' . "\n" .
-        '  <td>' . $ssl . '</td>' . "\n" .
         ' </tr>' . "\n" .
         ' <tr>' . "\n" .
         '  <td align="left"><font class="oos-normal">' . VIRTUAL_4 . '</font></td>' . "\n" .
@@ -639,16 +611,8 @@ function print_Confirm() {
         '<br /><br />' . "\n" .
         '<center><form action="step.php" method="post"><table class="content">' . "\n" .
         ' <tr>' . "\n" .
-        '  <td align="left"><font class="oos-normal">HTTP Server</font></td>' . "\n" .
-        '  <td><input type="text" name="oos_server" SIZE=60 maxlength=180 value="http://' . $_SERVER['HTTP_HOST'] . '"></td>' . "\n" .
-        ' </tr>' . "\n" .
-        ' <tr>' . "\n" .
         '  <td align="left"><font class="oos-normal">HTTPS SERVER</font></td>' . "\n" .
         '  <td><input type="text" name="oos_ssl_server" SIZE=60 maxlength=180 value="https://' . $_SERVER['HTTP_HOST'] .'"></td>' . "\n" .
-        ' </tr>' . "\n" .
-        ' <tr>' . "\n" .
-        '  <td align="left"><font class="oos-normal">' . VIRTUAL_3 . '</font></td>' . "\n" .
-        '  <td><input type="checkbox" name="enable_ssl"></td>' . "\n" .
         ' </tr>' . "\n" .
         ' <tr>' . "\n" .
         '  <td align="left"><font class="oos-normal">' . VIRTUAL_7 . '</font></td>' . "\n" .

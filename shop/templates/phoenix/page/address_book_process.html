@@ -14,11 +14,11 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="btn-group" role="group" aria-label="...">
-					<a href="{html_href_link content=$filename.account connection=SSL}" class="btn btn-secondary" role="button"><i class="fa fa-th" aria-hidden="true"></i>{$lang.login_block_my_account}</a>
-					<a href="{html_href_link content=$filename.account_edit connection=SSL}" class="btn btn-secondary" role="button"><i class="fa fa-user" aria-hidden="true"></i>{$lang.login_block_account_edit}</a>
-					<a href="{html_href_link content=$filename.account_address_book connection=SSL}" class="btn btn-secondary active" role="button"><i class="fa fa-address-book" aria-hidden="true"></i>{$lang.button_address_book}</a>
-					<a href="{html_href_link content=$filename.account_history page=1 connection=SSL}" class="btn btn-secondary" role="button"><i class="fa fa-list" aria-hidden="true"></i>{$lang.button_history}</a>
-					<a href="{html_href_link content=$filename.account_wishlist page=1 connection=SSL}" class="btn btn-secondary" role="button"><i class="fa fa-gift" aria-hidden="true"></i>{$lang.button_wishlist}</a>
+					<a href="{html_href_link content=$filename.account}" class="btn btn-secondary" role="button"><i class="fa fa-th" aria-hidden="true"></i>{$lang.login_block_my_account}</a>
+					<a href="{html_href_link content=$filename.account_edit}" class="btn btn-secondary" role="button"><i class="fa fa-user" aria-hidden="true"></i>{$lang.login_block_account_edit}</a>
+					<a href="{html_href_link content=$filename.account_address_book}" class="btn btn-secondary active" role="button"><i class="fa fa-address-book" aria-hidden="true"></i>{$lang.button_address_book}</a>
+					<a href="{html_href_link content=$filename.account_history page=1}" class="btn btn-secondary" role="button"><i class="fa fa-list" aria-hidden="true"></i>{$lang.button_history}</a>
+					<a href="{html_href_link content=$filename.account_wishlist page=1}" class="btn btn-secondary" role="button"><i class="fa fa-gift" aria-hidden="true"></i>{$lang.button_wishlist}</a>
 				</div>
 			</div>
 		</div>
@@ -32,7 +32,7 @@
 					<div class="row">
 						<div class="col-md-12">	
 						
-							<form name="add_entry" id="add_entry" class="form-horizontal" action="{html_get_link connection=SSL}" method="POST" role="form">
+							<form name="add_entry" id="add_entry" class="form-horizontal" action="{html_get_link}" method="POST" role="form">
 								<fieldset>
 								{if $smarty.get.delete}
 									<input type="hidden" name="action" value="deleteconfirm">
@@ -185,14 +185,14 @@
 <input type="hidden" name="action" value="update">
 <input type="hidden" name="entry_id" value="{$entry_id}">
 
-<a href="{html_href_link content=$filename.account_address_book connection=SSL}" class="btn btn-primary-filled" role="button"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> {$lang.button_back}</a>
-<a href="{html_href_link content=$filename.account_address_book_process action=remove entry_id=$entry_id connection=SSL}" class="btn btn-primary-filled" role="button"><i class="fa fa-times" aria-hidden="true"></i> {$lang.button_delete}</a>
+<a href="{html_href_link content=$filename.account_address_book}" class="btn btn-primary-filled" role="button"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> {$lang.button_back}</a>
+<a href="{html_href_link content=$filename.account_address_book_process action=remove entry_id=$entry_id}" class="btn btn-primary-filled" role="button"><i class="fa fa-times" aria-hidden="true"></i> {$lang.button_delete}</a>
 <button class="btn btn-success-filled" type="submit">{$lang.button_continue}<i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></button>
 {elseif $smarty.get.action eq "update"}
       <tr>
         <td><table border="0" width="100%" cellspacing="2" cellpadding="0">
           <tr>
-            <td class="main"><input type="hidden" name="action" value="update"><input type="hidden" name="entry_id" value="{$entry_id}"><a href="{html_href_link content=$filename.account_address_book connection=SSL}" class="btn btn-primary-filled" role="button"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> {$lang.button_back}</a></td>
+            <td class="main"><input type="hidden" name="action" value="update"><input type="hidden" name="entry_id" value="{$entry_id}"><a href="{html_href_link content=$filename.account_address_book}" class="btn btn-primary-filled" role="button"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> {$lang.button_back}</a></td>
             <td class="main" align="right"><button class="btn btn-success-filled" type="submit">{$lang.button_continue}<i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></button></td>
           </tr>
         </table></td>

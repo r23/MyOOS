@@ -100,7 +100,7 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 
     // links breadcrumb
     $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['reviews']));
-	$sCanonical = oos_href_link($aContents['reviews'], 'page=' . $nPage, 'NONSSL', FALSE, TRUE);
+	$sCanonical = oos_href_link($aContents['reviews'], 'page=' . $nPage, FALSE, TRUE);
 	
     $smarty->assign(
         array(

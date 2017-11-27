@@ -46,18 +46,11 @@ function oos_exit() {
  * @return string
  */
 function oos_redirect($sUrl) {
-	global $request_type;
 
 	if ( (strstr($sUrl, "\n") != false) || (strstr($sUrl, "\r") != false) ) { 
 		$aContents = oos_get_content();
-		oos_redirect(oos_href_link($aContents['main'], '', 'NONSSL', FALSE, TRUE));
+		oos_redirect(oos_href_link($aContents['main'], '', FALSE, TRUE));
 	}
-
-    if ( (ENABLE_SSL == true) && ($request_type == 'SSL') ) {
-		if (substr($sUrl, 0, strlen(OOS_HTTP_SERVER)) == OOS_HTTP_SERVER) { // NONSSL url
-			$sUrl = OOS_HTTPS_SERVER . substr($sUrl, strlen(OOS_HTTP_SERVER)); // Change it to SSL
-		}
-    }	
 
     // clean URL
     if (strpos($sUrl, '&amp;') !== FALSE) $sUrl = str_replace('&amp;', '&', $sUrl);
@@ -1370,12 +1363,12 @@ function oos_newsletter_subscribe_mail ($email_address) {
 		$smarty->assign(
 				array(
 					'shop_name'		=> STORE_NAME,
-					'shop_url'		=> OOS_HTTP_SERVER . OOS_SHOP,
+					'shop_url'		=> OOS_HTTPS_SERVER . OOS_SHOP,
 					'shop_logo'		=> STORE_LOGO,
 					'services_url'	=> COMMUNITY,
 					'blog_url'		=> BLOG_URL,
-					'imprint_url'	=> oos_href_link($aContents['information'], 'information_id=1', 'NONSSL', FALSE, TRUE),
-					'subscribe'		=> oos_href_link($aContents['newsletter'], 'subscribe=confirm&u=' .  $sSha1 . '&id=' . $sStr . '&e=' . $sRandom, 'SSL', FALSE, TRUE)
+					'imprint_url'	=> oos_href_link($aContents['information'], 'information_id=1', FALSE, TRUE),
+					'subscribe'		=> oos_href_link($aContents['newsletter'], 'subscribe=confirm&u=' .  $sSha1 . '&id=' . $sStr . '&e=' . $sRandom, FALSE, TRUE)
 				)
 		);
 

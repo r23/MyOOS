@@ -58,7 +58,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'send')  ) {
 
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['contact_us']));
-$sCanonical = oos_href_link($aContents['contact_us'], '', 'NONSSL', FALSE, TRUE);
+$sCanonical = oos_href_link($aContents['contact_us'], '', FALSE, TRUE);
 
 $aTemplate['page'] = $sTheme . '/page/contact_us.html';
 

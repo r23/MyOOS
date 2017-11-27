@@ -766,7 +766,7 @@ function calcBasePriceFactor() {
       }
 ?>
       <tr>
-        <td align="right"><?php echo '<a href="' . oos_href_link_admin($back_url, $back_url_params, 'NONSSL') . '">' . oos_button('back', IMAGE_BACK) . '</a>'; ?></td>
+        <td align="right"><?php echo '<a href="' . oos_href_link_admin($back_url, $back_url_params) . '">' . oos_button('back', IMAGE_BACK) . '</a>'; ?></td>
       </tr>
 <?php
     } else {

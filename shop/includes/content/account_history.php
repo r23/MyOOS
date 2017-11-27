@@ -30,7 +30,7 @@ if (!isset($_SESSION['customer_id'])) {
 		$_SESSION['navigation'] = new oosNavigationHistory();
 	} 
     $_SESSION['navigation']->set_snapshot();
-    oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
+    oos_redirect(oos_href_link($aContents['login'], ''));
 }
 
 $nPage = isset($_GET['page']) ? $_GET['page']+0 : 1;
@@ -81,8 +81,8 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/accoun
   }
 
   // links breadcrumb
-  $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['account'], '', 'SSL'));
-  $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['account_history'], '', 'SSL'));
+  $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['account'], ''));
+  $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['account_history'], ''));
 
   $aTemplate['page'] = $sTheme . '/page/account_history.html';
 

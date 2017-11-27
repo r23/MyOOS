@@ -30,7 +30,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/gv_faq
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title']);
 $oBreadcrumb->add($information['navbar_title'], oos_href_link($aContents['gv_faq']));
-$sCanonical = oos_href_link($aContents['gv_faq'], '', 'NONSSL', FALSE, TRUE);
+$sCanonical = oos_href_link($aContents['gv_faq'], '', FALSE, TRUE);
 	
 	
 $aTemplate['page'] = $sTheme . '/page/info.html';

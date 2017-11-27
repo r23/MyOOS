@@ -96,7 +96,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     switch ($action) {
       case 'setflag':
         oos_set_featured_status($_GET['id'], $_GET['flag']);
-        oos_redirect_admin(oos_href_link_admin($aContents['featured'], '', 'NONSSL'));
+        oos_redirect_admin(oos_href_link_admin($aContents['featured'], ''));
         break;
 
       case 'insert':
@@ -245,7 +245,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
     }
 ?>
-      <tr><form name="new_feature" <?php echo 'action="' . oos_href_link_admin($aContents['featured'], oos_get_all_get_params(array('action', 'info', 'fID')) . 'action=' . $form_action, 'NONSSL') . '"'; ?> method="post">
+      <tr><form name="new_feature" <?php echo 'action="' . oos_href_link_admin($aContents['featured'], oos_get_all_get_params(array('action', 'info', 'fID')) . 'action=' . $form_action) . '"'; ?> method="post">
 <?php
   if ($form_action == 'update') {
     echo oos_draw_hidden_field('featured_id', $_GET['fID']);
@@ -308,9 +308,9 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                 <td  class="dataTableContent" align="right">
 <?php
       if ($featured['status'] == '1') {
-        echo '<a href="' . oos_href_link_admin($aContents['featured'], 'action=setflag&flag=0&id=' . $featured['featured_id'], 'NONSSL') . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
+        echo '<a href="' . oos_href_link_admin($aContents['featured'], 'action=setflag&flag=0&id=' . $featured['featured_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
       } else {
-        echo '<a href="' . oos_href_link_admin($aContents['featured'], 'action=setflag&flag=1&id=' . $featured['featured_id'], 'NONSSL') . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
+        echo '<a href="' . oos_href_link_admin($aContents['featured'], 'action=setflag&flag=1&id=' . $featured['featured_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
       }
 ?></td>
                 <td class="dataTableContent" align="right"><?php if ( (is_object($sInfo)) && ($featured['featured_id'] == $sInfo->featured_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $featured['featured_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>

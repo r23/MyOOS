@@ -96,7 +96,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     switch ($action) {
       case 'setflag':
         oos_set_specials_status($_GET['id'], $_GET['flag']);
-        oos_redirect_admin(oos_href_link_admin($aContents['specials'], '', 'NONSSL'));
+        oos_redirect_admin(oos_href_link_admin($aContents['specials'], ''));
         break;
 
       case 'insert':
@@ -257,7 +257,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       $specials_result->Close();
     }
 ?>
-      <tr><form name="new_special" <?php echo 'action="' . oos_href_link_admin($aContents['specials'], oos_get_all_get_params(array('action', 'info', 'sID')) . 'action=' . $form_action, 'NONSSL') . '"'; ?> method="post"><?php if ($form_action == 'update') echo oos_draw_hidden_field('specials_id', $_GET['sID']); ?>
+      <tr><form name="new_special" <?php echo 'action="' . oos_href_link_admin($aContents['specials'], oos_get_all_get_params(array('action', 'info', 'sID')) . 'action=' . $form_action) . '"'; ?> method="post"><?php if ($form_action == 'update') echo oos_draw_hidden_field('specials_id', $_GET['sID']); ?>
         <td><br /><table border="0" cellspacing="0" cellpadding="2">
           <tr>
             <td class="main"><?php echo TEXT_SPECIALS_PRODUCT; echo ($sInfo->products_name) ? "" :  '('.TEXT_TAX_INFO.')'; ?>&nbsp;</td>
@@ -346,9 +346,9 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                 <td  class="dataTableContent" align="right">
 <?php
       if ($specials['status'] == '1') {
-        echo '<a href="' . oos_href_link_admin($aContents['specials'], 'action=setflag&flag=0&id=' . $specials['specials_id'], 'NONSSL') . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
+        echo '<a href="' . oos_href_link_admin($aContents['specials'], 'action=setflag&flag=0&id=' . $specials['specials_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
       } else {
-        echo '<a href="' . oos_href_link_admin($aContents['specials'], 'action=setflag&flag=1&id=' . $specials['specials_id'], 'NONSSL') . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
+        echo '<a href="' . oos_href_link_admin($aContents['specials'], 'action=setflag&flag=1&id=' . $specials['specials_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
       }
 ?></td>
                 <td class="dataTableContent" align="right"><?php if (isset($sInfo) && is_object($sInfo) && ($specials['specials_id'] == $sInfo->specials_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['specials'], 'page=' . $nPage . '&sID=' . $specials['specials_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>

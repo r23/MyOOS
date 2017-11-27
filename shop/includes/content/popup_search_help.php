@@ -32,7 +32,7 @@
     require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/search_advanced.php';
 
     // assign Smarty variables;
-    $smarty->assign('oos_base', (($request_type == 'SSL') ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . OOS_SHOP);
+    $smarty->assign('oos_base', OOS_HTTPS_SERVER . OOS_SHOP);
     $smarty->assign('lang', $aLang);
     $smarty->assign('heading_titel', $aLang['heading_search_help']);
     $smarty->assign('help_text', $aLang['text_search_help']);

@@ -93,7 +93,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     switch ($action) {
       case 'setflag':
         oos_set_login_status($_GET['id'], $_GET['flag']);
-        oos_redirect_admin(oos_href_link_admin($aContents['manual_loging'], '', 'NONSSL'));
+        oos_redirect_admin(oos_href_link_admin($aContents['manual_loging'], ''));
         break;
     }
   }
@@ -169,9 +169,9 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                 <td class="dataTableContent" align="center">
 <?php
       if ($palm_doa['status'] == '1') {
-        echo '&nbsp;<a href="' . oos_href_link_admin($aContents['manual_loging'], 'action=setflag&flag=0&id=' . $palm_doa['man_info_id'], 'NONSSL') . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_GREEN, 10, 10) . '</a>';
+        echo '&nbsp;<a href="' . oos_href_link_admin($aContents['manual_loging'], 'action=setflag&flag=0&id=' . $palm_doa['man_info_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_GREEN, 10, 10) . '</a>';
       } else {
-        echo '&nbsp;<a href="' . oos_href_link_admin($aContents['manual_loging'], 'action=setflag&flag=1&id=' . $palm_doa['man_info_id'], 'NONSSL') . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_RED, 10, 10) . '</a>';
+        echo '&nbsp;<a href="' . oos_href_link_admin($aContents['manual_loging'], 'action=setflag&flag=1&id=' . $palm_doa['man_info_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_RED, 10, 10) . '</a>';
       }
 ?></td>
                 <td class="dataTableContent" align="right"><?php if (isset($sInfo) && is_object($sInfo) && ($palm_doa['man_info_id'] == $sInfo->man_info_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['manual_loging'], 'page=' . $nPage . '&sID=' . $palm_doa['man_info_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>

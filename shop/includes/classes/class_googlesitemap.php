@@ -74,7 +74,7 @@ class GoogleSitemap {
 
 		$this->filename = "sitemap";
 		$this->savepath = OOS_ABSOLUTE_PATH;
-		$this->base_url = OOS_HTTP_SERVER . OOS_SHOP;
+		$this->base_url = OOS_HTTPS_SERVER . OOS_SHOP;
 		$this->debug = array();
 	}
 
@@ -226,7 +226,7 @@ class GoogleSitemap {
 			while ( $result = $products_query->fields ) {
 
 				$top = max($top, $result['products_ordered']);
-				$location = oos_href_link($aContents['product_info'], 'products_id=' . $result['pid'], 'NONSSL', false, true);
+				$location = oos_href_link($aContents['product_info'], 'products_id=' . $result['pid'], false, true);
 				$lastmod = oos_is_not_null($result['last_mod']) ? $result['last_mod'] : $result['date_added'];
 				$changefreq = GOOGLE_SITEMAP_PROD_CHANGE_FREQ;
 				$ratio = $top > 0 ? $result['products_ordered']/$top : 0;
@@ -280,7 +280,7 @@ class GoogleSitemap {
 			$container = array();
 			$number = 0;
 			while( $result = $categories_query->fields ) {
-				$location = oos_href_link($aContents['shop'], 'category=' . $this->GetFullcPath($result['cid']), 'NONSSL', false, true);
+				$location = oos_href_link($aContents['shop'], 'category=' . $this->GetFullcPath($result['cid']), false, true);
 				$lastmod = oos_is_not_null($result['last_mod']) ? $result['last_mod'] : $result['date_added'];
 
 				$changefreq = GOOGLE_SITEMAP_CAT_CHANGE_FREQ;

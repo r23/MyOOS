@@ -55,7 +55,7 @@
       $aContents = oos_get_content();
 
       if ($_GET['content'] != $aContents['info_down_for_maintenance']) {
-        oos_redirect(oos_href_link($aContents['info_down_for_maintenance'], '', 'NONSSL', true, false));
+        oos_redirect(oos_href_link($aContents['info_down_for_maintenance'], '', true, false));
       }
 
       return true;

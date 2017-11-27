@@ -35,7 +35,7 @@ if (!isset($_SESSION['customer_id'])) {
 		$_SESSION['navigation'] = new oosNavigationHistory();
 	} 
     $_SESSION['navigation']->set_snapshot();
-    oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
+    oos_redirect(oos_href_link($aContents['login'], ''));
 }
 
 // if there is nothing in the customers cart, redirect them to the shopping cart page
@@ -48,7 +48,7 @@ if (!isset($_SESSION['customer_id'])) {
   if ($oOrder->content_type == 'virtual') {
     $_SESSION['shipping'] = FALSE;
     $_SESSION['sendto'] = FALSE;
-    oos_redirect(oos_href_link($aContents['checkout_payment'], '', 'SSL'));
+    oos_redirect(oos_href_link($aContents['checkout_payment'], ''));
   }
 
   $error = FALSE;
@@ -194,7 +194,7 @@ if (!isset($_SESSION['customer_id'])) {
 
         if (isset($_SESSION['shipping'])) unset($_SESSION['shipping']);
 
-        oos_redirect(oos_href_link($aContents['checkout_shipping'], '', 'SSL'));
+        oos_redirect(oos_href_link($aContents['checkout_shipping'], ''));
       }
 // process the selected shipping destination
     } elseif (isset($_POST['address'])) {
@@ -218,14 +218,14 @@ if (!isset($_SESSION['customer_id'])) {
 
       if ($check_address['total'] == '1') {
         if ($reset_shipping == TRUE) unset($_SESSION['shipping']);
-        oos_redirect(oos_href_link($aContents['checkout_shipping'], '', 'SSL'));
+        oos_redirect(oos_href_link($aContents['checkout_shipping'], ''));
       } else {
         unset($_SESSION['sendto']);
       }
     } else {
       $_SESSION['sendto'] = $_SESSION['customer_default_address_id'];
 
-      oos_redirect(oos_href_link($aContents['checkout_shipping'], '', 'SSL'));
+      oos_redirect(oos_href_link($aContents['checkout_shipping'], ''));
     }
   }
 
@@ -272,8 +272,8 @@ if (!isset($_SESSION['customer_id'])) {
   if (!isset($process)) $process = 'false';
 
   // links breadcrumb
-  $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['checkout_shipping'], '', 'SSL'));
-  $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['checkout_shipping_address'], '', 'SSL'));
+  $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['checkout_shipping'], ''));
+  $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['checkout_shipping_address'], ''));
 
   ob_start();
   require 'js/checkout_shipping_address.js.php';

@@ -54,7 +54,7 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 
     // links breadcrumb
     $oBreadcrumb->add($information['information_heading_title'], oos_href_link($aContents['information'], 'information_id=' . intval($nInformationsID)));
-    $sCanonical = oos_href_link($aContents['information'], 'information_id=' . intval($nInformationsID), 'NONSSL', FALSE, TRUE);
+    $sCanonical = oos_href_link($aContents['information'], 'information_id=' . intval($nInformationsID), FALSE, TRUE);
 	
     // assign Smarty variables;
     $smarty->assign(

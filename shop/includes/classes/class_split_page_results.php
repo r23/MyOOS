@@ -75,7 +75,7 @@ class splitPageResults {
      * @return string
      */
 	public function display_links($query_numrows, $max_rows_per_page, $max_page_links, $current_page_number, $parameters = '') {
-		global $aLang, $sContent, $request_type;
+		global $aLang, $sContent;
 
 		$display_link = '';
 

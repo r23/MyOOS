@@ -41,7 +41,7 @@
 						</div>
 					</div>
 					
-    <form name="order" action="{html_get_link connection=SSL}" method="POST" role="form">
+    <form name="order" action="{html_get_link}" method="POST" role="form">
 	<input type="hidden" name="content" value="{$filename.checkout_success}">
 {if $mySystem.sed}
     <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
@@ -70,7 +70,7 @@
         <td height="10"></td>
       </tr>
       <tr>
-        <td align="center" class="main">{$lang.gv_has_vouchera}<a href="{html_href_link content=$filename.gv_send connection=SSL}">e-Mail</a> {$lang.gv_has_voucherb}</td>
+        <td align="center" class="main">{$lang.gv_has_vouchera}<a href="{html_href_link content=$filename.gv_send}">e-Mail</a> {$lang.gv_has_voucherb}</td>
       </tr>
       <tr>
         <td height="10"></td>

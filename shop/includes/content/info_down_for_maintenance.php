@@ -45,7 +45,7 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 
     // links breadcrumb
     $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['info_down_for_maintenance']));
-	$sCanonical = oos_href_link($aContents['info_down_for_maintenance'], '', 'NONSSL', FALSE, TRUE);
+	$sCanonical = oos_href_link($aContents['info_down_for_maintenance'], '', FALSE, TRUE);
 	
     // assign Smarty variables;
     $smarty->assign(

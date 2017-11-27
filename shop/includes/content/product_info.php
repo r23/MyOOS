@@ -64,7 +64,7 @@ if (!$product_info_result->RecordCount()) {
     }
 
     $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['products_new']));
-	$sCanonical = oos_href_link($aContents['product_info'], 'products_id='. $nProductsID, 'NONSSL', FALSE, TRUE);	
+	$sCanonical = oos_href_link($aContents['product_info'], 'products_id='. $nProductsID, FALSE, TRUE);	
 	
     $smarty->assign(
         array(
@@ -108,7 +108,7 @@ if (!$product_info_result->RecordCount()) {
     } else {
       $oBreadcrumb->add($product_info['products_name'], oos_href_link($aContents['product_info'], 'category=' . $sCategory . '&amp;products_id=' . $nProductsID));
     }
-	$sCanonical = oos_href_link($aContents['product_info'], 'products_id='. $nProductsID, 'NONSSL', FALSE, TRUE);		
+	$sCanonical = oos_href_link($aContents['product_info'], 'products_id='. $nProductsID, FALSE, TRUE);		
 	
     // products history
 	if (isset($_SESSION)) {
@@ -201,7 +201,7 @@ if (!$product_info_result->RecordCount()) {
     $smarty->assign('product_info', $product_info);
     $smarty->assign('options', $options);
 
-    $smarty->assign('redirect', oos_href_link($aContents['redirect'], 'action=url&amp;goto=' . urlencode($product_info['products_url']), 'NONSSL', false, false));
+    $smarty->assign('redirect', oos_href_link($aContents['redirect'], 'action=url&amp;goto=' . urlencode($product_info['products_url']), false, false));
 
 	if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 		$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);

@@ -91,14 +91,14 @@ function setFocus() {
 ?>
 
 	  <p><div class="smallText"><?php echo TEXT_FORGOTTEN_FAIL; ?></div></p>
-	  <p><div class="smallText"><?php echo '<a href="' . oos_href_link_admin($aContents['login'], '' , 'SSL') . '">' . oos_button('back', IMAGE_BACK) . '</a>'; ?></div></p>
+	  <p><div class="smallText"><?php echo '<a href="' . oos_href_link_admin($aContents['login'], '' ) . '">' . oos_button('back', IMAGE_BACK) . '</a>'; ?></div></p>
 	  <div id="break"></div>
 <?php
   } elseif (isset($success_message)) {
 ?>
 
 	  <p><div class="smallText"><?php echo $success_message; ?></div></p>
-	  <p><div class="smallText"><?php echo '<a href="' . oos_href_link_admin($aContents['login'], '' , 'SSL') . '">' . oos_button('back', IMAGE_BACK) . '</a>'; ?></div></p>
+	  <p><div class="smallText"><?php echo '<a href="' . oos_href_link_admin($aContents['login'], '' ) . '">' . oos_button('back', IMAGE_BACK) . '</a>'; ?></div></p>
 	  <div id="break"></div>
 <?php
   } else {
@@ -120,7 +120,7 @@ function setFocus() {
 			<div><?php echo oos_draw_input_field('email_address', '', 'class="inputbox" size="15"'); ?></div>
 
 			
-			<div class="ctr"><?php echo '<a href="' . oos_href_link_admin($aContents['login'], '' , 'SSL') . '">' . oos_button('back', IMAGE_BACK) . '</a> ' . oos_submit_button('confirm', IMAGE_BUTTON_LOGIN); ?></div>
+			<div class="ctr"><?php echo '<a href="' . oos_href_link_admin($aContents['login'], '' ) . '">' . oos_button('back', IMAGE_BACK) . '</a> ' . oos_submit_button('confirm', IMAGE_BUTTON_LOGIN); ?></div>
 	
 		</div>
 			</form>

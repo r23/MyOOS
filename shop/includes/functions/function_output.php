@@ -36,27 +36,16 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
   * @param $modul
   * @param $page
   * @param $parameters
-  * @param $connection
   * @param $add_session_id
   * @param $search_engine_safe
   * @return string
   */
-function oos_href_link($page = '', $parameters = '', $connection = 'NONSSL', $add_session_id = TRUE, $search_engine_safe = TRUE) {
+function oos_href_link($page = '', $parameters = '', $add_session_id = FALSE, $search_engine_safe = TRUE) {
     global $session, $oEvent, $spider_flag;
 
 	$page = oos_output_string($page);	
 	
-    if ($connection == 'NONSSL') {
-      $link = OOS_HTTP_SERVER . OOS_SHOP;
-    } elseif ($connection == 'SSL') {
-      if (ENABLE_SSL == 'true') {
-        $link = OOS_HTTPS_SERVER . OOS_SHOP;
-      } else {
-        $link = OOS_HTTP_SERVER . OOS_SHOP;
-      }
-    } else {
-      die('<div class="alert alert-danger" role="alert"><strong>Error!</strong> Unable to determine connection method on a link!<br /><br />Known methods: NONSSL SSL</div>');
-    }
+    $link = OOS_HTTPS_SERVER . OOS_SHOP;
 
     if (oos_is_not_null($parameters)) {
       $link .= 'index.php?content=' . $page . '&amp;' . oos_output_string($parameters);
@@ -77,13 +66,12 @@ function oos_href_link($page = '', $parameters = '', $connection = 'NONSSL', $ad
     if (isset($_SESSION)) {
 
 		// Add the session ID when moving from HTTP and HTTPS servers or when SID is defined
-		if ( (ENABLE_SSL == 'true' ) && ($connection == 'SSL') && ($add_session_id == TRUE) ) {
+		if ($add_session_id == TRUE) {
 			$_sid = $session->getName() . '=' . $session->getId();
-		} elseif ( ($add_session_id == TRUE) && (oos_is_not_null(SID)) ) {
-			$_sid = SID;
 		}
 
 		if ( $spider_flag === FALSE) $_sid = NULL;
+		
 	}
 	
 	

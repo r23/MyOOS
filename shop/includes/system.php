@@ -67,8 +67,6 @@ $smarty->assign(
 		'filename'		=> $aContents,
 		'page_file'		=> $sContent,
 
-		'request_type'	=> $request_type,
-
 		'theme_set'		=> $sTheme,
 		'theme_image'	=> 'themes/' . $sTheme . '/images',
 		'theme'			=> 'themes/' . $sTheme,
@@ -87,7 +85,7 @@ $smarty->assign(
 
 );
 
-$smarty->assign('oos_base', (($request_type == 'SSL') ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . OOS_SHOP);
+$smarty->assign('oos_base', OOS_HTTPS_SERVER . OOS_SHOP);
 
 $cart_products = array();
 $cart_count_contents = 0;

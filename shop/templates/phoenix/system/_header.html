@@ -57,23 +57,23 @@
 				<li>
 					<a class="dropdown-toggle no-text-underline" data-toggle="dropdown" href="#"><i class="fa fa-user hidden-xs-down"></i> {$lang.header_title_my_account}</a>
 					<ul class="dropdown-menu float-right">
-						<li><a tabindex="-1" href="{html_href_link content=$filename.account_history page=1 connection=SSL}" rel="nofollow"><i class="fa fa-history" aria-hidden="true"></i> {$lang.login_block_account_history}</a></li>
+						<li><a tabindex="-1" href="{html_href_link content=$filename.account_history page=1}" rel="nofollow"><i class="fa fa-history" aria-hidden="true"></i> {$lang.login_block_account_history}</a></li>
 						<li class="divider"></li>
-						<li><a tabindex="-1" href="{html_href_link content=$filename.account_wishlist page=1 connection=SSL}" rel="nofollow"><i class="fa fa-bookmark" aria-hidden="true"></i> {$lang.button_wishlist}</a></li>
-						<li><a tabindex="-1" href="{html_href_link content=$filename.account connection=SSL}" rel="nofollow"><i class="fa fa-edit" aria-hidden="true"></i> {$lang.login_block_my_account}</a></li>
-						<li><a tabindex="-1" href="{html_href_link content=$filename.account_address_book connection=SSL}" rel="nofollow"><i class="fa fa-address-book" aria-hidden="true"></i> {$lang.login_block_address_book}</a></li>
+						<li><a tabindex="-1" href="{html_href_link content=$filename.account_wishlist page=1}" rel="nofollow"><i class="fa fa-bookmark" aria-hidden="true"></i> {$lang.button_wishlist}</a></li>
+						<li><a tabindex="-1" href="{html_href_link content=$filename.account}" rel="nofollow"><i class="fa fa-edit" aria-hidden="true"></i> {$lang.login_block_my_account}</a></li>
+						<li><a tabindex="-1" href="{html_href_link content=$filename.account_address_book}" rel="nofollow"><i class="fa fa-address-book" aria-hidden="true"></i> {$lang.login_block_address_book}</a></li>
 						<li class="divider"></li>
-						<li><a tabindex="-1" href="{html_href_link content=$filename.logoff connection=SSL}" rel="nofollow"><i class="fa fa-power-off" aria-hidden="true"></i> {$lang.header_title_logoff}</a></li>
+						<li><a tabindex="-1" href="{html_href_link content=$filename.logoff}" rel="nofollow"><i class="fa fa-power-off" aria-hidden="true"></i> {$lang.header_title_logoff}</a></li>
 					</ul>
 				</li>
 				<li class="hidden-xs-down">
 				{if (isset($smarty.session.customer_id)) }
-					<a href="{html_href_link content=$filename.logoff connection=SSL}">{$lang.header_title_logoff}</a>
+					<a href="{html_href_link content=$filename.logoff}">{$lang.header_title_logoff}</a>
 				{else}
-					<a href="{html_href_link content=$filename.login connection=SSL}">{$lang.header_title_login}</a>
+					<a href="{html_href_link content=$filename.login}">{$lang.header_title_login}</a>
 				{/if}
 				</li>						
-				<li class="hidden-xs-down"><a href="{html_href_link content=$filename.checkout_shipping connection=SSL}" rel="nofollow">{$lang.header_title_checkout}</a></li>
+				<li class="hidden-xs-down"><a href="{html_href_link content=$filename.checkout_shipping}" rel="nofollow">{$lang.header_title_checkout}</a></li>
 			</ul>
 
 			<!-- left -->
@@ -89,7 +89,7 @@
 						{else}
 							<li>
 						{/if}
-								<a tabindex="-1" href="{html_href_link content=$page_file oos_get=$lang_get_parameters language=$languages.iso_639_2 connection=$request_type}">
+								<a tabindex="-1" href="{html_href_link content=$page_file oos_get=$lang_get_parameters language=$languages.iso_639_2}">
 									{$languages.name} ({$languages.iso_639_2}){if $languages.iso_639_2 == $language} <i class="fa fa-check" aria-hidden="true"></i>{/if}
 								</a>
 							</li>
@@ -108,7 +108,7 @@
 						{else}
 							<li>
 						{/if}							
-								<a tabindex="-1" href="{html_href_link content=$page_file oos_get=$currency_get_parameters currency=$currencies.id connection=$request_type}">
+								<a tabindex="-1" href="{html_href_link content=$page_file oos_get=$currency_get_parameters currency=$currencies.id}">
 									{$currencies.text} {if $currencies.id == $currency} <i class="fa fa-check" aria-hidden="true"></i>{/if}
 								</a>
 							</li>
@@ -220,21 +220,21 @@
 									</li>
 									<li {if $login_active}class="active"{/if}>
 									{if (isset($smarty.session.customer_id)) }
-										<a href="{html_href_link content=$filename.logoff connection=SSL}">{$lang.header_title_logoff}</a>
+										<a href="{html_href_link content=$filename.logoff}">{$lang.header_title_logoff}</a>
 									{else}
-										<a href="{html_href_link content=$filename.login connection=SSL}">{$lang.header_title_login}</a>
+										<a href="{html_href_link content=$filename.login}">{$lang.header_title_login}</a>
 									{/if}
 									</li>
 									<li class="dropdown {if $account_active}active{/if}">
 										<a class="dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{$lang.header_title_my_account}</a>
 										<ul class="dropdown-menu dropdown-menu-right">
-											<li><a href="{html_href_link content=$filename.account connection=SSL}" rel="nofollow">{$lang.login_block_my_account}</a></li>
-											<li><a href="{html_href_link content=$filename.account_edit connection=SSL}" rel="nofollow">{$lang.login_block_account_edit}</a></li>
-											<li><a href="{html_href_link content=$filename.account_history page=1 connection=SSL}" rel="nofollow">{$lang.login_block_account_history}</a></li>
-											<li><a href="{html_href_link content=$filename.account_order_history page=1 connection=SSL}" rel="nofollow">{$lang.login_block_order_history}</a></li>
-											<li><a href="{html_href_link content=$filename.account_address_book connection=SSL}" rel="nofollow">{$lang.login_block_address_book}</a></li>
+											<li><a href="{html_href_link content=$filename.account}" rel="nofollow">{$lang.login_block_my_account}</a></li>
+											<li><a href="{html_href_link content=$filename.account_edit}" rel="nofollow">{$lang.login_block_account_edit}</a></li>
+											<li><a href="{html_href_link content=$filename.account_history page=1}" rel="nofollow">{$lang.login_block_account_history}</a></li>
+											<li><a href="{html_href_link content=$filename.account_order_history page=1}" rel="nofollow">{$lang.login_block_order_history}</a></li>
+											<li><a href="{html_href_link content=$filename.account_address_book}" rel="nofollow">{$lang.login_block_address_book}</a></li>
 										{if $oEvent->installed_plugin('notify')}
-											<li><a href="{html_href_link content=$filename.product_notifications connection=SSL}" rel="nofollow">{$lang.login_block_product_notifications}</a></li>
+											<li><a href="{html_href_link content=$filename.product_notifications}" rel="nofollow">{$lang.login_block_product_notifications}</a></li>
 										{/if}
 					
 										</ul>
@@ -243,7 +243,7 @@
 										<a href="{html_href_link content=$filename.shopping_cart}">{$lang.header_title_cart_contents}</a>
 									</li>
 									<li {if $checkout_active}class="active"{/if}>
-										<a href="{html_href_link content=$filename.checkout_shipping connection=SSL}" rel="nofollow">{$lang.header_title_checkout}</a>
+										<a href="{html_href_link content=$filename.checkout_shipping}" rel="nofollow">{$lang.header_title_checkout}</a>
 									</li>									
 
 								</ul>

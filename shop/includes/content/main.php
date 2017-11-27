@@ -26,7 +26,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/main.p
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_default.php';
 
 // default
-$sCanonical = (($request_type == 'SSL') ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . OOS_SHOP;
+$sCanonical = OOS_HTTPS_SERVER . OOS_SHOP;
 
 $aTemplate['page'] = $sTheme . '/page/main.html';
 if ($oEvent->installed_plugin('spezials')) $aTemplate['new_spezials'] = $sTheme . '/page/products/new_spezials.html';

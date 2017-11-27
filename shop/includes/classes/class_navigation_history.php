@@ -51,11 +51,10 @@
 
 
     public function set_snapshot($page = '') {
-      global $sContent, $request_type;
+      global $sContent;
 	  
       if (is_array($page)) {
         $this->snapshot = array('content' => $page['content'],
-                                'mode' => $page['mode'],
                                 'get' => $page['get']);
       } else {
         $get_all = ''; 
@@ -64,7 +63,6 @@
           $get_all = oos_remove_trailing($get_all);
         }
         $this->snapshot = array('content' => $sContent,
-                                'mode' => $request_type,
                                 'get' => $get_all);
       }
     }
@@ -77,7 +75,6 @@
     public function set_path_as_snapshot($history = 0) {
       $pos = (count($this->path)-1-$history);
       $this->snapshot = array('content' => $this->path[$pos]['content'],
-                              'mode' => $this->path[$pos]['mode'],
                               'get' => $this->path[$pos]['get']);
     }
 

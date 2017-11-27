@@ -31,7 +31,7 @@ if (!isset($_SESSION['customer_id'])) {
 	} 
 
 	$_SESSION['navigation']->set_snapshot();
-	oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
+	oos_redirect(oos_href_link($aContents['login'], ''));
 }
 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_account.php';
@@ -59,7 +59,7 @@ $sCountryName = oos_get_country_name($account['entry_country_id']);
 
 
 // links breadcrumb
-$oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['account'], '', 'SSL'));
+$oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['account'], ''));
 
 $aTemplate['page'] = $sTheme . '/page/user_account.html';
 

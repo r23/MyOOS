@@ -106,12 +106,11 @@
    */
    function oos_server_get_protocol() {
      $sProtocol = 'http';
-     if (ENABLE_SSL == 'true') {
        if (strtolower(oos_server_has_var('HTTPS')) == 'on'
          || oos_server_has_var('SSL_PROTOCOL')) {
          $sProtocol = 'https';
        }
-     }
+
      return $sProtocol . '://';
    }
 

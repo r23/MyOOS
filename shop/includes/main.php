@@ -34,7 +34,7 @@ if (is_readable('includes/local/configure.php')) {
 }
 
 // Version information
-define('OOS_VERSION', '2.0.98 -dev');
+define('OOS_VERSION', '2.0.106 -dev');
 // Complete software name string
 define('OOS_FULL_NAME', 'MyOOS ' . OOS_VERSION);
 
@@ -54,20 +54,6 @@ if (strlen(OOS_DB_TYPE) < 1) {
         exit;
     }
 }
-
-// set the type of request (secure or not)
-$request_type = 'NONSSL';
-if (ENABLE_SSL == 'true') {
-    $request_type = (((isset($_SERVER['HTTPS']) && (strtolower($_SERVER['HTTPS']) == 'on' || $_SERVER['HTTPS'] == '1'))) ||
-        (isset($_SERVER['HTTP_X_FORWARDED_BY']) && strpos(strtoupper($_SERVER['HTTP_X_FORWARDED_BY']), 'SSL') !== FALSE) ||
-        (isset($_SERVER['HTTP_X_FORWARDED_HOST']) && (strpos(strtoupper($_SERVER['HTTP_X_FORWARDED_HOST']), 'SSL') !== FALSE || strpos(strtoupper($_SERVER['HTTP_X_FORWARDED_HOST']), str_replace('https://', '', HTTPS_SERVER)) !== FALSE)) ||
-        (isset($_SERVER['SCRIPT_URI']) && strtolower(substr($_SERVER['SCRIPT_URI'], 0, 6)) == 'https:') ||
-        (isset($_SERVER['HTTP_X_FORWARDED_SSL']) && ($_SERVER['HTTP_X_FORWARDED_SSL'] == '1' || strtolower($_SERVER['HTTP_X_FORWARDED_SSL']) == 'on')) ||
-        (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && (strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'ssl' || strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'https')) ||
-        (isset($_SERVER['HTTP_SSLSESSIONID']) && $_SERVER['HTTP_SSLSESSIONID'] != '') ||
-        (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == '443')) ? 'SSL' : 'NONSSL';
-}
-
 
 // require  the list of project filenames
 require_once MYOOS_INCLUDE_PATH . '/includes/filename.php';
@@ -235,7 +221,7 @@ if ( $session->hasStarted() === TRUE ) {
 
 	if ($_SESSION['session_user_agent'] != $http_user_agent) {
 		$session->expire();
-		oos_redirect(oos_link($aContents['login'], '', 'SSL'));
+		oos_redirect(oos_link($aContents['login'], ''));
 	}
 
 	// verify the IP address
@@ -245,7 +231,7 @@ if ( $session->hasStarted() === TRUE ) {
 
 	if ($_SESSION['session_ip_address'] != oos_server_get_remote()) {
 		$session->expire();
-		oos_redirect(oos_link($aContents['login'], '', 'SSL'));
+		oos_redirect(oos_link($aContents['login'], ''));
 	}	
 } else {
 	$oUser = new oosUser();

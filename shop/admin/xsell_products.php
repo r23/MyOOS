@@ -197,7 +197,7 @@ td.style.backgroundColor="DFE4F4";
     $products_result = $dbconn->Execute($products_result_raw);
     while ($products = $products_result->fields) {
 ?>
-        <tr onMouseOver="cOn(this); this.style.cursor='pointer'; this.style.cursor='hand';" onMouseOut="cOut(this);" bgcolor='#DFE4F4' onClick=document.location.href="<?php echo oos_href_link_admin($aContents['xsell_products'], 'add_related_product_id=' . $products['products_id'], 'NONSSL');?>">
+        <tr onMouseOver="cOn(this); this.style.cursor='pointer'; this.style.cursor='hand';" onMouseOut="cOut(this);" bgcolor='#DFE4F4' onClick=document.location.href="<?php echo oos_href_link_admin($aContents['xsell_products'], 'add_related_product_id=' . $products['products_id']);?>">
           <td class="dataTableContent" valign="top">&nbsp;<?php echo $products['products_id'];?>&nbsp;</td>
           <td class="dataTableContent" valign="top">&nbsp;<?php echo $products['products_model'];?>&nbsp;</td>
           <td class="dataTableContent" valign="top">&nbsp;<?php echo $products['products_name'];?>&nbsp;</td>
@@ -244,8 +244,8 @@ td.style.backgroundColor="DFE4F4";
       }
 ?>
       </table></td>
-      <td class="dataTableContent" valign="top">&nbsp;<a href="<?php echo oos_href_link_admin($aContents['xsell_products'], oos_get_all_get_params(array('action')) . 'add_related_product_id=' . $products['products_id'], 'NONSSL');?>"><?php echo TEXT_EDIT_SELLS;?></a>&nbsp;</td>
-      <td class="dataTableContent" valign="top" align="center">&nbsp;<?php echo (($i > 0) ? '<a href="' . oos_href_link_admin($aContents['xsell_products'], oos_get_all_get_params(array('action')) . 'sort=1&add_related_product_id=' . $products['products_id'], 'NONSSL') .'">'.TEXT_SORT.'</a>&nbsp;' : '--')?></td>
+      <td class="dataTableContent" valign="top">&nbsp;<a href="<?php echo oos_href_link_admin($aContents['xsell_products'], oos_get_all_get_params(array('action')) . 'add_related_product_id=' . $products['products_id']);?>"><?php echo TEXT_EDIT_SELLS;?></a>&nbsp;</td>
+      <td class="dataTableContent" valign="top" align="center">&nbsp;<?php echo (($i > 0) ? '<a href="' . oos_href_link_admin($aContents['xsell_products'], oos_get_all_get_params(array('action')) . 'sort=1&add_related_product_id=' . $products['products_id']) .'">'.TEXT_SORT.'</a>&nbsp;' : '--')?></td>
     </tr>
 <?php
       // Move that ADOdb pointer!

@@ -347,7 +347,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 
 				$email_text .= sprintf($aLang['email_gv_incentive_header'], $oCurrencies->format(NEW_SIGNUP_GIFT_VOUCHER_AMOUNT)) . "\n\n" .
                        sprintf($aLang['email_gv_redeem'], $coupon_code) . "\n\n" .
-                       $aLang['email_gv_link'] . oos_href_link($aContents['gv_redeem'], 'gv_no=' . $coupon_code, 'NONSSL', false, false) . 
+                       $aLang['email_gv_link'] . oos_href_link($aContents['gv_redeem'], 'gv_no=' . $coupon_code, false, false) . 
                        "\n\n";  
 			}
 			if (NEW_SIGNUP_DISCOUNT_COUPON != '') {
@@ -435,14 +435,14 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 			}
 		}
 
-		oos_redirect(oos_href_link($aContents['create_account_success'], '', 'SSL'));
+		oos_redirect(oos_href_link($aContents['create_account_success'], ''));
 	}
 }
 
 
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['create_account']));
-$sCanonical = oos_href_link($aContents['create_account'], '', 'SSL', FALSE, TRUE);
+$sCanonical = oos_href_link($aContents['create_account'], '', FALSE, TRUE);
 
 $snapshot = count($_SESSION['navigation']->snapshot);
 
@@ -483,8 +483,8 @@ $smarty->assign('account', $account);
 $smarty->assign('email_address', $email_address);
 
 $smarty->assign('snapshot', $snapshot);
-$smarty->assign('login_orgin_text', sprintf($aLang['text_origin_login'], oos_href_link($aContents['login'], '', 'SSL')));
-$smarty->assign('login_agree', sprintf($aLang['agree'], oos_href_link($aContents['information'], 'information_id=2', 'SSL'), oos_href_link($aContents['information'], 'information_id=4', 'SSL')));
+$smarty->assign('login_orgin_text', sprintf($aLang['text_origin_login'], oos_href_link($aContents['login'], '')));
+$smarty->assign('login_agree', sprintf($aLang['agree'], oos_href_link($aContents['information'], 'information_id=2'), oos_href_link($aContents['information'], 'information_id=4')));
 
 // display the template
 $smarty->display($aTemplate['page']);

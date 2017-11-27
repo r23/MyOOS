@@ -16,7 +16,7 @@
 				<div class="sign-form">
 					<h3 class="first-child">{$lang.heading_title}</h3>
 					<hr>
-					<form role="form" name="login" action="{html_get_link connection=SSL}" method="POST" role="form">
+					<form role="form" name="login" action="{html_get_link}" method="POST" role="form">
 					{if $mySystem.sed}
 						<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
 						<input type="hidden" name="formid" value="{$mySystem.formid}">
@@ -37,8 +37,8 @@
 						<button type="submit" class="btn btn-color">{$lang.button_login}</button>
 						<hr>
 					</form>
-						<p>{$lang.text_password_forgotten} <a href="{html_href_link content=$filename.password_forgotten connection=SSL}">{$lang.link_password_forgotten}</a></p>	
-						<p>{$lang.text_new_customer} <a href="{html_href_link content=$filename.create_account connection=SSL}">{$lang.link_new_customer}</a></p>
+						<p>{$lang.text_password_forgotten} <a href="{html_href_link content=$filename.password_forgotten}">{$lang.link_password_forgotten}</a></p>	
+						<p>{$lang.text_new_customer} <a href="{html_href_link content=$filename.create_account}">{$lang.link_new_customer}</a></p>
 				</div>
 			</div>
 		</div> <!-- / .row -->

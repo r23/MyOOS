@@ -31,7 +31,7 @@ if (!isset($_SESSION['customer_id'])) {
 		$_SESSION['navigation'] = new oosNavigationHistory();
 	}   
     $_SESSION['navigation']->set_snapshot();
-    oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
+    oos_redirect(oos_href_link($aContents['login'], ''));
 }
 
   require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/gv_redeem.php';

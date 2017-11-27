@@ -99,7 +99,7 @@ if (isset($_SESSION)) {
 
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['shopping_cart']));
-$sCanonical = oos_href_link($aContents['shopping_cart'], '', 'NONSSL', FALSE, TRUE);
+$sCanonical = oos_href_link($aContents['shopping_cart'], '', FALSE, TRUE);
   
 $aTemplate['page'] = $sTheme . '/page/shopping_cart.html';
 

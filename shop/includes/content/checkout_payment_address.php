@@ -34,7 +34,7 @@ if (!isset($_SESSION['customer_id'])) {
 		$_SESSION['navigation'] = new oosNavigationHistory();
 	} 
     $_SESSION['navigation']->set_snapshot();
-    oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
+    oos_redirect(oos_href_link($aContents['login'], ''));
 }
 
 // if there is nothing in the customers cart, redirect them to the shopping cart page
@@ -186,7 +186,7 @@ if (!isset($_SESSION['customer_id'])) {
 
         if (isset($_SESSION['payment'])) unset($_SESSION['payment']);
 
-        oos_redirect(oos_href_link($aContents['checkout_payment'], '', 'SSL'));
+        oos_redirect(oos_href_link($aContents['checkout_payment'], ''));
       }
 // process the selected billing destination
     } elseif (isset($_POST['address'])) {
@@ -211,7 +211,7 @@ if (!isset($_SESSION['customer_id'])) {
 
       if ($check_address['total'] == '1') {
         if ($reset_payment == TRUE)   unset($_SESSION['payment']);
-        oos_redirect(oos_href_link($aContents['checkout_payment'], '', 'SSL'));
+        oos_redirect(oos_href_link($aContents['checkout_payment'], ''));
       } else {
         unset($_SESSION['billto']);
       }
@@ -219,7 +219,7 @@ if (!isset($_SESSION['customer_id'])) {
     } else {
       $_SESSION['billto'] = $_SESSION['customer_default_address_id'];
 
-      oos_redirect(oos_href_link($aContents['checkout_payment'], '', 'SSL'));
+      oos_redirect(oos_href_link($aContents['checkout_payment'], ''));
     }
   }
 
@@ -264,8 +264,8 @@ if (!isset($_SESSION['customer_id'])) {
   if (!isset($process)) $process = 'false';
 
   // links breadcrumb
-  $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['checkout_payment'], '', 'SSL'));
-  $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['checkout_payment_address'], '', 'SSL'));
+  $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['checkout_payment'], ''));
+  $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['checkout_payment_address'], ''));
 
   ob_start();
   require 'js/checkout_payment_address.js.php';

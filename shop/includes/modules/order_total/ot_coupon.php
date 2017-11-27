@@ -119,7 +119,7 @@
       if ($coupon_result['coupon_type'] != 'G') {
 
         if ($coupon_query->RecordCount() == 0) {
-          oos_redirect(oos_href_link($aContents['checkout_payment'], 'error_message=' . urlencode($aLang['error_no_invalid_redeem_coupon']), 'SSL'));
+          oos_redirect(oos_href_link($aContents['checkout_payment'], 'error_message=' . urlencode($aLang['error_no_invalid_redeem_coupon'])));
         }
 
         $couponstable = $oostable['coupons'];
@@ -129,7 +129,7 @@
                 AND   coupon_code= '" . oos_db_input($_POST['gv_redeem_code']) . "'";
         $date_query = $dbconn->Execute($sql);
         if ($date_query->RecordCount() == 0) {
-          oos_redirect(oos_href_link($aContents['checkout_payment'], 'error_message=' . urlencode($aLang['error_invalid_startdate_coupon']), 'SSL'));
+          oos_redirect(oos_href_link($aContents['checkout_payment'], 'error_message=' . urlencode($aLang['error_invalid_startdate_coupon'])));
         }
 
         $couponstable = $oostable['coupons'];
@@ -139,7 +139,7 @@
                 AND   coupon_code= '" . oos_db_input($_POST['gv_redeem_code']) . "'";
         $date_query = $dbconn->Execute($sql);
         if ($date_query->RecordCount() == 0) {
-          oos_redirect(oos_href_link($aContents['checkout_payment'], 'error_message=' . urlencode($aLang['error_invalid_finisdate_coupon']), 'SSL'));
+          oos_redirect(oos_href_link($aContents['checkout_payment'], 'error_message=' . urlencode($aLang['error_invalid_finisdate_coupon'])));
         }
 
         $coupon_redeem_tracktable = $oostable['coupon_redeem_track'];
@@ -156,11 +156,11 @@
         $coupon_count_customer = $dbconn->Execute($sql);
 
         if ($coupon_count->RecordCount()>=$coupon_result['uses_per_coupon'] && $coupon_result['uses_per_coupon'] > 0) {
-          oos_redirect(oos_href_link($aContents['checkout_payment'], 'error_message=' . urlencode($aLang['error_invalid_uses_coupon'] . $coupon_result['uses_per_coupon'] . $aLang['times'] ), 'SSL'));
+          oos_redirect(oos_href_link($aContents['checkout_payment'], 'error_message=' . urlencode($aLang['error_invalid_uses_coupon'] . $coupon_result['uses_per_coupon'] . $aLang['times'] )));
         }
 
         if ($coupon_count_customer->RecordCount()>=$coupon_result['uses_per_user'] && $coupon_result['uses_per_user'] > 0) {
-          oos_redirect(oos_href_link($aContents['checkout_payment'], 'error_message=' . urlencode($aLang['error_invalid_uses_user_coupon'] . $coupon_result['uses_per_user'] . $aLang['times'] ), 'SSL'));
+          oos_redirect(oos_href_link($aContents['checkout_payment'], 'error_message=' . urlencode($aLang['error_invalid_uses_user_coupon'] . $coupon_result['uses_per_user'] . $aLang['times'] )));
         }
         if ($coupon_result['coupon_type'] == 'S') {
           $coupon_amount = $oOrder->info['shipping_cost'];
@@ -171,7 +171,7 @@
         if ($coupon_result['coupon_minimum_order']>0) $coupon_amount .= 'on orders greater than ' .  $coupon_result['coupon_minimum_order'];
         $_SESSION['cc_id'] = $coupon_result['coupon_id'];
       }
-      if ($_POST['submit_redeem_coupon_x'] && !$_POST['gv_redeem_code']) oos_redirect(oos_href_link($aContents['checkout_payment'], 'error_message=' . urlencode($aLang['error_no_invalid_redeem_coupon']), 'SSL'));
+      if ($_POST['submit_redeem_coupon_x'] && !$_POST['gv_redeem_code']) oos_redirect(oos_href_link($aContents['checkout_payment'], 'error_message=' . urlencode($aLang['error_no_invalid_redeem_coupon'])));
     }
   }
 

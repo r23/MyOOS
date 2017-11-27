@@ -34,8 +34,8 @@ if (!isset($_SESSION['customer_id'])) {
 	if (!isset($_SESSION['navigation'])) {
 		$_SESSION['navigation'] = new oosNavigationHistory();
 	}   
-    $_SESSION['navigation']->set_snapshot(array('mode' => 'SSL', 'content' =>$aContents['checkout_payment']));
-    oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
+    $_SESSION['navigation']->set_snapshot(array('content' =>$aContents['checkout_payment']));
+    oos_redirect(oos_href_link($aContents['login'], ''));
 }
 
 // if there is nothing in the customers cart, redirect them to the shopping cart page
@@ -46,7 +46,7 @@ if ($_SESSION['cart']->count_contents() < 1) {
 // avoid hack attempts during the checkout procedure by checking the internal cartID
 if (isset($_SESSION['cart']->cartID) && isset($_SESSION['cartID'])) {
 	if ($_SESSION['cart']->cartID != $_SESSION['cartID']) {
-		oos_redirect(oos_href_link($aContents['checkout_shipping'], '', 'SSL'));
+		oos_redirect(oos_href_link($aContents['checkout_shipping'], ''));
 	}
 }
 
@@ -61,7 +61,7 @@ if ( (isset($_POST['comments'])) && (empty($_POST['comments'])) ) {
 
 // if no shipping method has been selected, redirect the customer to the shipping method selection page
 if (!isset($_SESSION['shipping'])) {
-	oos_redirect(oos_href_link($aContents['checkout_shipping'], '', 'SSL'));
+	oos_redirect(oos_href_link($aContents['checkout_shipping'], ''));
 }
 
 
@@ -84,7 +84,7 @@ $oOrder = new order;
 
 if ( (isset($_SESSION['shipping'])) && ($_SESSION['shipping']['id'] == 'free_free')) {
 	if ( ($oOrder->info['total'] - $oOrder->info['shipping_cost']) < MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER ) {
-		oos_redirect(oos_href_link($aContents['checkout_shipping'], '', 'SSL'));
+		oos_redirect(oos_href_link($aContents['checkout_shipping'], ''));
 	}
 }
 
@@ -106,7 +106,7 @@ if (is_array($payment_modules->modules)) {
 }
 
 if ($oMessage->size('checkout_payment') > 0) {
-	oos_redirect(oos_href_link($aContents['checkout_payment'], '', 'SSL'));
+	oos_redirect(oos_href_link($aContents['checkout_payment'], ''));
 }
 
 
@@ -131,7 +131,7 @@ if (STOCK_CHECK == 'true') {
 }
 
 // links breadcrumb
-$oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['checkout_shipping'], '', 'SSL'));
+$oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['checkout_shipping'], ''));
 $oBreadcrumb->add($aLang['navbar_title_2']);
 
 $aTemplate['page'] = $sTheme . '/page/checkout_confirmation.html';
@@ -174,7 +174,7 @@ if (is_array($payment_modules->modules)) {
 if (isset(${$_SESSION['payment']}->form_action_url)) {
 	$form_action_url = ${$_SESSION['payment']}->form_action_url;
 } else {
-	$form_action_url = oos_href_link($aContents['checkout_process'], '', 'SSL');
+	$form_action_url = oos_href_link($aContents['checkout_process'], '');
 }
 $smarty->assign('form_action_url', $form_action_url);
 

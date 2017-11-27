@@ -41,7 +41,7 @@
     $aContents = oos_get_content();
 
     if (!isset($_SESSION['login_id'])) {
-      oos_redirect_admin(oos_href_link_admin($aContents['login'], '', 'SSL'));
+      oos_redirect_admin(oos_href_link_admin($aContents['login'], ''));
     } else {
       $filename = preg_split('/\?/', basename($_SERVER['SCRIPT_NAME']));
       $filename = $filename[0];
@@ -165,7 +165,7 @@ function oos_redirect_admin($url) {
 	
     if ( (strstr($url, "\n") != false) || (strstr($url, "\r") != false) ) {
 		$aContents = oos_get_content();
-		oos_redirect_admin(oos_href_link_admin($aContents['default'], '', 'SSL', false));
+		oos_redirect_admin(oos_href_link_admin($aContents['default'], '', false));
     }
 
     if ( strpos($url, '&amp;') !== false ) {

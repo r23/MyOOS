@@ -34,7 +34,7 @@ if (!isset($_SESSION['customer_id'])) {
 		$_SESSION['navigation'] = new oosNavigationHistory();
 	}   
     $_SESSION['navigation']->set_snapshot();
-    oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
+    oos_redirect(oos_href_link($aContents['login'], ''));
 }
 
 if (isset($_GET['products_id'])) {
@@ -146,7 +146,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'reviews-write-process') &&
 
 
 $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['product_reviews'], 'products_id=' . intval($nProductsID)));
-$sCanonical = oos_href_link($aContents['product_reviews_write'], 'products_id=' . intval($nProductsID), 'NONSSL', FALSE, TRUE);
+$sCanonical = oos_href_link($aContents['product_reviews_write'], 'products_id=' . intval($nProductsID), FALSE, TRUE);
 
 $customerstable = $oostable['customers'];
 $sql = "SELECT customers_firstname, customers_lastname

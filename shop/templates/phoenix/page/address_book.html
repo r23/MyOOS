@@ -14,11 +14,11 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="btn-group" role="group" aria-label="...">
-					<a href="{html_href_link content=$filename.account connection=SSL}" class="btn btn-secondary" role="button"><i class="fa fa-th" aria-hidden="true"></i>{$lang.login_block_my_account}</a>
-					<a href="{html_href_link content=$filename.account_edit connection=SSL}" class="btn btn-secondary" role="button"><i class="fa fa-user" aria-hidden="true"></i>{$lang.login_block_account_edit}</a>
-					<a href="{html_href_link content=$filename.account_address_book connection=SSL}" class="btn btn-secondary active" role="button"><i class="fa fa-address-book" aria-hidden="true"></i>{$lang.button_address_book}</a>
-					<a href="{html_href_link content=$filename.account_history page=1 connection=SSL}" class="btn btn-secondary" role="button"><i class="fa fa-list" aria-hidden="true"></i>{$lang.button_history}</a>
-					<a href="{html_href_link content=$filename.account_wishlist page=1 connection=SSL}" class="btn btn-secondary" role="button"><i class="fa fa-gift" aria-hidden="true"></i>{$lang.button_wishlist}</a>
+					<a href="{html_href_link content=$filename.account}" class="btn btn-secondary" role="button"><i class="fa fa-th" aria-hidden="true"></i>{$lang.login_block_my_account}</a>
+					<a href="{html_href_link content=$filename.account_edit}" class="btn btn-secondary" role="button"><i class="fa fa-user" aria-hidden="true"></i>{$lang.login_block_account_edit}</a>
+					<a href="{html_href_link content=$filename.account_address_book}" class="btn btn-secondary active" role="button"><i class="fa fa-address-book" aria-hidden="true"></i>{$lang.button_address_book}</a>
+					<a href="{html_href_link content=$filename.account_history page=1}" class="btn btn-secondary" role="button"><i class="fa fa-list" aria-hidden="true"></i>{$lang.button_history}</a>
+					<a href="{html_href_link content=$filename.account_wishlist page=1}" class="btn btn-secondary" role="button"><i class="fa fa-gift" aria-hidden="true"></i>{$lang.button_wishlist}</a>
 				</div>
 			</div>
 		</div>
@@ -55,9 +55,9 @@
 										<td>{$address_book[i].country}</td>
 										<td>
 											<div class="btn-group" role="group">
-												<a href="{html_href_link content=$filename.account_address_book_process edit=$address_book[i].address_book_id connection=SSL}" class="btn btn-primary" role="button"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+												<a href="{html_href_link content=$filename.account_address_book_process edit=$address_book[i].address_book_id}" class="btn btn-primary" role="button"><i class="fa fa-pencil" aria-hidden="true"></i></a>
 											{if $address_book[i].address_book_id neq $smarty.session.customer_default_address_id}	
-												<a href="{html_href_link content=$filename.account_address_book_process delete=$address_book[i].address_book_id connection=SSL}" class="btn btn-primary" role="button"><i class="fa fa-times" aria-hidden="true"></i></a>
+												<a href="{html_href_link content=$filename.account_address_book_process delete=$address_book[i].address_book_id}" class="btn btn-primary" role="button"><i class="fa fa-times" aria-hidden="true"></i></a>
 											{/if}
 											</div>
 										</td>
@@ -75,7 +75,7 @@
 
 						<!-- button -->
 						<div class="margin-bottom-40 text-right clearfix">
-							<a href="{html_href_link content=$filename.account_address_book_process addentry_id=$smarty.section.i.rownum connection=SSL}" class="btn btn-primary" role="button"><i class="fa fa-map-marker" aria-hidden="true"></i> {$lang.button_add_address}</a>
+							<a href="{html_href_link content=$filename.account_address_book_process addentry_id=$smarty.section.i.rownum}" class="btn btn-primary" role="button"><i class="fa fa-map-marker" aria-hidden="true"></i> {$lang.button_add_address}</a>
 						</div>
 						<!-- /button -->
 					{else}

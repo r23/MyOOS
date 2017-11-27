@@ -63,7 +63,7 @@
     $shopping_cart_detail .= '  <tr>' . "\n";
 
     if (SHOPPING_CART_IMAGE_ON == 'true') {
-      $shopping_cart_detail .= '    <td align="center" valign="top" class="main"><a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $products[$i]['id'], 'NONSSL') . '">';
+      $shopping_cart_detail .= '    <td align="center" valign="top" class="main"><a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $products[$i]['id']) . '">';
       if ($products[$i]['image'] != '') {
         $sProductImage = $products[$i]['image'];
       } else {
@@ -117,8 +117,8 @@
 
     // Wishlist names
     if (oos_is_not_null($products[$i]['towlid'])) {
-      $shopping_cart_detail .= '<br /><a href="' . oos_href_link($aContents['wishlist'], 'wlid=' . $products[$i]['towlid'], 'NONSSL') . '">' . oos_image(OOS_IMAGES . 'wl.gif', oos_get_wishlist_name($products[$i]['towlid'])) . '</a>' . "\n";
-      $shopping_cart_detail .= '<small><i><a href="' . oos_href_link($aContents['wishlist'], 'wlid=' . $products[$i]['towlid'], 'NONSSL') . '">' . oos_get_wishlist_name($products[$i]['towlid']) . '</a></i></small>';
+      $shopping_cart_detail .= '<br /><a href="' . oos_href_link($aContents['wishlist'], 'wlid=' . $products[$i]['towlid']) . '">' . oos_image(OOS_IMAGES . 'wl.gif', oos_get_wishlist_name($products[$i]['towlid'])) . '</a>' . "\n";
+      $shopping_cart_detail .= '<small><i><a href="' . oos_href_link($aContents['wishlist'], 'wlid=' . $products[$i]['towlid']) . '">' . oos_get_wishlist_name($products[$i]['towlid']) . '</a></i></small>';
       $shopping_cart_detail .= oos_draw_hidden_field('to_wl_id[]', $products[$i]['towlid']);
     }
 

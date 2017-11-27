@@ -43,7 +43,6 @@ function smarty_function_html_href_link($params, &$smarty)
 	
     $content = '';
     $parameters = '';
-    $connection = 'NONSSL';
     $add_session_id = TRUE;
     $search_engine_safe = 'true';
 
@@ -94,17 +93,7 @@ function smarty_function_html_href_link($params, &$smarty)
 
     $content = trim($content);
 
-    if ($connection == 'NONSSL') {
-      $link = OOS_HTTP_SERVER . OOS_SHOP;
-    } elseif ($connection == 'SSL') {
-      if (ENABLE_SSL == 'true') {
-        $link = OOS_HTTPS_SERVER . OOS_SHOP;
-      } else {
-        $link = OOS_HTTP_SERVER . OOS_SHOP;
-      }
-    } else {
-		throw new SmartyException("html_href_link: Unable to determine the page link!", E_USER_NOTICE);
-    }
+    $link = OOS_HTTPS_SERVER . OOS_SHOP;
 
     if (isset($parameters)) {
       $link .= 'index.php?content=' . $content . '&amp;' . oos_output_string($parameters);
@@ -130,10 +119,9 @@ function smarty_function_html_href_link($params, &$smarty)
 // Add the session ID when moving from HTTP and HTTPS servers or when SID is defined
     if (isset($_SESSION)) {
 		// Add the session ID when moving from HTTP and HTTPS servers or when SID is defined
-		if ( (ENABLE_SSL == 'true' ) && ($connection == 'SSL') && ($add_session_id == TRUE) ) {
+	
+		if ($add_session_id == TRUE){
 			$_sid = $session->getName() . '=' . $session->getId();
-		} elseif ( ($add_session_id == TRUE) && (oos_is_not_null(SID)) ) 	{
-			$_sid = SID;
 		}
 
 		 if ( $spider_kill_sid == 'true') $_sid = NULL;

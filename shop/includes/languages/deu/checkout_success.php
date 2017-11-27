@@ -27,7 +27,7 @@ $aLang['heading_title'] = 'Vielen Dank!';
 
 $aLang['text_success'] = 'Ihre Bestellung ist eingegangen und wird bearbeitet! Die Lieferung erfolgt innerhalb von ca. 2-5 Werktagen.';
 $aLang['text_notify_products'] = 'Bitte benachrichtigen Sie mich über Aktuelles zu folgenden Produkten:';
-$aLang['text_see_orders'] = 'Sie können Ihre Bestellung(en) auf der Seite <a href="' . oos_href_link($aContents['account'], '', 'SSL') . '"><u>\'Ihr Konto\'</a></u> jederzeit einsehen und sich dort auch Ihre <a href="' . oos_href_link($aContents['account_history'], '', 'SSL') . '"><u>\'Bestellübersicht\'</u></a> anzeigen lassen.';
+$aLang['text_see_orders'] = 'Sie können Ihre Bestellung(en) auf der Seite <a href="' . oos_href_link($aContents['account'], '') . '"><u>\'Ihr Konto\'</a></u> jederzeit einsehen und sich dort auch Ihre <a href="' . oos_href_link($aContents['account_history'], '') . '"><u>\'Bestellübersicht\'</u></a> anzeigen lassen.';
 $aLang['text_contact_store_owner'] = 'Falls Sie Fragen bezüglich Ihrer Bestellung haben, wenden Sie sich an unseren <a href="' . oos_href_link($aContents['contact_us']) . '"><u>Vertrieb</u></a>.';
 $aLang['text_thanks_for_shopping'] = 'Wir danken Ihnen für Ihren Online-Einkauf!';
 

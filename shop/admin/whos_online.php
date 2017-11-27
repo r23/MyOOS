@@ -120,7 +120,7 @@ require '../includes/classes/class_shopping_cart.php';
     if ($whos_online['session_id'] == $info) {
       echo '              <tr class="dataTableRowSelected">' . "\n";
     } else {
-      echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['whos_online'], oos_get_all_get_params(array('info', 'action')) . 'info=' . $whos_online['session_id'], 'NONSSL') . '\'">' . "\n";
+      echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['whos_online'], oos_get_all_get_params(array('info', 'action')) . 'info=' . $whos_online['session_id']) . '\'">' . "\n";
     }
 ?>
                 <td class="dataTableContent"><?php echo gmdate('H:i:s', $time_online); ?></td>

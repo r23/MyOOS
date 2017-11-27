@@ -100,9 +100,9 @@ require 'includes/header.php';
       $rows = '0' . $rows;
     }
 ?>
-              <tr class="dataTableRow" onmouseover="this.className='dataTableRowOver';this.style.cursor='hand'" onmouseout="this.className='dataTableRow'" onclick="document.location.href='<?php echo oos_href_link_admin($aContents['products'], 'action=new_product_preview&read=only&pID=' . $products['products_id'] . '&origin=' . $aContents['stats_products_purchased'] . '?page=' . $nPage, 'NONSSL'); ?>'">
+              <tr class="dataTableRow" onmouseover="this.className='dataTableRowOver';this.style.cursor='hand'" onmouseout="this.className='dataTableRow'" onclick="document.location.href='<?php echo oos_href_link_admin($aContents['products'], 'action=new_product_preview&read=only&pID=' . $products['products_id'] . '&origin=' . $aContents['stats_products_purchased'] . '?page=' . $nPage); ?>'">
                 <td class="dataTableContent"><?php echo $rows; ?>.</td>
-                <td class="dataTableContent"><?php echo '<a href="' . oos_href_link_admin($aContents['products'], 'action=new_product_preview&read=only&pID=' . $products['products_id'] . '&origin=' . $aContents['stats_products_purchased'] . '?page=' . $nPage, 'NONSSL') . '">' . $products['products_name'] . '</a>'; ?></td>
+                <td class="dataTableContent"><?php echo '<a href="' . oos_href_link_admin($aContents['products'], 'action=new_product_preview&read=only&pID=' . $products['products_id'] . '&origin=' . $aContents['stats_products_purchased'] . '?page=' . $nPage) . '">' . $products['products_name'] . '</a>'; ?></td>
                 <td class="dataTableContent" align="center"><?php echo $products['products_ordered']; ?>&nbsp;</td>
               </tr>
 <?php

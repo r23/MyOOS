@@ -98,7 +98,7 @@ if (SHOW_PRODUCTS_MODEL == 'true') {
     $oBreadcrumb->add($product_info['products_name'], oos_href_link($aContents['product_info'], 'category=' . $sCategory . '&amp;products_id=' . $nProductsID));
 }
 $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['product_reviews'], $get_params));
-$sCanonical = oos_href_link($aContents['product_reviews'], $get_params, 'NONSSL', FALSE, TRUE);
+$sCanonical = oos_href_link($aContents['product_reviews'], $get_params, FALSE, TRUE);
   
   
 $aTemplate['page'] = $sTheme . '/page/product_reviews.html';

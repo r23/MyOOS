@@ -37,7 +37,7 @@ if (!isset($_SESSION['customer_id'])) {
 		$_SESSION['navigation'] = new oosNavigationHistory();
 	} 
     $_SESSION['navigation']->set_snapshot();
-    oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
+    oos_redirect(oos_href_link($aContents['login'], ''));
 }
 
   $action = (isset($_GET['action']) ? $_GET['action'] : '');
@@ -141,7 +141,7 @@ if (!isset($_SESSION['customer_id'])) {
         $gv_email .= stripslashes($message) . "\n\n";
       }
       $gv_email .= sprintf($aLang['email_gv_redeem'], $id1) . "\n\n";
-      $gv_email .= $aLang['email_gv_link'] . oos_href_link($aContents['gv_redeem'], 'gv_no=' . $id1, 'NONSSL', false, false);
+      $gv_email .= $aLang['email_gv_link'] . oos_href_link($aContents['gv_redeem'], 'gv_no=' . $id1, false, false);
       $gv_email .= "\n\n";  
       $gv_email .= $aLang['email_gv_fixed_footer'] . "\n\n";
       $gv_email .= $aLang['email_gv_shop_footer'] . "\n\n";

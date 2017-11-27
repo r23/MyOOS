@@ -72,11 +72,11 @@ if ( isset($_GET['subscribe']) && ($_GET['subscribe'] == 'confirm') ) {
 					date_added) VALUES ('" . intval($sID) . "',
 									  '1',
                                       now())");
-	oos_redirect(oos_href_link($aContents['newsletter'], 'subscribe=success', 'SSL'));							  
+	oos_redirect(oos_href_link($aContents['newsletter'], 'subscribe=success'));							  
 } 
 
-$oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['newsletter'], '', 'SSL'));
-$sCanonical = oos_href_link($aContents['newsletter'], '', 'SSL', FALSE, TRUE);
+$oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['newsletter'], ''));
+$sCanonical = oos_href_link($aContents['newsletter'], '', FALSE, TRUE);
 
 $aTemplate['page'] = $sTheme . '/page/newsletter.html';
 

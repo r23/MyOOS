@@ -31,11 +31,11 @@ if (!isset($_SESSION['customer_id'])) {
 		$_SESSION['navigation'] = new oosNavigationHistory();
 	}   
     $_SESSION['navigation']->set_snapshot();
-    oos_redirect(oos_href_link($aContents['login'], '', 'SSL'));
+    oos_redirect(oos_href_link($aContents['login'], ''));
 }
 
 if (!isset($_GET['order_id'])) {
-	oos_redirect(oos_href_link($aContents['account_history'], '', 'SSL'));
+	oos_redirect(oos_href_link($aContents['account_history'], ''));
 }
 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_history_info.php';
@@ -48,13 +48,13 @@ $sql = "SELECT customers_id
 $customer_number = $dbconn->GetOne($sql);
 
 if ($customer_number != $_SESSION['customer_id']) {
-	oos_redirect(oos_href_link($aContents['account_history'], '', 'SSL'));
+	oos_redirect(oos_href_link($aContents['account_history'], ''));
 }
 
 // links breadcrumb
-$oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['account'], '', 'SSL'));
-$oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['account_history'], '', 'SSL'));
-$oBreadcrumb->add($aLang['navbar_title_3'], oos_href_link($aContents['account_history_info'], 'order_id=' . intval($_GET['order_id']), 'SSL'));
+$oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['account'], ''));
+$oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['account_history'], ''));
+$oBreadcrumb->add($aLang['navbar_title_3'], oos_href_link($aContents['account_history_info'], 'order_id=' . intval($_GET['order_id'])));
   
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order.php';
 $oOrder = new order($_GET['order_id']);

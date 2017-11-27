@@ -138,7 +138,7 @@
   if (!$smarty->isCached($aTemplate['popup_help'], $help_cache_id )) {
 
     // assign Smarty variables;
-    $smarty->assign('oos_base', (($request_type == 'SSL') ? OOS_HTTPS_SERVER : OOS_HTTP_SERVER) . OOS_SHOP);
+    $smarty->assign('oos_base', OOS_HTTPS_SERVER . OOS_SHOP);
     $smarty->assign('lang', $aLang);
     $smarty->assign('heading_titel', $aLang['heading_coupon_help']);
     $smarty->assign('help_text', $text_coupon_help);

@@ -19,7 +19,7 @@
 function smarty_function_html_get_link($params, &$smarty)
 {
 
-    $link = OOS_HTTP_SERVER . OOS_SHOP . 'index.php';
+    $link = OOS_HTTPS_SERVER . OOS_SHOP . 'index.php';
 
     return $link;
 }

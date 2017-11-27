@@ -101,13 +101,12 @@ function add_src_rep($key, $rep) {
 
 function show_error_shop_info() {
     global $dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype;
-    global $oos_server, $oos_ssl_server, $enable_ssl, $oos_root_path, $oos_shop_path, $oos_shop_dir;
+    global $oos_ssl_server, $oos_root_path, $oos_shop_path, $oos_shop_dir;
 
 
     echo '<br /><br /><b>'. SHOW_ERROR_INFO . ' <b>~/includes/configure.php</b><br /><br />';
 echo <<< EOT
         <table><tr><td><font class="oos-normal">
-        define('OOS_HTTP_SERVER', '$oos_server');<br />
         define('OOS_HTTPS_SERVER', '$oos_ssl_server');<br />
         define('OOS_SHOP', '$oos_shop_dir');<br />
         define('OOS_ABSOLUTE_PATH', '$oos_root_path$oos_shop_dir');<br />
@@ -128,15 +127,9 @@ EOT;
 function oosUpdateConfigShop($db_prefs = false) {
     global $reg_src, $reg_rep;
     global $dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype;
-    global $oos_server, $oos_ssl_server, $enable_ssl, $oos_root_path, $oos_shop_path, $oos_shop_dir;
+    global $oos_ssl_server, $oos_root_path, $oos_shop_path, $oos_shop_dir;
 
-    add_src_rep("OOS_HTTP_SERVER", $oos_server);
     add_src_rep("OOS_HTTPS_SERVER", $oos_ssl_server);
-    if ($enable_ssl == 'on') {
-      add_src_rep("ENABLE_SSL", 'true');
-    } else {
-      add_src_rep("ENABLE_SSL", 'false');
-    }
     add_src_rep("OOS_SHOP", $oos_shop_dir);
     add_src_rep("OOS_ABSOLUTE_PATH", $oos_root_path . $oos_shop_dir);
 

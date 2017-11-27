@@ -27,7 +27,7 @@ if ( $session->hasStarted() === FALSE ) $session->start();
   
 // if the customer is not logged on, redirect them to the login page
 if (!isset($_SESSION['customer_id'])) {
-	oos_redirect(oos_href_link($aContents['main'], '', 'NONSSL'));
+	oos_redirect(oos_href_link($aContents['main'], ''));
 }  
 
 
@@ -57,7 +57,7 @@ $aUser = $oUser->group;
 
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title']);
-$sCanonical = oos_href_link($aContents['logoff'], '', 'SSL', FALSE, TRUE);
+$sCanonical = oos_href_link($aContents['logoff'], '', FALSE, TRUE);
 
 $aTemplate['page'] = $sTheme . '/page/success.html';
 
