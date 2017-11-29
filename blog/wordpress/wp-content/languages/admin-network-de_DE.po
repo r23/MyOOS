@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 4.9.x - Development - Administration - Network Admin package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-10-31 11:46:37+0000\n"
+"PO-Revision-Date: 2017-11-26 17:21:58+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -566,7 +566,7 @@ msgstr "Menüs aktivieren"
 #. translators: 1: a filename like .htaccess. 2: a file path.
 #: wp-admin/includes/network.php:548 wp-admin/includes/network.php:588
 msgid "Add the following to your %1$s file in %2$s, <strong>replacing</strong> other WordPress rules:"
-msgstr "Füge Folgendes zu deiner Datei %1$s in %2$s hinzu; andere WordPress-Regeln werden somit <strong>ersetzt</strong>:"
+msgstr "Füge Folgendes zu deiner Datei %1$s in %2$s hinzu und <strong>ersetze</strong> andere WordPress-Regeln dadurch:"
 
 #: wp-admin/network/sites.php:100 wp-admin/network/sites.php:168
 msgid "Confirm your action"
