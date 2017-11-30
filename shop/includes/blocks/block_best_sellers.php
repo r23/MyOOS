@@ -23,7 +23,7 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 
 if (!is_numeric(MAX_DISPLAY_BESTSELLERS)) return FALSE;
 
-$best_sellers_block = 'false';
+$best_sellers_block = FALSE;
 
 if (isset($nCurrentCategoryID) && ($nCurrentCategoryID > 0)) {
     $productstable = $oostable['products'];

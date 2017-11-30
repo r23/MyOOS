@@ -47,14 +47,13 @@
 <div class="wrapper">
 
 	<!-- Top Bar -->
-	<div id="topBar">
+	<div id="topBar" class="clearfix">
 		<div class="container">
 
 			<!-- right -->
 			<ul class="top-links list-inline float-right">
-				<li class="text-welcome hidden-xs-down"></li>
-				
-				<li>
+
+				<li class="hidden-xs-down">
 					<a class="dropdown-toggle no-text-underline" data-toggle="dropdown" href="#"><i class="fa fa-user hidden-xs-down"></i> {$lang.header_title_my_account}</a>
 					<ul class="dropdown-menu float-right">
 						<li><a tabindex="-1" href="{html_href_link content=$filename.account_history page=1}" rel="nofollow"><i class="fa fa-history" aria-hidden="true"></i> {$lang.login_block_account_history}</a></li>
@@ -66,18 +65,20 @@
 						<li><a tabindex="-1" href="{html_href_link content=$filename.logoff}" rel="nofollow"><i class="fa fa-power-off" aria-hidden="true"></i> {$lang.header_title_logoff}</a></li>
 					</ul>
 				</li>
+								
 				<li class="hidden-xs-down">
 				{if (isset($smarty.session.customer_id)) }
 					<a href="{html_href_link content=$filename.logoff}">{$lang.header_title_logoff}</a>
 				{else}
 					<a href="{html_href_link content=$filename.login}">{$lang.header_title_login}</a>
 				{/if}
-				</li>						
-				<li class="hidden-xs-down"><a href="{html_href_link content=$filename.checkout_shipping}" rel="nofollow">{$lang.header_title_checkout}</a></li>
+				</li>				
+				<li class="hidden-xs-down"><a href="{html_href_link content=$filename.checkout_shipping}" rel="nofollow">{$lang.header_title_checkout}</a></li>		
 			</ul>
-
+			
 			<!-- left -->
-			<ul class="top-links list-inline">				
+			<ul class="top-links list-inline">	
+			
 				<li class="hidden-xs-down"><a href="{html_href_link content=$filename.contact_us}">{$lang.block_service_contact}</a></li>
 			{if $languages_block}
 				<li>
@@ -115,14 +116,15 @@
 					{/foreach}
 					</ul>
 				</li>
-			{/if}						
+			{/if}
+			
 			</ul>
 
 		</div>
 	</div>
 	<!-- /Top Bar -->
 
-
+			
 	<div id="header" class="navbar-toggleable-md clearfix">
 
 		<!-- SEARCH HEADER -->
@@ -181,13 +183,6 @@
 										</a><!-- /cart item -->
 									{/foreach}
 									</div>
-
-									<!-- cart no items example -->
-									<!--
-									<a class="text-center" href="#">
-										<h6>0 ITEMS ON YOUR CART</h6>
-									</a>
-									-->								
 									
 									<!-- quick cart footer -->
 									<div class="quick-cart-footer clearfix">
@@ -195,6 +190,11 @@
 										<span class="float-left"><strong>{$lang.sub_title_sub_total}:</strong> {$cart_show_total}</span>
 									</div>
 									<!-- /quick cart footer -->
+								{else}	
+									<!-- cart no items -->
+									<a class="text-center" href="#">
+										<h6>{$lang.block_shopping_cart_empty}</h6>
+									</a>
 								{/if}	
 								
 
@@ -235,8 +235,7 @@
 											<li><a href="{html_href_link content=$filename.account_address_book}" rel="nofollow">{$lang.login_block_address_book}</a></li>
 										{if $oEvent->installed_plugin('notify')}
 											<li><a href="{html_href_link content=$filename.product_notifications}" rel="nofollow">{$lang.login_block_product_notifications}</a></li>
-										{/if}
-					
+										{/if}				
 										</ul>
 									</li>
 									<li {if $cart_active}class="active"{/if}>

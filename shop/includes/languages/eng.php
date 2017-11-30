@@ -111,8 +111,10 @@ $aLang['block_reviews_write_review'] = 'Write a review on this product!';
 $aLang['block_reviews_no_reviews'] = 'There are currently no product reviews';
 $aLang['block_reviews_text_of_5_stars'] = '%s of 5 Stars!';
 
-// shopping_cart block text in tempalate/your theme/block/shopping_cart.html
+
+// shopping_cart block text in tempalate/your theme/system/_header.html
 $aLang['block_shopping_cart_empty'] = '0 items';
+$aLang['sub_title_sub_total'] = 'Sub-Total';
 
 // notifications block text in tempalate/your theme/block/products_notifications.html
 $aLang['block_notifications_notify'] = 'Notify me of updates to <strong>%s</strong>';

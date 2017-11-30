@@ -105,8 +105,9 @@ $aLang['block_reviews_write_review'] = 'Bewerten Sie dieses Produkt!';
 $aLang['block_reviews_no_reviews'] = 'Es liegen noch keine Bewertungen vor';
 $aLang['block_reviews_text_of_5_stars'] = '%s von 5 Sternen!';
 
-// shopping_cart block text in tempalate/your theme/block/shopping_cart.html
+// shopping_cart block text in tempalate/your theme/system/_header.html
 $aLang['block_shopping_cart_empty'] = '0 Produkte';
+$aLang['sub_title_sub_total'] = 'Summe';
 
 // notifications block text in tempalate/your theme/block/products_notifications.php
 $aLang['block_notifications_notify'] = 'Benachrichtigen Sie mich über Aktuelles zum Artikel <strong>%s</strong>';
