@@ -201,7 +201,7 @@ if (!$product_info_result->RecordCount()) {
     $smarty->assign('product_info', $product_info);
     $smarty->assign('options', $options);
 
-    $smarty->assign('redirect', oos_href_link($aContents['redirect'], 'action=url&amp;goto=' . urlencode($product_info['products_url']), false, false));
+    $smarty->assign('redirect', oos_href_link($aContents['redirect'], 'action=url&amp;goto=' . urlencode($product_info['products_url']), FALSE, FALSE));
 
 	if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 		$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);

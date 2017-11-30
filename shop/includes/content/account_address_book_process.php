@@ -30,7 +30,7 @@ if (!isset($_SESSION['customer_id'])) {
 		$_SESSION['navigation'] = new oosNavigationHistory();
 	}   
     $_SESSION['navigation']->set_snapshot();
-    oos_redirect(oos_href_link($aContents['login'], ''));
+    oos_redirect(oos_href_link($aContents['login']));
 }
 
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
@@ -53,7 +53,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'deleteconfirm') && isset($
 		$oMessage->add_session('addressbook', $aLang['success_address_book_entry_deleted'], 'success');
 	}
 
-	oos_redirect(oos_href_link($aContents['account_address_book'], ''));
+	oos_redirect(oos_href_link($aContents['account_address_book']));
 }
 
 // Post-entry error checking when updating or adding an entry
@@ -273,7 +273,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') || ($_POST['acti
 			}
 
 			$oMessage->add_session('addressbook', $aLang['success_address_book_entry_updated'], 'success');
-			oos_redirect(oos_href_link($aContents['account_address_book'], ''));
+			oos_redirect(oos_href_link($aContents['account_address_book']));
 		}
 	}
 }
@@ -291,7 +291,7 @@ if (isset($_GET['edit']) && is_numeric($_GET['edit'])) {
 	if (!$entry_result->RecordCount()) {	
 		$oMessage->add_session('addressbook', $aLang['error_nonexisting_address_book_entry']);
 
-		oos_redirect(oos_href_link($aContents['account_address_book'], ''));
+		oos_redirect(oos_href_link($aContents['account_address_book']));
     }
 
     $entry = $entry_result->fields;	
@@ -302,7 +302,7 @@ if (isset($_GET['edit']) && is_numeric($_GET['edit'])) {
     if ($delete == $_SESSION['customer_default_address_id']) {
 		$oMessage->add_session('addressbook', $aLang['warning_primary_address_deletion'], 'warning');
 
-		oos_redirect(oos_href_link($aContents['account_address_book'], ''));
+		oos_redirect(oos_href_link($aContents['account_address_book']));
     } else {
 		$address_booktable = $oostable['address_book'];
 		$check_query = "SELECT count(*) as total FROM $address_booktable WHERE address_book_id = '" . intval($entry_id) . "' AND customers_id = '" . intval($_SESSION['customer_id']) . "'";
@@ -311,7 +311,7 @@ if (isset($_GET['edit']) && is_numeric($_GET['edit'])) {
 		if ($check_result->fields['total'] < 1) {
 			$oMessage->add_session('addressbook', $aLang['error_nonexisting_address_book_entry']);
 
-			oos_redirect(oos_href_link($aContents['account_address_book'], ''));
+			oos_redirect(oos_href_link($aContents['account_address_book']));
 		}
     }
  
@@ -323,7 +323,7 @@ if (!isset($_GET['delete']) && !isset($_GET['edit'])) {
 	if (oos_count_customer_address_book_entries() >= MAX_ADDRESS_BOOK_ENTRIES) {
 		$oMessage->add_session('addressbook', $aLang['error_address_book_full']);
 
-		oos_redirect(oos_href_link($aContents['account_address_book'], ''));
+		oos_redirect(oos_href_link($aContents['account_address_book']));
 	}
 }  
 if ( isset($_GET['entry_id']) && is_numeric($_GET['entry_id']) ) {
@@ -332,15 +332,15 @@ if ( isset($_GET['entry_id']) && is_numeric($_GET['entry_id']) ) {
 $back_link = oos_href_link($aContents['account_address_book'], '');
 
 // links breadcrumb
-$oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['account'], ''));
-$oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['account_address_book'], ''));
+$oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['account']));
+$oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['account_address_book']));
 
 if (isset ($_GET['edit']) && is_numeric($_GET['edit'])) {
     $oBreadcrumb->add($aLang['navbar_title_modify_entry'], oos_href_link($aContents['account_address_book_process'], 'edit=' . intval($_GET['edit'])));
 } elseif (isset ($_GET['delete']) && is_numeric($_GET['delete'])) {
 	$oBreadcrumb->add($aLang['navbar_title_delete_entry'], oos_href_link($aContents['account_address_book_process'], 'delete=' . intval($_GET['delete'])));
 } else {
-    $oBreadcrumb->add($aLang['navbar_title_add_entry'], oos_href_link($aContents['account_address_book_process'], ''));
+    $oBreadcrumb->add($aLang['navbar_title_add_entry'], oos_href_link($aContents['account_address_book_process']));
 }
 
 

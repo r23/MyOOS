@@ -435,7 +435,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 			}
 		}
 
-		oos_redirect(oos_href_link($aContents['create_account_success'], ''));
+		oos_redirect(oos_href_link($aContents['create_account_success']));
 	}
 }
 

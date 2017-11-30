@@ -32,7 +32,7 @@ if (!isset($_SESSION['customer_id'])) {
 		$_SESSION['navigation'] = new oosNavigationHistory();
 	}   
     $_SESSION['navigation']->set_snapshot();
-    oos_redirect(oos_href_link($aContents['login'], ''));
+    oos_redirect(oos_href_link($aContents['login']));
 }
 
 // if there is nothing in the customers cart, redirect them to the shopping cart page
@@ -85,7 +85,7 @@ if ($_SESSION['cart']->count_contents() < 1) {
   if (($oOrder->content_type == 'virtual') || ($_SESSION['cart']->show_total() == 0) ) {
     $_SESSION['shipping'] = FALSE;
     $_SESSION['sendto'] = FALSE;
-    oos_redirect(oos_href_link($aContents['checkout_payment'], ''));
+    oos_redirect(oos_href_link($aContents['checkout_payment']));
   }
 
   $total_weight = $_SESSION['cart']->show_weight();
@@ -150,7 +150,7 @@ if ($_SESSION['cart']->count_contents() < 1) {
                                             'title' => (($free_shipping == TRUE) ?  $quote[0]['methods'][0]['title'] : $quote[0]['module'] . ' (' . $quote[0]['methods'][0]['title'] . ')'),
                                             'cost' => $quote[0]['methods'][0]['cost']);
 
-              oos_redirect(oos_href_link($aContents['checkout_payment'], ''));
+              oos_redirect(oos_href_link($aContents['checkout_payment']));
             }
           }
         } else {
@@ -160,7 +160,7 @@ if ($_SESSION['cart']->count_contents() < 1) {
     } else {
       $_SESSION['shipping'] = FALSE;
 
-      oos_redirect(oos_href_link($aContents['checkout_payment'], ''));
+      oos_redirect(oos_href_link($aContents['checkout_payment']));
     }
   }
 
@@ -175,8 +175,8 @@ if ($_SESSION['cart']->count_contents() < 1) {
   list ($sess_class, $sess_method) = preg_split('/_/', $_SESSION['shipping']['id']);
 
   // links breadcrumb
-  $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['checkout_shipping'], ''));
-  $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['checkout_shipping'], ''));
+  $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['checkout_shipping']));
+  $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['checkout_shipping']));
 
   $aTemplate['page'] = $sTheme . '/page/checkout_shipping.html';
 

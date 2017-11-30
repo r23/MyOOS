@@ -34,7 +34,7 @@ if (!isset($_SESSION['customer_id'])) {
 		$_SESSION['navigation'] = new oosNavigationHistory();
 	}   
     $_SESSION['navigation']->set_snapshot();
-    oos_redirect(oos_href_link($aContents['login'], ''));
+    oos_redirect(oos_href_link($aContents['login']));
 }
 
 if (isset($_GET['products_id'])) {

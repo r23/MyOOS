@@ -30,7 +30,7 @@ if (!isset($_SESSION['customer_id'])) {
 		$_SESSION['navigation'] = new oosNavigationHistory();
 	} 
     $_SESSION['navigation']->set_snapshot();
-    oos_redirect(oos_href_link($aContents['login'], ''));
+    oos_redirect(oos_href_link($aContents['login']));
 }
 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_address_book.php';
@@ -69,8 +69,8 @@ while ($address_book = $address_book_result->fields) {
 }
 
 // links breadcrumb
-$oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['account'], ''));
-$oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['account_address_book'], ''));
+$oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['account']));
+$oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['account_address_book']));
  
 $aTemplate['page'] = $sTheme . '/page/address_book.html';
 

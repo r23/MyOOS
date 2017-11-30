@@ -170,13 +170,13 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'login_process') &&
 		// restore cart contents
 		$_SESSION['cart']->restore_contents();
 		
-		oos_redirect(oos_href_link($aContents['account'], ''));
+		oos_redirect(oos_href_link($aContents['account']));
 
     }
 }
 
 // links breadcrumb
-$oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['login'], ''));
+$oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['login']));
 $sCanonical = oos_href_link($aContents['login'], '', FALSE, TRUE);
 
 $aTemplate['page'] = $sTheme . '/page/login_admin.html';

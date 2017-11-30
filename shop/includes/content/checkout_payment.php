@@ -35,7 +35,7 @@ if (!isset($_SESSION['customer_id'])) {
 		$_SESSION['navigation'] = new oosNavigationHistory();
 	}   
     $_SESSION['navigation']->set_snapshot();
-    oos_redirect(oos_href_link($aContents['login'], ''));
+    oos_redirect(oos_href_link($aContents['login']));
 }
 
 if (oos_empty($aUser['payment'])) {
@@ -49,14 +49,14 @@ if ($_SESSION['cart']->count_contents() < 1) {
 
 // if no shipping method has been selected, redirect the customer to the shipping method selection page
 if (!isset($_SESSION['shipping'])) {
-	oos_redirect(oos_href_link($aContents['checkout_shipping'], ''));
+	oos_redirect(oos_href_link($aContents['checkout_shipping']));
 }
 
 
 // avoid hack attempts during the checkout procedure by checking the internal cartID
 if (isset($_SESSION['cart']->cartID) && isset($_SESSION['cartID'])) {
 	if ($_SESSION['cart']->cartID != $_SESSION['cartID']) {
-		oos_redirect(oos_href_link($aContents['checkout_shipping'], ''));
+		oos_redirect(oos_href_link($aContents['checkout_shipping']));
 	}
 }
 
@@ -110,8 +110,8 @@ if (isset($_SESSION['cart']->cartID) && isset($_SESSION['cartID'])) {
   $credit_selection = $order_total_modules->credit_selection();
 
   // links breadcrumb
-  $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['checkout_shipping'], ''));
-  $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['checkout_payment'], ''));
+  $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['checkout_shipping']));
+  $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['checkout_payment']));
 
   $condition_link = OOS_HTTPS_SERVER . OOS_SHOP . OOS_MEDIA . $sLanguage . '/' . $aContents['conditions_download'];
 

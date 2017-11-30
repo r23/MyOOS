@@ -37,7 +37,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 
     if ( empty( $email_address ) || !is_string( $email_address ) ) {
         $_SESSION['error_message'] = $aLang['text_no_email_address_found'];
-        oos_redirect(oos_href_link($aContents['password_forgotten'], ''));
+        oos_redirect(oos_href_link($aContents['password_forgotten']));
     }
 	
     if (!isset($_SESSION['password_forgotten_count'])) {
@@ -108,17 +108,17 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
  
 		$_SESSION['password_forgotten_count'] = 1;
         $_SESSION['success_message'] = $aLang['text_password_sent'];
-        oos_redirect(oos_href_link($aContents['login'], ''));
+        oos_redirect(oos_href_link($aContents['login']));
     } else {
         $_SESSION['error_message'] = $aLang['text_no_email_address_found'];
-        oos_redirect(oos_href_link($aContents['password_forgotten'], ''));
+        oos_redirect(oos_href_link($aContents['password_forgotten']));
     }
 
 } else {
 
     // links breadcrumb
-    $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['login'], ''));
-    $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['password_forgotten'], ''));
+    $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['login']));
+    $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['password_forgotten']));
     $sCanonical = oos_href_link($aContents['password_forgotten'], '', FALSE, TRUE);
 	
     $aTemplate['page'] = $sTheme . '/page/user_password_forgotten.html';

@@ -49,12 +49,12 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 	
     if ( empty( $email_address ) || !is_string( $email_address ) ) {
         $_SESSION['error_message'] = $aLang['text_login_error'];
-        oos_redirect(oos_href_link($aContents['login'], ''));
+        oos_redirect(oos_href_link($aContents['login']));
     }
 
     if ( empty( $password ) || !is_string( $password ) ) {
         $_SESSION['error_message'] = $aLang['text_login_error'];
-        oos_redirect(oos_href_link($aContents['login'], ''));
+        oos_redirect(oos_href_link($aContents['login']));
     }
 
 	/* Check if it is ok to login */
@@ -127,11 +127,11 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 			$_SESSION['cart']->restore_contents();
 
 			if (count($_SESSION['navigation']->snapshot) > 0) {
-				$origin_href = oos_href_link($_SESSION['navigation']->snapshot['content'], $_SESSION['navigation']->snapshot['get'], $_SESSION['navigation']->snapshot['mode']);
+				$origin_href = oos_href_link($_SESSION['navigation']->snapshot['content'], $_SESSION['navigation']->snapshot['get']);
 				$_SESSION['navigation']->clear_snapshot();
 				oos_redirect($origin_href);
 			} else {
-				oos_redirect(oos_href_link($aContents['account'], ''));
+				oos_redirect(oos_href_link($aContents['account']));
 			}
         }
 	}
@@ -139,7 +139,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 
 
 // links breadcrumb
-$oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['login'], ''));
+$oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['login']));
 $sCanonical = oos_href_link($aContents['login'], '', FALSE, TRUE);
 
 if (isset($bError) && ($bError == TRUE)) {

@@ -75,7 +75,7 @@ if ( isset($_GET['subscribe']) && ($_GET['subscribe'] == 'confirm') ) {
 	oos_redirect(oos_href_link($aContents['newsletter'], 'subscribe=success'));							  
 } 
 
-$oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['newsletter'], ''));
+$oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['newsletter']));
 $sCanonical = oos_href_link($aContents['newsletter'], '', FALSE, TRUE);
 
 $aTemplate['page'] = $sTheme . '/page/newsletter.html';

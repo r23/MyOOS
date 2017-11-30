@@ -35,21 +35,21 @@ if (!isset($_SESSION['customer_id'])) {
 		$_SESSION['navigation'] = new oosNavigationHistory();
 	}     
     $_SESSION['navigation']->set_snapshot(array('content' =>$aContents['checkout_payment']));
-    oos_redirect(oos_href_link($aContents['login'], ''));
+    oos_redirect(oos_href_link($aContents['login']));
 }
 
 if (!isset($_SESSION['shipping']) || !isset($_SESSION['sendto'])) {
-	oos_redirect(oos_href_link($aContents['checkout_shipping'], ''));
+	oos_redirect(oos_href_link($aContents['checkout_shipping']));
 }
 
 if ( (oos_is_not_null(MODULE_PAYMENT_INSTALLED)) && (!isset($_SESSION['payment'])) ) {
-	oos_redirect(oos_href_link($aContents['checkout_payment'], ''));
+	oos_redirect(oos_href_link($aContents['checkout_payment']));
 }
 
 // avoid hack attempts during the checkout procedure by checking the internal cartID
 if (isset($_SESSION['cart']->cartID) && isset($_SESSION['cartID'])) {
 	if ($_SESSION['cart']->cartID != $_SESSION['cartID']) {
-		oos_redirect(oos_href_link($aContents['checkout_shipping'], ''));
+		oos_redirect(oos_href_link($aContents['checkout_shipping']));
 	}
 }
 
@@ -66,7 +66,7 @@ $oOrder = new order;
 
 if ( (isset($_SESSION['shipping'])) && ($_SESSION['shipping']['id'] == 'free_free')) {
 	if ( ($oOrder->info['total'] - $oOrder->info['shipping_cost']) < MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER ) {
-		oos_redirect(oos_href_link($aContents['checkout_shipping'], ''));
+		oos_redirect(oos_href_link($aContents['checkout_shipping']));
 	}
 }
 
@@ -324,7 +324,7 @@ for ($i=0, $n=count($oOrder->products); $i<$n; $i++) {
   $email_order = STORE_NAME . "\n" .
                  $aLang['email_separator'] . "\n" .
                  $aLang['email_text_order_number'] . ' ' . $insert_id . "\n" .
-                 $aLang['email_text_invoice_url'] . ' ' . oos_href_link($aContents['account_history_info'], 'order_id=' . $insert_id, false) . "\n" .
+                 $aLang['email_text_invoice_url'] . ' ' . oos_href_link($aContents['account_history_info'], 'order_id=' . $insert_id, FALSE) . "\n" .
                  $aLang['email_text_date_ordered'] . ' ' . strftime(DATE_FORMAT_LONG) . "\n\n";
   if ($oOrder->info['comments']) {
     $email_order .= oosDBOutput($oOrder->info['comments']) . "\n\n";
@@ -382,5 +382,5 @@ unset($_SESSION['comments']);
 
 $order_total_modules->clear_posts();
 
-oos_redirect(oos_href_link($aContents['checkout_success'], ''));
+oos_redirect(oos_href_link($aContents['checkout_success']));
 

@@ -30,7 +30,7 @@ if (!isset($_SESSION['customer_id'])) {
 		$_SESSION['navigation'] = new oosNavigationHistory();
 	}   
     $_SESSION['navigation']->set_snapshot();
-    oos_redirect(oos_href_link($aContents['login'], ''));
+    oos_redirect(oos_href_link($aContents['login']));
 }
 
 // require  the password crypto functions
@@ -198,7 +198,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 			}
 		}
 		
-		oos_redirect(oos_href_link($aContents['account'], ''));
+		oos_redirect(oos_href_link($aContents['account']));
 	}
 	
 }
@@ -238,8 +238,8 @@ if (NEWSLETTER == 'true') {
 
 
 // links breadcrumb
-$oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['account'], ''));
-$oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['account_edit'], ''));
+$oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['account']));
+$oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['account_edit']));
   
 $aTemplate['page'] = $sTheme . '/page/account_edit.html';
 

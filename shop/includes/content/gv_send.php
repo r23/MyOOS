@@ -37,7 +37,7 @@ if (!isset($_SESSION['customer_id'])) {
 		$_SESSION['navigation'] = new oosNavigationHistory();
 	} 
     $_SESSION['navigation']->set_snapshot();
-    oos_redirect(oos_href_link($aContents['login'], ''));
+    oos_redirect(oos_href_link($aContents['login']));
 }
 
   $action = (isset($_GET['action']) ? $_GET['action'] : '');
@@ -165,7 +165,7 @@ if (!isset($_SESSION['customer_id'])) {
 
   $back = count($_SESSION['navigation']->path)-2;
   if (isset($_SESSION['navigation']->path[$back])) {
-    $back_link = oos_href_link($_SESSION['navigation']->path[$back]['content'], $_SESSION['navigation']->path[$back]['get'], $_SESSION['navigation']->path[$back]['mode']);
+    $back_link = oos_href_link($_SESSION['navigation']->path[$back]['content'], $_SESSION['navigation']->path[$back]['get']);
   }
 
   // links breadcrumb
