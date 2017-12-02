@@ -1,6 +1,6 @@
 <?php
  /* ----------------------------------------------------------------------
-   $Id: function.oos_price.php,v 1.1 2007/06/08 13:34:16 r23 Exp $
+   $Id: function.display_price.php,v 1.1 2007/06/08 13:34:16 r23 Exp $
 
    MyOOS [Shopsystem]
    http://www.oos-shop.de/
@@ -23,7 +23,7 @@
  * Smarty plugin
  * -------------------------------------------------------------
  * Type:     function
- * Name:     oos_price
+ * Name:     display_price
  * Version:  1.0
  * Date:    
  * Purpose:	
@@ -34,22 +34,22 @@
  * -------------------------------------------------------------
  */
 
-function smarty_function_oos_price($params, &$smarty)
+function smarty_function_display_price($params, &$smarty)
 {
    
-   global $oCurrencies;
+	global $oCurrencies;
     
-       require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
+	require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
   
-   $price = '';
-   $tax = '';
-   $qty = '';
+	$price = NULL;
+	$tax = 19;
+	$quantity = 1;
    
    
-   foreach($params as $_key => $_val) {
-     $$_key = smarty_function_escape_special_chars($_val);
-   } 
+	foreach($params as $_key => $_val) {
+		$$_key = smarty_function_escape_special_chars($_val);
+	} 
    
-   print $oCurrencies->display_price($price, $tax, $qty);
+	return $oCurrencies->display_price($price, $tax, $quantity);
 
 }
