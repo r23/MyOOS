@@ -59,7 +59,6 @@ function smarty_function_html_href_link($params, &$smarty)
 
         case 'oos_get':
         case 'addentry_id': 
-        case 'connection':
         case 'add_session_id':
         case 'search_engine_safe':
             $$_key = (string)$_val;
