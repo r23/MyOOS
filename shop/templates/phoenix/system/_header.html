@@ -176,10 +176,10 @@
 								{if $cart_count_contents > 0}
 									<div class="quick-cart-wrapper">
 									{foreach item=products from=$cart_products}
-										<a href="#"><!-- cart item -->
+										<a href="{product_info_link products_id=$products.id}"><!-- cart item -->
 											<img src="demo_files/images/people/300x300/4-min.jpg" width="45" height="45" alt="" />
 											<h6><span>{$products.quantity|quantity}&nbsp;x&nbsp;</span> {$products.name|truncate:25:"...":true|close_tags}</h6>
-											<small>$37.21</small>
+											<small>{display_price price=$products.final_price tax=$products.tax quantity=$products.quantity}</small>
 										</a><!-- /cart item -->
 									{/foreach}
 									</div>
@@ -192,7 +192,7 @@
 									<!-- /quick cart footer -->
 								{else}	
 									<!-- cart no items -->
-									<a class="text-center" href="#">
+									<a class="text-center" href="{html_href_link content=$filename.shopping_cart}">
 										<h6>{$lang.block_shopping_cart_empty}</h6>
 									</a>
 								{/if}	

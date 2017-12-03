@@ -27,10 +27,9 @@
 
   $colspan = 3;
 
-  if ((SHOPPING_CART_IMAGE_ON == 'true')) {
-    $colspan++;
-    $shopping_cart_detail .= '    <td align="center" class="smallText"></td>' . "\n";
-  }
+  $colspan++;
+  $shopping_cart_detail .= '    <td align="center" class="smallText"></td>' . "\n";
+
 
   if ($sContent == $aContents['shopping_cart']) {
     $colspan++;

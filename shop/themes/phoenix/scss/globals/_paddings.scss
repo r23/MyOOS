@@ -27,4 +27,8 @@
 	@include px-to-rem(padding-top, 60px !important);
 	@include px-to-rem(padding-bottom, 60px !important);
 }
+.m-py-100 {
+	@include px-to-rem(padding-top, 100px !important);
+	@include px-to-rem(padding-bottom, 100px !important);
+}
 

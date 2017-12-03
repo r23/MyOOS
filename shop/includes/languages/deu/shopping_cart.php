@@ -30,10 +30,17 @@ $aLang['table_heading_remove'] = 'Entfernen';
 $aLang['table_heading_quantity'] = 'Anzahl';
 $aLang['table_heading_model'] = 'Artikelnr.';
 $aLang['table_heading_products'] = 'Artikel';
+$aLang['table_heading_price'] = 'Price';
 $aLang['table_heading_total'] = 'Summe';
-$aLang['text_cart_empty'] = '<strong>Hinweis!</strong> Sie haben noch nichts in Ihrem Warenkorb.';
-$aLang['sub_title_sub_total'] = 'Zwischensumme:';
+$aLang['text_cart_empty'] = 'Ihr Warenkorb ist derzeit leer.';
+$aLang['text_cart_empty_help'] = 'Bevor Sie zur Kasse gehen, müssen Sie einige Produkte in den Warenkorb legen.<br>Viele interessante Produkte finden Sie auf unserer Seite "Shop".';
 
+$aLang['sub_title_sub_total'] = 'Zwischensumme:';
+$aLang['shipping_cost'] = 'Versandkosten';
+$aLang['tax'] = ' Mehrwertsteuer';
+$aLang['total'] = 'Summe';
 
 $aLang['out_of_stock_cant_checkout'] = 'Die mit ' . STOCK_MARK_PRODUCT_OUT_OF_STOCK . ' markierten Produkte, sind leider nicht in der von Ihnen gewünschten Menge auf Lager.<br />Bitte reduzieren Sie Ihre Bestellmenge für die gekennzeichneten Produkte, vielen Dank';
 $aLang['out_of_stock_can_checkout'] = 'Die mit ' . STOCK_MARK_PRODUCT_OUT_OF_STOCK . ' markierten Produkte, sind leider nicht in der von Ihnen gewünschten Menge auf Lager.<br />Die bestellte Menge wird kurzfristig von uns geliefert, wenn Sie es wünschen nehmen wir auch eine Teillieferung vor.';
+
+$aLang['text_apply_coupon'] = 'Ich habe einen Rabatt-Gutschein';

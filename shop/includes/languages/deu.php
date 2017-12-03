@@ -300,6 +300,7 @@ $aLang['prevnext_button_last'] = 'LETZTE&gt;&gt;';
 $aLang['button_account'] = 'Profil';
 $aLang['button_add_address'] = 'Neue Adresse';
 $aLang['button_address_book'] = 'Adressbuch';
+$aLang['button_apply_coupon'] = 'Gutschein einlösen';
 $aLang['button_back'] = 'Zurück';
 $aLang['button_change_address'] = 'Adresse ändern';
 $aLang['button_checkout'] = 'Kasse';
@@ -318,6 +319,7 @@ $aLang['button_reviews'] = 'Bewertungen';
 $aLang['button_submit_a_review'] = 'Bewertung abgeben';
 $aLang['button_send_message'] = 'Nachricht senden';
 $aLang['button_search'] = 'Suchen';
+$aLang['button_start_shopping'] = 'Beginnen Sie Ihren Einkauf';
 $aLang['button_update'] = 'Aktualisieren';
 $aLang['button_update_cart'] = 'Warenkorb aktualisieren';
 $aLang['button_write_review'] = 'Bewertung schreiben';
@@ -329,7 +331,6 @@ $aLang['button_redeem_voucher'] = 'Gutschein einlösen';
 $aLang['button_callaction'] = 'Fordern Sie ein Angebot';
 $aLang['button_register'] = 'Jetzt registrieren';
 $aLang['button_save_info'] = 'Daten speichern';
-
 
 $aLang['button_hp_buy'] = 'In den Warenkorb';
 $aLang['button_hp_more'] = 'Zeige mehr';

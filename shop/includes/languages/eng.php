@@ -304,6 +304,7 @@ $aLang['prevnext_button_last'] = 'LAST&gt;&gt;';
 $aLang['button_account'] = 'Profil';
 $aLang['button_add_address'] = 'Add Address';
 $aLang['button_address_book'] = 'Address Book';
+$aLang['button_apply_coupon'] = 'apply coupon';
 $aLang['button_back'] = 'Back';
 $aLang['button_change_address'] = 'Change Address';
 $aLang['button_checkout'] = 'Checkout';
@@ -322,6 +323,7 @@ $aLang['button_reviews'] = 'Reviews';
 $aLang['button_submit_a_review'] = 'Submit a review';
 $aLang['button_send_message'] = 'Send Message';
 $aLang['button_search'] = 'Search';
+$aLang['button_start_shopping'] = 'Start Shopping';
 $aLang['button_update'] = 'Update';
 $aLang['button_update_cart'] = 'Update Cart';
 $aLang['button_write_review'] = 'Write Review';
@@ -334,7 +336,6 @@ $aLang['button_callaction'] = 'Request a quote';
 
 $aLang['button_register'] = 'Register';
 $aLang['button_save_info'] = 'Save Info';
-
 
 $aLang['icon_button_mail'] = 'E-mail';
 $aLang['icon_button_movie'] = 'Movie';

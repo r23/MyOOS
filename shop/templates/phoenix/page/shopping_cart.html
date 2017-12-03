@@ -8,64 +8,153 @@
     {/foreach}
 {/if}
 
-	<!-- start content -->
-	<section id="content">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
 
-{if $cart_count_contents gt 0 }
+<!-- MAIN CONTENT SECTION -->
+<section class="mainContent clearfix cartListWrapper">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+			
+			{if $cart_count_contents gt 0 }
 
-	<form name="cart_quantity" action="{html_href_link content=$filename.shopping_cart action=update_product}" method="POST" role="form">
-	{if $mySystem.sed}
-		<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
-		<input type="hidden" name="formid" value="{$mySystem.formid}">
-	{/if}		
-	{$hidden_field}
-          <table border="0" width="100%" cellspacing="0" cellpadding="2">{$shopping_cart_detail}
-      </tr>
-  {if $smarty.session.error_cart_msg != ''}
-      <tr>
-        <td height="10"></td>
-      </tr>
-      <tr>
-        <td class="QtyErrors">{$smarty.session.error_cart_msg}</td>
-      </tr>
-  {/if}
-      <tr>
-        <td height="10"></td>
-      </tr>
-      <tr>
-        <td align="right" class="main"><strong>{$lang.sub_title_sub_total} {$oos_cart_total}</strong></td>
-      </tr>
-  {if $any_out_of_stock eq 1 }
-    {if $smarty.const.STOCK_ALLOW_CHECKOUT eq 'true'}
-      <tr>
-        <td class="stockWarning" align="center"><br>{$lang.out_of_stock_can_checkout}</td>
-      </tr>
-    {else}
-      <tr>
-        <td class="stockWarning" align="center"><br>{$lang.out_of_stock_cant_checkout}</td>
-      </tr>
-    {/if}
-  {/if}
-      <tr>
-        <td><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td class="main"><button class="btn btn-success-filled" type="submit">{$lang.button_update_cart}</button></td>
-            <td align="right" class="main">{if $myUser.show_price eq 1 }<a href="{html_href_link content=$filename.checkout_shipping}" class="btn btn-primary-filled" role="button">{$lang.button_continue}</a>{/if}</td>
-          </tr>
-        </table></form></td>
-         </table>
-{else}
-				<div class="alert alert-info" role="alert">
-					{$lang.text_cart_empty}
+				{if $smarty.session.error_cart_msg != ''}
+					<div class="alert alert-danger alert-dismissible fade show" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>			
+						<h4></h4>
+						<p>{$smarty.session.error_cart_msg}</p>
+					</div>
+				{/if}
+				
+				<div class="cartListInner">
+
+					<form name="cart_quantity" action="{html_href_link content=$filename.shopping_cart action=update_product}" method="POST" role="form">
+					{if $mySystem.sed}
+						<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+						<input type="hidden" name="formid" value="{$mySystem.formid}">
+					{/if}		
+					{$hidden_field}
+					
+					<div class="table-responsive">
+						<table class="table">
+							<thead>
+								<tr>
+									<th></th>
+									<th></th>
+								{if $smarty.const.PRODUCT_LIST_MODEL > 0}	  
+									<th>{$lang.table_heading_model}</th>
+								{/if}
+									<th>{$lang.table_heading_products}</th>
+									<th>{$lang.table_heading_price}</th>
+									<th>{$lang.table_heading_quantity}</th>
+									<th align="right">{$lang.table_heading_total}</th>
+								</tr>
+							</thead>
+							<tbody>
+						{foreach item=product from=$products}					
+								<tr>
+								    <td class=""><input type="checkbox" name="cart_delete[]" value="{$product.id}">
+									<td class="">
+										<span class="cartImage"><a href="{product_info_link products_id=$product.id}">{small_product_image image=$product.image alt=$product.name|strip_tags}</a></span>
+									</td>
+									{if $smarty.const.PRODUCT_LIST_MODEL > 0}	  
+										<td class=""><a href="{product_info_link products_id=$product.id}">{$product.model}</a></td>
+									{/if}
+
+									<td class="">
+										<a href="{product_info_link products_id=$product.id}">{$product.name}</a> 
+							{if $smarty.const.STOCK_CHECK eq 'true'}
+								{if $product.stock_left < 0}
+									<span class="out-of-stock text-warning m-0">{$smarty.const.STOCK_MARK_PRODUCT_OUT_OF_STOCK}</span>
+								{/if}
+							{/if}
+<!-- 										
+	// Wishlist names
+	if (oos_is_not_null($products[$i]['towlid'])) {
+		$shopping_cart_detail .= '<br /><a href="' . oos_href_link($aContents['wishlist'], 'wlid=' . $products[$i]['towlid']) . '">' . oos_image(OOS_IMAGES . 'wl.gif', oos_get_wishlist_name($products[$i]['towlid'])) . '</a>' . "\n";
+		$shopping_cart_detail .= '<small><i><a href="' . oos_href_link($aContents['wishlist'], 'wlid=' . $products[$i]['towlid']) . '">' . oos_get_wishlist_name($products[$i]['towlid']) . '</a></i></small>';
+	}									    
+    if (isset($products[$i]['attributes']) && is_array($products[$i]['attributes'])) {
+      reset($products[$i]['attributes']);
+      foreach($products[$i]['attributes'] as $option => $value) {		  
+        $shopping_cart_detail .= '<br /><small><i> - ' . $products[$i][$option]['products_options_name'] . ' ' . $products[$i][$option]['products_options_values_name'] . '</i></small>';
+      }
+    }<input type="text" name="cart_quantity[]" value="1" maxlength="1" size="1"><input type="hidden" name="products_id[]" value="2403">
+ -->													
+									</td>
+									<td class="">{display_price price=$product.final_price tax=$product.tax}</td>
+									<td class="count-input">
+											<a class="incr-btn" data-action="decrease" href="#"><i class="fa fa-minus"></i></a>
+											<input class="quantity" type="text" name="cart_quantity[]" value="{$product.quantity}">
+											<a class="incr-btn" data-action="increase" href="#"><i class="fa fa-plus"></i></a>
+									</td>
+									<td align="right" class="">{display_price price=$product.final_price tax=$product.tax quantity=$product.quantity}</td>
+								</tr>
+						{/foreach}
+
+							</tbody>
+						</table>				
+					</div>
+				  
+					{if $any_out_of_stock eq 1 }
+						<div class="infoStockArea">
+						{if $smarty.const.STOCK_ALLOW_CHECKOUT eq 'true'}
+							<div class="alert alert-danger" role="alert">
+								{$lang.out_of_stock_can_checkout}
+							</div>
+						{else}
+							<div class="alert alert-danger" role="alert">
+								{$lang.out_of_stock_cant_checkout}
+							</div>
+						{/if}
+						</div>
+					{/if}	
+
+					
+						<div class="updateArea">				  
+							<div class="input-group">
+								<input type="text" class="form-control" placeholder="{$lang.text_apply_coupon}" aria-describedby="basic-addon2">
+								<button class="btn btn-outline-primary float-right" type="submit">{$lang.button_apply_coupon}</button>
+							</div>
+							<button class="btn btn-outline-primary float-right" type="submit"><i class="fa fa-check" aria-hidden="true"></i> {$lang.button_update_cart}</button>
+						</div>
+						<div class="row totalAmountArea">
+							<div class="col-sm-4 ml-sm-auto">
+								<ul class="list-unstyled">
+								<!-- 
+									<li>{$lang.sub_title_sub_total} <span>0.00 €</span></li>
+									<li>{$lang.shipping_cost} <span>0.00 €</span></li>
+									<li>{$lang.tax} <span>0.00 €</span></li>
+								 -->		
+									<li>{$lang.total} <span class="grandTotal">{$cart_show_total}</span></li>
+								</ul>
+							</div>
+						</div>
+						<div class="checkBtnArea">
+						{if $myUser.show_price eq 1 }
+							<a href="{html_href_link content=$filename.checkout_shipping}" class="btn btn-primary btn-default">{$lang.button_checkout} <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+						{/if}
+						</div>
+					</form>
 				</div>
-{/if}
-            </div>
-        </div>
-    </div>
-    </section>
-	<!-- end content -->
+			{else}
+			
+				<div class="container text-center m-py-100">
+					<div class="mb-5">
+						<span class="d-block g-color-gray-light-v1 m-font-size-70 mb-4">
+							<i class="fa fa-shopping-basket" aria-hidden="true"></i>
+						</span>
+						<h2 class="m-mb-30">{$lang.text_cart_empty}</h2>
+						<p>{$lang.text_cart_empty_help}</p>
+					</div>
+					<a class="btn btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25" href="{html_href_link content=$filename.main}">{$lang.button_start_shopping}</a>
+				</div>			
+			{/if}			  
+			</div>
+		</div>
+	</div>
+</section>
+<!-- end content -->
 
 {include file="phoenix/system/_footer.html"}

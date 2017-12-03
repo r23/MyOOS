@@ -24,7 +24,6 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/shopping_cart.php';
 
 $hidden_field = '';
-$shopping_cart_detail = '';
 $any_out_of_stock = 0;
 
 if (isset($_SESSION)) { 
@@ -33,8 +32,26 @@ if (isset($_SESSION)) {
 		if ($_SESSION['cart']->count_contents() > 0) {
 
 			$products = $_SESSION['cart']->get_products();
+
 			$n = count($products);
-			for ($i=0, $n = count($products); $i<$n; $i++) {
+			for ($i=0, $n; $i<$n; $i++) {
+				
+				
+//  (oos_get_products_quantity_order_min($products[$i]['id']) > 1 ? $aLang['products_order_qty_min_text_cart_short'] . oos_get_products_quantity_order_min($products[$i]['id']) : '') . (oos_get_products_quantity_order_units($products[$i]['id']) > 1 ? $aLang['products_order_qty_unit_text_cart_short'] . oos_get_products_quantity_order_units($products[$i]['id']) : "")
+
+				$hidden_field .= oos_draw_hidden_field('products_id[]', $products[$i]['id']);
+
+				// Display marker if stock quantity insufficient
+				if (STOCK_CHECK == 'true') {
+					if ($products[$i]['stock_left'] < 0) {					
+						$any_out_of_stock = 1;
+					}
+				}			
+
+				// Wishlist names
+				if (oos_is_not_null($products[$i]['towlid'])) {
+					$hidden_field .= oos_draw_hidden_field('to_wl_id[]', $products[$i]['towlid']);
+				}
 
 				// Push all attributes information in an array
 				if (isset($products[$i]['attributes']) && is_array($products[$i]['attributes'])) {
@@ -85,13 +102,11 @@ if (isset($_SESSION)) {
 						$products[$i][$option]['options_values_id'] = $value;
 						$products[$i][$option]['products_options_values_name'] = $attr_value;
 						$products[$i][$option]['options_values_price'] = $attr_price;
-						$products[$i][$option]['price_prefix'] = $attributes_values['price_prefix']; 
-
+						$products[$i][$option]['price_prefix'] = $attributes_values['price_prefix']; 						
+						
 					}
 				}
 			}
-  
-			require_once MYOOS_INCLUDE_PATH . '/includes/modules/order_details.php';
 		}
 	}
 }
@@ -121,9 +136,9 @@ $smarty->assign(
 		'cart_active' 	=> 1,
 		'canonical'		=> $sCanonical,
 			
-		'hidden_field'         => $hidden_field,
-		'shopping_cart_detail' => $shopping_cart_detail,
-		'any_out_of_stock'     => $any_out_of_stock
+		'hidden_field'			=> $hidden_field,
+		'products'				=> $products,
+		'any_out_of_stock'		=> $any_out_of_stock
        )
 );
 

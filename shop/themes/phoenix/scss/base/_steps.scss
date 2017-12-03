@@ -1,0 +1,303 @@
+/*=== 14. STEPS ===*/
+/*=== 14.1 STEP # 01 ===*/
+.stepsWrapper{
+	.innerWrapper{
+		border: 5px solid #f0f0f0;
+		display: block;
+		padding: 30px 30px 0;
+		width: 100%;
+		&.stepsPage{
+			@include mobile{
+				margin-bottom: 90px;
+			}
+			@include tablet{
+				margin-bottom: 30px;
+			}
+			.panel{
+				@extend %panel-style;
+			}
+			.cartListInner{
+				margin-bottom: 50px;
+				float: left;
+				display: block;
+				width: 100%;
+				.totalAmountArea{
+					border-width: 5px;
+				}
+			}
+		}
+		.well{
+			border-radius: 0;
+			border: none;
+			box-shadow: none;
+			margin-bottom: 50px;
+			.pager{
+				margin: 0;
+				li{
+					a{
+						border-radius: 0;
+						border: none;
+						box-shadow: none;
+						padding: 0;
+						height: 45px;
+						line-height: 45px;
+						background-color: $primary-color;
+						color: $white-color;
+						font-weight: 700;
+						text-transform: uppercase;
+						font-size: 15px;
+						@include transition(all 0.3s ease-in-out);
+						&:hover{
+							background-color: $primary-color;
+							color: $white-color;
+						}
+						&.hideContent{
+							display: none;
+						}
+						@include mobile-xs{
+							width: 100%;
+							margin-bottom: 0;
+						}
+						@include mobile{
+							width: 136px;
+							margin: 0;
+						}
+					}
+					&.previous{
+						a{
+							background-color: #dedede;
+							color: $secondary-color;
+							margin-bottom: 10px;
+							&:hover{
+								background-color: $primary-color;
+								color: $white-color;
+							}
+						}
+					}
+				}
+			}
+		}
+		.orderBox{
+			.table-responsive{
+				.table{
+					tbody{
+						tr{
+							td{
+								text-transform: capitalize;
+								.checkboxArea{
+									margin: 0;
+									float: none;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+}
+%after{
+	content: ' '; 
+	width: 14px; 
+	height: 14px; 
+	background: $white-color; 
+	@include border-radius($radius: 50%);
+	position: absolute; 
+	top: 8px; 
+	left: 8px;
+}
+.progress-wizard { 
+	padding: 0 15px 50px 15px;
+	.progress-wizard-step {
+		padding: 0; 
+		position: relative;
+		.progress-wizard-stepnum {
+			color: $secondary-color;
+			margin-bottom: 5px;
+			@include mobile-xs{
+				font-size: 10px;
+				height: 55px;
+			}
+			@include mobile{
+				font-size: 10px;
+				height: 36px;
+			}
+			@include tablet{
+				font-size: 12px;
+				height: auto;
+			}
+			@include desktops{
+				font-size: 14px;
+			}
+		}
+		.progress-wizard-info {
+			color: #999; 
+			font-size: 14px;
+		}
+		.progress-wizard-dot {
+			position: absolute; 
+			width: 30px; 
+			height: 30px; 
+			display: block; 
+			background: $primary-color; 
+			left: 50%; 
+			margin-top: -15px; 
+			margin-left: -15px; 
+			@include border-radius($radius: 50%);
+			&:after {
+				@extend %after;
+			} 
+			@include mobile{
+				top: 60px;
+			}
+			@include tablet{
+				top: 43px; 
+			}
+		}
+		.progress {
+			position: relative; 
+			@include border-radius(0);
+			height: 8px; 
+			box-shadow: none; 
+			margin: 20px 0;
+			background-color: $light-color;
+			.progress-bar {
+				width:0px; 
+				box-shadow: none; 
+				background: $primary-color;
+			}
+		}
+		&.complete{
+			.progress{
+				.progress-bar{
+					width:100%;
+				}
+			}
+			&:first-child{
+				.progress{
+					left: 0; 
+					width: 100%;
+					.progress-bar{
+						width:50%;
+
+					}
+				}
+			}
+			&:last-child{
+				.progress{
+					width: 100%;
+					.progress-bar{
+						width:100%;
+					}
+				}
+			}
+			&.fullBar{
+				.progress{
+					.progress-bar{
+						width:100%;
+					}
+				}
+			}
+		}
+		&.active{
+			.progress{
+				.progress-bar{
+					width:50%;
+				}
+			}
+		}
+		&.disabled{
+			.progress-wizard-dot {
+				background-color: $light-color;
+				&:after {
+					@extend %after;
+				}
+			}
+		}
+	}
+}
+/*=== 14.2 STEP # 02 ===*/
+.setp5{
+	padding-bottom: 90px;
+	.thanksContent{
+		@include add-border(5px, $light-color, all);
+		padding: 50px 30px;
+		h2{
+			display: block;
+			text-align: center;
+			text-transform: capitalize;
+			font-weight: 700;
+			margin-bottom: 50px+5px;
+			@include mobile{
+				font-size: 20px+6px;
+			}
+			@include tablet{
+				font-size: 30px;
+			}
+			small{
+				display: block;
+				margin-top: 14px;
+				font-size: 14px;
+			}
+		}
+		h3{
+			@extend %sectionTitleSmall;
+			color: $secondary-color;
+		} 
+		.thanksInner{
+			padding: 30px;
+			min-height: 214px;
+			@include add-border(3px, $light-color, all);
+			.tableBlcok{
+				display: table;
+				height: 154px;
+				address{
+					display: table-cell;
+					vertical-align: middle;
+					text-align:left;
+					font-size: 15px;
+					font-weight: 300;
+					line-height: 30px;
+					span{
+						font-weight: 400;
+					}
+					a{
+						color: #252525;
+						text-decoration: none;
+					}
+				}
+			}
+			.well{
+				background-color: $primary-color;
+				border: none;
+				float: right;
+				border-radius: 0;
+				margin-bottom: 0;
+				text-align: center;
+				height: 154px;
+				padding: 50px 0 0 0;
+				@include mobile-xs{
+					width: 100%;
+				}
+				@include mobile{
+					width: 100%;
+				}
+				@include tablet{
+					width: 250px;
+				}
+				h2{
+					color: $white-color;
+					font-weight: 700;
+					margin-bottom: 0;
+					small{
+						color: $white-color;
+						font-weight: 700;
+						font-size: 15px;
+						margin: 0 0 13px 0;
+					}
+				}
+			} 
+		} 
+	}
+}

@@ -293,6 +293,7 @@ function oos_redirect($sUrl) {
   * @param $sProductsId
   * @return string
   */
+// todo remove
   function oos_get_products_stock($sProductsId) {
 
     $nProductID = oos_get_product_id($sProductsId);
@@ -437,14 +438,15 @@ function oos_redirect($sUrl) {
   * @param $nProductsQuantity
   * @return string
   */
+// todo remove
   function oos_check_stock($sProductsId, $nProductsQuantity) {
     global $aLang;
 
     $stock_left = oos_get_products_stock($sProductsId) - $nProductsQuantity;
 
-    $sOutOfStock = '';
+    $sOutOfStock = NULL;
     if ($stock_left < 0) {
-      $sOutOfStock = '<span class="oos-MarkProductOutOfStock">' . STOCK_MARK_PRODUCT_OUT_OF_STOCK . '</span>';
+		$sOutOfStock = '<span class="oos-MarkProductOutOfStock">' . STOCK_MARK_PRODUCT_OUT_OF_STOCK . '</span>';
     }
 
     return $sOutOfStock;
