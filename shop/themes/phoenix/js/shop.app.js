@@ -397,9 +397,7 @@
 		});
 		
 
-		/*---------------------------------
-		---> quantity
-		---------------------------------*/
+		// quantity
 		jQuery('.incr-btn').click(function (e) {
 			var $button = $(this);
 			var newVal = 0;
