@@ -3,7 +3,7 @@
    $Id: email_orders.php,v 1.3 2007/06/13 16:15:14 r23 Exp $
 
    MyOOS [Shopsystem]
-   http://www.oos-shop.de/
+   https://www.oos-shop.de
 
    Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------

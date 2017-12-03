@@ -3,7 +3,7 @@
    $Id: customers.php 437 2013-06-22 15:33:30Z r23 $
 
    MyOOS [Shopsystem]
-   http://www.oos-shop.de/
+   https://www.oos-shop.de
 
    Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------

@@ -3,7 +3,7 @@
    $Id: global.php 216 2013-04-02 08:24:45Z r23 $
 
    MyOOS [Shopsystem]
-   http://www.oos-shop.de/
+   https://www.oos-shop.de
 
    Copyright (c) 2003 - 2013 by the MyOOS Development Team.
    ----------------------------------------------------------------------
@@ -222,7 +222,7 @@ define('LANGUAGE_SLV', 'Slovenian');
 define('LANGUAGE_SPA', 'Spanish');
 define('LANGUAGE_SWE', 'Swedish');
 
-define('FOOTER', 'Diese WebSite wurde mit <a target="_blank" href="http://www.oos-shop.de/">MyOOS [Shopsystem]</a> erstellt. <br /><a target="_blank" href="http://www.oos-shop.de/">MyOOS [Shopsystem]</a> ist als freie Software unter der <a target="_blank" href="http://www.gnu.org/">GNU/GPL Lizenz</a> erh?tlich.');
+define('FOOTER', 'Diese WebSite wurde mit <a target="_blank" href="https://www.oos-shop.de">MyOOS [Shopsystem]</a> erstellt. <br /><a target="_blank" href="https://www.oos-shop.de">MyOOS [Shopsystem]</a> ist als freie Software unter der <a target="_blank" href="http://www.gnu.org/">GNU/GPL Lizenz</a> erh?tlich.');
 
 define('STEP_1', 'Welcome');
 define('STEP_2', 'License');

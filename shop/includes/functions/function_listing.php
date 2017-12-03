@@ -2,7 +2,7 @@
 /* ----------------------------------------------------------------------
 
    MyOOS [Shopsystem]
-   http://www.oos-shop.de/
+   https://www.oos-shop.de
 
    Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
@@ -21,7 +21,7 @@
  /**
   * listing
   *
-  * @link http://www.oos-shop.de/
+  * @link https://www.oos-shop.de
   * @package listing
   * @version $Revision: 1.1 $ - changed by $Author: r23 $ on $Date: 2007/06/12 16:49:27 $
   */

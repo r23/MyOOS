@@ -2,7 +2,7 @@
 /* ----------------------------------------------------------------------
 
    OOS [OSIS Online Shop]
-   http://www.oos-shop.de/
+   https://www.oos-shop.de
 
    Copyright (c) 2003 - 2017 by the OOS Development Team.
    ----------------------------------------------------------------------

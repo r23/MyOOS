@@ -2,7 +2,7 @@
 /* ----------------------------------------------------------------------
 
    MyOOS [Shopsystem]
-   http://www.oos-shop.de/
+   https://www.oos-shop.de
 
    Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
@@ -55,7 +55,7 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
   * @package database
   * @copyright (C) 2013 by the MyOOS Development Team.
   * @license GPL <http://www.gnu.org/licenses/gpl.html>
-  * @link http://www.oos-shop.de/
+  * @link https://www.oos-shop.de
   * @subpackage adodb
   */
 

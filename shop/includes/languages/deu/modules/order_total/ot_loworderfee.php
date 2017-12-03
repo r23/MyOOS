@@ -3,7 +3,7 @@
    $Id: ot_loworderfee.php,v 1.6 2008/10/03 15:38:16 r23 Exp $
 
    MyOOS [Shopsystem]
-   http://www.oos-shop.de/
+   https://www.oos-shop.de
 
    Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------

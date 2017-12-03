@@ -1,7 +1,7 @@
 <?php
 /**
  * MyOOS [Shopsystem]
- * http://www.oos-shop.de/
+ * https://www.oos-shop.de
  *
  * @license GNU/LGPLv2 (or at your option, any later version).
  * @package Phoenix

@@ -3,7 +3,7 @@
    $Id: admin_members.php,v 1.4 2008/08/11 22:22:47 r23 Exp $
 
    MyOOS [Shopsystem]
-   http://www.oos-shop.de/
+   https://www.oos-shop.de
 
    Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------

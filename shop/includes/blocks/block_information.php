@@ -3,7 +3,7 @@
    $Id: block_information.php 412 2013-06-13 18:12:58Z r23 $
 
    MyOOS [Shopsystem]
-   http://www.oos-shop.de/
+   https://www.oos-shop.de
 
    Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------

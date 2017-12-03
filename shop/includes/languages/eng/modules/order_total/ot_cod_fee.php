@@ -3,7 +3,7 @@
    $Id: ot_cod_fee.php,v 1.5 2007/10/29 18:21:06 r23 Exp $
 
    MyOOS [Shopsystem]
-   http://www.oos-shop.de/
+   https://www.oos-shop.de
 
    Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------

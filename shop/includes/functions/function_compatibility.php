@@ -2,7 +2,7 @@
 /* ----------------------------------------------------------------------
 
    MyOOS [Shopsystem]
-   http://www.oos-shop.de/
+   https://www.oos-shop.de
 
    Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
@@ -65,7 +65,7 @@ if ((int)ini_get('register_globals') > 0) {
 /**
  * Forcefully disable magic_quotes_gpc if enabled
  *
- * @link http://www.oos-shop.de/doc/php_manual_de/html/security.magicquotes.disabling.html
+ * @link https://www.oos-shop.dedoc/php_manual_de/html/security.magicquotes.disabling.html
  */
 if (get_magic_quotes_gpc()) {
     function stripslashes_deep($value)

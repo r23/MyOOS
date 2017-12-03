@@ -3,7 +3,7 @@
    $Id: table.php,v 1.3 2007/08/04 04:53:51 r23 Exp $
 
    MyOOS [Shopsystem]
-   http://www.oos-shop.de/
+   https://www.oos-shop.de
 
    Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------

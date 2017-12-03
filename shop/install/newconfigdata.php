@@ -3,7 +3,7 @@
    $Id: newconfigdata.php,v 1.4 2009/01/16 13:37:39 r23 Exp $
 
    MyOOS [Shopsystem]
-   http://www.oos-shop.de/
+   https://www.oos-shop.de
 
    Copyright (c) 2003 - 2017 by the MyOOS Development Team
    ----------------------------------------------------------------------

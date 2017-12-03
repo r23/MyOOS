@@ -3,7 +3,7 @@
    $Id: ot_subtotal.php,v 1.6 2009/01/15 02:58:18 r23 Exp $
 
    MyOOS [Shopsystem]
-   http://www.oos-shop.de/
+   https://www.oos-shop.de
 
    Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------

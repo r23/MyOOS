@@ -2,7 +2,7 @@
 /* ----------------------------------------------------------------------
 
    MyOOS [Shopsystem]
-   http://www.oos-shop.de/
+   https://www.oos-shop.de
 
    Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
@@ -22,7 +22,7 @@
   * @package global
   * @copyright (C) 2016 by the MyOOS Development Team.
   * @license GPL <http://www.gnu.org/licenses/gpl.html>
-  * @link http://www.oos-shop.de/
+  * @link https://www.oos-shop.de
   */
 
   /** ensure this file is being included by a parent file */

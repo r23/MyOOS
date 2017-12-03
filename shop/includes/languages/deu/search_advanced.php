@@ -3,7 +3,7 @@
    $Id: search_advanced.php,v 1.4 2008/01/15 10:17:14 r23 Exp $
 
    MyOOS [Shopsystem]
-   http://www.oos-shop.de/
+   https://www.oos-shop.de
 
    Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------

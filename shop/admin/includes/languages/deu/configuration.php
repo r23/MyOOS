@@ -3,7 +3,7 @@
    $Id: configuration.php,v 1.6 2009/01/23 06:23:43 r23 Exp $
 
    MyOOS [Shopsystem]
-   http://www.oos-shop.de/
+   https://www.oos-shop.de
 
    Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------

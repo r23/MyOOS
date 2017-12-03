@@ -3,7 +3,7 @@
    $Id: dp.php,v 1.5 2007/10/10 15:43:56 r23 Exp $
 
    MyOOS [Shopsystem]
-   http://www.oos-shop.de/
+   https://www.oos-shop.de
 
    Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------

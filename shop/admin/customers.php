@@ -2,7 +2,7 @@
 /* ----------------------------------------------------------------------
 
    MyOOS [Shopsystem]
-   http://www.oos-shop.de/
+   https://www.oos-shop.de
 
    Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
@@ -906,7 +906,7 @@ function check_form() {
 	</section>
 	<!-- Page footer //-->
 	<footer>
-		<span>&copy; 2017 - <a href="http://www.oos-shop.de/" target="_blank">MyOOS [Shopsystem]</a></span>
+		<span>&copy; 2017 - <a href="https://www.oos-shop.de" target="_blank">MyOOS [Shopsystem]</a></span>
 	</footer>
 </div>
 

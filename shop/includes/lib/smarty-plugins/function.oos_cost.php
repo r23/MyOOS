@@ -3,7 +3,7 @@
    $Id: function.oos_cost.php,v 1.1 2007/06/08 13:34:16 r23 Exp $
 
    MyOOS [Shopsystem]
-   http://www.oos-shop.de/
+   https://www.oos-shop.de
    
    
    Copyright (c) 2003 - 2017 by the MyOOS Development Team.

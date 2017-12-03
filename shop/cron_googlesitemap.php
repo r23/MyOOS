@@ -3,7 +3,7 @@
    $Id: cron_googlesitemap.php 511 2009-12-28 00:03:48Z r23 $
 
    OOS [OSIS Online Shop]
-   http://www.oos-shop.de/
+   https://www.oos-shop.de
 
    Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------

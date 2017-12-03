@@ -3,7 +3,7 @@
    $Id: footer.php,v 1.1 2007/06/13 16:41:18 r23 Exp $
 
    MyOOS [Shopsystem]
-   http://www.oos-shop.de/
+   https://www.oos-shop.de
 
    Copyright (c) 2003 - 2017 by the MyOOS Development Team
    ----------------------------------------------------------------------
@@ -38,7 +38,7 @@
       </table><br />
       <table width="800" border="0" cellspacing="0" cellpadding="0">
         <tr>
-          <td width="50"><a href="http://www.oos-shop.de/" target="_blank"><img src="images/logo_footer.png" alt="www.oos-shop.de" width="46" height="33" border="0" /></a></td>
+          <td width="50"><a href="https://www.oos-shop.de" target="_blank"><img src="images/logo_footer.png" alt="www.oos-shop.de" width="46" height="33" border="0" /></a></td>
           <td class="footer"><?php echo FOOTER; ?></td>
         </tr>
       </table><br />

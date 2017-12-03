@@ -2,7 +2,7 @@
 /* ----------------------------------------------------------------------
 
    MyOOS [Shopsystem]
-   http://www.oos-shop.de/
+   https://www.oos-shop.de
 
    Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------
@@ -23,7 +23,7 @@
    * Class Products History
    *
    *
-   * @link      http://www.oos-shop.de/ Latest release of this class
+   * @link      https://www.oos-shop.de Latest release of this class
    * @package   Products History
    * @copyright Copyright (c) 2003 - 2004 r23.de. All rights reserved.
    * @author    r23 <info@r23.de>

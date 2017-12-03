@@ -1,6 +1,6 @@
 MyOOS [Shopsystem]
 ===============================
 
-Website: http://www.oos-shop.de/
+Website: https://www.oos-shop.de
 
-Support Forums: http://foren.myoos.de/
+Support Forums: https://foren.myoos.de

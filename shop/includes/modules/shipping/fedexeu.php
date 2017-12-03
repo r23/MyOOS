@@ -3,7 +3,7 @@
    $Id: fedexeu.php,v 1.2 2007/08/11 05:59:52 r23 Exp $
 
    MyOOS [Shopsystem]
-   http://www.oos-shop.de/
+   https://www.oos-shop.de
 
    Copyright (c) 2003 - 2017 by the MyOOS Development Team.
    ----------------------------------------------------------------------

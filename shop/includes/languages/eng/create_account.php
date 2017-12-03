@@ -3,7 +3,7 @@
    $Id: user_create_account.php,v 1.3 2007/06/12 16:51:19 r23 Exp $
 
    MyOOS [Shopsystem]
-   http://www.oos-shop.de/
+   https://www.oos-shop.de
    
    
    Copyright (c) 2003 - 2017 by the MyOOS Development Team.

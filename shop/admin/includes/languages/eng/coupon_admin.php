@@ -3,7 +3,7 @@
    $Id: coupon_admin.php,v 1.4 2007/11/14 20:23:57 r23 Exp $
 
    MyOOS [Shopsystem]
-   http://www.oos-shop.de/
+   https://www.oos-shop.de
    
    
    Copyright (c) 2003 - 2017 by the MyOOS Development Team.
