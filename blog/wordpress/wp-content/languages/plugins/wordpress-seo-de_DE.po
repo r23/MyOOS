@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Yoast SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-11-15 15:31:09+0000\n"
+"PO-Revision-Date: 2017-11-27 15:58:41+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -59,6 +59,12 @@ msgstr "%1$s%3$s ACF Integration%2$s - eine integration entwickelt von %4$s und 
 #: admin/views/about.php:260
 msgid "%1$sGlue for %4$s &amp; AMP%3$s - an integration between %2$sthe WordPress AMP plugin%3$s and %4$s."
 msgstr "%1$sGlue for %4$s &amp; AMP%3$s - eine integration zwischen %2$sdem WordPress AMP Plugin%3$s und %4$s."
+
+#. translators: 1: expands to "Yoast SEO"; 2: emphasis open tag; 3: emphasis
+#. close tag.
+#: admin/views/about.php:223
+msgid "%1$s 3.0 brought a way for theme builders and custom field plugins to integrate with %1$s. These integrations make sure that %2$sall%3$s the data on your page is used for the content analysis. On this page, we highlight the frameworks that have nicely working integrations."
+msgstr "%1$s 3.0 brachte einen Weg für Theme Builder und benutzerdefinierte Feld-Plugins, um sie mit %1$s zu integrieren. Diese Integrationen stellen sicher, dass %2$salle%3$s Daten auf deiner Seite für die Inhaltsanalyse verwendet werden. Auf dieser Seite stellen wir die Frameworks vor, die gut funktionierende Integrationen haben."
 
 #: admin/views/about.php:252
 msgid "We've got other integrations we'd like to tell you about:"
@@ -301,6 +307,16 @@ msgstr ""
 "Hinweis: Wir speichern deine Daten in keiner Weise und haben keinen vollständigen Zugang zu deinem Konto.\n"
 "Deine Privatsphäre ist bei uns sicher."
 
+#. translators: %1$s is the plugin name, %2$s is a link start tag to a Yoast
+#. help page, %3$s is the link closing tag.
+#: admin/config-ui/fields/class-field-google-search-console-intro.php:19
+msgid ""
+"%1$s integrates with Google Search Console, a must-have tool for site owners.\n"
+" It provides you with information about the health of your site. \n"
+" Don't have a Google account or is your site not activated yet?\n"
+" Find out %2$show to connect Google Search Console to your site.%3$s"
+msgstr "%1$s integriert sich in Google Search Console, ein Pflicht-Tool für Website-Besitzer, das dir Informationen über den Zustand deiner Website liefert. Hast du noch kein Google-Konto oder ist deine Website noch nicht aktiviert? Zeige wie man %2$sdie Google Search Console mit deiner Website zu verbinden. %3$s"
+
 #: admin/config-ui/fields/class-field-environment.php:23
 msgid "Option B: My site is under construction and should not be indexed"
 msgstr "Option B: Meine Seite befindet sich im Aufbau und sollte nicht indiziert werden."
@@ -441,6 +457,17 @@ msgstr "%s Update Empfehlung ausblenden"
 #: admin/views/tabs/dashboard/features.php:55
 msgid "This feature helps you improve the internal link structure of your site. If you want to know more about the why and how of internal linking, check out the %1$sarticle about internal linking on Yoast.com%2$s."
 msgstr "Diese Funktion hilft dir dabei die interne Linkstruktur deiner Webseite zu verbessern. Wenn du mehr über interne Verlinkung wissen möchtest, besuche %1$sfolgenden Artikel zum Thema auf Yoast.com%2$s."
+
+#. translators: %1$s: Yoast SEO. %2$s: Version number of Yoast SEO. %3$s: link
+#. to knowledge base article about solving table issue. %4$s: is anchor
+#. closing.
+#: admin/links/class-link-table-accessible-notifier.php:36
+msgid ""
+"The <strong>Text link counter</strong> feature (introduced in %1$s %2$s) is currently disabled. For this feature to work %1$s needs to create a table in your database. We were unable to create this table automatically.\n"
+"\t\t\t\t\tPlease read the following %3$sknowledge base article%4$s to find out how to resolve this problem."
+msgstr ""
+"Die Funktion <strong>Textlinkzähler</strong> (eingeführt in %1$s %2$s) ist derzeit deaktiviert. Damit diese Funktion funktioniert, muss %1$s eine Tabelle in deiner Datenbank erstellen. Wir konnten diese Tabelle nicht automatisch erstellen.\n"
+"Bitte lese den folgenden %3$sWissensdatenbank Artikel%4$s, um herauszufinden, wie du dieses Problem lösen kannst."
 
 #: admin/links/class-link-reindex-dashboard.php:164
 msgid "Good job! All the links in your texts have been counted."
@@ -636,6 +663,12 @@ msgstr "Mit %s die Wettbewerber übtertrumpfen"
 #: admin/config-ui/components/class-component-configuration-choices.php:67
 msgid "Configuration service"
 msgstr "Konfigurations-Hilfe"
+
+#. translators: %1$s expands to 'Yoast SEO', %2$s expands to 'Yoast SEO
+#. Premium'.
+#: admin/config-ui/components/class-component-configuration-choices.php:61
+msgid "While we strive to make setting up %1$s as easy as possible, we understand it can still be daunting. If you would rather have us set up %1$s for you (and get a copy of %2$s in the process), order a %1$s configuration service and sit back while we configure your site."
+msgstr "Obwohl wir bestrebt sind, die Einrichtung von %1$s so einfach wie möglich zu gestalten, verstehen wir, dass es immer noch entmutigend sein kann. Wenn du es vorziehst, dass wir %1$s für dich einrichten (und du dabei eine Lizenz von %2$s erhältst), bestelle einen %1$s-Konfigurationsdienst und lehnen dich zurück, während wir deine Website konfigurieren."
 
 #. translators: %s expands to 'Yoast SEO'.
 #: admin/config-ui/components/class-component-configuration-choices.php:48
