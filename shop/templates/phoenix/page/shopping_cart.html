@@ -41,14 +41,14 @@
 							<thead>
 								<tr>
 									<th></th>
-									<th></th>
+									<th></th>							
 								{if $smarty.const.PRODUCT_LIST_MODEL > 0}	  
 									<th>{$lang.table_heading_model}</th>
 								{/if}
 									<th>{$lang.table_heading_products}</th>
 									<th>{$lang.table_heading_price}</th>
 									<th>{$lang.table_heading_quantity}</th>
-									<th align="right">{$lang.table_heading_total}</th>
+									<th>{$lang.table_heading_total} </th>
 								</tr>
 							</thead>
 							<tbody>
@@ -56,40 +56,48 @@
 								<tr>
 								    <td class=""><input type="checkbox" name="cart_delete[]" value="{$product.id}">
 									<td class="">
-										<span class="cartImage"><a href="{product_info_link products_id=$product.id}">{small_product_image image=$product.image alt=$product.name|strip_tags}</a></span>
+										<span class="cartImage"><a href="{product_link products_id=$product.id}">{small_product_image image=$product.image alt=$product.name|strip_tags}</a></span>
 									</td>
 									{if $smarty.const.PRODUCT_LIST_MODEL > 0}	  
-										<td class=""><a href="{product_info_link products_id=$product.id}">{$product.model}</a></td>
+										<td class=""><a href="{product_link products_id=$product.id}">{$product.model}</a></td>
 									{/if}
 
 									<td class="">
-										<a href="{product_info_link products_id=$product.id}">{$product.name}</a> 
-							{if $smarty.const.STOCK_CHECK eq 'true'}
-								{if $product.stock_left < 0}
-									<span class="out-of-stock text-warning m-0">{$smarty.const.STOCK_MARK_PRODUCT_OUT_OF_STOCK}</span>
-								{/if}
-							{/if}
-<!-- 										
+										<div class="d-inline-block align-middle">
+											<h4 class="">
+												<a href="{product_link products_id=$product.id}">{$product.name}</a>
+											{if $smarty.const.STOCK_CHECK eq 'true'}
+												{if $product.stock - $product.quantity < 0}
+													<span class="text-warning m-0"> {$smarty.const.STOCK_MARK_PRODUCT_OUT_OF_STOCK}</span>
+												{/if}
+											{/if}
+											</h4>
+							
+<!-- 																    
+    if (isset($products[$i]['attributes']) && is_array($products[$i]['attributes'])) {
+		reset($products[$i]['attributes']);
+		<ul class="list-unstyled mb-0">
+			foreach($products[$i]['attributes'] as $option => $value) {		  
+				'<li> - ' . $products[$i][$option]['products_options_name'] . ' ' . $products[$i][$option]['products_options_values_name'] . '</li>';
+			}
+	  </ul>
+    }
 	// Wishlist names
 	if (oos_is_not_null($products[$i]['towlid'])) {
 		$shopping_cart_detail .= '<br /><a href="' . oos_href_link($aContents['wishlist'], 'wlid=' . $products[$i]['towlid']) . '">' . oos_image(OOS_IMAGES . 'wl.gif', oos_get_wishlist_name($products[$i]['towlid'])) . '</a>' . "\n";
 		$shopping_cart_detail .= '<small><i><a href="' . oos_href_link($aContents['wishlist'], 'wlid=' . $products[$i]['towlid']) . '">' . oos_get_wishlist_name($products[$i]['towlid']) . '</a></i></small>';
-	}									    
-    if (isset($products[$i]['attributes']) && is_array($products[$i]['attributes'])) {
-      reset($products[$i]['attributes']);
-      foreach($products[$i]['attributes'] as $option => $value) {		  
-        $shopping_cart_detail .= '<br /><small><i> - ' . $products[$i][$option]['products_options_name'] . ' ' . $products[$i][$option]['products_options_values_name'] . '</i></small>';
-      }
-    }<input type="text" name="cart_quantity[]" value="1" maxlength="1" size="1"><input type="hidden" name="products_id[]" value="2403">
+	}		
+	
  -->													
+										</div>
 									</td>
-									<td class="">{display_price price=$product.final_price tax=$product.tax}</td>
+									<td class="">{display_price price=$product.final_price tax_class_id=$product.tax_class_id}</td>
 									<td class="count-input">
 											<a class="incr-btn" data-action="decrease" href="#"><i class="fa fa-minus"></i></a>
 											<input class="quantity" type="text" name="cart_quantity[]" value="{$product.quantity}">
 											<a class="incr-btn" data-action="increase" href="#"><i class="fa fa-plus"></i></a>
 									</td>
-									<td align="right" class="">{display_price price=$product.final_price tax=$product.tax quantity=$product.quantity}</td>
+									<td align="right" class="">{display_price price=$product.final_price tax_class_id=$product.tax_class_id quantity=$product.quantity}</td>
 								</tr>
 						{/foreach}
 

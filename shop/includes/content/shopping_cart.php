@@ -43,7 +43,8 @@ if (isset($_SESSION)) {
 
 				// Display marker if stock quantity insufficient
 				if (STOCK_CHECK == 'true') {
-					if ($products[$i]['stock_left'] < 0) {					
+					$stock_left = $products[$i]['stock'] - $products[$i]['quantity'];
+					if ($stock_left < 0) {					
 						$any_out_of_stock = 1;
 					}
 				}			
