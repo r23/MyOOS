@@ -10,7 +10,7 @@
 <table border="0" width="100%" cellspacing="0" cellpadding="4" class="oos-BoxContents">
   <tr>
   {/if}
-    <td align="center" width="33%" class="smallText"><a href="{product_info_link products_id=$oos_also_purchased_array[i].products_id}">{small_product_image image=$oos_also_purchased_array[i].products_image alt=$oos_also_purchased_array[i].products_name|strip_tags}</a><br><a href="{product_info_link products_id=$oos_also_purchased_array[i].products_id}">{$oos_also_purchased_array[i].products_name}</a></td>
+    <td align="center" width="33%" class="smallText"><a href="{product_link products_id=$oos_also_purchased_array[i].products_id}">{small_product_image image=$oos_also_purchased_array[i].products_image alt=$oos_also_purchased_array[i].products_name|strip_tags}</a><br><a href="{product_link products_id=$oos_also_purchased_array[i].products_id}">{$oos_also_purchased_array[i].products_name}</a></td>
   {if $smarty.section.i.rownum is div by 3}
     </tr>
     <tr>

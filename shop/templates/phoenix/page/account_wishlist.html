@@ -47,9 +47,9 @@
 	  
 	  <table border="0" width="100%" cellspacing="0" cellpadding="0">
        <tr>
-         <td align="left" width="{$smarty.const.SMALL_IMAGE_WIDTH}" class="smallText"><a href="{product_info_link products_id=$wishlist_array[i].products_id}">{small_product_image image=$wishlist_array[i].products_image alt=$wishlist_array[i].products_name|strip_tags hspace=5 vspace=5}</a></td>
+         <td align="left" width="{$smarty.const.SMALL_IMAGE_WIDTH}" class="smallText"><a href="{product_link products_id=$wishlist_array[i].products_id}">{small_product_image image=$wishlist_array[i].products_image alt=$wishlist_array[i].products_name|strip_tags hspace=5 vspace=5}</a></td>
          <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
-         <td valign="top" class="smallText"><a href="{product_info_link products_id=$wishlist_array[i].products_id}"><strong>{$wishlist_array[i].products_name}</strong></a><br>
+         <td valign="top" class="smallText"><a href="{product_link products_id=$wishlist_array[i].products_id}"><strong>{$wishlist_array[i].products_name}</strong></a><br>
            <br>{$wishlist_array[i].products_description|truncate:120:" [...]":false|close_tags}<br>
            {if $wishlist_array[i].attributes_print != ''}
               <br>{$wishlist_array[i].attributes_print}<br>

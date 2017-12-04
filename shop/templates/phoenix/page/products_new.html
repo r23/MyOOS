@@ -33,7 +33,7 @@
 
 							<div class="thumbnail">
 								<!-- product image -->
-								<a class="shop-item-image" href="{product_info_link products_id=$products_new[i].id}">
+								<a class="shop-item-image" href="{product_link products_id=$products_new[i].id}">
 									{small_product_image image=$products_new[i].image alt=$products_new[i].name|strip_tags}
 								</a>
 								<!-- /product image -->
@@ -41,7 +41,7 @@
 
 										
 							<div class="shop-item-summary">
-								<h2><a href="{product_info_link products_id=$products_new[i].id}">{$products_new[i].name}</a></h2>
+								<h2><a href="{product_link products_id=$products_new[i].id}">{$products_new[i].name}</a></h2>
 							{if ($smarty.const.SHOW_DATE_ADDED_AVAILABLE eq 'true')}
 								<p>
 									{$lang.text_date_added}{$products_new[i].date_added|oos_date_short}

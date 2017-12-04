@@ -25,7 +25,7 @@
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="main"><strong>{$lang.sub_title_product}</strong> {$reviews.products_name}</td>
-            <td class="smallText" rowspan="3" align="center"><a href="{product_info_link products_id=$smarty.get.products_id}">{small_product_image image=$reviews.products_image alt=$reviews.products_name|strip_tags align=center hspace=5 vspace=5}<br>{$reviews.products_name}</a></td>
+            <td class="smallText" rowspan="3" align="center"><a href="{product_link products_id=$smarty.get.products_id}">{small_product_image image=$reviews.products_image alt=$reviews.products_name|strip_tags align=center hspace=5 vspace=5}<br>{$reviews.products_name}</a></td>
           </tr>
           <tr>
             <td class="main"><strong>{$lang.sub_title_from}</strong> {$reviews.customers_name}</td>

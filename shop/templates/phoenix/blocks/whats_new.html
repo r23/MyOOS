@@ -8,8 +8,8 @@
 		<table width="150" border="0" cellspacing="0" cellpadding="3">
           <tr>
             <td align="center" valign="top" class="block_content">
-    <a href="{product_info_link products_id=$random_product.products_id}">{small_product_image image=$random_product.products_image alt=$random_product.products_name|strip_tags}</a><br>
-    <a href="{product_info_link products_id=$random_product.products_id}">{$random_product.products_name}</a><br>
+    <a href="{product_link products_id=$random_product.products_id}">{small_product_image image=$random_product.products_image alt=$random_product.products_name|strip_tags}</a><br>
+    <a href="{product_link products_id=$random_product.products_id}">{$random_product.products_name}</a><br>
 {if (!empty($whats_new_special_price))}
    <s>{$whats_new_product_price}{$smarty.const.UNITS_DELIMITER}{$products_units[$random_product.products_units_id]}</s><br>
    {if $random_product.products_base_price != 1}<s><span class="base_price">{$random_product.products_base_unit} = {$whats_new_base_product_price}</span></s><br>{/if}

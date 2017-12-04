@@ -22,13 +22,13 @@
 	
 				<div class="thumbnail">
 					<!-- product image -->
-					<a class="shop-item-image" href="{product_info_link products_id=$product_info.products_id}">
+					<a class="shop-item-image" href="{product_link products_id=$product_info.products_id}">
 						{small_product_image image=$product_info.products_image alt=$product_info.products_name|strip_tags}
 					</a>
 					<!-- /product image -->
 				</div>
 				
-				<h2><a href="{product_info_link products_id=$product_info.products_id}">{$product_info.products_name}</a></h2>
+				<h2><a href="{product_link products_id=$product_info.products_id}">{$product_info.products_name}</a></h2>
 				
 
 	

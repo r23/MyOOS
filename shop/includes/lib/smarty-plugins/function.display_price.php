@@ -42,13 +42,15 @@ function smarty_function_display_price($params, &$smarty)
 	require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
   
 	$price = NULL;
-	$tax = 19;
+	$tax_class_id = 1;
 	$quantity = 1;
    
    
 	foreach($params as $_key => $_val) {
 		$$_key = smarty_function_escape_special_chars($_val);
 	} 
+	
+	$tax = oos_get_tax_rate($tax_class_id);
    
 	return $oCurrencies->display_price($price, $tax, $quantity);
 

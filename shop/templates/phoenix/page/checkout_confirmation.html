@@ -102,7 +102,7 @@
     {if sizeof($order->info.tax_groups) gt 1 }
             <td class="main" valign="top" align="right">{oos_display_tax_value value=$products.tax} %</td>
     {/if}
-            <td class="main" align="right" valign="top">{display_price price=$products.final_price tax=$products.tax qty=$products.qty}</td>
+            <td class="main" align="right" valign="top">{oos_display_price price=$products.final_price tax=$products.tax qty=$products.qty}</td>
           </tr>
 {/foreach}
                 </table></td>

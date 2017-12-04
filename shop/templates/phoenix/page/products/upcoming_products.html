@@ -16,7 +16,7 @@
   {else}
               <tr class="upcomingProducts-odd">
   {/if}
-               <td class="smallText">&nbsp;<a href="{product_info_link products_id=$expected_array[i].products_id}">{$expected_array[i].products_name}</a>&nbsp;</td>
+               <td class="smallText">&nbsp;<a href="{product_link products_id=$expected_array[i].products_id}">{$expected_array[i].products_name}</a>&nbsp;</td>
                <td align="right" class="smallText">&nbsp;{$expected_array[i].date_expected|oos_date_short}&nbsp;</td>
               </tr>
  {if $smarty.section.i.last}
