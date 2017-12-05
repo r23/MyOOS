@@ -34,13 +34,6 @@
 
 		}
 
-
-		/** Bootstrap Tooltip **/ 
-		jQuery('[data-toggle="tooltip"]').tooltip({
-			placement: $(this).data('placement'),
-			html: true
-		});
-
 	}
 
 
