@@ -22,7 +22,8 @@ define('WARN_DOWNLOAD_DIRECTORY_NOT_READABLE', 'true');
 
 define('DECIMAL_CART_QUANTITY', 'false');
 
-define('UNITS_DELIMITER', '&nbsp;/&nbsp;');
+// define('UNITS_DELIMITER', '&nbsp;/&nbsp;');
+define('UNITS_DELIMITER', '');
 define('ACCOUNT_COMPANY_VAT_ID_CHECK', 'true');
 
 define('OOS_PAGE_TYPE_MAINPAGE',  1);

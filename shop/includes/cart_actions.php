@@ -33,7 +33,7 @@ if (DISPLAY_CART == 'true') {
 } else {
     $goto_file = $sContent;
     if ($action == 'buy_now') {
-		$parameters = array('action', 'pid', 'cart_quantity');
+		$parameters = array('action', 'pid', 'products_id', 'cart_quantity');
     } elseif ($action == 'buy_slave')  {
 		$parameters = array('action', 'pid', 'slave_id', 'cart_quantity');
     } else {
@@ -261,7 +261,7 @@ switch ($action) {
     case 'buy_now' :	
       if (isset($_GET['products_id'])) {
         if (oos_has_product_attributes($_GET['products_id'])) {
-          oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_GET['products_id']));
+			oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_GET['products_id']));
         } else {
 			// start the session
 			if ( $session->hasStarted() === FALSE ) $session->start();	
@@ -271,31 +271,31 @@ switch ($action) {
 				$_SESSION['cart'] = new shoppingCart();
 			}
 			
-          if (isset($_GET['cart_quantity']) && is_numeric($_GET['cart_quantity'])) {
-            $cart_quantity = oos_prepare_input($_GET['cart_quantity']);
-          } else {
-            $cart_quantity = 1;
-          }
-          $cart_qty = $_SESSION['cart']->get_quantity($_GET['products_id']);
-          $news_qty = $cart_qty + $cart_quantity;
+			if (isset($_GET['cart_quantity']) && is_numeric($_GET['cart_quantity'])) {
+				$cart_quantity = oos_prepare_input($_GET['cart_quantity']);
+			} else {
+				$cart_quantity = 1;
+			}
+			$cart_qty = $_SESSION['cart']->get_quantity($_GET['products_id']);
+			$news_qty = $cart_qty + $cart_quantity;
 
-          $products_order_min = oos_get_products_quantity_order_min($_GET['products_id']);
-          $products_order_units = oos_get_products_quantity_order_units($_GET['products_id']);
+			$products_order_min = oos_get_products_quantity_order_min($_GET['products_id']);
+			$products_order_units = oos_get_products_quantity_order_units($_GET['products_id']);
 
-          if ( ($cart_quantity >= $products_order_min) or ($cart_qty >= $products_order_min) ) {
-            if ( ($cart_quantity%$products_order_units == 0) and ($news_qty >= $products_order_min) ) {
-              $_SESSION['cart']->add_cart($_GET['products_id'], $news_qty);
-            } else {
-              $_SESSION['error_cart_msg'] = $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_units_invalid'] . $cart_quantity  . ' - ' . $aLang['products_order_qty_unit_text_info'] . ' ' . $products_order_units;
-            }
-          } else {
-            $_SESSION['error_cart_msg'] = $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_quantity_invalid'] . $cart_quantity . ' - ' . $aLang['products_order_qty_min_text_info'] . ' ' . $products_order_min;
-          }
+			if ( ($cart_quantity >= $products_order_min) or ($cart_qty >= $products_order_min) ) {
+				if ( ($cart_quantity%$products_order_units == 0) and ($news_qty >= $products_order_min) ) {
+					$_SESSION['cart']->add_cart($_GET['products_id'], $news_qty);
+				} else {
+					$_SESSION['error_cart_msg'] = $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_units_invalid'] . $cart_quantity  . ' - ' . $aLang['products_order_qty_unit_text_info'] . ' ' . $products_order_units;
+				}
+			} else {
+				$_SESSION['error_cart_msg'] = $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_quantity_invalid'] . $cart_quantity . ' - ' . $aLang['products_order_qty_min_text_info'] . ' ' . $products_order_min;
+			}
         }
         if ($_SESSION['error_cart_msg'] == '') {
-          oos_redirect(oos_href_link($goto_file, oos_get_all_get_parameters($parameters)));
+			oos_redirect(oos_href_link($goto_file, oos_get_all_get_parameters($parameters)));
         } else {
-          oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_GET['products_id']));
+			oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_GET['products_id']));
         }
       } elseif (isset($_POST['products_id']) && is_numeric($_POST['products_id'])) {
         if (oos_has_product_attributes($_POST['products_id'])) {
@@ -332,9 +332,9 @@ switch ($action) {
             }
           }
           if ($_SESSION['error_cart_msg'] == '') {
-            oos_redirect(oos_href_link($goto_file, oos_get_all_post_parameters($parameters)));
+				oos_redirect(oos_href_link($goto_file, oos_get_all_post_parameters($parameters)));
           } else {
-            oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_POST['products_id']));
+				oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_POST['products_id']));
           }
         }
       }

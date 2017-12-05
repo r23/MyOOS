@@ -1,28 +1,44 @@
 {if $new_products_array}
+<!-- NEW PRODUCTS -->
+<section>
+	<div class="container">
 
-<div class="heading margin-bottom-40">
-	<h2>{$block_heading_new_products}</h2>
-</div>
+		<div class="heading margin-bottom-40">
+			<h2>{$block_heading_new_products}</h2>
+		</div>
 	{foreach item=new_product from=$new_products_array}
-            <div class="col-md-3 col-sm-6 md-margin-bottom-30">
-                <div class="product-img">
-                    <a href="{product_link products_id=$new_product.products_id}"><img class="full-width img-fluid" src="{$new_product.products_image}" alt="{$new_product.products_name}"></a>
+             <div class="col-sm-3 col-12">
+                <div class="imageBox">
+					<div class="productImage clearfix">
+						<a href="{product_link products_id=$new_product.products_id}">
+							<img src="{$new_product.products_image}" alt="{$new_product.products_name}">
+						</a>
+						<div class="productMasking">
+                              <ul class="list-inline btn-group" role="group">
+                                <li><a href="{html_href_link content=$page_file action=add_wishlist products_id=$new_product.products_id}"class="btn btn-default btn-wishlist" role="button"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li>
+                                <li><a href="{html_href_link content=$page_file oos_get=$get_params action=buy_now cart_quantity=$new_product.order_min  products_id=$new_product.products_id}" class="btn btn-default" role="button"><i class="fa fa-shopping-basket" aria-hidden="true"></i></a></li>
+                                <li><a href="{product_link products_id=$new_product.products_id}" class="btn btn-default"><i class="fa fa-eye" aria-hidden="true" role="button"></i></a></li>
+                              </ul>
+						</div>						
+						
+					</div>
                 </div> 
-                <div class="product-description product-description-brd">
-                    <div class="overflow-h margin-bottom-5">
-                        <div class="text-left">
-                            <h4 class="title-price"><a href="{product_link products_id=$new_product.products_id}">{$new_product.products_name}</a></h4>
-                        </div>    
-                        <div class="product-price">
+                <div class="shop-item-summary text-center">
+                    <h4><a href="{product_link products_id=$new_product.products_id}">{$new_product.products_name}</a></h4>
+
+					<div class="product-price clearfix">
 						{if (!empty($new_product.new_product_special_price))}
 							<s>{$new_product.new_product_price}{$new_product.new_product_units}</s><br>
 							<span class="special_price">{$new_product.new_product_special_price}</span><br>
 						{else}
 							{$new_product.new_product_price}{$new_product.new_product_units}
 						{/if}
-                        </div>
-                    </div>    
+					</div>
+  
                 </div>
             </div>
 	{/foreach}
+	</div>
+</section>
+<!-- NEW PRODUCTS -->	
 {/if}

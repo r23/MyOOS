@@ -29,7 +29,7 @@ if ( (!isset($nCurrentCategoryID)) || ($nCurrentCategoryID == '0') ) {
 	$products_descriptiontable = $oostable['products_description'];
 	$specialstable = $oostable['specials'];
 	$sql = "SELECT p.products_id, pd.products_name, p.products_image, p.products_tax_class_id, p.products_units_id,
-                   p.products_price, p.products_base_price, p.products_base_unit,
+                   p.products_price, p.products_base_price, p.products_base_unit, p.products_quantity_order_min,
 				   substring(pd.products_description, 1, 150) AS products_description,
                    IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price
             FROM $productstable p LEFT JOIN
@@ -46,7 +46,7 @@ if ( (!isset($nCurrentCategoryID)) || ($nCurrentCategoryID == '0') ) {
 	$products_to_categoriestable = $oostable['products_to_categories'];
 	$categoriestable = $oostable['categories'];
 	$sql = "SELECT DISTINCT p.products_id, pd.products_name, p.products_image, p.products_tax_class_id, p.products_units_id,
-                   p.products_price, p.products_base_price, p.products_base_unit, 
+                   p.products_price, p.products_base_price, p.products_base_unit, p.products_quantity_order_min,
 				   substring(pd.products_description, 1, 150) AS products_description,
                    IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price
             FROM $productstable p LEFT JOIN
@@ -92,10 +92,19 @@ while ($new_products = $new_products_result->fields) {
 		}
     }
 
+	if (DECIMAL_CART_QUANTITY == 'true') {
+		$order_min = number_format($new_products['products_quantity_order_min'], 2);
+	} else {
+		$order_min = number_format($new_products['products_quantity_order_min']);
+	}
+	
+	
+	
 	$aNewProducts[] = array('products_id' => $new_products['products_id'],
                                   'products_image' => $new_products['products_image'],
                                   'products_name' => $new_products['products_name'],
                                   'products_description' => oos_remove_tags($new_products['products_description']),
+								  'order_min' => $order_min,
                                   'products_base_price' => $new_products['products_base_price'],
                                   'products_base_unit' => $new_products['products_base_unit'],
                                   'new_product_units' => $new_product_units,
