@@ -22,7 +22,7 @@
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
 if (!$oEvent->installed_plugin('reviews')) {
-	oos_redirect(oos_href_link($aContents['main']));
+	oos_redirect(oos_href_link($aContents['home']));
 }
 
 if (isset($_GET['products_id'])) {

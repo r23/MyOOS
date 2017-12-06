@@ -19,7 +19,7 @@
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
 if (!$oEvent->installed_plugin('down_for_maintenance')) {
-	oos_redirect(oos_href_link($aContents['main']));
+	oos_redirect(oos_href_link($aContents['home']));
 }
 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/info_down_for_maintenance.php';

@@ -27,7 +27,7 @@ if ( $session->hasStarted() === FALSE ) $session->start();
   
 // if the customer is not logged on, redirect them to the login page
 if (!isset($_SESSION['customer_id'])) {
-	oos_redirect(oos_href_link($aContents['main']));
+	oos_redirect(oos_href_link($aContents['home']));
 }  
 
 

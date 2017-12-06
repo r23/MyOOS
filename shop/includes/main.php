@@ -253,7 +253,7 @@ if (isset($_GET['content'])) {
 	$sContent = oos_var_prep_for_os($_POST['content']);
 }
 if ( empty( $sContent ) || !is_string( $sContent ) ) {
-    $sContent = $aContents['main'];
+    $sContent = $aContents['home'];
 }  
 
 // initialize the message stack for output messages

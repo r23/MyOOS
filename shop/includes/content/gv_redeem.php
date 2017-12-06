@@ -61,7 +61,7 @@ if (!isset($_SESSION['customer_id'])) {
       }
     }
   } else {
-    oos_redirect(oos_href_link($aContents['main']));
+    oos_redirect(oos_href_link($aContents['home']));
   }
   if ( (!$bError) && (isset($_SESSION['customer_id'])) ) {
 // Update redeem status

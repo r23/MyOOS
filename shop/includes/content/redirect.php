@@ -26,7 +26,7 @@
     case 'url':    if (isset($_GET['goto'])) {
                      oos_redirect('http://' . $_GET['goto']);
                    } else {
-                     oos_redirect(oos_href_link($aContents['main']));
+                     oos_redirect(oos_href_link($aContents['home']));
                    }
                    break;
 
@@ -52,7 +52,7 @@
                               $manufacturer_result = $dbconn->Execute($sql);
                               if (!$manufacturer_result->RecordCount()) {
                                 // no url exists, return to the site
-                                oos_redirect(oos_href_link($aContents['main']));
+                                oos_redirect(oos_href_link($aContents['home']));
                               } else {
                                 $manufacturer = $manufacturer_result->fields;
                                 $manufacturers_infotable = $oostable['manufacturers_info'];
@@ -67,11 +67,11 @@
 
                             oos_redirect($manufacturer['manufacturers_url']);
                           } else {
-                            oos_redirect(oos_href_link($aContents['main']));
+                            oos_redirect(oos_href_link($aContents['home']));
                           }
                           break;
 
-    default:       oos_redirect(oos_href_link($aContents['main']));
+    default:       oos_redirect(oos_href_link($aContents['home']));
                    break;
   }
 

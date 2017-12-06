@@ -22,7 +22,7 @@
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
 if (!$oEvent->installed_plugin('reviews')) {
-    oos_redirect(oos_href_link($aContents['main']));
+    oos_redirect(oos_href_link($aContents['home']));
 }
 
 // start the session
@@ -42,7 +42,7 @@ if (isset($_GET['products_id'])) {
 } elseif (isset($_POST['products_id'])) {
 	if (!isset($nProductsID)) $nProductsID = oos_get_product_id($_POST['products_id']);
 } else {
-	oos_redirect(oos_href_link($aContents['main']));
+	oos_redirect(oos_href_link($aContents['home']));
 }
 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/reviews_product_write.php';

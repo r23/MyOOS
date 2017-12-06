@@ -56,7 +56,7 @@ if ( $session->hasStarted() === FALSE ) $session->start();
         }
       }
     }
-    oos_redirect(oos_href_link($aContents['main']));
+    oos_redirect(oos_href_link($aContents['home']));
   }
 
   // links breadcrumb

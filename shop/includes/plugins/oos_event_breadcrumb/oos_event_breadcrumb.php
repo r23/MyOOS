@@ -62,7 +62,7 @@
       include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_breadcrumb.php';
       $oBreadcrumb = new breadcrumb();
 
-      $oBreadcrumb->add($aLang['header_title_top'], oos_href_link($aContents['main']));
+      $oBreadcrumb->add($aLang['header_title_top'], oos_href_link($aContents['home']));
       $nPage = isset($_GET['page']) ? $_GET['page']+0 : 1;
 	  
       // add category names or the manufacturer name to the breadcrumb trail

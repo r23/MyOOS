@@ -35,14 +35,14 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.ph
   $wishlist_split = new splitPageResults($nPage, MAX_DISPLAY_WISHLIST_PRODUCTS, $wishlist_result_raw, $wishlist_numrows);
   $wishlist_result = $dbconn->Execute($wishlist_result_raw);
   if (!$wishlist_result->RecordCount()) {
-    oos_redirect(oos_href_link($aContents['main']));
+    oos_redirect(oos_href_link($aContents['home']));
   }
   $sql = "SELECT customers_firstname, customers_lastname
           FROM " . $oostable['customers'] . "
           WHERE customers_wishlist_link_id = '" . oos_db_input($wlid) . "'";
   $customer_result = $dbconn->Execute($sql);
   if (!$customer_result->RecordCount()) {
-    oos_redirect(oos_href_link($aContents['main']));
+    oos_redirect(oos_href_link($aContents['home']));
   }
   $customer_info = $customer_result->fields;
   $customer = $customer_info['customers_firstname'] . ' ' . $customer_info['customers_lastname'] . ': ';

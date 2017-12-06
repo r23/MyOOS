@@ -81,7 +81,7 @@
             (preg_match("/<[^>]*cookie*\"?[^>]*>/i", $secvalue)) ||
             (preg_match("/\"/i", $secvalue))
             ) {
-              oos_redirect(oos_href_link($aContents['main']));
+              oos_redirect(oos_href_link($aContents['home']));
           }
         }
       }
@@ -104,7 +104,7 @@
             (preg_match("/<[^>]*cookie*\"?[^>]*>/i", $secvalue)) ||
             (preg_match("/<[^>]*meta*\"?[^>]*>/i", $secvalue))
             ) {
-               oos_redirect(oos_href_link($aContents['main']));
+               oos_redirect(oos_href_link($aContents['home']));
           }
         }
       }
@@ -131,7 +131,7 @@
             (preg_match("/<[^>]*cookie*\"?[^>]*>/i", $secvalue)) ||
             (preg_match("/<[^>]*img*\"?[^>]*>/i", $secvalue))
             ) {
-               oos_redirect(oos_href_link($aContents['main']));
+               oos_redirect(oos_href_link($aContents['home']));
           }
         }
       }

@@ -49,7 +49,7 @@ function oos_redirect($sUrl) {
 
 	if ( (strstr($sUrl, "\n") != false) || (strstr($sUrl, "\r") != false) ) { 
 		$aContents = oos_get_content();
-		oos_redirect(oos_href_link($aContents['main'], '', FALSE, TRUE));
+		oos_redirect(oos_href_link($aContents['home'], '', FALSE, TRUE));
 	}
 
     // clean URL

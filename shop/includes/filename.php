@@ -53,7 +53,7 @@ $aContents['403'] = $prefix_filename . '403';
 $aContents['404'] = $prefix_filename . '404';
 
 //main
-$aContents['main'] = $prefix_filename . 'main';
+$aContents['home'] = $prefix_filename . 'home';
 $aContents['shop'] = $prefix_filename . 'shop';
 $aContents['redirect'] = $prefix_filename . 'redirect';
 $aContents['shopping_cart'] = $prefix_filename . 'shopping_cart';

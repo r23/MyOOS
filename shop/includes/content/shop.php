@@ -541,7 +541,7 @@ if ($category_depth == 'nested') {
     $smarty->setCaching(false);
 } else {
 	// $category_depth = 'top';
-	oos_redirect(oos_href_link($aContents['main']));
+	oos_redirect(oos_href_link($aContents['home']));
 }
 
 // display the template

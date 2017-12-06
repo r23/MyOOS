@@ -30,7 +30,7 @@ if (count($_SESSION['navigation']->snapshot) > 0) {
 	$origin_href = oos_href_link($_SESSION['navigation']->snapshot['content'], $_SESSION['navigation']->snapshot['get']);
 	$_SESSION['navigation']->clear_snapshot();
 } else {
-	$origin_href = oos_href_link($aContents['main']);
+	$origin_href = oos_href_link($aContents['home']);
 }
 
 $aTemplate['page'] = $sTheme . '/page/create_account_success.html';

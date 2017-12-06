@@ -206,7 +206,7 @@
 						<!-- /BUTTONS -->
 
 <!-- Logo 
-						<a class="logo float-left" href="{html_href_link content=$filename.main}">
+						<a class="logo float-left" href="{html_href_link content=$filename.home}">
 							<img id="logo-header" src="{$theme_image}/logo.png" alt="{$smarty.const.STORE_NAME}" title="{$smarty.const.STORE_NAME}">
 						</a>
 -->
@@ -216,7 +216,7 @@
 
 								<ul id="topMain" class="nav nav-pills nav-main ml-auto">
 									<li {if $home_activei}class="active"{/if}>
-										<a href="{html_href_link content=$filename.main}">{$lang.header_title_top}</a>
+										<a href="{html_href_link content=$filename.home}">{$lang.header_title_top}</a>
 									</li>
 									<li {if $login_active}class="active"{/if}>
 									{if (isset($smarty.session.customer_id)) }
