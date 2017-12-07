@@ -22,13 +22,13 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/main.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/home.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_default.php';
 
 // default
 $sCanonical = OOS_HTTPS_SERVER . OOS_SHOP;
 
-$aTemplate['page'] = $sTheme . '/page/main.html';
+$aTemplate['page'] = $sTheme . '/page/home.html';
 if ($oEvent->installed_plugin('spezials')) $aTemplate['new_spezials'] = $sTheme . '/page/products/new_spezials.html';
 if ($oEvent->installed_plugin('featured')) $aTemplate['featured'] = $sTheme . '/page/products/featured.html';
 if ($oEvent->installed_plugin('manufacturers')) $aTemplate['mod_manufacturers'] = $sTheme . '/page/products/manufacturers.html';

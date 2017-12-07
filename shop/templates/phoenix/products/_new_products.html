@@ -6,8 +6,12 @@
 		<div class="heading margin-bottom-40">
 			<h2>{$block_heading_new_products}</h2>
 		</div>
+		
+		<ul class="shop-item-list row list-inline m-0">
+
 	{foreach item=new_product from=$new_products_array}
-             <div class="col-sm-3 col-12">
+			<!-- ITEM -->
+			<li class="col-sm-3 col-12">
                 <div class="imageBox">
 					<div class="productImage clearfix">
 						<a href="{product_link products_id=$new_product.products_id}">
@@ -15,7 +19,7 @@
 						</a>
 						<div class="productMasking">
                               <ul class="list-inline btn-group" role="group">
-                                <li><a href="{html_href_link content=$page_file action=add_wishlist products_id=$new_product.products_id}"class="btn btn-default btn-wishlist" role="button"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li>
+                                <li><a href="{html_href_link content=$page_file action=add_wishlist products_id=$new_product.products_id}" class="btn btn-default btn-wishlist" role="button"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li>
                                 <li><a href="{html_href_link content=$page_file oos_get=$get_params action=buy_now cart_quantity=$new_product.order_min  products_id=$new_product.products_id}" class="btn btn-default" role="button"><i class="fa fa-shopping-basket" aria-hidden="true"></i></a></li>
                                 <li><a href="{product_link products_id=$new_product.products_id}" class="btn btn-default"><i class="fa fa-eye" aria-hidden="true" role="button"></i></a></li>
                               </ul>
@@ -36,8 +40,9 @@
 					</div>
   
                 </div>
-            </div>
+            </li>
 	{/foreach}
+		</ul>
 	</div>
 </section>
 <!-- NEW PRODUCTS -->	

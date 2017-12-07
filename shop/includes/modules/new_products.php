@@ -97,7 +97,7 @@ while ($new_products = $new_products_result->fields) {
 	} else {
 		$order_min = number_format($new_products['products_quantity_order_min']);
 	}
-	
+	$new_products['products_image'] = 'http://localhost/entw/gestaltung_shop/bigbag-2-0/Static HTML/img/home/featured-product/product-img9.jpg';
 	
 	
 	$aNewProducts[] = array('products_id' => $new_products['products_id'],
