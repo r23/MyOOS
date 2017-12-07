@@ -4,11 +4,11 @@
 #
 # Piwik - free/libre analytics platform
 #
-# @link http://piwik.org
-# @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
+# @link https://piwik.org
+# @license https://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
 # @version $Id$
 #
-# For more info see: http://piwik.org/log-analytics/ and http://piwik.org/docs/log-analytics-tool-how-to/
+# For more info see: https://piwik.org/log-analytics/ and https://piwik.org/docs/log-analytics-tool-how-to/
 #
 # Requires Python 2.6 or 2.7
 #
@@ -402,23 +402,23 @@ class AmazonCloudFrontFormat(W3cExtendedFormat):
 _HOST_PREFIX = '(?P<host>[\w\-\.]*)(?::\d+)?\s+'
 
 _COMMON_LOG_FORMAT = (
-    '(?P<ip>\S+)\s+\S+\s+(?P<userid>\S+)\s+\[(?P<date>.*?)\s+(?P<timezone>.*?)\]\s+'
-    '"\S+\s+(?P<path>.*?)\s+\S+"\s+(?P<status>\S+)\s+(?P<length>\S+)'
+    '(?P<ip>[\w*.:-]+)\s+\S+\s+(?P<userid>\S+)\s+\[(?P<date>.*?)\s+(?P<timezone>.*?)\]\s+'
+    '"\S+\s+(?P<path>.*?)\s+\S+"\s+(?P<status>\d+)\s+(?P<length>\S+)'
 )
 _NCSA_EXTENDED_LOG_FORMAT = (_COMMON_LOG_FORMAT +
     '\s+"(?P<referrer>.*?)"\s+"(?P<user_agent>.*?)"'
 )
 _S3_LOG_FORMAT = (
-    '\S+\s+(?P<host>\S+)\s+\[(?P<date>.*?)\s+(?P<timezone>.*?)\]\s+(?P<ip>\S+)\s+'
-    '\S+\s+\S+\s+\S+\s+\S+\s+"\S+\s+(?P<path>.*?)\s+\S+"\s+(?P<status>\S+)\s+\S+\s+(?P<length>\S+)\s+'
+    '\S+\s+(?P<host>\S+)\s+\[(?P<date>.*?)\s+(?P<timezone>.*?)\]\s+(?P<ip>[\w*.:-]+)\s+'
+    '(?P<userid>\S+)\s+\S+\s+\S+\s+\S+\s+"\S+\s+(?P<path>.*?)\s+\S+"\s+(?P<status>\d+)\s+\S+\s+(?P<length>\S+)\s+'
     '\S+\s+\S+\s+\S+\s+"(?P<referrer>.*?)"\s+"(?P<user_agent>.*?)"'
 )
 _ICECAST2_LOG_FORMAT = ( _NCSA_EXTENDED_LOG_FORMAT +
-    '\s+(?P<session_time>\S+)'
+    '\s+(?P<session_time>[0-9-]+)'
 )
 _ELB_LOG_FORMAT = (
-    '(?P<date>[0-9-]+T[0-9:]+)\.\S+\s+\S+\s+(?P<ip>\S+):\d+\s+\S+:\d+\s+\S+\s+(?P<generation_time_secs>\S+)\s+\S+\s+'
-    '(?P<status>\S+)\s+\S+\s+\S+\s+(?P<length>\S+)\s+'
+    '(?P<date>[0-9-]+T[0-9:]+)\.\S+\s+\S+\s+(?P<ip>[\w*.:-]+):\d+\s+\S+:\d+\s+\S+\s+(?P<generation_time_secs>\S+)\s+\S+\s+'
+    '(?P<status>\d+)\s+\S+\s+\S+\s+(?P<length>\S+)\s+'
     '"\S+\s+\w+:\/\/(?P<host>[\w\-\.]*):\d+(?P<path>\/\S*)\s+[^"]+"\s+"(?P<user_agent>[^"]+)"\s+\S+\s+\S+'
 )
 
@@ -469,8 +469,8 @@ class Configuration(object):
                          "log_file is the path to a server access log file (uncompressed, .gz, .bz2, or specify - to read from stdin). "
 		         " You may also import many log files at once (for example set log_file to *.log or *.log.gz)."
                          " By default, the script will try to produce clean reports and will exclude bots, static files, discard http error and redirects, etc. This is customizable, see below.",
-            epilog="About Piwik Server Log Analytics: http://piwik.org/log-analytics/ "
-                   "              Found a bug? Please create a ticket in http://dev.piwik.org/ "
+            epilog="About Piwik Server Log Analytics: https://piwik.org/log-analytics/ "
+                   "              Found a bug? Please create a ticket in https://dev.piwik.org/ "
                    "              Please send your suggestions or successful user story to hello@piwik.org "
         )
 
@@ -679,7 +679,7 @@ class Configuration(object):
         option_parser.add_option(
             '--replay-tracking', dest='replay_tracking',
             action='store_true', default=False,
-            help="Replay piwik.php requests found in custom logs (only piwik.php requests expected). \nSee http://piwik.org/faq/how-to/faq_17033/"
+            help="Replay piwik.php requests found in custom logs (only piwik.php requests expected). \nSee https://piwik.org/faq/how-to/faq_17033/"
         )
         option_parser.add_option(
             '--replay-tracking-expected-tracker-file', dest='replay_tracking_expected_tracker_file', default='piwik.php',
@@ -799,7 +799,44 @@ class Configuration(object):
             '--request-timeout', dest='request_timeout', default=DEFAULT_SOCKET_TIMEOUT, type='int',
             help="The maximum number of seconds to wait before terminating an HTTP request to Piwik."
         )
+        option_parser.add_option(
+            '--include-host', action='callback', type='string', callback=functools.partial(self._add_to_array, 'include_host'),
+            help="Only import logs from the specified host(s)."
+        )
+        option_parser.add_option(
+            '--exclude-host', action='callback', type='string', callback=functools.partial(self._add_to_array, 'exclude_host'),
+            help="Only import logs that are not from the specified host(s)."
+        )
+        option_parser.add_option(
+            '--exclude-older-than', action='callback', type='string', default=None, callback=functools.partial(self._set_date, 'exclude_older_than'),
+            help="Ignore logs older than the specified date. Exclusive. Date format must be YYYY-MM-DD hh:mm:ss +/-0000. The timezone offset is required."
+        )
+        option_parser.add_option(
+            '--exclude-newer-than', action='callback', type='string', default=None, callback=functools.partial(self._set_date, 'exclude_newer_than'),
+            help="Ignore logs newer than the specified date. Exclusive. Date format must be YYYY-MM-DD hh:mm:ss +/-0000. The timezone offset is required."
+        )
         return option_parser
+
+    def _set_date(self, option_attr_name, option, opt_str, value, parser):
+        try:
+            (date_str, timezone) = value.rsplit(' ', 1)
+        except:
+            fatal_error("Invalid date value '%s'." % value)
+
+        if not re.match('[-+][0-9]{4}', timezone):
+            fatal_error("Invalid date value '%s': expected valid timzeone like +0100 or -1200, got '%s'" % (value, timezone))
+
+        timezone = float(timezone)
+
+        date = datetime.datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')
+        date -= datetime.timedelta(hours=timezone/100)
+
+        setattr(parser.values, option_attr_name, date)
+
+    def _add_to_array(self, option_attr_name, option, opt_str, value, parser):
+        if not hasattr(parser.values, option_attr_name) or not getattr(parser.values, option_attr_name):
+            setattr(parser.values, option_attr_name, [])
+        getattr(parser.values, option_attr_name).append(value)
 
     def _set_option_map(self, option_attr_name, option, opt_str, value, parser):
         """
@@ -1068,6 +1105,8 @@ class Statistics(object):
 
         # Do not match the regexp.
         self.count_lines_invalid = self.Counter()
+        # Were filtered out.
+        self.count_lines_filtered = self.Counter()
         # No site ID found by the resolver.
         self.count_lines_no_site = self.Counter()
         # Hostname filtered by config.options.hostnames
@@ -1143,6 +1182,7 @@ The following lines were not tracked by Piwik, either due to a malformed tracker
         %(count_lines_skipped_http_errors)d HTTP errors
         %(count_lines_skipped_http_redirects)d HTTP redirects
         %(count_lines_invalid)d invalid log lines
+        %(count_lines_filtered)d filtered log lines
         %(count_lines_no_site)d requests did not match any known site
         %(count_lines_hostname_skipped)d requests did not match any --hostname
         %(count_lines_skipped_user_agent)d requests done by bots, search engines...
@@ -1177,6 +1217,7 @@ Processing your log data
     'count_lines_downloads': self.count_lines_downloads.value,
     'total_lines_ignored': sum([
             self.count_lines_invalid.value,
+            self.count_lines_filtered.value,
             self.count_lines_skipped_user_agent.value,
             self.count_lines_skipped_http_errors.value,
             self.count_lines_skipped_http_redirects.value,
@@ -1186,6 +1227,7 @@ Processing your log data
             self.count_lines_hostname_skipped.value,
         ]),
     'count_lines_invalid': self.count_lines_invalid.value,
+    'count_lines_filtered': self.count_lines_filtered.value,
     'count_lines_skipped_user_agent': self.count_lines_skipped_user_agent.value,
     'count_lines_skipped_http_errors': self.count_lines_skipped_http_errors.value,
     'count_lines_skipped_http_redirects': self.count_lines_skipped_http_redirects.value,
@@ -2098,6 +2140,31 @@ class Parser(object):
         logging.debug('Format %s is the best match', format.name)
         return format
 
+    def is_filtered(self, hit):
+        host = None
+        if hasattr(hit, 'host'):
+            host = hit.host
+        else:
+            try:
+                host = urlparse.urlparse(hit.path).hostname
+            except:
+                pass
+
+        if host:
+            if config.options.exclude_host and len(config.options.exclude_host) > 0 and host in config.options.exclude_host:
+                return (True, 'host matched --exclude-host')
+
+            if config.options.include_host and len(config.options.include_host) > 0 and host not in config.options.include_host:
+                return (True, 'host did not match --include-host')
+
+        if config.options.exclude_older_than and hit.date < config.options.exclude_older_than:
+            return (True, 'date is older than --exclude-older-than')
+
+        if config.options.exclude_newer_than and hit.date > config.options.exclude_newer_than:
+            return (True, 'date is newer than --exclude-newer-than')
+
+        return (False, None)
+
     def parse(self, filename):
         """
         Parse the specified filename and insert hits in the queue.
@@ -2106,6 +2173,11 @@ class Parser(object):
             stats.count_lines_invalid.increment()
             if config.options.debug >= 2:
                 logging.debug('Invalid line detected (%s): %s' % (reason, line))
+
+        def filtered_line(line, reason):
+            stats.count_lines_filtered.increment()
+            if config.options.debug >= 2:
+                logging.debug('Filtered line out (%s): %s' % (reason, line))
 
         if filename == '-':
             filename = '(stdin)'
@@ -2259,13 +2331,14 @@ class Parser(object):
 
             try:
                 hit.generation_time_milli = float(format.get('generation_time_milli'))
-            except BaseFormatException:
+            except (ValueError, BaseFormatException):
                 try:
                     hit.generation_time_milli = float(format.get('generation_time_micro')) / 1000
-                except BaseFormatException:
+                except (ValueError, BaseFormatException):
                     try:
                         hit.generation_time_milli = float(format.get('generation_time_secs')) * 1000
-                    except BaseFormatException:
+                    except (ValueError, BaseFormatException):
+                        invalid_line(line, 'invalid generation time')
                         hit.generation_time_milli = 0
 
             if config.options.log_hostname:
@@ -2345,6 +2418,11 @@ class Parser(object):
                 except UnicodeDecodeError:
                     invalid_line(line, 'invalid encoding')
                     continue
+
+            (is_filtered, reason) = self.is_filtered(hit)
+            if is_filtered:
+                filtered_line(line, reason)
+                continue
 
             hits.append(hit)
 

@@ -437,6 +437,11 @@
     name: 'Flipboard'
     url: 'http://flipboard.com/'
 
+- regex: 'Findxbot'
+  name: 'Findxbot'
+  category: 'Crawler'
+  url: 'http://www.findxbot.com'
+
 - regex: 'Genieo'
   name: 'Genieo Web filter'
   category: ''
@@ -500,6 +505,38 @@
   producer:
     name: 'Google Inc.'
     url: 'http://www.google.com'
+    
+- regex: 'SeznamEmailProxy'
+  name: 'Seznam Email Proxy'
+  category: 'Crawler'
+  url: ''
+  producer:
+    name: 'Seznam.cz, a.s.'
+    url: 'http://www.seznam.cz/'
+
+- regex: 'Seznam-Zbozi-robot'
+  name: 'Seznam Zbozi.cz'
+  category: 'Crawler'
+  url: ''
+  producer:
+    name: 'Seznam.cz, a.s.'
+    url: 'https://www.zbozi.cz/'
+
+- regex: 'Heurekabot-Feed'
+  name: 'Heureka Feed'
+  category: 'Crawler'
+  url: 'https://sluzby.heureka.cz/napoveda/heurekabot/'
+  producer:
+    name: 'Heureka.cz, a.s.'
+    url: 'https://www.heureka.cz/'
+
+- regex: 'ShopAlike'
+  name: 'ShopAlike'
+  category: 'Crawler'
+  url: ''
+  producer:
+    name: 'Visual Meta'
+    url: 'https://www.shopalike.cz/'
 
 - regex: 'Googlebot(-Mobile|-Image|-Video|-News)?|Feedfetcher-Google|Google-Test|Google-Site-Verification|Google Web Preview|AdsBot-Google(-Mobile)?|Google-Adwords-Instant|Mediapartners-Google|Google.*/\+/web/snippet|GoogleProducer|Google[ -]Publisher[ -]Plugin|Google-Shopping-Quality'
   name: 'Googlebot'
@@ -933,6 +970,14 @@
     name: 'SEO Engine'
     url: 'http://www.seoengine.com'
 
+- regex: 'SEOkicks-Robot'
+  name: 'SEOkicks-Robot'
+  category: 'Crawler'
+  url: 'http://www.seokicks.de/robot.html'
+  producer:
+    name: 'SEOkicks'
+    url: 'https://www.seokicks.de/'
+
 - regex: 'seoscanners\.net'
   name: 'Seoscanners.net'
   category: 'Crawler'
@@ -1018,6 +1063,14 @@
     name: 'Tencent Holdings'
     url: 'http://www.soso.com'
 
+- regex: 'sqlmap/'
+  name: 'sqlmap'
+  category: 'Security Checker'
+  url: 'http://sqlmap.org/'
+  producer:
+    name: 'sqlmap'
+    url: 'http://sqlmap.org/'
+
 - regex: 'SSL Labs'
   name: 'SSL Labs'
   category: 'Validator'
@@ -1061,6 +1114,14 @@
 - regex: 'TelegramBot'
   name: 'TelgramBot'
   url: 'https://telegram.org/blog/bot-revolution'
+
+- regex: 'TLSProbe'
+  name: 'TLSProbe'
+  url: 'https://scan.trustnet.venafi.com/'
+  category: 'Security search bot'
+  producer:
+    name: 'Venafi TrustNet'
+    url: 'https://www.venafi.com'
 
 - regex: 'TinEye-bot'
   name: 'TinEye Crawler'
@@ -1214,6 +1275,13 @@
     name: 'W3C'
     url: 'http://www.w3.org'
 
+- regex: 'Wappalyzer'
+  name: 'Wappalyzer'
+  url: 'https://github.com/AliasIO/Wappalyzer'
+  producer:
+    name: 'AliasIO'
+    url: 'https://github.com/AliasIO'
+
 - regex: 'WeSEE(:Search)?'
   name: 'WeSEE:Search'
   category: 'Search bot'
@@ -1237,6 +1305,14 @@
   producer:
     name: 'WebSitePulse'
     url: 'http://www.websitepulse.com/'
+
+- regex: 'WordPress'
+  name: 'WordPress'
+  category: 'Service Agent'
+  url: 'https://wordpress.org/'
+  producer:
+    name: 'Wordpress.org'
+    url: 'https://wordpress.org/'
 
 - regex: 'Wotbox'
   name: 'Wotbox'
@@ -1492,5 +1568,5 @@
     name: 'The Apache Software Foundation'
     url: 'http://www.apache.org/foundation/'
 
-- regex: '[a-z0-9\-_]*((?<!cu)bot|crawler|crawl|checker|archiver|transcoder|spider)([^a-z]|$)'
+- regex: '[a-z0-9\-_]*((?<!cu)bot(?! TAB)|crawler|crawl|checker|archiver|transcoder|spider)([^a-z]|$)'
   name: 'Generic Bot'
