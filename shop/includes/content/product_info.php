@@ -115,14 +115,14 @@ if (!$product_info_result->RecordCount()) {
 		$_SESSION['products_history']->add_current_products($nProductsID);
 	}
 
-    $info_product_price = '';
-    $info_product_special_price = '';
-    $info_product_discount_price = '';
-    $info_base_product_price = '';
-    $info_base_product_special_price = '';
+    $info_product_price = NULL;
+    $info_product_special_price = NULL;
+    $info_product_discount_price = NULL;
+    $info_base_product_price = NULL;
+    $info_base_product_special_price = NULL;
     $info_product_price_list = 0;
-    $info_special_price = '';
-    $info_product_special_price = '';
+    $info_special_price = NULL;
+    $info_product_special_price = NULL;
 
       $info_product_price = $oCurrencies->display_price($product_info['products_price'], oos_get_tax_rate($product_info['products_tax_class_id']));
 

@@ -35,12 +35,12 @@ if ($random_product = oos_random_select($query, MAX_RANDOM_SELECT_NEW)) {
 	$whats_new_block = TRUE;
 
     $random_product['products_name'] = oos_get_products_name($random_product['products_id']);
-    $whats_new_product_price = '';
-    $whats_new_product_special_price = '';
-    $whats_new_product_discount_price = '';
-    $whats_new_base_product_price = '';
-    $whats_new_base_product_special_price = '';
-    $whats_new_special_price = '';
+    $whats_new_product_price = NULL;
+    $whats_new_product_special_price = NULL;
+    $whats_new_product_discount_price = NULL;
+    $whats_new_base_product_price = NULL;
+    $whats_new_base_product_special_price = NULL;
+    $whats_new_special_price = NULL;
 
     if ($aUser['show_price'] == 1 ) {
       $whats_new_special_price = oos_get_products_special_price($random_product['products_id']);

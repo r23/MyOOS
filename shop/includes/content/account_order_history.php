@@ -102,12 +102,12 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/accoun
     $order_history_array = array();
     while ($order_history = $order_history_result->fields) {
 
-      $new_product_price = '';
-      $new_product_special_price = '';
-      $new_special_price = '';
-      $new_product_discount_price = '';
-      $new_base_product_price = '';
-      $new_base_product_special_price = '';
+      $new_product_price = NULL;
+      $new_product_special_price = NULL;
+      $new_special_price = NULL;
+      $new_product_discount_price = NULL;
+      $new_base_product_price = NULL;
+      $new_base_product_special_price = NULL;
 
       $new_product_price = $oCurrencies->display_price($order_history['products_price'], oos_get_tax_rate($order_history['products_tax_class_id'])); 
       if (isset($order_history['specials_new_products_price'])) {
@@ -118,7 +118,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/accoun
       if ($order_history['products_base_price'] != 1) {
         $new_base_product_price = $oCurrencies->display_price($order_history['products_price'] * $order_history['products_base_price'], oos_get_tax_rate($order_history['products_tax_class_id']));
 
-        if ($new_special_price != '') {
+        if ($new_special_price != NULL) {
           $new_base_product_special_price = $oCurrencies->display_price($new_special_price * $order_history['products_base_price'], oos_get_tax_rate($order_history['products_tax_class_id']));
         }
       }

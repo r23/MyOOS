@@ -64,12 +64,12 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/accoun
               AND pd.products_languages_id = '" .  intval($nLanguageID) . "'";
     $wishlist_product = $dbconn->GetRow($sql);
 
-    $wishlist_product_price = '';
-    $wishlist_product_special_price = '';
-    $wishlist_product_discount_price = '';
-    $wishlist_base_product_price = '';
-    $wishlist_base_product_special_price = '';
-    $wishlist_special_price = '';
+    $wishlist_product_price = NULL;
+    $wishlist_product_special_price = NULL;
+    $wishlist_product_discount_price = NULL;
+    $wishlist_base_product_price = NULL;
+    $wishlist_base_product_special_price = NULL;
+    $wishlist_special_price = NULL;
 
     $wishlist_product_price = $oCurrencies->display_price($wishlist_product['products_price'], oos_get_tax_rate($wishlist_product['products_tax_class_id']));
 
@@ -80,7 +80,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/accoun
     if ($wishlist_product['products_base_price'] != 1) {
       $wishlist_base_product_price = $oCurrencies->display_price($wishlist_product['products_price'] * $wishlist_product['products_base_price'], oos_get_tax_rate($wishlist_product['products_tax_class_id']));
 
-      if ($wishlist_special_price != '') {
+      if ($wishlist_special_price != NULL) {
         $wishlist_base_product_special_price = $oCurrencies->display_price($wishlist_special_price * $wishlist_product['products_base_price'], oos_get_tax_rate($wishlist_product['products_tax_class_id']));
       }
     }

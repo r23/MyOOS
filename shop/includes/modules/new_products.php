@@ -68,37 +68,38 @@ $aNewProducts = array();
 
 while ($new_products = $new_products_result->fields) {
 
-	$new_product_price = '';
-	$new_product_special_price = '';
-	$new_product_discount_price = '';
-	$new_base_product_price = '';
-	$new_base_product_special_price = '';
-	$new_special_price = '';
+	$new_product_price = NULL;
+	$new_product_special_price = NULL;
+	$new_product_discount_price = NULL;
+	$new_base_product_price = NULL;
+	$new_base_product_special_price = NULL;
+	$new_special_price = NULL;
 
-	$new_product_units = UNITS_DELIMITER . $products_units[$new_products['products_units_id']];
+    if ($aUser['show_price'] == 1 ) {	
+		$new_product_units = UNITS_DELIMITER . $products_units[$new_products['products_units_id']];
 
-	$new_product_price = $oCurrencies->display_price($new_products['products_price'], oos_get_tax_rate($new_products['products_tax_class_id']));
-	$new_special_price = $new_products['specials_new_products_price'];
+		$new_product_price = $oCurrencies->display_price($new_products['products_price'], oos_get_tax_rate($new_products['products_tax_class_id']));
+		$new_special_price = $new_products['specials_new_products_price'];
 
-    if (oos_is_not_null($new_special_price)) {
-		$new_product_special_price = $oCurrencies->display_price($new_special_price, oos_get_tax_rate($new_products['products_tax_class_id']));
-    } 
+		if (oos_is_not_null($new_special_price)) {
+			$new_product_special_price = $oCurrencies->display_price($new_special_price, oos_get_tax_rate($new_products['products_tax_class_id']));
+		} 
 
-    if ($new_products['products_base_price'] != 1) {
-		$new_base_product_price = $oCurrencies->display_price($new_products['products_price'] * $new_products['products_base_price'], oos_get_tax_rate($new_products['products_tax_class_id']));
+		if ($new_products['products_base_price'] != 1) {
+			$new_base_product_price = $oCurrencies->display_price($new_products['products_price'] * $new_products['products_base_price'], oos_get_tax_rate($new_products['products_tax_class_id']));
 
-		if ($new_special_price != '') {
-			$new_base_product_special_price = $oCurrencies->display_price($new_special_price * $new_products['products_base_price'], oos_get_tax_rate($new_products['products_tax_class_id']));
+			if ($new_special_price != NULL) {
+				$new_base_product_special_price = $oCurrencies->display_price($new_special_price * $new_products['products_base_price'], oos_get_tax_rate($new_products['products_tax_class_id']));
+			}
 		}
-    }
+	}
 
 	if (DECIMAL_CART_QUANTITY == 'true') {
 		$order_min = number_format($new_products['products_quantity_order_min'], 2);
 	} else {
 		$order_min = number_format($new_products['products_quantity_order_min']);
 	}
-	$new_products['products_image'] = 'http://localhost/entw/gestaltung_shop/bigbag-2-0/Static HTML/img/home/featured-product/product-img9.jpg';
-	
+
 	
 	$aNewProducts[] = array('products_id' => $new_products['products_id'],
                                   'products_image' => $new_products['products_image'],
