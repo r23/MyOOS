@@ -107,9 +107,9 @@ function wpcf7_checkbox_form_tag_handler( $tag ) {
 
 		if ( $hangover ) {
 			if ( $multiple ) {
-				$checked = in_array( esc_sql( $value ), (array) $hangover );
+				$checked = in_array( $value, (array) $hangover, true );
 			} else {
-				$checked = ( $hangover == esc_sql( $value ) );
+				$checked = ( $hangover === $value );
 			}
 		} else {
 			$checked = in_array( $key + 1, (array) $defaults );

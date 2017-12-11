@@ -441,6 +441,13 @@
 				type: 'GET',
 				url: wpcf7.apiSettings.getRoute(
 					'/contact-forms/' + wpcf7.getId( $form ) + '/refill' ),
+				beforeSend: function( xhr ) {
+					var nonce = $form.find( ':input[name="_wpnonce"]' ).val();
+
+					if ( nonce ) {
+						xhr.setRequestHeader( 'X-WP-Nonce', nonce );
+					}
+				},
 				dataType: 'json'
 			} ).done( function( data, status, xhr ) {
 				if ( data.captcha ) {

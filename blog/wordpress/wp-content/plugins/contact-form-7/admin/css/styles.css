@@ -298,6 +298,10 @@ ul.config-error li a.external {
 	color: #666;
 }
 
+.contact-form-editor-box-mail span.mailtag.unused {
+	font-weight: bold;
+}
+
 /*
  * Messages Tab
  */
