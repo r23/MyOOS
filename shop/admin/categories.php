@@ -76,10 +76,10 @@ if (!empty($action)) {
 			break;
 
 		case 'setflag':
-			if ( isset($_GET['flag']) && ($_GET['flag'] == '0') || ($_GET['flag'] == '1') ) {
-				if (isset($_GET['pID'])) {
+			if ( isset($_GET['flag']) && ($_GET['flag'] == '0') || ($_GET['flag'] == '1') || ($_GET['flag'] == '3') ) {
+				if (isset($_GET['pID']) && is_numeric($_GET['pID'])) {
 					oos_set_product_status($_GET['pID'], $_GET['flag']);
-				} elseif (isset($_GET['cID'])) {
+				} elseif (isset($_GET['cID']) && is_numeric($_GET['cID'])) {
 					oos_set_categories_status($_GET['cID'], $_GET['flag']);
 				}
 			}
