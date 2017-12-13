@@ -190,13 +190,13 @@
  * @param bool $check_session
  * @return int
  */
-function oos_count_customer_address_book_entries($id = '', $check_session = true) {
+function oos_count_customer_address_book_entries($id = '', $check_session = TRUE) {
 
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-	if (is_numeric($id) == false) {
+	if (is_numeric($id) == FALSE) {
 		if ($_SESSION['customer_id']) {
 			$id = $_SESSION['customer_id'];
 		} else {
@@ -204,8 +204,8 @@ function oos_count_customer_address_book_entries($id = '', $check_session = true
 		}
 	}
 
-	if ($check_session == true) {
-		if ( ($_SESSION['customer_id'] == false) || ($id != $_SESSION['customer_id']) ) {
+	if ($check_session == TRUE) {
+		if ( ($_SESSION['customer_id'] == FALSE) || ($id != $_SESSION['customer_id']) ) {
 			return 0;
 		}
 	}

@@ -84,7 +84,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 		$smarty = new myOOS_Smarty();						
 
 		// dont allow cache
-		$smarty->caching = false;
+		$smarty->caching = FALSE;
 
 		$smarty->assign(
 			array(

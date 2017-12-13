@@ -47,7 +47,7 @@ function oos_exit() {
  */
 function oos_redirect($sUrl) {
 
-	if ( (strstr($sUrl, "\n") != false) || (strstr($sUrl, "\r") != false) ) { 
+	if ( (strstr($sUrl, "\n") != FALSE) || (strstr($sUrl, "\r") != FALSE) ) { 
 		$aContents = oos_get_content();
 		oos_redirect(oos_href_link($aContents['home'], '', FALSE, TRUE));
 	}
@@ -1360,7 +1360,7 @@ function oos_newsletter_subscribe_mail ($email_address) {
 		$smarty = new myOOS_Smarty();						
 
 		// dont allow cache
-		$smarty->caching = false;
+		$smarty->caching = FALSE;
 
 		$smarty->assign(
 				array(
