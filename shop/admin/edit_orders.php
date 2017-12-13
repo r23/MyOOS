@@ -22,17 +22,28 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  define('OOS_VALID_MOD', 'yes');
-  require 'includes/main.php';
+//Import the PHPMailer class into the global namespace
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\POP3;   
+   
+define('OOS_VALID_MOD', 'yes');
+require 'includes/main.php';
 
 // define our edit_orders functions
-  require 'includes/functions/function_categories.php';
-  require 'includes/functions/function_edit_orders.php';
+require 'includes/functions/function_categories.php';
+require 'includes/functions/function_edit_orders.php';
 
-  require 'includes/classes/class_currencies.php';
-  $currencies = new currencies();
+require_once OOS_ABSOLUTE_PATH . '/includes/lib/phpmailer/src/PHPMailer.php';
+require_once OOS_ABSOLUTE_PATH . '/includes/lib/phpmailer/src/SMTP.php';
+require_once OOS_ABSOLUTE_PATH . '/includes/lib/phpmailer/src/Exception.php';
 
-  include '../includes/classes/class_order.php';
+require 'includes/classes/class_currencies.php';
+$currencies = new currencies();
+
+require_once OOS_ABSOLUTE_PATH . '/includes/classes/class_order.php';
+
+
 
   $language = $_SESSION['language'];
 

@@ -20,11 +20,20 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
+//Import the PHPMailer class into the global namespace
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\POP3;   
+   
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
 require 'includes/functions/function_customer.php';
 require 'includes/functions/function_coupon.php';
+
+require_once OOS_ABSOLUTE_PATH . '/includes/lib/phpmailer/src/PHPMailer.php';
+require_once OOS_ABSOLUTE_PATH . '/includes/lib/phpmailer/src/SMTP.php';
+require_once OOS_ABSOLUTE_PATH . '/includes/lib/phpmailer/src/Exception.php';
 
 require 'includes/classes/class_currencies.php';
 $currencies = new currencies();

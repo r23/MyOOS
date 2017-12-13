@@ -175,8 +175,6 @@ require 'includes/classes/class_split_page_results.php';
 // entry/item info classes
 require 'includes/classes/class_object_info.php';
 
-// email classes
-require_once MYOOS_INCLUDE_PATH . 'includes/lib/phpmailer/class.phpmailer.php';
 
 // calculate category path
 $cPath = $_GET['cPath'];
