@@ -1238,9 +1238,11 @@ function oos_mail($to_name, $to_email_address, $subject, $email_text, $email_htm
     $sLang = (isset($_SESSION['iso_639_1']) ? $_SESSION['iso_639_1'] : 'en');
 
 	// (Re)create it, if it's gone missing
-	if ( !is_object( $oEmail ) || !is_a( $oEmail, 'PHPMailer' ) ) {
-		require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/class.phpmailer.php';
-		require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/class.smtp.php';
+	if ( !is_object( $oEmail ) || !is_a( $oEmail, 'PHPMailer' ) ) {	
+		require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/src/PHPMailer.php';
+		require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/src/SMTP.php';
+		require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/src/Exception.php';
+		
 		// Instantiate a new mail object
 		$oEmail = new PHPMailer( true );
 	}
