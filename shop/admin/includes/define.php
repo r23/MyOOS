@@ -35,7 +35,7 @@ if(!defined('MYOOS_INCLUDE_PATH')) {
   
 define('OOS_BASE_PRICE', 'true');
 define('DECIMAL_CART_QUANTITY', 'false');
-define('NEW_PRODUCT_PREVIEW', 'false');
+
 
 // Define how do we update currency exchange rates
 // Possible values are 'oanda' 'xe' or ''
