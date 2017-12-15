@@ -191,9 +191,10 @@ if (!empty($action)) {
   }
 
   require 'includes/header.php';
-
 ?>
-<div id="spiffycalendar" class="text"></div>
+<!-- DATETIMEPICKER-->
+<link rel="stylesheet" href="js/plugins/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
+
 <!-- body //-->
 <div class="wrapper">
 	<!-- Header //-->
@@ -323,6 +324,11 @@ if (!empty($action)) {
     $form_action = ($_GET['pID']) ? 'update_product' : 'insert_product';
 
 ?>
+
+<!-- DATETIMEPICKER-->
+<script type="text/javascript" src="js/plugins/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+
+
 <link rel="stylesheet" type="text/css" href="includes/javascript/spiffyCal/spiffyCal_v2_1.css">
 <script language="JavaScript" src="includes/javascript/spiffyCal/spiffyCal_v2_1.js"></script>
 <script language="javascript">

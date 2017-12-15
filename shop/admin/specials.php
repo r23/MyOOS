@@ -149,8 +149,10 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
   if ( ($action == 'new') || ($action == 'edit') ) {
 ?>
-<link rel="stylesheet" type="text/css" href="includes/javascript/calendar.css">
-<script language="JavaScript" src="includes/javascript/calendarcode.js"></script>
+<!-- DATETIMEPICKER-->
+<link rel="stylesheet" href="js/plugins/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
+<script type="text/javascript" src="js/plugins/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+
 <?php
   }
 ?>
