@@ -59,7 +59,7 @@ $reviews = $reviews_result->fields;
 				</a>
 			</li>			
 			<li>
-				<a href="<?php echo oos_catalog_link($oosCatalogFilename['default']); ?>">
+				<a href="<?php echo oos_catalog_link($aCatalog['default']); ?>">
 					<i class="fa fa-shopping-cart"></i><?php echo HEADER_TITLE_ONLINE_CATALOG; ?>
 				</a>
 			</li>

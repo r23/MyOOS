@@ -152,7 +152,7 @@ A.sub:hover { color: #dddddd; text-decoration: underline; }
         <td><table border="0" width="600" height="440" cellspacing="0" cellpadding="0">
           <tr bgcolor="#ffffff" height="50">
             <td height="50"></td>
-            <td align="right" class="text" nowrap><?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_ADMINISTRATION . '</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="' . oos_catalog_link($oosCatalogFilename['default']) . '">' . HEADER_TITLE_ONLINE_CATALOG . '</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="https://www.oos-shop.de" target="_blank">' . HEADER_TITLE_SUPPORT_SITE . '</a>'; ?>&nbsp;&nbsp;</td>
+            <td align="right" class="text" nowrap><?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_ADMINISTRATION . '</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="' . oos_catalog_link($aCatalog['default']) . '">' . HEADER_TITLE_ONLINE_CATALOG . '</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="https://www.oos-shop.de" target="_blank">' . HEADER_TITLE_SUPPORT_SITE . '</a>'; ?>&nbsp;&nbsp;</td>
           </tr>
           <tr bgcolor="#8C8E8F">
             <td colspan="2"><table border="0" width="460" height="390" cellspacing="0" cellpadding="2">

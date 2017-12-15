@@ -60,7 +60,7 @@
         $message .= "\n\n" . TEXT_GV_WORTH  . $currencies->format($_POST['amount']) . "\n\n";
         $message .= TEXT_TO_REDEEM;
         $message .= TEXT_WHICH_IS . $id1 . TEXT_IN_CASE . "\n\n";
-        $message .= OOS_HTTP_SERVER  . OOS_SHOP . 'index.php?content=' . $oosCatalogFilename['gv_redeem'] . '&gv_no=' . $id1 . "\n\n";
+        $message .= OOS_HTTP_SERVER  . OOS_SHOP . 'index.php?content=' . $aCatalog['gv_redeem'] . '&gv_no=' . $id1 . "\n\n";
         $message .= TEXT_OR_VISIT . OOS_HTTP_SERVER  . OOS_SHOP . TEXT_ENTER_CODE;
 
         //Let's build a message object using the email class
@@ -117,7 +117,7 @@
       $message .= "\n\n" . TEXT_GV_WORTH  . $currencies->format($_POST['amount']) . "\n\n";
       $message .= TEXT_TO_REDEEM;
       $message .= TEXT_WHICH_IS . $id1 . TEXT_IN_CASE . "\n\n";
-      $message .= OOS_HTTP_SERVER  . OOS_SHOP . 'index.php?content=' . $oosCatalogFilename['gv_redeem'] . '&gv_no=' . $id1 . "\n\n";
+      $message .= OOS_HTTP_SERVER  . OOS_SHOP . 'index.php?content=' . $aCatalog['gv_redeem'] . '&gv_no=' . $id1 . "\n\n";
       $message .= TEXT_OR_VISIT . OOS_HTTP_SERVER  . OOS_SHOP  . TEXT_ENTER_CODE;
 
       //Let's build a message object using the email class

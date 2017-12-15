@@ -103,7 +103,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
                      $email_text .= sprintf(EMAIL_GV_INCENTIVE_HEADER, $currencies->format(NEW_SIGNUP_GIFT_VOUCHER_AMOUNT)) . "\n\n" .
                                     sprintf(EMAIL_GV_REDEEM, $coupon_code) . "\n\n" .
-                                    EMAIL_GV_LINK . oos_catalog_link($oosCatalogFilename['gv_redeem'], 'gv_no=' . $coupon_code) . 
+                                    EMAIL_GV_LINK . oos_catalog_link($aCatalog['gv_redeem'], 'gv_no=' . $coupon_code) . 
                                     "\n\n";
                    }
                    if (NEW_SIGNUP_DISCOUNT_COUPON != '') {
@@ -867,7 +867,7 @@ function check_form() {
         $heading[] = array('text' => '<b>' . $cInfo->customers_firstname . ' ' . $cInfo->customers_lastname . '</b>');
 
         $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=edit') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=confirm') . '">' . oos_button('delete',  BUTTON_DELETE) . '</a> <a href="' . oos_href_link_admin($aContents['orders'], 'cID=' . $cInfo->customers_id) . '">' . oos_button('orders', IMAGE_ORDERS) . '</a> <a href="' . oos_href_link_admin($aContents['mail'], 'selected_box=tools&customer=' . $cInfo->customers_email_address) . '">' . oos_button('email', IMAGE_EMAIL) . '</a>');
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_catalog_link($oosCatalogFilename['wishlist'],  'wlid=' . $cInfo->customers_wishlist_link_id) . '">' . oos_button('wishlist', IMAGE_WISHLIST) . '</a> <a href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=editstatus') . '">' . oos_button('status', IMAGE_STATUS) . '</a>');       
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_catalog_link($aCatalog['wishlist'],  'wlid=' . $cInfo->customers_wishlist_link_id) . '">' . oos_button('wishlist', IMAGE_WISHLIST) . '</a> <a href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=editstatus') . '">' . oos_button('status', IMAGE_STATUS) . '</a>');       
 
         $manual_infotable = $oostable['manual_info'];
         $sql = "SELECT man_info_id, man_key, status
@@ -876,7 +876,7 @@ function check_form() {
         $login_result = $dbconn->Execute($sql);
         $login = $login_result->fields;
         if ($login['status'] != '0') {
-          $contents[] = array('align' => 'center', 'text' => oos_draw_login_form('login',$oosCatalogFilename['login_admin'], 'action=login_admin','POST', 'target=_blank') . oos_draw_hidden_field('verif_key', $login['man_key']) . oos_draw_hidden_field('email_address', $cInfo->customers_email_address) . oos_submit_button('login', IMAGE_LOGIN) . '</form>');
+          $contents[] = array('align' => 'center', 'text' => oos_draw_login_form('login',$aCatalog['login_admin'], 'action=login_admin','POST', 'target=_blank') . oos_draw_hidden_field('verif_key', $login['man_key']) . oos_draw_hidden_field('email_address', $cInfo->customers_email_address) . oos_submit_button('login', IMAGE_LOGIN) . '</form>');
         }
         $contents[] = array('text' => '<br />'  . oos_customers_payment($customer_status['customers_status_payment']));
         $contents[] = array('text' => '<br />' . TEXT_DATE_ACCOUNT_CREATED . ' ' . oos_date_short($cInfo->date_account_created));
