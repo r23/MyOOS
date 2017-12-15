@@ -14,6 +14,8 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 
 http_response_code(404);
 
+include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/404.php';
+
 $aTemplate['page'] = $sTheme . '/page/404.html';
 
 $nPageType = OOS_PAGE_TYPE_SERVICE;
