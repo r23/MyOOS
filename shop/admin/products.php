@@ -47,6 +47,7 @@ if (!empty($action)) {
 		
 			if (STOCK_CHECK == 'true') {
 				if ($sProductsQuantity <=0) {
+					$messageStack->add_session(ERROR_OUTOFSTOCK, 'error');
 					$sProductsStatus = 0;
 				}
 			}

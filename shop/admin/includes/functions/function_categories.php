@@ -370,6 +370,8 @@
 
   function oos_set_product_status($products_id, $status) {
 
+    // todo STOCK_CHECK
+  
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();

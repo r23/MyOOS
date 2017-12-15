@@ -19,6 +19,8 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
+define('HEADING_TITLE', 'New Product');   
+   
 define('TEXT_NEW_PRODUCT', 'New Product in &quot;%s&quot;');
 define('TEXT_PRODUCTS', 'Products:');
 define('TEXT_PRODUCTS_PRICE_INFO', 'Price:');
@@ -71,6 +73,8 @@ define('TEXT_PRODUCTS_SORT_ORDER', 'Sort Order:');
 define('ERROR_CANNOT_LINK_TO_SAME_CATEGORY', 'Error: Can not link products in the same category.');
 define('ERROR_CATALOG_IMAGE_DIRECTORY_NOT_WRITEABLE', 'Error: Catalog images directory is not writeable: ' . OOS_ABSOLUTE_PATH . OOS_IMAGES);
 define('ERROR_CATALOG_IMAGE_DIRECTORY_DOES_NOT_EXIST', 'Error: Catalog images directory does not exist: ' . OOS_ABSOLUTE_PATH . OOS_IMAGES);
+define('ERROR_OUTOFSTOCK', 'Not enough items of this product in stock Available.');
+
 
 define('TEXT_DISCOUNTS_TITLE','Quantity Discounts');
 define('TEXT_DISCOUNTS_BREAKS','Breaks');
