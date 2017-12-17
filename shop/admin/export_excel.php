@@ -306,7 +306,7 @@ if ($dir_ok) {
 	</section>
 	<!-- Page footer //-->
 	<footer>
-		<span>&copy; 2017 - <a href="https://www.oos-shop.de" target="_blank">MyOOS [Shopsystem]</a></span>
+		<span>&copy; 2017 - <a href="https://www.oos-shop.de" target="_blank" rel="noopener">MyOOS [Shopsystem]</a></span>
 	</footer>
 </div>
 

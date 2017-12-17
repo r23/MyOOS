@@ -455,7 +455,7 @@ while ($sr->actDate < $sr->endDate) {
 ?>
                     <tr class="dataTableRow" onMouseOver="this.className='dataTableRowOver';this.style.cursor='hand'" onMouseOut="this.className='dataTableRow'">
                     <td class="dataTableContent">&nbsp;</td>
-                    <td class="dataTableContent" align="left"><a href="<?php echo oos_catalog_link($aCatalog['product_info'], 'products_id=' . $info[$i]['pid']) ?>" target="_blank"><?php echo $info[$i]['pname']; ?></a>
+                    <td class="dataTableContent" align="left"><a href="<?php echo oos_catalog_link($aCatalog['product_info'], 'products_id=' . $info[$i]['pid']) ?>" target="_blank" rel="noopener"><?php echo $info[$i]['pname']; ?></a>
 <?php
   if (is_array($info[$i]['attr'])) {
     $attr_info = $info[$i]['attr'];
@@ -569,7 +569,7 @@ if ($srExp < 2) {
 	</section>
 	<!-- Page footer //-->
 	<footer>
-		<span>&copy; 2017 - <a href="https://www.oos-shop.de" target="_blank">MyOOS [Shopsystem]</a></span>
+		<span>&copy; 2017 - <a href="https://www.oos-shop.de" target="_blank" rel="noopener">MyOOS [Shopsystem]</a></span>
 	</footer>
 </div>
 

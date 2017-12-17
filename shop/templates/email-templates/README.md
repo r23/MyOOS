@@ -48,9 +48,9 @@ Included templates as of v1.0.0 release (14 October 2014):
       </td>
     </tr>
     <tr>
-      <td align="center"><a href="https://litmus.com/pub/23497a4" target="_blank">Litmus Previews</a></td>
-      <td align="center"><a href="https://litmus.com/pub/2e0aaa0" target="_blank">Litmus Previews</a></td>
-      <td align="center"><a href="https://litmus.com/pub/de912ba" target="_blank">Litmus Previews</a></td>
+      <td align="center"><a href="https://litmus.com/pub/23497a4" target="_blank" rel="noopener">Litmus Previews</a></td>
+      <td align="center"><a href="https://litmus.com/pub/2e0aaa0" target="_blank" rel="noopener">Litmus Previews</a></td>
+      <td align="center"><a href="https://litmus.com/pub/de912ba" target="_blank" rel="noopener">Litmus Previews</a></td>
     </tr>
   </tbody>
 </table>
