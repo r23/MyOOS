@@ -612,6 +612,35 @@
 })(window, document, window.jQuery);
 
 
+
+(function(window, document, $, undefined){
+
+  $(function(){
+
+
+    // DATETIMEPICKER
+    // ----------------------------------- 
+
+    $('#datetimepicker1').datetimepicker({
+	  format: 'YYYY-MM-DD',
+      icons: {
+          time: 'fa fa-clock-o',
+          date: 'fa fa-calendar',
+          up: 'fa fa-chevron-up',
+          down: 'fa fa-chevron-down',
+          previous: 'fa fa-chevron-left',
+          next: 'fa fa-chevron-right',
+          today: 'fa fa-crosshairs',
+          clear: 'fa fa-trash'
+        }
+    });
+
+  });
+
+})(window, document, window.jQuery);
+
+
+
 // Custom jQuery
 // ----------------------------------- 
 

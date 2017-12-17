@@ -224,14 +224,6 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
   }
   require 'includes/header.php';
 ?>
-<!-- DATETIMEPICKER-->
-<link rel="stylesheet" href="js/plugins/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
-<script type="text/javascript" src="js/plugins/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-
-<script language="javascript">
-  var dateAvailable = new ctlSpiffyCalendarBox("dateAvailable", "new_product", "products_date_available","btnDate1","<?php echo $pInfo->products_date_available; ?>",scBTNMODE_CUSTOMBLUE);
-</script>
-<div id="spiffycalendar" class="text"></div>
 <!-- body //-->
 <div class="wrapper">
 	<!-- Header //-->
@@ -894,12 +886,12 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     }
 ?>
         <td align="left" class="main"><?php echo COUPON_STARTDATE; ?></td>
-        <td align="left"><?php echo oos_draw_date_selector('coupon_startdate', mktime(0,0,0, $coupon_startdate[1], $coupon_startdate[2], $coupon_startdate[0], 0)); ?></td>
+        <td align="left"><?php echo oos_draw_date_selector('coupon_startdate', mktime(0,0,0, $coupon_startdate[1], $coupon_startdate[2], $coupon_startdate[0])); ?></td>
         <td align="left" class="main"><?php echo COUPON_STARTDATE_HELP; ?></td>
       </tr>
       <tr>
         <td align="left" class="main"><?php echo COUPON_FINISHDATE; ?></td>
-        <td align="left"><?php echo oos_draw_date_selector('coupon_finishdate', mktime(0,0,0, $coupon_finishdate[1], $coupon_finishdate[2], $coupon_finishdate[0], 0)); ?></td>
+        <td align="left"><?php echo oos_draw_date_selector('coupon_finishdate', mktime(0,0,0, $coupon_finishdate[1], $coupon_finishdate[2], $coupon_finishdate[0])); ?></td>
         <td align="left" class="main"><?php echo COUPON_FINISHDATE_HELP; ?></td>
       </tr>
       <tr>

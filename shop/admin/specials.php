@@ -109,12 +109,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
           $_POST['specials_price'] = ($_POST['products_price'] - (($_POST['specials_price'] / 100) * $_POST['products_price']));
         } 
 
-        $expires_date = '';
-        if ($_POST['day'] && $_POST['month'] && $_POST['year']) {
-          $expires_date = $_POST['year'];
-          $expires_date .= (strlen($_POST['month']) == 1) ? '0' . $_POST['month'] : $_POST['month'];
-          $expires_date .= (strlen($_POST['day']) == 1) ? '0' . $_POST['day'] : $_POST['day'];
-        }
+		$expires_date = oos_db_prepare_input($_POST['expires_date']);
+
         $dbconn->Execute("INSERT INTO " . $oostable['specials'] . " (products_id, specials_new_products_price, specials_date_added, expires_date, status) VALUES ('" . $_POST['products_id'] . "', '" . $_POST['specials_price'] . "', now(), '" . $expires_date . "', '1')");
         oos_redirect_admin(oos_href_link_admin($aContents['specials'], 'page=' . $nPage));
         break;
@@ -123,13 +119,9 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         // update a product on special
         if (substr($_POST['specials_price'], -1) == '%') {
           $_POST['specials_price'] = ($_POST['products_price'] - (($_POST['specials_price'] / 100) * $_POST['products_price']));
-        } 
-        $expires_date = '';
-        if ($_POST['day'] && $_POST['month'] && $_POST['year']) {
-          $expires_date = $_POST['year'];
-          $expires_date .= (strlen($_POST['month']) == 1) ? '0' . $_POST['month'] : $_POST['month'];
-          $expires_date .= (strlen($_POST['day']) == 1) ? '0' . $_POST['day'] : $_POST['day'];
         }
+		
+		$expires_date = oos_db_prepare_input($_POST['expires_date']);
 
         $dbconn->Execute("UPDATE " . $oostable['specials'] . " SET specials_new_products_price = '" . $_POST['specials_price'] . "', specials_last_modified = now(), expires_date = '" . $expires_date . "' WHERE specials_id = '" . $_POST['specials_id'] . "'");
         oos_redirect_admin(oos_href_link_admin($aContents['specials'], 'page=' . $nPage . '&sID=' . $specials_id));
@@ -147,16 +139,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
   }
   require 'includes/header.php';
 
-  if ( ($action == 'new') || ($action == 'edit') ) {
 ?>
-<!-- DATETIMEPICKER-->
-<link rel="stylesheet" href="js/plugins/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
-<script type="text/javascript" src="js/plugins/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-
-<?php
-  }
-?>
-<div id="popupcalendar" class="text"></div>
 <!-- body //-->
 <div class="wrapper">
 	<!-- Header //-->
@@ -259,7 +242,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       $specials_result->Close();
     }
 ?>
-      <tr><form name="new_special" <?php echo 'action="' . oos_href_link_admin($aContents['specials'], oos_get_all_get_params(array('action', 'info', 'sID')) . 'action=' . $form_action) . '"'; ?> method="post"><?php if ($form_action == 'update') echo oos_draw_hidden_field('specials_id', $_GET['sID']); ?>
+      <tr><form name="new_special" <?php echo 'action="' . oos_href_link_admin($aContents['specials'], oos_get_all_get_params(array('action', 'info', 'sID')) . 'action=' . $form_action) . '"'; ?> method="post">
+		<?php if ($form_action == 'update') echo oos_draw_hidden_field('specials_id', $_GET['sID']); ?>
         <td><br /><table border="0" cellspacing="0" cellpadding="2">
           <tr>
             <td class="main"><?php echo TEXT_SPECIALS_PRODUCT; echo ($sInfo->products_name) ? "" :  '('.TEXT_TAX_INFO.')'; ?>&nbsp;</td>
@@ -284,7 +268,16 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
           </tr>
           <tr>
             <td class="main"><?php echo TEXT_SPECIALS_EXPIRES_DATE; ?>&nbsp;</td>
-            <td class="main"><?php echo oos_draw_input_field('day', substr($sInfo->expires_date, 8, 2), 'size="2" maxlength="2" class="cal-TextBox"') . oos_draw_input_field('month', substr($sInfo->expires_date, 5, 2), 'size="2" maxlength="2" class="cal-TextBox"') . oos_draw_input_field('year', substr($sInfo->expires_date, 0, 4), 'size="4" maxlength="4" class="cal-TextBox"'); ?><a class="so-BtnLink" href="javascript:calClick();return false;" onmouseover="calSwapImg('BTN_date', 'img_Date_OVER',true);" onmouseout="calSwapImg('BTN_date', 'img_Date_UP',true);" onclick="calSwapImg('BTN_date', 'img_Date_DOWN');showCalendar('new_special','dteWhen','BTN_date');return false;"><?php echo oos_image(OOS_IMAGES . 'cal_date_up.gif', 'Calendar', '22', '17', 'align="absmiddle" name="BTN_date"'); ?></a></td>
+            <td class="main">
+			
+				<div class="input-group date" id="datetimepicker1">
+					<input class="form-control" type="text" name="expires_date" value="<?php echo $sInfo->expires_date; ?>">
+					<span class="input-group-addon">
+						<span class="fa fa-calendar"></span>
+					</span>
+				</div>
+
+			</td>
           </tr>
         </table></td>
       </tr>

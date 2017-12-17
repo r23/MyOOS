@@ -327,6 +327,7 @@ define('TEXT_RESULT_PAGE', 'Seite %s von %d');
 define('TEXT_DISPLAY_NUMBER_OF_COUNTRIES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Ländern)');
 define('TEXT_DISPLAY_NUMBER_OF_CUSTOMERS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Kunden)');
 define('TEXT_DISPLAY_NUMBER_OF_CURRENCIES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Währungen)');
+define('TEXT_DISPLAY_NUMBER_OF_FEATURED',   'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Top-Angeboten)');
 define('TEXT_DISPLAY_NUMBER_OF_HTTP_REFERERS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> HTTP Referers)');
 define('TEXT_DISPLAY_NUMBER_OF_LANGUAGES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Sprachen)');
 define('TEXT_DISPLAY_NUMBER_OF_MANUFACTURERS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Herstellern)');
@@ -348,7 +349,6 @@ define('TEXT_DISPLAY_NUMBER_OF_BLOCKES', 'Angezeigt werden <b>%d</b> bis <b>%d</
 
 define('TEXT_DISPLAY_NUMBER_OF_PAGE_TYPES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> )');
 define('TEXT_DISPLAY_NUMBER_OF_INFORMATION', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Information)');
-
 
 define('PREVNEXT_BUTTON_PREV', '&lt;&lt;');
 define('PREVNEXT_BUTTON_NEXT', '&gt;&gt;');

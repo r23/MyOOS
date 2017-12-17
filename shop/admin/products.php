@@ -44,7 +44,7 @@ if (!empty($action)) {
 
 			$sProductsQuantity = oos_db_prepare_input($_POST['products_quantity']);
 			$sProductsStatus = oos_db_prepare_input($_POST['products_status']);
-		
+
 			if (STOCK_CHECK == 'true') {
 				if ($sProductsQuantity <=0) {
 					$messageStack->add_session(ERROR_OUTOFSTOCK, 'error');
@@ -192,9 +192,6 @@ if (!empty($action)) {
 
   require 'includes/header.php';
 ?>
-<!-- DATETIMEPICKER-->
-<link rel="stylesheet" href="js/plugins/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
-
 <!-- body //-->
 <div class="wrapper">
 	<!-- Header //-->
@@ -210,12 +207,12 @@ if (!empty($action)) {
 		</div>
 		<!-- END Sidebar (left) //-->
 	</aside>
-	
+
 	<!-- Main section //-->
 	<section>
 		<!-- Page content //-->
 		<div class="content-wrapper">
-		
+
 				<div class="row">
 					<div class="col-lg-12">
 <!-- body_text //-->
@@ -228,7 +225,7 @@ if (!empty($action)) {
       $product_result = $dbconn->Execute("SELECT pd.products_name, pd.products_description, pd.products_url,
                                                  pd.products_description_meta, pd.products_keywords_meta, p.products_id,
                                                  p.products_quantity, p.products_reorder_level, p.products_model,
-                                                 p.products_ean, p.products_image, 
+                                                 p.products_ean, p.products_image,
                                                  p.products_price, p.products_base_price, p.products_base_quantity,
                                                  p.products_product_quantity, p.products_base_unit,
                                                  p.products_weight, p.products_date_added, p.products_last_modified,
@@ -324,16 +321,6 @@ if (!empty($action)) {
     $form_action = ($_GET['pID']) ? 'update_product' : 'insert_product';
 
 ?>
-
-<!-- DATETIMEPICKER-->
-<script type="text/javascript" src="js/plugins/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-
-
-<link rel="stylesheet" type="text/css" href="includes/javascript/spiffyCal/spiffyCal_v2_1.css">
-<script language="JavaScript" src="includes/javascript/spiffyCal/spiffyCal_v2_1.js"></script>
-<script language="javascript">
-  var dateAvailable = new ctlSpiffyCalendarBox("dateAvailable", "new_product", "products_date_available","btnDate1","<?php echo $pInfo->products_date_available; ?>",scBTNMODE_CUSTOMBLUE);
-</script>
 <script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
 <?php
   if (OOS_BASE_PRICE == 'true') {
@@ -381,7 +368,16 @@ function calcBasePriceFactor() {
           </tr>
           <tr>
             <td class="main"><?php echo TEXT_PRODUCTS_DATE_AVAILABLE; ?><br /><small>(YYYY-MM-DD)</small></td>
-            <td class="main">&nbsp;<script language="javascript">dateAvailable.writeControl(); dateAvailable.dateFormat="yyyy-MM-dd";</script></td>
+            <td class="main">
+
+				<div class="input-group date" id="datetimepicker1">
+					<input class="form-control" type="text" name="products_date_available" value="<?php echo $pInfo->products_date_available; ?>">
+					<span class="input-group-addon">
+						<span class="fa fa-calendar"></span>
+					</span>
+				</div>
+				
+			</td>
           </tr>
           <tr>
             <td colspan="2"></td>
@@ -416,17 +412,17 @@ function calcBasePriceFactor() {
                 <td class="main" valign="top"><?php echo oos_flag_icon($languages[$i]); ?>&nbsp;</td>
                 <td class="main">
 
-<?php 
-       echo oos_draw_textarea_field('products_description_' . $languages[$i]['id'], 'soft', '70', '15', ($_POST['products_description_' .$languages[$i]['id']] ? stripslashes($_POST['products_description_' .$languages[$i]['id']]) : oos_get_products_description($pInfo->products_id, $languages[$i]['id']))); 
+<?php
+       echo oos_draw_textarea_field('products_description_' . $languages[$i]['id'], 'soft', '70', '15', ($_POST['products_description_' .$languages[$i]['id']] ? stripslashes($_POST['products_description_' .$languages[$i]['id']]) : oos_get_products_description($pInfo->products_id, $languages[$i]['id'])));
 ?>
                  </td>
               </tr>
             </table></td>
           </tr>
-		  
+
 		<script>
 			CKEDITOR.replace( 'products_description_<?php echo $languages[$i]['id']; ?>');
-		</script>	  
+		</script>
 <?php
     }
       for ($i=0; $i < count($languages); $i++) {
@@ -436,7 +432,7 @@ function calcBasePriceFactor() {
               <td><table border="0" cellspacing="0" cellpadding="0">
                 <tr>
                   <td class="main" valign="top"><?php echo oos_flag_icon($languages[$i]); ?>&nbsp;</td>
-                  <td class="main"><?php echo oos_draw_textarea_field('products_description_meta_' . $languages[$i]['id'], 'soft', '70', '4', ($_POST['products_description_meta_' .$languages[$i]['id']] ? stripslashes($_POST['products_description_meta_' .$languages[$i]['id']]) : oos_get_products_description_meta($pInfo->products_id, $languages[$i]['id']))); 
+                  <td class="main"><?php echo oos_draw_textarea_field('products_description_meta_' . $languages[$i]['id'], 'soft', '70', '4', ($_POST['products_description_meta_' .$languages[$i]['id']] ? stripslashes($_POST['products_description_meta_' .$languages[$i]['id']]) : oos_get_products_description_meta($pInfo->products_id, $languages[$i]['id'])));
 ?></td>
                 </tr>
               </table></td>
@@ -449,7 +445,7 @@ function calcBasePriceFactor() {
               <td><table border="0" cellspacing="0" cellpadding="0">
                 <tr>
                   <td class="main" valign="top"><?php echo oos_flag_icon($languages[$i]); ?>&nbsp;</td>
-                  <td class="main"><?php echo oos_draw_textarea_field('products_keywords_meta_' . $languages[$i]['id'], 'soft', '70', '4', ($_POST['products_keywords_meta_' .$languages[$i]['id']] ? stripslashes($_POST['products_keywords_meta_' .$languages[$i]['id']]) : oos_get_products_keywords_meta($pInfo->products_id, $languages[$i]['id']))); 
+                  <td class="main"><?php echo oos_draw_textarea_field('products_keywords_meta_' . $languages[$i]['id'], 'soft', '70', '4', ($_POST['products_keywords_meta_' .$languages[$i]['id']] ? stripslashes($_POST['products_keywords_meta_' .$languages[$i]['id']]) : oos_get_products_keywords_meta($pInfo->products_id, $languages[$i]['id'])));
 ?></td>
                 </tr>
               </table></td>
@@ -470,7 +466,7 @@ function calcBasePriceFactor() {
 ?>
           <tr>
             <td class="main"><?php echo TEXT_PRODUCTS_REORDER_LEVEL; ?></td>
-            <td class="main">&nbsp;<?php echo oos_draw_input_field('products_reorder_level', $pInfo->products_reorder_level); ?></td> 
+            <td class="main">&nbsp;<?php echo oos_draw_input_field('products_reorder_level', $pInfo->products_reorder_level); ?></td>
 <?php
   }
 ?>
@@ -521,7 +517,7 @@ function calcBasePriceFactor() {
 <?php
 	$sPriceList = number_format($pInfo->products_price_list, TAX_DECIMAL_PLACES, '.', '');
 	echo '&nbsp;' . oos_draw_input_field('products_price_list', $sPriceList);
-?> 
+?>
             </td>
           </tr>
 <?php
@@ -688,7 +684,7 @@ function calcBasePriceFactor() {
           <tr>
             <td class="pageHeading"><?php echo oos_flag_icon($languages[$i]) . '&nbsp;' . $pInfo->products_name; ?></td>
 <?php
-  $oosPrice = $pInfo->products_price; 
+  $oosPrice = $pInfo->products_price;
   $oosPrice=round($oosPrice,TAX_DECIMAL_PLACES);
 ?>
       <td class="pageHeading" align="right"><?php echo $currencies->format($oosPrice); ?></td>
@@ -703,7 +699,7 @@ function calcBasePriceFactor() {
       </tr>
       <tr>
         <td class="main">
-<?php 
+<?php
       if ( (!$delete_image) && (!$remove_image) ) {
         echo (($products_image_name) ? oos_image(OOS_SHOP_IMAGES . $products_image_name, $pInfo->products_name, '', '80', 'align="right" hspace="5" vspace="5"') : '');
       }
@@ -822,7 +818,7 @@ function calcBasePriceFactor() {
 	</footer>
 </div>
 
-<?php 
+<?php
 	require 'includes/bottom.php';
 	require 'includes/nice_exit.php';
 ?>

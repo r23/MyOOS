@@ -10,6 +10,7 @@ if ($bForm == TRUE) {
 <?php
 } 
 ?>
+
 <!-- JS Global Compulsory -->      
 <script type="text/javascript" src="js/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="js/bootstrap/bootstrap.min.js"></script>
@@ -47,6 +48,10 @@ if ($bUpload == TRUE) {
 <?php
 } 
 ?>
+<!-- MOMENT JS-->
+<script type="text/javascript" src="js/plugins/moment/min/moment-with-locales.min.js"></script>
+<!-- DATETIMEPICKER-->
+<script type="text/javascript" src="js/plugins/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
 <script type="text/javascript" src="js/general.js"></script>
 
 <!-- HTML5 shim and Respond.js IE support of HTML5 elements and media queries -->
