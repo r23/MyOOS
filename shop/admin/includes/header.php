@@ -41,9 +41,9 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
 	<link href="css/plugins/jquery-file-upload/jquery.fileupload.css" rel="stylesheet">
 
 	<!-- DATETIMEPICKER-->
-	<link rel="stylesheet" href="js/plugins/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
+	<link href="js/plugins/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 	
-	<link href="assets/plugins/flag-icon/css/flag-icon.css" rel="stylesheet" />	
+	<link href="css/plugins/flag-icon/css/flag-icon.min.css" rel="stylesheet" />	
 	<link rel="stylesheet" href="includes/stylesheet.css" type="text/css" >	
 </head>
 <body>
