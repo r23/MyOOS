@@ -31,10 +31,6 @@ require 'includes/main.php';
 require 'includes/functions/function_customer.php';
 require 'includes/functions/function_coupon.php';
 
-require_once OOS_ABSOLUTE_PATH . '/includes/lib/phpmailer/src/PHPMailer.php';
-require_once OOS_ABSOLUTE_PATH . '/includes/lib/phpmailer/src/SMTP.php';
-require_once OOS_ABSOLUTE_PATH . '/includes/lib/phpmailer/src/Exception.php';
-
 require 'includes/classes/class_currencies.php';
 $currencies = new currencies();
 

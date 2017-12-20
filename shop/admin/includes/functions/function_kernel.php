@@ -1028,10 +1028,10 @@ function parse_size($size) {
 
     // Instantiate a new mail object
     $mail = new PHPMailer;
-
+/*
     $mail->PluginDir = OOS_ABSOLUTE_PATH . 'includes/lib/phpmailer/';
     $mail->SetLanguage( $sLang, OOS_ABSOLUTE_PATH . 'includes/lib/phpmailer/language/' );
-
+*/
     $mail->CharSet = CHARSET;
     $mail->IsMail();
 

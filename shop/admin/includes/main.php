@@ -48,7 +48,8 @@ require 'includes/define.php';
 
 use Symfony\Component\HttpFoundation\Request;
 
-$autoloader = require_once MYOOS_INCLUDE_PATH . '/core/vendor/autoload.php';
+
+$autoloader = require_once MYOOS_INCLUDE_PATH . '/vendor/autoload.php';
 $request = Request::createFromGlobals();
 
 

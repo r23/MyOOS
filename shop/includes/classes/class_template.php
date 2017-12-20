@@ -16,7 +16,7 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
  * @see libs/Smarty/Smarty.class.php
  * @link http://smarty.net
  */
-require_once MYOOS_INCLUDE_PATH . '/includes/lib/smarty/libs/Smarty.class.php';
+# require_once MYOOS_INCLUDE_PATH . '/includes/lib/smarty/libs/Smarty.class.php';
 
 /**
  * Smarty class
@@ -54,7 +54,7 @@ class myOOS_Smarty extends Smarty {
 
 		// set multiple directories where plugins are stored
 		$this->setPluginsDir(array(
-			MYOOS_INCLUDE_PATH . '/includes/lib/smarty/libs/plugins',
+			MYOOS_INCLUDE_PATH . '/vendor/smarty/smarty/libs/plugins',
 			MYOOS_INCLUDE_PATH . '/includes/lib/smarty-plugins'
 		));
 

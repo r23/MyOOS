@@ -27,10 +27,6 @@ use PHPMailer\PHPMailer\POP3;
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
-require_once OOS_ABSOLUTE_PATH . '/includes/lib/phpmailer/src/PHPMailer.php';
-require_once OOS_ABSOLUTE_PATH . '/includes/lib/phpmailer/src/SMTP.php';
-require_once OOS_ABSOLUTE_PATH . '/includes/lib/phpmailer/src/Exception.php';
-
 
  /**
   * Remove Order

@@ -1239,10 +1239,6 @@ function oos_mail($to_name, $to_email_address, $subject, $email_text, $email_htm
 
 	// (Re)create it, if it's gone missing
 	if ( !is_object( $oEmail ) || !is_a( $oEmail, 'PHPMailer' ) ) {	
-		require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/src/PHPMailer.php';
-		require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/src/SMTP.php';
-		require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/src/Exception.php';
-		
 		// Instantiate a new mail object
 		$oEmail = new PHPMailer( true );
 	}
@@ -1253,8 +1249,8 @@ function oos_mail($to_name, $to_email_address, $subject, $email_text, $email_htm
 	$oEmail->ClearCustomHeaders();
 	$oEmail->ClearReplyTos();
 
-    $oEmail->PluginDir = OOS_ABSOLUTE_PATH . 'includes/lib/phpmailer/';
-    $oEmail->SetLanguage( $sLang, OOS_ABSOLUTE_PATH . 'includes/lib/phpmailer/language/' );
+    // $oEmail->PluginDir = OOS_ABSOLUTE_PATH . 'includes/lib/phpmailer/';
+    // $oEmail->SetLanguage( $sLang, OOS_ABSOLUTE_PATH . 'includes/lib/phpmailer/language/' );
     $oEmail->CharSet = CHARSET;
 
     $oEmail->IsMail();
@@ -1358,7 +1354,6 @@ function oos_newsletter_subscribe_mail ($email_address) {
                           SET mail_sha1 = '" . oos_db_input($sSha1) . "'
                           WHERE recipients_id = '" . intval($nInsert_ID) . "'");			
 		//smarty
-		require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
 		$smarty = new myOOS_Smarty();						
 
 		// dont allow cache

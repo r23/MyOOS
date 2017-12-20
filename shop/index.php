@@ -41,7 +41,7 @@ use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\POP3;
 
 
-$autoloader = require_once __DIR__ . '/core/vendor/autoload.php';
+$autoloader = require_once __DIR__ . '/vendor/autoload.php';
 $request = Request::createFromGlobals();
 
 define('MYOOS_INCLUDE_PATH', dirname(__FILE__)=='/'?'':dirname(__FILE__));

@@ -1,0 +1,8 @@
+{
+    "require": {
+		"symfony/framework-bundle": "^3.4",
+	    "phpmailer/phpmailer": "^6.0",
+        "mpdf/mpdf": "^7.0",
+		"smarty/smarty": "~3.1"
+    }
+}

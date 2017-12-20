@@ -27,10 +27,6 @@ use PHPMailer\PHPMailer\POP3;
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
-require_once OOS_ABSOLUTE_PATH . '/includes/lib/phpmailer/src/PHPMailer.php';
-require_once OOS_ABSOLUTE_PATH . '/includes/lib/phpmailer/src/SMTP.php';
-require_once OOS_ABSOLUTE_PATH . '/includes/lib/phpmailer/src/Exception.php';
-
 $current_boxes = OOS_ABSOLUTE_PATH . 'admin/includes/boxes/';
 
 $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);  

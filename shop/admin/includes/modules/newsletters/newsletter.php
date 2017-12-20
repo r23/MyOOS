@@ -82,8 +82,6 @@ class newsletter {
 
 		// (Re)create it, if it's gone missing
 		if ( !is_object( $oEmail ) || !is_a( $oEmail, 'PHPMailer' ) ) {
-			require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/class.phpmailer.php';
-			require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/class.smtp.php';
 			// Instantiate a new mail object
 			$oEmail = new PHPMailer( true );
 		}
@@ -94,8 +92,11 @@ class newsletter {
 		$oEmail->ClearCustomHeaders();
 		$oEmail->ClearReplyTos();
 
+/*
+		$sLang = ...;
 		$oEmail->PluginDir = OOS_ABSOLUTE_PATH . 'includes/lib/phpmailer/';
 		$oEmail->SetLanguage( $sLang, OOS_ABSOLUTE_PATH . 'includes/lib/phpmailer/language/' );
+*/		
 		$oEmail->CharSet = CHARSET;
 
 		$oEmail->IsMail();
