@@ -1,0 +1,33 @@
+{
+    "Version": "2.1.37.32",
+    "Names": {
+        "CNH": [
+            "CNH",
+            "CNH"
+        ],
+        "ERN": [
+            "ERN",
+            "nakfa"
+        ],
+        "MXN": [
+            "$",
+            "peso mexicano"
+        ],
+        "MYR": [
+            "MYR",
+            "ringit"
+        ],
+        "THB": [
+            "THB",
+            "baht tailandés"
+        ],
+        "UZS": [
+            "UZS",
+            "sum"
+        ],
+        "ZMW": [
+            "ZMW",
+            "kwacha zambiano"
+        ]
+    }
+}

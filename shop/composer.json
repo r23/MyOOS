@@ -1,8 +1,45 @@
 {
+	"name": "myoos/myoos",
+	"description": "Open Source e-commerce solution",
+	"type": "project",
+	"keywords": ["myoos", " ecommerce"],
+	"homepage": "https://www.oos-shop.de/",
+	"license": "GPL-2.0",
+	"authors": [
+		{
+			"name": "MyOOS Development Team",
+			"email": "info@myoos.de",
+			"homepage": "https://foren.myoos.de/"
+		}
+	],	
+    "support": {
+        "forum": "https://foren.myoos.de/",
+        "source": "https://github.com/r23/MyOOS/"
+    },
     "require": {
-		"symfony/framework-bundle": "^3.4",
+        "php": "^5.6.4||^7.0",
+        "ext-ctype": "*",
+        "ext-curl": "*",
+        "ext-date": "*",
+        "ext-dom": "*",
+        "ext-gd": "*",
+        "ext-hash": "*",
+        "ext-iconv": "*",
+        "ext-json": "*",
+        "ext-openssl": "*",
+        "ext-pdo": "*",
+        "ext-pdo_mysql": "*",
+        "ext-session": "*",
+        "ext-simplexml": "*",
+        "ext-xml": "*",
+        "ext-zip": "*",
+        "ext-zlib": "*",
+        "lib-libxml": "*",
+		"symfony/symfony": "~3.4.2",
 	    "phpmailer/phpmailer": "^6.0",
         "mpdf/mpdf": "^7.0",
-		"smarty/smarty": "~3.1"
+		"smarty/smarty": "~3.1",
+		"geoip2/geoip2": "~2.4.5",
+		"phpoffice/phpexcel": "~1.8"
     }
 }
