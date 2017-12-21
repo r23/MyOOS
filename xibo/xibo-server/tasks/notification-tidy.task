@@ -1,9 +1,0 @@
-{
-  "name": "Notification Tidy",
-  "class": "\\Xibo\\XTR\\NotificationTidyTask",
-  "options": {
-    "maxAgeDays": 7,
-    "systemOnly": 1,
-    "readOnly": 0
-  }
-}

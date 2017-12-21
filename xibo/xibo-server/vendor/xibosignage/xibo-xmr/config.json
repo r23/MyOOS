@@ -1,7 +1,0 @@
-{
-  "listenOn": "tcp://127.0.0.1:50001",
-  "pubOn": ["tcp://*:9505"],
-  "debug": false,
-  "ipv6RespSupport": false,
-  "ipv6PubSupport": false
-}

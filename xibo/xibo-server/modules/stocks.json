@@ -1,7 +1,0 @@
-{
-  "title": "Stocks Module",
-  "author": "Spring Signage Ltd",
-  "description": "A module for displaying Stocks information. Uses the Yahoo API",
-  "name": "stocks",
-  "class": "Xibo\\Widget\\Stocks"
-}
