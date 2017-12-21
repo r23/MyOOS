@@ -69,8 +69,6 @@ require 'includes/main.php';
       $dbconn->Execute("DELETE FROM $orders_status_historytable WHERE orders_id = '" . oos_db_input($order_id) . "'");
       $orders_totaltable = $oostable['orders_total'];
       $dbconn->Execute("DELETE FROM $orders_totaltable WHERE orders_id = '" . oos_db_input($order_id) . "'");
-      $banktransfertable = $oostable['banktransfer'];
-      $dbconn->Execute("DELETE FROM $banktransfertable WHERE orders_id = '" . oos_db_input($order_id) . "'");
     }
   }
 
@@ -371,67 +369,6 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
             <td class="main"><?php echo $order->info['cc_expires']; ?></td>
           </tr>
 <?php
-    }
-
-    $banktransfertable = $oostable['banktransfer'];
-    $banktransfer_result = $dbconn->Execute("SELECT banktransfer_prz, banktransfer_status, banktransfer_owner, banktransfer_number, banktransfer_bankname, banktransfer_blz, FROM $banktransfertable  WHERE orders_id = '" . oos_db_input($_GET['oID']) . "'");
-    $banktransfer = $banktransfer_result->fields;
-    if (($banktransfer['banktransfer_bankname']) || ($banktransfer['banktransfer_blz']) || ($banktransfer['banktransfer_number'])) {
-?>
-          <tr>
-            <td colspan="2"></td>
-          </tr>
-          <tr>
-            <td class="main"><?php echo TEXT_BANK_NAME; ?></td>
-            <td class="main"><?php echo $banktransfer['banktransfer_bankname']; ?></td>
-          </tr>
-          <tr>
-            <td class="main"><?php echo TEXT_BANK_BLZ; ?></td>
-            <td class="main"><?php echo $banktransfer['banktransfer_blz']; ?></td>
-          </tr>
-          <tr>
-            <td class="main"><?php echo TEXT_BANK_NUMBER; ?></td>
-            <td class="main"><?php echo $banktransfer['banktransfer_number']; ?></td>
-          </tr>
-          <tr>
-            <td class="main"><?php echo TEXT_BANK_OWNER; ?></td>
-            <td class="main"><?php echo $banktransfer['banktransfer_owner']; ?></td>
-          </tr>
-<?php
-      if ($banktransfer['banktransfer_status'] == 0) {
-?>
-          <tr>
-            <td class="main"><?php echo TEXT_BANK_STATUS; ?></td>
-            <td class="main"><?php echo "OK"; ?></td>
-          </tr>
-<?php
-      } else {
-?>
-          <tr>
-            <td class="main"><?php echo TEXT_BANK_STATUS; ?></td>
-            <td class="main"><?php echo $banktransfer['banktransfer_status']; ?></td>
-          </tr>
-<?php
-        switch ($banktransfer['banktransfer_status']) {
-          case 1: $error_val = TEXT_BANK_ERROR_1; break;
-          case 2: $error_val = TEXT_BANK_ERROR_2; break;
-          case 3: $error_val = TEXT_BANK_ERROR_3; break;
-          case 4: $error_val = TEXT_BANK_ERROR_4; break;
-          case 5: $error_val = TEXT_BANK_ERROR_5; break;
-          case 8: $error_val = TEXT_BANK_ERROR_8; break;
-          case 9: $error_val = TEXT_BANK_ERROR_9; break;
-        }
-?>
-          <tr>
-            <td class="main"><?php echo TEXT_BANK_ERRORCODE; ?></td>
-            <td class="main"><?php echo $error_val; ?></td>
-          </tr>
-          <tr>
-            <td class="main"><?php echo TEXT_BANK_PRZ; ?></td>
-            <td class="main"><?php echo $banktransfer['banktransfer_prz']; ?></td>
-          </tr>
-<?php
-      }
     }
 ?>
         </table></td>

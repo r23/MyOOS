@@ -156,25 +156,6 @@ $flds = "
 dosql($table, $flds);
 
 
-
-$table = $prefix_table . 'banktransfer';
-$flds = "
-  orders_id I DEFAULT '0' NOTNULL,
-  banktransfer_owner C(64),
-  banktransfer_number C(24),
-  banktransfer_bankname C(64),
-  banktransfer_blz C(8),
-  banktransfer_status I,
-  banktransfer_prz C(2),
-";
-dosql($table, $flds);
-
-$idxname = 'idx_banktransfer_orders_id';
-$idxflds = 'orders_id';
-idxsql($idxname, $table, $idxflds);
-
-
-
 $table = $prefix_table . 'block';
 $flds = "
   block_id I NOTNULL AUTO PRIMARY,
