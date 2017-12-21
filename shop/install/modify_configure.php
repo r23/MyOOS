@@ -54,7 +54,7 @@ function modify_file($src, $reg_src, $reg_rep) {
 
     $lines = 0; // Keep track of the number of lines changed
 
-    while (list ($bline_num, $buffer) = each ($file_buff1)) {
+	foreach ($file_buff1 as $bline_num => $buffer) {		
         $new = preg_replace($reg_src, $reg_rep, $buffer);
         if ($new != $buffer) {
             $lines++;
@@ -75,7 +75,7 @@ function modify_file($src, $reg_src, $reg_rep) {
       return MODIFY_FILE_2. " $src";
     }
 
-    while (list ($bline_num, $buffer) = each ($file_buff2)) {
+	foreach ($file_buff2 as $bline_num => $buffer) {		
         fputs($out_original,$buffer);
     }
 

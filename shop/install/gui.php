@@ -216,13 +216,13 @@ function print_FormEditabletext() {
 function print_FormHidden() {
    global $update;
 
-   reset($_POST);
-   while (list($key, $value) = each($_POST)) {
-     if ( (!is_array($_POST[$key])) && ($key != 'op') ) {
-       echo '<input type="hidden" name="'. $key . '" value="' . htmlspecialchars(stripslashes($value)) . '">' . "\n";
-     }
-   }
-
+	reset($_POST);
+	foreach ($_POST as $key => $value) {	   
+	   
+		if ( (!is_array($_POST[$key])) && ($key != 'op') ) {
+			echo '<input type="hidden" name="'. $key . '" value="' . htmlspecialchars(stripslashes($value)) . '">' . "\n";
+		}
+	}
 }
 
 function print_DBHidden() {

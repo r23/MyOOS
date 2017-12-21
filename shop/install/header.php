@@ -63,7 +63,7 @@
   </tr>
   <tr>
     <td colspan="3" class="table_head_green"> &nbsp;<?php echo strftime(DATE_FORMAT_LONG); ?></td>
-    <td align="right" class="table_head_green"><b><?php echo OOS_HOME; ?></b></td>
+    <td align="right" class="table_head_green"><b>MyOOS</b></td>
     <td align="right" class="table_head_green"><img src="images/trans.gif" alt="" width="1" height="26" /></td>
   </tr>
   <tr>

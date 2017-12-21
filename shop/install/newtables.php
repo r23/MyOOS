@@ -51,11 +51,12 @@ function dosql($table, $flds) {
    GLOBAL $db;
 
    $dict = NewDataDictionary($db);
+   
    // $dict->debug = 1;
-   $taboptarray = array('mysql' => 'ENGINE=InnoDB DEFAULT CHARSET=utf8;', 'REPLACE');
+   $taboptarray = array('mysql' => 'ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;', 'REPLACE');
 
-   $sqlarray = $dict->CreateTableSQL($table, $flds, $taboptarray);
-   $dict->ExecuteSQLArray($sqlarray);
+   $sqlarray = $dict->createTableSQL($table, $flds, $taboptarray);
+   $dict->executeSqlArray($sqlarray);
 
    echo '<br><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $table . " " . MADE . '</font>';
 }
@@ -66,7 +67,7 @@ function idxsql($idxname, $table, $idxflds) {
    $dict = NewDataDictionary($db);
 
    $sqlarray = $dict->CreateIndexSQL($idxname, $table, $idxflds);
-   $dict->ExecuteSQLArray($sqlarray);
+   $dict->executeSqlArray($sqlarray);
 }
 
 
@@ -253,7 +254,7 @@ $flds = "
   categories_images_languages_id I NOTNULL DEFAULT '1' PRIMARY,
   categories_images_title C(64),  
   categories_images_caption C(250),
-  categories_images_description X,
+  categories_images_description X
 ";
 dosql($table, $flds);
 
@@ -600,7 +601,7 @@ idxsql($idxname, $table, $idxflds);
 $table = $prefix_table . 'limit-login';
 $flds = "
   limit-login_id I NOTNULL AUTO PRIMARY,
-  ip_address C(15) NOTNULL,,
+  ip_address C(15) NOTNULL,
   counter I1 DEFAULT '0',
   time_last_click C(14) NOTNULL
 ";
@@ -962,7 +963,7 @@ $table = $prefix_table . 'products_images';
 $flds = "
   image_id I DEFAULT '0' NOTNULL PRIMARY,
   products_id I NOTNULL DEFAULT '1' PRIMARY,
-  image_name C(255) NOTNULL,
+  image_name C(255) NOTNULL
 ";
 dosql($table, $flds);
 
