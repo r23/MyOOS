@@ -48,9 +48,7 @@ class Phoenix_Session extends Session
 
 		// set the top level domains
 		// $host = System::serverGetVar('HTTP_HOST');
-		$http_domain = oos_server_get_top_level_domain(OOS_HTTP_SERVER);
-		$https_domain = oos_server_get_top_level_domain(OOS_HTTPS_SERVER);
-		$current_domain = (($request_type == 'NONSSL') ? $http_domain : $https_domain);
+		$current_domain = oos_server_get_top_level_domain(OOS_HTTPS_SERVER);
 
 		// garbage collection may disabled by default (e.g., Debian)
 		if (ini_get('session.gc_probability') == 0) {

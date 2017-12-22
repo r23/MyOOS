@@ -238,27 +238,27 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
     }
   }
 
-  function dosql($table, $flds) {
+function dosql($table, $flds) {
 
-    // Get database information
-    $dbconn =& oosDBGetConn();
-    $dict = NewDataDictionary($dbconn);
+	// Get database information
+	$dbconn =& oosDBGetConn();
+	$dict = NewDataDictionary($dbconn);
 
-    $taboptarray = array('mysql' => 'TYPE=MyISAM', 'REPLACE');
+	$taboptarray = array('mysql' => 'ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;', 'REPLACE');
 
-    $sqlarray = $dict->CreateTableSQL($table, $flds, $taboptarray);
-    $dict->ExecuteSQLArray($sqlarray);
+	$sqlarray = $dict->createTableSQL($table, $flds, $taboptarray);
+	$dict->executeSqlArray($sqlarray);
 
-  }
+}
 
-  function idxsql($idxname, $table, $idxflds) {
+function idxsql($idxname, $table, $idxflds) {
 
     // Get database information
     $dbconn =& oosDBGetConn();
     $dict = NewDataDictionary($dbconn);
 
     $sqlarray = $dict->CreateIndexSQL($idxname, $table, $idxflds);
-    $dict->ExecuteSQLArray($sqlarray);
-  }
+	$dict->executeSqlArray($sqlarray);
+}
 
 

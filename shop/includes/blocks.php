@@ -20,7 +20,7 @@
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
 $aContentBlock = array();
-
+$nPageType =1;
 $blocktable = $oostable['block'];
 $block_infotable = $oostable['block_info'];
 $block_to_page_typetable = $oostable['block_to_page_type'];
@@ -41,7 +41,6 @@ if (isset($_SESSION['customer_id'])) {
 }
 $block_sql .= " ORDER BY b.block_side, b.block_sort_order ASC";
 $block_result = $dbconn->GetAll($block_sql);
-
 foreach ($block_result as $block) {
 	$block_heading = $block['block_name'];
 	$block_file = trim($block['block_file']);
@@ -60,10 +59,10 @@ foreach ($block_result as $block) {
 			$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 		}
 		$bid = trim('oos_' . $block['block_cache'] . '_cache_id');
-		
 		if (!$smarty->isCached($block_tpl, ${$bid})) {
 			include_once MYOOS_INCLUDE_PATH . '/includes/blocks/block_' . $block_file . '.php';
 		}
+
 		$block_content = $smarty->fetch($block_tpl, ${$bid});
     } else {
 		$smarty->setCaching(false);
