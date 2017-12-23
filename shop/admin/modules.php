@@ -58,7 +58,7 @@
   if (!empty($action)) {
     switch ($action) {
       case 'save':
-        while (list($key, $value) = each($_POST['configuration'])) {
+        foreach ($_POST['configuration'] as $key => $value) {			
           $configurationtable = $oostable['configuration'];
           $dbconn->Execute("UPDATE $configurationtable SET configuration_value = '" . $value . "' WHERE configuration_key = '" . $key . "'");
         }
@@ -248,7 +248,7 @@
     case 'edit':
       $keys = '';
       reset($mInfo->keys);
-      while (list($key, $value) = each($mInfo->keys)) {
+      foreach ($mInfo->keys as $key => $value) {		  
         $keys .= '<b>' . $value['title'] . '</b><br />' . $value['description'] . '<br />';
 
         if ($value['set_function']) {
@@ -273,7 +273,8 @@
       if ($mInfo->status == '1') {
         $keys = '';
         reset($mInfo->keys);
-        while (list(, $value) = each($mInfo->keys)) {
+		foreach ($mInfo->keys as $value) {			
+			
           $keys .= '<b>' . $value['title'] . '</b><br />';
           if ($value['use_function']) {
             $use_function = $value['use_function'];

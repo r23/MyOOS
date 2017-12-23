@@ -240,11 +240,12 @@ function selectAll(FormName, SelectBox) {
 
       $send_mail = new PHPMailer();
 
+ /*
       $send_mail->PluginDir = OOS_ABSOLUTE_PATH . 'includes/lib/phpmailer/';
 
       $sLang = (isset($_SESSION['iso_639_1']) ? $_SESSION['iso_639_1'] : 'en');
       $send_mail->SetLanguage( $sLang, OOS_ABSOLUTE_PATH . 'includes/lib/phpmailer/language/' );
-
+*/
       $send_mail->CharSet = CHARSET;
       $send_mail->IsMail();
 
@@ -271,7 +272,7 @@ function selectAll(FormName, SelectBox) {
       $send_mail->Subject = $this->title;
 
       reset($audience);
-      while (list($key, $value) = each ($audience)) {
+      foreach ($audience as $key => $value) {		  
         $send_mail->Body = $this->content;
         $send_mail->AddAddress($value['email_address'], $value['firstname'] . ' ' . $value['lastname']);
         $send_mail->Send();

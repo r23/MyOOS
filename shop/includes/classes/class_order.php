@@ -340,8 +340,8 @@
         if ($products[$i]['attributes']) {
           $subindex = 0;
           reset($products[$i]['attributes']);
-          while (list($option, $value) = each($products[$i]['attributes'])) {
-
+          foreach ($products[$i]['attributes'] as $option => $value) {		  
+		  
              $products_optionstable = $oostable['products_options'];
             $products_options_valuestable = $oostable['products_options_values'];
             $products_attributestable = $oostable['products_attributes'];

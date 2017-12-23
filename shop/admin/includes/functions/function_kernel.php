@@ -208,7 +208,7 @@ function oos_redirect_admin($url) {
     $get_url = '';
 
     reset($_GET);
-    while (list($key, $value) = each($_GET)) {
+    foreach ($_GET as $key => $value) {		
       if (($key != $session->getName()) && ($key != 'error') && (!oos_in_array($key, $exclude_array))) $get_url .= $key . '=' . $value . '&';
     }
 
@@ -471,7 +471,7 @@ function oos_output_string($sStr, $aTranslate = null)
   function oos_get_uprid($prid, $params) {
     $uprid = $prid;
     if ( (is_array($params)) && (!strstr($prid, '{')) ) {
-      while (list($option, $value) = each($params)) {
+      foreach ($params as $option => $value) {		  
         $uprid = $uprid . '{' . $option . '}' . $value;
       }
     }

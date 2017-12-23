@@ -312,7 +312,7 @@
       sort ($result);
       reset ($result);
       $show = array();
-      while (list ($key, $val) = each ($result)) {
+	  foreach ($result as $key => $val) {		  
         $show[] = array('id' => $val,
                         'text' => $val);
       }

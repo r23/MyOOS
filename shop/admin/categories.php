@@ -960,7 +960,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 <?php
 /* Re-Post all POST'ed variables */
       reset($_POST);
-      while (list($key, $value) = each($_POST)) {
+      foreach ($_POST as $key => $value) {		  
         if (!is_array($_POST[$key])) {
           echo oos_draw_hidden_field($key, htmlspecialchars(stripslashes($value)));
 
@@ -1336,12 +1336,12 @@ if ($action == 'new_category' || $action == 'edit_category') {
               $oosPriceListNetto = round($oosPriceList,TAX_DECIMAL_PLACES);
               $tax_result = $dbconn->Execute("SELECT tax_rate FROM " . $oostable['tax_rates'] . " WHERE tax_class_id = '" . $pInfo->products_tax_class_id . "' ");
               $tax = $tax_result->fields;
-              $oosPrice = ($oosPrice*($tax[tax_rate]+100)/100);
-              $oosPriceList = ($oosPriceList*($tax[tax_rate]+100)/100);
+              $oosPrice = ($oosPrice*($tax['tax_rate']+100)/100);
+              $oosPriceList = ($oosPriceList*($tax['tax_rate']+100)/100);
 
               if (isset($specials) && is_array($specials)) {
                 $oosSpecialsPriceNetto = round($specials['specials_new_products_price'],TAX_DECIMAL_PLACES);
-                $oosSpecialsPrice = round(($specials['specials_new_products_price']*($tax[tax_rate]+100)/100),TAX_DECIMAL_PLACES);
+                $oosSpecialsPrice = round(($specials['specials_new_products_price']*($tax['tax_rate']+100)/100),TAX_DECIMAL_PLACES);
               }
             }			
 			

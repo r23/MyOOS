@@ -172,7 +172,7 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
     reset($data);
     if ($action == 'INSERT') {
       $query = 'INSERT INTO ' . $table . ' (';
-      while (list($columns, ) = each($data)) {
+      foreach ( array_keys($data) as $columns ) {	  
         $query .= $columns . ', ';
       }
       $query = substr($query, 0, -2) . ') values (';

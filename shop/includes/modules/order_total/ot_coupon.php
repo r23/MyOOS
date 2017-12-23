@@ -461,8 +461,7 @@
        for ($i = 0; $i < count($cat_ids); $i++) {
          if (is_array($this->contents)) {
            reset($this->contents);
-           while (list($products_id, ) = each($this->contents)) {
-
+           foreach ( array_keys($this->contents) as $products_id ) {
             $products_to_categoriestable = $oostable['products_to_categories'];
             $cat_query = $dbconn->Execute("SELECT products_id FROM $products_to_categoriestable WHERE products_id = '" . (int)$products_id . "' AND categories_id = '" . (int)$cat_ids[$i] . "'");
              if ($cat_query->RecordCount() !=0 ) {

@@ -29,7 +29,7 @@
   if (!empty($action)) {
     switch ($action) {
       case 'save':
-        while (list($key, $value) = each($_POST['configuration'])) {
+        foreach ($_POST['configuration'] as $key => $value) {		
           $configurationtable = $oostable['configuration'];
           $dbconn->Execute("UPDATE $configurationtable SET configuration_value = '" . $value . "' WHERE configuration_key = '" . $key . "'");
         }

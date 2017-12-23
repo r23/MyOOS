@@ -46,7 +46,8 @@
         $dbconn =& oosDBGetConn();
         $oostable =& oosDBGetTables();
 
-        while (list($products_id, ) = each($this->contents)) {
+		foreach ( array_keys($this->contents) as $products_id ) {			
+		
           $qty = $this->contents[$products_id]['qty'];
           $towlid = $this->contents[$products_id]['towlid'];
 
@@ -78,7 +79,8 @@
                                                              '" . oos_db_input(date('Ymd')) . "')");
             if (isset($this->contents[$products_id]['attributes'])) {
               reset($this->contents[$products_id]['attributes']);
-              while (list($option, $value) = each($this->contents[$products_id]['attributes'])) {
+              foreach ($this->contents[$products_id]['attributes'] as $option => $value) {			  
+				  
                 $attr_value = $this->contents[$products_id]['attributes_values'][$option];
                 $customers_basket_attributestable = $oostable['customers_basket_attributes'];
                 $dbconn->Execute("INSERT INTO $customers_basket_attributestable
@@ -246,7 +248,7 @@
             }
             if (is_array($attributes)) {
               reset($attributes);
-              while (list($option, $value) = each($attributes)) {
+              foreach ($attributes as $option => $value) {				  
                 $attr_value = NULL;
                 $blank_value = FALSE;
                 if (strstr($option, TEXT_PREFIX)) {
@@ -328,7 +330,7 @@
 
         if (is_array($attributes)) {
           reset($attributes);
-          while (list($option, $value) = each($attributes)) {
+          foreach ($attributes as $option => $value) {			  
             $attr_value = NULL;
             $blank_value = FALSE;
             if (strstr($option, TEXT_PREFIX)) {
@@ -374,7 +376,7 @@
       }
 
       reset($this->contents);
-      while (list($key,) = each($this->contents)) {
+      foreach ( array_keys($this->contents) as $key ) {		  
         if ($this->contents[$key]['qty'] < $check_quantity) {
           unset($this->contents[$key]);
           // remove from database
@@ -393,7 +395,7 @@
       $total_items = 0;
       if (is_array($this->contents)) {
         reset($this->contents);
-        while (list($products_id, ) = each($this->contents)) {
+		foreach ( array_keys($this->contents) as $products_id ) {		
           $total_items += $this->get_quantity($products_id);
         }
       }
@@ -449,7 +451,7 @@
       $product_id_list = '';
       if (is_array($this->contents)) {
         reset($this->contents);
-        while (list($products_id, ) = each($this->contents)) {
+        foreach ( array_keys($this->contents) as $products_id ) {
           $product_id_list .= ', ' . $products_id;
         }
       }
@@ -461,7 +463,7 @@
       $product_id_list = '';
       if (is_array($this->contents)) {
         reset($this->contents);
-        while (list($products_id, ) = each($this->contents)) {
+        foreach ( array_keys($this->contents) as $products_id ) {
           $product_id_list .= ', ' . oos_get_product_id($products_id);
         }
       }
@@ -483,7 +485,7 @@
       $oostable =& oosDBGetTables();
 
       reset($this->contents);
-      while (list($products_id, ) = each($this->contents)) {
+      foreach ( array_keys($this->contents) as $products_id ) {
         $nQuantity = $this->contents[$products_id]['qty'];
 
         // products price
@@ -530,7 +532,7 @@
         // attributes price
         if (isset($this->contents[$products_id]['attributes'])) {
           reset($this->contents[$products_id]['attributes']);
-          while (list($option, $value) = each($this->contents[$products_id]['attributes'])) {
+          foreach ($this->contents[$products_id]['attributes'] as $option => $value) {			  
             $products_attributestable = $oostable['products_attributes'];
             $sql = "SELECT options_values_price, price_prefix
                     FROM $products_attributestable
@@ -581,7 +583,7 @@
         $dbconn =& oosDBGetConn();
         $oostable =& oosDBGetTables();
 
-        while (list($option, $value) = each($this->contents[$products_id]['attributes'])) {
+        foreach ($this->contents[$products_id]['attributes'] as $option => $value) {			
           $products_attributestable = $oostable['products_attributes'];
           $attribute_price_sql = "SELECT options_values_price, price_prefix
                                   FROM $products_attributestable
@@ -614,7 +616,7 @@
 
       $products_array = array();
       reset($this->contents);
-      while (list($products_id, ) = each($this->contents)) {
+      foreach ( array_keys($this->contents) as $products_id ) {
         $nQuantity = $this->contents[$products_id]['qty'];
         $productstable = $oostable['products'];
         $products_descriptiontable = $oostable['products_description'];
@@ -714,10 +716,10 @@
 
       if ( (DOWNLOAD_ENABLED == 'true') && ($this->count_contents() > 0) || ($this->show_weight() == 0 )&& ($this->count_contents() > 0) ) {
         reset($this->contents);
-        while (list($products_id, ) = each($this->contents)) {
+        foreach ( array_keys($this->contents) as $products_id ) {
           if (isset($this->contents[$products_id]['attributes'])) {
             reset($this->contents[$products_id]['attributes']);
-            while (list(, $value) = each($this->contents[$products_id]['attributes'])) {
+			foreach ($this->contents[$products_id]['attributes'] as $value) {				
               $products_attributestable = $oostable['products_attributes'];
               $products_attributes_downloadtable = $oostable['products_attributes_download'];
               $sql = "SELECT COUNT(*) AS total
@@ -755,7 +757,7 @@
 
           } elseif ($this->show_weight() == 0) {
             reset($this->contents);
-            while (list($products_id, ) = each($this->contents)) {
+            foreach ( array_keys($this->contents) as $products_id ) {
               $productstable = $oostable['products'];
               $sql = "SELECT products_weight
                       FROM $productstable
@@ -831,7 +833,7 @@
       $total_items = 0;
       if (is_array($this->contents)) {
         reset($this->contents);
-        while (list($products_id, ) = each($this->contents)) {
+        foreach ( array_keys($this->contents) as $products_id ) {
           $no_count = FALSE;
           $productstable = $oostable['products'];
           $sql = "SELECT products_model

@@ -91,7 +91,7 @@
         $product_id_list = '';
         if (is_array($this->products_history)) {
           reset($this->products_history);
-          while (list($key, $products_id ) = each($this->products_history)) {
+          foreach ($this->products_history as $key => $products_id) {			  
             $product_id_list .= ', ' . $products_id;
           }
         }

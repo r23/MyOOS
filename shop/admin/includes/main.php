@@ -45,11 +45,9 @@ if (file_exists('../includes/local/configure.php')) include('../includes/local/c
 require '../includes/configure.php';
 require 'includes/define.php';
 
-// require Shop parameters
-require_once MYOOS_INCLUDE_PATH . '/includes/define.php';
+
 
 use Symfony\Component\HttpFoundation\Request;
-
 
 $autoloader = require_once MYOOS_INCLUDE_PATH . '/vendor/autoload.php';
 $request = Request::createFromGlobals();

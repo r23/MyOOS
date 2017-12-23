@@ -290,7 +290,7 @@
 <?php
 /* Re-Post all POST'ed variables */
     reset($_POST);
-    while (list($key, $value) = each($_POST)) {
+    foreach ($_POST as $key => $value) {		
       if (!is_array($_POST[$key])) {
         echo oos_draw_hidden_field($key, htmlspecialchars(stripslashes($value)));
       }
