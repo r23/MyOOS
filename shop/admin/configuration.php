@@ -37,7 +37,7 @@
   }
   
   $sHeaderTitle = constant(strtoupper((int)$_GET['gID'] . '_TITLE')); 
-  define(HEADING_TITLE, $sHeaderTitle);
+  define('HEADING_TITLE', $sHeaderTitle);
   
   require 'includes/header.php';
 ?>
