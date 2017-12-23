@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 4.9.x - Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-12-03 11:38:13+0000\n"
+"PO-Revision-Date: 2017-12-22 17:02:00+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -441,13 +441,6 @@ msgstr "Aktualisierung"
 msgid "Activate &amp; Publish"
 msgstr "Aktivieren &amp; Veröffentlichen"
 
-#. translators: %d: error count
-#: wp-includes/script-loader.php:481 wp-includes/script-loader.php:483
-msgid "There is %d error which must be fixed before you can update this file."
-msgid_plural "There are %d errors which must be fixed before you can update this file."
-msgstr[0] "Es gibt %d Fehler der korrigiert werden muss, bevor du diese Datei aktualisieren kannst."
-msgstr[1] "Es gibt %d Fehler die korrigiert werden müssen, bevor du diese Datei aktualisieren kannst."
-
 #: wp-includes/script-loader.php:445
 msgid "Yiddish"
 msgstr "Jiddisch"
@@ -520,6 +513,13 @@ msgstr "Einrichten der Live-Vorschau. Es kann einen Moment dauern."
 #: wp-includes/script-loader.php:580
 msgid "There is a more recent autosave of your changes than the one you are previewing. <a href=\"%s\">Restore the autosave</a>"
 msgstr "Es gibt eine aktuellere, automatische Speicherung deiner Änderungen als die, deren Vorschau du ansiehst. <a href=\"%s\">Automatische Speicherung wiederherstellen</a>"
+
+#. translators: %d: error count
+#: wp-includes/script-loader.php:481 wp-includes/script-loader.php:483
+msgid "There is %d error which must be fixed before you can update this file."
+msgid_plural "There are %d errors which must be fixed before you can update this file."
+msgstr[0] "Es gibt %d Fehler, der korrigiert werden muss, bevor du diese Datei aktualisieren kannst."
+msgstr[1] "Es gibt %d Fehler, die korrigiert werden müssen, bevor du diese Datei aktualisieren kannst."
 
 #: wp-includes/script-loader.php:414
 msgid "Hindi"
@@ -1918,7 +1918,7 @@ msgctxt "New user notification email subject"
 msgid "[%1$s] Activate %2$s"
 msgstr "[%1$s] Aktiviere %2$s"
 
-#: wp-includes/widgets.php:1395 wp-includes/widgets.php:1504
+#: wp-includes/widgets.php:1398 wp-includes/widgets.php:1507
 msgid "RSS Error:"
 msgstr "RSS-Fehler:"
 
@@ -10515,11 +10515,11 @@ msgctxt "widgets"
 msgid "%1$s on %2$s"
 msgstr "%1$s bei %2$s"
 
-#: wp-includes/widgets.php:1510
+#: wp-includes/widgets.php:1513
 msgid "Enter the RSS feed URL here:"
 msgstr "Gib die URL des RSS-Feeds hier ein:"
 
-#: wp-includes/widgets.php:1513
+#: wp-includes/widgets.php:1516
 msgid "Give the feed a title (optional):"
 msgstr "Gib dem Feed einen Titel (optional):"
 
@@ -10845,15 +10845,15 @@ msgstr "Beitrags-Feed (<abbr title=\"Really Simple Syndication\">RSS</abbr>)"
 msgid "Number of posts to show:"
 msgstr "Anzahl der Beiträge, die angezeigt werden:"
 
-#: wp-includes/widgets.php:1526
+#: wp-includes/widgets.php:1529
 msgid "Display item content?"
 msgstr "Beitrags-Inhalt anzeigen?"
 
-#: wp-includes/widgets.php:1529
+#: wp-includes/widgets.php:1532
 msgid "Display item author if available?"
 msgstr "Beitrags-Autor anzeigen, wenn verfügbar?"
 
-#: wp-includes/widgets.php:1532
+#: wp-includes/widgets.php:1535
 msgid "Display item date?"
 msgstr "Beitrags-Datum anzeigen?"
 
@@ -10870,7 +10870,7 @@ msgstr "Letzter Beitrag"
 msgid "Once Hourly"
 msgstr "Einmal stündlich"
 
-#: wp-includes/widgets.php:1426
+#: wp-includes/widgets.php:1429
 msgid "Untitled"
 msgstr "Ohne Titel"
 
@@ -11011,7 +11011,7 @@ msgstr "Diese E-Mail-Adresse wurde bereits verwendet. Bitte schau in deinem Post
 msgid "Slow down cowboy, no need to check for new mails so often!"
 msgstr "Ruhe bewahren, es gibt keinen Grund, so oft nach neuen E-Mails zu schauen."
 
-#: wp-includes/rss.php:917 wp-includes/widgets.php:1410
+#: wp-includes/rss.php:917 wp-includes/widgets.php:1413
 msgid "An error has occurred, which probably means the feed is down. Try again later."
 msgstr "Ein Fehler ist aufgetreten – der Feed funktioniert zur Zeit nicht. Versuche es später noch einmal."
 
@@ -11124,7 +11124,7 @@ msgstr "Neue WordPress-Loop"
 msgid "Duplicate comment detected; it looks as though you&#8217;ve already said that!"
 msgstr "Doppelter Kommentar wurde entdeckt. Es sieht stark danach aus, dass du das schon einmal geschrieben hast!"
 
-#: wp-includes/widgets.php:1516
+#: wp-includes/widgets.php:1519
 msgid "How many items would you like to display?"
 msgstr "Wieviele Einträge sollen angezeigt werden?"
 
@@ -11478,7 +11478,7 @@ msgstr "Powered by WordPress, state-of-the-art semantic personal publishing plat
 msgid "You must be <a href=\"%s\">logged in</a> to post a comment."
 msgstr "Du musst <a href=\"%s\">angemeldet</a> sein, um einen Kommentar abzugeben."
 
-#: wp-includes/category-template.php:1139
+#: wp-includes/category-template.php:1131
 msgid "Tags: "
 msgstr "Schlagwörter: "
 
