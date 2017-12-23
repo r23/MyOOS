@@ -1153,7 +1153,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
     }
 
     $cPath_back = '';
-	if (count($cPath_array) > 0) {
+	if (is_array($cPath_array) && count($cPath_array) > 0) {
 		for ($i = 0, $n = count($cPath_array) - 1; $i < $n; $i++) {
 			if (empty($cPath_back)) {
 				$cPath_back .= $cPath_array[$i];
