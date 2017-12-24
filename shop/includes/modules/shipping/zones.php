@@ -116,7 +116,6 @@
       $this->tax_class = (defined('MODULE_SHIPPING_ZONES_TAX_CLASS') ? MODULE_SHIPPING_ZONES_TAX_CLASS : null);
       $this->enabled = (defined('MODULE_SHIPPING_ZONES_STATUS') && (MODULE_SHIPPING_ZONES_STATUS == 'True') ? true : false);
 
-      $this->enabled = ((MODULE_SHIPPING_ZONES_STATUS == 'True') ? true : false);
 
       // CUSTOMIZE THIS SETTING FOR THE NUMBER OF ZONES NEEDED
       $this->num_zones = 2;
