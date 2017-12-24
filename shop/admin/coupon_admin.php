@@ -27,10 +27,10 @@ require 'includes/functions/function_coupon.php';
 require 'includes/classes/class_currencies.php';
 $currencies = new currencies();
 
-  if (isset($_GET['selected_box'])) {
-    $_GET['action'] = '';
-    $_GET['old_action'] = '';
-  }
+if (isset($_GET['selected_box'])) {
+	$_GET['action'] = '';
+	$_GET['old_action'] = '';
+}
   
 $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
 $action = (isset($_GET['action']) ? $_GET['action'] : ''); 
@@ -1081,11 +1081,11 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                 '<a href="' . oos_href_link_admin('coupon_admin.php','cID='.$cInfo->coupon_id).'">'.oos_button('cancel', BUTTON_CANCEL).'</a>'
                 );
       } else { 
-        $prod_details = NONE;
+        $prod_details = '';
         if ($cInfo->restrict_to_products) {
           $prod_details = '<a href="' . oos_href_link_admin($aContents['listproducts'], 'cID=' . $cInfo->coupon_id) . '" TARGET="_blank" ONCLICK="window.open(\'' . $aContents['listproducts'] . '?cID=' . $cInfo->coupon_id . '\', \'Valid_Categories\', \'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600\'); return false">View</A>';
         }
-        $cat_details = NONE;
+        $cat_details = '';
         if ($cInfo->restrict_to_categories) {
           $cat_details = '<a href="' . oos_href_link_admin($aContents['listcategories'], 'cID=' . $cInfo->coupon_id) . '" TARGET="_blank" ONCLICK="window.open(\'' . $aContents['listcategories'] . '?cID=' . $cInfo->coupon_id . '\', \'Valid_Categories\', \'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600\'); return false">View</A>';
         }
@@ -1094,16 +1094,16 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                                            WHERE coupon_id = '" . $cInfo->coupon_id . "' AND
                                                  coupon_languages_id = '" . intval($_SESSION['language_id']) . "'");
         $coupon_name = $coupon_name_result->fields;
-        $contents[] = array('text'=>COUPON_NAME . '&nbsp;::&nbsp; ' . $coupon_name['coupon_name'] . '<br />' .
-                     COUPON_AMOUNT . '&nbsp;::&nbsp; ' . $amount . '<br />' .
-                     COUPON_STARTDATE . '&nbsp;::&nbsp; ' . oos_date_short($cInfo->coupon_start_date) . '<br />' .
-                     COUPON_FINISHDATE . '&nbsp;::&nbsp; ' . oos_date_short($cInfo->coupon_expire_date) . '<br />' .
-                     COUPON_USES_COUPON . '&nbsp;::&nbsp; ' . $cInfo->uses_per_coupon . '<br />' .
-                     COUPON_USES_USER . '&nbsp;::&nbsp; ' . $cInfo->uses_per_user . '<br />' .
-                     COUPON_PRODUCTS . '&nbsp;::&nbsp; ' . $prod_details . '<br />' .
-                     COUPON_CATEGORIES . '&nbsp;::&nbsp; ' . $cat_details . '<br />' .
-                     DATE_CREATED . '&nbsp;::&nbsp; ' . oos_date_short($cInfo->date_created) . '<br />' .
-                     DATE_MODIFIED . '&nbsp;::&nbsp; ' . oos_date_short($cInfo->date_modified) . '<br /><br />' .
+        $contents[] = array('text'=>COUPON_NAME . ':&nbsp;' . $coupon_name['coupon_name'] . '<br />' .
+                     COUPON_AMOUNT . ':&nbsp;' . $amount . '<br />' .
+                     COUPON_STARTDATE . ':&nbsp;' . oos_date_short($cInfo->coupon_start_date) . '<br />' .
+                     COUPON_FINISHDATE . ':&nbsp;' . oos_date_short($cInfo->coupon_expire_date) . '<br />' .
+                     COUPON_USES_COUPON . ':&nbsp;' . $cInfo->uses_per_coupon . '<br />' .
+                     COUPON_USES_USER . ':&nbsp;' . $cInfo->uses_per_user . '<br />' .
+                     COUPON_PRODUCTS . ':&nbsp;' . $prod_details . '<br />' .
+                     COUPON_CATEGORIES . ':&nbsp;' . $cat_details . '<br />' .
+                     DATE_CREATED . ':&nbsp;' . oos_date_short($cInfo->date_created) . '<br />' .
+                     DATE_MODIFIED . ':&nbsp;' . oos_date_short($cInfo->date_modified) . '<br /><br />' .
                      '<center><a href="' . oos_href_link_admin('coupon_admin.php','action=email&cID='.$cInfo->coupon_id).'">'.oos_button('email', 'Email Voucher').'</a>' .
                      '<a href="' . oos_href_link_admin('coupon_admin.php','action=voucheredit&cID='.$cInfo->coupon_id).'">'.oos_button('edit', 'Edit Voucher').'</a>' .
                      '<a href="' . oos_href_link_admin('coupon_admin.php','action=voucherdelete&cID='.$cInfo->coupon_id).'">'.oos_button('delete', 'Delete Voucher').'</a>' .
