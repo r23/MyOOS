@@ -41,7 +41,7 @@ define('TEXT_TO_REDEEM', 'You can redeem this coupon during checkout. Just enter
 define('TEXT_IN_CASE', ' in case you have any problems. ');
 define('TEXT_VOUCHER_IS', 'The coupon code is ');
 define('TEXT_REMEMBER', 'Don\'t lose the coupon code, make sure to keep the code safe so you can benefit from this special offer.');
-define('TEXT_VISIT', 'when you visit ' . OOS_HTTP_SERVER . OOS_SHOP);
+define('TEXT_VISIT', 'when you visit ' . OOS_HTTPS_SERVER . OOS_SHOP);
 define('TEXT_ENTER_CODE', ' and enter the code ');
 
 define('TABLE_HEADING_ACTION', 'Action');

@@ -39,7 +39,7 @@ define('TEXT_TO_REDEEM', 'Sie können den Gutschein bei Ihrer Bestellung einlös
 define('TEXT_IN_CASE', ' im Falle dass Sie Probleme haben.');
 define('TEXT_VOUCHER_IS', 'Ihre Gutschein-Nummer lautet: ');
 define('TEXT_REMEMBER', 'Heben Sie Ihre Gutschein-Nummer gut auf, nur so können Sie von diesem Angebot profitieren!');
-define('TEXT_VISIT', 'Besuchen Sie unsere Seite: ' . OOS_HTTP_SERVER . OOS_SHOP);
+define('TEXT_VISIT', 'Besuchen Sie unsere Seite: ' . OOS_HTTPS_SERVER . OOS_SHOP);
 define('TEXT_ENTER_CODE', ' und geben Sie die Gutschein-Nummer ein.');
 
 define('TABLE_HEADING_ACTION', 'Aktion');
