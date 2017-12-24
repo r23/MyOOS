@@ -151,7 +151,7 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
    * @global oostable array
    */
   function oosDB_importTables($tables) {
-    assert('is_array($tables)');
+    // assert('is_array($tables)');
     $GLOBALS['oosDB_tables'] = array_merge($GLOBALS['oosDB_tables'], $tables);
   }
 
