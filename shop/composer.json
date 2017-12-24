@@ -40,6 +40,7 @@
         "mpdf/mpdf": "^7.0",
 		"smarty/smarty": "~3.1",
 		"geoip2/geoip2": "~2.4.5",
+		"ezyang/htmlpurifier" : "~4.",
 		"phpoffice/phpexcel": "~1.8"
     }
 }
