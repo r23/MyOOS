@@ -36,8 +36,6 @@ define('MODULE_PAYMENT_MONEYORDER_ZONE_DESC', 'If a zone is selected, only enabl
 define('MODULE_PAYMENT_MONEYORDER_ORDER_STATUS_ID_TITLE', 'Set Order Status');
 define('MODULE_PAYMENT_MONEYORDER_ORDER_STATUS_ID_DESC', 'Set the status of orders made with this payment module to this value');
 
-
 $aLang['module_payment_moneyorder_text_title'] = 'Check/Money Order';
-$aLang['module_payment_moneyorder_text_description'] = 'Make Payable To:&nbsp;' . MODULE_PAYMENT_MONEYORDER_PAYTO . '<br /><br />Send To:<br />' . nl2br(STORE_NAME_ADDRESS) . '<br /><br />' . 'Your order will not ship until we receive payment.';
-$aLang['module_payment_moneyorder_text_email_footer'] = "Make Payable To: ". MODULE_PAYMENT_MONEYORDER_PAYTO . "\n\nSend To:\n" . STORE_NAME_ADDRESS . "\n\n" . 'Your order will not ship until we receive payment.';
-
+$aLang['module_payment_moneyorder_text_description'] = 'Make payable to:&nbsp;' . (defined('MODULE_PAYMENT_MONEYORDER_PAYTO') ? nl2br(MODULE_PAYMENT_MONEYORDER_PAYTO) : '') . '<br />Send to:<br /><br />' . nl2br(STORE_OWNER) . '<br /><br />' . 'Your order will not ship until we receive payment!');
+$aLang['module_payment_moneyorder_text_email_footer'] = "Make payable to: ". (defined('MODULE_PAYMENT_MONEYORDER_PAYTO') ? MODULE_PAYMENT_MONEYORDER_PAYTO : '') . "\n\nSend to:\n" . STORE_OWNER . "\n\n" . 'Your order will not ship until we receive payment');
