@@ -174,7 +174,7 @@ if (is_array($payment_modules->modules)) {
 if (isset(${$_SESSION['payment']}->form_action_url)) {
 	$form_action_url = ${$_SESSION['payment']}->form_action_url;
 } else {
-	$form_action_url = oos_href_link($aContents['checkout_process'], '');
+	$form_action_url = oos_href_link($aContents['checkout_process']);
 }
 $smarty->assign('form_action_url', $form_action_url);
 

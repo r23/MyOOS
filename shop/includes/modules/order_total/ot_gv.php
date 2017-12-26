@@ -211,7 +211,7 @@
 				$redeem_query = $dbconn->Execute("SELECT * FROM $coupon_redeem_tracktable WHERE coupon_id = '" . $gv_result['coupon_id'] . "'");
 				if ( ($redeem_query->RecordCount() != 0) && ($gv_result['coupon_type'] == 'G') ) {
 					$oMessage->add_session('checkout_payment', $aLang['error_no_invalid_redeem_gv'], 'error');
-					oos_redirect(oos_href_link($aContents['checkout_payment'], ''));			  
+					oos_redirect(oos_href_link($aContents['checkout_payment']));			  
 				}
 			}
 			
@@ -264,7 +264,7 @@
                                                             '" . $total_gv_amount . "')");
 				}
 				$oMessage->add_session('checkout_payment', $aLang['error_redeemed_amount'] . $oCurrencies->format($gv_amount), 'error');
-				oos_redirect(oos_href_link($aContents['checkout_payment'], ''));
+				oos_redirect(oos_href_link($aContents['checkout_payment']));
 			}
 		}
 	 
@@ -274,7 +274,7 @@
 		}
 	 
 		if ($oMessage->size('checkout_payment') > 0) {
-			oos_redirect(oos_href_link($aContents['checkout_payment'], ''));
+			oos_redirect(oos_href_link($aContents['checkout_payment']));
 		}	 
 	 
    }

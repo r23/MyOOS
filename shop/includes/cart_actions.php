@@ -136,7 +136,7 @@ switch ($action) {
             $aPage['get'] = 'products_id=' . rawurlencode($_POST['products_id']) . '&amp;action=add_wishlist';
 
             $_SESSION['navigation']->set_snapshot($aPage);
-            oos_redirect(oos_href_link($aContents['login'], ''));
+            oos_redirect(oos_href_link($aContents['login']));
           } else {
             $wishlist_products_id = oos_get_uprid($_POST['products_id'], $_POST['id']);
 
@@ -239,7 +239,7 @@ switch ($action) {
 				$aPage['get'] = 'products_id=' . rawurlencode($wishlist_products_id) . '&amp;action=add_wishlist';
 
 				$_SESSION['navigation']->set_snapshot($aPage);
-				oos_redirect(oos_href_link($aContents['login'], ''));
+				oos_redirect(oos_href_link($aContents['login']));
 			}
 
 			if (oos_has_product_attributes($_GET['products_id'])) {
@@ -512,7 +512,7 @@ switch ($action) {
 			$_SESSION['navigation'] = new oosNavigationHistory();
 		}		  
         $_SESSION['navigation']->set_snapshot();
-        oos_redirect(oos_href_link($aContents['login'], ''));
+        oos_redirect(oos_href_link($aContents['login']));
       }
       break;
 
@@ -538,7 +538,7 @@ switch ($action) {
 			$_SESSION['navigation'] = new oosNavigationHistory();
 		} 
         $_SESSION['navigation']->set_snapshot();
-        oos_redirect(oos_href_link($aContents['login'], ''));
+        oos_redirect(oos_href_link($aContents['login']));
       }
       break;
 

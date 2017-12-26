@@ -329,7 +329,7 @@ if (!isset($_GET['delete']) && !isset($_GET['edit'])) {
 if ( isset($_GET['entry_id']) && is_numeric($_GET['entry_id']) ) {
 	$entry_id = oos_db_prepare_input($_GET['entry_id']);
 } 
-$back_link = oos_href_link($aContents['account_address_book'], '');
+$back_link = oos_href_link($aContents['account_address_book']);
 
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['account']));
