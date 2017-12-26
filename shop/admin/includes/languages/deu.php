@@ -437,7 +437,7 @@ define('BUTTON_INSERT_FILE', 'Datei einfgen');
 define('IMAGE_MEMBERS', 'Gruppenliste');
 define('IMAGE_NEW_GROUP', 'Neue Gruppe');
 define('IMAGE_NEW_MEMBER', 'Neues Mitglied');
-define('IMAGE_NEXT', 'N?hster');
+define('IMAGE_NEXT', 'Nächster');
 
 // constants for use in oosPrevNextDisplay function
 define('TEXT_DISPLAY_NUMBER_OF_FILENAMES', 'Zeige an <b>%d</b> bis <b>%d</b> (von <b>%d</b> Dateinamen)');

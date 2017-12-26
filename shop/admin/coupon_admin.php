@@ -895,7 +895,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         <td align="left" class="main"><?php echo COUPON_FINISHDATE_HELP; ?></td>
       </tr>
       <tr>
-        <td align="left"><?php echo oos_submit_button('preview', COUPON_BUTTON_PREVIEW); ?></td>
+        <td align="left"><?php echo oos_submit_button('preview', IMAGE_PREVIEW); ?></td>
         <td align="left"><?php echo '&nbsp;&nbsp;<a href="' . oos_href_link_admin('coupon_admin.php', ''); ?>"><?php echo oos_button('cancel', BUTTON_CANCEL); ?></a>
       </td>
       </tr>
