@@ -307,11 +307,11 @@
         $heading[] = array('text' => '<b>' . $pInfo->name . '</b>');
 
         $keys = '';
-        if ($pInfo->uninstallable || (sizeof($pInfo->keys > 0))) {
+        if ( $pInfo->uninstallable || (!empty($pInfo->keys) && sizeof($pInfo->keys > 0)) ) {
           if ($pInfo->status) {
             $contents[] = array('align' => 'center', 'text' => ($pInfo->uninstallable ? '<a href="' . oos_href_link_admin($aContents['plugins'], 'plugin=' . $pInfo->instance . '&action=remove') . '">' . oos_button('modules_remove', IMAGE_PLUGINS_REMOVE) . '</a>' : '') . ((sizeof($pInfo->keys) > 0) ? ' <a href="' . oos_href_link_admin($aContents['plugins'], 'plugin=' . $pInfo->instance . '&action=edit') . '">' . oos_button('edit', BUTTON_EDIT) . '</a>' : ''));
 
-            if (sizeof($pInfo->config_item) > 0) {
+            if (is_array($pInfo->config_item) && sizeof($pInfo->config_item) > 0) {
               $keys = '<br />';
 
               foreach ($pInfo->config_item as $value) {
