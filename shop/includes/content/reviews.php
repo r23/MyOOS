@@ -29,41 +29,41 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.ph
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/reviews.php';
   
 
- /**
-  * Get the number of times a word/character is present in a string
-  *
-  * @param $sStr
-  * @param $sNeedle
-  * @return number
-  */
-  function oosWordCount($sStr, $sNeedle = ' ') {
-    $aTemp = explode($sNeedle, $sStr);
+/**
+ * Get the number of times a word/character is present in a string
+ *
+ * @param $sStr
+ * @param $sNeedle
+ * @return number
+ */
+function oosWordCount($sStr, $sNeedle = ' ') {
+	$aTemp = explode($sNeedle, $sStr);
 
-    return count($aTemp);
-  }
+	return count($aTemp);
+}
 
-  $aTemplate['page'] = $sTheme . '/page/reviews.html';
-  $aTemplate['pagination'] = $sTheme . '/system/_pagination.html';
 
-  $nPageType = OOS_PAGE_TYPE_CATALOG;
-  $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
+$aTemplate['page'] = $sTheme . '/page/reviews.html';
+$aTemplate['pagination'] = $sTheme . '/system/_pagination.html';
 
-  $nPage = isset($_GET['page']) ? $_GET['page']+0 : 1;
-  $sGroup = trim($aUser['text']);
-  $nContentCacheID = $sTheme . '|products|reviews|' . $nPage. '|' . $sGroup . '|' . $sLanguage;
+$nPageType = OOS_PAGE_TYPE_CATALOG;
+$sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
-  if (!isset($option)) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
-  }
+$nPage = isset($_GET['page']) ? $_GET['page']+0 : 1;
+$sGroup = trim($aUser['text']);
+$nContentCacheID = $sTheme . '|products|reviews|' . $nPage. '|' . $sGroup . '|' . $sLanguage;
+
+require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
+if (!isset($option)) {
+	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+	require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+}
 
 if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 	$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 }
 
-  if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/reviews.php';
+if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 
     $reviewstable  = $oostable['reviews'];
     $productstable = $oostable['products'];
@@ -85,7 +85,7 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
     $reviews_result = $dbconn->Execute($reviews_result_raw);
     $aReviews = array();
     while ($reviews = $reviews_result->fields) {
-      $aReviews[] = array('id' => $reviews['reviews_id'],
+		$aReviews[] = array('id' => $reviews['reviews_id'],
                           'products_id' => $reviews['products_id'],
                           'reviews_id' => $reviews['reviews_id'],
                           'products_name' => $reviews['products_name'],
@@ -95,14 +95,14 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
                           'rating' => $reviews['reviews_rating'],
                           'word_count' => oosWordCount($reviews['reviews_text'], ' '),
                           'date_added' => oos_date_long($reviews['date_added']));
-      $reviews_result->MoveNext();
+		$reviews_result->MoveNext();
     }
 
-    // links breadcrumb
-    $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['reviews']));
+	// links breadcrumb
+	$oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['reviews']));
 	$sCanonical = oos_href_link($aContents['reviews'], 'page=' . $nPage, FALSE, TRUE);
 	
-    $smarty->assign(
+	$smarty->assign(
         array(
             'breadcrumb'    => $oBreadcrumb->trail(),
             'heading_title' => $aLang['heading_title'],

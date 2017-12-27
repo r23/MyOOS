@@ -16,9 +16,9 @@ define('OOS_LOG_SQL', 'false');    // OOS Performance Monitor
 define('USE_DB_CACHE', 'false');   // OOS SQL-Layer Cache 
 define('USE_DB_CACHE_LEVEL_HIGH', 'false');  // OOS SQL-Layer Cache HIGH
 
-define('WARN_INSTALL_EXISTENCE', 'true');
-define('WARN_CONFIG_WRITEABLE', 'true');
-define('WARN_DOWNLOAD_DIRECTORY_NOT_READABLE', 'true');
+define('WARN_INSTALL_EXISTENCE', 'false');
+define('WARN_CONFIG_WRITEABLE', 'false');
+define('WARN_DOWNLOAD_DIRECTORY_NOT_READABLE', 'false');
 
 define('DECIMAL_CART_QUANTITY', 'false');
 
