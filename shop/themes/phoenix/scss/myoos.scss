@@ -84,15 +84,14 @@
 @import "globals/paddings";
 @import "globals/margin";
 
-@import "tools/layout";
 
 //
-// Pages
+// Layout / Pages
 //
 //
-
-@import "base/home";
-
+@import "layout/layout";
+@import "layout/home";
+@import "layout/404";
 
 //
 // Custom

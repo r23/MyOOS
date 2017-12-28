@@ -13,5 +13,6 @@
 $aLang['navbar_title'] = 'Error 404';
 $aLang['heading_title'] = 'PAGE NOT FOUND';
 
-$aLang['text_information'] = 'Seite nicht gefunden';
-
+$aLang['text_information'] = 'Die von Ihnen angeforderte <strong>Seite kann leider nicht gefunden</strong> werden!';
+$aLang['text_search_again'] = 'Bitte versuchen Sie es mit einem spezifischeren Schlagwort und führen Sie Ihre Suche erneut aus.';
+$aLang['text_back_to_home'] = 'Zurück zur Startseite!';

@@ -8,17 +8,56 @@
     {/foreach}
 {/if}
 
-	<!-- start content -->
-	<section id="content">
+<!-- start content -->
+<section class="section-xlg">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-				{$lang.text_information}
-            </div>
-        </div>
-    </div>
-    </section>
-	<!-- end content -->
 
+        <div class="row">
+		
+			<div class="col-md-6 col-sm-6 hidden-xs-down">
+							
+				<div class="error-404">
+					404
+				</div>
+				
+			</div>
+
+			<div class="col-md-6 col-sm-6">
+						
+				<h3>{$lang.text_information}</h3>
+				<p class="text-muted">{$lang.text_search_again}</p>
+
+
+				<!-- SEARCH -->
+				<div class="inline-search clearfix m-mb-60">							
+								
+					<form action="{html_get_link}" method="GET" role="form">
+					{if $mySystem.sed}
+						<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+						<input type="hidden" name="formid" value="{$mySystem.formid}">
+					{/if}
+						<input type="hidden" name="content" value="{$filename.advanced_search_result}">
+							
+						<input type="text" name="keywords" class="serch-input" placeholder="{$lang.text_search}">
+						<button type="submit">
+							<i class="fa fa-search"></i>
+						</button>
+						<div class="clear"></div>								
+					</form>								
+								
+				</div>
+				<!-- /SEARCH -->
+
+				<div class="divider mb-0"><!-- divider --></div>
+
+				<a href="{html_href_link content=$filename.home}"><i class="fa fa-angle-left" aria-hidden="true"></i> {$lang.text_back_to_home}</a>
+
+			</div>	
+
+        </div>
+		
+    </div>
+</section>
+<!-- end content -->
 	
 {include file="phoenix/system/_footer.html"}
