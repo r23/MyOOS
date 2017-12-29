@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Limit Login Attempts - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-05-30 12:55:48+0000\n"
+"PO-Revision-Date: 2017-12-29 00:57:01+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,7 +21,7 @@ msgstr "Johan Eenfeldt"
 
 #. Description of the plugin/theme
 msgid "Limit rate of login attempts, including by way of cookies, for each IP."
-msgstr "Begrenzung von Login-Versuchen, auch durch Cookies, für jede IP."
+msgstr "Maximale Anzahl an Anmeldeversuchen beschränken, auch durch Cookies, für jede IP."
 
 #. Plugin URI of the plugin/theme
 msgid "http://devel.kostdoktorn.se/limit-login-attempts"
@@ -45,7 +45,7 @@ msgstr "Einstellungen speichern"
 
 #: limit-login-attempts.php:1076
 msgid "lockouts"
-msgstr "Sperrungen"
+msgstr "Aussperrungen"
 
 #: limit-login-attempts.php:1076
 msgid "Email to admin after"
@@ -81,7 +81,7 @@ msgstr "Direkte Verbindung"
 
 #: limit-login-attempts.php:1050
 msgid "Site connection"
-msgstr "Verbindungsweg zu dieser Webseite"
+msgstr "Verbindungsweg zu dieser Website"
 
 #: limit-login-attempts.php:1046
 msgid "hours until retries are reset"
@@ -117,7 +117,7 @@ msgstr "%d IP ist derzeit f&uuml;r Anmeldeversuche gesperrt"
 
 #: limit-login-attempts.php:1029
 msgid "Restore Lockouts"
-msgstr "Sperrungen aufheben"
+msgstr "Aussperrungen aufheben"
 
 #: limit-login-attempts.php:1027
 msgid "Active lockouts"
@@ -232,7 +232,7 @@ msgstr "IP wurde NICHT blockiert, weil sie auf einer Whitelist steht."
 
 #: limit-login-attempts.php:547
 msgid "Last user attempted: %s"
-msgstr "Letzter Anmeldeversuch erfolgte mit dem Benutzernamen %s"
+msgstr "Letzter Anmeldeversuch erfolgte mit dem Benutzernamen: %s"
 
 #: limit-login-attempts.php:543
 msgid "%d failed login attempts (%d lockout(s)) from IP: %s"
