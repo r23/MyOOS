@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 4.9.x - Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-12-22 17:02:00+0000\n"
+"PO-Revision-Date: 2017-12-28 20:26:30+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -4183,11 +4183,6 @@ msgctxt "comment status"
 msgid "Trash"
 msgstr "Papierkorb"
 
-#: wp-includes/comment.php:242
-msgctxt "comment status"
-msgid "Approved"
-msgstr "Genehmigt"
-
 #: wp-includes/comment.php:1158
 msgid "<strong>ERROR</strong>: your comment is too long."
 msgstr "<strong>FEHLER</strong>: Dein Kommentar ist zu lang."
@@ -4203,6 +4198,11 @@ msgstr "<strong>FEHLER</strong>: Deine E-Mail-Adresse ist zu lang."
 #: wp-includes/comment.php:1146
 msgid "<strong>ERROR</strong>: your name is too long."
 msgstr "<strong>FEHLER</strong>: Dein Name ist zu lang."
+
+#: wp-includes/comment.php:242
+msgctxt "comment status"
+msgid "Approved"
+msgstr "Freigegeben"
 
 #: wp-includes/class-wp-customize-manager.php:4890
 msgid "Logo"
