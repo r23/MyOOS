@@ -38,7 +38,11 @@
 						<input type="hidden" name="content" value="{$filename.newsletter}">
 
 						<div class="input-group">
-							<span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+							<div class="input-group-prepend">
+								<div class="input-group-text">
+									<i class="fa fa-user" aria-hidden="true"></i>
+								</div>
+							</div>
 							<input type="email_address" name="email_address" class="form-control" id="email_address" placeholder="{$lang.entry_email_address}" data-original-title="" title="">
 						</div>
 						<br>
