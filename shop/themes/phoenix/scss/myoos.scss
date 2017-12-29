@@ -58,9 +58,6 @@
 // Quick Shop Cart
 @import "base/cart";
 
-// shopping_cart
-@import "base/_products";
-
 // page header
 @import "base/page_header";
 
@@ -91,6 +88,7 @@
 //
 @import "layout/layout";
 @import "layout/home";
+@import "layout/shopping_cart";
 @import "layout/404";
 
 //

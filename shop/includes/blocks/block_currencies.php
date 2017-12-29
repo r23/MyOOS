@@ -22,6 +22,7 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
+
 $currency_block = FALSE;
 if (isset($oCurrencies) && is_object($oCurrencies)) {
 
