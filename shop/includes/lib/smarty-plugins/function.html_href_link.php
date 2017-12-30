@@ -77,7 +77,7 @@ function smarty_function_html_href_link($params, &$smarty)
           break;
        }
     }
-	
+
     if (empty($content) && ($debug == 1) )  {
 		throw new SmartyException("html_href_link: Unable to determine the page link!", E_USER_NOTICE);
     }

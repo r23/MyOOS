@@ -51,7 +51,7 @@
     }
 
     function create_plugin_instance() {
-      global $oBreadcrumb, $aLang, $sCanonical, $aCategoryPath;
+      global $oBreadcrumb, $session, $aLang, $sCanonical, $aCategoryPath;
 
       $dbconn =& oosDBGetConn();
       $oostable =& oosDBGetTables();
@@ -62,6 +62,7 @@
       include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_breadcrumb.php';
       $oBreadcrumb = new breadcrumb();
 
+  
       $oBreadcrumb->add($aLang['header_title_top'], oos_href_link($aContents['home']));
       $nPage = isset($_GET['page']) ? $_GET['page']+0 : 1;
 	  

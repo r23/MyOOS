@@ -40,7 +40,7 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
   * @param $search_engine_safe
   * @return string
   */
-function oos_href_link($page = '', $parameters = '', $add_session_id = FALSE, $search_engine_safe = TRUE) {
+function oos_href_link($page = '', $parameters = '', $add_session_id = TRUE, $search_engine_safe = TRUE) {
     global $session, $oEvent, $spider_flag;
 
 	$page = oos_output_string($page);	
