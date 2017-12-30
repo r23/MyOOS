@@ -8,59 +8,87 @@
     {/foreach}
 {/if}
 
+<!-- start content -->
 <section class="mainContent clearfix">
-	<div class="container">
+	<div class="container">  
 		<div class="row">
-			<div class="col-md-12">
-				<div class="innerWrapper clearfix">
-				
-				<div class="clearfix shop-list-options margin-bottom-20">
+
+			<!-- left column -->
+			<div class="col-lg-9 col-md-9 col-sm-9">
+	
+				<div class="clearfix shop-list-options m-mb-20">
 					<!-- Pagination -->
-					<div class="nomargin float-right">
+					<div class="m-0 float-right">
 						{$pagination}
 					</div>
 					<!-- /Pagination -->
 				</div>
 
-				<ul class="shop-item-list row list-inline-item nomargin">	
-				
-<table border="0" width="100%" cellspacing="0" cellpadding="2">
-{section name=i loop=$oos_specials_array}
+				<ul class="shop-item-list row list-inline m-0">	
+				{section name=i loop=$specials}
 
-     <td width="50%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-       <tr>
-         <td valign="top" align="left" width="{$smarty.const.SMALL_IMAGE_WIDTH}" class="smallText"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="{$smarty.const.SMALL_IMAGE_WIDTH}" height="5"><br>
-           <a href="{product_link products_id=$oos_specials_array[i].products_id}">{small_product_image image=$oos_specials_array[i].products_image alt=$oos_specials_array[i].products_name|strip_tags}</a><br>
-         </td>
-         <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
-         <td valign="top" class="smallText"><a href="{product_link products_id=$oos_specials_array[i].products_id}"><strong>{$oos_specials_array[i].products_name}</strong></a><br>
-           <br>{$oos_specials_array[i].products_description|truncate:120:" [...]":false|close_tags}<br>
-         </td>
-       </tr>
-       <tr>
-         <td valign="bottom" class="smallText">
-           <s>{$oos_specials_array[i].products_price}</s><br>
-           {$oos_specials_array[i].products_special_price}<br>
-         </td>
-         <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
-         <td valign="bottom" align="right" >{if $myUser.show_price eq 1 }<a href="{html_href_link content=$page_file action=buy_now products_id=$oos_specials_array[i].products_id}" class="btn btn-primary-filled" role="button"><i class="fa fa-cart-plus" aria-hidden="true"></i> {$lang.button_in_cart}</a>{/if}
-         <img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1">
-         <a href="{product_link products_id=$oos_specials_array[i].products_id}" class="btn btn-primary-filled" role="button">{$lang.button_hp_more}</a>
-         </td>
-       </tr>
-        <tr>
-          <td valign="top" colspan="3">
-{if $oos_specials_array[i].products_base_price != 1}
-  <span class="smallText">{$lang.text_products_base_price}: </span>
-  <span class="special_base_price">{$oos_specials_array[i].products_base_unit} = {$oos_specials_array[i].base_product_special_price}</span></s><br>
-{/if}
-          </td>
-        </tr>
-     </table></td>
+					<!-- ITEM -->
+					<li class="col-lg-4 col-sm-4">
 
+						<div class="shop-item">
 
-  {/section}
- </table> 
+							<div class="thumbnail">
+								<!-- product image(s) -->
+								<a class="shop-item-image" href="{product_link products_id=$specials[i].products_id}">
+									{small_product_image image=$specials[i].products_image alt=$specials[i].products_name|strip_tags}
+								</a>
+								<!-- /product image(s) -->
+
+								{if $myUser.show_price eq 1 }			
+								<!-- hover buttons -->
+								<div class="shop-option-over">
+									<a class="btn btn-default add-wishlist" href="{html_href_link content=$filename.specials action=add_wishlist products_id=$specials[i].products_id page=$page}" data-item-id="1" data-toggle="tooltip" title="{$lang.button_add_wishlist}"><i class="fa fa-heart p-0" aria-hidden="true"></i></a>
+								</div>
+								<!-- /hover buttons -->
+								{/if}
+								
+								<!-- product more info -->
+								<div class="shop-item-info">
+									<span class="badge badge-success">NEW</span>
+									<span class="badge badge-danger">SALE</span>
+								</div>
+								<!-- /product more info -->
+										
+											
+							</div>
+										
+							<div class="shop-item-summary text-center">
+								<h2><a href="{product_link products_id=$specials[i].products_id}">{$specials[i].products_name}</a></h2>
+											
+								<!-- price -->
+								<div class="shop-item-price">
+									<s>{$specials[i].products_price}</s>
+									{$specials[i].products_special_price}
+																		
+									{if $specials[i].products_base_price != 1}
+										<span class="base_price">{$lang.text_products_base_price}: </span>
+										<span class="special_base_price">{$specials[i].products_base_unit} = {$specials[i].base_product_special_price}</span><br>
+									{/if}								
+									
+								</div>
+								<!-- /price -->											
+																				
+										
+								{if $myUser.show_price eq 1 }
+								<!-- buttons -->
+								<div class="shop-item-buttons text-center">
+									<a class="btn btn-default" href="{html_href_link content=$filename.specials action=buy_now page=$page products_id=$specials[i].products_id}" role="button"><i class="fa fa-cart-plus" aria-hidden="true"></i></i> {$lang.button_in_cart}</a>
+								</div>
+								<!-- /buttons -->
+								{/if}
+							</div>
+						
+						</div>
+
+					</li>
+					<!-- /ITEM -->
+					
+				{/section}
 				</ul>
 				
 				<span class="pangv .margin-top-30">{$pangv}</span>
@@ -71,11 +99,27 @@
 					{$pagination}
 				</div>
 				<!-- /Pagination -->
+		
+			</div><!-- .col -->
 
-				</div>
-			</div>
-		</div>
-	</div>
+			<!-- sidebar-->
+			<div class="col-lg-3 col-md-3">
+			{foreach $sidebar as $panel}
+				{if $panel.content}
+				<div class="card-group" id="accordion-v{$panel@iteration}">
+					{$panel.content}
+				</div><!-- .card group-->
+				{/if}
+			{/foreach}
+            </div><!-- .col -->
+			<!-- end sidebar -->
+		</div><!-- .row -->      
+	</div><!--end container-->
 </section>
+<!-- end content -->
+
+{if $smarty.const.NEWSLETTER eq 'true'}
+	{include file="phoenix/system/_newsletter.html"}
+{/if}
 
 {include file="phoenix/system/_footer.html"}

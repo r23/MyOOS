@@ -126,11 +126,13 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 
            'page_split'			=> $products_new_split->display_count($products_new_numrows, MAX_DISPLAY_PRODUCTS_NEW, $nPage, $aLang['text_display_number_of_products_new']),
            'display_links'		=> $products_new_split->display_links($products_new_numrows, MAX_DISPLAY_PRODUCTS_NEW, MAX_DISPLAY_PAGE_LINKS, $nPage, oos_get_all_get_parameters(array('page', 'info'))),
-
+		   
+			'page'				=> $nPage,
            'products_new' 		=> $products_new_array
 		)
     );
 }
+
 $smarty->assign('pagination', $smarty->fetch($aTemplate['pagination'], $nContentCacheID));
 
 // display the template

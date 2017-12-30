@@ -59,8 +59,8 @@ class splitPageResults {
 		$sql_result .= " LIMIT " . max($offset, 0) . ", " . $max_rows_per_page;
 
 		$sql = "SELECT COUNT(*) AS total " . substr($sql_result, $pos_from, ($pos_to - $pos_from));
-		$reviews_count = $dbconn->Execute($sql);
-		$query_num_rows = $reviews_count->fields['total'];
+		$count = $dbconn->Execute($sql);	
+		$query_num_rows = $count->fields['total'];
 	}
 
 
@@ -106,7 +106,7 @@ class splitPageResults {
 		for ($jump_to_page = 1 + (($cur_window_num - 1) * $max_page_links); ($jump_to_page <= ($cur_window_num * $max_page_links)) && ($jump_to_page <= $num_pages); $jump_to_page++) {
 			if ($jump_to_page == $current_page_number) {
 				// $display_link .= '<li class="page-item active"><a class="page-link" href="' . oos_href_link($sContent, $parameters . 'page=' . $jump_to_page) . '">' . $jump_to_page . '<span class="sr-only"></span></a></li>';
-				$display_link .= '<li class="page-item active"><span class="page-link">' . $jump_to_page . '<span class="sr-only"></span></a></li>';
+				$display_link .= '<li class="page-item active"><span class="page-link">' . $jump_to_page . '<span class="sr-only"></span></span></li>';
 			} else {
 				$display_link .= '<li class="page-item"><a class="page-link" href="' . oos_href_link($sContent, $parameters . 'page=' . $jump_to_page) . '">' . $jump_to_page . '</a></li>';
 			}
