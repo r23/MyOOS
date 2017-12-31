@@ -17,16 +17,16 @@
 			<div class="col-lg-9 col-md-9 col-sm-9">
 	
 				<div class="clearfix shop-list-options m-mb-20">
-					<!-- Pagination -->
+					<!-- pagination -->
 					<div class="m-0 float-right">
 						{$pagination}
 					</div>
-					<!-- /Pagination -->
+					<!-- end pagination -->
 				</div>
 
 				<ul class="shop-item-list row list-inline m-0">
 				{section name=i loop=$products_new}
-					<!-- ITEM -->
+					<!-- item -->
 					<li class="col-lg-12">
 
 						<div class="shop-item clearfix">
@@ -36,7 +36,7 @@
 								<a class="shop-item-image" href="{product_link products_id=$products_new[i].id}">
 									{small_product_image image=$products_new[i].image alt=$products_new[i].name|strip_tags}
 								</a>
-								<!-- /product image -->
+								<!-- end product image -->
 							</div>
 
 										
@@ -56,7 +56,7 @@
 											
 								<p><!-- product short description -->
 									{$products_new[i].products_description}
-								</p><!-- /product short description -->
+								</p><!-- end product short description -->
 
 								<!-- price -->
 								<div class="shop-item-price">
@@ -77,7 +77,7 @@
 										{/if}
 									{/if}
 								</div>
-								<!-- /price -->
+								<!-- end price -->
 
 							{if $myUser.show_price eq 1 }
 								<!-- buttons -->
@@ -85,24 +85,24 @@
 									<a class="btn btn-secondary" href="{html_href_link content=$filename.products_new action=buy_now page=$page products_id=$products_new[i].id}" role="button"><i class="fa fa-cart-plus" aria-hidden="true"></i> {$lang.button_in_cart}</a>
 									<a class="btn btn-secondary add-wishlist" href="{html_href_link content=$filename.products_new action=add_wishlist products_id=$products_new[i].id}" role="button"><i class="fa fa-heart" aria-hidden="true"></i> {$lang.button_add_wishlist}</a>
 								</div>
-								<!-- /buttons -->
+								<!-- end buttons -->
 							{/if}
 							</div>
 
 						</div>
 					</li>
-					<!-- /ITEM -->
+					<!-- end item -->
 				{/section}
 				</ul>
 				
 				<span class="pangv .margin-top-30">{$pangv}</span>
 				<hr />
 
-				<!-- Pagination -->
+				<!-- pagination -->
 				<div class="text-center">
 					{$pagination}
 				</div>
-				<!-- /Pagination -->
+				<!-- end pagination -->
 		
 			</div><!-- .col -->
 

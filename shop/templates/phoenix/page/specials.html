@@ -17,17 +17,17 @@
 			<div class="col-lg-9 col-md-9 col-sm-9">
 	
 				<div class="clearfix shop-list-options m-mb-20">
-					<!-- Pagination -->
+					<!-- pagination -->
 					<div class="m-0 float-right">
 						{$pagination}
 					</div>
-					<!-- /Pagination -->
+					<!-- end pagination -->
 				</div>
 
 				<ul class="shop-item-list row list-inline m-0">	
 				{section name=i loop=$specials}
 
-					<!-- ITEM -->
+					<!-- item -->
 					<li class="col-lg-4 col-sm-4">
 
 						<div class="shop-item">
@@ -37,14 +37,14 @@
 								<a class="shop-item-image" href="{product_link products_id=$specials[i].products_id}">
 									{small_product_image image=$specials[i].products_image alt=$specials[i].products_name|strip_tags}
 								</a>
-								<!-- /product image(s) -->
+								<!-- end product image(s) -->
 
 								{if $myUser.show_price eq 1 }			
 								<!-- hover buttons -->
 								<div class="shop-option-over">
 									<a class="btn btn-default add-wishlist" href="{html_href_link content=$filename.specials action=add_wishlist products_id=$specials[i].products_id page=$page}" data-item-id="1" data-toggle="tooltip" title="{$lang.button_add_wishlist}"><i class="fa fa-heart p-0" aria-hidden="true"></i></a>
 								</div>
-								<!-- /hover buttons -->
+								<!-- end hover buttons -->
 								{/if}
 								
 								<!-- product more info -->
@@ -52,7 +52,7 @@
 									<span class="badge badge-success">NEW</span>
 									<span class="badge badge-danger">SALE</span>
 								</div>
-								<!-- /product more info -->
+								<!-- end product more info -->
 										
 											
 							</div>
@@ -71,7 +71,7 @@
 									{/if}								
 									
 								</div>
-								<!-- /price -->											
+								<!-- end price -->											
 																				
 										
 								{if $myUser.show_price eq 1 }
@@ -79,14 +79,14 @@
 								<div class="shop-item-buttons text-center">
 									<a class="btn btn-default" href="{html_href_link content=$filename.specials action=buy_now page=$page products_id=$specials[i].products_id}" role="button"><i class="fa fa-cart-plus" aria-hidden="true"></i></i> {$lang.button_in_cart}</a>
 								</div>
-								<!-- /buttons -->
+								<!-- end buttons -->
 								{/if}
 							</div>
 						
 						</div>
 
 					</li>
-					<!-- /ITEM -->
+					<!-- end item -->
 					
 				{/section}
 				</ul>
@@ -94,11 +94,11 @@
 				<span class="pangv .margin-top-30">{$pangv}</span>
 				<hr />
 
-				<!-- Pagination -->
+				<!-- pagination -->
 				<div class="text-center">
 					{$pagination}
 				</div>
-				<!-- /Pagination -->
+				<!-- end pagination -->
 		
 			</div><!-- .col -->
 
