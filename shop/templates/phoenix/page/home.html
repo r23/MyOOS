@@ -6,13 +6,14 @@
     {/foreach}
 {/if}
 
-	<!-- start content -->
-	<section class="featured section-xxs">
-	<!-- start slider -->
-		{$featured}
-	<!-- end slider -->
-	</section>
-	<section class="callaction section-xxs">
+<!-- start content -->
+<section class="featured section-xxs">
+<!-- start slider -->
+	{$featured}
+<!-- end slider -->
+</section>
+
+<section class="callaction section-xxs">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
@@ -22,8 +23,9 @@
 			</div>
 		</div>
 	</div>
-	</section>
-	<section class="mainContent section-xxs">
+</section>
+
+<section class="mainContent section-xxs">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
@@ -65,23 +67,18 @@
 				{$upcoming_products}
 			</div>
 		</div>
-	</div>
-	</section>
-	<section class="bottom section-xxs">">
-	<div class="container">
+
 		<div class="row">
 			<div class="col-md-12">
-				<div class="aligncenter">
-					<div id="twitter-wrapper">
-						<div id="twitter">
-						</div>
-					</div>
-				</div>
+				<span class="pangv .margin-top-30">{$pangv}</span>
 			</div>
-		</div>
+		</div>		
+		
 	</div>
-	</section>
-	<!-- end content -->
+</section>
+<!-- end content -->
+
+	
 {if $smarty.const.NEWSLETTER eq 'true'}
 	{include file="phoenix/system/_newsletter.html"}
 {/if}

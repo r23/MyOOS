@@ -3,19 +3,19 @@
 <section>
 	<div class="container">
 
-		<div class="heading margin-bottom-40">
+		<div class="heading m-mb-40">
 			<h2>{$block_heading_new_products}</h2>
 		</div>
 		
 		<ul class="shop-item-list row list-inline m-0">
 
-	{foreach item=new_product from=$new_products_array}
+		{foreach item=new_product from=$new_products_array}
 			<!-- ITEM -->
 			<li class="col-sm-3 col-12">
                 <div class="imageBox">
 					<div class="productImage clearfix">
 						<a href="{product_link products_id=$new_product.products_id}">
-							<img src="{$new_product.products_image}" alt="{$new_product.products_name}">
+							{small_product_image image=$new_product.products_image alt=$new_product.products_name|strip_tags}
 						</a>
 						<div class="productMasking">
                               <ul class="list-inline btn-group" role="group">
@@ -41,7 +41,8 @@
   
                 </div>
             </li>
-	{/foreach}
+		{/foreach}
+		
 		</ul>
 	</div>
 </section>
