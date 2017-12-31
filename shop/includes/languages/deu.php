@@ -380,7 +380,7 @@ $aLang['gv_has_vouchera'] = 'Sie haben ein Gutschein - Guthaben auf Ihrem Kunden
                          Ihres Guthabens per';
 $aLang['gv_has_voucherb'] = 'versenden?';
 $aLang['entry_amount_check_error'] = '&nbsp;<small><font color="#FF0000">Leider keine ausreichende Deckung auf Ihrem Kundenkonto!</font></smal>'; 
-$aLang['gv_send_to_friend'] = 'Gutschein versenden';
+
 
 $aLang['voucher_redeemed'] = 'Voucher Redeemed';
 $aLang['cart_coupon'] = 'Coupon :';

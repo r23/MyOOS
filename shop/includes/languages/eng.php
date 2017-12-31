@@ -381,7 +381,6 @@ $aLang['gv_has_vouchera'] = 'You have funds in your Gift Voucher Account. If you
                          you can send those funds by';      
 $aLang['gv_has_voucherb'] = 'to someone'; 
 $aLang['entry_amount_check_error'] = 'You do not have enough funds to send this amount.'; 
-$aLang['gv_send_to_friend'] = 'Send Gift Voucher';
 
 $aLang['voucher_redeemed'] = 'Voucher Redeemed';
 $aLang['cart_coupon'] = 'Coupon :';
