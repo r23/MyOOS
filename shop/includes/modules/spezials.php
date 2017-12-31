@@ -42,7 +42,7 @@ $sql = "SELECT p.products_id, pd.products_name, p.products_price, p.products_tax
           ORDER BY s.specials_date_added DESC";
 $new_spezials_result = $dbconn->SelectLimit($sql, MAX_DISPLAY_NEW_SPEZILAS);
 if ($new_spezials_result->RecordCount() >= MIN_DISPLAY_NEW_SPEZILAS) {
-    $new_spezials_array = array();
+    $aSpezials = array();
     while ($new_spezials = $new_spezials_result->fields) {
 
 		$new_spezials_base_product_price = NULL;
@@ -67,7 +67,7 @@ if ($new_spezials_result->RecordCount() >= MIN_DISPLAY_NEW_SPEZILAS) {
 		}
 		
 		
-		$new_spezials_array[] = array('products_id' => $new_spezials['products_id'],
+		$aSpezials[] = array('products_id' => $new_spezials['products_id'],
                                     'products_image' => $new_spezials['products_image'],
                                     'products_name' => $new_spezials['products_name'],
                                     'products_description' => oos_remove_tags($new_spezials['products_description']),
@@ -84,9 +84,6 @@ if ($new_spezials_result->RecordCount() >= MIN_DISPLAY_NEW_SPEZILAS) {
 		$new_spezials_result->MoveNext();
     }
 
-    // Close result set
-    $new_spezials_result->Close();
-
-    $smarty->assign('new_spezials_array', $new_spezials_array);
+    $smarty->assign('spezials', $aSpezials);
 }
 

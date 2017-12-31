@@ -19,17 +19,17 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
 
- /**
-  * Sets the status of a special product
-  *
-  * @param $specials_id
-  * @param $status
-  */
-  function oos_set_specials_status($nSpecialsId, $status) {
+/**
+ * Sets the status of a special product
+ *
+ * @param $specials_id
+ * @param $status
+ */
+function oos_set_specials_status($nSpecialsId, $status) {
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -40,13 +40,13 @@
                              SET status = '" . oos_db_input($status) . "',
                                  date_status_change = now()
                               WHERE specials_id = '" . intval($nSpecialsId) . "'");
-  }
+}
 
 
- /**
-  * Auto expire products on special
-  */
-  function oos_expire_spezials() {
+/**
+ * Auto expire products on special
+ */
+function oos_expire_spezials() {
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -59,23 +59,20 @@
                 AND now() >= expires_date
                 AND expires_date > 0";
     if (USE_DB_CACHE == 'true') {
-      $result = $dbconn->CacheExecute(3600, $query);
+		$result = $dbconn->CacheExecute(3600, $query);
     } else {
-      $result = $dbconn->Execute($query);
+		$result = $dbconn->Execute($query);
     }
     if (!$result) {return;}
 
     if ($result->RecordCount() > 0) {
-      while ($specials = $result->fields) {
-        oos_set_specials_status($specials['specials_id'], '0');
+		while ($specials = $result->fields) {
+			oos_set_specials_status($specials['specials_id'], '0');
 
-        // Move that ADOdb pointer!
-        $result->MoveNext();
-      }
+			// Move that ADOdb pointer!
+			$result->MoveNext();
+		}
 
-      // Close result set
-      $result->Close();
-    }
-  }
-
+	}
+}
 
