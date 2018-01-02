@@ -1,4 +1,18 @@
 <?php
+/* ----------------------------------------------------------------------
+   $Id: oos_filename.php,v 1.1 2007/06/08 15:20:14 r23 Exp $
+
+   MyOOS [Shopsystem]
+   https://www.oos-shop.de
+
+   Copyright (c) 2003 - 2018 by the MyOOS Development Team.
+   ----------------------------------------------------------------------
+   Released under the GNU General Public License
+   ---------------------------------------------------------------------- */
+
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+
 if ($bForm == TRUE) {
 ?>
 <!-- PARSLEY-->
@@ -10,7 +24,6 @@ if ($bForm == TRUE) {
 <?php
 } 
 ?>
-
 <!-- JS Global Compulsory -->      
 <script type="text/javascript" src="js/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="js/bootstrap/bootstrap.min.js"></script>
