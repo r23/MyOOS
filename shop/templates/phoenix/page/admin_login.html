@@ -8,11 +8,11 @@
     {/foreach}
 {/if}
 
-	<!-- start content -->
-	<section id="content">
+<!-- start content -->
+<section id="content">
 	<div class="container">
 	    <div class="row">
-			<div class="col-sm-6 col-sm-offset-3">
+			<div class="col-md-6 offset-md-3">
 				<div class="sign-form">
 					<h3 class="first-child">{$lang.heading_admin_login}</h3>
 					<hr>
@@ -45,14 +45,15 @@
 						<input type="text" class="form-control" id="key" placeholder="{$newkey2}" data-original-title="" title="">
 					</div>
 					<br>
-					<button type="submit" class="btn btn-color">{$lang.button_login}</button>
+					<button type="submit" class="btn btn-primary float-right"><i class="fa fa-check" aria-hidden="true"></i> {$lang.button_login}</button>
+
 					<hr>
 					</form>
 				</div>
 			</div>
 		</div><!-- .row -->
 	</div><!--end container-->
-	</section>
+</section>
 	<!-- end content -->
 
 {include file="phoenix/system/_footer.html"}

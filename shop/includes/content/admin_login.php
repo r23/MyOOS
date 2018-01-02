@@ -179,7 +179,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'login_process') &&
 $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['login']));
 $sCanonical = oos_href_link($aContents['login'], '', FALSE, TRUE);
 
-$aTemplate['page'] = $sTheme . '/page/login_admin.html';
+$aTemplate['page'] = $sTheme . '/page/admin_login.html';
 
 $nPageType = OOS_PAGE_TYPE_SERVICE;
 $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
