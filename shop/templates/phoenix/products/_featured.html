@@ -1,0 +1,60 @@
+{if $featured}
+<!-- featured -->
+<section>
+	<div class="container">
+
+		<div class="heading m-mb-40">
+			<h2>{$lang.table_heading_featured_products}</h2>
+		</div>
+		
+		<ul class="shop-item-list row list-inline m-0">
+
+		{foreach item=featur from=$featured}
+          
+			<!-- item -->
+			<li class="col-sm-3 col-12">
+                <div class="imageBox">
+					<div class="productImage clearfix">
+						<a href="{product_link products_id=$featur.products_id}">
+							{small_product_image image=$featur.products_image alt=$featur.products_name|strip_tags}
+						</a>
+						{if $myUser.show_price eq 1 }
+						<div class="productMasking">
+                              <ul class="list-inline btn-group" role="group">
+                                <li><a href="{html_href_link content=$page_file action=add_wishlist products_id=$featur.products_id}" class="btn btn-default btn-wishlist" role="button"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li>
+                                <li><a href="{html_href_link content=$page_file oos_get=$get_params action=buy_now cart_quantity=$featur.order_min  products_id=$featur.products_id}" class="btn btn-default" role="button"><i class="fa fa-shopping-basket" aria-hidden="true"></i></a></li>
+                                <li><a href="{product_link products_id=$featur.products_id}" class="btn btn-default"><i class="fa fa-eye" aria-hidden="true" role="button"></i></a></li>
+                              </ul>
+						</div>
+						{/if}						
+						
+					</div>
+                </div> 
+                <div class="shop-item-summary text-center">
+                    <h4><a href="{product_link products_id=$featur.products_id}">{$featur.products_name}</a></h4>
+
+					<div class="product-price clearfix">
+					{if $featur.products_base_price != 1}
+						<span class="smallText">{$lang.text_products_base_price}: </span>
+						{if (!empty($featur.featured_special_price))}
+							<span class="special_base_price">{$featur.products_base_unit} = {$featur.featured_base_product_special_price}</span><br>
+						{else}
+							{if $featur.featured_max_product_discount != 0}
+								<span class="discount_base_price">{$featur.products_base_unit} = {$featur.featured_base_product_special_price}</span><br>
+							{else}
+								<span class="base_price">{$featur.products_base_unit} = {$featur.featured_base_product_price}</span><br>
+							{/if}
+						{/if}
+					{/if}
+					</div>
+                </div>
+            </li>		
+		    <!-- end item -->
+
+		{/foreach}
+		
+		</ul>
+	</div>
+</section>
+<!-- end specials -->
+{/if}

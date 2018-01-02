@@ -42,6 +42,7 @@ $featured_result = $dbconn->SelectLimit($sql, MAX_DISPLAY_FEATURED_PRODUCTS);
 
 // MIN_DISPLAY_FEATURED
 if ($featured_result->RecordCount() >= 1) {
+	
     $aFeatured = array();
     while ($featured = $featured_result->fields) {
 
@@ -95,9 +96,6 @@ if ($featured_result->RecordCount() >= 1) {
 		$featured_result->MoveNext();
     }
 
-    // Close result set
-    $featured_result->Close();
-
-    $smarty->assign('featured_array', $aFeatured);
+    $smarty->assign('featured', $aFeatured);
 }
 

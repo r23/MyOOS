@@ -29,7 +29,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_default.php';
 $sCanonical = OOS_HTTPS_SERVER . OOS_SHOP;
 
 $aTemplate['page'] = $sTheme . '/page/home.html';
-if ($oEvent->installed_plugin('featured')) $aTemplate['featured'] = $sTheme . '/page/products/featured.html';
+if ($oEvent->installed_plugin('featured')) $aTemplate['featured'] = $sTheme . '/products/_featured.html';
 if ($oEvent->installed_plugin('spezials')) $aTemplate['spezials'] = $sTheme . '/products/_spezials.html';
 if ($oEvent->installed_plugin('manufacturers')) $aTemplate['mod_manufacturers'] = $sTheme . '/page/products/manufacturers.html';
 $aTemplate['new_products'] = $sTheme . '/products/_new_products.html';
