@@ -72,7 +72,7 @@
         $nCurrentCategoryID = 0;
       }
 
-      return true;
+      return TRUE;
     }
 
     function install() {

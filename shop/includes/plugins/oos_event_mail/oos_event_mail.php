@@ -54,7 +54,7 @@
 
     function create_plugin_instance() {
 
-      return true;
+      return TRUE;
     }
 
     function install() {
@@ -77,7 +77,7 @@
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('OOS_SMTPHOST', '', 6, 10, NULL, " . $dbconn->DBTimeStamp($today) . ", NULL, NULL)");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('OOS_SENDMAIL', '', 6, 11, NULL, " . $dbconn->DBTimeStamp($today) . ", NULL, NULL)");
 
-      return true;
+      return TRUE;
     }
 
     function remove() {
@@ -89,7 +89,7 @@
       $configurationtable = $oostable['configuration'];
       $dbconn->Execute("DELETE FROM $configurationtable WHERE configuration_key in ('" . implode("', '", $this->config_item()) . "')");
 
-      return true;
+      return TRUE;
     }
 
     function config_item() {

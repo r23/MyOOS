@@ -38,92 +38,91 @@ if (!isset($_SESSION['customer_id'])) {
     oos_redirect(oos_href_link($aContents['login']));
 }
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_product_notifications.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_product_notifications.php';
 
-  if (isset($_GET['action']) && ($_GET['action'] == 'update_notifications')) {
+if (isset($_GET['action']) && ($_GET['action'] == 'update_notifications')) {
     (array)$products = $_POST['products'];
     $aRemove = array();
     for ($i=0, $n=count($products); $i<$n; $i++) {
-      if (is_numeric($products[$i])) {
-        $aRemove[] = $products[$i];
-      }
-    }
+		if (is_numeric($products[$i])) {
+			$aRemove[] = $products[$i];
+		}
+	}
 
-    if (oos_is_not_null($aRemove)) {
-      $products_notificationstable = $oostable['products_notifications'];
-      $dbconn->Execute("DELETE FROM $products_notificationstable
+	if (oos_is_not_null($aRemove)) {
+		$products_notificationstable = $oostable['products_notifications'];
+		$dbconn->Execute("DELETE FROM $products_notificationstable
                         WHERE customers_id = '" . intval($_SESSION['customer_id']) . "' AND
                               products_id IN (" . implode(',', $aRemove) . ")");
-    }
+	}
 
-    oos_redirect(oos_href_link($aContents['product_notifications']));
+	oos_redirect(oos_href_link($aContents['product_notifications']));
 
-  } elseif (isset($_GET['action']) && ($_GET['action'] == 'global_notify')) {
-    if (isset($_POST['global']) && ($_POST['global'] == 'enable')) {
-      $customers_infotable = $oostable['customers_info'];
-      $dbconn->Execute("UPDATE $customers_infotable
+} elseif (isset($_GET['action']) && ($_GET['action'] == 'global_notify')) {
+	if (isset($_POST['global']) && ($_POST['global'] == 'enable')) {
+		$customers_infotable = $oostable['customers_info'];
+		$dbconn->Execute("UPDATE $customers_infotable
                         SET global_product_notifications = '1'
                         WHERE customers_info_id = '" . intval($_SESSION['customer_id']) . "'");
-    } else {
-      $customers_infotable   = $oostable['customers_info'];
-      $sql = "SELECT COUNT(*) AS total
+	} else {
+		$customers_infotable   = $oostable['customers_info'];
+		$sql = "SELECT COUNT(*) AS total
               FROM $customers_infotable
               WHERE customers_info_id = '" . intval($_SESSION['customer_id']) . "'
                 AND global_product_notifications = '1'";
-      $check_result = $dbconn->Execute($sql);
-      if ($check_result->fields['total'] > 0) {
-        $customers_infotable = $oostable['customers_info'];
-        $dbconn->Execute("UPDATE $customers_infotable
+		$check_result = $dbconn->Execute($sql);
+		if ($check_result->fields['total'] > 0) {
+			$customers_infotable = $oostable['customers_info'];
+			$dbconn->Execute("UPDATE $customers_infotable
                           SET global_product_notifications = '0'
                           WHERE customers_info_id = '" . intval($_SESSION['customer_id']) . "'");
-      }
-    }
+		}
+	}
+	oos_redirect(oos_href_link($aContents['product_notifications']));
+}
 
-    oos_redirect(oos_href_link($aContents['product_notifications']));
-  }
+// links breadcrumb
+$oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['account']));
+$oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['product_notifications']));
 
-  // links breadcrumb
-  $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['account']));
-  $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['product_notifications']));
+$aTemplate['page'] = $sTheme . '/page/user_product_notifications.html';
 
-  $aTemplate['page'] = $sTheme . '/page/user_product_notifications.html';
+$nPageType = OOS_PAGE_TYPE_ACCOUNT;
+$sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
-  $nPageType = OOS_PAGE_TYPE_ACCOUNT;
-  $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
+require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
+if (!isset($option)) {
+	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+	require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+}
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
-  if (!isset($option)) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
-  }
-
-  // assign Smarty variables;
-  $smarty->assign(
-      array(
+// assign Smarty variables;
+$smarty->assign(
+	array(
           'breadcrumb'	=> $oBreadcrumb->trail(),
           'heading_title' => $aLang['heading_title'],
 		  'robots'		=> 'noindex,nofollow,noodp,noydir'
       )
-  );
+);
 
-  $customers_infotable = $oostable['customers_info'];
-  $sql = "SELECT global_product_notifications
+$customers_infotable = $oostable['customers_info'];
+$sql = "SELECT global_product_notifications
           FROM $customers_infotable
           WHERE customers_info_id = '" . intval($_SESSION['customer_id']) . "'";
-  $global_status_result = $dbconn->Execute($sql);
-  $global_status = $global_status_result->fields;
-  $smarty->assign('global_status', $global_status);
+$global_status_result = $dbconn->Execute($sql);
+$global_status = $global_status_result->fields;
+$smarty->assign('global_status', $global_status);
 
-  $products_descriptionstable  = $oostable['products_description'];
-  $products_notificationstable = $oostable['products_notifications'];
-  $sql = "SELECT pd.products_id, pd.products_name
+$products_descriptionstable  = $oostable['products_description'];
+$products_notificationstable = $oostable['products_notifications'];
+$sql = "SELECT pd.products_id, pd.products_name
           FROM $products_descriptionstable pd,
                $products_notificationstable pn
           WHERE pn.customers_id = '" . intval($_SESSION['customer_id']) . "'
             AND pn.products_id = pd.products_id
             AND pd.products_languages_id = '" . intval($nLanguageID) . "'
           ORDER BY pd.products_name";
-  $smarty->assign('products_array', $dbconn->GetAll($sql));
+$smarty->assign('products_array', $dbconn->GetAll($sql));
 
 // display the template
 $smarty->display($aTemplate['page']);

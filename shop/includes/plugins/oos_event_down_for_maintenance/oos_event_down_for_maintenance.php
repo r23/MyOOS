@@ -58,15 +58,15 @@
         oos_redirect(oos_href_link($aContents['info_down_for_maintenance'], '', true, false));
       }
 
-      return true;
+      return TRUE;
     }
 
     function install() {
-      return true;
+      return TRUE;
     }
 
     function remove() {
-      return true;
+      return TRUE;
     }
 
     function config_item() {

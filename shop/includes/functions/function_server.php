@@ -65,7 +65,7 @@
    */
    function oos_server_has_var($sKey) {
      if (isset($_SERVER[$sKey])) {
-       return true;
+       return TRUE;
      }
      return (bool)getenv($sKey);
    }
