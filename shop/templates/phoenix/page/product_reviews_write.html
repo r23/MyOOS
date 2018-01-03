@@ -51,11 +51,11 @@
 
 							<div class="col-md-2 text-center">
 								<select id="product-rating" name="rating" autocomplete="off">
-									<option value="1">1</option>
-									<option value="2">2</option>
-									<option value="3">3</option>
-									<option value="4">4</option>
-									<option value="5">5</option>	
+									<option value="1" {if $smarty.post.rating == 1}selected="selected"{/if}>1</option>
+									<option value="2" {if $smarty.post.rating == 2}selected="selected"{/if}>2</option>
+									<option value="3" {if $smarty.post.rating == 3}selected="selected"{/if}>3</option>
+									<option value="4" {if $smarty.post.rating == 4}selected="selected"{/if}>4</option>
+									<option value="5" {if $smarty.post.rating == 5}selected="selected"{/if}>5</option>	
 								</select>
 							</div>
 
