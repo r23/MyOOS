@@ -35,8 +35,17 @@
 							<s>{$new_product.new_product_price}{$new_product.new_product_units}</s><br>
 							<span class="special_price">{$new_product.new_product_special_price}</span><br>
 						{else}
-							{$new_product.new_product_price}{$new_product.new_product_units}
-						{/if}
+							{$new_product.new_product_price}{$new_product.new_product_units}<br>
+						{/if}					
+
+						{if $new_product.products_base_price != 1}
+							<span class="smallText">{$lang.text_products_base_price}: </span>
+							{if (!empty($new_product.new_special_price))}
+								<span class="special_base_price">{$new_product.products_base_unit} = {$new_product.new_base_product_special_price}</span><br>
+							{else}
+								<span class="base_price">{$new_product.products_base_unit} = {$new_product.new_base_product_price}</span><br>	
+							{/if}
+						{/if}		
 					</div>
                 </div>
             </li>

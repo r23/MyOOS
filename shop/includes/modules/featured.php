@@ -48,7 +48,6 @@ if ($featured_result->RecordCount() >= 1) {
 
 		$featured_product_price = NULL;
 		$featured_product_special_price = NULL;
-		$featured_product_discount_price = NULL;
 		$featured_base_product_price = NULL;
 		$featured_base_product_special_price = NULL;
 		$featured_special_price = NULL;
@@ -88,7 +87,6 @@ if ($featured_result->RecordCount() >= 1) {
                            'products_units' => $featured_units,
                            'featured_product_price' => $featured_product_price,
                            'featured_product_special_price' => $featured_product_special_price,
-                           'featured_product_discount_price' => $featured_product_discount_price,
                            'featured_base_product_price' => $featured_base_product_price,
                            'featured_base_product_special_price' => $featured_base_product_special_price,
                            'featured_special_price' => $featured_special_price);

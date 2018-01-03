@@ -26,7 +26,7 @@ $notifications_block = FALSE;
 
 if (isset($_GET['products_id'])) {
     if (!isset($nProductsID)) $nProductsID = oos_get_product_id($_GET['products_id']);
-    $notifications_block = 'true';
+    $notifications_block = TRUE;
 
     if (!isset($block_get_parameters)) {
       $block_get_parameters = oos_get_all_get_parameters(array('action'));

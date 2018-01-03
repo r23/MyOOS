@@ -18,10 +18,10 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  if (isset($_GET['products_id'])) {
+if (isset($_GET['products_id'])) {
     if (!isset($nProductsID)) $nProductsID = oos_get_product_id($_GET['products_id']);
     if (!isset($sProductsId)) $sProductsId = oos_var_prep_for_os($_GET['products_id']);
 
@@ -138,8 +138,6 @@
               // Move that ADOdb pointer!
               $products_options_result->MoveNext();
             }
-            // Close result set
-            $products_options_result->Close();
 
             break;
 
@@ -245,8 +243,7 @@
               // Move that ADOdb pointer!
               $products_options_result->MoveNext();
             }
-            // Close result set
-            $products_options_result->Close();
+
 
             $options .= oos_draw_pull_down_menu('id[' . $products_options_name['products_options_id'] . ']', $products_options_array, $_SESSION['cart']->contents[$sProductsId]['attributes'][$products_options_name['products_options_id']]);
             $options .= '</td></tr>';
@@ -254,8 +251,6 @@
         // Move that ADOdb pointer!
         $products_options_name_result->MoveNext();
       }
-      // Close result set
-      $products_options_name_result->Close();
 
       $options .= '</table>';
     }
