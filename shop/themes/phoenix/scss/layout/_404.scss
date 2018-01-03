@@ -13,8 +13,8 @@
 	top: 0;
 	bottom: 0;
 }
-/* Inline Search */
 
+/* Inline Search */
 .inline-search {
 	@include px-to-rem(margin-top, 60px);
 	display: block;
