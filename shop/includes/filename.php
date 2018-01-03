@@ -48,8 +48,8 @@ $aContents['info_down_for_maintenance'] = $prefix_filename . 'info_down_for_main
 $aContents['info_max_order'] = $prefix_filename . 'info_max_order';
 $aContents['sitemap'] = $prefix_filename . 'sitemap';
 $aContents['information'] = $prefix_filename . 'information';
-$aContents['403'] = $prefix_filename . '403';
-$aContents['404'] = $prefix_filename . '404';
+$aContents['403'] = $prefix_filename . 'error403';
+$aContents['404'] = $prefix_filename . 'error404';
 
 //main
 $aContents['home'] = $prefix_filename . 'home';
