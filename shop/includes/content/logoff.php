@@ -30,7 +30,6 @@ if (!isset($_SESSION['customer_id'])) {
 	oos_redirect(oos_href_link($aContents['home']));
 }  
 
-
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_logoff.php';
 
 unset($_SESSION['customer_id']);
@@ -59,7 +58,7 @@ $aUser = $oUser->group;
 $oBreadcrumb->add($aLang['navbar_title']);
 $sCanonical = oos_href_link($aContents['logoff'], '', FALSE, TRUE);
 
-$aTemplate['page'] = $sTheme . '/page/success.html';
+$aTemplate['page'] = $sTheme . '/page/user_logoff.html';
 
 $nPageType = OOS_PAGE_TYPE_MAINPAGE;
 

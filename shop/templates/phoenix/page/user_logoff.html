@@ -1,0 +1,41 @@
+{include file="phoenix/system/_header.html"}
+
+{include file="phoenix/system/_breadcrumbs.html"}
+
+{if $message}
+    {foreach $message as $info}
+        {include file="phoenix/system/_message.html"}
+    {/foreach}
+{/if}
+
+<!-- start content -->
+<section class="section-xlg">
+    <div class="container">
+        <div class="row">
+		
+			<div class="col-md-6 col-sm-6 hidden-xs-down">
+							
+				<div class="sign-out">
+					<i class="fa fa-sign-out" aria-hidden="true"></i>
+				</div>
+				
+			</div>
+
+			<div class="col-md-6 col-sm-6">
+						
+				<h3>{$lang.heading_title}</h3>
+				<p class="text-muted">{$lang.text_main}</p>
+
+
+				<div class="divider mb-0"><!-- divider --></div>
+
+				<a href="{html_href_link content=$filename.home}"><i class="fa fa-angle-left" aria-hidden="true"></i> {$lang.text_back_to_home}</a>
+
+			</div>	
+
+		</div><!-- .row -->      
+	</div><!--end container-->
+</section>
+<!-- end content -->
+	
+{include file="phoenix/system/_footer.html"}
