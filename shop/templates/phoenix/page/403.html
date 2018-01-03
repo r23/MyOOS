@@ -8,17 +8,30 @@
     {/foreach}
 {/if}
 
-	<!-- start content -->
-	<section id="content">
+<!-- start content -->
+<section class="section-xlg">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
-				{$lang.text_information}
-            </div>
-        </div>
-    </div>
-    </section>
-	<!-- end content -->
+		
+			<div class="col-md-6 col-sm-6 hidden-xs-down">
+							
+				<div class="error-403">
+					403
+				</div>
+				
+			</div>
 
+			<div class="col-md-6 col-sm-6">
+						
+				<h3>{$lang.heading_title}</h3>
+				<p class="text-muted">{$lang.text_information}</p>
+
+
+			</div>	
+
+		</div><!-- .row -->      
+	</div><!--end container-->
+</section>
+<!-- end content -->
 	
 {include file="phoenix/system/_footer.html"}

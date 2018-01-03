@@ -31,20 +31,19 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 	$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 }
 
-
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title']);
-$sCanonical = oos_href_link($aContents['404'], '', FALSE, TRUE);
+$sCanonical = oos_href_link($aContents['403'], '', FALSE, TRUE);
 
 // assign Smarty variables;
 $smarty->assign(
 	array(
 		'breadcrumb'    => $oBreadcrumb->trail(),
 		'heading_title' => $aLang['heading_title'],
+		'robots'		=> 'noindex,nofollow,noodp,noydir',
 		'canonical'     => $sCanonical
 	)
 );
-
   
 // display the template
 $smarty->display($aTemplate['page']);
