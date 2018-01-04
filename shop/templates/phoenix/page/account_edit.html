@@ -19,6 +19,9 @@
 					<a href="{html_href_link content=$filename.account_address_book}" class="btn btn-secondary" role="button"><i class="fa fa-address-book" aria-hidden="true"></i>{$lang.button_address_book}</a>
 					<a href="{html_href_link content=$filename.account_history page=1}" class="btn btn-secondary" role="button"><i class="fa fa-list" aria-hidden="true"></i>{$lang.button_history}</a>
 					<a href="{html_href_link content=$filename.account_wishlist page=1}" class="btn btn-secondary" role="button"><i class="fa fa-gift" aria-hidden="true"></i>{$lang.button_wishlist}</a>
+				{if $oEvent->installed_plugin('notify')}
+					<a href="{html_href_link content=$filename.product_notifications}" class="btn btn-secondary" role="button"><i class="fa fa-plus-circle" aria-hidden="true"></i>{$lang.button_notifications}</a>
+				{/if}					
 				</div>
 			</div>
 		</div>

@@ -27,5 +27,10 @@
 
 $aLang['navbar_title'] = 'My Wishlist';
 $aLang['heading_title'] = 'My Wishlist';
-
+$aLang['table_heading_remove'] = 'Remove';
+$aLang['table_heading_quantity'] = 'Qty.';
+$aLang['table_heading_model'] = 'Model';
+$aLang['table_heading_products'] = 'Product(s)';
+$aLang['table_heading_price'] = 'Price';
+$aLang['table_heading_total'] = 'Total';
 

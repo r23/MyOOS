@@ -27,3 +27,9 @@
 
 $aLang['navbar_title'] = 'Ihre Merkliste';
 $aLang['heading_title'] = 'Ihre Merkliste';
+$aLang['table_heading_remove'] = 'Entfernen';
+$aLang['table_heading_quantity'] = 'Anzahl';
+$aLang['table_heading_model'] = 'Artikelnr.';
+$aLang['table_heading_products'] = 'Artikel';
+$aLang['table_heading_price'] = 'Preis';
+$aLang['table_heading_total'] = 'Summe';

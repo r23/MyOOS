@@ -44,6 +44,7 @@ function smarty_function_small_product_image($params, &$smarty)
         case 'image':
         case 'basedir':
         case 'alt':
+		case 'class':
            if (!is_array($_val)) {
              $$_key = smarty_function_escape_special_chars($_val);
            } else {
@@ -84,7 +85,7 @@ function smarty_function_small_product_image($params, &$smarty)
       }
     } 
 
-    return '<img class="img-fluid" src="' . $image . '"' . $extra . ' />';
+    return '<img class="img-fluid ' . $class . '" src="' . $image . '"' . $extra . ' />';
 
 }
 

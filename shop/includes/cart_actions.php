@@ -41,7 +41,6 @@ if (DISPLAY_CART == 'true') {
     }
 }
 
-
 switch ($action) {
 	case 'update_product' :
 		// start the session
@@ -175,16 +174,15 @@ switch ($action) {
             oos_redirect(oos_href_link($aContents['account_wishlist']));
           }
         } else {
-
-			$cart_quantity = oos_prepare_input($_POST['cart_quantity']);
 		
 			if (DECIMAL_CART_QUANTITY == 'true') {
-				$cart_quantity = str_replace(',', '.', $cart_quantity);
+				$_POST['cart_quantity'] = str_replace(',', '.', $_POST['cart_quantity']);
 			}
-
-		  
+	  
 		  
           if (isset($_POST['cart_quantity']) && is_numeric($_POST['cart_quantity'])) {
+			  
+			$cart_quantity = oos_prepare_input($_POST['cart_quantity']);			  
 
             $cart_qty = $_SESSION['cart']->get_quantity(oos_get_uprid($_POST['products_id'], $real_ids));
             $news_qty = $cart_qty + $cart_quantity;
@@ -211,53 +209,6 @@ switch ($action) {
         }
       }
       break;
-
-	case 'remove_wishlist' :	
-      if (isset($_SESSION['customer_id']) && isset($_GET['pid'])) {
-        $customers_wishlisttable = $oostable['customers_wishlist'];
-        $dbconn->Execute("DELETE FROM $customers_wishlisttable WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'  AND products_id = '" . oos_db_input($_GET['pid']) . "'");
-
-        $customers_wishlist_attributestable = $oostable['customers_wishlist_attributes'];
-        $dbconn->Execute("DELETE FROM $customers_wishlist_attributestable WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'  AND products_id = '" . oos_db_input($_GET['pid']) . "'");
-      }
-      break;
-
-	case 'add_wishlist' :
-		if (isset($_GET['products_id']) && is_numeric($_GET['products_id'])) {
-			$wishlist_products_id = oos_prepare_input($_GET['products_id']);
-			
-			// start the session
-			if ( $session->hasStarted() === FALSE ) $session->start();
-			if (!isset($_SESSION['customer_id'])) {
-				// navigation history
-				if (!isset($_SESSION['navigation'])) {
-					$_SESSION['navigation'] = new oosNavigationHistory();
-				}
-		
-				$aPage = array();
-				$aPage['content'] = $sContent;
-				$aPage['get'] = 'products_id=' . rawurlencode($wishlist_products_id) . '&amp;action=add_wishlist';
-
-				$_SESSION['navigation']->set_snapshot($aPage);
-				oos_redirect(oos_href_link($aContents['login']));
-			}
-
-			if (oos_has_product_attributes($_GET['products_id'])) {
-				oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $wishlist_products_id));
-			}
-
-			$customers_wishlisttable = $oostable['customers_wishlist'];
-			$dbconn->Execute("DELETE FROM $customers_wishlisttable WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'  AND products_id = '" . oos_db_input($wishlist_products_id) . "'");
-
-			$dbconn->Execute("INSERT INTO $customers_wishlisttable
-							(customers_id, customers_wishlist_link_id, products_id,
-							customers_wishlist_date_added) VALUES (" . $dbconn->qstr($_SESSION['customer_id']) . ','
-                                                                    . $dbconn->qstr($_SESSION['customer_wishlist_link_id']) . ','
-                                                                    . $dbconn->qstr($wishlist_products_id) . ','
-                                                                    . $dbconn->qstr(date('Ymd')) . ")");
-			oos_redirect(oos_href_link($aContents['account_wishlist']));
-		}
-		break;
 
     case 'buy_now' :	
       if (isset($_GET['products_id'])) {
@@ -308,38 +259,40 @@ switch ($action) {
 			// create the shopping cart
 			if (!isset($_SESSION['cart'])) {
 				$_SESSION['cart'] = new shoppingCart();
-			}			
-          if (DECIMAL_CART_QUANTITY == 'true') {
-            $_POST['cart_quantity'] = str_replace(',', '.', $_POST['cart_quantity']);
-          }
+			}
+			
+			if (DECIMAL_CART_QUANTITY == 'true') {
+				$_POST['cart_quantity'] = str_replace(',', '.', $_POST['cart_quantity']);
+			}
 
-          if (isset($_POST['cart_quantity']) && is_numeric($_POST['cart_quantity'])) {
+			if (isset($_POST['cart_quantity']) && is_numeric($_POST['cart_quantity'])) {
 
-            $cart_quantity = oos_prepare_input($_POST['cart_quantity']);
-            $cart_qty = $_SESSION['cart']->get_quantity($_POST['products_id']);
-            $news_qty = $cart_qty + $cart_quantity;
+				$cart_quantity = oos_prepare_input($_POST['cart_quantity']);			
+			
+				$cart_qty = $_SESSION['cart']->get_quantity($_POST['products_id']);
+				$news_qty = $cart_qty + $cart_quantity;
 
-            $products_order_min = oos_get_products_quantity_order_min($_POST['products_id']);
-            $products_order_units = oos_get_products_quantity_order_units($_POST['products_id']);
+				$products_order_min = oos_get_products_quantity_order_min($_POST['products_id']);
+				$products_order_units = oos_get_products_quantity_order_units($_POST['products_id']);
 
-            if ( ($cart_quantity >= $products_order_min) or ($cart_qty >= $products_order_min) ) {
-              if ( ($cart_quantity%$products_order_units == 0) and ($news_qty >= $products_order_min) ) {
-                $_SESSION['cart']->add_cart($_POST['products_id'], $news_qty);
-              } else {
-                $_SESSION['error_cart_msg'] = $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_units_invalid'] . $cart_quantity  . ' - ' . $aLang['products_order_qty_unit_text_info'] . ' ' . $products_order_units;
-              }
-            } else {
-              $_SESSION['error_cart_msg'] = $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_quantity_invalid'] . $cart_quantity . ' - ' . $aLang['products_order_qty_min_text_info'] . ' ' . $products_order_min;
-            }
-          }
-          if ($_SESSION['error_cart_msg'] == '') {
+				if ( ($cart_quantity >= $products_order_min) or ($cart_qty >= $products_order_min) ) {
+					if ( ($cart_quantity%$products_order_units == 0) and ($news_qty >= $products_order_min) ) {
+						$_SESSION['cart']->add_cart($_POST['products_id'], $news_qty);
+					} else {
+						$_SESSION['error_cart_msg'] = $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_units_invalid'] . $cart_quantity  . ' - ' . $aLang['products_order_qty_unit_text_info'] . ' ' . $products_order_units;
+					}
+				} else {
+					$_SESSION['error_cart_msg'] = $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_quantity_invalid'] . $cart_quantity . ' - ' . $aLang['products_order_qty_min_text_info'] . ' ' . $products_order_min;
+				}
+			}
+			if ($_SESSION['error_cart_msg'] == '') {
 				oos_redirect(oos_href_link($goto_file, oos_get_all_post_parameters($parameters)));
-          } else {
+			} else {
 				oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_POST['products_id']));
-          }
+			}
         }
-      }
-      break;
+	}
+	break;
 
 
     case 'buy_slave' :	
@@ -419,14 +372,12 @@ switch ($action) {
       break;
 
     case 'add_a_quickie' :
-
 		
-      if (DECIMAL_CART_QUANTITY == 'true') {
-        $_POST['cart_quantity'] = str_replace(',', '.', $_POST['cart_quantity']);
-        $cart_quantity = oos_prepare_input($_POST['cart_quantity']);
-      }
 
-      if (isset($_POST['cart_quantity']) && is_numeric($_POST['cart_quantity'])) {
+
+		if (isset($_POST['cart_quantity']) && is_numeric($_POST['cart_quantity'])) {
+			$cart_quantity = oos_prepare_input($_POST['cart_quantity']);		  
+		  
         if (isset($_POST['quickie'])) {
           $productstable = $oostable['products'];
           $quickie_result = $dbconn->Execute("SELECT products_id FROM $productstable WHERE (products_model = '" . oos_db_input($quickie) . "' OR products_ean = '" . oos_db_input($quickie) . "')");
@@ -569,7 +520,9 @@ switch ($action) {
 		// create the shopping cart
 		if (!isset($_SESSION['cart'])) {
 			$_SESSION['cart'] = new shoppingCart();
-		}		
+		}
+
+		
       if (isset($_SESSION['customer_id']) && isset($_POST['products_id'])) {
         if (isset($_POST['cart_quantity']) && is_numeric($_POST['cart_quantity'])) {
 
@@ -602,7 +555,55 @@ switch ($action) {
       }
       break;
 
-    case 'frend_wishlist_add_product' :
+	case 'remove_wishlist' :	
+		if (isset($_SESSION['customer_id']) && isset($_GET['pid'])) {
+			$customers_wishlisttable = $oostable['customers_wishlist'];
+			$dbconn->Execute("DELETE FROM $customers_wishlisttable WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'  AND products_id = '" . oos_db_input($_GET['pid']) . "'");
+
+			$customers_wishlist_attributestable = $oostable['customers_wishlist_attributes'];
+			$dbconn->Execute("DELETE FROM $customers_wishlist_attributestable WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'  AND products_id = '" . oos_db_input($_GET['pid']) . "'");
+		}
+		break;
+
+	case 'add_wishlist' :
+		if (isset($_GET['products_id']) && is_numeric($_GET['products_id'])) {
+			$wishlist_products_id = oos_prepare_input($_GET['products_id']);
+			
+			// start the session
+			if ( $session->hasStarted() === FALSE ) $session->start();
+			if (!isset($_SESSION['customer_id'])) {
+				// navigation history
+				if (!isset($_SESSION['navigation'])) {
+					$_SESSION['navigation'] = new oosNavigationHistory();
+				}
+		
+				$aPage = array();
+				$aPage['content'] = $sContent;
+				$aPage['get'] = 'products_id=' . rawurlencode($wishlist_products_id) . '&amp;action=add_wishlist';
+
+				$_SESSION['navigation']->set_snapshot($aPage);
+				oos_redirect(oos_href_link($aContents['login']));
+			}
+
+			if (oos_has_product_attributes($_GET['products_id'])) {
+				oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $wishlist_products_id));
+			}
+
+			$customers_wishlisttable = $oostable['customers_wishlist'];
+			$dbconn->Execute("DELETE FROM $customers_wishlisttable WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'  AND products_id = '" . oos_db_input($wishlist_products_id) . "'");
+
+			$dbconn->Execute("INSERT INTO $customers_wishlisttable
+							(customers_id, customers_wishlist_link_id, products_id,
+							customers_wishlist_date_added) VALUES (" . $dbconn->qstr($_SESSION['customer_id']) . ','
+                                                                    . $dbconn->qstr($_SESSION['customer_wishlist_link_id']) . ','
+                                                                    . $dbconn->qstr($wishlist_products_id) . ','
+                                                                    . $dbconn->qstr(date('Ymd')) . ")");
+			oos_redirect(oos_href_link($aContents['account_wishlist']));
+		}
+		break;	  
+	  
+	  
+    case 'wishlist_add_product' :
 		// start the session
 		if ( $session->hasStarted() === FALSE ) $session->start();
 
@@ -611,30 +612,37 @@ switch ($action) {
 			$_SESSION['cart'] = new shoppingCart();
 		}
 		
-      if (isset($_POST['products_id']) && is_numeric($_POST['cart_quantity'])) {
+		if (DECIMAL_CART_QUANTITY == 'true') {
+			$_POST['cart_quantity'] = str_replace(',', '.', $_POST['cart_quantity']);
+		}
 
-        $cart_qty = $_SESSION['cart']->get_quantity(oos_get_uprid($_POST['products_id'], $_POST['id']));
-        $news_qty = $cart_qty + $cart_quantity;
+		
+		if (isset($_POST['products_id']) && is_numeric($_POST['cart_quantity'])) {
 
-        $products_order_min = oos_get_products_quantity_order_min($_POST['products_id']);
-        $products_order_units = oos_get_products_quantity_order_units($_POST['products_id']);
+			$cart_quantity = oos_prepare_input($_POST['cart_quantity']);
+	  
+			$cart_qty = $_SESSION['cart']->get_quantity(oos_get_uprid($_POST['products_id'], $_POST['id']));
+			$news_qty = $cart_qty + $cart_quantity;
+	
+			$products_order_min = oos_get_products_quantity_order_min($_POST['products_id']);
+			$products_order_units = oos_get_products_quantity_order_units($_POST['products_id']);
 
-        if ( ($cart_quantity >= $products_order_min) or ($cart_qty >= $products_order_min) ) {
-          if ( ($cart_quantity%$products_order_units == 0) and ($news_qty >= $products_order_min) ) {
-            $_SESSION['cart']->add_cart($_POST['products_id'], intval($news_qty), $_POST['id'], true, $_POST['to_wl_id']);   
-          } else {
-            $_SESSION['error_cart_msg'] = $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_units_invalid'] . $cart_quantity  . ' - ' . $aLang['products_order_qty_unit_text_info'] . ' ' . $products_order_units;
-          }
-        } else {
-          $_SESSION['error_cart_msg'] = $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_quantity_invalid'] . $cart_quantity . ' - ' . $aLang['products_order_qty_min_text_info'] . ' ' . $products_order_min;
-        }
-        if ($_SESSION['error_cart_msg'] == '') {
-          oos_redirect(oos_href_link($goto_file, oos_get_all_get_parameters($parameters)));
-        } else {
-          oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_POST['products_id']));
-        }
-      }
-      break;
+			if ( ($cart_quantity >= $products_order_min) or ($cart_qty >= $products_order_min) ) {
+				if ( ($cart_quantity%$products_order_units == 0) and ($news_qty >= $products_order_min) ) {
+					$_SESSION['cart']->add_cart($_POST['products_id'], intval($news_qty), $_POST['id'], true, $_POST['to_wl_id']);   
+				} else {
+					$_SESSION['error_cart_msg'] = $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_units_invalid'] . $cart_quantity  . ' - ' . $aLang['products_order_qty_unit_text_info'] . ' ' . $products_order_units;
+				}
+			} else {
+				$_SESSION['error_cart_msg'] = $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_quantity_invalid'] . $cart_quantity . ' - ' . $aLang['products_order_qty_min_text_info'] . ' ' . $products_order_min;
+			}
+			if ($_SESSION['error_cart_msg'] == '') {
+				oos_redirect(oos_href_link($goto_file, oos_get_all_get_parameters($parameters)));
+			} else {
+				oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_POST['products_id']));
+			}
+		}
+		break;
 
     }
 

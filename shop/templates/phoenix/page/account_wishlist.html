@@ -18,6 +18,9 @@
 					<a href="{html_href_link content=$filename.account_address_book}" class="btn btn-secondary" role="button"><i class="fa fa-address-book" aria-hidden="true"></i>{$lang.button_address_book}</a>
 					<a href="{html_href_link content=$filename.account_history page=1}" class="btn btn-secondary" role="button"><i class="fa fa-list" aria-hidden="true"></i>{$lang.button_history}</a>
 					<a href="{html_href_link content=$filename.account_wishlist page=1}" class="btn btn-secondary  active" role="button"><i class="fa fa-gift" aria-hidden="true"></i>{$lang.button_wishlist}</a>
+				{if $oEvent->installed_plugin('notify')}
+					<a href="{html_href_link content=$filename.product_notifications}" class="btn btn-secondary" role="button"><i class="fa fa-plus-circle" aria-hidden="true"></i>{$lang.button_notifications}</a>
+				{/if}		
 				</div>
 			</div>
 		</div>
@@ -25,116 +28,126 @@
 			<div class="col-md-12">
 				<div class="innerWrapper">
 
-    <table border="0" width="100%" cellspacing="0" cellpadding="0">
-      <tr>
-        <td>{$oosPageHeading}</td>
-      </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
-{if $numrows  > 1 }
-  {$pagination}
-{/if}
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-{section name=i loop=$wishlist_array}
-      <td width="50%"><form name="cart_quantity" action="{html_href_link content=$filename.shopping_cart action=frend_wishlist_add_product}" method="POST" role="form">
-{if $mySystem.sed}
-    <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
-	<input type="hidden" name="formid" value="{$mySystem.formid}">
-{/if}	  
+					<div class="orderBox myAddress wishlist">
+					
+						<h4>{$lang.heading_title}</h4>
+						
+						{if $wishlist}				
+							<form name="cart_quantity" action="{html_get_link}" method="POST" role="form">
+								<input type="hidden" name="action" value="wishlist_add_product">
+								<input type="hidden" name="content" value="{$page_file}">	
+	
+							{if $mySystem.sed}
+								<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+								<input type="hidden" name="formid" value="{$mySystem.formid}">
+							{/if}
+						
+							<div class="table-responsive">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>{$lang.table_heading_products}</th>
+											<th>{$lang.table_heading_price}</th>
+											<th>{$lang.table_heading_quantity}</th>
+											<th></th>
+											<th>{$lang.table_heading_remove}</th>
+										</tr>										
+									</thead>
+									<tbody>				
+				
+									{section name=i loop=$wishlist}
 	  
-	  <table border="0" width="100%" cellspacing="0" cellpadding="0">
-       <tr>
-         <td align="left" width="{$smarty.const.SMALL_IMAGE_WIDTH}" class="smallText"><a href="{product_link products_id=$wishlist_array[i].products_id}">{small_product_image image=$wishlist_array[i].products_image alt=$wishlist_array[i].products_name|strip_tags hspace=5 vspace=5}</a></td>
-         <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
-         <td valign="top" class="smallText"><a href="{product_link products_id=$wishlist_array[i].products_id}"><strong>{$wishlist_array[i].products_name}</strong></a><br>
-           <br>{$wishlist_array[i].products_description|truncate:120:" [...]":false|close_tags}<br>
-           {if $wishlist_array[i].attributes_print != ''}
-              <br>{$wishlist_array[i].attributes_print}<br>
-           {/if}
-       </tr>
-       <tr>
-         <td valign="top"><a href="{html_href_link content=$page_file action=remove_wishlist pid=$wishlist_array[i].products_id}" class="btn btn-primary-filled" role="button"><i class="fa fa-times" aria-hidden="true"></i> {$image_wishlist_delete}</a></td>
-         <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="5" height="1"></td>
-         <td valign="top">
-            {if $myUser.show_price eq 1 }
-              <input type="hidden" name="products_id" value="{$wishlist_array[i].wl_products_id}">
-              <input type="hidden" name="wl_products_id" value="{$wishlist_array[i].products_id}">
-              <input type="hidden" name="cart_quantity" value="1">
-			  <button class="btn btn-success-filled" type="submit"><i class="fa fa-shopping-cart" aria-hidden="true"></i> {$lang.button_in_cart}</button>
-             {/if}
-         </td>
-       </tr>
-       <tr>
-         <td valign="bottom" class="smallText" nowrap="nowrap">
-{if $myUser.show_price eq 1 }
-  {if (!empty($wishlist_array[i].special_price))}
-     <s>{$wishlist_array[i].product_price}</s><br>
-     <span class="special_price">{$wishlist_array[i].product_special_price}</span>
-  {else}
-    {if $wishlist_array[i].product_discount != 0}
-      <s>{$wishlist_array[i].product_price}</s>&nbsp;-{$wishlist_array[i].product_discount}%<br>
-      <span class="discount_price">{$wishlist_array[i].product_discount_price}</span>
-    {else}
-      {$wishlist_array[i].product_price}
-    {/if}
-  {/if}
-{/if}
-         </td>
-         <td><td height="1"></td>
-         <td></td>
-        </tr>
-        <tr>
-          <td valign="top" colspan="3" class="smallText">
-{if $myUser.show_price eq 1 }
-  {if $wishlist_array[i].products_base_price != 1}
-    <span class="smallText">{$lang.text_products_base_price}: </span>
-    {if (!empty($wishlist_array[i].special_price))}
-    <span class="special_base_price">{$wishlist_array[i].products_base_unit} = {$wishlist_array[i].base_product_special_price}</span></s><br>
-    {else}
-      {if $wishlist_array[i].product_discount != 0}
-      <span class="discount_base_price">{$wishlist_array[i].products_base_unit} = {$wishlist_array[i].base_product_special_price}</span></s><br>
-      {else}
-      <span class="base_price">{$wishlist_array[i].products_base_unit} = {$wishlist_array[i].base_product_price}</span><br>
-      {/if}
-    {/if}
-  {/if}
-{/if}
-<span class="pangv">{$pangv}</span><br>
+									<tr>
+										<td class="text-left m-py-25">
+											<div class="media">
+											{small_product_image image=$wishlist[i].products_image alt=$wishlist[i].products_name|strip_tags class="mr-3"}
+												<div class="media-body">
+													<h5><a href="{product_link products_id=$wishlist[i].products_id}">{$wishlist[i].products_name}</a></h5>
+													{$wishlist[i].products_description|truncate:120:" [...]":false|close_tags}
+													{$wishlist[i].attributes_print}
+												</div>
+											</div>			
+										</td>
+										<td class="">
+											{if $myUser.show_price eq 1 }
+												{if (!empty($wishlist[i].special_price))}
+													<s>{$wishlist[i].product_price}</s><br>
+													<span class="special_price">{$wishlist[i].product_special_price}</span>
+												{else}
+													{$wishlist[i].product_price}
+												{/if}
+												{if $wishlist[i].products_base_price != 1}
+													<span class="smallText">{$lang.text_products_base_price}: </span>
+													{if (!empty($wishlist[i].special_price))}
+														<span class="special_base_price">{$wishlist[i].products_base_unit} = {$wishlist[i].base_product_special_price}</span></s><br>
+													{else}
+														<span class="base_price">{$wishlist[i].products_base_unit} = {$wishlist[i].base_product_price}</span><br>
+													{/if}
+												{/if}
+											{/if}
+										</td>
+										<td class="count-input">
+											<a class="incr-btn" data-action="decrease" href="#"><i class="fa fa-minus"></i></a>
+											<input class="quantity" type="text" name="cart_quantity" value="1">
+											<a class="incr-btn" data-action="increase" href="#"><i class="fa fa-plus"></i></a>
+										</td>	
+										<td class="">
+											{$wishlist[i].attributes_hidden}
+											{if $myUser.show_price eq 1 }
+												<input type="hidden" name="products_id" value="{$wishlist[i].wl_products_id}">
+												<input type="hidden" name="wl_products_id" value="{$wishlist[i].products_id}">
+												<button class="btn btn-success-filled" type="submit"><i class="fa fa-shopping-cart" aria-hidden="true"></i> {$lang.button_in_cart}</button>
+											{/if}
+										</td>
+										<td class="">
+											<a href="{html_href_link content=$page_file page=$page action=remove_wishlist pid=$wishlist[i].products_id}" class="btn btn-primary-filled" role="button"><i class="fa fa fa-trash" aria-hidden="true"></i></a>
+										</td>
+									</tr>
+									
+									{/section}
+									
+									</tbody>
+								</table>
+							</div>				
+				
+							</form>
+						{else}
+						
+							<div class="alert alert-info alert-dismissible" role="alert">
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								{$lang.block_wishlist_empty}
+							</div>
+					
+							<div class="container text-center m-py-60">
+								<div class="mb-5">
+									<span class="d-block g-color-gray-light-v1 m-font-size-70 mb-4">
+										<i class="fa fa-shopping-basket" aria-hidden="true"></i>
+									</span>
+									<h2 class="m-mb-30">{$lang.text_cart_empty}</h2>
+									<p>{$lang.text_cart_empty_help}</p>
+								</div>
+									<a class="btn btn-primary m-font-size-12 text-uppercase m-py-12 m-px-25" href="{html_href_link content=$filename.home}" role="button">{$lang.button_start_shopping}</a>
+							</div>						
+					
+						{/if}
 
-          </td>
-        </tr>
-      </table></form></td>
-
-      {if $smarty.section.i.rownum is even}
-          </tr>
-          <tr>
-            <td>&nbsp;</td>
-          </tr>
-          <tr>
-     {/if}
-{sectionelse}
-	<div class="alert alert-info alert-dismissible" role="alert">
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		{$lang.block_wishlist_empty}
-	</div> 
-	 	 
-{/section}
-          </tr>
-        </table></td>
-      </tr>
-{if $numrows > 1 }
-  {$pagination}
-{/if}
-    </table>
-
-
+						<span class="pangv .margin-top-30">{$pangv}</span>
+						<hr />
+						<!-- pagination -->
+						<div class="text-center">
+							{$pagination}
+						</div>
+						<!-- end pagination -->
+					</div><!-- .col -->
 				</div>
 			</div>
-		</div>
-	</div>
+		</div><!-- .row -->      
+	</div><!--end container-->
 </section>
+<!-- end content -->
+
+{if $smarty.const.NEWSLETTER eq 'true'}
+	{include file="phoenix/system/_newsletter.html"}
+{/if}
 
 {include file="phoenix/system/_footer.html"}

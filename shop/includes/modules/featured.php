@@ -76,7 +76,7 @@ if ($featured_result->RecordCount() >= 1) {
 		} else {
 			$order_min = number_format($featured['products_quantity_order_min']);
 		}
-		
+
 		$aFeatured[] = array('products_id' => $featured['products_id'],
                            'products_image' => $featured['products_image'],
                            'products_name' => $featured['products_name'],
