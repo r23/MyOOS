@@ -52,11 +52,24 @@
 
     function create_plugin_instance() {
 
-      $aContents = oos_get_content();
-
-      if ($_GET['content'] != $aContents['info_down_for_maintenance']) {
-        oos_redirect(oos_href_link($aContents['info_down_for_maintenance'], '', true, false));
-      }
+		$aContents = oos_get_content();
+	  
+	    $bRedirect = TRUE;
+		if ($_GET['content'] == $aContents['info_down_for_maintenance']) {
+			$bRedirect = FALSE;
+		}
+		// newsletter
+		if ($_GET['content'] == $aContents['newsletter']) {
+			$bRedirect = FALSE;
+		}
+		// imprint 
+		if ($_GET['content'] == $aContents['information']) {
+			$bRedirect = FALSE;
+		}	 
+	  
+		if ($bRedirect == TRUE) {
+			oos_redirect(oos_href_link($aContents['info_down_for_maintenance'], '', TRUE, FALSE));
+		}
 
       return TRUE;
     }

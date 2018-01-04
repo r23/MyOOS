@@ -1,0 +1,53 @@
+{include file="phoenix/system/_header.html"}
+
+{include file="phoenix/system/_breadcrumbs.html"}
+
+{if $message}
+    {foreach $message as $info}
+        {include file="phoenix/system/_message.html"}
+    {/foreach}
+{/if}
+
+
+<section>
+	<div class="container text-center">
+			
+		<h1 class="mb-20 fs-30">{$lang.heading_title}</h1>
+		<p class="fs-20 text-muted">{$lang.text_information}</p>
+
+	</div>
+</section>
+
+<section>
+	<div class="container">
+			
+		<div style="max-width:550px; margin:auto;">
+
+			<form name="subscribe" action="{html_get_link}" method="POST" role="form">
+				<input type="hidden" name="action" value="process">
+				<input type="hidden" name="content" value="{$page_file}">
+				<input type="hidden" name="newsletter" value="subscriber">
+				<div class="input-group">
+								
+					<div class="input-group-prepend">
+						<div class="input-group-text">
+							<i class="fa fa-envelope" aria-hidden="true"></i>
+						</div>
+					</div>						
+					<input type="text" class="form-control required" name="email_address" placeholder="{$lang.block_newsletter_placeholder}">
+					<span class="input-group-btn">
+						<button class="btn btn-success" type="submit">Subscribe</button>
+					</span>
+				</div>
+			</form>
+
+			<span class="text-muted fs-11">{$lang.block_newsletter_subscribe}</span>
+
+		</div>
+
+	</div>
+</section>
+
+
+	
+{include file="phoenix/system/_footer.html"}

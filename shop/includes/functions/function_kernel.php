@@ -1238,7 +1238,7 @@ function oos_mail($to_name, $to_email_address, $subject, $email_text, $email_htm
     $sLang = (isset($_SESSION['iso_639_1']) ? $_SESSION['iso_639_1'] : 'en');
 
 	// (Re)create it, if it's gone missing
-	if ( !is_object( $oEmail ) || !is_a( $oEmail, 'PHPMailer' ) ) {	
+	if ( !is_object( $oEmail ) || !is_a( $oEmail, 'PHPMailer' ) ) {
 		// Instantiate a new mail object
 		$oEmail = new PHPMailer( true );
 	}
@@ -1354,6 +1354,7 @@ function oos_newsletter_subscribe_mail ($email_address) {
                           SET mail_sha1 = '" . oos_db_input($sSha1) . "'
                           WHERE recipients_id = '" . intval($nInsert_ID) . "'");			
 		//smarty
+		require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
 		$smarty = new myOOS_Smarty();						
 
 		// dont allow cache

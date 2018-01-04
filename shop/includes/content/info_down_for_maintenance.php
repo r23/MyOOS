@@ -24,12 +24,11 @@ if (!$oEvent->installed_plugin('down_for_maintenance')) {
 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/info_down_for_maintenance.php';
 
-$aTemplate['page'] = $sTheme . '/page/info.html';
+$aTemplate['page'] = $sTheme . '/page/coming-soon.html';
 
 $nPageType = OOS_PAGE_TYPE_MAINPAGE;
 $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
-$nContentCacheID = $sTheme . '|down_for_maintenance|' . $sLanguage;
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
@@ -37,26 +36,21 @@ if (!isset($option)) {
     require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
-if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
-	$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
-}
 
-if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
-
-    // links breadcrumb
-    $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['info_down_for_maintenance']));
-	$sCanonical = oos_href_link($aContents['info_down_for_maintenance'], '', FALSE, TRUE);
+// links breadcrumb
+$oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['info_down_for_maintenance']));
+$sCanonical = oos_href_link($aContents['info_down_for_maintenance'], '', FALSE, TRUE);
 	
-    // assign Smarty variables;
-    $smarty->assign(
-        array(
-            'breadcrumb'    => $oBreadcrumb->trail(),
-            'heading_title' => $aLang['heading_title'],
-			'robots'		=> 'noindex,nofollow,noodp,noydir',
-			'canonical'		=> $sCanonical
-        )
-    );
-}
+// assign Smarty variables;
+$smarty->assign(
+	array(
+		'breadcrumb'    => $oBreadcrumb->trail(),
+		'heading_title' => $aLang['heading_title'],
+		'robots'		=> 'noindex,nofollow,noodp,noydir',
+		'canonical'		=> $sCanonical
+    )
+);
+
   
 // display the template
 $smarty->display($aTemplate['page']);
