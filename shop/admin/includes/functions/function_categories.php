@@ -24,6 +24,8 @@
   function oos_get_path($current_category_id = '') {
     global $cPath_array;
 
+	if (!is_array($cPath_array)) $cPath_array = array();
+	
     if ($current_category_id == '') {
       $cPath_new = implode('_', $cPath_array);
     } else {
@@ -66,10 +68,6 @@
         if (substr($cPath_new, 0, 1) == '_') {
           $cPath_new = substr($cPath_new, 1);
         }
-
-        // Close result set
-        $current_category_result->Close();
-
       }
     }
 
