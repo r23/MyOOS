@@ -476,6 +476,9 @@ class YamlFileLoader extends FileLoader
                     $args = isset($call[1]) ? $this->resolveServices($call[1], $file) : array();
                 }
 
+                if (!is_array($args)) {
+                    throw new InvalidArgumentException(sprintf('The second parameter for function call "%s" must be an array of its arguments for service "%s" in %s. Check your YAML syntax.', $method, $id, $file));
+                }
                 $definition->addMethodCall($method, $args);
             }
         }
@@ -796,7 +799,7 @@ class YamlFileLoader extends FileLoader
             }
 
             if ('=' === substr($value, -1)) {
-                @trigger_error(sprintf('The "=" suffix that used to disable strict references in Symfony 2.x is deprecated since 3.3 and will be unsupported in 4.0. Remove it in "%s".', $value), E_USER_DEPRECATED);
+                @trigger_error(sprintf('The "=" suffix that used to disable strict references in Symfony 2.x is deprecated since Symfony 3.3 and will be unsupported in 4.0. Remove it in "%s".', $value), E_USER_DEPRECATED);
                 $value = substr($value, 0, -1);
             }
 

@@ -46,7 +46,7 @@ class CacheClearCommand extends ContainerAwareCommand
     public function __construct($cacheClearer = null, Filesystem $filesystem = null)
     {
         if (!$cacheClearer instanceof CacheClearerInterface) {
-            @trigger_error(sprintf('%s() expects an instance of "%s" as first argument since version 3.4. Not passing it is deprecated and will throw a TypeError in 4.0.', __METHOD__, CacheClearerInterface::class), E_USER_DEPRECATED);
+            @trigger_error(sprintf('%s() expects an instance of "%s" as first argument since Symfony 3.4. Not passing it is deprecated and will throw a TypeError in 4.0.', __METHOD__, CacheClearerInterface::class), E_USER_DEPRECATED);
 
             parent::__construct($cacheClearer);
 
@@ -93,6 +93,7 @@ EOF
             $realCacheDir = $this->getContainer()->getParameter('kernel.cache_dir');
         }
 
+        $fs = $this->filesystem;
         $io = new SymfonyStyle($input, $output);
 
         $kernel = $this->getApplication()->getKernel();
@@ -100,13 +101,10 @@ EOF
         // the old cache dir name must not be longer than the real one to avoid exceeding
         // the maximum length of a directory or file path within it (esp. Windows MAX_PATH)
         $oldCacheDir = substr($realCacheDir, 0, -1).('~' === substr($realCacheDir, -1) ? '+' : '~');
+        $fs->remove($oldCacheDir);
 
         if (!is_writable($realCacheDir)) {
             throw new \RuntimeException(sprintf('Unable to write in the "%s" directory', $realCacheDir));
-        }
-
-        if ($this->filesystem->exists($oldCacheDir)) {
-            $this->filesystem->remove($oldCacheDir);
         }
 
         $io->comment(sprintf('Clearing the cache for the <info>%s</info> environment with debug <info>%s</info>', $kernel->getEnvironment(), var_export($kernel->isDebug(), true)));
@@ -115,10 +113,24 @@ EOF
         // The current event dispatcher is stale, let's not use it anymore
         $this->getApplication()->setDispatcher(new EventDispatcher());
 
-        if ($input->getOption('no-warmup')) {
-            $this->filesystem->rename($realCacheDir, $oldCacheDir);
-        } else {
-            $this->warmupCache($input, $output, $realCacheDir, $oldCacheDir);
+        $containerDir = new \ReflectionObject($kernel->getContainer());
+        $containerDir = basename(dirname($containerDir->getFileName()));
+
+        // the warmup cache dir name must have the same length as the real one
+        // to avoid the many problems in serialized resources files
+        $warmupDir = substr($realCacheDir, 0, -1).('_' === substr($realCacheDir, -1) ? '-' : '_');
+
+        if ($output->isVerbose() && $fs->exists($warmupDir)) {
+            $io->comment('Clearing outdated warmup directory...');
+        }
+        $fs->remove($warmupDir);
+        $fs->mkdir($warmupDir);
+
+        if (!$input->getOption('no-warmup')) {
+            if ($output->isVerbose()) {
+                $io->comment('Warming up cache...');
+            }
+            $this->warmup($warmupDir, $realCacheDir, !$input->getOption('no-optional-warmers'));
 
             if ($this->warning) {
                 @trigger_error($this->warning, E_USER_DEPRECATED);
@@ -127,12 +139,22 @@ EOF
             }
         }
 
+        $containerDir = $fs->exists($warmupDir.'/'.$containerDir) ? false : $containerDir;
+
+        $fs->rename($realCacheDir, $oldCacheDir);
+        $fs->rename($warmupDir, $realCacheDir);
+
+        if ($containerDir) {
+            $fs->rename($oldCacheDir.'/'.$containerDir, $realCacheDir.'/'.$containerDir);
+            touch($realCacheDir.'/'.$containerDir.'.legacy');
+        }
+
         if ($output->isVerbose()) {
             $io->comment('Removing old cache directory...');
         }
 
         try {
-            $this->filesystem->remove($oldCacheDir);
+            $fs->remove($oldCacheDir);
         } catch (IOException $e) {
             $io->warning($e->getMessage());
         }
@@ -142,34 +164,6 @@ EOF
         }
 
         $io->success(sprintf('Cache for the "%s" environment (debug=%s) was successfully cleared.', $kernel->getEnvironment(), var_export($kernel->isDebug(), true)));
-    }
-
-    private function warmupCache(InputInterface $input, OutputInterface $output, $realCacheDir, $oldCacheDir)
-    {
-        $io = new SymfonyStyle($input, $output);
-
-        // the warmup cache dir name must have the same length than the real one
-        // to avoid the many problems in serialized resources files
-        $realCacheDir = realpath($realCacheDir);
-        $warmupDir = substr($realCacheDir, 0, -1).('_' === substr($realCacheDir, -1) ? '-' : '_');
-
-        if ($this->filesystem->exists($warmupDir)) {
-            if ($output->isVerbose()) {
-                $io->comment('Clearing outdated warmup directory...');
-            }
-            $this->filesystem->remove($warmupDir);
-        }
-
-        if ($output->isVerbose()) {
-            $io->comment('Warming up cache...');
-        }
-        $this->warmup($warmupDir, $realCacheDir, !$input->getOption('no-optional-warmers'));
-
-        $this->filesystem->rename($realCacheDir, $oldCacheDir);
-        if ('\\' === DIRECTORY_SEPARATOR) {
-            sleep(1);  // workaround for Windows PHP rename bug
-        }
-        $this->filesystem->rename($warmupDir, $realCacheDir);
     }
 
     /**
@@ -185,7 +179,7 @@ EOF
             $realKernel->reboot($warmupDir);
             $tempKernel = $realKernel;
         } else {
-            $this->warning = 'Calling "cache:clear" with a kernel that does not implement "Symfony\Component\HttpKernel\RebootableInterface" is deprecated since version 3.4 and will be unsupported in 4.0.';
+            $this->warning = 'Calling "cache:clear" with a kernel that does not implement "Symfony\Component\HttpKernel\RebootableInterface" is deprecated since Symfony 3.4 and will be unsupported in 4.0.';
             $realKernelClass = get_class($realKernel);
             $namespace = '';
             if (false !== $pos = strrpos($realKernelClass, '\\')) {

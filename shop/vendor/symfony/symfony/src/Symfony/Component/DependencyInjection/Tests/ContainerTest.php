@@ -85,8 +85,8 @@ class ContainerTest extends TestCase
 
     /**
      * @group legacy
-     * @expectedDeprecation The Symfony\Component\DependencyInjection\Container::isFrozen() method is deprecated since version 3.3 and will be removed in 4.0. Use the isCompiled() method instead.
-     * @expectedDeprecation The Symfony\Component\DependencyInjection\Container::isFrozen() method is deprecated since version 3.3 and will be removed in 4.0. Use the isCompiled() method instead.
+     * @expectedDeprecation The Symfony\Component\DependencyInjection\Container::isFrozen() method is deprecated since Symfony 3.3 and will be removed in 4.0. Use the isCompiled() method instead.
+     * @expectedDeprecation The Symfony\Component\DependencyInjection\Container::isFrozen() method is deprecated since Symfony 3.3 and will be removed in 4.0. Use the isCompiled() method instead.
      */
     public function testIsFrozen()
     {
@@ -136,8 +136,8 @@ class ContainerTest extends TestCase
 
     /**
      * @group legacy
-     * @expectedDeprecation Parameter names will be made case sensitive in Symfony 4.0. Using "Foo" instead of "foo" is deprecated since version 3.4.
-     * @expectedDeprecation Parameter names will be made case sensitive in Symfony 4.0. Using "FOO" instead of "foo" is deprecated since version 3.4.
+     * @expectedDeprecation Parameter names will be made case sensitive in Symfony 4.0. Using "Foo" instead of "foo" is deprecated since Symfony 3.4.
+     * @expectedDeprecation Parameter names will be made case sensitive in Symfony 4.0. Using "FOO" instead of "foo" is deprecated since Symfony 3.4.
      */
     public function testGetSetParameterWithMixedCase()
     {
@@ -162,7 +162,7 @@ class ContainerTest extends TestCase
 
     /**
      * @group legacy
-     * @expectedDeprecation Generating a dumped container without populating the method map is deprecated since 3.2 and will be unsupported in 4.0. Update your dumper to generate the method map.
+     * @expectedDeprecation Generating a dumped container without populating the method map is deprecated since Symfony 3.2 and will be unsupported in 4.0. Update your dumper to generate the method map.
      */
     public function testGetLegacyServiceIds()
     {
@@ -244,7 +244,7 @@ class ContainerTest extends TestCase
 
     /**
      * @group legacy
-     * @expectedDeprecation Service identifiers will be made case sensitive in Symfony 4.0. Using "Foo" instead of "foo" is deprecated since version 3.3.
+     * @expectedDeprecation Service identifiers will be made case sensitive in Symfony 4.0. Using "Foo" instead of "foo" is deprecated since Symfony 3.3.
      */
     public function testGetInsensitivity()
     {
@@ -255,7 +255,7 @@ class ContainerTest extends TestCase
 
     /**
      * @group legacy
-     * @expectedDeprecation Service identifiers will be made case sensitive in Symfony 4.0. Using "foo" instead of "Foo" is deprecated since version 3.3.
+     * @expectedDeprecation Service identifiers will be made case sensitive in Symfony 4.0. Using "foo" instead of "Foo" is deprecated since Symfony 3.3.
      */
     public function testNormalizeIdKeepsCase()
     {
@@ -266,11 +266,11 @@ class ContainerTest extends TestCase
 
     /**
      * @group legacy
-     * @expectedDeprecation Service identifiers will be made case sensitive in Symfony 4.0. Using "Foo" instead of "foo" is deprecated since version 3.3.
-     * @expectedDeprecation Generating a dumped container without populating the method map is deprecated since 3.2 and will be unsupported in 4.0. Update your dumper to generate the method map.
-     * @expectedDeprecation Generating a dumped container without populating the method map is deprecated since 3.2 and will be unsupported in 4.0. Update your dumper to generate the method map.
-     * @expectedDeprecation Generating a dumped container without populating the method map is deprecated since 3.2 and will be unsupported in 4.0. Update your dumper to generate the method map.
-     * @expectedDeprecation Generating a dumped container without populating the method map is deprecated since 3.2 and will be unsupported in 4.0. Update your dumper to generate the method map.
+     * @expectedDeprecation Service identifiers will be made case sensitive in Symfony 4.0. Using "Foo" instead of "foo" is deprecated since Symfony 3.3.
+     * @expectedDeprecation Generating a dumped container without populating the method map is deprecated since Symfony 3.2 and will be unsupported in 4.0. Update your dumper to generate the method map.
+     * @expectedDeprecation Generating a dumped container without populating the method map is deprecated since Symfony 3.2 and will be unsupported in 4.0. Update your dumper to generate the method map.
+     * @expectedDeprecation Generating a dumped container without populating the method map is deprecated since Symfony 3.2 and will be unsupported in 4.0. Update your dumper to generate the method map.
+     * @expectedDeprecation Generating a dumped container without populating the method map is deprecated since Symfony 3.2 and will be unsupported in 4.0. Update your dumper to generate the method map.
      */
     public function testLegacyGet()
     {
@@ -368,10 +368,10 @@ class ContainerTest extends TestCase
 
     /**
      * @group legacy
-     * @expectedDeprecation Generating a dumped container without populating the method map is deprecated since 3.2 and will be unsupported in 4.0. Update your dumper to generate the method map.
-     * @expectedDeprecation Generating a dumped container without populating the method map is deprecated since 3.2 and will be unsupported in 4.0. Update your dumper to generate the method map.
-     * @expectedDeprecation Generating a dumped container without populating the method map is deprecated since 3.2 and will be unsupported in 4.0. Update your dumper to generate the method map.
-     * @expectedDeprecation Generating a dumped container without populating the method map is deprecated since 3.2 and will be unsupported in 4.0. Update your dumper to generate the method map.
+     * @expectedDeprecation Generating a dumped container without populating the method map is deprecated since Symfony 3.2 and will be unsupported in 4.0. Update your dumper to generate the method map.
+     * @expectedDeprecation Generating a dumped container without populating the method map is deprecated since Symfony 3.2 and will be unsupported in 4.0. Update your dumper to generate the method map.
+     * @expectedDeprecation Generating a dumped container without populating the method map is deprecated since Symfony 3.2 and will be unsupported in 4.0. Update your dumper to generate the method map.
+     * @expectedDeprecation Generating a dumped container without populating the method map is deprecated since Symfony 3.2 and will be unsupported in 4.0. Update your dumper to generate the method map.
      */
     public function testLegacyHas()
     {
@@ -556,6 +556,7 @@ class ProjectServiceContainer extends Container
     public $__foo_bar;
     public $__foo_baz;
     public $__internal;
+    protected $privates;
     protected $methodMap = array(
         'internal' => 'getInternalService',
         'bar' => 'getBarService',

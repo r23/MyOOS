@@ -87,7 +87,7 @@ class AutowirePass extends AbstractRecursivePass
      */
     public static function createResourceForClass(\ReflectionClass $reflectionClass)
     {
-        @trigger_error('The '.__METHOD__.'() method is deprecated since version 3.3 and will be removed in 4.0. Use ContainerBuilder::getReflectionClass() instead.', E_USER_DEPRECATED);
+        @trigger_error('The '.__METHOD__.'() method is deprecated since Symfony 3.3 and will be removed in 4.0. Use ContainerBuilder::getReflectionClass() instead.', E_USER_DEPRECATED);
 
         $metadata = array();
 
@@ -433,7 +433,7 @@ class AutowirePass extends AbstractRecursivePass
             $this->currentId = $currentId;
         }
 
-        @trigger_error(sprintf('Relying on service auto-registration for type "%s" is deprecated since version 3.4 and won\'t be supported in 4.0. Create a service named "%s" instead.', $type, $type), E_USER_DEPRECATED);
+        @trigger_error(sprintf('Relying on service auto-registration for type "%s" is deprecated since Symfony 3.4 and won\'t be supported in 4.0. Create a service named "%s" instead.', $type, $type), E_USER_DEPRECATED);
 
         $this->container->log($this, sprintf('Type "%s" has been auto-registered for service "%s".', $type, $this->currentId));
 
@@ -457,6 +457,10 @@ class AutowirePass extends AbstractRecursivePass
         } else {
             $message = $this->container->has($type) ? 'this service is abstract' : 'no such service exists';
             $message = sprintf('references %s "%s" but %s.%s', $r->isInterface() ? 'interface' : 'class', $type, $message, $this->createTypeAlternatives($reference));
+
+            if ($r->isInterface()) {
+                $message .= ' Did you create a class that implements this interface?';
+            }
         }
 
         $message = sprintf('Cannot autowire service "%s": %s %s', $this->currentId, $label, $message);

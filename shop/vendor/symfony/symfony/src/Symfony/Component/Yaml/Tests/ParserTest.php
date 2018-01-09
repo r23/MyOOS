@@ -63,7 +63,7 @@ class ParserTest extends TestCase
             restore_error_handler();
 
             $this->assertCount(1, $deprecations);
-            $this->assertContains(true !== $deprecated ? $deprecated : 'Using the comma as a group separator for floats is deprecated since version 3.2 and will be removed in 4.0 on line 1.', $deprecations[0]);
+            $this->assertContains(true !== $deprecated ? $deprecated : 'Using the comma as a group separator for floats is deprecated since Symfony 3.2 and will be removed in 4.0 on line 1.', $deprecations[0]);
         }
     }
 
@@ -74,7 +74,7 @@ class ParserTest extends TestCase
 
     /**
      * @group legacy
-     * @expectedDeprecationMessage Using the Yaml::PARSE_KEYS_AS_STRINGS flag is deprecated since version 3.4 as it will be removed in 4.0. Quote your keys when they are evaluable
+     * @expectedDeprecationMessage Using the Yaml::PARSE_KEYS_AS_STRINGS flag is deprecated since Symfony 3.4 as it will be removed in 4.0. Quote your keys when they are evaluable
      * @dataProvider getNonStringMappingKeysData
      */
     public function testNonStringMappingKeys($expected, $yaml, $comment)
@@ -1096,7 +1096,7 @@ EOF;
 
     /**
      * @group legacy
-     * @expectedDeprecation Implicit casting of numeric key to string is deprecated since version 3.3 and will throw \Symfony\Component\Yaml\Exception\ParseException in 4.0. Quote your evaluable mapping keys instead on line 2.
+     * @expectedDeprecation Implicit casting of numeric key to string is deprecated since Symfony 3.3 and will throw \Symfony\Component\Yaml\Exception\ParseException in 4.0. Quote your evaluable mapping keys instead on line 2.
      */
     public function testFloatKeys()
     {
@@ -1118,7 +1118,7 @@ EOF;
 
     /**
      * @group legacy
-     * @expectedDeprecation Implicit casting of non-string key to string is deprecated since version 3.3 and will throw \Symfony\Component\Yaml\Exception\ParseException in 4.0. Quote your evaluable mapping keys instead on line 1.
+     * @expectedDeprecation Implicit casting of non-string key to string is deprecated since Symfony 3.3 and will throw \Symfony\Component\Yaml\Exception\ParseException in 4.0. Quote your evaluable mapping keys instead on line 1.
      */
     public function testBooleanKeys()
     {
@@ -1732,7 +1732,7 @@ YAML
 
     /**
      * @group legacy
-     * @expectedDeprecation Using the unquoted scalar value "!iterator foo" is deprecated since version 3.3 and will be considered as a tagged value in 4.0. You must quote it on line 1.
+     * @expectedDeprecation Using the unquoted scalar value "!iterator foo" is deprecated since Symfony 3.3 and will be considered as a tagged value in 4.0. You must quote it on line 1.
      */
     public function testUnsupportedTagWithScalar()
     {
@@ -1750,7 +1750,7 @@ YAML
 
     /**
      * @group legacy
-     * @expectedDeprecation Starting an unquoted string with a question mark followed by a space is deprecated since version 3.3 and will throw \Symfony\Component\Yaml\Exception\ParseException in 4.0 on line 1.
+     * @expectedDeprecation Starting an unquoted string with a question mark followed by a space is deprecated since Symfony 3.3 and will throw \Symfony\Component\Yaml\Exception\ParseException in 4.0 on line 1.
      */
     public function testComplexMappingThrowsParseException()
     {
@@ -1765,7 +1765,7 @@ YAML;
 
     /**
      * @group legacy
-     * @expectedDeprecation Starting an unquoted string with a question mark followed by a space is deprecated since version 3.3 and will throw \Symfony\Component\Yaml\Exception\ParseException in 4.0 on line 2.
+     * @expectedDeprecation Starting an unquoted string with a question mark followed by a space is deprecated since Symfony 3.3 and will throw \Symfony\Component\Yaml\Exception\ParseException in 4.0 on line 2.
      */
     public function testComplexMappingNestedInMappingThrowsParseException()
     {
@@ -1781,7 +1781,7 @@ YAML;
 
     /**
      * @group legacy
-     * @expectedDeprecation Starting an unquoted string with a question mark followed by a space is deprecated since version 3.3 and will throw \Symfony\Component\Yaml\Exception\ParseException in 4.0 on line 1.
+     * @expectedDeprecation Starting an unquoted string with a question mark followed by a space is deprecated since Symfony 3.3 and will throw \Symfony\Component\Yaml\Exception\ParseException in 4.0 on line 1.
      */
     public function testComplexMappingNestedInSequenceThrowsParseException()
     {
@@ -1895,9 +1895,9 @@ YAML;
 
     /**
      * @group legacy
-     * @expectedDeprecation The !php/const: tag to indicate dumped PHP constants is deprecated since version 3.4 and will be removed in 4.0. Use the !php/const (without the colon) tag instead on line 2.
-     * @expectedDeprecation The !php/const: tag to indicate dumped PHP constants is deprecated since version 3.4 and will be removed in 4.0. Use the !php/const (without the colon) tag instead on line 4.
-     * @expectedDeprecation The !php/const: tag to indicate dumped PHP constants is deprecated since version 3.4 and will be removed in 4.0. Use the !php/const (without the colon) tag instead on line 5.
+     * @expectedDeprecation The !php/const: tag to indicate dumped PHP constants is deprecated since Symfony 3.4 and will be removed in 4.0. Use the !php/const (without the colon) tag instead on line 2.
+     * @expectedDeprecation The !php/const: tag to indicate dumped PHP constants is deprecated since Symfony 3.4 and will be removed in 4.0. Use the !php/const (without the colon) tag instead on line 4.
+     * @expectedDeprecation The !php/const: tag to indicate dumped PHP constants is deprecated since Symfony 3.4 and will be removed in 4.0. Use the !php/const (without the colon) tag instead on line 5.
      */
     public function testDeprecatedPhpConstantTagMappingKey()
     {
@@ -1924,7 +1924,7 @@ YAML;
 
     /**
      * @group legacy
-     * @expectedDeprecation Using the Yaml::PARSE_KEYS_AS_STRINGS flag is deprecated since version 3.4 as it will be removed in 4.0. Quote your keys when they are evaluable instead.
+     * @expectedDeprecation Using the Yaml::PARSE_KEYS_AS_STRINGS flag is deprecated since Symfony 3.4 as it will be removed in 4.0. Quote your keys when they are evaluable instead.
      */
     public function testPhpConstantTagMappingKeyWithKeysCastToStrings()
     {

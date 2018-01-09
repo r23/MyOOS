@@ -141,13 +141,6 @@ abstract class FrameworkExtensionTest extends TestCase
         $container = $this->createContainerFromFile('esi_disabled');
 
         $this->assertFalse($container->hasDefinition('fragment.renderer.esi'), 'The ESI fragment renderer is not registered');
-    }
-
-    public function testEsiInactive()
-    {
-        $container = $this->createContainerFromFile('default_config');
-
-        $this->assertFalse($container->hasDefinition('fragment.renderer.esi'));
         $this->assertFalse($container->hasDefinition('esi'));
     }
 
@@ -164,6 +157,7 @@ abstract class FrameworkExtensionTest extends TestCase
         $container = $this->createContainerFromFile('ssi_disabled');
 
         $this->assertFalse($container->hasDefinition('fragment.renderer.ssi'), 'The SSI fragment renderer is not registered');
+        $this->assertFalse($container->hasDefinition('ssi'));
     }
 
     public function testEsiAndSsiWithoutFragments()
@@ -173,14 +167,6 @@ abstract class FrameworkExtensionTest extends TestCase
         $this->assertFalse($container->hasDefinition('fragment.renderer.hinclude'), 'The HInclude fragment renderer is not registered');
         $this->assertTrue($container->hasDefinition('fragment.renderer.esi'), 'The ESI fragment renderer is registered');
         $this->assertTrue($container->hasDefinition('fragment.renderer.ssi'), 'The SSI fragment renderer is registered');
-    }
-
-    public function testSsiInactive()
-    {
-        $container = $this->createContainerFromFile('default_config');
-
-        $this->assertFalse($container->hasDefinition('fragment.renderer.ssi'));
-        $this->assertFalse($container->hasDefinition('ssi'));
     }
 
     public function testEnabledProfiler()
@@ -1059,6 +1045,9 @@ abstract class FrameworkExtensionTest extends TestCase
             'kernel.name' => 'kernel',
             'kernel.root_dir' => __DIR__,
             'kernel.container_class' => 'testContainer',
+            'container.build_hash' => 'Abc1234',
+            'container.build_id' => hash('crc32', 'Abc123423456789'),
+            'container.build_time' => 23456789,
         ), $data)));
     }
 

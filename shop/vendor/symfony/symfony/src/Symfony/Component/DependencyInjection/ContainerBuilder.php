@@ -319,7 +319,7 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
      */
     public function addClassResource(\ReflectionClass $class)
     {
-        @trigger_error('The '.__METHOD__.'() method is deprecated since version 3.3 and will be removed in 4.0. Use the addObjectResource() or the getReflectionClass() method instead.', E_USER_DEPRECATED);
+        @trigger_error('The '.__METHOD__.'() method is deprecated since Symfony 3.3 and will be removed in 4.0. Use the addObjectResource() or the getReflectionClass() method instead.', E_USER_DEPRECATED);
 
         return $this->addObjectResource($class->name);
     }
@@ -452,7 +452,7 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
             if (__CLASS__ !== get_class($this)) {
                 $r = new \ReflectionMethod($this, __FUNCTION__);
                 if (__CLASS__ !== $r->getDeclaringClass()->getName()) {
-                    @trigger_error(sprintf('Method %s() will have a third `int $priority = 0` argument in version 4.0. Not defining it is deprecated since 3.2.', __METHOD__), E_USER_DEPRECATED);
+                    @trigger_error(sprintf('Method %s() will have a third `int $priority = 0` argument in version 4.0. Not defining it is deprecated since Symfony 3.2.', __METHOD__), E_USER_DEPRECATED);
                 }
             }
 
@@ -732,7 +732,7 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
             if (__CLASS__ !== static::class) {
                 $r = new \ReflectionMethod($this, __FUNCTION__);
                 if (__CLASS__ !== $r->getDeclaringClass()->getName() && (1 > $r->getNumberOfParameters() || 'resolveEnvPlaceholders' !== $r->getParameters()[0]->name)) {
-                    @trigger_error(sprintf('The %s::compile() method expects a first "$resolveEnvPlaceholders" argument since version 3.3. It will be made mandatory in 4.0.', static::class), E_USER_DEPRECATED);
+                    @trigger_error(sprintf('The %s::compile() method expects a first "$resolveEnvPlaceholders" argument since Symfony 3.3. It will be made mandatory in 4.0.', static::class), E_USER_DEPRECATED);
                 }
             }
             $resolveEnvPlaceholders = false;
@@ -1239,6 +1239,8 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
             $value = $this->doGet((string) $value, $value->getInvalidBehavior(), $inlineServices);
         } elseif ($value instanceof Definition) {
             $value = $this->createService($value, $inlineServices);
+        } elseif ($value instanceof Parameter) {
+            $value = $this->getParameter((string) $value);
         } elseif ($value instanceof Expression) {
             $value = $this->getExpressionLanguage()->evaluate($value, array('container' => $this));
         }

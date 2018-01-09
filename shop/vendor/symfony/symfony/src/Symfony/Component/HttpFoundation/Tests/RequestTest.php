@@ -372,6 +372,7 @@ class RequestTest extends TestCase
             array('js', array('application/javascript', 'application/x-javascript', 'text/javascript')),
             array('css', array('text/css')),
             array('json', array('application/json', 'application/x-json')),
+            array('jsonld', array('application/ld+json')),
             array('xml', array('text/xml', 'application/xml', 'application/x-xml')),
             array('rdf', array('application/rdf+xml')),
             array('atom', array('application/atom+xml')),
@@ -966,6 +967,26 @@ class RequestTest extends TestCase
         $request->initialize(array(), array(), array(), array(), array(), $server);
 
         $request->getClientIps();
+    }
+
+    /**
+     * @dataProvider getClientIpsWithConflictingHeadersProvider
+     */
+    public function testGetClientIpsOnlyXHttpForwardedForTrusted($httpForwarded, $httpXForwardedFor)
+    {
+        $request = new Request();
+
+        $server = array(
+            'REMOTE_ADDR' => '88.88.88.88',
+            'HTTP_FORWARDED' => $httpForwarded,
+            'HTTP_X_FORWARDED_FOR' => $httpXForwardedFor,
+        );
+
+        Request::setTrustedProxies(array('88.88.88.88'), Request::HEADER_X_FORWARDED_FOR);
+
+        $request->initialize(array(), array(), array(), array(), array(), $server);
+
+        $this->assertSame(array_reverse(explode(',', $httpXForwardedFor)), $request->getClientIps());
     }
 
     public function getClientIpsWithConflictingHeadersProvider()
@@ -1735,7 +1756,7 @@ class RequestTest extends TestCase
 
     /**
      * @group legacy
-     * @expectedDeprecation The "Symfony\Component\HttpFoundation\Request::setTrustedHeaderName()" method is deprecated since version 3.3 and will be removed in 4.0. Use the $trustedHeaderSet argument of the Request::setTrustedProxies() method instead.
+     * @expectedDeprecation The "Symfony\Component\HttpFoundation\Request::setTrustedHeaderName()" method is deprecated since Symfony 3.3 and will be removed in 4.0. Use the $trustedHeaderSet argument of the Request::setTrustedProxies() method instead.
      */
     public function testLegacyTrustedProxies()
     {
@@ -2105,7 +2126,7 @@ class RequestTest extends TestCase
 
     /**
      * @group legacy
-     * @expectedDeprecation Checking only for cacheable HTTP methods with Symfony\Component\HttpFoundation\Request::isMethodSafe() is deprecated since version 3.2 and will throw an exception in 4.0. Disable checking only for cacheable methods by calling the method with `false` as first argument or use the Request::isMethodCacheable() instead.
+     * @expectedDeprecation Checking only for cacheable HTTP methods with Symfony\Component\HttpFoundation\Request::isMethodSafe() is deprecated since Symfony 3.2 and will throw an exception in 4.0. Disable checking only for cacheable methods by calling the method with `false` as first argument or use the Request::isMethodCacheable() instead.
      */
     public function testMethodSafeChecksCacheable()
     {

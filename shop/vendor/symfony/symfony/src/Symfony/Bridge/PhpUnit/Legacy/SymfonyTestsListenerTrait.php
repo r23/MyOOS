@@ -272,10 +272,11 @@ class SymfonyTestsListenerTrait
             unlink($this->runsInSeparateProcess);
             putenv('SYMFONY_DEPRECATIONS_SERIALIZE');
             foreach ($deprecations ? unserialize($deprecations) : array() as $deprecation) {
+                $error = serialize(array('deprecation' => $deprecation[1], 'class' => $className, 'method' => $test->getName(false), 'triggering_file' => isset($deprecation[2]) ? $deprecation[2] : null));
                 if ($deprecation[0]) {
-                    trigger_error(serialize(array('deprecation' => $deprecation[1], 'class' => $className, 'method' => $test->getName(false))), E_USER_DEPRECATED);
+                    trigger_error($error, E_USER_DEPRECATED);
                 } else {
-                    @trigger_error(serialize(array('deprecation' => $deprecation[1], 'class' => $className, 'method' => $test->getName(false))), E_USER_DEPRECATED);
+                    @trigger_error($error, E_USER_DEPRECATED);
                 }
             }
             $this->runsInSeparateProcess = false;

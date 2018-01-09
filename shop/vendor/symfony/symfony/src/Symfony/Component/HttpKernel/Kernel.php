@@ -67,11 +67,11 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
     private $requestStackSize = 0;
     private $resetServices = false;
 
-    const VERSION = '3.4.2';
-    const VERSION_ID = 30402;
+    const VERSION = '3.4.3';
+    const VERSION_ID = 30403;
     const MAJOR_VERSION = 3;
     const MINOR_VERSION = 4;
-    const RELEASE_VERSION = 2;
+    const RELEASE_VERSION = 3;
     const EXTRA_VERSION = '';
 
     const END_OF_MAINTENANCE = '11/2020';
@@ -398,7 +398,7 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
     public function loadClassCache($name = 'classes', $extension = '.php')
     {
         if (\PHP_VERSION_ID >= 70000) {
-            @trigger_error(__METHOD__.'() is deprecated since version 3.3, to be removed in 4.0.', E_USER_DEPRECATED);
+            @trigger_error(__METHOD__.'() is deprecated since Symfony 3.3, to be removed in 4.0.', E_USER_DEPRECATED);
         }
 
         $this->loadClassCache = array($name, $extension);
@@ -412,7 +412,7 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
     public function setClassCache(array $classes)
     {
         if (\PHP_VERSION_ID >= 70000) {
-            @trigger_error(__METHOD__.'() is deprecated since version 3.3, to be removed in 4.0.', E_USER_DEPRECATED);
+            @trigger_error(__METHOD__.'() is deprecated since Symfony 3.3, to be removed in 4.0.', E_USER_DEPRECATED);
         }
 
         file_put_contents(($this->warmupDir ?: $this->getCacheDir()).'/classes.map', sprintf('<?php return %s;', var_export($classes, true)));
@@ -464,7 +464,7 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
     protected function doLoadClassCache($name, $extension)
     {
         if (\PHP_VERSION_ID >= 70000) {
-            @trigger_error(__METHOD__.'() is deprecated since version 3.3, to be removed in 4.0.', E_USER_DEPRECATED);
+            @trigger_error(__METHOD__.'() is deprecated since Symfony 3.3, to be removed in 4.0.', E_USER_DEPRECATED);
         }
         $cacheDir = $this->warmupDir ?: $this->getCacheDir();
 
@@ -662,7 +662,7 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
             $oldContainerDir = dirname($oldContainer->getFileName());
             foreach (glob(dirname($oldContainerDir).'/*.legacy') as $legacyContainer) {
                 if ($oldContainerDir.'.legacy' !== $legacyContainer && @unlink($legacyContainer)) {
-                    (new Filesystem())->remove(substr($legacyContainer, 0, -16));
+                    (new Filesystem())->remove(substr($legacyContainer, 0, -7));
                 }
             }
 

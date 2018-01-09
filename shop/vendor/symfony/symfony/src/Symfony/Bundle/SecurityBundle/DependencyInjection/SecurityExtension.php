@@ -22,6 +22,7 @@ use Symfony\Component\DependencyInjection\Compiler\ServiceLocatorTagPass;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Parameter;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Security\Core\Authorization\ExpressionLanguage;
@@ -529,6 +530,10 @@ class SecurityExtension extends Extension
 
         // Anonymous
         if (isset($firewall['anonymous'])) {
+            if (null === $firewall['anonymous']['secret']) {
+                $firewall['anonymous']['secret'] = new Parameter('container.build_hash');
+            }
+
             $listenerId = 'security.authentication.listener.anonymous.'.$id;
             $container
                 ->setDefinition($listenerId, new ChildDefinition('security.authentication.listener.anonymous'))
@@ -808,7 +813,7 @@ class SecurityExtension extends Extension
      */
     private function getFirstProvider($firewallName, $listenerName, array $providerIds)
     {
-        @trigger_error(sprintf('Listener "%s" on firewall "%s" has no "provider" set but multiple providers exist. Using the first configured provider (%s) is deprecated since 3.4 and will throw an exception in 4.0, set the "provider" key on the firewall instead.', $listenerName, $firewallName, $first = array_keys($providerIds)[0]), E_USER_DEPRECATED);
+        @trigger_error(sprintf('Listener "%s" on firewall "%s" has no "provider" set but multiple providers exist. Using the first configured provider (%s) is deprecated since Symfony 3.4 and will throw an exception in 4.0, set the "provider" key on the firewall instead.', $listenerName, $firewallName, $first = array_keys($providerIds)[0]), E_USER_DEPRECATED);
 
         return $providerIds[$first];
     }
