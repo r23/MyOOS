@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Yoast SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-12-27 15:13:45+0000\n"
+"PO-Revision-Date: 2018-01-08 10:18:31+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,21 @@ msgstr ""
 "X-Generator: GlotPress/2.4.0-alpha\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Yoast SEO - Stable (latest release)\n"
+
+#. Translators: %1$s and $3$s expand to the admin search page for the focus
+#. keyword, %2$d expands to the number 	   of times this focus keyword has been
+#. used before, %4$s and %5$s expand to a link to an article on yoast.com
+#. about why you should not use a keyword more than once.
+#: languages/yoast-seo-js.php:314
+msgid "You've used this focus keyword %1$s%2$d times before%3$s. It’s probably a good idea to read about %4$swhy you should not use your focus keyword more than once%5$s."
+msgstr "Du hast dieses Fokus Keyword bereits %1$s%2$d Mal benutzt%3$s. Es wäre bestimmt eine gute Idee zu lesen %4$swieso du dein Fokus Keyword nicht öfters als einmal%5$s benutzen solltest."
+
+#. Translators: %1$s and %2$s expand to an admin link where the focus keyword
+#. is already used. %3$s and %4$s 	   expand to a link to an article on
+#. yoast.com about why you should not use a keyword more than once.
+#: languages/yoast-seo-js.php:308
+msgid "You've used this focus keyword %1$sonce before%2$s. It’s probably a good idea to read about %3$swhy you should not use your focus keyword more than once%4$s."
+msgstr "Du hast dieses Fokus Keyword bereits %1$seinmal zuvor%2$s benutzt. Es wäre bestimmt eine gute Idee zu lesen %3$swieso du dein Fokus Keyword nicht mehr als einmal%4$s benutzen solltest."
 
 #: admin/formatter/class-metabox-formatter.php:119
 msgid "Remove highlight from the text"
