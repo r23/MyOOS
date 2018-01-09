@@ -81,8 +81,9 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
                              AND pd.products_languages_id = '" . intval($nLanguageID) . "'
                              AND rd.reviews_languages_id = '" . intval($nLanguageID) . "'
                            ORDER BY r.reviews_id DESC";
-    $reviews_split = new splitPageResults($nPage, MAX_DISPLAY_NEW_REVIEWS, $reviews_result_raw, $reviews_numrows);
-    $reviews_result = $dbconn->Execute($reviews_result_raw);
+    $reviews_split = new splitPageResults($reviews_result_raw, MAX_DISPLAY_NEW_REVIEWS);
+    $reviews_result = $dbconn->Execute($products_new_split->sql_query);
+
     $aReviews = array();
     while ($reviews = $reviews_result->fields) {
 		$aReviews[] = array('id' => $reviews['reviews_id'],
@@ -108,8 +109,8 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
             'heading_title' => $aLang['heading_title'],
 			'canonical'		=> $sCanonical,
 
-            'page_split'    => $reviews_split->display_count($reviews_numrows, MAX_DISPLAY_NEW_REVIEWS, $nPage, $aLang['text_display_number_of_reviews']),
-            'display_links' => $reviews_split->display_links($reviews_numrows, MAX_DISPLAY_NEW_REVIEWS, MAX_DISPLAY_PAGE_LINKS, $nPage, oos_get_all_get_parameters(array('page', 'info'))),
+            'page_split'    => $reviews_split->display_count($aLang['text_display_number_of_reviews']),
+            'display_links' => $reviews_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
             'numrows'  		=> $reviews_numrows,
 
             'oos_reviews_array' => $aReviews

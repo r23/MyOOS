@@ -65,8 +65,9 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
                                     $specialsstable s ON p.products_id = s.products_id
                                WHERE p.products_status >= '1'
                                ORDER BY p.products_date_added DESC, pd.products_name";
-    $products_new_split = new splitPageResults($nPage, MAX_DISPLAY_PRODUCTS_NEW, $products_new_result_raw, $products_new_numrows);
-    $products_new_result = $dbconn->Execute($products_new_result_raw);
+ #   $products_new_split = new splitPageResults($nPage, MAX_DISPLAY_PRODUCTS_NEW, $products_new_result_raw, $products_new_numrows);
+    $products_new_split = new splitPageResults($products_new_result_raw, MAX_DISPLAY_PRODUCTS_NEW);
+    $products_new_result = $dbconn->Execute($products_new_split->sql_query);
 
     $products_new_array = array();
     while ($products_new = $products_new_result->fields) {
@@ -124,8 +125,8 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 		   'robots'				=> 'noindex,follow,noodp,noydir',
 		   'canonical'			=> $sCanonical,
 
-           'page_split'			=> $products_new_split->display_count($products_new_numrows, MAX_DISPLAY_PRODUCTS_NEW, $nPage, $aLang['text_display_number_of_products_new']),
-           'display_links'		=> $products_new_split->display_links($products_new_numrows, MAX_DISPLAY_PRODUCTS_NEW, MAX_DISPLAY_PAGE_LINKS, $nPage, oos_get_all_get_parameters(array('page', 'info'))),
+           'page_split'			=> $products_new_split->display_count($aLang['text_display_number_of_products_new']),
+           'display_links'		=> $products_new_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
 		   
 			'page'				=> $nPage,
            'products_new' 		=> $products_new_array

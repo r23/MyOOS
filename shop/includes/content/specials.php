@@ -65,8 +65,8 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
                              AND pd.products_languages_id = '" . intval($nLanguageID) . "'
                              AND s.status = '1'
                            ORDER BY s.specials_date_added DESC";
-	$specials_split = new splitPageResults($nPage, MAX_DISPLAY_SPECIAL_PRODUCTS, $specials_result_raw, $specials_numrows);
-	$specials_result = $dbconn->Execute($specials_result_raw);
+	$specials_split = new splitPageResults($specials_result_raw, MAX_DISPLAY_SPECIAL_PRODUCTS);
+	$specials_result = $dbconn->Execute($products_new_split->sql_query);
 
 	$aSpecials = array();
 	while ($specials = $specials_result->fields) {
@@ -107,8 +107,8 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
             'heading_title'		=> $aLang['heading_title'],
 			'canonical'			=> $sCanonical,
 
-            'page_split'		=> $specials_split->display_count($specials_numrows, MAX_DISPLAY_SPECIAL_PRODUCTS, $nPage, $aLang['text_display_number_of_specials']),
-            'display_links'		=> $specials_split->display_links($specials_numrows, MAX_DISPLAY_SPECIAL_PRODUCTS, MAX_DISPLAY_PAGE_LINKS, $nPage, oos_get_all_get_parameters(array('page', 'info'))),
+            'page_split'		=> $specials_split->display_count($aLang['text_display_number_of_specials']),
+            'display_links'		=> $specials_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
 			
 			'page'				=> $nPage,
             'specials'			=> $aSpecials

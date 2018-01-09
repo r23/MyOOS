@@ -55,8 +55,8 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/accoun
                          WHERE o.customers_id = '" . intval($_SESSION['customer_id']) . "'
                            AND ot.class = 'ot_total'
                          ORDER BY orders_id DESC";
-  $history_split = new splitPageResults($nPage, MAX_DISPLAY_ORDER_HISTORY, $history_result_raw, $history_numrows);
-  $history_result = $dbconn->Execute($history_result_raw);
+  $history_split = new splitPageResults($history_result_raw, MAX_DISPLAY_ORDER_HISTORY);
+  $history_result = $dbconn->Execute($products_new_split->sql_query);
 
   $aHistory = array();
   if ($history_result->RecordCount()) {
@@ -99,13 +99,12 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/accoun
 $smarty->assign(
 	array(
 		'breadcrumb'		=> $oBreadcrumb->trail(),
-		'heading_title'	=> $aLang['heading_title'],
+		'heading_title'		=> $aLang['heading_title'],
 		'robots'			=> 'noindex,nofollow,noodp,noydir',
 
 		'account_active'	=> 1,
-		'page_split'    => $history_split->display_count($history_numrows, MAX_DISPLAY_ORDER_HISTORY, $nPage, $aLang['text_display_number_of_orders']),
-		'display_links' => $history_split->display_links($history_numrows, MAX_DISPLAY_ORDER_HISTORY, MAX_DISPLAY_PAGE_LINKS, $nPage, oos_get_all_get_parameters(array('page', 'info'))),
-		'numrows'  => $history_numrows,
+		'page_split'   		=> $history_split->display_count($aLang['text_display_number_of_orders']),
+		'display_links' 	=> $history_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
 
 		'oos_history_array' => $aHistory
 	)

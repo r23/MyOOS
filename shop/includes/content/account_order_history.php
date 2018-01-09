@@ -96,8 +96,8 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/accoun
                             AND pd.products_id IN ($product_ids)
                             AND pd.products_languages_id = '" .  intval($nLanguageID) . "'";
 
-    $order_history_split = new splitPageResults($nPage, MAX_DISPLAY_PRODUCTS_NEW, $order_history_raw, $order_history_numrows);
-    $order_history_result = $dbconn->Execute($order_history_raw);
+    $order_history_split = new splitPageResults($order_history_raw, MAX_DISPLAY_PRODUCTS_NEW);
+    $order_history_result = $dbconn->Execute($products_new_split->sql_query);
 
     $order_history_array = array();
     while ($order_history = $order_history_result->fields) {
@@ -141,9 +141,8 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/accoun
     // assign Smarty variables;
     $smarty->assign(
         array(
-			'page_split'		=> $order_history_split->display_count($order_history_numrows, MAX_DISPLAY_SEARCH_RESULTS, $nPage, $aLang['text_display_number_of_products']),
-			'display_links'		=> $order_history_split->display_links($order_history_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage, oos_get_all_get_parameters(array('page', 'info'))),
-			'numrows'        	=> $order_history_numrows,
+			'page_split'		=> $order_history_split->display_count($aLang['text_display_number_of_products']),
+			'display_links'		=> $order_history_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
 			
 			'oos_order_history_array'	=> $order_history_array
        )

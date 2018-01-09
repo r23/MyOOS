@@ -32,8 +32,9 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.ph
                          FROM " . $oostable['customers_wishlist'] . " 
                          WHERE customers_wishlist_link_id = '" . oos_db_input($wlid) . "'
                          ORDER BY customers_wishlist_date_added"; 
-  $wishlist_split = new splitPageResults($nPage, MAX_DISPLAY_WISHLIST_PRODUCTS, $wishlist_result_raw, $wishlist_numrows);
-  $wishlist_result = $dbconn->Execute($wishlist_result_raw);
+  $wishlist_split = new splitPageResults($wishlist_result_raw, MAX_DISPLAY_WISHLIST_PRODUCTS);
+  $wishlist_result = $dbconn->Execute($products_new_split->sql_query);
+  
   if (!$wishlist_result->RecordCount()) {
     oos_redirect(oos_href_link($aContents['home']));
   }
@@ -149,19 +150,18 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.ph
   // assign Smarty variables;
   $smarty->assign(
       array(
-          'breadcrumb'    => $oBreadcrumb->trail(),
-          'heading_title' => $customer . $aLang['heading_title'],
-		  'robots'		=> 'noindex,nofollow,noodp,noydir',
+          'breadcrumb'		=> $oBreadcrumb->trail(),
+          'heading_title'	=> $customer . $aLang['heading_title'],
+		  'robots'			=> 'noindex,nofollow,noodp,noydir',
 
-          'page_split'    => $wishlist_split->display_count($wishlist_numrows, MAX_DISPLAY_WISHLIST_PRODUCTS, $nPage, $aLang['text_display_number_of_wishlist']),
-          'display_links' => $wishlist_split->display_links($wishlist_numrows, MAX_DISPLAY_WISHLIST_PRODUCTS, MAX_DISPLAY_PAGE_LINKS, $nPage, oos_get_all_get_parameters(array('page', 'info'))),
-          'numrows'  => $wishlist_numrows,
+          'page_split'		=> $wishlist_split->display_count($aLang['text_display_number_of_wishlist']),
+          'display_links'	=> $wishlist_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
 
-          'wishlist_array'    => $aWishlist
+          'wishlist_array'	=> $aWishlist
       )
   );
 
-  $smarty->assign('pagination', $smarty->fetch($aTemplate['pagination']));
+$smarty->assign('pagination', $smarty->fetch($aTemplate['pagination']));
 
 
 // display the template
