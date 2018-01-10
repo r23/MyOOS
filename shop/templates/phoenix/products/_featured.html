@@ -34,21 +34,23 @@
                     <h4><a href="{product_link products_id=$featur.products_id}">{$featur.products_name}</a></h4>
 
 					<div class="product-price clearfix">
-					{if (!empty($featur.featured_product_special_price))}
-						<s>{$featur.featured_product_price}{$featur.products_units}</s><br>
-						<span class="special_price">{$featur.featured_product_special_price}{$featur.products_units}</span><br>
-					{else}
-						{$featur.featured_product_price}{$featur.products_units}
-					{/if}					
-					
-					{if $featur.products_base_price != 1}
-						<span class="smallText">{$lang.text_products_base_price}: </span>
-						{if (!empty($featur.featured_special_price))}
-							<span class="special_base_price">{$featur.products_base_unit} = {$featur.featured_base_product_special_price}</span><br>
+					{if $myUser.show_price eq 1 }	
+						{if (!empty($featur.featured_product_special_price))}
+							<s>{$featur.featured_product_price}{$featur.products_units}</s><br>
+							<span class="special_price">{$featur.featured_product_special_price}{$featur.products_units}</span><br>
 						{else}
-							<span class="base_price">{$featur.products_base_unit} = {$featur.featured_base_product_price}</span><br>
+							{$featur.featured_product_price}{$featur.products_units}
+						{/if}					
+						
+						{if $featur.products_base_price != 1}
+							<span class="smallText">{$lang.text_products_base_price}: </span>
+							{if (!empty($featur.featured_special_price))}
+								<span class="special_base_price">{$featur.products_base_unit} = {$featur.featured_base_product_special_price}</span><br>
+							{else}
+								<span class="base_price">{$featur.products_base_unit} = {$featur.featured_base_product_price}</span><br>
+							{/if}
 						{/if}
-					{/if}
+					{/if}	
 					</div>
                 </div>
             </li>		

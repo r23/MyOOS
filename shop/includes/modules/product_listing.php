@@ -19,171 +19,59 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
 $nPage = isset($_GET['page']) ? $_GET['page']+0 : 1;
 
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.php';   
-  // define our listing functions
-  include_once MYOOS_INCLUDE_PATH . '/includes/functions/function_listing.php';
+include_once MYOOS_INCLUDE_PATH . '/includes/functions/function_listing.php';
 
-  $listing_numrows_sql = $listing_sql; 
-  $listing_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $listing_sql, $listing_numrows);
-  // fix counted products
-  $listing_numrows = $dbconn->Execute($listing_numrows_sql);
-  $listing_numrows = $listing_numrows->RecordCount();
+$listing_numrows_sql = $listing_sql; 
+$listing_split = new splitPageResults($listing_numrows_sql, MAX_DISPLAY_SEARCH_RESULTS);
+$listing_numrows = $dbconn->Execute($listing_split->sql_query);
 
-  $list_box_contents = array();
-  $list_box_contents[] = array('params' => 'class="productListing-even"');
-  $cur_row = count($list_box_contents) - 1;
-
-  for ($col=0, $n=count($column_list); $col<$n; $col++) {
-    switch ($column_list[$col]) {
-      case 'PRODUCT_LIST_MODEL':
-        $lc_text = $aLang['table_heading_model'];
-        $lc_align = '';
-        break;
-
-      case 'PRODUCT_LIST_NAME':
-        $lc_text = $aLang['table_heading_products'];
-        $lc_align = '';
-        break;
-
-      case 'PRODUCT_LIST_MANUFACTURER':
-        $lc_text = $aLang['table_heading_manufacturer'];
-        $lc_align = '';
-        break;
-
-      case 'PRODUCT_LIST_UVP':
-        if ($aUser['show_price'] != 1) {
-          $lc_text = '';
-        } else {
-          $lc_text = $aLang['table_heading_list_price'];
-        }
-        $lc_align = 'right';
-        break;
-
-
-      case 'PRODUCT_LIST_PRICE':
-        if ($aUser['show_price'] != 1) {
-          $lc_text = '';
-        } else {
-          $lc_text = $aLang['table_heading_price'];
-        }
-        $lc_align = 'right';
-        break;
-
-      case 'PRODUCT_LIST_QUANTITY':
-        $lc_text = $aLang['table_heading_quantity'];
-        $lc_align = 'right';
-        break;
-
-      case 'PRODUCT_LIST_WEIGHT':
-        $lc_text = $aLang['table_heading_weight'];
-        $lc_align = 'right';
-        break;
-
-      case 'PRODUCT_LIST_IMAGE':
-        $lc_text = $aLang['table_heading_image'];
-        $lc_align = 'center';
-        break;
-
-      case 'PRODUCT_LIST_BUY_NOW':
-        if ($aUser['show_price'] != 1) {
-          $lc_text='';
-        } else {
-          $lc_text = $aLang['table_heading_buy_now'];
-        }
-        $lc_align = 'center';
-        break;
-
-      case 'PRODUCT_LIST_SORT_ORDER':
-        $lc_text = $aLang['table_heading_product_sort'];
-        $lc_align = 'center';
-        break;
-    }
-
+/*
     if ( ($column_list[$col] != 'PRODUCT_LIST_BUY_NOW') && ($column_list[$col] != 'PRODUCT_LIST_IMAGE') ) {
       $lc_text = oos_create_sort_heading($_GET['sort'], $col+1, $lc_text);
     }
+*/
 
-    $list_box_contents[$cur_row][] = array('align' => $lc_align,
-                                           'params' => 'class="productListing-even"',
-                                           'text' => '&nbsp;' . $lc_text . '&nbsp;');
-  }
-
-
-  if ($listing_numrows > 0) {
+if ($listing_split->number_of_rows > 0) {
     if (!isset($all_get_listing)) $all_get_listing = oos_get_all_get_parameters(array('action'));
-    $number_of_products = 0;
-    $listing_result = $dbconn->Execute($listing_sql);
+
+	$aListing = array();
+    $listing_result = $dbconn->Execute($listing_split->sql_query);
     while ($listing = $listing_result->fields) {
-      $number_of_products++;
 
-      if (($number_of_products/2) == floor($number_of_products/2)) {
-        $list_box_contents[] = array('params' => 'class="productListing-even"');
-      } else {
-        $list_box_contents[] = array('params' => 'class="productListing-odd"');
-      }
-
-      $cur_row = count($list_box_contents) - 1;
-
-      for ($col=0, $n=count($column_list); $col<$n; $col++) {
-        $lc_align = '';
-
-        switch ($column_list[$col]) {
-          case 'PRODUCT_LIST_MODEL':
-            $lc_align = '';
-            $lc_text = '&nbsp;' . $listing['products_model'] . '&nbsp;';
-            break;
-
-          case 'PRODUCT_LIST_NAME':
-            $lc_align = '';
-            if (isset($_GET['manufacturers_id']) && is_numeric($_GET['manufacturers_id'])) {
-              $lc_text = '<a href="' . oos_href_link($aContents['product_info'], 'manufacturers_id=' . $_GET['manufacturers_id'] . '&amp;products_id=' . $listing['products_id']) . '">' . $listing['products_name'] . '</a>';
-            } else {
-              if ($oEvent->installed_plugin('sefu')) {
-                $lc_text = '&nbsp;<a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $listing['products_id']) . '">' . $listing['products_name'] . '</a>&nbsp;';
-              } else {
-                $lc_text = '&nbsp;<a href="' . oos_href_link($aContents['product_info'], ($sCategory ? 'category=' . $sCategory . '&amp;' : '') . 'products_id=' . $listing['products_id']) . '">' . $listing['products_name'] . '</a>&nbsp;';
-              }
-            }
-            break;
-
+/*
           case 'PRODUCT_LIST_MANUFACTURER':
-            $lc_align = '';
             $lc_text = '&nbsp;<a href="' . oos_href_link($aContents['shop'], 'manufacturers_id=' . $listing['manufacturers_id']) . '">' . $listing['manufacturers_name'] . '</a>&nbsp;';
             break;
+*/
 
-          case 'PRODUCT_LIST_UVP':
-            if ($listing['products_price_list'] > 0) {
-              $pl_products_price_list = $oCurrencies->display_price($listing['products_price_list'], oos_get_tax_rate($listing['products_tax_class_id']));
-              $lc_align = 'right';
-              $lc_text = '&nbsp;' . $pl_products_price_list . '&nbsp;';
-            } else {
-              $lc_text = '&nbsp;';
-            }
-            break;
-
-
-          case 'PRODUCT_LIST_PRICE':
-            $lc_align = 'right';
-
+			$discount = NULL;
+			$pl_price_discount = NULL;
+			
             $sUnits = UNITS_DELIMITER . $products_units[$listing['products_units_id']];
             $pl_product_price = $oCurrencies->display_price($listing['products_price'], oos_get_tax_rate($listing['products_tax_class_id']));
 
-            unset($pl_price_discount);
+            unset($discount);
             if ( $listing['products_discount4'] > 0 ) {
-              $pl_price_discount = $oCurrencies->display_price($listing['products_discount4'], oos_get_tax_rate($listing['products_tax_class_id']));
+				$discount = $listing['products_discount4'];
             } elseif ( $listing['products_discount3'] > 0 ) {
-              $pl_price_discount = $oCurrencies->display_price($listing['products_discount3'], oos_get_tax_rate($listing['products_tax_class_id']));
+				$discount = $listing['products_discount3'];
             } elseif ( $listing['products_discount2'] > 0 ) {
-              $pl_price_discount = $oCurrencies->display_price($listing['products_discount2'], oos_get_tax_rate($listing['products_tax_class_id']));
+				$discount = $listing['products_discount2'];
             } elseif ( $listing['products_discount1'] > 0 ) {
-              $pl_price_discount = $oCurrencies->display_price($listing['products_discount1'], oos_get_tax_rate($listing['products_tax_class_id']));
+				$discount = $listing['products_discount1'];
             }
 
+            if ( $discount > 0 ) {
+				$pl_price_discount = $oCurrencies->display_price($discount, oos_get_tax_rate($listing['products_tax_class_id']));
+            } 		
+			
+			
             unset($pl_special_price);
             if (oos_is_not_null($listing['specials_new_products_price'])) {
               $pl_special_price = $listing['specials_new_products_price'];
@@ -214,79 +102,43 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.ph
                   if ($listing['products_base_price'] != 1)  $lc_text .= '<span class="base_price">' . $listing['products_base_unit'] . ' = ' . $pl_base_product_price . '</span><br />';
                 }
             }
-            $lc_text .= '&nbsp;<span class="pangv">' . $sPAngV . '</span><br />';
-            break;
 
-          case 'PRODUCT_LIST_QUANTITY':
-            $lc_align = 'right';
-            $lc_text = '&nbsp;' . $listing['products_quantity'] . '&nbsp;';
-            break;
 
-          case 'PRODUCT_LIST_WEIGHT':
-            $lc_align = 'right';
-            $lc_text = '&nbsp;' . $listing['products_weight'] . '&nbsp;';
-            break;
+		if (DECIMAL_CART_QUANTITY == 'true') {
+			$order_min = number_format($listing['products_quantity_order_min'], 2);
+		} else {
+			$order_min = number_format($listing['products_quantity_order_min']);
+		}
 
-          case 'PRODUCT_LIST_IMAGE':
-            $lc_align = 'center';
-            if (isset($_GET['manufacturers_id']) && is_numeric($_GET['manufacturers_id'])) {
-              $lc_text = '<a href="' . oos_href_link($aContents['product_info'], 'manufacturers_id=' . $_GET['manufacturers_id'] . '&amp;products_id=' . $listing['products_id']) . '">';
-            } else {
-              if ($oEvent->installed_plugin('sefu')) {
-                $lc_text = '&nbsp;<a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $listing['products_id']) . '">';
-              } else {
-                $lc_text = '&nbsp;<a href="' . oos_href_link($aContents['product_info'], ($sCategory ? 'category=' . $sCategory . '&amp;' : '') . 'products_id=' . $listing['products_id']) . '">';
-              }
-            }
-
-            $lc_image = 'no_picture.gif';
-            if (oos_is_not_null($listing['products_image'])) {
-              $lc_image = $listing['products_image'];
-            } else {
-              if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'no_picture_' . $sLanguage . '.gif')) {
-                $lc_image = 'no_picture_' . $sLanguage . '.gif';
-              }
-            }
-            $lc_text .= oos_image(OOS_IMAGES . $lc_image, $listing['products_name']) . '</a>';
-            break;
-
-          case 'PRODUCT_LIST_BUY_NOW':
-            $lc_align = 'right';
-            if ($aUser['show_price'] == 1) {
-
-               if (DECIMAL_CART_QUANTITY == 'true') {
-                 $order_min = number_format($listing['products_quantity_order_min'], 2);
-               } else {
-                 $order_min = number_format($listing['products_quantity_order_min']);
-               }
-
-               $lc_text = '<a href="' . oos_href_link($sContent, $all_get_listing . 'action=buy_now&amp;products_id=' . $listing['products_id'] . '&amp;cart_quantity=' . $order_min ) . ' class="btn btn-primary-filled" role="button"><i class="fa fa-shopping-cart"></i> ' . $aLang['text_now'] . '</a>&nbsp;';
-
-            } else {
-              $lc_text = '&nbsp;';
-            }
-            break;
-
-          case 'PRODUCT_LIST_SORT_ORDER';
-            $lc_align = 'center';
-            $lc_text = '&nbsp;' . $listing['products_sort_order'] . '&nbsp;';
-            break;
-        }
-
-        $list_box_contents[$cur_row][] = array('align' => $lc_align,
-                                               'params' => 'class="productListing-data"',
-                                               'text'  => $lc_text);
-      }
+			   
+		$aListing[] = array('products_id' => $listing['products_id'],
+                           'products_image' => $listing['products_image'],
+                           'products_name' => $listing['products_name'],
+						   'products_model' => $listing['products_model'],
+                           'products_description' => oos_remove_tags($listing['products_description']),
+						   
+						   'order_min' => $order_min,
+						   
+                           'products_base_price' => $listing['products_base_price'],
+                           'products_base_unit' => $listing['products_base_unit'],
+                           'products_units' => $listing_units,
+                           'listing_product_price' => $listing_product_price,
+                           'listing_product_special_price' => $listing_product_special_price,
+                           'listing_base_product_price' => $listing_base_product_price,
+                           'listing_base_product_special_price' => $listing_base_product_special_price,
+                           'listing_special_price' => $listing_special_price);			   
+			   
 
       // Move that ADOdb pointer!
       $listing_result->MoveNext();
     }
-    // Close result set
-    $listing_result->Close();
-  }
 
-  $smarty->assign(array('page_split' => $listing_split->display_count($listing_numrows, MAX_DISPLAY_SEARCH_RESULTS, $nPage, $aLang['text_display_number_of_products']),
-                        'display_links' => $listing_split->display_links($listing_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage, oos_get_all_get_parameters(array('page', 'info'))),
-                        'numrows' => $listing_numrows));
-  $smarty->assign('list_box_contents', $list_box_contents);
+}
+
+$smarty->assign(array('page_split' => $listing_split->display_count($aLang['text_display_number_of_products']),
+                        'display_links' => $listing_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
+                        'numrows' => $listing_split->number_of_rows));
+						
+$smarty->assign('get_params', $all_get_listing);
+$smarty->assign('listing', $aListing);
 

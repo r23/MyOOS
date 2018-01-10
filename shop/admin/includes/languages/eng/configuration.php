@@ -243,36 +243,6 @@ define('SHIPPING_BOX_WEIGHT_DESC', 'What is the weight of typical packaging of s
 define('SHIPPING_BOX_PADDING_TITLE', 'Larger packages - percentage increase.');
 define('SHIPPING_BOX_PADDING_DESC', 'For 10% enter 10');
 
-define('PRODUCT_LIST_IMAGE_TITLE', 'Display Product Image');
-define('PRODUCT_LIST_IMAGE_DESC', 'Do you want to display the Product Image?');
-
-define('PRODUCT_LIST_MANUFACTURER_TITLE', 'Display Product Manufaturer Name');
-define('PRODUCT_LIST_MANUFACTURER_DESC', 'Do you want to display the Product Manufacturer Name?');
-
-define('PRODUCT_LIST_MODEL_TITLE', 'Display Product Model');
-define('PRODUCT_LIST_MODEL_DESC', 'Do you want to display the Product Model?');
-
-define('PRODUCT_LIST_NAME_TITLE', 'Display Product Name');
-define('PRODUCT_LIST_NAME_DESC', 'Do you want to display the Product Name?');
-
-define('PRODUCT_LIST_UVP_TITLE', 'Display Product List Price');
-define('PRODUCT_LIST_UVP_DESC', 'Do you want to display the Product List Price?');
-
-define('PRODUCT_LIST_PRICE_TITLE', 'Display Product Price');
-define('PRODUCT_LIST_PRICE_DESC', 'Do you want to display the Product Price?');
-
-define('PRODUCT_LIST_QUANTITY_TITLE', 'Display Product Quantity');
-define('PRODUCT_LIST_QUANTITY_DESC', 'Do you want to display the Product Quantity?');
-
-define('PRODUCT_LIST_WEIGHT_TITLE', 'Display Product Weight');
-define('PRODUCT_LIST_WEIGHT_DESC', 'Do you want to display the Product Weight?');
-
-define('PRODUCT_LIST_BUY_NOW_TITLE', 'Display Buy Now column');
-define('PRODUCT_LIST_BUY_NOW_DESC', 'Do you want to display the Buy Now column?');
-
-define('PRODUCT_LIST_SORT_ORDER_TITLE', 'Display Product Sort Order');
-define('PRODUCT_LIST_SORT_ORDER_DESC', 'Do you want to display the Product Sort Order column?');
-
 define('STOCK_CHECK_TITLE', 'Check stock level');
 define('STOCK_CHECK_DESC', 'Check to see if sufficent stock is available');
 
@@ -476,29 +446,4 @@ define('OOS_META_INDEX_PAGE_DESC', 'M&ouml;chten Sie eine Index-Seite mit allen 
 
 define('OOS_META_INDEX_PATH_TITLE', 'Path to IndexSite');
 define('OOS_META_INDEX_PATH_DESC', 'Path to store File for Spider');
-
-
-define('SLAVE_LIST_IMAGE_TITLE', 'Display Slave Image');
-define('SLAVE_LIST_IMAGE_DESC', 'Do you want to display the Product Image?');
-
-define('SLAVE_LIST_MANUFACTURER_TITLE', 'Display Slave Manufacturer Name');
-define('SLAVE_LIST_MANUFACTURER_DESC', 'Do you want to display the Product Manufacturer Name?');
-
-define('SLAVE_LIST_MODEL_TITLE', 'Display Slave Model');
-define('SLAVE_LIST_MODEL_DESC', 'Do you want to display the Product Model?');
-
-define('SLAVE_LIST_NAME_TITLE', 'Display Slave Name');
-define('SLAVE_LIST_NAME_DESC', 'Do you want to display the Product Name?');
-
-define('SLAVE_LIST_PRICE_TITLE', 'Display Slave Price');
-define('SLAVE_LIST_PRICE_DESC', 'Do you want to display the Product Price');
-
-define('SLAVE_LIST_QUANTITY_TITLE', 'Display Slave Quantity');
-define('SLAVE_LIST_QUANTITY_DESC', 'Do you want to display the Product Quantity?');
-
-define('SLAVE_LIST_WEIGHT_TITLE', 'Display Slave Weight');
-define('SLAVE_LIST_WEIGHT_DESC', 'Do you want to display the Product Weight?');
-
-define('SLAVE_LIST_BUY_NOW_TITLE', 'Display Buy Now column');
-define('SLAVE_LIST_BUY_NOW_DESC', 'Do you want to display the Buy Now column?');
 

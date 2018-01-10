@@ -21,24 +21,20 @@ define('6_DESC', 'Hidden from configuration');
 define('7_TITLE', 'Verpackung &amp; Versand');
 define('7_DESC', 'Versandoptionen meines Shops');
 
-define('8_TITLE', 'Produktübersicht');
-define('8_DESC', 'Product Listing configuration options');
+define('8_TITLE', 'Lager');
+define('8_DESC', 'Konfiguration der Lageroptionen');
 
-define('9_TITLE', 'Lager');
-define('9_DESC', 'Konfiguration der Lageroptionen');
+define('9_TITLE', 'Download');
+define('9_DESC', 'Konfiguration der downloadbaren Artikel');
 
-define('10_TITLE', 'Download');
-define('10_DESC', 'Konfiguration der downloadbaren Artikel');
+define('10_TITLE', 'Gutscheine');
+define('10_DESC', 'Konfiguration der Gutschein-Optionen');
 
-define('11_TITLE', 'Gutscheine');
-define('11_DESC', 'Konfiguration der Gutschein-Optionen');
+define('11_TITLE', 'Shop Gestaltung');
+define('11_DESC', 'Optionen für das Layout');
 
-define('12_TITLE', 'Shop Gestaltung');
-define('12_DESC', 'Optionen für das Layout');
+define('12_TITLE', 'Meta-Tag');
+define('12_DESC', 'Pflegen Sie hier die Daten, die die Suchmaschinen einlesen');
 
-define('13_TITLE', 'Meta-Tag');
-define('13_DESC', 'Pflegen Sie hier die Daten, die die Suchmaschinen einlesen');
 
-define('14_TITLE', 'Slave Listing');
-define('14_DESC', 'Slave Listing configuration options');
 

@@ -177,26 +177,6 @@ if ($category_depth == 'nested') {
 
 } elseif ($category_depth == 'products' || (isset($_GET['manufacturers_id']) && !empty($_GET['manufacturers_id']))) {
 
-    $aTemplate['page'] = $sTheme . '/page/shop_products.html';
-    $aTemplate['pagination'] = $sTheme . '/system/_pagination.html';
-
-    $nPageType = OOS_PAGE_TYPE_CATALOG;
-	$sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
-
-    $nManufacturersID = isset($_GET['manufacturers_id']) ? $_GET['manufacturers_id']+0 : 0;
-    $nPage = isset($_GET['page']) ? $_GET['page']+0 : 1;
-    $nFilterID = intval($_GET['filter_id']) ? $_GET['filter_id']+0 : 0;
-    $sSort = oos_var_prep_for_os($_GET['sort']);
-    $sGroup = trim($aUser['text']);
-    $sContentCacheID = $sTheme . '|shop|products|' . intval($nCurrentCategoryID) . '|' . $sCategory . '|' . $nManufacturersID . '|' . $nPage . '|' . $nFilterID . '|' . $sGroup . '|' . $sLanguage;
-	
-    require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
-    if (!isset($option)) {
-		require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-		require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
-    }
-
-	// index_products_heading.html
 	$categoriestable = $oostable['categories'];
 	$categories_descriptiontable = $oostable['categories_description'];
 	$sql = "SELECT cd.categories_name, cd.categories_heading_title, cd.categories_description,
@@ -209,18 +189,46 @@ if ($category_depth == 'nested') {
                 AND cd.categories_languages_id = '" .  intval($nLanguageID) . "'";
 	$category = $dbconn->GetRow($sql);
 
-	if (empty($category['categories_description_meta'])) {
-		$smarty->assign('meta_description', substr(strip_tags(preg_replace('!(\r\n|\r|\n)!', '',$category['categories_description'])),0 , 250));
+    $aTemplate['page'] = $sTheme . '/page/shop_products.html';
+    $aTemplate['pagination'] = $sTheme . '/system/_pagination.html';
+	
+    $nPageType = OOS_PAGE_TYPE_CATALOG;
+	if (empty($category['categories_heading_title'])) {
+		$sPagetitle = $category['categories_name']. ' ' . OOS_META_TITLE;
 	} else {
-		$smarty->assign('meta_description', $category['categories_description_meta']);
+		$sPagetitle = $category['categories_heading_title'] . ' ' . OOS_META_TITLE;
 	}
+	if (empty($category['categories_description_meta'])) {
+		$sDescription = substr(strip_tags(preg_replace('!(\r\n|\r|\n)!', '',$category['categories_description'])),0 , 250);
+	} else {
+		$sDescription = $category['categories_description_meta'];
+	}
+	
+    $nManufacturersID = isset($_GET['manufacturers_id']) ? $_GET['manufacturers_id']+0 : 0;
+    $nPage = isset($_GET['page']) ? $_GET['page']+0 : 1;
+    $nFilterID = intval($_GET['filter_id']) ? $_GET['filter_id']+0 : 0;
+    $sSort = oos_var_prep_for_os($_GET['sort']);
+    $sGroup = trim($aUser['text']);
+    $sContentCacheID = $sTheme . '|shop|products|' . intval($nCurrentCategoryID) . '|' . $sCategory . '|' . $nManufacturersID . '|' . $nPage . '|' . $nFilterID . '|' . $sGroup . '|' . $sLanguage;
+
+    require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
+    if (!isset($option)) {
+		require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+		require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+    }
 
 	if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 		$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 	}
 
-	$smarty->assign('breadcrumb', $oBreadcrumb->trail());
-	$smarty->assign('canonical', $sCanonical);
+    // assign Smarty variables;
+    $smarty->assign(
+        array(
+            'breadcrumb'    => $oBreadcrumb->trail(),
+            'heading_title' => $category['categories_name'],
+            'canonical'     => $sCanonical
+        )
+    );
 	
     if (!$smarty->isCached($aTemplate['page'], $sContentCacheID)) {
 
@@ -236,15 +244,13 @@ if ($category_depth == 'nested') {
                            'PRODUCT_LIST_IMAGE' => PRODUCT_LIST_IMAGE,
                            'PRODUCT_LIST_BUY_NOW' => PRODUCT_LIST_BUY_NOW,
                            'PRODUCT_LIST_SORT_ORDER' => PRODUCT_LIST_SORT_ORDER);
-		asort($define_list);
+		asort($aDefineList);
 		$aColumnList = array();
 
 		foreach($aDefineList as $key => $value) {
 			if ($value > 0) $aColumnList[] = $key;
 		}
 
-	  
-	  
 		$select_column_list = '';
 		$n = count($aColumnList);  
 		for ($col = 0, $n; $col < $n; $col++) {
@@ -314,7 +320,7 @@ if ($category_depth == 'nested') {
                             AND p.products_id = p2c.products_id
                             AND pd.products_id = p2c.products_id
                             AND pd.products_languages_id = '" .  intval($nLanguageID) . "'
-                            AND p2c.categories_id = '" . intval($_GET['filter_id']) . "'";
+                            AND p2c.categories_id = '" . intval($nFilterID) . "'";
 			} else {
 				// We show them all
 				$productstable = $oostable['products'];
@@ -357,7 +363,7 @@ if ($category_depth == 'nested') {
                              AND p.manufacturers_id = '" . intval($nManufacturersID) . "'
                            ORDER BY cd.categories_name";
 		} else {
-// show the products in a given categorie
+			// show the products in a given categorie
 			if ((isset($_GET['filter_id'])) && oos_is_not_null($_GET['filter_id'])) {
 				// We are asked to show only specific catgeory
 				$productstable = $oostable['products'];
@@ -523,12 +529,12 @@ if ($category_depth == 'nested') {
 			$image = $category['categories_image'];
 		}
 
+		# 'heading_title' => $aLang['heading_title'],
 		// assign Smarty variables;
 		$smarty->assign(
 			array(
 				'product_filter_select' => $product_filter_select,
 				'image' => $image,
-				'heading_title' => $aLang['heading_title'],
 				'category' => $category
 			)
 		);

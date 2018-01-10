@@ -236,36 +236,6 @@ define('SHIPPING_BOX_WEIGHT_DESC', 'Wie hoch ist im Schnitt das Gewicht der Verp
 define('SHIPPING_BOX_PADDING_TITLE', 'Prozentuale Mehrkosten für schwerere Pakete.');
 define('SHIPPING_BOX_PADDING_DESC', 'Prozentuale Mehrkosten für schwerere Pakete. Für 10% einfach 10 eingeben.');
 
-define('PRODUCT_LIST_IMAGE_TITLE', 'Artikelbild anzeigen');
-define('PRODUCT_LIST_IMAGE_DESC', 'Möchten Sie ein Artikelbild anzeigen?');
-
-define('PRODUCT_LIST_MANUFACTURER_TITLE', 'Artikelhersteller anzeigen');
-define('PRODUCT_LIST_MANUFACTURER_DESC', 'Möchten Sie den Hersteller des Artikels anzeigen?');
-
-define('PRODUCT_LIST_MODEL_TITLE', 'Artikelmodell anzeigen');
-define('PRODUCT_LIST_MODEL_DESC', 'Möchten Sie das Artikelmodell anzeigen?');
-
-define('PRODUCT_LIST_NAME_TITLE', 'Artikelname anzeigen');
-define('PRODUCT_LIST_NAME_DESC', 'Möchten Sie den Artikelnamen anzeigen?');
-
-define('PRODUCT_LIST_UVP_TITLE', 'empfohlenen Verkaufspreis anzeigen');
-define('PRODUCT_LIST_UVP_DESC', 'Möchten Sie den empfohlenen Verkaufspreis anzeigen?');
-
-define('PRODUCT_LIST_PRICE_TITLE', 'Artikelpreis anzeigen');
-define('PRODUCT_LIST_PRICE_DESC', 'Möchten Sie den Artikelpreis anzeigen?');
-
-define('PRODUCT_LIST_QUANTITY_TITLE', 'Artikelanzahl anzeigen');
-define('PRODUCT_LIST_QUANTITY_DESC', 'Möchten Sie die Anzahl der vorhandenen Artikel anzeigen?');
-
-define('PRODUCT_LIST_WEIGHT_TITLE', 'Artikelgewicht anzeigen');
-define('PRODUCT_LIST_WEIGHT_DESC', 'Möchten Sie das Artikelgewicht anzeigen?');
-
-define('PRODUCT_LIST_BUY_NOW_TITLE', 'Jetzt Kaufen anzeigen');
-define('PRODUCT_LIST_BUY_NOW_DESC', 'Möchten Sie den \'Jetzt Kaufen\' Button anzeigen?');
-
-define('PRODUCT_LIST_SORT_ORDER_TITLE', 'Display Product Sort Order');
-define('PRODUCT_LIST_SORT_ORDER_DESC', 'Do you want to display the Product Sort Order column?');
-
 define('STOCK_CHECK_TITLE', 'Bestandsprüfung');
 define('STOCK_CHECK_DESC', 'Soll der Shop eine Bestandsprüfung durchführen?');
 
@@ -471,34 +441,5 @@ define('OOS_META_INDEX_PAGE_DESC', 'Möchten Sie eine Index-Seite mit allen Arti
 define('OOS_META_INDEX_PATH_TITLE', 'Pfad für IndexSeite');
 define('OOS_META_INDEX_PATH_DESC', 'Die Datei für die Suchmaschinen soll in diesem Shop-Verzeichnis gespeichert werden.');
 
-
 define('ENABLE_SPIDER_FRIENDLY_LINKS_TITLE', 'Spider-frundliche Links');
 define('ENABLE_SPIDER_FRIENDLY_LINKS_DESC', 'Ermögliche Spider-freundliche Links (empfohlen). ACHTUNG: Es sind ggf. Änderungen in der Konfiguration des Webservers notwendig!');
-
-define('OOS_SPAW_TITLE', 'SPAW PHP WYSIWYG Editor');
-define('OOS_SPAW_DESC', 'SPAW PHP WYSIWYG bei der Datenerfassung verwenden?');
-
-define('SLAVE_LIST_IMAGE_TITLE', 'Anzeige des Slave-Bildes');
-define('SLAVE_LIST_IMAGE_DESC', 'Soll das Produktbild gezeigt werden?');
-
-define('SLAVE_LIST_MANUFACTURER_TITLE', 'Anzeige des Slave-Herstellers');
-define('SLAVE_LIST_MANUFACTURER_DESC', 'Soll der Name des Produktherstellers angezeigt werden?');
-
-define('SLAVE_LIST_MODEL_TITLE', 'Anzeige des Slave-Modells');
-define('SLAVE_LIST_MODEL_DESC', 'Soll das Produktmodell angezeigt werden?');
-
-define('SLAVE_LIST_NAME_TITLE', 'Anzeige des Slave-Names');
-define('SLAVE_LIST_NAME_DESC', 'Soll der Produktname angezeigt werden?');
-
-define('SLAVE_LIST_PRICE_TITLE', 'Anzeige des Slave-Preises');
-define('SLAVE_LIST_PRICE_DESC', 'Soll der Produktpreis angezeigt werden?');
-
-define('SLAVE_LIST_QUANTITY_TITLE', 'Anzeige der Slave-Anzahl');
-define('SLAVE_LIST_QUANTITY_DESC', 'Soll die Anzahl der Produkte angezeigt werden?');
-
-define('SLAVE_LIST_WEIGHT_TITLE', 'Anzeige des Slave-Gewichts');
-define('SLAVE_LIST_WEIGHT_DESC', 'Soll das Produktgewicht angezeigt werden?');
-
-define('SLAVE_LIST_BUY_NOW_TITLE', 'Jetzt kaufen');
-define('SLAVE_LIST_BUY_NOW_DESC', 'Soll die \'Jetzt kaufen\'-Zeile angezeigt werden?');
-

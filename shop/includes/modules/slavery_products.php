@@ -26,7 +26,6 @@
   $define_list = array('PRODUCT_LIST_MODEL' => SLAVE_LIST_MODEL,
                        'PRODUCT_LIST_NAME' => SLAVE_LIST_NAME,
                        'PRODUCT_LIST_MANUFACTURER' => SLAVE_LIST_MANUFACTURER,
-                       'PRODUCT_LIST_UVP' => PRODUCT_LIST_UVP,
                        'PRODUCT_LIST_PRICE' => SLAVE_LIST_PRICE,
                        'PRODUCT_LIST_QUANTITY' => SLAVE_LIST_QUANTITY,
                        'PRODUCT_LIST_WEIGHT' => SLAVE_LIST_WEIGHT,
@@ -44,8 +43,7 @@
 
   for ($col=0, $n=count($column_list); $col<$n; $col++) {
     if ( ($column_list[$col] == 'PRODUCT_SLAVE_BUY_NOW')
-        || ($column_list[$col] == 'PRODUCT_LIST_PRICE')
-        || ($column_list[$col] == 'PRODUCT_LIST_UVP') ) {
+        || ($column_list[$col] == 'PRODUCT_LIST_PRICE')) {
       continue;
     }
     if (oos_is_not_null($select_column_list)) {

@@ -37,9 +37,9 @@
 
 function smarty_function_oos_check_stock($params, &$smarty)
 {
-        require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
+	require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
     
-    $products_id = ''; 
+	$products_id = ''; 
     $products_quantity = '';
 
     
@@ -51,9 +51,9 @@ function smarty_function_oos_check_stock($params, &$smarty)
     $out_of_stock = '';
     
     if ($stock_left < 0) {
-      $out_of_stock = '<span class="oos-MarkProductOutOfStock">' . STOCK_MARK_PRODUCT_OUT_OF_STOCK . '</span>';
+		$out_of_stock = '<span class="text-danger"><b>' . STOCK_MARK_PRODUCT_OUT_OF_STOCK . '</b></span>';
     }
     
     return $out_of_stock;
-  }
+}
 
