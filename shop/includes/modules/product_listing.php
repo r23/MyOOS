@@ -50,13 +50,20 @@ if ($listing_split->number_of_rows > 0) {
             break;
 */
 
-			$discount = NULL;
-			$pl_price_discount = NULL;
+		$discount = NULL;
 			
-            $sUnits = UNITS_DELIMITER . $products_units[$listing['products_units_id']];
-            $pl_product_price = $oCurrencies->display_price($listing['products_price'], oos_get_tax_rate($listing['products_tax_class_id']));
+			
+		$listing_product_price = NULL;
+		$listing_product_special_price = NULL;
+		$listing_base_product_price = NULL;
+		$listing_base_product_special_price = NULL;
+		$listing_special_price = NULL;
 
-            unset($discount);
+		if ($aUser['show_price'] == 1 ) {
+			$listing_units = UNITS_DELIMITER . $products_units[$listing['products_units_id']];
+
+			$listing_product_price = $oCurrencies->display_price($listing['products_price'], oos_get_tax_rate($listing['products_tax_class_id']));
+			
             if ( $listing['products_discount4'] > 0 ) {
 				$discount = $listing['products_discount4'];
             } elseif ( $listing['products_discount3'] > 0 ) {
@@ -68,65 +75,46 @@ if ($listing_split->number_of_rows > 0) {
             }
 
             if ( $discount > 0 ) {
-				$pl_price_discount = $oCurrencies->display_price($discount, oos_get_tax_rate($listing['products_tax_class_id']));
-            } 		
-			
-			
-            unset($pl_special_price);
-            if (oos_is_not_null($listing['specials_new_products_price'])) {
-              $pl_special_price = $listing['specials_new_products_price'];
-              $pl_product_special_price = $oCurrencies->display_price($pl_special_price, oos_get_tax_rate($listing['products_tax_class_id']));
-            } 
+				$listing_discount_price = $oCurrencies->display_price($discount, oos_get_tax_rate($listing['products_tax_class_id']));
+            } 			
 
-            unset($pl_base_product_price);
-            unset($pl_base_product_special_price);
-            if ($listing['products_base_price'] != 1) {
-              $pl_base_product_price = $oCurrencies->display_price($listing['products_price'] * $listing['products_base_price'], oos_get_tax_rate($listing['products_tax_class_id']));
+			if (oos_is_not_null($listing['specials_new_products_price'])) {
+				$listing_special_price = $listing['specials_new_products_price'];
+				$listing_product_special_price = $oCurrencies->display_price($listing['specials_new_products_price'], oos_get_tax_rate($listing['products_tax_class_id']));
+			} 
 
-              if ($pl_special_price != '') {
-                $pl_base_product_special_price = $oCurrencies->display_price($pl_special_price * $listing['products_base_price'], oos_get_tax_rate($listing['products_tax_class_id']));
-              }
-            }
+			if ($listing['products_base_price'] != 1) {
+				$listing_base_product_price = $oCurrencies->display_price($listing['products_price'] * $listing['products_base_price'], oos_get_tax_rate($listing['products_tax_class_id']));
 
-            if (oos_is_not_null($listing['specials_new_products_price'])) {
-              $lc_text = '&nbsp;<s>' . $pl_product_price . $sUnits . '</s><br />';
-              if ($listing['products_base_price'] != 1)  $lc_text .= '<s><span class="base_price">' . $listing['products_base_unit'] . ' = ' . $pl_base_product_price . '</span></s><br />';
-
-              $lc_text .= '&nbsp;<span class="special_price">' . $pl_product_special_price . $sUnits . '</span>';
-              if ($listing['products_base_price'] != 1)  $lc_text .= '<br /><span class="special_base_price">' . $listing['products_base_unit'] . ' = ' . $pl_base_product_special_price . '</span></s><br />';
-            } else {
-                if (isset($pl_price_discount)) {
-                  $lc_text = $aLang['price_from'] . '&nbsp;' . $pl_price_discount . $sUnits . '<br />';
-                } else {
-                  $lc_text = '&nbsp;' . $pl_product_price .  $sUnits . '<br />';
-                  if ($listing['products_base_price'] != 1)  $lc_text .= '<span class="base_price">' . $listing['products_base_unit'] . ' = ' . $pl_base_product_price . '</span><br />';
-                }
-            }
-
+				if ($listing['specials_new_products_price'] != NULL) {
+					$listing_base_product_special_price = $oCurrencies->display_price($listing['specials_new_products_price'] * $listing['products_base_price'], oos_get_tax_rate($listing['products_tax_class_id']));
+				}
+			}	  
+		}			
 
 		if (DECIMAL_CART_QUANTITY == 'true') {
 			$order_min = number_format($listing['products_quantity_order_min'], 2);
 		} else {
 			$order_min = number_format($listing['products_quantity_order_min']);
 		}
-
-			   
+   
 		$aListing[] = array('products_id' => $listing['products_id'],
-                           'products_image' => $listing['products_image'],
-                           'products_name' => $listing['products_name'],
-						   'products_model' => $listing['products_model'],
-                           'products_description' => oos_remove_tags($listing['products_description']),
-						   
-						   'order_min' => $order_min,
-						   
-                           'products_base_price' => $listing['products_base_price'],
-                           'products_base_unit' => $listing['products_base_unit'],
-                           'products_units' => $listing_units,
-                           'listing_product_price' => $listing_product_price,
-                           'listing_product_special_price' => $listing_product_special_price,
-                           'listing_base_product_price' => $listing_base_product_price,
-                           'listing_base_product_special_price' => $listing_base_product_special_price,
-                           'listing_special_price' => $listing_special_price);			   
+						'products_image' => $listing['products_image'],
+						'products_name' => $listing['products_name'],
+						'products_model' => $listing['products_model'],
+						'products_description' => oos_remove_tags($listing['products_description']),
+						'manufacturers_id' => $listing['manufacturers_id'],
+						'manufacturers_name' =>	$listing['manufacturers_name'],				   
+						'order_min' => $order_min,					   
+						'products_base_price' => $listing['products_base_price'],
+						'products_base_unit' => $listing['products_base_unit'],
+						'products_units' => $listing_units,
+						'listing_product_price' => $listing_product_price,
+						'listing_discount_price' => $listing_discount_price,
+						'listing_product_special_price' => $listing_product_special_price,
+						'listing_base_product_price' => $listing_base_product_price,
+						'listing_base_product_special_price' => $listing_base_product_special_price,
+						'listing_special_price' => $listing_special_price);			   
 			   
 
       // Move that ADOdb pointer!

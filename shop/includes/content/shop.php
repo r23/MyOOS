@@ -235,14 +235,14 @@ if ($category_depth == 'nested') {
 // create column list
 		$aDefineList = array();
 		$aDefineList = array('PRODUCT_LIST_MODEL' => '1',
-                           'PRODUCT_LIST_NAME' => '1',
-                           'PRODUCT_LIST_MANUFACTURER' => '1',
-                           'PRODUCT_LIST_PRICE' => '1',
-                           'PRODUCT_LIST_QUANTITY' => '1',
-                           'PRODUCT_LIST_WEIGHT' => '1',
-                           'PRODUCT_LIST_IMAGE' => '1',
-                           'PRODUCT_LIST_BUY_NOW' => '1',
-                           'PRODUCT_LIST_SORT_ORDER' => '1');
+                           'PRODUCT_LIST_NAME' => '2',
+                           'PRODUCT_LIST_MANUFACTURER' => '3',
+                           'PRODUCT_LIST_PRICE' => '4',
+                           'PRODUCT_LIST_QUANTITY' => '5',
+                           'PRODUCT_LIST_WEIGHT' => '6',
+                           'PRODUCT_LIST_IMAGE' => '7',
+                           'PRODUCT_LIST_BUY_NOW' => '8',
+                           'PRODUCT_LIST_SORT_ORDER' => '9');
 		asort($aDefineList);
 		$aColumnList = array();
 
