@@ -91,11 +91,7 @@ while ($reviews = $reviews_result->fields) {
   
 // add the products model or products_name to the breadcrumb trail
 // links breadcrumb
-if (SHOW_PRODUCTS_MODEL == 'true') {
-    $oBreadcrumb->add($product_info['products_model'], oos_href_link($aContents['product_info'], 'category=' . $sCategory . '&amp;products_id=' . $nProductsID));
-} else {
-    $oBreadcrumb->add($product_info['products_name'], oos_href_link($aContents['product_info'], 'category=' . $sCategory . '&amp;products_id=' . $nProductsID));
-}
+$oBreadcrumb->add($product_info['products_name'], oos_href_link($aContents['product_info'], 'category=' . $sCategory . '&amp;products_id=' . $nProductsID));
 $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['product_reviews'], $get_params));
 $sCanonical = oos_href_link($aContents['product_reviews'], $get_params, FALSE, TRUE);
   

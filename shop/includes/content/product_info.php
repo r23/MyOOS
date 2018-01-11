@@ -98,16 +98,12 @@ if (!$product_info_result->RecordCount()) {
 
     require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
     if (!isset($option)) {
-      require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-      require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+		require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+		require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
     }
 
-    // links breadcrumb
-    if (SHOW_PRODUCTS_MODEL == 'true') {
-      $oBreadcrumb->add($product_info['products_model'], oos_href_link($aContents['product_info'], 'category=' . $sCategory . '&amp;products_id=' . $nProductsID));
-    } else {
-      $oBreadcrumb->add($product_info['products_name'], oos_href_link($aContents['product_info'], 'category=' . $sCategory . '&amp;products_id=' . $nProductsID));
-    }
+    // breadcrumb
+	$oBreadcrumb->add($product_info['products_name']);
 	$sCanonical = oos_href_link($aContents['product_info'], 'products_id='. $nProductsID, FALSE, TRUE);		
 	
     // products history

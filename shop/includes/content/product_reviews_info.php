@@ -61,14 +61,10 @@ $get_parameters = oos_remove_trailing($get_parameters);
                 SET reviews_read = reviews_read+1
                 WHERE reviews_id = '" . $reviews['reviews_id'] . "'");
 
-  // add the products model or products_name to the breadcrumb trail
-  // links breadcrumb
-  if (SHOW_PRODUCTS_MODEL == 'true') {
-    $oBreadcrumb->add($reviews['products_model'], oos_href_link($aContents['product_info'], 'category=' . $sCategory . '&amp;products_id=' . $reviews['products_id']));
-  } else {
-    $oBreadcrumb->add($reviews['products_name'], oos_href_link($aContents['product_info'], 'category=' . $sCategory . '&amp;products_id=' . $reviews['products_id']));
-  }
-  $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['product_reviews'], $get_parameters));
+// add the products model or products_name to the breadcrumb trail
+// links breadcrumb
+$oBreadcrumb->add($reviews['products_name'], oos_href_link($aContents['product_info'], 'category=' . $sCategory . '&amp;products_id=' . $reviews['products_id']));
+$oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['product_reviews'], $get_parameters));
 
   $aTemplate['page'] = $sTheme . '/page/product_reviews_info.html';
 

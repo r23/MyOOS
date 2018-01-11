@@ -384,9 +384,6 @@ define('SHOW_COUNTS_DESC', 'Anzeigen, wieviele Produkte in jeder Kategorie vorha
 define('DISPLAY_CART_TITLE', 'Display Cart After Adding Product');
 define('DISPLAY_CART_DESC', 'Display the shopping cart after adding a product (or return back to their origin)');
 
-define('SHOW_PRODUCTS_MODEL_TITLE', 'Navigation mit Bestellummer');
-define('SHOW_PRODUCTS_MODEL_DESC', 'M&ouml;chten Sie die auf der Produkt-Informations-Seite die Bestellnummer in der Navation anzeigen?');
-
 define('OOS_SMALL_IMAGE_WIDTH_TITLE', 'Small Image Width');
 define('OOS_SMALL_IMAGE_WIDTH_DESC', 'The pixel width of small images');
 

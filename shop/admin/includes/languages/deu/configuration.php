@@ -378,9 +378,6 @@ define('SHOW_COUNTS_DESC', 'Anzeigen, wieviele Produkte in jeder Kategorie vorha
 define('DISPLAY_CART_TITLE', 'Warenkorb anzeigen');
 define('DISPLAY_CART_DESC', 'Zeigt den Warenkorb an, nachdem diesem ein Produkt hinzugefügt wurde');
 
-define('SHOW_PRODUCTS_MODEL_TITLE', 'Navigation mit Bestellnummer');
-define('SHOW_PRODUCTS_MODEL_DESC', 'Möchten Sie die auf der Produkt-Informations-Seite die Bestellnummer in der Navation anzeigen?');
-
 define('OOS_SMALL_IMAGE_WIDTH_TITLE', 'Breite kleine Bilder');
 define('OOS_SMALL_IMAGE_WIDTH_DESC', 'Die Breite von kleinen Bildern in Pixeln');
 
