@@ -29,6 +29,8 @@ if ($debug == 1) {
 	echo '<br />';
 	print_r($_POST);
 	echo '</pre>';
+	
+	# echo "<p><pre>" . var_export($oObject, TRUE). "</pre></p>";	
 }
 
 if (isset($_SESSION)) {

@@ -234,16 +234,15 @@ if ($category_depth == 'nested') {
 
 // create column list
 		$aDefineList = array();
-		$aDefineList = array('PRODUCT_LIST_MODEL' => PRODUCT_LIST_MODEL,
-                           'PRODUCT_LIST_NAME' => PRODUCT_LIST_NAME,
-                           'PRODUCT_LIST_MANUFACTURER' => PRODUCT_LIST_MANUFACTURER,
-                           'PRODUCT_LIST_UVP' => PRODUCT_LIST_UVP,
-                           'PRODUCT_LIST_PRICE' => PRODUCT_LIST_PRICE,
-                           'PRODUCT_LIST_QUANTITY' => PRODUCT_LIST_QUANTITY,
-                           'PRODUCT_LIST_WEIGHT' => PRODUCT_LIST_WEIGHT,
-                           'PRODUCT_LIST_IMAGE' => PRODUCT_LIST_IMAGE,
-                           'PRODUCT_LIST_BUY_NOW' => PRODUCT_LIST_BUY_NOW,
-                           'PRODUCT_LIST_SORT_ORDER' => PRODUCT_LIST_SORT_ORDER);
+		$aDefineList = array('PRODUCT_LIST_MODEL' => '1',
+                           'PRODUCT_LIST_NAME' => '1',
+                           'PRODUCT_LIST_MANUFACTURER' => '1',
+                           'PRODUCT_LIST_PRICE' => '1',
+                           'PRODUCT_LIST_QUANTITY' => '1',
+                           'PRODUCT_LIST_WEIGHT' => '1',
+                           'PRODUCT_LIST_IMAGE' => '1',
+                           'PRODUCT_LIST_BUY_NOW' => '1',
+                           'PRODUCT_LIST_SORT_ORDER' => '1');
 		asort($aDefineList);
 		$aColumnList = array();
 
@@ -254,9 +253,7 @@ if ($category_depth == 'nested') {
 		$select_column_list = '';
 		$n = count($aColumnList);  
 		for ($col = 0, $n; $col < $n; $col++) {
-			if ( ($aColumnList[$col] == 'PRODUCT_LIST_BUY_NOW')
-				|| ($aColumnList[$col] == 'PRODUCT_LIST_PRICE')
-				|| ($aColumnList[$col] == 'PRODUCT_LIST_UVP') ) {
+			if ( $aColumnList[$col] == 'PRODUCT_LIST_PRICE')  {
 				continue;
 			}
 
