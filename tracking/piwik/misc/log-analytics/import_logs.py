@@ -13,6 +13,13 @@
 # Requires Python 2.6 or 2.7
 #
 
+import sys
+
+if sys.version_info[0] != 2:
+    print('The log importer currently does not work with Python 3 (or higher)')
+    print('Please use Python 2.6 or 2.7')
+    sys.exit(1)
+
 import base64
 import bz2
 import ConfigParser
@@ -29,6 +36,7 @@ import os
 import os.path
 import Queue
 import re
+import ssl
 import sys
 import threading
 import time
@@ -232,6 +240,7 @@ class W3cExtendedFormat(RegexFormat):
         'sc-status': '(?P<status>\d+)',
         'sc-bytes': '(?P<length>\S+)',
         'cs-host': '(?P<host>\S+)',
+        'cs-method': '(?P<method>\S+)',
         'cs-username': '(?P<userid>\S+)',
         'time-taken': '(?P<generation_time_secs>[.\d]+)'
     }
@@ -403,14 +412,14 @@ _HOST_PREFIX = '(?P<host>[\w\-\.]*)(?::\d+)?\s+'
 
 _COMMON_LOG_FORMAT = (
     '(?P<ip>[\w*.:-]+)\s+\S+\s+(?P<userid>\S+)\s+\[(?P<date>.*?)\s+(?P<timezone>.*?)\]\s+'
-    '"\S+\s+(?P<path>.*?)\s+\S+"\s+(?P<status>\d+)\s+(?P<length>\S+)'
+    '"(?P<method>\S+)\s+(?P<path>.*?)\s+\S+"\s+(?P<status>\d+)\s+(?P<length>\S+)'
 )
 _NCSA_EXTENDED_LOG_FORMAT = (_COMMON_LOG_FORMAT +
     '\s+"(?P<referrer>.*?)"\s+"(?P<user_agent>.*?)"'
 )
 _S3_LOG_FORMAT = (
     '\S+\s+(?P<host>\S+)\s+\[(?P<date>.*?)\s+(?P<timezone>.*?)\]\s+(?P<ip>[\w*.:-]+)\s+'
-    '(?P<userid>\S+)\s+\S+\s+\S+\s+\S+\s+"\S+\s+(?P<path>.*?)\s+\S+"\s+(?P<status>\d+)\s+\S+\s+(?P<length>\S+)\s+'
+    '(?P<userid>\S+)\s+\S+\s+\S+\s+\S+\s+"(?P<method>\S+)\s+(?P<path>.*?)\s+\S+"\s+(?P<status>\d+)\s+\S+\s+(?P<length>\S+)\s+'
     '\S+\s+\S+\s+\S+\s+"(?P<referrer>.*?)"\s+"(?P<user_agent>.*?)"'
 )
 _ICECAST2_LOG_FORMAT = ( _NCSA_EXTENDED_LOG_FORMAT +
@@ -467,7 +476,7 @@ class Configuration(object):
             usage='Usage: %prog [options] log_file [ log_file [...] ]',
             description="Import HTTP access logs to Piwik. "
                          "log_file is the path to a server access log file (uncompressed, .gz, .bz2, or specify - to read from stdin). "
-		         " You may also import many log files at once (for example set log_file to *.log or *.log.gz)."
+                         " You may also import many log files at once (for example set log_file to *.log or *.log.gz)."
                          " By default, the script will try to produce clean reports and will exclude bots, static files, discard http error and redirects, etc. This is customizable, see below.",
             epilog="About Piwik Server Log Analytics: https://piwik.org/log-analytics/ "
                    "              Found a bug? Please create a ticket in https://dev.piwik.org/ "
@@ -788,6 +797,10 @@ class Configuration(object):
                  "in --log-format-regex can also be used)."
         )
         option_parser.add_option(
+            '--track-http-method', dest='track_http_method', default=False,
+            help="Enables tracking of http method as custom page variable if method group is available in log format."
+        )
+        option_parser.add_option(
             '--retry-max-attempts', dest='max_attempts', default=PIWIK_DEFAULT_MAX_ATTEMPTS, type='int',
             help="The maximum number of times to retry a failed tracking request."
         )
@@ -814,6 +827,13 @@ class Configuration(object):
         option_parser.add_option(
             '--exclude-newer-than', action='callback', type='string', default=None, callback=functools.partial(self._set_date, 'exclude_newer_than'),
             help="Ignore logs newer than the specified date. Exclusive. Date format must be YYYY-MM-DD hh:mm:ss +/-0000. The timezone offset is required."
+        )
+
+        option_parser.add_option(
+            '--accept-invalid-ssl-certificate',
+            dest='accept_invalid_ssl_certificate', action='store_true',
+            default=False,
+            help="Do not verify the SSL / TLS certificate when contacting the Piwik server. This is the default when running on Python 2.7.8 or older."
         )
         return option_parser
 
@@ -945,13 +965,6 @@ class Configuration(object):
             self.options.piwik_api_url = 'http://' + self.options.piwik_api_url
         logging.debug('Piwik Analytics API URL is: %s', self.options.piwik_api_url)
 
-        if not self.options.piwik_token_auth:
-            try:
-                self.options.piwik_token_auth = self._get_token_auth()
-            except Piwik.Error, e:
-                fatal_error(e)
-        logging.debug('Authentication token token_auth is: %s', self.options.piwik_token_auth)
-
         if self.options.recorders < 1:
             self.options.recorders = 1
 
@@ -988,7 +1001,7 @@ class Configuration(object):
                     _token_auth='',
                     _url=self.options.piwik_api_url,
                 )
-            except urllib2.URLError, e:
+            except urllib2.URLError as e:
                 fatal_error('error when fetching token_auth from the API: %s' % e)
 
             try:
@@ -1061,6 +1074,15 @@ class Configuration(object):
         else:
             logging.debug('Resolver: dynamic')
             return DynamicResolver()
+
+    def init_token_auth(self):
+        if not self.options.piwik_token_auth:
+            try:
+                self.options.piwik_token_auth = self._get_token_auth()
+            except Piwik.Error as e:
+                fatal_error(e)
+        logging.debug('Authentication token token_auth is: %s', self.options.piwik_token_auth)
+
 
 class Statistics(object):
     """
@@ -1172,7 +1194,7 @@ The following lines were not tracked by Piwik, either due to a malformed tracker
 
 ''' % textwrap.fill(", ".join(self.invalid_lines), 80)
 
-        print '''
+        print('''
 %(invalid_lines)sLogs import summary
 -------------------
 
@@ -1266,7 +1288,7 @@ Processing your log data
         )),
     'url': config.options.piwik_api_url,
     'invalid_lines': invalid_lines_summary
-}
+})
 
     ##
     ## The monitor is a thread that prints a short summary each second.
@@ -1277,12 +1299,12 @@ Processing your log data
         while not self.monitor_stop:
             current_total = stats.count_lines_recorded.value
             time_elapsed = time.time() - self.time_start
-            print '%d lines parsed, %d lines recorded, %d records/sec (avg), %d records/sec (current)' % (
+            print('%d lines parsed, %d lines recorded, %d records/sec (avg), %d records/sec (current)' % (
                 stats.count_lines_parsed.value,
                 current_total,
                 current_total / time_elapsed if time_elapsed != 0 else 0,
                 (current_total - latest_total_recorded) / config.options.show_progress_delay,
-            )
+            ))
             latest_total_recorded = current_total
             time.sleep(config.options.show_progress_delay)
 
@@ -1358,7 +1380,19 @@ class Piwik(object):
             base64string = base64.encodestring('%s:%s' % (auth_user, auth_password)).replace('\n', '')
             request.add_header("Authorization", "Basic %s" % base64string)        
 
-        opener = urllib2.build_opener(Piwik.RedirectHandlerWithLogging())
+        # Use non-default SSL context if invalid certificates shall be
+        # accepted.
+        if config.options.accept_invalid_ssl_certificate and \
+                sys.version_info >= (2, 7, 9):
+            ssl_context = ssl.create_default_context()
+            ssl_context.check_hostname = False
+            ssl_context.verify_mode = ssl.CERT_NONE
+            https_handler_args = {'context': ssl_context}
+        else:
+            https_handler_args = {}
+        opener = urllib2.build_opener(
+            Piwik.RedirectHandlerWithLogging(),
+            urllib2.HTTPSHandler(**https_handler_args))
         response = opener.open(request, timeout = timeout)
         result = response.read()
         response.close()
@@ -1432,7 +1466,7 @@ class Piwik(object):
 
                     raise urllib2.URLError(error_message)
                 return response
-            except (urllib2.URLError, httplib.HTTPException, ValueError, socket.timeout), e:
+            except (urllib2.URLError, httplib.HTTPException, ValueError, socket.timeout) as e:
                 logging.info('Error when connecting to Piwik: %s', e)
 
                 code = None
@@ -1690,7 +1724,7 @@ class Recorder(object):
             if len(hits) > 0:
                 try:
                     self._record_hits(hits)
-                except Piwik.Error, e:
+                except Piwik.Error as e:
                     fatal_error(e, hits[0].filename, hits[0].lineno) # approximate location of error
             self.queue.task_done()
 
@@ -1704,7 +1738,7 @@ class Recorder(object):
 
                 try:
                     self._record_hits([hit])
-                except Piwik.Error, e:
+                except Piwik.Error as e:
                     fatal_error(e, hit.filename, hit.lineno)
             else:
                 self.unrecorded_hits = self.queue.get()
@@ -1789,15 +1823,15 @@ class Recorder(object):
             args['bots'] = '1'
 
         if hit.is_error or hit.is_redirect:
-			args['action_name'] = '%s%sURL = %s%s' % (
-				hit.status,
-				config.options.title_category_delimiter,
-				urllib.quote(args['url'], ''),
-				("%sFrom = %s" % ( 
-					config.options.title_category_delimiter,
-					urllib.quote(args['urlref'], '')
-				) if args['urlref'] != ''  else '')
-			)
+            args['action_name'] = '%s%sURL = %s%s' % (
+                hit.status,
+                config.options.title_category_delimiter,
+                urllib.quote(args['url'], ''),
+                ("%sFrom = %s" % (
+                    config.options.title_category_delimiter,
+                    urllib.quote(args['urlref'], '')
+                ) if args['urlref'] != ''  else '')
+            )
 
         if hit.generation_time_milli > 0:
             args['gt_ms'] = int(hit.generation_time_milli)
@@ -1878,7 +1912,7 @@ class Recorder(object):
                     logging.info("The Piwik tracker identified %s invalid requests on lines: %s" % (invalid_count, invalid_lines_str))
                 elif 'invalid' in response and response['invalid'] > 0:
                     logging.info("The Piwik tracker identified %s invalid requests." % response['invalid'])
-            except Piwik.Error, e:
+            except Piwik.Error as e:
                 # if the server returned 400 code, BulkTracking may not be enabled
                 if e.code == 400:
                     fatal_error("Server returned status 400 (Bad Request).\nIs the BulkTracking plugin disabled?", hits[0].filename, hits[0].lineno)
@@ -1891,7 +1925,7 @@ class Recorder(object):
         try:
             json.loads(result)
             return True
-        except ValueError, e:
+        except ValueError as e:
             return False
 
     def _on_tracking_failure(self, response, data):
@@ -2072,7 +2106,7 @@ class Parser(object):
                     match = candidate_format.check_format_line(lineOrFile)
                 else:
                     match = candidate_format.check_format(lineOrFile)
-            except Exception, e:
+            except Exception as e:
                 logging.debug('Error in format checking: %s', traceback.format_exc())
                 pass
 
@@ -2196,7 +2230,7 @@ class Parser(object):
                 file = open_func(filename, 'r')
 
         if config.options.show_progress:
-            print 'Parsing log %s...' % filename
+            print('Parsing log %s...' % filename)
 
         if config.format:
             # The format was explicitely specified.
@@ -2290,6 +2324,14 @@ class Parser(object):
             if config.options.regex_groups_to_ignore:
                 format.remove_ignored_groups(config.options.regex_groups_to_ignore)
 
+            # Add http method page cvar
+            try:
+                httpmethod = format.get('method')
+                if config.options.track_http_method and httpmethod != '-':
+                    hit.add_page_custom_var('HTTP-method', httpmethod)
+            except:
+                pass
+
             try:
                 hit.query_string = format.get('query_string')
                 hit.path = hit.full_path
@@ -2338,7 +2380,6 @@ class Parser(object):
                     try:
                         hit.generation_time_milli = float(format.get('generation_time_secs')) * 1000
                     except (ValueError, BaseFormatException):
-                        invalid_line(line, 'invalid generation time')
                         hit.generation_time_milli = 0
 
             if config.options.log_hostname:
@@ -2386,7 +2427,7 @@ class Parser(object):
             date_string = format.get('date')
             try:
                 hit.date = datetime.datetime.strptime(date_string, format.date_format)
-            except ValueError, e:
+            except ValueError as e:
                 invalid_line(line, 'invalid date or invalid format: %s' % str(e))
                 continue
 
@@ -2485,8 +2526,13 @@ def fatal_error(error, filename=None, lineno=None):
 
 if __name__ == '__main__':
     try:
-        piwik = Piwik()
         config = Configuration()
+        # The piwik object depends on the config object, so we have to create
+        # it after creating the configuration.
+        piwik = Piwik()
+        # The init_token_auth method may need the piwik option, so we must call
+        # it after creating the piwik object.
+        config.init_token_auth()
         stats = Statistics()
         resolver = config.get_resolver()
         parser = Parser()

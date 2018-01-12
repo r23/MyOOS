@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit8238373509544c38be435e96abe776f4
+class ComposerStaticInit5cf6d452e649f1bd0ee8e24af7b4526e
 {
     public static $files = array (
         '04c6c5c2f7095ccf6c481d3e53e1776f' => __DIR__ . '/..' . '/mustangostang/spyc/Spyc.php',
@@ -2991,11 +2991,11 @@ class ComposerStaticInit8238373509544c38be435e96abe776f4
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit8238373509544c38be435e96abe776f4::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit8238373509544c38be435e96abe776f4::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit8238373509544c38be435e96abe776f4::$prefixesPsr0;
-            $loader->fallbackDirsPsr0 = ComposerStaticInit8238373509544c38be435e96abe776f4::$fallbackDirsPsr0;
-            $loader->classMap = ComposerStaticInit8238373509544c38be435e96abe776f4::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit5cf6d452e649f1bd0ee8e24af7b4526e::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit5cf6d452e649f1bd0ee8e24af7b4526e::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit5cf6d452e649f1bd0ee8e24af7b4526e::$prefixesPsr0;
+            $loader->fallbackDirsPsr0 = ComposerStaticInit5cf6d452e649f1bd0ee8e24af7b4526e::$fallbackDirsPsr0;
+            $loader->classMap = ComposerStaticInit5cf6d452e649f1bd0ee8e24af7b4526e::$classMap;
 
         }, null, ClassLoader::class);
     }

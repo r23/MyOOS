@@ -23,7 +23,8 @@
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
 // create column list
-$define_list = array('PRODUCT_LIST_MODEL' => '1',
+$aDefineList = array();
+$aDefineList = array('PRODUCT_LIST_MODEL' => '1',
                        'PRODUCT_LIST_NAME' => '2',
                        'PRODUCT_LIST_MANUFACTURER' => '3',
                        'PRODUCT_LIST_PRICE' => '4',
@@ -31,13 +32,13 @@ $define_list = array('PRODUCT_LIST_MODEL' => '1',
                        'PRODUCT_LIST_WEIGHT' => '6',
                        'PRODUCT_LIST_IMAGE' => '7',
                        'PRODUCT_SLAVE_BUY_NOW' => '8');
-asort($define_list);
+asort($aDefineList);
 
 $column_list = array();
-  reset($define_list);
-  foreach($define_list as $column => $value) {	  
-    if ($value) $column_list[] = $column;
-  }
+reset($aDefineList);
+foreach($aDefineList as $column => $value) {	  
+	if ($value) $column_list[] = $column;
+}
 
   $select_column_list = '';
 
@@ -162,11 +163,11 @@ $column_list = array();
     }
   }
 
-  $aOption['slavery_products'] = $sTheme . '/products/slavery_product_listing.html';
-  $aOption['slavery_page_navigation'] = $sTheme . '/system/_pagination.htm';
+$aOption['slavery_products'] = $sTheme . '/products/slavery_product_listing.html';
+$aOption['slavery_page_navigation'] = $sTheme . '/system/_pagination.htm';
 
-  include_once MYOOS_INCLUDE_PATH . '/includes/modules/slavery_listing.php';
+include_once MYOOS_INCLUDE_PATH . '/includes/modules/slavery_listing.php';
 
-  $smarty->assign('slavery_products', $smarty->fetch($aOption['slavery_products']));
+$smarty->assign('slavery_products', $smarty->fetch($aOption['slavery_products']));
 
 
