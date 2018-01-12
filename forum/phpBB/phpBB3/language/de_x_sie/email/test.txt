@@ -1,0 +1,9 @@
+Subject: phpBB ist für den E-Mail-Versand konfiguriert
+
+Hallo {USERNAME},
+
+Herzlichen Glückwunsch. Wenn Sie diese Nachricht erhalten, ist phpBB richtig für den E-Mail-Versand konfiguriert.
+
+Falls Sie Unterstützung brauchen, können Sie die phpBB Support-Foren unter https://www.phpbb.com/community/ (englisch) oder https://www.phpbb.de/go/3.2/supportforum (deutsches Forum von phpBB.de) besuchen.
+
+{EMAIL_SIG}
