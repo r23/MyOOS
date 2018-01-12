@@ -21,7 +21,7 @@
    ---------------------------------------------------------------------- */
 
 $aLang['heading_coupon_help'] = 'Rabatt Coupon Hilfe';
-$aLang['text_close_window'] = 'Fenster schliessen [x]';
+$aLang['text_close_window'] = 'Fenster schließen [x]';
 $aLang['text_coupon_help_header'] = 'Herzlichen Glückwunsch, sie haben ein Rabatt Coupon eingelöst.';
 $aLang['text_coupon_help_name'] = '<br /><br />Coupon Name : %s';
 $aLang['text_coupon_help_fixed'] = '<br /><br />Mit diesem Coupon erhalten Sie %s Rabatt auf Ihre Bestellung';

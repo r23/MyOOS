@@ -30,7 +30,7 @@ $aLang['text_xsell_products'] = 'Ähnliche Produkte:';
 $aLang['text_up_sell_products'] = 'Zu diesem Artikel empfehlen wir::';
 $aLang['text_product_options'] = 'Optionen:';
 $aLang['text_click_to_enlarge'] = 'Für eine grössere Darstellung<br />klicken Sie auf das Bild.';
-$aLang['text_close_window'] = 'Fenster schliessen [x]';
+$aLang['text_close_window'] = 'Fenster schließen [x]';
 $aLang['products_order_qty_text'] = 'Menge';
 
 $aLang['table_heading_image'] = '';
