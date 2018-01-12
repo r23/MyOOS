@@ -51,8 +51,7 @@ if ($listing_split->number_of_rows > 0) {
 */
 
 		$discount = NULL;
-			
-			
+
 		$listing_product_price = NULL;
 		$listing_product_special_price = NULL;
 		$listing_base_product_price = NULL;

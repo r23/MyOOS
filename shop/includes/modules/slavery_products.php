@@ -19,21 +19,21 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
 // create column list
-  $define_list = array('PRODUCT_LIST_MODEL' => '1',
-                       'PRODUCT_LIST_NAME' => '1',
-                       'PRODUCT_LIST_MANUFACTURER' => '1',
-                       'PRODUCT_LIST_PRICE' => '1',
-                       'PRODUCT_LIST_QUANTITY' => '1',
-                       'PRODUCT_LIST_WEIGHT' => '1',
-                       'PRODUCT_LIST_IMAGE' => '1',
-                       'PRODUCT_SLAVE_BUY_NOW' => '1');
-  asort($define_list);
+$define_list = array('PRODUCT_LIST_MODEL' => '1',
+                       'PRODUCT_LIST_NAME' => '2',
+                       'PRODUCT_LIST_MANUFACTURER' => '3',
+                       'PRODUCT_LIST_PRICE' => '4',
+                       'PRODUCT_LIST_QUANTITY' => '5',
+                       'PRODUCT_LIST_WEIGHT' => '6',
+                       'PRODUCT_LIST_IMAGE' => '7',
+                       'PRODUCT_SLAVE_BUY_NOW' => '8');
+asort($define_list);
 
-  $column_list = array();
+$column_list = array();
   reset($define_list);
   foreach($define_list as $column => $value) {	  
     if ($value) $column_list[] = $column;

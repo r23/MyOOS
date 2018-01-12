@@ -27,15 +27,12 @@ $nPage = isset($_GET['page']) ? $_GET['page']+0 : 1;
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.php'; 
 include_once MYOOS_INCLUDE_PATH . '/includes/functions/function_listing.php';
 
-$listing_numrows_sql = $listing_sql;
-$listing_split = new splitPageResults($listing_numrows_sql, MAX_DISPLAY_SEARCH_RESULTS);
+$listing_split = new splitPageResults($listing_sql, MAX_DISPLAY_SEARCH_RESULTS);
 $listing_numrows = $dbconn->Execute($listing_split->sql_query);
-$listing_numrows = $listing_numrows->RecordCount();
 
-if ($listing_numrows > 0) {
+if ($listing_split->number_of_rows > 0) {
 
     $list_box_contents = array();
-    $list_box_contents[] = array('params' => 'class="productListing-even"');
     $cur_row = count($list_box_contents) - 1;
 
     for ($col=0, $n=count($column_list); $col<$n; $col++) {
@@ -92,10 +89,7 @@ if ($listing_numrows > 0) {
       if ( ($column_list[$col] != 'PRODUCT_SLAVE_BUY_NOW') && ($column_list[$col] != 'PRODUCT_LIST_IMAGE') ) {
         $lc_text = oos_create_sort_heading($_GET['sort'], $col+1, $lc_text);
       }
-
-      $list_box_contents[$cur_row][] = array('align' => $lc_align,
-                                             'params' => 'class="productListing-even"',
-                                             'text' => '&nbsp;' . $lc_text . '&nbsp;');
+	  
     }
 
 
@@ -106,12 +100,6 @@ if ($listing_numrows > 0) {
       $listing_result = $dbconn->Execute($listing_split->sql_query);
       while ($listing = $listing_result->fields) {
         $number_of_products++;
-
-        if (($number_of_products/2) == floor($number_of_products/2)) {
-          $list_box_contents[] = array('params' => 'class="productListing-even"');
-        } else {
-          $list_box_contents[] = array('params' => 'class="productListing-odd"');
-        }
 
         $cur_row = count($list_box_contents) - 1;
 
@@ -145,6 +133,8 @@ if ($listing_numrows > 0) {
             case 'PRODUCT_LIST_PRICE':
               $lc_align = 'right';
 
+				$discount = NULL;
+				
               $sUnits = UNITS_DELIMITER . $products_units[$listing['products_units_id']];
               $pl_product_price = $oCurrencies->display_price($listing['products_price'], oos_get_tax_rate($listing['products_tax_class_id']));
 
@@ -153,16 +143,22 @@ if ($listing_numrows > 0) {
               unset($pl_base_product_price);
               unset($pl_base_product_special_price);
 
-              if ( $listing['products_discount4'] > 0 ) {
-                $pl_price_discount = $oCurrencies->display_price($listing['products_discount4'], oos_get_tax_rate($listing['products_tax_class_id']));
-              } elseif ( $listing['products_discount3'] > 0 ) {
-                $pl_price_discount = $oCurrencies->display_price($listing['products_discount3'], oos_get_tax_rate($listing['products_tax_class_id']));
-              } elseif ( $listing['products_discount2'] > 0 ) {
-                $pl_price_discount = $oCurrencies->display_price($listing['products_discount2'], oos_get_tax_rate($listing['products_tax_class_id']));
-              } elseif ( $listing['products_discount1'] > 0 ) {
-                $pl_price_discount = $oCurrencies->display_price($listing['products_discount1'], oos_get_tax_rate($listing['products_tax_class_id']));
-              }
 
+				if ( $listing['products_discount4'] > 0 ) {
+					$discount = $listing['products_discount4'];
+				} elseif ( $listing['products_discount3'] > 0 ) {
+					$discount = $listing['products_discount3'];
+				} elseif ( $listing['products_discount2'] > 0 ) {
+					$discount = $listing['products_discount2'];
+				} elseif ( $listing['products_discount1'] > 0 ) {
+					$discount = $listing['products_discount1'];
+				}
+
+				if ( $discount > 0 ) {
+					$pl_price_discount = $oCurrencies->display_price($discount, oos_get_tax_rate($listing['products_tax_class_id']));
+				} 			  
+			  
+			  
               if (oos_is_not_null($listing['specials_new_products_price'])) {
                 $pl_special_price = $listing['specials_new_products_price'];
                 $pl_product_special_price = $oCurrencies->display_price($pl_special_price, oos_get_tax_rate($listing['products_tax_class_id']));
@@ -244,9 +240,7 @@ if ($listing_numrows > 0) {
              break;
           }
 
-          $list_box_contents[$cur_row][] = array('align' => $lc_align,
-                                                 'params' => 'class="productListing-data"',
-                                                 'text'  => $lc_text);
+
         }
 
         // Move that ADOdb pointer!
@@ -257,7 +251,7 @@ if ($listing_numrows > 0) {
 
     $smarty->assign(array('page_split' => $listing_split->display_count($aLang['text_display_number_of_products']),
                           'display_links' => $listing_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
-                          'numrows' => $listing_numrows));
+                          'numrows' => $listing_split->number_of_rows));
 
     $smarty->assign('list_box_contents', $list_box_contents);
 

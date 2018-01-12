@@ -113,7 +113,6 @@ if (!$product_info_result->RecordCount()) {
 
     $info_product_price = NULL;
     $info_product_special_price = NULL;
-    $info_product_discount_price = NULL;
     $info_base_product_price = NULL;
     $info_base_product_special_price = NULL;
     $info_product_price_list = 0;
@@ -140,7 +139,6 @@ if (!$product_info_result->RecordCount()) {
             'info_product_price'              => $info_product_price,
             'info_special_price'              => $info_special_price,
             'info_product_special_price'      => $info_product_special_price,
-            'info_product_discount_price'     => $info_product_discount_price,
             'info_base_product_price'         => $info_base_product_price,
             'info_base_product_special_price' => $info_base_product_special_price
         )
@@ -160,27 +158,30 @@ if (!$product_info_result->RecordCount()) {
     }
 		  
 
-    $discounts_price = 'false';
-    if ( (oos_empty($info_special_price)) && ( ($product_info['products_discount4_qty'] > 0 || $product_info['products_discount3_qty'] > 0 || $product_info['products_discount2_qty'] > 0 || $product_info['products_discount1_qty'] > 0 )) ){
-      if ( ($aUser['show_price'] == 1 ) && ($aUser['qty_discounts'] == 1) ) {
-        $discounts_price = 'true';
-        require_once MYOOS_INCLUDE_PATH . '/includes/modules/discounts_price.php';
+	$discounts_price = FALSE;
+    if ( (oos_empty($info_special_price)) && ( ($product_info['products_discount4_qty'] > 0 
+		|| $product_info['products_discount3_qty'] > 0 
+		|| $product_info['products_discount2_qty'] > 0 
+		|| $product_info['products_discount1_qty'] > 0 )) ) {
 
-        if ( $product_info['products_discount4'] > 0 ) {
-          $price_discount = $oCurrencies->display_price($product_info['products_discount4'], oos_get_tax_rate($product_info['products_tax_class_id']));
-        } elseif ( $product_info['products_discount3'] > 0 ) {
-          $price_discount = $oCurrencies->display_price($product_info['products_discount3'], oos_get_tax_rate($product_info['products_tax_class_id']));
-        } elseif ( $product_info['products_discount2'] > 0 ) {
-          $price_discount = $oCurrencies->display_price($product_info['products_discount2'], oos_get_tax_rate($product_info['products_tax_class_id']));
-        } elseif ( $product_info['products_discount1'] > 0 ) {
-          $price_discount = $oCurrencies->display_price($product_info['products_discount1'], oos_get_tax_rate($product_info['products_tax_class_id']));
-        }
-        if (isset($price_discount)) {
-          $smarty->assign('price_discount', $price_discount);
-        }
+		if ( ($aUser['show_price'] == 1 ) && ($aUser['qty_discounts'] == 1) ) {
+			$discounts_price = TRUE;
+			require_once MYOOS_INCLUDE_PATH . '/includes/modules/discounts_price.php';
 
-      }
-    }
+			if ( $product_info['products_discount4'] > 0 ) {
+				$price_discount = $product_info['products_discount4'];
+			} elseif ( $product_info['products_discount3'] > 0 ) {
+				$price_discount = $product_info['products_discount3'];
+			} elseif ( $product_info['products_discount2'] > 0 ) {
+				$price_discount = $product_info['products_discount2'];
+			} elseif ( $product_info['products_discount1'] > 0 ) {
+				$price_discount = $product_info['products_discount1'];
+			}
+			if (isset($price_discount)) {
+				$smarty->assign('price_discount', $oCurrencies->display_price($price_discount, oos_get_tax_rate($product_info['products_tax_class_id']));
+			}
+		}
+	}
 
     require_once MYOOS_INCLUDE_PATH . '/includes/modules/products_options.php';
 
