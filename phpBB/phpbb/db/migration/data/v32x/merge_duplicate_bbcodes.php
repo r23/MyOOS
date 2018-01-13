@@ -13,7 +13,7 @@
 
 namespace phpbb\db\migration\data\v32x;
 
-class merge_duplicate_bbcodes extends \phpbb\db\migration\migration
+class merge_duplicate_bbcodes extends \phpbb\db\migration\container_aware_migration
 {
 	public function update_data()
 	{
