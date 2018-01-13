@@ -49,8 +49,6 @@
       $result->MoveNext();
     }
 
-    // Close result set
-    $result->Close();
   }
 
 

@@ -27,16 +27,13 @@ $nPage = isset($_GET['page']) ? $_GET['page']+0 : 1;
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.php';   
 include_once MYOOS_INCLUDE_PATH . '/includes/functions/function_listing.php';
 
-$listing_numrows_sql = $listing_sql; 
-$listing_split = new splitPageResults($listing_numrows_sql, MAX_DISPLAY_SEARCH_RESULTS);
-$listing_numrows = $dbconn->Execute($listing_split->sql_query);
+$listing_split = new splitPageResults($listing_sql, MAX_DISPLAY_SEARCH_RESULTS);
 
 /*
     if ( ($column_list[$col] != 'PRODUCT_LIST_BUY_NOW') && ($column_list[$col] != 'PRODUCT_LIST_IMAGE') ) {
       $lc_text = oos_create_sort_heading($_GET['sort'], $col+1, $lc_text);
     }
 */
-
 if ($listing_split->number_of_rows > 0) {
     if (!isset($all_get_listing)) $all_get_listing = oos_get_all_get_parameters(array('action'));
 

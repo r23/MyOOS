@@ -53,7 +53,7 @@ class splitPageResults {
 			$page = 1;
 		}
 
-		if (empty($page) || !is_numeric($page)) $page = 1;
+		if (empty($page) || !is_numeric($page) || $page < 0) $page = 1;
 		$this->current_page_number = $page;
 	
 		$this->number_of_rows_per_page = $max_rows;
@@ -70,19 +70,18 @@ class splitPageResults {
 		$pos_order_by = strpos($this->sql_query, ' ORDER BY', $pos_from);
 		if (($pos_order_by < $pos_to) && ($pos_order_by != false)) $pos_to = $pos_order_by;
 
-		if (strpos($this->sql_query, 'DISTINCT') || strpos($this->sql_query, 'GROUP BY')) {
-			$count_string = 'DISTINCT ' . oos_db_input($count_key);
-		} else {
-			$count_string = oos_db_input($count_key);
-		}
 		$dbconn =& oosDBGetConn();
-		$sql = "SELECT COUNT(*) AS total " . substr($this->sql_query, $pos_from, ($pos_to - $pos_from));
+		$sql = "SELECT COUNT(" . oos_db_input($count_key) . ") AS total " . substr($this->sql_query, $pos_from, ($pos_to - $pos_from));
 		$count = $dbconn->Execute($sql);
-		
+
 		$this->number_of_rows = $count->fields['total'];
 
-		$this->number_of_pages = ceil($this->number_of_rows / $this->number_of_rows_per_page);
-
+		if ($this->number_of_rows_per_page > 0) {
+			$this->number_of_pages = ceil($this->number_of_rows / $this->number_of_rows_per_page);
+		} else {
+			$this->number_of_pages = 0;
+		}	
+			
 		if ($this->current_page_number > $this->number_of_pages) {
 			$this->current_page_number = $this->number_of_pages;
 		}
@@ -90,8 +89,9 @@ class splitPageResults {
 		$offset = ($this->number_of_rows_per_page * ($this->current_page_number - 1));
 
 		if ($offset <= 0) { $offset = 0; }
+		if ($this->current_page_number <=0) {$this->current_page_number = 1;}
 		
-		# $this->sql_query .= " LIMIT " . ($offset > 0 ? $offset . ", " : '') . $this->number_of_rows_per_page;	
+	#	$this->sql_query .= " LIMIT " . ($offset > 0 ? $offset . ", " : '') . $this->number_of_rows_per_page;	
 		$this->sql_query .= " LIMIT " . max($offset, 0) . ", " . $this->number_of_rows_per_page;
 
 	}
@@ -110,6 +110,7 @@ class splitPageResults {
 	public function display_links($max_page_links, $parameters = '') {
 		global $aLang, $sContent;
 
+
 		$display_link = '';
 
 		if ( oos_is_not_null($parameters) && (substr($parameters, -5) != '&amp;') ) $parameters .= '&amp;';
@@ -125,7 +126,6 @@ class splitPageResults {
 
 		$max_window_num = intval($this->number_of_pages / $max_page_links);
 		if ($this->number_of_pages % $max_page_links) $max_window_num++;
-	
 		
 		// previous window of pages
 		if ($cur_window_num > 1) $display_link .= '<li class="page-item"><a class="page-link"' . oos_href_link($sContent, $parameters . $this->page_name . '=' . (($cur_window_num - 1) * $max_page_links)) . '">...</a></li>';

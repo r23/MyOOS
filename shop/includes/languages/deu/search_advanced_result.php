@@ -20,7 +20,7 @@
    ---------------------------------------------------------------------- */
 
 $aLang['navbar_title1'] = 'Erweiterte Suche';
-$aLang['navbar_title2'] = 'Artikel, welche den Suchkriterien entsprechen';
+$aLang['navbar_title2'] = 'Produkte, die den Suchkriterien entsprechen';
 $aLang['heading_title'] = 'Suchergebnisse';
 $aLang['table_heading_image'] = '';
 $aLang['table_heading_model'] = 'Artikelnummer';
@@ -32,9 +32,7 @@ $aLang['table_heading_price'] = 'Einzelpreis';
 $aLang['table_heading_weight'] = 'Gewicht';
 $aLang['table_heading_buy_now'] = 'jetzt bestellen';
 $aLang['table_heading_product_sort'] = 'Sort';
-$aLang['text_no_products'] = '<br /><span style="font-size:11px;">Ihre Suche - <strong>' . stripslashes($_GET['keywords']) . '</strong> - hat keine Treffer ergeben.</span><br /><br />Einige Vorschl�e:<ol><li>Prfen Sie, ob alle Worte richtig geschrieben sind.</li><li>Versuchen Sie andere Suchbegriffe.</li><li>Versuchen Sie weniger Suchbegriffe.</li><li>Versuchen Sie allgemeinere Suchbegriffe.</li></ol>';
-$aLang['text_no_products2'] = '<br /><span style="font-size:11px;">Ihre Suche - <strong>' . stripslashes($_GET['keywords']) . '</strong> - hat keine Treffer ergeben.</span><br /><br />Einige Vorschl�e:<ol><li>Prfen Sie, ob alle Worte richtig geschrieben sind.</li><li>Versuchen Sie andere Suchbegriffe.</li><li>Versuchen Sie weniger Suchbegriffe.</li></ol>';
+$aLang['text_no_products'] = '<h4>Ihre Suche - <strong>%s</strong> - hat keine Treffer ergeben.</h4><p>Einige Vorschläge:</p><ol><li>Prüfen Sie, ob alle Worte richtig geschrieben sind.</li><li>Versuchen Sie andere Suchbegriffe.</li><li>Versuchen Sie weniger Suchbegriffe.</li><li>Versuchen Sie allgemeinere Suchbegriffe.</li></ol>';
 $aLang['text_buy'] = '1 x \'';
 $aLang['text_now'] = '\' bestellen';
-$aLang['text_replacement_suggestion'] = 'Sie k�nen auch die folgenden Suchbegriffe verwenden: ';
 

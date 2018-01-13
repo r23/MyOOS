@@ -21,118 +21,110 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-if ( (isset($_GET['keywords']) && empty($_GET['keywords'])) &&
-	(isset($_GET['dfrom']) && (empty($_GET['dfrom']) || ($_GET['dfrom'] == DOB_FORMAT_STRING))) &&
-	(isset($_GET['dto']) && (empty($_GET['dto']) || ($_GET['dto'] == DOB_FORMAT_STRING))) &&
-	(isset($_GET['pfrom']) && !is_numeric($_GET['pfrom'])) &&
-	(isset($_GET['pto']) && !is_numeric($_GET['pto'])) ) {
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_search.php';
+require 'includes/languages/' . $sLanguage . '/search_advanced_result.php';
 
-	// error at least one input
-	oos_redirect(oos_href_link($aContents['advanced_search'], 'errorno=1'));
-
-} else {
-	require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_search.php';
-	
-	$keywords = $_GET['keywords'] = isset($_GET['keywords']) && !empty($_GET['keywords']) ? stripslashes(trim(urldecode($_GET['keywords']))) : FALSE;
-	$search_in_description = $_GET['search_in_description'] = isset($_GET['search_in_description']) && is_numeric($_GET['search_in_description']) ? (int)$_GET['search_in_description'] : 0;
-	$categories_id = $_GET['categories_id'] = isset($_GET['categories_id']) && is_numeric($_GET['categories_id']) ? (int)$_GET['categories_id'] : FALSE;
-	$inc_subcat = isset($_GET['inc_subcat']) && is_numeric($_GET['inc_subcat']) ? (int)$_GET['inc_subcat'] : 0;
-	$manufacturers_id  = $_GET['manufacturers_id'] = isset($_GET['manufacturers_id']) && is_numeric($_GET['manufacturers_id']) ? (int)$_GET['manufacturers_id'] : FALSE;
-	$pfrom = $_GET['pfrom'] = isset($_GET['pfrom']) && !empty($_GET['pfrom']) ? stripslashes($_GET['pfrom']) : FALSE;
-	$pto = $_GET['pto'] = isset($_GET['pto']) && !empty($_GET['pto']) ? stripslashes($_GET['pto']) : FALSE;
-	$dfrom = $_GET['dfrom'] = isset($_GET['dfrom']) && !empty($_GET['dfrom']) ? stripslashes($_GET['dfrom']) : FALSE;
-	$dto = $_GET['dto'] = isset($_GET['dto']) && !empty($_GET['dto']) ? stripslashes($_GET['dto']) : FALSE;
+$keywords = $_GET['keywords'] = isset($_GET['keywords']) && !empty($_GET['keywords']) ? stripslashes(trim(urldecode($_GET['keywords']))) : FALSE;
+$search_in_description = $_GET['search_in_description'] = isset($_GET['search_in_description']) && is_numeric($_GET['search_in_description']) ? (int)$_GET['search_in_description'] : 0;
+$categories_id = $_GET['categories_id'] = isset($_GET['categories_id']) && is_numeric($_GET['categories_id']) ? (int)$_GET['categories_id'] : FALSE;
+$inc_subcat = isset($_GET['inc_subcat']) && is_numeric($_GET['inc_subcat']) ? (int)$_GET['inc_subcat'] : 0;
+$manufacturers_id  = $_GET['manufacturers_id'] = isset($_GET['manufacturers_id']) && is_numeric($_GET['manufacturers_id']) ? (int)$_GET['manufacturers_id'] : FALSE;
+$pfrom = $_GET['pfrom'] = isset($_GET['pfrom']) && !empty($_GET['pfrom']) ? stripslashes($_GET['pfrom']) : FALSE;
+$pto = $_GET['pto'] = isset($_GET['pto']) && !empty($_GET['pto']) ? stripslashes($_GET['pto']) : FALSE;
+$dfrom = $_GET['dfrom'] = isset($_GET['dfrom']) && !empty($_GET['dfrom']) ? stripslashes($_GET['dfrom']) : FALSE;
+$dto = $_GET['dto'] = isset($_GET['dto']) && !empty($_GET['dto']) ? stripslashes($_GET['dto']) : FALSE;
 
 
-  $error = 0; // reset error flag to FALSE
-  $errorno = 0;
+$errorno = 0;
 
 
-  $dfrom_to_check = (($_GET['dfrom'] == DOB_FORMAT_STRING) ? '' : $_GET['dfrom']);
-  $dto_to_check = (($_GET['dto'] == DOB_FORMAT_STRING) ? '' : $_GET['dto']);
+$dfrom_to_check = (($_GET['dfrom'] == DOB_FORMAT_STRING) ? '' : $_GET['dfrom']);
+$dto_to_check = (($_GET['dto'] == DOB_FORMAT_STRING) ? '' : $_GET['dto']);
 
-  if (strlen($dfrom_to_check) > 0) {
-    if (!oos_checkdate($dfrom_to_check, DOB_FORMAT_STRING, $dfrom_array)) {
-      $errorno += 10;
-      $error = TRUE;
+if (strlen($dfrom_to_check) > 0) {
+	if (!oos_checkdate($dfrom_to_check, DOB_FORMAT_STRING, $dfrom_array)) {
+		$errorno += 10;
     }
-  }
-
-  if (strlen($dto_to_check) > 0) {
-    if (!oos_checkdate($dto_to_check, DOB_FORMAT_STRING, $dto_array)) {
-      $errorno += 100;
-      $error = 1;
-    }
-  }
-
-  if (strlen($dfrom_to_check) > 0 && !(($errorno & 10) == 10) && strlen($dto_to_check) > 0 && !(($errorno & 100) == 100)) {
-    if (mktime(0, 0, 0, $dfrom_array[1], $dfrom_array[2], $dfrom_array[0]) > mktime(0, 0, 0, $dto_array[1], $dto_array[2], $dto_array[0])) {
-      $errorno += 1000;
-      $error = 1;
-    }
-  }
-
-  if (strlen($_GET['pfrom']) > 0) {
-    $pfrom_to_check = oos_var_prep_for_os($_GET['pfrom']);
-    if (!settype($pfrom_to_check, "double")) {
-      $errorno += 10000;
-      $error = 1;
-    }
-  }
-
-  if (strlen($_GET['pto']) > 0) {
-    $pto_to_check = oos_var_prep_for_os($_GET['pto']);
-    if (!settype($pto_to_check, "double")) {
-      $errorno += 100000;
-      $error = 1;
-    }
-  }
-
-  if (strlen($_GET['pfrom']) > 0 && !(($errorno & 10000) == 10000) && strlen($_GET['pto']) > 0 && !(($errorno & 100000) == 100000)) {
-    if ($pfrom_to_check > $pto_to_check) {
-      $errorno += 1000000;
-      $error = 1;
-    }
-  }
-
-  if (strlen($_GET['keywords']) > 0) {
-    if (!oos_parse_search_string(stripslashes($_GET['keywords']), $search_keywords)) {
-      $errorno += 10000000;
-      $error = 1;
-    }
-  }
-
 }
+
+if (strlen($dto_to_check) > 0) {
+	if (!oos_checkdate($dto_to_check, DOB_FORMAT_STRING, $dto_array)) {
+		$errorno += 100;
+	}
+}
+
+if (strlen($dfrom_to_check) > 0 && !(($errorno & 10) == 10) && strlen($dto_to_check) > 0 && !(($errorno & 100) == 100)) {
+	if (mktime(0, 0, 0, $dfrom_array[1], $dfrom_array[2], $dfrom_array[0]) > mktime(0, 0, 0, $dto_array[1], $dto_array[2], $dto_array[0])) {
+		$errorno += 1000;
+	}
+}
+
+if (strlen($_GET['pfrom']) > 0) {
+	$pfrom_to_check = oos_var_prep_for_os($_GET['pfrom']);
+	if (!settype($pfrom_to_check, "double")) {
+		$errorno += 10000;
+	}
+}
+
+if (strlen($_GET['pto']) > 0) {
+	$pto_to_check = oos_var_prep_for_os($_GET['pto']);
+	if (!settype($pto_to_check, "double")) {
+		$errorno += 100000;
+	}
+}
+
+if (strlen($_GET['pfrom']) > 0 && !(($errorno & 10000) == 10000) && strlen($_GET['pto']) > 0 && !(($errorno & 100000) == 100000)) {
+	if ($pfrom_to_check > $pto_to_check) {
+		$errorno += 1000000;
+	}
+}
+
+if (strlen($_GET['keywords']) > 0) {
+	if (!oos_parse_search_string(stripslashes($_GET['keywords']), $search_keywords)) {
+		$errorno += 10000000;
+	}
+}
+
+if (oos_is_not_null($keywords)) {
+	if (!oos_parse_search_string($keywords, $search_keywords)) {
+		$errorno += 10000000;
+	}
+}  
   
-if ($error == 1) {
+  
+ 
+  
+if ($errorno > 0 {
 	oos_redirect(oos_href_link($aContents['advanced_search'], 'errorno=' . $errorno . '&' . oos_get_all_get_parameters()));
-} else {
+} 
 
-    // links breadcrumb
-    $oBreadcrumb->add($aLang['navbar_title1'], oos_href_link($aContents['advanced_search']));
-#    $oBreadcrumb->add($aLang['navbar_title2'], oos_href_link($aContents['advanced_search_result'], 'keywords=' . $_GET['keywords'] . '&search_in_description=' . $_GET['search_in_description'] . '&categories_id=' . $_GET['categories_id'] . '&inc_subcat=' . $_GET['inc_subcat'] . '&manufacturers_id=' . $_GET['manufacturers_id'] . '&pfrom=' . $_GET['pfrom'] . '&pto=' . $_GET['pto'] . '&dfrom=' . $_GET['dfrom'] . '&dto=' . $_GET['dto']));
+// links breadcrumb
+$oBreadcrumb->add($aLang['navbar_title1'], oos_href_link($aContents['advanced_search']));
+$oBreadcrumb->add($aLang['navbar_title2']);
 
-    // create column list
-    $define_list = array('PRODUCT_LIST_MODEL' => PRODUCT_LIST_MODEL,
-                         'PRODUCT_LIST_NAME' => PRODUCT_LIST_NAME,
-                         'PRODUCT_LIST_MANUFACTURER' => PRODUCT_LIST_MANUFACTURER,
-                         'PRODUCT_LIST_UVP' => PRODUCT_LIST_UVP,
-                         'PRODUCT_LIST_PRICE' => PRODUCT_LIST_PRICE,
-                         'PRODUCT_LIST_QUANTITY' => PRODUCT_LIST_QUANTITY,
-                         'PRODUCT_LIST_WEIGHT' => PRODUCT_LIST_WEIGHT,
-                         'PRODUCT_LIST_IMAGE' => PRODUCT_LIST_IMAGE,
-                         'PRODUCT_LIST_BUY_NOW' => PRODUCT_LIST_BUY_NOW);
-    asort($define_list);
+#$oBreadcrumb->add($aLang['navbar_title2'], oos_href_link($aContents['advanced_search_result'], 'keywords=' . $_GET['keywords'] . '&search_in_description=' . $_GET['search_in_description'] . '&categories_id=' . $_GET['categories_id'] . '&inc_subcat=' . $_GET['inc_subcat'] . '&manufacturers_id=' . $_GET['manufacturers_id'] . '&pfrom=' . $_GET['pfrom'] . '&pto=' . $_GET['pto'] . '&dfrom=' . $_GET['dfrom'] . '&dto=' . $_GET['dto']));
 
-    $column_list = array();
-    reset($define_list);
-    foreach($define_list as $column => $value) {
-      if ($value) $column_list[] = $column;
-    }
+// create column list
+$define_list = array('PRODUCT_LIST_MODEL' => '1',
+                         'PRODUCT_LIST_NAME' => '2',
+                         'PRODUCT_LIST_MANUFACTURER' => '3',
+                         'PRODUCT_LIST_UVP' => '4',
+                         'PRODUCT_LIST_PRICE' => '5',
+                         'PRODUCT_LIST_QUANTITY' => '6',
+                         'PRODUCT_LIST_WEIGHT' => '7',
+                         'PRODUCT_LIST_IMAGE' => '8',
+                         'PRODUCT_LIST_BUY_NOW' => '9');
+asort($define_list);
 
-    $select_column_list = '';
+$column_list = array();
+reset($define_list);
+foreach($define_list as $column => $value) {
+	if ($value) $column_list[] = $column;
+}
 
-    for ($col=0, $n=count($column_list); $col<$n; $col++) {
+$select_column_list = '';
+
+for ($col=0, $n=count($column_list); $col<$n; $col++) {
       if ( ($column_list[$col] == 'PRODUCT_LIST_BUY_NOW')
           || ($column_list[$col] == 'PRODUCT_LIST_NAME')
           || ($column_list[$col] == 'PRODUCT_LIST_PRICE') ) {
@@ -168,13 +160,13 @@ if ($error == 1) {
           $select_column_list .= "pd.products_name";
           break;
       }
-    }
+}
 
-    if (oos_is_not_null($select_column_list)) {
-      $select_column_list .= ', ';
-    }
+if (oos_is_not_null($select_column_list)) {
+	$select_column_list .= ', ';
+}
 
-    $select_str = "SELECT DISTINCT " . $select_column_list . " m.manufacturers_id, p.products_id, pd.products_name,
+$select_str = "SELECT DISTINCT " . $select_column_list . " m.manufacturers_id, p.products_id, pd.products_name,
                           p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4,
                           p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty,
                           p.products_discount4_qty, p.products_tax_class_id, p.products_units_id, p.products_quantity_order_min,
@@ -182,25 +174,26 @@ if ($error == 1) {
                           IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price,
                           IF(s.status, s.specials_new_products_price, p.products_price) AS final_price ";
 
-    if ( ($aUser['price_with_tax'] == 1) && ( (isset($_GET['pfrom']) && oos_is_not_null($_GET['pfrom'])) || (isset($_GET['pto']) && oos_is_not_null($_GET['pto']))) ) {
-      $select_str .= ", SUM(tr.tax_rate) AS tax_rate ";
-    }
+if ( ($aUser['price_with_tax'] == 1) && ( (isset($_GET['pfrom']) && oos_is_not_null($_GET['pfrom'])) || (isset($_GET['pto']) && oos_is_not_null($_GET['pto']))) ) {
+		$select_str .= ", SUM(tr.tax_rate) AS tax_rate ";
+}
 
-    $from_str = "FROM " . $oostable['products'] . " p LEFT JOIN
+$from_str = "FROM " . $oostable['products'] . " p LEFT JOIN
                       " . $oostable['manufacturers'] . " m using(manufacturers_id) LEFT JOIN
                       " . $oostable['specials'] . " s ON p.products_id = s.products_id";
 
-    if ( ($aUser['price_with_tax'] == 1) && ( (isset($_GET['pfrom']) && oos_is_not_null($_GET['pfrom'])) || (isset($_GET['pto']) && oos_is_not_null($_GET['pto']))) ) {
+if ( ($aUser['price_with_tax'] == 1) && ( (isset($_GET['pfrom']) && oos_is_not_null($_GET['pfrom'])) || (isset($_GET['pto']) && oos_is_not_null($_GET['pto']))) ) {
 	
-	$nCountry_id = STORE_COUNTRY;
-	$nZone_id = STORE_ZONE;
-	if (isset($_SESSION)) {
-		if (isset($_SESSION['customer_country_id'])) {
-			$nCountry_id = $_SESSION['customer_country_id'];
-			$nZone_id = $_SESSION['customer_zone_id'];
-		}
+$nCountry_id = STORE_COUNTRY;
+$nZone_id = STORE_ZONE;
+if (isset($_SESSION)) {
+	if (isset($_SESSION['customer_country_id'])) {
+		$nCountry_id = $_SESSION['customer_country_id'];
+		$nZone_id = $_SESSION['customer_zone_id'];
 	}
-      $from_str .= " LEFT JOIN
+}
+
+$from_str .= " LEFT JOIN
                         " . $oostable['tax_rates'] . " tr
                      ON p.products_tax_class_id = tr.tax_class_id LEFT JOIN
                         " . $oostable['zones_to_geo_zones'] . " gz
@@ -212,19 +205,19 @@ if ($error == 1) {
                          gz.zone_id = '0' OR
                          gz.zone_id = '" . intval($nZone_id) . "')";
 
-    }
+}
 
-    $from_str .= ", " . $oostable['products_description'] . " pd, " . $oostable['categories'] . " c, " . $oostable['products_to_categories'] . " p2c";
+$from_str .= ", " . $oostable['products_description'] . " pd, " . $oostable['categories'] . " c, " . $oostable['products_to_categories'] . " p2c";
 
-    $where_str = " WHERE
+$where_str = " WHERE
                       p.products_status >= '1' AND
                       p.products_id = pd.products_id AND
                       pd.products_languages_id = '" .  intval($nLanguageID) . "' AND
                       p.products_id = p2c.products_id AND
                       p2c.categories_id = c.categories_id ";
 
-    if (isset($_GET['categories_id']) && oos_is_not_null($_GET['categories_id'])) {
-      if ($_GET['inc_subcat'] == '1') {
+if (isset($_GET['categories_id']) && oos_is_not_null($_GET['categories_id'])) {
+	if ($_GET['inc_subcat'] == '1') {
         $subcategories_array = array();
         oos_get_subcategories($subcategories_array, $_GET['categories_id']);
         $where_str .= " AND
@@ -235,73 +228,74 @@ if ($error == 1) {
           $where_str .= " OR p2c.categories_id = '" . intval($subcategories_array[$i]) . "'";
         }
         $where_str .= ")";
-      } else {
+	} else {
         $where_str .= " AND
                            p2c.products_id = p.products_id AND
                            p2c.products_id = pd.products_id AND
                            pd.products_languages_id = '" .  intval($nLanguageID) . "' AND
                            p2c.categories_id = '" . intval($_GET['categories_id']) . "'";
-      }
-    }
+	}
+}
 
-    if (isset($_GET['manufacturers_id']) && oos_is_not_null($_GET['manufacturers_id'])) {
+if (isset($_GET['manufacturers_id']) && oos_is_not_null($_GET['manufacturers_id'])) {
       $manufacturers_id = intval($_GET['manufacturers_id']);
       $where_str .= " AND m.manufacturers_id = '" . intval($manufacturers_id) . "'";
-    }
+}
 
-    if (isset($_GET['keywords']) && oos_is_not_null($_GET['keywords'])) {
-      if (oos_parse_search_string(stripslashes($_GET['keywords']), $search_keywords)) {
-        $where_str .= " AND (";
-        for ($i=0, $n=count($search_keywords); $i<$n; $i++ ) {
-          switch ($search_keywords[$i]) {
-            case '(':
-            case ')':
-            case 'and':
-            case 'or':
-              $where_str .= " " . $search_keywords[$i] . " ";
-              break;
+	
+	
+if (isset($search_keywords) && (count($search_keywords) > 0)) {
+		$where_str .= " AND (";
+		for ($i=0, $n=count($search_keywords); $i<$n; $i++ ) {
+			switch ($search_keywords[$i]) {
+				case '(':
+				case ')':
+				case 'and':
+				case 'or':
+					$where_str .= " " . $search_keywords[$i] . " ";
+					break;
+						
+				default:
+					$keyword = oos_db_prepare_input($search_keywords[$i]);
+					$where_str .= "   (pd.products_name LIKE '%" . oos_db_input($keyword) . "%'
+								OR p.products_model LIKE '%" . oos_db_input($keyword) . "%'
+								OR p.products_ean LIKE '%" . oos_db_input($keyword) . "%'
+								OR m.manufacturers_name LIKE '%" . oos_db_input($keyword) . "%'";
+					if (isset($_GET['search_in_description']) && ($_GET['search_in_description'] == '1')) $where_str .= " OR pd.products_description LIKE '%" . oos_db_input($keyword) . "%'";
+					$where_str .= ')';
+					break;
+			}
+		}
+		$where_str .= " )";
+}
 
-            default:
-              $where_str .= "   (pd.products_name LIKE '%" . oos_db_input($search_keywords[$i]) . "%'
-                              OR p.products_model LIKE '%" . oos_db_input($search_keywords[$i]) . "%'
-                              OR p.products_ean LIKE '%" . oos_db_input($search_keywords[$i]) . "%'
-                              OR m.manufacturers_name LIKE '%" . oos_db_input($search_keywords[$i]) . "%'";
-              if (isset($_GET['search_in_description']) && ($_GET['search_in_description'] == '1')) $where_str .= " OR pd.products_description LIKE '%" . oos_db_input($search_keywords[$i]) . "%'";
-                $where_str .= ')';
-              break;
-          }
-        }
-        $where_str .= " )";
-      }
-    }
+if (isset($_GET['dfrom']) && oos_is_not_null($_GET['dfrom']) && ($_GET['dfrom'] != DOB_FORMAT_STRING)) {
+  $where_str .= " AND p.products_date_added >= '" . oos_date_raw($dfrom_to_check) . "'";
+}
 
-    if (isset($_GET['dfrom']) && oos_is_not_null($_GET['dfrom']) && ($_GET['dfrom'] != DOB_FORMAT_STRING)) {
-      $where_str .= " AND p.products_date_added >= '" . oos_date_raw($dfrom_to_check) . "'";
-    }
+if (isset($_GET['dto']) && oos_is_not_null($_GET['dto']) && ($_GET['dto'] != DOB_FORMAT_STRING)) {
+  $where_str .= " AND p.products_date_added <= '" . oos_date_raw($dto_to_check) . "'";
+}
 
-    if (isset($_GET['dto']) && oos_is_not_null($_GET['dto']) && ($_GET['dto'] != DOB_FORMAT_STRING)) {
-      $where_str .= " AND p.products_date_added <= '" . oos_date_raw($dto_to_check) . "'";
-    }
-
-    $rate = $oCurrencies->get_value($sCurrency);
-    if ($rate) {
+$rate = $oCurrencies->get_value($sCurrency);
+if ($rate) {
       $pfrom = oos_var_prep_for_os($_GET['pfrom'] / $rate);
       $pto = oos_var_prep_for_os($_GET['pto'] / $rate);
-    }
+}
 
-    if ($aUser['price_with_tax'] == 1) {
+if ($aUser['price_with_tax'] == 1) {
       if ($pfrom) $where_str .= " AND (IF(s.status, s.specials_new_products_price, p.products_price) * if(gz.geo_zone_id is null, 1, 1 + (tr.tax_rate / 100) ) >= " . oos_db_input($pfrom) . ")";
       if ($pto)   $where_str .= " AND (IF(s.status, s.specials_new_products_price, p.products_price) * if(gz.geo_zone_id is null, 1, 1 + (tr.tax_rate / 100) ) <= " . oos_db_input($pto) . ")";
-    } else {
+} else {
       if ($pfrom) $where_str .= " AND (IF(s.status, s.specials_new_products_price, p.products_price) >= " . oos_db_input($pfrom) . ")";
       if ($pto)   $where_str .= " AND (IF(s.status, s.specials_new_products_price, p.products_price) <= " . oos_db_input($pto) . ")";
-    }
+}
 
-    if ( ($aUser['price_with_tax'] == 1) && ((isset($_GET['pfrom']) && oos_is_not_null($_GET['pfrom'])) || (isset($_GET['pto']) && oos_is_not_null($_GET['pto']))) ) {
+if ( ($aUser['price_with_tax'] == 1) && ((isset($_GET['pfrom']) && oos_is_not_null($_GET['pfrom'])) || (isset($_GET['pto']) && oos_is_not_null($_GET['pto']))) ) {
       $where_str .= " GROUP BY p.products_id, tr.tax_priority";
-    }
+}
 
-    if ( (!isset($_GET['sort'])) || (!preg_match('/[1-8][ad]/', $_GET['sort'])) || (substr($_GET['sort'], 0 , 1) > count($column_list)) ) {
+if ( (!isset($_GET['sort'])) || (!preg_match('/[1-8][ad]/', $_GET['sort'])) || (substr($_GET['sort'], 0 , 1) > count($column_list)) ) {
       for ($col=0, $n=count($column_list); $col<$n; $col++) {
         if ($column_list[$col] == 'PRODUCT_LIST_NAME') {
           $_GET['sort'] = $col+1 . 'a';
@@ -309,7 +303,7 @@ if ($error == 1) {
           break;
         }
       }
-    } else {
+} else {
       $sort_col = substr($_GET['sort'], 0 , 1);
       $sort_order = substr($_GET['sort'], 1);
       $order_str = ' ORDER BY ';
@@ -347,37 +341,39 @@ if ($error == 1) {
           $order_str .= "pd.products_name";
           break;
       }
-    }
+}
 
-    $listing_sql = $select_str . $from_str . $where_str . $order_str;
+$listing_sql = $select_str . $from_str . $where_str . $order_str;
 
-    $aTemplate['page'] = $sTheme . '/page/advanced_search_result.html';
-    $aTemplate['pagination'] = $sTheme . '/system/_pagination.html';
+$aTemplate['page'] = $sTheme . '/page/advanced_search_result.html';
+$aTemplate['pagination'] = $sTheme . '/system/_pagination.html';
 
-    $nPageType = OOS_PAGE_TYPE_CATALOG;
-	$sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
+$nPageType = OOS_PAGE_TYPE_CATALOG;
+$sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
-    require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
-    if (!isset($option)) {
-      require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-      require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
-    }
+require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
+if (!isset($option)) {
+	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+	require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+}
 
-    // assign Smarty variables;
-    $smarty->assign(
-        array(
+// assign Smarty variables;
+$smarty->assign(
+	array(
             'breadcrumb'    => $oBreadcrumb->trail(),
             'heading_title' => $aLang['heading_title'],
-			'robots'		=> 'noindex,follow,noodp,noydir'
-        )
-    );
+			'robots'		=> 'noindex,follow,noodp,noydir',
+			
+			'text_no_products' => sprintf($aLang['text_no_products'], $keywords)
+	)
+);
 
-    require_once MYOOS_INCLUDE_PATH . '/includes/modules/product_listing.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/modules/product_listing.php';
 
-    $smarty->assign('oos_get_all_get_params', oos_get_all_get_parameters(array('sort', 'page')));
-    $smarty->assign('pagination', $smarty->fetch($aTemplate['pagination']));
+$smarty->assign('oos_get_all_get_params', oos_get_all_get_parameters(array('sort', 'page')));
+$smarty->assign('pagination', $smarty->fetch($aTemplate['pagination']));
 
-    // display the template
-	$smarty->display($aTemplate['page']);
-}
+// display the template
+$smarty->display($aTemplate['page']);
+
 

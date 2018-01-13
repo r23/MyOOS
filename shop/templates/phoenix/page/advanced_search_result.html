@@ -9,28 +9,182 @@
 {/if}
 <!-- body //-->
 
-<section class="mainContent clearfix">
-	<div class="container">
+<!-- start content -->
+<section class="mainContent clearfix productsContent">
+	<div class="container">  
 		<div class="row">
-			<div class="col-md-12">
-				<div class="innerWrapper clearfix">
 
-    <table border="0" width="100%" cellspacing="0" cellpadding="0">
-      <tr>
-        <td>{$oosPageHeading}</td>
-      </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
-      <tr>
-        <td>{include file="phoenix/products/_product_listing.html"}</td>
-      </tr>
-    </table>
+			<!-- left column -->
+			<div class="col-lg-9 col-md-9 col-sm-9">
+{if numrows gt 0 }
+				<!-- list options -->
+				<div class="clearfix shop-list-options mb-20">
+					<!-- pagination -->
+					<div class="m-0 float-right">
+						{$pagination}
+					</div>
+					<!-- end pagination -->
+
+					<div class="options-left">
+						{$product_filter_select}
+{*
+  todo
+						<a class="btn active fa fa-th" href=""><!-- grid --></a>
+						<a class="btn fa fa-list" href=""><!-- list --></a>
+*}
+					</div>
+				</div>
+				<!-- /list options -->
+			
+
+				<ul class="shop-item-list row list-inline m-0">
+				{foreach item=product from=$listing}
+					<!-- item -->
+					<li class="col-lg-3 col-sm-3">
+
+						<div class="shop-item">
+
+							<div class="thumbnail">
+								<!-- product image -->
+								<a class="shop-item-image" href="{product_link products_id=$product.products_id}">
+									{small_product_image image=$product.products_image alt=$product.products_name|strip_tags}
+								</a>
+								<!-- /product image -->
+
+								<!-- hover buttons -->
+								<div class="shop-option-over">
+									<a class="btn btn-default add-wishlist" href="{html_href_link content=$page_file oos_get=$get_params action=add_wishlist products_id=$product.products_id}" title="{$lang.button_add_wishlist}" role="button"><i class="fa fa-heart p-0" aria-hidden="true"></i></a>
+								</div>
+								<!-- /hover buttons -->
+
+								<!-- product more info -->
+								<div class="shop-item-info">
+{*
+  todo								
+									<span class="badge badge-success">NEW</span>
+*}									
+									{if (!empty($product.listing_product_special_price))}<span class="badge badge-danger">SALE</span>{/if}
+								</div>
+								<!-- /product more info -->
+							</div>
+										
+							<div class="shop-item-summary text-center">
+								<h2><a href="{product_link products_id=$product.products_id}">{$product.products_name}</a></h2>
+								
+{*
+  todo								
+								<!-- rating -->
+								<div class="shop-item-rating-line">
+									<div class="rating rating-4 fs-13"><!-- rating-0 ... rating-5 --></div>
+								</div>
+								<!-- /rating -->
+*}
+
+								<!-- price -->
+								<div class="shop-item-price">
+								{if $myUser.show_price eq 1 }
+									{if (!empty($product.listing_product_special_price))}
+										<s>{$product.listing_product_price}{$product.product_units}</s><br>
+										<span class="special_price">{$product.listing_product_special_price}</span><br>
+									{else}
+									  {if (!empty($product.listing_discount_price))}
+											{$lang.price_from} {$product.listing_discount_price} {$product.product_units}<br>
+										{else}									
+											{$product.listing_product_price}{$product.product_units}<br>
+										{/if}
+									{/if}					
+
+									{if $product.products_base_price != 1}
+										<span class="smallText">{$lang.text_products_base_price}: </span>
+										{if (!empty($product.new_special_price))}
+											<span class="special_base_price">{$product.products_base_unit} = {$product.new_base_product_special_price}</span><br>
+										{else}
+											<span class="base_price">{$product.products_base_unit} = {$product.new_base_product_price}</span><br>	
+										{/if}
+									{/if}
+								{/if}
+								</div>
+								<!-- /price -->
+							</div>
+
+							<!-- buttons -->
+							<div class="shop-item-buttons text-center">
+								<a class="btn btn-default" href="{html_href_link content=$page_file oos_get=$get_params action=buy_now cart_quantity=$product.order_min products_id=$product.products_id}" role="button"><i class="fa fa-cart-plus" aria-hidden="true"></i> {$lang.button_in_cart}</a>
+							</div>
+							<!-- /buttons -->
+						</div>
+
+					</li>
+					<!-- /item -->				
+				{/foreach}
+					
+				</ul>
+
+				<span class="pangv .margin-top-30">{$pangv}</span>
+				<hr />
+
+				<!-- pagination -->
+				<div class="text-center">
+					{$pagination}
+				</div>
+				<!-- end pagination -->
+
+{else}
+				<div class="clearfix shop-list-options mb-20">
+					<!-- SEARCH -->	
+					<form action="{html_href_link content=$filename.advanced_search_result}" method="GET" role="form">
+					{if $mySystem.sed}
+						<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+						<input type="hidden" name="formid" value="{$mySystem.formid}">
+					{/if}
+						<input type="hidden" name="content" value="{$filename.advanced_search_result}">				
+
+			
+						<div class="input-group">
+
+							<input name="keywords" class="form-control form-control-lg" type="text" placeholder="{$lang.text_search}">
+							<div class="input-group-btn">
+								<button type="submit" class="btn btn-default form-control-lg bl-0">
+									<i class="fa fa-search fa-lg p-0" aria-hidden="true"></i>
+								</button>
+							</div>
+						</div>
+
+						<small class="m-0 text-muted fs-11"> 
+							<a href="{html_href_link content=$filename.advanced_search}">{$lang.block_service_advanced_search}</a>
+						</small>
+
+						<blockquote>
+						{$text_no_products}
+						</blockquote>
+						
+					</form>
+					<!-- /SEARCH -->
+					
+
 
 				</div>
-			</div>
-		</div>
-	</div>
+{/if}
+
+				
+		
+			</div><!-- .col -->
+
+	
+			<!-- sidebar-->
+			<div class="col-lg-3 col-md-3 col-sm-3">
+			{foreach $sidebar as $panel}
+				{if $panel.content}
+				<div class="card-group" id="accordion-v{$panel@iteration}">
+					{$panel.content}
+				</div><!-- .card group-->
+				{/if}
+			{/foreach}
+            </div><!-- .col -->
+			<!-- end sidebar -->
+		</div><!-- .row -->      
+	</div><!--end container-->
 </section>
+<!-- end content -->
 
 {include file="phoenix/system/_footer.html"}
