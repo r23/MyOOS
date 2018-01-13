@@ -178,7 +178,7 @@ if (!$product_info_result->RecordCount()) {
 				$price_discount = $product_info['products_discount1'];
 			}
 			if (isset($price_discount)) {
-				$smarty->assign('price_discount', $oCurrencies->display_price($price_discount, oos_get_tax_rate($product_info['products_tax_class_id']));
+				$smarty->assign('price_discount', $oCurrencies->display_price($price_discount, oos_get_tax_rate($product_info['products_tax_class_id'])));
 			}
 		}
 	}

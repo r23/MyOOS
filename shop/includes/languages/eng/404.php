@@ -15,4 +15,4 @@ $aLang['heading_title'] = 'PAGE NOT FOUND';
 
 $aLang['text_information'] = 'Sorry, <strong>The page you requested can not be found!</strong>';
 $aLang['text_search_again'] = 'Please, search again using more specific keywords.';
-$aLang['text_back_to_home'] = 'Back to homepage now!;
+$aLang['text_back_to_home'] = 'Back to homepage now!';
