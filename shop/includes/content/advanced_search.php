@@ -39,12 +39,7 @@ function oos_get_manufacturers() {
   
 require 'includes/languages/' . $sLanguage . '/search_advanced.php';
 
-  ob_start();
-  require 'js/advanced_search.js.php';
-  $javascript = ob_get_contents();
-  ob_end_clean();
-
-  $info_message = '';
+$info_message = '';
   if (isset($_GET['errorno'])) {
     if (($_GET['errorno'] & 1) == 1) {
       $info_message = str_replace('\n', '<br />', $aLang['js_at_least_one_input']);
@@ -139,8 +134,7 @@ $smarty->assign(
 		'canonical'		=> $sCanonical,
 		
 		'info_message'      => $info_message,
-		'options_box'       => $options_box,
-		'oos_js'            => $javascript
+		'options_box'       => $options_box
 	)
 ); 
 

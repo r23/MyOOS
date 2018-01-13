@@ -94,7 +94,7 @@ if (oos_is_not_null($keywords)) {
   
  
   
-if ($errorno > 0 {
+if ($errorno > 0) {
 	oos_redirect(oos_href_link($aContents['advanced_search'], 'errorno=' . $errorno . '&' . oos_get_all_get_parameters()));
 } 
 

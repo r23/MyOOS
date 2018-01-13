@@ -41,7 +41,7 @@ $aContents['admin_login'] = $prefix_filename . 'admin_login';
 //gv
 $aContents['gv_faq'] = $prefix_filename . 'gv_faq';
 $aContents['gv_redeem'] = $prefix_filename . 'gv_redeem';
-$aContents['popup_coupon_help'] = $prefix_filename . 'popup_coupon_help';
+// $aContents['popup_coupon_help'] = $prefix_filename . 'popup_coupon_help';
 
 //info
 $aContents['info_down_for_maintenance'] = $prefix_filename . 'info_down_for_maintenance';
@@ -78,7 +78,7 @@ $aContents['product_reviews_write'] = $prefix_filename . 'product_reviews_write'
 //search
 $aContents['advanced_search'] = $prefix_filename . 'advanced_search';
 $aContents['advanced_search_result'] = $prefix_filename . 'advanced_search_result';
-$aContents['popup_search_help'] = $prefix_filename . 'popup_search_help';
+// $aContents['popup_search_help'] = $prefix_filename . 'popup_search_help';
 
 //user
 $aContents['account'] = $prefix_filename . 'account';
