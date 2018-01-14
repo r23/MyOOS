@@ -105,7 +105,9 @@ $smarty->assign(
 		'account_active'	=> 1,
 		'page_split'   		=> $history_split->display_count($aLang['text_display_number_of_orders']),
 		'display_links' 	=> $history_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
-
+		'numrows' 			=> $history_split->number_of_rows,
+		'numpages' 			=> $history_split->number_of_pages,
+		
 		'oos_history_array' => $aHistory
 	)
 );

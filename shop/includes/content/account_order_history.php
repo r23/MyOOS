@@ -143,6 +143,8 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/accoun
         array(
 			'page_split'		=> $order_history_split->display_count($aLang['text_display_number_of_products']),
 			'display_links'		=> $order_history_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
+			'numrows' 			=> $order_history_split->number_of_rows,
+			'numpages' 			=> $order_history_split->number_of_pages,
 			
 			'oos_order_history_array'	=> $order_history_array
        )

@@ -57,15 +57,19 @@ $product_info = $product_info_result->fields;
 
 $reviewstable = $oostable['reviews'];
 $reviews_descriptiontable = $oostable['reviews_description'];
-$sql = "SELECT r.reviews_id, left(rd.reviews_text, 100) as reviews_text, r.reviews_rating, r.date_added, r.customers_name, r.reviews_read
-          FROM $reviewstable r,
-		       $reviews_descriptiontable rd
-          WHERE products_id = '" . intval($nProductsID) . "'
-		  AND r.reviews_id = rd.reviews_id 
-		  AND rd.reviews_languages_id = '" .  intval($nLanguageID) . "'
-		  AND r.reviews_status = 1 
-          ORDER BY r.reviews_id DESC";
+$reviews_result_raw = "SELECT r.reviews_id, left(rd.reviews_text, 100) as reviews_text, r.reviews_rating, r.date_added, r.customers_name, r.reviews_read
+						FROM $reviewstable r,
+							$reviews_descriptiontable rd
+						WHERE products_id = '" . intval($nProductsID) . "'
+						AND r.reviews_id = rd.reviews_id 
+						AND rd.reviews_languages_id = '" .  intval($nLanguageID) . "'
+						AND r.reviews_status = 1 
+						ORDER BY r.reviews_id DESC";
 $reviews_result = $dbconn->Execute($sql);
+
+$reviews_split = new splitPageResults($reviews_result_raw, MAX_DISPLAY_NEW_REVIEWS);
+$reviews_result = $dbconn->Execute($reviews_split->sql_query);
+
 $aReviews = array();
 while ($reviews = $reviews_result->fields) {
     $aReviews[] = array('rating' => $reviews['reviews_rating'],
@@ -77,17 +81,6 @@ while ($reviews = $reviews_result->fields) {
     $reviews_result->MoveNext();
 }
 
-# $reviews_split = new splitPageResults($reviews_result_raw, MAX_DISPLAY_NEW_REVIEWS);
-# $reviews_result = $dbconn->Execute($products_new_split->sql_query);
-
-while ($reviews = $reviews_result->fields) {
-    $aReviews[] = array('rating' => $reviews['reviews_rating'],
-                        'id' => $reviews['reviews_id'],
-                        'customers_name' => $reviews['customers_name'],
-                        'date_added' => oos_date_short($reviews['date_added']),
-                        'read' => $reviews['reviews_read']);
-    $reviews_result->MoveNext();
-}
   
 // add the products model or products_name to the breadcrumb trail
 // links breadcrumb
@@ -108,10 +101,6 @@ if (!isset($option)) {
 	require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
-/*
-		'page_split'	=> $reviews_split->display_count($aLang['text_display_number_of_reviews']),
-		'display_links'	=> $reviews_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
-*/
 
 $smarty->assign(
 	array(
@@ -119,6 +108,13 @@ $smarty->assign(
 		'heading_title' => sprintf($aLang['heading_title'], $product_info['products_name']),
 		'canonical'		=> $sCanonical,
 
+		
+		'page_split'		=> $specials_split->display_count($aLang['text_display_number_of_reviews']),
+		'display_links'		=> $specials_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
+		'numrows' 			=> $specials_split->number_of_rows,
+		'numpages' 			=> $specials_split->number_of_pages,
+					
+		
 		'oos_reviews_array' => $aReviews
 		  
       )

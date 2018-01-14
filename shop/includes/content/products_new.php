@@ -126,7 +126,9 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 
            'page_split'			=> $products_new_split->display_count($aLang['text_display_number_of_products_new']),
            'display_links'		=> $products_new_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
-		   
+			'numrows' 			=> $products_new_split->number_of_rows,
+			'numpages' 			=> $products_new_split->number_of_pages,
+		
 			'page'				=> $nPage,
            'products_new' 		=> $products_new_array
 		)

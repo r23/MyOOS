@@ -109,6 +109,8 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 
             'page_split'		=> $specials_split->display_count($aLang['text_display_number_of_specials']),
             'display_links'		=> $specials_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
+			'numrows' 			=> $specials_split->number_of_rows,
+			'numpages' 			=> $specials_split->number_of_pages,
 			
 			'page'				=> $nPage,
             'specials'			=> $aSpecials

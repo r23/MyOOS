@@ -82,7 +82,7 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
                              AND rd.reviews_languages_id = '" . intval($nLanguageID) . "'
                            ORDER BY r.reviews_id DESC";
     $reviews_split = new splitPageResults($reviews_result_raw, MAX_DISPLAY_NEW_REVIEWS);
-    $reviews_result = $dbconn->Execute($products_new_split->sql_query);
+    $reviews_result = $dbconn->Execute($reviews_split->sql_query);
 
     $aReviews = array();
     while ($reviews = $reviews_result->fields) {
@@ -111,7 +111,8 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 
             'page_split'    => $reviews_split->display_count($aLang['text_display_number_of_reviews']),
             'display_links' => $reviews_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
-            'numrows'  		=> $reviews_numrows,
+			'numrows' 		=> $reviews_split->number_of_rows,
+			'numpages' 		=> $reviews_split->number_of_pages,
 
             'oos_reviews_array' => $aReviews
         )
