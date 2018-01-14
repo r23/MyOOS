@@ -14,125 +14,115 @@
 			<div class="col-md-12">
 				<div class="innerWrapper clearfix">
 
-   <form name="advanced_search" action="{html_get_link}" method="GET" role="form" onSubmit="return check_form(this);">
-   <input type="hidden" name="content" value="{$filename.advanced_search_result}">
-{if $mySystem.sed}
-    <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
-	<input type="hidden" name="formid" value="{$mySystem.formid}">
-{/if}
+				{if $error}
+					<div class="container">
+						<div class="row">
+							<div class="col-md-12">                              
+								<div class="alert alert-danger alert-dismissible fade show" role="alert">
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>			
+									<p>{$error}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				{/if}
  
- <table border="0" width="100%" cellspacing="0" cellpadding="0">
-      <tr>
-        <td>{$oosPageHeading}</td>
-      </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td><br>
-              <table width="100%" border="0" cellspacing="0" cellpadding="0">
-               <tr>
-                 <td width="19" class="block_head_background"><img src="{$theme_image}/table_head_arrow.gif" alt=" " width="21" height="19"></td>
-                 <td width="100%" class="block_head_background">{$lang.heading_search_criteria}</td>
-                 <td width="5" class="block_head_background"><img src="{$theme_image}/table_head_right.gif" alt=" " width="5" height="19"></td>
-              </tr>
-           </table>
-           <table border="0" width="100%" cellspacing="0" cellpadding="1">
-             <tr>
-              <td><table border="0" width="100%" cellspacing="0" cellpadding="3" class="block_content">
-             <tr>
-              <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="100%" height="1"></td>
-             </tr>
-             <tr>
-               <td class="boxText"><input type="text" name="keywords" id="keywords" style="width: 100%"></td>
-             </tr>
-             <tr>
-              <td align="right" class="boxText"><input type="checkbox" name="search_in_description" value="1">{$lang.text_search_in_description}</td>
-             </tr>
-             <tr>
-              <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="100%" height="1"></td>
-             </tr>
-            </table></td>
-           </tr>
-          </table></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="100%" height="10"></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td class="smallText"><a href="javascript:searchWindow('{html_href_link content=$filename.popup_search_help}')">{$lang.text_search_help_link}</a></td>
-            <td class="smallText" align="right"><button class="btn btn-success-filled" type="submit"><i class="fa fa-search" aria-hidden="true"></i> {$lang.button_search}</button></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="100%" height="10"></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="1">
-         <tr>
-           <td><table border="0" width="100%" cellspacing="0" cellpadding="3">
-            <tr>
-              <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="100%" height="1"></td>
-            </tr>
-            <tr>
-             <td class="boxText">
-               <table border="0" width="100%" cellspacing="0" cellpadding="2">
-                 <tr>
-                   <td class="fieldKey">{$lang.entry_categories}</td>
-                   <td class="fieldValue">{$pull_down_menu_categories}</td>
-                 </tr>
-                 <tr>
-                   <td class="fieldKey">&nbsp;</td>
-                   <td class="smallText"><input type="checkbox" name="inc_subcat" checked="checked">{$lang.entry_include_subcategories}</td>
-                 </tr>
-                 <tr>
-                   <td colspan="2"></td>
-                 </tr>
-                 <tr>
-                   <td class="fieldKey">{$lang.entry_manufacturers}</td>
-                   <td class="fieldValue">{$pull_down_menu_manufacturers}</td>
-                 </tr>
-                 <tr>
-                   <td colspan="2"></td>
-                 </tr>
-{if $myUser.show_price eq 1 }
-                 <tr>
-                   <td class="fieldKey">{$lang.entry_price_from}</td>
-                   <td class="fieldValue"><input type="text" name="pfrom" size="20" value=""></td>
-                 </tr>
-                 <tr>
-                   <td class="fieldKey">{$lang.entry_price_to}</td>
-                   <td class="fieldValue"><input type="text" name="pto" size="20" value=""></td>
-                 </tr>
-                 <tr>
-                   <td colspan="2"></td>
-                 </tr>
-{/if}
-               </table>
-            </td>
-            </tr>
-            <tr>
-             <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="100%" height="1"></td>
-           </tr>
-          </table></td>
-        </tr>
-       </table> </td>
-      </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
-      <tr>
-        <td class="main">{$info_message}</td>
-      </tr>
-    </table>
-    </form>
+				<form name="advanced_search" action="{html_get_link}" method="GET" role="form">
+					<fieldset>
+						<input type="hidden" name="content" value="{$filename.advanced_search_result}">
+						{if $mySystem.sed}
+						<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+						<input type="hidden" name="formid" value="{$mySystem.formid}">
+						{/if}
+
+						<div class="row">
+							<div class="col-md-12">
+								<h4>{$lang.heading_search_criteria}</h4>
+							</div>
+						</div>
+						
+
+						<div class="row">
+							<div class="col-md-12">
+								<div class="input-group">
+									<input required type="text" name="keywords" class="form-control" placeholder="{$lang.text_search}">
+									<div class="input-group-btn">
+										<button type="submit" class="btn btn-primary form-control-lg bl-0">
+											<i class="fa fa-search fa-lg p-0" aria-hidden="true"> {$lang.button_search}</i>
+										</button>
+									</div>								
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">								
+								<div class="float-right form-check ">
+									<input id="checkbox" class="form-check-input" name="search_in_description" type="checkbox" checked="checked">
+									<label for="checkbox" class="form-check-label ">{$lang.text_search_in_description}</label>
+								</div>
+							</div>
+						</div>
+						<div class="row	m-py-60">
+							<div class="col-md-12">
+								<!-- Button trigger modal -->
+								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#searchModal">
+									{$lang.text_search_help_link}
+								</button>	
+							</div>
+						</div>
+						{if $categoriesID}
+						<div class="row">
+							<div class="col-md-6">
+								<label for="search_categories">{$lang.entry_categories}</label>
+								<select class="form-control pointer" name="categories_id">
+								{foreach item=categorie from=$categoriesID}	
+									<option value="{$categorie.id}">{$categorie.text}</option>
+								{/foreach}								
+								</select>
+							</div>
+						</div>	
+						<div class="row">
+							<div class="col-md-6">
+								<div class="float-right form-check ">
+									<input id="checkbox" class="form-check-input" name="inc_subcat" type="checkbox" checked="checked">
+									<label for="checkbox" class="form-check-label ">{$lang.entry_include_subcategories}</label>
+								</div>
+							</div>
+						</div>
+						{/if}
+						{if $manufacturersID}
+						<div class="row">
+							<div class="col-md-6">
+								<label for="search_manufacturers">{$lang.entry_manufacturers}</label>
+								<select class="form-control pointer" name="manufacturers_id">
+								{foreach item=manufactur from=$manufacturersID}	
+									<option value="{$manufactur.id}">{$manufactur.text}</option>
+								{/foreach}								
+								</select>
+							</div>
+						</div>
+						{/if}						
+						{if $myUser.show_price eq 1 }
+						<div class="row">
+							<div class="col-md-6">
+								<label for="price_from">{$lang.entry_price_from}</label>
+								<input type="text" value="" class="form-control" name="pfrom" id="price_from">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<label for="price_to">{$lang.entry_price_to}</label>
+								<input type="text" value="" class="form-control" name="pto" id="price_to">
+							</div>
+						</div> 
+						{/if}
+
+					</fieldset>
+
+				</form>
+				<!-- /FORM -->
 
 				</div>
 			</div>
@@ -141,32 +131,25 @@
 </section>
 
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Launch demo modal
-</button>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
+<div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="searchModalLabel">{$lang.heading_search_help}</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				{$lang.text_search_help}
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal">{$lang.text_close_window}</button>
+			</div>
+		</div>
+	</div>
 </div>
-
-
 
 {include file="phoenix/system/_footer.html"}

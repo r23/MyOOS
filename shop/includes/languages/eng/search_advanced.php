@@ -34,14 +34,14 @@ $aLang['entry_price_to'] = 'Price To:';
 $aLang['entry_date_from'] = 'Date From:';
 $aLang['entry_date_to'] = 'Date To:';
 
-$aLang['text_search_help_link'] = '<u>Search Help</u> [?]';
+$aLang['text_search_help_link'] = 'Search Help [?]';
 
 $aLang['text_all_categories'] = 'All Categories';
 $aLang['text_all_manufacturers'] = 'All Manufacturers';
 
 $aLang['heading_search_help'] = 'Search Help';
 $aLang['text_search_help'] = 'Keywords may be separated by AND and/or OR statements for greater control of the search results.<br /><br />For example, <u>Microsoft AND mouse</u> would generate a result set that contain both words. However, for <u>mouse OR keyboard</u>, the result set returned would contain both or either words.<br /><br />Exact matches can be searched for by enclosing keywords in double-quotes.<br /><br />For example, <u>"notebook computer"</u> would generate a result set which match the exact string.<br /><br />Brackets can be used for further control on the result set.<br /><br />For example, <u>Microsoft and (keyboard or mouse or "visual basic")</u>.';
-$aLang['text_close_window'] = '<u>Close Window</u> [x]';
+$aLang['text_close_window'] = 'Close';
 
 $aLang['js_at_least_one_input'] = '* One of the following fields must be entered:\n    Keywords\n    Date Added From\n    Date Added To\n    Price From\n    Price To\n';
 $aLang['js_invalid_from_date'] = '* Invalid From Date\n';

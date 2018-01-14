@@ -33,14 +33,14 @@ $aLang['entry_price_to'] = 'Preis bis:';
 $aLang['entry_date_from'] = 'hinzugefügt von:';
 $aLang['entry_date_to'] = 'hinzugefügt bis:';
 
-$aLang['text_search_help_link'] = '<u>Hilfe zur erweiterten Suche</u> [?]';
+$aLang['text_search_help_link'] = 'Hilfe zur erweiterten Suche [?]';
 
 $aLang['text_all_categories'] = 'Alle Kategorien';
 $aLang['text_all_manufacturers'] = 'Alle Hersteller';
 
 $aLang['heading_search_help'] = 'Hilfe zur erweiterten Suche';
 $aLang['text_search_help'] = 'Die Suchfunktion ermöglicht Ihnen die Suche in den Produktnamen, Produktbeschreibungen, Herstellern und Artikelnummern.<br /><br />Sie haben die Möglichkeit logische Operatoren wie "AND" (Und) und "OR" (oder) zu verwenden.<br /><br />Als Beispiel könnten Sie also angeben: <u>Microsoft AND Maus</u>.<br /><br />Desweiteren können Sie Klammern verwenden um die Suche zu verschachteln, also z.B.:<br /><br /><u>Microsoft AND (Maus OR Tastatur OR "Visual Basic")</u>.<br /><br />Mit Anführungszeichen können Sie mehrere Worte zu einem Suchbegriff zusammenfassen.';
-$aLang['text_close_window'] = '<u>Fenster schließen</u> [x]';
+$aLang['text_close_window'] = 'schließen';
 
 $aLang['js_at_least_one_input'] = '* Eines der folgenden Felder muss ausgefüllt werden:\n    Stichworte\n    Datum hinzugefügt von\n    Datum hinzugefügt bis\n    Preis ab\n    Preis bis\n';
 $aLang['js_invalid_from_date'] = '* Unzulässiges von Datum\n';

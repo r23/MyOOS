@@ -24,22 +24,41 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_search.php';
 require 'includes/languages/' . $sLanguage . '/search_advanced_result.php';
 
-$keywords = $_GET['keywords'] = isset($_GET['keywords']) && !empty($_GET['keywords']) ? stripslashes(trim(urldecode($_GET['keywords']))) : FALSE;
-$search_in_description = $_GET['search_in_description'] = isset($_GET['search_in_description']) && is_numeric($_GET['search_in_description']) ? (int)$_GET['search_in_description'] : 0;
-$categories_id = $_GET['categories_id'] = isset($_GET['categories_id']) && is_numeric($_GET['categories_id']) ? (int)$_GET['categories_id'] : FALSE;
+$get_parameters = '';
+$keywords = isset($_GET['keywords']) && !empty($_GET['keywords']) ? stripslashes(trim(urldecode($_GET['keywords']))) : FALSE;
+$get_parameters .= '&keywords=' . $keywords;
+
+$search_in_description = isset($_GET['search_in_description']) && is_numeric($_GET['search_in_description']) ? (int)$_GET['search_in_description'] : 0;
+$get_parameters = '&search_in_description=' . $search_in_description;
+
+$categories_id = isset($_GET['categories_id']) && is_numeric($_GET['categories_id']) ? (int)$_GET['categories_id'] : FALSE;
+$get_parameters = '&categories_id=' . $categories_id;
+
 $inc_subcat = isset($_GET['inc_subcat']) && is_numeric($_GET['inc_subcat']) ? (int)$_GET['inc_subcat'] : 0;
-$manufacturers_id  = $_GET['manufacturers_id'] = isset($_GET['manufacturers_id']) && is_numeric($_GET['manufacturers_id']) ? (int)$_GET['manufacturers_id'] : FALSE;
-$pfrom = $_GET['pfrom'] = isset($_GET['pfrom']) && !empty($_GET['pfrom']) ? stripslashes($_GET['pfrom']) : FALSE;
-$pto = $_GET['pto'] = isset($_GET['pto']) && !empty($_GET['pto']) ? stripslashes($_GET['pto']) : FALSE;
-$dfrom = $_GET['dfrom'] = isset($_GET['dfrom']) && !empty($_GET['dfrom']) ? stripslashes($_GET['dfrom']) : FALSE;
+$get_parameters = '&inc_subcat=' . $inc_subcat;
+
+$manufacturers_id  = isset($_GET['manufacturers_id']) && is_numeric($_GET['manufacturers_id']) ? (int)$_GET['manufacturers_id'] : FALSE;
+$get_parameters = '&manufacturers_id=' . $manufacturers_id;
+
+$pfrom = isset($_GET['pfrom']) && !empty($_GET['pfrom']) ? stripslashes($_GET['pfrom']) : FALSE;
+$get_parameters = '&pfrom=' . $pfrom;
+
+$pto = isset($_GET['pto']) && !empty($_GET['pto']) ? stripslashes($_GET['pto']) : FALSE;
+$get_parameters = '&pto=' . $pto;
+
+$dfrom = isset($_GET['dfrom']) && !empty($_GET['dfrom']) ? stripslashes($_GET['dfrom']) : FALSE;
+$get_parameters = '&dfrom=' . $dfrom;
+
 $dto = $_GET['dto'] = isset($_GET['dto']) && !empty($_GET['dto']) ? stripslashes($_GET['dto']) : FALSE;
+$get_parameters = '&dto=' . $dto;
+
 
 
 $errorno = 0;
 
 
-$dfrom_to_check = (($_GET['dfrom'] == DOB_FORMAT_STRING) ? '' : $_GET['dfrom']);
-$dto_to_check = (($_GET['dto'] == DOB_FORMAT_STRING) ? '' : $_GET['dto']);
+$dfrom_to_check = (($dfrom == DOB_FORMAT_STRING) ? '' : $dfrom);
+$dto_to_check = (($dto == DOB_FORMAT_STRING) ? '' : $dto);
 
 if (strlen($dfrom_to_check) > 0) {
 	if (!oos_checkdate($dfrom_to_check, DOB_FORMAT_STRING, $dfrom_array)) {
@@ -59,50 +78,41 @@ if (strlen($dfrom_to_check) > 0 && !(($errorno & 10) == 10) && strlen($dto_to_ch
 	}
 }
 
-if (strlen($_GET['pfrom']) > 0) {
-	$pfrom_to_check = oos_var_prep_for_os($_GET['pfrom']);
+if (strlen($pfrom) > 0) {
+	$pfrom_to_check = oos_var_prep_for_os($pfrom);
 	if (!settype($pfrom_to_check, "double")) {
 		$errorno += 10000;
 	}
 }
 
-if (strlen($_GET['pto']) > 0) {
-	$pto_to_check = oos_var_prep_for_os($_GET['pto']);
+if (strlen($pto) > 0) {
+	$pto_to_check = oos_var_prep_for_os($pto);
 	if (!settype($pto_to_check, "double")) {
 		$errorno += 100000;
 	}
 }
 
-if (strlen($_GET['pfrom']) > 0 && !(($errorno & 10000) == 10000) && strlen($_GET['pto']) > 0 && !(($errorno & 100000) == 100000)) {
+if (strlen($pfrom) > 0 && !(($errorno & 10000) == 10000) && strlen($pto) > 0 && !(($errorno & 100000) == 100000)) {
 	if ($pfrom_to_check > $pto_to_check) {
 		$errorno += 1000000;
 	}
 }
 
-if (strlen($_GET['keywords']) > 0) {
-	if (!oos_parse_search_string(stripslashes($_GET['keywords']), $search_keywords)) {
-		$errorno += 10000000;
-	}
-}
 
 if (oos_is_not_null($keywords)) {
 	if (!oos_parse_search_string($keywords, $search_keywords)) {
 		$errorno += 10000000;
 	}
 }  
-  
-  
- 
+
   
 if ($errorno > 0) {
-	oos_redirect(oos_href_link($aContents['advanced_search'], 'errorno=' . $errorno . '&' . oos_get_all_get_parameters()));
+	oos_redirect(oos_href_link($aContents['advanced_search'], 'errorno=' . $errorno . $get_parameters));
 } 
 
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title1'], oos_href_link($aContents['advanced_search']));
 $oBreadcrumb->add($aLang['navbar_title2']);
-
-#$oBreadcrumb->add($aLang['navbar_title2'], oos_href_link($aContents['advanced_search_result'], 'keywords=' . $_GET['keywords'] . '&search_in_description=' . $_GET['search_in_description'] . '&categories_id=' . $_GET['categories_id'] . '&inc_subcat=' . $_GET['inc_subcat'] . '&manufacturers_id=' . $_GET['manufacturers_id'] . '&pfrom=' . $_GET['pfrom'] . '&pto=' . $_GET['pto'] . '&dfrom=' . $_GET['dfrom'] . '&dto=' . $_GET['dto']));
 
 // create column list
 $define_list = array('PRODUCT_LIST_MODEL' => '1',

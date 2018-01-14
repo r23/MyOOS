@@ -39,65 +39,38 @@ function oos_get_manufacturers() {
   
 require 'includes/languages/' . $sLanguage . '/search_advanced.php';
 
-$info_message = '';
-  if (isset($_GET['errorno'])) {
-    if (($_GET['errorno'] & 1) == 1) {
-      $info_message = str_replace('\n', '<br />', $aLang['js_at_least_one_input']);
-    }
+$error = '';
+if (isset($_GET['errorno'])) {
+	if (($_GET['errorno'] & 1) == 1) {
+		$error .= str_replace('\n', '<br />', $aLang['js_at_least_one_input']);
+	}
     if (($_GET['errorno'] & 10) == 10) {
-      $info_message = str_replace('\n', '<br />', $aLang['js_invalid_from_date']);
+		$error .= str_replace('\n', '<br />', $aLang['js_invalid_from_date']);
     }
     if (($_GET['errorno'] & 100) == 100) {
-      $info_message = str_replace('\n', '<br />', $aLang['js_invalid_to_date']);
+		$error .= str_replace('\n', '<br />', $aLang['js_invalid_to_date']);
     }
     if (($_GET['errorno'] & 1000) == 1000) {
-      $info_message = str_replace('\n', '<br />', $aLang['js_to_date_less_than_from_date']);
+		$error .= str_replace('\n', '<br />', $aLang['js_to_date_less_than_from_date']);
     }
     if (($_GET['errorno'] & 10000) == 10000) {
-      $info_message = str_replace('\n', '<br />', $aLang['js_price_from_must_be_num']);
+		$error .= str_replace('\n', '<br />', $aLang['js_price_from_must_be_num']);
     }
     if (($_GET['errorno'] & 100000) == 100000) {
-      $info_message = str_replace('\n', '<br />', $aLang['js_price_to_must_be_num']);
+		$error .= str_replace('\n', '<br />', $aLang['js_price_to_must_be_num']);
     }
     if (($_GET['errorno'] & 1000000) == 1000000) {
-      $info_message = str_replace('\n', '<br />', $aLang['js_price_to_less_than_price_from']);
+		$error .= str_replace('\n', '<br />', $aLang['js_price_to_less_than_price_from']);
     }
     if (($_GET['errorno'] & 10000000) == 10000000) {
-      $info_message = str_replace('\n', '<br />', $aLang['js_invalid_keywords']);
+		$error .= str_replace('\n', '<br />', $aLang['js_invalid_keywords']);
     }
-  }
-  $options_box = '<table border="0" width="100%" cellspacing="0" cellpadding="2">' . "\n" .
-                 '  <tr>' . "\n" .
-                 '    <td class="fieldKey">' . $aLang['entry_categories'] . '</td>' . "\n" .
-                 '    <td class="fieldValue">' . oos_draw_pull_down_menu('categories_id', oos_get_categories(array(array('id' => '', 'text' => $aLang['text_all_categories'])))) . '<br /></td>' . "\n" .
-                 '  </tr>' . "\n" .
-                 '  <tr>' . "\n" .
-                 '    <td class="fieldKey">&nbsp;</td>' . "\n" .
-                 '    <td class="smallText">' . oos_draw_checkbox_field('inc_subcat', '1', true) . ' ' . $aLang['entry_include_subcategories'] . '</td>' . "\n" .
-                 '  </tr>' . "\n" .
-                 '  <tr>' . "\n" .
-                 '    <td colspan="2"></td>' . "\n" .
-                 '  </tr>' . "\n" .
-                 '  <tr>' . "\n" .
-                 '    <td class="fieldKey">' . $aLang['entry_manufacturers'] . '</td>' . "\n" .
-                 '    <td class="fieldValue">' . oos_draw_pull_down_menu('manufacturers_id', oos_get_manufacturers(array(array('id' => '', 'text' => $aLang['text_all_manufacturers'])))) . '</td>' . "\n" .
-                 '  </tr>' . "\n" .
-                 '  <tr>' . "\n" .
-                 '    <td colspan="2"></td>' . "\n" .
-                 '  </tr>' . "\n";
-  if ($aUser['show_price'] == 1 ) {
-    $options_box .= '  <tr>' . "\n" .
-                    '    <td class="fieldKey">' . $aLang['entry_price_from'] . '</td>' . "\n" .
-                    '    <td class="fieldValue">' . oos_draw_input_field('pfrom') . '</td>' . "\n" .
-                    '  </tr>' . "\n" .
-                    '  <tr>' . "\n" .
-                    '    <td class="fieldKey">' . $aLang['entry_price_to'] . '</td>' . "\n" .
-                    '    <td class="fieldValue">' . oos_draw_input_field('pto') . '</td>' . "\n" .
-                    '  </tr>' . "\n" .
-                    '  <tr>' . "\n" .
-                    '    <td colspan="2"></td>' . "\n" .
-                    '  </tr>' . "\n";
-  }
+}
+
+$aCategoriesID = oos_get_categories(array(array('id' => '', 'text' => $aLang['text_all_categories'])));
+$aManufacturersID = oos_get_manufacturers(array(array('id' => '', 'text' => $aLang['text_all_manufacturers'])));
+
+
 /*
   $options_box .= '  <tr>' . "\n" .
                   '    <td class="fieldKey">' . $aLang['entry_date_from'] . '</td>' . "\n" .
@@ -108,10 +81,10 @@ $info_message = '';
                   '    <td class="fieldValue">' . oos_draw_input_field('dto', DOB_FORMAT_STRING, 'onFocus="RemoveFormatString(this, \'' . DOB_FORMAT_STRING . '\')"') . '</td>' . "\n" .
                   '  </tr>' . "\n";
 */
-  $options_box .= '</table>';
+
 
 // links breadcrumb
-$oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['advanced_search']));
+$oBreadcrumb->add($aLang['navbar_title']);
 $sCanonical = oos_href_link($aContents['advanced_search'], '', FALSE, TRUE);
   
   
@@ -129,12 +102,13 @@ if (!isset($option)) {
 // assign Smarty variables;
 $smarty->assign(
       array(
-		'breadcrumb'    => $oBreadcrumb->trail(),
-		'heading_title' => $aLang['heading_title'],
-		'canonical'		=> $sCanonical,
+		'breadcrumb'    	=> $oBreadcrumb->trail(),
+		'heading_title'	 	=> $aLang['heading_title'],
+		'canonical'			=> $sCanonical,
 		
-		'info_message'      => $info_message,
-		'options_box'       => $options_box
+		'error'				=> $error,
+		'categoriesID'		=> $aCategoriesID,
+		'manufacturersID' 	=> $aManufacturersID
 	)
 ); 
 
