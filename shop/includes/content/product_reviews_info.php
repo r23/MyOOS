@@ -82,7 +82,6 @@ $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['product_revi
            'breadcrumb'    => $oBreadcrumb->trail(),
            'heading_title' => sprintf($aLang['heading_title'], $reviews['products_name']),
 
-           'popup_window' => 'popup_window.js',
            'reviews' => $reviews
        )
   );

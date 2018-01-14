@@ -97,7 +97,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/accoun
                             AND pd.products_languages_id = '" .  intval($nLanguageID) . "'";
 
     $order_history_split = new splitPageResults($order_history_raw, MAX_DISPLAY_PRODUCTS_NEW);
-    $order_history_result = $dbconn->Execute($products_new_split->sql_query);
+    $order_history_result = $dbconn->Execute($order_history_split->sql_query);
 
     $order_history_array = array();
     while ($order_history = $order_history_result->fields) {

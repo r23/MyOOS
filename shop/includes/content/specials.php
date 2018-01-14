@@ -66,8 +66,8 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
                              AND s.status = '1'
                            ORDER BY s.specials_date_added DESC";
 	$specials_split = new splitPageResults($specials_result_raw, MAX_DISPLAY_SPECIAL_PRODUCTS);
-	$specials_result = $dbconn->Execute($products_new_split->sql_query);
-
+	$specials_result = $dbconn->Execute($specials_split->sql_query);
+	
 	$aSpecials = array();
 	while ($specials = $specials_result->fields) {
 		$specials_base_product_price = '';

@@ -56,7 +56,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/accoun
                            AND ot.class = 'ot_total'
                          ORDER BY orders_id DESC";
   $history_split = new splitPageResults($history_result_raw, MAX_DISPLAY_ORDER_HISTORY);
-  $history_result = $dbconn->Execute($products_new_split->sql_query);
+  $history_result = $dbconn->Execute($history_split->sql_query);
 
   $aHistory = array();
   if ($history_result->RecordCount()) {
