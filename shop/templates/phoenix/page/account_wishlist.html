@@ -35,8 +35,7 @@
 						{if $wishlist}				
 							<form name="cart_quantity" action="{html_get_link}" method="POST" role="form">
 								<input type="hidden" name="action" value="wishlist_add_product">
-								<input type="hidden" name="content" value="{$page_file}">	
-	
+								<input type="hidden" name="content" value="{$page_file}">
 							{if $mySystem.sed}
 								<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
 								<input type="hidden" name="formid" value="{$mySystem.formid}">
@@ -131,7 +130,7 @@
 					
 						{/if}
 
-						<span class="pangv .margin-top-30">{$pangv}</span>
+						<span class="pangv m-mt-30">{$pangv}</span>
 						<hr />
 						<!-- pagination -->
 						<div class="text-center">
