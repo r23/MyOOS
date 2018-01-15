@@ -29,116 +29,112 @@
 			<div class="col-md-12">
 				<div class="innerWrapper">
 
+				<p>{$lang.text_product_notifications_introduction}</p>
+				
+		{if $global_status.global_product_notifications eq '1' }
+				<h2>{$lang.heading_global_product_notifications}</h2>
+		  
+				<p>{$lang.text_global_product_notifications_enabled}</p>
+		  
+				<p>{$lang.text_global_product_notifications_description_enabled}</p>
 
-    <table border="0" width="100%" cellspacing="0" cellpadding="0">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td class="main">{$lang.text_product_notifications_introduction}</td>
-          </tr>
-          <tr>
-            <td height="10"></td>
-          </tr>
-{if $global_status.global_product_notifications eq '1' }
-          <tr>
-            <td class="main"><strong>{$lang.heading_global_product_notifications}</strong></td>
-          </tr>
-          <tr>
-            <td height="10"></td>
-          </tr>
-          <tr>
-            <td class="main">{$lang.text_global_product_notifications_enabled}</td>
-          </tr>
-          <tr>
-            <td height="10"></td>
-          </tr>
-          <tr>
-            <td class="main">{$lang.text_global_product_notifications_description_enabled}</td>
-          </tr>
-          <tr>
-            <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="100%" height="20"></td>
-          </tr>
-          <form name="global" action="{html_href_link content=$filename.product_notifications action=global_notify}" method="POST" role="form">
-          <tr>
-            <td class="main"><input type="checkbox" name="global" value="enable" checked="checked">{$lang.text_enable_global_notifications}</td>
-          </tr>
-          <tr>
-            <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="100%" height="20"></td>
-          </tr>
-          <tr>
-            <td class="main"><button class="btn btn-success-filled" type="submit">{$lang.button_update}</button></td>
-          </tr>
-          </form>
-{else}
-          <tr>
-            <td class="main"><strong>{$lang.heading_global_product_notifications}</strong></td>
-          </tr>
-          <tr>
-            <td height="10"></td>
-          </tr>
-          <tr>
-            <td class="main">{$lang.text_global_product_notifications_disabled}</td>
-          </tr>
-          <tr>
-            <td height="10"></td>
-          </tr>
-          <tr>
-            <td class="main">{$lang.text_global_product_notifications_description_disabled}</td>
-          </tr>
-          <tr>
-            <td height="10"></td>
-          </tr>
-          <form name="global" action="{html_href_link content=$filename.product_notifications action=global_notify}" method="POST" role="form">
-          <tr>
-            <td class="main"><input type="checkbox" name="global" value="enable">{$lang.text_enable_global_notifications}</td>
-          </tr>
-          <tr>
-            <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="100%" height="20"></td>
-          </tr>
-          <tr>
-            <td class="main"><button class="btn btn-success-filled" type="submit">{$lang.button_update}</button></td>
-          </tr>
-          </form>
-          <tr>
-            <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="100%" height="20"></td>
-          </tr>
-          <tr>
-            <td class="main"><strong>{$lang.heading_product_notifications}</strong></td>
-          </tr>
-          <tr>
-            <td height="10"></td>
-          </tr>
-          <tr>
-            <td class="main">{$lang.text_product_notifications_list}</td>
-          </tr>
-          <tr>
-            <td height="10"></td>
-          </tr>
-          <form name="notifications" action="{html_href_link content=$filename.product_notifications action=update_notifications}" method="POST" role="form">
-{if $mySystem.sed}
-    <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
-	<input type="hidden" name="formid" value="{$mySystem.formid}">
-{/if}
+				<form name="global" action="{html_get_link}" method="POST" role="form">
+					<fieldset>
+						<input type="hidden" name="action" value="global_notify">
+						<input type="hidden" name="content" value="{$filename.product_notifications}">
+						{if $mySystem.sed}
+						<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+						<input type="hidden" name="formid" value="{$mySystem.formid}">
+						{/if}
+		  
+						<div class="row">
+							<div class="col-md-12">								
+								<div class="form-check ">
+								<input id="checkbox" class="form-check-input" name="global" value="enable" type="checkbox">
+								<label for="checkbox" class="form-check-label ">{$lang.text_enable_global_notifications}</label>
+								</div>
+							</div>
+						</div>		  
+		  
+					</fieldset>					
+					
+					<div class="row">
+						<div class="col-md-12">
+							<button type="submit" class="btn btn-primary m-mb-50"><i class="fa fa-check" aria-hidden="true"></i> {$lang.button_update}</button>
+						</div>
+					</div>
+				</form>			
+		{else}
+				<h2>{$lang.heading_global_product_notifications}</h2>
+				
+				<p>{$lang.text_global_product_notifications_disabled}</p>
+			
+				<p>{$lang.text_global_product_notifications_description_disabled}</p>
+	  
+				<form name="global" action="{html_get_link}" method="POST" role="form">
+					<fieldset>
+						<input type="hidden" name="action" value="global_notify">
+						<input type="hidden" name="content" value="{$filename.product_notifications}">
+						{if $mySystem.sed}
+						<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+						<input type="hidden" name="formid" value="{$mySystem.formid}">
+						{/if}		  
 
-{section name=i loop=$products_array}
-      <tr>
-       <td class="main"><input type="checkbox" name="products[]" value="{$products_array[i].products_id}">&nbsp;{$products_array[i].products_name}</td>
-       </tr>
-{/section}
-          <tr>
-            <td height="10"></td>
-          </tr>
-          <tr>
-            <td class="main"><button class="btn btn-success-filled" type="submit">{$lang.button_remove_notifications}</button></td>
-          </tr>
-          </form>
-{/if}
-        </table></td>
-      </tr>
-    </table>
+						<div class="row">
+							<div class="col-md-12">								
+								<div class="form-check ">
+									<input id="checkbox" class="form-check-input" name="global" value="enable" type="checkbox">
+									<label for="checkbox" class="form-check-label ">{$lang.text_enable_global_notifications}</label>
+								</div>
+							</div>
+						</div>
 
+					</fieldset>					
+					
+					<div class="row">
+						<div class="col-md-12">
+							<button type="submit" class="btn btn-primary m-mb-50"><i class="fa fa-check" aria-hidden="true"></i> {$lang.button_update}</button>
+						</div>
+					</div>
+				</form>
+					
 
+				{if	$products_array}
+					<h2>{$lang.heading_product_notifications}</h2>
+					<p>{$lang.text_product_notifications_list}</p>
+					<form name="notifications" action="{html_get_link}" method="POST" role="form">
+						<fieldset>
+							<input type="hidden" name="action" value="update_notifications">
+							<input type="hidden" name="content" value="{$filename.product_notifications}">
+							{if $mySystem.sed}
+							<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+							<input type="hidden" name="formid" value="{$mySystem.formid}">
+							{/if}			  
+		  
 
+						{section name=i loop=$products_array}
+							<div class="row">
+								<div class="col-md-12">								
+									<div class="form-check ">
+										<input id="checkbox" class="form-check-input" name="products[]" value="{$products_array[i].products_id}" type="checkbox">
+										<label for="checkbox" class="form-check-label ">{$products_array[i].products_name}</label>
+									</div>
+								</div>
+							</div>				
+
+							{if $smarty.section.i.last}
+							<div class="row">
+								<div class="col-md-12">
+									<button type="submit" class="btn btn-primary m-mb-50"><i class="fa fa-remove" aria-hidden="true"></i> {$lang.button_remove_notifications}</button>
+								</div>
+							</div>
+							{/if}
+						{/section}
+					</form>
+				{/if}
+			{/if}			
+		
+				
 				</div>
 			</div>
 		</div>

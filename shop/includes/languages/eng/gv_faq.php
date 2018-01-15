@@ -62,7 +62,7 @@ $aLang['text_information'] = '
   you the Gift Voucher, along with possibly a short message from them. The Email
   will also contain the Gift Voucher Number. It is probably a good idea to print
   out this email for future reference. You can now redeem the Gift Voucher in
-  two ways.<br />
+  two ways.</p>
 <ol>
 <li>
   By clicking on the link containe within the email for this express purpose.
@@ -76,11 +76,9 @@ validated and added to your Gift Voucher account. You Can then use the amount to
 </li>
 </ol>
 
-</p>
-<br />
 <h4>When problems occur.</h4>
   <p>For any queries regarding the Gift Voucher System, please contact the store
   by email at '. STORE_OWNER_EMAIL_ADDRESS . '. Please make sure you give
-  as much information as possible in the email. ';
+  as much information as possible in the email.</p> ';
 
 

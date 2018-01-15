@@ -40,7 +40,9 @@ if (!isset($_SESSION['customer_id'])) {
 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_product_notifications.php';
 
-if (isset($_GET['action']) && ($_GET['action'] == 'update_notifications')) {
+if ( isset($_POST['action']) && ($_POST['action'] == 'update_notifications') && 
+	( isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) ){	
+	
     (array)$products = $_POST['products'];
     $aRemove = array();
     for ($i=0, $n=count($products); $i<$n; $i++) {
@@ -58,7 +60,9 @@ if (isset($_GET['action']) && ($_GET['action'] == 'update_notifications')) {
 
 	oos_redirect(oos_href_link($aContents['product_notifications']));
 
-} elseif (isset($_GET['action']) && ($_GET['action'] == 'global_notify')) {
+} elseif ( isset($_POST['action']) && ($_POST['action'] == 'global_notify') && 
+	( isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) ){		
+
 	if (isset($_POST['global']) && ($_POST['global'] == 'enable')) {
 		$customers_infotable = $oostable['customers_info'];
 		$dbconn->Execute("UPDATE $customers_infotable
