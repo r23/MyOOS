@@ -29,29 +29,28 @@ $keywords = isset($_GET['keywords']) && !empty($_GET['keywords']) ? stripslashes
 $get_parameters .= '&keywords=' . $keywords;
 
 $search_in_description = isset($_GET['search_in_description']) && is_numeric($_GET['search_in_description']) ? (int)$_GET['search_in_description'] : 0;
-$get_parameters = '&search_in_description=' . $search_in_description;
+$get_parameters .= '&search_in_description=' . $search_in_description;
 
 $categories_id = isset($_GET['categories_id']) && is_numeric($_GET['categories_id']) ? (int)$_GET['categories_id'] : FALSE;
-$get_parameters = '&categories_id=' . $categories_id;
+$get_parameters .= '&categories_id=' . $categories_id;
 
 $inc_subcat = isset($_GET['inc_subcat']) && is_numeric($_GET['inc_subcat']) ? (int)$_GET['inc_subcat'] : 0;
-$get_parameters = '&inc_subcat=' . $inc_subcat;
+$get_parameters .= '&inc_subcat=' . $inc_subcat;
 
 $manufacturers_id  = isset($_GET['manufacturers_id']) && is_numeric($_GET['manufacturers_id']) ? (int)$_GET['manufacturers_id'] : FALSE;
-$get_parameters = '&manufacturers_id=' . $manufacturers_id;
+$get_parameters .= '&manufacturers_id=' . $manufacturers_id;
 
 $pfrom = isset($_GET['pfrom']) && !empty($_GET['pfrom']) ? stripslashes($_GET['pfrom']) : FALSE;
-$get_parameters = '&pfrom=' . $pfrom;
+$get_parameters .= '&pfrom=' . $pfrom;
 
 $pto = isset($_GET['pto']) && !empty($_GET['pto']) ? stripslashes($_GET['pto']) : FALSE;
-$get_parameters = '&pto=' . $pto;
+$get_parameters .= '&pto=' . $pto;
 
 $dfrom = isset($_GET['dfrom']) && !empty($_GET['dfrom']) ? stripslashes($_GET['dfrom']) : FALSE;
-$get_parameters = '&dfrom=' . $dfrom;
+$get_parameters .= '&dfrom=' . $dfrom;
 
-$dto = $_GET['dto'] = isset($_GET['dto']) && !empty($_GET['dto']) ? stripslashes($_GET['dto']) : FALSE;
-$get_parameters = '&dto=' . $dto;
-
+$dto = isset($_GET['dto']) && !empty($_GET['dto']) ? stripslashes($_GET['dto']) : FALSE;
+$get_parameters .= '&dto=' . $dto;
 
 
 $errorno = 0;
@@ -184,7 +183,7 @@ $select_str = "SELECT DISTINCT " . $select_column_list . " m.manufacturers_id, p
                           IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price,
                           IF(s.status, s.specials_new_products_price, p.products_price) AS final_price ";
 
-if ( ($aUser['price_with_tax'] == 1) && ( (isset($_GET['pfrom']) && oos_is_not_null($_GET['pfrom'])) || (isset($_GET['pto']) && oos_is_not_null($_GET['pto']))) ) {
+if ( ($aUser['price_with_tax'] == 1) && ( (isset($_GET['pfrom']) && oos_is_not_null($_GET['pfrom'])) || (isset($pto) && oos_is_not_null($pto))) ) {
 		$select_str .= ", SUM(tr.tax_rate) AS tax_rate ";
 }
 
@@ -192,7 +191,7 @@ $from_str = "FROM " . $oostable['products'] . " p LEFT JOIN
                       " . $oostable['manufacturers'] . " m using(manufacturers_id) LEFT JOIN
                       " . $oostable['specials'] . " s ON p.products_id = s.products_id";
 
-if ( ($aUser['price_with_tax'] == 1) && ( (isset($_GET['pfrom']) && oos_is_not_null($_GET['pfrom'])) || (isset($_GET['pto']) && oos_is_not_null($_GET['pto']))) ) {
+if ( ($aUser['price_with_tax'] == 1) && ( (isset($_GET['pfrom']) && oos_is_not_null($_GET['pfrom'])) || (isset($pto) && oos_is_not_null($pto))) ) {
 	
 $nCountry_id = STORE_COUNTRY;
 $nZone_id = STORE_ZONE;
@@ -226,14 +225,14 @@ $where_str = " WHERE
                       p.products_id = p2c.products_id AND
                       p2c.categories_id = c.categories_id ";
 
-if (isset($_GET['categories_id']) && oos_is_not_null($_GET['categories_id'])) {
+if (isset($categories_id) && is_numeric($categories_id)) {
 	if ($_GET['inc_subcat'] == '1') {
         $subcategories_array = array();
-        oos_get_subcategories($subcategories_array, $_GET['categories_id']);
+        oos_get_subcategories($subcategories_array, $categories_id);
         $where_str .= " AND
                            p2c.products_id = p.products_id AND
                            p2c.products_id = pd.products_id AND
-                           (p2c.categories_id = '" . intval($_GET['categories_id']) . "'";
+                           (p2c.categories_id = '" . intval($categories_id) . "'";
         for ($i=0, $n=count($subcategories_array); $i<$n; $i++ ) {
           $where_str .= " OR p2c.categories_id = '" . intval($subcategories_array[$i]) . "'";
         }
@@ -243,12 +242,11 @@ if (isset($_GET['categories_id']) && oos_is_not_null($_GET['categories_id'])) {
                            p2c.products_id = p.products_id AND
                            p2c.products_id = pd.products_id AND
                            pd.products_languages_id = '" .  intval($nLanguageID) . "' AND
-                           p2c.categories_id = '" . intval($_GET['categories_id']) . "'";
+                           p2c.categories_id = '" . intval($categories_id) . "'";
 	}
 }
 
-if (isset($_GET['manufacturers_id']) && oos_is_not_null($_GET['manufacturers_id'])) {
-      $manufacturers_id = intval($_GET['manufacturers_id']);
+if (isset($manufacturers_id) && is_numeric($manufacturers_id)) {
       $where_str .= " AND m.manufacturers_id = '" . intval($manufacturers_id) . "'";
 }
 
@@ -279,11 +277,11 @@ if (isset($search_keywords) && (count($search_keywords) > 0)) {
 		$where_str .= " )";
 }
 
-if (isset($_GET['dfrom']) && oos_is_not_null($_GET['dfrom']) && ($_GET['dfrom'] != DOB_FORMAT_STRING)) {
+if (isset($dfrom) && oos_is_not_null($dfrom) && ($dfrom != DOB_FORMAT_STRING)) {
   $where_str .= " AND p.products_date_added >= '" . oos_date_raw($dfrom_to_check) . "'";
 }
 
-if (isset($_GET['dto']) && oos_is_not_null($_GET['dto']) && ($_GET['dto'] != DOB_FORMAT_STRING)) {
+if (isset($dto) && oos_is_not_null($dto) && ($dto != DOB_FORMAT_STRING)) {
   $where_str .= " AND p.products_date_added <= '" . oos_date_raw($dto_to_check) . "'";
 }
 

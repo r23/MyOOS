@@ -25,6 +25,9 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
+// start the session
+if ( $session->hasStarted() === FALSE ) $session->start();   
+
 if (!isset($_SESSION['customer_id'])) {
 	// navigation history
 	if (!isset($_SESSION['navigation'])) {
@@ -34,36 +37,43 @@ if (!isset($_SESSION['customer_id'])) {
     oos_redirect(oos_href_link($aContents['login']));
 }
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/gv_redeem.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/gv_redeem.php';
 
-  $bError = TRUE;
+$bError = TRUE;
 // check for a voucher number in the url
-  if ( (isset($_GET['gv_no']) && !empty($_GET['gv_no'])) ) {
-    $couponstable = $oostable['coupons'];
-    $coupon_email_tracktable = $oostable['coupon_email_track'];
+if ( (isset($_GET['gv_no']) && !empty($_GET['gv_no'])) ) {
+	
+    $gv_no = oos_prepare_input($_GET['gv_no']);
+	
+    if ( empty( $gv_no ) || !is_string( $gv_no ) ) {
+        oos_redirect(oos_href_link($aContents['403']));
+    }	
+
+	$couponstable = $oostable['coupons'];
+	$coupon_email_tracktable = $oostable['coupon_email_track'];
     $sql = "SELECT c.coupon_id, c.coupon_amount
             FROM $couponstable c,
                  $coupon_email_tracktable et
-            WHERE coupon_code = '" . oos_db_input($_GET['gv_no']) . "'
+            WHERE coupon_code = '" . oos_db_input($gv_no) . "'
               AND c.coupon_id = et.coupon_id";
-    $gv_result = $dbconn->Execute($sql);
+	$gv_result = $dbconn->Execute($sql);
+	
     if ($gv_result->RecordCount() >0) {
-      $coupon = $gv_result->fields;
-      $coupon_redeem_tracktable = $oostable['coupon_redeem_track'];
-      $sql = "SELECT coupon_id
+		$coupon = $gv_result->fields;
+		$coupon_redeem_tracktable = $oostable['coupon_redeem_track'];
+		$sql = "SELECT coupon_id
               FROM $coupon_redeem_tracktable
               WHERE coupon_id = '" . oos_db_input($coupon['coupon_id']) . "'";
-      $redeem_result = $dbconn->Execute($sql);
-      if ($redeem_result->RecordCount() == 0 ) {
-        // check for require_onced session variables
-        $_SESSION['gv_id'] = $coupon['coupon_id'];
-        $bError = FALSE;
-      }
-    }
-  } else {
-    oos_redirect(oos_href_link($aContents['home']));
-  }
-  if ( (!$bError) && (isset($_SESSION['customer_id'])) ) {
+		$redeem_result = $dbconn->Execute($sql);
+		if ($redeem_result->RecordCount() == 0 ) {
+			$bError = FALSE;
+		}
+	}
+} else {
+	oos_redirect(oos_href_link($aContents['home']));
+}
+
+if ( (!$bError) && (isset($_SESSION['customer_id'])) ) {
 // Update redeem status
     $remote_addr = oos_server_get_remote();
     $coupon_redeem_tracktable = $oostable['coupon_redeem_track'];
@@ -79,41 +89,41 @@ if (!isset($_SESSION['customer_id'])) {
     $gv_update = $dbconn->Execute("UPDATE $couponstable
                                SET coupon_active = 'N' 
                                WHERE coupon_id = '" . $coupon['coupon_id'] . "'");
-    oos_gv_account_update($_SESSION['customer_id'], $_SESSION['gv_id']);
-    unset($_SESSION['gv_id']);
-  }
+    oos_gv_account_update($_SESSION['customer_id'], $coupon['coupon_id']);
+}
 
-  // links breadcrumb
-  $oBreadcrumb->add($aLang['navbar_title']);
 
-  // if we get here then either the url gv_no was not set or it was invalid
-  // so output a message.
-  $sMessage = sprintf($aLang['text_valid_gv'], $oCurrencies->format($coupon['coupon_amount']));
-  if ($bError) {
-    $sMessage = $aLang['text_invalid_gv'];
-  }
+// links breadcrumb
+$oBreadcrumb->add($aLang['navbar_title']);
 
-  $aTemplate['page'] = $sTheme . '/page/redeem.html';
+// if we get here then either the url gv_no was not set or it was invalid
+// so output a message.
+$sMessage = sprintf($aLang['text_valid_gv'], $oCurrencies->format($coupon['coupon_amount']));
+if ($bError) {
+	$sMessage = $aLang['text_invalid_gv'];
+}
 
-  $nPageType = OOS_PAGE_TYPE_MAINPAGE;
-  $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
+$aTemplate['page'] = $sTheme . '/page/redeem.html';
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
-  if (!isset($option)) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
-  }
+$nPageType = OOS_PAGE_TYPE_MAINPAGE;
+$sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
-  // assign Smarty variables;
-  $smarty->assign(
+require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
+if (!isset($option)) {
+	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+	require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+}
+
+// assign Smarty variables;
+$smarty->assign(
       array(
-          'breadcrumb'    => $oBreadcrumb->trail(),
-          'heading_title' => $aLang['heading_title'],
-		  'robots'		=> 'noindex,nofollow,noodp,noydir',
+          'breadcrumb'		=> $oBreadcrumb->trail(),
+          'heading_title'	=> $aLang['heading_title'],
+		  'robots'			=> 'noindex,nofollow,noodp,noydir',
 
-          'message'           => $sMessage
+          'message'			=> $sMessage
       )
-  );
+);
 
 
 $smarty->display($aTemplate['page']);
