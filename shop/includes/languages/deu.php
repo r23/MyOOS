@@ -371,7 +371,7 @@ $aLang['text_ccval_error_invalid_number'] = 'Die \'KreditkarteNummer\', die Sie 
 $aLang['text_ccval_error_unknown_card'] = 'Die ersten 4 Ziffern Ihrer Kreditkarte sind: %s<br>Wenn diese Angaben stimmen, wird dieser Kartentyp leider nicht akzeptiert.<br>Bitte korrigieren Sie Ihre Angaben gegebenfalls.';
 
 $aLang['voucher_balance'] = 'Gutschein - Guthaben';
-$aLang['gv_faq'] = 'Gutschein FAQ';
+$aLang['gv_faq'] = 'Gutscheine, Fragen und Antworten';
 $aLang['error_redeemed_amount'] = 'Prima: Der Einlösewert wurde Ihrem Kundenkonto gutgeschrieben! ';
 $aLang['error_no_redeem_code'] = 'Sie haben keinen Gutschein-Code eingegeben!';  
 $aLang['error_no_invalid_redeem_gv'] = 'Fehler: Sie haben keinen gültigen Gutschein-Code eingegeben!'; 

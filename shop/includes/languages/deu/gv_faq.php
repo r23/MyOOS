@@ -25,59 +25,60 @@ $aLang['navbar_title'] = 'Gutscheine, Fragen und Antworten';
 $aLang['heading_title'] = 'Gutscheine, Fragen und Antworten';
 
 $aLang['text_information'] = '
-<strong>Kauf von Gutscheinen</strong><br />
+<h3>Kauf von Gutscheinen</h3>
 <p>Gutscheine werden wie jedes andere Produkt in unserem Shop behandelt.
-  Sie können die Gutscheine mit jeder Zahlungsmethode, welche wir in unserem Shop anbieten, bezahlen.
+  Sie kÃ¶nnen die Gutscheine mit jeder Zahlungsmethode, welche wir in unserem Shop anbieten, bezahlen.
   Sobald die Zahlung erfolgt ist, sehen Sie den Wert des Gutscheins in Ihrem Gutscheinkonto unterhalb
   des Einkaufskorbes. Dort erscheint dann auch ein Link zu einer Seite, von der Sie die Gutscheine an
-  jemand anderen per E-Mail senden können.</p>
+  jemand anderen per E-Mail senden kÃ¶nnen.</p>
 
-<br /><br />
-
-<strong>Versenden von Gutscheinen</strong><br/>
-Um einen Gutschein zu versenden, müssen Sie auf die entsprechende Seite
+<h4>Versenden von Gutscheinen</h4>
+<p>Um einen Gutschein zu versenden, mÃ¼ssen Sie auf die entsprechende Seite
   wechseln. Sie finden den Link zu der entsprechenden Seite unter Ihrem Warenkorb in der rechten
   Spalte oben auf jeder Seite, sofern Sie ein Guthaben auf Ihrem Gutscheinkonto haben.
-  Wenn Sie einen Gutschein versenden wollen, müssen Sie den Namen der Person und die E-Mail-Adresse
-  angeben. Sie können auch den Wert, welchen Sie versenden wollen angeben. (Achtung! Sie müssen nicht
-  das komplette Guthaben als Gutschein versenden! So können Sie den Gutscheinbetrag auf beliebig viele
-  Personen aufteilen!) Sie können auch eine kurze Nachricht, welche der Mail beigefügt wird eingeben.
-  Bitte überprüfen Sie alle Eingaben sorgfältig. Sie haben vor dem endgültigen Versand des Gutscheins
-  die Möglichkeit beliebig viele Änderungen an Ihren Eingaben durchzuführen.</p>
-<br /><br />
+  Wenn Sie einen Gutschein versenden wollen, mÃ¼ssen Sie den Namen der Person und die E-Mail-Adresse
+  angeben. Sie kÃ¶nnen auch den Wert, welchen Sie versenden wollen angeben. (Achtung! Sie mÃ¼ssen nicht
+  das komplette Guthaben als Gutschein versenden! So kÃ¶nnen Sie den Gutscheinbetrag auf beliebig viele
+  Personen aufteilen!) Sie kÃ¶nnen auch eine kurze Nachricht, welche der Mail beigefÃ¼gt wird eingeben.
+  Bitte Ã¼berprÃ¼fen Sie alle Eingaben sorgfÃ¤ltig. Sie haben vor dem endgÃ¼ltigen Versand des Gutscheins
+  die MÃ¶glichkeit beliebig viele Ã„nderungen an Ihren Eingaben durchzufÃ¼hren.</p>
 
-<strong>Einkauf mit einem Gutschein</strong><br />
-  <p>Sofern ein Guthaben auf Ihrem Gutscheinkonto vorhanden ist, können Sie dieses
-    für den Kauf beliebiger Produkte aus unserem Shop nutzen. Beim Abschluß der Bestellung erscheint eine
-    zusätzliche Abfrage. Wenn Sie diese auswählen wird Ihr Gutschein für die Bestellung verwendet. Bitte
-    beachten Sie, dass dennoch eine Zahlungsmethode auswählen müssen, falls dort nicht genügend Guthaben
-    für Ihre Bestellung vorhanden ist. Sollte das Guthaben höher als Ihre Bestellung ausfallen, bleibt
-    der Restbetrag für künftige Bestellungen in unserem Shop erhalten.</p>
 
-<br /><br />
+<h4>Einkauf mit einem Gutschein</h4>
+  <p>Sofern ein Guthaben auf Ihrem Gutscheinkonto vorhanden ist, kÃ¶nnen Sie dieses
+    fÃ¼r den Kauf beliebiger Produkte aus unserem Shop nutzen. Beim AbschluÃŸ der Bestellung erscheint eine
+    zusÃ¤tzliche Abfrage. Wenn Sie diese auswÃ¤hlen wird Ihr Gutschein fÃ¼r die Bestellung verwendet. Bitte
+    beachten Sie, dass dennoch eine Zahlungsmethode auswÃ¤hlen mÃ¼ssen, falls dort nicht genÃ¼gend Guthaben
+    fÃ¼r Ihre Bestellung vorhanden ist. Sollte das Guthaben hÃ¶her als Ihre Bestellung ausfallen, bleibt
+    der Restbetrag fÃ¼r kÃ¼nftige Bestellungen in unserem Shop erhalten.</p>
 
-<strong>Einlösen von Gutscheinen</strong><br />
-  <p>Wenn Sie einen Gutschein per E-Mail empfangen, enthält die Mail einige
+
+
+<h4>EinlÃ¶sen von Gutscheinen</h4>
+  <p>Wenn Sie einen Gutschein per E-Mail empfangen, enthÃ¤lt die Mail einige
   Informationen. Sie erfahren wer Ihnen den Gutschein gesendet hat. Sofern der Absender eine kurze
-  Nachricht beigefügt hat, können Sie diese ebenfalls lesen. Die E-Mail enthält ebenfalls einen Gutscheincode.
-  Wir empfehlen Ihnen die Mail aus Sicherheitsgründen auszudrucken, oder sich zumindest den Gutscheincode
-  zu notieren. Sie können den Gutschein auf zwei Arten einlösen:<br />
-  1. Sie klicken auf den Link in der Mail. Sie gelangen daraufhin auf die Gutscheinseite in unserem Shop.
-     Dort können Sie sich - sofern Sie bereits bei uns Kunde sind - anmelden oder ein neues Kundenkonto
-     anlegen. Danach wird der Gutscheincode identifiziert und Ihrem persönlichen Gutscheinkonto gutgeschrieben.
-     Sie können dieses Guthaben für beliebige Einkäufe in unserem Shop nutzen.
-  2. Bei Abschluß der Bestellung erscheint auf der Seite, bei der Sie die gewünschte Zahlungsmethode wählen,
-     ein Feld in dem Sie den Gutscheincode eingeben können. Geben Sie den Code ein und klicken Sie auf
-     "Einlösen". Der Code wird identifiziert und Ihrem persönlichen Gutscheinkonto gutgeschrieben. Sie können
-     das Guthaben für beliebige Einkäufe in unserem Shop nutzen.</p>
-<br /><br />
+  Nachricht beigefÃ¼gt hat, kÃ¶nnen Sie diese ebenfalls lesen. Die E-Mail enthÃ¤lt ebenfalls einen Gutscheincode.
+  Wir empfehlen Ihnen die Mail aus SicherheitsgrÃ¼nden auszudrucken, oder sich zumindest den Gutscheincode
+  zu notieren. Sie kÃ¶nnen den Gutschein auf zwei Arten einlÃ¶sen:
+<ol>
+<li> Sie klicken auf den Link in der Mail. Sie gelangen daraufhin auf die Gutscheinseite in unserem Shop.
+     Dort kÃ¶nnen Sie sich - sofern Sie bereits bei uns Kunde sind - anmelden oder ein neues Kundenkonto
+     anlegen. Danach wird der Gutscheincode identifiziert und Ihrem persÃ¶nlichen Gutscheinkonto gutgeschrieben.
+     Sie kÃ¶nnen dieses Guthaben fÃ¼r beliebige EinkÃ¤ufe in unserem Shop nutzen.</li>
+<li> Bei AbschluÃŸ der Bestellung erscheint auf der Seite, bei der Sie die gewÃ¼nschte Zahlungsmethode wÃ¤hlen,
+     ein Feld in dem Sie den Gutscheincode eingeben kÃ¶nnen. Geben Sie den Code ein und klicken Sie auf
+     "EinlÃ¶sen". Der Code wird identifiziert und Ihrem persÃ¶nlichen Gutscheinkonto gutgeschrieben. Sie kÃ¶nnen
+     das Guthaben fÃ¼r beliebige EinkÃ¤ufe in unserem Shop nutzen.</li>
+</ol>	 
+	 </p>
 
-<strong>Bei Problemen</strong><br/>
-  <p> Sollten Probleme mit dem Gutscheinsystem auftreten, überprüfen Sie bitte alle
-  Ihre Eingaben sorgfältig! Falls Sie weiterhin Probleme mit unserem Gutscheinsystem haben, kontaktieren Sie
-  uns bitte per E-Mail über '. STORE_OWNER_EMAIL_ADDRESS . '. Bitte geben Sie uns dabei soviele Informationen wie
-  möglich mit an! Vielen Dank!</p>
 
-<br /><br />';
+<h4>Bei Problemen</h4>
+  <p> Sollten Probleme mit dem Gutscheinsystem auftreten, Ã¼berprÃ¼fen Sie bitte alle
+  Ihre Eingaben sorgfÃ¤ltig! Falls Sie weiterhin Probleme mit unserem Gutscheinsystem haben, kontaktieren Sie
+  uns bitte per E-Mail Ã¼ber '. STORE_OWNER_EMAIL_ADDRESS . '. Bitte geben Sie uns dabei soviele Informationen wie
+  mÃ¶glich mit an! Vielen Dank!</p>
+
+';
 
 
