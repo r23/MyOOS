@@ -70,6 +70,7 @@ if (!$product_info_result->RecordCount()) {
         array(
             'breadcrumb'    => $oBreadcrumb->trail(),
             'heading_title' => $aLang['text_product_not_found'],
+			'robots'		=> 'noindex,follow,noodp,noydir',
 			'canonical'		=> $sCanonical	
         )
     );
@@ -89,7 +90,7 @@ if (!$product_info_result->RecordCount()) {
     $sDescription = $product_info['products_description_meta'];
 
     $aTemplate['page'] = $sTheme . '/page/product_info.html';
-    $aTemplate['also_purchased_products'] = $sTheme . '/products/also_purchased_products.html';
+    $aTemplate['also_purchased_products'] = $sTheme . '/products/_also_purchased_products.html';
     $aTemplate['xsell_products'] = $sTheme . '/products/xsell_products.html';
     $aTemplate['up_sell_products'] = $sTheme . '/products/up_sell_products.html';
     $aTemplate['page_heading'] = $sTheme . '/products/product_heading.html';
@@ -215,13 +216,14 @@ if (!$product_info_result->RecordCount()) {
     $smarty->assign('up_sell_products', $smarty->fetch($aTemplate['up_sell_products'], $sProductsInfoCacheID));
 
     require_once MYOOS_INCLUDE_PATH . '/includes/modules/slavery_products.php';
-
-    if (!$smarty->isCached($aTemplate['also_purchased_products'], $sProductsInfoCacheID)) {
-      require_once MYOOS_INCLUDE_PATH . '/includes/modules/also_purchased_products.php';
-      $smarty->assign('oos_also_purchased_array', $aPurchased);
-    }
-    $smarty->assign('also_purchased_products', $smarty->fetch($aTemplate['also_purchased_products'], $sProductsInfoCacheID));
 */
+	// also purchased products
+	if (!$smarty->isCached($aTemplate['also_purchased_products'], $sProductsInfoCacheID)) {
+		require_once MYOOS_INCLUDE_PATH . '/includes/modules/also_purchased_products.php';
+		$smarty->assign('also_purchased', $aPurchased);
+	}
+	$smarty->assign('also_purchased_products', $smarty->fetch($aTemplate['also_purchased_products'], $sProductsInfoCacheID));
+
     $smarty->setCaching(false);
 }
 
