@@ -126,4 +126,3 @@ $smarty->assign(array('page_split' 		=> $listing_split->display_count($aLang['te
 						
 $smarty->assign('get_params', $all_get_listing);
 $smarty->assign('listing', $aListing);
-

@@ -27,7 +27,8 @@ $aLang['text_date_added'] = 'Dieses Produkt haben wir am %s in unseren Katalog a
 $aLang['text_date_available'] = '<font color="#ff0000">Dieses Produkt wird voraussichtlich ab %s wieder vorrätig sein.</font>';
 $aLang['text_also_purchased_products'] = 'Zusätzlich kauften Kunden auch ';
 $aLang['text_xsell_products'] = 'Ähnliche Produkte:';
-$aLang['text_up_sell_products'] = 'Zu diesem Artikel empfehlen wir::';
+$aLang['text_up_sell_products'] = 'Zu diesem Artikel empfehlen wir:';
+$aLang['text_optional_accessories'] = 'Optionales Zubehör';
 $aLang['text_product_options'] = 'Optionen:';
 $aLang['text_click_to_enlarge'] = 'Für eine grössere Darstellung<br />klicken Sie auf das Bild.';
 $aLang['text_close_window'] = 'Fenster schließen [x]';

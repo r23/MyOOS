@@ -163,10 +163,11 @@ foreach($aDefineList as $column => $value) {
     }
   }
 
-$aOption['slavery_products'] = $sTheme . '/products/slavery_product_listing.html';
+  
+$aOption['slavery_products'] = $sTheme . '/products/_slavery_product_listing.html';
 $aOption['slavery_page_navigation'] = $sTheme . '/system/_pagination.htm';
 
-include_once MYOOS_INCLUDE_PATH . '/includes/modules/slavery_listing.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/modules/product_listing.php';
 
 $smarty->assign('slavery_products', $smarty->fetch($aOption['slavery_products']));
 

@@ -95,6 +95,9 @@ if (!$product_info_result->RecordCount()) {
     $aTemplate['up_sell_products'] = $sTheme . '/products/up_sell_products.html';
     $aTemplate['page_heading'] = $sTheme . '/products/product_heading.html';
 
+	$aTemplate['slavery_products'] = $sTheme . '/products/_slavery_product_listing.html';
+	$aTemplate['slavery_page_navigation'] = $sTheme . '/system/_pagination.htm';	
+	
     $nPageType = OOS_PAGE_TYPE_PRODUCTS;
 
     require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
@@ -184,11 +187,19 @@ if (!$product_info_result->RecordCount()) {
 		}
 	}
 
+    // assign Smarty variables;
+    $smarty->assign(
+        array(
+			'breadcrumb' => $oBreadcrumb->trail(),
+			'canonical'		=> $sCanonical	
+			'discounts_price' =>  $discounts_price
+		)
+	);	
+	
+	
     require_once MYOOS_INCLUDE_PATH . '/includes/modules/products_options.php';
 
-    // assign Smarty variables;
-    $smarty->assign(array('breadcrumb' => $oBreadcrumb->trail(),
-                           'discounts_price' =>  $discounts_price));
+
 
     if (!isset($block_get_parameters)) {
       $block_get_parameters = oos_get_all_get_parameters(array('action'));
@@ -214,9 +225,15 @@ if (!$product_info_result->RecordCount()) {
       require_once MYOOS_INCLUDE_PATH . '/includes/modules/up_sell_products.php';
     }
     $smarty->assign('up_sell_products', $smarty->fetch($aTemplate['up_sell_products'], $sProductsInfoCacheID));
-
-    require_once MYOOS_INCLUDE_PATH . '/includes/modules/slavery_products.php';
 */
+
+
+	if (!$smarty->isCached($aTemplate['slavery_products'], $sProductsInfoCacheID)) {
+		require_once MYOOS_INCLUDE_PATH . '/includes/modules/slavery_products.php';
+	}
+	$smarty->assign('slavery_products', $smarty->fetch($aTemplate['slavery_products'], $sProductsInfoCacheID));
+
+	
 	// also purchased products
 	if (!$smarty->isCached($aTemplate['also_purchased_products'], $sProductsInfoCacheID)) {
 		require_once MYOOS_INCLUDE_PATH . '/includes/modules/also_purchased_products.php';

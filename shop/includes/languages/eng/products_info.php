@@ -29,6 +29,7 @@ $aLang['text_also_purchased_products'] = 'Customers who bought this product also
 $aLang['text_xsell_products'] = 'Family Products:';
 $aLang['text_up_sell_products'] = 'Best Value:';
 $aLang['text_product_options'] = 'Available Options:';
+$aLang['text_optional_accessories'] = 'Optional accessories:';
 $aLang['text_click_to_enlarge'] = 'Click to enlarge';
 $aLang['text_close_window'] = 'Close Window [x]';
 $aLang['products_order_qty_text'] = 'Qty.';

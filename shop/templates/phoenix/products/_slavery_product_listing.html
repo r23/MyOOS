@@ -1,0 +1,110 @@
+{if $listing}
+
+	<hr class="m-mt-80 m-mb-80" />
+		
+	<div class="heading m-mb-40">
+		<h2>{$lang.text_optional_accessories}</h2>
+	</div>
+
+	<!-- left column -->
+	<div class="col-lg-9 col-md-9 col-sm-9">
+		<!-- list options -->
+		<div class="clearfix shop-list-options mb-20">
+			<!-- pagination -->
+			<div class="m-0 float-right">
+				{$pagination}
+			</div>
+			<!-- end pagination -->
+
+		</div>
+		<!-- /list options -->
+
+		<ul class="shop-item-list row list-inline m-0">
+		{foreach item=product from=$listing}
+			<!-- item -->
+			<li class="col-lg-3 col-sm-3">
+
+				<div class="shop-item">
+
+					<div class="thumbnail">
+						<!-- product image -->
+						<a class="shop-item-image" href="{product_link products_id=$product.products_id}">
+							{small_product_image image=$product.products_image alt=$product.products_name|strip_tags}
+						</a>
+						<!-- /product image -->
+
+						<!-- hover buttons -->
+						<div class="shop-option-over">
+							<a class="btn btn-default add-wishlist" href="{html_href_link content=$page_file oos_get=$get_params action=add_wishlist products_id=$product.products_id}" title="{$lang.button_add_wishlist}" role="button"><i class="fa fa-heart p-0" aria-hidden="true"></i></a>
+						</div>
+						<!-- /hover buttons -->
+
+						<!-- product more info -->
+						<div class="shop-item-info">
+{*
+  todo								
+							<span class="badge badge-success">NEW</span>
+*}									
+							{if (!empty($product.listing_product_special_price))}<span class="badge badge-danger">SALE</span>{/if}
+						</div>
+						<!-- /product more info -->
+					</div>
+										
+					<div class="shop-item-summary text-center">
+						<h2><a href="{product_link products_id=$product.products_id}">{$product.products_name}</a></h2>
+								
+{*
+  todo								
+						<!-- rating -->
+						<div class="shop-item-rating-line">
+							<div class="rating rating-4 fs-13"><!-- rating-0 ... rating-5 --></div>
+						</div>
+						<!-- /rating -->
+*}
+
+						<!-- price -->
+						<div class="shop-item-price">
+						{if $myUser.show_price eq 1 }
+							{if (!empty($product.listing_product_special_price))}
+								<s>{$product.listing_product_price}{$product.product_units}</s><br>
+								<span class="special_price">{$product.listing_product_special_price}</span><br>
+							{else}
+								{if (!empty($product.listing_discount_price))}
+									{$lang.price_from} {$product.listing_discount_price} {$product.product_units}<br>
+								{else}									
+									{$product.listing_product_price}{$product.product_units}<br>
+								{/if}
+							{/if}					
+
+							{if $product.products_base_price != 1}
+								<span class="smallText">{$lang.text_products_base_price}: </span>
+								{if (!empty($product.new_special_price))}
+									<span class="special_base_price">{$product.products_base_unit} = {$product.new_base_product_special_price}</span><br>
+								{else}
+									<span class="base_price">{$product.products_base_unit} = {$product.new_base_product_price}</span><br>	
+								{/if}
+							{/if}
+						{/if}
+						</div>
+						<!-- /price -->
+					</div>
+
+					<!-- buttons -->
+					<div class="shop-item-buttons text-center">
+						<a class="btn btn-default" href="{html_href_link content=$page_file oos_get=$get_params action=buy_slave cart_quantity=$product.order_min slave_id=$product.products_id}" role="button"><i class="fa fa-cart-plus" aria-hidden="true"></i> {$lang.button_in_cart}</a>
+					</div>
+					<!-- /buttons -->
+				</div>
+			</li>
+			<!-- /item -->				
+		{/foreach}
+					
+		</ul>
+
+		<!-- pagination -->
+		<div class="text-center">
+			{$pagination}
+		</div>
+		<!-- end pagination -->
+	</div>
+{/if}
