@@ -109,9 +109,6 @@
         $type_result->MoveNext();
       }
 
-      // Close result set
-      $type_result->Close();
-
       $block_to_page_array = array();
 
       $block_to_page_typetable = $oostable['block_to_page_type'];
@@ -127,16 +124,13 @@
         $block_to_page_result->MoveNext();
       }
 
-      // Close result set
-      $block_to_page_result->Close();
-
       for ($i = 0, $n = count($type_array); $i < $n; $i++) {
         $page = $type_array[$i]['id'];
 
         if (in_array ($page, $block_to_page_array)) {
-          $select_page_type .= oos_draw_checkbox_field('page_type[]', $page, true) . $type_array[$i][text] . '<br />';
+          $select_page_type .= oos_draw_checkbox_field('page_type[]', $page, true) . $type_array[$i]['text'] . '<br />';
         } else {
-          $select_page_type .= oos_draw_checkbox_field('page_type[]', $page) . $type_array[$i][text] . '<br />';
+          $select_page_type .= oos_draw_checkbox_field('page_type[]', $page) . $type_array[$i]['text'] . '<br />';
         }
       }
 
