@@ -212,6 +212,28 @@ if (!$product_info_result->RecordCount()) {
 
     $smarty->assign('redirect', oos_href_link($aContents['redirect'], 'action=url&amp;goto=' . urlencode($product_info['products_url']), FALSE, FALSE));
 
+	
+	
+	$notifications_block = FALSE;
+	if ($oEvent->installed_plugin('notify')) {
+		$notifications_block = TRUE;
+
+		if (isset($_SESSION['customer_id'])) {
+			$products_notificationstable = $oostable['products_notifications'];
+			$query = "SELECT COUNT(*) AS total
+                FROM $products_notificationstable
+                WHERE products_id = '" . intval($nProductsID) . "'
+                  AND customers_id = '" . intval($_SESSION['customer_id']) . "'";
+			$check = $dbconn->Execute($query);
+			$notification_exists = (($check->fields['total'] > 0) ? TRUE : FALSE);
+		} else {
+			$notification_exists = FALSE;
+		}
+		$smarty->assign('notification_exists', $notification_exists);
+	}
+	$smarty->assign('notifications_block', $notifications_block);	
+	
+	
 	if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 		$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 	}

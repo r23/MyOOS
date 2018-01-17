@@ -83,11 +83,28 @@
 	{/if}
 {/if}
 
+{if $notifications_block}
+<div class="container text-center m-py-50">
+	<div class="mb-5">
+		<span class="d-block g-color-gray-light-v1 m-font-size-70 mb-4">
+			<i class="fa fa-pencil-square" aria-hidden="true"></i>
+		</span>
+		<h2 class="m-mb-20">{$lang.text_product_notifications}</h2>
+		<p>{$lang.text_product_notifications_introduction}</p>
+	</div>
+	{if $notification_exists}
+		<a class="btn btn-primary m-font-size-12 m-py-12 m-px-25" href="{html_href_link content=$page_file oos_get=$get_params action=notify_remove}" role="button">{$products_name|string_format:$lang.block_notifications_notify_remove}</a>
+	{else}
+		<a class="btn btn-primary m-font-size-12 m-py-12 m-px-25" href="{html_href_link content=$page_file oos_get=$get_params action=notify}" role="button">{$products_name|string_format:$lang.block_notifications_notify}</a>
+	{/if}
+</div>	
+{/if}
 
 
 {if $discounts_price eq 'true'}
   {include file="phoenix/products/discounts_price.html"}
 {/if}
+
 
       <tr>
         <td height="10"></td>

@@ -33,6 +33,8 @@ $aLang['text_optional_accessories'] = 'Optional accessories:';
 $aLang['text_click_to_enlarge'] = 'Click to enlarge';
 $aLang['text_close_window'] = 'Close Window [x]';
 $aLang['products_order_qty_text'] = 'Qty.';
+$aLang['text_product_notifications'] = 'My Product Notifications';
+$aLang['text_product_notifications_introduction'] = 'The product notification list allows you to stay up to date on the products we have available, which gives you the chance to take advantage of our products on special.';
 
 $aLang['table_heading_image'] = '';
 $aLang['table_heading_model'] = 'Model';
