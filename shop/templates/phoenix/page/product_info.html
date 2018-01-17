@@ -92,15 +92,7 @@
       <tr>
         <td height="10"></td>
       </tr>
-{if $smarty.session.error_cart_msg != ''}
-      <tr>
-        <td colspan="2" align="right" class="QtyErrors"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td class="errorBox"><img src="{$smarty.const.OOS_ICONS}warning.gif" border="0" alt="{$lang.icon_warning}" width="10" height="10">{$smarty.session.error_cart_msg}</td>
-          </tr>
-        </table></td>
-      </tr>
-{/if}
+
       <tr>
         <td align="right" class="main">{$lang.products_order_qty_text} <input type="text" name="cart_quantity" value="{$product_info.products_quantity_order_min|quantity}" size="3">
    {if $product_info.products_quantity_order_min > 1 }
