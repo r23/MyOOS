@@ -262,9 +262,9 @@ $aLang['entry_newsletter_yes'] = 'Subscribed';
 $aLang['entry_newsletter_no'] = 'Unsubscribed';
 $aLang['entry_newsletter_error'] = '';
 $aLang['entry_password_confirmation'] = 'Password Confirmation:';
-$aLang['entry_password_confirmation_text'] = '&nbsp;<small><font color="#AABBDD">require_onced</font></small>';
 $aLang['entry_password_error'] = 'Your Password must contain a minimum of ' . ENTRY_PASSWORD_MIN_LENGTH . ' characters.';
 $aLang['entry_password_error_not_matching'] = 'The Password Confirmation must match your Password.';
+
 $aLang['password_hidden'] = '--HIDDEN--';
 $aLang['entry_info_text'] = 'require_onced';
 $aLang['entry_subject'] = 'Subject';
@@ -457,8 +457,6 @@ $aLang['sub_title_ot_discount'] = 'Global Discount:';
 $aLang['text_new_customer_introduction_newsletter'] = 'By subscribing to newsletter from ' .  STORE_NAME . ' you will stay informed of all news info.';
 $aLang['text_new_customer_ip'] = 'This account has been created by this computer IP : ';
 $aLang['text_customer_account_password_security'] = 'For you\'r own security we are not able to know or retrieve this password. If you forgot it, you can request a new one.';
-$aLang['text_login_need_upgrade_csnewsletter'] = '<font color="#ff0000"><strong>NOTE:</strong></font>You have already subscribed to an account for &quot;Newsletter &quot;. You need to upgade this account to be able to buy.';
-
 
 $aLang['text_taxt_incl'] = 'incl. Tax';
 $aLang['text_taxt_add'] = 'plus. Tax';

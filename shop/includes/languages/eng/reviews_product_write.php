@@ -30,8 +30,8 @@ $aLang['subject'] = 'Subject';
 $aLang['headline_rating'] = 'Headline or summary for your review (required)';
 $aLang['review_placeholder'] = 'Write your review here (required)';
 $aLang['review_info'] = 'Consider:<br>Why did you choose this rating?<br>What did you like or dislike?<br>Who would you recommend this product to?';
-$aLang['text_no_html'] = '<small><font color="#ff0000"><strong>NOTE:</strong></font></small>&nbsp;HTML is not translated!';
-$aLang['text_bad'] = '<small><font color="#ff0000"><strong>BAD</strong></font></small>';
-$aLang['text_good'] = '<small><font color="#ff0000"><strong>GOOD</strong></font></small>';
+$aLang['text_no_html'] = '<strong>NOTE:</strong>&nbsp;HTML is not translated!';
+$aLang['text_bad'] = '<strong>BAD</strong>';
+$aLang['text_good'] = '<strong>GOOD</strong>';
 $aLang['error_invalid_product'] = 'That product is no longer available. Please try again.';
 

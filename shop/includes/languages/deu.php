@@ -379,7 +379,7 @@ $aLang['table_heading_credit'] = 'Guthaben';
 $aLang['gv_has_vouchera'] = 'Sie haben ein Gutschein - Guthaben auf Ihrem Kundenkonto. Möchten Sie einen Teil <br>
                          Ihres Guthabens per';
 $aLang['gv_has_voucherb'] = 'versenden?';
-$aLang['entry_amount_check_error'] = '&nbsp;<small><font color="#FF0000">Leider keine ausreichende Deckung auf Ihrem Kundenkonto!</font></smal>'; 
+$aLang['entry_amount_check_error'] = '&nbsp;Leider keine ausreichende Deckung auf Ihrem Kundenkonto!'; 
 
 
 $aLang['voucher_redeemed'] = 'Voucher Redeemed';
@@ -456,7 +456,6 @@ $aLang['sub_title_ot_discount'] = 'Pauschalrabatt:';
 $aLang['text_new_customer_introduction_newsletter'] = 'By subscribing to newsletter from ' .  STORE_NAME . ' you will stay informed of all news info.';
 $aLang['text_new_customer_ip'] = 'This account has been created by this computer IP : ';
 $aLang['text_customer_account_password_security'] = 'For you\'r own security we are not able to know this password. If you forgot it, you can request a new one.';
-$aLang['text_login_need_upgrade_csnewsletter'] = '<font color="#ff0000"><strong>NOTE:</strong></font>You have already subscribed to an account for &quot;Newsletter &quot;. You need to upgade this account to be able to buy.';
 
 // use TimeBasedGreeting
 

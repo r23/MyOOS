@@ -76,16 +76,14 @@
       </tr>
 {/if}
 {if ($product_info.products_date_available > $oosDate) }
-      <tr>
-        <td align="center" class="smallText"><br>{$product_info.products_date_available|oos_date_long|string_format:$lang.text_date_available}</td>
-      </tr>
+	<p class="text-danger text-center">{$product_info.products_date_available|oos_date_long|string_format:$lang.text_date_available}</p>
 {else}
-  {if $smarty.const.SHOW_DATE_ADDED_AVAILABLE eq 'true'}
-      <tr>
-        <td align="center" class="smallText"><br>{$product_info.products_date_added|oos_date_long|string_format:$lang.text_date_added}</td>
-      </tr>
-  {/if}
+	{if $smarty.const.SHOW_DATE_ADDED_AVAILABLE eq 'true'}
+		<p class="text-secondary text-center">{$product_info.products_date_added|oos_date_long|string_format:$lang.text_date_added}</p>  
+	{/if}
 {/if}
+
+
 
 {if $discounts_price eq 'true'}
   {include file="phoenix/products/discounts_price.html"}

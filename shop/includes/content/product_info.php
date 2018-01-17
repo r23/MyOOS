@@ -191,7 +191,7 @@ if (!$product_info_result->RecordCount()) {
     $smarty->assign(
         array(
 			'breadcrumb' => $oBreadcrumb->trail(),
-			'canonical'		=> $sCanonical	
+			'canonical'		=> $sCanonical,	
 			'discounts_price' =>  $discounts_price
 		)
 	);	

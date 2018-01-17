@@ -24,7 +24,7 @@ $aLang['text_current_reviews'] = 'Aktuelle Meinungen:';
 $aLang['text_more_information'] = 'Für weitere Informationen, besuchen Sie bitte die <a href="%s" target="_blank"><u>Homepage</u></a> zu diesem Produkt.';
 $aLang['text_manufacturer_info_homepage'] = '%s Homepage';
 $aLang['text_date_added'] = 'Dieses Produkt haben wir am %s in unseren Katalog aufgenommen.';
-$aLang['text_date_available'] = '<font color="#ff0000">Dieses Produkt wird voraussichtlich ab %s wieder vorrätig sein.</font>';
+$aLang['text_date_available'] = 'Dieses Produkt wird voraussichtlich ab %s wieder vorrätig sein.';
 $aLang['text_also_purchased_products'] = 'Zusätzlich kauften Kunden auch ';
 $aLang['text_xsell_products'] = 'Ähnliche Produkte:';
 $aLang['text_up_sell_products'] = 'Zu diesem Artikel empfehlen wir:';
