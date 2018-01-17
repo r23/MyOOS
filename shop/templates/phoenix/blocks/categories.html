@@ -1,16 +1,18 @@
-<div class="card sidebar-menu">
-	<div class="card-header">
-		<h3 class="card-title">{$block_heading_categories}</h3>
+<!-- categories -->
+<div class="side-nav m-mb-60">
+
+	<div class="side-nav-head">
+		<h4>{$block_heading_categories}</h4>
 	</div>
-	
-	<div class="card-body">
+
+	<ul class="list-group list-group-bordered list-group-noicon">
 {strip}
-{foreach item=category from=$categories_contents}
+{foreach item=category from=$categories}
 	{if $category.isGroupStart eq 1}<ul>{/if}
 	{if $category.isActive eq 1}
-       <li class="active"><a href="{if $category.parent eq 0}{html_href_link content=$filename.shop cPath=$category.counter}{else}{html_href_link content=$filename.shop cPath=$category.path}{/if}" title=" {$category.name} "><strong>{$category.name}</strong></a>
+       <li class="list-group-item active"><a href="{if $category.parent eq 0}{html_href_link content=$filename.shop category=$category.counter}{else}{html_href_link content=$filename.shop category=$category.path}{/if}" title=" {$category.name} "><span class="fs-11 text-muted float-right">({$category.countProductsInCategory})</span><strong>{$category.name}</strong></a>
   {else}
-      <li><a href="{if $category.parent eq 0}{html_href_link content=$filename.shop cPath=$category.counter}{else}{html_href_link content=$filename.shop cPath=$category.path}{/if}" title=" {$category.name} ">{$category.name}</a>
+      <li class="list-group-item"><a href="{if $category.parent eq 0}{html_href_link content=$filename.shop category=$category.counter}{else}{html_href_link content=$filename.shop category=$category.path}{/if}" title=" {$category.name} "><span class="fs-11 text-muted float-right">({$category.countProductsInCategory})</span>{$category.name}</a>
   {/if}
   	{if $category.isSelected eq 1}
 		      {if $category.isHasSubElements eq 0}
@@ -22,5 +24,8 @@
 	{if $category.nElements > 0}{$category.nElements|repeat:"</ul></li>"}{/if}
 {/foreach}
 {/strip}
-	</div>
+	</ul>
+
 </div>
+<!-- /categories -->
+

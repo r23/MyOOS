@@ -121,10 +121,10 @@ function oos_show_category($nCounter) {
 		}
     }
 
-    if (SHOW_COUNTS == 'true') {
+ #   if (SHOW_COUNTS == 'true') {
 		$products_in_category = oos_count_products_in_category($nCounter);
 		$aCategory['countProductsInCategory'] = $products_in_category;
-    }
+ #   }
 
     if ( (isset($aFoo)) && (is_array($aFoo)) ) {
 
@@ -289,8 +289,7 @@ if (isset($first_element)) {
 $smarty->assign(
 	array(
 		'block_heading_categories' => $block_heading,
-		'categories_contents' => $aCategories
+		'categories' => $aCategories
 	)
 );
-
 
