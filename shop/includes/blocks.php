@@ -20,7 +20,6 @@
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
 $aContentBlock = array();
-$nPageType =1;
 $blocktable = $oostable['block'];
 $block_infotable = $oostable['block_info'];
 $block_to_page_typetable = $oostable['block_to_page_type'];

@@ -50,7 +50,14 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       case 'insert':
       case 'save':
         $block_content_id = oos_db_prepare_input($_GET['bID']);
-
+		
+		$block_side = oos_db_prepare_input($_POST['block_side']);
+		$function  = oos_db_prepare_input($_POST['function']);
+		$block_cache  = oos_db_prepare_input($_POST['block_cache']);
+		$sort_order  = oos_db_prepare_input($_POST['sort_order']);
+		$block_status  = oos_db_prepare_input($_POST['block_status']);
+		$block_login_flag  = oos_db_prepare_input($_POST['block_login_flag']);	
+		
         $sql_data_array = array('block_side' => $block_side,
                                 'block_file' => $function,
                                 'block_cache' => $block_cache,
@@ -76,7 +83,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
         $languages = oos_get_languages();
         for ($i = 0, $n = count($languages); $i < $n; $i++) {
-          $block_content_name_array = $_POST['block_name'];
+          $block_content_name_array = oos_db_prepare_input($_POST['block_name']);
           $lang_id = $languages[$i]['id'];
 
           $sql_data_array = array('block_name' => oos_db_prepare_input($block_content_name_array[$lang_id]));

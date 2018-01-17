@@ -1,23 +1,35 @@
 {if $best_sellers_block}
-<div class="card sidebar-menu">
-	<div class="card-header">
-		<h3 class="card-title">{$block_heading_best_sellers}</h3>
+<!-- best_sellers -->
+<div class="mb-60">
+
+	<div class="side-nav-head">
+		<h4>{$block_heading_best_sellers}</h4>
 	</div>
 
-	<div class="card-body">
-<table width="150" border="0" cellspacing="0" cellpadding="3">
-{foreach name=best item=best_seller from=$best_sellers_list}
-          <tr>
-            <td class="block_content" valign="top">{$smarty.foreach.best.iteration|number_format}.</td>
-  {if $smarty.const.BLOCK_BEST_SELLERS_IMAGE eq 'true'}
-            <td class="block_content">{$best_seller.products_name|truncate:14:"":true|close_tags}</a>
-  {else}
-            <td class="block_content"><a href="{product_link products_id=$best_seller.products_id}">{$best_seller.products_name|truncate:17:"":true|close_tags}</a></td>
-  {/if}
-          </tr>
-{/foreach}
-        </table>
-	</div>
+	
+	<div><!-- slide 1 -->
+		<ul class="list-unstyled m-0 p-0 text-left">
+		{foreach name=best item=best_seller from=$best_sellers_list}
+			<li class="clearfix"><!-- item -->
+			{if $smarty.const.BLOCK_BEST_SELLERS_IMAGE eq 'true'}
+				<div class="thumbnail featured clearfix float-left">
+					<a href="{product_link products_id=$best_seller.products_id}">
+						{small_product_image image=$best_seller.products_image alt=$best_seller.products_name|strip_tags}
+					</a>
+				</div>  
+			{/if}
+            <a class="block fs-12"<a href="{product_link products_id=$best_seller.products_id}">{$best_seller.products_name|truncate:17:"":true|close_tags}</a>
+{*
+  todo			
+			<div class="rating rating-4 fs-13 fw-100 text-left"><!-- rating-0 ... rating-5 --></div>
+			<div class="fs-18 text-left">00.00 €</div>
+*}			
+			</li><!-- /item -->
+		{/foreach}
+
+		</ul>
+	</div><!-- /slide -->
+							
 </div>
-
+<!-- /best_sellers -->
 {/if}
