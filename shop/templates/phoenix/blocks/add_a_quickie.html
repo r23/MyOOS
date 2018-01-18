@@ -1,23 +1,26 @@
-<div class="card sidebar-menu">
-	<div class="card-header">
-		<h3 class="card-title">{$block_heading_add_product_id}</h3>
-	</div>
+<!-- add_product -->
+<div class="mb-60">
+	<h4>{$block_heading_add_product_id}</h4>
+	<p>{$lang.block_add_product_id_text}</p>
 
-	<div class="card-body">
-    <form name="quick_add" method="POST" action="{html_href_link content=$page_file oos_get=$get_params action=add_a_quickie}" role="form">
-{if $mySystem.sed}
-    <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
-	<input type="hidden" name="formid" value="{$mySystem.formid}">
-{/if}
-    <div align="center">
-		<input type="text" name="cart_quantity" value="1" maxlength="3" size="2">&nbsp;
-		<input type="text" name="quickie" size="9">&nbsp;
-		<button class="btn btn-success-filled" type="submit"><i class="fa fa-shopping-cart" aria-hidden="true"></i> {$lang.button_in_cart}</button>
-	</div><br>{$lang.block_add_product_id_text}
-	
+    <form name="quick_add" id="quick_add" action="{html_href_link content=$page_file oos_get=$get_params}" method="POST" role="form">
+		<input type="hidden" name="action" value="add_a_quickie">
+		{if $mySystem.sed}
+		<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+		<input type="hidden" name="formid" value="{$mySystem.formid}">
+		{/if}
+		<div class="form-row align-items-center">
+			<div class="col-auto">
+				<input class="form-control mb-2" type="text" name="cart_quantity" value="1" maxlength="3" size="2">
+			</div>
+			<div class="col-auto">
+				<input class="form-control mb-2" type="text" name="quickie" size="9">
+			</div>
+		</div>	
+		<div class="col-auto align-items-center">
+			<button class="btn btn-success-filled" type="submit"><i class="fa fa-shopping-cart" aria-hidden="true"></i> {$lang.button_in_cart}</button>
+		</div>
 	</form>
-	</div>
+
 </div>
-
-
-	
+<!-- /add_product -->
