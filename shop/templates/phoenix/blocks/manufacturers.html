@@ -1,27 +1,28 @@
 {if $manufacturers_block}
-<div class="card sidebar-menu">
-	<div class="card-header">
-		<h3 class="card-title">{$block_heading_manufacturers}</h3>
+<!-- manufacturers -->
+<div class="side-nav mb-60">
+
+	<div class="side-nav-head">
+		<h4>{$block_heading_manufacturers}</h4>
 	</div>
 
-	<div class="card-body">
-{if $display_a_list}
+	{if $display_a_list}
 		<ul class="list-group list-unstyled">
-	{foreach item=manufacturer from=$manufacturers_list}
+		{foreach item=manufacturer from=$manufacturers_list}
 			<li class="list-group-item"><a href="{html_href_link content=$filename.shop manufacturers_id=$manufacturer.id}">{$manufacturer.name}</a></li>
-	{/foreach}
+		{/foreach}
 		</ul>	
-{else}
-	<form name="manufacturers" action="{html_get_link}" method="GET" role="form">
-		<input type="hidden" name="content" value="{$filename.shop}">
-	{if $mySystem.sed}
-		<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
-		<input type="hidden" name="formid" value="{$mySystem.formid}">
-	{/if}
-		<select name="manufacturers_id" onChange="this.form.submit();" size="{$smarty.const.MAX_MANUFACTURERS_LIST}" style="width: 100%">{html_options values=$manufacturers_values selected=$select_manufacturers output=$manufacturers_names}</select>
-    </form>
-{/if}
-	</div>
-</div>
+	{else}
+		<form name="manufacturers" action="{html_get_link}" method="GET" role="form">
+			<input type="hidden" name="content" value="{$filename.shop}">
+		{if $mySystem.sed}
+			<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+			<input type="hidden" name="formid" value="{$mySystem.formid}">
+		{/if}
+			<select name="manufacturers_id" onChange="this.form.submit();" size="{$smarty.const.MAX_MANUFACTURERS_LIST}" style="width: 100%">{html_options values=$manufacturers_values selected=$select_manufacturers output=$manufacturers_names}</select>
+		</form>
+	{/if}	
 
+</div>
+<!-- /manufacturers -->
 {/if}

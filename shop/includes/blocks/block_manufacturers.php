@@ -36,7 +36,7 @@ $nManufacturersRecordCount = $manufacturers_result->RecordCount();
 
 if ($nManufacturersRecordCount < 1) {
 	$manufacturers_block = FALSE;
-} elseif ($nManufacturersRecordCount <= 5) {
+} elseif ($nManufacturersRecordCount <= 9) {
 
     // Display a list
     $display_a_list = TRUE;
