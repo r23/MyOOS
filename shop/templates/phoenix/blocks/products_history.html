@@ -1,21 +1,32 @@
 {if $products_history_block}
-<div class="card sidebar-menu">
-	<div class="card-header">
-		<h3 class="card-title">{$block_heading_products_history}</h3>
-	</div>
+<!-- products_history -->
+<div class="mb-60">
+	<h4>{$block_heading_products_history}</h4>
 
-	<div class="card-body">
-		<table width="200" border="0" cellspacing="0" cellpadding="3">
-{foreach name=history item=products_history from=$customer_products_history}
-		<tr>
-            <td class="block_content">{$smarty.foreach.history.iteration|number_format}.</td>
-            <td class="block_content"><a href="{product_link products_id=$products_history.products_id}">{$products_history.products_name|truncate:11:"":true|close_tags}</a></td>
+	<div><!-- slide -->
+		<ul class="list-unstyled m-0 p-0 text-left">
+		{foreach name=history item=products_history from=$customer_products_history}
+			<li class="clearfix"><!-- item -->
+				<div class="thumbnail featured clearfix float-left">
+					<a href="{product_link products_id=$products_history.products_id}">
+						{small_product_image image=$products_history.products_image alt=$products_history.products_name|strip_tags}
+					</a>
+				</div>  
+				<a class="block fs-12" href="{product_link products_id=$products_history.products_id}">{$products_history.products_name|truncate:11:"":true|close_tags}</a>
+{*
+  todo			
+				<div class="rating rating-4 fs-13 fw-100 text-left"><!-- rating-0 ... rating-5 --></div>
+				<div class="fs-18 text-left">00.00 €</div>
+*}	
+				{if $myUser.show_price eq 1 }
+					<a href="{html_href_link content=$page_file oos_get=$get_params action=buy_now products_id=$products_history.products_id}" class="btn btn-secondary float-right" role="button"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+				{/if}	
+			</li><!-- /item -->
+		{/foreach}
 
-            <td class="block_content" align="right">{if $myUser.show_price eq 1 }<a href="{html_href_link content=$page_file oos_get=$get_params action=buy_now products_id=$products_history.products_id}" class="btn btn-secondary float-right"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>{/if}</td>		
-		</tr>
-{/foreach}
-		</table>
-	</div>
+		</ul>
+	</div><!-- /slide -->
+							
 </div>
-
+<!-- /products_historys -->
 {/if}
