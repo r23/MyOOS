@@ -1,13 +1,9 @@
 {if $best_sellers_block}
 <!-- best_sellers -->
 <div class="mb-60">
+	<h4>{$block_heading_best_sellers}</h4>
 
-	<div class="side-nav-head">
-		<h4>{$block_heading_best_sellers}</h4>
-	</div>
-
-	
-	<div><!-- slide 1 -->
+	<div><!-- slide -->
 		<ul class="list-unstyled m-0 p-0 text-left">
 		{foreach name=best item=best_seller from=$best_sellers_list}
 			<li class="clearfix"><!-- item -->
@@ -18,7 +14,7 @@
 					</a>
 				</div>  
 			{/if}
-            <a class="block fs-12"<a href="{product_link products_id=$best_seller.products_id}">{$best_seller.products_name|truncate:17:"":true|close_tags}</a>
+            <a class="block fs-12" href="{product_link products_id=$best_seller.products_id}">{$best_seller.products_name|truncate:17:"":true|close_tags}</a>
 {*
   todo			
 			<div class="rating rating-4 fs-13 fw-100 text-left"><!-- rating-0 ... rating-5 --></div>
