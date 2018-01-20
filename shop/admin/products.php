@@ -532,7 +532,7 @@ function calcBasePriceFactor() {
             <td class="main"><?php echo TEXT_PRODUCTS_BASE_PRICE_FACTOR; ?></td>
             <td class="main"><table border="0">
                 <tr>
-                  <td class="main"><br />&nbsp;'<?php echo oos_draw_input_field('products_base_price', $pInfo->products_base_price); ?></td>
+                  <td class="main"><br />&nbsp;<?php echo oos_draw_input_field('products_base_price', $pInfo->products_base_price); ?></td>
                   <td class="main"><br /> <- </td>
                   <td class="main"><?php echo TEXT_PRODUCTS_PRODUCT_QUANTITY . '<br />' . oos_draw_input_field('products_product_quantity', $pInfo->products_product_quantity, 'OnKeyUp="calcBasePriceFactor()"'); ?></td>
                   <td class="main"><?php echo TEXT_PRODUCTS_BASE_QUANTITY . '<br />' . oos_draw_input_field('products_base_quantity', $pInfo->products_base_quantity, 'OnKeyUp="calcBasePriceFactor()"'); ?></td>

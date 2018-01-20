@@ -108,7 +108,7 @@ define('BOX_HEADING_CATALOG', 'Katalog');
 define('BOX_CATALOG_CATEGORIES_PRODUCTS', 'Kategorien / Artikel');
 define('BOX_CATALOG_CATEGORIES_PRODUCTS_ATTRIBUTES', 'Produktmerkmale');
 define('BOX_CATALOG_PRODUCTS_STATUS', 'Produktstatus');
-define('BOX_CATALOG_PRODUCTS_UNITS', 'Einheiten');
+define('BOX_CATALOG_PRODUCTS_UNITS', 'Produkteinheiten');
 define('BOX_CATALOG_MANUFACTURERS', 'Hersteller');
 define('BOX_CATALOG_REVIEWS', 'Produktbewertungen');
 define('BOX_CATALOG_SPECIALS', 'Sonderangebote');

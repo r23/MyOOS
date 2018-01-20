@@ -10,6 +10,6 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-define('PLUGIN_EVENT_CATEGORY_PATH_NAME', 'Category Path');
-define('PLUGIN_EVENT_CATEGORY_PATH_DESC', 'Parses the category path.');
+define('PLUGIN_EVENT_CATEGORY_PATH_NAME', 'Kategorie Pfad');
+define('PLUGIN_EVENT_CATEGORY_PATH_DESC', 'Analysiert den Kategorie Pfad.');
 

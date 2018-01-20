@@ -123,7 +123,7 @@ if (!isset($_SESSION['language']) || isset($_GET['language'])) {
 }
 
 // set the language
-$sLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : DEFAULT_LANGUAGE;
+$sLanguage = isset($_SESSION['language']) ? oos_var_prep_for_os( $_SESSION['language'] ) : DEFAULT_LANGUAGE;
 $nLanguageID = isset($_SESSION['language_id']) ? intval( $_SESSION['language_id'] ) : DEFAULT_CUSTOMERS_STATUS_ID;
 if (!isset($_SESSION['language']) || isset($_GET['language']))
 {

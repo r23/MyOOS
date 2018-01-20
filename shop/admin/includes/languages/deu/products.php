@@ -39,12 +39,12 @@ define('TEXT_TAX_INFO', 'Netto:');
 define('TEXT_PRODUCTS_LIST_PRICE', 'empf VK:');
 
 define('TEXT_PRODUCTS_BASE_PRICE', 'Grundpreis ');
-define('TEXT_PRODUCTS_BASE_UNIT', 'Grundgrö&szlig;e:');
-define('TEXT_PRODUCTS_BASE_PRICE_FACTOR', 'Faktor zum Berechnen des Grundpreis:');
+define('TEXT_PRODUCTS_BASE_UNIT', 'Grundgröße:');
+define('TEXT_PRODUCTS_BASE_PRICE_FACTOR', 'Faktor zum Berechnen des Grundpreises:');
 define('TEXT_PRODUCTS_BASE_QUANTITY', 'Basismenge:');
 define('TEXT_PRODUCTS_PRODUCT_QUANTITY', 'Artikelmenge:');
 define('TEXT_PRODUCTS_DECIMAL_QUANTITY', 'Bestellmengen in Dezimalzahlen');
-define('TEXT_PRODUCTS_UNIT', 'Verpackungseinheit');
+define('TEXT_PRODUCTS_UNIT', 'Produkteinheit:');
 
 define('TEXT_PRODUCTS_IMAGE_REMOVE', '<b>Entfernen</b> des Bildes vom Artikel?');
 define('TEXT_PRODUCTS_BUTTON_DELETE', '<b>Löschen</b> des Bildes vom Server?');

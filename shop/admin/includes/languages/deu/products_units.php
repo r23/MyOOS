@@ -19,19 +19,19 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-define('HEADING_TITLE', 'Verpackungseinheit');
+define('HEADING_TITLE', 'Produkteinheiten');
 
-define('TABLE_HEADING_PRODUCTS_UNITS', 'Verpackungseinheit');
+define('TABLE_HEADING_PRODUCTS_UNITS', 'Produkteinheit');
 define('TABLE_HEADING_ACTION', 'Aktion');
 
 define('TEXT_INFO_EDIT_INTRO', 'Bitte führen Sie alle notwendigen Änderungen durch');
-define('TEXT_INFO_PRODUCTS_UNITS_NAME', 'Verpackungseinheit:');
-define('TEXT_INFO_INSERT_INTRO', 'Bitte geben Sie die neue Verpackungseinheit mit allen relevanten Daten ein');
-define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie diese Verpackungseinheit löschen möchten?');
-define('TEXT_INFO_HEADING_NEW_PRODUCTS_UNITS', 'Neue Verpackungseinheit');
-define('TEXT_INFO_HEADING_EDIT_PRODUCTS_UNITS', 'Verpackungseinheit bearbeiten');
-define('TEXT_INFO_HEADING_DELETE_PRODUCTS_UNITS', 'Verpackungseinheit löschen');
+define('TEXT_INFO_PRODUCTS_UNITS_NAME', 'Produkteinheit:');
+define('TEXT_INFO_INSERT_INTRO', 'Bitte geben Sie die neue MaßProdukteinheit oder GewichtsProdukteinheit ein');
+define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie diese Produkteinheit löschen möchten?');
+define('TEXT_INFO_HEADING_NEW_PRODUCTS_UNITS', 'Neue MaßProdukteinheit oder GewichtsProdukteinheit');
+define('TEXT_INFO_HEADING_EDIT_PRODUCTS_UNITS', 'Produkteinheit bearbeiten');
+define('TEXT_INFO_HEADING_DELETE_PRODUCTS_UNITS', 'Produkteinheit löschen');
 
-define('ERROR_REMOVE_DEFAULT_PRODUCTS_UNITS', 'Fehler: Die Standard-Verpackungseinheit kann nicht gelöscht werden. Bitte definieren Sie einen neuen Standard-Verpackungseinheit und wiederholen Sie den Vorgang.');
-define('ERROR_STATUS_USED_IN_PRODUCTS', 'Fehler: Diese Verpackungseinheit wird zur Zeit noch bei den Produkten verwendet.');
+define('ERROR_REMOVE_DEFAULT_PRODUCTS_UNITS', 'Fehler: Die Standard-Produkteinheit kann nicht gelöscht werden. Bitte definieren Sie einen neuen Standard-Produkteinheit und wiederholen Sie den Vorgang.');
+define('ERROR_STATUS_USED_IN_PRODUCTS', 'Fehler: Diese Produkteinheit wird zur Zeit noch bei den Produkten verwendet.');
 
