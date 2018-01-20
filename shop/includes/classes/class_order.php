@@ -46,7 +46,7 @@
     public function query($order_id) {
 
       $order_id = oos_db_prepare_input($order_id);
-      $nLanguageID = isset($_SESSION['language_id']) ? $_SESSION['language_id']+0 : DEFAULT_LANGUAGE_ID;
+      $nLanguageID = isset($_SESSION['language_id']) ? intval( $_SESSION['language_id'] ) : DEFAULT_LANGUAGE_ID;
 
       // Get database information
       $dbconn =& oosDBGetConn();
@@ -203,7 +203,7 @@
       global $oCurrencies, $aUser;
 
       $this->content_type = $_SESSION['cart']->get_content_type();
-      $nLanguageID = isset($_SESSION['language_id']) ? $_SESSION['language_id']+0 : DEFAULT_LANGUAGE_ID;
+      $nLanguageID = isset($_SESSION['language_id']) ? intval( $_SESSION['language_id'] ) : DEFAULT_LANGUAGE_ID;
 
       // Get database information
       $dbconn =& oosDBGetConn();

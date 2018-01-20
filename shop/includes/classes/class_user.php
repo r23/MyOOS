@@ -38,7 +38,7 @@
       $dbconn =& oosDBGetConn();
       $oostable =& oosDBGetTables();
 
-      $nLanguageID = isset($_SESSION['language_id']) ? $_SESSION['language_id']+0 : DEFAULT_LANGUAGE_ID;
+      $nLanguageID = isset($_SESSION['language_id']) ? intval( $_SESSION['language_id'] ) : DEFAULT_LANGUAGE_ID;
 
       $customers_statustable = $oostable['customers_status'];
       $sql = "SELECT customers_status_id, customers_status_name, customers_status_public,
@@ -72,7 +72,7 @@
       $dbconn =& oosDBGetConn();
       $oostable =& oosDBGetTables();
 
-      $nLanguageID = isset( $_SESSION['language_id']) ?  $_SESSION['language_id']+0 : 1;
+      $nLanguageID = isset( $_SESSION['language_id']) ?  intval( $_SESSION['language_id'] ) : 1;
 
       $customerstable = $oostable['customers'];
       $customers_statustable = $oostable['customers_status'];

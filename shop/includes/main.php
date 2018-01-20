@@ -131,10 +131,10 @@ oos_secure_input();
 
 
 // set the language
-$sLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : DEFAULT_LANGUAGE;
-$nLanguageID = isset($_SESSION['language_id']) ? $_SESSION['language_id']+0 : DEFAULT_LANGUAGE_ID;
-$sLanguageCode = isset($_SESSION['iso_639_1']) ? $_SESSION['iso_639_1'] : DEFAULT_LANGUAGE_CODE;
-$sLanguageName = isset($_SESSION['languages_name']) ? $_SESSION['languages_name'] : DEFAULT_LANGUAGE_NAME;
+$sLanguage = isset($_SESSION['language']) ? oos_var_prep_for_os( $_SESSION['language'] ) : DEFAULT_LANGUAGE;
+$nLanguageID = isset($_SESSION['language_id']) ? intval( $_SESSION['language_id'] ) : DEFAULT_LANGUAGE_ID;
+$sLanguageCode = isset($_SESSION['iso_639_1']) ? oos_var_prep_for_os( $_SESSION['iso_639_1'] ) : DEFAULT_LANGUAGE_CODE;
+$sLanguageName = isset($_SESSION['languages_name']) ? oos_var_prep_for_os( $_SESSION['languages_name'] ) : DEFAULT_LANGUAGE_NAME;
 
 
 if (!isset($_SESSION['language']) || isset($_GET['language'])) {

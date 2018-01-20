@@ -55,7 +55,7 @@ class oosCategoryTree {
       $dbconn =& oosDBGetConn();
       $oostable =& oosDBGetTables();
 
-      $nLanguageID = isset($_SESSION['language_id']) ? $_SESSION['language_id']+0 : DEFAULT_LANGUAGE_ID;
+      $nLanguageID = isset($_SESSION['language_id']) ? intval( $_SESSION['language_id'] ) : DEFAULT_LANGUAGE_ID;
 
       $categoriestable = $oostable['categories'];
       $categories_descriptionstable = $oostable['categories_description'];

@@ -124,7 +124,7 @@ if (!isset($_SESSION['language']) || isset($_GET['language'])) {
 
 // set the language
 $sLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : DEFAULT_LANGUAGE;
-$nLanguageID = isset($_SESSION['language_id']) ? $_SESSION['language_id']+0 : DEFAULT_CUSTOMERS_STATUS_ID;
+$nLanguageID = isset($_SESSION['language_id']) ? intval( $_SESSION['language_id'] ) : DEFAULT_CUSTOMERS_STATUS_ID;
 if (!isset($_SESSION['language']) || isset($_GET['language']))
 {
     // include the language class

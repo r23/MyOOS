@@ -193,7 +193,7 @@ function oos_redirect($sUrl) {
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    $nLanguageID = isset($_SESSION['language_id']) ? $_SESSION['language_id']+0 : DEFAULT_LANGUAGE_ID;
+    $nLanguageID = isset($_SESSION['language_id']) ? intval( $_SESSION['language_id'] ) : DEFAULT_LANGUAGE_ID;
 
     $products_descriptiontable = $oostable['products_description'];
     $query = "SELECT products_name
@@ -820,7 +820,7 @@ function oos_round($number, $precision) {
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    $nLanguageID = isset($_SESSION['language_id']) ? $_SESSION['language_id']+0 : DEFAULT_LANGUAGE_ID;
+    $nLanguageID = isset($_SESSION['language_id']) ? intval( $_SESSION['language_id'] ) : DEFAULT_LANGUAGE_ID;
 
     $categoriestable = $oostable['categories'];
     $categories_descriptiontable = $oostable['categories_description'];
