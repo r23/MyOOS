@@ -1,6 +1,5 @@
-/*------------------------------------
-  Typography Font Size
-------------------------------------*/
+/** Typography Font Size
+*************************************************** **/
 
 .m-font-size-5 {
 	@include px-to-rem(font-size, 5px !important);

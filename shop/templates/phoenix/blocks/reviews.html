@@ -1,22 +1,32 @@
 {if $oEvent->installed_plugin('reviews')}
-<div class="card sidebar-menu">
-	<div class="card-header">
-		<h3 class="card-title">{$block_heading_reviews}</h3>
+<div class="m-mb-60">
+	<h4>{$block_heading_reviews}</h4>
+	
+	{if $random_product.reviews_text}
+	<div class="text-center">
+		<a href="{html_href_link content=$filename.product_reviews_info products_id=$random_product.products_id reviews_id=$random_product.reviews_id}">
+			{small_product_image image=$random_product.products_image alt=$random_product.products_name|strip_tags}
+		</a>
 	</div>
-
-	<div class="card-body">
-{if $random_product.reviews_text}
-     <div align="center"><a href="{html_href_link content=$filename.product_reviews_info products_id=$random_product.products_id reviews_id=$random_product.reviews_id}">{small_product_image image=$random_product.products_image alt=$random_product.products_name|strip_tags}</a></div>
-     <div align="left"><a href="{html_href_link content=$filename.product_reviews_info products_id=$random_product.products_id reviews_id=$random_product.reviews_id}">{$random_product.reviews_text|strip|truncate:55:"...":true|close_tags}</a></div>
-     <div align="center"><img src="{$smarty.const.OOS_IMAGES}stars_{$random_product.reviews_rating}.gif" border="0" alt="{$random_product.reviews_rating|string_format:$lang.text_of_5_stars}" width="59" height="11"></div>
-{elseif (isset($smarty.get.products_id))}
+	<div class="m-font-size-12 text-left">
+		<a href="{html_href_link content=$filename.product_reviews_info products_id=$random_product.products_id reviews_id=$random_product.reviews_id}">
+			{$random_product.reviews_text|strip|truncate:55:"...":true|close_tags}
+		</a>	
+	</div>	
+{*
+  todo			
+			<div class="rating rating-4 m-font-size-13 fw-100 text-center"><!-- rating-0 ... rating-5 --></div>
+*}	
+	<div class="text-center">
+		<img src="{$smarty.const.OOS_IMAGES}stars_{$random_product.reviews_rating}.gif" border="0" alt="{$random_product.reviews_rating|string_format:$lang.text_of_5_stars}" width="59" height="11">
+	</div>
+	{elseif (isset($smarty.get.products_id))}
 	<ul class="list-group list-unstyled">
         <li class="list-group-item"><a href="{html_href_link content=$filename.product_reviews_write products_id=$smarty.get.products_id}">{$lang.button_write_review}</a></li>
         <li class="list-group-item"><a href="{html_href_link content=$filename.product_reviews_write products_id=$smarty.get.products_id}">{$lang.block_reviews_write_review}</a></li>
 	</ul>
-{else}
-  {$lang.block_reviews_no_reviews}
-{/if}
-	</div>
+	{else}
+		{$lang.block_reviews_no_reviews}
+	{/if}
 </div>
 {/if}

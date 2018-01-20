@@ -1,6 +1,6 @@
 {if $specials_block}
 <!-- specials -->
-<div class="mb-60">
+<div class="m-mb-60">
 	<h4>{$block_heading_specials}</h4>
 
 	<div class="text-center">
@@ -13,13 +13,14 @@
 	</div>
 	
 	{if $myUser.show_price eq 1 }
-		
+	<div class="text-center">
 		<s>{$specials_random_product_price}{$smarty.const.UNITS_DELIMITER}{$products_units[$specials_random_product.products_units_id]}</s><br>
 		{if $specials_random_product.products_base_price != 1}<s><span class="base_price">{$specials_random_product.products_base_unit} = {$specials_random_base_product_price}</span></s><br>{/if}
 
 		<span class="special_price">{$specials_random_product_special_price}{$smarty.const.UNITS_DELIMITER}{$products_units[$specials_random_product.products_units_id]}</span><br>
 		{if $specials_random_product.products_base_price != 1}<br><span class="special_base_price">{$specials_random_product.products_base_unit} = {$specials_random_base_product_special_price}</span><br>{/if}
-	
-	{/if}	
+	</div>
+	{/if}
+</div>
 <!-- specials -->		
 {/if}		
