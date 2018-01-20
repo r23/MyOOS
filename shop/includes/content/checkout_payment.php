@@ -61,76 +61,76 @@ if (isset($_SESSION['cart']->cartID) && isset($_SESSION['cartID'])) {
 }
 
 // Stock Check
-  if ( (STOCK_CHECK == 'true') && (STOCK_ALLOW_CHECKOUT != 'true') ) {
-    $products = $_SESSION['cart']->get_products();
-    $any_out_of_stock = 0;
-    for ($i=0, $n=count($products); $i<$n; $i++) {
-      if (oos_check_stock($products[$i]['id'], $products[$i]['quantity'])) {
-        $any_out_of_stock = 1;
-      }
-    }
+if ( (STOCK_CHECK == 'true') && (STOCK_ALLOW_CHECKOUT != 'true') ) {
+	$products = $_SESSION['cart']->get_products();
+	$any_out_of_stock = 0;
+	for ($i=0, $n=count($products); $i<$n; $i++) {
+		if (oos_check_stock($products[$i]['id'], $products[$i]['quantity'])) {
+			$any_out_of_stock = 1;
+		}
+	}
     if ($any_out_of_stock == 1) {
-      oos_redirect(oos_href_link($aContents['shopping_cart']));
-    }
-  }
+		oos_redirect(oos_href_link($aContents['shopping_cart']));
+	}
+}
 
 // if no billing destination address was selected, use the customers own address as default
-  if (!isset($_SESSION['billto'])) {
-    $_SESSION['billto'] = $_SESSION['customer_default_address_id'];
-  } else {
+if (!isset($_SESSION['billto'])) {
+	$_SESSION['billto'] = $_SESSION['customer_default_address_id'];
+} else {
 // verify the selected billing address
-    $address_booktable = $oostable['address_book'];
+	$address_booktable = $oostable['address_book'];
     $sql = "SELECT COUNT(*) AS total
             FROM $address_booktable
             WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'
               AND address_book_id = '" . intval($_SESSION['billto']) . "'";
-    $check_address_result = $dbconn->Execute($sql);
+	$check_address_result = $dbconn->Execute($sql);
     $check_address = $check_address_result->fields;
 
-    if ($check_address['total'] != '1') {
-      $_SESSION['billto'] = $_SESSION['customer_default_address_id'];
-      if (isset($_SESSION['payment'])) unset($_SESSION['payment']);
-    }
-  }
+	if ($check_address['total'] != '1') {
+		$_SESSION['billto'] = $_SESSION['customer_default_address_id'];
+		if (isset($_SESSION['payment'])) unset($_SESSION['payment']);
+	}
+}
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order.php';
-  $oOrder = new order;
-  require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order_total.php';
-  $order_total_modules = new order_total;
+require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order.php';
+$oOrder = new order;
+require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order_total.php';
+$order_total_modules = new order_total;
 
 
-  $total_weight = $_SESSION['cart']->show_weight();
-  $total_count = $_SESSION['cart']->count_contents();
-  $total_count = $_SESSION['cart']->count_contents_virtual(); 
+$total_weight = $_SESSION['cart']->show_weight();
+$total_count = $_SESSION['cart']->count_contents();
+$total_count = $_SESSION['cart']->count_contents_virtual(); 
 
 // load all enabled payment modules
-  require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_payment.php';
-  $payment_modules = new payment;
-  $selection = $payment_modules->selection();
-  $credit_selection = $order_total_modules->credit_selection();
+require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_payment.php';
+$payment_modules = new payment;
+$selection = $payment_modules->selection();
+$credit_selection = $order_total_modules->credit_selection();
 
-  // links breadcrumb
-  $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['checkout_shipping']));
-  $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['checkout_payment']));
+// links breadcrumb
+$oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['checkout_shipping']));
+$oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['checkout_payment']));
 
-  $condition_link = OOS_HTTPS_SERVER . OOS_SHOP . OOS_MEDIA . $sLanguage . '/' . $aContents['conditions_download'];
+$condition_link = OOS_HTTPS_SERVER . OOS_SHOP . OOS_MEDIA . $sLanguage . '/' . $aContents['conditions_download'];
 
-  ob_start();
-  require 'js/checkout_payment.js.php';
-  print $payment_modules->javascript_validation();
-  $javascript = ob_get_contents();
-  ob_end_clean();
+ob_start();
+require 'js/checkout_payment.js.php';
+print $payment_modules->javascript_validation();
+$javascript = ob_get_contents();
+ob_end_clean();
 
-  $aTemplate['page'] = $sTheme . '/page/checkout_payment.html';
+$aTemplate['page'] = $sTheme . '/page/checkout_payment.html';
 
-  $nPageType = OOS_PAGE_TYPE_CHECKOUT;
-  $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
+$nPageType = OOS_PAGE_TYPE_CHECKOUT;
+$sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
-  if (!isset($option)) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
-  }
+require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
+if (!isset($option)) {
+	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+	require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+}
 
 // assign Smarty variables;
 $smarty->assign(
@@ -143,17 +143,17 @@ $smarty->assign(
 );
 
 
-  $smarty->assign('condition_link', $condition_link);
-  $smarty->assign(
+$smarty->assign('condition_link', $condition_link);
+$smarty->assign(
       array(
           'selection' => $selection,
           'credit_selection' => $credit_selection
       )
-  );
+);
 
 
-  // JavaScript
-  $smarty->assign('oos_js', $javascript);
+// JavaScript
+$smarty->assign('oos_js', $javascript);
 
 // display the template
 $smarty->display($aTemplate['page']);

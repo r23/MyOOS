@@ -68,7 +68,7 @@ function oos_redirect($sUrl) {
   * @param $limit
   * @return string
   */
-  function oos_random_select($query, $limit = '') {
+function oos_random_select($query, $limit = '') {
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -76,27 +76,27 @@ function oos_redirect($sUrl) {
 
     $random_product = '';
     if (oos_is_not_null($limit)) {
-      if (USE_DB_CACHE == 'true') {
-        $random_result = $dbconn->CacheSelectLimit(15, $query, $limit);
-      } else {
-        $random_result = $dbconn->SelectLimit($query, $limit);
-      }
-    } else {
-      if (USE_DB_CACHE == 'true') {
-        $random_result = $dbconn->CacheExecute(15, $query);
-      } else {
-        $random_result = $dbconn->Execute($query);
-      }
-    }
+		if (USE_DB_CACHE == 'true') {
+			$random_result = $dbconn->CacheSelectLimit(15, $query, $limit);
+		} else {
+			$random_result = $dbconn->SelectLimit($query, $limit);
+		}
+	} else {
+		if (USE_DB_CACHE == 'true') {
+			$random_result = $dbconn->CacheExecute(15, $query);
+		} else {
+			$random_result = $dbconn->Execute($query);
+		}
+	}
     $num_rows = $random_result->RecordCount();
-    if ($num_rows > 0) {
-      $random_row = oos_rand(0, ($num_rows - 1));
-      $random_result->Move($random_row);
-      $random_product = $random_result->fields;
+	if ($num_rows > 0) {
+		$random_row = oos_rand(0, ($num_rows - 1));
+		$random_result->Move($random_row);
+		$random_product = $random_result->fields;
     }
 
     return $random_product;
-  }
+}
 
   function oos_prepare_input($sStr) {
     if (!is_array($sStr)) {
@@ -401,19 +401,19 @@ function oos_redirect($sUrl) {
         }
         break;
 
-      case ($qty >= $product_discounts['products_discount4_qty'] and $product_discounts['products_discount4_qty'] !=0):
+      case ($qty >= $product_discounts['products_discount4_qty'] AND $product_discounts['products_discount4_qty'] !=0):
         $the_discount_price= $product_discounts['products_discount4'];
         break;
 
-      case ($qty >= $product_discounts['products_discount3_qty'] and $product_discounts['products_discount3_qty'] !=0 ):
+      case ($qty >= $product_discounts['products_discount3_qty'] AND $product_discounts['products_discount3_qty'] !=0 ):
         $the_discount_price= $product_discounts['products_discount3'];
         break;
 
-      case ($qty >= $product_discounts['products_discount2_qty'] and $product_discounts['products_discount2_qty'] !=0 ):
+      case ($qty >= $product_discounts['products_discount2_qty'] AND $product_discounts['products_discount2_qty'] !=0 ):
         $the_discount_price= $product_discounts['products_discount2'];
         break;
 
-      case ($qty >= $product_discounts['products_discount1_qty'] and $product_discounts['products_discount1_qty'] !=0 ):
+      case ($qty >= $product_discounts['products_discount1_qty'] AND $product_discounts['products_discount1_qty'] !=0 ):
         $the_discount_price= $product_discounts['products_discount1'];
         break;
 
@@ -436,17 +436,15 @@ function oos_redirect($sUrl) {
   *
   * @param $sProductsId
   * @param $nProductsQuantity
-  * @return string
+  * @return boolean
   */
-// todo remove
   function oos_check_stock($sProductsId, $nProductsQuantity) {
-    global $aLang;
 
     $stock_left = oos_get_products_stock($sProductsId) - $nProductsQuantity;
 
-    $sOutOfStock = NULL;
+    $bOutOfStock = FALSE;
     if ($stock_left < 0) {
-		$sOutOfStock = '<span class="oos-MarkProductOutOfStock">' . STOCK_MARK_PRODUCT_OUT_OF_STOCK . '</span>';
+		$bOutOfStock = TRUE;
     }
 
     return $sOutOfStock;
