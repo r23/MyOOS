@@ -1237,6 +1237,8 @@ function oos_mail($to_name, $to_email_address, $subject, $email_text, $email_htm
 
 	// (Re)create it, if it's gone missing
 	if ( !is_object( $oEmail ) || !is_a( $oEmail, 'PHPMailer' ) ) {
+		require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/class.phpmailer.php';
+		require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/class.smtp.php';
 		// Instantiate a new mail object
 		$oEmail = new PHPMailer( true );
 	}
@@ -1247,8 +1249,8 @@ function oos_mail($to_name, $to_email_address, $subject, $email_text, $email_htm
 	$oEmail->ClearCustomHeaders();
 	$oEmail->ClearReplyTos();
 
-    // $oEmail->PluginDir = OOS_ABSOLUTE_PATH . 'includes/lib/phpmailer/';
-    // $oEmail->SetLanguage( $sLang, OOS_ABSOLUTE_PATH . 'includes/lib/phpmailer/language/' );
+    $oEmail->PluginDir = OOS_ABSOLUTE_PATH . 'includes/lib/phpmailer/';
+    $oEmail->SetLanguage( $sLang, OOS_ABSOLUTE_PATH . 'includes/lib/phpmailer/language/' );
     $oEmail->CharSet = CHARSET;
 
     $oEmail->IsMail();

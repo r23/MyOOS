@@ -35,12 +35,6 @@ if (function_exists('ini_set')) {
 
 use Symfony\Component\HttpFoundation\Request;
 
-//Import the PHPMailer class into the global namespace
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-use PHPMailer\PHPMailer\POP3;
-
-
 $autoloader = require_once __DIR__ . '/vendor/autoload.php';
 $request = Request::createFromGlobals();
 

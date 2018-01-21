@@ -36,7 +36,6 @@
         "ext-zlib": "*",
         "lib-libxml": "*",
 		"symfony/symfony": "~3.4.2",
-	    "phpmailer/phpmailer": "^6.0",
 		"smarty/smarty": "~3.1"
     }
 }

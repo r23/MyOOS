@@ -1,6 +1,8 @@
 # Ignore configuration files that may contain sensitive information.
 /wordpress/wordpress/wp-config.php
-/myoos/includes/local/
+myoos/includes/local/
+myoos/temp/shop/cache/
+myoos/temp/shop/templates_c/
 /nbproject/private/
 /wordpress/wordpress/nbproject/private/
 /myoos/nbproject/private/

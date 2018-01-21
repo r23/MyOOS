@@ -81,9 +81,11 @@ class newsletter {
 
 
 		// (Re)create it, if it's gone missing
-		if ( !is_object( $oEmail ) || !is_a( $oEmail, 'PHPMailer' ) ) {
+		if ( !is_object( $mail ) || !is_a( $mail, 'PHPMailer' ) ) {
+			require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/class.phpmailer.php';
+			require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/class.smtp.php';
 			// Instantiate a new mail object
-			$oEmail = new PHPMailer( true );
+			$mail = new PHPMailer( true );
 		}
 
 		// Empty out the values that may be set

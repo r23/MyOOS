@@ -1027,11 +1027,17 @@ function parse_size($size) {
     $sLang = (isset($_SESSION['iso_639_1']) ? $_SESSION['iso_639_1'] : 'en');
 
     // Instantiate a new mail object
-    $mail = new PHPMailer;
-/*
+	// (Re)create it, if it's gone missing
+	if ( !is_object( $mail ) || !is_a( $mail, 'PHPMailer' ) ) {
+		require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/class.phpmailer.php';
+		require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/class.smtp.php';
+		// Instantiate a new mail object
+		$mail = new PHPMailer( true );
+	}
+
     $mail->PluginDir = OOS_ABSOLUTE_PATH . 'includes/lib/phpmailer/';
     $mail->SetLanguage( $sLang, OOS_ABSOLUTE_PATH . 'includes/lib/phpmailer/language/' );
-*/
+
     $mail->CharSet = CHARSET;
     $mail->IsMail();
 

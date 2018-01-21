@@ -55,13 +55,13 @@ $request = Request::createFromGlobals();
 
 
 require 'includes/filename.php';
-require_once MYOOS_INCLUDE_PATH . 'includes/tables.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/tables.php';
 
-require_once MYOOS_INCLUDE_PATH . 'includes/functions/function_global.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_global.php';
 require 'includes/functions/function_kernel.php';
 
 // Load server utilities
-require_once MYOOS_INCLUDE_PATH . 'includes/functions/function_server.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_server.php';
 
 // todo remove
 #  if (isset($_POST)) {
@@ -79,11 +79,11 @@ $session->start();
 if (!defined('ADODB_LOGSQL_TABLE')) {
 	define('ADODB_LOGSQL_TABLE', $oostable['adodb_logsql']);
 }
-require_once MYOOS_INCLUDE_PATH . 'includes/lib/adodb/toexport.inc.php';
-require_once MYOOS_INCLUDE_PATH . 'includes/lib/adodb/adodb-errorhandler.inc.php';
-require_once MYOOS_INCLUDE_PATH . 'includes/lib/adodb/adodb.inc.php';
-require_once MYOOS_INCLUDE_PATH . 'includes/lib/adodb/tohtml.inc.php';
-require_once MYOOS_INCLUDE_PATH . 'includes/functions/function_db.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/lib/adodb/toexport.inc.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/lib/adodb/adodb-errorhandler.inc.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/lib/adodb/adodb.inc.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/lib/adodb/tohtml.inc.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_db.php';
 
 // make a connection to the database... now
 if (!oosDBInit()) {
@@ -112,7 +112,7 @@ while ($configuration = $configuration_result->fields) {
 // language
 if (!isset($_SESSION['language']) || isset($_GET['language'])) {
 	// require the language class
-	require_once MYOOS_INCLUDE_PATH . 'includes/classes/class_language.php';
+	require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_language.php';
 	$oLang = new language;
 
 	if (isset($_GET['language']) && oos_is_not_null($_GET['language'])) {
@@ -159,8 +159,11 @@ if (file_exists('includes/languages/' . $sLanguage . '/' . $current_page)) {
 
 // define our general functions used application-wide
 require 'includes/functions/function_output.php';
-require_once MYOOS_INCLUDE_PATH . 'includes/functions/function_password.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_password.php';
 
+// email classes
+require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/class.phpmailer.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/class.smtp.php';
 
 // setup our boxes
 require 'includes/classes/class_table_block.php';
