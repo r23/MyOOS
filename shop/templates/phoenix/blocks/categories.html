@@ -7,24 +7,15 @@
 	</div>
 
 	<ul class="list-group list-group-bordered list-group-noicon">
-{strip}
 {foreach item=category from=$categories}
 	{if $category.isGroupStart eq 1}<ul>{/if}
 	{if $category.isActive eq 1}
-       <li class="list-group-item active"><a href="{if $category.parent eq 0}{html_href_link content=$filename.shop category=$category.counter}{else}{html_href_link content=$filename.shop category=$category.path}{/if}" title=" {$category.name} "><span class="fs-11 text-muted float-right">({$category.countProductsInCategory})</span><strong>{$category.name}</strong></a>
-  {else}
-      <li class="list-group-item"><a href="{if $category.parent eq 0}{html_href_link content=$filename.shop category=$category.counter}{else}{html_href_link content=$filename.shop category=$category.path}{/if}" title=" {$category.name} "><span class="fs-11 text-muted float-right">({$category.countProductsInCategory})</span>{$category.name}</a>
-  {/if}
-  	{if $category.isSelected eq 1}
-		      {if $category.isHasSubElements eq 0}
-			        </li>
-		       {/if}
+		<li class="list-group-item active"><a href="{if $category.parent eq 0}{html_href_link content=$filename.shop category=$category.counter}{else}{html_href_link content=$filename.shop category=$category.path}{/if}" title=" {$category.name} "><span class="m-font-size-11 text-muted float-right">({$category.countProductsInCategory})</span><strong>{$category.name}</strong></a></li>
 	{else}
-		</li>
+		<li class="list-group-item"><a href="{if $category.parent eq 0}{html_href_link content=$filename.shop category=$category.counter}{else}{html_href_link content=$filename.shop category=$category.path}{/if}" title=" {$category.name} "><span class="m-font-size-11 text-muted float-right">({$category.countProductsInCategory})</span>{$category.name}</a></li>
 	{/if}
-	{if $category.nElements > 0}{$category.nElements|repeat:"</ul></li>"}{/if}
+	{if $category.isGroupEnd eq 1}</ul>{/if}	
 {/foreach}
-{/strip}
 	</ul>
 
 </div>

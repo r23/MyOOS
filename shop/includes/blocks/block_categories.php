@@ -45,7 +45,7 @@ function oos_count_products_in_category($category_id, $include_inactive = FALSE)
     }
     $products_count += $products->fields['total'];
 
-    $nGroupID = isset($_SESSION['user']) ? $_SESSION['user']->group['id']+0 : DEFAULT_CUSTOMERS_STATUS_ID;
+    $nGroupID = isset($_SESSION['user']) ? intval( $_SESSION['user']->group['id'] ) : DEFAULT_CUSTOMERS_STATUS_ID;
     $categoriestable = $oostable['categories'];
     $child_categories_result = $dbconn->Execute("SELECT categories_id FROM $categoriestable WHERE ( access = '0' OR access = '" . intval($nGroupID) . "' ) AND parent_id = '" . intval($category_id) . "'");
     if ($child_categories_result->RecordCount()) {
@@ -72,7 +72,7 @@ function oos_has_category_subcategories($category_id) {
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    $nGroupID = isset($_SESSION['user']) ? $_SESSION['user']->group['id']+0 : DEFAULT_CUSTOMERS_STATUS_ID;
+    $nGroupID = isset($_SESSION['user']) ? intval( $_SESSION['user']->group['id'] ) : DEFAULT_CUSTOMERS_STATUS_ID;
 
     $categoriestable = $oostable['categories'];
     $query = "SELECT COUNT(*) AS total
@@ -121,10 +121,10 @@ function oos_show_category($nCounter) {
 		}
     }
 
- #   if (SHOW_COUNTS == 'true') {
+    if (SHOW_COUNTS == 'true') {
 		$products_in_category = oos_count_products_in_category($nCounter);
 		$aCategory['countProductsInCategory'] = $products_in_category;
- #   }
+    }
 
     if ( (isset($aFoo)) && (is_array($aFoo)) ) {
 
@@ -156,6 +156,13 @@ function oos_show_category($nCounter) {
             }
         }
 
+		if ($aFoo[$nNextID]['level'] < $aFoo[$nCounter]['level'] ) {
+            $aCategory['isGroupEnd'] = 1;
+        } else {
+            $aCategory['isGroupEnd'] = 0;
+        }
+		
+		
         $aCategory = array_merge($aCategory, $aFoo[$nCounter]);
     }
 
@@ -167,7 +174,7 @@ function oos_show_category($nCounter) {
 }
 
 
-$nGroupID = isset($_SESSION['user']) ? $_SESSION['user']->group['id']+0 : DEFAULT_CUSTOMERS_STATUS_ID;
+$nGroupID = isset($_SESSION['user']) ? intval( $_SESSION['user']->group['id'] ) : DEFAULT_CUSTOMERS_STATUS_ID;
 
 $categoriestable = $oostable['categories'];
 $categories_descriptiontable = $oostable['categories_description'];
@@ -212,7 +219,7 @@ if (!empty($sCategory)) {
 		unset($prev_id);
 		unset($first_id);
 
-        $nGroupID = isset($_SESSION['user']) ? $_SESSION['user']->group['id']+0 : DEFAULT_CUSTOMERS_STATUS_ID;
+        $nGroupID = isset($_SESSION['user']) ? intval( $_SESSION['user']->group['id'] ) : DEFAULT_CUSTOMERS_STATUS_ID;
 
         $categoriestable = $oostable['categories'];
         $categories_descriptiontable = $oostable['categories_description'];
@@ -265,7 +272,7 @@ if (!empty($sCategory)) {
 if (sizeof($list_of_categories_ids) > 0 ) {
 	$select_list_of_cat_ids = implode(",", $list_of_categories_ids);
 
-	$nGroupID = isset($_SESSION['user']) ? $_SESSION['user']->group['id']+0 : DEFAULT_CUSTOMERS_STATUS_ID;
+	$nGroupID = isset($_SESSION['user']) ? intval( $_SESSION['user']->group['id'] ) : DEFAULT_CUSTOMERS_STATUS_ID;
 
 	$categoriestable = $oostable['categories'];
 	$query = "SELECT categories_id, parent_id
@@ -285,6 +292,7 @@ if (sizeof($list_of_categories_ids) > 0 ) {
 if (isset($first_element)) {
 	oos_show_category($first_element);
 }
+
 
 $smarty->assign(
 	array(
