@@ -435,6 +435,13 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 			}
 		}
 
+		if (count($_SESSION['navigation']->snapshot) > 0) {
+			$origin_href = oos_href_link($_SESSION['navigation']->snapshot['content'], $_SESSION['navigation']->snapshot['get']);
+			$_SESSION['navigation']->clear_snapshot();
+
+			oos_redirect($origin_href);
+		}		
+	
 		oos_redirect(oos_href_link($aContents['create_account_success']));
 	}
 }

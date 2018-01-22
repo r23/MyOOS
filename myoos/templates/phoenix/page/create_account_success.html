@@ -13,24 +13,25 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="innerWrapper clearfix">
-				
-    <table border="0" width="100%" cellspacing="0" cellpadding="0">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-  <tr>
-    <td><img src="{$theme_image}/heading/{$oos_heading_image}" border="0" alt="{$heading_title}" width="175" height="198" hspace="5" vspace="5"></td>
-    <td valign="top" class="main"><div align="center" class="pageHeading">{$heading_title}</div><br>{$lang.text_main}</td>
-  </tr>
-</table></td>
-      </tr>
-      <tr>
-	    <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-	      <tr>
-	        <td class="main">{$lang.text_information}</td>
-	      </tr>
-	    </table></td>
-      </tr>
-    </table>
+
+					<!-- final message -->
+					<div class="success success-default">
+						<div class="success-block">
+							<h3>{$heading_title}</h3>
+
+							<p>
+								{$thank_you}
+							</p>
+
+							<hr />
+
+							<p>
+								{$lang.text_sincere_regards}<br />
+								<strong>{$smarty.const.STORE_NAME}</strong>
+							</p>
+						</div>
+					</div>
+					<!-- /final message -->
 
 				</div>
 			</div>
