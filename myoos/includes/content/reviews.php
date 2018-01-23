@@ -49,7 +49,7 @@ $aTemplate['pagination'] = $sTheme . '/system/_pagination.html';
 $nPageType = OOS_PAGE_TYPE_CATALOG;
 $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
-$nPage = isset($_GET['page']) ? $_GET['page']+0 : 1;
+$nPage = isset($_GET['page']) ? intval( $_GET['page'] ) : 1;
 $sGroup = trim($aUser['text']);
 $nContentCacheID = $sTheme . '|products|reviews|' . $nPage. '|' . $sGroup . '|' . $sLanguage;
 
@@ -78,6 +78,7 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
                              AND p.products_id = r.products_id
                              AND r.reviews_id = rd.reviews_id
                              AND p.products_id = pd.products_id
+							 AND r.reviews_status = 1 
                              AND pd.products_languages_id = '" . intval($nLanguageID) . "'
                              AND rd.reviews_languages_id = '" . intval($nLanguageID) . "'
                            ORDER BY r.reviews_id DESC";

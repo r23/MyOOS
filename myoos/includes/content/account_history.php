@@ -33,7 +33,7 @@ if (!isset($_SESSION['customer_id'])) {
     oos_redirect(oos_href_link($aContents['login']));
 }
 
-$nPage = isset($_GET['page']) ? $_GET['page']+0 : 1;
+$nPage = isset($_GET['page']) ? intval( $_GET['page'] ) : 1;
 
 // split-page-results
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.php';

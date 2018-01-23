@@ -59,7 +59,7 @@ class splitPageResults {
 		$this->number_of_rows_per_page = $max_rows;
 
 		$pos_to = strlen($this->sql_query);
-		$pos_from = strpos($this->sql_query, ' FROM', 0);
+		$pos_from = strpos($this->sql_query, 'FROM', 0);
 
 		$pos_group_by = strpos($this->sql_query, ' GROUP BY', $pos_from);
 		if (($pos_group_by < $pos_to) && ($pos_group_by != false)) $pos_to = $pos_group_by;
@@ -91,7 +91,7 @@ class splitPageResults {
 		if ($offset <= 0) { $offset = 0; }
 		if ($this->current_page_number <=0) {$this->current_page_number = 1;}
 		
-	#	$this->sql_query .= " LIMIT " . ($offset > 0 ? $offset . ", " : '') . $this->number_of_rows_per_page;	
+		# $this->sql_query .= " LIMIT " . ($offset > 0 ? $offset . ", " : '') . $this->number_of_rows_per_page;	
 		$this->sql_query .= " LIMIT " . max($offset, 0) . ", " . $this->number_of_rows_per_page;
 
 	}

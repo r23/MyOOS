@@ -997,6 +997,22 @@ function oos_strtoupper ($sStr) {
 	return preg_replace ("/[^[:alnum:]]/", "", $sStr);
 }    
 
+function oos_set_reviews_status($reviews_id, $status) {
+
+	// Get database information
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
+
+    $reviewstable = $oostable['reviews'];
+    $query = "UPDATE $reviewstable
+              SET reviews_status = '" . intval($status) . "'
+              WHERE reviews_id = '" . intval($reviews_id) . "'";
+    $result = $dbconn->Execute($query);
+
+    return;
+}
+
+
 /**
  * Parses a byte size from a size value (eg: 100M) for comparison.
  */

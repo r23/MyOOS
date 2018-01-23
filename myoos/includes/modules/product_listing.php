@@ -22,7 +22,7 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-$nPage = isset($_GET['page']) ? $_GET['page']+0 : 1;
+$nPage = isset($_GET['page']) ? intval( $_GET['page'] ) : 1;
 
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.php';   
 include_once MYOOS_INCLUDE_PATH . '/includes/functions/function_listing.php';

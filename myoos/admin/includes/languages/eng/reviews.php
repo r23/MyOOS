@@ -25,6 +25,7 @@ define('HEADING_TITLE', 'Reviews');
 
 define('TABLE_HEADING_PRODUCTS', 'Products');
 define('TABLE_HEADING_RATING', 'Rating');
+define('TABLE_HEADING_STATUS', 'Status:');
 define('TABLE_HEADING_DATE_ADDED', 'Date Added');
 define('TABLE_HEADING_ACTION', 'Action');
 
@@ -39,7 +40,7 @@ define('TEXT_INFO_DELETE_REVIEW_INTRO', 'Are you sure you want to delete this re
 
 define('TEXT_INFO_DATE_ADDED', 'Date Added:');
 define('TEXT_INFO_LAST_MODIFIED', 'Last Modified:');
-define('TEXT_INFO_IMAGE_NONEXISTENT', 'IMAGE DOES NOT EXIST');
+define('TEXT_IMAGE_NONEXISTENT', 'IMAGE DOES NOT EXIST');
 define('TEXT_INFO_REVIEW_AUTHOR', 'Author:');
 define('TEXT_INFO_REVIEW_RATING', 'Rating:');
 define('TEXT_INFO_REVIEW_READ', 'Read:');

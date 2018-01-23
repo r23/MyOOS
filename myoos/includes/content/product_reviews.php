@@ -56,17 +56,15 @@ if (!$product_info_result->RecordCount()) {
 $product_info = $product_info_result->fields;
 
 $reviewstable = $oostable['reviews'];
-$reviews_descriptiontable = $oostable['reviews_description'];
-$reviews_result_raw = "SELECT r.reviews_id, left(rd.reviews_text, 100) as reviews_text, r.reviews_rating, r.date_added, r.customers_name, r.reviews_read
+$reviews_descriptiontable  = $oostable['reviews_description'];
+$reviews_result_raw = "SELECT r.reviews_id, left(rd.reviews_text, 100) AS reviews_text, r.reviews_rating, r.date_added, r.customers_name, r.reviews_read
 						FROM $reviewstable r,
 							$reviews_descriptiontable rd
-						WHERE products_id = '" . intval($nProductsID) . "'
+						WHERE r.products_id = '" . intval($nProductsID) . "'
 						AND r.reviews_id = rd.reviews_id 
 						AND rd.reviews_languages_id = '" .  intval($nLanguageID) . "'
 						AND r.reviews_status = 1 
 						ORDER BY r.reviews_id DESC";
-$reviews_result = $dbconn->Execute($sql);
-
 $reviews_split = new splitPageResults($reviews_result_raw, MAX_DISPLAY_NEW_REVIEWS);
 $reviews_result = $dbconn->Execute($reviews_split->sql_query);
 
@@ -109,10 +107,10 @@ $smarty->assign(
 		'canonical'		=> $sCanonical,
 
 		
-		'page_split'		=> $specials_split->display_count($aLang['text_display_number_of_reviews']),
-		'display_links'		=> $specials_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
-		'numrows' 			=> $specials_split->number_of_rows,
-		'numpages' 			=> $specials_split->number_of_pages,
+		'page_split'		=> $reviews_split->display_count($aLang['text_display_number_of_reviews']),
+		'display_links'		=> $reviews_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
+		'numrows' 			=> $reviews_split->number_of_rows,
+		'numpages' 			=> $reviews_split->number_of_pages,
 					
 		
 		'oos_reviews_array' => $aReviews
