@@ -425,7 +425,8 @@ function calcBasePriceFactor() {
 		</script>
 <?php
     }
-      for ($i=0; $i < count($languages); $i++) {
+
+	for ($i = 0, $n = count($languages); $i < $n; $i++) {	  
 ?>
             <tr>
               <td class="main" width="100" valign="top"><?php if ($i == 0) echo TEXT_PRODUCTS_DESCRIPTION_META; ?></td>
@@ -438,7 +439,9 @@ function calcBasePriceFactor() {
               </table></td>
             </tr>
 <?php
-      for ($i=0; $i < count($languages); $i++) {
+	}
+	  
+	 for ($i = 0, $n = count($languages); $i < $n; $i++) {	
 ?>
             <tr>
               <td class="main" width="100" valign="top"><?php if ($i == 0) echo TEXT_PRODUCTS_KEYWORDS_META; ?></td>
@@ -451,8 +454,7 @@ function calcBasePriceFactor() {
               </table></td>
             </tr>
 <?php
-      }
-    }
+	}
 ?>
           <tr>
             <td colspan="2"></td>
@@ -462,13 +464,13 @@ function calcBasePriceFactor() {
             <td class="main">&nbsp;<?php echo oos_draw_input_field('products_quantity', $pInfo->products_quantity) . ' Min: ' . oos_draw_input_field('products_quantity_order_min', ($pInfo->products_quantity_order_min==0 ? 1 : $pInfo->products_quantity_order_min)) . ' Units: ' . oos_draw_input_field('products_quantity_order_units', $pInfo->products_quantity_order_units); ?></td>
           </tr>
 <?php
-  if (STOCK_CHECK == 'true') {
+	if (STOCK_CHECK == 'true') {
 ?>
           <tr>
             <td class="main"><?php echo TEXT_PRODUCTS_REORDER_LEVEL; ?></td>
             <td class="main">&nbsp;<?php echo oos_draw_input_field('products_reorder_level', $pInfo->products_reorder_level); ?></td>
 <?php
-  }
+	}
 ?>
           <tr>
             <td class="main"><?php echo TEXT_PRODUCTS_MODEL; ?></td>
