@@ -26,42 +26,49 @@
 if ( $session->hasStarted() === FALSE ) $session->start();  
   
 // if the customer is not logged on, redirect them to the shopping cart page
-  if (!isset($_SESSION['customer_id'])) {
+if (!isset($_SESSION['customer_id'])) {
     oos_redirect(oos_href_link($aContents['shopping_cart']));
-  }
+}
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checkout_success.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checkout_success.php';
 
-  if (isset($_GET['action']) && ($_GET['action'] == 'update')) {
+		
+if ( isset($_POST['action']) && ($_POST['action'] == 'notify_process') && 
+	( isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) ){
+	
     if (isset($_POST['notify']) && !empty($_POST['notify'])) {
-      $notify = $_POST['notify'];
-      if (!is_array($notify)) $notify = array($notify);
-      for ($i=0, $n=count($notify); $i<$n; $i++) {
-        $products_notificationstable = $oostable['products_notifications'];
-        $sql = "SELECT COUNT(*) AS total
+	
+		$notify = $_POST['notify'];
+	  
+		if (!is_array($notify)) {
+			$notify = array($notify);
+		}
+		
+		$products_notificationstable = $oostable['products_notifications'];
+		for ($i=0, $n=count($notify); $i<$n; $i++) {		
+			$sql = "SELECT COUNT(*) AS total
                 FROM $products_notificationstable
                 WHERE products_id = '" . intval($notify[$i]) . "'
                   AND customers_id = '" . intval($_SESSION['customer_id']) . "'";
-        $check = $dbconn->Execute($sql);
-        if ($check->fields['total'] < 1) {
-		  $today = date("Y-m-d H:i:s");
-          $products_notificationstable = $oostable['products_notifications'];
-          $sql = "INSERT INTO $products_notificationstable
+			$check = $dbconn->Execute($sql);
+			if ($check->fields['total'] < 1) {
+				$today = date("Y-m-d H:i:s");
+				$sql = "INSERT INTO $products_notificationstable
                   (products_id,
                    customers_id,
                    date_added) VALUES (" . $dbconn->qstr($notify[$i]) . ','
                                          . $dbconn->qstr($_SESSION['customer_id']) . ','
                                          . $dbconn->DBTimeStamp($today) . ")";
-          $result = $dbconn->Execute($sql);
-        }
-      }
+				$result = $dbconn->Execute($sql);
+			}
+		}
     }
     oos_redirect(oos_href_link($aContents['home']));
-  }
+}
 
-  // links breadcrumb
-  $oBreadcrumb->add($aLang['navbar_title_1']);
-  $oBreadcrumb->add($aLang['navbar_title_2']);
+// links breadcrumb
+$oBreadcrumb->add($aLang['navbar_title_1']);
+$oBreadcrumb->add($aLang['navbar_title_2']);
 
   $customers_infotable = $oostable['customers_info'];
   $sql = "SELECT global_product_notifications 
@@ -91,32 +98,29 @@ if ( $session->hasStarted() === FALSE ) $session->start();
                                 'text' => $products['products_name']);
       $products_result->MoveNext();
     }
-    // Close result set
-    $products_result->Close();
-  }
+}
 
-  $aTemplate['page'] = $sTheme . '/page/checkout_success.html';
+$aTemplate['page'] = $sTheme . '/page/checkout_success.html';
 
-  $nPageType = OOS_PAGE_TYPE_CHECKOUT;
-  $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
+$nPageType = OOS_PAGE_TYPE_CHECKOUT;
+$sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
-  if (!isset($option)) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
-  }
+require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
+if (!isset($option)) {
+	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+	require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+}
 
-  //ICW ADDED FOR ORDER_TOTAL CREDIT SYSTEM - Start Addition
-  $coupon_gv_customertable = $oostable['coupon_gv_customer'];
-  $sql = "SELECT amount
+//ICW ADDED FOR ORDER_TOTAL CREDIT SYSTEM - Start Addition
+$coupon_gv_customertable = $oostable['coupon_gv_customer'];
+$sql = "SELECT amount
           FROM $coupon_gv_customertable
           WHERE customer_id = '" . intval($_SESSION['customer_id']) . "'";
-  $gv_amount = $dbconn->GetOne($sql);
-  $smarty->assign('gv_amount', $gv_amount);
+$gv_amount = $dbconn->GetOne($sql);
+$smarty->assign('gv_amount', $gv_amount);
 
-
-  $products_notify = '';
-  if ($global['global_product_notifications'] != '1') {
+$products_notify = '';
+if ($global['global_product_notifications'] != '1') {
     $products_notify .= $aLang['text_notify_products'] . '<br /><p class="productsNotifications">';
 
     $products_displayed = array();
@@ -127,9 +131,9 @@ if ( $session->hasStarted() === FALSE ) $session->start();
       }
     }
     $products_notify .= '</p>';
-  } else {
-    $products_notify .= $aLang['text_see_orders'] . '<br /><br />' . $aLang['text_contact_store_owner'];
-  }
+} else {
+	$products_notify .= $aLang['text_see_orders'] . '<br /><br />' . $aLang['text_contact_store_owner'];
+}
 
 // assign Smarty variables;
 $smarty->assign(

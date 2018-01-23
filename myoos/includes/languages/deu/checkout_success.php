@@ -36,3 +36,4 @@ $aLang['table_heading_download_count'] = 'max. Anz. Downloads';
 $aLang['heading_download'] = 'Artikel herunterladen:';
 $aLang['footer_download'] = 'Sie können Ihre Artikel auch später unter \'%s\' herunterladen';
 
+$aLang['text_sincere_regards'] = 'Vielen Dank, dass Sie sich für uns entschieden haben.';
