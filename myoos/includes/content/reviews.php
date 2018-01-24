@@ -114,8 +114,8 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
             'display_links' => $reviews_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
 			'numrows' 		=> $reviews_split->number_of_rows,
 			'numpages' 		=> $reviews_split->number_of_pages,
-
-            'oos_reviews_array' => $aReviews
+			'page'			=> $nPage,
+            'reviews' 		=> $aReviews
         )
     );
   }

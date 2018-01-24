@@ -1,4 +1,4 @@
-/** Stars
+/** Star Rating
 *************************************************** **/
 
 .br-theme-fontawesome-stars {
@@ -39,4 +39,41 @@
       color: black;
     }
   }
+}
+
+/**
+	<div class="rating rating-0"><!-- rating-1 ... rating-5 --></div>
+*************************************************** **/
+
+.rating {
+	position: relative;
+	min-height: 17px;
+	width: auto;
+	color: #999;
+	display: inline-block;
+	font-family: FontAwesome;
+}
+
+.rating-0:after {
+	content: "\f006\20\f006\20\f006\20\f006\20\f006";
+}
+
+.rating-1:after {
+	content: "\f005\20\f006\20\f006\20\f006\20\f006";
+}
+
+.rating-2:after {
+	content: "\f005\20\f005\20\f006\20\f006\20\f006";
+}
+
+.rating-3:after {
+	content: "\f005\20\f005\20\f005\20\f006\20\f006";
+}
+
+.rating-4:after {
+	content: "\f005\20\f005\20\f005\20\f005\20\f006";
+}
+
+.rating-5:after {
+	content: "\f005\20\f005\20\f005\20\f005\20\f005";
 }

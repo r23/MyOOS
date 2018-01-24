@@ -214,7 +214,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 		}
 
 		$time = mktime();
-		$wishlist_link_id = oos_create_wishlist_code;
+		$wishlist_link_id = oos_create_wishlist_code();
 
 		$sql_data_array = array('customers_firstname' => $firstname,
 								'customers_lastname' => $lastname,

@@ -11,7 +11,7 @@
 <section class="mainContent clearfix">
 	<div class="container">
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-lg-9 col-md-9 col-sm-9">
 				<div class="innerWrapper clearfix">
 
 				<div class="clearfix shop-list-options m-mb-20">
@@ -21,25 +21,73 @@
 					</div>
 					<!-- end pagination -->
 				</div>
+
+				{section name=i loop=$reviews}
+					{if $smarty.section.i.first}
+						<ul class="shop-item-list row list-inline m-0">
+					{/if}
+							<!-- item -->
+							<li class="col-lg-12">
+
+								<div class="shop-item clearfix">
+
+									<div class="thumbnail">
+										<!-- product image -->
+										<a class="shop-item-image" href="{product_link products_id=$reviews[i].products_id}">
+											{small_product_image image=$reviews[i].products_image alt=$reviews[i].products_name|strip_tags}
+										</a>
+										<!-- /product image -->
+{*
+  todo	
+										<div class="shop-item-info">
+											<span class="badge badge-success">NEW</span>
+											<span class="badge badge-danger">SALE</span>
+										</div>
+*}
+									</div>
+										
+									<div class="shop-item-summary">
+										<h2><a href="{product_link products_id=$reviews[i].products_id}">{$reviews[i].products_name}</a></h2>
+											
+										<!-- rating -->
+										<div class="rating rating-{$reviews[i].rating} m-font-size-13"><!-- rating-0 ... rating-5 --></div>
+										<!-- /rating -->
+
+										<p>
+											{$reviews[i].authors_name|string_format:$lang.text_review_by}&nbsp;({$reviews[i].word_count|string_format:$lang.text_review_word_count})
+										</p>
+
+										<p>
+											{$lang.text_review_date_added} {$reviews[i].date_added}
+										</p>
+
+										<p>
+											{$reviews[i].review}
+										</p>
+
+										<!-- buttons -->
+										<div class="shop-item-buttons">
+											<a class="btn btn-default add-wishlist" href="{html_href_link content=$filename.$filename.reviews action=add_wishlist products_id=$reviews[i].products_id page=$page}" role="button"><i class="fa fa-heart p-0" aria-hidden="true"></i></a>
+											<a class="btn btn-default" href="{html_href_link content=$filename.product_reviews_info products_id=$reviews[i].products_id reviews_id=$reviews[i].reviews_id}" role="button">{$lang.button_continue} <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+										</div>
+										<!-- /buttons -->
+									</div>
+
+								</div>
+
+							</li>
+							<!-- /item -->
+					{if $smarty.section.i.last}
+						</ul>
+					{/if}
+
+				{sectionelse}
+					<div class="alert alert-info" role="alert">
+						{$lang.text_no_reviews}
+					</div>
+				{/section}
 				
-      <table border="0" cellspacing="0" cellpadding="2">
-{section name=i loop=$oos_reviews_array}
-  <tr>
-    <td valign="top" class="main"><a href="{html_href_link content=$filename.product_reviews_info products_id=$oos_reviews_array[i].products_id reviews_id=$oos_reviews_array[i].reviews_id}">{small_product_image image=$oos_reviews_array[i].products_image alt=$oos_reviews_array[i].products_name|strip_tags}</a></td>
-    <td valign="top" class="main"><a href="{html_href_link content=$filename.product_reviews_info products_id=$oos_reviews_array[i].products_id reviews_id=$oos_reviews_array[i].reviews_id}"><strong><u>{$oos_reviews_array[i].products_name}</u></strong></a>&nbsp;{$oos_reviews_array[i].authors_name|string_format:$lang.text_review_by}&nbsp;({$oos_reviews_array[i].word_count|string_format:$lang.text_review_word_count})<br>{$oos_reviews_array[i].review}<br><br><i> {$lang.text_review_rating}<img src="{$smarty.const.OOS_IMAGES}stars_{$oos_reviews_array[i].rating}.gif" border="0" alt="{$oos_reviews_array[i].rating|string_format:$lang.text_of_5_stars}" width="59" height="11"> {$oos_reviews_array[i].rating|string_format:$lang.text_of_5_stars}<br>{$lang.text_review_date_added} {$oos_reviews_array[i].date_added}</i></td>
-  </tr>
-  <tr>
-    <td colspan="2" class="main">&nbsp;</td>
-  </tr>
-{sectionelse}
-				<div class="alert alert-info" role="alert">
-					{$lang.text_no_reviews}
-				</div>
-{/section}
-        </table>
 		
-		
-				<span class="pangv m-mt-30">{$pangv}</span>
 				<hr />
 
 				<!-- pagination -->
@@ -48,11 +96,23 @@
 				</div>
 				<!-- end pagination -->
 
-
 				</div>
-			</div>
-		</div>
-	</div>
+		
+			</div><!-- .col -->
+
+			<!-- sidebar-->
+			<div class="col-lg-3 col-md-3 col-sm-3">
+			{foreach $sidebar as $panel}
+				{if $panel.content}
+					{$panel.content}
+				{/if}
+			{/foreach}
+			</div><!-- .col -->
+			<!-- end sidebar -->
+		</div><!-- .row -->      
+	</div><!--end container-->
 </section>
+<!-- end content -->
+
 	
 {include file="phoenix/system/_footer.html"}
