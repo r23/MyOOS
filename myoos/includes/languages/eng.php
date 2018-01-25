@@ -333,6 +333,7 @@ $aLang['button_in_wishlist'] = 'Wishlist';
 $aLang['button_add_wishlist'] = 'Wishlist';
 $aLang['button_redeem_voucher'] = 'Redeem';
 $aLang['button_callaction'] = 'Request a quote';
+$aLang['button_view'] = 'View';
 
 $aLang['button_register'] = 'Register';
 $aLang['button_save_info'] = 'Save Info';

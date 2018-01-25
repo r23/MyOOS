@@ -14,61 +14,73 @@
 			<div class="col-md-12">
 				<div class="innerWrapper clearfix">
 
-    <table border="0" width="100%" cellspacing="0" cellpadding="0">
-      <tr>
-        <td>{$oosPageHeading}</td>
-      </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td class="tableHeading">{$lang.table_heading_number}</td>
-            <td class="tableHeading">{$lang.table_heading_author}</td>
-            <td align="center" class="tableHeading">{$lang.table_heading_rating}</td>
-            <td align="center" class="tableHeading">{$lang.table_heading_read}</td>
-            <td align="right" class="tableHeading">{$lang.table_heading_date_added}</td>
-          </tr>
-          <tr>
-            <td colspan="5"><img src="{$theme_image}/black.gif" border="0" alt=" " width="100%" height="1"></td>
-          </tr>
-{section name=i loop=$oos_reviews_array}
-  {if $smarty.section.i.rownum is even}
-          <tr class="productReviews-even">
-  {else}
-          <tr class="productReviews-odd">
-  {/if}
-            <td class="smallText">{$smarty.section.i.rownum|number_format}</td>
-            <td class="smallText"><a href="{html_href_link content=$filename.product_reviews_info products_id=$smarty.get.products_id reviews_id=$oos_reviews_array[i].id}">{$oos_reviews_array[i].customers_name}</a></td>
-            <td align="center" class="smallText"><img src="{$smarty.const.OOS_IMAGES}stars_{$oos_reviews_array[i].rating}.gif" border="0" alt="{$oos_reviews_array[i].rating|string_format:$lang.text_of_5_stars}" width="59" height="11"></td>
-            <td align="center" class="smallText">{$oos_reviews_array[i].read}</td>
-            <td align="right" class="smallText">{$oos_reviews_array[i].date_added}</td>
-          </tr>
-{sectionelse}
-          <tr class="productReviews-odd">
-            <td colspan="5" class="smallText">{$lang.text_no_reviews}</td>
-          </tr>
-{/section}
-          <tr>
-            <td colspan="5"><img src="{$theme_image}/black.gif" border="0" alt=" " width="100%" height="1"></td>
-          </tr>
-          <tr>
-            <td class="main" colspan="5"><br><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr>
-                <td class="main"><a href="{product_link products_id=$smarty.get.products_id}" class="btn btn-primary-filled" role="button"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> {$lang.button_back}</a></td>
-                <td align="right" class="main"><a href="{html_href_link content=$filename.product_reviews_write products_id=$smarty.get.products_id}" class="btn btn-primary-filled" role="button"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {$lang.button_write_review}</a></td>
-              </tr>
-            </table></td>
-          </tr>
-        </table></td>
-      </tr>
-    </table>
+					<div class="clearfix shop-list-options m-mb-20">
+						<!-- pagination -->
+						<div class="m-0 float-right">
+							{$pagination}
+						</div>
+						<!-- end pagination -->
+					</div>
+				
+					<div class="reviews">
+				{section name=i loop=$reviews}
+					{if $smarty.section.i.first}		
+						<div class="table-responsive">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>{$lang.table_heading_number}</th>
+										<th>{$lang.table_heading_author}</th>
+										<th>{$lang.table_heading_rating}</th>
+										<th>{$lang.table_heading_read}</th>
+										<th>{$lang.table_heading_date_added}</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+					{/if}	
+									<tr>
+										<td>{$smarty.section.i.rownum|number_format}</td>
+										<td><a href="{html_href_link content=$filename.product_reviews_info products_id=$smarty.get.products_id reviews_id=$reviews[i].id}">{$reviews[i].customers_name}</a></td>
+										<td><div class="rating rating-{$reviews[i].rating} m-font-size-13 fw-100 text-center"><!-- rating-0 ... rating-5 --></div></td>
+										<td>{$reviews[i].read}</td>
+										<td>{$reviews[i].date_added}</td>
+										<td><a href="{html_href_link content=$filename.product_reviews_info products_id=$smarty.get.products_id reviews_id=$reviews[i].id}" class="btn btn-sm btn-secondary-outlined" role="button">{$lang.button_view}</a></td>
+									</tr>
+					{if $smarty.section.i.last}
+								</tbody>
+							</table>
+						</div>
+					{/if}
+
+				{sectionelse}
+						<div class="alert alert-info" role="alert">
+							{$lang.text_no_reviews}
+						</div>
+				{/section}		
+					</div>			
+				
+					<div class="well well-lg clearfix">
+						<ul class="pager">
+							<li class="previous float-left"><a class="btn btn-secondary btn-default float-left" href="{product_link products_id=$smarty.get.products_id}" role="button"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> {$lang.button_back}</a></li>
+							<li class="next"><a class="btn btn-primary btn-default float-right" href="{html_href_link content=$filename.product_reviews_write products_id=$smarty.get.products_id}" role="button"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {$lang.button_write_review}</a></li>
+						</ul>
+					</div>				
+
+
+				<hr />
+
+				<!-- pagination -->
+				<div class="text-center">
+					{$pagination}
+				</div>
+				<!-- end pagination -->
 
 				</div>
-			</div>
-		</div>
-	</div>
+		
+			</div><!-- .col -->
+		</div><!-- .row -->      
+	</div><!--end container-->
 </section>
 
 {if $smarty.const.NEWSLETTER eq 'true'}

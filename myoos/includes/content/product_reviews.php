@@ -113,7 +113,7 @@ $smarty->assign(
 		'numpages' 			=> $reviews_split->number_of_pages,
 					
 		
-		'oos_reviews_array' => $aReviews
+		'reviews' 		=> $aReviews
 		  
       )
 );
