@@ -1,4 +1,4 @@
-![InvoicePlane](http://invoiceplane.com/content/logo/PNG/logo_300x150.png)
+
 #### _Version 1.5.5_
 
 InvoicePlane is a self-hosted open source application for managing your invoices, clients and payments.    
