@@ -27,7 +27,9 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
+define('OOS_HTTP_SERVER', ''); // No trailing slash
 define('OOS_HTTPS_SERVER', ''); // No trailing slash
+define('ENABLE_SSL', '');
 define('OOS_SHOP', '');
 define('OOS_ADMIN', 'admin/');
 

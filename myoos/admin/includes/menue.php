@@ -12,7 +12,7 @@
    
 $orders_result = $dbconn->Execute("SELECT COUNT(*) AS count FROM " . $oostable['orders'] . " WHERE orders_status = '0'");
 $orders = $orders_result->fields;
-$reviews_result = $dbconn->Execute("SELECT COUNT(*) AS count FROM " . $oostable['reviews']);
+$reviews_result = $dbconn->Execute("SELECT COUNT(*) AS count FROM " . $oostable['reviews']  . " WHERE reviews_status = '0'");
 $reviews = $reviews_result->fields;   
    
 ?>
@@ -49,7 +49,7 @@ $reviews = $reviews_result->fields;
 				</a>
 			</li>
 			<li>
-				<a href="<?php echo oos_href_link_admin('reviews', 'selected_box=catalog'); ?>">
+				<a href="<?php echo oos_href_link_admin($aContents['reviews'], 'selected_box=catalog'); ?>">
 					<i class="fa fa-comment"></i><span class="label label-warning"><?php echo $reviews['count']; ?></span>
 				</a>
 			</li>

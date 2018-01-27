@@ -2,19 +2,17 @@
 
 {include file="phoenix/system/_breadcrumbs.html"}
 
+{if $message}
+    {foreach $message as $info}
+        {include file="phoenix/system/_message.html"}
+    {/foreach}
+{/if}
+
 <!-- start content -->
 <section id="content">
 	<div class="container">
 	    <div class="row">
 			<div class="col-md-6 offset-md-3">
-			
-			{if $message}
-				{foreach $message as $info}
-					{include file="phoenix/system/_message.html"}
-				{/foreach}
-			{/if}			
-			
-			
 			
 				<div class="sign-form">
 					<h3 class="first-child"><i class="fa fa-users" aria-hidden="true"></i> {$lang.heading_title}</h3>

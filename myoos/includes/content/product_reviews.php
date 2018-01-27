@@ -57,7 +57,7 @@ $product_info = $product_info_result->fields;
 
 $reviewstable = $oostable['reviews'];
 $reviews_descriptiontable  = $oostable['reviews_description'];
-$reviews_result_raw = "SELECT r.reviews_id, left(rd.reviews_text, 100) AS reviews_text, r.reviews_rating, r.date_added, r.customers_name, r.reviews_read
+$reviews_result_raw = "SELECT r.reviews_id, left(rd.reviews_text, 100) AS reviews_text, r.verified, r.reviews_rating, r.date_added, r.customers_name, r.reviews_read
 						FROM $reviewstable r,
 							$reviews_descriptiontable rd
 						WHERE r.products_id = '" . intval($nProductsID) . "'
@@ -92,6 +92,10 @@ $aTemplate['pagination'] = $sTheme . '/system/_pagination.html';
 
 $nPageType = OOS_PAGE_TYPE_REVIEWS;
 $sPagetitle = sprintf($aLang['heading_title'], $product_info['products_name']) . ' ' . OOS_META_TITLE;
+
+if ($oMessage->size('reviews') > 0) {
+	$aInfoMessage = array_merge ($aInfoMessage, $oMessage->output('reviews') );
+}
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {

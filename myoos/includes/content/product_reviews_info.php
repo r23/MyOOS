@@ -31,16 +31,12 @@ if (!isset($_GET['reviews_id'])) {
 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/reviews_product_info.php';
 
-// lets retrieve all $_GET keys and values..
-$get_parameters = oos_get_all_get_parameters(array('reviews_id'));
-$get_parameters = oos_remove_trailing($get_parameters);
-
-  $reviewstable  = $oostable['reviews'];
-  $productstable = $oostable['products'];
-  $reviews_descriptiontable  = $oostable['reviews_description'];
-  $products_descriptiontable = $oostable['products_description'];
-  $sql = "SELECT rd.reviews_text, r.reviews_rating, r.reviews_id, r.products_id,
-                 r.customers_name, r.date_added, r.last_modified, r.reviews_read,
+$reviewstable = $oostable['reviews'];
+$productstable = $oostable['products'];
+$reviews_descriptiontable = $oostable['reviews_description'];
+$products_descriptiontable = $oostable['products_description'];
+$sql = "SELECT rd.reviews_text, r.reviews_rating, r.reviews_id, r.products_id,
+                 r.customers_name, r.verified, r.date_added, r.last_modified, r.reviews_read,
                  p.products_id, pd.products_name, p.products_model, p.products_image
           FROM $reviewstable r,
                $reviews_descriptiontable rd,
@@ -53,38 +49,46 @@ $get_parameters = oos_remove_trailing($get_parameters);
             AND p.products_status >= '1'
             AND p.products_id = pd.products_id
             AND pd.products_languages_id = '" . intval($nLanguageID) . "'";
-  $reviews_result = $dbconn->Execute($sql);
-  if (!$reviews_result->RecordCount()) oos_redirect(oos_href_link($aContents['reviews']));
-  $reviews = $reviews_result->fields;
+$reviews_result = $dbconn->Execute($sql);
+if (!$reviews_result->RecordCount()){
+	// product reviews not found
+	oos_redirect(oos_href_link($aContents['reviews']));
+}
+$reviews = $reviews_result->fields;
 
-  $dbconn->Execute("UPDATE " . $oostable['reviews'] . "
+$dbconn->Execute("UPDATE " . $oostable['reviews'] . "
                 SET reviews_read = reviews_read+1
                 WHERE reviews_id = '" . $reviews['reviews_id'] . "'");
 
 // add the products model or products_name to the breadcrumb trail
 // links breadcrumb
 $oBreadcrumb->add($reviews['products_name'], oos_href_link($aContents['product_info'], 'category=' . $sCategory . '&amp;products_id=' . $reviews['products_id']));
-$oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['product_reviews'], $get_parameters));
+$oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['product_reviews']));
+$sCanonical = oos_href_link($aContents['product_reviews'], $get_parameters, FALSE, TRUE);
 
-  $aTemplate['page'] = $sTheme . '/page/product_reviews_info.html';
+$aTemplate['page'] = $sTheme . '/page/product_reviews_info.html';
 
-  $nPageType = OOS_PAGE_TYPE_REVIEWS;
-  $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
+$nPageType = OOS_PAGE_TYPE_REVIEWS;
+$sPagetitle = sprintf($aLang['heading_title'], $reviews['products_name']) . ' ' . OOS_META_TITLE;
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
-  if (!isset($option)) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
-  }
+if ($oMessage->size('reviews') > 0) {
+	$aInfoMessage = array_merge ($aInfoMessage, $oMessage->output('reviews') );
+}
 
-  $smarty->assign(
+require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
+if (!isset($option)) {
+	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+	require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+}
+
+$smarty->assign(
        array(
            'breadcrumb'    => $oBreadcrumb->trail(),
            'heading_title' => sprintf($aLang['heading_title'], $reviews['products_name']),
 
            'reviews' => $reviews
        )
-  );
+);
 
 // display the template
 $smarty->display($aTemplate['page']);

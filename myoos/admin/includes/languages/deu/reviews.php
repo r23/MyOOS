@@ -42,6 +42,7 @@ define('TEXT_INFO_LAST_MODIFIED', 'letzte Änderung:');
 define('TEXT_IMAGE_NONEXISTENT', 'BILD EXISTIERT NICHT');
 define('TEXT_INFO_REVIEW_AUTHOR', 'geschrieben von:');
 define('TEXT_INFO_REVIEW_RATING', 'Bewertung:');
+define('TEXT_INFO_REVIEW_STATUS', 'Status der Bewertung:');
 define('TEXT_INFO_REVIEW_READ', 'gelesen :');
 define('TEXT_INFO_REVIEW_SIZE', 'Grösse:');
 define('TEXT_INFO_PRODUCTS_AVERAGE_RATING', 'durchschnittl. Wertung:');

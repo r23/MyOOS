@@ -28,9 +28,13 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     switch ($action) {
       case 'update':
         $reviews_id = oos_db_prepare_input($_GET['rID']);
-
+		
+        $reviews_rating = oos_db_prepare_input($_POST['reviews_rating']);
+        $reviews_text = oos_db_prepare_input($_POST['reviews_text']);
+        $reviews_status = oos_db_prepare_input($_POST['reviews_status']);
+		
         $reviewstable = $oostable['reviews'];
-        $dbconn->Execute("UPDATE $reviewstable SET reviews_rating = '" . oos_db_input($reviews_rating) . "', last_modified = now() WHERE reviews_id = '" . oos_db_input($reviews_id) . "'");
+        $dbconn->Execute("UPDATE $reviewstable SET reviews_rating = '" . oos_db_input($reviews_rating) . "', reviews_status = '" . oos_db_input($reviews_status) . "', last_modified = now() WHERE reviews_id = '" . oos_db_input($reviews_id) . "'");
         $reviews_descriptiontable = $oostable['reviews_description'];
         $dbconn->Execute("UPDATE $reviews_descriptiontable SET reviews_text = '" . oos_db_input($reviews_text) . "' WHERE reviews_id = '" . oos_db_input($reviews_id) . "'");
 
@@ -49,13 +53,14 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         break;
 		
       case 'setflag':
+		if ( ($_GET['flag'] == '0') || ($_GET['flag'] == '1') ) {
+			if (isset($_GET['rID']) && is_numeric($_GET['rID'])){
+				oos_set_review_status($_GET['rID'], $_GET['flag']);
+			}
+		}
 		
-		if (isset($_GET['rID']) && is_numeric($_GET['rID']) && isset($_GET['flag']) && is_numeric($_GET['flag'])){
-			oos_set_reviews_status($_GET['rID'], $_GET['flag']);
-        }
-        oos_redirect_admin(oos_href_link_admin($aContents['reviews'], 'page=' . $nPage));			
-        break;		
-		
+		oos_redirect_admin(oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $_GET['rID']));
+        break;	
     }
   }
   require 'includes/header.php'; 
@@ -110,7 +115,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
     $reviewstable = $oostable['reviews'];
     $reviews_descriptiontable = $oostable['reviews_description'];
-    $reviews_result = $dbconn->Execute("SELECT r.reviews_id, r.products_id, r.customers_name, r.date_added, r.last_modified, r.reviews_read, rd.reviews_text, r.reviews_rating FROM $reviewstable r, $reviews_descriptiontable rd WHERE r.reviews_id = '" . oos_db_input($rID) . "' AND r.reviews_id = rd.reviews_id");
+    $reviews_result = $dbconn->Execute("SELECT r.reviews_id, r.products_id, r.customers_name, r.date_added, r.last_modified, r.reviews_read, rd.reviews_text, r.reviews_rating, r.reviews_status FROM $reviewstable r, $reviews_descriptiontable rd WHERE r.reviews_id = '" . oos_db_input($rID) . "' AND r.reviews_id = rd.reviews_id");
     $reviews = $reviews_result->fields;
 
     $productstable = $oostable['products'];
@@ -123,6 +128,15 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
     $rInfo_array = array_merge($reviews, $products, $products_name);
     $rInfo = new objectInfo($rInfo_array);
+	
+    switch ($rInfo->reviews_status) {
+      case '0': 
+		$in_status = FALSE; 
+		break;
+      case '1':
+      default: $in_status = TRUE; 
+    }
+	
 ?>
       <tr><?php echo oos_draw_form('id', 'review', $aContents['reviews'], 'page=' . $nPage . '&rID=' . $_GET['rID'] . '&action=preview', 'post', FALSE); ?>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
@@ -130,6 +144,10 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
             <td class="main" valign="top"><b><?php echo ENTRY_PRODUCT; ?></b> <?php echo $rInfo->products_name; ?><br /><b><?php echo ENTRY_FROM; ?></b> <?php echo $rInfo->customers_name; ?><br /><br /><b><?php echo ENTRY_DATE; ?></b> <?php echo oos_date_short($rInfo->date_added); ?></td>
             <td class="main" align="right" valign="top"><?php echo oos_image(OOS_HTTPS_SERVER . OOS_IMAGES . $rInfo->products_image, $rInfo->products_name, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'hspace="5" vspace="5"'); ?></td>
           </tr>
+          <tr>
+            <td class="main" colspan="2"><strong><?php echo TEXT_INFO_REVIEW_STATUS; ?></strong> <?php echo oos_draw_checkbox_field('reviews_status', '1', $in_status); ?></td>
+          </tr>		  
+		  
         </table></td>
       </tr>
       <tr>
@@ -148,7 +166,9 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       <tr>
         <td class="main"><b><?php echo ENTRY_RATING; ?></b>&nbsp;<?php echo TEXT_BAD; ?>&nbsp;<?php for ($i=1; $i<=5; $i++) echo oos_draw_radio_field('reviews_rating', $i, '', $rInfo->reviews_rating) . '&nbsp;'; echo TEXT_GOOD; ?></td>
       </tr>
-      <tr>
+          <tr>
+        <td></td>
+      </tr>  <tr>
         <td></td>
       </tr>
       <tr>
@@ -277,7 +297,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       }
 ?>
                 <td class="dataTableContent"><?php echo '<a href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $reviews['reviews_id'] . '&action=preview') . '"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-search"></i></button></a>&nbsp;' . oos_get_products_name($reviews['products_id']); ?></td>
-                <td class="dataTableContent" align="right"><?php echo oos_image(OOS_HTTPS_SERVER . OOS_SHOP . OOS_IMAGES . 'stars_' . $reviews['reviews_rating'] . '.gif'); ?></td>
+                <td class="dataTableContent" align="right"><?php echo $reviews['reviews_rating']; ?></td>
                 <td class="dataTableContent" align="center">
  <?php
        if ($reviews['reviews_status'] == '1') {

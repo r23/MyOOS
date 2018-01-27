@@ -29,4 +29,4 @@ $aLang['sub_title_review'] = 'Meinung:';
 $aLang['sub_title_rating'] = 'Bewertung:';
 $aLang['text_of_5_stars'] = '%s von 5 Sternen!';
 $aLang['text_click_to_enlarge'] = 'Für eine grössere Darstellung<br />klicken Sie auf das Bild.';
-
+$aLang['text_verified_purchase'] = 'Verifizierter Kauf';

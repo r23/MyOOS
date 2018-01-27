@@ -29,4 +29,5 @@ $aLang['sub_title_review'] = 'Review:';
 $aLang['sub_title_rating'] = 'Rating:';
 $aLang['text_of_5_stars'] = '%s of 5 Stars!';
 $aLang['text_click_to_enlarge'] = 'Click to enlarge';
+$aLang['text_verified_purchase'] = 'Verified Purchase';
 

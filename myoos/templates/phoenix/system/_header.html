@@ -46,7 +46,7 @@
 <body>
 <div class="wrapper">
 
-	<!-- Top Bar -->
+	<!-- top bar -->
 	<div id="topBar" class="clearfix">
 		<div class="container">
 
@@ -122,12 +122,12 @@
 
 		</div>
 	</div>
-	<!-- end Top Bar -->
+	<!-- /top bar -->
 
 			
 	<div id="header" class="navbar-toggleable-md clearfix">
 
-		<!-- SEARCH HEADER -->
+		<!-- search header -->
 		<div class="search-box over-header">
 			<a id="closeSearch" href="#" class="fa fa-remove"></a>
 
@@ -141,31 +141,31 @@
 			</form>
 	
 		</div> 
-		<!-- end SEARCH HEADER -->
+		<!-- /search header -->
 
 
-				<!-- TOP NAV -->
+				<!-- top nav -->
 				<header id="topNav">
 					<div class="container">
 
-						<!-- Mobile Menu Button -->
+						<!-- mobile menu button -->
 						<button class="btn btn-mobile" data-toggle="collapse" data-target=".nav-main-collapse">
 							<i class="fa fa-bars"></i>
 						</button>
 
-						<!-- BUTTONS -->
+						<!-- buttons -->
 						<ul class="float-right nav nav-pills nav-second-main mr-auto">
 
-							<!-- SEARCH -->
+							<!-- search -->
 							<li class="search">
 								<a href="javascript:;">
 									<i class="fa fa-search"></i>
 								</a>
 							</li>
-							<!-- end SEARCH -->
+							<!-- /search -->
 
 
-							<!-- QUICK SHOP CART -->
+							<!-- quick shop cart -->
 							<li class="quick-cart">
 								<a href="{html_href_link content=$filename.shopping_cart}">
 									<span class="badge badge-aqua btn-sm badge-corner">{$cart_count_contents}</span>
@@ -180,7 +180,7 @@
 											<img src="demo_files/images/people/300x300/4-min.jpg" width="45" height="45" alt="" />
 											<h6><span>{$products.quantity|quantity}&nbsp;x&nbsp;</span> {$products.name|truncate:25:"...":true|close_tags}</h6>
 											<small>{display_price price=$products.final_price tax=$products.tax quantity=$products.quantity}</small>
-										</a><!-- end cart item -->
+										</a><!-- /cart item -->
 									{/foreach}
 									</div>
 									
@@ -189,7 +189,7 @@
 										<a href="{html_href_link content=$filename.shopping_cart}" class="btn btn-primary btn-sm float-right">{$lang.header_title_cart_contents}</a>
 										<span class="float-left"><strong>{$lang.total}:</strong> {$cart_show_total}</span>
 									</div>
-									<!-- end quick cart footer -->
+									<!-- /quick cart footer -->
 								{else}	
 									<!-- cart no items -->
 									<a class="text-center" href="{html_href_link content=$filename.shopping_cart}">
@@ -200,17 +200,17 @@
 
 								</div>
 							</li>
-							<!-- end QUICK SHOP CART -->
+							<!-- /quick shop carT -->
 
 						</ul>
-						<!-- end BUTTONS -->
+						<!-- /buttons -->
 
 <!-- Logo 
 						<a class="logo float-left" href="{html_href_link content=$filename.home}">
 							<img id="logo-header" src="{$theme_image}/logo.png" alt="{$smarty.const.STORE_NAME}" title="{$smarty.const.STORE_NAME}">
 						</a>
 -->
-						<!-- Navigation -->
+						<!-- navigation -->
 						<div class="navbar-collapse collapse float-right nav-main-collapse submenu-dark">
 							<nav class="nav-main">
 
@@ -252,7 +252,7 @@
 
 					</div>
 				</header>
-				<!-- end Top Nav -->
+				<!-- /top nav -->
 
 			</div>
 

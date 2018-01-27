@@ -155,7 +155,7 @@ if (!$product_info_result->RecordCount()) {
 
     if ($oEvent->installed_plugin('reviews')) {
       $reviewstable = $oostable['reviews'];
-      $reviews_sql = "SELECT COUNT(*) AS total FROM $reviewstable WHERE products_id = '" . intval($nProductsID) . "'";
+      $reviews_sql = "SELECT COUNT(*) AS total FROM $reviewstable WHERE products_id = '" . intval($nProductsID) . "' AND reviews_status = '1'";
       $reviews = $dbconn->Execute($reviews_sql);
       $reviews_total = $reviews->fields['total'];
       $smarty->assign('reviews_total', $reviews_total);

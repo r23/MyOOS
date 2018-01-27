@@ -34,4 +34,5 @@ $aLang['text_no_html'] = '<strong>NOTE:</strong>&nbsp;HTML is not translated!';
 $aLang['text_bad'] = '<strong>BAD</strong>';
 $aLang['text_good'] = '<strong>GOOD</strong>';
 $aLang['error_invalid_product'] = 'That product is no longer available. Please try again.';
-
+$aLang['error_login_for_rating'] = 'You must be logged in to post a review.';
+$aLang['info_review_waiting'] = 'Thank you for your rating. Your review is waiting for activation!';

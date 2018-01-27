@@ -25,18 +25,6 @@ if (!$oEvent->installed_plugin('reviews')) {
     oos_redirect(oos_href_link($aContents['home']));
 }
 
-// start the session
-if ( $session->hasStarted() === FALSE ) $session->start();  
-  
-if (!isset($_SESSION['customer_id'])) {
-	// navigation history
-	if (!isset($_SESSION['navigation'])) {
-		$_SESSION['navigation'] = new oosNavigationHistory();
-	}   
-    $_SESSION['navigation']->set_snapshot();
-    oos_redirect(oos_href_link($aContents['login']));
-}
-
 if (isset($_GET['products_id'])) {
 	if (!isset($nProductsID)) $nProductsID = oos_get_product_id($_GET['products_id']);
 } elseif (isset($_POST['products_id'])) {
@@ -46,6 +34,23 @@ if (isset($_GET['products_id'])) {
 }
 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/reviews_product_write.php';
+
+
+// start the session
+if ( $session->hasStarted() === FALSE ) $session->start();  
+  
+if (!isset($_SESSION['customer_id'])) {
+	// navigation history
+	if (!isset($_SESSION['navigation'])) {
+		$_SESSION['navigation'] = new oosNavigationHistory();
+	}   
+    $_SESSION['navigation']->set_snapshot();
+	
+	$oMessage->add_session('login', $aLang['error_login_for_rating'], 'danger');	
+	
+    oos_redirect(oos_href_link($aContents['login']));
+}
+
 
 $productstable = $oostable['products'];
 $products_descriptiontable = $oostable['products_description'];
@@ -100,18 +105,41 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'reviews-write-process') &&
 			$lastname = substr($lastname, 0, 1);
 			$customers_name = $firstname . '. ' . $lastname . '. ';
 
+		
+			$orderstable = $oostable['orders'];
+			$orders_productstable = $oostable['orders_products'];
+			$query = "SELECT o.orders_id, op.products_id
+					FROM $orderstable o,
+							$orders_productstable op
+					WHERE o.customers_id = '" . intval($_SESSION['customer_id']) . "'
+						AND o.orders_id = op.orders_id
+						AND op.products_id = '" . intval($nProductsId) . "'";
+			$orders_result = $dbconn->Execute($query);
+			if ($orders_result->RecordCount()) {
+				$nValidReviews = 1;
+			} else {
+				$nValidReviews = 0;
+			}
+
+			
 			$date_now = date('Ymd');
 			$reviewstable  = $oostable['reviews'];
 			$dbconn->Execute("INSERT INTO $reviewstable
 							(products_id,
 							customers_id,
 							customers_name,
+							verified,
 							reviews_rating,
-							date_added) VALUES ('" . intval($nProductsID) . "',
+							date_added,
+							reviews_read,
+							reviews_status) VALUES ('" . intval($nProductsID) . "',
 												'" . intval($_SESSION['customer_id']) . "',
 												'" . oos_db_input($customers_name) . "',
+												'" . intval($nValidReviews) . "',
 												'" . oos_db_input($rating) . "',
-												now())");
+												now(),
+												'0',
+												'0')");
 			$insert_id = $dbconn->Insert_ID();
 			$reviews_descriptiontable  = $oostable['reviews_description'];
 			$dbconn->Execute("INSERT INTO $reviews_descriptiontable
@@ -138,6 +166,8 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'reviews-write-process') &&
 			require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
 			$smarty = new myOOS_Smarty();
 			$smarty->clearCache(NULL, $sTheme.'|products|reviews');
+			
+			$oMessage->add_session('reviews', $aLang['info_review_waiting'], 'success');
 
 			oos_redirect(oos_href_link($aContents['product_reviews'], 'products_id=' . intval($nProductsID)));
 

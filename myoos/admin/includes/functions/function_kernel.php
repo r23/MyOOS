@@ -997,7 +997,7 @@ function oos_strtoupper ($sStr) {
 	return preg_replace ("/[^[:alnum:]]/", "", $sStr);
 }    
 
-function oos_set_reviews_status($reviews_id, $status) {
+function oos_set_review_status($reviews_id, $status) {
 
 	// Get database information
     $dbconn =& oosDBGetConn();

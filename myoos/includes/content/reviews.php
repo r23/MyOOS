@@ -53,6 +53,10 @@ $nPage = isset($_GET['page']) ? intval( $_GET['page'] ) : 1;
 $sGroup = trim($aUser['text']);
 $nContentCacheID = $sTheme . '|products|reviews|' . $nPage. '|' . $sGroup . '|' . $sLanguage;
 
+if ($oMessage->size('reviews') > 0) {
+	$aInfoMessage = array_merge ($aInfoMessage, $oMessage->output('reviews') );
+}
+
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
 	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';

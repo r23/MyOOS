@@ -34,4 +34,5 @@ $aLang['text_no_html'] = '<strong>ACHTUNG:</strong>&nbsp;HTML wird nicht unterst
 $aLang['text_bad'] = '<strong>SCHLECHT</strong>';
 $aLang['text_good'] = '<strong>SEHR GUT</strong>';
 $aLang['error_invalid_product'] = 'Das von Ihnen gewählte Produkt wurde nicht gefunden!';
-
+$aLang['error_login_for_rating'] = 'Sie müssen sich anmelden, um eine Bewertung abzugeben.';
+$aLang['info_review_waiting'] = 'Vielen Dank für Ihre Bewertung. Ihre Bewertung wartet auf Freischaltung!';

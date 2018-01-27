@@ -43,6 +43,7 @@ define('TEXT_INFO_LAST_MODIFIED', 'Last Modified:');
 define('TEXT_IMAGE_NONEXISTENT', 'IMAGE DOES NOT EXIST');
 define('TEXT_INFO_REVIEW_AUTHOR', 'Author:');
 define('TEXT_INFO_REVIEW_RATING', 'Rating:');
+define('TEXT_INFO_REVIEW_STATUS', 'Review Status:');
 define('TEXT_INFO_REVIEW_READ', 'Read:');
 define('TEXT_INFO_REVIEW_SIZE', 'Size:');
 define('TEXT_INFO_PRODUCTS_AVERAGE_RATING', 'Average Rating:');

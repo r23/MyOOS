@@ -880,6 +880,7 @@ $flds = "
   products_model C(12) NULL,
   products_ean C(13) NULL,
   products_image C(255) NULL,
+  products_average_rating N '10.2', 
   products_price N '15.8' NOTNULL DEFAULT '0.00000000',
   products_base_price N '10.6' NOTNULL DEFAULT '1.000000',
   products_product_quantity N '10.2' NOTNULL DEFAULT '1.00',
@@ -1085,22 +1086,13 @@ $flds = "
 dosql($table, $flds);
 
 
-$table = $prefix_table . 'recovercartsales';
-$flds = "
-  recovercartsales_id I NOTNULL AUTO PRIMARY,
-  customers_id I unsigned NOTNULL,
-  recovercartsales_date_added C(8) NOTNULL,
-  recovercartsales_date_modified C(8) NOTNULL
-";
-dosql($table, $flds);
-
-
 $table = $prefix_table . 'reviews';
 $flds = "
   reviews_id I NOTNULL AUTO PRIMARY,
   products_id I NOTNULL,
   customers_id I,
   customers_name C(64) NOTNULL,
+  verified I2 NOTNULL DEFAULT '0',
   reviews_rating I1,
   date_added T,
   last_modified T,

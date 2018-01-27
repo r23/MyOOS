@@ -16,9 +16,6 @@
 		
 	<div class="rating rating-{$random_product.reviews_rating} m-font-size-13 fw-100 text-center"><!-- rating-0 ... rating-5 --></div>
 
-	<div class="text-center">
-		<img src="{$smarty.const.OOS_IMAGES}stars_{$random_product.reviews_rating}.gif" border="0" alt="{$random_product.reviews_rating|string_format:$lang.text_of_5_stars}" width="59" height="11">
-	</div>
 	{elseif (isset($smarty.get.products_id))}
 	<ul class="list-group list-unstyled">
         <li class="list-group-item"><a href="{html_href_link content=$filename.product_reviews_write products_id=$smarty.get.products_id}">{$lang.button_write_review}</a></li>

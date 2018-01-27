@@ -13,52 +13,54 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="innerWrapper clearfix">
+					<div class="row">
+						<!-- image -->
+						<div class="media flex-wrap">
+							<div class="thumbnail relative m-mb-3">
+								<a href="{product_link products_id=$reviews.products_id}">
+									{small_product_image image=$reviews.products_image alt=$reviews.products_name|strip_tags}
+								</a>
+							</div>
+						</div>
+						<!-- /image -->
 
-    <table border="0" width="100%" cellspacing="0" cellpadding="0">
-      <tr>
-        <td>{$oosPageHeading}</td>
-      </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td class="main"><strong>{$lang.sub_title_product}</strong> {$reviews.products_name}</td>
-            <td class="smallText" rowspan="3" align="center"><a href="{product_link products_id=$smarty.get.products_id}">{small_product_image image=$reviews.products_image alt=$reviews.products_name|strip_tags align=center hspace=5 vspace=5}<br>{$reviews.products_name}</a></td>
-          </tr>
-          <tr>
-            <td class="main"><strong>{$lang.sub_title_from}</strong> {$reviews.customers_name}</td>
-          </tr>
-          <tr>
-            <td class="main"><strong>{$lang.sub_title_date}</strong> {$reviews.date_added|oos_date_long}</td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td class="main"><strong>{$lang.sub_title_review}</strong></td>
-      </tr>
-      <tr>
-        <td class="main"><br>{$reviews.reviews_text|strip_tags|wordwrap:60:"<br>\n"}</td>
-      </tr>
-      <tr>
-        <td class="main"><br><strong>{$lang.sub_title_rating}</strong> <img src="{$smarty.const.OOS_IMAGES}stars_{$reviews.reviews_rating}.gif" border="0" alt="{$reviews.reviews_rating|string_format:$lang.text_of_5_stars}" width="59" height="11"> <small>{$reviews.reviews_rating|string_format:$lang.text_of_5_stars}</small></td>
-      </tr>
-      <tr>
-        <td><br><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td class="main"><a href="{html_href_link content=$filename.product_reviews products_id=$smarty.get.products_id}" class="btn btn-primary-filled" role="button"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> {$lang.button_back}</a></td>
-            <td align="right" class="main">
-{if $myUser.show_price eq 1 }
-  <a href="{html_href_link content=$filename.home action=buy_now products_id=$smarty.get.products_id}"  class="btn btn-primary-filled" role="button"><i class="fa fa-shopping-cart" aria-hidden="true"></i> {$lang.button_in_cart}</a>
-{else}
-  <a href="{html_href_link content=$filename.login}" class="btn btn-primary-filled" role="button"><i class="fa fa-sign-in" aria-hidden="true"></i> {$lang.button_login}</a>
-{/if}
-             </td>
-          </tr>
-        </table></td>
-      </tr>
-    </table>
+						<!-- reviews -->
+						<div class="media-body">
+							<h2><a href="{product_link products_id=$reviews.products_id}">{$reviews.products_name}</a></h2>
+
+							<div class="clearfix m-mt-30">
+							{if $reviews.verified eq 1 }
+								<span class="float-right text-success"><i class="fa fa-check"></i> {$lang.text_verified_purchase}</span>
+							{/if}
+								<strong>{$lang.sub_title_from}</strong> {$reviews.customers_name}
+							</div>
+
+							<strong>{$lang.sub_title_date}</strong> {$reviews.date_added|oos_date_long}
+							
+							<hr />	
+
+							<p><div class="rating rating-{$reviews.reviews_rating} m-font-size-13 fw-100"><!-- rating-0 ... rating-5 --></div></p>						
+							
+							<p><strong>{$lang.sub_title_review}</strong></p>
+
+							<p>{$reviews.reviews_text|strip_tags|wordwrap:60:"<br>\n"}</p>
+							
+							<hr />
+						</div>		
+					</div>
+	
+					<div class="well well-lg clearfix">
+						<ul class="pager">
+							<li class="previous float-left"><a class="btn btn-secondary btn-default float-left" href="{html_href_link content=$filename.product_reviews products_id=$reviews.products_id}" role="button"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> {$lang.button_back}</a></li>
+							<li class="next">
+							{if $myUser.show_price eq 1 }						
+								<a class="btn btn-primary btn-default float-right" href="{html_href_link content=$filename.home action=buy_now products_id=$reviews.products_id}" role="button"><i class="fa fa-shopping-cart" aria-hidden="true"></i> {$lang.button_in_cart}</a>
+							{else}
+								<a class="btn btn-primary btn-default float-right" href="{html_href_link content=$filename.login}" role="button"><i class="fa fa-sign-in" aria-hidden="true"></i> {$lang.button_login}</a>
+							{/if}	
+							</li>
+						</ul>
+					</div>	
 
 				</div>
 			</div>
@@ -66,8 +68,5 @@
 	</div>
 </section>	
 
-{if $smarty.const.NEWSLETTER eq 'true'}
-	{include file="phoenix/system/_newsletter.html"}
-{/if}
 
 {include file="phoenix/system/_footer.html"}
