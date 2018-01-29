@@ -21,9 +21,8 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checkout_shipping_address.php';
-  require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checkout_shipping_address.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
 
 // start the session
 if ( $session->hasStarted() === FALSE ) $session->start();  
@@ -39,257 +38,278 @@ if (!isset($_SESSION['customer_id'])) {
 }
 
 // if there is nothing in the customers cart, redirect them to the shopping cart page
-  if ($_SESSION['cart']->count_contents() < 1) {
-    oos_redirect(oos_href_link($aContents['shopping_cart']));
-  }
+if ($_SESSION['cart']->count_contents() < 1) {
+	oos_redirect(oos_href_link($aContents['shopping_cart']));
+}
 
 // if the order contains only virtual products, forward the customer to the billing page as
 // a shipping address is not needed
-  if ($oOrder->content_type == 'virtual') {
-    $_SESSION['shipping'] = FALSE;
-    $_SESSION['sendto'] = FALSE;
-    oos_redirect(oos_href_link($aContents['checkout_payment']));
-  }
+if ($oOrder->content_type == 'virtual') {
+	$_SESSION['shipping'] = FALSE;
+	$_SESSION['sendto'] = FALSE;
+	oos_redirect(oos_href_link($aContents['checkout_payment']));
+}
 
-  $error = FALSE;
-  $process = 'false';
-  if (isset($_POST['action']) && ($_POST['action'] == 'submit')) {
-// process a new shipping address
-    if (oos_is_not_null($_POST['firstname']) && oos_is_not_null($_POST['lastname']) && oos_is_not_null($_POST['street_address'])) {
-      $process = 'true';
+$bError = FALSE; // reset error flag
+$bProcess = FALSE;
+if ( isset($_POST['action']) && ($_POST['action'] == 'submit') && 
+	( isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) ){	  
+	  
+	  
+	// Process a new shipping address
+	if (oos_is_not_null($_POST['firstname']) && oos_is_not_null($_POST['lastname']) && oos_is_not_null($_POST['street_address'])) {
+		$bProcess = TRUE;
 
-      if (ACCOUNT_GENDER == 'true') {
-        if (($gender == 'm') || ($gender == 'f')) {
-          $gender_error = 'false';
-        } else {
-          $gender_error = 'true';
-          $error = 'true';
-        }
-      }
+		if (ACCOUNT_GENDER == 'true') {
+			if (isset($_POST['gender'])) {
+				$gender = oos_db_prepare_input($_POST['gender']);
+			} else {
+				$gender = FALSE;
+			}
+		}
+		$firstname = oos_db_prepare_input($_POST['firstname']);
+		$lastname = oos_db_prepare_input($_POST['lastname']);	
+		if (ACCOUNT_COMPANY == 'true') $company = oos_db_prepare_input($_POST['company']);
+		if (ACCOUNT_OWNER == 'true') $owner = oos_db_prepare_input($_POST['owner']);
+		if (ACCOUNT_VAT_ID == 'true') $vat_id = oos_db_prepare_input($_POST['vat_id']);
+		$street_address = oos_db_prepare_input($_POST['street_address']);
+		$postcode = oos_db_prepare_input($_POST['postcode']);
+		$city = oos_db_prepare_input($_POST['city']);
+		if (ACCOUNT_STATE == 'true') {
+			$state = oos_db_prepare_input($_POST['state']);
+			if (isset($_POST['zone_id'])) {
+				$zone_id = oos_db_prepare_input($_POST['zone_id']);
+			} else {
+				$zone_id = FALSE;
+			}
+		}
+		$country = oos_db_prepare_input($_POST['country']);
+			
+			
+		if (ACCOUNT_GENDER == 'true') {
+			if ( ($gender != 'm') && ($gender != 'f') ) {
+				$bError = TRUE;
+				$oMessage->add('checkout_address', $aLang['entry_gender_error']);
+			}
+		}
 
-      if (ACCOUNT_COMPANY == 'true') {
-        if (strlen($company) < ENTRY_COMPANY_MIN_LENGTH) {
-          $company_error = 'true';
-          $error = 'true';
-        } else {
-          $company_error = 'false';
-        }
-      }
+		if (strlen($firstname) < ENTRY_FIRST_NAME_MIN_LENGTH) {
+			$bError = TRUE;
+			$oMessage->add('checkout_address', $aLang['entry_first_name_error'] );
+		}	
 
-      if (strlen($firstname) < ENTRY_FIRST_NAME_MIN_LENGTH) {
-        $firstname_error = 'true';
-        $error = 'true';
-      } else {
-        $firstname_error = 'false';
-      }
+		if (strlen($lastname) < ENTRY_LAST_NAME_MIN_LENGTH) {
+			$bError = TRUE;
+			$oMessage->add('checkout_address', $aLang['entry_last_name_error'] );
+		}		
+			
+		if (ACCOUNT_COMPANY_VAT_ID_CHECK == 'true'){
+			if (!empty($vat_id) && (!oos_validate_is_vatid($vat_id))) {
+				$bError = TRUE;
+				$oMessage->add('checkout_address', $aLang['entry_vat_id_error']);
+			} else {
+				$vatid_check_error = FALSE;
+			}
+		}
+			
+		if (strlen($street_address) < ENTRY_STREET_ADDRESS_MIN_LENGTH) {
+			$bError = TRUE;
+			$oMessage->add('checkout_address', $aLang['entry_street_address_error']);
+		}	
 
-      if (strlen($lastname) < ENTRY_LAST_NAME_MIN_LENGTH) {
-        $lastname_error = 'true';
-        $error = 'true';
-      } else {
-        $lastname_error = 'false';
-      }
+		if (strlen($postcode) < ENTRY_POSTCODE_MIN_LENGTH) {
+			$bError = TRUE;
+			$oMessage->add('checkout_address', $aLang['entry_post_code_error']);
+		}
+ 
+		if (strlen($city) < ENTRY_CITY_MIN_LENGTH) {
+			$bError = TRUE;
+			$oMessage->add('checkout_address', $aLang['entry_city_error']);
+		}
 
-      if (strlen($street_address) < ENTRY_STREET_ADDRESS_MIN_LENGTH) {
-        $street_address_error = 'true';
-        $error = 'true';
-      } else {
-        $street_address_error = 'false';
-      }
+		if (is_numeric($country) == FALSE) {
+			$bError = TRUE;
+			$oMessage->add('checkout_address', $aLang['entry_country_error']);
+		}			
+		
+		if (ACCOUNT_STATE == 'true') {
+			$zone_id = 0;
+			$zonestable = $oostable['zones'];
+			$country_check_sql = "SELECT COUNT(*) AS total
+							FROM $zonestable
+							WHERE zone_country_id = '" . intval($country) . "'";
+			$country_check = $dbconn->Execute($country_check_sql);
+			$entry_state_has_zones = ($country_check->fields['total'] > 0);
+			if ($entry_state_has_zones == TRUE) {
+				$zonestable = $oostable['zones'];
+				$zone_query = "SELECT DISTINCT zone_id
+							FROM $zonestable
+							WHERE zone_country_id = '" . intval($country) . "'
+								AND (zone_name = '" . oos_db_input($state) . "'
+								OR zone_code = '" . oos_db_input($state) . "')";							
+				$zone_result = $dbconn->Execute($zone_query);
+				if ($zone_result->RecordCount() == 1) {
+					$zone = $zone_result->fields;
+					$zone_id = $zone['zone_id'];
+				} else {
+					$bError = TRUE;
+					$oMessage->add('checkout_address', $aLang['entry_state_error_select']);
+				}
+			} else {
+				if (strlen($state) < ENTRY_STATE_MIN_LENGTH) {
+					$bError = TRUE;
+					$oMessage->add('checkout_address', $aLang['entry_state_error']);
+				}
+			}
+		}
+			
 
-      if (strlen($postcode) < ENTRY_POSTCODE_MIN_LENGTH) {
-        $postcode_error = 'true';
-        $error = 'true';
-      } else {
-        $postcode_error = 'false';
-      }
+		if ($bError == FALSE) {
+			$address_booktable = $oostable['address_book'];
+			$sql = "SELECT max(address_book_id) AS address_book_id 
+					FROM $address_booktable
+					WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'";
+			$next_id_result = $dbconn->Execute($sql);
+			if ($next_id_result->RecordCount()) {
+				$next_id = $next_id_result->fields;
+				$entry_id = $next_id['address_book_id']+1;
+			} else {
+				$entry_id = 1;
+			}
 
-      if (strlen($city) < ENTRY_CITY_MIN_LENGTH) {
-        $city_error = 'true';
-        $error = 'true';
-      } else {
-        $city_error = 'false';
-      }
+			$sql_data_array = array('customers_id' => intval($_SESSION['customer_id']),
+									'address_book_id' => $entry_id,
+									'entry_firstname' => $firstname,
+									'entry_lastname' => $lastname,
+									'entry_street_address' => $street_address,
+									'entry_postcode' => $postcode,
+									'entry_city' => $city,
+									'entry_country_id' => $country);
+			if (ACCOUNT_GENDER == 'true') $sql_data_array['entry_gender'] = $gender;
+			if (ACCOUNT_COMPANY == 'true') $sql_data_array['entry_company'] = $company;
+			if (ACCOUNT_OWNER == 'true') $sql_data_array['entry_owner'] = $owner;
+			if (ACCOUNT_VAT_ID == 'true') {
+				$sql_data_array['entry_vat_id'] = $vat_id;
+				if ((ACCOUNT_COMPANY_VAT_ID_CHECK == 'true') && ($vatid_check_error == FALSE) && ($country != STORE_COUNTRY)) {
+					$sql_data_array['entry_vat_id_status'] = 1;
+				} else {
+					$sql_data_array['entry_vat_id_status'] = 0;
+				}
+			}
+				
+			if (ACCOUNT_STATE == 'true') {
+				if ($zone_id > 0) {
+					$sql_data_array['entry_zone_id'] = $zone_id;
+					$sql_data_array['entry_state'] = '';
+				} else {
+					$sql_data_array['entry_zone_id'] = '0';
+					$sql_data_array['entry_state'] = $state;
+				}
+			}
+										
 
-      if (strlen($country) < 1) {
-        $country_error = 'true';
-        $error = 'true';
-      } else {
-        $country_error = 'false';
-      }
+			oos_db_perform($oostable['address_book'], $sql_data_array);
 
-      if (ACCOUNT_STATE == 'true') {
-        if ($country_error == 'true') {
-          $state_error = 'true';
-        } else {
-          $zone_id = 0;
-          $state_error = 'false';
-          $zonestable = $oostable['zones'];
-          $sql = "SELECT COUNT(*) as total
-                  FROM $zonestable
-                  WHERE zone_country_id = '" . oos_db_input($country) . "'";
-          $check_result = $dbconn->Execute($sql);
-          $check_value = $check_result->fields;
-          $state_has_zones = 'false';
-          if ($check_value['total'] > 0) {
-            $state_has_zones = 'true';
-            $zonestable = $oostable['zones'];
-            $sql = "SELECT zone_id
-                    FROM $zonestable
-                    WHERE zone_country_id = '" . oos_db_input($country) . "'
-                      AND zone_name = '" . oos_db_input($state) . "'";
-            $zone_result = $dbconn->Execute($sql);
-            if ($zone_result->RecordCount() == 1) {
-              $zone_values = $zone_result->fields;
-              $zone_id = $zone_values['zone_id'];
-            } else {
-              $error = 'true';
-              $state_error = 'true';
-            }
-          } else {
-            if (strlen($state) < ENTRY_STATE_MIN_LENGTH) {
-              $error = 'true';
-              $state_error = 'true';
-            }
-          }
-        }
-      }
+			$_SESSION['sendto'] = $entry_id;
 
-      if ($error == FALSE) {
-        $address_booktable = $oostable['address_book'];
-        $sql = "SELECT max(address_book_id) AS address_book_id 
-                FROM $address_booktable
-                WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'";
-        $next_id_result = $dbconn->Execute($sql);
-        if ($next_id_result->RecordCount()) {
-          $next_id = $next_id_result->fields;
-          $entry_id = $next_id['address_book_id']+1;
-        } else {
-          $entry_id = 1;
-        }
+			if (isset($_SESSION['shipping'])) unset($_SESSION['shipping']);
 
-        $sql_data_array = array('customers_id' => $_SESSION['customer_id'],
-                                'address_book_id' => $entry_id,
-                                'entry_firstname' => $firstname,
-                                'entry_lastname' => $lastname,
-                                'entry_street_address' => $street_address,
-                                'entry_postcode' => $postcode,
-                                'entry_city' => $city,
-                                'entry_country_id' => $country);
+			oos_redirect(oos_href_link($aContents['checkout_shipping']));
+		}
+	// Process the selected shipping destination
+	} elseif (isset($_POST['address'])) {
+		$reset_shipping = FALSE;
+		if (isset($_SESSION['sendto'])) {
+			if ($_SESSION['sendto'] != $_POST['address']) {
+				if (isset($_SESSION['shipping'])) {
+					$reset_shipping = TRUE;
+				}
+			}
+		}
+			
+		$_SESSION['sendto'] = intval($_POST['address']);
+			
+		$address_booktable = $oostable['address_book'];
+		$sql = "SELECT COUNT(*) AS total 
+				FROM $address_booktable
+				WHERE customers_id = '" . intval($_SESSION['customer_id']) . "' 
+				AND address_book_id = '" . intval($_SESSION['sendto']) . "'";
+		$check_address_result = $dbconn->Execute($sql);
+		$check_address = $check_address_result->fields;
 
-        if (ACCOUNT_GENDER == 'true') $sql_data_array['entry_gender'] = $gender;
-        if (ACCOUNT_COMPANY == 'true') $sql_data_array['entry_company'] = $company;
-        if (ACCOUNT_STATE == 'true') {
-          if ($zone_id > 0) {
-            $sql_data_array['entry_zone_id'] = $zone_id;
-            $sql_data_array['entry_state'] = '';
-          } else {
-            $sql_data_array['entry_zone_id'] = '0';
-            $sql_data_array['entry_state'] = $state;
-          }
-        }
-        oos_db_perform($oostable['address_book'], $sql_data_array);
+		if ($check_address['total'] == '1') {
+			if ($reset_shipping == TRUE) unset($_SESSION['shipping']);
+			oos_redirect(oos_href_link($aContents['checkout_shipping']));
+		} else {
+			unset($_SESSION['sendto']);
+		}
+	} else {
+		$_SESSION['sendto'] = $_SESSION['customer_default_address_id'];
 
-        $_SESSION['sendto'] = $entry_id;
+		oos_redirect(oos_href_link($aContents['checkout_shipping']));
+	}
+}
+	
+// if no shipping destination address was selected, use their own address as default
+if (!isset($_SESSION['sendto'])) {
+	$_SESSION['sendto'] = $_SESSION['customer_default_address_id'];
+}
+	
+if ($bProcess == FALSE) {
+	$address_booktable = $oostable['address_book'];
+	$sql = "SELECT COUNT(*) AS total
+           FROM $address_booktable
+           WHERE customers_id = '" . intval($_SESSION['customer_id']) . "' 
+             AND address_book_id != '" . intval($_SESSION['sendto']) . "'";
+	$addresses_count_result = $dbconn->Execute($sql);
+	$addresses_count = $addresses_count_result->fields['total'];
 
-        if (isset($_SESSION['shipping'])) unset($_SESSION['shipping']);
+	if ($addresses_count > 0) {
+		$radio_buttons = 0;
+		$address_booktable = $oostable['address_book'];
+		$sql = "SELECT address_book_id, entry_firstname AS firstname, entry_lastname AS lastname,
+                    entry_company AS company, entry_street_address AS street_address,
+                    entry_city AS city, entry_postcode AS postcode,
+                    entry_state AS state, entry_zone_id AS zone_id, entry_country_id AS country_id
+				FROM $address_booktable
+				WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'";
+		$addresses_result = $dbconn->Execute($sql);
+		$addresses_array = array();
+		while ($addresses = $addresses_result->fields) {
+			$format_id = oos_get_address_format_id($address['country_id']);
+			$addresses_array[] = array('format_id' => $format_id,
+										'radio_buttons' => $radio_buttons,
+										'firstname' => $addresses['firstname'],
+										'lastname' => $addresses['lastname'],
+										'address_book_id' => $addresses['address_book_id'],
+										'address' => oos_address_format($format_id, $addresses, true, ' ', ', '));
+			$radio_buttons++;
+			// Move that ADOdb pointer!
+			$addresses_result->MoveNext();
+		}	
+	}
+}
 
-        oos_redirect(oos_href_link($aContents['checkout_shipping']));
-      }
-// process the selected shipping destination
-    } elseif (isset($_POST['address'])) {
-      $reset_shipping = FALSE;
-      if (isset($_SESSION['sendto'])) {
-        if ($_SESSION['sendto'] != $_POST['address']) {
-          if (isset($_SESSION['shipping'])) {
-            $reset_shipping = TRUE;
-          }
-        }
-      }
-      $_SESSION['sendto'] = $_POST['address'];
+if (!isset($bProcess)) $bProcess = FALSE;
 
-      $address_booktable = $oostable['address_book'];
-      $sql = "SELECT COUNT(*) AS total 
-              FROM $address_booktable
-              WHERE customers_id = '" . intval($_SESSION['customer_id']) . "' 
-                AND address_book_id = '" . intval($_SESSION['sendto']) . "'";
-      $check_address_result = $dbconn->Execute($sql);
-      $check_address = $check_address_result->fields;
+// links breadcrumb
+$oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['checkout_shipping']));
+$oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['checkout_shipping_address']));
 
-      if ($check_address['total'] == '1') {
-        if ($reset_shipping == TRUE) unset($_SESSION['shipping']);
-        oos_redirect(oos_href_link($aContents['checkout_shipping']));
-      } else {
-        unset($_SESSION['sendto']);
-      }
-    } else {
-      $_SESSION['sendto'] = $_SESSION['customer_default_address_id'];
+$aTemplate['page'] = $sTheme . '/page/checkout_shipping_address.html';
 
-      oos_redirect(oos_href_link($aContents['checkout_shipping']));
-    }
-  }
+$nPageType = OOS_PAGE_TYPE_CHECKOUT;
+$sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
-  if ($process == 'false') {
-    $address_booktable = $oostable['address_book'];
-    $sql = "SELECT COUNT(*) AS total
-            FROM $address_booktable
-            WHERE customers_id = '" . intval($_SESSION['customer_id']) . "' 
-              AND address_book_id != '" . intval($_SESSION['sendto']) . "'";
-    $addresses_count_result = $dbconn->Execute($sql);
-    $addresses_count = $addresses_count_result->fields['total'];
+if ($oMessage->size('checkout_address') > 0) {
+	$aInfoMessage = array_merge ($aInfoMessage, $oMessage->output('checkout_address') );
+}
 
-    if ($addresses_count > 0) {
-      $radio_buttons = 0;
-      $address_booktable = $oostable['address_book'];
-      $sql = "SELECT address_book_id, entry_firstname AS firstname, entry_lastname AS lastname,
-                     entry_company AS company, entry_street_address AS street_address,
-                     entry_city AS city, entry_postcode AS postcode,
-                     entry_state AS state, entry_zone_id AS zone_id, entry_country_id AS country_id
-              FROM $address_booktable
-              WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'";
-      $addresses_result = $dbconn->Execute($sql);
-      $addresses_array = array();
-      while ($addresses = $addresses_result->fields) {
-        $format_id = oos_get_address_format_id($address['country_id']);
-        $addresses_array[] = array('format_id' => $format_id,
-                                   'radio_buttons' => $radio_buttons,
-                                   'firstname' => $addresses['firstname'],
-                                   'lastname' => $addresses['lastname'],
-                                   'address_book_id' => $addresses['address_book_id'],
-                                   'address' => oos_address_format($format_id, $addresses, true, ' ', ', '));
-        $radio_buttons++;
-        // Move that ADOdb pointer!
-        $addresses_result->MoveNext();
-      }
-      // Close result set
-      $addresses_result->Close();
-    }
-  }
-  // if no shipping destination address was selected, use their own address as default
-  if (!isset($_SESSION['sendto'])) {
-    $_SESSION['sendto'] = $_SESSION['customer_default_address_id'];
-  }
-  if (!isset($process)) $process = 'false';
-
-  // links breadcrumb
-  $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['checkout_shipping']));
-  $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['checkout_shipping_address']));
-
-  ob_start();
-  require 'js/checkout_shipping_address.js.php';
-  $javascript = ob_get_contents();
-  ob_end_clean();
-
-  $aTemplate['page'] = $sTheme . '/page/checkout_shipping_address.html';
-
-  $nPageType = OOS_PAGE_TYPE_CHECKOUT;
-  $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
-
-  require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
-  if (!isset($option)) {
+require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
+if (!isset($option)) {
     require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
     require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
-  }
+}
 
 // assign Smarty variables;
 $smarty->assign(
@@ -299,13 +319,15 @@ $smarty->assign(
 		'robots'		=> 'noindex,nofollow,noodp,noydir',
 		'checkout_active' => 1,
 
-		'process' => $process,
+		'process' => $bProcess,
 		'addresses_count' => $addresses_count,
 
 		'gender' => $gender,
 		'firstname' => $firstname,
 		'lastname' => $lastname,
 		'company' => $company,
+		'owner' => $owner,
+		'vat_id' => $vat_id,		
 		'street_address' => $street_address,
 		'suburb' => $suburb,
 		'postcode' => $postcode,
@@ -324,10 +346,8 @@ $smarty->assign(
 	)
 );
 
-  // JavaScript
-  $smarty->assign('oos_js', $javascript);
 
-  if ($process == 'false') {
+  if ($bProcess == FALSE) {
     $smarty->assign('addresses_array', $addresses_array);
   }
 

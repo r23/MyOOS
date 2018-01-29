@@ -71,7 +71,7 @@ function smarty_function_oos_get_country_list($params, &$smarty)
       $countries_names[] = $countries[$i]['countries_name'];
     }   
 
-    $html_result .= '<select name="' . $name . '"';
+    $html_result .= '<select required name="' . $name . '"';
     if (null !== $size){
         $html_result .= ' size="' . $size . '"';
     }

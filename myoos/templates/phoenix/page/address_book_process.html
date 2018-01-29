@@ -172,12 +172,11 @@
 {if $smarty.get.edit}
 		{if $smarty.session.customer_default_address_id != $entry_id }
 							<div class="form-group">
-								<div class="col-sm-5 col-sm-offset-4">
-									<div class="checkbox">
-										<label class="checkbox m-0">
-											<input type="checkbox" id="primary" name="primary" value="on" />{$SET_AS_PRIMARY}
-										</label>
-									</div>
+								<div class="col-lg-12 m-0 clearfix">
+									<label class="checkbox float-left">								
+										<input type="checkbox" id="primary" name="primary" value="on"> 
+										<i></i> <span class="fw-300">{$lang.set_as_primary}</span>
+									</label>
 								</div>
 							</div>	
 		{/if}

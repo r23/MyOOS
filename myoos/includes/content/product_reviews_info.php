@@ -83,10 +83,11 @@ if (!isset($option)) {
 
 $smarty->assign(
        array(
-           'breadcrumb'    => $oBreadcrumb->trail(),
-           'heading_title' => sprintf($aLang['heading_title'], $reviews['products_name']),
-
-           'reviews' => $reviews
+			'breadcrumb'	=> $oBreadcrumb->trail(),
+			'heading_title'	=> sprintf($aLang['heading_title'], $reviews['products_name']),
+			'canonical'		=> $sCanonical,
+			
+			'reviews'		=> $reviews
        )
 );
 

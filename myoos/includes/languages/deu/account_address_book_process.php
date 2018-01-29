@@ -28,3 +28,4 @@ $aLang['navbar_title_delete_entry'] = 'Eintrag löschen';
 $aLang['heading_title_add_entry'] = 'Adressbuch: Neuer Eintrag';
 $aLang['heading_title_modify_entry'] = 'Adressbuch: Eintrag ändern';
 $aLang['heading_title_delete_entry'] = 'Eintrag löschen';
+$aLang['set_as_primary'] = 'Als Standardadresse einstellen.';

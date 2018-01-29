@@ -347,15 +347,14 @@ if (isset ($_GET['edit']) && is_numeric($_GET['edit'])) {
 $aTemplate['page'] = $sTheme . '/page/address_book_process.html';
 
 $nPageType = OOS_PAGE_TYPE_ACCOUNT;
-$sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
+$sPagetitle = $aLang['navbar_title_1'] . ' ' . $aLang['navbar_title_2'] . ' ' . OOS_META_TITLE;
+
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
 	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
 	require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
-
-
 
 
 // assign Smarty variables;

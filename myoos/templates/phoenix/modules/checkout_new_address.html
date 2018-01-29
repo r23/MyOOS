@@ -1,139 +1,89 @@
-<table border="0" width="100%" cellspacing="0" cellpadding="2">
-{if $smarty.const.ACCOUNT_GENDER eq 'true'}
-  <tr>
-    <td class="main"><strong>{$lang.entry_gender}</strong></td>
-    <td class="main">
-    {if $process eq 'true'}
-      {if $gender_error eq 'true'}
-           <input type="radio" name="gender" value="m" checked="checked">&nbsp;&nbsp;{$lang.male}&nbsp;&nbsp;<input type="radio" name="gender" value="f">&nbsp;&nbsp;{$lang.female}&nbsp;&nbsp;<small><font color="#FF0000">{$lang.entry_info_text}</font></small>
-      {else}
-          {if $gender eq 'm' }
-              {$lang.male}
-           {else}
-              {$lang.female}
-           {/if}
-           <input type=hidden name="gender" value="{$gender}">
-      {/if}
-    {else}
-       <input type="radio" name="gender" value="m" checked="checked">&nbsp;&nbsp;{$lang.male}&nbsp;&nbsp;<input type="radio" name="gender" value="f">&nbsp;&nbsp;{$lang.female}&nbsp;&nbsp;<small><font color="#AABBDD">{$lang.entry_info_text}</font></small></td>
-    {/if}
-    </td>
-  </tr>
-{/if}
-  <tr>
-    <td class="main"><strong>{$lang.entry_first_name}</strong></td>
-    <td class="main">
-  {if $process eq 'true'}
-    {if $firstname_error eq 'true'}
-      <input type="text" name="firstname" value="{$firstname}">&nbsp;&nbsp;<small><font color="#FF0000">{$lang.entry_first_name_error}</font></small>
-    {else}
-      {$firstname}<input type=hidden name="firstname" value="{$firstname}">
-    {/if}
-  {else}
-    <input type="text" name="firstname" value="">&nbsp;&nbsp;<small><font color="#AABBDD">{$lang.entry_info_text}</font></small>
-  {/if}
-    </td>
-  </tr>
-  <tr>
-    <td class="main"><strong>{$lang.entry_last_name}</strong></td>
-    <td class="main">
-  {if $process eq 'true'}
-    {if $lastname_error eq 'true'}
-      <input type="text" name="lastname" value="{$lastname}">&nbsp;&nbsp;<small><font color="#FF0000">{$lang.entry_last_name_error}</font></small>
-    {else}
-      {$lastname}<input type=hidden name="lastname" value="{$lastname}">
-    {/if}
-  {else}
-      <input type="text" name="lastname" value="">&nbsp;&nbsp;<small><font color="#AABBDD">{$lang.entry_info_text}</font></small>
-  {/if}
-    </td>
-  </tr>
-{if $smarty.const.ACCOUNT_COMPANY eq 'true'}
-  <tr>
-    <td class="main"><strong>{$lang.entry_company}</strong></td>
-    <td class="main">
-    {if $process eq 'true'}
-       {$company}<input type=hidden name="company" value="{$company}">
-    {else}
-        <input type="text" name="company" value="">
-    {/if}
-    </td>
-  </tr>
-{/if}
-  <tr>
-    <td class="main"><strong>{$lang.entry_street_address}</strong></td>
-    <td class="main">
-  {if $process eq 'true'}
-    {if $street_address_error eq 'true'}
-      <input type="text" name="street_address" value="{$street_address}">&nbsp;&nbsp;<small><font color="#FF0000">{$lang.entry_street_address_error}</font></small>
-    {else}
-      {$street_address}<input type=hidden name="street_address" value="{$street_address}">
-    {/if}
-  {else}
-    <input type="text" name="street_address" value="">&nbsp;&nbsp;<small><font color="#AABBDD">{$lang.entry_info_text}</font></small>
- {/if}
-    </td>
-  </tr>
-  <tr>
-    <td class="main"><strong>{$lang.entry_post_code}</strong></td>
-    <td class="main">
-  {if $process eq 'true'}
-    {if $postcode_error eq 'true'}
-      <input type="text" name="postcode" value="{$postcode}">&nbsp;&nbsp;<small><font color="#FF0000">{$lang.entry_post_code_error}</font></small>
-    {else}
-      {$postcode}<input type=hidden name="postcode" value="{$postcode}">
-    {/if}
-  {else}
-      <input type="text" name="postcode" value="">&nbsp;&nbsp;<small><font color="#AABBDD">{$lang.entry_info_text}</font></small>
-  {/if}
-    </td>
-  </tr>
-  <tr>
-    <td class="main"><strong>{$lang.entry_city}</strong></td>
-    <td class="main">
-  {if $process eq 'true'}
-    {if $city_error eq 'true'}
-       <input type="text" name="city" value="{$city}">&nbsp;&nbsp;<small><font color="#FF0000">{$lang.entry_city_error}</font></small>
-    {else}
-      {$city}<input type=hidden name="city" value="{$city}">
-    {/if}
-  {else}
-     <input type="text" name="city" value="">&nbsp;&nbsp;<small><font color="#AABBDD">{$lang.entry_info_text}</font></small>
-  {/if}
-    </td>
-  </tr>
-{if $smarty.const.ACCOUNT_STATE eq 'true'}
-  <tr>
-    <td class="main"><strong>{$lang.entry_state}</strong></td>
-    <td class="main">
-    {if $process eq 'true'}
-      {if $state_error eq 'true'}
-        {if $state_has_zones eq 'true'}
-          <select name=state>{html_options values=$zones_values output=$zones_names}</select>&nbsp;&nbsp;<small><font color="#FF0000">{$lang.entry_info_text}</font></small>
-        {else}
-          <input type="text" name="state" value="">&nbsp;&nbsp;<small><font color="#FF0000">{$lang.entry_state_error}</font></small>
-        {/if}
-      {else}
-        {$state} <input type=hidden name="zone_id" value="{$zone_id}"><input type=hidden name="state" value="{$state}">
-      {/if}
-    {else}
-      <input type="text" name="state" value="">&nbsp;&nbsp;<small><font color="#AABBDD">{$lang.entry_info_text}</font></small>
-    {/if}
-    </td>
-  </tr>
-{/if}
-  <tr>
-    <td class="main"><strong>{$lang.entry_country}</strong></td>
-    <td class="main">
-  {if $process eq 'true'}
-    {if $country_error eq 'true'}
-      {oos_get_country_list name=country}&nbsp;&nbsp;<small><font color="#FF0000">{$lang.entry_country_error}</font></small>
-    {else}
-      {$country_name}<input type=hidden name="country" value="{$country}">
-    {/if}
-  {else}
-    {oos_get_country_list name=country selected=$store_country}&nbsp;&nbsp;<small><font color="#AABBDD">{$lang.entry_info_text}</font></small>
- {/if}
-    </td>
-  </tr>
-</table>
+				
+								{if $smarty.const.ACCOUNT_GENDER eq 'true'}
+								<div class="row">
+									<div class="col-md-6 col-sm-6 m-mb-15">
+										<legend class="m-font-size-16">{$lang.entry_gender} *</legend>
+										<div class="form-check">
+											<label class="form-check-label">
+												<input required type="radio" class="form-check-input" name="gender" value="m" checked="checked">{$lang.male}
+											</label>
+										</div>
+										<div class="form-check">
+											<label class="form-check-label">
+												<input required type="radio" class="form-check-input" name="gender" value="f">{$lang.female}
+											</label>
+										</div>											
+									</div>
+								</div>							
+								{/if}							
+								<div class="row">
+									<div class="col-md-6 col-sm-6">
+										<label for="firstname">{$lang.entry_first_name} *</label>
+										<input required id="firstname" name="firstname" type="text" value="{$firstname}" class="form-control" />
+									</div>
+									<div class="col-md-6 col-sm-6">
+										<label for="lastname">{$lang.entry_last_name} *</label>
+										<input required id="lastname" name="lastname" type="text" value="{$lastname}" class="form-control" />
+									</div>
+								</div>
+
+							{if $smarty.const.ACCOUNT_COMPANY eq 'true'}
+								<div class="row">
+									<div class="col-md-6 col-sm-6">
+										<label for="company">{$lang.entry_company}</label>
+										<input id="company" name="company" type="text" value="{$company}" class="form-control" />
+									</div>
+								{if $smarty.const.ACCOUNT_OWNER eq 'true'}
+									<div class="col-md-6 col-sm-6">
+										<label for="owner">{$lang.entry_owner}</label>
+										<input id="owner" name="owner" type="text" value="{$owner}" class="form-control" />
+									</div>									
+								{/if}
+								</div>
+								{if $smarty.const.ACCOUNT_VAT_ID eq 'true'}							
+								<div class="row">
+									<div class="col-md-6 col-sm-6">
+										<label for="vat_id">{$lang.entry_vat_id}</label>
+										<input id="vat_id" name="vat_id" type="text" value="{$vat_id}" class="form-control" />
+									</div>
+								</div>
+								{/if}									
+							{/if}								
+						
+								<div class="row">
+									<div class="col-lg-12">
+										<label for="street_address">{$lang.entry_street_address} *</label>
+										<input required id="street_address" name="street_address" type="text" value="{$street_address}" class="form-control" />
+									</div>
+								</div>
+						
+								<div class="row">
+									<div class="col-md-6 col-sm-6">
+										<label for="postcode">{$lang.entry_post_code} *</label>
+										<input required id="postcode" name="postcode" type="text" value="{$postcode}" class="form-control" />
+									</div>
+						
+								{if $smarty.const.ACCOUNT_STATE eq 'true'}	
+									<div class="col-md-6 col-sm-6">
+										<label for="state">{$lang.entry_state} *</label>
+									{if $state_has_zones eq 'true'}	
+										<select required id="state" name="state" class="form-control pointer">
+											{html_options values=$zones_values output=$zones_names}
+										</select>
+									{else}	
+										<input required id="state" type="text" name="state" value="" class="form-control" />
+									{/if}	
+									</div>
+								{/if}
+								</div>
+
+								<div class="row">
+									<div class="col-md-6 col-sm-6">
+										<label for="city">{$lang.entry_city} *</label>
+										<input required id="city" name="city" type="text" value="{$city}" class="form-control required" />
+									</div>
+									<div class="col-md-6 col-sm-6">
+										<label for="country">Country *</label>
+											{oos_get_country_list name=country selected=$store_country}
+									</div>
+								</div>

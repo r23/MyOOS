@@ -15,6 +15,11 @@
 				display: block;
 			}
 		}
+		.col-md-3 {
+			-ms-flex: 0 0 25%;
+			flex: 0 0 25%;
+			max-width: 25%;
+		}		
 		.well{
 			border-radius: 0;
 			border: none;
@@ -257,7 +262,7 @@
 			box-shadow: none;
 			background-color: $m-color-light;
 			@include mobile {
-				margin: 23px 0 0px;
+				margin: 18px 0 0px;
 			}
 			.progress-bar {
 				width:0px; 
