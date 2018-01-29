@@ -24,7 +24,7 @@ msgstr "Du bist dabei, die folgenden Websites zu löschen:"
 msgid "User could not be added to this site."
 msgstr "Benutzer konnte dieser Website nicht hinzugefügt werden."
 
-#: wp-admin/network/site-new.php:250
+#: wp-admin/network/site-new.php:252
 msgid "The username and a link to set the password will be mailed to this email address."
 msgstr "Der Benutzername und ein Link zum Festlegen des Passworts werden an diese E-Mail-Adresse gesendet."
 
@@ -547,7 +547,7 @@ msgstr[1] "%s Themes gelöscht."
 msgid "Set site attributes"
 msgstr "Website-Attribute festlegen"
 
-#: wp-admin/network/settings.php:418
+#: wp-admin/network/settings.php:420
 msgid "Enable menus"
 msgstr "Menüs aktivieren"
 
@@ -1231,7 +1231,7 @@ msgstr "Grundeinstellungen"
 msgid "Upload Settings"
 msgstr "Dateiupload-Einstellungen"
 
-#: wp-admin/network/settings.php:396
+#: wp-admin/network/settings.php:398
 msgid "Enable administration menus"
 msgstr "Administrations-Menüs aktivieren für:"
 
@@ -1324,11 +1324,11 @@ msgstr "Standardsprache"
 msgid "Cannot create an empty user."
 msgstr "Es kann kein leerer Benutzer angelegt werden."
 
-#: wp-admin/network/site-new.php:246
+#: wp-admin/network/site-new.php:248
 msgid "Admin Email"
 msgstr "Administrator E-Mail-Adresse"
 
-#: wp-admin/network/site-new.php:250
+#: wp-admin/network/site-new.php:252
 msgid "A new user will be created if the above email address is not in the database."
 msgstr "Es wird ein neuer Benutzer angelegt, sofern nicht schon ein Benutzer mit dieser E-Mail-Adresse vorhanden ist."
 
@@ -1348,7 +1348,7 @@ msgstr "URL des ersten Kommentars"
 msgid "Banned Names"
 msgstr "Verbotene Namen für Website-Adressen"
 
-#: wp-admin/network/site-new.php:262
+#: wp-admin/network/site-new.php:264
 msgid "Add Site"
 msgstr "Website erstellen"
 
