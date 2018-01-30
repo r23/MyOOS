@@ -198,10 +198,14 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'submit') &&
 					$sql_data_array['entry_zone_id'] = '0';
 					$sql_data_array['entry_state'] = $state;
 				}
-			}				
+			}
+			
 			oos_db_perform($oostable['address_book'], $sql_data_array);
+			
 			$_SESSION['billto'] = $entry_id;
+			
 			if (isset($_SESSION['payment'])) unset($_SESSION['payment']);
+			
 			oos_redirect(oos_href_link($aContents['checkout_payment']));
 		}
 			
@@ -321,6 +325,7 @@ $smarty->assign(
 		'postcode' => $postcode,
 		'city' => $city,
 		'country' => $country,
+		'store_country' => STORE_COUNTRY,
 
 		'gender_error' => $gender_error,
 		'firstname_error' => $firstname_error,
@@ -335,32 +340,32 @@ $smarty->assign(
 );
 
 
-  if ($bProcess == FALSE) {
-    $smarty->assign('addresses_array', $addresses_array);
-  }
+if ($bProcess == FALSE) {
+	$smarty->assign('addresses_array', $addresses_array);
+}
 
-  if ($state_has_zones == 'true') {
+if ($state_has_zones == 'true') {
     $zones_names = array();
     $zones_values = array();
     $zonestable = $oostable['zones'];
-    $zones_result = $dbconn->Execute("SELECT zone_name FROM $zonestable WHERE zone_country_id = '" . oos_db_input($country) . "' ORDER BY zone_name");
+    $zones_result = $dbconn->Execute("SELECT zone_name FROM $zonestable WHERE zone_country_id = '" . intval($country) . "' ORDER BY zone_name");
     while ($zones = $zones_result->fields) {
-      $zones_names[] =  $zones['zone_name'];
-      $zones_values[] = $zones['zone_name'];
-      $zones_result->MoveNext();
+		$zones_names[] =  $zones['zone_name'];
+		$zones_values[] = $zones['zone_name'];
+		$zones_result->MoveNext();
     }
     $smarty->assign('zones_names', $zones_names);
     $smarty->assign('zones_values', $zones_values);
-  } else {
+} else {
     $state = oos_get_zone_name($country, $zone_id, $state);
     $smarty->assign('state', $state);
     $smarty->assign('zone_id', $zone_id);
-  }
-  $country_name = oos_get_country_name($country);
-  $smarty->assign('country_name', $country_name);
+}
+$country_name = oos_get_country_name($country);
+$smarty->assign('country_name', $country_name);
 
-  $state = oos_get_zone_name($country, $zone_id, $state);
-  $smarty->assign('state', $state);
+$state = oos_get_zone_name($country, $zone_id, $state);
+$smarty->assign('state', $state);
 
 // display the template
 $smarty->display($aTemplate['page']);
