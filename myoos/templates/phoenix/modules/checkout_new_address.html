@@ -5,12 +5,12 @@
 										<legend class="m-font-size-16">{$lang.entry_gender} *</legend>
 										<div class="form-check">
 											<label class="form-check-label">
-												<input required type="radio" class="form-check-input" name="gender" value="m" checked="checked">{$lang.male}
+												<input type="radio" class="form-check-input" name="gender" value="m" checked="checked">{$lang.male}
 											</label>
 										</div>
 										<div class="form-check">
 											<label class="form-check-label">
-												<input required type="radio" class="form-check-input" name="gender" value="f">{$lang.female}
+												<input type="radio" class="form-check-input" name="gender" value="f">{$lang.female}
 											</label>
 										</div>											
 									</div>
@@ -19,11 +19,11 @@
 								<div class="row">
 									<div class="col-md-6 col-sm-6">
 										<label for="firstname">{$lang.entry_first_name} *</label>
-										<input required id="firstname" name="firstname" type="text" value="{$firstname}" class="form-control" />
+										<input id="firstname" name="firstname" type="text" value="{$firstname}" class="form-control" />
 									</div>
 									<div class="col-md-6 col-sm-6">
 										<label for="lastname">{$lang.entry_last_name} *</label>
-										<input required id="lastname" name="lastname" type="text" value="{$lastname}" class="form-control" />
+										<input id="lastname" name="lastname" type="text" value="{$lastname}" class="form-control" />
 									</div>
 								</div>
 
@@ -53,25 +53,25 @@
 								<div class="row">
 									<div class="col-lg-12">
 										<label for="street_address">{$lang.entry_street_address} *</label>
-										<input required id="street_address" name="street_address" type="text" value="{$street_address}" class="form-control" />
+										<input id="street_address" name="street_address" type="text" value="{$street_address}" class="form-control" />
 									</div>
 								</div>
 						
 								<div class="row">
 									<div class="col-md-6 col-sm-6">
 										<label for="postcode">{$lang.entry_post_code} *</label>
-										<input required id="postcode" name="postcode" type="text" value="{$postcode}" class="form-control" />
+										<input id="postcode" name="postcode" type="text" value="{$postcode}" class="form-control" />
 									</div>
 						
 								{if $smarty.const.ACCOUNT_STATE eq 'true'}	
 									<div class="col-md-6 col-sm-6">
 										<label for="state">{$lang.entry_state} *</label>
 									{if $state_has_zones eq 'true'}	
-										<select required id="state" name="state" class="form-control pointer">
+										<select id="state" name="state" class="form-control pointer">
 											{html_options values=$zones_values output=$zones_names}
 										</select>
 									{else}	
-										<input required id="state" type="text" name="state" value="" class="form-control" />
+										<input id="state" type="text" name="state" value="" class="form-control" />
 									{/if}	
 									</div>
 								{/if}
@@ -80,7 +80,7 @@
 								<div class="row">
 									<div class="col-md-6 col-sm-6">
 										<label for="city">{$lang.entry_city} *</label>
-										<input required id="city" name="city" type="text" value="{$city}" class="form-control required" />
+										<input id="city" name="city" type="text" value="{$city}" class="form-control required" />
 									</div>
 									<div class="col-md-6 col-sm-6">
 										<label for="country">{$lang.entry_country} *</label>

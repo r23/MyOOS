@@ -44,134 +44,82 @@
 	
 					<form name="checkout_address" action="{html_get_link}" method="POST" role="form">
 						<input type="hidden" name="content" value="{$filename.checkout_shipping_address}">
+						<input type="hidden" name="action" value="submit">
 						{if $mySystem.sed}
 							<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
 							<input type="hidden" name="formid" value="{$mySystem.formid}">
 						{/if}
-						
-						
-	<table border="0" width="100%" cellspacing="0" cellpadding="0">
 
-{if $process eq 'true'}
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td class="main"><strong>{$lang.table_heading_new_shipping_address_problem}</strong></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBoxNotice">
-          <tr class="infoBoxNoticeContents">
-            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr>
-                <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                <td class="main" width="100%" valign="top">{$lang.text_new_shipping_address_problem}</td>
-                <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-              </tr>
-            </table></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
-{/if}
-{if $process eq 'false'}
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td class="main"><strong>{$lang.table_heading_shipping_address}</strong></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
-          <tr class="oos-BoxContents">
-            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr>
-                <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                <td class="main" width="50%" valign="top">{$lang.text_selected_shipping_destination}</td>
-                <td align="right" width="50%" valign="top"><table border="0" cellspacing="0" cellpadding="2">
-                  <tr>
-                    <td class="main" align="center" valign="top"><strong>{$lang.title_shipping_address}</strong><br><img src="{$theme_image}/arrow_south_east.gif" border="0" alt=" " width="50" height="31"></td>
-                    <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                    <td class="main" valign="top">{oos_address_label customers_id=$smarty.session.customer_id address_id=$smarty.session.sendto}</td>
-                    <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                  </tr>
-                </table></td>
-              </tr>
-            </table></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
-{if $addresses_count > 0}
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td class="main"><strong>{$lang.table_heading_address_book_entries}</strong></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
-          <tr class="oos-BoxContents">
-            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr>
-                <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                <td class="main" width="50%" valign="top">{$lang.text_select_other_shipping_destination}</td>
-                <td class="main" width="50%" valign="top" align="right"><strong>{$lang.title_please_select}</strong><br><img src="{$theme_image}/arrow_east_south.gif" border="0" alt=" " width="40" height="32"></td>
-                <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-              </tr>
-  {foreach item=addresses from=$addresses_array}
-              <tr>
-                <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-     {if $addresses.address_book_id eq $smarty.session.sendto }
-                  <tr id="defaultSelected" class="moduleRowSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, {$addresses.radio_buttons})">
-     {else}
-                  <tr class="moduleRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, {$addresses.radio_buttons})">
-     {/if}
-                    <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                    <td class="main" colspan="2"><strong>{$addresses.firstname} {$addresses.lastname}</strong></td>
-                    <td class="main" align="right">
-     {if $addresses.address_book_id eq $smarty.session.sendto }
-        <input type="radio" name="address" value="{$addresses.address_book_id}" checked="checked">
-     {else}
-        <input type="radio" name="address" value="{$addresses.address_book_id}">
-     {/if}
-     </td>
-                    <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                  </tr>
-                  <tr>
-                    <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                    <td colspan="3"><table border="0" cellspacing="0" cellpadding="2">
-                      <tr>
-                        <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                        <td class="main">{$addresses.addresses}</td>
-                        <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                      </tr>
-                    </table></td>
-                    <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                  </tr>
-                </table></td>
-                <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-              </tr>
-{/foreach}
-            </table></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
-   {/if}
-{/if}
+						
+						{if $process eq true}
+							<div class="alert alert-danger" role="alert">
+								<h4 class="alert-heading">{$lang.table_heading_new_shipping_address_problem}</h4>
+								<p>{$lang.text_new_shipping_address_problem}</p>
+							</div>
+						{/if}
+						
+						{if $process eq false}
 
-    </table>
+							<div class="page-header">
+								<h4>{$lang.table_heading_shipping_address}</h4>
+							</div>
+							<div class="row shipping-info">
+								<div class="col-10">
+									<p>{$lang.text_selected_shipping_destination}</p>
+								</div>
+								<div class="col-2">
+									<h5>{$lang.title_shipping_address}</h5>
+									<address>
+										{oos_address_label customers_id=$smarty.session.customer_id address_id=$smarty.session.sendto}
+									</address>
+								</div>
+							</div>
+							<hr />
+
+							{if $addresses_count > 1}
+
+							<div class="page-header">
+								<h4>{$lang.table_heading_address_book_entries}</h4>
+							</div>
+		
+							<div class="row shipping-info">
+								<div class="col-10">
+									<p>{$lang.text_select_other_shipping_destination}</p>
+								</div>
+								<div class="col-2">
+									<strong>{$lang.title_please_select}</strong>
+								</div>
+							</div>
+
+
+							<div class="table-responsive">
+								<table class="table">
+									<tbody>		
+									{foreach item=addresses from=$addresses_array}
+									<tr>                    
+										<td><strong>{$addresses.firstname} {$addresses.lastname}</strong></td>
+										<td align="right">
+											<div class="form-check">
+											{if $addresses.address_book_id eq $smarty.session.sendto }
+												<input class="form-check-input" type="radio" name="address" id="address" value="{$addresses.address_book_id}" checked>
+											{else}
+												<input class="form-check-input" type="radio" name="address" id="address" value="{$addresses.address_book_id}">
+											{/if}
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="2"><address>{$addresses.address}</address></td>
+									</tr>
+									{/foreach}
+									</tbody>
+								</table>
+							</div>
+
+							<button type="submit" class="btn btn-primary float-right"><i class="fa fa-check" aria-hidden="true"></i> {$lang.button_continue}</button>		
+							{/if}
+						{/if}
+
 	
 						{if $addresses_count < $smarty.const.MAX_ADDRESS_BOOK_ENTRIES }
   
@@ -189,27 +137,21 @@
 							<!-- /checkout new address -->  
 						{/if}
 
-{if $process eq 'true'}
-      <tr>
-        <td height="10"></td>
-      </tr>
-      <tr>
-        <td><a href="{html_href_link content=$filename.checkout_shipping_address}" class="btn btn-primary-filled" role="button"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> {$lang.button_back}</a></td>
-      </tr>
-{/if}
-
-
-    </table>
 	
 						<div class="col-md-12">
 							<div class="well well-lg clearfix">
 								<ul class="pager">
-									<li class="previous float-left"><strong>{$lang.title_continue_checkout_procedure}</strong><br>{$lang.text_continue_checkout_procedure}</li>
-									<li class="next"><input type="hidden" name="action" value="submit"><button class="btn btn-primary-filled float-right" type="submit">{$lang.button_continue} <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button></li>
+									<li class="previous float-left">
+									{if $process eq true}
+										<a href="{html_href_link content=$filename.checkout_shipping_address}" class="btn btn-primary-filled" role="button"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> {$lang.button_back}</a>
+									{else}
+										<strong>{$lang.title_continue_checkout_procedure}</strong><br>{$lang.text_continue_checkout_procedure}</li>
+									{/if}
+									<li class="next"><button class="btn btn-primary-filled float-right" type="submit">{$lang.button_continue} <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button></li>
 								</ul>
 							</div>
 						</div>
-    </form>
+					</form>
 				</div>
 			</div>
 		</div>
