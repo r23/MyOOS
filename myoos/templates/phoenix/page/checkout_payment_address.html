@@ -72,8 +72,9 @@
 								</address>
 							</div>
 						</div>
+						<hr />
 
-						{if $addresses_count > 1}
+						{if $addresses_count > 0}
   
 						<div class="page-header">
 							<h4>{$lang.table_heading_address_book_entries}</h4>
@@ -132,7 +133,7 @@
 							</fieldset>
 							<!-- /checkout new address -->  
 
-{/if}
+						{/if}
 						<div class="col-md-12">
 							<div class="well well-lg clearfix">
 								<ul class="pager">

@@ -329,7 +329,6 @@ $smarty->assign(
 		'owner' => $owner,
 		'vat_id' => $vat_id,		
 		'street_address' => $street_address,
-		'suburb' => $suburb,
 		'postcode' => $postcode,
 		'city' => $city,
 		'country' => $country,
@@ -342,7 +341,7 @@ $smarty->assign(
 		'post_code_error' => $post_code_error,
 		'city_error' => $city_error,
 		'state_error' => $state_error,
-		'state_has_zones' => $state_has_zones,
+		'state_has_zones' => $entry_state_has_zones,
 		'country_error' => $country_error
 	)
 );
@@ -353,7 +352,7 @@ if ($bProcess == FALSE) {
 }
 
 
-if ($state_has_zones == 'true') {
+if ($entry_state_has_zones == TRUE) {
     $zones_names = array();
     $zones_values = array();
     $zonestable = $oostable['zones'];

@@ -66,7 +66,7 @@
 								{if $smarty.const.ACCOUNT_STATE eq 'true'}	
 									<div class="col-md-6 col-sm-6">
 										<label for="state">{$lang.entry_state} *</label>
-									{if $state_has_zones eq 'true'}	
+									{if $state_has_zones eq true}	
 										<select id="state" name="state" class="form-control pointer">
 											{html_options values=$zones_values output=$zones_names}
 										</select>

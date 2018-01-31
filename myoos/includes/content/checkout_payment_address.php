@@ -334,7 +334,7 @@ $smarty->assign(
 		'post_code_error' => $post_code_error,
 		'city_error' => $city_error,
 		'state_error' => $state_error,
-		'state_has_zones' => $state_has_zones,
+		'state_has_zones' => $entry_state_has_zones,
 		'country_error' => $country_error
 	)
 );
@@ -344,7 +344,8 @@ if ($bProcess == FALSE) {
 	$smarty->assign('addresses_array', $addresses_array);
 }
 
-if ($state_has_zones == 'true') {
+
+if ($entry_state_has_zones == TRUE) {
     $zones_names = array();
     $zones_values = array();
     $zonestable = $oostable['zones'];
