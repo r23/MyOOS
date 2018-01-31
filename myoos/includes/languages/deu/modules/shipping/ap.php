@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: ap.php,v 1.02 2003/02/18 03:25:00 harley_vb 
+   File: ap.php,v 1.02 2003/02/18 03:25:00 harley_vb
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com

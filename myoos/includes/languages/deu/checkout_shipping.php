@@ -32,7 +32,7 @@ $aLang['title_shipping_address'] = 'Versandadresse:';
 $aLang['table_heading_shipping_method'] = 'Versandart';
 $aLang['text_choose_shipping_method'] = 'Bitte wählen Sie die gewünschte Versandart für Ihre Bestellung aus.';
 $aLang['title_please_select'] = 'Bitte wählen Sie';
-$aLang['text_enter_shipping_information'] = 'Zur Zeit bieten wir Ihnen nur eine Versandart an.';
+$aLang['text_enter_shipping_information'] = 'Zur Zeit bieten wir Ihnen folgende Versandart an.';
 
 $aLang['table_heading_comments'] = 'Fügen Sie hier Ihre Anmerkungen zu dieser Bestellung ein';
 

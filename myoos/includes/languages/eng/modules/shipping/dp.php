@@ -20,20 +20,20 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-define('MODULE_SHIPPING_DP_STATUS_TITLE', 'Deutsche Post WorldNet');
-define('MODULE_SHIPPING_DP_STATUS_DESC', 'Wollen Sie den Versand ber die deutsche Post anbieten?');
+define('MODULE_SHIPPING_DP_STATUS_TITLE', 'German Post - Worldwide Shipping Module');
+define('MODULE_SHIPPING_DP_STATUS_DESC', 'Do you want to offer German Post shipping?');
 
 define('MODULE_SHIPPING_DP_HANDLING_TITLE', 'Handling Fee');
-define('MODULE_SHIPPING_DP_HANDLING_DESC', 'Bearbeitungsgebhr fr diese Versandart in Euro');
+define('MODULE_SHIPPING_DP_HANDLING_DESC', 'Handlingfee for this shipping method in Euro');
 
-define('MODULE_SHIPPING_DP_TAX_CLASS_TITLE', 'Steuersatz');
-define('MODULE_SHIPPING_DP_TAX_CLASS_DESC', 'W�len Sie den MwSt.-Satz fr diese Versandart aus.');
+define('MODULE_SHIPPING_DP_TAX_CLASS_TITLE', 'Tax Rate');
+define('MODULE_SHIPPING_DP_TAX_CLASS_DESC', 'Use the following tax class on the shipping fee.');
 
 define('MODULE_SHIPPING_DP_ZONE_TITLE', 'Versand Zone');
 define('MODULE_SHIPPING_DP_ZONE_DESC', 'Wenn Sie eine Zone ausw�len, wird diese Versandart nur in dieser Zone angeboten.');
 
-define('MODULE_SHIPPING_DP_SORT_ORDER_TITLE', 'Reihenfolge der Anzeige');
-define('MODULE_SHIPPING_DP_SORT_ORDER_DESC', 'Niedrigste wird zuerst angezeigt.');
+define('MODULE_SHIPPING_DP_SORT_ORDER_TITLE', 'Sort order');
+define('MODULE_SHIPPING_DP_SORT_ORDER_DESC', 'Sort order of display. Lowest is displayed first.');
 
 define('MODULE_SHIPPING_DP_COUNTRIES_1_TITLE', 'DP Zone 1 Countries');
 define('MODULE_SHIPPING_DP_COUNTRIES_1_DESC', 'Comma separated list of two character ISO country codes that are part of Zone 1');

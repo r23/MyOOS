@@ -43,167 +43,123 @@
             
 
 					<form name="checkout_address" action="{html_get_link}" method="POST" role="form">
+						<fieldset>
 						<input type="hidden" name="content" value="{$filename.checkout_shipping}">
 					{if $mySystem.sed}
 						<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
 						<input type="hidden" name="formid" value="{$mySystem.formid}">
 					{/if}
 						<input type="hidden" name="action" value="process">
-			
+
+
+						<div class="page-header">
+							<h4>{$lang.table_heading_shipping_address}</h4>
+						</div>
+		
+						<div class="row shipping-info">
+							<div class="col-10">
+								<p>{$lang.text_choose_shipping_destination}</p>
+								
+								<a href="{html_href_link content=$filename.checkout_shipping_address}" class="btn btn-default" role="button">{$lang.button_change_address}</a>
+							</div>
+							<div class="col-2">
+								<h5>{$lang.title_shipping_address}</h5>
+								<address>
+									{oos_address_label customers_id=$smarty.session.customer_id address_id=$smarty.session.sendto}
+								</address>
+							</div>
+						</div>
+						<hr />						
 				
-<table border="0" width="100%" cellspacing="0" cellpadding="0">
 
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td class="main"><strong>{$lang.table_heading_shipping_address}</strong></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
-          <tr class="oos-BoxContents">
-            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr>
-                <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                <td class="main" width="50%" valign="top">{$lang.text_choose_shipping_destination}<br><br><a href="{html_href_link content=$filename.checkout_shipping_address}" class="btn btn-default" role="button">{$lang.button_change_address}</a></td>
-                <td align="right" width="50%" valign="top"><table border="0" cellspacing="0" cellpadding="2">
-                  <tr>
-                    <td class="main" align="center" valign="top"><strong>{$lang.title_shipping_address}</strong><br><img src="{$theme_image}/arrow_south_east.gif" border="0" alt=" " width="50" height="31"></td>
-                    <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                    <td class="main" valign="top">{oos_address_label customers_id=$smarty.session.customer_id address_id=$smarty.session.sendto}</td>
-                    <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                  </tr>
-                </table></td>
-              </tr>
-            </table></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
- {if $counts_shipping_modules > 0 }
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td class="main"><strong>{$lang.table_heading_shipping_method}</strong></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
-          <tr class="oos-BoxContents">
-            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-    {if sizeof($quotes) > 1 }
-              <tr>
-                <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                <td class="main" width="50%" valign="top">{$lang.text_choose_shipping_method}</td>
-                <td class="main" width="50%" valign="top" align="right"><strong>{$lang.title_please_select}</strong><br><img src="{$theme_image}/arrow_east_south.gif" border="0" alt=" " width="40" height="32"></td>
-                <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-              </tr>
-    {elseif $free_shipping eq false }
-              <tr>
-                <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                <td class="main" width="100%" colspan="2">{$lang.text_enter_shipping_information}</td>
-                <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-              </tr>
-    {/if}
 
-    {if $free_shipping eq true }
-              <tr>
-                <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                <td colspan="2" width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-                  <tr>
-                    <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                    <td class="main" colspan="3"><strong>{$lang.free_shipping_title}</strong>&nbsp;{$quotes[i].icon}</td>
-                    <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                  </tr>
-                  <tr id="defaultSelected" class="moduleRowSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, 0)">
-                    <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                    <td class="main" width="100%">{$oos_free_shipping_description}<input type="hidden" name="shipping" value="free_free"></td>
-                    <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                  </tr>
-                </table></td>
-                <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-              </tr>
-   {else}
-      {counter start=0 skip=1 print=false}
-      {section name=i loop=$quotes}
-              <tr>
-                <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-                  <tr>
-                    <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                    <td class="main" colspan="3"><strong>{$quotes[i].module}</strong>&nbsp;{$quotes[i].icon}</td>
-                    <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                  </tr>
-        {if isset($quotes[i].error)}
-                  <tr>
-                    <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                    <td class="main" colspan="3">{$quotes[i].error}</td>
-                    <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                  </tr>
-        {else}
-          {section name=n loop=$quotes[i].methods}
-            {if ( ($quotes[i].methods[n].id eq $sess_method) || ($counts_shipping_modules eq (int)1) ) }
-                  <tr id="defaultSelected" class="moduleRowSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, {counter})">
-            {else}
-                  <tr class="moduleRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, {counter})">
-            {/if}
-                    <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                    <td class="main" width="75%">{$quotes[i].methods[n].title}</td>
-            {if ( ($smarty.section.i.total > 1) || ($smarty.section.n.total > 1) ) }
-                    <td class="main">{oos_cost price=$quotes[i].methods[n].cost tax=$quotes[i].tax}</td>
-               {if $quotes[i].methods[n].id eq $sess_method }
-                    <td class="main" align="right"><input type="radio" name="shipping" value="{$quotes[i].id}_{$quotes[i].methods[n].id}" checked="checked"></td>
-               {else}
-                   <td class="main" align="right"><input type="radio" name="shipping" value="{$quotes[i].id}_{$quotes[i].methods[n].id}"></td>
-               {/if}
-            {else}
-                    <td class="main" align="right" colspan="2">{oos_cost price=$quotes[i].methods[n].cost tax=$quotes[i].tax}<input type="hidden" name="shipping" value="{$quotes[i].id}_{$quotes[i].methods[n].id}"></td>
-            {/if}
-                    <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                  </tr>
-          {/section}
-        {/if}
-                </table></td>
-                <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-              </tr>
-      {/section}
-    {/if}
-            </table></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
-  {/if}
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td class="main"><strong>{$lang.table_heading_comments}</strong></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
-          <tr class="oos-BoxContents">
-            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-             <tr>
-               <td>
-<span id="spell_container" style="background-color: #ddd"></span><br>
-<textarea id="tal" name="comments" class="textarea">{$smarty.session.comments|stripslashes}</textarea>
 
-               </td>
-             </tr>
-            </table></td>
-          </tr>
-        </table></td>
-      </tr>
+				{if $counts_shipping_modules > 0 }
+ 
+ 						<div class="page-header">
+							<h4>{$lang.table_heading_shipping_method}</h4>
+						</div>
+						
+					{if sizeof($quotes) > 1 }
 
-    </table>
+						<div class="row shipping-info">
+							<div class="col-10">
+								<p>{$lang.text_choose_shipping_method}</p>
+							</div>
+							<div class="col-2">
+								<strong>{$lang.title_please_select}</strong>
+							</div>
+						</div>	
+	
+					{elseif $free_shipping eq false }
+						<div class="row shipping-info">
+							<div class="col-12">
+								<p>{$lang.text_enter_shipping_information}</p>
+							</div>
+						</div>
+					{/if}
+
+					{if $free_shipping eq true }
+
+						<div class="page-header">
+							<h4>{$lang.free_shipping_title} {$quotes[i].icon}</h4>
+						</div>
+						
+						<p>{$oos_free_shipping_description}</p>
+						<input type="hidden" name="shipping" value="free_free">
+						
+					{else}
+							<div class="table-responsive">
+								<table class="table">
+									<tbody>
+						{section name=i loop=$quotes}
+										<tr>
+											<td colspan="3"><strong>{$quotes[i].module}</strong>&nbsp;{$quotes[i].icon}</td>
+										</tr>
+							{if isset($quotes[i].error)}
+										<tr>
+											<td colspan="3">{$quotes[i].error}</td>
+										</tr>
+							{else}
+								{section name=n loop=$quotes[i].methods}
+										<tr>
+											<td width="75%">{$quotes[i].methods[n].title}</td>
+									{if ( ($smarty.section.i.total > 1) || ($smarty.section.n.total > 1) ) }
+											<td>{oos_cost price=$quotes[i].methods[n].cost tax=$quotes[i].tax}</td>
+											<td align="right">
+												<div class="form-check">
+										{if $quotes[i].methods[n].id eq $sess_method }
+													<input class="form-check-input" type="radio" name="shipping" id="shipping" value="{$quotes[i].id}_{$quotes[i].methods[n].id}" checked>
+										{else}
+													<input class="form-check-input" type="radio" name="shipping" id="shipping" value="{$quotes[i].id}_{$quotes[i].methods[n].id}">
+										{/if}		   
+												</div>									
+											</td>			   
+			   
+									{else}
+											<td align="right" colspan="2">
+												{oos_cost price=$quotes[i].methods[n].cost tax=$quotes[i].tax}
+												<input type="hidden" name="shipping" value="{$quotes[i].id}_{$quotes[i].methods[n].id}">
+											</td>
+									{/if}
+										</tr>
+								{/section}
+							{/if}
+						{/section}
+									</tbody>
+								</table>
+							</div>						
+					{/if}
+				{/if}
+
+							<div class="row">
+								<div class="col-md-12">
+									<label for="comments">{$lang.table_heading_comments}</label>
+									<textarea maxlength="10000" rows="8" class="form-control" name="comments" id="comments">{$smarty.session.comments|stripslashes}</textarea>												
+								</div>
+							</div>
+						</fieldset>
+	
 						<div class="col-md-12">
 							<div class="well well-lg clearfix">
 								<ul class="pager">

@@ -19,14 +19,14 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-define('MODULE_SHIPPING_TABLE_STATUS_TITLE', 'Enable Table Method');
-define('MODULE_SHIPPING_TABLE_STATUS_DESC', 'Do you want to offer table rate shipping?');
+define('MODULE_SHIPPING_TABLE_STATUS_TITLE', 'Tabellarische Versandkosten aktivieren');
+define('MODULE_SHIPPING_TABLE_STATUS_DESC', 'Möchten Sie Tabellarische Versandkosten anbieten?');
 
-define('MODULE_SHIPPING_TABLE_COST_TITLE', 'Shipping Table');
-define('MODULE_SHIPPING_TABLE_COST_DESC', 'The shipping cost is based on the total cost or weight of items. Example: 25:8.50,50:5.50,etc.. Up to 25 charge 8.50, from there to 50 charge 5.50, etc');
-
-define('MODULE_SHIPPING_TABLE_MODE_TITLE', 'Table Method');
-define('MODULE_SHIPPING_TABLE_MODE_DESC', 'The shipping cost is based on the order total or the total weight of the items ordered.');
+define('MODULE_SHIPPING_TABLE_COST_TITLE', 'Versandkosten');
+define('MODULE_SHIPPING_TABLE_COST_DESC', 'Die Versandkosten basieren auf Gesamtkosten oder Gesamtgewicht der bestellten Waren. Beispiel: 25:5.50,50:8.50,etc.. Bis 25 werden 5.50 verrechnet, dar&uuml;ber bis 50 werden 8.50 verrechnet, etc');
+                      
+define('MODULE_SHIPPING_TABLE_MODE_TITLE', 'Versandkosten');
+define('MODULE_SHIPPING_TABLE_MODE_DESC', 'Die Versandkosten basieren auf Gesamtkosten oder Gesamtgewicht der bestellten Waren.');
 
 define('MODULE_SHIPPING_TABLE_HANDLING_TITLE', 'Handling Gebühr');
 define('MODULE_SHIPPING_TABLE_HANDLING_DESC', 'Handling Gebühr für diese Versandart.');

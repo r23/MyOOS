@@ -9,14 +9,14 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: fedexeu.php,v 1.01 2003/02/18 03:25:00 harley_vb 
+   File: fedexeu.php,v 1.01 2003/02/18 03:25:00 harley_vb
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
 
    Copyright (c) 2002 - 2003 osCommerce
    ----------------------------------------------------------------------
-   Copyright (C) 2001 - 2003 TheMedia, Dipl.-Ing Thomas Pl�kers
+   Copyright (C) 2001 - 2003 TheMedia, Dipl.-Ing Thomas Pl?kers
        http://www.themedia.at & http://www.oscommerce.at
 
                     All rights reserved.
@@ -68,7 +68,7 @@ define('MODULE_SHIPPING_FEDEXEU_COST_BOX_1_DESC', 'Tarif Tabelle für die Zone 1
 
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_1_TITLE', 'Erhöhungszuschlag bis 20 kg BOX');
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_1_DESC', 'Erhöhungszuschlag pro bersteigende 0,50 kg in EUR');
- 
+
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_1_TITLE', 'Erhöhungszuschlag bis 40 kg BOX');
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_1_DESC', 'Erhöhungszuschlag pro bersteigende 0,50 kg in EUR');
 
@@ -86,7 +86,7 @@ define('MODULE_SHIPPING_FEDEXEU_COST_BOX_2_DESC', 'Tarif Tabelle für die Zone 2
 
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_2_TITLE', 'Erhöhungszuschlag bis 20 kg BOX');
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_2_DESC', 'Erhöhungszuschlag pro bersteigende 0,50 kg in EUR');
- 
+
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_2_TITLE', 'Erhöhungszuschlag bis 40 kg BOX');
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_2_DESC', 'Erhöhungszuschlag pro bersteigende 0,50 kg in EUR');
 
@@ -104,7 +104,7 @@ define('MODULE_SHIPPING_FEDEXEU_COST_BOX_3_DESC', 'Tarif Tabelle für die Zone 3
 
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_3_TITLE', 'Erhöhungszuschlag bis 20 kg BOX');
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_3_DESC', 'Erhöhungszuschlag pro bersteigende 0,50 kg in EUR');
- 
+
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_3_TITLE', 'Erhöhungszuschlag bis 40 kg BOX');
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_3_DESC', 'Erhöhungszuschlag pro bersteigende 0,50 kg in EUR');
 
@@ -122,7 +122,7 @@ define('MODULE_SHIPPING_FEDEXEU_COST_BOX_4_DESC', 'Tarif Tabelle für die Zone A
 
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_4_TITLE', 'Erhöhungszuschlag bis 20 kg BOX');
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_4_DESC', 'Erhöhungszuschlag pro bersteigende 0,50 kg in EUR');
- 
+
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_4_TITLE', 'Erhöhungszuschlag bis 40 kg BOX');
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_4_DESC', 'Erhöhungszuschlag pro bersteigende 0,50 kg in EUR');
 
@@ -140,7 +140,7 @@ define('MODULE_SHIPPING_FEDEXEU_COST_BOX_5_DESC', 'Tarif Tabelle für die Zone B
 
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_5_TITLE', 'Erhöhungszuschlag bis 20 kg BOX');
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_5_DESC', 'Erhöhungszuschlag pro bersteigende 0,50 kg in EUR');
- 
+
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_5_TITLE', 'Erhöhungszuschlag bis 40 kg BOX');
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_5_DESC', 'Erhöhungszuschlag pro bersteigende 0,50 kg in EUR');
 
@@ -158,7 +158,7 @@ define('MODULE_SHIPPING_FEDEXEU_COST_BOX_6_DESC', 'Tarif Tabelle für die Zone C
 
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_6_TITLE', 'Erhöhungszuschlag bis 20 kg BOX');
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_6_DESC', 'Erhöhungszuschlag pro bersteigende 0,50 kg in EUR');
- 
+
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_6_TITLE', 'Erhöhungszuschlag bis 40 kg BOX');
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_6_DESC', 'Erhöhungszuschlag pro bersteigende 0,50 kg in EUR');
 
@@ -176,7 +176,7 @@ define('MODULE_SHIPPING_FEDEXEU_COST_BOX_7_DESC', 'Tarif Tabelle für die Zone D
 
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_7_TITLE', 'Erhöhungszuschlag bis 20 kg BOX');
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_7_DESC', 'Erhöhungszuschlag pro bersteigende 0,50 kg in EUR');
- 
+
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_7_TITLE', 'Erhöhungszuschlag bis 40 kg BOX');
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_7_DESC', 'Erhöhungszuschlag pro bersteigende 0,50 kg in EUR');
 
@@ -194,7 +194,7 @@ define('MODULE_SHIPPING_FEDEXEU_COST_BOX_8_DESC', 'Tarif Tabelle für die Zone E
 
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_8_TITLE', 'Erhöhungszuschlag bis 20 kg BOX');
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_8_DESC', 'Erhöhungszuschlag pro bersteigende 0,50 kg in EUR');
- 
+
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_8_TITLE', 'Erhöhungszuschlag bis 40 kg BOX');
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_8_DESC', 'Erhöhungszuschlag pro bersteigende 0,50 kg in EUR');
 
