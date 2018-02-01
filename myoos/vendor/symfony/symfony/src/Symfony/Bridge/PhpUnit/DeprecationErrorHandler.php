@@ -75,9 +75,12 @@ class DeprecationErrorHandler
                     }
                 }
             }
-            $path = realpath($path) ?: $path;
+            $realPath = realpath($path);
+            if (false === $realPath && '-' !== $path && 'Standard input code' !== $path) {
+                return true;
+            }
             foreach ($vendors as $vendor) {
-                if (0 === strpos($path, $vendor) && false !== strpbrk(substr($path, strlen($vendor), 1), '/'.DIRECTORY_SEPARATOR)) {
+                if (0 === strpos($realPath, $vendor) && false !== strpbrk(substr($realPath, strlen($vendor), 1), '/'.DIRECTORY_SEPARATOR)) {
                     return true;
                 }
             }
@@ -228,7 +231,7 @@ class DeprecationErrorHandler
                         uasort($deprecations[$group], $cmp);
 
                         foreach ($deprecations[$group] as $msg => $notices) {
-                            echo "\n", rtrim($msg, '.'), ': ', $notices['count'], "x\n";
+                            echo "\n  ", $notices['count'], 'x: ', $msg, "\n";
 
                             arsort($notices);
 
