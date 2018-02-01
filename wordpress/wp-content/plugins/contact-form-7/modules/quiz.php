@@ -13,6 +13,7 @@ function wpcf7_add_form_tag_quiz() {
 		array(
 			'name-attr' => true,
 			'do-not-store' => true,
+			'not-for-mail' => true,
 		)
 	);
 }

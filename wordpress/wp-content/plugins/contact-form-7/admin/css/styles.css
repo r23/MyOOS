@@ -62,25 +62,19 @@ div.config-error, span.config-error, ul.config-error {
 	font-size: 13px;
 }
 
-div.config-error span.dashicons {
-	color: #82878c;
-}
-
 ul.config-error {
-	margin: 0;
+	margin: 2px 0;
 }
 
 ul.config-error li {
-	list-style: disc inside;
-	padding: 0 4px;
+	list-style: none;
+	padding: 2px 2px;
 	margin: 0;
 }
 
-ul.config-error li a.external {
-	font-style: normal;
-	font-weight: normal;
-	font-size: 18px;
-	vertical-align: middle;
+div.config-error span.dashicons,
+ul.config-error li span.dashicons {
+	color: #82878c;
 }
 
 [data-config-field][aria-invalid="true"] {
@@ -142,6 +136,15 @@ ul.config-error li a.external {
 	font-style: normal;
 	padding: 6px 0 4px 4px;
 	color: #82878c;
+}
+
+#contact-form-editor-tabs li a span.dashicons-warning,
+#contact-form-editor .contact-form-editor-panel > div.config-error span.dashicons-warning {
+	color: #ca4a1f;
+}
+
+#contact-form-editor .contact-form-editor-panel > div.config-error {
+	margin-bottom: 1.4em;
 }
 
 #contact-form-editor-tabs li.ui-tabs-active a span.dashicons {
@@ -222,6 +225,10 @@ ul.config-error li a.external {
 
 .tag-generator-panel .control-box input.oneline {
 	width: 200px;
+}
+
+.tag-generator-panel .control-box input.large-text {
+	width: 400px;
 }
 
 .tag-generator-panel .control-box textarea.values {
@@ -320,8 +327,8 @@ ul.config-error li a.external {
 	width: 38%;
 }
 
-.wp-list-table .config-error span.dashicons {
-	color: #82878c;
+.wp-list-table .config-error span.dashicons-warning {
+	color: #ca4a1f;
 }
 
 /*

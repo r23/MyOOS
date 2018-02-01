@@ -2,9 +2,9 @@
 Contributors: takayukister
 Donate link: https://contactform7.com/donate/
 Tags: contact, form, contact form, feedback, email, ajax, captcha, akismet, multilingual
-Requires at least: 4.7
-Tested up to: 4.9.1
-Stable tag: 4.9.2
+Requires at least: 4.8
+Tested up to: 4.9.2
+Stable tag: 5.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,48 +60,18 @@ Do you have questions or issues with Contact Form 7? Use these support channels 
 
 For more information, see [Releases](https://contactform7.com/category/releases/).
 
-= 4.9.2 =
+= 5.0 =
 
-* Remove improper uses of esc_sql().
-* Fix the refill REST-API request so that a nonce is set when available.
-* Give more contrast to unused mail-tags in the Mail tab panel to make them easier to recognize.
-* Undo the previous change of HTTP status code for the REST-API response.
-
-= 4.9.1 =
-
-* Code using create_function() has been removed to avoid security risks and warnings given when using with PHP 7.2+.
-* Display the notice of config validation again to encourage admins to apply some important validation items recently added.
-* REST API endpoint returns more specific HTTP status code 409 instead of 400.
-* Fixed appearance of configuration error signs in the Additional Settings tab.
-
-= 4.9 =
-
-* Supports subscribers_only setting
-* Changes the default value of WPCF7_VERIFY_NONCE to false
-* WPCF7_FormTagsManager::collect_tag_types() supports invert option
-* New filter hooks: wpcf7_verify_nonce, wpcf7_subscribers_only_notice, wpcf7_remote_ip_addr, and wpcf7_submission_is_blacklisted
-* Fixed: Form-tag's tabindex option did not accept 0 or negative integer values
-* Shows a validation error when no option in a radio buttons group is checked
-* Config validator: Adds a validation rule against the use of deprecated settings (on_sent_ok and on_submit)
-* Allows to pass the skip_mail option through the WPCF7_ContactForm::submit() and WPCF7_Submission::get_instance() function parameters.
-* Triggers wpcf7beforesubmit custom DOM event. You can manipulate the formData object through an event handler.
-
-= 4.8.1 =
-
-* wpcf7.initForm JavaScript function added to isolate form initialization process.
-* Fix response message duplication caused by repeated click on submit button.
-* Clear $phpmailer->AltBody to avoid unintended inheritance from previous wp_mail() calls.
-* Fix incorrect character count of textarea input.
-* Akismet: Exclude the comment_author, comment_author_email, and comment_author_url values from the comment_content value.
-* REST API: More reliable approach to build route URLs.
-* Include free_text inputs into event.detail.inputs.
-
-= 4.8 =
-
-* Stopped using jquery.form.js.
-* Added custom REST API endpoints for Ajax form submissions.
-* WPCF7_FormTag class implements ArrayAccess interface.
-* WPCF7_FormTagsManager::filter() filters form-tags based on features they support.
-* New form-tag features: do-not-store, display-block, and display-hidden
-* Removed inappropriate content from h1 headings.
-* Added the support of size:invisible option to the reCAPTCHA form-tag.
+* Additional settings: on_sent_ok and on_submit have been removed.
+* New additional setting: skip_mail
+* Flamingo: Inbound channel title changes in conjunction with a change in the title of the corresponding contact form.
+* DOM events: Make an entire API response object accessible through the event.detail.apiResponse property.
+* HTML mail: Adds language-related attributes to the HTML header.
+* File upload: Sets the accept attribute to an uploading field.
+* Introduces the WPCF7_MailTag class.
+* Allows aborting a mail-sending attempt using the wpcf7_before_send_mail action hook. Also, you can set a custom status and a message through the action hook.
+* Acceptance checkbox: Allows the specifying of a statement of conditions in the form-tag’s content part.
+* Acceptance checkbox: Supports the optional option.
+* New special mail tags: [_site_title], [_site_description], [_site_url], [_site_admin_email], [_invalid_fields], [_user_login], [_user_email], [_user_url], [_user_first_name], [_user_last_name], [_user_nickname], and [_user_display_name]
+* New filter hooks: wpcf7_upload_file_name, wpcf7_autop_or_not, wpcf7_posted_data_{$type}, and wpcf7_mail_tag_replaced_{$type}
+* New form-tag features: zero-controls-container and not-for-mail

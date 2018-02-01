@@ -11,7 +11,11 @@ function wpcf7_add_form_tag_captcha() {
 	// CAPTCHA-Challenge (image)
 	wpcf7_add_form_tag( 'captchac',
 		'wpcf7_captchac_form_tag_handler',
-		array( 'name-attr' => true )
+		array(
+			'name-attr' => true,
+			'zero-controls-container' => true,
+			'not-for-mail' => true,
+		)
 	);
 
 	// CAPTCHA-Response (input)
@@ -20,6 +24,7 @@ function wpcf7_add_form_tag_captcha() {
 		array(
 			'name-attr' => true,
 			'do-not-store' => true,
+			'not-for-mail' => true,
 		)
 	);
 }
@@ -27,6 +32,7 @@ function wpcf7_add_form_tag_captcha() {
 function wpcf7_captchac_form_tag_handler( $tag ) {
 	if ( ! class_exists( 'ReallySimpleCaptcha' ) ) {
 		$error = sprintf(
+			/* translators: %s: link labeled 'Really Simple CAPTCHA' */
 			esc_html( __( "To use CAPTCHA, you need %s plugin installed.", 'contact-form-7' ) ),
 			wpcf7_link( 'https://wordpress.org/plugins/really-simple-captcha/', 'Really Simple CAPTCHA' ) );
 
@@ -76,7 +82,7 @@ function wpcf7_captchac_form_tag_handler( $tag ) {
 
 	$html = sprintf(
 		'<input type="hidden" name="_wpcf7_captcha_challenge_%1$s" value="%2$s" /><img %3$s />',
-		$tag->name, $prefix, $atts );
+		$tag->name, esc_attr( $prefix ), $atts );
 
 	return $html;
 }
@@ -173,23 +179,24 @@ function wpcf7_captcha_ajax_refill( $items ) {
 		return $items;
 	}
 
-	$fes = wpcf7_scan_form_tags( array( 'type' => 'captchac' ) );
+	$tags = wpcf7_scan_form_tags( array( 'type' => 'captchac' ) );
 
-	if ( empty( $fes ) ) {
+	if ( empty( $tags ) ) {
 		return $items;
 	}
 
 	$refill = array();
 
-	foreach ( $fes as $fe ) {
-		$name = $fe['name'];
-		$options = $fe['options'];
+	foreach ( $tags as $tag ) {
+		$name = $tag->name;
+		$options = $tag->options;
 
 		if ( empty( $name ) ) {
 			continue;
 		}
 
 		$op = wpcf7_captchac_options( $options );
+
 		if ( $filename = wpcf7_generate_captcha( $op ) ) {
 			$captcha_url = wpcf7_captcha_url( $filename );
 			$refill[$name] = $captcha_url;
@@ -244,7 +251,13 @@ function wpcf7_tag_generator_captcha( $contact_form, $args = '' ) {
 ?>
 <div class="control-box">
 <fieldset>
-<legend><?php echo sprintf( esc_html( __( "To use CAPTCHA, you first need to install and activate %s plugin.", 'contact-form-7' ) ), wpcf7_link( 'https://wordpress.org/plugins/really-simple-captcha/', 'Really Simple CAPTCHA' ) ); ?></legend>
+<legend><?php
+	echo sprintf(
+		/* translators: %s: link labeled 'Really Simple CAPTCHA' */
+		esc_html( __( "To use CAPTCHA, you first need to install and activate %s plugin.", 'contact-form-7' ) ),
+		wpcf7_link( 'https://wordpress.org/plugins/really-simple-captcha/', 'Really Simple CAPTCHA' )
+	);
+?></legend>
 </fieldset>
 </div>
 <?php
@@ -342,8 +355,9 @@ function wpcf7_captcha_display_warning_message() {
 		echo '<div class="notice notice-warning"><p>' . esc_html( $message ) . '</p></div>';
 	}
 
-	if ( ! function_exists( 'imagecreatetruecolor' ) || ! function_exists( 'imagettftext' ) ) {
-		$message = __( 'This contact form contains CAPTCHA fields, but the necessary libraries (GD and FreeType) are not available on your server.', 'contact-form-7' );
+	if ( ! function_exists( 'imagecreatetruecolor' )
+	|| ! function_exists( 'imagettftext' ) ) {
+		$message = __( "This contact form contains CAPTCHA fields, but the necessary libraries (GD and FreeType) are not available on your server.", 'contact-form-7' );
 
 		echo '<div class="notice notice-warning"><p>' . esc_html( $message ) . '</p></div>';
 	}
@@ -380,13 +394,13 @@ function wpcf7_init_captcha() {
 	}
 
 	if ( wp_mkdir_p( $dir ) ) {
-		$htaccess_file = $dir . '.htaccess';
+		$htaccess_file = path_join( $dir, '.htaccess' );
 
 		if ( file_exists( $htaccess_file ) ) {
 			return $captcha;
 		}
 
-		if ( $handle = @fopen( $htaccess_file, 'w' ) ) {
+		if ( $handle = fopen( $htaccess_file, 'w' ) ) {
 			fwrite( $handle, 'Order deny,allow' . "\n" );
 			fwrite( $handle, 'Deny from all' . "\n" );
 			fwrite( $handle, '<Files ~ "^[0-9A-Za-z]+\\.(jpeg|gif|png)$">' . "\n" );
@@ -405,7 +419,7 @@ function wpcf7_captcha_tmp_dir() {
 	if ( defined( 'WPCF7_CAPTCHA_TMP_DIR' ) ) {
 		return WPCF7_CAPTCHA_TMP_DIR;
 	} else {
-		return wpcf7_upload_dir( 'dir' ) . '/wpcf7_captcha';
+		return path_join( wpcf7_upload_dir( 'dir' ), 'wpcf7_captcha' );
 	}
 }
 
@@ -413,12 +427,12 @@ function wpcf7_captcha_tmp_url() {
 	if ( defined( 'WPCF7_CAPTCHA_TMP_URL' ) ) {
 		return WPCF7_CAPTCHA_TMP_URL;
 	} else {
-		return wpcf7_upload_dir( 'url' ) . '/wpcf7_captcha';
+		return path_join( wpcf7_upload_dir( 'url' ), 'wpcf7_captcha' );
 	}
 }
 
 function wpcf7_captcha_url( $filename ) {
-	$url = trailingslashit( wpcf7_captcha_tmp_url() ) . $filename;
+	$url = path_join( wpcf7_captcha_tmp_url(), $filename );
 
 	if ( is_ssl() && 'http:' == substr( $url, 0, 5 ) ) {
 		$url = 'https:' . substr( $url, 5 );
@@ -518,16 +532,16 @@ function wpcf7_cleanup_captcha_files() {
 		return false;
 	}
 
-	if ( $handle = @opendir( $dir ) ) {
+	if ( $handle = opendir( $dir ) ) {
 		while ( false !== ( $file = readdir( $handle ) ) ) {
 			if ( ! preg_match( '/^[0-9]+\.(php|txt|png|gif|jpeg)$/', $file ) ) {
 				continue;
 			}
 
-			$stat = @stat( $dir . $file );
+			$stat = stat( path_join( $dir, $file ) );
 
 			if ( $stat['mtime'] + 3600 < time() ) { // 3600 secs == 1 hour
-				@unlink( $dir . $file );
+				unlink( path_join( $dir, $file ) );
 			}
 		}
 
@@ -579,12 +593,22 @@ function wpcf7_captchac_options( $options ) {
 			$r = substr( $fc_matches[1], 0, 1 );
 			$g = substr( $fc_matches[1], 1, 1 );
 			$b = substr( $fc_matches[1], 2, 1 );
-			$op['fg'] = array( hexdec( $r . $r ), hexdec( $g . $g ), hexdec( $b . $b ) );
+
+			$op['fg'] = array(
+				hexdec( $r . $r ),
+				hexdec( $g . $g ),
+				hexdec( $b . $b ),
+			);
 		} elseif ( 6 == strlen( $fc_matches[1] ) ) {
 			$r = substr( $fc_matches[1], 0, 2 );
 			$g = substr( $fc_matches[1], 2, 2 );
 			$b = substr( $fc_matches[1], 4, 2 );
-			$op['fg'] = array( hexdec( $r ), hexdec( $g ), hexdec( $b ) );
+
+			$op['fg'] = array(
+				hexdec( $r ),
+				hexdec( $g ),
+				hexdec( $b ),
+			);
 		}
 	}
 
@@ -599,12 +623,22 @@ function wpcf7_captchac_options( $options ) {
 			$r = substr( $bc_matches[1], 0, 1 );
 			$g = substr( $bc_matches[1], 1, 1 );
 			$b = substr( $bc_matches[1], 2, 1 );
-			$op['bg'] = array( hexdec( $r . $r ), hexdec( $g . $g ), hexdec( $b . $b ) );
+
+			$op['bg'] = array(
+				hexdec( $r . $r ),
+				hexdec( $g . $g ),
+				hexdec( $b . $b ),
+			);
 		} elseif ( 6 == strlen( $bc_matches[1] ) ) {
 			$r = substr( $bc_matches[1], 0, 2 );
 			$g = substr( $bc_matches[1], 2, 2 );
 			$b = substr( $bc_matches[1], 4, 2 );
-			$op['bg'] = array( hexdec( $r ), hexdec( $g ), hexdec( $b ) );
+
+			$op['bg'] = array(
+				hexdec( $r ),
+				hexdec( $g ),
+				hexdec( $b ),
+			);
 		}
 	}
 

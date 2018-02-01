@@ -237,6 +237,7 @@
 		var ajaxSuccess = function( data, status, xhr, $form ) {
 			detail.id = $( data.into ).attr( 'id' );
 			detail.status = data.status;
+			detail.apiResponse = data;
 
 			var $message = $( '.wpcf7-response-output', $form );
 
@@ -255,6 +256,12 @@
 
 					wpcf7.triggerEvent( data.into, 'invalid', detail );
 					break;
+				case 'acceptance_missing':
+					$message.addClass( 'wpcf7-acceptance-missing' );
+					$form.addClass( 'unaccepted' );
+
+					wpcf7.triggerEvent( data.into, 'unaccepted', detail );
+					break;
 				case 'spam':
 					$message.addClass( 'wpcf7-spam-blocked' );
 					$form.addClass( 'spam' );
@@ -268,30 +275,32 @@
 
 					wpcf7.triggerEvent( data.into, 'spam', detail );
 					break;
+				case 'aborted':
+					$message.addClass( 'wpcf7-aborted' );
+					$form.addClass( 'aborted' );
+
+					wpcf7.triggerEvent( data.into, 'aborted', detail );
+					break;
 				case 'mail_sent':
 					$message.addClass( 'wpcf7-mail-sent-ok' );
 					$form.addClass( 'sent' );
 
-					if ( data.onSentOk ) {
-						$.each( data.onSentOk, function( i, n ) { eval( n ) } );
-					}
-
 					wpcf7.triggerEvent( data.into, 'mailsent', detail );
 					break;
 				case 'mail_failed':
-				case 'acceptance_missing':
-				default:
 					$message.addClass( 'wpcf7-mail-sent-ng' );
 					$form.addClass( 'failed' );
 
 					wpcf7.triggerEvent( data.into, 'mailfailed', detail );
+					break;
+				default:
+					var customStatusClass = 'custom-'
+						+ data.status.replace( /[^0-9a-z]+/i, '-' );
+					$message.addClass( 'wpcf7-' + customStatusClass );
+					$form.addClass( customStatusClass );
 			}
 
 			wpcf7.refill( $form, data );
-
-			if ( data.onSubmit ) {
-				$.each( data.onSubmit, function( i, n ) { eval( n ) } );
-			}
 
 			wpcf7.triggerEvent( data.into, 'submit', detail );
 
@@ -380,13 +389,16 @@
 
 		$submit.prop( 'disabled', false );
 
-		$( 'input:checkbox.wpcf7-acceptance', $form ).each( function() {
-			var $a = $( this );
+		$( '.wpcf7-acceptance', $form ).each( function() {
+			var $span = $( this );
+			var $input = $( 'input:checkbox', $span );
 
-			if ( $a.hasClass( 'wpcf7-invert' ) && $a.is( ':checked' )
-			|| ! $a.hasClass( 'wpcf7-invert' ) && ! $a.is( ':checked' ) ) {
-				$submit.prop( 'disabled', true );
-				return false;
+			if ( ! $span.hasClass( 'optional' ) ) {
+				if ( $span.hasClass( 'invert' ) && $input.is( ':checked' )
+				|| ! $span.hasClass( 'invert' ) && ! $input.is( ':checked' ) ) {
+					$submit.prop( 'disabled', true );
+					return false;
+				}
 			}
 		} );
 	};

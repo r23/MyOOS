@@ -214,27 +214,38 @@ class WPCF7_FormTagsManager {
 			'feature' => '',
 		) );
 
-		$cond['type'] = array_filter( (array) $cond['type'] );
-		$cond['name'] = array_filter( (array) $cond['name'] );
-		$cond['feature'] = is_string( $cond['feature'] )
-			? trim( $cond['feature'] ) : '';
+		$type = array_filter( (array) $cond['type'] );
+		$name = array_filter( (array) $cond['name'] );
+		$feature = is_string( $cond['feature'] ) ? trim( $cond['feature'] ) : '';
+
+		if ( '!' == substr( $feature, 0, 1 ) ) {
+			$feature_negative = true;
+			$feature = trim( substr( $feature, 1 ) );
+		} else {
+			$feature_negative = false;
+		}
 
 		$output = array();
 
 		foreach ( $tags as $tag ) {
 			$tag = new WPCF7_FormTag( $tag );
 
-			if ( $cond['type'] && ! in_array( $tag->type, $cond['type'], true ) ) {
+			if ( $type && ! in_array( $tag->type, $type, true ) ) {
 				continue;
 			}
 
-			if ( $cond['name'] && ! in_array( $tag->name, $cond['name'], true ) ) {
+			if ( $name && ! in_array( $tag->name, $name, true ) ) {
 				continue;
 			}
 
-			if ( $cond['feature']
-			&& ! $this->tag_type_supports( $tag->type, $cond['feature'] ) ) {
-				continue;
+			if ( $feature ) {
+				if ( ! $this->tag_type_supports( $tag->type, $feature )
+				&& ! $feature_negative ) {
+					continue;
+				} elseif ( $this->tag_type_supports( $tag->type, $feature )
+				&& $feature_negative ) {
+					continue;
+				}
 			}
 
 			$output[] = $tag;
