@@ -210,8 +210,5 @@ $smarty->assign(
 );
 
 
-// JavaScript
-$smarty->assign('popup_window', 'checkout_shipping.js');
-
 // display the template
 $smarty->display($aTemplate['page']);
