@@ -19,12 +19,8 @@
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
-
-//Import the PHPMailer class into the global namespace
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-use PHPMailer\PHPMailer\POP3;   
-   
+error_reporting(E_ALL);	
+ 
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
@@ -177,18 +173,35 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         break;
       case 'update':
         $customers_id = oos_db_prepare_input($_GET['cID']);
+	
+        $customers_firstname = oos_db_prepare_input($_POST['customers_firstname']);
+        $customers_lastname = oos_db_prepare_input($_POST['customers_lastname']);
+        $customers_email_address = oos_db_prepare_input($_POST['customers_email_address']);
+        $customers_telephone = oos_db_prepare_input($_POST['customers_telephone']);
+        $customers_max_order = oos_db_prepare_input($_POST['customers_max_order']);
+
+        $customers_gender = oos_db_prepare_input($_POST['customers_gender']);
+        $customers_dob = oos_db_prepare_input($_POST['customers_dob']);
+        $entry_street_address = oos_db_prepare_input($_POST['entry_street_address']);
+        $entry_postcode = oos_db_prepare_input($_POST['entry_postcode']);
+        $entry_city = oos_db_prepare_input($_POST['entry_city']);
+        $entry_country_id = oos_db_prepare_input($_POST['entry_country_id']);
+		
+        $entry_company = oos_db_prepare_input($_POST['entry_company']);
+        $entry_owner = oos_db_prepare_input($_POST['entry_owner']);
+        $entry_vat_id = oos_db_prepare_input($_POST['entry_vat_id']);
+        $entry_vat_id_status = oos_db_prepare_input($_POST['entry_vat_id_status']);
+        $entry_state = oos_db_prepare_input($_POST['entry_state']);
+        $entry_zone_id = oos_db_prepare_input($_POST['entry_zone_id']);
+		$default_address_id	= oos_db_prepare_input($_POST['default_address_id']);
+		
         $sql_data_array = array('customers_firstname' => $customers_firstname,
                                 'customers_lastname' => $customers_lastname,
                                 'customers_email_address' => $customers_email_address,
                                 'customers_telephone' => $customers_telephone,
-                                'customers_newsletter' => $customers_newsletter,
                                 'customers_max_order' => $customers_max_order);
 
         if (ACCOUNT_GENDER == 'true') $sql_data_array['customers_gender'] = $customers_gender;
-        if (ACCOUNT_VAT_ID == 'true') {
-          $sql_data_array['customers_vat_id'] = $customers_vat_id;
-          $sql_data_array['customers_vat_id_status'] = $customers_vat_id_status;
-        }
         if (ACCOUNT_DOB == 'true') $sql_data_array['customers_dob'] = oos_date_raw($customers_dob);
 
         oos_db_perform($oostable['customers'], $sql_data_array, 'UPDATE', "customers_id = '" . intval($customers_id) . "'");
@@ -207,6 +220,10 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
         if (ACCOUNT_COMPANY == 'true') $sql_data_array['entry_company'] = $entry_company;
         if (ACCOUNT_OWNER == 'true') $sql_data_array['entry_owner'] = $entry_owner;
+        if (ACCOUNT_VAT_ID == 'true') {
+          $sql_data_array['entry_vat_id'] = $entry_vat_id;
+          $sql_data_array['entry_vat_id_status'] = $entry_vat_id_status;
+        }
         if (ACCOUNT_STATE == 'true') {
           $sql_data_array['entry_state'] = $entry_state;
           $sql_data_array['entry_zone_id'] = $entry_zone_id;
@@ -403,13 +420,11 @@ function check_form() {
     $customerstable = $oostable['customers'];
     $address_booktable = $oostable['address_book'];
     $customers_result = $dbconn->Execute("SELECT c.customers_gender, c.customers_firstname, c.customers_lastname,
-                                                 c.customers_dob, c.customers_vat_id, c.customers_vat_id_status,
-                                                 c.customers_email_address, c.customers_wishlist_link_id,
-                                                 a.entry_company, a.entry_owner, a.entry_street_address, a.entry_suburb,
-                                                 a.entry_postcode, a.entry_city, a.entry_state, a.entry_zone_id,
+                                                 c.customers_dob, c.customers_email_address, c.customers_wishlist_link_id,
+                                                 a.entry_company, a.entry_owner, a.entry_vat_id, a.entry_vat_id_status, 
+												 a.entry_street_address, a.entry_postcode, a.entry_city, a.entry_state, a.entry_zone_id,
                                                  a.entry_country_id, c.customers_telephone,
-                                                 c.customers_newsletter, c.customers_default_address_id,
-                                                 c.customers_status, c.customers_max_order
+                                                 c.customers_default_address_id, c.customers_status, c.customers_max_order
                                           FROM  $customerstable c LEFT JOIN
                                                 $address_booktable a
                                             ON c.customers_default_address_id = a.address_book_id
@@ -417,9 +432,6 @@ function check_form() {
                                                c.customers_id = '" .  intval($_GET['cID']) . "'");
     $customers = $customers_result->fields;
     $cInfo = new objectInfo($customers);
-
-    $newsletter_array = array(array('id' => '1', 'text' => ENTRY_NEWSLETTER_YES),
-                              array('id' => '0', 'text' => ENTRY_NEWSLETTER_NO));
 
     $vat_id_status_array = array(array('id' => '1', 'text' => ENTRY_VAT_ID_STATUS_YES),
                                  array('id' => '0', 'text' => ENTRY_VAT_ID_STATUS_NO));
@@ -539,11 +551,11 @@ function check_form() {
 ?>
           <tr>
             <td class="main"><?php echo ENTRY_VAT_ID; ?></td>
-            <td class="main"><?php echo oos_draw_input_field('customers_vat_id', $cInfo->customers_vat_id, 'maxlength="20"'); ?></td>
+            <td class="main"><?php echo oos_draw_input_field('entry_vat_id', $cInfo->entry_vat_id, 'maxlength="20"'); ?></td>
           </tr>
           <tr>
             <td class="main"><?php echo ENTRY_VAT_ID_STATUS; ?></td>
-            <td class="main"><?php echo oos_draw_pull_down_menu('customers_vat_id_status', $vat_id_status_array, $cInfo->customers_vat_id_status); ?></td>
+            <td class="main"><?php echo oos_draw_pull_down_menu('entry_vat_id_status', $vat_id_status_array, $cInfo->entry_vat_id_status); ?></td>
           </tr>
 <?php
       }
@@ -624,23 +636,6 @@ function check_form() {
             <td class="main"><?php echo oos_draw_input_field('customers_telephone', $cInfo->customers_telephone, 'maxlength="32"', true); ?></td>
           </tr>
         </table></td>
-      </tr>
-      <tr>
-        <td></td>
-      </tr>
-      <tr>
-        <td class="formAreaTitle"><?php echo CATEGORY_OPTIONS; ?></td>
-      </tr>
-      <tr>
-        <td class="formArea"><table border="0" cellspacing="2" cellpadding="2">
-          <tr>
-            <td class="main"><?php echo ENTRY_NEWSLETTER; ?></td>
-            <td class="main"><?php echo oos_draw_pull_down_menu('customers_newsletter', $newsletter_array, $cInfo->customers_newsletter); ?></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td></td>
       </tr>
       <tr>
         <td align="right" class="main"><?php echo oos_submit_button('update', IMAGE_UPDATE) . ' <a href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('action'))) .'">' . oos_button('cancel', BUTTON_CANCEL) . '</a>'; ?></td>

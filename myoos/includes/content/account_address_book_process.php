@@ -394,7 +394,6 @@ $smarty->assign(
           'lastname'       => $lastname,
           'company'        => $company,
           'street_address' => $street_address,
-          'suburb'         => $suburb,
           'postcode'       => $postcode,
           'city'           => $city,
           'country'        => $country

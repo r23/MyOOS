@@ -43,13 +43,14 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       $mail_sent_to = TEXT_ALL_CUSTOMERS;
       break;
 
+/* ToDo Newsletter
     case '**D':
       $mail_result = $dbconn->Execute("SELECT customers_firstname, customers_lastname, customers_email_address 
                                   FROM " . $oostable['customers'] . " 
                                   WHERE customers_newsletter = '1'");
       $mail_sent_to = TEXT_NEWSLETTER_CUSTOMERS;
       break;
-
+*/
     default:
       $customers_email_address = oos_db_prepare_input($_POST['customers_email_address']);
 

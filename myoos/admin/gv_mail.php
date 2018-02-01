@@ -35,12 +35,13 @@
         $mail_sent_to = TEXT_ALL_CUSTOMERS;
         break;
 
+/* todo Newsletter
       case '**D':
         $customerstable = $oostable['customers'];
         $mail_result = $dbconn->Execute("SELECT customers_firstname, customers_lastname, customers_email_address FROM $customerstable WHERE customers_newsletter = '1'");
         $mail_sent_to = TEXT_NEWSLETTER_CUSTOMERS;
         break;
-
+*/
       default:
         $customers_email_address = oos_db_prepare_input($_POST['customers_email_address']);
 

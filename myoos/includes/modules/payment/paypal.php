@@ -112,7 +112,6 @@
                                oos_draw_hidden_field('first_name', oos_replace_chars($oOrder->billing['firstname'])) .
                                oos_draw_hidden_field('last_name', oos_replace_chars($oOrder->billing['lastname'])) .
                                oos_draw_hidden_field('address1', oos_replace_chars($oOrder->billing['street_address'])) .
-                               oos_draw_hidden_field('address2', oos_replace_chars($oOrder->billing['suburb'])) .
                                oos_draw_hidden_field('city', oos_replace_chars($oOrder->billing['city'])) .
                                oos_draw_hidden_field('state', oos_replace_chars($oOrder->billing['state'])) .
                                oos_draw_hidden_field('zip', $oOrder->billing['postcode']) .

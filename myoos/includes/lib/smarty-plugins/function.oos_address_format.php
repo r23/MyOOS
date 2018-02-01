@@ -94,7 +94,6 @@ function smarty_function_oos_address_format($params, &$smarty)
 
    $statecomma = '';
    $streets = $street;
-   if ($suburb != '') $streets = $street . $cr . $suburb;
    if ($firstname == '') $firstname = addslashes($address['name']);
    if ($country == '') $country = addslashes($address['country']);
    if ($state != '') $statecomma = $state . ', ';

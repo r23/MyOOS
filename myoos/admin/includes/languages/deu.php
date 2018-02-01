@@ -227,7 +227,6 @@ define('ENTRY_COMPANY', 'Firmenname:');
 define('ENTRY_OWNER', 'Inhaber:');
 define('ENTRY_VAT_ID', 'Umsatzsteuer ID:');
 define('ENTRY_STREET_ADDRESS', 'Strasse:');
-define('ENTRY_SUBURB', 'Stadtteil:');
 define('ENTRY_POST_CODE', 'Postleitzahl:');
 define('ENTRY_CITY', 'Stadt:');
 define('ENTRY_STATE', 'Bundesland:');

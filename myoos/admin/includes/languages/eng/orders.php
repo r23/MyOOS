@@ -53,7 +53,6 @@ define('TABLE_HEADING_DATE_ADDED', 'Date Added');
 define('ENTRY_CUSTOMER', 'Customer:');
 define('ENTRY_SOLD_TO', 'SOLD TO:');
 define('ENTRY_STREET_ADDRESS', 'Street Address:');
-define('ENTRY_SUBURB', 'Suburb:');
 define('ENTRY_CITY', 'City:');
 define('ENTRY_POST_CODE', 'Post Code:');
 define('ENTRY_STATE', 'State:');

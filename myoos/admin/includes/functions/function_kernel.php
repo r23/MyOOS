@@ -372,7 +372,6 @@ function oos_output_string($sStr, $aTranslate = null)
     $firstname = addslashes($address['firstname']);
     $lastname = addslashes($address['lastname']);
     $street = addslashes($address['street_address']);
-    $suburb = addslashes($address['suburb']);
     $city = addslashes($address['city']);
     $state = addslashes($address['state']);
     $country_id = $address['country_id'];
@@ -404,7 +403,6 @@ function oos_output_string($sStr, $aTranslate = null)
 
     $statecomma = '';
     $streets = $street;
-    if ($suburb != '') $streets = $street . $cr . $suburb;
     if ($firstname == '') $firstname = addslashes($address['name']);
     if ($country == '') $country = addslashes($address['country']);
     if ($state != '') $statecomma = $state . ', ';

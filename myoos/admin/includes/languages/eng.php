@@ -223,7 +223,6 @@ define('ENTRY_COMPANY', 'Company name:');
 define('ENTRY_OWNER', 'Owner name:');
 define('ENTRY_VAT_ID', 'VAT ID:');
 define('ENTRY_STREET_ADDRESS', 'Street Address:');
-define('ENTRY_SUBURB', 'Suburb:');
 define('ENTRY_POST_CODE', 'Post Code:');
 define('ENTRY_CITY', 'City:');
 define('ENTRY_STATE', 'State:');

@@ -22,11 +22,7 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-//Import the PHPMailer class into the global namespace
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-use PHPMailer\PHPMailer\POP3;   
-   
+  
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
@@ -34,9 +30,8 @@ require 'includes/main.php';
 require 'includes/functions/function_categories.php';
 require 'includes/functions/function_edit_orders.php';
 
-require_once OOS_ABSOLUTE_PATH . '/includes/lib/phpmailer/src/PHPMailer.php';
-require_once OOS_ABSOLUTE_PATH . '/includes/lib/phpmailer/src/SMTP.php';
-require_once OOS_ABSOLUTE_PATH . '/includes/lib/phpmailer/src/Exception.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/class.phpmailer.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/class.smtp.php';
 
 require 'includes/classes/class_currencies.php';
 $currencies = new currencies();
@@ -97,7 +92,6 @@ $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " .
       customers_name = '" . oos_db_input(stripslashes($update_customer_name)) . "',
       customers_company = '" . oos_db_input(stripslashes($update_customer_company)) . "',
       customers_street_address = '" . oos_db_input(stripslashes($update_customer_street_address)) . "',
-      customers_suburb = '" . oos_db_input(stripslashes($update_customer_suburb)) . "',
       customers_city = '" . oos_db_input(stripslashes($update_customer_city)) . "',
       customers_state = '" . oos_db_input(stripslashes($update_customer_state)) . "',
       customers_postcode = '" . oos_db_input($update_customer_postcode) . "',
@@ -110,7 +104,6 @@ $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " .
     $UpdateOrders .= "billing_name = '" . oos_db_input(stripslashes($update_billing_name)) . "',
       billing_company = '" . oos_db_input(stripslashes($update_billing_company)) . "',
       billing_street_address = '" . oos_db_input(stripslashes($update_billing_street_address)) . "',
-      billing_suburb = '" . oos_db_input(stripslashes($update_billing_suburb)) . "',
       billing_city = '" . oos_db_input(stripslashes($update_billing_city)) . "',
       billing_state = '" . oos_db_input(stripslashes($update_billing_state)) . "',
       billing_postcode = '" . oos_db_input($update_billing_postcode) . "',
@@ -120,7 +113,6 @@ $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " .
     $UpdateOrders .= "delivery_name = '" . oos_db_input(stripslashes($update_delivery_name)) . "',
       delivery_company = '" . oos_db_input(stripslashes($update_delivery_company)) . "',
       delivery_street_address = '" . oos_db_input(stripslashes($update_delivery_street_address)) . "',
-      delivery_suburb = '" . oos_db_input(stripslashes($update_delivery_suburb)) . "',
       delivery_city = '" . oos_db_input(stripslashes($update_delivery_city)) . "',
       delivery_state = '" . oos_db_input(stripslashes($update_delivery_state)) . "',
       delivery_postcode = '" . oos_db_input($update_delivery_postcode) . "',
@@ -577,19 +569,6 @@ $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " .
     </span></td>
     <td valign="top"><span class="main">
       <input name="update_delivery_street_address" size="25" value="<?php echo oos_html_quotes($order->delivery['street_address']); ?>">
-    </span></td>
-    <td>&nbsp;</td>
-  </tr>
-  <tr>
-    <td valign="top"><?php echo ENTRY_CUSTOMER_SUBURB; ?>:</td>
-    <td valign="top"><span class="main">
-      <input name="update_customer_suburb" size="25" value="<?php echo oos_html_quotes($order->customer['suburb']); ?>">
-    </span></td>
-    <td valign="top"><span class="main">
-      <input name="update_billing_suburb" size="25" value="<?php echo oos_html_quotes($order->billing['suburb']); ?>">
-    </span></td>
-    <td valign="top"><span class="main">
-      <input name="update_delivery_suburb" size="25" value="<?php echo oos_html_quotes($order->delivery['suburb']); ?>">
     </span></td>
     <td>&nbsp;</td>
   </tr>

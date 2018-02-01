@@ -51,7 +51,6 @@ define('ENTRY_CUSTOMER', 'Customer:');
 define('ENTRY_CUSTOMER_NAME', 'Name');
 define('ENTRY_CUSTOMER_COMPANY', 'Company');
 define('ENTRY_CUSTOMER_ADDRESS', 'Address');
-define('ENTRY_CUSTOMER_SUBURB', 'Suburb');
 define('ENTRY_CUSTOMER_CITY', 'City');
 define('ENTRY_CUSTOMER_STATE', 'State');
 define('ENTRY_CUSTOMER_POSTCODE', 'Postcode');
