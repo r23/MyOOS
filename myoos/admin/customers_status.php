@@ -53,7 +53,15 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
         $languages = oos_get_languages();
         for ($i = 0, $n = count($languages); $i < $n; $i++) {
-          $customers_status_name_array = $_POST['customers_status_name'];
+          $customers_status_name_array = oos_db_prepare_input($_POST['customers_status_name']);
+          $customers_status_public = oos_db_prepare_input($_POST['customers_status_public']);
+          $customers_status_show_price = oos_db_prepare_input($_POST['customers_status_show_price']);
+          $customers_status_show_price_tax = oos_db_prepare_input($_POST['customers_status_show_price_tax']);
+          $customers_status_ot_discount_flag = oos_db_prepare_input($_POST['customers_status_ot_discount_flag']);
+          $customers_status_ot_discount = oos_db_prepare_input($_POST['customers_status_ot_discount']);
+          $customers_status_ot_minimum = oos_db_prepare_input($_POST['customers_status_ot_minimum']);
+          $customers_status_qty_discounts = oos_db_prepare_input($_POST['customers_status_qty_discounts']);  
+		  
           $lang_id = $languages[$i]['id'];
 
           if (isset($_REQUEST['payment'])) {

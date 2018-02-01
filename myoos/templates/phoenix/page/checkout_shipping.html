@@ -70,9 +70,6 @@
 							</div>
 						</div>
 						<hr />						
-				
-
-
 
 				{if $counts_shipping_modules > 0 }
  
@@ -118,7 +115,11 @@
 										</tr>
 							{if isset($quotes[i].error)}
 										<tr>
-											<td colspan="3">{$quotes[i].error}</td>
+											<td colspan="3">
+												<div class="alert alert-danger" role="alert">
+													{$quotes[i].error}
+												</div>
+											</td>
 										</tr>
 							{else}
 								{section name=n loop=$quotes[i].methods}
