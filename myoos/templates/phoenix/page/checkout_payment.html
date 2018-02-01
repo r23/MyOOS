@@ -41,174 +41,110 @@
 						</div>
 					</div>
 					
-<form name="checkout_payment" action="{html_get_link}" method="POST" role="form" onSubmit="return check_form();">
-	<input type="hidden" name="content" value="{$filename.checkout_confirmation}">
-{if $mySystem.sed}
-    <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
-	<input type="hidden" name="formid" value="{$mySystem.formid}">
-{/if}
+					<form name="checkout_payment" action="{html_get_link}" method="POST" role="form">
+						<fieldset>
+						<input type="hidden" name="content" value="{$filename.checkout_confirmation}">
+					{if $mySystem.sed}
+						<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+						<input type="hidden" name="formid" value="{$mySystem.formid}">
+					{/if}
+						<input type="hidden" name="action" value="process">
 
-<table border="0" width="100%" cellspacing="0" cellpadding="0">
-      <tr>
-        <td>{$oosPageHeading}</td>
-      </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
+						<div class="page-header">
+							<h4>{$lang.table_heading_billing_address}</h4>
+						</div>
+		
+						<div class="row shipping-info">
+							<div class="col-10">
+								<p>{$lang.text_selected_billing_destination}</p>
+								
+								<a href="{html_href_link content=$filename.checkout_payment_address}" class="btn btn-default" role="button">{$lang.button_change_address}</a>
+							</div>
+							<div class="col-2">
+								<h5>{$lang.title_billing_address}</h5>
+								<address>
+									{oos_address_label customers_id=$smarty.session.customer_id address_id=$smarty.session.billto}
+								</address>
+							</div>
+						</div>
+						<hr />						
+					
+						<div class="page-header">
+							<h4>{$lang.table_heading_payment_method}</h4>
+						</div>
 
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td class="main"><strong>{$lang.table_heading_billing_address}</strong></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
-          <tr class="oos-BoxContents">
-            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr>
-                <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                <td class="main" width="50%" valign="top">{$lang.text_selected_billing_destination}<br><br><a href="{html_href_link content=$filename.checkout_payment_address}">{$lang.button_change_address}</a></td>
-                <td align="right" width="50%" valign="top"><table border="0" cellspacing="0" cellpadding="2">
-                  <tr>
-                    <td class="main" align="center" valign="top"><strong>{$lang.title_billing_address}</strong><br><img src="{$theme_image}/arrow_south_east.gif" border="0" alt=" " width="50" height="31"></td>
-                    <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                    <td class="main" valign="top">{oos_address_label customers_id=$smarty.session.customer_id address_id=$smarty.session.billto}</td>
-                    <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                  </tr>
-                </table></td>
-              </tr>
-            </table></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td class="main"><strong>{$lang.table_heading_payment_method}</strong></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
-          <tr class="oos-BoxContents">
-            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-{if sizeof($selection) > 1 }
-              <tr>
-                <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                <td class="main" width="50%" valign="top">{$lang.text_select_payment_method}</td>
-                <td class="main" width="50%" valign="top" align="right"><strong>{$lang.title_please_select}</strong><br><img src="{$theme_image}/arrow_east_south.gif" border="0" alt=" " width="40" height="32"></td>
-                <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-              </tr>
-{else}
-              <tr>
-                <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                <td class="main" width="100%" colspan="2">{$lang.text_enter_payment_information}</td>
-                <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-              </tr>
-{/if}
-  {section name=i loop=$selection}
-              <tr>
-                <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-    {if ( ($selection[i].id eq $smarty.session.payment) || ($smarty.section.i.total eq 1) ) }
-                  <tr id="defaultSelected" class="moduleRowSelected" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, {$smarty.section.i.rownum})">
-    {else}
-                  <tr class="moduleRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" onclick="selectRowEffect(this, {$smarty.section.i.rownum})">
-    {/if}
-                    <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                    <td class="main" colspan="3"><strong>{$selection[i].module}</strong></td>
-                    <td class="main" align="right">
-    {if sizeof($selection) > 1 }
-      <input type="radio" name="payment" value="{$selection[i].id}" {if $selection[i].id eq $smarty.session.payment}checked{/if} >
-    {else}
-      <input type="hidden" name="payment" value="{$selection[i].id}">
-    {/if}
+   					{if sizeof($selection) > 1 }				
+						<div class="row payment-info">
+							<div class="col-10">
+								<p>{$lang.text_select_payment_method}</p>
+							</div>
+							<div class="col-2">
+								<strong>{$lang.title_please_select}</strong>
+							</div>
+						</div>						
+					{else}				
+						<div class="row payment-info">
+							<div class="col-12">
+								<p>{$lang.text_enter_payment_information}</p>
+							</div>
+						</div>					
+					{/if}
 
-                    </td>
-                    <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                  </tr>
-    {if isset($selection[i].error)}
-                  <tr>
-                    <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                    <td class="main" colspan="4">{$selection[i].error}</td>
-                    <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                  </tr>
-    {else}
+						<div class="table-responsive">
+							<table class="table">
+								<tbody>					
+					{section name=i loop=$selection}
+									<tr>
+										<td width="75%" colspan="3"><strong>{$selection[i].module}</strong></td>
+										<td align="right">
+											<div class="form-check">
+						{if sizeof($selection) > 1 }
+							{if $selection[i].id eq $smarty.session.payment}
+												<input required class="form-check-input" type="radio" name="payment" value="{$selection[i].id}" checked>
+							{else}
+												<input required class="form-check-input" type="radio" name="payment" value="{$selection[i].id}">
+							{/if}  
+						{else}
+												<input type="hidden" name="payment" value="{$selection[i].id}">
+						{/if}
+											</div>									
+										</td>
+									</tr>
+						{if isset($selection[i].error)}
+										<tr>
+											<td colspan="4">
+												<div class="alert alert-danger" role="alert">
+													{$selection[i].error}
+												</div>
+											</td>
+										</tr>
+						{else}
 
-                  <tr>
-                    <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                    <td colspan="4"><table border="0" cellspacing="0" cellpadding="2">
-      {section name=n loop=$selection[i].fields}
-                      <tr>
-                        <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                        <td class="main">{$selection[i].fields[n].title}</td>
-                        <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                        <td class="main">{$selection[i].fields[n].field}</td>
-                        <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                      </tr>
-      {/section}
-                    </table></td>
-                    <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                  </tr>
+							{section name=n loop=$selection[i].fields}
+										<tr>
+											<td colspan="2">{$selection[i].fields[n].title}</td>
+											<td colspan="2">{$selection[i].fields[n].field}</td>
+										</tr>
+							{/section}
 
-    {/if}
-                </table></td>
-                <td><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-              </tr>
-  {/section}
-            </table></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
+						{/if}
+										
+					{/section}
+									</tbody>
+								</table>
+							</div>	
 {$credit_selection}
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td class="main"><strong>{$lang.table_heading_comments}</strong></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
-          <tr class="oos-BoxContents">
-            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-             <tr>
-               <td>
-<span id="spell_container" style="background-color: #ddd"></span><br>
-<textarea id="tal" name="comments" class="textarea">{$smarty.session.comments|stripslashes}</textarea>
-               </td>
-             </tr>
-            </table></td>
-          </tr>
-        </table></td>
-      </tr>
 
-      <tr>
-        <td height="10"></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
-          <tr class="oos-BoxContents">
-            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr>
-                <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                <td class="main"><strong>{$lang.title_continue_checkout_procedure}</strong><br>{$lang.text_continue_checkout_procedure}</td>
-                <td class="main" align="right"><button class="btn btn-success-filled" type="submit">{$lang.button_continue}<i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></button></td>
-                <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-              </tr>
-            </table></td>
-          </tr>
-        </table></td>
-      </tr>
-    </table>
+
+							<div class="row">
+								<div class="col-md-12">
+									<label for="comments">{$lang.table_heading_comments}</label>
+									<textarea maxlength="10000" rows="8" class="form-control" name="comments" id="comments">{$smarty.session.comments|stripslashes}</textarea>												
+								</div>
+							</div>
+						</fieldset>
+	
+	
 
 
 						<div class="col-md-12">
@@ -219,7 +155,7 @@
 								</ul>
 							</div>
 						</div>
-    </form>
+					</form>
 	
 				</div>
 			</div>

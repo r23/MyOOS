@@ -113,14 +113,6 @@ $credit_selection = $order_total_modules->credit_selection();
 $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['checkout_shipping']));
 $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['checkout_payment']));
 
-$condition_link = OOS_HTTPS_SERVER . OOS_SHOP . OOS_MEDIA . $sLanguage . '/' . $aContents['conditions_download'];
-
-ob_start();
-require 'js/checkout_payment.js.php';
-print $payment_modules->javascript_validation();
-$javascript = ob_get_contents();
-ob_end_clean();
-
 $aTemplate['page'] = $sTheme . '/page/checkout_payment.html';
 
 $nPageType = OOS_PAGE_TYPE_CHECKOUT;
@@ -142,18 +134,12 @@ $smarty->assign(
 	)
 );
 
-
-$smarty->assign('condition_link', $condition_link);
 $smarty->assign(
       array(
           'selection' => $selection,
           'credit_selection' => $credit_selection
       )
 );
-
-
-// JavaScript
-$smarty->assign('oos_js', $javascript);
 
 // display the template
 $smarty->display($aTemplate['page']);
