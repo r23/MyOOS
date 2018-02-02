@@ -1368,7 +1368,7 @@ function oos_newsletter_subscribe_mail ($email_address) {
 					'services_url'	=> COMMUNITY,
 					'blog_url'		=> BLOG_URL,
 					'imprint_url'	=> oos_href_link($aContents['information'], 'information_id=1', FALSE, TRUE),
-					'subscribe'		=> oos_href_link($aContents['newsletter'], 'subscribe=confirm&u=' .  $sSha1 . '&id=' . $sStr . '&e=' . $sRandom, FALSE, TRUE)
+					'subscribe'		=> oos_href_link($aContents['newsletter'], 'action=lists&subscribe=confirm&u=' .  $sSha1 . '&id=' . $sStr . '&e=' . $sRandom, FALSE, TRUE)
 				)
 		);
 

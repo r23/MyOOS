@@ -265,14 +265,16 @@ $oMessage = new messageStack;
 $sTheme = STORE_TEMPLATES;
 $aTemplate = array();
 
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php';
+
 // Shopping cart actions
 if ( isset($_GET['action']) || isset($_POST['action']) )  {
-	if ( isset($_POST['action']) && ($_POST['action'] == 'process')
-      || isset($_GET['action']) && ($_GET['action'] == 'process') ) {
-		// require  validation functions (right now only email address)
-		require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php';	
-		require_once MYOOS_INCLUDE_PATH . '/includes/process_actions.php';
+	if ( isset($_POST['action']) && ($_POST['action'] == 'lists')
+      || isset($_GET['action']) && ($_GET['action'] == 'lists') ) {
+		// require  validation functions (right now only email address)	
+		require_once MYOOS_INCLUDE_PATH . '/includes/lists_actions.php';
 	} else {
+		// Shopping cart actions
 		require_once MYOOS_INCLUDE_PATH . '/includes/cart_actions.php';
 	}
 }
