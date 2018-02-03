@@ -27,17 +27,26 @@ $aLang['heading_title'] = 'Bestellung aufgeben:';
 
 $aLang['heading_delivery_address'] = 'Versandadresse';
 $aLang['heading_shipping_method'] = 'Versandart';
-$aLang['heading_products'] = 'Produkte';
+$aLang['heading_products'] = 'Artikel';
+$aLang['table_heading_price'] = 'Einzelpreis';
+$aLang['table_heading_quantity'] = 'Anzahl';
 $aLang['heading_tax'] = 'MwSt.';
 $aLang['heading_total'] = 'Summe';
+
 $aLang['heading_billing_information'] = 'Rechnungsinformationen';
 $aLang['heading_billing_address'] = 'Rechnungsadresse';
 $aLang['heading_payment_method'] = 'Zahlungsweise';
 $aLang['heading_payment_information'] = 'Zahlungsinformationen';
 $aLang['heading_order_comments'] = 'Anmerkung zu Ihrer Bestellung';
+$aLang['heading_shooping_card'] = 'Bestellpositionen';
 
 $aLang['text_edit'] = 'Bearbeiten';
+$aLang['text_more'] = 'Detail ...';
 
 $aLang['heading_conditions_information'] = 'Widerrufsrecht nach dem Fernabsatzgesetz';
 $aLang['heading_conditions_text'] = 'Fügen Sie hier Ihren Text zum Widerrufsrecht ein.';
+
+$aLang['text_conditions'] = 'Mit Ihrer Bestellung erklären Sie sich mit unseren <a href="%s" target="_blank"><strong>Allgemeinen Geschäftsbedingungen</strong></a> und <a href="%s" target="_blank"><strong>Widerrufsbestimmungen</strong></a> einverstanden.';
+
+
 

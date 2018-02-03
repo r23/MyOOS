@@ -25,6 +25,6 @@ define('MODULE_ORDER_TOTAL_TOTAL_STATUS_DESC', 'Möchten Sie die Gesamtbestellsu
 define('MODULE_ORDER_TOTAL_TOTAL_SORT_ORDER_TITLE', 'Sortierreihenfolge');
 define('MODULE_ORDER_TOTAL_TOTAL_SORT_ORDER_DESC', 'Reihenfolge der Anzeige. Kleinste Ziffer wird zuerst angezeigt.');
 
-$aLang['module_order_total_total_title'] = '<strong>Summe</strong>';
+$aLang['module_order_total_total_title'] = '<strong>Gesamtsumme inkl. MwSt.</strong>';
 $aLang['module_order_total_total_description'] = 'Summe der Bestellung';
 

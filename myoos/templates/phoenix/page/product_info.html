@@ -133,9 +133,13 @@
 
 
 {if $cart_count_contents gt 0 }
-   {if $myUser.show_price eq 1 }
-        <a href="{html_href_link content=$filename.checkout_payment}" class="btn btn-primary-filled" role="button"><i class="fa fa-shopping-basket" aria-hidden="true"></i> {$lang.button_checkout}</a>
-   {/if}
+	{if $smarty.get.con eq '1' }
+		<a href="{html_href_link content=$filename.checkout_confirmation}" class="btn btn-primary-filled" role="button">{$lang.button_back}</a> 
+	{else}
+		{if $myUser.show_price eq 1 }
+			<a href="{html_href_link content=$filename.checkout_payment}" class="btn btn-primary-filled" role="button"><i class="fa fa-shopping-basket" aria-hidden="true"></i> {$lang.button_checkout}</a>
+		{/if}
+	{/if}
 {/if}
 
 

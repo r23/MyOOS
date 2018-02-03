@@ -28,6 +28,8 @@ $aLang['heading_title'] = 'Order Confirmation';
 $aLang['heading_delivery_address'] = 'Delivery Address';
 $aLang['heading_shipping_method'] = 'Shipping Method';
 $aLang['heading_products'] = 'Products';
+$aLang['table_heading_price'] = 'Price';
+$aLang['table_heading_quantity'] = 'Qty.';
 $aLang['heading_tax'] = 'Tax';
 $aLang['heading_total'] = 'Total';
 $aLang['heading_billing_information'] = 'Billing Information';
@@ -35,8 +37,14 @@ $aLang['heading_billing_address'] = 'Billing Address';
 $aLang['heading_payment_method'] = 'Payment Method';
 $aLang['heading_payment_information'] = 'Payment Information';
 $aLang['heading_order_comments'] = 'Comments About Your Order';
+$aLang['heading_shooping_card'] = 'Order Items';
 
 $aLang['text_edit'] = 'Edit';
+$aLang['text_edit'] = 'More ...';
+
+
 $aLang['heading_conditions_information'] = 'Right of revocation';
 $aLang['heading_conditions_text'] = 'Put here your information about the right of revocation.';
+$aLang['text_conditions'] = 'With your order, you agree to have read and understood our <a href="%s" target="_blank"><strong>Terms and Conditions</strong></a> and your <a href="%s" target="_blank"><strong>Right of Recission</strong></a>';
+
 

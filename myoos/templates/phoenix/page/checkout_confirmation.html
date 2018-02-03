@@ -42,168 +42,139 @@
 						</div>
 					</div>
 
-    <table border="0" width="100%" cellspacing="0" cellpadding="0">
-      <tr>
-        <td>{$oosPageHeading}</td>
-      </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
-          <tr class="oos-BoxContents">
-{if $smarty.session.sendto != false}
-            <td width="30%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr>
-                <td class="main"><strong>{$lang.heading_delivery_address}</strong> <a href="{html_href_link content=$filename.checkout_shipping_address}"><span class="orderEdit">({$lang.text_edit})</span></a></td>
-              </tr>
-              <tr>
-                <td class="main">{oos_address_format address_format_id=$order->delivery.format_id address=$order->delivery html=1}</td>
-              </tr>
-  {if $order->info.shipping_method}
-              <tr>
-                <td class="main"><strong>{$lang.heading_shipping_method}</strong> <a href="{html_href_link content=$filename.checkout_shipping}"><span class="orderEdit">({$lang.text_edit})</span></a></td>
-              </tr>
-              <tr>
-                <td class="main">{$order->info.shipping_method}</td>
-              </tr>
-  {/if}
-            </table></td>
-{/if}
-            <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-              <tr>
-                <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-   {if sizeof($order->info.tax_groups) > 1}
-                  <tr>
-                    <td class="main" colspan="2"><strong>{$lang.heading_products}</strong> <a href="{html_href_link content=$filename.shopping_cart}"><span class="orderEdit">({$lang.text_edit})</span></a></td>
-                    <td class="smallText" align="right"><strong>{$lang.heading_tax}</strong></td>
-                    <td class="smallText" align="right"><strong>{$lang.heading_total}</strong></td>
-                  </tr>
-  {else}
-                  <tr>
-                    <td class="main" colspan="3"><strong>{$lang.heading_products}</strong> <a href="{html_href_link content=$filename.shopping_cart}"><span class="orderEdit">({$lang.text_edit})</span></a></td>
-                  </tr>
-  {/if}
-  {foreach item=products from=$order->products}
-          <tr>
-            <td class="main" align="right" valign="top" width="30">{$products.qty|quantity}&nbsp;x</td>
-            <td class="main" valign="top">{$products.name}
+						<div class="page-header">
+							<h4>{$lang.heading_title}</h4>
+						</div>					
 
-    {if $smarty.const.STOCK_CHECK eq 'true'}
-      {oos_check_stock products_id=$products.id products_quantity=$products.qty}
-    {/if}
+						<div class="row checkout-info">
+							<div class="col-6">
+							{if $smarty.session.sendto != false}
+								<div class="d-flex justify-content-between">
+									<h5>{$lang.heading_delivery_address}</h5>
+									<span>
+										<a href="{html_href_link content=$filename.checkout_shipping_address}"><i class="fa fa-pencil" aria-hidden="true"></i> {$lang.text_edit}</a>
+									</span>
+								</div>
+								<hr />
+								<address>
+									{oos_address_format address_format_id=$order->delivery.format_id address=$order->delivery html=1}
+								</address>
+							{/if}
+							</div>
+							<div class="col-6">
+								<div class="d-flex justify-content-between">
+									<h5>{$lang.heading_billing_address}</h5>
+									<span>
+										<a href="{html_href_link content=$filename.checkout_payment}"><i class="fa fa-pencil" aria-hidden="true"></i> {$lang.text_edit}</a>
+									</span>
+								</div>
+								<hr />										
+								<address>
+									{oos_address_format address_format_id=$order->billing.format_id address=$order->billing html=1}
+								</address>
+							</div>
+						</div>
+						
+						<div class="row checkout-info">
+							<div class="col-6">
+							{if $smarty.session.sendto != false}
+								<div class="d-flex justify-content-between">
+									<strong>{$lang.heading_shipping_method}</strong>							
+									<span>
+										<a href="{html_href_link content=$filename.checkout_shipping_address}"><i class="fa fa-pencil" aria-hidden="true"></i> {$lang.text_edit}</a>
+									</span>
+								</div>
+								{$order->info.shipping_method}
+							{/if}
+							</div>
+							<div class="col-6">
+								<div class="d-flex justify-content-between">
+									<strong>{$lang.heading_payment_method}</strong>
+									<span>
+										<a href="{html_href_link content=$filename.checkout_payment}"><i class="fa fa-pencil" aria-hidden="true"></i> {$lang.text_edit}</a>
+									</span>
+								</div>
+								{$order->info.payment_method}
+							</div>
+						</div>						
+						<hr />
+						
+					{if $order->info.comments != ''}
+						<div class="row checkout-info">
+							<div class="col-12">
+								<div class="d-flex justify-content-between">
+									<h5>{$lang.heading_order_comments}</h5>
+									<span>
+										<a href="{html_href_link content=$filename.checkout_payment}"><i class="fa fa-pencil" aria-hidden="true"></i> {$lang.text_edit}</a>
+									</span>
+								</div>	
+								<p>{$order->info.comments|nl2br}></p>
+							</div>
+						</div>
+					{/if}						
+						
+						
+						<div class="row checkout-info">
+							<div class="col-md-12">
+								<p>{$text_conditions}</p>
+							</div>
+						</div>					
 
-    {if ( isset($products.attributes) && sizeof($products.attributes) gt 0 ) }
-       {foreach item=attributes from=$products.attributes}
-         <br><nobr><small>&nbsp;<i> - {$attributes.option}: {$attributes.value}</i></small></nobr>
-      {/foreach}
-  {/if}
-</td>
-    {if sizeof($order->info.tax_groups) gt 1 }
-            <td class="main" valign="top" align="right">{oos_display_tax_value value=$products.tax} %</td>
-    {/if}
-            <td class="main" align="right" valign="top">{oos_display_price price=$products.final_price tax=$products.tax qty=$products.qty}</td>
-          </tr>
-{/foreach}
-                </table></td>
-              </tr>
-            </table></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
-      <tr>
-        <td class="main"><strong>{$lang.heading_billing_information}</strong></td>
-      </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
-          <tr class="oos-BoxContents">
-            <td width="30%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr>
-                <td class="main"><strong>{$lang.heading_billing_address}</strong> <a href="{html_href_link content=$filename.checkout_payment_address}"><span class="orderEdit">({$lang.text_edit})</span></a></td>
-              </tr>
-              <tr>
-                <td class="main">{oos_address_format address_format_id=$order->billing.format_id address=$order->billing html=1}</td>
-              </tr>
-              <tr>
-                <td class="main"><strong>{$lang.heading_payment_method}</strong> <a href="{html_href_link content=$filename.checkout_payment}"><span class="orderEdit">({$lang.text_edit})</span></a></td>
-              </tr>
-              <tr>
-                <td class="main">{$order->info.payment_method}</td>
-              </tr>
-            </table></td>
-            <td width="70%" valign="top" align="right"><table border="0" cellspacing="0" cellpadding="2">
+						<p><strong>{$lang.heading_shooping_card}</strong> <a href="{html_href_link content=$filename.shopping_cart}"><i class="fa fa-pencil" aria-hidden="true"></i> {$lang.text_edit}</a></p>
+
+							<div class="table-responsive">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>{$lang.heading_products}</th>
+											<th></th>
+											<th>{$lang.table_heading_price}</th>
+											<th>{$lang.table_heading_quantity}</th>
+										{if sizeof($order->info.tax_groups) > 1}
+											<th>{$lang.heading_tax}</th>
+										{/if}
+											<th align="right">{$lang.heading_total}</th>											
+										</tr>										
+									</thead>
+									<tbody>	
+								{foreach item=products from=$order->products}
+									<tr>
+										<td><a href="{html_href_link content=$filename.product_info products_id=$products.id oos_get='con=1'}">{small_product_image image=$products.image alt=$products.name|strip_tags}</a></td>
+										<td><strong>{$products.name}</strong>&nbsp;
+									{if $smarty.const.STOCK_CHECK eq 'true'}
+										{oos_check_stock products_id=$products.id products_quantity=$products.qty}
+									{/if}
+										<br>{$products.short_description}
+										<br><a href="{html_href_link content=$filename.product_info products_id=$products.id oos_get='con=1'}">{$lang.text_more}</a>
+										<br>
+										{if ( isset($products.attributes) && sizeof($products.attributes) gt 0 ) }
+											{foreach item=attributes from=$products.attributes}
+												<br><nobr><small>&nbsp;<i> - {$attributes.option}: {$attributes.value}</i></small></nobr>
+											{/foreach}
+										{/if}
+
+										</td>
+										<td><nobr>{oos_price price=$products.final_price tax=$products.tax qty=1}&nbsp;</nobr></td>
+										<td>{$products.qty|quantity}&nbsp;</td>
+									{if sizeof($order->info.tax_groups) > 1}
+										<td><nobr>{oos_display_tax_value value=$products.tax} %</nobr></td>
+									{/if}
+										<td align="right"><nobr>{oos_price price=$products.final_price tax=$products.tax qty=$products.qty}</nobr></td>
+									</tr>
+								{/foreach}			
+									<tbody>				
+								</table>
+							</div>
+							
+							<div class="table-responsive">
+								<table class="table">
  {if $order_total_output != ''}
     {$order_total_output}
  {/if}
-            </table></td>
-          </tr>
-        </table></td>
-      </tr>
-{if $confirmation}
-      <tr>
-        <td height="10"></td>
-      </tr>
-      <tr>
-        <td class="main"><strong>{$lang.heading_payment_information}</strong></td>
-      </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
-          <tr class="oos-BoxContents">
-            <td><table border="0" cellspacing="0" cellpadding="2">
-              <tr>
-                <td class="main" colspan="4">{$confirmation.title}</td>
-              </tr>
-     {foreach item=fields from=$confirmation.fields}
-              <tr>
-                <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                <td class="main">{$fields.title}</td>
-                <td width="10"><img src="{$theme_image}/trans.gif" border="0" alt=" " width="10" height="1"></td>
-                <td class="main">{$fields.field}</td>
-              </tr>
-     {/foreach}
-            </table></td>
-          </tr>
-        </table></td>
-      </tr>
-{/if}
-      <tr>
-        <td height="10"></td>
-      </tr>
-{if $order->info.comments != ''}
-      <tr>
-        <td class="main"><strong>{$lang.heading_order_comments}</strong> <a href="{html_href_link content=$filename.checkout_payment}"><span class="orderEdit">({$lang.text_edit})</span></a></td>
-      </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
-          <tr class="oos-BoxContents">
-            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr>
-                <td class="main">{$order->info.comments|nl2br}<input type="hidden" name="payment" value="{$order->info.comments}"></td>
-              </tr>
-            </table></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
-{/if}
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-      <tr>
-        <td align="right" class="main">
+								</table>
+							</div>
+			
+			
         <form name="checkout_confirmation" action="{$form_action_url}" method="POST" role="form">
 {if $mySystem.sed}
     <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
@@ -213,21 +184,13 @@
 {if $payment_modules_process_button != '' }
   {$payment_modules_process_button}
 {/if}
-<button class="btn btn-success-filled" type="submit">{$lang.button_confirm_order}</button>
-        </td>
-      </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
-    </table>
+
 
 						<div class="col-md-12">
 							<div class="well well-lg clearfix">
 								<ul class="pager">
 									<li class="previous"><a href="{html_href_link content=$filename.checkout_payment}">{$lang.button_back}</a></li>
-									<li class="next"><button class="btn btn-primary-filled float-right" type="submit">{$lang.button_continue} <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button></li>
+									<li class="next"><button class="btn btn-danger btn-lg float-right" type="submit">{$lang.button_confirm_order}</button></li>
 								</ul>
 							</div>
 						</div>

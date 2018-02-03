@@ -72,24 +72,23 @@
     }
 
     public function output() {
-      $output_string = '';
-      if (is_array($this->modules)) {
-        reset($this->modules);
-        foreach ($this->modules as $value) {
-          $class = substr($value, 0, strrpos($value, '.'));
-          if ($GLOBALS[$class]->enabled) {
-            $size = count($GLOBALS[$class]->output);
-            for ($i=0; $i<$size; $i++) {
-              $output_string .= '              <tr>' . "\n" .
-                                '                <td align="right" class="main">' . $GLOBALS[$class]->output[$i]['title'] . '</td>' . "\n" .
-                                '                <td align="right" class="main">' . $GLOBALS[$class]->output[$i]['text'] . '</td>' . "\n" .
+		$output_string = NULL;
+		if (is_array($this->modules)) {
+			reset($this->modules);
+			foreach ($this->modules as $value) {
+				$class = substr($value, 0, strrpos($value, '.'));
+				if ($GLOBALS[$class]->enabled) {
+					$size = count($GLOBALS[$class]->output);
+					for ($i=0; $i<$size; $i++) {
+						$output_string .= '              <tr>' . "\n" .
+								'                <td align="right">' . $GLOBALS[$class]->output[$i]['title'] . '</td>' . "\n" .
+                                '                <td align="right">' . $GLOBALS[$class]->output[$i]['text'] . '</td>' . "\n" .
                                 '              </tr>';
-            }
-          }
-        }
-      }
-
-      return $output_string;
+					}
+				}
+			}
+		}
+		return $output_string;
     }
 
    /**

@@ -180,6 +180,9 @@ $smarty->assign('form_action_url', $form_action_url);
 
 $smarty->assign('payment_modules_process_button', $payment_modules_process_button);
 $smarty->assign('order', $oOrder);
+$smarty->assign('text_conditions', sprintf($aLang['text_conditions'], oos_href_link($aContents['information'], 'information_id=2'), oos_href_link($aContents['information'], 'information_id=3')));
+
+
 
 // display the template
 $smarty->display($aTemplate['page']);
