@@ -158,7 +158,7 @@ add_filter('widget_text', 'do_shortcode');
  */
 function myoos_scripts() {
 
-	wp_enqueue_script( 'bootstrap', MYOOS_THEME_URL . '/js/bootstrap.min.js', array( 'jquery' ), '3.3.5', true );
+	wp_enqueue_script( 'bootstrap', MYOOS_THEME_URL . '/js/bootstrap.min.js', array( 'jquery' ), '4.0.0', true );
 	wp_enqueue_script( 'myoos-navigation', MYOOS_THEME_URL . '/js/navigation.js', array(), '20120206', true );
 	wp_enqueue_script( 'myoos-skip-link-focus-fix', MYOOS_THEME_URL . '/js/skip-link-focus-fix.js', array(), '20130115', true );
 
@@ -215,6 +215,21 @@ if ( is_admin() ) {
 	add_filter( 'admin_footer_text', 'myoos_footer_text' );
 }
 
+
+/**
+ * Load custom nav walker
+ */
+require MYOOS_THEME_TEMPLATE . '/inc/wp-bootstrap-navwalker.php';
+
+function myoos_modify_nav_menu_args( $args ) {
+    return array_merge( $args, array(
+        'walker' => WP_Bootstrap_Navwalker(),
+    ) );
+}
+add_filter( 'wp_nav_menu_args', 'myoos_modify_nav_menu_args' );
+
+
+
 /**
  * Implement the Custom Header feature.
  */
@@ -240,7 +255,3 @@ require MYOOS_THEME_TEMPLATE . '/inc/customizer.php';
  */
 require MYOOS_THEME_TEMPLATE . '/inc/jetpack.php';
 
-/**
- * Load custom nav walker
- */
-require MYOOS_THEME_TEMPLATE . '/inc/wp_bootstrap_navwalker.php';
