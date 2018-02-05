@@ -38,6 +38,8 @@ if (!isset($_GET['order_id'])) {
 	oos_redirect(oos_href_link($aContents['account_history']));
 }
 
+$nPage = isset($_GET['page']) ? intval( $_GET['page'] ) : 1;
+ 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_history_info.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
 
@@ -53,7 +55,7 @@ if ($customer_number != $_SESSION['customer_id']) {
 
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['account']));
-$oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['account_history']));
+$oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['account_history'], 'page=' . $nPage));
 $oBreadcrumb->add($aLang['navbar_title_3'], oos_href_link($aContents['account_history_info'], 'order_id=' . intval($_GET['order_id'])));
   
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order.php';
@@ -80,7 +82,8 @@ $smarty->assign(
 		'breadcrumb'    	=> $oBreadcrumb->trail(),
 		'heading_title' 	=> $aLang['heading_title'],
 		'robots'			=> 'noindex,nofollow,noodp,noydir',
-		'account_active'	=> 1
+		'account_active'	=> 1,
+		'page'				=> $nPage
 	)
 );
 

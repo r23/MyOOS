@@ -29,62 +29,43 @@
 			<div class="col-md-12">
 				<div class="innerWrapper">
 				
-    <table border="0" width="100%" cellspacing="0" cellpadding="0">
-      <tr>
-        <td>
-{section name=i loop=$oos_history_array}
-        <table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td class="main"><strong>{$lang.text_order_number}</strong> {$oos_history_array[i].orders_id}</td>
-            <td class="main" align="right"><strong>{$lang.text_order_status}</strong> {$oos_history_array[i].orders_status_name}</td>
-          </tr>
-        </table></td>
-          </tr>
-        </table>
-        <table border="0" width="100%" cellspacing="0" cellpadding="1" class="infoBox">
-          <tr>
-            <td><table border="0" width="100%" cellspacing="0" cellpadding="3" class="infoBoxContents">
-          <tr>
-            <td height="1"></td>
-          </tr>
-          <tr>
-            <td class="boxText"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td class="main" width="50%" valign="top"><strong>{$lang.text_order_date}</strong> {$oos_history_array[i].date_purchased|oos_date_long}<br><strong>{$lang.text_order_shipped_to}</strong> {$oos_history_array[i].delivery_name}</td>
-            <td class="main" width="30%" valign="top"><strong>{$lang.text_order_products}</strong> {$oos_history_array[i].products_total}<br><strong>{$lang.text_order_cost}</strong> {$oos_history_array[i].order_total}</td>
-            <td class="main" width="20%"><a href="{html_href_link content=$filename.account_history_info page=$smarty.get.page order_id=$oos_history_array[i].orders_id}">{$lang.text_view_order}</a></td>
-          </tr>
-        </table></td>
-          </tr>
-        </table>
-        </td>
-          </tr>
-        </table>
-        <br>
-{sectionelse}
-	<div class="alert alert-info alert-dismissible" role="alert">
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		{$lang.text_no_purchases}
-	</div> 
-{/section}
-        </td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-{if $numrows > 0 }
 
-          <tr>
-            <td class="smallText" valign="top">{$page_split}</td>
-            <td class="smallText" align="right">{$lang.text_result_page} {$display_links}</td>
-          </tr>
-{/if}
+				{section name=i loop=$history}
+					<div class="row history-info m-mt-20">
+						<div class="col-6">
+								<div class="d-flex float-left">
+									<h5><strong>{$lang.text_order_number}</strong> {$history[i].orders_id}</h5>
+								</div>
+							</div>
+							<div class="col-6">
+								<div class="float-right">
+									<strong>{$lang.text_order_status}</strong> {$history[i].orders_status_name}
+							</div>
+						</div>				
+					</div>
 
-        </table></td>
-      </tr>
-    </table>
+					<div class="table-responsive">
+						<table class="table">
+							<tbody>				
+								<td><strong>{$lang.text_order_date}</strong> {$history[i].date_purchased|oos_date_long}<br><strong>{$lang.text_order_shipped_to}</strong> {$history[i].delivery_name}</td>
+								<td><strong>{$lang.text_order_products}</strong> {$history[i].products_total}<br><strong>{$lang.text_order_cost}</strong> {$history[i].order_total}</td>
+								<td align="right"><a href="{html_href_link content=$filename.account_history_info page=$page order_id=$history[i].orders_id}" class="btn btn-sm btn-secondary-outlined"  role="button">{$lang.text_view_order}</a></td>
+							</tbody>
+						</table>
+					</div>	
+			{sectionelse}
+				<div class="alert alert-info alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					{$lang.text_no_purchases}
+				</div> 
+			{/section}
 
+	  
+				<!-- pagination -->
+				<div class="text-center">
+					{$pagination}
+				</div>
+				<!-- end pagination -->
 
 				</div>
 			</div>

@@ -109,7 +109,6 @@ while ($configuration = $configuration_result->fields) {
     $configuration_result->MoveNext();
 }
 
-
 require_once MYOOS_INCLUDE_PATH . '/core/lib/Phoenix/Core/Session.php';
 $session = new Phoenix_Session();
 
