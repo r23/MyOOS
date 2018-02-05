@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Yoast SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-01-23 10:57:45+0000\n"
+"PO-Revision-Date: 2018-01-24 09:50:48+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,15 @@ msgstr ""
 "X-Generator: GlotPress/2.4.0-alpha\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Yoast SEO - Stable (latest release)\n"
+
+#: languages/yoast-seo-js.php:212
+msgid "The focus keyword appears in %2$d (out of %1$d) subheadings in your copy."
+msgstr "Das Fokus-Schlüsselwort erscheint in %2$d (von %1$d) Unterüberschriften in deinem Text."
+
+#. translators: %s expands to Yoast SEO Premium.
+#: admin/class-social-admin.php:181
+msgid "Find out why you should upgrade to %s"
+msgstr "Finde heraus, warum du auf %s upgraden solltest."
 
 #. Author URI of the plugin/theme
 msgid "https://yoa.st/1uk"
@@ -3552,6 +3561,11 @@ msgstr "Einen abschließenden Schrägstrich am Ende aller Kategorie- und Schlagw
 msgid "If you choose a permalink for your posts with %1$s, or anything else but a %2$s at the end, this will force WordPress to add a trailing slash to non-post pages nonetheless."
 msgstr "Wenn du einen Permalink für deine Beiträge mit %1$s wählst, oder irgendetwas Anderes, jedoch ohne ein %2$s am Ende, wird dies WordPress dennoch veranlassen, einen Schrägstrich am Ende von Seiten zu setzen, die keine Beiträge sind."
 
+#. translators: 1: emphasis open tag; 2: emphasis close tag.
+#: admin/views/tabs/advanced/permalinks.php:39
+msgid "This prevents threaded replies from working when the user has JavaScript disabled, but on a large site can mean a %1$shuge%2$s improvement in crawl efficiency for search engines when you have a lot of comments."
+msgstr "Dadurch funktionieren verschachtelte Antworten nicht, wenn der Benutzer Javascript deaktiviert hat. Auf größeren Websites bedeutet dies wiederum eine %1$sgroße%2$s Verbesserung der Indexierungsgeschwindigkeit von Suchmaschinen bei einer großen Zahl an Kommentaren."
+
 #: admin/views/tabs/advanced/permalinks.php:32
 msgid "This helps you to create cleaner URLs by automatically removing the stopwords from them."
 msgstr "Dies hilft dir, sprechende URLs durch automatisches Entfernen von Stoppwörtern zu erstellen."
@@ -3682,6 +3696,11 @@ msgstr "Bitte gib die maximale Anzahl der Einträge pro Sitemap-Seite an (Standa
 #: admin/views/tabs/sitemaps/general.php:33
 msgid "Save your settings to activate your XML Sitemap."
 msgstr "Speichere die Einstellungen, um XML-Sitemaps zu aktivieren."
+
+#. translators: 1: <strong> open tag; 2: close tag.
+#: admin/views/tabs/sitemaps/general.php:26
+msgid "You do %1$snot%2$s need to generate the XML sitemap, nor will it take up time to generate after publishing a post."
+msgstr "Du brauchst %1$skeine%2$s XML-Sitemap generieren lassen, noch wird irgendwelche Zeit benötigt, um so etwas nach der Veröffentlichung eines Beitrags bewerkstelligen."
 
 #. translators: %1$s opening tag of the link to the Sitemap, %2$s closing tag
 #. for the link.
