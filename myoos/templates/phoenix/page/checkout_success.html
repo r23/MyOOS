@@ -48,40 +48,30 @@
 							<input type="hidden" name="formid" value="{$mySystem.formid}">
 						{/if}	
 						<input type="hidden" name="action" value="notify_process">
-
-						<!-- final message -->
-						<div class="success success-default">
-							<div class="success-block">
-								<h3>{$heading_title}</h3>
-
-								<p>
-									{$lang.text_success}
-								</p>
-
+					
+						
+						<div class="container text-center m-py-60">
+							<div class="mb-5">
+								<span class="d-block m-color-gray-light-v1 m-font-size-70 mb-4">
+									<i class="fa fa-check" aria-hidden="true"></i>
+								</span>
+								<h2 class="m-mb-30">{$heading_title}</h2>
+							
+								<p>{$lang.text_success}</p>
+						
 								{if $oEvent->installed_plugin('notify')}
 									{$products_notify}
 								{/if}
-								
-								<h3>{$lang.text_thanks_for_shopping}</h3>
-							
+						
 								<hr />
 
 								<p>
 									{$lang.text_sincere_regards}<br />
 									<strong>{$smarty.const.STORE_NAME}</strong>
-								</p>
+								</p>						
 							</div>
-						</div>
-						<!-- /final message -->	
-	
-						<div class="col-md-12">
-							<div class="well well-lg clearfix">
-								<ul class="pager">
-									<li class="next"><button class="btn btn-primary-filled float-right" type="submit">{$lang.button_continue} <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button></li>
-								</ul>
-							</div>
-						</div>
-						
+							<button class="btn btn-primary-filled float-right" type="submit">{$lang.button_continue} <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button>
+						</div>	
 					</form>
 
 				</div>

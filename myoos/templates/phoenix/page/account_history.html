@@ -46,10 +46,12 @@
 
 					<div class="table-responsive">
 						<table class="table">
-							<tbody>				
-								<td><strong>{$lang.text_order_date}</strong> {$history[i].date_purchased|oos_date_long}<br><strong>{$lang.text_order_shipped_to}</strong> {$history[i].delivery_name}</td>
-								<td><strong>{$lang.text_order_products}</strong> {$history[i].products_total}<br><strong>{$lang.text_order_cost}</strong> {$history[i].order_total}</td>
-								<td align="right"><a href="{html_href_link content=$filename.account_history_info page=$page order_id=$history[i].orders_id}" class="btn btn-sm btn-secondary-outlined"  role="button">{$lang.text_view_order}</a></td>
+							<tbody>
+								<tr>
+									<td><strong>{$lang.text_order_date}</strong> {$history[i].date_purchased|oos_date_long}<br><strong>{$lang.text_order_shipped_to}</strong> {$history[i].delivery_name}</td>
+									<td><strong>{$lang.text_order_products}</strong> {$history[i].products_total}<br><strong>{$lang.text_order_cost}</strong> {$history[i].order_total}</td>
+									<td align="right"><a href="{html_href_link content=$filename.account_history_info page=$page order_id=$history[i].orders_id}" class="btn btn-sm btn-secondary-outlined"  role="button">{$lang.text_view_order}</a></td>
+								</tr>
 							</tbody>
 						</table>
 					</div>	
