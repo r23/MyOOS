@@ -29,260 +29,139 @@
 			<div class="col-md-12">
 				<div class="innerWrapper">
 
+					<!-- orders -->
+					<div class="col-md-12 g-mb-50">
+
+						<!-- order block -->
+						<div class="g-brd-around g-brd-gray-light-v4 rounded g-mb-30">
+							<header class="g-bg-gray-light-v5 g-pa-20">
+								<div class="row">
+									<div class="col-md-4 m-mb-20">
+										<h4 class="m-font-size-12 text-uppercase m-mb-2">{$lang.heading_order_date}</h4>
+										<span class="m-font-size-13"> {$order->info.date_purchased|oos_date_long}</span>
+									</div>
+
+									<div class="col-md-4 m-mb-20">
+										<h4 class="m-font-size-12 text-uppercase m-mb-2">{$lang.heading_order_total}</h4>
+										<span class="m-font-size-13"> {$order->info.total}</span>
+									</div>
+
+									<div class="col-md-4 ml-auto text-sm-right">
+										<h4 class="text-uppercase g-mb-2">{$lang.heading_order_number} # {$smarty.get.order_id}</h4>
+										<span class="m-font-size-13">{$order->info.orders_status}</span>
+										<!-- <a class="m-font-size-13" href="#!">Invoice</a> -->
+									</div>
+								</div>
+							</header>
+
+							<div class="row">
+								<div class="col-6">
+								{if $order->delivery != false }
+									<div class="d-flex justify-content-between">
+										<h5>{$lang.heading_delivery_address}</h5>
+									</div>
+									<hr />
+									<address>
+										{oos_address_format address_format_id=$order->delivery.format_id address=$order->delivery html=1}
+									</address>
+									{if $order->info.shipping_method }
+										<p><strong>{$lang.heading_shipping_method}</strong></p>
+										{$order->info.shipping_method}
+									{/if}													
+								{/if}					
+								</div>
+								<div class="col-6">
+									<div class="d-flex justify-content-between">
+										<h5>{$lang.heading_billing_address}</h5>
+									</div>
+									<hr />										
+									<address>
+										{oos_address_format address_format_id=$order->billing.format_id address=$order->billing html=1}
+									</address>
+										<p><strong>{$lang.heading_payment_method}</strong></p>
+										{$order->info.payment_method}								
+								</div>
+							</div>			  
+	  
+							<!-- order content -->
+							<div class="m-mb-20 m-mt-30">
+							{foreach item=products from=$order->products}
+								<div class="row">
+									<div class="col-md-8">
+
+										<div class="row">
+											<div class="col-4 col-sm-3 m-mb-30">
+											<!--
+												<img class="img-fluid" src="/150x150/img9.jpg" alt="Image Description">
+											-->
+											</div>
+
+											<div class="col-8 col-sm-9 g-mb-30">
+												<h4 class="h6 g-font-weight-400">{$products.name}{if $products.serial_number != '' }&nbsp;&nbsp;({$lang.serial}{$products.serial_number}){/if}</h4>
+												{if ( isset($products.attributes) && sizeof($products.attributes) gt 0 ) }
+													{foreach item=attributes from=$products.attributes}
+														<br><nobr><span class="d-block g-color-gray-dark-v4 m-font-size-13 m-mb-2">small>&nbsp;<i> - {$attributes.option}: {$attributes.value}</i></span></small></nobr>
+													{/foreach}
+												{/if}
+												<span class="d-block g-color-lightred mb-2">{oos_display_price price=$products.final_price tax=$products.tax qty=$products.qty currency=$order->info.currency currency_value=$order->info.currency_value}</span>
+												<!-- <a class="btn g-brd-around rounded" href="#!">Buy it Again</a> -->
+											</div>
+										</div>
+									</div>
+
+									<div class="col-md-4">
+									<!-- 
+										<a class="btn btn-block btn-primary text-uppercase mb-4" href="#!">Track Package</a>
+										<a class="btn btn-block text-uppercase" href="#!">Return Item</a>
+										<a class="btn btn-block text-uppercase" href="#!">Leave Package Feedback</a>
+										<a class="btn btn-block text-uppercase" href="#!">Write a Product Review</a>
+										<a class="btn btn-block text-uppercase" href="#!">Archive Order</a>
+									-->
+									</div>
+								</div>
+							{/foreach}	
+								<div class="row">
+									<div class="col-md-12">				
+									{if $download}
+										{$download}
+									{/if}
+									</div>
+								</div>				
+							</div>
+							<!-- /end order content -->
 
 
-          <!-- Orders -->
-          <div class="col-md-12 g-mb-50">
+							<div class="row">
+								<div class="col-md-12">				
+									<h4 class="m-font-size-12 text-uppercase m-mb-2">{$lang.heading_order_history}</h4>
+								</div>
+							</div>
+							{foreach item=statuses from=$statuses_array}			
+							<div class="row">
+								<div class="col-3 m-mb-30">
+									<p>{$statuses.date_added|oos_date_short}</p>
+								</div>
+								<div class="col-2 m-mb-30">
+									<p>{$statuses.orders_status_name}</p>
+								</div>
+								<div class="col-7">
+									<p>{$statuses.comments|nl2br|stripslashes}</p>
+								</div>
+							</div>
+							{/foreach}			
 
-            <!-- Order Block -->
-            <div class="g-brd-around g-brd-gray-light-v4 rounded g-mb-30">
-              <header class="g-bg-gray-light-v5 g-pa-20">
-                <div class="row">
-                  <div class="col-md-4 m-mb-20 g-mb-0--sm">
-                    <h4 class="m-font-size-12 text-uppercase m-mb-2">{$lang.heading_order_date}</h4>
-                    <span class="m-font-size-13"> {$order->info.date_purchased|oos_date_long}</span>
-                  </div>
+							<div class="col-md-12">
+								<div class="well well-lg clearfix">
+									<ul class="pager">
+										<li class="previous"><a href="{html_href_link content=$filename.account_history page=$page}" class="btn btn-primary-filled" role="button"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> {$lang.button_back}</</li>
+									</ul>
+								</div>
+							</div>
 
-                  <div class="col-md-4 m-mb-20 g-mb-0--sm">
-                    <h4 class="m-font-size-12 text-uppercase m-mb-2">{$lang.heading_order_total}</h4>
-                    <span class="m-font-size-13"> {$order->info.total}</span>
-                  </div>
-
-                   <div class="col-md-4 ml-auto text-sm-right">
-                    <h4 class="text-uppercase g-mb-2">{$lang.heading_order_number} # {$smarty.get.order_id}</h4>
-					<span class="m-font-size-13">{$order->info.orders_status}</span>
-                     <!-- <a class="m-font-size-13" href="#!">Invoice</a> -->
-                  </div>
-                </div>
-              </header>
-
-              <!-- Order Content -->
-              <div class="g-pa-20">
-                <div class="row">
-                  <div class="col-md-8">
-                    <div class="mb-4">
-                      <h3 class="h5 mb-1">Delivered Yesterday</h3>
-                      <p class="g-color-gray-dark-v4 g-font-size-13">Your package was delivered per the instructions.</p>
-                    </div>
-
-                    <div class="row">
-                      <div class="col-4 col-sm-3 g-mb-30">
-                        <img class="img-fluid" src="assets/img-temp/150x150/img9.jpg" alt="Image Description">
-                      </div>
-
-                      <div class="col-8 col-sm-9 g-mb-30">
-                        <h4 class="h6 g-font-weight-400"><a href="#!">Wacom Intuos Pro digital graphic clock for Mac or PC, Medium, (PTH660) NEW MODEL</a></h4>
-                        <span class="d-block g-color-gray-dark-v4 g-font-size-13 mb-2">Sold by: Unify.com LLC</span>
-                        <span class="d-block g-color-lightred mb-2">$364.80</span>
-                        <a class="btn g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-13 rounded g-px-18 g-py-7" href="#!">Buy it Again</a>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-md-4">
-                    <a class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25 mb-4" href="#!">Track Package</a>
-                    <a class="btn btn-block g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-12 text-uppercase g-py-12 g-px-25" href="#!">Return Item</a>
-                    <a class="btn btn-block g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-12 text-uppercase g-py-12 g-px-25" href="#!">Leave Package Feedback</a>
-                    <a class="btn btn-block g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-12 text-uppercase g-py-12 g-px-25" href="#!">Write a Product Review</a>
-                    <a class="btn btn-block g-brd-around g-brd-gray-light-v3 g-color-gray-dark-v3 g-bg-gray-light-v5 g-bg-gray-light-v4--hover g-font-size-12 text-uppercase g-py-12 g-px-25" href="#!">Archive Order</a>
-                  </div>
-                </div>
-              </div>
-              <!-- End Order Content -->
-            </div>
-            <!-- End Order Block -->
-
-            <!-- Order Block -->
-            <div class="g-brd-around g-brd-gray-light-v4 rounded">
-              <header class="g-bg-gray-light-v5 g-pa-20">
-                <div class="row">
-                  <div class="col-sm-3 col-md-2 g-mb-20 g-mb-0--sm">
-                    <h4 class="m-font-size-12 text-uppercase g-mb-2">Order Placed</h4>
-                    <span class="m-font-size-13">May 29, 2017</span>
-                  </div>
-
-                  <div class="col-sm-3 col-md-2 g-mb-20 g-mb-0--sm">
-                    <h4 class="m-font-size-12 text-uppercase g-mb-2">Total</h4>
-                    <span class="m-font-size-13">$132.00</span>
-                  </div>
-
-                  <div class="col-sm-3 col-md-2 g-mb-20 g-mb-0--sm">
-                    <h4 class="m-font-size-12 text-uppercase g-mb-2">Ship to</h4>
-                    <span class="m-font-size-13">James Collins</span>
-                  </div>
-
-                  <div class="col-sm-3 col-md-4 ml-auto text-sm-right">
-                    <h4 class="text-uppercase g-mb-2">{$lang.heading_order_number} # {$smarty.get.order_id}</h4>
-					({$order->info.orders_status})
-                     <!-- <a class="m-font-size-13" href="#!">Invoice</a> -->
-                  </div>
-                </div>
-              </header>
-
-
-              <!-- End Order Content -->
-            </div>
-            <!-- End Order Block -->
-
-
-          </div>
-          <!-- Orders -->
-        </div>
-      </div>
-
-				
-    <table border="0" width="100%" cellspacing="0" cellpadding="0">
-      <tr>
-        <td>{$oosPageHeading}</td>
-      </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td class="main" colspan="2"><strong>{$lang.heading_order_number} # {$smarty.get.order_id} <small>({$order->info.orders_status})</small></strong></td>
-          </tr>
-          <tr>
-            <td class="smallText">{$lang.heading_order_date} {$order->info.date_purchased|oos_date_long}</td>
-            <td class="smallText" align="right">{$lang.heading_order_total} {$order->info.total}</td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
-          <tr class="oos-BoxContents">
-{if $order->delivery != false }
-
-            <td width="30%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr>
-                <td class="main"><strong>{$lang.heading_delivery_address}</strong></td>
-              </tr>
-              <tr>
-                <td class="main">{oos_address_format address_format_id=$order->delivery.format_id address=$order->delivery html=1}</td>
-              </tr>
-  {if $order->info.shipping_method }
-              <tr>
-                <td class="main"><strong>{$lang.heading_shipping_method}</strong></td>
-              </tr>
-              <tr>
-                <td class="main">{$order->info.shipping_method}</td>
-              </tr>
-  {/if}
-            </table></td>
-{/if}
-            <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-              <tr>
-                <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-{if sizeof($order->info.tax_groups) gt 1 }
-                  <tr>
-                    <td class="main" colspan="2"><strong>{$lang.heading_products}</strong></td>
-                    <td class="smallText" align="right"><strong>{$lang.heading_tax}</strong></td>
-                    <td class="smallText" align="right"><strong>{$lang.heading_total}</strong></td>
-                  </tr>
-{else}
-                  <tr>
-                    <td class="main" colspan="3"><strong>{$lang.heading_products}</strong></td>
-                  </tr>
-{/if}
-
-{foreach item=products from=$order->products}
-           <tr>
-            <td class="main" align="right" valign="top" width="30">{$products.qty|quantity}&nbsp;x</td>
-            <td class="main" valign="top">{$products.name}{if $products.serial_number != '' }&nbsp;&nbsp;({$lang.serial}{$products.serial_number}){/if}
-
-  {if ( isset($products.attributes) && sizeof($products.attributes) gt 0 ) }
-      {foreach item=attributes from=$products.attributes}
-                <br><nobr><small>&nbsp;<i> - {$attributes.option}: {$attributes.value}</i></small></nobr>
-      {/foreach}
-  {/if}
-                  </td>
-  {if sizeof($order->info.tax_groups) gt 1 }
-                  <td class="main" valign="top" align="right">{oos_display_tax_value value=$products.tax}%</td>
-  {/if}
-                  <td class="main" align="right" valign="top">{oos_display_price price=$products.final_price tax=$products.tax qty=$products.qty currency=$order->info.currency currency_value=$order->info.currency_value}</td>
-                </tr>
-{/foreach}
-                </table></td>
-              </tr>
-            </table></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
-      <tr>
-        <td class="main"><strong>{$lang.heading_billing_information}</strong></td>
-      </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
-          <tr class="oos-BoxContents">
-            <td width="30%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr>
-                <td class="main"><strong>{$lang.heading_billing_address}</strong></td>
-              </tr>
-              <tr>
-                <td class="main">{oos_address_format address_format_id=$order->billing.format_id address=$order->billing html=1}</td>
-              </tr>
-              <tr>
-                <td class="main"><strong>{$lang.heading_payment_method}</strong></td>
-              </tr>
-              <tr>
-                <td class="main">{$order->info.payment_method}</td>
-              </tr>
-            </table></td>
-            <td width="70%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-{foreach item=total from=$order->totals}
-              <tr>
-                <td class="main" align="right" width="100%">{$total.title}</td>
-                <td class="main" align="right" nowrap>{$total.text}</td>
-              </tr>
-{/foreach}
-            </table></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
-
-      <tr>
-        <td class="main"><strong>{$lang.heading_order_history}</strong></td>
-      </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
-          <tr class="oos-BoxContents">
-            <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-{foreach item=statuses from=$statuses_array}
-              <tr>
-                <td class="main" valign="top" width="70">{$statuses.date_added|oos_date_short}</td>
-                <td class="main" valign="top" width="90">{$statuses.orders_status_name}</td>
-                <td class="main" valign="top">&nbsp;{$statuses.comments|nl2br|stripslashes}</td>
-              </tr>
-{/foreach}
-            </table></td>
-          </tr>
-        </table></td>
-      </tr>
- {if $download}
-    {$download}
- {/if}
-      <tr>
-        <td height="10"></td>
-      </tr>
-      <tr>
-        <td align="right" class="main"><a href="{html_href_link content=$filename.account_history page=$page}" class="btn btn-primary-filled" role="button"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> {$lang.button_back}</a></td>
-      </tr>
-    </table>
-
-
+						
+						</div>
+					</div>				
+			
 				</div>
 			</div>
 		</div>
