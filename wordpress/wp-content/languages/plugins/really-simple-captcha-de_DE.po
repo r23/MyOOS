@@ -1,0 +1,32 @@
+# Translation of Plugins - Really Simple CAPTCHA - Stable (latest release) in German
+# This file is distributed under the same license as the Plugins - Really Simple CAPTCHA - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2018-02-07 23:20:23+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/2.4.0-alpha\n"
+"Language: de\n"
+"Project-Id-Version: Plugins - Really Simple CAPTCHA - Stable (latest release)\n"
+
+#. Author URI of the plugin/theme
+msgid "https://ideasilo.wordpress.com/"
+msgstr "https://ideasilo.wordpress.com/"
+
+#. Author of the plugin/theme
+msgid "Takayuki Miyoshi"
+msgstr "Takayuki Miyoshi"
+
+#. Description of the plugin/theme
+msgid "Really Simple CAPTCHA is a CAPTCHA module intended to be called from other plugins. It is originally created for my Contact Form 7 plugin."
+msgstr "Really Simple CAPTCHA ist ein CAPTCHA-Modul, welches von anderen Plugins verwendet werden kann. Es wurde ursprünglich für mein Plugin Contact Form 7 erstellt."
+
+#. Plugin URI of the plugin/theme
+msgid "https://contactform7.com/captcha/"
+msgstr "https://contactform7.com/captcha/"
+
+#. Plugin Name of the plugin/theme
+msgid "Really Simple CAPTCHA"
+msgstr "Really Simple CAPTCHA"
