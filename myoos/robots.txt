@@ -3,3 +3,6 @@ Sitemap: sitemapindex.xml
 User-agent: *
 Disallow: /*PHOENIXSID
 Disallow: /*PHOENIXADMINSID
+
+User-agent: ia_archiver
+Disallow: /
