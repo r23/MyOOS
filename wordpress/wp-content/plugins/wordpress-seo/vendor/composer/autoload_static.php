@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit47b2468299949478bf268a0647f72d37
+class ComposerStaticInit8d3a545ad41415d26b40c72611f9788d
 {
     public static $files = array (
         '995b589e693a50f54393aa31ee1c3763' => __DIR__ . '/..' . '/yoast/whip/src/facades/wordpress.php',
@@ -125,7 +125,10 @@ class ComposerStaticInit47b2468299949478bf268a0647f72d37
         'WPSEO_Abstract_Role_Manager' => __DIR__ . '/../..' . '/admin/roles/class-abstract-role-manager.php',
         'WPSEO_Admin' => __DIR__ . '/../..' . '/admin/class-admin.php',
         'WPSEO_Admin_Asset' => __DIR__ . '/../..' . '/admin/class-asset.php',
+        'WPSEO_Admin_Asset_Dev_Server_Location' => __DIR__ . '/../..' . '/admin/class-admin-asset-dev-server-location.php',
+        'WPSEO_Admin_Asset_Location' => __DIR__ . '/../..' . '/admin/class-admin-asset-location.php',
         'WPSEO_Admin_Asset_Manager' => __DIR__ . '/../..' . '/admin/class-admin-asset-manager.php',
+        'WPSEO_Admin_Asset_SEO_Location' => __DIR__ . '/../..' . '/admin/class-admin-asset-seo-location.php',
         'WPSEO_Admin_Banner' => __DIR__ . '/../..' . '/admin/banner/class-admin-banner.php',
         'WPSEO_Admin_Banner_Renderer' => __DIR__ . '/../..' . '/admin/banner/class-admin-banner-renderer.php',
         'WPSEO_Admin_Banner_Sidebar' => __DIR__ . '/../..' . '/admin/banner/class-admin-banner-sidebar.php',
@@ -239,6 +242,8 @@ class ComposerStaticInit47b2468299949478bf268a0647f72d37
         'WPSEO_Import_External' => __DIR__ . '/../..' . '/admin/class-import-external.php',
         'WPSEO_Import_Hooks' => __DIR__ . '/../..' . '/admin/import/class-import-hooks.php',
         'WPSEO_Import_Jetpack_SEO' => __DIR__ . '/../..' . '/admin/class-import-jetpack.php',
+        'WPSEO_Import_SEOPressor' => __DIR__ . '/../..' . '/admin/class-import-seopressor.php',
+        'WPSEO_Import_Ultimate_SEO' => __DIR__ . '/../..' . '/admin/class-import-ultimate-seo.php',
         'WPSEO_Import_WPSEO' => __DIR__ . '/../..' . '/admin/class-import-wpseo.php',
         'WPSEO_Import_WPSEO_Hooks' => __DIR__ . '/../..' . '/admin/import/class-import-wpseo-hooks.php',
         'WPSEO_Import_WooThemes_SEO' => __DIR__ . '/../..' . '/admin/class-import-woothemes-seo.php',
@@ -440,10 +445,10 @@ class ComposerStaticInit47b2468299949478bf268a0647f72d37
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit47b2468299949478bf268a0647f72d37::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit47b2468299949478bf268a0647f72d37::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit47b2468299949478bf268a0647f72d37::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit47b2468299949478bf268a0647f72d37::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit8d3a545ad41415d26b40c72611f9788d::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit8d3a545ad41415d26b40c72611f9788d::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit8d3a545ad41415d26b40c72611f9788d::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit8d3a545ad41415d26b40c72611f9788d::$classMap;
 
         }, null, ClassLoader::class);
     }
