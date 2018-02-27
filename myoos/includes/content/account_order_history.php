@@ -39,22 +39,22 @@ $nPage = isset($_GET['page']) ? intval( $_GET['page'] ) : 1;
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_order_history.php';
 
-  $aTemplate['page'] = $sTheme . '/page/account_order_history.html';
-  $aTemplate['pagination'] = $sTheme . '/system/_pagination.html';
+$aTemplate['page'] = $sTheme . '/page/account_order_history.html';
+$aTemplate['pagination'] = $sTheme . '/system/_pagination.html';
 
-  $nPageType = OOS_PAGE_TYPE_CATALOG;
-  $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
+$nPageType = OOS_PAGE_TYPE_CATALOG;
+$sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
-  if (!isset($option)) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
-  }
+require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
+if (!isset($option)) {
+	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+	require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+}
 
-  $orderstable = $oostable['orders'];
-  $orders_productstable = $oostable['orders_products'];
-  $productstable = $oostable['products'];
-  $query = "SELECT DISTINCT op.products_id
+$orderstable = $oostable['orders'];
+$orders_productstable = $oostable['orders_products'];
+$productstable = $oostable['products'];
+$query = "SELECT DISTINCT op.products_id
             FROM $orderstable o,
                  $orders_productstable op,
                  $productstable p
@@ -64,18 +64,16 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/accoun
               AND p.products_status >= '1'
             GROUP BY products_id
             ORDER BY o.date_purchased DESC";
-  $orders_result =  $dbconn->Execute($query);
-  if ($orders_result->RecordCount()) {
+$orders_result = $dbconn->Execute($query);
+if ($orders_result->RecordCount()) {
 
-    $product_ids = '';
-    while ($orders = $orders_result->fields) {
-      $product_ids .= $orders['products_id'] . ',';
+	$product_ids = '';
+	while ($orders = $orders_result->fields) {
+		$product_ids .= $orders['products_id'] . ',';
 
-      // Move that ADOdb pointer!
-      $orders_result->MoveNext();
-    }
-    // Close result set
-    $orders_result->Close();
+		// Move that ADOdb pointer!
+		$orders_result->MoveNext();
+	}
 
     $product_ids = substr($product_ids, 0, -1);
 
@@ -99,30 +97,31 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/accoun
     $order_history_split = new splitPageResults($order_history_raw, MAX_DISPLAY_PRODUCTS_NEW);
     $order_history_result = $dbconn->Execute($order_history_split->sql_query);
 
-    $order_history_array = array();
-    while ($order_history = $order_history_result->fields) {
+    $aOrderHistory = array();
+	while ($order_history = $order_history_result->fields) {
 
-      $new_product_price = NULL;
-      $new_product_special_price = NULL;
-      $new_special_price = NULL;
-      $new_product_discount_price = NULL;
-      $new_base_product_price = NULL;
-      $new_base_product_special_price = NULL;
+		$new_product_price = NULL;
+		$new_product_special_price = NULL;
+		$new_special_price = NULL;
+		$new_product_discount_price = NULL;
+		$new_base_product_price = NULL;
+		$new_base_product_special_price = NULL;
 
-      $new_product_price = $oCurrencies->display_price($order_history['products_price'], oos_get_tax_rate($order_history['products_tax_class_id'])); 
-      if (isset($order_history['specials_new_products_price'])) {
-        $new_special_price = $order_history['specials_new_products_price'];
-        $new_product_special_price = $oCurrencies->display_price($new_special_price, oos_get_tax_rate($order_history['products_tax_class_id']));
-      } 
+		$new_product_price = $oCurrencies->display_price($order_history['products_price'], oos_get_tax_rate($order_history['products_tax_class_id'])); 
+		if (isset($order_history['specials_new_products_price'])) {
+			$new_special_price = $order_history['specials_new_products_price'];
+			$new_product_special_price = $oCurrencies->display_price($new_special_price, oos_get_tax_rate($order_history['products_tax_class_id']));
+		} 
 
-      if ($order_history['products_base_price'] != 1) {
-        $new_base_product_price = $oCurrencies->display_price($order_history['products_price'] * $order_history['products_base_price'], oos_get_tax_rate($order_history['products_tax_class_id']));
+		if ($order_history['products_base_price'] != 1) {
+			$new_base_product_price = $oCurrencies->display_price($order_history['products_price'] * $order_history['products_base_price'], oos_get_tax_rate($order_history['products_tax_class_id']));
 
-        if ($new_special_price != NULL) {
-          $new_base_product_special_price = $oCurrencies->display_price($new_special_price * $order_history['products_base_price'], oos_get_tax_rate($order_history['products_tax_class_id']));
-        }
-      }
-      $order_history_array[] = array('id' => $order_history['products_id'],
+			if ($new_special_price != NULL) {
+				$new_base_product_special_price = $oCurrencies->display_price($new_special_price * $order_history['products_base_price'], oos_get_tax_rate($order_history['products_tax_class_id']));
+			}
+		}
+		
+		$aOrderHistory[] = array('id' => $order_history['products_id'],
                                     'name' => $order_history['products_name'],
                                     'image' => $order_history['products_image'],
                                     'new_product_price' => $new_product_price,
@@ -135,7 +134,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/accoun
                                     'new_products_base_unit' => $order_history['products_base_unit'],
                                     'date_added' => $order_history['products_date_added'],
                                     'manufacturer' => $order_history['manufacturers_name']);
-      $order_history_result->MoveNext();
+		$order_history_result->MoveNext();
     }
 
     // assign Smarty variables;
@@ -146,7 +145,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/accoun
 			'numrows' 			=> $order_history_split->number_of_rows,
 			'numpages' 			=> $order_history_split->number_of_pages,
 			
-			'oos_order_history_array'	=> $order_history_array
+			'order_history'		=> $aOrderHistory
        )
     );
   }
@@ -161,6 +160,8 @@ $smarty->assign(
 		'heading_title'		=> $aLang['heading_title'],
 		'robots'			=> 'noindex,nofollow,noodp,noydir',
 		'account_active'	=> 1,
+		
+		'page'				=> $nPage
 	)
 );
 
