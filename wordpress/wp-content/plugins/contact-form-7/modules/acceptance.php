@@ -38,7 +38,11 @@ function wpcf7_acceptance_form_tag_handler( $tag ) {
 		$class .= ' optional';
 	}
 
-	$atts = $item_atts = array();
+	$atts = array(
+		'class' => trim( $class ),
+	);
+
+	$item_atts = array();
 
 	$item_atts['type'] = 'checkbox';
 	$item_atts['name'] = $tag->name;
@@ -49,6 +53,9 @@ function wpcf7_acceptance_form_tag_handler( $tag ) {
 	if ( $tag->has_option( 'default:on' ) ) {
 		$item_atts['checked'] = 'checked';
 	}
+
+	$item_atts['class'] = $tag->get_class_option();
+	$item_atts['id'] = $tag->get_id_option();
 
 	$item_atts = wpcf7_format_atts( $item_atts );
 
@@ -68,8 +75,6 @@ function wpcf7_acceptance_form_tag_handler( $tag ) {
 			$item_atts );
 	}
 
-	$atts['class'] = $tag->get_class_option( $class );
-	$atts['id'] = $tag->get_id_option();
 	$atts = wpcf7_format_atts( $atts );
 
 	$html = sprintf(

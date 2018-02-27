@@ -213,7 +213,7 @@
 
 				if ( 1 < errorCount[ tab.replace( '-', '_' ) ] ) {
 					var manyErrorsInTab = wpcf7.configValidator.manyErrorsInTab
-						.replace( '%d', errorCount[ tab ] );
+						.replace( '%d', errorCount[ tab.replace( '-', '_' ) ] );
 					$tabPanelError.append( manyErrorsInTab );
 				} else {
 					$tabPanelError.append( wpcf7.configValidator.oneErrorInTab );

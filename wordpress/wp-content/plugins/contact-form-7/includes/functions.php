@@ -282,7 +282,12 @@ function wpcf7_rmdir_p( $dir ) {
 		closedir( $handle );
 	}
 
-	return rmdir( $dir );
+	if ( false !== ( $files = scandir( $dir ) )
+	&& ! array_diff( $files, array( '.', '..' ) ) ) {
+		return rmdir( $dir );
+	}
+
+	return false;
 }
 
 /* From _http_build_query in wp-includes/functions.php */

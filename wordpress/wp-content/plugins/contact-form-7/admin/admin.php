@@ -522,7 +522,7 @@ function wpcf7_admin_updated_message() {
 			$updated_message = sprintf(
 				/* translators: %s: number of contact forms */
 				_n(
-					"Configuration validation completed. An invalid contact form was found.",
+					"Configuration validation completed. %s invalid contact form was found.",
 					"Configuration validation completed. %s invalid contact forms were found.",
 					$count_invalid, 'contact-form-7' ),
 				number_format_i18n( $count_invalid ) );
