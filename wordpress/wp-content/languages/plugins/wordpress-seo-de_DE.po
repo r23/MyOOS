@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Yoast SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-02-18 22:01:02+0000\n"
+"PO-Revision-Date: 2018-02-26 00:02:07+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -37,7 +37,7 @@ msgstr "Der Textlink-Zähler hilft dir, die Struktur deiner Website zu verbesser
 
 #: admin/views/tabs/dashboard/features.php:49
 msgid "Discover all the features that Yoast SEO offers."
-msgstr "Entdecke alle Funktionen, die Yoast SEO bietet."
+msgstr "Entdecke alle Funktionen von Yoast SEO."
 
 #: admin/class-help-center.php:116
 msgid "If you have a problem that you can't solve with our video tutorials or knowledge base, you can send a message to our support team. They can be reached 24/7."
@@ -2993,7 +2993,7 @@ msgstr "Team Yoast"
 msgid "The first true all-in-one SEO solution for WordPress, including on-page content analysis, XML sitemaps and much more."
 msgstr "Die erste echte All-in-One-SEO-Lösung für WordPress, einschließlich On-Page Inhaltsanalyse, XML-Sitemaps und vielem mehr."
 
-#. #-#-#-#-#  wordpress-seo-code.pot (Yoast SEO 6.3)  #-#-#-#-#
+#. #-#-#-#-#  wordpress-seo-code.pot (Yoast SEO 6.3.1)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/capabilities/class-capability-manager-integration.php:66
 msgid "Yoast SEO"
@@ -3720,11 +3720,11 @@ msgstr "Blog"
 
 #: admin/views/tabs/advanced/breadcrumbs.php:72
 msgid "Post type archive to show in breadcrumbs for taxonomies"
-msgstr "Das Beitragsarchiv, das in Breadcrumbs für Kategorien angezeigt wird"
+msgstr "Das Inhaltstyp-Archiv, das in Breadcrumbs für Taxonomien angezeigt wird"
 
 #: admin/views/tabs/advanced/breadcrumbs.php:47
 msgid "Taxonomy to show in breadcrumbs for post types"
-msgstr "Kategorien, die den Beitragstyp in den Breadcrumbs zeigen"
+msgstr "Taxonomie, die in Breadcrumbs für Inhaltstypen angezeigt wird"
 
 #: admin/views/tabs/advanced/breadcrumbs.php:27
 msgid "Breadcrumb for 404 Page"
@@ -4694,7 +4694,7 @@ msgstr "E-Mail"
 
 #: languages/yoast-components.php:17
 msgid "Previous"
-msgstr "Vorherige"
+msgstr "Zurück"
 
 #: languages/yoast-components.php:11
 msgid "Next"
@@ -4714,7 +4714,7 @@ msgstr "Konfigurieren der %1$s XML-Verzeichniseinstellungen"
 #. name of possibly conflicting plugin with regard to the creation of sitemaps.
 #: admin/class-plugin-conflict.php:151
 msgid "Both %1$s and %2$s can create XML sitemaps. Having two XML sitemaps is not beneficial for search engines, yet might slow down your site."
-msgstr "Sowohl %1$s als auch %2$s generieren XML-Sitemaps. Zwei Sitemaps haben jedoch keinen Vorteil für Suchmaschinen und könnten deine Seite sogar verlangsamen."
+msgstr "Sowohl %1$s als auch %2$s erstellen XML-Sitemaps. Zwei Sitemaps haben jedoch keinen Vorteil für Suchmaschinen und könnten deine Website sogar verlangsamen."
 
 #. translators: %1$s expands to Yoast SEO.
 #: admin/class-plugin-conflict.php:143
