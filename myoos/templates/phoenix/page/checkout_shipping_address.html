@@ -143,11 +143,11 @@
 								<ul class="pager">
 									<li class="previous float-left">
 									{if $process eq true}
-										<a href="{html_href_link content=$filename.checkout_shipping_address}" class="btn btn-primary-filled" role="button"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> {$lang.button_back}</a>
+										<a href="{html_href_link content=$filename.checkout_shipping_address}" class="btn btn-secondary btn-default float-left" role="button">{$lang.button_back}</a>
 									{else}
 										<strong>{$lang.title_continue_checkout_procedure}</strong><br>{$lang.text_continue_checkout_procedure}</li>
 									{/if}
-									<li class="next"><button class="btn btn-primary-filled float-right" type="submit">{$lang.button_continue} <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></button></li>
+									<li class="next"><button class="btn btn-primary btn-default float-right" type="submit">{$lang.button_continue} <i class="fa fa-angle-right" aria-hidden="true"></i></button></li>
 								</ul>
 							</div>
 						</div>
