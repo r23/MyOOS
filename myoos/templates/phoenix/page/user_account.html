@@ -15,13 +15,13 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="btn-group" role="group" aria-label="...">
-					<a href="{html_href_link content=$filename.account}" class="btn btn-secondary active" role="button"><i class="fa fa-th" aria-hidden="true"></i>{$lang.login_block_my_account}</a>
-					<a href="{html_href_link content=$filename.account_edit}" class="btn btn-secondary" role="button"><i class="fa fa-user" aria-hidden="true"></i>{$lang.login_block_account_edit}</a>
-					<a href="{html_href_link content=$filename.account_address_book}" class="btn btn-secondary" role="button"><i class="fa fa-address-book" aria-hidden="true"></i>{$lang.button_address_book}</a>
-					<a href="{html_href_link content=$filename.account_history page=1}" class="btn btn-secondary" role="button"><i class="fa fa-list" aria-hidden="true"></i>{$lang.button_history}</a>
-					<a href="{html_href_link content=$filename.account_wishlist page=1}" class="btn btn-secondary" role="button"><i class="fa fa-gift" aria-hidden="true"></i>{$lang.button_wishlist}</a>
+					<a href="{html_href_link content=$filename.account}" class="btn btn-default active" role="button"><i class="fa fa-th" aria-hidden="true"></i>{$lang.login_block_my_account}</a>
+					<a href="{html_href_link content=$filename.account_edit}" class="btn btn-default" role="button"><i class="fa fa-user" aria-hidden="true"></i>{$lang.login_block_account_edit}</a>
+					<a href="{html_href_link content=$filename.account_address_book}" class="btn btn-default" role="button"><i class="fa fa-map-marker" aria-hidden="true"></i>{$lang.button_address_book}</a>
+					<a href="{html_href_link content=$filename.account_history page=1}" class="btn btn-default" role="button"><i class="fa fa-list" aria-hidden="true"></i>{$lang.button_history}</a>
+					<a href="{html_href_link content=$filename.account_wishlist page=1}" class="btn btn-default" role="button"><i class="fa fa-gift" aria-hidden="true"></i>{$lang.button_wishlist}</a>
 				{if $oEvent->installed_plugin('notify')}
-					<a href="{html_href_link content=$filename.product_notifications}" class="btn btn-secondary" role="button"><i class="fa fa-plus-circle" aria-hidden="true"></i>{$lang.button_notifications}</a>
+					<a href="{html_href_link content=$filename.product_notifications}" class="btn btn-default" role="button"><i class="fa fa-plus-circle" aria-hidden="true"></i>{$lang.button_notifications}</a>
 				{/if}					
 				</div>
 			</div>
@@ -30,12 +30,12 @@
 			<div class="col-md-12">
 				<div class="innerWrapper">
 					<ul class="list-inline">
-						<li><a href="{html_href_link content=$filename.account}" class="btn btn-secondary btn-lg" role="button"><i class="fa fa-user" aria-hidden="true"></i>{$lang.button_account}</a></li>			
-						<li><a href="{html_href_link content=$filename.account_edit}" class="btn btn-secondary btn-lg"	role="button"><i class="fa fa-map-marker" aria-hidden="true"></i>{$lang.login_block_account_edit}</a></li>		
-						<li><a href="{html_href_link content=$filename.account_history page=1}" class="btn btn-secondary btn-lg"><i class="fa fa-list" aria-hidden="true"></i>{$lang.button_history}</a></li>
-						<li><a href="{html_href_link content=$filename.account_wishlist page=1}" class="btn btn-secondary btn-lg"><i class="fa fa-gift" aria-hidden="true"></i>{$lang.button_wishlist}</a></li>
+						<li><a href="{html_href_link content=$filename.account}" class="btn btn-default btn-lg" role="button"><i class="fa fa-user" aria-hidden="true"></i>{$lang.button_account}</a></li>			
+						<li><a href="{html_href_link content=$filename.account_edit}" class="btn btn-default btn-lg"	role="button"><i class="fa fa-user" aria-hidden="true"></i>{$lang.login_block_account_edit}</a></li>		
+						<li><a href="{html_href_link content=$filename.account_history page=1}" class="btn btn-default btn-lg"><i class="fa fa-list" aria-hidden="true"></i>{$lang.button_history}</a></li>
+						<li><a href="{html_href_link content=$filename.account_wishlist page=1}" class="btn btn-default btn-lg"><i class="fa fa-gift" aria-hidden="true"></i>{$lang.button_wishlist}</a></li>
 					{if $oEvent->installed_plugin('notify')}
-						<li><a href="{html_href_link content=$filename.product_notifications}" class="btn btn-secondary btn-lg"><i class="fa fa-plus-circle" aria-hidden="true"></i>{$lang.button_notifications}</a></li>
+						<li><a href="{html_href_link content=$filename.product_notifications}" class="btn btn-default btn-lg"><i class="fa fa-plus-circle" aria-hidden="true"></i>{$lang.button_notifications}</a></li>
 					{/if}				  
 					</ul>
 
