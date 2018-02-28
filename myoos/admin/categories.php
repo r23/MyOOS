@@ -217,7 +217,7 @@ if (!empty($action)) {
 				}
 
 				reset($products);
-				while (list($key, $value) = each($products)) {
+				foreach ($products as $key => $value) { 	
 					$category_ids = '';
 					for ($i = 0, $n = count($value['categories']); $i < $n; $i++) {
 						$category_ids .= '\'' . $value['categories'][$i] . '\', ';

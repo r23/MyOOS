@@ -97,7 +97,7 @@ class splitPageResults {
 			if ($parameters != '') {
 				if (substr($parameters, -1) == '&') $parameters = substr($parameters, 0, -1);
 				$pairs = explode('&', $parameters);
-				while (list(, $pair) = each($pairs)) {
+				foreach($pairs as $pair) {	
 					list($key,$value) = explode('=', $pair);
 					$display_links .= oos_draw_hidden_field(rawurldecode($key), rawurldecode($value));
 				}
