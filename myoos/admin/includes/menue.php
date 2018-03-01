@@ -16,59 +16,61 @@ $reviews_result = $dbconn->Execute("SELECT COUNT(*) AS count FROM " . $oostable[
 $reviews = $reviews_result->fields;   
    
 ?>
-<nav role="navigation" class="navbar topnavbar">
-	<!-- Logo //-->
+<nav class="navbar topnavbar" role="navigation">
+	<!-- logo //-->
 	<div class="navbar-header">
 		<a href="<?php echo oos_href_link_admin($aContents['default']); ?>" class="navbar-brand">
 			<div class="brand-logo">
-				<img src="images/myoos.png" alt=" MyOOS [Shopsystem]" class="img-responsive">
+				<img src="images/myoos.png" alt=" MyOOS [Shopsystem]" class="img-fluid">
 			</div>
 			<div class="brand-logo-collapsed">
-				<img src="images/myoos-single.png" alt=" MyOOS [Shopsystem]" class="img-responsive">
+				<img src="images/myoos-single.png" alt=" MyOOS [Shopsystem]" class="img-fluid">
 			</div>
 		</a>
 	</div>
-	<!-- End Logo //-->
-	<div class="nav-wrapper">
-		<ul class="nav navbar-nav">
-			<li>
-				<a href="#" data-toggle-state="aside-collapsed" class="hidden-xs">
-					<i class="fa fa-navicon"></i>
-				</a>
-				<a href="#" data-toggle-state="aside-toggled" data-no-persist="true" class="visible-xs sidebar-toggle">
-					<i class="fa fa-navicon"></i>
-				</a>
-			</li>
-		</ul>
-		<!-- Right Navbar //-->
-		<ul class="nav navbar-nav navbar-right">
-			<!-- Fullscreen (only desktops) //-->
-			<li class="visible-lg">
-				<a href="#" data-toggle-fullscreen="">
-					<i class="fa fa-expand"></i>
-				</a>
-			</li>
-			<li>
-				<a href="<?php echo oos_href_link_admin($aContents['reviews'], 'selected_box=catalog'); ?>">
-					<i class="fa fa-comment"></i><span class="label label-warning"><?php echo $reviews['count']; ?></span>
-				</a>
-			</li>
-			<li>
-				<a href="<?php echo oos_href_link_admin('orders', 'selected_box=customers'); ?>">
-					<i class="fa fa-bell"></i><span class="label label-primary"><?php echo $orders['count']; ?></span>
-				</a>
-			</li>			
-			<li>
-				<a href="<?php echo oos_catalog_link($aCatalog['default']); ?>">
-					<i class="fa fa-shopping-cart"></i><?php echo HEADER_TITLE_ONLINE_CATALOG; ?>
-				</a>
-			</li>
-			<li>
-				<a href="<?php echo oos_href_link_admin($aContents['logoff']); ?>">
-					<i class="fa fa-sign-out"></i><?php echo $aLang['header_title_logoff']; ?>
-				</a>
-			</li>			
-		</ul>
-	</div>
+	<!-- end logo //-->
+	<!-- start left navbar //-->
+	<ul class="navbar-nav mr-auto flex-row">
+		<li class="nav-item">
+			<a class="nav-link d-none d-md-block d-lg-block d-xl-block" href="#" data-trigger-resize="" data-toggle-state="aside-collapsed">
+				<i class="fa fa-navicon" aria-hidden="true"></i>
+			</a>
+			<a class="nav-link sidebar-toggle d-md-none" href="#" data-toggle-state="aside-toggled" data-no-persist="true">
+				<i class="fa fa-navicon" aria-hidden="true"></i>
+			</a>
+		</li>
+	</ul>
+	<!-- end left navbar //-->
+	<!-- start right navbar //-->
+	<ul class="navbar-nav flex-row">
+		<!-- Fullscreen (only desktops) //-->
+		<li class="nav-item d-none d-md-block">
+			<a class="nav-link" href="#" data-toggle-fullscreen="">
+				<i class="fa fa-expand" aria-hidden="true"></i>
+			</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="<?php echo oos_href_link_admin($aContents['reviews'], 'selected_box=catalog'); ?>">
+				<i class="fa fa-comment" aria-hidden="true"></i>
+				<span class="badge badge-danger"><?php echo $reviews['count']; ?></span>
+			</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="<?php echo oos_href_link_admin('orders', 'selected_box=customers'); ?>">
+ 			<i class="fa fa-bell" aria-hidden="true"></i>
+				<span class="badge badge-danger"><?php echo $orders['count']; ?></span>
+			</a>
+		</li>			
+		<li class="nav-item">
+			<a class="nav-link" href="<?php echo oos_catalog_link($aCatalog['default']); ?>">
+				<i class="fa fa-shopping-cart" aria-hidden="true"></i> <?php echo HEADER_TITLE_ONLINE_CATALOG; ?>
+			</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="<?php echo oos_href_link_admin($aContents['logoff']); ?>">
+				<i class="fa fa-sign-out" aria-hidden="true"></i> <?php echo $aLang['header_title_logoff']; ?>
+			</a>
+		</li>			
+	</ul>
 </nav>
-<!-- End Top Navbar //-->
+<!-- end top navbar //-->
