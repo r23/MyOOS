@@ -18,12 +18,7 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-//Import the PHPMailer class into the global namespace
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-use PHPMailer\PHPMailer\POP3;
-   
-   
+
   define('OOS_VALID_MOD', 'yes');
   require 'includes/main.php';
 
@@ -62,9 +57,6 @@ use PHPMailer\PHPMailer\POP3;
           // Move that ADOdb pointer!
           $check_email_result->MoveNext();
         }
-
-        // Close result set
-        $check_email_result->Close();
 
         if (in_array($_POST['admin_email_address'], $stored_email)) {
           oos_redirect_admin(oos_href_link_admin($aContents['admin_account'], 'action=edit_process&error=email'));
@@ -277,8 +269,6 @@ use PHPMailer\PHPMailer\POP3;
 		<span>&copy; 2018 - <a href="https://www.oos-shop.de" target="_blank" rel="noopener">MyOOS [Shopsystem]</a></span>
 	</footer>
 </div>
-
-
 <?php 
 	require 'includes/bottom.php';
 	require 'includes/nice_exit.php';

@@ -237,8 +237,7 @@ if (!empty($action)) {
 					oos_remove_category($categories[$i]['id']);
 				}
 
-				reset($products_delete);
-				while (list($key) = each($products_delete)) {
+				foreach($products_delete as $key) {
 					oos_remove_product($key);
 				}
 			}

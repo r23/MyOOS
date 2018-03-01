@@ -187,14 +187,14 @@
 <input type="hidden" name="action" value="update">
 <input type="hidden" name="entry_id" value="{$entry_id}">
 
-<a href="{html_href_link content=$filename.account_address_book}" class="btn btn-primary-filled" role="button"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> {$lang.button_back}</a>
+<a href="{html_href_link content=$filename.account_address_book}" class="btn btn-primary-filled" role="button"><i class="fa fa-angle-left" aria-hidden="true"></i> {$lang.button_back}</a>
 <a href="{html_href_link content=$filename.account_address_book_process action=remove entry_id=$entry_id}" class="btn btn-primary-filled" role="button"><i class="fa fa-times" aria-hidden="true"></i> {$lang.button_delete}</a>
 <button class="btn btn-success-filled" type="submit">{$lang.button_continue}<i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></button>
 {elseif $smarty.get.action eq "update"}
       <tr>
         <td><table border="0" width="100%" cellspacing="2" cellpadding="0">
           <tr>
-            <td class="main"><input type="hidden" name="action" value="update"><input type="hidden" name="entry_id" value="{$entry_id}"><a href="{html_href_link content=$filename.account_address_book}" class="btn btn-primary-filled" role="button"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> {$lang.button_back}</a></td>
+            <td class="main"><input type="hidden" name="action" value="update"><input type="hidden" name="entry_id" value="{$entry_id}"><a href="{html_href_link content=$filename.account_address_book}" class="btn btn-primary-filled" role="button"><i class="fa fa-angle-left" aria-hidden="true"></i> {$lang.button_back}</a></td>
             <td class="main" align="right"><button class="btn btn-success-filled" type="submit">{$lang.button_continue}<i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></button></td>
           </tr>
         </table></td>
