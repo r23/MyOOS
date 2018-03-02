@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Themes - Twenty Fifteen package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-11-16 16:33:45+0000\n"
+"PO-Revision-Date: 2018-02-28 17:54:45+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -230,7 +230,7 @@ msgstr "Stolz präsentiert von %s"
 #. Author URI of the plugin/theme
 #: footer.php:25
 msgid "https://wordpress.org/"
-msgstr "https://wordpress.org/"
+msgstr "https://de.wordpress.org/"
 
 #: content-none.php:31
 msgid "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."

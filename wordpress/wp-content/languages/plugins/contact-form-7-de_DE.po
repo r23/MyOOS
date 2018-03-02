@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Contact Form 7 - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-02-27 11:26:47+0000\n"
+"PO-Revision-Date: 2018-02-27 20:21:31+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -768,12 +768,6 @@ msgstr "Erzeuge ein Formular-Tag für eine Zustimmungs-Kontrollkästchen. Weiter
 msgid "Acceptance Checkbox"
 msgstr "Zustimmungs-Kontrollkästchen"
 
-#: modules/acceptance.php:248 modules/acceptance.php:251
-#: modules/checkbox.php:323 modules/checkbox.php:326 modules/select.php:212
-#: modules/select.php:215
-msgid "Options"
-msgstr "Einstellungen"
-
 #: modules/acceptance.php:252
 msgid "Make this checkbox checked by default"
 msgstr "Dies Kontrollkästchen vorausgewählt machen."
@@ -1122,6 +1116,12 @@ msgstr "Dein eingegebener Code ist falsch."
 #: modules/really-simple-captcha.php:360
 msgid "This contact form contains CAPTCHA fields, but the necessary libraries (GD and FreeType) are not available on your server."
 msgstr "Dieses Kontaktformular enthält Captcha-Felder, aber die benötigten Bibliotheken (GD und FreeType) sind nicht auf deinem Server verfügbar. "
+
+#: modules/acceptance.php:248 modules/acceptance.php:251
+#: modules/checkbox.php:323 modules/checkbox.php:326 modules/select.php:212
+#: modules/select.php:215
+msgid "Options"
+msgstr "Optionen"
 
 #. translators: %s: time since the creation of the contact form
 #: admin/includes/class-contact-forms-list-table.php:215
