@@ -76,15 +76,14 @@ if (oos_admin_check_boxes('information.php') == TRUE) {
 	include 'includes/boxes/information.php';
 }
 
-
 if (is_array($aBlocks)) {
     $php_self = basename($_SERVER['PHP_SELF']);
 
-	echo '<nav data-sidebar-anyclick-close="" class="sidebar">' . "\n" .
+	echo '<nav class="sidebar" data-sidebar-anyclick-close="">' . "\n" .
 		'	<!-- START sidebar nav //-->' . "\n" .
-		'	<ul class="nav">' . "\n" .
+		'	<ul class="sidebar-nav">' . "\n" .
 		'		<!-- Iterates over all sidebar items //-->' . "\n" .
-		'		<li class="nav-heading ">' . "\n" .
+		'		<li class="nav-heading">' . "\n" .
 		'			<span data-localize="sidebar.heading.HEADER">Dashboard</span>' . "\n" .
 		'		</li>' . "\n";				
 				
@@ -92,22 +91,18 @@ if (is_array($aBlocks)) {
 		if ($panels['active'] == TRUE) {
 			echo '<li class="active">' . "\n";
 		} else {
-			echo '<li>' . "\n";
+			echo '<li class=" ">' . "\n";
 		}
-		
-        # <li class="nav-heading ">
-        #    <span data-localize="sidebar.heading.COMPONENTS">Components</span>
-        # </li>
 
 		if (!empty($panels)) {		
-			echo '<a href="' . $panels['link'] . '#' . oos_strtolower($panels['heading']) . '" title="' . $panels['heading'] . '" data-toggle="collapse">' . "\n" .
-				'	<i class="' . $panels['icon'] . '"></i>' . "\n" .
+			echo '<a href="#' . oos_strtolower($panels['heading']) . '" title="' . $panels['heading'] . '" data-toggle="collapse">' . "\n" .
+				'	<em class="' . $panels['icon'] . '" aria-hidden="true"></em>' . "\n" .
 				'  <span data-localize="sidebar.nav.' . oos_strtolower($panels['heading']) . '.' . oos_strtoupper($panels['heading']) . '">' . $panels['heading'] . '</span>' . "\n" .
 				'</a>' . "\n";			
 		}
 			
 		if (is_array($panels['contents'])) {
-			echo '<ul id="' . oos_strtolower($panels['heading']) . '" class="nav sidebar-subnav collapse">' . "\n" .
+			echo '<ul class="sidebar-nav sidebar-subnav collapse" id="' . oos_strtolower($panels['heading']) . '">' . "\n" .
 				 '	<li class="sidebar-subnav-header">' . $panels['heading'] . '</li>' . "\n";
 				foreach ($panels['contents'] as $contents) {
 					if ( ( $php_self == $contents['code'] ) 
@@ -115,7 +110,7 @@ if (is_array($aBlocks)) {
 						|| ((isset($_GET['set'])) && ($_GET['set'] == $contents['code'])) ) {
 						echo '<li class="active">' . "\n";
 					} else {
-						echo '<li>' . "\n";
+						echo '<li class=" ">' . "\n";
 					}
 					
 					echo '  <a href="' . $contents['link'] . '" title="' . $contents['title'] . '">' . "\n" .
@@ -127,7 +122,6 @@ if (is_array($aBlocks)) {
 		}
 		echo '</li>' . "\n";
 	}
-		  
 	
 	echo '     </ul>' . "\n" .
          '</nav>' . "\n";

@@ -56,7 +56,7 @@ $reviews = $reviews_result->fields;
 			</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="<?php echo oos_href_link_admin('orders', 'selected_box=customers'); ?>">
+			<a class="nav-link" href="<?php echo oos_href_link_admin($aContents['orders'], 'selected_box=customers'); ?>">
  			<i class="fa fa-bell" aria-hidden="true"></i>
 				<span class="badge badge-danger"><?php echo $orders['count']; ?></span>
 			</a>

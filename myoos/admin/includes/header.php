@@ -35,8 +35,8 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
 	<!-- Bootstrap style  --> 
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/font-awesome.min.css" rel="stylesheet">
-	<link href="css/style.css" rel="stylesheet">
-
+	<link href="css/myoos.min.css" rel="stylesheet">
+	
 	<!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
 	<link href="css/plugins/jquery-file-upload/jquery.fileupload.css" rel="stylesheet">
 

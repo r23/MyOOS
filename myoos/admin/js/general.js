@@ -13,6 +13,7 @@
     // enable settings toggle after restore
     $('#chk-fixed').prop('checked', $body.hasClass('layout-fixed') );
     $('#chk-collapsed').prop('checked', $body.hasClass('aside-collapsed') );
+	$('#chk-collapsed-text').prop('checked', $body.hasClass('aside-collapsed-text'));
     $('#chk-boxed').prop('checked', $body.hasClass('layout-boxed') );
     $('#chk-float').prop('checked', $body.hasClass('aside-float') );
     $('#chk-hover').prop('checked', $body.hasClass('aside-hover') );
@@ -174,99 +175,98 @@
 
 
 /**
- * Collapse panels
- * [data-tool="panel-collapse"]
+ * Collapse cards
+ * [data-tool="card-collapse"]
  *
  * Also uses browser storage to keep track
- * of panels collapsed state
+ * of cards collapsed state
  */
 (function($, window, document) {
-  'use strict';
-  var panelSelector = '[data-tool="panel-collapse"]',
-      storageKeyName = 'jq-panelState';
+    'use strict';
+    var cardSelector = '[data-tool="card-collapse"]',
+        storageKeyName = 'jq-cardState';
 
-  // Prepare the panel to be collapsable and its events
-  $(panelSelector).each(function() {
-    // find the first parent panel
-    var $this        = $(this),
-        parent       = $this.closest('.panel'),
-        wrapper      = parent.find('.panel-wrapper'),
-        collapseOpts = {toggle: false},
-        iconElement  = $this.children('i'),
-        panelId      = parent.attr('id');
-    
-    // if wrapper not added, add it
-    // we need a wrapper to avoid jumping due to the paddings
-    if( ! wrapper.length) {
-      wrapper =
-        parent.children('.panel-heading').nextAll() //find('.panel-body, .panel-footer')
-          .wrapAll('<div/>')
-          .parent()
-          .addClass('panel-wrapper');
-      collapseOpts = {};
+    // Prepare the card to be collapsable and its events
+    $(cardSelector).each(function() {
+        // find the first parent card
+        var $this = $(this),
+            parent = $this.closest('.card'),
+            wrapper = parent.find('.card-wrapper'),
+            collapseOpts = { toggle: false },
+            iconElement = $this.children('em'),
+            cardId = parent.attr('id');
+
+        // if wrapper not added, add it
+        // we need a wrapper to avoid jumping due to the paddings
+        if (!wrapper.length) {
+            wrapper =
+                parent.children('.card-heading').nextAll() //find('.card-body, .card-footer')
+                .wrapAll('<div/>')
+                .parent()
+                .addClass('card-wrapper');
+            collapseOpts = {};
+        }
+
+        // Init collapse and bind events to switch icons
+        wrapper
+            .collapse(collapseOpts)
+            .on('hide.bs.collapse', function() {
+                setIconHide(iconElement);
+                saveCardState(cardId, 'hide');
+                wrapper.prev('.card-heading').addClass('card-heading-collapsed');
+            })
+            .on('show.bs.collapse', function() {
+                setIconShow(iconElement);
+                saveCardState(cardId, 'show');
+                wrapper.prev('.card-heading').removeClass('card-heading-collapsed');
+            });
+
+        // Load the saved state if exists
+        var currentState = loadCardState(cardId);
+        if (currentState) {
+            setTimeout(function() { wrapper.collapse(currentState); }, 50);
+            saveCardState(cardId, currentState);
+        }
+
+    });
+
+    // finally catch clicks to toggle card collapse
+    $(document).on('click', cardSelector, function() {
+
+        var parent = $(this).closest('.card');
+        var wrapper = parent.find('.card-wrapper');
+
+        wrapper.collapse('toggle');
+
+    });
+
+    /////////////////////////////////////////////
+    // Common use functions for card collapse //
+    /////////////////////////////////////////////
+    function setIconShow(iconEl) {
+        iconEl.removeClass('fa-plus').addClass('fa-minus');
     }
 
-    // Init collapse and bind events to switch icons
-    wrapper
-      .collapse(collapseOpts)
-      .on('hide.bs.collapse', function() {
-        setIconHide( iconElement );
-        savePanelState( panelId, 'hide' );
-        wrapper.prev('.panel-heading').addClass('panel-heading-collapsed');
-      })
-      .on('show.bs.collapse', function() {
-        setIconShow( iconElement );
-        savePanelState( panelId, 'show' );
-        wrapper.prev('.panel-heading').removeClass('panel-heading-collapsed');
-      });
-
-    // Load the saved state if exists
-    var currentState = loadPanelState( panelId );
-    if(currentState) {
-      setTimeout(function() { wrapper.collapse( currentState ); }, 0);
-      savePanelState( panelId, currentState );
+    function setIconHide(iconEl) {
+        iconEl.removeClass('fa-minus').addClass('fa-plus');
     }
 
-  });
-
-  // finally catch clicks to toggle panel collapse
-  $(document).on('click', panelSelector, function () {
-    
-    var parent = $(this).closest('.panel');
-    var wrapper = parent.find('.panel-wrapper');
-
-    wrapper.collapse('toggle');
-
-  });
-
-  /////////////////////////////////////////////
-  // Common use functions for panel collapse //
-  /////////////////////////////////////////////
-  function setIconShow(iconEl) {
-    iconEl.removeClass('fa-plus').addClass('fa-minus');
-  }
-
-  function setIconHide(iconEl) {
-    iconEl.removeClass('fa-minus').addClass('fa-plus');
-  }
-
-  function savePanelState(id, state) {
-    var data = $.localStorage.get(storageKeyName);
-    if(!data) { data = {}; }
-    data[id] = state;
-    $.localStorage.set(storageKeyName, data);
-  }
-
-  function loadPanelState(id) {
-    var data = $.localStorage.get(storageKeyName);
-    if(data) {
-      return data[id] || false;
+    function saveCardState(id, state) {
+        var data = $.localStorage.get(storageKeyName);
+        if (!data) { data = {}; }
+        data[id] = state;
+        $.localStorage.set(storageKeyName, data);
     }
-  }
+
+    function loadCardState(id) {
+        var data = $.localStorage.get(storageKeyName);
+        if (data) {
+            return data[id] || false;
+        }
+    }
 
 
 }(jQuery, window, document));
-
 
 /**
  * Refresh panels
@@ -308,183 +308,188 @@
 
 
 
+
 // SIDEBAR
-// ----------------------------------- 
+// -----------------------------------
 
 
-(function(window, document, $, undefined){
+(function(window, document, $, undefined) {
 
-  var $win;
-  var $html;
-  var $body;
-  var $sidebar;
-  var mq;
+    var $win;
+    var $html;
+    var $body;
+    var $sidebar;
+    var mq;
 
-  $(function(){
+    $(function() {
 
-    $win     = $(window);
-    $html    = $('html');
-    $body    = $('body');
-    $sidebar = $('.sidebar');
-    mq       = APP_MEDIAQUERY;
-    
-    // AUTOCOLLAPSE ITEMS 
-    // ----------------------------------- 
+        $win = $(window);
+        $html = $('html');
+        $body = $('body');
+        $sidebar = $('.sidebar');
+        mq = APP_MEDIAQUERY;
 
-    var sidebarCollapse = $sidebar.find('.collapse');
-    sidebarCollapse.on('show.bs.collapse', function(event){
+        // AUTOCOLLAPSE ITEMS
+        // -----------------------------------
 
-      event.stopPropagation();
-      if ( $(this).parents('.collapse').length === 0 )
-        sidebarCollapse.filter('.in').collapse('hide');
+        var sidebarCollapse = $sidebar.find('.collapse');
+        sidebarCollapse.on('show.bs.collapse', function(event) {
 
-    });
-    
-    // SIDEBAR ACTIVE STATE 
-    // ----------------------------------- 
-    
-    // Find current active item
-    var currentItem = $('.sidebar .active').parents('li');
+            event.stopPropagation();
+            if ($(this).parents('.collapse').length === 0)
+                sidebarCollapse.filter('.show').collapse('hide');
 
-    // hover mode don't try to expand active collapse
-    if ( ! useAsideHover() )
-      currentItem
-        .addClass('active')     // activate the parent
-        .children('.collapse')  // find the collapse
-        .collapse('show');      // and show it
+        });
 
-    // remove this if you use only collapsible sidebar items
-    $sidebar.find('li > a + ul').on('show.bs.collapse', function (e) {
-      if( useAsideHover() ) e.preventDefault();
-    });
+        // SIDEBAR ACTIVE STATE
+        // -----------------------------------
 
-    // SIDEBAR COLLAPSED ITEM HANDLER
-    // ----------------------------------- 
+        // Find current active item
+        var currentItem = $('.sidebar .active').parents('li');
+
+        // hover mode don't try to expand active collapse
+        if (!useAsideHover())
+            currentItem
+            .addClass('active') // activate the parent
+            .children('.collapse') // find the collapse
+            .collapse('show'); // and show it
+
+        // remove this if you use only collapsible sidebar items
+        $sidebar.find('li > a + ul').on('show.bs.collapse', function(e) {
+            if (useAsideHover()) e.preventDefault();
+        });
+
+        // SIDEBAR COLLAPSED ITEM HANDLER
+        // -----------------------------------
 
 
-    var eventName = isTouch() ? 'click' : 'mouseenter' ;
-    var subNav = $();
-    $sidebar.on( eventName, '.nav > li', function() {
+        var eventName = isTouch() ? 'click' : 'mouseenter';
+        var subNav = $();
+        $sidebar.on(eventName, '.sidebar-nav > li', function() {
 
-      if( isSidebarCollapsed() || useAsideHover() ) {
+            if (isSidebarCollapsed() || useAsideHover()) {
 
-        subNav.trigger('mouseleave');
-        subNav = toggleMenuItem( $(this) );
+                subNav.trigger('mouseleave');
+                subNav = toggleMenuItem($(this));
 
-        // Used to detect click and touch events outside the sidebar          
-        sidebarAddBackdrop();
-      }
+                // Used to detect click and touch events outside the sidebar
+                sidebarAddBackdrop();
+            }
 
-    });
+        });
 
-    var sidebarAnyclickClose = $sidebar.data('sidebarAnyclickClose');
+        var sidebarAnyclickClose = $sidebar.data('sidebarAnyclickClose');
 
-    // Allows to close
-    if ( typeof sidebarAnyclickClose !== 'undefined' ) {
+        // Allows to close
+        if (typeof sidebarAnyclickClose !== 'undefined') {
 
-      $('.wrapper').on('click.sidebar', function(e){
-        // don't check if sidebar not visible
-        if( ! $body.hasClass('aside-toggled')) return;
+            $('.wrapper').on('click.sidebar', function(e) {
+                // don't check if sidebar not visible
+                if (!$body.hasClass('aside-toggled')) return;
 
-        var $target = $(e.target);
-        if( ! $target.parents('.aside').length && // if not child of sidebar
-            ! $target.is('#user-block-toggle') && // user block toggle anchor
-            ! $target.parent().is('#user-block-toggle') // user block toggle icon
-          ) {
-                $body.removeClass('aside-toggled');          
+                var $target = $(e.target);
+                if (!$target.parents('.aside').length && // if not child of sidebar
+                    !$target.is('#user-block-toggle') && // user block toggle anchor
+                    !$target.parent().is('#user-block-toggle') // user block toggle icon
+                ) {
+                    $body.removeClass('aside-toggled');
+                }
+
+            });
         }
 
-      });
-    }
-
-  });
-
-  function sidebarAddBackdrop() {
-    var $backdrop = $('<div/>', { 'class': 'dropdown-backdrop'} );
-    $backdrop.insertAfter('.aside').on("click mouseenter", function () {
-      removeFloatingNav();
-    });
-  }
-
-  // Open the collapse sidebar submenu items when on touch devices 
-  // - desktop only opens on hover
-  function toggleTouchItem($element){
-    $element
-      .siblings('li')
-      .removeClass('open')
-      .end()
-      .toggleClass('open');
-  }
-
-  // Handles hover to open items under collapsed menu
-  // ----------------------------------- 
-  function toggleMenuItem($listItem) {
-
-    removeFloatingNav();
-
-    var ul = $listItem.children('ul');
-    
-    if( !ul.length ) return $();
-    if( $listItem.hasClass('open') ) {
-      toggleTouchItem($listItem);
-      return $();
-    }
-
-    var $aside = $('.aside');
-    var $asideInner = $('.aside-inner'); // for top offset calculation
-    // float aside uses extra padding on aside
-    var mar = parseInt( $asideInner.css('padding-top'), 0) + parseInt( $aside.css('padding-top'), 0);
-
-    var subNav = ul.clone().appendTo( $aside );
-    
-    toggleTouchItem($listItem);
-
-    var itemTop = ($listItem.position().top + mar) - $sidebar.scrollTop();
-    var vwHeight = $win.height();
-
-    subNav
-      .addClass('nav-floating')
-      .css({
-        position: isFixed() ? 'fixed' : 'absolute',
-        top:      itemTop,
-        bottom:   (subNav.outerHeight(true) + itemTop > vwHeight) ? 0 : 'auto'
-      });
-
-    subNav.on('mouseleave', function() {
-      toggleTouchItem($listItem);
-      subNav.remove();
     });
 
-    return subNav;
-  }
+    function sidebarAddBackdrop() {
+        var $backdrop = $('<div/>', { 'class': 'dropdown-backdrop' });
+        $backdrop.insertAfter('.aside').on("click mouseenter", function() {
+            removeFloatingNav();
+        });
+    }
 
-  function removeFloatingNav() {
-    $('.sidebar-subnav.nav-floating').remove();
-    $('.dropdown-backdrop').remove();
-    $('.sidebar li.open').removeClass('open');
-  }
+    // Open the collapse sidebar submenu items when on touch devices
+    // - desktop only opens on hover
+    function toggleTouchItem($element) {
+        $element
+            .siblings('li')
+            .removeClass('open')
+            .end()
+            .toggleClass('open');
+    }
 
-  function isTouch() {
-    return $html.hasClass('touch');
-  }
-  function isSidebarCollapsed() {
-    return $body.hasClass('aside-collapsed');
-  }
-  function isSidebarToggled() {
-    return $body.hasClass('aside-toggled');
-  }
-  function isMobile() {
-    return $win.width() < mq.tablet;
-  }
-  function isFixed(){
-    return $body.hasClass('layout-fixed');
-  }
-  function useAsideHover() {
-    return $body.hasClass('aside-hover');
-  }
+    // Handles hover to open items under collapsed menu
+    // -----------------------------------
+    function toggleMenuItem($listItem) {
+
+        removeFloatingNav();
+
+        var ul = $listItem.children('ul');
+
+        if (!ul.length) return $();
+        if ($listItem.hasClass('open')) {
+            toggleTouchItem($listItem);
+            return $();
+        }
+
+        var $aside = $('.aside');
+        var $asideInner = $('.aside-inner'); // for top offset calculation
+        // float aside uses extra padding on aside
+        var mar = parseInt($asideInner.css('padding-top'), 0) + parseInt($aside.css('padding-top'), 0);
+
+        var subNav = ul.clone().appendTo($aside);
+
+        toggleTouchItem($listItem);
+
+        var itemTop = ($listItem.position().top + mar) - $sidebar.scrollTop();
+        var vwHeight = $win.height();
+
+        subNav
+            .addClass('nav-floating')
+            .css({
+                position: isFixed() ? 'fixed' : 'absolute',
+                top: itemTop,
+                bottom: (subNav.outerHeight(true) + itemTop > vwHeight) ? 0 : 'auto'
+            });
+
+        subNav.on('mouseleave', function() {
+            toggleTouchItem($listItem);
+            subNav.remove();
+        });
+
+        return subNav;
+    }
+
+    function removeFloatingNav() {
+        $('.sidebar-subnav.nav-floating').remove();
+        $('.dropdown-backdrop').remove();
+        $('.sidebar li.open').removeClass('open');
+    }
+
+    function isTouch() {
+        return $html.hasClass('touch');
+    }
+
+    function isSidebarCollapsed() {
+        return $body.hasClass('aside-collapsed') || $body.hasClass('aside-collapsed-text');
+    }
+
+    function isSidebarToggled() {
+        return $body.hasClass('aside-toggled');
+    }
+
+    function isMobile() {
+        return $win.width() < mq.tablet;
+    }
+
+    function isFixed() {
+        return $body.hasClass('layout-fixed');
+    }
+
+    function useAsideHover() {
+        return $body.hasClass('aside-hover');
+    }
 
 })(window, document, window.jQuery);
-
 
 
 // SLIMSCROLL
