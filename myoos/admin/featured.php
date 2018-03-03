@@ -91,7 +91,7 @@ $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GE
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
 
-  if (!empty($action)) {
+if (!empty($action)) {
     switch ($action) {
       case 'setflag':
         oos_set_featured_status($_GET['id'], $_GET['flag']);
@@ -123,8 +123,9 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         oos_redirect_admin(oos_href_link_admin($aContents['featured'], 'page=' . $nPage));
         break;
     }
-  }
-  require 'includes/header.php'; 
+}
+
+require 'includes/header.php'; 
 
 ?>
 <div class="wrapper">
@@ -148,17 +149,17 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 		<div class="content-wrapper">
 
 			<!-- Breadcrumbs //-->
-			<div class="row wrapper gray-bg page-heading">
+			<div class="content-heading">
 				<div class="col-lg-12">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
-						<li>
+						<li class="breadcrumb-item">
 							<a href="<?php echo oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
 						</li>
-						<li>
+						<li class="breadcrumb-item">
 							<a href="<?php echo oos_href_link_admin(oos_selected_file('catalog.php'), 'selected_box=catalog') . '">' . BOX_HEADING_CATALOG . '</a>'; ?>
 						</li>
-						<li class="active">
+						<li class="breadcrumb-item active">
 							<strong><?php echo HEADING_TITLE; ?></strong>
 						</li>
 					</ol>

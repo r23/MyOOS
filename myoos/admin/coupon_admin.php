@@ -252,17 +252,17 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
   case 'voucherreport':
 ?>
 			<!-- Breadcrumbs //-->
-			<div class="row wrapper gray-bg page-heading">
+			<div class="content-heading">
 				<div class="col-lg-12">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
-						<li>
+						<li class="breadcrumb-item">
 							<a href="<?php echo oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
 						</li>
-						<li>
+						<li class="breadcrumb-item">
 							<a href="<?php echo oos_href_link_admin($aContents['coupon_admin'], 'selected_box=gv_admin') . '">' . BOX_HEADING_GV_ADMIN . '</a>'; ?>
 						</li>
-						<li class="active">
+						<li class="breadcrumb-item active">
 							<strong><?php echo HEADING_TITLE; ?></strong>
 						</li>
 					</ol>
@@ -375,17 +375,17 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     }
 ?>
 			<!-- Breadcrumbs //-->
-			<div class="row wrapper gray-bg page-heading">
+			<div class="content-heading">
 				<div class="col-lg-12">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
-						<li>
+						<li class="breadcrumb-item">
 							<a href="<?php echo oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
 						</li>
-						<li>
+						<li class="breadcrumb-item">
 							<a href="<?php echo oos_href_link_admin($aContents['coupon_admin'], 'selected_box=gv_admin') . '">' . BOX_HEADING_GV_ADMIN . '</a>'; ?>
 						</li>
-						<li class="active">
+						<li class="breadcrumb-item active">
 							<strong><?php echo HEADING_TITLE; ?></strong>
 						</li>
 					</ol>
@@ -472,17 +472,17 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     $coupon_name = $coupon_name_result->fields;
 ?>
 			<!-- Breadcrumbs //-->
-			<div class="row wrapper gray-bg page-heading">
+			<div class="content-heading">
 				<div class="col-lg-12">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
-						<li>
+						<li class="breadcrumb-item">
 							<a href="<?php echo oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
 						</li>
-						<li>
+						<li class="breadcrumb-item">
 							<a href="<?php echo oos_href_link_admin($aContents['coupon_admin'], 'selected_box=gv_admin') . '">' . BOX_HEADING_GV_ADMIN . '</a>'; ?>
 						</li>
-						<li class="active">
+						<li class="breadcrumb-item active">
 							<strong><?php echo HEADING_TITLE; ?></strong>
 						</li>
 					</ol>
@@ -585,17 +585,17 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 ?>
 
 			<!-- Breadcrumbs //-->
-			<div class="row wrapper gray-bg page-heading">
+			<div class="content-heading">
 				<div class="col-lg-12">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
-						<li>
+						<li class="breadcrumb-item">
 							<a href="<?php echo oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
 						</li>
-						<li>
+						<li class="breadcrumb-item">
 							<a href="<?php echo oos_href_link_admin($aContents['coupon_admin'], 'selected_box=gv_admin') . '">' . BOX_HEADING_GV_ADMIN . '</a>'; ?>
 						</li>
-						<li class="active">
+						<li class="breadcrumb-item active">
 							<strong><?php echo HEADING_TITLE; ?></strong>
 						</li>
 					</ol>
@@ -777,17 +777,17 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 ?>
 
 			<!-- Breadcrumbs //-->
-			<div class="row wrapper gray-bg page-heading">
+			<div class="content-heading">
 				<div class="col-lg-12">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
-						<li>
+						<li class="breadcrumb-item">
 							<a href="<?php echo oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
 						</li>
-						<li>
+						<li class="breadcrumb-item">
 							<a href="<?php echo oos_href_link_admin($aContents['coupon_admin'], 'selected_box=gv_admin') . '">' . BOX_HEADING_GV_ADMIN . '</a>'; ?>
 						</li>
-						<li class="active">
+						<li class="breadcrumb-item active">
 							<strong><?php echo HEADING_TITLE; ?></strong>
 						</li>
 					</ol>
@@ -909,17 +909,17 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
   default:
 ?>
 			<!-- Breadcrumbs //-->
-			<div class="row wrapper gray-bg page-heading">
+			<div class="content-heading">
 				<div class="col-lg-12">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
-						<li>
+						<li class="breadcrumb-item">
 							<a href="<?php echo oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
 						</li>
-						<li>
+						<li class="breadcrumb-item">
 							<a href="<?php echo oos_href_link_admin($aContents['coupon_admin'], 'selected_box=gv_admin') . '">' . BOX_HEADING_GV_ADMIN . '</a>'; ?>
 						</li>
-						<li class="active">
+						<li class="breadcrumb-item active">
 							<strong><?php echo HEADING_TITLE; ?></strong>
 						</li>
 					</ol>

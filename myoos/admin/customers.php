@@ -437,17 +437,17 @@ function check_form() {
                                  array('id' => '0', 'text' => ENTRY_VAT_ID_STATUS_NO));
 ?>
 			<!-- Breadcrumbs //-->
-			<div class="row wrapper gray-bg page-heading">
+			<div class="content-heading">
 				<div class="col-lg-12">
 					<h2><?php echo HEADING_TITLE . ' : ' . $cInfo->customers_firstname . ' ' . $cInfo->customers_lastname ; ?></h2>
 					<ol class="breadcrumb">
-						<li>
+						<li class="breadcrumb-item">
 							<a href="<?php echo oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
 						</li>
-						<li>
+						<li class="breadcrumb-item">
 							<a href="<?php echo oos_href_link_admin($aContents['customers'], 'selected_box=customers') . '">' . BOX_HEADING_CUSTOMERS . '</a>'; ?>
 						</li>
-						<li class="active">
+						<li class="breadcrumb-item active">
 							<strong><?php echo HEADING_TITLE . ' : ' . $cInfo->customers_firstname . ' ' . $cInfo->customers_lastname ; ?></strong>
 						</li>
 					</ol>
@@ -644,17 +644,17 @@ function check_form() {
   } else {
 ?>
 			<!-- Breadcrumbs //-->
-			<div class="row wrapper gray-bg page-heading">
+			<div class="content-heading">
 				<div class="col-lg-12">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
-						<li>
+						<li class="breadcrumb-item">
 							<a href="<?php echo oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
 						</li>
-						<li>
+						<li class="breadcrumb-item">
 							<a href="<?php echo oos_href_link_admin($aContents['customers'], 'selected_box=customers') . '">' . BOX_HEADING_CUSTOMERS . '</a>'; ?>
 						</li>
-						<li class="active">
+						<li class="breadcrumb-item active">
 							<strong><?php echo HEADING_TITLE; ?></strong>
 						</li>
 					</ol>

@@ -62,17 +62,17 @@
 		<div class="content-wrapper">
 			
 			<!-- Breadcrumbs //-->
-			<div class="row wrapper gray-bg page-heading">
+			<div class="content-heading">
 				<div class="col-lg-12">
 					<h2><?php echo $sHeaderTitle; ?></h2>
 					<ol class="breadcrumb">
-						<li>
+						<li class="breadcrumb-item">
 							<a href="<?php echo oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
 						</li>
-						<li>
+						<li class="breadcrumb-item">
 							<a href="<?php echo oos_href_link_admin($aContents['configuration'], 'selected_box=configuration&gID=1') . '">' . BOX_HEADING_CONFIGURATION . '</a>'; ?>
 						</li>
-						<li class="active">
+						<li class="breadcrumb-item active">
 							<strong><?php echo $sHeaderTitle; ?></strong>
 						</li>
 					</ol>

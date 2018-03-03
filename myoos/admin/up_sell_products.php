@@ -149,17 +149,17 @@ td.style.backgroundColor="DFE4F4";
 		<div class="content-wrapper">
 
 			<!-- Breadcrumbs //-->
-			<div class="row wrapper gray-bg page-heading">
+			<div class="content-heading">
 				<div class="col-lg-12">
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
-						<li>
+						<li class="breadcrumb-item">
 							<a href="<?php echo oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
 						</li>
-						<li>
+						<li class="breadcrumb-item">
 							<a href="<?php echo oos_href_link_admin(oos_selected_file('catalog.php'), 'selected_box=catalog') . '">' . BOX_HEADING_CATALOG . '</a>'; ?>
 						</li>
-						<li class="active">
+						<li class="breadcrumb-item active">
 							<strong><?php echo HEADING_TITLE; ?></strong>
 						</li>
 					</ol>
