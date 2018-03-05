@@ -137,7 +137,7 @@ function oos_image($src, $alt = '', $width = '', $height = '', $params = '') {
  * @return string
  */
 function oos_button($id, $title = '', $params = '') {
-	return '<button class="btn btn-sm btn-primary margin-bottom-20"><strong>' . $title . '</strong></button>';
+	return '<button class="btn btn-sm btn-primary mb-20"><strong>' . $title . '</strong></button>';
 }
 
 
@@ -149,7 +149,7 @@ function oos_button($id, $title = '', $params = '') {
  * @return string
  */
 function oos_submit_button($id, $title = '', $params = '') {
-	return '<button class="btn btn-sm btn-primary margin-bottom-20" type="submit"><strong>' . $title . '</strong></button>';
+	return '<button class="btn btn-sm btn-primary mb-20" type="submit"><strong>' . $title . '</strong></button>';
 }
 
 

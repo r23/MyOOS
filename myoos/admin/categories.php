@@ -819,7 +819,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 			echo oos_draw_hidden_field('add_image', '1');
 			echo oos_draw_hidden_field('tab', $nImageTab);
 ?>
-<button class="btn btn-sm btn-primary margin-bottom-100" type="submit"><strong><?php echo BUTTON_UPLOAD_IMAGES; ?></strong></button>
+<button class="btn btn-sm btn-primary mb-100" type="submit"><strong><?php echo BUTTON_UPLOAD_IMAGES; ?></strong></button>
 								</div>
 <?php 
 		}
@@ -833,7 +833,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 			
 			<div class="row">
 				<div class="col-lg-12">
-					<button class="btn btn-sm btn-primary margin-bottom-20 pull-right" type="submit"><strong><?php echo IMAGE_SAVE; ?></strong></button>
+					<button class="btn btn-sm btn-primary mb-20 pull-right" type="submit"><strong><?php echo IMAGE_SAVE; ?></strong></button>
 				</div>
 			</div>			
 			
