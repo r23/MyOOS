@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Yoast SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-03-06 22:42:51+0000\n"
+"PO-Revision-Date: 2018-03-07 17:53:14+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -40,6 +40,30 @@ msgstr "Medien & Anhang URLs"
 msgid "Remove the categories prefix"
 msgstr "Entferne das Präfix der Kategorien"
 
+#: admin/views/tabs/social/facebook.php:49
+msgid "Help on copying the home meta description"
+msgstr "Hilfe beim Kopieren der Meta-Beschreibung der Startseite"
+
+#: admin/views/tabs/social/accounts.php:18
+msgid "Learn more about your social profiles settings"
+msgstr "Erfahre mehr über deine Profileinstellungen für soziale Medien"
+
+#: admin/views/tabs/metas/rss.php:36
+msgid "Learn more about the available variables"
+msgstr "Erfahre mehr über die verfügbaren Variablen"
+
+#: admin/views/tabs/metas/media.php:19
+msgid "When you upload media (an image or video for example) to WordPress, it doesn't just save the media, it creates an attachment URL for it. These attachment pages are quite empty: they contain the media item and maybe a title if you entered one. Because of that, if you never use these attachment URLs, it's better to disable them, and redirect them to the media item itself."
+msgstr "Wenn du Medien (zum Beispiel ein Bild oder Video) in WordPress hochlädst, speichert es nicht nur das Medium ab, es erzeugt auch eine Anhangs-URL dafür. Diese Anhangs-Seiten sind ziemlich leer: sie enthalten das Medien-Element und, falls du einen eingegeben hast, den Titel. Wenn du diese Anhangs-Seiten nicht verwendest, ist es besser, sie zu deaktivieren und direkt zur Mediendatei zu verweisen."
+
+#: admin/views/user-profile.php:28
+msgid "Do not allow search engines to show %s in search results."
+msgstr "Suchmaschinen verbieten, %s in Suchergebnissen anzuzeigen."
+
+#: admin/views/tabs/metas/media.php:34
+msgid "Redirect attachment URLs to the attachment itself?"
+msgstr "Anhangs-URLs auf die Anhangs-Datei weiterleiten?"
+
 #: admin/views/tabs/metas/general/knowledge-graph.php:21
 msgid "Knowledge Graph"
 msgstr "Wissensdatenbank"
@@ -51,6 +75,19 @@ msgstr "Erfahre mehr über die Homepage-Einstellung"
 #: admin/views/tabs/metas/media.php:18
 msgid "Learn more about the Media and attachment URLs setting"
 msgstr "Erfahre mehr über die Einstellung für Medien und Anhangs-URLs"
+
+#: admin/views/tabs/metas/general/title-separator.php:10
+#: admin/views/tabs/social/facebook.php:31
+msgid "Learn more about the title separator setting"
+msgstr "Erfahre mehr über die Einstellung zum Titel-Trennzeichen"
+
+#: admin/views/tabs/metas/archives.php:127
+msgid "Learn more about the special pages setting"
+msgstr "Erfahre mehr über die Einstellung für besondere Seiten"
+
+#: admin/views/tabs/metas/general/knowledge-graph.php:10
+msgid "Learn more about the knowledge graph setting"
+msgstr "Erfahre mehr über die Einstellungen zum Knowledge Graph"
 
 #: admin/views/tabs/dashboard/webmaster-tools.php:49
 msgid "Google verification code"
@@ -68,6 +105,21 @@ msgstr "Bing Verifizierungscode"
 msgid "Learn more about the archives setting"
 msgstr "Erfahre mehr über die Archiv-Einstellungen"
 
+#. translators: 1: link open tag; 2: link close tag.
+#: admin/views/tabs/dashboard/webmaster-tools.php:43
+msgid "Get your Bing verification code in %1$sBing Webmaster Tools%2$s."
+msgstr "Holen dir deinen Bing-Verifizierungscode in den %1$sBing Webmaster Tools%2$s."
+
+#. translators: 1: link open tag; 2: link close tag.
+#: admin/views/tabs/dashboard/webmaster-tools.php:53
+msgid "Get your Google verification code in %1$sGoogle Search Console%2$s."
+msgstr "Holen dir deinen Google-Verifizierungscode in den %1$sGoogle Search Console%2$s."
+
+#. translators: 1: link open tag; 2: link close tag.
+#: admin/views/tabs/dashboard/webmaster-tools.php:63
+msgid "Get your Yandex verification code in %1$sYandex Webmaster Tools%2$s."
+msgstr "Holen dir deinen Yandex-Verifizierungscode in den n %1$sYandex Webmaster Tools%2$s."
+
 #: admin/views/tabs/dashboard/features.php:144
 msgid "On"
 msgstr "An"
@@ -76,6 +128,11 @@ msgstr "An"
 #: admin/views/tabs/dashboard/features.php:145
 msgid "Off"
 msgstr "Aus"
+
+#. translators: %s expands to a feature's name
+#: admin/views/tabs/dashboard/features.php:137
+msgid "Help on: %s"
+msgstr "Hilfe bei: %s"
 
 #: admin/views/tabs/dashboard/features.php:18
 msgid "See the XML sitemap."
@@ -88,6 +145,15 @@ msgstr "Sicherheit: keine erweiterten Einstellungen für Autoren"
 #: admin/views/tabs/dashboard/features.php:58
 msgid "Read why XML Sitemaps are important for your site."
 msgstr "Lese, warum XML-Sitemaps für deine Website wichtig sind."
+
+#: admin/views/class-view-utils.php:47
+msgid "Help on this search results setting"
+msgstr "Hilfe zu dieser Suchergebnis-Einstellung"
+
+#. translators: %1$s expands to Yoast SEO
+#: admin/views/tabs/dashboard/dashboard.php:14
+msgid "See who contributed to %1$s."
+msgstr "Sieh, wer zu %1$s beigetragen hat."
 
 #: admin/menu/class-admin-menu.php:118 inc/wpseo-non-ajax-functions.php:276
 msgid "Search Appearance"
@@ -110,6 +176,30 @@ msgstr "Medien"
 #: admin/pages/metas.php:19
 msgid "Content Types"
 msgstr "Inhaltstypen"
+
+#: admin/notifiers/class-configuration-notifier.php:98
+msgid "Check SEO configuration"
+msgstr "SEO-Konfiguration überprüfen"
+
+#. translators: %1$s expands to the post type name.
+#: admin/metabox/class-metabox.php:91
+msgid "Should search engines follow links on this %1$s?"
+msgstr "Sollen Suchmaschinen Links auf diese %1$s folgen?"
+
+#: admin/config-ui/fields/class-field-post-type-visibility.php:17
+msgid ""
+"Please specify what content types you would like to appear in search engines.\n"
+" If you do not know the differences between these, it's best to choose the\n"
+" default settings."
+msgstr ""
+"Bitte bestimme, welche Inhaltstypen in Suchmaschinen erscheinen sollen.\n"
+"Wenn du die Unterschiede nicht kennst, empfiehlt es sich, die Standardeinstellungen zu wählen."
+
+#. Translators: %1$s expands to the name of the post type. The options given to
+#. the user are "visible" and "hidden"
+#: admin/config-ui/fields/class-field-choice-post-type.php:26
+msgid "Search engines should show \"%1$s\" in search results:"
+msgstr "Suchmaschinen sollten \"%1$s\" in Suchergebnissen anzeigen:"
 
 #: admin/views/tabs/tool/import-seo.php:38
 msgid "Import from Ultimate SEO"
@@ -485,6 +575,11 @@ msgstr "Zum Yoast SEO für WordPress Training anmelden »"
 #: admin/filters/class-cornerstone-filter.php:63
 msgid "Mark the most important %1$s as 'cornerstone content' to improve your site structure. %2$sLearn more about cornerstone content%3$s."
 msgstr "Markiere die wichtigsten %1$s als 'cornerstone content', um die Struktur deiner Website zu verbessern. %2$sLerne mehr über cornerstone content%3$s."
+
+#. translators: %1$s expands to Yoast SEO.
+#: admin/pages/metas.php:55
+msgid "The search appearance settings for %1$s are made up of variables that are replaced by specific values from the page when the page is displayed. The table below contains a list of the available variables."
+msgstr "Die \"Darstellung in der Suche\"-Einstellungen für %1$s bestehen aus Variablen, die bei der Anzeige der Seite durch bestimmte Werte von der Seite ersetzt werden. Die folgende Tabelle enthält eine Liste der verfügbaren Variablen."
 
 #: admin/class-help-center.php:97
 msgid "Want to be a Yoast SEO Expert?"
