@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Yoast SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-03-06 11:04:35+0000\n"
+"PO-Revision-Date: 2018-03-06 22:42:51+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -573,6 +573,17 @@ msgstr "Etwas anderes"
 #: admin/config-ui/fields/class-field-site-type.php:18
 msgid "What does the site %1$s represent?"
 msgstr "Was wird durch die Website %1$s repräsentiert?"
+
+#. translators: %1$s is the plugin name, %2$s is a link opening tag, %3$s is a
+#. link closing tag.
+#: admin/config-ui/fields/class-field-social-profiles-intro.php:19
+msgid ""
+"%1$s can tell search engines about your social media profiles.\n"
+" These will be used in Google's Knowledge Graph. There are additional\n"
+" sharing options in the %1$s Social settings. %2$sRead more%3$s about these options."
+msgstr ""
+"%1$s kann Suchmaschinen Informationen über deine Social Media Profile liefern.\n"
+"Diese Informationen werden in dem Google Knowledge Graphs verwendet. Es gibt zusätzliche Optionen für das Teilen in den Social-Einstellungen. %2$sErfahre mehr%3$s über diese Optionen."
 
 #: admin/config-ui/fields/class-field-multiple-authors.php:18
 msgid ""
@@ -2787,7 +2798,7 @@ msgstr "Die Filter-Erweiterung scheint nicht verfügbar zu sein. Bitte deinen Ho
 msgid "The first true all-in-one SEO solution for WordPress, including on-page content analysis, XML sitemaps and much more."
 msgstr "Die erste echte All-in-One-SEO-Lösung für WordPress, einschließlich On-Page Inhaltsanalyse, XML-Sitemaps und vielem mehr."
 
-#. #-#-#-#-#  wordpress-seo-code.pot (Yoast SEO 7.0)  #-#-#-#-#
+#. #-#-#-#-#  wordpress-seo-code.pot (Yoast SEO 7.0.1)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/capabilities/class-capability-manager-integration.php:66
 msgid "Yoast SEO"
@@ -3580,6 +3591,10 @@ msgstr "Du hast keine %s Datei, erstelle hier eine:"
 msgid "Content type archive to show in breadcrumbs for taxonomies"
 msgstr "Das Inhaltstyp-Archiv, das in Breadcrumbs für Taxonomien angezeigt wird"
 
+#: admin/views/tabs/metas/breadcrumbs.php:51
+msgid "Taxonomy to show in breadcrumbs for content types"
+msgstr "Taxonomie, die in Breadcrumbs für Inhaltstypen angezeigt wird"
+
 #: admin/google_search_console/class-gsc-category-filters.php:121
 msgid "Request timed out or site is blocking Google."
 msgstr "Entweder wurde die Zeit der Anforderung überschritten oder die Website blockiert Google."
@@ -4030,6 +4045,12 @@ msgstr "Du kannst Titel und Beschreibung der Startseite bestimmen, durch %1$sBea
 msgid "author archives"
 msgstr "Autor-Archive"
 
+#. translators: %1$s opens the link to the Yoast.com article about Google's
+#. Knowledge Graph, %2$s closes the link,
+#: admin/views/tabs/metas/general/knowledge-graph.php:13
+msgid "This data is shown as metadata in your site. It is intended to appear in %1$sGoogle's Knowledge Graph%2$s. You can be either a company, or a person."
+msgstr "Diese Daten werden als Metadaten auf deiner Website angezeigt. Sie sollen in %1$sGoogle's Knowledge Graph%2$s erscheinen. Du kannst ein Unternehmen oder eine Person sein."
+
 #: languages/yoast-seo-js.php:282
 msgid "The focus keyword does not appear in the URL for this page. If you decide to rename the URL be sure to check the old URL 301 redirects to the new one!"
 msgstr "Das Fokus-Keyword ist nicht in der URL dieser Seite enthalten. Wenn du dich entschließt, diese Seite umzubenennen, richte bitte einen 301-Redirect von der alten zu der neuen URL ein. "
@@ -4458,6 +4479,12 @@ msgstr "Auf %1$s erweitern &raquo;"
 #: admin/class-social-facebook-form.php:111
 msgid "If you don't know where to find the needed ID, see %1$sthis knowledge base article%2$s."
 msgstr "Falls du nicht weißt, wo du die erforderliche ID findest, beachte %1$sdiesen Wissensdatenbank Artikel%2$s."
+
+#. translators: %1$s expands to Yoast SEO, %2$s: 'Google XML Sitemaps' plugin
+#. name of possibly conflicting plugin with regard to the creation of sitemaps.
+#: admin/class-plugin-conflict.php:148
+msgid "Both %1$s and %2$s can create XML sitemaps. Having two XML sitemaps is not beneficial for search engines and might slow down your site."
+msgstr "Sowohl %1$s als auch %2$s erstellen XML-Sitemaps. Zwei Sitemaps haben jedoch keinen Vorteil für Suchmaschinen und könnten deine Website sogar verlangsamen."
 
 #: languages/yoast-components.php:17
 msgid "Previous"
