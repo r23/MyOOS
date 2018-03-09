@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Limit Login Attempts - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-12-29 00:57:01+0000\n"
+"PO-Revision-Date: 2018-02-27 20:22:48+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -109,7 +109,7 @@ msgstr "Sperrung"
 
 #: limit-login-attempts.php:1036
 msgid "Options"
-msgstr "Einstellungen"
+msgstr "Optionen"
 
 #: limit-login-attempts.php:1030
 msgid "%d IP is currently blocked from trying to log in"

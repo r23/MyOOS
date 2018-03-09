@@ -542,7 +542,7 @@ msgstr "Deine letzten Entwürfe"
 msgid "Your PHP code changes were rolled back due to an error on line %1$s of file %2$s. Please fix and try saving again."
 msgstr "Deine PHP-Code-Änderungen wurden aufgrund eines Fehlers in Zeile %1$s der Datei %2$s zurückgesetzt. Bitte beheben und versuchen, erneut zu speichern."
 
-#: wp-admin/includes/class-wp-users-list-table.php:492
+#: wp-admin/includes/class-wp-users-list-table.php:496
 msgctxt "name"
 msgid "Unknown"
 msgstr "Unbekannt"
@@ -2088,7 +2088,7 @@ msgstr "Beim Aktualisieren von %1$s ist ein Fehler aufgetreten: %2$s"
 msgid "No role"
 msgstr "Keine Rolle"
 
-#: wp-admin/includes/class-wp-users-list-table.php:566
+#: wp-admin/includes/class-wp-users-list-table.php:570
 msgctxt "no user roles"
 msgid "None"
 msgstr "Keine"
@@ -2396,7 +2396,7 @@ msgid_plural "Your theme supports %s menus. Select which menu appears in each lo
 msgstr[0] "Dein Theme unterstützt %s Menü. Wähle aus, welches Menü an welcher Position genutzt werden soll."
 msgstr[1] "Dein Theme unterstützt %s Menüs. Wähle aus, welches Menü an welcher Position genutzt werden soll."
 
-#: wp-admin/includes/class-wp-users-list-table.php:505
+#: wp-admin/includes/class-wp-users-list-table.php:509
 msgid "%s post by this author"
 msgid_plural "%s posts by this author"
 msgstr[0] "%s Beitrag von diesem Autor"
