@@ -21,8 +21,6 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-// require  validation functions (right now only email address)
-require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/contact_us.php'; 
   
 $bError = FALSE;

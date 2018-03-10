@@ -257,9 +257,6 @@ function oos_random_select($query, $limit = '') {
 
     $sCustomersName = $result->fields['customers_firstname'] . ' ' . $result->fields['customers_lastname'];
 
-    // Close result set
-    $result->Close();
-
     return $sCustomersName;
   }
 
@@ -589,15 +586,15 @@ function oos_random_select($query, $limit = '') {
   }
 
 
- /**
-  * Returns the zone (State/Province) name
-  *
-  * @param $country_id
-  * @param $zone_id
-  * @param $default_zone
-  * @return string
-  */
-  function oos_get_zone_name($country_id, $zone_id, $default_zone) {
+/**
+ * Returns the zone (State/Province) name
+ *
+ * @param $country_id
+ * @param $zone_id
+ * @param $default_zone
+ * @return string
+*/
+function oos_get_zone_name($country_id, $zone_id, $default_zone) {
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -610,39 +607,39 @@ function oos_random_select($query, $limit = '') {
                     zone_id = '" . intval($zone_id) . "'";
     $zone = $dbconn->Execute($query);
     if ($zone->RecordCount() > 0) {
-      return $zone->fields['zone_name'];
+		return $zone->fields['zone_name'];
     } else {
-      return $default_zone;
+		return $default_zone;
     }
-  }
+}
 
 
- /**
-  * Returns the tax rate for a zone / class
-  *
-  * @param $class_id
-  * @param $country_id
-  * @param $zone_id
-  */
-  function oos_get_tax_rate($class_id, $country_id = -1, $zone_id = -1) {
+/**
+ * Returns the tax rate for a zone / class
+ *
+ * @param $class_id
+ * @param $country_id
+ * @param $zone_id
+ */
+function oos_get_tax_rate($class_id, $country_id = -1, $zone_id = -1) {
 
     if (isset($_SESSION['customers_vat_id_status']) && ($_SESSION['customers_vat_id_status'] == 1)) {
-      return 0;
+		return 0;
     }
 
     static $tax_rates = array();
 
-    if ( ($country_id == -1) && ($zone_id == -1) ) {
-      if (!isset($_SESSION['customer_id'])) {
-        $country_id = STORE_COUNTRY;
-        $zone_id = STORE_ZONE;
-      } else {
-        $country_id = $_SESSION['customer_country_id'];
-        $zone_id = $_SESSION['customer_zone_id'];
-      }
-    }
+	if ( ($country_id == -1) && ($zone_id == -1) ) {
+		if (!isset($_SESSION['customer_id'])) {
+			$country_id = STORE_COUNTRY;
+			$zone_id = STORE_ZONE;
+		} else {
+			$country_id = $_SESSION['customer_country_id'];
+			$zone_id = $_SESSION['customer_zone_id'];
+		}
+	}
 
-    if (!isset($tax_rates[$class_id][$country_id][$zone_id]['rate'])) {
+	if (!isset($tax_rates[$class_id][$country_id][$zone_id]['rate'])) {
 	    // Get database information
 		$dbconn =& oosDBGetConn();
 		$oostable =& oosDBGetTables();
@@ -675,25 +672,8 @@ function oos_random_select($query, $limit = '') {
 		} else {
 			$tax_rates[$class_id][$country_id][$zone_id]['rate'] = 0;
 		}
-    }	
-/*	
-	
-    if ($tax_result->RecordCount() > 0) {
-      $tax_multiplier = 0;
-      while ($tax = $tax_result->fields) {
-        $tax_multiplier += $tax['tax_rate'];
-        // Move that ADOdb pointer!
-        $tax_result->MoveNext();
-      }
-      // Close result set
-      $tax_result->Close();
-
-      return $tax_multiplier;
-    } else {
-      return 0;
     }
-  }
-*/
+	
     return $tax_rates[$class_id][$country_id][$zone_id]['rate'];
 }
 
@@ -807,7 +787,7 @@ function oos_round($number, $precision) {
 }
 
 
-  function oos_get_categories($aCategories = '', $parent_id = '0', $indent = '') {
+function oos_get_categories($aCategories = '', $parent_id = '0', $indent = '') {
 
     $parent_id = oos_db_prepare_input($parent_id);
     $nGroupID = isset($_SESSION['user']) ? $_SESSION['user']->group['id']+0 : DEFAULT_CUSTOMERS_STATUS_ID;
@@ -834,19 +814,16 @@ function oos_round($number, $precision) {
     $result = $dbconn->Execute($query);
 
     while ($categories = $result->fields) {
-      $aCategories[] = array('id' => $categories['categories_id'],
+		$aCategories[] = array('id' => $categories['categories_id'],
                              'text' => $indent . $categories['categories_name']);
 
-      if ($categories['categories_id'] != $parent_id) {
-        $aCategories = oos_get_categories($aCategories, $categories['categories_id'], $indent . '&nbsp;&nbsp;');
-      }
+		if ($categories['categories_id'] != $parent_id) {
+			$aCategories = oos_get_categories($aCategories, $categories['categories_id'], $indent . '&nbsp;&nbsp;');
+		}
 
-      // Move that ADOdb pointer!
-      $result->MoveNext();
+		// Move that ADOdb pointer!
+		$result->MoveNext();
     }
-
-    // Close result set
-    $result->Close();
 
     return $aCategories;
   }
@@ -858,7 +835,7 @@ function oos_round($number, $precision) {
   * @param $categories
   * @param $categories_id
   */
-  function oos_get_parent_categories(&$categories, $categories_id) {
+function oos_get_parent_categories(&$categories, $categories_id) {
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -871,18 +848,18 @@ function oos_round($number, $precision) {
     $result = $dbconn->Execute($query);
 
     while ($parent_categories = $result->fields) {
-      if ($parent_categories['parent_id'] == 0) return TRUE;
-      $categories[count($categories)] = $parent_categories['parent_id'];
-      if ($parent_categories['parent_id'] != $categories_id) {
-        oos_get_parent_categories($categories, $parent_categories['parent_id']);
-      }
+		if ($parent_categories['parent_id'] == 0) return TRUE;
+		
+		$categories[count($categories)] = $parent_categories['parent_id'];
+		if ($parent_categories['parent_id'] != $categories_id) {
+			oos_get_parent_categories($categories, $parent_categories['parent_id']);
+		}
 
-      // Move that ADOdb pointer!
-      $result->MoveNext();
+		// Move that ADOdb pointer!
+		$result->MoveNext();
     }
-    // Close result set
-    $result->Close();
-  }
+
+}
 
 
  /**

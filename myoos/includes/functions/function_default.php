@@ -35,64 +35,45 @@ function oos_get_path($current_category_id = '', $parent_id = '', $gparent_id = 
 	$oostable =& oosDBGetTables();
 
 	if (!empty($current_category_id)) {
-      $cp_size = count($aCategoryPath);
-      if ($cp_size == 0) {
-        $sCategoryNew = $current_category_id;
-      } else {
-        $sCategoryNew = '';
-        if (oos_empty($parent_id) || oos_empty($gparent_id) ) {
-          $categoriestable = $oostable['categories'];
-          $query = "SELECT c.parent_id, p.parent_id as gparent_id
+		$cp_size = count($aCategoryPath);
+		if ($cp_size == 0) {
+			$sCategoryNew = $current_category_id;
+		} else {
+			$sCategoryNew = '';
+			if (oos_empty($parent_id) || oos_empty($gparent_id) ) {
+				$categoriestable = $oostable['categories'];
+				$query = "SELECT c.parent_id, p.parent_id as gparent_id
                       FROM $categoriestable AS c,
                            $categoriestable AS p
                      WHERE c.categories_id = '" . intval($aCategoryPath[($cp_size-1)]) . "'
                        AND p.categories_id = '" . intval($current_category_id) . "'";
-          $parent_categories = $dbconn->GetRow($query);
+				$parent_categories = $dbconn->GetRow($query);
 
-          $gparent_id = $parent_categories['gparent_id'];
-          $parent_id = $parent_categories['parent_id'];
-        }
-        if ($parent_id == $gparent_id) {
-          for ($i=0; $i < ($cp_size - 1); $i++) {
-            $sCategoryNew .= '_' . $aCategoryPath[$i];
-          }
-        } else {
-          for ($i=0; $i < $cp_size; $i++) {
-            $sCategoryNew .= '_' . $aCategoryPath[$i];
-          }
-        }
-        $sCategoryNew .= '_' . $current_category_id;
+				$gparent_id = $parent_categories['gparent_id'];
+				$parent_id = $parent_categories['parent_id'];
+			}
+			if ($parent_id == $gparent_id) {
+				for ($i=0; $i < ($cp_size - 1); $i++) {
+					$sCategoryNew .= '_' . $aCategoryPath[$i];
+				}
+			} else {
+				for ($i=0; $i < $cp_size; $i++) {
+					$sCategoryNew .= '_' . $aCategoryPath[$i];
+				}
+			}
+			$sCategoryNew .= '_' . $current_category_id;
 
-        if (substr($sCategoryNew, 0, 1) == '_') {
-          $sCategoryNew = substr($sCategoryNew, 1);
-        }
-      }
-    } else {
-      $sCategoryNew = implode('_', $aCategoryPath);
-    }
+			if (substr($sCategoryNew, 0, 1) == '_') {
+				$sCategoryNew = substr($sCategoryNew, 1);
+			}
+		}
+	} else {
+		$sCategoryNew = implode('_', $aCategoryPath);
+	}
 
     return $sCategoryNew;
-  }
+}
 
-
- /**
-  * Return  time-based greeting 
-  * Good morning, Good afternoon, Good evening
-  *
-  * @return string
-  */
-  function oos_time_based_greeting() {
-    global $aLang;
-
-    if(date('G') >= 12 && date('G') <= 18) {
-      $time_based_greeting = $aLang['good_afternoon'];
-    } elseif (date('a') == 'am') {
-      $time_based_greeting = $aLang['good_morning'];
-    } else {
-      $time_based_greeting = $aLang['good_evening'];
-    }
-    return $time_based_greeting;
- }
 
 
  /**
@@ -102,7 +83,7 @@ function oos_get_path($current_category_id = '', $parent_id = '', $gparent_id = 
   * @param $include_inactive
   * @return string
   */
-  function oos_total_products_in_category($category_id) {
+function oos_total_products_in_category($category_id) {
 
     $products_count = 0;
 
@@ -116,7 +97,7 @@ function oos_get_path($current_category_id = '', $parent_id = '', $gparent_id = 
     $products_count += $products->fields['total'];
 
     return $products_count;
-  }
+}
 
 
 

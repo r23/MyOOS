@@ -22,12 +22,8 @@
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
 // require  the password crypto functions
-require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_password.php';
-
-// require  validation functions (right now only email address)
-require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php';  
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_password.php'; 
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validate_vatid.php';
-
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/create_account.php';
 
 // start the session

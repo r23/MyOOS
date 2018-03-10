@@ -35,10 +35,7 @@ if (!isset($_SESSION['customer_id'])) {
 
 // require  the password crypto functions
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_password.php';
-// require  validation functions (right now only email address)
-require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validate_vatid.php';
-
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_edit.php';
 
 

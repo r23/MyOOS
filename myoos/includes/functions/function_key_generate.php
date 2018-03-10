@@ -34,11 +34,11 @@ function RandomPassword( $passwordLength ) {
 		$randomNumber = rand(1, 62);
 		// Select random character based on mapping.
 		if ($randomNumber < 11)
-			$newkey2 .= Chr($randomNumber + 48 - 1); // [ 1,10] => [0,9]
+			$newkey2 .= chr($randomNumber + 48 - 1); // [ 1,10] => [0,9]
 		else if ($randomNumber < 37)
-			$newkey2 .= Chr($randomNumber + 65 - 10); // [11,36] => [A,Z]
+			$newkey2 .= chr($randomNumber + 65 - 10); // [11,36] => [A,Z]
 		else
-			$newkey2 .= Chr($randomNumber + 97 - 36); // [37,62] => [a,z]
+			$newkey2 .= chr($randomNumber + 97 - 36); // [37,62] => [a,z]
     }
 	return $newkey2;
 }

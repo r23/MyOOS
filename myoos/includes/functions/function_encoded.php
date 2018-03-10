@@ -126,6 +126,34 @@
     // Replace international chars not detected by every locale
     $sStr = str_replace($aFrom, $aTo, $sStr);
 
+	$special_chars = array("?", 
+							"[", 
+							"]", 
+							"/", 
+							"\\", 
+							"=", 
+							"<", 
+							">", 
+							":", 
+							";", 
+							",", 
+							"'", 
+							"\"", 
+							"&", 
+							"$", 
+							"#", 
+							"*", 
+							"(", 
+							")", 
+							"|", 
+							"~", 
+							"`", 
+							"!", 
+							"{", 
+							"}", 
+							"%", 
+							"+", 
+							chr(0));
     //strip html tags from text
     $sStr = strip_tags($sStr);
 
@@ -135,8 +163,11 @@
     // Recover delimiters as spaces
     $sStr = str_replace("\x01", " ", $sStr);
 
-    // Remove excess separators
-    $sStr = trim($sStr, '_');
+	$sStr = preg_replace( "#\x{00a0}#siu", '', $sStr );
+	$sStr = str_replace( $special_chars, '', $sStr );
+	$sStr = str_replace( array( '%20', '+' ), '-', $sStr );
+	$sStr = preg_replace( '/[\r\n\t -]+/', '-', $sStr );
+	$sStr = trim( $sStr, '.-_' );
 
     return $sStr;
   }
