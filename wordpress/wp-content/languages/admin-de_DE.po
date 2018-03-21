@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 4.9.x - Development - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-02-18 10:57:23+0000\n"
+"PO-Revision-Date: 2018-03-18 12:08:30+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -92,7 +92,7 @@ msgstr "Solltest du dich dennoch dazu entscheiden, direkt zu editieren, empfehle
 #. translators: %s: Codex URL
 #: wp-admin/theme-editor.php:324
 msgid "You appear to be making direct edits to your theme in the WordPress dashboard. We recommend that you don&#8217;t! Editing your theme directly could break your site and your changes may be lost in future updates. If you need to tweak more than your theme&#8217;s CSS, you might want to try <a href=\"%s\">making a child theme</a>."
-msgstr "Du bist scheinbar gerade dabei, direkte Änderungen an deinem Theme im WordPress Dashboard vorzunehmen. Wir empfehlen dir, das nicht zu tun! Direkte Änderungen an Themes können Inkompatibilitäten verursachen, die dazu führen, dass deine Website nicht mehr funktioniert und deine Änderungen könnten bei zukünftigen Updates verloren gehen. Wenn du mehr als nur das CSS deines Themes anpassen möchtest, solltest du stattdessen die <a href=\"%s\">Erstellung eines Child-Themes (engl.)</a> in Erwägung ziehen."
+msgstr "Du bist scheinbar gerade dabei, direkte Änderungen an deinem Theme im WordPress-Dashboard vorzunehmen. Wir empfehlen dir, das nicht zu tun! Direkte Änderungen an Themes können Inkompatibilitäten verursachen, die dazu führen, dass deine Website nicht mehr funktioniert und deine Änderungen könnten bei zukünftigen Updates verloren gehen. Wenn du mehr als nur das CSS deines Themes anpassen möchtest, solltest du stattdessen die <a href=\"%s\">Erstellung eines Child-Themes (engl.)</a> in Erwägung ziehen."
 
 #: wp-admin/plugin-editor.php:302
 msgid "If you absolutely have to make direct edits to this plugin, use a file manager to create a copy with a new name and hang on to the original. That way, you can re-enable a functional version if something goes wrong."
@@ -100,7 +100,7 @@ msgstr "Falls du dieses Plugin tatsächlich direkt ändern musst, empfehlen wir 
 
 #: wp-admin/plugin-editor.php:301
 msgid "You appear to be making direct edits to your plugin in the WordPress dashboard. We recommend that you don&#8217;t! Editing plugins directly may introduce incompatibilities that break your site and your changes may be lost in future updates."
-msgstr "Du bist scheinbar gerade dabei, direkte Änderungen an deinem Plugin im WordPress Dashboard vorzunehmen. Wir empfehlen dir, das nicht zu tun! Direkte Änderungen an Plugins können Inkompatibilitäten verursachen, die dazu führen, dass deine Website nicht mehr funktioniert und deine Änderungen könnten bei zukünftigen Updates verloren gehen."
+msgstr "Du bist scheinbar gerade dabei, direkte Änderungen an deinem Plugin im WordPress-Dashboard vorzunehmen. Wir empfehlen dir, das nicht zu tun! Direkte Änderungen an Plugins können Inkompatibilitäten verursachen, die dazu führen, dass deine Website nicht mehr funktioniert und deine Änderungen könnten bei zukünftigen Updates verloren gehen."
 
 #. translators: 1: Codex URL, 2: Reading Settings URL
 #: wp-admin/options-writing.php:186
@@ -1057,10 +1057,6 @@ msgstr "Blog"
 msgid "Footer Widgets"
 msgstr "Footer-Widgets"
 
-#: wp-admin/includes/theme.php:266
-msgid "Grid Layout"
-msgstr "Grid Layout"
-
 #. translators: 1: Codex URL to release notes, 2: new WordPress version
 #: wp-admin/includes/update.php:257
 msgid "<a href=\"%1$s\">WordPress %2$s</a> is available! Please notify the site administrator."
@@ -1089,6 +1085,10 @@ msgstr "%s Plugins wurden erfolgreich aktualisiert."
 #: wp-admin/includes/update.php:652
 msgid "%s plugin successfully updated."
 msgstr "%s Plugin wurde erfolgreich aktualisiert."
+
+#: wp-admin/includes/theme.php:266
+msgid "Grid Layout"
+msgstr "Raster-Layout"
 
 #: wp-admin/includes/template.php:2102
 msgid "This will replace the current editor content with the last backup version. You can use undo and redo in the editor to get the old content back or to return to the restored version."
@@ -2547,7 +2547,7 @@ msgstr "<a href=\"https://codex.wordpress.org/Posts_Add_New_Screen\">Dokumentati
 
 #: wp-admin/update-core.php:585
 msgid "<a href=\"https://codex.wordpress.org/Dashboard_Updates_Screen\">Documentation on Updating WordPress</a>"
-msgstr "<a href=\"https://codex.wordpress.org/Dashboard_Updates_Screen\">Dokumentation zu WordPress Aktualisierungen (engl.)</a>"
+msgstr "<a href=\"https://codex.wordpress.org/Dashboard_Updates_Screen\">Dokumentation zu WordPress-Aktualisierungen (engl.)</a>"
 
 #: wp-admin/options-media.php:34
 msgid "<a href=\"https://codex.wordpress.org/Settings_Media_Screen\">Documentation on Media Settings</a>"
@@ -2931,7 +2931,7 @@ msgstr ""
 
 #. translators: Do not translate USERNAME, ADMIN_URL, EMAIL, SITENAME, SITEURL:
 #. those are placeholders.
-#: wp-admin/includes/misc.php:1161
+#: wp-admin/includes/misc.php:1163
 msgid ""
 "Howdy ###USERNAME###,\n"
 "\n"
@@ -4872,13 +4872,13 @@ msgstr "Du kannst ein Bild auswählen, welches im oberen Bereich deiner Website 
 msgid "Tags can be selectively converted to categories using the <a href=\"%s\">tag to category converter</a>."
 msgstr "Schlagwörter können selektiv mithilfe des <a href=\"%s\">Schlagwort-zu-Kategorie-Konverters</a> in Kategorien umgewandelt werden."
 
-#: wp-admin/edit-tags.php:227
-msgid "You can delete Link Categories in the Bulk Action pull-down, but that action does not delete the links within the category. Instead, it moves them to the default Link Category."
-msgstr "Du kannst die Linkkategorien über die Mehrfachauswahl löschen, aber dadurch werden nicht die Links in der Kategorie gelöscht, sondern in die Standard-Linkkategorie verschoben."
-
 #: wp-admin/edit-form-advanced.php:397
 msgid "Creating a Page is very similar to creating a Post, and the screens can be customized in the same way using drag and drop, the Screen Options tab, and expanding/collapsing boxes as you choose. This screen also has the distraction-free writing space, available in both the Visual and Text modes via the Fullscreen buttons. The Page editor mostly works the same as the Post editor, but there are some Page-specific features in the Page Attributes box."
 msgstr "Eine Seite zu erstellen, ist sehr ähnlich wie das Erstellen eines Beitrags und der Bildschirm kann genauso per Drag &#38; Drop, dem Tab &#8222;Ansicht anpassen&#8220; und durch Auf- und Zuklappen der Boxen individuell angepasst werden. Über den Vollbild-Button gelangst du in den ablenkungsfreien Schreibmodus, in dem du sowohl den visuellen als auch den Text-Editor verwenden kannst. Der Seiten-Editor funktioniert im Wesentlichen wie der Beitrags-Editor, aber in der Box Seiten-Attribute gibt es einige seitenspezifische Einstellungsmöglichkeiten."
+
+#: wp-admin/edit-tags.php:227
+msgid "You can delete Link Categories in the Bulk Action pull-down, but that action does not delete the links within the category. Instead, it moves them to the default Link Category."
+msgstr "Du kannst die Linkkategorien über die Auswahl Sammelaktionen löschen. Jedoch werden die Links dadurch nicht aus der Kategorie gelöscht, sondern in die Standard-Linkkategorie verschoben."
 
 #: wp-admin/custom-header.php:106
 msgid "You can set a custom image header for your site. Simply upload the image and crop it, and the new header will go live immediately. Alternatively, you can use an image that has already been uploaded to your Media Library by clicking the &#8220;Choose Image&#8221; button."
@@ -5314,7 +5314,7 @@ msgstr "Website anzeigen"
 msgid "Primary Site"
 msgstr "Primäre Website"
 
-#: wp-admin/includes/misc.php:1208
+#: wp-admin/includes/misc.php:1210
 msgid "[%s] New Admin Email Address"
 msgstr "[%s] Neue Admin-E-Mail-Adresse"
 
@@ -5681,10 +5681,6 @@ msgstr "Vergiss nicht, unten auf dieser Seite auf &#8222;Neuen Benutzer hinzufü
 msgid "This screen provides access to all of your posts. You can customize the display of this screen to suit your workflow."
 msgstr "Auf dieser Seite siehst du all deine Beiträge. Du kannst über &#8222;Ansicht anpassen&#8220; die Darstellung an deine Bedürfnisse anpassen."
 
-#: wp-admin/edit.php:222
-msgid "You can also edit or move multiple posts to the trash at once. Select the posts you want to act on using the checkboxes, then select the action you want to take from the Bulk Actions menu and click Apply."
-msgstr "Es können auch mehrere Beiträge auf einmal bearbeitet werden. Markiere dazu die gewünschten Beiträge, wähle im Auswahlmenü &#8222;Aktion wählen&#8220; die gewünschte Aktion und klicke anschließend auf den Button &#8222;Übernehmen&#8220;."
-
 #: wp-admin/upload.php:205
 msgid "Attaching Files"
 msgstr "Dateien verknüpfen"
@@ -5700,6 +5696,10 @@ msgstr "Autoren können ihre eigenen Beiträge veröffentlichen und verwalten, u
 #: wp-admin/tools.php:39
 msgid "If you want to convert your categories to tags (or vice versa), use the <a href=\"%s\">Categories and Tags Converter</a> available from the Import screen."
 msgstr "Wenn du deine Kategorien in Schlagwörter umwandeln willst (oder umgekehrt), benutze den <a href=\"%s\">Kategorie-in-Schlagwort-Konverter</a> der unter Werkzeuge &#8594; Daten importieren verfügbar ist."
+
+#: wp-admin/edit.php:222
+msgid "You can also edit or move multiple posts to the trash at once. Select the posts you want to act on using the checkboxes, then select the action you want to take from the Bulk Actions menu and click Apply."
+msgstr "Es können auch mehrere Beiträge auf einmal bearbeitet werden. Markiere dazu die gewünschten Beiträge, wähle im Auswahlmenü &#8222;Sammelaktion auswählen&#8220; die gewünschte Aktion und klicke anschließend auf den Button &#8222;Übernehmen&#8220;."
 
 #: wp-admin/options-permalink.php:182
 msgid "Common Settings"
@@ -5803,10 +5803,6 @@ msgstr ""
 "Bei Mauszeigerkontakt einer Datei in der Liste werden zusätzliche Optionen angezeigt: Bearbeiten, Unwiderruflich löschen und Anschauen.\n"
 "Beim Klick auf „Bearbeiten“ werden die Metadaten der Datei angezeigt und können auch bearbeitet werden. Ein Klick auf „Unwiderruflich löschen“, löscht eine Datei aus der Mediathek und allen Beiträgen, in der sie verwendet wurde. „Anschauen“ öffnet eine Seite, auf welcher die Datei angezeigt wird."
 
-#: wp-admin/edit-comments.php:169
-msgid "You can manage comments made on your site similar to the way you manage posts and other content. This screen is customizable in the same ways as other management screens, and you can act on comments using the on-hover action links or the Bulk Actions."
-msgstr "Du kannst Kommentare auf die gleiche Art und Weise verwalten, wie du es auch mit Beiträgen tust. Diese Ansicht ist genauso anpassbar wie die anderen und Kommentare lassen sich bei Mauszeigerkontakt durch Links zum Genehmigen, Antworten, Bearbeiten, etc. verwalten; genauso wie durch die diversen Aktionen für eine Massenbearbeitung."
-
 #: wp-admin/edit-comments.php:176
 msgid "In the <strong>Author</strong> column, in addition to the author&#8217;s name, email address, and blog URL, the commenter&#8217;s IP address is shown. Clicking on this link will show you all the comments made from this IP address."
 msgstr "In der Spalte <strong>Autor</strong> werden Daten wie der Name, E-Mail-Adresse, Website-URL und IP-Adresse des Kommentierenden angezeigt. Wenn du auf die IP-Adresse klickst, siehst du alle Kommentare, die von dieser IP-Adresse abgegeben wurden."
@@ -5814,6 +5810,10 @@ msgstr "In der Spalte <strong>Autor</strong> werden Daten wie der Name, E-Mail-A
 #: wp-admin/edit-comments.php:180
 msgid "Many people take advantage of keyboard shortcuts to moderate their comments more quickly. Use the link to the side to learn more."
 msgstr "Um Kommentare schneller zu moderieren kannst du, wie viele andere Benutzer auch, Tastaturkürzel verwenden. Nutze den Link auf der Seite zur Dokumentation, um die entsprechenden Tastaturkürzel nachzuschlagen."
+
+#: wp-admin/edit-comments.php:169
+msgid "You can manage comments made on your site similar to the way you manage posts and other content. This screen is customizable in the same ways as other management screens, and you can act on comments using the on-hover action links or the Bulk Actions."
+msgstr "Du kannst Kommentare auf die gleiche Art und Weise verwalten, wie du es auch mit Beiträgen tust. Diese Ansicht ist genauso anpassbar wie die anderen Bereiche und Kommentare lassen sich bei Mauszeigerkontakt durch Links zum Genehmigen, Antworten, Bearbeiten, etc. verwalten; oder mit Hilfe der diversen Möglichkeiten der Sammelaktionen."
 
 #: wp-admin/edit.php:244
 msgid "You can also perform the same types of actions, including narrowing the list by using the filters, acting on a page using the action links that appear when you hover over a row, or using the Bulk Actions menu to edit the metadata for multiple pages at once."
@@ -6317,7 +6317,7 @@ msgstr "Individuelles Header-Bild"
 #. translators: %s: browser name and link
 #: wp-admin/includes/dashboard.php:1448
 msgid "It looks like you're using an old version of %s. For the best WordPress experience, please update your browser."
-msgstr "Du scheinst eine alte Version von %s zu verwenden. Für das beste Nutzungserlebnis mit WordPress solltest du deinen Browser auf die aktuellste Version aktualisieren."
+msgstr "Du scheinst eine alte Version von %s zu verwenden. Für das beste Nutzungserlebnis mit WordPress solltest du deinen Browser aktualisieren."
 
 #. translators: %s: browser name and link
 #: wp-admin/includes/dashboard.php:1443
@@ -6391,7 +6391,7 @@ msgstr "WordPress entwickelt sich weiter, wenn Menschen wie du ihren Freunden un
 
 #: wp-admin/freedoms.php:50
 msgid "Every plugin and theme in WordPress.org&#8217;s directory is 100%% GPL or a similarly free and compatible license, so you can feel safe finding <a href=\"%1$s\">plugins</a> and <a href=\"%2$s\">themes</a> there. If you get a plugin or theme from another source, make sure to <a href=\"%3$s\">ask them if it&#8217;s GPL</a> first. If they don&#8217;t respect the WordPress license, we don&#8217;t recommend them."
-msgstr "Jedes Plugin und Theme, das von WordPress.org heruntergeladen werden kann, ist zu 100%% unter der GPL oder einer ähnlichen, kompatiblen Lizenz lizenziert. So kannst du von dort unbesorgt <a href=\"%1$s\">Plugins</a> und <a href=\"%2$s\">Themes</a> suchen und verwenden. Solltest du ein Plugin oder Theme aus einer anderen Quelle verwenden, so solltest du vorher erfragen <a href=\"%3$s\">ob das Produkt gemäß der GPL lizenziert ist</a>. Falls dieses Produkt die WordPress Lizenz nicht respektiert, können wir es nicht empfehlen."
+msgstr "Jedes Plugin und Theme, das von WordPress.org heruntergeladen werden kann, ist zu 100%% unter der GPL oder einer ähnlichen, kompatiblen Lizenz lizenziert. So kannst du von dort unbesorgt <a href=\"%1$s\">Plugins</a> und <a href=\"%2$s\">Themes</a> suchen und verwenden. Solltest du ein Plugin oder Theme aus einer anderen Quelle verwenden, so solltest du vorher erfragen <a href=\"%3$s\">ob das Produkt gemäß der GPL lizenziert ist</a>. Falls dieses Produkt die WordPress-Lizenz nicht respektiert, können wir es nicht empfehlen."
 
 #: wp-admin/freedoms.php:34
 msgid "WordPress is Free and open source software, built by a distributed community of mostly volunteer developers from around the world. WordPress comes with some awesome, worldview-changing rights courtesy of its <a href=\"%s\">license</a>, the GPL."
@@ -9022,6 +9022,10 @@ msgstr "Wenn du das Stammverzeichnis deiner Website kurzfristig beschreibbar mac
 msgid "When a comment contains any of these words in its content, name, URL, email, or IP address, it will be put in the trash. One word or IP address per line. It will match inside words, so &#8220;press&#8221; will match &#8220;WordPress&#8221;."
 msgstr "Wenn ein Kommentar im Inhalt, Namen, URL, E-Mail-Adresse oder der IP-Adresse eines der unten aufgeführten Wörter oder Werte enthält, dann wird er als Spam markiert. Ein Wort oder IP-Adresse pro Zeile. Wortteile werden auch berücksichtigt, also wird durch &#8222;press&#8220; auch &#8222;WordPress&#8220; gefiltert."
 
+#: wp-admin/options-discussion.php:160
+msgid "When a comment contains any of these words in its content, name, URL, email, or IP address, it will be held in the <a href=\"edit-comments.php?comment_status=moderated\">moderation queue</a>. One word or IP address per line. It will match inside words, so &#8220;press&#8221; will match &#8220;WordPress&#8221;."
+msgstr "Wenn ein Kommentar im Inhalt, Namen, URL, E-Mail-Adresse oder der IP-Adresse eines der unten aufgeführten Wörter oder Werte enthält, dann schiebe diesen Kommentar zum Freischalten in die <a href=\"edit-comments.php?comment_status=moderated\">Warteschlange</a>. Ein Wort oder IP-Adresse pro Zeile. Wortteile werden auch berücksichtigt, also wird durch &#8222;press&#8220; auch &#8222;WordPress&#8220; gefiltert."
+
 #: wp-admin/options-discussion.php:225
 msgid "For users without a custom avatar of their own, you can either display a generic logo or a generated one based on their email address."
 msgstr "Für Benutzer ohne eigenen Avatar, kann wahlweise ein allgemeines Logo oder ein auf Basis der E-Mail-Adresse erzeugter Avatar angezeigt werden."
@@ -9033,10 +9037,6 @@ msgstr "Standard-Kategorie für Beiträge per E-Mail"
 #: wp-admin/theme-editor.php:255
 msgid "Oops, no such file exists! Double check the name and try again, merci."
 msgstr "Diese Datei existiert nicht! Überprüfe bitte die Schreibweise und versuche es nochmal."
-
-#: wp-admin/options-discussion.php:160
-msgid "When a comment contains any of these words in its content, name, URL, email, or IP address, it will be held in the <a href=\"edit-comments.php?comment_status=moderated\">moderation queue</a>. One word or IP address per line. It will match inside words, so &#8220;press&#8221; will match &#8220;WordPress&#8221;."
-msgstr "Wenn ein Kommentar im Inhalt, Namen, URL, E-Mail-Adresse oder der IP-Adresse eines der unten aufgeführten Wörter oder Werte enthält, dann schiebe diesen Kommentar zum Freischalten in die <a href=\"edit-comments.php?comment_status=moderated\">Warteschlange</a>. Ein Wort oder IP-Adresse pro Zeile. Wortteile werden auch berücksichtigt, also wird durch &#8222;press&#8220; auch &#8222;WordPress&#8220; gefiltert."
 
 #: wp-admin/includes/file.php:460 wp-admin/plugin-editor.php:105
 msgid "No such file exists! Double check the name and try again."
@@ -10117,11 +10117,6 @@ msgstr "Kommentar genehmigen"
 msgid "Unknown action."
 msgstr "Unbekannte Aktion."
 
-#: wp-admin/includes/template.php:1994 wp-admin/nav-menus.php:659
-#: wp-admin/options.php:296
-msgid "Save Changes"
-msgstr "Änderungen übernehmen"
-
 #: wp-admin/custom-background.php:321 wp-admin/custom-header.php:575
 #: wp-admin/includes/class-wp-theme-install-list-table.php:63
 #: wp-admin/includes/media.php:1957 wp-admin/includes/media.php:1959
@@ -10884,6 +10879,11 @@ msgstr "Ungültiger Pfad zum Plugin."
 #: wp-admin/edit.php:220 wp-admin/includes/class-wp-list-table.php:436
 msgid "Bulk Actions"
 msgstr "Sammelaktionen"
+
+#: wp-admin/includes/template.php:1994 wp-admin/nav-menus.php:659
+#: wp-admin/options.php:296
+msgid "Save Changes"
+msgstr "Änderungen speichern"
 
 #: wp-admin/includes/media.php:2456 wp-admin/includes/nav-menu.php:361
 #: wp-admin/includes/nav-menu.php:649
