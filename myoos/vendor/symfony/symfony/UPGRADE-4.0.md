@@ -163,7 +163,18 @@ DependencyInjection
            autowire: true
     ```
 
- * Autowiring services based on the types they implement is not supported anymore. Rename (or alias) your services to their FQCN id to make them autowirable.
+ * Autowiring services based on the types they implement is not supported anymore.
+   It will only look for an alias or a service id that matches a given FQCN.
+   Rename (or alias) your services to their FQCN id to make them autowirable.
+   In 3.4, you can activate this behavior instead of having deprecation messages
+   by setting the following parameter:
+
+   ```yml
+   parameters:
+       container.autowiring.strict_mode: true
+   ```
+
+   From 4.0, you can remove it as it's the default behavior and the parameter is not handled anymore.
 
  * `_defaults` and `_instanceof` are now reserved service names in Yaml configurations. Please rename any services with that names.
 
@@ -224,6 +235,17 @@ DependencyInjection
  * Top-level anonymous services in XML are no longer supported.
 
  * The `ExtensionCompilerPass` has been moved to before-optimization passes with priority -1000.
+
+ * In 3.4, parameter `container.dumper.inline_class_loader` was introduced. Unless
+   you're using a custom autoloader, you should enable this parameter. This can
+   drastically improve DX by reducing the time to load classes when the `DebugClassLoader`
+   is enabled. If you're using `FrameworkBundle`, this performance improvement will
+   also impact the "dev" environment:
+
+   ```yml
+   parameters:
+       container.dumper.inline_class_loader: true
+   ```
 
 DoctrineBridge
 --------------
@@ -701,7 +723,7 @@ Process
 
  * Extending `Process::run()`, `Process::mustRun()` and `Process::restart()` is
    not supported anymore.
-   
+
  * The `getEnhanceWindowsCompatibility()` and `setEnhanceWindowsCompatibility()` methods of the `Process` class have been removed.
 
 Profiler

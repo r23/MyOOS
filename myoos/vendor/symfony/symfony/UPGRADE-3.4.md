@@ -56,12 +56,31 @@ DependencyInjection
            autowire: true
     ```
 
+ * Autowiring services based on the types they implement is deprecated and will not be supported anymore in Symfony 4.0
+   where it will only match an alias or a service id that matches then given FQCN. You can opt in the behavior of Symfony
+   4 by the enabling the `container.autowiring.strict_mode` parameter:
+
+   ```yml
+   parameters:
+       container.autowiring.strict_mode: true
+   ```
+
  * Top-level anonymous services in XML are deprecated and will throw an exception in Symfony 4.0.
 
  * Case insensitivity of parameter names is deprecated and will be removed in 4.0.
 
  * The `ResolveDefinitionTemplatesPass` class is deprecated and will be removed in 4.0.
    Use the `ResolveChildDefinitionsPass` class instead.
+
+ * Unless you're using a custom autoloader, you should enable the `container.dumper.inline_class_loader`
+   parameter. This can drastically improve DX by reducing the time to load classes
+   when the `DebugClassLoader` is enabled. If you're using `FrameworkBundle`, this
+   performance improvement will also impact the "dev" environment:
+
+   ```yml
+   parameters:
+       container.dumper.inline_class_loader: true
+   ```
 
 Debug
 -----
@@ -322,7 +341,7 @@ Security
  * Deprecated the HTTP digest authentication: `NonceExpiredException`,
    `DigestAuthenticationListener` and `DigestAuthenticationEntryPoint` will be
    removed in 4.0. Use another authentication system like `http_basic` instead.
-   
+
  * The `GuardAuthenticatorInterface` has been deprecated and will be removed in 4.0.
    Use `AuthenticatorInterface` instead.
 

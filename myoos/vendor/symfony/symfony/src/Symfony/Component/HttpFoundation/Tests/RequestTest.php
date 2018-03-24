@@ -2148,11 +2148,11 @@ class RequestTest extends TestCase
     /**
      * @dataProvider methodCacheableProvider
      */
-    public function testMethodCacheable($method, $chacheable)
+    public function testMethodCacheable($method, $cacheable)
     {
         $request = new Request();
         $request->setMethod($method);
-        $this->assertEquals($chacheable, $request->isMethodCacheable());
+        $this->assertEquals($cacheable, $request->isMethodCacheable());
     }
 
     public function methodCacheableProvider()
@@ -2316,7 +2316,7 @@ class RequestContentProxy extends Request
 {
     public function getContent($asResource = false)
     {
-        return http_build_query(array('_method' => 'PUT', 'content' => 'mycontent'));
+        return http_build_query(array('_method' => 'PUT', 'content' => 'mycontent'), '', '&');
     }
 }
 
