@@ -73,7 +73,7 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
     $productstable = $oostable['products'];
     $reviews_descriptiontable  = $oostable['reviews_description'];
     $products_descriptiontable = $oostable['products_description'];
-    $reviews_result_raw = "SELECT r.reviews_id, rd.reviews_text,
+    $reviews_result_raw = "SELECT r.reviews_id, rd.reviews_headline, rd.reviews_text,
 								  r.reviews_rating, r.date_added, p.products_id,
                                   pd.products_name, p.products_image, r.customers_name
                            FROM $reviewstable r,  $reviews_descriptiontable rd,
@@ -97,6 +97,7 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
                           'products_name' => $reviews['products_name'],
                           'products_image' => $reviews['products_image'],
                           'authors_name' => $reviews['customers_name'],
+						  'reviews_headline' => $reviews['reviews_headline'],
                           'review' => htmlspecialchars(substr($reviews['reviews_text'], 0, 250)) . '..',
                           'rating' => $reviews['reviews_rating'],
                           'word_count' => oosWordCount($reviews['reviews_text'], ' '),

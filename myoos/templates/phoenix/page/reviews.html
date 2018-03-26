@@ -53,6 +53,8 @@
 										<div class="rating rating-{$reviews[i].rating} m-font-size-13"><!-- rating-0 ... rating-5 --></div>
 										<!-- /rating -->
 
+										<h3>{$reviews[i].reviews_headline}</h3>
+										
 										<p>
 											{$reviews[i].authors_name|string_format:$lang.text_review_by}&nbsp;({$reviews[i].word_count|string_format:$lang.text_review_word_count})
 										</p>
