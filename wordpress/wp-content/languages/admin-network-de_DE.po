@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 4.9.x - Development - Administration - Network Admin package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-03-11 22:01:59+0000\n"
+"PO-Revision-Date: 2018-03-25 14:03:25+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1181,7 +1181,7 @@ msgstr "Erlaubte Dateitypen"
 
 #: wp-admin/network/settings.php:327
 msgid "Limit total size of files uploaded to %s MB"
-msgstr "Gesamt-Speicherplatz pro Website limitieren auf %s MB"
+msgstr "Gesamt-Speicherplatz pro Website limitieren auf %s&nbsp;MB"
 
 #: wp-admin/network/settings.php:270
 msgid "The first post on a new site."
