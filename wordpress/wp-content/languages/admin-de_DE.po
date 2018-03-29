@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 4.9.x - Development - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-03-26 07:23:31+0000\n"
+"PO-Revision-Date: 2018-03-27 05:06:41+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -5364,15 +5364,15 @@ msgstr "Du hast versucht, auf das \"%1$s\" Dashboard zuzugreifen, hast aber nich
 msgid "MB (Leave blank for network default)"
 msgstr "MB (Leer lassen für Netzwerk-Standardwert)"
 
-#. translators: 1: Required disk space in kilobytes
-#: wp-admin/includes/ms.php:33
-msgid "Not enough space to upload. %1$s KB needed."
-msgstr "Nicht genug Platz zum hochladen. %1$s&nbsp;KB erforderlich."
-
 #. translators: 1: Maximum allowed file size in kilobytes
 #: wp-admin/includes/ms.php:38
 msgid "This file is too big. Files must be less than %1$s KB in size."
 msgstr "Diese Datei ist zu groß. Dateien dürfen maximal %1$s&nbsp;KB groß sein."
+
+#. translators: 1: Required disk space in kilobytes
+#: wp-admin/includes/ms.php:33
+msgid "Not enough space to upload. %1$s KB needed."
+msgstr "Nicht genug Platz zum Hochladen. %1$s&nbsp;KB erforderlich."
 
 #: wp-admin/my-sites.php:105
 msgid "Global Settings"

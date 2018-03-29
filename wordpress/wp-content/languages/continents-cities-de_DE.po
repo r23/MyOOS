@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 4.9.x - Development - Continents & Cities package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-11-14 10:34:28+0000\n"
+"PO-Revision-Date: 2018-03-26 17:27:08+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -527,10 +527,6 @@ msgstr "Enderbury"
 msgid "Fakaofo"
 msgstr "Fakaofo"
 
-#: wp-admin/includes/continents-cities.php:516
-msgid "Fiji"
-msgstr "Fiji"
-
 #: wp-admin/includes/continents-cities.php:517
 msgid "Funafuti"
 msgstr "Funafuti"
@@ -891,10 +887,6 @@ msgstr "Kuching"
 #: wp-admin/includes/continents-cities.php:307
 msgid "Kuwait"
 msgstr "Kuwait"
-
-#: wp-admin/includes/continents-cities.php:308
-msgid "Macao"
-msgstr "Macao"
 
 #: wp-admin/includes/continents-cities.php:309
 msgid "Macau"
@@ -1470,10 +1462,6 @@ msgstr "Kentucky"
 msgid "Juneau"
 msgstr "Juneau"
 
-#: wp-admin/includes/continents-cities.php:154
-msgid "Jamaica"
-msgstr "Jamaica"
-
 #: wp-admin/includes/continents-cities.php:153
 msgid "Iqaluit"
 msgstr "Iqaluit"
@@ -1562,10 +1550,6 @@ msgstr "Yakutat"
 msgid "Yellowknife"
 msgstr "Yellowknife"
 
-#: wp-admin/includes/continents-cities.php:239
-msgid "Antarctica"
-msgstr "Antarktis"
-
 #: wp-admin/includes/continents-cities.php:240
 msgid "Casey"
 msgstr "Casey-Station"
@@ -1577,6 +1561,22 @@ msgstr "Sankt Bartholomäus"
 #: wp-admin/includes/continents-cities.php:192
 msgid "Center"
 msgstr "Center"
+
+#: wp-admin/includes/continents-cities.php:239
+msgid "Antarctica"
+msgstr "Antarktika"
+
+#: wp-admin/includes/continents-cities.php:308
+msgid "Macao"
+msgstr "Macau"
+
+#: wp-admin/includes/continents-cities.php:154
+msgid "Jamaica"
+msgstr "Jamaika"
+
+#: wp-admin/includes/continents-cities.php:516
+msgid "Fiji"
+msgstr "Fidschi"
 
 #: wp-admin/includes/continents-cities.php:148
 msgid "Vevay"

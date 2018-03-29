@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Antispam Bee - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-11-14 01:38:06+0000\n"
+"PO-Revision-Date: 2018-03-29 10:12:23+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -277,7 +277,7 @@ msgstr "Säuberung der Datenbank von alten Einträgen"
 
 #: inc/gui.class.php:423
 msgid "Delete existing spam after %s days"
-msgstr "Vorhandenen Spam nach %s Tagen löschen"
+msgstr "Vorhandenen Spam nach %s&nbsp;Tagen löschen"
 
 #: inc/gui.class.php:415
 msgid "Spam reason as a table column in the spam overview"
