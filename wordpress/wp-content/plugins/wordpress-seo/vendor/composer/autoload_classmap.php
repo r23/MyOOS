@@ -285,7 +285,7 @@ return array(
     'WPSEO_Plugin_Availability' => $baseDir . '/admin/class-plugin-availability.php',
     'WPSEO_Plugin_Compatibility' => $baseDir . '/admin/class-plugin-compatibility.php',
     'WPSEO_Plugin_Conflict' => $baseDir . '/admin/class-plugin-conflict.php',
-    'WPSEO_Plugin_Importer' => $baseDir . '/admin/import/plugins/interface-plugin-importer.php',
+    'WPSEO_Plugin_Importer' => $baseDir . '/admin/import/plugins/class-abstract-plugin-importer.php',
     'WPSEO_Plugin_Importers' => $baseDir . '/admin/import/plugins/class-importers.php',
     'WPSEO_Post_Metabox_Formatter' => $baseDir . '/admin/formatter/class-post-metabox-formatter.php',
     'WPSEO_Post_Type' => $baseDir . '/inc/class-post-type.php',

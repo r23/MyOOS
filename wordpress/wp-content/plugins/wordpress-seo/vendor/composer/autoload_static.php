@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit47b2468299949478bf268a0647f72d37
+class ComposerStaticInite65e71171c1a5e9e7f808031e878a5e0
 {
     public static $files = array (
         '995b589e693a50f54393aa31ee1c3763' => __DIR__ . '/..' . '/yoast/whip/src/facades/wordpress.php',
@@ -314,7 +314,7 @@ class ComposerStaticInit47b2468299949478bf268a0647f72d37
         'WPSEO_Plugin_Availability' => __DIR__ . '/../..' . '/admin/class-plugin-availability.php',
         'WPSEO_Plugin_Compatibility' => __DIR__ . '/../..' . '/admin/class-plugin-compatibility.php',
         'WPSEO_Plugin_Conflict' => __DIR__ . '/../..' . '/admin/class-plugin-conflict.php',
-        'WPSEO_Plugin_Importer' => __DIR__ . '/../..' . '/admin/import/plugins/interface-plugin-importer.php',
+        'WPSEO_Plugin_Importer' => __DIR__ . '/../..' . '/admin/import/plugins/class-abstract-plugin-importer.php',
         'WPSEO_Plugin_Importers' => __DIR__ . '/../..' . '/admin/import/plugins/class-importers.php',
         'WPSEO_Post_Metabox_Formatter' => __DIR__ . '/../..' . '/admin/formatter/class-post-metabox-formatter.php',
         'WPSEO_Post_Type' => __DIR__ . '/../..' . '/inc/class-post-type.php',
@@ -441,10 +441,10 @@ class ComposerStaticInit47b2468299949478bf268a0647f72d37
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit47b2468299949478bf268a0647f72d37::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit47b2468299949478bf268a0647f72d37::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit47b2468299949478bf268a0647f72d37::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit47b2468299949478bf268a0647f72d37::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInite65e71171c1a5e9e7f808031e878a5e0::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInite65e71171c1a5e9e7f808031e878a5e0::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInite65e71171c1a5e9e7f808031e878a5e0::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInite65e71171c1a5e9e7f808031e878a5e0::$classMap;
 
         }, null, ClassLoader::class);
     }
