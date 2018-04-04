@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Contact Form 7 - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-02-27 20:21:31+0000\n"
+"PO-Revision-Date: 2018-03-31 09:59:34+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1276,10 +1276,6 @@ msgstr "HTML-Content-Typ verwenden"
 msgid "Y/m/d"
 msgstr "d.m.Y"
 
-#: admin/includes/class-contact-forms-list-table.php:204
-msgid "Y/m/d g:i:s A"
-msgstr "d.m.Y H:i:s"
-
 #: admin/admin.php:48
 msgid "Integration"
 msgstr "Integration"
@@ -1405,3 +1401,7 @@ msgstr "Contact Form 7 braucht deine Unterstützung."
 #: admin/includes/editor.php:128
 msgid "https://contactform7.com/setting-up-mail/"
 msgstr "https://contactform7.com/setting-up-mail/"
+
+#: admin/includes/class-contact-forms-list-table.php:204
+msgid "Y/m/d g:i:s A"
+msgstr "j.m.Y G:i:s"

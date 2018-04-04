@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 4.9.x - Development - Continents & Cities package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-03-26 17:27:08+0000\n"
+"PO-Revision-Date: 2018-04-02 14:47:26+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -603,10 +603,6 @@ msgstr "Pago Pago"
 msgid "Palau"
 msgstr "Palau"
 
-#: wp-admin/includes/continents-cities.php:536
-msgid "Pitcairn"
-msgstr "Pitcairn"
-
 #: wp-admin/includes/continents-cities.php:538
 msgid "Ponape"
 msgstr "Ponape"
@@ -818,10 +814,6 @@ msgstr "Harbin"
 #: wp-admin/includes/continents-cities.php:288
 msgid "Ho Chi Minh"
 msgstr "Ho-Chi-Minh-Stadt"
-
-#: wp-admin/includes/continents-cities.php:289
-msgid "Hong Kong"
-msgstr "Hong Kong"
 
 #: wp-admin/includes/continents-cities.php:290
 msgid "Hovd"
@@ -1345,10 +1337,6 @@ msgstr "Panama"
 msgid "New Salem"
 msgstr "New Salem"
 
-#: wp-admin/includes/continents-cities.php:190
-msgid "North Dakota"
-msgstr "Nord Dakota"
-
 #: wp-admin/includes/continents-cities.php:189
 msgid "Noronha"
 msgstr "Noronha"
@@ -1578,6 +1566,18 @@ msgstr "Jamaika"
 msgid "Fiji"
 msgstr "Fidschi"
 
+#: wp-admin/includes/continents-cities.php:536
+msgid "Pitcairn"
+msgstr "Pitcairninseln"
+
+#: wp-admin/includes/continents-cities.php:190
+msgid "North Dakota"
+msgstr "North Dakota"
+
+#: wp-admin/includes/continents-cities.php:289
+msgid "Hong Kong"
+msgstr "Hongkong"
+
 #: wp-admin/includes/continents-cities.php:148
 msgid "Vevay"
 msgstr "Vevay"
@@ -1702,10 +1702,6 @@ msgstr "Dawson"
 #: wp-admin/includes/continents-cities.php:117
 msgid "Danmarkshavn"
 msgstr "Danmarkshavn"
-
-#: wp-admin/includes/continents-cities.php:116
-msgid "Curacao"
-msgstr "Curacao"
 
 #: wp-admin/includes/continents-cities.php:115
 msgid "Cuiaba"
@@ -2095,3 +2091,7 @@ msgstr "Comodoro Rivadavia"
 #: wp-admin/includes/continents-cities.php:86
 msgid "Tucuman"
 msgstr "San Miguel de Tucumán"
+
+#: wp-admin/includes/continents-cities.php:116
+msgid "Curacao"
+msgstr "Curaçao"
