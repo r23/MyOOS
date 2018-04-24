@@ -96,6 +96,7 @@ class FormExtension extends AbstractExtension implements InitRuntimeInterface
     {
         return array(
             new TwigFilter('humanize', array('Symfony\Component\Form\FormRenderer', 'humanize')),
+            new TwigFilter('form_encode_currency', array('Symfony\Component\Form\FormRenderer', 'encodeCurrency'), array('is_safe' => array('html'), 'needs_environment' => true)),
         );
     }
 

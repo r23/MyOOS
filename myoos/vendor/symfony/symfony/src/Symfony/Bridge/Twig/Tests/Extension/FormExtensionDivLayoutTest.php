@@ -165,6 +165,31 @@ class FormExtensionDivLayoutTest extends AbstractDivLayoutTest
         $this->assertSame($expected, \Symfony\Bridge\Twig\Extension\twig_is_root_form($formView));
     }
 
+    public function testMoneyWidgetInIso()
+    {
+        $environment = new Environment(new StubFilesystemLoader(array(
+            __DIR__.'/../../Resources/views/Form',
+            __DIR__.'/Fixtures/templates/form',
+        )), array('strict_variables' => true));
+        $environment->addExtension(new TranslationExtension(new StubTranslator()));
+        $environment->addExtension(new FormExtension());
+        $environment->setCharset('ISO-8859-1');
+
+        $rendererEngine = new TwigRendererEngine(array(
+            'form_div_layout.html.twig',
+            'custom_widgets.html.twig',
+        ), $environment);
+        $this->renderer = new FormRenderer($rendererEngine, $this->getMockBuilder('Symfony\Component\Security\Csrf\CsrfTokenManagerInterface')->getMock());
+        $this->registerTwigRuntimeLoader($environment, $this->renderer);
+
+        $view = $this->factory
+            ->createNamed('name', 'Symfony\Component\Form\Extension\Core\Type\MoneyType')
+            ->createView()
+        ;
+
+        $this->assertSame('&euro; <input type="text" id="name" name="name" required="required" />', $this->renderWidget($view));
+    }
+
     protected function renderForm(FormView $view, array $vars = array())
     {
         return (string) $this->renderer->renderBlock($view, 'form', $vars);

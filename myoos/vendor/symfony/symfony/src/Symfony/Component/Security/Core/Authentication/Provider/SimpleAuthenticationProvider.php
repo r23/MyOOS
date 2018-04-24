@@ -11,6 +11,11 @@
 
 namespace Symfony\Component\Security\Core\Authentication\Provider;
 
+use Symfony\Component\Security\Core\Exception\AuthenticationServiceException;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use Symfony\Component\Security\Core\User\UserChecker;
+use Symfony\Component\Security\Core\User\UserCheckerInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authentication\SimpleAuthenticatorInterface;
@@ -24,23 +29,47 @@ class SimpleAuthenticationProvider implements AuthenticationProviderInterface
     private $simpleAuthenticator;
     private $userProvider;
     private $providerKey;
+    private $userChecker;
 
-    public function __construct(SimpleAuthenticatorInterface $simpleAuthenticator, UserProviderInterface $userProvider, $providerKey)
+    public function __construct(SimpleAuthenticatorInterface $simpleAuthenticator, UserProviderInterface $userProvider, $providerKey, UserCheckerInterface $userChecker = null)
     {
         $this->simpleAuthenticator = $simpleAuthenticator;
         $this->userProvider = $userProvider;
         $this->providerKey = $providerKey;
+        $this->userChecker = $userChecker ?: new UserChecker();
     }
 
     public function authenticate(TokenInterface $token)
     {
         $authToken = $this->simpleAuthenticator->authenticateToken($token, $this->userProvider, $this->providerKey);
 
-        if ($authToken instanceof TokenInterface) {
-            return $authToken;
+        if (!$authToken instanceof TokenInterface) {
+            throw new AuthenticationException('Simple authenticator failed to return an authenticated token.');
         }
 
-        throw new AuthenticationException('Simple authenticator failed to return an authenticated token.');
+        $user = $authToken->getUser();
+
+        if (!$user instanceof UserInterface) {
+            try {
+                $user = $this->userProvider->loadUserByUsername($user);
+
+                if (!$user instanceof UserInterface) {
+                    throw new AuthenticationServiceException('The user provider must return a UserInterface object.');
+                }
+            } catch (UsernameNotFoundException $e) {
+                $e->setUsername($user);
+                throw $e;
+            } catch (\Exception $e) {
+                $e = new AuthenticationServiceException($e->getMessage(), 0, $e);
+                $e->setToken($token);
+                throw $e;
+            }
+        }
+
+        $this->userChecker->checkPreAuth($user);
+        $this->userChecker->checkPostAuth($user);
+
+        return $authToken;
     }
 
     public function supports(TokenInterface $token)
