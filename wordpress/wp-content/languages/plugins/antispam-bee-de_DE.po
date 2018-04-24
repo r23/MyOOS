@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Antispam Bee - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-03-29 10:12:23+0000\n"
+"PO-Revision-Date: 2018-04-10 04:52:48+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -103,7 +103,7 @@ msgstr "%1$sISO-Codes%2$s, die nicht erlaubt sind. (Blacklist)"
 
 #: inc/gui.class.php:322 inc/gui.class.php:334
 msgid "e.g. BF, SG, YE"
-msgstr "z.B. BF, SG, YE"
+msgstr "z.&nbsp;B. BF, SG, YE"
 
 #: inc/gui.class.php:318
 msgid "https://www.iso.org/iso/country_names_and_code_elements"

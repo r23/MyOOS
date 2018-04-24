@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 4.9.x - Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-04-02 14:42:12+0000\n"
+"PO-Revision-Date: 2018-04-17 15:02:33+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -108,7 +108,7 @@ msgstr "&#8222;Weiter&#8220; klicken, um deinem neuen Menü Links hinzuzufügen.
 #. translators: %s: a list of valid video file extensions
 #: wp-includes/widgets/class-wp-widget-media-video.php:44
 msgid "Sorry, we can&#8217;t load the video at the supplied URL. Please check that the URL is for a supported video file (%s) or stream (e.g. YouTube and Vimeo)."
-msgstr "Leider kann das Video mit der angegebenen URL nicht geladen werden. Bitte prüfe, ob die URL auf eine unterstützte Videodatei (%s) oder einen Stream (z.B. YouTube oder Vimeo) verweist."
+msgstr "Leider kann das Video mit der angegebenen URL nicht geladen werden. Bitte prüfe, ob die URL auf eine unterstützte Videodatei (%s) oder einen Stream (z.&nbsp;B. YouTube oder Vimeo) verweist."
 
 #: wp-includes/script-loader.php:691
 msgctxt "post action/button label"
@@ -581,7 +581,7 @@ msgstr "Deutsch"
 
 #: wp-includes/script-loader.php:409
 msgid "Galician"
-msgstr "Galizisch"
+msgstr "Galicisch"
 
 #: wp-includes/script-loader.php:408
 msgid "French"
@@ -589,7 +589,7 @@ msgstr "Französisch"
 
 #: wp-includes/script-loader.php:406
 msgid "Filipino"
-msgstr "Philippinisch"
+msgstr "Filipino"
 
 #: wp-includes/script-loader.php:405
 msgid "Estonian"
@@ -1018,7 +1018,7 @@ msgstr "CSS-Code"
 #: wp-includes/class-wp-customize-manager.php:5289
 #: wp-includes/widgets/class-wp-widget-custom-html.php:299
 msgid "The edit field automatically highlights code syntax. You can disable this in your <a href=\"%1$s\" %2$s>user profile%3$s</a> to work in plain text mode."
-msgstr "Das Bearbeitungsfeld hebt automatisch die Codesyntax hervor. Du kannst das in deinem <a href=\"%1$s\" %2$s>Benutzerprofil%3$s</a>abschalten, um im einfachem Textmodus zu arbeiten."
+msgstr "Das Bearbeitungsfeld hebt automatisch die Codesyntax hervor. Du kannst das in deinem <a href=\"%1$s\" %2$s>Benutzerprofil%3$s</a>abschalten, um im einfachen Textmodus zu arbeiten."
 
 #: wp-includes/widgets/class-wp-widget-custom-html.php:313
 msgid "Screen reader users: when in forms mode, you may need to press the Esc key twice."
@@ -5820,7 +5820,7 @@ msgstr "Der Name eines Inhaltstyps muss aus mindestens einem und maximal 20 Zeic
 #: wp-includes/post-template.php:1709 wp-includes/post-template.php:1745
 msgctxt "revision date format"
 msgid "F j, Y @ H:i:s"
-msgstr "j. F Y @ G:i:s"
+msgstr "j. F Y \\u\\m G:i:s"
 
 #: wp-includes/class-wp-customize-nav-menus.php:1115
 #: wp-includes/class-wp-editor.php:1704 wp-includes/media-template.php:820
@@ -8296,7 +8296,7 @@ msgstr "Das Stylesheet ist nicht lesbar."
 
 #: wp-includes/class-wp-theme.php:235
 msgid "ERROR: The themes directory is either empty or doesn&#8217;t exist. Please check your installation."
-msgstr "FEHLER: Das Themeverzeichnis ist entweder leer oder existiert nicht. Bitte überprüfe deine Installation."
+msgstr "FEHLER: Das Theme-Verzeichnis ist entweder leer oder existiert nicht. Bitte prüfe deine Installation."
 
 #. translators: %s: document title from the preview
 #: wp-includes/class-wp-customize-manager.php:4369

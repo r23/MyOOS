@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - WP-Matomo (WP-Piwik) - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-02-27 20:48:58+0000\n"
+"PO-Revision-Date: 2018-04-08 16:29:38+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -124,6 +124,10 @@ msgstr "ein cloud-gehostetes Matomo von InnoCraft"
 msgid "Enable WP-Piwik dashboard widget &quot;E-commerce&quot;."
 msgstr "Das WP-Matomo Dashboard Widget &quot;E-Commerce&quot; aktivieren."
 
+#. Description of the plugin/theme
+msgid "Adds Piwik statistics to your WordPress dashboard and is also able to add the Piwik Tracking Code to your blog."
+msgstr "Fügt Piwik-Statistiken deinem WordPress Dashboard hinzu und ermöglicht es außerdem, deinem Blog den Piwik-Tracking-Code hinzuzufügen."
+
 #: classes/WP_Piwik/Admin/Settings.php:323
 msgid "Enable DNS prefetch"
 msgstr "DNS-Prefetch aktivieren"
@@ -132,30 +136,39 @@ msgstr "DNS-Prefetch aktivieren"
 msgid "Piwik subdomain"
 msgstr "Piwik-Subdomain"
 
-#: classes/WP_Piwik/Admin/Settings.php:347
-msgid "Set classes to be treated as outlinks (in addition to piwik_link), divided by a vertical bar (&#124;). Leave blank to keep Piwik's default settings."
-msgstr "Lege die Klassen fest, die (zusätzlich zu piwik_link) als ausgehender Link behandelt werden sollen. Trenne mehrere Klassen durch einen senkrechten Strich (&#124;). Lasse dieses Feld frei, um die Standard-Einstellungen von Piwik zu erhalten."
-
-#: classes/WP_Piwik/Admin/Settings.php:347
-msgid "Set classes to be treated as outlinks"
-msgstr "Lege die Klassen fest, die als ausgehender Link behandelt werden sollen"
-
-#: classes/WP_Piwik/Admin/Settings.php:345
-msgid "Set classes to be treated as downloads"
-msgstr "Lege die Klassen fest, die als Download behandelt werden sollen."
-
 #: classes/WP_Piwik/Admin/Settings.php:241
 msgid "Add annotation on new post of type"
 msgstr "Notiz bei neuen Posts von folgenden Typen"
-
-#: classes/WP_Piwik/Admin/Settings.php:121
-msgid "Enter your InnoCraft Cloud subdomain. It is also part of your URL: https://SUBDOMAIN.innocraft.cloud."
-msgstr "Gib Deine InnoCraft Cloud Subdomain an. Sie ist Teil der URL: https://SUBDOMAIN.innocraft.cloud."
 
 #: classes/WP_Piwik/Admin/Settings.php:111
 #: classes/WP_Piwik/Admin/Settings.php:116
 msgid "Cloud-hosted (InnoCraft Cloud)"
 msgstr "Cloud-hosted (InnoCraft Cloud)"
+
+#: classes/WP_Piwik/Admin/Settings.php:345
+msgid "Set classes to be treated as downloads (in addition to piwik_download), divided by a vertical bar (&#124;). Leave blank to keep Piwik's default settings."
+msgstr "Legt Klassen fest, die als Downloads behandelt werden sollen (zusätzlich zu „piwik_download“), getrennt durch einen senkrechten Strich (&#124;). Leer lassen, um Piwiks Standardeinstellungen beizubehalten."
+
+#: classes/WP_Piwik/Admin/Settings.php:345
+#: classes/WP_Piwik/Admin/Settings.php:347
+msgid "See %sPiwik JavaScript Tracking Client reference%s."
+msgstr "Siehe %sPiwik JavaScript Tracking Client reference%s."
+
+#: classes/WP_Piwik/Admin/Settings.php:121
+msgid "Enter your InnoCraft Cloud subdomain. It is also part of your URL: https://SUBDOMAIN.innocraft.cloud."
+msgstr "Gib deine InnoCraft Cloud Subdomain an. Sie ist Teil der URL: https://SUBDOMAIN.innocraft.cloud."
+
+#: classes/WP_Piwik/Admin/Settings.php:345
+msgid "Set classes to be treated as downloads"
+msgstr "Klassen festlegen, die als Download behandelt werden sollen"
+
+#: classes/WP_Piwik/Admin/Settings.php:347
+msgid "Set classes to be treated as outlinks"
+msgstr "Klassen festlegen, die als ausgehender Link behandelt werden sollen"
+
+#: classes/WP_Piwik/Admin/Settings.php:347
+msgid "Set classes to be treated as outlinks (in addition to piwik_link), divided by a vertical bar (&#124;). Leave blank to keep Piwik's default settings."
+msgstr "Legt die Klassen fest, die als ausgehender Link behandelt werden sollen (zusätzlich zu „piwik_link“), getrennt durch einen senkrechten Strich (&#124;). Leer lassen, um Piwiks Standardeinstellungen beizubehalten."
 
 #: classes/WP_Piwik/Admin/Settings.php:274
 msgid "Enable cross domain linking"
@@ -231,7 +244,7 @@ msgstr "Seite"
 
 #: classes/WP_Piwik/Admin/Settings.php:64
 msgid "WP-Piwik %s was not able to connect to Piwik using your configuration. During connection the following error occured: <br /><code>%s</code>"
-msgstr "WP-Matomo %s konnte mit der vorliegenden Konfiguration keine Verbindung zu Piwik aufbauen. Beim Verbindungsaufbau ist folgender Fehler aufgetreten: <br /><code>%s</code>"
+msgstr "WP-Piwik %s konnte mit der vorliegenden Konfiguration keine Verbindung zu Piwik aufbauen. Beim Verbindungsaufbau ist folgender Fehler aufgetreten: <br /><code>%s</code>"
 
 #. Plugin Name of the plugin/theme
 msgid "WP-Piwik"
@@ -963,6 +976,14 @@ msgstr "Einen spezifischen User-Agent festlegen"
 #: classes/WP_Piwik/Admin/Settings.php:318
 msgid "Use the PHP default user agent"
 msgstr "Den PHP-Standard User-Agent verwenden"
+
+#: classes/WP_Piwik/Admin/Settings.php:303
+msgid "Choose whether WP-Piwik should use cURL or fopen to connect to Piwik in HTTP or Cloud mode."
+msgstr "Entscheide, ob WP-Piwik „cURL“ oder „fopen“ verwenden soll, um sich mit Piwik im HTTP- oder Cloud-Modus zu verbinden."
+
+#: classes/WP_Piwik/Admin/Settings.php:308
+msgid "Choose whether WP-Piwik should use POST or GET in HTTP or Cloud mode."
+msgstr "Entscheide, ob WP-Piwik „POST“ oder „GET“ im HTTP- oder Cloud-Modus verwenden soll."
 
 #: classes/WP_Piwik/Admin/Settings.php:24
 msgid "Reload"
