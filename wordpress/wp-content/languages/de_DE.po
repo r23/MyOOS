@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 4.9.x - Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-04-17 15:02:33+0000\n"
+"PO-Revision-Date: 2018-04-26 19:16:31+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -223,7 +223,7 @@ msgstr "Während der Vorschau eines neuen Themes kannst du weiterhin Widgets und
 
 #: wp-includes/class-wp-customize-manager.php:4827
 msgid "Looking for a theme? You can search or browse the WordPress.org theme directory, install and preview themes, then activate them right here."
-msgstr "Suchst du ein Theme? Du kannst im WordPress.org Theme-Verzeichnis stöbern und suchen, Themes installieren und als Vorschau ansehen, um sie direkt hier zu aktivieren."
+msgstr "Suchst du ein Theme? Du kannst im Theme-Verzeichnis von WordPress.org stöbern und suchen, Themes installieren und als Vorschau ansehen, um sie direkt hier zu aktivieren."
 
 #: wp-includes/script-loader.php:478
 msgid "Something went wrong. Your change may not have been saved. Please try again. There is also a chance that you may need to manually fix and upload the file over FTP."
@@ -1066,7 +1066,7 @@ msgstr "Website-Icons erscheinen in Browser-Tabs, Lesezeichenleisten und innerha
 
 #: wp-includes/class-wp-customize-manager.php:4844
 msgid "WordPress.org themes"
-msgstr "WordPress.org Themes"
+msgstr "WordPress.org-Themes"
 
 #: wp-includes/class-wp-customize-manager.php:4835
 msgid "Installed themes"
@@ -4538,7 +4538,7 @@ msgstr "Fehler beim erneuten Verbinden mit der Datenbank"
 #. translators: %s: support forums URL
 #: wp-includes/wp-db.php:1594 wp-includes/wp-db.php:1752
 msgid "If you&#8217;re unsure what these terms mean you should probably contact your host. If you still need help you can always visit the <a href=\"%s\">WordPress Support Forums</a>."
-msgstr "Wenn du unsicher bist, was diese Begriffe bedeuten, solltest du lieber den Support deines Webhostings kontaktieren. Wenn du dann weiterhin Hilfe benötigst, kannst du stets die <a href=\"%s\">WordPress Support-Foren</a> besuchen."
+msgstr "Wenn du unsicher bist, was diese Begriffe bedeuten, solltest du lieber den Support deines Webhostings kontaktieren. Wenn du dann weiterhin Hilfe benötigst, kannst du stets die <a href=\"%s\">WordPress-Support-Foren</a> besuchen."
 
 #: wp-includes/wp-db.php:1589 wp-includes/wp-db.php:1746
 msgid "Are you sure that the database server is running?"
@@ -4560,7 +4560,7 @@ msgstr "Das bedeutet entweder, dass die Information über den Benutzernamen und 
 #. translators: %s: support forums URL
 #: wp-includes/wp-db.php:1061
 msgid "If you don&#8217;t know how to set up a database you should <strong>contact your host</strong>. If all else fails you may find help at the <a href=\"%s\">WordPress Support Forums</a>."
-msgstr "Wenn du nicht weißt, wie du eine Datenbank einrichtest, solltest du <strong>den Support deines Webhostings kontaktieren</strong>. Und wenn alles andere nicht funktioniert, könntest du in den <a href=\"%s\">WordPress Support-Foren</a> Hilfe erhalten."
+msgstr "Wenn du nicht weißt, wie du eine Datenbank einrichtest, solltest du <strong>den Support deines Webhostings kontaktieren</strong>. Und wenn alles andere nicht funktioniert, könntest du in den <a href=\"%s\">WordPress-Support-Foren</a> Hilfe erhalten."
 
 #. translators: %s: database name
 #: wp-includes/wp-db.php:1053
@@ -11276,7 +11276,7 @@ msgstr "Doppelter Kommentar wurde entdeckt. Es sieht stark danach aus, dass du d
 
 #: wp-includes/comment.php:241
 msgid "Unapproved"
-msgstr "Nicht genehmigt"
+msgstr "Nicht freigegeben"
 
 #: wp-includes/comment-template.php:2250
 msgid "Post Comment"
