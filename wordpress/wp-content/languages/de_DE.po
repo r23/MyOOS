@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 4.9.x - Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-04-26 19:16:31+0000\n"
+"PO-Revision-Date: 2018-04-30 07:12:45+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -35,6 +35,10 @@ msgstr "."
 #: wp-includes/class-wp-locale.php:220
 msgid "number_format_decimal_point"
 msgstr ","
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-post-types-controller.php:228
+msgid "Whether or not the post type can be viewed."
+msgstr "Ob der Inhaltstyp angezeigt werden kann, oder nicht."
 
 #: wp-includes/functions.php:2607
 msgid "The link you followed has expired."
@@ -1246,27 +1250,27 @@ msgid "Enter your closest city to find nearby events."
 msgstr "Gib eine Stadt in deiner Nähe ein, um Veranstaltungen in der Umgebung zu finden."
 
 #. translators: %s: network settings URL
-#: wp-signup.php:845
+#: wp-signup.php:847
 msgid "To change or disable registration go to your <a href=\"%s\">Options page</a>."
 msgstr "Um die Registrierung zu ändern oder zu deaktivieren, öffne die <a href=\"%s\">Einstellungen</a>."
 
-#: wp-signup.php:838
+#: wp-signup.php:840
 msgid "The network currently allows both site and user registrations."
 msgstr "Das Netzwerk erlaubt aktuell sowohl Website- als auch Benutzer-Registrierungen."
 
-#: wp-signup.php:835
+#: wp-signup.php:837
 msgid "The network currently allows user registrations."
 msgstr "Das Netzwerk erlaubt aktuell Benutzer-Registrierungen."
 
-#: wp-signup.php:832
+#: wp-signup.php:834
 msgid "The network currently allows site registrations."
 msgstr "Das Netzwerk erlaubt aktuell Website-Registrierungen."
 
-#: wp-signup.php:829
+#: wp-signup.php:831
 msgid "The network currently disallows registrations."
 msgstr "Das Netzwerk erlaubt aktuell keine Registrierungen."
 
-#: wp-signup.php:824
+#: wp-signup.php:826
 msgid "Greetings Network Administrator!"
 msgstr "Hallo, Netzwerkadministrator!"
 
@@ -1551,7 +1555,7 @@ msgstr "Die angeforderte Seitennummer ist größer als die Anzahl der verfügbar
 msgid "You need to define an include parameter to order by include."
 msgstr "Du musst einen Include-Parameter definieren, um nach include sortieren zu können."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-post-types-controller.php:245
+#: wp-includes/rest-api/endpoints/class-wp-rest-post-types-controller.php:252
 msgid "All features, supported by the post type."
 msgstr "Alle von diesem Inhaltstypen unterstützten Eigenschaften."
 
@@ -1751,28 +1755,28 @@ msgstr "Eine alphanumerische Kennung für die Taxonomie."
 msgid "Required to be true, as revisions do not support trashing."
 msgstr "Setzen auf true erforderlich, denn Revisionen können nicht in den Papierkorb gelegt werden."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-post-types-controller.php:260
+#: wp-includes/rest-api/endpoints/class-wp-rest-post-types-controller.php:267
 msgid "REST base route for the post type."
 msgstr "REST-Basisroute für den Inhaltstyp."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-post-types-controller.php:51
-#: wp-includes/rest-api/endpoints/class-wp-rest-post-types-controller.php:239
+#: wp-includes/rest-api/endpoints/class-wp-rest-post-types-controller.php:246
 msgid "An alphanumeric identifier for the post type."
 msgstr "Eine alphanumerische Kennung für den Inhaltstyp."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-post-types-controller.php:227
+#: wp-includes/rest-api/endpoints/class-wp-rest-post-types-controller.php:234
 msgid "Human-readable labels for the post type for various contexts."
 msgstr "Visuell lesbare Kennungen des Inhaltstyps für verschiedene Kontexte."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-post-types-controller.php:221
+#: wp-includes/rest-api/endpoints/class-wp-rest-post-types-controller.php:222
 msgid "Whether or not the post type should have children."
 msgstr "Ob der Inhaltstyp Kind-Elemente haben soll, oder nicht."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-post-types-controller.php:215
+#: wp-includes/rest-api/endpoints/class-wp-rest-post-types-controller.php:216
 msgid "A human-readable description of the post type."
 msgstr "Eine visuell lesbare Beschreibung des Inhaltstyps."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-post-types-controller.php:209
+#: wp-includes/rest-api/endpoints/class-wp-rest-post-types-controller.php:210
 msgid "All capabilities used by the post type."
 msgstr "Alle Fähigkeiten, die der Inhaltstyp benutzt."
 
@@ -1876,7 +1880,7 @@ msgstr "Der Titel für die Taxonomie."
 msgid "Types associated with the taxonomy."
 msgstr "Typen, die der Taxonomie zugeordnet sind."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-post-types-controller.php:233
+#: wp-includes/rest-api/endpoints/class-wp-rest-post-types-controller.php:240
 msgid "The title for the post type."
 msgstr "Der Titel für den Inhaltstyp."
 
@@ -1980,60 +1984,60 @@ msgstr "Ungültiges Seiten-Template."
 msgid "Invalid date."
 msgstr "Ungültiges Datum."
 
-#: wp-includes/theme.php:1397
+#: wp-includes/theme.php:1398
 msgid "Video is playing."
 msgstr "Video wird abgespielt."
 
-#: wp-includes/theme.php:1396
+#: wp-includes/theme.php:1397
 msgid "Video is paused."
 msgstr "Video ist pausiert."
 
-#: wp-includes/theme.php:1960
+#: wp-includes/theme.php:1961
 msgctxt "Theme starter content"
 msgid "Archives"
 msgstr "Archive"
 
-#: wp-includes/theme.php:2082
+#: wp-includes/theme.php:2083
 msgctxt "Theme starter content"
 msgid "This is an example of a homepage section. Homepage sections can be any page other than the homepage itself, including the page that shows your latest blog posts."
 msgstr "Hier ist als Beispiel ein Abschnitt deiner Startseite. Ein Startseiten-Abschnitt kann jede Seite sein; ausgenommen die Startseite selbst, aber einschließlich der Seite, die deine neuesten Blog-Beiträge zeigt."
 
-#: wp-includes/theme.php:2076
+#: wp-includes/theme.php:2077
 msgctxt "Theme starter content"
 msgid "News"
 msgstr "Neuigkeiten"
 
-#: wp-includes/theme.php:2068
+#: wp-includes/theme.php:2069
 msgctxt "Theme starter content"
 msgid "This is a page with some basic contact information, such as an address and phone number. You might also try a plugin to add a contact form."
 msgstr "Das ist eine Seite mit einigen klassischen Kontakt-Informationen, wie Adresse und Telefonnummer. Du könntest hier aber auch ein Plugin nutzen, um ein Kontakt-Formular einzufügen."
 
-#: wp-includes/theme.php:2063
+#: wp-includes/theme.php:2064
 msgctxt "Theme starter content"
 msgid "You might be an artist who would like to introduce yourself and your work here or maybe you&rsquo;re a business with a mission to describe."
 msgstr "Möglicherweise bist du künstlerisch tätig und möchtest dich und deine Arbeiten hier vorstellen. Oder hast du vielleicht ein Business mit einer Mission, die es zu beschreiben gilt?"
 
-#: wp-includes/theme.php:2058
+#: wp-includes/theme.php:2059
 msgctxt "Theme starter content"
 msgid "Welcome to your site! This is your homepage, which is what most visitors will see when they come to your site for the first time."
 msgstr "Willkommen auf deiner Website! Das ist die Startseite, die die meisten deiner Besucher sehen werden, wenn sie deine Website zum ersten Mal aufrufen."
 
-#: wp-includes/theme.php:1975
+#: wp-includes/theme.php:1976
 msgctxt "Theme starter content"
 msgid "Recent Posts"
 msgstr "Neueste Beiträge"
 
-#: wp-includes/theme.php:1972
+#: wp-includes/theme.php:1973
 msgctxt "Theme starter content"
 msgid "Recent Comments"
 msgstr "Neueste Kommentare"
 
-#: wp-includes/theme.php:1969
+#: wp-includes/theme.php:1970
 msgctxt "Theme starter content"
 msgid "Meta"
 msgstr "Meta"
 
-#: wp-includes/theme.php:1963
+#: wp-includes/theme.php:1964
 msgctxt "Theme starter content"
 msgid "Calendar"
 msgstr "Kalender"
@@ -2099,37 +2103,37 @@ msgstr "Du bist leider nicht berechtigt, diesen Kommentar zu lesen."
 msgid "Sorry, you are not allowed to read comments without a post."
 msgstr "Du bist leider nicht berechtigt, Kommentare ohne einen Beitrag zu lesen."
 
-#: wp-includes/theme.php:2050
+#: wp-includes/theme.php:2051
 msgctxt "Theme starter content"
 msgid "YouTube"
 msgstr "YouTube"
 
-#: wp-includes/theme.php:2038
+#: wp-includes/theme.php:2039
 msgctxt "Theme starter content"
 msgid "Pinterest"
 msgstr "Pinterest"
 
-#: wp-includes/theme.php:2034
+#: wp-includes/theme.php:2035
 msgctxt "Theme starter content"
 msgid "LinkedIn"
 msgstr "LinkedIn"
 
-#: wp-includes/theme.php:2026
+#: wp-includes/theme.php:2027
 msgctxt "Theme starter content"
 msgid "GitHub"
 msgstr "GitHub"
 
-#: wp-includes/theme.php:2022
+#: wp-includes/theme.php:2023
 msgctxt "Theme starter content"
 msgid "Foursquare"
 msgstr "Foursquare"
 
-#: wp-includes/theme.php:1955
+#: wp-includes/theme.php:1956
 msgctxt "Theme starter content"
 msgid "This may be a good place to introduce yourself and your site or include some credits."
 msgstr "Hier wäre ein guter Platz, um dich und deine Website vorzustellen oder weitere Informationen anzugeben."
 
-#: wp-includes/theme.php:1954
+#: wp-includes/theme.php:1955
 msgctxt "Theme starter content"
 msgid "About This Site"
 msgstr "Über diese Website"
@@ -2179,97 +2183,97 @@ msgstr "Kein Video ausgewählt"
 msgid "Choose video"
 msgstr "Video wählen"
 
-#: wp-includes/theme.php:2081
+#: wp-includes/theme.php:2082
 msgctxt "Theme starter content"
 msgid "A homepage section"
 msgstr "Ein Startseiten-Abschnitt"
 
-#: wp-includes/theme.php:2072
+#: wp-includes/theme.php:2073
 msgctxt "Theme starter content"
 msgid "Blog"
 msgstr "Blog"
 
-#: wp-includes/theme.php:2067
+#: wp-includes/theme.php:2068
 msgctxt "Theme starter content"
 msgid "Contact"
 msgstr "Kontakt"
 
-#: wp-includes/theme.php:2062
+#: wp-includes/theme.php:2063
 msgctxt "Theme starter content"
 msgid "About"
 msgstr "Über mich"
 
-#: wp-includes/theme.php:1984 wp-includes/theme.php:2057
+#: wp-includes/theme.php:1985 wp-includes/theme.php:2058
 msgctxt "Theme starter content"
 msgid "Home"
 msgstr "Startseite"
 
-#: wp-includes/theme.php:2014
+#: wp-includes/theme.php:2015
 msgctxt "Theme starter content"
 msgid "Email"
 msgstr "E-Mail"
 
-#: wp-includes/theme.php:2030
+#: wp-includes/theme.php:2031
 msgctxt "Theme starter content"
 msgid "Instagram"
 msgstr "Instagram"
 
-#: wp-includes/theme.php:2042
+#: wp-includes/theme.php:2043
 msgctxt "Theme starter content"
 msgid "Twitter"
 msgstr "Twitter"
 
-#: wp-includes/theme.php:2018
+#: wp-includes/theme.php:2019
 msgctxt "Theme starter content"
 msgid "Facebook"
 msgstr "Facebook"
 
-#: wp-includes/theme.php:2046
+#: wp-includes/theme.php:2047
 msgctxt "Theme starter content"
 msgid "Yelp"
 msgstr "Yelp"
 
-#: wp-includes/theme.php:1966
+#: wp-includes/theme.php:1967
 msgctxt "Theme starter content"
 msgid "Categories"
 msgstr "Kategorien"
 
-#: wp-includes/theme.php:1978
+#: wp-includes/theme.php:1979
 msgctxt "Theme starter content"
 msgid "Search"
 msgstr "Suche"
 
-#: wp-includes/theme.php:1948
+#: wp-includes/theme.php:1949
 msgctxt "Theme starter content"
 msgid "Saturday &amp; Sunday: 11:00AM&ndash;3:00PM"
 msgstr "Samstag und Sonntag: 11&ndash;15&nbsp;Uhr"
 
-#: wp-includes/theme.php:1948
+#: wp-includes/theme.php:1949
 msgctxt "Theme starter content"
 msgid "Monday&mdash;Friday: 9:00AM&ndash;5:00PM"
 msgstr "Montag bis Freitag: 9&ndash;17&nbsp;Uhr"
 
-#: wp-includes/theme.php:1947
+#: wp-includes/theme.php:1948
 msgctxt "Theme starter content"
 msgid "Hours"
 msgstr "Öffnungszeiten"
 
-#: wp-includes/theme.php:1946
+#: wp-includes/theme.php:1947
 msgctxt "Theme starter content"
 msgid "New York, NY 10001"
 msgstr "20017 Lichtermeer"
 
-#: wp-includes/theme.php:1946
+#: wp-includes/theme.php:1947
 msgctxt "Theme starter content"
 msgid "123 Main Street"
 msgstr "Große Straße 123"
 
-#: wp-includes/theme.php:1945
+#: wp-includes/theme.php:1946
 msgctxt "Theme starter content"
 msgid "Address"
 msgstr "Adresse"
 
-#: wp-includes/theme.php:1943
+#: wp-includes/theme.php:1944
 msgctxt "Theme starter content"
 msgid "Find Us"
 msgstr "Hier findest du uns"
@@ -2398,7 +2402,7 @@ msgstr "Ergebnissatz auf Beiträge begrenzen, denen ein oder mehrere Status zuge
 msgid "Comment field exceeds maximum length allowed."
 msgstr "Kommentarfeld übersteigt die maximal erlaubte Länge."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-post-types-controller.php:251
+#: wp-includes/rest-api/endpoints/class-wp-rest-post-types-controller.php:258
 msgid "Taxonomies associated with post type."
 msgstr "Taxonomien, die dem Beitragstyp zugeordnet sind."
 
@@ -3686,11 +3690,11 @@ msgstr "1 Sekunde vorwärts springen"
 msgid "Time Slider"
 msgstr "Zeit-Schieberegler"
 
-#: wp-includes/script-loader.php:370 wp-includes/theme.php:1394
+#: wp-includes/script-loader.php:370 wp-includes/theme.php:1395
 msgid "Pause"
 msgstr "Pause"
 
-#: wp-includes/script-loader.php:369 wp-includes/theme.php:1395
+#: wp-includes/script-loader.php:369 wp-includes/theme.php:1396
 msgid "Play"
 msgstr "Abspielen"
 
@@ -4477,7 +4481,7 @@ msgid "This site has not been activated yet. If you are having problems activati
 msgstr "Diese Website wurde noch nicht aktiviert. Wenn du Probleme mit der Aktivierung deiner Website hast, kontaktiere bitte %s."
 
 #. translators: %s: email address
-#: wp-signup.php:611 wp-signup.php:757
+#: wp-signup.php:613 wp-signup.php:759
 msgid "Check your inbox at %s and click the link given."
 msgstr "Bitte überprüfe deinen E-Mail-Posteingang %s und klicke auf den enthaltenen Link."
 
@@ -4487,7 +4491,7 @@ msgid "The menu name %s conflicts with another menu name. Please try another."
 msgstr "Der Name des Menüs %s zeigt einen Konflikt mit einem anderen Menünamen. Bitte verwende einen anderen Menünamen."
 
 #. translators: %s: site address
-#: wp-signup.php:904
+#: wp-signup.php:906
 msgid "The site you were looking for, %s, does not exist."
 msgstr "Die Website, die du gesucht hast, %s, existiert nicht."
 
@@ -4505,7 +4509,7 @@ msgstr "Ups! Diese Einbettung wurde nicht gefunden."
 msgid "Continue reading %s"
 msgstr "%s weiterlesen"
 
-#: wp-signup.php:146
+#: wp-signup.php:148
 msgid "Site Language:"
 msgstr "Sprache der Website:"
 
@@ -5722,7 +5726,7 @@ msgstr "Taxonomie-Namen müssen eine Länge zwischen 1 und 32 Zeichen haben."
 msgid "Could not split shared term."
 msgstr "Der gemeinsam genutzte Begriff konnte nicht aufgeteilt werden."
 
-#: wp-includes/theme.php:2962
+#: wp-includes/theme.php:2963
 msgid "Customizer"
 msgstr "Customizer"
 
@@ -5896,7 +5900,7 @@ msgid "Distraction-free writing mode"
 msgstr "Modus für ablenkungsfreies Schreiben"
 
 #. translators: 1: Theme support 2: hook name
-#: wp-includes/theme.php:2417
+#: wp-includes/theme.php:2418
 msgid "Theme support for %1$s should be registered before the %2$s hook."
 msgstr "Theme-Unterstützung für %1$s sollte vor dem %2$s Hook registriert werden."
 
@@ -5947,7 +5951,7 @@ msgstr "Ein Begriff mit dem angegebenen Namen existiert bereits in dieser Taxono
 msgid "%s must set a database connection for use with escaping."
 msgstr "%s muss eine Datenbank Verbindung setzen, die zum Maskieren benutzt werden soll."
 
-#: wp-includes/theme.php:2261
+#: wp-includes/theme.php:2262
 msgid "You need to pass an array of types."
 msgstr "Du musst ein Array von Typen übergeben."
 
@@ -7560,12 +7564,12 @@ msgid "(more&hellip;)"
 msgstr "(mehr&#160;&hellip;)"
 
 #. translators: %s: site address
-#: wp-signup.php:899
+#: wp-signup.php:901
 msgid "The site you were looking for, %s, does not exist, but you can create it now!"
 msgstr "Die Website, die du gesucht hast, %s, existiert nicht, aber du kannst sie jetzt erstellen!"
 
 #. translators: %s: email address
-#: wp-signup.php:767
+#: wp-signup.php:769
 msgid "Have you entered your email correctly? You have entered %s, if it&#8217;s incorrect, you will not receive your email."
 msgstr "Hast du deine E-Mail-Adresse richtig eingegeben? Du hast %s eingegeben. Sollte das nicht korrekt sein, erhältst du keine E-Mail."
 
@@ -8471,7 +8475,7 @@ msgctxt "opening curly double quote"
 msgid "&#8220;"
 msgstr "&#8222;"
 
-#: wp-signup.php:174
+#: wp-signup.php:176
 msgid "Allow search engines to index this site."
 msgstr "Suchmaschinen dürfen diese Website indexieren."
 
@@ -8494,7 +8498,7 @@ msgid "Your account has been activated. You may now <a href=\"%1$s\">log in</a> 
 msgstr "Dein Benutzerkonto wurde aktiviert. Du kannst dich nun mit dem gewählten Benutzernamen &#8222;%2$s&#8220; <a href=\"%1$s\">anmelden</a>. Bitte überprüfe deinen E-Mail-Posteingang %3$s für dein Passwort und die Anmelde-Instruktionen. Falls du keine E-Mail erhalten hast, überprüfe bitte auch deinen Spam-Ordner. Solltest du nicht innerhalb von einer Stunde eine E-Mail erhalten haben, kannst du dein <a href=\"%4$s\">Passwort zurücksetzen</a>."
 
 #. translators: 1: link to new site, 2: login URL, 3: username
-#: wp-signup.php:474
+#: wp-signup.php:476
 msgid "%1$s is your new site. <a href=\"%2$s\">Log in</a> as &#8220;%3$s&#8221; using your existing password."
 msgstr "%1$s ist deine neue Website. <a href=\"%2$s\">Melde dich an</a> als &#8222;%3$s&#8220; und verwende dein bestehendes Passwort."
 
@@ -8807,12 +8811,12 @@ msgctxt "Post format"
 msgid "Standard"
 msgstr "Standard"
 
-#: wp-signup.php:123
+#: wp-signup.php:125
 msgid "domain"
 msgstr "Domain"
 
 #. translators: %s: site address
-#: wp-signup.php:127
+#: wp-signup.php:129
 msgid "Your address will be %s."
 msgstr "Deine Adresse wird %s lauten."
 
@@ -9122,19 +9126,19 @@ msgctxt "taxonomy singular name"
 msgid "Category"
 msgstr "Kategorie"
 
-#: wp-signup.php:764
+#: wp-signup.php:766
 msgid "Check the junk or spam folder of your email client. Sometime emails wind up there by mistake."
 msgstr "Überprüfe den Junk/Spam-Ordner deines E-Mail-Postfachs, da E-Mails manchmal fälschlicherweise als Spam gekennzeichnet werden."
 
-#: wp-signup.php:763
+#: wp-signup.php:765
 msgid "Wait a little longer. Sometimes delivery of email can be delayed by processes outside of our control."
 msgstr "Bitte warte noch ein bisschen. Manchmal verzögert sich die Zustellung von E-Mails, ohne dass wir etwas dagegen tun können."
 
-#: wp-signup.php:890
+#: wp-signup.php:892
 msgid "Sorry, new registrations are not allowed at this time."
 msgstr "Neue Registrierungen sind derzeit leider nicht erlaubt."
 
-#: wp-signup.php:240
+#: wp-signup.php:242
 msgid "We send your registration email to this address. (Double-check your email address before continuing.)"
 msgstr "Wir verschicken deine Registrierungs-E-Mail an diese Adresse. (Überprüfe also nochmal deine E-Mail-Adresse, bevor du fortfährst.)"
 
@@ -9369,11 +9373,11 @@ msgstr "Die Abmessungen des größenveränderten Bildes konnten nicht berechnet 
 msgid "If you&#8217;re still stuck with this message, then check that your database contains the following tables:"
 msgstr "Wenn diese Nachricht weiterhin angezeigt wird, dann prüfe bitte, ob die Datenbank die folgenden Tabellen enthält:"
 
-#: wp-signup.php:761
+#: wp-signup.php:763
 msgid "If you haven&#8217;t received your email yet, there are a number of things you can do:"
 msgstr "Falls du deine E-Mail noch nicht erhalten hast, kannst du folgende Dinge tun:"
 
-#: wp-signup.php:313
+#: wp-signup.php:315
 msgid "Welcome back, %s. By filling out the form below, you can <strong>add another site to your account</strong>. There is no limit to the number of sites you can have, so create to your heart&#8217;s content, but write responsibly!"
 msgstr "Willkommen zurück, %s. Indem du dieses Formular ausfüllst, kannst du deinem Benutzerkonto eine <strong>weitere Website</strong> hinzufügen. Es gibt keine Begrenzung für die Anzahl der Websites, die du haben kannst, also schreibe nach Herzenslust, aber bitte verantwortungsvoll!"
 
@@ -9381,16 +9385,16 @@ msgstr "Willkommen zurück, %s. Indem du dieses Formular ausfüllst, kannst du d
 msgid "This action has been disabled by the administrator."
 msgstr "Diese Aktion wurde vom Administrator deaktiviert."
 
-#: wp-signup.php:892
+#: wp-signup.php:894
 msgid "You are logged in already. No need to register again!"
 msgstr "Du bist bereits angemeldet und brauchst dich nicht erneut zu registrieren!"
 
 #. translators: %s: login URL
-#: wp-signup.php:857
+#: wp-signup.php:859
 msgid "You must first <a href=\"%s\">log in</a>, and then you can create a new site."
 msgstr "Du musst dich zuerst <a href=\"%s\">anmelden</a>, um eine neue Website erstellen zu können."
 
-#: wp-signup.php:127
+#: wp-signup.php:129
 msgid "Must be at least 4 characters, letters and numbers only. It cannot be changed, so choose carefully!"
 msgstr "Sie muss aus mindestens vier Zeichen bestehen, wobei du bitte nur Zahlen und Buchstaben verwenden solltest. Prüfe deine Eingabe sorgfältig, da diese Angabe später nicht mehr geändert werden kann."
 
@@ -9468,44 +9472,44 @@ msgstr[1] "%d Theme-Aktualisierungen"
 msgid "%d WordPress Update"
 msgstr "%d WordPress-Aktualisierung"
 
-#: wp-signup.php:758
+#: wp-signup.php:760
 msgid "If you do not activate your site within two days, you will have to sign up again."
 msgstr "Falls du deine Website nicht innerhalb von zwei Tagen aktivierst, musst du sie erneut registrieren."
 
-#: wp-signup.php:755
+#: wp-signup.php:757
 msgid "But, before you can start using your site, <strong>you must activate it</strong>."
 msgstr "Doch bevor du deine Website nutzen kannst, musst du sie erst <strong>aktivieren</strong>."
 
-#: wp-signup.php:555
+#: wp-signup.php:557
 msgid "Gimme a site!"
 msgstr "Gib mir eine Website!"
 
-#: wp-signup.php:871
+#: wp-signup.php:873
 msgid "Site registration has been disabled."
 msgstr "Das Registrieren von Websites ist deaktiviert."
 
 #. translators: %s: site address
-#: wp-signup.php:753
+#: wp-signup.php:755
 msgid "Congratulations! Your new site, %s, is almost ready."
 msgstr "Herzlichen Glückwunsch! Deine neue Website – %s – ist beinahe fertig."
 
-#: wp-signup.php:307
+#: wp-signup.php:309
 msgid "Get <em>another</em> %s site in seconds"
 msgstr "Erstelle eine <em>weitere</em> %s Website in Sekunden"
 
-#: wp-signup.php:121
+#: wp-signup.php:123
 msgid "sitename"
 msgstr "Website-Name"
 
-#: wp-signup.php:106
+#: wp-signup.php:108
 msgid "Site Name:"
 msgstr "Name der Website:"
 
-#: wp-signup.php:108
+#: wp-signup.php:110
 msgid "Site Domain:"
 msgstr "Website-Domain:"
 
-#: wp-signup.php:132
+#: wp-signup.php:134
 msgid "Site Title:"
 msgstr "Website-Titel:"
 
@@ -9550,20 +9554,20 @@ msgstr "Wenn du der Betreiber dieses Netzwerks bist, überprüfe bitte, ob MySQL
 msgid "New trackback on your post \"%s\""
 msgstr "Neuer Trackback zum Beitrag „%s“"
 
-#: wp-signup.php:319
+#: wp-signup.php:321
 msgid "Sites you are already a member of:"
 msgstr "Du bist bereits Mitglied der folgenden Websites:"
 
-#: wp-signup.php:328
+#: wp-signup.php:330
 msgid "If you&#8217;re not going to use a great site domain, leave it for a new user. Now have at it!"
 msgstr "Suche dir nun einen weiteren Website-Namen und Website-Titel aus."
 
-#: wp-signup.php:343
+#: wp-signup.php:345
 msgid "Create Site"
 msgstr "Website erstellen"
 
 #. translators: %s: site name
-#: wp-signup.php:469
+#: wp-signup.php:471
 msgid "The site %s is yours."
 msgstr "Die Website %s gehört dir."
 
@@ -9788,62 +9792,62 @@ msgstr "Softwareversion"
 msgid "Software Name"
 msgstr "Softwarename"
 
-#: wp-signup.php:865
+#: wp-signup.php:867
 msgid "User registration has been disabled."
 msgstr "Die Benutzerregistrierung wurde deaktiviert."
 
-#: wp-signup.php:853
+#: wp-signup.php:855
 msgid "Registration has been disabled."
 msgstr "Die Registrierung wurde deaktiviert."
 
-#: wp-signup.php:759
+#: wp-signup.php:761
 msgid "Still waiting for your email?"
 msgstr "Wartest du noch auf deine E-Mail?"
 
-#: wp-signup.php:676
+#: wp-signup.php:678
 msgid "Signup"
 msgstr "Registrieren"
 
-#: wp-signup.php:612
+#: wp-signup.php:614
 msgid "If you do not activate your username within two days, you will have to sign up again."
 msgstr "Wenn du deinen Benutzernamen nicht innerhalb von zwei Tagen aktivierst, musst du dich erneut registrieren."
 
-#: wp-signup.php:609
+#: wp-signup.php:611
 msgid "But, before you can start using your new username, <strong>you must activate it</strong>."
 msgstr "Bevor du jedoch loslegen und deinen neuen Benutzernamen nutzen kannst, musst du ihn erst <strong>aktivieren</strong>."
 
 #. translators: %s: username
-#: wp-signup.php:608
+#: wp-signup.php:610
 msgid "%s is your new username"
 msgstr "%s ist dein neuer Benutzername"
 
 #: wp-includes/class-wp-customize-nav-menus.php:967
-#: wp-includes/script-loader.php:1130 wp-signup.php:562
+#: wp-includes/script-loader.php:1130 wp-signup.php:564
 msgid "Next"
 msgstr "Weiter"
 
-#: wp-signup.php:558
+#: wp-signup.php:560
 msgid "Just a username, please."
 msgstr "Ich möche nur einen Benutzernamen, keine Website."
 
 #. translators: %s: name of the network
-#: wp-signup.php:538
+#: wp-signup.php:540
 msgid "Get your own %s account in seconds"
 msgstr "Registriere dich in nur wenigen Sekunden bei %s."
 
-#: wp-signup.php:310
+#: wp-signup.php:312
 msgid "There was a problem, please correct the form below and try again."
 msgstr "Es trat ein Fehler auf. Bitte korrigiere die Eingaben und versuche es nochmal."
 
-#: wp-signup.php:236
+#: wp-signup.php:238
 msgid "Email&nbsp;Address:"
 msgstr "E-Mail-Addresse:"
 
-#: wp-signup.php:233
+#: wp-signup.php:235
 msgid "(Must be at least 4 characters, letters and numbers only.)"
 msgstr "(Es müssen mindestens 4 Zeichen sein, bitte nur Buchstaben und Zahlen.)"
 
-#: wp-signup.php:173
+#: wp-signup.php:175
 msgid "Privacy:"
 msgstr "Datenschutz:"
 
@@ -10658,7 +10662,7 @@ msgstr "Dokumenteigenschaften"
 #: wp-includes/class-wp-editor.php:1238 wp-includes/script-loader.php:477
 #: wp-includes/script-loader.php:559 wp-includes/script-loader.php:701
 #: wp-includes/script-loader.php:724 wp-includes/script-loader.php:888
-#: wp-includes/theme.php:2961
+#: wp-includes/theme.php:2962
 msgid "The changes you made will be lost if you navigate away from this page."
 msgstr "Beim Verlassen der Seite werden deine Änderungen verworfen."
 
@@ -11532,7 +11536,7 @@ msgstr "Themes"
 msgid "Sites"
 msgstr "Websites"
 
-#: wp-signup.php:178
+#: wp-signup.php:180
 msgid "Yes"
 msgstr "Ja"
 
@@ -12037,7 +12041,7 @@ msgstr "Suchergebnisse für &#8222;%s&#8220;"
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: wp-signup.php:182
+#: wp-signup.php:184
 msgid "No"
 msgstr "Nein"
 
@@ -12102,7 +12106,7 @@ msgstr "Keine Beiträge gefunden."
 msgid "Password:"
 msgstr "Passwort:"
 
-#: wp-activate.php:133 wp-signup.php:228
+#: wp-activate.php:133 wp-signup.php:230
 msgid "Username:"
 msgstr "Benutzername:"
 
