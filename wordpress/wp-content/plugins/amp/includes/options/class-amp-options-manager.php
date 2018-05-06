@@ -47,7 +47,7 @@ class AMP_Options_Manager {
 		sort( $old_post_types );
 		sort( $new_post_types );
 		if ( $old_post_types !== $new_post_types ) {
-			flush_rewrite_rules();
+			flush_rewrite_rules( false );
 		}
 	}
 
@@ -171,7 +171,7 @@ class AMP_Options_Manager {
 				continue;
 			}
 
-			$post_type_supported = post_type_supports( $post_type->name, AMP_QUERY_VAR );
+			$post_type_supported = post_type_supports( $post_type->name, amp_get_slug() );
 			$is_support_elected  = in_array( $post_type->name, $supported_types, true );
 
 			$error = null;
