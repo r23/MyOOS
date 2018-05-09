@@ -159,6 +159,9 @@ if ( ! class_exists( 'YoastSEO_AMP_Frontend' ) ) {
 		 * @return array
 		 */
 		public function fix_amp_post_data( $data ) {
+			if ( ! $this->front ) {
+				$this->front = WPSEO_Frontend::get_instance();
+			}
 			$data['canonical_url'] = $this->front->canonical( false );
 
 			if ( ! empty( $this->options['amp_site_icon'] ) ) {
@@ -182,7 +185,9 @@ if ( ! class_exists( 'YoastSEO_AMP_Frontend' ) ) {
 		 * @return array
 		 */
 		public function fix_amp_post_metadata( $metadata, $post ) {
-			$this->front = WPSEO_Frontend::get_instance();
+			if ( ! $this->front ) {
+				$this->front = WPSEO_Frontend::get_instance();
+			}
 
 			$this->build_organization_object( $metadata );
 

@@ -1,9 +1,9 @@
 === Glue for Yoast SEO & AMP ===
 Contributors: joostdevalk
 Tags: AMP, SEO
-Requires at least: 4.6
-Tested up to: 4.7.3
-Stable tag: 0.4.2
+Requires at least: 4.8
+Tested up to: 4.9.5
+Stable tag: 0.4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -33,6 +33,10 @@ To change your AMP page design, go to SEO -> AMP, and look at the design tab.
 3. Design settings in the plugin.
 
 == Changelog ==
+
+= 0.4.3 =
+* Bugfixes:
+    * Fixes a fatal error in combination with `AMP for WordPress` version 0.7.0. Props [Ryan Kienstra](https://github.com/kienstra).
 
 = 0.4.2 =
 * Bugfixes:
