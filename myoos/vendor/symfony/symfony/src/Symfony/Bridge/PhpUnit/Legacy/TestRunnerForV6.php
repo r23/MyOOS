@@ -11,28 +11,31 @@
 
 namespace Symfony\Bridge\PhpUnit\Legacy;
 
+use PHPUnit\TextUI\TestRunner as BaseRunner;
+use Symfony\Bridge\PhpUnit\SymfonyTestsListener;
+
 /**
  * {@inheritdoc}
  *
  * @internal
  */
-class TestRunner extends \PHPUnit_TextUI_TestRunner
+class TestRunnerForV6 extends BaseRunner
 {
     /**
      * {@inheritdoc}
      */
     protected function handleConfiguration(array &$arguments)
     {
-        $listener = new SymfonyTestsListenerForV5();
+        $listener = new SymfonyTestsListener();
 
-        $result = parent::handleConfiguration($arguments);
+        parent::handleConfiguration($arguments);
 
         $arguments['listeners'] = isset($arguments['listeners']) ? $arguments['listeners'] : array();
 
         $registeredLocally = false;
 
         foreach ($arguments['listeners'] as $registeredListener) {
-            if ($registeredListener instanceof SymfonyTestsListenerForV5) {
+            if ($registeredListener instanceof SymfonyTestsListener) {
                 $registeredListener->globalListenerDisabled();
                 $registeredLocally = true;
                 break;
@@ -42,7 +45,5 @@ class TestRunner extends \PHPUnit_TextUI_TestRunner
         if (!$registeredLocally) {
             $arguments['listeners'][] = $listener;
         }
-
-        return $result;
     }
 }
