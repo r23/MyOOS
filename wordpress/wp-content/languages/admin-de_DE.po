@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 4.9.x - Development - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-05-16 20:51:49+0000\n"
+"PO-Revision-Date: 2018-05-21 17:56:03+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -25,6 +25,10 @@ msgstr "Europe/Berlin"
 msgctxt "start of week"
 msgid "1"
 msgstr "1"
+
+#: wp-admin/includes/file.php:1893
+msgid "Unable to create export folder."
+msgstr "Kann Export-Ordner nicht erstellen."
 
 #. translators: %s: Privacy Policy Guide URL
 #: wp-admin/includes/misc.php:1356
@@ -129,7 +133,7 @@ msgstr "Einführung"
 msgid "Invalid request ID when processing eraser data."
 msgstr "Ungültige Anfrage-ID bei der Bearbeitung von zu löschenden Daten."
 
-#: wp-admin/includes/user.php:1507 wp-admin/includes/user.php:1549
+#: wp-admin/includes/user.php:1510 wp-admin/includes/user.php:1553
 msgid "Erasing Data..."
 msgstr "Daten löschen&nbsp;…"
 
@@ -370,7 +374,7 @@ msgstr "Bitte bearbeite den Inhalt deiner Datenschutzerklärung, lösche die Zus
 
 #: wp-admin/includes/misc.php:1629
 msgid "This text template will help you to create your web site&#8217;s privacy policy."
-msgstr "Dieser Mustertext wird kann dir bei der Erstellung der Datenschutzerklärung für deine Website helfen."
+msgstr "Dieser Mustertext kann dir bei der Erstellung der Datenschutzerklärung für deine Website helfen."
 
 #: wp-admin/includes/misc.php:1628
 msgid "Hello,"
@@ -380,38 +384,38 @@ msgstr "Hallo,"
 msgid "As a website owner, you may need to follow national or international privacy laws. For example, you may need to create and display a privacy policy."
 msgstr "Als Betreiber einer Website wirst du nationalen oder internationalen Datenschutzgesetzen Folge leisten müssen. Beispielsweise wirst du eine Datenschutzerklärung erstellen und anzeigen müssen."
 
-#: wp-admin/includes/user.php:1550
+#: wp-admin/includes/user.php:1554
 msgid "Erasing Data has failed."
 msgstr "Löschen von Daten gescheitert."
 
-#: wp-admin/includes/user.php:1508
+#: wp-admin/includes/user.php:1511
 msgid "Force Erase has failed."
 msgstr "Erzwungenes Löschen gescheitert."
 
-#: wp-admin/includes/user.php:1439
+#: wp-admin/includes/user.php:1441
 msgid "Email could not be sent."
 msgstr "E-Mail konnte nicht gesendet werden."
 
-#: wp-admin/includes/user.php:1397
+#: wp-admin/includes/user.php:1398
 msgid "Download has failed."
 msgstr "Download gescheitert."
 
-#: wp-admin/includes/file.php:1971
+#: wp-admin/includes/file.php:1970
 msgctxt "date/time"
 msgid "On"
 msgstr "Am"
 
-#: wp-admin/includes/file.php:1967
+#: wp-admin/includes/file.php:1966
 msgctxt "website URL"
 msgid "At URL"
 msgstr "Auf URL"
 
-#: wp-admin/includes/file.php:1963
+#: wp-admin/includes/file.php:1962
 msgctxt "website name"
 msgid "For site"
 msgstr "Für Website"
 
-#: wp-admin/includes/file.php:1959
+#: wp-admin/includes/file.php:1958
 msgctxt "email address"
 msgid "Report generated for"
 msgstr "Bericht erstellt für"
@@ -572,7 +576,7 @@ msgstr "Vorgeschlagenen Datenschutz-Text von %s kopieren."
 
 #. translators: Do not translate EXPIRATION, LINK, EMAIL, SITENAME, SITEURL:
 #. those are placeholders.
-#: wp-admin/includes/file.php:2070
+#: wp-admin/includes/file.php:2069
 msgid ""
 "Howdy,\n"
 "\n"
@@ -601,60 +605,60 @@ msgstr ""
 "von allen auf ###SITENAME###\n"
 "###SITEURL###"
 
-#: wp-admin/includes/file.php:2019
+#: wp-admin/includes/file.php:2018
 msgid "Unable to add data to export file."
 msgstr "Kann der Export-Datei keine Daten hinzufügen."
 
-#: wp-admin/includes/user.php:1438
+#: wp-admin/includes/user.php:1440
 msgid "Email sent."
 msgstr "E-Mail gesendet."
 
-#: wp-admin/includes/user.php:1437
+#: wp-admin/includes/user.php:1439
 msgid "Sending Email..."
 msgstr "Versende E-Mail..."
 
-#: wp-admin/includes/user.php:1436
+#: wp-admin/includes/user.php:1438
 msgid "Email Data"
 msgstr "Daten per E-Mail senden"
 
-#: wp-admin/includes/user.php:1396
+#: wp-admin/includes/user.php:1397
 msgid "Download Personal Data Again"
 msgstr "Personenbezogene Daten erneut herunterladen"
 
-#: wp-admin/includes/file.php:2170
+#: wp-admin/includes/file.php:2169
 msgid "Invalid request ID when merging exporter data."
 msgstr "Ungültige Anfrage-ID beim Zusammenfügen von Daten der Funktion zum Datenexport."
 
-#: wp-admin/includes/file.php:2125
+#: wp-admin/includes/file.php:2124
 msgid "Unable to send personal data export email."
 msgstr "Kann Export-E-Mail mit personenbezogenen Daten nicht senden."
 
-#: wp-admin/includes/file.php:2118
+#: wp-admin/includes/file.php:2117
 msgid "[%s] Personal Data Export"
 msgstr "[%s] Export personenbezogener Daten"
 
-#: wp-admin/includes/file.php:2062
+#: wp-admin/includes/file.php:2061
 msgid "Invalid request ID when sending personal data export email."
 msgstr "Ungültige Anfrage-ID beim Senden der E-Mail für den Export personenbezogener Daten."
 
-#: wp-admin/includes/file.php:2038
+#: wp-admin/includes/file.php:2037
 msgid "Unable to open export file (archive) for writing."
 msgstr "Kann Export-Datei (Archiv) nicht zum Schreiben öffnen."
 
-#: wp-admin/includes/file.php:1948
+#: wp-admin/includes/file.php:1947
 msgid "Personal Data Export"
 msgstr "Export personenbezogener Daten"
 
 #. translators: %s: user's e-mail address
-#: wp-admin/includes/file.php:1921
+#: wp-admin/includes/file.php:1920
 msgid "Personal Data Export for %s"
 msgstr "Export personenbezogener Daten für %s"
 
-#: wp-admin/includes/file.php:1916
+#: wp-admin/includes/file.php:1915
 msgid "Unable to open export file (HTML report) for writing."
 msgstr "Kann Export-Datei (HTML-Bericht) nicht zum Schreiben öffnen."
 
-#: wp-admin/includes/file.php:1902
+#: wp-admin/includes/file.php:1901
 msgid "Unable to protect export folder from browsing."
 msgstr "Kann den Export-Ordner nicht vor dem Durchsuchen schützen."
 
@@ -674,29 +678,29 @@ msgstr "Kann Export-Datei nicht erstellen. ZipArchive ist nicht verfügbar."
 msgid "A valid email address must be given."
 msgstr "Eine gültige E-Mail-Adresse muss angegeben werden."
 
-#: wp-admin/includes/user.php:1506
+#: wp-admin/includes/user.php:1509
 msgid "Force Erase Personal Data"
 msgstr "Löschen personenbezogener Daten erzwingen"
 
-#: wp-admin/includes/user.php:1451 wp-admin/includes/user.php:1563
+#: wp-admin/includes/user.php:1453 wp-admin/includes/user.php:1567
 msgid "Remove request"
 msgstr "Anfrage entfernen"
 
-#: wp-admin/includes/user.php:1420 wp-admin/includes/user.php:1532
+#: wp-admin/includes/user.php:1421 wp-admin/includes/user.php:1535
 msgid "Waiting for confirmation"
 msgstr "Warten auf Bestätigung"
 
-#: wp-admin/includes/user.php:1397 wp-admin/includes/user.php:1439
-#: wp-admin/includes/user.php:1445 wp-admin/includes/user.php:1508
-#: wp-admin/includes/user.php:1550 wp-admin/includes/user.php:1557
+#: wp-admin/includes/user.php:1398 wp-admin/includes/user.php:1441
+#: wp-admin/includes/user.php:1447 wp-admin/includes/user.php:1511
+#: wp-admin/includes/user.php:1554 wp-admin/includes/user.php:1561
 msgid "Retry"
 msgstr "Erneut versuchen"
 
-#: wp-admin/includes/user.php:1395
+#: wp-admin/includes/user.php:1396
 msgid "Downloading Data..."
 msgstr "Lade Daten herunter&nbsp;…"
 
-#: wp-admin/includes/user.php:1394
+#: wp-admin/includes/user.php:1395
 msgid "Download Personal Data"
 msgstr "Personenbezogene Daten herunterladen"
 
@@ -1791,12 +1795,12 @@ msgstr "Du bist leider nicht berechtigt, Links zu dieser Website hinzuzufügen."
 #. translators: %s: WordPress Planet URL
 #: wp-admin/index.php:80
 msgid "<strong>WordPress News</strong> &mdash; Latest news from the official WordPress project and the <a href=\"%s\">WordPress Planet</a>."
-msgstr "<strong>WordPress News</strong> – Neuste Nachrichten vom offiziellen WordPress Projekt und vom <a href=\"%s\">WordPress Planet</a>."
+msgstr "<strong>WordPress News</strong> &mdash; Neueste Nachrichten vom offiziellen WordPress-Projekt und vom <a href=\"%s\">WordPress Planet</a>."
 
 #. translators: %s: WordPress Planet URL
 #: wp-admin/index.php:74
 msgid "<strong>WordPress News</strong> &mdash; Latest news from the official WordPress project, the <a href=\"%s\">WordPress Planet</a>, and popular plugins."
-msgstr "<strong>WordPress News</strong> – Neuste Nachrichten vom offiziellen WordPress-Projekt, vom <a href=\"%s\">WordPress Planet</a> und von beliebten Plugins."
+msgstr "<strong>WordPress News</strong> – Neueste Nachrichten vom offiziellen WordPress-Projekt, vom <a href=\"%s\">WordPress Planet</a> und von beliebten Plugins."
 
 #: wp-admin/includes/upgrade.php:207
 msgid ""
@@ -2460,7 +2464,7 @@ msgstr "%1$s (%2$s)"
 msgid "The %s importer is invalid or is not installed."
 msgstr "Der %s-Importer ist ungültig oder nicht installiert."
 
-#: wp-admin/edit-form-comment.php:86
+#: wp-admin/edit-form-comment.php:90
 msgctxt "comment status"
 msgid "Pending"
 msgstr "Ausstehend"
@@ -3017,7 +3021,7 @@ msgid "Deleting a category does not delete the posts in that category. Instead, 
 msgstr "Durch Löschen einer Kategorie werden die Beiträge dieser Kategorie nicht gelöscht. Stattdessen werden Beiträge, die nur der gelöschten Kategorie zugeordnet waren, der Kategorie %s zugewiesen."
 
 #. translators: %s: comment date
-#: wp-admin/edit-form-comment.php:98
+#: wp-admin/edit-form-comment.php:102
 msgid "Submitted on: %s"
 msgstr "Abgeschickt am: %s"
 
@@ -3228,20 +3232,20 @@ msgid "First page"
 msgstr "Erste Seite"
 
 #. translators: %s: comment link
-#: wp-admin/edit-form-comment.php:137
+#: wp-admin/edit-form-comment.php:141
 msgid "In reply to: %s"
 msgstr "Als Antwort auf: %s"
 
 #. translators: %s: post link
-#: wp-admin/edit-form-comment.php:122
+#: wp-admin/edit-form-comment.php:126
 msgid "In response to: %s"
 msgstr "Als Antwort auf: %s"
 
-#: wp-admin/edit-form-comment.php:104 wp-admin/includes/meta-boxes.php:220
+#: wp-admin/edit-form-comment.php:108 wp-admin/includes/meta-boxes.php:220
 msgid "Date and time"
 msgstr "Datum und Uhrzeit"
 
-#: wp-admin/edit-form-comment.php:84
+#: wp-admin/edit-form-comment.php:88
 msgid "Comment status"
 msgstr "Kommentar-Status"
 
@@ -3427,7 +3431,7 @@ msgstr "<a href=\"https://codex.wordpress.org/Comment_Spam\">Dokumentation zu Ko
 
 #: wp-admin/options-general.php:358
 msgid "<a href=\"https://codex.wordpress.org/Formatting_Date_and_Time\">Documentation on date and time formatting</a>."
-msgstr "<a href=\"https://codex.wordpress.org/Formatting_Date_and_Time\">Dokumentation zur Formatierung von Datum und Uhrzeit</a>."
+msgstr "<a href=\"https://codex.wordpress.org/Formatting_Date_and_Time\">Dokumentation zur  Formatierung von Datum und Uhrzeit (engl.)</a>"
 
 #: wp-admin/update-core.php:183
 msgid "<strong>Important:</strong> before updating, please <a href=\"https://codex.wordpress.org/WordPress_Backups\">back up your database and files</a>. For help with updates, visit the <a href=\"https://codex.wordpress.org/Updating_WordPress\">Updating WordPress</a> Codex page."
@@ -3778,7 +3782,7 @@ msgid "Size in megabytes"
 msgstr "Größe in Megabyte"
 
 #. translators: Publish box date format, see https://secure.php.net/date
-#: wp-admin/edit-form-advanced.php:144 wp-admin/edit-form-comment.php:93
+#: wp-admin/edit-form-advanced.php:144 wp-admin/edit-form-comment.php:97
 #: wp-admin/includes/meta-boxes.php:181 wp-admin/includes/meta-boxes.php:340
 #: wp-admin/includes/revision.php:207 wp-admin/includes/revision.php:249
 msgid "M j, Y @ H:i"
@@ -3983,7 +3987,7 @@ msgstr "Anklicken eines Elements öffnet ein Dialogfeld mit den Anhang-Detailinf
 
 #: wp-admin/upload.php:52
 msgid "To delete media items, click the Bulk Select button at the top of the screen. Select any items you wish to delete, then click the Delete Selected button. Clicking the Cancel Selection button takes you back to viewing your media."
-msgstr "Zum Löschen von Mediendateien klicke den Button zur Mehrfachauswahl am oberen Bildschirmrand an. Wähle die Elemente, die du löschen möchtest und klicke dann auf den Button zum Löschen der ausgewählten Elemente. Durch Klicken des Abbrechen-Buttons gelangst du in die Ansicht deiner Mediendateien zurück."
+msgstr "Um Dateien aus der Mediathek zu löschen, klicke auf den Button „Mehrfachauswahl“ oben am Bildschirm. Wähle dann die Elemente aus, die du löschen möchtest und klicke auf den Button „Ausgewählte löschen“. Indem du auf „Auswahl abbrechen“ klickst, wird diese Aktion abgebrochen und du kommst in die Übersicht der Mediathek zurück."
 
 #: wp-admin/upload.php:51 wp-admin/upload.php:195
 msgid "You can view your media in a simple visual grid or a list with columns. Switch between these views using the icons to the left above the media."
@@ -4039,7 +4043,7 @@ msgstr[1] "%d Sterne"
 
 #: wp-admin/includes/class-wp-list-table.php:434
 msgid "Select bulk action"
-msgstr "Sammelaktion auswählen"
+msgstr "Mehrfachaktion wählen"
 
 #: wp-admin/user-new.php:367 wp-admin/user-new.php:503
 msgid "Add the user without sending an email that requires their confirmation."
@@ -4218,7 +4222,7 @@ msgstr "Was soll mit dem Inhalt dieses Benutzers passieren?"
 
 #: wp-admin/users.php:54
 msgid "<strong>Delete</strong> brings you to the Delete Users screen for confirmation, where you can permanently remove a user from your site and delete their content. You can also delete multiple users at once by using Bulk Actions."
-msgstr "<strong>Löschen</strong> ruft zur Bestätigung ein Dialogfenster zum Löschen des Benutzers auf, in dem du einen Benutzer dauerhaft von deiner Website entfernen und dessen Inhalt löschen kannst. Mit der Sammelaktion kannst du auch mehrere Benutzer auf einmal löschen."
+msgstr "<strong>Delete</strong> bringt dich zum „Benutzer löschen“-Bildschirm für eine Bestätigung dafür, dass du einen Benutzer unwiderruflich von deiner Website entfernen willst und auch dessen Inhalte löschst. Du kannst über die Mehrfachaktionen auch mehrere Benutzer auf einmal löschen."
 
 #: wp-admin/theme-install.php:260
 msgctxt "theme"
@@ -4255,9 +4259,9 @@ msgstr "<strong>Moduleinstellungen</strong> &mdash; Klicke auf die Titelleiste d
 
 #: wp-admin/users.php:52
 msgid "<strong>Remove</strong> allows you to remove a user from your site. It does not delete their content. You can also remove multiple users at once by using Bulk Actions."
-msgstr "<strong>Entfernen</strong> ermöglicht es dir, einen Benutzer von deiner Website zu entfernen. Dessen Inhalte werden nicht gelöscht. Du kannst aber auch mehrere Benutzer auf einmal löschen, indem du die Sammelaktion verwendest."
+msgstr "<strong>Entfernen</strong> ermöglicht es dir, einen Benutzer von deiner Website zu entfernen. Dessen Inhalte werden nicht gelöscht. Du kannst aber auch mehrere Benutzer auf einmal löschen, indem du die Mehrfachaktionen verwendest."
 
-#: wp-admin/edit-form-comment.php:102 wp-admin/includes/meta-boxes.php:218
+#: wp-admin/edit-form-comment.php:106 wp-admin/includes/meta-boxes.php:218
 msgid "Edit date and time"
 msgstr "Datum und Uhrzeit ändern"
 
@@ -5137,7 +5141,7 @@ msgstr "Um ein Menü zu bearbeiten, das bereits einer Position im Theme zugeordn
 
 #: wp-admin/nav-menus.php:558
 msgid "To assign menus to one or more theme locations, <strong>select a menu from each location&#8217;s drop down.</strong> When you&#8217;re finished, <strong>click Save Changes</strong>"
-msgstr "Um Menüs zu einer oder mehreren Positionen im Theme zuzuorden, <strong>wähle ein Menü vom Dropdown-Auswahlfeld der jeweilgien Position</strong>. Wenn du fertig bist, klicke auf <strong>Änderungen übernehmen</strong>."
+msgstr "Um Menüs zu einer oder mehreren Positionen im Theme zuzuorden, <strong>wähle ein Menü über das Dropdown-Auswahlfeld der jeweiligen Position</strong>. Wenn du fertig bist, klicke auf <strong>Änderungen speichern</strong>."
 
 #: wp-admin/nav-menus.php:557
 msgid "This screen is used for globally assigning menus to locations defined by your theme."
@@ -5389,7 +5393,7 @@ msgstr "Das Titelfeld und das große Feld für den Inhalt sind fest positioniert
 
 #: wp-admin/custom-header.php:118
 msgid "Don&#8217;t forget to click &#8220;Save Changes&#8221; when you&#8217;re done!"
-msgstr "Vergiss nicht, auf &#8222;Änderungen speichern&#8220; zu klicken, wenn du fertig bist!"
+msgstr "Vergiss nicht, auf „Änderungen speichern“ zu klicken, wenn du fertig bist!"
 
 #: wp-admin/custom-background.php:90
 msgid "To use a background image, simply upload it or choose an image that has already been uploaded to your Media Library by clicking the &#8220;Choose Image&#8221; button. You can display a single instance of your image, or tile it to fill the screen. You can have your background fixed in place, so your site content moves on top of it, or you can have it scroll with your site."
@@ -5438,7 +5442,7 @@ msgstr "Du kannst auch eine Hintergrundfarbe auswählen, indem du auf den Button
 
 #: wp-admin/options-reading.php:32
 msgid "You can choose whether or not your site will be crawled by robots, ping services, and spiders. If you want those services to ignore your site, click the checkbox next to &#8220;Discourage search engines from indexing this site&#8221; and click the Save Changes button at the bottom of the screen. Note that your privacy is not complete; your site is still visible on the web."
-msgstr "Du kannst hier auswählen, ob du Suchmaschinen oder sonstigen Crawlern mitteilen möchtest, deine Website nicht zu indexieren, um somit zum Beispiel nicht in Suchergebnissen zu erscheinen. Beachte aber, dass deine Website trotz Aktivieren dieser Option weiterhin öffentlich im Internet erreichbar ist."
+msgstr "Du kannst hier festlegen, ob deine Website von Robots, Ping-Diensten und Spiders gecrawlt wird oder nicht. Wenn du möchtest, dass diese Dienste deine Website ignorieren, aktiviere die Checkbox bei &#8222;Suchmaschinen davon abhalten, diese Website zu indexieren&#8220; und klicke dann auf den „Änderungen speichern“-Button unten am Bildschirm. Beachte, dass deine Privatsphäre nicht umfassend ist; deine Website ist weiterhin im Internet sichtbar."
 
 #: wp-admin/includes/dashboard.php:1615
 msgid "Learn more about getting started"
@@ -5670,7 +5674,7 @@ msgstr "Eine Seite zu erstellen, ist sehr ähnlich wie das Erstellen eines Beitr
 
 #: wp-admin/edit-tags.php:227
 msgid "You can delete Link Categories in the Bulk Action pull-down, but that action does not delete the links within the category. Instead, it moves them to the default Link Category."
-msgstr "Du kannst die Link-Kategorien über den Drop-down Mehrfachaktionen löschen. Jedoch werden die Links dadurch nicht aus der Kategorie gelöscht, sondern in die Standard-Linkkategorie verschoben."
+msgstr "Du kannst Link-Kategorien über das Drop-down-Menü Mehrfachaktionen löschen, jedoch löscht diese Aktion nicht die Links innerhalb der Kategorie. Stattdessen werden sie in die Standard-Linkkategorie verschoben."
 
 #: wp-admin/edit-tags.php:560
 msgid "Tags can be selectively converted to categories using the <a href=\"%s\">tag to category converter</a>."
@@ -5940,7 +5944,7 @@ msgstr "Kommentar bearbeiten"
 msgid "Preview:"
 msgstr "Vorschau:"
 
-#: wp-admin/about.php:14 wp-admin/includes/file.php:1955
+#: wp-admin/about.php:14 wp-admin/includes/file.php:1954
 msgid "About"
 msgstr "Über"
 
@@ -6459,7 +6463,7 @@ msgstr "Plugins hinzufügen"
 
 #: wp-admin/edit.php:222
 msgid "You can also edit or move multiple posts to the trash at once. Select the posts you want to act on using the checkboxes, then select the action you want to take from the Bulk Actions menu and click Apply."
-msgstr "Es können auch mehrere Beiträge auf einmal bearbeitet werden. Markiere dazu die gewünschten Beiträge, wähle im Auswahlmenü &#8222;Sammelaktion auswählen&#8220; die gewünschte Aktion und klicke anschließend auf den Button &#8222;Übernehmen&#8220;."
+msgstr "Es können auch mehrere Beiträge auf einmal bearbeitet oder in den Papierkorb verschoben werden. Wähle dazu durch die Checkboxen die Beiträge aus, mit denen du arbeiten willst, wähle dann die entsprechende Aktion unter Mehrfachaktionen aus und klicke auf „Übernehmen“."
 
 #: wp-admin/edit.php:192
 msgid "This screen provides access to all of your posts. You can customize the display of this screen to suit your workflow."
@@ -6479,7 +6483,7 @@ msgstr "Verfügbare Aktionen"
 
 #: wp-admin/edit.php:223
 msgid "When using Bulk Edit, you can change the metadata (categories, author, etc.) for all selected posts at once. To remove a post from the grouping, just click the x next to its name in the Bulk Edit area that appears."
-msgstr "Mit der Mehrfachbearbeitung kannst du Metadaten (Kategorien, Autor, etc.) für alle ausgewählten Beiträge auf einmal ändern. Um einen Beitrag nachträglich aus der Mehrfachbearbeitung zu entfernen, klicke auf das  X-Symbol neben dem Titel im Bereich der jetzt möglichen Mehrfachauswahl."
+msgstr "Mit der Mehrfachbearbeitung kannst du Metadaten, wie Kategorien, Autor, usw. für alle ausgewählten Beiträge auf einmal ändern. Um einen Beitrag aus der Gruppierung zu entfernen, klicke einfach auf das x-Symbol neben dem Namen, das im Bereich der Mehrfachbearbeitung erscheint."
 
 #: wp-admin/import.php:197
 msgid "If the importer you need is not listed, <a href=\"%s\">search the plugin directory</a> to see if an importer is available."
@@ -6615,7 +6619,7 @@ msgstr "Falls eine Datei in keinem Beitrag oder Seite verwendet wird, so wird di
 
 #: wp-admin/edit.php:244
 msgid "You can also perform the same types of actions, including narrowing the list by using the filters, acting on a page using the action links that appear when you hover over a row, or using the Bulk Actions menu to edit the metadata for multiple pages at once."
-msgstr "Du kannst auch die gleichen Arten von Aktionen ausführen, z.&nbsp;B. die Liste einschränken, indem du die Filter verwendest oder auf einer Seite mit den Aktionslinks arbeiten, die angezeigt werden, wenn du mit der Maus über eine Zeile fährst oder das Sammelaktionen-Menü verwenden, um die Metadaten für mehrere Seiten gleichzeitig zu bearbeiten."
+msgstr "Du kannst auch die gleichen Arten von Aktionen ausführen, beispielsweise die Liste mit Hilfe der Filter einschränken. Und grundsätzlich mit Seiten arbeiten, indem du die bei Mauszeigerkontakt erscheinenden Links nutzt oder das Drop-down-Menü für die Mehrfachaktionen verwendest, um die Metadaten für mehrere Seiten auf einmal zu bearbeiten."
 
 #: wp-admin/edit.php:243
 msgid "Managing pages is very similar to managing posts, and the screens can be customized in the same way."
@@ -6641,7 +6645,7 @@ msgstr "In der Spalte <strong>Autor</strong> werden Daten wie der Name, E-Mail-A
 
 #: wp-admin/edit-comments.php:169
 msgid "You can manage comments made on your site similar to the way you manage posts and other content. This screen is customizable in the same ways as other management screens, and you can act on comments using the on-hover action links or the Bulk Actions."
-msgstr "Du kannst Kommentare auf die gleiche Art und Weise verwalten, wie du es auch mit Beiträgen machenst. Dieser Bildschirm ist wie andere anpassbar, und du kannst Kommentare bearbeiten, indem du die Aktionslinks, welche bei Mauszeigerkontakt angezeigt werden benutzt oder auch die Mehrfachaktionen verwenden."
+msgstr "Du kannst Kommentare auf deiner Website ähnlich wie Beiträge und andere Inhalte verwalten. Diese Ansicht ist genauso anpassbar wie andere Bereiche. Mit den Kommentaren läßt sich ebenso umgehen, indem du die durch Mauszeigerkontakt angezeigten Links nutzt oder die Mehrfachaktionen verwendest."
 
 #: wp-admin/link-manager.php:54
 msgid "Links may be separated into Link Categories; these are different than the categories used on your posts."
@@ -7408,7 +7412,7 @@ msgid ""
 "\n"
 "As a new WordPress user, you should go to <a href=\"%s\">your dashboard</a> to delete this page and create new pages for your content. Have fun!"
 msgstr ""
-"Dies ist eine Beispiel-Seite. Sie unterscheidet sich von Beiträgen, da sie stets an der selben Stelle bleibt und (bei den meisten Themes) in der Navigation angezeigt wird. Die meisten Leute starten mit einem Impressum oder einer &#8222;Über uns&#8220;-Seite mit einer Vorstellung für mögliche Besucher der Website. Dort könnte zum Beispiel stehen:\n"
+"Dies ist eine Beispiel-Seite. Sie unterscheidet sich von Beiträgen, da sie stets an der selben Stelle bleibt und (bei den meisten Themes) in der Navigation angezeigt wird. Die meisten Leute starten mit einem Impressum, der Datenschutzerklärung oder einer &#8222;Über uns&#8220;-Seite mit einer Vorstellung für mögliche Besucher der Website. Dort könnte zum Beispiel stehen:\n"
 "\n"
 "<blockquote>Hallo! Tagsüber arbeite ich als Fahrradkurier, nachts bin ich ein aufstrebender Schauspieler und dies hier ist meine Website. Ich lebe in Berlin, habe einen großen Hund namens Jack, mag Pi&#241;a Coladas, jedoch weniger (ohne Schirm) im Regen stehen gelassen zu werden.</blockquote>\n"
 "\n"
@@ -7818,7 +7822,7 @@ msgstr "Du kannst das Aussehen deiner Website verändern, indem du einen eigenen
 
 #: wp-admin/custom-background.php:92
 msgid "Don&#8217;t forget to click on the Save Changes button when you are finished."
-msgstr "Vergiss nicht, zum Schluss auf &#8222;Änderungen übernehmen&#8220; zu klicken."
+msgstr "Vergiss nicht, zum Schluss auf „Änderungen speichern“ zu klicken."
 
 #: wp-admin/user-new.php:213
 msgid "Editors can publish posts, manage posts as well as manage other people&#8217;s posts, etc."
@@ -7853,7 +7857,7 @@ msgstr "Die Website-Adresse und WordPress-Adresse können sowohl gleich als auch
 #: wp-admin/options-permalink.php:32 wp-admin/options-permalink.php:39
 #: wp-admin/options-reading.php:26 wp-admin/options-writing.php:22
 msgid "You must click the Save Changes button at the bottom of the screen for new settings to take effect."
-msgstr "Du musst jeweils den &#8222;Änderungen übernehmen&#8220;-Button unten auf dem Bildschirm klicken, damit geänderte Einstellungen übernommen werden."
+msgstr "Du musst jeweils den „Änderungen speichern“-Button unten auf dem Bildschirm klicken, damit neue Einstellungen wirksam werden."
 
 #: wp-admin/options-reading.php:23
 msgid "This screen contains the settings that affect the display of your content."
@@ -11012,7 +11016,7 @@ msgstr "Zur Revision vorlegen"
 msgid "Page"
 msgstr "Seite"
 
-#: wp-admin/edit-form-comment.php:67 wp-admin/includes/template.php:402
+#: wp-admin/edit-form-comment.php:71 wp-admin/includes/template.php:402
 msgid "Comment"
 msgstr "Kommentar"
 
@@ -11448,7 +11452,7 @@ msgstr "Die Beschreibung wird nicht immer angezeigt. Bei dem ein oder anderen Th
 msgid "The &#8220;slug&#8221; is the URL-friendly version of the name. It is usually all lowercase and contains only letters, numbers, and hyphens."
 msgstr "Die &#8222;Titelform&#8220; ist die lesbare URL-Variante des Namens. Sie besteht normalerweise nur aus Kleinbuchstaben, Zahlen und Bindestrichen."
 
-#: wp-admin/edit-form-comment.php:53
+#: wp-admin/edit-form-comment.php:57
 msgid "URL:"
 msgstr "URL:"
 
@@ -11456,11 +11460,11 @@ msgstr "URL:"
 msgid "Visit site"
 msgstr "Website ansehen"
 
-#: wp-admin/edit-form-comment.php:47
+#: wp-admin/edit-form-comment.php:51
 msgid "Email:"
 msgstr "E-Mail"
 
-#: wp-admin/edit-form-comment.php:43
+#: wp-admin/edit-form-comment.php:47
 msgid "Name:"
 msgstr "Name:"
 
@@ -11556,7 +11560,7 @@ msgstr "Auswahl einschränken"
 msgid "Pings"
 msgstr "Pings"
 
-#: wp-admin/comment.php:119 wp-admin/edit-form-comment.php:162
+#: wp-admin/comment.php:119 wp-admin/edit-form-comment.php:166
 #: wp-admin/includes/class-wp-comments-list-table.php:311
 #: wp-admin/includes/class-wp-posts-list-table.php:404
 #: wp-admin/includes/media.php:1514 wp-admin/includes/meta-boxes.php:280
@@ -11759,7 +11763,7 @@ msgstr "Ungültige Pluginseite."
 msgid "Scheduled"
 msgstr "Geplant"
 
-#: wp-admin/edit-form-comment.php:76 wp-admin/includes/ajax-actions.php:1833
+#: wp-admin/edit-form-comment.php:80 wp-admin/includes/ajax-actions.php:1833
 #: wp-admin/includes/class-wp-posts-list-table.php:1638
 #: wp-admin/includes/user.php:1011
 msgid "Status"

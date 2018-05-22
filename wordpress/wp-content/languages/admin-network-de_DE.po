@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 4.9.x - Development - Administration - Network Admin package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-03-25 14:03:25+0000\n"
+"PO-Revision-Date: 2018-05-19 20:38:15+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -553,7 +553,7 @@ msgstr "Größe in Kilobyte"
 
 #: wp-admin/network/settings.php:339
 msgid "Allowed file types. Separate types by spaces."
-msgstr "Erlaubte Dateitypen. Trenne die einzelnen Typen mit einem Leerzeichen. "
+msgstr "Erlaubte Dateitypen. Trenne die einzelnen Typen mit einem Leerzeichen."
 
 #: wp-admin/network/site-info.php:183
 msgid "Set site attributes"
@@ -729,7 +729,7 @@ msgstr "Spracheinstellungen"
 
 #: wp-admin/network/settings.php:202
 msgid "Allow site administrators to add new users to their site via the \"Users &rarr; Add New\" page"
-msgstr "Website-Administratoren das Hinzufügen neuer Benutzer zu deren Website über die Seite „Benutzer &rarr; Hinzufügen“ erlauben"
+msgstr "Website-Administratoren das Hinzufügen neuer Benutzer zu deren Website über die Seite „Benutzer &gt; Neu hinzufügen“ erlauben"
 
 #: wp-admin/network/sites.php:32
 msgid "Dashboard leads to the Dashboard for that site."
@@ -1026,15 +1026,15 @@ msgstr "Die Netzwerk-Einstellungen beinhalten unter anderem die Einstellungen f�
 
 #: wp-admin/network/settings.php:52
 msgid "Upload settings control the size of the uploaded files and the amount of available upload space for each site. You can change the default value for specific sites when you edit a particular site. Allowed file types are also listed (space separated only)."
-msgstr "Die &#8222;Dateiupload-Einstellungen&#8220; kontrollieren die Größe von hochgeladenen Dateien und den insgesamt zur Verfügung stehenden Speicherplatz für Uploads für jede Website. Du kannst diesen Wert (Speicher-Quota) für eine spezifische Website ändern, indem du diese spezielle Website bearbeitest (unter: Netzwerkverwaltung > Websites > Bearbeiten > Einstellungen > ganz unten). Zugelassene Dateitypen können ebenfalls aufgelistet werden; jeweils durch Leerzeichen getrennt."
+msgstr "Die &#8222;Upload-Einstellungen&#8220; kontrollieren die Größe von hochgeladenen Dateien und den insgesamt zur Verfügung stehenden Speicherplatz für Uploads für jede Website. Du kannst diesen Wert (Speicher-Quota) für eine spezifische Website ändern, indem du diese spezielle Website bearbeitest (unter: Netzwerkverwaltung > Websites > Bearbeiten > Einstellungen > ganz unten). Zugelassene Dateitypen können ebenfalls aufgelistet werden; jeweils durch Leerzeichen getrennt."
 
 #: wp-admin/network/users.php:173
 msgid "The bulk action will permanently delete selected users, or mark/unmark those selected as spam. Spam users will have posts removed and will be unable to sign up again with the same email addresses."
-msgstr "Über die Auswahlbox &#8222;Sammelaktion auswählen&#8220; kannst du mehrere zuvor markierte Benutzer löschen oder als Spam kennzeichnen. Als Spam gekennzeichnete Benutzer verlieren alle ihre Beiträge und können sich nicht erneut mit ihrer E-Mail-Adresse registrieren."
+msgstr "Über die „Mehrfachaktion“ kannst du mehrere ausgewählte Benutzer unwiderruflich löschen oder als Spam kennzeichnen. Als Spam bzw. als Spammer gekennzeichneten Benutzern werden alle Beiträge entfernt und diese können sich nicht erneut mit deren E-Mail-Adresse registrieren."
 
 #: wp-admin/network/users.php:171
 msgid "You can also go to the user&#8217;s profile page by clicking on the individual username."
-msgstr "Du kannst auch einen Benutzer beziehungsweise sein Profil ändern, indem du direkt auf einen Benutzernamen klickst."
+msgstr "Du kannst auch auf die Profilseite des Benutzers gehen, indem du auf den jeweiligen Benutzernamen klickst."
 
 #: wp-admin/network/sites.php:35
 msgid "Visit to go to the front-end site live."
@@ -1046,7 +1046,7 @@ msgstr "Du kannst aus einem existierenden Benutzer einen zusätzlichen Super-Adm
 
 #: wp-admin/network/users.php:169
 msgid "This table shows all users across the network and the sites to which they are assigned."
-msgstr "Diese Übersicht zeigt alle Benutzer des Netzwerks und welchen Websites sie zugeordnet sind."
+msgstr "Diese Übersicht zeigt alle Benutzer im Netzwerk und die Websites, denen sie zugeordnet sind."
 
 #: wp-admin/network/upgrade.php:23
 msgid "If a version update to core has not happened, clicking this button won&#8217;t affect anything."
@@ -1233,7 +1233,7 @@ msgstr "Einstellungen für neue Website"
 
 #: wp-admin/network/settings.php:322
 msgid "Upload Settings"
-msgstr "Dateiupload-Einstellungen"
+msgstr "Upload-Einstellungen"
 
 #: wp-admin/network/settings.php:122
 msgid "Operational Settings"

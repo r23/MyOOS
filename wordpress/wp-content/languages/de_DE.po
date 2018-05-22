@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 4.9.x - Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-05-16 19:04:53+0000\n"
+"PO-Revision-Date: 2018-05-19 17:00:42+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -157,7 +157,7 @@ msgstr "[%1$s] Aktion bestätigen: %2$s"
 msgid "Erase Personal Data"
 msgstr "Personenbezogene Daten löschen"
 
-#: wp-includes/comment-template.php:2206
+#: wp-includes/comment-template.php:2208
 msgid "Save my name, email, and website in this browser for the next time I comment."
 msgstr "Meinen Namen, E-Mail und Website in diesem Browser speichern, bis ich wieder kommentiere."
 
@@ -672,7 +672,7 @@ msgid "Unsupported value type (%s)."
 msgstr "Nicht unterstützter ValueType (%s)."
 
 #. translators: %s: register_widget()
-#: wp-includes/widgets.php:1053
+#: wp-includes/widgets.php:1054
 msgid "Widgets need to be registered using %s, before they can be displayed."
 msgstr "Widgets müssen unter Verwendung von %s registriert werden, bevor sie angezeigt werden können."
 
@@ -1711,12 +1711,12 @@ msgstr "Zu Widget hinzufügen"
 #: wp-includes/widgets/class-wp-widget-media.php:69
 msgctxt "label for button in the media widget; should preferably not be longer than ~13 characters long"
 msgid "Edit Media"
-msgstr "Medium bearbeiten"
+msgstr "Datei bearbeiten"
 
 #: wp-includes/widgets/class-wp-widget-media.php:68
 msgctxt "label for button in the media widget; should preferably not be longer than ~13 characters long"
 msgid "Replace Media"
-msgstr "Medium ersetzen"
+msgstr "Datei ersetzen"
 
 #: wp-includes/widgets/class-wp-widget-media.php:66
 msgid "No media selected"
@@ -2346,7 +2346,7 @@ msgctxt "New site notification email subject"
 msgid "[%1$s] Activate %2$s"
 msgstr "[%1$s] Aktiviere %2$s"
 
-#: wp-includes/widgets.php:1398 wp-includes/widgets.php:1507
+#: wp-includes/widgets.php:1399 wp-includes/widgets.php:1508
 msgid "RSS Error:"
 msgstr "RSS-Fehler:"
 
@@ -4447,13 +4447,13 @@ msgid "1 result found. Use up and down arrow keys to navigate."
 msgstr "1 Ergebnis gefunden. Benutze die Pfeiltasten zum Navigieren."
 
 #. translators: %s: user name
-#: wp-includes/comment-template.php:2234
+#: wp-includes/comment-template.php:2236
 msgid "Logged in as %s. Edit your profile."
 msgstr "Angemeldet als %s. Profil bearbeiten."
 
 #. translators: 1: edit user link, 2: accessibility text, 3: user name, 4:
 #. logout URL
-#: wp-includes/comment-template.php:2231
+#: wp-includes/comment-template.php:2233
 msgid "<a href=\"%1$s\" aria-label=\"%2$s\">Logged in as %3$s</a>. <a href=\"%4$s\">Log out?</a>"
 msgstr "<a href=\"%1$s\" aria-label=\"%2$s\">Angemeldet als %3$s</a>. <a href=\"%4$s\">Abmelden?</a>"
 
@@ -6619,7 +6619,7 @@ msgstr "Medien"
 #: wp-includes/post.php:66
 msgctxt "add new media"
 msgid "Add New"
-msgstr "Erstellen"
+msgstr "Datei hinzufügen"
 
 #: wp-login.php:994
 msgid "<strong>You have successfully updated WordPress!</strong> Please log back in to see what&#8217;s new."
@@ -9599,7 +9599,7 @@ msgstr "<strong>Widersprüchliche Angaben für die Konstanten VHOST und SUBDOMAI
 msgid "<strong>ERROR</strong>: This username is invalid because it uses illegal characters. Please enter a valid username."
 msgstr "<strong>FEHLER</strong>: Dieser Benutzername kann nicht verwendet werden, da er ungültige Zeichen enthält. Bitte gib einen gültigen Benutzernamen an."
 
-#: wp-includes/comment-template.php:2209
+#: wp-includes/comment-template.php:2211
 msgid "Required fields are marked %s"
 msgstr "Erforderliche Felder sind mit %s markiert."
 
@@ -9760,7 +9760,7 @@ msgstr "Beim Versuch, dich zu dieser Website hinzufügen, trat ein Fehler auf. H
 msgid "This file is too big. Files must be less than %d KB in size."
 msgstr "Die Datei ist zu groß. Dateien dürfen nicht größer als %d&nbsp;KB sein."
 
-#: wp-includes/comment-template.php:2238
+#: wp-includes/comment-template.php:2240
 msgid "Your email address will not be published."
 msgstr "Deine E-Mail-Adresse wird nicht veröffentlicht."
 
@@ -10562,7 +10562,7 @@ msgstr "Tags schließen"
 msgid "Close all open tags"
 msgstr "Alle offenen Tags schließen"
 
-#: wp-includes/rss.php:917 wp-includes/widgets.php:1413
+#: wp-includes/rss.php:917 wp-includes/widgets.php:1414
 msgid "An error has occurred, which probably means the feed is down. Try again later."
 msgstr "Ein Fehler ist aufgetreten – der Feed funktioniert zur Zeit nicht. Versuche es später noch einmal."
 
@@ -11538,31 +11538,31 @@ msgstr "Neue WordPress-Loop"
 msgid "Tag Cloud"
 msgstr "Schlagwörter-Wolke"
 
-#: wp-includes/widgets.php:1535
+#: wp-includes/widgets.php:1536
 msgid "Display item date?"
 msgstr "Beitrags-Datum anzeigen?"
 
-#: wp-includes/widgets.php:1532
+#: wp-includes/widgets.php:1533
 msgid "Display item author if available?"
 msgstr "Beitrags-Autor anzeigen, wenn verfügbar?"
 
-#: wp-includes/widgets.php:1529
+#: wp-includes/widgets.php:1530
 msgid "Display item content?"
 msgstr "Beitrags-Inhalt anzeigen?"
 
-#: wp-includes/widgets.php:1519
+#: wp-includes/widgets.php:1520
 msgid "How many items would you like to display?"
 msgstr "Wieviele Einträge sollen angezeigt werden?"
 
-#: wp-includes/widgets.php:1516
+#: wp-includes/widgets.php:1517
 msgid "Give the feed a title (optional):"
 msgstr "Gib dem Feed einen Titel (optional):"
 
-#: wp-includes/widgets.php:1513
+#: wp-includes/widgets.php:1514
 msgid "Enter the RSS feed URL here:"
 msgstr "Gib die URL des RSS-Feeds hier ein:"
 
-#: wp-includes/widgets.php:1429
+#: wp-includes/widgets.php:1430
 msgid "Untitled"
 msgstr "Ohne Titel"
 
@@ -11688,19 +11688,19 @@ msgstr "Doppelter Kommentar wurde entdeckt. Es sieht stark danach aus, dass du d
 msgid "Unapproved"
 msgstr "Nicht freigegeben"
 
-#: wp-includes/comment-template.php:2253
+#: wp-includes/comment-template.php:2255
 msgid "Post Comment"
 msgstr "Kommentar abschicken"
 
-#: wp-includes/comment-template.php:2252
+#: wp-includes/comment-template.php:2254
 msgid "Cancel reply"
 msgstr "Antworten abbrechen"
 
-#: wp-includes/comment-template.php:1874 wp-includes/comment-template.php:2247
+#: wp-includes/comment-template.php:1874 wp-includes/comment-template.php:2249
 msgid "Leave a Reply to %s"
 msgstr "Schreibe einen Kommentar zu %s"
 
-#: wp-includes/comment-template.php:1873 wp-includes/comment-template.php:2246
+#: wp-includes/comment-template.php:1873 wp-includes/comment-template.php:2248
 msgid "Leave a Reply"
 msgstr "Schreibe einen Kommentar"
 
@@ -11793,7 +11793,7 @@ msgid "Tags: "
 msgstr "Schlagwörter: "
 
 #. translators: %s: login URL
-#: wp-includes/comment-template.php:2225
+#: wp-includes/comment-template.php:2227
 msgid "You must be <a href=\"%s\">logged in</a> to post a comment."
 msgstr "Du musst <a href=\"%s\">angemeldet</a> sein, um einen Kommentar abzugeben."
 
@@ -11851,7 +11851,7 @@ msgstr "Aus einem seltsam unerfreulichen Grund kann dieser Beitrag nicht bearbei
 msgid "Widgets"
 msgstr "Widgets"
 
-#: wp-includes/comment-template.php:2203
+#: wp-includes/comment-template.php:2205
 msgid "Website"
 msgstr "Website"
 
@@ -11907,7 +11907,7 @@ msgstr "Datumsformat"
 msgid "Allow people to post comments on new articles"
 msgstr "Besuchern erlauben, neue Beiträge zu kommentieren"
 
-#: wp-includes/comment-template.php:2201 wp-login.php:810
+#: wp-includes/comment-template.php:2203 wp-login.php:810
 msgid "Email"
 msgstr "E-Mail"
 
@@ -12048,7 +12048,7 @@ msgstr "Neuer Beitrag"
 
 #: wp-includes/post.php:67
 msgid "Edit Media"
-msgstr "Medium bearbeiten"
+msgstr "Datei bearbeiten"
 
 #: wp-includes/post.php:1449
 msgid "New Page"
@@ -12368,7 +12368,7 @@ msgstr "Keine"
 msgid "Description"
 msgstr "Beschreibung"
 
-#: wp-includes/comment-template.php:2199
+#: wp-includes/comment-template.php:2201
 msgid "Name"
 msgstr "Name"
 
@@ -12456,7 +12456,7 @@ msgstr "Nein"
 msgid "Are you sure you want to do this?"
 msgstr "Bist du sicher, dass du das tun möchtest?"
 
-#: wp-includes/comment-template.php:1082 wp-includes/comment-template.php:2221
+#: wp-includes/comment-template.php:1082 wp-includes/comment-template.php:2223
 msgctxt "noun"
 msgid "Comment"
 msgstr "Kommentar"
