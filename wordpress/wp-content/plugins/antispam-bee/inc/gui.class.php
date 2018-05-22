@@ -33,8 +33,21 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 
 		// Check referer
 		check_admin_referer('_antispam_bee__settings_nonce');
-    
+
 		// Determine options
+		$selected_languages_raw = wp_unslash( self::get_key($_POST, 'ab_translate_lang' ) );
+		if(!is_array($selected_languages_raw)) {
+			$selected_languages_raw = [];
+		}
+		$selected_languages = [];
+		$lang               = self::get_allowed_translate_languages();
+		$lang               = array_keys( $lang );
+		foreach ( $selected_languages_raw as $value ) {
+			if ( ! in_array( $value, $lang, true ) ) {
+				continue;
+			}
+			$selected_languages[] = $value;
+		}
 		$options = array(
 			'flag_spam' 		=> (int)(!empty($_POST['ab_flag_spam'])),
 			'email_notify' 		=> (int)(!empty($_POST['ab_email_notify'])),
@@ -61,13 +74,12 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 
 			'bbcode_check'		=> (int)(!empty($_POST['ab_bbcode_check'])),
 			'gravatar_check'	=> (int)(!empty($_POST['ab_gravatar_check'])),
-			'dnsbl_check'		=> (int)(!empty($_POST['ab_dnsbl_check'])),
 			'country_code' 		=> (int)(!empty($_POST['ab_country_code'])),
 			'country_black'		=> sanitize_text_field( wp_unslash( self::get_key( $_POST, 'ab_country_black' ) ) ),
 			'country_white'		=> sanitize_text_field( wp_unslash( self::get_key( $_POST, 'ab_country_white' ) ) ),
 
 			'translate_api' 	=> (int)(!empty($_POST['ab_translate_api'])),
-			'translate_lang'	=> sanitize_text_field( wp_unslash( self::get_key($_POST, 'ab_translate_lang' ) ) ),
+			'translate_lang'	=> $selected_languages,
 		);
 
 		foreach( $options['ignore_reasons'] as $key => $val ) {
@@ -82,13 +94,6 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 		}
 
 		// Translate API
-		if ( !empty($options['translate_lang']) ) {
-			$lang = self::get_allowed_translate_languages();
-			$lang = array_keys( $lang );
-			if ( ! in_array( $options['translate_lang'], $lang, true ) ) {
-				$options['translate_lang'] = '';
-			}
-		}
 		if ( empty($options['translate_lang']) ) {
 			$options['translate_api'] = 0;
 		}
@@ -276,30 +281,9 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 							</li>
 
 							<li>
-								<input type="checkbox" name="ab_dnsbl_check" id="ab_dnsbl_check" value="1" <?php checked($options['dnsbl_check'], 1) ?> />
-								<label for="ab_dnsbl_check">
-									<?php esc_html_e( 'Use a public antispam database', 'antispam-bee' ); ?>
-									<span><?php $link2 = sprintf(
-											'<a href="%s" target="_blank" rel="noopener noreferrer">',
-												esc_url( __( 'https://github.com/pluginkollektiv/antispam-bee/wiki/en-Documentation#use-a-public-antispam-database', 'antispam-bee' ),
-												       'https' )
-										);
-										printf(
-											/* translators: 1: opening <a> tag with link to documentation. 2: closing </a> tag. 3: opening <a> tag with link to documentation. 4: closing </a> tag. */
-											esc_html__( 'Matching the ip address with %1$sStop Forum Spam%2$s. Please note the %3$sprivacy notice%4$s for this option.', 'antispam-bee' ),
-												'<a href="https://www.stopforumspam.com/" target="_blank" rel="noopener noreferrer">',
-												'</a>',
-												$link2,
-												'</a>'
-										);
-										?></span>
-								</label>
-							</li>
-
-							<li>
 								<input type="checkbox" name="ab_country_code" id="ab_country_code" value="1" <?php checked($options['country_code'], 1) ?> />
 								<label for="ab_country_code">
-									<?php esc_html_e('Block comments from specific countries', 'antispam-bee') ?>
+									<?php esc_html_e('Block or allow comments from specific countries', 'antispam-bee') ?>
 									<span><?php $link1 = sprintf(
 										'<a href="%s" target="_blank" rel="noopener noreferrer">',
 											esc_url( __( 'https://github.com/pluginkollektiv/antispam-bee/wiki/en-Documentation#block-comments-from-specific-countries', 'antispam-bee' ),
@@ -366,11 +350,12 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 
 								<ul>
 									<li>
-										<select name="ab_translate_lang">
+										<select multiple name="ab_translate_lang[]">
 											<?php
 											$lang = self::get_allowed_translate_languages();
+											$selected_languages = (array) $options['translate_lang'];
 											foreach( $lang as $k => $v ) { ?>
-												<option <?php selected( $options['translate_lang'], $k ); ?> value="<?php echo esc_attr( $k ); ?>"><?php echo esc_html( $v ); ?></option>
+												<option <?php echo in_array( $k, $selected_languages, true ) ? 'selected="selected"' : ''; ?> value="<?php echo esc_attr( $k ); ?>"><?php echo esc_html( $v ); ?></option>
 											<?php } ?>
 										</select>
 										<label for="ab_translate_lang">
@@ -514,7 +499,7 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 
 					<div class="ab-column ab-column--submit-service">
 						<p>
-							<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=8CH5FPR88QYML" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Donate', 'antispam-bee' ); ?></a>
+							<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TD4AMD2D8EMZW" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Donate', 'antispam-bee' ); ?></a>
 						</p>
 						<p>
 							<a href="<?php esc_html_e( 'https://wordpress.org/plugins/antispam-bee/faq/', 'antispam-bee' ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'FAQ', 'antispam-bee' ); ?></a>

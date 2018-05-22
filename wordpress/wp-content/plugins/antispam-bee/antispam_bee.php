@@ -1,15 +1,15 @@
 <?php
 /*
 * Plugin Name: Antispam Bee
-* Description: Easy and extremely productive spam-fighting plugin with many sophisticated solutions. Includes privacy hints and protection against trackback spam.
+* Description: Antispam plugin with a sophisticated tool set for effective day to day comment and trackback spam-fighting. Build with data protection and privacy in mind.
 * Author:      pluginkollektiv
-* Author URI:  http://pluginkollektiv.org
+* Author URI:  https://pluginkollektiv.org
 * Plugin URI:  https://wordpress.org/plugins/antispam-bee/
 * Text Domain: antispam-bee
 * Domain Path: /lang
 * License:     GPLv2 or later
 * License URI: http://www.gnu.org/licenses/gpl-2.0.html
-* Version:     2.7.1
+* Version:     2.8.0
 */
 
 /*
@@ -377,14 +377,13 @@ class Antispam_Bee {
 				'country_white'		=> '',
 
 				'translate_api' 	=> 0,
-				'translate_lang'	=> '',
+				'translate_lang'	=> array(),
 
-				'dnsbl_check'		=> 0,
 				'bbcode_check'		=> 1,
 
 				// Advanced
 				'flag_spam' 		=> 1,
-				'email_notify' 		=> 1,
+				'email_notify' 		=> 0,
 				'no_notice' 		=> 0,
 				'cronjob_enable' 	=> 0,
 				'cronjob_interval'	=> 0,
@@ -396,13 +395,12 @@ class Antispam_Bee {
 				'ignore_reasons'	=> array(),
 			),
 			'reasons' => array(
-				'css'		=> esc_attr__( 'CSS Hack', 'antispam-bee' ),
+				'css'		=> esc_attr__( 'Honeypot', 'antispam-bee' ),
 				'time'		=> esc_attr__( 'Comment time', 'antispam-bee' ),
 				'empty'		=> esc_attr__( 'Empty Data', 'antispam-bee' ),
 				'server'	=> esc_attr__( 'Fake IP', 'antispam-bee' ),
 				'localdb'	=> esc_attr__( 'Local DB Spam', 'antispam-bee' ),
 				'country'	=> esc_attr__( 'Country Check', 'antispam-bee' ),
-				'dnsbl'		=> esc_attr__( 'Public Antispam DB', 'antispam-bee' ),
 				'bbcode'	=> esc_attr__( 'BBCode', 'antispam-bee' ),
 				'lang'		=> esc_attr__( 'Comment Language', 'antispam-bee' ),
 				'regexp'	=> esc_attr__( 'Regular Expression', 'antispam-bee' ),
@@ -476,9 +474,7 @@ class Antispam_Bee {
 	public static function load_plugin_lang()
 	{
 		load_plugin_textdomain(
-			'antispam-bee',
-			false,
-			'antispam-bee/lang'
+			'antispam-bee'
 		);
 	}
 
@@ -536,7 +532,7 @@ class Antispam_Bee {
 		return array_merge(
 			$input,
 			array(
-				'<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=8CH5FPR88QYML" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Donate', 'antispam-bee' ) . '</a>',
+				'<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TD4AMD2D8EMZW" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Donate', 'antispam-bee' ) . '</a>',
 				'<a href="https://wordpress.org/support/plugin/antispam-bee" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Support', 'antispam-bee' ) . '</a>',
 			)
 		);
@@ -574,7 +570,7 @@ class Antispam_Bee {
 		wp_register_style(
 			'ab_style',
 			plugins_url('css/styles.min.css', __FILE__),
-			array(),
+			array( 'dashicons' ),
 			$plugin['Version']
 		);
 	}
@@ -693,21 +689,15 @@ class Antispam_Bee {
 		return $items;
 		}
 
-        	// Icon styling
-        	echo '<style>#dashboard_right_now .ab-count:before {content: "\f117"}</style>';
+			// Icon styling
+			echo '<style>#dashboard_right_now .ab-count:before {content: "\f117"}</style>';
 
 		// Right now item
-		$items[] = sprintf(
-			'<a href="%s" class="ab-count">%s %s</a>',
-			add_query_arg(
-				array(
-					'page' => 'antispam_bee'
-					),
-				admin_url( 'options-general.php' )
-			),
-			esc_html( self::_get_spam_count() ),
-			esc_html__('Blocked', 'antispam-bee')
-		);
+		$items[] = '<span class="ab-count">' . esc_html( sprintf(
+					__( '%d Blocked',  'antispam-bee' ),
+					self::_get_spam_count()
+				)
+		) . '</span>';
 
 	return $items;
 	}
@@ -1308,7 +1298,7 @@ class Antispam_Bee {
 		$output .= ' name="' . esc_attr( self::get_secret_name_for_post( self::$_current_post_id ) ) . '" ';
 		$output .= $matches['between1'] . $matches['between2'] . $matches['between3'];
 		$output .= $matches['after'] . '>';
-		$output .= '</textarea><textarea id="comment" aria-hidden="true" name="comment" autocomplete="nope" style="clip:rect(1px, 1px, 1px, 1px);position:absolute !important;white-space:nowrap;height:1px;width:1px;overflow:hidden;" tabindex="-1"></textarea>';
+		$output .= '</textarea><textarea id="comment" aria-hidden="true" name="comment" autocomplete="nope" style="padding:0;clip:rect(1px, 1px, 1px, 1px);position:absolute !important;white-space:nowrap;height:1px;width:1px;overflow:hidden;" tabindex="-1"></textarea>';
 
 		$output .= $id_script;
 		$output .= $init_time_field;
@@ -1369,13 +1359,6 @@ class Antispam_Bee {
 		if ( $options['spam_ip'] && self::_is_db_spam($ip, $url) ) {
 			return array(
 				'reason' => 'localdb'
-			);
-		}
-
-		// DNSBL spam
-		if ( $options['dnsbl_check'] && self::_is_dnsbl_spam($ip) ) {
-			return array(
-				'reason' => 'dnsbl'
 			);
 		}
 
@@ -1496,13 +1479,6 @@ class Antispam_Bee {
 		if ( $options['spam_ip'] && self::_is_db_spam($ip, $url, $email) ) {
 			return array(
 				'reason' => 'localdb'
-			);
-		}
-
-		// DNSBL spam
-		if ( $options['dnsbl_check'] && self::_is_dnsbl_spam($ip) ) {
-			return array(
-				'reason' => 'dnsbl'
 			);
 		}
 
@@ -1709,10 +1685,27 @@ class Antispam_Bee {
 		// Global
 		global $wpdb;
 
-		// Default
-		$filter = array('`comment_author_IP` = %s');
-		$params = array( wp_unslash($ip) );
+		$sql = '
+			select 
+				meta_value as ip
+			from
+			 	' . $wpdb->commentmeta . ' as meta,
+			 	' . $wpdb->comments . ' as comments
+			where
+			    comments.comment_ID = meta.comment_id
+			    AND meta.meta_key = "antispam_bee_iphash"
+			    AND comments.comment_approved="spam"';
+		$hashed_ips = $wpdb->get_col( $sql );
+		if( ! empty( $hashed_ips) ) {
+			foreach ( $hashed_ips as $hash ) {
+				if( wp_check_password($ip, $hash) ) {
+					return true;
+				}
+			}
+		}
 
+		$params = array();
+		$filter = array();
 		// Match the URL
 		if ( ! empty($url) ) {
 			$filter[] = '`comment_author_url` = %s';
@@ -1723,6 +1716,10 @@ class Antispam_Bee {
 		if ( ! empty($email) ) {
 			$filter[] = '`comment_author_email` = %s';
 			$params[] = wp_unslash($email);
+		}
+
+		if( empty( $params ) ) {
+			return false;
 		}
 
 		// Perform query
@@ -1810,49 +1807,6 @@ class Antispam_Bee {
 
 		// Dive into whitelist
 		return ( ! in_array($country, $white) );
-	}
-
-	/**
-	* Check for DNSBL spam
-	*
-	* @since   2.4.5
-	* @change  2.4.5
-	*
-	* @param   string   $ip  IP address
-	* @return  boolean       TRUE for reported IP
-	*/
-
-	private static function _is_dnsbl_spam($ip)
-	{
-		// Start request
-		$response = wp_safe_remote_request(
-			esc_url_raw(
-				sprintf(
-					'http://www.stopforumspam.com/api?ip=%s&f=json',
-					$ip
-				),
-				'http'
-			)
-		);
-
-		// Response error?
-		if ( is_wp_error($response) ) {
-			return false;
-		}
-
-		// Get JSON
-		$json = wp_remote_retrieve_body($response);
-
-		// Decode JSON
-		$result = json_decode($json);
-
-		// Empty data
-		if ( empty($result->success) ) {
-			return false;
-		}
-
-		// Return status
-		return (bool) $result->ip->appears;
 	}
 
 
@@ -1963,7 +1917,7 @@ class Antispam_Bee {
 
 	private static function _is_lang_spam( $comment_content ) {
 		// User defined language
-		$allowed_lang = self::get_option( 'translate_lang' );
+		$allowed_lang = (array) self::get_option( 'translate_lang' );
 
 		// Make comment text plain
 		$comment_text = wp_strip_all_tags( $comment_content );
@@ -2023,12 +1977,15 @@ class Antispam_Bee {
 			return false;
 		}
 
+		if( ! isset( $data_array['data']['detections'][0][0]['language'] ) ) {
+			return false;
+		}
 		// Get detected language
-		if ( ! $detected_lang = @$data_array['data']['detections'][0][0]['language'] ) {
+		if ( ! $detected_lang = $data_array['data']['detections'][0][0]['language'] ) {
 			return false;
 		}
 
-		return ( $detected_lang != $allowed_lang );
+		return ! in_array( $detected_lang, $allowed_lang, true );
 	}
 
 	/**
@@ -2196,6 +2153,26 @@ class Antispam_Bee {
 			self::_go_in_peace();
 		}
 
+		// Save IP hash, if comment is spam.
+		add_action(
+			'trackback_post',
+			array(
+				__CLASS__,
+				'save_ip_hash',
+			),
+			10,
+			3
+		);
+		add_action(
+			'comment_post',
+			array(
+				__CLASS__,
+				'save_ip_hash',
+			),
+			10,
+			3
+		);
+
 		// Handle types
 		if ( $ignore_filter && (( $ignore_type == 1 && $is_ping ) or ( $ignore_type == 2 && !$is_ping )) ) {
 			self::_go_in_peace();
@@ -2210,9 +2187,9 @@ class Antispam_Bee {
 		// Mark spam
 		add_filter(
 			'pre_comment_approved',
-			create_function(
-				'',
-				'return "spam";'
+			array(
+				__CLASS__,
+				'return_spam'
 			)
 		);
 
@@ -2359,6 +2336,21 @@ class Antispam_Bee {
 			'antispam_bee_reason',
 			self::$_reason
 		);
+	}
+
+	public static function save_ip_hash( $comment_id, $approved, $comment_data )
+	{
+		$hashed_ip = self::hash_ip( $comment_data['comment_author_IP'] );
+		add_comment_meta(
+			$comment_id,
+			'antispam_bee_iphash',
+			$hashed_ip
+		);
+	}
+
+	public static function hash_ip($ip)
+	{
+		return wp_hash_password( $ip );
 	}
 
 
@@ -2509,7 +2501,18 @@ class Antispam_Bee {
 
 		// Send
 		wp_mail(
-			get_bloginfo('admin_email'),
+			/**
+			 * Filters the recipients of the spam notification
+			 * @param array The recipients array.
+			 **/
+			apply_filters(
+				'antispam_bee_notification_recipients',
+				array( get_bloginfo('admin_email') )
+			),
+			/**
+			 * Filters the subject of the spam notification
+			 * @param string $subject subject line.
+			 **/
 			apply_filters(
 				'antispam_bee_notification_subject',
 				$subject
@@ -2663,6 +2666,18 @@ class Antispam_Bee {
 			$secret,
 			(int) $post_id
 		);
+	}
+
+	/**
+	 * Returns 'spam'
+	 *
+	 * @since 2.7.3
+	 *
+	 * @return string
+	 */
+	public static function return_spam() {
+
+		return 'spam';
 	}
 }
 
