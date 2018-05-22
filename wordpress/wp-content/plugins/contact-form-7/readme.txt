@@ -4,7 +4,7 @@ Donate link: https://contactform7.com/donate/
 Tags: contact, form, contact form, feedback, email, ajax, captcha, akismet, multilingual
 Requires at least: 4.8
 Tested up to: 4.9
-Stable tag: 5.0.1
+Stable tag: 5.0.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -21,6 +21,20 @@ You can find [docs](https://contactform7.com/docs/), [FAQ](https://contactform7.
 = Contact Form 7 Needs Your Support =
 
 It is hard to continue development and support for this free plugin without contributions from users like you. If you enjoy using Contact Form 7 and find it useful, please consider [__making a donation__](https://contactform7.com/donate/). Your donation will help encourage and support the plugin's continued development and better user support.
+
+= Privacy Notices =
+
+With the default configuration, this plugin, in itself, does not:
+
+* track users by stealth;
+* write any user personal data to the database;
+* send any data to external servers;
+* use cookies.
+
+If you activate certain features in this plugin, the contact form submitter's personal data, including their IP address, may be sent to the service provider. Thus, confirming the provider's privacy policy is recommended. These features include:
+
+* reCAPTCHA ([Google](https://policies.google.com/?hl=en))
+* Akismet ([Automattic](https://automattic.com/privacy/))
 
 = Recommended Plugins =
 
@@ -59,6 +73,13 @@ Do you have questions or issues with Contact Form 7? Use these support channels 
 == Changelog ==
 
 For more information, see [Releases](https://contactform7.com/category/releases/).
+
+= 5.0.2 =
+
+* Added the Privacy Notices section to the readme.txt file.
+* Updated the Information meta-box content.
+* Use get_user_locale() instead of get_locale() where it is more appropriate.
+* Acceptance Checkbox: Reset submit buttons’ disabled status after a successful submission.
 
 = 5.0.1 =
 

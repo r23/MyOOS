@@ -308,6 +308,8 @@
 				$form.each( function() {
 					this.reset();
 				} );
+
+				wpcf7.toggleSubmit( $form );
 			}
 
 			$form.find( '[placeholder].placeheld' ).each( function( i, n ) {

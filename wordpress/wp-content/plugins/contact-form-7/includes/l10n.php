@@ -65,7 +65,7 @@ function wpcf7_load_textdomain( $locale = null ) {
 
 	$domain = 'contact-form-7';
 
-	if ( get_locale() == $locale ) {
+	if ( ( is_admin() ? get_user_locale() : get_locale() ) === $locale ) {
 		$locale = null;
 	}
 
