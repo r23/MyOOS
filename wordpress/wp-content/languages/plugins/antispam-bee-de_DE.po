@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Antispam Bee - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-05-22 12:59:34+0000\n"
+"PO-Revision-Date: 2018-05-24 11:01:46+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,22 @@ msgstr ""
 "X-Generator: GlotPress/2.4.0-alpha\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Antispam Bee - Stable (latest release)\n"
+
+#. Description of the plugin/theme
+msgid "Antispam plugin with a sophisticated tool set for effective day to day comment and trackback spam-fighting. Build with data protection and privacy in mind."
+msgstr "Antispam-Plugin mit einem hochentwickelten Tool-Set für effektive tägliche Kommentar- und Trackback-Spam-Bekämpfung. Entwickelt mit Blick auf Datenschutz und Privatsphäre."
+
+#: inc/gui.class.php:286
+msgid "Block or allow comments from specific countries"
+msgstr "Kommentare aus bestimmten Ländern blockieren oder zulassen"
+
+#: antispam_bee.php:697
+msgid "%d Blocked"
+msgstr "%d blockiert"
+
+#: antispam_bee.php:398
+msgid "Honeypot"
+msgstr "Honeypot"
 
 #: inc/gui.class.php:534
 msgid "Spanish"
