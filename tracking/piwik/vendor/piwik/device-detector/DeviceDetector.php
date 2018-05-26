@@ -50,7 +50,7 @@ class DeviceDetector
     /**
      * Current version number of DeviceDetector
      */
-    const VERSION = '3.10.1';
+    const VERSION = '3.10.2';
 
     /**
      * Holds all registered client types
@@ -675,6 +675,13 @@ class DeviceDetector
         $osFamily = OperatingSystem::getOsFamily($osShortName);
         $osVersion = $this->getOs('version');
         $clientName = $this->getClient('name');
+
+        /**
+         * Assume all devices running iOS / Mac OS are from Apple
+         */
+        if (empty($this->brand) && in_array($osShortName, ['ATV', 'IOS', 'MAC'])) {
+            $this->brand = 'AP';
+        }
 
         /**
          * Chrome on Android passes the device type based on the keyword 'Mobile'
