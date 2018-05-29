@@ -464,7 +464,7 @@ function getDBInfos()
 					$res2=@mysqli_query($config['dbconnection'], $sql_2);
 					if ($res2 === false)
 					{
-						$read_error='(' . mysql_errno() . ') ' . mysqli_error($config['dbconnection']);
+						$read_error = mysqli_error($config['dbconnection']);
 						SQLError($read_error,$sql_2);
 						WriteLog($read_error);
 						if ($config['stop_with_error'] > 0)

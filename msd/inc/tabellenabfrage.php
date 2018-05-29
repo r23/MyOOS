@@ -51,7 +51,7 @@ if ($tblr == 'Backup')
 		$res2=@mysqli_query($config['dbconnection'], $sql_2);
 		if ($res2 === false)
 		{
-			$read_error='(' . mysql_errno() . ') ' . mysqli_error($config['dbconnection']);
+			$read_error = mysqli_error($config['dbconnection']);
 			$row['Rows']='<span class="error">' . $lang['L_ERROR'] . ': ' . $read_error . '</span>';
 		}
 		else
