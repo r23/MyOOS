@@ -109,6 +109,7 @@ return array(
     'WPSEO_Admin_Banner_Spot_Renderer' => $baseDir . '/admin/banner/class-admin-banner-spot-renderer.php',
     'WPSEO_Admin_Help_Panel' => $baseDir . '/admin/class-admin-help-panel.php',
     'WPSEO_Admin_Init' => $baseDir . '/admin/class-admin-init.php',
+    'WPSEO_Admin_Media_Purge_Notification' => $baseDir . '/admin/class-admin-media-purge-notification.php',
     'WPSEO_Admin_Menu' => $baseDir . '/admin/menu/class-admin-menu.php',
     'WPSEO_Admin_Pages' => $baseDir . '/admin/class-config.php',
     'WPSEO_Admin_User_Profile' => $baseDir . '/admin/class-admin-user-profile.php',
