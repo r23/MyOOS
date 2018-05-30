@@ -2,9 +2,9 @@
 * Contributors:      pluginkollektiv
 * Tags:              anti-spam, antispam, block spam, comment, comments, comment spam, pingback, spam, spam filter, trackback, GDPR
 * Donate link:       https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TD4AMD2D8EMZW
-* Requires at least: 3.8
+* Requires at least: 4.5
 * Tested up to:      4.9
-* Stable tag:        2.8.0
+* Stable tag:        2.8.1
 * License:           GPLv2 or later
 * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,7 +61,7 @@ After you have activated *Antispam Bee* the plugin will block spam comments out 
 Antispam Bee works best with default WordPress comments. It is not compatible with Jetpack or Disqus Comments as those plugins load the comment form within an iframe. Thus Antispam Bee can not access the comment form directly.
 It also won’t work with any AJAX-powered comment forms.
 
-### Does Antispam Bee store any private user data, and is it copmliant with GDPR? ###
+### Does Antispam Bee store any private user data, and is it compliant with GDPR? ###
 Antispam Bee is developed in Europe. You might have heard we can be a bit nitpicky over here when it comes to privacy. The plugin does not save private user data and is 100% compliant with GDPR.
 
 ### Will I have to edit any theme templates to get Antispam Bee to work? ###
@@ -85,6 +85,11 @@ No, Antispam Bee is free forever, for both private and commercial projects. You 
 A complete documentation is available in the [GitHub repository Wiki](https://github.com/pluginkollektiv/antispam-bee/wiki).
 
 ## Changelog ##
+
+### 2.8.1 ###
+  * PHP 5.3 compatibility
+  * Bugfix where a spam trackback produced a fatal error
+  * For more details see https://github.com/pluginkollektiv/antispam-bee/milestone/8?closed=1
 
 ### 2.8.0 ###
    * Removed stopforumspam.com to avoid potential GDPR violation
