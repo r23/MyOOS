@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 4.9.x - Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-05-19 17:00:42+0000\n"
+"PO-Revision-Date: 2018-05-31 19:43:07+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -4341,7 +4341,7 @@ msgstr "Passwort-Stärke unbekannt"
 #: wp-includes/rest-api/class-wp-rest-server.php:911
 #: wp-includes/script-loader.php:132 wp-includes/script-loader.php:644
 msgid "Sorry, you are not allowed to do that."
-msgstr "Tut mir leid, aber du hast keine Berechtigung das zu tun."
+msgstr "Du bist leider nicht berechtigt, diese Aktion durchzuführen."
 
 #: wp-includes/revision.php:550
 msgid "Sorry, you are not allowed to preview drafts."
