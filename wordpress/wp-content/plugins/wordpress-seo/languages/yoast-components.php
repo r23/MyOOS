@@ -76,8 +76,100 @@ $generated_i18n_strings = array(
 	// Reference: js/src/components/MediaUpload.js:90
 	__( 'Remove the image', 'wordpress-seo' ),
 
-	// Reference: js/src/components/MediaUpload.js:20
-	// Reference: js/src/components/MediaUpload.js:19
-	__( 'Choose an image', 'wordpress-seo' )
+	// Reference: js/src/components/MediaUpload.js:20 js/src/components/MediaUpload.js:19
+	__( 'Choose an image', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoast-components/composites/AlgoliaSearch/AlgoliaSearcher.js:229
+	__( 'Something went wrong. Please try again later.', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoast-components/composites/AlgoliaSearch/AlgoliaSearcher.js:244
+	__( 'Loading...', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoast-components/composites/AlgoliaSearch/SearchBar.js:140
+	__( 'Search the Yoast Knowledge Base for answers to your questions:', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoast-components/composites/AlgoliaSearch/SearchBar.js:141
+	__( 'Type here to search...', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoast-components/composites/AlgoliaSearch/SearchBar.js:162
+	__( 'Search', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoast-components/composites/AlgoliaSearch/SearchResults.js:114
+	__( 'No results found.', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoast-components/composites/AlgoliaSearch/SearchResults.js:161
+	__( 'Number of results found: %d', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoast-components/composites/AlgoliaSearch/SearchResults.js:168
+	__( 'Search results', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoast-components/composites/Plugin/ContentAnalysis/components/ContentAnalysis.js:110
+	__( 'Marks are disabled in current view', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoast-components/composites/Plugin/ContentAnalysis/components/ContentAnalysis.js:112
+	__( 'Remove highlight from the text', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoast-components/composites/Plugin/ContentAnalysis/components/ContentAnalysis.js:114
+	__( 'Highlight this result in the text', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoast-components/composites/Plugin/ContentAnalysis/components/ContentAnalysis.js:150
+	__( 'Your site language is set to %s.', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoast-components/composites/Plugin/ContentAnalysis/components/ContentAnalysis.js:159
+	__( 'Change language', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoast-components/composites/Plugin/ContentAnalysis/components/ContentAnalysis.js:171
+	__( 'Your site language is set to %s. If this is not correct, contact your site administrator.', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoast-components/composites/Plugin/ContentAnalysis/components/ContentAnalysis.js:208
+	__( 'Errors', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoast-components/composites/Plugin/ContentAnalysis/components/ContentAnalysis.js:215
+	__( 'Problems', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoast-components/composites/Plugin/ContentAnalysis/components/ContentAnalysis.js:222
+	__( 'Improvements', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoast-components/composites/Plugin/ContentAnalysis/components/ContentAnalysis.js:229
+	__( 'Considerations', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoast-components/composites/Plugin/ContentAnalysis/components/ContentAnalysis.js:236
+	__( 'Good results', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoast-components/composites/Plugin/HelpCenter/HelpCenter.js:80
+	__( 'Need help?', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/ReplacementVariableEditor.js:170
+	_n_noop( '%d result found, use up and down arrow keys to navigate', '%d results found, use up and down arrow keys to navigate', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/ReplacementVariableEditor.js:181
+	__( 'No results', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/SnippetEditor.js:137
+	__( 'Close snippet editor', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/SnippetEditor.js:380
+	__( 'Edit snippet', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/SnippetEditorFields.js:232
+	__( 'SEO title', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/SnippetEditorFields.js:257
+	__( 'Slug', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/SnippetEditorFields.js:276
+	__( 'Meta description', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoast-components/composites/Plugin/SnippetPreview/components/SnippetPreview.js:671
+	__( 'This is a rendering of what this post might look like in Google\'s search results. ', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoast-components/composites/Plugin/SnippetPreview/components/SnippetPreview.js:673
+	__( 'Learn more about the Snippet Preview.', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoast-components/composites/basic/Notification.js:100
+	__( 'Dismiss this notice', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoast-components/utils/makeOutboundLink.js:34
+	__( '(Opens in a new browser tab)', 'wordpress-seo' )
 );
 /* THIS IS THE END OF THE GENERATED FILE */
