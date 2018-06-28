@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Antispam Bee - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-05-24 11:01:46+0000\n"
+"PO-Revision-Date: 2018-06-28 05:59:27+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Plugins - Antispam Bee - Stable (latest release)\n"
 
 #. Description of the plugin/theme
-msgid "Antispam plugin with a sophisticated tool set for effective day to day comment and trackback spam-fighting. Build with data protection and privacy in mind."
+msgid "Antispam plugin with a sophisticated toolset for effective day to day comment and trackback spam-fighting. Built with data protection and privacy in mind."
 msgstr "Antispam-Plugin mit einem hochentwickelten Tool-Set für effektive tägliche Kommentar- und Trackback-Spam-Bekämpfung. Entwickelt mit Blick auf Datenschutz und Privatsphäre."
 
 #: inc/gui.class.php:286
@@ -61,7 +61,7 @@ msgstr "https://de.wordpress.org/plugins/antispam-bee/#faq"
 
 #: inc/gui.class.php:486
 msgid "No spam check for link notifications"
-msgstr "Keine Spamprüfung für Link-Benachrichtigungen"
+msgstr "Keine Spam-Prüfung für Link-Benachrichtigungen"
 
 #: inc/gui.class.php:469
 msgid "Generate statistics as a dashboard widget"
@@ -133,7 +133,7 @@ msgstr "https://github.com/pluginkollektiv/antispam-bee/wiki/de-Dokumentation#be
 
 #: inc/gui.class.php:279
 msgid "Check for spam data on your own blog"
-msgstr "Den Spambestand des eigenen Blogs durchsuchen"
+msgstr "Den Spam-Bestand des eigenen Blogs durchsuchen"
 
 #: inc/gui.class.php:271
 msgid "Predefined and custom patterns by plugin hook"
@@ -231,11 +231,11 @@ msgstr "Eingehende Ping- und Trackbacks ignorieren"
 
 #: inc/gui.class.php:478
 msgid "Amount of identified spam comments"
-msgstr "Menge an identifizierten Spamkommentaren"
+msgstr "Menge der identifizierten Spam-Kommentare"
 
 #: inc/gui.class.php:477
 msgid "Spam counter on the dashboard"
-msgstr "Spamzähler auf dem Dashboard anzeigen"
+msgstr "Spam-Zähler auf dem Dashboard anzeigen"
 
 #: inc/gui.class.php:470
 msgid "Daily updates of spam detection rate"
@@ -251,11 +251,11 @@ msgstr "Mehrfachauswahl bzw. Abwahl mit Strg/CMD"
 
 #: inc/gui.class.php:436
 msgid "Delete comments by spam reasons"
-msgstr "Bei definierten Spamgründen sofort löschen"
+msgstr "Bei definierten Spam-Gründen sofort löschen"
 
 #: inc/gui.class.php:429
 msgid "Other types of spam will be deleted immediately"
-msgstr "Andere Spamtypen werden sofort gelöscht"
+msgstr "Andere Spam-Typen werden sofort gelöscht"
 
 #: inc/gui.class.php:419
 msgid "Limit approval to %s"
@@ -271,11 +271,11 @@ msgstr "Vorhandenen Spam nach %s&nbsp;Tagen löschen"
 
 #: inc/gui.class.php:400
 msgid "Spam reason as a table column in the spam overview"
-msgstr "Spamgrund als Spalte in der Spamübersicht"
+msgstr "Spam-Grund als Spalte in der Spam-Übersicht"
 
 #: inc/gui.class.php:399
 msgid "Do not save the spam reason"
-msgstr "Spamgrund des Kommentars nicht speichern"
+msgstr "Spam-Grund des Kommentars nicht speichern"
 
 #: inc/gui.class.php:392
 msgid "Notify admins by e-mail about incoming spam"
@@ -299,7 +299,7 @@ msgstr "Erweitert"
 
 #: inc/gui.class.php:278
 msgid "Look in the local spam database"
-msgstr "Lokale Spamdatenbank miteinbeziehen"
+msgstr "Lokale Spam-Datenbank miteinbeziehen"
 
 #: inc/gui.class.php:270
 msgid "Use regular expressions"
@@ -345,51 +345,51 @@ msgstr "Antispam-Regeln"
 msgid "Cheatin&#8217; uh?"
 msgstr "Schummeln, was?"
 
-#: antispam_bee.php:2499
+#: antispam_bee.php:2483
 msgid "http://antispambee.com"
 msgstr "http://antispambee.de"
 
-#: antispam_bee.php:2498
+#: antispam_bee.php:2482
 msgid "Notify message by Antispam Bee"
 msgstr "Benachrichtigung von Antispam Bee"
 
-#: antispam_bee.php:2494
+#: antispam_bee.php:2478
 msgid "Spam list"
-msgstr "Spamliste"
+msgstr "Spam-Liste"
 
-#: antispam_bee.php:2490
+#: antispam_bee.php:2474
 msgid "Approve it"
 msgstr "Freigeben"
 
-#: antispam_bee.php:2484
+#: antispam_bee.php:2468
 msgid "Delete it"
 msgstr "Löschen"
 
-#: antispam_bee.php:2478
+#: antispam_bee.php:2462
 msgid "Trash it"
 msgstr "In den Papierkorb"
 
-#: antispam_bee.php:2469 inc/columns.class.php:26 inc/gui.class.php:448
+#: antispam_bee.php:2453 inc/columns.class.php:26 inc/gui.class.php:448
 msgid "Spam Reason"
-msgstr "Spamgrund"
+msgstr "Spam-Grund"
 
-#: antispam_bee.php:2462
+#: antispam_bee.php:2446
 msgid "Type"
 msgstr "Typ"
 
-#: antispam_bee.php:2454
+#: antispam_bee.php:2438
 msgid "Author"
 msgstr "Autor"
 
-#: antispam_bee.php:2450
+#: antispam_bee.php:2434
 msgid "New spam comment on your post"
-msgstr "Neuer Spamkommentar zu deinem Beitrag"
+msgstr "Neuer Spam-Kommentar zu deinem Beitrag"
 
-#: antispam_bee.php:2443
+#: antispam_bee.php:2427
 msgid "Content removed by Antispam Bee"
 msgstr "Inhalt von Antispam Bee entfernt"
 
-#: antispam_bee.php:2436
+#: antispam_bee.php:2420
 msgid "Comment marked as spam"
 msgstr "Kommentar als Spam markiert"
 
