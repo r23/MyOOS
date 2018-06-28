@@ -80,16 +80,26 @@ $generated_i18n_strings = array(
 	   %5$s expands to the recommended maximum percentage. */
 	__( '%1$s of the sentences contain %2$smore than %3$s words%4$s, which is more than the recommended maximum of %5$s. Try to shorten the sentences.', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/js/assessments/readability/subheadingDistributionTooLongAssessment.js:168
+	// Reference: node_modules/yoastseo/js/assessments/readability/subheadingDistributionTooLongAssessment.js:172
+	// Reference: node_modules/yoastseo/js/assessments/readability/subheadingDistributionTooLongAssessment.js:214
 	/* Translators: %1$s expands to a link to https://yoa.st/headings, %2$s expands to the link closing tag. */
-	__( 'The text does not contain any %1$ssubheadings%2$s. Add at least one subheading.', 'wordpress-seo' ),
+	__( 'Great job with using %1$ssubheadings%2$s!', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/js/assessments/readability/subheadingDistributionTooLongAssessment.js:171
-	__( 'The amount of words following each of the subheadings doesn\'t exceed the recommended maximum of %1$d words, which is great.', 'wordpress-seo' ),
+	// Reference: node_modules/yoastseo/js/assessments/readability/subheadingDistributionTooLongAssessment.js:185
+	// Reference: node_modules/yoastseo/js/assessments/readability/subheadingDistributionTooLongAssessment.js:197
+	/* Translators: %1$d expands to the number of subheadings, %2$d expands to the recommended number
+	   of words following a subheading, %3$s expands to a link to https://yoa.st/headings,
+	   %4$s expands to the link closing tag.
+	    */
+	_n_noop( '%1$d section of your text is longer than %2$d words and is not separated by any subheadings. Add %3$ssubheadings%4$s to improve readability.', '%1$d sections of your text are longer than %2$d words and are not separated by any subheadings. Add %3$ssubheadings%4$s to improve readability.', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/js/assessments/readability/subheadingDistributionTooLongAssessment.js:174
-	/* Translators: %1$d expands to the number of subheadings, %2$d expands to the recommended value */
-	_n_noop( '%1$d subheading is followed by more than the recommended maximum of %2$d words. Try to insert another subheading.', '%1$d of the subheadings are followed by more than the recommended maximum of %2$d words. Try to insert additional subheadings.', 'wordpress-seo' ),
+	// Reference: node_modules/yoastseo/js/assessments/readability/subheadingDistributionTooLongAssessment.js:205
+	/* Translators: %1$s expands to a link to https://yoa.st/headings, %2$s expands to the link closing tag. */
+	__( 'You are not using any subheadings, although your text is rather long. Try and add  some %1$ssubheadings%2$s.', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoastseo/js/assessments/readability/subheadingDistributionTooLongAssessment.js:222
+	/* Translators: %1$s expands to a link to https://yoa.st/headings, %2$s expands to the link closing tag. */
+	__( 'You are not using any %1$ssubheadings%2$s, but your text is short enough and probably doesn\'t need them.', 'wordpress-seo' ),
 
 	// Reference: node_modules/yoastseo/js/assessments/readability/textPresenceAssessment.js:17
 	__( 'You have far too little content, please add some content to enable a good analysis.', 'wordpress-seo' ),
