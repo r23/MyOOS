@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Yoast SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-06-26 10:39:05+0000\n"
+"PO-Revision-Date: 2018-07-05 07:59:28+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -15,11 +15,11 @@ msgstr ""
 msgid "Url preview"
 msgstr "URL Vorschau"
 
-#: inc/class-wpseo-replace-vars.php:1279 languages/wordpress-seojs.php:17
+#: inc/class-wpseo-replace-vars.php:1279 languages/wordpress-seojs.php:20
 msgid "ID"
 msgstr "ID"
 
-#: inc/class-wpseo-replace-vars.php:1251 languages/wordpress-seojs.php:32
+#: inc/class-wpseo-replace-vars.php:1251 languages/wordpress-seojs.php:35
 msgid "Category"
 msgstr "Kategorie"
 
@@ -27,7 +27,7 @@ msgstr "Kategorie"
 msgid "Tag"
 msgstr "Schlagwort"
 
-#: inc/class-wpseo-replace-vars.php:1248 languages/wordpress-seojs.php:44
+#: inc/class-wpseo-replace-vars.php:1248 languages/wordpress-seojs.php:47
 msgid "Excerpt"
 msgstr "Textauszug"
 
@@ -35,11 +35,11 @@ msgstr "Textauszug"
 msgid "Archive title"
 msgstr "Archiv Titel"
 
-#: inc/class-wpseo-replace-vars.php:1243 languages/wordpress-seojs.php:14
+#: inc/class-wpseo-replace-vars.php:1243 languages/wordpress-seojs.php:17
 msgid "Date"
 msgstr "Datum"
 
-#: languages/wordpress-seojs.php:20
+#: languages/wordpress-seojs.php:23
 msgid "Page"
 msgstr "Seite"
 
@@ -124,21 +124,16 @@ msgstr "Unbekannter Typ %1$s"
 msgid "Get the FREE SEO for beginners training course and learn the SEO basics to make your site rank higher."
 msgstr "Hole dir den KOSTENLOSEN SEO für Anfänger Kurs und lerne die SEO Grundlagen, um deinen Website Rang höher zu machen."
 
-#. translators: %1$s expands to Yoast SEO for WordPress, %2$s expands to Yoast
-#: admin/config-ui/fields/class-field-mailchimp-signup.php:24
-msgid "Sign up for our newsletter if you would like to keep up-to-date about %1$s, other cool plugins by %2$s, and interesting news and tips from the world of SEO."
-msgstr "Melden dich für unseren Newsletter an, wenn du über %1$s, andere coole Plugins von %2$s und interessante Neuigkeiten und Tipps aus der Welt der SEO auf dem Laufenden bleiben möchtst."
-
 #. translators: %1$s expands to the requested indexable type. %2$s expands to
 #. the request id
 #: admin/services/class-indexable.php:40
 msgid "Object %1$s with id %2$s not found"
 msgstr "Objekt %1$s mit id %2$s wurde nicht gefunden"
 
-#. translators: %1$s expands to 'Yoast SEO Premium'.
-#: admin/config-ui/components/class-component-configuration-choices.php:67
-msgid "While we strive to make setting up %1$s as easy as possible, we understand it can still be daunting. If you would rather have us set up %1$s for you, order a %1$s configuration service and sit back while we configure your site."
-msgstr "Während wir uns bemühen, die Einrichtung von %1$s so einfach wie möglich zu machen, verstehen wir, dass es immer noch entmutigend sein kann. Wenn du möchtest, dass wir %1$s für dich einrichten, bestelle einen %1$s Konfigurationsservice und lehne dich zurück, während wir deine Website konfigurieren."
+#. translators: %1$s expands to Yoast SEO for WordPress, %2$s expands to Yoast
+#: admin/config-ui/fields/class-field-mailchimp-signup.php:24
+msgid "Sign up for our newsletter if you would like to keep up-to-date about %1$s, other cool plugins by %2$s, and interesting news and tips from the world of SEO."
+msgstr "Melde dich für unseren Newsletter an, wenn du über %1$s, andere coole Plugins von %2$s und interessante Neuigkeiten und Tipps aus der Welt der SEO auf dem Laufenden bleiben möchtest."
 
 #: admin/views/tabs/dashboard/webmaster-tools.php:40
 msgid "Baidu verification code"
@@ -154,7 +149,7 @@ msgstr "Hole dir deinen Baidu-Verifizierungscode in den %1$s Baidu Webmaster Too
 #. tag; 3: The link tag for the list of recommended WordPress hosting partners;
 #: admin/class-unsupported-php-message.php:61
 msgid "If you cannot update your PHP yourself, you can send an email to your host. We have %1$sexamples%2$s here. If they don't want to upgrade your PHP version, we recommend switching hosts. Take a look at our list of %3$srecommended WordPress hosting partners%2$s, they've been vetted by the Yoast support team and offer all the features a modern host should have."
-msgstr "Wenn du dein PHP nicht selbst aktualisieren kannst, kannst du eine E-Mail an deinen Hoster senden. Wir haben hier %1$sBeispiele%2$s. Wenn sie deine PHP-Version nicht aktualisieren wollen, empfehlen wir, den Hoster zu wechseln. Werfe einen Blick auf unsere Liste der %3$ empfohlenen WordPress Hosting-Partner%2$s, die vom Yoast-Supportteam überprüft wurden und alle Funktionen bieten, die ein moderner Hoster haben sollte."
+msgstr "Wenn du dein PHP nicht selbst aktualisieren kannst, kannst du eine E-Mail an deinen Hoster senden. Wir haben hier %1$sBeispiele%2$s. Wenn sie deine PHP-Version nicht aktualisieren wollen, empfehlen wir, den Hoster zu wechseln. Werfe einen Blick auf unsere Liste der %3$sempfohlenen WordPress Hosting-Partner%2$s, die vom Yoast-Supportteam überprüft wurden und alle Funktionen bieten, die ein moderner Hoster haben sollte."
 
 #. translators: 1: The link tag to the  WordPress instructions page for
 #. upgrading to newer versions of PHP; 2: The link closing tag; 3: The
@@ -371,7 +366,7 @@ msgid "Get %s now"
 msgstr "Hole dir jetzt %s"
 
 #. translators: %s expands to the post type's name.
-#: admin/views/tabs/metas/post-types.php:76
+#: admin/views/tabs/metas/post-types.php:97
 msgid "the archive for %s"
 msgstr "das Archiv für %s"
 
@@ -704,13 +699,13 @@ msgstr "SEO Analyse"
 
 #. translators: %1$s expands to an opening strong tag, %2$s expands to a
 #. closing strong tag.
-#: admin/formatter/class-metabox-formatter.php:123
+#: admin/formatter/class-metabox-formatter.php:124
 msgid "SEO: %1$sGood%2$s"
 msgstr "SEO: %1$sGut%2$s"
 
 #. translators: %1$s expands to an opening strong tag, %2$s expands to a
 #. closing strong tag.
-#: admin/formatter/class-metabox-formatter.php:117
+#: admin/formatter/class-metabox-formatter.php:118
 msgid "SEO: %1$sOK%2$s"
 msgstr "SEO: %1$sOK%2$s"
 
@@ -729,19 +724,19 @@ msgstr "Lese mehr darüber, wie %s funktioniert."
 
 #. translators: %1$s expands to an opening strong tag, %2$s expands to a
 #. closing strong tag.
-#: admin/formatter/class-metabox-formatter.php:79
+#: admin/formatter/class-metabox-formatter.php:80
 msgid "Readability: %1$sNot available%2$s"
 msgstr "Lesbarkeit: %1$sNicht verfügbar%2$s"
 
 #. translators: %1$s expands to an opening strong tag, %2$s expands to a
 #. closing strong tag.
-#: admin/formatter/class-metabox-formatter.php:91
+#: admin/formatter/class-metabox-formatter.php:92
 msgid "Readability: %1$sOK%2$s"
 msgstr "Lesbarkeit: %1$sOK%2$s"
 
 #. translators: %1$s expands to an opening strong tag, %2$s expands to a
 #. closing strong tag.
-#: admin/formatter/class-metabox-formatter.php:97
+#: admin/formatter/class-metabox-formatter.php:98
 msgid "Readability: %1$sGood%2$s"
 msgstr "Lesbarkeit: %1$sGut%2$s"
 
@@ -788,17 +783,17 @@ msgstr "Erfahre, wie Cornerstone-Inhalte dir helfen können, die Struktur deiner
 
 #. translators: %1$s expands to an opening strong tag, %2$s expands to a
 #. closing strong tag.
-#: admin/formatter/class-metabox-formatter.php:105
+#: admin/formatter/class-metabox-formatter.php:106
 msgid "SEO: %1$sNot available%2$s"
 msgstr "SEO: %1$sNicht verfügbar%2$s"
 
 #. translators: %1$s expands to an opening strong tag, %2$s expands to a
 #. closing strong tag.
-#: admin/formatter/class-metabox-formatter.php:111
+#: admin/formatter/class-metabox-formatter.php:112
 msgid "SEO: %1$sNeeds improvement%2$s"
 msgstr "SEO: %1$sVerbesserung nötig%2$s"
 
-#: admin/formatter/class-metabox-formatter.php:163
+#: admin/formatter/class-metabox-formatter.php:164
 #: languages/yoast-components.php:137
 msgid "Good results"
 msgstr "Gute Ergebnisse"
@@ -826,7 +821,7 @@ msgstr "Aktiviere diese Funktion, wenn Facebook und andere soziale Medien eine V
 
 #. translators: %1$s expands to an opening strong tag, %2$s expands to a
 #. closing strong tag.
-#: admin/formatter/class-metabox-formatter.php:85
+#: admin/formatter/class-metabox-formatter.php:86
 msgid "Readability: %1$sNeeds improvement%2$s"
 msgstr "Lesbarkeit: %1$sVerbesserung nötig%2$s"
 
@@ -884,21 +879,21 @@ msgstr "Du hast dieses Fokus Keyword bereits %1$s%2$d Mal benutzt%3$s. Es wäre 
 msgid "You've used this focus keyword %1$sonce before%2$s. It’s probably a good idea to read about %3$swhy you should not use your focus keyword more than once%4$s."
 msgstr "Du hast dieses Fokus Keyword bereits %1$seinmal zuvor%2$s benutzt. Es wäre bestimmt eine gute Idee zu lesen %3$swieso du dein Fokus Keyword nicht mehr als einmal%4$s benutzen solltest."
 
-#: admin/formatter/class-metabox-formatter.php:167
+#: admin/formatter/class-metabox-formatter.php:168
 #: languages/yoast-components.php:110
 msgid "Remove highlight from the text"
 msgstr "Text-Markierung entfernen"
 
-#: admin/formatter/class-metabox-formatter.php:164
+#: admin/formatter/class-metabox-formatter.php:165
 msgid "Your site language is set to {language}."
 msgstr "Die Sprache deiner Website ist auf {language} eingestellt."
 
-#: admin/formatter/class-metabox-formatter.php:159
+#: admin/formatter/class-metabox-formatter.php:160
 #: languages/yoast-components.php:125
 msgid "Errors"
 msgstr "Fehler"
 
-#: admin/formatter/class-metabox-formatter.php:158
+#: admin/formatter/class-metabox-formatter.php:159
 #: languages/yoast-components.php:119
 msgid "Change language"
 msgstr "Sprache ändern"
@@ -913,7 +908,7 @@ msgstr "Starte schnell und einfach mit dem %1$s %2$sKonfigurationsassistenten%3$
 msgid "First-time SEO configuration"
 msgstr "Erstmalige SEO-Konfiguration"
 
-#: admin/formatter/class-metabox-formatter.php:166
+#: admin/formatter/class-metabox-formatter.php:167
 #: languages/yoast-components.php:113
 msgid "Highlight this result in the text"
 msgstr "Markiere dieses Ergebnis im Text"
@@ -922,7 +917,7 @@ msgstr "Markiere dieses Ergebnis im Text"
 msgid "Your site language is set to %s."
 msgstr "Die Sprache deiner Website ist auf %s eingestellt."
 
-#: admin/formatter/class-metabox-formatter.php:162
+#: admin/formatter/class-metabox-formatter.php:163
 #: languages/yoast-components.php:134
 msgid "Considerations"
 msgstr "Überlegungen"
@@ -932,7 +927,7 @@ msgstr "Überlegungen"
 msgid "Number of results found: %s"
 msgstr "Anzahl der gefundenen Ergebnisse: %s"
 
-#: admin/formatter/class-metabox-formatter.php:165
+#: admin/formatter/class-metabox-formatter.php:166
 msgid "Your site language is set to {language}. If this is not correct, contact your site administrator."
 msgstr "Die Sprache deiner Website ist auf {language} eingestellt. Sollte dies nicht richtig sein, wenden dich bitte an deinen Website Administrator."
 
@@ -1033,7 +1028,7 @@ msgid "Loading help center."
 msgstr "Hilfecenter laden."
 
 #: admin/class-add-keyword-modal.php:38 admin/class-help-center.php:263
-#: admin/formatter/class-metabox-formatter.php:169
+#: admin/formatter/class-metabox-formatter.php:170
 #: languages/yoast-components.php:205
 msgid "(Opens in a new browser tab)"
 msgstr "(Öffnet in einem neuen Browser Tab)"
@@ -1447,11 +1442,6 @@ msgstr "%1$sSocial-Media Vorschau%2$s: Facebook &amp; Twitter"
 msgid "Scroll to see the preview content."
 msgstr "Scrolle, um die Vorschau zu sehen."
 
-#. translators: %s expands to 'Yoast SEO'.
-#: admin/config-ui/components/class-component-configuration-choices.php:75
-msgid "Let us set up %s for you"
-msgstr "Lass uns %s für dich aufsetzen"
-
 #. Translators: %1$s expands to the number of nofollow links, %2$s to the
 #. number of internal links
 #: languages/yoast-seo-js.php:138
@@ -1515,20 +1505,10 @@ msgstr "Lerne wie man Texte schreibt, die ranken"
 msgid "Do you want to outrank your competition? %1$s gives you awesome additional features that'll help you to set up your SEO strategy like a professional. Use the multiple focus keywords functionality, the redirect manager and our internal linking tool. %1$s will also give you access to premium support."
 msgstr "Wollen du dich von der Konkurrenz absetzen? %1$s gibt dir zusätzliche Funktionen, die dir helfen, deine SEO Strategie wie ein Fachmann aufzustellen. Nutze die Multiple Focus Keywords Funktionalität, den Redirect Manager und unser internes Linking Tool. Mit %1$s hast du auch Zugang zu Premium-Support."
 
-#: admin/config-ui/components/class-component-configuration-choices.php:80
-msgid "Configuration service"
-msgstr "Konfigurations-Hilfe"
-
 #. translators: %s resolves to Yoast SEO Premium
 #: admin/config-ui/components/class-component-suggestions.php:34
 msgid "Outrank the competition with %s"
 msgstr "Mit %s die Wettbewerber übtertrumpfen"
-
-#. translators: %1$s expands to 'Yoast SEO', %2$s expands to 'Yoast SEO
-#. Premium'.
-#: admin/config-ui/components/class-component-configuration-choices.php:59
-msgid "While we strive to make setting up %1$s as easy as possible, we understand it can still be daunting. If you would rather have us set up %1$s for you (and get a copy of %2$s in the process), order a %1$s configuration service and sit back while we configure your site."
-msgstr "Obwohl wir bestrebt sind, die Einrichtung von %1$s so einfach wie möglich zu gestalten, verstehen wir, dass es immer noch entmutigend sein kann. Wenn du es vorziehst, dass wir %1$s für dich einrichten (und du dabei eine Lizenz von %2$s erhältst), bestelle einen %1$s-Konfigurationsdienst und lehnen dich zurück, während wir deine Website konfigurieren."
 
 #: admin/config-ui/class-configuration-structure.php:64
 msgid "Newsletter"
@@ -1988,7 +1968,7 @@ msgstr "SEO-Titel-Vorschau:"
 msgid "Meta description preview:"
 msgstr "Meta-Beschreibungs-Vorschau:"
 
-#: admin/formatter/class-metabox-formatter.php:168
+#: admin/formatter/class-metabox-formatter.php:169
 #: languages/yoast-components.php:107 languages/yoast-seo-js.php:362
 msgid "Marks are disabled in current view"
 msgstr "Markierungen sind in der aktuellen Ansicht deaktiviert."
@@ -2859,7 +2839,7 @@ msgstr "Video-Tutorial"
 msgid "Not available"
 msgstr "Nicht verfügbar"
 
-#: admin/formatter/class-metabox-formatter.php:160
+#: admin/formatter/class-metabox-formatter.php:161
 #: admin/views/partial-alerts-errors.php:11 languages/yoast-components.php:128
 msgid "Problems"
 msgstr "Probleme"
@@ -2877,7 +2857,7 @@ msgstr "Dieses Element ausblenden."
 msgid "Restore this item."
 msgstr "Dieses Element wiederherstellen."
 
-#: admin/formatter/class-metabox-formatter.php:161
+#: admin/formatter/class-metabox-formatter.php:162
 #: languages/yoast-components.php:131
 msgid "Improvements"
 msgstr "Verbesserungen"
@@ -2898,7 +2878,7 @@ msgstr "Meta Description nicht gesetzt."
 msgid "Keyword:"
 msgstr "Keyword:"
 
-#: admin/formatter/class-metabox-formatter.php:131
+#: admin/formatter/class-metabox-formatter.php:132
 #: admin/metabox/class-metabox.php:64
 #: admin/taxonomy/class-taxonomy-content-fields.php:36
 msgid "Analysis"
@@ -3215,7 +3195,7 @@ msgstr "Die Filter-Erweiterung scheint nicht verfügbar zu sein. Bitte deinen Ho
 msgid "The first true all-in-one SEO solution for WordPress, including on-page content analysis, XML sitemaps and much more."
 msgstr "Die erste echte All-in-One-SEO-Lösung für WordPress, einschließlich On-Page Inhaltsanalyse, XML-Sitemaps und vielem mehr."
 
-#. #-#-#-#-#  wordpress-seo-code.pot (Yoast SEO 7.7)  #-#-#-#-#
+#. #-#-#-#-#  wordpress-seo-code.pot (Yoast SEO 7.7.3)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/capabilities/class-capability-manager-integration.php:68
 msgid "Yoast SEO"
@@ -4237,7 +4217,7 @@ msgid "Homepage"
 msgstr "Homepage"
 
 #: admin/views/tabs/social/facebook.php:44 admin/views/tool-bulk-editor.php:77
-#: inc/class-wpseo-replace-vars.php:1244 languages/wordpress-seojs.php:38
+#: inc/class-wpseo-replace-vars.php:1244 languages/wordpress-seojs.php:41
 msgid "Title"
 msgstr "Titel"
 
@@ -4494,7 +4474,7 @@ msgstr "Google konnte diese URL aufgrund eines unbestimmten Fehlers nicht crawle
 msgid "Blocked"
 msgstr "Blockiert"
 
-#: admin/metabox/class-metabox.php:916
+#: admin/metabox/class-metabox.php:921
 msgid "SEO issue: The featured image should be at least 200 by 200 pixels to be picked up by Facebook and other social media sites."
 msgstr "Das Bild muss mindestens 200x200 Pixel groß sein, um von Facebook und anderen Social Media Seiten aufgenommen zu werden."
 
@@ -4651,7 +4631,7 @@ msgstr "%s Bild"
 msgid "%s Description"
 msgstr "%s Beschreibung"
 
-#: admin/views/tabs/metas/post-types.php:91
+#: admin/views/tabs/metas/post-types.php:112
 msgid "Breadcrumbs title"
 msgstr "Breadcrumbs-Titel"
 
@@ -4923,7 +4903,7 @@ msgstr "Twitter Benutzername (ohne @)"
 #: admin/metabox/class-metabox.php:69
 #: admin/taxonomy/class-taxonomy-content-fields.php:26
 #: admin/taxonomy/class-taxonomy-fields-presenter.php:108
-#: inc/class-wpseo-replace-vars.php:1286 languages/wordpress-seojs.php:35
+#: inc/class-wpseo-replace-vars.php:1286 languages/wordpress-seojs.php:38
 msgid "Focus keyword"
 msgstr "Fokus-Keyword"
 
@@ -5010,8 +4990,8 @@ msgstr "Optimierung des Titels"
 msgid "For more information:"
 msgstr "Mehr Informationen:"
 
-#: admin/class-config.php:118 admin/metabox/class-metabox.php:928
-#: admin/taxonomy/class-taxonomy.php:121
+#: admin/class-config.php:124 admin/metabox/class-metabox.php:933
+#: admin/taxonomy/class-taxonomy.php:126
 msgid "Use Image"
 msgstr "Bild verwenden"
 
@@ -5068,7 +5048,7 @@ msgstr "Social"
 msgid "No focus keyword set."
 msgstr "Kein \"Focus Keyword\" gewählt."
 
-#: admin/metabox/class-metabox.php:257 admin/taxonomy/class-taxonomy.php:237
+#: admin/metabox/class-metabox.php:257 admin/taxonomy/class-taxonomy.php:242
 msgid "(no parent)"
 msgstr "(kein Elternelement)"
 
