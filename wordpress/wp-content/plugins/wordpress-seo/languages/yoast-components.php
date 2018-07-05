@@ -139,60 +139,60 @@ $generated_i18n_strings = array(
 	// Reference: node_modules/yoast-components/composites/Plugin/HelpCenter/HelpCenter.js:80
 	__( 'Need help?', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/ModeSwitcher.js:80
+	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/ModeSwitcher.js:82
 	__( 'Mobile preview', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/ModeSwitcher.js:90
+	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/ModeSwitcher.js:92
 	__( 'Desktop preview', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/ReplacementVariableEditor.js:93
+	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/ReplacementVariableEditor.js:91
 	__( 'Insert snippet variable', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/ReplacementVariableEditorStandalone.js:305
+	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/ReplacementVariableEditorStandalone.js:307
 	_n_noop( '%d result found, use up and down arrow keys to navigate', '%d results found, use up and down arrow keys to navigate', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/ReplacementVariableEditorStandalone.js:316
+	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/ReplacementVariableEditorStandalone.js:318
 	__( 'No results', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/SettingsSnippetEditorFields.js:196
-	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/SnippetEditorFields.js:237
+	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/SettingsSnippetEditorFields.js:133
+	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/SnippetEditorFields.js:177
 	__( 'SEO title', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/SettingsSnippetEditorFields.js:212
-	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/SnippetEditorFields.js:282
+	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/SettingsSnippetEditorFields.js:148
+	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/SnippetEditorFields.js:221
 	__( 'Meta description', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/SnippetEditor.js:274
+	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/SnippetEditor.js:275
 	__( 'Close snippet editor', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/SnippetEditor.js:551
+	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/SnippetEditor.js:552
 	__( 'Edit snippet', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/SnippetEditorFields.js:260
+	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/SnippetEditorFields.js:199
 	__( 'Slug', 'wordpress-seo' ),
 
 	// Reference: node_modules/yoast-components/composites/Plugin/SnippetPreview/components/FixedWidthContainer.js:124
 	__( 'Scroll to see the preview content.', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoast-components/composites/Plugin/SnippetPreview/components/SnippetPreview.js:391
+	// Reference: node_modules/yoast-components/composites/Plugin/SnippetPreview/components/SnippetPreview.js:387
 	__( 'Please provide a meta description by editing the snippet below. If you don’t, Google will try to find a relevant part of your post to show in the search results.', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoast-components/composites/Plugin/SnippetPreview/components/SnippetPreview.js:643
+	// Reference: node_modules/yoast-components/composites/Plugin/SnippetPreview/components/SnippetPreview.js:639
 	__( 'This is a rendering of what this post might look like in Google\'s search results. ', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoast-components/composites/Plugin/SnippetPreview/components/SnippetPreview.js:645
+	// Reference: node_modules/yoast-components/composites/Plugin/SnippetPreview/components/SnippetPreview.js:641
 	__( 'Learn more about the Snippet Preview.', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoast-components/composites/Plugin/SnippetPreview/components/SnippetPreview.js:648
+	// Reference: node_modules/yoast-components/composites/Plugin/SnippetPreview/components/SnippetPreview.js:644
 	__( 'Help on the Snippet Preview', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoast-components/composites/Plugin/SnippetPreview/components/SnippetPreview.js:672
+	// Reference: node_modules/yoast-components/composites/Plugin/SnippetPreview/components/SnippetPreview.js:668
 	__( 'SEO title preview', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoast-components/composites/Plugin/SnippetPreview/components/SnippetPreview.js:686
+	// Reference: node_modules/yoast-components/composites/Plugin/SnippetPreview/components/SnippetPreview.js:682
 	__( 'Url preview', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoast-components/composites/Plugin/SnippetPreview/components/SnippetPreview.js:695
+	// Reference: node_modules/yoast-components/composites/Plugin/SnippetPreview/components/SnippetPreview.js:691
 	__( 'Meta description preview', 'wordpress-seo' ),
 
 	// Reference: node_modules/yoast-components/composites/basic/ErrorBoundary.js:49
