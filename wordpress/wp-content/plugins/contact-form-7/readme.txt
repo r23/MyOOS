@@ -4,7 +4,7 @@ Donate link: https://contactform7.com/donate/
 Tags: contact, form, contact form, feedback, email, ajax, captcha, akismet, multilingual
 Requires at least: 4.8
 Tested up to: 4.9
-Stable tag: 5.0.2
+Stable tag: 5.0.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -73,6 +73,13 @@ Do you have questions or issues with Contact Form 7? Use these support channels 
 == Changelog ==
 
 For more information, see [Releases](https://contactform7.com/category/releases/).
+
+= 5.0.3 =
+
+* CSS: Applies the "not-allowed" cursor style to submit buttons in the "disabled" state.
+* Acceptance Checkbox: Revises the tag-generator UI to encourage the use of better options in terms of personal data protection.
+* Introduces wpcf7_anonymize_ip_addr() function.
+* Introduces the consent_for:storage option for all types of form-tags.
 
 = 5.0.2 =
 

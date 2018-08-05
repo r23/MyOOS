@@ -187,12 +187,23 @@ if ( $post ) :
 			__( 'https://wordpress.org/support/plugin/contact-form-7/', 'contact-form-7' ),
 			__( 'Support Forums', 'contact-form-7' )
 		); ?></li>
-<?php if ( 'en_' === substr( get_user_locale(), 0, 3 ) ) : ?>
+<?php
+	$pro_service_langs = array(
+		'en',	// English
+		'de',	// German
+		'fr',	// French
+		'es',	// Spanish
+	);
+
+	if ( in_array( substr( get_user_locale(), 0, 2 ), $pro_service_langs ) ) :
+?>
 		<li><?php echo wpcf7_link(
 			__( 'https://contactform7.com/custom-development/', 'contact-form-7' ),
 			__( 'Professional Services', 'contact-form-7' )
 		); ?></li>
-<?php endif; ?>
+<?php
+	endif;
+?>
 	</ol>
 </div>
 </div><!-- #informationdiv -->

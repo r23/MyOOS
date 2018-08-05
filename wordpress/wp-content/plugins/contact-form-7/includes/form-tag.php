@@ -204,7 +204,9 @@ class WPCF7_FormTag implements ArrayAccess {
 
 	public function get_default_option( $default = '', $args = '' ) {
 		$args = wp_parse_args( $args, array(
-			'multiple' => false ) );
+			'multiple' => false,
+			'shifted' => false,
+		) );
 
 		$options = (array) $this->get_option( 'default' );
 		$values = array();
@@ -280,6 +282,22 @@ class WPCF7_FormTag implements ArrayAccess {
 							$values[] = $val;
 						} else {
 							return $val;
+						}
+					}
+				}
+
+			} elseif ( preg_match( '/^[0-9_]+$/', $opt ) ) {
+				$nums = explode( '_', $opt );
+
+				foreach ( $nums as $num ) {
+					$num = absint( $num );
+					$num = $args['shifted'] ? $num : $num - 1;
+
+					if ( isset( $this->values[$num] ) ) {
+						if ( $args['multiple'] ) {
+							$values[] = $this->values[$num];
+						} else {
+							return $this->values[$num];
 						}
 					}
 				}

@@ -66,30 +66,14 @@ function wpcf7_select_form_tag_handler( $tag ) {
 		$labels = array_merge( $labels, array_values( $data ) );
 	}
 
-	$defaults = array();
-
-	$default_choice = $tag->get_default_option( null, 'multiple=1' );
-
-	foreach ( $default_choice as $value ) {
-		$key = array_search( $value, $values, true );
-
-		if ( false !== $key ) {
-			$defaults[] = (int) $key + 1;
-		}
-	}
-
-	if ( $matches = $tag->get_first_match_option( '/^default:([0-9_]+)$/' ) ) {
-		$defaults = array_merge( $defaults, explode( '_', $matches[1] ) );
-	}
-
-	$defaults = array_unique( $defaults );
-
-	$shifted = false;
+	$default_choice = $tag->get_default_option( null, array(
+		'multiple' => $multiple,
+		'shifted' => $include_blank,
+	) );
 
 	if ( $include_blank || empty( $values ) ) {
 		array_unshift( $labels, '---' );
 		array_unshift( $values, '' );
-		$shifted = true;
 	} elseif ( $first_as_label ) {
 		$values[0] = '';
 	}
@@ -98,20 +82,10 @@ function wpcf7_select_form_tag_handler( $tag ) {
 	$hangover = wpcf7_get_hangover( $tag->name );
 
 	foreach ( $values as $key => $value ) {
-		$selected = false;
-
 		if ( $hangover ) {
-			if ( $multiple ) {
-				$selected = in_array( $value, (array) $hangover, true );
-			} else {
-				$selected = ( $hangover === $value );
-			}
+			$selected = in_array( $value, (array) $hangover, true );
 		} else {
-			if ( ! $shifted && in_array( (int) $key + 1, (array) $defaults ) ) {
-				$selected = true;
-			} elseif ( $shifted && in_array( (int) $key, (array) $defaults ) ) {
-				$selected = true;
-			}
+			$selected = in_array( $value, (array) $default_choice, true );
 		}
 
 		$item_atts = array(
