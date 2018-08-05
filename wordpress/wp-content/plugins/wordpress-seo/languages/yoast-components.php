@@ -1,28 +1,28 @@
 <?php
 /* THIS IS A GENERATED FILE. DO NOT EDIT DIRECTLY. */
 $generated_i18n_strings = array(
-	// Reference: yoast-components/composites/OnboardingWizard/OnboardingWizard.js:297
+	// Reference: yoast-components/composites/OnboardingWizard/OnboardingWizard.js:296
 	__( '%s installation wizard', 'wordpress-seo' ),
 
-	// Reference: yoast-components/composites/OnboardingWizard/OnboardingWizard.js:284
+	// Reference: yoast-components/composites/OnboardingWizard/OnboardingWizard.js:283
 	__( 'Next step', 'wordpress-seo' ),
 
-	// Reference: yoast-components/composites/OnboardingWizard/OnboardingWizard.js:283
+	// Reference: yoast-components/composites/OnboardingWizard/OnboardingWizard.js:282
 	__( 'Next', 'wordpress-seo' ),
 
-	// Reference: yoast-components/composites/OnboardingWizard/OnboardingWizard.js:275
+	// Reference: yoast-components/composites/OnboardingWizard/OnboardingWizard.js:274
 	__( 'Previous step', 'wordpress-seo' ),
 
-	// Reference: yoast-components/composites/OnboardingWizard/OnboardingWizard.js:274
+	// Reference: yoast-components/composites/OnboardingWizard/OnboardingWizard.js:273
 	__( 'Previous', 'wordpress-seo' ),
 
-	// Reference: yoast-components/composites/OnboardingWizard/OnboardingWizard.js:244
+	// Reference: yoast-components/composites/OnboardingWizard/OnboardingWizard.js:243
 	__( 'Close the Wizard', 'wordpress-seo' ),
 
-	// Reference: yoast-components/composites/OnboardingWizard/OnboardingWizard.js:243
+	// Reference: yoast-components/composites/OnboardingWizard/OnboardingWizard.js:242
 	__( 'Close', 'wordpress-seo' ),
 
-	// Reference: yoast-components/composites/OnboardingWizard/OnboardingWizard.js:167
+	// Reference: yoast-components/composites/OnboardingWizard/OnboardingWizard.js:166
 	__( 'A problem occurred when saving the current step, {{link}}please file a bug report{{/link}} describing what step you are on and which changes you want to make (if any).', 'wordpress-seo' ),
 
 	// Reference: yoast-components/composites/OnboardingWizard/StepIndicator.js:50
@@ -58,13 +58,13 @@ $generated_i18n_strings = array(
 	// Reference: js/src/components/ConnectGoogleSearchConsole.js:112
 	__( 'There is an error with the request.', 'wordpress-seo' ),
 
-	// Reference: js/src/components/MailchimpSignup.js:239
+	// Reference: js/src/components/MailchimpSignup.js:224
 	__( 'Email', 'wordpress-seo' ),
 
-	// Reference: js/src/components/MailchimpSignup.js:221
+	// Reference: js/src/components/MailchimpSignup.js:206
 	__( 'Sign Up!', 'wordpress-seo' ),
 
-	// Reference: js/src/components/MailchimpSignup.js:114
+	// Reference: js/src/components/MailchimpSignup.js:110
 	__( 'MailChimp signup failed:', 'wordpress-seo' ),
 
 	// Reference: js/src/components/MediaUpload.js:107
@@ -145,7 +145,7 @@ $generated_i18n_strings = array(
 	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/ModeSwitcher.js:92
 	__( 'Desktop preview', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/ReplacementVariableEditor.js:91
+	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/ReplacementVariableEditor.js:92
 	__( 'Insert snippet variable', 'wordpress-seo' ),
 
 	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/ReplacementVariableEditorStandalone.js:307
@@ -154,12 +154,12 @@ $generated_i18n_strings = array(
 	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/ReplacementVariableEditorStandalone.js:318
 	__( 'No results', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/SettingsSnippetEditorFields.js:133
+	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/SettingsSnippetEditorFields.js:135
 	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/SnippetEditorFields.js:177
 	__( 'SEO title', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/SettingsSnippetEditorFields.js:148
-	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/SnippetEditorFields.js:221
+	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/SettingsSnippetEditorFields.js:152
+	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/SnippetEditorFields.js:223
 	__( 'Meta description', 'wordpress-seo' ),
 
 	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/SnippetEditor.js:275
@@ -168,7 +168,7 @@ $generated_i18n_strings = array(
 	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/SnippetEditor.js:552
 	__( 'Edit snippet', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/SnippetEditorFields.js:199
+	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/SnippetEditorFields.js:200
 	__( 'Slug', 'wordpress-seo' ),
 
 	// Reference: node_modules/yoast-components/composites/Plugin/SnippetPreview/components/FixedWidthContainer.js:124
@@ -194,6 +194,12 @@ $generated_i18n_strings = array(
 
 	// Reference: node_modules/yoast-components/composites/Plugin/SnippetPreview/components/SnippetPreview.js:691
 	__( 'Meta description preview', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoast-components/composites/Plugin/Synonyms/components/SynonymsSection.js:44
+	__( 'Enter synonyms for your focus keyword. Separate individual synonyms with commas. ', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoast-components/composites/Plugin/Synonyms/components/SynonymsSection.js:46
+	__( 'Learn more about keyword synonyms.', 'wordpress-seo' ),
 
 	// Reference: node_modules/yoast-components/composites/basic/ErrorBoundary.js:49
 	__( 'Something went wrong. Please reload the page.', 'wordpress-seo' ),

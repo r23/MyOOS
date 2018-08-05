@@ -112,7 +112,7 @@ class WPSEO_Replace_Vars {
 			elseif ( ! method_exists( __CLASS__, 'retrieve_' . $var ) ) {
 				if ( $var !== '' && ! isset( self::$external_replacements[ $var ] ) ) {
 					self::$external_replacements[ $var ] = $replace_function;
-					$replacement_variable = new WPSEO_Replacement_Variable( $var, $var, $help_text );
+					$replacement_variable                = new WPSEO_Replacement_Variable( $var, $var, $help_text );
 					self::register_help_text( $type, $replacement_variable );
 					$success = true;
 				}
@@ -1123,8 +1123,8 @@ class WPSEO_Replace_Vars {
 
 		$replacement_variables = array_merge(
 			$this->get_replacement_variables(),
-			$this->get_custom_fields(),
-			$this->get_custom_taxonomies()
+			WPSEO_Custom_Fields::get_custom_fields(),
+			WPSEO_Custom_Taxonomies::get_custom_taxonomies()
 		);
 
 		return array_map( array( $this, 'format_replacement_variable' ), $replacement_variables );
@@ -1142,17 +1142,84 @@ class WPSEO_Replace_Vars {
 	}
 
 	/**
-	 * Checks if the replacement variable contains a prefix.
+	 * Checks whether the replacement variable contains a `ct_` or `cf_` prefix, because they follow different logic.
 	 *
 	 * @param string $replacement_variable The replacement variable.
 	 *
-	 * @return bool True when the replacement variable contains a
+	 * @return bool True when the replacement variable is not prefixed.
 	 */
 	private function is_not_prefixed( $replacement_variable ) {
 		$prefixes = array( 'cf_', 'ct_' );
-		$prefix   = substr( $replacement_variable, 0, 3 );
+		$prefix   = $this->get_prefix( $replacement_variable );
 
-		return ! in_array( $prefix, $prefixes );
+		return ! in_array( $prefix, $prefixes, true );
+	}
+
+	/**
+	 * Strip the prefix from a replacement variable name.
+	 *
+	 * @param string $replacement_variable The replacement variable.
+	 *
+	 * @return string The replacement variable name without the prefix.
+	 */
+	private function strip_prefix( $replacement_variable ) {
+		return substr( $replacement_variable, 3 );
+	}
+
+	/**
+	 * Gets the prefix from a replacement variable name.
+	 *
+	 * @param string $replacement_variable The replacement variable.
+	 *
+	 * @return string The prefix of the replacement variable.
+	 */
+	private function get_prefix( $replacement_variable ) {
+		return substr( $replacement_variable, 0, 3 );
+	}
+
+	/**
+	 * Strips 'desc_' if present, and appends ' description' at the end.
+	 *
+	 * @param string $label The replacement variable.
+	 *
+	 * @return string The altered replacement variable name.
+	 */
+	private function handle_description( $label ) {
+		if ( strpos( $label, 'desc_' ) === 0 ) {
+			return substr( $label, 5 ) . ' description';
+		}
+
+		return $label;
+	}
+
+	/**
+	 * Creates a label for prefixed replacement variables that matches the format in the editors.
+	 *
+	 * @param string $replacement_variable The replacement variable.
+	 *
+	 * @return string The replacement variable label.
+	 */
+	private function get_label( $replacement_variable ) {
+		$prefix = $this->get_prefix( $replacement_variable );
+		if ( $prefix === 'cf_' ) {
+			return $this->strip_prefix( $replacement_variable ) . ' (custom field)';
+		}
+
+		if ( $prefix === 'ct_' ) {
+			$label = $this->strip_prefix( $replacement_variable );
+			$label = $this->handle_description( $label );
+			return ucfirst( $label . ' (custom taxonomy)' );
+		}
+
+		if ( $prefix === 'pt_' ) {
+			if ( $replacement_variable === 'pt_single' ) {
+				return 'Post type (singular)';
+			}
+
+			return 'Post type (plural)';
+		}
+
+		return '';
 	}
 
 	/**
@@ -1163,7 +1230,11 @@ class WPSEO_Replace_Vars {
 	 * @return array The formatted replacement variable.
 	 */
 	private function format_replacement_variable( $replacement_variable ) {
-		return array( 'name' => $replacement_variable, 'value' => '' );
+		return array(
+			'name'  => $replacement_variable,
+			'value' => '',
+			'label' => $this->get_label( $replacement_variable ),
+		);
 	}
 
 	/**
@@ -1184,8 +1255,8 @@ class WPSEO_Replace_Vars {
 		 *
 		 * @param int $limit Number of custom fields to retrieve. Default 30.
 		 */
-		$limit = apply_filters( 'postmeta_form_limit', 30 );
-		$sql   = "SELECT DISTINCT meta_key
+		$limit  = apply_filters( 'postmeta_form_limit', 30 );
+		$sql    = "SELECT DISTINCT meta_key
 			FROM $wpdb->postmeta
 			WHERE meta_key NOT BETWEEN '_' AND '_z'
 			HAVING meta_key NOT LIKE %s
@@ -1216,12 +1287,12 @@ class WPSEO_Replace_Vars {
 	 * @return array The custom taxonomy prefixed names.
 	 */
 	private function get_custom_taxonomies() {
-		$args = array(
+		$args              = array(
 			'public'   => true,
 			'_builtin' => false,
 		);
-		$output = 'names';
-		$operator = 'and';
+		$output            = 'names';
+		$operator          = 'and';
 		$custom_taxonomies = get_taxonomies( $args, $output, $operator );
 
 		if ( is_array( $custom_taxonomies ) ) {
@@ -1245,6 +1316,7 @@ class WPSEO_Replace_Vars {
 			new WPSEO_Replacement_Variable( 'parent_title', __( 'Parent title', 'wordpress-seo' ), __( 'Replaced with the title of the parent page of the current page', 'wordpress-seo' ) ),
 			new WPSEO_Replacement_Variable( 'archive_title', __( 'Archive title', 'wordpress-seo' ), __( 'Replaced with the normal title for an archive generated by WordPress', 'wordpress-seo' ) ),
 			new WPSEO_Replacement_Variable( 'sitename', __( 'Site title', 'wordpress-seo' ), __( 'The site\'s name', 'wordpress-seo' ) ),
+			new WPSEO_Replacement_Variable( 'sitedesc', __( 'Tagline', 'wordpress-seo' ), __( 'The site\'s tagline', 'wordpress-seo' ) ),
 			new WPSEO_Replacement_Variable( 'excerpt', __( 'Excerpt', 'wordpress-seo' ), __( 'Replaced with the post/page excerpt (or auto-generated if it does not exist)', 'wordpress-seo' ) ),
 			new WPSEO_Replacement_Variable( 'excerpt_only', __( 'Excerpt only', 'wordpress-seo' ), __( 'Replaced with the post/page excerpt (without auto-generation)', 'wordpress-seo' ) ),
 			new WPSEO_Replacement_Variable( 'tag', __( 'Tag', 'wordpress-seo' ), __( 'Replaced with the current tag/tags', 'wordpress-seo' ) ),
@@ -1256,7 +1328,7 @@ class WPSEO_Replace_Vars {
 			new WPSEO_Replacement_Variable( 'term_title', __( 'Term title', 'wordpress-seo' ), __( 'Replaced with the term name', 'wordpress-seo' ) ),
 			new WPSEO_Replacement_Variable( 'searchphrase', __( 'Search phrase', 'wordpress-seo' ), __( 'Replaced with the current search phrase', 'wordpress-seo' ) ),
 			new WPSEO_Replacement_Variable( 'sep', __( 'Separator', 'wordpress-seo' ), sprintf(
-			/* translators: %s: wp_title() function. */
+				/* translators: %s: wp_title() function. */
 				__( 'The separator defined in your theme\'s %s tag.', 'wordpress-seo' ),
 				// '<code>wp_title()</code>'
 				'wp_title()'
@@ -1285,7 +1357,7 @@ class WPSEO_Replace_Vars {
 			new WPSEO_Replacement_Variable( 'caption', __( 'Caption', 'wordpress-seo' ), __( 'Attachment caption', 'wordpress-seo' ) ),
 			new WPSEO_Replacement_Variable( 'focuskw', __( 'Focus keyword', 'wordpress-seo' ), __( 'Replaced with the posts focus keyword', 'wordpress-seo' ) ),
 			new WPSEO_Replacement_Variable( 'term404', __( 'Term404', 'wordpress-seo' ), __( 'Replaced with the slug which caused the 404', 'wordpress-seo' ) ),
-			new WPSEO_Replacement_Variable( 'cf_<custom-field-name>', '<custom-field-name> ' . __( '(custom field)', 'wordpress-seo' ) , __( 'Replaced with a posts custom field value', 'wordpress-seo' ) ),
+			new WPSEO_Replacement_Variable( 'cf_<custom-field-name>', '<custom-field-name> ' . __( '(custom field)', 'wordpress-seo' ), __( 'Replaced with a posts custom field value', 'wordpress-seo' ) ),
 			new WPSEO_Replacement_Variable( 'ct_<custom-tax-name>', '<custom-tax-name> ' . __( '(custom taxonomy)', 'wordpress-seo' ), __( 'Replaced with a posts custom taxonomies, comma separated.', 'wordpress-seo' ) ),
 			new WPSEO_Replacement_Variable( 'ct_desc_<custom-tax-name>', '<custom-tax-name> ' . __( 'description (custom taxonomy)', 'wordpress-seo' ), __( 'Replaced with a custom taxonomies description', 'wordpress-seo' ) ),
 		);

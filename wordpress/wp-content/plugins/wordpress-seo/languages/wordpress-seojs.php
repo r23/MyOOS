@@ -1,7 +1,7 @@
 <?php
 /* THIS IS A GENERATED FILE. DO NOT EDIT DIRECTLY. */
 $generated_i18n_strings = array(
-	// Reference: js/src/components/SettingsReplacementVariableEditor.js:33
+	// Reference: js/src/components/SettingsReplacementVariableEditor.js:35
 	__( 'Modify your meta description by editing it right here', 'wordpress-seo' ),
 
 	// Reference: js/src/containers/SnippetEditor.js:103
