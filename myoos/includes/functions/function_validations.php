@@ -33,28 +33,18 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 /**
  * Valid e-Mail - Addresses
  *
- * This function is converted from a JavaScript written by
- * Sandeep V. Tamhankar (stamhankar@hotmail.com). The original JavaScript
- * is available at http://javascript.internet.com
- *
  * @param $value
  * @return boolean
  */
 function oos_validate_is_email($value) {
  
     if (!is_string($value)) return FALSE;
- 
-    // in case value is several addresses separated by newlines
-    $_addresses = preg_split('![\n\r]+!', $value);
 
-    foreach($_addresses as $_address) {
-		$_is_valid = !(preg_match('!@.*@|\.\.|\,|\;!', $_address) ||
-	        !preg_match('!^.+\@(\[?)[a-zA-Z0-9\.\-]+\.([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$!', $_address));
-        
-        if(!$_is_valid)
-            return FALSE;
-    }
-    return TRUE;
+	//Reject line breaks in addresses; it's valid RFC5322, but not RFC5321
+	if (strpos($value, "\n") !== FALSE or strpos($value, "\r") !== FALSE) {
+		return FALSE;
+	} 
+	return (boolean)filter_var($value, FILTER_VALIDATE_EMAIL);
 }
 
 
