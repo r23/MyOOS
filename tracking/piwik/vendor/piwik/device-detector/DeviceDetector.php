@@ -50,7 +50,7 @@ class DeviceDetector
     /**
      * Current version number of DeviceDetector
      */
-    const VERSION = '3.10.2';
+    const VERSION = '3.11.1';
 
     /**
      * Holds all registered client types
@@ -679,7 +679,7 @@ class DeviceDetector
         /**
          * Assume all devices running iOS / Mac OS are from Apple
          */
-        if (empty($this->brand) && in_array($osShortName, ['ATV', 'IOS', 'MAC'])) {
+        if (empty($this->brand) && in_array($osShortName, array('ATV', 'IOS', 'MAC'))) {
             $this->brand = 'AP';
         }
 

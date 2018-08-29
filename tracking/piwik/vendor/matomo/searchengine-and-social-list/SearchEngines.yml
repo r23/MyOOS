@@ -457,6 +457,13 @@ Clix:
     params:
       - question
     backlink: 'resultado.html?in=Mundial&question={k}'
+Cốc Cốc:
+  -
+    urls:
+      - coccoc.com
+    params:
+      - query
+    backlink: 'search#query={k}'
 Comcast:
   - 
     urls:
@@ -1855,6 +1862,7 @@ sm.cn:
   - 
     urls:
       - m.sm.cn
+      - so.m.sm.cn
       - m.sp.sm.cn
     params:
       - q

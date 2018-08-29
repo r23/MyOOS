@@ -155,6 +155,65 @@
         "homepage": "https://github.com/container-interop/container-interop"
     },
     {
+        "name": "davaxi/sparkline",
+        "version": "1.1.2",
+        "version_normalized": "1.1.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/davaxi/Sparkline.git",
+            "reference": "d563481f0960bac1acb4e24743ab884f4ce251e2"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/davaxi/Sparkline/zipball/d563481f0960bac1acb4e24743ab884f4ce251e2",
+            "reference": "d563481f0960bac1acb4e24743ab884f4ce251e2",
+            "shasum": ""
+        },
+        "require": {
+            "ext-gd": "*",
+            "php": ">=5.3.0"
+        },
+        "require-dev": {
+            "codeclimate/php-test-reporter": "dev-master",
+            "ext-gd": "*",
+            "friendsofphp/php-cs-fixer": "^2.8",
+            "jakub-onderka/php-parallel-lint": "^0.9.2",
+            "php": ">=5.3.0",
+            "phpro/grumphp": "^0.12.0",
+            "povils/phpmnd": "^1.1",
+            "sebastian/phpcpd": "^3.0",
+            "sensiolabs/security-checker": "^4.1",
+            "squizlabs/php_codesniffer": "^3.1",
+            "wearejust/grumphp-extra-tasks": "^2.1"
+        },
+        "time": "2017-12-15T15:45:18+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Davaxi\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "David Patiashvili",
+                "email": "stratagem.david@gmail.com",
+                "homepage": "https://www.patiashvili.fr/",
+                "role": "Developer"
+            }
+        ],
+        "description": "PHP Class (using GD) to generate sparklines",
+        "keywords": [
+            "php",
+            "picture",
+            "sparkline"
+        ]
+    },
+    {
         "name": "doctrine/cache",
         "version": "v1.6.1",
         "version_normalized": "1.6.1.0",
@@ -353,23 +412,23 @@
     },
     {
         "name": "matomo/searchengine-and-social-list",
-        "version": "1.4.2",
-        "version_normalized": "1.4.2.0",
+        "version": "1.4.3",
+        "version_normalized": "1.4.3.0",
         "source": {
             "type": "git",
             "url": "https://github.com/matomo-org/searchengine-and-social-list.git",
-            "reference": "70d35969cbd5812f015db251988080c579327814"
+            "reference": "5c29a58c6cab8a78c3e625ffc615e759ef8466d3"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/matomo-org/searchengine-and-social-list/zipball/70d35969cbd5812f015db251988080c579327814",
-            "reference": "70d35969cbd5812f015db251988080c579327814",
+            "url": "https://api.github.com/repos/matomo-org/searchengine-and-social-list/zipball/5c29a58c6cab8a78c3e625ffc615e759ef8466d3",
+            "reference": "5c29a58c6cab8a78c3e625ffc615e759ef8466d3",
             "shasum": ""
         },
         "replace": {
             "piwik/searchengine-and-social-list": "*"
         },
-        "time": "2018-02-20T14:04:26+00:00",
+        "time": "2018-05-25T11:09:26+00:00",
         "type": "library",
         "installation-source": "dist",
         "notification-url": "https://packagist.org/downloads/",
@@ -1073,17 +1132,17 @@
     },
     {
         "name": "piwik/device-detector",
-        "version": "3.10.2",
-        "version_normalized": "3.10.2.0",
+        "version": "3.11.1",
+        "version_normalized": "3.11.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/matomo-org/device-detector.git",
-            "reference": "67e96595cd7649b7967533053fcbfbe02d5c55a3"
+            "reference": "0ec14d28cbf71c48b21697e65b892cfd8c3ca519"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/matomo-org/device-detector/zipball/67e96595cd7649b7967533053fcbfbe02d5c55a3",
-            "reference": "67e96595cd7649b7967533053fcbfbe02d5c55a3",
+            "url": "https://api.github.com/repos/matomo-org/device-detector/zipball/0ec14d28cbf71c48b21697e65b892cfd8c3ca519",
+            "reference": "0ec14d28cbf71c48b21697e65b892cfd8c3ca519",
             "shasum": ""
         },
         "require": {
@@ -1100,7 +1159,7 @@
         "suggest": {
             "doctrine/cache": "Can directly be used for caching purpose"
         },
-        "time": "2018-05-07T19:33:29+00:00",
+        "time": "2018-08-10T18:28:32+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
