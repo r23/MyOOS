@@ -126,94 +126,82 @@ $generated_i18n_strings = array(
 	   %4$s expands to the anchor end tag, %5$s expands to the recommended maximum number of syllables. */
 	__( '%1$s of the words contain %2$sover %3$s syllables%4$s, which is more than the recommended maximum of %5$s.', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/js/assessments/seo/internalLinksAssessment.js:19
+	// Reference: node_modules/yoastseo/js/assessments/seo/InternalLinksAssessment.js:108
 	/* Translators: %1$s expands to a link on yoast.com, %2$s expands to the anchor end tag */
 	__( 'No %1$sinternal links%2$s appear in this page, consider adding some as appropriate.', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/js/assessments/seo/internalLinksAssessment.js:27
-	/* Translators: %1$s expands the number of internal links, %2$s expands to a link on yoast.com, %3$s expands to the anchor end tag */
+	// Reference: node_modules/yoastseo/js/assessments/seo/InternalLinksAssessment.js:117
+	/* Translators: %1$s expands the number of internal links, %2$s expands to a link on yoast.com,
+	   %3$s expands to the anchor end tag */
 	__( 'This page has %1$s %2$sinternal link(s)%3$s, all nofollowed.', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/js/assessments/seo/internalLinksAssessment.js:36
-	/* Translators: %1$s expands to the number of nofollow links, %2$s expands to a link on yoast.com,
-	   %3$s expands to the anchor end tag, %4$s to the number of internal links */
-	__( 'This page has %1$s nofollowed %2$sinternal link(s)%3$s and %4$s normal internal link(s).', 'wordpress-seo' ),
-
-	// Reference: node_modules/yoastseo/js/assessments/seo/internalLinksAssessment.js:45
+	// Reference: node_modules/yoastseo/js/assessments/seo/InternalLinksAssessment.js:126
 	/* Translators: %1$s expands to the number of internal links, %2$s expands to a link on yoast.com,
 	   %3$s expands to the anchor end tag */
 	__( 'This page has %1$s %2$sinternal link(s)%3$s.', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/js/assessments/seo/introductionKeywordAssessment.js:18
-	/* Translators: %1$s expands to a link on yoast.com, %2$s expands to the anchor end tag */
+	// Reference: node_modules/yoastseo/js/assessments/seo/InternalLinksAssessment.js:134
+	/* Translators: %1$s expands to the number of nofollow links, %2$s expands to a link on yoast.com,
+	   %3$s expands to the anchor end tag, %4$s to the number of internal links */
+	__( 'This page has %1$s nofollowed %2$sinternal link(s)%3$s and %4$s normal internal link(s).', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoastseo/js/assessments/seo/IntroductionKeywordAssessment.js:104
+	/* Translators: %1$s expands to a link on yoast.com, %2$s expands to the anchor end tag. */
 	__( 'The focus keyword appears in the %1$sfirst paragraph%2$s of the copy.', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/js/assessments/seo/introductionKeywordAssessment.js:25
-	/* Translators: %1$s expands to a link on yoast.com, %2$s expands to the anchor end tag */
+	// Reference: node_modules/yoastseo/js/assessments/seo/IntroductionKeywordAssessment.js:111
+	/* Translators: %1$s expands to a link on yoast.com, %2$s expands to the anchor end tag. */
 	__( 'The focus keyword doesn\'t appear in the %1$sfirst paragraph%2$s of the copy. Make sure the topic is clear immediately.', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/js/assessments/seo/keyphraseLengthAssessment.js:21
-	/* Translators: %1$s expands to a link on yoast.com, %2$s expands to the anchor end tag */
+	// Reference: node_modules/yoastseo/js/assessments/seo/KeyphraseLengthAssessment.js:96
+	/* Translators: %1$s expands to a link on yoast.com, %2$s expands to the anchor end tag. */
 	__( 'No %1$sfocus keyword%2$s was set for this page. If you do not set a focus keyword, no score can be calculated.', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/js/assessments/seo/keyphraseLengthAssessment.js:26
+	// Reference: node_modules/yoastseo/js/assessments/seo/KeyphraseLengthAssessment.js:104
 	/* Translators: %1$s expands to a link on yoast.com, %2$s expands to the anchor end tag */
 	__( 'The %1$skeyphrase%2$s is over 10 words, a keyphrase should be shorter.', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/js/assessments/seo/keywordDensityAssessment.js:29
-	/* Translators: %1$s expands to the keyword density percentage, %2$d expands to the keyword count,
-	   %3$s expands to the maximum keyword density percentage, %4$s expands to a link to a Yoast.com article
-	   about keyword density, %5$s expands to the anchor end tag. */
-	_n_noop( 'The exact-match %4$skeyword density%5$s is %1$s, which is way over the advised %3$s maximum; the focus keyword was found %2$d time.', 'The exact-match %4$skeyword density%5$s is %1$s, which is way over the advised %3$s maximum; the focus keyword was found %2$d times.', 'wordpress-seo' ),
-
-	// Reference: node_modules/yoastseo/js/assessments/seo/keywordDensityAssessment.js:37
-	/* Translators: %1$s expands to the keyword density percentage, %2$d expands to the keyword count,
-	   %3$s expands to the maximum keyword density percentage, %4$s expands to a link to a Yoast.com article
-	   about keyword density, %5$s expands to the anchor end tag. */
-	_n_noop( 'The exact-match %4$skeyword density%5$s is %1$s, which is over the advised %3$s maximum; the focus keyword was found %2$d time.', 'The exact-match %4$skeyword density%5$s is %1$s, which is over the advised %3$s maximum; the focus keyword was found %2$d times.', 'wordpress-seo' ),
-
-	// Reference: node_modules/yoastseo/js/assessments/seo/keywordDensityAssessment.js:45
-	_n_noop( 'The exact-match %3$skeyword density%4$s is %1$s, which is great; the focus keyword was found %2$d time.', 'The exact-match %3$skeyword density%4$s is %1$s, which is great; the focus keyword was found %2$d times.', 'wordpress-seo' ),
-
-	// Reference: node_modules/yoastseo/js/assessments/seo/keywordDensityAssessment.js:53
+	// Reference: node_modules/yoastseo/js/assessments/seo/KeywordDensityAssessment.js:166
 	__( 'The exact-match %3$skeyword density%4$s is %1$s, which is too low; the focus keyword was found %2$d times.', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/js/assessments/seo/keywordDensityAssessment.js:61
-	/* Translators: %1$s expands to the keyword density percentage, %2$d expands to the keyword count,
-	   %3$s expands to a link to a Yoast.com article about keyword density,
-	   %4$s expands to the anchor end tag. */
+	// Reference: node_modules/yoastseo/js/assessments/seo/KeywordDensityAssessment.js:178
 	_n_noop( 'The exact-match %3$skeyword density%4$s is %1$s, which is too low; the focus keyword was found %2$d time.', 'The exact-match %3$skeyword density%4$s is %1$s, which is too low; the focus keyword was found %2$d times.', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/js/assessments/seo/keywordStopWordsAssessment.js:18
+	// Reference: node_modules/yoastseo/js/assessments/seo/KeywordDensityAssessment.js:190
+	_n_noop( 'The exact-match %3$skeyword density%4$s is %1$s, which is great; the focus keyword was found %2$d time.', 'The exact-match %3$skeyword density%4$s is %1$s, which is great; the focus keyword was found %2$d times.', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoastseo/js/assessments/seo/KeywordDensityAssessment.js:203
+	_n_noop( 'The exact-match %4$skeyword density%5$s is %1$s, which is over the advised %3$s maximum; the focus keyword was found %2$d time.', 'The exact-match %4$skeyword density%5$s is %1$s, which is over the advised %3$s maximum; the focus keyword was found %2$d times.', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoastseo/js/assessments/seo/KeywordDensityAssessment.js:216
+	_n_noop( 'The exact-match %4$skeyword density%5$s is %1$s, which is way over the advised %3$s maximum; the focus keyword was found %2$d time.', 'The exact-match %4$skeyword density%5$s is %1$s, which is way over the advised %3$s maximum; the focus keyword was found %2$d times.', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoastseo/js/assessments/seo/keywordStopWordsAssessment.js:20
 	/* Translators: %1$s opens a link to a Yoast article about stop words, %2$s closes the link */
 	_n_noop( 'The focus keyword contains a stop word. This may or may not be wise depending on the circumstances. %1$sLearn more about the stop words%2$s.', 'The focus keyword contains %3$d stop words. This may or may not be wise depending on the circumstances. %1$sLearn more about the stop words%2$s.', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/js/assessments/seo/largestKeywordDistanceAssessment.js:94
+	// Reference: node_modules/yoastseo/js/assessments/seo/LargestKeywordDistanceAssessment.js:106
 	/* Translators: %1$s expands to a link to a Yoast.com article about keyword and topic distribution,
 	   %2$s expands to the anchor end tag */
 	__( 'Use your keyword or synonyms more often in your text so that we can check %1$skeyword distribution%2$s.', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/js/assessments/seo/largestKeywordDistanceAssessment.js:103
+	// Reference: node_modules/yoastseo/js/assessments/seo/LargestKeywordDistanceAssessment.js:115
 	/* Translators: %1$s expands to a link to a Yoast.com article about keyword and topic distribution,
 	   %2$s expands to the anchor end tag */
 	_n_noop( 'Large parts of your text do not contain the keyword. Try to %1$sdistribute%2$s the keyword more evenly.', 'Large parts of your text do not contain the keyword or its synonyms. Try to %1$sdistribute%2$s them more evenly.', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/js/assessments/seo/largestKeywordDistanceAssessment.js:112
+	// Reference: node_modules/yoastseo/js/assessments/seo/LargestKeywordDistanceAssessment.js:124
 	/* Translators: %1$s expands to a link to a Yoast.com article about keyword and topic distribution,
 	   %2$s expands to the anchor end tag */
 	_n_noop( 'Some parts of your text do not contain the keyword. Try to %1$sdistribute%2$s the keyword more evenly.', 'Some parts of your text do not contain the keyword or its synonyms. Try to %1$sdistribute%2$s them more evenly.', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/js/assessments/seo/largestKeywordDistanceAssessment.js:120
+	// Reference: node_modules/yoastseo/js/assessments/seo/LargestKeywordDistanceAssessment.js:132
 	/* Translators: %1$s expands to a link to a Yoast.com article about keyword and topic distribution,
 	   %2$s expands to the anchor end tag */
 	_n_noop( 'Your keyword is %1$sdistributed%2$s evenly throughout the text. That\'s great.', 'Your keyword and its synonyms are %1$sdistributed%2$s evenly throughout the text. That\'s great.', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/js/assessments/seo/metaDescriptionKeywordAssessment.js:17
-	/* Translators: %1$s expands to a link on yoast.com, %2$s expands to the anchor end tag */
-	__( 'The meta description %1$scontains the focus keyword%2$s.', 'wordpress-seo' ),
-
-	// Reference: node_modules/yoastseo/js/assessments/seo/metaDescriptionKeywordAssessment.js:25
-	/* Translators: %1$s expands to a link on yoast.com, %2$s expands to the anchor end tag */
+	// Reference: node_modules/yoastseo/js/assessments/seo/MetaDescriptionKeywordAssessment.js:98
+	/* Translators: %1$s expands to a link on yoast.com, %2$s expands to the anchor end tag. */
 	__( 'A meta description has been specified, but it %1$sdoes not contain the focus keyword%2$s.', 'wordpress-seo' ),
 
 	// Reference: node_modules/yoastseo/js/assessments/seo/metaDescriptionLengthAssessment.js:127
@@ -317,7 +305,7 @@ $generated_i18n_strings = array(
 	   %3$s expands to the anchor end tag,  %4$s expands to the recommended minimum of words. */
 	_n_noop( 'This is far below the %2$srecommended minimum%3$s of %4$d word. Add more content that is relevant for the topic.', 'This is far below the %2$srecommended minimum%3$s of %4$d words. Add more content that is relevant for the topic.', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/js/assessments/seo/textCompetingLinksAssessment.js:22
+	// Reference: node_modules/yoastseo/js/assessments/seo/TextCompetingLinksAssessment.js:111
 	/* Translators:  %1$s expands to a link on yoast.com, %2$s expands to the anchor end tag */
 	__( 'You\'re %1$slinking to another page with the focus keyword%2$s you want this page to rank for. Consider changing that if you truly want this page to rank.', 'wordpress-seo' ),
 
@@ -337,50 +325,51 @@ $generated_i18n_strings = array(
 	// Reference: node_modules/yoastseo/js/assessments/seo/textImagesAssessment.js:148
 	__( 'The %1$simages%2$s on this page are missing alt attributes.', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/js/assessments/seo/titleKeywordAssessment.js:21
-	/* Translators: %1$s expands to the focus keyword, %2$s expands to a link on yoast.com,
-	   %3$s expands to the anchor end tag */
+	// Reference: node_modules/yoastseo/js/assessments/seo/TitleKeywordAssessment.js:113
+	/* Translators: %1$s expands to the keyphrase, %2$s expands to a link on yoast.com,
+	   %3$s expands to the anchor end tag. */
 	__( 'The focus keyword \'%1$s\' does not appear in the %2$sSEO title%3$s.', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/js/assessments/seo/titleKeywordAssessment.js:27
-	/* Translators:  %1$s expands to a link on yoast.com, %2$s expands to the anchor end tag */
+	// Reference: node_modules/yoastseo/js/assessments/seo/TitleKeywordAssessment.js:121
+	/* Translators: %1$s expands to a link on yoast.com, %2$s expands to the anchor end tag. */
 	__( 'The %1$sSEO title%2$s contains the focus keyword, at the beginning which is considered to improve rankings.', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/js/assessments/seo/titleKeywordAssessment.js:31
+	// Reference: node_modules/yoastseo/js/assessments/seo/TitleKeywordAssessment.js:128
+	/* Translators: %1$s expands to a link on yoast.com, %2$s expands to the anchor end tag. */
 	__( 'The %1$sSEO title%2$s contains the focus keyword, but it does not appear at the beginning; try and move it to the beginning.', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/js/assessments/seo/urlKeywordAssessment.js:109
+	// Reference: node_modules/yoastseo/js/assessments/seo/UrlKeywordAssessment.js:100
 	/* Translators:  %1$s expands to a link on yoast.com, %2$s expands to the anchor end tag */
 	__( 'The focus keyword does not appear in the %1$sURL%2$s for this page. If you decide to rename the URL be sure to check the old URL 301 redirects to the new one!', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/js/assessments/seo/urlKeywordAssessment.js:113
+	// Reference: node_modules/yoastseo/js/assessments/seo/UrlKeywordAssessment.js:107
 	/* Translators:  %1$s expands to a link on yoast.com, %2$s expands to the anchor end tag */
 	__( 'The focus keyword appears in the %1$sURL%2$s for this page.', 'wordpress-seo' ),
 
 	// Reference: node_modules/yoastseo/js/assessments/seo/urlLengthAssessment.js:106
 	__( 'The slug for this page is a bit long, consider shortening it.', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/js/assessments/seo/urlStopWordsAssessment.js:18
+	// Reference: node_modules/yoastseo/js/assessments/seo/urlStopWordsAssessment.js:20
 	/* Translators: %1$s opens a link to a wikipedia article about stop words, %2$s closes the link */
 	_n_noop( 'The slug for this page contains a %1$sstop word%2$s, consider removing it.', 'The slug for this page contains %1$sstop words%2$s, consider removing them.', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/js/assessments/seo/urlStopWordsAssessment.js:37
+	// Reference: node_modules/yoastseo/js/assessments/seo/urlStopWordsAssessment.js:41
 	/* Translators: this link is referred to in the content analysis when a slug contains one or more stop words */
 	__( 'http://en.wikipedia.org/wiki/Stop_words', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/js/assessor.js:165
+	// Reference: node_modules/yoastseo/js/assessor.js:166
 	/* Translators: %1$s expands to the name of the assessment. */
 	__( 'An error occurred in the \'%1$s\' assessment', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/js/bundledPlugins/previouslyUsedKeywords.js:65
-	__( 'You\'ve never used this focus keyword before, very good.', 'wordpress-seo' ),
+	// Reference: node_modules/yoastseo/js/bundledPlugins/previouslyUsedKeywords.js:69
+	__( 'You\'ve %1$snever used this focus keyword before%2$s, very good.', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/js/bundledPlugins/previouslyUsedKeywords.js:74
+	// Reference: node_modules/yoastseo/js/bundledPlugins/previouslyUsedKeywords.js:78
 	/* Translators: %1$s and %2$s expand to an admin link where the focus keyword is already used. %3$s and %4$s
 	   expand to a link to an article on yoast.com about why you should not use a keyword more than once. */
 	__( 'You\'ve used this focus keyword %1$sonce before%2$s. It’s probably a good idea to read about %3$swhy you should not use your focus keyword more than once%4$s.', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/js/bundledPlugins/previouslyUsedKeywords.js:84
+	// Reference: node_modules/yoastseo/js/bundledPlugins/previouslyUsedKeywords.js:88
 	/* Translators: %1$s and $3$s expand to the admin search page for the focus keyword, %2$d expands to the number
 	   of times this focus keyword has been used before, %4$s and %5$s expand to a link to an article on yoast.com
 	   about why you should not use a keyword more than once. */

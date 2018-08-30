@@ -5,8 +5,8 @@ License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 Tags: SEO, XML sitemap, Google Search Console, Content analysis, Readability
 Requires at least: 4.8
-Tested up to: 4.9.7
-Stable tag: 7.9
+Tested up to: 4.9.8
+Stable tag: 8.1
 Requires PHP: 5.2.4
 
 Improve your WordPress SEO: Write better content and have a fully optimized WordPress site using the Yoast SEO plugin.
@@ -106,54 +106,48 @@ You'll find answers to many of your questions on [kb.yoast.com](https://yoa.st/1
 
 == Changelog ==
 
-= 7.9.0 =
-Release Date: July 24th, 2018
+= 8.1.0 =
+Release Date: August 28th, 2018
 
 Enhancements:
-* Introduces the collapsible sections to all the tabs in Search Appearance.
-* Improves accessibility of the collapsible sections in Search Appearance.
+
+* Adds the Snippet Preview Editor to the sidebar.
+* Introduces the Primary Category picker to Gutenberg.
+* Introduces a loading indicator in the analysis that is shown until we're ready to analyze the content.
+* Optimizes the content analysis calculations. This fixes the issue where the UI could freeze when you have a long post.
+* Changes the "Check Inlinks (OSE)" menu item in the Yoast Admin bar "Analyze this page" dropdown from the Moz OpenSite Explorer (OSE) to Google Search Console, as the former service is being disabled on August 30th 2018.
 
 Bugfixes:
-* Fixes a bug where archive settings for post types aren't shown on the search appearance page when the `has_archive` for that post type contains an archive slug. Props to [schurig](https://github.com/schurig).
-* Fixes a bug where a notice ("Notice: Trying to get property of non-object") is given when the `$term->taxonomy` isn't set before it is used. Props to [nesinervink](https://github.com/nesinervink), [bainternet](https://github.com/bainternet).
-* Fixes a bug where an uppercased encode URI isn't redirected to the category. Props to [dawnbirth](https://github.com/dawnbirth).
-* Fixes a bug where HTML entities were not always decoded in the Snippet Variables.
-* Fixes a bug where custom field labels would be separated by spaces in the classic editor, but in Gutenberg they would be separated by underscores instead.
-* Fixes a bug where the conversion of `&#039;`, which is PHP's HTML entity for the apostrophy, did not happen.
-* Fixes a bug where the same notification is shown multiple times when trashing multiple posts.
-* Fixes a bug where a possibly non-existent key would be retrieved when generating the `article:section` OpenGraph tag. Props to [mikeschinkel](https://github.com/mikeschinkel).
-* Fixes a bug in the UI that happend when `do_shortcode` was run on category descriptions in the admin list. Additionally, fixes rendering of shortcodes in category descriptions on the frontend.
-* Fixes a bug where saved templates in Search Appearance would be saved incorrectly into the database, resulting in them never being loaded when editing a post, page, etc. This meant that the default template would always be used.
-* Fixes a bug where the "Tagline" / `%%sitedesc%%` snippet editor variable was not selectable in the Search Appearance settings.
-* Fixes a bug where the newsletter signup in the configuration wizard would not work.
 
-Other:
-* Moves some snippet variables to only appear within specific editors. Adds a filter `wpseo_editor_specific_replace_vars` to make this pluggable.
-* Adds the white background to the template of media on the Search Appearance page.
-* Changes feedback in the keyword density assessment to make it more explicit that synonyms are not taken into consideration when calculating the score.
-* Shows a notification with the message that you should check your post type archive settings when these are possibly reset to their defaults in 7.7 or 7.8.
+* Fixes a bug where the analysis scores would change multiple times due to a delay in the loading of the actual scores. We now show loading indicators until the actual scores have been calculated.
+* Fixes a bug where the parent title snippet variable wasn't properly being replaced with the actual parent title in Gutenberg.
+* Fixes a plugin compatibility bug where the SEO score in the admin bar could not be retrieved.
+* Fixes a bug where the editor would not be usable when deferred or async loading of JavaScript is being forced.
+* Fixes a bug where the analysis for previously used keywords would only be triggered if the keyword was changed, resulting in an incorrect SEO score.
 
-= 7.8.0 =
-Release Date: July 10th, 2018
+= 8.0.0 =
+Release Date: August 14th, 2018
 
 Enhancements:
-* Improves the way that the OpenGraph is determined for front pages, especially in the case of static front pages.
-* Adds links to relevant articles to all SEO assessments.
-* Adds Flesch Reading Ease assessment for French.
-* Adds Flesch Reading Ease assessment for Spanish.
-* Adds passive voice assessment for Italian.
+
+* Implements the Yoast sidebar for Gutenberg: added the Readability, Focus Keyword and Cornerstone content tabs to the sidebar.
+* Revamps the Yoast metabox to use the same vertical design as the new sidebar.
+* Implements the same tabbed layout in the plugin's network settings screen that is also used in the plugin's site settings screens.
+* Implements a plugin-specific network settings API and use it in the network settings screen.
+* Introduces a network admin-specific admin bar menu.
+* Adds notifications to the Notification Center in regards to Gutenberg compatibility. If Gutenberg is older than the minimum supported version by Yoast SEO, a 'problem' notification is added. If Gutenberg is only slightly outdated, a 'normal' notification is added.
+* Implements the automatic detection of the keyword for terms based on the term's title.
 
 Bugfixes:
-* Fixes a bug where images from password protected posts could potentially end up in OpenGraph image tags.
-* Fixes a bug where very old notifications could not be be dismissed or restored.
-* Fixes a bug where the `Insert snippet variable` button alignment was incorrect.
-* Fixes a bug where the snippet variables had a different label in the Search Appearance settings compared to the snippet variables when writing a post, pages and taxonomies.
-* Fixes a bug where instances of the same keyword with different kinds of apostrophes (e.g., brain’s and brain's) were not recognized as the same. This affects the following assessments: keyword in meta description, keyword in subheading, keyword in first paragraph, keyword in title and keyword in URL.
-* Fixes a bug where the custom set breadcrumb title for the WooCommerce Shop page wasn't used.
+
+* Fixes a bug where `/sitemap.xml` would not correctly redirect to `/sitemap_index.xml` in some environments.
+* Fixes a bug where sitemap cache transients would not be correctly cleared.
+* Fixes a bug where markers were wrongfully displayed in Gutenberg.
+* Fixes a bug where SEO titles were incorrectly evaluated as being of a good length when they were actually slightly too long.
 
 Other:
-* Adds a reminder message to create a redirect if a user deletes a category or tag.
-* Removes a banner spot in the admin.
+
+* Moves the network's Restore Site functionality into its own tab.
 
 = Earlier versions =
 

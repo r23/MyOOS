@@ -100,7 +100,6 @@ class WPSEO_Taxonomy {
 			wp_enqueue_media(); // Enqueue files needed for upload functionality.
 
 			$asset_manager->enqueue_style( 'metabox-css' );
-			$asset_manager->enqueue_style( 'snippet' );
 			$asset_manager->enqueue_style( 'scoring' );
 			$asset_manager->enqueue_script( 'metabox' );
 			$asset_manager->enqueue_script( 'term-scraper' );
@@ -108,6 +107,14 @@ class WPSEO_Taxonomy {
 			wp_localize_script( WPSEO_Admin_Asset_Manager::PREFIX . 'term-scraper', 'wpseoTermScraperL10n', $this->localize_term_scraper_script() );
 			$yoast_components_l10n = new WPSEO_Admin_Asset_Yoast_Components_L10n();
 			$yoast_components_l10n->localize_script( WPSEO_Admin_Asset_Manager::PREFIX . 'term-scraper' );
+
+			$analysis_worker_location          = new WPSEO_Admin_Asset_Analysis_Worker_Location( $asset_manager->flatten_version( WPSEO_VERSION ) );
+			$used_keywords_assessment_location = new WPSEO_Admin_Asset_Analysis_Worker_Location( $asset_manager->flatten_version( WPSEO_VERSION ), 'used-keywords-assessment' );
+			wp_localize_script( WPSEO_Admin_Asset_Manager::PREFIX . 'term-scraper', 'wpseoAnalysisWorkerL10n', array(
+				'url'                     => $analysis_worker_location->get_url(),
+				'keywords_assessment_url' => $used_keywords_assessment_location->get_url(),
+			) );
+
 			/**
 			 * Remove the emoji script as it is incompatible with both React and any
 			 * contenteditable fields.
@@ -116,7 +123,7 @@ class WPSEO_Taxonomy {
 
 			wp_localize_script( WPSEO_Admin_Asset_Manager::PREFIX . 'replacevar-plugin', 'wpseoReplaceVarsL10n', $this->localize_replace_vars_script() );
 			wp_localize_script( WPSEO_Admin_Asset_Manager::PREFIX . 'metabox', 'wpseoSelect2Locale', WPSEO_Utils::get_language( WPSEO_Utils::get_user_locale() ) );
-			wp_localize_script( WPSEO_Admin_Asset_Manager::PREFIX . 'metabox', 'wpseoAdminL10n', WPSEO_Help_Center::get_translated_texts() );
+			wp_localize_script( WPSEO_Admin_Asset_Manager::PREFIX . 'metabox', 'wpseoAdminL10n', WPSEO_Utils::get_admin_l10n() );
 
 			$asset_manager->enqueue_script( 'admin-media' );
 
