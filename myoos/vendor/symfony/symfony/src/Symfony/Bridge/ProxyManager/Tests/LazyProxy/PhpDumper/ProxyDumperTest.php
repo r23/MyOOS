@@ -13,6 +13,7 @@ namespace Symfony\Bridge\ProxyManager\Tests\LazyProxy\PhpDumper;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Bridge\ProxyManager\LazyProxy\PhpDumper\ProxyDumper;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 
 /**
@@ -80,6 +81,34 @@ class ProxyDumperTest extends TestCase
         $this->assertStringMatchesFormat(
             '%A$wrappedInstance = $this->getFoo2Service(false);%w$proxy->setProxyInitializer(null);%A',
             $code
+        );
+    }
+
+    /**
+     * @dataProvider getPrivatePublicDefinitions
+     */
+    public function testCorrectAssigning(Definition $definition, $access)
+    {
+        $definition->setLazy(true);
+
+        $code = $this->dumper->getProxyFactoryCode($definition, 'foo', '$this->getFoo2Service(false)');
+
+        $this->assertStringMatchesFormat('%A$this->'.$access.'[\'foo\'] = %A', $code);
+    }
+
+    public function getPrivatePublicDefinitions()
+    {
+        return array(
+            array(
+                (new Definition(__CLASS__))
+                    ->setPublic(false),
+                \method_exists(ContainerBuilder::class, 'addClassResource') ? 'services' : 'privates',
+            ),
+            array(
+                (new Definition(__CLASS__))
+                    ->setPublic(true),
+                'services',
+            ),
         );
     }
 

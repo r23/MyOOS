@@ -14,10 +14,10 @@ namespace Symfony\Bundle\WebServerBundle\Command;
 use Symfony\Bundle\WebServerBundle\WebServer;
 use Symfony\Bundle\WebServerBundle\WebServerConfig;
 use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Process\Process;
 
@@ -91,8 +91,8 @@ EOF
 
         // deprecated, logic to be removed in 4.0
         // this allows the commands to work out of the box with web/ and public/
-        if ($this->documentRoot && !is_dir($this->documentRoot) && is_dir(dirname($this->documentRoot).'/web')) {
-            $this->documentRoot = dirname($this->documentRoot).'/web';
+        if ($this->documentRoot && !is_dir($this->documentRoot) && is_dir(\dirname($this->documentRoot).'/web')) {
+            $this->documentRoot = \dirname($this->documentRoot).'/web';
         }
 
         if (null === $documentRoot = $input->getOption('docroot')) {

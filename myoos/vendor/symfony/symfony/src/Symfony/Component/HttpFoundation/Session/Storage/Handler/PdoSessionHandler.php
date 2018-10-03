@@ -178,7 +178,7 @@ class PdoSessionHandler extends AbstractSessionHandler
 
             $this->pdo = $pdoOrDsn;
             $this->driver = $this->pdo->getAttribute(\PDO::ATTR_DRIVER_NAME);
-        } elseif (is_string($pdoOrDsn) && false !== strpos($pdoOrDsn, '://')) {
+        } elseif (\is_string($pdoOrDsn) && false !== strpos($pdoOrDsn, '://')) {
             $this->dsn = $this->buildDsnFromUrl($pdoOrDsn);
         } else {
             $this->dsn = $pdoOrDsn;
@@ -616,6 +616,7 @@ class PdoSessionHandler extends AbstractSessionHandler
         $selectSql = $this->getSelectSql();
         $selectStmt = $this->pdo->prepare($selectSql);
         $selectStmt->bindParam(':id', $sessionId, \PDO::PARAM_STR);
+        $insertStmt = null;
 
         do {
             $selectStmt->execute();
@@ -628,7 +629,12 @@ class PdoSessionHandler extends AbstractSessionHandler
                     return '';
                 }
 
-                return is_resource($sessionRows[0][0]) ? stream_get_contents($sessionRows[0][0]) : $sessionRows[0][0];
+                return \is_resource($sessionRows[0][0]) ? stream_get_contents($sessionRows[0][0]) : $sessionRows[0][0];
+            }
+
+            if (null !== $insertStmt) {
+                $this->rollback();
+                throw new \RuntimeException('Failed to read session: INSERT reported a duplicate id but next SELECT did not return any data.');
             }
 
             if (!ini_get('session.use_strict_mode') && self::LOCK_TRANSACTIONAL === $this->lockMode && 'sqlite' !== $this->driver) {
@@ -735,11 +741,11 @@ class PdoSessionHandler extends AbstractSessionHandler
     private function convertStringToInt($string)
     {
         if (4 === \PHP_INT_SIZE) {
-            return (ord($string[3]) << 24) + (ord($string[2]) << 16) + (ord($string[1]) << 8) + ord($string[0]);
+            return (\ord($string[3]) << 24) + (\ord($string[2]) << 16) + (\ord($string[1]) << 8) + \ord($string[0]);
         }
 
-        $int1 = (ord($string[7]) << 24) + (ord($string[6]) << 16) + (ord($string[5]) << 8) + ord($string[4]);
-        $int2 = (ord($string[3]) << 24) + (ord($string[2]) << 16) + (ord($string[1]) << 8) + ord($string[0]);
+        $int1 = (\ord($string[7]) << 24) + (\ord($string[6]) << 16) + (\ord($string[5]) << 8) + \ord($string[4]);
+        $int2 = (\ord($string[3]) << 24) + (\ord($string[2]) << 16) + (\ord($string[1]) << 8) + \ord($string[0]);
 
         return $int2 + ($int1 << 32);
     }

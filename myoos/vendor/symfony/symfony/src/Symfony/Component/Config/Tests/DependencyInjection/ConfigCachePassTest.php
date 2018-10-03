@@ -12,10 +12,10 @@
 namespace Symfony\Component\Config\Tests\DependencyInjection;
 
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Config\DependencyInjection\ConfigCachePass;
 use Symfony\Component\DependencyInjection\Argument\IteratorArgument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
-use Symfony\Component\Config\DependencyInjection\ConfigCachePass;
 
 /**
  * @group legacy
@@ -46,8 +46,8 @@ class ConfigCachePassTest extends TestCase
     {
         $container = new ContainerBuilder();
 
-        $definitionsBefore = count($container->getDefinitions());
-        $aliasesBefore = count($container->getAliases());
+        $definitionsBefore = \count($container->getDefinitions());
+        $aliasesBefore = \count($container->getAliases());
 
         $pass = new ConfigCachePass();
         $pass->process($container);

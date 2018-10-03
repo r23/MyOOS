@@ -1,5 +1,5 @@
 {
-    "Version": "2.1.39.11",
+    "Version": "2.1.41.97",
     "Names": {
         "AC": "Otok Ascension",
         "AD": "Andora",
@@ -72,7 +72,6 @@
         "ER": "Eritreja",
         "ES": "Španjolska",
         "ET": "Etiopija",
-        "EZ": "eurozona",
         "FI": "Finska",
         "FJ": "Fidži",
         "FK": "Falklandski otoci",
@@ -237,7 +236,6 @@
         "UA": "Ukrajina",
         "UG": "Uganda",
         "UM": "Mali udaljeni otoci SAD-a",
-        "UN": "Ujedinjeni narodi",
         "US": "Sjedinjene Američke Države",
         "UY": "Urugvaj",
         "UZ": "Uzbekistan",

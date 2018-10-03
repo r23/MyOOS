@@ -11,9 +11,9 @@
 
 namespace Symfony\Bundle\TwigBundle\DependencyInjection\Compiler;
 
-use Symfony\Component\DependencyInjection\Reference;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * Adds tagged twig.extension services to twig service.
@@ -41,7 +41,7 @@ class TwigEnvironmentPass implements CompilerPassInterface
             $methodCall = array('addExtension', array(new Reference($id)));
             $extensionClass = $container->getDefinition($id)->getClass();
 
-            if (is_string($extensionClass) && 0 === strpos($extensionClass, 'Symfony\Bridge\Twig\Extension')) {
+            if (\is_string($extensionClass) && 0 === strpos($extensionClass, 'Symfony\Bridge\Twig\Extension')) {
                 $twigBridgeExtensionsMethodCalls[] = $methodCall;
             } else {
                 $othersExtensionsMethodCalls[] = $methodCall;

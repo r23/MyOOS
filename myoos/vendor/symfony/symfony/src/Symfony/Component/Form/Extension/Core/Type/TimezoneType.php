@@ -95,7 +95,7 @@ class TimezoneType extends AbstractType implements ChoiceLoaderInterface
      */
     public function loadChoiceList($value = null)
     {
-        @trigger_error(sprintf('Method "%s" is deprecated since Symfony 3.4 and will be removed in 4.0.', __METHOD__), E_USER_DEPRECATED);
+        @trigger_error(sprintf('The "%s()" method is deprecated since Symfony 3.4 and will be removed in 4.0.', __METHOD__), E_USER_DEPRECATED);
 
         if (null !== $this->choiceList) {
             return $this->choiceList;
@@ -111,7 +111,7 @@ class TimezoneType extends AbstractType implements ChoiceLoaderInterface
      */
     public function loadChoicesForValues(array $values, $value = null)
     {
-        @trigger_error(sprintf('Method "%s" is deprecated since Symfony 3.4 and will be removed in 4.0.', __METHOD__), E_USER_DEPRECATED);
+        @trigger_error(sprintf('The "%s()" method is deprecated since Symfony 3.4 and will be removed in 4.0.', __METHOD__), E_USER_DEPRECATED);
 
         // Optimize
         $values = array_filter($values);
@@ -134,7 +134,7 @@ class TimezoneType extends AbstractType implements ChoiceLoaderInterface
      */
     public function loadValuesForChoices(array $choices, $value = null)
     {
-        @trigger_error(sprintf('Method "%s" is deprecated since Symfony 3.4 and will be removed in 4.0.', __METHOD__), E_USER_DEPRECATED);
+        @trigger_error(sprintf('The "%s()" method is deprecated since Symfony 3.4 and will be removed in 4.0.', __METHOD__), E_USER_DEPRECATED);
 
         // Optimize
         $choices = array_filter($choices);
@@ -164,10 +164,10 @@ class TimezoneType extends AbstractType implements ChoiceLoaderInterface
         foreach (\DateTimeZone::listIdentifiers($regions) as $timezone) {
             $parts = explode('/', $timezone);
 
-            if (count($parts) > 2) {
+            if (\count($parts) > 2) {
                 $region = $parts[0];
                 $name = $parts[1].' - '.$parts[2];
-            } elseif (count($parts) > 1) {
+            } elseif (\count($parts) > 1) {
                 $region = $parts[0];
                 $name = $parts[1];
             } else {
@@ -178,6 +178,6 @@ class TimezoneType extends AbstractType implements ChoiceLoaderInterface
             $timezones[$region][str_replace('_', ' ', $name)] = $timezone;
         }
 
-        return 1 === count($timezones) ? reset($timezones) : $timezones;
+        return 1 === \count($timezones) ? reset($timezones) : $timezones;
     }
 }

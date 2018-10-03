@@ -54,7 +54,11 @@ class DeprecationErrorHandler
             if (false === $mode) {
                 $mode = getenv('SYMFONY_DEPRECATIONS_HELPER');
             }
-            if (DeprecationErrorHandler::MODE_WEAK !== $mode && DeprecationErrorHandler::MODE_WEAK_VENDORS !== $mode && (!isset($mode[0]) || '/' !== $mode[0])) {
+            if (DeprecationErrorHandler::MODE_DISABLED !== $mode
+                && DeprecationErrorHandler::MODE_WEAK !== $mode
+                && DeprecationErrorHandler::MODE_WEAK_VENDORS !== $mode
+                && (!isset($mode[0]) || '/' !== $mode[0])
+            ) {
                 $mode = preg_match('/^[1-9][0-9]*$/', $mode) ? (int) $mode : 0;
             }
 
@@ -68,7 +72,7 @@ class DeprecationErrorHandler
                 foreach (get_declared_classes() as $class) {
                     if ('C' === $class[0] && 0 === strpos($class, 'ComposerAutoloaderInit')) {
                         $r = new \ReflectionClass($class);
-                        $v = dirname(dirname($r->getFileName()));
+                        $v = \dirname(\dirname($r->getFileName()));
                         if (file_exists($v.'/composer/installed.json')) {
                             $vendors[] = $v;
                         }
@@ -80,7 +84,7 @@ class DeprecationErrorHandler
                 return true;
             }
             foreach ($vendors as $vendor) {
-                if (0 === strpos($realPath, $vendor) && false !== strpbrk(substr($realPath, strlen($vendor), 1), '/'.DIRECTORY_SEPARATOR)) {
+                if (0 === strpos($realPath, $vendor) && false !== strpbrk(substr($realPath, \strlen($vendor), 1), '/'.\DIRECTORY_SEPARATOR)) {
                     return true;
                 }
             }
@@ -108,11 +112,11 @@ class DeprecationErrorHandler
                 return $ErrorHandler::handleError($type, $msg, $file, $line, $context);
             }
 
-            $trace = debug_backtrace(true);
+            $trace = debug_backtrace();
             $group = 'other';
             $isVendor = DeprecationErrorHandler::MODE_WEAK_VENDORS === $mode && $inVendors($file);
 
-            $i = count($trace);
+            $i = \count($trace);
             while (1 < $i && (!isset($trace[--$i]['class']) || ('ReflectionMethod' === $trace[$i]['class'] || 0 === strpos($trace[$i]['class'], 'PHPUnit_') || 0 === strpos($trace[$i]['class'], 'PHPUnit\\')))) {
                 // No-op
             }
@@ -129,7 +133,7 @@ class DeprecationErrorHandler
                     // if the error has been triggered from vendor code.
                     $isVendor = DeprecationErrorHandler::MODE_WEAK_VENDORS === $mode && isset($parsedMsg['triggering_file']) && $inVendors($parsedMsg['triggering_file']);
                 } else {
-                    $class = isset($trace[$i]['object']) ? get_class($trace[$i]['object']) : $trace[$i]['class'];
+                    $class = isset($trace[$i]['object']) ? \get_class($trace[$i]['object']) : $trace[$i]['class'];
                     $method = $trace[$i]['function'];
                 }
 
@@ -141,7 +145,7 @@ class DeprecationErrorHandler
                     || 0 === strpos($method, 'provideLegacy')
                     || 0 === strpos($method, 'getLegacy')
                     || strpos($class, '\Legacy')
-                    || in_array('legacy', $Test::getGroups($class, $method), true)
+                    || \in_array('legacy', $Test::getGroups($class, $method), true)
                 ) {
                     $group = 'legacy';
                 } elseif ($isVendor) {
@@ -154,12 +158,12 @@ class DeprecationErrorHandler
                     $e = new \Exception($msg);
                     $r = new \ReflectionProperty($e, 'trace');
                     $r->setAccessible(true);
-                    $r->setValue($e, array_slice($trace, 1, $i));
+                    $r->setValue($e, \array_slice($trace, 1, $i));
 
                     echo "\n".ucfirst($group).' deprecation triggered by '.$class.'::'.$method.':';
                     echo "\n".$msg;
                     echo "\nStack trace:";
-                    echo "\n".str_replace(' '.getcwd().DIRECTORY_SEPARATOR, ' ', $e->getTraceAsString());
+                    echo "\n".str_replace(' '.getcwd().\DIRECTORY_SEPARATOR, ' ', $e->getTraceAsString());
                     echo "\n";
 
                     exit(1);
@@ -255,12 +259,12 @@ class DeprecationErrorHandler
 
                 // reset deprecations array
                 foreach ($deprecations as $group => $arrayOrInt) {
-                    $deprecations[$group] = is_int($arrayOrInt) ? 0 : array();
+                    $deprecations[$group] = \is_int($arrayOrInt) ? 0 : array();
                 }
 
                 register_shutdown_function(function () use (&$deprecations, $isFailing, $displayDeprecations, $mode) {
                     foreach ($deprecations as $group => $arrayOrInt) {
-                        if (0 < (is_int($arrayOrInt) ? $arrayOrInt : count($arrayOrInt))) {
+                        if (0 < (\is_int($arrayOrInt) ? $arrayOrInt : \count($arrayOrInt))) {
                             echo "Shutdown-time deprecations:\n";
                             break;
                         }
@@ -307,23 +311,27 @@ class DeprecationErrorHandler
      */
     private static function hasColorSupport()
     {
-        if (!defined('STDOUT')) {
+        if (!\defined('STDOUT')) {
             return false;
         }
 
-        if (DIRECTORY_SEPARATOR === '\\') {
-            return (function_exists('sapi_windows_vt100_support')
+        if ('Hyper' === getenv('TERM_PROGRAM')) {
+            return true;
+        }
+
+        if (\DIRECTORY_SEPARATOR === '\\') {
+            return (\function_exists('sapi_windows_vt100_support')
                 && sapi_windows_vt100_support(STDOUT))
                 || false !== getenv('ANSICON')
                 || 'ON' === getenv('ConEmuANSI')
                 || 'xterm' === getenv('TERM');
         }
 
-        if (function_exists('stream_isatty')) {
+        if (\function_exists('stream_isatty')) {
             return stream_isatty(STDOUT);
         }
 
-        if (function_exists('posix_isatty')) {
+        if (\function_exists('posix_isatty')) {
             return posix_isatty(STDOUT);
         }
 

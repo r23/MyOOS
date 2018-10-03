@@ -11,9 +11,9 @@
 
 namespace Symfony\Component\Form\Tests;
 
+use Symfony\Component\Form\Extension\Csrf\CsrfExtension;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormView;
-use Symfony\Component\Form\Extension\Csrf\CsrfExtension;
 use Symfony\Component\Form\Test\FormIntegrationTestCase;
 
 abstract class AbstractLayoutTest extends FormIntegrationTestCase
@@ -23,7 +23,7 @@ abstract class AbstractLayoutTest extends FormIntegrationTestCase
 
     protected function setUp()
     {
-        if (!extension_loaded('intl')) {
+        if (!\extension_loaded('intl')) {
             $this->markTestSkipped('Extension intl is required.');
         }
 
@@ -1435,7 +1435,7 @@ abstract class AbstractLayoutTest extends FormIntegrationTestCase
 '/input
     [@type="datetime-local"]
     [@name="name"]
-    [@value="2011-02-03T04:05:06Z"]
+    [@value="2011-02-03T04:05:06"]
 '
         );
     }
@@ -1455,7 +1455,7 @@ abstract class AbstractLayoutTest extends FormIntegrationTestCase
 '/input
     [@type="datetime-local"]
     [@name="name"]
-    [@value="2011-02-03T04:05:06Z"]
+    [@value="2011-02-03T04:05:06"]
 '
         );
     }

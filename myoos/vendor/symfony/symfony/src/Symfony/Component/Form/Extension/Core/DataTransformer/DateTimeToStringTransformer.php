@@ -115,7 +115,7 @@ class DateTimeToStringTransformer extends BaseDateTimeTransformer
             return;
         }
 
-        if (!is_string($value)) {
+        if (!\is_string($value)) {
             throw new TransformationFailedException('Expected a string.');
         }
 
@@ -125,12 +125,7 @@ class DateTimeToStringTransformer extends BaseDateTimeTransformer
         $lastErrors = \DateTime::getLastErrors();
 
         if (0 < $lastErrors['warning_count'] || 0 < $lastErrors['error_count']) {
-            throw new TransformationFailedException(
-                implode(', ', array_merge(
-                    array_values($lastErrors['warnings']),
-                    array_values($lastErrors['errors'])
-                ))
-            );
+            throw new TransformationFailedException(implode(', ', array_merge(array_values($lastErrors['warnings']), array_values($lastErrors['errors']))));
         }
 
         try {

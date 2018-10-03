@@ -314,6 +314,10 @@
                 <source>Error</source>
                 <target>Fout</target>
             </trans-unit>
+            <trans-unit id="83">
+                <source>This is not a valid UUID.</source>
+                <target>Dit is geen geldige UUID.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

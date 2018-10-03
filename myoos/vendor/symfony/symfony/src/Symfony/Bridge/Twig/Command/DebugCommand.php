@@ -13,8 +13,8 @@ namespace Symfony\Bridge\Twig\Command;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Twig\Environment;
@@ -39,7 +39,7 @@ class DebugCommand extends Command
     public function __construct($twig = null, $projectDir = null)
     {
         if (!$twig instanceof Environment) {
-            @trigger_error(sprintf('Passing a command name as the first argument of "%s" is deprecated since Symfony 3.4 and will be removed in 4.0. If the command was registered by convention, make it a service instead.', __METHOD__), E_USER_DEPRECATED);
+            @trigger_error(sprintf('Passing a command name as the first argument of "%s()" is deprecated since Symfony 3.4 and support for it will be removed in 4.0. If the command was registered by convention, make it a service instead.', __METHOD__), E_USER_DEPRECATED);
 
             parent::__construct($twig);
 
@@ -54,7 +54,7 @@ class DebugCommand extends Command
 
     public function setTwigEnvironment(Environment $twig)
     {
-        @trigger_error(sprintf('Method "%s" is deprecated since Symfony 3.4 and will be removed in 4.0.', __METHOD__), E_USER_DEPRECATED);
+        @trigger_error(sprintf('The "%s()" method is deprecated since Symfony 3.4 and will be removed in 4.0.', __METHOD__), E_USER_DEPRECATED);
 
         $this->twig = $twig;
     }
@@ -64,7 +64,7 @@ class DebugCommand extends Command
      */
     protected function getTwigEnvironment()
     {
-        @trigger_error(sprintf('Method "%s" is deprecated since Symfony 3.4 and will be removed in 4.0.', __METHOD__), E_USER_DEPRECATED);
+        @trigger_error(sprintf('The "%s()" method is deprecated since Symfony 3.4 and will be removed in 4.0.', __METHOD__), E_USER_DEPRECATED);
 
         return $this->twig;
     }
@@ -102,10 +102,10 @@ EOF
         $io = new SymfonyStyle($input, $output);
 
         // BC to be removed in 4.0
-        if (__CLASS__ !== get_class($this)) {
+        if (__CLASS__ !== \get_class($this)) {
             $r = new \ReflectionMethod($this, 'getTwigEnvironment');
             if (__CLASS__ !== $r->getDeclaringClass()->getName()) {
-                @trigger_error(sprintf('Usage of method "%s" is deprecated since Symfony 3.4 and will no longer be supported in 4.0. Construct the command with its required arguments instead.', get_class($this).'::getTwigEnvironment'), E_USER_DEPRECATED);
+                @trigger_error(sprintf('Usage of method "%s" is deprecated since Symfony 3.4 and will no longer be supported in 4.0. Construct the command with its required arguments instead.', \get_class($this).'::getTwigEnvironment'), E_USER_DEPRECATED);
 
                 $this->twig = $this->getTwigEnvironment();
             }
@@ -151,19 +151,27 @@ EOF
         }
 
         $rows = array();
+        $firstNamespace = true;
+        $prevHasSeparator = false;
         foreach ($this->getLoaderPaths() as $namespace => $paths) {
-            if (count($paths) > 1) {
+            if (!$firstNamespace && !$prevHasSeparator && \count($paths) > 1) {
                 $rows[] = array('', '');
             }
+            $firstNamespace = false;
             foreach ($paths as $path) {
-                $rows[] = array($namespace, '- '.$path);
+                $rows[] = array($namespace, $path.\DIRECTORY_SEPARATOR);
                 $namespace = '';
             }
-            if (count($paths) > 1) {
+            if (\count($paths) > 1) {
                 $rows[] = array('', '');
+                $prevHasSeparator = true;
+            } else {
+                $prevHasSeparator = false;
             }
         }
-        array_pop($rows);
+        if ($prevHasSeparator) {
+            array_pop($rows);
+        }
         $io->section('Loader Paths');
         $io->table(array('Namespace', 'Paths'), $rows);
 
@@ -180,7 +188,7 @@ EOF
         foreach ($loader->getNamespaces() as $namespace) {
             $paths = array_map(function ($path) {
                 if (null !== $this->projectDir && 0 === strpos($path, $this->projectDir)) {
-                    $path = ltrim(substr($path, strlen($this->projectDir)), DIRECTORY_SEPARATOR);
+                    $path = ltrim(substr($path, \strlen($this->projectDir)), \DIRECTORY_SEPARATOR);
                 }
 
                 return $path;
@@ -211,16 +219,16 @@ EOF
             if (null === $cb) {
                 return;
             }
-            if (is_array($cb)) {
+            if (\is_array($cb)) {
                 if (!method_exists($cb[0], $cb[1])) {
                     return;
                 }
                 $refl = new \ReflectionMethod($cb[0], $cb[1]);
-            } elseif (is_object($cb) && method_exists($cb, '__invoke')) {
+            } elseif (\is_object($cb) && method_exists($cb, '__invoke')) {
                 $refl = new \ReflectionMethod($cb, '__invoke');
-            } elseif (function_exists($cb)) {
+            } elseif (\function_exists($cb)) {
                 $refl = new \ReflectionFunction($cb);
-            } elseif (is_string($cb) && preg_match('{^(.+)::(.+)$}', $cb, $m) && method_exists($m[1], $m[2])) {
+            } elseif (\is_string($cb) && preg_match('{^(.+)::(.+)$}', $cb, $m) && method_exists($m[1], $m[2])) {
                 $refl = new \ReflectionMethod($m[1], $m[2]);
             } else {
                 throw new \UnexpectedValueException('Unsupported callback type');
@@ -270,8 +278,8 @@ EOF
         }
 
         if ('globals' === $type) {
-            if (is_object($meta)) {
-                return ' = object('.get_class($meta).')';
+            if (\is_object($meta)) {
+                return ' = object('.\get_class($meta).')';
             }
 
             return ' = '.substr(@json_encode($meta), 0, 50);

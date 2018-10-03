@@ -47,6 +47,16 @@ class Dummy extends ParentDummy
     public $collection;
 
     /**
+     * @var string[][]
+     */
+    public $nestedCollection;
+
+    /**
+     * @var mixed[]
+     */
+    public $mixedCollection;
+
+    /**
      * @var ParentDummy
      */
     public $B;
@@ -67,6 +77,21 @@ class Dummy extends ParentDummy
      * @var array|null
      */
     public $g;
+
+    /**
+     * @var ?string
+     */
+    public $h;
+
+    /**
+     * @var ?string|int
+     */
+    public $i;
+
+    /**
+     * @var ?\DateTime
+     */
+    public $j;
 
     /**
      * This should not be removed.

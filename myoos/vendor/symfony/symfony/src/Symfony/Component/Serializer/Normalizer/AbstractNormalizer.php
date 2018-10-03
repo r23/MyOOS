@@ -15,8 +15,8 @@ use Symfony\Component\Serializer\Exception\CircularReferenceException;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Exception\LogicException;
 use Symfony\Component\Serializer\Exception\RuntimeException;
-use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Symfony\Component\Serializer\Mapping\AttributeMetadataInterface;
+use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 use Symfony\Component\Serializer\SerializerAwareInterface;
 
@@ -120,10 +120,7 @@ abstract class AbstractNormalizer extends SerializerAwareNormalizer implements N
     {
         foreach ($callbacks as $attribute => $callback) {
             if (!\is_callable($callback)) {
-                throw new InvalidArgumentException(sprintf(
-                    'The given callback for attribute "%s" is not callable.',
-                    $attribute
-                ));
+                throw new InvalidArgumentException(sprintf('The given callback for attribute "%s" is not callable.', $attribute));
             }
         }
         $this->callbacks = $callbacks;
@@ -200,11 +197,17 @@ abstract class AbstractNormalizer extends SerializerAwareNormalizer implements N
      * @param array         $context
      * @param bool          $attributesAsString If false, return an array of {@link AttributeMetadataInterface}
      *
+     * @throws LogicException if the 'allow_extra_attributes' context variable is false and no class metadata factory is provided
+     *
      * @return string[]|AttributeMetadataInterface[]|bool
      */
     protected function getAllowedAttributes($classOrObject, array $context, $attributesAsString = false)
     {
         if (!$this->classMetadataFactory) {
+            if (isset($context[static::ALLOW_EXTRA_ATTRIBUTES]) && !$context[static::ALLOW_EXTRA_ATTRIBUTES]) {
+                throw new LogicException(sprintf('A class metadata factory must be provided in the constructor when setting "%s" to false.', static::ALLOW_EXTRA_ATTRIBUTES));
+            }
+
             return false;
         }
 
@@ -242,7 +245,7 @@ abstract class AbstractNormalizer extends SerializerAwareNormalizer implements N
      */
     protected function isAllowedAttribute($classOrObject, $attribute, $format = null, array $context = array())
     {
-        if (in_array($attribute, $this->ignoredAttributes)) {
+        if (\in_array($attribute, $this->ignoredAttributes)) {
             return false;
         }
 
@@ -251,8 +254,8 @@ abstract class AbstractNormalizer extends SerializerAwareNormalizer implements N
             return true;
         }
 
-        if (isset($context[self::ATTRIBUTES]) && is_array($context[self::ATTRIBUTES])) {
-            return in_array($attribute, $context[self::ATTRIBUTES], true);
+        if (isset($context[self::ATTRIBUTES]) && \is_array($context[self::ATTRIBUTES])) {
+            return \in_array($attribute, $context[self::ATTRIBUTES], true);
         }
 
         return true;
@@ -315,7 +318,7 @@ abstract class AbstractNormalizer extends SerializerAwareNormalizer implements N
             if (__CLASS__ !== \get_class($this)) {
                 $r = new \ReflectionMethod($this, __FUNCTION__);
                 if (__CLASS__ !== $r->getDeclaringClass()->getName()) {
-                    @trigger_error(sprintf('Method %s::%s() will have a 6th `string $format = null` argument in version 4.0. Not defining it is deprecated since Symfony 3.2.', get_class($this), __FUNCTION__), E_USER_DEPRECATED);
+                    @trigger_error(sprintf('Method %s::%s() will have a 6th `string $format = null` argument in version 4.0. Not defining it is deprecated since Symfony 3.2.', \get_class($this), __FUNCTION__), E_USER_DEPRECATED);
                 }
             }
 
@@ -349,6 +352,12 @@ abstract class AbstractNormalizer extends SerializerAwareNormalizer implements N
                     }
                 } elseif ($allowed && !$ignored && (isset($data[$key]) || array_key_exists($key, $data))) {
                     $parameterData = $data[$key];
+                    if (null === $parameterData && $constructorParameter->allowsNull()) {
+                        $params[] = null;
+                        // Don't run set for a parameter passed to the constructor
+                        unset($data[$key]);
+                        continue;
+                    }
                     try {
                         if (null !== $constructorParameter->getClass()) {
                             if (!$this->serializer instanceof DenormalizerInterface) {
@@ -367,13 +376,7 @@ abstract class AbstractNormalizer extends SerializerAwareNormalizer implements N
                 } elseif ($constructorParameter->isDefaultValueAvailable()) {
                     $params[] = $constructorParameter->getDefaultValue();
                 } else {
-                    throw new RuntimeException(
-                        sprintf(
-                            'Cannot create an instance of %s from serialized data because its constructor requires parameter "%s" to be present.',
-                            $class,
-                            $constructorParameter->name
-                        )
-                    );
+                    throw new RuntimeException(sprintf('Cannot create an instance of %s from serialized data because its constructor requires parameter "%s" to be present.', $class, $constructorParameter->name));
                 }
             }
 

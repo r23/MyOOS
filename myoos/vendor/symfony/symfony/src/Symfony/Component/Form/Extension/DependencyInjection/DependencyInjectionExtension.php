@@ -12,9 +12,9 @@
 namespace Symfony\Component\Form\Extension\DependencyInjection;
 
 use Psr\Container\ContainerInterface;
+use Symfony\Component\Form\Exception\InvalidArgumentException;
 use Symfony\Component\Form\FormExtensionInterface;
 use Symfony\Component\Form\FormTypeGuesserChain;
-use Symfony\Component\Form\Exception\InvalidArgumentException;
 
 class DependencyInjectionExtension implements FormExtensionInterface
 {
@@ -88,13 +88,7 @@ class DependencyInjectionExtension implements FormExtensionInterface
 
                 // validate result of getExtendedType() to ensure it is consistent with the service definition
                 if ($extension->getExtendedType() !== $name) {
-                    throw new InvalidArgumentException(
-                        sprintf('The extended type specified for the service "%s" does not match the actual extended type. Expected "%s", given "%s".',
-                            $serviceId,
-                            $name,
-                            $extension->getExtendedType()
-                        )
-                    );
+                    throw new InvalidArgumentException(sprintf('The extended type specified for the service "%s" does not match the actual extended type. Expected "%s", given "%s".', $serviceId, $name, $extension->getExtendedType()));
                 }
             }
         }

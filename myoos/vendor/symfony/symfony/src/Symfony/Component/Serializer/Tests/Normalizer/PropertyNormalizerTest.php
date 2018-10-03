@@ -75,8 +75,7 @@ class PropertyNormalizerTest extends TestCase
         $group->setKevin('Kevin');
         $group->setCoopTilleuls('coop');
         $this->assertEquals(
-            array('foo' => 'foo', 'bar' => 'bar', 'kevin' => 'Kevin',
-                  'coopTilleuls' => 'coop', 'fooBar' => null, 'symfony' => null, 'baz' => 'baz', ),
+            array('foo' => 'foo', 'bar' => 'bar', 'kevin' => 'Kevin', 'coopTilleuls' => 'coop', 'fooBar' => null, 'symfony' => null, 'baz' => 'baz'),
             $this->normalizer->normalize($group, 'any')
         );
     }
@@ -311,7 +310,7 @@ class PropertyNormalizerTest extends TestCase
             array(
                 array(
                     'bar' => function ($bars) {
-                        return count($bars);
+                        return \count($bars);
                     },
                 ),
                 array(new PropertyConstructorDummy('baz', ''), new PropertyConstructorDummy('quux', '')),
@@ -355,7 +354,7 @@ class PropertyNormalizerTest extends TestCase
         $serializer = new Serializer(array($this->normalizer));
         $this->normalizer->setSerializer($serializer);
         $this->normalizer->setCircularReferenceHandler(function ($obj) {
-            return get_class($obj);
+            return \get_class($obj);
         });
 
         $obj = new PropertyCircularReferenceDummy();

@@ -56,9 +56,9 @@ class ConsoleFormatter implements FormatterInterface
     public function __construct($options = array())
     {
         // BC Layer
-        if (!is_array($options)) {
+        if (!\is_array($options)) {
             @trigger_error(sprintf('The constructor arguments $format, $dateFormat, $allowInlineLineBreaks, $ignoreEmptyContextAndExtra of "%s" are deprecated since Symfony 3.3 and will be removed in 4.0. Use $options instead.', self::class), E_USER_DEPRECATED);
-            $args = func_get_args();
+            $args = \func_get_args();
             $options = array();
             if (isset($args[0])) {
                 $options['format'] = $args[0];
@@ -69,6 +69,9 @@ class ConsoleFormatter implements FormatterInterface
             if (isset($args[2])) {
                 $options['multiline'] = $args[2];
             }
+            if (isset($args[3])) {
+                $options['ignore_empty_context_and_extra'] = $args[3];
+            }
         }
 
         $this->options = array_replace(array(
@@ -76,6 +79,7 @@ class ConsoleFormatter implements FormatterInterface
             'date_format' => self::SIMPLE_DATE,
             'colors' => true,
             'multiline' => false,
+            'ignore_empty_context_and_extra' => true,
         ), $options);
 
         if (class_exists(VarCloner::class)) {
@@ -116,20 +120,16 @@ class ConsoleFormatter implements FormatterInterface
 
         $levelColor = self::$levelColorMap[$record['level']];
 
-        if ($this->options['multiline']) {
-            $separator = "\n";
+        if (!$this->options['ignore_empty_context_and_extra'] || !empty($record['context'])) {
+            $context = ($this->options['multiline'] ? "\n" : ' ').$this->dumpData($record['context']);
         } else {
-            $separator = ' ';
+            $context = '';
         }
 
-        $context = $this->dumpData($record['context']);
-        if ($context) {
-            $context = $separator.$context;
-        }
-
-        $extra = $this->dumpData($record['extra']);
-        if ($extra) {
-            $extra = $separator.$extra;
+        if (!$this->options['ignore_empty_context_and_extra'] || !empty($record['extra'])) {
+            $extra = ($this->options['multiline'] ? "\n" : ' ').$this->dumpData($record['extra']);
+        } else {
+            $extra = '';
         }
 
         $formatted = strtr($this->options['format'], array(

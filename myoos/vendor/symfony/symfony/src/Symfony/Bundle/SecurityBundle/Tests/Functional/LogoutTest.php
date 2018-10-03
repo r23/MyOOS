@@ -31,4 +31,32 @@ class LogoutTest extends WebTestCase
 
         $this->assertNull($cookieJar->get('REMEMBERME'));
     }
+
+    public function testCsrfTokensAreClearedOnLogout()
+    {
+        $client = $this->createClient(array('test_case' => 'LogoutWithoutSessionInvalidation', 'root_config' => 'config.yml'));
+        static::$kernel->getContainer()->get('test.security.csrf.token_storage')->setToken('foo', 'bar');
+
+        $client->request('POST', '/login', array(
+            '_username' => 'johannes',
+            '_password' => 'test',
+        ));
+
+        $this->assertTrue(static::$kernel->getContainer()->get('test.security.csrf.token_storage')->hasToken('foo'));
+        $this->assertSame('bar', static::$kernel->getContainer()->get('test.security.csrf.token_storage')->getToken('foo'));
+
+        $client->request('GET', '/logout');
+
+        $this->assertFalse(static::$kernel->getContainer()->get('test.security.csrf.token_storage')->hasToken('foo'));
+    }
+
+    public function testAccessControlDoesNotApplyOnLogout()
+    {
+        $client = $this->createClient(array('test_case' => 'LogoutAccess', 'root_config' => 'config.yml'));
+
+        $client->request('POST', '/login', array('_username' => 'johannes', '_password' => 'test'));
+        $client->request('GET', '/logout');
+
+        $this->assertRedirect($client->getResponse(), '/');
+    }
 }

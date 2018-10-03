@@ -20,8 +20,8 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
-use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Routing\Route;
+use Symfony\Component\Routing\RouterInterface;
 
 /**
  * A console command for retrieving information about routes.
@@ -165,7 +165,7 @@ EOF
         if (1 === substr_count($controller, ':')) {
             list($service, $method) = explode(':', $controller);
             try {
-                return sprintf('%s::%s', get_class($this->getApplication()->getKernel()->getContainer()->get($service)), $method);
+                return sprintf('%s::%s', \get_class($this->getApplication()->getKernel()->getContainer()->get($service)), $method);
             } catch (ServiceNotFoundException $e) {
             }
         }

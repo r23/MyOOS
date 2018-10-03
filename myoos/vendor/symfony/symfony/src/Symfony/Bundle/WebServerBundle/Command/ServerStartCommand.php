@@ -16,8 +16,8 @@ use Symfony\Bundle\WebServerBundle\WebServerConfig;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
@@ -89,7 +89,7 @@ EOF
     {
         $io = new SymfonyStyle($input, $output instanceof ConsoleOutputInterface ? $output->getErrorOutput() : $output);
 
-        if (!extension_loaded('pcntl')) {
+        if (!\extension_loaded('pcntl')) {
             $io->error(array(
                 'This command needs the pcntl extension to run.',
                 'You can either install it or use the "server:run" command instead.',
@@ -104,8 +104,8 @@ EOF
 
         // deprecated, logic to be removed in 4.0
         // this allows the commands to work out of the box with web/ and public/
-        if ($this->documentRoot && !is_dir($this->documentRoot) && is_dir(dirname($this->documentRoot).'/web')) {
-            $this->documentRoot = dirname($this->documentRoot).'/web';
+        if ($this->documentRoot && !is_dir($this->documentRoot) && is_dir(\dirname($this->documentRoot).'/web')) {
+            $this->documentRoot = \dirname($this->documentRoot).'/web';
         }
 
         if (null === $documentRoot = $input->getOption('docroot')) {

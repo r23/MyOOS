@@ -41,6 +41,7 @@
             <argument type="service" id="kernel" />
             <argument>%kernel.root_dir%</argument>
             <argument type="collection" /> <!-- Twig paths -->
+            <argument>%twig.default_path%</argument>
         </service>
 
         <service id="twig.template_cache_warmer" class="Symfony\Bundle\TwigBundle\CacheWarmer\TemplateCacheWarmer">
@@ -113,6 +114,10 @@
         </service>
 
         <service id="twig.extension.debug" class="Twig\Extension\DebugExtension" />
+
+        <service id="twig.extension.weblink" class="Symfony\Bridge\Twig\Extension\WebLinkExtension">
+            <argument type="service" id="request_stack" />
+        </service>
 
         <service id="twig.translation.extractor" class="Symfony\Bridge\Twig\Translation\TwigExtractor">
             <argument type="service" id="twig" />
