@@ -29,3 +29,6 @@ prepros-6.config
 
 /wordpress/wp-config.php
 /myoos/admin/scss
+/wordpress/.project
+/wordpress/.buildpath
+/wordpress/.settings
