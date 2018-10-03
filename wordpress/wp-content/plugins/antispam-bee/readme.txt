@@ -4,7 +4,7 @@
 * Donate link:       https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TD4AMD2D8EMZW
 * Requires at least: 4.5
 * Tested up to:      4.9
-* Stable tag:        2.8.1
+* Stable tag:        2.9.0
 * License:           GPLv2 or later
 * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -86,6 +86,21 @@ A complete documentation is available in the [GitHub repository Wiki](https://gi
 
 ## Changelog ##
 
+### 2.9.0 ###
+  * Introduction of coding standards.
+  * Switch to franc language detection API for the language check.
+  * Do not longer overwrite the IP address WordPress saves with the comment by using `pre_comment_user_ip`.
+  * Do not show "Trust commenters with a Gravatar" if the "Show Gravatar" option is not set.
+  * Skip the checks, when I ping myself.
+  * Fixes some wrong usages of the translation functions.
+  * Use the regular expressions check also for trackbacks.
+  * Add option to delete Antispam Bee related data when plugin gets deleted via the admin interface.
+  * Save a hashed + salted IP for every comment
+  * New check for incoming Trackbacks.
+  * Introduction of behat tests.
+  * Updates the used JavaScript library for the statistics widget.
+  * Bugfix in the "Comment form used outside of posts" option.
+  
 ### 2.8.1 ###
   * PHP 5.3 compatibility
   * Bugfix where a spam trackback produced a fatal error

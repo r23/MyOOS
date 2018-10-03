@@ -12,6 +12,7 @@ class WPCF7_ConfigValidator {
 	const error_unavailable_names = 107;
 	const error_invalid_mail_header = 108;
 	const error_deprecated_settings = 109;
+	const error_file_not_in_content_dir = 110;
 
 	public static function get_doc_link( $error_code = '' ) {
 		$url = __( 'https://contactform7.com/configuration-errors/',
@@ -501,6 +502,9 @@ class WPCF7_ConfigValidator {
 		$this->detect_maybe_empty( sprintf( '%s.body', $template ), $body );
 
 		if ( '' !== $components['attachments'] ) {
+			$has_file_not_found = false;
+			$has_file_not_in_content_dir = false;
+
 			foreach ( explode( "\n", $components['attachments'] ) as $line ) {
 				$line = trim( $line );
 
@@ -508,8 +512,15 @@ class WPCF7_ConfigValidator {
 					continue;
 				}
 
-				$this->detect_file_not_found(
-					sprintf( '%s.attachments', $template ), $line );
+				$has_file_not_found = $this->detect_file_not_found(
+					sprintf( '%s.attachments', $template ), $line
+				);
+
+				if ( ! $has_file_not_found && ! $has_file_not_in_content_dir ) {
+					$has_file_not_in_content_dir = $this->detect_file_not_in_content_dir(
+						sprintf( '%s.attachments', $template ), $line
+					);
+				}
 			}
 		}
 	}
@@ -552,6 +563,23 @@ class WPCF7_ConfigValidator {
 						__( "Attachment file does not exist at %path%.", 'contact-form-7' ),
 					'params' => array( 'path' => $content ),
 					'link' => self::get_doc_link( 'file_not_found' ),
+				)
+			);
+		}
+
+		return false;
+	}
+
+	public function detect_file_not_in_content_dir( $section, $content ) {
+		$path = path_join( WP_CONTENT_DIR, $content );
+
+		if ( 0 !== strpos( realpath( $path ), WP_CONTENT_DIR ) ) {
+			return $this->add_error( $section,
+				self::error_file_not_in_content_dir,
+				array(
+					'message' =>
+						__( "It is not allowed to use files outside the wp-content directory.", 'contact-form-7' ),
+					'link' => self::get_doc_link( 'file_not_in_content_dir' ),
 				)
 			);
 		}

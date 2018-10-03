@@ -12,7 +12,6 @@ function wpcf7_add_form_tag_acceptance() {
 		'wpcf7_acceptance_form_tag_handler',
 		array(
 			'name-attr' => true,
-			'do-not-store' => true,
 		)
 	);
 }

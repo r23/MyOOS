@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Contact Form 7 - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-08-01 10:47:42+0000\n"
+"PO-Revision-Date: 2018-09-05 06:25:23+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,15 +11,19 @@ msgstr ""
 "Language: de\n"
 "Project-Id-Version: Plugins - Contact Form 7 - Stable (latest release)\n"
 
-#: modules/acceptance.php:252
-msgid "Make this checkbox optional"
-msgstr "Mache diese Checkbox optional"
+#: includes/config-validator.php:581
+msgid "It is not allowed to use files outside the wp-content directory."
+msgstr "Es ist nicht erlaubt, Dateien außerhalb des Verzeichnisses „wp-content“ zu benutzen."
 
-#: admin/edit-contact-form.php:202
+#: modules/acceptance.php:251
+msgid "Make this checkbox optional"
+msgstr "Diese Checkbox als optional einstellen."
+
+#: admin/edit-contact-form.php:192
 msgid "Professional Services"
 msgstr "Professionelle Dienste"
 
-#: admin/edit-contact-form.php:201
+#: admin/edit-contact-form.php:191
 msgid "https://contactform7.com/custom-development/"
 msgstr "https://contactform7.com/custom-development/"
 
@@ -44,21 +48,21 @@ msgstr "Hier sind einige verfügbare Optionen, um zu helfen, deine Probleme zu l
 msgid "Do you need help?"
 msgstr "Brauchst du Hilfe?"
 
-#: modules/acceptance.php:243
+#: modules/acceptance.php:242
 msgid "Condition"
 msgstr "Bedingung"
 
 #. translators: 1: 'Consented' or 'Not consented', 2: conditions
-#: modules/acceptance.php:202
+#: modules/acceptance.php:201
 msgctxt "mail output for acceptance checkboxes"
 msgid "%1$s: %2$s"
 msgstr "%1$s: %2$s"
 
-#: modules/acceptance.php:186
+#: modules/acceptance.php:185
 msgid "Not consented"
 msgstr "Nicht zugestimmt"
 
-#: modules/acceptance.php:184
+#: modules/acceptance.php:183
 msgid "Consented"
 msgstr "Zugestimmt"
 
@@ -80,7 +84,7 @@ msgstr "https://contactform7.com/editing-messages/"
 
 #: admin/includes/editor.php:130
 msgid "You can edit the mail template here. For details, see %s."
-msgstr "Hier kannst du die E-Mail Vorlage bearbeiten. Für Details siehe %s."
+msgstr "Hier kannst du die E-Mail-Vorlage bearbeiten. Für Details siehe %s."
 
 #: admin/includes/editor.php:57
 msgid "You can edit the form template here. For details, see %s."
@@ -95,12 +99,12 @@ msgid "https://contactform7.com/editing-form-template/"
 msgstr "https://contactform7.com/editing-form-template/"
 
 #. translators: screen reader text
-#: admin/edit-contact-form.php:223
+#: admin/edit-contact-form.php:210
 msgid "(left and right arrow)"
 msgstr "(Pfeil nach links und rechts)"
 
 #. translators: 1: ◀ ▶ dashicon, 2: screen reader text for the dashicon
-#: admin/edit-contact-form.php:218
+#: admin/edit-contact-form.php:205
 msgid "%1$s %2$s keys switch panels"
 msgstr "%1$s %2$s Tasten wechseln die Anzeige"
 
@@ -130,11 +134,11 @@ msgstr "Wenn du gerne Contact Form 7 nutzt und es nützlich findest dann mache d
 msgid "It is hard to continue development and support for this plugin without contributions from users like you."
 msgstr "Es ist schwer, die Entwicklung und den Support für dieses Plugin ohne Beiträge von Nutzern wie dir fortzusetzen."
 
-#: includes/contact-form.php:294 includes/contact-form.php:707
+#: includes/contact-form.php:296 includes/contact-form.php:709
 msgid "This contact form is available only for logged in users."
 msgstr "Dieses Kontaktformular ist nur für angemeldete Benutzer verfügbar."
 
-#: includes/config-validator.php:145
+#: includes/config-validator.php:146
 msgid "Deprecated settings are used."
 msgstr "Es werden veraltete Einstellungen verwendet."
 
@@ -170,36 +174,36 @@ msgstr "Ein vorhandenes Kontaktformular kann nicht erstellt werden."
 msgid "You are not allowed to access contact forms."
 msgstr "Du hast keine Berechtigung um auf Kontaktformulare zuzugreifen."
 
-#: includes/config-validator.php:552
+#: includes/config-validator.php:563
 msgid "Attachment file does not exist at %path%."
 msgstr "Datei für Anhang in folgendem Pfad nicht vorhanden: %path%."
 
-#: includes/config-validator.php:481
+#: includes/config-validator.php:482
 msgid "Invalid mailbox syntax is used in the %name% field."
 msgstr "Ungültige Postfachsyntax wird im Feld %name% verwendet."
 
 #. translators: %names%: a list of form control names
-#: includes/config-validator.php:392
+#: includes/config-validator.php:393
 msgid "Unavailable names (%names%) are used for form controls."
 msgstr "Nicht verfügbare Namen (%names%) werden für Formularfelder verwendet."
 
-#: includes/config-validator.php:143
+#: includes/config-validator.php:144
 msgid "There are invalid mail header fields."
 msgstr "Es gibt ungültige Mail-Header-Felder."
 
-#: includes/config-validator.php:139
+#: includes/config-validator.php:140
 msgid "HTML tags are used in a message."
 msgstr "In einer Nachricht werden HTML-Tags verwendet."
 
-#: includes/config-validator.php:137
+#: includes/config-validator.php:138
 msgid "Sender email address does not belong to the site domain."
 msgstr "Die Absender-E-Mail-Adresse gehört nicht zur Domain der Website."
 
-#: includes/config-validator.php:135
+#: includes/config-validator.php:136
 msgid "Invalid mailbox syntax is used."
 msgstr "Deine Angaben für das Postfach weisen Syntaxfehler auf."
 
-#: includes/config-validator.php:133
+#: includes/config-validator.php:134
 msgid "There is a possible empty field."
 msgstr "Es gibt ein mögliches leeres Feld."
 
@@ -273,7 +277,7 @@ msgstr "Spammer nehmen alles ins Visier; deine Kontaktformulare sind da keine Au
 msgid "Getting spammed? You have protection."
 msgstr "Wirst du zugespammt? Es gibt Schutz."
 
-#: includes/config-validator.php:141
+#: includes/config-validator.php:142
 msgid "Multiple form controls are in a single label element."
 msgstr "Mehrere Formularfelder sind in einem einzigen Beschriftungselement platziert."
 
@@ -376,15 +380,15 @@ msgctxt "mail subject"
 msgid "%1$s \"%2$s\""
 msgstr "%1$s \"%2$s\""
 
-#: admin/admin.php:629
+#: admin/admin.php:634
 msgid "Misconfiguration leads to mail delivery failure or other troubles. Validate your contact forms now."
 msgstr "Eine Fehlkonfiguration führt zu Fehlern bei der E-Mail-Zustellung oder anderen Problemen. Validiere jetzt deine Kontaktformulare."
 
-#: admin/admin.php:627
+#: admin/admin.php:631
 msgid "Validate Contact Form 7 Configuration"
 msgstr "Validiere die Konfiguration von Contact Form 7"
 
-#: includes/config-validator.php:17
+#: includes/config-validator.php:18
 msgid "https://contactform7.com/configuration-errors/"
 msgstr "https://contactform7.com/configuration-errors/"
 
@@ -641,7 +645,7 @@ msgstr "Dropdown-Menü"
 
 #: modules/quiz.php:207
 msgid "One pipe-separated question-answer pair (e.g. The capital of Brazil?|Rio) per line."
-msgstr "Ein mit dem Pipe-Zeichen getrenntes Frage-Antwort-Paar (z.B. Die Hauptstadt von Brasilien?|Rio) pro Zeile."
+msgstr "Ein mit dem Pipe-Zeichen getrenntes Frage-Antwort-Paar (z.B. Die Hauptstadt von Brasilien?|Brasília) pro Zeile."
 
 #: modules/quiz.php:202 modules/quiz.php:205
 msgid "Questions and answers"
@@ -902,7 +906,7 @@ msgstr "Dein eingegebener Code ist falsch."
 msgid "The code that sender entered does not match the CAPTCHA"
 msgstr "Der eingegebene Code stimmt nicht mit dem angezeigten Captcha-Code überein!"
 
-#: modules/acceptance.php:276 modules/checkbox.php:336 modules/date.php:216
+#: modules/acceptance.php:275 modules/checkbox.php:336 modules/date.php:216
 #: modules/file.php:270 modules/number.php:224 modules/quiz.php:231
 #: modules/really-simple-captcha.php:322 modules/recaptcha.php:503
 #: modules/select.php:217 modules/submit.php:88 modules/text.php:311
@@ -910,7 +914,7 @@ msgstr "Der eingegebene Code stimmt nicht mit dem angezeigten Captcha-Code über
 msgid "Insert Tag"
 msgstr "Tag einfügen"
 
-#: modules/acceptance.php:263 modules/checkbox.php:323 modules/date.php:204
+#: modules/acceptance.php:262 modules/checkbox.php:323 modules/date.php:204
 #: modules/file.php:257 modules/number.php:212 modules/quiz.php:218
 #: modules/really-simple-captcha.php:295 modules/really-simple-captcha.php:310
 #: modules/recaptcha.php:490 modules/select.php:204 modules/submit.php:75
@@ -918,7 +922,7 @@ msgstr "Tag einfügen"
 msgid "Class attribute"
 msgstr "Klassen Eigenschaft"
 
-#: modules/acceptance.php:258 modules/checkbox.php:318 modules/date.php:199
+#: modules/acceptance.php:257 modules/checkbox.php:318 modules/date.php:199
 #: modules/file.php:252 modules/number.php:207 modules/quiz.php:213
 #: modules/really-simple-captcha.php:290 modules/really-simple-captcha.php:305
 #: modules/recaptcha.php:485 modules/select.php:199 modules/submit.php:70
@@ -926,40 +930,40 @@ msgstr "Klassen Eigenschaft"
 msgid "Id attribute"
 msgstr "ID Eigenschaft"
 
-#: modules/acceptance.php:248 modules/acceptance.php:251
+#: modules/acceptance.php:247 modules/acceptance.php:250
 #: modules/checkbox.php:302 modules/checkbox.php:305 modules/select.php:186
 #: modules/select.php:189
 msgid "Options"
 msgstr "Optionen"
 
-#: modules/acceptance.php:238 modules/checkbox.php:297 modules/date.php:170
+#: modules/acceptance.php:237 modules/checkbox.php:297 modules/date.php:170
 #: modules/file.php:237 modules/number.php:178 modules/quiz.php:197
 #: modules/really-simple-captcha.php:280 modules/select.php:181
 #: modules/text.php:253 modules/textarea.php:156
 msgid "Name"
 msgstr "Name"
 
-#: modules/acceptance.php:228
+#: modules/acceptance.php:227
 msgid "Acceptance Checkbox"
 msgstr "Zustimmungs-Kontrollkästchen"
 
-#: modules/acceptance.php:228
+#: modules/acceptance.php:227
 msgid "https://contactform7.com/acceptance-checkbox/"
 msgstr "https://contactform7.com/acceptance-checkbox/"
 
-#: modules/acceptance.php:226
+#: modules/acceptance.php:225
 msgid "Generate a form-tag for an acceptance checkbox. For more details, see %s."
 msgstr "Erzeuge ein Formular-Tag für eine Zustimmungs-Kontrollkästchen. Weitere Details unter %s."
 
-#: modules/acceptance.php:218
+#: modules/acceptance.php:217
 msgid "acceptance"
 msgstr "Zustimmung"
 
-#: includes/contact-form.php:156
+#: includes/contact-form.php:158
 msgid "<code>%1$s</code> property of a <code>WPCF7_ContactForm</code> object is <strong>no longer accessible</strong>. Use <code>%2$s</code> method instead."
 msgstr "<code>%1$s</code> Eigenschaft eines <code>WPCF7_ContactForm</code> Objekts ist <strong>nicht mehr zugänglich</strong>. Verwende <code>%2$s</code> Methode stattdessen."
 
-#: includes/contact-form.php:82 includes/contact-form.php:232
+#: includes/contact-form.php:84 includes/contact-form.php:234
 msgid "Untitled"
 msgstr "Ohne Titel"
 
@@ -1230,25 +1234,25 @@ msgstr "Shortcode"
 msgid "Title"
 msgstr "Titel"
 
-#: admin/edit-contact-form.php:260 admin/includes/editor.php:247
+#: admin/edit-contact-form.php:247 admin/includes/editor.php:247
 #: admin/includes/editor.php:252
 msgid "Additional Settings"
 msgstr "Zusätzliche Einstellungen"
 
 #. translators: %d: number of additional settings
-#: admin/edit-contact-form.php:258
+#: admin/edit-contact-form.php:245
 msgid "Additional Settings (%d)"
 msgstr "Zusätzliche Einstellungen (%d)"
 
-#: admin/edit-contact-form.php:244 admin/includes/editor.php:222
+#: admin/edit-contact-form.php:231 admin/includes/editor.php:222
 msgid "Messages"
 msgstr "Meldungen"
 
-#: admin/edit-contact-form.php:240 admin/includes/editor.php:93
+#: admin/edit-contact-form.php:227 admin/includes/editor.php:93
 msgid "Mail"
 msgstr "E-Mail"
 
-#: admin/edit-contact-form.php:236 admin/includes/editor.php:61
+#: admin/edit-contact-form.php:223 admin/includes/editor.php:61
 msgid "Form"
 msgstr "Formular"
 
@@ -1421,7 +1425,7 @@ msgstr "Kontaktformular bearbeiten"
 msgid "Contact"
 msgstr "Formulare"
 
-#. #-#-#-#-#  contact-form-7-code.pot (Contact Form 7 5.0.3)  #-#-#-#-#
+#. #-#-#-#-#  contact-form-7-code.pot (Contact Form 7 5.0.4)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin/admin.php:21 modules/flamingo.php:170
 msgid "Contact Form 7"

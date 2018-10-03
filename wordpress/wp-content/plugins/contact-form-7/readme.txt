@@ -4,7 +4,7 @@ Donate link: https://contactform7.com/donate/
 Tags: contact, form, contact form, feedback, email, ajax, captcha, akismet, multilingual
 Requires at least: 4.8
 Tested up to: 4.9
-Stable tag: 5.0.3
+Stable tag: 5.0.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -74,6 +74,14 @@ Do you have questions or issues with Contact Form 7? Use these support channels 
 
 For more information, see [Releases](https://contactform7.com/category/releases/).
 
+= 5.0.4 =
+
+* Specifies the capability_type argument explicitly in the register_post_type() call to fix the privilege escalation vulnerability issue.
+* Local File Attachment – disallows the specifying of absolute file paths referring to files outside the wp-content directory.
+* Config Validator – adds a test item to detect invalid file attachment settings.
+* Fixes a bug in the JavaScript fallback function for legacy browsers that do not support the HTML5 placeholder attribute.
+* Acceptance Checkbox – unsets the form-tag's do-not-store feature.
+
 = 5.0.3 =
 
 * CSS: Applies the "not-allowed" cursor style to submit buttons in the "disabled" state.
@@ -113,3 +121,9 @@ For more information, see [Releases](https://contactform7.com/category/releases/
 * New special mail tags: [_site_title], [_site_description], [_site_url], [_site_admin_email], [_invalid_fields], [_user_login], [_user_email], [_user_url], [_user_first_name], [_user_last_name], [_user_nickname], and [_user_display_name]
 * New filter hooks: wpcf7_upload_file_name, wpcf7_autop_or_not, wpcf7_posted_data_{$type}, and wpcf7_mail_tag_replaced_{$type}
 * New form-tag features: zero-controls-container and not-for-mail
+
+== Upgrade Notice ==
+
+= 5.0.4 =
+
+This is a security and maintenance release and we strongly encourage you to update to it immediately. For more information, refer to the [release announcement post](https://contactform7.com/category/releases/).

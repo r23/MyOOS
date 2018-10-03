@@ -191,7 +191,7 @@ function oos_redirect_admin($url) {
               WHERE customers_id = '" . $customers_id . "'";
     $result = $dbconn->Execute($query);
 
-    $sName = $customers->fields['customers_firstname'] . ' ' . $customers->fields['customers_lastname'];
+    $sName = $result->fields['customers_firstname'] . ' ' . $result->fields['customers_lastname'];
 
     // Close result set
     $result->Close();
