@@ -1,0 +1,664 @@
+form.postbox, div.postbox {
+    padding: 30px;
+
+}
+
+form.postbox label {
+    width: 40%;
+    display: inline-block;
+    max-width: 200px;
+}
+
+form.postbox label#gdpr {
+    width: 90%;
+    max-width: unset;
+}
+
+form.postbox input[type="text"], form.postbox input[type="email"], form.postbox textarea, .postbox-group .wp-editor-wrap {
+    width: 59%;
+    max-width: 400px;
+    vertical-align: top;
+    display: inline-block;
+}
+
+form.postbox input[type="submit"] {
+    margin-top: 20px;
+}
+
+.postbox-group {
+    margin-top: 15px;
+}
+
+.postbox-group:first-child {
+    margin-top: 0;
+}
+/*For svg in menu*/
+#toplevel_page_wp_gdpr .wp-menu-image img {
+    width: 24px;
+    padding-top: 5px;
+}
+
+#nav_menu {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-items: start;
+}
+
+div#nav_menu {
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #ddd !important;
+    z-index: -1;
+}
+
+#nav_menu > a {
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: 0px;
+    text-decoration: none;
+
+    border: 1px solid #ddd !important;
+    border: solid;
+    padding: 5px;
+    position: relative;
+    top: 1px;
+}
+
+a#a_settings {
+    margin-left: auto;
+}
+
+a#a_settings > a.active {
+    margin-left: 0;
+}
+
+#hr_line {
+    position: relative;
+    margin-top: 5px;
+    z-index: -1;
+    margin-top: -1px;
+}
+
+#nav_menu > a.active_tab {
+    border-bottom-color: #f1f1f1 !important;
+    z-index: 1 !important;
+    border-bottom-width: 2px !important;
+}
+
+#user_info {
+    background-color: white;
+    padding: 10px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+#user_info > img {
+    height: 10em;
+}
+
+#user_info > div {
+    display: flex;
+    flex-direction: row;
+}
+
+div.user_info_header {
+    justify-content: space-between;
+    margin-left: 20px;
+}
+
+div.user_info_content > p {
+    align-self: center;
+    margin-left: 10px;
+}
+
+div.user_info_content {
+    padding-top: 5px;
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-top-color: #f1f1f1 !important;
+}
+
+#usr_info_header_btn {
+    background-color: white;
+    border: none;
+    margin-right: 15px;
+    font-size: 1, 3em;
+    color: #0073aa;
+}
+
+.wrap > h2 {
+    margin-bottom: 15px;
+}
+
+#nav_menu_extra {
+    margin-top: 15px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+#nav_menu_extra > a {
+    margin-left: 15px;
+    text-decoration: none;
+}
+.dpo_info{
+      text-decoration: none;
+    color: #555;
+  }
+.dpo_info:hover{
+    color: #999;
+}
+
+
+/*notice message*/
+.notice-error{
+    padding: 10px;
+}
+
+/*tooltip*/
+.tooltip {
+    position: relative;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 350px;
+    background-color: #999;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 15px;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 10%;
+    bottom: 35px;
+    margin-left: -60px;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+
+
+/* This is section for addons submenu */
+#addons_box {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+#addons_box > div {
+    border: 1px solid #ddd;
+    background-color: white;
+    padding: 10px;
+}
+
+#addons_box > div > img {
+    max-width: 200px;
+    max-height: 300px;
+}
+
+#addons_box > div > h4 {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 12px;
+    padding-left: 30px;
+}
+
+#addons_box > div > p {
+    max-width: 200px;
+    margin-left: 15px;
+}
+
+.addon_footer {
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+}
+
+.more_inf {
+    margin-left: auto;
+    margin-top: 5px;
+    color: #555;
+}
+
+
+#dataregister_table {
+    background-color: white;
+    width: 100%;
+    border: 1px solid #ddd;
+    padding: 15px;
+}
+
+#dataregister_table > thead {
+    text-align: left;
+}
+
+/*General*/
+
+.user_info_content img.a_info, .user_guides_content img.a_info {
+    margin: 10px 10px -10px -10px;
+}
+.user_guides_content img.a_info{
+    margin: 10px 10px -10px -30px;
+}
+.a_info {
+    width: 124px;
+    height: auto;
+}
+
+.user_info_content > p {
+    width: 80%;
+}
+
+/*.user_info_header, .user_guides_header {*/
+    /*margin-bottom: -25px;*/
+/*}*/
+
+img.a_background_img {
+    margin: 0 0 -50px 35%;
+}
+@media only screen and (max-width: 1250px) {
+    img.a_background_img {
+        margin: 0 0 -20px 80%;
+    }
+}
+
+#nav_menu a, #nav_menu_extra a, .user_info_content a {
+    text-decoration: none;
+    color: #555;
+}
+
+#nav_menu a:hover, #nav_menu_extra a:hover, .user_info_content a:hover {
+    color: #999;
+}
+
+p.appsaloon_footer {
+    text-align: right;
+    margin-right: 20px;
+}
+
+/*Plugin list page*/
+
+/*Status add-ons colors*/
+p.wp-gdpr_active {
+    color: #32cd32;
+    paddin-bottom: 0;
+}
+
+p.wp-gdpr_inactive {
+    color: #c28814;
+}
+
+a.wp-gdpr_get_add_on {
+    color: #4169e1;
+}
+
+/*Settings page*/
+
+div.notice{
+    padding: 10px;
+}
+span.dashicons-info {
+    color: #999;
+    font-size: 25px;
+    margin-top: -5px;
+}
+.postbox-spacing{
+    height: 70px;
+}
+a#a_settings.active_tab{
+    margin-left: 5px;
+    margin-right: auto;
+}
+.dashicons.valid_license_v{
+    color: #43B44B;
+    font-size: 50px;
+    margin-top: -12px;
+    margin-left:  25px;
+}
+.dashicons.invalid_license_v{
+    color: #F91628;
+    font-size: 40px;
+    margin-top: -7px;
+    margin-left:  25px;
+}
+
+
+/*Help page */
+#user_guides, #user_freq_questions, #user_support {
+    background-color: white;
+    padding: 10px 30px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+#user_guides > img.a_info{
+    margin: 10px 10px -10px -30px
+}
+
+#user_guides > img, #user_support > img {
+    height: 10em;
+}
+#user_guides{
+    position: relative;
+}
+
+#user_guides > div,
+#user_freq_questions {
+    display: flex;
+    flex-direction: row;
+}
+.user_guides_content img.a_info{
+    position: absolute;
+    bottom: 10px;
+}
+
+#user_support {
+    padding: 0 auto 40px auto;
+}
+
+div.user_guides_header, div.user_support_header,
+div.user_freq_questions_header {
+    justify-content: space-between;
+}
+div.user_freq_questions_header{
+    width: 100%;
+}
+
+div.user_guides_content > p, div.user_support_content > p,
+div.user_freq_questions_content > p {
+    align-self: center;
+    margin-left: 10px;
+}
+
+div.user_guides_content, div.user_support_content, .user_freq_questions_content {
+    margin-top: 10px;
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-top-color: #f1f1f1 !important;
+}
+div.user_support_content,
+div.user_guides_content{
+    margin-top: 0;
+}
+
+div.user_support_premium .button-succes {
+    background-color: #5E9D55;
+    color: #fff;
+}
+
+div.user_support_premium .button-succes:hover {
+    background-color: #6BAA62;
+    color: #fff;
+}
+#user_support{
+    position: relative;
+}
+
+.a_support {
+    position: absolute;
+    width: 150px;
+    height: 100px;
+    bottom: 10px;
+}
+
+.user_support_content > p {
+    padding: 0 50px;
+
+}
+
+.user_support_content > p > a,
+.user_support_content > p > b > a {
+    text-decoration: none;
+    color: #555;
+}
+
+div.users_support_btn_group {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    -webkit-flex-flow: row wrap;
+    justify-content: space-around;
+}
+
+.user_support_wp, .user_support_premium {
+    padding: 5px;
+    width: 200px;
+    height: 150px;
+    margin-top: 10px;
+    text-align: center;
+    z-index: 1;
+}
+
+.user_support_wp {
+    padding-right: 0;
+}
+
+div.users_support_btn_group {
+    margin: auto;
+    width: 50%;
+}
+
+.icon_arrow {
+    margin-right: 10px;
+    margin-bottom: -4px;
+
+}
+.icon_arrow_spin{
+    transform:rotate(90deg);
+}
+
+#user_freq_questions ol, #user_freq_questions ul {
+    padding-left: 50px;
+}
+#user_freq_questions ul {
+    list-style-type: inherit;
+
+}
+#user_freq_questions li > ul{
+    list-style-type: circle;
+}
+#user_freq_questions ol {
+    margin-left: 0;
+}
+
+#user_freq_questions p > a {
+    text-decoration: none;
+    color: #555;
+}
+#user_freq_questions p > a:hover {
+    color: #999;
+}
+.accordion-content > h4 > p {
+    margin-left: 25px;
+}
+
+#user_freq_questions ul.tabs{
+    margin: 0px;
+    margin-top: 30px;
+    padding: 0px;
+    list-style: none;
+}
+#user_freq_questions ul.tabs li{
+    background: none;
+    color: #555;
+    display: inline-block;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+#user_freq_questions ul.tabs li.current{
+    background: #ededed;
+    color: #555;
+}
+
+.tab-content{
+    display: none;
+    background: #ededed;
+    padding: 15px;
+}
+
+.tab-content.current{
+    display: inherit;
+}
+.tabs li {
+    padding-bottom: 16px;
+    margin-bottom: 0px;
+}
+div.tab-content{
+    padding: 30px;
+}
+.container{
+    display: block;
+    margin: 0 auto;
+}
+#tab-1, #tab-2, .tabs>li {
+    margin: 0 5% 5% 5%;
+}
+.tabs > li {
+    margin-bottom: 0;
+    margin-right: 0;
+}
+.tabs > li:last-child {
+    margin-left: 0;
+
+}
+
+
+
+/*Addons page */
+.addon_box{
+    width: 220px;
+    height: 340px;
+    margin-bottom: 20px;
+}
+.addon_box > img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.addon_footer > a {
+    margin-right: auto;
+    text-decoration: none;
+}
+
+a.button.not-installed {
+    background-color: #2290BE;
+    color: #fff;
+}
+a.button.not-installed:hover {
+    background-color: #389bc4;
+    color: #fff;
+}
+a.button.active {
+    background-color: #5E9D55 !important;
+    color: #fff;
+}
+a.button.active:hover {
+    background-color: #6ea666 !important;
+    color: #fff;
+}
+a.button.in-active {
+    background-color: #B34044;
+    color: #fff;
+}
+a.button.in-active:hover {
+    background-color: #ba5356;
+    color: #fff;
+}
+span.dashicons.dashicons-cart,
+span.dashicons.dashicons-controls-repeat {
+    font-size: 18px;
+    line-height: 1.3;
+}
+span.dashicons.dashicons-controls-repeat {
+    line-height: 1.5;
+}
+@media only screen and (max-width: 782px) {
+    span.dashicons.dashicons-cart,
+    span.dashicons.dashicons-controls-repeat {
+        font-size: 18px;
+        line-height: 1;
+    }
+    span.dashicons.dashicons-controls-repeat {
+        line-height: 1;
+    }
+}
+
+
+.led {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-bottom: -36px;
+    margin-top: 5px;
+
+
+}
+.led.active{
+    background-color: #5E9D55;
+    box-shadow: 0 1px 0 #ccc;
+}
+.led.inactive{
+    background-color: #B34044;
+    box-shadow: 0 1px 0 #ccc;
+}
+.addon_box{
+    padding-top: 20px;
+}
+.addon_footer{
+    padding-top: 18px;
+}
+.request_addon > h4{
+    margin-top: 5px;
+}
+
+
+
+/*//////Slick slider//////*/
+.slick-prev {
+    color: black;
+    background-color: black;
+}
+
+.multiple-items > div {
+    max-width: 300px;
+    max-height: 100px;
+}
+.slider {
+    width: 75%;
+    margin: 40px auto;
+}
+button.slick-prev:before,
+button.slick-next:before {
+    color: #555;
+}
+button.slick-prev {
+    left: -45px;
+}
+button.slick-next {
+    right: -45px;
+}
+div.slick-slide {
+    margin: 8px;
+}
+div.slick-slide>a>img{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 4px 12px 0 rgba(0, 0, 0, 0.19);
+}
+div.slick-slide>a{
+    text-decoration: none;
+    color: #555;
+}
+img.carousel_img{
+    margin: 0 20px;
+}
+

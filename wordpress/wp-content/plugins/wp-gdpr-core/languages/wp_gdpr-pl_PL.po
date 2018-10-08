@@ -1,0 +1,710 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WP GDPR CORE\n"
+"POT-Creation-Date: 2018-06-01 09:24+0200\n"
+"PO-Revision-Date: 2018-06-01 09:26+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.7\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: wp-gdpr-core.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: config/startup-config.php:74
+msgid "GDPR - Request personal data"
+msgstr "GDPR - zapytanie o dane osobowe"
+
+#: controller/controller-comments.php:96
+#, fuzzy
+#| msgid "View Comments"
+msgid "WordPress Comments"
+msgstr "Zobacz komentarze"
+
+#: controller/controller-comments.php:157
+#: controller/controller-menu-page.php:330
+msgid ""
+"This form collects your name, email and content so that we can keep track of "
+"the comments placed on the website. For more info check our privacy policy "
+"where you'll get more info on where, how and why we store your data."
+msgstr ""
+"Ten formularz gromadzi twoje imię i nazwisko, adres e-mail i treść na "
+"stronie internetowej. Aby uzyskać więcej informacji, zapoznaj się z naszą "
+"polityką prywatności, gdzie znajdziesz więcej informacji o tym, gdzie, jak i "
+"dlaczego przechowujemy Twoje dane."
+
+#: controller/controller-comments.php:244
+#: controller/controller-comments.php:249
+msgid ""
+"<strong>ERROR</strong>: please fill the required fields (GDPR checkbox)."
+msgstr "<strong>ERROR</strong>: proszę wypełnić wymagane pola (GDPR checkbox)."
+
+#: controller/controller-comments.php:269
+msgid "Something went wrong."
+msgstr "Coś poszło nie tak."
+
+#: controller/controller-comments.php:277
+msgid "Email is not valid"
+msgstr "Email jest nieprawidłowy"
+
+#: controller/controller-comments.php:294
+msgid "Comment is changed"
+msgstr "Komentarz został zmieniony"
+
+#: controller/controller-comments.php:378
+msgid "name"
+msgstr "imię"
+
+#: controller/controller-comments.php:379
+#: controller/controller-menu-page.php:437
+#: controller/controller-menu-page.php:674
+msgid "email"
+msgstr "email"
+
+#: controller/controller-comments.php:380
+msgid "comment"
+msgstr "Komentarz"
+
+#: controller/controller-comments.php:381
+msgid "website"
+msgstr "strona internetowa "
+
+#: controller/controller-comments.php:425
+#: controller/controller-comments.php:496
+msgid "post ID"
+msgstr "ID postu"
+
+#: controller/controller-comments.php:426
+msgid "checkbox"
+msgstr "pole do zaznaczenia"
+
+#: controller/controller-comments.php:427
+#: controller/controller-comments.php:498
+msgid "comment date"
+msgstr "data komentarza"
+
+#: controller/controller-comments.php:428
+#: controller/controller-comments.php:499
+msgid "author email"
+msgstr "email autora"
+
+#: controller/controller-comments.php:429
+#: controller/controller-comments.php:500
+msgid "author name"
+msgstr "imię autora"
+
+#: controller/controller-comments.php:430
+#: controller/controller-comments.php:501
+msgid "comment content"
+msgstr "treść komentarza"
+
+#: controller/controller-comments.php:488
+msgid "Data origin : WordPress Comments"
+msgstr ""
+
+#: controller/controller-comments.php:569
+msgid "The site administrator received your request. Thank You."
+msgstr "Administrator witryny otrzymał Twoją prośbę. Dziękuję."
+
+#: controller/controller-menu-page.php:128
+msgid "Comments deleted"
+msgstr "Komentarze zostały usunięte"
+
+#: controller/controller-menu-page.php:148
+msgid "Comments are anonymous"
+msgstr "Komentarze są anonimowe"
+
+#: controller/controller-menu-page.php:289
+msgid "Comment author"
+msgstr "Autor komentarza"
+
+#: controller/controller-menu-page.php:289
+msgid "content"
+msgstr "treść"
+
+#: controller/controller-menu-page.php:302
+msgid "Request send"
+msgstr "Żądanie wysłano"
+
+#: controller/controller-menu-page.php:326
+msgid "Checkbox GDPR is required"
+msgstr ""
+
+#: controller/controller-menu-page.php:334
+msgid "I agree"
+msgstr "Zgadzam się"
+
+#: controller/controller-menu-page.php:339
+#, php-format
+msgid ""
+"I consent to having %s collect my email so that they can send me my "
+"requested info.\n"
+"            For more info check our privacy policy where you'll get more "
+"info on where, how and why we store your data."
+msgstr ""
+"Wyrażam zgodę na posiadanie przez %s mojego adresu e-mail, aby mógł przesłać "
+"mi żądane informacje.\n"
+"Aby uzyskać więcej informacji, zapoznaj się z naszą polityką prywatności, "
+"gdzie znajdziesz więcej informacji o tym, gdzie, jak i dlaczego "
+"przechowujemy Twoje dane."
+
+#: controller/controller-menu-page.php:376
+#, fuzzy
+#| msgid "Download comments"
+msgid "Don't show comments"
+msgstr "Pobierz komentarze"
+
+#: controller/controller-menu-page.php:381
+msgid "Set your DPO e-mail address"
+msgstr ""
+
+#: controller/controller-menu-page.php:386
+msgid "Mailchimp API Key"
+msgstr ""
+
+#: controller/controller-menu-page.php:436
+#: controller/controller-menu-page.php:673
+msgid "id"
+msgstr "Id"
+
+#: controller/controller-menu-page.php:438
+#: controller/controller-menu-page.php:678
+msgid "requested at"
+msgstr "zapytano"
+
+#: controller/controller-menu-page.php:439
+#: controller/controller-menu-page.php:676
+msgid "status"
+msgstr "status"
+
+#: controller/controller-menu-page.php:440
+msgid "language"
+msgstr "język"
+
+#: controller/controller-menu-page.php:441
+msgid "resend email"
+msgstr "ponownie wyślij wiadomość e-mail"
+
+#: controller/controller-menu-page.php:498
+msgid "comments"
+msgstr "komentarze"
+
+#: controller/controller-menu-page.php:501
+msgid "gravity form entries"
+msgstr ""
+
+#: controller/controller-menu-page.php:504
+msgid "cfdb7 db entries"
+msgstr ""
+
+#: controller/controller-menu-page.php:507
+msgid "woocommerce"
+msgstr ""
+
+#: controller/controller-menu-page.php:510
+msgid "flamingo"
+msgstr ""
+
+#: controller/controller-menu-page.php:513
+msgid "mailchimp"
+msgstr ""
+
+#: controller/controller-menu-page.php:553
+msgid "waiting for email"
+msgstr "czeka na e-mail"
+
+#: controller/controller-menu-page.php:556
+msgid "email sent"
+msgstr "wysłano e-mail"
+
+#: controller/controller-menu-page.php:559
+msgid "url is visited"
+msgstr "odwiedzono url"
+
+#: controller/controller-menu-page.php:601
+msgid "Data request"
+msgstr "Żądanie danych"
+
+#: controller/controller-menu-page.php:611
+msgid "Email sent"
+msgstr "wysłano E-mail"
+
+#: controller/controller-menu-page.php:675
+msgid "data(ID)"
+msgstr ""
+
+#: controller/controller-menu-page.php:677
+msgid "type"
+msgstr "typ"
+
+#: controller/controller-menu-page.php:679
+msgid "select"
+msgstr "Wybierz"
+
+#: controller/controller-menu-page.php:704
+msgid "waiting to process"
+msgstr "czeka na przetworzenie"
+
+#: controller/controller-menu-page.php:707
+msgid "deleted"
+msgstr "zniszczono"
+
+#: controller/controller-menu-page.php:710
+msgid "anonymous"
+msgstr "anonimowy"
+
+#: controller/controller-menu-page.php:721
+msgid "processed"
+msgstr "przetworzono"
+
+#: controller/controller-menu-page.php:756
+#, fuzzy
+#| msgid "plugin name"
+msgid "Plugin name"
+msgstr "nazwa wtyczki"
+
+#: controller/controller-menu-page.php:757
+#, fuzzy
+#| msgid "status"
+msgid "Plugin status"
+msgstr "status"
+
+#: controller/controller-menu-page.php:758
+msgid "Personal data"
+msgstr "Dane osobowe"
+
+#: controller/controller-menu-page.php:759
+msgid "WP-GDPR add-on status"
+msgstr ""
+
+#: controller/controller-menu-page.php:880
+msgid "Settings saved"
+msgstr "Ustawienia zapisane"
+
+#: lib/gdpr-email.php:19
+#, fuzzy
+#| msgid "We confirm Your comments deletion request"
+msgid "We confirm Your data deletion request"
+msgstr "Potwierdzamy żądanie usunięcia Twojego komentarza"
+
+#: lib/gdpr-email.php:63
+msgid "Confirmation data deletion"
+msgstr ""
+
+#: lib/gdpr-email.php:106
+#, fuzzy
+#| msgid "Send delete request"
+msgid "New delete request"
+msgstr "Wyślij żądanie usunięcia"
+
+#: lib/gdpr-email.php:153
+#, fuzzy
+#| msgid "Data request"
+msgid "Your data request"
+msgstr "Żądanie danych"
+
+#: lib/gdpr-email.php:201
+#, fuzzy
+#| msgid "Data request"
+msgid "New data request"
+msgstr "Żądanie danych"
+
+#: lib/gdpr-form-builder.php:33
+msgid "Request add-on for your plugin"
+msgstr "Zapytaj o dodatek dla Twojej wtyczki"
+
+#: lib/gdpr-form-builder.php:35 view/front/form.php:8
+msgid "Email"
+msgstr "Email"
+
+#: lib/gdpr-form-builder.php:38
+#, php-format
+msgid ""
+"This form collects your email so that we can keep you updated about your "
+"request. Check out our %s for more information."
+msgstr ""
+"Ten formularz gromadzi Twój adres e-mail, dzięki czemu będziemy na bieżąco "
+"informować Cię o Twojej prośbie. Sprawdź nasz %s, aby uzyskać więcej "
+"informacji."
+
+#: lib/gdpr-form-builder.php:39
+msgid "privacy policy"
+msgstr "polityka prywatności"
+
+#: lib/gdpr-form-builder.php:43
+msgid "I consent to having WP-GDPR collect my email when provided."
+msgstr ""
+"Wyrażam zgodę na gromadzenie przez WP-GDPR mojego e-maila, jeśli jest on "
+"dostarczony."
+
+#: lib/gdpr-form-builder.php:44
+msgid "submit"
+msgstr "Zatwierdź"
+
+#: lib/gdpr-menu-backend.php:32
+msgid "Requests"
+msgstr "Podania"
+
+#: lib/gdpr-menu-backend.php:39 view/admin/menu/addon_page.php:10
+msgid "Add-ons"
+msgstr "Dodatki"
+
+#: lib/gdpr-menu-backend.php:44 view/admin/menu/settings-page.php:10
+msgid "Settings"
+msgstr "Ustawienia"
+
+#: lib/gdpr-menu-backend.php:49
+msgid "Help Center"
+msgstr "Centrum pomocy"
+
+#: view/admin/delete-comments-form.php:8
+#, fuzzy
+#| msgid "GDPR - Request personal data"
+msgid "Delete personal data"
+msgstr "GDPR - zapytanie o dane osobowe"
+
+#: view/admin/delete-comments-form.php:9
+#, fuzzy
+#| msgid "Make comments anonymous"
+msgid "Make personal data anonymous"
+msgstr "Zmień komentarze na anonimowe"
+
+#: view/admin/menu/addon_page.php:10
+msgid "for your favourite plugins"
+msgstr ""
+
+#: view/admin/menu/data-page.php:8
+#, fuzzy
+#| msgid "List of delete requests"
+msgid "List of data requests"
+msgstr "Lista żądań usunięcia"
+
+#: view/admin/menu/data-page.php:8 view/admin/menu/delete-page.php:8
+msgid "from website users"
+msgstr ""
+
+#: view/admin/menu/dataregister.php:2
+#, fuzzy
+#| msgid "Data request"
+msgid "Dataregister"
+msgstr "Żądanie danych"
+
+#: view/admin/menu/dataregister.php:2
+msgid "records of processing activities"
+msgstr ""
+
+#: view/admin/menu/delete-page.php:8
+msgid "List of delete requests"
+msgstr "Lista żądań usunięcia"
+
+#: view/admin/menu/help_page.php:8
+msgid "Help"
+msgstr "Pomoc"
+
+#: view/admin/menu/help_page.php:8
+msgid "Center"
+msgstr "Środek"
+
+#: view/admin/menu/plugin-page.php:8
+msgid "List of plugins that store data of users"
+msgstr "Lista wtyczek przechowujących dane użytkowników"
+
+#: view/admin/menu/settings-list.php:33
+msgid "Update settings"
+msgstr "Ustawienia aktualizacji"
+
+#. Plugin Name of the plugin/theme
+#: view/admin/menu/settings-page.php:10
+msgid "WP GDPR"
+msgstr "WP GDPR"
+
+#: view/admin/menu/settings-page.php:41
+msgid "Miscellaneous:"
+msgstr "Inne:"
+
+#: view/admin/menu/settings-page.php:46
+msgid "Add-on Licensing:"
+msgstr ""
+
+#: view/admin/privacy-policy-form.php:11 view/admin/privacy-policy-form.php:42
+msgid "Settings for"
+msgstr ""
+
+#: view/admin/privacy-policy-form.php:11
+#, fuzzy
+#| msgid "Download comments"
+msgid "WordPress comments"
+msgstr "Pobierz komentarze"
+
+#: view/admin/privacy-policy-form.php:16
+#, fuzzy
+#| msgid "privacy policy"
+msgid "Privacy policy label"
+msgstr "polityka prywatności"
+
+#: view/admin/privacy-policy-form.php:20 view/admin/privacy-policy-form.php:50
+#, fuzzy
+#| msgid "privacy policy"
+msgid "Privacy policy text"
+msgstr "polityka prywatności"
+
+#: view/admin/privacy-policy-form.php:37
+#, fuzzy
+#| msgid "privacy policy"
+msgid "Privacy policy checkbox"
+msgstr "polityka prywatności"
+
+#: view/admin/privacy-policy-form.php:42
+msgid "Personal Data Request Page"
+msgstr ""
+
+#: view/admin/privacy-policy-form.php:70
+#, fuzzy
+#| msgid "privacy policy"
+msgid "Update privacy policy settings"
+msgstr "polityka prywatności"
+
+#: view/admin/small-form-delete-request.php:6
+msgid "Are you sure?"
+msgstr "Jesteś pewny?"
+
+#: view/admin/small-form-delete-request.php:7
+msgid "This will send a delete request for your selected data"
+msgstr ""
+
+#: view/admin/small-form-delete-request.php:8
+#, fuzzy
+#| msgid "Send delete request"
+msgid "Yes, send delete request!"
+msgstr "Wyślij żądanie usunięcia"
+
+#: view/admin/small-form-delete-request.php:9
+#, fuzzy
+#| msgid "Request send"
+msgid "Request sent !"
+msgstr "Żądanie wysłano"
+
+#: view/admin/small-form-delete-request.php:10
+#, fuzzy
+#| msgid "List of delete requests"
+msgid "Your delete request has been sent"
+msgstr "Lista żądań usunięcia"
+
+#: view/admin/small-form-delete-request.php:23
+#: view/admin/small-form-delete-request.php:24
+#: view/admin/small-form-delete-request.php:27
+msgid "Send delete request"
+msgstr "Wyślij żądanie usunięcia"
+
+#: view/admin/small-form.php:9
+msgid "Resend emails"
+msgstr "Wyślij ponownie e-maile"
+
+#: view/email/admin-new-delete-request.php:114
+#, fuzzy
+#| msgid "Request to view your personal data"
+msgid "Request to delete personal data"
+msgstr "Zapytaj o wgląd do Twojego profilu"
+
+#: view/email/admin-new-delete-request.php:126
+#: view/email/delete-confirmation-email-dpo.php:126
+#: view/email/delete-confirmation-email.php:126
+#: view/email/request-email-dpo.php:112 view/email/request-email.php:112
+msgid "Dear Sir / Madam"
+msgstr "Szanowny(a) Panie/Pani"
+
+#: view/email/admin-new-delete-request.php:128
+#, fuzzy
+#| msgid "You asked to delete your personal data at "
+msgid "asked to delete his/her personal data."
+msgstr "Poprosiłeś o usunięcie swoich danych osobowych w"
+
+#: view/email/admin-new-delete-request.php:132
+#, fuzzy
+#| msgid "Data request"
+msgid "Check all requests"
+msgstr "Żądanie danych"
+
+#: view/email/delete-confirmation-email-dpo.php:114
+#: view/email/delete-confirmation-email.php:114
+#: view/email/request-email.php:103
+msgid "Request to view your personal data"
+msgstr "Zapytaj o wgląd do Twojego profilu"
+
+#: view/email/delete-confirmation-email-dpo.php:128
+#, fuzzy
+#| msgid "You asked to delete your personal data at "
+msgid "User asked to delete personal data at "
+msgstr "Poprosiłeś o usunięcie swoich danych osobowych w"
+
+#: view/email/delete-confirmation-email-dpo.php:129
+#: view/email/delete-confirmation-email.php:129
+msgid "Website:"
+msgstr "Strona WWW:"
+
+#: view/email/delete-confirmation-email-dpo.php:130
+#: view/email/delete-confirmation-email.php:130
+#, fuzzy
+#| msgid "Data request"
+msgid "Date of request:"
+msgstr "Żądanie danych"
+
+#: view/email/delete-confirmation-email-dpo.php:131
+#, fuzzy
+#| msgid "Your requests is approved and data was successfully deleted today."
+msgid "Requests is approved and data was successfully deleted today."
+msgstr ""
+"Twoja prośba została zatwierdzona, a dane zostały pomyślnie usunięte dzisiaj."
+
+#: view/email/delete-confirmation-email-dpo.php:145
+#: view/email/delete-confirmation-email.php:146
+msgid "List of processed data"
+msgstr "Lista przetworzonych danych"
+
+#: view/email/delete-confirmation-email.php:128
+msgid "You asked to delete your personal data at "
+msgstr "Poprosiłeś o usunięcie swoich danych osobowych w"
+
+#: view/email/delete-confirmation-email.php:131
+msgid "Your requests is approved and data was successfully deleted today."
+msgstr ""
+"Twoja prośba została zatwierdzona, a dane zostały pomyślnie usunięte dzisiaj."
+
+#: view/email/delete-confirmation-email.php:132
+#: view/email/request-email.php:129
+msgid "Thanks for contacting us."
+msgstr "Dziękujemy za skontaktowanie się z nami."
+
+#: view/email/request-email-dpo.php:103
+#, fuzzy
+#| msgid "Request to view your personal data"
+msgid "New request to view personal data"
+msgstr "Zapytaj o wgląd do Twojego profilu"
+
+#: view/email/request-email-dpo.php:113
+#, fuzzy
+#| msgid "You asked to delete your personal data at "
+msgid "User asked to access personal data."
+msgstr "Poprosiłeś o usunięcie swoich danych osobowych w"
+
+#: view/email/request-email-dpo.php:121
+#, fuzzy
+#| msgid "List of delete requests"
+msgid "Check list of requests"
+msgstr "Lista żądań usunięcia"
+
+#: view/email/request-email.php:113
+msgid ""
+"You asked to access your personal data. By clicking on the button you can "
+"view or delete your comments created on the website:"
+msgstr ""
+"Poprosiłeś o dostęp do swoich danych osobowych. Klikając na przycisk możesz "
+"przeglądać lub usuwać swoje komentarze stworzone na stronie:"
+
+#: view/email/request-email.php:121
+#, fuzzy
+#| msgid "Request to view your personal data"
+msgid "Check your personal data"
+msgstr "Zapytaj o wgląd do Twojego profilu"
+
+#: view/front/form.php:18
+msgid "Submit"
+msgstr "Zatwierdź"
+
+#: view/front/form.php:21
+#, fuzzy
+#| msgid "Thank You! We will send you email in 48h."
+msgid ""
+"Thank You! We will send you an email with a link to access your personal "
+"data."
+msgstr "Dziękuję Ci! Wyślemy Ci e-mail w 48h."
+
+#: view/front/form.php:23
+msgid "Warning:"
+msgstr "Ostrzeżenie:"
+
+#: view/front/form.php:23
+msgid "This link will become deprecated after 48 hours."
+msgstr ""
+
+#: view/front/gdpr-template.php:17
+msgid "YOUR"
+msgstr "TWÓJ"
+
+#: view/front/gdpr-template.php:17
+msgid "PRIVACY CENTER"
+msgstr ""
+
+#: view/front/gdpr-template.php:22
+msgid "ALL PERSONAL DATA LINKED TO "
+msgstr ""
+
+#: view/front/gdpr-template.php:26
+msgid "This is your personal data page. Only you are able to access this."
+msgstr ""
+
+#: view/front/gdpr-template.php:41
+msgid "Personal Data Entries"
+msgstr ""
+
+#: view/front/gdpr-template.php:43
+msgid "All personal data collected through WordPress comments & other plugins"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Make your website GDPR compliant and automate the process of handling "
+"personal data while integrating with plugins."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "AppSaloon"
+msgstr "AppSaloon"
+
+#. Author URI of the plugin/theme
+msgid "https://www.appsaloon.be"
+msgstr "https://www.appsaloon.be"
+
+#~ msgid "delete"
+#~ msgstr "usuń"
+
+#~ msgid "comments(ID)"
+#~ msgstr "komentarze(ID)"
+
+#~ msgid "Delete comments"
+#~ msgstr "Usuń komentarze"
+
+#~ msgid "List of users that requested for information"
+#~ msgstr "Lista użytkowników, którzy poprosili o informacje"
+
+#~ msgid "Request your own add-on"
+#~ msgstr "Poproś o własny dodatek"
+
+#~ msgid "Check your comments"
+#~ msgstr "Sprawdź swoje komentarze"
+
+#~ msgid "All comments added by email address"
+#~ msgstr "Wszystkie komentarze dodane przez adres e-mail"
+
+#~ msgid "Help to handle gdpr regulations."
+#~ msgstr "Pomoc w zakresie regulacji gdpr."
+
+#~ msgid "e-mail"
+#~ msgstr "e-mail"
+
+#~ msgid "E-mail"
+#~ msgstr "E-mail"
+
+#~ msgid "Appsaloon - Sebastian Kurzynowski, Mieke Nijs"
+#~ msgstr "Appsaloon - Sebastian Kurzynowski, Mieke Nijs"

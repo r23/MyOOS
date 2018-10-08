@@ -1,0 +1,77 @@
+.gdpr-container {
+    display: block;
+    Margin: 0 auto !important;
+    padding: 10px;
+}
+
+h2 {
+    font-size: 25px;
+    font-weight: 300;
+    text-align: center;
+    color: #000000;
+    font-family: sans-serif;
+    line-height: 1.4;
+    margin: 0 0 30pt;
+    background: white;
+    padding: 20px;
+}
+
+h3 {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+    padding: 15px;
+    font-family: sans-serif;
+    font-weight: 400;
+    box-shadow: 0 2px 10px #31708f;
+}
+
+p, th, td {
+    font-family: sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    margin: 0;
+    Margin-bottom: 15px;
+}
+
+table {
+    width: 100%;
+    border-spacing: 0;
+}
+
+th {
+    text-transform: capitalize;
+    font-weight: 900;
+}
+
+th, td {
+    text-align: left;
+    padding: 15px 5px;
+}
+
+tbody tr:nth-child(even), thead tr {
+     background-color: #eceff3;
+ }
+
+#wgdpr_delete_comments_form {
+    margin-top: 30px;
+}
+
+.gdpr_comments_table input[type=submit] {
+    border: solid 1px #3498db;
+    border-radius: 5px;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0;
+    padding: 12px 25px;
+    text-decoration: none;
+    text-transform: capitalize;
+    background-color: #3498db;
+    color: #ffffff;
+    height: initial;
+    width: 300px;
+}
+

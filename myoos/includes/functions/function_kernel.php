@@ -72,7 +72,6 @@ function oos_random_select($query, $limit = '') {
 
     // Get database information
     $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
 
     $random_product = '';
     if (oos_is_not_null($limit)) {
@@ -444,7 +443,7 @@ function oos_random_select($query, $limit = '') {
 		$bOutOfStock = TRUE;
     }
 
-    return $sOutOfStock;
+    return $bOutOfStock;
   }
 
 

@@ -1,0 +1,389 @@
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Project-Id-Version: WP GDPR\n"
+"POT-Creation-Date: 2018-02-15 09:47+0100\n"
+"PO-Revision-Date: 2018-05-22 16:45+0200\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.7\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: wp-gdpr-core.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Last-Translator: \n"
+"Language: hr_HR\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: config/startup-config.php:50
+msgid "GDPR - Request personal data"
+msgstr ""
+
+#: controller/controller-comments.php:71 lib/gdpr-form-builder.php:39
+msgid "privacy policy"
+msgstr "pravila o zaštiti privatnosti"
+
+#: controller/controller-comments.php:74
+msgid "Checkbox GDPR is required"
+msgstr ""
+
+#: controller/controller-comments.php:74
+#, php-format
+msgid ""
+"This form collects your name, email and content so that we can keep track of "
+"the comments placed on the website. For more info check our %s where you'll "
+"get more info on where, how and why we store your data."
+msgstr ""
+
+#: controller/controller-comments.php:75
+msgid "Agree"
+msgstr "Slažem se"
+
+#: controller/controller-comments.php:84
+msgid ""
+"This form collects your name, email and content so that we can keep track of "
+"the comments placed on the website. For more info check our privacy policy "
+"where you'll get more info on where, how and why we store your data."
+msgstr ""
+
+#: controller/controller-comments.php:157
+msgid ""
+"<strong>ERROR</strong>: please fill the required fields (GDPR checkbox)."
+msgstr ""
+
+#: controller/controller-comments.php:176
+msgid "Something went wrong."
+msgstr "Nešto je pošlo krivo."
+
+#: controller/controller-comments.php:183
+msgid "Email is not valid"
+msgstr "E-adresa nije valjana"
+
+#: controller/controller-comments.php:199
+msgid "Comment is changed"
+msgstr ""
+
+#: controller/controller-comments.php:258
+msgid "name"
+msgstr "ime"
+
+#: controller/controller-comments.php:259
+#: controller/controller-menu-page.php:259
+#: controller/controller-menu-page.php:502
+msgid "email"
+msgstr "e-pošta"
+
+#: controller/controller-comments.php:260
+msgid "comment"
+msgstr "komentar"
+
+#: controller/controller-comments.php:261
+msgid "website"
+msgstr "web-stranicu"
+
+#: controller/controller-comments.php:299
+msgid "comment date"
+msgstr ""
+
+#: controller/controller-comments.php:300
+msgid "author email"
+msgstr ""
+
+#: controller/controller-comments.php:301
+msgid "author name"
+msgstr ""
+
+#: controller/controller-comments.php:302
+msgid "comment content"
+msgstr ""
+
+#: controller/controller-comments.php:303
+msgid "post ID"
+msgstr ""
+
+#: controller/controller-comments.php:304
+msgid "delete"
+msgstr "izbriši"
+
+#: controller/controller-comments.php:396
+msgid "The site administrator received your request. Thank You."
+msgstr ""
+
+#: controller/controller-comments.php:403
+msgid "New delete request"
+msgstr ""
+
+#: controller/controller-menu-page.php:67
+msgid "Comments deleted"
+msgstr ""
+
+#: controller/controller-menu-page.php:86
+msgid "Comments are anonymous"
+msgstr ""
+
+#: controller/controller-menu-page.php:106
+msgid "We confirm Your data deletion request"
+msgstr ""
+
+#: controller/controller-menu-page.php:217
+msgid "Comment author"
+msgstr ""
+
+#: controller/controller-menu-page.php:217
+msgid "content"
+msgstr "sadržaj"
+
+#: controller/controller-menu-page.php:229
+msgid "Request send"
+msgstr ""
+
+#: controller/controller-menu-page.php:258
+#: controller/controller-menu-page.php:501
+msgid "id"
+msgstr ""
+
+#: controller/controller-menu-page.php:260
+#: controller/controller-menu-page.php:504
+msgid "requested at"
+msgstr ""
+
+#: controller/controller-menu-page.php:261
+#: controller/controller-menu-page.php:505
+msgid "status"
+msgstr "status"
+
+#: controller/controller-menu-page.php:262
+msgid "resend email"
+msgstr ""
+
+#: controller/controller-menu-page.php:312
+msgid "comments"
+msgstr "komentari"
+
+#: controller/controller-menu-page.php:315
+msgid "gravity form entries"
+msgstr ""
+
+#: controller/controller-menu-page.php:355
+msgid "waiting for email"
+msgstr ""
+
+#: controller/controller-menu-page.php:358
+msgid "email sent"
+msgstr ""
+
+#: controller/controller-menu-page.php:361
+msgid "url is visited"
+msgstr ""
+
+#: controller/controller-menu-page.php:402 model/request-form.php:63
+msgid "Data request"
+msgstr ""
+
+#: controller/controller-menu-page.php:412
+msgid "Email sent"
+msgstr "E-mail poslan"
+
+#: controller/controller-menu-page.php:503
+msgid "data(ID)"
+msgstr ""
+
+#: controller/controller-menu-page.php:506
+msgid "type"
+msgstr "vrsta"
+
+#: controller/controller-menu-page.php:507
+msgid "select"
+msgstr "odaberite"
+
+#: controller/controller-menu-page.php:531
+msgid "waiting to process"
+msgstr ""
+
+#: controller/controller-menu-page.php:534
+msgid "deleted"
+msgstr "izba�en"
+
+#: controller/controller-menu-page.php:537
+msgid "anonymous"
+msgstr "anoniman"
+
+#: controller/controller-menu-page.php:548
+msgid "processed"
+msgstr "obra�en"
+
+#: controller/controller-menu-page.php:581
+msgid "plugin name"
+msgstr ""
+
+#: lib/gdpr-form-builder.php:33
+msgid "Request add-on for your plugin"
+msgstr ""
+
+#: lib/gdpr-form-builder.php:35 view/front/form.php:8
+msgid "Email"
+msgstr "E-mail"
+
+#: lib/gdpr-form-builder.php:38
+#, php-format
+msgid ""
+"This form collects your email so that we can keep you updated about your "
+"request. Check out our %s for more information."
+msgstr ""
+
+#: lib/gdpr-form-builder.php:43
+msgid "I consent to having WP-GDPR collect my email when provided."
+msgstr ""
+
+#: lib/gdpr-form-builder.php:44
+msgid "submit"
+msgstr "pošalji"
+
+#: lib/gdpr-menu-backend.php:27
+msgid "List of data requests"
+msgstr ""
+
+#: lib/gdpr-menu-backend.php:28 view/admin/menu/delete-page.php:12
+msgid "List of delete requests"
+msgstr ""
+
+#: lib/gdpr-menu-backend.php:29
+msgid "List of plugins"
+msgstr ""
+
+#: lib/gdpr-menu-backend.php:30
+msgid "Settings"
+msgstr "Postavke"
+
+#: view/admin/delete-comments-form.php:8
+msgid "Delete comments"
+msgstr ""
+
+#: view/admin/delete-comments-form.php:9
+msgid "Make comments anonymous"
+msgstr ""
+
+#: view/admin/email-confirmation-content.php:114
+#: view/front/email-template.php:97
+msgid "Request to view your personal data"
+msgstr ""
+
+#: view/admin/email-confirmation-content.php:126
+#: view/admin/email-delete-request.php:126 view/front/email-template.php:106
+msgid "Dear Sir / Madam"
+msgstr ""
+
+#: view/admin/email-confirmation-content.php:128
+msgid "You asked to delete your personal data at "
+msgstr ""
+
+#: view/admin/email-confirmation-content.php:129
+msgid "Your requests is approved and data was successfully deleted today."
+msgstr ""
+
+#: view/admin/email-confirmation-content.php:130
+#: view/front/email-template.php:123
+msgid "Thanks for contacting us."
+msgstr "Hvala što ste nam se javili."
+
+#: view/admin/email-confirmation-content.php:144
+msgid "List of processed data"
+msgstr ""
+
+#: view/admin/email-delete-request.php:114
+msgid "Request to delete personal data"
+msgstr ""
+
+#: view/admin/email-delete-request.php:128
+msgid "asked to delete his/her personal data."
+msgstr ""
+
+#: view/admin/email-delete-request.php:132
+msgid "Check all requests"
+msgstr ""
+
+#: view/admin/menu/data-page.php:7
+msgid "List of users that requested for information"
+msgstr ""
+
+#: view/admin/menu/plugin-page.php:12
+msgid "List of plugins that store data of users"
+msgstr ""
+
+#: view/admin/menu/settings-page.php:12
+msgid "Privacy policy link"
+msgstr ""
+
+#: view/admin/privacy-policy-form.php:8
+msgid "Update url"
+msgstr ""
+
+#: view/admin/small-form-delete-request.php:9
+msgid "Send delete request"
+msgstr ""
+
+#: view/admin/small-form-delete-request.php:10
+msgid "Download comments"
+msgstr ""
+
+#: view/admin/small-form.php:9
+msgid "Resend emails"
+msgstr "Ponovno pošalji e-poštu"
+
+#: view/front/email-template.php:107
+msgid ""
+"You asked to access your personal data. By clicking on the button you can "
+"view or delete your comments created on the website:"
+msgstr ""
+
+#: view/front/email-template.php:115
+msgid "Check your comments"
+msgstr ""
+
+#: view/front/form.php:12
+#, php-format
+msgid ""
+"I consent to having %s collect my email so that they can send me my "
+"requested info.\n"
+"            For more info check our privacy policy where you'll get more "
+"info on where, how and why we store your data."
+msgstr ""
+
+#: view/front/form.php:21
+msgid "Submit"
+msgstr "Pošalji"
+
+#: view/front/form.php:24
+msgid "Thank You! We will send you email in 48h."
+msgstr ""
+
+#: view/front/gdpr-template.php:7
+msgid "View Comments"
+msgstr "Pregledaj komentare"
+
+#: view/front/gdpr-template.php:13
+msgid "All comments added by email address"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WP GDPR"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Help to handle gdpr regulations."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "AppSaloon"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://www.appsaloon.be"
+msgstr ""

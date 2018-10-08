@@ -1,0 +1,71 @@
+/*Stylesheet WP-GDPR-CORE plugin*/
+
+#wp-gdpr .address-card, #wp-gdpr .lock {
+    width: auto;
+    padding-right: 10px;
+}
+#wp-gdpr .address-card {
+    height: 30px;
+    margin-bottom: -5px;
+}
+#wp-gdpr .lock {
+    padding-left: 10px;
+    height: 16px;
+}
+#wp-gdpr  a.nav-link.active {
+    border: none;
+    border-bottom: 2px solid #007bff !important;
+}
+#wp-gdpr h5 {
+    padding-left: 16px;
+    padding-top: 16px;
+}
+#wp-gdpr .dt-buttons.btn-group {
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+#wp-gdpr .btn-primary {
+    margin: 16px;
+}
+
+#wp-gdpr .dataTables_info {
+    padding-right: 2px;
+}
+#wp-gdpr input[type="text"]{
+    width: auto;
+}
+#wp-gdpr .pagination {
+    border: none;
+}
+#wp-gdpr .card-header {
+    margin-left: -10px;
+    margin-right: -10px;
+}
+#wp-gdpr .card {
+    padding: 0 10px;
+}
+#wp-gdpr .btn {
+    padding: .75rem 1rem;
+    font-size: inherit;
+}
+#wp-gdpr ul.nav.nav-tabs.tabs-bordered{
+    margin: 17px 0;
+}
+#wp-gdpr li.nav-item{
+    padding: 10px 15px 0;
+}
+#wp-gdpr th.sorting_asc {
+    padding-right: 33px;
+}
+#wpgdpr .table td, .table th {
+    padding: .75rem;
+}
+#wpgdpr .table td, #wp-gdpr .table td{
+    padding-left: 30px;
+}
+#wp-gdpr .tab-content {
+    display: block !important;
+}
+
+

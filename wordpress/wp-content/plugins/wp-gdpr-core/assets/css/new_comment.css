@@ -1,0 +1,55 @@
+#comments input[type="email"]{
+     width: 100%;
+     max-width: 315px;
+ }
+
+#comments input[type="submit"]{
+    border-radius:4px;
+    border:none;
+    display:inline-block;
+    outline:0;
+    padding:8px 16px;
+    vertical-align:middle;
+    overflow:hidden;
+    text-decoration:none;
+    color:#2c4257;
+    background-color:#ffcd00;
+    text-align:center;
+    cursor:pointer;
+    white-space:nowrap
+}
+
+#comments input[type="submit"]:hover{
+    color: #fff;
+    background-color:#2c4257;
+}
+/* .comment-form-gdpr, input[type="checkbox"]{
+    display: inline !important;
+    width: auto !important;
+} */
+
+/* TODO this css file will be added on a lot of pages so selectors should very direct */
+input[name="checkbox_gdpr"]{
+    background-color: red;
+    display: inline-block;
+}
+
+label[for="checkbox_gdpr"]{
+    display: inline;
+}
+p.notice{
+    margin-bottom: 0;
+    color: #f0ad4e;
+}
+/*
+this is class for small info box when checkbox in new comment is not checked
+ */
+.gdpr-warning{
+    background-color: orange;
+}
+/*
+this is class for submit button in new comment form when checkbox is not checked
+ */
+.gdpr-disabled{
+    background-color: #c1c1c1 !important;
+}

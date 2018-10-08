@@ -1,0 +1,676 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WP GDPR CORE\n"
+"POT-Creation-Date: 2018-06-01 09:28+0200\n"
+"PO-Revision-Date: 2018-06-01 15:37+0200\n"
+"Last-Translator: Eelco Anneveldt <eelco.anneveldt@gmail.com>\n"
+"Language-Team: \n"
+"Language: nl_NL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.7\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: wp-gdpr-core.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: config/startup-config.php:74
+msgid "GDPR - Request personal data"
+msgstr "GDPR - Verzoek om inzage in persoonlijke data"
+
+#: controller/controller-comments.php:96
+msgid "WordPress Comments"
+msgstr "Wordpress Reacties"
+
+#: controller/controller-comments.php:157
+#: controller/controller-menu-page.php:330
+msgid ""
+"This form collects your name, email and content so that we can keep track of "
+"the comments placed on the website. For more info check our privacy policy "
+"where you'll get more info on where, how and why we store your data."
+msgstr ""
+"Dit formulier verzamelt uw naam, e-mail en inhoud zodat wij de reacties die "
+"geplaatst worden op onze website kunnen opvolgen. Voor meer info check ons "
+"privacybeleid, met daarin meer info over hoe en waarom we uw gegevens "
+"bewaren."
+
+#: controller/controller-comments.php:244
+#: controller/controller-comments.php:249
+msgid ""
+"<strong>ERROR</strong>: please fill the required fields (GDPR checkbox)."
+msgstr "<strong>FOUT</strong>: vul de vereiste velden in (GDPR checkbox)."
+
+#: controller/controller-comments.php:269
+msgid "Something went wrong."
+msgstr "Er is iets fout gegaan."
+
+#: controller/controller-comments.php:277
+msgid "Email is not valid"
+msgstr "Dit is geen geldig e-mail adres"
+
+#: controller/controller-comments.php:294
+msgid "Comment is changed"
+msgstr "Reactie is aangepast"
+
+#: controller/controller-comments.php:378
+msgid "name"
+msgstr "naam"
+
+#: controller/controller-comments.php:379
+#: controller/controller-menu-page.php:437
+#: controller/controller-menu-page.php:674
+msgid "email"
+msgstr "e-mail"
+
+#: controller/controller-comments.php:380
+msgid "comment"
+msgstr "reactie"
+
+#: controller/controller-comments.php:381
+msgid "website"
+msgstr "website"
+
+#: controller/controller-comments.php:425
+#: controller/controller-comments.php:496
+msgid "post ID"
+msgstr "post ID"
+
+#: controller/controller-comments.php:426
+msgid "checkbox"
+msgstr "checkbox"
+
+#: controller/controller-comments.php:427
+#: controller/controller-comments.php:498
+msgid "comment date"
+msgstr "reactie datum"
+
+#: controller/controller-comments.php:428
+#: controller/controller-comments.php:499
+msgid "author email"
+msgstr "e-mailadres auteur"
+
+#: controller/controller-comments.php:429
+#: controller/controller-comments.php:500
+msgid "author name"
+msgstr "naam auteur"
+
+#: controller/controller-comments.php:430
+#: controller/controller-comments.php:501
+msgid "comment content"
+msgstr "reactie inhoud"
+
+#: controller/controller-comments.php:488
+msgid "Data origin : WordPress Comments"
+msgstr "Data herkomst : Wordpress Reacties"
+
+#: controller/controller-comments.php:569
+msgid "The site administrator received your request. Thank You."
+msgstr "De sitebeheerder heeft uw aanvraag goed ontvangen. Bedankt."
+
+#: controller/controller-menu-page.php:128
+msgid "Comments deleted"
+msgstr "Reacties verwijderd"
+
+#: controller/controller-menu-page.php:148
+msgid "Comments are anonymous"
+msgstr "Reacties zijn anoniem"
+
+#: controller/controller-menu-page.php:289
+msgid "Comment author"
+msgstr "Reactie auteur"
+
+#: controller/controller-menu-page.php:289
+msgid "content"
+msgstr "reactie inhoud"
+
+#: controller/controller-menu-page.php:302
+msgid "Request send"
+msgstr "Verzoek verzonden"
+
+#: controller/controller-menu-page.php:326
+msgid "Checkbox GDPR is required"
+msgstr "Checkbox GDPR is verplicht"
+
+#: controller/controller-menu-page.php:334
+msgid "I agree"
+msgstr "Ik ga akkoord"
+
+#: controller/controller-menu-page.php:339
+#, php-format
+msgid ""
+"I consent to having %s collect my email so that they can send me my "
+"requested info.\n"
+"            For more info check our privacy policy where you'll get more "
+"info on where, how and why we store your data."
+msgstr ""
+"Ik stem ermee in dat %s mijn e-mailadres bewaart zodat zij mijn verzoek om "
+"informatie kunnen behandelen\n"
+"              Voor meer info check ons privacybeleid, met daarin meer info "
+"over hoe en waarom we uw gegevens bewaren."
+
+#: controller/controller-menu-page.php:376
+msgid "Don't show comments"
+msgstr "Reacties niet laten zien"
+
+#: controller/controller-menu-page.php:381
+msgid "Set your DPO e-mail address"
+msgstr "Stel uw DPO e-mail adres in"
+
+#: controller/controller-menu-page.php:386
+msgid "Mailchimp API Key"
+msgstr "Mailchimp API Key"
+
+#: controller/controller-menu-page.php:436
+#: controller/controller-menu-page.php:673
+msgid "id"
+msgstr "id"
+
+#: controller/controller-menu-page.php:438
+#: controller/controller-menu-page.php:678
+msgid "requested at"
+msgstr "aangevraagd op"
+
+#: controller/controller-menu-page.php:439
+#: controller/controller-menu-page.php:676
+msgid "status"
+msgstr "status"
+
+#: controller/controller-menu-page.php:440
+msgid "language"
+msgstr "taal"
+
+#: controller/controller-menu-page.php:441
+msgid "resend email"
+msgstr "e-mail opnieuw versturen"
+
+#: controller/controller-menu-page.php:498
+msgid "comments"
+msgstr "reacties"
+
+#: controller/controller-menu-page.php:501
+msgid "gravity form entries"
+msgstr "gravity form inzendingen"
+
+#: controller/controller-menu-page.php:504
+msgid "cfdb7 db entries"
+msgstr "cfdb7 db inzendingen"
+
+#: controller/controller-menu-page.php:507
+msgid "woocommerce"
+msgstr "woocommerce"
+
+#: controller/controller-menu-page.php:510
+msgid "flamingo"
+msgstr "flamingo"
+
+#: controller/controller-menu-page.php:513
+msgid "mailchimp"
+msgstr "mailchimp"
+
+#: controller/controller-menu-page.php:553
+msgid "waiting for email"
+msgstr "wachten op e-mail"
+
+#: controller/controller-menu-page.php:556
+msgid "email sent"
+msgstr "e-mail verzonden"
+
+#: controller/controller-menu-page.php:559
+msgid "url is visited"
+msgstr "url is bezocht"
+
+#: controller/controller-menu-page.php:601
+msgid "Data request"
+msgstr "Data aanvraag"
+
+#: controller/controller-menu-page.php:611
+msgid "Email sent"
+msgstr "E-mail verzonden"
+
+#: controller/controller-menu-page.php:675
+msgid "data(ID)"
+msgstr "data(ID)"
+
+#: controller/controller-menu-page.php:677
+msgid "type"
+msgstr "type"
+
+#: controller/controller-menu-page.php:679
+msgid "select"
+msgstr "selecteer"
+
+#: controller/controller-menu-page.php:704
+msgid "waiting to process"
+msgstr "wacht op verwerking"
+
+#: controller/controller-menu-page.php:707
+msgid "deleted"
+msgstr "verwijderd"
+
+#: controller/controller-menu-page.php:710
+msgid "anonymous"
+msgstr "anoniem"
+
+#: controller/controller-menu-page.php:721
+msgid "processed"
+msgstr "verwerkt"
+
+#: controller/controller-menu-page.php:756
+msgid "Plugin name"
+msgstr "Plugin naam"
+
+#: controller/controller-menu-page.php:757
+msgid "Plugin status"
+msgstr "Plugin status"
+
+#: controller/controller-menu-page.php:758
+msgid "Personal data"
+msgstr "Persoonlijke gegevens"
+
+#: controller/controller-menu-page.php:759
+msgid "WP-GDPR add-on status"
+msgstr "WP-GDPR add-on status"
+
+#: controller/controller-menu-page.php:880
+msgid "Settings saved"
+msgstr "Instellingen bewaard"
+
+#: lib/gdpr-email.php:19
+msgid "We confirm Your data deletion request"
+msgstr "We bevestigen dat uw reacties succesvol werden verwijderd"
+
+#: lib/gdpr-email.php:63
+msgid "Confirmation data deletion"
+msgstr "Bevestiging van het verwijderen van data"
+
+#: lib/gdpr-email.php:106
+msgid "New delete request"
+msgstr "Nieuw verzoek tot verwijdering"
+
+#: lib/gdpr-email.php:153
+msgid "Your data request"
+msgstr "Uw data aanvraag"
+
+#: lib/gdpr-email.php:201
+msgid "New data request"
+msgstr "Nieuw verzoek tot inzage data"
+
+#: lib/gdpr-form-builder.php:33
+msgid "Request add-on for your plugin"
+msgstr "Vraag add-on aan voor uw plugin"
+
+#: lib/gdpr-form-builder.php:35 view/front/form.php:8
+msgid "Email"
+msgstr "E-mail"
+
+#: lib/gdpr-form-builder.php:38
+#, php-format
+msgid ""
+"This form collects your email so that we can keep you updated about your "
+"request. Check out our %s for more information."
+msgstr ""
+"Dit formulier verzamelt uw e-mailadres zodat we u op de hoogte kunnen houden "
+"van uw aanvraag. Bekijk onze % s voor meer informatie."
+
+#: lib/gdpr-form-builder.php:39
+msgid "privacy policy"
+msgstr "privacybeleid"
+
+#: lib/gdpr-form-builder.php:43
+msgid "I consent to having WP-GDPR collect my email when provided."
+msgstr "Ik stem ermee in dat WP-GDPR mijn e-mailadres bewaart."
+
+#: lib/gdpr-form-builder.php:44
+msgid "submit"
+msgstr "verzend"
+
+#: lib/gdpr-menu-backend.php:32
+msgid "Requests"
+msgstr "Verzoeken"
+
+#: lib/gdpr-menu-backend.php:39 view/admin/menu/addon_page.php:10
+msgid "Add-ons"
+msgstr "Add-ons"
+
+#: lib/gdpr-menu-backend.php:44 view/admin/menu/settings-page.php:10
+msgid "Settings"
+msgstr "Instellingen"
+
+#: lib/gdpr-menu-backend.php:49
+msgid "Help Center"
+msgstr "Help Center"
+
+#: view/admin/delete-comments-form.php:8
+msgid "Delete personal data"
+msgstr "Verwijder persoonlijke data"
+
+#: view/admin/delete-comments-form.php:9
+msgid "Make personal data anonymous"
+msgstr "Maak persoonlijke data anoniem"
+
+#: view/admin/menu/addon_page.php:10
+msgid "for your favourite plugins"
+msgstr "voor je favoriete plugins"
+
+#: view/admin/menu/data-page.php:8
+msgid "List of data requests"
+msgstr "Lijst met data aanvragen"
+
+#: view/admin/menu/data-page.php:8 view/admin/menu/delete-page.php:8
+msgid "from website users"
+msgstr "van site gebruikers"
+
+#: view/admin/menu/dataregister.php:2
+msgid "Dataregister"
+msgstr "Gegevensregister"
+
+#: view/admin/menu/dataregister.php:2
+msgid "records of processing activities"
+msgstr "vastgelegde verwerkingsactiviteiten"
+
+#: view/admin/menu/delete-page.php:8
+msgid "List of delete requests"
+msgstr "Lijst met verwijderverzoeken"
+
+#: view/admin/menu/help_page.php:8
+msgid "Help"
+msgstr "Help"
+
+#: view/admin/menu/help_page.php:8
+msgid "Center"
+msgstr "Center"
+
+#: view/admin/menu/plugin-page.php:8
+msgid "List of plugins that store data of users"
+msgstr "Lijst met plugins die persoonlijke data bewaren"
+
+#: view/admin/menu/settings-list.php:33
+msgid "Update settings"
+msgstr "Instellingen updaten"
+
+#. Plugin Name of the plugin/theme
+#: view/admin/menu/settings-page.php:10
+msgid "WP GDPR"
+msgstr "WP GDPR"
+
+#: view/admin/menu/settings-page.php:41
+msgid "Miscellaneous:"
+msgstr "Diverse:"
+
+#: view/admin/menu/settings-page.php:46
+msgid "Add-on Licensing:"
+msgstr "Add-on licenties:"
+
+#: view/admin/privacy-policy-form.php:11 view/admin/privacy-policy-form.php:42
+msgid "Settings for"
+msgstr "Instellingen voor"
+
+#: view/admin/privacy-policy-form.php:11
+msgid "WordPress comments"
+msgstr "Wordpress reacties"
+
+#: view/admin/privacy-policy-form.php:16
+msgid "Privacy policy label"
+msgstr "Privacybeleid label"
+
+#: view/admin/privacy-policy-form.php:20 view/admin/privacy-policy-form.php:50
+msgid "Privacy policy text"
+msgstr "Privacybeleid tekst"
+
+#: view/admin/privacy-policy-form.php:37
+msgid "Privacy policy checkbox"
+msgstr "Privacybeleid checkbox"
+
+#: view/admin/privacy-policy-form.php:42
+msgid "Personal Data Request Page"
+msgstr "Pagina voor inzage in persoonlijke data"
+
+#: view/admin/privacy-policy-form.php:70
+msgid "Update privacy policy settings"
+msgstr "Update instellingen van privacybeleid"
+
+#: view/admin/small-form-delete-request.php:6
+msgid "Are you sure?"
+msgstr "Weet je het zeker?"
+
+#: view/admin/small-form-delete-request.php:7
+msgid "This will send a delete request for your selected data"
+msgstr ""
+"Hiermee verstuur je een verzoek om je geselecteerde data te verwijderen"
+
+#: view/admin/small-form-delete-request.php:8
+msgid "Yes, send delete request!"
+msgstr "Ja, stuur een verzoek om te verwijderen!"
+
+#: view/admin/small-form-delete-request.php:9
+msgid "Request sent !"
+msgstr "Verzoek verzonden!"
+
+#: view/admin/small-form-delete-request.php:10
+msgid "Your delete request has been sent"
+msgstr "Jouw verzoek om te verwijderen werd verzonden"
+
+#: view/admin/small-form-delete-request.php:23
+#: view/admin/small-form-delete-request.php:24
+#: view/admin/small-form-delete-request.php:27
+msgid "Send delete request"
+msgstr "Stuur verwijder aanvraag"
+
+#: view/admin/small-form.php:9
+msgid "Resend emails"
+msgstr "E-mails opnieuw versturen"
+
+#: view/email/admin-new-delete-request.php:114
+msgid "Request to delete personal data"
+msgstr "GDPR - Verzoek om persoonlijke data te verwijderen"
+
+#: view/email/admin-new-delete-request.php:126
+#: view/email/delete-confirmation-email-dpo.php:126
+#: view/email/delete-confirmation-email.php:126
+#: view/email/request-email-dpo.php:112 view/email/request-email.php:112
+msgid "Dear Sir / Madam"
+msgstr "Geachte heer / mevrouw"
+
+#: view/email/admin-new-delete-request.php:128
+msgid "asked to delete his/her personal data."
+msgstr "heeft gevraagd om zijn/haar persoonlijke gegevens te verwijderen."
+
+#: view/email/admin-new-delete-request.php:132
+msgid "Check all requests"
+msgstr "Bekijk alle verzoeken"
+
+#: view/email/delete-confirmation-email-dpo.php:114
+#: view/email/delete-confirmation-email.php:114
+#: view/email/request-email.php:103
+msgid "Request to view your personal data"
+msgstr "GDPR - Verzoek voor inzage in persoonlijke data"
+
+#: view/email/delete-confirmation-email-dpo.php:128
+msgid "User asked to delete personal data at "
+msgstr ""
+"Gebruiker heeft gevraagd om zijn/haar persoonlijke gegevens te verwijderen "
+"op "
+
+#: view/email/delete-confirmation-email-dpo.php:129
+#: view/email/delete-confirmation-email.php:129
+msgid "Website:"
+msgstr "Website:"
+
+#: view/email/delete-confirmation-email-dpo.php:130
+#: view/email/delete-confirmation-email.php:130
+msgid "Date of request:"
+msgstr "Datum van de aanvraag:"
+
+#: view/email/delete-confirmation-email-dpo.php:131
+msgid "Requests is approved and data was successfully deleted today."
+msgstr ""
+"Verzoek werd goedgekeurd en gegevens zijn vandaag met succes verwijderd."
+
+#: view/email/delete-confirmation-email-dpo.php:145
+#: view/email/delete-confirmation-email.php:146
+msgid "List of processed data"
+msgstr "Lijst van verwerkte gegevens"
+
+#: view/email/delete-confirmation-email.php:128
+msgid "You asked to delete your personal data at "
+msgstr "U heeft gevraagd om uw persoonlijke gegevens te verwijderen op "
+
+#: view/email/delete-confirmation-email.php:131
+msgid "Your requests is approved and data was successfully deleted today."
+msgstr ""
+"Uw verzoek werd goedgekeurd en uw gegevens zijn vandaag succesvol verwijderd."
+
+#: view/email/delete-confirmation-email.php:132
+#: view/email/request-email.php:129
+msgid "Thanks for contacting us."
+msgstr "Bedankt om ons te contacteren."
+
+#: view/email/request-email-dpo.php:103
+msgid "New request to view personal data"
+msgstr "Nieuw verzoek voor inzage in persoonlijke data"
+
+#: view/email/request-email-dpo.php:113
+msgid "User asked to access personal data."
+msgstr ""
+"Gebruiker heeft gevraagd om zijn/haar persoonlijke gegevens te verwijderen."
+
+#: view/email/request-email-dpo.php:121
+msgid "Check list of requests"
+msgstr "Bekijk alle verzoeken"
+
+#: view/email/request-email.php:113
+msgid ""
+"You asked to access your personal data. By clicking on the button you can "
+"view or delete your comments created on the website:"
+msgstr ""
+"U vroeg om toegang tot uw persoonlijke gegevens. Door op de knop te klikken, "
+"kunt u uw reacties die u op de website hebt achtergelaten bekijken of "
+"verwijderen:"
+
+#: view/email/request-email.php:121
+msgid "Check your personal data"
+msgstr "Bekijk uw persoonlijke data"
+
+#: view/front/form.php:18
+msgid "Submit"
+msgstr "Verstuur"
+
+#: view/front/form.php:21
+msgid ""
+"Thank You! We will send you an email with a link to access your personal "
+"data."
+msgstr ""
+"Bedankt! We sturen u een e-mail met een link naar uw persoonlijke data."
+
+#: view/front/form.php:23
+msgid "Warning:"
+msgstr "Waarschuwing:"
+
+#: view/front/form.php:23
+msgid "This link will become deprecated after 48 hours."
+msgstr "Waarschuwing: deze link verloopt na 48 uur."
+
+#: view/front/gdpr-template.php:17
+msgid "YOUR"
+msgstr "JOUW"
+
+#: view/front/gdpr-template.php:17
+msgid "PRIVACY CENTER"
+msgstr "PRIVACY CENTER"
+
+#: view/front/gdpr-template.php:22
+msgid "ALL PERSONAL DATA LINKED TO "
+msgstr "ALLE PERSOONLIJKE GEGEVENS GELINKT AAN "
+
+#: view/front/gdpr-template.php:26
+msgid "This is your personal data page. Only you are able to access this."
+msgstr ""
+"Dit is uw pagina met persoonlijke gegevens. Enkel u heeft hier toegang toe."
+
+#: view/front/gdpr-template.php:41
+msgid "Personal Data Entries"
+msgstr "Ingevoerde Persoonlijke Gegevens"
+
+#: view/front/gdpr-template.php:43
+msgid "All personal data collected through WordPress comments & other plugins"
+msgstr ""
+"Alle persoonlijke gegevens verzameld doorheen WordPress reacties en andere "
+"plugins"
+
+#. Description of the plugin/theme
+msgid ""
+"Make your website GDPR compliant and automate the process of handling "
+"personal data while integrating with plugins."
+msgstr ""
+"Maak uw website GDPR-compatibel en automatiseer het proces van het verwerken "
+"van persoonlijke gegevens tijdens de integratie met plug-ins."
+
+#. Author of the plugin/theme
+msgid "AppSaloon"
+msgstr "AppSaloon"
+
+#. Author URI of the plugin/theme
+msgid "https://www.appsaloon.be"
+msgstr "https://www.appsaloon.be"
+
+#~ msgid "delete"
+#~ msgstr "verwijderen"
+
+#~ msgid "Download comments"
+#~ msgstr "Download reacties"
+
+#~ msgid "View Comments"
+#~ msgstr "Bekijk reacties"
+
+#~ msgid "All comments added by email address"
+#~ msgstr "Bekijk reacties"
+
+#~ msgid ""
+#~ "This form collects your name, email and content so that we can keep track "
+#~ "of the comments placed on the website. For more info check our %s where "
+#~ "you'll get more info on where, how and why we store your data."
+#~ msgstr ""
+#~ "Dit formulier verzamelt uw naam, e-mail en inhoud zodat wij de reacties "
+#~ "geplaatst op de website kunnen opvolgen. Voor meer info check onze  %s, "
+#~ "waarin je meer info krijgt over waar, hoe en waarom we uw gegevens "
+#~ "bewaren."
+
+#~ msgid "List of plugins"
+#~ msgstr "Lijst met plugins"
+
+#~ msgid "Delete comments"
+#~ msgstr "Verwijder reactie"
+
+#~ msgid "List of users that requested for information"
+#~ msgstr "Lijst met gebruikers die informatie hebben gevraagd"
+
+#~ msgid "Update url"
+#~ msgstr "Update url"
+
+#~ msgid "Check your comments"
+#~ msgstr "Bekijk je reacties"
+
+#~ msgid "Help to handle gdpr regulations."
+#~ msgstr "Hulp bij het omgaan met de GDPR verordening."
+
+#~ msgid "comments(ID)"
+#~ msgstr "reactie(ID)"
+
+#~ msgid "Request your own add-on"
+#~ msgstr "Vraag uw eigen add-on aan"
+
+#~ msgid "e-mail"
+#~ msgstr "e-mail"
+
+#~ msgid "E-mail"
+#~ msgstr "E-mail"
+
+#~ msgid "Appsaloon - Sebastian Kurzynowski, Mieke Nijs"
+#~ msgstr "Appsaloon - Sebastian Kurzynowski, Mieke Nijs"

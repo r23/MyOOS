@@ -1,0 +1,19 @@
+th#id {
+    width: 30px;
+}
+
+th#ref_id {
+    width: 90px;
+}
+
+th#email, th#ref{
+    width: 200px;
+}
+
+th#timestamp {
+    width: 150px;
+}
+
+.tablenav {
+    margin-bottom: 21px;
+}

@@ -28,4 +28,4 @@ $aLang['navbar_title_delete_entry'] = 'Delete Entry';
 $aLang['heading_title_add_entry'] = 'New Address Book Entry';
 $aLang['heading_title_modify_entry'] = 'Address Book Entry';
 $aLang['heading_title_delete_entry'] = 'Address Book Delete';
-$aLang['set_as_primary'] = 'Set as primary address');
+$aLang['set_as_primary'] = 'Set as primary address';

@@ -1,0 +1,79 @@
+{
+  "wp-gdpr-core":{
+  "plugin_tutorial_link": "https://wp-gdpr.eu/portfolio/how-to-install-wp-gdpr-core/",
+  "plugin_tutorial_img": "https://wp-gdpr.eu/wp-content/uploads/2018/03/installcore-1-300x201.jpg",
+  "plugin_tutorial_intro": "How to install WP-GDPR CORE."
+},
+  "gravityforms":{
+    "name" : "Gravity Forms",
+    "slug" : "gravityforms",
+    "data_stored_in": "entries",
+    "plugin_name": "gravityforms/gravityforms.php",
+    "plugin_link": "https://wp-gdpr.eu/add-ons/gravity-forms/",
+    "plugin_wp_gdpr": "wp-gdpr-gf-addon/wp-gdpr-gf-addon.php",
+    "plugin_tutorial_link": "https://wp-gdpr.eu/portfolio/make-your-gravity-form-gdpr-ready/",
+    "plugin_tutorial_img": "https://wp-gdpr.eu/wp-content/uploads/2018/03/gravity-1-300x201.jpg",
+    "plugin_tutorial_intro": "Make your Gravity Forms GDPR ready.",
+    "plugin_icon": "assets/images/gravity-forms-logo.png"
+  },
+  "woocommerce":{
+    "name" : "Woocommerce",
+    "slug" : "woocommerce",
+    "data_stored_in": "orders",
+    "plugin_name": "woocommerce/woocommerce.php",
+    "plugin_link": "https://wp-gdpr.eu/add-ons/woocommerce-add-on/",
+    "plugin_wp_gdpr": "wp-gdpr-wc-addon/wp-gdpr-wc-addon.php",
+    "plugin_tutorial_link": "https://wp-gdpr.eu/add-ons/woocommerce-add-on/",
+    "plugin_tutorial_intro": "Woocommerce is a shopping platform on Wordpress.",
+    "plugin_tutorial_img": "https://wp-gdpr.eu/wp-content/uploads/2018/04/woocommerce-info.png",
+    "plugin_icon": "assets/images/woo-logo.png"
+  },
+  "contactform7":{
+    "name" : "Contact Form 7 CFDB7",
+    "slug" : "cfdb7",
+    "data_stored_in": "entries, csv",
+    "plugin_name": "contact-form-7/wp-contact-form-7.php",
+    "plugin_link": "https://wp-gdpr.eu/add-ons/contact-form-db-7-addon/",
+    "plugin_wp_gdpr": "wp-gdpr-cfdb7-addon/wp-gdpr-cfdb7-addon.php",
+    "plugin_tutorial_link": "https://wp-gdpr.eu/portfolio/make-your-contact-form-7-gdpr-ready/",
+    "plugin_tutorial_img": "https://wp-gdpr.eu/wp-content/uploads/2018/04/cf7-1.png",
+    "plugin_tutorial_intro": "CFDB7 is an add-on for Contact Form 7 to store entries.",
+    "plugin_icon": "assets/images/cfdb7-logo.png"
+  },
+  "flamingo":{
+    "name" : "Flamingo",
+    "slug" : "flamingo",
+    "data_stored_in": "entries, csv",
+    "plugin_name": "flamingo/flamingo.php",
+    "plugin_link": "https://wp-gdpr.eu/add-ons/flamingo-addon/",
+    "plugin_wp_gdpr": "wp-gdpr-fl-addon/wp-gdpr-fl-addon.php",
+    "plugin_tutorial_link": "https://wp-gdpr.eu/portfolio/",
+    "plugin_tutorial_img": "https://wp-gdpr.eu/wp-content/uploads/2018/04/cf7-1.png",
+    "plugin_tutorial_intro": "Flamingo is an add-on for Contact Form 7 to store entries.",
+    "plugin_icon": "assets/images/addon-flamingo.png"
+  },
+  "mailchimp":{
+    "name" : "Mailchimp",
+    "slug" : "mailchimp",
+    "data_stored_in": "entries, csv",
+    "plugin_name": "mailchimp-for-wp/mailchimp-for-wp.php",
+    "plugin_link": "https://wp-gdpr.eu/add-ons/mailchimp-add-on/",
+    "plugin_wp_gdpr": "wp-gdpr-mc-addon/wp-gdpr-mc-addon.php",
+    "plugin_tutorial_link": "https://wp-gdpr.eu/portfolio/",
+    "plugin_tutorial_img": "https://wp-gdpr.eu/wp-content/uploads/2018/04/cf7-1.png",
+    "plugin_tutorial_intro": "Make your Mailchimp GDPR ready.",
+    "plugin_icon": "assets/images/mailchimp.png"
+  },
+  "condolencemanager":{
+    "name" : "Condolance Manager",
+    "slug" : "cdm",
+    "data_stored_in": "entries, csv",
+    "plugin_name": "condolatie-manager/condolatie-manager.php",
+    "plugin_link": "https://wp-gdpr.eu/add-ons/condolence-manager-add-on/",
+    "plugin_wp_gdpr": "wp-gdpr-cdm-addon/wp-gdpr-cdm-addon.php",
+    "plugin_tutorial_link": "https://wp-gdpr.eu/portfolio/",
+    "plugin_tutorial_img": "https://wp-gdpr.eu/wp-content/uploads/2018/04/cf7-1.png",
+    "plugin_tutorial_intro": "Make your <a href='https://condolencemanager.com/' target='_blank'>Condolance Manager</a> GDPR ready.",
+    "plugin_icon": "assets/images/cdm.png"
+  }
+}
