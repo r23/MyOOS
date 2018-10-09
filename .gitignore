@@ -32,3 +32,6 @@ prepros-6.config
 /wordpress/.project
 /wordpress/.buildpath
 /wordpress/.settings
+.project
+.buildpath
+.settings
