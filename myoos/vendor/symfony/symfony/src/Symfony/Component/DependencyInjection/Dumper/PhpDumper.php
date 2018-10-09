@@ -751,7 +751,7 @@ EOF;
 
 EOTXT
             ,
-            $this->container->getDefinition($id)->isPublic() ? 'services' : 'privates',
+            'services',
             $id
         );
 
@@ -780,8 +780,9 @@ EOTXT
 
         $code = '';
         $arguments = array($definition->getProperties(), $definition->getMethodCalls(), $definition->getConfigurator());
-        $hasSelfRef = $this->addInlineVariables($code, $tail, $id, $arguments, false) || $hasSelfRef;
+        $hasSelfRef = $this->addInlineVariables($code, $code, $id, $arguments, false) || $hasSelfRef;
 
+        $code .= '' !== $code ? "\n" : '';
         $code .= $this->addServiceProperties($definition, $name);
         $code .= $this->addServiceMethodCalls($definition, $name);
         $code .= $this->addServiceConfigurator($definition, $name);
@@ -1483,7 +1484,7 @@ EOF;
      *
      * @param string $value
      *
-     * @return null|string
+     * @return string|null
      */
     private function getServiceConditionals($value)
     {
