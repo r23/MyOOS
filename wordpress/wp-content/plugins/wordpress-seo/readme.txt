@@ -6,7 +6,7 @@ License URI: http://www.gnu.org/licenses/gpl.html
 Tags: SEO, XML sitemap, Google Search Console, Content analysis, Readability
 Requires at least: 4.8
 Tested up to: 4.9.8
-Stable tag: 8.3
+Stable tag: 8.4
 Requires PHP: 5.2.4
 
 Improve your WordPress SEO: Write better content and have a fully optimized WordPress site using the Yoast SEO plugin.
@@ -105,6 +105,19 @@ You'll find answers to many of your questions on [kb.yoast.com](https://yoa.st/1
 6. Easily import SEO data from other SEO plugins like All In One SEO pack, HeadSpace2 SEO and wpSEO.de.
 
 == Changelog ==
+
+= 8.4.0 =
+Release Date: October 9th, 2018
+
+Bugfixes:
+
+* Fixes a bug where the cornerstone content toggle was available for attachment pages.
+* Fixes a bug where the Search Console page displayed 'first detected' and 'last crawled' dates that were in the future.
+
+Enhancements:
+
+* Introduces the `wpseo_taxonomy_content_fields` filter to add additional fields to the taxonomy metabox.
+* Adds a margin below select fields so there's space between taxonomy settings for breadcrumbs. Props to [@emilyatmobtown](https://github.com/emilyatmobtown)
 
 = 8.3.0 =
 Release Date: September 25th, 2018
