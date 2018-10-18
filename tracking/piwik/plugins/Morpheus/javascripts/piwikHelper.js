@@ -96,6 +96,9 @@ var piwikHelper = {
 
     htmlEntities: function(value)
     {
+        if (!value) {
+            return value;
+        }
         var findReplace = [[/&/g, "&amp;"], [/</g, "&lt;"], [/>/g, "&gt;"], [/"/g, "&quot;"]];
         for(var item in findReplace) {
             value = value.replace(findReplace[item][0], findReplace[item][1]);
@@ -567,11 +570,11 @@ var piwikHelper = {
         }
     }
 };
-
-String.prototype.trim = function() {
-    return this.replace(/^\s+|\s+$/g,"");
-};
-
+if (typeof String.prototype.trim !== 'function') {
+    String.prototype.trim = function() {
+        return this.replace(/^\s+|\s+$/g,"");
+    };
+}
 /**
  * Returns true if the event keypress passed in parameter is the ENTER key
  * @param {Event} e   current window event

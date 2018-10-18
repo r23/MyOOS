@@ -343,7 +343,12 @@ class API extends \Piwik\Plugin\API
     {
         Piwik::checkUserHasSomeAdminAccess();
 
+        if (!is_string($userLogins)) {
+            throw new \Exception('Parameter userLogins needs to be a string containing a comma separated list of users');
+        }
+
         $logins = array();
+
         if (!empty($userLogins)) {
             $logins = explode(',', $userLogins);
         }
@@ -808,7 +813,7 @@ class API extends \Piwik\Plugin\API
         $passwordHasBeenUpdated = false;
 
         if (empty($password)) {
-            $password = $userInfo['password'];
+            $password = false;
         } else {
             $password = Common::unsanitizeInputValue($password);
 
