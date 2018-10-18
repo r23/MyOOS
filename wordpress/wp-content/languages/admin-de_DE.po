@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 4.9.x - Development - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-08-13 13:32:08+0000\n"
+"PO-Revision-Date: 2018-10-15 10:41:04+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -53,12 +53,12 @@ msgstr "Datenschutzerklärung"
 
 #: wp-admin/includes/dashboard.php:1763
 msgid "Classic Editor"
-msgstr "Klassischer Editor"
+msgstr "Classic Editor"
 
 #. translators: Link to the Classic Editor plugin page
 #: wp-admin/includes/dashboard.php:1754
 msgid "Install the <a href=\"%s\">Classic Editor plugin</a> to keep using the current editor until you’re ready to make the switch."
-msgstr "Installiere das Plugin <a href=\"%s\">Classic Editor</a>, um weiterhin den Klassischen Editor zu benutzen, bis du bereit für den Wechsel bist."
+msgstr "Installiere das Plugin <a href=\"%s\">Classic Editor</a>, um weiterhin den klassischen Editor zu benutzen, bis du bereit für den Wechsel bist."
 
 #: wp-admin/includes/dashboard.php:1750
 msgid "The new editor will be enabled by default in the next major release of WordPress. If you’re not sure how compatible your current themes and plugins are, we’ve got you covered."
@@ -110,15 +110,15 @@ msgstr "Gutenberg ausprobieren"
 
 #: wp-admin/includes/dashboard.php:1669
 msgid "The Classic Editor is activated"
-msgstr "Der Klassische Editor ist aktiviert"
+msgstr "Der Classic Editor ist aktiviert"
 
 #: wp-admin/includes/dashboard.php:1665
 msgid "Activate the Classic Editor"
-msgstr "Den Klassischen Editor aktivieren"
+msgstr "Den Classic Editor aktivieren"
 
 #: wp-admin/includes/dashboard.php:1660
 msgid "Install the Classic Editor"
-msgstr "Den Klassischen Editor installieren"
+msgstr "Den Classic Editor installieren"
 
 #: wp-admin/includes/dashboard.php:1653
 msgid "Activate Gutenberg"
