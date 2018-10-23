@@ -1,6 +1,12 @@
 <?php
 /* THIS IS A GENERATED FILE. DO NOT EDIT DIRECTLY. */
 $generated_i18n_strings = array(
+	// Reference: js/src/components/AnalysisUpsell.js:54
+	__( 'Did you know %s also analyzes the different word forms of your keyphrase, like plurals and past tenses?', 'wordpress-seo' ),
+
+	// Reference: js/src/components/AnalysisUpsell.js:62
+	__( 'Go %s!', 'wordpress-seo' ),
+
 	// Reference: js/src/components/CollapsibleCornerstone.js:22
 	__( 'Cornerstone content', 'wordpress-seo' ),
 
@@ -19,7 +25,7 @@ $generated_i18n_strings = array(
 	// Reference: js/src/components/PrimaryTaxonomyFilter.js:84
 	__( 'Copy error', 'wordpress-seo' ),
 
-	// Reference: js/src/components/PrimaryTaxonomyPicker.js:235
+	// Reference: js/src/components/PrimaryTaxonomyPicker.js:237
 	__( 'Select the primary %s', 'wordpress-seo' ),
 
 	// Reference: js/src/components/SettingsReplacementVariableEditor.js:35
@@ -28,60 +34,54 @@ $generated_i18n_strings = array(
 	// Reference: js/src/components/SnippetPreviewModal.js:38
 	__( 'Snippet preview', 'wordpress-seo' ),
 
-	// Reference: js/src/components/SnippetPreviewModal.js:42
+	// Reference: js/src/components/SnippetPreviewModal.js:43
 	__( 'Close', 'wordpress-seo' ),
 
-	// Reference: js/src/components/contentAnalysis/ReadabilityAnalysis.js:46
-	__( 'Readability Analysis', 'wordpress-seo' ),
+	// Reference: js/src/components/contentAnalysis/ReadabilityAnalysis.js:47
+	__( 'Readability analysis', 'wordpress-seo' ),
 
-	// Reference: js/src/components/contentAnalysis/ReadabilityAnalysis.js:52
-	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:237
+	// Reference: js/src/components/contentAnalysis/ReadabilityAnalysis.js:53
+	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:298
 	__( 'Analysis results', 'wordpress-seo' ),
 
-	// Reference: js/src/components/contentAnalysis/ReadabilityAnalysis.js:54
-	__( 'This analysis checks your writing for grammar and writing style so your content is as clear as it can be.', 'wordpress-seo' ),
-
-	// Reference: js/src/components/contentAnalysis/ReadabilityAnalysis.js:57
-	__( 'Learn more about Readability Analysis.', 'wordpress-seo' ),
+	// Reference: js/src/components/contentAnalysis/ReadabilityAnalysis.js:60
+	__( 'Learn more about the readability analysis', 'wordpress-seo' ),
 
 	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:105
-	__( 'Would you like to add keyword synonyms?', 'wordpress-seo' ),
+	__( 'Add synonyms', 'wordpress-seo' ),
 
-	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:130
+	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:135
+	__( 'Would you like to add keyphrase synonyms?', 'wordpress-seo' ),
+
+	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:160
 	__( '(Opens in a new browser tab!)', 'wordpress-seo' ),
 
-	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:139
+	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:169
 	// Reference: js/src/components/modals/KeywordSynonyms.js:63
 	// Reference: js/src/components/modals/MultipleKeywords.js:63
-	__( 'Get %s now!', 'wordpress-seo' ),
+	__( 'Get %s', 'wordpress-seo' ),
 
-	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:158
-	__( 'Would you like to add another keyword?', 'wordpress-seo' ),
+	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:188
+	__( 'Would you like to add a related keyphrase?', 'wordpress-seo' ),
 
-	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:189
-	__( 'Add additional keyword', 'wordpress-seo' ),
+	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:219
+	__( 'Add related keyphrase', 'wordpress-seo' ),
 
-	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:209
-	__( 'Enter a focus keyword to calculate the SEO score', 'wordpress-seo' ),
+	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:242
+	__( 'Help on choosing the perfect focus keyphrase', 'wordpress-seo' ),
 
-	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:215
+	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:272
+	__( 'Enter a focus keyphrase to calculate the SEO score', 'wordpress-seo' ),
+
+	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:288
 	// Reference: js/src/values/defaultReplaceVariables.js:50
-	__( 'Focus keyword', 'wordpress-seo' ),
-
-	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:222
-	__( 'A focus keyword is the term (or phrase) you\'d like to be found with, in search engines. Enter it below to see how you can improve your text for this term.', 'wordpress-seo' ),
-
-	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:225
-	__( 'Learn more about the Keyword Analysis.', 'wordpress-seo' ),
-
-	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:75
-	__( 'Add synonyms', 'wordpress-seo' ),
+	__( 'Focus keyphrase', 'wordpress-seo' ),
 
 	// Reference: js/src/components/modals/KeywordSynonyms.js:22
 	__( 'Great news: you can, with %s!', 'wordpress-seo' ),
 
 	// Reference: js/src/components/modals/KeywordSynonyms.js:32
-	__( 'Rank for up to 5 focus keywords per page', 'wordpress-seo' ),
+	__( 'Rank better with synonyms & related keyphrases', 'wordpress-seo' ),
 
 	// Reference: js/src/components/modals/KeywordSynonyms.js:35
 	// Reference: js/src/components/modals/MultipleKeywords.js:29
@@ -115,12 +115,6 @@ $generated_i18n_strings = array(
 	__( 'Great news: you can, with %1$s!', 'wordpress-seo' ),
 
 	// Reference: js/src/containers/SnippetEditor.js:107
-	__( 'This is a rendering of what this post might look like in Google\'s search results.', 'wordpress-seo' ),
-
-	// Reference: js/src/containers/SnippetEditor.js:109
-	__( 'Learn more about the Snippet Preview.', 'wordpress-seo' ),
-
-	// Reference: js/src/containers/SnippetEditor.js:118
 	__( 'Please provide a meta description by editing the snippet below.', 'wordpress-seo' ),
 
 	// Reference: js/src/structured-data-blocks/faq/block.js:13
@@ -132,29 +126,29 @@ $generated_i18n_strings = array(
 	// Reference: js/src/structured-data-blocks/faq/block.js:18
 	__( 'Frequently Asked Questions', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/faq/components/FAQ.js:231
+	// Reference: js/src/structured-data-blocks/faq/components/FAQ.js:230
 	__( 'Add question', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/faq/components/Question.js:188
+	// Reference: js/src/structured-data-blocks/faq/components/Question.js:183
 	__( 'Enter a question', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/faq/components/Question.js:201
+	// Reference: js/src/structured-data-blocks/faq/components/Question.js:196
 	__( 'Enter the answer to the question', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/faq/components/Question.js:43
-	// Reference: js/src/structured-data-blocks/how-to/components/HowToStep.js:55
+	// Reference: js/src/structured-data-blocks/faq/components/Question.js:42
+	// Reference: js/src/structured-data-blocks/how-to/components/HowToStep.js:54
 	__( 'Add image', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/faq/components/Question.js:50
+	// Reference: js/src/structured-data-blocks/faq/components/Question.js:49
 	__( 'Delete question', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/faq/components/Question.js:57
+	// Reference: js/src/structured-data-blocks/faq/components/Question.js:55
 	__( 'Insert question', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/faq/components/Question.js:76
+	// Reference: js/src/structured-data-blocks/faq/components/Question.js:72
 	__( 'Move question up', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/faq/components/Question.js:84
+	// Reference: js/src/structured-data-blocks/faq/components/Question.js:79
 	__( 'Move question down', 'wordpress-seo' ),
 
 	// Reference: js/src/structured-data-blocks/how-to/block.js:51
@@ -211,26 +205,26 @@ $generated_i18n_strings = array(
 	// Reference: js/src/structured-data-blocks/how-to/components/HowTo.js:632
 	__( 'Enter a description', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/how-to/components/HowTo.js:72
-	// Reference: js/src/structured-data-blocks/how-to/legacy/8.2.js:148
+	// Reference: js/src/structured-data-blocks/how-to/components/HowTo.js:71
+	// Reference: js/src/structured-data-blocks/how-to/legacy/8.2.js:150
 	__( 'Time needed:', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/how-to/components/HowToStep.js:208
+	// Reference: js/src/structured-data-blocks/how-to/components/HowToStep.js:203
 	__( 'Enter a step title', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/how-to/components/HowToStep.js:221
+	// Reference: js/src/structured-data-blocks/how-to/components/HowToStep.js:216
 	__( 'Enter a step description', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/how-to/components/HowToStep.js:63
+	// Reference: js/src/structured-data-blocks/how-to/components/HowToStep.js:62
 	__( 'Delete step', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/how-to/components/HowToStep.js:70
+	// Reference: js/src/structured-data-blocks/how-to/components/HowToStep.js:68
 	__( 'Insert step', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/how-to/components/HowToStep.js:89
+	// Reference: js/src/structured-data-blocks/how-to/components/HowToStep.js:85
 	__( 'Move step up', 'wordpress-seo' ),
 
-	// Reference: js/src/structured-data-blocks/how-to/components/HowToStep.js:97
+	// Reference: js/src/structured-data-blocks/how-to/components/HowToStep.js:92
 	__( 'Move step down', 'wordpress-seo' ),
 
 	// Reference: js/src/structured-data-blocks/how-to/legacy/8.2.js:32

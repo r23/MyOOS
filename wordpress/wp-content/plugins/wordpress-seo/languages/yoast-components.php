@@ -67,55 +67,55 @@ $generated_i18n_strings = array(
 	// Reference: yoast-components/composites/OnboardingWizard/StepIndicator.js:50
 	__( 'Step %1$d: %2$s', 'wordpress-seo' ),
 
-	// Reference: js/src/components/ConnectGoogleSearchConsole.js:359
+	// Reference: js/src/components/ConnectGoogleSearchConsole.js:362
 	__( 'Get Google Authorization Code', 'wordpress-seo' ),
 
-	// Reference: js/src/components/ConnectGoogleSearchConsole.js:352
+	// Reference: js/src/components/ConnectGoogleSearchConsole.js:355
 	__( 'To allow %s to fetch your Google Search Console information, please enter your Google Authorization Code. Clicking the button below will open a new window.', 'wordpress-seo' ),
 
-	// Reference: js/src/components/ConnectGoogleSearchConsole.js:341
+	// Reference: js/src/components/ConnectGoogleSearchConsole.js:343
 	__( 'Reauthenticate with Google', 'wordpress-seo' ),
 
-	// Reference: js/src/components/ConnectGoogleSearchConsole.js:316
+	// Reference: js/src/components/ConnectGoogleSearchConsole.js:318
 	__( 'Authenticate', 'wordpress-seo' ),
 
-	// Reference: js/src/components/ConnectGoogleSearchConsole.js:312
+	// Reference: js/src/components/ConnectGoogleSearchConsole.js:314
 	__( 'Enter authorization code here...', 'wordpress-seo' ),
 
-	// Reference: js/src/components/ConnectGoogleSearchConsole.js:301
+	// Reference: js/src/components/ConnectGoogleSearchConsole.js:303
 	__( 'Enter your Google Authorization Code and press the Authenticate button.', 'wordpress-seo' ),
 
-	// Reference: js/src/components/ConnectGoogleSearchConsole.js:276
+	// Reference: js/src/components/ConnectGoogleSearchConsole.js:278
 	__( 'Choose a profile', 'wordpress-seo' ),
 
 	// Reference: js/src/components/ConnectGoogleSearchConsole.js:270
 	__( 'Select profile', 'wordpress-seo' ),
 
-	// Reference: js/src/components/ConnectGoogleSearchConsole.js:258
+	// Reference: js/src/components/ConnectGoogleSearchConsole.js:257
 	__( 'There were no profiles found', 'wordpress-seo' ),
 
-	// Reference: js/src/components/ConnectGoogleSearchConsole.js:111
+	// Reference: js/src/components/ConnectGoogleSearchConsole.js:110
 	__( 'There is an error with the request.', 'wordpress-seo' ),
 
 	// Reference: js/src/components/MailchimpSignup.js:222
 	__( 'Email', 'wordpress-seo' ),
 
-	// Reference: js/src/components/MailchimpSignup.js:204
+	// Reference: js/src/components/MailchimpSignup.js:203
 	__( 'Sign Up!', 'wordpress-seo' ),
 
-	// Reference: js/src/components/MailchimpSignup.js:108
+	// Reference: js/src/components/MailchimpSignup.js:107
 	__( 'MailChimp signup failed:', 'wordpress-seo' ),
 
-	// Reference: js/src/components/MediaUpload.js:132
+	// Reference: js/src/components/MediaUpload.js:133
 	__( 'Choose image', 'wordpress-seo' ),
 
 	// Reference: js/src/components/MediaUpload.js:114
 	__( 'image preview', 'wordpress-seo' ),
 
-	// Reference: js/src/components/MediaUpload.js:93
+	// Reference: js/src/components/MediaUpload.js:92
 	__( 'Remove the image', 'wordpress-seo' ),
 
-	// Reference: js/src/components/MediaUpload.js:20 js/src/components/MediaUpload.js:19
+	// Reference: js/src/components/MediaUpload.js:19 js/src/components/MediaUpload.js:18
 	__( 'Choose an image', 'wordpress-seo' ),
 
 	// Reference: node_modules/yoast-components/composites/AlgoliaSearch/AlgoliaSearcher.js:229
@@ -151,19 +151,19 @@ $generated_i18n_strings = array(
 	// Reference: node_modules/yoast-components/composites/Plugin/ContentAnalysis/components/AnalysisList.js:67
 	__( 'Highlight this result in the text', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoast-components/composites/Plugin/ContentAnalysis/components/ContentAnalysis.js:132
+	// Reference: node_modules/yoast-components/composites/Plugin/ContentAnalysis/components/ContentAnalysis.js:131
 	__( 'Errors', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoast-components/composites/Plugin/ContentAnalysis/components/ContentAnalysis.js:135
+	// Reference: node_modules/yoast-components/composites/Plugin/ContentAnalysis/components/ContentAnalysis.js:134
 	__( 'Problems', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoast-components/composites/Plugin/ContentAnalysis/components/ContentAnalysis.js:138
+	// Reference: node_modules/yoast-components/composites/Plugin/ContentAnalysis/components/ContentAnalysis.js:137
 	__( 'Improvements', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoast-components/composites/Plugin/ContentAnalysis/components/ContentAnalysis.js:141
+	// Reference: node_modules/yoast-components/composites/Plugin/ContentAnalysis/components/ContentAnalysis.js:140
 	__( 'Considerations', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoast-components/composites/Plugin/ContentAnalysis/components/ContentAnalysis.js:144
+	// Reference: node_modules/yoast-components/composites/Plugin/ContentAnalysis/components/ContentAnalysis.js:143
 	__( 'Good results', 'wordpress-seo' ),
 
 	// Reference: node_modules/yoast-components/composites/Plugin/CornerstoneContent/components/CornerstoneToggle.js:23
@@ -172,11 +172,8 @@ $generated_i18n_strings = array(
 	// Reference: node_modules/yoast-components/composites/Plugin/HelpCenter/HelpCenter.js:81
 	__( 'Need help?', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoast-components/composites/Plugin/Shared/components/KeywordInput.js:143
-	__( 'Are you trying to use multiple keywords? You should add them separately below.', 'wordpress-seo' ),
-
-	// Reference: node_modules/yoast-components/composites/Plugin/Shared/components/KeywordInput.js:169
-	__( 'Focus keyword:', 'wordpress-seo' ),
+	// Reference: node_modules/yoast-components/composites/Plugin/Shared/components/KeywordInput.js:150
+	__( 'Are you trying to use multiple keyphrases? You should add them separately below.', 'wordpress-seo' ),
 
 	// Reference: node_modules/yoast-components/composites/Plugin/Shared/components/LanguageNotice.js:51
 	__( 'Your site language is set to %s. ', 'wordpress-seo' ),
@@ -216,13 +213,13 @@ $generated_i18n_strings = array(
 	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/SnippetEditorFields.js:223
 	__( 'Meta description', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/SnippetEditor.js:258
+	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/SnippetEditor.js:259
 	__( 'Modify your meta description by editing it right here', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/SnippetEditor.js:278
+	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/SnippetEditor.js:279
 	__( 'Close snippet editor', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/SnippetEditor.js:556
+	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/SnippetEditor.js:557
 	__( 'Edit snippet', 'wordpress-seo' ),
 
 	// Reference: node_modules/yoast-components/composites/Plugin/SnippetEditor/components/SnippetEditorFields.js:200
