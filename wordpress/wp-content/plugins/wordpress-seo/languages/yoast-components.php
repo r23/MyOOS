@@ -67,22 +67,22 @@ $generated_i18n_strings = array(
 	// Reference: yoast-components/composites/OnboardingWizard/StepIndicator.js:50
 	__( 'Step %1$d: %2$s', 'wordpress-seo' ),
 
-	// Reference: js/src/components/ConnectGoogleSearchConsole.js:362
+	// Reference: js/src/components/ConnectGoogleSearchConsole.js:363
 	__( 'Get Google Authorization Code', 'wordpress-seo' ),
 
-	// Reference: js/src/components/ConnectGoogleSearchConsole.js:355
+	// Reference: js/src/components/ConnectGoogleSearchConsole.js:356
 	__( 'To allow %s to fetch your Google Search Console information, please enter your Google Authorization Code. Clicking the button below will open a new window.', 'wordpress-seo' ),
 
-	// Reference: js/src/components/ConnectGoogleSearchConsole.js:343
+	// Reference: js/src/components/ConnectGoogleSearchConsole.js:344
 	__( 'Reauthenticate with Google', 'wordpress-seo' ),
 
-	// Reference: js/src/components/ConnectGoogleSearchConsole.js:318
+	// Reference: js/src/components/ConnectGoogleSearchConsole.js:319
 	__( 'Authenticate', 'wordpress-seo' ),
 
-	// Reference: js/src/components/ConnectGoogleSearchConsole.js:314
+	// Reference: js/src/components/ConnectGoogleSearchConsole.js:315
 	__( 'Enter authorization code here...', 'wordpress-seo' ),
 
-	// Reference: js/src/components/ConnectGoogleSearchConsole.js:303
+	// Reference: js/src/components/ConnectGoogleSearchConsole.js:304
 	__( 'Enter your Google Authorization Code and press the Authenticate button.', 'wordpress-seo' ),
 
 	// Reference: js/src/components/ConnectGoogleSearchConsole.js:278

@@ -25,7 +25,7 @@ $generated_i18n_strings = array(
 	// Reference: js/src/components/PrimaryTaxonomyFilter.js:84
 	__( 'Copy error', 'wordpress-seo' ),
 
-	// Reference: js/src/components/PrimaryTaxonomyPicker.js:237
+	// Reference: js/src/components/PrimaryTaxonomyPicker.js:242
 	__( 'Select the primary %s', 'wordpress-seo' ),
 
 	// Reference: js/src/components/SettingsReplacementVariableEditor.js:35
