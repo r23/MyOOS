@@ -573,7 +573,7 @@ class WPCF7_ConfigValidator {
 	public function detect_file_not_in_content_dir( $section, $content ) {
 		$path = path_join( WP_CONTENT_DIR, $content );
 
-		if ( 0 !== strpos( realpath( $path ), WP_CONTENT_DIR ) ) {
+		if ( ! wpcf7_is_file_path_in_content_dir( $path ) ) {
 			return $this->add_error( $section,
 				self::error_file_not_in_content_dir,
 				array(

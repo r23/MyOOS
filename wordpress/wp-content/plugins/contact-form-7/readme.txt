@@ -4,7 +4,7 @@ Donate link: https://contactform7.com/donate/
 Tags: contact, form, contact form, feedback, email, ajax, captcha, akismet, multilingual
 Requires at least: 4.8
 Tested up to: 4.9
-Stable tag: 5.0.4
+Stable tag: 5.0.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -73,6 +73,12 @@ Do you have questions or issues with Contact Form 7? Use these support channels 
 == Changelog ==
 
 For more information, see [Releases](https://contactform7.com/category/releases/).
+
+= 5.0.5 =
+
+* Fixes the inconsistency problem between get_data_option() and get_default_option() in the WPCF7_FormTag class.
+* Suppresses PHP errors occur on unlink() calls.
+* Introduces wpcf7_is_file_path_in_content_dir() to support the use of the UPLOADS constant.
 
 = 5.0.4 =
 

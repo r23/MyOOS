@@ -58,13 +58,13 @@ function wpcf7_select_form_tag_handler( $tag ) {
 		}
 	}
 
+	if ( $data = (array) $tag->get_data_option() ) {
+		$tag->values = array_merge( $tag->values, array_values( $data ) );
+		$tag->labels = array_merge( $tag->labels, array_values( $data ) );
+	}
+
 	$values = $tag->values;
 	$labels = $tag->labels;
-
-	if ( $data = (array) $tag->get_data_option() ) {
-		$values = array_merge( $values, array_values( $data ) );
-		$labels = array_merge( $labels, array_values( $data ) );
-	}
 
 	$default_choice = $tag->get_default_option( null, array(
 		'multiple' => $multiple,

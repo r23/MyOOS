@@ -253,12 +253,12 @@ function wpcf7_enctype_value( $enctype ) {
 
 function wpcf7_rmdir_p( $dir ) {
 	if ( is_file( $dir ) ) {
-		if ( ! $result = unlink( $dir ) ) {
+		if ( ! $result = @unlink( $dir ) ) {
 			$stat = stat( $dir );
 			$perms = $stat['mode'];
 			chmod( $dir, $perms | 0200 ); // add write for owner
 
-			if ( ! $result = unlink( $dir ) ) {
+			if ( ! $result = @unlink( $dir ) ) {
 				chmod( $dir, $perms );
 			}
 		}
@@ -389,4 +389,17 @@ function wpcf7_anonymize_ip_addr( $ip_addr ) {
 	}
 
 	return inet_ntop( $packed & inet_pton( $mask ) );
+}
+
+function wpcf7_is_file_path_in_content_dir( $path ) {
+	if ( 0 === strpos( realpath( $path ), WP_CONTENT_DIR ) ) {
+		return true;
+	}
+
+	if ( defined( 'UPLOADS' )
+	and 0 === strpos( realpath( $path ), ABSPATH . UPLOADS ) ) {
+		return true;
+	}
+
+	return false;
 }

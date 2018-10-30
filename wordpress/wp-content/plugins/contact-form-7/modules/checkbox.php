@@ -61,24 +61,24 @@ function wpcf7_checkbox_form_tag_handler( $tag ) {
 	$html = '';
 	$count = 0;
 
-	$values = (array) $tag->values;
-	$labels = (array) $tag->labels;
-
 	if ( $data = (array) $tag->get_data_option() ) {
 		if ( $free_text ) {
-			$values = array_merge(
-				array_slice( $values, 0, -1 ),
+			$tag->values = array_merge(
+				array_slice( $tag->values, 0, -1 ),
 				array_values( $data ),
-				array_slice( $values, -1 ) );
-			$labels = array_merge(
-				array_slice( $labels, 0, -1 ),
+				array_slice( $tag->values, -1 ) );
+			$tag->labels = array_merge(
+				array_slice( $tag->labels, 0, -1 ),
 				array_values( $data ),
-				array_slice( $labels, -1 ) );
+				array_slice( $tag->labels, -1 ) );
 		} else {
-			$values = array_merge( $values, array_values( $data ) );
-			$labels = array_merge( $labels, array_values( $data ) );
+			$tag->values = array_merge( $tag->values, array_values( $data ) );
+			$tag->labels = array_merge( $tag->labels, array_values( $data ) );
 		}
 	}
+
+	$values = $tag->values;
+	$labels = $tag->labels;
 
 	$default_choice = $tag->get_default_option( null, array(
 		'multiple' => $multiple,

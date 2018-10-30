@@ -174,7 +174,7 @@ class WPCF7_Mail {
 
 			$path = path_join( WP_CONTENT_DIR, $line );
 
-			if ( 0 !== strpos( realpath( $path ), WP_CONTENT_DIR ) ) {
+			if ( ! wpcf7_is_file_path_in_content_dir( $path ) ) {
 				// $path is out of WP_CONTENT_DIR
 				continue;
 			}
