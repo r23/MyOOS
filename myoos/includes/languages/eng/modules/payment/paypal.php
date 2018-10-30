@@ -23,7 +23,7 @@
 define('MODULE_PAYMENT_PAYPAL_STATUS_TITLE', 'Enable PayPal Module');
 define('MODULE_PAYMENT_PAYPAL_STATUS_DESC', 'Do you want to accept PayPal payments?');
 
-define('MODULE_PAYMENT_PAYPAL_ID_TITLE', 'E-Mail Address');
+define('MODULE_PAYMENT_PAYPAL_ID_TITLE', 'E-Mail-Address');
 define('MODULE_PAYMENT_PAYPAL_ID_DESC', 'The e-mail address to use for the PayPal service');
 
 define('MODULE_PAYMENT_PAYPAL_CURRENCY_TITLE', 'Transaction Currency');

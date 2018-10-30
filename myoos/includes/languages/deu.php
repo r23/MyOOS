@@ -228,8 +228,8 @@ $aLang = [
 'entry_date_of_birth_error'            => 'Ihr Geburtsdatum muss im Format TT.MM.JJJJ (zB. 21.05.1970) eingeben werden',
 
 'entry_email_address_error'            => 'Ihre E-Mail muss mindestens ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' Buchstaben enthalten',
-'entry_email_address_check_error'      => 'Bitte überprüfen Sie Ihre E-Mail Adresse',
-'entry_email_address_error_exists'     => 'Ihre E-Mail Adresse existiert bereits in unserem Online Shop - bitte melden Sie sich mit der E-Mail Adresse an oder erstellen Sie ein Konto mit einer anderen E-Mail Adresse.',
+'entry_email_address_check_error'      => 'Bitte überprüfen Sie Ihre E-Mail-Adresse',
+'entry_email_address_error_exists'     => 'Ihre E-Mail-Adresse existiert bereits in unserem Online Shop - bitte melden Sie sich mit der E-Mail-Adresse an oder erstellen Sie ein Konto mit einer anderen E-Mail-Adresse.',
 'entry_street_address'                 => 'Straße/Nr.',
 'entry_street_address_error'           => 'Ihre Straße muss mindestens ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' Buchstaben enthalten',
 
@@ -259,7 +259,7 @@ $aLang = [
 
 'entry_agree_error'                    => 'Bitte akzeptieren Sie unsere AGB und Datenschutzbestimmungen!',
 'agree'                                => 'Ja, ich stimme den <a href="%s" target="_blank"><strong>AGB</strong></a> und den <a href="%s" target="_blank"><strong>Datenschutzbestimmungen</strong></a> zu.',
-'newsletter_agree'                     => 'Ja, ich möchte per E-Mail Newsletter über Trends, Aktionen &amp; Gutscheine informiert werden. Abmeldung jederzeit möglich. (optional)',
+'newsletter_agree'                     => 'Ja, ich möchte per E-Mail-Newsletter über Trends, Aktionen &amp; Gutscheine informiert werden. Abmeldung jederzeit möglich. (optional)',
 
 'success_address_book_entry_deleted'   => 'Die ausgewählte Adresse wurde erfolgreich gelöscht.',
 'warning_primary_address_deletion'     => 'Die Standardadresse kann nicht gelöscht werden.',

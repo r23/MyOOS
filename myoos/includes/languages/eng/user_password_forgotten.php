@@ -23,7 +23,7 @@
 $aLang['navbar_title_1'] = 'Login';
 $aLang['navbar_title_2'] = 'Password Forgotten';
 $aLang['heading_title'] = 'I\'ve Forgotten My Password!';
-$aLang['text_no_email_address_found'] = '<strong>NOTE:</strong> The E-Mail Address was not found in our records, please try again.';
+$aLang['text_no_email_address_found'] = '<strong>NOTE:</strong> The E-Mail-Address was not found in our records, please try again.';
 $aLang['email_password_reminder_subject'] = STORE_NAME . ' - New Password';
 $aLang['text_password_sent'] = 'A New Password Has Been Sent To Your Email Address';
 $aLang['link_back_to_login'] = 'Back to Login';

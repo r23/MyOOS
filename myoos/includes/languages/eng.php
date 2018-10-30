@@ -140,7 +140,7 @@ $aLang = [
 'block_information_gv'            => 'Gift Voucher FAQ',
 
 // login
-'entry_email_address'         => 'E-Mail Address',
+'entry_email_address'         => 'E-Mail-Address',
 'entry_password'              => 'Password',
 'text_password_info'          => 'Password forgotten?',
 'button_login'                => 'Login',
@@ -203,7 +203,7 @@ $aLang = [
 'js_first_name'     => '* The \'First Name\' entry must have at least ' . ENTRY_FIRST_NAME_MIN_LENGTH . ' characters.\n',
 'js_last_name'      => '* The \'Last Name\' entry must have at least ' . ENTRY_LAST_NAME_MIN_LENGTH . ' characters.\n',
 'js_dob'            => '* The \'Date of Birth\' entry must be in the format: xx/xx/xxxx (month/day/year).\n',
-'js_email_address'  => '* The \'E-Mail Address\' entry must have at least ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' characters.\n',
+'js_email_address'  => '* The \'E-Mail-Address\' entry must have at least ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' characters.\n',
 'js_address'        => '* The \'Street Address\' entry must have at least ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' characters.\n',
 'js_post_code'      => '* The \'Post Code\' entry must have at least ' . ENTRY_POSTCODE_MIN_LENGTH . ' characters.\n',
 'js_city'           => '* The \'City\' entry must have at least ' . ENTRY_CITY_MIN_LENGTH . ' characters.\n',
@@ -240,9 +240,9 @@ $aLang = [
 'entry_date_of_birth'    => 'Date of Birth',
 'entry_date_of_birth_error'         => 'Your Date of Birth must be in this format: MM/DD/YYYY (eg 05/21/1970)',
 'entry_date_of_birth_text'          => '(eg. 05/21/1970)',
-'entry_email_address_error'         => 'Your E-Mail Address must contain a minimum of ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' characters.',
-'entry_email_address_check_error'   => 'Your E-Mail Address does not appear to be valid - please make any necessary corrections.',
-'entry_email_address_error_exists'  => 'Your E-Mail Address already exists in our records - please log in with the e-mail address or create an account with a different address.',
+'entry_email_address_error'         => 'Your E-Mail-Address must contain a minimum of ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' characters.',
+'entry_email_address_check_error'   => 'Your E-Mail-Address does not appear to be valid - please make any necessary corrections.',
+'entry_email_address_error_exists'  => 'Your E-Mail-Address already exists in our records - please log in with the e-mail address or create an account with a different address.',
 
 'entry_street_address'           => 'Street Address',
 'entry_street_address_error'     => 'Your Street Address must contain a minimum of ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' characters.',
