@@ -50,11 +50,11 @@ $generated_i18n_strings = array(
 	   number of paragraphs over the recommended word limit, %4$d expands to the word limit */
 	_n_noop( '%1$sParagraph length%2$s: %3$d of the paragraphs contains more than the recommended maximum of %4$d words. %5$sShorten your paragraphs%2$s!', '%1$sParagraph length%2$s: %3$d of the paragraphs contain more than the recommended maximum of %4$d words. %5$sShorten your paragraphs%2$s!', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/src/assessments/readability/passiveVoiceAssessment.js:81
+	// Reference: node_modules/yoastseo/src/assessments/readability/passiveVoiceAssessment.js:80
 	/* Translators: %1$s expands to a link on yoast.com, %2$s expands to the anchor end tag. */
 	__( '%1$sPassive voice%2$s: You\'re using enough active voice. That\'s great!', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/src/assessments/readability/passiveVoiceAssessment.js:90
+	// Reference: node_modules/yoastseo/src/assessments/readability/passiveVoiceAssessment.js:89
 	/* Translators: %1$s and %5$s expand to a link on yoast.com, %2$s expands to the anchor end tag,
 	   %3$s expands to the percentage of sentences in passive voice, %4$s expands to the recommended value. */
 	__( '%1$sPassive voice%2$s: %3$s of the sentences contain passive voice, which is more than the recommended maximum of %4$s. %5$sTry to use their active counterparts%2$s.', 'wordpress-seo' ),
@@ -223,14 +223,14 @@ $generated_i18n_strings = array(
 	// Reference: node_modules/yoastseo/src/assessments/seo/KeywordDensityAssessment.js:293
 	_n_noop( '%4$sKeyphrase density%6$s: %1$s. This is way over the advised %3$s maximum; the keyphrase was found %2$d time. %5$sDon\'t overoptimize%6$s!', '%4$sKeyphrase density%6$s: %1$s. This is way over the advised %3$s maximum; the keyphrase was found %2$d times. %5$sDon\'t overoptimize%6$s!', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/src/assessments/seo/MetaDescriptionKeywordAssessment.js:113
+	// Reference: node_modules/yoastseo/src/assessments/seo/MetaDescriptionKeywordAssessment.js:112
 	/* Translators: %1$s expands to a link on yoast.com, %2$s expands to the anchor end tag. */
 	__( '%1$sKeyphrase in meta description%2$s: Keyphrase or synonym appear in the meta description. Well done!', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/src/assessments/seo/MetaDescriptionKeywordAssessment.js:128
+	// Reference: node_modules/yoastseo/src/assessments/seo/MetaDescriptionKeywordAssessment.js:127
 	__( '%1$sKeyphrase in meta description%2$s: The meta description contains the keyphrase %3$s times, which is over the advised maximum of 2 times. %4$sLimit that%5$s!', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/src/assessments/seo/MetaDescriptionKeywordAssessment.js:141
+	// Reference: node_modules/yoastseo/src/assessments/seo/MetaDescriptionKeywordAssessment.js:140
 	__( '%1$sKeyphrase in meta description%2$s: The meta description has been specified, but it does not contain the keyphrase. %3$sFix that%4$s!', 'wordpress-seo' ),
 
 	// Reference: node_modules/yoastseo/src/assessments/seo/metaDescriptionLengthAssessment.js:158
@@ -328,7 +328,7 @@ $generated_i18n_strings = array(
 	   %5$d expands to the recommended minimum of words. */
 	_n_noop( 'This is far below the recommended minimum of %5$d word. %3$sAdd more content%4$s.', 'This is far below the recommended minimum of %5$d words. %3$sAdd more content%4$s.', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/src/assessments/seo/TextCompetingLinksAssessment.js:138
+	// Reference: node_modules/yoastseo/src/assessments/seo/TextCompetingLinksAssessment.js:129
 	/* Translators:  %1$s and %2$s expand to links on yoast.com, %3$s expands to the anchor end tag */
 	__( '%1$sLink keyphrase%3$s: You\'re linking to another page with the words you want this page to rank for. %2$sDon\'t do that%3$s!', 'wordpress-seo' ),
 
