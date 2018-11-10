@@ -483,7 +483,7 @@ if ($category_depth == 'nested') {
 		$product_filter_select = '';
 		$filterlist_result = $dbconn->Execute($filterlist_sql);
 		if ($filterlist_result->RecordCount() > 1) {
-			$product_filter_select .= '            <td align="center" class="main">' . $aLang['text_show'] . '<select size="1" onChange="if(options[selectedIndex].value) window.location.href=(options[selectedIndex].value)">';
+			$product_filter_select .= '<form><div class="justify-content-center">' . $aLang['text_show'] . '<select size="1" onChange="if(options[selectedIndex].value) window.location.href=(options[selectedIndex].value)">';
 			if (isset($_GET['manufacturers_id']) && !empty($_GET['manufacturers_id'])) {
 				$manufacturers_id = intval($_GET['manufacturers_id']);
 				$arguments = 'manufacturers_id=' . intval($manufacturers_id);
@@ -510,7 +510,7 @@ if ($category_depth == 'nested') {
 				}
 				$filterlist_result->MoveNext();
 			}
-			$product_filter_select .= '</select></td>' . "\n";
+			$product_filter_select .= '</select></div></form>' . "\n";
 		}
 
 // Get the image for the top
@@ -526,7 +526,6 @@ if ($category_depth == 'nested') {
 			$image = $category['categories_image'];
 		}
 
-		# 'heading_title' => $aLang['heading_title'],
 		// assign Smarty variables;
 		$smarty->assign(
 			array(
