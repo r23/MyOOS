@@ -308,6 +308,7 @@ $aLang = [
 'button_remove_notifications'        => 'Benachrichtigungen löschen',
 'button_reviews'                     => 'Bewertungen',
 'button_submit_a_review'             => 'Bewertung abgeben',
+'button_send'                        => 'Absenden',
 'button_send_message'                => 'Nachricht senden',
 'button_search'                      => 'Suchen',
 'button_start_shopping'              => 'Beginnen Sie Ihren Einkauf',

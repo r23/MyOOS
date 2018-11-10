@@ -25,5 +25,10 @@ $aLang['navbar_title_2'] = 'Passwort vergessen';
 $aLang['heading_title'] = 'Wie war noch mal mein Passwort?';
 $aLang['text_no_email_address_found'] = '<strong>ACHTUNG:</strong> Die eingegebene eMail-Adresse ist nicht registriert. Bitte versuchen Sie es noch einmal.';
 $aLang['email_password_reminder_subject'] = STORE_NAME . ' - Ihr neues Passwort.';
+
+$aLang['heading_new_customer'] = 'Neuer Kunde';
+$aLang['text_new_customer'] = 'Sind Sie Neukunde?';
+$aLang['link_new_customer'] = 'Jetzt registrieren.';
+
 $aLang['text_password_sent'] = 'Ein neues Passwort wurde per eMail verschickt.';
 $aLang['link_back_to_login'] = 'Zurück zum Login';

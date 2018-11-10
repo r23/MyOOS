@@ -43,11 +43,14 @@
 							<input type="password" name="password" class="form-control" id="InputPassword" placeholder="{$lang.entry_password}" data-original-title="" title="">
 						</div>
 						<br>
-						<button type="submit" class="btn btn-primary float-right"><i class="fa fa-check" aria-hidden="true"></i> {$lang.button_login}</button>
+						<button type="submit" class="btn btn-primary w-100"><i class="fa fa-check" aria-hidden="true"></i> {$lang.button_login}</button>
 						<hr>
 					</form>
-						<p>{$lang.text_password_forgotten} <a href="{html_href_link content=$filename.password_forgotten}">{$lang.link_password_forgotten}</a></p>	
-						<p>{$lang.text_new_customer} <a href="{html_href_link content=$filename.create_account}">{$lang.link_new_customer}</a></p>
+						<p>{$lang.text_password_forgotten} <a href="{html_href_link content=$filename.password_forgotten}">{$lang.link_password_forgotten}</a></p>
+					<div class="bg-light">
+						<h2 class="text-center">{$lang.text_new_customer}</h2>
+						<a href="{html_href_link content=$filename.create_account}"><button type="button" class="btn btn-outline-danger w-100">{$lang.link_new_customer}</button></a>
+					</div>
 				</div>
 			</div>
 		</div><!-- .row -->      

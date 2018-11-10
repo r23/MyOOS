@@ -322,6 +322,7 @@ $aLang = [
 'button_remove_notifications'  => 'Remove Notifications',
 'button_reviews'               => 'Reviews',
 'button_submit_a_review'       => 'Submit a review',
+'button_send'                  => 'Send',
 'button_send_message'          => 'Send Message',
 'button_search'                => 'Search',
 'button_start_shopping'        => 'Start Shopping',
