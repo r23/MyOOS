@@ -11,136 +11,204 @@
 <section class="mainContent clearfix">
 	<div class="container">
 		<div class="row">
-			<div class="col-md-12">
-				<div class="innerWrapper clearfix">
-				
-<form name="cart_quantity" action="{html_get_link}" method="POST" role="form" enctype="multipart/form-data">
-	<input type="hidden" name="action" value="add_product">
-	<input type="hidden" name="content" value="{$page_file}">
-{if $smarty.get.edit}
-	<input type="hidden" name="edit_product" value="{$smarty.get.products_id}">
-{/if}
-{if $mySystem.sed}
-    <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
-	<input type="hidden" name="formid" value="{$mySystem.formid}">
-{/if}
-	<input type="hidden" name="products_id" value="{$product_info.products_id}">
-	
-	
-<table border="0" width="100%" cellspacing="0" cellpadding="0">
 
-      <tr>
-        <td height="5"></td>
-      </tr>
-      <tr>
-        <td>{$oosPageHeading}</td>
-      </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
-      <tr>
-        <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-         <tr>
-           <td class="main">{$product_info.products_description|stripslashes}
-<br>
-    </td>
-    <td align="right" valign="top" class="smallText">
-{if $product_info.products_image != '' }
-[$product_info.products_image}
-  {if $smarty.const.LIGHTBOX eq 'true'}
-    <a href="{$smarty.const.OOS_IMAGES}{$smarty.const.OOS_POPUP_IMAGES}{$product_info.products_image}" rel="lightbox" title= {$product_info.products_name} ><img src="{$smarty.const.OOS_IMAGES}{$product_info.products_image}" alt={$product_info.products_name|escape:"quotes"} border="0"></a><br>
-    <br><br><a href="{$smarty.const.OOS_IMAGES}{$smarty.const.OOS_POPUP_IMAGES}{$product_info.products_image}" rel="lightbox" title= {$product_info.products_name} >zoom.gif{$lang.text_click_to_enlarge}</a>
+			<div class="col-12 col-md-4">
+				<div class="single_product_thumb">
+					{if $product_info.products_image != '' }
+						<img src="{$smarty.const.OOS_IMAGES}{$smarty.const.OOS_POPUP_IMAGES}{$product_info.products_image}" alt="{$product_info.products_name}">
+ 					{/if}
+				</div>
+			</div>
+
+			<div class="col-12 col-md-8">
+				<div class="single_product_desc">
+					<h1>{$product_info.products_name}</h1>
+		
+					{if $oEvent->installed_plugin('reviews')}	
+						<!-- rating -->
+						<div class="single_product_ratings mb-15">
+						{if $reviews_total gt 0 }
+							<div class="rating rating-{$average_rating} fs-13"><!-- rating-0 ... rating-5 --></div>
+							<a href="{html_href_link content=$filename.product_reviews products_id=$product_info.products_id}" class="btn btn-primary-filled" role="button">
+								<i class="fa fa-commenting"  aria-hidden="true"></i> {$lang.button_reviews}
+							</a>
+						{else}						
+							<a href="{html_href_link content=$filename.product_reviews_write products_id=$product_info.products_id}" class="btn btn-primary-filled pull-left" role="button">
+								<i class="fa fa-pencil" aria-hidden="true"></i> {$lang.button_write_review}
+							</a>
+						{/if}
+						</div>
+						<!-- /rating -->
+					{/if}
+				
+						
+						
+						
+	{if $myUser.show_price eq 1 }
+		<div class="text-center">
+		{if (!empty($whats_new_special_price))}
+			<s>{$whats_new_product_price}{$smarty.const.UNITS_DELIMITER}{$products_units[$random_product.products_units_id]}</s><br>
+			{if $random_product.products_base_price != 1}<s><span class="base_price">{$random_product.products_base_unit} = {$whats_new_base_product_price}</span></s><br>{/if}
+			<span class="special_price">{$whats_new_product_special_price}{$smarty.const.UNITS_DELIMITER}{$products_units[$random_product.products_units_id]}</span>
+			{if $random_product.products_base_price != 1}<br><span class="special_base_price">{$random_product.products_base_unit} = {$whats_new_base_product_special_price}</span></s><br>{/if}
+		{else}
+			{$whats_new_product_price}{$smarty.const.UNITS_DELIMITER}{$products_units[$random_product.products_units_id]}
+			{if $random_product.products_base_price != 1}<br><span class="base_price">{$random_product.products_base_unit} = {$whats_new_base_product_price}</span><br>{/if}
+		{/if}
+		</div>
+	{/if}
+
+						
+{if (!empty($info_special_price))}
+   <del>{$info_product_price}</del><br>
+   {if $product_info.products_base_price != 1}<del><span class="base_price">{$product_info.products_base_unit} = {$info_base_product_price}</span></del><br>{/if}
+
+   <span class="special_price">{$info_product_special_price}</span>{$smarty.const.UNITS_DELIMITER} {$products_units[$product_info.products_units_id]}<br>
+   {if $product_info.products_base_price != 1}<span class="special_base_price">{$product_info.products_base_unit} = {$info_base_product_special_price}</span></del><br>{/if}
+
+{else}
+  {if $info_max_product_discount != 0}
+    <del>{$info_product_price}</del> -{$info_max_product_discount}%<br>
+    <span class="discount_price">{$info_product_discount_price}</span>{$smarty.const.UNITS_DELIMITER} {$products_units[$product_info.products_units_id]}<br>
+    {if $product_info.products_base_price != 1}<span class="discount_base_price">{$product_info.products_base_unit} = {$info_base_product_special_price}</span></del><br>{/if}
+
+  {else}
+    {if $price_discount}
+       {$lang.price_from} {$price_discount}{$smarty.const.UNITS_DELIMITER} {$products_units[$product_info.products_units_id]}<br>
+    {else}
+		<h4 class="price">{$info_product_price}{$smarty.const.UNITS_DELIMITER}{$products_units[$product_info.products_units_id]}</h4>
+    {/if}
+
   {/if}
 {/if}
-<button class="btn btn-success-filled" name="button[wishlist][]" type="submit"><i class="fa fa-heart"></i> {$lang.button_in_wishlist}</button>
 
-            </td>
-          </tr>
-        </table></td>
-       </tr>
-       </tr>
-       <tr>
-         <td height="10"></td>
-       </tr>
-       <tr>
-         <td>{$options}</td>
-       <tr>
-{if $reviews_total gt 0 }
-      <tr>
-        <td class="main"><br>{$lang.text_current_reviews}&nbsp;{$reviews_total}</td>
-      </tr>
-{/if}
-{if $product_info.products_url != '' }
-      <tr>
-        <td class="main"><br>{$redirect|string_format:$lang.text_more_information}</td>
-      </tr>
-{/if}
-{if ($product_info.products_date_available > $oosDate) }
-	<p class="text-danger text-center">{$product_info.products_date_available|oos_date_long|string_format:$lang.text_date_available}</p>
-{else}
-	{if $smarty.const.SHOW_DATE_ADDED_AVAILABLE eq 'true'}
-		<p class="text-secondary text-center">{$product_info.products_date_added|oos_date_long|string_format:$lang.text_date_added}</p>  
-	{/if}
-{/if}
+  {if $info_max_product_discount != 0}
+  {else}
+    {if $price_discount}
+    {else}
+      {if $product_info.products_base_price != 1}<span class="base_price">{$product_info.products_base_unit} = {$info_base_product_price}</span><br>{/if}
+    {/if}
 
-{if $notifications_block}
-<div class="container text-center m-py-50">
-	<div class="mb-5">
-		<span class="d-block g-color-gray-light-v1 m-font-size-70 mb-4">
-			<i class="fa fa-pencil-square" aria-hidden="true"></i>
-		</span>
-		<h2 class="m-mb-20">{$lang.text_product_notifications}</h2>
-		<p>{$lang.text_product_notifications_introduction}</p>
-	</div>
-	{if $notification_exists}
-		<a class="btn btn-primary m-font-size-12 m-py-12 m-px-25" href="{html_href_link content=$page_file oos_get=$get_params action=notify_remove}" role="button">{$products_name|string_format:$lang.block_notifications_notify_remove}</a>
-	{else}
-		<a class="btn btn-primary m-font-size-12 m-py-12 m-px-25" href="{html_href_link content=$page_file oos_get=$get_params action=notify}" role="button">{$products_name|string_format:$lang.block_notifications_notify}</a>
-	{/if}
-</div>	
+  {/if}
+<p><small>{$panginfov}</small></p>  
+{if $info_product_price_list > 0}
+  <p>{$info_product_price_list}</p>
 {/if}
 
 
-{if $discounts_price eq 'true'}
-  {include file="phoenix/products/discounts_price.html"}
-{/if}
+                        <div class="short_overview">
+						{if $smarty.const.PRODUCT_LIST_MODEL > 0}
+							<p>{$product_info.products_model}</p>
+						{/if}
+						</div>
 
+						<form name="cart_quantity" action="{html_get_link}" method="POST" role="form" enctype="multipart/form-data">
+							<input type="hidden" name="action" value="add_product">
+							<input type="hidden" name="content" value="{$page_file}">
+						{if $smarty.get.edit}
+							<input type="hidden" name="edit_product" value="{$smarty.get.products_id}">
+						{/if}
+						{if $mySystem.sed}
+							<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+							<input type="hidden" name="formid" value="{$mySystem.formid}">
+						{/if}
+							<input type="hidden" name="products_id" value="{$product_info.products_id}">	
+							
+                        <div class="widget color mb-15">
+                            <div class="widget-desc d-flex">
+								{$options}
+                            </div>
+                        </div>
+						
+                        <!-- Add to Cart Form -->
+						<div class="cart clearfix mb-15 d-flex align-items-center">
+							<input type="hidden" name="action" value="add_product">
+							<input type="hidden" name="mp" value="{$main_page}">
+							<input type="hidden" name="file" value="{$page_file}">
+							<input type="hidden" name="{$oos_session_name}" value="{$oos_session_id}">
+							{if $myUser.show_price eq 1 }	
+							<input type="hidden" name="products_id" value="{$product_info.products_id}">
 
-      <tr>
-        <td height="10"></td>
-      </tr>
-
-      <tr>
-        <td align="right" class="main">{$lang.products_order_qty_text} <input type="text" name="cart_quantity" value="{$product_info.products_quantity_order_min|quantity}" size="3">
+                            <div class="quantity">
+                                <span class="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                                <input type="number" class="qty-text" id="qty" step="1" min="1" max="{$product_info.products_max}" name="cart_quantity" value="1">
+                                <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                            </div>
    {if $product_info.products_quantity_order_min > 1 }
      {$lang.products_order_qty_min_text} {$product_info.products_quantity_order_min|quantity}
    {/if}
    {if $product_info.products_quantity_order_units > 1 }
      {$lang.products_order_qty_unit_text} {$product_info.products_quantity_order_units|quantity}
-   {/if}
-        </td>
-      </tr>
-</table>
-
-
-{if $oEvent->installed_plugin('reviews')}
-   {if $reviews_total gt 0 }
-        <a href="{html_href_link content=$filename.product_reviews products_id=$product_info.products_id}" class="btn btn-primary-filled" role="button"><i class="fa fa-commenting"  aria-hidden="true"></i> {$lang.button_reviews}</a>
-   {else}
-        <a href="{html_href_link content=$filename.product_reviews_write products_id=$product_info.products_id}" class="btn btn-primary-filled pull-left" role="button"><i class="fa fa-pencil" aria-hidden="true"></i> {$lang.button_write_review}</a>
-   {/if}
+   {/if}							
+							
+                            <button type="submit" class="btn bigshop-btn bigshop-btn-sm ml-2">{$lang.image_button_in_cart}</button>
+							{/if}
+						</div>
+						</form>
+                        <div class="others_info_area mb-15 d-flex">
+                            <a class="add_to_wishlist" href="{html_href_link content=$filename.account_wishlist action=add_wishlist products_id=$product_info.products_id}" rel="nofollow"><i class="fa fa-heart" aria-hidden="true"></i> {$lang.button_add_wishlist}</a>
+                        </div>
+						
+{if $smarty.const.OOS_MO_PIC eq 'true'}
+  {include file="$theme_set/products/mo_pics.html"}
 {/if}
+                    </div>
+                </div>
 
+		<div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="product_details_tab clearfix">
+                                <div class="description_area">
+									{$product_info.products_description}                            
+								</div>
+								
+							{if $cart_count_contents gt 0 }
+								{if $smarty.get.con eq '1' }
+									<a href="{html_href_link content=$filename.checkout_confirmation}" class="btn btn-primary-filled" role="button">{$lang.button_back}</a> 
+								{else}
+									{if $myUser.show_price eq 1 }
+										<a href="{html_href_link content=$filename.checkout_payment}" class="btn btn-primary-filled" role="button">
+											<i class="fa fa-shopping-basket" aria-hidden="true"></i> {$lang.button_checkout}
+										</a>
+									{/if}
+								{/if}
+							{/if}
 
-{if $cart_count_contents gt 0 }
-	{if $smarty.get.con eq '1' }
-		<a href="{html_href_link content=$filename.checkout_confirmation}" class="btn btn-primary-filled" role="button">{$lang.button_back}</a> 
-	{else}
-		{if $myUser.show_price eq 1 }
-			<a href="{html_href_link content=$filename.checkout_payment}" class="btn btn-primary-filled" role="button"><i class="fa fa-shopping-basket" aria-hidden="true"></i> {$lang.button_checkout}</a>
+							{if $product_info.products_url != '' }
+								<p>{$redirect|string_format:$lang.text_more_information}</p>
+							{/if}								
+
+							{if ($product_info.products_date_available > $oosDate) }
+								<p class="text-danger">{$product_info.products_date_available|oos_date_long|string_format:$lang.text_date_available}</p>
+							{else}
+								{if $smarty.const.SHOW_DATE_ADDED_AVAILABLE eq 'true'}
+									<p class="text-secondary">{$product_info.products_date_added|oos_date_long|string_format:$lang.text_date_added}</p>  
+								{/if}
+							{/if}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+	{if $notifications_block}
+		<div class="container m-py-50">
+			<div class="mb-5">
+				<span class="d-block g-color-gray-light-v1 m-font-size-70 mb-4">
+					<i class="fa fa-pencil-square" aria-hidden="true"></i>
+				</span>
+				<h2 class="m-mb-20">{$lang.text_product_notifications}</h2>
+				<p>{$lang.text_product_notifications_introduction}</p>
+			</div>
+		{if $notification_exists}
+			<a class="btn btn-primary m-font-size-12 m-py-12 m-px-25" href="{html_href_link content=$page_file oos_get=$get_params action=notify_remove}" role="button">{$products_name|string_format:$lang.block_notifications_notify_remove}</a>
+		{else}
+			<a class="btn btn-primary m-font-size-12 m-py-12 m-px-25" href="{html_href_link content=$page_file oos_get=$get_params action=notify}" role="button">{$products_name|string_format:$lang.block_notifications_notify}</a>
 		{/if}
+		</div>	
 	{/if}
-{/if}
+
+
 
 
 {if $myUser.show_price eq 1 }
@@ -149,7 +217,7 @@
    <a href="{html_href_link content=$filename.login}" class="btn btn-primary-filled" role="button">{$lang.button_login}</a>
 {/if}
 
-</form>
+
 {$slavery_products}
 
 {$xsell_products}

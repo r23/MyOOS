@@ -331,7 +331,6 @@ $aLang = [
 'button_write_review'          => 'Write Review',
 'button_add_quick'             => 'Add a Quickie!',
 'image_wishlist_delete'        => 'delete',
-'button_in_wishlist'           => 'Wishlist',
 'button_add_wishlist'          => 'Wishlist',
 'button_redeem_voucher'        => 'Redeem',
 'button_callaction'            => 'Request a quote',
