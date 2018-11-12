@@ -130,8 +130,6 @@ $aLang = [
 'block_manufacturer_info_homepage'        => '%s Homepage',
 'block_manufacturer_info_other_products'  => 'Other products',
 
-'block_add_product_id_text' => 'Enter the model of the product you wish to add to your shopping cart.',
-
 // information block text in tempalate/your theme/block/information.html
 'block_information_imprint'       => 'Imprint',
 'block_information_privacy'       => 'Privacy Notice',

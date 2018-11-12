@@ -114,8 +114,6 @@ $aLang = [
 'block_manufacturer_info_homepage'        => '%s Homepage',
 'block_manufacturer_info_other_products'  => 'Mehr Produkte',
 
-'block_add_product_id_text'               => 'Eingabe der Bestellnummer.',
-
 // information block text in tempalate/your theme/block/information.html
 'block_information_imprint'         => 'Impressum',
 'block_information_privacy'         => 'Datenschutz',
