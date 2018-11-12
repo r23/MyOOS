@@ -98,7 +98,6 @@
 								</div>
 							</div>
 							{/if}							
-
 						{/if}
 							<hr />	
 							<h3>{$lang.category_address}</h3>
@@ -127,7 +126,7 @@
 							<div class="form-group">
 								<label class="col-sm-4 form-control-label" for="state">{$lang.entry_state} *</label>
 								<div class="col-sm-5">
-									{oos_get_zone_name country_id=$account.entry_country_id zone_id=$account.entry_zone_id default_zone=$account.entry_state}
+									<input type="text" value="{$smarty.post.state}" class="form-control" id="state" name="state" placeholder="{$lang.entry_state}" required> 
 								</div>
 							</div>
 						{/if}
@@ -137,7 +136,6 @@
 									{oos_get_country_list name=country selected=$account.entry_country_id}
 								</div>
 							</div>
-
 							<div class="form-group">
 								<label class="col-sm-4 form-control-label" for="telephone">{$lang.entry_telephone_number}</label>
 								<div class="col-sm-5">

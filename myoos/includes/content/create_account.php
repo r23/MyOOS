@@ -31,7 +31,7 @@ if ( $session->hasStarted() === FALSE ) $session->start();
 
 // navigation history
 if (!isset($_SESSION['navigation'])) {
-	$_SESSION['navigation'] = new oosNavigationHistory();
+	$_SESSION['navigation'] = new navigationHistory();
 } 
 
 if ( $_SESSION['login_count'] > 3) {

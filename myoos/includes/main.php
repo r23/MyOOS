@@ -38,7 +38,7 @@ if (is_readable('includes/local/configure.php')) {
  * Currently version.
  * use SemVer - https://semver.org
  */
-define('OOS_VERSION', '2.0.110 -dev');
+define('OOS_VERSION', '2.0.117 -dev');
 
 // Complete software name string
 define('OOS_FULL_NAME', 'MyOOS ' . OOS_VERSION);
@@ -211,7 +211,7 @@ if ( $session->hasStarted() === TRUE ) {
 
 	// navigation history
 	if (!isset($_SESSION['navigation'])) {
-		$_SESSION['navigation'] = new oosNavigationHistory();
+		$_SESSION['navigation'] = new navigationHistory();
 	}	
 
 	$aContents = oos_get_content();

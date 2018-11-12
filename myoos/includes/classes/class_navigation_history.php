@@ -18,36 +18,29 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  /**
-   * Class Navigation History
-   *
-   *
-   * @link      https://www.oos-shop.de Latest release of this class
-   * @package   Products History
-   * @version   $Revision: 1.1 $ - changed by $Author: r23 $ on $Date: 2007/06/07 16:06:31 $
-   * @access    public
-   */
-  class oosNavigationHistory {
+/**
+* Class Navigation History
 
-     var $path;
-     var $snapshot;
+*/
+class navigationHistory {
 
-    /**
+	var $path;
+	var $snapshot;
+
+	/**
      * Constructor of our Class
      */
 	public function __construct() {
-       $this->reset();
-     }
+		$this->reset();
+	}
 
-
-     public function reset() {
-       $this->path = array();
-       $this->snapshot = array();
-     }
-
+	public function reset() {
+		$this->path = array();
+		$this->snapshot = array();
+	}
 
 
     public function set_snapshot($page = '') {

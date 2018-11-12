@@ -60,7 +60,6 @@ class myOOS_Smarty extends Smarty {
 
 
 		$this->use_sub_dirs = FALSE;
-		$this->error_reporting = E_ALL & ~E_NOTICE;
 
     }
 }

@@ -48,7 +48,7 @@ if ($sContent != $aContents['product_reviews_write']) {
 	}
 	$random_select .= " ORDER BY r.reviews_id DESC";
 	$random_product = oos_random_select($random_select, MAX_RANDOM_SELECT_REVIEWS);
-
+	
 	$smarty->assign(
 		array(
             'block_heading_reviews' => $block_heading,
