@@ -67,7 +67,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 		}
     }
     $country = oos_db_prepare_input($_POST['country']);
-    $telephone = oos_db_prepare_input($_POST['telephone']);
+    if (ACCOUNT_TELEPHONE  == 'true') $telephone = oos_db_prepare_input($_POST['telephone']);
     $password = oos_db_prepare_input($_POST['password']);
     $confirmation = oos_db_prepare_input($_POST['confirmation']);
     if (isset($_POST['newsletter'])) {
@@ -215,7 +215,6 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 		$sql_data_array = array('customers_firstname' => $firstname,
 								'customers_lastname' => $lastname,
 								'customers_email_address' => $email_address,
-								'customers_telephone' => $telephone,
 								'customers_status' => $customers_status,
 								'customers_login' => $customers_login,
 								'customers_language' => $sLanguage,
@@ -226,7 +225,8 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 
 		if (ACCOUNT_GENDER == 'true') $sql_data_array['customers_gender'] = $gender;
 		if (ACCOUNT_DOB == 'true') $sql_data_array['customers_dob'] = oos_date_raw($dob);
-
+		if (ACCOUNT_TELEPHONE  == 'true') $sql_data_array['customers_telephone'] = $telephone;
+		
 		oos_db_perform($oostable['customers'], $sql_data_array);
 
 		$customer_id = $dbconn->Insert_ID();
@@ -316,6 +316,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 		}
 
 		$email_text .= $aLang['email_welcome'];
+
 		if (MODULE_ORDER_TOTAL_GV_STATUS == 'true') {
 			if (NEW_SIGNUP_GIFT_VOUCHER_AMOUNT > 0) {
 				$coupon_code = oos_create_coupon_code();
@@ -346,6 +347,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
                        $aLang['email_gv_link'] . oos_href_link($aContents['gv_redeem'], 'gv_no=' . $coupon_code, false, false) . 
                        "\n\n";  
 			}
+			
 			if (NEW_SIGNUP_DISCOUNT_COUPON != '') {
 				$coupon_id = NEW_SIGNUP_DISCOUNT_COUPON;
 				$couponstable = $oostable['coupons'];

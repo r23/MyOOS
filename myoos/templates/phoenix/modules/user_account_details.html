@@ -118,13 +118,11 @@
       <tr>
         <td class="main"><table border="0" cellspacing="0" cellpadding="2">
           <tr>
+{if $smarty.const.ACCOUNT_TELEPHONE eq 'true'}		  
             <td class="main">&nbsp;{$lang.entry_telephone_number}</td>
             <td class="main">&nbsp;<input type="text" name="telephone" value="{$account.customers_telephone}">&nbsp;&nbsp;<small><font color="#AABBDD">{$lang.entry_info_text}</font></small></td>
           </tr>
-          <tr>
-            <td class="main">&nbsp;{$lang.entry_fax_number}</td>
-            <td class="main">&nbsp;<input type="text" name="fax" value="{$account.customers_fax}"></td>
-          </tr>
+{/if}		  
         </table></td>
       </tr>
     </table></td>

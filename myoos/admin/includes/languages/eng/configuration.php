@@ -195,20 +195,23 @@ define('SUBCATEGORY_IMAGE_HEIGHT_DESC', 'The pixel height of subcategory images'
 define('IMAGE_REQUIRED_TITLE', 'Image Required');
 define('IMAGE_REQUIRED_DESC', 'Enable to display broken images. Good for development.');
 
-define('CUSTOMER_NOT_LOGIN_TITLE', 'Zugangsberechtigung');
-define('CUSTOMER_NOT_LOGIN_DESC', 'Die Zugangsberechtigung wird durch den Administrator nach Prüfung der Kundendaten erteilt');
+define('CUSTOMER_NOT_LOGIN_TITLE', 'Access authorisation');
+define('CUSTOMER_NOT_LOGIN_DESC', 'The access authorization is granted by the administrator after checking the customer data.');
 
-define('SEND_CUSTOMER_EDIT_EMAILS_TITLE', 'Kundendaten per Mail');
-define('SEND_CUSTOMER_EDIT_EMAILS_DESC', 'Die Kundendaten werden an den Shopbetreiber per eMail gesandt');
+define('SEND_CUSTOMER_EDIT_EMAILS_TITLE', 'Customer data by mail');
+define('SEND_CUSTOMER_EDIT_EMAILS_DESC', 'The customer data are sent to the Shopbetreiber by email');
 
-define('DEFAULT_MAX_ORDER_TITLE', 'Kundenkredit');
-define('DEFAULT_MAX_ORDER_DESC', 'maximaler Wert einer Bestellung');
+define('DEFAULT_MAX_ORDER_TITLE', 'Customer credit');
+define('DEFAULT_MAX_ORDER_DESC', 'Maximum value of an order');
 
-define('ACCOUNT_GENDER_TITLE', 'Anrede');
-define('ACCOUNT_GENDER_DESC', 'Die Anrede wird angezeigt');
+define('ACCOUNT_GENDER_TITLE', 'Form of address');
+define('ACCOUNT_GENDER_DESC', 'The salutation is displayed');
 
-define('ACCOUNT_DOB_TITLE', 'Geburtsdatum');
-define('ACCOUNT_DOB_DESC', 'Das Gebutsdatum wird zwingend gefordert');
+define('ACCOUNT_DOB_TITLE', 'Date of birth');
+define('ACCOUNT_DOB_DESC', 'The dough date is required as an input if \'true\' is set. Otherwise it is not displayed as an input option.');
+
+define('ACCOUNT_DOB_ACCOUNT_TELEPHONE_TITLE', 'Telephone number');
+define('ACCOUNT_DOB_ACCOUNT_TELEPHONE_DESC', 'Do you need the phone number of your customer?');
 
 define('ACCOUNT_COMPANY_TITLE', 'Firmenname');
 define('ACCOUNT_COMPANY_DESC', 'Firmenname wird angezeigt');

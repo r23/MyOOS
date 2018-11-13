@@ -54,7 +54,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
     $lastname = oos_db_prepare_input($_POST['lastname']);
     if (ACCOUNT_DOB == 'true') $dob = oos_db_prepare_input($_POST['dob']);
     $email_address = oos_db_prepare_input($_POST['email_address']);
-    $telephone = oos_db_prepare_input($_POST['telephone']);
+    if (ACCOUNT_TELEPHONE  == 'true') $telephone = oos_db_prepare_input($_POST['telephone']);
     $password = oos_db_prepare_input($_POST['password']);
     $confirmation = oos_db_prepare_input($_POST['confirmation']);
     if (isset($_POST['newsletter'])) {
@@ -124,12 +124,12 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 		$sql_data_array = array('customers_firstname' => $firstname,
                             'customers_lastname' => $lastname,
                             'customers_email_address' => $email_address,
-                            'customers_telephone' => $telephone,
                             'customers_password' => $new_encrypted_password);
 
 		if (ACCOUNT_GENDER == 'true') $sql_data_array['customers_gender'] = $gender;
 		if (ACCOUNT_DOB == 'true') $sql_data_array['customers_dob'] = oos_date_raw($dob);
-
+		if (ACCOUNT_TELEPHONE  == 'true') $sql_data_array['customers_telephone'] = $telephone;
+		
 		oos_db_perform($oostable['customers'], $sql_data_array, 'UPDATE', "customers_id = '" . intval($_SESSION['customer_id']) . "'");
 
 		$sql_data_array = array('entry_firstname' => $firstname,

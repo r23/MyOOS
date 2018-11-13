@@ -76,13 +76,15 @@
 										<div class="col-sm-5">
 											<input required type="text" value="{$account.customers_email_address}" class="form-control" id="email_address" name="email_address" placeholder="{$lang.entry_email_address}">
 										</div>
-									</div>						
+									</div>
+								{if $smarty.const.ACCOUNT_TELEPHONE eq 'true'}										
 									<div class="form-group">
 										<label class="col-sm-4 form-control-label" for="telephone">{$lang.entry_telephone_number}</label>
 										<div class="col-sm-5">
 											<input type="text" value="{$account.customers_telephone}" class="form-control" id="telephone" name="telephone" placeholder="{$lang.entry_telephone_number}">
 										</div>
 									</div>
+								{/if}	
 
 									<hr />
 									<h4>{$lang.category_password}</h4>

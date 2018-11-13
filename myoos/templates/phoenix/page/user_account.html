@@ -75,12 +75,6 @@
             <td class="main">&nbsp;{$account.customers_dob|oos_date_short}</td>
           </tr>
 {/if}
-{if $smarty.const.ACCOUNT_NUMBER eq 'true'}
-          <tr>
-            <td class="main">&nbsp;{$lang.entry_number}</td>
-            <td class="main">&nbsp;{$account.customers_number}</td>
-          </tr>
-{/if}
          <tr>
             <td class="main">&nbsp;{$lang.entry_email_address}</td>
             <td class="main">&nbsp;{$account.customers_email_address}</td>
@@ -159,14 +153,13 @@
     <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="formArea">
       <tr>
         <td class="main"><table border="0" cellspacing="0" cellpadding="2">
+{if $smarty.const.ACCOUNT_TELEPHONE eq 'true'}		
           <tr>
             <td class="main">&nbsp;{$lang.entry_telephone_number}</td>
             <td class="main">&nbsp;{$account.customers_telephone}</td>
           </tr>
-          <tr>
-            <td class="main">&nbsp;{$lang.entry_fax_number}</td>
-            <td class="main">&nbsp;{$account.customers_fax}</td>
-          </tr>
+{/if}		  
+
         </table></td>
       </tr>
     </table></td>
