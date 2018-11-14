@@ -201,17 +201,7 @@
         $products_status = $dbconn->GetOne($check_product_sql);
         if ($products_status >= '1') {
 
-          if (DECIMAL_CART_QUANTITY == 'true') {
-            $productstable = $oostable['products'];
-            $decimal_sql = "SELECT products_quantity_decimal
-                              FROM $productstable
-                             WHERE products_id = '" . intval($nProductsID) . "'";
-            $products_quantity_decimal = $dbconn->GetOne($decimal_sql);
-            if ($products_quantity_decimal == 0) {
-              $nQuantity = intval($nQuantity);
-            }
-          }
-
+            $nQuantity = intval($nQuantity);
 
           if ($notify == TRUE) {
             $_SESSION['new_products_id_in_cart'] = $sProductsId;
@@ -305,17 +295,7 @@
         $dbconn =& oosDBGetConn();
         $oostable =& oosDBGetTables();
 
-        if (DECIMAL_CART_QUANTITY == 'true') {
-          $productstable = $oostable['products'];
-          $decimal_sql = "SELECT products_quantity_decimal
-                            FROM $productstable
-                           WHERE products_id = '" . intval($nProductsID) . "'";
-          $products_quantity_decimal = $dbconn->GetOne($decimal_sql);
-          if ($products_quantity_decimal == 0) {
-            $nQuantity = intval($nQuantity);
-          }
-        }
-
+        $nQuantity = intval($nQuantity);
 
         $this->contents[$sProductsId] = array('qty' => $nQuantity,
                                               'towlid' => $towlid);
@@ -369,11 +349,7 @@
       $dbconn =& oosDBGetConn();
       $oostable =& oosDBGetTables();
 
-      if (DECIMAL_CART_QUANTITY == 'true') {
-        $check_quantity = 0.01;
-      } else {
-        $check_quantity = 1;
-      }
+      $check_quantity = 1;
 
       reset($this->contents);
       foreach ( array_keys($this->contents) as $key ) {		  
@@ -407,9 +383,7 @@
     public function get_quantity($products_id) {
       if (isset($this->contents[$products_id])) {
         $nQuantity = $this->contents[$products_id]['qty'];
-        if (DECIMAL_CART_QUANTITY != 'true') {
-          $nQuantity = intval($nQuantity);
-        }
+        $nQuantity = intval($nQuantity);
         return $nQuantity;
       } else {
         return 0;

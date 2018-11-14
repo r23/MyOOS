@@ -136,13 +136,14 @@
 									{oos_get_country_list name=country selected=$account.entry_country_id}
 								</div>
 							</div>
+						{if $smarty.const.ACCOUNT_TELEPHONE eq 'true'}	
 							<div class="form-group">
 								<label class="col-sm-4 form-control-label" for="telephone">{$lang.entry_telephone_number}</label>
 								<div class="col-sm-5">
 									<input type="text" value="{$smarty.post.telephone}" class="form-control" id="telephone" name="telephone" placeholder="{$lang.entry_telephone_number}" >
 								</div>
 							</div>
-		
+						{/if}
 						{if $smarty.const.CUSTOMER_NOT_LOGIN eq 'false'}
 							<hr />
 							<h3>{$lang.category_password}</h3>

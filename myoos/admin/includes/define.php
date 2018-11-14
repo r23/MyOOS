@@ -39,7 +39,6 @@ define('USE_DB_CACHE_LEVEL_HIGH', 'false');  // OOS SQL-Layer Cache HIGH
 
   
 define('OOS_BASE_PRICE', 'true');
-define('DECIMAL_CART_QUANTITY', 'false');
 
 
 // Define how do we update currency exchange rates

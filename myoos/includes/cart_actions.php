@@ -57,10 +57,6 @@ switch ($action) {
           $_SESSION['cart']->remove($_POST['products_id'][$i]);
         } else {
 
-          if (DECIMAL_CART_QUANTITY == 'true') {
-            $_POST['cart_quantity'][$i] = str_replace(',', '.', $_POST['cart_quantity'][$i]);
-          }
-
           $products_order_min = oos_get_products_quantity_order_min($_POST['products_id'][$i]);
           $products_order_units = oos_get_products_quantity_order_units($_POST['products_id'][$i]);
 
@@ -122,11 +118,7 @@ switch ($action) {
             }
           }
         }
-        // File_upload end
-		if (DECIMAL_CART_QUANTITY == 'true') {
-			$_POST['cart_quantity'] = str_replace(',', '.', $_POST['cart_quantity']);
-		}
-	  
+  
 		  
 		if (isset($_POST['cart_quantity']) && is_numeric($_POST['cart_quantity'])) {
 			  
@@ -208,10 +200,6 @@ switch ($action) {
 				$_SESSION['cart'] = new shoppingCart();
 			}
 			
-			if (DECIMAL_CART_QUANTITY == 'true') {
-				$_POST['cart_quantity'] = str_replace(',', '.', $_POST['cart_quantity']);
-			}
-
 			if (isset($_POST['cart_quantity']) && is_numeric($_POST['cart_quantity'])) {
 
 				$cart_quantity = oos_prepare_input($_POST['cart_quantity']);			
@@ -287,9 +275,6 @@ switch ($action) {
 			if (!isset($_SESSION['cart'])) {
 				$_SESSION['cart'] = new shoppingCart();
 			}			
-          if (DECIMAL_CART_QUANTITY == 'true') {
-            $_POST['cart_quantity'] = str_replace(',', '.', $_POST['cart_quantity']);
-          }
 
           if (isset($_POST['cart_quantity']) && is_numeric($_POST['cart_quantity'])) {
             $cart_quantity = oos_prepare_input($_POST['cart_quantity']);
@@ -494,11 +479,6 @@ switch ($action) {
 		if (!isset($_SESSION['cart'])) {
 			$_SESSION['cart'] = new shoppingCart();
 		}
-		
-		if (DECIMAL_CART_QUANTITY == 'true') {
-			$_POST['cart_quantity'] = str_replace(',', '.', $_POST['cart_quantity']);
-		}
-
 		
 		if (isset($_POST['products_id']) && is_numeric($_POST['cart_quantity'])) {
 

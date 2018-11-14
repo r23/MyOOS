@@ -25,11 +25,7 @@
 function smarty_modifier_quantity($number, $decimal_places = 2)
 {
 
-    if (DECIMAL_CART_QUANTITY == 'true') {
-      $number = number_format($number, $decimal_places);
-    } else {
-      $number = number_format($number);
-    }
+    $number = number_format($number);
 
     return $number;
 }

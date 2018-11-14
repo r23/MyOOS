@@ -60,12 +60,7 @@ if ($new_spezials_result->RecordCount() >= MIN_DISPLAY_NEW_SPEZILAS) {
 			}
 		}
 
-		if (DECIMAL_CART_QUANTITY == 'true') {
-			$order_min = number_format($new_spezials['products_quantity_order_min'], 2);
-		} else {
-			$order_min = number_format($new_spezials['products_quantity_order_min']);
-		}
-		
+		$order_min = number_format($new_spezials['products_quantity_order_min']);
 		
 		$aSpezials[] = array('products_id' => $new_spezials['products_id'],
                                     'products_image' => $new_spezials['products_image'],

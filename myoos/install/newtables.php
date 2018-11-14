@@ -425,7 +425,7 @@ $flds = "
   customers_id I NOTNULL,
   to_wishlist_id C(32) NOTNULL,
   products_id C(32) NOTNULL,
-  customers_basket_quantity N '10.2' NOTNULL DEFAULT '1.00',
+  customers_basket_quantity I2 NOTNULL DEFAULT '1', 
   final_price N '15.8'  NOTNULL,
   customers_basket_date_added C(8)
 ";
@@ -499,7 +499,7 @@ $flds = "
   customers_id I NOTNULL,
   customers_wishlist_link_id C(32) NOTNULL DEFAULT '',
   products_id C(32) NOTNULL,
-  customers_wishlist_quantity I1 NOT NULL DEFAULT '0',
+  customers_wishlist_quantity I2 NOTNULL DEFAULT '1', 
   final_price N '15.8'  NOTNULL,
   customers_wishlist_date_added C(8) DEFAULT ''
 ";
@@ -776,7 +776,7 @@ $flds = "
   products_price N '15.8' NOTNULL DEFAULT '0.00000000',
   final_price N '15.8' NOTNULL DEFAULT '0.00000000',
   products_tax N '7.4' NOTNULL DEFAULT '0.0000',
-  products_quantity N '10.2' NOTNULL DEFAULT '1.00'
+  products_quantity I2 NOTNULL DEFAULT '1'
 ";
 dosql($table, $flds);
 
@@ -880,8 +880,8 @@ $flds = "
   products_average_rating N '10.2', 
   products_price N '15.8' NOTNULL DEFAULT '0.00000000',
   products_base_price N '10.6' NOTNULL DEFAULT '1.000000',
-  products_product_quantity N '10.2' NOTNULL DEFAULT '1.00',
-  products_base_quantity  N '10.6' NOTNULL DEFAULT '1.000000',
+  products_product_quantity I2 NOTNULL DEFAULT '1', 
+  products_base_quantity I2 NOTNULL DEFAULT '1', 
   products_base_unit C(12) NULL,
   products_date_added T,
   products_last_modified T,
@@ -893,8 +893,7 @@ $flds = "
   manufacturers_id I NULL,
   permissions I1 NOTNULL DEFAULT '0',
   products_ordered I NOTNULL DEFAULT '0',
-  products_quantity_decimal I1 NOTNULL DEFAULT '0',
-  products_quantity_order_min N '10.2' NOTNULL DEFAULT '1.00', 
+  products_quantity_order_min I2 NOTNULL DEFAULT '1', 
   products_quantity_order_max I4 NOTNULL DEFAULT '30',    
   products_quantity_order_units I NOTNULL DEFAULT '1',
   products_price_list N '15.8'  DEFAULT '0.0000',
@@ -902,10 +901,10 @@ $flds = "
   products_discount2 N '15.8' NOTNULL DEFAULT '0.00000000',
   products_discount3 N '15.8' NOTNULL DEFAULT '0.00000000',
   products_discount4 N '15.8' NOTNULL DEFAULT '0.00000000',
-  products_discount1_qty N '10.2' NOTNULL DEFAULT '0.00',
-  products_discount2_qty N '10.2' NOTNULL DEFAULT '0.00',
-  products_discount3_qty N '10.2' NOTNULL DEFAULT '0.00',
-  products_discount4_qty N '10.2' NOTNULL DEFAULT '0.00',
+  products_discount1_qty I2 NOTNULL DEFAULT '0',
+  products_discount2_qty I2 NOTNULL DEFAULT '0',
+  products_discount3_qty I2 NOTNULL DEFAULT '0',
+  products_discount4_qty I2 NOTNULL DEFAULT '0',
   products_discounts_id I NOTNULL DEFAULT '0',
   products_slave_visible I1 NOTNULL DEFAULT '1',
   products_sort_order I4 NOTNULL DEFAULT '0'

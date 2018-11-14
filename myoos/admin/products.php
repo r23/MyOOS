@@ -87,15 +87,9 @@ if (!empty($action)) {
 					$products_base_unit = oos_db_prepare_input($_POST['products_base_unit']);
 				} else {
 					$products_base_price = 1.0;
-					$products_product_quantity = 1.0;
-					$products_base_quantity = 1.0;
+					$products_product_quantity = 1;
+					$products_base_quantity = 1;
 					$products_base_unit = '';
-				}
-
-				if (isset($_POST['products_quantity_decimal']) ) {
-					$products_quantity_decimal = oos_db_prepare_input($_POST['products_quantity_decimal']);
-				} else {
-					$products_quantity_decimal = '0';
 				}
 
 				$products_date_available = (date('Y-m-d') < $products_date_available) ? $products_date_available : 'null';
@@ -117,7 +111,6 @@ if (!empty($action)) {
                                   'products_units_id' => oos_db_prepare_input($_POST['products_units_id']),
                                   'manufacturers_id' => oos_db_prepare_input($_POST['manufacturers_id']),
                                   'products_price_list' => oos_db_prepare_input($_POST['products_price_list']),
-                                  'products_quantity_decimal' => $products_quantity_decimal,
                                   'products_quantity_order_min' => oos_db_prepare_input($_POST['products_quantity_order_min']),
                                   'products_quantity_order_units' => oos_db_prepare_input($_POST['products_quantity_order_units']),
                                   'products_discount1' => oos_db_prepare_input($_POST['products_discount1']),
@@ -231,7 +224,7 @@ if (!empty($action)) {
                                                  p.products_weight, p.products_date_added, p.products_last_modified,
                                                  date_format(p.products_date_available, '%Y-%m-%d') AS products_date_available,
                                                  p.products_status, p.products_tax_class_id, p.products_units_id, p.manufacturers_id,
-                                                 p.products_price_list, p.products_quantity_decimal,
+                                                 p.products_price_list, 
                                                  p.products_quantity_order_min, p.products_quantity_order_units,
                                                  p.products_discount1, p.products_discount2, p.products_discount3,
                                                  p.products_discount4, p.products_discount1_qty, p.products_discount2_qty,
@@ -559,19 +552,6 @@ function calcBasePriceFactor() {
              <td class="main"><?php echo TEXT_PRODUCTS_UNIT; ?></td>
             <td class="main">&nbsp;<?php echo oos_draw_pull_down_menu('products_units_id', $products_units_array, $pInfo->products_units_id); ?></td>
           </tr>
-<?php
-  if (DECIMAL_CART_QUANTITY == 'true') {
-?>
-          <tr>
-            <td colspan="2"></td>
-          </tr>
-          <tr>
-            <td class="main"><?php echo TEXT_PRODUCTS_DECIMAL_QUANTITY; ?></td>
-            <td class="main">&nbsp;<?php echo oos_draw_pull_down_menu('products_quantity_decimal', $decimal_quantity_array, $pInfo->products_quantity_decimal); ?></td>
-          </tr>
-<?php
-  }
-?>
           <tr>
             <td colspan="2"></td>
           </tr>

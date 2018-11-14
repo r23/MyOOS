@@ -43,7 +43,6 @@ define('TEXT_PRODUCTS_BASE_UNIT', 'Base Unit:');
 define('TEXT_PRODUCTS_BASE_PRICE_FACTOR', 'Factor to calculate Base Price:');
 define('TEXT_PRODUCTS_BASE_QUANTITY', 'Base Quantity:');
 define('TEXT_PRODUCTS_PRODUCT_QUANTITY', 'Product Quantity:');
-define('TEXT_PRODUCTS_DECIMAL_QUANTITY', 'Decimal Quantity');
 define('TEXT_PRODUCTS_UNIT', 'Product Unit');
 
 

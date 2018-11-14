@@ -94,11 +94,7 @@ while ($new_products = $new_products_result->fields) {
 		}
 	}
 
-	if (DECIMAL_CART_QUANTITY == 'true') {
-		$order_min = number_format($new_products['products_quantity_order_min'], 2);
-	} else {
-		$order_min = number_format($new_products['products_quantity_order_min']);
-	}
+	$order_min = number_format($new_products['products_quantity_order_min']);
 
 	
 	$aNewProducts[] = array('products_id' => $new_products['products_id'],

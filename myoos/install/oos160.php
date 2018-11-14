@@ -249,11 +249,6 @@ if ($result === false) {
   echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
 }
 
-$result = $db->Execute("ALTER TABLE " . $table . " ADD `products_quantity_decimal` TINYINT DEFAULT '0' NOTNULL AFTER `products_ordered`");
-if ($result === false) {
-  echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
-}
-
 $table = $prefix_table . 'customers_basket';
 $result = $db->Execute("ALTER TABLE " . $table . " CHANGE `customers_basket_quantity` `customers_basket_quantity` DECIMAL( 10, 2 ) NOT NULL");
 if ($result === false) {

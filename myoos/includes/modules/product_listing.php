@@ -88,11 +88,7 @@ if ($listing_split->number_of_rows > 0) {
 			}	  
 		}			
 
-		if (DECIMAL_CART_QUANTITY == 'true') {
-			$order_min = number_format($listing['products_quantity_order_min'], 2);
-		} else {
-			$order_min = number_format($listing['products_quantity_order_min']);
-		}
+		$order_min = number_format($listing['products_quantity_order_min']);
    
 		$aListing[] = array('products_id' => $listing['products_id'],
 						'products_image' => $listing['products_image'],

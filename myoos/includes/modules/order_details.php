@@ -82,11 +82,7 @@
     }
 
     // Quantity box or information as an input box or text
-    if (DECIMAL_CART_QUANTITY == 'true') {
-      $quantity = number_format($products[$i]['quantity'], 2);
-    } else {
-      $quantity = number_format($products[$i]['quantity']);
-    }
+    $quantity = number_format($products[$i]['quantity']);
 
     if ($sContent == $aContents['shopping_cart']) {
       $shopping_cart_detail .= '    <td align="center" valign="top" class ="main">' . oos_draw_input_field('cart_quantity[]', $quantity, 'size="4"') . oos_draw_hidden_field('products_id[]', $products[$i]['id']) .  '<br />' . (oos_get_products_quantity_order_min($products[$i]['id']) > 1 ? $aLang['products_order_qty_min_text_cart_short'] . oos_get_products_quantity_order_min($products[$i]['id']) : '') . (oos_get_products_quantity_order_units($products[$i]['id']) > 1 ? $aLang['products_order_qty_unit_text_cart_short'] . oos_get_products_quantity_order_units($products[$i]['id']) : "") . '</td>' . "\n";
