@@ -43,7 +43,6 @@ define('TEXT_PRODUCTS_BASE_UNIT', 'Grundgröße:');
 define('TEXT_PRODUCTS_BASE_PRICE_FACTOR', 'Faktor zum Berechnen des Grundpreises:');
 define('TEXT_PRODUCTS_BASE_QUANTITY', 'Basismenge:');
 define('TEXT_PRODUCTS_PRODUCT_QUANTITY', 'Artikelmenge:');
-define('TEXT_PRODUCTS_DECIMAL_QUANTITY', 'Bestellmengen in Dezimalzahlen');
 define('TEXT_PRODUCTS_UNIT', 'Produkteinheit:');
 
 define('TEXT_PRODUCTS_IMAGE_REMOVE', '<b>Entfernen</b> des Bildes vom Artikel?');

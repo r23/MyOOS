@@ -122,13 +122,6 @@
 						
                         <!-- Add to Cart Form -->
 						<div class="cart clearfix mb-15 d-flex align-items-center">
-							<input type="hidden" name="action" value="add_product">
-							<input type="hidden" name="mp" value="{$main_page}">
-							<input type="hidden" name="file" value="{$page_file}">
-							<input type="hidden" name="{$oos_session_name}" value="{$oos_session_id}">
-							{if $myUser.show_price eq 1 }	
-							<input type="hidden" name="products_id" value="{$product_info.products_id}">
-
                             <div class="quantity">
                                 <span class="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-minus" aria-hidden="true"></i></span>
                                 <input type="number" class="qty-text" id="qty" step="1" min="1" max="{$product_info.products_max}" name="cart_quantity" value="1">
@@ -141,7 +134,7 @@
      {$lang.products_order_qty_unit_text} {$product_info.products_quantity_order_units|quantity}
    {/if}							
 							
-                            <button type="submit" class="btn bigshop-btn bigshop-btn-sm ml-2">{$lang.image_button_in_cart}</button>
+                            <button type="submit" class="btn btn-primary ml-2">{$lang.image_button_in_cart}</button>
 							{/if}
 						</div>
 						</form>
