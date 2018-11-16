@@ -1,4 +1,4 @@
-/** Quick Shop Cart 
+/** Cart 
 *************************************************** **/
 
 #header {
@@ -76,6 +76,74 @@
     }
   }
 }
+
+.cart {
+  .qty-text {
+    border: 1px solid #ddd;
+    height: 40px;
+    padding: 5px 15px;
+    max-width: 100px;
+    -moz-appearance: textfield;
+    -webkit-appearance: textfield;
+    appearance: textfield;
+    font-size: 14px;
+  }
+  .quantity {
+    position: relative;
+    z-index: 1;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 100px;
+    flex: 0 0 100px;
+    max-width: 100px;
+  }
+  .qty-minus {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    display: block;
+    height: 20px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+    width: 30px;
+    z-index: 99;
+    cursor: pointer;
+    font-size: 10px;
+    line-height: 20px;
+    color: #888;
+  }
+  .qty-plus {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    display: block;
+    height: 20px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+    width: 30px;
+    z-index: 99;
+    cursor: pointer;
+    font-size: 10px;
+    line-height: 20px;
+    color: #888;
+    top: auto;
+    bottom: 0;
+  }
+  &.cart-submit {
+    background-color: #19B5FE;
+    border: medium none;
+    color: #fff;
+    font-size: 14px;
+    height: 40px;
+    margin-left: 15px;
+    text-transform: uppercase;
+    width: 120px;
+    cursor: pointer;
+  }
+}
+
+
 
 @media only screen and (min-width: 992px) {
   /* min-width */

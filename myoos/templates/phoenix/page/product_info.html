@@ -13,7 +13,7 @@
 		<div class="row">
 
 			<div class="col-12 col-md-4">
-				<div class="single_product_thumb">
+				<div class="product_details_thumb">
 					{if $product_info.products_image != '' }
 						<img src="{$smarty.const.OOS_IMAGES}{$smarty.const.OOS_POPUP_IMAGES}{$product_info.products_image}" alt="{$product_info.products_name}">
  					{/if}
@@ -21,19 +21,19 @@
 			</div>
 
 			<div class="col-12 col-md-8">
-				<div class="single_product_desc">
+				<div class="product_details_desc">
 					<h1>{$product_info.products_name}</h1>
 		
 					{if $oEvent->installed_plugin('reviews')}	
 						<!-- rating -->
-						<div class="single_product_ratings mb-15">
+						<div class="product_details_ratings mb-15">
 						{if $reviews_total gt 0 }
 							<div class="rating rating-{$average_rating} fs-13"><!-- rating-0 ... rating-5 --></div>
 							<a href="{html_href_link content=$filename.product_reviews products_id=$product_info.products_id}" class="btn btn-primary-filled" role="button">
 								<i class="fa fa-commenting"  aria-hidden="true"></i> {$lang.button_reviews}
 							</a>
 						{else}						
-							<a href="{html_href_link content=$filename.product_reviews_write products_id=$product_info.products_id}" class="btn btn-primary-filled pull-left" role="button">
+							<a href="{html_href_link content=$filename.product_reviews_write products_id=$product_info.products_id}" class="btn btn-primary-filled" role="button">
 								<i class="fa fa-pencil" aria-hidden="true"></i> {$lang.button_write_review}
 							</a>
 						{/if}
@@ -41,59 +41,43 @@
 						<!-- /rating -->
 					{/if}
 				
-						
-						
-						
-	{if $myUser.show_price eq 1 }
-		<div class="text-center">
-		{if (!empty($whats_new_special_price))}
-			<s>{$whats_new_product_price}{$smarty.const.UNITS_DELIMITER}{$products_units[$random_product.products_units_id]}</s><br>
-			{if $random_product.products_base_price != 1}<s><span class="base_price">{$random_product.products_base_unit} = {$whats_new_base_product_price}</span></s><br>{/if}
-			<span class="special_price">{$whats_new_product_special_price}{$smarty.const.UNITS_DELIMITER}{$products_units[$random_product.products_units_id]}</span>
-			{if $random_product.products_base_price != 1}<br><span class="special_base_price">{$random_product.products_base_unit} = {$whats_new_base_product_special_price}</span></s><br>{/if}
+{if $myUser.show_price eq 1 }
+	{if (!empty($info_special_price))}
+		<del>{$info_product_price}</del><br>
+		{if $product_info.products_base_price != 1}<del><span class="base_price">{$product_info.products_base_unit} = {$info_base_product_price}</span></del><br>{/if}
+
+		<span class="special_price">{$info_product_special_price}</span>{$smarty.const.UNITS_DELIMITER} {$products_units[$product_info.products_units_id]}<br>
+		{if $product_info.products_base_price != 1}<span class="special_base_price">{$product_info.products_base_unit} = {$info_base_product_special_price}</span></del><br>{/if}
+
+	{else}
+		{if $info_max_product_discount != 0}
+			<del>{$info_product_price}</del> -{$info_max_product_discount}%<br>
+			<span class="discount_price">{$info_product_discount_price}</span>{$smarty.const.UNITS_DELIMITER} {$products_units[$product_info.products_units_id]}<br>
+			{if $product_info.products_base_price != 1}<span class="discount_base_price">{$product_info.products_base_unit} = {$info_base_product_special_price}</span></del><br>{/if}
 		{else}
-			{$whats_new_product_price}{$smarty.const.UNITS_DELIMITER}{$products_units[$random_product.products_units_id]}
-			{if $random_product.products_base_price != 1}<br><span class="base_price">{$random_product.products_base_unit} = {$whats_new_base_product_price}</span><br>{/if}
+			{if $price_discount}
+				{$lang.price_from} {$price_discount}{$smarty.const.UNITS_DELIMITER} {$products_units[$product_info.products_units_id]}<br>
+			{else}
+				<h4 class="price">{$info_product_price}{$smarty.const.UNITS_DELIMITER}{$products_units[$product_info.products_units_id]}</h4>
+			{/if}
 		{/if}
-		</div>
 	{/if}
 
-						
-{if (!empty($info_special_price))}
-   <del>{$info_product_price}</del><br>
-   {if $product_info.products_base_price != 1}<del><span class="base_price">{$product_info.products_base_unit} = {$info_base_product_price}</span></del><br>{/if}
-
-   <span class="special_price">{$info_product_special_price}</span>{$smarty.const.UNITS_DELIMITER} {$products_units[$product_info.products_units_id]}<br>
-   {if $product_info.products_base_price != 1}<span class="special_base_price">{$product_info.products_base_unit} = {$info_base_product_special_price}</span></del><br>{/if}
-
+	{if $info_max_product_discount != 0}
+	{else}
+		{if $price_discount}
+		{else}
+			{if $product_info.products_base_price != 1}<span class="base_price">{$product_info.products_base_unit} = {$info_base_product_price}</span><br>{/if}
+		{/if}
+	{/if}
+	<p><small>{$panginfov}</small></p>  
+	{if $info_product_price_list > 0}
+		<p>{$info_product_price_list}</p>
+	{/if}
 {else}
-  {if $info_max_product_discount != 0}
-    <del>{$info_product_price}</del> -{$info_max_product_discount}%<br>
-    <span class="discount_price">{$info_product_discount_price}</span>{$smarty.const.UNITS_DELIMITER} {$products_units[$product_info.products_units_id]}<br>
-    {if $product_info.products_base_price != 1}<span class="discount_base_price">{$product_info.products_base_unit} = {$info_base_product_special_price}</span></del><br>{/if}
-
-  {else}
-    {if $price_discount}
-       {$lang.price_from} {$price_discount}{$smarty.const.UNITS_DELIMITER} {$products_units[$product_info.products_units_id]}<br>
-    {else}
-		<h4 class="price">{$info_product_price}{$smarty.const.UNITS_DELIMITER}{$products_units[$product_info.products_units_id]}</h4>
-    {/if}
-
-  {/if}
+	<a href="{html_href_link content=$filename.login}" class="btn btn-primary-filled" role="button">{$lang.button_login}</a>
 {/if}
 
-  {if $info_max_product_discount != 0}
-  {else}
-    {if $price_discount}
-    {else}
-      {if $product_info.products_base_price != 1}<span class="base_price">{$product_info.products_base_unit} = {$info_base_product_price}</span><br>{/if}
-    {/if}
-
-  {/if}
-<p><small>{$panginfov}</small></p>  
-{if $info_product_price_list > 0}
-  <p>{$info_product_price_list}</p>
-{/if}
 
 
                         <div class="short_overview">
@@ -125,7 +109,7 @@
 						{if $myUser.show_price eq 1 }
                             <div class="quantity">
                                 <span class="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-minus" aria-hidden="true"></i></span>
-                                <input type="number" class="qty-text" id="qty" step="1" min="1" max="{$product_info.products_max}" name="cart_quantity" value="1">
+                                <input type="number" class="qty-text" id="qty" step="1" min="1" max="12" name="cart_quantity" value="1">
                                 <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span>
                             </div>
    {if $product_info.products_quantity_order_min > 1 }
@@ -135,7 +119,7 @@
      {$lang.products_order_qty_unit_text} {$product_info.products_quantity_order_units|quantity}
    {/if}							
 							
-                            <button type="submit" class="btn btn-primary ml-2">{$lang.image_button_in_cart}</button>
+                            <button type="submit" class="btn btn-primary ml-2"><i class="fa fa-shopping-basket" aria-hidden="true"></i> {$lang.button_in_cart}</button>
 							{/if}
 						</div>
 						</form>
@@ -152,7 +136,7 @@
 		<div class="container">
             <div class="row">
                 <div class="col-12">
-                    <div class="product_details_tab clearfix">
+                    <div class="product_details_desc clearfix">
                                 <div class="description_area">
 									{$product_info.products_description}                            
 								</div>
@@ -201,15 +185,6 @@
 		{/if}
 		</div>	
 	{/if}
-
-
-
-
-{if $myUser.show_price eq 1 }
-	<button class="btn btn-success-filled float-right" type="submit"><i class="fa fa-shopping-cart" aria-hidden="true"></i> {$lang.button_in_cart}</button>
-{else}
-   <a href="{html_href_link content=$filename.login}" class="btn btn-primary-filled" role="button">{$lang.button_login}</a>
-{/if}
 
 
 {$slavery_products}

@@ -244,6 +244,7 @@ if ( $session->hasStarted() === TRUE ) {
 
 $aUser = array();
 $aUser = isset($_SESSION['user']) ? $_SESSION['user']->group : $oUser->group;
+
 		
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_plugin_event.php';
 $oEvent = new plugin_event;
