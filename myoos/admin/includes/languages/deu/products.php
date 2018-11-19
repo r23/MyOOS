@@ -59,6 +59,7 @@ define('TEXT_PRODUCTS_DESCRIPTION_META', 'Artikelbeschreibung für Description T
 define('TEXT_PRODUCTS_KEYWORDS_META', 'Artikel Suchworte für Keyword Tag (Stichworte durch Komma getrennt - max. 250 Zeichen)');
 define('TEXT_PRODUCTS_QUANTITY', 'Lagerbestand:');
 define('TEXT_PRODUCTS_REORDER_LEVEL', 'Mindestlagerbestand:');
+define('TEXT_REPLACEMENT PRODUCT', 'Ersatzprodukt:');
 define('TEXT_PRODUCTS_MODEL', 'Artikel-Nr.:');
 define('TEXT_PRODUCTS_EAN', 'EAN :');
 define('TEXT_PRODUCTS_IMAGE', 'Artikelbild:');
@@ -72,7 +73,7 @@ define('ERROR_CANNOT_LINK_TO_SAME_CATEGORY', 'Fehler: Produkte können nicht in 
 define('ERROR_CATALOG_IMAGE_DIRECTORY_NOT_WRITEABLE', 'Fehler: Das Verzeichnis \'images\' im Katalogverzeichnis ist schreibgeschützt: ' . OOS_ABSOLUTE_PATH . OOS_IMAGES);
 define('ERROR_CATALOG_IMAGE_DIRECTORY_DOES_NOT_EXIST', 'Fehler: Das Verzeichnis \'images\' im Katalogverzeichnis ist nicht vorhanden: ' . OOS_ABSOLUTE_PATH . OOS_IMAGES);
 define('ERROR_OUTOFSTOCK', 'Der Lagerbestand dieses Artikels ist nicht ausreichend Verfügbar.');
-
+define('ERROR_REPLACEMENT', 'Es wurde ein Ersatzprodukt angeben. Der Status wurde geändert auf: Nicht mehr verfügbar/Es gibt ein Ersatzproduk.');
 
 define('TEXT_DISCOUNTS_TITLE', 'Staffelpreise');
 define('TEXT_DISCOUNTS_BREAKS', 'Staffel');

@@ -44,7 +44,12 @@ if (!empty($action)) {
 
 			$sProductsQuantity = oos_db_prepare_input($_POST['products_quantity']);
 			$sProductsStatus = oos_db_prepare_input($_POST['products_status']);
-
+			$sProductsReplacementProductID = oos_db_prepare_input($_POST['products_replacement_product_id']);
+			if (oos_is_not_null($sProductsReplacementProductID)) {
+				$messageStack->add_session(ERROR_REPLACEMENT, 'error');
+				$sProductsStatus = 4;
+			}
+			
 			if (STOCK_CHECK == 'true') {
 				if ($sProductsQuantity <=0) {
 					$messageStack->add_session(ERROR_OUTOFSTOCK, 'error');
@@ -97,6 +102,7 @@ if (!empty($action)) {
 				$sql_data_array = array('products_quantity' => $sProductsQuantity,
                                   'products_reorder_level' => oos_db_prepare_input($_POST['products_reorder_level']),
                                   'products_model' => oos_db_prepare_input($_POST['products_model']),
+								  'products_replacement_product_id' => $sProductsReplacementProductID,
                                   'products_ean' => oos_db_prepare_input($_POST['products_ean']),
                                   'products_image' => (($products_image == 'none') ? '' : oos_db_prepare_input($products_image)),
                                   'products_price' => oos_db_prepare_input($_POST['products_price']),
@@ -218,7 +224,7 @@ if (!empty($action)) {
       $product_result = $dbconn->Execute("SELECT pd.products_name, pd.products_description, pd.products_url,
                                                  pd.products_description_meta, pd.products_keywords_meta, p.products_id,
                                                  p.products_quantity, p.products_reorder_level, p.products_model,
-                                                 p.products_ean, p.products_image,
+                                                 p.products_replacement_product_id, p.products_ean, p.products_image,
                                                  p.products_price, p.products_base_price, p.products_base_quantity,
                                                  p.products_product_quantity, p.products_base_unit,
                                                  p.products_weight, p.products_date_added, p.products_last_modified,
@@ -466,6 +472,10 @@ function calcBasePriceFactor() {
 	}
 ?>
           <tr>
+            <td class="main"><?php echo TEXT_REPLACEMENT PRODUCT; ?></td>
+            <td class="main">&nbsp;<?php echo oos_draw_input_field('products_replacement_product_id', $pInfo->products_replacement_product_id); ?></td>
+          </tr>
+          <tr>
             <td class="main"><?php echo TEXT_PRODUCTS_MODEL; ?></td>
             <td class="main">&nbsp;<?php echo oos_draw_input_field('products_model', $pInfo->products_model); ?></td>
           </tr>
@@ -634,7 +644,7 @@ function calcBasePriceFactor() {
 
       $products_sort_order = $_POST['products_sort_order'];
     } else {
-      $product_result = $dbconn->Execute("SELECT pd.products_name, pd.products_description, pd.products_description_meta, products_keywords_meta, pd.products_url, p.products_id, p.products_quantity, p.products_reorder_level, p.products_model, p.products_ean, p.products_image, p.products_price, p.products_base_price, p.products_base_unit, p.products_weight, p.products_date_added, p.products_last_modified, date_format(p.products_date_available, '%Y-%m-%d') as products_date_available, p.products_status, p.products_tax_class_id, p.products_units_id, p.manufacturers_id, p.products_price_list, p.products_quantity_order_min, p.products_quantity_order_units, p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4, p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty, p.products_discount4_qty, p.products_sort_order FROM " . $oostable['products'] . " p, " . $oostable['products_description'] . " pd WHERE p.products_id = '" . $_GET['pID'] . "' and p.products_id = pd.products_id and pd.products_languages_id = '" . intval($_SESSION['language_id']) . "'");
+      $product_result = $dbconn->Execute("SELECT pd.products_name, pd.products_description, pd.products_description_meta, products_keywords_meta, pd.products_url, p.products_id, p.products_quantity, p.products_reorder_level, p.products_model, p.products_replacement_product_id, p.products_ean, p.products_image, p.products_price, p.products_base_price, p.products_base_unit, p.products_weight, p.products_date_added, p.products_last_modified, date_format(p.products_date_available, '%Y-%m-%d') as products_date_available, p.products_status, p.products_tax_class_id, p.products_units_id, p.manufacturers_id, p.products_price_list, p.products_quantity_order_min, p.products_quantity_order_units, p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4, p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty, p.products_discount4_qty, p.products_sort_order FROM " . $oostable['products'] . " p, " . $oostable['products_description'] . " pd WHERE p.products_id = '" . $_GET['pID'] . "' and p.products_id = pd.products_id and pd.products_languages_id = '" . intval($_SESSION['language_id']) . "'");
       $product = $product_result->fields;
 
       $pInfo = new objectInfo($product);

@@ -60,6 +60,7 @@ define('TEXT_EDIT_CATEGORIES_DESCRIPTION_META', 'Category description for Descri
 define('TEXT_EDIT_CATEGORIES_KEYWORDS_META', 'Category of search words for Keyword TAG (references by commaseparately - max. 250 letters)');
 define('TEXT_PRODUCTS_QUANTITY', 'Products Quantity:');
 define('TEXT_PRODUCTS_REORDER_LEVEL', 'Products Reorder Level:');
+define('TEXT_REPLACEMENT PRODUCT', 'Replacement Product:');
 define('TEXT_PRODUCTS_MODEL', 'Products Model:');
 define('TEXT_PRODUCTS_EAN', 'EAN :');
 define('TEXT_PRODUCTS_IMAGE', 'Products Image:');
@@ -73,7 +74,7 @@ define('ERROR_CANNOT_LINK_TO_SAME_CATEGORY', 'Error: Can not link products in th
 define('ERROR_CATALOG_IMAGE_DIRECTORY_NOT_WRITEABLE', 'Error: Catalog images directory is not writeable: ' . OOS_ABSOLUTE_PATH . OOS_IMAGES);
 define('ERROR_CATALOG_IMAGE_DIRECTORY_DOES_NOT_EXIST', 'Error: Catalog images directory does not exist: ' . OOS_ABSOLUTE_PATH . OOS_IMAGES);
 define('ERROR_OUTOFSTOCK', 'Not enough items of this product in stock Available.');
-
+define('ERROR_REPLACEMENT', 'A replacement product was specified. The status has been changed to : No longer available/there is a replacement product.');
 
 define('TEXT_DISCOUNTS_TITLE','Quantity Discounts');
 define('TEXT_DISCOUNTS_BREAKS','Breaks');

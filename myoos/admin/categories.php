@@ -296,11 +296,11 @@ if (!empty($action)) {
 					}
 				} else {
 					$messageStack->add_session(ERROR_CANNOT_LINK_TO_SAME_CATEGORY, 'error');
-				}
+				} 
 			} elseif ($_POST['copy_as'] == 'duplicate') {
-				$product_result = $dbconn->Execute("SELECT products_quantity, products_reorder_level, products_model, products_ean,
-                                                       products_image, products_price,
-                                                       products_base_price, products_base_unit,
+				$product_result = $dbconn->Execute("SELECT products_quantity, products_reorder_level, products_model, 
+														products_replacement_product_id, products_ean, products_image, 
+														products_price, products_base_price, products_base_unit,
                                                        products_date_available, products_weight, products_tax_class_id,
                                                        products_units_id, manufacturers_id, products_price_list,
                                                        products_quantity_order_min,
@@ -315,6 +315,7 @@ if (!empty($action)) {
                          (products_quantity,
                           products_reorder_level,
                           products_model,
+						  products_replacement_product_id,
                           products_ean,
                           products_image,
                           products_price,
@@ -344,6 +345,7 @@ if (!empty($action)) {
                           VALUES ('" . $product['products_quantity'] . "',
                                   '" . $product['products_reorder_level'] . "',
                                   '" . $product['products_model'] . "',
+								  '" . $product['products_replacement_product_id'] . "',
                                   '" . $product['products_ean'] . "',
                                   '" . $product['products_image'] . "',
                                   '" . $product['products_price'] . "',

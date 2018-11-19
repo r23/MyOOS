@@ -37,7 +37,7 @@ $reviews_descriptiontable = $oostable['reviews_description'];
 $products_descriptiontable = $oostable['products_description'];
 $sql = "SELECT rd.reviews_headline, rd.reviews_text, r.reviews_rating, r.reviews_id, r.products_id,
                  r.customers_name, r.verified, r.date_added, r.last_modified, r.reviews_read,
-                 p.products_id, pd.products_name, p.products_model, p.products_image
+                 p.products_id, pd.products_name, p.products_model, p.products_replacement_product_id, p.products_image
           FROM $reviewstable r,
                $reviews_descriptiontable rd,
                $productstable p,

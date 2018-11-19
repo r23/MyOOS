@@ -668,6 +668,9 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "products_status (produc
 $result = $db->Execute("INSERT INTO " . $prefix_table . "products_status (products_status_id, products_status_languages_id, products_status_name) VALUES (3, 2, 'In Stock')") OR die ("<b>".NOTUPDATED . $prefix_table . "products_status</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "products_status (products_status_id, products_status_languages_id, products_status_name) VALUES (3, 1, 'auf Lager')") OR die ("<b>".NOTUPDATED . $prefix_table . "products_status</b>");
 
+$result = $db->Execute("INSERT INTO " . $prefix_table . "products_status (products_status_id, products_status_languages_id, products_status_name) VALUES (4, 2, 'No longer available / there is a replacement product')") OR die ("<b>".NOTUPDATED . $prefix_table . "products_status</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "products_status (products_status_id, products_status_languages_id, products_status_name) VALUES (4, 1, 'Nicht mehr verfügbar/Es gibt ein Ersatzprodukt')") OR die ("<b>".NOTUPDATED . $prefix_table . "products_status</b>");
+
 echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $prefix_table . "products_status " . UPDATED .'</font>';
 
 

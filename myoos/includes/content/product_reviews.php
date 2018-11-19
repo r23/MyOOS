@@ -42,7 +42,7 @@ $nPage = isset($_GET[page]) ? $_GET[page]+0 : 1;
 
 $productstable = $oostable['products'];
 $products_descriptiontable = $oostable['products_description'];
-$sql = "SELECT p.products_id, p.products_model, p.products_image, pd.products_name
+$sql = "SELECT p.products_id, p.products_model, p.products_replacement_product_id, p.products_image, pd.products_name
           FROM $productstable p,
 		       $products_descriptiontable pd 
           WHERE pd.products_languages_id = '" .  intval($nLanguageID) . "'

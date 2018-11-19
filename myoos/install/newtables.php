@@ -875,6 +875,7 @@ $flds = "
   products_quantity I4 NOTNULL DEFAULT '0',
   products_reorder_level I4 NOTNULL DEFAULT '5',
   products_model C(12) NULL,
+  products_replacement_product_id I NULL,
   products_ean C(13) NULL,
   products_image C(255) NULL,
   products_average_rating N '10.2', 
