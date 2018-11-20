@@ -257,6 +257,7 @@ if (!empty($action)) {
       $pInfo->products_product_quantity = 1.0;
       $pInfo->products_base_quantity = 1.0;
       $pInfo->products_units_id = DEFAULT_PRODUCTS_UNITS_ID;
+	  $pInfo->products_tax_class_id = 1; // DEFAULT_TAX_CLASS_ID
     }
 
     $manufacturers_array = array();
@@ -472,7 +473,7 @@ function calcBasePriceFactor() {
 	}
 ?>
           <tr>
-            <td class="main"><?php echo TEXT_REPLACEMENT PRODUCT; ?></td>
+            <td class="main"><?php echo TEXT_REPLACEMENT_PRODUCT; ?></td>
             <td class="main">&nbsp;<?php echo oos_draw_input_field('products_replacement_product_id', $pInfo->products_replacement_product_id); ?></td>
           </tr>
           <tr>
@@ -572,12 +573,12 @@ function calcBasePriceFactor() {
                  <tr>
                    <td colspan="5" class="main" align="center"><?php echo TEXT_DISCOUNTS_TITLE; ?></td>
                  </tr>
+				 <tr>
                    <td class="main" align="center" width="75"><?php echo TEXT_DISCOUNTS_BREAKS; ?></td>
                    <td class="main" align="center" width="75">1</td>
                    <td class="main" align="center" width="75">2</td>
                    <td class="main" align="center" width="75">3</td>
-                   <td class="main" align="center" width="75">4</td>
-                 <tr>
+                   <td class="main" align="center" width="75">4</td>                
                  </tr>
                  <tr>
                    <td class="main" align="center" width="75"><?php echo TEXT_DISCOUNTS_QTY; ?><br /><?php echo TEXT_DISCOUNTS_PRICE; ?></td>

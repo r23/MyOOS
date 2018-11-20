@@ -60,7 +60,7 @@ define('TEXT_EDIT_CATEGORIES_DESCRIPTION_META', 'Category description for Descri
 define('TEXT_EDIT_CATEGORIES_KEYWORDS_META', 'Category of search words for Keyword TAG (references by commaseparately - max. 250 letters)');
 define('TEXT_PRODUCTS_QUANTITY', 'Products Quantity:');
 define('TEXT_PRODUCTS_REORDER_LEVEL', 'Products Reorder Level:');
-define('TEXT_REPLACEMENT PRODUCT', 'Replacement Product:');
+define('TEXT_REPLACEMENT_PRODUCT', 'Replacement Product:');
 define('TEXT_PRODUCTS_MODEL', 'Products Model:');
 define('TEXT_PRODUCTS_EAN', 'EAN :');
 define('TEXT_PRODUCTS_IMAGE', 'Products Image:');

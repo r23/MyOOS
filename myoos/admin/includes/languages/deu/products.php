@@ -59,7 +59,7 @@ define('TEXT_PRODUCTS_DESCRIPTION_META', 'Artikelbeschreibung für Description T
 define('TEXT_PRODUCTS_KEYWORDS_META', 'Artikel Suchworte für Keyword Tag (Stichworte durch Komma getrennt - max. 250 Zeichen)');
 define('TEXT_PRODUCTS_QUANTITY', 'Lagerbestand:');
 define('TEXT_PRODUCTS_REORDER_LEVEL', 'Mindestlagerbestand:');
-define('TEXT_REPLACEMENT PRODUCT', 'Ersatzprodukt:');
+define('TEXT_REPLACEMENT_PRODUCT', 'Ersatzprodukt:');
 define('TEXT_PRODUCTS_MODEL', 'Artikel-Nr.:');
 define('TEXT_PRODUCTS_EAN', 'EAN :');
 define('TEXT_PRODUCTS_IMAGE', 'Artikelbild:');
