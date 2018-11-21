@@ -167,13 +167,9 @@ class DoctrineExtractor implements PropertyListExtractorInterface, PropertyTypeE
     /**
      * Determines whether an association is nullable.
      *
-     * @param array $associationMapping
-     *
-     * @return bool
-     *
      * @see https://github.com/doctrine/doctrine2/blob/v2.5.4/lib/Doctrine/ORM/Tools/EntityGenerator.php#L1221-L1246
      */
-    private function isAssociationNullable(array $associationMapping)
+    private function isAssociationNullable(array $associationMapping): bool
     {
         if (isset($associationMapping['id']) && $associationMapping['id']) {
             return false;
@@ -195,12 +191,8 @@ class DoctrineExtractor implements PropertyListExtractorInterface, PropertyTypeE
 
     /**
      * Gets the corresponding built-in PHP type.
-     *
-     * @param string $doctrineType
-     *
-     * @return string|null
      */
-    private function getPhpType($doctrineType)
+    private function getPhpType(string $doctrineType): ?string
     {
         switch ($doctrineType) {
             case DBALType::SMALLINT:
@@ -227,5 +219,7 @@ class DoctrineExtractor implements PropertyListExtractorInterface, PropertyTypeE
             case DBALType::OBJECT:
                 return Type::BUILTIN_TYPE_OBJECT;
         }
+
+        return null;
     }
 }

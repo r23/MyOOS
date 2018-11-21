@@ -33,11 +33,7 @@ abstract class AbstractAdapter implements AdapterInterface, LoggerAwareInterface
     private $createCacheItem;
     private $mergeByLifetime;
 
-    /**
-     * @param string $namespace
-     * @param int    $defaultLifetime
-     */
-    protected function __construct($namespace = '', $defaultLifetime = 0)
+    protected function __construct(string $namespace = '', int $defaultLifetime = 0)
     {
         $this->namespace = '' === $namespace ? '' : CacheItem::validateKey($namespace).':';
         if (null !== $this->maxIdLength && \strlen($namespace) > $this->maxIdLength - 24) {
@@ -56,7 +52,7 @@ abstract class AbstractAdapter implements AdapterInterface, LoggerAwareInterface
             null,
             CacheItem::class
         );
-        $getId = function ($key) { return $this->getId((string) $key); };
+        $getId = \Closure::fromCallable(array($this, 'getId'));
         $this->mergeByLifetime = \Closure::bind(
             function ($deferred, $namespace, &$expiredIds) use ($getId) {
                 $byLifetime = array();
@@ -64,6 +60,7 @@ abstract class AbstractAdapter implements AdapterInterface, LoggerAwareInterface
                 $expiredIds = array();
 
                 foreach ($deferred as $key => $item) {
+                    $key = (string) $key;
                     if (null === $item->expiry) {
                         $byLifetime[0 < $item->defaultLifetime ? $item->defaultLifetime : 0][$getId($key)] = $item->value;
                     } elseif ($item->expiry > $now) {

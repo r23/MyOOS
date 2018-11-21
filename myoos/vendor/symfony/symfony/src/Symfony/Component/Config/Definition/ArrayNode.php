@@ -377,4 +377,12 @@ class ArrayNode extends BaseNode implements PrototypeNodeInterface
 
         return $leftSide;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function allowPlaceholders(): bool
+    {
+        return false;
+    }
 }

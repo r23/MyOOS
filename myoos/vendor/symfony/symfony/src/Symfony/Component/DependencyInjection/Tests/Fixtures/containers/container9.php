@@ -161,6 +161,13 @@ $container
     ->setPublic(true)
 ;
 $container
+    ->register('BAR', 'stdClass')
+    ->setProperty('bar', new Reference('bar'))
+    ->setPublic(true)
+;
+$container->register('bar2', 'stdClass')->setPublic(true);
+$container->register('BAR2', 'stdClass')->setPublic(true);
+$container
     ->register('tagged_iterator_foo', 'Bar')
     ->addTag('foo')
     ->setPublic(false)
@@ -172,5 +179,12 @@ $container
 ;
 $container->setAlias('alias_for_foo', 'foo')->setPublic(true);
 $container->setAlias('alias_for_alias', 'alias_for_foo')->setPublic(true);
+
+$container->register('runtime_error', 'stdClass')
+    ->addArgument(new Reference('errored_definition', ContainerInterface::RUNTIME_EXCEPTION_ON_INVALID_REFERENCE))
+    ->setPublic(true);
+
+$container->register('errored_definition', 'stdClass')
+    ->addError('Service "errored_definition" is broken.');
 
 return $container;

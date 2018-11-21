@@ -22,9 +22,9 @@ use Symfony\Component\Serializer\SerializerInterface;
  *
  * @author Alexander M. Turek <me@derrabus.de>
  *
- * @final since version 3.3.
+ * @final
  */
-class ArrayDenormalizer implements DenormalizerInterface, SerializerAwareInterface
+class ArrayDenormalizer implements ContextAwareDenormalizerInterface, SerializerAwareInterface, CacheableSupportsMethodInterface
 {
     /**
      * @var SerializerInterface|DenormalizerInterface
@@ -66,10 +66,8 @@ class ArrayDenormalizer implements DenormalizerInterface, SerializerAwareInterfa
     /**
      * {@inheritdoc}
      */
-    public function supportsDenormalization($data, $type, $format = null/*, array $context = array()*/)
+    public function supportsDenormalization($data, $type, $format = null, array $context = array())
     {
-        $context = \func_num_args() > 3 ? func_get_arg(3) : array();
-
         return '[]' === substr($type, -2)
             && $this->serializer->supportsDenormalization($data, substr($type, 0, -2), $format, $context);
     }
@@ -84,5 +82,13 @@ class ArrayDenormalizer implements DenormalizerInterface, SerializerAwareInterfa
         }
 
         $this->serializer = $serializer;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function hasCacheableSupportsMethod(): bool
+    {
+        return $this->serializer instanceof CacheableSupportsMethodInterface && $this->serializer->hasCacheableSupportsMethod();
     }
 }

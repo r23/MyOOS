@@ -1,6 +1,25 @@
 CHANGELOG
 =========
 
+4.1.0
+-----
+
+ * Deprecated the `DefinitionBuilder::reset()` method, use the `clear()` one instead.
+ * Deprecated the usage of `add(Workflow $workflow, $supportStrategy)` in `Workflow/Registry`, use `addWorkflow(WorkflowInterface, $supportStrategy)` instead.
+ * Deprecated the usage of `SupportStrategyInterface`, use `WorkflowSupportStrategyInterface` instead.
+ * The `Workflow` class now implements `WorkflowInterface`.
+ * Deprecated the class `ClassInstanceSupportStrategy` in favor of the class `InstanceOfSupportStrategy`.
+ * Added TransitionBlockers as a way to pass around reasons why exactly
+   transitions can't be made.
+ * Added a `MetadataStore`.
+ * Added `Registry::all` to return all the workflows associated with the
+   specific subject.
+
+4.0.0
+-----
+
+ * Removed class name support in `WorkflowRegistry::add()` as second parameter.
+
 3.4.0
 -----
 

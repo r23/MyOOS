@@ -114,9 +114,21 @@
     </div>
 {%- endblock percent_widget %}
 
+{% block file_widget -%}
+    <{{ element|default('div') }} class="custom-file">
+        {%- set type = type|default('file') -%}
+        {{- block('form_widget_simple') -}}
+        <label for="{{ form.vars.id }}" class="custom-file-label">
+            {%- if attr.placeholder is defined -%}
+                {{- translation_domain is same as(false) ? attr.placeholder : attr.placeholder|trans({}, translation_domain) -}}
+            {%- endif -%}
+        </label>
+    </{{ element|default('div') }}>
+{% endblock %}
+
 {% block form_widget_simple -%}
     {% if type is not defined or type != 'hidden' %}
-        {%- set attr = attr|merge({class: (attr.class|default('') ~ ' form-control' ~ (type|default('') == 'file' ? '-file' : ''))|trim}) -%}
+        {%- set attr = attr|merge({class: (attr.class|default('') ~ (type|default('') == 'file' ? ' custom-file-input' : ' form-control'))|trim}) -%}
     {% endif %}
     {%- if type is defined and (type == 'range' or type == 'color') %}
         {# Attribute "required" is not supported #}
@@ -256,9 +268,14 @@
     {%- if compound is defined and compound -%}
         {%- set element = 'fieldset' -%}
     {%- endif -%}
+    {%- set widget_attr = {} -%}
+    {%- if help is not empty -%}
+        {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
+    {%- endif -%}
     <{{ element|default('div') }} class="form-group">
         {{- form_label(form) -}}
-        {{- form_widget(form) -}}
+        {{- form_widget(form, widget_attr) -}}
+        {{- form_help(form) -}}
     </{{ element|default('div') }}>
 {%- endblock form_row %}
 
@@ -275,3 +292,17 @@
         </span>
     {%- endif %}
 {%- endblock form_errors %}
+
+{# Help #}
+
+{% block form_help -%}
+    {%- if help is not empty -%}
+        <small id="{{ id }}_help" class="form-text text-muted">
+            {%- if translation_domain is same as(false) -%}
+                {{- help -}}
+            {%- else -%}
+                {{- help|trans({}, translation_domain) -}}
+            {%- endif -%}
+        </small>
+    {%- endif -%}
+{%- endblock form_help %}

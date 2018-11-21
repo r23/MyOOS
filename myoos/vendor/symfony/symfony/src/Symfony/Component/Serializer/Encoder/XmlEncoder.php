@@ -12,6 +12,8 @@
 namespace Symfony\Component\Serializer\Encoder;
 
 use Symfony\Component\Serializer\Exception\NotEncodableValueException;
+use Symfony\Component\Serializer\SerializerAwareInterface;
+use Symfony\Component\Serializer\SerializerAwareTrait;
 
 /**
  * Encodes XML data.
@@ -21,8 +23,10 @@ use Symfony\Component\Serializer\Exception\NotEncodableValueException;
  * @author Fabian Vogler <fabian@equivalence.ch>
  * @author Kévin Dunglas <dunglas@gmail.com>
  */
-class XmlEncoder extends SerializerAwareEncoder implements EncoderInterface, DecoderInterface, NormalizationAwareInterface
+class XmlEncoder implements EncoderInterface, DecoderInterface, NormalizationAwareInterface, SerializerAwareInterface
 {
+    use SerializerAwareTrait;
+
     const FORMAT = 'xml';
 
     /**
@@ -33,17 +37,19 @@ class XmlEncoder extends SerializerAwareEncoder implements EncoderInterface, Dec
     private $context;
     private $rootNodeName = 'response';
     private $loadOptions;
+    private $ignoredNodeTypes;
 
     /**
      * Construct new XmlEncoder and allow to change the root node element name.
      *
-     * @param string   $rootNodeName
-     * @param int|null $loadOptions  A bit field of LIBXML_* constants
+     * @param int|null $loadOptions      A bit field of LIBXML_* constants
+     * @param int[]    $ignoredNodeTypes an array of ignored XML node types, each one of the DOM Predefined XML_* Constants
      */
-    public function __construct($rootNodeName = 'response', $loadOptions = null)
+    public function __construct(string $rootNodeName = 'response', int $loadOptions = null, array $ignoredNodeTypes = array(XML_PI_NODE, XML_COMMENT_NODE))
     {
         $this->rootNodeName = $rootNodeName;
         $this->loadOptions = null !== $loadOptions ? $loadOptions : LIBXML_NONET | LIBXML_NOBLANKS;
+        $this->ignoredNodeTypes = $ignoredNodeTypes;
     }
 
     /**
@@ -102,7 +108,7 @@ class XmlEncoder extends SerializerAwareEncoder implements EncoderInterface, Dec
             if (XML_DOCUMENT_TYPE_NODE === $child->nodeType) {
                 throw new NotEncodableValueException('Document types are not allowed.');
             }
-            if (!$rootNode && XML_PI_NODE !== $child->nodeType) {
+            if (!$rootNode && !\in_array($child->nodeType, $this->ignoredNodeTypes, true)) {
                 $rootNode = $child;
             }
         }
@@ -176,15 +182,9 @@ class XmlEncoder extends SerializerAwareEncoder implements EncoderInterface, Dec
         return $this->rootNodeName;
     }
 
-    /**
-     * @param \DOMNode $node
-     * @param string   $val
-     *
-     * @return bool
-     */
-    final protected function appendXMLString(\DOMNode $node, $val)
+    final protected function appendXMLString(\DOMNode $node, string $val): bool
     {
-        if (\strlen($val) > 0) {
+        if ('' !== $val) {
             $frag = $this->dom->createDocumentFragment();
             $frag->appendXML($val);
             $node->appendChild($frag);
@@ -195,13 +195,7 @@ class XmlEncoder extends SerializerAwareEncoder implements EncoderInterface, Dec
         return false;
     }
 
-    /**
-     * @param \DOMNode $node
-     * @param string   $val
-     *
-     * @return bool
-     */
-    final protected function appendText(\DOMNode $node, $val)
+    final protected function appendText(\DOMNode $node, string $val): bool
     {
         $nodeText = $this->dom->createTextNode($val);
         $node->appendChild($nodeText);
@@ -209,13 +203,7 @@ class XmlEncoder extends SerializerAwareEncoder implements EncoderInterface, Dec
         return true;
     }
 
-    /**
-     * @param \DOMNode $node
-     * @param string   $val
-     *
-     * @return bool
-     */
-    final protected function appendCData(\DOMNode $node, $val)
+    final protected function appendCData(\DOMNode $node, string $val): bool
     {
         $nodeText = $this->dom->createCDATASection($val);
         $node->appendChild($nodeText);
@@ -226,10 +214,8 @@ class XmlEncoder extends SerializerAwareEncoder implements EncoderInterface, Dec
     /**
      * @param \DOMNode             $node
      * @param \DOMDocumentFragment $fragment
-     *
-     * @return bool
      */
-    final protected function appendDocumentFragment(\DOMNode $node, $fragment)
+    final protected function appendDocumentFragment(\DOMNode $node, $fragment): bool
     {
         if ($fragment instanceof \DOMDocumentFragment) {
             $node->appendChild($fragment);
@@ -242,12 +228,8 @@ class XmlEncoder extends SerializerAwareEncoder implements EncoderInterface, Dec
 
     /**
      * Checks the name is a valid xml element name.
-     *
-     * @param string $name
-     *
-     * @return bool
      */
-    final protected function isElementNameValid($name)
+    final protected function isElementNameValid(string $name): bool
     {
         return $name &&
             false === strpos($name, ' ') &&
@@ -290,10 +272,8 @@ class XmlEncoder extends SerializerAwareEncoder implements EncoderInterface, Dec
 
     /**
      * Parse the input DOMNode attributes into an array.
-     *
-     * @return array
      */
-    private function parseXmlAttributes(\DOMNode $node, array $context = array())
+    private function parseXmlAttributes(\DOMNode $node, array $context = array()): array
     {
         if (!$node->hasAttributes()) {
             return array();
@@ -339,25 +319,21 @@ class XmlEncoder extends SerializerAwareEncoder implements EncoderInterface, Dec
         $value = array();
 
         foreach ($node->childNodes as $subnode) {
-            if (XML_PI_NODE === $subnode->nodeType) {
+            if (\in_array($subnode->nodeType, $this->ignoredNodeTypes, true)) {
                 continue;
             }
 
             $val = $this->parseXml($subnode, $context);
 
             if ('item' === $subnode->nodeName && isset($val['@key'])) {
-                if (isset($val['#'])) {
-                    $value[$val['@key']] = $val['#'];
-                } else {
-                    $value[$val['@key']] = $val;
-                }
+                $value[$val['@key']] = $val['#'] ?? $val;
             } else {
                 $value[$subnode->nodeName][] = $val;
             }
         }
 
         foreach ($value as $key => $val) {
-            if (\is_array($val) && 1 === \count($val)) {
+            if (empty($context['as_collection']) && \is_array($val) && 1 === \count($val)) {
                 $value[$key] = current($val);
             }
         }
@@ -368,15 +344,11 @@ class XmlEncoder extends SerializerAwareEncoder implements EncoderInterface, Dec
     /**
      * Parse the data and convert it to DOMElements.
      *
-     * @param \DOMNode     $parentNode
      * @param array|object $data
-     * @param string|null  $xmlRootNodeName
-     *
-     * @return bool
      *
      * @throws NotEncodableValueException
      */
-    private function buildXml(\DOMNode $parentNode, $data, $xmlRootNodeName = null)
+    private function buildXml(\DOMNode $parentNode, $data, string $xmlRootNodeName = null): bool
     {
         $append = true;
 
@@ -437,14 +409,9 @@ class XmlEncoder extends SerializerAwareEncoder implements EncoderInterface, Dec
     /**
      * Selects the type of node to create and appends it to the parent.
      *
-     * @param \DOMNode     $parentNode
      * @param array|object $data
-     * @param string       $nodeName
-     * @param string       $key
-     *
-     * @return bool
      */
-    private function appendNode(\DOMNode $parentNode, $data, $nodeName, $key = null)
+    private function appendNode(\DOMNode $parentNode, $data, string $nodeName, string $key = null): bool
     {
         $node = $this->dom->createElement($nodeName);
         if (null !== $key) {
@@ -461,12 +428,8 @@ class XmlEncoder extends SerializerAwareEncoder implements EncoderInterface, Dec
 
     /**
      * Checks if a value contains any characters which would require CDATA wrapping.
-     *
-     * @param string $val
-     *
-     * @return bool
      */
-    private function needsCdataWrapping($val)
+    private function needsCdataWrapping(string $val): bool
     {
         return 0 < preg_match('/[<>&]/', $val);
     }
@@ -474,14 +437,11 @@ class XmlEncoder extends SerializerAwareEncoder implements EncoderInterface, Dec
     /**
      * Tests the value being passed and decide what sort of element to create.
      *
-     * @param \DOMNode $node
-     * @param mixed    $val
-     *
-     * @return bool
+     * @param mixed $val
      *
      * @throws NotEncodableValueException
      */
-    private function selectNodeType(\DOMNode $node, $val)
+    private function selectNodeType(\DOMNode $node, $val): bool
     {
         if (\is_array($val)) {
             return $this->buildXml($node, $val);
@@ -510,10 +470,8 @@ class XmlEncoder extends SerializerAwareEncoder implements EncoderInterface, Dec
 
     /**
      * Get real XML root node name, taking serializer options into account.
-     *
-     * @return string
      */
-    private function resolveXmlRootName(array $context = array())
+    private function resolveXmlRootName(array $context = array()): string
     {
         return isset($context['xml_root_node_name'])
             ? $context['xml_root_node_name']
@@ -522,12 +480,8 @@ class XmlEncoder extends SerializerAwareEncoder implements EncoderInterface, Dec
 
     /**
      * Get XML option for type casting attributes Defaults to true.
-     *
-     * @param array $context
-     *
-     * @return bool
      */
-    private function resolveXmlTypeCastAttributes(array $context = array())
+    private function resolveXmlTypeCastAttributes(array $context = array()): bool
     {
         return isset($context['xml_type_cast_attributes'])
             ? (bool) $context['xml_type_cast_attributes']
@@ -536,12 +490,8 @@ class XmlEncoder extends SerializerAwareEncoder implements EncoderInterface, Dec
 
     /**
      * Create a DOM document, taking serializer options into account.
-     *
-     * @param array $context Options that the encoder has access to
-     *
-     * @return \DOMDocument
      */
-    private function createDomDocument(array $context)
+    private function createDomDocument(array $context): \DOMDocument
     {
         $document = new \DOMDocument();
 

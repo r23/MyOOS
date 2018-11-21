@@ -30,7 +30,7 @@ class ResolveInstanceofConditionalsPassTest extends TestCase
 
         (new ResolveInstanceofConditionalsPass())->process($container);
 
-        $parent = 'instanceof.'.parent::class.'.0.foo';
+        $parent = '.instanceof.'.parent::class.'.0.foo';
         $def = $container->getDefinition('foo');
         $this->assertEmpty($def->getInstanceofConditionals());
         $this->assertInstanceOf(ChildDefinition::class, $def);
@@ -201,16 +201,34 @@ class ResolveInstanceofConditionalsPassTest extends TestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\DependencyInjection\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Autoconfigured instanceof for type "PHPUnit\Framework\TestCase" defines method calls but these are not supported and should be removed.
+     * Test that autoconfigured calls are handled gracefully.
      */
-    public function testProcessThrowsExceptionForAutoconfiguredCalls()
+    public function testProcessForAutoconfiguredCalls()
     {
         $container = new ContainerBuilder();
-        $container->registerForAutoconfiguration(parent::class)
-            ->addMethodCall('setFoo');
+
+        $expected = array(
+            array('setFoo', array(
+                'plain_value',
+                '%some_parameter%',
+            )),
+            array('callBar', array()),
+            array('isBaz', array()),
+        );
+
+        $container->registerForAutoconfiguration(parent::class)->addMethodCall('setFoo', $expected[0][1]);
+        $container->registerForAutoconfiguration(self::class)->addMethodCall('callBar');
+
+        $def = $container->register('foo', self::class)->setAutoconfigured(true)->addMethodCall('isBaz');
+        $this->assertEquals(
+            array(array('isBaz', array())),
+            $def->getMethodCalls(),
+            'Definition shouldn\'t have only one method call.'
+        );
 
         (new ResolveInstanceofConditionalsPass())->process($container);
+
+        $this->assertEquals($expected, $container->findDefinition('foo')->getMethodCalls());
     }
 
     /**
@@ -243,7 +261,7 @@ class ResolveInstanceofConditionalsPassTest extends TestCase
 
         (new ResolveInstanceofConditionalsPass())->process($container);
 
-        $abstract = $container->getDefinition('abstract.instanceof.bar');
+        $abstract = $container->getDefinition('.abstract.instanceof.bar');
 
         $this->assertEmpty($abstract->getArguments());
         $this->assertEmpty($abstract->getMethodCalls());

@@ -1,6 +1,23 @@
 CHANGELOG
 =========
 
+4.1.0
+-----
+
+ * Search for `SYMFONY_PHPUNIT_VERSION`, `SYMFONY_PHPUNIT_REMOVE`,
+   `SYMFONY_PHPUNIT_DIR` env var in `phpunit.xml` then in `phpunit.xml.dist`
+
+4.0.0
+-----
+
+ * support for the `testLegacy` prefix in method names to mark a test as legacy
+   has been dropped, use the `@group legacy` notation instead
+ * support for the `Legacy` prefix in class names to mark tests as legacy has
+   been dropped, use the `@group legacy` notation instead
+ * support for passing an array of mocked namespaces not indexed by the mock
+   feature to the constructor of the `SymfonyTestsListenerTrait` class was
+   dropped
+
 3.4.0
 -----
 

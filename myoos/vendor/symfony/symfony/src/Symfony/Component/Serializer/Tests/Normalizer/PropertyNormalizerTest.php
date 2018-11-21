@@ -275,7 +275,6 @@ class PropertyNormalizerTest extends TestCase
             array(
                 array(
                     'bar' => function ($bar) {
-                        return;
                     },
                 ),
                 'baz',

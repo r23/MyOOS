@@ -1,6 +1,19 @@
 CHANGELOG
 =========
 
+4.1.0
+-----
+
+ * `WebProcessor` now implements `EventSubscriberInterface` in order to be easily autoconfigured
+
+4.0.0
+-----
+
+ * the `$format`, `$dateFormat`, `$allowInlineLineBreaks`, and `$ignoreEmptyContextAndExtra`
+   constructor arguments of the `ConsoleFormatter` class have been removed, use
+   `$options` instead
+ * the `DebugHandler` class has been removed
+
 3.3.0
 -----
 

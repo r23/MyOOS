@@ -14,7 +14,6 @@ namespace Symfony\Bridge\ProxyManager\LazyProxy\PhpDumper;
 use ProxyManager\Generator\ClassGenerator;
 use ProxyManager\GeneratorStrategy\BaseGeneratorStrategy;
 use ProxyManager\Version;
-use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\LazyProxy\PhpDumper\DumperInterface;
@@ -24,7 +23,7 @@ use Symfony\Component\DependencyInjection\LazyProxy\PhpDumper\DumperInterface;
  *
  * @author Marco Pivetta <ocramius@gmail.com>
  *
- * @final since version 3.3
+ * @final
  */
 class ProxyDumper implements DumperInterface
 {
@@ -32,10 +31,7 @@ class ProxyDumper implements DumperInterface
     private $proxyGenerator;
     private $classGenerator;
 
-    /**
-     * @param string $salt
-     */
-    public function __construct($salt = '')
+    public function __construct(string $salt = '')
     {
         $this->salt = $salt;
         $this->proxyGenerator = new LazyLoadingValueHolderGenerator();
@@ -62,12 +58,9 @@ class ProxyDumper implements DumperInterface
         }
 
         if (null === $factoryCode) {
-            @trigger_error(sprintf('The "%s()" method expects a third argument defining the code to execute to construct your service since Symfony 3.4, providing it will be required in 4.0.', __METHOD__), E_USER_DEPRECATED);
-            $factoryCode = '$this->get'.Container::camelize($id).'Service(false)';
-        } elseif (false === strpos($factoryCode, '(')) {
-            @trigger_error(sprintf('The "%s()" method expects its third argument to define the code to execute to construct your service since Symfony 3.4, providing it will be required in 4.0.', __METHOD__), E_USER_DEPRECATED);
-            $factoryCode = "\$this->$factoryCode(false)";
+            throw new \InvalidArgumentException(sprintf('Missing factory code to construct the service "%s".', $id));
         }
+
         $proxyClass = $this->getProxyClassName($definition);
 
         $hasStaticConstructor = $this->generateProxyClass($definition)->hasMethod('staticProxyConstructor');
@@ -115,10 +108,7 @@ EOF;
         return $code;
     }
 
-    /**
-     * @return string
-     */
-    private static function getProxyManagerVersion()
+    private static function getProxyManagerVersion(): string
     {
         if (!\class_exists(Version::class)) {
             return '0.0.1';
@@ -129,18 +119,13 @@ EOF;
 
     /**
      * Produces the proxy class name for the given definition.
-     *
-     * @return string
      */
-    private function getProxyClassName(Definition $definition)
+    private function getProxyClassName(Definition $definition): string
     {
         return preg_replace('/^.*\\\\/', '', $definition->getClass()).'_'.$this->getIdentifierSuffix($definition);
     }
 
-    /**
-     * @return ClassGenerator
-     */
-    private function generateProxyClass(Definition $definition)
+    private function generateProxyClass(Definition $definition): ClassGenerator
     {
         $generatedClass = new ClassGenerator($this->getProxyClassName($definition));
 
@@ -149,10 +134,7 @@ EOF;
         return $generatedClass;
     }
 
-    /**
-     * @return string
-     */
-    private function getIdentifierSuffix(Definition $definition)
+    private function getIdentifierSuffix(Definition $definition): string
     {
         return substr(hash('sha256', $definition->getClass().$this->salt), -7);
     }

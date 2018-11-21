@@ -32,26 +32,15 @@ class ProfilerController
     private $profiler;
     private $twig;
     private $templates;
-    private $toolbarPosition;
     private $cspHandler;
     private $baseDir;
 
-    /**
-     * @param UrlGeneratorInterface        $generator       The URL Generator
-     * @param Profiler                     $profiler        The profiler
-     * @param Environment                  $twig            The twig environment
-     * @param array                        $templates       The templates
-     * @param string                       $toolbarPosition The toolbar position (top, bottom, normal, or null -- use the configuration)
-     * @param ContentSecurityPolicyHandler $cspHandler      The Content-Security-Policy handler
-     * @param string                       $baseDir         The project root directory
-     */
-    public function __construct(UrlGeneratorInterface $generator, Profiler $profiler = null, Environment $twig, array $templates, $toolbarPosition = 'bottom', ContentSecurityPolicyHandler $cspHandler = null, $baseDir = null)
+    public function __construct(UrlGeneratorInterface $generator, Profiler $profiler = null, Environment $twig, array $templates, ContentSecurityPolicyHandler $cspHandler = null, string $baseDir = null)
     {
         $this->generator = $generator;
         $this->profiler = $profiler;
         $this->twig = $twig;
         $this->templates = $templates;
-        $this->toolbarPosition = $toolbarPosition;
         $this->cspHandler = $cspHandler;
         $this->baseDir = $baseDir;
     }
@@ -140,9 +129,7 @@ class ProfilerController
             throw new NotFoundHttpException('The profiler must be enabled.');
         }
 
-        $session = $request->getSession();
-
-        if (null !== $session && $session->isStarted() && $session->getFlashBag() instanceof AutoExpireFlashBag) {
+        if ($request->hasSession() && ($session = $request->getSession()) && $session->isStarted() && $session->getFlashBag() instanceof AutoExpireFlashBag) {
             // keep current flashes for one more request if using AutoExpireFlashBag
             $session->getFlashBag()->setAll($session->getFlashBag()->peekAll());
         }
@@ -157,11 +144,6 @@ class ProfilerController
             return new Response('', 404, array('Content-Type' => 'text/html'));
         }
 
-        // the toolbar position (top, bottom, normal, or null -- use the configuration)
-        if (null === $position = $request->query->get('position')) {
-            $position = $this->toolbarPosition;
-        }
-
         $url = null;
         try {
             $url = $this->generator->generate('_profiler', array('token' => $token));
@@ -171,7 +153,6 @@ class ProfilerController
 
         return $this->renderWithCspNonces($request, '@WebProfiler/Profiler/toolbar.html.twig', array(
             'request' => $request,
-            'position' => $position,
             'profile' => $profile,
             'templates' => $this->getTemplateManager()->getNames($profile),
             'profiler_url' => $url,
@@ -199,7 +180,7 @@ class ProfilerController
             $this->cspHandler->disableCsp();
         }
 
-        if (null === $session = $request->getSession()) {
+        if (!$request->hasSession()) {
             $ip =
             $method =
             $statusCode =
@@ -209,6 +190,8 @@ class ProfilerController
             $limit =
             $token = null;
         } else {
+            $session = $request->getSession();
+
             $ip = $request->query->get('ip', $session->get('_profiler_search_ip'));
             $method = $request->query->get('method', $session->get('_profiler_search_method'));
             $statusCode = $request->query->get('status_code', $session->get('_profiler_search_status_code'));
@@ -308,7 +291,9 @@ class ProfilerController
         $limit = $request->query->get('limit');
         $token = $request->query->get('token');
 
-        if (null !== $session = $request->getSession()) {
+        if ($request->hasSession()) {
+            $session = $request->getSession();
+
             $session->set('_profiler_search_ip', $ip);
             $session->set('_profiler_search_method', $method);
             $session->set('_profiler_search_status_code', $statusCode);

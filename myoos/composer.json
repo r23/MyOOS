@@ -17,7 +17,7 @@
         "source": "https://github.com/r23/MyOOS/"
     },
     "require": {
-        "php": "^5.6.4||^7.0",
+        "php": "^7.0",
         "ext-ctype": "*",
         "ext-curl": "*",
         "ext-date": "*",
@@ -35,7 +35,7 @@
         "ext-zip": "*",
         "ext-zlib": "*",
         "lib-libxml": "*",
-		"symfony/symfony": "~3.4.3",
+		"symfony/symfony": "~4.1.7",
 		"smarty/smarty": "~3.1"
     }
 }

@@ -15,7 +15,11 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\SecurityBundle\DependencyInjection\SecurityExtension;
 use Symfony\Bundle\SecurityBundle\SecurityBundle;
 use Symfony\Bundle\SecurityBundle\Tests\DependencyInjection\Fixtures\UserProvider\DummyProvider;
+use Symfony\Component\DependencyInjection\Argument\IteratorArgument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\ExpressionLanguage\Expression;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class SecurityExtensionTest extends TestCase
 {
@@ -38,7 +42,6 @@ class SecurityExtensionTest extends TestCase
                     'form_login' => array(
                         'check_path' => '/some_area/login_check',
                     ),
-                    'logout_on_user_change' => true,
                 ),
             ),
         ));
@@ -62,7 +65,6 @@ class SecurityExtensionTest extends TestCase
             'firewalls' => array(
                 'some_firewall' => array(
                     'pattern' => '/.*',
-                    'logout_on_user_change' => true,
                 ),
             ),
         ));
@@ -90,7 +92,6 @@ class SecurityExtensionTest extends TestCase
                 'some_firewall' => array(
                     'pattern' => '/.*',
                     'http_basic' => array(),
-                    'logout_on_user_change' => true,
                 ),
             ),
         ));
@@ -113,7 +114,6 @@ class SecurityExtensionTest extends TestCase
                 'some_firewall' => array(
                     'pattern' => '/.*',
                     'http_basic' => null,
-                    'logout_on_user_change' => true,
                 ),
             ),
         ));
@@ -136,13 +136,11 @@ class SecurityExtensionTest extends TestCase
                 'some_firewall' => array(
                     'pattern' => '^/admin',
                     'http_basic' => null,
-                    'logout_on_user_change' => true,
                 ),
                 'stateless_firewall' => array(
                     'pattern' => '/.*',
                     'stateless' => true,
                     'http_basic' => null,
-                    'logout_on_user_change' => true,
                 ),
             ),
         ));
@@ -152,74 +150,6 @@ class SecurityExtensionTest extends TestCase
         $this->assertSame(array('stateless_firewall'), $definition->getArgument(2));
     }
 
-    /**
-     * @group legacy
-     * @expectedDeprecation Not setting "logout_on_user_change" to true on firewall "some_firewall" is deprecated as of 3.4, it will always be true in 4.0.
-     */
-    public function testConfiguresLogoutOnUserChangeForContextListenersCorrectly()
-    {
-        $container = $this->getRawContainer();
-
-        $container->loadFromExtension('security', array(
-            'providers' => array(
-                'default' => array('id' => 'foo'),
-            ),
-            'firewalls' => array(
-                'some_firewall' => array(
-                    'pattern' => '/.*',
-                    'http_basic' => null,
-                    'logout_on_user_change' => false,
-                ),
-                'some_other_firewall' => array(
-                    'pattern' => '/.*',
-                    'http_basic' => null,
-                    'logout_on_user_change' => true,
-                ),
-            ),
-        ));
-
-        $container->compile();
-
-        $this->assertEquals(array(array('setLogoutOnUserChange', array(false))), $container->getDefinition('security.context_listener.0')->getMethodCalls());
-        $this->assertEquals(array(array('setLogoutOnUserChange', array(true))), $container->getDefinition('security.context_listener.1')->getMethodCalls());
-    }
-
-    /**
-     * @group legacy
-     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
-     * @expectedExceptionMessage Firewalls "some_firewall" and "some_other_firewall" need to have the same value for option "logout_on_user_change" as they are sharing the context "my_context"
-     */
-    public function testThrowsIfLogoutOnUserChangeDifferentForSharedContext()
-    {
-        $container = $this->getRawContainer();
-
-        $container->loadFromExtension('security', array(
-            'providers' => array(
-                'default' => array('id' => 'foo'),
-            ),
-            'firewalls' => array(
-                'some_firewall' => array(
-                    'pattern' => '/.*',
-                    'http_basic' => null,
-                    'context' => 'my_context',
-                    'logout_on_user_change' => false,
-                ),
-                'some_other_firewall' => array(
-                    'pattern' => '/.*',
-                    'http_basic' => null,
-                    'context' => 'my_context',
-                    'logout_on_user_change' => true,
-                ),
-            ),
-        ));
-
-        $container->compile();
-    }
-
-    /**
-     * @group legacy
-     * @expectedDeprecation Firewall "some_firewall" is configured as "stateless" but the "switch_user.stateless" key is set to false. Both should have the same value, the firewall's "stateless" value will be used as default value for the "switch_user.stateless" key in 4.0.
-     */
     public function testSwitchUserNotStatelessOnStatelessFirewall()
     {
         $container = $this->getRawContainer();
@@ -233,38 +163,14 @@ class SecurityExtensionTest extends TestCase
                 'some_firewall' => array(
                     'stateless' => true,
                     'http_basic' => null,
-                    'switch_user' => array('stateless' => false),
-                    'logout_on_user_change' => true,
+                    'switch_user' => true,
                 ),
             ),
         ));
 
         $container->compile();
-    }
 
-    /**
-     * @group legacy
-     * @expectedDeprecation Listener "http_basic" on firewall "default" has no "provider" set but multiple providers exist. Using the first configured provider (first) is deprecated since Symfony 3.4 and will throw an exception in 4.0, set the "provider" key on the firewall instead.
-     */
-    public function testDeprecationForAmbiguousProvider()
-    {
-        $container = $this->getRawContainer();
-
-        $container->loadFromExtension('security', array(
-            'providers' => array(
-                'first' => array('id' => 'foo'),
-                'second' => array('id' => 'bar'),
-            ),
-
-            'firewalls' => array(
-                'default' => array(
-                    'http_basic' => null,
-                    'logout_on_user_change' => true,
-                ),
-            ),
-        ));
-
-        $container->compile();
+        $this->assertTrue($container->getDefinition('security.authentication.switchuser_listener.some_firewall')->getArgument(9));
     }
 
     public function testPerListenerProvider()
@@ -279,13 +185,36 @@ class SecurityExtensionTest extends TestCase
             'firewalls' => array(
                 'default' => array(
                     'http_basic' => array('provider' => 'second'),
-                    'logout_on_user_change' => true,
                 ),
             ),
         ));
 
         $container->compile();
         $this->addToAssertionCount(1);
+    }
+
+    /**
+     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
+     * @expectedExceptionMessage Not configuring explicitly the provider for the "http_basic" listener on "ambiguous" firewall is ambiguous as there is more than one registered provider.
+     */
+    public function testMissingProviderForListener()
+    {
+        $container = $this->getRawContainer();
+        $container->loadFromExtension('security', array(
+            'providers' => array(
+                'first' => array('id' => 'foo'),
+                'second' => array('id' => 'bar'),
+            ),
+
+            'firewalls' => array(
+                'ambiguous' => array(
+                    'http_basic' => true,
+                    'form_login' => array('provider' => 'second'),
+                ),
+            ),
+        ));
+
+        $container->compile();
     }
 
     public function testPerListenerProviderWithRememberMe()
@@ -300,7 +229,6 @@ class SecurityExtensionTest extends TestCase
             'firewalls' => array(
                 'default' => array(
                     'form_login' => array('provider' => 'second'),
-                    'logout_on_user_change' => true,
                     'remember_me' => array('secret' => 'baz'),
                 ),
             ),
@@ -308,6 +236,111 @@ class SecurityExtensionTest extends TestCase
 
         $container->compile();
         $this->addToAssertionCount(1);
+    }
+
+    public function testRegisterRequestMatchersWithAllowIfExpression()
+    {
+        $container = $this->getRawContainer();
+
+        $rawExpression = "'foo' == 'bar' or 1 in [1, 3, 3]";
+
+        $container->loadFromExtension('security', array(
+            'providers' => array(
+                'default' => array('id' => 'foo'),
+            ),
+            'firewalls' => array(
+                'some_firewall' => array(
+                    'pattern' => '/.*',
+                    'http_basic' => array(),
+                ),
+            ),
+            'access_control' => array(
+                array('path' => '/', 'allow_if' => $rawExpression),
+            ),
+        ));
+
+        $container->compile();
+        $accessMap = $container->getDefinition('security.access_map');
+        $this->assertCount(1, $accessMap->getMethodCalls());
+        $call = $accessMap->getMethodCalls()[0];
+        $this->assertSame('add', $call[0]);
+        $args = $call[1];
+        $this->assertCount(3, $args);
+        $expressionId = $args[1][0];
+        $this->assertTrue($container->hasDefinition($expressionId));
+        $expressionDef = $container->getDefinition($expressionId);
+        $this->assertSame(Expression::class, $expressionDef->getClass());
+        $this->assertSame($rawExpression, $expressionDef->getArgument(0));
+
+        $this->assertTrue($container->hasDefinition('security.cache_warmer.expression'));
+        $this->assertEquals(
+            new IteratorArgument(array(new Reference($expressionId))),
+            $container->getDefinition('security.cache_warmer.expression')->getArgument(0)
+        );
+    }
+
+    public function testRemovesExpressionCacheWarmerDefinitionIfNoExpressions()
+    {
+        $container = $this->getRawContainer();
+        $container->loadFromExtension('security', array(
+            'providers' => array(
+                'default' => array('id' => 'foo'),
+            ),
+            'firewalls' => array(
+                'some_firewall' => array(
+                    'pattern' => '/.*',
+                    'http_basic' => array(),
+                ),
+            ),
+        ));
+        $container->compile();
+
+        $this->assertFalse($container->hasDefinition('security.cache_warmer.expression'));
+    }
+
+    public function testRegisterTheUserProviderAlias()
+    {
+        $container = $this->getRawContainer();
+
+        $container->loadFromExtension('security', array(
+            'providers' => array(
+                'default' => array('id' => 'foo'),
+            ),
+
+            'firewalls' => array(
+                'some_firewall' => array(
+                    'pattern' => '/.*',
+                    'http_basic' => null,
+                ),
+            ),
+        ));
+
+        $container->compile();
+
+        $this->assertTrue($container->hasAlias(UserProviderInterface::class));
+    }
+
+    public function testDoNotRegisterTheUserProviderAliasWithMultipleProviders()
+    {
+        $container = $this->getRawContainer();
+
+        $container->loadFromExtension('security', array(
+            'providers' => array(
+                'first' => array('id' => 'foo'),
+                'second' => array('id' => 'bar'),
+            ),
+
+            'firewalls' => array(
+                'some_firewall' => array(
+                    'pattern' => '/.*',
+                    'http_basic' => array('provider' => 'second'),
+                ),
+            ),
+        ));
+
+        $container->compile();
+
+        $this->assertFalse($container->has(UserProviderInterface::class));
     }
 
     protected function getRawContainer()

@@ -53,32 +53,14 @@ class ConsoleFormatter implements FormatterInterface
      *   * colors: If true, the log string contains ANSI code to add color;
      *   * multiline: If false, "context" and "extra" are dumped on one line.
      */
-    public function __construct($options = array())
+    public function __construct(array $options = array())
     {
-        // BC Layer
-        if (!\is_array($options)) {
-            @trigger_error(sprintf('The constructor arguments $format, $dateFormat, $allowInlineLineBreaks, $ignoreEmptyContextAndExtra of "%s" are deprecated since Symfony 3.3 and will be removed in 4.0. Use $options instead.', self::class), E_USER_DEPRECATED);
-            $args = \func_get_args();
-            $options = array();
-            if (isset($args[0])) {
-                $options['format'] = $args[0];
-            }
-            if (isset($args[1])) {
-                $options['date_format'] = $args[1];
-            }
-            if (isset($args[2])) {
-                $options['multiline'] = $args[2];
-            }
-            if (isset($args[3])) {
-                $options['ignore_empty_context_and_extra'] = $args[3];
-            }
-        }
-
         $this->options = array_replace(array(
             'format' => self::SIMPLE_FORMAT,
             'date_format' => self::SIMPLE_DATE,
             'colors' => true,
             'multiline' => false,
+            'level_name_format' => '%-9s',
             'ignore_empty_context_and_extra' => true,
         ), $options);
 
@@ -135,7 +117,7 @@ class ConsoleFormatter implements FormatterInterface
         $formatted = strtr($this->options['format'], array(
             '%datetime%' => $record['datetime']->format($this->options['date_format']),
             '%start_tag%' => sprintf('<%s>', $levelColor),
-            '%level_name%' => sprintf('%-9s', $record['level_name']),
+            '%level_name%' => sprintf($this->options['level_name_format'], $record['level_name']),
             '%end_tag%' => '</>',
             '%channel%' => $record['channel'],
             '%message%' => $this->replacePlaceHolder($record)['message'],

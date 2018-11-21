@@ -32,7 +32,7 @@ class ExceptionController
     protected $profiler;
     private $fileLinkFormat;
 
-    public function __construct(Profiler $profiler = null, Environment $twig, $debug, FileLinkFormatter $fileLinkFormat = null)
+    public function __construct(Profiler $profiler = null, Environment $twig, bool $debug, FileLinkFormatter $fileLinkFormat = null)
     {
         $this->profiler = $profiler;
         $this->twig = $twig;

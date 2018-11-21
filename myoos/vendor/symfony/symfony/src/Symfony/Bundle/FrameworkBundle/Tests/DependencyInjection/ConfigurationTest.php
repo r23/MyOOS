@@ -17,6 +17,7 @@ use Symfony\Bundle\FullStack;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Lock\Store\SemaphoreStore;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 class ConfigurationTest extends TestCase
 {
@@ -42,54 +43,6 @@ class ConfigurationTest extends TestCase
         $config = $processor->processConfiguration(new Configuration(true), array($input));
 
         $this->assertEquals(array('FrameworkBundle:Form'), $config['templating']['form']['resources']);
-    }
-
-    /**
-     * @group legacy
-     * @expectedDeprecation The "framework.trusted_proxies" configuration key has been deprecated in Symfony 3.3. Use the Request::setTrustedProxies() method in your front controller instead.
-     */
-    public function testTrustedProxiesSetToNullIsDeprecated()
-    {
-        $processor = new Processor();
-        $configuration = new Configuration(true);
-        $processor->processConfiguration($configuration, array(array('trusted_proxies' => null)));
-    }
-
-    /**
-     * @group legacy
-     * @expectedDeprecation The "framework.trusted_proxies" configuration key has been deprecated in Symfony 3.3. Use the Request::setTrustedProxies() method in your front controller instead.
-     */
-    public function testTrustedProxiesSetToEmptyArrayIsDeprecated()
-    {
-        $processor = new Processor();
-        $configuration = new Configuration(true);
-        $processor->processConfiguration($configuration, array(array('trusted_proxies' => array())));
-    }
-
-    /**
-     * @group legacy
-     * @expectedDeprecation The "framework.trusted_proxies" configuration key has been deprecated in Symfony 3.3. Use the Request::setTrustedProxies() method in your front controller instead.
-     */
-    public function testTrustedProxiesSetToNonEmptyArrayIsInvalid()
-    {
-        $processor = new Processor();
-        $configuration = new Configuration(true);
-        $processor->processConfiguration($configuration, array(array('trusted_proxies' => array('127.0.0.1'))));
-    }
-
-    /**
-     * @group legacy
-     * @dataProvider getTestValidSessionName
-     */
-    public function testValidSessionName($sessionName)
-    {
-        $processor = new Processor();
-        $config = $processor->processConfiguration(
-            new Configuration(true),
-            array(array('session' => array('name' => $sessionName)))
-        );
-
-        $this->assertEquals($sessionName, $config['session']['name']);
     }
 
     public function getTestValidSessionName()
@@ -125,70 +78,6 @@ class ConfigurationTest extends TestCase
             array('a=b'),
             array('a+b'),
         );
-    }
-
-    /**
-     * @dataProvider getTestValidTrustedProxiesData
-     * @group legacy
-     */
-    public function testValidTrustedProxies($trustedProxies, $processedProxies)
-    {
-        $processor = new Processor();
-        $configuration = new Configuration(true);
-        $config = $processor->processConfiguration($configuration, array(array(
-            'secret' => 's3cr3t',
-            'trusted_proxies' => $trustedProxies,
-        )));
-
-        $this->assertEquals($processedProxies, $config['trusted_proxies']);
-    }
-
-    public function getTestValidTrustedProxiesData()
-    {
-        return array(
-            array(array('127.0.0.1'), array('127.0.0.1')),
-            array(array('::1'), array('::1')),
-            array(array('127.0.0.1', '::1'), array('127.0.0.1', '::1')),
-            array(null, array()),
-            array(false, array()),
-            array(array(), array()),
-            array(array('10.0.0.0/8'), array('10.0.0.0/8')),
-            array(array('::ffff:0:0/96'), array('::ffff:0:0/96')),
-            array(array('0.0.0.0/0'), array('0.0.0.0/0')),
-        );
-    }
-
-    /**
-     * @group legacy
-     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
-     */
-    public function testInvalidTypeTrustedProxies()
-    {
-        $processor = new Processor();
-        $configuration = new Configuration(true);
-        $processor->processConfiguration($configuration, array(
-            array(
-                'secret' => 's3cr3t',
-                'trusted_proxies' => 'Not an IP address',
-            ),
-        ));
-    }
-
-    /**
-     * @group legacy
-     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
-     */
-    public function testInvalidValueTrustedProxies()
-    {
-        $processor = new Processor();
-        $configuration = new Configuration(true);
-
-        $processor->processConfiguration($configuration, array(
-            array(
-                'secret' => 's3cr3t',
-                'trusted_proxies' => array('Not an IP address'),
-            ),
-        ));
     }
 
     public function testAssetsCanBeEnabled()
@@ -271,7 +160,6 @@ class ConfigurationTest extends TestCase
     {
         return array(
             'http_method_override' => true,
-            'trusted_proxies' => array(),
             'ide' => null,
             'default_locale' => 'en',
             'csrf_protection' => array(
@@ -296,15 +184,11 @@ class ConfigurationTest extends TestCase
                 'only_master_requests' => false,
                 'dsn' => 'file:%kernel.cache_dir%/profiler',
                 'collect' => true,
-                'matcher' => array(
-                    'enabled' => false,
-                    'ips' => array(),
-                ),
             ),
             'translator' => array(
                 'enabled' => !class_exists(FullStack::class),
                 'fallbacks' => array('en'),
-                'logging' => true,
+                'logging' => false,
                 'formatter' => 'translator.formatter.default',
                 'paths' => array(),
                 'default_path' => '%kernel.project_dir%/translations',
@@ -314,7 +198,6 @@ class ConfigurationTest extends TestCase
                 'enable_annotations' => !class_exists(FullStack::class),
                 'static_method' => array('loadValidatorMetadata'),
                 'translation_domain' => 'validators',
-                'strict_email' => false,
                 'mapping' => array(
                     'paths' => array(),
                 ),
@@ -351,7 +234,6 @@ class ConfigurationTest extends TestCase
                 'gc_probability' => 1,
                 'save_path' => '%kernel.cache_dir%/sessions',
                 'metadata_update_threshold' => '0',
-                'use_strict_mode' => true,
             ),
             'request' => array(
                 'enabled' => false,
@@ -402,6 +284,20 @@ class ConfigurationTest extends TestCase
                         class_exists(SemaphoreStore::class) && SemaphoreStore::isSupported() ? 'semaphore' : 'flock',
                     ),
                 ),
+            ),
+            'messenger' => array(
+                'enabled' => !class_exists(FullStack::class) && interface_exists(MessageBusInterface::class),
+                'routing' => array(),
+                'transports' => array(),
+                'serializer' => array(
+                    'enabled' => !class_exists(FullStack::class),
+                    'format' => 'json',
+                    'context' => array(),
+                ),
+                'encoder' => 'messenger.transport.serializer',
+                'decoder' => 'messenger.transport.serializer',
+                'default_bus' => null,
+                'buses' => array('messenger.bus.default' => array('default_middleware' => true, 'middleware' => array())),
             ),
         );
     }

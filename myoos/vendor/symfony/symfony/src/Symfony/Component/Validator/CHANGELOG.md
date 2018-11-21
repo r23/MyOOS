@@ -1,6 +1,22 @@
 CHANGELOG
 =========
 
+4.1.0
+-----
+
+ * Deprecated the `checkDNS` and `dnsMessage` options of the `Url` constraint.
+ * added a `values` option to the `Expression` constraint
+ * Deprecated use of `Locale` constraint without setting `true` at "canonicalize" option, which will be the default value in 5.0
+
+4.0.0
+-----
+
+ * Setting the `strict` option of the `Choice` constraint to anything but `true`
+   is not supported anymore.
+ * removed the `DateTimeValidator::PATTERN` constant
+ * removed the `AbstractConstraintValidatorTest` class
+ * removed support for setting the `checkDNS` option of the `Url` constraint to `true`
+
 3.4.0
 -----
 

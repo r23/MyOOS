@@ -29,7 +29,7 @@ class DeprecationErrorHandler
      *
      * The following reporting modes are supported:
      * - use "weak" to hide the deprecation report but keep a global count;
-     * - use "weak_vendors" to act as "weak" but only for vendors;
+     * - use "weak_vendors" to fail only on deprecations triggered in your own code;
      * - use "/some-regexp/" to stop the test suite whenever a deprecation
      *   message matches the given regular expression;
      * - use a number to define the upper bound of allowed deprecations,

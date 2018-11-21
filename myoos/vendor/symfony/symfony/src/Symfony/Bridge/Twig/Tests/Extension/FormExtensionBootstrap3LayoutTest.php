@@ -118,6 +118,11 @@ HTML
         return (string) $this->renderer->searchAndRenderBlock($view, 'label', $vars);
     }
 
+    protected function renderHelp(FormView $view)
+    {
+        return (string) $this->renderer->searchAndRenderBlock($view, 'help');
+    }
+
     protected function renderErrors(FormView $view)
     {
         return (string) $this->renderer->searchAndRenderBlock($view, 'errors');

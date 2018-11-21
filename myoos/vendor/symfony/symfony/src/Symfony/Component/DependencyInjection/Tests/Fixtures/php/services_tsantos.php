@@ -19,12 +19,14 @@ class ProjectServiceContainer extends Container
     private $parameters;
     private $targetDirs = array();
 
+    /**
+     * @internal but protected for BC on cache:clear
+     */
+    protected $privates = array();
+
     public function __construct()
     {
-        $this->services = array();
-        $this->normalizedIds = array(
-            'tsantos\\serializer\\serializerinterface' => 'TSantos\\Serializer\\SerializerInterface',
-        );
+        $this->services = $this->privates = array();
         $this->methodMap = array(
             'tsantos_serializer' => 'getTsantosSerializerService',
         );
@@ -33,12 +35,10 @@ class ProjectServiceContainer extends Container
         );
     }
 
-    public function getRemovedIds()
+    public function reset()
     {
-        return array(
-            'Psr\\Container\\ContainerInterface' => true,
-            'Symfony\\Component\\DependencyInjection\\ContainerInterface' => true,
-        );
+        $this->privates = array();
+        parent::reset();
     }
 
     public function compile()
@@ -51,11 +51,12 @@ class ProjectServiceContainer extends Container
         return true;
     }
 
-    public function isFrozen()
+    public function getRemovedIds()
     {
-        @trigger_error(sprintf('The %s() method is deprecated since Symfony 3.3 and will be removed in 4.0. Use the isCompiled() method instead.', __METHOD__), E_USER_DEPRECATED);
-
-        return true;
+        return array(
+            'Psr\\Container\\ContainerInterface' => true,
+            'Symfony\\Component\\DependencyInjection\\ContainerInterface' => true,
+        );
     }
 
     /**

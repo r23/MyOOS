@@ -2,6 +2,8 @@
 
 namespace Symfony\Component\DependencyInjection\Tests\Compiler;
 
+use Psr\Log\LoggerInterface;
+
 class Foo
 {
 }
@@ -306,6 +308,10 @@ class NotWireable
     {
     }
 
+    public function setNotAutowireableBecauseOfATypo(lesTilleuls $sam)
+    {
+    }
+
     public function setBar()
     {
     }
@@ -345,6 +351,38 @@ class ScalarSetter
      * @required
      */
     public function setDefaultLocale($defaultLocale)
+    {
+    }
+}
+
+interface DecoratorInterface
+{
+}
+
+class Decorated implements DecoratorInterface
+{
+    public function __construct($quz = null, \NonExistent $nonExistent = null, DecoratorInterface $decorated = null, array $foo = array())
+    {
+    }
+}
+
+class Decorator implements DecoratorInterface
+{
+    public function __construct(LoggerInterface $logger, DecoratorInterface $decorated)
+    {
+    }
+}
+
+class DecoratedDecorator implements DecoratorInterface
+{
+    public function __construct(DecoratorInterface $decorator)
+    {
+    }
+}
+
+class NonAutowirableDecorator implements DecoratorInterface
+{
+    public function __construct(LoggerInterface $logger, DecoratorInterface $decorated1, DecoratorInterface $decorated2)
     {
     }
 }

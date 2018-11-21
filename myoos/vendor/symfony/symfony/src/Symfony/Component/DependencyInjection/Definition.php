@@ -41,7 +41,6 @@ class Definition
     private $lazy = false;
     private $decoratedService;
     private $autowired = false;
-    private $autowiringTypes = array();
     private $changes = array();
     private $bindings = array();
     private $errors = array();
@@ -49,6 +48,13 @@ class Definition
     protected $arguments = array();
 
     private static $defaultDeprecationTemplate = 'The "%service_id%" service is deprecated. You should stop using it, as it will soon be removed.';
+
+    /**
+     * @internal
+     *
+     * Used to store the name of the inner id when using service decoration together with autowiring
+     */
+    public $innerServiceId;
 
     /**
      * @param string|null $class     The service class
@@ -804,28 +810,6 @@ class Definition
     }
 
     /**
-     * Sets types that will default to this definition.
-     *
-     * @param string[] $types
-     *
-     * @return $this
-     *
-     * @deprecated since version 3.3, to be removed in 4.0.
-     */
-    public function setAutowiringTypes(array $types)
-    {
-        @trigger_error('Autowiring-types are deprecated since Symfony 3.3 and will be removed in 4.0. Use aliases instead.', E_USER_DEPRECATED);
-
-        $this->autowiringTypes = array();
-
-        foreach ($types as $type) {
-            $this->autowiringTypes[$type] = true;
-        }
-
-        return $this;
-    }
-
-    /**
      * Is the definition autowired?
      *
      * @return bool
@@ -852,77 +836,9 @@ class Definition
     }
 
     /**
-     * Gets autowiring types that will default to this definition.
-     *
-     * @return string[]
-     *
-     * @deprecated since version 3.3, to be removed in 4.0.
-     */
-    public function getAutowiringTypes(/*$triggerDeprecation = true*/)
-    {
-        if (1 > \func_num_args() || func_get_arg(0)) {
-            @trigger_error('Autowiring-types are deprecated since Symfony 3.3 and will be removed in 4.0. Use aliases instead.', E_USER_DEPRECATED);
-        }
-
-        return array_keys($this->autowiringTypes);
-    }
-
-    /**
-     * Adds a type that will default to this definition.
-     *
-     * @param string $type
-     *
-     * @return $this
-     *
-     * @deprecated since version 3.3, to be removed in 4.0.
-     */
-    public function addAutowiringType($type)
-    {
-        @trigger_error(sprintf('Autowiring-types are deprecated since Symfony 3.3 and will be removed in 4.0. Use aliases instead for "%s".', $type), E_USER_DEPRECATED);
-
-        $this->autowiringTypes[$type] = true;
-
-        return $this;
-    }
-
-    /**
-     * Removes a type.
-     *
-     * @param string $type
-     *
-     * @return $this
-     *
-     * @deprecated since version 3.3, to be removed in 4.0.
-     */
-    public function removeAutowiringType($type)
-    {
-        @trigger_error(sprintf('Autowiring-types are deprecated since Symfony 3.3 and will be removed in 4.0. Use aliases instead for "%s".', $type), E_USER_DEPRECATED);
-
-        unset($this->autowiringTypes[$type]);
-
-        return $this;
-    }
-
-    /**
-     * Will this definition default for the given type?
-     *
-     * @param string $type
-     *
-     * @return bool
-     *
-     * @deprecated since version 3.3, to be removed in 4.0.
-     */
-    public function hasAutowiringType($type)
-    {
-        @trigger_error(sprintf('Autowiring-types are deprecated since Symfony 3.3 and will be removed in 4.0. Use aliases instead for "%s".', $type), E_USER_DEPRECATED);
-
-        return isset($this->autowiringTypes[$type]);
-    }
-
-    /**
      * Gets bindings.
      *
-     * @return array
+     * @return array|BoundArgument[]
      */
     public function getBindings()
     {
@@ -957,10 +873,14 @@ class Definition
      * Add an error that occurred when building this Definition.
      *
      * @param string $error
+     *
+     * @return $this
      */
     public function addError($error)
     {
         $this->errors[] = $error;
+
+        return $this;
     }
 
     /**

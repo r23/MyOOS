@@ -40,6 +40,7 @@ class IntegrationTest extends TestCase
         $a = $container
             ->register('a', '\stdClass')
             ->addArgument(new Reference('c'))
+            ->setPublic(true)
         ;
 
         $b = $container
@@ -70,6 +71,7 @@ class IntegrationTest extends TestCase
         $a = $container
             ->register('a', '\stdClass')
             ->addArgument(new Reference('b'))
+            ->setPublic(true)
         ;
 
         $container->setAlias('b', new Alias('c', false));
@@ -97,6 +99,7 @@ class IntegrationTest extends TestCase
             ->register('a', '\stdClass')
             ->addArgument(new Reference('b'))
             ->addMethodCall('setC', array(new Reference('c')))
+            ->setPublic(true)
         ;
 
         $container
@@ -203,6 +206,16 @@ class IntegrationTest extends TestCase
             'instanceof_parent_child',
             'child_service',
             'child_service_expected',
+        );
+
+        $container = new ContainerBuilder();
+        $container->registerForAutoconfiguration(IntegrationTestStub::class)
+            ->addMethodCall('setSunshine', array('supernova'));
+        yield array(
+            'instanceof_and_calls',
+            'main_service',
+            'main_service_expected',
+            $container,
         );
     }
 }

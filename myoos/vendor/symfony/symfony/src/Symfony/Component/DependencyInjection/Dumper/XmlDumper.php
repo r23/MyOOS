@@ -185,13 +185,6 @@ class XmlDumper extends Dumper
             $service->setAttribute('autowire', 'true');
         }
 
-        foreach ($definition->getAutowiringTypes(false) as $autowiringTypeValue) {
-            $autowiringType = $this->document->createElement('autowiring-type');
-            $autowiringType->appendChild($this->document->createTextNode($autowiringTypeValue));
-
-            $service->appendChild($autowiringType);
-        }
-
         if ($definition->isAutoconfigured()) {
             $service->setAttribute('autoconfigure', 'true');
         }
@@ -304,6 +297,10 @@ class XmlDumper extends Dumper
             } elseif ($value instanceof Expression) {
                 $element->setAttribute('type', 'expression');
                 $text = $this->document->createTextNode(self::phpToXml((string) $value));
+                $element->appendChild($text);
+            } elseif (\is_string($value) && !preg_match('/^[^\x00-\x08\x0B\x0E-\x1A\x1C-\x1F\x7F]*+$/u', $value)) {
+                $element->setAttribute('type', 'binary');
+                $text = $this->document->createTextNode(self::phpToXml(base64_encode($value)));
                 $element->appendChild($text);
             } else {
                 if (\in_array($value, array('null', 'true', 'false'), true)) {

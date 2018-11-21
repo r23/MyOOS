@@ -16,6 +16,7 @@ use Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\ExpressionLanguage\Expression;
 
@@ -31,8 +32,9 @@ class ContainerConfigurator extends AbstractConfigurator
     private $instanceof;
     private $path;
     private $file;
+    private $anonymousCount = 0;
 
-    public function __construct(ContainerBuilder $container, PhpFileLoader $loader, array &$instanceof, $path, $file)
+    public function __construct(ContainerBuilder $container, PhpFileLoader $loader, array &$instanceof, string $path, string $file)
     {
         $this->container = $container;
         $this->loader = $loader;
@@ -41,10 +43,10 @@ class ContainerConfigurator extends AbstractConfigurator
         $this->file = $file;
     }
 
-    final public function extension($namespace, array $config)
+    final public function extension(string $namespace, array $config)
     {
         if (!$this->container->hasExtension($namespace)) {
-            $extensions = array_filter(array_map(function ($ext) { return $ext->getAlias(); }, $this->container->getExtensions()));
+            $extensions = array_filter(array_map(function (ExtensionInterface $ext) { return $ext->getAlias(); }, $this->container->getExtensions()));
             throw new InvalidArgumentException(sprintf(
                 'There is no extension able to load the configuration for "%s" (in %s). Looked for namespace "%s", found %s',
                 $namespace,
@@ -57,49 +59,35 @@ class ContainerConfigurator extends AbstractConfigurator
         $this->container->loadFromExtension($namespace, static::processValue($config));
     }
 
-    final public function import($resource, $type = null, $ignoreErrors = false)
+    final public function import(string $resource, string $type = null, bool $ignoreErrors = false)
     {
         $this->loader->setCurrentDir(\dirname($this->path));
         $this->loader->import($resource, $type, $ignoreErrors, $this->file);
     }
 
-    /**
-     * @return ParametersConfigurator
-     */
-    final public function parameters()
+    final public function parameters(): ParametersConfigurator
     {
         return new ParametersConfigurator($this->container);
     }
 
-    /**
-     * @return ServicesConfigurator
-     */
-    final public function services()
+    final public function services(): ServicesConfigurator
     {
-        return new ServicesConfigurator($this->container, $this->loader, $this->instanceof);
+        return new ServicesConfigurator($this->container, $this->loader, $this->instanceof, $this->path, $this->anonymousCount);
     }
 }
 
 /**
  * Creates a service reference.
- *
- * @param string $id
- *
- * @return ReferenceConfigurator
  */
-function ref($id)
+function ref(string $id): ReferenceConfigurator
 {
     return new ReferenceConfigurator($id);
 }
 
 /**
  * Creates an inline service.
- *
- * @param string|null $class
- *
- * @return InlineServiceConfigurator
  */
-function inline($class = null)
+function inline(string $class = null): InlineServiceConfigurator
 {
     return new InlineServiceConfigurator(new Definition($class));
 }
@@ -108,34 +96,24 @@ function inline($class = null)
  * Creates a lazy iterator.
  *
  * @param ReferenceConfigurator[] $values
- *
- * @return IteratorArgument
  */
-function iterator(array $values)
+function iterator(array $values): IteratorArgument
 {
     return new IteratorArgument(AbstractConfigurator::processValue($values, true));
 }
 
 /**
  * Creates a lazy iterator by tag name.
- *
- * @param string $tag
- *
- * @return TaggedIteratorArgument
  */
-function tagged($tag)
+function tagged(string $tag): TaggedIteratorArgument
 {
     return new TaggedIteratorArgument($tag);
 }
 
 /**
  * Creates an expression.
- *
- * @param string $expression an expression
- *
- * @return Expression
  */
-function expr($expression)
+function expr(string $expression): Expression
 {
     return new Expression($expression);
 }

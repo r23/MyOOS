@@ -37,16 +37,13 @@ class ControllerResolver extends ContainerControllerResolver
     {
         if (false === strpos($controller, '::') && 2 === substr_count($controller, ':')) {
             // controller in the a:b:c notation then
-            $controller = $this->parser->parse($controller);
+            $deprecatedNotation = $controller;
+            $controller = $this->parser->parse($deprecatedNotation, false);
+
+            @trigger_error(sprintf('Referencing controllers with %s is deprecated since Symfony 4.1. Use %s instead.', $deprecatedNotation, $controller), E_USER_DEPRECATED);
         }
 
-        $resolvedController = parent::createController($controller);
-
-        if (1 === substr_count($controller, ':') && \is_array($resolvedController)) {
-            $resolvedController[0] = $this->configureController($resolvedController[0]);
-        }
-
-        return $resolvedController;
+        return parent::createController($controller);
     }
 
     /**
@@ -60,13 +57,6 @@ class ControllerResolver extends ContainerControllerResolver
     private function configureController($controller)
     {
         if ($controller instanceof ContainerAwareInterface) {
-            // @deprecated switch, to be removed in 4.0 where these classes
-            // won't implement ContainerAwareInterface anymore
-            switch (\get_class($controller)) {
-                case RedirectController::class:
-                case TemplateController::class:
-                    return $controller;
-            }
             $controller->setContainer($this->container);
         }
         if ($controller instanceof AbstractController && null !== $previousContainer = $controller->setContainer($this->container)) {

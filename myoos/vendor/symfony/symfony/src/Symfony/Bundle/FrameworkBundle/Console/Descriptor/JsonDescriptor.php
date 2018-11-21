@@ -63,10 +63,10 @@ class JsonDescriptor extends Descriptor
      */
     protected function describeContainerTags(ContainerBuilder $builder, array $options = array())
     {
-        $showPrivate = isset($options['show_private']) && $options['show_private'];
+        $showHidden = isset($options['show_hidden']) && $options['show_hidden'];
         $data = array();
 
-        foreach ($this->findDefinitionsByTag($builder, $showPrivate) as $tag => $definitions) {
+        foreach ($this->findDefinitionsByTag($builder, $showHidden) as $tag => $definitions) {
             $data[$tag] = array();
             foreach ($definitions as $definition) {
                 $data[$tag][] = $this->getContainerDefinitionData($definition, true);
@@ -100,7 +100,7 @@ class JsonDescriptor extends Descriptor
     protected function describeContainerServices(ContainerBuilder $builder, array $options = array())
     {
         $serviceIds = isset($options['tag']) && $options['tag'] ? array_keys($builder->findTaggedServiceIds($options['tag'])) : $builder->getServiceIds();
-        $showPrivate = isset($options['show_private']) && $options['show_private'];
+        $showHidden = isset($options['show_hidden']) && $options['show_hidden'];
         $omitTags = isset($options['omit_tags']) && $options['omit_tags'];
         $showArguments = isset($options['show_arguments']) && $options['show_arguments'];
         $data = array('definitions' => array(), 'aliases' => array(), 'services' => array());
@@ -112,14 +112,14 @@ class JsonDescriptor extends Descriptor
         foreach ($this->sortServiceIds($serviceIds) as $serviceId) {
             $service = $this->resolveServiceDefinition($builder, $serviceId);
 
+            if ($showHidden xor '.' === ($serviceId[0] ?? null)) {
+                continue;
+            }
+
             if ($service instanceof Alias) {
-                if ($showPrivate || ($service->isPublic() && !$service->isPrivate())) {
-                    $data['aliases'][$serviceId] = $this->getContainerAliasData($service);
-                }
+                $data['aliases'][$serviceId] = $this->getContainerAliasData($service);
             } elseif ($service instanceof Definition) {
-                if (($showPrivate || ($service->isPublic() && !$service->isPrivate()))) {
-                    $data['definitions'][$serviceId] = $this->getContainerDefinitionData($service, $omitTags, $showArguments);
-                }
+                $data['definitions'][$serviceId] = $this->getContainerDefinitionData($service, $omitTags, $showArguments);
             } else {
                 $data['services'][$serviceId] = \get_class($service);
             }
@@ -207,13 +207,7 @@ class JsonDescriptor extends Descriptor
         );
     }
 
-    /**
-     * @param Definition $definition
-     * @param bool       $omitTags
-     *
-     * @return array
-     */
-    private function getContainerDefinitionData(Definition $definition, $omitTags = false, $showArguments = false)
+    private function getContainerDefinitionData(Definition $definition, bool $omitTags = false, bool $showArguments = false): array
     {
         $data = array(
             'class' => (string) $definition->getClass(),
@@ -225,13 +219,6 @@ class JsonDescriptor extends Descriptor
             'autowire' => $definition->isAutowired(),
             'autoconfigure' => $definition->isAutoconfigured(),
         );
-
-        // forward compatibility with DependencyInjection component in version 4.0
-        if (method_exists($definition, 'getAutowiringTypes')) {
-            foreach ($definition->getAutowiringTypes(false) as $autowiringType) {
-                $data['autowiring_types'][] = $autowiringType;
-            }
-        }
 
         if ($showArguments) {
             $data['arguments'] = $this->describeValue($definition->getArguments(), $omitTags, $showArguments);
@@ -274,10 +261,7 @@ class JsonDescriptor extends Descriptor
         return $data;
     }
 
-    /**
-     * @return array
-     */
-    private function getContainerAliasData(Alias $alias)
+    private function getContainerAliasData(Alias $alias): array
     {
         return array(
             'service' => (string) $alias,
@@ -285,13 +269,7 @@ class JsonDescriptor extends Descriptor
         );
     }
 
-    /**
-     * @param EventDispatcherInterface $eventDispatcher
-     * @param string|null              $event
-     *
-     * @return array
-     */
-    private function getEventDispatcherListenersData(EventDispatcherInterface $eventDispatcher, $event = null)
+    private function getEventDispatcherListenersData(EventDispatcherInterface $eventDispatcher, string $event = null): array
     {
         $data = array();
 
@@ -317,13 +295,7 @@ class JsonDescriptor extends Descriptor
         return $data;
     }
 
-    /**
-     * @param callable $callable
-     * @param array    $options
-     *
-     * @return array
-     */
-    private function getCallableData($callable, array $options = array())
+    private function getCallableData($callable, array $options = array()): array
     {
         $data = array();
 

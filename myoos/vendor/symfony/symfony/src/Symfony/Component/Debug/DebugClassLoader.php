@@ -34,7 +34,6 @@ class DebugClassLoader
     private static $deprecated = array();
     private static $internal = array();
     private static $internalMethods = array();
-    private static $php7Reserved = array('int' => 1, 'float' => 1, 'bool' => 1, 'string' => 1, 'true' => 1, 'false' => 1, 'null' => 1);
     private static $darwinCache = array('/' => array('/', array()));
 
     public function __construct(callable $classLoader)
@@ -183,10 +182,6 @@ class DebugClassLoader
             }
 
             $deprecations = $this->checkAnnotations($refl, $name);
-
-            if (isset(self::$php7Reserved[\strtolower($refl->getShortName())])) {
-                $deprecations[] = sprintf('The "%s" class uses the reserved name "%s", it will break on PHP 7 and higher', $name, $refl->getShortName());
-            }
 
             foreach ($deprecations as $message) {
                 @trigger_error($message, E_USER_DEPRECATED);

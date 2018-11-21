@@ -1,6 +1,33 @@
 CHANGELOG
 =========
 
+4.1.0
+-----
+
+* added `CacheableSupportsMethodInterface` for normalizers and denormalizers that use
+  only the type and the format in their `supports*()` methods
+* added `MissingConstructorArgumentsException` new exception for deserialization failure
+  of objects that needs data insertion in constructor
+* added an optional `default_constructor_arguments` option of context to specify a default data in
+  case the object is not initializable by its constructor because of data missing
+* added optional `bool $escapeFormulas = false` argument to `CsvEncoder::__construct`
+* added `AbstractObjectNormalizer::setMaxDepthHandler` to set a handler to call when the configured
+  maximum depth is reached
+* added optional `int[] $ignoredNodeTypes` argument to `XmlEncoder::__construct`. XML decoding now
+  ignores comment node types by default.
+* added `ConstraintViolationListNormalizer`
+
+4.0.0
+-----
+
+ * removed the `SerializerAwareEncoder` and `SerializerAwareNormalizer` classes,
+   use the `SerializerAwareTrait` instead
+ * removed the `Serializer::$normalizerCache` and `Serializer::$denormalizerCache`
+   properties
+ * added an optional `string $format = null` argument to `AbstractNormalizer::instantiateObject`
+ * added an optional `array $context = array()` to `Serializer::supportsNormalization`, `Serializer::supportsDenormalization`,
+   `Serializer::supportsEncoding` and `Serializer::supportsDecoding`
+
 3.4.0
 -----
 
@@ -9,7 +36,7 @@ CHANGELOG
  * added support for serializing `DateInterval` objects
  * added getter for extra attributes in `ExtraAttributesException`
  * improved `CsvEncoder` to handle variable nested structures
- * CSV headers can be passed to the `CsvEncoder` via the `csv_headers` serialization context variable 
+ * CSV headers can be passed to the `CsvEncoder` via the `csv_headers` serialization context variable
  * added `$context` when checking for encoding, decoding and normalizing in `Serializer`
 
 3.3.0

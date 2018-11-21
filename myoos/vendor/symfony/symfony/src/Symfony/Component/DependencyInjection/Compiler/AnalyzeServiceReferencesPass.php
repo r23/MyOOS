@@ -41,10 +41,10 @@ class AnalyzeServiceReferencesPass extends AbstractRecursivePass implements Repe
     /**
      * @param bool $onlyConstructorArguments Sets this Service Reference pass to ignore method calls
      */
-    public function __construct($onlyConstructorArguments = false, $hasProxyDumper = true)
+    public function __construct(bool $onlyConstructorArguments = false, bool $hasProxyDumper = true)
     {
-        $this->onlyConstructorArguments = (bool) $onlyConstructorArguments;
-        $this->hasProxyDumper = (bool) $hasProxyDumper;
+        $this->onlyConstructorArguments = $onlyConstructorArguments;
+        $this->hasProxyDumper = $hasProxyDumper;
     }
 
     /**
@@ -131,29 +131,22 @@ class AnalyzeServiceReferencesPass extends AbstractRecursivePass implements Repe
         return $value;
     }
 
-    /**
-     * Returns a service definition given the full name or an alias.
-     *
-     * @param string $id A full id or alias for a service definition
-     *
-     * @return Definition|null The definition related to the supplied id
-     */
-    private function getDefinition($id)
+    private function getDefinition(?string $id): ?Definition
     {
         return null === $id ? null : $this->container->getDefinition($id);
     }
 
-    private function getDefinitionId($id)
+    private function getDefinitionId(string $id): ?string
     {
         while ($this->container->hasAlias($id)) {
             $id = (string) $this->container->getAlias($id);
         }
 
         if (!$this->container->hasDefinition($id)) {
-            return;
+            return null;
         }
 
-        return $this->container->normalizeId($id);
+        return $id;
     }
 
     private function getExpressionLanguage()

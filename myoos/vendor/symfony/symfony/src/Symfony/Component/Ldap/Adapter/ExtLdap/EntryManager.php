@@ -12,7 +12,6 @@
 namespace Symfony\Component\Ldap\Adapter\ExtLdap;
 
 use Symfony\Component\Ldap\Adapter\EntryManagerInterface;
-use Symfony\Component\Ldap\Adapter\RenameEntryInterface;
 use Symfony\Component\Ldap\Entry;
 use Symfony\Component\Ldap\Exception\LdapException;
 use Symfony\Component\Ldap\Exception\NotBoundException;
@@ -21,7 +20,7 @@ use Symfony\Component\Ldap\Exception\NotBoundException;
  * @author Charles Sarrazin <charles@sarraz.in>
  * @author Bob van de Vijver <bobvandevijver@hotmail.com>
  */
-class EntryManager implements EntryManagerInterface, RenameEntryInterface
+class EntryManager implements EntryManagerInterface
 {
     private $connection;
 
@@ -65,6 +64,36 @@ class EntryManager implements EntryManagerInterface, RenameEntryInterface
 
         if (!@ldap_delete($con, $entry->getDn())) {
             throw new LdapException(sprintf('Could not remove entry "%s": %s.', $entry->getDn(), ldap_error($con)));
+        }
+    }
+
+    /**
+     * Adds values to an entry's multi-valued attribute from the LDAP server.
+     *
+     * @throws NotBoundException
+     * @throws LdapException
+     */
+    public function addAttributeValues(Entry $entry, string $attribute, array $values)
+    {
+        $con = $this->getConnectionResource();
+
+        if (!@ldap_mod_add($con, $entry->getDn(), array($attribute => $values))) {
+            throw new LdapException(sprintf('Could not add values to entry "%s", attribute %s: %s.', $entry->getDn(), $attribute, ldap_error($con)));
+        }
+    }
+
+    /**
+     * Removes values from an entry's multi-valued attribute from the LDAP server.
+     *
+     * @throws NotBoundException
+     * @throws LdapException
+     */
+    public function removeAttributeValues(Entry $entry, string $attribute, array $values)
+    {
+        $con = $this->getConnectionResource();
+
+        if (!@ldap_mod_del($con, $entry->getDn(), array($attribute => $values))) {
+            throw new LdapException(sprintf('Could not remove values from entry "%s", attribute %s: %s.', $entry->getDn(), $attribute, ldap_error($con)));
         }
     }
 

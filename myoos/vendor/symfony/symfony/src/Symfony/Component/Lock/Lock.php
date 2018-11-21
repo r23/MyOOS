@@ -41,12 +41,12 @@ final class Lock implements LockInterface, LoggerAwareInterface
      * @param float|null     $ttl         Maximum expected lock duration in seconds
      * @param bool           $autoRelease Whether to automatically release the lock or not when the lock instance is destroyed
      */
-    public function __construct(Key $key, StoreInterface $store, $ttl = null, $autoRelease = true)
+    public function __construct(Key $key, StoreInterface $store, float $ttl = null, bool $autoRelease = true)
     {
         $this->store = $store;
         $this->key = $key;
         $this->ttl = $ttl;
-        $this->autoRelease = (bool) $autoRelease;
+        $this->autoRelease = $autoRelease;
 
         $this->logger = new NullLogger();
     }
@@ -105,22 +105,25 @@ final class Lock implements LockInterface, LoggerAwareInterface
     /**
      * {@inheritdoc}
      */
-    public function refresh()
+    public function refresh($ttl = null)
     {
-        if (!$this->ttl) {
+        if (null === $ttl) {
+            $ttl = $this->ttl;
+        }
+        if (!$ttl) {
             throw new InvalidArgumentException('You have to define an expiration duration.');
         }
 
         try {
             $this->key->resetLifetime();
-            $this->store->putOffExpiration($this->key, $this->ttl);
+            $this->store->putOffExpiration($this->key, $ttl);
             $this->dirty = true;
 
             if ($this->key->isExpired()) {
                 throw new LockExpiredException(sprintf('Failed to put off the expiration of the "%s" lock within the specified time.', $this->key));
             }
 
-            $this->logger->info('Expiration defined for "{resource}" lock for "{ttl}" seconds.', array('resource' => $this->key, 'ttl' => $this->ttl));
+            $this->logger->info('Expiration defined for "{resource}" lock for "{ttl}" seconds.', array('resource' => $this->key, 'ttl' => $ttl));
         } catch (LockConflictedException $e) {
             $this->dirty = false;
             $this->logger->notice('Failed to define an expiration for the "{resource}" lock, someone else acquired the lock.', array('resource' => $this->key));
@@ -154,7 +157,7 @@ final class Lock implements LockInterface, LoggerAwareInterface
     }
 
     /**
-     * @return bool
+     * {@inheritdoc}
      */
     public function isExpired()
     {
@@ -162,9 +165,7 @@ final class Lock implements LockInterface, LoggerAwareInterface
     }
 
     /**
-     * Returns the remaining lifetime.
-     *
-     * @return float|null Remaining lifetime in seconds. Null when the lock won't expire.
+     * {@inheritdoc}
      */
     public function getRemainingLifetime()
     {

@@ -28,10 +28,9 @@ class FirewallContext
     private $config;
 
     /**
-     * @param \Traversable|array  $listeners
      * @param LogoutListener|null $logoutListener
      */
-    public function __construct($listeners, ExceptionListener $exceptionListener = null, $logoutListener = null, FirewallConfig $config = null)
+    public function __construct(iterable $listeners, ExceptionListener $exceptionListener = null, $logoutListener = null, FirewallConfig $config = null)
     {
         $this->listeners = $listeners;
         $this->exceptionListener = $exceptionListener;
@@ -50,20 +49,7 @@ class FirewallContext
         return $this->config;
     }
 
-    /**
-     * @deprecated since version 3.3, will be removed in 4.0. Use {@link getListeners()} and/or {@link getExceptionListener()} instead.
-     */
-    public function getContext()
-    {
-        @trigger_error(sprintf('The "%s()" method is deprecated since Symfony 3.3 and will be removed in 4.0. Use %s::getListeners/getExceptionListener() instead.', __METHOD__, __CLASS__), E_USER_DEPRECATED);
-
-        return array($this->getListeners(), $this->getExceptionListener(), $this->getLogoutListener());
-    }
-
-    /**
-     * @return \Traversable|array
-     */
-    public function getListeners()
+    public function getListeners(): iterable
     {
         return $this->listeners;
     }

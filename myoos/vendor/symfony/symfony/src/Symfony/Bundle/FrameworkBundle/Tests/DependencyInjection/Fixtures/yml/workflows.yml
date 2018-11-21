@@ -8,6 +8,7 @@ framework:
                 - Symfony\Bundle\FrameworkBundle\Tests\DependencyInjection\FrameworkExtensionTest
             initial_place: draft
             places:
+                # simple format
                 - draft
                 - wait_for_journalist
                 - approved_by_journalist
@@ -28,23 +29,29 @@ framework:
                     from: [approved_by_journalist, approved_by_spellchecker]
                     to: [published]
         pull_request:
-            type: state_machine
             marking_store:
                 type: single_state
             supports:
                 - Symfony\Bundle\FrameworkBundle\Tests\DependencyInjection\FrameworkExtensionTest
             initial_place: start
+            metadata:
+                title: workflow title
             places:
-                - start
-                - coding
-                - travis
-                - review
-                - merged
-                - closed
+                start_name_not_used:
+                    name: start
+                    metadata:
+                        title: place start title
+                coding: ~
+                travis: ~
+                review: ~
+                merged: ~
+                closed: ~
             transitions:
                 submit:
                     from: start
                     to: travis
+                    metadata:
+                        title: transition submit title
                 update:
                     from: [coding, travis, review]
                     to: travis
@@ -70,8 +77,8 @@ framework:
             supports:
                 - Symfony\Bundle\FrameworkBundle\Tests\DependencyInjection\FrameworkExtensionTest
             places:
-                - first
-                - last
+                - { name: first }
+                - { name: last }
             transitions:
                 go:
                     from:

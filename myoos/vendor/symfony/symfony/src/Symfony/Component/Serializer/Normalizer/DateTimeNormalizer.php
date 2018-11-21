@@ -20,7 +20,7 @@ use Symfony\Component\Serializer\Exception\NotNormalizableValueException;
  *
  * @author Kévin Dunglas <dunglas@gmail.com>
  */
-class DateTimeNormalizer implements NormalizerInterface, DenormalizerInterface
+class DateTimeNormalizer implements NormalizerInterface, DenormalizerInterface, CacheableSupportsMethodInterface
 {
     const FORMAT_KEY = 'datetime_format';
     const TIMEZONE_KEY = 'datetime_timezone';
@@ -34,11 +34,7 @@ class DateTimeNormalizer implements NormalizerInterface, DenormalizerInterface
         \DateTime::class => true,
     );
 
-    /**
-     * @param string             $format
-     * @param \DateTimeZone|null $timezone
-     */
-    public function __construct($format = \DateTime::RFC3339, \DateTimeZone $timezone = null)
+    public function __construct(?string $format = \DateTime::RFC3339, \DateTimeZone $timezone = null)
     {
         $this->format = $format;
         $this->timezone = $timezone;
@@ -88,12 +84,7 @@ class DateTimeNormalizer implements NormalizerInterface, DenormalizerInterface
         }
 
         if (null !== $dateTimeFormat) {
-            if (null === $timezone && \PHP_VERSION_ID < 70000) {
-                // https://bugs.php.net/bug.php?id=68669
-                $object = \DateTime::class === $class ? \DateTime::createFromFormat($dateTimeFormat, $data) : \DateTimeImmutable::createFromFormat($dateTimeFormat, $data);
-            } else {
-                $object = \DateTime::class === $class ? \DateTime::createFromFormat($dateTimeFormat, $data, $timezone) : \DateTimeImmutable::createFromFormat($dateTimeFormat, $data, $timezone);
-            }
+            $object = \DateTime::class === $class ? \DateTime::createFromFormat($dateTimeFormat, $data, $timezone) : \DateTimeImmutable::createFromFormat($dateTimeFormat, $data, $timezone);
 
             if (false !== $object) {
                 return $object;
@@ -123,6 +114,14 @@ class DateTimeNormalizer implements NormalizerInterface, DenormalizerInterface
     public function supportsDenormalization($data, $type, $format = null)
     {
         return isset(self::$supportedTypes[$type]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function hasCacheableSupportsMethod(): bool
+    {
+        return __CLASS__ === \get_class($this);
     }
 
     /**
