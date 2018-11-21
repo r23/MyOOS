@@ -7,16 +7,16 @@ $generated_i18n_strings = array(
 	// Reference: js/src/components/AnalysisUpsell.js:62
 	__( 'Go %s!', 'wordpress-seo' ),
 
-	// Reference: js/src/components/CollapsibleCornerstone.js:22
+	// Reference: js/src/components/CollapsibleCornerstone.js:25
 	__( 'Cornerstone content', 'wordpress-seo' ),
 
-	// Reference: js/src/components/CollapsibleCornerstone.js:24
+	// Reference: js/src/components/CollapsibleCornerstone.js:27
 	__( 'Cornerstone content should be the most important and extensive articles on your site.', 'wordpress-seo' ),
 
-	// Reference: js/src/components/CollapsibleCornerstone.js:26
+	// Reference: js/src/components/CollapsibleCornerstone.js:29
 	__( 'Learn more about Cornerstone Content.', 'wordpress-seo' ),
 
-	// Reference: js/src/components/Metabox.js:32
+	// Reference: js/src/components/Metabox.js:38
 	__( 'Snippet Preview', 'wordpress-seo' ),
 
 	// Reference: js/src/components/PrimaryTaxonomyFilter.js:78
@@ -31,49 +31,49 @@ $generated_i18n_strings = array(
 	// Reference: js/src/components/SettingsReplacementVariableEditor.js:35
 	__( 'Modify your meta description by editing it right here', 'wordpress-seo' ),
 
-	// Reference: js/src/components/SnippetPreviewModal.js:38
+	// Reference: js/src/components/SnippetPreviewModal.js:39
 	__( 'Snippet preview', 'wordpress-seo' ),
 
-	// Reference: js/src/components/SnippetPreviewModal.js:43
+	// Reference: js/src/components/SnippetPreviewModal.js:44
 	__( 'Close', 'wordpress-seo' ),
 
-	// Reference: js/src/components/contentAnalysis/ReadabilityAnalysis.js:47
+	// Reference: js/src/components/contentAnalysis/ReadabilityAnalysis.js:50
 	__( 'Readability analysis', 'wordpress-seo' ),
 
-	// Reference: js/src/components/contentAnalysis/ReadabilityAnalysis.js:53
-	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:298
+	// Reference: js/src/components/contentAnalysis/ReadabilityAnalysis.js:57
+	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:303
 	__( 'Analysis results', 'wordpress-seo' ),
 
-	// Reference: js/src/components/contentAnalysis/ReadabilityAnalysis.js:60
+	// Reference: js/src/components/contentAnalysis/ReadabilityAnalysis.js:64
 	__( 'Learn more about the readability analysis', 'wordpress-seo' ),
 
-	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:105
+	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:104
 	__( 'Add synonyms', 'wordpress-seo' ),
 
-	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:135
+	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:134
 	__( 'Would you like to add keyphrase synonyms?', 'wordpress-seo' ),
 
-	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:160
+	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:159
 	__( '(Opens in a new browser tab!)', 'wordpress-seo' ),
 
-	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:169
+	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:168
 	// Reference: js/src/components/modals/KeywordSynonyms.js:63
 	// Reference: js/src/components/modals/MultipleKeywords.js:63
 	__( 'Get %s', 'wordpress-seo' ),
 
-	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:188
+	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:187
 	__( 'Would you like to add a related keyphrase?', 'wordpress-seo' ),
 
-	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:219
+	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:218
 	__( 'Add related keyphrase', 'wordpress-seo' ),
 
 	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:242
 	__( 'Help on choosing the perfect focus keyphrase', 'wordpress-seo' ),
 
-	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:272
+	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:274
 	__( 'Enter a focus keyphrase to calculate the SEO score', 'wordpress-seo' ),
 
-	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:288
+	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:293
 	// Reference: js/src/values/defaultReplaceVariables.js:50
 	__( 'Focus keyphrase', 'wordpress-seo' ),
 

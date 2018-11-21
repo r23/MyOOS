@@ -16,7 +16,6 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
  * @see libs/Smarty/Smarty.class.php
  * @link http://smarty.net
  */
-# require_once MYOOS_INCLUDE_PATH . '/includes/lib/smarty/libs/Smarty.class.php';
 
 /**
  * Smarty class
