@@ -8,8 +8,9 @@
  * @subpackage Phoenix_Session
  */
 
- 
+use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag; 
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
 
 /**
  * Phoenix_Session class.
