@@ -36,5 +36,6 @@ define('11_DESC', 'Optionen für das Layout');
 define('12_TITLE', 'Meta-Tag');
 define('12_DESC', 'Pflegen Sie hier die Daten, die die Suchmaschinen einlesen');
 
-
+define('13_TITLE', 'Social Profile');
+define('13_DESC', 'Geben Sie die Daten zu den sozialen Netzwerkprofilen Ihrer Site an, damit Suchmaschinen erkennen, welche Profile zu dieser Site gehören.');
 

@@ -399,47 +399,30 @@ define('OOS_META_TITLE_DESC', 'Der Titel');
 define('OOS_META_DESCRIPTION_TITLE', 'Beschreibung');
 define('OOS_META_DESCRIPTION_DESC', 'Die Beschreibung Ihres Shop(max. 250 Zeichen)');
 
-define('OOS_META_KEYWORDS_TITLE', 'Suchworte');
-define('OOS_META_KEYWORDS_DESC', 'Geben Sie hier Ihre Schlüsselwörter(durch Komma getrennt) ein(max. 250 Zeichen)');
-
-define('OOS_META_PAGE_TOPIC_TITLE', 'Thema');
-define('OOS_META_PAGE_TOPIC_DESC', 'Das Thema Ihres Shop');
-
-define('OOS_META_AUDIENCE_TITLE', 'Zielgruppe');
-define('OOS_META_AUDIENCE_DESC', 'Ihre Zielgruppe');
-
 define('OOS_META_AUTHOR_TITLE', 'Autor');
 define('OOS_META_AUTHOR_DESC', 'Der Autor des Shop');
 
 define('OOS_META_COPYRIGHT_TITLE', 'Copyright');
 define('OOS_META_COPYRIGHT_DESC', 'Der Entwickler des Shop');
 
-define('OOS_META_PAGE_TYPE_TITLE', 'Seitentyp');
-define('OOS_META_PAGE_TYPE_DESC', 'Typ der Internetpräsenz');
+define('FACEBOOK_URL_TITLE', 'Facebook');
+define('FACEBOOK_URL_DESC', 'URL der Facebook Seite');
 
-define('OOS_META_PUBLISHER_TITLE', 'Herausgeber');
-define('OOS_META_PUBLISHER_DESC', 'Der Herausgeber');
+define('SKYPE_URL_TITLE', 'Skype');
+define('SKYPE_URL_DESC', 'URL der Skype Seite');
 
-define('OOS_META_ROBOTS_TITLE', 'Indizierung');
-define('OOS_META_ROBOTS_DESC', 'Typ der Indizierung');
+define('LINKEDIN_URL_TITLE', 'Linkedin');
+define('LINKEDIN_URL_DESC', 'URL der Linkedin Seite');
 
-define('OOS_META_EXPIRES_TITLE', 'Gültigkeitsdauer');
-define('OOS_META_EXPIRES_DESC', 'Angebot verfällt am:( 0 für häufig geänderte Sites)');
+define('PINTEREST_URL_TITLE', 'Pinterest');
+define('PINTEREST_URL_DESC', 'URL der Pinterest Seite');
 
-define('OOS_META_PAGE_PRAGMA_TITLE', 'Proxy Caching');
-define('OOS_META_PAGE_PRAGMA_DESC', 'Ihr Shop soll von Proxys zwischengespeichert werden?');
+define('TWITTER_URL_TITLE', 'Twitter');
+define('TWITTER_URL_DESC', 'URL der Twitter Seite');
 
-define('OOS_META_REVISIT_AFTER_TITLE', 'Wiederbesuchen nach');
-define('OOS_META_REVISIT_AFTER_DESC', 'Wann soll die Suchmaschine Ihre Seite wiederbesuchen?');
+define('DRIBBBLE_URL_TITLE', 'Dribbble');
+define('DRIBBBLE_URL_DESC', 'URL der Dribbble Seite');
 
-define('OOS_META_PRODUKT_TITLE', 'Pflege im Artikel');
-define('OOS_META_PRODUKT_DESC', 'Möchten Sie Keywords und Description für jeden Artikel pflegen?');
-
-define('OOS_META_INDEX_PAGE_TITLE', 'Index Seite erzeugen');
-define('OOS_META_INDEX_PAGE_DESC', 'Möchten Sie eine Index-Seite mit allen Artikeln für Suchmaschinen erzeugen?');
-
-define('OOS_META_INDEX_PATH_TITLE', 'Pfad für IndexSeite');
-define('OOS_META_INDEX_PATH_DESC', 'Die Datei für die Suchmaschinen soll in diesem Shop-Verzeichnis gespeichert werden.');
 
 define('ENABLE_SPIDER_FRIENDLY_LINKS_TITLE', 'Spider-frundliche Links');
 define('ENABLE_SPIDER_FRIENDLY_LINKS_DESC', 'Ermögliche Spider-freundliche Links (empfohlen). ACHTUNG: Es sind ggf. Änderungen in der Konfiguration des Webservers notwendig!');

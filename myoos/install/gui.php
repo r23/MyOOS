@@ -515,24 +515,6 @@ function print_ConfigServerInfo() {
   echo '<font class="oos-title">' . VIRTUAL_1 . ':&nbsp;</font><br />' . "\n";
   echo '<br />';
 
-  if ($_POST['enable_ssl'] == 'on') {
-    $ssl_server = $_POST['oos_ssl_server'];
-    $sock = @fsockopen($ssl_server, 443, $errorno, $errorstring, 10);
-    if (!$sock) {
-      printf(ERROR_NO_HTTPS_SERVER,
-       '<font class="oos-error"><b>' . $_POST['oos_ssl_server'] . '</b></font>'
-      );
-      echo '<br />';
-/*
-      echo "$errorstring ($errorno)<br/>\n";
-      echo $sock;
-*/
-      $_POST['enable_ssl'] = false;
-    }
-    @fclose($sock);
-  }
-
-
   echo '<br />';
   echo '<br /><font class="oos-normal">' . CONFIG_VIRTUAL_2 . '</font><br /><br />' . "\n";
   echo '<center>';
@@ -652,8 +634,7 @@ function print_Start() {
 
 function print_ServerTmpHidden() {
    echo '<input type="hidden" name="tmpsession" value="' . $_POST['tmpsession'] . '">' . "\n" .
-        '<input type="hidden" name="tmp_session_crypt" value="' . $_POST['tmp_session_crypt'] . '">' . "\n" .
-        '<input type="hidden" name="enable_ssl" value="' . $_POST['enable_ssl'] . '">' . "\n";
+        '<input type="hidden" name="tmp_session_crypt" value="' . $_POST['tmp_session_crypt'] . '">' . "\n";
 }
 
 function print_ChangeInfo() {

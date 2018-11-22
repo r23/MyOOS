@@ -12,8 +12,8 @@ define('3_DESC', 'The maximum values for functions / data');
 define('4_TITLE', 'Images');
 define('4_DESC', 'Image parameters');
 
-define('5_TITLE', 'Kunden Informationen');
-define('5_DESC', 'Kundendaten-Konfiguration');
+define('5_TITLE', 'Customer Information');
+define('5_DESC', 'Customer data configurationn');
 
 define('6_TITLE', 'Module Options');
 define('6_DESC', 'Hidden from configuration');
@@ -36,4 +36,5 @@ define('11_DESC', 'Theme configuration options');
 define('12_TITLE', 'Meta-Tag');
 define('12_DESC', 'Maintain the data that the search engines import here');
 
-
+define('13_TITLE', 'Social Profil');
+define('13_DESC', 'Specify the social networking profile data of your site so that search engines can identify which profiles belong to that site.');

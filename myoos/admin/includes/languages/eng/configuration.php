@@ -393,57 +393,40 @@ define('OOS_SMALL_IMAGE_WIDTH_DESC', 'The pixel width of small images');
 define('OOS_SMALL_IMAGE_HEIGHT_TITLE', 'Small Image Height');
 define('OOS_SMALL_IMAGE_HEIGHT_DESC', 'The pixel height of small images');
 
-define('OOS_BIGIMAGE_WIDTH_TITLE', 'Breite grosses Bild');
-define('OOS_BIGIMAGE_WIDTH_DESC', 'Breite vom grossen Bild in Pixel');
+define('OOS_BIGIMAGE_WIDTH_TITLE', 'Width large image');
+define('OOS_BIGIMAGE_WIDTH_DESC', 'Width of the large image in pixels');
 
-define('OOS_BIGIMAGE_HEIGHT_TITLE', 'H&ouml;he grosses Bild');
-define('OOS_BIGIMAGE_HEIGHT_DESC', 'H&ouml;he vom grossen Bild in Pixel');
+define('OOS_BIGIMAGE_HEIGHT_TITLE', 'Height large image');
+define('OOS_BIGIMAGE_HEIGHT_DESC', 'Height of the large image in pixels');
 
-define('OOS_META_TITLE_TITLE', 'Shop Titel');
-define('OOS_META_TITLE_DESC', 'Der Titel');
+define('OOS_META_TITLE_TITLE', 'Shop Title');
+define('OOS_META_TITLE_DESC', 'The Title');
 
-define('OOS_META_DESCRIPTION_TITLE', 'Beschreibung');
-define('OOS_META_DESCRIPTION_DESC', 'Die Beschreibung Ihres Shop(max. 250 Zeichen)');
+define('OOS_META_DESCRIPTION_TITLE', 'Description');
+define('OOS_META_DESCRIPTION_DESC', 'The description of your shop(max. 250 characters)');
 
-define('OOS_META_KEYWORDS_TITLE', 'Suchworte');
-define('OOS_META_KEYWORDS_DESC', 'Geben Sie hier Ihre Schlüsselw&ouml;rter(durch Komma getrennt) ein(max. 250 Zeichen)');
-
-define('OOS_META_PAGE_TOPIC_TITLE', 'Thema');
-define('OOS_META_PAGE_TOPIC_DESC', 'Das Thema Ihres Shop');
-
-define('OOS_META_AUDIENCE_TITLE', 'Zielgruppe');
-define('OOS_META_AUDIENCE_DESC', 'Ihre Zielgruppe');
-
-define('OOS_META_AUTHOR_TITLE', 'Autor');
-define('OOS_META_AUTHOR_DESC', 'Der Autor des Shop');
+define('OOS_META_AUTHOR_TITLE', 'Author');
+define('OOS_META_AUTHOR_DESC', 'The author of the shop');
 
 define('OOS_META_COPYRIGHT_TITLE', 'Copyright');
 define('OOS_META_COPYRIGHT_DESC', 'Der Entwickler des Shop');
 
-define('OOS_META_PAGE_TYPE_TITLE', 'Seitentyp');
-define('OOS_META_PAGE_TYPE_DESC', 'Typ der Internetpräsenz');
 
-define('OOS_META_PUBLISHER_TITLE', 'Herausgeber');
-define('OOS_META_PUBLISHER_DESC', 'Der Herausgeber');
+define('FACEBOOK_URL_TITLE', 'Facebook');
+define('FACEBOOK_URL_DESC', 'URL of the Facebook page:');
 
-define('OOS_META_ROBOTS_TITLE', 'Indizierung');
-define('OOS_META_ROBOTS_DESC', 'Typ der Indizierung');
+define('SKYPE_URL_TITLE', 'Skype');
+define('SKYPE_URL_DESC', 'URL of the Skype page');
 
-define('OOS_META_EXPIRES_TITLE', 'Gültigkeitsdauer');
-define('OOS_META_EXPIRES_DESC', 'Angebot verfällt am:( 0 für häufig geänderte Sites)');
+define('LINKEDIN_URL_TITLE', 'Linkedin');
+define('LINKEDIN_URL_DESC', 'URL of the Linkedin page');
 
-define('OOS_META_PAGE_PRAGMA_TITLE', 'Proxy Caching');
-define('OOS_META_PAGE_PRAGMA_DESC', 'Ihr Shop soll von Proxys zwischengespeichert werden?');
+define('PINTEREST_URL_TITLE', 'Pinterest');
+define('PINTEREST_URL_DESC', 'URL of the Pinterest page');
 
-define('OOS_META_REVISIT_AFTER_TITLE', 'Wiederbesuchen nach');
-define('OOS_META_REVISIT_AFTER_DESC', 'Wann soll die Suchmaschine Ihre Seite wiederbesuchen?');
+define('TWITTER_URL_TITLE', 'Twitter');
+define('TWITTER_URL_DESC', 'URL of the Twitter page');
 
-define('OOS_META_PRODUKT_TITLE', 'Pflege im Artikel');
-define('OOS_META_PRODUKT_DESC', 'M&ouml;chten Sie Keywords und Description für jeden Artikel pflegen?');
-
-define('OOS_META_INDEX_PAGE_TITLE', 'Index Seite erzeugen');
-define('OOS_META_INDEX_PAGE_DESC', 'M&ouml;chten Sie eine Index-Seite mit allen Artikeln für Suchmaschinen erzeugen?');
-
-define('OOS_META_INDEX_PATH_TITLE', 'Path to IndexSite');
-define('OOS_META_INDEX_PATH_DESC', 'Path to store File for Spider');
+define('DRIBBBLE_URL_TITLE', 'Dribbble');
+define('DRIBBBLE_URL_DESC', 'URL of the Dribbble page');
 
