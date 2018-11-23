@@ -21,8 +21,8 @@
    ---------------------------------------------------------------------- */
 
 $aLang['navbar_title_1'] = 'Ihr Konto';
-$aLang['navbar_title_2'] = 'Ihre persönliche Daten ändern';
-$aLang['heading_title'] = 'Ihre persönliche Daten ändern';
+$aLang['navbar_title_2'] = 'Ihre persönliche Daten';
+$aLang['heading_title'] = 'Ihre persönliche Daten';
 
 
 $aLang['owner_email_subject'] = 'Neue Kundendaten';
