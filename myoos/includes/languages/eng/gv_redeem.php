@@ -24,7 +24,7 @@
 
 $aLang['navbar_title'] = 'Redeem Gift Voucher';
 $aLang['heading_title'] = 'Redeem Gift Voucher';
-$aLang['text_information'] = 'For more information regarding Gifr Vouchers, please see our <a href="' . oos_href_link($aContents['gv_faq']).'">'.GV_FAQ.'.</a>';
-$aLang['text_invalid_gv'] = 'The Gift Voucher number may be invalid or has already been redeemed. To contact the shop <a href="' . oos_href_link($aContents['contact_us']) . '">owner please use the Contact Page</a>.';
+$aLang['text_information'] = 'For more information regarding Gifr Vouchers, please see our <a href="%s"><u>GVRedeem Gift Voucher_FAQ</u></a>';
+$aLang['text_invalid_gv'] = 'The Gift Voucher number may be invalid or has already been redeemed. To contact the shop <a href="%s"><u>owner please use the Contact Page</u></a>.';
 $aLang['text_valid_gv'] = 'Congratulations, you have redeemed a Gift Voucher worth %s';
 

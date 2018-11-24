@@ -98,9 +98,9 @@ $oBreadcrumb->add($aLang['navbar_title']);
 
 // if we get here then either the url gv_no was not set or it was invalid
 // so output a message.
-$sMessage = sprintf($aLang['text_valid_gv'], $oCurrencies->format($coupon['coupon_amount']));
+$sTextGiftVoucher = sprintf($aLang['text_valid_gv'], $oCurrencies->format($coupon['coupon_amount']));
 if ($bError) {
-	$sMessage = $aLang['text_invalid_gv'];
+	$sTextGiftVoucher =  sprintf($aLang['text_invalid_gv'], oos_href_link($aContents['contact_us']));
 }
 
 $aTemplate['page'] = $sTheme . '/page/redeem.html';
@@ -114,6 +114,8 @@ if (!isset($option)) {
 	require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
+$smarty->assign('text_information', sprintf($aLang['text_information'], oos_href_link($aContents['gv_faq'])));
+
 // assign Smarty variables;
 $smarty->assign(
       array(
@@ -121,7 +123,7 @@ $smarty->assign(
           'heading_title'	=> $aLang['heading_title'],
 		  'robots'			=> 'noindex,nofollow,noodp,noydir',
 
-          'message'			=> $sMessage
+          'text_gift_voucher'			=> $sTextGiftVoucher
       )
 );
 

@@ -24,6 +24,6 @@
 $aLang['navbar_title'] = 'Gutschein benutzen';
 $aLang['heading_title'] = 'Gutschein benutzen';
 
-$aLang['text_information'] = 'Für weitere Informationen zu Gutscheinen, lesen Sie bitte unsere <a href="' . oos_href_link($aContents['gv_faq']).'">'.GV_FAQ.'.</a>';
-$aLang['text_invalid_gv'] = 'Der Gutscheincode kann ungültig sein oder ist schon benutzt worden. Sollten Fragen bestehen, wenden Sie sich an unseren <a href="' . oos_href_link($aContents['contact_us']) . '">Vertrieb über unsere Kontaktseite</a>.';
+$aLang['text_information'] = 'Für weitere Informationen zu Gutscheinen, lesen Sie bitte unsere <a href="%s"><u>Gutschein FAQ</u></a>';
+$aLang['text_invalid_gv'] = 'Der Gutscheincode kann ungültig sein oder ist schon benutzt worden. Sollten Fragen bestehen, wenden Sie sich an unseren <a href="%s"><u>Vertrieb über unsere Kontaktseite</u></a>.';
 $aLang['text_valid_gv'] = 'Herzlichen Glückwunsch, Sie haben einen Gutschein im Wert von %s eingelöst.';
