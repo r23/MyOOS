@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 4.9.x - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-11-13 20:39:25+0000\n"
+"PO-Revision-Date: 2018-11-25 13:19:31+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,13 +11,13 @@ msgstr ""
 "Language: de\n"
 "Project-Id-Version: WordPress - 4.9.x - Administration\n"
 
-#: wp-admin/setup-config.php:258
-msgid "<strong>ERROR</strong>: \"Table Prefix\" must not be empty."
-msgstr "<strong>FEHLER</strong>: &#8222;Tabellenpräfix&#8220; darf nicht leer sein."
-
 #: wp-admin/setup-config.php:262
 msgid "<strong>ERROR</strong>: \"Table Prefix\" can only contain numbers, letters, and underscores."
-msgstr "<strong>FEHLER:</strong> &#8222;Tabellenpräfix&#8220; darf nur aus Zahlen, Buchstaben und Unterstrichen bestehen."
+msgstr "<strong>FEHLER:</strong>: „Tabellenpräfix“ darf nur aus Zahlen, Buchstaben und Unterstrichen bestehen."
+
+#: wp-admin/setup-config.php:258
+msgid "<strong>ERROR</strong>: \"Table Prefix\" must not be empty."
+msgstr "<strong>FEHLER</strong>: „Tabellenpräfix“ darf nicht leer sein."
 
 #: wp-admin/update-core.php:271 wp-admin/update-core.php:281
 msgid "Compatibility with WordPress %1$s: Unknown"
@@ -1396,10 +1396,6 @@ msgstr "Hinzufügen"
 msgid "You can&#8217;t delete the current user."
 msgstr "Du kannst den aktuellen Benutzer nicht löschen."
 
-#: wp-admin/setup-config.php:292
-msgid "<strong>ERROR</strong>: \"Table Prefix\" is invalid."
-msgstr "<strong>FEHLER</strong>: &#8222;Tabellenpräfix&#8220; ist ungültig."
-
 #: wp-admin/theme-install.php:94
 msgid "You can Search for themes by keyword, author, or tag, or can get more specific and search by criteria listed in the feature filter."
 msgstr "Bei der Suche nach Themes kannst du Stichwörter, Autoren oder Schlagwörter verwenden oder mit den Kriterien, die im Eigenschaften-Filter aufgeführt werden, noch gezielter suchen."
@@ -1547,6 +1543,11 @@ msgstr "Aktuelle Filter entfernen"
 msgid "If you want to convert your categories to tags (or vice versa), use the <a href=\"%s\">Categories and Tags Converter</a> available from the Import screen."
 msgstr "Wenn du deine Kategorien in Schlagwörter umwandeln willst (oder umgekehrt), benutze den <a href=\"%s\">Kategorie-in-Schlagwort-Konverter</a> der unter Werkzeuge &#8594; Daten importieren verfügbar ist."
 
+#. translators: %s: link to codex article about child themes
+#: wp-admin/theme-editor.php:39
+msgid "Upgrading to a newer version of the same theme will override changes made here. To avoid this, consider creating a <a href=\"%s\">child theme</a> instead."
+msgstr "Bei einer Aktualisierung auf eine neuere Version dieses Themes, werden hier vorgenommene Änderungen überschrieben. Um das zu vermeiden, solltest du stattdessen die Erstellung eines <a href=\"%s\">Child-Themes</a> in Erwägung ziehen."
+
 #: wp-admin/widgets.php:56
 msgid "The Available Widgets section contains all the widgets you can choose from. Once you drag a widget into a sidebar, it will open to allow you to configure its settings. When you are happy with the widget settings, click the Save button and the widget will go live on your site. If you click Delete, it will remove the widget."
 msgstr "Im Bereich <strong>Verfügbare Widgets</strong> siehst du alle Widgets, die du benutzen kannst, indem du sie einfach auf eine Seitenleiste bzw. Widget-Bereich ziehst. Mit einem Klick auf den Pfeil im Widget-Titel werden alle Optionen des Widgets angezeigt. Vergiss nicht, nach den Änderungen eines Widgets auf „Speichern“ zu klicken. Mit einem Klick auf „Löschen“ wird das Widget und seine Einstellungen entfernt."
@@ -1563,11 +1564,6 @@ msgstr "Falls du weitere Plugins installieren möchtest, kannst du auf den Butto
 #: wp-admin/themes.php:92
 msgid "If you would like to see more themes to choose from, click on the &#8220;Add New&#8221; button and you will be able to browse or search for additional themes from the <a href=\"%s\">WordPress Theme Directory</a>. Themes in the WordPress Theme Directory are designed and developed by third parties, and are compatible with the license WordPress uses. Oh, and they&#8217;re free!"
 msgstr "Falls du weitere Themes zur Auswahl sehen möchten, klicke auf den Button &#8222;Hinzufügen&#8220; und du kannst dann nach weiteren Themes im <a href=\"%s\">WordPress Theme-Verzeichnis</a> stöbern und suchen. Alle Themes im WordPress Theme-Verzeichnis wurden von Dritten designt und entwickelt und sind kompatibel, mit der von WordPress genutzten Lizenz (GPL). Ach ja, und sie sind auch noch kostenlos!"
-
-#. translators: %s: link to codex article about child themes
-#: wp-admin/theme-editor.php:39
-msgid "Upgrading to a newer version of the same theme will override changes made here. To avoid this, consider creating a <a href=\"%s\">child theme</a> instead."
-msgstr "Bei einer Aktualisierung auf eine neuere Version dieses Themes, werden hier vorgenommene Änderungen überschrieben. Um das zu vermeiden, solltest du stattdessen die Erstellung eines <a href=\"%s\">Child-Themes</a> in Erwägung ziehen."
 
 #. translators: %s: Theme Directory URL
 #: wp-admin/theme-install.php:91
@@ -2054,6 +2050,10 @@ msgstr "Falls du bereits eine Seite für die Datenschutzerklärung hast, wähle 
 #: wp-admin/privacy.php:42
 msgid "Privacy Policy page updated successfully. Remember to <a href=\"%s\">update your menus</a>!"
 msgstr "Seite für Datenschutzerklärung erfolgreich aktualisiert. Denk daran, <a href=\"%s\">deine Menüs zu aktualisieren</a>!"
+
+#: wp-admin/setup-config.php:292
+msgid "<strong>ERROR</strong>: \"Table Prefix\" is invalid."
+msgstr "<strong>FEHLER</strong>: „Tabellenpräfix“ ist ungültig."
 
 #: wp-admin/install.php:250
 msgid "Insufficient Requirements"
@@ -10699,6 +10699,10 @@ msgid_plural "<strong>Version %1$s</strong> addressed a security issue and fixed
 msgstr[0] "<strong>Version %1$s</strong> behob ein Sicherheitsproblem und %2$s Fehler."
 msgstr[1] "<strong>Version %1$s</strong> behob ein Sicherheitsproblem und %2$s Fehler."
 
+#: wp-admin/custom-background.php:90
+msgid "To use a background image, simply upload it or choose an image that has already been uploaded to your Media Library by clicking the &#8220;Choose Image&#8221; button. You can display a single instance of your image, or tile it to fill the screen. You can have your background fixed in place, so your site content moves on top of it, or you can have it scroll with your site."
+msgstr "Um ein Hintergrundbild zu verwenden, lade einfach eins hoch oder wähle ein Bild aus der Mediathek durch Klick auf den &#8222;Bild wählen&#8220;-Button. Du kannst das Bild einzeln anzeigen, es kacheln oder bildschirmfüllend einstellen. Du kannst den Hintergrund auch fixieren, so dass der Inhalt der Website darüber scrollt oder das Bild mit dem Inhalt mitscrollen lassen."
+
 #: wp-admin/edit-form-advanced.php:126 wp-admin/edit-form-advanced.php:132
 msgid "Preview page"
 msgstr "Vorschau der Seite"
@@ -10720,10 +10724,6 @@ msgstr ""
 #: wp-admin/media.php:78 wp-admin/edit-form-advanced.php:419
 msgid "Remember to click Update Media to save metadata entered or changed."
 msgstr "Vergiss nicht, zum Schluss auf &#8222;Aktualisieren&#8220; zu klicken, damit deine Eingaben oder Änderungen auch gespeichert werden."
-
-#: wp-admin/custom-background.php:90
-msgid "To use a background image, simply upload it or choose an image that has already been uploaded to your Media Library by clicking the &#8220;Choose Image&#8221; button. You can display a single instance of your image, or tile it to fill the screen. You can have your background fixed in place, so your site content moves on top of it, or you can have it scroll with your site."
-msgstr "Um ein Hintergrundbild zu verwenden, lade einfach eins hoch oder wähle ein Bild aus der Mediathek durch Klick auf den &#8222;Bild wählen&#8220;-Button. Du kannst das Bild einzeln anzeigen, es kacheln oder bildschirmfüllend einstellen. Du kannst den Hintergrund auch fixieren, so dass der Inhalt der Website darüber scrollt oder das Bild mit dem Inhalt mitscrollen lassen."
 
 #: wp-admin/includes/class-language-pack-upgrader.php:113
 msgid "The translations are up to date."
