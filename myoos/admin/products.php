@@ -127,7 +127,6 @@ if (!empty($action)) {
                                   'products_discount3_qty' => oos_db_prepare_input($_POST['products_discount3_qty']),
                                   'products_discount4' => oos_db_prepare_input($_POST['products_discount4']),
                                   'products_discount4_qty' => oos_db_prepare_input($_POST['products_discount4_qty']),
-                                  'products_sort_order' => oos_db_prepare_input($_POST['products_sort_order']),
                                   );
 
 				if ($action == 'insert_product') {
@@ -154,14 +153,15 @@ if (!empty($action)) {
 					$cPath = $current_category_id;
 				}
 
-				$languages = oos_get_languages();
-				for ($i = 0, $n = count($languages); $i < $n; $i++) {
-					$lang_id = $languages[$i]['id'];
+				$aLanguages = oos_get_languages();
+				$nLanguages = count($aLanguages);
+				for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
+					$lang_id = $aLanguages[$i]['id'];
 
 					$sql_data_array = array('products_name' => oos_db_prepare_input($_POST['products_name'][$lang_id]),
-                                    'products_description' => oos_db_prepare_input($_POST['products_description_' .$languages[$i]['id']]),
-                                    'products_description_meta' => oos_db_prepare_input($_POST['products_description_meta_' .$languages[$i]['id']]),
-                                    'products_keywords_meta' => oos_db_prepare_input($_POST['products_keywords_meta_' .$languages[$i]['id']]),
+                                    'products_description' => oos_db_prepare_input($_POST['products_description_' .$aLanguages[$i]['id']]),
+                                    'products_description_meta' => oos_db_prepare_input($_POST['products_description_meta_' .$aLanguages[$i]['id']]),
+                                    'products_keywords_meta' => oos_db_prepare_input($_POST['products_keywords_meta_' .$aLanguages[$i]['id']]),
                                     'products_url' => oos_db_prepare_input($_POST['products_url'][$lang_id]));
 
 					if ($action == 'insert_product') {
@@ -183,13 +183,13 @@ if (!empty($action)) {
 }
 
 // check if the catalog image directory exists
-  if (is_dir(OOS_ABSOLUTE_PATH . OOS_IMAGES)) {
+if (is_dir(OOS_ABSOLUTE_PATH . OOS_IMAGES)) {
     if (!is_writeable(OOS_ABSOLUTE_PATH . OOS_IMAGES)) $messageStack->add(ERROR_CATALOG_IMAGE_DIRECTORY_NOT_WRITEABLE, 'error');
-  } else {
+} else {
     $messageStack->add(ERROR_CATALOG_IMAGE_DIRECTORY_DOES_NOT_EXIST, 'error');
-  }
+}
 
-  require 'includes/header.php';
+require 'includes/header.php';
 ?>
 <!-- body //-->
 <div class="wrapper">
@@ -214,8 +214,6 @@ if (!empty($action)) {
 
 				<div class="row">
 					<div class="col-lg-12">
-<!-- body_text //-->
-	<table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
   if ($action == 'new_product') {
     if (isset($_GET['pID']) && empty($_POST)) {
@@ -237,7 +235,7 @@ if (!empty($action)) {
                                                  p.products_discount3_qty, p.products_discount4_qty, p.products_sort_order
                                             FROM $productstable p,
                                                  $products_descriptiontable pd
-                                           WHERE p.products_id = '" . $_GET['pID'] . "' AND
+                                           WHERE p.products_id = '" . intval($_GET['pID']) . "' AND
                                                  p.products_id = pd.products_id AND
                                                  pd.products_languages_id = '" . intval($_SESSION['language_id']) . "'");
       $product = $product_result->fields;
@@ -311,14 +309,10 @@ if (!empty($action)) {
       $products_status_result->MoveNext();
     }
 
-    $languages = oos_get_languages();
-
-    $decimal_quantity_array = array();
-    $decimal_quantity_array = array(array('id' => '1', 'text' => ENTRY_YES),
-                                    array('id' => '0', 'text' => ENTRY_NO));
-
-
-    $form_action = ($_GET['pID']) ? 'update_product' : 'insert_product';
+    $aLanguages = oos_get_languages();
+	$nLanguages = count($aLanguages);
+	
+    $form_action = (isset($_GET['pID'])) ? 'update_product' : 'insert_product';
 
 ?>
 <script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
@@ -346,116 +340,242 @@ function calcBasePriceFactor() {
 <?php
   }
 ?>
-     <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td class="pageHeading"><?php echo sprintf(TEXT_NEW_PRODUCT, oos_output_generated_category_path($current_category_id)); ?></td>
-            <td class="pageHeading" align="right"></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td></td>
-      </tr>
-      <tr><?php echo oos_draw_form('id', 'new_product', $aContents['products'], 'cPath=' . $cPath . '&pID=' . $_GET['pID'] . '&action=' . $form_action, 'post', TRUE, 'enctype="multipart/form-data"'); ?>
-        <td><table border="0" cellspacing="0" cellpadding="2">
-          <tr>
-            <td class="main"><?php echo TEXT_PRODUCTS_STATUS; ?></td>
-            <td class="main">&nbsp;<?php echo oos_draw_pull_down_menu('products_status', $products_status_array, $pInfo->products_status); ?></td>
-          </tr>
-          <tr>
-            <td colspan="2"></td>
-          </tr>
-          <tr>
-            <td class="main"><?php echo TEXT_PRODUCTS_DATE_AVAILABLE; ?><br /><small>(YYYY-MM-DD)</small></td>
-            <td class="main">
 
-				<div class="input-group date" id="datetimepicker1">
-					<input class="form-control" type="text" name="products_date_available" value="<?php echo $pInfo->products_date_available; ?>">
-					<span class="input-group-addon">
-						<span class="fa fa-calendar"></span>
-					</span>
-				</div>
-				
-			</td>
-          </tr>
-          <tr>
-            <td colspan="2"></td>
-          </tr>
-          <tr>
-            <td class="main"><?php echo TEXT_PRODUCTS_MANUFACTURER; ?></td>
-            <td class="main">&nbsp;<?php echo oos_draw_pull_down_menu('manufacturers_id', $manufacturers_array, $pInfo->manufacturers_id); ?></td>
-          </tr>
-          <tr>
-            <td colspan="2"></td>
-          </tr>
+++ 	
+	<!-- Breadcrumbs //-->
+	<div class="content-heading">
+		<div class="col-lg-12">
+			<h2><?php echo sprintf(TEXT_NEW_PRODUCT, oos_output_generated_category_path($current_category_id)); ?></h2>
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item">
+					<a href="<?php echo oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
+				</li>
+				<li class="breadcrumb-item">
+					<a href="<?php echo oos_href_link_admin(oos_selected_file('catalog.php'), 'selected_box=catalog') . '">' . BOX_HEADING_CATALOG . '</a>'; ?>
+				</li>
+				<li class="breadcrumb-item active">
+					<strong><?php echo sprintf(TEXT_NEW_PRODUCT, oos_output_generated_category_path($current_category_id)); ?></strong>
+				</li>
+			</ol>
+		</div>
+	</div>
+	<!-- END Breadcrumbs //-->
+
+	<?php echo oos_draw_form('id', 'new_product', $aContents['products'], 'cPath=' . $cPath . (isset($_GET['pID']) ? '&pID=' . $_GET['pID'] : '') . '&action=' . $form_action, 'post', TRUE, 'enctype="multipart/form-data"'); ?>	
+               <div role="tabpanel">
+                  <ul class="nav nav-tabs nav-justified">
+                     <li class="nav-item" role="presentation">
+                        <a class="nav-link active" href="#edit" aria-controls="edit" role="tab" data-toggle="tab">Product Edit</a>
+                     </li>
+                     <li class="nav-item" role="presentation">
+                        <a class="nav-link" href="#seo" aria-controls="seo" role="tab" data-toggle="tab">SEO Metadata</a>
+                     </li>
+                     <li class="nav-item" role="presentation">
+                        <a class="nav-link" href="#picture" aria-controls="picture" role="tab" data-toggle="tab">Pictures</a>
+                     </li>
+                  </ul>
+                  <div class="tab-content">
+                     <div class="tab-pane active" id="edit" role="tabpanel">
+
 <?php
-    for ($i = 0, $n = count($languages); $i < $n; $i++) {
+    for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
 ?>
-          <tr>
-            <td class="main"><?php if ($i == 0) echo TEXT_PRODUCTS_NAME; ?></td>
-            <td class="main"><?php echo oos_flag_icon($languages[$i]) . oos_draw_input_field('products_name[' . $languages[$i]['id'] . ']', (($products_name[$languages[$i]['id']]) ? stripslashes($products_name[$languages[$i]['id']]) : oos_get_products_name($pInfo->products_id, $languages[$i]['id']))); ?></td>
-          </tr>
+				 
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_PRODUCTS_NAME; ?></label>
+							  <?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
+                              <div class="col-lg-9">
+								<?php echo oos_draw_input_field('products_name[' . $aLanguages[$i]['id'] . ']', (($products_name[$aLanguages[$i]['id']]) ? stripslashes($products_name[$aLanguages[$i]['id']]) : oos_get_products_name($pInfo->products_id, $aLanguages[$i]['id']))); ?>
+                              </div>
+                           </div>
+                        </fieldset>
 <?php
     }
-?>
-          <tr>
-            <td colspan="2"></td>
-          </tr>
-<?php
-    for ($i = 0, $n = count($languages); $i < $n; $i++) {
-?>
-          <tr>
-            <td class="main" valign="top"><?php if ($i == 0) echo TEXT_PRODUCTS_DESCRIPTION; ?></td>
-            <td><table border="0" cellspacing="0" cellpadding="0">
-              <tr>
-                <td class="main" valign="top"><?php echo oos_flag_icon($languages[$i]); ?>&nbsp;</td>
-                <td class="main">
+?>						
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_DATE_AVAILABLE; ?><br /><small>(YYYY-MM-DD)</small></label>
+                              <div class="col-lg-10">
+								<div class="input-group date" id="datetimepicker1">
+									<input class="form-control" type="text" name="products_date_available" value="<?php echo $pInfo->products_date_available; ?>">
+									<span class="input-group-addon">
+									<span class="fa fa-calendar"></span>
+								</span>
+								</div>
+                              </div>
+                           </div>
+                        </fieldset>
 
+                        <fieldset>					
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_MANUFACTURER; ?></label>
+                              <div class="col-lg-10"><?php echo oos_draw_pull_down_menu('manufacturers_id', $manufacturers_array, $pInfo->manufacturers_id); ?></div>
+                           </div>
+                        </fieldset>			
+						
 <?php
-       echo oos_draw_textarea_field('products_description_' . $languages[$i]['id'], 'soft', '70', '15', ($_POST['products_description_' .$languages[$i]['id']] ? stripslashes($_POST['products_description_' .$languages[$i]['id']]) : oos_get_products_description($pInfo->products_id, $languages[$i]['id'])));
+    for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
 ?>
-                 </td>
-              </tr>
-            </table></td>
-          </tr>
-
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_PRODUCTS_DESCRIPTION; ?></label>
+							  <?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
+                              <div class="col-lg-9">
+<?php
+       echo oos_draw_textarea_field('products_description_' . $aLanguages[$i]['id'], 'soft', '70', '15', ($_POST['products_description_' .$aLanguages[$i]['id']] ? stripslashes($_POST['products_description_' .$aLanguages[$i]['id']]) : oos_get_products_description($pInfo->products_id, $aLanguages[$i]['id'])));
+?>
+                              </div>
+                           </div>
+                        </fieldset>
 		<script>
-			CKEDITOR.replace( 'products_description_<?php echo $languages[$i]['id']; ?>');
+			CKEDITOR.replace( 'products_description_<?php echo $aLanguages[$i]['id']; ?>');
 		</script>
 <?php
     }
+?>
 
-	for ($i = 0, $n = count($languages); $i < $n; $i++) {	  
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label">Price:</label>
+                              <div class="col-lg-10">
+                                 <input class="form-control" type="text" placeholder="$ 123.20">
+                              </div>
+                           </div>
+                        </fieldset>
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label">Quantity:</label>
+                              <div class="col-lg-10">
+                                 <input class="form-control" type="number" placeholder="0" min="0">
+                              </div>
+                           </div>
+                        </fieldset>
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label">Tax :</label>
+                              <div class="col-lg-10">
+                                 <input class="form-control" type="text" placeholder="20%">
+                              </div>
+                           </div>
+                        </fieldset>					
+					
+                        <fieldset>					
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_STATUS; ?></label>
+                              <div class="col-lg-10"><?php echo oos_draw_pull_down_menu('products_status', $products_status_array, $pInfo->products_status); ?></div>
+                           </div>
+                        </fieldset>
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_REPLACEMENT_PRODUCT; ?></label>
+                              <div class="col-lg-10">
+                                 <?php echo oos_draw_input_field('products_replacement_product_id', $pInfo->products_replacement_product_id); ?>
+                              </div>
+                           </div>
+                        </fieldset>						
+						
+						
+                     </div>
+                     <div class="tab-pane" id="seo" role="tabpanel">
+<?php
+	for ($i = 0, $n = $nLanguages; $i < $n; $i++) {	  
 ?>
-            <tr>
-              <td class="main" width="100" valign="top"><?php if ($i == 0) echo TEXT_PRODUCTS_DESCRIPTION_META; ?></td>
-              <td><table border="0" cellspacing="0" cellpadding="0">
-                <tr>
-                  <td class="main" valign="top"><?php echo oos_flag_icon($languages[$i]); ?>&nbsp;</td>
-                  <td class="main"><?php echo oos_draw_textarea_field('products_description_meta_' . $languages[$i]['id'], 'soft', '70', '4', ($_POST['products_description_meta_' .$languages[$i]['id']] ? stripslashes($_POST['products_description_meta_' .$languages[$i]['id']]) : oos_get_products_description_meta($pInfo->products_id, $languages[$i]['id'])));
-?></td>
-                </tr>
-              </table></td>
-            </tr>
+					<fieldset>
+						<div class="form-group row">
+							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_PRODUCTS_DESCRIPTION_META; ?></label>
+							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
+							<div class="col-lg-9">
+								<?php echo oos_draw_textarea_field('products_description_meta_' . $aLanguages[$i]['id'], 'soft', '70', '4', ($_POST['products_description_meta_' .$aLanguages[$i]['id']] ? stripslashes($_POST['products_description_meta_' .$aLanguages[$i]['id']]) : oos_get_products_description_meta($pInfo->products_id, $aLanguages[$i]['id']))); ?>
+							</div>
+						</div>
+					</fieldset>
+<?php
+	}  
+	for ($i = 0, $n = $nLanguages; $i < $n; $i++) {	
+?>
+					<fieldset>
+						<div class="form-group row">
+							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_PRODUCTS_KEYWORDS_META; ?></label>
+							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
+							<div class="col-lg-9">
+								<?php echo oos_draw_textarea_field('products_keywords_meta_' . $aLanguages[$i]['id'], 'soft', '70', '4', ($_POST['products_keywords_meta_' .$aLanguages[$i]['id']] ? stripslashes($_POST['products_keywords_meta_' .$aLanguages[$i]['id']]) : oos_get_products_keywords_meta($pInfo->products_id, $aLanguages[$i]['id']))); ?>
+							</div>
+						</div>
+					</fieldset>
 <?php
 	}
+?>
+                     </div>
+                     <div class="tab-pane" id="picture" role="tabpanel">
+                        <div class="row mb-3">
+                           <div class="col-3">
+                              <strong>Preview</strong>
+                           </div>
+                           <div class="col-9">
+                              <strong>Details</strong>
+                           </div>
+                        </div>
+                        <div class="row mb-3 pb-3 bb">
+                           <div class="col-6 col-md-3">
+                              <a href="#" title="Product 1">
+                                 <img class="img-fluid" src="img/bg7.jpg" alt="Product 1">
+                              </a>
+                           </div>
+                           <div class="col-6 col-md-9">
+                              <fieldset>
+                                 <div class="form-group row">
+                                    <input class="form-control" type="text" placeholder="Brief description..">
+                                 </div>
+                              </fieldset>
+                              <p>
+                                 <strong>Picture type</strong>
+                              </p>
+                              <div class="c-radio c-radio-nofont">
+                                 <label>
+                                    <input type="radio" name="prod1-pic" value="option1" checked="">
+                                    <span></span>Primary</label>
+                              </div>
+                              <div class="c-radio c-radio-nofont">
+                                 <label>
+                                    <input type="radio" name="prod1-pic" value="option2">
+                                    <span></span>Thumbnail</label>
+                              </div>
+                              <div class="c-radio c-radio-nofont">
+                                 <label>
+                                    <input type="radio" name="prod1-pic" value="option3">
+                                    <span></span>Gallery</label>
+                              </div>
+                              <div class="text-right">
+                                 <button class="btn btn-sm btn-danger" type="button">
+                                    <em class="fa fa-times-circle fa-fw"></em>Remove</button>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            <div class="text-right mt-3">
+               <button class="btn btn-warning" type="button">Discard</button>
+               <button class="btn btn-success" type="button">Save</button>
+            </div>
+            </form>
+		
+
+<?php
+##
+?>
+
+<table>
+
+      <tr>
+        <td></td>
+      </tr>
+      <tr>
 	  
-	 for ($i = 0, $n = count($languages); $i < $n; $i++) {	
-?>
-            <tr>
-              <td class="main" width="100" valign="top"><?php if ($i == 0) echo TEXT_PRODUCTS_KEYWORDS_META; ?></td>
-              <td><table border="0" cellspacing="0" cellpadding="0">
-                <tr>
-                  <td class="main" valign="top"><?php echo oos_flag_icon($languages[$i]); ?>&nbsp;</td>
-                  <td class="main"><?php echo oos_draw_textarea_field('products_keywords_meta_' . $languages[$i]['id'], 'soft', '70', '4', ($_POST['products_keywords_meta_' .$languages[$i]['id']] ? stripslashes($_POST['products_keywords_meta_' .$languages[$i]['id']]) : oos_get_products_keywords_meta($pInfo->products_id, $languages[$i]['id'])));
-?></td>
-                </tr>
-              </table></td>
-            </tr>
-<?php
-	}
-?>
+        <td><table border="0" cellspacing="0" cellpadding="2">
+
+
           <tr>
             <td colspan="2"></td>
           </tr>
@@ -496,11 +616,11 @@ function calcBasePriceFactor() {
             <td colspan="2"></td>
           </tr>
 <?php
-    for ($i = 0, $n = count($languages); $i < $n; $i++) {
+    for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
 ?>
           <tr>
             <td class="main"><?php if ($i == 0) echo TEXT_PRODUCTS_URL . '<br /><small>' . TEXT_PRODUCTS_URL_WITHOUT_HTTP . '</small>'; ?></td>
-            <td class="main"><?php echo oos_flag_icon($languages[$i]) . '&nbsp;' . oos_draw_input_field('products_url[' . $languages[$i]['id'] . ']', (($products_url[$languages[$i]['iso_639_2']]) ? stripslashes($products_url[$languages[$i]['id']]) : oos_get_products_url($pInfo->products_id, $languages[$i]['id']))); ?></td>
+            <td class="main"><?php echo oos_flag_icon($aLanguages[$i]) . '&nbsp;' . oos_draw_input_field('products_url[' . $aLanguages[$i]['id'] . ']', (($products_url[$aLanguages[$i]['iso_639_2']]) ? stripslashes($products_url[$aLanguages[$i]['id']]) : oos_get_products_url($pInfo->products_id, $aLanguages[$i]['id']))); ?></td>
           </tr>
 <?php
     }
@@ -610,13 +730,6 @@ function calcBasePriceFactor() {
             <td class="main"><?php echo TEXT_PRODUCTS_WEIGHT; ?></td>
             <td class="main">&nbsp;<?php echo oos_draw_input_field('products_weight', $pInfo->products_weight); ?></td>
           </tr>
-          <tr>
-            <td colspan="2"></td>
-          </tr>
-          <tr>
-            <td class="main"><?php echo TEXT_PRODUCTS_SORT_ORDER; ?></td>
-            <td class="main">&nbsp;<?php echo oos_draw_input_field('products_sort_order', $pInfo->products_sort_order); ?></td>
-          </tr>
         </table></td>
       </tr>
       <tr>
@@ -625,6 +738,8 @@ function calcBasePriceFactor() {
       <tr>
         <td class="main" align="right"><?php echo oos_draw_hidden_field('products_date_added', (($pInfo->products_date_added) ? $pInfo->products_date_added : date('Y-m-d'))) . oos_submit_button('save', IMAGE_SAVE); ?></td>
       </form></tr>
+	  	      </table>
+<!-- body_text_eof //-->
 <?php
   } elseif ($action == 'new_product_preview') {
     if (oos_is_not_null($_POST)) {
@@ -641,9 +756,6 @@ function calcBasePriceFactor() {
       } else {
         $products_image_name = $_POST['products_previous_image'];
       }
-
-
-      $products_sort_order = $_POST['products_sort_order'];
     } else {
       $product_result = $dbconn->Execute("SELECT pd.products_name, pd.products_description, pd.products_description_meta, products_keywords_meta, pd.products_url, p.products_id, p.products_quantity, p.products_reorder_level, p.products_model, p.products_replacement_product_id, p.products_ean, p.products_image, p.products_price, p.products_base_price, p.products_base_unit, p.products_weight, p.products_date_added, p.products_last_modified, date_format(p.products_date_available, '%Y-%m-%d') as products_date_available, p.products_status, p.products_tax_class_id, p.products_units_id, p.manufacturers_id, p.products_price_list, p.products_quantity_order_min, p.products_quantity_order_units, p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4, p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty, p.products_discount4_qty, p.products_sort_order FROM " . $oostable['products'] . " p, " . $oostable['products_description'] . " pd WHERE p.products_id = '" . $_GET['pID'] . "' and p.products_id = pd.products_id and pd.products_languages_id = '" . intval($_SESSION['language_id']) . "'");
       $product = $product_result->fields;
@@ -654,28 +766,31 @@ function calcBasePriceFactor() {
 
     $form_action = ($_GET['pID']) ? 'update_product' : 'insert_product';
 
-    echo oos_draw_form('id', $form_action, $aContents['products'], 'cPath=' . $cPath . '&pID=' . $_GET['pID'] . '&action=' . $form_action, 'post', TRUE, 'enctype="multipart/form-data"');
+    echo oos_draw_form('id', $form_action, $aContents['products'], 'cPath=' . $cPath . (isset($_GET['pID']) ? '&pID=' . $_GET['pID'] : '') . '&action=' . $form_action, 'post', TRUE, 'enctype="multipart/form-data"');
 
-    $languages = oos_get_languages();
-    for ($i = 0, $n = count($languages); $i < $n; $i++) {
+    $aLanguages = oos_get_languages();
+	$nLanguages = count($aLanguages);
+    for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
       if (isset($_GET['read']) && ($_GET['read'] == 'only')) {
-        $pInfo->products_name = oos_get_products_name($pInfo->products_id, $languages[$i]['id']);
-        $pInfo->products_description = oos_get_products_description($pInfo->products_id, $languages[$i]['id']);
-        $pInfo->products_description_meta = oos_get_products_description_meta($pInfo->products_id, $languages[$i]['id']);
-        $pInfo->products_keywords_meta = oos_get_products_keywords_meta($pInfo->products_id, $languages[$i]['id']);
-        $pInfo->products_url = oos_get_products_url($pInfo->products_id, $languages[$i]['id']);
+        $pInfo->products_name = oos_get_products_name($pInfo->products_id, $aLanguages[$i]['id']);
+        $pInfo->products_description = oos_get_products_description($pInfo->products_id, $aLanguages[$i]['id']);
+        $pInfo->products_description_meta = oos_get_products_description_meta($pInfo->products_id, $aLanguages[$i]['id']);
+        $pInfo->products_keywords_meta = oos_get_products_keywords_meta($pInfo->products_id, $aLanguages[$i]['id']);
+        $pInfo->products_url = oos_get_products_url($pInfo->products_id, $aLanguages[$i]['id']);
       } else {
-        $pInfo->products_name = oos_db_prepare_input($products_name[$languages[$i]['id']]);
-        $pInfo->products_description = oos_db_prepare_input($_POST['products_description_' .$languages[$i]['id']]);
-        $pInfo->products_description_meta = oos_db_prepare_input($_POST['products_description_meta_' .$languages[$i]['id']]);
-        $pInfo->products_keywords_meta = oos_db_prepare_input($_POST['products_keywords_meta_' .$languages[$i]['id']]);
-        $pInfo->products_url = oos_db_prepare_input($products_url[$languages[$i]['id']]);
+        $pInfo->products_name = oos_db_prepare_input($products_name[$aLanguages[$i]['id']]);
+        $pInfo->products_description = oos_db_prepare_input($_POST['products_description_' .$aLanguages[$i]['id']]);
+        $pInfo->products_description_meta = oos_db_prepare_input($_POST['products_description_meta_' .$aLanguages[$i]['id']]);
+        $pInfo->products_keywords_meta = oos_db_prepare_input($_POST['products_keywords_meta_' .$aLanguages[$i]['id']]);
+        $pInfo->products_url = oos_db_prepare_input($products_url[$aLanguages[$i]['id']]);
       }
 ?>
+<!-- body_text //-->
+	<table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading"><?php echo oos_flag_icon($languages[$i]) . '&nbsp;' . $pInfo->products_name; ?></td>
+            <td class="pageHeading"><?php echo oos_flag_icon($aLanguages[$i]) . '&nbsp;' . $pInfo->products_name; ?></td>
 <?php
   $oosPrice = $pInfo->products_price;
   $oosPrice=round($oosPrice,TAX_DECIMAL_PLACES);
@@ -765,13 +880,14 @@ function calcBasePriceFactor() {
           echo oos_draw_hidden_field($key, htmlspecialchars(stripslashes($value)));
         }
       }
-      $languages = oos_get_languages();
-      for ($i = 0, $n = count($languages); $i < $n; $i++) {
-        echo oos_draw_hidden_field('products_name[' . $languages[$i]['id'] . ']', htmlspecialchars(stripslashes($products_name[$languages[$i]['id']])));
-        echo oos_draw_hidden_field('products_description[' . $languages[$i]['id'] . ']', htmlspecialchars(stripslashes($products_description[$languages[$i]['id']])));
-        echo oos_draw_hidden_field('products_description_meta[' . $languages[$i]['id'] . ']', htmlspecialchars(stripslashes($products_description_meta[$languages[$i]['id']])));
-        echo oos_draw_hidden_field('products_keywords_meta[' . $languages[$i]['id'] . ']', htmlspecialchars(stripslashes($products_keywords_meta[$languages[$i]['id']])));
-        echo oos_draw_hidden_field('products_url[' . $languages[$i]['id'] . ']', htmlspecialchars(stripslashes($products_url[$languages[$i]['id']])));
+      $aLanguages = oos_get_languages();
+	  $nLanguages = count($aLanguages);
+      for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
+        echo oos_draw_hidden_field('products_name[' . $aLanguages[$i]['id'] . ']', htmlspecialchars(stripslashes($products_name[$aLanguages[$i]['id']])));
+        echo oos_draw_hidden_field('products_description[' . $aLanguages[$i]['id'] . ']', htmlspecialchars(stripslashes($products_description[$aLanguages[$i]['id']])));
+        echo oos_draw_hidden_field('products_description_meta[' . $aLanguages[$i]['id'] . ']', htmlspecialchars(stripslashes($products_description_meta[$aLanguages[$i]['id']])));
+        echo oos_draw_hidden_field('products_keywords_meta[' . $aLanguages[$i]['id'] . ']', htmlspecialchars(stripslashes($products_keywords_meta[$aLanguages[$i]['id']])));
+        echo oos_draw_hidden_field('products_url[' . $aLanguages[$i]['id'] . ']', htmlspecialchars(stripslashes($products_url[$aLanguages[$i]['id']])));
       }
       echo oos_draw_hidden_field('products_image', stripslashes($products_image_name));
 
@@ -792,12 +908,16 @@ function calcBasePriceFactor() {
 
 ?></td>
       </form></tr>
+
 <?php
     }
+?>
+	      </table>
+<!-- body_text_eof //-->
+<?php
   }
 ?>
-    </table>
-<!-- body_text_eof //-->
+
 
 				</div>
 			</div>

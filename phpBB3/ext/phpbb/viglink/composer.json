@@ -5,7 +5,7 @@
 	"homepage": "https://www.phpbb.com",
 	"version": "1.0.3",
 	"keywords": ["phpbb", "extension", "viglink"],
-	"license": "GPL-2.0",
+	"license": "GPL-2.0-only",
 	"authors": [
 		{
 			"name": "phpBB Limited",

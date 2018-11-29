@@ -65,7 +65,6 @@ $lang = array_merge($lang, array(
 
 	'ACCOUNT_ALREADY_ACTIVATED'		=> 'Dein Benutzerkonto wurde bereits aktiviert.',
 	'ACCOUNT_DEACTIVATED'			=> 'Dein Benutzerkonto wurde manuell deaktiviert und kann nur durch einen Administrator reaktiviert werden.',
-	'ACCOUNT_NOT_ACTIVATED'			=> 'Dein Benutzerkonto ist noch nicht aktiviert worden.',
 	'ACP'							=> 'Administrations-Bereich',
 	'ACP_SHORT'						=> 'Adm.',
 	'ACTIVE'						=> 'aktiv',

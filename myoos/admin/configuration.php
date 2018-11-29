@@ -138,10 +138,6 @@
     // Move that ADOdb pointer!
     $configuration_result->MoveNext();
   }
-
-  // Close result set
-  $configuration_result->Close();
-
 ?>
             </table></td>
 <?php

@@ -114,8 +114,6 @@ $lang = array_merge($lang, array(
 
 	'IMAGE_LINK_SIZE'			=> 'Abmessungen, ab denen angehängte Bilder verlinkt werden',
 	'IMAGE_LINK_SIZE_EXPLAIN'	=> 'Bild-Dateianhänge werden als Link dargestellt, wenn deren Größe diese Werte überschreitet. Bei der Verwendung von 0px &times; 0px wird dieses Verhalten abgeschaltet.',
-	'IMAGICK_PATH'				=> 'ImageMagick-Pfad',
-	'IMAGICK_PATH_EXPLAIN'		=> 'Voller Pfad zum ImageMagick-Programm, z.&nbsp;B. <samp>/usr/bin/</samp>.',
 
 	'MAX_ATTACHMENTS'				=> 'Maximale Anzahl von Dateianhängen pro Beitrag',
 	'MAX_ATTACHMENTS_PM'			=> 'Maximale Anzahl von Dateianhängen pro Privater Nachricht',
@@ -138,7 +136,6 @@ $lang = array_merge($lang, array(
 	'NO_EXT_GROUP_SPECIFIED'	=> 'Keine Dateityp-Gruppe angegeben.',
 	'NO_FILE_CAT'				=> 'Keine',
 	'NO_IMAGE'					=> 'Kein Bild',
-	'NO_THUMBNAIL_SUPPORT'		=> 'Die Unterstützung von Vorschaubildern wurde deaktiviert. Für diese Funktionalität muss entweder die GD-Bibliothek verfügbar oder Imagemagick installiert sein. Beide konnten nicht gefunden werden.',
 	'NO_UPLOAD_DIR'				=> 'Das angegebene Upload-Verzeichnis existiert nicht.',
 	'NO_WRITE_UPLOAD'			=> 'Das angegebene Upload-Verzeichnis ist nicht beschreibbar. Bitte ändere die Berechtigungen, damit der Webserver in das Verzeichnis schreiben kann.',
 
@@ -150,7 +147,6 @@ $lang = array_merge($lang, array(
 	'REMOVE_DISALLOWED_IPS'			=> '<em>Verbotene</em> IPs/Hostnamen oder Ausnahmen entfernen',
 	'RESYNC_FILES_STATS_CONFIRM'	=> 'Bist du dir sicher, dass du die Datei-Statistik neu synchronisieren möchtest?',
 
-	'SEARCH_IMAGICK'				=> 'Nach ImageMagick suchen',
 	'SECURE_ALLOW_DENY'				=> 'Erlauben-/Verbieten-Liste',
 	'SECURE_ALLOW_DENY_EXPLAIN'		=> 'Ändert, wenn sichere Downloads aktiviert sind, das Verhalten der Erlauben-/Verbieten-Liste zu einer Liste von erlaubten bzw. verbotenen Adressen.',
 	'SECURE_DOWNLOADS'				=> 'Sichere Downloads aktivieren',

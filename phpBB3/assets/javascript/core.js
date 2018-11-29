@@ -935,9 +935,9 @@ phpbb.addAjaxCallback('alt_text', function() {
 	$anchor.each(function() {
 		var $this = $(this);
 		altText = $this.attr('data-alt-text');
-		$this.attr('data-alt-text', $this.text());
-		$this.attr('title', $.trim(altText));
-		$this.text(altText);
+		$this.attr('data-alt-text', $.trim($this.text()));
+		$this.attr('title', altText);
+		$this.children('span').text(altText);
 	});
 });
 
@@ -1332,7 +1332,6 @@ phpbb.toggleDropdown = function() {
 				marginLeft: 0,
 				left: 0,
 				marginRight: 0,
-				right: 0,
 				maxWidth: (windowWidth - 4) + 'px'
 			});
 
@@ -1644,7 +1643,7 @@ phpbb.lazyLoadAvatars = function loadAvatars() {
 	});
 };
 
-$(window).load(phpbb.lazyLoadAvatars);
+$(window).on('load', phpbb.lazyLoadAvatars);
 
 /**
 * Apply code editor to all textarea elements with data-bbcode attribute

@@ -1022,12 +1022,11 @@ $flds = "
 dosql($table, $flds);
 
 
-
 $table = $prefix_table . 'products_status';
 $flds = "
    products_status_id I DEFAULT '1' NOTNULL PRIMARY,
    products_status_languages_id I NOTNULL DEFAULT '1' PRIMARY,
-   products_status_name C(32) NOTNULL
+   products_status_name C(62) NOTNULL
 ";
 dosql($table, $flds);
 

@@ -247,6 +247,8 @@ function oos_submit_button($id, $title = '', $params = '') {
   }
 
 
+
+
  /**
   * Output a form input field
   *
@@ -519,7 +521,7 @@ function oos_draw_editor_field($name, $wrap, $width, $height, $text = '', $param
   * @return string
   */
   function oos_draw_pull_down_menu($name, $values, $default = '', $params = '', $required = FALSE) {
-    $field = '<select name="' . $name . '"';
+    $field = '<select class="form-control" name="' . $name . '"';
     if ($params) $field .= ' ' . $params;
     $field .= '>';
     for ($i=0; $i < count($values); $i++) {
@@ -536,7 +538,6 @@ function oos_draw_editor_field($name, $wrap, $width, $height, $text = '', $param
     return $field;
   }
 
-
  /**
   * Output a flag-icon
   *
@@ -552,3 +553,4 @@ function oos_flag_icon($aLanguages) {
     }
 	return '<div title="' . oos_output_string($aLanguages['name']) . '" class="flag flag-icon flag-icon-' . oos_output_string($aLanguages['iso_3166_1']) . ' width-full"></div>&nbsp;' . oos_output_string($aLanguages['name']) . '&nbsp;';
 }
+

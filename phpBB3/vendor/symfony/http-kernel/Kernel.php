@@ -59,11 +59,11 @@ abstract class Kernel implements KernelInterface, TerminableInterface
     protected $startTime;
     protected $loadClassCache;
 
-    const VERSION = '2.8.45';
-    const VERSION_ID = 20845;
+    const VERSION = '2.8.46';
+    const VERSION_ID = 20846;
     const MAJOR_VERSION = 2;
     const MINOR_VERSION = 8;
-    const RELEASE_VERSION = 45;
+    const RELEASE_VERSION = 46;
     const EXTRA_VERSION = '';
 
     const END_OF_MAINTENANCE = '11/2018';
@@ -112,7 +112,7 @@ abstract class Kernel implements KernelInterface, TerminableInterface
     }
 
     /**
-     * Boots the current kernel.
+     * {@inheritdoc}
      */
     public function boot()
     {
@@ -265,11 +265,7 @@ abstract class Kernel implements KernelInterface, TerminableInterface
         foreach ($bundles as $bundle) {
             if ($isResource && file_exists($file = $dir.'/'.$bundle->getName().$overridePath)) {
                 if (null !== $resourceBundle) {
-                    throw new \RuntimeException(sprintf('"%s" resource is hidden by a resource from the "%s" derived bundle. Create a "%s" file to override the bundle resource.',
-                        $file,
-                        $resourceBundle,
-                        $dir.'/'.$bundles[0]->getName().$overridePath
-                    ));
+                    throw new \RuntimeException(sprintf('"%s" resource is hidden by a resource from the "%s" derived bundle. Create a "%s" file to override the bundle resource.', $file, $resourceBundle, $dir.'/'.$bundles[0]->getName().$overridePath));
                 }
 
                 if ($first) {

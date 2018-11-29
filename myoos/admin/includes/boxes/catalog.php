@@ -33,11 +33,6 @@ $aBlocks[] = array(
 			'link' => oos_admin_files_boxes('categories', 'selected_box=catalog')
 		),
 		array(
-			'code' => $aContents['products'],
-			'title' => BOX_CATALOG_QADD_PRODUCT,
-			'link' => oos_href_link_admin($aContents['products'], 'action=new_product')
-		),
-		array(
 			'code' => $aContents['specials'],
 			'title' => BOX_CATALOG_SPECIALS,
 			'link' => oos_admin_files_boxes('specials', 'selected_box=catalog')

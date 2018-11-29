@@ -68,7 +68,6 @@ define('TEXT_PRODUCTS_URL', 'Products URL:');
 define('TEXT_PRODUCTS_URL_WITHOUT_HTTP', '<small>(without http://)</small>');
 define('TEXT_PRODUCTS_PRICE', 'Products Price:');
 define('TEXT_PRODUCTS_WEIGHT', 'Products Weight:');
-define('TEXT_PRODUCTS_SORT_ORDER', 'Sort Order:');
 
 define('ERROR_CANNOT_LINK_TO_SAME_CATEGORY', 'Error: Can not link products in the same category.');
 define('ERROR_CATALOG_IMAGE_DIRECTORY_NOT_WRITEABLE', 'Error: Catalog images directory is not writeable: ' . OOS_ABSOLUTE_PATH . OOS_IMAGES);

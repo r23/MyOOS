@@ -374,7 +374,7 @@ $lang = array_merge($lang, array(
 	'ACP_CONTACT_SETTINGS_EXPLAIN'		=> 'Hier können Sie die Kontaktseite aktivieren oder deaktivieren. Sie können auch einen Text festlegen, der auf der Seite angezeigt wird.',
 
 	'CONTACT_US_ENABLE'				=> 'Kontaktseite aktivieren',
-	'CONTACT_US_ENABLE_EXPLAIN'		=> 'Diese Seite erlaubt es Benutzern, E-Mails an die Board-Administration zu senden. Bitte beachten Sie, dass die E-Mail-Funktionalität des Boards ebenfalls aktiviert sein muss. Sie finden diese Einstellung unter „Allgemein > Client-Kommunikation > Board-E-Mails“.',
+	'CONTACT_US_ENABLE_EXPLAIN'		=> 'Diese Seite erlaubt es Benutzern, E-Mails an die Board-Administration zu senden. Bitte beachten Sie, dass die E-Mail-Funktionalität des Boards ebenfalls aktiviert sein muss. Sie finden diese Einstellung unter „Allgemein &gt; Client-Kommunikation &gt; Board-E-Mails“.',
 
 	'CONTACT_US_INFO'				=> 'Kontakt-Informationen',
 	'CONTACT_US_INFO_EXPLAIN'		=> 'Diese Nachricht wird auf der Kontaktseite angezeigt',

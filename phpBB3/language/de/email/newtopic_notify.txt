@@ -1,4 +1,5 @@
 Subject: Benachrichtigung über neues Thema — „{FORUM_NAME}“
+List-Unsubscribe: <{U_STOP_WATCHING_FORUM}>
 
 Hallo {USERNAME},
 
@@ -6,6 +7,9 @@ du erhältst diese Benachrichtigung, weil du das Forum „{FORUM_NAME}“ auf �
 
 Du kannst dir das Forum ansehen, wenn du folgenden Link aufrufst:
 {U_FORUM}
+
+Klicke auf den folgenden Link, um das neue Thema direkt aufzurufen:
+{U_TOPIC}
 
 Wenn du das Forum nicht länger abonnieren möchtest, verwende entweder den Link „Abonnement des Forums beenden“ im entsprechenden Forum oder rufe folgenden Link auf:
 {U_STOP_WATCHING_FORUM}

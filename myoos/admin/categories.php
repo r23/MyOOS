@@ -521,7 +521,6 @@ if ($action == 'new_category' || $action == 'edit_category') {
 ?>
 <script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
 	<!-- Breadcrumbs //-->
-<?php //	<div class="content-heading"> ?>
 	<div class="content-heading">
 		<div class="col-lg-12">
 			<h2><?php echo sprintf($text_new_or_edit, oos_output_generated_category_path($current_category_id)); ?></h2>
@@ -843,9 +842,8 @@ if ($action == 'new_category' || $action == 'edit_category') {
 <!-- body_text_eof //-->
 <?php
 } elseif ($action == 'new_category_preview') {
-	$form_action = ($_GET['cID']) ? 'update_category' : 'insert_category';
-
-    echo oos_draw_form('id', $form_action, $aContents['categories'], 'cPath=' . $cPath . '&amp;cID=' . $_GET['cID'] . '&amp;action=' . $form_action, 'post', TRUE, 'enctype="multipart/form-data"');	  
+	$form_action = (isset($_GET['cID'])) ? 'update_category' : 'insert_category';
+    echo oos_draw_form('id', $form_action, $aContents['categories'], 'cPath=' . $cPath . (isset($_GET['cID']) ? '&cID=' . $_GET['cID']  : '') . '&action=' . $form_action, 'post', TRUE, 'enctype="multipart/form-data"');	  
 ?>
 <table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php

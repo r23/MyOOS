@@ -1,8 +1,8 @@
-<!-- IF VIGLINK_ENABLED -->
+{% if VIGLINK_ENABLED %}
 <script type="text/javascript">
 	var vglnk = {
-		key: '{VIGLINK_API_KEY}',
-		sub_id: '{VIGLINK_SUB_ID}'
+		key: '{{ VIGLINK_API_KEY|e("js") }}',
+		sub_id: '{{ VIGLINK_SUB_ID|e("js") }}'
 	};
 
 	(function(d, t) {
@@ -11,4 +11,4 @@
 		var r = d.getElementsByTagName(t)[0]; r.parentNode.insertBefore(s, r);
 	}(document, 'script'));
 </script>
-<!-- ENDIF -->
+{% endif %}

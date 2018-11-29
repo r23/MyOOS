@@ -67,7 +67,6 @@ define('TEXT_PRODUCTS_URL', 'Herstellerlink:');
 define('TEXT_PRODUCTS_URL_WITHOUT_HTTP', '<small>(ohne führendes http://)</small>');
 define('TEXT_PRODUCTS_PRICE', 'Artikelpreis:');
 define('TEXT_PRODUCTS_WEIGHT', 'Artikelgewicht:');
-define('TEXT_PRODUCTS_SORT_ORDER', 'Sort Order:');
 
 define('ERROR_CANNOT_LINK_TO_SAME_CATEGORY', 'Fehler: Produkte können nicht in der gleichen Kategorie verlinkt werden.');
 define('ERROR_CATALOG_IMAGE_DIRECTORY_NOT_WRITEABLE', 'Fehler: Das Verzeichnis \'images\' im Katalogverzeichnis ist schreibgeschützt: ' . OOS_ABSOLUTE_PATH . OOS_IMAGES);

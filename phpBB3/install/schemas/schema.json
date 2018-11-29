@@ -721,7 +721,7 @@
                 ""
             ],
             "forum_topics_per_page": [
-                "TINT:4",
+                "USINT",
                 0
             ],
             "forum_type": [
