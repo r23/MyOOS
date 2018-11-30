@@ -340,8 +340,6 @@ function calcBasePriceFactor() {
 <?php
   }
 ?>
-
-++ 	
 	<!-- Breadcrumbs //-->
 	<div class="content-heading">
 		<div class="col-lg-12">
@@ -434,7 +432,60 @@ function calcBasePriceFactor() {
 <?php
     }
 ?>
-
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_MODEL; ?></label>
+                              <div class="col-lg-10">
+								<?php echo oos_draw_input_field('products_model', $pInfo->products_model); ?>
+                              </div>
+                           </div>
+                        </fieldset>
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_EAN; ?></label>
+                              <div class="col-lg-10">
+                                 <?php echo oos_draw_input_field('products_ean', $pInfo->products_ean); ?>
+                              </div>
+                           </div>
+                        </fieldset>						
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_QUANTITY; ?></label>
+                              <div class="col-lg-10">
+                                 <?php echo oos_draw_input_field('products_quantity', $pInfo->products_quantity); ?>
+                              </div>
+                           </div>
+                        </fieldset>							
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_PRODUCT_MINIMUM_ORDER; ?></label>
+                              <div class="col-lg-10">
+                                 <?php echo oos_draw_input_field('products_quantity_order_min', ($pInfo->products_quantity_order_min==0 ? 1 : $pInfo->products_quantity_order_min)); ?>
+                              </div>
+                           </div>
+                        </fieldset>
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_PRODUCT_PACKAGING_UNIT; ?></label>
+                              <div class="col-lg-10">
+                                 <?php echo oos_draw_input_field('products_quantity_order_units', ($pInfo->products_quantity_order_units==0 ? 1 : $pInfo->products_quantity_order_units)); ?>
+                              </div>
+                           </div>
+                        </fieldset>
+<?php
+	if (STOCK_CHECK == 'true') {
+?>
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_REORDER_LEVEL; ?></label>
+                              <div class="col-lg-10">
+                                 <?php echo oos_draw_input_field('products_reorder_level', $pInfo->products_reorder_level); ?>
+                              </div>
+                           </div>
+                        </fieldset>
+<?php
+	}
+?>
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label">Price:</label>
@@ -453,12 +504,53 @@ function calcBasePriceFactor() {
                         </fieldset>
                         <fieldset>
                            <div class="form-group row">
-                              <label class="col-lg-2 col-form-label">Tax :</label>
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_TAX_CLASS; ?></label>
                               <div class="col-lg-10">
-                                 <input class="form-control" type="text" placeholder="20%">
+                                 <?php echo oos_draw_pull_down_menu('products_tax_class_id', $tax_class_array, $pInfo->products_tax_class_id); ?>
                               </div>
                            </div>
-                        </fieldset>					
+                        </fieldset>	
+
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_DISCOUNTS_TITLE; ?></label>
+                              <div class="col-lg-10">
+ <?php
+   $sDiscount1 = number_format($pInfo->products_discount1, TAX_DECIMAL_PLACES, '.', '');
+   $sDiscount2 = number_format($pInfo->products_discount2, TAX_DECIMAL_PLACES, '.', '');
+   $sDiscount3 = number_format($pInfo->products_discount3, TAX_DECIMAL_PLACES, '.', '');
+   $sDiscount4 = number_format($pInfo->products_discount4, TAX_DECIMAL_PLACES, '.', '');
+ ?>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col"><?php echo TEXT_DISCOUNTS_BREAKS; ?></th>
+      <th scope="col">1</th>
+      <th scope="col">2</th>
+      <th scope="col">3</th>
+	  <th scope="col">4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row"><?php echo TEXT_DISCOUNTS_QTY; ?></th>
+      <td><?php echo oos_draw_input_field('products_discount1_qty', $pInfo->products_discount1_qty); ?></td>
+      <td><?php echo oos_draw_input_field('products_discount2_qty', $pInfo->products_discount2_qty); ?></td>
+      <td><?php echo oos_draw_input_field('products_discount3_qty', $pInfo->products_discount3_qty); ?></td>
+      <td><?php echo oos_draw_input_field('products_discount4_qty', $pInfo->products_discount4_qty); ?></td>
+    </tr>
+    <tr>
+      <th scope="row"><?php echo TEXT_DISCOUNTS_PRICE; ?></th>
+      <td><?php echo oos_draw_input_field('products_discount1', $sDiscount1); ?></td>
+      <td><?php echo oos_draw_input_field('products_discount2', $sDiscount2); ?></td>
+      <td><?php echo oos_draw_input_field('products_discount3', $sDiscount3); ?></td>
+	  <td><?php echo oos_draw_input_field('products_discount4', $sDiscount4); ?></td>
+    </tr>
+  </tbody>
+</table>
+                              </div>
+                           </div>
+                        </fieldset>				
 					
                         <fieldset>					
                            <div class="form-group row">

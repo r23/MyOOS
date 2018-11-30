@@ -43,6 +43,9 @@ define('TEXT_PRODUCTS_BASE_UNIT', 'Base Unit:');
 define('TEXT_PRODUCTS_BASE_PRICE_FACTOR', 'Factor to calculate Base Price:');
 define('TEXT_PRODUCTS_BASE_QUANTITY', 'Base Quantity:');
 define('TEXT_PRODUCTS_PRODUCT_QUANTITY', 'Product Quantity:');
+define('TEXT_PRODUCTS_PRODUCT_MINIMUM_ORDER', 'Minimum Order Quantity');
+define('TEXT_PRODUCTS_PRODUCT_PACKAGING_UNIT', 'Packaging Unit');
+
 define('TEXT_PRODUCTS_UNIT', 'Product Unit');
 
 

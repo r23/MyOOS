@@ -66,6 +66,20 @@ class DotenvTest extends TestCase
         $_ENV['REMOTE'] = 'remote';
 
         $tests = array(
+            // backslashes
+            array('FOO=foo\\\\bar', array('FOO' => 'foo\\bar')),
+            array("FOO='foo\\\\bar'", array('FOO' => 'foo\\\\bar')),
+            array('FOO="foo\\\\bar"', array('FOO' => 'foo\\bar')),
+
+            // escaped backslash in front of variable
+            array("BAR=bar\nFOO=foo\\\\\$BAR", array('BAR' => 'bar', 'FOO' => 'foo\\bar')),
+            array("BAR=bar\nFOO='foo\\\\\$BAR'", array('BAR' => 'bar', 'FOO' => 'foo\\\\$BAR')),
+            array("BAR=bar\nFOO=\"foo\\\\\$BAR\"", array('BAR' => 'bar', 'FOO' => 'foo\\bar')),
+
+            array('FOO=foo\\\\\\$BAR', array('FOO' => 'foo\\$BAR')),
+            array('FOO=\'foo\\\\\\$BAR\'', array('FOO' => 'foo\\\\\\$BAR')),
+            array('FOO="foo\\\\\\$BAR"', array('FOO' => 'foo\\$BAR')),
+
             // spaces
             array('FOO=bar', array('FOO' => 'bar')),
             array(' FOO=bar ', array('FOO' => 'bar')),
@@ -268,7 +282,7 @@ class DotenvTest extends TestCase
 
     public function testOverridingEnvVarsWithNamesMemorizedInSpecialVar()
     {
-        putenv('SYMFONY_DOTENV_VARS=FOO,BAR,BAZ');
+        putenv('SYMFONY_DOTENV_VARS='.$_SERVER['SYMFONY_DOTENV_VARS'] = 'FOO,BAR,BAZ');
 
         putenv('FOO=foo');
         putenv('BAR=bar');

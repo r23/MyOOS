@@ -301,7 +301,6 @@ class Symfony_DI_PhpDumper_Errored_Definition extends Container
         $this->services['foo_with_inline'] = $instance = new \Foo();
 
         $a = new \Bar();
-
         $a->pub = 'pub';
         $a->setBaz(($this->services['baz'] ?? $this->getBazService()));
 
@@ -476,7 +475,7 @@ class Symfony_DI_PhpDumper_Errored_Definition extends Container
     /**
      * Computes a dynamic parameter.
      *
-     * @param string The name of the dynamic parameter to load
+     * @param string $name The name of the dynamic parameter to load
      *
      * @return mixed The value of the dynamic parameter
      *
