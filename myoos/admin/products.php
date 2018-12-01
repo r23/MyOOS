@@ -359,7 +359,8 @@ function calcBasePriceFactor() {
 	</div>
 	<!-- END Breadcrumbs //-->
 
-	<?php echo oos_draw_form('id', 'new_product', $aContents['products'], 'cPath=' . $cPath . (isset($_GET['pID']) ? '&pID=' . $_GET['pID'] : '') . '&action=' . $form_action, 'post', TRUE, 'enctype="multipart/form-data"'); ?>	
+	<?php echo oos_draw_form('id', 'new_product', $aContents['products'], 'cPath=' . $cPath . (isset($_GET['pID']) ? '&pID=' . $_GET['pID'] : '') . '&action=' . $form_action, 'post', TRUE, 'enctype="multipart/form-data"'); ?>
+		<?php echo oos_draw_hidden_field('products_date_added', (($pInfo->products_date_added) ? $pInfo->products_date_added : date('Y-m-d'))); ?>	
                <div role="tabpanel">
                   <ul class="nav nav-tabs nav-justified">
                      <li class="nav-item" role="presentation">
@@ -488,20 +489,68 @@ function calcBasePriceFactor() {
 ?>
                         <fieldset>
                            <div class="form-group row">
-                              <label class="col-lg-2 col-form-label">Price:</label>
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_PRICE; ?></label>
                               <div class="col-lg-10">
-                                 <input class="form-control" type="text" placeholder="$ 123.20">
+                                <?php
+									$sPrice = number_format($pInfo->products_price, TAX_DECIMAL_PLACES, '.', '');
+									echo oos_draw_input_field('products_price', $sPrice);
+								?>
                               </div>
                            </div>
                         </fieldset>
                         <fieldset>
                            <div class="form-group row">
-                              <label class="col-lg-2 col-form-label">Quantity:</label>
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_LIST_PRICE; ?></label>
                               <div class="col-lg-10">
-                                 <input class="form-control" type="number" placeholder="0" min="0">
+                                <?php
+									$sPriceList = number_format($pInfo->products_price_list, TAX_DECIMAL_PLACES, '.', '');
+									echo oos_draw_input_field('products_price_list', $sPriceList);
+								?>
                               </div>
                            </div>
                         </fieldset>
+
+<?php
+  if (OOS_BASE_PRICE == 'true') {
+?>
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_PRODUCT_QUANTITY; ?></label>
+                              <div class="col-lg-10">
+                                 <?php echo oos_draw_input_field('products_product_quantity', $pInfo->products_product_quantity, 'OnKeyUp="calcBasePriceFactor()"'); ?>
+                              </div>
+                           </div>
+                        </fieldset>
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_BASE_QUANTITY; ?></label>
+                              <div class="col-lg-10">
+                                 <?php echo oos_draw_input_field('products_base_quantity', $pInfo->products_base_quantity, 'OnKeyUp="calcBasePriceFactor()"'); ?>
+                              </div>
+                           </div>
+                        </fieldset>
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_BASE_PRICE_FACTOR; ?></label>
+                              <div class="col-lg-10">
+                                 <?php echo oos_draw_input_field('products_base_price', $pInfo->products_base_price); ?>
+                              </div>
+                           </div>
+                        </fieldset>						
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_BASE_UNIT; ?></label>
+                              <div class="col-lg-10">
+                                 <?php echo oos_draw_input_field('products_base_unit', $pInfo->products_base_unit); ?>
+                              </div>
+                           </div>
+                        </fieldset>
+<?php
+  }
+?>
+
+
+
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_TAX_CLASS; ?></label>
@@ -550,8 +599,29 @@ function calcBasePriceFactor() {
 </table>
                               </div>
                            </div>
-                        </fieldset>				
+                        </fieldset>
+						
+<?php
+    for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
+?>
 					
+                        <fieldset>					
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_PRODUCTS_URL . '<br /><small>' . TEXT_PRODUCTS_URL_WITHOUT_HTTP . '</small>'; ?></label>
+							  <?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
+                              <div class="col-lg-9"><?php echo oos_draw_input_field('products_url[' . $aLanguages[$i]['id'] . ']', (($products_url[$aLanguages[$i]['iso_639_2']]) ? stripslashes($products_url[$aLanguages[$i]['id']]) : oos_get_products_url($pInfo->products_id, $aLanguages[$i]['id']))); ?></div>
+                           </div>
+                        </fieldset>
+<?php
+    }
+?>		
+
+                        <fieldset>					
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_WEIGHT; ?></label>
+                              <div class="col-lg-10"><?php echo oos_draw_input_field('products_weight', $pInfo->products_weight); ?></div>
+                           </div>
+                        </fieldset>								
                         <fieldset>					
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_STATUS; ?></label>
@@ -650,10 +720,9 @@ function calcBasePriceFactor() {
             <div class="text-right mt-3">
                <button class="btn btn-warning" type="button">Discard</button>
                <button class="btn btn-success" type="button">Save</button>
+			   <?php echo oos_submit_button('save', IMAGE_SAVE); ?>
             </div>
             </form>
-		
-
 <?php
 ##
 ?>
@@ -668,22 +737,7 @@ function calcBasePriceFactor() {
         <td><table border="0" cellspacing="0" cellpadding="2">
 
 
-          <tr>
-            <td colspan="2"></td>
-          </tr>
-          <tr>
-            <td class="main"><?php echo TEXT_PRODUCTS_QUANTITY; ?></td>
-            <td class="main">&nbsp;<?php echo oos_draw_input_field('products_quantity', $pInfo->products_quantity) . ' Min: ' . oos_draw_input_field('products_quantity_order_min', ($pInfo->products_quantity_order_min==0 ? 1 : $pInfo->products_quantity_order_min)) . ' Units: ' . oos_draw_input_field('products_quantity_order_units', $pInfo->products_quantity_order_units); ?></td>
-          </tr>
-<?php
-	if (STOCK_CHECK == 'true') {
-?>
-          <tr>
-            <td class="main"><?php echo TEXT_PRODUCTS_REORDER_LEVEL; ?></td>
-            <td class="main">&nbsp;<?php echo oos_draw_input_field('products_reorder_level', $pInfo->products_reorder_level); ?></td>
-<?php
-	}
-?>
+ 
           <tr>
             <td class="main"><?php echo TEXT_REPLACEMENT_PRODUCT; ?></td>
             <td class="main">&nbsp;<?php echo oos_draw_input_field('products_replacement_product_id', $pInfo->products_replacement_product_id); ?></td>
@@ -703,111 +757,8 @@ function calcBasePriceFactor() {
             <td class="main"><?php echo '&nbsp;' . oos_draw_file_field('products_image') . oos_draw_hidden_field('products_previous_image', $pInfo->products_image); ?></td>
           </tr>
         </table><br />
-        <table border="0" cellspacing="0" cellpadding="2">
-          <tr>
-            <td colspan="2"></td>
-          </tr>
-<?php
-    for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
-?>
-          <tr>
-            <td class="main"><?php if ($i == 0) echo TEXT_PRODUCTS_URL . '<br /><small>' . TEXT_PRODUCTS_URL_WITHOUT_HTTP . '</small>'; ?></td>
-            <td class="main"><?php echo oos_flag_icon($aLanguages[$i]) . '&nbsp;' . oos_draw_input_field('products_url[' . $aLanguages[$i]['id'] . ']', (($products_url[$aLanguages[$i]['iso_639_2']]) ? stripslashes($products_url[$aLanguages[$i]['id']]) : oos_get_products_url($pInfo->products_id, $aLanguages[$i]['id']))); ?></td>
-          </tr>
-<?php
-    }
-?>
-          <tr>
-            <td colspan="2"></td>
-          </tr>
-          <tr>
-            <td class="main"><?php echo TEXT_PRODUCTS_PRICE; ?></td>
-            <td class="main">
-<?php
-	$sPrice = number_format($pInfo->products_price, TAX_DECIMAL_PLACES, '.', '');
-	echo '&nbsp;' . oos_draw_input_field('products_price', $sPrice);
-?>
-      </td>
-    </tr>
-    <tr>
-            <td class="main"><?php echo TEXT_PRODUCTS_LIST_PRICE; ?></td>
-            <td class="main">
-<?php
-	$sPriceList = number_format($pInfo->products_price_list, TAX_DECIMAL_PLACES, '.', '');
-	echo '&nbsp;' . oos_draw_input_field('products_price_list', $sPriceList);
-?>
-            </td>
-          </tr>
-<?php
-  if (OOS_BASE_PRICE == 'true') {
-?>
-        </table><br />
-        <table border="0" cellspacing="0" cellpadding="2">
-          <tr>
-            <td colspan="2"></td>
-          </tr>
-          <tr>
-            <td class="main"><?php echo TEXT_PRODUCTS_BASE_PRICE_FACTOR; ?></td>
-            <td class="main"><table border="0">
-                <tr>
-                  <td class="main"><br />&nbsp;<?php echo oos_draw_input_field('products_base_price', $pInfo->products_base_price); ?></td>
-                  <td class="main"><br /> <- </td>
-                  <td class="main"><?php echo TEXT_PRODUCTS_PRODUCT_QUANTITY . '<br />' . oos_draw_input_field('products_product_quantity', $pInfo->products_product_quantity, 'OnKeyUp="calcBasePriceFactor()"'); ?></td>
-                  <td class="main"><?php echo TEXT_PRODUCTS_BASE_QUANTITY . '<br />' . oos_draw_input_field('products_base_quantity', $pInfo->products_base_quantity, 'OnKeyUp="calcBasePriceFactor()"'); ?></td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-          <tr>
-             <td class="main"><?php echo TEXT_PRODUCTS_BASE_UNIT; ?></td>
-             <td class="main">&nbsp;<?php echo oos_draw_input_field('products_base_unit', $pInfo->products_base_unit); ?></td>
-           </tr>
-        </table><br />
-        <table border="0" cellspacing="0" cellpadding="2">
-<?php
-  }
-?>
 
-          <tr>
-            <td colspan="2"></td>
-          </tr>
-           <tr>
-             <td class="main"><?php echo TEXT_PRODUCTS_UNIT; ?></td>
-            <td class="main">&nbsp;<?php echo oos_draw_pull_down_menu('products_units_id', $products_units_array, $pInfo->products_units_id); ?></td>
-          </tr>
-          <tr>
-            <td colspan="2"></td>
-          </tr>
-          <tr>
-            <td class="main"><?php echo TEXT_DISCOUNTS_TITLE; ?></td>
-            <td class="main">
-               <table border='2'>
-                 <tr>
-                   <td colspan="5" class="main" align="center"><?php echo TEXT_DISCOUNTS_TITLE; ?></td>
-                 </tr>
-				 <tr>
-                   <td class="main" align="center" width="75"><?php echo TEXT_DISCOUNTS_BREAKS; ?></td>
-                   <td class="main" align="center" width="75">1</td>
-                   <td class="main" align="center" width="75">2</td>
-                   <td class="main" align="center" width="75">3</td>
-                   <td class="main" align="center" width="75">4</td>                
-                 </tr>
-                 <tr>
-                   <td class="main" align="center" width="75"><?php echo TEXT_DISCOUNTS_QTY; ?><br /><?php echo TEXT_DISCOUNTS_PRICE; ?></td>
- <?php
-   $sDiscount1 = number_format($pInfo->products_discount1, TAX_DECIMAL_PLACES, '.', '');
-   $sDiscount2 = number_format($pInfo->products_discount2, TAX_DECIMAL_PLACES, '.', '');
-   $sDiscount3 = number_format($pInfo->products_discount3, TAX_DECIMAL_PLACES, '.', '');
-   $sDiscount4 = number_format($pInfo->products_discount4, TAX_DECIMAL_PLACES, '.', '');
- ?>
-                   <td class="main" width="75"><?php echo oos_draw_input_field('products_discount1_qty', $pInfo->products_discount1_qty, 'size="10"'); ?><br /><?php echo oos_draw_input_field('products_discount1', $sDiscount1, 'size="10"'); ?></td>
-                   <td class="main" width="75"><?php echo oos_draw_input_field('products_discount2_qty', $pInfo->products_discount2_qty, 'size="10"'); ?><br /><?php echo oos_draw_input_field('products_discount2', $sDiscount2, 'size="10"'); ?></td>
-                   <td class="main" width="75"><?php echo oos_draw_input_field('products_discount3_qty', $pInfo->products_discount3_qty, 'size="10"'); ?><br /><?php echo oos_draw_input_field('products_discount3', $sDiscount3, 'size="10"'); ?></td>
-                   <td class="main" width="75"><?php echo oos_draw_input_field('products_discount4_qty', $pInfo->products_discount4_qty, 'size="10"'); ?><br /><?php echo oos_draw_input_field('products_discount4', $sDiscount4, 'size="10"'); ?></td>
-                  </tr>
-               </table>
-            </td>
-          </tr>
+
           <tr>
             <td colspan="2"></td>
           </tr>
@@ -890,7 +841,136 @@ function calcBasePriceFactor() {
       <td class="pageHeading" align="right"><?php echo $currencies->format($oosPrice); ?></td>
           </tr>
 <?php
-  include 'includes/categories_discounts_price.php';
+
+if ( !($pInfo->products_discount1_qty == 0 and $pInfo->products_discount2_qty == 0 and $pInfo->products_discount3_qty == 0 and $pInfo->products_discount4_qty == 0 )) {
+
+  $the_special=oos_get_products_special_price($_GET['pID']);
+
+  $q0=$pInfo->products_quantity_order_min;
+  $q1=$pInfo->products_discount1_qty;
+  $q2=$pInfo->products_discount2_qty;
+  $q3=$pInfo->products_discount3_qty;
+  $q4=$pInfo->products_discount4_qty;
+
+  $col_cnt=1;
+  if ( $pInfo->products_discount1 > 0 ) {
+    $col_cnt= $col_cnt+1;
+  }
+  if ( $pInfo->products_discount2 > 0 ) {
+    $col_cnt= $col_cnt+1;
+  }
+  if ( $pInfo->products_discount3 > 0 ) {
+    $col_cnt= $col_cnt+1;
+  }
+  if ( $pInfo->products_discount4 > 0 ) {
+    $col_cnt= $col_cnt+1;
+  }
+?>
+
+  <tr>
+    <td colspan="2" class="main" align="right">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2" class="main" align="right">
+      <table width="<?php echo 50*$col_cnt; ?>" border="1" cellpadding="2" cellspacing="2" align="right">
+        <tr>
+          <td>
+            <table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+<?php
+if ( $q1 < $q0 ) {
+?>
+              <tr>
+                <td colspan="<?php echo $col_cnt; ?>" class="DiscountPriceTitle" align="center">WARNING: Quanties Minimum &gt;<br /> Price Break 1</td>
+              </tr>
+              <tr>
+                <td colspan="<?php echo $col_cnt; ?>" class="DiscountPriceTitle" align="center">&nbsp;</td>
+              </tr>
+
+<?php
+}
+?>
+              <tr>
+                <td colspan="<?php echo $col_cnt; ?>" class="DiscountPriceTitle" align="center"><?php echo TEXT_DISCOUNTS_TITLE; ?></td>
+              </tr>
+              <tr>
+<?php
+  echo '      <td class="DiscountPriceQty" align="center">';
+  echo (($q1-1) > $q0 ? $q0 . '-' . ($q1-1) : $q0);
+  echo '      </td>';
+
+  if ( $q1 > 0 ) {
+    echo '<td class="DiscountPriceQty" align="center">';
+    echo ($q2 > 0 ? (($q2-1) > $q1 ? $q1 . '-' . ($q2-1) : $q1) : $q1 . '+');
+    echo '</td>';
+  }
+
+  if ( $q2 > 0 ) {
+    echo '<td class="DiscountPriceQty" align="center">';
+    echo ($q3 > 0 ? (($q3-1) > $q2 ? $q2 . '-' . ($q3-1) : $q2) : $q2 . '+');
+    echo '</td>';
+  }
+
+  if ( $q3 > 0 ) {
+    echo '<td class="DiscountPriceQty" align="center">';
+    echo ($q4 > 0 ? (($q4-1) > $q3 ? $q3 . '-' . ($q4-1) : $q3) : $q3 . '+');
+    echo '</td>';
+  }
+
+  if ( $q4 > 0 ) {
+    echo '<td class="DiscountPriceQty" align="center">';
+    echo ($q4 > 0 ? $q4 . '+' : '');
+    echo '</td>';
+  }
+?>
+              </tr>
+
+              <tr>
+<?php
+  echo '<td class="DiscountPrice" align="center">';
+  echo ( ($the_special==0) ? $currencies->format($pInfo->products_price) : $currencies->format($the_special) );
+  echo '</td>';
+ 
+  if ( $q1 > 0 ) {
+    $oosDiscount1=$pInfo->products_discount1; 
+    $oosDiscount1 = round($oosDiscount1,TAX_DECIMAL_PLACES);
+    echo '<td class="DiscountPrice" align="center">';
+    echo $currencies->format($oosDiscount1);
+    echo '</td>';
+  }
+
+  if ( $q2 > 0 ) {
+    $oosDiscount2=$pInfo->products_discount2; 
+    $oosDiscount2 = round($oosDiscount2,TAX_DECIMAL_PLACES);
+    echo '<td class="DiscountPrice" align="center">';
+    echo $currencies->format($oosDiscount2);
+    echo '</td>';
+  }
+
+  if ( $q3 > 0 ) {
+    $oosDiscount3=$pInfo->products_discount3; 
+    $oosDiscount3 = round($oosDiscount3,TAX_DECIMAL_PLACES);
+    echo '<td class="DiscountPrice" align="center">';
+    echo $currencies->format($oosDiscount3);
+    echo '</td>';
+  }
+
+  if ( $q4 > 0 ) {
+    $oosDiscount4=$pInfo->products_discount4; 
+    $oosDiscount4 = round($oosDiscount4,TAX_DECIMAL_PLACES);
+    echo '<td class="DiscountPrice" align="center">';
+    echo $currencies->format($oosDiscount4);
+    echo '</td>';
+  }
+?>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+<?php
+}
 ?>
         </table></td>
       </tr>
