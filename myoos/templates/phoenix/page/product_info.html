@@ -22,6 +22,10 @@
 
 			<div class="col-12 col-md-8">
 				<div class="product_details_desc">
+					<a href="{html_href_link content=$filename.shop manufacturers_id=$manufacturers_info.manufacturers_id}">
+						{$manufacturers_info.manufacturers_name}	
+					</a>
+				
 					<h1>{$product_info.products_name}</h1>
 		
 					{if $oEvent->installed_plugin('reviews')}	
