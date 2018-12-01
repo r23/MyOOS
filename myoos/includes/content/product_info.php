@@ -85,17 +85,6 @@ if (!$product_info_result->RecordCount()) {
     $result = $dbconn->Execute($query, array((int)$nProductsID, (int)$nLanguageID));
     $product_info = $product_info_result->fields;
 
-    $manufacturerstable = $oostable['manufacturers'];
-	$manufacturers_infotable = $oostable['manufacturers_info'];
-    $query = "SELECT m.manufacturers_id, m.manufacturers_name, m.manufacturers_image, mi.manufacturers_url 
-              FROM $manufacturerstable m,
-                   $manufacturers_infotable mi
-               WHERE m.manufacturers_id = '" . intval($product_info['manufacturers_id']) . "'
-			     AND mi.manufacturers_id = m.manufacturers_id
-			     AND mi.manufacturers_languages_id = '" . intval($nLanguageID) . "'";
-	$manufacturers_result = $dbconn->Execute($query);
-	$manufacturers_info = $manufacturers_result->fields;
-
     // Meta Tags
     $sPagetitle = $product_info['products_name'] . ' ' . OOS_META_TITLE;
     $sDescription = $product_info['products_description_meta'];
@@ -164,6 +153,21 @@ if (!$product_info_result->RecordCount()) {
       $smarty->assign('info_product_price_list', $info_product_price_list);
     }
 
+	if ($oEvent->installed_plugin('manufacturers')) {
+		$manufacturerstable = $oostable['manufacturers'];
+		$manufacturers_infotable = $oostable['manufacturers_info'];
+		$query = "SELECT m.manufacturers_id, m.manufacturers_name, m.manufacturers_image, mi.manufacturers_url 
+              FROM $manufacturerstable m,
+                   $manufacturers_infotable mi
+               WHERE m.manufacturers_id = '" . intval($product_info['manufacturers_id']) . "'
+			     AND mi.manufacturers_id = m.manufacturers_id
+			     AND mi.manufacturers_languages_id = '" . intval($nLanguageID) . "'";
+		$manufacturers_result = $dbconn->Execute($query);
+		$manufacturers_info = $manufacturers_result->fields;
+		$smarty->assign('manufacturers_info', $manufacturers_info);
+	}
+
+
     if ($oEvent->installed_plugin('reviews')) {
       $reviewstable = $oostable['reviews'];
       $reviews_sql = "SELECT COUNT(*) AS total FROM $reviewstable WHERE products_id = '" . intval($nProductsID) . "' AND reviews_status = '1'";
@@ -219,7 +223,6 @@ if (!$product_info_result->RecordCount()) {
     }
 
     $smarty->assign('product_info', $product_info);
-	$smarty->assign('manufacturers_info', $manufacturers_info);
     $smarty->assign('options', $options);
 
     $smarty->assign('redirect', oos_href_link($aContents['redirect'], 'action=url&amp;goto=' . urlencode($product_info['products_url']), FALSE, FALSE));

@@ -226,17 +226,14 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, b
 $result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (8, 1, 'Besuchte Produkte')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (8, 2, 'Products History')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
 
-$result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (9, 1, 'Hersteller Info')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (9, 2, 'Manufacturer Info')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (9, 1, 'Bestseller')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (9, 2, 'Bestsellers')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
 
-$result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (10, 1, 'Bestseller')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (10, 2, 'Bestsellers')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (10, 1, 'Angebote')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (10, 2, 'Specials')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
 
-$result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (11, 1, 'Angebote')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (11, 2, 'Specials')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
-
-$result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (12, 1, 'Bewertungen')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (12, 2, 'Reviews')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (11, 1, 'Bewertungen')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "block_info (block_id, block_languages_id, block_name) VALUES (11, 2, 'Reviews')") OR die ("<b>".NOTUPDATED . $prefix_table . "block_info</b>");
 
 
 echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $prefix_table . "block_info " . UPDATED .'</font>';
@@ -298,6 +295,7 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "block_to_page_type (blo
 $result = $db->Execute("INSERT INTO " . $prefix_table . "block_to_page_type (block_id, page_type_id) VALUES (8, 5)") OR die ("<b>".NOTUPDATED . $prefix_table . "block_to_page_type</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "block_to_page_type (block_id, page_type_id) VALUES (8, 6)") OR die ("<b>".NOTUPDATED . $prefix_table . "block_to_page_type</b>");
 
+$result = $db->Execute("INSERT INTO " . $prefix_table . "block_to_page_type (block_id, page_type_id) VALUES (9, 2)") OR die ("<b>".NOTUPDATED . $prefix_table . "block_to_page_type</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "block_to_page_type (block_id, page_type_id) VALUES (9, 3)") OR die ("<b>".NOTUPDATED . $prefix_table . "block_to_page_type</b>");
 
 $result = $db->Execute("INSERT INTO " . $prefix_table . "block_to_page_type (block_id, page_type_id) VALUES (10, 2)") OR die ("<b>".NOTUPDATED . $prefix_table . "block_to_page_type</b>");
@@ -306,8 +304,6 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "block_to_page_type (blo
 $result = $db->Execute("INSERT INTO " . $prefix_table . "block_to_page_type (block_id, page_type_id) VALUES (11, 2)") OR die ("<b>".NOTUPDATED . $prefix_table . "block_to_page_type</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "block_to_page_type (block_id, page_type_id) VALUES (11, 3)") OR die ("<b>".NOTUPDATED . $prefix_table . "block_to_page_type</b>");
 
-$result = $db->Execute("INSERT INTO " . $prefix_table . "block_to_page_type (block_id, page_type_id) VALUES (12, 2)") OR die ("<b>".NOTUPDATED . $prefix_table . "block_to_page_type</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "block_to_page_type (block_id, page_type_id) VALUES (12, 3)") OR die ("<b>".NOTUPDATED . $prefix_table . "block_to_page_type</b>");
 
 
 echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $prefix_table . "block_to_page_type " . UPDATED .'</font>';

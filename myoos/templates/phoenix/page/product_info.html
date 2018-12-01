@@ -22,10 +22,19 @@
 
 			<div class="col-12 col-md-8">
 				<div class="product_details_desc">
-					<a href="{html_href_link content=$filename.shop manufacturers_id=$manufacturers_info.manufacturers_id}">
-						{$manufacturers_info.manufacturers_name}	
-					</a>
-				
+{if $oEvent->installed_plugin('reviews')}
+					<div class="manufacturer" itemprop="manufacturer" itemscope itemtype="https://schema.org/Organization">
+						<span itemprop="brand" itemscope itemtype="https://schema.org/Brand">
+							<meta itemprop="name" content="{$manufacturers_info.manufacturers_name}">
+						</span>
+							<h2>
+								<a href="{html_href_link content=$filename.shop manufacturers_id=$manufacturers_info.manufacturers_id}">
+									{$manufacturers_info.manufacturers_name}	
+								</a>
+							</h2>
+					</div>				
+{/if}				
+							
 					<h1>{$product_info.products_name}</h1>
 		
 					{if $oEvent->installed_plugin('reviews')}	
