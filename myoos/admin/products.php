@@ -48,6 +48,8 @@ if (!empty($action)) {
 			if (oos_is_not_null($sProductsReplacementProductID)) {
 				$messageStack->add_session(ERROR_REPLACEMENT, 'error');
 				$sProductsStatus = 4;
+			} else {
+				$sProductsReplacementProductID = 'null';
 			}
 			
 			if (STOCK_CHECK == 'true') {
@@ -119,6 +121,7 @@ if (!empty($action)) {
                                   'products_price_list' => oos_db_prepare_input($_POST['products_price_list']),
                                   'products_quantity_order_min' => oos_db_prepare_input($_POST['products_quantity_order_min']),
                                   'products_quantity_order_units' => oos_db_prepare_input($_POST['products_quantity_order_units']),
+								  'products_quantity_order_max' => oos_db_prepare_input($_POST['products_quantity_order_max']),
                                   'products_discount1' => oos_db_prepare_input($_POST['products_discount1']),
                                   'products_discount1_qty' => oos_db_prepare_input($_POST['products_discount1_qty']),
                                   'products_discount2' => oos_db_prepare_input($_POST['products_discount2']),
@@ -229,7 +232,7 @@ require 'includes/header.php';
                                                  date_format(p.products_date_available, '%Y-%m-%d') AS products_date_available,
                                                  p.products_status, p.products_tax_class_id, p.products_units_id, p.manufacturers_id,
                                                  p.products_price_list, 
-                                                 p.products_quantity_order_min, p.products_quantity_order_units,
+                                                 p.products_quantity_order_min, p.products_quantity_order_units, p.products_quantity_order_max
                                                  p.products_discount1, p.products_discount2, p.products_discount3,
                                                  p.products_discount4, p.products_discount1_qty, p.products_discount2_qty,
                                                  p.products_discount3_qty, p.products_discount4_qty, p.products_sort_order
@@ -464,7 +467,7 @@ function calcBasePriceFactor() {
                                  <?php echo oos_draw_input_field('products_quantity_order_min', ($pInfo->products_quantity_order_min==0 ? 1 : $pInfo->products_quantity_order_min)); ?>
                               </div>
                            </div>
-                        </fieldset>
+                        </fieldset>						
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_PRODUCT_PACKAGING_UNIT; ?></label>
@@ -473,6 +476,14 @@ function calcBasePriceFactor() {
                               </div>
                            </div>
                         </fieldset>
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_PRODUCT_MAXIMUM_ORDER; ?></label>
+                              <div class="col-lg-10">
+                                 <?php echo oos_draw_input_field('products_quantity_order_max', ($pInfo->products_quantity_order_max==0 ? 30 : $pInfo->products_quantity_order_max)); ?>
+                              </div>
+                           </div>
+                        </fieldset>					
 <?php
 	if (STOCK_CHECK == 'true') {
 ?>
@@ -520,12 +531,28 @@ function calcBasePriceFactor() {
                                  <?php echo oos_draw_input_field('products_product_quantity', $pInfo->products_product_quantity, 'OnKeyUp="calcBasePriceFactor()"'); ?>
                               </div>
                            </div>
-                        </fieldset>
+                        </fieldset>				
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_UNIT; ?></label>
+                              <div class="col-lg-10">
+                                 <?php echo oos_draw_pull_down_menu('products_units_id', $products_units_array, $pInfo->products_units_id); ?>
+                              </div>
+                           </div>
+                        </fieldset>						
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_BASE_QUANTITY; ?></label>
                               <div class="col-lg-10">
                                  <?php echo oos_draw_input_field('products_base_quantity', $pInfo->products_base_quantity, 'OnKeyUp="calcBasePriceFactor()"'); ?>
+                              </div>
+                           </div>
+                        </fieldset>					
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_BASE_UNIT; ?></label>
+                              <div class="col-lg-10">
+                                 <?php echo oos_draw_pull_down_menu('products_base_unit', $products_units_array, $pInfo->products_base_unit); ?>
                               </div>
                            </div>
                         </fieldset>
@@ -537,14 +564,6 @@ function calcBasePriceFactor() {
                               </div>
                            </div>
                         </fieldset>						
-                        <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_BASE_UNIT; ?></label>
-                              <div class="col-lg-10">
-                                 <?php echo oos_draw_input_field('products_base_unit', $pInfo->products_base_unit); ?>
-                              </div>
-                           </div>
-                        </fieldset>
 <?php
   }
 ?>
@@ -718,70 +737,9 @@ function calcBasePriceFactor() {
                   </div>
                </div>
             <div class="text-right mt-3">
-               <button class="btn btn-warning" type="button">Discard</button>
-               <button class="btn btn-success" type="button">Save</button>
 			   <?php echo oos_submit_button('save', IMAGE_SAVE); ?>
             </div>
             </form>
-<?php
-##
-?>
-
-<table>
-
-      <tr>
-        <td></td>
-      </tr>
-      <tr>
-	  
-        <td><table border="0" cellspacing="0" cellpadding="2">
-
-
- 
-          <tr>
-            <td class="main"><?php echo TEXT_REPLACEMENT_PRODUCT; ?></td>
-            <td class="main">&nbsp;<?php echo oos_draw_input_field('products_replacement_product_id', $pInfo->products_replacement_product_id); ?></td>
-          </tr>
-          <tr>
-            <td class="main"><?php echo TEXT_PRODUCTS_MODEL; ?></td>
-            <td class="main">&nbsp;<?php echo oos_draw_input_field('products_model', $pInfo->products_model); ?></td>
-          </tr>
-          <tr>
-            <td class="main"><?php echo TEXT_PRODUCTS_EAN; ?></td>
-            <td class="main">&nbsp;<?php echo oos_draw_input_field('products_ean', $pInfo->products_ean); ?></td>
-          </tr>
-        </table><br />
-        <table border="0" cellspacing="0" cellpadding="2">
-          <tr>
-            <td class="main"><?php echo TEXT_PRODUCTS_IMAGE; ?></td>
-            <td class="main"><?php echo '&nbsp;' . oos_draw_file_field('products_image') . oos_draw_hidden_field('products_previous_image', $pInfo->products_image); ?></td>
-          </tr>
-        </table><br />
-
-
-          <tr>
-            <td colspan="2"></td>
-          </tr>
-          <tr>
-            <td class="main"><?php echo TEXT_PRODUCTS_TAX_CLASS; ?></td>
-            <td class="main">&nbsp;<?php echo oos_draw_pull_down_menu('products_tax_class_id', $tax_class_array, $pInfo->products_tax_class_id); ?></td>
-          </tr>
-          <tr>
-            <td colspan="2"></td>
-          </tr>
-          <tr>
-            <td class="main"><?php echo TEXT_PRODUCTS_WEIGHT; ?></td>
-            <td class="main">&nbsp;<?php echo oos_draw_input_field('products_weight', $pInfo->products_weight); ?></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td></td>
-      </tr>
-      <tr>
-        <td class="main" align="right"><?php echo oos_draw_hidden_field('products_date_added', (($pInfo->products_date_added) ? $pInfo->products_date_added : date('Y-m-d'))) . oos_submit_button('save', IMAGE_SAVE); ?></td>
-      </form></tr>
-	  	      </table>
 <!-- body_text_eof //-->
 <?php
   } elseif ($action == 'new_product_preview') {

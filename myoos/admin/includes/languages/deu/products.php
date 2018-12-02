@@ -39,12 +39,13 @@ define('TEXT_TAX_INFO', 'Netto:');
 define('TEXT_PRODUCTS_LIST_PRICE', 'empf VK:');
 
 define('TEXT_PRODUCTS_BASE_PRICE', 'Grundpreis ');
-define('TEXT_PRODUCTS_BASE_UNIT', 'Grundgröße:');
+define('TEXT_PRODUCTS_BASE_UNIT', 'Grundpreiseinheiten:');
 define('TEXT_PRODUCTS_BASE_PRICE_FACTOR', 'Faktor zum Berechnen des Grundpreises:');
 define('TEXT_PRODUCTS_BASE_QUANTITY', 'Basismenge:');
 define('TEXT_PRODUCTS_PRODUCT_QUANTITY', 'Artikelmenge:');
 define('TEXT_PRODUCTS_PRODUCT_MINIMUM_ORDER', 'Mindestbestellmenge');
 define('TEXT_PRODUCTS_PRODUCT_PACKAGING_UNIT', 'Verpackungseinheit');
+define('TEXT_PRODUCTS_PRODUCT_MAXIMUM_ORDER', 'maximale Bestellmenge');
 
 define('TEXT_PRODUCTS_UNIT', 'Produkteinheit:');
 

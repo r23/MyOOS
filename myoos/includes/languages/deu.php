@@ -388,7 +388,7 @@ $aLang = [
 
 'products_see_qty_discounts'           => 'Staffelpreise',
 'products_order_qty_text'              => 'Menge: ',
-'products_order_qty_min_text'          => '<br />' . ' Mindestbestellmenge: ',
+'products_order_qty_min_text'          => ' Mindestbestellmenge: ',
 'products_order_qty_min_text_info'     => ' Die Mindestbestellmenge ist: ',
 'products_order_qty_min_text_cart'     => ' Die Mindestbestellmenge ist: ',
 'products_order_qty_min_text_cart_short' => 'min. M.: ',

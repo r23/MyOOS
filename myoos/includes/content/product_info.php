@@ -33,8 +33,9 @@ $productstable = $oostable['products'];
 $products_descriptiontable = $oostable['products_description'];
 $product_info_sql = "SELECT p.products_id, pd.products_name, pd.products_description, pd.products_url,
                               pd.products_description_meta, p.products_model, p.products_replacement_product_id,
-                              p.products_quantity, p.products_image, p.products_price,
-                              p.products_base_price, p.products_base_unit, p.products_quantity_order_min, p.products_quantity_order_units,
+                              p.products_quantity, p.products_image, p.products_price, p.products_base_price,
+							  p.products_product_quantity, p.products_base_unit, p.products_quantity_order_min, p.products_quantity_order_units,
+							  p.products_quantity_order_min, p.products_quantity_order_units, p.products_quantity_order_max,
                               p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4,
                               p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty,
                               p.products_discount4_qty, p.products_tax_class_id, p.products_units_id, p.products_date_added,
@@ -169,11 +170,17 @@ if (!$product_info_result->RecordCount()) {
 
 
     if ($oEvent->installed_plugin('reviews')) {
-      $reviewstable = $oostable['reviews'];
-      $reviews_sql = "SELECT COUNT(*) AS total FROM $reviewstable WHERE products_id = '" . intval($nProductsID) . "' AND reviews_status = '1'";
-      $reviews = $dbconn->Execute($reviews_sql);
-      $reviews_total = $reviews->fields['total'];
-      $smarty->assign('reviews_total', $reviews_total);
+		$reviewstable = $oostable['reviews'];
+		$reviews_sql = "SELECT COUNT(*) AS total FROM $reviewstable WHERE products_id = '" . intval($nProductsID) . "' AND reviews_status = '1'";
+		$reviews = $dbconn->Execute($reviews_sql);
+		$reviews_total = $reviews->fields['total'];
+		$smarty->assign('reviews_total', $reviews_total);
+	  
+		if ($reviews->RecordCount()) {
+			$reviews_average_result = $dbconn->Execute("SELECT avg(reviews_rating) as average_rating FROM $reviewstable WHERE products_id = '" .  intval($nProductsId) . "'");
+			$reviews_average = $reviews_average_result->fields;
+			$smarty->assign('average_rating', $reviews_average);		  
+		}
     }
 		  
 

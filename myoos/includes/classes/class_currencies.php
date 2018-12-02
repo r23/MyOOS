@@ -43,18 +43,18 @@ class currencies {
 		}
 	}
 
-	public function format($number, $calculate_currency_value = TRUE, $currency_type = '', $currency_value = '') {
+	public function format($number, $calculate_currency_value = TRUE, $currency_type = '', $currency_value = null) {
 
 		if (empty($currency_type) || ($this->exists($currency_type) == FALSE)) {
 			$currency_type = (isset($_SESSION['currency']) ? $_SESSION['currency'] : DEFAULT_CURRENCY);
 		}
 
+		$rate = 1;
 		if ($calculate_currency_value == TRUE) {
 			$rate = (oos_is_not_null($currency_value)) ? $currency_value : $this->currencies[$currency_type]['value'];
-			$format_string = $this->currencies[$currency_type]['symbol_left'] . number_format(oos_round($number * $rate, $this->currencies[$currency_type]['decimal_places']), $this->currencies[$currency_type]['decimal_places'], $this->currencies[$currency_type]['decimal_point'], $this->currencies[$currency_type]['thousands_point']) . $this->currencies[$currency_type]['symbol_right'];
-		} else {  
-			$format_string = $this->currencies[$currency_type]['symbol_left'] . number_format(oos_round($number, $this->currencies[$currency_type]['decimal_places']), $this->currencies[$currency_type]['decimal_places'], $this->currencies[$currency_type]['decimal_point'], $this->currencies[$currency_type]['thousands_point']) . $this->currencies[$currency_type]['symbol_right'];
 		}
+		
+		$format_string = $this->currencies[$currency_type]['symbol_left'] . ' ' . number_format(oos_round($number * $rate, $this->currencies[$currency_type]['decimal_places']), $this->currencies[$currency_type]['decimal_places'], $this->currencies[$currency_type]['decimal_point'], $this->currencies[$currency_type]['thousands_point']) . ' ' . $this->currencies[$currency_type]['symbol_right'];
 
 		return $format_string;
 	}

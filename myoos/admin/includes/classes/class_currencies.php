@@ -44,7 +44,7 @@
                                                        'symbol_right' => $currencies['symbol_right'],
                                                        'decimal_point' => $currencies['decimal_point'],
                                                        'thousands_point' => $currencies['thousands_point'],
-                                                       'decimal_places' => $currencies['decimal_places'],
+                                                       'decimal_places' => (int)$currencies['decimal_places'],
                                                        'value' => $currencies['value']);
         // Move that ADOdb pointer!
         $result->MoveNext();
@@ -52,22 +52,24 @@
     }
 
 // class methods
-    public function format($number, $calculate_currency_value = true, $currency_type = DEFAULT_CURRENCY, $currency_value = '') {
-      if ($calculate_currency_value) {
-        $rate = ($currency_value) ? $currency_value : $this->currencies[$currency_type]['value'];
-        $format_string = $this->currencies[$currency_type]['symbol_left'] . number_format($number * $rate, $this->currencies[$currency_type]['decimal_places'], $this->currencies[$currency_type]['decimal_point'], $this->currencies[$currency_type]['thousands_point']) . $this->currencies[$currency_type]['symbol_right'];
-      } else {
-        $format_string = $this->currencies[$currency_type]['symbol_left'] . number_format($number, $this->currencies[$currency_type]['decimal_places'], $this->currencies[$currency_type]['decimal_point'], $this->currencies[$currency_type]['thousands_point']) . $this->currencies[$currency_type]['symbol_right'];
-      }
-      return $format_string;
+    public function format($number, $calculate_currency_value = TRUE, $currency_type = DEFAULT_CURRENCY, $currency_value = null) {
+		
+		$rate = 1;
+		if ($calculate_currency_value === TRUE) {
+			$rate = (!empty($currency_value)) ? $currency_value : $this->currencies[$currency_type]['value'];
+		}
+
+        $format_string = $this->currencies[$currency_type]['symbol_left'] . ' ' . number_format(oos_round($number * $rate, $this->currencies[$currency_type]['decimal_places']), $this->currencies[$currency_type]['decimal_places'], $this->currencies[$currency_type]['decimal_point'], $this->currencies[$currency_type]['thousands_point']) . ' ' . $this->currencies[$currency_type]['symbol_right'];
+
+		return $format_string;
     }
 
     public function get_value($code) {
-      return $this->currencies[$code]['value'];
+		return $this->currencies[$code]['value'];
     }
 
     public function display_price($products_price, $products_tax, $quantity = 1) {
-      return $this->format(oos_add_tax($products_price, $products_tax) * $quantity);
+		return $this->format(oos_add_tax($products_price, $products_tax) * $quantity);
     }
 
-  }
+}

@@ -397,7 +397,7 @@ $aLang = [
 // Product Qty, List, Rebate Pricing and Savings
 'products_see_qty_discounts'                 => 'SEE: QTY DISCOUNTS',
 'products_order_qty_text'                    => 'Add Qty: ',
-'products_order_qty_min_text'                => '<br>' . ' Min Qty: ',
+'products_order_qty_min_text'                => ' Min Qty: ',
 'products_order_qty_min_text_info'           => 'Order Minumum is: ',
 'products_order_qty_min_text_cart'           => 'Order Minimum is: ',
 'products_order_qty_min_text_cart_short'     => ' Min Qty: ',

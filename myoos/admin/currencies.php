@@ -30,13 +30,22 @@ $currencies = new currencies();
 $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
-  if (!empty($action)) {
-    switch ($action) {
-      case 'insert':
-      case 'save':
-        $currency_id = oos_db_prepare_input($_GET['cID']);
+if (!empty($action)) {
+	switch ($action) {
+		case 'insert':
+		case 'save':
+			$currency_id = oos_db_prepare_input($_GET['cID']);
 
-        $sql_data_array = array('title' => $title,
+			$title = oos_db_prepare_input($_POST['title']);
+			$code = oos_db_prepare_input($_POST['code']);
+			$symbol_left = oos_db_prepare_input($_POST['symbol_left']);
+			$symbol_right = oos_db_prepare_input($_POST['symbol_right']);
+			$decimal_point = oos_db_prepare_input($_POST['decimal_point']);
+			$thousands_point = oos_db_prepare_input($_POST['thousands_point']);
+			$decimal_places = oos_db_prepare_input($_POST['decimal_places']);
+			$currency_value = oos_db_prepare_input($_POST['currency_value']);
+
+			$sql_data_array = array('title' => $title,
                                 'code' => $code,
                                 'symbol_left' => $symbol_left,
                                 'symbol_right' => $symbol_right,
@@ -45,67 +54,67 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                                 'decimal_places' => $decimal_places,
                                 'value' => $currency_value);
 
-        if ($action == 'insert') {
-          oos_db_perform($oostable['currencies'], $sql_data_array);
-          $currency_id = $dbconn->Insert_ID();
-        } elseif ($action == 'save') {
-          oos_db_perform($oostable['currencies'], $sql_data_array, 'UPDATE', "currencies_id = '" . oos_db_input($currency_id) . "'");
-        }
+			if ($action == 'insert') {
+				oos_db_perform($oostable['currencies'], $sql_data_array);
+				$currency_id = $dbconn->Insert_ID();
+			} elseif ($action == 'save') {
+				oos_db_perform($oostable['currencies'], $sql_data_array, 'UPDATE', "currencies_id = '" . oos_db_input($currency_id) . "'");
+			}
 
-        if (isset($_POST['default']) && ($_POST['default'] == 'on')) {
-          $dbconn->Execute("UPDATE " . $oostable['configuration'] . " SET configuration_value = '" . oos_db_input($code) . "' WHERE configuration_key = 'DEFAULT_CURRENCY'");
-        }
-        oos_redirect_admin(oos_href_link_admin($aContents['currencies'], 'page=' . $nPage . '&cID=' . $currency_id));
-        break;
+			if (isset($_POST['default']) && ($_POST['default'] == 'on')) {
+				$dbconn->Execute("UPDATE " . $oostable['configuration'] . " SET configuration_value = '" . oos_db_input($code) . "' WHERE configuration_key = 'DEFAULT_CURRENCY'");
+			}
+			oos_redirect_admin(oos_href_link_admin($aContents['currencies'], 'page=' . $nPage . '&cID=' . $currency_id));
+			break;
 
-      case 'deleteconfirm':
-        $currencies_id = oos_db_prepare_input($_GET['cID']);
+		case 'deleteconfirm':
+			$currencies_id = oos_db_prepare_input($_GET['cID']);
 
-        $currency_result = $dbconn->Execute("SELECT currencies_id FROM " . $oostable['currencies'] . " WHERE code = '" . DEFAULT_CURRENCY . "'");
-        $currency = $currency_result->fields;
-        if ($currency['currencies_id'] == $currencies_id) {
-          $dbconn->Execute("UPDATE " . $oostable['configuration'] . " SET configuration_value = '' WHERE configuration_key = 'DEFAULT_CURRENCY'");
-        }
+			$currency_result = $dbconn->Execute("SELECT currencies_id FROM " . $oostable['currencies'] . " WHERE code = '" . DEFAULT_CURRENCY . "'");
+			$currency = $currency_result->fields;
+			if ($currency['currencies_id'] == $currencies_id) {
+				$dbconn->Execute("UPDATE " . $oostable['configuration'] . " SET configuration_value = '' WHERE configuration_key = 'DEFAULT_CURRENCY'");
+			}
 
-        $dbconn->Execute("DELETE FROM " . $oostable['currencies'] . " WHERE currencies_id = '" . oos_db_input($currencies_id) . "'");
+			$dbconn->Execute("DELETE FROM " . $oostable['currencies'] . " WHERE currencies_id = '" . oos_db_input($currencies_id) . "'");
 
-        oos_redirect_admin(oos_href_link_admin($aContents['currencies'], 'page=' . $nPage));
-        break;
+			oos_redirect_admin(oos_href_link_admin($aContents['currencies'], 'page=' . $nPage));
+			break;
 
-      case 'update':
-        $currency_result = $dbconn->Execute("SELECT currencies_id, code FROM " . $oostable['currencies']);
-        while ($currency = $currency_result->fields) {
-          $quote_function = 'quote_' . CURRENCY_SERVER_PRIMARY . '_currency';
-          $rate = $quote_function($currency['code']);
+		case 'update':
+			$currency_result = $dbconn->Execute("SELECT currencies_id, code FROM " . $oostable['currencies']);
+			while ($currency = $currency_result->fields) {
+				$quote_function = 'quote_' . CURRENCY_SERVER_PRIMARY . '_currency';
+				$rate = $quote_function($currency['code']);
 
-          if (empty($rate) && (oos_is_not_null(CURRENCY_SERVER_BACKUP)) ) {
-            $quote_function = 'quote_' . CURRENCY_SERVER_BACKUP . '_currency';
-            $rate = $quote_function($currency['code']);
-          }
-          if (oos_is_not_null($rate)) {
-            $dbconn->Execute("UPDATE " . $oostable['currencies'] . " SET value = '" . $rate . "', last_updated = now() WHERE currencies_id = '" . $currency['currencies_id'] . "'");
-          }
-          // Move that ADOdb pointer!
-          $currency_result->MoveNext();
-        }
-        oos_redirect_admin(oos_href_link_admin($aContents['currencies'], 'page=' . $nPage . '&cID=' . $_GET['cID']));
-        break;
+				if (empty($rate) && (oos_is_not_null(CURRENCY_SERVER_BACKUP)) ) {
+					$quote_function = 'quote_' . CURRENCY_SERVER_BACKUP . '_currency';
+					$rate = $quote_function($currency['code']);
+				}
+				if (oos_is_not_null($rate)) {
+					$dbconn->Execute("UPDATE " . $oostable['currencies'] . " SET value = '" . $rate . "', last_updated = now() WHERE currencies_id = '" . $currency['currencies_id'] . "'");
+				}
+				// Move that ADOdb pointer!
+				$currency_result->MoveNext();
+			}
+			oos_redirect_admin(oos_href_link_admin($aContents['currencies'], 'page=' . $nPage . '&cID=' . $_GET['cID']));
+			break;
 
       case 'delete':
-        $currencies_id = oos_db_prepare_input($_GET['cID']);
+			$currencies_id = oos_db_prepare_input($_GET['cID']);
 
-        $currency_result = $dbconn->Execute("SELECT code FROM " . $oostable['currencies'] . " WHERE currencies_id = '" . oos_db_input($currencies_id) . "'");
-        $currency = $currency_result->fields;
+			$currency_result = $dbconn->Execute("SELECT code FROM " . $oostable['currencies'] . " WHERE currencies_id = '" . oos_db_input($currencies_id) . "'");
+			$currency = $currency_result->fields;
 
-        $remove_currency = true;
-        if ($currency['code'] == DEFAULT_CURRENCY) {
-          $remove_currency = false;
-          $messageStack->add(ERROR_REMOVE_DEFAULT_CURRENCY, 'error');
-        }
-        break;
-    }
-  }
-  require 'includes/header.php'; 
+			$remove_currency = true;
+			if ($currency['code'] == DEFAULT_CURRENCY) {
+				$remove_currency = false;
+				$messageStack->add(ERROR_REMOVE_DEFAULT_CURRENCY, 'error');
+			}
+			break;
+		}
+	}
+	require 'includes/header.php'; 
 ?>
 <div class="wrapper">
 	<!-- Header //-->

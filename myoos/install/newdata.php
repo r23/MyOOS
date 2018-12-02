@@ -552,7 +552,7 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id
 echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $prefix_table . "countries " . UPDATED .'</font>';
 
 
-$result = $db->Execute("INSERT INTO " . $prefix_table . "currencies (currencies_id, title, code, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, value, last_updated) VALUES (1, 'Euro', 'EUR', '', 'EUR', '.', ', ', '2', '1.00000000', " . $db->DBTimeStamp($today) . ")") OR die ("<b>".NOTUPDATED . $prefix_table . "currencies</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "currencies (currencies_id, title, code, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, value, last_updated) VALUES (1, 'Euro', '€', '', 'EUR', '.', ', ', '2', '1.00000000', " . $db->DBTimeStamp($today) . ")") OR die ("<b>".NOTUPDATED . $prefix_table . "currencies</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "currencies (currencies_id, title, code, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, value, last_updated) VALUES (2, 'US Dollar', 'USD', '$', '', '.', ', ', '2', '0.98000002', " . $db->DBTimeStamp($today) . ")") OR die ("<b>".NOTUPDATED . $prefix_table . "currencies</b>");
 
 echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $prefix_table . "currencies " . UPDATED .'</font>';
