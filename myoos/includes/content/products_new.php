@@ -54,10 +54,12 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
     $products_descriptiontable = $oostable['products_description'];
     $products_new_result_raw = "SELECT p.products_id, pd.products_name, p.products_image, p.products_price,
                                        p.products_base_price, p.products_base_unit, p.products_units_id,
-                                       p.products_tax_class_id, p.products_units_id,
+									   p.products_product_quantity,  p.products_quantity_order_min, 
+										p.products_quantity_order_max, p.products_quantity_order_units,
+                                       p.products_tax_class_id,
 									   substring(pd.products_description, 1, 150) AS products_description,
                                        IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price,
-                                       p.products_date_added, m.manufacturers_name
+                                       p.products_date_added, p.manufacturers_id, m.manufacturers_name
                                FROM $productstable p LEFT JOIN
                                     $manufacturersstable m ON p.manufacturers_id = m.manufacturers_id LEFT JOIN
                                     $products_descriptiontable pd ON p.products_id = pd.products_id AND 
@@ -73,41 +75,41 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 
 		$new_product_price = '';
 		$new_product_special_price = '';
-		$new_special_price = '';
 		$new_product_discount_price = '';
 		$new_base_product_price = '';
-		$new_base_product_special_price = '';
-
-		$new_product_units = $products_units[$products_new['products_units_id']];
+		$base_product_price = $products_new['products_price'];
 
 		$new_product_price = $oCurrencies->display_price($products_new['products_price'], oos_get_tax_rate($products_new['products_tax_class_id']));
+		
 		if (isset($products_new['specials_new_products_price'])) {
-			$new_special_price = $products_new['specials_new_products_price'];
-			$new_product_special_price = $oCurrencies->display_price($new_special_price, oos_get_tax_rate($products_new['products_tax_class_id']));
+			$base_product_price = $products_new['specials_new_products_price'];
+			$new_product_special_price = $oCurrencies->display_price($products_new['specials_new_products_price'], oos_get_tax_rate($products_new['products_tax_class_id']));
 		} 
 
 		if ($products_new['products_base_price'] != 1) {
-			$new_base_product_price = $oCurrencies->display_price($products_new['products_price'] * $products_new['products_base_price'], oos_get_tax_rate($products_new['products_tax_class_id']));
-
-			if ($new_special_price != '') {
-				$new_base_product_special_price = $oCurrencies->display_price($new_special_price * $products_new['products_base_price'], oos_get_tax_rate($products_new['products_tax_class_id']));
-			}
+			$new_base_product_price = $oCurrencies->display_price($base_product_price * $products_new['products_base_price'], oos_get_tax_rate($products_new['products_tax_class_id']));
 		}
+		
+		$order_min = number_format($listing['products_quantity_order_min']);
+		$order_max = number_format($listing['products_quantity_order_max']);
+		
 		$products_new_array[] = array(
 									'id' => $products_new['products_id'],
 									'name' => $products_new['products_name'],
                                     'image' => $products_new['products_image'],
 									'products_description' => oos_remove_tags($products_new['products_description']),
                                     'new_product_price' => $new_product_price,
-                                    'new_product_units' => $new_product_units,
+                                    'new_product_units' => $products_new['products_units_id'],
+									'new_product_quantity' => $products_new['products_product_quantity'],
+									'order_min' => $order_min,
+									'order_max' => $order_max,									
                                     'new_product_special_price' => $new_product_special_price,
-                                    'new_special_price' => $new_special_price,
                                     'new_product_discount_price' => $new_product_discount_price,
                                     'new_base_product_price' => $new_base_product_price,
-                                    'new_base_product_special_price' => $new_base_product_special_price,
                                     'products_base_price' => $products_new['products_base_price'],
                                     'new_products_base_unit' => $products_new['products_base_unit'],
                                     'date_added' => $products_new['products_date_added'],
+									'manufacturers_id' => $products_new['manufacturers_id'],
                                     'manufacturer' => $products_new['manufacturers_name']);
 		$products_new_result->MoveNext();
 	}

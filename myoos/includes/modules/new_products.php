@@ -29,7 +29,8 @@ if ( (!isset($nCurrentCategoryID)) || ($nCurrentCategoryID == '0') ) {
 	$products_descriptiontable = $oostable['products_description'];
 	$specialstable = $oostable['specials'];
 	$sql = "SELECT p.products_id, pd.products_name, p.products_image, p.products_tax_class_id, p.products_units_id,
-                   p.products_price, p.products_base_price, p.products_base_unit, p.products_quantity_order_min, p.products_quantity_order_max,
+                   p.products_price, p.products_base_price, p.products_base_unit, p.products_product_quantity, 
+				   p.products_quantity_order_min, p.products_quantity_order_max,
 				   substring(pd.products_description, 1, 150) AS products_description,
                    IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price
             FROM $productstable p LEFT JOIN
@@ -46,7 +47,8 @@ if ( (!isset($nCurrentCategoryID)) || ($nCurrentCategoryID == '0') ) {
 	$products_to_categoriestable = $oostable['products_to_categories'];
 	$categoriestable = $oostable['categories'];
 	$sql = "SELECT DISTINCT p.products_id, pd.products_name, p.products_image, p.products_tax_class_id, p.products_units_id,
-                   p.products_price, p.products_base_price, p.products_base_unit, p.products_quantity_order_min, p.products_quantity_order_max,
+                   p.products_price, p.products_base_price, p.products_base_unit, p.products_product_quantity,
+				   p.products_quantity_order_min, p.products_quantity_order_max,
 				   substring(pd.products_description, 1, 150) AS products_description,
                    IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price
             FROM $productstable p LEFT JOIN
@@ -72,44 +74,42 @@ while ($new_products = $new_products_result->fields) {
 	$new_product_special_price = NULL;
 	$new_product_discount_price = NULL;
 	$new_base_product_price = NULL;
-	$new_base_product_special_price = NULL;
 	$new_special_price = NULL;
 
+	
     if ($aUser['show_price'] == 1 ) {	
-		$new_product_units = $products_units[$new_products['products_units_id']];
+		$base_product_price = $new_products['products_price'];
 
 		$new_product_price = $oCurrencies->display_price($new_products['products_price'], oos_get_tax_rate($new_products['products_tax_class_id']));
 		$new_special_price = $new_products['specials_new_products_price'];
 
 		if (oos_is_not_null($new_special_price)) {
+			$base_product_price = $new_special_price;
 			$new_product_special_price = $oCurrencies->display_price($new_special_price, oos_get_tax_rate($new_products['products_tax_class_id']));
 		} 
 
 		if ($new_products['products_base_price'] != 1) {
-			$new_base_product_price = $oCurrencies->display_price($new_products['products_price'] * $new_products['products_base_price'], oos_get_tax_rate($new_products['products_tax_class_id']));
-
-			if ($new_special_price != NULL) {
-				$new_base_product_special_price = $oCurrencies->display_price($new_special_price * $new_products['products_base_price'], oos_get_tax_rate($new_products['products_tax_class_id']));
-			}
+			$new_base_product_price = $oCurrencies->display_price($base_product_price * $new_products['products_base_price'], oos_get_tax_rate($new_products['products_tax_class_id']));
 		}
 	}
 
 	$order_min = number_format($new_products['products_quantity_order_min']);
+	$order_max = number_format($new_products['products_quantity_order_max']);
 
-	
 	$aNewProducts[] = array('products_id' => $new_products['products_id'],
                                   'products_image' => $new_products['products_image'],
                                   'products_name' => $new_products['products_name'],
                                   'products_description' => oos_remove_tags($new_products['products_description']),
 								  'order_min' => $order_min,
+								  'order_max' => $order_max,
+								  'product_quantity' => $new_products['products_product_quantity'],
                                   'products_base_price' => $new_products['products_base_price'],
                                   'products_base_unit' => $new_products['products_base_unit'],
-                                  'new_product_units' => $new_product_units,
+                                  'new_product_units' => $new_products['products_units_id'],
                                   'new_product_price' => $new_product_price,
                                   'new_product_special_price' => $new_product_special_price,
                                   'new_product_discount_price' => $new_product_discount_price,
                                   'new_base_product_price' => $new_base_product_price,
-                                  'new_base_product_special_price' => $new_base_product_special_price,
                                   'new_special_price' => $new_special_price);
 
     // Move that ADOdb pointer!

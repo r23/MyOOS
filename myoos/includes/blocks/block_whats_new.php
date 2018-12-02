@@ -26,7 +26,7 @@ $whats_new_block = FALSE;
 
 $productstable = $oostable['products'];
 $query = "SELECT products_id, products_image, products_tax_class_id, products_units_id, products_price,
-                   products_base_price, products_base_unit
+                   products_base_price, products_base_unit, products_product_quantity
             FROM $productstable
             WHERE products_status >= '1'
             ORDER BY products_date_added DESC";
@@ -39,33 +39,30 @@ if ($random_product = oos_random_select($query, MAX_RANDOM_SELECT_NEW)) {
     $whats_new_product_special_price = NULL;
     $whats_new_product_discount_price = NULL;
     $whats_new_base_product_price = NULL;
-    $whats_new_base_product_special_price = NULL;
     $whats_new_special_price = NULL;
+	
+	$base_product_price = $random_product['products_price'];
 
-    if ($aUser['show_price'] == 1 ) {
-      $whats_new_special_price = oos_get_products_special_price($random_product['products_id']);
-      $whats_new_product_price = $oCurrencies->display_price($random_product['products_price'], oos_get_tax_rate($random_product['products_tax_class_id']));
+	if ($aUser['show_price'] == 1 ) {
+		$whats_new_special_price = oos_get_products_special_price($random_product['products_id']);
+		$whats_new_product_price = $oCurrencies->display_price($random_product['products_price'], oos_get_tax_rate($random_product['products_tax_class_id']));
 
-      if (oos_is_not_null($whats_new_product_price)) {
-        $whats_new_product_special_price = $oCurrencies->display_price($whats_new_special_price, oos_get_tax_rate($random_product['products_tax_class_id']));
-      } 
+		if (oos_is_not_null($whats_new_special_price)) {
+			$base_product_price = $whats_new_special_price;
+			$whats_new_product_special_price = $oCurrencies->display_price($whats_new_special_price, oos_get_tax_rate($random_product['products_tax_class_id']));
+		} 
 
-      if ($random_product['products_base_price'] != 1) {
-        $whats_new_base_product_price = $oCurrencies->display_price($random_product['products_price'] * $random_product['products_base_price'], oos_get_tax_rate($random_product['products_tax_class_id']));
-
-        if ($whats_new_special_price != '') {
-          $whats_new_base_product_special_price = $oCurrencies->display_price($whats_new_special_price * $random_product['products_base_price'], oos_get_tax_rate($random_product['products_tax_class_id']));
-        }
-      }
+		if ($random_product['products_base_price'] != 1) {
+			$whats_new_base_product_price = $oCurrencies->display_price($base_product_price * $random_product['products_base_price'], oos_get_tax_rate($random_product['products_tax_class_id']));
+		}
     }
     $smarty->assign(
         array(
-            'whats_new_product_price'              => $whats_new_product_price,
             'whats_new_product_special_price'      => $whats_new_product_special_price,
             'whats_new_product_discount_price'     => $whats_new_product_discount_price,
             'whats_new_base_product_price'         => $whats_new_base_product_price,
-            'whats_new_base_product_special_price' => $whats_new_base_product_special_price,
             'whats_new_special_price'              => $whats_new_special_price,
+			'whats_new_product_price'				=> $whats_new_product_price,
 
             'random_product'          => $random_product,
             'block_heading_whats_new' => $block_heading
