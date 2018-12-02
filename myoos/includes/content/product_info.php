@@ -119,33 +119,29 @@ if (!$product_info_result->RecordCount()) {
     $info_product_price = NULL;
     $info_product_special_price = NULL;
     $info_base_product_price = NULL;
-    $info_base_product_special_price = NULL;
     $info_product_price_list = 0;
-    $info_special_price = NULL;
-    $info_product_special_price = NULL;
+	$schema_product_price = NULL;
+	$base_product_price = $product_info['products_price'];
 
-      $info_product_price = $oCurrencies->display_price($product_info['products_price'], oos_get_tax_rate($product_info['products_tax_class_id']));
+	$info_product_price = $oCurrencies->display_price($product_info['products_price'], oos_get_tax_rate($product_info['products_tax_class_id']));
+	$schema_product_price = $oCurrencies->schema_price($product_info['products_price'], oos_get_tax_rate($product_info['products_tax_class_id']), 1, FALSE);
 
-      if ($info_special_price = oos_get_products_special_price($product_info['products_id'])) {
-        $info_product_special_price = $oCurrencies->display_price($info_special_price, oos_get_tax_rate($product_info['products_tax_class_id']));
-      } 
+	if ($info_special_price = oos_get_products_special_price($product_info['products_id'])) {
+		$base_product_price = $info_special_price;
+		$info_product_special_price = $oCurrencies->display_price($info_special_price, oos_get_tax_rate($product_info['products_tax_class_id']));
+	} 
 
-      if ($product_info['products_base_price'] != 1) {
-        $info_base_product_price = $oCurrencies->display_price($product_info['products_price'] * $product_info['products_base_price'], oos_get_tax_rate($product_info['products_tax_class_id']));
-
-        if ($info_product_special_price != '') {
-          $info_base_product_special_price = $oCurrencies->display_price($info_product_special_price * $product_info['products_base_price'], oos_get_tax_rate($product_info['products_tax_class_id']));
-        }
-      }
+	if ($product_info['products_base_price'] != 1) {	  
+        $info_base_product_price = $oCurrencies->display_price($base_product_price * $product_info['products_base_price'], oos_get_tax_rate($product_info['products_tax_class_id']));
+	}
 	  
     // assign Smarty variables;
     $smarty->assign(
         array(
             'info_product_price'              => $info_product_price,
-            'info_special_price'              => $info_special_price,
+			'schema_product_price'				=> $schema_product_price, 
             'info_product_special_price'      => $info_product_special_price,
             'info_base_product_price'         => $info_base_product_price,
-            'info_base_product_special_price' => $info_base_product_special_price
         )
     );
 

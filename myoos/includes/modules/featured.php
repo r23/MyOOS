@@ -27,7 +27,7 @@ $products_descriptiontable = $oostable['products_description'];
 $featuredtable = $oostable['featured'];
 $sql = "SELECT p.products_id, p.products_image, p.products_price, p.products_tax_class_id,
                  p.products_units_id, p.products_base_price, p.products_base_unit, 
-				 p.products_quantity_order_min, pd.products_name,
+				 p.products_quantity_order_min, p.products_quantity_order_max, pd.products_name,
                  substring(pd.products_description, 1, 150) AS products_description
           FROM $productstable p,
                $products_descriptiontable pd,
@@ -53,7 +53,7 @@ if ($featured_result->RecordCount() >= 1) {
 		$featured_special_price = NULL;
 
 		if ($aUser['show_price'] == 1 ) {
-			$featured_units = UNITS_DELIMITER . $products_units[$featured['products_units_id']];
+			$featured_units = $products_units[$featured['products_units_id']];
 
 			$featured_product_price = $oCurrencies->display_price($featured['products_price'], oos_get_tax_rate($featured['products_tax_class_id']));
 			$featured_special_price = oos_get_products_special_price($featured['products_id']);

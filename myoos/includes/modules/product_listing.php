@@ -52,12 +52,9 @@ if ($listing_split->number_of_rows > 0) {
 		$listing_product_price = NULL;
 		$listing_product_special_price = NULL;
 		$listing_base_product_price = NULL;
-		$listing_base_product_special_price = NULL;
-		$listing_special_price = NULL;
+		$base_product_price = $listing['products_price'];
 
 		if ($aUser['show_price'] == 1 ) {
-			$listing_units = UNITS_DELIMITER . $products_units[$listing['products_units_id']];
-
 			$listing_product_price = $oCurrencies->display_price($listing['products_price'], oos_get_tax_rate($listing['products_tax_class_id']));
 			
             if ( $listing['products_discount4'] > 0 ) {
@@ -75,20 +72,17 @@ if ($listing_split->number_of_rows > 0) {
             } 			
 
 			if (oos_is_not_null($listing['specials_new_products_price'])) {
-				$listing_special_price = $listing['specials_new_products_price'];
+				$base_product_price = $listing['specials_new_products_price'];
 				$listing_product_special_price = $oCurrencies->display_price($listing['specials_new_products_price'], oos_get_tax_rate($listing['products_tax_class_id']));
 			} 
 
 			if ($listing['products_base_price'] != 1) {
-				$listing_base_product_price = $oCurrencies->display_price($listing['products_price'] * $listing['products_base_price'], oos_get_tax_rate($listing['products_tax_class_id']));
-
-				if ($listing['specials_new_products_price'] != NULL) {
-					$listing_base_product_special_price = $oCurrencies->display_price($listing['specials_new_products_price'] * $listing['products_base_price'], oos_get_tax_rate($listing['products_tax_class_id']));
-				}
+				$listing_base_product_price = $oCurrencies->display_price($base_product_price * $listing['products_base_price'], oos_get_tax_rate($listing['products_tax_class_id']));
 			}	  
 		}			
 
 		$order_min = number_format($listing['products_quantity_order_min']);
+		$order_max = number_format($listing['products_quantity_order_max']);
    
 		$aListing[] = array('products_id' => $listing['products_id'],
 						'products_image' => $listing['products_image'],
@@ -97,16 +91,16 @@ if ($listing_split->number_of_rows > 0) {
 						'products_description' => oos_remove_tags($listing['products_description']),
 						'manufacturers_id' => $listing['manufacturers_id'],
 						'manufacturers_name' =>	$listing['manufacturers_name'],				   
-						'order_min' => $order_min,					   
+						'order_min' => $order_min,
+						'order_max' => $order_max,
+						'product_quantity' => $listing['products_product_quantity'],
 						'products_base_price' => $listing['products_base_price'],
 						'products_base_unit' => $listing['products_base_unit'],
-						'products_units' => $listing_units,
+						'products_units' => $listing['products_units_id'],
 						'listing_product_price' => $listing_product_price,
 						'listing_discount_price' => $listing_discount_price,
 						'listing_product_special_price' => $listing_product_special_price,
-						'listing_base_product_price' => $listing_base_product_price,
-						'listing_base_product_special_price' => $listing_base_product_special_price,
-						'listing_special_price' => $listing_special_price);			   
+						'listing_base_product_price' => $listing_base_product_price);			   
 			   
 
       // Move that ADOdb pointer!

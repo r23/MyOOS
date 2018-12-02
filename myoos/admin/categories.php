@@ -231,8 +231,6 @@ if (!empty($action)) {
 					}
 				}
 
-				// Removing categories can be a lengthy process
-				oos_set_time_limit(0);
 				for ($i = 0, $n = count($categories); $i < $n; $i++) {
 					oos_remove_category($categories[$i]['id']);
 				}
@@ -303,7 +301,7 @@ if (!empty($action)) {
 														products_price, products_base_price, products_base_unit,
                                                        products_date_available, products_weight, products_tax_class_id,
                                                        products_units_id, manufacturers_id, products_price_list,
-                                                       products_quantity_order_min,
+                                                       products_quantity_order_min,  products_quantity_order_max,
                                                        products_quantity_order_units, products_discount1, products_discount2,
                                                        products_discount3, products_discount4, products_discount1_qty,
                                                        products_discount2_qty, products_discount3_qty, products_discount4_qty,
@@ -330,6 +328,7 @@ if (!empty($action)) {
                           manufacturers_id,
                           products_price_list,
                           products_quantity_order_min,
+						  products_quantity_order_max,	
                           products_quantity_order_units,
                           products_discount1,
                           products_discount2,
@@ -359,6 +358,7 @@ if (!empty($action)) {
                                   '" . $product['manufacturers_id'] . "',
                                   '" . $product['products_price_list'] . "',
                                   '" . $product['products_quantity_order_min'] . "',
+								  '" . $product['products_quantity_order_max'] . "',
                                   '" . $product['products_quantity_order_units'] . "',
                                   '" . $product['products_discount1'] . "',
                                   '" . $product['products_discount2'] . "',
@@ -1104,9 +1104,9 @@ if ($action == 'new_category' || $action == 'edit_category') {
 
     $products_count = 0;
     if (isset($_GET['search'])) {
-      $products_result = $dbconn->Execute("SELECT p.products_id, pd.products_name, p.products_quantity, p.products_reorder_level, p.products_image, p.products_price, p.products_base_price, p.products_base_unit, p.products_tax_class_id, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status, p2c.categories_id, p.products_price_list, p.products_quantity_order_min, p.products_quantity_order_units, p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4, p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty, p.products_discount4_qty, p.products_sort_order FROM " . $oostable['products'] . " p, " . $oostable['products_description'] . " pd, " . $oostable['products_to_categories'] . " p2c WHERE p.products_id = pd.products_id and pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' and p.products_id = p2c.products_id and pd.products_name like '%" . $_GET['search'] . "%' ORDER BY pd.products_name");
+      $products_result = $dbconn->Execute("SELECT p.products_id, pd.products_name, p.products_quantity, p.products_reorder_level, p.products_image, p.products_price, p.products_base_price, p.products_base_unit, p.products_tax_class_id, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status, p2c.categories_id, p.products_price_list, p.products_quantity_order_min, p.products_quantity_order_max, p.products_quantity_order_units, p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4, p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty, p.products_discount4_qty, p.products_sort_order FROM " . $oostable['products'] . " p, " . $oostable['products_description'] . " pd, " . $oostable['products_to_categories'] . " p2c WHERE p.products_id = pd.products_id and pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' and p.products_id = p2c.products_id and pd.products_name like '%" . $_GET['search'] . "%' ORDER BY pd.products_name");
     } else {
-      $products_result = $dbconn->Execute("SELECT p.products_id, pd.products_name, p.products_quantity, p.products_reorder_level, p.products_image, p.products_price,p.products_base_price, p.products_base_unit, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status, p.products_tax_class_id, p.products_price_list, p.products_quantity_order_min, p.products_quantity_order_units, p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4, p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty, p.products_discount4_qty, p.products_sort_order FROM " . $oostable['products'] . " p, " . $oostable['products_description'] . " pd, " . $oostable['products_to_categories'] . " p2c WHERE p.products_id = pd.products_id and pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' and p.products_id = p2c.products_id and p2c.categories_id = '" . $current_category_id . "' ORDER BY pd.products_name");
+      $products_result = $dbconn->Execute("SELECT p.products_id, pd.products_name, p.products_quantity, p.products_reorder_level, p.products_image, p.products_price,p.products_base_price, p.products_base_unit, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status, p.products_tax_class_id, p.products_price_list, p.products_quantity_order_min, p.products_quantity_order_max, p.products_quantity_order_units, p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4, p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty, p.products_discount4_qty, p.products_sort_order FROM " . $oostable['products'] . " p, " . $oostable['products_description'] . " pd, " . $oostable['products_to_categories'] . " p2c WHERE p.products_id = pd.products_id and pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' and p.products_id = p2c.products_id and p2c.categories_id = '" . $current_category_id . "' ORDER BY pd.products_name");
     }
 
     while ($products = $products_result->fields) {
@@ -1357,7 +1357,11 @@ if ($action == 'new_category' || $action == 'edit_category') {
               $contents[] = array('text' => '<br /><b>' . TEXT_PRODUCTS_PRICE_INFO . '</b> ' . $currencies->format($oosPrice) . ' - ' . TEXT_TAX_INFO . $currencies->format($oosPriceNetto));
             }
 
-            $contents[] = array('text' => '' .  CAT_LIST_PRICE_TEXT . $currencies->format($oosPriceList) . ' - ' . TEXT_TAX_INFO . $currencies->format($oosPriceListNetto) . '<br /><br />' . TEXT_PRODUCTS_QUANTITY_INFO . ' ' . $pInfo->products_quantity . CAT_QUANTITY_MIN_TEXT . $pInfo->products_quantity_order_min . CAT_QUANTITY_UNITS_TEXT . $pInfo->products_quantity_order_units );
+            $contents[] = array('text' => '' .  CAT_LIST_PRICE_TEXT . $currencies->format($oosPriceList) . ' - ' . TEXT_TAX_INFO . $currencies->format($oosPriceListNetto));
+			$contents[] = array('text' => '<br /><br />' . TEXT_PRODUCTS_QUANTITY_INFO . ' ' . $pInfo->products_quantity);
+            $contents[] = array('text' => '' . CAT_QUANTITY_MIN_TEXT . $pInfo->products_quantity_order_min);
+			$contents[] = array('text' => '' . CAT_QUANTITY_MAX_TEXT . $pInfo->products_quantity_order_max);
+			$contents[] = array('text' => '' . CAT_QUANTITY_UNITS_TEXT . $pInfo->products_quantity_order_units);
 
             if ( $pInfo->products_discount1_qty > 0 ) {
               $oosDiscount1 = $pInfo->products_discount1;

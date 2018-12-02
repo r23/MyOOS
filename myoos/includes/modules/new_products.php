@@ -29,7 +29,7 @@ if ( (!isset($nCurrentCategoryID)) || ($nCurrentCategoryID == '0') ) {
 	$products_descriptiontable = $oostable['products_description'];
 	$specialstable = $oostable['specials'];
 	$sql = "SELECT p.products_id, pd.products_name, p.products_image, p.products_tax_class_id, p.products_units_id,
-                   p.products_price, p.products_base_price, p.products_base_unit, p.products_quantity_order_min,
+                   p.products_price, p.products_base_price, p.products_base_unit, p.products_quantity_order_min, p.products_quantity_order_max,
 				   substring(pd.products_description, 1, 150) AS products_description,
                    IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price
             FROM $productstable p LEFT JOIN
@@ -46,7 +46,7 @@ if ( (!isset($nCurrentCategoryID)) || ($nCurrentCategoryID == '0') ) {
 	$products_to_categoriestable = $oostable['products_to_categories'];
 	$categoriestable = $oostable['categories'];
 	$sql = "SELECT DISTINCT p.products_id, pd.products_name, p.products_image, p.products_tax_class_id, p.products_units_id,
-                   p.products_price, p.products_base_price, p.products_base_unit, p.products_quantity_order_min,
+                   p.products_price, p.products_base_price, p.products_base_unit, p.products_quantity_order_min, p.products_quantity_order_max,
 				   substring(pd.products_description, 1, 150) AS products_description,
                    IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price
             FROM $productstable p LEFT JOIN
@@ -76,7 +76,7 @@ while ($new_products = $new_products_result->fields) {
 	$new_special_price = NULL;
 
     if ($aUser['show_price'] == 1 ) {	
-		$new_product_units = UNITS_DELIMITER . $products_units[$new_products['products_units_id']];
+		$new_product_units = $products_units[$new_products['products_units_id']];
 
 		$new_product_price = $oCurrencies->display_price($new_products['products_price'], oos_get_tax_rate($new_products['products_tax_class_id']));
 		$new_special_price = $new_products['specials_new_products_price'];

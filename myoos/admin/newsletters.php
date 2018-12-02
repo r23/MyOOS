@@ -302,7 +302,6 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         </table></td>
       </tr>
 <?php
-  oos_set_time_limit(0);
   flush();
   $module->send($nInfo->newsletters_id);
 ?>

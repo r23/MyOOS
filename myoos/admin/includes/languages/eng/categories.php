@@ -130,7 +130,8 @@ define('CAT_PRODUCT_ID_TEXT', 'ID # ');
 define('CAT_ATTRIBUTES_BASE_PRICE_TEXT', ' Attribute Base Price: ');
 define('CAT_LIST_PRICE_TEXT', 'List:');
 define('CAT_REBATE_PRICE_TEXT', 'Rebate: ');
-define('CAT_QUANTITY_MIN_TEXT', 'Min:');
+define('CAT_QUANTITY_MIN_TEXT', 'Min: ');
+define('CAT_QUANTITY_MIN_TEXT', 'Max: ');
 define('CAT_QUANTITY_UNITS_TEXT', 'Units: ');
 
 // Attribute Copy Option

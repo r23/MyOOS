@@ -20,8 +20,6 @@ define('WARN_INSTALL_EXISTENCE', 'false');
 define('WARN_CONFIG_WRITEABLE', 'false');
 define('WARN_DOWNLOAD_DIRECTORY_NOT_READABLE', 'false');
 
-// define('UNITS_DELIMITER', '&nbsp;/&nbsp;');
-define('UNITS_DELIMITER', '');
 define('ACCOUNT_COMPANY_VAT_ID_CHECK', 'true');
 
 define('OOS_PAGE_TYPE_MAINPAGE',  1);

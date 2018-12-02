@@ -22,8 +22,6 @@
         $excel_file = 'db_export-' . date('YmdHis') . '.cvs';
         $fp = fopen(OOS_EXPORT_PATH . $excel_file, 'w');
 
-        oos_set_time_limit(0);
-
         $schema = '';
         $schema .= 'id | Model | Name | tax_class_id | Status |  Price ' .  "\n";
 

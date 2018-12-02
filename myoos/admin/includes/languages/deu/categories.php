@@ -126,10 +126,11 @@ define('BUTTON_DELETE_SLAVE', 'Lösche diese Produktoption');
 // categories.php definitions
 define('CAT_CATEGORY_ID_TEXT', 'ID # ');
 define('CAT_PRODUCT_ID_TEXT', 'ID # ');
-define('CAT_ATTRIBUTES_BASE_PRICE_TEXT', 'Basispreis : ');
-define('CAT_LIST_PRICE_TEXT',  'empf. VK.:');
+define('CAT_ATTRIBUTES_BASE_PRICE_TEXT', 'Basispreis: ');
+define('CAT_LIST_PRICE_TEXT',  'empf. VK.: ');
 define('CAT_REBATE_PRICE_TEXT', 'Rabate: ');
-define('CAT_QUANTITY_MIN_TEXT', 'Mindestbestellmenge:');
+define('CAT_QUANTITY_MIN_TEXT', 'Mindestbestellmenge: ');
+define('CAT_QUANTITY_MAX_TEXT', 'maximale Bestellmenge: ');
 define('CAT_QUANTITY_UNITS_TEXT', 'Verpackungseinheit: ');
 
 // Attribute Copy Option

@@ -78,7 +78,7 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 		$new_base_product_price = '';
 		$new_base_product_special_price = '';
 
-		$new_product_units = UNITS_DELIMITER . $products_units[$products_new['products_units_id']];
+		$new_product_units = $products_units[$products_new['products_units_id']];
 
 		$new_product_price = $oCurrencies->display_price($products_new['products_price'], oos_get_tax_rate($products_new['products_tax_class_id']));
 		if (isset($products_new['specials_new_products_price'])) {

@@ -74,41 +74,37 @@
 {if $myUser.show_price eq 1 }
 	{if (!empty($info_special_price))}
 		<del>{$info_product_price}</del><br>
-		{if $product_info.products_base_price != 1}<del><span class="base_price">{$product_info.products_base_unit} = {$info_base_product_price}</span></del><br>{/if}
-
-		<span class="special_price">{$info_product_special_price}</span> {$products_units[$product_info.products_units_id]}<br>
-		{if $product_info.products_base_price != 1}<span class="special_base_price">{$product_info.products_base_unit} = {$info_base_product_special_price}</span></del><br>{/if}
-
+		<span class="special_price">{$info_product_special_price}</span><br>
 	{else}
 		{if $info_max_product_discount != 0}
 			<del>{$info_product_price}</del> -{$info_max_product_discount}%<br>
 			<span class="discount_price">{$info_product_discount_price}</span> {$products_units[$product_info.products_units_id]}<br>
-			{if $product_info.products_base_price != 1}<span class="discount_base_price">{$product_info.products_base_unit} = {$info_base_product_special_price}</span></del><br>{/if}
 		{else}
 			{if $price_discount}
 				{$lang.price_from} {$price_discount}<br>
 			{else}
 				<h4 class="price">{$info_product_price}</h4>
+				<span itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+					<meta itemprop="price" content="{$schema_product_price}"/>
+					<meta itemprop="priceCurrency" content="{$currency}"/>
+					<meta itemprop="itemCondition" content="https://schema.org/NewCondition"/>
+				</span>				
 			{/if}
 		{/if}
 	{/if}
 
-	{if $info_max_product_discount != 0}
-	{else}
-		{if $price_discount}
-		{else}
-			{if $product_info.products_base_price != 1}<span class="base_price">({$info_base_product_price}/{$products_units[$product_info.products_base_unit]})</span><br>{/if}
-		{/if}
-	{/if}
+	{if $product_info.products_base_price != 1}<span class="base_price">({$info_base_product_price}/{$products_units[$product_info.products_base_unit]})</span><br>{/if}
+
 	<p><small>MwSt{$panginfov}</small></p>  
 	{if $info_product_price_list > 0}
 		<p>{$info_product_price_list}</p>
 	{/if}
+	
+
+
 {else}
 	<a href="{html_href_link content=$filename.login}" class="btn btn-primary-filled" role="button">{$lang.button_login}</a>
 {/if}
-
-
 
                         <div class="short_overview">
 						{if $smarty.const.PRODUCT_LIST_MODEL > 0}

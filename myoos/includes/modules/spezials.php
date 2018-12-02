@@ -28,7 +28,7 @@ $productstable = $oostable['products'];
 $products_descriptiontable = $oostable['products_description'];
 $specialstable = $oostable['specials'];
 $sql = "SELECT p.products_id, pd.products_name, p.products_price, p.products_tax_class_id, 
-				p.products_units_id, p.products_quantity_order_min,
+				p.products_units_id, p.products_quantity_order_min, p.products_quantity_order_max,
                  substring(pd.products_description, 1, 150) AS products_description,
                  p.products_image, p.products_base_price, p.products_base_unit, s.specials_new_products_price 
           FROM $productstable p,
