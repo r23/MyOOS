@@ -54,7 +54,7 @@ class currencies {
 			$rate = (oos_is_not_null($currency_value)) ? $currency_value : $this->currencies[$currency_type]['value'];
 		}
 		if ($with_symbol == TRUE) {		
-			$format_string = $this->currencies[$currency_type]['symbol_left'] . ' ' . number_format(oos_round($number * $rate, $this->currencies[$currency_type]['decimal_places']), $this->currencies[$currency_type]['decimal_places'], $this->currencies[$currency_type]['decimal_point'], $this->currencies[$currency_type]['thousands_point']) . ' ' . $this->currencies[$currency_type]['symbol_right'];
+			$format_string = $this->currencies[$currency_type]['symbol_left'] . number_format(oos_round($number * $rate, $this->currencies[$currency_type]['decimal_places']), $this->currencies[$currency_type]['decimal_places'], $this->currencies[$currency_type]['decimal_point'], $this->currencies[$currency_type]['thousands_point']) . ' ' . $this->currencies[$currency_type]['symbol_right'];
 		} else {
 			$format_string = number_format(oos_round($number * $rate, $this->currencies[$currency_type]['decimal_places']), $this->currencies[$currency_type]['decimal_places'], '.', '');
 		}

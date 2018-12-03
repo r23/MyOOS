@@ -29,6 +29,7 @@ $products_descriptiontable = $oostable['products_description'];
 $specialstable = $oostable['specials'];
 $sql = "SELECT p.products_id, pd.products_name, p.products_price, p.products_tax_class_id, 
 				p.products_units_id, p.products_quantity_order_min, p.products_quantity_order_max,
+				p.products_product_quantity,
                  substring(pd.products_description, 1, 150) AS products_description,
                  p.products_image, p.products_base_price, p.products_base_unit, s.specials_new_products_price 
           FROM $productstable p,
@@ -49,7 +50,6 @@ if ($new_spezials_result->RecordCount() >= MIN_DISPLAY_NEW_SPEZILAS) {
 		$new_spezials_base_product_special_price = NULL;
 
 		if ($aUser['show_price'] == 1 ) {
-			$new_spezials_units = UNITS_DELIMITER . $products_units[$new_spezials['products_units_id']];
 
 			$new_spezials_product_price = $oCurrencies->display_price($new_spezials['products_price'], oos_get_tax_rate($new_spezials['products_tax_class_id']));
 			$new_spezials_product_special_price = $oCurrencies->display_price($new_spezials['specials_new_products_price'], oos_get_tax_rate($new_spezials['products_tax_class_id']));
@@ -61,15 +61,18 @@ if ($new_spezials_result->RecordCount() >= MIN_DISPLAY_NEW_SPEZILAS) {
 		}
 
 		$order_min = number_format($new_spezials['products_quantity_order_min']);
+		$order_max = number_format($new_spezials['products_quantity_order_max']);
 		
 		$aSpezials[] = array('products_id' => $new_spezials['products_id'],
                                     'products_image' => $new_spezials['products_image'],
                                     'products_name' => $new_spezials['products_name'],
                                     'products_description' => oos_remove_tags($new_spezials['products_description']),
-									'order_min'	=> $order_min,
+                                    'order_min' => $order_min,
+                                    'order_max' => $order_max,
+                                    'product_quantity' => $new_spezials['products_product_quantity'],
                                     'products_base_unit' => $new_spezials['products_base_unit'],
                                     'products_base_price' => $new_spezials['products_base_price'],
-                                    'products_units' => $new_spezials_units,
+                                    'products_units' => $new_spezials['products_units_id'],
                                     'products_price' => $new_spezials_product_price,
                                     'products_special_price' => $new_spezials_product_special_price,
                                     'base_product_price' => $new_spezials_base_product_price,

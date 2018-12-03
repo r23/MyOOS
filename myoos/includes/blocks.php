@@ -64,7 +64,6 @@ foreach ($block_result as $block) {
 
 		$block_content = $smarty->fetch($block_tpl, ${$bid});
     } else {
-		$smarty->setCaching(false);
 		include_once MYOOS_INCLUDE_PATH . '/includes/blocks/block_' . $block_file . '.php';
 		if (!empty($block_side)) {
 			$block_content = $smarty->fetch($block_tpl);

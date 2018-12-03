@@ -22,17 +22,19 @@
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
 if (!$oEvent->installed_plugin('spezials')) return FALSE;
+if (!is_numeric(MAX_DISPLAY_NEW_SPEZILAS)) return FALSE;
 
 $specials_block = FALSE;
 
-if ($file != $aContents['specials']) {
+if ($sContent != $aContents['specials']) {
 
     $productstable = $oostable['products'];
     $products_descriptiontable = $oostable['products_description'];
     $specialstable = $oostable['specials'];
     $query = "SELECT p.products_id, pd.products_name, p.products_price, p.products_base_price,
                      p.products_base_unit, p.products_tax_class_id, p.products_units_id,
-                     p.products_image, s.specials_new_products_price
+					p.products_quantity_order_min, p.products_quantity_order_max,
+					p.products_product_quantity, p.products_image, s.specials_new_products_price
               FROM $productstable p,
                    $products_descriptiontable pd,
                    $specialstable s
@@ -55,7 +57,6 @@ if ($file != $aContents['specials']) {
 			$specials_random_product_special_price = $oCurrencies->display_price($specials_random_product['specials_new_products_price'], oos_get_tax_rate($specials_random_product['products_tax_class_id']));
 
 			if ($specials_random_product['products_base_price'] != 1) {
-				$specials_random_base_product_price = $oCurrencies->display_price($specials_random_product['products_price'] * $specials_random_product['products_base_price'], oos_get_tax_rate($specials_random_product['products_tax_class_id']));
 				$specials_random_base_product_special_price = $oCurrencies->display_price($specials_random_product['specials_new_products_price'] * $specials_random_product['products_base_price'], oos_get_tax_rate($specials_random_product['products_tax_class_id']));
 			}
 		}
