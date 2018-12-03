@@ -76,12 +76,7 @@
 													{$wishlist[i].product_price}
 												{/if}
 												{if $wishlist[i].products_base_price != 1}
-													<span class="smallText">{$lang.text_products_base_price}: </span>
-													{if (!empty($wishlist[i].special_price))}
-														<span class="special_base_price">{$wishlist[i].products_base_unit} = {$wishlist[i].base_product_special_price}</span></s><br>
-													{else}
-														<span class="base_price">{$wishlist[i].products_base_unit} = {$wishlist[i].base_product_price}</span><br>
-													{/if}
+													{$wishlist[i].product_quantity}	 {$products_units[$wishlist[i].product_units]}	<span class="base_price"> ({$wishlist[i].base_product_price}/{$products_units[$wishlist[i].products_base_unit]})</span><br>
 												{/if}
 											{/if}
 										</td>

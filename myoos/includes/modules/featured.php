@@ -27,7 +27,8 @@ $products_descriptiontable = $oostable['products_description'];
 $featuredtable = $oostable['featured'];
 $sql = "SELECT p.products_id, p.products_image, p.products_price, p.products_tax_class_id,
                  p.products_units_id, p.products_base_price, p.products_base_unit, 
-				 p.products_quantity_order_min, p.products_quantity_order_max, pd.products_name,
+				 p.products_quantity_order_min, p.products_quantity_order_max,
+				 p.products_product_quantity, pd.products_name,
                  substring(pd.products_description, 1, 150) AS products_description
           FROM $productstable p,
                $products_descriptiontable pd,
@@ -53,39 +54,37 @@ if ($featured_result->RecordCount() >= 1) {
 		$featured_special_price = NULL;
 
 		if ($aUser['show_price'] == 1 ) {
-			$featured_units = $products_units[$featured['products_units_id']];
-
+			$base_product_price = $featured['products_price'];
+			
 			$featured_product_price = $oCurrencies->display_price($featured['products_price'], oos_get_tax_rate($featured['products_tax_class_id']));
 			$featured_special_price = oos_get_products_special_price($featured['products_id']);
 
 			if (oos_is_not_null($featured_special_price)) {
+				$base_product_price = $featured_special_price;
 				$featured_product_special_price = $oCurrencies->display_price($featured_special_price, oos_get_tax_rate($featured['products_tax_class_id']));
 			} 
 
 			if ($featured['products_base_price'] != 1) {
-				$featured_base_product_price = $oCurrencies->display_price($featured['products_price'] * $featured['products_base_price'], oos_get_tax_rate($featured['products_tax_class_id']));
-
-				if ($featured_special_price != NULL) {
-					$featured_base_product_special_price = $oCurrencies->display_price($featured_special_price * $featured['products_base_price'], oos_get_tax_rate($featured['products_tax_class_id']));
-				}
+				$featured_base_product_price = $oCurrencies->display_price($base_product_price * $featured['products_base_price'], oos_get_tax_rate($featured['products_tax_class_id']));
 			}	  
 		}
 		
 		$order_min = number_format($featured['products_quantity_order_min']);
+		$order_max = number_format($listing['products_quantity_order_max']);
 
 		$aFeatured[] = array('products_id' => $featured['products_id'],
                            'products_image' => $featured['products_image'],
                            'products_name' => $featured['products_name'],
                            'products_description' => oos_remove_tags($featured['products_description']),
-						   'order_min' => $order_min,
+                           'order_min' => $order_min,
+                           'order_max' => $order_max,
+						   'product_quantity' => $featured['products_product_quantity'],
                            'products_base_price' => $featured['products_base_price'],
                            'products_base_unit' => $featured['products_base_unit'],
-                           'products_units' => $featured_units,
+                           'products_units' => $featured['products_units_id'],
                            'featured_product_price' => $featured_product_price,
                            'featured_product_special_price' => $featured_product_special_price,
-                           'featured_base_product_price' => $featured_base_product_price,
-                           'featured_base_product_special_price' => $featured_base_product_special_price,
-                           'featured_special_price' => $featured_special_price);
+                           'featured_base_product_price' => $featured_base_product_price);
 		// Move that ADOdb pointer!
 		$featured_result->MoveNext();
     }

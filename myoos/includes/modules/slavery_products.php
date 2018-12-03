@@ -94,12 +94,13 @@ foreach($aDefineList as $column => $value) {
   $products_descriptiontable = $oostable['products_description'];
   $manufacturerstable = $oostable['manufacturers'];
   $specialstable = $oostable['specials'];
-  $listing_sql = "SELECT " . $select_column_list . " p.products_id, p.manufacturers_id,
+  $listing_sql = "SELECT " . $select_column_list . " p.products_id, p.products_replacement_product_id, p.manufacturers_id,
                          p.products_price, p.products_price_list, p.products_base_price, p.products_base_unit,
+						 p.products_quantity_order_min, p.products_quantity_order_max, p.products_product_quantity,
                          p.products_discount1, p.products_discount2,
                          p.products_discount3, p.products_discount4, p.products_discount1_qty,
                          p.products_discount2_qty, p.products_discount3_qty, p.products_discount4_qty,
-                         p.products_tax_class_id, p.products_units_id, p.products_quantity_order_min, p.products_quantity_order_max,
+                         p.products_tax_class_id, p.products_units_id, 
                          IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price,
                          IF(s.status, s.specials_new_products_price, p.products_price) AS final_price,
                          pm.master_id, pm.slave_id

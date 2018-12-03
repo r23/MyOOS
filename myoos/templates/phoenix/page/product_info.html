@@ -95,13 +95,10 @@
 
 	{if $product_info.products_base_price != 1}<span class="base_price">({$info_base_product_price}/{$products_units[$product_info.products_base_unit]})</span><br>{/if}
 
-	<p><small>MwSt{$panginfov}</small></p>  
+	<p><small>{$panginfov}</small></p>  
 	{if $info_product_price_list > 0}
 		<p>{$info_product_price_list}</p>
 	{/if}
-	
-
-
 {else}
 	<a href="{html_href_link content=$filename.login}" class="btn btn-primary-filled" role="button">{$lang.button_login}</a>
 {/if}
