@@ -210,20 +210,20 @@ define('ACCOUNT_GENDER_DESC', 'The salutation is displayed');
 define('ACCOUNT_DOB_TITLE', 'Date of birth');
 define('ACCOUNT_DOB_DESC', 'The dough date is required as an input if \'true\' is set. Otherwise it is not displayed as an input option.');
 
-define('ACCOUNT_DOB_ACCOUNT_TELEPHONE_TITLE', 'Telephone number');
-define('ACCOUNT_DOB_ACCOUNT_TELEPHONE_DESC', 'Do you need the phone number of your customer?');
+define('ACCOUNT_COMPANY_TITLE', 'Company Name');
+define('ACCOUNT_COMPANY_DESC', 'Company name is displayed');
 
-define('ACCOUNT_COMPANY_TITLE', 'Firmenname');
-define('ACCOUNT_COMPANY_DESC', 'Firmenname wird angezeigt');
+define('ACCOUNT_OWNER_TITLE', 'Owner');
+define('ACCOUNT_OWNER_DESC', 'The owner of the company is displayed');
 
-define('ACCOUNT_OWNER_TITLE', 'Inhaber');
-define('ACCOUNT_OWNER_DESC', 'Inhaber der Firmen wird angezeigt');
+define('ACCOUNT_VAT_ID_TITLE', 'Value added tax ID');
+define('ACCOUNT_VAT_ID_DESC', 'The sales tax ID for commercial customers can be entered.');
 
-define('ACCOUNT_VAT_ID_TITLE', 'Umsatzsteuer ID');
-define('ACCOUNT_VAT_ID_DESC', 'Die Umsatzsteuer ID bei gewerblichen Kunden kann eingegeben werden.');
+define('ACCOUNT_STATE_TITLE', 'Federal State');
+define('ACCOUNT_STATE_DESC', 'The display and input of the federal state is possible. The input is mandatory for display.');
 
-define('ACCOUNT_STATE_TITLE', 'Bundesland');
-define('ACCOUNT_STATE_DESC', 'Bundesland wird angezeigt');
+define('ACCOUNT_ACCOUNT_TELEPHONE_TITLE', 'Telephone number');
+define('ACCOUNT_ACCOUNT_TELEPHONE_DESC', 'Do you need the phone number of your customer?');
 
 define('NEWSLETTER_TITLE', 'Newsletter');
 define('NEWSLETTER_DESC', 'Would you like to send newsletter?');
@@ -293,60 +293,6 @@ define('DOWNLOADS_CONTROLLER_ON_HOLD_MSG_DESC', 'Downloads Controller Download o
 
 define('DOWNLOADS_CONTROLLER_ORDERS_STATUS_TITLE', 'Downloads Controller Order Status Value');
 define('DOWNLOADS_CONTROLLER_ORDERS_STATUS_DESC', 'Downloads Controller Order Status Value - Default=2');
-
-define('PDF_DATA_SHEET_TITLE', 'Enable PDF Data Sheet');
-define('PDF_DATA_SHEET_DESC', 'M&ouml;chten Sie die Produktinformationen als PDF-Datei zum download anbieten?');
-
-define('HEADER_COLOR_TABLE_TITLE', 'Farbe: Prospektkopf-Tabelle');
-define('HEADER_COLOR_TABLE_DESC', 'Farbe in R, G, B, Werten (Beispiel: 230,230,230)');
-
-define('PRODUCT_NAME_COLOR_TABLE_TITLE', 'Farbe: Produkname-Tabelle');
-define('PRODUCT_NAME_COLOR_TABLE_DESC', 'Farbe in R, G, B, Werten (Beispiel: 230,230,230)');
-
-define('FOOTER_CELL_BG_COLOR_TITLE', 'Hintergundfarbe: Prospektfuss');
-define('FOOTER_CELL_BG_COLOR_DESC', 'Farbe in R, G, B, Werten (Beispiel: 210,210,210)');
-
-define('SHOW_BACKGROUND_TITLE', 'Hintergrund');
-define('SHOW_BACKGROUND_DESC', 'M&ouml;chten Sie die Hintergrundfarbe angezeigen?');
-
-define('PAGE_BG_COLOR_TITLE', 'Hintergundfarbe: Prospekt');
-define('PAGE_BG_COLOR_DESC', 'Farbe in R, G, B, Werten (Beispiel: 250,250,250)');
-
-define('SHOW_WATERMARK_TITLE', 'Wasserzeichen');
-define('SHOW_WATERMARK_DESC', 'M&ouml;chten Sie Ihren Firmenname als Wasserzeichen angezeigen?');
-
-define('PAGE_WATERMARK_COLOR_TITLE', 'Wasserzeichenfarbe');
-define('PAGE_WATERMARK_COLOR_DESC', 'Farbe in R, G, B, Werten (Beispiel: 236,245,255)');
-
-define('PDF_IMAGE_KEEP_PROPORTIONS_TITLE', 'Produktbilder');
-define('PDF_IMAGE_KEEP_PROPORTIONS_DESC', 'M&ouml;chten Sie die maximale bzw. minimale Produktgr&ouml;sse verwenden?');
-
-define('MAX_IMAGE_WIDTH_TITLE', 'Breite der Produktbilder');
-define('MAX_IMAGE_WIDTH_DESC', 'max. Breite in mm der Produktbilder');
-
-define('MAX_IMAGE_HEIGHT_TITLE', 'H&ouml;he der Produktbilder');
-define('MAX_IMAGE_HEIGHT_DESC', 'max. H&ouml;he in mm der Produktbilder');
-
-define('PDF_TO_MM_FACTOR_TITLE', 'Faktor');
-define('PDF_TO_MM_FACTOR_DESC', 'Produktbilder');
-
-define('SHOW_PATH_TITLE', 'Kategoriename');
-define('SHOW_PATH_DESC', 'M&ouml;chten Sie den Kategorienamen anzeigen?');
-
-define('SHOW_IMAGES_TITLE', 'Produktbild');
-define('SHOW_IMAGES_DESC', 'M&ouml;chten Sie das Produktbild anzeigen?');
-
-define('SHOW_NAME_TITLE', 'Produktname');
-define('SHOW_NAME_DESC', 'M&ouml;chten Sie den Produktnamen in der Beschreibung anzeigen?');
-
-define('SHOW_MODEL_TITLE', 'Bestellnummer');
-define('SHOW_MODEL_DESC', 'M&ouml;chten Sie die Bestellnummer anzeigen?');
-
-define('SHOW_DESCRIPTION_TITLE', 'Produktbeschreibung');
-define('SHOW_DESCRIPTION_DESC', 'M&ouml;chten Sie die Produktbeschreibung anzeigen?');
-
-define('SHOW_MANUFACTURER_TITLE', 'Hersteller');
-define('SHOW_MANUFACTURER_DESC', 'M&ouml;chten Sie den Hersteller anzeigen?');
 
 define('SHOW_PRICE_TITLE', 'Produktpreis');
 define('SHOW_PRICE_DESC', 'M&ouml;chten Sie den Produktpreis anzeigen?');
