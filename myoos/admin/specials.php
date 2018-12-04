@@ -395,12 +395,22 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         $contents[] = array('text' => '<br />' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($sInfo->specials_date_added));
         $contents[] = array('text' => '' . TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($sInfo->specials_last_modified));
         $contents[] = array('align' => 'center', 'text' => '<br />' . oos_info_image($sInfo->products_image, $sInfo->products_name, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT));
+		
+        $tax_result = $dbconn->Execute("SELECT tax_rate FROM " . $oostable['tax_rates'] . " WHERE tax_class_id = '" . $sInfo->products_tax_class_id . "' ");
+		$tax = $tax_result->fields;
 
+        $in_price_netto = $sInfo->products_price; 
+        $in_new_price_netto = $sInfo->specials_new_products_price;
+		
+		$in_price = ($in_price_netto*($tax['tax_rate']+100)/100);
+		$in_new_price = ($in_new_price_netto*($tax['tax_rate']+100)/100);	
+		
+        $in_price_netto = round($in_price_netto,TAX_DECIMAL_PLACES);
+        $in_new_price_netto = round($in_new_price_netto,TAX_DECIMAL_PLACES);
 
-        $in_price = $sInfo->products_price; 
-        $in_new_price = $sInfo->specials_new_products_price;
-        $in_price=round($in_price,TAX_DECIMAL_PLACES);
-        $in_new_price=round($in_new_price,TAX_DECIMAL_PLACES);
+		$in_price = round($in_price,TAX_DECIMAL_PLACES);
+		$in_new_price = round($in_new_price,TAX_DECIMAL_PLACES);
+
         $contents[] = array('text' => '<br />' . TEXT_INFO_ORIGINAL_PRICE . ' ' . $currencies->format($in_price) . ' - ' . TEXT_TAX_INFO . $currencies->format($in_price_netto));
         $contents[] = array('text' => '' . TEXT_INFO_NEW_PRICE . ' ' . $currencies->format($in_new_price) . ' - ' . TEXT_TAX_INFO . $currencies->format($in_new_price_netto) );
         $contents[] = array('text' => '' . TEXT_INFO_PERCENTAGE . ' ' . number_format(100 - (($sInfo->specials_new_products_price / $sInfo->products_price) * 100)) . '%');

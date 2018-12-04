@@ -1280,7 +1280,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
             $contents[] = array('text' => '<br />' . oos_info_image($cInfo->categories_image, $cInfo->categories_name) . '<br />' . $cInfo->categories_image);
             $contents[] = array('text' => '<br />' . TEXT_SUBCATEGORIES . ' ' . $cInfo->childs_count . '<br />' . TEXT_PRODUCTS . ' ' . $cInfo->products_count);
           } elseif (isset($pInfo) && is_object($pInfo)) { // product info box contents
-            $heading[] = array('text' => '<b>' . $pInfo->products_name . '</b>');
+            $heading[] = array('text' => '<b>' . $pInfo->products_name . 'tt</b>');
 
             $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&amp;pID=' . $pInfo->products_id . '&amp;action=new_product') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&amp;pID=' . $pInfo->products_id . '&amp;action=delete_product') . '">' . oos_button('delete',  BUTTON_DELETE) . '</a> <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&amp;pID=' . $pInfo->products_id . '&amp;action=move_product') . '">' . oos_button('move', IMAGE_MOVE) . '</a> <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&amp;pID=' . $pInfo->products_id . '&amp;action=copy_to') . '">' . oos_button('copy_to', IMAGE_COPY_TO) . '</a>');
             $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&amp;pID=' . $pInfo->products_id . '&amp;action=slave_products') . '">' . oos_button('slave', IMAGE_SLAVE) . '</a>');
@@ -1364,25 +1364,25 @@ if ($action == 'new_category' || $action == 'edit_category') {
 			$contents[] = array('text' => '' . CAT_QUANTITY_UNITS_TEXT . $pInfo->products_quantity_order_units);
 
             if ( $pInfo->products_discount1_qty > 0 ) {
-              $oosDiscount1 = $pInfo->products_discount1;
-              $oosDiscount1 = round($oosDiscount1,TAX_DECIMAL_PLACES);
+              $sDiscount1 = $pInfo->products_discount1;
+              $sDiscount1 = round($sDiscount1,TAX_DECIMAL_PLACES);
               $contents[] = array('text' => '<br /><br /><b>' . TEXT_DISCOUNTS_TITLE . ':</b>');
-              $contents[] = array('text' => '&nbsp;&nbsp; ' . ($pInfo->products_discount1_qty < 10 ? '&nbsp;' : '') . $pInfo->products_discount1_qty . ' ' . $currencies->format($oosDiscount1) . ' - ' . TEXT_TAX_INFO . $currencies->format($oosDiscount1Netto));
+              $contents[] = array('text' => '&nbsp;&nbsp; ' . ($pInfo->products_discount1_qty < 10 ? '&nbsp;' : '') . $pInfo->products_discount1_qty . ' ' . $currencies->format($sDiscount1) . ' - ' . TEXT_TAX_INFO . $currencies->format($sDiscount1Netto));
             }
             if ( $pInfo->products_discount2_qty > 0 ) {
-              $oosDiscount2 = $pInfo->products_discount2;
-              $oosDiscount2 = round($oosDiscount2,TAX_DECIMAL_PLACES);
-              $contents[] = array('text' => '&nbsp;&nbsp; ' . ($pInfo->products_discount2_qty < 10 ? '&nbsp;' : '') . $pInfo->products_discount2_qty . ' ' . $currencies->format($oosDiscount2) . ' - ' . TEXT_TAX_INFO . $currencies->format($oosDiscount2Netto));
+              $sDiscount2 = $pInfo->products_discount2;
+              $sDiscount2 = round($sDiscount2,TAX_DECIMAL_PLACES);
+              $contents[] = array('text' => '&nbsp;&nbsp; ' . ($pInfo->products_discount2_qty < 10 ? '&nbsp;' : '') . $pInfo->products_discount2_qty . ' ' . $currencies->format($sDiscount2) . ' - ' . TEXT_TAX_INFO . $currencies->format($sDiscount2Netto));
             }
             if ( $pInfo->products_discount3_qty > 0 ) {
-              $oosDiscount3 = $pInfo->products_discount3;
-              $oosDiscount3 = round($oosDiscount3,TAX_DECIMAL_PLACES);
-              $contents[] = array('text' => '&nbsp;&nbsp; ' . ($pInfo->products_discount3_qty < 10 ? '&nbsp;' : '') . $pInfo->products_discount3_qty . ' ' . $currencies->format($oosDiscount3) . ' - ' . TEXT_TAX_INFO . $currencies->format($oosDiscount3Netto));
+              $sDiscount3 = $pInfo->products_discount3;
+              $sDiscount3 = round($sDiscount3,TAX_DECIMAL_PLACES);
+              $contents[] = array('text' => '&nbsp;&nbsp; ' . ($pInfo->products_discount3_qty < 10 ? '&nbsp;' : '') . $pInfo->products_discount3_qty . ' ' . $currencies->format($sDiscount3) . ' - ' . TEXT_TAX_INFO . $currencies->format($sDiscount3Netto));
             }
             if ( $pInfo->products_discount4_qty > 0 ) {
-               $oosDiscount4 = $pInfo->products_discount4;
-              $oosDiscount4 = round($oosDiscount4,TAX_DECIMAL_PLACES);
-              $contents[] = array('text' => '&nbsp;&nbsp; ' . ($pInfo->products_discount4_qty < 10 ? '&nbsp;' : '') . $pInfo->products_discount4_qty . ' ' . $currencies->format($oosDiscount4) . ' - ' . TEXT_TAX_INFO . $currencies->format($oosDiscount4Netto));
+              $sDiscount4 = $pInfo->products_discount4;
+              $sDiscount4 = round($sDiscount4,TAX_DECIMAL_PLACES);
+              $contents[] = array('text' => '&nbsp;&nbsp; ' . ($pInfo->products_discount4_qty < 10 ? '&nbsp;' : '') . $pInfo->products_discount4_qty . ' ' . $currencies->format($sDiscount4) . ' - ' . TEXT_TAX_INFO . $currencies->format($sDiscount4Netto));
             }
             $contents[] = array('text' => '<br />' . TEXT_PRODUCTS_AVERAGE_RATING . ' ' . number_format($pInfo->average_rating, 2) . '%');
           }
