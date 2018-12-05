@@ -309,6 +309,9 @@ if (!empty($action)) {
 													FROM " . $oostable['products'] . "
 													WHERE products_id = '" . oos_db_input($products_id) . "'");
 				$product = $product_result->fields;
+				
+				$products_date_available = (date('Y-m-d') < $products_date_available) ? $products_date_available : 'null';
+				
 				$dbconn->Execute("INSERT INTO " . $oostable['products'] . "
                          (products_quantity,
                           products_reorder_level,
@@ -344,14 +347,14 @@ if (!empty($action)) {
                           VALUES ('" . $product['products_quantity'] . "',
                                   '" . $product['products_reorder_level'] . "',
                                   '" . $product['products_model'] . "',
-								  '" . $product['products_replacement_product_id'] . "',
+								  '" . (empty($product['products_replacement_product_id']) ? "null" : "'" . oos_db_input($product['products_replacement_product_id']) . "'") . "',								  
                                   '" . $product['products_ean'] . "',
                                   '" . $product['products_image'] . "',
                                   '" . $product['products_price'] . "',
                                   '" . $product['products_base_price'] . "',
                                   '" . $product['products_base_unit'] . "',
                                   now(),
-                                  '" . $product['products_date_available'] . "',
+								  '" . (empty($product['products_date_available']) ? "null" : "'" . oos_db_input($product['products_date_available']) . "'") . "',
                                   '" . $product['products_weight'] . "', '0',
                                   '" . $product['products_tax_class_id'] . "',
                                   '" . $product['products_units_id'] . "',
@@ -1325,39 +1328,40 @@ if ($action == 'new_category' || $action == 'edit_category') {
             if (date('Y-m-d') < $pInfo->products_date_available) $contents[] = array('text' => TEXT_DATE_AVAILABLE . ' ' . oos_date_short($pInfo->products_date_available));
             $contents[] = array('text' => '<br /><a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&amp;pID=' . $pInfo->products_id . '&amp;action=new_product_preview&read=only') . '">' . oos_info_image($pInfo->products_image, $pInfo->products_name, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a><br />' . $pInfo->products_image);
 
-            $oosPrice = $pInfo->products_price;
-            $oosPriceList = $pInfo->products_price_list;
+            $sPrice = $pInfo->products_price;
+            $sPriceList = $pInfo->products_price_list;
 
             if ($_GET['read'] == 'only' || $action != 'new_product_preview'){
-              $oosPriceNetto = round($oosPrice,TAX_DECIMAL_PLACES);
-              $oosPriceListNetto = round($oosPriceList,TAX_DECIMAL_PLACES);
+              $sPriceNetto = round($sPrice,TAX_DECIMAL_PLACES);
+              $sPriceListNetto = round($sPriceList,TAX_DECIMAL_PLACES);
               $tax_result = $dbconn->Execute("SELECT tax_rate FROM " . $oostable['tax_rates'] . " WHERE tax_class_id = '" . $pInfo->products_tax_class_id . "' ");
               $tax = $tax_result->fields;
-              $oosPrice = ($oosPrice*($tax['tax_rate']+100)/100);
-              $oosPriceList = ($oosPriceList*($tax['tax_rate']+100)/100);
+              $sPrice = ($sPrice*($tax['tax_rate']+100)/100);
+              $sPriceList = ($sPriceList*($tax['tax_rate']+100)/100);
 
               if (isset($specials) && is_array($specials)) {
-                $oosSpecialsPriceNetto = round($specials['specials_new_products_price'],TAX_DECIMAL_PLACES);
-                $oosSpecialsPrice = round(($specials['specials_new_products_price']*($tax['tax_rate']+100)/100),TAX_DECIMAL_PLACES);
+                $sSpecialsPriceNetto = round($specials['specials_new_products_price'],TAX_DECIMAL_PLACES);
+                $sSpecialsPrice = round(($specials['specials_new_products_price']*($tax['tax_rate']+100)/100),TAX_DECIMAL_PLACES);
               }
             }			
 			
-            $oosPrice = round($oosPrice,TAX_DECIMAL_PLACES);
-            $oosPriceList = round($oosPriceList,TAX_DECIMAL_PLACES);			
+            $sPrice = round($sPrice,TAX_DECIMAL_PLACES);
+            $sPriceList = round($sPriceList,TAX_DECIMAL_PLACES);			
 			
             if (isset($specials) && is_array($specials)) {
-              $contents[] = array('text' => '<br /><b>' . TEXT_PRODUCTS_PRICE_INFO . '</b> <span class="oldPrice">' . $currencies->format($oosPrice) . '</span> - ' . TEXT_TAX_INFO . '<span class="oldPrice">' . $currencies->format($oosPriceNetto) . '</span>');
-              $contents[] = array('text' => '<b>' . TEXT_PRODUCTS_PRICE_INFO . '</b> <span class="specialPrice">' . $currencies->format($oosSpecialsPrice) . '</span> - ' . TEXT_TAX_INFO . '<span class="specialPrice">' . $currencies->format($oosSpecialsPriceNetto) . '</span>');
+              $contents[] = array('text' => '<br /><b>' . TEXT_PRODUCTS_PRICE_INFO . '</b> <span class="oldPrice">' . $currencies->format($sPrice) . '</span> - ' . TEXT_TAX_INFO . '<span class="oldPrice">' . $currencies->format($sPriceNetto) . '</span>');
+              $contents[] = array('text' => '<b>' . TEXT_PRODUCTS_PRICE_INFO . '</b> <span class="specialPrice">' . $currencies->format($sSpecialsPrice) . '</span> - ' . TEXT_TAX_INFO . '<span class="specialPrice">' . $currencies->format($sSpecialsPriceNetto) . '</span>');
 
-              $contents[] = array('text' => '' . TEXT_INFO_PERCENTAGE . ' ' . number_format(100 - (($oosSpecialsPrice / $oosPrice) * 100)) . '%');
+              $contents[] = array('text' => '' . TEXT_INFO_PERCENTAGE . ' ' . number_format(100 - (($sSpecialsPrice / $sPrice) * 100)) . '%');
               if (date('Y-m-d') < $specials['expires_date']) {
                 $contents[] = array('text' => '' . TEXT_INFO_EXPIRES_DATE . ' <b>' . oos_date_short($specials['expires_date']) . '</b>');
               }
             } else {
-              $contents[] = array('text' => '<br /><b>' . TEXT_PRODUCTS_PRICE_INFO . '</b> ' . $currencies->format($oosPrice) . ' - ' . TEXT_TAX_INFO . $currencies->format($oosPriceNetto));
+              $contents[] = array('text' => '<br /><b>' . TEXT_PRODUCTS_PRICE_INFO . '</b> ' . $currencies->format($sPrice) . ' - ' . TEXT_TAX_INFO . $currencies->format($sPriceNetto));
             }
-
-            $contents[] = array('text' => '' .  CAT_LIST_PRICE_TEXT . $currencies->format($oosPriceList) . ' - ' . TEXT_TAX_INFO . $currencies->format($oosPriceListNetto));
+			if ($sPriceList > 0) {
+				$contents[] = array('text' => '' .  CAT_LIST_PRICE_TEXT . $currencies->format($sPriceList) . ' - ' . TEXT_TAX_INFO . $currencies->format($sPriceListNetto));
+			}
 			$contents[] = array('text' => '<br /><br />' . TEXT_PRODUCTS_QUANTITY_INFO . ' ' . $pInfo->products_quantity);
             $contents[] = array('text' => '' . CAT_QUANTITY_MIN_TEXT . $pInfo->products_quantity_order_min);
 			$contents[] = array('text' => '' . CAT_QUANTITY_MAX_TEXT . $pInfo->products_quantity_order_max);

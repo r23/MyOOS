@@ -232,7 +232,7 @@ require 'includes/header.php';
                                                  date_format(p.products_date_available, '%Y-%m-%d') AS products_date_available,
                                                  p.products_status, p.products_tax_class_id, p.products_units_id, p.manufacturers_id,
                                                  p.products_price_list, 
-                                                 p.products_quantity_order_min, p.products_quantity_order_units, p.products_quantity_order_max
+                                                 p.products_quantity_order_min, p.products_quantity_order_units, p.products_quantity_order_max,
                                                  p.products_discount1, p.products_discount2, p.products_discount3,
                                                  p.products_discount4, p.products_discount1_qty, p.products_discount2_qty,
                                                  p.products_discount3_qty, p.products_discount4_qty, p.products_sort_order

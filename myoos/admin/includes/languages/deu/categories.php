@@ -61,7 +61,7 @@ define('TEXT_EDIT_CATEGORIES_KEYWORDS_META', 'Meta Tag Suchworte');
 define('TEXT_EDIT_SORT_ORDER', 'Sortierreihenfolge');
 define('TEXT_EDIT_STATUS', 'Status');
 define('TEXT_TAX_INFO', 'Netto:');
-define('TEXT_PRODUCTS_LIST_PRICE', 'empf VK:');
+define('TEXT_PRODUCTS_LIST_PRICE', 'UVP:');
 
 
 define('TEXT_INFO_COPY_TO_INTRO', 'Bitte wählen Sie eine neue Kategorie aus, in die Sie den Artikel kopieren möchten:');
@@ -127,7 +127,7 @@ define('BUTTON_DELETE_SLAVE', 'Lösche diese Produktoption');
 define('CAT_CATEGORY_ID_TEXT', 'ID # ');
 define('CAT_PRODUCT_ID_TEXT', 'ID # ');
 define('CAT_ATTRIBUTES_BASE_PRICE_TEXT', 'Basispreis: ');
-define('CAT_LIST_PRICE_TEXT',  'empf. VK.: ');
+define('CAT_LIST_PRICE_TEXT',  'UVP.: ');
 define('CAT_REBATE_PRICE_TEXT', 'Rabate: ');
 define('CAT_QUANTITY_MIN_TEXT', 'Mindestbestellmenge: ');
 define('CAT_QUANTITY_MAX_TEXT', 'maximale Bestellmenge: ');
