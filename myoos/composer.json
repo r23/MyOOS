@@ -35,7 +35,7 @@
         "ext-zip": "*",
         "ext-zlib": "*",
         "lib-libxml": "*",
-		"symfony/symfony": "~4.1.7",
+		"symfony/symfony": "~4.2",
 		"smarty/smarty": "~3.1"
     }
 }

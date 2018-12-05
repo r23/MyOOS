@@ -68,14 +68,14 @@ EOTXT
         $var = function ($x) use ($a, &$b) {};
 
         $this->assertDumpMatchesFormat(
-            <<<EOTXT
-Closure {
+            <<<'EOTXT'
+Closure($x) {
 %Aparameters: {
-    \$x: {}
+    $x: {}
   }
   use: {
-    \$a: 123
-    \$b: & 123
+    $a: 123
+    $b: & 123
   }
   file: "%sReflectionCasterTest.php"
   line: "68 to 68"
@@ -98,12 +98,12 @@ EOTXT
         $this->assertDumpMatchesFormat(
             <<<EOTXT
 array:2 [
-  0 => Symfony\Component\VarDumper\Tests\Caster\ReflectionCasterTest::testFromCallableClosureCaster {
+  0 => Symfony\Component\VarDumper\Tests\Caster\ReflectionCasterTest::testFromCallableClosureCaster() {
     this: Symfony\Component\VarDumper\Tests\Caster\ReflectionCasterTest { …}
     file: "%sReflectionCasterTest.php"
     line: "%d to %d"
   }
-  1 => %sTestCase::tearDownAfterClass {
+  1 => %sTestCase::tearDownAfterClass() {
     file: "%sTestCase.php"
     line: "%d to %d"
   }
@@ -115,16 +115,9 @@ EOTXT
 
     public function testClosureCasterExcludingVerbosity()
     {
-        $var = function () {};
+        $var = function &($a = 5) {};
 
-        $expectedDump = <<<EOTXT
-Closure {
-  class: "Symfony\Component\VarDumper\Tests\Caster\ReflectionCasterTest"
-  this: Symfony\Component\VarDumper\Tests\Caster\ReflectionCasterTest { …}
-}
-EOTXT;
-
-        $this->assertDumpEquals($expectedDump, $var, Caster::EXCLUDE_VERBOSE);
+        $this->assertDumpEquals('Closure&($a = 5) { …6}', $var, Caster::EXCLUDE_VERBOSE);
     }
 
     public function testReflectionParameter()
@@ -168,7 +161,7 @@ EOTXT
 
         $this->assertDumpMatchesFormat(
             <<<EOTXT
-Closure {
+Closure(): int {
   returnType: "int"
   class: "Symfony\Component\VarDumper\Tests\Caster\ReflectionCasterTest"
   this: Symfony\Component\VarDumper\Tests\Caster\ReflectionCasterTest { …}

@@ -20,6 +20,7 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\DependencyInjection\Exception\LogicException;
 use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\Lock\Lock;
 use Symfony\Component\Lock\Store\SemaphoreStore;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -55,8 +56,8 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('framework');
+        $treeBuilder = new TreeBuilder('framework');
+        $rootNode = $treeBuilder->getRootNode();
 
         $rootNode
             ->beforeNormalization()
@@ -297,7 +298,7 @@ class Configuration implements ConfigurationInterface
                                         ->prototype('scalar')
                                             ->cannotBeEmpty()
                                             ->validate()
-                                                ->ifTrue(function ($v) { return !class_exists($v) && !interface_exists($v); })
+                                                ->ifTrue(function ($v) { return !class_exists($v) && !interface_exists($v, false); })
                                                 ->thenInvalid('The supported class or interface "%s" does not exist.')
                                             ->end()
                                         ->end()
@@ -384,7 +385,7 @@ class Configuration implements ConfigurationInterface
                                                 ->scalarNode('guard')
                                                     ->cannotBeEmpty()
                                                     ->info('An expression to block the transition')
-                                                    ->example('is_fully_authenticated() and has_role(\'ROLE_JOURNALIST\') and subject.getTitle() == \'My first article\'')
+                                                    ->example('is_fully_authenticated() and is_granted(\'ROLE_JOURNALIST\') and subject.getTitle() == \'My first article\'')
                                                 ->end()
                                                 ->arrayNode('from')
                                                     ->beforeNormalization()
@@ -465,6 +466,7 @@ class Configuration implements ConfigurationInterface
                             )
                             ->defaultTrue()
                         ->end()
+                        ->booleanNode('utf8')->defaultFalse()->end()
                     ->end()
                 ->end()
             ->end()
@@ -494,15 +496,16 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('cookie_lifetime')->end()
                         ->scalarNode('cookie_path')->end()
                         ->scalarNode('cookie_domain')->end()
-                        ->booleanNode('cookie_secure')->end()
+                        ->enumNode('cookie_secure')->values(array(true, false, 'auto'))->end()
                         ->booleanNode('cookie_httponly')->defaultTrue()->end()
+                        ->enumNode('cookie_samesite')->values(array(null, Cookie::SAMESITE_LAX, Cookie::SAMESITE_STRICT))->defaultNull()->end()
                         ->booleanNode('use_cookies')->end()
                         ->scalarNode('gc_divisor')->end()
                         ->scalarNode('gc_probability')->defaultValue(1)->end()
                         ->scalarNode('gc_maxlifetime')->end()
                         ->scalarNode('save_path')->defaultValue('%kernel.cache_dir%/sessions')->end()
                         ->integerNode('metadata_update_threshold')
-                            ->defaultValue('0')
+                            ->defaultValue(0)
                             ->info('seconds to wait between 2 session metadata updates')
                         ->end()
                     ->end()
@@ -879,15 +882,17 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('default_psr6_provider')->end()
                         ->scalarNode('default_redis_provider')->defaultValue('redis://localhost')->end()
                         ->scalarNode('default_memcached_provider')->defaultValue('memcached://localhost')->end()
+                        ->scalarNode('default_pdo_provider')->defaultValue('doctrine.dbal.default_connection')->end()
                         ->arrayNode('pools')
                             ->useAttributeAsKey('name')
                             ->prototype('array')
                                 ->children()
                                     ->scalarNode('adapter')->defaultValue('cache.app')->end()
+                                    ->scalarNode('tags')->defaultNull()->end()
                                     ->booleanNode('public')->defaultFalse()->end()
                                     ->integerNode('default_lifetime')->end()
                                     ->scalarNode('provider')
-                                        ->info('The service name to use as provider when the specified adapter needs one.')
+                                        ->info('Overwrite the setting from the default provider for this adapter.')
                                     ->end()
                                     ->scalarNode('clearer')->end()
                                 ->end()
@@ -1038,9 +1043,23 @@ class Configuration implements ConfigurationInterface
                             ->end()
                         ->end()
                         ->arrayNode('serializer')
-                            ->{!class_exists(FullStack::class) && class_exists(Serializer::class) ? 'canBeDisabled' : 'canBeEnabled'}()
                             ->addDefaultsIfNotSet()
+                            ->beforeNormalization()
+                                ->always()
+                                ->then(function ($config) {
+                                    if (false === $config) {
+                                        return array('id' => null);
+                                    }
+
+                                    if (\is_string($config)) {
+                                        return array('id' => $config);
+                                    }
+
+                                    return $config;
+                                })
+                            ->end()
                             ->children()
+                                ->scalarNode('id')->defaultValue('messenger.transport.symfony_serializer')->end()
                                 ->scalarNode('format')->defaultValue('json')->end()
                                 ->arrayNode('context')
                                     ->normalizeKeys(false)
@@ -1050,8 +1069,6 @@ class Configuration implements ConfigurationInterface
                                 ->end()
                             ->end()
                         ->end()
-                        ->scalarNode('encoder')->defaultValue('messenger.transport.serializer')->end()
-                        ->scalarNode('decoder')->defaultValue('messenger.transport.serializer')->end()
                         ->arrayNode('transports')
                             ->useAttributeAsKey('name')
                             ->arrayPrototype()
@@ -1073,23 +1090,24 @@ class Configuration implements ConfigurationInterface
                                 ->end()
                             ->end()
                         ->end()
-                        ->scalarNode('default_bus')->defaultValue(null)->end()
+                        ->scalarNode('default_bus')->defaultNull()->end()
                         ->arrayNode('buses')
                             ->defaultValue(array('messenger.bus.default' => array('default_middleware' => true, 'middleware' => array())))
                             ->useAttributeAsKey('name')
-                            ->prototype('array')
+                            ->arrayPrototype()
                                 ->addDefaultsIfNotSet()
                                 ->children()
-                                    ->booleanNode('default_middleware')->defaultTrue()->end()
+                                    ->enumNode('default_middleware')
+                                        ->values(array(true, false, 'allow_no_handlers'))
+                                        ->defaultTrue()
+                                    ->end()
                                     ->arrayNode('middleware')
                                         ->beforeNormalization()
-                                            ->ifString()
-                                            ->then(function (string $middleware) {
-                                                return array($middleware);
-                                            })
+                                            ->ifTrue(function ($v) { return \is_string($v) || (\is_array($v) && !\is_int(key($v))); })
+                                            ->then(function ($v) { return array($v); })
                                         ->end()
                                         ->defaultValue(array())
-                                        ->prototype('array')
+                                        ->arrayPrototype()
                                             ->beforeNormalization()
                                                 ->always()
                                                 ->then(function ($middleware): array {
@@ -1099,8 +1117,8 @@ class Configuration implements ConfigurationInterface
                                                     if (isset($middleware['id'])) {
                                                         return $middleware;
                                                     }
-                                                    if (\count($middleware) > 1) {
-                                                        throw new \InvalidArgumentException(sprintf('There is an error at path "framework.messenger" in one of the buses middleware definitions: expected a single entry for a middleware item config, with factory id as key and arguments as value. Got "%s".', json_encode($middleware)));
+                                                    if (1 < \count($middleware)) {
+                                                        throw new \InvalidArgumentException(sprintf('Invalid middleware at path "framework.messenger": a map with a single factory id as key and its arguments as value was expected, %s given.', json_encode($middleware)));
                                                     }
 
                                                     return array(

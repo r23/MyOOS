@@ -15,9 +15,11 @@ use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\Argument\ArgumentInterface;
 use Symfony\Component\DependencyInjection\Argument\IteratorArgument;
 use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
+use Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
 use Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\Exception\LogicException;
 use Symfony\Component\DependencyInjection\Exception\RuntimeException;
 use Symfony\Component\DependencyInjection\Parameter;
 use Symfony\Component\DependencyInjection\Reference;
@@ -44,7 +46,7 @@ class YamlDumper extends Dumper
     public function dump(array $options = array())
     {
         if (!class_exists('Symfony\Component\Yaml\Dumper')) {
-            throw new RuntimeException('Unable to dump the container as the Symfony Yaml Component is not installed.');
+            throw new LogicException('Unable to dump the container as the Symfony Yaml Component is not installed.');
         }
 
         if (null === $this->dumper) {
@@ -233,6 +235,8 @@ class YamlDumper extends Dumper
             }
             if ($value instanceof IteratorArgument) {
                 $tag = 'iterator';
+            } elseif ($value instanceof ServiceLocatorArgument) {
+                $tag = 'service_locator';
             } else {
                 throw new RuntimeException(sprintf('Unspecified Yaml tag for type "%s".', \get_class($value)));
             }

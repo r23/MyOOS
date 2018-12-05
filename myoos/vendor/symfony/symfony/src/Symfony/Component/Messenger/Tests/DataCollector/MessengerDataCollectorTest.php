@@ -13,6 +13,7 @@ namespace Symfony\Component\Messenger\Tests\DataCollector;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\DataCollector\MessengerDataCollector;
+use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Tests\Fixtures\DummyMessage;
 use Symfony\Component\Messenger\TraceableMessageBus;
@@ -33,15 +34,13 @@ class MessengerDataCollectorTest extends TestCase
         $this->dumper->setColors(false);
     }
 
-    /**
-     * @dataProvider getHandleTestData
-     */
-    public function testHandle($returnedValue, $expected)
+    public function testHandle()
     {
         $message = new DummyMessage('dummy message');
+        $envelope = new Envelope($message);
 
         $bus = $this->getMockBuilder(MessageBusInterface::class)->getMock();
-        $bus->method('dispatch')->with($message)->willReturn($returnedValue);
+        $bus->method('dispatch')->with($message)->willReturn($envelope);
         $bus = new TraceableMessageBus($bus);
 
         $collector = new MessengerDataCollector();
@@ -54,62 +53,26 @@ class MessengerDataCollectorTest extends TestCase
         $messages = $collector->getMessages();
         $this->assertCount(1, $messages);
 
-        $this->assertStringMatchesFormat($expected, $this->getDataAsString($messages[0]));
-    }
-
-    public function getHandleTestData()
-    {
-        $messageDump = <<<DUMP
+        $file = __FILE__;
+        $expected = <<<DUMP
+array:4 [
   "bus" => "default"
-  "envelopeItems" => null
+  "stamps" => []
   "message" => array:2 [
     "type" => "Symfony\Component\Messenger\Tests\Fixtures\DummyMessage"
     "value" => Symfony\Component\Messenger\Tests\Fixtures\DummyMessage %A
       -message: "dummy message"
     }
   ]
+  "caller" => array:3 [
+    "name" => "MessengerDataCollectorTest.php"
+    "file" => "$file"
+    "line" => %d
+  ]
+]
 DUMP;
 
-        yield 'no returned value' => array(
-            null,
-            <<<DUMP
-array:4 [
-$messageDump
-  "result" => array:2 [
-    "type" => "NULL"
-    "value" => null
-  ]
-]
-DUMP
-        );
-
-        yield 'scalar returned value' => array(
-            'returned value',
-            <<<DUMP
-array:4 [
-$messageDump
-  "result" => array:2 [
-    "type" => "string"
-    "value" => "returned value"
-  ]
-]
-DUMP
-        );
-
-        yield 'array returned value' => array(
-            array('returned value'),
-            <<<DUMP
-array:4 [
-$messageDump
-  "result" => array:2 [
-    "type" => "array"
-    "value" => array:1 [
-      0 => "returned value"
-    ]
-  ]
-]
-DUMP
-        );
+        $this->assertStringMatchesFormat($expected, $this->getDataAsString($messages[0]));
     }
 
     public function testHandleWithException()
@@ -124,6 +87,7 @@ DUMP
         $collector->registerBus('default', $bus);
 
         try {
+            $line = __LINE__ + 1;
             $bus->dispatch($message);
         } catch (\Throwable $e) {
             // Ignore.
@@ -134,15 +98,21 @@ DUMP
         $messages = $collector->getMessages();
         $this->assertCount(1, $messages);
 
+        $file = __FILE__;
         $this->assertStringMatchesFormat(<<<DUMP
-array:4 [
+array:5 [
   "bus" => "default"
-  "envelopeItems" => null
+  "stamps" => []
   "message" => array:2 [
     "type" => "Symfony\Component\Messenger\Tests\Fixtures\DummyMessage"
     "value" => Symfony\Component\Messenger\Tests\Fixtures\DummyMessage %A
       -message: "dummy message"
     }
+  ]
+  "caller" => array:3 [
+    "name" => "MessengerDataCollectorTest.php"
+    "file" => "$file"
+    "line" => $line
   ]
   "exception" => array:2 [
     "type" => "RuntimeException"
@@ -156,9 +126,11 @@ DUMP
     public function testKeepsOrderedDispatchCalls()
     {
         $firstBus = $this->getMockBuilder(MessageBusInterface::class)->getMock();
+        $firstBus->method('dispatch')->willReturn(new Envelope(new \stdClass()));
         $firstBus = new TraceableMessageBus($firstBus);
 
         $secondBus = $this->getMockBuilder(MessageBusInterface::class)->getMock();
+        $secondBus->method('dispatch')->willReturn(new Envelope(new \stdClass()));
         $secondBus = new TraceableMessageBus($secondBus);
 
         $collector = new MessengerDataCollector();

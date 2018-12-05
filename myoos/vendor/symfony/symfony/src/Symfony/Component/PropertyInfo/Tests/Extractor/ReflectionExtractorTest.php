@@ -14,6 +14,9 @@ namespace Symfony\Component\PropertyInfo\Tests\Extractor;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
 use Symfony\Component\PropertyInfo\Tests\Fixtures\AdderRemoverDummy;
+use Symfony\Component\PropertyInfo\Tests\Fixtures\NotInstantiable;
+use Symfony\Component\PropertyInfo\Tests\Fixtures\Php71Dummy;
+use Symfony\Component\PropertyInfo\Tests\Fixtures\Php71DummyExtended2;
 use Symfony\Component\PropertyInfo\Type;
 
 /**
@@ -47,6 +50,9 @@ class ReflectionExtractorTest extends TestCase
                 'i',
                 'j',
                 'emptyVar',
+                'iteratorCollection',
+                'iteratorCollectionWithKey',
+                'nestedIterators',
                 'foo',
                 'foo2',
                 'foo3',
@@ -88,6 +94,9 @@ class ReflectionExtractorTest extends TestCase
                 'i',
                 'j',
                 'emptyVar',
+                'iteratorCollection',
+                'iteratorCollectionWithKey',
+                'nestedIterators',
                 'foo',
                 'foo2',
                 'foo3',
@@ -121,6 +130,9 @@ class ReflectionExtractorTest extends TestCase
                 'i',
                 'j',
                 'emptyVar',
+                'iteratorCollection',
+                'iteratorCollectionWithKey',
+                'nestedIterators',
                 'foo',
                 'foo2',
                 'foo3',
@@ -260,5 +272,25 @@ class ReflectionExtractorTest extends TestCase
         $this->assertTrue($this->extractor->isWritable(AdderRemoverDummy::class, 'analyses'));
         $this->assertTrue($this->extractor->isWritable(AdderRemoverDummy::class, 'feet'));
         $this->assertEquals(array('analyses', 'feet'), $this->extractor->getProperties(AdderRemoverDummy::class));
+    }
+
+    /**
+     * @dataProvider getInitializableProperties
+     */
+    public function testIsInitializable(string $class, string $property, bool $expected)
+    {
+        $this->assertSame($expected, $this->extractor->isInitializable($class, $property));
+    }
+
+    public function getInitializableProperties(): array
+    {
+        return array(
+            array(Php71Dummy::class, 'string', true),
+            array(Php71Dummy::class, 'intPrivate', true),
+            array(Php71Dummy::class, 'notExist', false),
+            array(Php71DummyExtended2::class, 'intWithAccessor', true),
+            array(Php71DummyExtended2::class, 'intPrivate', false),
+            array(NotInstantiable::class, 'foo', false),
+        );
     }
 }

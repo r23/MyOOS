@@ -12,24 +12,27 @@
 namespace Symfony\Component\Messenger\Transport\AmqpExt;
 
 use Symfony\Component\Messenger\Transport\AmqpExt\Exception\RejectMessageExceptionInterface;
-use Symfony\Component\Messenger\Transport\ReceiverInterface;
-use Symfony\Component\Messenger\Transport\Serialization\DecoderInterface;
+use Symfony\Component\Messenger\Transport\Receiver\ReceiverInterface;
+use Symfony\Component\Messenger\Transport\Serialization\Serializer;
+use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface;
 
 /**
  * Symfony Messenger receiver to get messages from AMQP brokers using PHP's AMQP extension.
  *
  * @author Samuel Roze <samuel.roze@gmail.com>
+ *
+ * @experimental in 4.2
  */
 class AmqpReceiver implements ReceiverInterface
 {
-    private $decoder;
+    private $serializer;
     private $connection;
     private $shouldStop;
 
-    public function __construct(DecoderInterface $decoder, Connection $connection)
+    public function __construct(Connection $connection, SerializerInterface $serializer = null)
     {
-        $this->decoder = $decoder;
         $this->connection = $connection;
+        $this->serializer = $serializer ?? Serializer::create();
     }
 
     /**
@@ -51,7 +54,7 @@ class AmqpReceiver implements ReceiverInterface
             }
 
             try {
-                $handler($this->decoder->decode(array(
+                $handler($this->serializer->decode(array(
                     'body' => $AMQPEnvelope->getBody(),
                     'headers' => $AMQPEnvelope->getHeaders(),
                 )));

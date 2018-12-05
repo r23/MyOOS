@@ -11,6 +11,7 @@
 
 namespace Symfony\Bundle\SecurityBundle\DependencyInjection;
 
+use Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory\RememberMeFactory;
 use Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory\SecurityFactoryInterface;
 use Symfony\Bundle\SecurityBundle\DependencyInjection\Security\UserProvider\UserProviderFactoryInterface;
 use Symfony\Bundle\SecurityBundle\SecurityUserValueResolver;
@@ -22,6 +23,7 @@ use Symfony\Component\DependencyInjection\Argument\IteratorArgument;
 use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\Compiler\ServiceLocatorTagPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\Parameter;
 use Symfony\Component\DependencyInjection\Reference;
@@ -37,7 +39,7 @@ use Symfony\Component\Security\Http\Controller\UserValueResolver;
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class SecurityExtension extends Extension
+class SecurityExtension extends Extension implements PrependExtensionInterface
 {
     private $requestMatchers = array();
     private $expressions = array();
@@ -51,6 +53,32 @@ class SecurityExtension extends Extension
     {
         foreach ($this->listenerPositions as $position) {
             $this->factories[$position] = array();
+        }
+    }
+
+    public function prepend(ContainerBuilder $container)
+    {
+        $rememberMeSecureDefault = false;
+        $rememberMeSameSiteDefault = null;
+
+        if (!isset($container->getExtensions()['framework'])) {
+            return;
+        }
+        foreach ($container->getExtensionConfig('framework') as $config) {
+            if (isset($config['session']) && \is_array($config['session'])) {
+                $rememberMeSecureDefault = $config['session']['cookie_secure'] ?? $rememberMeSecureDefault;
+                $rememberMeSameSiteDefault = array_key_exists('cookie_samesite', $config['session']) ? $config['session']['cookie_samesite'] : $rememberMeSameSiteDefault;
+            }
+        }
+        foreach ($this->listenerPositions as $position) {
+            foreach ($this->factories[$position] as $factory) {
+                if ($factory instanceof RememberMeFactory) {
+                    \Closure::bind(function () use ($rememberMeSecureDefault, $rememberMeSameSiteDefault) {
+                        $this->options['secure'] = $rememberMeSecureDefault;
+                        $this->options['samesite'] = $rememberMeSameSiteDefault;
+                    }, $factory, $factory)();
+                }
+            }
         }
     }
 
@@ -144,6 +172,7 @@ class SecurityExtension extends Extension
                 $container,
                 $access['path'],
                 $access['host'],
+                $access['port'],
                 $access['methods'],
                 $access['ips']
             );
@@ -247,7 +276,7 @@ class SecurityExtension extends Extension
             $pattern = isset($firewall['pattern']) ? $firewall['pattern'] : null;
             $host = isset($firewall['host']) ? $firewall['host'] : null;
             $methods = isset($firewall['methods']) ? $firewall['methods'] : array();
-            $matcher = $this->createRequestMatcher($container, $pattern, $host, $methods);
+            $matcher = $this->createRequestMatcher($container, $pattern, $host, null, $methods);
         }
 
         $config->replaceArgument(2, $matcher ? (string) $matcher : null);
@@ -533,7 +562,11 @@ class SecurityExtension extends Extension
         // Argon2i encoder
         if ('argon2i' === $config['algorithm']) {
             if (!Argon2iPasswordEncoder::isSupported()) {
-                throw new InvalidConfigurationException('Argon2i algorithm is not supported. Please install the libsodium extension or upgrade to PHP 7.2+.');
+                if (\extension_loaded('sodium') && !\defined('SODIUM_CRYPTO_PWHASH_SALTBYTES')) {
+                    throw new InvalidConfigurationException('The installed libsodium version does not have support for Argon2i. Use Bcrypt instead.');
+                }
+
+                throw new InvalidConfigurationException('Argon2i algorithm is not supported. Install the libsodium extension or use BCrypt instead.');
             }
 
             return array(
@@ -664,20 +697,20 @@ class SecurityExtension extends Extension
         return $this->expressions[$id] = new Reference($id);
     }
 
-    private function createRequestMatcher($container, $path = null, $host = null, $methods = array(), $ip = null, array $attributes = array())
+    private function createRequestMatcher($container, $path = null, $host = null, int $port = null, $methods = array(), $ip = null, array $attributes = array())
     {
         if ($methods) {
             $methods = array_map('strtoupper', (array) $methods);
         }
 
-        $id = '.security.request_matcher.'.ContainerBuilder::hash(array($path, $host, $methods, $ip, $attributes));
+        $id = '.security.request_matcher.'.ContainerBuilder::hash(array($path, $host, $port, $methods, $ip, $attributes));
 
         if (isset($this->requestMatchers[$id])) {
             return $this->requestMatchers[$id];
         }
 
         // only add arguments that are necessary
-        $arguments = array($path, $host, $methods, $ip, $attributes);
+        $arguments = array($path, $host, $methods, $ip, $attributes, null, $port);
         while (\count($arguments) > 0 && !end($arguments)) {
             array_pop($arguments);
         }

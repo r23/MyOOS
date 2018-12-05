@@ -150,14 +150,14 @@ class PropertyAccessor implements PropertyAccessorInterface
                 $value = $zval[self::VALUE];
             }
         } catch (\TypeError $e) {
-            self::throwInvalidArgumentException($e->getMessage(), $e->getTrace(), 0);
+            self::throwInvalidArgumentException($e->getMessage(), $e->getTrace(), 0, $propertyPath);
 
             // It wasn't thrown in this class so rethrow it
             throw $e;
         }
     }
 
-    private static function throwInvalidArgumentException($message, $trace, $i)
+    private static function throwInvalidArgumentException($message, $trace, $i, $propertyPath)
     {
         // the type mismatch is not caused by invalid arguments (but e.g. by an incompatible return type hint of the writer method)
         if (0 !== strpos($message, 'Argument ')) {
@@ -170,7 +170,7 @@ class PropertyAccessor implements PropertyAccessorInterface
             $type = $trace[$i]['args'][0];
             $type = \is_object($type) ? \get_class($type) : \gettype($type);
 
-            throw new InvalidArgumentException(sprintf('Expected argument of type "%s", "%s" given.', substr($message, $pos, strpos($message, ',', $pos) - $pos), $type));
+            throw new InvalidArgumentException(sprintf('Expected argument of type "%s", "%s" given at property path "%s".', substr($message, $pos, strpos($message, ',', $pos) - $pos), $type, $propertyPath));
         }
     }
 
@@ -587,7 +587,8 @@ class PropertyAccessor implements PropertyAccessorInterface
      */
     private function getWriteAccessInfo(string $class, string $property, $value): array
     {
-        $key = str_replace('\\', '.', $class).'..'.$property;
+        $useAdderAndRemover = \is_array($value) || $value instanceof \Traversable;
+        $key = str_replace('\\', '.', $class).'..'.$property.'..'.(int) $useAdderAndRemover;
 
         if (isset($this->writePropertyCache[$key])) {
             return $this->writePropertyCache[$key];
@@ -606,6 +607,16 @@ class PropertyAccessor implements PropertyAccessorInterface
         $access[self::ACCESS_HAS_PROPERTY] = $reflClass->hasProperty($property);
         $camelized = $this->camelize($property);
         $singulars = (array) Inflector::singularize($camelized);
+
+        if ($useAdderAndRemover) {
+            $methods = $this->findAdderAndRemover($reflClass, $singulars);
+
+            if (null !== $methods) {
+                $access[self::ACCESS_TYPE] = self::ACCESS_TYPE_ADDER_AND_REMOVER;
+                $access[self::ACCESS_ADDER] = $methods[0];
+                $access[self::ACCESS_REMOVER] = $methods[1];
+            }
+        }
 
         if (!isset($access[self::ACCESS_TYPE])) {
             $setter = 'set'.$camelized;
@@ -628,22 +639,16 @@ class PropertyAccessor implements PropertyAccessorInterface
                 $access[self::ACCESS_TYPE] = self::ACCESS_TYPE_MAGIC;
                 $access[self::ACCESS_NAME] = $setter;
             } elseif (null !== $methods = $this->findAdderAndRemover($reflClass, $singulars)) {
-                if (\is_array($value) || $value instanceof \Traversable) {
-                    $access[self::ACCESS_TYPE] = self::ACCESS_TYPE_ADDER_AND_REMOVER;
-                    $access[self::ACCESS_ADDER] = $methods[0];
-                    $access[self::ACCESS_REMOVER] = $methods[1];
-                } else {
-                    $access[self::ACCESS_TYPE] = self::ACCESS_TYPE_NOT_FOUND;
-                    $access[self::ACCESS_NAME] = sprintf(
-                        'The property "%s" in class "%s" can be defined with the methods "%s()" but '.
-                        'the new value must be an array or an instance of \Traversable, '.
-                        '"%s" given.',
-                        $property,
-                        $reflClass->name,
-                        implode('()", "', $methods),
-                        \is_object($value) ? \get_class($value) : \gettype($value)
-                    );
-                }
+                $access[self::ACCESS_TYPE] = self::ACCESS_TYPE_NOT_FOUND;
+                $access[self::ACCESS_NAME] = sprintf(
+                    'The property "%s" in class "%s" can be defined with the methods "%s()" but '.
+                    'the new value must be an array or an instance of \Traversable, '.
+                    '"%s" given.',
+                    $property,
+                    $reflClass->name,
+                    implode('()", "', $methods),
+                    \is_object($value) ? \get_class($value) : \gettype($value)
+                );
             } else {
                 $access[self::ACCESS_TYPE] = self::ACCESS_TYPE_NOT_FOUND;
                 $access[self::ACCESS_NAME] = sprintf(
@@ -679,6 +684,18 @@ class PropertyAccessor implements PropertyAccessorInterface
         }
 
         $access = $this->getWriteAccessInfo(\get_class($object), $property, array());
+
+        $isWritable = self::ACCESS_TYPE_METHOD === $access[self::ACCESS_TYPE]
+            || self::ACCESS_TYPE_PROPERTY === $access[self::ACCESS_TYPE]
+            || self::ACCESS_TYPE_ADDER_AND_REMOVER === $access[self::ACCESS_TYPE]
+            || (!$access[self::ACCESS_HAS_PROPERTY] && property_exists($object, $property))
+            || self::ACCESS_TYPE_MAGIC === $access[self::ACCESS_TYPE];
+
+        if ($isWritable) {
+            return true;
+        }
+
+        $access = $this->getWriteAccessInfo(\get_class($object), $property, '');
 
         return self::ACCESS_TYPE_METHOD === $access[self::ACCESS_TYPE]
             || self::ACCESS_TYPE_PROPERTY === $access[self::ACCESS_TYPE]
@@ -783,7 +800,7 @@ class PropertyAccessor implements PropertyAccessorInterface
     public static function createCache($namespace, $defaultLifetime, $version, LoggerInterface $logger = null)
     {
         if (!class_exists('Symfony\Component\Cache\Adapter\ApcuAdapter')) {
-            throw new \RuntimeException(sprintf('The Symfony Cache component must be installed to use %s().', __METHOD__));
+            throw new \LogicException(sprintf('The Symfony Cache component must be installed to use %s().', __METHOD__));
         }
 
         if (!ApcuAdapter::isSupported()) {

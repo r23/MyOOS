@@ -12,7 +12,7 @@
 namespace Symfony\Component\Messenger\Tests\DependencyInjection;
 
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
+use Symfony\Component\DependencyInjection\Argument\RewindableGenerator;
 use Symfony\Component\DependencyInjection\Compiler\ResolveChildDefinitionsPass;
 use Symfony\Component\DependencyInjection\Compiler\ResolveClassPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -23,13 +23,13 @@ use Symfony\Component\Messenger\Command\DebugCommand;
 use Symfony\Component\Messenger\DataCollector\MessengerDataCollector;
 use Symfony\Component\Messenger\DependencyInjection\MessengerPass;
 use Symfony\Component\Messenger\Envelope;
-use Symfony\Component\Messenger\Handler\ChainHandler;
+use Symfony\Component\Messenger\Handler\HandlersLocator;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Messenger\Middleware\AllowNoHandlerMiddleware;
 use Symfony\Component\Messenger\Middleware\HandleMessageMiddleware;
 use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
+use Symfony\Component\Messenger\Middleware\StackInterface;
 use Symfony\Component\Messenger\Tests\Fixtures\DummyCommand;
 use Symfony\Component\Messenger\Tests\Fixtures\DummyCommandHandler;
 use Symfony\Component\Messenger\Tests\Fixtures\DummyMessage;
@@ -39,8 +39,7 @@ use Symfony\Component\Messenger\Tests\Fixtures\MultipleBusesMessage;
 use Symfony\Component\Messenger\Tests\Fixtures\MultipleBusesMessageHandler;
 use Symfony\Component\Messenger\Tests\Fixtures\SecondMessage;
 use Symfony\Component\Messenger\Transport\AmqpExt\AmqpReceiver;
-use Symfony\Component\Messenger\Transport\AmqpExt\AmqpSender;
-use Symfony\Component\Messenger\Transport\ReceiverInterface;
+use Symfony\Component\Messenger\Transport\Receiver\ReceiverInterface;
 
 class MessengerPassTest extends TestCase
 {
@@ -64,14 +63,14 @@ class MessengerPassTest extends TestCase
 
         $this->assertFalse($container->hasDefinition('messenger.middleware.debug.logging'));
 
-        $handlerLocatorDefinition = $container->getDefinition($container->getDefinition("$busId.messenger.handler_resolver")->getArgument(0));
-        $this->assertSame(ServiceLocator::class, $handlerLocatorDefinition->getClass());
+        $handlersLocatorDefinition = $container->getDefinition($busId.'.messenger.handlers_locator');
+        $this->assertSame(HandlersLocator::class, $handlersLocatorDefinition->getClass());
         $this->assertEquals(
             array(
-                'handler.'.DummyMessage::class => new ServiceClosureArgument(new Reference(DummyHandler::class)),
-                'handler.'.SecondMessage::class => new ServiceClosureArgument(new Reference(MissingArgumentTypeHandler::class)),
+                DummyMessage::class => new Reference("messenger.handlers.$busId.".DummyMessage::class),
+                SecondMessage::class => new Reference("messenger.handlers.$busId.".SecondMessage::class),
             ),
-            $handlerLocatorDefinition->getArgument(0)
+            $handlersLocatorDefinition->getArgument(0)
         );
 
         $this->assertEquals(
@@ -84,15 +83,15 @@ class MessengerPassTest extends TestCase
     {
         $container = $this->getContainerBuilder($commandBusId = 'command_bus');
         $container->register($queryBusId = 'query_bus', MessageBusInterface::class)->setArgument(0, array())->addTag('messenger.bus');
-        $container->register('messenger.middleware.call_message_handler', HandleMessageMiddleware::class)
+        $container->register('messenger.middleware.handle_message', HandleMessageMiddleware::class)
             ->addArgument(null)
             ->setAbstract(true)
         ;
 
-        $middlewares = array(array('id' => 'call_message_handler'));
+        $middlewareHandlers = array(array('id' => 'handle_message'));
 
-        $container->setParameter($commandBusId.'.middleware', $middlewares);
-        $container->setParameter($queryBusId.'.middleware', $middlewares);
+        $container->setParameter($commandBusId.'.middleware', $middlewareHandlers);
+        $container->setParameter($queryBusId.'.middleware', $middlewareHandlers);
 
         $container->register(DummyCommandHandler::class)->addTag('messenger.message_handler', array('bus' => $commandBusId));
         $container->register(DummyQueryHandler::class)->addTag('messenger.message_handler', array('bus' => $queryBusId));
@@ -104,24 +103,24 @@ class MessengerPassTest extends TestCase
         (new ResolveClassPass())->process($container);
         (new MessengerPass())->process($container);
 
-        $commandBusHandlerLocatorDefinition = $container->getDefinition($container->getDefinition("$commandBusId.messenger.handler_resolver")->getArgument(0));
-        $this->assertSame(ServiceLocator::class, $commandBusHandlerLocatorDefinition->getClass());
+        $commandBusHandlersLocatorDefinition = $container->getDefinition($commandBusId.'.messenger.handlers_locator');
+        $this->assertSame(HandlersLocator::class, $commandBusHandlersLocatorDefinition->getClass());
         $this->assertEquals(
             array(
-                'handler.'.DummyCommand::class => new ServiceClosureArgument(new Reference(DummyCommandHandler::class)),
-                'handler.'.MultipleBusesMessage::class => new ServiceClosureArgument(new Reference(MultipleBusesMessageHandler::class)),
+                MultipleBusesMessage::class => new Reference("messenger.handlers.$commandBusId.".MultipleBusesMessage::class),
+                DummyCommand::class => new Reference("messenger.handlers.$commandBusId.".DummyCommand::class),
             ),
-            $commandBusHandlerLocatorDefinition->getArgument(0)
+            $commandBusHandlersLocatorDefinition->getArgument(0)
         );
 
-        $queryBusHandlerLocatorDefinition = $container->getDefinition($container->getDefinition("$queryBusId.messenger.handler_resolver")->getArgument(0));
-        $this->assertSame(ServiceLocator::class, $queryBusHandlerLocatorDefinition->getClass());
+        $queryBusHandlersLocatorDefinition = $container->getDefinition($queryBusId.'.messenger.handlers_locator');
+        $this->assertSame(HandlersLocator::class, $queryBusHandlersLocatorDefinition->getClass());
         $this->assertEquals(
             array(
-                'handler.'.DummyQuery::class => new ServiceClosureArgument(new Reference(DummyQueryHandler::class)),
-                'handler.'.MultipleBusesMessage::class => new ServiceClosureArgument(new Reference(MultipleBusesMessageHandler::class)),
+                DummyQuery::class => new Reference("messenger.handlers.$queryBusId.".DummyQuery::class),
+                MultipleBusesMessage::class => new Reference("messenger.handlers.$queryBusId.".MultipleBusesMessage::class),
             ),
-            $queryBusHandlerLocatorDefinition->getArgument(0)
+            $queryBusHandlersLocatorDefinition->getArgument(0)
         );
     }
 
@@ -153,18 +152,16 @@ class MessengerPassTest extends TestCase
 
         (new MessengerPass())->process($container);
 
-        $handlerLocatorDefinition = $container->getDefinition($container->getDefinition("$busId.messenger.handler_resolver")->getArgument(0));
-        $handlerMapping = $handlerLocatorDefinition->getArgument(0);
+        $handlersMapping = $container->getDefinition($busId.'.messenger.handlers_locator')->getArgument(0);
 
-        $this->assertArrayHasKey('handler.'.DummyMessage::class, $handlerMapping);
-        $this->assertEquals(new ServiceClosureArgument(new Reference(HandlerWithMultipleMessages::class)), $handlerMapping['handler.'.DummyMessage::class]);
+        $this->assertArrayHasKey(DummyMessage::class, $handlersMapping);
+        $this->assertEquals(new Reference("messenger.handlers.$busId.".DummyMessage::class), $handlersMapping[DummyMessage::class]);
 
-        $this->assertArrayHasKey('handler.'.SecondMessage::class, $handlerMapping);
-        $handlerReference = (string) $handlerMapping['handler.'.SecondMessage::class]->getValues()[0];
-        $definition = $container->getDefinition($handlerReference);
+        $this->assertArrayHasKey(SecondMessage::class, $handlersMapping);
+        $handlersDefinition = $container->getDefinition($handlersMapping[SecondMessage::class]);
 
-        $this->assertSame(ChainHandler::class, $definition->getClass());
-        $this->assertEquals(array(new Reference(PrioritizedHandler::class), new Reference(HandlerWithMultipleMessages::class)), $definition->getArgument(0));
+        $this->assertSame(RewindableGenerator::class, $handlersDefinition->getClass());
+        $this->assertEquals(array(new Reference(PrioritizedHandler::class), new Reference(HandlerWithMultipleMessages::class)), $handlersDefinition->getArgument(0)[0]);
     }
 
     public function testGetClassesAndMethodsAndPrioritiesFromTheSubscriber()
@@ -181,22 +178,36 @@ class MessengerPassTest extends TestCase
 
         (new MessengerPass())->process($container);
 
-        $handlerLocatorDefinition = $container->getDefinition($container->getDefinition("$busId.messenger.handler_resolver")->getArgument(0));
-        $handlerMapping = $handlerLocatorDefinition->getArgument(0);
+        $handlersMapping = $container->getDefinition($busId.'.messenger.handlers_locator')->getArgument(0);
 
-        $this->assertArrayHasKey('handler.'.DummyMessage::class, $handlerMapping);
-        $this->assertArrayHasKey('handler.'.SecondMessage::class, $handlerMapping);
+        $this->assertArrayHasKey(DummyMessage::class, $handlersMapping);
+        $this->assertArrayHasKey(SecondMessage::class, $handlersMapping);
 
-        $dummyHandlerReference = (string) $handlerMapping['handler.'.DummyMessage::class]->getValues()[0];
+        $dummyHandlerReference = $container->getDefinition($handlersMapping[DummyMessage::class])->getArgument(0)[0][0];
         $dummyHandlerDefinition = $container->getDefinition($dummyHandlerReference);
         $this->assertSame('callable', $dummyHandlerDefinition->getClass());
         $this->assertEquals(array(new Reference(HandlerMappingMethods::class), 'dummyMethod'), $dummyHandlerDefinition->getArgument(0));
         $this->assertSame(array('Closure', 'fromCallable'), $dummyHandlerDefinition->getFactory());
 
-        $secondHandlerReference = (string) $handlerMapping['handler.'.SecondMessage::class]->getValues()[0];
+        $secondHandlerReference = $container->getDefinition($handlersMapping[SecondMessage::class])->getArgument(0)[0][1];
         $secondHandlerDefinition = $container->getDefinition($secondHandlerReference);
-        $this->assertSame(ChainHandler::class, $secondHandlerDefinition->getClass());
-        $this->assertEquals(new Reference(PrioritizedHandler::class), $secondHandlerDefinition->getArgument(0)[1]);
+        $this->assertSame(PrioritizedHandler::class, $secondHandlerDefinition->getClass());
+    }
+
+    /**
+     * @expectedException \Symfony\Component\DependencyInjection\Exception\RuntimeException
+     * @expectedExceptionMessage Invalid service "NonExistentHandlerClass": class "NonExistentHandlerClass" does not exist.
+     */
+    public function testThrowsExceptionIfTheHandlerClassDoesNotExist()
+    {
+        $container = $this->getContainerBuilder();
+        $container->register('message_bus', MessageBusInterface::class)->addTag('messenger.bus');
+        $container
+            ->register('NonExistentHandlerClass', 'NonExistentHandlerClass')
+            ->addTag('messenger.message_handler')
+        ;
+
+        (new MessengerPass())->process($container);
     }
 
     /**
@@ -241,8 +252,9 @@ class MessengerPassTest extends TestCase
     {
         $container = $this->getContainerBuilder();
         $container->register('console.command.messenger_consume_messages', ConsumeMessagesCommand::class)->setArguments(array(
-            new Reference('message_bus'),
+            null,
             new Reference('messenger.receiver_locator'),
+            null,
             null,
             null,
         ));
@@ -253,26 +265,7 @@ class MessengerPassTest extends TestCase
         (new MessengerPass())->process($container);
 
         $this->assertSame(array('amqp', 'dummy'), $container->getDefinition('console.command.messenger_consume_messages')->getArgument(3));
-    }
-
-    public function testItRegistersSenders()
-    {
-        $container = $this->getContainerBuilder();
-        $container->register(AmqpSender::class, AmqpSender::class)->addTag('messenger.sender', array('alias' => 'amqp'));
-
-        (new MessengerPass())->process($container);
-
-        $this->assertEquals(array('amqp' => new Reference(AmqpSender::class), AmqpSender::class => new Reference(AmqpSender::class)), $container->getDefinition('messenger.sender_locator')->getArgument(0));
-    }
-
-    public function testItRegistersSenderWithoutTagName()
-    {
-        $container = $this->getContainerBuilder();
-        $container->register(AmqpSender::class, AmqpSender::class)->addTag('messenger.sender');
-
-        (new MessengerPass())->process($container);
-
-        $this->assertEquals(array(AmqpSender::class => new Reference(AmqpSender::class)), $container->getDefinition('messenger.sender_locator')->getArgument(0));
+        $this->assertSame(array('message_bus'), $container->getDefinition('console.command.messenger_consume_messages')->getArgument(4));
     }
 
     public function testItShouldNotThrowIfGeneratorIsReturnedInsteadOfArray()
@@ -285,34 +278,60 @@ class MessengerPassTest extends TestCase
 
         (new MessengerPass())->process($container);
 
-        $handlerLocatorDefinition = $container->getDefinition($container->getDefinition("$busId.messenger.handler_resolver")->getArgument(0));
-        $handlerMapping = $handlerLocatorDefinition->getArgument(0);
+        $handlersMapping = $container->getDefinition($busId.'.messenger.handlers_locator')->getArgument(0);
 
-        $this->assertArrayHasKey('handler.'.DummyMessage::class, $handlerMapping);
-        $firstReference = $handlerMapping['handler.'.DummyMessage::class]->getValues()[0];
+        $this->assertArrayHasKey(DummyMessage::class, $handlersMapping);
+        $firstReference = $container->getDefinition($handlersMapping[DummyMessage::class])->getArgument(0)[0][0];
         $this->assertEquals(array(new Reference(HandlerWithGenerators::class), 'dummyMethod'), $container->getDefinition($firstReference)->getArgument(0));
 
-        $this->assertArrayHasKey('handler.'.SecondMessage::class, $handlerMapping);
-        $secondReference = $handlerMapping['handler.'.SecondMessage::class]->getValues()[0];
+        $this->assertArrayHasKey(SecondMessage::class, $handlersMapping);
+        $secondReference = $container->getDefinition($handlersMapping[SecondMessage::class])->getArgument(0)[0][0];
         $this->assertEquals(array(new Reference(HandlerWithGenerators::class), 'secondMessage'), $container->getDefinition($secondReference)->getArgument(0));
+    }
+
+    public function testItRegistersHandlersOnDifferentBuses()
+    {
+        $container = $this->getContainerBuilder($eventsBusId = 'event_bus');
+        $container->register($commandsBusId = 'command_bus', MessageBusInterface::class)->addTag('messenger.bus')->setArgument(0, array());
+
+        $container
+            ->register(HandlerOnSpecificBuses::class, HandlerOnSpecificBuses::class)
+            ->addTag('messenger.message_handler')
+        ;
+
+        (new MessengerPass())->process($container);
+
+        $eventsHandlerMapping = $container->getDefinition($eventsBusId.'.messenger.handlers_locator')->getArgument(0);
+
+        $this->assertEquals(array(DummyMessage::class), array_keys($eventsHandlerMapping));
+        $firstReference = $container->getDefinition($eventsHandlerMapping[DummyMessage::class])->getArgument(0)[0][0];
+        $this->assertEquals(array(new Reference(HandlerOnSpecificBuses::class), 'dummyMethodForEvents'), $container->getDefinition($firstReference)->getArgument(0));
+
+        $commandsHandlerMapping = $container->getDefinition($commandsBusId.'.messenger.handlers_locator')->getArgument(0);
+
+        $this->assertEquals(array(DummyMessage::class), array_keys($commandsHandlerMapping));
+        $firstReference = $container->getDefinition($commandsHandlerMapping[DummyMessage::class])->getArgument(0)[0][0];
+        $this->assertEquals(array(new Reference(HandlerOnSpecificBuses::class), 'dummyMethodForCommands'), $container->getDefinition($firstReference)->getArgument(0));
     }
 
     /**
      * @expectedException \Symfony\Component\DependencyInjection\Exception\RuntimeException
-     * @expectedExceptionMessage Invalid sender "app.messenger.sender": class "Symfony\Component\Messenger\Tests\DependencyInjection\InvalidSender" must implement interface "Symfony\Component\Messenger\Transport\SenderInterface".
+     * @expectedExceptionMessage Invalid configuration returned by method "Symfony\Component\Messenger\Tests\DependencyInjection\HandlerOnUndefinedBus::getHandledMessages()" for message "Symfony\Component\Messenger\Tests\Fixtures\DummyMessage": bus "some_undefined_bus" does not exist.
      */
-    public function testItDoesNotRegisterInvalidSender()
+    public function testItThrowsAnExceptionOnUnknownBus()
     {
         $container = $this->getContainerBuilder();
-        $container->register('app.messenger.sender', InvalidSender::class)
-            ->addTag('messenger.sender');
+        $container
+            ->register(HandlerOnUndefinedBus::class, HandlerOnUndefinedBus::class)
+            ->addTag('messenger.message_handler')
+        ;
 
         (new MessengerPass())->process($container);
     }
 
     /**
      * @expectedException \Symfony\Component\DependencyInjection\Exception\RuntimeException
-     * @expectedExceptionMessage Invalid handler service "Symfony\Component\Messenger\Tests\DependencyInjection\UndefinedMessageHandler": message class "Symfony\Component\Messenger\Tests\DependencyInjection\UndefinedMessage" used as argument type in method "Symfony\Component\Messenger\Tests\DependencyInjection\UndefinedMessageHandler::__invoke()" does not exist.
+     * @expectedExceptionMessage Invalid handler service "Symfony\Component\Messenger\Tests\DependencyInjection\UndefinedMessageHandler": class or interface "Symfony\Component\Messenger\Tests\DependencyInjection\UndefinedMessage" used as argument type in method "Symfony\Component\Messenger\Tests\DependencyInjection\UndefinedMessageHandler::__invoke()" not found.
      */
     public function testUndefinedMessageClassForHandler()
     {
@@ -327,7 +346,7 @@ class MessengerPassTest extends TestCase
 
     /**
      * @expectedException \Symfony\Component\DependencyInjection\Exception\RuntimeException
-     * @expectedExceptionMessage Invalid handler service "Symfony\Component\Messenger\Tests\DependencyInjection\UndefinedMessageHandlerViaHandlerInterface": message class "Symfony\Component\Messenger\Tests\DependencyInjection\UndefinedMessage" used as argument type in method "Symfony\Component\Messenger\Tests\DependencyInjection\UndefinedMessageHandlerViaHandlerInterface::__invoke()" does not exist.
+     * @expectedExceptionMessage Invalid handler service "Symfony\Component\Messenger\Tests\DependencyInjection\UndefinedMessageHandlerViaHandlerInterface": class or interface "Symfony\Component\Messenger\Tests\DependencyInjection\UndefinedMessage" used as argument type in method "Symfony\Component\Messenger\Tests\DependencyInjection\UndefinedMessageHandlerViaHandlerInterface::__invoke()" not found.
      */
     public function testUndefinedMessageClassForHandlerImplementingMessageHandlerInterface()
     {
@@ -342,7 +361,7 @@ class MessengerPassTest extends TestCase
 
     /**
      * @expectedException \Symfony\Component\DependencyInjection\Exception\RuntimeException
-     * @expectedExceptionMessage Invalid handler service "Symfony\Component\Messenger\Tests\DependencyInjection\UndefinedMessageHandlerViaSubscriberInterface": message class "Symfony\Component\Messenger\Tests\DependencyInjection\UndefinedMessage" returned by method "Symfony\Component\Messenger\Tests\DependencyInjection\UndefinedMessageHandlerViaSubscriberInterface::getHandledMessages()" does not exist.
+     * @expectedExceptionMessage Invalid handler service "Symfony\Component\Messenger\Tests\DependencyInjection\UndefinedMessageHandlerViaSubscriberInterface": class or interface "Symfony\Component\Messenger\Tests\DependencyInjection\UndefinedMessage" returned by method "Symfony\Component\Messenger\Tests\DependencyInjection\UndefinedMessageHandlerViaSubscriberInterface::getHandledMessages()" not found.
      */
     public function testUndefinedMessageClassForHandlerImplementingMessageSubscriberInterface()
     {
@@ -448,22 +467,18 @@ class MessengerPassTest extends TestCase
     public function testRegistersMiddlewareFromServices()
     {
         $container = $this->getContainerBuilder($fooBusId = 'messenger.bus.foo');
-        $container->register('messenger.middleware.allow_no_handler', AllowNoHandlerMiddleware::class)->setAbstract(true);
         $container->register('middleware_with_factory', UselessMiddleware::class)->addArgument('some_default')->setAbstract(true);
         $container->register('middleware_with_factory_using_default', UselessMiddleware::class)->addArgument('some_default')->setAbstract(true);
         $container->register(UselessMiddleware::class, UselessMiddleware::class);
 
         $container->setParameter($middlewareParameter = $fooBusId.'.middleware', array(
             array('id' => UselessMiddleware::class),
-            array('id' => 'middleware_with_factory', 'arguments' => array('foo', 'bar')),
+            array('id' => 'middleware_with_factory', 'arguments' => array('index_0' => 'foo', 'bar')),
             array('id' => 'middleware_with_factory_using_default'),
-            array('id' => 'allow_no_handler'),
         ));
 
         (new MessengerPass())->process($container);
         (new ResolveChildDefinitionsPass())->process($container);
-
-        $this->assertTrue($container->hasDefinition($childMiddlewareId = $fooBusId.'.middleware.allow_no_handler'));
 
         $this->assertTrue($container->hasDefinition($factoryChildMiddlewareId = $fooBusId.'.middleware.middleware_with_factory'));
         $this->assertEquals(
@@ -483,14 +498,13 @@ class MessengerPassTest extends TestCase
             new Reference(UselessMiddleware::class),
             new Reference($factoryChildMiddlewareId),
             new Reference($factoryWithDefaultChildMiddlewareId),
-            new Reference($childMiddlewareId),
-        ), $container->getDefinition($fooBusId)->getArgument(0));
+        ), $container->getDefinition($fooBusId)->getArgument(0)->getValues());
         $this->assertFalse($container->hasParameter($middlewareParameter));
     }
 
     /**
      * @expectedException \Symfony\Component\DependencyInjection\Exception\RuntimeException
-     * @expectedExceptionMessage Invalid middleware "not_defined_middleware": define such service to be able to use it.
+     * @expectedExceptionMessage Invalid middleware: service "not_defined_middleware" not found.
      */
     public function testCannotRegistersAnUndefinedMiddleware()
     {
@@ -522,17 +536,17 @@ class MessengerPassTest extends TestCase
         $container = $this->getContainerBuilder($commandBusId = 'command_bus');
         $container->register($queryBusId = 'query_bus', MessageBusInterface::class)->setArgument(0, array())->addTag('messenger.bus');
         $container->register($emptyBus = 'empty_bus', MessageBusInterface::class)->setArgument(0, array())->addTag('messenger.bus');
-        $container->register('messenger.middleware.call_message_handler', HandleMessageMiddleware::class)
+        $container->register('messenger.middleware.handle_message', HandleMessageMiddleware::class)
             ->addArgument(null)
             ->setAbstract(true)
         ;
 
         $container->register('console.command.messenger_debug', DebugCommand::class)->addArgument(array());
 
-        $middlewares = array(array('id' => 'call_message_handler'));
+        $middlewareHandlers = array(array('id' => 'handle_message'));
 
-        $container->setParameter($commandBusId.'.middleware', $middlewares);
-        $container->setParameter($queryBusId.'.middleware', $middlewares);
+        $container->setParameter($commandBusId.'.middleware', $middlewareHandlers);
+        $container->setParameter($queryBusId.'.middleware', $middlewareHandlers);
 
         $container->register(DummyCommandHandler::class)->addTag('messenger.message_handler', array('bus' => $commandBusId));
         $container->register(DummyQueryHandler::class)->addTag('messenger.message_handler', array('bus' => $queryBusId));
@@ -567,11 +581,6 @@ class MessengerPassTest extends TestCase
             $container->setAlias('message_bus', $busId);
         }
 
-        $container
-            ->register('messenger.sender_locator', ServiceLocator::class)
-            ->addArgument(new Reference('service_container'))
-        ;
-
         $container->register('messenger.receiver_locator', ServiceLocator::class)
             ->addArgument(new Reference('service_container'))
         ;
@@ -592,7 +601,7 @@ class DummyReceiver implements ReceiverInterface
     public function receive(callable $handler): void
     {
         for ($i = 0; $i < 3; ++$i) {
-            $handler(Envelope::wrap(new DummyMessage("Dummy $i")));
+            $handler(new Envelope(new DummyMessage("Dummy $i")));
         }
     }
 
@@ -679,9 +688,7 @@ class PrioritizedHandler implements MessageSubscriberInterface
 {
     public static function getHandledMessages(): iterable
     {
-        return array(
-            array(SecondMessage::class, 10),
-        );
+        yield SecondMessage::class => array('priority' => 10);
     }
 
     public function __invoke()
@@ -693,10 +700,8 @@ class HandlerMappingMethods implements MessageSubscriberInterface
 {
     public static function getHandledMessages(): iterable
     {
-        return array(
-            DummyMessage::class => 'dummyMethod',
-            SecondMessage::class => array('secondMessage', 20),
-        );
+        yield DummyMessage::class => 'dummyMethod';
+        yield SecondMessage::class => array('method' => 'secondMessage', 'priority' => 20);
     }
 
     public function dummyMethod()
@@ -747,10 +752,39 @@ class HandlerWithGenerators implements MessageSubscriberInterface
     }
 }
 
+class HandlerOnSpecificBuses implements MessageSubscriberInterface
+{
+    public static function getHandledMessages(): iterable
+    {
+        yield DummyMessage::class => array('method' => 'dummyMethodForEvents', 'bus' => 'event_bus');
+        yield DummyMessage::class => array('method' => 'dummyMethodForCommands', 'bus' => 'command_bus');
+    }
+
+    public function dummyMethodForEvents()
+    {
+    }
+
+    public function dummyMethodForCommands()
+    {
+    }
+}
+
+class HandlerOnUndefinedBus implements MessageSubscriberInterface
+{
+    public static function getHandledMessages(): iterable
+    {
+        yield DummyMessage::class => array('method' => 'dummyMethodForSomeBus', 'bus' => 'some_undefined_bus');
+    }
+
+    public function dummyMethodForSomeBus()
+    {
+    }
+}
+
 class UselessMiddleware implements MiddlewareInterface
 {
-    public function handle($message, callable $next)
+    public function handle(Envelope $message, StackInterface $stack): Envelope
     {
-        return $next($message);
+        return $stack->next()->handle($message, $stack);
     }
 }

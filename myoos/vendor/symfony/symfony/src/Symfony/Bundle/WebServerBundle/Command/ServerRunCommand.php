@@ -132,7 +132,14 @@ EOF
             $server = new WebServer();
             $config = new WebServerConfig($documentRoot, $env, $input->getArgument('addressport'), $input->getOption('router'));
 
-            $io->success(sprintf('Server listening on http://%s', $config->getAddress()));
+            $message = sprintf('Server listening on http://%s', $config->getAddress());
+            if ('' !== $displayAddress = $config->getDisplayAddress()) {
+                $message = sprintf('Server listening on all interfaces, port %s -- see http://%s', $config->getPort(), $displayAddress);
+            }
+            $io->success($message);
+            if (ini_get('xdebug.profiler_enable_trigger')) {
+                $io->comment('Xdebug profiler trigger enabled.');
+            }
             $io->comment('Quit the server with CONTROL-C.');
 
             $exitCode = $server->run($config, $disableOutput, $callback);

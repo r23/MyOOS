@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\Lock\Store;
 
+use Symfony\Component\Cache\Traits\RedisClusterProxy;
 use Symfony\Component\Cache\Traits\RedisProxy;
 use Symfony\Component\Lock\Exception\InvalidArgumentException;
 use Symfony\Component\Lock\Exception\LockConflictedException;
@@ -62,7 +63,7 @@ class RedisStore implements StoreInterface
         ';
 
         $key->reduceLifetime($this->initialTtl);
-        if (!$this->evaluate($script, (string) $key, array($this->getToken($key), (int) ceil($this->initialTtl * 1000)))) {
+        if (!$this->evaluate($script, (string) $key, array($this->getUniqueToken($key), (int) ceil($this->initialTtl * 1000)))) {
             throw new LockConflictedException();
         }
 
@@ -90,7 +91,7 @@ class RedisStore implements StoreInterface
         ';
 
         $key->reduceLifetime($ttl);
-        if (!$this->evaluate($script, (string) $key, array($this->getToken($key), (int) ceil($ttl * 1000)))) {
+        if (!$this->evaluate($script, (string) $key, array($this->getUniqueToken($key), (int) ceil($ttl * 1000)))) {
             throw new LockConflictedException();
         }
 
@@ -112,7 +113,7 @@ class RedisStore implements StoreInterface
             end
         ';
 
-        $this->evaluate($script, (string) $key, array($this->getToken($key)));
+        $this->evaluate($script, (string) $key, array($this->getUniqueToken($key)));
     }
 
     /**
@@ -120,7 +121,7 @@ class RedisStore implements StoreInterface
      */
     public function exists(Key $key)
     {
-        return $this->redis->get((string) $key) === $this->getToken($key);
+        return $this->redis->get((string) $key) === $this->getUniqueToken($key);
     }
 
     /**
@@ -130,7 +131,12 @@ class RedisStore implements StoreInterface
      */
     private function evaluate(string $script, string $resource, array $args)
     {
-        if ($this->redis instanceof \Redis || $this->redis instanceof \RedisCluster || $this->redis instanceof RedisProxy) {
+        if (
+            $this->redis instanceof \Redis ||
+            $this->redis instanceof \RedisCluster ||
+            $this->redis instanceof RedisProxy ||
+            $this->redis instanceof RedisClusterProxy
+        ) {
             return $this->redis->eval($script, array_merge(array($resource), $args), 1);
         }
 
@@ -139,16 +145,13 @@ class RedisStore implements StoreInterface
         }
 
         if ($this->redis instanceof \Predis\Client) {
-            return \call_user_func_array(array($this->redis, 'eval'), array_merge(array($script, 1, $resource), $args));
+            return $this->redis->eval(...array_merge(array($script, 1, $resource), $args));
         }
 
         throw new InvalidArgumentException(sprintf('%s() expects being initialized with a Redis, RedisArray, RedisCluster or Predis\Client, %s given', __METHOD__, \is_object($this->redis) ? \get_class($this->redis) : \gettype($this->redis)));
     }
 
-    /**
-     * Retrieves an unique token for the given key.
-     */
-    private function getToken(Key $key): string
+    private function getUniqueToken(Key $key): string
     {
         if (!$key->hasState(__CLASS__)) {
             $token = base64_encode(random_bytes(32));

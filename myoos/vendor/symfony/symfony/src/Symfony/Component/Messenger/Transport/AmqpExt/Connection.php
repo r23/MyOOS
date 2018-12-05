@@ -11,10 +11,16 @@
 
 namespace Symfony\Component\Messenger\Transport\AmqpExt;
 
+use Symfony\Component\Messenger\Exception\InvalidArgumentException;
+
 /**
  * An AMQP connection.
  *
  * @author Samuel Roze <samuel.roze@gmail.com>
+ *
+ * @final
+ *
+ * @experimental in 4.2
  */
 class Connection
 {
@@ -51,7 +57,7 @@ class Connection
     public static function fromDsn(string $dsn, array $options = array(), bool $debug = false, AmqpFactory $amqpFactory = null): self
     {
         if (false === $parsedUrl = parse_url($dsn)) {
-            throw new \InvalidArgumentException(sprintf('The given AMQP DSN "%s" is invalid.', $dsn));
+            throw new InvalidArgumentException(sprintf('The given AMQP DSN "%s" is invalid.', $dsn));
         }
 
         $pathParts = isset($parsedUrl['path']) ? explode('/', trim($parsedUrl['path'], '/')) : array();

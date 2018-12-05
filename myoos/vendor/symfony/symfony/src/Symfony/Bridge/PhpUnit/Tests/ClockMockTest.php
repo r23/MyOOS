@@ -57,4 +57,9 @@ class ClockMockTest extends TestCase
         usleep(2);
         $this->assertSame(1234567890.125002, microtime(true));
     }
+
+    public function testDate()
+    {
+        $this->assertSame('1234567890', date('U'));
+    }
 }

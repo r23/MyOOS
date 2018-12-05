@@ -11,8 +11,12 @@
 
 namespace Symfony\Component\Messenger\Transport;
 
+use Symfony\Component\Messenger\Exception\InvalidArgumentException;
+
 /**
  * @author Samuel Roze <samuel.roze@gmail.com>
+ *
+ * @experimental in 4.2
  */
 class TransportFactory implements TransportFactoryInterface
 {
@@ -34,7 +38,7 @@ class TransportFactory implements TransportFactoryInterface
             }
         }
 
-        throw new \InvalidArgumentException(sprintf('No transport supports the given DSN "%s".', $dsn));
+        throw new InvalidArgumentException(sprintf('No transport supports the given DSN "%s".', $dsn));
     }
 
     public function supports(string $dsn, array $options): bool

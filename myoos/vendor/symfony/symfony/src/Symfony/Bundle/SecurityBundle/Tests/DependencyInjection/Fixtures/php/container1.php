@@ -87,15 +87,10 @@ $container->loadFromExtension('security', array(
             'anonymous' => true,
             'http_basic' => true,
         ),
-        'simple_auth' => array(
-            'provider' => 'default',
-            'anonymous' => true,
-            'simple_form' => array('authenticator' => 'simple_authenticator'),
-        ),
     ),
 
     'access_control' => array(
-        array('path' => '/blog/524', 'role' => 'ROLE_USER', 'requires_channel' => 'https', 'methods' => array('get', 'POST')),
+        array('path' => '/blog/524', 'role' => 'ROLE_USER', 'requires_channel' => 'https', 'methods' => array('get', 'POST'), 'port' => 8000),
         array('path' => '/blog/.*', 'role' => 'IS_AUTHENTICATED_ANONYMOUSLY'),
         array('path' => '/blog/524', 'role' => 'IS_AUTHENTICATED_ANONYMOUSLY', 'allow_if' => "token.getUsername() matches '/^admin/'"),
     ),

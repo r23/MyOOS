@@ -11,72 +11,64 @@
 
 namespace Symfony\Component\Messenger;
 
+use Symfony\Component\Messenger\Stamp\StampInterface;
+
 /**
- * A message wrapped in an envelope with items (configurations, markers, ...).
+ * A message wrapped in an envelope with stamps (configurations, markers, ...).
  *
  * @author Maxime Steinhausser <maxime.steinhausser@gmail.com>
  *
- * @experimental in 4.1
+ * @experimental in 4.2
  */
 final class Envelope
 {
-    private $items = array();
+    private $stamps = array();
     private $message;
 
     /**
-     * @param object                  $message
-     * @param EnvelopeItemInterface[] $items
+     * @param object $message
      */
-    public function __construct($message, array $items = array())
+    public function __construct($message, StampInterface ...$stamps)
     {
+        if (!\is_object($message)) {
+            throw new \TypeError(sprintf('Invalid argument provided to "%s()": expected object but got %s.', __METHOD__, \gettype($message)));
+        }
         $this->message = $message;
-        foreach ($items as $item) {
-            $this->items[\get_class($item)] = $item;
+
+        foreach ($stamps as $stamp) {
+            $this->stamps[\get_class($stamp)][] = $stamp;
         }
     }
 
     /**
-     * Wrap a message into an envelope if not already wrapped.
-     *
-     * @param Envelope|object $message
+     * @return Envelope a new Envelope instance with additional stamp
      */
-    public static function wrap($message): self
-    {
-        return $message instanceof self ? $message : new self($message);
-    }
-
-    /**
-     * @return Envelope a new Envelope instance with additional item
-     */
-    public function with(EnvelopeItemInterface $item): self
+    public function with(StampInterface ...$stamps): self
     {
         $cloned = clone $this;
 
-        $cloned->items[\get_class($item)] = $item;
+        foreach ($stamps as $stamp) {
+            $cloned->stamps[\get_class($stamp)][] = $stamp;
+        }
 
         return $cloned;
     }
 
-    public function withMessage($message): self
+    public function last(string $stampFqcn): ?StampInterface
     {
-        $cloned = clone $this;
-
-        $cloned->message = $message;
-
-        return $cloned;
-    }
-
-    public function get(string $itemFqcn): ?EnvelopeItemInterface
-    {
-        return $this->items[$itemFqcn] ?? null;
+        return isset($this->stamps[$stampFqcn]) ? end($this->stamps[$stampFqcn]) : null;
     }
 
     /**
-     * @return EnvelopeItemInterface[] indexed by fqcn
+     * @return StampInterface[]|StampInterface[][] The stamps for the specified FQCN, or all stamps by their class name
      */
-    public function all(): array
+    public function all(string $stampFqcn = null): array
     {
-        return $this->items;
+        if (null !== $stampFqcn) {
+            return $this->stamps[$stampFqcn] ?? array();
+        }
+
+        return $this->stamps;
     }
 
     /**

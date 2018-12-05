@@ -68,16 +68,11 @@
             <user-checker>app.user_checker</user-checker>
         </firewall>
 
-        <firewall name="simple_auth" provider="default">
-            <anonymous />
-            <simple-form authenticator="simple_authenticator" />
-        </firewall>
-
         <role id="ROLE_ADMIN">ROLE_USER</role>
         <role id="ROLE_SUPER_ADMIN">ROLE_USER,ROLE_ADMIN,ROLE_ALLOWED_TO_SWITCH</role>
         <role id="ROLE_REMOTE">ROLE_USER,ROLE_ADMIN</role>
 
-        <rule path="/blog/524" role="ROLE_USER" requires-channel="https" methods="get,POST" />
+        <rule path="/blog/524" role="ROLE_USER" requires-channel="https" methods="get,POST" port="8000" />
         <rule role='IS_AUTHENTICATED_ANONYMOUSLY' path="/blog/.*" />
         <rule role='IS_AUTHENTICATED_ANONYMOUSLY' allow-if="token.getUsername() matches '/^admin/'" path="/blog/524" />
     </config>

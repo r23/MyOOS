@@ -13,6 +13,8 @@ namespace Symfony\Component\Messenger;
 
 /**
  * @author Samuel Roze <samuel.roze@gmail.com>
+ *
+ * @experimental in 4.2
  */
 class TraceableMessageBus implements MessageBusInterface
 {
@@ -27,32 +29,24 @@ class TraceableMessageBus implements MessageBusInterface
     /**
      * {@inheritdoc}
      */
-    public function dispatch($message)
+    public function dispatch($message): Envelope
     {
-        $callTime = microtime(true);
-        $messageToTrace = $message instanceof Envelope ? $message->getMessage() : $message;
-        $envelopeItems = $message instanceof Envelope ? array_values($message->all()) : null;
+        $envelope = $message instanceof Envelope ? $message : new Envelope($message);
+        $context = array(
+            'stamps' => array_values($envelope->all()),
+            'message' => $envelope->getMessage(),
+            'caller' => $this->getCaller(),
+            'callTime' => microtime(true),
+        );
 
         try {
-            $result = $this->decoratedBus->dispatch($message);
-
-            $this->dispatchedMessages[] = array(
-                'envelopeItems' => $envelopeItems,
-                'message' => $messageToTrace,
-                'result' => $result,
-                'callTime' => $callTime,
-            );
-
-            return $result;
+            return $this->decoratedBus->dispatch($message);
         } catch (\Throwable $e) {
-            $this->dispatchedMessages[] = array(
-                'envelopeItems' => $envelopeItems,
-                'message' => $messageToTrace,
-                'exception' => $e,
-                'callTime' => $callTime,
-            );
+            $context['exception'] = $e;
 
             throw $e;
+        } finally {
+            $this->dispatchedMessages[] = $context;
         }
     }
 
@@ -64,5 +58,38 @@ class TraceableMessageBus implements MessageBusInterface
     public function reset()
     {
         $this->dispatchedMessages = array();
+    }
+
+    private function getCaller(): array
+    {
+        $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 8);
+
+        $file = $trace[1]['file'];
+        $line = $trace[1]['line'];
+
+        for ($i = 2; $i < 8; ++$i) {
+            if (isset($trace[$i]['class'], $trace[$i]['function'])
+                && 'dispatch' === $trace[$i]['function']
+                && is_a($trace[$i]['class'], MessageBusInterface::class, true)
+            ) {
+                $file = $trace[$i]['file'];
+                $line = $trace[$i]['line'];
+
+                while (++$i < 8) {
+                    if (isset($trace[$i]['function'], $trace[$i]['file']) && empty($trace[$i]['class']) && 0 !== strpos($trace[$i]['function'], 'call_user_func')) {
+                        $file = $trace[$i]['file'];
+                        $line = $trace[$i]['line'];
+
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+
+        $name = str_replace('\\', '/', $file);
+        $name = substr($name, strrpos($name, '/') + 1);
+
+        return compact('name', 'file', 'line');
     }
 }

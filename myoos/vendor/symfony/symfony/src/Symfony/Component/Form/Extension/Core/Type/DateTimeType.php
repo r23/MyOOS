@@ -140,8 +140,16 @@ class DateTimeType extends AbstractType
                 $dateOptions['widget'] = $options['date_widget'];
             }
 
+            if (null !== $options['date_label']) {
+                $dateOptions['label'] = $options['date_label'];
+            }
+
             if (null !== $options['time_widget']) {
                 $timeOptions['widget'] = $options['time_widget'];
+            }
+
+            if (null !== $options['time_label']) {
+                $timeOptions['label'] = $options['time_label'];
             }
 
             if (null !== $options['date_format']) {
@@ -238,6 +246,8 @@ class DateTimeType extends AbstractType
             // this option.
             'data_class' => null,
             'compound' => $compound,
+            'date_label' => null,
+            'time_label' => null,
             'empty_data' => function (Options $options) {
                 return $options['compound'] ? array() : '';
             },

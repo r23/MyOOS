@@ -160,8 +160,13 @@ class UrlMatcher implements UrlMatcherInterface, RequestMatcherInterface
                 continue;
             }
 
-            if ($supportsTrailingSlash && $hasTrailingSlash !== ('/' === $pathinfo[-1])) {
-                return;
+            if ($supportsTrailingSlash) {
+                if (!$hasTrailingSlash && '/' === $pathinfo[-1] && preg_match($regex, substr($pathinfo, 0, -1))) {
+                    return;
+                }
+                if ($hasTrailingSlash && '/' !== $pathinfo[-1]) {
+                    return;
+                }
             }
 
             $hostMatches = array();
@@ -268,7 +273,7 @@ class UrlMatcher implements UrlMatcherInterface, RequestMatcherInterface
     {
         if (null === $this->expressionLanguage) {
             if (!class_exists('Symfony\Component\ExpressionLanguage\ExpressionLanguage')) {
-                throw new \RuntimeException('Unable to use expressions as the Symfony ExpressionLanguage component is not installed.');
+                throw new \LogicException('Unable to use expressions as the Symfony ExpressionLanguage component is not installed.');
             }
             $this->expressionLanguage = new ExpressionLanguage(null, $this->expressionLanguageProviders);
         }

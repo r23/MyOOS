@@ -17,12 +17,11 @@ use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 use Symfony\Component\HttpKernel\DataCollector\LateDataCollectorInterface;
 use Symfony\Component\Messenger\TraceableMessageBus;
 use Symfony\Component\VarDumper\Caster\ClassStub;
-use Symfony\Component\VarDumper\Cloner\Data;
 
 /**
  * @author Samuel Roze <samuel.roze@gmail.com>
  *
- * @experimental in 4.1
+ * @experimental in 4.2
  */
 class MessengerDataCollector extends DataCollector implements LateDataCollectorInterface
 {
@@ -57,14 +56,10 @@ class MessengerDataCollector extends DataCollector implements LateDataCollectorI
         }
 
         // Order by call time
-        usort($messages, function (array $a, array $b): int {
-            return $a[1] > $b[1] ? 1 : -1;
-        });
+        usort($messages, function ($a, $b) { return $a[1] <=> $b[1]; });
 
         // Keep the messages clones only
-        $this->data['messages'] = array_map(function (array $item): Data {
-            return $item[0];
-        }, $messages);
+        $this->data['messages'] = array_column($messages, 0);
     }
 
     /**
@@ -92,20 +87,13 @@ class MessengerDataCollector extends DataCollector implements LateDataCollectorI
 
         $debugRepresentation = array(
             'bus' => $busName,
-            'envelopeItems' => $tracedMessage['envelopeItems'] ?? null,
+            'stamps' => $tracedMessage['stamps'] ?? null,
             'message' => array(
                 'type' => new ClassStub(\get_class($message)),
                 'value' => $message,
             ),
+            'caller' => $tracedMessage['caller'],
         );
-
-        if (array_key_exists('result', $tracedMessage)) {
-            $result = $tracedMessage['result'];
-            $debugRepresentation['result'] = array(
-                'type' => \is_object($result) ? \get_class($result) : \gettype($result),
-                'value' => $result,
-            );
-        }
 
         if (isset($tracedMessage['exception'])) {
             $exception = $tracedMessage['exception'];
@@ -121,18 +109,23 @@ class MessengerDataCollector extends DataCollector implements LateDataCollectorI
 
     public function getExceptionsCount(string $bus = null): int
     {
-        return array_reduce($this->getMessages($bus), function (int $carry, Data $message) {
-            return $carry += isset($message['exception']) ? 1 : 0;
-        }, 0);
+        $count = 0;
+        foreach ($this->getMessages($bus) as $message) {
+            $count += (int) isset($message['exception']);
+        }
+
+        return $count;
     }
 
     public function getMessages(string $bus = null): array
     {
-        $messages = $this->data['messages'] ?? array();
+        if (null === $bus) {
+            return $this->data['messages'];
+        }
 
-        return $bus ? array_filter($messages, function (Data $message) use ($bus): bool {
+        return array_filter($this->data['messages'], function ($message) use ($bus) {
             return $bus === $message['bus'];
-        }) : $messages;
+        });
     }
 
     public function getBuses(): array

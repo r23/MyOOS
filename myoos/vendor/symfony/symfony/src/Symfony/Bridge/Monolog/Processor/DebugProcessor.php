@@ -15,8 +15,9 @@ use Monolog\Logger;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Log\DebugLoggerInterface;
+use Symfony\Contracts\Service\ResetInterface;
 
-class DebugProcessor implements DebugLoggerInterface
+class DebugProcessor implements DebugLoggerInterface, ResetInterface
 {
     private $records = array();
     private $errorCount = array();
@@ -57,9 +58,15 @@ class DebugProcessor implements DebugLoggerInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @param Request|null $request
      */
     public function getLogs(/* Request $request = null */)
     {
+        if (\func_num_args() < 1 && __CLASS__ !== \get_class($this) && __CLASS__ !== (new \ReflectionMethod($this, __FUNCTION__))->getDeclaringClass()->getName() && !$this instanceof \PHPUnit\Framework\MockObject\MockObject && !$this instanceof \Prophecy\Prophecy\ProphecySubjectInterface) {
+            @trigger_error(sprintf('The "%s()" method will have a new "Request $request = null" argument in version 5.0, not defining it is deprecated since Symfony 4.2.', __METHOD__), E_USER_DEPRECATED);
+        }
+
         if (1 <= \func_num_args() && null !== $request = \func_get_arg(0)) {
             return $this->records[spl_object_hash($request)] ?? array();
         }
@@ -73,9 +80,15 @@ class DebugProcessor implements DebugLoggerInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @param Request|null $request
      */
     public function countErrors(/* Request $request = null */)
     {
+        if (\func_num_args() < 1 && __CLASS__ !== \get_class($this) && __CLASS__ !== (new \ReflectionMethod($this, __FUNCTION__))->getDeclaringClass()->getName() && !$this instanceof \PHPUnit\Framework\MockObject\MockObject && !$this instanceof \Prophecy\Prophecy\ProphecySubjectInterface) {
+            @trigger_error(sprintf('The "%s()" method will have a new "Request $request = null" argument in version 5.0, not defining it is deprecated since Symfony 4.2.', __METHOD__), E_USER_DEPRECATED);
+        }
+
         if (1 <= \func_num_args() && null !== $request = \func_get_arg(0)) {
             return $this->errorCount[spl_object_hash($request)] ?? 0;
         }
@@ -90,5 +103,13 @@ class DebugProcessor implements DebugLoggerInterface
     {
         $this->records = array();
         $this->errorCount = array();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function reset()
+    {
+        $this->clear();
     }
 }

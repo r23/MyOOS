@@ -58,7 +58,7 @@ EOT
     {
         $io = new SymfonyStyle($input, $output);
 
-        /** @var $kernel KernelInterface */
+        /** @var KernelInterface $kernel */
         $kernel = $this->getApplication()->getKernel();
 
         $rows = array(
@@ -71,11 +71,9 @@ EOT
             array('<info>Kernel</>'),
             new TableSeparator(),
             array('Type', \get_class($kernel)),
-            array('Name', $kernel->getName()),
             array('Environment', $kernel->getEnvironment()),
             array('Debug', $kernel->isDebug() ? 'true' : 'false'),
             array('Charset', $kernel->getCharset()),
-            array('Root directory', self::formatPath($kernel->getRootDir(), $kernel->getProjectDir())),
             array('Cache directory', self::formatPath($kernel->getCacheDir(), $kernel->getProjectDir()).' (<comment>'.self::formatFileSize($kernel->getCacheDir()).'</>)'),
             array('Log directory', self::formatPath($kernel->getLogDir(), $kernel->getProjectDir()).' (<comment>'.self::formatFileSize($kernel->getLogDir()).'</>)'),
             new TableSeparator(),
@@ -103,9 +101,9 @@ EOT
         $io->table(array(), $rows);
     }
 
-    private static function formatPath(string $path, string $baseDir = null): string
+    private static function formatPath(string $path, string $baseDir): string
     {
-        return null !== $baseDir ? preg_replace('~^'.preg_quote($baseDir, '~').'~', '.', $path) : $path;
+        return preg_replace('~^'.preg_quote($baseDir, '~').'~', '.', $path);
     }
 
     private static function formatFileSize(string $path): string

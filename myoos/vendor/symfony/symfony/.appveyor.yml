@@ -10,7 +10,7 @@ init:
     - SET PATH=c:\php;%PATH%
     - SET COMPOSER_NO_INTERACTION=1
     - SET SYMFONY_DEPRECATIONS_HELPER=strict
-    - SET "SYMFONY_REQUIRE=>=4.1"
+    - SET "SYMFONY_REQUIRE=>=4.2"
     - SET ANSICON=121x90 (121x90)
     - REG ADD "HKEY_CURRENT_USER\Software\Microsoft\Command Processor" /v DelayedExpansion /t REG_DWORD /d 1 /f
 
@@ -45,7 +45,7 @@ install:
     - php composer.phar self-update
     - copy /Y .composer\* %APPDATA%\Composer\
     - php composer.phar global require --no-progress --no-scripts --no-plugins symfony/flex dev-master
-    - php .github/build-packages.php "HEAD^" src\Symfony\Bridge\PhpUnit
+    - php .github/build-packages.php "HEAD^" src\Symfony\Bridge\PhpUnit src\Symfony\Contracts
     - IF %APPVEYOR_REPO_BRANCH%==master (SET COMPOSER_ROOT_VERSION=dev-master) ELSE (SET COMPOSER_ROOT_VERSION=%APPVEYOR_REPO_BRANCH%.x-dev)
     - php composer.phar update --no-progress --no-suggest --ansi
     - php phpunit install

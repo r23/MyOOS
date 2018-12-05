@@ -95,6 +95,7 @@ class RequestDataCollector extends DataCollector implements EventSubscriberInter
             'status_code' => $statusCode,
             'request_query' => $request->query->all(),
             'request_request' => $request->request->all(),
+            'request_files' => $request->files->all(),
             'request_headers' => $request->headers->all(),
             'request_server' => $request->server->all(),
             'request_cookies' => $request->cookies->all(),
@@ -153,7 +154,8 @@ class RequestDataCollector extends DataCollector implements EventSubscriberInter
                     'controller' => $this->parseController($request->attributes->get('_controller')),
                     'status_code' => $statusCode,
                     'status_text' => Response::$statusTexts[(int) $statusCode],
-                ))
+                )),
+                0, '/', null, $request->isSecure(), true, false, 'lax'
             ));
         }
 
@@ -193,6 +195,11 @@ class RequestDataCollector extends DataCollector implements EventSubscriberInter
     public function getRequestQuery()
     {
         return new ParameterBag($this->data['request_query']->getValue());
+    }
+
+    public function getRequestFiles()
+    {
+        return new ParameterBag($this->data['request_files']->getValue());
     }
 
     public function getRequestHeaders()
