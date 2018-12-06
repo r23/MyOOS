@@ -11,11 +11,11 @@ msgstr ""
 "Language: de\n"
 "Project-Id-Version: Themes - Twenty Seventeen\n"
 
-#. Description of the plugin/theme
+#. Description of the theme
 msgid "Twenty Seventeen brings your site to life with header video and immersive featured images. With a focus on business sites, it features multiple sections on the front page as well as widgets, navigation and social menus, a logo, and more. Personalize its asymmetrical grid with a custom color scheme and showcase your multimedia content with post formats. Our default theme for 2017 works great in many languages, for any abilities, and on any device."
 msgstr "Twenty Seventeen bringt Leben in deine Website durch ein Header-Video und beeindruckende Beitragsbilder. Mit einem Fokus auf Business-Websites zeichnet sich die Startseite durch mehrere Inhalts-Abschnitte aus, ebenso wie Widgets, Navigations- und Social-Menüs, einem Logo und vielem mehr. Gestalte das asymmetrische Raster des Themes in eigenen Farben und präsentiere deine multimedialen Inhalte in entsprechenden Beitragsformaten. Unser Standard-Theme für 2017 funktioniert großartig in vielen Sprachen, für jede Anwendergruppe und auf allen Geräten."
 
-#. Theme Name of the plugin/theme
+#. Theme Name of the theme
 msgid "Twenty Seventeen"
 msgstr "Twenty Seventeen"
 
@@ -31,76 +31,76 @@ msgstr "Blog-Seitenleiste"
 msgid "Add widgets here to appear in your sidebar on blog posts and archive pages."
 msgstr "Widgets hier hinzufügen, um sie in der Seitenleiste von Blogbeiträgen und Archivseiten anzuzeigen."
 
+#: template-parts/navigation/navigation-top.php:27
 #: template-parts/header/site-branding.php:34
-#: template-parts/navigation/navigation-top.php:31
 msgid "Scroll down to content"
 msgstr "Zum Inhalt nach unten scrollen"
 
-#: functions.php:159
+#: functions.php:160
 msgctxt "Theme starter content"
 msgid "Espresso"
 msgstr "Espresso"
 
-#: functions.php:163
+#: functions.php:164
 msgctxt "Theme starter content"
 msgid "Sandwich"
 msgstr "Sandwich"
 
-#: functions.php:167
+#: functions.php:168
 msgctxt "Theme starter content"
 msgid "Coffee"
 msgstr "Kaffee"
 
-#: inc/custom-header.php:125
+#: inc/custom-header.php:119
 msgid "Play background video"
 msgstr "Hintergrund-Video abspielen"
 
-#: inc/custom-header.php:126
+#: inc/custom-header.php:120
 msgid "Pause background video"
 msgstr "Hintergrund-Video pausieren"
 
-#: inc/template-tags.php:151
+#: inc/template-tags.php:150
 msgid "Front Page Section %1$s Placeholder"
 msgstr "Platzhalter für Startseiten-Abschnitt %1$s"
 
-#: inc/customizer.php:99
+#: inc/customizer.php:80
 msgid "When the two-column layout is assigned, the page title is in one column and content is in the other."
 msgstr "Wenn das Zwei-Spalten-Layout gewählt wird, erscheint der Seitentitel in einer Spalte und der Inhalt in der anderen."
 
-#: single.php:34
+#: single.php:32
 msgid "Next Post"
 msgstr "Nächster Beitrag"
 
 #. translators: used between list items, there is a space after the comma
-#: inc/template-tags.php:66
+#: inc/template-tags.php:65
 msgid ", "
 msgstr ", "
 
-#: inc/custom-header.php:54
+#: inc/custom-header.php:49
 msgid "Default Header Image"
 msgstr "Standard Header-Bild"
 
-#: inc/customizer.php:55
+#: inc/customizer.php:46
 msgid "Color Scheme"
 msgstr "Farbschema"
 
-#: inc/customizer.php:57
+#: inc/customizer.php:48
 msgid "Light"
 msgstr "Hell"
 
-#: inc/customizer.php:59
+#: inc/customizer.php:50
 msgid "Custom"
 msgstr "Individuell"
 
-#: inc/customizer.php:81
+#: inc/customizer.php:66
 msgid "Theme Options"
 msgstr "Theme-Optionen"
 
-#: inc/template-tags.php:85
+#: inc/template-tags.php:84
 msgid "Categories"
 msgstr "Kategorien"
 
-#: inc/template-tags.php:89
+#: inc/template-tags.php:88
 msgid "Tags"
 msgstr "Schlagwörter"
 
@@ -114,24 +114,24 @@ msgid "by %s"
 msgstr "von %s"
 
 #. translators: %s: post date
-#: inc/template-tags.php:52
+#: inc/template-tags.php:51
 msgid "<span class=\"screen-reader-text\">Posted on</span> %s"
 msgstr "<span class=\"screen-reader-text\">Veröffentlicht am</span> %s"
 
-#: inc/customizer.php:101 inc/customizer.php:157
+#: inc/customizer.php:82 inc/customizer.php:131
 msgid "One Column"
 msgstr "Eine Spalte"
 
-#: inc/customizer.php:102 inc/customizer.php:158
+#: inc/customizer.php:83 inc/customizer.php:132
 msgid "Two Column"
 msgstr "Zwei Spalten"
 
-#: inc/customizer.php:96
+#: inc/customizer.php:77
 msgid "Page Layout"
 msgstr "Seitenlayout"
 
 #. translators: %d is the front page section number
-#: inc/customizer.php:130
+#: inc/customizer.php:107
 msgid "Front Page Section %d Content"
 msgstr "Inhalt im Startseiten-Abschnitt %d"
 
@@ -143,60 +143,57 @@ msgstr "Bitte definiere Standard-Parameter in Form eines Arrays."
 msgid "Please define an SVG icon filename."
 msgstr "Bitte definiere einen SVG-Icon-Dateinamen."
 
-#: inc/customizer.php:131
+#: inc/customizer.php:108
 msgid "Select pages to feature in each area from the dropdowns. Add an image to a section by setting a featured image in the page editor. Empty sections will not be displayed."
 msgstr "Wähle die Seiten für jeden Abschnitt über das Drop-down-Menü. Du kannst einem Abschnitt ein Bild hinzufügen, indem du im Editor für die Seite ein Beitragsbild festlegst. Leere Abschnitte werden nicht dargestellt."
 
-#. Translators: If there are characters in your language that are not supported
-#. by Libre Franklin, translate this to 'off'. Do not translate into your own
-#. language.
-#: functions.php:277
+#: functions.php:278
 msgctxt "Libre Franklin font: on or off"
 msgid "on"
 msgstr "on"
 
-#: functions.php:336
+#: functions.php:334
 msgid "Footer 1"
 msgstr "Footer 1"
 
-#: functions.php:348
+#: functions.php:344
 msgid "Footer 2"
 msgstr "Footer 2"
 
-#: functions.php:338 functions.php:350
+#: functions.php:336 functions.php:346
 msgid "Add widgets here to appear in your footer."
 msgstr "Widgets hier hinzufügen, um sie im Footer anzuzeigen."
 
-#: functions.php:64 functions.php:191
+#: functions.php:63 functions.php:192
 #: template-parts/navigation/navigation-top.php:12
 msgid "Top Menu"
 msgstr "Oberes Menü"
 
-#: comments.php:62
+#: comments.php:60
 msgid "Reply"
 msgstr "Antworten"
 
-#: search.php:54
+#: search.php:50
 msgid "Sorry, but nothing matched your search terms. Please try again with some different keywords."
 msgstr "Es gibt keine passenden Suchergebnisse. Bitte versuche es mit anderen Suchbegriffen."
 
-#: search.php:21 template-parts/post/content-none.php:17
+#: template-parts/post/content-none.php:17 search.php:21
 msgid "Nothing Found"
 msgstr "Nichts gefunden"
 
-#: template-parts/post/content-none.php:24
+#: template-parts/post/content-none.php:23
 msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
 msgstr "Bereit, deinen ersten Beitrag zu veröffentlichen? <a href=\"%1$s\">Starte hier</a>."
 
-#: comments.php:71 single.php:33
+#: single.php:31 comments.php:66
 msgid "Previous"
 msgstr "Zurück"
 
-#: comments.php:72 single.php:34
+#: single.php:32 comments.php:67
 msgid "Next"
 msgstr "Weiter"
 
-#: template-parts/post/content-none.php:28
+#: template-parts/post/content-none.php:27
 msgid "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."
 msgstr "Es sieht so aus, als ob wir nicht das finden konnten, wonach du gesucht hast. Möglicherweise hilft eine Suche."
 
@@ -210,19 +207,15 @@ msgctxt "submit button"
 msgid "Search"
 msgstr "Suche"
 
-#: single.php:33
+#: single.php:31
 msgid "Previous Post"
 msgstr "Vorheriger Beitrag"
 
-#: search.php:19
-msgid "Search Results for: %s"
-msgstr "Suchergebnisse für: %s"
-
-#: template-parts/page/content-page.php:26
-#: template-parts/post/content-audio.php:91
-#: template-parts/post/content-gallery.php:78
-#: template-parts/post/content-image.php:68
-#: template-parts/post/content-video.php:90 template-parts/post/content.php:64
+#: template-parts/page/content-page.php:25
+#: template-parts/post/content-image.php:64
+#: template-parts/post/content-gallery.php:75
+#: template-parts/post/content.php:61 template-parts/post/content-video.php:87
+#: template-parts/post/content-audio.php:88
 msgid "Pages:"
 msgstr "Seiten:"
 
@@ -230,7 +223,7 @@ msgstr "Seiten:"
 msgid "Menu"
 msgstr "Menü"
 
-#: functions.php:467
+#: functions.php:458
 msgid "Collapse child menu"
 msgstr "Untermenü verbergen"
 
@@ -238,25 +231,19 @@ msgstr "Untermenü verbergen"
 msgid "Skip to content"
 msgstr "Zum Inhalt springen"
 
-#: functions.php:466
+#: functions.php:457
 msgid "Expand child menu"
 msgstr "Untermenü anzeigen"
 
-#: comments.php:82
+#: comments.php:75
 msgid "Comments are closed."
 msgstr "Kommentare sind geschlossen."
 
-#. #-#-#-#-#  twentyseventeen.pot (Twenty Seventeen 1.7)  #-#-#-#-#
-#. Author URI of the plugin/theme
-#: template-parts/footer/site-info.php:18
-msgid "https://wordpress.org/"
-msgstr "https://de.wordpress.org/"
-
-#: archive.php:50 index.php:54 search.php:47
+#: search.php:45 archive.php:47 index.php:52
 msgid "Page"
 msgstr "Seite"
 
-#: archive.php:49 index.php:53 search.php:46
+#: search.php:44 archive.php:46 index.php:51
 msgid "Next page"
 msgstr "Nächste Seite"
 
@@ -268,11 +255,11 @@ msgstr "Die Seite konnte leider nicht gefunden werden."
 msgid "It looks like nothing was found at this location. Maybe try a search?"
 msgstr "Wie es aussieht, wurde an dieser Stelle nichts gefunden. Möchtest du eine Suche starten?"
 
-#: archive.php:48 index.php:52 search.php:45
+#: search.php:43 archive.php:45 index.php:50
 msgid "Previous page"
 msgstr "Vorherige Seite"
 
-#: inc/customizer.php:58
+#: inc/customizer.php:49
 msgid "Dark"
 msgstr "Dunkel"
 
@@ -286,50 +273,36 @@ msgid "Search for:"
 msgstr "Suche nach:"
 
 #. translators: %s: Name of current post
-#: inc/template-tags.php:117
-msgid "Edit<span class=\"screen-reader-text\"> \"%s\"</span>"
-msgstr "<span class=\"screen-reader-text\">&#8222;%s&#8220;</span> bearbeiten"
-
-#. translators: %s: post title
-#: comments.php:37
-msgctxt "comments title"
-msgid "One Reply to &ldquo;%s&rdquo;"
-msgstr "Eine Antwort auf &#8222;%s&#8220;"
-
-#. translators: 1: number of comments, 2: post title
-#: comments.php:41
-msgctxt "comments title"
-msgid "%1$s Reply to &ldquo;%2$s&rdquo;"
-msgid_plural "%1$s Replies to &ldquo;%2$s&rdquo;"
-msgstr[0] "%1$s Antwort auf &#8222;%2$s&#8220;"
-msgstr[1] "%1$s Antworten auf &#8222;%2$s&#8220;"
-
-#. translators: %s: Name of current post
-#: functions.php:378 template-parts/page/content-front-page-panels.php:45
-#: template-parts/page/content-front-page.php:42
-#: template-parts/post/content-audio.php:84
-#: template-parts/post/content-gallery.php:71
-#: template-parts/post/content-image.php:61
-#: template-parts/post/content-video.php:83 template-parts/post/content.php:57
+#: functions.php:372 template-parts/page/content-front-page.php:40
+#: template-parts/page/content-front-page-panels.php:43
+#: template-parts/post/content-image.php:59
+#: template-parts/post/content-gallery.php:70
+#: template-parts/post/content.php:56 template-parts/post/content-video.php:82
+#: template-parts/post/content-audio.php:83
 msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
 msgstr "<span class=\"screen-reader-text\">\"%s\"</span> weiterlesen"
 
-#: inc/back-compat.php:39 inc/back-compat.php:52 inc/back-compat.php:68
+#: inc/back-compat.php:39 inc/back-compat.php:51 inc/back-compat.php:66
 msgid "Twenty Seventeen requires at least WordPress version 4.7. You are running version %s. Please upgrade and try again."
 msgstr "Twenty Sixteen benötigt mindestens WordPress-Version 4.7. Du verwendest Version %s. Bitte aktualisiere und versuche es erneut."
 
-#: functions.php:65 functions.php:202
+#: functions.php:64 functions.php:203
 msgid "Social Links Menu"
 msgstr "Social-Links-Menü"
 
-#: footer.php:26
+#: footer.php:25
 msgid "Footer Social Links Menu"
 msgstr "Social-Links-Menü im Footer"
 
-#. Author of the plugin/theme
+#. Author of the theme
 msgid "the WordPress team"
 msgstr "dem WordPress-Team"
 
-#. Theme URI of the plugin/theme
+#. Theme URI of the theme
 msgid "https://wordpress.org/themes/twentyseventeen/"
 msgstr "https://de.wordpress.org/themes/twentyseventeen/"
+
+#. Author URI of the theme
+#: template-parts/footer/site-info.php:18
+msgid "https://wordpress.org/"
+msgstr "https://de.wordpress.org/"

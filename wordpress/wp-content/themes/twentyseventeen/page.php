@@ -22,8 +22,7 @@ get_header(); ?>
 		<main id="main" class="site-main" role="main">
 
 			<?php
-			while ( have_posts() ) :
-				the_post();
+			while ( have_posts() ) : the_post();
 
 				get_template_part( 'template-parts/page/content', 'page' );
 
@@ -39,5 +38,4 @@ get_header(); ?>
 	</div><!-- #primary -->
 </div><!-- .wrap -->
 
-<?php
-get_footer();
+<?php get_footer();
