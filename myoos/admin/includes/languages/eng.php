@@ -136,7 +136,8 @@ define('BOX_ADMIN_LOGIN', 'Admin login');
 
 // taxes box text in includes/boxes/taxes.php
 define('BOX_HEADING_LOCATION_AND_TAXES', 'Locations / Taxes');
-define('BOX_TAXES_COUNTRIES', 'Countries');
+define('BOX_TAXES_BILLING_ADDRESS_COUNTRIES', 'Billing Country');
+define('BOX_TAXES_DELIVERY_ADDRESS_COUNTRIES', 'Delivery Country');
 define('BOX_TAXES_ZONES', 'Zones');
 define('BOX_TAXES_GEO_ZONES', 'Tax Zones');
 define('BOX_TAXES_TAX_CLASSES', 'Tax Classes');

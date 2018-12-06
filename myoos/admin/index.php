@@ -65,10 +65,12 @@
                                                'access' => oos_admin_check_boxes('manufacturers', 'sub_boxes')))),
                array('title' => BOX_HEADING_LOCATION_AND_TAXES,
                      'access' => oos_admin_check_boxes('taxes.php'),
-                     'image' => 'location.gif',
-                     'href' => oos_href_link_admin($aContents['countries'], 'selected_box=taxes'),
-                     'children' => array(array('title' => BOX_TAXES_COUNTRIES, 'link' => oos_href_link_admin($aContents['countries'], 'selected_box=taxes'),
-                                               'access' => oos_admin_check_boxes('countries', 'sub_boxes')),
+                     'image' => 'location.gif',				 
+                     'href' => oos_href_link_admin($aContents['billing_address_countries'], 'selected_box=taxes'),
+                     'children' => array(array('title' => BOX_TAXES_BILLING_ADDRESS_COUNTRIES, 'link' => oos_href_link_admin($aContents['billing_address_countries'], 'selected_box=taxes'),
+                                               'access' => oos_admin_check_boxes('billing_address_countries', 'sub_boxes')),
+                                         array('title' => BOX_TAXES_DELIVERY_ADDRESS_COUNTRIES, 'link' => oos_href_link_admin($aContents['delivery_address_countries'], 'selected_box=taxes'),
+                                               'access' => oos_admin_check_boxes('delivery_address_countries', 'sub_boxes')),											   
                                          array('title' => BOX_TAXES_GEO_ZONES, 'link' => oos_href_link_admin($aContents['geo_zones'], 'selected_box=taxes'),
                                                'access' => oos_admin_check_boxes('geo_zones', 'sub_boxes')))),
                array('title' => BOX_HEADING_CUSTOMERS,
@@ -170,7 +172,7 @@ A.sub:hover { color: #dddddd; text-decoration: underline; }
   $contents[] = array('params' => 'class="infoBox"',
                       'text'  => '<a href="https://www.oos-shop.de" target="_blank" rel="noopener">' . BOX_ENTRY_HAMPEAGE . '</a><br />' .
                                  '<a href="https://github.com/r23/MyOOS/" target="_blank" rel="noopener">GitHub</a><br />' .
-                                 '<a href="http://doku.oos-shop.de/" target="_blank" rel="noopener">' . BOX_ENTRY_FAQ . '</a><br />');
+                                 '<a href="https://doku.oos-shop.de/" target="_blank" rel="noopener">' . BOX_ENTRY_FAQ . '</a><br />');
 
   $box = new box;
   echo $box->menuBox($heading, $contents);

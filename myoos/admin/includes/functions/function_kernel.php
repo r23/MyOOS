@@ -452,7 +452,7 @@ function oos_output_string($sStr, $aTranslate = null)
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    $countriestable = $oostable['countries'];
+    $countriestable = $oostable['billing_address_countries'];
     $query = "SELECT countries_name
               FROM $countriestable
               WHERE countries_id = '" . $country_id . "'";
@@ -557,7 +557,7 @@ function oos_get_languages() {
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    $countriestable = $oostable['countries'];
+    $countriestable = $oostable['billing_address_countries'];
     $query = "SELECT countries_id, countries_name
               FROM $countriestable
               ORDER BY countries_name";

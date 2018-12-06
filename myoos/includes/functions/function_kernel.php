@@ -538,21 +538,21 @@ function oos_random_select($query, $limit = '') {
     $aCountries = array();
     if (!empty($countries_id)) {
         if ($bWithIsoCodes == TRUE) {
-            $countriestable = $oostable['countries'];
+            $countriestable = $oostable['billing_address_countries'];
             $query = "SELECT countries_name, countries_iso_code_2, countries_iso_code_3
                       FROM $countriestable
                       WHERE countries_id = '" . intval($countries_id) . "'
                       ORDER BY countries_name";
             $aCountries = $dbconn->GetRow($query);
         } else {
-            $countriestable = $oostable['countries'];
+            $countriestable = $oostable['billing_address_countries'];
             $query = "SELECT countries_name
                       FROM $countriestable
                       WHERE countries_id = '" . intval($countries_id) . "'";
             $aCountries = $dbconn->GetRow($query);
         }
     } else {
-        $countriestable = $oostable['countries'];
+        $countriestable = $oostable['billing_address_countries'];
         $query = "SELECT countries_id, countries_name
                   FROM $countriestable
                   ORDER BY countries_name";
@@ -575,7 +575,7 @@ function oos_random_select($query, $limit = '') {
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    $countriestable = $oostable['countries'];
+    $countriestable = $oostable['billing_address_countries'];
     $query = "SELECT countries_name
               FROM $countriestable
               WHERE countries_id = '" . intval($country_id) . "'";

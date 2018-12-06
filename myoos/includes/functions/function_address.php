@@ -65,7 +65,7 @@
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    $countriestable = $oostable['countries'];
+    $countriestable = $oostable['billing_address_countries'];
     $address_format = $dbconn->Execute("SELECT address_format_id AS format_id FROM $countriestable WHERE countries_id = '" . intval($country_id) . "'");
     if ($address_format->RecordCount() > 0) {
       return $address_format->fields['format_id'];
