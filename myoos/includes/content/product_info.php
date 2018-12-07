@@ -131,6 +131,33 @@ if (!$product_info_result->RecordCount()) {
 		$info_product_special_price = $oCurrencies->display_price($info_special_price, oos_get_tax_rate($product_info['products_tax_class_id']));
 	} 
 
+	$discounts_price = FALSE;
+    if ( (oos_empty($info_special_price)) && ( ($product_info['products_discount4_qty'] > 0 
+		|| $product_info['products_discount3_qty'] > 0 
+		|| $product_info['products_discount2_qty'] > 0 
+		|| $product_info['products_discount1_qty'] > 0 )) ) {
+
+		if ( ($aUser['show_price'] == 1 ) && ($aUser['qty_discounts'] == 1) ) {
+			$discounts_price = TRUE;
+			require_once MYOOS_INCLUDE_PATH . '/includes/modules/discounts_price.php';
+
+			if ( $product_info['products_discount4'] > 0 ) {
+				$price_discount = $product_info['products_discount4'];
+			} elseif ( $product_info['products_discount3'] > 0 ) {
+				$price_discount = $product_info['products_discount3'];
+			} elseif ( $product_info['products_discount2'] > 0 ) {
+				$price_discount = $product_info['products_discount2'];
+			} elseif ( $product_info['products_discount1'] > 0 ) {
+				$price_discount = $product_info['products_discount1'];
+			}
+			if (isset($price_discount)) {
+				$base_product_price = $price_discount;
+				$smarty->assign('price_discount', $oCurrencies->display_price($price_discount, oos_get_tax_rate($product_info['products_tax_class_id'])));
+			}
+		}
+	}
+
+
 	if ($product_info['products_base_price'] != 1) {	  
         $info_base_product_price = $oCurrencies->display_price($base_product_price * $product_info['products_base_price'], oos_get_tax_rate($product_info['products_tax_class_id']));
 	}
@@ -142,6 +169,7 @@ if (!$product_info_result->RecordCount()) {
 			'schema_product_price'				=> $schema_product_price, 
             'info_product_special_price'      => $info_product_special_price,
             'info_base_product_price'         => $info_base_product_price,
+			'discounts_price' =>  $discounts_price
         )
     );
 
@@ -177,47 +205,17 @@ if (!$product_info_result->RecordCount()) {
 			$reviews_average = $reviews_average_result->fields;
 			$smarty->assign('average_rating', $reviews_average);		  
 		}
-    }
-		  
-
-	$discounts_price = FALSE;
-    if ( (oos_empty($info_special_price)) && ( ($product_info['products_discount4_qty'] > 0 
-		|| $product_info['products_discount3_qty'] > 0 
-		|| $product_info['products_discount2_qty'] > 0 
-		|| $product_info['products_discount1_qty'] > 0 )) ) {
-
-		if ( ($aUser['show_price'] == 1 ) && ($aUser['qty_discounts'] == 1) ) {
-			$discounts_price = TRUE;
-			require_once MYOOS_INCLUDE_PATH . '/includes/modules/discounts_price.php';
-
-			if ( $product_info['products_discount4'] > 0 ) {
-				$price_discount = $product_info['products_discount4'];
-			} elseif ( $product_info['products_discount3'] > 0 ) {
-				$price_discount = $product_info['products_discount3'];
-			} elseif ( $product_info['products_discount2'] > 0 ) {
-				$price_discount = $product_info['products_discount2'];
-			} elseif ( $product_info['products_discount1'] > 0 ) {
-				$price_discount = $product_info['products_discount1'];
-			}
-			if (isset($price_discount)) {
-				$smarty->assign('price_discount', $oCurrencies->display_price($price_discount, oos_get_tax_rate($product_info['products_tax_class_id'])));
-			}
-		}
-	}
+    }	
+	
+    require_once MYOOS_INCLUDE_PATH . '/includes/modules/products_options.php';
 
     // assign Smarty variables;
     $smarty->assign(
         array(
 			'breadcrumb' => $oBreadcrumb->trail(),
-			'canonical'		=> $sCanonical,	
-			'discounts_price' =>  $discounts_price
+			'canonical'		=> $sCanonical
 		)
-	);	
-	
-	
-    require_once MYOOS_INCLUDE_PATH . '/includes/modules/products_options.php';
-
-
+	);
 
     if (!isset($block_get_parameters)) {
       $block_get_parameters = oos_get_all_get_parameters(array('action'));

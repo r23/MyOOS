@@ -82,7 +82,9 @@ if ($orders_result->RecordCount()) {
     $manufacturerstable = $oostable['manufacturers'];
     $historytable = $oostable['specials'];
     $order_history_raw = "SELECT pd.products_name, p.products_id, p.products_quantity, p.products_image,
-                                 p.products_price, p.products_base_price, p.products_base_unit, p.products_tax_class_id,
+                                 p.products_price, p.products_base_price, p.products_tax_class_id,
+								 p.products_product_quantity, p.products_base_unit, p.products_quantity_order_min, 
+								p.products_quantity_order_max, p.products_quantity_order_units, products_units_id,								 
                                  IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price,
                                  IF(s.status, s.specials_new_products_price, p.products_price) AS final_price
                           FROM $products_descriptiontable pd,
@@ -102,36 +104,36 @@ if ($orders_result->RecordCount()) {
 
 		$new_product_price = NULL;
 		$new_product_special_price = NULL;
-		$new_special_price = NULL;
-		$new_product_discount_price = NULL;
 		$new_base_product_price = NULL;
-		$new_base_product_special_price = NULL;
+
+		$base_product_price = $order_history['products_price'];
 
 		$new_product_price = $oCurrencies->display_price($order_history['products_price'], oos_get_tax_rate($order_history['products_tax_class_id'])); 
+		
 		if (isset($order_history['specials_new_products_price'])) {
-			$new_special_price = $order_history['specials_new_products_price'];
-			$new_product_special_price = $oCurrencies->display_price($new_special_price, oos_get_tax_rate($order_history['products_tax_class_id']));
+			$base_product_price = $order_history['specials_new_products_price'];
+			$new_product_special_price = $oCurrencies->display_price($base_product_price, oos_get_tax_rate($order_history['products_tax_class_id']));
 		} 
 
 		if ($order_history['products_base_price'] != 1) {
-			$new_base_product_price = $oCurrencies->display_price($order_history['products_price'] * $order_history['products_base_price'], oos_get_tax_rate($order_history['products_tax_class_id']));
-
-			if ($new_special_price != NULL) {
-				$new_base_product_special_price = $oCurrencies->display_price($new_special_price * $order_history['products_base_price'], oos_get_tax_rate($order_history['products_tax_class_id']));
-			}
+			$new_base_product_price = $oCurrencies->display_price($base_product_price * $order_history['products_base_price'], oos_get_tax_rate($order_history['products_tax_class_id']));
 		}
+
+		$order_min = number_format($order_history['products_quantity_order_min']);
+		$order_max = number_format($order_history['products_quantity_order_max']);
 		
 		$aOrderHistory[] = array('id' => $order_history['products_id'],
                                     'name' => $order_history['products_name'],
                                     'image' => $order_history['products_image'],
+                                    'order_min' => $order_min,
+                                    'order_max' => $order_max,
+                                    'product_quantity' => $order_history['products_product_quantity'],									
                                     'new_product_price' => $new_product_price,
                                     'new_product_special_price' => $new_product_special_price,
-                                    'new_special_price' => $new_special_price,
-                                    'new_product_discount_price' => $new_product_discount_price,
                                     'new_base_product_price' => $new_base_product_price,
-                                    'new_base_product_special_price' => $new_base_product_special_price,
                                     'products_base_price' => $order_history['products_base_price'],
                                     'new_products_base_unit' => $order_history['products_base_unit'],
+									'products_units' => $order_history['products_units_id'],
                                     'date_added' => $order_history['products_date_added'],
                                     'manufacturer' => $order_history['manufacturers_name']);
 		$order_history_result->MoveNext();

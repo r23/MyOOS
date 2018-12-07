@@ -68,6 +68,7 @@ if ($listing_split->number_of_rows > 0) {
             }
 
             if ( $discount > 0 ) {
+				$base_product_price = $discount
 				$listing_discount_price = $oCurrencies->display_price($discount, oos_get_tax_rate($listing['products_tax_class_id']));
             } 			
 

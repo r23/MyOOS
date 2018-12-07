@@ -76,20 +76,15 @@
 		<del>{$info_product_price}</del><br>
 		<span class="special_price">{$info_product_special_price}</span><br>
 	{else}
-		{if $info_max_product_discount != 0}
-			<del>{$info_product_price}</del> -{$info_max_product_discount}%<br>
-			<span class="discount_price">{$info_product_discount_price}</span> {$products_units[$product_info.products_units_id]}<br>
+		{if $price_discount}
+			{$lang.price_from} {$price_discount}<br>
 		{else}
-			{if $price_discount}
-				{$lang.price_from} {$price_discount}<br>
-			{else}
-				<h4 class="price">{$info_product_price}</h4>
-				<span itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-					<meta itemprop="price" content="{$schema_product_price}"/>
-					<meta itemprop="priceCurrency" content="{$currency}"/>
-					<meta itemprop="itemCondition" content="https://schema.org/NewCondition"/>
-				</span>				
-			{/if}
+			<h4 class="price">{$info_product_price}</h4>
+			<span itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+				<meta itemprop="price" content="{$schema_product_price}"/>
+				<meta itemprop="priceCurrency" content="{$currency}"/>
+				<meta itemprop="itemCondition" content="https://schema.org/NewCondition"/>
+			</span>				
 		{/if}
 	{/if}
 

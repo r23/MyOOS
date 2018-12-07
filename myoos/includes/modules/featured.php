@@ -50,7 +50,6 @@ if ($featured_result->RecordCount() >= 1) {
 		$featured_product_price = NULL;
 		$featured_product_special_price = NULL;
 		$featured_base_product_price = NULL;
-		$featured_base_product_special_price = NULL;
 		$featured_special_price = NULL;
 
 		if ($aUser['show_price'] == 1 ) {
