@@ -1177,17 +1177,17 @@
     },
     {
         "name": "symfony/symfony",
-        "version": "v4.2.0",
-        "version_normalized": "4.2.0.0",
+        "version": "v4.2.1",
+        "version_normalized": "4.2.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/symfony.git",
-            "reference": "7bd9a1bae87e6b2d7eba499ebf3053ff4bc3a483"
+            "reference": "cadb4e8e3cb8dc472bf9f6c6a7419f0f280255b6"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/symfony/zipball/7bd9a1bae87e6b2d7eba499ebf3053ff4bc3a483",
-            "reference": "7bd9a1bae87e6b2d7eba499ebf3053ff4bc3a483",
+            "url": "https://api.github.com/repos/symfony/symfony/zipball/cadb4e8e3cb8dc472bf9f6c6a7419f0f280255b6",
+            "reference": "cadb4e8e3cb8dc472bf9f6c6a7419f0f280255b6",
             "shasum": ""
         },
         "require": {
@@ -1202,7 +1202,7 @@
             "psr/link": "^1.0",
             "psr/log": "~1.0",
             "psr/simple-cache": "^1.0",
-            "symfony/contracts": "^1.0",
+            "symfony/contracts": "^1.0.2",
             "symfony/polyfill-ctype": "~1.8",
             "symfony/polyfill-intl-icu": "~1.0",
             "symfony/polyfill-mbstring": "~1.0",
@@ -1294,7 +1294,7 @@
             "symfony/phpunit-bridge": "~3.4|~4.0",
             "symfony/security-acl": "~2.8|~3.0"
         },
-        "time": "2018-11-30T09:32:16+00:00",
+        "time": "2018-12-06T17:40:08+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1340,17 +1340,17 @@
     },
     {
         "name": "symfony/contracts",
-        "version": "v1.0.1",
-        "version_normalized": "1.0.1.0",
+        "version": "v1.0.2",
+        "version_normalized": "1.0.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/contracts.git",
-            "reference": "3edf0ab943d1985a356721952cba36ff31bd6e5f"
+            "reference": "1aa7ab2429c3d594dd70689604b5cf7421254cdf"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/contracts/zipball/3edf0ab943d1985a356721952cba36ff31bd6e5f",
-            "reference": "3edf0ab943d1985a356721952cba36ff31bd6e5f",
+            "url": "https://api.github.com/repos/symfony/contracts/zipball/1aa7ab2429c3d594dd70689604b5cf7421254cdf",
+            "reference": "1aa7ab2429c3d594dd70689604b5cf7421254cdf",
             "shasum": ""
         },
         "require": {
@@ -1367,7 +1367,7 @@
             "symfony/service-contracts-implementation": "",
             "symfony/translation-contracts-implementation": ""
         },
-        "time": "2018-11-24T09:35:08+00:00",
+        "time": "2018-12-05T08:06:11+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {

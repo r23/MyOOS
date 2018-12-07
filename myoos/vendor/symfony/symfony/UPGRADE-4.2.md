@@ -68,6 +68,7 @@ Finder
 Form
 ----
 
+ * The `symfony/translation` dependency has been removed - run `composer require symfony/translation` if you need the component
  * The `getExtendedType()` method of the `FormTypeExtensionInterface` is deprecated and will be removed in 5.0. Type
    extensions must implement the static `getExtendedTypes()` method instead and return an iterable of extended types.
 
@@ -285,6 +286,23 @@ Messenger
    ```
  * The `EncoderInterface` and `DecoderInterface` interfaces have been replaced by a unified `Symfony\Component\Messenger\Transport\Serialization\SerializerInterface`.
    Each interface method have been merged untouched into the `Serializer` interface, so you can simply merge your two implementations together and implement the new interface.
+ * The `HandlerLocator` class was replaced with `Symfony\Component\Messenger\Handler\HandlersLocator`.
+
+   Before:
+   ```php
+   new HandlerLocator([
+        YourMessage::class => $handlerCallable,
+   ]);
+   ```
+
+   After:
+   ```php
+   new HandlersLocator([
+        YourMessage::class => [
+            $handlerCallable,
+        ]
+   ]);
+   ```
 
 Monolog
 -------
@@ -364,6 +382,7 @@ TwigBundle
 Validator
 ---------
 
+ * The `symfony/translation` dependency has been removed - run `composer require symfony/translation` if you need the component
  * The `checkMX` and `checkHost` options of the `Email` constraint are deprecated
  * The component is now decoupled from `symfony/translation` and uses `Symfony\Contracts\Translation\TranslatorInterface` instead
  * The `ValidatorBuilderInterface` has been deprecated and `ValidatorBuilder` made final

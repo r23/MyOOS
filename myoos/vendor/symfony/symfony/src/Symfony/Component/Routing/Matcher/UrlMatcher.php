@@ -130,21 +130,26 @@ class UrlMatcher implements UrlMatcherInterface, RequestMatcherInterface
      */
     protected function matchCollection($pathinfo, RouteCollection $routes)
     {
+        // HEAD and GET are equivalent as per RFC
+        if ('HEAD' === $method = $this->context->getMethod()) {
+            $method = 'GET';
+        }
         $supportsTrailingSlash = '/' !== $pathinfo && '' !== $pathinfo && $this instanceof RedirectableUrlMatcherInterface;
 
         foreach ($routes as $name => $route) {
             $compiledRoute = $route->compile();
             $staticPrefix = $compiledRoute->getStaticPrefix();
+            $requiredMethods = $route->getMethods();
 
             // check the static prefix of the URL first. Only use the more expensive preg_match when it matches
             if ('' === $staticPrefix || 0 === strpos($pathinfo, $staticPrefix)) {
                 // no-op
-            } elseif (!$supportsTrailingSlash) {
+            } elseif (!$supportsTrailingSlash || ($requiredMethods && !\in_array('GET', $requiredMethods)) || 'GET' !== $method) {
                 continue;
             } elseif ('/' === $staticPrefix[-1] && substr($staticPrefix, 0, -1) === $pathinfo) {
-                return;
+                return $this->allow = $this->allowSchemes = array();
             } elseif ('/' === $pathinfo[-1] && substr($pathinfo, 0, -1) === $staticPrefix) {
-                return;
+                return $this->allow = $this->allowSchemes = array();
             } else {
                 continue;
             }
@@ -161,11 +166,18 @@ class UrlMatcher implements UrlMatcherInterface, RequestMatcherInterface
             }
 
             if ($supportsTrailingSlash) {
-                if (!$hasTrailingSlash && '/' === $pathinfo[-1] && preg_match($regex, substr($pathinfo, 0, -1))) {
-                    return;
+                if ('/' === $pathinfo[-1]) {
+                    if (preg_match($regex, substr($pathinfo, 0, -1), $m)) {
+                        $matches = $m;
+                    } else {
+                        $hasTrailingSlash = true;
+                    }
                 }
-                if ($hasTrailingSlash && '/' !== $pathinfo[-1]) {
-                    return;
+                if ($hasTrailingSlash !== ('/' === $pathinfo[-1])) {
+                    if ((!$requiredMethods || \in_array('GET', $requiredMethods)) && 'GET' === $method) {
+                        return $this->allow = $this->allowSchemes = array();
+                    }
+                    continue;
                 }
             }
 
@@ -181,12 +193,7 @@ class UrlMatcher implements UrlMatcherInterface, RequestMatcherInterface
             }
 
             $hasRequiredScheme = !$route->getSchemes() || $route->hasScheme($this->context->getScheme());
-            if ($requiredMethods = $route->getMethods()) {
-                // HEAD and GET are equivalent as per RFC
-                if ('HEAD' === $method = $this->context->getMethod()) {
-                    $method = 'GET';
-                }
-
+            if ($requiredMethods) {
                 if (!\in_array($method, $requiredMethods)) {
                     if ($hasRequiredScheme) {
                         $this->allow = array_merge($this->allow, $requiredMethods);
@@ -204,6 +211,8 @@ class UrlMatcher implements UrlMatcherInterface, RequestMatcherInterface
 
             return $this->getAttributes($route, $name, array_replace($matches, $hostMatches, isset($status[1]) ? $status[1] : array()));
         }
+
+        return array();
     }
 
     /**
