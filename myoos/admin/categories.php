@@ -559,28 +559,28 @@ if ($action == 'new_category' || $action == 'edit_category') {
             <div class="row">
                 <div class="col-lg-12">
                     <div class="tabs-container">
-                            <ul class="nav nav-tabs">
-							
+                        <ul class="nav nav-tabs  nav-justified">
+					
 <?php
 		if (isset($_GET['tab'])) {
 			$active_tab = oos_db_prepare_input($_GET['tab']);
 		}
 		for ($i=0; $i < count($languages); $i++) {
 ?>									
-                                <li <?php if ($i == $active_tab) echo 'class="active"'; ?>><a data-toggle="tab" href="#tab-<?php echo $i; ?>"><?php echo sprintf($text_new_or_edit, oos_output_generated_category_path($current_category_id)) . '&nbsp;(' . $languages[$i]['name'] . ')&nbsp;'; ?></a></li>
+                                <li class="nav-item" role="presentation"><a class="nav-link <?php if ($i == $active_tab) echo 'active'; ?>" data-toggle="tab" href="#tab-<?php echo $i; ?>"><?php echo sprintf($text_new_or_edit, oos_output_generated_category_path($current_category_id)) . '&nbsp;(' . $languages[$i]['name'] . ')&nbsp;'; ?></a></li>
 <?php
 		}
 		$nTab = $i;
 		$nImageTab = $i+1;
 ?>
-                                <li <?php if ($nTab == $active_tab) echo 'class="active"'; ?>><a data-toggle="tab" href="#tab-<?php echo $nTab; ?>"><?php echo TEXT_DATA; ?></a></li>
-                                <li <?php if ($nImageTab == $active_tab) echo 'class="active"'; ?>><a data-toggle="tab" href="#tab-<?php echo $nImageTab; ?>"><?php echo TEXT_IMAGES; ?></a></li>
+                                <li class="nav-item" role="presentation"><a class="nav-link <?php if ($nTab == $active_tab) echo 'active'; ?>" data-toggle="tab" href="#tab-<?php echo $nTab; ?>"><?php echo TEXT_DATA; ?></a></li>
+                                <li class="nav-item" role="presentation"><a class="nav-link <?php if ($nImageTab == $active_tab) echo 'active'; ?>" data-toggle="tab" href="#tab-<?php echo $nImageTab; ?>"><?php echo TEXT_IMAGES; ?></a></li>
                             </ul>
-                            <div class="tab-content">
+                            <div class="tab-content">						
 <?php
 		for ($i=0; $i < count($languages); $i++) {
 ?>		  
-                                <div id="tab-<?php echo $i; ?>" class="tab-pane <?php if ($i == $active_tab) echo 'active'; ?>" >
+                                <div id="tab-<?php echo $i; ?>" class="tab-pane <?php if ($i == $active_tab) echo 'active'; ?> role="tabpanel">
                                     <div class="panel-body">
 
                                         <fieldset class="form-horizontal">							
@@ -1283,7 +1283,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
             $contents[] = array('text' => '<br />' . oos_info_image($cInfo->categories_image, $cInfo->categories_name) . '<br />' . $cInfo->categories_image);
             $contents[] = array('text' => '<br />' . TEXT_SUBCATEGORIES . ' ' . $cInfo->childs_count . '<br />' . TEXT_PRODUCTS . ' ' . $cInfo->products_count);
           } elseif (isset($pInfo) && is_object($pInfo)) { // product info box contents
-            $heading[] = array('text' => '<b>' . $pInfo->products_name . 'tt</b>');
+            $heading[] = array('text' => '<b>' . $pInfo->products_name . '</b>');
 
             $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&amp;pID=' . $pInfo->products_id . '&amp;action=new_product') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&amp;pID=' . $pInfo->products_id . '&amp;action=delete_product') . '">' . oos_button('delete',  BUTTON_DELETE) . '</a> <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&amp;pID=' . $pInfo->products_id . '&amp;action=move_product') . '">' . oos_button('move', IMAGE_MOVE) . '</a> <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&amp;pID=' . $pInfo->products_id . '&amp;action=copy_to') . '">' . oos_button('copy_to', IMAGE_COPY_TO) . '</a>');
             $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&amp;pID=' . $pInfo->products_id . '&amp;action=slave_products') . '">' . oos_button('slave', IMAGE_SLAVE) . '</a>');
@@ -1344,7 +1344,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
                 $sSpecialsPrice = round(($specials['specials_new_products_price']*($tax['tax_rate']+100)/100),TAX_DECIMAL_PLACES);
               }
             }			
-			
+		
             $sPrice = round($sPrice,TAX_DECIMAL_PLACES);
             $sPriceList = round($sPriceList,TAX_DECIMAL_PLACES);			
 			
