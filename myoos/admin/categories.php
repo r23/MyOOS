@@ -515,7 +515,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 
 	$languages = oos_get_languages();
 
-	$text_new_or_edit = ($action=='new_category_ACD') ? TEXT_INFO_HEADING_NEW_CATEGORY : TEXT_INFO_HEADING_EDIT_CATEGORY;
+	$text_new_or_edit = ($action=='new_category') ? TEXT_INFO_HEADING_NEW_CATEGORY : TEXT_INFO_HEADING_EDIT_CATEGORY;
 	  
 	// form-validation
 	$bForm = TRUE;
@@ -553,13 +553,8 @@ if ($action == 'new_category' || $action == 'edit_category') {
 		echo oos_draw_hidden_field('categories_previous_image', $cInfo->categories_image);
 		echo oos_hide_session_id();
 ?>
-
-        <div class="wrapper wrapper-content">
-
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="tabs-container">
-                        <ul class="nav nav-tabs  nav-justified">
+						<div class="tabs-container">
+							<ul class="nav nav-tabs nav-justified">
 					
 <?php
 		if (isset($_GET['tab'])) {
@@ -580,7 +575,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 <?php
 		for ($i=0; $i < count($languages); $i++) {
 ?>		  
-                                <div id="tab-<?php echo $i; ?>" class="tab-pane <?php if ($i == $active_tab) echo 'active'; ?> role="tabpanel">
+                                <div id="tab-<?php echo $i; ?>" class="tab-pane <?php if ($i == $active_tab) echo 'active'; ?>" role="tabpanel">
                                     <div class="panel-body">
 
                                         <fieldset class="form-horizontal">							
@@ -825,7 +820,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 								</div>
 <?php 
 		}
-?>					
+?>				
 								</div>
 									
                             </div>
@@ -844,98 +839,8 @@ if ($action == 'new_category' || $action == 'edit_category') {
 
 <!-- body_text_eof //-->
 <?php
-} elseif ($action == 'new_category_preview') {
-	$form_action = (isset($_GET['cID'])) ? 'update_category' : 'insert_category';
-    echo oos_draw_form('id', $form_action, $aContents['categories'], 'cPath=' . $cPath . (isset($_GET['cID']) ? '&cID=' . $_GET['cID']  : '') . '&action=' . $form_action, 'post', TRUE, 'enctype="multipart/form-data"');	  
-?>
-<table border="0" width="100%" cellspacing="0" cellpadding="2">
-<?php
-    if (oos_is_not_null($_POST)) {
 
-      $cInfo = new objectInfo($_POST);
-      $categories_name = $_POST['categories_name'];
-      $categories_heading_title = $_POST['categories_heading_title'];
-      $categories_description = $_POST['categories_description'];
-      $categories_description_meta = $_POST['categories_description_meta'];
-      $categories_keywords_meta = $_POST['categories_keywords_meta'];
-
-      if ( ($_POST['categories_image'] != 'none') && (isset($_FILES['categories_image'])) ) {
-        $categories_image = oos_get_uploaded_file('categories_image');
-        $image_directory = oos_get_local_path(OOS_ABSOLUTE_PATH . OOS_IMAGES);
-      }
-
-      // copy image only if modified
-      if (is_uploaded_file($categories_image['tmp_name'])) {
-        oos_get_copy_uploaded_file($categories_image, $image_directory);
-        $categories_image_name = $categories_image['name'];
-      } else {
-        $categories_image_name = $_POST['categories_previous_image'];
-      }
-    } else {
-      $categoriestable = $oostable['categories'];
-      $categories_descriptiontable = $oostable['categories_description'];
-      $query = "SELECT c.categories_id, cd.categories_languages_id, cd.categories_name,
-                       cd.categories_heading_title, cd.categories_description,
-                       cd.categories_description_meta, cd.categories_keywords_meta,
-                       c.categories_image, c.sort_order, c.date_added, c.last_modified
-                FROM $categoriestable c,
-                     $categories_descriptiontable cd
-                WHERE c.categories_id = cd.categories_id AND
-                      c.categories_id = '" . intval($_GET['cID']) . "'";
-      $category_result = $dbconn->Execute($query);
-      $category = $category_result->fields;
-
-      $cInfo = new objectInfo($category);
-      $categories_image_name = $cInfo->categories_image;
-    }
-
-
-    $languages = oos_get_languages();
-    for ($i=0; $i < count($languages); $i++) {
-      if (isset($_GET['read']) && ($_GET['read'] == 'only')) {
-        $cInfo->categories_name = oos_get_category_name($cInfo->categories_id, $languages[$i]['id']);
-        $cInfo->categories_heading_title = oos_get_category_heading_title($cInfo->categories_id, $languages[$i]['id']);
-        $cInfo->categories_description = oos_get_category_description($cInfo->categories_id, $languages[$i]['id']);
-        $cInfo->categories_description_meta = oos_get_category_description_meta($cInfo->categories_id, $languages[$i]['id']);
-        $cInfo->categories_keywords_meta = oos_get_category_keywords_meta($cInfo->categories_id, $languages[$i]['id']);
-      } else {
-        $cInfo->categories_name = oos_db_prepare_input($categories_name[$languages[$i]['id']]);
-        $cInfo->categories_heading_title = oos_db_prepare_input($categories_heading_title[$languages[$i]['id']]);
-        $cInfo->categories_description = oos_db_prepare_input($categories_description[$languages[$i]['id']]);
-        $cInfo->categories_description_meta = oos_db_prepare_input($categories_description_meta[$languages[$i]['id']]);
-        $cInfo->categories_keywords_meta = oos_db_prepare_input($categories_keywords_meta[$languages[$i]['id']]);
-      }
-	  
-?>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td class="pageHeading"><?php echo oos_flag_icon($languages[$i]) . '&nbsp;' . $cInfo->categories_name; ?></td>
-          </tr>		
-          <tr>
-            <td class="pageHeading">&nbsp;<?php echo $cInfo->categories_heading_title; ?></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td></td>
-      </tr>
-      <tr>
-        <td class="main">
-<?php
-  if (oos_is_not_null($categories_image_name))  {
-    echo oos_image(OOS_SHOP_IMAGES . $categories_image_name, $cInfo->categories_name, '', '', 'align="right" hspace="5" vspace="5"');
-  } else {
-    $categories_image_name = 'none';
-  }
-  echo $cInfo->categories_description;
-?>
-         </td>
-      </tr>
-<?php
-    }
-    if (isset($_GET['read']) && ($_GET['read'] == 'only')) {
-      if (isset($_GET['origin'])) {
+	if (isset($_GET['origin'])) {
         $pos_params = strpos($_GET['origin'], '?', 0);
         if ($pos_params != false) {
           $back_url = substr($_GET['origin'], 0, $pos_params);
@@ -944,49 +849,14 @@ if ($action == 'new_category' || $action == 'edit_category') {
           $back_url = $_GET['origin'];
           $back_url_params = '';
         }
-      } else {
+	} else {
         $back_url = $aContents['categories'];
-        $back_url_params = 'cPath=' . $cPath . '&amp;cID=' . $cInfo->categories_id;
-      }
+        $back_url_params = 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id;
+	}
 ?>
       <tr>
         <td align="right"><?php echo '<a href="' . oos_href_link_admin($back_url, $back_url_params) . '">' . oos_button('back', IMAGE_BACK) . '</a>'; ?></td>
-      </tr>
-<?php
-    } else {
-?>
-      <tr>
-        <td align="right" class="smallText">
-<?php
-/* Re-Post all POST'ed variables */
-      reset($_POST);
-      foreach ($_POST as $key => $value) {		  
-        if (!is_array($_POST[$key])) {
-          echo oos_draw_hidden_field($key, htmlspecialchars(stripslashes($value)));
-
-        }
-      }
-      $languages = oos_get_languages();
-      for ($i=0; $i < count($languages); $i++) {
-        echo oos_draw_hidden_field('categories_name[' . $languages[$i]['id'] . ']', htmlspecialchars(stripslashes($categories_name[$languages[$i]['id']])));
-        echo oos_draw_hidden_field('categories_heading_title[' . $languages[$i]['id'] . ']', htmlspecialchars(stripslashes($categories_heading_title[$languages[$i]['id']])));
-        echo oos_draw_hidden_field('categories_description[' . $languages[$i]['id'] . ']', htmlspecialchars(stripslashes($categories_description[$languages[$i]['id']])));
-        echo oos_draw_hidden_field('categories_description_meta[' . $languages[$i]['id'] . ']', htmlspecialchars(stripslashes($categories_description_meta[$languages[$i]['id']])));
-        echo oos_draw_hidden_field('categories_keywords_meta[' . $languages[$i]['id'] . ']', htmlspecialchars(stripslashes($categories_keywords_meta[$languages[$i]['id']])));
-      }
-   echo "\n";
-   echo "\n";
-      echo oos_draw_hidden_field('categories_image', stripslashes($categories_image_name));
-
-      echo oos_submit_button('back', IMAGE_BACK, 'name="edit"') . '&nbsp;&nbsp;';
-      echo oos_submit_button('save', IMAGE_SAVE);
- 
-      echo '&nbsp;&nbsp;<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&amp;cID=' . $_GET['cID']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>';
-?></td>
-      </form></tr>	  
-<?php
-    }
-?>
+      </tr> 
 	    </table>
 <!-- body_text_eof //-->
 <?php
@@ -1128,12 +998,12 @@ if ($action == 'new_category' || $action == 'edit_category') {
       }
 
       if (isset($pInfo) && is_object($pInfo) && ($products['products_id'] == $pInfo->products_id) ) {
-        echo '              <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&amp;pID=' . $products['products_id'] . '&amp;action=new_product_preview&read=only') . '\'">' . "\n";
+        echo '              <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&amp;pID=' . $products['products_id'] . '&amp;action=new_product_preview') . '\'">' . "\n";
       } else {
         echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&amp;pID=' . $products['products_id']) . '\'">' . "\n";
       }
 ?>
-                <td class="dataTableContent"><?php echo '<a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&amp;pID=' . $products['products_id'] . '&amp;action=new_product_preview&read=only') . '"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-search"></i></button></a>&nbsp;' . '#' . $products['products_id'] . ' ' . $products['products_name']; ?></td>
+                <td class="dataTableContent"><?php echo '<a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&amp;pID=' . $products['products_id'] . '&amp;action=new_product_preview') . '"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-search"></i></button></a>&nbsp;' . '#' . $products['products_id'] . ' ' . $products['products_name']; ?></td>
                 <td class="dataTableContent"><?php echo oos_get_manufacturers_name($products['products_id']) ?></td>
                 <td class="dataTableContent" align="center">
 <?php
@@ -1326,12 +1196,12 @@ if ($action == 'new_category' || $action == 'edit_category') {
             $contents[] = array('text' => '#' . $pInfo->products_id . ' ' . TEXT_CATEGORIES . ' ' . oos_get_categories_name($current_category_id) . '<br />' . TEXT_DATE_ADDED . ' ' . oos_date_short($pInfo->products_date_added));
             if (oos_is_not_null($pInfo->products_last_modified)) $contents[] = array('text' => TEXT_LAST_MODIFIED . ' ' . oos_date_short($pInfo->products_last_modified));
             if (date('Y-m-d') < $pInfo->products_date_available) $contents[] = array('text' => TEXT_DATE_AVAILABLE . ' ' . oos_date_short($pInfo->products_date_available));
-            $contents[] = array('text' => '<br /><a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&amp;pID=' . $pInfo->products_id . '&amp;action=new_product_preview&read=only') . '">' . oos_info_image($pInfo->products_image, $pInfo->products_name, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a><br />' . $pInfo->products_image);
+            $contents[] = array('text' => '<br /><a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&amp;pID=' . $pInfo->products_id . '&amp;action=new_product_preview') . '">' . oos_info_image($pInfo->products_image, $pInfo->products_name, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a><br />' . $pInfo->products_image);
 
             $sPrice = $pInfo->products_price;
             $sPriceList = $pInfo->products_price_list;
 
-            if ($_GET['read'] == 'only' || $action != 'new_product_preview'){
+            if ($action != 'new_product_preview'){
               $sPriceNetto = round($sPrice,TAX_DECIMAL_PLACES);
               $sPriceListNetto = round($sPriceList,TAX_DECIMAL_PLACES);
               $tax_result = $dbconn->Execute("SELECT tax_rate FROM " . $oostable['tax_rates'] . " WHERE tax_class_id = '" . $pInfo->products_tax_class_id . "' ");
