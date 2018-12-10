@@ -215,7 +215,8 @@ if (!empty($sCategory)) {
 	$new_path = '';
 	$id = explode('_', $sCategory);
 	reset($id);
-	while (list($key, $value) = each($id)) {
+	foreach($id as $key => $value) {		
+		
 		unset($prev_id);
 		unset($first_id);
 
