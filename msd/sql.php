@@ -206,9 +206,9 @@ if (!isset($limitstart)) $limitstart = 0;
 $limitende = $config['sql_limit'];
 if (strtolower(substr($sql['sql_statement'],0,6)) == 'select') $limit = ' LIMIT '.$limitstart.', '.$limitende.';';
 
-$params = "sql.php?db = ".$db."&amp;tablename = ".$tablename."&amp;dbid = ".$dbid.'&amp;context = '.$context.'&amp;sql_statement = '.urlencode($sql['sql_statement']).'&amp;tdc = '.$tdcompact.'&amp;showtables = '.$showtables;
-if ($order != "") $params .= "&amp;order = ".$order."&amp;orderdir = ".$orderdir.'&amp;context = '.$context;
-if ($bb>-1) $params .= "&amp;bb = ".$bb;
+$params = "sql.php?db=".$db."&amp;tablename=".$tablename."&amp;dbid=".$dbid.'&amp;context='.$context.'&amp;sql_statement='.urlencode($sql['sql_statement']).'&amp;tdc='.$tdcompact.'&amp;showtables='.$showtables;
+if ($order != "") $params .= "&amp;order=".$order."&amp;orderdir=".$orderdir.'&amp;context='.$context;
+if ($bb>-1) $params .= "&amp;bb=".$bb;
 
 $aus = headline($lang['L_SQL_BROWSER']);
 
