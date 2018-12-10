@@ -45,6 +45,7 @@ if (!empty($action)) {
 			$sProductsQuantity = oos_db_prepare_input($_POST['products_quantity']);
 			$sProductsStatus = oos_db_prepare_input($_POST['products_status']);
 			$sProductsReplacementProductID = oos_db_prepare_input($_POST['products_replacement_product_id']);
+			
 			if (oos_is_not_null($sProductsReplacementProductID)) {
 				$messageStack->add_session(ERROR_REPLACEMENT, 'error');
 				$sProductsStatus = 4;
@@ -53,7 +54,7 @@ if (!empty($action)) {
 			}
 			
 			if (STOCK_CHECK == 'true') {
-				if ($sProductsQuantity <=0) {
+				if ($sProductsQuantity <= 0 ) {
 					$messageStack->add_session(ERROR_OUTOFSTOCK, 'error');
 					$sProductsStatus = 0;
 				}
@@ -71,9 +72,6 @@ if (!empty($action)) {
 			}
 
 
-			if ( isset($_POST['edit_x']) || isset($_POST['edit_y']) ) {
-				$action = 'new_product';
-			} else {
 				if ($_POST['delete_image'] == 'yes') {
 					if (oos_duplicate_product_image_check($products_image)) {
 						oos_remove_product_image($products_image);
@@ -179,7 +177,6 @@ if (!empty($action)) {
 					}
 				}
 				oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $products_id));
-			}
 		break;
 
 	}

@@ -88,8 +88,7 @@ if (!empty($action)) {
 			break;
 
 		case 'insert_category':
-		case 'update_category':
-		
+		case 'update_category':	
 			$nStatus = (isset($_POST['categories_status']) ? 1 : 0);
 			$sort_order = oos_db_prepare_input($_POST['sort_order']);
 			if (isset($_POST['categories_id'])) $categories_id = oos_db_prepare_input($_POST['categories_id']);
@@ -202,6 +201,8 @@ if (!empty($action)) {
 
 		case 'delete_category_confirm':
 			if (isset($_POST['categories_id'])) {
+				$categories_id = oos_db_prepare_input($_POST['categories_id']);
+				
 				$categories = oos_get_category_tree($categories_id, '', '0', '', TRUE);
 				$products = array();
 				$products_delete = array();
@@ -244,26 +245,29 @@ if (!empty($action)) {
 			break;
 
 		case 'delete_product_confirm':
-			if ( ($_POST['products_id']) && ($_POST['product_categories']) && (is_array($_POST['product_categories'])) ) {
+			if (isset($_POST['products_id']) && isset($_POST['product_categories']) && is_array($_POST['product_categories'])) {
+				$product_id = oos_db_prepare_input($_POST['products_id']);
 				$product_categories = $_POST['product_categories'];
 
 				for ($i = 0, $n = count($product_categories); $i < $n; $i++) {
-					$dbconn->Execute("DELETE FROM " . $oostable['products_to_categories'] . " WHERE products_id = '" . (int)$products_id . "' and categories_id = '" . (int)$product_categories[$i] . "'");
+					$dbconn->Execute("DELETE FROM " . $oostable['products_to_categories'] . " WHERE products_id = '" . (int)$product_id . "' and categories_id = '" . (int)$product_categories[$i] . "'");
 				}
 
-				$product_categories_result = $dbconn->Execute("SELECT COUNT(*) AS total FROM " . $oostable['products_to_categories'] . " WHERE products_id = '" . (int)$products_id . "'");
+				$product_categories_result = $dbconn->Execute("SELECT COUNT(*) AS total FROM " . $oostable['products_to_categories'] . " WHERE products_id = '" . (int)$product_id . "'");
 				$product_categories = $product_categories_result->fields;
 
 				if ($product_categories['total'] == '0') {
-					oos_remove_product($products_id);
+					oos_remove_product($product_id);
 				}
 			}
 			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath));
 			break;
 
 		case 'move_category_confirm':
-			if ( ($_POST['categories_id']) && ($_POST['categories_id'] != $_POST['move_to_category_id']) ) {
-				$new_parent_id = $move_to_category_id;
+			if (isset($_POST['categories_id']) && ($_POST['categories_id'] != $_POST['move_to_category_id'])) {
+				$categories_id = oos_db_prepare_input($_POST['categories_id']);
+				$new_parent_id = oos_db_prepare_input($_POST['move_to_category_id']);		
+
 				$dbconn->Execute("UPDATE " . $oostable['categories'] . " SET parent_id = '" . intval($new_parent_id) . "', last_modified = now() WHERE categories_id = '" . intval($categories_id) . "'");
 			}
 			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $new_parent_id . '&amp;cID=' . $categories_id));
