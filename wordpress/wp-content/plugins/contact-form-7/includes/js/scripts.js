@@ -266,13 +266,6 @@
 					$message.addClass( 'wpcf7-spam-blocked' );
 					$form.addClass( 'spam' );
 
-					$( '[name="g-recaptcha-response"]', $form ).each( function() {
-						if ( '' === $( this ).val() ) {
-							var $recaptcha = $( this ).closest( '.wpcf7-form-control-wrap' );
-							wpcf7.notValidTip( $recaptcha, wpcf7.recaptcha.messages.empty );
-						}
-					} );
-
 					wpcf7.triggerEvent( data.into, 'spam', detail );
 					break;
 				case 'aborted':

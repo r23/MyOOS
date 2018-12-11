@@ -1,6 +1,6 @@
 <?php
 
-add_action( 'rest_api_init', 'wpcf7_rest_api_init' );
+add_action( 'rest_api_init', 'wpcf7_rest_api_init', 10, 0 );
 
 function wpcf7_rest_api_init() {
 	$namespace = 'contact-form-7/v1';

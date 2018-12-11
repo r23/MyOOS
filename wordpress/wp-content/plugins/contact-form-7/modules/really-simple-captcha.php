@@ -5,7 +5,7 @@
 
 /* form_tag handler */
 
-add_action( 'wpcf7_init', 'wpcf7_add_form_tag_captcha' );
+add_action( 'wpcf7_init', 'wpcf7_add_form_tag_captcha', 10, 0 );
 
 function wpcf7_add_form_tag_captcha() {
 	// CAPTCHA-Challenge (image)
@@ -106,8 +106,8 @@ function wpcf7_captchar_form_tag_handler( $tag ) {
 	$atts['maxlength'] = $tag->get_maxlength_option();
 	$atts['minlength'] = $tag->get_minlength_option();
 
-	if ( $atts['maxlength'] && $atts['minlength']
-	&& $atts['maxlength'] < $atts['minlength'] ) {
+	if ( $atts['maxlength'] and $atts['minlength']
+	and $atts['maxlength'] < $atts['minlength'] ) {
 		unset( $atts['maxlength'], $atts['minlength'] );
 	}
 
@@ -124,7 +124,7 @@ function wpcf7_captchar_form_tag_handler( $tag ) {
 	}
 
 	if ( $tag->has_option( 'placeholder' )
-	|| $tag->has_option( 'watermark' ) ) {
+	or $tag->has_option( 'watermark' ) ) {
 		$atts['placeholder'] = $value;
 		$value = '';
 	}
@@ -145,7 +145,8 @@ function wpcf7_captchar_form_tag_handler( $tag ) {
 
 /* Validation filter */
 
-add_filter( 'wpcf7_validate_captchar', 'wpcf7_captcha_validation_filter', 10, 2 );
+add_filter( 'wpcf7_validate_captchar',
+	'wpcf7_captcha_validation_filter', 10, 2 );
 
 function wpcf7_captcha_validation_filter( $result, $tag ) {
 	$type = $tag->type;
@@ -157,7 +158,8 @@ function wpcf7_captcha_validation_filter( $result, $tag ) {
 	$response = isset( $_POST[$name] ) ? (string) $_POST[$name] : '';
 	$response = wpcf7_canonicalize( $response );
 
-	if ( 0 == strlen( $prefix ) || ! wpcf7_check_captcha( $prefix, $response ) ) {
+	if ( 0 == strlen( $prefix )
+	or ! wpcf7_check_captcha( $prefix, $response ) ) {
 		$result->invalidate( $tag, wpcf7_get_message( 'captcha_not_match' ) );
 	}
 
@@ -171,8 +173,8 @@ function wpcf7_captcha_validation_filter( $result, $tag ) {
 
 /* Ajax echo filter */
 
-add_filter( 'wpcf7_ajax_onload', 'wpcf7_captcha_ajax_refill' );
-add_filter( 'wpcf7_ajax_json_echo', 'wpcf7_captcha_ajax_refill' );
+add_filter( 'wpcf7_ajax_onload', 'wpcf7_captcha_ajax_refill', 10, 1 );
+add_filter( 'wpcf7_ajax_json_echo', 'wpcf7_captcha_ajax_refill', 10, 1 );
 
 function wpcf7_captcha_ajax_refill( $items ) {
 	if ( ! is_array( $items ) ) {
@@ -213,7 +215,7 @@ function wpcf7_captcha_ajax_refill( $items ) {
 
 /* Messages */
 
-add_filter( 'wpcf7_messages', 'wpcf7_captcha_messages' );
+add_filter( 'wpcf7_messages', 'wpcf7_captcha_messages', 10, 1 );
 
 function wpcf7_captcha_messages( $messages ) {
 	$messages = array_merge( $messages, array(
@@ -231,7 +233,7 @@ function wpcf7_captcha_messages( $messages ) {
 
 /* Tag generator */
 
-add_action( 'wpcf7_admin_init', 'wpcf7_add_tag_generator_captcha', 46 );
+add_action( 'wpcf7_admin_init', 'wpcf7_add_tag_generator_captcha', 46, 0 );
 
 function wpcf7_add_tag_generator_captcha() {
 	if ( ! wpcf7_use_really_simple_captcha() ) {
@@ -328,10 +330,13 @@ function wpcf7_tag_generator_captcha( $contact_form, $args = '' ) {
 
 /* Warning message */
 
-add_action( 'wpcf7_admin_warnings', 'wpcf7_captcha_display_warning_message' );
+add_action( 'wpcf7_admin_warnings',
+	'wpcf7_captcha_display_warning_message', 10, 3 );
 
-function wpcf7_captcha_display_warning_message() {
-	if ( ! $contact_form = wpcf7_get_current_contact_form() ) {
+function wpcf7_captcha_display_warning_message( $page, $action, $object ) {
+	if ( $object instanceof WPCF7_ContactForm ) {
+		$contact_form = $object;
+	} else {
 		return;
 	}
 
@@ -349,14 +354,15 @@ function wpcf7_captcha_display_warning_message() {
 	$uploads_dir = wpcf7_captcha_tmp_dir();
 	wpcf7_init_captcha();
 
-	if ( ! is_dir( $uploads_dir ) || ! wp_is_writable( $uploads_dir ) ) {
+	if ( ! is_dir( $uploads_dir )
+	or ! wp_is_writable( $uploads_dir ) ) {
 		$message = sprintf( __( 'This contact form contains CAPTCHA fields, but the temporary folder for the files (%s) does not exist or is not writable. You can create the folder or change its permission manually.', 'contact-form-7' ), $uploads_dir );
 
 		echo '<div class="notice notice-warning"><p>' . esc_html( $message ) . '</p></div>';
 	}
 
 	if ( ! function_exists( 'imagecreatetruecolor' )
-	|| ! function_exists( 'imagettftext' ) ) {
+	or ! function_exists( 'imagettftext' ) ) {
 		$message = __( "This contact form contains CAPTCHA fields, but the necessary libraries (GD and FreeType) are not available on your server.", 'contact-form-7' );
 
 		echo '<div class="notice notice-warning"><p>' . esc_html( $message ) . '</p></div>';
@@ -434,7 +440,8 @@ function wpcf7_captcha_tmp_url() {
 function wpcf7_captcha_url( $filename ) {
 	$url = path_join( wpcf7_captcha_tmp_url(), $filename );
 
-	if ( is_ssl() && 'http:' == substr( $url, 0, 5 ) ) {
+	if ( is_ssl()
+	and 'http:' == substr( $url, 0, 5 ) ) {
 		$url = 'https:' . substr( $url, 5 );
 	}
 
@@ -447,7 +454,7 @@ function wpcf7_generate_captcha( $options = null ) {
 	}
 
 	if ( ! is_dir( $captcha->tmp_dir )
-	|| ! wp_is_writable( $captcha->tmp_dir ) ) {
+	or ! wp_is_writable( $captcha->tmp_dir ) ) {
 		return false;
 	}
 
@@ -515,7 +522,7 @@ function wpcf7_remove_captcha( $prefix ) {
 	$captcha->remove( $prefix );
 }
 
-add_action( 'template_redirect', 'wpcf7_cleanup_captcha_files', 20 );
+add_action( 'template_redirect', 'wpcf7_cleanup_captcha_files', 20, 0 );
 
 function wpcf7_cleanup_captcha_files() {
 	if ( ! $captcha = wpcf7_init_captcha() ) {
@@ -528,7 +535,9 @@ function wpcf7_cleanup_captcha_files() {
 
 	$dir = trailingslashit( wpcf7_captcha_tmp_dir() );
 
-	if ( ! is_dir( $dir ) || ! is_readable( $dir ) || ! wp_is_writable( $dir ) ) {
+	if ( ! is_dir( $dir )
+	or ! is_readable( $dir )
+	or ! wp_is_writable( $dir ) ) {
 		return false;
 	}
 

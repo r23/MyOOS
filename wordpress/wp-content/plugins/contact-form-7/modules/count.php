@@ -5,7 +5,7 @@
 
 /* form_tag handler */
 
-add_action( 'wpcf7_init', 'wpcf7_add_form_tag_count' );
+add_action( 'wpcf7_init', 'wpcf7_add_form_tag_count', 10, 0 );
 
 function wpcf7_add_form_tag_count() {
 	wpcf7_add_form_tag( 'count',
@@ -36,7 +36,8 @@ function wpcf7_count_form_tag_handler( $tag ) {
 		}
 	}
 
-	if ( $maxlength && $minlength && $maxlength < $minlength ) {
+	if ( $maxlength and $minlength
+	and $maxlength < $minlength ) {
 		$maxlength = $minlength = null;
 	}
 

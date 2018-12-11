@@ -214,7 +214,7 @@ function wpcf7_editor_panel_messages( $post ) {
 	$messages = wpcf7_messages();
 
 	if ( isset( $messages['captcha_not_match'] )
-	&& ! wpcf7_use_really_simple_captcha() ) {
+	and ! wpcf7_use_really_simple_captcha() ) {
 		unset( $messages['captcha_not_match'] );
 	}
 

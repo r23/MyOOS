@@ -141,7 +141,8 @@ class WPCF7_FormTagsManager {
 
 	private function normalize_callback( $m ) {
 		// allow [[foo]] syntax for escaping a tag
-		if ( $m[1] == '[' && $m[6] == ']' ) {
+		if ( $m[1] == '['
+		and $m[6] == ']' ) {
 			return $m[0];
 		}
 
@@ -230,20 +231,20 @@ class WPCF7_FormTagsManager {
 		foreach ( $tags as $tag ) {
 			$tag = new WPCF7_FormTag( $tag );
 
-			if ( $type && ! in_array( $tag->type, $type, true ) ) {
+			if ( $type and ! in_array( $tag->type, $type, true ) ) {
 				continue;
 			}
 
-			if ( $name && ! in_array( $tag->name, $name, true ) ) {
+			if ( $name and ! in_array( $tag->name, $name, true ) ) {
 				continue;
 			}
 
 			if ( $feature ) {
 				if ( ! $this->tag_type_supports( $tag->type, $feature )
-				&& ! $feature_negative ) {
+				and ! $feature_negative ) {
 					continue;
 				} elseif ( $this->tag_type_supports( $tag->type, $feature )
-				&& $feature_negative ) {
+				and $feature_negative ) {
 					continue;
 				}
 			}
@@ -270,7 +271,8 @@ class WPCF7_FormTagsManager {
 
 	private function scan_callback( $m, $replace = false ) {
 		// allow [[foo]] syntax for escaping a tag
-		if ( $m[1] == '[' && $m[6] == ']' ) {
+		if ( $m[1] == '['
+		and $m[6] == ']' ) {
 			return substr( $m[0], 1, -1 );
 		}
 
@@ -293,7 +295,7 @@ class WPCF7_FormTagsManager {
 		if ( is_array( $attr ) ) {
 			if ( is_array( $attr['options'] ) ) {
 				if ( $this->tag_type_supports( $tag, 'name-attr' )
-				&& ! empty( $attr['options'] ) ) {
+				and ! empty( $attr['options'] ) ) {
 					$scanned_tag['name'] = array_shift( $attr['options'] );
 
 					if ( ! wpcf7_is_name( $scanned_tag['name'] ) ) {

@@ -57,7 +57,7 @@ class WPCF7_Mail {
 			) );
 
 			if ( $use_html
-			&& ! preg_match( '%<html[>\s].*</html>%is', $component ) ) {
+			and ! preg_match( '%<html[>\s].*</html>%is', $component ) ) {
 				$component = $this->htmlize( $component );
 			}
 		}
@@ -159,7 +159,7 @@ class WPCF7_Mail {
 
 			foreach ( (array) $uploaded_files as $name => $path ) {
 				if ( false !== strpos( $template, "[${name}]" )
-				&& ! empty( $path ) ) {
+				and ! empty( $path ) ) {
 					$attachments[] = $path;
 				}
 			}
@@ -179,7 +179,8 @@ class WPCF7_Mail {
 				continue;
 			}
 
-			if ( is_readable( $path ) && is_file( $path ) ) {
+			if ( is_readable( $path )
+			and is_file( $path ) ) {
 				$attachments[] = $path;
 			}
 		}
@@ -211,7 +212,8 @@ function wpcf7_mail_replace_tags( $content, $args = '' ) {
 		if ( $args['exclude_blank'] ) {
 			$replaced_tags = $line->get_replaced_tags();
 
-			if ( empty( $replaced_tags ) || array_filter( $replaced_tags ) ) {
+			if ( empty( $replaced_tags )
+			or array_filter( $replaced_tags ) ) {
 				$content[$num] = $replaced;
 			} else {
 				unset( $content[$num] ); // Remove a line.
@@ -226,7 +228,7 @@ function wpcf7_mail_replace_tags( $content, $args = '' ) {
 	return $content;
 }
 
-add_action( 'phpmailer_init', 'wpcf7_phpmailer_init' );
+add_action( 'phpmailer_init', 'wpcf7_phpmailer_init', 10, 1 );
 
 function wpcf7_phpmailer_init( $phpmailer ) {
 	$custom_headers = $phpmailer->getCustomHeaders();
@@ -266,7 +268,8 @@ class WPCF7_MailTaggedText {
 
 		$this->html = (bool) $args['html'];
 
-		if ( null !== $args['callback'] && is_callable( $args['callback'] ) ) {
+		if ( null !== $args['callback']
+		and is_callable( $args['callback'] ) ) {
 			$this->callback = $args['callback'];
 		} elseif ( $this->html ) {
 			$this->callback = array( $this, 'replace_tags_callback_html' );
@@ -296,7 +299,8 @@ class WPCF7_MailTaggedText {
 
 	private function replace_tags_callback( $matches, $html = false ) {
 		// allow [[foo]] syntax for escaping a tag
-		if ( $matches[1] == '[' && $matches[4] == ']' ) {
+		if ( $matches[1] == '['
+		and $matches[4] == ']' ) {
 			return substr( $matches[0], 1, -1 );
 		}
 

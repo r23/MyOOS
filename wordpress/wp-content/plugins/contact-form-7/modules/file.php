@@ -5,7 +5,7 @@
 
 /* form_tag handler */
 
-add_action( 'wpcf7_init', 'wpcf7_add_form_tag_file' );
+add_action( 'wpcf7_init', 'wpcf7_add_form_tag_file', 10, 0 );
 
 function wpcf7_add_form_tag_file() {
 	wpcf7_add_form_tag( array( 'file', 'file*' ),
@@ -56,7 +56,7 @@ function wpcf7_file_form_tag_handler( $tag ) {
 
 /* Encode type filter */
 
-add_filter( 'wpcf7_form_enctype', 'wpcf7_file_form_enctype_filter' );
+add_filter( 'wpcf7_form_enctype', 'wpcf7_file_form_enctype_filter', 10, 1 );
 
 function wpcf7_file_form_enctype_filter( $enctype ) {
 	$multipart = (bool) wpcf7_scan_form_tags(
@@ -81,12 +81,12 @@ function wpcf7_file_validation_filter( $result, $tag ) {
 
 	$file = isset( $_FILES[$name] ) ? $_FILES[$name] : null;
 
-	if ( $file['error'] && UPLOAD_ERR_NO_FILE != $file['error'] ) {
+	if ( $file['error'] and UPLOAD_ERR_NO_FILE != $file['error'] ) {
 		$result->invalidate( $tag, wpcf7_get_message( 'upload_failed_php_error' ) );
 		return $result;
 	}
 
-	if ( empty( $file['tmp_name'] ) && $tag->is_required() ) {
+	if ( empty( $file['tmp_name'] ) and $tag->is_required() ) {
 		$result->invalidate( $tag, wpcf7_get_message( 'invalid_required' ) );
 		return $result;
 	}
@@ -153,7 +153,7 @@ function wpcf7_file_validation_filter( $result, $tag ) {
 	$filename = wp_unique_filename( $uploads_dir, $filename );
 	$new_file = path_join( $uploads_dir, $filename );
 
-	if ( false === move_uploaded_file( $file['tmp_name'], $new_file ) ) {
+	if ( false === @move_uploaded_file( $file['tmp_name'], $new_file ) ) {
 		$result->invalidate( $tag, wpcf7_get_message( 'upload_failed' ) );
 		return $result;
 	}
@@ -171,7 +171,7 @@ function wpcf7_file_validation_filter( $result, $tag ) {
 
 /* Messages */
 
-add_filter( 'wpcf7_messages', 'wpcf7_file_messages' );
+add_filter( 'wpcf7_messages', 'wpcf7_file_messages', 10, 1 );
 
 function wpcf7_file_messages( $messages ) {
 	return array_merge( $messages, array(
@@ -200,7 +200,7 @@ function wpcf7_file_messages( $messages ) {
 
 /* Tag generator */
 
-add_action( 'wpcf7_admin_init', 'wpcf7_add_tag_generator_file', 50 );
+add_action( 'wpcf7_admin_init', 'wpcf7_add_tag_generator_file', 50, 0 );
 
 function wpcf7_add_tag_generator_file() {
 	$tag_generator = WPCF7_TagGenerator::get_instance();
@@ -280,10 +280,13 @@ function wpcf7_tag_generator_file( $contact_form, $args = '' ) {
 
 /* Warning message */
 
-add_action( 'wpcf7_admin_warnings', 'wpcf7_file_display_warning_message' );
+add_action( 'wpcf7_admin_warnings',
+	'wpcf7_file_display_warning_message', 10, 3 );
 
-function wpcf7_file_display_warning_message() {
-	if ( ! $contact_form = wpcf7_get_current_contact_form() ) {
+function wpcf7_file_display_warning_message( $page, $action, $object ) {
+	if ( $object instanceof WPCF7_ContactForm ) {
+		$contact_form = $object;
+	} else {
 		return;
 	}
 
@@ -297,7 +300,8 @@ function wpcf7_file_display_warning_message() {
 	$uploads_dir = wpcf7_upload_tmp_dir();
 	wpcf7_init_uploads();
 
-	if ( ! is_dir( $uploads_dir ) || ! wp_is_writable( $uploads_dir ) ) {
+	if ( ! is_dir( $uploads_dir )
+	or ! wp_is_writable( $uploads_dir ) ) {
 		$message = sprintf( __( 'This contact form contains file uploading fields, but the temporary folder for the files (%s) does not exist or is not writable. You can create the folder or change its permission manually.', 'contact-form-7' ), $uploads_dir );
 
 		echo sprintf( '<div class="notice notice-warning"><p>%s</p></div>',
@@ -309,7 +313,8 @@ function wpcf7_file_display_warning_message() {
 /* File uploading functions */
 
 function wpcf7_acceptable_filetypes( $types = 'default', $format = 'regex' ) {
-	if ( 'default' === $types || empty( $types ) ) {
+	if ( 'default' === $types
+	or empty( $types ) ) {
 		$types = array(
 			'jpg',
 			'jpeg',
@@ -359,7 +364,8 @@ function wpcf7_acceptable_filetypes( $types = 'default', $format = 'regex' ) {
 			continue;
 		}
 
-		if ( 'attr' === $format || 'attribute' === $format ) {
+		if ( 'attr' === $format
+		or 'attribute' === $format ) {
 			$output .= sprintf( '.%s', $type );
 			$output .= ',';
 		} else {
@@ -412,14 +418,19 @@ function wpcf7_upload_tmp_dir() {
 add_action( 'template_redirect', 'wpcf7_cleanup_upload_files', 20, 0 );
 
 function wpcf7_cleanup_upload_files( $seconds = 60, $max = 100 ) {
-	if ( is_admin() || 'GET' != $_SERVER['REQUEST_METHOD']
-	|| is_robots() || is_feed() || is_trackback() ) {
+	if ( is_admin()
+	or 'GET' != $_SERVER['REQUEST_METHOD']
+	or is_robots()
+	or is_feed()
+	or is_trackback() ) {
 		return;
 	}
 
 	$dir = trailingslashit( wpcf7_upload_tmp_dir() );
 
-	if ( ! is_dir( $dir ) || ! is_readable( $dir ) || ! wp_is_writable( $dir ) ) {
+	if ( ! is_dir( $dir )
+	or ! is_readable( $dir )
+	or ! wp_is_writable( $dir ) ) {
 		return;
 	}
 
@@ -429,13 +440,15 @@ function wpcf7_cleanup_upload_files( $seconds = 60, $max = 100 ) {
 
 	if ( $handle = opendir( $dir ) ) {
 		while ( false !== ( $file = readdir( $handle ) ) ) {
-			if ( '.' == $file || '..' == $file || '.htaccess' == $file ) {
+			if ( '.' == $file
+			or '..' == $file
+			or '.htaccess' == $file ) {
 				continue;
 			}
 
 			$mtime = filemtime( path_join( $dir, $file ) );
 
-			if ( $mtime && time() < $mtime + $seconds ) { // less than $seconds old
+			if ( $mtime and time() < $mtime + $seconds ) { // less than $seconds old
 				continue;
 			}
 

@@ -8,7 +8,7 @@ add_action( 'wpcf7_submit', 'wpcf7_flamingo_submit', 10, 2 );
 
 function wpcf7_flamingo_submit( $contact_form, $result ) {
 	if ( ! class_exists( 'Flamingo_Contact' )
-	|| ! class_exists( 'Flamingo_Inbound_Message' ) ) {
+	or ! class_exists( 'Flamingo_Inbound_Message' ) ) {
 		return;
 	}
 
@@ -20,13 +20,14 @@ function wpcf7_flamingo_submit( $contact_form, $result ) {
 		array( 'spam', 'mail_sent', 'mail_failed' ) );
 
 	if ( empty( $result['status'] )
-	|| ! in_array( $result['status'], $cases ) ) {
+	or ! in_array( $result['status'], $cases ) ) {
 		return;
 	}
 
 	$submission = WPCF7_Submission::get_instance();
 
-	if ( ! $submission || ! $posted_data = $submission->get_posted_data() ) {
+	if ( ! $submission
+	or ! $posted_data = $submission->get_posted_data() ) {
 		return;
 	}
 
@@ -46,7 +47,8 @@ function wpcf7_flamingo_submit( $contact_form, $result ) {
 	$exclude_names[] = 'g-recaptcha-response';
 
 	foreach ( $posted_data as $key => $value ) {
-		if ( '_' == substr( $key, 0, 1 ) || in_array( $key, $exclude_names ) ) {
+		if ( '_' == substr( $key, 0, 1 )
+		or in_array( $key, $exclude_names ) ) {
 			unset( $posted_data[$key] );
 		}
 	}
@@ -87,7 +89,7 @@ function wpcf7_flamingo_submit( $contact_form, $result ) {
 
 	if ( $channel_id ) {
 		if ( ! isset( $post_meta['channel'] )
-		|| $post_meta['channel'] !== $channel_id ) {
+		or $post_meta['channel'] !== $channel_id ) {
 			$post_meta = empty( $post_meta ) ? array() : (array) $post_meta;
 			$post_meta = array_merge( $post_meta, array(
 				'channel' => $channel_id,
@@ -99,7 +101,7 @@ function wpcf7_flamingo_submit( $contact_form, $result ) {
 		$channel = get_term( $channel_id,
 			Flamingo_Inbound_Message::channel_taxonomy );
 
-		if ( ! $channel || is_wp_error( $channel ) ) {
+		if ( ! $channel or is_wp_error( $channel ) ) {
 			$channel = 'contact-form-7';
 		} else {
 			$channel = $channel->slug;
@@ -134,7 +136,8 @@ function wpcf7_flamingo_submit( $contact_form, $result ) {
 }
 
 function wpcf7_flamingo_get_value( $field, $contact_form ) {
-	if ( empty( $field ) || empty( $contact_form ) ) {
+	if ( empty( $field )
+	or empty( $contact_form ) ) {
 		return false;
 	}
 
@@ -204,7 +207,7 @@ function wpcf7_flamingo_add_channel( $slug, $name = '' ) {
 	return (int) $channel['term_id'];
 }
 
-add_action( 'wpcf7_after_update', 'wpcf7_flamingo_update_channel' );
+add_action( 'wpcf7_after_update', 'wpcf7_flamingo_update_channel', 10, 1 );
 
 function wpcf7_flamingo_update_channel( $contact_form ) {
 	if ( ! class_exists( 'Flamingo_Inbound_Message' ) ) {
@@ -219,7 +222,7 @@ function wpcf7_flamingo_update_channel( $contact_form ) {
 		: get_term_by( 'slug', $contact_form->name(),
 			Flamingo_Inbound_Message::channel_taxonomy );
 
-	if ( ! $channel || is_wp_error( $channel ) ) {
+	if ( ! $channel or is_wp_error( $channel ) ) {
 		return;
 	}
 
@@ -243,7 +246,7 @@ function wpcf7_flamingo_serial_number( $output, $name, $html ) {
 	}
 
 	if ( ! class_exists( 'Flamingo_Inbound_Message' )
-	|| ! method_exists( 'Flamingo_Inbound_Message', 'count' ) ) {
+	or ! method_exists( 'Flamingo_Inbound_Message', 'count' ) ) {
 		return $output;
 	}
 

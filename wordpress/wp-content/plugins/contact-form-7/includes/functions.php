@@ -7,7 +7,8 @@ function wpcf7_plugin_path( $path = '' ) {
 function wpcf7_plugin_url( $path = '' ) {
 	$url = plugins_url( $path, WPCF7_PLUGIN );
 
-	if ( is_ssl() && 'http:' == substr( $url, 0, 5 ) ) {
+	if ( is_ssl()
+	and 'http:' == substr( $url, 0, 5 ) ) {
 		$url = 'https:' . substr( $url, 5 );
 	}
 
@@ -51,7 +52,8 @@ function wpcf7_blacklist_check( $target ) {
 	foreach ( (array) $words as $word ) {
 		$word = trim( $word );
 
-		if ( empty( $word ) || 256 < strlen( $word ) ) {
+		if ( empty( $word )
+		or 256 < strlen( $word ) ) {
 			continue;
 		}
 
@@ -253,17 +255,23 @@ function wpcf7_enctype_value( $enctype ) {
 
 function wpcf7_rmdir_p( $dir ) {
 	if ( is_file( $dir ) ) {
-		if ( ! $result = @unlink( $dir ) ) {
-			$stat = stat( $dir );
-			$perms = $stat['mode'];
-			chmod( $dir, $perms | 0200 ); // add write for owner
+		$file = $dir;
 
-			if ( ! $result = @unlink( $dir ) ) {
-				chmod( $dir, $perms );
-			}
+		if ( @unlink( $file ) ) {
+			return true;
 		}
 
-		return $result;
+		$stat = stat( $file );
+
+		if ( @chmod( $file, $stat['mode'] | 0200 ) ) { // add write for owner
+			if ( @unlink( $file ) ) {
+				return true;
+			}
+
+			@chmod( $file, $stat['mode'] );
+		}
+
+		return false;
 	}
 
 	if ( ! is_dir( $dir ) ) {
@@ -272,7 +280,8 @@ function wpcf7_rmdir_p( $dir ) {
 
 	if ( $handle = opendir( $dir ) ) {
 		while ( false !== ( $file = readdir( $handle ) ) ) {
-			if ( $file == "." || $file == ".." ) {
+			if ( $file == "."
+			or $file == ".." ) {
 				continue;
 			}
 
@@ -283,7 +292,7 @@ function wpcf7_rmdir_p( $dir ) {
 	}
 
 	if ( false !== ( $files = scandir( $dir ) )
-	&& ! array_diff( $files, array( '.', '..' ) ) ) {
+	and ! array_diff( $files, array( '.', '..' ) ) ) {
 		return rmdir( $dir );
 	}
 
@@ -308,7 +317,7 @@ function wpcf7_build_query( $args, $key = '' ) {
 			$v = '0';
 		}
 
-		if ( is_array( $v ) || is_object( $v ) ) {
+		if ( is_array( $v ) or is_object( $v ) ) {
 			array_push( $ret, wpcf7_build_query( $v, $k ) );
 		} else {
 			array_push( $ret, $k . '=' . urlencode( $v ) );
@@ -360,7 +369,7 @@ function wpcf7_is_localhost() {
 function wpcf7_deprecated_function( $function, $version, $replacement ) {
 	$trigger_error = apply_filters( 'deprecated_function_trigger_error', true );
 
-	if ( WP_DEBUG && $trigger_error ) {
+	if ( WP_DEBUG and $trigger_error ) {
 		if ( function_exists( '__' ) ) {
 			trigger_error( sprintf( __( '%1$s is <strong>deprecated</strong> since Contact Form 7 version %2$s! Use %3$s instead.', 'contact-form-7' ), $function, $version, $replacement ) );
 		} else {
@@ -369,8 +378,27 @@ function wpcf7_deprecated_function( $function, $version, $replacement ) {
 	}
 }
 
+function wpcf7_log_remote_request( $url, $request, $response ) {
+	$log = sprintf(
+		/* translators: 1: response code, 2: response message, 3: URL */
+		__( 'HTTP Response: %1$s %2$s from %3$s', 'contact-form-7' ),
+		(int) wp_remote_retrieve_response_code( $response ),
+		wp_remote_retrieve_response_message( $response ),
+		$url
+	);
+
+	$log = apply_filters( 'wpcf7_log_remote_request',
+		$log, $url, $request, $response
+	);
+
+	if ( $log ) {
+		trigger_error( $log );
+	}
+}
+
 function wpcf7_anonymize_ip_addr( $ip_addr ) {
-	if ( ! function_exists( 'inet_ntop' ) || ! function_exists( 'inet_pton' ) ) {
+	if ( ! function_exists( 'inet_ntop' )
+	or ! function_exists( 'inet_pton' ) ) {
 		return $ip_addr;
 	}
 
@@ -392,12 +420,12 @@ function wpcf7_anonymize_ip_addr( $ip_addr ) {
 }
 
 function wpcf7_is_file_path_in_content_dir( $path ) {
-	if ( 0 === strpos( realpath( $path ), WP_CONTENT_DIR ) ) {
+	if ( 0 === strpos( realpath( $path ), realpath( WP_CONTENT_DIR ) ) ) {
 		return true;
 	}
 
 	if ( defined( 'UPLOADS' )
-	and 0 === strpos( realpath( $path ), ABSPATH . UPLOADS ) ) {
+	and 0 === strpos( realpath( $path ), realpath( ABSPATH . UPLOADS ) ) ) {
 		return true;
 	}
 

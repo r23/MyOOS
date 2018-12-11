@@ -2,9 +2,9 @@
 Contributors: takayukister
 Donate link: https://contactform7.com/donate/
 Tags: contact, form, contact form, feedback, email, ajax, captcha, akismet, multilingual
-Requires at least: 4.8
-Tested up to: 4.9
-Stable tag: 5.0.5
+Requires at least: 4.9
+Tested up to: 5.0
+Stable tag: 5.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -35,6 +35,7 @@ If you activate certain features in this plugin, the contact form submitter's pe
 
 * reCAPTCHA ([Google](https://policies.google.com/?hl=en))
 * Akismet ([Automattic](https://automattic.com/privacy/))
+* Constant Contact ([Endurance International Group](https://www.endurance.com/privacy))
 
 = Recommended Plugins =
 
@@ -73,6 +74,12 @@ Do you have questions or issues with Contact Form 7? Use these support channels 
 == Changelog ==
 
 For more information, see [Releases](https://contactform7.com/category/releases/).
+
+= 5.1 =
+
+* Introduces the Constant Contact integration module.
+* Updates the reCAPTCHA module to support reCAPTCHA v3.
+* Adds Dark Mode style rules.
 
 = 5.0.5 =
 

@@ -19,7 +19,8 @@ class WPCF7_TagGenerator {
 	public function add( $id, $title, $callback, $options = array() ) {
 		$id = trim( $id );
 
-		if ( '' === $id || ! wpcf7_is_name( $id ) ) {
+		if ( '' === $id
+		or ! wpcf7_is_name( $id ) ) {
 			return false;
 		}
 
@@ -44,7 +45,8 @@ class WPCF7_TagGenerator {
 				esc_attr( sprintf(
 					__( 'Form-tag Generator: %s', 'contact-form-7' ),
 					$panel['title'] ) ),
-				esc_html( $panel['title'] ) );
+				esc_html( $panel['title'] )
+			);
 		}
 
 		echo '</span>';

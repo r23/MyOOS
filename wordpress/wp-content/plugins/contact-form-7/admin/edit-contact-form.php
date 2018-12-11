@@ -29,7 +29,7 @@ function wpcf7_admin_save_button( $post_id ) {
 	echo $button;
 }
 
-?><div class="wrap">
+?><div class="wrap" id="wpcf7-contact-form-editor">
 
 <h1 class="wp-heading-inline"><?php
 	if ( $post->initial() ) {
@@ -40,17 +40,31 @@ function wpcf7_admin_save_button( $post_id ) {
 ?></h1>
 
 <?php
-	if ( ! $post->initial() && current_user_can( 'wpcf7_edit_contact_forms' ) ) {
-		echo sprintf( '<a href="%1$s" class="add-new-h2">%2$s</a>',
-			esc_url( menu_page_url( 'wpcf7-new', false ) ),
-			esc_html( __( 'Add New', 'contact-form-7' ) ) );
+	if ( ! $post->initial()
+	and current_user_can( 'wpcf7_edit_contact_forms' ) ) {
+		echo wpcf7_link(
+			menu_page_url( 'wpcf7-new', false ),
+			__( 'Add New', 'contact-form-7' ),
+			array( 'class' => 'page-title-action' )
+		);
 	}
 ?>
 
 <hr class="wp-header-end">
 
-<?php do_action( 'wpcf7_admin_warnings' ); ?>
-<?php do_action( 'wpcf7_admin_notices' ); ?>
+<?php
+	do_action( 'wpcf7_admin_warnings',
+		$post->initial() ? 'wpcf7-new' : 'wpcf7',
+		wpcf7_current_action(),
+		$post
+	);
+
+	do_action( 'wpcf7_admin_notices',
+		$post->initial() ? 'wpcf7-new' : 'wpcf7',
+		wpcf7_current_action(),
+		$post
+	);
+?>
 
 <?php
 if ( $post ) :

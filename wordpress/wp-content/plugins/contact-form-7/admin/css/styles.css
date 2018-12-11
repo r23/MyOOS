@@ -16,14 +16,25 @@ span.shortcode.old {
 	color: #fff;
 }
 
-span.shortcode > input {
-	background: inherit;
-	color: inherit;
+span.shortcode input {
 	font-size: 12px;
 	border: none;
 	box-shadow: none;
 	padding: 4px 8px;
 	margin: 0;
+}
+
+#wpcf7-contact-form-list-table span.shortcode input,
+#wpcf7-contact-form-editor span.shortcode input {
+	background: transparent;
+}
+
+#wpcf7-contact-form-list-table span.shortcode input {
+	color: #444;
+}
+
+#wpcf7-contact-form-editor span.shortcode input {
+	color: #fff;
 }
 
 #submitpost input.copy {
@@ -72,13 +83,28 @@ ul.config-error li {
 	margin: 0;
 }
 
-div.config-error span.dashicons,
-ul.config-error li span.dashicons {
-	color: #82878c;
-}
-
 [data-config-field][aria-invalid="true"] {
 	border-color: #d00;
+}
+
+#contact-form-editor-tabs li a .icon-in-circle,
+#contact-form-editor .config-error .icon-in-circle,
+.wp-list-table .config-error .icon-in-circle,
+.icon-in-circle {
+	display: inline-block;
+	vertical-align: text-top;
+	margin: 1px 6px 0;
+	padding: 0 5px;
+	min-width: 7px;
+	height: 17px;
+	border-radius: 11px;
+	background-color: #ca4a1f;
+	color: #fff;
+	font-size: 12px;
+	font-weight: bold;
+	line-height: 17px;
+	text-align: center;
+	z-index: 26;
 }
 
 /*
@@ -132,22 +158,11 @@ ul.config-error li span.dashicons {
 	color: #000;
 }
 
-#contact-form-editor-tabs li a span.dashicons {
-	font-style: normal;
-	padding: 6px 0 4px 4px;
-	color: #82878c;
-}
-
-#contact-form-editor-tabs li a span.dashicons-warning,
-#contact-form-editor .contact-form-editor-panel > div.config-error span.dashicons-warning {
-	color: #ca4a1f;
-}
-
 #contact-form-editor .contact-form-editor-panel > div.config-error {
 	margin-bottom: 1.4em;
 }
 
-#contact-form-editor-tabs li.ui-tabs-active a span.dashicons {
+#contact-form-editor-tabs li.ui-tabs-active a .icon-in-circle {
 	display: none;
 }
 
@@ -325,10 +340,6 @@ ul.config-error li span.dashicons {
 
 .fixed .column-shortcode {
 	width: 38%;
-}
-
-.wp-list-table .config-error span.dashicons-warning {
-	color: #ca4a1f;
 }
 
 /*

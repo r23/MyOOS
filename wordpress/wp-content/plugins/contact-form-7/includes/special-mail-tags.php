@@ -39,7 +39,8 @@ function wpcf7_special_mail_tag( $output, $name, $html ) {
 		}
 	}
 
-	if ( '_date' == $name || '_time' == $name ) {
+	if ( '_date' == $name
+	or '_time' == $name ) {
 		if ( $timestamp = $submission->get_meta( 'timestamp' ) ) {
 			if ( '_date' == $name ) {
 				return date_i18n( get_option( 'date_format' ), $timestamp );
@@ -75,7 +76,8 @@ function wpcf7_post_related_smt( $output, $name, $html ) {
 
 	$post_id = (int) $submission->get_meta( 'container_post_id' );
 
-	if ( ! $post_id || ! $post = get_post( $post_id ) ) {
+	if ( ! $post_id
+	or ! $post = get_post( $post_id ) ) {
 		return '';
 	}
 
@@ -135,7 +137,8 @@ function wpcf7_site_related_smt( $output, $name, $html ) {
 add_filter( 'wpcf7_special_mail_tags', 'wpcf7_user_related_smt', 10, 3 );
 
 function wpcf7_user_related_smt( $output, $name, $html ) {
-	if ( '_user_' != substr( $name, 0, 6 ) || '_user_agent' == $name ) {
+	if ( '_user_' != substr( $name, 0, 6 )
+	or '_user_agent' == $name ) {
 		return $output;
 	}
 

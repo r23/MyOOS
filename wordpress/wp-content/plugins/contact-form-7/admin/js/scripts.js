@@ -158,7 +158,7 @@
 
 				$.each( errors[ section ], function( i, val ) {
 					var $li = $( '<li></li>' ).append(
-						$( '<span class="dashicons dashicons-warning" aria-hidden="true"></span>' )
+						wpcf7.iconInCircle( '!' )
 					).append(
 						$( '<span class="screen-reader-text"></span>' ).text( wpcf7.configValidator.iconAlt )
 					).append( ' ' );
@@ -191,14 +191,14 @@
 
 		$( '#contact-form-editor-tabs > li' ).each( function() {
 			var $item = $( this );
-			$item.find( 'span.dashicons' ).remove();
+			$item.find( '.icon-in-circle' ).remove();
 			var tab = $item.attr( 'id' ).replace( /-panel-tab$/, '' );
 
 			$.each( errors, function( key, val ) {
 				key = key.replace( /^mail_\d+\./, 'mail.' );
 
 				if ( key.replace( /\..*$/, '' ) == tab.replace( '-', '_' ) ) {
-					var $mark = $( '<span class="dashicons dashicons-warning" aria-hidden="true"></span>' );
+					var $mark = wpcf7.iconInCircle( '!' );
 					$item.find( 'a.ui-tabs-anchor' ).first().append( $mark );
 					return false;
 				}
@@ -208,8 +208,7 @@
 			$tabPanelError.empty();
 
 			if ( errorCount[ tab.replace( '-', '_' ) ] ) {
-				$tabPanelError
-					.append( '<span class="dashicons dashicons-warning" aria-hidden="true"></span> ' );
+				$tabPanelError.append( wpcf7.iconInCircle( '!' ) );
 
 				if ( 1 < errorCount[ tab.replace( '-', '_' ) ] ) {
 					var manyErrorsInTab = wpcf7.configValidator.manyErrorsInTab
@@ -226,7 +225,7 @@
 		if ( errorCount.total ) {
 			var $warning = $( '<div></div>' )
 				.addClass( 'misc-pub-section config-error' )
-				.append( '<span class="dashicons dashicons-warning" aria-hidden="true"></span> ' );
+				.append( wpcf7.iconInCircle( '!' ) );
 
 			if ( 1 < errorCount.total ) {
 				$warning.append(
@@ -272,6 +271,11 @@
 			$titleprompt.addClass( 'screen-reader-text' );
 			$( this ).unbind( e );
 		} );
+	};
+
+	wpcf7.iconInCircle = function( icon ) {
+		var $span = $( '<span class="icon-in-circle" aria-hidden="true"></span>' );
+		return $span.text( icon );
 	};
 
 	wpcf7.apiSettings.getRoute = function( path ) {
