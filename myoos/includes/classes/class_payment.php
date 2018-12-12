@@ -121,7 +121,7 @@
         }
 
 
-        $js .= "\n" . '  if (payment_value == null && submitter != 1) {' . "\n" . // ICW CREDIT CLASS Gift Voucher System
+        $js .= "\n" . '  if (payment_value == null && submitter != 1) {' . "\n" . 
                '    error_message = error_message + "' . $aLang['js_error_no_payment_module_selected'] . '";' . "\n" .
                '    error = 1;' . "\n" .
                '  }' . "\n\n" .
@@ -129,7 +129,7 @@
                '    alert(error_message);' . "\n" .
                '    return FALSE;' . "\n" .
                '  } else {' . "\n" .
-               '    return true;' . "\n" .
+               '    return TRUE;' . "\n" .
                '  }' . "\n" .
                '}' . "\n" .
                '//--></script>' . "\n";

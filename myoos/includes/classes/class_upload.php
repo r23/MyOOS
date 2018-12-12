@@ -44,7 +44,7 @@
         $this->set_output_messages('session');
 
         if ( ($this->parse() == TRUE) && ($this->save() == TRUE) ) {
-          return true;
+          return TRUE;
         } else {
           return FALSE;
         }
@@ -118,7 +118,7 @@
 
         $oMessage->add_session('upload', $aLang['success_file_saved_successfully'], 'success');
 
-        return true;
+        return TRUE;
       } else {
         if ($this->message_location == 'direct') {
           $oMessage->add('upload', $aLang['error_file_not_saved'], 'error');
@@ -182,7 +182,7 @@
 
         return FALSE;
       } else {
-        return true;
+        return TRUE;
       }
     }
 

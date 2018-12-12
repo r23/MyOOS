@@ -168,6 +168,7 @@
 	$sStr = str_replace( array( '%20', '+' ), '-', $sStr );
 	$sStr = preg_replace( '/[\r\n\t -]+/', '-', $sStr );
 	$sStr = trim( $sStr, '.-_' );
+	$sStr = strtolower($sStr);
 
     return $sStr;
   }

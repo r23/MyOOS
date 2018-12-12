@@ -588,7 +588,7 @@
 
       $nLanguageID = isset($_SESSION['language_id']) ? intval( $_SESSION['language_id'] ) : DEFAULT_LANGUAGE_ID;
 
-      $products_array = array();
+      $aProducts = array();
       reset($this->contents);
       foreach ( array_keys($this->contents) as $products_id ) {
         $nQuantity = $this->contents[$products_id]['qty'];
@@ -610,7 +610,7 @@
             $products_price = $products['products_price'];
           }
 
-          $spezial_price = 'false';
+          $bSpezialPrice = FALSE;
           $specialstable = $oostable['specials'];
           $sql = "SELECT specials_new_products_price
                   FROM $specialstable
@@ -618,25 +618,22 @@
                         status = '1'";
           $specials_result = $dbconn->Execute($sql);
           if ($specials_result->RecordCount()) {
-            $spezial_price = 'true';
+            $bSpezialPrice = TRUE;
             $specials = $specials_result->fields;
             $products_price = $specials['specials_new_products_price'];
           }
 
           $attributes_price = $this->attributes_price($products_id);
-          if ($spezial_price == 'false') {
-            $attributes_price = $attributes_price*(100-$max_product_discount)/100;
-          }
 		  
-          $products_array[] = array('id' => $products_id,
+          $aProducts[] = array('id' => $products_id,
                                     'name' => $products['products_name'],
                                     'model' => $products['products_model'],
                                     'image' => $products['products_image'],
                                     'ean' => $products['products_ean'],
                                     'price' => $products_price,	
-                                    'spezial' => $spezial_price,
+                                    'spezial' => $bSpezialPrice,
                                     'quantity' => $this->contents[$products_id]['qty'],
-									'stock' => $$products['products_quantity'],
+									'stock' => $products['products_quantity'],
                                     'weight' => $products['products_weight'],
                                     'final_price' => ($products_price + $attributes_price),
                                     'tax_class_id' => $products['products_tax_class_id'],
@@ -648,7 +645,7 @@
         }
       }
 
-      return $products_array;
+      return $aProducts;
     }
 
     public function show_total() {

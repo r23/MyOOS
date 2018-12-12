@@ -70,7 +70,7 @@
         $this->aPlugins[] = $sName;
       }
 
-      return true;
+      return TRUE;
     }
 
 
