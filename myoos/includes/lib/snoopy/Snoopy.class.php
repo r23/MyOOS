@@ -713,13 +713,13 @@ class Snoopy
 							chr(176),
 							chr(39),
 							chr(128),
-							"ä",
-							"ö",
-							"ü",
-							"Ä",
-							"Ö",
-							"Ü",
-							"ß",
+							"Ã¤",
+							"Ã¶",
+							"Ã¼",
+							"Ã„",
+							"Ã–",
+							"Ãœ",
+							"ÃŸ",
 						);
 					
 		$text = preg_replace($search,$replace,$document);
@@ -907,7 +907,6 @@ class Snoopy
 		// check if there is a a redirect meta tag
 		
 		if(preg_match("'<meta[\s]*http-equiv[^>]*?content[\s]*=[\s]*[\"\']?\d+;[\s]*URL[\s]*=[\s]*([^\"\']*?)[\"\']?>'i",$results,$match))
-
 		{
 			$this->_redirectaddr = $this->_expandlinks($match[1],$URI);	
 		}
@@ -1228,7 +1227,7 @@ class Snoopy
 				foreach($formfiles as $field_name => $file_names) {									
 					settype($file_names, "array");
 
-					foreach ($file_names as file_name) {				
+					foreach ($file_names as $file_name) {				
 						if (!is_readable($file_name)) continue;
 
 						$fp = fopen($file_name, "r");

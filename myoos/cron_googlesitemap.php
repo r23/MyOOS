@@ -51,7 +51,7 @@ define('MYOOS_INCLUDE_PATH', dirname(__FILE__)=='/'?'':dirname(__FILE__));
 define('OOS_VALID_MOD', true);
 
 require_once MYOOS_INCLUDE_PATH . '/includes/main.php';
-require_once MYOOS_INCLUDE_PATH . '/includes/lib/snoopy/snoopy-class.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/lib/snoopy/snoopy.class.php';
 
 class MyOOS_Utilities {
 
