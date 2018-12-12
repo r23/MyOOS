@@ -1,6 +1,6 @@
 <?php
 /*
-@version   v5.21.0-dev  ??-???-2016
+@version   v5.20.13  06-Aug-2018
 @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
 @copyright (c) 2014      Damien Regad, Mark Newnham and the ADOdb community
   Released under both BSD license and Lesser GPL library license.
@@ -8,26 +8,56 @@
   the BSD license will take precedence.
 Set tabs to 4 for best viewing.
 
-  Latest version is available at http://adodb.sourceforge.net
+  Latest version is available at http://adodb.org/
 
   Microsoft Visual FoxPro data driver. Requires ODBC. Works only on MS Windows.
 */
 
 // security - hide paths
 if (!defined('ADODB_DIR')) die();
-include_once(ADODB_DIR."/drivers/adodb-db2.inc.php");
+include(ADODB_DIR."/drivers/adodb-db2.inc.php");
 
 
 if (!defined('ADODB_DB2OCI')){
 define('ADODB_DB2OCI',1);
 
-/**
- * Smart remapping of :0, :1 bind vars to ? ?
- * Handles colons in comments -- and / * * / and in quoted strings.
- * @param string $sql SQL statement
- * @param array  $arr parameters
- * @return array
- */
+/*
+// regex code for smart remapping of :0, :1 bind vars to ? ?
+function _colontrack($p)
+{
+global $_COLONARR,$_COLONSZ;
+	$v = (integer) substr($p,1);
+	if ($v > $_COLONSZ) return $p;
+	$_COLONARR[] = $v;
+	return '?';
+}
+
+// smart remapping of :0, :1 bind vars to ? ?
+function _colonscope($sql,$arr)
+{
+global $_COLONARR,$_COLONSZ;
+
+	$_COLONARR = array();
+	$_COLONSZ = sizeof($arr);
+
+	$sql2 = preg_replace("/(:[0-9]+)/e","_colontrack('\\1')",$sql);
+
+	if (empty($_COLONARR)) return array($sql,$arr);
+
+	foreach($_COLONARR as $k => $v) {
+		$arr2[] = $arr[$v];
+	}
+
+	return array($sql2,$arr2);
+}
+*/
+
+/*
+	Smart remapping of :0, :1 bind vars to ? ?
+
+	Handles colons in comments -- and / * * / and in quoted strings.
+*/
+
 function _colonparser($sql,$arr)
 {
 	$lensql = strlen($sql);
@@ -187,6 +217,10 @@ class  ADORecordSet_db2oci extends ADORecordSet_db2 {
 
 	var $databaseType = "db2oci";
 
+	function __construct($id,$mode=false)
+	{
+		return parent::__construct($id,$mode);
+	}
 }
 
 } //define

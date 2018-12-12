@@ -151,8 +151,7 @@
         for ($i = 0; $i < $numfields; $i++) {
             $temp = $fieldinfo->arraymem($i);
             $fld = new ADOFieldObject();
-            foreach ($temp->structeach() as $key => $value) {				
-				
+            while (list($key,$value) = $temp->structeach()) {
                 if ($key == "name") $fld->name = $value->scalarval();
                 if ($key == "type") $fld->type = $value->scalarval();
                 if ($key == "max_length") $fld->max_length = $value->scalarval();

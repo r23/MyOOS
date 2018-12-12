@@ -1,6 +1,6 @@
 <?php
 /*
-@version   v5.21.0-dev  ??-???-2016
+@version   v5.20.13  06-Aug-2018
 @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
 @copyright (c) 2014      Damien Regad, Mark Newnham and the ADOdb community
   Released under both BSD license and Lesser GPL library license.
@@ -8,7 +8,7 @@
   the BSD license will take precedence.
 Set tabs to 4 for best viewing.
 
-  Latest version is available at http://adodb.sourceforge.net
+  Latest version is available at http://adodb.org/
 
   Requires ODBC. Works on Windows and Unix.
 */
@@ -17,18 +17,6 @@ if (!defined('ADODB_DIR')) die();
 
   define("_ADODB_ODBC_LAYER", 2 );
 
-/*
- * These constants are used to set define MetaColumns() method's behavior.
- * - METACOLUMNS_RETURNS_ACTUAL makes the driver return the actual type, 
- *   like all other drivers do (default)
- * - METACOLUMNS_RETURNS_META is provided for legacy compatibility (makes
- *   driver behave as it did prior to v5.21)
- *
- * @see $metaColumnsReturnType
- */
-DEFINE('METACOLUMNS_RETURNS_ACTUAL', 0);
-DEFINE('METACOLUMNS_RETURNS_META', 1);
-	
 /*--------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------*/
 
@@ -52,11 +40,6 @@ class ADODB_odbc extends ADOConnection {
 	var $_has_stupid_odbc_fetch_api_change = true;
 	var $_lastAffectedRows = 0;
 	var $uCaseTables = true; // for meta* functions, uppercase table names
-	
-	/*
-	 * Tells the metaColumns feature whether to return actual or meta type
-	 */
-	public $metaColumnsReturnType = METACOLUMNS_RETURNS_ACTUAL;
 
 	function __construct()
 	{
@@ -67,8 +50,6 @@ class ADODB_odbc extends ADOConnection {
 		// returns true or false
 	function _connect($argDSN, $argUsername, $argPassword, $argDatabasename)
 	{
-	global $php_errormsg;
-
 		if (!function_exists('odbc_connect')) return null;
 
 		if (!empty($argDatabasename) && stristr($argDSN, 'Database=') === false) {
@@ -78,10 +59,10 @@ class ADODB_odbc extends ADOConnection {
 			$argDSN .= 'Database='.$argDatabasename;
 		}
 
-		if (isset($php_errormsg)) $php_errormsg = '';
+		$last_php_error = $this->resetLastError();
 		if ($this->curmode === false) $this->_connectionID = odbc_connect($argDSN,$argUsername,$argPassword);
 		else $this->_connectionID = odbc_connect($argDSN,$argUsername,$argPassword,$this->curmode);
-		$this->_errorMsg = isset($php_errormsg) ? $php_errormsg : '';
+		$this->_errorMsg = $this->getChangedErrorMsg($last_php_error);
 		if (isset($this->connectStmt)) $this->Execute($this->connectStmt);
 
 		return $this->_connectionID != false;
@@ -90,12 +71,10 @@ class ADODB_odbc extends ADOConnection {
 	// returns true or false
 	function _pconnect($argDSN, $argUsername, $argPassword, $argDatabasename)
 	{
-	global $php_errormsg;
-
 		if (!function_exists('odbc_connect')) return null;
 
-		if (isset($php_errormsg)) $php_errormsg = '';
-		$this->_errorMsg = isset($php_errormsg) ? $php_errormsg : '';
+		$last_php_error = $this->resetLastError();
+		$this->_errorMsg = '';
 		if ($this->debug && $argDatabasename) {
 			ADOConnection::outp("For odbc PConnect(), $argDatabasename is not used. Place dsn in 1st parameter.");
 		}
@@ -103,7 +82,7 @@ class ADODB_odbc extends ADOConnection {
 		if ($this->curmode === false) $this->_connectionID = odbc_connect($argDSN,$argUsername,$argPassword);
 		else $this->_connectionID = odbc_pconnect($argDSN,$argUsername,$argPassword,$this->curmode);
 
-		$this->_errorMsg = isset($php_errormsg) ? $php_errormsg : '';
+		$this->_errorMsg = $this->getChangedErrorMsg($last_php_error);
 		if ($this->_connectionID && $this->autoRollback) @odbc_rollback($this->_connectionID);
 		if (isset($this->connectStmt)) $this->Execute($this->connectStmt);
 
@@ -480,16 +459,7 @@ See http://msdn.microsoft.com/library/default.asp?url=/library/en-us/odbc/htm/od
 			if (strtoupper(trim($rs->fields[2])) == $table && (!$schema || strtoupper($rs->fields[1]) == $schema)) {
 				$fld = new ADOFieldObject();
 				$fld->name = $rs->fields[3];
-				if ($this->metaColumnsReturnType == METACOLUMNS_RETURNS_META)
-					/* 
-				    * This is the broken, original value
-					*/
-					$fld->type = $this->ODBCTypes($rs->fields[4]);
-				else
-					/*
-				    * This is the correct new value
-					*/
-				    $fld->type = $rs->fields[4];
+				$fld->type = $this->ODBCTypes($rs->fields[4]);
 
 				// ref: http://msdn.microsoft.com/library/default.asp?url=/archive/en-us/dnaraccgen/html/msdn_odk.asp
 				// access uses precision to store length for char/varchar
@@ -529,9 +499,8 @@ See http://msdn.microsoft.com/library/default.asp?url=/library/en-us/odbc/htm/od
 	/* returns queryID or false */
 	function _query($sql,$inputarr=false)
 	{
-	GLOBAL $php_errormsg;
-		if (isset($php_errormsg)) $php_errormsg = '';
-		$this->_error = '';
+		$last_php_error = $this->resetLastError();
+		$this->_errorMsg = '';
 
 		if ($inputarr) {
 			if (is_array($sql)) {
@@ -540,7 +509,7 @@ See http://msdn.microsoft.com/library/default.asp?url=/library/en-us/odbc/htm/od
 				$stmtid = odbc_prepare($this->_connectionID,$sql);
 
 				if ($stmtid == false) {
-					$this->_errorMsg = isset($php_errormsg) ? $php_errormsg : '';
+					$this->_errorMsg = $this->getChangedErrorMsg($last_php_error);
 					return false;
 				}
 			}
@@ -581,14 +550,16 @@ See http://msdn.microsoft.com/library/default.asp?url=/library/en-us/odbc/htm/od
 			if ($this->_haserrorfunctions) {
 				$this->_errorMsg = '';
 				$this->_errorCode = 0;
-			} else
-				$this->_errorMsg = isset($php_errormsg) ? $php_errormsg : '';
+			} else {
+				$this->_errorMsg = $this->getChangedErrorMsg($last_php_error);
+			}
 		} else {
 			if ($this->_haserrorfunctions) {
 				$this->_errorMsg = odbc_errormsg();
 				$this->_errorCode = odbc_error();
-			} else
-				$this->_errorMsg = isset($php_errormsg) ? $php_errormsg : '';
+			} else {
+				$this->_errorMsg = $this->getChangedErrorMsg($last_php_error);
+			}
 		}
 		return $stmtid;
 	}

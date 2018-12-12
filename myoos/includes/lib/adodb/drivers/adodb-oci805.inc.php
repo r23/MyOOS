@@ -1,6 +1,6 @@
 <?php
 /**
- * @version   v5.21.0-dev  ??-???-2016
+ * @version   v5.20.13  06-Aug-2018
  * @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
  * @copyright (c) 2014      Damien Regad, Mark Newnham and the ADOdb community
  * Released under both BSD license and Lesser GPL library license.
@@ -9,7 +9,7 @@
  *
  * Set tabs to 4 for best viewing.
  *
- * Latest version is available at http://php.weblogs.com
+ * Latest version is available at http://adodb.org/
  *
  * Oracle 8.0.5 driver
 */
@@ -48,4 +48,8 @@ class ADODB_oci805 extends ADODB_oci8 {
 
 class ADORecordset_oci805 extends ADORecordset_oci8 {
 	var $databaseType = "oci805";
+	function __construct($id,$mode=false)
+	{
+		parent::__construct($id,$mode);
+	}
 }

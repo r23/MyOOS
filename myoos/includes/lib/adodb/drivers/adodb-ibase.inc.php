@@ -1,13 +1,13 @@
 <?php
 /*
-@version   v5.21.0-dev  ??-???-2016
+@version   v5.20.13  06-Aug-2018
 @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
 @copyright (c) 2014      Damien Regad, Mark Newnham and the ADOdb community
   Released under both BSD license and Lesser GPL library license.
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
 
-  Latest version is available at http://adodb.sourceforge.net
+  Latest version is available at http://adodb.org/
 
   Interbase data driver. Requires interbase client. Works on Windows and Unix.
 
@@ -911,7 +911,7 @@ class ADORecordset_ibase extends ADORecordSet
 		case 'INT':
 		case 'SHORT':
 		case 'INTEGER': return 'I';
-		default: return ADODB_DEFAULT_METATYPE;
+		default: return 'N';
 		}
 	}
 

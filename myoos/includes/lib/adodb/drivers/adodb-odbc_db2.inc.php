@@ -1,6 +1,6 @@
 <?php
 /*
-@version   v5.21.0-dev  ??-???-2016
+@version   v5.20.13  06-Aug-2018
 @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
 @copyright (c) 2014      Damien Regad, Mark Newnham and the ADOdb community
   Released under both BSD license and Lesser GPL library license.
@@ -8,7 +8,7 @@
   the BSD license will take precedence.
 Set tabs to 4 for best viewing.
 
-  Latest version is available at http://adodb.sourceforge.net
+  Latest version is available at http://adodb.org/
 
   DB2 data driver. Requires ODBC.
 
@@ -92,7 +92,7 @@ to DB2 full rights to the DB2 SQLLIB directory, and place the user in the DBUSER
 if (!defined('ADODB_DIR')) die();
 
 if (!defined('_ADODB_ODBC_LAYER')) {
-	include_once(ADODB_DIR."/drivers/adodb-odbc.inc.php");
+	include(ADODB_DIR."/drivers/adodb-odbc.inc.php");
 }
 if (!defined('ADODB_ODBC_DB2')){
 define('ADODB_ODBC_DB2',1);
@@ -306,6 +306,11 @@ class  ADORecordSet_odbc_db2 extends ADORecordSet_odbc {
 
 	var $databaseType = "db2";
 
+	function __construct($id,$mode=false)
+	{
+		parent::__construct($id,$mode);
+	}
+
 	function MetaType($t,$len=-1,$fieldobj=false)
 	{
 		if (is_object($t)) {
@@ -356,7 +361,7 @@ class  ADORecordSet_odbc_db2 extends ADORecordSet_odbc {
 		case 'I':
 			return 'I';
 
-		default: return ADODB_DEFAULT_METATYPE;
+		default: return 'N';
 		}
 	}
 }

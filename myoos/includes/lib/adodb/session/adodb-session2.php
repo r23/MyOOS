@@ -2,7 +2,7 @@
 
 
 /*
-@version   v5.21.0-dev  ??-???-2016
+@version   v5.20.13  06-Aug-2018
 @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
 @copyright (c) 2014      Damien Regad, Mark Newnham and the ADOdb community
          Contributed by Ross Smith (adodb@netebb.com).
@@ -100,7 +100,7 @@ function adodb_session_regenerate_id()
 	} else {
 		session_id(md5(uniqid(rand(), true)));
 		$ck = session_get_cookie_params();
-		setcookie(session_name(), session_id(), false, $ck['path'], $ck['domain'], $ck['secure'], $ck['httponly']);
+		setcookie(session_name(), session_id(), false, $ck['path'], $ck['domain'], $ck['secure']);
 		//@session_start();
 	}
 	$new_id = session_id();
@@ -110,7 +110,7 @@ function adodb_session_regenerate_id()
 	if (!$ok) {
 		session_id($old_id);
 		if (empty($ck)) $ck = session_get_cookie_params();
-		setcookie(session_name(), session_id(), false, $ck['path'], $ck['domain'], $ck['secure'], $ck['httponly']);
+		setcookie(session_name(), session_id(), false, $ck['path'], $ck['domain'], $ck['secure']);
 		return false;
 	}
 
@@ -158,7 +158,7 @@ class ADODB_Session {
 	*/
 	static function driver($driver = null)
 	{
-		static $_driver = 'mysqli';
+		static $_driver = 'mysql';
 		static $set = false;
 
 		if (!is_null($driver)) {

@@ -1,6 +1,6 @@
 <?php
 /*
-@version   v5.21.0-dev  ??-???-2016
+@version   v5.20.13  06-Aug-2018
 @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
 @copyright (c) 2014      Damien Regad, Mark Newnham and the ADOdb community
   Released under both BSD license and Lesser GPL library license.
@@ -38,14 +38,18 @@ class ADODB_csv extends ADOConnection {
 	var $hasTransactions = false;
 	var $_errorNo = false;
 
+	function __construct()
+	{
+	}
+
 	function _insertid()
 	{
-		return $this->_insertid;
+			return $this->_insertid;
 	}
 
 	function _affectedrows()
 	{
-		return $this->_affectedrows;
+			return $this->_affectedrows;
 	}
 
   	function MetaDatabases()
@@ -79,8 +83,10 @@ class ADODB_csv extends ADOConnection {
 	// parameters use PostgreSQL convention, not MySQL
 	function SelectLimit($sql, $nrows = -1, $offset = -1, $inputarr = false, $secs2cache = 0)
 	{
-	global $ADODB_FETCH_MODE;
+		global $ADODB_FETCH_MODE;
 
+		$nrows = (int) $nrows;
+		$offset = (int) $offset;
 		$url = $this->_url.'?sql='.urlencode($sql)."&nrows=$nrows&fetch=".
 			(($this->fetchMode !== false)?$this->fetchMode : $ADODB_FETCH_MODE).
 			"&offset=$offset";
@@ -172,7 +178,7 @@ class ADODB_csv extends ADOConnection {
 	/*	Returns: the last error message from previous database operation	*/
 	function ErrorMsg()
 	{
-		return $this->_errorMsg;
+			return $this->_errorMsg;
 	}
 
 	/*	Returns: the last error number from previous database operation	*/
@@ -189,6 +195,10 @@ class ADODB_csv extends ADOConnection {
 } // class
 
 class ADORecordset_csv extends ADORecordset {
+	function __construct($id,$mode=false)
+	{
+		parent::__construct($id,$mode);
+	}
 
 	function _close()
 	{

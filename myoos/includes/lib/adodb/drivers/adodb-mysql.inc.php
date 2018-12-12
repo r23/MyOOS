@@ -1,6 +1,6 @@
 <?php
 /*
-@version   v5.21.0-dev  ??-???-2016
+@version   v5.20.13  06-Aug-2018
 @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
 @copyright (c) 2014      Damien Regad, Mark Newnham and the ADOdb community
   Released under both BSD license and Lesser GPL library license.
@@ -12,7 +12,7 @@
   is deprected in PHP version 5.5 and removed in PHP version 7. It is deprecated
   as of ADOdb version 5.20.0. Use the mysqli driver instead, which supports both
   transactional and non-transactional updates
-
+  
   Requires mysql client. Works on Windows and Unix.
 
  28 Feb 2001: MetaColumns bug fix - suggested by  Freek Dijkstra (phpeverywhere@macfreek.com)
@@ -50,6 +50,11 @@ class ADODB_mysql extends ADOConnection {
 	var $substr = "substring";
 	var $nameQuote = '`';		/// string to use to quote identifiers and names
 	var $compat323 = false; 		// true if compat with mysql 3.23
+
+	function __construct()
+	{
+		if (defined('ADODB_EXTENSION')) $this->rsPrefix .= 'ext_';
+	}
 
 
 	// SetCharSet - switch the client encoding
@@ -580,6 +585,8 @@ class ADODB_mysql extends ADOConnection {
 	// parameters use PostgreSQL convention, not MySQL
 	function SelectLimit($sql,$nrows=-1,$offset=-1,$inputarr=false,$secs=0)
 	{
+		$nrows = (int) $nrows;
+		$offset = (int) $offset;
 		$offsetStr =($offset>=0) ? ((integer)$offset)."," : '';
 		// jason judge, see http://phplens.com/lens/lensforum/msgs.php?id=9220
 		if ($nrows < 0) $nrows = '18446744073709551615';
@@ -679,7 +686,7 @@ class ADODB_mysql extends ADOConnection {
 				$ref_table = strtoupper($ref_table);
 			}
 
-			// see https://sourceforge.net/tracker/index.php?func=detail&aid=2287278&group_id=42718&atid=433976
+			// see https://sourceforge.net/p/adodb/bugs/100/
 			if (!isset($foreign_keys[$ref_table])) {
 				$foreign_keys[$ref_table] = array();
 			}
@@ -789,6 +796,8 @@ class ADORecordSet_mysql extends ADORecordSet{
 
 	function MoveNext()
 	{
+		//return adodb_movenext($this);
+		//if (defined('ADODB_EXTENSION')) return adodb_movenext($this);
 		if (@$this->fields = mysql_fetch_array($this->_queryID,$this->fetchMode)) {
 			$this->_updatefields();
 			$this->_currentRow += 1;
@@ -863,13 +872,17 @@ class ADORecordSet_mysql extends ADORecordSet{
 			if (!empty($fieldobj->primary_key)) return 'R';
 			else return 'I';
 
-		default: return ADODB_DEFAULT_METATYPE;
+		default: return 'N';
 		}
 	}
 
 }
 
 class ADORecordSet_ext_mysql extends ADORecordSet_mysql {
+	function __construct($queryID,$mode=false)
+	{
+		parent::__construct($queryID,$mode);
+	}
 
 	function MoveNext()
 	{

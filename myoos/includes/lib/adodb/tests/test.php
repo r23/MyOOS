@@ -1,6 +1,6 @@
 <?php
 /*
-@version   v5.21.0-dev  ??-???-2016
+@version   v5.20.13  06-Aug-2018
 @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
 @copyright (c) 2014      Damien Regad, Mark Newnham and the ADOdb community
   Released under both BSD license and Lesser GPL library license.
@@ -8,7 +8,7 @@
   the BSD license will take precedence.
   Set tabs to 4 for best viewing.
 
-  Latest version is available at http://adodb.sourceforge.net
+  Latest version is available at http://adodb.org/
 */
 
 
@@ -40,9 +40,13 @@ function Err($msg)
 
 function CheckWS($conn)
 {
+global $ADODB_EXTENSION;
+
 	include_once('../session/adodb-session.php');
 	if (defined('CHECKWSFAIL')){ echo " TESTING $conn ";flush();}
+	$saved = $ADODB_EXTENSION;
 	$db = ADONewConnection($conn);
+	$ADODB_EXTENSION = $saved;
 	if (headers_sent()) {
 		print "<p><b>White space detected in adodb-$conn.inc.php or include file...</b></p>";
 		//die();
@@ -121,10 +125,12 @@ FROM `nuke_stories` `t1`, `nuke_authors` `t2`, `nuke_stories_cat` `t3`, `nuke_to
 	//print $db->UnixTimeStamp('2003-7-22 23:00:00');
 
 	$phpv = phpversion();
+	if (defined('ADODB_EXTENSION')) $ext = ' &nbsp; Extension '.ADODB_EXTENSION.' installed';
+	else $ext = '';
 	print "<h3>ADODB Version: $ADODB_vers";
 	print "<p>Host: <i>$db->host</i>";
 	print "<br>Database: <i>$db->database</i>";
-	print "<br>PHP: <i>$phpv</i></h3>";
+	print "<br>PHP: <i>$phpv $ext</i></h3>";
 
 	flush();
 
@@ -1750,7 +1756,7 @@ foreach($_GET as $k=>$v)  {
 
 This script tests the following databases: Interbase, Oracle, Visual FoxPro, Microsoft Access (ODBC and ADO), MySQL, MSSQL (ODBC, native, ADO).
 There is also support for Sybase, PostgreSQL.</p>
-For the latest version of ADODB, visit <a href=http://adodb.sourceforge.net/>adodb.sourceforge.net</a>.</p>
+For the latest version of ADODB, visit <a href=http://adodb.org//>adodb.org</a>.</p>
 
 Test <a href=test4.php>GetInsertSQL/GetUpdateSQL</a> &nbsp;
 	<a href=testsessions.php>Sessions</a> &nbsp;

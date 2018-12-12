@@ -1,7 +1,7 @@
 <?php
 
 /**
-  @version   v5.21.0-dev  ??-???-2016
+  @version   v5.20.13  06-Aug-2018
   @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
   @copyright (c) 2014      Damien Regad, Mark Newnham and the ADOdb community
   Released under both BSD license and Lesser GPL library license.
@@ -94,10 +94,7 @@ class ADODB2_mssqlnative extends ADODB_DataDict {
 			  -3 => 'X'
 			);
 
-		if (isset($_typeConversion[$t]))
-		return $_typeConversion[$t];
-		
-		return ADODB_DEFAULT_METATYPE;
+		return $_typeConversion($t);
 
 	}
 
@@ -129,6 +126,7 @@ class ADODB2_mssqlnative extends ADODB_DataDict {
 		case 'F': return 'REAL';
 		case 'N': return 'NUMERIC';
 		default:
+			print "RETURN $meta";
 			return $meta;
 		}
 	}
@@ -355,7 +353,7 @@ CREATE TABLE
 	}
 
 
-	function _GetSize($ftype, $ty, $fsize, $fprec,$options=false)
+	function _GetSize($ftype, $ty, $fsize, $fprec)
 	{
 		switch ($ftype) {
 		case 'INT':
@@ -365,7 +363,7 @@ CREATE TABLE
 			return $ftype;
 		}
     	if ($ty == 'T') return $ftype;
-    	return parent::_GetSize($ftype, $ty, $fsize, $fprec, $options);
+    	return parent::_GetSize($ftype, $ty, $fsize, $fprec);
 
 	}
 }

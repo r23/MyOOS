@@ -1,6 +1,6 @@
 <?php
 /*
-@version   v5.21.0-dev  ??-???-2016
+@version   v5.20.13  06-Aug-2018
 @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
 @copyright (c) 2014      Damien Regad, Mark Newnham and the ADOdb community
   Released under both BSD license and Lesser GPL library license.
@@ -8,7 +8,7 @@
   the BSD license will take precedence.
 Set tabs to 4 for best viewing.
 
-  Latest version is available at http://adodb.sourceforge.net
+  Latest version is available at http://adodb.org/
 
 	Microsoft ADO data driver. Requires ADO. Works only on MS Windows. PHP5 compat version.
 */
@@ -384,7 +384,7 @@ class ADORecordSet_ado extends ADORecordSet {
 			$mode = $ADODB_FETCH_MODE;
 		}
 		$this->fetchMode = $mode;
-		return parent::__construct($id);
+		return parent::__construct($id,$mode);
 	}
 
 
@@ -579,7 +579,7 @@ class ADORecordSet_ado extends ADORecordSet {
 		case 19://adUnsignedInt	= 19,
 		case 20://adUnsignedBigInt	= 21,
 			return 'I';
-		default: return ADODB_DEFAULT_METATYPE;
+		default: return 'N';
 		}
 	}
 

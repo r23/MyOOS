@@ -1,6 +1,6 @@
 <?php
 /*
-@version   v5.21.0-dev  ??-???-2016
+@version   v5.20.13  06-Aug-2018
 @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
 @copyright (c) 2014      Damien Regad, Mark Newnham and the ADOdb community
   Released under both BSD license and Lesser GPL library license.
@@ -8,7 +8,7 @@
   the BSD license will take precedence.
 Set tabs to 4 for best viewing.
 
-  Latest version is available at http://adodb.sourceforge.net
+  Latest version is available at http://adodb.org/
 
   Native mssql driver. Requires mssql client. Works on Windows.
     http://www.microsoft.com/sql/technologies/php/default.mspx
@@ -55,11 +55,11 @@ if (!function_exists('sqlsrv_log_set_subsystems')) {
 // MORE LOCALIZATION INFO
 // ----------------------
 // To configure datetime, look for and modify sqlcommn.loc,
-//   typically found in c:\mssql\install
+//  	typically found in c:\mssql\install
 // Also read :
-//   http://support.microsoft.com/default.aspx?scid=kb;EN-US;q220918
+//	 http://support.microsoft.com/default.aspx?scid=kb;EN-US;q220918
 // Alternatively use:
-//   CONVERT(char(12),datecol,120)
+// 	   CONVERT(char(12),datecol,120)
 //
 // Also if your month is showing as month-1,
 //   e.g. Jan 13, 2002 is showing as 13/0/2002, then see
@@ -73,7 +73,7 @@ if (ADODB_PHPVER >= 0x4300) {
 // docs say 4.2.0, but testing shows only since 4.3.0 does it work!
 	ini_set('mssql.datetimeconvert',0);
 } else {
-	global $ADODB_mssql_mths;		// array, months must be upper-case
+    global $ADODB_mssql_mths;		// array, months must be upper-case
 	$ADODB_mssql_date_order = 'mdy';
 	$ADODB_mssql_mths = array(
 		'JAN'=>1,'FEB'=>2,'MAR'=>3,'APR'=>4,'MAY'=>5,'JUN'=>6,
@@ -124,10 +124,8 @@ class ADODB_mssqlnative extends ADOConnection {
 	var $uniqueOrderBy = true;
 	var $_bindInputArray = true;
 	var $_dropSeqSQL = "drop table %s";
-
-	var $connectionInfo    = array('ReturnDatesAsStrings'=>true);
+	var $connectionInfo = array();
 	var $cachedSchemaFlush = false;
-
 	var $sequences = false;
 	var $mssql_version = '';
 
@@ -165,7 +163,7 @@ class ADODB_mssqlnative extends ADOConnection {
 	}
 
 	function ServerInfo() {
-		global $ADODB_FETCH_MODE;
+    	global $ADODB_FETCH_MODE;
 		static $arr = false;
 		if (is_array($arr))
 			return $arr;
@@ -191,9 +189,11 @@ class ADODB_mssqlnative extends ADOConnection {
 
 	function _insertid()
 	{
-		$rez = sqlsrv_query($this->_connectionID,$this->identitySQL);
-		sqlsrv_fetch($rez);
-		$this->lastInsertID = sqlsrv_get_field($rez, 0);
+	// SCOPE_IDENTITY()
+	// Returns the last IDENTITY value inserted into an IDENTITY column in
+	// the same scope. A scope is a module -- a stored procedure, trigger,
+	// function, or batch. Thus, two statements are in the same scope if
+	// they are in the same stored procedure, function, or batch.
 		return $this->lastInsertID;
 	}
 
@@ -204,6 +204,8 @@ class ADODB_mssqlnative extends ADOConnection {
 	}
 
 	function GenID($seq='adodbseq',$start=1) {
+		if (!$this->mssql_version)
+			$this->ServerVersion();
 		switch($this->mssql_version){
 		case 9:
 		case 10:
@@ -217,6 +219,9 @@ class ADODB_mssqlnative extends ADOConnection {
 
 	function CreateSequence($seq='adodbseq',$start=1)
 	{
+		if (!$this->mssql_version)
+			$this->ServerVersion();
+
 		switch($this->mssql_version){
 		case 9:
 		case 10:
@@ -226,6 +231,7 @@ class ADODB_mssqlnative extends ADOConnection {
 			return $this->CreateSequence2012($seq, $start);
 			break;
 		}
+
 	}
 
 	/**
@@ -359,9 +365,7 @@ class ADODB_mssqlnative extends ADOConnection {
 			case 'A':
 				$s .= "substring(convert(char(19),$col,0),18,2)";
 				break;
-			case 'l':
-				$s .= "datename(dw,$col)";
-				break;
+
 			default:
 				if ($ch == '\\') {
 					$i++;
@@ -393,7 +397,6 @@ class ADODB_mssqlnative extends ADOConnection {
 		sqlsrv_commit($this->_connectionID);
 		return true;
 	}
-
 	function RollbackTrans()
 	{
 		if ($this->transOff) return true;
@@ -470,30 +473,22 @@ class ADODB_mssqlnative extends ADOConnection {
 	function _connect($argHostname, $argUsername, $argPassword, $argDatabasename)
 	{
 		if (!function_exists('sqlsrv_connect')) return null;
-
-		$connectionInfo 			= $this->connectionInfo;
-		$connectionInfo["Database"]	= $argDatabasename;
-		$connectionInfo["UID"]		= $argUsername;
-		$connectionInfo["PWD"]		= $argPassword;
-
-		/*
-		* Now merge in the passed connection parameters setting
-		*/
-		foreach ($this->connectionParameters as $options)
-		{
-			foreach($options as $parameter=>$value)
-				$connectionInfo[$parameter] = $value;
-		}
-
+		$connectionInfo = $this->connectionInfo;
+		$connectionInfo["Database"]=$argDatabasename;
+		$connectionInfo["UID"]=$argUsername;
+		$connectionInfo["PWD"]=$argPassword;
+		
+		foreach ($this->connectionParameters as $parameter=>$value)
+		    $connectionInfo[$parameter] = $value;
+		
 		if ($this->debug) ADOConnection::outp("<hr>connecting... hostname: $argHostname params: ".var_export($connectionInfo,true));
-		if(!($this->_connectionID = sqlsrv_connect($argHostname,$connectionInfo)))
-		{
+		//if ($this->debug) ADOConnection::outp("<hr>_connectionID before: ".serialize($this->_connectionID));
+		if(!($this->_connectionID = sqlsrv_connect($argHostname,$connectionInfo))) {
 			if ($this->debug) ADOConnection::outp( "<hr><b>errors</b>: ".print_r( sqlsrv_errors(), true));
 			return false;
 		}
-
-		$this->ServerVersion();
-
+		//if ($this->debug) ADOConnection::outp(" _connectionID after: ".serialize($this->_connectionID));
+		//if ($this->debug) ADOConnection::outp("<hr>defined functions: <pre>".var_export(get_defined_functions(),true)."</pre>");
 		return true;
 	}
 
@@ -507,6 +502,10 @@ class ADODB_mssqlnative extends ADOConnection {
 	function Prepare($sql)
 	{
 		return $sql; // prepare does not work properly with bind parameters as bind parameters are managed by sqlsrv_prepare!
+
+		$stmt = sqlsrv_prepare( $this->_connectionID, $sql);
+		if (!$stmt)  return $sql;
+		return array($sql,$stmt);
 	}
 
 	// returns concatenated string
@@ -526,7 +525,12 @@ class ADODB_mssqlnative extends ADOConnection {
 			$arr = $args;
 		}
 
-		array_walk($arr, create_function('&$v', '$v = "CAST(" . $v . " AS VARCHAR(255))";'));
+		array_walk(
+			$arr,
+			function(&$value, $key) {
+				$value = "CAST(" . $value . " AS VARCHAR(255))";
+			}
+		);
 		$s = implode('+',$arr);
 		if (sizeof($arr) > 0) return "$s";
 
@@ -561,23 +565,15 @@ class ADODB_mssqlnative extends ADOConnection {
 	{
 		$this->_errorMsg = false;
 
-		if (is_array($sql))
-			$sql = $sql[1];
+		if (is_array($sql)) $sql = $sql[1];
 
 		$insert = false;
 		// handle native driver flaw for retrieving the last insert ID
-		if(preg_match('/^\W*insert[\s\w()",.]+values\s*\((?:[^;\']|\'\'|(?:(?:\'\')*\'[^\']+\'(?:\'\')*))*;?$/i', $sql)) {
+		if(preg_match('/^\W*insert[\s\w()[\]",.]+values\s*\((?:[^;\']|\'\'|(?:(?:\'\')*\'[^\']+\'(?:\'\')*))*;?$/i', $sql)) {
 			$insert = true;
 			$sql .= '; '.$this->identitySQL; // select scope_identity()
 		}
-		if($inputarr)
-		{
-			/*
-			* Ensure that the input array is numeric, as required by
-			* sqlsrv_query. If param() was used to create portable binds
-			* then the array might be associative
-			*/
-			$inputarr = array_values($inputarr);
+		if($inputarr) {
 			$rez = sqlsrv_query($this->_connectionID, $sql, $inputarr);
 		} else {
 			$rez = sqlsrv_query($this->_connectionID,$sql);
@@ -585,21 +581,23 @@ class ADODB_mssqlnative extends ADOConnection {
 
 		if ($this->debug) ADOConnection::outp("<hr>running query: ".var_export($sql,true)."<hr>input array: ".var_export($inputarr,true)."<hr>result: ".var_export($rez,true));
 
-		if(!$rez)
+		if(!$rez) {
 			$rez = false;
-
+		} else if ($insert) {
+			// retrieve the last insert ID (where applicable)
+			while ( sqlsrv_next_result($rez) ) {
+				sqlsrv_fetch($rez);
+				$this->lastInsertID = sqlsrv_get_field($rez, 0);
+			}
+		}
 		return $rez;
 	}
 
 	// returns true or false
 	function _close()
 	{
-		if ($this->transCnt) {
-			$this->RollbackTrans();
-		}
-		if($this->_connectionID) {
-			$rez = sqlsrv_close($this->_connectionID);
-		}
+		if ($this->transCnt) $this->RollbackTrans();
+		$rez = @sqlsrv_close($this->_connectionID);
 		$this->_connectionID = false;
 		return $rez;
 	}
@@ -672,7 +670,7 @@ class ADODB_mssqlnative extends ADOConnection {
 			where upper(object_name(fkeyid)) = $table
 			order by constraint_name, referenced_table_name, keyno";
 
-		$constraints = $this->GetArray($sql);
+		$constraints =& $this->GetArray($sql);
 
 		$ADODB_FETCH_MODE = $save;
 
@@ -754,9 +752,7 @@ class ADODB_mssqlnative extends ADOConnection {
 	}
 	function MetaColumns($table, $upper=true, $schema=false){
 
-		/*
-		* A simple caching mechanism, to be replaced in ADOdb V6
-		*/
+		# start adg
 		static $cached_columns = array();
 		if ($this->cachedSchemaFlush)
 			$cached_columns = array();
@@ -764,7 +760,10 @@ class ADODB_mssqlnative extends ADOConnection {
 		if (array_key_exists($table,$cached_columns)){
 			return $cached_columns[$table];
 		}
+		# end adg
 
+		if (!$this->mssql_version)
+			$this->ServerVersion();
 
 		$this->_findschema($table,$schema);
 		if ($schema) {
@@ -798,7 +797,7 @@ class ADODB_mssqlnative extends ADOConnection {
 				$fld->type          = $rs->fields[1];
 				$fld->max_length    = $rs->fields[2];
 				$fld->precision     = $rs->fields[3];
-				$fld->scale         = $rs->fields[4];
+				$fld->scale     	= $rs->fields[4];
 				$fld->not_null      =!$rs->fields[5];
 				$fld->has_default   = $rs->fields[6];
 				$fld->xtype         = $rs->fields[7];
@@ -809,7 +808,7 @@ class ADODB_mssqlnative extends ADOConnection {
 				$fld->type          = $rs->fields['type'];
 				$fld->max_length    = $rs->fields['length'];
 				$fld->precision     = $rs->fields['precision'];
-				$fld->scale         = $rs->fields['scale'];
+				$fld->scale     	= $rs->fields['scale'];
 				$fld->not_null      =!$rs->fields['nullable'];
 				$fld->has_default   = $rs->fields['default_value'];
 				$fld->xtype         = $rs->fields['xtype'];
@@ -826,64 +825,16 @@ class ADODB_mssqlnative extends ADOConnection {
 
 		}
 		$rs->Close();
+		# start adg
 		$cached_columns[$table] = $retarr;
-
+		# end adg
 		return $retarr;
 	}
 
-	/**
-	* Returns a substring of a varchar type field
-	*
-	* The SQL server version varies because the length is mandatory, so
-	* we append a reasonable string length
-	*
-	* @param	string	$fld	The field to sub-string
-	* @param	int		$start	The start point
-	* @param	int		$length	An optional length
-	*
-	* @return	The SQL text
-	*/
-	function substr($fld,$start,$length=0)
-	{
-		if ($length == 0)
-			/*
-		     * The length available to varchar is 2GB, but that makes no
-			 * sense in a substring, so I'm going to arbitrarily limit
-			 * the length to 1K, but you could change it if you want
-			 */
-			$length = 1024;
-
-		$text = "SUBSTRING($fld,$start,$length)";
-		return $text;
-	}
-
-	/**
-	* Returns the maximum size of a MetaType C field. Because of the
-	* database design, SQL Server places no limits on the size of data inserted
-	* Although the actual limit is 2^31-1 bytes.
-	*
-	* @return int
-	*/
-	function charMax()
-	{
-		return ADODB_STRINGMAX_NOLIMIT;
-	}
-
-	/**
-	* Returns the maximum size of a MetaType X field. Because of the
-	* database design, SQL Server places no limits on the size of data inserted
-	* Although the actual limit is 2^31-1 bytes.
-	*
-	* @return int
-	*/
-	function textMax()
-	{
-		return ADODB_STRINGMAX_NOLIMIT;
-	}
 }
 
 /*--------------------------------------------------------------------------------------
-	Class Name: Recordset
+	 Class Name: Recordset
 --------------------------------------------------------------------------------------*/
 
 class ADORecordset_mssqlnative extends ADORecordSet {
@@ -893,67 +844,6 @@ class ADORecordset_mssqlnative extends ADORecordSet {
 	var $fieldOffset = 0;
 	// _mths works only in non-localised system
 
-	/*
-	 * Holds a cached version of the metadata
-	 */
-	private $fieldObjects = false;
-
-	/*
-	 * Flags if we have retrieved the metadata
-	 */
-	private $fieldObjectsRetrieved = false;
-
-	/*
-	* Cross-reference the objects by name for easy access
-	*/
-	private $fieldObjectsIndex = array();
-
-
-	/*
-	 * Cross references the dateTime objects for faster decoding
-	 */
-	private $dateTimeObjects = array();
-
-	/*
-	 * flags that we have dateTimeObjects to handle
-	 */
-	private $hasDateTimeObjects = false;
-
-	/*
-	 * This is cross reference between how the types are stored
-	 * in SQL Server and their english-language description
-	 */
-	private $_typeConversion = array(
-			-155 => 'datetimeoffset',
-			-154 => 'time',
-			-152 => 'xml',
-			-151 => 'udt',
-			-11  => 'uniqueidentifier',
-			-10  => 'ntext',
-			-9   => 'nvarchar',
-			-8   => 'nchar',
-			-7   => 'bit',
-			-6   => 'tinyint',
-			-5   => 'bigint',
-			-4   => 'image',
-			-3   => 'varbinary',
-			-2   => 'timestamp',
-			-1   => 'text',
-			 1   => 'char',
-			 2   => 'numeric',
-			 3   => 'decimal',
-			 4   => 'int',
-			 5   => 'smallint',
-			 6   => 'float',
-			 7   => 'real',
-			 12  => 'varchar',
-			 91  => 'date',
-			 93  => 'datetime'
-			);
-
-
-
-
 	function __construct($id,$mode=false)
 	{
 		if ($mode === false) {
@@ -962,19 +852,29 @@ class ADORecordset_mssqlnative extends ADORecordSet {
 
 		}
 		$this->fetchMode = $mode;
-		return parent::__construct($id);
+		return parent::__construct($id,$mode);
 	}
 
 
 	function _initrs()
 	{
+		global $ADODB_COUNTRECS;
+		# KMN # if ($this->connection->debug) ADOConnection::outp("(before) ADODB_COUNTRECS: {$ADODB_COUNTRECS} _numOfRows: {$this->_numOfRows} _numOfFields: {$this->_numOfFields}");
+		/*$retRowsAff = sqlsrv_rows_affected($this->_queryID);//"If you need to determine the number of rows a query will return before retrieving the actual results, appending a SELECT COUNT ... query would let you get that information, and then a call to next_result would move you to the "real" results."
+		ADOConnection::outp("rowsaff: ".serialize($retRowsAff));
+		$this->_numOfRows = ($ADODB_COUNTRECS)? $retRowsAff:-1;*/
 		$this->_numOfRows = -1;//not supported
 		$fieldmeta = sqlsrv_field_metadata($this->_queryID);
 		$this->_numOfFields = ($fieldmeta)? count($fieldmeta):-1;
+		# KMN # if ($this->connection->debug) ADOConnection::outp("(after) _numOfRows: {$this->_numOfRows} _numOfFields: {$this->_numOfFields}");
 		/*
-		* Cache the metadata right now
+		 * Copy the oracle method and cache the metadata at init time
 		 */
-		$this->_fetchField();
+		if ($this->_numOfFields>0) {
+			$this->_fieldobjs = array();
+			$max = $this->_numOfFields;
+			for ($i=0;$i<$max; $i++) $this->_fieldobjs[] = $this->_FetchField($i);
+		}
 
 	}
 
@@ -1006,74 +906,79 @@ class ADORecordset_mssqlnative extends ADORecordSet {
 		return $this->fields[$this->bind[strtoupper($colname)]];
 	}
 
-	/**
-	* Returns: an object containing field information.
-	*
-	* Get column information in the Recordset object. fetchField()
-	* can be used in order to obtain information about fields in a
-	* certain query result. If the field offset isn't specified,
-	* the next field that wasn't yet retrieved by fetchField()
-	* is retrieved.
-	*
-	* $param int $fieldOffset (optional default=-1 for all
-	* @return mixed an ADOFieldObject, or array of objects
+	/*	Returns: an object containing field information.
+		Get column information in the Recordset object. fetchField() can be used in order to obtain information about
+		fields in a certain query result. If the field offset isn't specified, the next field that wasn't yet retrieved by
+		fetchField() is retrieved.
+		Designed By jcortinap#jc.com.mx
 	*/
-	private function _fetchField($fieldOffset = -1)
+	function _FetchField($fieldOffset = -1)
 	{
-		if ($this->fieldObjectsRetrieved){
-			if ($this->fieldObjects) {
-				/*
-				 * Already got the information
-				 */
-				if ($fieldOffset == -1)
-					return $this->fieldObjects;
-				else
-					return $this->fieldObjects[$fieldOffset];
+		$_typeConversion = array(
+			-155 => 'datetimeoffset',
+			-154 => 'char',
+			-152 => 'xml',
+			-151 => 'udt',
+			-11 => 'uniqueidentifier',
+			-10 => 'ntext',
+			-9 => 'nvarchar',
+			-8 => 'nchar',
+			-7 => 'bit',
+			-6 => 'tinyint',
+			-5 => 'bigint',
+			-4 => 'image',
+			-3 => 'varbinary',
+			-2 => 'timestamp',
+			-1 => 'text',
+			1 => 'char',
+			2 => 'numeric',
+			3 => 'decimal',
+			4 => 'int',
+			5 => 'smallint',
+			6 => 'float',
+			7 => 'real',
+			12 => 'varchar',
+			91 => 'date',
+			93 => 'datetime'
+			);
+
+		$fa = @sqlsrv_field_metadata($this->_queryID);
+		if ($fieldOffset != -1) {
+			$fa = $fa[$fieldOffset];
+		}
+		$false = false;
+		if (empty($fa)) {
+			$f = false;//PHP Notice: Only variable references should be returned by reference
+		}
+		else
+		{
+			// Convert to an object
+			$fa = array_change_key_case($fa, CASE_LOWER);
+			$fb = array();
+			if ($fieldOffset != -1)
+			{
+				$fb = array(
+					'name' => $fa['name'],
+					'max_length' => $fa['size'],
+					'column_source' => $fa['name'],
+					'type' => $_typeConversion[$fa['type']]
+					);
 			}
 			else
-				/*
-			     * No metadata available
-				 */
-				return false;
+			{
+				foreach ($fa as $key => $value)
+				{
+					$fb[] = array(
+						'name' => $value['name'],
+						'max_length' => $value['size'],
+						'column_source' => $value['name'],
+						'type' => $_typeConversion[$value['type']]
+						);
+				}
+			}
+			$f = (object) $fb;
 		}
-
-		$this->fieldObjectsRetrieved = true;
-		/*
-		 * Retrieve all metadata in one go. This is always returned as a
-		 * numeric array.
-		 */
-		$fieldMetaData = sqlsrv_field_metadata($this->_queryID);
-
-		if (!$fieldMetaData)
-			/*
-		     * Not a statement that gives us metaData
-			 */
-			return false;
-
-		$this->_numOfFields = count($fieldMetaData);
-		foreach ($fieldMetaData as $key=>$value)
-		{
-
-			$fld = new ADOFieldObject;
-			/*
-			 * Caution - keys are case-sensitive, must respect
-			 * casing of values
-			 */
-
-			$fld->name          = $value['Name'];
-			$fld->max_length    = $value['Size'];
-			$fld->column_source = $value['Name'];
-			$fld->type          = $this->_typeConversion[$value['Type']];
-
-			$this->fieldObjects[$key] = $fld;
-
-			$this->fieldObjectsIndex[$fld->name] = $key;
-
-		}
-		if ($fieldOffset == -1)
-			return $this->fieldObjects;
-
-		return $this->fieldObjects[$fieldOffset];
+		return $f;
 	}
 
 	/*
@@ -1081,16 +986,12 @@ class ADORecordset_mssqlnative extends ADORecordSet {
 	 * into the _fieldobjs array once, to save multiple calls to the
 	 * sqlsrv_field_metadata function
 	 *
-	 * @param int $fieldOffset	(optional)
-	 *
-	 * @return adoFieldObject
-	 *
 	 * @author 	KM Newnham
 	 * @date 	02/20/2013
 	 */
-	function fetchField($fieldOffset = -1)
+	function FetchField($fieldOffset = -1)
 	{
-		return $this->fieldObjects[$fieldOffset];
+		return $this->_fieldobjs[$fieldOffset];
 	}
 
 	function _seek($row)
@@ -1101,50 +1002,76 @@ class ADORecordset_mssqlnative extends ADORecordSet {
 	// speedup
 	function MoveNext()
 	{
-		if ($this->EOF)
-			return false;
+		//# KMN # if ($this->connection->debug) ADOConnection::outp("movenext()");
+		//# KMN # if ($this->connection->debug) ADOConnection::outp("eof (beginning): ".$this->EOF);
+		if ($this->EOF) return false;
 
 		$this->_currentRow++;
+		// # KMN # if ($this->connection->debug) ADOConnection::outp("_currentRow: ".$this->_currentRow);
 
-		if ($this->_fetch())
-			return true;
+		if ($this->_fetch()) return true;
 		$this->EOF = true;
+		//# KMN # if ($this->connection->debug) ADOConnection::outp("eof (end): ".$this->EOF);
 
 		return false;
 	}
 
+
+	// INSERT UPDATE DELETE returns false even if no error occurs in 4.0.4
+	// also the date format has been changed from YYYY-mm-dd to dd MMM YYYY in 4.0.4. Idiot!
 	function _fetch($ignore_fields=false)
 	{
+		# KMN # if ($this->connection->debug) ADOConnection::outp("_fetch()");
 		if ($this->fetchMode & ADODB_FETCH_ASSOC) {
-			if ($this->fetchMode & ADODB_FETCH_NUM)
+			if ($this->fetchMode & ADODB_FETCH_NUM) {
+				//# KMN # if ($this->connection->debug) ADOConnection::outp("fetch mode: both");
 				$this->fields = @sqlsrv_fetch_array($this->_queryID,SQLSRV_FETCH_BOTH);
-			else
+			} else {
+				//# KMN # if ($this->connection->debug) ADOConnection::outp("fetch mode: assoc");
 				$this->fields = @sqlsrv_fetch_array($this->_queryID,SQLSRV_FETCH_ASSOC);
+			}
 
-			if (is_array($this->fields))
-			{
-
-				if (ADODB_ASSOC_CASE == ADODB_ASSOC_CASE_LOWER)
-					$this->fields = array_change_key_case($this->fields,CASE_LOWER);
-				else if (ADODB_ASSOC_CASE == ADODB_ASSOC_CASE_UPPER)
-					$this->fields = array_change_key_case($this->fields,CASE_UPPER);
-
+			if (is_array($this->fields)) {
+				if (ADODB_ASSOC_CASE == 0) {
+					foreach($this->fields as $k=>$v) {
+						$this->fields[strtolower($k)] = $v;
+					}
+				} else if (ADODB_ASSOC_CASE == 1) {
+					foreach($this->fields as $k=>$v) {
+						$this->fields[strtoupper($k)] = $v;
+					}
+				}
+			}
+		} else {
+			//# KMN # if ($this->connection->debug) ADOConnection::outp("fetch mode: num");
+			$this->fields = @sqlsrv_fetch_array($this->_queryID,SQLSRV_FETCH_NUMERIC);
+		}
+		if(is_array($this->fields) && array_key_exists(1,$this->fields) && !array_key_exists(0,$this->fields)) {//fix fetch numeric keys since they're not 0 based
+			$arrFixed = array();
+			foreach($this->fields as $key=>$value) {
+				if(is_numeric($key)) {
+					$arrFixed[$key-1] = $value;
+				} else {
+					$arrFixed[$key] = $value;
+				}
+			}
+			//if($this->connection->debug) ADOConnection::outp("<hr>fixing non 0 based return array, old: ".print_r($this->fields,true)." new: ".print_r($arrFixed,true));
+			$this->fields = $arrFixed;
+		}
+		if(is_array($this->fields)) {
+			foreach($this->fields as $key=>$value) {
+				if (is_object($value) && method_exists($value, 'format')) {//is DateTime object
+					$this->fields[$key] = $value->format("Y-m-d\TH:i:s\Z");
+				}
 			}
 		}
-		else
-			$this->fields = @sqlsrv_fetch_array($this->_queryID,SQLSRV_FETCH_NUMERIC);
-
-		if (!$this->fields)
-			return false;
-
+		if($this->fields === null) $this->fields = false;
+		# KMN # if ($this->connection->debug) ADOConnection::outp("<hr>after _fetch, fields: <pre>".print_r($this->fields,true)." backtrace: ".adodb_backtrace(false));
 		return $this->fields;
 	}
 
-	/**
-	 * close() only needs to be called if you are worried about using too much
-	 * memory while your script is running. All associated result memory for
-	 * the specified result identifier will automatically be freed.
-	 */
+	/*	close() only needs to be called if you are worried about using too much memory while your script
+		is running. All associated result memory for the specified result identifier will automatically be freed.	*/
 	function _close()
 	{
 		if(is_object($this->_queryID)) {
@@ -1169,8 +1096,12 @@ class ADORecordset_mssqlnative extends ADORecordSet {
 
 
 class ADORecordSet_array_mssqlnative extends ADORecordSet_array {
+	function __construct($id=-1,$mode=false)
+	{
+		parent::__construct($id,$mode);
+	}
 
-	// mssql uses a default date like Dec 30 2000 12:00AM
+		// mssql uses a default date like Dec 30 2000 12:00AM
 	static function UnixDate($v)
 	{
 
@@ -1210,8 +1141,8 @@ class ADORecordSet_array_mssqlnative extends ADORecordSet_array {
 		global $ADODB_mssql_mths,$ADODB_mssql_date_order;
 
 		//Dec 30 2000 12:00AM
-		if ($ADODB_mssql_date_order == 'dmy') {
-			if (!preg_match( "|^([0-9]{1,2})[-/\. ]+([A-Za-z]{3})[-/\. ]+([0-9]{4}) +([0-9]{1,2}):([0-9]{1,2}) *([apAP]{0,1})|"
+		 if ($ADODB_mssql_date_order == 'dmy') {
+			 if (!preg_match( "|^([0-9]{1,2})[-/\. ]+([A-Za-z]{3})[-/\. ]+([0-9]{4}) +([0-9]{1,2}):([0-9]{1,2}) *([apAP]{0,1})|"
 			,$v, $rr)) return parent::UnixTimeStamp($v);
 			if ($rr[3] <= TIMESTAMP_FIRST_YEAR) return 0;
 
