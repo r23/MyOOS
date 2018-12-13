@@ -89,9 +89,12 @@ define('TAX_DECIMAL_PLACES_DESC', 'Pad the tax value this amount of decimal plac
 define('DISPLAY_PRICE_WITH_TAX_TITLE', 'Display Prices with Tax');
 define('DISPLAY_PRICE_WITH_TAX_DESC', 'Display prices with tax included (true) or add the tax at the end (false)');
 
+define('BASE_PRICE_TITLE', 'Use base price');
+define('BASE_PRICE_DESC', 'Would you like to use products with a basic price?');
 
-define('PRODUCTS_OPTIONS_SORT_BY_PRICE_TITLE', 'Sortierung Produktoptionen');
-define('PRODUCTS_OPTIONS_SORT_BY_PRICE_DESC', 'M&ouml;chten Sie die Produktopionen nach Preisen sortieren?');
+
+define('PRODUCTS_OPTIONS_SORT_BY_PRICE_TITLE', 'Sorting product options');
+define('PRODUCTS_OPTIONS_SORT_BY_PRICE_DESC', 'Would you like to sort the product opions according to prices?');Would you like to use products with a basic price?
 
 define('ENTRY_FIRST_NAME_MIN_LENGTH_TITLE', 'First Name');
 define('ENTRY_FIRST_NAME_MIN_LENGTH_DESC', 'Minimum length of first name');

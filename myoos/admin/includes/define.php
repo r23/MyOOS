@@ -37,8 +37,6 @@ define('OOS_LOG_SQL', 'false');    // OOS Performance Monitor
 define('USE_DB_CACHE', 'false');   // OOS SQL-Layer Cache 
 define('USE_DB_CACHE_LEVEL_HIGH', 'false');  // OOS SQL-Layer Cache HIGH
 
-  
-define('OOS_BASE_PRICE', 'true');
 
 
 // Define how do we update currency exchange rates

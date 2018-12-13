@@ -317,7 +317,7 @@ require 'includes/header.php';
 ?>
 <script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
 <?php
-  if (OOS_BASE_PRICE == 'true') {
+  if (BASE_PRICE == 'true') {
 ?>
 <script language="javascript"><!--
 
@@ -519,7 +519,7 @@ function calcBasePriceFactor() {
                         </fieldset>
 
 <?php
-  if (OOS_BASE_PRICE == 'true') {
+  if (BASE_PRICE == 'true') {
 ?>
                         <fieldset>
                            <div class="form-group row">
