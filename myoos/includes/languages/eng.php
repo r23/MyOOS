@@ -461,6 +461,13 @@ $aLang = [
 'tax_info_excl'           => 'exkl. Tax',
 'text_shipping'           => 'excl. <a href="%s">and plus service and shipping costs</a>.',
 
-'price'                => 'Preis',
+'price'                => 'Price',
 'price_from'           => 'from',
+
+'in_stock'             => 'In Stock',
+'out_of_stock'         => 'available again',
+'available_from'       => 'available from approx. %s', 
+
+
+
 ];

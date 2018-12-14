@@ -454,5 +454,11 @@ $aLang = [
 
 'price'                => 'Preis',
 'price_from'          => 'Ab',
+
+'in_stock' => 'sofort lieferbar',
+'out_of_stock' => 'später wieder lieferbar', 
+'available_from'	=> 'lieferbar ab ca. %s', 
+
+
 ];
 

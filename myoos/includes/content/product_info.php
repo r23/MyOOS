@@ -39,7 +39,7 @@ $product_info_sql = "SELECT p.products_id, pd.products_name, pd.products_descrip
                               p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4,
                               p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty,
                               p.products_discount4_qty, p.products_tax_class_id, p.products_units_id, p.products_date_added,
-                              p.products_date_available, p.manufacturers_id, p.products_price_list
+                              p.products_date_available, p.manufacturers_id, p.products_price_list, p.products_status
                         FROM $productstable p,
                              $products_descriptiontable pd
                         WHERE p.products_status >= '1'
@@ -157,8 +157,7 @@ if (!$product_info_result->RecordCount()) {
 		}
 	}
 
-
-	if ($product_info['products_base_price'] != 1) {	  
+	if ($product_info['products_base_price'] != 1) {	
         $info_base_product_price = $oCurrencies->display_price($base_product_price * $product_info['products_base_price'], oos_get_tax_rate($product_info['products_tax_class_id']));
 	}
 	  
