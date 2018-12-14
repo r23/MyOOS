@@ -69,7 +69,7 @@
      */
       public function in_history($products_id) {
         if (in_array ($products_id, $this->products_history)) {
-          return true;
+          return TRUE;
         } else {
           return FALSE;
         }

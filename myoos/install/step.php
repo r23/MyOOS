@@ -73,7 +73,7 @@ if (version_compare(PHP_VERSION, '5.6.4', '<')) {
 
 define('OOS_VALID_MOD', true);
 // Version information
-define('OOS_VERSION', '2.0.117 -dev');
+define('OOS_VERSION', '2.0.118 -dev');
 
 require_once '../includes/functions/function_global.php';
 require_once '../includes/functions/function_kernel.php';

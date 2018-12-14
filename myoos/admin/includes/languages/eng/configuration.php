@@ -94,7 +94,7 @@ define('BASE_PRICE_DESC', 'Would you like to use products with a basic price?');
 
 
 define('PRODUCTS_OPTIONS_SORT_BY_PRICE_TITLE', 'Sorting product options');
-define('PRODUCTS_OPTIONS_SORT_BY_PRICE_DESC', 'Would you like to sort the product opions according to prices?');Would you like to use products with a basic price?
+define('PRODUCTS_OPTIONS_SORT_BY_PRICE_DESC', 'Would you like to sort the product opions according to prices?');
 
 define('ENTRY_FIRST_NAME_MIN_LENGTH_TITLE', 'First Name');
 define('ENTRY_FIRST_NAME_MIN_LENGTH_DESC', 'Minimum length of first name');
