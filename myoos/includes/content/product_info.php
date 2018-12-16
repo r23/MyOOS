@@ -172,10 +172,8 @@ if (!$product_info_result->RecordCount()) {
         )
     );
 
-    if (BASE_PRICE == 'false') {
-      $info_product_price_list = $oCurrencies->display_price($product_info['products_price_list'], oos_get_tax_rate($product_info['products_tax_class_id']));
-      $smarty->assign('info_product_price_list', $info_product_price_list);
-    }
+	$info_product_price_list = $oCurrencies->display_price($product_info['products_price_list'], oos_get_tax_rate($product_info['products_tax_class_id']));
+	$smarty->assign('info_product_price_list', $info_product_price_list);
 
 	if ($oEvent->installed_plugin('manufacturers')) {
 		$manufacturerstable = $oostable['manufacturers'];

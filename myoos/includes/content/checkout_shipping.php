@@ -125,7 +125,7 @@ if ( defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING') && (MODULE_ORDER_TOTAL
 if ( isset($_POST['action']) && ($_POST['action'] == 'process') ) {
 	if ( (isset($_POST['comments'])) && (empty($_POST['comments'])) ) {
 		$_SESSION['comments'] = '';
-	} else if (oos_is_not_null($_POST['comments'])) {
+	} elseif (oos_is_not_null($_POST['comments'])) {
 		$_SESSION['comments'] = oos_db_prepare_input($_POST['comments']);
 	}
 
@@ -171,7 +171,11 @@ $quotes = $shipping_modules->quote();
 // if the modules status was changed when none were available, to save on implementing
 // a javascript force-selection method, also automatically select the cheapest shipping
 // method if more than one module is now enabled
-if ( !isset($_SESSION['shipping']) || ( isset($_SESSION['shipping']) && ($_SESSION['shipping'] == FALSE) && (oos_count_shipping_modules() > 1) ) ) $_SESSION['shipping'] = $shipping_modules->cheapest();
+# if ( !isset($_SESSION['shipping']) || ( isset($_SESSION['shipping']) && ($_SESSION['shipping'] == FALSE) && (oos_count_shipping_modules() > 1) ) ) $_SESSION['shipping'] = $shipping_modules->cheapest();
+if ((!isset($_SESSION['shipping']) || (!isset($_SESSION['shipping']['id']) || $_SESSION['shipping']['id'] == '') && oos_count_shipping_modules() >= 1)) $_SESSION['shipping'] = $shipping_modules->cheapest();
+
+
+
 list ($sess_class, $sess_method) = preg_split('/_/', $_SESSION['shipping']['id']);
 
 // links breadcrumb
