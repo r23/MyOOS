@@ -147,7 +147,8 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_file
 $result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('content_page_type', 0, 10, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "admin_files</b>");
 
 //taxes.php
-$result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('countries', 0, 14, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "admin_files</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('billing_address_countries', 0, 14, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "admin_files</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('delivery_address_countries', 0, 14, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "admin_files</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('zones', 0, 14, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "admin_files</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('geo_zones', 0, 14, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "admin_files</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('tax_classes', 0, 14, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "admin_files</b>");

@@ -43,7 +43,7 @@
 						<div class="quantity">
 							<span itemprop="weight" itemscope itemtype="https://schema.org/QuantitativeValue">
 								<meta itemprop="value" content="{$product_info.products_product_quantity}"/>
-								<meta itemprop="unitText" content="{($products_units[$product_info.products_units_id])|strtoupper}"/>
+								<meta itemprop="unitText" content="{$products_units[$product_info.products_units_id]|strtoupper}"/>
 							</span>
 							{if $product_info.products_base_price != 1}<p>{$product_info.products_product_quantity}&nbsp;{$products_units[$product_info.products_units_id]}</p>{/if}
 						</div>							

@@ -279,7 +279,6 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
      }
 
       $contents[] = array('text' => '<br />' . TEXT_INFORMATION_NAME . $informations_name_inputs_string);
-      $contents[] = array('text' => '<br />' . TEXT_INFORMATION_IMAGE . '<br />' . oos_draw_file_field('information_image') . '<br />' . $iInfo->information_image);
 
       $contents[] = array('text' => '<br />' . TEXT_INFORMATION_HEADING_TITLE . $informations_heading_title_inputs_string);
       $contents[] = array('text' => '<br />' . TEXT_INFORMATION_DESCRIPTION . $informations_description_inputs_string);
