@@ -287,7 +287,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       <tr>
         <td><table width="100%" border="0" cellspacing="0" cellpadding="2">
           <tr>
-            <td colspan="3"><?php echo oos_draw_separator(); ?></td>
+            <td colspan="3"></td>
           </tr>
           <tr>
             <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="2">
@@ -389,7 +389,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
            '            <td class="dataTableContent" valign="top" align="right">' . $order->products[$i]['qty'] . '&nbsp;x</td>' . "\n" .
            '            <td class="dataTableContent" valign="top">' . $order->products[$i]['name'];
 
-      if (count($order->products[$i]['attributes']) > 0) {
+      if (isset($order->products[$i]['attributes']) && (count($order->products[$i]['attributes']) > 0)) {
         for ($j = 0, $k = count($order->products[$i]['attributes']); $j < $k; $j++) {
           echo '<br /><nobr><small>&nbsp;<i> - ' . $order->products[$i]['attributes'][$j]['option'] . ': ' . $order->products[$i]['attributes'][$j]['value'];
           if ($order->products[$i]['attributes'][$j]['price'] != '0') echo ' (' . $order->products[$i]['attributes'][$j]['prefix'] . $currencies->format($order->products[$i]['attributes'][$j]['price'] * $order->products[$i]['qty'], true, $order->info['currency'], $order->info['currency_value']) . ')';

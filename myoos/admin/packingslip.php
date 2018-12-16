@@ -43,7 +43,7 @@
   <tr>
     <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
-        <td class="pageHeading"><?php echo nl2br(STORE_NAME_ADDRESS); ?></td>
+        <td class="pageHeading"><td class="pageHeading"><?php echo STORE_NAME . '<br>' . STORE_ADDRESS_STREET . '<br>' . STORE_ADDRESS_POSTCODE  . ' ' .  STORE_ADDRESS_CITY; ?></td>
         <td class="pageHeading" align="right"><?php echo oos_image(OOS_IMAGES . 'oos.gif', STORE_NAME, '130', '49'); ?></td>
       </tr>
     </table></td>
@@ -109,7 +109,7 @@
            '        <td class="dataTableContent" valign="top" align="right">' . $order->products[$i]['qty'] . '&nbsp;x</td>' . "\n" .
            '        <td class="dataTableContent" valign="top">' . $order->products[$i]['name'];
 
-      if (count($order->products[$i]['attributes']) > 0) {
+	  if (isset($order->products[$i]['attributes']) && (count($order->products[$i]['attributes']) > 0)) {
         for ($j = 0, $k = count($order->products[$i]['attributes']); $j < $k; $j++) {
           echo '<br /><nobr><small>&nbsp;<i> - ' . $order->products[$i]['attributes'][$j]['option'] . ': ' . $order->products[$i]['attributes'][$j]['value'];
           echo '</i></small></nobr>';

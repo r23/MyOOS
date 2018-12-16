@@ -760,7 +760,7 @@ $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " .
        '      <td class="' . $RowStyle . '" valign="top">' . "<input name='update_products[$orders_products_id][name]' size='25' value='" . $order->products[$i]['name'] . "'>";
 
     // Has Attributes?
-    if (count($order->products[$i]['attributes']) > 0) {
+	if (isset($order->products[$i]['attributes']) && (count($order->products[$i]['attributes']) > 0)) {	
       for ($j=0; $j < count($order->products[$i]['attributes']); $j++) {
         $orders_products_attributes_id = $order->products[$i]['attributes'][$j]['orders_products_attributes_id'];
         echo '<br /><nobr><small>&nbsp;<i> - ' . "<input name='update_products[$orders_products_id][attributes][$orders_products_attributes_id][option]' size='6' value='" . $order->products[$i]['attributes'][$j]['option'] . "'>" . ': ' . "<input name='update_products[$orders_products_id][attributes][$orders_products_attributes_id][value]' size='10' value='" . $order->products[$i]['attributes'][$j]['value'] . "'>";
