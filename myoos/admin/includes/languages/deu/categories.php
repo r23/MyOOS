@@ -42,7 +42,7 @@ define('TEXT_DATE_ADDED', 'hinzugefügt am:');
 define('TEXT_DATE_AVAILABLE', 'Erscheinungsdatum:');
 define('TEXT_LAST_MODIFIED', 'letzte Änderung:');
 define('TEXT_IMAGE_NONEXISTENT', 'BILD EXISTIERT NICHT');
-define('TEXT_NO_CHILD_CATEGORIES_OR_PRODUCTS', 'Bitte fügen Sie eine neue Kategorie oder einen Artikel in <br />&nbsp;<br /><b>%s</b> ein.');
+define('TEXT_NO_CHILD_CATEGORIES_OR_PRODUCTS', 'Bitte fügen Sie eine neue Kategorie oder einen Artikel in&nbsp;<b>%s</b> ein.');
 define('TEXT_PRODUCT_MORE_INFORMATION', 'Für weitere Informationen, besuchen Sie bitte die <a href="http://%s" target="blank"><u>Homepage</u></a> des Herstellers.');
 define('TEXT_PRODUCT_DATE_ADDED', 'Diesen Artikel haben wir am %s in unseren Katalog aufgenommen.');
 define('TEXT_PRODUCT_DATE_AVAILABLE', 'Dieser Artikel ist erhältlich ab %s.');

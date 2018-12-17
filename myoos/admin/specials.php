@@ -419,14 +419,18 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         if (oos_is_not_null($sInfo->date_status_change)) $contents[] = array('text' => '' . TEXT_INFO_STATUS_CHANGE . ' ' . oos_date_short($sInfo->date_status_change));
       }
       break;
-  }
-  if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
-    echo '            <td width="25%" valign="top">' . "\n";
-
-    $box = new box;
-    echo $box->infoBox($heading, $contents);
-
-    echo '            </td>' . "\n";
+	}
+    if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
+?>
+	<td width="25%" valign="top">
+		<table class="table table-striped table-dark">
+<?php
+		$box = new box;
+		echo $box->infoBox($heading, $contents);  
+?>
+		</table> 
+	</td> 
+<?php
   }
 }
 ?>

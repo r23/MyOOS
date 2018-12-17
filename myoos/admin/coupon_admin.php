@@ -31,22 +31,22 @@ if (isset($_GET['selected_box'])) {
 	$_GET['action'] = '';
 	$_GET['old_action'] = '';
 }
-  
-$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
-$action = (isset($_GET['action']) ? $_GET['action'] : ''); 
+
+$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
+$action = (isset($_GET['action']) ? $_GET['action'] : '');
 
   if (($action == 'send_email_to_user') && ($_POST['customers_email_address']) && (!$_POST['back_x'])) {
     switch ($_POST['customers_email_address']) {
     case '***':
-      $mail_result = $dbconn->Execute("SELECT customers_firstname, customers_lastname, customers_email_address 
+      $mail_result = $dbconn->Execute("SELECT customers_firstname, customers_lastname, customers_email_address
                                    FROM" . $oostable['customers']);
       $mail_sent_to = TEXT_ALL_CUSTOMERS;
       break;
 
 /* ToDo Newsletter
     case '**D':
-      $mail_result = $dbconn->Execute("SELECT customers_firstname, customers_lastname, customers_email_address 
-                                  FROM " . $oostable['customers'] . " 
+      $mail_result = $dbconn->Execute("SELECT customers_firstname, customers_lastname, customers_email_address
+                                  FROM " . $oostable['customers'] . "
                                   WHERE customers_newsletter = '1'");
       $mail_sent_to = TEXT_NEWSLETTER_CUSTOMERS;
       break;
@@ -54,18 +54,18 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     default:
       $customers_email_address = oos_db_prepare_input($_POST['customers_email_address']);
 
-      $mail_result = $dbconn->Execute("SELECT customers_firstname, customers_lastname, customers_email_address 
-                                  FROM " . $oostable['customers'] . " 
+      $mail_result = $dbconn->Execute("SELECT customers_firstname, customers_lastname, customers_email_address
+                                  FROM " . $oostable['customers'] . "
                                   WHERE customers_email_address = '" . oos_db_input($customers_email_address) . "'");
       $mail_sent_to = $_POST['customers_email_address'];
       break;
     }
-    $coupon_result = $dbconn->Execute("SELECT coupon_code 
-                                  FROM " . $oostable['coupons'] . " 
+    $coupon_result = $dbconn->Execute("SELECT coupon_code
+                                  FROM " . $oostable['coupons'] . "
                                   WHERE coupon_id = '" . $_GET['cID'] . "'");
     $coupon_result = $coupon_result->fields;
-    $coupon_name_result = $dbconn->Execute("SELECT coupon_name 
-                                       FROM " . $oostable['coupons_description'] . " 
+    $coupon_name_result = $dbconn->Execute("SELECT coupon_name
+                                       FROM " . $oostable['coupons_description'] . "
                                        WHERE coupon_id = '" . $_GET['cID'] . "' AND
                                              coupon_languages_id = '" . intval($_SESSION['language_id']) . "'");
     $coupon_name = $coupon_name_result->fields;
@@ -160,7 +160,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
           $messageStack->add(ERROR_NO_COUPON_AMOUNT, 'error');
         }
         if (!$_POST['coupon_code']) {
-          $coupon_code = oos_create_coupon_code(); 
+          $coupon_code = oos_create_coupon_code();
         }
         if ($_POST['coupon_code']) $coupon_code = $_POST['coupon_code'];
         $query1 = $dbconn->Execute("SELECT coupon_code
@@ -204,7 +204,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                                    );
           }
           if (isset($_GET['oldaction']) && ($_GET['oldaction'] == 'voucheredit')) {
-            oos_db_perform($oostable['coupons'], $sql_data_array, 'UPDATE', "coupon_id='" . $_GET['cID']."'"); 
+            oos_db_perform($oostable['coupons'], $sql_data_array, 'UPDATE', "coupon_id='" . $_GET['cID']."'");
             for ($i = 0, $n = count($languages); $i < $n; $i++) {
               $lang_id = $languages[$i]['id'];
               $update = $dbconn->Execute("UPDATE " . $oostable['coupons_description'] . " SET coupon_name = '" . oos_db_prepare_input($_POST['coupon_name'][$lang_id]) . "', coupon_description = '" . oos_db_prepare_input($_POST['coupon_desc'][$lang_id]) . "' WHERE coupon_id = '" . $_GET['cID'] . "' and coupon_languages_id = '" . intval($lang_id) . "'");
@@ -240,14 +240,14 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 		</div>
 		<!-- END Sidebar (left) //-->
 	</aside>
-	
+
 	<!-- Main section //-->
 	<section>
 		<!-- Page content //-->
 		<div class="content-wrapper">
-				
+
 <!-- body_text //-->
-<?php 
+<?php
   switch ($action) {
   case 'voucherreport':
 ?>
@@ -269,10 +269,10 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 				</div>
 			</div>
 			<!-- END Breadcrumbs //-->
-			
+
 			<div class="wrapper wrapper-content">
 				<div class="row">
-					<div class="col-lg-12">	
+					<div class="col-lg-12">
 	<table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
@@ -280,14 +280,14 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
             <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr class="dataTableHeadingRow">
                 <td class="dataTableHeadingContent"><?php echo CUSTOMER_ID; ?></td>
-                <td class="dataTableHeadingContent" align="center"><?php echo CUSTOMER_NAME; ?></td>	
-                <td class="dataTableHeadingContent" align="center"><?php echo IP_ADDRESS; ?></td>	
-                <td class="dataTableHeadingContent" align="center"><?php echo REDEEM_DATE; ?></td>	
+                <td class="dataTableHeadingContent" align="center"><?php echo CUSTOMER_NAME; ?></td>
+                <td class="dataTableHeadingContent" align="center"><?php echo IP_ADDRESS; ?></td>
+                <td class="dataTableHeadingContent" align="center"><?php echo REDEEM_DATE; ?></td>
                 <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
 <?php
-    $cc_result_raw = "SELECT * 
-                      FROM " . $oostable['coupon_redeem_track'] . " 
+    $cc_result_raw = "SELECT *
+                      FROM " . $oostable['coupon_redeem_track'] . "
                      WHERE coupon_id = '" . $_GET['cID'] . "'";
     $cc_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $cc_result_raw, $cc_result_numrows);
     $cc_result = $dbconn->Execute($cc_result_raw);
@@ -304,7 +304,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       } else {
         echo '          <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin('coupon_admin.php', oos_get_all_get_params(array('cID', 'action', 'uid')) . 'cID=' . $cc_list['coupon_id'] . '&action=voucherreport&uid=' . $cc_list['unique_id']) . '\'">' . "\n";
       }
-      $customer_result = $dbconn->Execute("SELECT customers_firstname, customers_lastname 
+      $customer_result = $dbconn->Execute("SELECT customers_firstname, customers_lastname
                                       FROM " . $oostable['customers'] . "
                                       WHERE customers_id = '" . $cc_list['customer_id'] . "'");
       $customer = $customer_result->fields;
@@ -329,13 +329,13 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 <?php
     $heading = array();
     $contents = array();
-      $coupon_description_result = $dbconn->Execute("SELECT coupon_name 
-                                                FROM " . $oostable['coupons_description'] . " 
+      $coupon_description_result = $dbconn->Execute("SELECT coupon_name
+                                                FROM " . $oostable['coupons_description'] . "
                                                 WHERE coupon_id = '" . $_GET['cID'] . "' AND
                                                     coupon_languages_id = '" . intval($_SESSION['language_id']) . "'");
       $coupon_desc = $coupon_description_result->fields;
-      $count_customers = $dbconn->Execute("SELECT * 
-                                       FROM " . $oostable['coupon_redeem_track'] . " 
+      $count_customers = $dbconn->Execute("SELECT *
+                                       FROM " . $oostable['coupon_redeem_track'] . "
                                        WHERE coupon_id = '" . $_GET['cID'] . "' AND
                                              customer_id = '" . $cInfo->customer_id . "'");
       $heading[] = array('text' => '<b>[' . $_GET['cID'] . ']' . COUPON_NAME . ' ' . $coupon_desc['coupon_name'] . '</b>');
@@ -345,19 +345,21 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       $contents[] = array('text' => '');
 ?>
     <td width="25%" valign="top">
+		<table class="table table-striped table-dark">
 <?php
-      $box = new box;
-      echo $box->infoBox($heading, $contents);
-      echo '            </td>' . "\n";
+		$box = new box;
+		echo $box->infoBox($heading, $contents);
 ?>
+		</table>
+	</td>
 <?php
     break;
-  case 'preview_email': 
-    $coupon_result = $dbconn->Execute("SELECT coupon_code 
+  case 'preview_email':
+    $coupon_result = $dbconn->Execute("SELECT coupon_code
                                   FROM " .$oostable['coupons'] . "
                                   WHERE coupon_id = '" . $_GET['cID'] . "'");
     $coupon_result = $coupon_result->fields;
-    $coupon_name_result = $dbconn->Execute("SELECT coupon_name 
+    $coupon_name_result = $dbconn->Execute("SELECT coupon_name
                                             FROM " . $oostable['coupons_description'] . "
                                             WHERE coupon_id = '" . $_GET['cID'] . "' AND
                                                   coupon_languages_id = '" . intval($_SESSION['language_id']) . "'");
@@ -392,11 +394,11 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 				</div>
 			</div>
 			<!-- END Breadcrumbs //-->
-			
+
 			<div class="wrapper wrapper-content">
 				<div class="row">
-					<div class="col-lg-12">	
-					
+					<div class="col-lg-12">
+
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
 
       <tr>
@@ -422,7 +424,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
               </tr>
               <tr>
                 <td class="smallText"><b><?php echo TEXT_FROM_MAIL; ?></b><br /><?php echo htmlspecialchars(stripslashes($_POST['from_mail'])); ?></td>
-              </tr> 
+              </tr>
               <tr>
                 <td></td>
               </tr>
@@ -443,7 +445,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 <?php
 /* Re-Post all POST'ed variables */
     reset($_POST);
-    foreach ($_POST as $key => $value) {		
+    foreach ($_POST as $key => $value) {
       if (!is_array($_POST[$key])) {
         echo oos_draw_hidden_field($key, htmlspecialchars(stripslashes($value)));
       }
@@ -458,7 +460,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
               </tr>
             </table></td>
           </form></tr>
-<?php 
+<?php
     break;
   case 'email':
     $coupon_result = $dbconn->Execute("SELECT coupon_code
@@ -489,10 +491,10 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 				</div>
 			</div>
 			<!-- END Breadcrumbs //-->
-			
+
 		<div class="wrapper wrapper-content">
 			<div class="row">
-				<div class="col-lg-12">	
+				<div class="col-lg-12">
 <table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
@@ -514,8 +516,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     $customers[] = array('id' => '', 'text' => TEXT_SELECT_CUSTOMER);
     $customers[] = array('id' => '***', 'text' => TEXT_ALL_CUSTOMERS);
     $customers[] = array('id' => '**D', 'text' => TEXT_NEWSLETTER_CUSTOMERS);
-    $mail_result = $dbconn->Execute("SELECT customers_email_address, customers_firstname, customers_lastname 
-                                FROM " . $oostable['customers'] . " 
+    $mail_result = $dbconn->Execute("SELECT customers_email_address, customers_firstname, customers_lastname
+                                FROM " . $oostable['customers'] . "
                                 ORDER BY customers_lastname");
     while($customers_values = $mail_result->fields) {
       $customers[] = array('id' => $customers_values['customers_email_address'],
@@ -602,10 +604,10 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 				</div>
 			</div>
 			<!-- END Breadcrumbs //-->
-			
+
 			<div class="wrapper wrapper-content">
 				<div class="row">
-					<div class="col-lg-12">				
+					<div class="col-lg-12">
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
 
       <tr>
@@ -740,11 +742,11 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
     break;
   case 'voucheredit':
-  // warum? 
+  // warum?
     $languages = oos_get_languages();
     for ($i = 0, $n = count($languages); $i < $n; $i++) {
       $lang_id = $languages[$i]['id'];
-      $coupon_result = $dbconn->Execute("SELECT coupon_name,coupon_description 
+      $coupon_result = $dbconn->Execute("SELECT coupon_name,coupon_description
                                     FROM " . $oostable['coupons_description'] . "
                                     WHERE coupon_id = '" .  $_GET['cID'] . "' AND
                                           coupon_languages_id = '" . intval($lang_id) . "'");
@@ -752,10 +754,10 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       $coupon_name[$lang_id] = $coupon['coupon_name'];
       $coupon_desc[$lang_id] = $coupon['coupon_description'];
     }
-    $coupon_result = $dbconn->Execute("SELECT coupon_code, coupon_amount, coupon_type, coupon_minimum_order, coupon_start_date, 
-                                          coupon_expire_date, uses_per_coupon, uses_per_user, restrict_to_products, 
-                                          restrict_to_categories 
-                                   FROM " . $oostable['coupons'] . " 
+    $coupon_result = $dbconn->Execute("SELECT coupon_code, coupon_amount, coupon_type, coupon_minimum_order, coupon_start_date,
+                                          coupon_expire_date, uses_per_coupon, uses_per_user, restrict_to_products,
+                                          restrict_to_categories
+                                   FROM " . $oostable['coupons'] . "
                                    WHERE coupon_id = '" . $_GET['cID'] . "'");
     $coupon = $coupon_result->fields;
     $coupon_amount = $coupon['coupon_amount'];
@@ -794,15 +796,15 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 				</div>
 			</div>
 			<!-- END Breadcrumbs //-->
-			
+
 		<div class="wrapper wrapper-content">
 			<div class="row">
-				<div class="col-lg-12">	
+				<div class="col-lg-12">
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
       <td>
-<?php 
-    echo oos_draw_form('id', 'coupon', 'coupon_admin.php', 'action=update&oldaction='.$action . '&cID=' . $_GET['cID'], 'post', FALSE); 
+<?php
+    echo oos_draw_form('id', 'coupon', 'coupon_admin.php', 'action=update&oldaction='.$action . '&cID=' . $_GET['cID'], 'post', FALSE);
 ?>
       <table border="0" width="100%" cellspacing="0" cellpadding="6">
 <?php
@@ -926,11 +928,11 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 				</div>
 			</div>
 			<!-- END Breadcrumbs //-->
-			
+
 			<div class="wrapper wrapper-content">
 				<div class="row">
-					<div class="col-lg-12">	
-				
+					<div class="col-lg-12">
+
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
@@ -947,7 +949,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     } else {
       $status = 'Y';
     }
-    echo HEADING_TITLE_STATUS . ' ' . oos_draw_pull_down_menu('status', $status_array, $status, 'onChange="this.form.submit();"'); 
+    echo HEADING_TITLE_STATUS . ' ' . oos_draw_pull_down_menu('status', $status_array, $status, 'onChange="this.form.submit();"');
 ?>
               </form>
            </td>
@@ -960,30 +962,30 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
             <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr class="dataTableHeadingRow">
                 <td class="dataTableHeadingContent"><?php echo COUPON_NAME; ?></td>
-                <td class="dataTableHeadingContent" align="center"><?php echo COUPON_AMOUNT; ?></td>	
-                <td class="dataTableHeadingContent" align="center"><?php echo COUPON_CODE; ?></td>	
+                <td class="dataTableHeadingContent" align="center"><?php echo COUPON_AMOUNT; ?></td>
+                <td class="dataTableHeadingContent" align="center"><?php echo COUPON_CODE; ?></td>
                 <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
               </tr>
 <?php
     if (isset($nPage) && ($nPage > 1)) $rows = $nPage * 20 - 20;
     if ($status != '*') {
-      $cc_result_raw = "SELECT 
+      $cc_result_raw = "SELECT
                            coupon_id, coupon_code, coupon_amount, coupon_type, coupon_start_date,
-                           coupon_expire_date, uses_per_user, uses_per_coupon, restrict_to_products, 
-                           restrict_to_categories, date_created,date_modified 
-                       FROM 
-                           " . $oostable['coupons'] ." 
-                       WHERE 
+                           coupon_expire_date, uses_per_user, uses_per_coupon, restrict_to_products,
+                           restrict_to_categories, date_created,date_modified
+                       FROM
+                           " . $oostable['coupons'] ."
+                       WHERE
                            coupon_active='" . oos_db_input($status) . "' AND
                            coupon_type != 'G'";
     } else {
-      $cc_result_raw = "SELECT 
+      $cc_result_raw = "SELECT
                            coupon_id, coupon_code, coupon_amount, coupon_type, coupon_start_date,
-                           coupon_expire_date, uses_per_user, uses_per_coupon, restrict_to_products, 
-                           restrict_to_categories, date_created,date_modified 
-                       FROM 
-                           " . $oostable['coupons'] . " 
-                       WHERE 
+                           coupon_expire_date, uses_per_user, uses_per_coupon, restrict_to_products,
+                           restrict_to_categories, date_created,date_modified
+                       FROM
+                           " . $oostable['coupons'] . "
+                       WHERE
                            coupon_type != 'G'";
     }
     $cc_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $cc_result_raw, $cc_result_numrows);
@@ -1001,15 +1003,15 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       } else {
         echo '          <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin('coupon_admin.php', oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cc_list['coupon_id']) . '\'">' . "\n";
       }
-      $coupon_description_result = $dbconn->Execute("SELECT coupon_name 
-                                                 FROM " . $oostable['coupons_description'] . " 
-                                                 WHERE coupon_id = '" . $cc_list['coupon_id'] . "' 
+      $coupon_description_result = $dbconn->Execute("SELECT coupon_name
+                                                 FROM " . $oostable['coupons_description'] . "
+                                                 WHERE coupon_id = '" . $cc_list['coupon_id'] . "'
                                                    AND coupon_languages_id = '" . intval($_SESSION['language_id']) . "'");
       $coupon_desc = $coupon_description_result->fields;
 ?>
                 <td class="dataTableContent"><?php echo $coupon_desc['coupon_name']; ?></td>
                 <td class="dataTableContent" align="center">
-<?php  
+<?php
       if ($cc_list['coupon_type'] == 'P') {
         echo $cc_list['coupon_amount'] . '%';
       } elseif ($cc_list['coupon_type'] == 'S') {
@@ -1077,11 +1079,11 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         $amount = $currencies->format($amount);
       }
       if ($action == 'voucherdelete') {
-        $contents[] = array('text'=> TEXT_CONFIRM_DELETE . '</br></br>' . 
+        $contents[] = array('text'=> TEXT_CONFIRM_DELETE . '</br></br>' .
                 '<a href="' . oos_href_link_admin('coupon_admin.php','action=confirmdelete&cID='.$_GET['cID']).'">'.oos_button('confirm','Confirm Delete Voucher').'</a>' .
                 '<a href="' . oos_href_link_admin('coupon_admin.php','cID='.$cInfo->coupon_id).'">'.oos_button('cancel', BUTTON_CANCEL).'</a>'
                 );
-      } else { 
+      } else {
         $prod_details = '';
         if ($cInfo->restrict_to_products) {
           $prod_details = '<a href="' . oos_href_link_admin($aContents['listproducts'], 'cID=' . $cInfo->coupon_id) . '" TARGET="_blank" ONCLICK="window.open(\'' . $aContents['listproducts'] . '?cID=' . $cInfo->coupon_id . '\', \'Valid_Categories\', \'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600\'); return false">View</A>';
@@ -1091,7 +1093,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
           $cat_details = '<a href="' . oos_href_link_admin($aContents['listcategories'], 'cID=' . $cInfo->coupon_id) . '" TARGET="_blank" ONCLICK="window.open(\'' . $aContents['listcategories'] . '?cID=' . $cInfo->coupon_id . '\', \'Valid_Categories\', \'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600\'); return false">View</A>';
         }
         $coupon_name_result = $dbconn->Execute("SELECT coupon_name
-                                           FROM " . $oostable['coupons_description'] . " 
+                                           FROM " . $oostable['coupons_description'] . "
                                            WHERE coupon_id = '" . $cInfo->coupon_id . "' AND
                                                  coupon_languages_id = '" . intval($_SESSION['language_id']) . "'");
         $coupon_name = $coupon_name_result->fields;
@@ -1114,13 +1116,17 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         break;
       }
 ?>
-    <td width="25%" valign="top">
+	<td width="25%" valign="top">
+		<table class="table table-striped table-dark">
 <?php
-      $box = new box;
-      echo $box->infoBox($heading, $contents);
-    echo '            </td>' . "\n";
-    }
+		$box = new box;
+		echo $box->infoBox($heading, $contents);
 ?>
+		</table>
+	</td>
+<?php
+    }
+?>	
           </tr>
         </table></td>
       </tr>
@@ -1140,7 +1146,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 </div>
 
 
-<?php 
+<?php
 	require 'includes/bottom.php';
 	require 'includes/nice_exit.php';
 ?>

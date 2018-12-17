@@ -174,13 +174,17 @@ require '../includes/classes/class_shopping_cart.php';
   }
 
 
-  if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
-    echo '            <td width="25%" valign="top">' . "\n";
-
-    $box = new box;
-    echo $box->infoBox($heading, $contents);
-
-    echo '            </td>' . "\n";
+    if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
+?>
+	<td width="25%" valign="top">
+		<table class="table table-striped table-dark">
+<?php
+		$box = new box;
+		echo $box->infoBox($heading, $contents);  
+?>
+		</table> 
+	</td> 
+<?php
   }
 ?>
           </tr>

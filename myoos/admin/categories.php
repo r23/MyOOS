@@ -533,10 +533,10 @@ if ($action == 'new_category' || $action == 'edit_category') {
 			<h2><?php echo sprintf($text_new_or_edit, oos_output_generated_category_path($current_category_id)); ?></h2>
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item">
-					<a href="<?php echo oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
+					<a href="<?php echo oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP; ?></a>
 				</li>
 				<li class="breadcrumb-item">
-					<a href="<?php echo oos_href_link_admin(oos_selected_file('catalog.php'), 'selected_box=catalog') . '">' . BOX_HEADING_CATALOG . '</a>'; ?>
+					<a href="<?php echo oos_href_link_admin(oos_selected_file('catalog.php'), 'selected_box=catalog') . '">' . BOX_HEADING_CATALOG; ?></a>
 				</li>
 				<li class="breadcrumb-item active">
 					<strong><?php echo sprintf($text_new_or_edit, oos_output_generated_category_path($current_category_id)); ?></strong>
@@ -883,10 +883,10 @@ if ($action == 'new_category' || $action == 'edit_category') {
 			<h2><?php echo HEADING_TITLE; ?></h2>
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item">
-					<a href="<?php echo oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
+					<a href="<?php echo oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP; ?></a>
 				</li>
 				<li class="breadcrumb-item">
-					<a href="<?php echo oos_href_link_admin(oos_selected_file('catalog.php'), 'selected_box=catalog') . '">' . BOX_HEADING_CATALOG . '</a>'; ?>
+					<a href="<?php echo oos_href_link_admin(oos_selected_file('catalog.php'), 'selected_box=catalog') . '">' . BOX_HEADING_CATALOG; ?></a>
 				</li>
 				<li class="breadcrumb-item active">
 					<strong><?php echo HEADING_TITLE; ?></strong>
@@ -899,8 +899,8 @@ if ($action == 'new_category' || $action == 'edit_category') {
 		<div class="wrapper wrapper-content">
 				
 			<div class="row">
-				<div class="col-sm-6"></div>
-				<div class="col-sm-6">		
+				<div class="col-sm-10"></div>
+				<div class="col-sm-2">
 					<?php echo oos_draw_form('id', 'search', $aContents['categories'], '', 'get', FALSE, 'class="form-inline"'); ?>
 						<div id="DataTables_Table_0_filter" class="dataTables_filter">		
 							<label><?php echo HEADING_TITLE_SEARCH; ?></label>
@@ -923,14 +923,18 @@ if ($action == 'new_category' || $action == 'edit_category') {
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_CATEGORIES_PRODUCTS; ?></td>
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_MANUFACTURERS; ?></td>
-                <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_STATUS; ?></td>
-                <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_PRODUCT_SORT; ?></td>
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
-              </tr>
+            <td valign="top">
+			
+				<table class="table table-striped w-100">
+					<thead>
+						<tr>
+							<td><?php echo TABLE_HEADING_CATEGORIES_PRODUCTS; ?></td>
+							<td><?php echo TABLE_HEADING_MANUFACTURERS; ?></td>
+							<td align="center"><?php echo TABLE_HEADING_STATUS; ?></td>
+							<td align="center"><?php echo TABLE_HEADING_PRODUCT_SORT; ?></td>
+							<td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+						</tr>	
+					</thead>
 <?php
     $categories_count = 0;
     $rows = 0;
@@ -1265,6 +1269,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
             $contents[] = array('text' => '<br />' . TEXT_PRODUCTS_AVERAGE_RATING . ' ' . number_format($pInfo->average_rating, 2) . '%');
           }
         } else { // create category/product info
+		  $parent_categories_name = oos_output_generated_category_path($current_category_id);
           $heading[] = array('text' => '<b>' . EMPTY_CATEGORY . '</b>');
 
           $contents[] = array('text' => sprintf(TEXT_NO_CHILD_CATEGORIES_OR_PRODUCTS, $parent_categories_name));
@@ -1273,13 +1278,17 @@ if ($action == 'new_category' || $action == 'edit_category') {
     }
 
     if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
-      echo '            <td width="25%" valign="top">' . "\n";
-
-      $box = new box;
-      echo $box->infoBox($heading, $contents);
-
-      echo '            </td>' . "\n";
-    }
+?>
+	<td width="25%" valign="top">
+		<table class="table table-striped table-dark">
+<?php
+		$box = new box;
+		echo $box->infoBox($heading, $contents);  
+?>
+		</table> 
+	</td> 
+<?php
+  }
 ?>
           </tr>
         </table></td>

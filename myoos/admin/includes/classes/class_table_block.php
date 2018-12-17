@@ -43,11 +43,7 @@ class tableBlock {
 			array_shift($contents);
 		}		
 
-		$tableBox_string .= '<table border="' . $this->table_border . '" width="' . $this->table_width . '" cellspacing="' . $this->table_cellspacing . '" cellpadding="' . $this->table_cellpadding . '"';
-		if (oos_is_not_null($this->table_parameters)) $tableBox_string .= ' ' . $this->table_parameters;
-		$tableBox_string .= '>' . "\n";
-
-		
+	
 		for ($i = 0, $n = count($contents); $i < $n; $i++) {
 			$tableBox_string .= '  <tr';
 			if (oos_is_not_null($this->table_row_parameters)) $tableBox_string .= ' ' . $this->table_row_parameters;
@@ -85,8 +81,6 @@ class tableBlock {
 			$tableBox_string .= '  </tr>' . "\n";
 		}
 		
-		$tableBox_string .= '</table>' . "\n";
-
 		if ($form_set == true) $tableBox_string .= '</form>' . "\n";
 
 		return $tableBox_string;

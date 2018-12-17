@@ -345,7 +345,7 @@ function go_option() {
 
     if ($num_rows <= $per_page) {
       $num_pages = 1;
-    } else if (($num_rows % $per_page) == 0) {
+    } elseif(($num_rows % $per_page) == 0) {
       $num_pages = ($num_rows / $per_page);
     } else {
       $num_pages = ($num_rows / $per_page) + 1;
@@ -566,7 +566,7 @@ function go_option() {
 
     if ($num_rows <= $per_page) {
       $num_pages = 1;
-    } else if (($num_rows % $per_page) == 0) {
+    } elseif(($num_rows % $per_page) == 0) {
       $num_pages = ($num_rows / $per_page);
     } else {
       $num_pages = ($num_rows / $per_page) + 1;
@@ -759,7 +759,7 @@ function go_option() {
 
   if ($num_rows <= $per_page) {
      $num_pages = 1;
-  } else if (($num_rows % $per_page) == 0) {
+  } elseif(($num_rows % $per_page) == 0) {
      $num_pages = ($num_rows / $per_page);
   } else {
      $num_pages = ($num_rows / $per_page) + 1;

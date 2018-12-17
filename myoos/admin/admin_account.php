@@ -106,10 +106,10 @@
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item">
-							<a href="<?php echo oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
+							<a href="<?php echo oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP; ?></a>
 						</li>
 						<li class="breadcrumb-item">
-							<a href="<?php echo oos_href_link_admin($aContents['admin_account'], 'selected_box=administrator') . '">' . BOX_HEADING_ADMINISTRATOR . '</a>'; ?>
+							<a href="<?php echo oos_href_link_admin($aContents['admin_account'], 'selected_box=administrator') . '">' . BOX_HEADING_ADMINISTRATOR; ?></a>
 						</li>
 						<li class="breadcrumb-item active">
 							<strong><?php echo HEADING_TITLE; ?></strong>
@@ -243,13 +243,17 @@
 
   }
 
-  if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
-    echo '            <td width="25%" valign="top">' . "\n";
-
-    $box = new box;
-    echo $box->infoBox($heading, $contents);
-
-    echo '            </td>' . "\n";
+    if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
+?>
+	<td width="25%" valign="top">
+		<table class="table table-striped table-dark">
+<?php
+		$box = new box;
+		echo $box->infoBox($heading, $contents);  
+?>
+		</table> 
+	</td> 
+<?php
   }
 ?>
           </tr>

@@ -254,10 +254,10 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item">
-							<a href="<?php echo oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
+							<a href="<?php echo oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP; ?></a>
 						</li>
 						<li class="breadcrumb-item">
-							<a href="<?php echo oos_href_link_admin($aContents['customers'], 'selected_box=customers') . '">' . BOX_HEADING_CUSTOMERS . '</a>'; ?>
+							<a href="<?php echo oos_href_link_admin($aContents['customers'], 'selected_box=customers') . '">' . BOX_HEADING_CUSTOMERS; ?></a>
 						</li>
 						<li class="breadcrumb-item active">
 							<strong><?php echo HEADING_TITLE; ?></strong>
@@ -512,10 +512,10 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item">
-							<a href="<?php echo oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
+							<a href="<?php echo oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP; ?></a>
 						</li>
 						<li class="breadcrumb-item">
-							<a href="<?php echo oos_href_link_admin($aContents['customers'], 'selected_box=customers') . '">' . BOX_HEADING_CUSTOMERS . '</a>'; ?>
+							<a href="<?php echo oos_href_link_admin($aContents['customers'], 'selected_box=customers') . '">' . BOX_HEADING_CUSTOMERS; ?></a>
 						</li>
 						<li class="breadcrumb-item active">
 							<strong><?php echo HEADING_TITLE; ?></strong>
@@ -528,8 +528,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 			<div class="wrapper wrapper-content">
 
 				<div class="row">
-					<div class="col-sm-6"></div>
-					<div class="col-sm-6">		
+					<div class="col-sm-10"></div>
+					<div class="col-sm-2">		
 						<?php echo oos_draw_form('id', 'orders', $aContents['orders'], '', 'get', FALSE, 'class="form-inline"'); ?>
 							<div id="DataTables_Table_0_filter" class="dataTables_filter">		
 								<label><?php echo HEADING_TITLE_SEARCH; ?></label>
@@ -553,14 +553,19 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_CUSTOMERS; ?></td>
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ORDER_TOTAL; ?></td>
-                <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_DATE_PURCHASED; ?></td>
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_STATUS; ?></td>
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
-              </tr>
+            <td valign="top">
+				<table class="table table-striped w-100">
+					<thead>
+						<tr>
+							<td><?php echo TABLE_HEADING_CUSTOMERS; ?></td>
+							<td align="right"><?php echo TABLE_HEADING_ORDER_TOTAL; ?></td>
+							<td align="center"><?php echo TABLE_HEADING_DATE_PURCHASED; ?></td>
+							<td align="right"><?php echo TABLE_HEADING_STATUS; ?></td>
+							<td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+							</tr>	
+					</thead>
+					<tbody>
+		  
 <?php
     if (isset($_GET['cID'])) {
       $cID = oos_db_prepare_input($_GET['cID']);
@@ -635,6 +640,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       $orders_result->MoveNext();
     }
 ?>
+			</tbody>
               <tr>
                 <td colspan="5"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
@@ -672,13 +678,17 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       break;
   }
 
-  if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
-    echo '            <td width="25%" valign="top">' . "\n";
-
-    $box = new box;
-    echo $box->infoBox($heading, $contents);
-
-    echo '            </td>' . "\n";
+    if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
+?>
+	<td width="25%" valign="top">
+		<table class="table table-striped table-dark">
+<?php
+		$box = new box;
+		echo $box->infoBox($heading, $contents);  
+?>
+		</table> 
+	</td> 
+<?php
   }
 ?>
           </tr>

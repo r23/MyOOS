@@ -138,13 +138,17 @@ $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GE
     $contents[] = array('text' => '<br />' . TEXT_INFO_DATE_EXPECTED . ' ' . oos_date_short($pInfo->products_date_available));
   }
 
-  if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
-    echo '            <td width="25%" valign="top">' . "\n";
-
-    $box = new box;
-    echo $box->infoBox($heading, $contents);
-
-    echo '            </td>' . "\n";
+    if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
+?>
+	<td width="25%" valign="top">
+		<table class="table table-striped table-dark">
+<?php
+		$box = new box;
+		echo $box->infoBox($heading, $contents);  
+?>
+		</table> 
+	</td> 
+<?php
   }
 ?>
           </tr>

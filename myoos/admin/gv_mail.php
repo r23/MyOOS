@@ -112,7 +112,7 @@
         // Move that ADOdb pointer!
         $mail_result->MoveNext();
       }
-    } else if (isset($_POST['email_to']) && (!$_POST['back_x'])) {
+    } elseif (isset($_POST['email_to']) && (!$_POST['back_x'])) {
       $id1 = oos_create_coupon_code($_POST['email_to']);
       $message = oos_db_prepare_input($_POST['message']);
       $message .= "\n\n" . TEXT_GV_WORTH  . $currencies->format($_POST['amount']) . "\n\n";

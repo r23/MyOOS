@@ -665,8 +665,8 @@ function check_form() {
 			<div class="wrapper wrapper-content">
 
 				<div class="row">
-					<div class="col-sm-6"></div>
-					<div class="col-sm-6">		
+					<div class="col-sm-10"></div>
+					<div class="col-sm-2">
 						<?php echo oos_draw_form('id', 'search', $aContents['customers'], '', 'get', FALSE, 'class="form-inline"'); ?>
 							<div id="DataTables_Table_0_filter" class="dataTables_filter">		
 								<label><?php echo HEADING_TITLE_SEARCH; ?></label>

@@ -42,13 +42,9 @@
     }
 
     public function infoBox($heading, $contents) {
-      $this->table_row_parameters = 'class="infoBoxHeading"';
-      $this->table_data_parameters = 'class="infoBoxHeading"';
-      $this->heading = $this->tableBlock($heading);
+      $this->heading = '<thead>' . $this->tableBlock($heading) . '</thead>';
 
-      $this->table_row_parameters = '';
-      $this->table_data_parameters = 'class="infoBoxContent"';
-      $this->contents = $this->tableBlock($contents);
+      $this->contents = '<tbody>' .  $this->tableBlock($contents) . '</tbody>';
 
       return $this->heading . $this->contents;
     }

@@ -62,7 +62,7 @@ function RandomPassword( $passwordLength ) {
 		// Select random character based on mapping.
 		if ($randomNumber < 11)
 			$newkey2 .= Chr($randomNumber + 48 - 1); // [ 1,10] => [0,9]
-		else if ($randomNumber < 37)
+		elseif ($randomNumber < 37)
 			$newkey2 .= Chr($randomNumber + 65 - 10); // [11,36] => [A,Z]
 		else
 			$newkey2 .= Chr($randomNumber + 97 - 36); // [37,62] => [a,z]
@@ -217,13 +217,20 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       }
       break;
   }
-  if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
-    echo '            <td width="25%" valign="top">' . "\n";
-    $box = new box;
-    echo $box->infoBox($heading, $contents);
-    echo '            </td>' . "\n";
- }
+ 
+    if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
 ?>
+	<td width="25%" valign="top">
+		<table class="table table-striped table-dark">
+<?php
+		$box = new box;
+		echo $box->infoBox($heading, $contents);  
+?>
+		</table> 
+	</td> 
+<?php
+  }
+?> 
           </tr>
         </table></td>
       </tr>
