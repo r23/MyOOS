@@ -186,10 +186,10 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item">
-							<a href="<?php echo oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
+							<?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
 						</li>
 						<li class="breadcrumb-item">
-							<a href="<?php echo oos_href_link_admin($aContents['customers'], 'selected_box=customers') . '">' . BOX_HEADING_CUSTOMERS . '</a>'; ?>
+							<?php echo '<a href="' . oos_href_link_admin($aContents['customers'], 'selected_box=customers') . '">' . BOX_HEADING_CUSTOMERS . '</a>'; ?>
 						</li>
 						<li class="breadcrumb-item active">
 							<strong><?php echo HEADING_TITLE; ?></strong>
@@ -207,16 +207,20 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       <tr>
         <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent" align="left" width="8%"><?php echo 'icon'; ?></td>
-                <td class="dataTableHeadingContent" align="left" width="40%"><?php echo TABLE_HEADING_CUSTOMERS_STATUS; ?></td>
-                <td class="dataTableHeadingContent" align="center" width="10%"></td>
-                <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_AMOUNT; ?></td>
-                <td class="dataTableHeadingContent" align="center"><?php echo '%'; ?></td>
-                <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_CUSTOMERS_QTY_DISCOUNTS; ?></td>
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
-              </tr>
+            <td valign="top">
+			
+				<table class="table table-striped w-100">
+					<thead>
+						<tr>
+							<td align="left" width="8%"><?php echo 'icon'; ?></td>
+							<td align="left" width="40%"><?php echo TABLE_HEADING_CUSTOMERS_STATUS; ?></td>
+							<td align="center" width="10%"></td>
+							<td align="center"><?php echo TABLE_HEADING_AMOUNT; ?></td>
+							<td align="center"><?php echo '%'; ?></td>
+							<td align="center"><?php echo TABLE_HEADING_CUSTOMERS_QTY_DISCOUNTS; ?></td>
+							<td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+						</tr>	
+					</thead>
 <?php
   // Add V1.1  //Change from V3 i reuse same string entry_yes entry_no instead of entry_ot_xmember_yes/no these change are also reported in language file
   $customers_status_ot_discount_flag_array = array(array('id' => '0', 'text' => ENTRY_NO),

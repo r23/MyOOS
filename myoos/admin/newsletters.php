@@ -134,10 +134,10 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item">
-							<a href="<?php echo oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
+							<?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
 						</li>
 						<li class="breadcrumb-item">
-							<a href="<?php echo oos_href_link_admin($aContents['mail'], 'selected_box=tools') . '">' . BOX_HEADING_TOOLS . '</a>'; ?>
+							<?php echo '<a href="' . oos_href_link_admin($aContents['mail'], 'selected_box=tools') . '">' . BOX_HEADING_TOOLS . '</a>'; ?>
 						</li>
 						<li class="breadcrumb-item active">
 							<strong><?php echo HEADING_TITLE; ?></strong>
@@ -323,15 +323,18 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_NEWSLETTERS; ?></td>
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_SIZE; ?></td>
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_MODULE; ?></td>
-                <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_SENT; ?></td>
-                <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_STATUS; ?></td>
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
-              </tr>
+            <td valign="top">
+				<table class="table table-striped w-100">
+					<thead>
+						<tr>
+							<td><?php echo TABLE_HEADING_NEWSLETTERS; ?></td>
+							<td align="right"><?php echo TABLE_HEADING_SIZE; ?></td>
+							<td align="right"><?php echo TABLE_HEADING_MODULE; ?></td>
+							<td align="center"><?php echo TABLE_HEADING_SENT; ?></td>
+							<td align="center"><?php echo TABLE_HEADING_STATUS; ?></td>
+							<td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+						</tr>	
+					</thead>
 <?php
     $newsletterstable = $oostable['newsletters'];
     $newsletters_result_raw = "SELECT newsletters_id, title, length(content) as content_length,

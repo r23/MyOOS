@@ -459,10 +459,10 @@ if (!empty($action)) {
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item">
-							<a href="<?php echo oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
+							<?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
 						</li>
 						<li class="breadcrumb-item">
-							<a href="<?php echo oos_href_link_admin($aContents['currencies'], 'selected_box=localization') . '">' . BOX_HEADING_LOCALIZATION . '</a>'; ?>
+							<?php echo '<a href="' . oos_href_link_admin($aContents['currencies'], 'selected_box=localization') . '">' . BOX_HEADING_LOCALIZATION . '</a>'; ?>
 						</li>
 						<li class="breadcrumb-item active">
 							<strong><?php echo HEADING_TITLE; ?></strong>
@@ -480,15 +480,19 @@ if (!empty($action)) {
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_LANGUAGE_NAME; ?></td>
-	        <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_LANGUAGE_ISO_639_2; ?></td>
-	        <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_LANGUAGE_ISO_639_1; ?></td>
-			<td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_LANGUAGE_ISO_3166_1; ?></td>
-	        <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_LANGUAGE_STATUS; ?></td>
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
-              </tr>
+            <td valign="top">
+			
+				<table class="table table-striped w-100">
+					<thead>
+						<tr>
+							<td><?php echo TABLE_HEADING_LANGUAGE_NAME; ?></td>
+							<td align="center"><?php echo TABLE_HEADING_LANGUAGE_ISO_639_2; ?></td>
+							<td align="center"><?php echo TABLE_HEADING_LANGUAGE_ISO_639_1; ?></td>
+							<td align="center"><?php echo TABLE_HEADING_LANGUAGE_ISO_3166_1; ?></td>
+							<td align="center"><?php echo TABLE_HEADING_LANGUAGE_STATUS; ?></td>
+							<td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+						</tr>	
+					</thead>
 <?php
   $languages_result_raw = "SELECT languages_id, name, iso_639_2, iso_639_1, iso_3166_1, status, sort_order 
                           FROM " . $oostable['languages'] . "

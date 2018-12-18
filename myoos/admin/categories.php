@@ -533,10 +533,10 @@ if ($action == 'new_category' || $action == 'edit_category') {
 			<h2><?php echo sprintf($text_new_or_edit, oos_output_generated_category_path($current_category_id)); ?></h2>
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item">
-					<a href="<?php echo oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP; ?></a>
+					<?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
 				</li>
 				<li class="breadcrumb-item">
-					<a href="<?php echo oos_href_link_admin(oos_selected_file('catalog.php'), 'selected_box=catalog') . '">' . BOX_HEADING_CATALOG; ?></a>
+					<?php echo '<a href="' . oos_href_link_admin(oos_selected_file('catalog.php'), 'selected_box=catalog') . '">' . BOX_HEADING_CATALOG . '</a>'; ?>
 				</li>
 				<li class="breadcrumb-item active">
 					<strong><?php echo sprintf($text_new_or_edit, oos_output_generated_category_path($current_category_id)); ?></strong>
@@ -883,10 +883,10 @@ if ($action == 'new_category' || $action == 'edit_category') {
 			<h2><?php echo HEADING_TITLE; ?></h2>
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item">
-					<a href="<?php echo oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP; ?></a>
+					<?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP; ?></a>
 				</li>
 				<li class="breadcrumb-item">
-					<a href="<?php echo oos_href_link_admin(oos_selected_file('catalog.php'), 'selected_box=catalog') . '">' . BOX_HEADING_CATALOG; ?></a>
+					<?php echo '<a href="' . oos_href_link_admin(oos_selected_file('catalog.php'), 'selected_box=catalog') . '">' . BOX_HEADING_CATALOG; ?></a>
 				</li>
 				<li class="breadcrumb-item active">
 					<strong><?php echo HEADING_TITLE; ?></strong>

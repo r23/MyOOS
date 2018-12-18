@@ -254,10 +254,10 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item">
-							<a href="<?php echo oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP; ?></a>
+							<?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
 						</li>
 						<li class="breadcrumb-item">
-							<a href="<?php echo oos_href_link_admin($aContents['customers'], 'selected_box=customers') . '">' . BOX_HEADING_CUSTOMERS; ?></a>
+							<?php echo '<a href="' . oos_href_link_admin($aContents['customers'], 'selected_box=customers') . '">' . BOX_HEADING_CUSTOMERS . '</a>'; ?>
 						</li>
 						<li class="breadcrumb-item active">
 							<strong><?php echo HEADING_TITLE; ?></strong>
@@ -372,17 +372,20 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         <td></td>
       </tr>
       <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr class="dataTableHeadingRow">
-            <td class="dataTableHeadingContent" colspan="2"><?php echo TABLE_HEADING_PRODUCTS; ?></td>
-            <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_PRODUCTS_SERIAL_NUMBER; ?></td>
-            <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_PRODUCTS_MODEL; ?></td>
-            <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_TAX; ?></td>
-            <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_PRICE_EXCLUDING_TAX; ?></td>
-            <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_PRICE_INCLUDING_TAX; ?></td>
-            <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_TOTAL_EXCLUDING_TAX; ?></td>
-            <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_TOTAL_INCLUDING_TAX; ?></td>
-          </tr>
+        <td>
+				<table class="table table-striped w-100">
+					<thead>
+						<tr>
+							<td colspan="2"><?php echo TABLE_HEADING_PRODUCTS; ?></td>
+							<td><?php echo TABLE_HEADING_PRODUCTS_SERIAL_NUMBER; ?></td>
+							<td><?php echo TABLE_HEADING_PRODUCTS_MODEL; ?></td>
+							<td align="right"><?php echo TABLE_HEADING_TAX; ?></td>
+							<td align="right"><?php echo TABLE_HEADING_PRICE_EXCLUDING_TAX; ?></td>
+							<td align="right"><?php echo TABLE_HEADING_PRICE_INCLUDING_TAX; ?></td>
+							<td align="right"><?php echo TABLE_HEADING_TOTAL_EXCLUDING_TAX; ?></td>
+							<td align="right"><?php echo TABLE_HEADING_TOTAL_INCLUDING_TAX; ?></td>
+						</tr>	
+					</thead>
 <?php
     for ($i = 0, $n = count($order->products); $i < $n; $i++) {
       echo '          <tr class="dataTableRow">' . "\n" .
@@ -512,10 +515,10 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item">
-							<a href="<?php echo oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP; ?></a>
+							<?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
 						</li>
 						<li class="breadcrumb-item">
-							<a href="<?php echo oos_href_link_admin($aContents['customers'], 'selected_box=customers') . '">' . BOX_HEADING_CUSTOMERS; ?></a>
+							<?php echo '<a href="' . oos_href_link_admin($aContents['customers'], 'selected_box=customers') . '">' . BOX_HEADING_CUSTOMERS . '</a>'; ?>
 						</li>
 						<li class="breadcrumb-item active">
 							<strong><?php echo HEADING_TITLE; ?></strong>

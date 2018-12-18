@@ -97,10 +97,10 @@
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item">
-							<a href="<?php echo oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
+							<?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
 						</li>
 						<li class="breadcrumb-item">
-							<a href="<?php echo oos_href_link_admin($aContents['admin_account'], 'selected_box=administrator') . '">' . BOX_HEADING_ADMINISTRATOR . '</a>'; ?>
+							<?php echo '<a href="' . oos_href_link_admin($aContents['admin_account'], 'selected_box=administrator') . '">' . BOX_HEADING_ADMINISTRATOR . '</a>'; ?>
 						</li>
 						<li class="breadcrumb-item active">
 							<strong><?php echo HEADING_TITLE; ?></strong>
@@ -127,11 +127,13 @@
                           WHERE admin_files_id = " . $_GET['cPath'];
     $current_box = $dbconn->GetRow($current_box_query);
 ?>
-            <table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_FILENAME; ?></td>
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
-              </tr>
+		<table class="table table-striped w-100">
+			<thead>
+				<tr>
+					<td><?php echo TABLE_HEADING_FILENAME; ?></td>
+					<td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+				</tr>	
+			</thead>
 <?php
     $admin_filestable = $oostable['admin_files'];
     $db_file_result_raw = "SELECT admin_files_id, admin_files_name 
@@ -174,12 +176,14 @@
 <?php
    } else {
 ?>
-            <table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent" width="60%"><?php echo TABLE_HEADING_BOXES; ?></td>
-                <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_STATUS; ?></td>
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
-              </tr>
+		<table class="table table-striped w-100">
+			<thead>
+				<tr>
+					<td width="60%"><?php echo TABLE_HEADING_BOXES; ?></td>
+					<td align="center"><?php echo TABLE_HEADING_STATUS; ?></td>
+					<td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+				</tr>	
+			</thead>			  
 <?php
     $admin_filestable = $oostable['admin_files'];
     $installed_boxes_query = "SELECT admin_files_name AS admin_boxes_name

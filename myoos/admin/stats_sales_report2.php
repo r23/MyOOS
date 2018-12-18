@@ -209,10 +209,10 @@
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item">
-							<a href="<?php echo oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
+							<?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
 						</li>
 						<li class="breadcrumb-item">
-							<a href="<?php echo oos_href_link_admin($aContents['stats_products_purchased'], 'selected_box=reports') . '">' . BOX_HEADING_REPORTS . '</a>'; ?>
+							<?php echo '<a href="' . oos_href_link_admin($aContents['stats_products_purchased'], 'selected_box=reports') . '">' . BOX_HEADING_REPORTS . '</a>'; ?>
 						</li>
 						<li class="breadcrumb-item active">
 							<strong><?php echo HEADING_TITLE; ?></strong>
@@ -399,14 +399,17 @@
             <table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
                 <td valign="top">
-                  <table border="0" width="100%" cellspacing="0" cellpadding="2">
-                    <tr class="dataTableHeadingRow">
-                      <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_DATE; ?></td>
-                      <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ORDERS;?></td>
-                      <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ITEMS; ?></td>
-                      <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_REVENUE;?></td>
-                      <td class="dataTableHeadingContent" align="right"><?php echo  TABLE_HEADING_SHIPPING;?></td>
-                    </tr>
+				
+				<table class="table table-striped w-100">
+					<thead>
+						<tr>
+							<td align="right"><?php echo TABLE_HEADING_DATE; ?></td>
+							<td align="right"><?php echo TABLE_HEADING_ORDERS;?></td>
+							<td align="right"><?php echo TABLE_HEADING_ITEMS; ?></td>
+							<td align="right"><?php echo TABLE_HEADING_REVENUE;?></td>
+							<td align="right"><?php echo  TABLE_HEADING_SHIPPING;?></td>
+						</tr>	
+					</thead>
 <?php
 } // end of if $srExp < 2 csv export
 $sum = 0;

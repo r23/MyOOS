@@ -703,14 +703,17 @@ $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " .
 
 <!-- Begin Products Listing Block -->
       <tr>
-  <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-    <tr class="dataTableHeadingRow">
-      <td class="dataTableHeadingContent" colspan="2"><?php echo TABLE_HEADING_PRODUCTS; ?></td>
-      <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_PRODUCTS_MODEL; ?></td>
-      <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_TAX; ?></td>
-      <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_UNIT_PRICE; ?></td>
-      <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_TOTAL_PRICE; ?></td>
-    </tr>
+  <td>
+  				<table class="table table-striped w-100">
+					<thead>
+						<tr>
+							<td colspan="2"><?php echo TABLE_HEADING_PRODUCTS; ?></td>
+							<td><?php echo TABLE_HEADING_PRODUCTS_MODEL; ?></td>
+							<td align="center"><?php echo TABLE_HEADING_TAX; ?></td>
+							<td align="right"><?php echo TABLE_HEADING_UNIT_PRICE; ?></td>
+							<td align="right"><?php echo TABLE_HEADING_TOTAL_PRICE; ?></td>
+						</tr>	
+					</thead>
 
   <!-- Begin Products Listings Block -->
   <?php

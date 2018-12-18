@@ -154,10 +154,10 @@ td.style.backgroundColor="DFE4F4";
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item">
-							<a href="<?php echo oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
+							<?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
 						</li>
 						<li class="breadcrumb-item">
-							<a href="<?php echo oos_href_link_admin(oos_selected_file('catalog.php'), 'selected_box=catalog') . '">' . BOX_HEADING_CATALOG . '</a>'; ?>
+							<?php echo '<a href="' . oos_href_link_admin(oos_selected_file('catalog.php'), 'selected_box=catalog') . '">' . BOX_HEADING_CATALOG . '</a>'; ?>
 						</li>
 						<li class="breadcrumb-item active">
 							<strong><?php echo HEADING_TITLE; ?></strong>
@@ -173,14 +173,17 @@ td.style.backgroundColor="DFE4F4";
 <?php
   if ($_GET['add_related_product_id'] == ''){
 ?>
-      <table border="0" cellspacing="1" cellpadding="2" bgcolor="#999999" align="center">
-        <tr class="dataTableHeadingRow">
-          <td class="dataTableHeadingContent" width="75"><?php echo TABLE_HEADING_PRODUCT_ID;?></td>
-          <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_PRODUCT_MODEL;?></td>
-          <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_PRODUCT_NAME;?></td>
-          <td class="dataTableHeadingContent" nowrap><?php echo TABLE_HEADING_CURRENT_SELLS;?></td>
-          <td class="dataTableHeadingContent" colspan="2" nowrap align="center"><?php echo TABLE_HEADING_UPDATE_SELLS;?></td>
-        </tr>
+
+				<table class="table table-striped w-100">
+					<thead>
+						<tr>
+							<td width="75"><?php echo TABLE_HEADING_PRODUCT_ID;?></td>
+							<td><?php echo TABLE_HEADING_PRODUCT_MODEL;?></td>
+							<td><?php echo TABLE_HEADING_PRODUCT_NAME;?></td>
+							<td nowrap><?php echo TABLE_HEADING_CURRENT_SELLS;?></td>
+							<td colspan="2" nowrap align="center"><?php echo TABLE_HEADING_UPDATE_SELLS;?></td>
+						</tr>	
+					</thead>
 <?php
     $productstable = $oostable['products'];
     $products_descriptiontable = $oostable['products_description'];
@@ -241,7 +244,7 @@ td.style.backgroundColor="DFE4F4";
       }
 ?>
       </table></td>
-      <td class="dataTableContent" valign="top">&nbsp;<a href="<?php echo oos_href_link_admin($aContents['up_sell_products'], oos_get_all_get_params(array('action')) . 'add_related_product_id=' . $products['products_id']);?>"><?php echo TEXT_EDIT_SELLS;?></a>&nbsp;</td>
+      <td class="dataTableContent" valign="top">&nbsp;<?php echo '<a href="' . oos_href_link_admin($aContents['up_sell_products'], oos_get_all_get_params(array('action')) . 'add_related_product_id=' . $products['products_id']);?>"><?php echo TEXT_EDIT_SELLS;?></a>&nbsp;</td>
       <td class="dataTableContent" valign="top" align="center">&nbsp;<?php echo (($i > 0) ? '<a href="' . oos_href_link_admin($aContents['up_sell_products'], oos_get_all_get_params(array('action')) . 'sort=1&add_related_product_id=' . $products['products_id']) .'">'.TEXT_SORT.'</a>&nbsp;' : '--')?></td>
     </tr>
 <?php

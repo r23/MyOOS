@@ -97,12 +97,15 @@
     <td></td>
   </tr>
   <tr>
-    <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr class="dataTableHeadingRow">
-        <td class="dataTableHeadingContent" colspan="2"><?php echo TABLE_HEADING_PRODUCTS; ?></td>
-        <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_PRODUCTS_SERIAL_NUMBER; ?></td>
-        <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_PRODUCTS_MODEL; ?></td>
-      </tr>
+    <td>
+				<table class="table table-striped w-100">
+					<thead>
+						<tr>
+							<td colspan="2"><?php echo TABLE_HEADING_PRODUCTS; ?></td>
+							<td><?php echo TABLE_HEADING_PRODUCTS_SERIAL_NUMBER; ?></td>
+							<td><?php echo TABLE_HEADING_PRODUCTS_MODEL; ?></td>
+						</tr>	
+					</thead>
 <?php
     for ($i = 0, $n = count($order->products); $i < $n; $i++) {
       echo '      <tr class="dataTableRow">' . "\n" .

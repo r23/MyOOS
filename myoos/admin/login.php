@@ -98,7 +98,7 @@ function setFocus() {
 			<div><?php echo oos_draw_password_field('password', '', 'class="inputbox" size="15"'); ?></div>
 
 	        	<div align="left"><input type="submit" name="submit" class="button" value="Login" /></div>
-                        <div class="ctr"><a href="<?php echo oos_href_link_admin($aContents['password_forgotten'], '') . '">' . TEXT_PASSWORD_FORGOTTEN; ?></a></div>
+                        <div class="ctr"><?php echo '<a href="' . oos_href_link_admin($aContents['password_forgotten'], '') . '">' . TEXT_PASSWORD_FORGOTTEN; ?></a></div>
 
 
         	</div>

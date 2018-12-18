@@ -106,10 +106,10 @@
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item">
-							<a href="<?php echo oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP; ?></a>
+							<?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
 						</li>
 						<li class="breadcrumb-item">
-							<a href="<?php echo oos_href_link_admin($aContents['admin_account'], 'selected_box=administrator') . '">' . BOX_HEADING_ADMINISTRATOR; ?></a>
+							<?php echo '<a href="' . oos_href_link_admin($aContents['admin_account'], 'selected_box=administrator') . '">' . BOX_HEADING_ADMINISTRATOR . '</a>'; ?>
 						</li>
 						<li class="breadcrumb-item active">
 							<strong><?php echo HEADING_TITLE; ?></strong>
@@ -133,11 +133,13 @@
   $my_account_query = "SELECT a.admin_id, a.admin_firstname, a.admin_lastname, a.admin_email_address, a.admin_created, a.admin_modified, a.admin_logdate, a.admin_lognum, g.admin_groups_name FROM " . $oostable['admin'] . " a, " . $oostable['admin_groups'] . " g WHERE a.admin_id= " . $_SESSION['login_id'] . " AND g.admin_groups_id= " . $_SESSION['login_groups_id'] . "";
   $myAccount = $dbconn->GetRow($my_account_query);
 ?>
-            <table border="0" width="100%" cellspacing="0" cellpadding="2" align="center">
-              <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_ACCOUNT; ?>
-                </td>
-              </tr>
+				<table class="table table-striped w-100">
+					<thead>
+						<tr>
+							<td><?php echo TABLE_HEADING_ACCOUNT; ?></td>
+						</tr>	
+					</thead>
+
               <tr class="dataTableRow">
                 <td>
                   <table border="0" cellspacing="0" cellpadding="3">

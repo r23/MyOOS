@@ -224,10 +224,10 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 					<h2><?php echo HEADING_TITLE; ?></h2>
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item">
-							<a href="<?php echo oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
+							<?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
 						</li>
 						<li class="breadcrumb-item">
-							<a href="<?php echo oos_href_link_admin($aContents['admin_account'], 'selected_box=administrator') . '">' . BOX_HEADING_ADMINISTRATOR . '</a>'; ?>
+							<?php echo '<a href="' . oos_href_link_admin($aContents['admin_account'], 'selected_box=administrator') . '">' . BOX_HEADING_ADMINISTRATOR . '</a>'; ?>
 						</li>
 						<li class="breadcrumb-item active">
 							<strong><?php echo HEADING_TITLE; ?></strong>
@@ -259,10 +259,13 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
      echo oos_draw_hidden_field('admin_groups_id', $_GET['gPath']);
    }
 ?>
-            <table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr class="dataTableHeadingRow">
-                <td colspan=2 class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_GROUPS_DEFINE; ?></td>
-              </tr>
+		<table class="table table-striped w-100">
+			<thead>
+				<tr>
+					<td colspan=2>&nbsp;<?php echo TABLE_HEADING_GROUPS_DEFINE; ?></td>		  
+				</tr>	
+			</thead>			  
+			  
 <?php
   $admin_filestable = $oostable['admin_files'];
   $db_boxes_query = "SELECT admin_files_id as admin_boxes_id, admin_files_name as admin_boxes_name, admin_groups_id as boxes_group_id FROM $admin_filestable WHERE admin_files_is_boxes = '1' ORDER BY admin_files_name";
@@ -350,11 +353,13 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 <?php
  } elseif ($_GET['gID']) {
 ?>
-            <table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_GROUPS_NAME; ?></td>
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
-              </tr>
+		<table class="table table-striped w-100">
+			<thead>
+				<tr>
+					<td>&nbsp;<?php echo TABLE_HEADING_GROUPS_NAME; ?></td>
+					<td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>			  
+				</tr>	
+			</thead>			  
 <?php
   $db_groups_query = "SELECT * FROM ". $oostable['admin_groups'] . " ORDER BY admin_groups_id";
   $db_groups_result = $dbconn->Execute($db_groups_query);
@@ -399,14 +404,16 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 <?php
  } else {
 ?>
-            <table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_NAME; ?></td>
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_EMAIL; ?></td>
-                <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_GROUPS; ?></td>
-                <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_LOGNUM; ?></td>
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
-              </tr>
+		<table class="table table-striped w-100">
+			<thead>
+				<tr>
+					<td><?php echo TABLE_HEADING_NAME; ?></td>
+					<td><?php echo TABLE_HEADING_EMAIL; ?></td>
+					<td align="center"><?php echo TABLE_HEADING_GROUPS; ?></td>
+					<td align="center"><?php echo TABLE_HEADING_LOGNUM; ?></td>
+					<td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+				</tr>	
+			</thead>
 <?php
   $db_admin_result_raw = "SELECT * FROM " . $oostable['admin'] . " ORDER BY admin_firstname";
 

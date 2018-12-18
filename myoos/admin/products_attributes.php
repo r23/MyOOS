@@ -253,10 +253,9 @@ function go_option() {
                 <td>&nbsp;&nbsp;</td>
               </tr>
               <tr>
-                <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-                  <tr>
-                    <td colspan="3"><?php echo oos_black_line(); ?></td>
-                  </tr>
+                <td>
+
+				<table class="table table-striped w-100">	
 <?php
     $productstable = $oostable['products'];
     $products_options_valuestable = $oostable['products_options_values'];
@@ -265,14 +264,13 @@ function go_option() {
     $products = $dbconn->Execute("SELECT p.products_id, pd.products_name, pov.products_options_values_name FROM $productstable p, $products_options_valuestable pov, $products_attributestable pa, $products_descriptiontable pd WHERE pd.products_id = p.products_id AND pov.products_options_values_languages_id = '" . intval($_SESSION['language_id']) . "' AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' AND pa.products_id = p.products_id AND pa.options_id='" . $_GET['option_id'] . "' AND pov.products_options_values_id = pa.options_values_id ORDER BY pd.products_name");
     if ($products->RecordCount()) {
 ?>
-                  <tr class="dataTableHeadingRow">
-                    <td class="dataTableHeadingContent" align="center">&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</td>
-                    <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_PRODUCT; ?>&nbsp;</td>
-                    <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_OPT_VALUE; ?>&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td colspan="3"><?php echo oos_black_line(); ?></td>
-                  </tr>
+					<thead>
+						<tr>	
+							<td align="center">&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</td>
+							<td>&nbsp;<?php echo TABLE_HEADING_PRODUCT; ?>&nbsp;</td>
+							<td>&nbsp;<?php echo TABLE_HEADING_OPT_VALUE; ?>&nbsp;</td>
+						</tr>
+					</thead>
 <?php
       $rows = 0;
       while ($products_values = $products->fields) {
@@ -374,18 +372,14 @@ function go_option() {
 ?>
                 </td>
               </tr>
-              <tr>
-                <td colspan="4"><?php echo oos_black_line(); ?></td>
-              </tr>
-              <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</td>
-                <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</td>
-                <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_OPT_TYPE; ?>&nbsp;</td>
-                <td class="dataTableHeadingContent" align="center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
-              </tr>
-              <tr>
-                <td colspan="4"><?php echo oos_black_line(); ?></td>
-              </tr>
+					<thead>
+						<tr>
+							<td>&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</td>
+							<td>&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</td>
+							<td>&nbsp;<?php echo TABLE_HEADING_OPT_TYPE; ?>&nbsp;</td>
+							<td align="center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+						</tr>	
+					</thead>
 <?php
     $next_id = 1;
     $rows = 0;
@@ -477,10 +471,9 @@ function go_option() {
                 <td>&nbsp;&nbsp;</td>
               </tr>
               <tr>
-                <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-                  <tr>
-                    <td colspan="3"><?php echo oos_black_line(); ?></td>
-                  </tr>
+                <td>
+				
+				<table class="table table-striped w-100">			
 <?php
     $productstable = $oostable['products'];
     $products_attributestable = $oostable['products_attributes'];
@@ -489,14 +482,13 @@ function go_option() {
     $products = $dbconn->Execute("SELECT p.products_id, pd.products_name, po.products_options_name FROM $productstable p, $products_attributestable pa, $products_optionstable po, $products_descriptiontable pd WHERE pd.products_id = p.products_id AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' AND po.products_options_languages_id = '" . intval($_SESSION['language_id']) . "' AND pa.products_id = p.products_id AND pa.options_values_id='" . $_GET['value_id'] . "' AND po.products_options_id = pa.options_id ORDER BY pd.products_name");
     if ($products->RecordCount()) {
 ?>
-                  <tr class="dataTableHeadingRow">
-                    <td class="dataTableHeadingContent" align="center">&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</td>
-                    <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_PRODUCT; ?>&nbsp;</td>
-                    <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td colspan="3"><?php echo oos_black_line(); ?></td>
-                  </tr>
+					<thead>
+						<tr>
+							<td align="center">&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</td>
+							<td>&nbsp;<?php echo TABLE_HEADING_PRODUCT; ?>&nbsp;</td>
+							<td>&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</td>
+						</tr>	
+					</thead>
 <?php
       $rows = 0;
       while ($products_values = $products->fields) {
@@ -595,18 +587,15 @@ function go_option() {
 ?>
                 </td>
               </tr>
-              <tr>
-                <td colspan="4"><?php echo oos_black_line(); ?></td>
-              </tr>
-              <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</td>
-                <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</td>
-                <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_OPT_VALUE; ?>&nbsp;</td>
-                <td class="dataTableHeadingContent" align="center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
-              </tr>
-              <tr>
-                <td colspan="4"><?php echo oos_black_line(); ?></td>
-              </tr>
+			  
+					<thead>
+						<tr>
+							<td>&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</td>
+							<td>&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</td>
+							<td>&nbsp;<?php echo TABLE_HEADING_OPT_VALUE; ?>&nbsp;</td>
+							<td align="center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+						</tr>	
+					</thead>
 <?php
     $next_id = 1;
     $rows = 0;
@@ -787,23 +776,19 @@ function go_option() {
   }
 ?>
             </td>
-          </tr>
-          <tr>
-            <td colspan="8"><?php echo oos_black_line(); ?></td>
-          </tr>
-          <tr class="dataTableHeadingRow">
-            <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</td>
-            <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_PRODUCT; ?>&nbsp;</td>
-            <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</td>
-            <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_OPT_VALUE; ?>&nbsp;</td>
-            <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_SORT_ORDER_VALUE; ?>&nbsp;</td>
-            <td class="dataTableHeadingContent" align="right">&nbsp;<?php echo TABLE_HEADING_OPT_PRICE; ?>&nbsp;</td>
-            <td class="dataTableHeadingContent" align="center">&nbsp;<?php echo TABLE_HEADING_OPT_PRICE_PREFIX; ?>&nbsp;</td>
-            <td class="dataTableHeadingContent" align="center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
-          </tr>
-          <tr>
-            <td colspan="8"><?php echo oos_black_line(); ?></td>
-          </tr>
+          </tr>  
+					<thead>
+						<tr>
+							<td>&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</td>
+							<td>&nbsp;<?php echo TABLE_HEADING_PRODUCT; ?>&nbsp;</td>
+							<td>&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</td>
+							<td>&nbsp;<?php echo TABLE_HEADING_OPT_VALUE; ?>&nbsp;</td>
+							<td>&nbsp;<?php echo TABLE_HEADING_SORT_ORDER_VALUE; ?>&nbsp;</td>
+							<td align="right">&nbsp;<?php echo TABLE_HEADING_OPT_PRICE; ?>&nbsp;</td>
+							<td align="center">&nbsp;<?php echo TABLE_HEADING_OPT_PRICE_PREFIX; ?>&nbsp;</td>
+							<td align="center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+						</tr>	
+					</thead>
 <?php
   $next_id = 1;
   $rows = 0;
@@ -905,7 +890,7 @@ function go_option() {
             <td colspan="5">
               <table>
                 <tr class="<?php echo (!($rows % 2)? 'attributes-even' : 'attributes-odd');?>">
-                  <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_DOWNLOAD; ?>&nbsp;</td>
+                  <td><?php echo TABLE_HEADING_DOWNLOAD; ?>&nbsp;</td>
                   <td class="smallText"><?php echo TABLE_TEXT_FILENAME; ?></td>
                   <td class="smallText"><?php echo oos_draw_input_field('products_attributes_filename', $products_attributes_filename, 'size="15"'); ?>&nbsp;</td>
                   <td class="smallText"><?php echo TABLE_TEXT_MAX_DAYS; ?></td>
@@ -1029,7 +1014,7 @@ function go_option() {
             <td colspan="6">
               <table>
                 <tr class="<?php echo (!($rows % 2)? 'attributes-even' : 'attributes-odd');?>">
-                  <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_DOWNLOAD; ?>&nbsp;</td>
+                  <td><?php echo TABLE_HEADING_DOWNLOAD; ?>&nbsp;</td>
                   <td class="smallText"><?php echo TABLE_TEXT_FILENAME; ?></td>
                   <td class="smallText"><?php echo oos_draw_input_field('products_attributes_filename', $products_attributes_filename, 'size="15"'); ?>&nbsp;</td>
                   <td class="smallText"><?php echo TABLE_TEXT_MAX_DAYS; ?></td>
