@@ -241,9 +241,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 				<div class="row">
 					<div class="col-lg-12">	
 <!-- body_text //-->
-	<table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+	<div class="table-responsive">
+		<table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td valign="top">
 <?php
@@ -259,7 +258,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
      echo oos_draw_hidden_field('admin_groups_id', $_GET['gPath']);
    }
 ?>
-		<table class="table table-striped w-100">
+		<table class="table table-striped table-hover w-100">
 			<thead>
 				<tr>
 					<td colspan=2>&nbsp;<?php echo TABLE_HEADING_GROUPS_DEFINE; ?></td>		  
@@ -294,13 +293,13 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       $checked = false;
     }
 ?>
-              <tr class="dataTableRowBoxes">
-                <td class="dataTableContent" width="23"><?php echo oos_draw_checkbox_field('groups_to_boxes[]', $group_boxes['admin_boxes_id'], $checked, '', 'id="groups_' . $group_boxes['admin_boxes_id'] . '" onClick="checkGroups(this)"'); ?></td>
-                <td class="dataTableContent"><b><?php echo ucwords(substr_replace ($group_boxes['admin_boxes_name'], '', -4)) . ' ' . oos_draw_hidden_field('checked_' . $group_boxes['admin_boxes_id'], $checkedBox) . oos_draw_hidden_field('unchecked_' . $group_boxes['admin_boxes_id'], $uncheckedBox); ?></b></td>
+              <tr>
+                <td width="23"><?php echo oos_draw_checkbox_field('groups_to_boxes[]', $group_boxes['admin_boxes_id'], $checked, '', 'id="groups_' . $group_boxes['admin_boxes_id'] . '" onClick="checkGroups(this)"'); ?></td>
+                <td><b><?php echo ucwords(substr_replace ($group_boxes['admin_boxes_name'], '', -4)) . ' ' . oos_draw_hidden_field('checked_' . $group_boxes['admin_boxes_id'], $checkedBox) . oos_draw_hidden_field('unchecked_' . $group_boxes['admin_boxes_id'], $uncheckedBox); ?></b></td>
               </tr>
               <tr class="dataTableRow">
-                <td class="dataTableContent">&nbsp;</td>
-                <td class="dataTableContent">
+                <td>&nbsp;</td>
+                <td>
                   <table border="0" cellspacing="0" cellpadding="0">
 <?php
      while($group_boxes_files = $group_boxes_files_result->fields) {
@@ -325,7 +324,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 ?>
                     <tr>
                       <td width="20"><?php echo oos_draw_checkbox_field('groups_to_boxes[]', $group_boxes_files['admin_files_id'], $checked, '', 'id="subgroups_' . $group_boxes['admin_boxes_id'] . '" onClick="checkSub(this)"'); ?></td>
-                      <td class="dataTableContent"><?php echo $group_boxes_files['admin_files_name'] . ' ' . oos_draw_hidden_field('checked_' . $group_boxes_files['admin_files_id'], $checkedBox) . oos_draw_hidden_field('unchecked_' . $group_boxes_files['admin_files_id'], $uncheckedBox);?></td>
+                      <td><?php echo $group_boxes_files['admin_files_name'] . ' ' . oos_draw_hidden_field('checked_' . $group_boxes_files['admin_files_id'], $checkedBox) . oos_draw_hidden_field('unchecked_' . $group_boxes_files['admin_files_id'], $uncheckedBox);?></td>
                     </tr>
 <?php
         // Move that ADOdb pointer!
@@ -346,8 +345,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
   // Close result set
   $db_boxes_result->Close();
 ?>
-              <tr class="dataTableRowBoxes">
-                <td colspan=2 class="dataTableContent" valign="top" align="right"><?php if ($_GET['gPath'] != 1) { echo  '<a href="' . oos_href_link_admin($aContents['admin_members'], 'gID=' . $_GET['gPath']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a> ' . oos_submit_button('save', BUTTON_INSERT); } else { echo oos_submit_button('back', IMAGE_BACK); } ?>&nbsp;</td>
+              <tr>
+                <td colspan="2" valign="top" align="right"><?php if ($_GET['gPath'] != 1) { echo  '<a href="' . oos_href_link_admin($aContents['admin_members'], 'gID=' . $_GET['gPath']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a> ' . oos_submit_button('save', BUTTON_INSERT); } else { echo oos_submit_button('back', IMAGE_BACK); } ?>&nbsp;</td>
               </tr>
             </table></form>
 <?php
@@ -380,8 +379,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       $del_groups_prepare .= ',\'' . $groups['admin_groups_id'] . '\'' ;
     }
 ?>
-                <td class="dataTableContent">&nbsp;<b><?php echo $groups['admin_groups_name']; ?></b></td>
-                <td class="dataTableContent" align="right"><?php if (isset($gInfo) && is_object($gInfo) && ($groups['admin_groups_id'] == $gInfo->admin_groups_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['admin_members'], 'gID=' . $groups['admin_groups_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td>&nbsp;<b><?php echo $groups['admin_groups_name']; ?></b></td>
+                <td align="right"><?php if (isset($gInfo) && is_object($gInfo) && ($groups['admin_groups_id'] == $gInfo->admin_groups_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['admin_members'], 'gID=' . $groups['admin_groups_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
     $count_groups++;
@@ -435,11 +434,11 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       echo '                  <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['admin_members'], 'page=' . $nPage . '&mID=' . $admin['admin_id']) . '\'">' . "\n";
     }
 ?>
-                <td class="dataTableContent">&nbsp;<?php echo $admin['admin_firstname']; ?>&nbsp;<?php echo $admin['admin_lastname']; ?></td>
-                <td class="dataTableContent"><?php echo $admin['admin_email_address']; ?></td>
-                <td class="dataTableContent" align="center"><?php echo $admin_group['admin_groups_name']; ?></td>
-                <td class="dataTableContent" align="center"><?php echo $admin['admin_lognum']; ?></td>
-                <td class="dataTableContent" align="right"><?php if (isset($mInfo) && is_object($mInfo) && ($admin['admin_id'] == $mInfo->admin_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['admin_members'], 'page=' . $nPage . '&mID=' . $admin['admin_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td>&nbsp;<?php echo $admin['admin_firstname']; ?>&nbsp;<?php echo $admin['admin_lastname']; ?></td>
+                <td><?php echo $admin['admin_email_address']; ?></td>
+                <td align="center"><?php echo $admin_group['admin_groups_name']; ?></td>
+                <td align="center"><?php echo $admin['admin_lognum']; ?></td>
+                <td align="right"><?php if (isset($mInfo) && is_object($mInfo) && ($admin['admin_id'] == $mInfo->admin_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['admin_members'], 'page=' . $nPage . '&mID=' . $admin['admin_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
     // Move that ADOdb pointer!
@@ -639,9 +638,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
   }
 ?>
           </tr>
-        </table></td>
-      </tr>
-    </table>
+        </table>
+	</div>
 <!-- body_text_eof //-->
 
 				</div>
