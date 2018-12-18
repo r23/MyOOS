@@ -170,8 +170,6 @@ require 'includes/header.php';
 		<div class="wrapper wrapper-content">
 			<div class="row">
 				<div class="col-lg-12">		
-<!-- body_text //-->
-	<table border="0" width="100%" cellspacing="0" cellpadding="2">
 
 <?php
   if ( ($action == 'new') || ($action == 'edit') ) {
@@ -227,6 +225,8 @@ require 'includes/header.php';
 
     }
 ?>
+<!-- body_text //-->
+	<table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr><form name="new_feature" <?php echo 'action="' . oos_href_link_admin($aContents['featured'], oos_get_all_get_params(array('action', 'info', 'fID')) . 'action=' . $form_action) . '"'; ?> method="post">
 <?php
   if ($form_action == 'update') {
@@ -260,11 +260,12 @@ require 'includes/header.php';
           </tr>
         </table></td>
       </form></tr>
+	</table>
 <?php
   } else {
 ?>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+	<div class="table-responsive">
+		<table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td valign="top">
 			
@@ -291,14 +292,14 @@ require 'includes/header.php';
       }
 
       if (isset($sInfo) && is_object($sInfo) && ($featured['featured_id'] == $sInfo->featured_id) ) {
-        echo '                  <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=edit') . '\'">' . "\n";
+        echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=edit') . '\'">' . "\n";
       } else {
-        echo '                  <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $featured['featured_id']) . '\'">' . "\n";
+        echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $featured['featured_id']) . '\'">' . "\n";
       }
 ?>
-                <td  class="dataTableContent"><?php echo $featured['products_name']; ?></td>
-                <td  class="dataTableContent" align="right">&nbsp;</td>
-                <td  class="dataTableContent" align="right">
+                <td><?php echo $featured['products_name']; ?></td>
+                <td  align="right">&nbsp;</td>
+                <td  align="right">
 <?php
       if ($featured['status'] == '1') {
         echo '<a href="' . oos_href_link_admin($aContents['featured'], 'action=setflag&flag=0&id=' . $featured['featured_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
@@ -306,7 +307,7 @@ require 'includes/header.php';
         echo '<a href="' . oos_href_link_admin($aContents['featured'], 'action=setflag&flag=1&id=' . $featured['featured_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
       }
 ?></td>
-                <td class="dataTableContent" align="right"><?php if ( (is_object($sInfo)) && ($featured['featured_id'] == $sInfo->featured_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $featured['featured_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td align="right"><?php if ( (is_object($sInfo)) && ($featured['featured_id'] == $sInfo->featured_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $featured['featured_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
       </tr>
 <?php
       // Move that ADOdb pointer!
@@ -317,7 +318,7 @@ require 'includes/header.php';
     $featured_result->Close();
 ?>
               <tr>
-                <td colspan="4"><table border="0" width="100%" cellpadding="0"cellspacing="2">
+                <td colspan="4"><table border="0" width="100%" cellpadding="0" cellspacing="2">
                   <tr>
                     <td class="smallText" valign="top"><?php echo $featured_split->display_count($featured_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $nPage, TEXT_DISPLAY_NUMBER_OF_FEATURED); ?></td>
                     <td class="smallText" align="right"><?php echo $featured_split->display_links($featured_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage); ?></td>
@@ -377,9 +378,8 @@ require 'includes/header.php';
 }
 ?>
           </tr>
-        </table></td>
-      </tr>
-    </table>
+        </table>
+	</div>
 <!-- body_text_eof //-->
 				</div>
 			</div>

@@ -179,15 +179,18 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 				<div class="row">
 					<div class="col-lg-12">					
 <!-- body_text //-->
-	<table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr>
-        <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+	<div class="table-responsive">
+		<table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_PAGE_TYPE; ?></td>
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
-              </tr>
+            <td valign="top">
+				<table class="table table-striped table-hover w-100">
+					<thead>
+						<tr>
+							<td><?php echo TABLE_HEADING_PAGE_TYPE; ?></td>
+							<td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+						</tr>	
+					</thead>			
+			
 <?php
   $page_type_result_raw = "SELECT 
                                   page_type_id, page_type_name 
@@ -205,9 +208,9 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     }
 
     if (isset($oInfo) && is_object($oInfo) && ($page_type['page_type_id'] == $oInfo->page_type_id)) {
-      echo '                  <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['content_page_type'], 'page=' . $nPage . '&ptID=' . $oInfo->page_type_id . '&action=edit') . '\'">' . "\n";
+      echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['content_page_type'], 'page=' . $nPage . '&ptID=' . $oInfo->page_type_id . '&action=edit') . '\'">' . "\n";
     } else {
-      echo '                  <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['content_page_type'], 'page=' . $nPage . '&ptID=' . $page_type['page_type_id']) . '\'">' . "\n";
+      echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['content_page_type'], 'page=' . $nPage . '&ptID=' . $page_type['page_type_id']) . '\'">' . "\n";
     }
 
     echo '                <td class="dataTableContent">' . $page_type['page_type_name'] . '</td>' . "\n";
@@ -316,9 +319,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
   }
 ?>
           </tr>
-        </table></td>
-      </tr>
-    </table>
+        </table>
+	</div>
 <!-- body_text_eof //-->
 
 				</div>

@@ -209,16 +209,15 @@ function update_zone(theForm) {
 					<div class="col-lg-12">	
 	
 <!-- body_text //-->
-	<table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+<div class="table-responsive">
+	<table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td valign="top">
 <?php
   if ($action == 'list') {
 ?>
 
-				<table class="table table-striped w-100">
+				<table class="table table-striped table-hover w-100">
 					<thead>
 						<tr>
 							<td><?php echo TABLE_HEADING_COUNTRY; ?></td>
@@ -228,7 +227,7 @@ function update_zone(theForm) {
 					</thead>
 <?php
     $rows = 0;
-    $zones_result_raw = "SELECT a.association_id, a.zone_country_id, c.countries_name, a.zone_id, a.geo_zone_id, a.last_modified, a.date_added, z.zone_name FROM " . $oostable['zones_to_geo_zones'] . " a left join " . $oostable['countries'] . " c on a.zone_country_id = c.countries_id left join " . $oostable['zones'] . " z on a.zone_id = z.zone_id WHERE a.geo_zone_id = " . $_GET['zID'] . " ORDER BY association_id";
+    $zones_result_raw = "SELECT a.association_id, a.zone_country_id, c.countries_name, a.zone_id, a.geo_zone_id, a.last_modified, a.date_added, z.zone_name FROM " . $oostable['zones_to_geo_zones'] . " a left join " . $oostable['billing_address_countries'] . " c on a.zone_country_id = c.countries_id left join " . $oostable['zones'] . " z on a.zone_id = z.zone_id WHERE a.geo_zone_id = " . intval($_GET['zID']) . " ORDER BY association_id";
     $zones_split = new splitPageResults($nsPage, MAX_DISPLAY_SEARCH_RESULTS, $zones_result_raw, $zones_result_numrows);
     $zones_result = $dbconn->Execute($zones_result_raw);
     while ($zones = $zones_result->fields) {
@@ -237,14 +236,14 @@ function update_zone(theForm) {
         $sInfo = new objectInfo($zones);
       }
       if (isset($sInfo) && is_object($sInfo) && ($zones['association_id'] == $sInfo->association_id)) {
-        echo '                  <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $nsPage . '&sID=' . $sInfo->association_id . '&saction=edit') . '\'">' . "\n";
+        echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $nsPage . '&sID=' . $sInfo->association_id . '&saction=edit') . '\'">' . "\n";
       } else {
-        echo '                  <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $nsPage . '&sID=' . $zones['association_id']) . '\'">' . "\n";
+        echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $nsPage . '&sID=' . $zones['association_id']) . '\'">' . "\n";
       }
 ?>
-                <td class="dataTableContent"><?php echo (($zones['countries_name']) ? $zones['countries_name'] : TEXT_ALL_COUNTRIES); ?></td>
-                <td class="dataTableContent"><?php echo (($zones['zone_id']) ? $zones['zone_name'] : PLEASE_SELECT); ?></td>
-                <td class="dataTableContent" align="right"><?php if (isset($sInfo) && is_object($sInfo) && ($zones['association_id'] == $sInfo->association_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $nsPage . '&sID=' . $zones['association_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td><?php echo (($zones['countries_name']) ? $zones['countries_name'] : TEXT_ALL_COUNTRIES); ?></td>
+                <td><?php echo (($zones['zone_id']) ? $zones['zone_name'] : PLEASE_SELECT); ?></td>
+                <td align="right"><?php if (isset($sInfo) && is_object($sInfo) && ($zones['association_id'] == $sInfo->association_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . intval($nzPage) . '&zID=' . intval($_GET['zID']) . '&action=list&spage=' . $nsPage . '&sID=' . $zones['association_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
       // Move that ADOdb pointer!
@@ -269,7 +268,7 @@ function update_zone(theForm) {
 <?php
   } else {
 ?>
-				<table class="table table-striped w-100">
+				<table class="table table-striped table-hover w-100">
 					<thead>
 						<tr>
 							<td><?php echo TABLE_HEADING_TAX_ZONES; ?></td>
@@ -288,13 +287,13 @@ function update_zone(theForm) {
         $zInfo = new objectInfo($zones);
       }
       if (isset($zInfo) && is_object($zInfo) && ($zones['geo_zone_id'] == $zInfo->geo_zone_id) ) {
-        echo '                  <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $zInfo->geo_zone_id . '&action=list') . '\'">' . "\n";
+        echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $zInfo->geo_zone_id . '&action=list') . '\'">' . "\n";
       } else {
-        echo '                  <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $zones['geo_zone_id']) . '\'">' . "\n";
+        echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $zones['geo_zone_id']) . '\'">' . "\n";
       }
 ?>
-                <td class="dataTableContent"><?php echo '<a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $zones['geo_zone_id'] . '&action=list') . '"><i class="fa fa-folder"></i></button></a>&nbsp;' . $zones['geo_zone_name']; ?></td>
-                <td class="dataTableContent" align="right"><?php if (isset($zInfo) && is_object($zInfo) && ($zones['geo_zone_id'] == $zInfo->geo_zone_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $zones['geo_zone_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td><?php echo '<a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $zones['geo_zone_id'] . '&action=list') . '"><i class="fa fa-folder"></i></button></a>&nbsp;' . $zones['geo_zone_name']; ?></td>
+                <td align="right"><?php if (isset($zInfo) && is_object($zInfo) && ($zones['geo_zone_id'] == $zInfo->geo_zone_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $zones['geo_zone_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
       // Move that ADOdb pointer!
@@ -423,9 +422,8 @@ function update_zone(theForm) {
   }
 ?>
           </tr>
-        </table></td>
-      </tr>
-    </table>
+        </table>
+	</div>
 <!-- body_text_eof //-->
 				</div>
 			</div>

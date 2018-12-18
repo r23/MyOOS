@@ -226,9 +226,8 @@
 				<div class="row">
 					<div class="col-lg-12">	
 <!-- body_text //-->
-	<table border="0" width="100%" cellspacing="0" cellpadding="0">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+<div class="table-responsive">
+	<table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
   if ( ($action == 'preview') && ($_POST['customers_email_address'] || $_POST['email_to']) ) {
     switch ($_POST['customers_email_address']) {
@@ -385,9 +384,8 @@
   }
 ?>
 
-        </table></td>
-      </tr>
-    </table>
+        </table>
+	</div>
 <!-- body_text_eof //-->
 
 				</div>

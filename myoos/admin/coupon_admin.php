@@ -273,13 +273,13 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 			<div class="wrapper wrapper-content">
 				<div class="row">
 					<div class="col-lg-12">
-	<table border="0" width="100%" cellspacing="0" cellpadding="0">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+<!-- body_text //-->					
+	<div class="table-responsive">					
+		<table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td valign="top">
 			
-				<table class="table table-striped w-100">
+				<table class="table table-striped table-hover w-100">
 					<thead>
 						<tr>
 							<td><?php echo CUSTOMER_ID; ?></td>
@@ -304,20 +304,20 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         $cInfo = new objectInfo($cc_list);
       }
       if (isset($cInfo) && is_object($cInfo) && ($cc_list['unique_id'] == $cInfo->unique_id) ) {
-        echo '          <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin('coupon_admin.php', oos_get_all_get_params(array('cID', 'action', 'uid')) . 'cID=' . $cInfo->coupon_id . '&action=voucherreport&uid=' . $cinfo->unique_id) . '\'">' . "\n";
+        echo '          <tr onclick="document.location.href=\'' . oos_href_link_admin('coupon_admin.php', oos_get_all_get_params(array('cID', 'action', 'uid')) . 'cID=' . $cInfo->coupon_id . '&action=voucherreport&uid=' . $cinfo->unique_id) . '\'">' . "\n";
       } else {
-        echo '          <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin('coupon_admin.php', oos_get_all_get_params(array('cID', 'action', 'uid')) . 'cID=' . $cc_list['coupon_id'] . '&action=voucherreport&uid=' . $cc_list['unique_id']) . '\'">' . "\n";
+        echo '          <tr onclick="document.location.href=\'' . oos_href_link_admin('coupon_admin.php', oos_get_all_get_params(array('cID', 'action', 'uid')) . 'cID=' . $cc_list['coupon_id'] . '&action=voucherreport&uid=' . $cc_list['unique_id']) . '\'">' . "\n";
       }
       $customer_result = $dbconn->Execute("SELECT customers_firstname, customers_lastname
                                       FROM " . $oostable['customers'] . "
                                       WHERE customers_id = '" . $cc_list['customer_id'] . "'");
       $customer = $customer_result->fields;
 ?>
-                <td class="dataTableContent"><?php echo $cc_list['customer_id']; ?></td>
-                <td class="dataTableContent" align="center"><?php echo $customer['customers_firstname'] . ' ' . $customer['customers_lastname']; ?></td>
-                <td class="dataTableContent" align="center"><?php echo $cc_list['redeem_ip']; ?></td>
-                <td class="dataTableContent" align="center"><?php echo oos_date_short($cc_list['redeem_date']); ?></td>
-                <td class="dataTableContent" align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($cc_list['unique_id'] == $cInfo->unique_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['coupon_admin'], 'page=' . $nPage . '&cID=' . $cc_list['coupon_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td><?php echo $cc_list['customer_id']; ?></td>
+                <td align="center"><?php echo $customer['customers_firstname'] . ' ' . $customer['customers_lastname']; ?></td>
+                <td align="center"><?php echo $cc_list['redeem_ip']; ?></td>
+                <td align="center"><?php echo oos_date_short($cc_list['redeem_date']); ?></td>
+                <td align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($cc_list['unique_id'] == $cInfo->unique_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['coupon_admin'], 'page=' . $nPage . '&cID=' . $cc_list['coupon_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
       // Move that ADOdb pointer!
@@ -499,6 +499,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 		<div class="wrapper wrapper-content">
 			<div class="row">
 				<div class="col-lg-12">
+				
 <table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
@@ -804,6 +805,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 		<div class="wrapper wrapper-content">
 			<div class="row">
 				<div class="col-lg-12">
+				
+				
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
       <td>
@@ -937,9 +940,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 				<div class="row">
 					<div class="col-lg-12">
 
-	<table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr>
-        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+		<table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading"></td>
             <td class="main"><?php echo oos_draw_form('id', 'status', $aContents['coupon_admin'], '', 'get', FALSE); ?>
@@ -958,13 +959,13 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
               </form>
            </td>
           </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        </table>
+		
+	<div class="table-responsive">
+		<table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td valign="top">		
-				<table class="table table-striped w-100">
+				<table class="table table-striped table-hover w-100">
 					<thead>
 						<tr>
 							<td><?php echo COUPON_NAME; ?></td>
@@ -1006,9 +1007,9 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         $cInfo = new objectInfo($cc_list);
       }
       if (isset($cInfo) && is_object($cInfo) && ($cc_list['coupon_id'] == $cInfo->coupon_id) ) {
-        echo '          <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin('coupon_admin.php', oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->coupon_id . '&action=edit') . '\'">' . "\n";
+        echo '          <tr onclick="document.location.href=\'' . oos_href_link_admin('coupon_admin.php', oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->coupon_id . '&action=edit') . '\'">' . "\n";
       } else {
-        echo '          <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin('coupon_admin.php', oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cc_list['coupon_id']) . '\'">' . "\n";
+        echo '          <tr onclick="document.location.href=\'' . oos_href_link_admin('coupon_admin.php', oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cc_list['coupon_id']) . '\'">' . "\n";
       }
       $coupon_description_result = $dbconn->Execute("SELECT coupon_name
                                                  FROM " . $oostable['coupons_description'] . "
@@ -1016,8 +1017,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                                                    AND coupon_languages_id = '" . intval($_SESSION['language_id']) . "'");
       $coupon_desc = $coupon_description_result->fields;
 ?>
-                <td class="dataTableContent"><?php echo $coupon_desc['coupon_name']; ?></td>
-                <td class="dataTableContent" align="center">
+                <td><?php echo $coupon_desc['coupon_name']; ?></td>
+                <td align="center">
 <?php
       if ($cc_list['coupon_type'] == 'P') {
         echo $cc_list['coupon_amount'] . '%';
@@ -1028,8 +1029,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       }
 ?>
             &nbsp;</td>
-                <td class="dataTableContent" align="center"><?php echo $cc_list['coupon_code']; ?></td>
-                <td class="dataTableContent" align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($cc_list['coupon_id'] == $cInfo->coupon_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['coupon_admin'], 'page=' . $nPage . '&cID=' . $cc_list['coupon_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td align="center"><?php echo $cc_list['coupon_code']; ?></td>
+                <td align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($cc_list['coupon_id'] == $cInfo->coupon_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['coupon_admin'], 'page=' . $nPage . '&cID=' . $cc_list['coupon_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
       // Move that ADOdb pointer!
@@ -1135,9 +1136,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     }
 ?>	
           </tr>
-        </table></td>
-      </tr>
-    </table>
+        </table>
+	</div>
 <!-- body_text_eof //-->
 
 				</div>

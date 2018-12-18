@@ -153,13 +153,12 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 				<div class="row">
 					<div class="col-lg-12">	
 <!-- body_text //-->
-	<table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+	<div class="table-responsive">
+		<table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td valign="top">
 			
-				<table class="table table-striped w-100">
+				<table class="table table-striped table-hover w-100">
 					<thead>
 						<tr>
 							<td><?php echo TABLE_HEADING_CUSTOMERS; ?></td>
@@ -184,16 +183,16 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       $gInfo = new objectInfo($gv_list);
     }
     if (isset($gInfo) && is_object($gInfo) && ($gv_list['unique_id'] == $gInfo->unique_id) ) {
-      echo '              <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin('gv_queue.php', oos_get_all_get_params(array('gid', 'action')) . 'gid=' . $gInfo->unique_id . '&action=edit') . '\'">' . "\n";
+      echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['gv_queue'], oos_get_all_get_params(array('gid', 'action')) . 'gid=' . $gInfo->unique_id . '&action=edit') . '\'">' . "\n";
     } else {
-      echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin('gv_queue.php', oos_get_all_get_params(array('gid', 'action')) . 'gid=' . $gv_list['unique_id']) . '\'">' . "\n";
+      echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['gv_queue'], oos_get_all_get_params(array('gid', 'action')) . 'gid=' . $gv_list['unique_id']) . '\'">' . "\n";
     }
 ?>
-                <td class="dataTableContent"><?php echo $gv_list['customers_firstname'] . ' ' . $gv_list['customers_lastname']; ?></td>
-                <td class="dataTableContent" align="center"><?php echo $gv_list['order_id']; ?></td>
-                <td class="dataTableContent" align="right"><?php echo $currencies->format($gv_list['amount']); ?></td>
-                <td class="dataTableContent" align="right"><?php echo oos_datetime_short($gv_list['date_created']); ?></td>
-                <td class="dataTableContent" align="right"><?php if (isset($gInfo) && is_object($gInfo) && ($gv_list['unique_id'] == $gInfo->unique_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['gv_queue'], 'page=' . $nPage . '&gid=' . $gv_list['unique_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td><?php echo $gv_list['customers_firstname'] . ' ' . $gv_list['customers_lastname']; ?></td>
+                <td align="center"><?php echo $gv_list['order_id']; ?></td>
+                <td align="right"><?php echo $currencies->format($gv_list['amount']); ?></td>
+                <td align="right"><?php echo oos_datetime_short($gv_list['date_created']); ?></td>
+                <td align="right"><?php if (isset($gInfo) && is_object($gInfo) && ($gv_list['unique_id'] == $gInfo->unique_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['gv_queue'], 'page=' . $nPage . '&gid=' . $gv_list['unique_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
     // Move that ADOdb pointer!
@@ -216,13 +215,13 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     case 'release':
       $heading[] = array('text' => '[' . $gInfo->unique_id . '] ' . oos_datetime_short($gInfo->date_created) . ' ' . $currencies->format($gInfo->amount));
 
-      $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin('gv_queue.php','action=confirmrelease&gid='.$gInfo->unique_id).'">'.oos_button('confirm_red', IMAGE_CONFIRM) . '</a> <a href="' . oos_href_link_admin('gv_queue.php','action=cancel&gid=' . $gInfo->unique_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
+      $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['gv_queue'], 'action=confirmrelease&gid=' . $gInfo->unique_id) . '">'.oos_button('confirm_red', IMAGE_CONFIRM) . '</a> <a href="' . oos_href_link_admin($aContents['gv_queue'],'action=cancel&gid=' . $gInfo->unique_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
       break;
 
     default:
       $heading[] = array('text' => '[' . $gInfo->unique_id . '] ' . oos_datetime_short($gInfo->date_created) . ' ' . $currencies->format($gInfo->amount));
 
-      $contents[] = array('align' => 'center','text' => '<a href="' . oos_href_link_admin('gv_queue.php','action=release&gid=' . $gInfo->unique_id). '">' . oos_button('release', IMAGE_RELEASE) . '</a>');
+      $contents[] = array('align' => 'center','text' => '<a href="' . oos_href_link_admin($aContents['gv_queue'], 'action=release&gid=' . $gInfo->unique_id) . '">' . oos_button('release', IMAGE_RELEASE) . '</a>');
       break;
    }
 
@@ -240,9 +239,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
   }
 ?>
           </tr>
-        </table></td>
-      </tr>
-    </table>
+        </table>
+	</div>
 <!-- body_text_eof //-->
 
 				</div>

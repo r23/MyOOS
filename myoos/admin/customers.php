@@ -640,6 +640,8 @@ function check_form() {
       <tr>
         <td align="right" class="main"><?php echo oos_submit_button('update', IMAGE_UPDATE) . ' <a href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('action'))) .'">' . oos_button('cancel', BUTTON_CANCEL) . '</a>'; ?></td>
       </tr></form>
+	 </table>
+	 <!-- body_text_eof //-->
 <?php
   } else {
 ?>
@@ -687,13 +689,12 @@ function check_form() {
 					<div class="col-lg-12">			
 	
 	<!-- body_text //-->
-	<table border="0" width="100%" cellspacing="0" cellpadding="2">  
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+	<div class="table-responsive">
+		<table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td valign="top">
 
-				<table class="table table-striped w-100">
+				<table class="table table-striped table-hover w-100">
 					<thead>
 						<tr>
 							<td>*</td>
@@ -760,16 +761,16 @@ function check_form() {
       }
 
       if (isset($cInfo) && is_object($cInfo) && ($customers['customers_id'] == $cInfo->customers_id)) {
-        echo '          <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=edit') . '\'">' . "\n";
+        echo '          <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=edit') . '\'">' . "\n";
       } else {
-        echo '          <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID')) . 'cID=' . $customers['customers_id']) . '\'">' . "\n";
+        echo '          <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID')) . 'cID=' . $customers['customers_id']) . '\'">' . "\n";
       }
 ?>
-                <td class="dataTableContent"><?php if ($customers_statuses_array[$customers['customers_status']]['cs_image'] != '') { echo oos_image(OOS_SHOP_IMAGES . 'icons/' . $customers_statuses_array[$customers['customers_status']]['cs_image'], ''); } ?>&nbsp;</td>
-                <td class="dataTableContent"><?php echo $customers['customers_lastname']; ?></td>
-                <td class="dataTableContent"><?php echo $customers['customers_firstname']; ?></td>
-                <td class="dataTableContent" align="left"><?php echo $customers_statuses_array[$customers['customers_status']]['text'] . '(' . $customers['customers_status'] . ')' ; ?></td>
-                <td class="dataTableContent" align="center">
+                <td><?php if ($customers_statuses_array[$customers['customers_status']]['cs_image'] != '') { echo oos_image(OOS_SHOP_IMAGES . 'icons/' . $customers_statuses_array[$customers['customers_status']]['cs_image'], ''); } ?>&nbsp;</td>
+                <td><?php echo $customers['customers_lastname']; ?></td>
+                <td><?php echo $customers['customers_firstname']; ?></td>
+                <td align="left"><?php echo $customers_statuses_array[$customers['customers_status']]['text'] . '(' . $customers['customers_status'] . ')' ; ?></td>
+                <td align="center">
 <?php
       if ($customers['customers_login'] == '1') {
         echo '<a href="' . oos_href_link_admin($aContents['customers'], 'selected_box=customers&page=' . $nPage . '&action=setflag&loginflag=0&cID=' . $customers['customers_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
@@ -777,8 +778,8 @@ function check_form() {
         echo '<a href="' . oos_href_link_admin($aContents['customers'], 'selected_box=customers&page=' . $nPage . '&action=setflag&loginflag=1&cID=' . $customers['customers_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
       }
 ?>
-                <td class="dataTableContent" align="right"><?php echo oos_date_short($info['date_account_created']); ?></td>
-                <td class="dataTableContent" align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($customers['customers_id'] == $cInfo->customers_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID')) . 'cID=' . $customers['customers_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td align="right"><?php echo oos_date_short($info['date_account_created']); ?></td>
+                <td align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($customers['customers_id'] == $cInfo->customers_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID')) . 'cID=' . $customers['customers_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
       // Move that ADOdb pointer!
@@ -898,12 +899,12 @@ function check_form() {
   }
 ?>
           </tr>
-        </table></td>
-      </tr>
+        </table>
+	</div>
 <?php
   }
 ?>
-    </table>
+
 <!-- body_text_eof //-->
 
 				</div>

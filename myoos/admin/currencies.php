@@ -159,17 +159,19 @@ if (!empty($action)) {
 				<div class="row">
 					<div class="col-lg-12">	
 <!-- body_text //-->
-	<table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+<div class="table-responsive">
+	<table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_CURRENCY_NAME; ?></td>
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_CURRENCY_CODES; ?></td>
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_CURRENCY_VALUE; ?></td>
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
-              </tr>
+            <td valign="top">			
+				<table class="table table-striped table-hover w-100">
+					<thead>
+						<tr>
+							<td><?php echo TABLE_HEADING_CURRENCY_NAME; ?></td>
+							<td><?php echo TABLE_HEADING_CURRENCY_CODES; ?></td>
+							<td align="right"><?php echo TABLE_HEADING_CURRENCY_VALUE; ?></td>
+							<td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+						</tr>	
+					</thead>
 <?php
   $currency_result_raw = "SELECT currencies_id, title, code, symbol_left, symbol_right, decimal_point, 
                                  thousands_point, decimal_places, last_updated, value 
@@ -183,20 +185,20 @@ if (!empty($action)) {
     }
 
     if (isset($cInfo) && is_object($cInfo) && ($currency['currencies_id'] == $cInfo->currencies_id)) {
-      echo '                  <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['currencies'], 'page=' . $nPage . '&cID=' . $cInfo->currencies_id . '&action=edit') . '\'">' . "\n";
+      echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['currencies'], 'page=' . $nPage . '&cID=' . $cInfo->currencies_id . '&action=edit') . '\'">' . "\n";
     } else {
-      echo '                  <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['currencies'], 'page=' . $nPage . '&cID=' . $currency['currencies_id']) . '\'">' . "\n";
+      echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['currencies'], 'page=' . $nPage . '&cID=' . $currency['currencies_id']) . '\'">' . "\n";
     }
 
     if (DEFAULT_CURRENCY == $currency['code']) {
-      echo '                <td class="dataTableContent"><b>' . $currency['title'] . ' (' . TEXT_DEFAULT . ')</b></td>' . "\n";
+      echo '                <td><b>' . $currency['title'] . ' (' . TEXT_DEFAULT . ')</b></td>' . "\n";
     } else {
-      echo '                <td class="dataTableContent">' . $currency['title'] . '</td>' . "\n";
+      echo '                <td>' . $currency['title'] . '</td>' . "\n";
     }
 ?>
-                <td class="dataTableContent"><?php echo $currency['code']; ?></td>
-                <td class="dataTableContent" align="right"><?php echo number_format($currency['value'], 8); ?></td>
-                <td class="dataTableContent" align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($currency['currencies_id'] == $cInfo->currencies_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['currencies'], 'page=' . $nPage . '&cID=' . $currency['currencies_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td><?php echo $currency['code']; ?></td>
+                <td align="right"><?php echo number_format($currency['value'], 8); ?></td>
+                <td align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($currency['currencies_id'] == $cInfo->currencies_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['currencies'], 'page=' . $nPage . '&cID=' . $currency['currencies_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
     // Move that ADOdb pointer!
@@ -305,9 +307,8 @@ if (!empty($action)) {
   }
 ?>
           </tr>
-        </table></td>
-      </tr>
-    </table>
+        </table>
+	</div>
 <!-- body_text_eof //-->
 
 				</div>

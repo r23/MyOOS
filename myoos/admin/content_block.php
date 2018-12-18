@@ -172,13 +172,12 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 				<div class="row">
 					<div class="col-lg-12">	
 <!-- body_text //-->
-	<table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+	<div class="table-responsive">
+		<table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td valign="top">
 			
-				<table class="table table-striped w-100">
+				<table class="table table-striped table-hover w-100">
 					<thead>
 						<tr>
 							<td><?php echo TABLE_HEADING_BLOCK; ?></td>
@@ -208,15 +207,15 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     }
 
     if (isset($bInfo) && is_object($bInfo) && ($block['block_id'] == $bInfo->block_id) ) {
-      echo '              <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['content_block'], 'page=' . $nPage . '&bID=' . $block['block_id'] . '&action=edit') . '\'">' . "\n";
+      echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['content_block'], 'page=' . $nPage . '&bID=' . $block['block_id'] . '&action=edit') . '\'">' . "\n";
     } else {
-      echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['content_block'], 'page=' . $nPage . '&bID=' . $block['block_id']) . '\'">' . "\n";
+      echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['content_block'], 'page=' . $nPage . '&bID=' . $block['block_id']) . '\'">' . "\n";
     }
 ?>
-                <td class="dataTableContent"><?php echo $block['block_name']; ?></td>
-                <td class="dataTableContent" align="center"><?php echo $block['block_side']; ?></td>
-                <td class="dataTableContent" align="center"><?php echo $block['block_sort_order']; ?></td>
-                <td class="dataTableContent" align="center">
+                <td><?php echo $block['block_name']; ?></td>
+                <td align="center"><?php echo $block['block_side']; ?></td>
+                <td align="center"><?php echo $block['block_sort_order']; ?></td>
+                <td align="center">
 <?php
   if ($block['block_status'] == '1') {
     echo '<a href="' . oos_href_link_admin($aContents['content_block'], 'action=setflag&flag=0&bID=' . $block['block_id'] . '&page=' . $nPage) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
@@ -224,7 +223,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     echo '<a href="' . oos_href_link_admin($aContents['content_block'], 'action=setflag&flag=1&bID=' . $block['block_id'] . '&page=' . $nPage) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
   }
 ?></td>
-                <td class="dataTableContent" align="center">
+                <td align="center">
 <?php
   if ($block['block_login_flag'] == '1') {
     echo '<a href="' . oos_href_link_admin($aContents['content_block'], 'action=setloginflag&login_flag=0&bID=' . $block['block_id'] . '&page=' . $nPage) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
@@ -232,7 +231,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     echo '<a href="' . oos_href_link_admin($aContents['content_block'], 'action=setloginflag&login_flag=1&bID=' . $block['block_id'] . '&page=' . $nPage) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
   }
 ?></td>
-                <td class="dataTableContent" align="right"><?php if (isset($bInfo) && is_object($bInfo) && ($block['block_id'] == $bInfo->block_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['content_block'], 'page=' . $nPage . '&bID=' . $block['block_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td align="right"><?php if (isset($bInfo) && is_object($bInfo) && ($block['block_id'] == $bInfo->block_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['content_block'], 'page=' . $nPage . '&bID=' . $block['block_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
     // Move that ADOdb pointer!
@@ -358,9 +357,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
   }
 ?>
           </tr>
-        </table></td>
-      </tr>
-    </table>
+        </table>
+	</div>
 <!-- body_text_eof //-->
 
 				</div>
