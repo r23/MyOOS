@@ -476,13 +476,13 @@ if (!empty($action)) {
 				<div class="row">
 					<div class="col-lg-12">				
 <!-- body_text //-->
-	<table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+
+<div class="table-responsive">
+	<table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td valign="top">
 			
-				<table class="table table-striped w-100">
+				<table class="table table-striped table-hover w-100">
 					<thead>
 						<tr>
 							<td><?php echo TABLE_HEADING_LANGUAGE_NAME; ?></td>
@@ -506,21 +506,21 @@ if (!empty($action)) {
     }
 
     if (isset($lInfo) && is_object($lInfo) && ($languages['languages_id'] == $lInfo->languages_id) ) {
-      echo '                  <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id . '&action=edit') . '\'">' . "\n";
+      echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id . '&action=edit') . '\'">' . "\n";
     } else {
-      echo '                  <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $languages['languages_id']) . '\'">' . "\n";
+      echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $languages['languages_id']) . '\'">' . "\n";
     }
 
     if (DEFAULT_LANGUAGE == $languages['iso_639_2']) {
-      echo '                <td class="dataTableContent"><b>' . $languages['name'] . ' (' . TEXT_DEFAULT . ')</b></td>' . "\n";
+      echo '                <td><b>' . $languages['name'] . ' (' . TEXT_DEFAULT . ')</b></td>' . "\n";
     } else {
-      echo '                <td class="dataTableContent">' . $languages['name'] . '</td>' . "\n";
+      echo '                <td>' . $languages['name'] . '</td>' . "\n";
     }
 ?>
-                <td class="dataTableContent" align="center"><?php echo $languages['iso_639_2']; ?></td>
-                <td class="dataTableContent" align="center"><?php echo $languages['iso_639_1']; ?></td>
-				<td class="dataTableContent" align="center"><?php echo $languages['iso_3166_1']; ?></td>
-                <td class="dataTableContent" align="center">
+                <td align="center"><?php echo $languages['iso_639_2']; ?></td>
+                <td align="center"><?php echo $languages['iso_639_1']; ?></td>
+				<td align="center"><?php echo $languages['iso_3166_1']; ?></td>
+                <td align="center">
 <?php
   if ($languages['status'] == '1') {
     echo '<a href="' . oos_href_link_admin($aContents['languages'], 'action=setflag&flag=0&lID=' . $languages['languages_id'] . '&page=' . $nPage) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
@@ -529,7 +529,7 @@ if (!empty($action)) {
   }
 ?></td>
 
-                <td class="dataTableContent" align="right"><?php if (isset($lInfo) && is_object($lInfo) && ($languages['languages_id'] == $lInfo->languages_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $languages['languages_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td align="right"><?php if (isset($lInfo) && is_object($lInfo) && ($languages['languages_id'] == $lInfo->languages_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $languages['languages_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
     // Move that ADOdb pointer!
@@ -624,9 +624,8 @@ if (!empty($action)) {
   }
 ?>
           </tr>
-        </table></td>
-      </tr>
-    </table>
+        </table>
+	</div>
 <!-- body_text_eof //-->
 
 				</div>

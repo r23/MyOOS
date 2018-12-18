@@ -918,7 +918,8 @@ if ($action == 'new_category' || $action == 'edit_category') {
 			
 			<div class="row">
 				<div class="col-lg-12">
-				
+
+<!-- body_text //-->				
 <div class="table-responsive">
 	<table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>

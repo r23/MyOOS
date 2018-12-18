@@ -157,13 +157,12 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 				<div class="row">
 					<div class="col-lg-12">	
 <!-- body_text //-->
-	<table border="0" width="100%" cellspacing="0" cellpadding="2">
-
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+	<div class="table-responsive">
+		<table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td valign="top">
-				<table class="table table-striped w-100">
+			
+				<table class="table table-striped table-hover w-100">
 					<thead>
 						<tr>
 							<td><?php echo TABLE_HEADING_INFORMATION; ?></td>
@@ -190,13 +189,13 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     }
 
     if (isset($iInfo) && is_object($iInfo) && ($information['information_id'] == $iInfo->information_id) ) {
-      echo '              <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['information'], 'page=' . $nPage . '&mID=' . $information['information_id'] . '&action=edit') . '\'">' . "\n";
+      echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['information'], 'page=' . $nPage . '&mID=' . $information['information_id'] . '&action=edit') . '\'">' . "\n";
     } else {
-      echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['information'], 'page=' . $nPage . '&mID=' . $information['information_id']) . '\'">' . "\n";
+      echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['information'], 'page=' . $nPage . '&mID=' . $information['information_id']) . '\'">' . "\n";
     }
 ?>
-                <td class="dataTableContent"><?php echo $information['information_name']; ?></td>
-                <td class="dataTableContent">
+                <td><?php echo $information['information_name']; ?></td>
+                <td>
 <?php
   if ($information['status'] == '1') {
     echo '<a href="' . oos_href_link_admin($aContents['information'], 'action=setflag&flag=0&lID=' . $information['information_id'] . '&page=' . $nPage) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
@@ -205,7 +204,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
   }
 ?></td>
 
-                <td class="dataTableContent" align="right"><?php if (isset($iInfo) && is_object($iInfo) && ($information['information_id'] == $iInfo->information_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['information'], 'page=' . $nPage . '&mID=' . $information['information_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td align="right"><?php if (isset($iInfo) && is_object($iInfo) && ($information['information_id'] == $iInfo->information_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['information'], 'page=' . $nPage . '&mID=' . $information['information_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
                 </tr>
 
 
@@ -330,9 +329,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
   }
 ?>
           </tr>
-        </table></td>
-      </tr>
-    </table>
+        </table>
+	</div>
 <!-- body_text_eof //-->
  
 				</div>

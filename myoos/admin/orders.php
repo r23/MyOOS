@@ -389,8 +389,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 <?php
     for ($i = 0, $n = count($order->products); $i < $n; $i++) {
       echo '          <tr class="dataTableRow">' . "\n" .
-           '            <td class="dataTableContent" valign="top" align="right">' . $order->products[$i]['qty'] . '&nbsp;x</td>' . "\n" .
-           '            <td class="dataTableContent" valign="top">' . $order->products[$i]['name'];
+           '            <td valign="top" align="right">' . $order->products[$i]['qty'] . '&nbsp;x</td>' . "\n" .
+           '            <td valign="top">' . $order->products[$i]['name'];
 
       if (isset($order->products[$i]['attributes']) && (count($order->products[$i]['attributes']) > 0)) {
         for ($j = 0, $k = count($order->products[$i]['attributes']); $j < $k; $j++) {
@@ -403,20 +403,20 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
       $serial_number = "Add Serial #";
       if (oos_is_not_null($order->products[$i]['serial_number'])) $serial_number = $order->products[$i]['serial_number'];
-      echo '            <td class="dataTableContent" valign="top"><a href="' . oos_href_link_admin($aContents['orders'], 'action=edit&oID=' . $oID . '&serial=' . $i) . '">' . $serial_number . '</a></td>' . "\n" .
-           '            <td class="dataTableContent" valign="top">' . $order->products[$i]['model'] . '</td>' . "\n" .
-           '            <td class="dataTableContent" align="right" valign="top">' . oos_display_tax_value($order->products[$i]['tax']) . '%</td>' . "\n" .
-           '            <td class="dataTableContent" align="right" valign="top"><b>' . $currencies->format($order->products[$i]['final_price'], true, $order->info['currency'], $order->info['currency_value']) . '</b></td>' . "\n" .
-           '            <td class="dataTableContent" align="right" valign="top"><b>' . $currencies->format(oos_add_tax($order->products[$i]['final_price'], $order->products[$i]['tax']), true, $order->info['currency'], $order->info['currency_value']) . '</b></td>' . "\n" .
-           '            <td class="dataTableContent" align="right" valign="top"><b>' . $currencies->format($order->products[$i]['final_price'] * $order->products[$i]['qty'], true, $order->info['currency'], $order->info['currency_value']) . '</b></td>' . "\n" .
-           '            <td class="dataTableContent" align="right" valign="top"><b>' . $currencies->format(oos_add_tax($order->products[$i]['final_price'], $order->products[$i]['tax']) * $order->products[$i]['qty'], true, $order->info['currency'], $order->info['currency_value']) . '</b></td>' . "\n";
+      echo '            <td valign="top"><a href="' . oos_href_link_admin($aContents['orders'], 'action=edit&oID=' . $oID . '&serial=' . $i) . '">' . $serial_number . '</a></td>' . "\n" .
+           '            <td valign="top">' . $order->products[$i]['model'] . '</td>' . "\n" .
+           '            <td align="right" valign="top">' . oos_display_tax_value($order->products[$i]['tax']) . '%</td>' . "\n" .
+           '            <td align="right" valign="top"><b>' . $currencies->format($order->products[$i]['final_price'], true, $order->info['currency'], $order->info['currency_value']) . '</b></td>' . "\n" .
+           '            <td align="right" valign="top"><b>' . $currencies->format(oos_add_tax($order->products[$i]['final_price'], $order->products[$i]['tax']), true, $order->info['currency'], $order->info['currency_value']) . '</b></td>' . "\n" .
+           '            <td align="right" valign="top"><b>' . $currencies->format($order->products[$i]['final_price'] * $order->products[$i]['qty'], true, $order->info['currency'], $order->info['currency_value']) . '</b></td>' . "\n" .
+           '            <td align="right" valign="top"><b>' . $currencies->format(oos_add_tax($order->products[$i]['final_price'], $order->products[$i]['tax']) * $order->products[$i]['qty'], true, $order->info['currency'], $order->info['currency_value']) . '</b></td>' . "\n";
       echo '          </tr>' . "\n";
 
       if (oos_is_not_null($_GET['serial']) && ($_GET['serial'] == $i) && ($_GET['serial_updated'] <> 1)) {
         echo '          <tr class="dataTableRow">' . "\n" .
-             '            <td class="dataTableContent" colspan="2" valign="top" align="right">Enter Serial #:&nbsp;</td>' . "\n";
+             '            <td colspan="2" valign="top" align="right">Enter Serial #:&nbsp;</td>' . "\n";
 
-        echo '            <td class="dataTableContent" colspan="7" valign="top">' . 
+        echo '            <td colspan="7" valign="top">' . 
                           oos_draw_form('id', 'serial_form', $aContents['orders'], 'action=update_serial&oID=' . $oID . '&serial=' . $order->products[$i]['id'], 'post', FALSE) . 
                           oos_draw_input_field('serial_number', $serial_number, '', false, 'text', true) . '&nbsp;&nbsp;' . oos_submit_button('update', IMAGE_UPDATE) . '</td>' . "\n" .
              '          </tr>' . "\n";
@@ -506,6 +506,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       <tr>
         <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['invoice'], 'oID=' . $_GET['oID']) . '" TARGET="_blank">' . oos_button('invoice', IMAGE_ORDERS_INVOICE) . '</a> <a href="' . oos_href_link_admin($aContents['packingslip'], 'oID=' . $_GET['oID']) . '" TARGET="_blank">' . oos_button('pachingslip', IMAGE_ORDERS_PACKINGSLIP) . '</a> <a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('action'))) . '">' . oos_button('back', IMAGE_BACK) . '</a>'; ?></td>
       </tr>
+	      </table>
 <?php
   } else {
 ?>
@@ -552,12 +553,12 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 					<div class="col-lg-12">	
 					
 <!-- body_text //-->
-	<table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+	<div class="table-responsive">
+		<table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td valign="top">
-				<table class="table table-striped w-100">
+			
+				<table class="table table-striped table-hover w-100">
 					<thead>
 						<tr>
 							<td><?php echo TABLE_HEADING_CUSTOMERS; ?></td>
@@ -627,16 +628,16 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       }
 
       if (isset($oInfo) && is_object($oInfo) && ($orders['orders_id'] == $oInfo->orders_id)) {
-        echo '              <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $oInfo->orders_id . '&action=edit') . '\'">' . "\n";
+        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $oInfo->orders_id . '&action=edit') . '\'">' . "\n";
       } else {
-        echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID')) . 'oID=' . $orders['orders_id']) . '\'">' . "\n";
+        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID')) . 'oID=' . $orders['orders_id']) . '\'">' . "\n";
       }
 ?>
-                <td class="dataTableContent"><?php echo '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $orders['orders_id'] . '&action=edit') . '"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-search"></i></button></a>&nbsp;' . $orders['customers_name']; ?></td>
-                <td class="dataTableContent" align="right"><?php echo strip_tags($orders['order_total']); ?></td>
-                <td class="dataTableContent" align="center"><?php echo oos_datetime_short($orders['date_purchased']); ?></td>
-                <td class="dataTableContent" align="right"><?php echo $orders['orders_status_name']; ?></td>
-                <td class="dataTableContent" align="right"><?php if (isset($oInfo) && is_object($oInfo) && ($orders['orders_id'] == $oInfo->orders_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID')) . 'oID=' . $orders['orders_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td><?php echo '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $orders['orders_id'] . '&action=edit') . '"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-search"></i></button></a>&nbsp;' . $orders['customers_name']; ?></td>
+                <td align="right"><?php echo strip_tags($orders['order_total']); ?></td>
+                <td align="center"><?php echo oos_datetime_short($orders['date_purchased']); ?></td>
+                <td align="right"><?php echo $orders['orders_status_name']; ?></td>
+                <td align="right"><?php if (isset($oInfo) && is_object($oInfo) && ($orders['orders_id'] == $oInfo->orders_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID')) . 'oID=' . $orders['orders_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
       // Move that ADOdb pointer!
@@ -695,12 +696,12 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
   }
 ?>
           </tr>
-        </table></td>
-      </tr>
+        </table>
+	</div>
 <?php
   }
 ?>
-    </table>
+
 <!-- body_text_eof //-->
 
 				</div>
