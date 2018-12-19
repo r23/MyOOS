@@ -129,9 +129,6 @@ define('ENTRY_TELEPHONE_MIN_LENGTH_DESC', 'Minimum length of telephone number');
 define('ENTRY_PASSWORD_MIN_LENGTH_TITLE', 'Password');
 define('ENTRY_PASSWORD_MIN_LENGTH_DESC', 'Minimum length of password');
 
-define('CC_NUMBER_MIN_LENGTH_TITLE', 'Credit Card Number');
-define('CC_NUMBER_MIN_LENGTH_DESC', 'Minimum length of credit card number');
-
 define('MIN_DISPLAY_BESTSELLERS_TITLE', 'Best Sellers');
 define('MIN_DISPLAY_BESTSELLERS_DESC', 'Minimum number of best sellers to display');
 

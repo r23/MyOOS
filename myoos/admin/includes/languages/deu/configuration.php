@@ -122,9 +122,6 @@ define('ENTRY_TELEPHONE_MIN_LENGTH_DESC', 'Mindestlänge der Telefonnummer');
 define('ENTRY_PASSWORD_MIN_LENGTH_TITLE', 'Passwort');
 define('ENTRY_PASSWORD_MIN_LENGTH_DESC', 'Mindestlänge des Passworts');
 
-define('CC_NUMBER_MIN_LENGTH_TITLE', 'Kreditkartennummer');
-define('CC_NUMBER_MIN_LENGTH_DESC', 'Mindestlänge der Kreditkartennummer');
-
 define('MIN_DISPLAY_BESTSELLERS_TITLE', 'Verkaufsschlager');
 define('MIN_DISPLAY_BESTSELLERS_DESC', 'Minimale Anzahl der Verkaufsschlager, die angezeigt werden.');
 
