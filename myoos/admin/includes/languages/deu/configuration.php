@@ -122,9 +122,6 @@ define('ENTRY_TELEPHONE_MIN_LENGTH_DESC', 'Mindestlänge der Telefonnummer');
 define('ENTRY_PASSWORD_MIN_LENGTH_TITLE', 'Passwort');
 define('ENTRY_PASSWORD_MIN_LENGTH_DESC', 'Mindestlänge des Passworts');
 
-define('CC_OWNER_MIN_LENGTH_TITLE', 'Name Kreditkarteneigentümer');
-define('CC_OWNER_MIN_LENGTH_DESC', 'Mindestlänge des Names vom Kreditkarteneigentümer');
-
 define('CC_NUMBER_MIN_LENGTH_TITLE', 'Kreditkartennummer');
 define('CC_NUMBER_MIN_LENGTH_DESC', 'Mindestlänge der Kreditkartennummer');
 
