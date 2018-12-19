@@ -4,7 +4,7 @@ Donate link: https://contactform7.com/donate/
 Tags: contact, form, contact form, feedback, email, ajax, captcha, akismet, multilingual
 Requires at least: 4.9
 Tested up to: 5.0
-Stable tag: 5.1
+Stable tag: 5.1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -75,6 +75,10 @@ Do you have questions or issues with Contact Form 7? Use these support channels 
 
 For more information, see [Releases](https://contactform7.com/category/releases/).
 
+= 5.1.1 =
+
+* reCAPTCHA: Modifies the reaction to empty response tokens.
+
 = 5.1 =
 
 * Introduces the Constant Contact integration module.
@@ -136,6 +140,10 @@ For more information, see [Releases](https://contactform7.com/category/releases/
 * New form-tag features: zero-controls-container and not-for-mail
 
 == Upgrade Notice ==
+
+= 5.1.1 =
+
+Read the [release announcement post](https://contactform7.com/category/releases/) before upgrading. There is an important notice.
 
 = 5.0.4 =
 

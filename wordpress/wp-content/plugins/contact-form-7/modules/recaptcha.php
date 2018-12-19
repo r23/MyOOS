@@ -108,10 +108,6 @@ function wpcf7_recaptcha_verify_response( $spam ) {
 	$token = isset( $_POST['g-recaptcha-response'] )
 		? trim( $_POST['g-recaptcha-response'] ) : '';
 
-	if ( ! $token ) {
-		return $spam;
-	}
-
 	return ! $service->verify( $token );
 }
 
