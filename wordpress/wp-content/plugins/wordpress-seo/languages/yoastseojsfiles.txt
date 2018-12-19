@@ -65,6 +65,7 @@
 ./node_modules/yoastseo/src/helpers/getFirstWordExceptions.js
 ./node_modules/yoastseo/src/helpers/getFormsForLanguage.js
 ./node_modules/yoastseo/src/helpers/getFunctionWords.js
+./node_modules/yoastseo/src/helpers/getFunctionWordsLanguages.js
 ./node_modules/yoastseo/src/helpers/getLanguage.js
 ./node_modules/yoastseo/src/helpers/getLanguageAvailability.js
 ./node_modules/yoastseo/src/helpers/getTransitionWords.js

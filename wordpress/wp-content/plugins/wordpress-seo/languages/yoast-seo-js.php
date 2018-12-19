@@ -193,22 +193,22 @@ $generated_i18n_strings = array(
 	/* Translators: %1$s expands to links to Yoast.com articles, %2$s expands to the anchor end tag */
 	__( '%1$sKeyphrase distribution%2$s: Good job!', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/src/assessments/seo/KeyphraseLengthAssessment.js:119
+	// Reference: node_modules/yoastseo/src/assessments/seo/KeyphraseLengthAssessment.js:141
 	/* Translators: %1$s and %2$s expand to links on yoast.com, %3$s expands to the anchor end tag */
 	__( '%1$sKeyphrase length%3$s: %2$sSet a keyphrase in order to calculate your SEO score%3$s.', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/src/assessments/seo/KeyphraseLengthAssessment.js:126
+	// Reference: node_modules/yoastseo/src/assessments/seo/KeyphraseLengthAssessment.js:148
 	/* Translators: %1$s and %2$s expand to links on yoast.com, %3$s expands to the anchor end tag */
 	__( '%1$sKeyphrase length%3$s: No focus keyphrase was set for this page. %2$sSet a keyphrase in order to calculate your SEO score%3$s.', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/src/assessments/seo/KeyphraseLengthAssessment.js:135
+	// Reference: node_modules/yoastseo/src/assessments/seo/KeyphraseLengthAssessment.js:157
 	/* Translators: %1$s expands to a link on yoast.com, %2$s expands to the anchor end tag. */
 	__( '%1$sKeyphrase length%2$s: Good job!', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/src/assessments/seo/KeyphraseLengthAssessment.js:148
+	// Reference: node_modules/yoastseo/src/assessments/seo/KeyphraseLengthAssessment.js:170
 	__( '%3$sKeyphrase length%5$s: The keyphrase is %1$d words long. That\'s more than the recommended maximum of %2$d words. %4$sMake it shorter%5$s!', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/src/assessments/seo/KeyphraseLengthAssessment.js:160
+	// Reference: node_modules/yoastseo/src/assessments/seo/KeyphraseLengthAssessment.js:182
 	__( '%3$sKeyphrase length%5$s: The keyphrase is %1$d words long. That\'s way more than the recommended maximum of %2$d words. %4$sMake it shorter%5$s!', 'wordpress-seo' ),
 
 	// Reference: node_modules/yoastseo/src/assessments/seo/KeywordDensityAssessment.js:289
@@ -303,6 +303,25 @@ $generated_i18n_strings = array(
 	/* Translators: %1$s and %2$s expand to links on yoast.com, %3$s expands to the anchor end tag */
 	__( '%1$sSingle title%3$s: H1s should only be used as your main title. Find all H1s in your text that aren\'t your main title and %2$schange them to a lower heading level%3$s!', 'wordpress-seo' ),
 
+	// Reference: node_modules/yoastseo/src/assessments/seo/SubHeadingsKeywordAssessment.js:261
+	// Reference: node_modules/yoastseo/src/assessments/seo/SubHeadingsKeywordAssessment.js:298
+	/* Translators: %1$s and %2$s expand to a link on yoast.com, %3$s expands to the anchor end tag. */
+	__( '%1$sKeyphrase in subheading%3$s: %2$sUse more keyphrases or synonyms in your higher-level subheadings%3$s!', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoastseo/src/assessments/seo/SubHeadingsKeywordAssessment.js:270
+	/* Translators: %1$s and %2$s expand to a link on yoast.com, %3$s expands to the anchor end tag. */
+	__( '%1$sKeyphrase in subheading%3$s: More than 75%% of your higher-level subheadings reflect the topic of your copy. That\'s too much. %2$sDon\'t over-optimize%3$s!', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoastseo/src/assessments/seo/SubHeadingsKeywordAssessment.js:280
+	/* Translators: %1$s expands to a link on yoast.com, %2$s expands to the anchor end tag,
+	   %3$d expands to the number of subheadings containing the keyphrase. */
+	__( '%1$sKeyphrase in subheading%2$s: Your higher-level subheading reflects the topic of your copy. Good job!', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoastseo/src/assessments/seo/SubHeadingsKeywordAssessment.js:290
+	/* Translators: %1$s expands to a link on yoast.com, %2$s expands to the anchor end tag,
+	   %3$d expands to the number of subheadings containing the keyphrase. */
+	_n_noop( '%1$sKeyphrase in subheading%2$s: %3$s of your higher-level subheadings reflects the topic of your copy. Good job!', '%1$sKeyphrase in subheading%2$s: %3$s of your higher-level subheadings reflect the topic of your copy. Good job!', 'wordpress-seo' ),
+
 	// Reference: node_modules/yoastseo/src/assessments/seo/taxonomyTextLengthAssessment.js:34
 	// Reference: node_modules/yoastseo/src/assessments/seo/TextLengthAssessment.js:144
 	/* Translators: %1$d expands to the number of words in the text,
@@ -351,19 +370,46 @@ $generated_i18n_strings = array(
 	/* Translators:  %1$s and %2$s expand to links on yoast.com, %3$s expands to the anchor end tag */
 	__( '%1$sLink keyphrase%3$s: You\'re linking to another page with the words you want this page to rank for. %2$sDon\'t do that%3$s!', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/src/assessments/seo/TextImagesAssessment.js:124
+	// Reference: node_modules/yoastseo/src/assessments/seo/TextImagesAssessment.js:145
+	// Reference: node_modules/yoastseo/src/assessments/seo/TextImagesAssessment.js:249
 	/* Translators: %1$s and %2$s expand to links on yoast.com, %3$s expands to the anchor end tag */
 	__( '%1$sImage alt attributes%3$s: No images appear on this page. %2$sAdd some%3$s!', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/src/assessments/seo/TextImagesAssessment.js:134
+	// Reference: node_modules/yoastseo/src/assessments/seo/TextImagesAssessment.js:155
 	/* Translators:  %1$s expands to a link on yoast.com, %2$s expands to the anchor end tag */
 	__( '%1$sImage alt attributes%2$s: Some images on this page contain alt attributes with words from your keyphrase! Good job!', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/src/assessments/seo/TextImagesAssessment.js:144
-	// Reference: node_modules/yoastseo/src/assessments/seo/TextImagesAssessment.js:154
-	// Reference: node_modules/yoastseo/src/assessments/seo/TextImagesAssessment.js:164
+	// Reference: node_modules/yoastseo/src/assessments/seo/TextImagesAssessment.js:165
+	// Reference: node_modules/yoastseo/src/assessments/seo/TextImagesAssessment.js:175
+	// Reference: node_modules/yoastseo/src/assessments/seo/TextImagesAssessment.js:185
 	/* Translators: %1$s and %2$s expand to links on yoast.com, %3$s expands to the anchor end tag */
 	__( '%1$sImage alt attributes%3$s: Images on this page do not have alt attributes with words from your keyphrase. %2$sFix that%3$s!', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoastseo/src/assessments/seo/TextImagesAssessment.js:259
+	/* Translators: %1$s and %2$s expand to links on yoast.com, %3$s expands to the anchor end tag */
+	__( '%1$sImage alt attributes%3$s: Images on this page have alt attributes, but you have not set your keyphrase. %2$sFix that%3$s!', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoastseo/src/assessments/seo/TextImagesAssessment.js:269
+	// Reference: node_modules/yoastseo/src/assessments/seo/TextImagesAssessment.js:315
+	/* Translators: %1$s and %2$s expand to links on yoast.com, %3$s expands to the anchor end tag */
+	__( '%1$sImage alt attributes%3$s: Images on this page do not have alt attributes that reflect the topic of your text. %2$sAdd your keyphrase or synonyms to the alt tags of relevant images%3$s!', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoastseo/src/assessments/seo/TextImagesAssessment.js:281
+	/* Translators: %1$d expands to the number of images containing an alt attribute with the keyword,
+	   * %2$d expands to the total number of images, %3$s and %4$s expand to links on yoast.com,
+	   * %5$s expands to the anchor end tag. */
+	_n_noop( '%3$sImage alt attributes%5$s: Out of %2$d images on this page, only %1$d has an alt attribute that reflects the topic of your text. %4$sAdd your keyphrase or synonyms to the alt tags of more relevant images%5$s!', '%3$sImage alt attributes%5$s: Out of %2$d images on this page, only %1$d have alt attributes that reflect the topic of your text. %4$sAdd your keyphrase or synonyms to the alt tags of more relevant images%5$s!', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoastseo/src/assessments/seo/TextImagesAssessment.js:295
+	/* Translators: %1$s expands to a link on yoast.com,
+	   * %2$s expands to the anchor end tag. */
+	__( '%1$sImage alt attributes%2$s: Good job!', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoastseo/src/assessments/seo/TextImagesAssessment.js:306
+	/* Translators: %1$d expands to the number of images containing an alt attribute with the keyword,
+	   * %2$d expands to the total number of images, %3$s and %4$s expand to a link on yoast.com,
+	   * %5$s expands to the anchor end tag. */
+	__( '%3$sImage alt attributes%5$s: Out of %2$d images on this page, %1$d have alt attributes with words from your keyphrase or synonyms. That\'s a bit much. %4$sOnly include the keyphrase or its synonyms when it really fits the image%5$s.', 'wordpress-seo' ),
 
 	// Reference: node_modules/yoastseo/src/assessments/seo/TitleKeywordAssessment.js:138
 	/* Translators: %1$s expands to a link on yoast.com,
