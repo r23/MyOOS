@@ -107,8 +107,6 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 			<div class="wrapper wrapper-content">
 				<div class="row">
 					<div class="col-lg-12">	
-	<table border="0" width="100%" cellspacing="0" cellpadding="2">
-
 <?php
   if ($action == 'edit') {
     $rID = oos_db_prepare_input($_GET['rID']);
@@ -138,6 +136,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     }
 	
 ?>
+	<table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr><?php echo oos_draw_form('id', 'review', $aContents['reviews'], 'page=' . $nPage . '&rID=' . $_GET['rID'] . '&action=preview', 'post', FALSE); ?>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
@@ -196,6 +195,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       $rInfo = new objectInfo($rInfo_array);
     }
 ?>
+	<table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr><?php echo oos_draw_form('id', 'update', $aContents['reviews'], 'page=' . $nPage . '&rID=' . $_GET['rID'] . '&action=update', 'post', TRUE, 'enctype="multipart/form-data"'); ?>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
@@ -246,14 +246,18 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       </tr>
 <?php
     }
+?>
+    </table>
+<?php
   } else {
 ?>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+
+	<div class="table-responsive">
+		<table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td valign="top">
 			
-				<table class="table table-striped w-100">
+				<table class="table table-striped table-hover w-100">
 					<thead>
 						<tr>
 							<td><?php echo TABLE_HEADING_PRODUCTS; ?></td>
@@ -295,14 +299,14 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       }
 
       if (isset($rInfo) && is_object($rInfo) && ($reviews['reviews_id'] == $rInfo->reviews_id) ) {
-        echo '              <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id . '&action=preview') . '\'">' . "\n";
+        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id . '&action=preview') . '\'">' . "\n";
       } else {
-        echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $reviews['reviews_id']) . '\'">' . "\n";
+        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $reviews['reviews_id']) . '\'">' . "\n";
       }
 ?>
-                <td class="dataTableContent"><?php echo '<a href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $reviews['reviews_id'] . '&action=preview') . '"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-search"></i></button></a>&nbsp;' . oos_get_products_name($reviews['products_id']); ?></td>
-                <td class="dataTableContent" align="right"><?php echo $reviews['reviews_rating']; ?></td>
-                <td class="dataTableContent" align="center">
+                <td><?php echo '<a href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $reviews['reviews_id'] . '&action=preview') . '"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-search"></i></button></a>&nbsp;' . oos_get_products_name($reviews['products_id']); ?></td>
+                <td align="right"><?php echo $reviews['reviews_rating']; ?></td>
+                <td align="center">
  <?php
        if ($reviews['reviews_status'] == '1') {
          echo '<a href="' . oos_href_link_admin($aContents['reviews'], 'action=setflag&amp;flag=0&amp;rID=' . $reviews['reviews_id'] . '&amp;page=' . $nPage) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
@@ -310,8 +314,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
          echo '<a href="' . oos_href_link_admin($aContents['reviews'], 'action=setflag&amp;flag=1&amp;rID=' . $reviews['reviews_id'] . '&amp;page=' . $nPage) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
        }
 ?></td>				
-                <td class="dataTableContent" align="right"><?php echo oos_date_short($reviews['date_added']); ?></td>
-                <td class="dataTableContent" align="right"><?php if (isset($rInfo) && is_object($rInfo) && ($reviews['reviews_id'] == $rInfo->reviews_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $reviews['reviews_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td align="right"><?php echo oos_date_short($reviews['date_added']); ?></td>
+                <td align="right"><?php if (isset($rInfo) && is_object($rInfo) && ($reviews['reviews_id'] == $rInfo->reviews_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $reviews['reviews_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
       // Move that ADOdb pointer!
@@ -375,12 +379,11 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
   }
 ?>
           </tr>
-        </table></td>
-      </tr>
+        </table>
+	</div>
 <?php
   }
 ?>
-    </table>
 <!-- body_text_eof //-->
 
 				</div>
