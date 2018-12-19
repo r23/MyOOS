@@ -391,26 +391,26 @@ function oos_random_select($query, $limit = '') {
     switch ( true ) {
       case ( $qty==1 or ( $product_discounts['products_discount4_qty'] == 0 AND $product_discounts['products_discount3_qty'] == 0 AND $product_discounts['products_discount2_qty'] == 0 AND $product_discounts['products_discount1_qty'] == 0 ) ):
         if ($current_price) {
-          $the_discount_price= $current_price;
+          $the_discount_price = $current_price;
         } else {
-          $the_discount_price= $product_discounts['products_price'];
+          $the_discount_price = $product_discounts['products_price'];
         }
         break;
 
       case ($qty >= $product_discounts['products_discount4_qty'] AND $product_discounts['products_discount4_qty'] !=0):
-        $the_discount_price= $product_discounts['products_discount4'];
+        $the_discount_price = $product_discounts['products_discount4'];
         break;
 
       case ($qty >= $product_discounts['products_discount3_qty'] AND $product_discounts['products_discount3_qty'] !=0 ):
-        $the_discount_price= $product_discounts['products_discount3'];
+        $the_discount_price = $product_discounts['products_discount3'];
         break;
 
       case ($qty >= $product_discounts['products_discount2_qty'] AND $product_discounts['products_discount2_qty'] !=0 ):
-        $the_discount_price= $product_discounts['products_discount2'];
+        $the_discount_price = $product_discounts['products_discount2'];
         break;
 
       case ($qty >= $product_discounts['products_discount1_qty'] AND $product_discounts['products_discount1_qty'] !=0 ):
-        $the_discount_price= $product_discounts['products_discount1'];
+        $the_discount_price = $product_discounts['products_discount1'];
         break;
 
      default:

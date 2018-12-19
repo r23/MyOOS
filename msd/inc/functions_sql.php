@@ -850,8 +850,8 @@ function make_options($arr, $selected)
  * Reads field information for each field of a MySQL table
  * and fills an array with the keys detected
  *
- * @param $db Database
- * @param $tabelle Table
+ * @param $db 
+ * @param $tabelle 
  * @return array
  */
 function getFieldinfos($db, $tabelle)
@@ -957,8 +957,8 @@ function getFieldinfos($db, $tabelle)
  *  ['primary_key']=keys
  * )
  *
- * @param $db Database
- * @param $table Table
+ * @param $db 
+ * @param $table 
  * @return array Field infos
  */
 function getExtendedFieldInfo($db, $table)

@@ -266,9 +266,6 @@ $aInfoMessage = array();
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_message_stack.php';
 $oMessage = new messageStack;
 
-// templates selection
-$sTheme = STORE_TEMPLATES;
-$aTemplate = array();
 
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php';
 
@@ -284,3 +281,7 @@ if ( isset($_GET['action']) || isset($_POST['action']) )  {
 	}
 }
 
+
+// templates selection
+$sTheme = STORE_TEMPLATES;
+$aTemplate = array();
