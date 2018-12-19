@@ -226,12 +226,12 @@
 				<div class="row">
 					<div class="col-lg-12">	
 
-      <table border="0" width="100%" cellspacing="0" cellpadding="2">
+
+<!-- body_text //-->				
+<div class="table-responsive">
 <?php
     if ($srExp < 1) {
 ?>
-        <tr>
-          <td colspan="2">
             <form action="" method="get">
               <table border="0" width="100%" cellspacing="0" cellpadding="0">
                 <tr>
@@ -389,18 +389,14 @@
                   </td>
               </table>
             </form>
-          </td>
-        </tr>
 <?php
   } // end of ($srExp < 1)
 ?>
-        <tr>
-          <td width=100% valign=top>
             <table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
                 <td valign="top">
 				
-				<table class="table table-striped w-100">
+				<table class="table table-striped table-hover w-100">
 					<thead>
 						<tr>
 							<td align="right"><?php echo TABLE_HEADING_DATE; ?></td>
@@ -418,29 +414,29 @@ while ($sr->actDate < $sr->endDate) {
   $last = count($info) - 1;
   if ($srExp < 2) {
 ?>
-                    <tr class="dataTableRow" onMouseOver="this.className='dataTableRowOver';this.style.cursor='hand'" onMouseOut="this.className='dataTableRow'">
+                    <tr>
 <?php
     switch ($srView) {
       case '3':
 ?>
-                      <td class="dataTableContent" align="right"><?php echo oos_date_long(date("Y-m-d\ H:i:s", $sr->showDate)) . " - " . oos_date_short(date("Y-m-d\ H:i:s", $sr->showDateEnd)); ?></td>
+                      <td align="right"><?php echo oos_date_long(date("Y-m-d\ H:i:s", $sr->showDate)) . " - " . oos_date_short(date("Y-m-d\ H:i:s", $sr->showDateEnd)); ?></td>
 <?php
         break;
       case '4':
 ?>
-                      <td class="dataTableContent" align="right"><?php echo oos_date_long(date("Y-m-d\ H:i:s", $sr->showDate)); ?></td>
+                      <td align="right"><?php echo oos_date_long(date("Y-m-d\ H:i:s", $sr->showDate)); ?></td>
 <?php
         break;
       default;
 ?>
-                      <td class="dataTableContent" align="right"><?php echo oos_date_short(date("Y-m-d\ H:i:s", $sr->showDate)) . " - " . oos_date_short(date("Y-m-d\ H:i:s", $sr->showDateEnd)); ?></td>
+                      <td align="right"><?php echo oos_date_short(date("Y-m-d\ H:i:s", $sr->showDate)) . " - " . oos_date_short(date("Y-m-d\ H:i:s", $sr->showDateEnd)); ?></td>
 <?php
     }
 ?>
-                      <td class="dataTableContent" align="right"><?php echo $info[0]['order']; ?></td>
-                      <td class="dataTableContent" align="right"><?php echo $info[$last - 1]['totitem']; ?></td>
-                      <td class="dataTableContent" align="right"><?php echo $currencies->format($info[$last - 1]['totsum']);?></td>
-                      <td class="dataTableContent" align="right"><?php echo $currencies->format($info[0]['shipping']);?></td>
+                      <td align="right"><?php echo $info[0]['order']; ?></td>
+                      <td align="right"><?php echo $info[$last - 1]['totitem']; ?></td>
+                      <td align="right"><?php echo $currencies->format($info[$last - 1]['totsum']);?></td>
+                      <td align="right"><?php echo $currencies->format($info[0]['shipping']);?></td>
                     </tr>
 <?php
   } else {
@@ -456,9 +452,9 @@ while ($sr->actDate < $sr->endDate) {
       if ($srMax == 0 or $i < $srMax) {
         if ($srExp < 2) {
 ?>
-                    <tr class="dataTableRow" onMouseOver="this.className='dataTableRowOver';this.style.cursor='hand'" onMouseOut="this.className='dataTableRow'">
-                    <td class="dataTableContent">&nbsp;</td>
-                    <td class="dataTableContent" align="left"><a href="<?php echo oos_catalog_link($aCatalog['product_info'], 'products_id=' . $info[$i]['pid']) ?>" target="_blank" rel="noopener"><?php echo $info[$i]['pname']; ?></a>
+                    <tr>
+                    <td>&nbsp;</td>
+                    <td align="left"><a href="<?php echo oos_catalog_link($aCatalog['product_info'], 'products_id=' . $info[$i]['pid']) ?>" target="_blank" rel="noopener"><?php echo $info[$i]['pname']; ?></a>
 <?php
   if (is_array($info[$i]['attr'])) {
     $attr_info = $info[$i]['attr'];
@@ -489,17 +485,17 @@ while ($sr->actDate < $sr->endDate) {
     }
   }
 ?>                    </td>
-                    <td class="dataTableContent" align="right"><?php echo $info[$i]['pquant']; ?></td>
+                    <td align="right"><?php echo $info[$i]['pquant']; ?></td>
 <?php
           if ($srDetail == 2) {?>
-                    <td class="dataTableContent" align="right"><?php echo $currencies->format($info[$i]['psum']); ?></td>
+                    <td align="right"><?php echo $currencies->format($info[$i]['psum']); ?></td>
 <?php
           } else { ?>
-                    <td class="dataTableContent">&nbsp;</td>
+                    <td>&nbsp;</td>
 <?php
           }
 ?>
-                    <td class="dataTableContent">&nbsp;</td>
+                    <td>&nbsp;</td>
                   </tr>
 <?php
         } else {
@@ -560,9 +556,7 @@ if ($srExp < 2) {
                 </td>
               </tr>
             </table>
-          </td>
-        </tr>
-      </table>
+		</div>
 <!-- body_text_eof //-->
 				</div>
 			</div>

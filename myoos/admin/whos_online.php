@@ -91,34 +91,25 @@ require '../includes/classes/class_shopping_cart.php';
 				<div class="row">
 					<div class="col-lg-12">	
 				
-<!-- body_text //-->
-    <td width="100%" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+<!-- body_text //-->				
+	<div class="table-responsive">
+		<table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td valign="top">
 			
-				<table class="table table-striped w-100">
+				<table class="table table-striped table-hover w-100">
 					<thead>
 						<tr>
-							<td><?php echo TABLE_HEADING_CATEGORIES_PRODUCTS; ?></td>
-							<td><?php echo TABLE_HEADING_MANUFACTURERS; ?></td>
-							<td align="center"><?php echo TABLE_HEADING_STATUS; ?></td>
-							<td align="center"><?php echo TABLE_HEADING_PRODUCT_SORT; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+							<td><?php echo TABLE_HEADING_ONLINE; ?></td>
+							<td align="center"><?php echo TABLE_HEADING_CUSTOMER_ID; ?></td>
+							<td><?php echo TABLE_HEADING_FULL_NAME; ?></td>
+							<td align="center"><?php echo TABLE_HEADING_IP_ADDRESS; ?></td>
+							<td><?php echo TABLE_HEADING_ENTRY_TIME; ?></td>
+							<td align="center"><?php echo TABLE_HEADING_LAST_CLICK; ?></td>
+							<td><?php echo TABLE_HEADING_LAST_PAGE_URL; ?>&nbsp;</td>
 						</tr>	
 					</thead>
 			
-			<table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_ONLINE; ?></td>
-                <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_CUSTOMER_ID; ?></td>
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_FULL_NAME; ?></td>
-                <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_IP_ADDRESS; ?></td>
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_ENTRY_TIME; ?></td>
-                <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_LAST_CLICK; ?></td>
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_LAST_PAGE_URL; ?>&nbsp;</td>
-              </tr>
 <?php
   $whos_onlinetable = $oostable['whos_online'];
   $sql = "SELECT customer_id, full_name, ip_address, time_entry,
@@ -131,18 +122,18 @@ require '../includes/classes/class_shopping_cart.php';
       $info = $whos_online['session_id'];
     }
     if ($whos_online['session_id'] == $info) {
-      echo '              <tr class="dataTableRowSelected">' . "\n";
+      echo '              <tr>' . "\n";
     } else {
-      echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['whos_online'], oos_get_all_get_params(array('info', 'action')) . 'info=' . $whos_online['session_id']) . '\'">' . "\n";
+      echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['whos_online'], oos_get_all_get_params(array('info', 'action')) . 'info=' . $whos_online['session_id']) . '\'">' . "\n";
     }
 ?>
-                <td class="dataTableContent"><?php echo gmdate('H:i:s', $time_online); ?></td>
-                <td class="dataTableContent" align="center"><?php echo $whos_online['customer_id']; ?></td>
-                <td class="dataTableContent"><?php echo $whos_online['full_name']; ?></td>
-                <td class="dataTableContent" align="center"><?php echo $whos_online['ip_address']; ?></td>
-                <td class="dataTableContent"><?php echo date('H:i:s', $whos_online['time_entry']); ?></td>
-                <td class="dataTableContent" align="center"><?php echo date('H:i:s', $whos_online['time_last_click']); ?></td>
-                <td class="dataTableContent"><?php if (preg_match('/^(.*)' . $session->getName() . '=[a-f,0-9]+[&]*(.*)/', $whos_online['last_page_url'], $array)) { echo $array[1] . $array[2]; } else { echo $whos_online['last_page_url']; } ?>&nbsp;</td>
+                <td><?php echo gmdate('H:i:s', $time_online); ?></td>
+                <td align="center"><?php echo $whos_online['customer_id']; ?></td>
+                <td><?php echo $whos_online['full_name']; ?></td>
+                <td align="center"><?php echo $whos_online['ip_address']; ?></td>
+                <td><?php echo date('H:i:s', $whos_online['time_entry']); ?></td>
+                <td align="center"><?php echo date('H:i:s', $whos_online['time_last_click']); ?></td>
+                <td><?php if (preg_match('/^(.*)' . $session->getName() . '=[a-f,0-9]+[&]*(.*)/', $whos_online['last_page_url'], $array)) { echo $array[1] . $array[2]; } else { echo $whos_online['last_page_url']; } ?>&nbsp;</td>
               </tr>
 <?php
     // Move that ADOdb pointer!
@@ -201,9 +192,8 @@ require '../includes/classes/class_shopping_cart.php';
   }
 ?>
           </tr>
-        </table></td>
-      </tr>
-    </table>
+        </table>
+	</div>
 <!-- body_text_eof //-->
 
 				</div>

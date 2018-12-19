@@ -97,18 +97,21 @@ require 'includes/header.php';
 			<div class="wrapper wrapper-content">
 				<div class="row">
 					<div class="col-lg-12">					
-<!-- body_text //-->
-	<table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
+<!-- body_text //-->				
+	<div class="table-responsive">
+		<table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-              <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_COUNTRY_NAME; ?></td>
-                <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_ZONE_NAME; ?></td>
-                <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_ZONE_CODE; ?></td>
-                <td class="dataTableHeadingContent" align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
-              </tr>
+            <td valign="top">
+			
+				<table class="table table-striped table-hover w-100">
+					<thead>
+						<tr>
+							<td><?php echo TABLE_HEADING_COUNTRY_NAME; ?></td>
+							<td><?php echo TABLE_HEADING_ZONE_NAME; ?></td>
+							<td align="center"><?php echo TABLE_HEADING_ZONE_CODE; ?></td>
+							<td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+						</tr>	
+					</thead>	
 <?php
   $zonestable = $oostable['zones'];
   $countriestable = $oostable['billing_address_countries'];
@@ -126,15 +129,15 @@ require 'includes/header.php';
     }
 
     if (isset($cInfo) && is_object($cInfo) && ($zones['zone_id'] == $cInfo->zone_id) ) {
-      echo '              <tr class="dataTableRowSelected" onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['zones'], 'page=' . $nPage . '&cID=' . $cInfo->zone_id . '&action=edit') . '\'">' . "\n";
+      echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['zones'], 'page=' . $nPage . '&cID=' . $cInfo->zone_id . '&action=edit') . '\'">' . "\n";
     } else {
-      echo '              <tr class="dataTableRow" onmouseover="this.className=\'dataTableRowOver\';this.style.cursor=\'hand\'" onmouseout="this.className=\'dataTableRow\'" onclick="document.location.href=\'' . oos_href_link_admin($aContents['zones'], 'page=' . $nPage . '&cID=' . $zones['zone_id']) . '\'">' . "\n";
+      echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['zones'], 'page=' . $nPage . '&cID=' . $zones['zone_id']) . '\'">' . "\n";
     }
 ?>
-                <td class="dataTableContent"><?php echo $zones['countries_name']; ?></td>
-                <td class="dataTableContent"><?php echo $zones['zone_name']; ?></td>
-                <td class="dataTableContent" align="center"><?php echo $zones['zone_code']; ?></td>
-                <td class="dataTableContent" align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($zones['zone_id'] == $cInfo->zone_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['zones'], 'page=' . $nPage . '&cID=' . $zones['zone_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td><?php echo $zones['countries_name']; ?></td>
+                <td><?php echo $zones['zone_name']; ?></td>
+                <td align="center"><?php echo $zones['zone_code']; ?></td>
+                <td align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($zones['zone_id'] == $cInfo->zone_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['zones'], 'page=' . $nPage . '&cID=' . $zones['zone_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
     // Move that ADOdb pointer!
@@ -221,9 +224,8 @@ require 'includes/header.php';
   }
 ?>
           </tr>
-        </table></td>
-      </tr>
-    </table>
+        </table>
+	</div>
 <!-- body_text_eof //-->
 
 				</div>

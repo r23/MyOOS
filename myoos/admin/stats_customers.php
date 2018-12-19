@@ -72,12 +72,11 @@ require 'includes/header.php';
 				<div class="row">
 					<div class="col-lg-12">				
 <!-- body_text //-->
-	<table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+	<div class="table-responsive">
+		<table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
             <td valign="top">
-				<table class="table table-striped w-100">
+				<table class="table table-striped table-hover w-100">
 					<thead>
 						<tr>
 							<td><?php echo TABLE_HEADING_NUMBER; ?></td>
@@ -116,10 +115,10 @@ require 'includes/header.php';
       $rows = '0' . $rows;
     }
 ?>
-              <tr class="dataTableRow" onmouseover="this.className='dataTableRowOver';this.style.cursor='hand'" onmouseout="this.className='dataTableRow'" onclick="document.location.href='<?php echo oos_href_link_admin($aContents['customers'], 'search=' . $customers['customers_lastname']); ?>'">
-                <td class="dataTableContent"><?php echo $rows; ?>.</td>
-                <td class="dataTableContent"><?php echo '<a href="' . oos_href_link_admin($aContents['customers'], 'search=' . $customers['customers_lastname']) . '">' . $customers['customers_firstname'] . ' ' . $customers['customers_lastname'] . '</a>'; ?></td>
-                <td class="dataTableContent" align="right"><?php echo $currencies->format($customers['ordersum']); ?>&nbsp;</td>
+              <tr onclick="document.location.href='<?php echo oos_href_link_admin($aContents['customers'], 'search=' . $customers['customers_lastname']); ?>'">
+                <td><?php echo $rows; ?>.</td>
+                <td><?php echo '<a href="' . oos_href_link_admin($aContents['customers'], 'search=' . $customers['customers_lastname']) . '">' . $customers['customers_firstname'] . ' ' . $customers['customers_lastname'] . '</a>'; ?></td>
+                <td align="right"><?php echo $currencies->format($customers['ordersum']); ?>&nbsp;</td>
               </tr>
 <?php
     // Move that ADOdb pointer!
@@ -139,9 +138,8 @@ require 'includes/header.php';
               </tr>
             </table></td>
           </tr>
-        </table></td>
-      </tr>
-    </table>
+        </table>
+	</div>
 <!-- body_text_eof //-->
 
 				</div>
