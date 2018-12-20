@@ -197,11 +197,11 @@ td.style.backgroundColor="DFE4F4";
     $products_result = $dbconn->Execute($products_result_raw);
     while ($products = $products_result->fields) {
 ?>
-        <tr onMouseOver="cOn(this); this.style.cursor='pointer'; this.style.cursor='hand';" onMouseOut="cOut(this);" bgcolor='#DFE4F4' onClick=document.location.href="<?php echo oos_href_link_admin($aContents['up_sell_products'], 'add_related_product_id=' . $products['products_id']);?>">
-          <td class="dataTableContent" valign="top">&nbsp;<?php echo $products['products_id'];?>&nbsp;</td>
-          <td class="dataTableContent" valign="top">&nbsp;<?php echo $products['products_model'];?>&nbsp;</td>
-          <td class="dataTableContent" valign="top">&nbsp;<?php echo $products['products_name'];?>&nbsp;</td>
-          <td class="dataTableContent" valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
+        <tr onClick=document.location.href="<?php echo oos_href_link_admin($aContents['up_sell_products'], 'add_related_product_id=' . $products['products_id']);?>">
+          <td valign="top"><?php echo $products['products_id'];?></td>
+          <td valign="top"><?php echo $products['products_model'];?></td>
+          <td valign="top"><?php echo $products['products_name'];?></td>
+          <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">
 <?php
       $productstable = $oostable['products'];
       $products_descriptiontable = $oostable['products_description'];
@@ -220,7 +220,7 @@ td.style.backgroundColor="DFE4F4";
         $i++;
 ?>
         <tr>
-          <td class="dataTableContent">&nbsp;<?php echo $i . '.&nbsp;&nbsp;<b>' . $products_up['products_model'] . '</b>&nbsp;' . $products_up['products_name'];?>&nbsp;</td>
+          <td><?php echo $i . '.&nbsp;&nbsp;<b>' . $products_up['products_model'] . '</b>&nbsp;' . $products_up['products_name'];?></td>
         </tr>
 <?php
         // Move that ADOdb pointer!
@@ -232,20 +232,20 @@ td.style.backgroundColor="DFE4F4";
       if ($i <= 0) {
 ?>
         <tr>
-          <td class="dataTableContent">&nbsp;--&nbsp;</td>
+          <td>&nbsp;--&nbsp;</td>
         </tr>
 <?php
       } else {
 ?>
         <tr>
-          <td class="dataTableContent"></td>
+          <td></td>
         </tr>
 <?php
       }
 ?>
       </table></td>
-      <td class="dataTableContent" valign="top">&nbsp;<?php echo '<a href="' . oos_href_link_admin($aContents['up_sell_products'], oos_get_all_get_params(array('action')) . 'add_related_product_id=' . $products['products_id']);?>"><?php echo TEXT_EDIT_SELLS;?></a>&nbsp;</td>
-      <td class="dataTableContent" valign="top" align="center">&nbsp;<?php echo (($i > 0) ? '<a href="' . oos_href_link_admin($aContents['up_sell_products'], oos_get_all_get_params(array('action')) . 'sort=1&add_related_product_id=' . $products['products_id']) .'">'.TEXT_SORT.'</a>&nbsp;' : '--')?></td>
+      <td valign="top"><?php echo '<a href="' . oos_href_link_admin($aContents['up_sell_products'], oos_get_all_get_params(array('action')) . 'add_related_product_id=' . $products['products_id']);?>"><?php echo TEXT_EDIT_SELLS;?></a></td>
+      <td valign="top" align="center"><?php echo (($i > 0) ? '<a href="' . oos_href_link_admin($aContents['up_sell_products'], oos_get_all_get_params(array('action')) . 'sort=1&add_related_product_id=' . $products['products_id']) .'">'.TEXT_SORT.'</a>' : '--')?></td>
     </tr>
 <?php
       // Move that ADOdb pointer!
@@ -276,28 +276,30 @@ td.style.backgroundColor="DFE4F4";
                                             AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "'");
     $products_name = $products_name_result->fields;
 ?>
-  <table border="0" cellspacing="0" cellpadding="0" bgcolor="#999999" align="center">
-    <tr>
-      <td><?php echo oos_draw_form('id', 'update_up', $aContents['up_sell_products'], oos_get_all_get_params(array('action')) . 'action=update_up', 'post', TRUE);?><table cellpadding="1" cellspacing="1" border="0">
-        <tr>
-          <td colspan="6"><table cellpadding="3" cellspacing="0" border="0" width="100%">
-            <tr class="dataTableHeadingRow">
+<?php echo oos_draw_form('id', 'update_up', $aContents['up_sell_products'], oos_get_all_get_params(array('action')) . 'action=update_up', 'post', TRUE);?>
+	  
+<table cellpadding="3" cellspacing="0" border="0" width="100%">
+            <tr>
               <td valign="top" align="center" colspan="2"><span class="pageHeading"><?php echo TEXT_SETTING_SELLS.': '.$products_name['products_name'].' ('.TEXT_MODEL.': '.$products_name['products_model'].') ('.TEXT_PRODUCT_ID.': '.$_GET['add_related_product_id'].')';?></span></td>
             </tr>
-            <tr class="dataTableHeadingRow">
+            <tr>
               <td class="text-right"><?php echo oos_info_image($products_name['products_image'], $products_name['products_name']);?></td>
               <td align="right" valign="bottom"><?php echo oos_submit_button('update', IMAGE_UPDATE) . '<br /><br /><a href="'.oos_href_link_admin($aContents['up_sell_products'], 'men_id=catalog').'">' . oos_button('cancel', BUTTON_CANCEL) . '</a>';?></td>
             </tr>
-          </table></td>
-        </tr>
-        <tr class="dataTableHeadingRow">
-          <td class="dataTableHeadingContent" width="75">&nbsp;<?php echo TABLE_HEADING_PRODUCT_ID;?>&nbsp;</td>
-          <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_PRODUCT_MODEL;?>&nbsp;</td>
-          <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_PRODUCT_IMAGE;?>&nbsp;</td>
-          <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_UP_SELL_THIS;?>&nbsp;</td>
-          <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_PRODUCT_NAME;?>&nbsp;</td>
-          <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_PRODUCT_PRICE;?>&nbsp;</td>
-        </tr>
+          </table>
+
+			<div class="table-responsive">		  
+				<table class="table table-striped table-hover w-100">
+					<thead class="thead-dark">
+						<tr>
+							<th width="75"><?php echo TABLE_HEADING_PRODUCT_ID;?></th>
+							<th><?php echo TABLE_HEADING_PRODUCT_MODEL;?></th>
+							<th><?php echo TABLE_HEADING_PRODUCT_IMAGE;?></th>
+							<th><?php echo TABLE_HEADING_UP_SELL_THIS;?></th>
+							<th><?php echo TABLE_HEADING_PRODUCT_NAME;?></th>
+							<th><?php echo TABLE_HEADING_PRODUCT_PRICE;?></td>
+						</tr>	
+					</thead>
 <?php
     $productstable = $oostable['products'];
     $products_descriptiontable = $oostable['products_description'];
@@ -312,13 +314,13 @@ td.style.backgroundColor="DFE4F4";
     while ($products = $products_result->fields) {
       $up_sold_result = $dbconn->Execute('SELECT * FROM '.$oostable['products_up_sell'].' WHERE products_id = "'.$_GET['add_related_product_id'].'" AND up_sell_id = "'.$products['products_id'].'"');
 ?>
-        <tr bgcolor='#DFE4F4'>
-          <td class="dataTableContent" align="center">&nbsp;<?php echo $products['products_id'];?>&nbsp;</td>
-          <td class="dataTableContent" align="center">&nbsp;<?php echo $products['products_model'];?>&nbsp;</td>
-          <td class="dataTableContent" align="center">&nbsp;<?php echo oos_info_image($products['products_image'], $products['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT);?>&nbsp;</td>
-          <td class="dataTableContent">&nbsp;<?php echo oos_draw_hidden_field('product[]', $products['products_id']) . oos_draw_checkbox_field('up[]', $products['products_id'], (($up_sold_result->RecordCount() > 0) ? true : false), '', ' onMouseOver="this.style.cursor=\'hand\'"');?>&nbsp;<label onMouseOver="this.style.cursor='hand'"><?php echo TEXT_UP_SELL;?></label>&nbsp;</td>
-          <td class="dataTableContent">&nbsp;<?php echo $products['products_name'];?>&nbsp;</td>
-          <td class="dataTableContent">&nbsp;<?php echo $currencies->format($products['products_price']);?>&nbsp;</td>
+        <tr>
+          <td align="center"><?php echo $products['products_id'];?></td>
+          <td align="center"><?php echo $products['products_model'];?></td>
+          <td align="center"><?php echo oos_info_image($products['products_image'], $products['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT);?></td>
+          <td><?php echo oos_draw_hidden_field('product[]', $products['products_id']) . oos_draw_checkbox_field('up[]', $products['products_id'], (($up_sold_result->RecordCount() > 0) ? true : false), '', ' onMouseOver="this.style.cursor=\'hand\'"');?><label onMouseOver="this.style.cursor='hand'"><?php echo TEXT_UP_SELL;?></label></td>
+          <td><?php echo $products['products_name'];?></td>
+          <td><?php echo $currencies->format($products['products_price']);?></td>
         </tr>
 <?php
       // Move that ADOdb pointer!
@@ -327,17 +329,18 @@ td.style.backgroundColor="DFE4F4";
     // Close result set
     $products_result->Close();
 ?>
-      </table></form></td>
-    </tr>
-    <tr>
-      <td colspan="6"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="infoBoxContent">
+      </table>
+	  </div>
+	  
+	  </form>
+	  
+	  
+	  <table border="0" width="100%" cellspacing="0" cellpadding="2" class="infoBoxContent">
         <tr>
           <td class="smallText" valign="top"><?php echo $products_split->display_count($products_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $nPage, TEXT_DISPLAY_NUMBER_OF_CUSTOMERS); ?></td>
           <td class="smallText" align="right"><?php echo $products_split->display_links($products_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage, oos_get_all_get_params(array('page', 'info', 'x', 'y', 'cID', 'action'))); ?></td>
         </tr>
-      </table></td>
-    </tr>
-  </table>
+      </table>
 <?php
   } elseif ($_GET['add_related_product_id'] != '' && $_GET['sort'] != '') {
     $productstable = $oostable['products'];
@@ -355,22 +358,22 @@ td.style.backgroundColor="DFE4F4";
       <td><?php echo oos_draw_form('id', 'update_sort', $aContents['up_sell_products'], oos_get_all_get_params(array('action')) . 'action=update_sort', 'post', TRUE);?><table cellpadding="1" cellspacing="1" border="0">
         <tr>
           <td colspan="6"><table cellpadding="3" cellspacing="0" border="0" width="100%">
-            <tr class="dataTableHeadingRow">
+            <tr>
               <td valign="top" align="center" colspan="2"><span class="pageHeading"><?php echo 'Setting up-sells for: '.$products_name['products_name'].' (Model: '.$products_name['products_model'].') (Product ID: '.$_GET['add_related_product_id'].')';?></span></td>
                 </tr>
-                <tr class="dataTableHeadingRow">
+                <tr>
                   <td class="text-right"><?php echo oos_info_image($products_name['products_image'], $products_name['products_name']);?></td>
                   <td align="right" valign="bottom"><?php echo oos_submit_button('update', IMAGE_UPDATE) . '<br /><br /><a href="'.oos_href_link_admin($aContents['up_sell_products'], 'men_id=catalog').'">' . oos_button('cancel', BUTTON_CANCEL) . '</a>';?></td>
                 </tr>
               </table></td>
             </tr>
-            <tr class="dataTableHeadingRow">
-              <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_PRODUCT_ID;?>&nbsp;</td>
-              <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_PRODUCT_MODEL;?>&nbsp;</td>
-              <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_PRODUCT_IMAGE;?>&nbsp;</td>
-              <td class="dataTableHeadingContent" align="center">&nbsp;<?php echo TABLE_HEADING_PRODUCT_NAME;?>&nbsp;</td>
-              <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_PRODUCT_PRICE;?>&nbsp;</td>
-              <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_PRODUCT_SORT;?>&nbsp;</td>
+            <tr>
+              <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_PRODUCT_ID;?></td>
+              <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_PRODUCT_MODEL;?></td>
+              <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_PRODUCT_IMAGE;?></td>
+              <td class="dataTableHeadingContent" align="center"><?php echo TABLE_HEADING_PRODUCT_NAME;?></td>
+              <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_PRODUCT_PRICE;?></td>
+              <td class="dataTableHeadingContent"><?php echo TABLE_HEADING_PRODUCT_SORT;?></td>
             </tr>
 <?php
     $productstable = $oostable['products'];
@@ -394,12 +397,12 @@ td.style.backgroundColor="DFE4F4";
     while ($products = $products_result->fields) {
 ?>
             <tr bgcolor='#DFE4F4'>
-              <td class="dataTableContent" align="center">&nbsp;<?php echo $products['products_id'];?>&nbsp;</td>
-              <td class="dataTableContent" align="center">&nbsp;<?php echo $products['products_model'];?>&nbsp;</td>
-              <td class="dataTableContent" align="center">&nbsp;<?php echo oos_info_image($products_name['products_image'], $products_name['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT);?>&nbsp;</td>
-              <td class="dataTableContent" align="center">&nbsp;<?php echo $products['products_name'];?>&nbsp;</td>
-              <td class="dataTableContent" align="center">&nbsp;<?php echo $currencies->format($products['products_price']);?>&nbsp;</td>
-              <td class="dataTableContent" align="center">&nbsp;<?php echo oos_draw_pull_down_menu($products['products_id'], $sort_order_drop_array, $products['sort_order']);?>&nbsp;</td>
+              <td align="center"><?php echo $products['products_id'];?></td>
+              <td align="center"><?php echo $products['products_model'];?></td>
+              <td align="center"><?php echo oos_info_image($products_name['products_image'], $products_name['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT);?></td>
+              <td align="center"><?php echo $products['products_name'];?></td>
+              <td align="center"><?php echo $currencies->format($products['products_price']);?></td>
+              <td align="center"><?php echo oos_draw_pull_down_menu($products['products_id'], $sort_order_drop_array, $products['sort_order']);?></td>
             </tr>
 <?php
       // Move that ADOdb pointer!

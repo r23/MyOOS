@@ -77,11 +77,11 @@ require 'includes/header.php';
           <tr>
             <td valign="top">
 				<table class="table table-striped table-hover w-100">
-					<thead>
+					<thead class="thead-dark">
 						<tr>
-							<td><?php echo TABLE_HEADING_NUMBER; ?></td>
-							<td><?php echo TABLE_HEADING_CUSTOMERS; ?></td>
-							<td class="text-right"><?php echo TABLE_HEADING_TOTAL_PURCHASED; ?>&nbsp;</td>
+							<th><?php echo TABLE_HEADING_NUMBER; ?></th>
+							<th><?php echo TABLE_HEADING_CUSTOMERS; ?></th>
+							<th class="text-right"><?php echo TABLE_HEADING_TOTAL_PURCHASED; ?>&nbsp;</th>
 						</tr>	
 					</thead>			
 			

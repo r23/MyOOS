@@ -175,10 +175,10 @@
 <?php
    } else {
 ?>
-		<table class="table table-striped table-hover w-100">
+		<thead class="thead-dark">
 			<thead class="thead-dark">
 				<tr>
-					<td width="60%"><?php echo TABLE_HEADING_BOXES; ?></th>
+					<th width="60%"><?php echo TABLE_HEADING_BOXES; ?></th>
 					<th class="text-center"><?php echo TABLE_HEADING_STATUS; ?></th>
 					<th class="text-right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>
 				</tr>	

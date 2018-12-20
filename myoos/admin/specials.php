@@ -340,7 +340,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       $in_price = $sInfo->products_price; 
       $in_new_price = $sInfo->specials_new_products_price;
 ?>
-                <td ><?php echo $specials['products_name']; ?></td>
+                <td><?php echo $specials['products_name']; ?></td>
                 <td  align="right"><span class="oldPrice"><?php echo $currencies->format($specials['products_price']); ?></span> <span class="specialPrice"><?php echo $currencies->format($specials['specials_new_products_price']); ?></span></td>
                 <td  align="right">
 <?php
