@@ -1077,27 +1077,6 @@ $flds = "
 dosql($table, $flds);
 
 
-
-$table = $prefix_table . 'products_up_sell';
-$flds = "
-  ID I NOTNULL AUTO PRIMARY,
-  products_id I unsigned NOTNULL DEFAULT '1',
-  up_sell_id I unsigned NOTNULL DEFAULT '1',
-  sort_order I unsigned NOTNULL DEFAULT '1'
-";
-dosql($table, $flds);
-
-
-$table = $prefix_table . 'products_xsell';
-$flds = "
-  ID I NOTNULL AUTO PRIMARY,
-  products_id I unsigned NOTNULL DEFAULT '1',
-  xsell_id I unsigned NOTNULL DEFAULT '1',
-  sort_order I unsigned NOTNULL DEFAULT '1'
-";
-dosql($table, $flds);
-
-
 $table = $prefix_table . 'reviews';
 $flds = "
   reviews_id I NOTNULL AUTO PRIMARY,

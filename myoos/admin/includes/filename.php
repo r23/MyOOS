@@ -87,8 +87,6 @@ $aContents['tax_rates'] = $prefix_filename . 'tax_rates.php';
 $aContents['validcategories'] = $prefix_filename . 'validcategories.php';
 $aContents['validproducts'] = $prefix_filename . 'validproducts.php';
 $aContents['whos_online'] = $prefix_filename . 'whos_online.php';
-$aContents['xsell_products'] = 'xsell_products.php';
-$aContents['up_sell_products'] = 'up_sell_products.php';
 $aContents['zones'] = $prefix_filename . 'zones.php';
 
 //catalogLink

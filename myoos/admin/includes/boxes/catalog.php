@@ -63,16 +63,6 @@ $aBlocks[] = array(
 			'link' => oos_admin_files_boxes('products_units', 'selected_box=catalog')
 		),
 		array(
-			'code' => $aContents['xsell_products'],
-			'title' => BOX_CATALOG_XSELL_PRODUCTS,
-			'link' =>  oos_admin_files_boxes('xsell_products', 'selected_box=catalog')
-		),
-		array(
-			'code' => $aContents['up_sell_products'],
-			'title' => BOX_CATALOG_UP_SELL_PRODUCTS,
-			'link' => oos_admin_files_boxes('up_sell_products', 'selected_box=catalog')
-		),
-		array(
 		'code' => $aContents['export_excel'],
 			'title' => BOX_CATALOG_EXPORT_EXCEL,
 			'link' => oos_admin_files_boxes('export_excel', 'selected_box=catalog')
