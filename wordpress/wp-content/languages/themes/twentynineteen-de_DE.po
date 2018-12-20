@@ -34,11 +34,11 @@ msgstr "Hervorgehoben"
 msgid "Twenty Nineteen requires at least WordPress version 4.7. You are running version %s. Please upgrade and try again."
 msgstr "Twenty Nineteen erfordert mindestens WordPress Version 4.7. Deine Version ist %s. Bitte führe ein Upgrade durch und versuche es erneut."
 
-#: inc/template-functions.php:219
+#: inc/template-functions.php:216
 msgid "Back"
 msgstr "Zurück"
 
-#: inc/template-functions.php:211
+#: inc/template-functions.php:208
 msgid "More"
 msgstr "Mehr"
 
@@ -144,11 +144,12 @@ msgid_plural "%d Comments"
 msgstr[0] "%d Kommentar"
 msgstr[1] "%d Kommentare"
 
-#: template-parts/post/author-bio.php:18
+#: template-parts/post/author-bio.php:26
 msgid "View more posts"
 msgstr "Mehr Beiträge anzeigen"
 
-#: template-parts/post/author-bio.php:13
+#. translators: %s: post author
+#: template-parts/post/author-bio.php:17
 msgid "Published by %s"
 msgstr "Veröffentlicht von %s"
 
@@ -185,36 +186,31 @@ msgstr "Bereit, deinen ersten Beitrag zu veröffentlichen? <a href=\"%1$s\">Star
 msgid "Nothing Found"
 msgstr "Nichts gefunden"
 
-#: single.php:41
+#: single.php:42
 msgid "Previous post:"
 msgstr "Vorheriger Beitrag"
 
-#: single.php:40
+#: single.php:41
 msgid "Previous Post"
 msgstr "Vorheriger Beitrag"
 
-#: single.php:38
+#: single.php:39
 msgid "Next post:"
 msgstr "Nächster Beitrag"
 
-#: single.php:37
+#: single.php:38
 msgid "Next Post"
 msgstr "Nächster Beitrag"
-
-#: single.php:30
-msgctxt "Parent post link"
-msgid "<span class=\"meta-nav\">Published in</span><br/><span class=\"post-title\">%title</span>"
-msgstr "<span class=\"meta-nav\">Veröffentlicht in</span><br/><span class=\"post-title\">%title</span>"
 
 #: search.php:22
 msgid "Search results for:"
 msgstr "Suchergebnisse für:"
 
-#: inc/template-tags.php:232
+#: inc/template-tags.php:234
 msgid "Older posts"
 msgstr "Ältere Beiträge"
 
-#: inc/template-tags.php:231
+#: inc/template-tags.php:230
 msgid "Newer posts"
 msgstr "Neuere Beiträge"
 
@@ -349,21 +345,20 @@ msgstr "Schreib einen Kommentar"
 msgid "Join the Conversation"
 msgstr "Beteilige dich an der Unterhaltung"
 
-#: classes/class-twentynineteen-walker-comment.php:87
+#: classes/class-twentynineteen-walker-comment.php:92
 msgid "Your comment is awaiting moderation."
 msgstr "Dein Kommentar wartet auf Freigabe."
 
-#: classes/class-twentynineteen-walker-comment.php:82
+#: classes/class-twentynineteen-walker-comment.php:87
 msgid "Edit"
 msgstr "Bearbeiten"
 
 #. translators: 1: comment date, 2: comment time
-#: classes/class-twentynineteen-walker-comment.php:74
+#: classes/class-twentynineteen-walker-comment.php:79
 msgid "%1$s at %2$s"
 msgstr "%1$s um %2$s"
 
-#. translators: %s: comment author link
-#: classes/class-twentynineteen-walker-comment.php:60
+#: classes/class-twentynineteen-walker-comment.php:59
 msgid "%s <span class=\"screen-reader-text says\">says:</span>"
 msgstr "%s <span class=\"screen-reader-text says\">sagt:</span>"
 

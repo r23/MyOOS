@@ -23,7 +23,7 @@ msgstr "Twenty Seventeen"
 msgid "Footer"
 msgstr "Footer"
 
-#: functions.php:324 sidebar.php:18
+#: sidebar.php:18 functions.php:324
 msgid "Blog Sidebar"
 msgstr "Blog-Seitenleiste"
 
@@ -164,8 +164,8 @@ msgstr "Footer 2"
 msgid "Add widgets here to appear in your footer."
 msgstr "Widgets hier hinzufügen, um sie im Footer anzuzeigen."
 
-#: functions.php:63 functions.php:192
-#: template-parts/navigation/navigation-top.php:12
+#: template-parts/navigation/navigation-top.php:12 functions.php:63
+#: functions.php:192
 msgid "Top Menu"
 msgstr "Oberes Menü"
 
@@ -212,10 +212,10 @@ msgid "Previous Post"
 msgstr "Vorheriger Beitrag"
 
 #: template-parts/page/content-page.php:25
-#: template-parts/post/content-image.php:64
+#: template-parts/post/content-audio.php:88 template-parts/post/content.php:61
 #: template-parts/post/content-gallery.php:75
-#: template-parts/post/content.php:61 template-parts/post/content-video.php:87
-#: template-parts/post/content-audio.php:88
+#: template-parts/post/content-video.php:87
+#: template-parts/post/content-image.php:64
 msgid "Pages:"
 msgstr "Seiten:"
 
@@ -239,11 +239,11 @@ msgstr "Untermenü anzeigen"
 msgid "Comments are closed."
 msgstr "Kommentare sind geschlossen."
 
-#: search.php:45 archive.php:47 index.php:52
+#: archive.php:47 search.php:45 index.php:52
 msgid "Page"
 msgstr "Seite"
 
-#: search.php:44 archive.php:46 index.php:51
+#: archive.php:46 search.php:44 index.php:51
 msgid "Next page"
 msgstr "Nächste Seite"
 
@@ -255,7 +255,7 @@ msgstr "Die Seite konnte leider nicht gefunden werden."
 msgid "It looks like nothing was found at this location. Maybe try a search?"
 msgstr "Wie es aussieht, wurde an dieser Stelle nichts gefunden. Möchtest du eine Suche starten?"
 
-#: search.php:43 archive.php:45 index.php:50
+#: archive.php:45 search.php:43 index.php:50
 msgid "Previous page"
 msgstr "Vorherige Seite"
 
@@ -273,12 +273,12 @@ msgid "Search for:"
 msgstr "Suche nach:"
 
 #. translators: %s: Name of current post
-#: functions.php:372 template-parts/page/content-front-page.php:40
 #: template-parts/page/content-front-page-panels.php:43
-#: template-parts/post/content-image.php:59
+#: template-parts/page/content-front-page.php:40
+#: template-parts/post/content-audio.php:83 template-parts/post/content.php:56
 #: template-parts/post/content-gallery.php:70
-#: template-parts/post/content.php:56 template-parts/post/content-video.php:82
-#: template-parts/post/content-audio.php:83
+#: template-parts/post/content-video.php:82
+#: template-parts/post/content-image.php:59 functions.php:372
 msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
 msgstr "<span class=\"screen-reader-text\">\"%s\"</span> weiterlesen"
 
