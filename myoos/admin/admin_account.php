@@ -99,7 +99,6 @@
 		<!-- Page content //-->
 		<div class="content-wrapper">
 
-      <?php if ($action == 'edit_process') { echo oos_draw_form('id', 'account', $aContents['admin_account'], 'action=save_account', 'post', FALSE, 'enctype="multipart/form-data"'); } elseif ($action == 'check_account') { echo oos_draw_form('id', 'account', $aContents['admin_account'], 'action=check_password', 'post', FALSE, 'enctype="multipart/form-data"'); } else { echo oos_draw_form('id', 'account', $aContents['admin_account'], 'action=check_account', 'post', FALSE,'enctype="multipart/form-data"'); } ?>
 			<!-- Breadcrumbs //-->
 			<div class="content-heading">
 				<div class="col-lg-12">
@@ -110,6 +109,7 @@
 						</li>
 						<li class="breadcrumb-item">
 							<?php echo '<a href="' . oos_href_link_admin($aContents['admin_account'], 'selected_box=administrator') . '">' . BOX_HEADING_ADMINISTRATOR . '</a>'; ?>
+						</li>						
 						</li>
 						<li class="breadcrumb-item active">
 							<strong><?php echo HEADING_TITLE; ?></strong>
@@ -118,6 +118,8 @@
 				</div>
 			</div>
 			<!-- END Breadcrumbs //-->
+			
+      <?php if ($action == 'edit_process') { echo oos_draw_form('id', 'account', $aContents['admin_account'], 'action=save_account', 'post', FALSE, 'enctype="multipart/form-data"'); } elseif ($action == 'check_account') { echo oos_draw_form('id', 'account', $aContents['admin_account'], 'action=check_password', 'post', FALSE, 'enctype="multipart/form-data"'); } else { echo oos_draw_form('id', 'account', $aContents['admin_account'], 'action=check_account', 'post', FALSE,'enctype="multipart/form-data"'); } ?>
 
 		<div class="row wrapper wrapper-content">
 			<div class="row">
