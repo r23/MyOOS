@@ -73,15 +73,15 @@ $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GE
 					<div class="col-lg-12">				
 <!-- body_text //-->				
 <div class="table-responsive">
-	<table border="0" width="100%" cellspacing="0" cellpadding="0">
+	<table class="table w-100">
           <tr>
             <td valign="top">
 				<table class="table table-striped table-hover w-100">
 					<thead>
 						<tr>
 							<td><?php echo TABLE_HEADING_PRODUCTS; ?></td>
-							<td align="center"><?php echo TABLE_HEADING_DATE_EXPECTED; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+							<td class="text-center"><?php echo TABLE_HEADING_DATE_EXPECTED; ?></td>
+							<td class="text-right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
 						</tr>	
 					</thead>
 <?php
@@ -108,8 +108,8 @@ $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GE
     }
 ?>
                 <td><?php echo $products['products_name']; ?></td>
-                <td align="center"><?php echo oos_date_short($products['products_date_available']); ?></td>
-                <td align="right"><?php if (isset($pInfo) && is_object($pInfo) && ($products['products_id'] == $pInfo->products_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['products_expected'], 'page=' . $nPage . '&pID=' . $products['products_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="text-center"><?php echo oos_date_short($products['products_date_available']); ?></td>
+                <td class="text-right"><?php if (isset($pInfo) && is_object($pInfo) && ($products['products_id'] == $pInfo->products_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['products_expected'], 'page=' . $nPage . '&pID=' . $products['products_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
     // Move that ADOdb pointer!
@@ -142,8 +142,8 @@ $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GE
 
     if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
 ?>
-	<td width="25%" valign="top">
-		<table class="table table-striped table-dark">
+	<td class="w-25">
+		<table class="table table-striped">
 <?php
 		$box = new box;
 		echo $box->infoBox($heading, $contents);  

@@ -859,7 +859,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 	}
 ?>
       <tr>
-        <td align="right"><?php echo '<a href="' . oos_href_link_admin($back_url, $back_url_params) . '">' . oos_button('back', IMAGE_BACK) . '</a>'; ?></td>
+        <td class="text-right"><?php echo '<a href="' . oos_href_link_admin($back_url, $back_url_params) . '">' . oos_button('back', IMAGE_BACK) . '</a>'; ?></td>
       </tr> 
 	    </table>
 <!-- body_text_eof //-->
@@ -921,17 +921,17 @@ if ($action == 'new_category' || $action == 'edit_category') {
 
 <!-- body_text //-->				
 <div class="table-responsive">
-	<table border="0" width="100%" cellspacing="0" cellpadding="0">
+	<table class="table w-100">
           <tr>
             <td valign="top">			
 				<table class="table table-striped table-hover w-100">
-					<thead>
+					<thead class="thead-dark">
 						<tr>
-							<td><?php echo TABLE_HEADING_CATEGORIES_PRODUCTS; ?></td>
-							<td><?php echo TABLE_HEADING_MANUFACTURERS; ?></td>
-							<td align="center"><?php echo TABLE_HEADING_STATUS; ?></td>
-							<td align="center"><?php echo TABLE_HEADING_PRODUCT_SORT; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+							<th><?php echo TABLE_HEADING_CATEGORIES_PRODUCTS; ?></th>
+							<th><?php echo TABLE_HEADING_MANUFACTURERS; ?></th>
+							<th class="text-center"><?php echo TABLE_HEADING_STATUS; ?></th>
+							<th class="text-center"><?php echo TABLE_HEADING_PRODUCT_SORT; ?></th>
+							<th class="text-right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>
 						</tr>	
 					</thead>
 <?php
@@ -964,8 +964,8 @@ if ($action == 'new_category' || $action == 'edit_category') {
       }
 ?>
                 <td>&nbsp;<?php echo '<a href="' . oos_href_link_admin($aContents['categories'], oos_get_path($categories['categories_id'])) . '"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-folder"></i></button></a>&nbsp;<b>' . ' #' . $categories['categories_id'] . ' ' . $categories['categories_name'] . '</b>'; ?></td>
-                <td align="center">&nbsp;</td>
-                 <td align="center">
+                <td class="text-center">&nbsp;</td>
+                 <td class="text-center">
  <?php
        if ($categories['categories_status'] == '1') {
          echo '<a href="' . oos_href_link_admin($aContents['categories'], 'action=setflag&amp;flag=0&amp;cID=' . $categories['categories_id'] . '&amp;cPath=' . $cPath) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
@@ -973,8 +973,8 @@ if ($action == 'new_category' || $action == 'edit_category') {
          echo '<a href="' . oos_href_link_admin($aContents['categories'], 'action=setflag&amp;flag=1&amp;cID=' . $categories['categories_id'] . '&amp;cPath=' . $cPath) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
        }
 ?></td>
-                <td align="center">&nbsp;<?php echo $categories['sort_order']; ?>&nbsp;</td>
-                <td align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($categories['categories_id'] == $cInfo->categories_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&amp;cID=' . $categories['categories_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="text-center">&nbsp;<?php echo $categories['sort_order']; ?>&nbsp;</td>
+                <td class="text-right"><?php if (isset($cInfo) && is_object($cInfo) && ($categories['categories_id'] == $cInfo->categories_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&amp;cID=' . $categories['categories_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
       // Move that ADOdb pointer!
@@ -1012,7 +1012,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 ?>
                 <td><?php echo '<a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&amp;pID=' . $products['products_id'] . '&amp;action=new_product_preview') . '"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-search"></i></button></a>&nbsp;' . '#' . $products['products_id'] . ' ' . $products['products_name']; ?></td>
                 <td><?php echo oos_get_manufacturers_name($products['products_id']) ?></td>
-                <td align="center">
+                <td class="text-center">
 <?php
     if ($products['products_status'] == '0') {
       echo '<a href="' . oos_href_link_admin($aContents['categories'], 'action=setflag&flag=3&amp;pID=' . $products['products_id'] . '&amp;cPath=' . $cPath) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
@@ -1021,8 +1021,8 @@ if ($action == 'new_category' || $action == 'edit_category') {
     }
 
 ?></td>
-                <td align="center"><?php echo $products['products_sort_order']; ?></td>
-                <td align="right"><?php if (isset($pInfo) && is_object($pInfo) && ($products['products_id'] == $pInfo->products_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&amp;pID=' . $products['products_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="text-center"><?php echo $products['products_sort_order']; ?></td>
+                <td class="text-right"><?php if (isset($pInfo) && is_object($pInfo) && ($products['products_id'] == $pInfo->products_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&amp;pID=' . $products['products_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
       // Move that ADOdb pointer!
@@ -1278,8 +1278,8 @@ if ($action == 'new_category' || $action == 'edit_category') {
 
     if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
 ?>
-	<td width="25%" valign="top">
-		<table class="table table-striped table-dark">
+	<td class="w-25">
+		<table class="table table-striped">
 <?php
 		$box = new box;
 		echo $box->infoBox($heading, $contents);  

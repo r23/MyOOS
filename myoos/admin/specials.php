@@ -301,9 +301,9 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 					<thead>
 						<tr>
 							<td><?php echo TABLE_HEADING_PRODUCTS; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_PRODUCTS_PRICE; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_STATUS; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+							<td class="text-right"><?php echo TABLE_HEADING_PRODUCTS_PRICE; ?></td>
+							<td class="text-right"><?php echo TABLE_HEADING_STATUS; ?></td>
+							<td class="text-right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
 						</tr>	
 					</thead>
 <?php
@@ -350,7 +350,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         echo '<a href="' . oos_href_link_admin($aContents['specials'], 'action=setflag&flag=1&id=' . $specials['specials_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
       }
 ?></td>
-                <td align="right"><?php if (isset($sInfo) && is_object($sInfo) && ($specials['specials_id'] == $sInfo->specials_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['specials'], 'page=' . $nPage . '&sID=' . $specials['specials_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="text-right"><?php if (isset($sInfo) && is_object($sInfo) && ($specials['specials_id'] == $sInfo->specials_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['specials'], 'page=' . $nPage . '&sID=' . $specials['specials_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
       </tr>
 <?php
       // Move that ADOdb pointer!
@@ -426,8 +426,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 	}
     if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
 ?>
-	<td width="25%" valign="top">
-		<table class="table table-striped table-dark">
+	<td class="w-25">
+		<table class="table table-striped">
 <?php
 		$box = new box;
 		echo $box->infoBox($heading, $contents);  

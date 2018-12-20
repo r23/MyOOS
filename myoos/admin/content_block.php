@@ -173,19 +173,19 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 					<div class="col-lg-12">	
 <!-- body_text //-->
 	<div class="table-responsive">
-		<table border="0" width="100%" cellspacing="0" cellpadding="0">
+		<table class="table w-100">
           <tr>
             <td valign="top">
 			
 				<table class="table table-striped table-hover w-100">
-					<thead>
+					<thead class="thead-dark">
 						<tr>
-							<td><?php echo TABLE_HEADING_BLOCK; ?></td>
-							<td align="center"><?php echo TABLE_HEADING_COLUMN; ?></td>
-							<td align="center"><?php echo TABLE_HEADING_SORT_ORDER; ?></td>
-							<td align="center"><?php echo TABLE_HEADING_STATUS; ?></td>
-							<td align="center"><?php echo TABLE_HEADING_LOGIN; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+							<th><?php echo TABLE_HEADING_BLOCK; ?></th>
+							<th class="text-center"><?php echo TABLE_HEADING_COLUMN; ?></th>
+							<th class="text-center"><?php echo TABLE_HEADING_SORT_ORDER; ?></th>
+							<th class="text-center"><?php echo TABLE_HEADING_STATUS; ?></th>
+							<th class="text-center"><?php echo TABLE_HEADING_LOGIN; ?></th>
+							<th class="text-right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>
 						</tr>	
 					</thead>
 <?php
@@ -213,9 +213,9 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     }
 ?>
                 <td><?php echo $block['block_name']; ?></td>
-                <td align="center"><?php echo $block['block_side']; ?></td>
-                <td align="center"><?php echo $block['block_sort_order']; ?></td>
-                <td align="center">
+                <td class="text-center"><?php echo $block['block_side']; ?></td>
+                <td class="text-center"><?php echo $block['block_sort_order']; ?></td>
+                <td class="text-center">
 <?php
   if ($block['block_status'] == '1') {
     echo '<a href="' . oos_href_link_admin($aContents['content_block'], 'action=setflag&flag=0&bID=' . $block['block_id'] . '&page=' . $nPage) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
@@ -223,7 +223,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     echo '<a href="' . oos_href_link_admin($aContents['content_block'], 'action=setflag&flag=1&bID=' . $block['block_id'] . '&page=' . $nPage) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
   }
 ?></td>
-                <td align="center">
+                <td class="text-center">
 <?php
   if ($block['block_login_flag'] == '1') {
     echo '<a href="' . oos_href_link_admin($aContents['content_block'], 'action=setloginflag&login_flag=0&bID=' . $block['block_id'] . '&page=' . $nPage) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
@@ -231,7 +231,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     echo '<a href="' . oos_href_link_admin($aContents['content_block'], 'action=setloginflag&login_flag=1&bID=' . $block['block_id'] . '&page=' . $nPage) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
   }
 ?></td>
-                <td align="right"><?php if (isset($bInfo) && is_object($bInfo) && ($block['block_id'] == $bInfo->block_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['content_block'], 'page=' . $nPage . '&bID=' . $block['block_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="text-right"><?php if (isset($bInfo) && is_object($bInfo) && ($block['block_id'] == $bInfo->block_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['content_block'], 'page=' . $nPage . '&bID=' . $block['block_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
     // Move that ADOdb pointer!
@@ -345,8 +345,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
     if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
 ?>
-	<td width="25%" valign="top">
-		<table class="table table-striped table-dark">
+	<td class="w-25">
+		<table class="table table-striped">
 <?php
 		$box = new box;
 		echo $box->infoBox($heading, $contents);  

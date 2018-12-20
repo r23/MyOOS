@@ -180,14 +180,14 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 					<div class="col-lg-12">					
 <!-- body_text //-->
 	<div class="table-responsive">
-		<table border="0" width="100%" cellspacing="0" cellpadding="0">
+		<table class="table w-100">
           <tr>
             <td valign="top">
 				<table class="table table-striped table-hover w-100">
-					<thead>
+					<thead class="thead-dark">
 						<tr>
-							<td><?php echo TABLE_HEADING_PAGE_TYPE; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+							<th><?php echo TABLE_HEADING_PAGE_TYPE; ?></th>
+							<th class="text-right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>
 						</tr>	
 					</thead>			
 			
@@ -307,8 +307,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
     if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
 ?>
-	<td width="25%" valign="top">
-		<table class="table table-striped table-dark">
+	<td class="w-25">
+		<table class="table table-striped">
 <?php
 		$box = new box;
 		echo $box->infoBox($heading, $contents);  

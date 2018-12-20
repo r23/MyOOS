@@ -52,7 +52,7 @@
                 <td align="left" class="dataTableContent"><?php echo TEXT_MAIN; ?></td>
               </tr>
               <tr class="dataTableRow">
-                <td align="left"><?php echo '&nbsp;<a href="' . oos_href_link_admin($aContents['default']) . '">' . oos_button('back', IMAGE_BACK) . '</a>&nbsp;'; ?></td>
+                <td class="text-left"><?php echo '&nbsp;<a href="' . oos_href_link_admin($aContents['default']) . '">' . oos_button('back', IMAGE_BACK) . '</a>&nbsp;'; ?></td>
               </tr>
             </table>
         </td>

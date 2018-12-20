@@ -287,7 +287,7 @@ td.style.backgroundColor="DFE4F4";
               <td valign="top" align="center" colspan="2"><span class="pageHeading"><?php echo TEXT_SETTING_SELLS.': '.$products_name['products_name'].' ('.TEXT_MODEL.': '.$products_name['products_model'].') ('.TEXT_PRODUCT_ID.': '.$_GET['add_related_product_id'].')';?></span></td>
             </tr>
             <tr class="dataTableHeadingRow">
-              <td align="right"><?php echo oos_info_image($products_name['products_image'], $products_name['products_name']);?></td>
+              <td class="text-right"><?php echo oos_info_image($products_name['products_image'], $products_name['products_name']);?></td>
               <td align="right" valign="bottom"><?php echo oos_submit_button('update', IMAGE_UPDATE) . '<br /><br /><a href="'.oos_href_link_admin($aContents['xsell_products'], 'men_id=catalog').'">' . oos_button('cancel', BUTTON_CANCEL) . '</a>';?></td>
             </tr>
           </table></td>
@@ -365,7 +365,7 @@ td.style.backgroundColor="DFE4F4";
               <td valign="top" align="center" colspan="2"><span class="pageHeading"><?php echo 'Setting cross-sells for: '.$products_name['products_name'].' (Model: '.$products_name['products_model'].') (Product ID: '.$_GET['add_related_product_id'].')';?></span></td>
                 </tr>
                 <tr class="dataTableHeadingRow">
-                  <td align="right"><?php echo oos_info_image($products_name['products_image'], $products_name['products_name']);?></td>
+                  <td class="text-right"><?php echo oos_info_image($products_name['products_image'], $products_name['products_name']);?></td>
                   <td align="right" valign="bottom"><?php echo oos_submit_button('update', IMAGE_UPDATE) . '<br /><br /><a href="'.oos_href_link_admin($aContents['xsell_products'], 'men_id=catalog').'">' . oos_button('cancel', BUTTON_CANCEL) . '</a>';?></td>
                 </tr>
               </table></td>

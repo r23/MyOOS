@@ -478,7 +478,7 @@ if (!empty($action)) {
 <!-- body_text //-->
 
 <div class="table-responsive">
-	<table border="0" width="100%" cellspacing="0" cellpadding="0">
+	<table class="table w-100">
           <tr>
             <td valign="top">
 			
@@ -486,11 +486,11 @@ if (!empty($action)) {
 					<thead>
 						<tr>
 							<td><?php echo TABLE_HEADING_LANGUAGE_NAME; ?></td>
-							<td align="center"><?php echo TABLE_HEADING_LANGUAGE_ISO_639_2; ?></td>
-							<td align="center"><?php echo TABLE_HEADING_LANGUAGE_ISO_639_1; ?></td>
-							<td align="center"><?php echo TABLE_HEADING_LANGUAGE_ISO_3166_1; ?></td>
-							<td align="center"><?php echo TABLE_HEADING_LANGUAGE_STATUS; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+							<td class="text-center"><?php echo TABLE_HEADING_LANGUAGE_ISO_639_2; ?></td>
+							<td class="text-center"><?php echo TABLE_HEADING_LANGUAGE_ISO_639_1; ?></td>
+							<td class="text-center"><?php echo TABLE_HEADING_LANGUAGE_ISO_3166_1; ?></td>
+							<td class="text-center"><?php echo TABLE_HEADING_LANGUAGE_STATUS; ?></td>
+							<td class="text-right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
 						</tr>	
 					</thead>
 <?php
@@ -517,10 +517,10 @@ if (!empty($action)) {
       echo '                <td>' . $languages['name'] . '</td>' . "\n";
     }
 ?>
-                <td align="center"><?php echo $languages['iso_639_2']; ?></td>
-                <td align="center"><?php echo $languages['iso_639_1']; ?></td>
-				<td align="center"><?php echo $languages['iso_3166_1']; ?></td>
-                <td align="center">
+                <td class="text-center"><?php echo $languages['iso_639_2']; ?></td>
+                <td class="text-center"><?php echo $languages['iso_639_1']; ?></td>
+				<td class="text-center"><?php echo $languages['iso_3166_1']; ?></td>
+                <td class="text-center">
 <?php
   if ($languages['status'] == '1') {
     echo '<a href="' . oos_href_link_admin($aContents['languages'], 'action=setflag&flag=0&lID=' . $languages['languages_id'] . '&page=' . $nPage) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
@@ -529,7 +529,7 @@ if (!empty($action)) {
   }
 ?></td>
 
-                <td align="right"><?php if (isset($lInfo) && is_object($lInfo) && ($languages['languages_id'] == $lInfo->languages_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $languages['languages_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="text-right"><?php if (isset($lInfo) && is_object($lInfo) && ($languages['languages_id'] == $lInfo->languages_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $languages['languages_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
     // Move that ADOdb pointer!
@@ -612,8 +612,8 @@ if (!empty($action)) {
 
     if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
 ?>
-	<td width="25%" valign="top">
-		<table class="table table-striped table-dark">
+	<td class="w-25">
+		<table class="table table-striped">
 <?php
 		$box = new box;
 		echo $box->infoBox($heading, $contents);  

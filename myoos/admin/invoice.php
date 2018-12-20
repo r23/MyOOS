@@ -109,16 +109,15 @@
     <td>
 	
 	<table class="table table-striped w-100">
-		<thead>
 			<tr>
 				<td colspan="2"><?php echo TABLE_HEADING_PRODUCTS; ?></td>
 				<td><?php echo TABLE_HEADING_PRODUCTS_SERIAL_NUMBER; ?></td>
 				<td><?php echo TABLE_HEADING_PRODUCTS_MODEL; ?></td>
-				<td align="right"><?php echo TABLE_HEADING_TAX; ?></td>
-				<td align="right"><?php echo TABLE_HEADING_PRICE_EXCLUDING_TAX; ?></td>
-				<td align="right"><?php echo TABLE_HEADING_PRICE_INCLUDING_TAX; ?></td>
-				<td align="right"><?php echo TABLE_HEADING_TOTAL_EXCLUDING_TAX; ?></td>
-				<td align="right"><?php echo TABLE_HEADING_TOTAL_INCLUDING_TAX; ?></td>
+				<td class="text-right"<?php echo TABLE_HEADING_TAX; ?></td>
+				<td class="text-right"<?php echo TABLE_HEADING_PRICE_EXCLUDING_TAX; ?></td>
+				<td class="text-right"<?php echo TABLE_HEADING_PRICE_INCLUDING_TAX; ?></td>
+				<td class="text-right"<?php echo TABLE_HEADING_TOTAL_EXCLUDING_TAX; ?></td>
+				<td class="text-right"<?php echo TABLE_HEADING_TOTAL_INCLUDING_TAX; ?></td>
 			</tr>	
 		</thead>
 <?php

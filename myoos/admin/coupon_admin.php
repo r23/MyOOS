@@ -275,18 +275,18 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 					<div class="col-lg-12">
 <!-- body_text //-->					
 	<div class="table-responsive">					
-		<table border="0" width="100%" cellspacing="0" cellpadding="0">
+		<table class="table w-100">
           <tr>
             <td valign="top">
 			
 				<table class="table table-striped table-hover w-100">
-					<thead>
+					<thead class="thead-dark">
 						<tr>
-							<td><?php echo CUSTOMER_ID; ?></td>
-							<td align="center"><?php echo CUSTOMER_NAME; ?></td>
-							<td align="center"><?php echo IP_ADDRESS; ?></td>
-							<td align="center"><?php echo REDEEM_DATE; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+							<th><?php echo CUSTOMER_ID; ?></th>
+							<th class="text-center"><?php echo CUSTOMER_NAME; ?></th>
+							<th class="text-center"><?php echo IP_ADDRESS; ?></th>
+							<th class="text-center"><?php echo REDEEM_DATE; ?></th>
+							<th class="text-right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>
 						</tr>	
 					</thead>
 <?php
@@ -314,10 +314,10 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       $customer = $customer_result->fields;
 ?>
                 <td><?php echo $cc_list['customer_id']; ?></td>
-                <td align="center"><?php echo $customer['customers_firstname'] . ' ' . $customer['customers_lastname']; ?></td>
-                <td align="center"><?php echo $cc_list['redeem_ip']; ?></td>
-                <td align="center"><?php echo oos_date_short($cc_list['redeem_date']); ?></td>
-                <td align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($cc_list['unique_id'] == $cInfo->unique_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['coupon_admin'], 'page=' . $nPage . '&cID=' . $cc_list['coupon_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="text-center"><?php echo $customer['customers_firstname'] . ' ' . $customer['customers_lastname']; ?></td>
+                <td class="text-center"><?php echo $cc_list['redeem_ip']; ?></td>
+                <td class="text-center"><?php echo oos_date_short($cc_list['redeem_date']); ?></td>
+                <td class="text-right"><?php if (isset($cInfo) && is_object($cInfo) && ($cc_list['unique_id'] == $cInfo->unique_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['coupon_admin'], 'page=' . $nPage . '&cID=' . $cc_list['coupon_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
       // Move that ADOdb pointer!
@@ -348,8 +348,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     #  $contents[] = array('text' => TEXT_REDEMPTIONS_CUSTOMER . '=' . $count_customers->RecordCount();
       $contents[] = array('text' => '');
 ?>
-    <td width="25%" valign="top">
-		<table class="table table-striped table-dark">
+    <td class="w-25">
+		<table class="table table-striped">
 <?php
 		$box = new box;
 		echo $box->infoBox($heading, $contents);
@@ -458,7 +458,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                 <table border="0" width="100%" cellpadding="0" cellspacing="2">
                   <tr>
                     <td><?php ?>&nbsp;</td>
-                    <td align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['coupon_admin']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a> ' . oos_submit_button('send_mail', IMAGE_SEND_EMAIL); ?></td>
+                    <td class="text-right"><?php echo '<a href="' . oos_href_link_admin($aContents['coupon_admin']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a> ' . oos_submit_button('send_mail', IMAGE_SEND_EMAIL); ?></td>
                   </tr>
                 </table></td>
               </tr>
@@ -625,8 +625,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
            $lang_id = $languages[$i]['id'];
 ?>
       <tr>
-        <td align="left"><?php echo COUPON_NAME; ?></td>
-        <td align="left"><?php echo $_POST['coupon_name'][$lang_id]; ?></td>
+        <td class="text-left"><?php echo COUPON_NAME; ?></td>
+        <td class="text-left"><?php echo $_POST['coupon_name'][$lang_id]; ?></td>
       </tr>
 <?php
 }
@@ -637,38 +637,38 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
             $lang_id = $languages[$i]['id'];
 ?>
       <tr>
-        <td align="left"><?php echo COUPON_DESC; ?></td>
-        <td align="left"><?php echo $_POST['coupon_desc'][$lang_id]; ?></td>
+        <td class="text-left"><?php echo COUPON_DESC; ?></td>
+        <td class="text-left"><?php echo $_POST['coupon_desc'][$lang_id]; ?></td>
       </tr>
 <?php
 }
 ?>
       <tr>
-        <td align="left"><?php echo COUPON_AMOUNT; ?></td>
-        <td align="left"><?php echo $_POST['coupon_amount']; ?></td>
+        <td class="text-left"><?php echo COUPON_AMOUNT; ?></td>
+        <td class="text-left"><?php echo $_POST['coupon_amount']; ?></td>
       </tr>
 
       <tr>
-        <td align="left"><?php echo COUPON_MIN_ORDER; ?></td>
-        <td align="left"><?php echo $_POST['coupon_min_order']; ?></td>
+        <td class="text-left"><?php echo COUPON_MIN_ORDER; ?></td>
+        <td class="text-left"><?php echo $_POST['coupon_min_order']; ?></td>
       </tr>
 
       <tr>
-        <td align="left"><?php echo COUPON_FREE_SHIP; ?></td>
+        <td class="text-left"><?php echo COUPON_FREE_SHIP; ?></td>
 <?php
     if (isset($_POST['coupon_free_ship'])) {
 ?>
-        <td align="left"><?php echo TEXT_FREE_SHIPPING; ?></td>
+        <td class="text-left"><?php echo TEXT_FREE_SHIPPING; ?></td>
 <?php
     } else {
 ?>
-        <td align="left"><?php echo TEXT_NO_FREE_SHIPPING; ?></td>
+        <td class="text-left"><?php echo TEXT_NO_FREE_SHIPPING; ?></td>
 <?php
     }
 ?>
       </tr>
       <tr>
-        <td align="left"><?php echo COUPON_CODE; ?></td>
+        <td class="text-left"><?php echo COUPON_CODE; ?></td>
 <?php
     if (isset($_POST['coupon_code'])) {
       $c_code = $_POST['coupon_code'];
@@ -676,44 +676,44 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       $c_code = $coupon_code;
     }
 ?>
-        <td align="left"><?php echo $coupon_code; ?></td>
+        <td class="text-left"><?php echo $coupon_code; ?></td>
       </tr>
 
       <tr>
-        <td align="left"><?php echo COUPON_USES_COUPON; ?></td>
-        <td align="left"><?php echo $_POST['coupon_uses_coupon']; ?></td>
+        <td class="text-left"><?php echo COUPON_USES_COUPON; ?></td>
+        <td class="text-left"><?php echo $_POST['coupon_uses_coupon']; ?></td>
       </tr>
 
       <tr>
-        <td align="left"><?php echo COUPON_USES_USER; ?></td>
-        <td align="left"><?php echo $_POST['coupon_uses_user']; ?></td>
+        <td class="text-left"><?php echo COUPON_USES_USER; ?></td>
+        <td class="text-left"><?php echo $_POST['coupon_uses_user']; ?></td>
       </tr>
 
        <tr>
-        <td align="left"><?php echo COUPON_PRODUCTS; ?></td>
-        <td align="left"><?php echo $_POST['coupon_products']; ?></td>
+        <td class="text-left"><?php echo COUPON_PRODUCTS; ?></td>
+        <td class="text-left"><?php echo $_POST['coupon_products']; ?></td>
       </tr>
 
 
       <tr>
-        <td align="left"><?php echo COUPON_CATEGORIES; ?></td>
-        <td align="left"><?php echo $_POST['coupon_categories']; ?></td>
+        <td class="text-left"><?php echo COUPON_CATEGORIES; ?></td>
+        <td class="text-left"><?php echo $_POST['coupon_categories']; ?></td>
       </tr>
       <tr>
-        <td align="left"><?php echo COUPON_STARTDATE; ?></td>
+        <td class="text-left"><?php echo COUPON_STARTDATE; ?></td>
 <?php
     $start_date = date(DATE_FORMAT, mktime(0, 0, 0, $_POST['coupon_startdate_month'],$_POST['coupon_startdate_day'] ,$_POST['coupon_startdate_year'] ));
 ?>
-        <td align="left"><?php echo $start_date; ?></td>
+        <td class="text-left"><?php echo $start_date; ?></td>
       </tr>
 
       <tr>
-        <td align="left"><?php echo COUPON_FINISHDATE; ?></td>
+        <td class="text-left"><?php echo COUPON_FINISHDATE; ?></td>
 <?php
     $finish_date = date(DATE_FORMAT, mktime(0, 0, 0, $_POST['coupon_finishdate_month'],$_POST['coupon_finishdate_day'] ,$_POST['coupon_finishdate_year'] ));
     echo date('Y-m-d', mktime(0, 0, 0, $_POST['coupon_startdate_month'],$_POST['coupon_startdate_day'] ,$_POST['coupon_startdate_year'] ));
 ?>
-        <td align="left"><?php echo $finish_date; ?></td>
+        <td class="text-left"><?php echo $finish_date; ?></td>
       </tr>
 <?php
         $languages = oos_get_languages();
@@ -734,8 +734,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     echo oos_draw_hidden_field('coupon_finishdate', date('Y-m-d', mktime(0, 0, 0, $_POST['coupon_finishdate_month'],$_POST['coupon_finishdate_day'] ,$_POST['coupon_finishdate_year'] )));
 ?>
      <tr>
-        <td align="left"><?php echo oos_submit_button('confirm', COUPON_BUTTON_CONFIRM); ?></td>
-        <td align="left"><?php echo oos_submit_button('back', COUPON_BUTTON_BACK, 'name=back'); ?></td>
+        <td class="text-left"><?php echo oos_submit_button('confirm', COUPON_BUTTON_CONFIRM); ?></td>
+        <td class="text-left"><?php echo oos_submit_button('back', COUPON_BUTTON_BACK, 'name=back'); ?></td>
       </td>
       </tr>
 
@@ -821,7 +821,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 ?>
       <tr>
         <td align="left" class="main"><?php if ($i==0) echo COUPON_NAME; ?></td>
-        <td align="left"><?php echo oos_draw_input_field('coupon_name[' . $languages[$i]['id'] . ']', $coupon_name[$lang_id]) . '&nbsp;' . oos_flag_icon($languages[$i]); ?></td>
+        <td class="text-left"><?php echo oos_draw_input_field('coupon_name[' . $languages[$i]['id'] . ']', $coupon_name[$lang_id]) . '&nbsp;' . oos_flag_icon($languages[$i]); ?></td>
         <td align="left" class="main" width="40%"><?php if ($i==0) echo COUPON_NAME_HELP; ?></td>
       </tr>
 <?php
@@ -843,42 +843,42 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 ?>
       <tr>
         <td align="left" class="main"><?php echo COUPON_AMOUNT; ?></td>
-        <td align="left"><?php echo oos_draw_input_field('coupon_amount', $coupon_amount); ?></td>
+        <td class="text-left"><?php echo oos_draw_input_field('coupon_amount', $coupon_amount); ?></td>
         <td align="left" class="main"><?php echo COUPON_AMOUNT_HELP; ?></td>
       </tr>
       <tr>
         <td align="left" class="main"><?php echo COUPON_MIN_ORDER; ?></td>
-        <td align="left"><?php echo oos_draw_input_field('coupon_min_order', $coupon_min_order); ?></td>
+        <td class="text-left"><?php echo oos_draw_input_field('coupon_min_order', $coupon_min_order); ?></td>
         <td align="left" class="main"><?php echo COUPON_MIN_ORDER_HELP; ?></td>
       </tr>
       <tr>
         <td align="left" class="main"><?php echo COUPON_FREE_SHIP; ?></td>
-        <td align="left"><?php echo oos_draw_checkbox_field('coupon_free_ship', $coupon_free_ship); ?></td>
+        <td class="text-left"><?php echo oos_draw_checkbox_field('coupon_free_ship', $coupon_free_ship); ?></td>
         <td align="left" class="main"><?php echo COUPON_FREE_SHIP_HELP; ?></td>
       </tr>
       <tr>
         <td align="left" class="main"><?php echo COUPON_CODE; ?></td>
-        <td align="left"><?php echo oos_draw_input_field('coupon_code', $coupon_code); ?></td>
+        <td class="text-left"><?php echo oos_draw_input_field('coupon_code', $coupon_code); ?></td>
         <td align="left" class="main"><?php echo COUPON_CODE_HELP; ?></td>
       </tr>
       <tr>
         <td align="left" class="main"><?php echo COUPON_USES_COUPON; ?></td>
-        <td align="left"><?php echo oos_draw_input_field('coupon_uses_coupon', $coupon_uses_coupon); ?></td>
+        <td class="text-left"><?php echo oos_draw_input_field('coupon_uses_coupon', $coupon_uses_coupon); ?></td>
         <td align="left" class="main"><?php echo COUPON_USES_COUPON_HELP; ?></td>
       </tr>
       <tr>
         <td align="left" class="main"><?php echo COUPON_USES_USER; ?></td>
-        <td align="left"><?php echo oos_draw_input_field('coupon_uses_user', $coupon_uses_user); ?></td>
+        <td class="text-left"><?php echo oos_draw_input_field('coupon_uses_user', $coupon_uses_user); ?></td>
         <td align="left" class="main"><?php echo COUPON_USES_USER_HELP; ?></td>
       </tr>
        <tr>
         <td align="left" class="main"><?php echo COUPON_PRODUCTS; ?></td>
-        <td align="left"><?php echo oos_draw_input_field('coupon_products', $coupon_products); ?> <?php echo '<a href="' . oos_href_link_admin($aContents['validproducts']); ?>" TARGET="_blank" ONCLICK="window.open('<?php echo oos_href_link_admin($aContents['validproducts']); ?>', 'Valid_Products', 'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600'); return false">View</A></td>
+        <td class="text-left"><?php echo oos_draw_input_field('coupon_products', $coupon_products); ?> <?php echo '<a href="' . oos_href_link_admin($aContents['validproducts']); ?>" TARGET="_blank" ONCLICK="window.open('<?php echo oos_href_link_admin($aContents['validproducts']); ?>', 'Valid_Products', 'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600'); return false">View</A></td>
         <td align="left" class="main"><?php echo COUPON_PRODUCTS_HELP; ?></td>
       </tr>
       <tr>
         <td align="left" class="main"><?php echo COUPON_CATEGORIES; ?></td>
-        <td align="left"><?php echo oos_draw_input_field('coupon_categories', $coupon_categories); ?> <?php echo '<a href="' . oos_href_link_admin($aContents['validcategories']); ?>" TARGET="_blank" ONCLICK="window.open('<?php echo oos_href_link_admin($aContents['validcategories']); ?>', 'Valid_Categories', 'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600'); return false">View</A></td>
+        <td class="text-left"><?php echo oos_draw_input_field('coupon_categories', $coupon_categories); ?> <?php echo '<a href="' . oos_href_link_admin($aContents['validcategories']); ?>" TARGET="_blank" ONCLICK="window.open('<?php echo oos_href_link_admin($aContents['validcategories']); ?>', 'Valid_Categories', 'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600'); return false">View</A></td>
         <td align="left" class="main"><?php echo COUPON_CATEGORIES_HELP; ?></td>
       </tr>
       <tr>
@@ -896,17 +896,17 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     }
 ?>
         <td align="left" class="main"><?php echo COUPON_STARTDATE; ?></td>
-        <td align="left"><?php echo oos_draw_date_selector('coupon_startdate', mktime(0,0,0, $coupon_startdate[1], $coupon_startdate[2], $coupon_startdate[0])); ?></td>
+        <td class="text-left"><?php echo oos_draw_date_selector('coupon_startdate', mktime(0,0,0, $coupon_startdate[1], $coupon_startdate[2], $coupon_startdate[0])); ?></td>
         <td align="left" class="main"><?php echo COUPON_STARTDATE_HELP; ?></td>
       </tr>
       <tr>
         <td align="left" class="main"><?php echo COUPON_FINISHDATE; ?></td>
-        <td align="left"><?php echo oos_draw_date_selector('coupon_finishdate', mktime(0,0,0, $coupon_finishdate[1], $coupon_finishdate[2], $coupon_finishdate[0])); ?></td>
+        <td class="text-left"><?php echo oos_draw_date_selector('coupon_finishdate', mktime(0,0,0, $coupon_finishdate[1], $coupon_finishdate[2], $coupon_finishdate[0])); ?></td>
         <td align="left" class="main"><?php echo COUPON_FINISHDATE_HELP; ?></td>
       </tr>
       <tr>
-        <td align="left"><?php echo oos_submit_button('preview', IMAGE_PREVIEW); ?></td>
-        <td align="left"><?php echo '&nbsp;&nbsp;<a href="' . oos_href_link_admin('coupon_admin.php', ''); ?>"><?php echo oos_button('cancel', BUTTON_CANCEL); ?></a>
+        <td class="text-left"><?php echo oos_submit_button('preview', IMAGE_PREVIEW); ?></td>
+        <td class="text-left"><?php echo '&nbsp;&nbsp;<a href="' . oos_href_link_admin('coupon_admin.php', ''); ?>"><?php echo oos_button('cancel', BUTTON_CANCEL); ?></a>
       </td>
       </tr>
       </td></table></form>
@@ -962,16 +962,16 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         </table>
 		
 	<div class="table-responsive">
-		<table border="0" width="100%" cellspacing="0" cellpadding="0">
+		<table class="table w-100">
           <tr>
             <td valign="top">		
 				<table class="table table-striped table-hover w-100">
-					<thead>
+					<thead class="thead-dark">
 						<tr>
-							<td><?php echo COUPON_NAME; ?></td>
-							<td align="center"><?php echo COUPON_AMOUNT; ?></td>
-							<td align="center"><?php echo COUPON_CODE; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+							<th><?php echo COUPON_NAME; ?></th>
+							<th class="text-center"><?php echo COUPON_AMOUNT; ?></th>
+							<th class="text-center"><?php echo COUPON_CODE; ?></th>
+							<th class="text-right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>
 						</tr>	
 					</thead>
 <?php
@@ -1018,7 +1018,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       $coupon_desc = $coupon_description_result->fields;
 ?>
                 <td><?php echo $coupon_desc['coupon_name']; ?></td>
-                <td align="center">
+                <td class="text-center">
 <?php
       if ($cc_list['coupon_type'] == 'P') {
         echo $cc_list['coupon_amount'] . '%';
@@ -1029,8 +1029,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       }
 ?>
             &nbsp;</td>
-                <td align="center"><?php echo $cc_list['coupon_code']; ?></td>
-                <td align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($cc_list['coupon_id'] == $cInfo->coupon_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['coupon_admin'], 'page=' . $nPage . '&cID=' . $cc_list['coupon_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="text-center"><?php echo $cc_list['coupon_code']; ?></td>
+                <td class="text-right"><?php if (isset($cInfo) && is_object($cInfo) && ($cc_list['coupon_id'] == $cInfo->coupon_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['coupon_admin'], 'page=' . $nPage . '&cID=' . $cc_list['coupon_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
       // Move that ADOdb pointer!
@@ -1124,8 +1124,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         break;
       }
 ?>
-	<td width="25%" valign="top">
-		<table class="table table-striped table-dark">
+	<td class="w-25">
+		<table class="table table-striped">
 <?php
 		$box = new box;
 		echo $box->infoBox($heading, $contents);

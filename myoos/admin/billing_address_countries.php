@@ -93,15 +93,15 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 					<div class="col-lg-12">				
 <!-- body_text //-->
 	<div class="table-responsive">
-		<table border="0" width="100%" cellspacing="0" cellpadding="0">
+		<table class="table w-100">
           <tr>
             <td valign="top">
 				<table class="table table-striped table-hover w-100">
-					<thead>
+					<thead class="thead-dark">
 						<tr>
-							<td><?php echo TABLE_HEADING_COUNTRY_NAME; ?></td>
-							<td align="center" colspan="2"><?php echo TABLE_HEADING_COUNTRY_CODES; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+							<th><?php echo TABLE_HEADING_COUNTRY_NAME; ?></th>
+							<th class="text-center" colspan="2"><?php echo TABLE_HEADING_COUNTRY_CODES; ?></th>
+							<th class="text-right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>
 						</tr>	
 					</thead>
 <?php
@@ -124,7 +124,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                 <td><?php echo $countries['countries_name']; ?></td>
                 <td align="center" width="40"><?php echo $countries['countries_iso_code_2']; ?></td>
                 <td align="center" width="40"><?php echo $countries['countries_iso_code_3']; ?></td>
-                <td align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($countries['countries_id'] == $cInfo->countries_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['billing_address_countries'], 'page=' . $nPage . '&cID=' . $countries['countries_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="text-right"><?php if (isset($cInfo) && is_object($cInfo) && ($countries['countries_id'] == $cInfo->countries_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['billing_address_countries'], 'page=' . $nPage . '&cID=' . $countries['countries_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
     // Move that ADOdb pointer!
@@ -203,8 +203,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
     if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
 ?>
-	<td width="25%" valign="top">
-		<table class="table table-striped table-dark">
+	<td class="w-25">
+		<table class="table table-striped">
 <?php
 		$box = new box;
 		echo $box->infoBox($heading, $contents);  

@@ -93,20 +93,20 @@ require '../includes/classes/class_shopping_cart.php';
 				
 <!-- body_text //-->				
 	<div class="table-responsive">
-		<table border="0" width="100%" cellspacing="0" cellpadding="0">
+		<table class="table w-100">
           <tr>
             <td valign="top">
 			
 				<table class="table table-striped table-hover w-100">
-					<thead>
+					<thead class="thead-dark">
 						<tr>
-							<td><?php echo TABLE_HEADING_ONLINE; ?></td>
-							<td align="center"><?php echo TABLE_HEADING_CUSTOMER_ID; ?></td>
-							<td><?php echo TABLE_HEADING_FULL_NAME; ?></td>
-							<td align="center"><?php echo TABLE_HEADING_IP_ADDRESS; ?></td>
-							<td><?php echo TABLE_HEADING_ENTRY_TIME; ?></td>
-							<td align="center"><?php echo TABLE_HEADING_LAST_CLICK; ?></td>
-							<td><?php echo TABLE_HEADING_LAST_PAGE_URL; ?>&nbsp;</td>
+							<th><?php echo TABLE_HEADING_ONLINE; ?></td>
+							<th class="text-center"><?php echo TABLE_HEADING_CUSTOMER_ID; ?></th>
+							<th><?php echo TABLE_HEADING_FULL_NAME; ?></th>
+							<th class="text-center"><?php echo TABLE_HEADING_IP_ADDRESS; ?></th>
+							<th><?php echo TABLE_HEADING_ENTRY_TIME; ?></th>
+							<th class="text-center"><?php echo TABLE_HEADING_LAST_CLICK; ?></th>
+							<th><?php echo TABLE_HEADING_LAST_PAGE_URL; ?>&nbsp;</th>
 						</tr>	
 					</thead>
 			
@@ -128,11 +128,11 @@ require '../includes/classes/class_shopping_cart.php';
     }
 ?>
                 <td><?php echo gmdate('H:i:s', $time_online); ?></td>
-                <td align="center"><?php echo $whos_online['customer_id']; ?></td>
+                <td class="text-center"><?php echo $whos_online['customer_id']; ?></td>
                 <td><?php echo $whos_online['full_name']; ?></td>
-                <td align="center"><?php echo $whos_online['ip_address']; ?></td>
+                <td class="text-center"><?php echo $whos_online['ip_address']; ?></td>
                 <td><?php echo date('H:i:s', $whos_online['time_entry']); ?></td>
-                <td align="center"><?php echo date('H:i:s', $whos_online['time_last_click']); ?></td>
+                <td class="text-center"><?php echo date('H:i:s', $whos_online['time_last_click']); ?></td>
                 <td><?php if (preg_match('/^(.*)' . $session->getName() . '=[a-f,0-9]+[&]*(.*)/', $whos_online['last_page_url'], $array)) { echo $array[1] . $array[2]; } else { echo $whos_online['last_page_url']; } ?>&nbsp;</td>
               </tr>
 <?php
@@ -180,8 +180,8 @@ require '../includes/classes/class_shopping_cart.php';
 
     if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
 ?>
-	<td width="25%" valign="top">
-		<table class="table table-striped table-dark">
+	<td class="w-25">
+		<table class="table table-striped">
 <?php
 		$box = new box;
 		echo $box->infoBox($heading, $contents);  

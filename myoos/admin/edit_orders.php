@@ -705,13 +705,13 @@ $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " .
       <tr>
   <td>
   				<table class="table table-striped w-100">
-					<thead>
+					<thead class="thead-dark">
 						<tr>
-							<td colspan="2"><?php echo TABLE_HEADING_PRODUCTS; ?></td>
-							<td><?php echo TABLE_HEADING_PRODUCTS_MODEL; ?></td>
-							<td align="center"><?php echo TABLE_HEADING_TAX; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_UNIT_PRICE; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_TOTAL_PRICE; ?></td>
+							<th colspan="2"><?php echo TABLE_HEADING_PRODUCTS; ?></th>
+							<th><?php echo TABLE_HEADING_PRODUCTS_MODEL; ?></th>
+							<th class="text-center"><?php echo TABLE_HEADING_TAX; ?></th>
+							<th class="text-right"><?php echo TABLE_HEADING_UNIT_PRICE; ?></th>
+							<th class="text-right"><?php echo TABLE_HEADING_TOTAL_PRICE; ?></th>
 						</tr>	
 					</thead>
 

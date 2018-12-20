@@ -242,7 +242,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       }
 ?>
       <tr>
-        <td align="right"><?php echo '<a href="' . oos_href_link_admin($back_url, $back_url_params) . '">' . oos_button('back', IMAGE_BACK) . '</a>'; ?></td>
+        <td class="text-right"><?php echo '<a href="' . oos_href_link_admin($back_url, $back_url_params) . '">' . oos_button('back', IMAGE_BACK) . '</a>'; ?></td>
       </tr>
 <?php
     }
@@ -253,7 +253,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 ?>
 
 	<div class="table-responsive">
-		<table border="0" width="100%" cellspacing="0" cellpadding="0">
+		<table class="table w-100">
           <tr>
             <td valign="top">
 			
@@ -261,10 +261,10 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 					<thead>
 						<tr>
 							<td><?php echo TABLE_HEADING_PRODUCTS; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_RATING; ?></td>
-							<td align="center"><?php echo TABLE_HEADING_STATUS; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_DATE_ADDED; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+							<td class="text-right"><?php echo TABLE_HEADING_RATING; ?></td>
+							<td class="text-center"><?php echo TABLE_HEADING_STATUS; ?></td>
+							<td class="text-right"><?php echo TABLE_HEADING_DATE_ADDED; ?></td>
+							<td class="text-right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
 						</tr>	
 					</thead>
 <?php
@@ -305,8 +305,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       }
 ?>
                 <td><?php echo '<a href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $reviews['reviews_id'] . '&action=preview') . '"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-search"></i></button></a>&nbsp;' . oos_get_products_name($reviews['products_id']); ?></td>
-                <td align="right"><?php echo $reviews['reviews_rating']; ?></td>
-                <td align="center">
+                <td class="text-right"><?php echo $reviews['reviews_rating']; ?></td>
+                <td class="text-center">
  <?php
        if ($reviews['reviews_status'] == '1') {
          echo '<a href="' . oos_href_link_admin($aContents['reviews'], 'action=setflag&amp;flag=0&amp;rID=' . $reviews['reviews_id'] . '&amp;page=' . $nPage) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
@@ -314,8 +314,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
          echo '<a href="' . oos_href_link_admin($aContents['reviews'], 'action=setflag&amp;flag=1&amp;rID=' . $reviews['reviews_id'] . '&amp;page=' . $nPage) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
        }
 ?></td>				
-                <td align="right"><?php echo oos_date_short($reviews['date_added']); ?></td>
-                <td align="right"><?php if (isset($rInfo) && is_object($rInfo) && ($reviews['reviews_id'] == $rInfo->reviews_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $reviews['reviews_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="text-right"><?php echo oos_date_short($reviews['date_added']); ?></td>
+                <td class="text-right"><?php if (isset($rInfo) && is_object($rInfo) && ($reviews['reviews_id'] == $rInfo->reviews_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $reviews['reviews_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
       // Move that ADOdb pointer!
@@ -367,8 +367,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
     if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
 ?>
-	<td width="25%" valign="top">
-		<table class="table table-striped table-dark">
+	<td class="w-25">
+		<table class="table table-striped">
 <?php
 		$box = new box;
 		echo $box->infoBox($heading, $contents);  

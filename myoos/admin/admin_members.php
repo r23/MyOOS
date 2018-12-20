@@ -242,7 +242,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 					<div class="col-lg-12">	
 <!-- body_text //-->
 	<div class="table-responsive">
-		<table border="0" width="100%" cellspacing="0" cellpadding="0">
+		<table class="table w-100">
           <tr>
             <td valign="top">
 <?php
@@ -259,9 +259,9 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
    }
 ?>
 		<table class="table table-striped table-hover w-100">
-			<thead>
+			<thead class="thead-dark">
 				<tr>
-					<td colspan=2>&nbsp;<?php echo TABLE_HEADING_GROUPS_DEFINE; ?></td>		  
+					<th colspan=2>&nbsp;<?php echo TABLE_HEADING_GROUPS_DEFINE; ?></th>		  
 				</tr>	
 			</thead>			  
 			  
@@ -353,10 +353,10 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
  } elseif ($_GET['gID']) {
 ?>
 		<table class="table table-striped w-100">
-			<thead>
+			<thead class="thead-dark">
 				<tr>
-					<td>&nbsp;<?php echo TABLE_HEADING_GROUPS_NAME; ?></td>
-					<td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>			  
+					<th>&nbsp;<?php echo TABLE_HEADING_GROUPS_NAME; ?></th>
+					<th class="text-right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>			  
 				</tr>	
 			</thead>			  
 <?php
@@ -380,7 +380,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     }
 ?>
                 <td>&nbsp;<b><?php echo $groups['admin_groups_name']; ?></b></td>
-                <td align="right"><?php if (isset($gInfo) && is_object($gInfo) && ($groups['admin_groups_id'] == $gInfo->admin_groups_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['admin_members'], 'gID=' . $groups['admin_groups_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="text-right"><?php if (isset($gInfo) && is_object($gInfo) && ($groups['admin_groups_id'] == $gInfo->admin_groups_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['admin_members'], 'gID=' . $groups['admin_groups_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
     $count_groups++;
@@ -404,13 +404,13 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
  } else {
 ?>
 		<table class="table table-striped w-100">
-			<thead>
+			<thead class="thead-dark">
 				<tr>
-					<td><?php echo TABLE_HEADING_NAME; ?></td>
-					<td><?php echo TABLE_HEADING_EMAIL; ?></td>
-					<td align="center"><?php echo TABLE_HEADING_GROUPS; ?></td>
-					<td align="center"><?php echo TABLE_HEADING_LOGNUM; ?></td>
-					<td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+					<th><?php echo TABLE_HEADING_NAME; ?></th>
+					<th><?php echo TABLE_HEADING_EMAIL; ?></th>
+					<th class="text-center"><?php echo TABLE_HEADING_GROUPS; ?></th>
+					<th class="text-center"><?php echo TABLE_HEADING_LOGNUM; ?></th>
+					<th class="text-right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>
 				</tr>	
 			</thead>
 <?php
@@ -436,9 +436,9 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 ?>
                 <td>&nbsp;<?php echo $admin['admin_firstname']; ?>&nbsp;<?php echo $admin['admin_lastname']; ?></td>
                 <td><?php echo $admin['admin_email_address']; ?></td>
-                <td align="center"><?php echo $admin_group['admin_groups_name']; ?></td>
-                <td align="center"><?php echo $admin['admin_lognum']; ?></td>
-                <td align="right"><?php if (isset($mInfo) && is_object($mInfo) && ($admin['admin_id'] == $mInfo->admin_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['admin_members'], 'page=' . $nPage . '&mID=' . $admin['admin_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="text-center"><?php echo $admin_group['admin_groups_name']; ?></td>
+                <td class="text-center"><?php echo $admin['admin_lognum']; ?></td>
+                <td class="text-right"><?php if (isset($mInfo) && is_object($mInfo) && ($admin['admin_id'] == $mInfo->admin_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['admin_members'], 'page=' . $nPage . '&mID=' . $admin['admin_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
     // Move that ADOdb pointer!
@@ -626,8 +626,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
     if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
 ?>
-	<td width="25%" valign="top">
-		<table class="table table-striped table-dark">
+	<td class="w-25">
+		<table class="table table-striped">
 <?php
 		$box = new box;
 		echo $box->infoBox($heading, $contents);  

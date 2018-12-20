@@ -195,8 +195,8 @@
 					<thead>
 						<tr>
 							<td><?php echo TABLE_HEADING_PLUGINS; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_STATUS; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+							<td class="text-right"><?php echo TABLE_HEADING_STATUS; ?></td>
+							<td class="text-right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
 						</tr>	
 					</thead>
 <?php
@@ -254,7 +254,7 @@
 ?>
 
                 <td><?php echo $oPlugin->name; ?></td>
-                <td align="right">
+                <td class="text-right">
 <?php
    if (in_array($sInstance, $installed)) {
      if ($oPlugin->uninstallable) {
@@ -266,7 +266,7 @@
       echo '<a href="' . oos_href_link_admin($aContents['plugins'], 'plugin=' . $sInstance . '&action=install') . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>'; 
    }
 ?></td>
-                <td align="right"><?php if (isset($pInfo) && is_object($pInfo) && ($sInstance == $pInfo->instance) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['plugins'], 'plugin=' . $sInstance ) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="text-right"><?php if (isset($pInfo) && is_object($pInfo) && ($sInstance == $pInfo->instance) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['plugins'], 'plugin=' . $sInstance ) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 
 <?php
@@ -368,8 +368,8 @@
 
     if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
 ?>
-	<td width="25%" valign="top">
-		<table class="table table-striped table-dark">
+	<td class="w-25">
+		<table class="table table-striped">
 <?php
 		$box = new box;
 		echo $box->infoBox($heading, $contents);  

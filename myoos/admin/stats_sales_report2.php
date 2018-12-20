@@ -399,11 +399,11 @@
 				<table class="table table-striped table-hover w-100">
 					<thead>
 						<tr>
-							<td align="right"><?php echo TABLE_HEADING_DATE; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_ORDERS;?></td>
-							<td align="right"><?php echo TABLE_HEADING_ITEMS; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_REVENUE;?></td>
-							<td align="right"><?php echo  TABLE_HEADING_SHIPPING;?></td>
+							<td class="text-right"><?php echo TABLE_HEADING_DATE; ?></td>
+							<td class="text-right"><?php echo TABLE_HEADING_ORDERS;?></td>
+							<td class="text-right"><?php echo TABLE_HEADING_ITEMS; ?></td>
+							<td class="text-right"><?php echo TABLE_HEADING_REVENUE;?></td>
+							<td class="text-right"><?php echo  TABLE_HEADING_SHIPPING;?></td>
 						</tr>	
 					</thead>
 <?php
@@ -419,24 +419,24 @@ while ($sr->actDate < $sr->endDate) {
     switch ($srView) {
       case '3':
 ?>
-                      <td align="right"><?php echo oos_date_long(date("Y-m-d\ H:i:s", $sr->showDate)) . " - " . oos_date_short(date("Y-m-d\ H:i:s", $sr->showDateEnd)); ?></td>
+                      <td class="text-right"><?php echo oos_date_long(date("Y-m-d\ H:i:s", $sr->showDate)) . " - " . oos_date_short(date("Y-m-d\ H:i:s", $sr->showDateEnd)); ?></td>
 <?php
         break;
       case '4':
 ?>
-                      <td align="right"><?php echo oos_date_long(date("Y-m-d\ H:i:s", $sr->showDate)); ?></td>
+                      <td class="text-right"><?php echo oos_date_long(date("Y-m-d\ H:i:s", $sr->showDate)); ?></td>
 <?php
         break;
       default;
 ?>
-                      <td align="right"><?php echo oos_date_short(date("Y-m-d\ H:i:s", $sr->showDate)) . " - " . oos_date_short(date("Y-m-d\ H:i:s", $sr->showDateEnd)); ?></td>
+                      <td class="text-right"><?php echo oos_date_short(date("Y-m-d\ H:i:s", $sr->showDate)) . " - " . oos_date_short(date("Y-m-d\ H:i:s", $sr->showDateEnd)); ?></td>
 <?php
     }
 ?>
-                      <td align="right"><?php echo $info[0]['order']; ?></td>
-                      <td align="right"><?php echo $info[$last - 1]['totitem']; ?></td>
-                      <td align="right"><?php echo $currencies->format($info[$last - 1]['totsum']);?></td>
-                      <td align="right"><?php echo $currencies->format($info[0]['shipping']);?></td>
+                      <td class="text-right"><?php echo $info[0]['order']; ?></td>
+                      <td class="text-right"><?php echo $info[$last - 1]['totitem']; ?></td>
+                      <td class="text-right"><?php echo $currencies->format($info[$last - 1]['totsum']);?></td>
+                      <td class="text-right"><?php echo $currencies->format($info[0]['shipping']);?></td>
                     </tr>
 <?php
   } else {
@@ -454,7 +454,7 @@ while ($sr->actDate < $sr->endDate) {
 ?>
                     <tr>
                     <td>&nbsp;</td>
-                    <td align="left"><a href="<?php echo oos_catalog_link($aCatalog['product_info'], 'products_id=' . $info[$i]['pid']) ?>" target="_blank" rel="noopener"><?php echo $info[$i]['pname']; ?></a>
+                    <td class="text-left"><a href="<?php echo oos_catalog_link($aCatalog['product_info'], 'products_id=' . $info[$i]['pid']) ?>" target="_blank" rel="noopener"><?php echo $info[$i]['pname']; ?></a>
 <?php
   if (is_array($info[$i]['attr'])) {
     $attr_info = $info[$i]['attr'];
@@ -485,10 +485,10 @@ while ($sr->actDate < $sr->endDate) {
     }
   }
 ?>                    </td>
-                    <td align="right"><?php echo $info[$i]['pquant']; ?></td>
+                    <td class="text-right"><?php echo $info[$i]['pquant']; ?></td>
 <?php
           if ($srDetail == 2) {?>
-                    <td align="right"><?php echo $currencies->format($info[$i]['psum']); ?></td>
+                    <td class="text-right"><?php echo $currencies->format($info[$i]['psum']); ?></td>
 <?php
           } else { ?>
                     <td>&nbsp;</td>

@@ -254,7 +254,7 @@ A.sub:hover { color: #dddddd; text-decoration: underline; }
                     <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                       <tr><?php echo oos_draw_form('id', 'languages', 'index.php', '', 'get', FALSE); ?>
                         <td class="heading"><?php echo HEADING_TITLE; ?></td>
-                        <td align="right"><?php echo oos_draw_pull_down_menu('language', $languages_array, $languages_selected, 'onChange="this.form.submit();"'); ?></td>
+                        <td class="text-right"><?php echo oos_draw_pull_down_menu('language', $languages_array, $languages_selected, 'onChange="this.form.submit();"'); ?></td>
                       </form></tr>
                     </table></td>
                   </tr>

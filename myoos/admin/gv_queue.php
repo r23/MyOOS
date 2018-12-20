@@ -154,18 +154,18 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 					<div class="col-lg-12">	
 <!-- body_text //-->
 	<div class="table-responsive">
-		<table border="0" width="100%" cellspacing="0" cellpadding="0">
+		<table class="table w-100">
           <tr>
             <td valign="top">
 			
 				<table class="table table-striped table-hover w-100">
-					<thead>
+					<thead class="thead-dark">
 						<tr>
-							<td><?php echo TABLE_HEADING_CUSTOMERS; ?></td>
-							<td align="center"><?php echo TABLE_HEADING_ORDERS_ID; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_VOUCHER_VALUE; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_DATE_PURCHASED; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+							<th><?php echo TABLE_HEADING_CUSTOMERS; ?></th>
+							<th class="text-center"><?php echo TABLE_HEADING_ORDERS_ID; ?></th>
+							<th class="text-right"><?php echo TABLE_HEADING_VOUCHER_VALUE; ?></th>
+							<th class="text-right"><?php echo TABLE_HEADING_DATE_PURCHASED; ?></th>
+							<th class="text-right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>
 						</tr>	
 					</thead>
 <?php
@@ -189,10 +189,10 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     }
 ?>
                 <td><?php echo $gv_list['customers_firstname'] . ' ' . $gv_list['customers_lastname']; ?></td>
-                <td align="center"><?php echo $gv_list['order_id']; ?></td>
-                <td align="right"><?php echo $currencies->format($gv_list['amount']); ?></td>
-                <td align="right"><?php echo oos_datetime_short($gv_list['date_created']); ?></td>
-                <td align="right"><?php if (isset($gInfo) && is_object($gInfo) && ($gv_list['unique_id'] == $gInfo->unique_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['gv_queue'], 'page=' . $nPage . '&gid=' . $gv_list['unique_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="text-center"><?php echo $gv_list['order_id']; ?></td>
+                <td class="text-right"><?php echo $currencies->format($gv_list['amount']); ?></td>
+                <td class="text-right"><?php echo oos_datetime_short($gv_list['date_created']); ?></td>
+                <td class="text-right"><?php if (isset($gInfo) && is_object($gInfo) && ($gv_list['unique_id'] == $gInfo->unique_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['gv_queue'], 'page=' . $nPage . '&gid=' . $gv_list['unique_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
     // Move that ADOdb pointer!
@@ -227,8 +227,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
     if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
 ?>
-	<td width="25%" valign="top">
-		<table class="table table-striped table-dark">
+	<td class="w-25">
+		<table class="table table-striped">
 <?php
 		$box = new box;
 		echo $box->infoBox($heading, $contents);  

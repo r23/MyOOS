@@ -159,17 +159,17 @@ if (!empty($action)) {
 				<div class="row">
 					<div class="col-lg-12">	
 <!-- body_text //-->
-<div class="table-responsive">
-	<table border="0" width="100%" cellspacing="0" cellpadding="0">
+	<div class="table-responsive">
+		<table class="table w-100">
           <tr>
             <td valign="top">			
 				<table class="table table-striped table-hover w-100">
-					<thead>
+					<thead class="thead-dark">
 						<tr>
-							<td><?php echo TABLE_HEADING_CURRENCY_NAME; ?></td>
-							<td><?php echo TABLE_HEADING_CURRENCY_CODES; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_CURRENCY_VALUE; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+							<th><?php echo TABLE_HEADING_CURRENCY_NAME; ?></th>
+							<th><?php echo TABLE_HEADING_CURRENCY_CODES; ?></th>
+							<th class="text-right"><?php echo TABLE_HEADING_CURRENCY_VALUE; ?></th>
+							<th class="text-right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>
 						</tr>	
 					</thead>
 <?php
@@ -197,8 +197,8 @@ if (!empty($action)) {
     }
 ?>
                 <td><?php echo $currency['code']; ?></td>
-                <td align="right"><?php echo number_format($currency['value'], 8); ?></td>
-                <td align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($currency['currencies_id'] == $cInfo->currencies_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['currencies'], 'page=' . $nPage . '&cID=' . $currency['currencies_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="text-right"><?php echo number_format($currency['value'], 8); ?></td>
+                <td class="text-right"><?php if (isset($cInfo) && is_object($cInfo) && ($currency['currencies_id'] == $cInfo->currencies_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['currencies'], 'page=' . $nPage . '&cID=' . $currency['currencies_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
     // Move that ADOdb pointer!
@@ -219,7 +219,7 @@ if (!empty($action)) {
 ?>
                   <tr>
                     <td><?php if (CURRENCY_SERVER_PRIMARY) { echo '<a href="' . oos_href_link_admin($aContents['currencies'], 'page=' . $nPage . '&cID=' . $cInfo->currencies_id . '&action=update') . '">' . oos_button('update_currencies', IMAGE_UPDATE_CURRENCIES) . '</a>'; } ?></td>
-                    <td align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['currencies'], 'page=' . $nPage . '&cID=' . $cInfo->currencies_id . '&action=new') . '">' . oos_button('new_currency',IMAGE_NEW_CURRENCY) . '</a>'; ?></td>
+                    <td class="text-right"><?php echo '<a href="' . oos_href_link_admin($aContents['currencies'], 'page=' . $nPage . '&cID=' . $cInfo->currencies_id . '&action=new') . '">' . oos_button('new_currency',IMAGE_NEW_CURRENCY) . '</a>'; ?></td>
                   </tr>
 <?php
   }
@@ -295,8 +295,8 @@ if (!empty($action)) {
 
     if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
 ?>
-	<td width="25%" valign="top">
-		<table class="table table-striped table-dark">
+	<td class="w-25">
+		<table class="table table-striped">
 <?php
 		$box = new box;
 		echo $box->infoBox($heading, $contents);  

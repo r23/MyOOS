@@ -175,13 +175,13 @@ td.style.backgroundColor="DFE4F4";
 ?>
 
 				<table class="table table-striped w-100">
-					<thead>
+					<thead class="thead-dark">
 						<tr>
-							<td width="75"><?php echo TABLE_HEADING_PRODUCT_ID;?></td>
-							<td><?php echo TABLE_HEADING_PRODUCT_MODEL;?></td>
-							<td><?php echo TABLE_HEADING_PRODUCT_NAME;?></td>
-							<td nowrap><?php echo TABLE_HEADING_CURRENT_SELLS;?></td>
-							<td colspan="2" nowrap align="center"><?php echo TABLE_HEADING_UPDATE_SELLS;?></td>
+							<th width="75"><?php echo TABLE_HEADING_PRODUCT_ID;?></th>
+							<th><?php echo TABLE_HEADING_PRODUCT_MODEL;?></th>
+							<th><?php echo TABLE_HEADING_PRODUCT_NAME;?></th>
+							<th nowrap><?php echo TABLE_HEADING_CURRENT_SELLS;?></th>
+							<th colspan="2" nowrap class="text-center"><?php echo TABLE_HEADING_UPDATE_SELLS;?></th>
 						</tr>	
 					</thead>
 <?php
@@ -285,7 +285,7 @@ td.style.backgroundColor="DFE4F4";
               <td valign="top" align="center" colspan="2"><span class="pageHeading"><?php echo TEXT_SETTING_SELLS.': '.$products_name['products_name'].' ('.TEXT_MODEL.': '.$products_name['products_model'].') ('.TEXT_PRODUCT_ID.': '.$_GET['add_related_product_id'].')';?></span></td>
             </tr>
             <tr class="dataTableHeadingRow">
-              <td align="right"><?php echo oos_info_image($products_name['products_image'], $products_name['products_name']);?></td>
+              <td class="text-right"><?php echo oos_info_image($products_name['products_image'], $products_name['products_name']);?></td>
               <td align="right" valign="bottom"><?php echo oos_submit_button('update', IMAGE_UPDATE) . '<br /><br /><a href="'.oos_href_link_admin($aContents['up_sell_products'], 'men_id=catalog').'">' . oos_button('cancel', BUTTON_CANCEL) . '</a>';?></td>
             </tr>
           </table></td>
@@ -359,7 +359,7 @@ td.style.backgroundColor="DFE4F4";
               <td valign="top" align="center" colspan="2"><span class="pageHeading"><?php echo 'Setting up-sells for: '.$products_name['products_name'].' (Model: '.$products_name['products_model'].') (Product ID: '.$_GET['add_related_product_id'].')';?></span></td>
                 </tr>
                 <tr class="dataTableHeadingRow">
-                  <td align="right"><?php echo oos_info_image($products_name['products_image'], $products_name['products_name']);?></td>
+                  <td class="text-right"><?php echo oos_info_image($products_name['products_image'], $products_name['products_name']);?></td>
                   <td align="right" valign="bottom"><?php echo oos_submit_button('update', IMAGE_UPDATE) . '<br /><br /><a href="'.oos_href_link_admin($aContents['up_sell_products'], 'men_id=catalog').'">' . oos_button('cancel', BUTTON_CANCEL) . '</a>';?></td>
                 </tr>
               </table></td>

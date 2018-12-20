@@ -136,9 +136,9 @@
   $myAccount = $dbconn->GetRow($my_account_query);
 ?>
 				<table class="table table-striped w-100">
-					<thead>
+					<thead class="thead-dark">
 						<tr>
-							<td><?php echo TABLE_HEADING_ACCOUNT; ?></td>
+							<th><?php echo TABLE_HEADING_ACCOUNT; ?></th>
 						</tr>	
 					</thead>
 
@@ -209,7 +209,7 @@
                 </td>
               </tr>
               <tr>
-                <td><table width="100%" border="0" cellspacing="0" cellpadding="3"><tr><td class="smallText" valign="top"><?php echo TEXT_INFO_MODIFIED . $myAccount['admin_modified']; ?></td><td align="right"><?php if ($action == 'edit_process') { echo '<a href="' . oos_href_link_admin($aContents['admin_account']) . '">' . oos_button('back', IMAGE_BACK) . '</a> '; if (isset($_SESSION['confirm_account'])) { echo oos_submit_button('save', IMAGE_SAVE, 'onClick="validateForm();return document.returnValue"'); } } elseif ($action == 'check_account') { echo '&nbsp;'; } else { echo oos_submit_button('edit', BUTTON_EDIT); } ?></td><tr></table></td>
+                <td><table width="100%" border="0" cellspacing="0" cellpadding="3"><tr><td class="smallText" valign="top"><?php echo TEXT_INFO_MODIFIED . $myAccount['admin_modified']; ?></td><td class="text-right"><?php if ($action == 'edit_process') { echo '<a href="' . oos_href_link_admin($aContents['admin_account']) . '">' . oos_button('back', IMAGE_BACK) . '</a> '; if (isset($_SESSION['confirm_account'])) { echo oos_submit_button('save', IMAGE_SAVE, 'onClick="validateForm();return document.returnValue"'); } } elseif ($action == 'check_account') { echo '&nbsp;'; } else { echo oos_submit_button('edit', BUTTON_EDIT); } ?></td><tr></table></td>
               </tr>
             </table>
             </td>
@@ -249,8 +249,8 @@
 
     if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
 ?>
-	<td width="25%" valign="top">
-		<table class="table table-striped table-dark">
+	<td class="w-25">
+		<table class="table table-striped">
 <?php
 		$box = new box;
 		echo $box->infoBox($heading, $contents);  

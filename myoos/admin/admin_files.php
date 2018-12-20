@@ -115,7 +115,7 @@
 					<div class="col-lg-12">			
 <!-- body_text //-->
 	<div class="table-responsive">
-		<table border="0" width="100%" cellspacing="0" cellpadding="0">
+		<table class="table w-100">
           <tr>
             <td valign="top">
 <?php
@@ -127,10 +127,10 @@
     $current_box = $dbconn->GetRow($current_box_query);
 ?>
 		<table class="table table-striped table-hover w-100">
-			<thead>
+			<thead class="thead-dark">
 				<tr>
-					<td><?php echo TABLE_HEADING_FILENAME; ?></td>
-					<td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+					<th><?php echo TABLE_HEADING_FILENAME; ?><th>
+					<th align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;<th>
 				</tr>	
 			</thead>
 <?php
@@ -156,7 +156,7 @@
       }
 ?>
                 <td><?php echo $files['admin_files_name']; ?></td>
-                <td align="right"><?php if (isset($fInfo) && is_object($fInfo) && ($files['admin_files_id'] == $fInfo->admin_files_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath'] . '&fID=' . $files['admin_files_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="text-right"><?php if (isset($fInfo) && is_object($fInfo) && ($files['admin_files_id'] == $fInfo->admin_files_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath'] . '&fID=' . $files['admin_files_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
       // Move that ADOdb pointer!
@@ -176,11 +176,11 @@
    } else {
 ?>
 		<table class="table table-striped table-hover w-100">
-			<thead>
+			<thead class="thead-dark">
 				<tr>
-					<td width="60%"><?php echo TABLE_HEADING_BOXES; ?></td>
-					<td align="center"><?php echo TABLE_HEADING_STATUS; ?></td>
-					<td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+					<td width="60%"><?php echo TABLE_HEADING_BOXES; ?></th>
+					<th class="text-center"><?php echo TABLE_HEADING_STATUS; ?></th>
+					<th class="text-right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>
 				</tr>	
 			</thead>			  
 <?php
@@ -238,7 +238,7 @@
       }
 ?>
                 <td><?php echo '<i class="fa fa-folder text-navy"></i> <b>' . ucfirst (substr_replace ($boxes[$i]['admin_boxes_name'], '' , -4)) . '</b>'; ?></td>
-                <td align="center">
+                <td class="text-center">
 <?php
       if (isset($cInfo) && is_object($cInfo) && ($_GET['cID'] == $boxes[$i]['admin_boxes_id'])) {
         if (substr($boxes[$i]['admin_boxes_id'], 0,1) == 'b') {
@@ -255,7 +255,7 @@
       }
 ?>
                 </td>
-                <td align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($boxes[$i]['admin_boxes_id'] == $cInfo->admin_boxes_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['admin_files'], 'cID=' . $db_cat['admin_boxes_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="text-right"><?php if (isset($cInfo) && is_object($cInfo) && ($boxes[$i]['admin_boxes_id'] == $cInfo->admin_boxes_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['admin_files'], 'cID=' . $db_cat['admin_boxes_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
      $i++;
@@ -359,8 +359,8 @@
 
     if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
 ?>
-	<td width="25%" valign="top">
-		<table class="table table-striped table-dark">
+	<td class="w-25">
+		<table class="table table-striped">
 <?php
 		$box = new box;
 		echo $box->infoBox($heading, $contents);  

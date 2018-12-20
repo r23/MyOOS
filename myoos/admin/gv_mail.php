@@ -227,7 +227,7 @@
 					<div class="col-lg-12">	
 <!-- body_text //-->
 <div class="table-responsive">
-	<table border="0" width="100%" cellspacing="0" cellpadding="2">
+	<table class="table w-100">
 <?php
   if ( ($action == 'preview') && ($_POST['customers_email_address'] || $_POST['email_to']) ) {
     switch ($_POST['customers_email_address']) {
@@ -299,7 +299,7 @@
                 <table border="0" width="100%" cellpadding="0" cellspacing="2">
                   <tr>
                     <td><?php echo oos_submit_button('back', IMAGE_BACK, 'name="back"'); ?></td>
-                    <td align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['gv_mail']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a> ' . oos_submit_button('send_mail', IMAGE_SEND_EMAIL); ?></td>
+                    <td class="text-right"><?php echo '<a href="' . oos_href_link_admin($aContents['gv_mail']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a> ' . oos_submit_button('send_mail', IMAGE_SEND_EMAIL); ?></td>
                   </tr>
                 </table></td>
               </tr>

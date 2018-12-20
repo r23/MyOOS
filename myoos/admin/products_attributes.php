@@ -266,7 +266,7 @@ function go_option() {
 ?>
 					<thead>
 						<tr>	
-							<td align="center">&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</td>
+							<td class="text-center">&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</td>
 							<td>&nbsp;<?php echo TABLE_HEADING_PRODUCT; ?>&nbsp;</td>
 							<td>&nbsp;<?php echo TABLE_HEADING_OPT_VALUE; ?>&nbsp;</td>
 						</tr>
@@ -322,7 +322,7 @@ function go_option() {
 ?>
               <tr>
                 <td colspan="3" class="pageHeading">&nbsp;<?php echo HEADING_TITLE_OPT; ?>&nbsp;</td>
-                <td align="right"><br /><form name="option_order_by" action="<?php echo $aContents['products_attributes']; ?>"><select name="selected" onChange="go_option()"><option value="products_options_id"<?php if ($option_order_by == 'products_options_id') { echo ' SELECTED'; } ?>><?php echo TEXT_OPTION_ID; ?></option><option value="products_options_name"<?php if ($option_order_by == 'products_options_name') { echo ' SELECTED'; } ?>><?php echo TEXT_OPTION_NAME; ?></option></select></form></td>
+                <td class="text-right"><br /><form name="option_order_by" action="<?php echo $aContents['products_attributes']; ?>"><select name="selected" onChange="go_option()"><option value="products_options_id"<?php if ($option_order_by == 'products_options_id') { echo ' SELECTED'; } ?>><?php echo TEXT_OPTION_ID; ?></option><option value="products_options_name"<?php if ($option_order_by == 'products_options_name') { echo ' SELECTED'; } ?>><?php echo TEXT_OPTION_NAME; ?></option></select></form></td>
               </tr>
               <tr>
                 <td colspan="4" class="smallText">
@@ -377,7 +377,7 @@ function go_option() {
 							<td>&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</td>
 							<td>&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</td>
 							<td>&nbsp;<?php echo TABLE_HEADING_OPT_TYPE; ?>&nbsp;</td>
-							<td align="center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+							<td class="text-center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
 						</tr>	
 					</thead>
 <?php
@@ -484,7 +484,7 @@ function go_option() {
 ?>
 					<thead>
 						<tr>
-							<td align="center">&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</td>
+							<td class="text-center">&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</td>
 							<td>&nbsp;<?php echo TABLE_HEADING_PRODUCT; ?>&nbsp;</td>
 							<td>&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</td>
 						</tr>	
@@ -593,7 +593,7 @@ function go_option() {
 							<td>&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</td>
 							<td>&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</td>
 							<td>&nbsp;<?php echo TABLE_HEADING_OPT_VALUE; ?>&nbsp;</td>
-							<td align="center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+							<td class="text-center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
 						</tr>	
 					</thead>
 <?php
@@ -784,9 +784,9 @@ function go_option() {
 							<td>&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</td>
 							<td>&nbsp;<?php echo TABLE_HEADING_OPT_VALUE; ?>&nbsp;</td>
 							<td>&nbsp;<?php echo TABLE_HEADING_SORT_ORDER_VALUE; ?>&nbsp;</td>
-							<td align="right">&nbsp;<?php echo TABLE_HEADING_OPT_PRICE; ?>&nbsp;</td>
-							<td align="center">&nbsp;<?php echo TABLE_HEADING_OPT_PRICE_PREFIX; ?>&nbsp;</td>
-							<td align="center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+							<td class="text-right">&nbsp;<?php echo TABLE_HEADING_OPT_PRICE; ?>&nbsp;</td>
+							<td class="text-center">&nbsp;<?php echo TABLE_HEADING_OPT_PRICE_PREFIX; ?>&nbsp;</td>
+							<td class="text-center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
 						</tr>	
 					</thead>
 <?php

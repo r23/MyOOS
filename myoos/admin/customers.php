@@ -690,20 +690,20 @@ function check_form() {
 	
 	<!-- body_text //-->
 	<div class="table-responsive">
-		<table border="0" width="100%" cellspacing="0" cellpadding="0">
+		<table class="table w-100">
           <tr>
             <td valign="top">
 
 				<table class="table table-striped table-hover w-100">
-					<thead>
+					<thead class="thead-dark">
 						<tr>
-							<td>*</td>
-							<td><?php echo TABLE_HEADING_LASTNAME; ?></td>
-							<td><?php echo TABLE_HEADING_FIRSTNAME; ?></td>
-							<td align="left"><?php echo HEADING_TITLE_STATUS; ?></td>
-							<td align="center"><?php echo HEADING_TITLE_LOGIN; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_ACCOUNT_CREATED; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+							<th>*</th>
+							<th><?php echo TABLE_HEADING_LASTNAME; ?></th>
+							<th><?php echo TABLE_HEADING_FIRSTNAME; ?></th>
+							<th align="left"><?php echo HEADING_TITLE_STATUS; ?></th>
+							<th class="text-center"><?php echo HEADING_TITLE_LOGIN; ?></th>
+							<th class="text-right"><?php echo TABLE_HEADING_ACCOUNT_CREATED; ?></th>
+							<th class="text-right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>
 						</tr>	
 					</thead>
 <?php
@@ -769,8 +769,8 @@ function check_form() {
                 <td><?php if ($customers_statuses_array[$customers['customers_status']]['cs_image'] != '') { echo oos_image(OOS_SHOP_IMAGES . 'icons/' . $customers_statuses_array[$customers['customers_status']]['cs_image'], ''); } ?>&nbsp;</td>
                 <td><?php echo $customers['customers_lastname']; ?></td>
                 <td><?php echo $customers['customers_firstname']; ?></td>
-                <td align="left"><?php echo $customers_statuses_array[$customers['customers_status']]['text'] . '(' . $customers['customers_status'] . ')' ; ?></td>
-                <td align="center">
+                <td class="text-left"><?php echo $customers_statuses_array[$customers['customers_status']]['text'] . '(' . $customers['customers_status'] . ')' ; ?></td>
+                <td class="text-center">
 <?php
       if ($customers['customers_login'] == '1') {
         echo '<a href="' . oos_href_link_admin($aContents['customers'], 'selected_box=customers&page=' . $nPage . '&action=setflag&loginflag=0&cID=' . $customers['customers_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
@@ -778,8 +778,8 @@ function check_form() {
         echo '<a href="' . oos_href_link_admin($aContents['customers'], 'selected_box=customers&page=' . $nPage . '&action=setflag&loginflag=1&cID=' . $customers['customers_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
       }
 ?>
-                <td align="right"><?php echo oos_date_short($info['date_account_created']); ?></td>
-                <td align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($customers['customers_id'] == $cInfo->customers_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID')) . 'cID=' . $customers['customers_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="text-right"><?php echo oos_date_short($info['date_account_created']); ?></td>
+                <td class="text-right"><?php if (isset($cInfo) && is_object($cInfo) && ($customers['customers_id'] == $cInfo->customers_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID')) . 'cID=' . $customers['customers_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
       // Move that ADOdb pointer!
@@ -887,8 +887,8 @@ function check_form() {
 
     if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
 ?>
-	<td width="25%" valign="top">
-		<table class="table table-striped table-dark">
+	<td class="w-25">
+		<table class="table table-striped">
 <?php
 		$box = new box;
 		echo $box->infoBox($heading, $contents);  

@@ -204,20 +204,20 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 					<div class="col-lg-12">	
 <!-- body_text //-->
 	<div class="table-responsive">
-		<table border="0" width="100%" cellspacing="0" cellpadding="0">
+		<table class="table w-100">
           <tr>
             <td valign="top">
 			
 				<table class="table table-striped table-hover w-100">
-					<thead>
+					<thead class="thead-dark">
 						<tr>
-							<td align="left" width="8%"><?php echo 'icon'; ?></td>
-							<td align="left" width="40%"><?php echo TABLE_HEADING_CUSTOMERS_STATUS; ?></td>
-							<td align="center" width="10%"></td>
-							<td align="center"><?php echo TABLE_HEADING_AMOUNT; ?></td>
-							<td align="center"><?php echo '%'; ?></td>
-							<td align="center"><?php echo TABLE_HEADING_CUSTOMERS_QTY_DISCOUNTS; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+							<th align="left" width="8%"><?php echo 'icon'; ?></th>
+							<th align="left" width="40%"><?php echo TABLE_HEADING_CUSTOMERS_STATUS; ?></th>
+							<th align="center" width="10%"></th>
+							<th class="text-center"><?php echo TABLE_HEADING_AMOUNT; ?></th>
+							<th class="text-center"><?php echo '%'; ?></th>
+							<th class="text-center"><?php echo TABLE_HEADING_CUSTOMERS_QTY_DISCOUNTS; ?></th>
+							<th class="text-right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>
 						</tr>	
 					</thead>
 <?php
@@ -257,12 +257,12 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     } else {
       echo '<tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage . '&cID=' . $customers_status['customers_status_id']) . '\'">' . "\n";
     }
-      echo '<td align="left">'    . oos_image(OOS_SHOP_IMAGES . 'icons/' . $customers_status['customers_status_image'] , IMAGE_ICON_INFO) . '</td>';
+      echo '<td class="text-left">'    . oos_image(OOS_SHOP_IMAGES . 'icons/' . $customers_status['customers_status_image'] , IMAGE_ICON_INFO) . '</td>';
       if ($customers_status['customers_status_id'] == DEFAULT_CUSTOMERS_STATUS_ID ) {
-        echo '<td align="left"><b>' . $customers_status['customers_status_name'];
+        echo '<td class="text-left"><b>' . $customers_status['customers_status_name'];
         echo ' (' . TEXT_DEFAULT . ')';
       } else {
-        echo '<td align="left">' . $customers_status['customers_status_name'];
+        echo '<td class="text-left">' . $customers_status['customers_status_name'];
       }
       if ($customers_status['customers_status_public'] == '1') {
         echo ', public ';
@@ -278,9 +278,9 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       }
 
       echo '</td>';
-      echo '<td align="center">' . $currencies->format($customers_status['customers_status_ot_minimum']) . '</td>';
-      echo '<td align="center">' . $customers_status['customers_status_ot_discount'] . '%</td>';
-      echo '<td align="center">';
+      echo '<td class="text-center">' . $currencies->format($customers_status['customers_status_ot_minimum']) . '</td>';
+      echo '<td class="text-center">' . $customers_status['customers_status_ot_discount'] . '%</td>';
+      echo '<td class="text-center">';
 
       if ($customers_status['customers_status_qty_discounts'] == '1') {
         echo ENTRY_YES;
@@ -291,7 +291,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       echo "\n";
 
 ?>
-                <td align="right"><?php if (isset($cInfo) && is_object($cInfo) && ($customers_status['customers_status_id'] == $cInfo->customers_status_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage . '&cID=' . $customers_status['customers_status_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="text-right"><?php if (isset($cInfo) && is_object($cInfo) && ($customers_status['customers_status_id'] == $cInfo->customers_status_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage . '&cID=' . $customers_status['customers_status_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
     // Move that ADOdb pointer!
@@ -399,8 +399,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
     if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
 ?>
-	<td width="25%" valign="top">
-		<table class="table table-striped table-dark">
+	<td class="w-25">
+		<table class="table table-striped">
 <?php
 		$box = new box;
 		echo $box->infoBox($heading, $contents);  

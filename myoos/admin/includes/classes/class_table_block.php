@@ -33,57 +33,87 @@ class tableBlock {
 	
 	public function __construct() {
     }
+	
+	function tableThead($contents) {
+		$sTableBox = '';
+
+		$form_set = false;
+	
+		for ($i = 0, $n = count($contents); $i < $n; $i++) {
+			$sTableBox .= '  <tr';
+			if (oos_is_not_null($this->table_row_parameters)) $sTableBox .= ' ' . $this->table_row_parameters;
+			if (isset($contents[$i]['params']) && oos_is_not_null($contents[$i]['params'])) $sTableBox .= ' ' . $contents[$i]['params'];
+			$sTableBox .= '>' . "\n";		
+			
+			$sTableBox .= '    <th';
+			if (isset($contents[$i]['align']) && oos_is_not_null($contents[$i]['align'])) $sTableBox .= ' align="' . $contents[$i]['align'] . '"';
+			if (isset($contents[$i]['params']) && oos_is_not_null($contents[$i]['params'])) {
+				$sTableBox .= ' ' . $contents[$i]['params'];
+			} elseif (oos_is_not_null($this->table_data_parameters)) {
+				$sTableBox .= ' ' . $this->table_data_parameters;
+			}
+			$sTableBox .= '>' . $contents[$i]['text'] . '</th>' . "\n";
+	
+
+			$sTableBox .= '  </tr>' . "\n";
+		}
+		
+
+		return $sTableBox;
+	}	
+	
+	
 	function tableBlock($contents) {
-		$tableBox_string = '';
+		$sTableBox = '';
 
 		$form_set = false;
 		if (isset($contents['form'])) {
-			$tableBox_string .= $contents['form'] . "\n";
+			$sTableBox .= $contents['form'] . "\n";
 			$form_set = true;
 			array_shift($contents);
 		}		
 
 	
 		for ($i = 0, $n = count($contents); $i < $n; $i++) {
-			$tableBox_string .= '  <tr';
-			if (oos_is_not_null($this->table_row_parameters)) $tableBox_string .= ' ' . $this->table_row_parameters;
-			if (isset($contents[$i]['params']) && oos_is_not_null($contents[$i]['params'])) $tableBox_string .= ' ' . $contents[$i]['params'];
-			$tableBox_string .= '>' . "\n";		
+			$sTableBox .= '  <tr';
+			if (oos_is_not_null($this->table_row_parameters)) $sTableBox .= ' ' . $this->table_row_parameters;
+			if (isset($contents[$i]['params']) && oos_is_not_null($contents[$i]['params'])) $sTableBox .= ' ' . $contents[$i]['params'];
+			$sTableBox .= '>' . "\n";		
 			
 			if (isset($contents[$i][0]) && is_array($contents[$i][0])) {
 				for ($x = 0, $y = count($contents[$i]); $x < $y; $x++) {
 					if (isset($contents[$i][$x]['text']) && oos_is_not_null($contents[$i][$x]['text'])) {
-						$tableBox_string .= '    <td';
-						if (isset($contents[$i][$x]['align']) && oos_is_not_null($contents[$i][$x]['align'])) $tableBox_string .= ' align="' . $contents[$i][$x]['align'] . '"';
+						$sTableBox .= '    <td';
+						if (isset($contents[$i][$x]['align']) && oos_is_not_null($contents[$i][$x]['align'])) $sTableBox .= ' align="' . $contents[$i][$x]['align'] . '"';
 						if (isset($contents[$i][$x]['params']) && oos_is_not_null($contents[$i][$x]['params'])) {
-							$tableBox_string .= ' ' . $contents[$i][$x]['params'];
+							$sTableBox .= ' ' . $contents[$i][$x]['params'];
 						} elseif (oos_is_not_null($this->table_data_parameters)) {
-							$tableBox_string .= ' ' . $this->table_data_parameters;
+							$sTableBox .= ' ' . $this->table_data_parameters;
 						}
-						$tableBox_string .= '>';
-						if (isset($contents[$i][$x]['form']) && oos_is_not_null($contents[$i][$x]['form'])) $tableBox_string .= $contents[$i][$x]['form'];
-						$tableBox_string .= $contents[$i][$x]['text'];
-						if (isset($contents[$i][$x]['form']) && oos_is_not_null($contents[$i][$x]['form'])) $tableBox_string .= '</form>';
-						$tableBox_string .= '</td>' . "\n";
+						$sTableBox .= '>';
+						if (isset($contents[$i][$x]['form']) && oos_is_not_null($contents[$i][$x]['form'])) $sTableBox .= $contents[$i][$x]['form'];
+						$sTableBox .= $contents[$i][$x]['text'];
+						if (isset($contents[$i][$x]['form']) && oos_is_not_null($contents[$i][$x]['form'])) $sTableBox .= '</form>';
+						$sTableBox .= '</td>' . "\n";
 					}
 				}
 			} else {
-				$tableBox_string .= '    <td';
-				if (isset($contents[$i]['align']) && oos_is_not_null($contents[$i]['align'])) $tableBox_string .= ' align="' . $contents[$i]['align'] . '"';
+				$sTableBox .= '    <td';
+				if (isset($contents[$i]['align']) && oos_is_not_null($contents[$i]['align'])) $sTableBox .= ' align="' . $contents[$i]['align'] . '"';
 				if (isset($contents[$i]['params']) && oos_is_not_null($contents[$i]['params'])) {
-					$tableBox_string .= ' ' . $contents[$i]['params'];
+					$sTableBox .= ' ' . $contents[$i]['params'];
 				} elseif (oos_is_not_null($this->table_data_parameters)) {
-					$tableBox_string .= ' ' . $this->table_data_parameters;
+					$sTableBox .= ' ' . $this->table_data_parameters;
 				}
-				$tableBox_string .= '>' . $contents[$i]['text'] . '</td>' . "\n";
+				$sTableBox .= '>' . $contents[$i]['text'] . '</td>' . "\n";
 			}		
 
-			$tableBox_string .= '  </tr>' . "\n";
+			$sTableBox .= '  </tr>' . "\n";
 		}
 		
-		if ($form_set == true) $tableBox_string .= '</form>' . "\n";
+		if ($form_set == true) $sTableBox .= '</form>' . "\n";
 
-		return $tableBox_string;
+		return $sTableBox;
 	}
 }
 

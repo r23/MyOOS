@@ -236,13 +236,13 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     $nInfo = new objectInfo($newsletter);
 ?>
       <tr>
-        <td align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $_GET['nID']) . '">' . oos_button('back', IMAGE_BACK) . '</a>'; ?></td>
+        <td class="text-right"><?php echo '<a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $_GET['nID']) . '">' . oos_button('back', IMAGE_BACK) . '</a>'; ?></td>
       </tr>
       <tr>
         <td><tt><?php echo nl2br($nInfo->content); ?></tt></td>
       </tr>
       <tr>
-        <td align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $_GET['nID']) . '">' . oos_button('back', IMAGE_BACK) . '</a>'; ?></td>
+        <td class="text-right"><?php echo '<a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $_GET['nID']) . '">' . oos_button('back', IMAGE_BACK) . '</a>'; ?></td>
       </tr>
 <?php
   } elseif ($action == 'send') {
@@ -325,18 +325,18 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
 <!-- body_text //-->				
 	<div class="table-responsive">
-		<table border="0" width="100%" cellspacing="0" cellpadding="0">
+		<table class="table w-100">
           <tr>
             <td valign="top">
 				<table class="table table-striped table-hover w-100">
 					<thead>
 						<tr>
 							<td><?php echo TABLE_HEADING_NEWSLETTERS; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_SIZE; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_MODULE; ?></td>
-							<td align="center"><?php echo TABLE_HEADING_SENT; ?></td>
-							<td align="center"><?php echo TABLE_HEADING_STATUS; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+							<td class="text-right"><?php echo TABLE_HEADING_SIZE; ?></td>
+							<td class="text-right"><?php echo TABLE_HEADING_MODULE; ?></td>
+							<td class="text-center"><?php echo TABLE_HEADING_SENT; ?></td>
+							<td class="text-center"><?php echo TABLE_HEADING_STATUS; ?></td>
+							<td class="text-right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
 						</tr>	
 					</thead>
 <?php
@@ -359,11 +359,11 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       }
 ?>
                 <td><?php echo '<a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $newsletters['newsletters_id'] . '&action=preview') . '"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-search"></i></button></a>&nbsp;' . $newsletters['title']; ?></td>
-                <td align="right"><?php echo number_format($newsletters['content_length']) . ' bytes'; ?></td>
-                <td align="right"><?php echo $newsletters['module']; ?></td>
-                <td align="center"><?php if ($newsletters['status'] == '1') { echo oos_image(OOS_IMAGES . 'icons/tick.gif', ICON_TICK); } else { echo oos_image(OOS_IMAGES . 'icons/cross.gif', ICON_CROSS); } ?></td>
-                <td align="center"><?php if ($newsletters['locked'] > 0) { echo oos_image(OOS_IMAGES . 'icons/locked.gif', ICON_LOCKED); } else { echo oos_image(OOS_IMAGES . 'icons/unlocked.gif', ICON_UNLOCKED); } ?></td>
-                <td align="right"><?php if (isset($nInfo) && is_object($nInfo) && ($newsletters['newsletters_id'] == $nInfo->newsletters_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $newsletters['newsletters_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="text-right"><?php echo number_format($newsletters['content_length']) . ' bytes'; ?></td>
+                <td class="text-right"><?php echo $newsletters['module']; ?></td>
+                <td class="text-center"><?php if ($newsletters['status'] == '1') { echo oos_image(OOS_IMAGES . 'icons/tick.gif', ICON_TICK); } else { echo oos_image(OOS_IMAGES . 'icons/cross.gif', ICON_CROSS); } ?></td>
+                <td class="text-center"><?php if ($newsletters['locked'] > 0) { echo oos_image(OOS_IMAGES . 'icons/locked.gif', ICON_LOCKED); } else { echo oos_image(OOS_IMAGES . 'icons/unlocked.gif', ICON_UNLOCKED); } ?></td>
+                <td class="text-right"><?php if (isset($nInfo) && is_object($nInfo) && ($newsletters['newsletters_id'] == $nInfo->newsletters_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $newsletters['newsletters_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
         // Move that ADOdb pointer!
@@ -415,8 +415,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
     if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
 ?>
-	<td width="25%" valign="top">
-		<table class="table table-striped table-dark">
+	<td class="w-25">
+		<table class="table table-striped">
 <?php
 		$box = new box;
 		echo $box->infoBox($heading, $contents);  

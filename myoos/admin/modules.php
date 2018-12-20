@@ -129,7 +129,7 @@
 					<div class="col-lg-12">					
 <!-- body_text //-->				
 <div class="table-responsive">
-	<table border="0" width="100%" cellspacing="0" cellpadding="0">
+	<table class="table w-100">
           <tr>
             <td valign="top">
 			
@@ -137,9 +137,9 @@
 					<thead>
 						<tr>
 							<td><?php echo TABLE_HEADING_MODULES; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_SORT_ORDER; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_STATUS; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+							<td class="text-right"><?php echo TABLE_HEADING_SORT_ORDER; ?></td>
+							<td class="text-right"><?php echo TABLE_HEADING_STATUS; ?></td>
+							<td class="text-right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
 						</tr>	
 					</thead>
 <?php
@@ -210,8 +210,8 @@
       }
 ?>
                 <td><?php echo $module->title; ?></td>
-                <td align="right"><?php if (is_numeric($module->sort_order)) echo $module->sort_order; ?></td>
-                <td align="right">
+                <td class="text-right"><?php if (is_numeric($module->sort_order)) echo $module->sort_order; ?></td>
+                <td class="text-right">
 <?php
   if ($module->check() > 0) {
     echo '<a href="' . oos_href_link_admin($aContents['modules'], 'set=' . $_GET['set'] . '&module=' . $class . '&action=remove') . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
@@ -219,7 +219,7 @@
     echo '<a href="' . oos_href_link_admin($aContents['modules'], 'set=' . $_GET['set'] . '&module=' . $class . '&action=install') . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
   }
 ?></td>
-                <td align="right"><?php if (isset($mInfo) && is_object($mInfo) && ($class == $mInfo->code) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['modules'], 'set=' . $_GET['set'] . '&module=' . $class) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="text-right"><?php if (isset($mInfo) && is_object($mInfo) && ($class == $mInfo->code) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['modules'], 'set=' . $_GET['set'] . '&module=' . $class) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
     }
@@ -309,8 +309,8 @@
 
     if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
 ?>
-	<td width="25%" valign="top">
-		<table class="table table-striped table-dark">
+	<td class="w-25">
+		<table class="table table-striped">
 <?php
 		$box = new box;
 		echo $box->infoBox($heading, $contents);  

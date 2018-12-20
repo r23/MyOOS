@@ -79,7 +79,7 @@ require 'includes/header.php';
 						<tr>
 							<td><?php echo TABLE_HEADING_NUMBER; ?></td>
 							<td><?php echo TABLE_HEADING_PRODUCTS; ?></td>
-							<td align="center"><?php echo TABLE_HEADING_PURCHASED; ?>&nbsp;</td>
+							<td class="text-center"><?php echo TABLE_HEADING_PURCHASED; ?>&nbsp;</td>
 						</tr>	
 					</thead>
 <?php

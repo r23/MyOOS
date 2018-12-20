@@ -379,11 +379,11 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 							<td colspan="2"><?php echo TABLE_HEADING_PRODUCTS; ?></td>
 							<td><?php echo TABLE_HEADING_PRODUCTS_SERIAL_NUMBER; ?></td>
 							<td><?php echo TABLE_HEADING_PRODUCTS_MODEL; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_TAX; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_PRICE_EXCLUDING_TAX; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_PRICE_INCLUDING_TAX; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_TOTAL_EXCLUDING_TAX; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_TOTAL_INCLUDING_TAX; ?></td>
+							<td class="text-right"><?php echo TABLE_HEADING_TAX; ?></td>
+							<td class="text-right"><?php echo TABLE_HEADING_PRICE_EXCLUDING_TAX; ?></td>
+							<td class="text-right"><?php echo TABLE_HEADING_PRICE_INCLUDING_TAX; ?></td>
+							<td class="text-right"><?php echo TABLE_HEADING_TOTAL_EXCLUDING_TAX; ?></td>
+							<td class="text-right"><?php echo TABLE_HEADING_TOTAL_INCLUDING_TAX; ?></td>
 						</tr>	
 					</thead>
 <?php
@@ -554,7 +554,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 					
 <!-- body_text //-->
 	<div class="table-responsive">
-		<table border="0" width="100%" cellspacing="0" cellpadding="0">
+		<table class="table w-100">
           <tr>
             <td valign="top">
 			
@@ -562,10 +562,10 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 					<thead>
 						<tr>
 							<td><?php echo TABLE_HEADING_CUSTOMERS; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_ORDER_TOTAL; ?></td>
-							<td align="center"><?php echo TABLE_HEADING_DATE_PURCHASED; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_STATUS; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+							<td class="text-right"><?php echo TABLE_HEADING_ORDER_TOTAL; ?></td>
+							<td class="text-center"><?php echo TABLE_HEADING_DATE_PURCHASED; ?></td>
+							<td class="text-right"><?php echo TABLE_HEADING_STATUS; ?></td>
+							<td class="text-right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
 							</tr>	
 					</thead>
 					<tbody>
@@ -634,10 +634,10 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       }
 ?>
                 <td><?php echo '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $orders['orders_id'] . '&action=edit') . '"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-search"></i></button></a>&nbsp;' . $orders['customers_name']; ?></td>
-                <td align="right"><?php echo strip_tags($orders['order_total']); ?></td>
-                <td align="center"><?php echo oos_datetime_short($orders['date_purchased']); ?></td>
-                <td align="right"><?php echo $orders['orders_status_name']; ?></td>
-                <td align="right"><?php if (isset($oInfo) && is_object($oInfo) && ($orders['orders_id'] == $oInfo->orders_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID')) . 'oID=' . $orders['orders_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="text-right"><?php echo strip_tags($orders['order_total']); ?></td>
+                <td class="text-center"><?php echo oos_datetime_short($orders['date_purchased']); ?></td>
+                <td class="text-right"><?php echo $orders['orders_status_name']; ?></td>
+                <td class="text-right"><?php if (isset($oInfo) && is_object($oInfo) && ($orders['orders_id'] == $oInfo->orders_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID')) . 'oID=' . $orders['orders_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
       // Move that ADOdb pointer!
@@ -684,8 +684,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
     if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
 ?>
-	<td width="25%" valign="top">
-		<table class="table table-striped table-dark">
+	<td class="w-25">
+		<table class="table table-striped">
 <?php
 		$box = new box;
 		echo $box->infoBox($heading, $contents);  

@@ -79,16 +79,16 @@ $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GE
 					<div class="col-lg-12">				
 <!-- body_text //-->
 <div class="table-responsive">
-	<table border="0" width="100%" cellspacing="0" cellpadding="0">
+	<table class="table w-100">
           <tr>
             <td valign="top">
 			
 				<table class="table table-striped table-hover w-100">
 					<thead>
 						<tr>
-							<td><?php echo TABLE_HEADING_NUMBER; ?></td>
-							<td><?php echo TABLE_HEADING_PRODUCTS; ?></td>
-							<td align="center"><?php echo TABLE_HEADING_VIEWED; ?>&nbsp;</td>
+							<th><?php echo TABLE_HEADING_NUMBER; ?></th>
+							<th><?php echo TABLE_HEADING_PRODUCTS; ?></th>
+							<th align="center"><?php echo TABLE_HEADING_VIEWED; ?>&nbsp;</th>
 						</tr>	
 					</thead>	
 <?php
@@ -116,7 +116,7 @@ $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GE
               <tr onclick="document.location.href='<?php echo oos_href_link_admin($aContents['products'], 'action=new_product_preview&read=only&pID=' . $products['products_id'] . '&origin=' . $aContents['stats_products_viewed'] . '?page=' . $nPage); ?>'">
                 <td><?php echo $rows; ?>.</td>
                 <td><?php echo '<a href="' . oos_href_link_admin($aContents['products'], 'action=new_product_preview&read=only&pID=' . $products['products_id'] . '&origin=' . $aContents['stats_products_viewed'] . '?page=' . $nPage) . '">' . $products['products_name'] . '</a> (' . $products['name'] . ')'; ?></td>
-                <td align="center"><?php echo $products['products_viewed']; ?>&nbsp;</td>
+                <td class="text-center"><?php echo $products['products_viewed']; ?>&nbsp;</td>
               </tr>
 <?php
      // Move that ADOdb pointer!

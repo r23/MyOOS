@@ -69,7 +69,7 @@ require 'includes/header.php';
 					<div class="col-lg-12">				
 <!-- body_text //-->
 	<div class="table-responsive">
-		<table border="0" width="100%" cellspacing="0" cellpadding="2">
+		<table class="table w-100">
           <tr>
             <td valign="top">
 			
@@ -79,7 +79,7 @@ require 'includes/header.php';
 						<tr>
 							<td><?php echo TABLE_HEADING_NUMBER; ?></td>
 							<td><?php echo TABLE_HEADING_PRODUCTS; ?></td>
-							<td align="right"><?php echo TABLE_HEADING_QTY_LEFT; ?>&nbsp;</td>
+							<td class="text-right"><?php echo TABLE_HEADING_QTY_LEFT; ?>&nbsp;</td>
 						</tr>	
 					</thead>	
 <?php

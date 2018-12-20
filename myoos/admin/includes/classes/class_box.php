@@ -42,7 +42,7 @@
     }
 
     public function infoBox($heading, $contents) {
-      $this->heading = '<thead>' . $this->tableBlock($heading) . '</thead>';
+      $this->heading = '<thead class="thead-dark">' . $this->tableThead($heading) . '</thead>';
 
       $this->contents = '<tbody>' .  $this->tableBlock($contents) . '</tbody>';
 
