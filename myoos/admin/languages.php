@@ -483,14 +483,14 @@ if (!empty($action)) {
             <td valign="top">
 			
 				<table class="table table-striped table-hover w-100">
-					<thead>
+					<thead class="thead-dark">
 						<tr>
-							<td><?php echo TABLE_HEADING_LANGUAGE_NAME; ?></td>
-							<td class="text-center"><?php echo TABLE_HEADING_LANGUAGE_ISO_639_2; ?></td>
-							<td class="text-center"><?php echo TABLE_HEADING_LANGUAGE_ISO_639_1; ?></td>
-							<td class="text-center"><?php echo TABLE_HEADING_LANGUAGE_ISO_3166_1; ?></td>
-							<td class="text-center"><?php echo TABLE_HEADING_LANGUAGE_STATUS; ?></td>
-							<td class="text-right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+							<th><?php echo TABLE_HEADING_LANGUAGE_NAME; ?></th>
+							<th class="text-center"><?php echo TABLE_HEADING_LANGUAGE_ISO_639_2; ?></th>
+							<th class="text-center"><?php echo TABLE_HEADING_LANGUAGE_ISO_639_1; ?></th>
+							<th class="text-center"><?php echo TABLE_HEADING_LANGUAGE_ISO_3166_1; ?></th>
+							<th class="text-center"><?php echo TABLE_HEADING_LANGUAGE_STATUS; ?></th>
+							<th class="text-right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>
 						</tr>	
 					</thead>
 <?php

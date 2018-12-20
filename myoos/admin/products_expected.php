@@ -77,11 +77,11 @@ $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GE
           <tr>
             <td valign="top">
 				<table class="table table-striped table-hover w-100">
-					<thead>
+					<thead class="thead-dark">
 						<tr>
-							<td><?php echo TABLE_HEADING_PRODUCTS; ?></td>
-							<td class="text-center"><?php echo TABLE_HEADING_DATE_EXPECTED; ?></td>
-							<td class="text-right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+							<th><?php echo TABLE_HEADING_PRODUCTS; ?></th>
+							<th class="text-center"><?php echo TABLE_HEADING_DATE_EXPECTED; ?></th>
+							<th class="text-right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>
 						</tr>	
 					</thead>
 <?php

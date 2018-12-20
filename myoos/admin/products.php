@@ -587,7 +587,7 @@ function calcBasePriceFactor() {
    $sDiscount4 = number_format($pInfo->products_discount4, TAX_DECIMAL_PLACES, '.', '');
  ?>
 <table class="table table-striped">
-  <thead>
+  <thead class="thead-dark">
     <tr>
       <th scope="col"><?php echo TEXT_DISCOUNTS_BREAKS; ?></th>
       <th scope="col">1</th>

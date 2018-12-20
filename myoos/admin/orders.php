@@ -374,16 +374,16 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       <tr>
         <td>
 				<table class="table table-striped w-100">
-					<thead>
+					<thead class="thead-dark">
 						<tr>
-							<td colspan="2"><?php echo TABLE_HEADING_PRODUCTS; ?></td>
-							<td><?php echo TABLE_HEADING_PRODUCTS_SERIAL_NUMBER; ?></td>
-							<td><?php echo TABLE_HEADING_PRODUCTS_MODEL; ?></td>
-							<td class="text-right"><?php echo TABLE_HEADING_TAX; ?></td>
-							<td class="text-right"><?php echo TABLE_HEADING_PRICE_EXCLUDING_TAX; ?></td>
-							<td class="text-right"><?php echo TABLE_HEADING_PRICE_INCLUDING_TAX; ?></td>
-							<td class="text-right"><?php echo TABLE_HEADING_TOTAL_EXCLUDING_TAX; ?></td>
-							<td class="text-right"><?php echo TABLE_HEADING_TOTAL_INCLUDING_TAX; ?></td>
+							<th colspan="2"><?php echo TABLE_HEADING_PRODUCTS; ?></th>
+							<th><?php echo TABLE_HEADING_PRODUCTS_SERIAL_NUMBER; ?></th>
+							<th><?php echo TABLE_HEADING_PRODUCTS_MODEL; ?></th>
+							<th class="text-right"><?php echo TABLE_HEADING_TAX; ?></th>
+							<th class="text-right"><?php echo TABLE_HEADING_PRICE_EXCLUDING_TAX; ?></th>
+							<th class="text-right"><?php echo TABLE_HEADING_PRICE_INCLUDING_TAX; ?></th>
+							<th class="text-right"><?php echo TABLE_HEADING_TOTAL_EXCLUDING_TAX; ?></th>
+							<th class="text-right"><?php echo TABLE_HEADING_TOTAL_INCLUDING_TAX; ?></th>
 						</tr>	
 					</thead>
 <?php
@@ -559,14 +559,14 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
             <td valign="top">
 			
 				<table class="table table-striped table-hover w-100">
-					<thead>
+					<thead class="thead-dark">
 						<tr>
-							<td><?php echo TABLE_HEADING_CUSTOMERS; ?></td>
-							<td class="text-right"><?php echo TABLE_HEADING_ORDER_TOTAL; ?></td>
-							<td class="text-center"><?php echo TABLE_HEADING_DATE_PURCHASED; ?></td>
-							<td class="text-right"><?php echo TABLE_HEADING_STATUS; ?></td>
-							<td class="text-right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
-							</tr>	
+							<th><?php echo TABLE_HEADING_CUSTOMERS; ?></th>
+							<th class="text-right"><?php echo TABLE_HEADING_ORDER_TOTAL; ?></th>
+							<th class="text-center"><?php echo TABLE_HEADING_DATE_PURCHASED; ?></th>
+							<th class="text-right"><?php echo TABLE_HEADING_STATUS; ?></th>
+							<th class="text-right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>
+						</tr>	
 					</thead>
 					<tbody>
 		  

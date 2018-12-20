@@ -99,11 +99,11 @@
   <tr>
     <td>
 				<table class="table table-striped w-100">
-					<thead>
+					<thead class="thead-dark">
 						<tr>
-							<td colspan="2"><?php echo TABLE_HEADING_PRODUCTS; ?></td>
-							<td><?php echo TABLE_HEADING_PRODUCTS_SERIAL_NUMBER; ?></td>
-							<td><?php echo TABLE_HEADING_PRODUCTS_MODEL; ?></td>
+							<th colspan="2"><?php echo TABLE_HEADING_PRODUCTS; ?></th>
+							<th><?php echo TABLE_HEADING_PRODUCTS_SERIAL_NUMBER; ?></th>
+							<th><?php echo TABLE_HEADING_PRODUCTS_MODEL; ?></th>
 						</tr>	
 					</thead>
 <?php

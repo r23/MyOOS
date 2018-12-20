@@ -264,11 +264,11 @@ function go_option() {
     $products = $dbconn->Execute("SELECT p.products_id, pd.products_name, pov.products_options_values_name FROM $productstable p, $products_options_valuestable pov, $products_attributestable pa, $products_descriptiontable pd WHERE pd.products_id = p.products_id AND pov.products_options_values_languages_id = '" . intval($_SESSION['language_id']) . "' AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' AND pa.products_id = p.products_id AND pa.options_id='" . $_GET['option_id'] . "' AND pov.products_options_values_id = pa.options_values_id ORDER BY pd.products_name");
     if ($products->RecordCount()) {
 ?>
-					<thead>
+					<thead class="thead-dark">
 						<tr>	
-							<td class="text-center">&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</td>
-							<td>&nbsp;<?php echo TABLE_HEADING_PRODUCT; ?>&nbsp;</td>
-							<td>&nbsp;<?php echo TABLE_HEADING_OPT_VALUE; ?>&nbsp;</td>
+							<th class="text-center">&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</th>
+							<th>&nbsp;<?php echo TABLE_HEADING_PRODUCT; ?>&nbsp;</th>
+							<th>&nbsp;<?php echo TABLE_HEADING_OPT_VALUE; ?>&nbsp;</th>
 						</tr>
 					</thead>
 <?php
@@ -372,12 +372,12 @@ function go_option() {
 ?>
                 </td>
               </tr>
-					<thead>
+					<thead class="thead-dark">
 						<tr>
-							<td>&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</td>
-							<td>&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</td>
-							<td>&nbsp;<?php echo TABLE_HEADING_OPT_TYPE; ?>&nbsp;</td>
-							<td class="text-center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+							<th>&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</th>
+							<th>&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</th>
+							<th>&nbsp;<?php echo TABLE_HEADING_OPT_TYPE; ?>&nbsp;</th>
+							<th class="text-center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>
 						</tr>	
 					</thead>
 <?php
@@ -482,11 +482,11 @@ function go_option() {
     $products = $dbconn->Execute("SELECT p.products_id, pd.products_name, po.products_options_name FROM $productstable p, $products_attributestable pa, $products_optionstable po, $products_descriptiontable pd WHERE pd.products_id = p.products_id AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' AND po.products_options_languages_id = '" . intval($_SESSION['language_id']) . "' AND pa.products_id = p.products_id AND pa.options_values_id='" . $_GET['value_id'] . "' AND po.products_options_id = pa.options_id ORDER BY pd.products_name");
     if ($products->RecordCount()) {
 ?>
-					<thead>
+					<thead class="thead-dark">
 						<tr>
-							<td class="text-center">&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</td>
-							<td>&nbsp;<?php echo TABLE_HEADING_PRODUCT; ?>&nbsp;</td>
-							<td>&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</td>
+							<th class="text-center">&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</th>
+							<th>&nbsp;<?php echo TABLE_HEADING_PRODUCT; ?>&nbsp;</th>
+							<th>&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</th>
 						</tr>	
 					</thead>
 <?php
@@ -588,12 +588,12 @@ function go_option() {
                 </td>
               </tr>
 			  
-					<thead>
+					<thead class="thead-dark">
 						<tr>
-							<td>&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</td>
-							<td>&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</td>
-							<td>&nbsp;<?php echo TABLE_HEADING_OPT_VALUE; ?>&nbsp;</td>
-							<td class="text-center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+							<th>&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</th>
+							<th>&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</th>
+							<th>&nbsp;<?php echo TABLE_HEADING_OPT_VALUE; ?>&nbsp;</th>
+							<th class="text-center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>
 						</tr>	
 					</thead>
 <?php
@@ -777,16 +777,16 @@ function go_option() {
 ?>
             </td>
           </tr>  
-					<thead>
+					<thead class="thead-dark">
 						<tr>
-							<td>&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</td>
-							<td>&nbsp;<?php echo TABLE_HEADING_PRODUCT; ?>&nbsp;</td>
-							<td>&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</td>
-							<td>&nbsp;<?php echo TABLE_HEADING_OPT_VALUE; ?>&nbsp;</td>
-							<td>&nbsp;<?php echo TABLE_HEADING_SORT_ORDER_VALUE; ?>&nbsp;</td>
-							<td class="text-right">&nbsp;<?php echo TABLE_HEADING_OPT_PRICE; ?>&nbsp;</td>
-							<td class="text-center">&nbsp;<?php echo TABLE_HEADING_OPT_PRICE_PREFIX; ?>&nbsp;</td>
-							<td class="text-center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+							<th>&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</th>
+							<th>&nbsp;<?php echo TABLE_HEADING_PRODUCT; ?>&nbsp;</th>
+							<th>&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</th>
+							<th>&nbsp;<?php echo TABLE_HEADING_OPT_VALUE; ?>&nbsp;</th>
+							<th>&nbsp;<?php echo TABLE_HEADING_SORT_ORDER_VALUE; ?>&nbsp;</th>
+							<th class="text-right">&nbsp;<?php echo TABLE_HEADING_OPT_PRICE; ?>&nbsp;</th>
+							<th class="text-center">&nbsp;<?php echo TABLE_HEADING_OPT_PRICE_PREFIX; ?>&nbsp;</th>
+							<th class="text-center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>
 						</tr>	
 					</thead>
 <?php

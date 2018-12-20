@@ -134,12 +134,12 @@
             <td valign="top">
 			
 				<table class="table table-striped table-hover w-100">
-					<thead>
+					<thead class="thead-dark">
 						<tr>
-							<td><?php echo TABLE_HEADING_MODULES; ?></td>
-							<td class="text-right"><?php echo TABLE_HEADING_SORT_ORDER; ?></td>
-							<td class="text-right"><?php echo TABLE_HEADING_STATUS; ?></td>
-							<td class="text-right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+							<th><?php echo TABLE_HEADING_MODULES; ?></th>
+							<th class="text-right"><?php echo TABLE_HEADING_SORT_ORDER; ?></th>
+							<th class="text-right"><?php echo TABLE_HEADING_STATUS; ?></th>
+							<th class="text-right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>
 						</tr>	
 					</thead>
 <?php
