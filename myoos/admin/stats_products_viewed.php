@@ -84,7 +84,7 @@ $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GE
             <td valign="top">
 			
 				<table class="table table-striped table-hover w-100">
-					<thead>
+					<thead class="thead-dark">
 						<tr>
 							<th><?php echo TABLE_HEADING_NUMBER; ?></th>
 							<th><?php echo TABLE_HEADING_PRODUCTS; ?></th>

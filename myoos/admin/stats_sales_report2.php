@@ -392,18 +392,19 @@
 <?php
   } // end of ($srExp < 1)
 ?>
-            <table border="0" width="100%" cellspacing="0" cellpadding="2">
+
+		<table class="table w-100">
               <tr>
                 <td valign="top">
 				
 				<table class="table table-striped table-hover w-100">
-					<thead>
+					<thead class="thead-dark">
 						<tr>
-							<td class="text-right"><?php echo TABLE_HEADING_DATE; ?></td>
-							<td class="text-right"><?php echo TABLE_HEADING_ORDERS;?></td>
-							<td class="text-right"><?php echo TABLE_HEADING_ITEMS; ?></td>
-							<td class="text-right"><?php echo TABLE_HEADING_REVENUE;?></td>
-							<td class="text-right"><?php echo  TABLE_HEADING_SHIPPING;?></td>
+							<th class="text-right"><?php echo TABLE_HEADING_DATE; ?></th>
+							<th class="text-right"><?php echo TABLE_HEADING_ORDERS;?></th>
+							<th class="text-right"><?php echo TABLE_HEADING_ITEMS; ?></th>
+							<th class="text-right"><?php echo TABLE_HEADING_REVENUE;?></th>
+							<th class="text-right"><?php echo  TABLE_HEADING_SHIPPING;?></th>
 						</tr>	
 					</thead>
 <?php

@@ -75,11 +75,11 @@ require 'includes/header.php';
 			
 			
 				<table class="table table-striped table-hover w-100">
-					<thead>
+					<thead class="thead-dark">
 						<tr>
-							<td><?php echo TABLE_HEADING_NUMBER; ?></td>
-							<td><?php echo TABLE_HEADING_PRODUCTS; ?></td>
-							<td class="text-right"><?php echo TABLE_HEADING_QTY_LEFT; ?>&nbsp;</td>
+							<th><?php echo TABLE_HEADING_NUMBER; ?></th>
+							<th><?php echo TABLE_HEADING_PRODUCTS; ?></th>
+							<th class="text-right"><?php echo TABLE_HEADING_QTY_LEFT; ?>&nbsp;</th>
 						</tr>	
 					</thead>	
 <?php
