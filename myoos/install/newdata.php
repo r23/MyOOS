@@ -1335,22 +1335,6 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "zones (zone_id, zone_co
 $result = $db->Execute("INSERT INTO " . $prefix_table . "zones (zone_id, zone_country_id, zone_code, zone_name ) VALUES ('408',21,'VB','Vlaams Brabant')") OR die ("<b>".NOTUPDATED . $prefix_table . "zones</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "zones (zone_id, zone_country_id, zone_code, zone_name ) VALUES ('409',21,'WV','West-Vlaanderen')") OR die ("<b>".NOTUPDATED . $prefix_table . "zones</b>");
 
-#Denmark
-$result = $db->Execute("INSERT INTO " . $prefix_table . "zones (zone_id, zone_country_id, zone_code, zone_name ) VALUES ('410',57,'AR','Arhus')") OR die ("<b>".NOTUPDATED . $prefix_table . "zones</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "zones (zone_id, zone_country_id, zone_code, zone_name ) VALUES ('420',57,'BO','Bornholm')") OR die ("<b>".NOTUPDATED . $prefix_table . "zones</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "zones (zone_id, zone_country_id, zone_code, zone_name ) VALUES ('421',57,'FR','Frederiksborg')") OR die ("<b>".NOTUPDATED . $prefix_table . "zones</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "zones (zone_id, zone_country_id, zone_code, zone_name ) VALUES ('422',57,'FY','Fyn')") OR die ("<b>".NOTUPDATED . $prefix_table . "zones</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "zones (zone_id, zone_country_id, zone_code, zone_name ) VALUES ('423',57,'KO','Kobenhavn')") OR die ("<b>".NOTUPDATED . $prefix_table . "zones</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "zones (zone_id, zone_country_id, zone_code, zone_name ) VALUES ('424',57,'NO','Nordjylland')") OR die ("<b>".NOTUPDATED . $prefix_table . "zones</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "zones (zone_id, zone_country_id, zone_code, zone_name ) VALUES ('425',57,'RI','Ribe')") OR die ("<b>".NOTUPDATED . $prefix_table . "zones</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "zones (zone_id, zone_country_id, zone_code, zone_name ) VALUES ('426',57,'RK','Ringkobing')") OR die ("<b>".NOTUPDATED . $prefix_table . "zones</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "zones (zone_id, zone_country_id, zone_code, zone_name ) VALUES ('427',57,'RO','Roskilde')") OR die ("<b>".NOTUPDATED . $prefix_table . "zones</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "zones (zone_id, zone_country_id, zone_code, zone_name ) VALUES ('428',57,'SO','Sonderjylland')") OR die ("<b>".NOTUPDATED . $prefix_table . "zones</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "zones (zone_id, zone_country_id, zone_code, zone_name ) VALUES ('429',57,'ST','Storstrom')") OR die ("<b>".NOTUPDATED . $prefix_table . "zones</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "zones (zone_id, zone_country_id, zone_code, zone_name ) VALUES ('430',57,'VE','Vejle')") OR die ("<b>".NOTUPDATED . $prefix_table . "zones</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "zones (zone_id, zone_country_id, zone_code, zone_name ) VALUES ('431',57,'VJ','VestsjÃ?Â¦lland')") OR die ("<b>".NOTUPDATED . $prefix_table . "zones</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "zones (zone_id, zone_country_id, zone_code, zone_name ) VALUES ('432',57,'VI','Viborg')") OR die ("<b>".NOTUPDATED . $prefix_table . "zones</b>");
-
 #Greece
 $result = $db->Execute("INSERT INTO " . $prefix_table . "zones (zone_id, zone_country_id, zone_code, zone_name ) VALUES ('433',84,'AI','Aitolia kai Akarnania')") OR die ("<b>".NOTUPDATED . $prefix_table . "zones</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "zones (zone_id, zone_country_id, zone_code, zone_name ) VALUES ('434',84,'AK','Akhaia')") OR die ("<b>".NOTUPDATED . $prefix_table . "zones</b>");
