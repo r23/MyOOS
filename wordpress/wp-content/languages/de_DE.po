@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.0.x - Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-12-15 13:51:06+0000\n"
+"PO-Revision-Date: 2018-12-20 12:37:22+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1659,19 +1659,19 @@ msgstr "Block erstellt."
 
 #: wp-includes/js/dist/editor.js:13626
 msgid "Trashing failed"
-msgstr "Das Verschieben in den Papierkorb ist gescheitert"
+msgstr "Das Verschieben in den Papierkorb ist fehlgeschlagen"
 
 #: wp-includes/js/dist/editor.js:13549
 msgid "Updating failed"
-msgstr "Aktualisieren gescheitert"
+msgstr "Aktualisieren fehlgeschlagen"
 
 #: wp-includes/js/dist/editor.js:13547
 msgid "Scheduling failed"
-msgstr "Planen gescheitert"
+msgstr "Planen fehlgeschlagen"
 
 #: wp-includes/js/dist/editor.js:13545 wp-includes/js/dist/editor.js:13546
 msgid "Publishing failed"
-msgstr "Veröffentlichen gescheitert"
+msgstr "Veröffentlichen fehlgeschlagen"
 
 #: wp-includes/js/dist/editor.js:8310
 msgctxt "font size name"
