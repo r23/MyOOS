@@ -110,7 +110,7 @@
       if (isset($_SESSION['groupID'])) unset($_SESSION['groupID']);
     }
 
-    public function generate_group_id($length = 5) {
+    public function generate_group_id($length = 9) {
       return oos_create_random_value($length, 'digits');
     }
   }

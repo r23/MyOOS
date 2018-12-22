@@ -45,9 +45,8 @@ function oos_count_products_in_category($category_id, $include_inactive = FALSE)
     }
     $products_count += $products->fields['total'];
 
-    $nGroupID = isset($_SESSION['user']) ? intval( $_SESSION['user']->group['id'] ) : DEFAULT_CUSTOMERS_STATUS_ID;
     $categoriestable = $oostable['categories'];
-    $child_categories_result = $dbconn->Execute("SELECT categories_id FROM $categoriestable WHERE ( access = '0' OR access = '" . intval($nGroupID) . "' ) AND parent_id = '" . intval($category_id) . "'");
+    $child_categories_result = $dbconn->Execute("SELECT categories_id FROM $categoriestable WHERE parent_id = '" . intval($category_id) . "'");
     if ($child_categories_result->RecordCount()) {
 		while ($child_categories = $child_categories_result->fields) {
 			$products_count += oos_count_products_in_category($child_categories['categories_id'], $include_inactive);
@@ -72,13 +71,10 @@ function oos_has_category_subcategories($category_id) {
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    $nGroupID = isset($_SESSION['user']) ? intval( $_SESSION['user']->group['id'] ) : DEFAULT_CUSTOMERS_STATUS_ID;
-
     $categoriestable = $oostable['categories'];
     $query = "SELECT COUNT(*) AS total
               FROM $categoriestable
-              WHERE ( c.access = '0' OR c.access = '" . intval($nGroupID) . "' )
-                AND parent_id = '" . intval($category_id) . "'";
+              WHERE parent_id = '" . intval($category_id) . "'";
      $child_category = $dbconn->Execute($query);
     if ($child_category->fields['total'] > 0) {
       return TRUE;
@@ -173,18 +169,13 @@ function oos_show_category($nCounter) {
     }
 }
 
-
-$nGroupID = isset($_SESSION['user']) ? intval( $_SESSION['user']->group['id'] ) : DEFAULT_CUSTOMERS_STATUS_ID;
-
 $categoriestable = $oostable['categories'];
 $categories_descriptiontable = $oostable['categories_description'];
-
 $query = "SELECT c.categories_id, cd.categories_name, c.parent_id, c.categories_status
               FROM $categoriestable c,
                    $categories_descriptiontable cd
               WHERE c.categories_status = '1'
                 AND c.parent_id = '0'
-                AND ( c.access = '0' OR c.access = '" . intval($nGroupID) . "' )
                 AND c.categories_id = cd.categories_id
                 AND cd.categories_languages_id = '" . intval($nLanguageID) . "'
               ORDER BY c.sort_order, cd.categories_name";
@@ -220,8 +211,6 @@ if (!empty($sCategory)) {
 		unset($prev_id);
 		unset($first_id);
 
-        $nGroupID = isset($_SESSION['user']) ? intval( $_SESSION['user']->group['id'] ) : DEFAULT_CUSTOMERS_STATUS_ID;
-
         $categoriestable = $oostable['categories'];
         $categories_descriptiontable = $oostable['categories_description'];
         $query = "SELECT c.categories_id, cd.categories_name, c.parent_id, c.categories_status
@@ -229,7 +218,6 @@ if (!empty($sCategory)) {
                        $categories_descriptiontable cd
                   WHERE c.categories_status = '1'
                     AND c.parent_id = '" . intval($value) . "'
-                    AND ( c.access = '0' OR c.access = '" . intval($nGroupID) . "' )
                     AND c.categories_id = cd.categories_id
                     AND cd.categories_languages_id = '" . intval($nLanguageID) . "'
                   ORDER BY c.sort_order, cd.categories_name";
@@ -273,13 +261,10 @@ if (!empty($sCategory)) {
 if (sizeof($list_of_categories_ids) > 0 ) {
 	$select_list_of_cat_ids = implode(",", $list_of_categories_ids);
 
-	$nGroupID = isset($_SESSION['user']) ? intval( $_SESSION['user']->group['id'] ) : DEFAULT_CUSTOMERS_STATUS_ID;
-
 	$categoriestable = $oostable['categories'];
 	$query = "SELECT categories_id, parent_id
                 FROM $categoriestable
-                WHERE ( access = '0' OR access = '" . intval($nGroupID) . "' )
-                AND   parent_id in (" . $select_list_of_cat_ids . ")";
+                WHERE parent_id in (" . $select_list_of_cat_ids . ")";
 	$parent_child_result = $dbconn->Execute($query);
 
 	while ($_parent_child = $parent_child_result->fields) {

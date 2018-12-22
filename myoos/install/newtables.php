@@ -206,7 +206,6 @@ $flds = "
   categories_id I NOTNULL AUTO PRIMARY,
   categories_image C(64),  
   parent_id I NOTNULL DEFAULT '0',
-  access I NOTNULL DEFAULT '0',
   sort_order I1,
   date_added T,
   last_modified T,

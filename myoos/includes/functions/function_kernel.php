@@ -789,7 +789,6 @@ function oos_round($number, $precision) {
 function oos_get_categories($aCategories = '', $parent_id = '0', $indent = '') {
 
     $parent_id = oos_db_prepare_input($parent_id);
-    $nGroupID = isset($_SESSION['user']) ? $_SESSION['user']->group['id']+0 : DEFAULT_CUSTOMERS_STATUS_ID;
 
     if (!is_array($aCategories)) $aCategories = array();
 
@@ -804,8 +803,7 @@ function oos_get_categories($aCategories = '', $parent_id = '0', $indent = '') {
     $query = "SELECT c.categories_id, c.categories_status, cd.categories_name
               FROM $categoriestable c,
                    $categories_descriptiontable cd
-              WHERE ( c.access = '0' OR c.access = '" . intval($nGroupID) . "' )
-                AND c.categories_status = '1'
+              WHERE c.categories_status = '1'
                 AND c.parent_id = '" . oos_db_input($parent_id) . "'
                 AND c.categories_id = cd.categories_id
                 AND cd.categories_languages_id = '" .  intval($nLanguageID) . "'
