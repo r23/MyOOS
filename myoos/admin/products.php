@@ -28,6 +28,8 @@ require 'includes/functions/function_image_resize.php';
 require 'includes/classes/class_currencies.php';
 $currencies = new currencies();
 
+
+
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
 if (!empty($action)) {
@@ -60,6 +62,17 @@ if (!empty($action)) {
 				}
 			}
 
+	echo '<pre>';
+	print_r($_SESSION);
+	echo '<br />';
+	print_r($_GET);
+	echo '<br />';
+	print_r($_POST);
+	echo '<br>';
+	print_r($_FILES);
+	echo '</pre>';	
+	
+	exit;
 
 			if ( ($_POST['products_image'] != 'none') && (isset($_FILES['products_image'])) ) {
 				$products_image = oos_get_uploaded_file('products_image');
@@ -359,7 +372,7 @@ function calcBasePriceFactor() {
 	</div>
 	<!-- END Breadcrumbs //-->
 
-	<?php echo oos_draw_form('id', 'new_product', $aContents['products'], 'cPath=' . $cPath . (isset($_GET['pID']) ? '&pID=' . $_GET['pID'] : '') . '&action=' . $form_action, 'post', TRUE, 'enctype="multipart/form-data"'); ?>
+	<?php echo oos_draw_form('fileupload', 'new_product', $aContents['products'], 'cPath=' . $cPath . (isset($_GET['pID']) ? '&pID=' . $_GET['pID'] : '') . '&action=' . $form_action, 'post', TRUE, 'enctype="multipart/form-data"'); ?>
 		<?php echo oos_draw_hidden_field('products_date_added', (($pInfo->products_date_added) ? $pInfo->products_date_added : date('Y-m-d'))); ?>	
                <div role="tabpanel">
                   <ul class="nav nav-tabs nav-justified">
@@ -686,6 +699,29 @@ function calcBasePriceFactor() {
 ?>
                      </div>
                      <div class="tab-pane" id="picture" role="tabpanel">
+
+    <!-- The fileinput-button span is used to style the file input field as button -->
+    <span class="btn btn-success fileinput-button">
+        <i class="glyphicon glyphicon-plus"></i>
+        <span>Add files...</span>
+        <!-- The file input field used as target for the file upload widget -->
+        <input id="fileupload" type="file" name="files[]" multiple>
+    </span>
+    <br>
+    <br>
+    <!-- The global progress bar -->
+    <div id="progress" class="progress">
+        <div class="progress-bar progress-bar-success"></div>
+    </div>
+    <!-- The container for the uploaded files -->
+    <div id="files" class="files"></div>
+    <br>
+
+				 
+					 
+<?php
+	if (isset($_GET['pID']) && empty($_POST)) {					 
+?>	
                         <div class="row mb-3">
                            <div class="col-3">
                               <strong>Preview</strong>
@@ -730,6 +766,9 @@ function calcBasePriceFactor() {
                               </div>
                            </div>
                         </div>
+<?php
+	}
+?>						
                      </div>
                   </div>
                </div>

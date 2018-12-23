@@ -10,10 +10,6 @@
  * https://opensource.org/licenses/MIT
  */
 
- 
-/** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' ); 
- 
 class UploadHandler
 {
 
@@ -52,8 +48,8 @@ class UploadHandler
         $this->response = array();
         $this->options = array(
             'script_url' => $this->get_full_url().'/'.$this->basename($this->get_server_var('SCRIPT_NAME')),
-            'upload_dir' => dirname($this->get_server_var('SCRIPT_FILENAME')).'/files/',
-            'upload_url' => $this->get_full_url().'/files/',
+            'upload_dir' => OOS_ABSOLUTE_PATH . OOS_IMAGES,
+            'upload_url' => OOS_HTTPS_SERVER . OOS_SHOP . OOS_IMAGES,
             'input_stream' => 'php://input',
             'user_dirs' => false,
             'mkdir_mode' => 0755,
@@ -101,7 +97,7 @@ class UploadHandler
             // By default, only allows file uploads with image file extensions.
             // Only change this setting after making sure that any allowed file
             // types cannot be executed by the webserver in the files directory,
-            // e.g. PHP scripts, nor executed by the browser when downloaded,
+            // e.g.			 PHP scripts, nor executed by the browser when downloaded,
             // e.g. HTML files with embedded JavaScript code.
             // Please also read the SECURITY.md document in this repository.
             'accept_file_types' => '/\.(gif|jpe?g|png)$/i',

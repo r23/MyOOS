@@ -32,15 +32,17 @@ $aBlocks[] = array(
 */
 $aBlocks[] = array();
 
-
-if (oos_admin_check_boxes('administrator.php') == TRUE) {
-	include 'includes/boxes/administrator.php';
-}
-if (oos_admin_check_boxes('configuration.php') == TRUE) {
-	include 'includes/boxes/configuration.php';
+if (oos_admin_check_boxes('customers.php') == TRUE) {
+	include 'includes/boxes/customers.php';
 }
 if (oos_admin_check_boxes('catalog.php') == TRUE) {
 	include 'includes/boxes/catalog.php';
+}
+if (oos_admin_check_boxes('reports.php') == TRUE) {
+    include 'includes/boxes/reports.php';
+}
+if (oos_admin_check_boxes('configuration.php') == TRUE) {
+	include 'includes/boxes/configuration.php';
 }
 if (oos_admin_check_boxes('content.php') == TRUE) {
 	include 'includes/boxes/content.php';
@@ -51,17 +53,11 @@ if (oos_admin_check_boxes('modules.php') == TRUE) {
 if (oos_admin_check_boxes('plugins.php') == TRUE) {
 	include 'includes/boxes/plugins.php';
 }
-if (oos_admin_check_boxes('customers.php') == TRUE) {
-	include 'includes/boxes/customers.php';
-}
 if (oos_admin_check_boxes('taxes.php') == TRUE) {
     include 'includes/boxes/taxes.php';
 }
 if (oos_admin_check_boxes('localization.php') == TRUE) {
 	include 'includes/boxes/localization.php';
-}
-if (oos_admin_check_boxes('reports.php') == TRUE) {
-    include 'includes/boxes/reports.php';
 }
 if (oos_admin_check_boxes('tools.php') == TRUE) {
 	include 'includes/boxes/tools.php';
@@ -75,7 +71,9 @@ if (oos_admin_check_boxes('export.php') == TRUE) {
 if (oos_admin_check_boxes('information.php') == TRUE) {
 	include 'includes/boxes/information.php';
 }
-
+if (oos_admin_check_boxes('administrator.php') == TRUE) {
+	include 'includes/boxes/administrator.php';
+}
 if (is_array($aBlocks)) {
     $php_self = basename($_SERVER['PHP_SELF']);
 

@@ -152,46 +152,7 @@ if (!empty($action)) {
               oos_get_copy_uploaded_file($categories_image, $image_directory);
             }
 			
-        $pi_sort_order = 0;
-        $piArray = array(0);
-
-        foreach ($_FILES as $key => $value) {
-// Update existing large product images
-          if (preg_match('/^products_image_large_([0-9]+)$/', $key, $matches)) {
-            $pi_sort_order++;
-
-            $sql_data_array = array('htmlcontent' => tep_db_prepare_input($_POST['products_image_htmlcontent_' . $matches[1]]),
-                                    'sort_order' => $pi_sort_order);
-
-            $t = new upload($key);
-            $t->set_destination(DIR_FS_CATALOG_IMAGES);
-            if ($t->parse() && $t->save()) {
-              $sql_data_array['image'] = tep_db_prepare_input($t->filename);
-            }
-
-            tep_db_perform(TABLE_PRODUCTS_IMAGES, $sql_data_array, 'update', "products_id = '" . (int)$products_id . "' and id = '" . (int)$matches[1] . "'");
-
-            $piArray[] = (int)$matches[1];
-          } elseif (preg_match('/^products_image_large_new_([0-9]+)$/', $key, $matches)) {
-// Insert new large product images
-            $sql_data_array = array('products_id' => (int)$products_id,
-                                    'htmlcontent' => tep_db_prepare_input($_POST['products_image_htmlcontent_new_' . $matches[1]]));
-
-            $t = new upload($key);
-            $t->set_destination(DIR_FS_CATALOG_IMAGES);
-            if ($t->parse() && $t->save()) {
-              $pi_sort_order++;
-
-              $sql_data_array['image'] = tep_db_prepare_input($t->filename);
-              $sql_data_array['sort_order'] = $pi_sort_order;
-
-              tep_db_perform(TABLE_PRODUCTS_IMAGES, $sql_data_array);
-
-              $piArray[] = tep_db_insert_id();
-            }
-          }
-        }
-			
+		
 			if (isset($_POST['add_image'])) {
 				oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&amp;cID=' . $categories_id . '&amp;action=' . 'edit_category' . (isset($_POST['tab']) ? '&tab=' . intval($_POST['tab']) : '')));				
 			} else {
@@ -443,6 +404,21 @@ if (!empty($action)) {
 		break;
     }
 }
+
+
+$cPath_back = '';
+if (is_array($cPath_array) && count($cPath_array) > 0) {
+	for ($i = 0, $n = count($cPath_array) - 1; $i < $n; $i++) {
+		if (empty($cPath_back)) {
+			$cPath_back .= $cPath_array[$i];
+		} else {
+			$cPath_back .= '_' . $cPath_array[$i];
+		}
+	}
+}
+
+$cPath_back = (oos_is_not_null($cPath_back)) ? 'cPath=' . $cPath_back . '&' : '';	
+
 
 // check if the catalog image directory exists
 if (is_dir(OOS_ABSOLUTE_PATH . OOS_IMAGES)) {
@@ -1029,18 +1005,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
       $products_result->MoveNext();
     }
 
-    $cPath_back = '';
-	if (is_array($cPath_array) && count($cPath_array) > 0) {
-		for ($i = 0, $n = count($cPath_array) - 1; $i < $n; $i++) {
-			if (empty($cPath_back)) {
-				$cPath_back .= $cPath_array[$i];
-			} else {
-				$cPath_back .= '_' . $cPath_array[$i];
-			}
-		}
-    }
 
-    $cPath_back = (oos_is_not_null($cPath_back)) ? 'cPath=' . $cPath_back . '&' : '';	
 ?>
               <tr>
                 <td colspan="5"><table border="0" width="100%" cellspacing="0" cellpadding="2">

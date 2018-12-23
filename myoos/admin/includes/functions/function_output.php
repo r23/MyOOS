@@ -247,8 +247,6 @@ function oos_submit_button($id, $title = '', $params = '') {
   }
 
 
-
-
  /**
   * Output a form input field
   *
