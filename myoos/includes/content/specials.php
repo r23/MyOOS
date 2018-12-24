@@ -59,7 +59,7 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
                             FROM $productstable p,
                                  $products_descriptiontable pd,
                                  $specialstable s
-                           WHERE p.products_status >= '1'
+                           WHERE p.products_setting = '1'
                              AND s.products_id = p.products_id
                              AND p.products_id = pd.products_id
                              AND pd.products_languages_id = '" . intval($nLanguageID) . "'

@@ -198,7 +198,7 @@ if (!empty($action)) {
 				}
 
 				foreach($products_delete as $key) {
-					oos_remove_product($key);
+					product_move_to_trash($key);
 				}
 			}
 
@@ -208,17 +208,12 @@ if (!empty($action)) {
 		case 'delete_product_confirm':
 			if (isset($_POST['products_id']) && isset($_POST['product_categories']) && is_array($_POST['product_categories'])) {
 				$product_id = oos_db_prepare_input($_POST['products_id']);
-				$product_categories = $_POST['product_categories'];
-
-				for ($i = 0, $n = count($product_categories); $i < $n; $i++) {
-					$dbconn->Execute("DELETE FROM " . $oostable['products_to_categories'] . " WHERE products_id = '" . (int)$product_id . "' and categories_id = '" . (int)$product_categories[$i] . "'");
-				}
 
 				$product_categories_result = $dbconn->Execute("SELECT COUNT(*) AS total FROM " . $oostable['products_to_categories'] . " WHERE products_id = '" . (int)$product_id . "'");
 				$product_categories = $product_categories_result->fields;
 
 				if ($product_categories['total'] == '0') {
-					oos_remove_product($product_id);
+					product_move_to_trash($product_id);
 				}
 			}
 			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath));
@@ -264,7 +259,8 @@ if (!empty($action)) {
 				$product_result = $dbconn->Execute("SELECT products_quantity, products_reorder_level, products_model, 
 														products_replacement_product_id, products_ean, products_image, 
 														products_price, products_base_price, products_base_unit,
-                                                       products_date_available, products_weight, products_tax_class_id,
+                                                       products_date_available, products_weight, products_status, 
+													   products_setting, products_tax_class_id,
                                                        products_units_id, manufacturers_id, products_price_list,
                                                        products_quantity_order_min,  products_quantity_order_max,
                                                        products_quantity_order_units, products_discount1, products_discount2,
@@ -291,6 +287,7 @@ if (!empty($action)) {
                           products_date_available,
                           products_weight,
                           products_status,
+						  products_setting,
                           products_tax_class_id,
                           products_units_id,
                           manufacturers_id,
@@ -320,7 +317,9 @@ if (!empty($action)) {
                                   '" . $product['products_base_unit'] . "',
                                   now(),
 								  '" . (empty($product['products_date_available']) ? "null" : "'" . oos_db_input($product['products_date_available']) . "'") . "',
-                                  '" . $product['products_weight'] . "', '0',
+                                  '" . $product['products_weight'] . "', 
+                                  '" . $product['products_status'] . "', 								  
+                                  '3', 								  
                                   '" . $product['products_tax_class_id'] . "',
                                   '" . $product['products_units_id'] . "',
                                   '" . $product['manufacturers_id'] . "',

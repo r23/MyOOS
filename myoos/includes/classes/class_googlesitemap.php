@@ -214,7 +214,7 @@ class GoogleSitemap {
        $sql = "SELECT products_id as pid, products_date_added as date_added,
                       products_last_modified as last_mod, products_ordered
                FROM " . $oostable['products'] . "
-               WHERE products_status >= '1'
+               WHERE products_setting = '1'
                ORDER BY products_ordered DESC";
 
        if ( $products_query = $dbconn->Execute($sql) ){

@@ -36,7 +36,7 @@ if (isset($nCurrentCategoryID) && ($nCurrentCategoryID > 0)) {
                    $products_descriptiontable pd,
                    $products_to_categoriestable p2c,
                    $categoriestable c
-              WHERE p.products_status >= '1'
+              WHERE p.products_setting = '1'
                 AND p.products_ordered > 0
                 AND p.products_id = pd.products_id
                 AND pd.products_languages_id = '" .  intval($nLanguageID) . "'
@@ -51,7 +51,7 @@ if (isset($nCurrentCategoryID) && ($nCurrentCategoryID > 0)) {
                      substring(pd.products_description, 1, 150) AS products_description
               FROM $productstable p,
                    $products_descriptiontable pd
-              WHERE p.products_status >= '1'
+              WHERE p.products_setting = '1'
                 AND p.products_ordered > 0
                 AND p.products_id = pd.products_id
                 AND pd.products_languages_id = '" .  intval($nLanguageID) . "'

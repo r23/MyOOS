@@ -78,7 +78,7 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
                                   pd.products_name, p.products_image, r.customers_name
                            FROM $reviewstable r,  $reviews_descriptiontable rd,
                                 $productstable p, $products_descriptiontable pd
-                           WHERE p.products_status >= '1'
+                           WHERE p.products_setting = '1'
                              AND p.products_id = r.products_id
                              AND r.reviews_id = rd.reviews_id
                              AND p.products_id = pd.products_id

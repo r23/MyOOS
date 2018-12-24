@@ -117,8 +117,8 @@ define('BOX_CATALOG_PRODUCTS_FEATURED', 'Featured');
 define('BOX_CATALOG_EASYPOPULATE', 'EasyPopulate');
 define('BOX_CATALOG_EXPORT_EXCEL', 'Export Excel Product');
 define('BOX_CATALOG_IMPORT_EXCEL', 'Update Excel Price');
-define('BOX_CATALOG_XSELL_PRODUCTS', 'Cross Sell Products');
-define('BOX_CATALOG_UP_SELL_PRODUCTS', 'UP Sell Products');
+define('BOX_CATALOG_WASTEBASKET', 'Wastebasket');
+
 
 // categories box text in includes/boxes/content.php
 define('BOX_HEADING_CONTENT', 'Content Manager');
@@ -262,6 +262,7 @@ define('BUTTON_INSERT', 'Insert');
 define('IMAGE_LOCK', 'Lock');
 define('IMAGE_LOGIN', 'Shop Login');
 define('IMAGE_MOVE', 'Move');
+define('BUTTON_MOVE_TRASH', 'Move to the Trash');
 define('IMAGE_NEW_CATEGORY', 'New Category');
 define('IMAGE_NEW_COUNTRY', 'New Country');
 define('IMAGE_NEW_CURRENCY', 'New Currency');

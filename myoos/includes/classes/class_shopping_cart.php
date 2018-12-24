@@ -199,7 +199,7 @@
                               FROM $productstable
                               WHERE products_id = '" . intval($nProductsID) . "'";
         $products_status = $dbconn->GetOne($check_product_sql);
-        if ($products_status >= '1') {
+        if ($products_setting = '1') {
 
             $nQuantity = intval($nQuantity);
 

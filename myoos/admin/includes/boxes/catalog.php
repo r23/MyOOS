@@ -82,6 +82,11 @@ $aBlocks[] = array(
 			'title' => BOX_CATALOG_REVIEWS,
 			'link' => oos_admin_files_boxes('reviews', 'selected_box=catalog')
 		),
+		array(
+			'code' => $aContents['wastebasket'],
+			'title' => BOX_CATALOG_WASTEBASKET,
+			'link' => oos_admin_files_boxes('wastebasket', 'selected_box=catalog')
+		),		
 				
 	),
 );

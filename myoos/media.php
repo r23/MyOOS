@@ -59,3 +59,6 @@ require 'includes/main.php';
 require 'includes/lib/jquery-file-upload/upload.php';
 
 $upload_handler = new UploadHandler();
+
+
+require 'includes/nice_exit.php';

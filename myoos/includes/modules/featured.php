@@ -33,7 +33,7 @@ $sql = "SELECT p.products_id, p.products_image, p.products_price, p.products_tax
           FROM $productstable p,
                $products_descriptiontable pd,
                $featuredtable f
-          WHERE p.products_status >= '1' 
+          WHERE p.products_setting = '1' 
             AND f.products_id = p.products_id
             AND p.products_id = pd.products_id
             AND pd.products_languages_id = '" . intval($nLanguageID) . "'

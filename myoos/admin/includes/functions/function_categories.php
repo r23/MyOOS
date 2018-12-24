@@ -346,6 +346,25 @@ function oos_set_product_status($products_id, $status) {
 }
 
 
+function product_move_to_trash($products_id) {
+  
+    // Get database information
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
+
+    $productstable = $oostable['products'];
+    $query = "UPDATE $productstable
+              SET products_setting = '0',
+                  products_last_modified = now()
+              WHERE products_id = '" . intval($products_id) . "'";
+    $result = $dbconn->Execute($query);
+
+    return;
+}
+
+
+
+
 function oos_generate_category_path($id, $from = 'category', $categories_array = '', $index = 0) {
 
     if (!is_array($categories_array)) $categories_array = array();

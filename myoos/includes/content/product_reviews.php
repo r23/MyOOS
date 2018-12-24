@@ -46,7 +46,7 @@ $sql = "SELECT p.products_id, p.products_model, p.products_replacement_product_i
           FROM $productstable p,
 		       $products_descriptiontable pd 
           WHERE pd.products_languages_id = '" .  intval($nLanguageID) . "'
-            AND p.products_status >= '1'
+            AND p.products_setting = '1'
 			AND p.products_id = pd.products_id
             AND pd.products_id = '" . intval($nProductsID) . "'";
 $product_info_result = $dbconn->Execute($sql);

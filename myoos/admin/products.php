@@ -34,7 +34,49 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
 if (!empty($action)) {
 	switch ($action) {
-		case 'insert_product':
+		case 'new_product':
+
+				$sProductsStatus = DEFAULT_PRODUTS_STATUS_ID;
+				$products_product_quantity = 1;
+				$products_base_quantity = 1;
+				$products_tax_class_id = 1; // DEFAULT_TAX_CLASS_ID
+				$sProductsReplacementProductID = 'null';
+
+				$sql_data_array = array('products_quantity' => $sProductsQuantity,
+								  'products_replacement_product_id' => $sProductsReplacementProductID,
+                                  'products_base_price' => $products_base_price,
+                                  'products_product_quantity' => $products_product_quantity,
+                                  'products_base_quantity' => $products_base_quantity,
+                                  'products_base_unit' => $products_base_unit,
+                                  'products_date_available' => $products_date_available,
+                                  'products_status' => $sProductsStatus,
+								  'products_setting' => '3',
+                                  'products_tax_class_id' => $products_tax_class_id,
+                                  );
+
+				$insert_sql_data = array('products_date_added' => 'now()');
+
+				$sql_data_array = array_merge($sql_data_array, $insert_sql_data);
+
+				oos_db_perform($oostable['products'], $sql_data_array);
+				$products_id = $dbconn->Insert_ID();
+
+				$products_to_categoriestable = $oostable['products_to_categories'];
+				$dbconn->Execute("INSERT INTO $products_to_categoriestable (products_id, categories_id) VALUES ('" . $products_id . "', '" . $current_category_id . "')");
+
+				$aLanguages = oos_get_languages();
+				$nLanguages = count($aLanguages);
+				for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
+					$lang_id = $aLanguages[$i]['id'];
+
+					if ($action == 'insert_product') {
+						$sql_data_array = array('products_id' => $products_id,
+                                       'products_languages_id' => $lang_id);
+						oos_db_perform($oostable['products_description'], $sql_data_array);
+					}
+				}
+		break;		
+		
 		case 'update_product':
 
 			$_POST['products_price'] = str_replace(',', '.', $_POST['products_price']);
@@ -61,18 +103,6 @@ if (!empty($action)) {
 					$sProductsStatus = 0;
 				}
 			}
-
-	echo '<pre>';
-	print_r($_SESSION);
-	echo '<br />';
-	print_r($_GET);
-	echo '<br />';
-	print_r($_POST);
-	echo '<br>';
-	print_r($_FILES);
-	echo '</pre>';	
-	
-	exit;
 
 			if ( ($_POST['products_image'] != 'none') && (isset($_FILES['products_image'])) ) {
 				$products_image = oos_get_uploaded_file('products_image');
@@ -322,11 +352,6 @@ require 'includes/header.php';
       $products_status_result->MoveNext();
     }
 
-    $aLanguages = oos_get_languages();
-	$nLanguages = count($aLanguages);
-	
-    $form_action = (isset($_GET['pID'])) ? 'update_product' : 'insert_product';
-
 ?>
 <script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
 <?php
@@ -372,7 +397,7 @@ function calcBasePriceFactor() {
 	</div>
 	<!-- END Breadcrumbs //-->
 
-	<?php echo oos_draw_form('fileupload', 'new_product', $aContents['products'], 'cPath=' . $cPath . (isset($_GET['pID']) ? '&pID=' . $_GET['pID'] : '') . '&action=' . $form_action, 'post', TRUE, 'enctype="multipart/form-data"'); ?>
+	<?php echo oos_draw_form('fileupload', 'new_product', $aContents['products'], 'cPath=' . $cPath . (isset($_GET['pID']) ? '&pID=' . $_GET['pID'] : '') . '&action=update_product', 'post', TRUE, 'enctype="multipart/form-data"'); ?>
 		<?php echo oos_draw_hidden_field('products_date_added', (($pInfo->products_date_added) ? $pInfo->products_date_added : date('Y-m-d'))); ?>	
                <div role="tabpanel">
                   <ul class="nav nav-tabs nav-justified">
@@ -806,7 +831,7 @@ function calcBasePriceFactor() {
 
 if ( !($pInfo->products_discount1_qty == 0 and $pInfo->products_discount2_qty == 0 and $pInfo->products_discount3_qty == 0 and $pInfo->products_discount4_qty == 0 )) {
 
-  $the_special=oos_get_products_special_price($_GET['pID']);
+  $the_special = oos_get_products_special_price($_GET['pID']);
 
   $q0 = $pInfo->products_quantity_order_min;
   $q1 = $pInfo->products_discount1_qty;

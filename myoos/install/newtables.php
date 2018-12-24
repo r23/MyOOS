@@ -903,6 +903,7 @@ $flds = "
   products_date_available T,
   products_weight N '5.2' NOTNULL DEFAULT '0.00',
   products_status I1 NOTNULL DEFAULT '0',
+  products_setting I1 NOTNULL DEFAULT '0',
   products_tax_class_id I NOTNULL DEFAULT '0',
   products_units_id I NOTNULL DEFAULT '0',
   manufacturers_id I NULL,
