@@ -19,9 +19,7 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-define('HEADING_TITLE', 'Categories / Products');
-define('HEADING_TITLE_SEARCH', 'Search:');
-define('HEADING_TITLE_GOTO', 'Go To:');
+define('HEADING_TITLE', 'Trash');
 
 define('TABLE_HEADING_ID', 'ID');
 define('TABLE_HEADING_CATEGORIES_PRODUCTS', 'Categories / Products');
@@ -42,7 +40,7 @@ define('TEXT_DATE_ADDED', 'Date Added:');
 define('TEXT_DATE_AVAILABLE', 'Date Available:');
 define('TEXT_LAST_MODIFIED', 'Last Modified:');
 define('TEXT_IMAGE_NONEXISTENT', 'IMAGE DOES NOT EXIST');
-define('TEXT_NO_CHILD_CATEGORIES_OR_PRODUCTS', 'Please insert a new category or product in&nbsp;<b>%s</b>');
+define('TEXT_NO_CHILD_CATEGORIES_OR_PRODUCTS', 'No categories or products found in Trash.');
 define('TEXT_PRODUCT_MORE_INFORMATION', 'For more information, please visit this products <a href="http://%s" target="blank"><u>webpage</u></a>.');
 define('TEXT_PRODUCT_DATE_ADDED', 'This product was added to our catalog on %s.');
 define('TEXT_PRODUCT_DATE_AVAILABLE', 'This product will be in stock on %s.');
@@ -50,18 +48,6 @@ define('TEXT_PRODUCT_DATE_AVAILABLE', 'This product will be in stock on %s.');
 define('TEXT_INFO_PERCENTAGE', 'Percentage:');
 define('TEXT_INFO_EXPIRES_DATE', 'Expires At:');
 
-define('TEXT_EDIT_INTRO', 'Please make any necessary changes');
-define('TEXT_EDIT_CATEGORIES_ID', 'Category ID:');
-define('TEXT_EDIT_CATEGORIES_NAME', 'Category Name:');
-define('TEXT_EDIT_CATEGORIES_HEADING_TITLE', 'Meta Tag Title');
-define('TEXT_EDIT_CATEGORIES_DESCRIPTION', 'Category Description:');
-define('TEXT_EDIT_CATEGORIES_DESCRIPTION_META', 'Meta Tag Description');
-define('TEXT_EDIT_CATEGORIES_KEYWORDS_META', 'Meta Tag Keywords');
-define('TEXT_EDIT_CATEGORIES_IMAGE', 'Category Image:');
-define('TEXT_EDIT_SORT_ORDER', 'Sort Order');
-define('TEXT_EDIT_STATUS', 'Status');
-define('TEXT_TAX_INFO', ' ex VAT:');
-define('TEXT_PRODUCTS_LIST_PRICE', 'List:');
 
 
 define('TEXT_INFO_COPY_TO_INTRO', 'Please choose a new category you wish to copy this product to');

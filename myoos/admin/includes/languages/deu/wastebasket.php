@@ -19,9 +19,7 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-define('HEADING_TITLE', 'Kategorien / Artikel');
-define('HEADING_TITLE_SEARCH', 'Suche: ');
-define('HEADING_TITLE_GOTO', 'Gehe zu:');
+define('HEADING_TITLE', 'Papierkorb');
 
 define('TABLE_HEADING_ID', 'ID');
 define('TABLE_HEADING_CATEGORIES_PRODUCTS', 'Kategorien / Artikel');
@@ -42,26 +40,13 @@ define('TEXT_DATE_ADDED', 'hinzugefügt am:');
 define('TEXT_DATE_AVAILABLE', 'Erscheinungsdatum:');
 define('TEXT_LAST_MODIFIED', 'letzte Änderung:');
 define('TEXT_IMAGE_NONEXISTENT', 'BILD EXISTIERT NICHT');
-define('TEXT_NO_CHILD_CATEGORIES_OR_PRODUCTS', 'Bitte fügen Sie eine neue Kategorie oder einen Artikel in&nbsp;<b>%s</b> ein.');
+define('TEXT_NO_CHILD_CATEGORIES_OR_PRODUCTS', 'Keine Kategorien oder Artikel im Papierkorb gefunden.');
 define('TEXT_PRODUCT_MORE_INFORMATION', 'Für weitere Informationen, besuchen Sie bitte die <a href="http://%s" target="blank"><u>Homepage</u></a> des Herstellers.');
 define('TEXT_PRODUCT_DATE_ADDED', 'Diesen Artikel haben wir am %s in unseren Katalog aufgenommen.');
 define('TEXT_PRODUCT_DATE_AVAILABLE', 'Dieser Artikel ist erhältlich ab %s.');
 
 define('TEXT_INFO_PERCENTAGE', 'Prozent:');
 define('TEXT_INFO_EXPIRES_DATE', 'Gültig bis:');
-
-define('TEXT_EDIT_INTRO', 'Bitte führen Sie alle notwendigen Änderungen durch.');
-define('TEXT_EDIT_CATEGORIES_ID', 'Kategorie ID:');
-define('TEXT_EDIT_CATEGORIES_NAME', 'Kategorie Name');
-define('TEXT_EDIT_CATEGORIES_IMAGE', 'Kategorie Bild');
-define('TEXT_EDIT_CATEGORIES_HEADING_TITLE', 'Meta Tag Titel');
-define('TEXT_EDIT_CATEGORIES_DESCRIPTION', 'Kategorie Beschreibung');
-define('TEXT_EDIT_CATEGORIES_DESCRIPTION_META', 'Meta Tag Beschreibung');
-define('TEXT_EDIT_CATEGORIES_KEYWORDS_META', 'Meta Tag Suchworte');
-define('TEXT_EDIT_SORT_ORDER', 'Sortierreihenfolge');
-define('TEXT_EDIT_STATUS', 'Status');
-define('TEXT_TAX_INFO', 'Netto:');
-define('TEXT_PRODUCTS_LIST_PRICE', 'UVP:');
 
 
 define('TEXT_INFO_COPY_TO_INTRO', 'Bitte wählen Sie eine neue Kategorie aus, in die Sie den Artikel kopieren möchten:');
