@@ -28,7 +28,7 @@ $productstable = $oostable['products'];
 $query = "SELECT products_id, products_image, products_tax_class_id, products_units_id, products_price,
                    products_base_price, products_base_unit, products_product_quantity
             FROM $productstable
-            WHERE products_setting = '3'
+            WHERE products_setting = '2'
             ORDER BY products_date_added DESC";
 if ($random_product = oos_random_select($query, MAX_RANDOM_SELECT_NEW)) {
 

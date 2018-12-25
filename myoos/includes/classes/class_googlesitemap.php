@@ -214,7 +214,7 @@ class GoogleSitemap {
        $sql = "SELECT products_id as pid, products_date_added as date_added,
                       products_last_modified as last_mod, products_ordered
                FROM " . $oostable['products'] . "
-               WHERE products_setting = '3'
+               WHERE products_setting = '2'
                ORDER BY products_ordered DESC";
 
        if ( $products_query = $dbconn->Execute($sql) ){
@@ -270,7 +270,7 @@ class GoogleSitemap {
 
        $sql = "SELECT categories_id as cid, date_added, last_modified as last_mod
                FROM " . $oostable['categories'] . "
-                WHERE categories_status = '1'
+                WHERE categories_status = '2'
                   AND access = '0'
                ORDER BY parent_id ASC, sort_order ASC, categories_id ASC";
 

@@ -337,7 +337,7 @@ function oos_set_product_status($products_id, $status) {
 
     $productstable = $oostable['products'];
     $query = "UPDATE $productstable
-              SET products_status = '" . intval($status) . "',
+              SET products_setting = '" . intval($status) . "',
                   products_last_modified = now()
               WHERE products_id = '" . intval($products_id) . "'";
     $result = $dbconn->Execute($query);

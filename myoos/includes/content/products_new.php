@@ -65,7 +65,7 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
                                     $products_descriptiontable pd ON p.products_id = pd.products_id AND 
 									pd.products_languages_id = '" . intval($nLanguageID) . "' LEFT JOIN
                                     $specialsstable s ON p.products_id = s.products_id
-                               WHERE p.products_setting = '3'
+                               WHERE p.products_setting = '2'
                                ORDER BY p.products_date_added DESC, pd.products_name";
     $products_new_split = new splitPageResults($products_new_result_raw, MAX_DISPLAY_PRODUCTS_NEW);
     $products_new_result = $dbconn->Execute($products_new_split->sql_query);

@@ -52,6 +52,7 @@ define('TEXT_PRODUCTS_UNIT', 'Produkteinheit:');
 define('TEXT_PRODUCTS_IMAGE_REMOVE', '<b>Entfernen</b> des Bildes vom Artikel?');
 define('TEXT_PRODUCTS_BUTTON_DELETE', '<b>Löschen</b> des Bildes vom Server?');
 
+define('ENTRY_STATUS', 'Status:');
 define('TEXT_PRODUCTS_STATUS', 'Produktstatus:');
 define('TEXT_CATEGORIES', 'Kategorien:');
 define('TEXT_PRODUCTS_DATE_AVAILABLE', 'Erscheinungsdatum:');

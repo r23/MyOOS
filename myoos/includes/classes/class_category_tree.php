@@ -62,7 +62,7 @@ class oosCategoryTree {
       $sql = "SELECT c.categories_id, cd.categories_name, c.parent_id, c.categories_status
               FROM $categoriestable c,
                    $categories_descriptionstable cd
-              WHERE c.categories_status = '1'
+              WHERE c.categories_status = '2'
                 AND c.categories_id = cd.categories_id
                 AND cd.categories_languages_id = '" .  intval($nLanguageID) . "'
               ORDER BY c.parent_id, c.sort_order, cd.categories_name";

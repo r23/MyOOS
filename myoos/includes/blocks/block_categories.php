@@ -41,7 +41,7 @@ function oos_count_products_in_category($category_id, $include_inactive = FALSE)
     if ($include_inactive == TRUE) {
 		$products = $dbconn->Execute("SELECT COUNT(*) AS total FROM $productstable p, $products_to_categoriestable p2c WHERE p.products_id = p2c.products_id AND p2c.categories_id = '" . intval($category_id) . "'");
     } else {
-		$products = $dbconn->Execute("SELECT COUNT(*) AS total FROM $productstable p, $products_to_categoriestable p2c WHERE p.products_id = p2c.products_id AND p.products_setting = '3' AND p2c.categories_id = '" . intval($category_id) . "'");
+		$products = $dbconn->Execute("SELECT COUNT(*) AS total FROM $productstable p, $products_to_categoriestable p2c WHERE p.products_id = p2c.products_id AND p.products_setting = '2' AND p2c.categories_id = '" . intval($category_id) . "'");
     }
     $products_count += $products->fields['total'];
 
@@ -174,7 +174,7 @@ $categories_descriptiontable = $oostable['categories_description'];
 $query = "SELECT c.categories_id, cd.categories_name, c.parent_id, c.categories_status
               FROM $categoriestable c,
                    $categories_descriptiontable cd
-              WHERE c.categories_status = '1'
+              WHERE c.categories_status = '2'
                 AND c.parent_id = '0'
                 AND c.categories_id = cd.categories_id
                 AND cd.categories_languages_id = '" . intval($nLanguageID) . "'
@@ -216,7 +216,7 @@ if (!empty($sCategory)) {
         $query = "SELECT c.categories_id, cd.categories_name, c.parent_id, c.categories_status
                   FROM $categoriestable c,
                        $categories_descriptiontable cd
-                  WHERE c.categories_status = '1'
+                  WHERE c.categories_status = '2'
                     AND c.parent_id = '" . intval($value) . "'
                     AND c.categories_id = cd.categories_id
                     AND cd.categories_languages_id = '" . intval($nLanguageID) . "'

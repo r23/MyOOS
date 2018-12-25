@@ -109,7 +109,7 @@ foreach($aDefineList as $column => $value) {
                        $specialstable s ON p.products_id = s.products_id,
                        $products_to_mastertable pm,
                        $products_descriptiontable pd
-                  WHERE p.products_setting = '3'
+                  WHERE p.products_setting = '2'
                     AND pd.products_id = p.products_id
                     AND pd.products_languages_id = '" . intval($nLanguageID) . "'
                     AND p.products_id = pm.slave_id AND

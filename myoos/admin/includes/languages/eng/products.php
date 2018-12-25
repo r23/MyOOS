@@ -52,6 +52,7 @@ define('TEXT_PRODUCTS_UNIT', 'Product Unit');
 define('TEXT_PRODUCTS_IMAGE_REMOVE', '<b>Remove</b> this Image from this Product?');
 define('TEXT_PRODUCTS_BUTTON_DELETE', '<b>Delete</b> this Image from the Server?');
 
+define('ENTRY_STATUS', 'Status:');
 define('TEXT_PRODUCTS_STATUS', 'Products Status:');
 define('TEXT_CATEGORIES', 'Categories:');
 define('TEXT_PRODUCTS_DATE_AVAILABLE', 'Date Available:');

@@ -31,11 +31,15 @@ $currencies = new currencies();
 
 
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
+$pID = (isset($_GET['pID']) ? intval($_GET['pID']) : 0);
 
 if (!empty($action)) {
 	switch ($action) {
-		case 'new_product':
-
+		case 'new_product':	
+				if (oos_empty($_GET['cPath'])) {
+					$cPath = $current_category_id;
+				}		
+		
 				$sProductsStatus = DEFAULT_PRODUTS_STATUS_ID;
 				$products_product_quantity = 1;
 				$products_base_quantity = 1;
@@ -50,7 +54,7 @@ if (!empty($action)) {
                                   'products_base_unit' => $products_base_unit,
                                   'products_date_available' => $products_date_available,
                                   'products_status' => $sProductsStatus,
-								  'products_setting' => '3',
+								  'products_setting' => '1',
                                   'products_tax_class_id' => $products_tax_class_id,
                                   );
 
@@ -59,26 +63,24 @@ if (!empty($action)) {
 				$sql_data_array = array_merge($sql_data_array, $insert_sql_data);
 
 				oos_db_perform($oostable['products'], $sql_data_array);
-				$products_id = $dbconn->Insert_ID();
-
+				$pID = $dbconn->Insert_ID();
+                 
 				$products_to_categoriestable = $oostable['products_to_categories'];
-				$dbconn->Execute("INSERT INTO $products_to_categoriestable (products_id, categories_id) VALUES ('" . $products_id . "', '" . $current_category_id . "')");
+				$dbconn->Execute("INSERT INTO $products_to_categoriestable (products_id, categories_id) VALUES ('" . intval($pID) . "', '" . intval($current_category_id) . "')");
 
 				$aLanguages = oos_get_languages();
 				$nLanguages = count($aLanguages);
 				for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
 					$lang_id = $aLanguages[$i]['id'];
 
-					if ($action == 'insert_product') {
-						$sql_data_array = array('products_id' => $products_id,
-                                       'products_languages_id' => $lang_id);
-						oos_db_perform($oostable['products_description'], $sql_data_array);
-					}
+					$sql_data_array = array('products_id' => $pID,
+                                            'products_languages_id' => $lang_id);
+					oos_db_perform($oostable['products_description'], $sql_data_array);
+
 				}
-		break;		
+			break;		
 		
 		case 'update_product':
-
 			$_POST['products_price'] = str_replace(',', '.', $_POST['products_price']);
 			$_POST['products_price_list'] = str_replace(',', '.', $_POST['products_price_list']);
 			$_POST['products_discount1'] = str_replace(',', '.', $_POST['products_discount1']);
@@ -225,21 +227,6 @@ if (!empty($action)) {
 	}
 }
 
-
-$aSettings = array();
-$aSetting = array();
-$settingstable = $oostable['setting'];
-$setting_result = $dbconn->Execute("SELECT setting_id, setting_name FROM $settingstable WHERE setting_languages_id = '" . intval($_SESSION['language_id']) . "'");
-while ($setting = $setting_result->fields) {
-    $aSettings[] = array('id' => $setting['setting_id'],
-                         'text' => $setting['setting_name']);
-    $aSetting[$setting['setting_id']] = $setting['setting_name'];
-
-    // Move that ADOdb pointer!
-    $setting_result->MoveNext();
-}
-
-
 // check if the catalog image directory exists
 if (is_dir(OOS_ABSOLUTE_PATH . OOS_IMAGES)) {
     if (!is_writeable(OOS_ABSOLUTE_PATH . OOS_IMAGES)) $messageStack->add(ERROR_CATALOG_IMAGE_DIRECTORY_NOT_WRITEABLE, 'error');
@@ -274,7 +261,7 @@ require 'includes/header.php';
 					<div class="col-lg-12">
 <?php
   if ($action == 'new_product') {
-    if (isset($_GET['pID']) && empty($_POST)) {
+    if (!empty($pID) && empty($_POST)) {
       $productstable = $oostable['products'];
       $products_descriptiontable = $oostable['products_description'];
       $product_result = $dbconn->Execute("SELECT pd.products_name, pd.products_description, pd.products_url,
@@ -285,15 +272,15 @@ require 'includes/header.php';
                                                  p.products_product_quantity, p.products_base_unit,
                                                  p.products_weight, p.products_date_added, p.products_last_modified,
                                                  date_format(p.products_date_available, '%Y-%m-%d') AS products_date_available,
-                                                 p.products_status, p.products_tax_class_id, p.products_units_id, p.manufacturers_id,
-                                                 p.products_price_list, 
+                                                 p.products_status, p.products_setting, p.products_tax_class_id, p.products_units_id,
+												 p.manufacturers_id, p.products_price_list, 
                                                  p.products_quantity_order_min, p.products_quantity_order_units, p.products_quantity_order_max,
                                                  p.products_discount1, p.products_discount2, p.products_discount3,
                                                  p.products_discount4, p.products_discount1_qty, p.products_discount2_qty,
                                                  p.products_discount3_qty, p.products_discount4_qty, p.products_sort_order
                                             FROM $productstable p,
                                                  $products_descriptiontable pd
-                                           WHERE p.products_id = '" . intval($_GET['pID']) . "' AND
+                                           WHERE p.products_id = '" . intval($pID) . "' AND
                                                  p.products_id = pd.products_id AND
                                                  pd.products_languages_id = '" . intval($_SESSION['language_id']) . "'");
       $product = $product_result->fields;
@@ -314,6 +301,11 @@ require 'includes/header.php';
       $pInfo->products_base_quantity = 1.0;
       $pInfo->products_units_id = DEFAULT_PRODUCTS_UNITS_ID;
 	  $pInfo->products_tax_class_id = 1; // DEFAULT_TAX_CLASS_ID
+	  
+	  //
+	  echo 'fehler- dieser aufruf wurde entfernt';
+	  exit;
+	  
     }
 
     $manufacturers_array = array();
@@ -366,7 +358,17 @@ require 'includes/header.php';
       // Move that ADOdb pointer!
       $products_status_result->MoveNext();
     }
-
+	
+	
+	$aSetting = array();
+	$settingstable = $oostable['setting'];
+	$setting_result = $dbconn->Execute("SELECT setting_id, setting_name FROM $settingstable WHERE setting_languages_id = '" . intval($_SESSION['language_id']) . "'");
+	while ($setting = $setting_result->fields) {
+		$aSetting[] = array('id' => $setting['setting_id'],
+                         'text' => $setting['setting_name']);
+		// Move that ADOdb pointer!
+		$setting_result->MoveNext();
+	}
 ?>
 <script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
 <?php
@@ -412,7 +414,7 @@ function calcBasePriceFactor() {
 	</div>
 	<!-- END Breadcrumbs //-->
 
-	<?php echo oos_draw_form('fileupload', 'new_product', $aContents['products'], 'cPath=' . $cPath . (isset($_GET['pID']) ? '&pID=' . $_GET['pID'] : '') . '&action=update_product', 'post', TRUE, 'enctype="multipart/form-data"'); ?>
+	<?php echo oos_draw_form('fileupload', 'new_product', $aContents['products'], 'cPath=' . $cPath . (!empty($pID) ? '&pID=' . intval($pID) : '') . '&action=update_product', 'post', TRUE, 'enctype="multipart/form-data"'); ?>
 		<?php echo oos_draw_hidden_field('products_date_added', (($pInfo->products_date_added) ? $pInfo->products_date_added : date('Y-m-d'))); ?>	
                <div role="tabpanel">
                   <ul class="nav nav-tabs nav-justified">
@@ -428,6 +430,14 @@ function calcBasePriceFactor() {
                   </ul>
                   <div class="tab-content">
                      <div class="tab-pane active" id="edit" role="tabpanel">
+
+                        <fieldset>					
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo ENTRY_STATUS; ?></label>
+                              <div class="col-lg-10"><?php echo oos_draw_pull_down_menu('status', $aSetting, $pInfo->products_setting); ?></div>
+                           </div>
+                        </fieldset>	
+
 
 <?php
     for ($i = 0, $n = $nLanguages; $i < $n; $i++) {

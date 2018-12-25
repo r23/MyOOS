@@ -107,7 +107,7 @@ if ($category_depth == 'nested') {
                   FROM $categoriestable c,
                        $categoriestable p,
                        $categories_descriptiontable cd
-                  WHERE c.categories_status = '1'
+                  WHERE c.categories_status = '2'
                     AND ( c.access = '0' OR c.access = '" . intval($nGroupID) . "' )
                     AND c.parent_id = '" . intval($aCategoryLinks[$i]) . "'
                     AND c.categories_id = cd.categories_id
@@ -129,7 +129,7 @@ if ($category_depth == 'nested') {
                 FROM $categoriestable c,
                      $categoriestable p,
                      $categories_descriptiontable cd
-                WHERE c.categories_status = '1'
+                WHERE c.categories_status = '2'
                   AND ( c.access = '0' OR c.access = '" . intval($nGroupID) . "' )
                   AND c.parent_id = '" . intval($nCurrentCategoryID) . "'
                   AND c.categories_id = cd.categories_id
@@ -312,7 +312,7 @@ if ($category_depth == 'nested') {
                                $products_descriptiontable pd,
                                $manufacturerstable m,
                                $products_to_categoriestable p2c
-                          WHERE p.products_setting = '3'
+                          WHERE p.products_setting = '2'
                             AND p.manufacturers_id = m.manufacturers_id
                             AND m.manufacturers_id = '" . intval($nManufacturersID) . "'
                             AND p.products_id = p2c.products_id
@@ -337,7 +337,7 @@ if ($category_depth == 'nested') {
                                $specialstable s ON p.products_id = s.products_id,
                                $products_descriptiontable  pd,
                                $manufacturerstable m
-                          WHERE p.products_setting = '3'
+                          WHERE p.products_setting = '2'
                             AND pd.products_id = p.products_id
                             AND pd.products_languages_id = '" .  intval($nLanguageID) . "'
                             AND p.manufacturers_id = m.manufacturers_id
@@ -354,7 +354,7 @@ if ($category_depth == 'nested') {
                                 $products_to_categoriestable p2c,
                                 $categoriestable c,
                                 $categories_descriptiontable cd
-                           WHERE p.products_setting = '3'
+                           WHERE p.products_setting = '2'
                              AND p.products_id = p2c.products_id
                              AND p2c.categories_id = c.categories_id
                              AND p2c.categories_id = cd.categories_id
@@ -383,7 +383,7 @@ if ($category_depth == 'nested') {
                                $products_descriptiontable pd,
                                $manufacturerstable m,
                                $products_to_categoriestable p2c
-                          WHERE p.products_setting = '3'
+                          WHERE p.products_setting = '2'
                             AND p.manufacturers_id = m.manufacturers_id
                             AND m.manufacturers_id = '" . intval($_GET['filter_id']) . "'
                             AND p.products_id = p2c.products_id
@@ -410,7 +410,7 @@ if ($category_depth == 'nested') {
                                $manufacturerstable m ON p.manufacturers_id = m.manufacturers_id LEFT JOIN
                                $specialstable s ON p.products_id = s.products_id,
                                $products_to_categoriestable p2c
-                          WHERE p.products_setting = '3'
+                          WHERE p.products_setting = '2'
                             AND p.products_id = p2c.products_id
                             AND pd.products_id = p2c.products_id
                             AND pd.products_languages_id = '" .  intval($nLanguageID) . "'
@@ -425,7 +425,7 @@ if ($category_depth == 'nested') {
                          FROM $productstable p,
                                $products_to_categoriestable p2c,
                                $manufacturerstable m
-                          WHERE p.products_setting = '3'
+                          WHERE p.products_setting = '2'
                             AND p.manufacturers_id = m.manufacturers_id
                             AND p.products_id = p2c.products_id
                             AND p2c.categories_id = '" . intval($nCurrentCategoryID) . "'

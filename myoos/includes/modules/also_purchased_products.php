@@ -41,7 +41,7 @@ if (isset($_GET['products_id']) && is_numeric(MAX_DISPLAY_ALSO_PURCHASED)) {
               AND opb.products_id != '" . intval($nProductsID) . "'
               AND opb.products_id = p.products_id
               AND opb.orders_id = o.orders_id
-              AND p.products_setting = '3'
+              AND p.products_setting = '2'
 			  AND pd.products_languages_id = '" . intval($nLanguageID) . "'
             GROUP BY p.products_id
             ORDER BY o.date_purchased DESC";
