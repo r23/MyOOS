@@ -24,7 +24,7 @@ class acp_users
 	var $u_action;
 	var $p_master;
 
-	function acp_users(&$p_master)
+	function __construct(&$p_master)
 	{
 		$this->p_master = &$p_master;
 	}
@@ -1883,6 +1883,17 @@ class acp_users
 										'user_avatar_height' => $result['avatar_height'],
 									);
 
+									/**
+									* Modify users preferences data before assigning it to the template
+									*
+									* @event core.acp_users_avatar_sql
+									* @var	array	user_row	Array with user data
+									* @var	array	result		Array with user avatar data to be updated in the DB
+									* @since 3.2.4-RC1
+									*/
+									$vars = array('user_row', 'result');
+									extract($phpbb_dispatcher->trigger_event('core.acp_users_avatar_sql', compact($vars)));
+
 									$sql = 'UPDATE ' . USERS_TABLE . '
 										SET ' . $db->sql_build_array('UPDATE', $result) . '
 										WHERE user_id = ' . (int) $user_id;
@@ -2084,6 +2095,17 @@ class acp_users
 							'user_sig_bbcode_uid'		=> $bbcode_uid,
 							'user_sig_bbcode_bitfield'	=> $bbcode_bitfield,
 						);
+
+						/**
+						* Modify user signature before it is stored in the DB
+						*
+						* @event core.acp_users_modify_signature_sql_ary
+						* @var	array	user_row	Array with user data
+						* @var	array	sql_ary		Array with user signature data to be updated in the DB
+						* @since 3.2.4-RC1
+						*/
+						$vars = array('user_row', 'sql_ary');
+						extract($phpbb_dispatcher->trigger_event('core.acp_users_modify_signature_sql_ary', compact($vars)));
 
 						$sql = 'UPDATE ' . USERS_TABLE . '
 							SET ' . $db->sql_build_array('UPDATE', $sql_ary) . '

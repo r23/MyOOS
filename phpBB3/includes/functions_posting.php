@@ -519,7 +519,7 @@ function get_supported_image_types($type = false)
 */
 function create_thumbnail($source, $destination, $mimetype)
 {
-	global $config, $phpbb_filesystem;
+	global $config, $phpbb_filesystem, $phpbb_dispatcher;
 
 	$min_filesize = (int) $config['img_min_thumb_filesize'];
 	$img_filesize = (file_exists($source)) ? @filesize($source) : false;
@@ -551,25 +551,31 @@ function create_thumbnail($source, $destination, $mimetype)
 		return false;
 	}
 
-	$used_imagick = false;
+	$thumbnail_created = false;
 
-	// Only use ImageMagick if defined and the passthru function not disabled
-	if ($config['img_imagick'] && function_exists('passthru'))
-	{
-		if (substr($config['img_imagick'], -1) !== '/')
-		{
-			$config['img_imagick'] .= '/';
-		}
+	/**
+	 * Create thumbnail event to replace GD thumbnail creation with for example ImageMagick
+	 *
+	 * @event core.thumbnail_create_before
+	 * @var	string	source				Image source path
+	 * @var	string	destination			Thumbnail destination path
+	 * @var	string	mimetype			Image mime type
+	 * @var	float	new_width			Calculated thumbnail width
+	 * @var	float	new_height			Calculated thumbnail height
+	 * @var	bool	thumbnail_created	Set to true to skip default GD thumbnail creation
+	 * @since 3.2.4
+	 */
+	$vars = array(
+		'source',
+		'destination',
+		'mimetype',
+		'new_width',
+		'new_height',
+		'thumbnail_created',
+	);
+	extract($phpbb_dispatcher->trigger_event('core.thumbnail_create_before', compact($vars)));
 
-		@passthru(escapeshellcmd($config['img_imagick']) . 'convert' . ((defined('PHP_OS') && preg_match('#^win#i', PHP_OS)) ? '.exe' : '') . ' -quality 85 -geometry ' . $new_width . 'x' . $new_height . ' "' . str_replace('\\', '/', $source) . '" "' . str_replace('\\', '/', $destination) . '"');
-
-		if (file_exists($destination))
-		{
-			$used_imagick = true;
-		}
-	}
-
-	if (!$used_imagick)
+	if (!$thumbnail_created)
 	{
 		$type = get_supported_image_types($type);
 
@@ -2282,6 +2288,19 @@ function submit_post($mode, $subject, $username, $topic_type, &$poll_ary, &$data
 		'post_subject'		=> $subject,
 	));
 
+	/**
+	* This event allows you to modify the notification data upon submission
+	*
+	* @event core.modify_submit_notification_data
+	* @var	array	notification_data	The notification data to be inserted in to the database
+	* @var	array	data_ary			The data array with a lot of the post submission data
+	* @var 	string	mode				The posting mode
+	* @var	int		poster_id			The poster id
+	* @since 3.2.4-RC1
+	*/
+	$vars = array('notification_data', 'data_ary', 'mode', 'poster_id');
+	extract($phpbb_dispatcher->trigger_event('core.modify_submit_notification_data', compact($vars)));
+
 	/* @var $phpbb_notifications \phpbb\notification\manager */
 	$phpbb_notifications = $phpbb_container->get('notification_manager');
 
@@ -2309,8 +2328,14 @@ function submit_post($mode, $subject, $username, $topic_type, &$poll_ary, &$data
 			case 'edit_first_post':
 			case 'edit':
 			case 'edit_last_post':
+				if ($user->data['user_id'] == $poster_id)
+				{
+					$phpbb_notifications->update_notifications(array(
+						'notification.type.quote',
+					), $notification_data);
+				}
+
 				$phpbb_notifications->update_notifications(array(
-					'notification.type.quote',
 					'notification.type.bookmark',
 					'notification.type.topic',
 					'notification.type.post',
