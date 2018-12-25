@@ -110,7 +110,7 @@
       $sql = "SELECT p.products_id, p.products_status, pd.products_name
               FROM $productstable p, 
                    $products_descriptiontable pd
-              WHERE p.products_setting = '1' 
+              WHERE p.products_setting = '3' 
                 AND p.products_id = '" . oos_db_input($pr_ids[$i]) . "'
                 AND pd.products_id = p.products_id 
                 AND pd.products_languages_id = '" . intval($nLanguageID) . "'";

@@ -225,6 +225,21 @@ if (!empty($action)) {
 	}
 }
 
+
+$aSettings = array();
+$aSetting = array();
+$settingstable = $oostable['setting'];
+$setting_result = $dbconn->Execute("SELECT setting_id, setting_name FROM $settingstable WHERE setting_languages_id = '" . intval($_SESSION['language_id']) . "'");
+while ($setting = $setting_result->fields) {
+    $aSettings[] = array('id' => $setting['setting_id'],
+                         'text' => $setting['setting_name']);
+    $aSetting[$setting['setting_id']] = $setting['setting_name'];
+
+    // Move that ADOdb pointer!
+    $setting_result->MoveNext();
+}
+
+
 // check if the catalog image directory exists
 if (is_dir(OOS_ABSOLUTE_PATH . OOS_IMAGES)) {
     if (!is_writeable(OOS_ABSOLUTE_PATH . OOS_IMAGES)) $messageStack->add(ERROR_CATALOG_IMAGE_DIRECTORY_NOT_WRITEABLE, 'error');

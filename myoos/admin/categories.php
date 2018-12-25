@@ -1086,7 +1086,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
         $product_categories_string = substr($product_categories_string, 0, -4);
 
         $contents[] = array('text' => '<br />' . $product_categories_string);
-        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', BUTTON_DELETE) . ' <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&amp;pID=' . $pInfo->products_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', BUTTON_MOVE_TRASH) . ' <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&amp;pID=' . $pInfo->products_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
         break;
 
       case 'move_product':

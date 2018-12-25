@@ -979,6 +979,46 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "products_units (product
 echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $prefix_table . "products_units " . UPDATED .'</font>';
 
 
+$result = $db->Execute("INSERT INTO " . $prefix_table . "setting (setting_id, setting_languages_id, setting_name) VALUES (1, 2, 'In the trash can.')") OR die ("<b>".NOTUPDATED . $prefix_table . "setting</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "setting (setting_id, setting_languages_id, setting_name) VALUES (1, 1, 'Im Papierkorb.')") OR die ("<b>".NOTUPDATED . $prefix_table . "setting</b>");
+
+$result = $db->Execute("INSERT INTO " . $prefix_table . "setting (setting_id, setting_languages_id, setting_name) VALUES (2, 2, 'Draft')") OR die ("<b>".NOTUPDATED . $prefix_table . "setting</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "setting (setting_id, setting_languages_id, setting_name) VALUES (2, 1, 'Entwurf')") OR die ("<b>".NOTUPDATED . $prefix_table . "setting</b>");
+
+$result = $db->Execute("INSERT INTO " . $prefix_table . "setting (setting_id, setting_languages_id, setting_name) VALUES (3, 2, 'Published')") OR die ("<b>".NOTUPDATED . $prefix_table . "setting</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "setting (setting_id, setting_languages_id, setting_name) VALUES (3, 1, 'Veröffentlicht')") OR die ("<b>".NOTUPDATED . $prefix_table . "setting</b>");
+
+
+
+echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $prefix_table . "setting " . UPDATED .'</font>';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 $result = $db->Execute("INSERT INTO " . $prefix_table . "tax_class (tax_class_id, tax_class_title, tax_class_description, last_modified, date_added) VALUES (1, 'Standard Steuersatz', 'normaler Steuersatz für Dienstleistungen und alle non-food Artikel', NULL, " . $db->DBTimeStamp($today) . ")") OR die ("<b>".NOTUPDATED . $prefix_table . "tax_class</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "tax_class (tax_class_id, tax_class_title, tax_class_description, last_modified, date_added) VALUES (2, 'Ermäßigter Steuersatz', 'verminderter Steuersatz für Lebensmittel und Bücher', NULL, " . $db->DBTimeStamp($today) . ")") OR die ("<b>".NOTUPDATED . $prefix_table . "tax_class</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "tax_class (tax_class_id, tax_class_title, tax_class_description, last_modified, date_added) VALUES (3, 'Steuerfrei', 'Steuerfrei', NULL, " . $db->DBTimeStamp($today) . ")") OR die ("<b>".NOTUPDATED . $prefix_table . "tax_class</b>");

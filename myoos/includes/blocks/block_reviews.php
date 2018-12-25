@@ -36,7 +36,7 @@ if ($sContent != $aContents['product_reviews_write']) {
                            $reviews_descriptiontable rd,
                            $productstable p, 
                            $products_descriptiontable pd
-                      WHERE p.products_setting = '1'
+                      WHERE p.products_setting = '3'
                         AND p.products_id = r.products_id
                         AND r.reviews_id = rd.reviews_id
                         AND rd.reviews_languages_id = '" . intval($nLanguageID) . "'

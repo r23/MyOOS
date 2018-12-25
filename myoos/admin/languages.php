@@ -351,6 +351,24 @@ if (!empty($action)) {
           $products_status_result->MoveNext();
         }
 
+        // setting
+        $setting_result = $dbconn->Execute("SELECT setting_id, setting_name
+                                              FROM " . $oostable['setting'] . "
+                                              WHERE orders_languages_id = '" . intval($_SESSION['language_id']) . "'");
+        while ($setting = $setting_result->fields) {
+          $dbconn->Execute("INSERT INTO " . $oostable['setting'] . "
+                      (setting_id,
+                       setting_languages_id,
+                       setting_name)
+                       VALUES ('" . $setting['setting_id'] . "',
+                               '" . intval($insert_id) . "',
+                               '" . oos_db_input($setting['setting_name']) . "')");
+
+          // Move that ADOdb pointer!
+          $setting_result->MoveNext();
+        }
+
+
         oos_redirect_admin(oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $insert_id));
         break;
 
@@ -411,6 +429,8 @@ if (!empty($action)) {
         $dbconn->Execute("DELETE FROM " . $oostable['products_options_types'] . " WHERE products_options_types_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['products_options_values'] . " WHERE products_options_values_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['products_status'] . " WHERE products_status_languages_id = '" . intval($lID) . "'");
+        $dbconn->Execute("DELETE FROM " . $oostable['setting'] . " WHERE setting_languages_id = '" . intval($lID) . "'");
+
 
         oos_redirect_admin(oos_href_link_admin($aContents['languages'], 'page=' . $nPage));
         break;

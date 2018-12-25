@@ -41,7 +41,7 @@ function oos_count_products_in_category($category_id, $include_inactive = FALSE)
     if ($include_inactive == TRUE) {
 		$products = $dbconn->Execute("SELECT COUNT(*) AS total FROM $productstable p, $products_to_categoriestable p2c WHERE p.products_id = p2c.products_id AND p2c.categories_id = '" . intval($category_id) . "'");
     } else {
-		$products = $dbconn->Execute("SELECT COUNT(*) AS total FROM $productstable p, $products_to_categoriestable p2c WHERE p.products_id = p2c.products_id AND p.products_setting = '1' AND p2c.categories_id = '" . intval($category_id) . "'");
+		$products = $dbconn->Execute("SELECT COUNT(*) AS total FROM $productstable p, $products_to_categoriestable p2c WHERE p.products_id = p2c.products_id AND p.products_setting = '3' AND p2c.categories_id = '" . intval($category_id) . "'");
     }
     $products_count += $products->fields['total'];
 

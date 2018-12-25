@@ -42,7 +42,7 @@ $product_info_sql = "SELECT p.products_id, pd.products_name, pd.products_descrip
                               p.products_date_available, p.manufacturers_id, p.products_price_list, p.products_status
                         FROM $productstable p,
                              $products_descriptiontable pd
-                        WHERE p.products_setting = '1'
+                        WHERE p.products_setting = '3'
                           AND p.products_id = '" . intval($nProductsID) . "'
                           AND pd.products_id = p.products_id
                           AND pd.products_languages_id = '" . intval($nLanguageID) . "'";

@@ -25,7 +25,7 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
 $aContents = array(); 
 
 $prefix_filename = '';
-if (!$prefix_filename == '') $prefix_filename =$prefix_filename . '_';
+if (!$prefix_filename == '') $prefix_filename = $prefix_filename . '_';
 
 $aContents['admin_account'] = $prefix_filename . 'admin_account.php';
 $aContents['admin_files'] = $prefix_filename . 'admin_files.php';

@@ -1120,6 +1120,22 @@ $idxflds = 'EXPIRY';
 idxsql($idxname, $table, $idxflds);
 
 
+
+$table = $prefix_table . 'setting';
+$flds = "
+   setting_id I DEFAULT '1' NOTNULL PRIMARY,
+   setting_languages_id I NOTNULL DEFAULT '1' PRIMARY,
+   setting_name C(62) NOTNULL
+";
+dosql($table, $flds);
+
+$idxname = 'idx_setting_name';
+$idxflds = 'setting_name';
+idxsql($idxname, $table, $idxflds);
+
+
+
+
 $table = $prefix_table . 'specials';
 $flds = "
   specials_id I NOTNULL AUTO PRIMARY,

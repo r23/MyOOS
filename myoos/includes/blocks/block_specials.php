@@ -38,7 +38,7 @@ if ($sContent != $aContents['specials']) {
               FROM $productstable p,
                    $products_descriptiontable pd,
                    $specialstable s
-              WHERE p.products_setting = '1'
+              WHERE p.products_setting = '3'
                 AND p.products_id = s.products_id
                 AND pd.products_id = s.products_id
                 AND pd.products_languages_id = '" . intval($nLanguageID) . "'

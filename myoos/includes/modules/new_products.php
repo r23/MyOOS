@@ -36,7 +36,7 @@ if ( (!isset($nCurrentCategoryID)) || ($nCurrentCategoryID == '0') ) {
             FROM $productstable p LEFT JOIN
                  $specialstable s ON p.products_id = s.products_id,
                  $products_descriptiontable pd 
-            WHERE p.products_setting = '1'
+            WHERE p.products_setting = '3'
               AND p.products_id = pd.products_id
               AND pd.products_languages_id = '" . intval($nLanguageID) . "'
             ORDER BY p.products_date_added DESC";	
@@ -59,7 +59,7 @@ if ( (!isset($nCurrentCategoryID)) || ($nCurrentCategoryID == '0') ) {
             WHERE p.products_id = p2c.products_id
 			  AND p2c.categories_id = c.categories_id
 			  AND c.parent_id = '" . intval($nCurrentCategoryID) . "'
-              AND p.products_setting = '1'			  
+              AND p.products_setting = '3'			  
               AND p.products_id = pd.products_id
               AND pd.products_languages_id = '" . intval($nLanguageID) . "'
             ORDER BY p.products_date_added DESC";

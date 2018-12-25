@@ -61,7 +61,7 @@ $query = "SELECT DISTINCT op.products_id
             WHERE o.customers_id = '" . intval($_SESSION['customer_id']) . "'
               AND o.orders_id = op.orders_id
               AND op.products_id = p.products_id
-              AND p.products_setting = '1'
+              AND p.products_setting = '3'
             GROUP BY products_id
             ORDER BY o.date_purchased DESC";
 $orders_result = $dbconn->Execute($query);
@@ -91,7 +91,7 @@ if ($orders_result->RecordCount()) {
                                $productstable p LEFT JOIN
                                $manufacturerstable m ON p.manufacturers_id = m.manufacturers_id LEFT JOIN
                                $historytable s ON p.products_id = s.products_id
-                          WHERE p.products_setting = '1'
+                          WHERE p.products_setting = '3'
                             AND p.products_id = pd.products_id
                             AND pd.products_id IN ($product_ids)
                             AND pd.products_languages_id = '" .  intval($nLanguageID) . "'";

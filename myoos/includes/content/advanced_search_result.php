@@ -219,7 +219,7 @@ $from_str .= " LEFT JOIN
 $from_str .= ", " . $oostable['products_description'] . " pd, " . $oostable['categories'] . " c, " . $oostable['products_to_categories'] . " p2c";
 
 $where_str = " WHERE
-                      p.products_setting = '1' AND
+                      p.products_setting = '3' AND
                       p.products_id = pd.products_id AND
                       pd.products_languages_id = '" .  intval($nLanguageID) . "' AND
                       p.products_id = p2c.products_id AND

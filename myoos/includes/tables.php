@@ -100,6 +100,7 @@ $oostable['referer'] = $prefix_table . 'referer';
 $oostable['reviews'] = $prefix_table . 'reviews';
 $oostable['reviews_description'] = $prefix_table . 'reviews_description';
 $oostable['sessions'] = $prefix_table . 'sessions';
+$oostable['setting'] = $prefix_table . 'setting';
 $oostable['specials'] = $prefix_table . 'specials';
 $oostable['tax_class'] = $prefix_table . 'tax_class';
 $oostable['tax_rates'] = $prefix_table . 'tax_rates';
