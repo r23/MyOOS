@@ -308,14 +308,16 @@ function oos_set_categories_status($categories_id, $status) {
     $categoriestable = $oostable['categories'];
     if ($status == '1') {
 		$query = "UPDATE $categoriestable
-                SET categories_status = '1'
+                SET categories_status = '1',
+					last_modified = now()
                 WHERE categories_id = '" . intval($categories_id) . "'";
 		$result = $dbconn->Execute($query);
 
 		return;
-    } elseif ($status == '0') {
+    } elseif ($status == '2') {
 		$query = "UPDATE $categoriestable
-                SET categories_status = '0'
+                SET categories_status = '2',
+					last_modified = now()
                 WHERE categories_id = '" . intval($categories_id) . "'";
 		$result = $dbconn->Execute($query);
 

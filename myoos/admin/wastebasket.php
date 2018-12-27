@@ -54,7 +54,7 @@ if (!empty($action)) {
 				}
 			}
 			
-			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $_GET['cPath'] . '&amp;pID=' . $_GET['pID'] . (isset($_GET['page']) ? '&page=' . $_GET['page'] : '') . ((isset($_GET['search']) && !empty($_GET['search'])) ? '&search=' . $_GET['search'] : '')));
+			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $_GET['cPath'] . 'pID=' . $_GET['pID'] . (isset($_GET['page']) ? '&page=' . $_GET['page'] : '') . ((isset($_GET['search']) && !empty($_GET['search'])) ? '&search=' . $_GET['search'] : '')));
 			break;
 
 		case 'delete_category_confirm':

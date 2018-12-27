@@ -195,7 +195,7 @@ if (!empty($action)) {
 
 				}
 
-				if (oos_empty($_GET['cPath'])) {
+				if (empty($_GET['cPath'])) {
 					$cPath = $current_category_id;
 				}
 
