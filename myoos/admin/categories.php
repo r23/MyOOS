@@ -31,6 +31,8 @@ require 'includes/classes/class_upload.php';
 $currencies = new currencies();
 
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
+$cPath = (isset($_GET['cPath']) ? oos_prepare_input($_GET['cPath']) : 0);
+
 
 if (!empty($action)) {
     switch ($action) {
@@ -57,7 +59,7 @@ if (!empty($action)) {
 			} else {
 				$messageStack->add_session('This product does not exist or is already a slave', 'error');
 			}
-			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . intval($_GET['cPath']) . '&pID=' . intval($_GET['pID']) . '&action=slave_products'));
+			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . intval($_GET['pID']) . '&action=slave_products'));
 			break;
 
 		case 'slave_delete':
@@ -67,12 +69,12 @@ if (!empty($action)) {
 				$dbconn->Execute("UPDATE " . $oostable['products'] . " SET products_slave_visible = '1' WHERE products_id = " . intval($_GET['slave_id']));
 			}
 			$messageStack->add_session('Slave Deleted', 'success');
-			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . intval($_GET['cPath']) . '&pID=' . intval($_GET['master_id']) . '&action=slave_products'));
+			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . intval($_GET['master_id']) . '&action=slave_products'));
 			break;
 
 		case 'slave_visible':
 			$dbconn->Execute("UPDATE " . $oostable['products'] . " SET products_slave_visible = " . $_GET['visible'] . " WHERE products_id = " . intval($_GET['slave_id']));
-			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . intval($_GET['cPath']) . '&pID=' . intval($_GET['master_id']) . '&action=slave_products'));
+			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . intval($_GET['master_id']) . '&action=slave_products'));
 			break;
 
 		case 'setflag':
@@ -85,7 +87,7 @@ if (!empty($action)) {
 				}
 			}
 			
-			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . intval($_GET['cPath']) . '&pID=' . intval($_GET['pID']) . '&cID=' . intval($_GET['cID']) . (isset($_GET['page']) ? '&page=' . $_GET['page'] : '') . ((isset($_GET['search']) && !empty($_GET['search'])) ? '&search=' . $_GET['search'] : '')));
+			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . intval($_GET['pID']) . '&cID=' . intval($_GET['cID']) . (isset($_GET['page']) ? '&page=' . $_GET['page'] : '') . ((isset($_GET['search']) && !empty($_GET['search'])) ? '&search=' . $_GET['search'] : '')));
 			break;
 
 		case 'insert_category':
@@ -870,7 +872,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 		<div class="col-lg-12">
 			<div class="float-right">
 <?php 
-	echo ((isset($cPath_array) && sizeof($cPath_array) > 0) ? '<a href="' . oos_href_link_admin($aContents['categories'], $cPath_back . 'cID=' . $current_category_id) . '">' . oos_button('back', '<i class="fa fa-chevron-left"></i> ' . IMAGE_BACK) . '</a> ' : '') . 
+	echo ((isset($cPath_array) && count($cPath_array) > 1) ? '<a href="' . oos_href_link_admin($aContents['categories'], $cPath_back . 'cID=' . $current_category_id) . '">' . oos_button('back', '<i class="fa fa-chevron-left"></i> ' . IMAGE_BACK) . '</a> ' : '') . 
 	'<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&action=new_category') . '">' . oos_button('newcategorie', '<i class="fa fa-plus"></i> ' . IMAGE_NEW_CATEGORY) . '</a> ' .
 	'<a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&action=new_product') . '">' . oos_button('newprodukt', '<i class="fa fa-plus"></i> ' . IMAGE_NEW_PRODUCT) . '</a>'; ?>
 			</div>
@@ -996,8 +998,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
                 <td class="text-center">
 <?php
     if ($products['products_setting'] == 2) {
-		echo '<i class="fa fa-circle text-success" title="' . IMAGE_ICON_STATUS_GREEN . '"></i>&nbsp;<a href="' . oos_href_link_admin($aContents['categories'], 'action=setflag&flag=1&pID=' . $products['products_id'] . '&cPath=' . $cPath) . '"><i class="fa fa-circle-o text-danger" title="' . IMAGE_ICON_STATUS_RED_LIGHT . '"></i></a>';
-		
+		echo '<i class="fa fa-circle text-success" title="' . IMAGE_ICON_STATUS_GREEN . '"></i>&nbsp;<a href="' . oos_href_link_admin($aContents['categories'], 'action=setflag&flag=1&pID=' . $products['products_id'] . '&cPath=' . $cPath) . '"><i class="fa fa-circle-o text-danger" title="' . IMAGE_ICON_STATUS_RED_LIGHT . '"></i></a>';		
     } else {
 		echo '<a href="' . oos_href_link_admin($aContents['categories'], 'action=setflag&flag=2&pID=' . $products['products_id'] . '&cPath=' . $cPath) . '"><i class="fa fa-circle-o text-success" title="' . IMAGE_ICON_STATUS_GREEN_LIGHT . '"></i></a>&nbsp;<i class="fa fa-circle text-danger" title="' . IMAGE_ICON_STATUS_RED . '"></i>';
     }

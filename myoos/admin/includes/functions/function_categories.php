@@ -313,6 +313,16 @@ function oos_set_categories_status($categories_id, $status) {
                 WHERE categories_id = '" . intval($categories_id) . "'";
 		$result = $dbconn->Execute($query);
 
+		$categories_query = "SELECT categories_id
+                           FROM $categoriestable
+                            WHERE parent_id = '" . intval($categories_id) . "'";
+		$categories_result = $dbconn->Execute($categories_query);
+
+		while ($categories = $categories_result->fields) {
+			oos_set_categories_status($categories['categories_id'], 1);
+			// Move that ADOdb pointer!
+			$categories_result->MoveNext();
+		}
 		return;
     } elseif ($status == '2') {
 		$query = "UPDATE $categoriestable
