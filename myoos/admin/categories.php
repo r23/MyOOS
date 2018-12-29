@@ -31,7 +31,7 @@ require 'includes/classes/class_upload.php';
 $currencies = new currencies();
 
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
-$cPath = (isset($_GET['cPath']) ? oos_prepare_input($_GET['cPath']) : 0);
+$cPath = (isset($_GET['cPath']) ? oos_prepare_input($_GET['cPath']) : $current_category_id);
 
 
 if (!empty($action)) {
@@ -408,9 +408,6 @@ if (is_array($cPath_array) && count($cPath_array) > 0) {
 
 $cPath_back = (oos_is_not_null($cPath_back)) ? 'cPath=' . $cPath_back . '&' : '';	
 
-if (empty($_GET['cPath'])) {
-	$cPath = $current_category_id;
-}
 
 // check if the catalog image directory exists
 if (is_dir(OOS_ABSOLUTE_PATH . OOS_IMAGES)) {
