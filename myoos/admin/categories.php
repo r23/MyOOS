@@ -396,12 +396,12 @@ if (!empty($action)) {
 
 
 $cPath_back = '';
-if (is_array($cPath_array) && count($cPath_array) > 0) {
-	for ($i = 0, $n = count($cPath_array) - 1; $i < $n; $i++) {
+if (is_array($aPath) && count($aPath) > 0) {
+	for ($i = 0, $n = count($aPath) - 1; $i < $n; $i++) {
 		if (empty($cPath_back)) {
-			$cPath_back .= $cPath_array[$i];
+			$cPath_back .= $aPath[$i];
 		} else {
-			$cPath_back .= '_' . $cPath_array[$i];
+			$cPath_back .= '_' . $aPath[$i];
 		}
 	}
 }
@@ -869,7 +869,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 		<div class="col-lg-12">
 			<div class="float-right">
 <?php 
-	echo ((isset($cPath_array) && count($cPath_array) > 1) ? '<a href="' . oos_href_link_admin($aContents['categories'], $cPath_back . 'cID=' . $current_category_id) . '">' . oos_button('back', '<i class="fa fa-chevron-left"></i> ' . IMAGE_BACK) . '</a> ' : '') . 
+	echo ((isset($aPath) && count($aPath) > 1) ? '<a href="' . oos_href_link_admin($aContents['categories'], $cPath_back . 'cID=' . $current_category_id) . '">' . oos_button('back', '<i class="fa fa-chevron-left"></i> ' . IMAGE_BACK) . '</a> ' : '') . 
 	'<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&action=new_category') . '">' . oos_button('newcategorie', '<i class="fa fa-plus"></i> ' . IMAGE_NEW_CATEGORY) . '</a> ' .
 	'<a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&action=new_product') . '">' . oos_button('newprodukt', '<i class="fa fa-plus"></i> ' . IMAGE_NEW_PRODUCT) . '</a>'; ?>
 			</div>

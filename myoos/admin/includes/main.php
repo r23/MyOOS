@@ -63,12 +63,6 @@ require 'includes/functions/function_kernel.php';
 // Load server utilities
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_server.php';
 
-// todo remove
-#  if (isset($_POST)) {
-#    foreach ($_POST as $key=>$value) {
-#      $$key = oos_prepare_input($value);
-#    }
-#  }
 
 require_once MYOOS_INCLUDE_PATH . '/core/lib/Phoenix/Core/Session.php';
 $session = new Phoenix_Session();
@@ -182,8 +176,8 @@ require 'includes/classes/class_object_info.php';
 // calculate category path
 $cPath = oos_db_prepare_input($_GET['cPath']);
 if (strlen($cPath) > 0) {
-	$cPath_array = explode('_', $cPath);
-	$current_category_id = $cPath_array[(count($cPath_array)-1)];
+	$aPath = explode('_', $cPath);
+	$current_category_id = $aPath[(count($aPath)-1)];
 } else {
 	$current_category_id = 0;
 }
@@ -205,8 +199,6 @@ if (!defined('DEFAULT_CURRENCY')) {
 if (!defined('DEFAULT_LANGUAGE')) {
 	$messageStack->add(ERROR_NO_DEFAULT_LANGUAGE_DEFINED, 'error');
 }
-
-require 'includes/functions/function_added.php';
 
 if (basename($_SERVER['SCRIPT_NAME']) != $aContents['login']
    && basename($_SERVER['SCRIPT_NAME']) != $aContents['password_forgotten']) {

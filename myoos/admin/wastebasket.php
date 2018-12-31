@@ -127,12 +127,12 @@ if (!empty($action)) {
 
 
 $cPath_back = '';
-if (is_array($cPath_array) && count($cPath_array) > 0) {
-	for ($i = 0, $n = count($cPath_array) - 1; $i < $n; $i++) {
+if (is_array($aPath) && count($aPath) > 0) {
+	for ($i = 0, $n = count($aPath) - 1; $i < $n; $i++) {
 		if (empty($cPath_back)) {
-			$cPath_back .= $cPath_array[$i];
+			$cPath_back .= $aPath[$i];
 		} else {
-			$cPath_back .= '_' . $cPath_array[$i];
+			$cPath_back .= '_' . $aPath[$i];
 		}
 	}
 }

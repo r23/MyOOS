@@ -68,7 +68,6 @@ if (isset($_GET['action']) && ($_GET['action'] == 'process') &&
     }
   }
 
-echo $log_times;
 $sFormid = md5(uniqid(rand(), true));
 $_SESSION['formid'] = $sFormid;
 
