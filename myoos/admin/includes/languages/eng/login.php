@@ -32,10 +32,9 @@ define('IMAGE_BUTTON_LOGIN', 'Submit');
 
 define('SECURITYCODE', 'Securitycode:');
 define('TEXT_PASSWORD_FORGOTTEN', 'Password forgotten?');
-define('TEXT_WELCOME', 'Welcome to <br />MyOOS [Shopsystem]!</p><p>Use a valid eMail and password to gain access to the administration console.');
 
-define('TEXT_LOGIN_ERROR', '<font color="#ff0000"><b>ERROR:</b></font> Wrong username or password!');
-define('TEXT_FORGOTTEN_ERROR', '<font color="#ff0000"><b>ERROR:</b></font> first name and password not match!');
+define('TEXT_LOGIN_ERROR', '<strong>ERROR:</strong> Wrong username or password!');
+define('TEXT_FORGOTTEN_ERROR', '<strong>ERROR:</strong> first name and password not match!');
 define('TEXT_FORGOTTEN_FAIL', 'You have try over 3 times. For security reason, please contact your Web Administrator to get new password.');
 define('TEXT_FORGOTTEN_SUCCESS', 'The new password have sent to your email address. Please check your email and click back to login.');
 

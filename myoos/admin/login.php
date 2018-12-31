@@ -74,18 +74,23 @@ require 'includes/header.php';
 
 			<!-- begin login-content -->
 			<div class="login-content">
+			
+<?php
+	if (isset($login) && $login == 'fail') {
+?>			
+				<div class="alert alert-danger alert-dismissible fade show" role="alert">
+					<?php echo TEXT_LOGIN_ERROR; ?>
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>			
+<?php
+	}
+?>			
+			
 				<div class="login-header text-center">
 					<i class="mdi mdi-radar"></i> <span>MyOOS [Shopsystem] </span>
 				</div>
-
-<?php
-	if (isset($login) && $login == 'fail') {
-?>
-					<p><div align="center" class="smallText"><?php TEXT_LOGIN_ERROR; ?></div></p>
-					<div id="break"></div>
-<?php
-	}
-?>
 
 
 				<?php echo oos_draw_form('id', 'login', $aContents['login'], 'action=process', 'post', TRUE); ?>

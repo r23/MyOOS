@@ -24,7 +24,6 @@
 define('HEADING_TITLE', 'Anmeldebereich');
 
 define('HEADING_RETURNING_ADMIN', 'Anmeldebereich:');
-
 define('TEXT_RETURNING_ADMIN', 'Nur für Mitarbeiter!');
 define('ENTRY_EMAIL_ADDRESS', 'E-Mail-Adresse:');
 define('ENTRY_PASSWORD', 'Passwort:');
@@ -34,10 +33,8 @@ define('IMAGE_BUTTON_LOGIN', 'Übertragen');
 define('SECURITYCODE', 'Sicherheitscode:');
 define('TEXT_PASSWORD_FORGOTTEN', 'Passwort vergessen?');
 
-define('TEXT_WELCOME', ' Willkommen bei OOS <br />MyOOS [Shopsystem]!</p><p>Use a valid eMail and password to gain access to the administration console.');
-
-define('TEXT_LOGIN_ERROR', '<font color="#ff0000"><b>ERROR:</b></font> Falscher Benutzername oder Passwort!');
-define('TEXT_FORGOTTEN_ERROR', '<font color="#ff0000"><b>FEHLER:</b></font> Vorname und Passwort sind nicht hinterlegt!');
+define('TEXT_LOGIN_ERROR', '<strong>Fehler:</strong> Falscher Benutzername oder Passwort!');
+define('TEXT_FORGOTTEN_ERROR', '<strong>Fehler:</strong> Vorname und Passwort sind nicht hinterlegt!');
 define('TEXT_FORGOTTEN_FAIL', 'Sie haben es mehr als 3x versucht. Aus Sicherheitsgrnden kontaktieren Sie bitte Ihren Administrator um ein neues Passwort zu erhalten.');
 define('TEXT_FORGOTTEN_SUCCESS', 'Das neue Passwort wurde an Ihre E-Mail-Adresse gesendet. Überprüfen Sie Ihren E-Mail-Eingang und klicken Sie zurück um sich anzumelden.');
 
