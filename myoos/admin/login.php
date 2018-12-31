@@ -21,8 +21,10 @@
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
-if (isset($_GET['action']) && ($_GET['action'] == 'process')) {
-	
+if (isset($_GET['action']) && ($_GET['action'] == 'process') && 
+	( isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) ){
+
+
     $email_address = oos_prepare_input($_POST['email_address']);
     $password = oos_prepare_input($_POST['password']);
 	
@@ -59,12 +61,16 @@ if (isset($_GET['action']) && ($_GET['action'] == 'process')) {
 			//$date_now = date('Ymd');
 			$dbconn->Execute("UPDATE " . $oostable['admin'] . "
                         SET admin_logdate = now(), admin_lognum = admin_lognum+1
-                        WHERE admin_id = '" . $_SESSION['login_id'] . "'");
+                        WHERE admin_id = '" . intval($_SESSION['login_id']) . "'");
 
 			oos_redirect_admin(oos_href_link_admin($aContents['default']));
 		}
 	}
 }
+
+$sFormid = md5(uniqid(rand(), true));
+$_SESSION['formid'] = $sFormid;
+
 require 'includes/header.php';
 ?>
 	<div class="wrapper wrapper-content">
@@ -94,6 +100,7 @@ require 'includes/header.php';
 
 
 				<?php echo oos_draw_form('id', 'login', $aContents['login'], 'action=process', 'post', TRUE); ?>
+					<?php echo oos_draw_hidden_field('formid', $sFormid); ?>
 
 					<div class="form-group m-b-20">
                         <div class="input-group">
@@ -130,8 +137,6 @@ require 'includes/header.php';
 		</div>
 		
 	</div>
-
-
 
 <?php
 	require 'includes/bottom.php';

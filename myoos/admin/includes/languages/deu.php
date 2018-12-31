@@ -240,6 +240,7 @@ define('ENTRY_PASSWORD', 'Passwort:');
 define('ENTRY_PASSWORD_CONFIRMATION', 'Passwortbestätigung:');
 define('PASSWORD_HIDDEN', '--VERSTECKT--');
 
+define('PLACEHOLDER_FIRST_NAME', 'Vorname');
 define('PLACEHOLDER_EMAIL_ADDRESS', 'eMail Adresse');
 define('PLACEHOLDER_PASSWORD', 'Passwort');
 
@@ -297,6 +298,7 @@ define('IMAGE_SEARCH', 'Suchen');
 define('IMAGE_SELECT', 'Auswählen');
 define('IMAGE_SEND', 'Versenden');
 define('IMAGE_SEND_EMAIL', 'eMail versenden');
+define('BUTTON_SEND_PASSWORD', 'Passwort senden');
 define('IMAGE_SPECIALS', 'Sonderangebot');
 define('IMAGE_STATUS', 'Kundengruppe');
 define('IMAGE_UNLOCK', 'Entsperren');

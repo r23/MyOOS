@@ -236,6 +236,7 @@ define('ENTRY_PASSWORD', 'Password:');
 define('ENTRY_PASSWORD_CONFIRMATION', 'Password Confirmation:');
 define('PASSWORD_HIDDEN', '--HIDDEN--');
 
+define('PLACEHOLDER_FIRST_NAME', 'First Name');
 define('PLACEHOLDER_EMAIL_ADDRESS', 'E-Mail Address');
 define('PLACEHOLDER_PASSWORD', 'Password');
 
@@ -292,6 +293,7 @@ define('IMAGE_SEARCH', 'Search');
 define('IMAGE_SELECT', 'Select');
 define('IMAGE_SEND', 'Send');
 define('IMAGE_SEND_EMAIL', 'Send Email');
+define('BUTTON_SEND_PASSWORD', 'Send password');
 define('IMAGE_SPECIALS', 'Specials');
 define('IMAGE_STATUS', 'Customers Status');
 define('IMAGE_UNLOCK', 'Unlock');
