@@ -20,6 +20,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
+
+define('HEADING_TITLE', 'Anmeldebereich');
+
 define('HEADING_RETURNING_ADMIN', 'Anmeldebereich:');
 
 define('TEXT_RETURNING_ADMIN', 'Nur für Mitarbeiter!');
@@ -39,5 +42,5 @@ define('TEXT_FORGOTTEN_FAIL', 'Sie haben es mehr als 3x versucht. Aus Sicherheit
 define('TEXT_FORGOTTEN_SUCCESS', 'Das neue Passwort wurde an Ihre E-Mail-Adresse gesendet. Überprüfen Sie Ihren E-Mail-Eingang und klicken Sie zurück um sich anzumelden.');
 
 define('ADMIN_EMAIL_SUBJECT', 'Neues Passwort'); 
-define('ADMIN_EMAIL_TEXT', 'Hi %s,' . "\n\n" . 'Sie können den redaktionellen Bereich mit folgenden Passwort betreten. Nach erfolgtem Login, ändern Sie bitte aus Sicherheitsgrnden Ihr Passwort!' . "\n\n" . 'Website : %s' . "\n" . 'Benutzername: %s' . "\n" . 'Passwort: %s' . "\n\n" . 'Danke!' . "\n" . '%s' . "\n\n" . 'Dies ist eine automatisierte Antwortmail. Bitte beantworten Sie diese nicht!'); 
+define('ADMIN_EMAIL_TEXT', 'Hallo %s,' . "\n\n" . 'Sie können den redaktionellen Bereich mit folgenden Passwort betreten. Nach erfolgtem Login, ändern Sie bitte aus Sicherheitsgrnden Ihr Passwort!' . "\n\n" . 'Website : %s' . "\n" . 'Benutzername: %s' . "\n" . 'Passwort: %s' . "\n\n" . 'Danke!' . "\n" . '%s' . "\n\n" . 'Dies ist eine automatisierte Antwortmail. Bitte beantworten Sie diese nicht!'); 
 

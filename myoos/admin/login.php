@@ -65,66 +65,70 @@ if (isset($_GET['action']) && ($_GET['action'] == 'process')) {
 		}
 	}
 }
+require 'includes/header.php';
 ?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<title><?php echo TITLE; ?> - Administration [OOS]</title>
-<style type="text/css">
-@import url(includes/admin_login.css);
-</style>
-<script language="javascript" type="text/javascript">
-<!--
-function setFocus() {
-  document.login.email_address.select();
-  document.login.email_address.focus();
-}
-//-->
-</script>
-</head>
-<body onload="setFocus();">
-
-<div id="ctr" align="center">
-	<div class="login">
-		<div class="login-form">
-			<img src="images/login.gif" alt="Login" />
-		<?php echo oos_draw_form('id', 'login', $aContents['login'], 'action=process', 'post', TRUE); ?>
-			<div class="form-block">
-			<div class="inputlabel"><?php echo ENTRY_EMAIL_ADDRESS; ?></div>
-			<div><?php echo oos_draw_input_field('email_address', '', 'class="inputbox" size="15"'); ?></div>
-
-			<div class="inputlabel"><?php echo ENTRY_PASSWORD; ?></div>
-			<div><?php echo oos_draw_password_field('password', '', 'class="inputbox" size="15"'); ?></div>
-
-	        	<div align="left"><input type="submit" name="submit" class="button" value="Login" /></div>
-                        <div class="ctr"><?php echo '<a href="' . oos_href_link_admin($aContents['password_forgotten'], '') . '">' . TEXT_PASSWORD_FORGOTTEN; ?></a></div>
+	<div class="wrapper wrapper-content">
 
 
-        	</div>
-			</form>
-    	</div>
-		<div class="login-text">
+		<div class="login">
 
-			<div class="ctr"><img src="images/security.gif" width="64" height="64" alt="security" /></div>
-			<p><?php echo TEXT_WELCOME; ?></p>
+			<!-- begin login-content -->
+			<div class="login-content">
+				<div class="login-header text-center">
+					<i class="mdi mdi-radar"></i> <span>MyOOS [Shopsystem] </span>
+				</div>
 
-        	</div>
-		<div class="clr"></div>
+<?php
+	if (isset($login) && $login == 'fail') {
+?>
+					<p><div align="center" class="smallText"><?php TEXT_LOGIN_ERROR; ?></div></p>
+					<div id="break"></div>
+<?php
+	}
+?>
+
+
+				<?php echo oos_draw_form('id', 'login', $aContents['login'], 'action=process', 'post', TRUE); ?>
+
+					<div class="form-group m-b-20">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-account"></i></span>
+                            </div>
+							<?php echo oos_draw_input_field('email_address', '', '', TRUE, 'text', TRUE, FALSE, PLACEHOLDER_EMAIL_ADDRESS); ?>							
+                        </div>
+                    </div>
+
+					<div class="form-group m-b-20">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-radar"></i></span>
+                            </div>
+							<?php echo oos_draw_input_field('password', '', '', TRUE, 'password', FALSE, FALSE, PLACEHOLDER_PASSWORD); ?>		
+						</div>
+                    </div>
+
+					<div class="form-group text-right m-t-20">
+						<div class="col-xs-12">
+							<button class="btn btn-primary btn-custom w-md" type="submit">Log In</button>
+						</div>
+					</div>
+
+					<div class="form-group row m-t-30">
+						<div class="col-sm-7  text-right">
+							<?php echo '<a href="' . oos_href_link_admin($aContents['password_forgotten']) . '" class="text-muted"><i class="fa fa-lock"></i> ' . TEXT_PASSWORD_FORGOTTEN; ?></a>
+						</div>
+					</div>
+		
+				</form>
+			</div>
+		</div>
+		
 	</div>
-</div>
-<div id="break"></div>
+
+
 
 <?php
-  if (isset($login) && $login == 'fail') {
+	require 'includes/bottom.php';
+	require 'includes/nice_exit.php';
 ?>
-	  <p><div align="center" class="smallText"><?php TEXT_LOGIN_ERROR; ?></div></p>
-	  <div id="break"></div>
-<?php
-  }
-?>
-
-
-</body>
-</html>
-<?php require 'includes/nice_exit.php'; ?>

@@ -260,7 +260,7 @@ function oos_submit_button($id, $title = '', $params = '') {
   * @return string
   */
 function oos_draw_input_field($name, $value = '', $parameters = '', $required = FALSE, $type = 'text', $reinsert_value = TRUE, $disabled = FALSE, $placeholder = '') {
-    $field = '<input type="' . $type . '" name="' . $name . '"';
+    $field = '<input class="form-control" type="' . $type . '" name="' . $name . '"';
 	
 	if ( ($reinsert_value == TRUE) && ( (isset($_GET[$name]) && is_string($_GET[$name])) || (isset($_POST[$name]) && is_string($_POST[$name])) ) ) {
 		if (isset($_GET[$name]) && is_string($_GET[$name])) {
@@ -269,24 +269,19 @@ function oos_draw_input_field($name, $value = '', $parameters = '', $required = 
 			$value = stripslashes($_POST[$name]);
 		}
 	}
-  #  if (oos_is_not_null($value)) {
-		$field .= ' value="' . oos_output_string($value) . '"';
- #   }
+	$field .= ' value="' . oos_output_string($value) . '"';
+
+    if (oos_is_not_null($parameters)) $field .= ' ' . $parameters;
+
+	if ($disabled == TRUE) $field .= ' disabled="disabled"';
+
+    if (oos_is_not_null($placeholder)) $field .= ' placeholder="' . oos_output_string($placeholder) . '"';
+
     if ($required) $field .= ' required';	
-
-    if (oos_is_not_null($parameters)) {
-		$field .= ' ' . $parameters;
-    }
-	if ($disabled == TRUE) {	
-		$field .= ' disabled="disabled"';
-	}
-    if (oos_is_not_null($placeholder)) {
-		$field .= ' placeholder="' . oos_output_string($placeholder) . '"';
-    }	
 	
-    $field .= ' class="form-control">';
-
-    if ($required) $field .= TEXT_FIELD_REQUIRED;
+    $field .= ' />';	
+	
+	// if ($required) $field .= TEXT_FIELD_REQUIRED;
 
     return $field;
 }

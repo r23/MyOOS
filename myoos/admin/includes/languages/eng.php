@@ -236,6 +236,9 @@ define('ENTRY_PASSWORD', 'Password:');
 define('ENTRY_PASSWORD_CONFIRMATION', 'Password Confirmation:');
 define('PASSWORD_HIDDEN', '--HIDDEN--');
 
+define('PLACEHOLDER_EMAIL_ADDRESS', 'E-Mail Address');
+define('PLACEHOLDER_PASSWORD', 'Password');
+
 // images
 define('IMAGE_ANI_SEND_EMAIL', 'Sending E-Mail');
 define('IMAGE_BACK', 'Back');

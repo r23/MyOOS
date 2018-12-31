@@ -240,6 +240,9 @@ define('ENTRY_PASSWORD', 'Passwort:');
 define('ENTRY_PASSWORD_CONFIRMATION', 'Passwortbestätigung:');
 define('PASSWORD_HIDDEN', '--VERSTECKT--');
 
+define('PLACEHOLDER_EMAIL_ADDRESS', 'eMail Adresse');
+define('PLACEHOLDER_PASSWORD', 'Passwort');
+
 // images
 define('IMAGE_ANI_SEND_EMAIL', 'eMail versenden');
 define('IMAGE_BACK', 'Zurück');

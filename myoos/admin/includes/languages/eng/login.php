@@ -20,6 +20,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
+
+define('HEADING_TITLE', 'Login Panel');
+
 define('HEADING_RETURNING_ADMIN', 'Login Panel:');
 define('TEXT_RETURNING_ADMIN', 'Staff only!');
 define('ENTRY_EMAIL_ADDRESS', 'E-Mail Address:');
