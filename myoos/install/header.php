@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2018 by the MyOOS Development Team
+   Copyright (c) 2003 - 2019 by the MyOOS Development Team
    ----------------------------------------------------------------------
    Based on:
    POST-NUKE Content Management System

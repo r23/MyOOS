@@ -4,7 +4,7 @@
    OOS [OSIS Online Shop]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2018 by the OOS Development Team.
+   Copyright (c) 2003 - 2019 by the OOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
