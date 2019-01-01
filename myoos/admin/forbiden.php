@@ -21,47 +21,68 @@
   define('OOS_VALID_MOD', 'yes');
   require 'includes/main.php';
 
-  $current_boxes = OOS_ABSOLUTE_PATH . 'admin/includes/boxes/';
+ # $current_boxes = OOS_ABSOLUTE_PATH . 'admin/includes/boxes/';
 
   require 'includes/header.php';
 ?>
-<!-- body //-->
-<table border="0" width="100%" cellspacing="2" cellpadding="2">
-  <tr>
-    <td width="<?php echo BOX_WIDTH; ?>" valign="top"><table border="0" width="<?php echo BOX_WIDTH; ?>" cellspacing="1" cellpadding="1" class="columnLeft">
-<?php require 'includes/blocks.php'; ?>
-    </table></td>
-<!-- body_text //-->
-    <td width="100%" valign="top">
-      <table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr>
-        <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="pageHeading" align="right"></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td>
-            <table border="0" width="100%" cellspacing="0" cellpadding="2" align="center">
-              <tr class="dataTableHeadingRow">
-                <td class="dataTableHeadingContent"><?php echo NAVBAR_TITLE; ?></td>
-              </tr>
-              <tr class="dataTableRow">
-                <td align="left" class="dataTableContent"><?php echo TEXT_MAIN; ?></td>
-              </tr>
-              <tr class="dataTableRow">
-                <td class="text-left"><?php echo '&nbsp;<a href="' . oos_href_link_admin($aContents['default']) . '">' . oos_button('back', IMAGE_BACK) . '</a>&nbsp;'; ?></td>
-              </tr>
-            </table>
-        </td>
-      </tr>
-    </table></td>
-<!-- body_text_eof //-->
-  </tr>
-</table>
-<!-- body_eof //-->
+<div class="wrapper">
+	<!-- Header //-->
+	<header class="topnavbar-wrapper">
+		<!-- Top Navbar //-->
+		<?php require 'includes/menue.php'; ?>
+	</header>
+	<!-- END Header //-->
+	<aside class="aside">
+		<!-- Sidebar //-->
+		<div class="aside-inner">
+			<?php require 'includes/blocks.php'; ?>
+		</div>
+		<!-- END Sidebar (left) //-->
+	</aside>
+	
+	<!-- Main section //-->
+	<section>
+		<!-- Page content //-->
+		<div class="content-wrapper">
+							
+			<!-- Breadcrumbs //-->
+			<div class="content-heading">
+				<div class="col-lg-12">
+					<h2><?php echo HEADING_TITLE; ?></h2>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item">
+							<?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
+						</li>
+						<li class="breadcrumb-item active">
+							<strong><?php echo HEADING_TITLE; ?></strong>
+						</li>
+					</ol>
+				</div>
+			</div>
+			<!-- END Breadcrumbs //-->
+			
+			<div class="wrapper wrapper-content">
+				<div class="login">
 
-<?php require 'includes/bottom.php'; ?>
-<?php require 'includes/nice_exit.php'; ?>
+					<div class="login-content">
+					
+						<h2><strong><?php echo NAVBAR_TITLE ?></strong></h2>
+						<p><?php echo TEXT_MAIN; ?></p>
+
+
+						<div class="form-group text-right m-t-20">
+							<div class="col-xs-12">
+								<?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">'; ?><button class="btn btn-primary btn-custom w-md"><?php echo IMAGE_BACK; ?></button></a>
+							</div>
+						</div>	
+				
+					</div>
+				</div>		
+			</div>
+		</div>
+	</section>
+	<!-- Page footer //-->
+	<footer>
+		<span>&copy; 2019 - <a href="https://www.oos-shop.de" target="_blank" rel="noopener">MyOOS [Shopsystem]</a></span>
+	</footer>
+</div>

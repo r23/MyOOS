@@ -21,6 +21,6 @@
    
 define('HEADING_TITLE', 'Zugriff verweigert!');
 define('NAVBAR_TITLE', 'Kein Zugriffsrecht');
-define('TEXT_MAIN', '&nbsp;Bitte kontaktieren Sie Ihren <b>Web Administrator</b> <br />&nbsp;um mehr Zugriffsrechte zu erhalten<br />&nbsp; oder anderes zu erfragen.<br />&nbsp;');
-define('TEXT_BACK', 'Zurck');
+define('TEXT_MAIN', 'Bitte kontaktieren Sie Ihren <b>Web Administrator</b> um mehr Zugriffsrechte zu erhalten.');
+
 

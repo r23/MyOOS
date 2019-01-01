@@ -134,6 +134,7 @@
                 AND admin_files_is_boxes = '1'
                 AND admin_files_name = '" . oos_db_input($filename) . "'";
     $result = $dbconn->Execute($query);
+	
     if ($result->RecordCount()) {
       $boxes_id = $result->fields;
 
@@ -144,7 +145,6 @@
                              AND admin_files_is_boxes = '0'
                              AND admin_files_to_boxes = '" . intval($boxes_id['boxes_id']) . "'";
       $randomize_result = $dbconn->Execute($randomize_query);
-
       if ($randomize_result->RecordCount()) {
         $randomize = $randomize_result->fields['admin_files_name'];
       }

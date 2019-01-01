@@ -21,48 +21,44 @@
   define('OOS_VALID_MOD', 'yes');
   require 'includes/main.php';
 
-  require('includes/languages/' . $_SESSION['language'] . '/' . $aContents['logoff']);
-
   unset($_SESSION['login_id']);
   unset($_SESSION['login_firstname']);
   unset($_SESSION['login_groups_id']);
+
+require 'includes/header.php';
 ?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<title><?php echo TITLE; ?> - Administration [OOS]</title>
-<style type="text/css">
-@import url(includes/admin_login.css);
-</style>
-</head>
-<body>
-
-<div id="ctr" align="center">
-	<div class="login">
-		<div class="login-form">
-			<img src="images/login.gif" alt="<?php echo HEADING_PASSWORD_FORGOTTEN; ?>" />
-			<div class="form-block">
-			<div class="clr"></div>
-			<div class="smallText"><?php echo TEXT_MAIN; ?></div>
-			<div id="break"></div>
-			<div align="left"><?php echo '<a href="' . oos_href_link_admin($aContents['login'], '') . '">' . oos_button('back', IMAGE_BACK); ?></a></div> 
+	<div class="wrapper wrapper-content">
 
 
+		<div class="login">
+
+			<!-- begin login-content -->
+			<div class="login-content">
+					
+			
+				<div class="login-header text-center">
+					<i class="mdi mdi-radar"></i> <span>MyOOS [Shopsystem] </span>
+				</div>
+
+				<div class="alert alert-danger alert-dismissible fade show m-b-20" role="alert">
+					<?php echo TEXT_MAIN; ?>
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>	
+
+				<div class="form-group text-right m-t-20">
+					<div class="col-xs-12">
+						<?php echo '<a href="' . oos_href_link_admin($aContents['login']) . '">'; ?><button class="btn btn-primary btn-custom w-md" type="submit"><?php echo IMAGE_BACK; ?></button></a>
+					</div>
+				</div>	
+				
+			</div>
 		</div>
+		
 	</div>
-		<div class="login-text">
 
-			<div class="ctr"><img src="images/security.gif" width="64" height="64" alt="security" /></div>
-			<p><?php echo HEADING_TITLE; ?></p>
-
-		</div>
-		<div class="clr"></div>
-	</div>
-</div>
-<div id="break"></div>
-
-
-</body>
-</html>
-<?php require 'includes/nice_exit.php'; ?>
+<?php
+	require 'includes/bottom.php';
+	require 'includes/nice_exit.php';
+?>
