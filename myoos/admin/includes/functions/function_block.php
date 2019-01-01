@@ -71,9 +71,6 @@
 
     $block_name = $result->fields['block_name'];
 
-    // Close result set
-    $result->Close();
-
     return $block_name;
   }
 
@@ -167,9 +164,6 @@
       $result->MoveNext();
     }
 
-    // Close result set
-    $result->Close();
-
     return $select_page_type;
   }
 
@@ -197,7 +191,7 @@
       $query = "SELECT b2p.block_id, b2p.page_type_id, p.page_type_name
                 FROM " . $block_to_page_typetable . " b2p,
                      " . $page_typetable . " p
-                WHERE b2p.block_id = '" . (int)$block_id . "'
+                WHERE b2p.block_id = '" . intval($block_id) . "'
                   AND p.page_type_id = b2p.page_type_id
                   AND p.page_type_languages_id = '" . intval($lang_id) . "'";
       $result = $dbconn->Execute($query);
@@ -209,9 +203,6 @@
         $result->MoveNext();
       }
     }
-
-    // Close result set
-    $result->Close();
 
     return $info;
   }

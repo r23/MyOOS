@@ -51,8 +51,8 @@
         $admin_filestable = $oostable['admin_files'];
         $query = "SELECT admin_files_name
                   FROM $admin_filestable
-                  WHERE FIND_IN_SET( '" . $_SESSION['login_groups_id'] . "', admin_groups_id)
-                    AND admin_files_name = '" . $page_key . "'";
+                  WHERE FIND_IN_SET( '" . intval($_SESSION['login_groups_id']) . "', admin_groups_id)
+                    AND admin_files_name = '" . oos_db_input($page_key) . "'";
         $result = $dbconn->Execute($query);
 
         if (!$result->RecordCount()) {
@@ -65,7 +65,7 @@
 
 
 
-  function oos_admin_check_boxes($filename, $boxes='') {
+  function oos_admin_check_boxes($filename, $boxes ='') {
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -79,18 +79,15 @@
     $admin_filestable = $oostable['admin_files'];
     $query = "SELECT admin_files_id
               FROM $admin_filestable
-              WHERE FIND_IN_SET( '" . $_SESSION['login_groups_id'] . "', admin_groups_id)
+              WHERE FIND_IN_SET( '" . intval($_SESSION['login_groups_id']) . "', admin_groups_id)
                 AND admin_files_is_boxes = '" . $is_boxes . "'
-                AND admin_files_name = '" . $filename . "'";
+                AND admin_files_name = '" . oos_db_input($filename) . "'";
     $result = $dbconn->Execute($query);
 
-    $return_value = false;
+    $return_value = FALSE;
     if ($result->RecordCount()) {
-      $return_value = true;
+      $return_value = TRUE;
     }
-
-    // Close result set
-    $result->Close();
 
     return $return_value;
   }
@@ -107,9 +104,9 @@
     $admin_filestable = $oostable['admin_files'];
     $query = "SELECT admin_files_name
               FROM $admin_filestable
-              WHERE FIND_IN_SET( '" . $_SESSION['login_groups_id'] . "', admin_groups_id)
+              WHERE FIND_IN_SET( '" . intval($_SESSION['login_groups_id']) . "', admin_groups_id)
                 AND admin_files_is_boxes = '0'
-                AND admin_files_name = '" . $filename . "'";
+                AND admin_files_name = '" . oos_db_input($filename) . "'";
     $result = $dbconn->Execute($query);
 
     if ($result->RecordCount()) {
@@ -133,20 +130,19 @@
     $admin_filestable = $oostable['admin_files'];
     $query = "SELECT admin_files_id AS boxes_id
               FROM $admin_filestable
-              WHERE FIND_IN_SET( '" . $_SESSION['login_groups_id'] . "', admin_groups_id)
+              WHERE FIND_IN_SET( '" . intval($_SESSION['login_groups_id']) . "', admin_groups_id)
                 AND admin_files_is_boxes = '1'
-                AND admin_files_name = '" . $filename . "'";
+                AND admin_files_name = '" . oos_db_input($filename) . "'";
     $result = $dbconn->Execute($query);
-
     if ($result->RecordCount()) {
       $boxes_id = $result->fields;
 
       $admin_filestable = $oostable['admin_files'];
       $randomize_query = "SELECT admin_files_name
                            FROM $admin_filestable
-                           WHERE FIND_IN_SET( '" . $_SESSION['login_groups_id'] . "', admin_groups_id)
+                           WHERE FIND_IN_SET( '" . intval($_SESSION['login_groups_id']) . "', admin_groups_id)
                              AND admin_files_is_boxes = '0'
-                             AND admin_files_to_boxes = '" . $boxes_id['boxes_id'] . "'";
+                             AND admin_files_to_boxes = '" . intval($boxes_id['boxes_id']) . "'";
       $randomize_result = $dbconn->Execute($randomize_query);
 
       if ($randomize_result->RecordCount()) {
@@ -163,12 +159,12 @@
  */
 function oos_redirect_admin($url) {
 	
-    if ( (strstr($url, "\n") != false) || (strstr($url, "\r") != false) ) {
+    if ( (strstr($url, "\n") != FALSE) || (strstr($url, "\r") != FALSE) ) {
 		$aContents = oos_get_content();
-		oos_redirect_admin(oos_href_link_admin($aContents['default'], '', false));
+		oos_redirect_admin(oos_href_link_admin($aContents['default'], '', FALSE));
     }
 
-    if ( strpos($url, '&amp;') !== false ) {
+    if ( strpos($url, '&amp;') !== FALSE ) {
       $url = str_replace('&amp;', '&', $url);
     }
 
@@ -188,7 +184,7 @@ function oos_redirect_admin($url) {
     $customerstable = $oostable['customers'];
     $query = "SELECT customers_firstname, customers_lastname
               FROM $customerstable
-              WHERE customers_id = '" . $customers_id . "'";
+              WHERE customers_id = '" . intval($customers_id) . "'";
     $result = $dbconn->Execute($query);
 
     $sName = $result->fields['customers_firstname'] . ' ' . $result->fields['customers_lastname'];
@@ -277,7 +273,7 @@ function oos_redirect_admin($url) {
 
 
   function oos_datetime_short($raw_datetime) {
-    if ( ($raw_datetime == '0000-00-00 00:00:00') || ($raw_datetime == '') ) return false;
+    if ( ($raw_datetime == '0000-00-00 00:00:00') || ($raw_datetime == '') ) return FALSE;
 
     $year = (int)substr($raw_datetime, 0, 4);
     $month = (int)substr($raw_datetime, 5, 2);
@@ -292,9 +288,9 @@ function oos_redirect_admin($url) {
 
 
   function oos_in_array($lookup_value, $lookup_array) {
-    if (in_array($lookup_value, $lookup_array)) return true;
+    if (in_array($lookup_value, $lookup_array)) return TRUE;
 
-    return false;
+    return FALSE;
   }
 
 
@@ -731,7 +727,7 @@ function oos_get_languages() {
     if (function_exists('class_exists')) {
       return class_exists($class_name);
     } else {
-      return true;
+      return TRUE;
     }
   }
 
@@ -739,7 +735,7 @@ function oos_get_languages() {
   function oos_remove($source) {
     global $messageStack, $oos_remove_error;
 
-    if (isset($oos_remove_error)) $oos_remove_error = false;
+    if (isset($oos_remove_error)) $oos_remove_error = FALSE;
 
     if (is_dir($source)) {
       $dir = dir($source);
@@ -749,7 +745,7 @@ function oos_get_languages() {
             oos_remove($source . '/' . $file);
           } else {
             $messageStack->add(sprintf(ERROR_FILE_NOT_REMOVEABLE, $source . '/' . $file), 'error');
-            $oos_remove_error = true;
+            $oos_remove_error = TRUE;
           }
         }
       }
@@ -759,14 +755,14 @@ function oos_get_languages() {
         rmdir($source);
       } else {
         $messageStack->add(sprintf(ERROR_DIRECTORY_NOT_REMOVEABLE, $source), 'error');
-        $oos_remove_error = true;
+        $oos_remove_error = TRUE;
       }
     } else {
       if (is_writeable($source)) {
         unlink($source);
       } else {
         $messageStack->add(sprintf(ERROR_FILE_NOT_REMOVEABLE, $source), 'error');
-        $oos_remove_error = true;
+        $oos_remove_error = TRUE;
       }
     }
   }
@@ -774,12 +770,12 @@ function oos_get_languages() {
 
   function oos_display_tax_value($value, $padding = TAX_DECIMAL_PLACES) {
     if (strpos($value, '.')) {
-      $loop = true;
+      $loop = TRUE;
       while ($loop) {
         if (substr($value, -1) == '0') {
           $value = substr($value, 0, -1);
         } else {
-          $loop = false;
+          $loop = FALSE;
           if (substr($value, -1) == '.') {
             $value = substr($value, 0, -1);
           }
@@ -1028,11 +1024,11 @@ function parse_size($size) {
   function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $from_email_name, $from_email_address) {
 
 
-    if (preg_match('~[\r\n]~', $to_name)) return false;
-    if (preg_match('~[\r\n]~', $to_email_address)) return false;
-    if (preg_match('~[\r\n]~', $email_subject)) return false;
-    if (preg_match('~[\r\n]~', $from_email_name)) return false;
-    if (preg_match('~[\r\n]~', $from_email_address)) return false;
+    if (preg_match('~[\r\n]~', $to_name)) return FALSE;
+    if (preg_match('~[\r\n]~', $to_email_address)) return FALSE;
+    if (preg_match('~[\r\n]~', $email_subject)) return FALSE;
+    if (preg_match('~[\r\n]~', $from_email_name)) return FALSE;
+    if (preg_match('~[\r\n]~', $from_email_address)) return FALSE;
 
     $sLang = (isset($_SESSION['iso_639_1']) ? $_SESSION['iso_639_1'] : 'en');
 
@@ -1042,7 +1038,7 @@ function parse_size($size) {
 		require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/class.phpmailer.php';
 		require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/class.smtp.php';
 		// Instantiate a new mail object
-		$mail = new PHPMailer( true );
+		$mail = new PHPMailer( TRUE );
 	}
 
     $mail->PluginDir = OOS_ABSOLUTE_PATH . 'includes/lib/phpmailer/';
@@ -1079,7 +1075,7 @@ function parse_size($size) {
     // Build the text version
     $text = strip_tags($email_text);
     if (EMAIL_USE_HTML == 'true') {
-      $mail->IsHTML(true);
+      $mail->IsHTML(TRUE);
       $mail->Body = $email_text;
       $mail->AltBody = $text;
     } else {

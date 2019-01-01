@@ -111,7 +111,7 @@
       case 'deleteconfirm':
         if (strstr($_GET['file'], '..')) oos_redirect_admin(oos_href_link_admin($aContents['export_excel']));
 
-        oos_remove(OOS_EXPORT_PATH . '/' . $_GET['file']);
+        oos_remove(OOS_EXPORT_PATH . '/' . oos_db_prepare_input($_GET['file']));
         if (!$oos_remove_error) {
           $messageStack->add_session(SUCCESS_EXPORT_DELETED, 'success');
           oos_redirect_admin(oos_href_link_admin($aContents['export_excel']));
