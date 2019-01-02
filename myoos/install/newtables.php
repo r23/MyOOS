@@ -204,7 +204,7 @@ dosql($table, $flds);
 $table = $prefix_table . 'categories';
 $flds = "
   categories_id I NOTNULL AUTO PRIMARY,
-  categories_image C(64),  
+  categories_image C(250),  
   parent_id I NOTNULL DEFAULT '0',
   sort_order I1,
   date_added T,
@@ -224,7 +224,7 @@ $flds = "
   categories_id I NOTNULL DEFAULT '0' PRIMARY,
   categories_languages_id I NOTNULL DEFAULT '1' PRIMARY,
   categories_name C(32) NOTNULL,
-  categories_heading_title C(64),
+  categories_heading_title C(250),
   categories_description X,
   categories_description_meta C(250),
   categories_keywords_meta C(250)
@@ -240,7 +240,7 @@ $table = $prefix_table . 'categories_images';
 $flds = "
   categories_images_id I NOTNULL AUTO PRIMARY,
   categories_id I NOTNULL,
-  categories_image C(64),
+  categories_image C(250),
   sort_order I1,
   date_added T,
   last_modified T
@@ -251,7 +251,7 @@ $table = $prefix_table . 'categories_images_description';
 $flds = "
   categories_images_id I NOTNULL DEFAULT '0' PRIMARY,
   categories_images_languages_id I NOTNULL DEFAULT '1' PRIMARY,
-  categories_images_title C(64),  
+  categories_images_title C(250),  
   categories_images_caption C(250),
   categories_images_description X
 ";
@@ -763,7 +763,7 @@ $flds = "
   billing_address_format_id I2 NOTNULL,
   payment_method C(32) NOTNULL,
   cc_type C(20),
-  cc_owner C(64),
+  cc_owner C(250),
   cc_number C(32),
   cc_expires C(4),
   last_modified T,
@@ -786,7 +786,7 @@ $flds = "
   products_model C(12),
   products_ean C(13),
   products_name C(64) NOTNULL,
-  products_serial_number C(64),
+  products_serial_number C(250),
   products_price N '15.8' NOTNULL DEFAULT '0.00000000',
   final_price N '15.8' NOTNULL DEFAULT '0.00000000',
   products_tax N '7.4' NOTNULL DEFAULT '0.0000',

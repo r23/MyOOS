@@ -21,8 +21,6 @@
   define('OOS_VALID_MOD', 'yes');
   require 'includes/main.php';
 
- # $current_boxes = OOS_ABSOLUTE_PATH . 'admin/includes/boxes/';
-
   require 'includes/header.php';
 ?>
 <div class="wrapper">

@@ -36,7 +36,7 @@ $pID = (isset($_GET['pID']) ? intval($_GET['pID']) : 0);
 if (!empty($action)) {
 	switch ($action) {
 		case 'new_product':	
-				if (oos_empty($_GET['cPath'])) {
+				if (empty($_GET['cPath'])) {
 					$cPath = $current_category_id;
 				}		
 		
@@ -46,6 +46,7 @@ if (!empty($action)) {
 				$products_tax_class_id = 1; // DEFAULT_TAX_CLASS_ID
 				$sProductsReplacementProductID = 'null';
 
+				$sql_data_array = array();	
 				$sql_data_array = array('products_quantity' => $sProductsQuantity,
 								  'products_replacement_product_id' => $sProductsReplacementProductID,
                                   'products_base_price' => $products_base_price,
@@ -285,27 +286,16 @@ require 'includes/header.php';
                                                  pd.products_languages_id = '" . intval($_SESSION['language_id']) . "'");
       $product = $product_result->fields;
 
-      $pInfo = new objectInfo($product);
+		$pInfo = new objectInfo($product);
     } elseif (oos_is_not_null($_POST)) {
-      $pInfo = new objectInfo($_POST);
-      $products_name = $_POST['products_name'];
-      $products_description = $_POST['products_description'];
-      $products_description_meta = $_POST['products_description_meta'];
-      $products_keywords_meta = $_POST['products_keywords_meta'];
-      $products_url = $_POST['products_url'];
+		$pInfo = new objectInfo($_POST);
+		$products_name = $_POST['products_name'];
+		$products_description = $_POST['products_description'];
+		$products_description_meta = $_POST['products_description_meta'];
+		$products_keywords_meta = $_POST['products_keywords_meta'];
+		$products_url = $_POST['products_url'];
     } else {
-      $pInfo = new objectInfo(array());
-      $pInfo->products_status = DEFAULT_PRODUTS_STATUS_ID;
-      $pInfo->products_base_price = 1.0;
-      $pInfo->products_product_quantity = 1.0;
-      $pInfo->products_base_quantity = 1.0;
-      $pInfo->products_units_id = DEFAULT_PRODUCTS_UNITS_ID;
-	  $pInfo->products_tax_class_id = 1; // DEFAULT_TAX_CLASS_ID
-	  
-	  //
-	  echo 'fehler- dieser aufruf wurde entfernt';
-	  exit;
-	  
+		oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $pID));
     }
 
     $manufacturers_array = array();
