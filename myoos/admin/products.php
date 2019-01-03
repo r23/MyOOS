@@ -235,6 +235,9 @@ if (is_dir(OOS_ABSOLUTE_PATH . OOS_IMAGES)) {
     $messageStack->add(ERROR_CATALOG_IMAGE_DIRECTORY_DOES_NOT_EXIST, 'error');
 }
 
+$sFormid = md5(uniqid(rand(), true));
+$_SESSION['formid'] = $sFormid;
+
 require 'includes/header.php';
 ?>
 <!-- body //-->
@@ -746,6 +749,7 @@ function calcBasePriceFactor() {
         <span>Add files...</span>
         <!-- The file input field used as target for the file upload widget -->
         <input id="fileupload" type="file" name="files[]" multiple>
+		<?php echo oos_draw_hidden_field('formid', $sFormid); ?>
     </span>
     <br>
     <br>

@@ -121,6 +121,8 @@ define('TEXT_ADD_SLAVE_PRODUCT', 'Geben Sie in die Produkt-ID, die Sie als Zubeh
 define('IMAGE_SLAVE', 'Produktoptionen');
 define('TEXT_CURRENT_SLAVE_PRODUCTS', 'Aktuelle Produktoptionen:</b>');
 define('BUTTON_DELETE_SLAVE', 'Lösche diese Produktoption');
+define('TEXT_SUCCESSFULLY_SLAVE', 'Dieses Produkt wurde erfolgreich als Slave hinzugefügt.');
+define('TEXT_ERROR_SLAVE', 'Dieses Produkt existiert nicht oder ist bereits als Slave hinzugefügt worden.');
 
 // Qty Min/Units and List/Rebates
 // categories.php definitions

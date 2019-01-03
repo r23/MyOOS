@@ -38,7 +38,7 @@ $cID = (isset($_GET['cID']) ? intval($_GET['cID']) : 0);
 if (!empty($action)) {
     switch ($action) {
 		case 'new_category':		
-			$nStatus = 1 // DEFAULT_CATEGORY_STATUS_ID;			
+			$nStatus = 1; // DEFAULT_CATEGORY_STATUS_ID		
 			$sort_order = 1;
 
 			$sql_data_array = array();
@@ -97,9 +97,9 @@ if (!empty($action)) {
 				$sql_data_array = array('slave_id' => $_POST['slave_product_id'],
 										'master_id' => $_GET['pID']);
 				oos_db_perform($oostable['products_to_master'], $sql_data_array, 'INSERT');
-				$messageStack->add_session('This product was successfully added as a slave', 'success');
+				$messageStack->add_session(TEXT_SUCCESSFULLY_SLAVE, 'success');
 			} else {
-				$messageStack->add_session('This product does not exist or is already a slave', 'error');
+				$messageStack->add_session(TEXT_ERROR_SLAVE, 'error');
 			}
 			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . intval($_GET['pID']) . '&action=slave_products'));
 			break;
