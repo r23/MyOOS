@@ -187,7 +187,7 @@ if (!isset($_SESSION['selected_box'])) {
 	$_SESSION['selected_box'] = 'administrator';
 }
 if (isset($_GET['selected_box'])) {
-	$_SESSION['selected_box'] = $_GET['selected_box'];
+	$_SESSION['selected_box'] = oos_db_prepare_input($_GET['selected_box']);
 }
 
 // check if a default currency is set

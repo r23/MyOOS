@@ -122,8 +122,8 @@ define('TEXT_ADD_SLAVE_PRODUCT', 'Enter in the Product ID to add this product as
 define('IMAGE_SLAVE', 'Slave Products');
 define('TEXT_CURRENT_SLAVE_PRODUCTS', 'Current Slave products:');
 define('BUTTON_DELETE_SLAVE', 'Delete this slave product');
-define('TEXT_SUCCESSFULLY_SLAVE', 'This product was successfully added as a slave');
-define('TEXT_ERROR_SLAVE', 'This product does not exist or is already a slave');
+define('TEXT_SUCCESSFULLY_SLAVE', 'This product was successfully added as a slave.');
+define('TEXT_ERROR_SLAVE', 'This product does not exist or is already a slave.');
 
 
 // Qty Min/Units and List/Rebates
