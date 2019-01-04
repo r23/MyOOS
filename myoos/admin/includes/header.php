@@ -38,9 +38,6 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
 	<link href="css/icons.min.css" rel="stylesheet">	
 	<link href="css/myoos.min.css" rel="stylesheet">
 	
-	<!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
-	<link href="css/plugins/jquery-file-upload/jquery.fileupload.css" rel="stylesheet">
-
 	<!-- DATETIMEPICKER-->
 	<link href="js/plugins/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 
