@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.0.x - Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-12-20 12:37:22+0000\n"
+"PO-Revision-Date: 2018-12-28 18:01:39+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -624,11 +624,11 @@ msgstr "Listenelement ausrücken"
 
 #: wp-includes/js/dist/editor.js:20834
 msgid "Convert to ordered list"
-msgstr "Zu geordneter Liste umwandeln"
+msgstr "In nummerierte Liste umwandeln"
 
 #: wp-includes/js/dist/editor.js:20822
 msgid "Convert to unordered list"
-msgstr "Zu ungeordneter Liste umwandeln"
+msgstr "In Aufzählung umwandeln"
 
 #: wp-includes/js/dist/block-library.js:10116
 msgid "numbered list"
@@ -2044,7 +2044,7 @@ msgstr "Vorschau"
 
 #: wp-includes/js/dist/editor.js:25225 wp-includes/js/dist/editor.js:25228
 msgid "Generating preview…"
-msgstr "Vorschau wird erstellt&nbsp;&hellip;"
+msgstr "Vorschau wird erstellt …"
 
 #: wp-includes/js/dist/editor.js:25743
 msgid "Allow Pingbacks & Trackbacks"
@@ -14221,7 +14221,7 @@ msgstr "Link entfernen"
 
 #: wp-includes/js/dist/block-library.js:10116
 msgid "ordered list"
-msgstr "Geordnete Liste"
+msgstr "Nummerierte Liste"
 
 #: wp-includes/class-wp-editor.php:1029
 #: wp-includes/js/dist/format-library.js:1325
@@ -15537,7 +15537,7 @@ msgstr "Gespeichert."
 
 #: wp-includes/media.php:3495 wp-includes/media.php:3516
 msgid "Add Media"
-msgstr "Medien hinzufügen"
+msgstr "Dateien hinzufügen"
 
 #. translators: %s: file name
 #: wp-includes/deprecated.php:3199
