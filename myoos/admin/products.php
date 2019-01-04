@@ -35,53 +35,9 @@ $pID = (isset($_GET['pID']) ? intval($_GET['pID']) : 0);
 
 if (!empty($action)) {
 	switch ($action) {
-		case 'new_product':	
-				if (empty($_GET['cPath'])) {
-					$cPath = $current_category_id;
-				}		
-		
-				$sProductsStatus = DEFAULT_PRODUTS_STATUS_ID;
-				$products_product_quantity = 1;
-				$products_base_quantity = 1;
-				$products_tax_class_id = 1; // DEFAULT_TAX_CLASS_ID
-				$sProductsReplacementProductID = 'null';
-
-				$sql_data_array = array();	
-				$sql_data_array = array('products_quantity' => $sProductsQuantity,
-								  'products_replacement_product_id' => $sProductsReplacementProductID,
-                                  'products_base_price' => $products_base_price,
-                                  'products_product_quantity' => $products_product_quantity,
-                                  'products_base_quantity' => $products_base_quantity,
-                                  'products_base_unit' => $products_base_unit,
-                                  'products_date_available' => $products_date_available,
-                                  'products_status' => $sProductsStatus,
-								  'products_setting' => '1',
-                                  'products_tax_class_id' => $products_tax_class_id,
-                                  );
-
-				$insert_sql_data = array('products_date_added' => 'now()');
-
-				$sql_data_array = array_merge($sql_data_array, $insert_sql_data);
-
-				oos_db_perform($oostable['products'], $sql_data_array);
-				$pID = $dbconn->Insert_ID();
-                 
-				$products_to_categoriestable = $oostable['products_to_categories'];
-				$dbconn->Execute("INSERT INTO $products_to_categoriestable (products_id, categories_id) VALUES ('" . intval($pID) . "', '" . intval($current_category_id) . "')");
-
-				$aLanguages = oos_get_languages();
-				$nLanguages = count($aLanguages);
-				for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
-					$lang_id = $aLanguages[$i]['id'];
-
-					$sql_data_array = array('products_id' => $pID,
-                                            'products_languages_id' => $lang_id);
-					oos_db_perform($oostable['products_description'], $sql_data_array);
-
-				}
-			break;		
-		
+		case 'insert_product':
 		case 'update_product':
+
 			$_POST['products_price'] = str_replace(',', '.', $_POST['products_price']);
 			$_POST['products_price_list'] = str_replace(',', '.', $_POST['products_price_list']);
 			$_POST['products_discount1'] = str_replace(',', '.', $_POST['products_discount1']);
@@ -92,14 +48,14 @@ if (!empty($action)) {
 			$sProductsQuantity = oos_db_prepare_input($_POST['products_quantity']);
 			$sProductsStatus = oos_db_prepare_input($_POST['products_status']);
 			$sProductsReplacementProductID = oos_db_prepare_input($_POST['products_replacement_product_id']);
-			
+
 			if (oos_is_not_null($sProductsReplacementProductID)) {
 				$messageStack->add_session(ERROR_REPLACEMENT, 'error');
 				$sProductsStatus = 4;
 			} else {
 				$sProductsReplacementProductID = 'null';
 			}
-			
+
 			if (STOCK_CHECK == 'true') {
 				if ($sProductsQuantity <= 0 ) {
 					$messageStack->add_session(ERROR_OUTOFSTOCK, 'error');
@@ -235,9 +191,6 @@ if (is_dir(OOS_ABSOLUTE_PATH . OOS_IMAGES)) {
     $messageStack->add(ERROR_CATALOG_IMAGE_DIRECTORY_DOES_NOT_EXIST, 'error');
 }
 
-$sFormid = md5(uniqid(rand(), true));
-$_SESSION['formid'] = $sFormid;
-
 require 'includes/header.php';
 ?>
 <!-- body //-->
@@ -277,7 +230,7 @@ require 'includes/header.php';
                                                  p.products_weight, p.products_date_added, p.products_last_modified,
                                                  date_format(p.products_date_available, '%Y-%m-%d') AS products_date_available,
                                                  p.products_status, p.products_setting, p.products_tax_class_id, p.products_units_id,
-												 p.manufacturers_id, p.products_price_list, 
+												 p.manufacturers_id, p.products_price_list,
                                                  p.products_quantity_order_min, p.products_quantity_order_units, p.products_quantity_order_max,
                                                  p.products_discount1, p.products_discount2, p.products_discount3,
                                                  p.products_discount4, p.products_discount1_qty, p.products_discount2_qty,
@@ -298,7 +251,13 @@ require 'includes/header.php';
 		$products_keywords_meta = $_POST['products_keywords_meta'];
 		$products_url = $_POST['products_url'];
     } else {
-		oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $pID));
+      $pInfo = new objectInfo(array());
+      $pInfo->products_status = DEFAULT_PRODUTS_STATUS_ID;
+      $pInfo->products_base_price = 1.0;
+      $pInfo->products_product_quantity = 1.0;
+      $pInfo->products_base_quantity = 1.0;
+      $pInfo->products_units_id = DEFAULT_PRODUCTS_UNITS_ID;
+	  $pInfo->products_tax_class_id = 1; // DEFAULT_TAX_CLASS_ID
     }
 
     $manufacturers_array = array();
@@ -351,8 +310,8 @@ require 'includes/header.php';
       // Move that ADOdb pointer!
       $products_status_result->MoveNext();
     }
-	
-	
+
+
 	$aSetting = array();
 	$settingstable = $oostable['setting'];
 	$setting_result = $dbconn->Execute("SELECT setting_id, setting_name FROM $settingstable WHERE setting_languages_id = '" . intval($_SESSION['language_id']) . "'");
@@ -408,7 +367,7 @@ function calcBasePriceFactor() {
 	<!-- END Breadcrumbs //-->
 
 	<?php echo oos_draw_form('fileupload', 'new_product', $aContents['products'], 'cPath=' . $cPath . (!empty($pID) ? '&pID=' . intval($pID) : '') . '&action=update_product', 'post', TRUE, 'enctype="multipart/form-data"'); ?>
-		<?php echo oos_draw_hidden_field('products_date_added', (($pInfo->products_date_added) ? $pInfo->products_date_added : date('Y-m-d'))); ?>	
+		<?php echo oos_draw_hidden_field('products_date_added', (($pInfo->products_date_added) ? $pInfo->products_date_added : date('Y-m-d'))); ?>
                <div role="tabpanel">
                   <ul class="nav nav-tabs nav-justified">
                      <li class="nav-item" role="presentation">
@@ -424,18 +383,18 @@ function calcBasePriceFactor() {
                   <div class="tab-content">
                      <div class="tab-pane active" id="edit" role="tabpanel">
 
-                        <fieldset>					
+                        <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo ENTRY_STATUS; ?></label>
                               <div class="col-lg-10"><?php echo oos_draw_pull_down_menu('status', $aSetting, $pInfo->products_setting); ?></div>
                            </div>
-                        </fieldset>	
+                        </fieldset>
 
 
 <?php
     for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
 ?>
-				 
+
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_PRODUCTS_NAME; ?></label>
@@ -447,7 +406,7 @@ function calcBasePriceFactor() {
                         </fieldset>
 <?php
     }
-?>						
+?>
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_DATE_AVAILABLE; ?><br /><small>(YYYY-MM-DD)</small></label>
@@ -462,13 +421,13 @@ function calcBasePriceFactor() {
                            </div>
                         </fieldset>
 
-                        <fieldset>					
+                        <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_MANUFACTURER; ?></label>
                               <div class="col-lg-10"><?php echo oos_draw_pull_down_menu('manufacturers_id', $manufacturers_array, $pInfo->manufacturers_id); ?></div>
                            </div>
-                        </fieldset>			
-						
+                        </fieldset>
+
 <?php
     for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
 ?>
@@ -504,7 +463,7 @@ function calcBasePriceFactor() {
                                  <?php echo oos_draw_input_field('products_ean', $pInfo->products_ean); ?>
                               </div>
                            </div>
-                        </fieldset>						
+                        </fieldset>
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_QUANTITY; ?></label>
@@ -512,7 +471,7 @@ function calcBasePriceFactor() {
                                  <?php echo oos_draw_input_field('products_quantity', $pInfo->products_quantity); ?>
                               </div>
                            </div>
-                        </fieldset>							
+                        </fieldset>
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_PRODUCT_MINIMUM_ORDER; ?></label>
@@ -520,7 +479,7 @@ function calcBasePriceFactor() {
                                  <?php echo oos_draw_input_field('products_quantity_order_min', ($pInfo->products_quantity_order_min==0 ? 1 : $pInfo->products_quantity_order_min)); ?>
                               </div>
                            </div>
-                        </fieldset>						
+                        </fieldset>
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_PRODUCT_PACKAGING_UNIT; ?></label>
@@ -536,7 +495,7 @@ function calcBasePriceFactor() {
                                  <?php echo oos_draw_input_field('products_quantity_order_max', ($pInfo->products_quantity_order_max==0 ? 30 : $pInfo->products_quantity_order_max)); ?>
                               </div>
                            </div>
-                        </fieldset>					
+                        </fieldset>
 <?php
 	if (STOCK_CHECK == 'true') {
 ?>
@@ -584,7 +543,7 @@ function calcBasePriceFactor() {
                                  <?php echo oos_draw_input_field('products_product_quantity', $pInfo->products_product_quantity, 'OnKeyUp="calcBasePriceFactor()"'); ?>
                               </div>
                            </div>
-                        </fieldset>				
+                        </fieldset>
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_UNIT; ?></label>
@@ -592,7 +551,7 @@ function calcBasePriceFactor() {
                                  <?php echo oos_draw_pull_down_menu('products_units_id', $products_units_array, $pInfo->products_units_id); ?>
                               </div>
                            </div>
-                        </fieldset>						
+                        </fieldset>
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_BASE_QUANTITY; ?></label>
@@ -600,7 +559,7 @@ function calcBasePriceFactor() {
                                  <?php echo oos_draw_input_field('products_base_quantity', $pInfo->products_base_quantity, 'OnKeyUp="calcBasePriceFactor()"'); ?>
                               </div>
                            </div>
-                        </fieldset>					
+                        </fieldset>
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_BASE_UNIT; ?></label>
@@ -616,7 +575,7 @@ function calcBasePriceFactor() {
                                  <?php echo oos_draw_input_field('products_base_price', $pInfo->products_base_price); ?>
                               </div>
                            </div>
-                        </fieldset>						
+                        </fieldset>
 <?php
   }
 ?>
@@ -630,7 +589,7 @@ function calcBasePriceFactor() {
                                  <?php echo oos_draw_pull_down_menu('products_tax_class_id', $tax_class_array, $pInfo->products_tax_class_id); ?>
                               </div>
                            </div>
-                        </fieldset>	
+                        </fieldset>
 
                         <fieldset>
                            <div class="form-group row">
@@ -672,12 +631,12 @@ function calcBasePriceFactor() {
                               </div>
                            </div>
                         </fieldset>
-						
+
 <?php
     for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
 ?>
-					
-                        <fieldset>					
+
+                        <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_PRODUCTS_URL . '<br /><small>' . TEXT_PRODUCTS_URL_WITHOUT_HTTP . '</small>'; ?></label>
 							  <?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
@@ -686,15 +645,15 @@ function calcBasePriceFactor() {
                         </fieldset>
 <?php
     }
-?>		
+?>
 
-                        <fieldset>					
+                        <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_WEIGHT; ?></label>
                               <div class="col-lg-10"><?php echo oos_draw_input_field('products_weight', $pInfo->products_weight); ?></div>
                            </div>
-                        </fieldset>								
-                        <fieldset>					
+                        </fieldset>
+                        <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_STATUS; ?></label>
                               <div class="col-lg-10"><?php echo oos_draw_pull_down_menu('products_status', $products_status_array, $pInfo->products_status); ?></div>
@@ -707,13 +666,13 @@ function calcBasePriceFactor() {
                                  <?php echo oos_draw_input_field('products_replacement_product_id', $pInfo->products_replacement_product_id); ?>
                               </div>
                            </div>
-                        </fieldset>						
-						
-						
+                        </fieldset>
+
+
                      </div>
                      <div class="tab-pane" id="seo" role="tabpanel">
 <?php
-	for ($i = 0, $n = $nLanguages; $i < $n; $i++) {	  
+	for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
 ?>
 					<fieldset>
 						<div class="form-group row">
@@ -725,8 +684,8 @@ function calcBasePriceFactor() {
 						</div>
 					</fieldset>
 <?php
-	}  
-	for ($i = 0, $n = $nLanguages; $i < $n; $i++) {	
+	}
+	for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
 ?>
 					<fieldset>
 						<div class="form-group row">
@@ -761,11 +720,11 @@ function calcBasePriceFactor() {
     <div id="files" class="files"></div>
     <br>
 
-				 
-					 
+
+
 <?php
-	if (isset($_GET['pID']) && empty($_POST)) {					 
-?>	
+	if (isset($_GET['pID']) && empty($_POST)) {
+?>
                         <div class="row mb-3">
                            <div class="col-3">
                               <strong>Preview</strong>
@@ -812,7 +771,7 @@ function calcBasePriceFactor() {
                         </div>
 <?php
 	}
-?>						
+?>
                      </div>
                   </div>
                </div>
@@ -823,22 +782,51 @@ function calcBasePriceFactor() {
 <!-- body_text_eof //-->
 <?php
   } elseif ($action == 'new_product_preview') {
+    if (oos_is_not_null($_POST)) {
+      $pInfo = new objectInfo($_POST);
+      $products_name = $_POST['products_name'];
+      $products_url = $_POST['products_url'];
+
+      if ( ($_POST['products_image'] != 'none') && (isset($_FILES['products_image'])) ) {
+         $products_image = oos_get_uploaded_file('products_image');
+         $image_directory = oos_get_local_path(OOS_ABSOLUTE_PATH . OOS_IMAGES);
+      }
+      if (is_uploaded_file($products_image['tmp_name'])) {
+        $products_image_name = oos_copy_uploaded_file($products_image, $image_directory);
+      } else {
+        $products_image_name = $_POST['products_previous_image'];
+      }
+    } else {
       $product_result = $dbconn->Execute("SELECT pd.products_name, pd.products_description, pd.products_description_meta, products_keywords_meta, pd.products_url, p.products_id, p.products_quantity, p.products_reorder_level, p.products_model, p.products_replacement_product_id, p.products_ean, p.products_image, p.products_price, p.products_base_price, p.products_base_unit, p.products_weight, p.products_date_added, p.products_last_modified, date_format(p.products_date_available, '%Y-%m-%d') as products_date_available, p.products_status, p.products_tax_class_id, p.products_units_id, p.manufacturers_id, p.products_price_list, p.products_quantity_order_min, p.products_quantity_order_units, p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4, p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty, p.products_discount4_qty, p.products_sort_order FROM " . $oostable['products'] . " p, " . $oostable['products_description'] . " pd WHERE p.products_id = '" . $_GET['pID'] . "' and p.products_id = pd.products_id and pd.products_languages_id = '" . intval($_SESSION['language_id']) . "'");
       $product = $product_result->fields;
 
       $pInfo = new objectInfo($product);
       $products_image_name = $pInfo->products_image;
-?>
-<!-- body_text //-->
-	<table border="0" width="100%" cellspacing="0" cellpadding="2">
-<?php
+    }
+
+    $form_action = ($_GET['pID']) ? 'update_product' : 'insert_product';
+
+    echo oos_draw_form('id', $form_action, $aContents['products'], 'cPath=' . $cPath . (isset($_GET['pID']) ? '&pID=' . $_GET['pID'] : '') . '&action=' . $form_action, 'post', TRUE, 'enctype="multipart/form-data"');
+
     $aLanguages = oos_get_languages();
 	$nLanguages = count($aLanguages);
     for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
+      if (isset($_GET['read']) && ($_GET['read'] == 'only')) {
         $pInfo->products_name = oos_get_products_name($pInfo->products_id, $aLanguages[$i]['id']);
         $pInfo->products_description = oos_get_products_description($pInfo->products_id, $aLanguages[$i]['id']);
-        $pInfo->products_url = oos_get_products_url($pInfo->products_id, $aLanguages[$i]['id']);	  
+        $pInfo->products_description_meta = oos_get_products_description_meta($pInfo->products_id, $aLanguages[$i]['id']);
+        $pInfo->products_keywords_meta = oos_get_products_keywords_meta($pInfo->products_id, $aLanguages[$i]['id']);
+        $pInfo->products_url = oos_get_products_url($pInfo->products_id, $aLanguages[$i]['id']);
+      } else {
+        $pInfo->products_name = oos_db_prepare_input($products_name[$aLanguages[$i]['id']]);
+        $pInfo->products_description = oos_db_prepare_input($_POST['products_description_' .$aLanguages[$i]['id']]);
+        $pInfo->products_description_meta = oos_db_prepare_input($_POST['products_description_meta_' .$aLanguages[$i]['id']]);
+        $pInfo->products_keywords_meta = oos_db_prepare_input($_POST['products_keywords_meta_' .$aLanguages[$i]['id']]);
+        $pInfo->products_url = oos_db_prepare_input($products_url[$aLanguages[$i]['id']]);
+      }
 ?>
+<!-- body_text //-->
+	<table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
         <td>
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
@@ -935,7 +923,7 @@ if ( $q1 < $q0 ) {
   echo '<td class="DiscountPrice" align="center">';
   echo ( ($the_special==0) ? $currencies->format($pInfo->products_price) : $currencies->format($the_special) );
   echo '</td>';
- 
+
   if ( $q1 > 0 ) {
     echo '<td class="DiscountPrice" align="center">';
     echo $currencies->format($pInfo->products_discount1);
@@ -1036,6 +1024,51 @@ if ( $q1 < $q0 ) {
       <tr>
         <td class="text-right"><?php echo '<a href="' . oos_href_link_admin($back_url, $back_url_params) . '">' . oos_button('back', IMAGE_BACK) . '</a>'; ?></td>
       </tr>
+<?php
+    } else {
+?>
+      <tr>
+        <td align="right" class="smallText">
+<?php
+/* Re-Post all POST'ed variables */
+      reset($_POST);
+      foreach ($_POST as $key => $value) {		  
+        if (!is_array($_POST[$key])) {
+          echo oos_draw_hidden_field($key, htmlspecialchars(stripslashes($value)));
+        }
+      }
+      $aLanguages = oos_get_languages();
+	  $nLanguages = count($aLanguages);
+      for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
+        echo oos_draw_hidden_field('products_name[' . $aLanguages[$i]['id'] . ']', htmlspecialchars(stripslashes($products_name[$aLanguages[$i]['id']])));
+        echo oos_draw_hidden_field('products_description[' . $aLanguages[$i]['id'] . ']', htmlspecialchars(stripslashes($products_description[$aLanguages[$i]['id']])));
+        echo oos_draw_hidden_field('products_description_meta[' . $aLanguages[$i]['id'] . ']', htmlspecialchars(stripslashes($products_description_meta[$aLanguages[$i]['id']])));
+        echo oos_draw_hidden_field('products_keywords_meta[' . $aLanguages[$i]['id'] . ']', htmlspecialchars(stripslashes($products_keywords_meta[$aLanguages[$i]['id']])));
+        echo oos_draw_hidden_field('products_url[' . $aLanguages[$i]['id'] . ']', htmlspecialchars(stripslashes($products_url[$aLanguages[$i]['id']])));
+      }
+      echo oos_draw_hidden_field('products_image', stripslashes($products_image_name));
+
+      if (isset($_POST['categories_ids'])) {
+        $selected_catids = $_POST['categories_ids'];
+        foreach ($selected_catids as $current_category_id)  {
+          echo oos_draw_hidden_field('categories_ids[]', stripslashes($current_category_id));
+        }
+      }
+
+      echo oos_submit_button('back', IMAGE_BACK, 'name="edit"') . '&nbsp;&nbsp;';
+
+      if (isset($_GET['pID'])) {
+        echo oos_submit_button('update', IMAGE_UPDATE);
+      } else {
+        echo oos_submit_button('insert', BUTTON_INSERT);
+      }
+
+?></td>
+      </form></tr>
+
+<?php
+    }
+?>
 	      </table>
 <!-- body_text_eof //-->
 <?php
