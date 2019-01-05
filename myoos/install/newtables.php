@@ -612,16 +612,6 @@ $idxflds = 'name';
 idxsql($idxname, $table, $idxflds);
 
 
-$table = $prefix_table . 'limit-login';
-$flds = "
-  limit-login_id I NOTNULL AUTO PRIMARY,
-  ip_address C(15) NOTNULL,
-  counter I1 DEFAULT '0',
-  time_last_click C(14) NOTNULL
-";
-dosql($table, $flds);
-
-
 
 $table = $prefix_table . 'manual_info';
 $flds = "
@@ -1090,23 +1080,6 @@ $flds = "
   reviews_text X NOTNULL
 ";
 dosql($table, $flds);
-
-
-
-$table = $prefix_table . 'sessions';
-$flds = "
-  SESSKEY C(64) NOTNULL PRIMARY,
-  EXPIRY D NOTNULL,
-  EXPIREREF C(250),
-  CREATED T NOTNULL,
-  MODIFIED T NOTNULL,
-  SESSDATA XL
-";
-dosql($table, $flds);
-
-$idxname = 'sess2_expiry';
-$idxflds = 'EXPIRY';
-idxsql($idxname, $table, $idxflds);
 
 
 
