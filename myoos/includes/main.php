@@ -22,7 +22,7 @@
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
 // debug
-$debug = true;
+$debug = false;
 
 date_default_timezone_set('Europe/Berlin'); 
   
@@ -82,10 +82,6 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_navigation_history.ph
 
 
 // require the database functions
-$adodb_logsqltable = $oostable['adodb_logsql'];
-if (!defined('ADODB_LOGSQL_TABLE')) {
-    define('ADODB_LOGSQL_TABLE', $adodb_logsqltable);
-}
 require_once MYOOS_INCLUDE_PATH . '/includes/lib/adodb/adodb-errorhandler.inc.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/lib/adodb/adodb.inc.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_db.php';

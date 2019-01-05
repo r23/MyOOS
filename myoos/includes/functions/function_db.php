@@ -101,18 +101,6 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
     global $ADODB_FETCH_MODE;
     $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 
-    // force oracle to a consistent date format for comparison methods later on
-    if (strcmp($dbtype, 'oci8') == 0) {
-        $dbconn->Execute("alter session set NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS'");
-    }
-    //$dbconn->debug = TRUE;
-    if (OOS_LOG_SQL == 'true') {
-      include_once MYOOS_INCLUDE_PATH . '/includes/lib/adodb/adodb-perf.inc.php';
-      adodb_perf::table(ADODB_LOGSQL_TABLE);
-
-      $dbconn->LogSQL();
-    }
-
     $GLOBALS['oosDB_connections'][0] = $dbconn;
     $GLOBALS['oosDB_tables'] = array();
 

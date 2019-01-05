@@ -622,17 +622,6 @@ $flds = "
 dosql($table, $flds);
 
 
-$table = $prefix_table . 'logsql';
-$flds = "
-   created T NOTNULL,
-   sql0 C(250) NOTNULL,
-   sql1 X NOTNULL,
-   params X NOTNULL,
-   tracer X NOTNULL,
-   timer N '16.6' NOTNULL
-";
-dosql($table, $flds);
-
 
 $table = $prefix_table . 'manual_info';
 $flds = "

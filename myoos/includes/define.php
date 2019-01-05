@@ -12,7 +12,6 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-define('OOS_LOG_SQL', 'false');    // OOS Performance Monitor
 define('USE_DB_CACHE', 'false');   // OOS SQL-Layer Cache 
 define('USE_DB_CACHE_LEVEL_HIGH', 'false');  // OOS SQL-Layer Cache HIGH
 

@@ -43,12 +43,3 @@ if (isset($_SESSION)) {
 	}
 }
 
-
-if (OOS_LOG_SQL == 'true') {
-	$dbconn->LogSQL(false); // turn off logging
-    // output summary of SQL logging results
-	$perf = NewPerfMonitor($dbconn);
-	echo $perf->SuspiciousSQL();
-	echo $perf->ExpensiveSQL();
-	echo $perf->InvalidSQL();
-}
