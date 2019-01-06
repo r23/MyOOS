@@ -38,6 +38,16 @@ if (!empty($action)) {
 		case 'insert_product':
 		case 'update_product':
 
+
+	echo '<pre>';
+	print_r($_GET);
+	echo '<br />';
+	print_r($_POST);
+	echo '<br />';
+	print_r($_FILES);
+	echo '</pre>';
+	exit;
+
 			$_POST['products_price'] = str_replace(',', '.', $_POST['products_price']);
 			$_POST['products_price_list'] = str_replace(',', '.', $_POST['products_price_list']);
 			$_POST['products_discount1'] = str_replace(',', '.', $_POST['products_discount1']);
@@ -251,13 +261,13 @@ require 'includes/header.php';
 		$products_keywords_meta = $_POST['products_keywords_meta'];
 		$products_url = $_POST['products_url'];
     } else {
-      $pInfo = new objectInfo(array());
-      $pInfo->products_status = DEFAULT_PRODUTS_STATUS_ID;
-      $pInfo->products_base_price = 1.0;
-      $pInfo->products_product_quantity = 1.0;
-      $pInfo->products_base_quantity = 1.0;
-      $pInfo->products_units_id = DEFAULT_PRODUCTS_UNITS_ID;
-	  $pInfo->products_tax_class_id = 1; // DEFAULT_TAX_CLASS_ID
+		$pInfo = new objectInfo(array());
+		$pInfo->products_status = DEFAULT_PRODUTS_STATUS_ID;
+		$pInfo->products_base_price = 1.0;
+		$pInfo->products_product_quantity = 1.0;
+		$pInfo->products_base_quantity = 1.0;
+		$pInfo->products_units_id = DEFAULT_PRODUCTS_UNITS_ID;
+		$pInfo->products_tax_class_id = 1; // DEFAULT_TAX_CLASS_ID
     }
 
     $manufacturers_array = array();
@@ -311,6 +321,10 @@ require 'includes/header.php';
       $products_status_result->MoveNext();
     }
 
+    $aLanguages = oos_get_languages();
+	$nLanguages = count($aLanguages);
+	
+    $form_action = (isset($_GET['pID'])) ? 'update_product' : 'insert_product';
 
 	$aSetting = array();
 	$settingstable = $oostable['setting'];
@@ -366,7 +380,7 @@ function calcBasePriceFactor() {
 	</div>
 	<!-- END Breadcrumbs //-->
 
-	<?php echo oos_draw_form('fileupload', 'new_product', $aContents['products'], 'cPath=' . $cPath . (!empty($pID) ? '&pID=' . intval($pID) : '') . '&action=update_product', 'post', TRUE, 'enctype="multipart/form-data"'); ?>
+	<?php echo oos_draw_form('id', 'new_product', $aContents['products'], 'cPath=' . $cPath . (!empty($pID) ? '&pID=' . intval($pID) : '') . '&action=' . $form_action, 'post', FALSE, 'enctype="multipart/form-data"'); ?>
 		<?php echo oos_draw_hidden_field('products_date_added', (($pInfo->products_date_added) ? $pInfo->products_date_added : date('Y-m-d'))); ?>
                <div role="tabpanel">
                   <ul class="nav nav-tabs nav-justified">
@@ -701,24 +715,79 @@ function calcBasePriceFactor() {
 ?>
                      </div>
                      <div class="tab-pane" id="picture" role="tabpanel">
+		<script type="text/javascript">
+		// <!-- <![CDATA[
+		window.totalinputs = 1;
+		function addUploadBoxes(placeholderid, copyfromid, num) {
+			for (i = 0; i < num; i++) {
+				jQuery('#' + copyfromid).clone().insertBefore('#' + placeholderid);
+				window.totalinputs++;
+				if (window.totalinputs >= 30) {
+					jQuery('#addUploadBoxes').toggle('slow');
+					return;
+				}
+			}
+		}
+		function resetBoxes() {
+			window.totalinputs = 1
+			$('#uploadboxes').html('<div id="place" style="display: none;"></div>');
+			addUploadBoxes('place', 'filetemplate', 1);
+		}
+		// ]]> -->
+	</script>
 
+
+	<div id="uploadboxes">
+		<div class="fileuploadbox"><input type="file" size="40" name="files[]" /></div>
+		<div class="fileuploadbox"><input type="file" size="40" name="files[]" /></div>
+		<div class="fileuploadbox"><input type="file" size="40" name="files[]" /></div>
+		<div class="fileuploadbox"><input type="file" size="40" name="files[]" /></div>
+		<div class="fileuploadbox"><input type="file" size="40" name="files[]" /></div>
+
+		<div id="place" style="display: none;"></div>
+		<!-- New boxes get inserted before this -->
+
+	</div>
+	<div style="display:none">
+		<!-- This is the template that others are copied from -->
+		<div class="fileuploadbox" id="filetemplate" ><input type="file" size="40" name="files[]" value="x" /></div>
+	</div>
+	<p id="addUploadBoxes"><a href="javascript:addUploadBoxes('place','filetemplate',1)" title="Lädt nicht erneut!">+ Mehr Felder zum Hochladen hinzufügen</a> <small>
+
+	
+			(lädt die Seite nicht neu, aber erinnert Ihre Grenze beim Hochladen!)</small></p>
     <!-- The fileinput-button span is used to style the file input field as button -->
     <span class="btn btn-success fileinput-button">
         <i class="glyphicon glyphicon-plus"></i>
         <span>Add files...</span>
         <!-- The file input field used as target for the file upload widget -->
-        <input id="fileupload" type="file" name="files[]" multiple>
-		<?php echo oos_draw_hidden_field('formid', $sFormid); ?>
     </span>
-    <br>
-    <br>
-    <!-- The global progress bar -->
-    <div id="progress" class="progress">
-        <div class="progress-bar progress-bar-success"></div>
-    </div>
-    <!-- The container for the uploaded files -->
-    <div id="files" class="files"></div>
-    <br>
+
+<div class="container">
+  <div class="row">
+function addNewPiForm() {
+  piSize++;
+
+  $('#piList').append('<li id="piId' + piSize + '" class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s" style="float: right;"></span><a href="#" onclick="showPiDelConfirm(' + piSize + ');return false;" class="ui-icon ui-icon-trash" style="float: right;"></a><strong><?php echo TEXT_PRODUCTS_LARGE_IMAGE; ?></strong><br /><input type="file" name="products_image_large_new_' + piSize + '" /><br /><br /><?php echo TEXT_PRODUCTS_LARGE_IMAGE_HTML_CONTENT; ?><br /><textarea name="products_image_htmlcontent_new_' + piSize + '" wrap="soft" cols="70" rows="3"></textarea></li>');
+}
+
+
+<div class="fileinput fileinput-new" data-provides="fileinput">
+  <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+  <div>
+    <span class="btn btn-warning btn-file"><span class="fileinput-new"><em class="fa fa-plus-circle fa-fw"></em>Select image</span><span class="fileinput-exists">Change</span>
+	
+	<input type="file" size="40" name="files[]"></span>
+    <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput"><em class="fa fa-times-circle fa-fw"></em>Remove</a>
+  </div>
+</div>
+
+
+
+        <span>Add files...</span>
+
+		<div id="place" style="display: none;"></div>
+		<!-- New boxes get inserted before this -->
 
 
 
@@ -1067,7 +1136,7 @@ if ( $q1 < $q0 ) {
       </form></tr>
 
 <?php
-    }
+  #  }
 ?>
 	      </table>
 <!-- body_text_eof //-->
