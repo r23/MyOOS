@@ -35,3 +35,4 @@ prepros-6.config
 .project
 .buildpath
 .settings
+/myoos/includes/lib/adodb/server.php

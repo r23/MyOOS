@@ -21,6 +21,7 @@ use Symfony\Bridge\Twig\Extension\CsrfExtension;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\FrameworkBundle\Routing\AnnotatedRouteControllerLoader;
 use Symfony\Bundle\FullStack;
+use Symfony\Component\BrowserKit\Client;
 use Symfony\Component\Cache\Adapter\AbstractAdapter;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
@@ -37,7 +38,6 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\Argument\IteratorArgument;
-use Symfony\Component\DependencyInjection\Argument\RewindableGenerator;
 use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -198,6 +198,10 @@ class FrameworkExtension extends Extension
 
         if (!empty($config['test'])) {
             $loader->load('test.xml');
+
+            if (!class_exists(Client::class)) {
+                $container->removeDefinition('test.client');
+            }
         }
 
         if ($this->isConfigEnabled($container, $config['session'])) {
@@ -1600,12 +1604,7 @@ class FrameworkExtension extends Extension
                 $senders[$sender] = new Reference($senderAliases[$sender] ?? $sender);
             }
 
-            $sendersId = 'messenger.senders.'.$message;
-            $container->register($sendersId, RewindableGenerator::class)
-                ->setFactory('current')
-                ->addArgument(array(new IteratorArgument($senders)));
-            $messageToSendersMapping[$message] = new Reference($sendersId);
-
+            $messageToSendersMapping[$message] = new IteratorArgument($senders);
             $messagesToSendAndHandle[$message] = $messageConfiguration['send_and_handle'];
         }
 
