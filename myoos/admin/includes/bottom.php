@@ -29,9 +29,7 @@ if ($bForm == TRUE) {
 <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="js/plugins/screenfull/dist/screenfull.min.js"></script>
 <script src="js/plugins/jquery-storage-api/jquery.storageapi.min.js"></script>
-<!-- MOMENT JS-->
 <script src="js/plugins/moment/min/moment-with-locales.min.js"></script>
-<!-- DATETIMEPICKER-->
 <script src="js/plugins/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
 <script src="js/plugins/jasny/jasny-bootstrap.min.js"></script>
 <script src="js/general.js"></script>

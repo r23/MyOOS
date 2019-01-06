@@ -253,6 +253,8 @@ define('BUTTON_UPLOAD_IMAGES', 'Bilder hochladen');
 define('BUTTON_CANCEL_UPLOAD', 'Hochladen abbrechen');
 define('BUTTON_START_UPLOAD', 'Hochladen starten');
 define('BUTTON_ADD_FILES', 'Dateien hinzufügen');
+
+define('BUTTON_CHANGE', 'Ändern');
 define('IMAGE_CONFIRM', 'Bestätigen');
 define('IMAGE_COPY', 'Kopieren');
 define('IMAGE_COPY_TO', 'Kopieren nach');
@@ -296,6 +298,7 @@ define('IMAGE_RESTORE', 'Zurücksichern');
 define('IMAGE_SAVE', 'Speichern');
 define('IMAGE_SEARCH', 'Suchen');
 define('IMAGE_SELECT', 'Auswählen');
+define('BUTTON_SELECT_IMAGE', 'Bild auswählen');
 define('IMAGE_SEND', 'Versenden');
 define('IMAGE_SEND_EMAIL', 'eMail versenden');
 define('BUTTON_SEND_PASSWORD', 'Passwort senden');

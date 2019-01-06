@@ -249,6 +249,8 @@ define('BUTTON_UPLOAD_IMAGES', 'Upload Images');
 define('BUTTON_CANCEL_UPLOAD', 'Cancel upload');
 define('BUTTON_START_UPLOAD', 'Start upload');
 define('BUTTON_ADD_FILES', 'Add files...');
+
+define('BUTTON_CHANGE', 'Change');
 define('IMAGE_CONFIRM', 'Confirm');
 define('IMAGE_COPY', 'Copy');
 define('IMAGE_COPY_TO', 'Copy To');
@@ -291,6 +293,7 @@ define('IMAGE_RESET', 'Reset');
 define('IMAGE_SAVE', 'Save');
 define('IMAGE_SEARCH', 'Search');
 define('IMAGE_SELECT', 'Select');
+define('BUTTON_SELECT_IMAGE', 'Select image');
 define('IMAGE_SEND', 'Send');
 define('IMAGE_SEND_EMAIL', 'Send Email');
 define('BUTTON_SEND_PASSWORD', 'Send password');

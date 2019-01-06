@@ -1,4 +1,4 @@
-<?php
+ï»¿<?php
 /* ----------------------------------------------------------------------
 
    MyOOS [Shopsystem]
@@ -717,7 +717,7 @@ function calcBasePriceFactor() {
                      <div class="tab-pane" id="picture" role="tabpanel">
 		<script type="text/javascript">
 		// <!-- <![CDATA[
-		window.totalinputs = 1;
+		window.totalinputs = 3;
 		function addUploadBoxes(placeholderid, copyfromid, num) {
 			for (i = 0; i < num; i++) {
 				jQuery('#' + copyfromid).clone().insertBefore('#' + placeholderid);
@@ -729,67 +729,108 @@ function calcBasePriceFactor() {
 			}
 		}
 		function resetBoxes() {
-			window.totalinputs = 1
+			window.totalinputs = 3
 			$('#uploadboxes').html('<div id="place" style="display: none;"></div>');
-			addUploadBoxes('place', 'filetemplate', 1);
+			addUploadBoxes('place', 'filetemplate', 3);
 		}
 		// ]]> -->
 	</script>
 
 
-	<div id="uploadboxes">
-		<div class="fileuploadbox"><input type="file" size="40" name="files[]" /></div>
-		<div class="fileuploadbox"><input type="file" size="40" name="files[]" /></div>
-		<div class="fileuploadbox"><input type="file" size="40" name="files[]" /></div>
-		<div class="fileuploadbox"><input type="file" size="40" name="files[]" /></div>
-		<div class="fileuploadbox"><input type="file" size="40" name="files[]" /></div>
-
-		<div id="place" style="display: none;"></div>
-		<!-- New boxes get inserted before this -->
-
-	</div>
-	<div style="display:none">
-		<!-- This is the template that others are copied from -->
-		<div class="fileuploadbox" id="filetemplate" ><input type="file" size="40" name="files[]" value="x" /></div>
-	</div>
-	<p id="addUploadBoxes"><a href="javascript:addUploadBoxes('place','filetemplate',1)" title="Lädt nicht erneut!">+ Mehr Felder zum Hochladen hinzufügen</a> <small>
-
-	
-			(lädt die Seite nicht neu, aber erinnert Ihre Grenze beim Hochladen!)</small></p>
-    <!-- The fileinput-button span is used to style the file input field as button -->
-    <span class="btn btn-success fileinput-button">
-        <i class="glyphicon glyphicon-plus"></i>
-        <span>Add files...</span>
-        <!-- The file input field used as target for the file upload widget -->
-    </span>
-
-<div class="container">
-  <div class="row">
-function addNewPiForm() {
-  piSize++;
-
-  $('#piList').append('<li id="piId' + piSize + '" class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s" style="float: right;"></span><a href="#" onclick="showPiDelConfirm(' + piSize + ');return false;" class="ui-icon ui-icon-trash" style="float: right;"></a><strong><?php echo TEXT_PRODUCTS_LARGE_IMAGE; ?></strong><br /><input type="file" name="products_image_large_new_' + piSize + '" /><br /><br /><?php echo TEXT_PRODUCTS_LARGE_IMAGE_HTML_CONTENT; ?><br /><textarea name="products_image_htmlcontent_new_' + piSize + '" wrap="soft" cols="70" rows="3"></textarea></li>');
-}
-
+		<div class="row mb-3">
+			<div class="col-3">
+				<strong>Preview</strong>
+			</div>
+			<div class="col-9">
+				<strong>Details</strong>
+			</div>
+		</div>
+		<div class="row mb-3 pb-3 bb">
+			<div class="col-6 col-md-3">
 
 <div class="fileinput fileinput-new" data-provides="fileinput">
   <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
   <div>
-    <span class="btn btn-warning btn-file"><span class="fileinput-new"><em class="fa fa-plus-circle fa-fw"></em>Select image</span><span class="fileinput-exists">Change</span>
+    <span class="btn btn-warning btn-file"><span class="fileinput-new"><em class="fa fa-plus-circle fa-fw"></em><?php echo BUTTON_SELECT_IMAGE; ?></span><span class="fileinput-exists"><?php echo BUTTON_CHANGE; ?></span>
 	
 	<input type="file" size="40" name="files[]"></span>
-    <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput"><em class="fa fa-times-circle fa-fw"></em>Remove</a>
+    <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput"><em class="fa fa-times-circle fa-fw"></em><?php echo BUTTON_DELETE; ?></a>
   </div>
 </div>
 
+			</div>
+			<div class="col-9">
+				<strong>Details</strong>
+			</div>	
+		</div>
+		<div class="row mb-3 pb-3 bb">
+			<div class="col-6 col-md-3">
+
+<div class="fileinput fileinput-new" data-provides="fileinput">
+  <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+  <div>
+    <span class="btn btn-warning btn-file"><span class="fileinput-new"><em class="fa fa-plus-circle fa-fw"></em><?php echo BUTTON_SELECT_IMAGE; ?></span><span class="fileinput-exists"><?php echo BUTTON_CHANGE; ?></span>
+	
+	<input type="file" size="40" name="files[]"></span>
+    <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput"><em class="fa fa-times-circle fa-fw"></em><?php echo BUTTON_DELETE; ?></a>
+  </div>
+</div>
+
+			</div>
+			<div class="col-9">
+				<strong>Details</strong>
+			</div>	
+		</div>
+
+		<div class="row mb-3 pb-3 bb">
+			<div class="col-6 col-md-3">
+
+<div class="fileinput fileinput-new" data-provides="fileinput">
+  <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+  <div>
+    <span class="btn btn-warning btn-file"><span class="fileinput-new"><em class="fa fa-plus-circle fa-fw"></em><?php echo BUTTON_SELECT_IMAGE; ?></span><span class="fileinput-exists"><?php echo BUTTON_CHANGE; ?></span>
+	
+	<input type="file" size="40" name="files[]"></span>
+    <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput"><em class="fa fa-times-circle fa-fw"></em><?php echo BUTTON_DELETE; ?></a>
+  </div>
+</div>
+
+			</div>
+			<div class="col-9">
+				<strong>Details</strong>
+			</div>	
+		</div>
 
 
-        <span>Add files...</span>
 
+	<div id="uploadboxes">
 		<div id="place" style="display: none;"></div>
 		<!-- New boxes get inserted before this -->
+	</div>
 
+	<div style="display:none">
+		<!-- This is the template that others are copied from -->
+		<div id="filetemplate" >
+                        <div class="row mb-3">
+                           <div class="col-3">		
+<div class="fileinput fileinput-new" data-provides="fileinput">
+  <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+  <div>
+    <span class="btn btn-warning btn-file"><span class="fileinput-new"><em class="fa fa-plus-circle fa-fw"></em><?php echo BUTTON_SELECT_IMAGE; ?></span><span class="fileinput-exists"><?php echo BUTTON_CHANGE; ?></span>
+	
+	<input type="file" size="40" name="files[]"></span>
+    <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput"><em class="fa fa-times-circle fa-fw"></em><?php echo BUTTON_DELETE; ?></a>
+  </div>
+</div>		
 
+                           </div>
+                           <div class="col-9">
+                              <strong>Details</strong>
+                           </div>	
+						</div>
+		</div>
+	</div>
+	<p id="addUploadBoxes"><a href="javascript:addUploadBoxes('place','filetemplate',3)" title="LÃ¤dt nicht erneut!">+ Mehr Felder zum Hochladen hinzufÃ¼gen</a></p>
 
 <?php
 	if (isset($_GET['pID']) && empty($_POST)) {
@@ -1147,7 +1188,6 @@ if ( $q1 < $q0 ) {
 
 				</div>
 			</div>
-        </div>
 
 		</div>
 	</section>
