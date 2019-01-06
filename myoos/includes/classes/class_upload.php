@@ -52,27 +52,21 @@
     }
 
 
-    public function parse($key = '') {
+    public function parse() {
       global $oMessage, $aLang;
 
 		$file = array();
+
+		if (isset($_FILES[$this->file])) {
+			$file = array('name' => $_FILES[$this->file]['name'],
+						'type' => $_FILES[$this->file]['type'],
+						'size' => $_FILES[$this->file]['size'],
+						'tmp_name' => $_FILES[$this->file]['tmp_name']);
+		} 
+	  	  
 	  
-      if (isset($_FILES[$this->file])) {
-        if (oos_is_not_null($key)) {
-          $file = array('name' => $_FILES[$this->file]['name'][$key],
-                        'type' => $_FILES[$this->file]['type'][$key],
-                        'size' => $_FILES[$this->file]['size'][$key],
-                        'tmp_name' => $_FILES[$this->file]['tmp_name'][$key]);
-        } else {
-          $file = array('name' => $_FILES[$this->file]['name'],
-                        'type' => $_FILES[$this->file]['type'],
-                        'size' => $_FILES[$this->file]['size'],
-                        'tmp_name' => $_FILES[$this->file]['tmp_name']);
-        }
-      } 
-
-      if ( oos_is_not_null($file['tmp_name']) && ($file['tmp_name'] != 'none') && is_uploaded_file($file['tmp_name']) ) {
-
+	if ( isset($file['tmp_name']) && oos_is_not_null($file['tmp_name']) && ($file['tmp_name'] != 'none') && is_uploaded_file($file['tmp_name']) ) {
+	  
         if (oos_is_not_null($file['size']) and ($file['size'] > 2048000)) {
           if ($this->message_location == 'direct') {
             $oMessage->add('upload', $aLang['error_file_too_big'], 'error');

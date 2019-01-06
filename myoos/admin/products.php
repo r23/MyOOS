@@ -24,36 +24,40 @@ require 'includes/main.php';
 
 require 'includes/functions/function_categories.php';
 require 'includes/functions/function_image_resize.php';
+require 'includes/classes/class_upload.php';
+
 
 require 'includes/classes/class_currencies.php';
 $currencies = new currencies();
 
-
-
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
+$cPath = (isset($_GET['cPath']) ? oos_prepare_input($_GET['cPath']) : $current_category_id);
 $pID = (isset($_GET['pID']) ? intval($_GET['pID']) : 0);
 
 if (!empty($action)) {
 	switch ($action) {
 		case 'insert_product':
 		case 'update_product':
-
-
-	echo '<pre>';
-	print_r($_GET);
-	echo '<br />';
-	print_r($_POST);
-	echo '<br />';
-	print_r($_FILES);
-	echo '</pre>';
-	exit;
-
 			$_POST['products_price'] = str_replace(',', '.', $_POST['products_price']);
 			$_POST['products_price_list'] = str_replace(',', '.', $_POST['products_price_list']);
 			$_POST['products_discount1'] = str_replace(',', '.', $_POST['products_discount1']);
 			$_POST['products_discount2'] = str_replace(',', '.', $_POST['products_discount2']);
 			$_POST['products_discount3'] = str_replace(',', '.', $_POST['products_discount3']);
 			$_POST['products_discount4'] = str_replace(',', '.', $_POST['products_discount4']);
+
+			if (isset($_FILES['files'])) {
+				foreach ($_FILES['files']['name'] as $key => $name) {
+					if (empty($name)) {
+						// purge empty slots
+						unset($_FILES['files']['name'][$key]);
+						unset($_FILES['files']['type'][$key]);
+						unset($_FILES['files']['tmp_name'][$key]);
+						unset($_FILES['files']['error'][$key]);
+						unset($_FILES['files']['size'][$key]);
+					}
+				}
+			}
+			$filecount = 0;
 
 			$sProductsQuantity = oos_db_prepare_input($_POST['products_quantity']);
 			$sProductsStatus = oos_db_prepare_input($_POST['products_status']);
@@ -82,6 +86,8 @@ if (!empty($action)) {
 			} else {
 				$products_image = oos_db_prepare_input($_POST['products_previous_image']);
 			}
+
+
 
 
 				if ($_POST['delete_image'] == 'yes') {
@@ -162,12 +168,9 @@ if (!empty($action)) {
 
 				}
 
-				if (empty($_GET['cPath'])) {
-					$cPath = $current_category_id;
-				}
-
 				$aLanguages = oos_get_languages();
 				$nLanguages = count($aLanguages);
+
 				for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
 					$lang_id = $aLanguages[$i]['id'];
 
@@ -830,7 +833,7 @@ function calcBasePriceFactor() {
 						</div>
 		</div>
 	</div>
-	<p id="addUploadBoxes"><a href="javascript:addUploadBoxes('place','filetemplate',3)" title="Lädt nicht erneut!">+ Mehr Felder zum Hochladen hinzufügen</a></p>
+	<p id="addUploadBoxes"><a href="javascript:addUploadBoxes('place','filetemplate',3)" title="<?php echo TEXT_NOT_RELOAD; ?>">+ <?php echo TEXT_ADD_MORE_UPLOAD; ?></a></p>
 
 <?php
 	if (isset($_GET['pID']) && empty($_POST)) {
