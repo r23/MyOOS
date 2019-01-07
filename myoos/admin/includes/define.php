@@ -33,9 +33,6 @@ if(!defined('MYOOS_INCLUDE_PATH')) {
 	define('MYOOS_INCLUDE_PATH', OOS_ABSOLUTE_PATH);
 }
 
-define('USE_DB_CACHE', 'false');   // OOS SQL-Layer Cache 
-
-
 // Define how do we update currency exchange rates
 // Possible values are 'oanda' 'xe' or ''
 define('CURRENCY_SERVER_PRIMARY', 'oanda');
