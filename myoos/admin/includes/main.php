@@ -70,9 +70,6 @@ $session->setName('PHOENIXADMINSID');
 $session->start();
 
 // require the database functions
-if (!defined('ADODB_LOGSQL_TABLE')) {
-	define('ADODB_LOGSQL_TABLE', $oostable['adodb_logsql']);
-}
 require_once MYOOS_INCLUDE_PATH . '/includes/lib/adodb/toexport.inc.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/lib/adodb/adodb-errorhandler.inc.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/lib/adodb/adodb.inc.php';
