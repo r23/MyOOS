@@ -33,10 +33,7 @@ if(!defined('MYOOS_INCLUDE_PATH')) {
 	define('MYOOS_INCLUDE_PATH', OOS_ABSOLUTE_PATH);
 }
 
-define('OOS_LOG_SQL', 'false');    // OOS Performance Monitor
 define('USE_DB_CACHE', 'false');   // OOS SQL-Layer Cache 
-define('USE_DB_CACHE_LEVEL_HIGH', 'false');  // OOS SQL-Layer Cache HIGH
-
 
 
 // Define how do we update currency exchange rates
