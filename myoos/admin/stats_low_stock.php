@@ -104,9 +104,9 @@ require 'includes/header.php';
       $rows = '0' . $rows;
     }
 ?>
-          <tr onclick="document.location.href='<?php echo oos_href_link_admin($aContents['products'], 'action=new_product_preview&read=only&pID=' . $products['products_id'] . '&origin=' . $aContents['stats_products_viewed'] . '?page=' . $nPage); ?>'">
+          <tr onclick="document.location.href='<?php echo oos_href_link_admin($aContents['products'], 'action=new_product_preview&pID=' . $products['products_id'] . '&origin=' . $aContents['stats_products_viewed'] . '?page=' . $nPage); ?>'">
             <td align="left" class="smallText">&nbsp;<?php echo $rows; ?>.&nbsp;</td>
-            <td class="smallText">&nbsp;<?php echo '<a href="' . oos_href_link_admin($aContents['products'], 'action=new_product_preview&read=only&pID=' . $products['products_id'] . '&origin=' . $aContents['stats_low_stock'] . '?page=' . $nPage) . '" class="blacklink">' . $products['products_name'] . '</a>'; ?>&nbsp;</td>
+            <td class="smallText">&nbsp;<?php echo '<a href="' . oos_href_link_admin($aContents['products'], 'action=new_product_preview&pID=' . $products['products_id'] . '&origin=' . $aContents['stats_low_stock'] . '?page=' . $nPage) . '" class="blacklink">' . $products['products_name'] . '</a>'; ?>&nbsp;</td>
             <td align="right" class="smallText">&nbsp;<?php echo $products['products_quantity']; ?>&nbsp;</td>
           </tr>
 <?php

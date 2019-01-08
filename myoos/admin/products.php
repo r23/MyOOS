@@ -895,47 +895,21 @@ function calcBasePriceFactor() {
 <!-- body_text_eof //-->
 <?php
   } elseif ($action == 'new_product_preview') {
-    if (oos_is_not_null($_POST)) {
-      $pInfo = new objectInfo($_POST);
-      $products_name = $_POST['products_name'];
-      $products_url = $_POST['products_url'];
-
-      if ( ($_POST['products_image'] != 'none') && (isset($_FILES['products_image'])) ) {
-         $products_image = oos_get_uploaded_file('products_image');
-         $image_directory = oos_get_local_path(OOS_ABSOLUTE_PATH . OOS_IMAGES);
-      }
-      if (is_uploaded_file($products_image['tmp_name'])) {
-        $products_image_name = oos_copy_uploaded_file($products_image, $image_directory);
-      } else {
-        $products_image_name = $_POST['products_previous_image'];
-      }
-    } else {
-      $product_result = $dbconn->Execute("SELECT pd.products_name, pd.products_description, pd.products_description_meta, products_keywords_meta, pd.products_url, p.products_id, p.products_quantity, p.products_reorder_level, p.products_model, p.products_replacement_product_id, p.products_ean, p.products_image, p.products_price, p.products_base_price, p.products_base_unit, p.products_weight, p.products_date_added, p.products_last_modified, date_format(p.products_date_available, '%Y-%m-%d') as products_date_available, p.products_status, p.products_tax_class_id, p.products_units_id, p.manufacturers_id, p.products_price_list, p.products_quantity_order_min, p.products_quantity_order_units, p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4, p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty, p.products_discount4_qty, p.products_sort_order FROM " . $oostable['products'] . " p, " . $oostable['products_description'] . " pd WHERE p.products_id = '" . $_GET['pID'] . "' and p.products_id = pd.products_id and pd.products_languages_id = '" . intval($_SESSION['language_id']) . "'");
+      $product_result = $dbconn->Execute("SELECT pd.products_name, pd.products_description, pd.products_description_meta, products_keywords_meta, pd.products_url, p.products_id, p.products_quantity, p.products_reorder_level, p.products_model, p.products_replacement_product_id, p.products_ean, p.products_image, p.products_price, p.products_base_price, p.products_base_unit, p.products_weight, p.products_date_added, p.products_last_modified, date_format(p.products_date_available, '%Y-%m-%d') as products_date_available, p.products_status, p.products_tax_class_id, p.products_units_id, p.manufacturers_id, p.products_price_list, p.products_quantity_order_min, p.products_quantity_order_units, p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4, p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty, p.products_discount4_qty, p.products_sort_order FROM " . $oostable['products'] . " p, " . $oostable['products_description'] . " pd WHERE p.products_id = '" . intval($pID) . "' and p.products_id = pd.products_id and pd.products_languages_id = '" . intval($_SESSION['language_id']) . "'");
       $product = $product_result->fields;
 
       $pInfo = new objectInfo($product);
       $products_image_name = $pInfo->products_image;
-    }
-
-    $form_action = ($_GET['pID']) ? 'update_product' : 'insert_product';
-
-    echo oos_draw_form('id', $form_action, $aContents['products'], 'cPath=' . $cPath . (isset($_GET['pID']) ? '&pID=' . $_GET['pID'] : '') . '&action=' . $form_action, 'post', TRUE, 'enctype="multipart/form-data"');
 
     $aLanguages = oos_get_languages();
 	$nLanguages = count($aLanguages);
+	
     for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
-      if (isset($_GET['read']) && ($_GET['read'] == 'only')) {
         $pInfo->products_name = oos_get_products_name($pInfo->products_id, $aLanguages[$i]['id']);
         $pInfo->products_description = oos_get_products_description($pInfo->products_id, $aLanguages[$i]['id']);
         $pInfo->products_description_meta = oos_get_products_description_meta($pInfo->products_id, $aLanguages[$i]['id']);
         $pInfo->products_keywords_meta = oos_get_products_keywords_meta($pInfo->products_id, $aLanguages[$i]['id']);
         $pInfo->products_url = oos_get_products_url($pInfo->products_id, $aLanguages[$i]['id']);
-      } else {
-        $pInfo->products_name = oos_db_prepare_input($products_name[$aLanguages[$i]['id']]);
-        $pInfo->products_description = oos_db_prepare_input($_POST['products_description_' .$aLanguages[$i]['id']]);
-        $pInfo->products_description_meta = oos_db_prepare_input($_POST['products_description_meta_' .$aLanguages[$i]['id']]);
-        $pInfo->products_keywords_meta = oos_db_prepare_input($_POST['products_keywords_meta_' .$aLanguages[$i]['id']]);
-        $pInfo->products_url = oos_db_prepare_input($products_url[$aLanguages[$i]['id']]);
       }
 ?>
 <!-- body_text //-->
@@ -1079,9 +1053,7 @@ if ( $q1 < $q0 ) {
       <tr>
         <td class="main">
 <?php
-      if ( (!$delete_image) && (!$remove_image) ) {
-        echo (($products_image_name) ? oos_image(OOS_SHOP_IMAGES . $products_image_name, $pInfo->products_name, '', '80', 'align="right" hspace="5" vspace="5"') : '');
-      }
+       echo (($products_image_name) ? oos_image(OOS_SHOP_IMAGES . $products_image_name, $pInfo->products_name, '', '80', 'align="right" hspace="5" vspace="5"') : '');
       echo $pInfo->products_description;
 ?></td>
       </tr>
@@ -1143,30 +1115,6 @@ if ( $q1 < $q0 ) {
       <tr>
         <td align="right" class="smallText">
 <?php
-/* Re-Post all POST'ed variables */
-      reset($_POST);
-      foreach ($_POST as $key => $value) {		  
-        if (!is_array($_POST[$key])) {
-          echo oos_draw_hidden_field($key, htmlspecialchars(stripslashes($value)));
-        }
-      }
-      $aLanguages = oos_get_languages();
-	  $nLanguages = count($aLanguages);
-      for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
-        echo oos_draw_hidden_field('products_name[' . $aLanguages[$i]['id'] . ']', htmlspecialchars(stripslashes($products_name[$aLanguages[$i]['id']])));
-        echo oos_draw_hidden_field('products_description[' . $aLanguages[$i]['id'] . ']', htmlspecialchars(stripslashes($products_description[$aLanguages[$i]['id']])));
-        echo oos_draw_hidden_field('products_description_meta[' . $aLanguages[$i]['id'] . ']', htmlspecialchars(stripslashes($products_description_meta[$aLanguages[$i]['id']])));
-        echo oos_draw_hidden_field('products_keywords_meta[' . $aLanguages[$i]['id'] . ']', htmlspecialchars(stripslashes($products_keywords_meta[$aLanguages[$i]['id']])));
-        echo oos_draw_hidden_field('products_url[' . $aLanguages[$i]['id'] . ']', htmlspecialchars(stripslashes($products_url[$aLanguages[$i]['id']])));
-      }
-      echo oos_draw_hidden_field('products_image', stripslashes($products_image_name));
-
-      if (isset($_POST['categories_ids'])) {
-        $selected_catids = $_POST['categories_ids'];
-        foreach ($selected_catids as $current_category_id)  {
-          echo oos_draw_hidden_field('categories_ids[]', stripslashes($current_category_id));
-        }
-      }
 
       echo oos_submit_button('back', IMAGE_BACK, 'name="edit"') . '&nbsp;&nbsp;';
 
@@ -1177,7 +1125,7 @@ if ( $q1 < $q0 ) {
       }
 
 ?></td>
-      </form></tr>
+</tr>
 
 <?php
   #  }

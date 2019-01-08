@@ -13,7 +13,6 @@
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
 define('USE_DB_CACHE', 'false');   // OOS SQL-Layer Cache 
-define('USE_DB_CACHE_LEVEL_HIGH', 'false');  // OOS SQL-Layer Cache HIGH
 
 define('WARN_INSTALL_EXISTENCE', 'false');
 define('WARN_CONFIG_WRITEABLE', 'false');
