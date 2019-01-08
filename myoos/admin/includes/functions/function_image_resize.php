@@ -39,7 +39,7 @@ function oos_copy_uploaded_file($filename, $target) {
   $picture_name = oos_str_strip_all($picture_tempname);
   // Big Image
   // path for big image:
-  $target_big = $target . OOS_POPUP_IMAGES;
+  // $target_big = $target . OOS_POPUP_IMAGES;
   // If !path make it, if you have problems remove the line
   // if (!is_dir($target_big)) mkdir($target_big,0777);
 

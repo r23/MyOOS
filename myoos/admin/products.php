@@ -58,7 +58,7 @@ if (!empty($action)) {
 				}
 			}
 			$filecount = 0;
-
+	
 			$sProductsQuantity = oos_db_prepare_input($_POST['products_quantity']);
 			$sProductsStatus = oos_db_prepare_input($_POST['products_status']);
 			$sProductsReplacementProductID = oos_db_prepare_input($_POST['products_replacement_product_id']);
@@ -100,30 +100,29 @@ if (!empty($action)) {
 					$products_image = 'none';
 				}
 
-				$products_id = oos_db_prepare_input($_GET['pID']);
-				$products_date_available = oos_db_prepare_input($_POST['products_date_available']);
+			$products_id = oos_db_prepare_input($_GET['pID']);
+			$products_date_available = oos_db_prepare_input($_POST['products_date_available']);
 
-				if (isset($_POST['products_base_price']) ) {
-					$products_base_price = oos_db_prepare_input($_POST['products_base_price']);
-					$products_product_quantity = oos_db_prepare_input($_POST['products_product_quantity']);
-					$products_base_quantity = oos_db_prepare_input($_POST['products_base_quantity']);
-					$products_base_unit = oos_db_prepare_input($_POST['products_base_unit']);
-				} else {
-					$products_base_price = 1.0;
-					$products_product_quantity = 1;
-					$products_base_quantity = 1;
-					$products_base_unit = '';
-				}
+			if (isset($_POST['products_base_price']) ) {
+				$products_base_price = oos_db_prepare_input($_POST['products_base_price']);
+				$products_product_quantity = oos_db_prepare_input($_POST['products_product_quantity']);
+				$products_base_quantity = oos_db_prepare_input($_POST['products_base_quantity']);
+				$products_base_unit = oos_db_prepare_input($_POST['products_base_unit']);
+			} else {
+				$products_base_price = 1.0;
+				$products_product_quantity = 1;
+				$products_base_quantity = 1;
+				$products_base_unit = '';
+			}
 
-				$products_date_available = (date('Y-m-d') < $products_date_available) ? $products_date_available : 'null';
+			$products_date_available = (date('Y-m-d') < $products_date_available) ? $products_date_available : 'null';
 
-				$sql_data_array = array('products_quantity' => $sProductsQuantity,
-                                  'products_reorder_level' => oos_db_prepare_input($_POST['products_reorder_level']),
-                                  'products_model' => oos_db_prepare_input($_POST['products_model']),
-								  'products_replacement_product_id' => $sProductsReplacementProductID,
-                                  'products_ean' => oos_db_prepare_input($_POST['products_ean']),
-                                  'products_image' => (($products_image == 'none') ? '' : oos_db_prepare_input($products_image)),
-                                  'products_price' => oos_db_prepare_input($_POST['products_price']),
+			$sql_data_array = array('products_quantity' => $sProductsQuantity,
+                                 'products_reorder_level' => oos_db_prepare_input($_POST['products_reorder_level']),
+                                 'products_model' => oos_db_prepare_input($_POST['products_model']),
+								'products_replacement_product_id' => $sProductsReplacementProductID,
+                                 'products_ean' => oos_db_prepare_input($_POST['products_ean']),
+                                 'products_price' => oos_db_prepare_input($_POST['products_price']),
                                   'products_base_price' => $products_base_price,
                                   'products_product_quantity' => $products_product_quantity,
                                   'products_base_quantity' => $products_base_quantity,
@@ -148,50 +147,58 @@ if (!empty($action)) {
                                   'products_discount4_qty' => oos_db_prepare_input($_POST['products_discount4_qty']),
                                   );
 
-				if ($action == 'insert_product') {
-					$insert_sql_data = array('products_date_added' => 'now()');
+			$products_image = new upload('products_image');
+			$products_image->set_destination();
+			if ($products_image->parse() && $products_image->save()) {			
+				$sql_data_array['products_image'] = oos_db_prepare_input($products_image->filename);
+			}
 
-					$sql_data_array = array_merge($sql_data_array, $insert_sql_data);
 
-					oos_db_perform($oostable['products'], $sql_data_array);
-					$products_id = $dbconn->Insert_ID();
 
-					$products_to_categoriestable = $oostable['products_to_categories'];
-					$dbconn->Execute("INSERT INTO $products_to_categoriestable (products_id, categories_id) VALUES ('" . $products_id . "', '" . $current_category_id . "')");
+			if ($action == 'insert_product') {
+				$insert_sql_data = array('products_date_added' => 'now()');
 
-				} elseif ($action == 'update_product') {
-					$update_sql_data = array('products_last_modified' => 'now()');
+				$sql_data_array = array_merge($sql_data_array, $insert_sql_data);
 
-					$sql_data_array = array_merge($sql_data_array, $update_sql_data);
+				oos_db_perform($oostable['products'], $sql_data_array);
+				$products_id = $dbconn->Insert_ID();
 
-					oos_db_perform($oostable['products'], $sql_data_array, 'UPDATE', 'products_id = \'' . oos_db_input($products_id) . '\'');
+				$products_to_categoriestable = $oostable['products_to_categories'];
+				$dbconn->Execute("INSERT INTO $products_to_categoriestable (products_id, categories_id) VALUES ('" . $products_id . "', '" . $current_category_id . "')");
 
-				}
+			} elseif ($action == 'update_product') {
+				$update_sql_data = array('products_last_modified' => 'now()');
 
-				$aLanguages = oos_get_languages();
-				$nLanguages = count($aLanguages);
+				$sql_data_array = array_merge($sql_data_array, $update_sql_data);
 
-				for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
-					$lang_id = $aLanguages[$i]['id'];
+				oos_db_perform($oostable['products'], $sql_data_array, 'UPDATE', 'products_id = \'' . oos_db_input($products_id) . '\'');
 
-					$sql_data_array = array('products_name' => oos_db_prepare_input($_POST['products_name'][$lang_id]),
-                                    'products_description' => oos_db_prepare_input($_POST['products_description_' .$aLanguages[$i]['id']]),
+			}
+
+			$aLanguages = oos_get_languages();
+			$nLanguages = count($aLanguages);
+
+			for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
+				$lang_id = $aLanguages[$i]['id'];
+				$sql_data_array = array('products_name' => oos_db_prepare_input($_POST['products_name'][$lang_id]),
+                                   'products_description' => oos_db_prepare_input($_POST['products_description_' .$aLanguages[$i]['id']]),
                                     'products_description_meta' => oos_db_prepare_input($_POST['products_description_meta_' .$aLanguages[$i]['id']]),
                                     'products_keywords_meta' => oos_db_prepare_input($_POST['products_keywords_meta_' .$aLanguages[$i]['id']]),
                                     'products_url' => oos_db_prepare_input($_POST['products_url'][$lang_id]));
 
-					if ($action == 'insert_product') {
-						$insert_sql_data = array('products_id' => $products_id,
-                                       'products_languages_id' => $lang_id);
+				if ($action == 'insert_product') {
+					$insert_sql_data = array('products_id' => $products_id,
+                                      'products_languages_id' => $lang_id);
 
-						$sql_data_array = array_merge($sql_data_array, $insert_sql_data);
+					$sql_data_array = array_merge($sql_data_array, $insert_sql_data);
 
-						oos_db_perform($oostable['products_description'], $sql_data_array);
-					} elseif ($action == 'update_product') {
-						oos_db_perform($oostable['products_description'], $sql_data_array, 'UPDATE', 'products_id = \'' . oos_db_input($products_id) . '\' AND products_languages_id = \'' . $lang_id . '\'');
-					}
+					oos_db_perform($oostable['products_description'], $sql_data_array);
+				} elseif ($action == 'update_product') {
+					oos_db_perform($oostable['products_description'], $sql_data_array, 'UPDATE', 'products_id = \'' . oos_db_input($products_id) . '\' AND products_languages_id = \'' . $lang_id . '\'');
 				}
-				oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $products_id));
+			}
+
+			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $products_id));
 		break;
 
 	}
@@ -756,7 +763,7 @@ function calcBasePriceFactor() {
   <div>
     <span class="btn btn-warning btn-file"><span class="fileinput-new"><em class="fa fa-plus-circle fa-fw"></em><?php echo BUTTON_SELECT_IMAGE; ?></span><span class="fileinput-exists"><?php echo BUTTON_CHANGE; ?></span>
 	
-	<input type="file" size="40" name="files[]"></span>
+	<input type="file" size="40" name="products_image"></span>
     <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput"><em class="fa fa-times-circle fa-fw"></em><?php echo BUTTON_DELETE; ?></a>
   </div>
 </div>
@@ -1088,7 +1095,7 @@ if ( $q1 < $q0 ) {
         <td></td>
       </tr>
 <?php
-    }
+
       if (isset($_GET['origin'])) {
         $pos_params = strpos($_GET['origin'], '?', 0);
         if ($pos_params != false) {
@@ -1109,27 +1116,7 @@ if ( $q1 < $q0 ) {
       <tr>
         <td class="text-right"><?php echo '<a href="' . oos_href_link_admin($back_url, $back_url_params) . '">' . oos_button('back', IMAGE_BACK) . '</a>'; ?></td>
       </tr>
-<?php
-    } else {
-?>
-      <tr>
-        <td align="right" class="smallText">
-<?php
 
-      echo oos_submit_button('back', IMAGE_BACK, 'name="edit"') . '&nbsp;&nbsp;';
-
-      if (isset($_GET['pID'])) {
-        echo oos_submit_button('update', IMAGE_UPDATE);
-      } else {
-        echo oos_submit_button('insert', BUTTON_INSERT);
-      }
-
-?></td>
-</tr>
-
-<?php
-  #  }
-?>
 	      </table>
 <!-- body_text_eof //-->
 <?php

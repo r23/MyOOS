@@ -32,8 +32,6 @@ define('OOS_SHOP', '');
 define('OOS_ADMIN', 'admin/');
 
 define('OOS_IMAGES', 'images/');
-define('OOS_POPUP_IMAGES', 'images_big/');
-define('OOS_CUSTOMERS_IMAGES', 'ci/');
 
 define('OOS_SHOP_IMAGES', '../' . OOS_IMAGES);
 define('OOS_ICONS', OOS_IMAGES . 'icons/');

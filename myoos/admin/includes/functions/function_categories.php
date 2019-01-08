@@ -598,9 +598,6 @@ function oos_remove_product_image($image) {
     if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . $image)) {
 		@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . $image);
     }
-	if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . OOS_POPUP_IMAGES . $image)) {
-		@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . OOS_POPUP_IMAGES . $image);
-	}
 }
 
 /**

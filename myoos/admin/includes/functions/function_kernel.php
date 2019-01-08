@@ -688,9 +688,6 @@ function oos_get_languages() {
       if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . $product_image['products_image'])) {
         @unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . $product_image['products_image']);
       }
-      if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . OOS_POPUP_IMAGES . $product_image['products_image'])) {
-        @unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . OOS_POPUP_IMAGES . $product_image['products_image']);
-      }
     }
 
 
