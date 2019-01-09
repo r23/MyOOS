@@ -228,6 +228,11 @@
 ./node_modules/yoastseo/src/researches/stopWordsInKeyword.js
 ./node_modules/yoastseo/src/researches/stopWordsInText.js
 ./node_modules/yoastseo/src/researches/stopWordsInUrl.js
+./node_modules/yoastseo/src/researches/swedish/firstWordExceptions.js
+./node_modules/yoastseo/src/researches/swedish/functionWords.js
+./node_modules/yoastseo/src/researches/swedish/passiveVoice/participles.js
+./node_modules/yoastseo/src/researches/swedish/transitionWords.js
+./node_modules/yoastseo/src/researches/swedish/twoPartTransitionWords.js
 ./node_modules/yoastseo/src/researches/topicCount.js
 ./node_modules/yoastseo/src/researches/urlIsTooLong.js
 ./node_modules/yoastseo/src/researches/wordCountInText.js
@@ -298,6 +303,7 @@
 ./node_modules/yoastseo/src/stringProcessing/urlStructure.js
 ./node_modules/yoastseo/src/taxonomyAssessor.js
 ./node_modules/yoastseo/src/templates.js
+./node_modules/yoastseo/src/tree/values/nodes/StructuredIrrelevant.js
 ./node_modules/yoastseo/src/values/AssessmentResult.js
 ./node_modules/yoastseo/src/values/Mark.js
 ./node_modules/yoastseo/src/values/Paper.js
@@ -318,3 +324,4 @@
 ./node_modules/yoastseo/src/worker/transporter/index.js
 ./node_modules/yoastseo/src/worker/transporter/parse.js
 ./node_modules/yoastseo/src/worker/transporter/serialize.js
+./node_modules/yoastseo/src/worker/wrapTryCatchAroundAction.js

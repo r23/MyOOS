@@ -58,7 +58,7 @@ if (!empty($action)) {
 				}
 			}
 			$filecount = 0;
-	
+
 			$sProductsQuantity = oos_db_prepare_input($_POST['products_quantity']);
 			$sProductsStatus = oos_db_prepare_input($_POST['products_status']);
 			$sProductsReplacementProductID = oos_db_prepare_input($_POST['products_replacement_product_id']);
