@@ -67,8 +67,8 @@ function oosCheckPHP() {
 ?>
 <table class="content">
 <tr>
-  <td>PHP version >= 5.5.9</td>
-  <td align="left"><?php echo phpversion() < '5.5.9' ? '<b><font color="red">No</font></b>' : '<b><font color="green">Yes</font></b>';?></td>
+  <td>PHP version >= 7.2.0</td>
+  <td align="left"><?php echo phpversion() < '7.2.0' ? '<b><font color="red">No</font></b>' : '<b><font color="green">Yes</font></b>';?></td>
 </tr>
 <tr>
   <td>&nbsp; - MySQL support</td>
