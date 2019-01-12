@@ -980,10 +980,6 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "tax_class (tax_class_id
 $result = $db->Execute("INSERT INTO " . $prefix_table . "tax_class (tax_class_id, tax_class_title, tax_class_description, last_modified, date_added) VALUES (6, 'reduzierter Satz Schweiz', 'normaler Steuersatz in der Schweiz', NULL, " . $db->DBTimeStamp($today) . ")") OR die ("<b>".NOTUPDATED . $prefix_table . "tax_class</b>");
 
 
-
-Sätze 7,7 % Normalsatz, 2,5 % reduzierter Satz und 3,7 % Sondersatz für Beherbergungsdienstleistungen.
-
-
 echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $prefix_table . "tax_class " . UPDATED .'</font>';
 
 
