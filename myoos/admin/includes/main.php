@@ -22,6 +22,7 @@
 /** ensure this file is being required by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
+
 // debug
 $debug = '1';
 
@@ -45,8 +46,6 @@ if (file_exists('../includes/local/configure.php')) include('../includes/local/c
 require '../includes/configure.php';
 require 'includes/define.php';
 
-
-
 use Symfony\Component\HttpFoundation\Request;
 
 $autoloader = require_once MYOOS_INCLUDE_PATH . '/vendor/autoload.php';
@@ -60,6 +59,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/tables.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_global.php';
 require 'includes/functions/function_kernel.php';
 
+
 // Load server utilities
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_server.php';
 
@@ -68,6 +68,7 @@ require_once MYOOS_INCLUDE_PATH . '/core/lib/Phoenix/Core/Session.php';
 $session = new Phoenix_Session();
 $session->setName('PHOENIXADMINSID');
 $session->start();
+
 
 // require the database functions
 require_once MYOOS_INCLUDE_PATH . '/includes/lib/adodb/toexport.inc.php';

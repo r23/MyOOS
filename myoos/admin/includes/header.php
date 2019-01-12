@@ -22,9 +22,10 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
+
 ?>
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="<?php echo $_SESSION['iso_639_1']; ?>">
 <head>
     <meta charset="<?php echo CHARSET; ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -51,8 +52,5 @@ if ($messageStack->size > 0) {
 	echo $messageStack->output();
 }
 ?>
-
-
-
 
 

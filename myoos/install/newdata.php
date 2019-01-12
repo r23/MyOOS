@@ -1571,7 +1571,7 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "zones_to_geo_zones (ass
 $result = $db->Execute("INSERT INTO " . $prefix_table . "zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (28, 189, 0, 1, NULL, " . $db->DBTimeStamp($today) . ")") OR die ("<b>".NOTUPDATED . $prefix_table . "zones_to_geo_zones</b>");
 
 // Switzerland
-$result = $db->Execute("INSERT INTO " . $prefix_table . "zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (15, 204, 0, 2, NULL, " . $db->DBTimeStamp($today) . ")") OR die ("<b>".NOTUPDATED . $prefix_table . "zones_to_geo_zones</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) VALUES (29, 204, 0, 2, NULL, " . $db->DBTimeStamp($today) . ")") OR die ("<b>".NOTUPDATED . $prefix_table . "zones_to_geo_zones</b>");
 
 
 echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $prefix_table . "zones_to_geo_zones " . UPDATED .'</font>';
