@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.0.x - Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-01-07 01:22:13+0000\n"
+"PO-Revision-Date: 2019-01-12 17:19:44+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -14832,7 +14832,7 @@ msgstr "Beitrags-Inhalt anzeigen?"
 
 #: wp-includes/widgets.php:1532
 msgid "How many items would you like to display?"
-msgstr "Wieviele Einträge sollen angezeigt werden?"
+msgstr "Wie viele Einträge sollen angezeigt werden?"
 
 #: wp-includes/widgets.php:1529
 msgid "Give the feed a title (optional):"
