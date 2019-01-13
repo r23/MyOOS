@@ -48,11 +48,12 @@ if (!function_exists('zp_graphicsLibInfo')) {
 		define('GD_FREETYPE_SAMPLE_CHARS', strlen('GD_FREETYPE_SAMPLE'));
 		$_gd_freetype_fonts = array(0);
 
-		$imgtypes = ImageTypes();
+		$imgtypes = imagetypes();
 		$_lib_GD_info['GIF'] = ($imgtypes & IMG_GIF) ? 'gif' : false;
 		$_lib_GD_info['JPG'] = ($imgtypes & IMG_JPG) ? 'jpg' : false;
 		$_lib_GD_info['JPEG'] = ($imgtypes & IMG_JPG) ? 'jpg' : false;
 		$_lib_GD_info['PNG'] = ($imgtypes & IMG_PNG) ? 'png' : false;
+		$_lib_GD_info['WBMP'] = ($imgtypes & IMG_WBMP) ? 'jpg' : false;
 		unset($imgtypes);
 		unset($info);
 
@@ -69,6 +70,8 @@ if (!function_exists('zp_graphicsLibInfo')) {
 			switch ($ext) {
 				case 'png':
 					return imagecreatefrompng($imgfile);
+				case 'wbmp':
+					return imagecreatefromwbmp($imgfile);
 				case 'jpeg':
 				case 'jpg':
 					return imagecreatefromjpeg($imgfile);
@@ -505,7 +508,7 @@ if (!function_exists('zp_graphicsLibInfo')) {
 					chdir($basefile);
 					$filelist = safe_glob('*.gdf');
 					foreach ($filelist as $file) {
-						$key = filesystemToInternal(preg_replace('/\.gdf/i', '', $file));
+						$key = filesystemToInternal(str_replace('.gdf', '', $file));
 						$_gd_fontlist[$key] = $basefile . '/' . $file;
 					}
 				}
