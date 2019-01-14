@@ -203,7 +203,7 @@ function cacheImage($newfilename, $imgfile, $args, $allow_watermark = FALSE, $th
 			debugLog("cacheImage(\$imgfile=" . basename($imgfile) . ", \$newfilename=$newfilename, \$allow_watermark=$allow_watermark, \$theme=$theme) \$size=$size, \$width=$width, \$height=$height, \$cw=$cw, \$ch=$ch, \$cx=" . (is_null($cx) ? 'NULL' : $cx) . ", \$cy=" . (is_null($cy) ? 'NULL' : $cy) . ", \$quality=$quality, \$thumb=$thumb, \$crop=$crop \$image_use_side=$image_use_side; \$upscale=$upscale);");
 		// Check for the source image.
 		if (!file_exists($imgfile) || !is_readable($imgfile)) {
-			imageError('404 Not Found', sprintf(gettext('Image %s not found or is unreadable.'), filesystemToInternal($imgfile)), 'err-imagenotfound.png');
+			imageError('404 Not Found', sprintf('Image %s not found or is unreadable.', filesystemToInternal($imgfile)), 'err-imagenotfound.png');
 		}
 		$rotate = FALSE;
 		if (zp_imageCanRotate()) {
@@ -221,7 +221,7 @@ function cacheImage($newfilename, $imgfile, $args, $allow_watermark = FALSE, $th
 				if ($big_enough) {
 					$im = zp_imageFromString($im);
 					if (DEBUG_IMAGE && $im)
-						debugLog(sprintf(gettext('Using %1$ux%2$u %3$s thumbnail image.'), $tw, $th, image_type_to_mime_type($tt)));
+						debugLog(sprintf('Using %1$ux%2$u %3$s thumbnail image.', $tw, $th, image_type_to_mime_type($tt)));
 				} else {
 					$im = FALSE;
 				}
@@ -233,14 +233,14 @@ function cacheImage($newfilename, $imgfile, $args, $allow_watermark = FALSE, $th
 			$im = zp_imageGet($imgfile);
 		}
 		if (!$im) {
-			imageError('404 Not Found', sprintf(gettext('Image %s not renderable (imageGet).'), filesystemToInternal($imgfile)), 'err-failimage.png', $imgfile, $album, $newfilename);
+			imageError('404 Not Found', sprintf('Image %s not renderable (imageGet).', filesystemToInternal($imgfile)), 'err-failimage.png', $imgfile, $album, $newfilename);
 		}
 		if ($rotate) {
 			if (DEBUG_IMAGE)
 				debugLog("cacheImage:rotate->$rotate");
 			$im = zp_rotateImage($im, $rotate);
 			if (!$im) {
-				imageError('404 Not Found', sprintf(gettext('Image %s not rotatable.'), filesystemToInternal($imgfile)), 'err-failimage.png', $imgfile, $album, $newfilename);
+				imageError('404 Not Found', sprintf('Image %s not rotatable.', filesystemToInternal($imgfile)), 'err-failimage.png', $imgfile, $album, $newfilename);
 			}
 		}
 		$w = zp_imageWidth($im);
@@ -284,7 +284,7 @@ function cacheImage($newfilename, $imgfile, $args, $allow_watermark = FALSE, $th
 			$size = $width = FALSE;
 		} else {
 			// There's a problem up there somewhere...
-			imageError('404 Not Found', sprintf(gettext('Unknown error processing %s! Please report to the developers at <a href="http://www.zenphoto.org/">www.zenphoto.org</a>'), filesystemToInternal($imgfile)), 'err-imagegeneral.png', $imgfile, $album, $newfilename);
+			imageError('404 Not Found', sprintf('Unknown error processing %s! Please report to the developers', filesystemToInternal($imgfile)), 'err-imagegeneral.png', $imgfile, $album, $newfilename);
 		}
 
 		$sizes = propSizes($size, $width, $height, $w, $h, $thumb, $image_use_side, $dim);
@@ -396,7 +396,7 @@ function cacheImage($newfilename, $imgfile, $args, $allow_watermark = FALSE, $th
 				debugLog("cacheImage:crop " . basename($imgfile) . ":\$size=$size, \$width=$width, \$height=$height, \$cw=$cw, \$ch=$ch, \$cx=$cx, \$cy=$cy, \$quality=$quality, \$thumb=$thumb, \$crop=$crop, \$rotate=$rotate");
 			$newim = zp_createImage($neww, $newh);
 			if (!zp_resampleImage($newim, $im, 0, 0, $cx, $cy, $neww, $newh, $cw, $ch)) {
-				imageError('404 Not Found', sprintf(gettext('Image %s not renderable (resample).'), filesystemToInternal($imgfile)), 'err-failimage.png', $imgfile, $album, $newfilename);
+				imageError('404 Not Found', sprintf('Image %s not renderable (resample).', filesystemToInternal($imgfile)), 'err-failimage.png', $imgfile, $album, $newfilename);
 			}
 		} else {
 			if ($newh >= $h && $neww >= $w && !$rotate && !$effects && !$watermark_image && (!$upscale || $newh == $h && $neww == $w)) {
@@ -421,11 +421,11 @@ function cacheImage($newfilename, $imgfile, $args, $allow_watermark = FALSE, $th
 				debugLog("cacheImage:no crop " . basename($imgfile) . ":\$size=$size, \$width=$width, \$height=$height, \$dim=$dim, \$neww=$neww; \$newh=$newh; \$quality=$quality, \$thumb=$thumb, \$crop=$crop, \$rotate=$rotate; \$allowscale=$allowscale;");
 			$newim = zp_createImage($neww, $newh);
 			if (!zp_resampleImage($newim, $im, 0, 0, 0, 0, $neww, $newh, $w, $h)) {
-				imageError('404 Not Found', sprintf(gettext('Image %s not renderable (resample).'), filesystemToInternal($imgfile)), 'err-failimage.png', $imgfile, $album, $newfilename);
+				imageError('404 Not Found', sprintf('Image %s not renderable (resample).', filesystemToInternal($imgfile)), 'err-failimage.png', $imgfile, $album, $newfilename);
 			}
 			if (($thumb && $sharpenthumbs) || (!$thumb && $sharpenimages)) {
 				if (!zp_imageUnsharpMask($newim, getOption('sharpen_amount'), getOption('sharpen_radius'), getOption('sharpen_threshold'))) {
-					imageError('404 Not Found', sprintf(gettext('Image %s not renderable (unsharp).'), filesystemToInternal($imgfile)), 'err-failimage.png', $imgfile, $album, $newfilename);
+					imageError('404 Not Found', sprintf('Image %s not renderable (unsharp).', filesystemToInternal($imgfile)), 'err-failimage.png', $imgfile, $album, $newfilename);
 				}
 			}
 		}
@@ -441,7 +441,7 @@ function cacheImage($newfilename, $imgfile, $args, $allow_watermark = FALSE, $th
 			$percent = getOption('watermark_scale') / 100;
 			$watermark = zp_imageGet($watermark_image);
 			if (!$watermark) {
-				imageError('404 Not Found', sprintf(gettext('Watermark %s not renderable.'), $watermark_image), 'err-failimage.png');
+				imageError('404 Not Found', sprintf('Watermark %s not renderable.', $watermark_image), 'err-failimage.png');
 			}
 			$watermark_width = zp_imageWidth($watermark);
 			$watermark_height = zp_imageHeight($watermark);
@@ -458,7 +458,7 @@ function cacheImage($newfilename, $imgfile, $args, $allow_watermark = FALSE, $th
 			if (($nw != $watermark_width) || ($nh != $watermark_height)) {
 				$watermark = zp_imageResizeAlpha($watermark, $nw, $nh);
 				if (!$watermark) {
-					imageError('404 Not Found', sprintf(gettext('Watermark %s not resizeable.'), $watermark_image), 'err-failimage.png');
+					imageError('404 Not Found', sprintf('Watermark %s not resizeable.', $watermark_image), 'err-failimage.png');
 				}
 			}
 			// Position Overlay in Bottom Right
@@ -467,7 +467,7 @@ function cacheImage($newfilename, $imgfile, $args, $allow_watermark = FALSE, $th
 			if (DEBUG_IMAGE)
 				debugLog("Watermark:" . basename($imgfile) . ": \$offset_h=$offset_h, \$offset_w=$offset_w, \$watermark_height=$watermark_height, \$watermark_width=$watermark_width, \$imw=$imw, \$imh=$imh, \$percent=$percent, \$r=$r, \$nw=$nw, \$nh=$nh, \$dest_x=$dest_x, \$dest_y=$dest_y");
 			if (!zp_copyCanvas($newim, $watermark, $dest_x, $dest_y, 0, 0, $nw, $nh)) {
-				imageError('404 Not Found', sprintf(gettext('Image %s not renderable (copycanvas).'), filesystemToInternal($imgfile)), 'err-failimage.png', $imgfile, $album, $newfilename);
+				imageError('404 Not Found', sprintf('Image %s not renderable (copycanvas).', filesystemToInternal($imgfile)), 'err-failimage.png', $imgfile, $album, $newfilename);
 			}
 			zp_imageKill($watermark);
 		}
@@ -522,63 +522,23 @@ function cacheImage($newfilename, $imgfile, $args, $allow_watermark = FALSE, $th
 				fclose($fw);
 				clearstatcache();
 			}
-			@chmod($newfile, FILE_MOD);
+			@chmod($newfile, 0644);
 			if (DEBUG_IMAGE)
 				debugLog('Finished:' . basename($imgfile));
 		} else {
 			if (DEBUG_IMAGE)
 				debugLog('cacheImage: failed to create ' . $newfile);
-			imageError('404 Not Found', sprintf(gettext('cacheImage: failed to create %s'), $newfile), 'err-failimage.png', $imgfile, $album, $newfilename);
+			imageError('404 Not Found', sprintf('cacheImage: failed to create %s', $newfile), 'err-failimage.png', $imgfile, $album, $newfilename);
 		}
-		@chmod($newfile, FILE_MOD);
+		@chmod($newfile, 0644);
 		zp_imageKill($newim);
 		zp_imageKill($im);
 	} catch (Exception $e) {
 		debugLog('cacheImage(' . $newfilename . ') exception: ' . $e->getMessage());
-		imageError('404 Not Found', sprintf(gettext('cacheImage(%1$s) exception: %2$s'), $newfilename, $e->getMessage()), 'err-failimage.png', $imgfile, $album, $newfilename);
+		imageError('404 Not Found', sprintf('cacheImage(%1$s) exception: %2$s', $newfilename, $e->getMessage()), 'err-failimage.png', $imgfile, $album, $newfilename);
 		return FALSE;
 	}
 	clearstatcache();
 	return TRUE;
 }
 
-/* Determines the rotation of the image looking EXIF information.
- *
- * @param string $imgfile the image name
- * @return FALSE when the image should not be rotated, or the degrees the
- *         image should be rotated otherwise.
- *
- * PHP GD do not support flips so when a flip is needed we make a
- * rotation that get close to that flip. But I don't think any camera will
- * fill a flipped value in the tag.
- */
-function getImageRotation($imgfile) {
-	$rotation = FALSE;
-	$imgfile_db = substr(filesystemToInternal($imgfile), strlen(ALBUM_FOLDER_SERVERPATH));
-	$result = query_single_row('SELECT EXIFOrientation FROM ' . prefix('images') . ' AS i JOIN ' . prefix('albums') . ' as a ON i.albumid = a.id WHERE ' . db_quote($imgfile_db) . ' = CONCAT(a.folder,"/",i.filename)');
-	if (is_null($result)) {
-		//try the file directly as this might be an image not in the database
-		if (in_array(getSuffix($imgfile), array('jpg', 'jpeg', 'tif', 'tiff'))) {
-			$result = exif_read_data($imgfile);
-			if (is_array($result) && array_key_exists('Orientation', $result)) {
-				$rotation = $result['Orientation'];
-			}
-		}
-	} elseif (is_array($result) && array_key_exists('EXIFOrientation', $result)) {
-		$splits = preg_split('/!([(0-9)])/', $result['EXIFOrientation']);
-		$rotation = $splits[0];
-	}
-	if ($rotation) {
-		switch ($rotation) {
-			case 1 : return FALSE; // none
-			case 2 : return FALSE; // mirrored
-			case 3 : return 180; // upside-down (not 180 but close)
-			case 4 : return 180; // upside-down mirrored
-			case 5 : return 270; // 90 CW mirrored (not 270 but close)
-			case 6 : return 270; // 90 CCW
-			case 7 : return 90; // 90 CCW mirrored (not 90 but close)
-			case 8 : return 90; // 90 CW
-		}
-	}
-	return FALSE;
-}
