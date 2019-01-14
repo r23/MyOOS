@@ -39,16 +39,13 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
  * @global string $album
  * @global string $image
  * @param string $status_text
- * @param string $errormessage the error message to print if $_GET['debug'] is set.
  * @param string $errorimg the filename of the error image to display for production. Defaults to 'err-imagegeneral.png'. Images should be located in /zen/images .
  * @param string $image
  * @param string $album
  * @param string $newfilename
  */
 function imageError($status_text, $errormessage, $errorimg = 'err-imagegeneral.png', $image = '', $album='', $newfilename = '') {
-	//global $newfilename, $album, $image; // sometime these globals need to be properly namedâ€¦
-	$debug = isset($_GET['debug']);
-	$debuglog_errors = isset($_GET['returnmode']);
+
 	if ($debug) {
 		$debugnote = '<strong>' . sprintf(gettext('Zenphoto Image Processing Error: %s'), $errormessage) . '</strong>';
 		$debugnote .= '<br /><br />' . sprintf(gettext('Request URI: [ <code>%s</code> ]'), html_encode(getRequestURI()));
@@ -174,18 +171,18 @@ function iptc_make_tag($rec, $data, $value) {
  * @param string $newfilename the name of the file when it is in the cache
  * @param string $imgfile the image name
  * @param array $args the cropping arguments
- * @param bool $allow_watermark set to true if image may be watermarked
+ * @param bool $allow_watermark set to TRUE if image may be watermarked
  * @param string $theme the current theme
  * @param string $album the album containing the image
  */
-function cacheImage($newfilename, $imgfile, $args, $allow_watermark = false, $theme, $album) {
+function cacheImage($newfilename, $imgfile, $args, $allow_watermark = FALSE, $theme, $album) {
 	global $_zp_gallery;
 	try {
 		@list($size, $width, $height, $cw, $ch, $cx, $cy, $quality, $thumb, $crop, $thumbstandin, $passedWM, $adminrequest, $effects) = $args;
 		// Set the config variables for convenience.
 		$image_use_side = getOption('image_use_side');
 		$upscale = getOption('image_allow_upscale');
-		$allowscale = true;
+		$allowscale = TRUE;
 		$sharpenthumbs = getOption('thumb_sharpen');
 		$sharpenimages = getOption('image_sharpen');
 		$id = $im = NULL;
@@ -196,7 +193,7 @@ function cacheImage($newfilename, $imgfile, $args, $allow_watermark = false, $th
 		if (!$effects) {
 			if ($thumb && getOption('thumb_gray')) {
 				$effects = 'gray';
-			} else if (getOption('image_gray')) {
+			} elseif (getOption('image_gray')) {
 				$effects = 'gray';
 			}
 		}
@@ -208,7 +205,7 @@ function cacheImage($newfilename, $imgfile, $args, $allow_watermark = false, $th
 		if (!file_exists($imgfile) || !is_readable($imgfile)) {
 			imageError('404 Not Found', sprintf(gettext('Image %s not found or is unreadable.'), filesystemToInternal($imgfile)), 'err-imagenotfound.png');
 		}
-		$rotate = false;
+		$rotate = FALSE;
 		if (zp_imageCanRotate()) {
 			$rotate = getImageRotation($imgfile);
 		}
@@ -226,10 +223,10 @@ function cacheImage($newfilename, $imgfile, $args, $allow_watermark = false, $th
 					if (DEBUG_IMAGE && $im)
 						debugLog(sprintf(gettext('Using %1$ux%2$u %3$s thumbnail image.'), $tw, $th, image_type_to_mime_type($tt)));
 				} else {
-					$im = false;
+					$im = FALSE;
 				}
 			} else {
-				$im = false;
+				$im = FALSE;
 			}
 		}
 		if (!$im) {
@@ -262,15 +259,15 @@ function cacheImage($newfilename, $imgfile, $args, $allow_watermark = false, $th
 					$cw = $size;
 				$width = $cw;
 				$height = $ch;
-				$size = false;
+				$size = FALSE;
 			} else {
-				$width = $height = false;
+				$width = $height = FALSE;
 			}
-		} else if (!empty($width) && !empty($height)) {
+		} elseif (!empty($width) && !empty($height)) {
 			$ratio_in = $h / $w;
 			$ratio_out = $height / $width;
 			if ($ratio_in > $ratio_out) { // image is taller than desired, $height is the determining factor
-				$thumb = true;
+				$thumb = TRUE;
 				$dim = $width;
 				if (!$ch)
 					$ch = $height;
@@ -279,12 +276,12 @@ function cacheImage($newfilename, $imgfile, $args, $allow_watermark = false, $th
 				if (!$cw)
 					$cw = $width;
 			}
-		} else if (!empty($width)) {
+		} elseif (!empty($width)) {
 			$dim = $width;
-			$size = $height = false;
-		} else if (!empty($height)) {
+			$size = $height = FALSE;
+		} elseif (!empty($height)) {
 			$dim = $height;
-			$size = $width = false;
+			$size = $width = FALSE;
 		} else {
 			// There's a problem up there somewhere...
 			imageError('404 Not Found', sprintf(gettext('Unknown error processing %s! Please report to the developers at <a href="http://www.zenphoto.org/">www.zenphoto.org</a>'), filesystemToInternal($imgfile)), 'err-imagegeneral.png', $imgfile, $album, $newfilename);
@@ -301,7 +298,7 @@ function cacheImage($newfilename, $imgfile, $args, $allow_watermark = false, $th
 		if (!$upscale && $newh >= $h && $neww >= $w) { // image is the same size or smaller than the request
 			$neww = $w;
 			$newh = $h;
-			$allowscale = false;
+			$allowscale = FALSE;
 			if ($crop) {
 				if ($width > $neww) {
 					$width = $neww;
@@ -314,7 +311,7 @@ function cacheImage($newfilename, $imgfile, $args, $allow_watermark = false, $th
 				debugLog("cacheImage:no upscale " . basename($imgfile) . ":  \$newh=$newh, \$neww=$neww, \$crop=$crop, \$thumb=$thumb, \$rotate=$rotate, watermark=" . $watermark_use_image);
 		}
 
-		$watermark_image = false;
+		$watermark_image = FALSE;
 		if ($passedWM) {
 			if ($passedWM != NO_WATERMARK) {
 				$watermark_image = getWatermarkPath($passedWM);
@@ -350,11 +347,11 @@ function cacheImage($newfilename, $imgfile, $args, $allow_watermark = false, $th
 				$neww = $width;
 				$newh = $height;
 				if ($neww > $newh) {
-					if ($newh === false) {
+					if ($newh === FALSE) {
 						$newh = $ir * $neww;
 					}
 				} else {
-					if ($neww === false) {
+					if ($neww === FALSE) {
 						$neww = $ir * $newh;
 					}
 				}
@@ -408,12 +405,12 @@ function cacheImage($newfilename, $imgfile, $args, $allow_watermark = false, $th
 					if (DEBUG_IMAGE)
 						debugLog("cacheImage:symlink original " . basename($imgfile) . ":\$size=$size, \$width=$width, \$height=$height, \$dim=$dim, \$neww=$neww; \$newh=$newh; \$quality=$quality, \$thumb=$thumb, \$crop=$crop, \$rotate=$rotate; \$allowscale=$allowscale;");
 					clearstatcache();
-					return true;
-				} else if (@copy($imgfile, $newfile)) {
+					return TRUE;
+				} elseif (@copy($imgfile, $newfile)) {
 					if (DEBUG_IMAGE)
 						debugLog("cacheImage:copy original " . basename($imgfile) . ":\$size=$size, \$width=$width, \$height=$height, \$dim=$dim, \$neww=$neww; \$newh=$newh; \$quality=$quality, \$thumb=$thumb, \$crop=$crop, \$rotate=$rotate; \$allowscale=$allowscale;");
 					clearstatcache();
-					return true;
+					return TRUE;
 				}
 			}
 			if ($allowscale) {
@@ -539,16 +536,16 @@ function cacheImage($newfilename, $imgfile, $args, $allow_watermark = false, $th
 	} catch (Exception $e) {
 		debugLog('cacheImage(' . $newfilename . ') exception: ' . $e->getMessage());
 		imageError('404 Not Found', sprintf(gettext('cacheImage(%1$s) exception: %2$s'), $newfilename, $e->getMessage()), 'err-failimage.png', $imgfile, $album, $newfilename);
-		return false;
+		return FALSE;
 	}
 	clearstatcache();
-	return true;
+	return TRUE;
 }
 
 /* Determines the rotation of the image looking EXIF information.
  *
  * @param string $imgfile the image name
- * @return false when the image should not be rotated, or the degrees the
+ * @return FALSE when the image should not be rotated, or the degrees the
  *         image should be rotated otherwise.
  *
  * PHP GD do not support flips so when a flip is needed we make a
@@ -556,7 +553,7 @@ function cacheImage($newfilename, $imgfile, $args, $allow_watermark = false, $th
  * fill a flipped value in the tag.
  */
 function getImageRotation($imgfile) {
-	$rotation = false;
+	$rotation = FALSE;
 	$imgfile_db = substr(filesystemToInternal($imgfile), strlen(ALBUM_FOLDER_SERVERPATH));
 	$result = query_single_row('SELECT EXIFOrientation FROM ' . prefix('images') . ' AS i JOIN ' . prefix('albums') . ' as a ON i.albumid = a.id WHERE ' . db_quote($imgfile_db) . ' = CONCAT(a.folder,"/",i.filename)');
 	if (is_null($result)) {
@@ -567,14 +564,14 @@ function getImageRotation($imgfile) {
 				$rotation = $result['Orientation'];
 			}
 		}
-	} else if (is_array($result) && array_key_exists('EXIFOrientation', $result)) {
+	} elseif (is_array($result) && array_key_exists('EXIFOrientation', $result)) {
 		$splits = preg_split('/!([(0-9)])/', $result['EXIFOrientation']);
 		$rotation = $splits[0];
 	}
 	if ($rotation) {
 		switch ($rotation) {
-			case 1 : return false; // none
-			case 2 : return false; // mirrored
+			case 1 : return FALSE; // none
+			case 2 : return FALSE; // mirrored
 			case 3 : return 180; // upside-down (not 180 but close)
 			case 4 : return 180; // upside-down mirrored
 			case 5 : return 270; // 90 CW mirrored (not 270 but close)
@@ -583,5 +580,5 @@ function getImageRotation($imgfile) {
 			case 8 : return 90; // 90 CW
 		}
 	}
-	return false;
+	return FALSE;
 }
