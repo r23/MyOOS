@@ -31,7 +31,7 @@
         "extra": {
             "class": "Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\Plugin"
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\": "src/"
@@ -92,7 +92,7 @@
         },
         "time": "2018-11-25T04:50:29+00:00",
         "type": "library",
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-0": {
                 "Sabberworm\\CSS": "lib/"
@@ -114,7 +114,7 @@
             "stylesheet"
         ],
         "support": {
-            "source": "https://github.com/xwp/PHP-CSS-Parser/tree/master"
+            "source": "https://github.com/xwp/PHP-CSS-Parser/tree/8.1.1"
         }
     },
     {
@@ -152,7 +152,7 @@
                 "dev-master": "3.x-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "notification-url": "https://packagist.org/downloads/",
         "license": [
             "BSD-3-Clause"
@@ -223,7 +223,8 @@
             "compatibility",
             "phpcs",
             "standards"
-        ]
+        ],
+        "abandoned": "phpcompatibility/php-compatibility"
     },
     {
         "name": "wp-coding-standards/wpcs",
@@ -249,7 +250,7 @@
         },
         "time": "2018-02-16T01:57:48+00:00",
         "type": "phpcodesniffer-standard",
-        "installation-source": "dist",
+        "installation-source": "source",
         "notification-url": "https://packagist.org/downloads/",
         "license": [
             "MIT"
