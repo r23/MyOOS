@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.0.x - Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-01-12 17:19:44+0000\n"
+"PO-Revision-Date: 2019-01-20 22:49:32+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -640,16 +640,16 @@ msgstr "Eine gepunktete oder nummerierte Liste erstellen."
 
 #: wp-includes/js/dist/block-library.js:10049
 msgid "recent posts"
-msgstr "Neueste Beiträge"
+msgstr "Neue Beiträge"
 
 #: wp-includes/js/dist/block-library.js:10008
 msgid "Display a list of your most recent posts."
-msgstr "Zeigt eine Liste der neuesten Beiträge an."
+msgstr "Zeigt eine Liste der neuen Beiträge an."
 
 #: wp-includes/js/dist/block-library.js:9909
 #: wp-includes/js/dist/block-library.js:10007
 msgid "Latest Posts"
-msgstr "Neueste Beiträge"
+msgstr "Neue Beiträge"
 
 #: wp-includes/js/dist/block-library.js:9890
 msgid "Display post date"
@@ -657,11 +657,11 @@ msgstr "Beitragsdatum anzeigen"
 
 #: wp-includes/js/dist/block-library.js:9861
 msgid "Latest Posts Settings"
-msgstr "Einstellungen - Neueste Beiträge"
+msgstr "Einstellungen - Neue Beiträge"
 
 #: wp-includes/js/dist/block-library.js:9722
 msgid "recent comments"
-msgstr "Neueste Kommentare"
+msgstr "Neue Kommentare"
 
 #: wp-includes/js/dist/block-library.js:9709
 msgid "Display a list of your most recent comments."
@@ -669,7 +669,7 @@ msgstr "Eine Liste deiner letzten Kommentare anzeigen."
 
 #: wp-includes/js/dist/block-library.js:9708
 msgid "Latest Comments"
-msgstr "Neueste Kommentare"
+msgstr "Neue Kommentare"
 
 #: wp-includes/js/dist/block-library.js:9676
 msgid "Number of Comments"
@@ -689,7 +689,7 @@ msgstr "Avatar anzeigen"
 
 #: wp-includes/js/dist/block-library.js:9662
 msgid "Latest Comments Settings"
-msgstr "Einstellungen - Neueste Kommentare"
+msgstr "Einstellungen - Neue Kommentare"
 
 #: wp-includes/js/dist/block-library.js:3644
 #: wp-includes/js/dist/format-library.js:499
@@ -5393,7 +5393,7 @@ msgstr "Archive"
 #: wp-includes/theme.php:2083
 msgctxt "Theme starter content"
 msgid "This is an example of a homepage section. Homepage sections can be any page other than the homepage itself, including the page that shows your latest blog posts."
-msgstr "Hier ist als Beispiel ein Abschnitt deiner Startseite. Ein Startseiten-Abschnitt kann jede Seite sein; ausgenommen die Startseite selbst, aber einschließlich der Seite, die deine neuesten Blog-Beiträge zeigt."
+msgstr "Hier ist als Beispiel ein Abschnitt deiner Startseite. Ein Startseiten-Abschnitt kann jede Seite sein; ausgenommen die Startseite selbst, aber einschließlich der Seite, die deine neuen Blog-Beiträge zeigt."
 
 #: wp-includes/theme.php:2077
 msgctxt "Theme starter content"
@@ -5418,12 +5418,12 @@ msgstr "Willkommen auf deiner Website! Das ist die Startseite, die die meisten d
 #: wp-includes/theme.php:1976
 msgctxt "Theme starter content"
 msgid "Recent Posts"
-msgstr "Neueste Beiträge"
+msgstr "Neue Beiträge"
 
 #: wp-includes/theme.php:1973
 msgctxt "Theme starter content"
 msgid "Recent Comments"
-msgstr "Neueste Kommentare"
+msgstr "Neue Kommentare"
 
 #: wp-includes/theme.php:1970
 msgctxt "Theme starter content"
@@ -10812,11 +10812,11 @@ msgstr "Einträge von einem beliebigen RSS- oder Atom-Feed."
 
 #: wp-includes/widgets/class-wp-widget-recent-comments.php:27
 msgid "Your site&#8217;s most recent comments."
-msgstr "Die neuesten Kommentare deiner Website."
+msgstr "Die neuen Kommentare deiner Website."
 
 #: wp-includes/widgets/class-wp-widget-recent-posts.php:27
 msgid "Your site&#8217;s most recent Posts."
-msgstr "Die neuesten Beiträge deiner Website."
+msgstr "Die neuen Beiträge deiner Website."
 
 #: wp-includes/widgets/class-wp-widget-categories.php:27
 msgid "A list or dropdown of categories."
@@ -14859,7 +14859,7 @@ msgstr "Anzahl der Beiträge, die angezeigt werden:"
 #: wp-includes/widgets/class-wp-widget-recent-posts.php:30
 #: wp-includes/widgets/class-wp-widget-recent-posts.php:48
 msgid "Recent Posts"
-msgstr "Neueste Beiträge"
+msgstr "Neue Beiträge"
 
 #: wp-includes/widgets/class-wp-widget-categories.php:178
 msgid "Show hierarchy"
@@ -15635,7 +15635,7 @@ msgstr "Plugins"
 #: wp-includes/widgets/class-wp-widget-recent-comments.php:30
 #: wp-includes/widgets/class-wp-widget-recent-comments.php:75
 msgid "Recent Comments"
-msgstr "Neueste Kommentare"
+msgstr "Neue Kommentare"
 
 #: wp-includes/media-template.php:1246
 #: wp-includes/class-wp-customize-manager.php:4156
