@@ -3,7 +3,7 @@
     "license": "GPL-3.0",
     "type": "project",
     "description": "Port of \"pChart\" library into PHP 5",
-    "keywords": ["pchart", "pChart","statistics","charts","CpChart","c-pChart"],
+    "keywords": ["pchart", "pChart", "statistics", "charts", "CpChart", "c-pChart"],
     "homepage": "https://github.com/szymach/c-pchart",
     "authors": [
         {
@@ -21,17 +21,17 @@
         "psr-4": { "CpChart\\": "src/" },
         "files": ["src/Resources/data/constants.php"]
     },
+    "autoload-dev": {
+        "psr-4": { "Test\\CpChart\\": "tests/" }
+    },
     "require": {
         "php": ">=5.4",
         "ext-gd": "*"
     },
     "require-dev" : {
-        "behat/behat": "^3.3",
-        "behat/mink": "^1.7",
-        "behat/mink-goutte-driver": "^1.2",
-        "bossa/phpspec2-expect": "^1.0",
-        "sensiolabs/behat-page-object-extension": "^2.0",
-        "squizlabs/php_codesniffer": "^2.8"
+        "codeception/codeception": "^2.3",
+        "phpunit/phpunit": "^4.8|6.1",
+        "squizlabs/php_codesniffer": "^2.8|3.0"
     },
     "config": {
         "bin-dir": "bin"

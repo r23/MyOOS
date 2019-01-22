@@ -3,6 +3,7 @@
 namespace CpChart\Chart;
 
 use Exception;
+use RuntimeException;
 
 /**
  *  pDraw - class to manipulate data arrays
@@ -479,7 +480,7 @@ class Data
      */
     public function drawAll()
     {
-        foreach ($this->Data["Series"] as $Key => $Value) {
+        foreach (array_keys($this->Data["Series"]) as $Key) {
             if ($this->Data["Abscissa"] != $Key) {
                 $this->Data["Series"][$Key]["isDrawable"] = true;
             }
@@ -534,9 +535,9 @@ class Data
                 $Seriesum = $Seriesum + 1 / $Value;
             }
             return sizeof($SerieData) / $Seriesum;
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     /**
@@ -636,11 +637,7 @@ class Data
         $withFloat = isset($Options["withFloat"]) ? $Options["withFloat"] : false;
 
         for ($i = 0; $i <= $Values; $i++) {
-            if ($withFloat) {
-                $Value = rand($Min * 100, $Max * 100) / 100;
-            } else {
-                $Value = rand($Min, $Max);
-            }
+            $Value = $withFloat ? rand($Min * 100, $Max * 100) / 100 : rand($Min, $Max);
             $this->addPoints($Value, $SerieName);
         }
     }
@@ -885,14 +882,18 @@ class Data
      */
     public function loadPalette($FileName, $Overwrite = false)
     {
-        $path = sprintf('%s/../Resources/palettes/%s', __DIR__, ltrim($FileName, '/'));
-        if (file_exists($FileName)) {
-            $path = $FileName;
-        }
+        $path = file_exists($FileName)
+            ? $FileName
+            : sprintf('%s/../Resources/palettes/%s', __DIR__, ltrim($FileName, '/'))
+        ;
 
         $fileHandle = @fopen($path, "r");
         if (!$fileHandle) {
-            throw new Exception('The requested palette ' . $FileName . ' was not found!');
+            throw new Exception(sprintf(
+                'The requested palette "%s" was not found at path "%s"!',
+                $FileName,
+                $path
+            ));
         }
 
         if ($Overwrite) {
@@ -900,12 +901,28 @@ class Data
         }
 
         while (!feof($fileHandle)) {
-            $buffer = fgets($fileHandle, 4096);
-            if (preg_match("/,/", $buffer)) {
-                list($R, $G, $B, $Alpha) = preg_split("/,/", $buffer);
-                $ID = count($this->Palette);
-                $this->Palette[$ID] = ["R" => $R, "G" => $G, "B" => $B, "Alpha" => $Alpha];
+            $line = fgets($fileHandle, 4096);
+            if (false === $line) {
+                continue;
             }
+            $row = explode(',', $line);
+            if (empty($row)) {
+                continue;
+            }
+            if (count($row) !== 4) {
+                throw new RuntimeException(sprintf(
+                    'A palette row must supply R, G, B and Alpha components, %s given!',
+                    var_export($row, true)
+                ));
+            }
+            list($R, $G, $B, $Alpha) = $row;
+            $ID = count($this->Palette);
+            $this->Palette[$ID] = [
+                "R" => trim($R),
+                "G" => trim($G),
+                "B" => trim($B),
+                "Alpha" => trim($Alpha)
+            ];
         }
         fclose($fileHandle);
 
@@ -979,6 +996,7 @@ class Data
             $this->Data["Series"][$Serie]["Color"]["B"] = rand(0, 255);
             $this->Data["Series"][$Serie]["Color"]["Alpha"] = 100;
         }
+        $this->Data["Series"][$Serie]["Data"] = [];
     }
 
     /**

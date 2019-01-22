@@ -66,6 +66,24 @@ class MatomoTag extends BaseTag
                     $field->validators[] = new CharacterLength(1, 500);
                 }
             }),
+            $this->makeSetting('documentTitle', '', FieldConfig::TYPE_STRING, function (FieldConfig $field) use ($trackingType) {
+                $field->title = 'Custom Title';
+                $field->customUiControlTemplateFile = self::FIELD_TEMPLATE_VARIABLE;
+                $field->description = 'Optionally, specify a custom document title which should be tracked instead of the default document title.';
+                $field->condition = 'trackingType == "pageview"';
+                if ($trackingType->getValue() === 'pageview') {
+                    $field->validators[] = new CharacterLength(0, 500);
+                }
+            }),
+            $this->makeSetting('customUrl', '', FieldConfig::TYPE_STRING, function (FieldConfig $field) use ($trackingType) {
+                $field->title = 'Custom URL';
+                $field->customUiControlTemplateFile = self::FIELD_TEMPLATE_VARIABLE;
+                $field->description = 'Optionally, specify a custom URL which should be tracked instead of the current location.';
+                $field->condition = 'trackingType == "pageview"';
+                if ($trackingType->getValue() === 'pageview') {
+                    $field->validators[] = new CharacterLength(0, 500);
+                }
+            }),
             $this->makeSetting('eventCategory', '', FieldConfig::TYPE_STRING, function (FieldConfig $field) use ($trackingType) {
                 $field->title = 'Event Category';
                 $field->customUiControlTemplateFile = self::FIELD_TEMPLATE_VARIABLE;
@@ -93,12 +111,24 @@ class MatomoTag extends BaseTag
                 $field->condition = 'trackingType == "event"';
                 $field->validators[] = new CharacterLength(0, 500);
             }),
-            $this->makeSetting('eventValue', '', FieldConfig::TYPE_FLOAT, function (FieldConfig $field) {
+            $this->makeSetting('eventValue', '', FieldConfig::TYPE_STRING, function (FieldConfig $field) {
                 $field->title = 'Event Value';
                 $field->customUiControlTemplateFile = self::FIELD_TEMPLATE_VARIABLE;
                 $field->description = 'The event\'s value, for example "50" as in user has stayed on the website for 50 seconds.';
                 $field->condition = 'trackingType == "event"';
-                $field->validators[] = new NumberRange();
+                $field->validators[] = new CharacterLength(0, 500);
+                $field->validate = function ($value) {
+                    if (empty($value)) {
+                        return;
+                    }
+                    if (is_numeric($value)) {
+                        return; // valid
+                    }
+                    $posBracket = strpos($value, '{{');
+                    if ($posBracket === false || strpos($value, '}}', $posBracket) === false) {
+                        throw new \Exception('The event value can only include numeric values and variables.');
+                    }
+                };
                 $field->transform = function ($value) {
                     if ($value === null || $value === false || $value === ''){
                         // we make sure in those cases we do not case the value to float automatically by Setting class because
@@ -107,7 +137,6 @@ class MatomoTag extends BaseTag
                     }
                     return $value;
                 };
-                $field->validate = function (){}; // prevent executing default float validator which requires a value, value here is optional
             })
         );
     }

@@ -11,24 +11,27 @@
 
 namespace Monolog\Handler;
 
+use Monolog\ResettableInterface;
 use Monolog\Formatter\FormatterInterface;
 
 /**
  * This simple wrapper class can be used to extend handlers functionality.
  *
- * Example: A filtering handle. Inherit from this class, override isHandling() like this
+ * Example: A custom filtering that can be applied to any handler.
  *
- * public function isHandling(array $record)
- * {
- *      if ($record meets certain conditions) {
- *          return false;
- *      }
- *      return $this->handler->isHandling($record);
- * }
+ * Inherit from this class and override handle() like this:
+ *
+ *   public function handle(array $record)
+ *   {
+ *        if ($record meets certain conditions) {
+ *            return false;
+ *        }
+ *        return $this->handler->handle($record);
+ *   }
  *
  * @author Alexey Karapetov <alexey@karapetov.com>
  */
-class HandlerWrapper implements HandlerInterface
+class HandlerWrapper implements HandlerInterface, ResettableInterface
 {
     /**
      * @var HandlerInterface
@@ -102,5 +105,12 @@ class HandlerWrapper implements HandlerInterface
     public function getFormatter()
     {
         return $this->handler->getFormatter();
+    }
+
+    public function reset()
+    {
+        if ($this->handler instanceof ResettableInterface) {
+            return $this->handler->reset();
+        }
     }
 }

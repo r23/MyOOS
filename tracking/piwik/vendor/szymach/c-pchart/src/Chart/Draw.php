@@ -5048,7 +5048,7 @@ abstract class Draw extends BaseDraw
                 $R = $Serie["Color"]["R"];
                 $G = $Serie["Color"]["G"];
                 $B = $Serie["Color"]["B"];
-                $Alpha = $Serie["Color"]["Alpha"];
+                $Alpha = (int) $Serie["Color"]["Alpha"];
                 $Ticks = $Serie["Ticks"];
                 if ($Surrounding != null) {
                     $BorderR = $R + $Surrounding;
@@ -6118,7 +6118,8 @@ abstract class Draw extends BaseDraw
     }
 
     /**
-     * Draw a line chart
+     * Draw a zone chart
+     *
      * @param string $SerieA
      * @param string $SerieB
      * @param array $Format
@@ -7255,7 +7256,7 @@ abstract class Draw extends BaseDraw
         $DisplayValues = isset($Format["DisplayValues"]) ? $Format["DisplayValues"] : false;
         $DisplayOffset = isset($Format["DisplayOffset"]) ? $Format["DisplayOffset"] : 2;
         $DisplayColor = isset($Format["DisplayColor"]) ? $Format["DisplayColor"] : DISPLAY_MANUAL;
-        $DisplayFont = isset($Format["DisplaySize"]) ? $Format["DisplaySize"] : $this->FontName;
+        $DisplayFont = isset($Format["DisplayFont"]) ? $Format["DisplayFont"] : $this->FontName;
         $DisplaySize = isset($Format["DisplaySize"]) ? $Format["DisplaySize"] : $this->FontSize;
         $DisplayPos = isset($Format["DisplayPos"]) ? $Format["DisplayPos"] : LABEL_POS_OUTSIDE;
         $DisplayShadow = isset($Format["DisplayShadow"]) ? $Format["DisplayShadow"] : true;
@@ -8627,8 +8628,8 @@ abstract class Draw extends BaseDraw
         $this->Shadow = false;
 
         /* Build the offset data series */
-        $OverallOffset = "";
-        $SerieOrder = "";
+        $OverallOffset = [];
+        $SerieOrder = [];
         foreach ($Data["Series"] as $SerieName => $Serie) {
             if ($Serie["isDrawable"] == true && $SerieName != $Data["Abscissa"]) {
                 $SerieOrder[] = $SerieName;
@@ -8642,8 +8643,7 @@ abstract class Draw extends BaseDraw
                     } else {
                         $Sign = "-";
                     }
-                    if (!isset($OverallOffset[$Key]) || !isset($OverallOffset[$Key][$Sign])
-                    ) {
+                    if (!isset($OverallOffset[$Key]) || !isset($OverallOffset[$Key][$Sign])) {
                         $OverallOffset[$Key][$Sign] = 0;
                     }
 
@@ -8672,7 +8672,6 @@ abstract class Draw extends BaseDraw
                 }
 
                 $Color = ["R" => $R, "G" => $G, "B" => $B, "Alpha" => $Alpha];
-
                 if ($LineSurrounding != null) {
                     $LineColor = [
                         "R" => $R + $LineSurrounding,

@@ -97,6 +97,7 @@ class RollbarHandler extends AbstractProcessingHandler
         ));
 
         if (isset($context['exception']) && $context['exception'] instanceof Exception) {
+            $payload['level'] = $context['level'];
             $exception = $context['exception'];
             unset($context['exception']);
 
@@ -128,4 +129,16 @@ class RollbarHandler extends AbstractProcessingHandler
     {
         $this->flush();
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function reset()
+    {
+        $this->flush();
+
+        parent::reset();
+    }
+
+
 }

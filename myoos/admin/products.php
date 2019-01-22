@@ -77,6 +77,7 @@ if (!empty($action)) {
 				}
 			}
 
+/*
 			if ( ($_POST['products_image'] != 'none') && (isset($_FILES['products_image'])) ) {
 				$products_image = oos_get_uploaded_file('products_image');
 				$image_directory = oos_get_local_path(OOS_ABSOLUTE_PATH . OOS_IMAGES);
@@ -87,7 +88,7 @@ if (!empty($action)) {
 				$products_image = oos_db_prepare_input($_POST['products_previous_image']);
 			}
 
-
+*/
 
 
 				if ($_POST['delete_image'] == 'yes') {
@@ -96,9 +97,6 @@ if (!empty($action)) {
 					}
 				}
 
-				if ( ($_POST['delete_image'] == 'yes') || ($_POST['remove_image'] == 'yes') ) {
-					$products_image = 'none';
-				}
 
 			$products_id = oos_db_prepare_input($_GET['pID']);
 			$products_date_available = oos_db_prepare_input($_POST['products_date_available']);
@@ -147,13 +145,6 @@ if (!empty($action)) {
                                   'products_discount4_qty' => oos_db_prepare_input($_POST['products_discount4_qty']),
                                   );
 
-			$products_image = new upload('products_image');
-			$products_image->set_destination();
-			if ($products_image->parse() && $products_image->save()) {			
-				$sql_data_array['products_image'] = oos_db_prepare_input($products_image->filename);
-			}
-
-
 
 			if ($action == 'insert_product') {
 				$insert_sql_data = array('products_date_added' => 'now()');
@@ -164,14 +155,14 @@ if (!empty($action)) {
 				$products_id = $dbconn->Insert_ID();
 
 				$products_to_categoriestable = $oostable['products_to_categories'];
-				$dbconn->Execute("INSERT INTO $products_to_categoriestable (products_id, categories_id) VALUES ('" . $products_id . "', '" . $current_category_id . "')");
+				$dbconn->Execute("INSERT INTO $products_to_categoriestable (products_id, categories_id) VALUES ('" . intval($products_id) . "', '" . intval($current_category_id) . "')");
 
 			} elseif ($action == 'update_product') {
 				$update_sql_data = array('products_last_modified' => 'now()');
 
 				$sql_data_array = array_merge($sql_data_array, $update_sql_data);
 
-				oos_db_perform($oostable['products'], $sql_data_array, 'UPDATE', 'products_id = \'' . oos_db_input($products_id) . '\'');
+				oos_db_perform($oostable['products'], $sql_data_array, 'UPDATE', 'products_id = \'' . intval($products_id) . '\'');
 
 			}
 
@@ -194,8 +185,19 @@ if (!empty($action)) {
 
 					oos_db_perform($oostable['products_description'], $sql_data_array);
 				} elseif ($action == 'update_product') {
-					oos_db_perform($oostable['products_description'], $sql_data_array, 'UPDATE', 'products_id = \'' . oos_db_input($products_id) . '\' AND products_languages_id = \'' . $lang_id . '\'');
+					oos_db_perform($oostable['products_description'], $sql_data_array, 'UPDATE', 'products_id = \'' . intval($products_id) . '\' AND products_languages_id = \'' . intval($lang_id) . '\'');
 				}
+			}
+
+            # $dir_fs_catalog_images = OOS_ABSOLUTE_PATH . OOS_IMAGES . '/product/';
+			$dir_fs_catalog_images = 'C:/xampp/htdocs/entw/bilder/';
+			$products_image = new upload('products_image');
+			$products_image->set_destination();
+			if ($products_image->parse() && $products_image->save()) {	
+				$productstable = $oostable['products'];
+				$dbconn->Execute("UPDATE $productstable
+                            SET products_image = '" . oos_db_input($products_image->filename) . "'
+                            WHERE products_id = '" . intval($products_id) . "'");				
 			}
 
 			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $products_id));
