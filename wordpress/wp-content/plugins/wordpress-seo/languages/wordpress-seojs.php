@@ -53,10 +53,7 @@ $generated_i18n_strings = array(
 	// Reference: js/src/components/contentAnalysis/ReadabilityAnalysis.js:74
 	__( 'Learn more about the readability analysis', 'wordpress-seo' ),
 
-	// Reference: js/src/components/contentAnalysis/RecalibrationBetaNotification.js:41
-	__( 'Learn more about the Recalibration beta', 'wordpress-seo' ),
-
-	// Reference: js/src/components/contentAnalysis/RecalibrationBetaNotification.js:44
+	// Reference: js/src/components/contentAnalysis/RecalibrationBetaNotification.js:40
 	__( 'Recalibration beta is active', 'wordpress-seo' ),
 
 	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:114
@@ -131,6 +128,9 @@ $generated_i18n_strings = array(
 
 	// Reference: js/src/containers/SnippetEditor.js:107
 	__( 'Please provide a meta description by editing the snippet below.', 'wordpress-seo' ),
+
+	// Reference: js/src/courses-overview.js:114
+	__( 'Free', 'wordpress-seo' ),
 
 	// Reference: js/src/structured-data-blocks/faq/block.js:13
 	__( 'List your Frequently Asked Questions in an SEO-friendly way. You can only use one FAQ block per post.', 'wordpress-seo' ),

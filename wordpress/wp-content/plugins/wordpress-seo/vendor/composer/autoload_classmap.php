@@ -247,6 +247,7 @@ return array(
     'WPSEO_Content_Images' => $baseDir . '/inc/class-wpseo-content-images.php',
     'WPSEO_Cornerstone' => $baseDir . '/deprecated/class-cornerstone.php',
     'WPSEO_Cornerstone_Filter' => $baseDir . '/admin/filters/class-cornerstone-filter.php',
+    'WPSEO_Courses_Overview' => $baseDir . '/admin/courses-overview.php',
     'WPSEO_Custom_Fields' => $baseDir . '/inc/class-wpseo-custom-fields.php',
     'WPSEO_Custom_Taxonomies' => $baseDir . '/inc/class-wpseo-custom-taxonomies.php',
     'WPSEO_Customizer' => $baseDir . '/admin/class-customizer.php',

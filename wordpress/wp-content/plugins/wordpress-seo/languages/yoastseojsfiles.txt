@@ -62,6 +62,7 @@
 ./node_modules/yoastseo/src/helpers/domManipulation.js
 ./node_modules/yoastseo/src/helpers/errors.js
 ./node_modules/yoastseo/src/helpers/formatNumber.js
+./node_modules/yoastseo/src/helpers/formatString.js
 ./node_modules/yoastseo/src/helpers/getFirstWordExceptions.js
 ./node_modules/yoastseo/src/helpers/getFormsForLanguage.js
 ./node_modules/yoastseo/src/helpers/getFunctionWords.js
@@ -303,7 +304,16 @@
 ./node_modules/yoastseo/src/stringProcessing/urlStructure.js
 ./node_modules/yoastseo/src/taxonomyAssessor.js
 ./node_modules/yoastseo/src/templates.js
+./node_modules/yoastseo/src/tree/values/FormattingElement.js
+./node_modules/yoastseo/src/tree/values/nodes/Heading.js
+./node_modules/yoastseo/src/tree/values/nodes/List.js
+./node_modules/yoastseo/src/tree/values/nodes/ListItem.js
+./node_modules/yoastseo/src/tree/values/nodes/Node.js
+./node_modules/yoastseo/src/tree/values/nodes/Paragraph.js
 ./node_modules/yoastseo/src/tree/values/nodes/StructuredIrrelevant.js
+./node_modules/yoastseo/src/tree/values/nodes/StructuredNode.js
+./node_modules/yoastseo/src/tree/values/nodes/TextContainer.js
+./node_modules/yoastseo/src/tree/values/nodes/Whitespace.js
 ./node_modules/yoastseo/src/values/AssessmentResult.js
 ./node_modules/yoastseo/src/values/Mark.js
 ./node_modules/yoastseo/src/values/Paper.js

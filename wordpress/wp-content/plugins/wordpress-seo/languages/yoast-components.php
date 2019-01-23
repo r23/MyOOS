@@ -106,6 +106,9 @@ $generated_i18n_strings = array(
 	// Reference: js/src/components/MediaUpload.js:18 js/src/components/MediaUpload.js:17
 	__( 'Choose an image', 'wordpress-seo' ),
 
+	// Reference: node_modules/yoast-components/app/ComponentsExample.js:156
+	__( 'Free', 'wordpress-seo' ),
+
 	// Reference: node_modules/yoast-components/composites/AlgoliaSearch/AlgoliaSearcher.js:229
 	__( 'Something went wrong. Please try again later.', 'wordpress-seo' ),
 
@@ -234,7 +237,7 @@ $generated_i18n_strings = array(
 	// Reference: node_modules/yoast-components/composites/basic/Notification.js:100
 	__( 'Dismiss this notice', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoast-components/utils/makeOutboundLink.js:34
+	// Reference: node_modules/yoast-components/utils/makeOutboundLink.js:42
 	__( '(Opens in a new browser tab)', 'wordpress-seo' )
 );
 /* THIS IS THE END OF THE GENERATED FILE */

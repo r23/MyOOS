@@ -306,6 +306,7 @@ class ComposerStaticInit285ce5245c749f6f79d48f1d93594eb5
         'WPSEO_Content_Images' => __DIR__ . '/../..' . '/inc/class-wpseo-content-images.php',
         'WPSEO_Cornerstone' => __DIR__ . '/../..' . '/deprecated/class-cornerstone.php',
         'WPSEO_Cornerstone_Filter' => __DIR__ . '/../..' . '/admin/filters/class-cornerstone-filter.php',
+        'WPSEO_Courses_Overview' => __DIR__ . '/../..' . '/admin/courses-overview.php',
         'WPSEO_Custom_Fields' => __DIR__ . '/../..' . '/inc/class-wpseo-custom-fields.php',
         'WPSEO_Custom_Taxonomies' => __DIR__ . '/../..' . '/inc/class-wpseo-custom-taxonomies.php',
         'WPSEO_Customizer' => __DIR__ . '/../..' . '/admin/class-customizer.php',
