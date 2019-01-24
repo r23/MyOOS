@@ -23,7 +23,6 @@ define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
 require 'includes/functions/function_categories.php';
-require 'includes/functions/function_image_resize.php';
 require 'includes/classes/class_upload.php';
 
 
@@ -188,12 +187,52 @@ if (!empty($action)) {
 					oos_db_perform($oostable['products_description'], $sql_data_array, 'UPDATE', 'products_id = \'' . intval($products_id) . '\' AND products_languages_id = \'' . intval($lang_id) . '\'');
 				}
 			}
+        
+			$options = array(
+				'image_versions' => array(				
+                // The empty image version key defines options for the original image.
+                // Keep in mind: these image manipulations are inherited by all other image versions from this point onwards. 
+                // Also note that the property 'no_cache' is not inherited, since it's not a manipulation.
+					'' => array(
+						// Automatically rotate images based on EXIF meta data:
+						'auto_orient' => TRUE
+					),
+						'large' => array(
+						// 'auto_orient' => TRUE,
+						// 'crop' => TRUE,
+						// 'jpeg_quality' => 82,
+						// 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+						// 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+						'max_width' => 1024, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+						'max_height' => 1024, // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
+					),
+					'medium' => array(
+						// 'auto_orient' => TRUE,
+						// 'crop' => TRUE,
+						// 'jpeg_quality' => 82,
+						// 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+						// 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+						'max_width' => 300, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+						'max_height' => 300 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
+					),				
+					'small' => array(
+						// 'auto_orient' => TRUE,
+						// 'crop' => TRUE,
+						// 'jpeg_quality' => 82,
+						// 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+						// 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+						'max_width' => 150, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+						'max_height' => 150 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
+					),									
+				),
+			);
+			
+		
+            $dir_fs_catalog_images = OOS_ABSOLUTE_PATH . OOS_IMAGES . '/product/';
+			$products_image = new upload('products_image', $options);
+			$products_image->set_destination($dir_fs_catalog_images);
 
-            # $dir_fs_catalog_images = OOS_ABSOLUTE_PATH . OOS_IMAGES . '/product/';
-			$dir_fs_catalog_images = 'C:/xampp/htdocs/entw/bilder/';
-			$products_image = new upload('products_image');
-			$products_image->set_destination();
-			if ($products_image->parse() && $products_image->save()) {	
+			if ($products_image->parse()) {	
 				$productstable = $oostable['products'];
 				$dbconn->Execute("UPDATE $productstable
                             SET products_image = '" . oos_db_input($products_image->filename) . "'

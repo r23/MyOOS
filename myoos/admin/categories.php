@@ -22,8 +22,6 @@ define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
 require 'includes/functions/function_categories.php';
-require 'includes/functions/function_image_resize.php';
-require 'includes/functions/function_gd.php';
 require 'includes/classes/class_currencies.php';
 require 'includes/classes/class_upload.php';
 
@@ -110,7 +108,7 @@ if (!empty($action)) {
 										'date_added' => 'now()',
 										'categories_status' => intval($nStatus));
 
-				$sql_data_array = array_merge($sql_data_array, $update_sql_data);
+				$sql_data_array = array_merge($sql_data_array, $insert_sql_data);
 
 				oos_db_perform($oostable['categories'], $sql_data_array);
 
@@ -128,25 +126,21 @@ if (!empty($action)) {
 			$nLanguages = count($aLanguages);
 
 			for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
-				$categories_name_array = $_POST['categories_name'];
 				$lang_id = $aLanguages[$i]['id'];
-				$sql_data_array = array('categories_name' => oos_db_prepare_input($categories_name_array[$lang_id]));
 				$sql_data_array = array('categories_name' => oos_db_prepare_input($_POST['categories_name'][$lang_id]),
 										'categories_heading_title' => oos_db_prepare_input($_POST['categories_heading_title'][$lang_id]),
 										'categories_description' => oos_db_prepare_input($_POST['categories_description'][$lang_id]),
 										'categories_description_meta' => oos_db_prepare_input($_POST['categories_description_meta'][$lang_id]),
 										'categories_keywords_meta' => oos_db_prepare_input($_POST['categories_keywords_meta'][$lang_id]));
 
-
 				if ($action == 'insert_category') {
 					$insert_sql_data = array('categories_id' => intval($categories_id),
-											'categories_languages_id' => intval($languages[$i]['id']));
+											'categories_languages_id' => intval($aLanguages[$i]['id']));
 
 					$sql_data_array = array_merge($sql_data_array, $insert_sql_data);
-
 					oos_db_perform($oostable['categories_description'], $sql_data_array);
 				} elseif ($action == 'update_category') {
-					oos_db_perform($oostable['categories_description'], $sql_data_array, 'UPDATE', 'categories_id = \'' . intval($categories_id) . '\' and categories_languages_id = \'' . intval($languages[$i]['id']) . '\'');
+					oos_db_perform($oostable['categories_description'], $sql_data_array, 'UPDATE', 'categories_id = \'' . intval($categories_id) . '\' and categories_languages_id = \'' . intval($aLanguages[$i]['id']) . '\'');
 				}
 			}
 
