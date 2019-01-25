@@ -294,16 +294,6 @@ function oos_redirect_admin($url) {
   }
 
 
-  function oos_info_image($image, $alt, $width = '', $height = '') {
-    if ( ($image) && (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . $image)) ) {
-      $image = oos_image(OOS_SHOP_IMAGES . $image, $alt, $width, $height);
-    } else {
-      $image = TEXT_IMAGE_NONEXISTENT;
-    }
-
-    return $image;
-  }
-
 
   function oos_break_string($string, $len, $break_char = '-') {
     $l = 0;

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /* ----------------------------------------------------------------------
 
    MyOOS [Shopsystem]
@@ -197,7 +197,7 @@ if (!empty($action)) {
 						// Automatically rotate images based on EXIF meta data:
 						'auto_orient' => TRUE
 					),
-						'large' => array(
+					'large' => array(
 						// 'auto_orient' => TRUE,
 						// 'crop' => TRUE,
 						// 'jpeg_quality' => 82,
@@ -227,18 +227,20 @@ if (!empty($action)) {
 				),
 			);
 			
-		
-            $dir_fs_catalog_images = OOS_ABSOLUTE_PATH . OOS_IMAGES . '/product/';
-			$products_image = new upload('products_image', $options);
-			$products_image->set_destination($dir_fs_catalog_images);
-
-			if ($products_image->parse()) {	
+			$oProductImage = new upload('products_image', $options);
+			
+			$dir_fs_catalog_images = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/';
+			$oProductImage->set_destination($dir_fs_catalog_images);
+			$oProductImage->parse();
+	
+			if (oos_is_not_null($oProductImage->filename)) {
+			
 				$productstable = $oostable['products'];
 				$dbconn->Execute("UPDATE $productstable
-                            SET products_image = '" . oos_db_input($products_image->filename) . "'
+                            SET products_image = '" . oos_db_input($oProductImage->filename) . "'
                             WHERE products_id = '" . intval($products_id) . "'");				
 			}
-
+			
 			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $products_id));
 		break;
 

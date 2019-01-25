@@ -1174,7 +1174,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
             $contents[] = array('text' => '#' . $pInfo->products_id . ' ' . TEXT_CATEGORIES . ' ' . oos_get_categories_name($current_category_id) . '<br />' . TEXT_DATE_ADDED . ' ' . oos_date_short($pInfo->products_date_added));
             if (oos_is_not_null($pInfo->products_last_modified)) $contents[] = array('text' => TEXT_LAST_MODIFIED . ' ' . oos_date_short($pInfo->products_last_modified));
             if (date('Y-m-d') < $pInfo->products_date_available) $contents[] = array('text' => TEXT_DATE_AVAILABLE . ' ' . oos_date_short($pInfo->products_date_available));
-            $contents[] = array('text' => '<br /><a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=new_product_preview') . '">' . oos_info_image($pInfo->products_image, $pInfo->products_name, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a><br />' . $pInfo->products_image);
+            $contents[] = array('text' => '<br /><a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=new_product_preview') . '">' . product_info_image($pInfo->products_image, $pInfo->products_name) . '</a><br />' . $pInfo->products_image);
 
             $sPrice = $pInfo->products_price;
             $sPriceList = $pInfo->products_price_list;

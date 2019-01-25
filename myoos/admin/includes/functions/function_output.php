@@ -121,6 +121,28 @@ function oos_image($src, $alt = '', $width = '', $height = '', $params = '') {
   }
 
 
+
+  function product_info_image($image, $alt, $width = '', $height = '') {
+    if ( ($image) && (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/medium/' . $image)) ) {
+      $image = oos_image(OOS_SHOP_IMAGES . 'product/medium/' . $image, $alt, $width, $height);
+    } else {
+      $image = TEXT_IMAGE_NONEXISTENT;
+    }
+
+    return $image;
+  }
+
+
+  function oos_info_image($image, $alt, $width = '', $height = '') {
+    if ( ($image) && (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . $image)) ) {
+      $image = oos_image(OOS_SHOP_IMAGES . $image, $alt, $width, $height);
+    } else {
+      $image = TEXT_IMAGE_NONEXISTENT;
+    }
+
+    return $image;
+  }
+
  /**
   * Draw a 1 pixel black line
   */

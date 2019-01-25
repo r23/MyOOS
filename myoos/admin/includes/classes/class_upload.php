@@ -341,7 +341,7 @@ class upload {
                 clearstatcache();
             }
         }
-        return $this->fix_integer_overflow(filesize($file_path));
+        return $this->fix_integer_overflow(@filesize($file_path));
     }
 
     protected function is_valid_file_object($file_name) {
@@ -1181,7 +1181,7 @@ class upload {
             } else {
                 $file->size = $file_size;
                 if (!$content_range && $this->options['discard_aborted_uploads']) {
-                    unlink($file_path);
+                    @unlink($file_path);
                     $file->error = $this->get_error_message('abort');
                 }
             }
@@ -1349,10 +1349,10 @@ class upload {
 
         $files = array();
         if ($upload) {
-            if (is_array($upload['tmp_name'])) {
+            if (is_array($upload['tmp_name'])) {		
                 // param_name is an array identifier like "files[]",
                 // $upload is a multi-dimensional array:				
-                foreach ($upload['tmp_name'] as $index => $value) {
+                foreach ($upload['tmp_name'] as $index => $value) {					
                     $files[] = $this->handle_file_upload(
                         $upload['tmp_name'][$index],
                         $file_name ? $file_name : $upload['name'][$index],
@@ -1364,10 +1364,11 @@ class upload {
                     );
                 }
             } else {
-
                 // param_name is a single object identifier like "file",
-                // $upload is a one-dimensional array:
-				$this->set_filename($file['name']);
+                // $upload is a one-dimensional array:			
+				$sFileName = $file_name ? $file_name : (isset($upload['name']) ?
+                            $upload['name'] : NULL);
+				$this->set_filename($sFileName);							
                 $files[] = $this->handle_file_upload(
                     isset($upload['tmp_name']) ? $upload['tmp_name'] : NULL,
                     $file_name ? $file_name : (isset($upload['name']) ?
@@ -1383,13 +1384,9 @@ class upload {
             }
         }
 
-		$response = array($this->options['param_name'] => $files);
-		$this->generate_response($response, $print_response);
-
-
 		if (isset($upload['error'])) {
-			return FALSE;
-		}else {
+			return FALSE;			
+		} else {
 			return TRUE;
 		}
     }
