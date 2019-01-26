@@ -301,11 +301,6 @@ class upload {
 		}
 	}
   
-  
- 
-    protected function initialize() {
-        $this->post($this->options['print_response']);
-    }
 
     protected function get_upload_path($file_name = NULL, $version = NULL) {
         $file_name = $file_name ? $file_name : '';
@@ -498,7 +493,7 @@ class upload {
     protected function upcount_name_callback($matches) {
         $index = isset($matches[1]) ? ((int)$matches[1]) + 1 : 1;
         $ext = isset($matches[2]) ? $matches[2] : '';
-        return ' ('.$index.')'.$ext;
+        return '_('.$index.')'.$ext;
     }
 
     protected function upcount_name($name) {
@@ -562,6 +557,7 @@ class upload {
 
     protected function trim_file_name($file_path, $name, $size, $type, $error,
             $index, $content_range) {
+				
         // Remove path information and dots around the filename, to prevent uploading
         // into different directories or replacing hidden system files.
         // Also remove control characters and spaces (\x00..\x20) around the filename:
@@ -1273,27 +1269,19 @@ class upload {
     }
 	
     public function generate_response($content, $print_response = true) {
-        $this->response = $content;
-        if ($print_response) {
-            $json = json_encode($content);
-            $redirect = stripslashes($this->get_post_param('redirect'));
-            if ($redirect && preg_match($this->options['redirect_allow_target'], $redirect)) {
-                $this->header('Location: '.sprintf($redirect, rawurlencode($json)));
-                return;
-            }
-            $this->head();
-            if ($this->get_server_var('HTTP_CONTENT_RANGE')) {
-                $files = isset($content[$this->options['param_name']]) ?
+		$files = isset($content[$this->options['param_name']]) ?
                     $content[$this->options['param_name']] : null;
-                if ($files && is_array($files) && is_object($files[0]) && $files[0]->size) {
-                    $this->header('Range: 0-'.(
-                        $this->fix_integer_overflow((int)$files[0]->size) - 1
-                    ));
-                }
+		if ($files && is_array($files) && is_object($files[0]) && $files[0]->name) {
+			$this->set_filename($files[0]->name);
+		}
+
+		foreach ($files as $index => $value) {	
+			if (is_object($files[$index]) && $files[$index]->name) {
+				$this->response[] = $files[$index]->name;
             }
-            $this->body($json);
-        }
-        return $content;
+		}
+
+		return;
     }
 
     public function get_response () {
@@ -1312,22 +1300,6 @@ class upload {
         $this->send_content_type_header();
     }
 
-    public function get($print_response = true) {
-        if ($print_response && $this->get_query_param('download')) {
-            return $this->download();
-        }
-        $file_name = $this->get_file_name_param();
-        if ($file_name) {
-            $response = array(
-                $this->get_singular_param_name() => $this->get_file_object($file_name)
-            );
-        } else {
-            $response = array(
-                $this->options['param_name'] => $this->get_file_objects()
-            );
-        }
-        return $this->generate_response($response, $print_response);
-    }
 
     public function parse($print_response = FALSE) {
 
@@ -1352,7 +1324,7 @@ class upload {
             if (is_array($upload['tmp_name'])) {		
                 // param_name is an array identifier like "files[]",
                 // $upload is a multi-dimensional array:				
-                foreach ($upload['tmp_name'] as $index => $value) {					
+                foreach ($upload['tmp_name'] as $index => $value) {			
                     $files[] = $this->handle_file_upload(
                         $upload['tmp_name'][$index],
                         $file_name ? $file_name : $upload['name'][$index],
@@ -1365,10 +1337,7 @@ class upload {
                 }
             } else {
                 // param_name is a single object identifier like "file",
-                // $upload is a one-dimensional array:			
-				$sFileName = $file_name ? $file_name : (isset($upload['name']) ?
-                            $upload['name'] : NULL);
-				$this->set_filename($sFileName);							
+                // $upload is a one-dimensional array:								
                 $files[] = $this->handle_file_upload(
                     isset($upload['tmp_name']) ? $upload['tmp_name'] : NULL,
                     $file_name ? $file_name : (isset($upload['name']) ?
@@ -1383,6 +1352,9 @@ class upload {
                 );
             }
         }
+
+		$response = array($this->options['param_name'] => $files);
+		$this->generate_response($response, $print_response);
 
 		if (isset($upload['error'])) {
 			return FALSE;			

@@ -954,9 +954,10 @@ idxsql($idxname, $table, $idxflds);
 
 $table = $prefix_table . 'products_images';
 $flds = "
-  image_id I DEFAULT '0' NOTNULL PRIMARY,
+  image_id I NOTNULL AUTO PRIMARY,
   products_id I NOTNULL DEFAULT '1' PRIMARY,
-  image_name C(255) NOTNULL
+  image_name C(255) NOTNULL,
+  sort_order I1 DEFAULT '0'
 ";
 dosql($table, $flds);
 

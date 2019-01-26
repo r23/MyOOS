@@ -232,13 +232,33 @@ if (!empty($action)) {
 			$dir_fs_catalog_images = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/';
 			$oProductImage->set_destination($dir_fs_catalog_images);
 			$oProductImage->parse();
-	
+
 			if (oos_is_not_null($oProductImage->filename)) {
 			
 				$productstable = $oostable['products'];
 				$dbconn->Execute("UPDATE $productstable
                             SET products_image = '" . oos_db_input($oProductImage->filename) . "'
                             WHERE products_id = '" . intval($products_id) . "'");				
+			}	
+			
+			if (isset($_FILES['files'])) {
+
+		
+				$oImage = new upload('files', $options);
+		
+				$dir_fs_catalog_images = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/';
+				$oImage->set_destination($dir_fs_catalog_images);
+				$oImage->parse();
+								
+				if (oos_is_not_null($oImage->response)) {					
+					foreach ($oImage->response as $index => $value) {
+						$sort_order++;						
+						$sql_data_array = array('products_id' => intval($products_id),
+												'image_name' => oos_db_prepare_input($value),
+												'sort_order' => intval($sort_order));
+						oos_db_perform($oostable['products_images'], $sql_data_array);		
+					}
+				}
 			}
 			
 			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $products_id));
