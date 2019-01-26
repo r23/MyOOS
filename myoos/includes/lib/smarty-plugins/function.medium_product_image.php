@@ -7,10 +7,10 @@
 
 
 /**
- * Smarty {small_product_image} function plugin
+ * Smarty {medium_product_image} function plugin
  *
  * Type:     function<br>
- * Name:     small_product_image<br>
+ * Name:     medium_product_image<br>
  * Date:     Aug 24, 2004<br>
  * Purpose:  format HTML tags for the image<br>
  * Input:<br>
@@ -18,7 +18,7 @@
  *         - border = border width (optional, default 0)
  *         - height = image height (optional, default actual height)
  *
- * Examples: {small_product_image file="images/masthead.gif"}
+ * Examples: {medium_product_image file="images/masthead.gif"}
  * Output:   <img src="images/masthead.gif" border=0 width=100 height=80>
  * @author   r23 <info@r23.de>
  * @version  1.0
@@ -27,11 +27,11 @@
  * @return string
  * @uses smarty_function_escape_special_chars()
  */
-function smarty_function_small_product_image($params, &$smarty)
+function smarty_function_medium_product_image($params, &$smarty)
 {
 	require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
 
-    $basedir = OOS_IMAGES . 'product/small/';
+    $basedir = OOS_IMAGES . 'product/medium/';
     $border = 0;
     $alt = '';
     $image = '';
@@ -46,7 +46,7 @@ function smarty_function_small_product_image($params, &$smarty)
            if (!is_array($_val)) {
              $$_key = smarty_function_escape_special_chars($_val);
            } else {
-             throw new SmartyException("small_product_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+             throw new SmartyException("medium_product_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
            }
            break;
 
@@ -54,7 +54,7 @@ function smarty_function_small_product_image($params, &$smarty)
            if (!is_array($_val)) {
              $extra .= ' '.$_key.'="'.smarty_function_escape_special_chars($_val).'"';
            } else {
-             throw new SmartyException("small_product_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+             throw new SmartyException("medium_product_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
            }
            break;
       }
