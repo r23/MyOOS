@@ -163,8 +163,8 @@ if (isset($_SESSION)) {
 
 $products_unitstable = $oostable['products_units'];
 $query = "SELECT products_units_id, products_unit_name
-FROM $products_unitstable
-WHERE languages_id = '" . intval($nLanguageID) . "'";
+		FROM $products_unitstable
+		WHERE languages_id = '" . intval($nLanguageID) . "'";
 $products_units = $dbconn->GetAssoc($query);
 
 

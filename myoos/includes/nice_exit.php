@@ -29,8 +29,6 @@ if ($debug == 1) {
 	echo '<br />';
 	print_r($_POST);
 	echo '<br />';
-	echo "Shopping Cart";
-	print_r($cart_products);
 	echo '</pre>';
 
 	# echo "<p><pre>" . var_export($oObject, TRUE). "</pre></p>";	

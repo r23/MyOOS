@@ -23,6 +23,7 @@ define('HEADING_TITLE', 'Neuer Artikel');
    
 define('TEXT_NEW_PRODUCT', 'Neuer Artikel in &quot;%s&quot;');
 define('TEXT_PRODUCTS', 'Artikel:');
+define('TEXT_PRODUCTS_DATA', 'Artikeldaten:');
 define('TEXT_PRODUCTS_PRICE_INFO', 'Preis:');
 define('TEXT_PRODUCTS_TAX_CLASS', 'Steuerklasse:');
 define('TEXT_PRODUCTS_AVERAGE_RATING', 'durchschnittl. Bewertung:');
@@ -49,6 +50,7 @@ define('TEXT_PRODUCTS_PRODUCT_MAXIMUM_ORDER', 'maximale Bestellmenge:');
 
 define('TEXT_PRODUCTS_UNIT', 'Produkteinheit:');
 
+define('TEXT_PRODUCTS_IMAGE', 'Bilder');
 define('TEXT_PRODUCTS_IMAGE_REMOVE', '<b>Entfernen</b> des Bildes vom Artikel?');
 define('TEXT_PRODUCTS_BUTTON_DELETE', '<b>Löschen</b> des Bildes vom Server?');
 define('TEXT_ADD_MORE_UPLOAD', 'Mehr Felder zum Hochladen hinzufügen');
@@ -69,7 +71,7 @@ define('TEXT_PRODUCTS_REORDER_LEVEL', 'Mindestlagerbestand:');
 define('TEXT_REPLACEMENT_PRODUCT', 'Ersatzprodukt:');
 define('TEXT_PRODUCTS_MODEL', 'Artikel-Nr.:');
 define('TEXT_PRODUCTS_EAN', 'EAN :');
-define('TEXT_PRODUCTS_IMAGE', 'Artikelbild:');
+define('TEXT_PRODUCTS_IMAGE', 'Artikelbilder:');
 define('TEXT_PRODUCTS_URL', 'Herstellerlink:');
 define('TEXT_PRODUCTS_URL_WITHOUT_HTTP', '<small>(ohne führendes http://)</small>');
 define('TEXT_PRODUCTS_PRICE', 'Artikelpreis:');
