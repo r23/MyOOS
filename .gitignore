@@ -40,3 +40,12 @@ prepros-6.config
 /myoos/images/product/medium/*.png
 /myoos/images/product/originals/*.png
 /myoos/images/product/small/*.png
+/myoos/images/product/min/*.png
+/myoos/images/product/min/*.jpg
+/myoos/images/product/medium_large/*.png
+/myoos/images/product/medium_large/*.jpg
+/myoos/images/product/large/*.jpg
+/myoos/images/product/medium/*.jpg
+/myoos/images/product/medium_large/*.jpg
+/myoos/images/product/originals/*.jpg
+/myoos/images/product/small/*.jpg

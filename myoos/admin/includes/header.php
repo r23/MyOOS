@@ -23,8 +23,7 @@
 defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
 
-?>
-<!doctype html>
+?><!DOCTYPE html>
 <html lang="<?php echo $_SESSION['iso_639_1']; ?>">
 <head>
     <meta charset="<?php echo CHARSET; ?>">

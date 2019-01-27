@@ -112,7 +112,6 @@ if (isset($_SESSION)) {
 		$cart_products = $_SESSION['cart']->get_products();
 		$cart_show_total = $oCurrencies->format($_SESSION['cart']->show_total()); 
 	}
-
 }
 
 
@@ -154,8 +153,8 @@ if (isset($_SESSION)) {
 	}
 	$smarty->assign(
 		array(
-		'gv_amount_show' => $gv_amount_show,
-		'gv_coupon_show' => $gv_coupon_show
+			'gv_amount_show' => $gv_amount_show,
+			'gv_coupon_show' => $gv_coupon_show
 		)
 	);	
 	

@@ -40,10 +40,13 @@ if (function_exists('ini_set')) {
 }
 
 // Set the local configuration parameters - mainly for developers
-if (file_exists('../includes/local/configure.php')) include('../includes/local/configure.php');
+if (file_exists('../includes/local/configure.php')) {
+	include('../includes/local/configure.php');
+} else {
+	// Include application configuration parameters
+	include '../includes/configure.php';
+}
 
-// Include application configuration parameters
-require '../includes/configure.php';
 require 'includes/define.php';
 
 use Symfony\Component\HttpFoundation\Request;

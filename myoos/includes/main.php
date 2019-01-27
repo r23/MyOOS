@@ -33,7 +33,6 @@ if (is_readable('includes/local/configure.php')) {
     require_once MYOOS_INCLUDE_PATH . '/includes/configure.php';
 }
 
-
 /**
  * Currently version.
  * use SemVer - https://semver.org
