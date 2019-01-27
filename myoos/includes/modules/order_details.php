@@ -63,16 +63,7 @@
 
     if (SHOPPING_CART_IMAGE_ON == 'true') {
       $shopping_cart_detail .= '    <td align="center" valign="top" class="main"><a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $products[$i]['id']) . '">';
-      if ($products[$i]['image'] != '') {
-        $sProductImage = $products[$i]['image'];
-      } else {
-        if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'no_picture_' . $sLanguage . '.gif')) {
-          $sProductImage = 'no_picture_' . $sLanguage . '.gif';
-        } else {
-          $sProductImage = 'no_picture.gif';
-        }
-      }
-      $shopping_cart_detail .=  oos_image(OOS_IMAGES . $sProductImage, $products[$i]['name']) . '</a></td>' . "\n";
+      $shopping_cart_detail .=  oos_image(OOS_IMAGES . 'product/small/' . $products[$i]['image'], $products[$i]['name']) . '</a></td>' . "\n";
     }
 
 

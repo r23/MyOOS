@@ -59,7 +59,7 @@
 									<tr>
 										<td class="text-left m-py-25">
 											<div class="media">
-											{small_product_image image=$wishlist[i].products_image alt=$wishlist[i].products_name|strip_tags class="mr-3"}
+											{medium_product_image image=$wishlist[i].products_image alt=$wishlist[i].products_name|strip_tags class="mr-3"}
 												<div class="media-body">
 													<h5><a href="{product_link products_id=$wishlist[i].products_id}">{$wishlist[i].products_name}</a></h5>
 													{$wishlist[i].products_description|truncate:120:" [...]":false|close_tags}

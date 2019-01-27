@@ -36,7 +36,7 @@
 						{section name=i loop=$order_history}
 							<tr>
 								<td class="text-left m-py-25">
-									<a href="{product_link products_id=$order_history[i].id}">{small_product_image image=$order_history[i].image alt=$order_history[i].name|strip_tags}</a>
+									<a href="{product_link products_id=$order_history[i].id}">{medium_product_image image=$order_history[i].image alt=$order_history[i].name|strip_tags}</a>
 								</td>
 								<td>
 									<a href="{product_link products_id=$order_history[i].id}">{$order_history[i].name}</a>

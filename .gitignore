@@ -36,3 +36,7 @@ prepros-6.config
 .buildpath
 .settings
 /myoos/includes/lib/adodb/server.php
+/myoos/images/product/large/*.png
+/myoos/images/product/medium/*.png
+/myoos/images/product/originals/*.png
+/myoos/images/product/small/*.png

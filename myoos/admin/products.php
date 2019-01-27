@@ -206,6 +206,16 @@ if (!empty($action)) {
 						'max_width' => 1024, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
 						'max_height' => 1024, // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
 					),
+					'medium_large' => array(
+						// 'auto_orient' => TRUE,
+						// 'crop' => TRUE,
+						// 'jpeg_quality' => 82,
+						// 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+						// 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+						'max_width' => 600, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+						'max_height' => 600 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
+					),					
+					
 					'medium' => array(
 						// 'auto_orient' => TRUE,
 						// 'crop' => TRUE,
@@ -242,8 +252,6 @@ if (!empty($action)) {
 			}	
 			
 			if (isset($_FILES['files'])) {
-
-		
 				$oImage = new upload('files', $options);
 		
 				$dir_fs_catalog_images = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/';
