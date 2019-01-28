@@ -88,6 +88,8 @@ define('TEXT_MOVE', 'Verschiebe <b>%s</b> nach:');
 define('TEXT_NEW_CATEGORY_INTRO', 'Bitte geben Sie die neue Kategorie mit allen relevanten Daten ein.');
 define('TEXT_CATEGORIES_NAME', 'Kategorie Name:');
 define('TEXT_CATEGORIES_IMAGE', 'Kategorie Bild:');
+define('TEXT_ADD_MORE_UPLOAD', 'Mehr Felder zum Hochladen hinzufügen');
+define('TEXT_NOT_RELOAD', 'Lädt nicht erneut!');
 define('TEXT_SORT_ORDER', 'Sortierreihenfolge:');
 
 define('TEXT_PRODUCTS_STATUS', 'Produktstatus:');

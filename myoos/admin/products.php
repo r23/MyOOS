@@ -263,7 +263,8 @@ if (!empty($action)) {
 				$oImage->set_destination($dir_fs_catalog_images);
 				$oImage->parse();
 								
-				if (oos_is_not_null($oImage->response)) {					
+				if (oos_is_not_null($oImage->response)) {
+					$sort_order = 0;					
 					foreach ($oImage->response as $index => $value) {
 						$sort_order++;						
 						$sql_data_array = array('products_id' => intval($products_id),
@@ -477,7 +478,7 @@ function calcBasePriceFactor() {
                         <a class="nav-link active" href="#edit" aria-controls="edit" role="tab" data-toggle="tab"><?php echo TEXT_PRODUCTS; ?></a>
                      </li>
                      <li class="nav-item" role="presentation">
-                        <a class="nav-link" href="#seo" aria-controls="seo" role="tab" data-toggle="tab"><?php echo TEXT_PRODUCTS_DATA; ?></a>
+                        <a class="nav-link" href="#data" aria-controls="data" role="tab" data-toggle="tab"><?php echo TEXT_PRODUCTS_DATA; ?></a>
                      </li>
                      <li class="nav-item" role="presentation">
                         <a class="nav-link" href="#picture" aria-controls="picture" role="tab" data-toggle="tab"><?php echo TEXT_PRODUCTS_IMAGE; ?></a>
@@ -582,7 +583,6 @@ function calcBasePriceFactor() {
 <?php
     for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
 ?>
-
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_PRODUCTS_URL . '<br /><small>' . TEXT_PRODUCTS_URL_WITHOUT_HTTP . '</small>'; ?></label>
@@ -593,12 +593,8 @@ function calcBasePriceFactor() {
 <?php
     }
 ?>
-
                      </div>
-                     <div class="tab-pane" id="seo" role="tabpanel">
-
-
- 
+                     <div class="tab-pane" id="data" role="tabpanel">
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_PRICE; ?></label>
@@ -668,9 +664,6 @@ function calcBasePriceFactor() {
 <?php
   }
 ?>
-
-
-
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_TAX_CLASS; ?></label>

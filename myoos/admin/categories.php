@@ -144,6 +144,79 @@ if (!empty($action)) {
 				}
 			}
 
+
+			$options = array(
+				'image_versions' => array(				
+                // The empty image version key defines options for the original image.
+                // Keep in mind: these image manipulations are inherited by all other image versions from this point onwards. 
+                // Also note that the property 'no_cache' is not inherited, since it's not a manipulation.
+					'' => array(
+						// Automatically rotate images based on EXIF meta data:
+						'auto_orient' => TRUE
+					),
+					'large' => array(
+						// 'auto_orient' => TRUE,
+						// 'crop' => TRUE,
+						// 'jpeg_quality' => 82,
+						// 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+						// 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+						'max_width' => 1024, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+						'max_height' => 1024, // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
+					),					
+					'medium' => array(
+						// 'auto_orient' => TRUE,
+						// 'crop' => TRUE,
+						// 'jpeg_quality' => 82,
+						// 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+						// 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+						'max_width' => 300, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+						'max_height' => 300 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
+					),				
+					'small' => array(
+						// 'auto_orient' => TRUE,
+						// 'crop' => TRUE,
+						// 'jpeg_quality' => 82,
+						// 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+						// 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+						'max_width' => 150, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+						'max_height' => 150 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
+					),			
+				),
+			);
+			
+			$oCategoriesImage = new upload('categories_image', $options);
+
+			$dir_fs_catalog_images = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'category/';
+			$oCategoriesImage->set_destination($dir_fs_catalog_images);
+			$oCategoriesImage->parse();
+
+			if (oos_is_not_null($oCategoriesImage->filename)) {
+			
+				$categoriestable = $oostable['categories'];
+				$dbconn->Execute("UPDATE $categoriestable
+                            SET categories_image = '" . oos_db_input($oCategoriesImage->filename) . "'
+                            WHERE categories_id = '" . intval($categories_id) . "'");				
+			}	
+			
+			if (isset($_FILES['files'])) {
+				$oImage = new upload('files', $options);
+		
+				$dir_fs_catalog_images = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'category/';
+				$oImage->set_destination($dir_fs_catalog_images);
+				$oImage->parse();
+								
+				if (oos_is_not_null($oImage->response)) {
+					$sort_order = 0;					
+					foreach ($oImage->response as $index => $value) {
+						$sort_order++;						
+						$sql_data_array = array('categories_id' => intval($categories_id),
+												'categories_image' => oos_db_prepare_input($value),
+												'sort_order' => intval($sort_order));
+						oos_db_perform($oostable['categories_images'], $sql_data_array);		
+					}
+				}
+			}
+
 			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $categories_id));
 
 			break;
@@ -393,6 +466,8 @@ if (!empty($action)) {
 }
 
 
+
+
 $cPath_back = '';
 if (is_array($aPath) && count($aPath) > 0) {
 	for ($i = 0, $n = count($aPath) - 1; $i < $n; $i++) {
@@ -446,7 +521,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
                        'parent_id' => '',
                        'sort_order' => '',
                        'date_added' => '',
-                       'categories_status' => 1,
+                       'categories_status' => 2,
                        'products_weight' => '',
                        'last_modified' => '');
 
@@ -484,9 +559,15 @@ if ($action == 'new_category' || $action == 'edit_category') {
 
 	$text_new_or_edit = ($action=='new_category') ? TEXT_INFO_HEADING_NEW_CATEGORY : TEXT_INFO_HEADING_EDIT_CATEGORY;
 
-	// form-validation
-	$bForm = TRUE;
-	$bUpload = TRUE;
+	$aSetting = array();
+	$settingstable = $oostable['setting'];
+	$setting_result = $dbconn->Execute("SELECT setting_id, setting_name FROM $settingstable WHERE setting_languages_id = '" . intval($_SESSION['language_id']) . "'");
+	while ($setting = $setting_result->fields) {
+		$aSetting[] = array('id' => $setting['setting_id'],
+                         'text' => $setting['setting_name']);
+		// Move that ADOdb pointer!
+		$setting_result->MoveNext();
+	}
 
 ?>
 <script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
@@ -520,304 +601,254 @@ if ($action == 'new_category' || $action == 'edit_category') {
 		echo oos_draw_hidden_field('categories_previous_image', $cInfo->categories_image);
 		echo oos_hide_session_id();
 ?>
-						<div class="tabs-container">
-							<ul class="nav nav-tabs nav-justified">
+               <div role="tabpanel">
+                  <ul class="nav nav-tabs nav-justified">
+                     <li class="nav-item" role="presentation">
+                        <a class="nav-link active" href="#edit" aria-controls="edit" role="tab" data-toggle="tab">Kategorie</a>
+                     </li>
+                     <li class="nav-item" role="presentation">
+                        <a class="nav-link" href="#data" aria-controls="data" role="tab" data-toggle="tab"><?php echo TEXT_DATA; ?></a>
+                     </li>
+                     <li class="nav-item" role="presentation">
+                        <a class="nav-link" href="#picture" aria-controls="picture" role="tab" data-toggle="tab"><?php echo TEXT_IMAGES; ?></a>
+                     </li>
+                  </ul>
+                  <div class="tab-content">
+                     <div class="tab-pane active" id="edit" role="tabpanel">
 
-<?php
-		if (isset($_GET['tab'])) {
-			$active_tab = oos_db_prepare_input($_GET['tab']);
-		}
-		for ($i=0; $i < $nLanguages; $i++) {
-?>
-                                <li class="nav-item" role="presentation"><a class="nav-link <?php if ($i == $active_tab) echo 'active'; ?>" data-toggle="tab" href="#tab-<?php echo $i; ?>">
-<?php
-	echo sprintf($text_new_or_edit, oos_output_generated_category_path($current_category_id));
-    if ($nLanguages > 1) echo  '&nbsp;' . oos_flag_icon($aLanguages[$i]) . '&nbsp;';
-	?></a></li>
-<?php
-		}
-		$nTab = $i;
-		$nImageTab = $i+1;
-?>
-                                <li class="nav-item" role="presentation"><a class="nav-link <?php if ($nTab == $active_tab) echo 'active'; ?>" data-toggle="tab" href="#tab-<?php echo $nTab; ?>"><?php echo TEXT_DATA; ?></a></li>
-                                <li class="nav-item" role="presentation"><a class="nav-link <?php if ($nImageTab == $active_tab) echo 'active'; ?>" data-toggle="tab" href="#tab-<?php echo $nImageTab; ?>"><?php echo TEXT_IMAGES; ?></a></li>
-                            </ul>
-                            <div class="tab-content">
+
 <?php
 		for ($i=0; $i < count($aLanguages); $i++) {
 ?>
-                                <div id="tab-<?php echo $i; ?>" class="tab-pane <?php if ($i == $active_tab) echo 'active'; ?>" role="tabpanel">
-                                    <div class="panel-body">
-
-                                        <fieldset class="form-horizontal">
-                                            <div class="form-group"><label class="col-sm-2 control-label"><?php echo TEXT_EDIT_CATEGORIES_NAME; ?>:</label>
-                                                <div class="col-sm-10"><?php echo oos_draw_input_field('categories_name[' . $aLanguages[$i]['id'] . ']', (($categories_name[$aLanguages[$i]['id']]) ? stripslashes($categories_name[$aLanguages[$i]['id']]) : oos_get_category_name($cInfo->categories_id, $aLanguages[$i]['id'])), '', FALSE, 'text', TRUE, FALSE, TEXT_EDIT_CATEGORIES_NAME); ?></div>
-                                            </div>
-
-                                            <div class="form-group"><label class="col-sm-2 control-label"><?php echo TEXT_EDIT_CATEGORIES_DESCRIPTION; ?>:</label>
-                                                <div class="col-sm-10">
-													<?php echo oos_draw_editor_field('categories_description[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '15', (($categories_description[$aLanguages[$i]['id']]) ? stripslashes($categories_description[$aLanguages[$i]['id']]) : oos_get_category_description($cInfo->categories_id, $aLanguages[$i]['id']))); ?>
-                                                </div>
-                                            </div>
-												<script>
-													CKEDITOR.replace( 'categories_description[<?php echo $aLanguages[$i]['id']; ?>]');
-												</script>
-                                            <div class="form-group"><label class="col-sm-2 control-label"><?php echo TEXT_EDIT_CATEGORIES_HEADING_TITLE; ?>:</label>
-                                                <div class="col-sm-10"><?php echo oos_draw_input_field('categories_heading_title[' . $aLanguages[$i]['id'] . ']', (($categories_heading_title[$aLanguages[$i]['id']]) ? stripslashes($categories_heading_title[$aLanguages[$i]['id']]) : oos_get_category_heading_title($cInfo->categories_id, $aLanguages[$i]['id'])), '', FALSE, 'text', TRUE, FALSE, '...'); ?></div>
-                                            </div>
-                                            <div class="form-group"><label class="col-sm-2 control-label"><?php echo TEXT_EDIT_CATEGORIES_DESCRIPTION_META; ?>:</label>
-                                                <div class="col-sm-10"><?php echo oos_draw_textarea_field('categories_description_meta[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '2', (($categories_description_meta[$aLanguages[$i]['id']]) ? stripslashes($categories_description_meta[$aLanguages[$i]['id']]) : oos_get_category_description_meta($cInfo->categories_id, $aLanguages[$i]['id']))); ?></div>
-                                            </div>
-                                            <div class="form-group"><label class="col-sm-2 control-label"><?php echo TEXT_EDIT_CATEGORIES_KEYWORDS_META; ?>:</label>
-                                                <div class="col-sm-10"><?php echo oos_draw_textarea_field('categories_keywords_meta[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '2', (($categories_keywords_meta[$aLanguages[$i]['id']]) ? stripslashes($categories_keywords_meta[$aLanguages[$i]['id']]) : oos_get_category_keywords_meta($cInfo->categories_id, $aLanguages[$i]['id']))); ?></div>
-                                            </div>
-                                        </fieldset>
-
-
-                                    </div>
-                                </div>
+					<fieldset>
+						<div class="form-group row">
+							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_EDIT_CATEGORIES_NAME; ?></label>
+							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
+							<div class="col-lg-9">
+								<?php echo oos_draw_input_field('categories_name[' . $aLanguages[$i]['id'] . ']', (($categories_name[$aLanguages[$i]['id']]) ? stripslashes($categories_name[$aLanguages[$i]['id']]) : oos_get_category_name($cInfo->categories_id, $aLanguages[$i]['id'])), '', FALSE, 'text', TRUE, FALSE, TEXT_EDIT_CATEGORIES_NAME); ?>
+							</div>
+						</div>
+					</fieldset>
+<?php
+		}
+		for ($i=0; $i < count($aLanguages); $i++) {
+?>
+					<fieldset>
+						<div class="form-group row">
+							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_EDIT_CATEGORIES_DESCRIPTION; ?></label>
+							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
+							<div class="col-lg-9">
+								<?php echo oos_draw_editor_field('categories_description[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '15', (($categories_description[$aLanguages[$i]['id']]) ? stripslashes($categories_description[$aLanguages[$i]['id']]) : oos_get_category_description($cInfo->categories_id, $aLanguages[$i]['id']))); ?>						
+							</div>
+						</div>
+					</fieldset>
+			<script>
+				CKEDITOR.replace( 'categories_description[<?php echo $aLanguages[$i]['id']; ?>]');
+			</script>					
+<?php
+		}
+		for ($i=0; $i < count($aLanguages); $i++) {
+?>
+					<fieldset>
+						<div class="form-group row">
+							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_EDIT_CATEGORIES_HEADING_TITLE; ?></label>
+							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
+							<div class="col-lg-9">
+								<?php echo oos_draw_input_field('categories_heading_title[' . $aLanguages[$i]['id'] . ']', (($categories_heading_title[$aLanguages[$i]['id']]) ? stripslashes($categories_heading_title[$aLanguages[$i]['id']]) : oos_get_category_heading_title($cInfo->categories_id, $aLanguages[$i]['id'])), '', FALSE, 'text', TRUE, FALSE, ''); ?>
+							</div>
+						</div>
+					</fieldset>
+<?php
+		}
+		for ($i=0; $i < count($aLanguages); $i++) {
+?>
+					<fieldset>
+						<div class="form-group row">
+							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_EDIT_CATEGORIES_DESCRIPTION_META; ?></label>
+							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
+							<div class="col-lg-9">
+								<?php echo oos_draw_textarea_field('categories_description_meta[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '2', (($categories_description_meta[$aLanguages[$i]['id']]) ? stripslashes($categories_description_meta[$aLanguages[$i]['id']]) : oos_get_category_description_meta($cInfo->categories_id, $aLanguages[$i]['id']))); ?>
+							</div>
+						</div>
+					</fieldset>
+<?php
+		}
+		for ($i=0; $i < count($aLanguages); $i++) {
+?>
+					<fieldset>
+						<div class="form-group row">
+							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_EDIT_CATEGORIES_KEYWORDS_META; ?></label>
+							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
+							<div class="col-lg-9">
+								<?php echo oos_draw_textarea_field('categories_keywords_meta[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '2', (($categories_keywords_meta[$aLanguages[$i]['id']]) ? stripslashes($categories_keywords_meta[$aLanguages[$i]['id']]) : oos_get_category_keywords_meta($cInfo->categories_id, $aLanguages[$i]['id']))); ?>
+							</div>
+						</div>
+					</fieldset>
 <?php
 		}
 ?>
-								<div id="tab-<?php echo $nTab; ?>" class="tab-pane <?php if ($nTab == $active_tab) echo 'active'; ?>">
-                                    <div class="panel-body">
-
-										<fieldset class="form-horizontal">
-                                            <div class="form-group"><label class="col-sm-2 control-label">ID:</label>
-                                                <div class="col-sm-10"><?php echo oos_draw_input_field('categories_id', $cInfo->categories_id, '', FALSE, 'text', TRUE, TRUE, '...'); ?></div>
-                                            </div>
-                                            <div class="form-group"><label class="col-sm-2 control-label"><?php echo TEXT_EDIT_SORT_ORDER; ?>:</label>
-                                                <div class="col-sm-10"><?php echo oos_draw_input_field('sort_order', $cInfo->sort_order); ?></div>
-
-                                            </div>
-                                            <div class="form-group"><label class="col-sm-2 control-label"><?php echo TEXT_EDIT_STATUS; ?>:</label>
-                                                <div class="col-sm-10">
-													<label class="switch">
-														<?php echo oos_draw_checkbox_field('categories_status', '', ($cInfo->categories_status == 1 ? TRUE : FALSE)); ?>
-													<span></span>
-													</label>
-
-                                                </div>
-                                            </div>
-
-                                        </fieldset>
-
-
-                                    </div>
-                                </div>
-
-								<div id="tab-<?php echo $nTab+1; ?>" class="tab-pane <?php if ($nTab+1 == $active_tab) echo 'active'; ?>">
-									<div class="panel-body">
-<?php
-		if (isset($_GET['cID'])) {
-			$aTypes  = array();
-			$imgtypes = ImageTypes();
-			$aTypes['GIF'] = ($imgtypes & IMG_GIF) ? 'gif' : false;
-			$aTypes['JPG'] = ($imgtypes & IMG_JPG) ? 'jpg' : false;
-			$aTypes['JPEG'] = ($imgtypes & IMG_JPG) ? 'jpg' : false;
-			$aTypes['PNG'] = ($imgtypes & IMG_PNG) ? 'png' : false;
-			unset($imgtypes);
-?>
-										<h3><?php echo TEXT_UPLOAD; ?></h3>
-											<blockquote class="box-placeholder">
-												<p>
-<?php
-				natcasesort($aTypes );
-				$types =  array_keys($aTypes );
-
-				// todo Zip Upload
-				// $types[] = 'ZIP';
-				natcasesort($types);
-				$upload_extensions = $types;
-				$last = strtoupper(array_pop($types));
-				$s1 = strtoupper(implode(', ', $types));
-				$used = 0;
-
-				printf(TEXT_GRAPHICS_INFO, $s1, $last);
-
-?>
-												</p>
-
-												<div class="alert alert-info" role="alert">
-													<p>
-														<strong><?php echo TEXT_GRAPHICS_NOTE; ?></strong><br>
-<?php
-			if ($last == 'ZIP') {
-				echo TEXT_GRAPHICS_ZIP;
-?>
-			<br>
-<?php
-			}
-
-			$maxupload = ini_get('upload_max_filesize');
-			$maxpost = ini_get('post_max_size');
-			$maxuploadint = parse_size($maxupload);
-			$maxpostint = parse_size($maxpost);
-
-			if ($maxuploadint < $maxpostint) {
-				echo sprintf(TEXT_GRAPHICS_MAXIMUM, $maxupload, $maxpost);
-			} else {
-				echo sprintf(TEXT_GRAPHICS_MAX_SIZE, $maxpost);
-			}
-?>
-			<br>
-													</p>
-												</div>
-											</blockquote>
-
-            <br>
-               <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload-->
-               <div class="row fileupload-buttonbar">
-                  <div class="col-lg-7">
-                     <!-- The fileinput-button span is used to style the file input field as button-->
-                     <span class="btn btn-success fileinput-button"><i class="fa fa-fw fa-plus"></i>
-                        <span><?php echo BUTTON_ADD_FILES; ?></span>
-                        <input type="file" name="files[]" multiple="">
-                     </span>
-                     <button type="submit" class="btn btn-primary start"><i class="fa fa-fw fa-upload"></i>
-                        <span><?php echo BUTTON_START_UPLOAD; ?></span>
-                     </button>
-                     <button type="reset" class="btn btn-warning cancel"><i class="fa fa-fw fa-times"></i>
-                        <span><?php echo BUTTON_CANCEL_UPLOAD; ?></span>
-                     </button>
-                     <button type="reset" class="btn btn-danger cancel"><i class="fa fa-fw fa-trash"></i>
-                        <span><?php echo BUTTON_DELETE; ?></span>
-                     </button>
-                     <!-- The global file processing state-->
-                     <span class="fileupload-process"></span>
-                  </div>
-                  <!-- The global progress state-->
-                  <div class="col-lg-5 fileupload-progress fade">
-                     <!-- The global progress bar-->
-                     <div role="progressbar" aria-valuemin="0" aria-valuemax="100" class="progress progress-striped active">
-                        <div style="width:0%;" class="progress-bar progress-bar-success"></div>
                      </div>
-                     <!-- The extended global progress state-->
-                     <div class="progress-extended">&nbsp;</div>
+                     <div class="tab-pane" id="data" role="tabpanel">
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label">ID:</label>
+                              <div class="col-lg-10"><?php echo oos_draw_input_field('categories_id', $cInfo->categories_id, '', FALSE, 'text', TRUE, TRUE, ''); ?></div>
+                           </div>
+                        </fieldset>
+						<fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_EDIT_STATUS; ?></label>
+                              <div class="col-lg-10"><?php echo oos_draw_pull_down_menu('categories_status', $aSetting, $cInfo->categories_status); ?></div>
+                           </div>
+                        </fieldset>					
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_EDIT_SORT_ORDER; ?></label>
+                              <div class="col-lg-10"><?php echo oos_draw_input_field('sort_order', $cInfo->sort_order); ?></div>
+                           </div>
+                        </fieldset>								
+                     </div>
+                     <div class="tab-pane" id="picture" role="tabpanel">
+	<script type="text/javascript">
+	// <!-- <![CDATA[
+		window.totalinputs = 3;
+		function addUploadBoxes(placeholderid, copyfromid, num) {
+			for (i = 0; i < num; i++) {
+				jQuery('#' + copyfromid).clone().insertBefore('#' + placeholderid);
+				window.totalinputs++;
+				if (window.totalinputs >= 30) {
+					jQuery('#addUploadBoxes').toggle('slow');
+					return;
+				}
+			}
+		}
+		function resetBoxes() {
+			window.totalinputs = 3
+			$('#uploadboxes').html('<div id="place" style="display: none;"></div>');
+			addUploadBoxes('place', 'filetemplate', 3);
+		}
+	// ]]> -->
+	</script>					 
+					 
+		<div class="row mb-3">
+			<div class="col-3">
+				<strong>Preview</strong>
+			</div>
+			<div class="col-9">
+				<strong>Details</strong>
+			</div>
+		</div>
+		<div class="row mb-3 pb-3 bb">
+			<div class="col-6 col-md-3">
+
+<div class="fileinput fileinput-new" data-provides="fileinput">
+  <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+  <div>
+    <span class="btn btn-warning btn-file"><span class="fileinput-new"><em class="fa fa-plus-circle fa-fw"></em><?php echo BUTTON_SELECT_IMAGE; ?></span><span class="fileinput-exists"><?php echo BUTTON_CHANGE; ?></span>
+	
+	<input type="file" size="40" name="categories_image"></span>
+    <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput"><em class="fa fa-times-circle fa-fw"></em><?php echo BUTTON_DELETE; ?></a>
+  </div>
+</div>
+
+			</div>
+			<div class="col-9">
+				<strong>Details</strong>
+			</div>	
+		</div>
+
+		<div class="row mb-3 pb-3 bb">
+			<div class="col-6 col-md-3">
+
+<div class="fileinput fileinput-new" data-provides="fileinput">
+  <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+  <div>
+    <span class="btn btn-warning btn-file"><span class="fileinput-new"><em class="fa fa-plus-circle fa-fw"></em><?php echo BUTTON_SELECT_IMAGE; ?></span><span class="fileinput-exists"><?php echo BUTTON_CHANGE; ?></span>
+	
+	<input type="file" size="40" name="files[]"></span>
+    <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput"><em class="fa fa-times-circle fa-fw"></em><?php echo BUTTON_DELETE; ?></a>
+  </div>
+</div>
+
+			</div>
+			<div class="col-9">
+				<strong>Details</strong>
+			</div>	
+		</div>
+
+		<div class="row mb-3 pb-3 bb">
+			<div class="col-6 col-md-3">
+
+<div class="fileinput fileinput-new" data-provides="fileinput">
+  <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+  <div>
+    <span class="btn btn-warning btn-file"><span class="fileinput-new"><em class="fa fa-plus-circle fa-fw"></em><?php echo BUTTON_SELECT_IMAGE; ?></span><span class="fileinput-exists"><?php echo BUTTON_CHANGE; ?></span>
+	
+	<input type="file" size="40" name="files[]"></span>
+    <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput"><em class="fa fa-times-circle fa-fw"></em><?php echo BUTTON_DELETE; ?></a>
+  </div>
+</div>
+
+			</div>
+			<div class="col-9">
+				<strong>Details</strong>
+			</div>	
+		</div>
+
+
+
+	<div id="uploadboxes">
+		<div id="place" style="display: none;"></div>
+		<!-- New boxes get inserted before this -->
+	</div>
+
+	<div style="display:none">
+		<!-- This is the template that others are copied from -->
+		<div id="filetemplate" >
+                        <div class="row mb-3">
+                           <div class="col-3">		
+<div class="fileinput fileinput-new" data-provides="fileinput">
+  <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+  <div>
+    <span class="btn btn-warning btn-file"><span class="fileinput-new"><em class="fa fa-plus-circle fa-fw"></em><?php echo BUTTON_SELECT_IMAGE; ?></span><span class="fileinput-exists"><?php echo BUTTON_CHANGE; ?></span>
+	
+	<input type="file" size="40" name="files[]"></span>
+    <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput"><em class="fa fa-times-circle fa-fw"></em><?php echo BUTTON_DELETE; ?></a>
+  </div>
+</div>		
+
+                           </div>
+                           <div class="col-9">
+                              <strong>Details</strong>
+                           </div>	
+						</div>
+		</div>
+	</div>
+	<p id="addUploadBoxes"><a href="javascript:addUploadBoxes('place','filetemplate',3)" title="<?php echo TEXT_NOT_RELOAD; ?>">+ <?php echo TEXT_ADD_MORE_UPLOAD; ?></a></p>
+
+
+			 
+					 
+                     </div>
                   </div>
                </div>
-
-
-            <div class="col-lg-5 fileupload-progress fade">
-                <!-- The global progress bar -->
-                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-                    <div class="progress-bar progress-bar-success" style="width:0%;"></div>
-                </div>
-                <!-- The extended global progress state -->
-                <div class="progress-extended">&nbsp;</div>
+            <div class="text-right mt-3">
+			   <?php echo oos_submit_button('save', IMAGE_SAVE); ?>
             </div>
-
-               <!-- The table listing the files available for upload/download-->
-               <table role="presentation" class="table table-striped">
-                  <tbody class="files"></tbody>
-               </table>
-
-            <!-- The template to display files available for upload-->
-            <script id="template-upload" type="text/x-tmpl">
-               {% for (var i=0, file; file=o.files[i]; i++) { %}
-                   <tr class="template-upload fade">
-                       <td>
-                           <span class="preview"></span>
-                       </td>
-                       <td>
-                           <p class="name">{%=file.name%}</p>
-                           <strong class="error text-danger"></strong>
-                       </td>
-                       <td>
-                           <p class="size">Processing...</p>
-                           <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
-                       </td>
-                       <td>
-                           {% if (!i) { %}
-                               <button class="btn btn-warning cancel">
-                                   <em class="fa fa-fw fa-times"></em>
-                                   <span><?php echo BUTTON_CANCEL; ?></span>
-                               </button>
-                           {% } %}
-                       </td>
-                   </tr>
-               {% } %}
-            </script>
-            <!-- The template to display files available for download-->
-            <script id="template-download" type="text/x-tmpl">
-               {% for (var i=0, file; file=o.files[i]; i++) { %}
-                   <tr class="template-download fade">
-                       <td>
-                           <span class="preview">
-                               {% if (file.thumbnailUrl) { %}
-                                   <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img src="{%=file.thumbnailUrl%}"></a>
-                               {% } %}
-                           </span>
-                       </td>
-                       <td>
-                           <p class="name">
-                               {% if (file.url) { %}
-                                   <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" {%=file.thumbnailUrl?'data-gallery':''%}>{%=file.name%}</a>
-                               {% } else { %}
-                                   <span>{%=file.name%}</span>
-                               {% } %}
-                           </p>
-                           {% if (file.error) { %}
-                               <div><span class="label label-danger"><?php echo TEXT_ERROR; ?></span> {%=file.error%}</div>
-                           {% } %}
-                       </td>
-                       <td>
-                           <span class="size">{%=o.formatFileSize(file.size)%}</span>
-                       </td>
-                       <td>
-                           {% if (file.deleteUrl) { %}
-                               <button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
-                                   <em class="fa fa-fw fa-trash"></em>
-                                   <span><?php echo BUTTON_DELETE; ?></span>
-                               </button>
-                           {% } else { %}
-                               <button class="btn btn-warning cancel">
-                                   <em class="fa fa-fw fa-times"></em>
-                                   <span><?php echo BUTTON_CANCEL; ?></span>
-                               </button>
-                           {% } %}
-                       </td>
-                   </tr>
-               {% } %}
-            </script>
-
-                                    </div>
-<?php
-		} else {
-			echo oos_draw_hidden_field('add_image', '1');
-			echo oos_draw_hidden_field('tab', $nImageTab);
-?>
-<button class="btn btn-sm btn-primary mb-100" type="submit"><strong><?php echo BUTTON_UPLOAD_IMAGES; ?></strong></button>
-								</div>
-<?php
-		}
-?>
-								</div>
-
-                            </div>
-					</div>
-				</div><!--/col-lg-12-->
-			</div>
-
-			<div class="row">
-				<div class="col-lg-12">
-					<button class="btn btn-sm btn-primary mb-20 pull-right" type="submit"><strong><?php echo IMAGE_SAVE; ?></strong></button>
-				</div>
+            </form>
 			</div>
 
 		</div>
-	</form>
-
-<!-- body_text_eof //-->
 <?php
 
 	if (isset($_GET['origin'])) {
-        $pos_params = strpos($_GET['origin'], '?', 0);
+		$sOrigin = oos_db_prepare_input($_GET['origin']);
+        $pos_params = strpos($sOrigin, '?', 0);
         if ($pos_params != false) {
-          $back_url = substr($_GET['origin'], 0, $pos_params);
-          $back_url_params = substr($_GET['origin'], $pos_params + 1);
+          $back_url = substr($sOrigin, 0, $pos_params);
+          $back_url_params = substr($sOrigin, $pos_params + 1);
         } else {
-          $back_url = $_GET['origin'];
+          $back_url = $sOrigin;
           $back_url_params = '';
         }
 	} else {
@@ -1275,7 +1306,6 @@ if ($action == 'new_category' || $action == 'edit_category') {
 
 	</div>
 </div>
-
 
 <?php
 	require 'includes/bottom.php';

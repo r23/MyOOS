@@ -49,3 +49,11 @@ prepros-6.config
 /myoos/images/product/medium_large/*.jpg
 /myoos/images/product/originals/*.jpg
 /myoos/images/product/small/*.jpg
+/myoos/images/category/large/*.jpg
+/myoos/images/category/large/*.png
+/myoos/images/category/medium/*.jpg
+/myoos/images/category/medium/*.png
+/myoos/images/category/originals/*.jpg
+/myoos/images/category/originals/*.png
+/myoos/images/category/small/*.jpg
+/myoos/images/category/small/*.png

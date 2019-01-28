@@ -88,6 +88,8 @@ define('TEXT_MOVE', 'Move <b>%s</b> to:');
 define('TEXT_NEW_CATEGORY_INTRO', 'Please fill out the following information for the new category');
 define('TEXT_CATEGORIES_NAME', 'Category Name:');
 define('TEXT_CATEGORIES_IMAGE', 'Category Image:');
+define('TEXT_ADD_MORE_UPLOAD', 'Add more upload boxes');
+define('TEXT_NOT_RELOAD', 'Does not reload!');
 define('TEXT_SORT_ORDER', 'Sort Order:');
 
 define('TEXT_PRODUCTS_STATUS', 'Products Status:');
