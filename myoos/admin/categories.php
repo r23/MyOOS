@@ -413,11 +413,12 @@ if (!empty($action)) {
                             products_keywords_meta)
                             VALUES ('" . $dup_products_id . "',
                                     '" . $description['products_languages_id'] . "',
-                                    '" . addslashes($description['products_name']) . "',
-                                    '" . addslashes($description['products_description']) . "',
-                                    '" . $description['products_url'] . "', '0',
-                                    '" . addslashes($description['products_description_meta']) . "',
-                                    '" . addslashes($description['products_keywords_meta']) . "')");
+                                    '" . oos_db_input($description['products_name']) . "',
+                                    '" . oos_db_input($description['products_description']) . "',
+                                    '" . oos_db_input($description['products_url']) . "',
+									'0',
+                                    '" . oos_db_input($description['products_description_meta']) . "',
+                                    '" . oos_db_input($description['products_keywords_meta']) . "')");
 
 					// Move that ADOdb pointer!
 					$description_result->MoveNext();
@@ -427,14 +428,14 @@ if (!empty($action)) {
                           (products_id,
                            categories_id)
                            VALUES ('" . $dup_products_id . "',
-                                   '" . oos_db_input($categories_id) . "')");
+                                   '" . intval($categories_id) . "')");
 
 				$products_id_from = oos_db_input($products_id);
 				$products_id_to = $dup_products_id;
 				$products_id = $dup_products_id;
 
 				if ( $_POST['copy_attributes']=='copy_attributes_yes' and $_POST['copy_as'] == 'duplicate' ) {
-					$products_copy_from_result= $dbconn->Execute("SELECT options_id, options_values_id, options_values_price, price_prefix, options_sort_order FROM " . $oostable['products_attributes'] . " WHERE products_id='" . $products_id_from . "'");
+					$products_copy_from_result= $dbconn->Execute("SELECT options_id, options_values_id, options_values_price, price_prefix, options_sort_order FROM " . $oostable['products_attributes'] . " WHERE products_id='" . intval($products_id_from) . "'");
 					while ( $products_copy_from = $products_copy_from_result->fields) {
 						$rows++;
 						$sql = "INSERT INTO " . $oostable['products_attributes'] . "
@@ -455,7 +456,6 @@ if (!empty($action)) {
 						// Move that ADOdb pointer!
 						$products_copy_from_result->MoveNext();
 					}
-
 				}
 			}
 		}
@@ -761,7 +761,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 			<div class="col-6 col-md-3">
 
 <div class="fileinput fileinput-new" data-provides="fileinput">
-  <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+  <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 300px; height: 110px;"></div>
   <div>
     <span class="btn btn-warning btn-file"><span class="fileinput-new"><em class="fa fa-plus-circle fa-fw"></em><?php echo BUTTON_SELECT_IMAGE; ?></span><span class="fileinput-exists"><?php echo BUTTON_CHANGE; ?></span>
 	
@@ -780,7 +780,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 			<div class="col-6 col-md-3">
 
 <div class="fileinput fileinput-new" data-provides="fileinput">
-  <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+  <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 300px; height: 110px;"></div>
   <div>
     <span class="btn btn-warning btn-file"><span class="fileinput-new"><em class="fa fa-plus-circle fa-fw"></em><?php echo BUTTON_SELECT_IMAGE; ?></span><span class="fileinput-exists"><?php echo BUTTON_CHANGE; ?></span>
 	
@@ -808,7 +808,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
                         <div class="row mb-3">
                            <div class="col-3">		
 <div class="fileinput fileinput-new" data-provides="fileinput">
-  <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+  <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 300px; height: 110px;"></div>
   <div>
     <span class="btn btn-warning btn-file"><span class="fileinput-new"><em class="fa fa-plus-circle fa-fw"></em><?php echo BUTTON_SELECT_IMAGE; ?></span><span class="fileinput-exists"><?php echo BUTTON_CHANGE; ?></span>
 	

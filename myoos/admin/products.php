@@ -123,6 +123,7 @@ if (!empty($action)) {
                                   'products_date_available' => $products_date_available,
                                   'products_weight' => oos_db_prepare_input($_POST['products_weight']),
                                   'products_status' => $sProductsStatus,
+								  'products_setting' => oos_db_prepare_input($_POST['products_setting']),
                                   'products_tax_class_id' => oos_db_prepare_input($_POST['products_tax_class_id']),
                                   'products_units_id' => oos_db_prepare_input($_POST['products_units_id']),
                                   'manufacturers_id' => oos_db_prepare_input($_POST['manufacturers_id']),
@@ -490,7 +491,7 @@ function calcBasePriceFactor() {
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo ENTRY_STATUS; ?></label>
-                              <div class="col-lg-10"><?php echo oos_draw_pull_down_menu('status', $aSetting, $pInfo->products_setting); ?></div>
+                              <div class="col-lg-10"><?php echo oos_draw_pull_down_menu('products_setting', $aSetting, $pInfo->products_setting); ?></div>
                            </div>
                         </fieldset>
 

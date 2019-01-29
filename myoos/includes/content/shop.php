@@ -108,7 +108,6 @@ if ($category_depth == 'nested') {
                        $categoriestable p,
                        $categories_descriptiontable cd
                   WHERE c.categories_status = '2'
-                    AND ( c.access = '0' OR c.access = '" . intval($nGroupID) . "' )
                     AND c.parent_id = '" . intval($aCategoryLinks[$i]) . "'
                     AND c.categories_id = cd.categories_id
                     AND cd.categories_languages_id = '" .  intval($nLanguageID) . "'
@@ -130,7 +129,6 @@ if ($category_depth == 'nested') {
                      $categoriestable p,
                      $categories_descriptiontable cd
                 WHERE c.categories_status = '2'
-                  AND ( c.access = '0' OR c.access = '" . intval($nGroupID) . "' )
                   AND c.parent_id = '" . intval($nCurrentCategoryID) . "'
                   AND c.categories_id = cd.categories_id
                   AND cd.categories_languages_id = '" .  intval($nLanguageID) . "'
