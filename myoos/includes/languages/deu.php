@@ -285,6 +285,8 @@ $aLang = [
 'prevnext_button_prev'                 => '&lt;&lt;&nbsp;vorherige',
 'prevnext_button_next'                 => 'nächste&nbsp;&gt;&gt;',
 'prevnext_button_last'                 => 'LETZTE&gt;&gt;',
+'prevnext_slider_previous'             => 'zurück',
+'prevnext_slider_next'                 => 'weiter',
 
 'button_account'                     => 'Profil',
 'button_add_address'                 => 'Neue Adresse',

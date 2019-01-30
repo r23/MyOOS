@@ -187,6 +187,22 @@ if ($category_depth == 'nested') {
                 AND cd.categories_languages_id = '" .  intval($nLanguageID) . "'";
 	$category = $dbconn->GetRow($sql);
 
+	$categories_imagestable = $oostable['categories_images'];
+	$sql = "SELECT categories_image
+              FROM $categories_imagestable
+              WHERE categories_id = '" . intval($nCurrentCategoryID) . "'";
+	$category_slider = $dbconn->Execute($sql);
+	if ($category_slider->RecordCount()) {	
+		$aCategorySlider = array();
+		while ($slider = $category_slider->fields) {
+			$aCategorySlider[] = array(
+									'image'	=> $slider['categories_image']
+									);
+			// Move that ADOdb pointer!
+			$category_slider->MoveNext();
+		}
+	}
+	
     $aTemplate['page'] = $sTheme . '/page/shop_products.html';
     $aTemplate['pagination'] = $sTheme . '/system/_pagination.html';
 	
@@ -536,6 +552,10 @@ if ($category_depth == 'nested') {
 				'category' => $category
 			)
 		);
+		
+		if (isset($aCategorySlider) && is_array($aCategorySlider)) {
+			$smarty->assign('slider', $aCategorySlider);   			
+		}
 
 		if ( (isset($_GET['manufacturers_id'])) ||  (oos_total_products_in_category($nCurrentCategoryID) >= 1) ) {
 			require_once MYOOS_INCLUDE_PATH . '/includes/modules/product_listing.php';
