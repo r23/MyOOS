@@ -508,7 +508,7 @@ if ($category_depth == 'nested') {
 			} else {
 				$arguments = 'category=' . $sCategory;
 			}
-			$arguments .= '&amp;sort=' . $_GET['sort'];
+			$arguments .= '&amp;sort=' . oos_db_prepare_input($_GET['sort']);
 
 			$option_url = oos_href_link($aContents['shop'], $arguments);
 
@@ -531,8 +531,15 @@ if ($category_depth == 'nested') {
 			$product_filter_select .= '</select></div></form>' . "\n";
 		}
 
-// Get the image for the top
-// $image =
+
+		// assign Smarty variables;
+		$smarty->assign(
+			array(
+				'product_filter_select' => $product_filter_select,
+				'category' => $category
+			)
+		);
+
 		if (isset($_GET['manufacturers_id']) && !empty($_GET['manufacturers_id'])) {
 			$nManufacturersID = intval($_GET['manufacturers_id']);
 			$manufacturerstable = $oostable['manufacturers'];
@@ -540,18 +547,8 @@ if ($category_depth == 'nested') {
                         FROM $manufacturerstable
                         WHERE manufacturers_id = '" . intval($nManufacturersID) . "'";			
 			$image = $dbconn->GetOne($sql);
-		} elseif ($nCurrentCategoryID) {
-			$image = $category['categories_image'];
-		}
-
-		// assign Smarty variables;
-		$smarty->assign(
-			array(
-				'product_filter_select' => $product_filter_select,
-				'image' => $image,
-				'category' => $category
-			)
-		);
+			$smarty->assign('image', $image); 
+		} 
 		
 		if (isset($aCategorySlider) && is_array($aCategorySlider)) {
 			$smarty->assign('slider', $aCategorySlider);   			

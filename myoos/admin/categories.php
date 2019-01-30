@@ -25,7 +25,6 @@ require 'includes/functions/function_categories.php';
 require 'includes/classes/class_currencies.php';
 require 'includes/classes/class_upload.php';
 
-
 $currencies = new currencies();
 
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
@@ -772,7 +771,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 
 			</div>
 			<div class="col-9">
-				<strong>Details</strong>
+				<strong>Slider</strong>
 			</div>	
 		</div>
 
@@ -791,7 +790,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 
 			</div>
 			<div class="col-9">
-				<strong>Details</strong>
+				<strong>Slider</strong>
 			</div>	
 		</div>
 
@@ -819,7 +818,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 
                            </div>
                            <div class="col-9">
-                              <strong>Details</strong>
+                              <strong>Slider</strong>
                            </div>	
 						</div>
 		</div>
