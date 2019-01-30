@@ -539,16 +539,6 @@ if ($category_depth == 'nested') {
 				'category' => $category
 			)
 		);
-
-		if (isset($_GET['manufacturers_id']) && !empty($_GET['manufacturers_id'])) {
-			$nManufacturersID = intval($_GET['manufacturers_id']);
-			$manufacturerstable = $oostable['manufacturers'];
-				$sql = "SELECT teaser_brand_image
-                        FROM $manufacturerstable
-                        WHERE manufacturers_id = '" . intval($nManufacturersID) . "'";			
-			$image = $dbconn->GetOne($sql);
-			$smarty->assign('image', $image); 
-		} 
 		
 		if (isset($aCategorySlider) && is_array($aCategorySlider)) {
 			$smarty->assign('slider', $aCategorySlider);   			

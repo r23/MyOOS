@@ -57,3 +57,9 @@ prepros-6.config
 /myoos/images/category/originals/*.png
 /myoos/images/category/small/*.jpg
 /myoos/images/category/small/*.png
+/myoos/images/brands/medium/*.jpg
+/myoos/images/brands/medium/*.png
+/myoos/images/brands/originals/*.png
+/myoos/images/brands/originals/*.jpg
+/myoos/images/brands/small/*.jpg
+/myoos/images/brands/small/*.png

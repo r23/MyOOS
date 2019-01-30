@@ -44,15 +44,6 @@
 				<!-- /CAROUSEL -->	
 			{/if}
 
-
-			{if $image}
-				<div class="row">			
-					<div class="display">
-			    	   <img src="{$image}" title="{$category.categories_name}" />
-					</div>
-				</div>
-			{/if}
-
 			{if $category.categories_description != '' }
 				<div class="clearfix m-mb-5">
 					<div class="">
@@ -63,7 +54,6 @@
 					</div>
 				</div>
 			{/if}
-
 
 				<!-- list options -->
 				<div class="clearfix shop-list-options m-mb-20">
@@ -83,10 +73,7 @@
 					</div>
 				</div>
 				<!-- /list options -->
-	
 
-
-	
 
 				<ul class="shop-item-list row list-inline m-0">
 				{foreach item=product from=$listing}

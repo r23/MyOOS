@@ -332,8 +332,16 @@ function oos_draw_input_field($name, $value = '', $parameters = '', $required = 
   * @return string
   */
   function oos_draw_file_field($name, $required = FALSE) {
-    $field = oos_draw_input_field($name, '', '', $required, 'file');
+    $field = '<div class="fileinput fileinput-new" data-provides="fileinput">' . "\n" .
+  '<div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>' . "\n" .
+  '<div>' . "\n" .
 
+    '<span class="btn btn-warning btn-file"><span class="fileinput-new"><em class="fa fa-plus-circle fa-fw"></em>' . BUTTON_SELECT_IMAGE . '</span><span class="fileinput-exists">' . BUTTON_CHANGE . '</span>' . "\n" .
+	'<input type="file" size="40" name="' . $name . '"></span>' . "\n" .
+    '<a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput"><em class="fa fa-times-circle fa-fw"></em>' . BUTTON_DELETE . '</a>' . "\n" .
+  '</div>' . "\n" .
+'</div>';
+ 
     return $field;
   }
 
