@@ -204,9 +204,6 @@ if (!empty($action)) {
     // Move that ADOdb pointer!
     $currency_result->MoveNext();
   }
-
-  // Close result set
-  $currency_result->Close();
 ?>
               <tr>
                 <td colspan="4"><table border="0" width="100%" cellspacing="0" cellpadding="2">

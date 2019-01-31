@@ -298,9 +298,6 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     $customers_status_result->MoveNext();
   }
 
-  // Close result set
-  $customers_status_result->Close();
-
 ?>
               <tr>
                 <td colspan="8"><table border="0" width="100%" cellspacing="0" cellpadding="2">

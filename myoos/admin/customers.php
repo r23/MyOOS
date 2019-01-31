@@ -786,9 +786,6 @@ function check_form() {
       $customers_result->MoveNext();
     }
 
-    // Close result set
-    $customers_result->Close();
-
 ?>
               <tr>
                 <td colspan="7"><table border="0" width="100%" cellspacing="0" cellpadding="2">

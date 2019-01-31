@@ -119,8 +119,6 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       // Move that ADOdb pointer!
       $mail_result->MoveNext();
     }
-    // Close result set
-    $mail_result->Close();
 
     oos_redirect_admin(oos_href_link_admin($aContents['coupon_admin'], 'mail_sent_to=' . urlencode($mail_sent_to)));
   }
@@ -323,9 +321,6 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       // Move that ADOdb pointer!
       $cc_result->MoveNext();
     }
-
-    // Close result set
-    $cc_result->Close();
 ?>
 
 
@@ -532,8 +527,6 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       $mail_result->MoveNext();
     }
 
-    // Close result set
-    $mail_result->Close();
 ?>
               <tr>
                 <td colspan="2"></td>
@@ -1036,9 +1029,6 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       // Move that ADOdb pointer!
       $cc_result->MoveNext();
     }
-
-    // Close result set
-    $cc_result->Close();
 ?>
 
           <tr>

@@ -66,9 +66,6 @@ td {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: xx-small}
       $result->MoveNext();
     }
 
-    // Close result set
-    $result->Close();
-
     echo "</table>\n";
 ?>
 <br />

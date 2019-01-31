@@ -285,9 +285,6 @@ function go_option() {
          // Move that ADOdb pointer!
         $products->MoveNext();
       }
-
-      // Close result set
-      $products->Close();
 ?>
                   <tr>
                     <td colspan="3"><?php echo oos_black_line(); ?></td>
@@ -503,9 +500,6 @@ function go_option() {
         // Move that ADOdb pointer!
         $products->MoveNext();
       }
-
-      // Close result set
-      $products->Close();
 ?>
                   <tr>
                     <td colspan="3"><?php echo oos_black_line(); ?></td>
@@ -994,9 +988,6 @@ function go_option() {
       // Move that ADOdb pointer!
       $values->MoveNext();
     }
-
-    // Close result set
-    $values->Close();
 ?>
             </select>&nbsp;</td>
             <td align="right" class="smallText">&nbsp;<input type="text" name="sort_order" value="<?php echo $attributes_values['options_sort_order']; ?>" size="4">&nbsp;</td>

@@ -46,9 +46,6 @@
       $geo_zone_name = $zones['geo_zone_name'];
     }
 
-    // Close result set
-    $result->Close();
-
     return $geo_zone_name;
   }
 
@@ -250,8 +247,6 @@ function update_zone(theForm) {
       $zones_result->MoveNext();
     }
 
-    // Close result set
-    $zones_result->Close();
 ?>
               <tr>
                 <td colspan="3"><table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -300,8 +295,6 @@ function update_zone(theForm) {
       $zones_result->MoveNext();
     }
 
-    // Close result set
-    $zones_result->Close();
 ?>
               <tr>
                 <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">

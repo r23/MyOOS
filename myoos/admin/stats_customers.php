@@ -124,9 +124,6 @@ require 'includes/header.php';
     // Move that ADOdb pointer!
     $customers_result->MoveNext();
   }
-
-  // Close result set
-  $customers_result->Close();
 ?>
             </table></td>
           </tr>

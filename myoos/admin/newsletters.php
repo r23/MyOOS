@@ -369,8 +369,6 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         // Move that ADOdb pointer!
        $newsletters_result->MoveNext();
     }
-    // Close result set
-    $newsletters_result->Close();
 ?>
               <tr>
                 <td colspan="6"><table border="0" width="100%" cellspacing="0" cellpadding="2">

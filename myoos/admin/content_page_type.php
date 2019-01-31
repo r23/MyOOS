@@ -70,9 +70,6 @@
       $page_type_result->MoveNext();
     }
 
-    // Close result set
-    $page_type_result->Close();
-
     return $page_type_array;
   }
 
@@ -221,9 +218,6 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     // Move that ADOdb pointer!
     $page_type_result->MoveNext();
   }
-
-  // Close result set
-  $page_type_result->Close();
 ?>
               <tr>
                 <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">

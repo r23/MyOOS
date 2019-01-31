@@ -293,9 +293,6 @@
         $file_result->MoveNext();
       }
 
-      // Close result set
-      $file_result->Close();
-
       $file_dir = array();
       $dir = dir(OOS_ABSOLUTE_PATH . OOS_ADMIN);
 

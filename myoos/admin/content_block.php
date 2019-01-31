@@ -237,9 +237,6 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     // Move that ADOdb pointer!
     $block_content_result->MoveNext();
   }
-
-  // Close result set
-  $block_content_result->Close();
 ?>
               <tr>
                 <td colspan="6"><table border="0" width="100%" cellspacing="0" cellpadding="2">

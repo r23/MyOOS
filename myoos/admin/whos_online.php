@@ -139,9 +139,6 @@ require '../includes/classes/class_shopping_cart.php';
     // Move that ADOdb pointer!
     $whos_online_result->MoveNext();
   }
-
-  // Close result set
-  $whos_online_result->Close();
 ?>
               <tr>
                 <td class="smallText" colspan="7"><?php echo sprintf(TEXT_NUMBER_OF_CUSTOMERS, $whos_online_result->RecordCount()); ?></td>

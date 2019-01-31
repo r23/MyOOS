@@ -63,8 +63,6 @@ td {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: xx-small}
       // Move that ADOdb pointer!
       $result->MoveNext();
     }
-    // Close result set
-    $result->Close();
 ?>
 </table>
 <br />

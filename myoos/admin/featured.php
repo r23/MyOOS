@@ -55,9 +55,6 @@ require 'includes/main.php';
       $result->MoveNext();
     }
 
-    // Close result set
-    $result->Close();
-
     $select_string .= '</select>';
 
     return $select_string;
@@ -219,10 +216,6 @@ require 'includes/header.php';
         // Move that ADOdb pointer!
         $featured_result->MoveNext();
       }
-
-      // Close result set
-      $featured_result->Close();
-
     }
 ?>
 <!-- body_text //-->
@@ -313,9 +306,6 @@ require 'includes/header.php';
       // Move that ADOdb pointer!
       $featured_result->MoveNext();
     }
-
-    // Close result set
-    $featured_result->Close();
 ?>
               <tr>
                 <td colspan="4"><table border="0" width="100%" cellpadding="0" cellspacing="2">

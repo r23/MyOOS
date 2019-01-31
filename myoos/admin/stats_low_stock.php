@@ -113,9 +113,6 @@ require 'includes/header.php';
     // Move that ADOdb pointer!
     $products_result->MoveNext();
   }
-
-  // Close result set
-  $products_result->Close();
 ?>
           </table></td>
           </tr>

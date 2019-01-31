@@ -330,9 +330,6 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         // Move that ADOdb pointer!
        $group_boxes_files_result->MoveNext();
      }
-
-     // Close result set
-     $group_boxes_files_result->Close();
 ?>
                   </table>
                 </td>
@@ -341,9 +338,6 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
      // Move that ADOdb pointer!
     $db_boxes_result->MoveNext();
   }
-
-  // Close result set
-  $db_boxes_result->Close();
 ?>
               <tr>
                 <td colspan="2" valign="top" align="right"><?php if ($_GET['gPath'] != 1) { echo  '<a href="' . oos_href_link_admin($aContents['admin_members'], 'gID=' . $_GET['gPath']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a> ' . oos_submit_button('save', BUTTON_INSERT); } else { echo oos_submit_button('back', IMAGE_BACK); } ?>&nbsp;</td>
@@ -387,9 +381,6 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     // Move that ADOdb pointer!
     $db_groups_result->MoveNext();
   }
-
-  // Close result set
-  $db_groups_result->Close();
 ?>
               <tr>
                 <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -444,9 +435,6 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     // Move that ADOdb pointer!
     $db_admin_result->MoveNext();
   }
-
-  // Close result set
-  $db_admin_result->Close();
 ?>
               <tr>
                 <td colspan="5"><table border="0" width="100%" cellspacing="0" cellpadding="2">
