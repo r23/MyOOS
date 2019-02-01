@@ -1,0 +1,28 @@
+{if $mod_manufacturer_array}
+<!-- BRANDS -->
+<section class="section-xs">
+	<div class="container">
+
+		<div class="text-center">
+			<!-- CAROUSEL -->	
+			<div class="owl-carousel m-0" data-plugin-options={literal}'{"singleItem": false, "autoPlay": 3000}'{/literal}>
+			{foreach $mod_manufacturer_array as $i}	
+				<div>
+					<!-- item -->
+					<a href="{html_href_link content=$filename.shop manufacturers_id=$i.manufacturers_id}">
+						{small_manufacturers_image image=$i.manufacturers_image alt=$i.manufacturers_name|strip_tags}
+					</a>
+				</div>
+			{/foreach}						
+						
+	
+			</div>
+			<!-- /CAROUSEL -->	
+
+		</div>
+
+	</div>
+</section>
+<!-- BRANDS -->
+{/if}			
+		
