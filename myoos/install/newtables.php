@@ -475,7 +475,6 @@ $flds = "
   customers_status_id I NOTNULL PRIMARY,
   customers_status_languages_id I NOTNULL DEFAULT '1' PRIMARY,
   customers_status_name C(32) NOTNULL DEFAULT '',
-  customers_status_image C(64) DEFAULT NULL,
   customers_status_ot_discount_flag I1 NOTNULL DEFAULT '0',
   customers_status_ot_discount N '4.2' DEFAULT '0',
   customers_status_ot_minimum N '15.2' DEFAULT '100.00',

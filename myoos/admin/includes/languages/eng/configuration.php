@@ -37,6 +37,9 @@ define('TEXT_INFO_LAST_MODIFIED', 'Last Modified:');
 define('STORE_NAME_TITLE', 'Store Name');
 define('STORE_NAME_DESC', 'The name of my store');
 
+define('STORE_LOGO_TITLE', 'Logo');
+define('STORE_LOGO_DESC', 'The logo of my shop');
+
 define('STORE_OWNER_TITLE', 'Store Owner');
 define('STORE_OWNER_DESC', 'The name of my store owner');
 
@@ -354,6 +357,8 @@ define('OOS_META_AUTHOR_DESC', 'The author of the shop');
 define('OOS_META_COPYRIGHT_TITLE', 'Copyright');
 define('OOS_META_COPYRIGHT_DESC', 'Der Entwickler des Shop');
 
+define('SITE_ICONS_TITLE', 'Site Icons');
+define('SITE_ICONS_DESC', 'Site Icons are what you see in browser tabs and bookmark bars. Upload one here!');
 
 define('FACEBOOK_URL_TITLE', 'Facebook');
 define('FACEBOOK_URL_DESC', 'URL of the Facebook page:');

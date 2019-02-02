@@ -18,23 +18,146 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  define('OOS_VALID_MOD', 'yes');
-  require 'includes/main.php';
-  require 'includes/functions/function_modules.php';
+define('OOS_VALID_MOD', 'yes');
+require 'includes/main.php';
 
-  $action = (isset($_GET['action']) ? $_GET['action'] : '');
+require 'includes/functions/function_modules.php';
+$action = (isset($_GET['action']) ? $_GET['action'] : '');
+$cID = oos_db_prepare_input($_GET['cID']);
 
-  if (!empty($action)) {
+
+if (!empty($action)) {
     switch ($action) {
       case 'save':
         $configuration_value = oos_db_prepare_input($_POST['configuration_value']);
         $cID = oos_db_prepare_input($_GET['cID']);
 
-        $dbconn->Execute("UPDATE " . $oostable['configuration'] . " SET configuration_value = '" . oos_db_input($configuration_value) . "', last_modified = now() WHERE configuration_id = '" . oos_db_input($cID) . "'");
+        $dbconn->Execute("UPDATE " . $oostable['configuration'] . " SET configuration_value = '" . oos_db_input($configuration_value) . "', last_modified = now() WHERE configuration_id = '" . intval($cID) . "'");
+		
+		
+		if  ($cID == 2 || $cID == 3) {
+	
+			require 'includes/classes/class_upload.php';
+			
+			
+			// Logo		
+			if  ($cID == 2)  {
+				$options = array(
+					'image_versions' => array(				
+						// The empty image version key defines options for the original image.
+						// Keep in mind: these image manipulations are inherited by all other image versions from this point onwards. 
+						// Also note that the property 'no_cache' is not inherited, since it's not a manipulation.
+						'' => array(
+							// Automatically rotate images based on EXIF meta data:
+							'auto_orient' => TRUE
+						),
+						'medium' => array(
+							// 'auto_orient' => TRUE,
+							// 'crop' => TRUE,
+							// 'jpeg_quality' => 82,
+							// 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+							// 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+							'max_width' => 150, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+							'max_height' => 150 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
+						),				
+						'small' => array(
+							// 'auto_orient' => TRUE,
+							// 'crop' => TRUE,
+							// 'jpeg_quality' => 82,
+							// 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+							// 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+							'max_width' => 120, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+							'max_height' => 120 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
+						),			
+					),
+				);
+				$dir_fs_catalog_images = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'logo/';
+				
+			} elseif  ($cID == 3)  { 
+				// Site Icons 
+				$options = array(
+					'image_versions' => array(				
+						// The empty image version key defines options for the original image.
+						// Keep in mind: these image manipulations are inherited by all other image versions from this point onwards. 
+						// Also note that the property 'no_cache' is not inherited, since it's not a manipulation.
+						'' => array(
+							// Automatically rotate images based on EXIF meta data:
+							'auto_orient' => TRUE
+						),				
+						'180x180' => array(
+							// 'auto_orient' => TRUE,
+							// 'crop' => TRUE,
+							// 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+							// 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+							'max_width' => 180, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+							'max_height' => 180 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
+						),						
+						'144x144' => array(
+							// 'auto_orient' => TRUE,
+							// 'crop' => TRUE,
+							// 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+							// 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+							'max_width' => 144, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+							'max_height' => 144 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
+						),
+						'114x114' => array(
+							// 'auto_orient' => TRUE,
+							// 'crop' => TRUE,
+							// 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+							// 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+							'max_width' => 114, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+							'max_height' => 114 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
+						),				
+						'72x72' => array(
+							// 'auto_orient' => TRUE,
+							// 'crop' => TRUE,
+							// 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+							// 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+							'max_width' => 72, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+							'max_height' => 72 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
+						),
+						'96x96' => array(
+							// 'auto_orient' => TRUE,
+							// 'crop' => TRUE,
+							// 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+							// 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+							'max_width' => 96, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+							'max_height' => 96 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
+						),					
+						'32x32' => array(
+							// 'auto_orient' => TRUE,
+							// 'crop' => TRUE,
+							// 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+							// 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+							'max_width' => 72, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+							'max_height' => 72 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
+						),						
+						
+					),
+				);
+				$dir_fs_catalog_images = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'ico/';			
+			}
+			
+			
+			$oLogo = new upload('site_image', $options);
+			$oLogo->set_destination($dir_fs_catalog_images);
+			$oLogo->parse();
+
+			if (oos_is_not_null($oLogo->filename)) {
+			
+				$configurationtable =  $oostable['configuration'];
+				$dbconn->Execute("UPDATE $configurationtable
+                            SET configuration_value = '" . oos_db_input($oLogo->filename) . "', 
+							last_modified = now()				
+                            WHERE configuration_id = '" . intval($cID) . "'");					
+			}	
+
+		}
+
         oos_redirect_admin(oos_href_link_admin($aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $cID));
         break;
     }
-  }
+}
   
 
   $sHeaderTitle = constant(strtoupper((int)$_GET['gID'] . '_TITLE')); 
@@ -151,14 +274,19 @@
     case 'edit':
       $heading[] = array('text' => '<b>' . constant(strtoupper($cInfo->configuration_key . '_TITLE')) . '</b>');
 
-      if ($cInfo->set_function) {
-        eval('$value_field = ' . $cInfo->set_function . '"' . htmlspecialchars($cInfo->configuration_value) . '");');
-      } else {
-        $value_field = oos_draw_input_field('configuration_value', $cInfo->configuration_value);
-      }
+		if  ($cID == 2 || $cID == 3) {
 
+			$value_field = oos_draw_file_field('site_image') . '<br />' . $cInfo->configuration_value;
 
-      $contents = array('form' => oos_draw_form('id', 'configuration', $aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $cInfo->configuration_id . '&action=save', 'post', FALSE));
+		} else {
+			if ($cInfo->set_function) {
+				eval('$value_field = ' . $cInfo->set_function . '"' . htmlspecialchars($cInfo->configuration_value) . '");');
+			} else {
+				$value_field = oos_draw_input_field('configuration_value', $cInfo->configuration_value);
+			}
+		}
+
+      $contents = array('form' => oos_draw_form('id', 'configuration', $aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $cInfo->configuration_id . '&action=save', 'post', FALSE, 'enctype="multipart/form-data"'));
       $contents[] = array('text' => TEXT_INFO_EDIT_INTRO);
       $contents[] = array('text' => '<br /><b>' . constant(strtoupper($cInfo->configuration_key . '_TITLE')) . '</b><br />' . constant(strtoupper($cInfo->configuration_key . '_DESC')) . '<br />' . $value_field);
       $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('update', IMAGE_UPDATE) . '&nbsp;<a href="' . oos_href_link_admin($aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $cInfo->configuration_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
@@ -168,6 +296,11 @@
       if (isset($cInfo) && is_object($cInfo)) {
         $heading[] = array('text' => '<b>' . constant(strtoupper($cInfo->configuration_key . '_TITLE')) . '</b>');
         $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $cInfo->configuration_id . '&action=edit') . '">' . oos_button('edit', BUTTON_EDIT) . '</a>');
+		if  ($cID == 2) {
+			$contents[] = array('text' => '<br />' . oos_info_image('logo/medium/' . $cInfo->configuration_value, $cInfo->configuration_value));		
+		} elseif ($cID == 3) {
+			$contents[] = array('text' => '<br />' . oos_info_image('ico/180x180/' . $cInfo->configuration_value, $cInfo->configuration_value));		
+		}
         $contents[] = array('text' => '<br />' . constant(strtoupper($cInfo->configuration_key . '_DESC')));
         $contents[] = array('text' => '<br />' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($cInfo->date_added));
         if (oos_is_not_null($cInfo->last_modified)) $contents[] = array('text' => TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($cInfo->last_modified));
