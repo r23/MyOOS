@@ -9,7 +9,7 @@
  * Domain Path: /lang
  * License:     GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
- * Version:     2.9.0
+ * Version:     2.9.1
  *
  * @package Antispam Bee
  **/
@@ -52,6 +52,13 @@ class Antispam_Bee {
 	public static $defaults;
 
 	/**
+	 * Which internal datastructure version we are running on.
+	 *
+	 * @var int
+	 */
+	private static $db_version = 1;
+
+	/**
 	 * The base.
 	 *
 	 * @var string
@@ -64,7 +71,6 @@ class Antispam_Bee {
 	 * @var string
 	 */
 	private static $_salt;
-
 
 	/**
 	 * The spam reason.
@@ -180,6 +186,13 @@ class Antispam_Bee {
 					array(
 						__CLASS__,
 						'init_plugin_sources',
+					)
+				);
+				add_action(
+					'admin_init',
+					array(
+						__CLASS__,
+						'update_database',
 					)
 				);
 
@@ -802,7 +815,7 @@ class Antispam_Bee {
 
 		$html .= "<tfoot><tr>\n";
 		foreach ( $items as $date => $count ) {
-			$html .= '<th>' . $date . "</th>\n";
+			$html .= '<th>' . date_i18n( 'j. F Y', $date ) . "</th>\n";
 		}
 		$html .= "</tr></tfoot>\n";
 
@@ -1151,7 +1164,9 @@ class Antispam_Bee {
 					(?P<between3>[^>]*)
 				)
 				(?P<after>[^>]*)                                                    (?# match any additional optional attributes )
-				><\/textarea>                                                       (?# the closing of the textarea )
+				>                                                                   (?# the closing of the textarea opening tag )
+				(?s)(?P<content>.*?)                                                (?# any textarea content )
+				<\/textarea>                                                        (?# the closing textarea tag )
 			)/x',
 			array( 'Antispam_Bee', 'replace_comment_field_callback' ),
 			$data,
@@ -1183,12 +1198,13 @@ class Antispam_Bee {
 		$id_script = '';
 		if ( ! empty( $matches['id1'] ) || ! empty( $matches['id2'] ) ) {
 			$output   .= 'id="' . self::get_secret_id_for_post( self::$_current_post_id ) . '" ';
-			$id_script = '<script type="text/javascript">document.getElementById("comment").setAttribute( "id", "' . esc_js( md5( time() ) ) . '" );document.getElementById("' . esc_js( self::get_secret_id_for_post( self::$_current_post_id ) ) . '").setAttribute( "id", "comment" );</script>';
+			$id_script = '<script type="text/javascript">document.getElementById("comment").setAttribute( "id", "a' . substr( esc_js( md5( time() ) ), 0, 31 ) . '" );document.getElementById("' . esc_js( self::get_secret_id_for_post( self::$_current_post_id ) ) . '").setAttribute( "id", "comment" );</script>';
 		}
 
 		$output .= ' name="' . esc_attr( self::get_secret_name_for_post( self::$_current_post_id ) ) . '" ';
 		$output .= $matches['between1'] . $matches['between2'] . $matches['between3'];
 		$output .= $matches['after'] . '>';
+		$output .= $matches['content'];
 		$output .= '</textarea><textarea id="comment" aria-hidden="true" name="comment" autocomplete="nope" style="padding:0;clip:rect(1px, 1px, 1px, 1px);position:absolute !important;white-space:nowrap;height:1px;width:1px;overflow:hidden;" tabindex="-1"></textarea>';
 
 		$output .= $id_script;
@@ -1621,31 +1637,15 @@ class Antispam_Bee {
 	private static function _is_db_spam( $ip, $url = '', $email = '' ) {
 		global $wpdb;
 
-        // phpcs:disable WordPress.WP.PreparedSQL.NotPrepared
-		$sql        = '
-			select 
-				meta_value as ip
-			from
-			 	' . $wpdb->commentmeta . ' as meta,
-			 	' . $wpdb->comments . ' as comments
-			where
-			    comments.comment_ID = meta.comment_id
-			    AND meta.meta_key = "antispam_bee_iphash"
-			    AND comments.comment_approved="spam"';
-		$hashed_ips = $wpdb->get_col( $sql );
-		if ( ! empty( $hashed_ips ) ) {
-			foreach ( $hashed_ips as $hash ) {
-				if ( wp_check_password( $ip, $hash ) ) {
-					return true;
-				}
-			}
-		}
-
 		$params = array();
 		$filter = array();
 		if ( ! empty( $url ) ) {
 			$filter[] = '`comment_author_url` = %s';
 			$params[] = wp_unslash( $url );
+		}
+		if ( ! empty( $ip ) ) {
+			$filter[] = '`comment_author_IP` = %s';
+			$params[] = wp_unslash( $ip );
 		}
 
 		if ( ! empty( $email ) ) {
@@ -1656,8 +1656,8 @@ class Antispam_Bee {
 			return false;
 		}
 
+		// phpcs:disable WordPress.WP.PreparedSQL.NotPrepared
 		// phpcs:disable WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber
-		// ToDo: Have a closer look on this SQL Query.
 		$filter_sql = implode( ' OR ', $filter );
 
 		$result = $wpdb->get_var(
@@ -1851,7 +1851,25 @@ class Antispam_Bee {
 			return ! in_array( $detected_lang, $allowed_lang, true );
 		}
 
-		if ( mb_strlen( $comment_text ) < 10 ) {
+		$word_count = 0;
+		$text       = trim( preg_replace( "/[\n\r\t ]+/", ' ', $comment_text ), ' ' );
+
+		/*
+		 * translators: If your word count is based on single characters (e.g. East Asian characters),
+		 * enter 'characters_excluding_spaces' or 'characters_including_spaces'. Otherwise, enter 'words'.
+		 * Do not translate into your own language.
+		 */
+		if ( strpos( _x( 'words', 'Word count type. Do not translate!' ), 'characters' ) === 0 && preg_match( '/^utf\-?8$/i', get_option( 'blog_charset' ) ) ) {
+			preg_match_all( '/./u', $text, $words_array );
+			if ( isset( $words_array[0] ) ) {
+				$word_count = count( $words_array[0] );
+			}
+		} else {
+			$words_array = preg_split( "/[\n\r\t ]+/", $text, -1, PREG_SPLIT_NO_EMPTY );
+			$word_count  = count( $words_array );
+		}
+
+		if ( $word_count < 10 ) {
 			return false;
 		}
 
@@ -2073,6 +2091,7 @@ class Antispam_Bee {
 			'ave' => 'ae',
 			'aym' => 'ay',
 			'aze' => 'az',
+			'nds' => 'de',
 		);
 
 		if ( array_key_exists( $franc_code, $codes ) ) {
@@ -2665,6 +2684,8 @@ class Antispam_Bee {
 			$secret = substr( sha1( md5( 'comment-id' . self::$_salt . (int) $post_id ) ), 0, 10 );
 		}
 
+		$secret = self::ensure_secret_starts_with_letter( $secret );
+
 		/**
 		 * Filters the secret for a post, which is used in the textarea name attribute.
 		 *
@@ -2696,6 +2717,8 @@ class Antispam_Bee {
 			$secret = substr( sha1( md5( 'comment-id' . self::$_salt . (int) $post_id ) ), 0, 10 );
 		}
 
+		$secret = self::ensure_secret_starts_with_letter( $secret );
+
 		/**
 		 * Filters the secret for a post, which is used in the textarea id attribute.
 		 *
@@ -2709,6 +2732,23 @@ class Antispam_Bee {
 			(int) $post_id,
 			(bool) self::get_option( 'always_allowed' )
 		);
+	}
+
+	/**
+	 * Ensures that the secret starts with a letter.
+	 *
+	 * @param string $secret The secret.
+	 *
+	 * @return string
+	 */
+	public static function ensure_secret_starts_with_letter( $secret ) {
+
+		$first_char = substr( $secret, 0, 1 );
+		if ( is_numeric( $first_char ) ) {
+			return chr( $first_char + 97 ) . substr( $secret, 1 );
+		} else {
+			return $secret;
+		}
 	}
 
 	/**
@@ -2737,6 +2777,40 @@ class Antispam_Bee {
 
 		$parts = wp_parse_url( $url );
 		return ( is_array( $parts ) && isset( $parts[ $component ] ) ) ? $parts[ $component ] : '';
+	}
+
+	/**
+	 * Updates the database structure if necessary
+	 */
+	public static function update_database() {
+		if ( self::db_version_is_current() ) {
+			return;
+		}
+
+		global $wpdb;
+
+		/**
+		 * In Version 2.9 the IP of the commenter was saved as a hash. We reverted this solution.
+		 * Therefore, we need to delete this unused data.
+		 */
+		//phpcs:disable WordPress.WP.PreparedSQL.NotPrepared
+		$sql = 'delete from `' . $wpdb->commentmeta . '` where `meta_key` IN ("antispam_bee_iphash")';
+		$wpdb->query( $sql );
+		//phpcs:enable WordPress.WP.PreparedSQL.NotPrepared
+
+		update_option( 'antispambee_db_version', self::$db_version );
+	}
+
+	/**
+	 * Whether the database structure is up to date.
+	 *
+	 * @return bool
+	 */
+	private static function db_version_is_current() {
+
+		$current_version = absint( get_option( 'antispambee_db_version', 0 ) );
+		return $current_version === self::$db_version;
+
 	}
 }
 
