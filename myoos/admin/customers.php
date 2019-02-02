@@ -467,9 +467,6 @@ function check_form() {
             <td class="main">
 <?php
    echo '<br />' . HEADING_TITLE_STATUS;
-   if ($customers_statuses_array[$customers['customers_status']]['cs_image'] != '') {
-      echo oos_image(OOS_SHOP_IMAGES . 'icons/' . $customers_statuses_array[$customers['customers_status']]['cs_image'], '') . ' - '; 
-   }
    echo  $customers_statuses_array[$customers['customers_status']]['text'] . ' - ' . $customers_statuses_array[$customers['customers_status']]['cs_ot_discount_flag']; 
 ?>
             </td>
@@ -766,7 +763,6 @@ function check_form() {
         echo '          <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID')) . 'cID=' . $customers['customers_id']) . '\'">' . "\n";
       }
 ?>
-                <td><?php if ($customers_statuses_array[$customers['customers_status']]['cs_image'] != '') { echo oos_image(OOS_SHOP_IMAGES . 'icons/' . $customers_statuses_array[$customers['customers_status']]['cs_image'], ''); } ?>&nbsp;</td>
                 <td><?php echo $customers['customers_lastname']; ?></td>
                 <td><?php echo $customers['customers_firstname']; ?></td>
                 <td class="text-left"><?php echo $customers_statuses_array[$customers['customers_status']]['text'] . '(' . $customers['customers_status'] . ')' ; ?></td>
@@ -850,7 +846,6 @@ function check_form() {
       $customer_status = oos_get_customers_status ($cID);
       $cs_id           = $customer_status['customers_status'];
       $cs_name         = $customer_status['customers_status_name'];
-      $cs_image        = $customer_status['customers_status_image'];
       $cs_ot_discount_flag  = $customer_status['customers_status_ot_discount_flag'];
       $cs_ot_discount       = $customer_status['customers_status_ot_discount'];
       $cs_qty_discounts     = $customer_status['customers_status_qty_discounts'];

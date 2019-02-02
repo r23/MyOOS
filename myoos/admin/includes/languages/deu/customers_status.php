@@ -32,7 +32,6 @@ define('TABLE_HEADING_AMOUNT', 'Bestellwert');
 
 define('TEXT_INFO_EDIT_INTRO', 'Bitte nehmen Sie alle nötigen Einstellungen vor');
 define('TEXT_INFO_CUSTOMERS_STATUS_NAME', 'Kundengruppe:');
-define('TEXT_INFO_CUSTOMERS_STATUS_IMAGE', 'Kundengruppe Bild:');
 define('TEXT_INFO_CUSTOMERS_STATUS_DISCOUNT_PRICE', 'Rabatt (0 bis 100%):');
 define('TEXT_INFO_INSERT_INTRO', 'Bitte erstellen Sie eine neue Kundengruppe mit den gewünschten Einstellungen');
 define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie diese Kundengruppe löschen wollen?');

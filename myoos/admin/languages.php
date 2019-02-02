@@ -149,8 +149,7 @@ if (!empty($action)) {
           $coupon_result->MoveNext();
         }
         //customers_status
-        $customers_status_result = $dbconn->Execute("SELECT customers_status_id, customers_status_name, customers_status_image, 
-                                                        customers_status_ot_discount_flag,
+        $customers_status_result = $dbconn->Execute("SELECT customers_status_id, customers_status_name, customers_status_ot_discount_flag,
                                                         customers_status_ot_discount, customers_status_ot_minimum, customers_status_public,
                                                         customers_status_show_price, customers_status_show_price_tax,
                                                         customers_status_qty_discounts, customers_status_payment
@@ -161,7 +160,6 @@ if (!empty($action)) {
                       (customers_status_id,
                        customers_status_languages_id,
                        customers_status_name,
-                       customers_status_image,
                        customers_status_ot_discount_flag,
                        customers_status_ot_discount,
                        customers_status_ot_minimum,
@@ -173,7 +171,6 @@ if (!empty($action)) {
                        VALUES ('" . $customers_status['customers_status_id'] . "',
                                '" . intval($insert_id) . "',
                                '" . oos_db_input($customers_status['customers_status_name']) . "',
-                               '" . oos_db_input($customers_status['customers_status_image']) . "',
                                '" . oos_db_input($customers_status['customers_status_ot_discount_flag']) . "',
                                '" . oos_db_input($customers_status['customers_status_ot_discount']) . "',
                                '" . oos_db_input($customers_status['customers_status_ot_minimum']) . "',

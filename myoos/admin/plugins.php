@@ -187,11 +187,12 @@
 				<div class="row">
 					<div class="col-lg-12">		
 <!-- body_text //-->
-<div class="table-responsive">
-	<table border="0" width="100%" cellspacing="0" cellpadding="0">
+	<div class="table-responsive">
+		<table class="table w-100">
           <tr>
             <td valign="top">
-				<table class="table table-striped table-hover w-100">
+			
+				<table class="table table-striped table-hover w-100">			
 					<thead class="thead-dark">
 						<tr>
 							<th><?php echo TABLE_HEADING_PLUGINS; ?></th>
@@ -276,6 +277,7 @@
                 <td colspan="4" class="smallText"><?php echo TEXT_PLUGINS_DIRECTORY . ' ' . $sLocaleDir; ?></td>
               </tr>
             </table></td>
+
 <?php
   $heading = array();
   $contents = array();

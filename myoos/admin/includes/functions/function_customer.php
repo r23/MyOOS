@@ -26,15 +26,6 @@
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
  /**
-  * Customer Status
-  *
-  * @link https://www.oos-shop.de
-  * @package Customer Status
-  * @version $Revision: 1.1 $ - changed by $Author: r23 $ on $Date: 2007/06/08 14:02:48 $
-  */
-
-
- /**
   * Customer Status Name
   *
   * @param $customers_status_id
@@ -81,8 +72,7 @@
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    $query = "SELECT customers_status_id, customers_status_name, customers_status_image,
-                     customers_status_ot_discount_flag,
+    $query = "SELECT customers_status_id, customers_status_name, customers_status_ot_discount_flag,
                      customers_status_ot_discount, customers_status_payment
               FROM " . $oostable['customers_status'] . "
               WHERE customers_status_languages_id = '" . intval($_SESSION['language_id']) . "'
@@ -94,7 +84,6 @@
       $customers_statuses_array[$i] = array('id' => $customers_statuses['customers_status_id'],
                                             'text' => $customers_statuses['customers_status_name'],
                                             'cs_public' => $customers_statuses['customers_status_public'],
-                                            'cs_image' => $customers_statuses['customers_status_image'],
                                             'cs_ot_discount_flag' => $customers_statuses['customers_status_ot_discount_flag'],
                                             'cs_ot_discount' => $customers_statuses['customers_status_ot_discount'],
                                             'cs_staffelpreis' => $customers_statuses['customers_status_qty_discounts'],
@@ -123,7 +112,7 @@
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    $query = "SELECT customers_status, customers_status_name, customers_status_public, customers_status_image,
+    $query = "SELECT customers_status, customers_status_name, customers_status_public, 
                      customers_status_ot_discount_flag, customers_status_ot_discount,
                      customers_status_qty_discounts, customers_status_payment
               FROM " . $oostable['customers'] . " LEFT JOIN
@@ -132,11 +121,7 @@
               WHERE customers_id= '" . intval($customer_id) . "'
                 AND customers_status_languages_id = '" . intval($_SESSION['language_id']) . "'";
     $result = $dbconn->Execute($query);
-
     $customer_status_array = $result->fields;
-
-    // Close result set
-    $result->Close();
 
     return $customer_status_array;
   }
@@ -159,16 +144,13 @@
                 WHERE customers_id = '" . intval($customer_id) . "'";
       $result = $dbconn->Execute($query);
 
-      // Close result set
-      $result->Close();
       return;
     } elseif ($status == '0') {
       $query = "UPDATE " . $oostable['customers'] . " 
                 SET customers_login = '0'
                 WHERE customers_id = '" . intval($customer_id) . "'";
       $result = $dbconn->Execute($query);
-      // Close result set
-      $result->Close();
+
       return;
     } else {
       return false;

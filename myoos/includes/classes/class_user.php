@@ -42,7 +42,7 @@
 
       $customers_statustable = $oostable['customers_status'];
       $sql = "SELECT customers_status_id, customers_status_name, customers_status_public,
-                     customers_status_show_price, customers_status_show_price_tax, customers_status_image,
+                     customers_status_show_price, customers_status_show_price_tax, 
                      customers_status_ot_discount_flag, customers_status_ot_discount,
                      customers_status_ot_minimum, customers_status_qty_discounts, customers_status_payment
                FROM $customers_statustable
@@ -55,7 +55,6 @@
                            'public' => $customer_status['customers_status_public'],
                            'show_price' => $customer_status['customers_status_show_price'],
                            'price_with_tax' => $customer_status['customers_status_show_price_tax'],
-                           'image' => $customer_status['customers_status_image'],
                            'ot_discount_flag' => $customer_status['customers_status_ot_discount_flag'],
                            'ot_discount' => $customer_status['customers_status_ot_discount'],
                            'ot_minimum' => $customer_status['customers_status_ot_minimum'],
@@ -92,7 +91,6 @@
                            'public' => $customer_status['customers_status_public'],
                            'show_price' => $customer_status['customers_status_show_price'],
                            'price_with_tax' => $customer_status['customers_status_show_price_tax'],
-                           'image' => $customer_status['customers_status_image'],
                            'ot_discount_flag' => $customer_status['customers_status_ot_discount_flag'],
                            'ot_discount' => $customer_status['customers_status_ot_discount'],
                            'ot_minimum' => $customer_status['customers_status_ot_minimum'],

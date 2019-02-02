@@ -45,7 +45,7 @@ $currencies = new currencies();
 $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
-  if (!empty($action)) {
+if (!empty($action)) {
     switch ($action) {
       case 'insert':
       case 'save':
@@ -95,23 +95,6 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
             oos_db_perform($oostable['customers_status'], $sql_data_array, 'UPDATE', "customers_status_id = '" . oos_db_input($customers_status_id) . "' AND customers_status_languages_id = '" . intval($lang_id) . "'");
           }
         }
-        // Changes by Guido Start
-        $customers_status_image = oos_get_uploaded_file('customers_status_image');
-        $image_directory = oos_get_local_path(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'icons/');
-
-        if (is_uploaded_file($customers_status_image['tmp_name'])) {
-          if (!is_writeable($image_directory)) {
-            if (is_dir($image_directory)) {
-              $messageStack->add_session(sprintf(ERROR_DIRECTORY_NOT_WRITEABLE, $image_directory), 'error');
-            } else {
-              $messageStack->add_session(sprintf(ERROR_DIRECTORY_DOES_NOT_EXIST, $image_directory), 'error');
-            }
-          } else {
-            $dbconn->Execute("UPDATE " . $oostable['customers_status'] . " SET customers_status_image = '" . $customers_status_image['name'] . "' WHERE customers_status_id = '" . oos_db_input($customers_status_id) . "'");
-            oos_get_copy_uploaded_file($customers_status_image, $image_directory);
-          }
-        }
-        // Changes by Guido END
 
         if (isset($_POST['default']) && ($_POST['default'] == 'on')) {
           $dbconn->Execute("UPDATE " . $oostable['configuration'] . " SET configuration_value = '" . oos_db_input($customers_status_id) . "' WHERE configuration_key = 'DEFAULT_CUSTOMERS_STATUS_ID'");
@@ -211,7 +194,6 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 				<table class="table table-striped table-hover w-100">
 					<thead class="thead-dark">
 						<tr>
-							<th align="left" width="8%"><?php echo 'icon'; ?></th>
 							<th align="left" width="40%"><?php echo TABLE_HEADING_CUSTOMERS_STATUS; ?></th>
 							<th align="center" width="10%"></th>
 							<th class="text-center"><?php echo TABLE_HEADING_AMOUNT; ?></th>
@@ -235,7 +217,6 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
   $customers_status_result_raw = "SELECT
                                      customers_status_id, customers_status_name, customers_status_public,
                                      customers_status_show_price, customers_status_show_price_tax,
-                                     customers_status_image,
                                      customers_status_ot_discount_flag , customers_status_ot_discount,
                                      customers_status_ot_minimum, customers_status_qty_discounts,
                                      customers_status_payment
@@ -257,7 +238,6 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     } else {
       echo '<tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage . '&cID=' . $customers_status['customers_status_id']) . '\'">' . "\n";
     }
-      echo '<td class="text-left">'    . oos_image(OOS_SHOP_IMAGES . 'icons/' . $customers_status['customers_status_image'] , IMAGE_ICON_INFO) . '</td>';
       if ($customers_status['customers_status_id'] == DEFAULT_CUSTOMERS_STATUS_ID ) {
         echo '<td class="text-left"><b>' . $customers_status['customers_status_name'];
         echo ' (' . TEXT_DEFAULT . ')';
@@ -300,7 +280,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
 ?>
               <tr>
-                <td colspan="8"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+                <td colspan="7"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
                     <td class="smallText" valign="top"><?php echo $customers_status_split->display_count($customers_status_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $nPage, TEXT_DISPLAY_NUMBER_OF_CUSTOMERS_STATUS); ?></td>
                     <td class="smallText" align="right"><?php echo $customers_status_split->display_links($customers_status_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage); ?></td>
@@ -333,7 +313,6 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       }
 
       $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_NAME . $customers_status_inputs_string);
-      $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_IMAGE . '<br />' . oos_draw_file_field('customers_status_image'));
       $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_PUBLIC_INTRO . '<br /><b>' . ENTRY_CUSTOMERS_STATUS_PUBLIC . '</b> ' . oos_draw_pull_down_menu('customers_status_public', $customers_status_public_array, $cInfo->customers_status_public ))  ;
       $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_SHOW_PRICE_INTRO     . '<br /><b>' . ENTRY_CUSTOMERS_STATUS_SHOW_PRICE . '</b> ' . oos_draw_pull_down_menu('customers_status_show_price', $customers_status_show_price_array, $cInfo->customers_status_show_price ))  ;
       $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_SHOW_PRICE_TAX_INTRO . '<br /><b>' . ENTRY_CUSTOMERS_STATUS_SHOW_PRICE_TAX . '</b> ' . oos_draw_pull_down_menu('customers_status_show_price_tax', $customers_status_show_price_tax_array, $cInfo->customers_status_show_price_tax ))  ;
@@ -354,8 +333,6 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         $customers_status_inputs_string .= '<br />' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_draw_input_field('customers_status_name[' . $languages[$i]['id'] . ']', oos_get_customer_status_name($cInfo->customers_status_id, $languages[$i]['id']));
       }
       $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_NAME . $customers_status_inputs_string);
-      $contents[] = array('text' => '<br />' . oos_image(OOS_SHOP_IMAGES . 'icons/' . $cInfo->customers_status_image, $cInfo->customers_status_name) . '<br />' . OOS_SHOP_IMAGES . 'icons/<br /><b>' . $cInfo->customers_status_image . '</b>');
-      $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_IMAGE . '<br />' . oos_draw_file_field('customers_status_image'));
       $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_PUBLIC_INTRO . '<br /><b>' . ENTRY_CUSTOMERS_STATUS_PUBLIC . '</b> ' . oos_draw_pull_down_menu('customers_status_public', $customers_status_public_array, $cInfo->customers_status_public ))  ;
       $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_SHOW_PRICE_INTRO     . '<br /><b>' . ENTRY_CUSTOMERS_STATUS_SHOW_PRICE . '</b> ' . oos_draw_pull_down_menu('customers_status_show_price', $customers_status_show_price_array, $cInfo->customers_status_show_price ))  ;
       $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_SHOW_PRICE_TAX_INTRO . '<br /><b>' . ENTRY_CUSTOMERS_STATUS_SHOW_PRICE_TAX . '</b> ' . oos_draw_pull_down_menu('customers_status_show_price_tax', $customers_status_show_price_tax_array, $cInfo->customers_status_show_price_tax ))  ;
