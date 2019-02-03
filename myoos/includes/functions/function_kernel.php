@@ -75,13 +75,13 @@ function oos_random_select($query, $limit = '') {
 
     $random_product = '';
     if (oos_is_not_null($limit)) {
-		if (USE_DB_CACHE == 'true') {
+		if (USE_CACHE == 'true') {
 			$random_result = $dbconn->CacheSelectLimit(15, $query, $limit);
 		} else {
 			$random_result = $dbconn->SelectLimit($query, $limit);
 		}
 	} else {
-		if (USE_DB_CACHE == 'true') {
+		if (USE_CACHE == 'true') {
 			$random_result = $dbconn->CacheExecute(15, $query);
 		} else {
 			$random_result = $dbconn->Execute($query);

@@ -36,7 +36,7 @@ class currencies {
 		$sql = "SELECT code, title, symbol_left, symbol_right, decimal_point,
                      thousands_point, decimal_places, value
               FROM " . $currenciestable;
-		if (USE_DB_CACHE == 'true') {
+		if (USE_CACHE == 'true') {
 			$this->currencies = $dbconn->CacheGetAssoc(3600*24, $sql);
 		} else {
 			$this->currencies = $dbconn->GetAssoc($sql);

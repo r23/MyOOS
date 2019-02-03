@@ -58,7 +58,7 @@ function oos_expire_spezials() {
               WHERE status = '1' 
                 AND now() >= expires_date
                 AND expires_date > 0";
-    if (USE_DB_CACHE == 'true') {
+    if (USE_CACHE == 'true') {
 		$result = $dbconn->CacheExecute(3600, $query);
     } else {
 		$result = $dbconn->Execute($query);

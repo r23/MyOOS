@@ -12,7 +12,6 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-define('USE_DB_CACHE', 'false');   // OOS SQL-Layer Cache 
 
 define('WARN_INSTALL_EXISTENCE', 'false');
 define('WARN_CONFIG_WRITEABLE', 'false');

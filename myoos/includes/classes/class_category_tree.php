@@ -66,7 +66,7 @@ class oosCategoryTree {
                 AND c.categories_id = cd.categories_id
                 AND cd.categories_languages_id = '" .  intval($nLanguageID) . "'
               ORDER BY c.parent_id, c.sort_order, cd.categories_name";
-      if (USE_DB_CACHE == 'true') {
+      if (USE_CACHE == 'true') {
         $categories_result = $dbconn->CacheExecute(3600, $sql);
       } else {
         $categories_result = $dbconn->Execute($sql);

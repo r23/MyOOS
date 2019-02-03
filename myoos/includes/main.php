@@ -22,7 +22,7 @@
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
 // debug
-$debug = TRUE;
+$debug = FALSE;
 
 date_default_timezone_set('Europe/Berlin'); 
   
@@ -97,7 +97,7 @@ oosDB_importTables($oostable);
 $configurationtable = $oostable['configuration'];
 $configuration_query = "SELECT configuration_key AS cfg_key, configuration_value AS cfg_value
 FROM $configurationtable";
-if (USE_DB_CACHE == 'true') {
+if (USE_CACHE == 'true') {
     $configuration_result = $dbconn->CacheExecute(3600, $configuration_query);
 } else {
     $configuration_result = $dbconn->Execute($configuration_query);

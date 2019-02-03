@@ -29,7 +29,7 @@ $query = "SELECT name, iso_639_2, iso_639_1
           WHERE status = '1'
           ORDER BY sort_order";
 
-if (USE_DB_CACHE == 'true') {
+if (USE_CACHE == 'true') {
 	$languages_result = $dbconn->CacheExecute(3600, $query);
 } else {
 	$languages_result = $dbconn->Execute($query);
