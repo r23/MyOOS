@@ -626,18 +626,6 @@ function oos_get_languages() {
                              'type' => $_FILES[$filename]['type'],
                              'size' => $_FILES[$filename]['size'],
                              'tmp_name' => $_FILES[$filename]['tmp_name']);
-    } elseif (isset($GLOBALS['HTTP_POST_FILES'][$filename])) {
-      global $HTTP_POST_FILES;
-
-      $uploaded_file = array('name' => $HTTP_POST_FILES[$filename]['name'],
-                             'type' => $HTTP_POST_FILES[$filename]['type'],
-                             'size' => $HTTP_POST_FILES[$filename]['size'],
-                             'tmp_name' => $HTTP_POST_FILES[$filename]['tmp_name']);
-    } else {
-      $uploaded_file = array('name' => $GLOBALS[$filename . '_name'],
-                             'type' => $GLOBALS[$filename . '_type'],
-                             'size' => $GLOBALS[$filename . '_size'],
-                             'tmp_name' => $GLOBALS[$filename]);
     }
 
     return $uploaded_file;
@@ -674,12 +662,13 @@ function oos_get_languages() {
                         WHERE products_image = '" . oos_db_input($product_image['products_image']) . "'";
     $duplicate_result = $dbconn->Execute($duplicate_query);
 
+/*  Todo remove Image
     if ($duplicate_result->fields['total'] < 2) {
       if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . $product_image['products_image'])) {
         @unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . $product_image['products_image']);
       }
     }
-
+*/
 
     $dbconn->Execute("DELETE FROM " . $oostable['specials'] . " WHERE products_id = '" . intval($product_id) . "'");
     $dbconn->Execute("DELETE FROM " . $oostable['products'] . " WHERE products_id = '" . intval($product_id) . "'");
@@ -691,6 +680,7 @@ function oos_get_languages() {
     $dbconn->Execute("DELETE FROM " . $oostable['customers_wishlist'] . " WHERE products_id = '" . intval($product_id) . "'");
     $dbconn->Execute("DELETE FROM " . $oostable['customers_wishlist_attributes'] . " WHERE products_id = '" . intval($product_id) . "'");
     $dbconn->Execute("DELETE FROM " . $oostable['products_to_master'] . " WHERE master_id = '" . intval($product_id) . "' OR slave_id = '" . intval($product_id) . "'");
+    $dbconn->Execute("DELETE FROM " . $oostable['products_images'] . " WHERE products_id = '" . intval($product_id) . "'");
 
     $reviewstable = $oostable['reviews'];
     $reviews_query = "SELECT reviews_id

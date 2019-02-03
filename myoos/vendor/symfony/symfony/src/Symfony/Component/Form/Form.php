@@ -88,7 +88,7 @@ class Form implements \IteratorAggregate, FormInterface, ClearableErrorsInterfac
      *
      * @var FormError[] An array of FormError instances
      */
-    private $errors = array();
+    private $errors = [];
 
     /**
      * Whether this form was submitted.
@@ -130,7 +130,7 @@ class Form implements \IteratorAggregate, FormInterface, ClearableErrorsInterfac
      *
      * @var array
      */
-    private $extraData = array();
+    private $extraData = [];
 
     /**
      * Returns the transformation failure generated during submission, if any.
@@ -507,7 +507,7 @@ class Form implements \IteratorAggregate, FormInterface, ClearableErrorsInterfac
 
         // Initialize errors in the very beginning so that we don't lose any
         // errors added during listeners
-        $this->errors = array();
+        $this->errors = [];
 
         // Obviously, a disabled form should not change its data upon submission.
         if ($this->isDisabled()) {
@@ -532,9 +532,11 @@ class Form implements \IteratorAggregate, FormInterface, ClearableErrorsInterfac
             $submittedData = null;
         } elseif (is_scalar($submittedData)) {
             $submittedData = (string) $submittedData;
-        } elseif (!$this->config->getOption('allow_file_upload') && $this->config->getRequestHandler()->isFileUpload($submittedData)) {
-            $submittedData = null;
-            $this->transformationFailure = new TransformationFailedException('Submitted data was expected to be text or number, file upload given.');
+        } elseif ($this->config->getRequestHandler()->isFileUpload($submittedData)) {
+            if (!$this->config->getOption('allow_file_upload')) {
+                $submittedData = null;
+                $this->transformationFailure = new TransformationFailedException('Submitted data was expected to be text or number, file upload given.');
+            }
         } elseif (\is_array($submittedData) && !$this->config->getCompound() && !$this->config->hasOption('multiple')) {
             $submittedData = null;
             $this->transformationFailure = new TransformationFailedException('Submitted data was expected to be text or number, array given.');
@@ -564,7 +566,7 @@ class Form implements \IteratorAggregate, FormInterface, ClearableErrorsInterfac
             // (think of empty collection forms)
             if ($this->config->getCompound()) {
                 if (null === $submittedData) {
-                    $submittedData = array();
+                    $submittedData = [];
                 }
 
                 if (!\is_array($submittedData)) {
@@ -808,7 +810,7 @@ class Form implements \IteratorAggregate, FormInterface, ClearableErrorsInterfac
      */
     public function clearErrors(bool $deep = false): self
     {
-        $this->errors = array();
+        $this->errors = [];
 
         if ($deep) {
             // Clear errors from children
@@ -833,7 +835,7 @@ class Form implements \IteratorAggregate, FormInterface, ClearableErrorsInterfac
     /**
      * {@inheritdoc}
      */
-    public function add($child, $type = null, array $options = array())
+    public function add($child, $type = null, array $options = [])
     {
         if ($this->submitted) {
             throw new AlreadySubmittedException('You cannot add children to a submitted form');
@@ -896,7 +898,7 @@ class Form implements \IteratorAggregate, FormInterface, ClearableErrorsInterfac
         $child->setParent($this);
 
         if (!$this->lockSetData && $this->defaultDataSet && !$this->config->getInheritData()) {
-            $iterator = new InheritDataAwareIterator(new \ArrayIterator(array($child->getName() => $child)));
+            $iterator = new InheritDataAwareIterator(new \ArrayIterator([$child->getName() => $child]));
             $iterator = new \RecursiveIteratorIterator($iterator);
             $this->config->getDataMapper()->mapDataToForms($viewData, $iterator);
         }

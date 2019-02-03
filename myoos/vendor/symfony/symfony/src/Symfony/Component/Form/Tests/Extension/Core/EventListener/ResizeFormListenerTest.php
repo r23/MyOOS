@@ -58,11 +58,6 @@ class ResizeFormListenerTest extends TestCase
         return $this->getMockBuilder('Symfony\Component\Form\DataMapperInterface')->getMock();
     }
 
-    protected function getMockForm()
-    {
-        return $this->getMockBuilder('Symfony\Component\Form\Test\FormInterface')->getMock();
-    }
-
     public function testPreSetDataResizesForm()
     {
         $this->form->add($this->getForm('0'));
@@ -70,16 +65,16 @@ class ResizeFormListenerTest extends TestCase
 
         $this->factory->expects($this->at(0))
             ->method('createNamed')
-            ->with(1, 'text', null, array('property_path' => '[1]', 'attr' => array('maxlength' => 10), 'auto_initialize' => false))
+            ->with(1, 'text', null, ['property_path' => '[1]', 'attr' => ['maxlength' => 10], 'auto_initialize' => false])
             ->will($this->returnValue($this->getForm('1')));
         $this->factory->expects($this->at(1))
             ->method('createNamed')
-            ->with(2, 'text', null, array('property_path' => '[2]', 'attr' => array('maxlength' => 10), 'auto_initialize' => false))
+            ->with(2, 'text', null, ['property_path' => '[2]', 'attr' => ['maxlength' => 10], 'auto_initialize' => false])
             ->will($this->returnValue($this->getForm('2')));
 
-        $data = array(1 => 'string', 2 => 'string');
+        $data = [1 => 'string', 2 => 'string'];
         $event = new FormEvent($this->form, $data);
-        $listener = new ResizeFormListener('text', array('attr' => array('maxlength' => 10)), false, false);
+        $listener = new ResizeFormListener('text', ['attr' => ['maxlength' => 10]], false, false);
         $listener->preSetData($event);
 
         $this->assertFalse($this->form->has('0'));
@@ -94,7 +89,7 @@ class ResizeFormListenerTest extends TestCase
     {
         $data = 'no array or traversable';
         $event = new FormEvent($this->form, $data);
-        $listener = new ResizeFormListener('text', array(), false, false);
+        $listener = new ResizeFormListener('text', [], false, false);
         $listener->preSetData($event);
     }
 
@@ -104,7 +99,7 @@ class ResizeFormListenerTest extends TestCase
 
         $data = null;
         $event = new FormEvent($this->form, $data);
-        $listener = new ResizeFormListener('text', array(), false, false);
+        $listener = new ResizeFormListener('text', [], false, false);
         $listener->preSetData($event);
     }
 
@@ -114,12 +109,12 @@ class ResizeFormListenerTest extends TestCase
 
         $this->factory->expects($this->once())
             ->method('createNamed')
-            ->with(1, 'text', null, array('property_path' => '[1]', 'attr' => array('maxlength' => 10), 'auto_initialize' => false))
+            ->with(1, 'text', null, ['property_path' => '[1]', 'attr' => ['maxlength' => 10], 'auto_initialize' => false])
             ->will($this->returnValue($this->getForm('1')));
 
-        $data = array(0 => 'string', 1 => 'string');
+        $data = [0 => 'string', 1 => 'string'];
         $event = new FormEvent($this->form, $data);
-        $listener = new ResizeFormListener('text', array('attr' => array('maxlength' => 10)), true, false);
+        $listener = new ResizeFormListener('text', ['attr' => ['maxlength' => 10]], true, false);
         $listener->preSubmit($event);
 
         $this->assertTrue($this->form->has('0'));
@@ -131,9 +126,9 @@ class ResizeFormListenerTest extends TestCase
         $this->form->add($this->getForm('0'));
         $this->form->add($this->getForm('1'));
 
-        $data = array(0 => 'string');
+        $data = [0 => 'string'];
         $event = new FormEvent($this->form, $data);
-        $listener = new ResizeFormListener('text', array(), false, true);
+        $listener = new ResizeFormListener('text', [], false, true);
         $listener->preSubmit($event);
 
         $this->assertTrue($this->form->has('0'));
@@ -145,9 +140,9 @@ class ResizeFormListenerTest extends TestCase
     {
         $this->form->add($this->getForm('0'));
 
-        $data = array();
+        $data = [];
         $event = new FormEvent($this->form, $data);
-        $listener = new ResizeFormListener('text', array(), false, true);
+        $listener = new ResizeFormListener('text', [], false, true);
         $listener->preSubmit($event);
 
         $this->assertFalse($this->form->has('0'));
@@ -158,9 +153,9 @@ class ResizeFormListenerTest extends TestCase
         $this->form->add($this->getForm('0'));
         $this->form->add($this->getForm('1'));
 
-        $data = array(0 => 'string', 2 => 'string');
+        $data = [0 => 'string', 2 => 'string'];
         $event = new FormEvent($this->form, $data);
-        $listener = new ResizeFormListener('text', array(), false, false);
+        $listener = new ResizeFormListener('text', [], false, false);
         $listener->preSubmit($event);
 
         $this->assertTrue($this->form->has('0'));
@@ -172,7 +167,7 @@ class ResizeFormListenerTest extends TestCase
     {
         $data = 'no array or traversable';
         $event = new FormEvent($this->form, $data);
-        $listener = new ResizeFormListener('text', array(), false, false);
+        $listener = new ResizeFormListener('text', [], false, false);
         $listener->preSubmit($event);
 
         $this->assertFalse($this->form->has('1'));
@@ -184,7 +179,7 @@ class ResizeFormListenerTest extends TestCase
 
         $data = null;
         $event = new FormEvent($this->form, $data);
-        $listener = new ResizeFormListener('text', array(), false, true);
+        $listener = new ResizeFormListener('text', [], false, true);
         $listener->preSubmit($event);
 
         $this->assertFalse($this->form->has('1'));
@@ -197,7 +192,7 @@ class ResizeFormListenerTest extends TestCase
 
         $data = '';
         $event = new FormEvent($this->form, $data);
-        $listener = new ResizeFormListener('text', array(), false, true);
+        $listener = new ResizeFormListener('text', [], false, true);
         $listener->preSubmit($event);
 
         $this->assertFalse($this->form->has('1'));
@@ -207,21 +202,21 @@ class ResizeFormListenerTest extends TestCase
     {
         $this->form->add($this->getForm('1'));
 
-        $data = array(0 => 'first', 1 => 'second', 2 => 'third');
+        $data = [0 => 'first', 1 => 'second', 2 => 'third'];
         $event = new FormEvent($this->form, $data);
-        $listener = new ResizeFormListener('text', array(), false, true);
+        $listener = new ResizeFormListener('text', [], false, true);
         $listener->onSubmit($event);
 
-        $this->assertEquals(array(1 => 'second'), $event->getData());
+        $this->assertEquals([1 => 'second'], $event->getData());
     }
 
     public function testOnSubmitNormDataDoesNothingIfNotAllowDelete()
     {
         $this->form->add($this->getForm('1'));
 
-        $data = array(0 => 'first', 1 => 'second', 2 => 'third');
+        $data = [0 => 'first', 1 => 'second', 2 => 'third'];
         $event = new FormEvent($this->form, $data);
-        $listener = new ResizeFormListener('text', array(), false, false);
+        $listener = new ResizeFormListener('text', [], false, false);
         $listener->onSubmit($event);
 
         $this->assertEquals($data, $event->getData());
@@ -234,7 +229,7 @@ class ResizeFormListenerTest extends TestCase
     {
         $data = 'no array or traversable';
         $event = new FormEvent($this->form, $data);
-        $listener = new ResizeFormListener('text', array(), false, false);
+        $listener = new ResizeFormListener('text', [], false, false);
         $listener->onSubmit($event);
     }
 
@@ -244,19 +239,19 @@ class ResizeFormListenerTest extends TestCase
 
         $data = null;
         $event = new FormEvent($this->form, $data);
-        $listener = new ResizeFormListener('text', array(), false, true);
+        $listener = new ResizeFormListener('text', [], false, true);
         $listener->onSubmit($event);
 
-        $this->assertEquals(array(), $event->getData());
+        $this->assertEquals([], $event->getData());
     }
 
     public function testOnSubmitDealsWithObjectBackedIteratorAggregate()
     {
         $this->form->add($this->getForm('1'));
 
-        $data = new \ArrayObject(array(0 => 'first', 1 => 'second', 2 => 'third'));
+        $data = new \ArrayObject([0 => 'first', 1 => 'second', 2 => 'third']);
         $event = new FormEvent($this->form, $data);
-        $listener = new ResizeFormListener('text', array(), false, true);
+        $listener = new ResizeFormListener('text', [], false, true);
         $listener->onSubmit($event);
 
         $this->assertArrayNotHasKey(0, $event->getData());
@@ -267,9 +262,9 @@ class ResizeFormListenerTest extends TestCase
     {
         $this->form->add($this->getForm('1'));
 
-        $data = new ArrayCollection(array(0 => 'first', 1 => 'second', 2 => 'third'));
+        $data = new ArrayCollection([0 => 'first', 1 => 'second', 2 => 'third']);
         $event = new FormEvent($this->form, $data);
-        $listener = new ResizeFormListener('text', array(), false, true);
+        $listener = new ResizeFormListener('text', [], false, true);
         $listener->onSubmit($event);
 
         $this->assertArrayNotHasKey(0, $event->getData());
@@ -278,24 +273,24 @@ class ResizeFormListenerTest extends TestCase
 
     public function testOnSubmitDeleteEmptyNotCompoundEntriesIfAllowDelete()
     {
-        $this->form->setData(array('0' => 'first', '1' => 'second'));
+        $this->form->setData(['0' => 'first', '1' => 'second']);
         $this->form->add($this->getForm('0'));
         $this->form->add($this->getForm('1'));
 
-        $data = array(0 => 'first', 1 => '');
+        $data = [0 => 'first', 1 => ''];
         foreach ($data as $child => $dat) {
             $this->form->get($child)->setData($dat);
         }
         $event = new FormEvent($this->form, $data);
-        $listener = new ResizeFormListener('text', array(), false, true, true);
+        $listener = new ResizeFormListener('text', [], false, true, true);
         $listener->onSubmit($event);
 
-        $this->assertEquals(array(0 => 'first'), $event->getData());
+        $this->assertEquals([0 => 'first'], $event->getData());
     }
 
     public function testOnSubmitDeleteEmptyCompoundEntriesIfAllowDelete()
     {
-        $this->form->setData(array('0' => array('name' => 'John'), '1' => array('name' => 'Jane')));
+        $this->form->setData(['0' => ['name' => 'John'], '1' => ['name' => 'Jane']]);
         $form1 = $this->getBuilder('0')
             ->setCompound(true)
             ->setDataMapper($this->getDataMapper())
@@ -309,7 +304,7 @@ class ResizeFormListenerTest extends TestCase
         $this->form->add($form1);
         $this->form->add($form2);
 
-        $data = array('0' => array('name' => 'John'), '1' => array('name' => ''));
+        $data = ['0' => ['name' => 'John'], '1' => ['name' => '']];
         foreach ($data as $child => $dat) {
             $this->form->get($child)->setData($dat);
         }
@@ -317,9 +312,9 @@ class ResizeFormListenerTest extends TestCase
         $callback = function ($data) {
             return '' === $data['name'];
         };
-        $listener = new ResizeFormListener('text', array(), false, true, $callback);
+        $listener = new ResizeFormListener('text', [], false, true, $callback);
         $listener->onSubmit($event);
 
-        $this->assertEquals(array('0' => array('name' => 'John')), $event->getData());
+        $this->assertEquals(['0' => ['name' => 'John']], $event->getData());
     }
 }
