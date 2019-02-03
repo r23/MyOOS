@@ -2,7 +2,7 @@
 <h3>MyOOS [Dumper] based on MySQLDumper 1.24.4</h3>
 
 <h3>Σχετικά με το εργαλείο</h3>
-Η ιδέα για το εργαλείο αυτό είναι του Daniel Schlichtholz.<p>Το 2004 δημιούργησε ένα φόρουμ με όνομα <a href="http://forum.mysqldumper.de" target="_blank">MySQLDumper</a> και σύντομα, προγραμματιστές που ασχολούνται με νέα σκριπτ, ενίσχυσαν τα σκριπτ του Daniel.<br>Μέσα σε λίγο καιρό το μικρό του προγραμματάκι μετατράπηκε σε ένα σταθερότατο εργαλείο.<p>Εαν έχετε ιδέες για βελτίωση επισκευθείτε το φόρουμ  του MySQLDumper: <a href="http://forum.mysqldumper.de" target="_blank">http://forum.mysqldumper.de</a>.<p>Σας ευχόμαστε ατελείωτα αντίγραφα ασφαλείας με αυτό το εργαλείο.<br><br><h4>Η ομάδα του MySQLDumper</h4>
+Η ιδέα για το εργαλείο αυτό είναι του Daniel Schlichtholz.<p>Το 2004 δημιούργησε ένα φόρουμ με όνομα MySQLDumper και σύντομα, προγραμματιστές που ασχολούνται με νέα σκριπτ, ενίσχυσαν τα σκριπτ του Daniel.<br>Μέσα σε λίγο καιρό το μικρό του προγραμματάκι μετατράπηκε σε ένα σταθερότατο εργαλείο.<p>Εαν έχετε ιδέες για βελτίωση επισκευθείτε το φόρουμ  του MySQLDumper: <a href="https://foren.myoos.de/viewforum.php?f=41" target="_blank">https://foren.myoos.de/viewforum.php?f=41</a>.<p>Σας ευχόμαστε ατελείωτα αντίγραφα ασφαλείας με αυτό το εργαλείο.<br><br><h4>Η ομάδα του MySQLDumper</h4>
 <table><tr><td><img src="images/logo.gif" alt="MySQLDumper" border="0"></td><td valign="top">
 Daniel Schlichtholz</td></tr></table>
 <br /> Greek translation by Anthony Vasileiou (<a href="http://thraki.info" target="_blank">diastasi</a>)
@@ -12,8 +12,8 @@ Daniel Schlichtholz</td></tr></table>
 <h4>Μεταφόρτωση</h4>
 Το Script είναι διαθέσιμο στην ιστοσελίδα του MySQLDumper.<br>
 Προτείνουμε να επισκεφτεστε συχνά την Ιστοσελίδα για τις τελευταίες πληροφορίες, αναβαθμίσεις και βοήθεια.<br>
-Η διεύθυνση είναι <a href="http://forum.mysqldumper.de" target="_blank">
-http://forum.mysqldumper.de
+Η διεύθυνση είναι <a href="https://foren.myoos.de/viewforum.php?f=41" target="_blank">
+https://foren.myoos.de/viewforum.php?f=41
 </a>
 
 <h4>Ελάχιστες απαιτήσεις</h4>
@@ -38,7 +38,7 @@ http://forum.mysqldumper.de
 <a name="perl"></a><h4>Οδηγός για το Perl script</h4>
 
 Οι περισσότεροι έχουν ένα κατάλογο cgi-bin, μέσα στον οποίο μπορεί το Perl να εκτελεστεί. <br>
-Συνήθως βρίσκεται στο http://www.domain.de/cgi-bin/ . <br><br>
+Συνήθως βρίσκεται στο http://www.example.com/cgi-bin/ . <br><br>
 
 Κάντε τα παρακάτω βήματα για αυτή την περίπτωση.  <br><br>
 

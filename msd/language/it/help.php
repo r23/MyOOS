@@ -3,12 +3,12 @@
 
 <h3>Riguarda questo progetto</h3>
 L'idea di questo progetto viene da Daniel Schlichtholz.<p>
-Nel 2004 ha aperto il seguente forum <a href="http://forum.mysqldumper.de" target="_blank">MySQLDumper</a>
+Nel 2004 ha aperto il seguente forum MySQLDumper
 <br>
 in seguito ha incontrato dei programmatori liberi professionisti che elaboravano nuovi script e completavano quelli di Daniel.<br>
 In brevissimo tempo nasceva da un piccolo backupscript un considerevolo progetto.<br>
 
-<p>Se hai proposte di miglioramento rivolgiti al MySQLDumper-Forum: <a href="http://forum.mysqldumper.de" target="_blank">http://forum.mysqldumper.de</a>
+<p>Se hai proposte di miglioramento rivolgiti al MySQLDumper-Forum: <a href="https://foren.myoos.de/viewforum.php?f=41" target="_blank">https://foren.myoos.de/viewforum.php?f=41</a>
 <p>Ti auguriamo buon divertimento con questo progetto.<br><p><h4>Il Team di MySQLDumper</h4>
 <table><tr><td><img src="images/logo.gif" alt="MySQLDumper" 
 width="160" height="42" border="1"></td><td valign="top">
@@ -20,7 +20,7 @@ Daniel Schlichtholz</td></tr></table>
 <h4>Scarica</h4>
 Da questo script ottenete la homepage di MySQLDumper.<br>
 Si raccomanda di visitate frequentemente la homepage per ottenere sempre le ultime informazioni, aggiornamenti ed aiuto.<br>
-L'indirizzo è <a href="http://forum.mysqldumper.de" target="_blank">http://forum.mysqldumper.de
+L'indirizzo è <a href="https://foren.myoos.de/viewforum.php?f=41" target="_blank">https://foren.myoos.de/viewforum.php?f=41
 </a>
 
 <h4>Presupposto del sistema</h4>
@@ -34,7 +34,7 @@ L'installazione è molto facile. Spacchettate l'archivio in una cartella a vostr
 (per esempio  [rootdir/] MySQLDumper )<br>
 …fatto!<br>
 
-Adesso potete aprire MySQLDumper nel vostro Browser “chiamando http://webserver/MySQLDumper„ in seguito potete finire la installazione seguendo gli avvisi di istruzione.<br>
+Adesso potete aprire MySQLDumper nel vostro Browser “chiamando http://www.example.com/msd„ in seguito potete finire la installazione seguendo gli avvisi di istruzione.<br>
 <br><b>Nota:</b><br><i>Se il vostro web server funziona con il safemode=ON, gli script del MySqlDump non possono costruire gli elenchi.<br>
 Lo dovete fare manualmente, poichè MySqlDump mette i dati in ordine negli elenchi.<br>
 Lo script si ferma automaticamente con una adeguata istruzione.<br>
@@ -43,7 +43,7 @@ MySqlDump funzionerà normalmente.</i>
 
 <a name="perl"></a><h4> Istruzioni Perlskript </h4>
 Molti hanno un elenco con cartella cgi-bin in cui puo essere efettuato Perl. <br>
-A maggior parte dei casi questo e raggingibile tramite Browser http://www.domain.de/cgi-bin/. <br>
+A maggior parte dei casi questo e raggingibile tramite Browser http://www.example.com/cgi-bin/. <br>
 <br>
 In questo caso consigliamo di effettuare i seguenti passi:<br>
 <br>

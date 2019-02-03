@@ -2,7 +2,7 @@
 <h3>MyOOS [Dumper] based on MySQLDumper 1.24.4</h3>
 
 <h3>Sur ce projet</h3>
-L'idée pour ce projet est venue de Daniel Schlichtholz.<p>Il a ouvert en 2004 le forum <a href="http://forum.mysqldumper.de" target="_blank">MySQLDumper</a> et rapidement d'autres développeurs ont écrit de nouveaux scripts ou bien élargi les scripts de Daniel. En peu de temps le simple script de sauvegarde est devenu un imposant projet.<p>Si vous avez des propositions d'améliorations vous pouvez les communiquer dans le Forum MySQLDumper <a href="http://forum.mysqldumper.de" target="_blank">http://forum.mysqldumper.de</a>. <p>Nous vous souhaitons beaucoup de plaisir avec ce projet.<br><p><h4>L'équipe de MySQLDumper</h4>
+L'idée pour ce projet est venue de Daniel Schlichtholz.<p>Il a ouvert en 2004 le forum MySQLDumper et rapidement d'autres développeurs ont écrit de nouveaux scripts ou bien élargi les scripts de Daniel. En peu de temps le simple script de sauvegarde est devenu un imposant projet.<p>Si vous avez des propositions d'améliorations vous pouvez les communiquer dans le Forum MySQLDumper <a href="https://foren.myoos.de/viewforum.php?f=41" target="_blank">https://foren.myoos.de/viewforum.php?f=41</a>. <p>Nous vous souhaitons beaucoup de plaisir avec ce projet.<br><p><h4>L'équipe de MySQLDumper</h4>
 
 <table><tr><td><img src="images/logo.gif" alt="MySQLDumper" border="0"></td><td valign="top">
 Daniel Schlichtholz</td></tr></table>
@@ -13,8 +13,8 @@ Daniel Schlichtholz</td></tr></table>
 <h4>Téléchargement</h4>
 Vous venez de télécharger ce script sur le page d'accueil de MySQLDumper.<br>
 Nous vous conseillons de visiter régulièrement la page d'accueil, afin d'accéder aux mises à jour et au support.<br>
-L'adresse est: <a href="http://forum.mysqldumper.de" target="_blank">
-http://forum.mysqldumper.de
+L'adresse est: <a href="https://foren.myoos.de/viewforum.php?f=41" target="_blank">
+https://foren.myoos.de/viewforum.php?f=41
 </a>
 
 <h4>Système requis</h4>

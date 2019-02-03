@@ -2,7 +2,7 @@
 <h3>MyOOS [Dumper] based on MySQLDumper 1.24.4</h3>
 
 <h3>Über dieses Projekt</h3>
-Die Idee für dieses Projekt kam von Daniel Schlichtholz.<p>Er eröffnete 2004 das Forum <a href="http://forum.mysqldumper.de" target="_blank">MySQLDumper</a>, und schon bald fanden sich Hobby-Programmierer, die neue Skripte schrieben und die von Daniel erweiterten.<br>Innerhalb kürzester Zeit entstand aus dem kleinen Backupskript ein stattliches Projekt.<p>Wenn Du Vorschläge zur Verbesserung hast, dann wende Dich an das MySQLDumper-Forum <a href="http://forum.mysqldumper.de" target="_blank">http://forum.mysqldumper.de</a>.<p>Wir wünschen Dir viel Vergnügen mit diesem Projekt.<br><p><h4>Das MySQLDumper-Team</h4>
+Die Idee für dieses Projekt kam von Daniel Schlichtholz.<p>Er eröffnete 2004 das Forum MySQLDumper, und schon bald fanden sich Hobby-Programmierer, die neue Skripte schrieben und die von Daniel erweiterten.<br>Innerhalb kürzester Zeit entstand aus dem kleinen Backupskript ein stattliches Projekt.<p>Wenn Du Vorschläge zur Verbesserung hast, dann wende Dich an das MySQLDumper-Forum <a href="https://foren.myoos.de/viewforum.php?f=41" target="_blank">https://foren.myoos.de/viewforum.php?f=41</a>.<p>Wir wünschen Dir viel Vergnügen mit diesem Projekt.<br><p><h4>Das MySQLDumper-Team</h4>
 
 <table><tr><td><img src="images/logo.gif" alt="MySQLDumper" border="0"></td><td valign="top">
 Daniel Schlichtholz</td></tr></table>
@@ -37,7 +37,7 @@ Nachdem Ihr die Verzeichnisse (dem Hinweis entsprechend) erstellt habt, läuft e
 
 <a name="perl"></a><h4>Perlskript Anleitung</h4>
 Die Meisten haben ein cgi-bin Verzeichnis, in dem Perl ausgeführt werden kann. <br>
-Dies ist meist per Browser über http://www.domain.de/cgi-bin/ erreichbar. <br>
+Dies ist meist per Browser über http://www.example.com/cgi-bin/ erreichbar. <br>
 <br>
 Für diesen Fall bitte folgende Schritte durchführen:<br><br>
 

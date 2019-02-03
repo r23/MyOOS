@@ -3,7 +3,7 @@
 
 
 <h3>Über das Projäkt</h3>
-D Idee für das Projäkt isch vom Daniel Schlichtholz cho.<p>Er hät 2004 das Forum <a href="http://forum.mysqldumper.de" target="_blank">MySQLDumper</a>, eröffnet und scho bald händ sich Hobby-Programmierer, wo neui Skripts schribe und diä vom Daniel erwiteret händ, iigfunde.<br>I kürzischter Ziit isch us däm chline Backupskript es stattlichs Projäkt entschtande.<p>Wänn Du Vorschläg zur Verbesserig häsch, dänn wänd Di as MySQLDumper-Forum <a href="http://forum.mysqldumper.de" target="_blank">http://forum.mysqldumper.de</a>.<p>Mir wünsched Dir vill Vergnüege mit däm Projäkt.<br><p><h4>S MySQLDumper-Team</h4>
+D Idee für das Projäkt isch vom Daniel Schlichtholz cho.<p>Er hät 2004 das Forum MySQLDumper, eröffnet und scho bald händ sich Hobby-Programmierer, wo neui Skripts schribe und diä vom Daniel erwiteret händ, iigfunde.<br>I kürzischter Ziit isch us däm chline Backupskript es stattlichs Projäkt entschtande.<p>Wänn Du Vorschläg zur Verbesserig häsch, dänn wänd Di as MySQLDumper-Forum <a href="https://foren.myoos.de/viewforum.php?f=41" target="_blank">https://foren.myoos.de/viewforum.php?f=41</a>.<p>Mir wünsched Dir vill Vergnüege mit däm Projäkt.<br><p><h4>S MySQLDumper-Team</h4>
 
 <table><tr><td><img src="images/logo.gif" alt="MySQLDumper" border="0"></td><td valign="top">
 Daniel Schlichtholz</td></tr></table>
@@ -38,7 +38,7 @@ Wänn Ihr diä Verzeichniss (em Hiwiis entsprächend) gmacht händ, laufts norma
 
 <a name="perl"></a><h4>Perlskript Aaleitig</h4>
 Di Meischte händ es cgi-bin Verzeichnis, wo drin Perl ausgfüert wärde cha. <br>
-Das isch meischtens per Browser über http://www.domain.de/cgi-bin/ erreichbar. <br>
+Das isch meischtens per Browser über http://www.example.com/cgi-bin/ erreichbar. <br>
 <br>
 Für dä Fall bitte folgendi Schritt durefüere:<br><br>
 

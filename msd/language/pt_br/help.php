@@ -3,9 +3,9 @@
 
 <h3>Sobre este Projeto </h3>
 <SPAN id=BABID_Results>A idéia para este projeto é de Daniel Schlichtholz.</SPAN>
-<p>Em 2004 ele criou um fórum chamado <a href="http://forum.mysqldumper.de" target="_blank">MySQLDumper</a> e logo , programadores estavam escrevendo novos scripts, que complementavam os scripts de Daniel.<br>
+<p>Em 2004 ele criou um fórum chamado MySQLDumper e logo , programadores estavam escrevendo novos scripts, que complementavam os scripts de Daniel.<br>
 Depois de um período curto de tempo um pequeno script de backup tinha se tornado um projeto robusto e avançado.
-<p>Se você tiver alguma sugestão de aperfeiçoamento por favor visite o fórum do MySQLDumper: <a href="http://forum.mysqldumper.de" target="_blank">http://forum.mysqldumper.de</a>.
+<p>Se você tiver alguma sugestão de aperfeiçoamento por favor visite o fórum do MySQLDumper: <a href="https://foren.myoos.de/viewforum.php?f=41" target="_blank">https://foren.myoos.de/viewforum.php?f=41</a>.
 <p>Nós esperamos que você tenha bons momentos com este projeto!<br>
 <br>
 <h4>Equipe do  MySQLDumper</h4>
@@ -18,8 +18,8 @@ Daniel Schlichtholz</td></tr></table>
 O script está disponível na página principal do  MySQLDumper.<br>
 Recomendamos que você visite a página principal com frequência para obter as últimas informações, atualizações e ajuda.<br>
 O endereço é
-<a href="http://forum.mysqldumper.de" target="_blank">
-http://forum.mysqldumper.de
+<a href="https://foren.myoos.de/viewforum.php?f=41" target="_blank">
+https://foren.myoos.de/viewforum.php?f=41
 </a>
 
 <h4>Requisitos de sistema obrigatórios </h4>
@@ -34,7 +34,7 @@ Descompacte o arquivo em qualquer pasta, com acesso permitido, no servidor<br>
 (p.ex. no diretório raiz [Server rootdir/]MySQLDumper)<br>
 altere o config.php para chmod 777 <br>
 ... e pronto!<br>
-você pode executar o  MySQLDumper em seu navegador digitando"http://webserver/MySQLDumper"
+você pode executar o  MySQLDumper em seu navegador digitando"http://www.example.com/msd"
 para completar o setup, simplesmente siga as instruções.
 
 <br>
@@ -48,7 +48,7 @@ Depois de criados os diretórios o  MySqlDump irá funcionar normalmente.</i><br
 <h4>Guia para o script  Perl </h4>
 
 Muitos tem um diretório  cgi-bin , no qual scripts  Perl podem ser executados. <br>
-Normalmente isto é feito pelo navegador, i.é, http://www.domain.de/cgi-bin/ script disponível. <br>
+Normalmente isto é feito pelo navegador, i.é, http://www.example.com/cgi-bin/ script disponível. <br>
 <br>
 
 Siga os seguintes passos, por favor.  <br>

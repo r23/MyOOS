@@ -2,7 +2,7 @@
 <h3>MyOOS [Dumper] based on MySQLDumper 1.24.4</h3>
 
 <h3>Về dự án này</h3>
-Ý tưởng cho dự án này là của Daniel Schlichtholz.<p>Năm 2004, ông tạo ra diễn đàn <a href="http://forum.mysqldumper.de" target="_blank">MySQLDumper</a> và sau đó, lập trình những đoạn mã mới, bổ sung đoạn mã của Daniel.<br>Sau một thời gian ngắn, mã nguồn phát triển thành một dự án lớn hơn.<p>Nếu bạn có bất cứ góp ý nào nhằm cải tiến mã nguồn, bạn có thể truy cập vào Diễn đàn MySQLDumper: <a href="http://forum.mysqldumper.de" target="_blank">http://forum.mysqldumper.de</a>.<p>Chúc bạn có những giây phút thú vị.<br><br><h4>The MySQLDumper-Team</h4>
+Ý tưởng cho dự án này là của Daniel Schlichtholz.<p>Năm 2004, ông tạo ra diễn đàn MySQLDumper và sau đó, lập trình những đoạn mã mới, bổ sung đoạn mã của Daniel.<br>Sau một thời gian ngắn, mã nguồn phát triển thành một dự án lớn hơn.<p>Nếu bạn có bất cứ góp ý nào nhằm cải tiến mã nguồn, bạn có thể truy cập vào Diễn đàn MySQLDumper: <a href="https://foren.myoos.de/viewforum.php?f=41" target="_blank">https://foren.myoos.de/viewforum.php?f=41</a>.<p>Chúc bạn có những giây phút thú vị.<br><br><h4>The MySQLDumper-Team</h4>
 <table><tr><td><img src="images/logo.gif" alt="MySQLDumper" border="0"></td><td valign="top">
 Daniel Schlichtholz</td></tr></table>
 
@@ -11,8 +11,8 @@ Daniel Schlichtholz</td></tr></table>
 <h4>Download</h4>
 Mã nguồn này có thể tải vè từ trang chủ của MySQLDumper.<br>
 Hãy ghé thăm trang chủ của MySQLDumper thường xuyên để có những thông tin mới nhất, đầy đủ nhất về các phiên bản nâng cấp của phần mềm.<br>
-Địa chỉ website là <a href="http://forum.mysqldumper.de" target="_blank">
-http://forum.mysqldumper.de
+Địa chỉ website là <a href="https://foren.myoos.de/viewforum.php?f=41" target="_blank">
+https://foren.myoos.de/viewforum.php?f=41
 </a>
 
 <h4>System Mandatories</h4>
@@ -25,7 +25,7 @@ Giải nén chương trình vào thư mục bất kỳ trên Webserver<br>
 (VD: vào thư mục gốc của Website [Thư mục gốc Server/]MySQLDumper)<br>
 chmod 777 cho file config.php<br>
 ... hết!<br>
-Chạy MySQLDumper trên trình duyệt (FireFox, Internet Explorer) bằng cách gõ "http://webserver/MySQLDumper"
+Chạy MySQLDumper trên trình duyệt (FireFox, Internet Explorer) bằng cách gõ "http://www.example.com/msd"
 để hoàn thành cài đặt (xem hướng dẫn kèm theo).
 
 <br><b>Chú ý:</b><br><i>Nếu webserver của bạn chạy với tùy chọn safemode=ON thì MySqlDump không thể tạo thư mục.<br>
@@ -36,7 +36,7 @@ Sau khi bạn tạo ra các thư mục, MySqlDump sẽ hoạt động bình thư
 <a name="perl"></a><h4>Hướng dẫn cho mã nguồn Perl</h4>
 
 Hầu hết thì mọi website đều có một thư mục tên là cgi-bin, trong đó Perl có thể chạy. <br>
-Điều này có nghĩa là có thể truy cập từ trình duyệt vào một địa chỉ có dạng http://www.domain.de/cgi-bin/. <br><br>
+Điều này có nghĩa là có thể truy cập từ trình duyệt vào một địa chỉ có dạng http://www.example.com/cgi-bin/. <br><br>
 
 Đọc kỹ các hướng dẫn từng bước ở dưới đây.  <br><br>
 

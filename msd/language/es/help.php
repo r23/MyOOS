@@ -3,9 +3,9 @@
 
 <h3>Sobre este proyecto </h3>
 La idea para este proyecto proviene de Daniel Schlichholz.
-<p>En 2004 abrió el foro <a href="http://forum.mysqldumper.de" target="_blank">MySQLDumper</a> e inmediatamente algunos aficionados a la programación se encontraron allí, para escribir y ampliar la versión inicial de los scripts de Daniel.<br>
+<p>En 2004 abrió el foro MySQLDumper e inmediatamente algunos aficionados a la programación se encontraron allí, para escribir y ampliar la versión inicial de los scripts de Daniel.<br>
 En poco tiempo quedó establecido el proyecto de realizar un script de copia de seguridad.
-<p>Si tiene Vd. alguna propuesta de mejora, notifíquela en el foro de MySQLDumper-Forum: <a href="http://forum.mysqldumper.de" target="_blank">http://forum.mysqldumper.de</a>.
+<p>Si tiene Vd. alguna propuesta de mejora, notifíquela en el foro de MySQLDumper-Forum: <a href="https://foren.myoos.de/viewforum.php?f=41" target="_blank">https://foren.myoos.de/viewforum.php?f=41</a>.
 <p>Le deseamos que disfrute del trabajo realizado en este proyecto.<br>
 <p>
 <h4>El equipo de MySQLDumper</h4>
@@ -22,8 +22,8 @@ Traducción al Español: <a href="http://www.boutiquedeliberico.es" target="_bla
 <h4>Descarga</h4>
 Este script puede descargarlo desde la página principal de MySQLDumper.<br>
 Se recomienda que visite dicha página regularmente, para mantener el producto actualizado y poder descargar las ampliaciones que se vayan realizando.<br>
-La dirección es: <a href="http://forum.mysqldumper.de" target="_blank">
-http://forum.mysqldumper.de
+La dirección es: <a href="https://foren.myoos.de/viewforum.php?f=41" target="_blank">
+https://foren.myoos.de/viewforum.php?f=41
 </a>
 
 <h4>Requisitos del sistema </h4>

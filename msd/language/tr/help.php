@@ -2,8 +2,8 @@
 <h3>MyOOS [Dumper] based on MySQLDumper 1.24.4</h3>
 
 <h3>Bu Proje hakkinda</h3>
-Bu projenin kurucusu Daniel Schlichtholz'dur.<p>2004 yilinda <a href="http://forum.mysqldumper.de" target="_blank">MySQLDumper panosunu </a>kurdu,
-kisa bir süre sonra baskalari tarafindan destek gördü ve birçok kisinin katilimlari ile yazilim genisletilmeye baslandi. <p>istekleriniz veya önerileriniz için <a href="http://forum.mysqldumper.de" target="_blank">MySQLDumper-Panosuna</a> katilabilirsiniz.<p>
+Bu projenin kurucusu Daniel Schlichtholz'dur.<p>2004 yilinda <a href="https://foren.myoos.de/viewforum.php?f=41" target="_blank">MySQLDumper panosunu </a>kurdu,
+kisa bir süre sonra baskalari tarafindan destek gördü ve birçok kisinin katilimlari ile yazilim genisletilmeye baslandi. <p>istekleriniz veya önerileriniz için <a href="https://foren.myoos.de/viewforum.php?f=41" target="_blank">MySQLDumper-Panosuna</a> katilabilirsiniz.<p>
 <br><p><h4>MySQLDumper-Ekibi</h4>
 
 <table><tr><td><img src="images/logo.gif" alt="MySQLDumper" border="0"></td><td valign="top">

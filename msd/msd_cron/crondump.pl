@@ -505,7 +505,7 @@ sub DoDump {
     $status_start=$mysql_commentstring."Status:$t:$r:";
     my $flags="1$optimize_tables_beforedump";
     $status_end=":$dbname:perl:$pcd_version:$my_comment:$mysql_version[0]:$flags";
-    $status_end.=":$command_beforedump:$command_afterdump:$character_set:EXTINFO$st_e\n".$mysql_commentstring."Dump created on $CTIME_String by PERL Cron-Script\n".$mysql_commentstring."Dump by MySQLDumper (http://www.mysqldumper.net/)\n\n";
+    $status_end.=":$command_beforedump:$command_afterdump:$character_set:EXTINFO$st_e\n".$mysql_commentstring."Dump created on $CTIME_String by PERL Cron-Script\n".$mysql_commentstring."Dump by MyOOS Dumper (https://www.oos-shop.de/)\n\n";
 
 
     if($mp>0) 

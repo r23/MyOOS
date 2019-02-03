@@ -2,7 +2,7 @@
 <h3>MyOOS [Dumper] based on MySQLDumper 1.24.4</h3>
 
 <h3>About this project</h3>
-The idea for this project comes from Daniel Schlichtholz.<p>In 2004 he created a forum called <a href="http://forum.mysqldumper.de" target="_blank">MySQLDumper</a> and soon, programmers who wrote new scripts, supplemented Daniel's scripts.<br>After a short time the small backup-script developed into a stately project.<p>If you have any improvement suggestions you can visit the MySQLDumper-Forum: <a href="http://forum.mysqldumper.de" target="_blank">http://www.mysqldumper.de</a>.<p>We wish you a lot of fun with this project.<br><br><h4>The MySQLDumper-Team</h4>
+The idea for this project comes from Daniel Schlichtholz.<p>In 2004 he created a forum called MySQLDumper and soon, programmers who wrote new scripts, supplemented Daniel's scripts.<br>After a short time the small backup-script developed into a stately project.<p>If you have any improvement suggestions you can visit the MySQLDumper-Forum: <a href="https://foren.myoos.de/viewforum.php?f=41" target="_blank">http://www.mysqldumper.de</a>.<p>We wish you a lot of fun with this project.<br><br><h4>The MySQLDumper-Team</h4>
 <table><tr><td><img src="images/logo.gif" alt="MySQLDumper" border="0"></td><td valign="top">
 Daniel Schlichtholz<br>
 </td></tr></table>
@@ -12,8 +12,8 @@ Daniel Schlichtholz<br>
 <h4>Download</h4>
 This Script is available on the Homepage of MySQLDumper.<br>
 It is recommanded to visit the Homepage frequently to get the latest information, updates and help.<br>
-The address is <a href="http://forum.mysqldumper.de" target="_blank">
-http://forum.mysqldumper.de
+The address is <a href="https://foren.myoos.de/viewforum.php?f=41" target="_blank">
+https://foren.myoos.de/viewforum.php?f=41
 </a>
 
 <h4>System Mandatories</h4>
@@ -27,7 +27,7 @@ which is accessible from the Webserver<br>
 (e.g. in the root directory [Server rootdir/]MySQLDumper)<br>
 change config.php to chmod 777<br>
 ... all done!<br>
-you can start MySQLDumper in your Browser by typing "http://webserver/MySQLDumper"
+you can start MySQLDumper in your Browser by typing "http://www.example.com/msd"
 to complete the setup, just follow the instructions.
 
 <br><b>Note:</b><br><i>If your webserver runs with the option safemode=ON MySqlDump mustn't create directories.<br>
@@ -38,7 +38,7 @@ After you created the directories MySqlDump will function normally.</i><br>
 <a name="perl"></a><h4>Guidance for the Perl script</h4>
 
 Most have a cgi-bin directory, in which Perl can be executed. <br>
-This is usually by Browser over http://www.domain.de/cgi-bin/ available. <br><br>
+This is usually by Browser over http://www.example.com/cgi-bin/ available. <br><br>
 
 Make the following steps for this case please.  <br><br>
 
