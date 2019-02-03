@@ -32,7 +32,7 @@ define('TABLE_HEADING_ACTION', 'Action');
 define('TEXT_INFO_EDIT_INTRO', 'Please make any necessary changes');
 define('TEXT_INFO_DATE_ADDED', 'Date Added:');
 define('TEXT_INFO_LAST_MODIFIED', 'Last Modified:');
-
+define('TEXT_IMAGE_NONEXISTENT', 'IMAGE DOES NOT EXIST');
 
 define('STORE_NAME_TITLE', 'Store Name');
 define('STORE_NAME_DESC', 'The name of my store');

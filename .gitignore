@@ -69,3 +69,10 @@ prepros-6.config
 /myoos/images/logo/originals/*.jpg
 /myoos/images/logo/small/*.png
 /myoos/images/logo/small/*.jpg
+/myoos/images/ico/32x32/*.png
+/myoos/images/ico/72x72/*.png
+/myoos/images/ico/96x96/*.png
+/myoos/images/ico/114x114/*.png
+/myoos/images/ico/144x144/*.png
+/myoos/images/ico/180x180/*.png
+/myoos/images/ico/originals/*.png

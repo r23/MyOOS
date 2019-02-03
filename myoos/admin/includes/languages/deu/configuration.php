@@ -26,7 +26,7 @@ define('TABLE_HEADING_ACTION', 'Aktion');
 define('TEXT_INFO_EDIT_INTRO', 'Bitte führen Sie alle notwendigen Änderungen durch');
 define('TEXT_INFO_DATE_ADDED', 'hinzugefügt am:');
 define('TEXT_INFO_LAST_MODIFIED', 'letzte Änderung:');
-
+define('TEXT_IMAGE_NONEXISTENT', 'BILD EXISTIERT NICHT');
 
 define('STORE_NAME_TITLE', 'Shop Name');
 define('STORE_NAME_DESC', 'Der Name meines Shops');

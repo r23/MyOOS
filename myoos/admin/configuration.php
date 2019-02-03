@@ -129,8 +129,8 @@ if (!empty($action)) {
 							// 'crop' => TRUE,
 							// 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
 							// 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-							'max_width' => 72, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
-							'max_height' => 72 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
+							'max_width' => 32, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+							'max_height' => 32 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
 						),						
 						
 					),
