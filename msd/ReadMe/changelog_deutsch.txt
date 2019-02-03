@@ -1,3 +1,12 @@
+MyOOS [Dumper] Version 4.2.1
+
+
+Funktion 'while... each' ist veraltet,
+// while(list($i, $value) = each($array)) { // Try this next
+wir verwenden 'foreach'
+foreach($array as $i => $value) {
+
+
 MyOOS [Dumper] Version 4.2.0
 
 Folgende Dinge wurden geändert:
@@ -10,7 +19,7 @@ Folgende Dinge wurden geändert:
 
 MyOOS [Dumper] based on MySQLDumper 1.24.4
 
-Wer Du es ganz genau wissen möchtest, dann schaue Dir das changelog auf GitHub an. Hier ist akribisch 
+Wenn Du es ganz genau wissen möchtest, dann schaue Dir das changelog auf GitHub an. Hier ist akribisch 
 jede Änderung am Code dokumentiert:
 
 https://github.com/r23/MyOOS/tree/master/msd

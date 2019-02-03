@@ -1,3 +1,12 @@
+MyOOS [Dumper] Version 4.2.1
+
+
+Function 'while... each' is deprecated,
+// while(list($i, $value) = each($array)) { // Try this next
+we use 'foreach'
+foreach($array as $i => $value) {
+
+
 MyOOS Version 4.2.0
 
 We addressed the following issues:
