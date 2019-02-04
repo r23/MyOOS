@@ -177,7 +177,7 @@ require 'includes/header.php';
       $featuredtable = $oostable['featured'];
       $productstable = $oostable['products'];
       $products_descriptiontable = $oostable['products_description'];
-      $query = "SELECT p.products_id, pd.products_name, f.expires_date
+      $query = "SELECT p.products_id, p.products_image, pd.products_name, f.expires_date
                 FROM $productstable p,
                      $products_descriptiontable pd,
                      $featuredtable f
@@ -192,7 +192,7 @@ require 'includes/header.php';
     } elseif ( ($action == 'new') && isset($_GET['pID']) ) {
       $productstable = $oostable['products'];
       $products_descriptiontable = $oostable['products_description'];
-      $sql = "SELECT p.products_id, pd.products_name
+      $sql = "SELECT p.products_id, p.products_image, pd.products_name
               FROM $productstable p,
                    $products_descriptiontable pd
               WHERE p.products_id = pd.products_id AND
@@ -222,17 +222,13 @@ require 'includes/header.php';
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr><form name="new_feature" <?php echo 'action="' . oos_href_link_admin($aContents['featured'], oos_get_all_get_params(array('action', 'info', 'fID')) . 'action=' . $form_action) . '"'; ?> method="post">
 <?php
-  if ($form_action == 'update') {
-    echo oos_draw_hidden_field('featured_id', $_GET['fID']);
-  } elseif (isset($_GET['pID']) ) {
-    echo oos_draw_hidden_field('products_id', $sInfo->products_id);
-  }
+	if ($form_action == 'update') {
+		echo oos_draw_hidden_field('featured_id', intval($_GET['fID']));
+	} elseif (isset($_GET['pID']) ) {
+		echo oos_draw_hidden_field('products_id', $sInfo->products_id);
+	}
 ?>
         <td><br /><table border="0" cellspacing="0" cellpadding="2">
-          <tr>
-            <td class="main"><?php echo TEXT_FEATURED_PRODUCT; ?>&nbsp;</td>
-            <td class="main"><?php echo ($sInfo->products_name) ? $sInfo->products_name : oos_draw_products_pull_down('products_id', 'style="font-size:10px"', $featured_array); echo oos_draw_hidden_field('products_price', $sInfo->products_price); ?></td>
-          </tr>
           <tr>
             <td class="main"><?php echo TEXT_FEATURED_EXPIRES_DATE; ?>&nbsp;</td>
             <td class="main">
@@ -243,6 +239,14 @@ require 'includes/header.php';
 					</span>
 				</div>			
 			</td>
+          </tr>		
+		
+		
+          <tr>
+            <td class="main"><?php echo TEXT_FEATURED_PRODUCT; ?>&nbsp;</td>
+            <td class="main">
+			<?php echo product_info_image($sInfo->products_image, $sInfo->products_name) . '</a><br />'; ?>		
+			<?php echo ($sInfo->products_name) ? $sInfo->products_name : oos_draw_products_pull_down('products_id', 'style="font-size:10px"', $featured_array); echo oos_draw_hidden_field('products_price', $sInfo->products_price); ?></td>
           </tr>
         </table></td>
       </tr>
@@ -294,14 +298,18 @@ require 'includes/header.php';
                 <td  align="right">&nbsp;</td>
                 <td  align="right">
 <?php
-      if ($featured['status'] == '1') {
-        echo '<a href="' . oos_href_link_admin($aContents['featured'], 'action=setflag&flag=0&id=' . $featured['featured_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
-      } else {
-        echo '<a href="' . oos_href_link_admin($aContents['featured'], 'action=setflag&flag=1&id=' . $featured['featured_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
-      }
+		if ($featured['status'] == '1') {
+			echo '<i class="fa fa-circle text-success" title="' . IMAGE_ICON_STATUS_GREEN . '"></i>&nbsp;<a href="' . oos_href_link_admin($aContents['featured'], 'action=setflag&flag=0&id=' . $featured['featured_id']) . '"><i class="fa fa-circle-o text-danger" title="' . IMAGE_ICON_STATUS_RED_LIGHT . '"></i></a>';
+		} else {
+			echo '<a href="' . oos_href_link_admin($aContents['featured'], 'action=setflag&flag=1&id=' . $featured['featured_id']) . '"><i class="fa fa-circle-o text-success" title="' . IMAGE_ICON_STATUS_GREEN_LIGHT . '"></i></a>&nbsp;<i class="fa fa-circle text-danger" title="' . IMAGE_ICON_STATUS_RED . '"></i>';
+		}	  
 ?></td>
-                <td class="text-right"><?php if ( (is_object($sInfo)) && ($featured['featured_id'] == $sInfo->featured_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $featured['featured_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
-      </tr>
+                <td class="text-right"><?php echo
+						'<a href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=edit') . '"><i class="fa fa-pencil" title="' . BUTTON_EDIT . '"></i></a>
+						<a href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=delete') . '"><i class="fa fa-trash" title="' .  BUTTON_DELETE . '"></i></a>';
+?>				&nbsp;</td>				
+
+		      </tr>
 <?php
       // Move that ADOdb pointer!
       $featured_result->MoveNext();
@@ -346,8 +354,7 @@ require 'includes/header.php';
         $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=edit') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=delete') . '">' . oos_button('delete',  BUTTON_DELETE) . '</a>');
         $contents[] = array('text' => '<br />' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($sInfo->featured_date_added));
         $contents[] = array('text' => '' . TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($sInfo->featured_last_modified));
-        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_info_image($sInfo->products_image, $sInfo->products_name, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT));
-
+        $contents[] = array('align' => 'center', 'text' => '<br />' . product_info_image($sInfo->products_image, $sInfo->products_name));
         $contents[] = array('text' => '<br />' . TEXT_INFO_EXPIRES_DATE . ' <b>' . oos_date_short($sInfo->expires_date) . '</b>');
         $contents[] = array('text' => '' . TEXT_INFO_STATUS_CHANGE . ' ' . oos_date_short($sInfo->date_status_change));
       }
