@@ -45,7 +45,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
               $customerstable = $oostable['customers'];
               $sql = "SELECT customers_firstname, customers_lastname, customers_gender, customers_email_address
                       FROM $customerstable
-                      WHERE customers_id = '" . oos_db_input($_GET['cID']) . "'";
+                      WHERE customers_id = '" . intval($_GET['cID']) . "'";
                $check_customer = $dbconn->Execute($sql);
                if ($check_customer->RecordCount()) {
                  $check_customer_values = $check_customer->fields;
@@ -53,7 +53,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                  $newpass = oos_create_random_value(ENTRY_PASSWORD_MIN_LENGTH);
                  $crypted_password = oos_encrypt_password($newpass);
                  $customerstable = $oostable['customers'];
-                 $dbconn->Execute("UPDATE $customerstable SET customers_password = '" . $crypted_password . "' WHERE customers_id = '" . $_GET['cID'] . "'");
+                 $dbconn->Execute("UPDATE $customerstable SET customers_password = '" . oos_db_input($crypted_password) . "' WHERE customers_id = '" . intval($_GET['cID']) . "'");
 
                  $name = $check_customer_values['customers_firstname'] . " " . $check_customer_values['customers_lastname'];
                  if (ACCOUNT_GENDER == 'true') {
@@ -67,7 +67,6 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                  }
                  $email_text .= EMAIL_WELCOME;
                  if (MODULE_ORDER_TOTAL_GV_STATUS == 'true') {
-                   // ICW - CREDIT CLASS CODE BLOCK ADDED  BEGIN
                    if (NEW_SIGNUP_GIFT_VOUCHER_AMOUNT > 0) {
                      $coupon_code = oos_create_coupon_code();
                      $couponstable = $oostable['coupons'];
@@ -75,7 +74,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                                                    (coupon_code,
                                                     coupon_type,
                                                     coupon_amount,
-                                                    date_created) VALUES ('" . $coupon_code . "',
+                                                    date_created) VALUES ('" . oos_db_input($coupon_code) . "',
                                                                           'G',
                                                                           '" . NEW_SIGNUP_GIFT_VOUCHER_AMOUNT . "',
                                                                           now())");
@@ -87,10 +86,10 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                                                     customer_id_sent,
                                                     sent_firstname,
                                                     emailed_to,
-                                                    date_sent) VALUES ('" . $insert_id ."',
+                                                    date_sent) VALUES ('" . intval($insert_id) ."',
                                                                        '0', 
                                                                        'Admin', 
-                                                                       '" . $email_address . "',
+                                                                       '" . oos_db_input($email_address) . "',
                                                                        now() )"); 
 
                      $email_text .= sprintf(EMAIL_GV_INCENTIVE_HEADER, $currencies->format(NEW_SIGNUP_GIFT_VOUCHER_AMOUNT)) . "\n\n" .
@@ -104,14 +103,14 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                      $couponstable = $oostable['coupons'];
                      $sql = "SELECT coupon_id coupon_type, coupon_code, coupon_amount
                              FROM $couponstable
-                             WHERE coupon_id = '" . $coupon_id . "'";
+                             WHERE coupon_id = '" . intval($coupon_id) . "'";
                      $coupon_result = $dbconn->Execute($sql);
                      $coupon = $coupon_result->fields;
 
                      $coupons_descriptiontable = $oostable['coupons_description'];
                      $sql = "SELECT coupon_name, coupon_description
                              FROM $coupons_descriptiontable
-                             WHERE coupon_id = '" . $coupon_id . "' AND
+                             WHERE coupon_id = '" . intval($coupon_id) . "' AND
                                    coupon_languages_id = '" . intval($_SESSION['language_id']) . "'";
                      $coupon_desc_result = $dbconn->Execute($sql);
                      $coupon_desc = $coupon_desc_result->fields;
@@ -122,10 +121,10 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                                                         customer_id_sent,
                                                         sent_firstname,
                                                         emailed_to,
-                                                        date_sent) VALUES ('" . $coupon_id ."',
+                                                        date_sent) VALUES ('" . intval($coupon_id) ."',
                                                                            '0',
                                                                            'Admin',
-                                                                           '" . $email_address . "',
+                                                                           '" . oos_db_input($email_address) . "',
                                                                            now() )");
                      $email_text .= EMAIL_COUPON_INCENTIVE_HEADER .  "\n\n" .
                                     $coupon_desc['coupon_description'] .
@@ -168,7 +167,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                                                        '" . intval($pdm_status) . "',
                                                        '" . intval($customers_status) . "',
                                                        now(),
-                                                       '" . $customer_notified . "')");
+                                                       '" . oos_db_input($customer_notified) . "')");
         }
         break;
       case 'update':
@@ -241,7 +240,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
           $reviews_result = $dbconn->Execute("SELECT reviews_id FROM $reviewstable WHERE customers_id = '" . intval($customers_id) . "'");
           while ($reviews = $reviews_result->fields) {
             $reviews_descriptiontable = $oostable['reviews_description'];
-            $dbconn->Execute("DELETE FROM $reviews_descriptiontable WHERE reviews_id = '" . $reviews['reviews_id'] . "'");
+            $dbconn->Execute("DELETE FROM $reviews_descriptiontable WHERE reviews_id = '" . intval($reviews['reviews_id']) . "'");
 
             // Move that ADOdb pointer!
             $reviews_result->MoveNext();
@@ -694,7 +693,6 @@ function check_form() {
 				<table class="table table-striped table-hover w-100">
 					<thead class="thead-dark">
 						<tr>
-							<th>*</th>
 							<th><?php echo TABLE_HEADING_LASTNAME; ?></th>
 							<th><?php echo TABLE_HEADING_FIRSTNAME; ?></th>
 							<th align="left"><?php echo HEADING_TITLE_STATUS; ?></th>
@@ -824,7 +822,7 @@ function check_form() {
       $customers_status_historytable = $oostable['customers_status_history'];
       $customers_history_sql = "SELECT new_value, old_value, date_added, customer_notified 
                                 FROM $customers_status_historytable
-                                WHERE customers_id = '" . oos_db_input($cID) . "'
+                                WHERE customers_id = '" . intval($cID) . "'
                                 ORDER BY customers_status_history_id DESC";
       $customers_history_result = $dbconn->Execute($customers_history_sql);
       if ($customers_history_result->RecordCount()) {
