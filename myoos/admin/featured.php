@@ -99,7 +99,7 @@ if (!empty($action)) {
 		$expires_date = oos_db_prepare_input($_POST['expires_date']);
 
         $featuredtable = $oostable['featured'];
-        $dbconn->Execute("INSERT INTO $featuredtable (products_id, featured_date_added, expires_date, status) VALUES ('" . $_POST['products_id'] . "', now(), '" . $expires_date . "', '1')");
+        $dbconn->Execute("INSERT INTO $featuredtable (products_id, featured_date_added, expires_date, status) VALUES ('" . intval($_POST['products_id']) . "', now(), '" . oos_db_input($expires_date) . "', '1')");
         oos_redirect_admin(oos_href_link_admin($aContents['featured'], 'page=' . $nPage));
         break;
 
@@ -107,7 +107,7 @@ if (!empty($action)) {
         $expires_date = oos_db_prepare_input($_POST['expires_date']);
 
         $featuredtable = $oostable['featured'];
-        $dbconn->Execute("UPDATE $featuredtable SET featured_last_modified = now(), expires_date = '" . $expires_date . "' WHERE featured_id = '" . $_POST['featured_id'] . "'");
+        $dbconn->Execute("UPDATE $featuredtable SET featured_last_modified = now(), expires_date = '" . oos_db_input($expires_date) . "' WHERE featured_id = '" . intval($_POST['featured_id']) . "'");
         oos_redirect_admin(oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $featured_id));
         break;
 
@@ -171,7 +171,7 @@ require 'includes/header.php';
 <?php
   if ( ($action == 'new') || ($action == 'edit') ) {
     $form_action = 'insert';
-    if ( ($action == 'edit') && ($_GET['fID']) ) {
+    if ( ($action == 'edit') && isset($_GET['fID']) ) {
       $form_action = 'update';
 
       $featuredtable = $oostable['featured'];
@@ -217,6 +217,7 @@ require 'includes/header.php';
         $featured_result->MoveNext();
       }
     }
+
 ?>
 <!-- body_text //-->
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -245,7 +246,7 @@ require 'includes/header.php';
           <tr>
             <td class="main"><?php echo TEXT_FEATURED_PRODUCT; ?>&nbsp;</td>
             <td class="main">
-			<?php echo product_info_image($sInfo->products_image, $sInfo->products_name) . '</a><br />'; ?>		
+			<?php echo ($sInfo->products_name) ? product_info_image($sInfo->products_image, $sInfo->products_name) . '</a>' : ''; ?>		
 			<?php echo ($sInfo->products_name) ? $sInfo->products_name : oos_draw_products_pull_down('products_id', 'style="font-size:10px"', $featured_array); echo oos_draw_hidden_field('products_price', $sInfo->products_price); ?></td>
           </tr>
         </table></td>
