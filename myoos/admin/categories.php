@@ -30,7 +30,7 @@ $currencies = new currencies();
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
 $cPath = (isset($_GET['cPath']) ? oos_prepare_input($_GET['cPath']) : $current_category_id);
 $cID = (isset($_GET['cID']) ? intval($_GET['cID']) : 0);
-
+$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);  
 
 if (!empty($action)) {
     switch ($action) {
@@ -71,7 +71,7 @@ if (!empty($action)) {
 			break;
 
 		case 'slave_visible':
-			$dbconn->Execute("UPDATE " . $oostable['products'] . " SET products_slave_visible = " . $_GET['visible'] . " WHERE products_id = " . intval($_GET['slave_id']));
+			$dbconn->Execute("UPDATE " . $oostable['products'] . " SET products_slave_visible = " . intval($_GET['visible']) . " WHERE products_id = " . intval($_GET['slave_id']));
 			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . intval($_GET['master_id']) . '&action=slave_products'));
 			break;
 
@@ -84,8 +84,27 @@ if (!empty($action)) {
 				}
 			}
 
-			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . intval($_GET['pID']) . '&cID=' . intval($cID) . (isset($_GET['page']) ? '&page=' . $_GET['page'] : '') . ((isset($_GET['search']) && !empty($_GET['search'])) ? '&search=' . $_GET['search'] : '')));
+			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . intval($_GET['pID']) . '&cID=' . intval($_GET['cID']) . '&page=' . $nPage . ((isset($_GET['search']) && !empty($_GET['search'])) ? '&search=' . $_GET['search'] : '')));
 			break;
+
+
+		case 'delete_category':
+			if (isset($_GET['cID']) && is_numeric($_GET['cID'])) {
+				oos_set_categories_status($_GET['cID'], 0);
+			}
+
+			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath .  '&cID=' . intval($_GET['cID']) . '&page=' . $nPage . ((isset($_GET['search']) && !empty($_GET['search'])) ? '&search=' . $_GET['search'] : '')));
+			break;
+
+		case 'delete_product':
+			if (isset($_GET['pID']) && is_numeric($_GET['pID'])) {
+				oos_set_product_status($_GET['pID'], 0);
+			}
+
+			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath .  '&pID=' . intval($_GET['pID']) . '&page=' . $nPage . ((isset($_GET['search']) && !empty($_GET['search'])) ? '&search=' . $_GET['search'] : '')));
+			break;
+
+
 
 		case 'insert_category':
 		case 'update_category':
@@ -218,65 +237,6 @@ if (!empty($action)) {
 
 			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $categories_id));
 
-			break;
-
-		case 'delete_category_confirm':
-			if (isset($_POST['categories_id'])) {
-				$categories_id = oos_db_prepare_input($_POST['categories_id']);
-
-				$categories = oos_get_category_tree($categories_id, '', '0', '', TRUE);
-				$products = array();
-				$products_delete = array();
-
-				for ($i = 0, $n = count($categories); $i < $n; $i++) {
-					$product_ids_result = $dbconn->Execute("SELECT products_id FROM " . $oostable['products_to_categories'] . " WHERE categories_id = '" . intval($categories[$i]['id']) . "'");
-					while ($product_ids = $product_ids_result->fields) {
-						$products[$product_ids['products_id']]['categories'][] = $categories[$i]['id'];
-
-						// Move that ADOdb pointer!
-						$product_ids_result->MoveNext();
-					}
-				}
-
-				reset($products);
-				foreach ($products as $key => $value) {
-					$category_ids = '';
-					for ($i = 0, $n = count($value['categories']); $i < $n; $i++) {
-						$category_ids .= '\'' . $value['categories'][$i] . '\', ';
-					}
-					$category_ids = substr($category_ids, 0, -2);
-
-					$check_result = $dbconn->Execute("SELECT COUNT(*) AS total FROM " . $oostable['products_to_categories'] . " WHERE products_id = '" . intval($key) . "' and categories_id not in (" . $category_ids . ")");
-					$check = $check_result->fields;
-					if ($check['total'] < '1') {
-						$products_delete[$key] = $key;
-					}
-				}
-
-				for ($i = 0, $n = count($categories); $i < $n; $i++) {
-					oos_remove_category($categories[$i]['id']);
-				}
-
-				foreach($products_delete as $key) {
-					product_move_to_trash($key);
-				}
-			}
-
-			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath));
-			break;
-
-		case 'delete_product_confirm':
-			if (isset($_POST['products_id']) && isset($_POST['product_categories']) && is_array($_POST['product_categories'])) {
-				$product_id = oos_db_prepare_input($_POST['products_id']);
-
-				$product_categories_result = $dbconn->Execute("SELECT COUNT(*) AS total FROM " . $oostable['products_to_categories'] . " WHERE products_id = '" . (int)$product_id . "'");
-				$product_categories = $product_categories_result->fields;
-
-				if ($product_categories['total'] == '0') {
-					product_move_to_trash($product_id);
-				}
-			}
-			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath));
 			break;
 
 		case 'move_category_confirm':
@@ -1111,29 +1071,6 @@ if ($action == 'new_category' || $action == 'edit_category') {
         $contents[] = array('text' => sprintf(TEXT_MOVE_CATEGORIES_INTRO, $cInfo->categories_name));
         $contents[] = array('text' => '<br />' . sprintf(TEXT_MOVE, $cInfo->categories_name) . '<br />' . oos_draw_pull_down_menu('move_to_category_id', oos_get_category_tree('0', '', $cInfo->categories_id), $current_category_id));
         $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('move', IMAGE_MOVE) . ' <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
-        break;
-
-      case 'delete_product':
-        $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_PRODUCT . '</b>');
-
-        $contents = array('form' => oos_draw_form('id', 'products', $aContents['categories'], 'action=delete_product_confirm&cPath=' . $cPath, 'post', FALSE) . oos_draw_hidden_field('products_id', $pInfo->products_id));
-        $contents[] = array('text' => TEXT_DELETE_PRODUCT_INTRO);
-        $contents[] = array('text' => '<br /><b>' . $pInfo->products_name . '</b>');
-
-        $product_categories_string = '';
-        $product_categories = oos_generate_category_path($pInfo->products_id, 'product');
-        for ($i = 0, $n = count($product_categories); $i < $n; $i++) {
-          $category_path = '';
-          for ($j = 0, $k = count($product_categories[$i]); $j < $k; $j++) {
-            $category_path .= $product_categories[$i][$j]['text'] . '&nbsp;&gt;&nbsp;';
-          }
-          $category_path = substr($category_path, 0, -16);
-          $product_categories_string .= oos_draw_checkbox_field('product_categories[]', $product_categories[$i][count($product_categories[$i])-1]['id'], true) . '&nbsp;' . $category_path . '<br />';
-        }
-        $product_categories_string = substr($product_categories_string, 0, -4);
-
-        $contents[] = array('text' => '<br />' . $product_categories_string);
-        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', BUTTON_MOVE_TRASH) . ' <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
         break;
 
       case 'move_product':

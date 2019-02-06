@@ -27,6 +27,8 @@ require 'includes/classes/class_currencies.php';
 $currencies = new currencies();
 
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
+$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
+
 
 if (!empty($action)) {
     switch ($action) {
@@ -37,11 +39,6 @@ if (!empty($action)) {
 				$dbconn->Execute("UPDATE " . $oostable['products'] . " SET products_slave_visible = '1' WHERE products_id = " . $_GET['slave_id']);
 			}
 			$messageStack->add_session('Slave Deleted', 'success');
-			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $_GET['cPath'] . '&amp;pID=' . $_GET['master_id'] . '&amp;action=slave_products'));
-			break;
-
-		case 'slave_visible':
-			$dbconn->Execute("UPDATE " . $oostable['products'] . " SET products_slave_visible = " . $_GET['visible'] . " WHERE products_id = " . $_GET['slave_id']);
 			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $_GET['cPath'] . '&amp;pID=' . $_GET['master_id'] . '&amp;action=slave_products'));
 			break;
 

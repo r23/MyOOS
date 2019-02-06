@@ -417,10 +417,10 @@ require 'includes/header.php';
 
 	$aSetting = array();
 	$settingstable = $oostable['setting'];
-	$setting_result = $dbconn->Execute("SELECT setting_id, setting_name FROM $settingstable WHERE setting_languages_id = '" . intval($_SESSION['language_id']) . "'");
+	$setting_result = $dbconn->Execute("SELECT setting_id, setting_name FROM $settingstable WHERE setting_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY setting_id");
 	while ($setting = $setting_result->fields) {
 		$aSetting[] = array('id' => $setting['setting_id'],
-                         'text' => $setting['setting_name']);
+							'text' => $setting['setting_name']);
 		// Move that ADOdb pointer!
 		$setting_result->MoveNext();
 	}

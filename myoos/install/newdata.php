@@ -961,12 +961,14 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "products_units (product
 echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $prefix_table . "products_units " . UPDATED .'</font>';
 
 
+$result = $db->Execute("INSERT INTO " . $prefix_table . "setting (setting_id, setting_languages_id, setting_name) VALUES (0, 2, 'Trash')") OR die ("<b>".NOTUPDATED . $prefix_table . "setting</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "setting (setting_id, setting_languages_id, setting_name) VALUES (0, 1, 'Papierkorb')") OR die ("<b>".NOTUPDATED . $prefix_table . "setting</b>");
+
 $result = $db->Execute("INSERT INTO " . $prefix_table . "setting (setting_id, setting_languages_id, setting_name) VALUES (1, 2, 'Draft')") OR die ("<b>".NOTUPDATED . $prefix_table . "setting</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "setting (setting_id, setting_languages_id, setting_name) VALUES (1, 1, 'Entwurf')") OR die ("<b>".NOTUPDATED . $prefix_table . "setting</b>");
 
 $result = $db->Execute("INSERT INTO " . $prefix_table . "setting (setting_id, setting_languages_id, setting_name) VALUES (2, 2, 'Published')") OR die ("<b>".NOTUPDATED . $prefix_table . "setting</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "setting (setting_id, setting_languages_id, setting_name) VALUES (2, 1, 'Veröffentlicht')") OR die ("<b>".NOTUPDATED . $prefix_table . "setting</b>");
-
 
 
 echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $prefix_table . "setting " . UPDATED .'</font>';
