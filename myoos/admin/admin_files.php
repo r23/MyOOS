@@ -41,7 +41,7 @@
         // NOTE: ALSO DELETE FILES STORED IN REMOVED BOX //
         $admin_boxes_id = oos_db_prepare_input($_GET['cID']);
         $admin_filestable = $oostable['admin_files'];
-        $query = "DELETE FROM " . $admin_filestable . " WHERE admin_files_id = '" . $admin_boxes_id . "' or admin_files_to_boxes = '" . $admin_boxes_id . "'";
+        $query = "DELETE FROM " . $admin_filestable . " WHERE admin_files_id = '" . intval($admin_boxes_id) . "' or admin_files_to_boxes = '" . intval($admin_boxes_id) . "'";
         $dbconn->Execute($query);
 
         oos_redirect_admin(oos_href_link_admin($aContents['admin_files']));
@@ -59,7 +59,7 @@
       case 'file_remove':
         $admin_files_id = oos_db_prepare_input($_POST['admin_files_id']);
         $admin_filestable = $oostable['admin_files'];
-        $query = "DELETE FROM " . $admin_filestable . " WHERE admin_files_id = '" . $admin_files_id . "'";
+        $query = "DELETE FROM " . $admin_filestable . " WHERE admin_files_id = '" . intval($admin_files_id) . "'";
         $dbconn->Execute($query);
 
         oos_redirect_admin(oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath']));
@@ -123,7 +123,7 @@
     $admin_filestable = $oostable['admin_files'];
     $current_box_query = "SELECT admin_files_name as admin_box_name 
                           FROM $admin_filestable
-                          WHERE admin_files_id = " . $_GET['cPath'];
+                          WHERE admin_files_id = " . intval($_GET['cPath']);
     $current_box = $dbconn->GetRow($current_box_query);
 ?>
 		<table class="table table-striped table-hover w-100">
@@ -137,7 +137,7 @@
     $admin_filestable = $oostable['admin_files'];
     $db_file_result_raw = "SELECT admin_files_id, admin_files_name 
                            FROM $admin_filestable
-                           WHERE admin_files_to_boxes = " . $_GET['cPath'] . " 
+                           WHERE admin_files_to_boxes = " . oos_db_input($_GET['cPath']) . " 
                            ORDER BY admin_files_name";
     $db_file_result = $dbconn->Execute($db_file_result_raw);
     $file_count = 0;
@@ -208,7 +208,7 @@
         $boxes[] = array('admin_boxes_name' => $boxes_file,
                          'admin_boxes_id' => 'b' . $none);
       } elseif ( (substr("$boxes_file", -4) == '.php') && (in_array($boxes_file, $installed_boxes))) {
-        $db_boxes_id_query = "SELECT admin_files_id AS admin_boxes_id FROM " . $oostable['admin_files'] . " WHERE admin_files_is_boxes = 1 AND admin_files_name = '" . $boxes_file . "'";
+        $db_boxes_id_query = "SELECT admin_files_id AS admin_boxes_id FROM " . $oostable['admin_files'] . " WHERE admin_files_is_boxes = 1 AND admin_files_name = '" . intval($boxes_file) . "'";
         $db_boxes_id = $dbconn->GetRow($db_boxes_id_query);
 
         $boxes[] = array('admin_boxes_name' => $boxes_file,

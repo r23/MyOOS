@@ -77,10 +77,10 @@ require 'includes/main.php';
 
     if ($status == '1') {
       $specialstable = $oostable['specials'];
-      return $dbconn->Execute("UPDATE $specialstable SET status = '1', expires_date = NULL, date_status_change = NULL WHERE specials_id = '" . $specials_id . "'");
+      return $dbconn->Execute("UPDATE $specialstable SET status = '1', expires_date = NULL, date_status_change = NULL WHERE specials_id = '" . intval($specials_id) . "'");
     } elseif ($status == '0') {
       $specialstable = $oostable['specials'];
-      return $dbconn->Execute("UPDATE $specialstable SET status = '0', date_status_change = now() WHERE specials_id = '" . $specials_id . "'");
+      return $dbconn->Execute("UPDATE $specialstable SET status = '0', date_status_change = now() WHERE specials_id = '" . intval($specials_id) . "'");
     } else {
       return -1;
     }

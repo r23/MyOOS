@@ -180,7 +180,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     } else {
       $reviewstable = $oostable['reviews'];
       $reviews_descriptiontable = $oostable['reviews_description'];
-      $reviews_result = $dbconn->Execute("SELECT r.reviews_id, r.products_id, r.customers_name, r.date_added, r.last_modified, r.reviews_read, rd.reviews_text, r.reviews_rating, r.reviews_status FROM $reviewstable r, $reviews_descriptiontable rd WHERE r.reviews_id = '" . $_GET['rID'] . "' AND r.reviews_id = rd.reviews_id");
+      $reviews_result = $dbconn->Execute("SELECT r.reviews_id, r.products_id, r.customers_name, r.date_added, r.last_modified, r.reviews_read, rd.reviews_text, r.reviews_rating, r.reviews_status FROM $reviewstable r, $reviews_descriptiontable rd WHERE r.reviews_id = '" . intval($_GET['rID']) . "' AND r.reviews_id = rd.reviews_id");
       $reviews = $reviews_result->fields;
 
       $productstable = $oostable['products'];

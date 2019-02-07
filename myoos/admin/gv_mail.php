@@ -105,7 +105,7 @@
 
         // Now create the coupon main and email entry
         $couponstable = $oostable['coupons'];
-        $insert_result = $dbconn->Execute("INSERT INTO $couponstable (coupon_code, coupon_type, coupon_amount, date_created) VALUES ('" . $id1 . "', 'G', '" . $_POST['amount'] . "', now())");
+        $insert_result = $dbconn->Execute("INSERT INTO $couponstable (coupon_code, coupon_type, coupon_amount, date_created) VALUES ('" . $id1 . "', 'G', '" . oos_db_input($_POST['amount']) . "', now())");
         $insert_id = $dbconn->Insert_ID();
         $coupon_email_tracktable = $oostable['coupon_email_track'];
         $insert_result = $dbconn->Execute("INSERT INTO $coupon_email_tracktable (coupon_id, customer_id_sent, sent_firstname, emailed_to, date_sent) VALUES ('" . $insert_id ."', '0', 'Admin', '" . $mail['customers_email_address'] . "', now() )");
@@ -160,10 +160,10 @@
       $send_mail->ClearAttachments();
       // Now create the coupon email entry
       $couponstable = $oostable['coupons'];
-      $insert_result = $dbconn->Execute("INSERT INTO $couponstable (coupon_code, coupon_type, coupon_amount, date_created) VALUES ('" . $id1 . "', 'G', '" . $_POST['amount'] . "', now())");
+      $insert_result = $dbconn->Execute("INSERT INTO $couponstable (coupon_code, coupon_type, coupon_amount, date_created) VALUES ('" . oos_db_input($id1) . "', 'G', '" . oos_db_input($_POST['amount']) . "', now())");
       $insert_id = $dbconn->Insert_ID();
       $coupon_email_tracktable = $oostable['coupon_email_track'];
-      $insert_result = $dbconn->Execute("INSERT INTO $coupon_email_tracktable (coupon_id, customer_id_sent, sent_firstname, emailed_to, date_sent) VALUES ('" . $insert_id ."', '0', 'Admin', '" . $_POST['email_to'] . "', now() )"); 
+      $insert_result = $dbconn->Execute("INSERT INTO $coupon_email_tracktable (coupon_id, customer_id_sent, sent_firstname, emailed_to, date_sent) VALUES ('" . $insert_id ."', '0', 'Admin', '" . oos_db_input($_POST['email_to']) . "', now() )"); 
     }
 
     oos_redirect_admin(oos_href_link_admin($aContents['gv_mail'], 'mail_sent_to=' . urlencode($mail_sent_to)));

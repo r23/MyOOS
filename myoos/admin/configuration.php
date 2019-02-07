@@ -222,7 +222,7 @@ if (!empty($action)) {
 						</tr>	
 					</thead>
 <?php
-  $configuration_result = $dbconn->Execute("SELECT configuration_id, configuration_key, configuration_value, use_function FROM " . $oostable['configuration'] . " WHERE configuration_group_id = '" . $_GET['gID'] . "' ORDER BY sort_order");
+  $configuration_result = $dbconn->Execute("SELECT configuration_id, configuration_key, configuration_value, use_function FROM " . $oostable['configuration'] . " WHERE configuration_group_id = '" . intval($_GET['gID']) . "' ORDER BY sort_order");
 
   while ($configuration = $configuration_result->fields) {
     if (oos_is_not_null($configuration['use_function'])) {

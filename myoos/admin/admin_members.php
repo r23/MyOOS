@@ -96,7 +96,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
       case 'member_delete':
         $admin_id = oos_db_prepare_input($_POST['admin_id']);
-        $query = "DELETE FROM ". $oostable['admin'] . " WHERE admin_id = '" . $admin_id . "'";
+        $query = "DELETE FROM ". $oostable['admin'] . " WHERE admin_id = '" . intval($admin_id) . "'";
         $dbconn->Execute($query);
 
         oos_redirect_admin(oos_href_link_admin($aContents['admin_members'], 'page=' . $nPage));
@@ -131,13 +131,13 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         $set_groups_id = oos_db_prepare_input($_POST['set_groups_id']);
 
         $admin_groupstable = $oostable['admin_groups'];
-        $query = "DELETE FROM $admin_groupstable WHERE admin_groups_id = '" . $_GET['gID'] . "'";
+        $query = "DELETE FROM $admin_groupstable WHERE admin_groups_id = '" . intval($_GET['gID']) . "'";
         $dbconn->Execute($query);
         $admin_filestable = $oostable['admin_files'];
-        $query = "alter table $admin_filestable change admin_groups_id admin_groups_id set( " . $set_groups_id . " ) NOT NULL DEFAULT '1' ";
+        $query = "alter table $admin_filestable change admin_groups_id admin_groups_id set( " . oos_db_input($set_groups_id) . " ) NOT NULL DEFAULT '1' ";
         $dbconn->Execute($query);
         $admintable = $oostable['admin'];
-        $query = "DELETE FROM $admintable WHERE admin_groups_id = '" . $_GET['gID'] . "'";
+        $query = "DELETE FROM $admintable WHERE admin_groups_id = '" . intval($_GET['gID']) . "'";
         $dbconn->Execute($query);
 
         oos_redirect_admin(oos_href_link_admin($aContents['admin_members'], 'gID=groups'));
@@ -151,7 +151,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
           oos_redirect_admin(oos_href_link_admin($aContents['admin_members'], 'gID=' . $_GET[gID] . '&gName=false&action=action=edit_group'));
         } else {
           $admin_groupstable = $oostable['admin_groups'];
-          $check_groups_name_query = "SELECT admin_groups_name as group_name_edit FROM $admin_groupstable WHERE admin_groups_id <> " . $_GET['gID'] . " and admin_groups_name like '%" . $name_replace . "%'";
+          $check_groups_name_query = "SELECT admin_groups_name as group_name_edit FROM $admin_groupstable WHERE admin_groups_id <> " . intval($_GET['gID']) . " and admin_groups_name like '%" . oos_db_input($name_replace) . "%'";
           $check_groups_name_result = $dbconn->Execute($check_groups_name_query);
           $check_duplicate = $check_groups_name_result->RecordCount();
           if ($check_duplicate > 0){
@@ -159,8 +159,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
           } else {
             $admin_groups_id = $_GET['gID'];
             $query = "UPDATE " . $oostable['admin_groups'] . "
-                        SET admin_groups_name = '" . $admin_groups_name . "'
-                        WHERE admin_groups_id = '" . $admin_groups_id . "'";
+                        SET admin_groups_name = '" .  oos_db_input($admin_groups_name) . "'
+                        WHERE admin_groups_id = '" . intval($admin_groups_id) . "'";
             $dbconn->Execute($query);
             oos_redirect_admin(oos_href_link_admin($aContents['admin_members'], 'gID=' . $admin_groups_id));
           }
@@ -174,7 +174,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         if (($admin_groups_name == '' || NULL) || (strlen($admin_groups_name) <= 5) ) {
           oos_redirect_admin(oos_href_link_admin($aContents['admin_members'], 'gID=' . $_GET[gID] . '&gName=false&action=new_group'));
         } else {
-          $check_groups_name_query = "SELECT admin_groups_name as group_name_new FROM ". $oostable['admin_groups'] . " WHERE admin_groups_name like '%" . $name_replace . "%'";
+          $check_groups_name_query = "SELECT admin_groups_name as group_name_new FROM ". $oostable['admin_groups'] . " WHERE admin_groups_name like '%" . oos_db_input($name_replace) . "%'";
           $check_groups_name_result = $dbconn->Execute($check_groups_name_query);
           $check_duplicate = $check_groups_name_result->RecordCount();
           if ($check_duplicate > 0){
@@ -186,7 +186,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
             $set_groups_id = oos_db_prepare_input($_POST['set_groups_id']);
             $add_group_id = $set_groups_id . ',\'' . $admin_groups_id . '\'';
-            $query = "alter table " . $oostable['admin_files'] . " change admin_groups_id admin_groups_id set( " . $add_group_id . ") NOT NULL DEFAULT '1' ";
+            $query = "alter table " . $oostable['admin_files'] . " change admin_groups_id admin_groups_id set( " . oos_db_input($add_group_id) . ") NOT NULL DEFAULT '1' ";
             $dbconn->Execute($query);
 
             oos_redirect_admin(oos_href_link_admin($aContents['admin_members'], 'gID=' . $admin_groups_id));
@@ -248,7 +248,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 <?php
  if ($_GET['gPath']) {
    $admin_groupstable = $oostable['admin_groups'];
-   $group_name_query = "SELECT admin_groups_name FROM $admin_groupstable WHERE admin_groups_id = " . $_GET['gPath'];
+   $group_name_query = "SELECT admin_groups_name FROM $admin_groupstable WHERE admin_groups_id = " . intval($_GET['gPath']);
    $group_name = $dbconn->GetRow($group_name_query);
 
    if ($_GET['gPath'] == 1) {
@@ -271,7 +271,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
   $db_boxes_result = $dbconn->Execute($db_boxes_query);
   while ($group_boxes = $db_boxes_result->fields) {
     $admin_filestable = $oostable['admin_files'];
-    $group_boxes_files_query = "SELECT admin_files_id, admin_files_name, admin_groups_id FROM $admin_filestable WHERE admin_files_is_boxes = '0' and admin_files_to_boxes = '" . $group_boxes['admin_boxes_id'] . "' ORDER BY admin_files_name";
+    $group_boxes_files_query = "SELECT admin_files_id, admin_files_name, admin_groups_id FROM $admin_filestable WHERE admin_files_is_boxes = '0' and admin_files_to_boxes = '" . intval($group_boxes['admin_boxes_id']) . "' ORDER BY admin_files_name";
     $group_boxes_files_result = $dbconn->Execute($group_boxes_files_query);
 
     $selectedGroups = $group_boxes['boxes_group_id'];
@@ -411,7 +411,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
   $db_admin_result = $dbconn->Execute($db_admin_result_raw);
 
   while ($admin = $db_admin_result->fields) {
-    $admin_group_query = "SELECT admin_groups_name FROM ". $oostable['admin_groups'] . " WHERE admin_groups_id = '" . $admin['admin_groups_id'] . "'";
+    $admin_group_query = "SELECT admin_groups_name FROM ". $oostable['admin_groups'] . " WHERE admin_groups_id = '" . intval($admin['admin_groups_id']) . "'";
     $admin_group_result = $dbconn->Execute($admin_group_query);
     $admin_group = $admin_group_result->fields;
     if ((!isset($_GET['mID']) || (isset($_GET['mID']) && ($_GET['mID'] == $admin['admin_id']))) && !isset($mInfo)) {

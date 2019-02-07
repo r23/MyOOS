@@ -29,14 +29,13 @@ $currencies = new currencies();
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
 $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
 
-
 if (!empty($action)) {
     switch ($action) {
 		case 'slave_delete':
 			$dbconn->Execute("DELETE FROM " . $oostable['products_to_master'] . " WHERE slave_id = " . intval($_GET['slave_id']) . " AND master_id = " . intval($_GET['master_id']) . " LIMIT 1");
-			$check_product_result = $dbconn->Execute("SELECT slave_id, master_id FROM " . $oostable['products_to_master'] . " WHERE slave_id = " . $_GET['slave_id']);
+			$check_product_result = $dbconn->Execute("SELECT slave_id, master_id FROM " . $oostable['products_to_master'] . " WHERE slave_id = " . intval($_GET['slave_id']));
 			if ($check_product_result->RecordCount() == 0) {
-				$dbconn->Execute("UPDATE " . $oostable['products'] . " SET products_slave_visible = '1' WHERE products_id = " . $_GET['slave_id']);
+				$dbconn->Execute("UPDATE " . $oostable['products'] . " SET products_slave_visible = '1' WHERE products_id = " . intval($_GET['slave_id']));
 			}
 			$messageStack->add_session('Slave Deleted', 'success');
 			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $_GET['cPath'] . '&amp;pID=' . $_GET['master_id'] . '&amp;action=slave_products'));
@@ -51,7 +50,7 @@ if (!empty($action)) {
 				}
 			}
 			
-			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $_GET['cPath'] . 'pID=' . $_GET['pID'] . (isset($_GET['page']) ? '&page=' . $_GET['page'] : '') . ((isset($_GET['search']) && !empty($_GET['search'])) ? '&search=' . $_GET['search'] : '')));
+			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $_GET['cPath'] . 'pID=' . $_GET['pID'] . '&page=' . $nPage . ((isset($_GET['search']) && !empty($_GET['search'])) ? '&search=' . $_GET['search'] : '')));
 			break;
 
 		case 'delete_category_confirm':
@@ -215,7 +214,7 @@ require 'includes/header.php';
 <?php
     $categories_count = 0;
     $rows = 0;
-    $categories_result = $dbconn->Execute("SELECT c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified, c.categories_status FROM " . $oostable['categories'] . " c, " . $oostable['categories_description'] . " cd WHERE c.parent_id = '" . $current_category_id . "' and c.categories_id = cd.categories_id and cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY c.sort_order, cd.categories_name");
+    $categories_result = $dbconn->Execute("SELECT c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified, c.categories_status FROM " . $oostable['categories'] . " c, " . $oostable['categories_description'] . " cd WHERE c.parent_id = '" . intval($current_category_id) . "' and c.categories_id = cd.categories_id and cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY c.sort_order, cd.categories_name");
 
     while ($categories = $categories_result->fields) {
       $categories_count++;
@@ -266,7 +265,7 @@ require 'includes/header.php';
 // Get categories_id for product if search
       if ((!isset($_GET['pID']) && !isset($_GET['cID']) || (isset($_GET['pID']) && ($_GET['pID'] == $products['products_id']))) && !isset($pInfo)  && !isset($cInfo) && (substr($action, 0, 3) != 'new')) {
         // find out the rating average from customer reviews
-        $reviews_result = $dbconn->Execute("SELECT (avg(reviews_rating) / 5 * 100) as average_rating FROM " . $oostable['reviews'] . " WHERE products_id = '" . $products['products_id'] . "'");
+        $reviews_result = $dbconn->Execute("SELECT (avg(reviews_rating) / 5 * 100) as average_rating FROM " . $oostable['reviews'] . " WHERE products_id = '" . intval($products['products_id']) . "'");
         $reviews = $reviews_result->fields;
         $pInfo_array = array_merge($products, $reviews);
         $pInfo = new objectInfo($pInfo_array);
@@ -373,7 +372,7 @@ require 'includes/header.php';
                               $specialstable s
                         WHERE s.status = '1' AND
                               p.products_id = s.products_id AND
-                              s.products_id = '" . $pInfo->products_id . "'";
+                              s.products_id = '" . intval($pInfo->products_id) . "'";
               $specials_result = $dbconn->Execute($query);
               if (!$specials_result->RecordCount()) {
                 $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['specials'], 'pID=' . $pInfo->products_id . '&amp;action=new') . '">' . oos_button('specials', IMAGE_SPECIALS) . '</a>');
@@ -410,7 +409,7 @@ require 'includes/header.php';
             if ($action != 'new_product_preview'){
               $sPriceNetto = round($sPrice,TAX_DECIMAL_PLACES);
               $sPriceListNetto = round($sPriceList,TAX_DECIMAL_PLACES);
-              $tax_result = $dbconn->Execute("SELECT tax_rate FROM " . $oostable['tax_rates'] . " WHERE tax_class_id = '" . $pInfo->products_tax_class_id . "' ");
+              $tax_result = $dbconn->Execute("SELECT tax_rate FROM " . $oostable['tax_rates'] . " WHERE tax_class_id = '" . intval($pInfo->products_tax_class_id) . "' ");
               $tax = $tax_result->fields;
               $sPrice = ($sPrice*($tax['tax_rate']+100)/100);
               $sPriceList = ($sPriceList*($tax['tax_rate']+100)/100);

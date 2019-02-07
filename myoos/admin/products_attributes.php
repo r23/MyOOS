@@ -52,7 +52,7 @@
           $option_type = $_POST['option_type'];
 
           $products_optionstable = $oostable['products_options'];
-          $dbconn->Execute("INSERT INTO $products_optionstable (products_options_id, products_options_name, products_options_languages_id,products_options_type) VALUES ('" . $_POST['products_options_id'] . "', '" . $option_name[$languages[$i]['id']] . "', '" . $languages[$i]['id'] . "', '" . $option_type . "')");
+          $dbconn->Execute("INSERT INTO $products_optionstable (products_options_id, products_options_name, products_options_languages_id,products_options_type) VALUES ('" . intval($_POST['products_options_id']) . "', '" . oos_db_input($option_name[$languages[$i]['id']]) . "', '" . oos_db_input($languages[$i]['id']) . "', '" . oos_db_input($option_type) . "')");
         }
         switch ($option_type) {
           case PRODUCTS_OPTIONS_TYPE_TEXT:
@@ -70,26 +70,26 @@
           $value_name = $_POST['value_name'];
 
           $products_options_valuestable = $oostable['products_options_values'];
-          $dbconn->Execute("INSERT INTO $products_options_valuestable (products_options_values_id, products_options_values_languages_id, products_options_values_name) VALUES ('" . $_POST['value_id'] . "', '" . $languages[$i]['id'] . "', '" . $value_name[$languages[$i]['id']] . "')");
+          $dbconn->Execute("INSERT INTO $products_options_valuestable (products_options_values_id, products_options_values_languages_id, products_options_values_name) VALUES ('" . intval($_POST['value_id']) . "', '" . intval($languages[$i]['id']) . "', '" . oos_db_input($value_name[$languages[$i]['id']]) . "')");
         }
 
         $products_options_values_to_products_optionstable = $oostable['products_options_values_to_products_options'];
-        $dbconn->Execute("INSERT INTO $products_options_values_to_products_optionstable (products_options_id, products_options_values_id) VALUES ('" . $_POST['option_id'] . "', '" . $_POST['value_id'] . "')");
+        $dbconn->Execute("INSERT INTO $products_options_values_to_products_optionstable (products_options_id, products_options_values_id) VALUES ('" . intval($_POST['option_id']) . "', '" . intval($_POST['value_id']) . "')");
         oos_redirect_admin(oos_href_link_admin($aContents['products_attributes'], $page_info));
         break;
 
       case 'add_product_attributes':
         $products_optionstable = $oostable['products_options'];
-        $products_options_result = $dbconn->Execute("SELECT products_options_type FROM $products_optionstable WHERE products_options_id = '" . $_POST['options_id'] . "'");
+        $products_options_result = $dbconn->Execute("SELECT products_options_type FROM $products_optionstable WHERE products_options_id = '" . intval($_POST['options_id']) . "'");
         $products_options_array = $products_options_result->fields;
         $values_id = (($products_options_array['products_options_type'] == PRODUCTS_OPTIONS_TYPE_TEXT) or ($products_options_array['products_options_type'] == PRODUCTS_OPTIONS_TYPE_FILE)) ? PRODUCTS_OPTIONS_VALUE_TEXT_ID : $_POST['values_id'];
 
         $products_attributestable = $oostable['products_attributes'];
-        $dbconn->Execute("INSERT INTO $products_attributestable VALUES ('', '" . $_POST['products_id'] . "', '" . $_POST['options_id'] . "', '" . $_POST['values_id'] . "', '" . $_POST['value_price'] . "', '" . $_POST['price_prefix'] . "', '" . $_POST['sort_order'] . "')");
+        $dbconn->Execute("INSERT INTO $products_attributestable VALUES ('', '" . intval($_POST['products_id']) . "', '" . intval($_POST['options_id']) . "', '" . intval($_POST['values_id']) . "', '" . oos_db_input($_POST['value_price']) . "', '" . oos_db_input($_POST['price_prefix']). "', '" . oos_db_input($_POST['sort_order']) . "')");
         $products_attributes_id = $dbconn->Insert_ID();
         if ((DOWNLOAD_ENABLED == 'true') && $_POST['products_attributes_filename'] != '') {
           $products_attributes_downloadtable = $oostable['products_attributes_download'];
-          $dbconn->Execute("INSERT INTO $products_attributes_downloadtable VALUES (" . $products_attributes_id . ", '" . $_POST['products_attributes_filename'] . "', '" . $_POST['products_attributes_maxdays'] . "', '" . $_POST['products_attributes_maxcount'] . "')");
+          $dbconn->Execute("INSERT INTO $products_attributes_downloadtable VALUES (" . $products_attributes_id . ", '" . $_POST['products_attributes_filename'] . "', '" . oos_db_input($_POST['products_attributes_maxdays']) . "', '" . oos_db_input($_POST['products_attributes_maxcount']) . "')");
         }
         oos_redirect_admin(oos_href_link_admin($aContents['products_attributes'], $page_info));
         break;
@@ -99,13 +99,13 @@
           $option_name = $_POST['option_name'];
           $option_type = $_POST['option_type'];
           $products_optionstable = $oostable['products_options'];
-          $dbconn->Execute("UPDATE $products_optionstable SET products_options_name = '" . $option_name[$languages[$i]['id']] . "', products_options_type = '" . $option_type . "' WHERE products_options_id = '" . $_POST['option_id'] . "' AND products_options_languages_id = '" . $languages[$i]['id'] . "'");
+          $dbconn->Execute("UPDATE $products_optionstable SET products_options_name = '" . $option_name[$languages[$i]['id']] . "', products_options_type = '" . $option_type . "' WHERE products_options_id = '" . intval($_POST['option_id']) . "' AND products_options_languages_id = '" . $languages[$i]['id'] . "'");
         }
         switch ($option_type) {
           case PRODUCTS_OPTIONS_TYPE_TEXT:
           case PRODUCTS_OPTIONS_TYPE_FILE:
             $products_options_values_to_products_optionstable = $oostable['products_options_values_to_products_options'];
-            $dbconn->Execute("INSERT INTO $products_options_values_to_products_optionstable VALUES (NULL, '" . $_POST['option_id'] . "', '" . PRODUCTS_OPTIONS_VALUES_TEXT_ID . "')");
+            $dbconn->Execute("INSERT INTO $products_options_values_to_products_optionstable VALUES (NULL, '" . intval($_POST['option_id']) . "', '" . PRODUCTS_OPTIONS_VALUES_TEXT_ID . "')");
             break;
           default:
             $products_options_values_to_products_optionstable = $oostable['products_options_values_to_products_options'];
@@ -119,12 +119,12 @@
           $value_name = $_POST['value_name'];
 
           $products_options_valuestable = $oostable['products_options_values'];
-          $dbconn->Execute("UPDATE $products_options_valuestable SET products_options_values_name = '" . $value_name[$languages[$i]['id']] . "' WHERE products_options_values_id = '" . $_POST['value_id'] . "' AND  products_options_values_languages_id= '" . $languages[$i]['id'] . "'");
+          $dbconn->Execute("UPDATE $products_options_valuestable SET products_options_values_name = '" . $value_name[$languages[$i]['id']] . "' WHERE products_options_values_id = '" . intval($_POST['value_id']) . "' AND  products_options_values_languages_id= '" . $languages[$i]['id'] . "'");
         }
 
         $products_options_values_to_products_optionstable = $oostable['products_options_values_to_products_options'];
-        // $dbconn->Execute("UPDATE $products_options_values_to_products_optionstable SET products_options_id = '" . $_POST['option_id'] . "', products_options_values_id = '" . $_POST['value_id'] . "'  WHERE products_options_values_to_products_options_id = '" . $_POST['value_id'] . "'");
-        $dbconn->Execute("UPDATE $products_options_values_to_products_optionstable SET products_options_id = '" . $_POST['option_id'] . "' WHERE products_options_values_id = '" . $_POST['value_id'] . "'");
+        // $dbconn->Execute("UPDATE $products_options_values_to_products_optionstable SET products_options_id = '" . intval($_POST['option_id']) . "', products_options_values_id = '" . intval($_POST['value_id']) . "'  WHERE products_options_values_to_products_options_id = '" . intval($_POST['value_id']) . "'");
+        $dbconn->Execute("UPDATE $products_options_values_to_products_optionstable SET products_options_id = '" . intval($_POST['option_id']) . "' WHERE products_options_values_id = '" . intval($_POST['value_id']) . "'");
 
         oos_redirect_admin(oos_href_link_admin($aContents['products_attributes'], $page_info));
         break;
@@ -132,7 +132,7 @@
       case 'update_product_attribute':
 
         $products_optionstable = $oostable['products_options'];
-        $products_options_result = $dbconn->Execute("SELECT products_options_type FROM $products_optionstable WHERE products_options_id = '" . $_POST['options_id'] . "'");
+        $products_options_result = $dbconn->Execute("SELECT products_options_type FROM $products_optionstable WHERE products_options_id = '" . intval($_POST['options_id']) . "'");
         $products_options_array = $products_options_result->fields;
         switch ($products_options_array['products_options_type']) {
           case PRODUCTS_OPTIONS_TYPE_TEXT:
@@ -144,38 +144,38 @@
         }
 
         $products_attributestable = $oostable['products_attributes'];
-        $dbconn->Execute("UPDATE $products_attributestable SET products_id = '" . $_POST['products_id'] . "', options_id = '" . $_POST['options_id'] . "', options_values_id = '" . $_POST['values_id'] . "', options_values_price = '" . $_POST['value_price'] . "', price_prefix = '" . $_POST['price_prefix'] . "', options_sort_order = '" . $_POST['sort_order'] . "' WHERE products_attributes_id = '" . $_POST['attribute_id'] . "'");
+        $dbconn->Execute("UPDATE $products_attributestable SET products_id = '" . intval($_POST['products_id']) . "', options_id = '" . intval($_POST['options_id']) . "', options_values_id = '" . intval($_POST['values_id']) . "', options_values_price = '" . oos_db_input($_POST['value_price']) . "', price_prefix = '" . oos_db_input($_POST['price_prefix']). "', options_sort_order = '" . oos_db_input($_POST['sort_order']) . "' WHERE products_attributes_id = '" . oos_db_input($_POST['attribute_id']) . "'");
 
         if ((DOWNLOAD_ENABLED == 'true') && $_POST['products_attributes_filename'] != '') {
           $products_attributes_downloadtable = $oostable['products_attributes_download'];
           $dbconn->Execute("UPDATE $products_attributes_downloadtable
-                        SET products_attributes_filename='" . $_POST['products_attributes_filename'] . "',
-                            products_attributes_maxdays='" . $_POST['products_attributes_maxdays'] . "',
-                            products_attributes_maxcount='" . $_POST['products_attributes_maxcount'] . "'
-                        WHERE products_attributes_id = '" . $_POST['attribute_id'] . "'");
+                        SET products_attributes_filename='" . oos_db_input($_POST['products_attributes_filename']) . "',
+                            products_attributes_maxdays='" . oos_db_input($_POST['products_attributes_maxdays']) . "',
+                            products_attributes_maxcount='" . oos_db_input($_POST['products_attributes_maxcount']) . "'
+                        WHERE products_attributes_id = '" . intval($_POST['attribute_id']) . "'");
         }
         oos_redirect_admin(oos_href_link_admin($aContents['products_attributes'], $page_info));
         break;
       case 'delete_option':
         $products_optionstable = $oostable['products_options'];
-        $dbconn->Execute("DELETE FROM $products_optionstable WHERE products_options_id = '" . $_GET['option_id'] . "'");
+        $dbconn->Execute("DELETE FROM $products_optionstable WHERE products_options_id = '" . intval($_GET['option_id']) . "'");
 
         $products_options_values_to_products_optionstable = $oostable['products_options_values_to_products_options'];
-        $dbconn->Execute("DELETE FROM $products_options_values_to_products_optionstable WHERE products_options_id = '" . (int)$option_id . "' AND products_options_values_id = '" . PRODUCTS_OPTIONS_VALUES_TEXT_ID . "'");
+        $dbconn->Execute("DELETE FROM $products_options_values_to_products_optionstable WHERE products_options_id = '" . intval($option_id) . "' AND products_options_values_id = '" . PRODUCTS_OPTIONS_VALUES_TEXT_ID . "'");
         oos_redirect_admin(oos_href_link_admin($aContents['products_attributes'], $page_info));
         break;
       case 'delete_value':
         $products_options_valuestable = $oostable['products_options_values'];
-        $dbconn->Execute("DELETE FROM $products_options_valuestable WHERE products_options_values_id = '" . $_GET['value_id'] . "'");
+        $dbconn->Execute("DELETE FROM $products_options_valuestable WHERE products_options_values_id = '" . intval($_GET['value_id']) . "'");
         $products_options_values_to_products_optionstable = $oostable['products_options_values_to_products_options'];
-        $dbconn->Execute("DELETE FROM $products_options_values_to_products_optionstable WHERE products_options_values_id = '" . $_GET['value_id'] . "'");
+        $dbconn->Execute("DELETE FROM $products_options_values_to_products_optionstable WHERE products_options_values_id = '" . intval($_GET['value_id']) . "'");
         oos_redirect_admin(oos_href_link_admin($aContents['products_attributes'], $page_info));
         break;
       case 'delete_attribute':
         $products_attributestable = $oostable['products_attributes'];
-        $dbconn->Execute("DELETE FROM $products_attributestable WHERE products_attributes_id = '" . $_GET['attribute_id'] . "'");
+        $dbconn->Execute("DELETE FROM $products_attributestable WHERE products_attributes_id = '" . intval($_GET['attribute_id']) . "'");
         $products_attributes_downloadtable = $oostable['products_attributes_download'];
-        $dbconn->Execute("DELETE FROM $products_attributes_downloadtable WHERE products_attributes_id = '" . $_GET['attribute_id'] . "'");
+        $dbconn->Execute("DELETE FROM $products_attributes_downloadtable WHERE products_attributes_id = '" . intval($_GET['attribute_id']) . "'");
         oos_redirect_admin(oos_href_link_admin($aContents['products_attributes'], $page_info));
         break;
     }
@@ -245,7 +245,7 @@ function go_option() {
 <?php
   if ($action == 'delete_product_option') { // delete product option
     $products_optionstable = $oostable['products_options'];
-    $options = $dbconn->Execute("SELECT products_options_id, products_options_name FROM $products_optionstable WHERE products_options_id = '" . $_GET['option_id'] . "' AND products_options_languages_id = '" . intval($_SESSION['language_id']) . "'");
+    $options = $dbconn->Execute("SELECT products_options_id, products_options_name FROM $products_optionstable WHERE products_options_id = '" . intval($_GET['option_id']) . "' AND products_options_languages_id = '" . intval($_SESSION['language_id']) . "'");
     $options_values = $options->fields;
 ?>
               <tr>
@@ -261,7 +261,7 @@ function go_option() {
     $products_options_valuestable = $oostable['products_options_values'];
     $products_attributestable = $oostable['products_attributes'];
     $products_descriptiontable = $oostable['products_description'];
-    $products = $dbconn->Execute("SELECT p.products_id, pd.products_name, pov.products_options_values_name FROM $productstable p, $products_options_valuestable pov, $products_attributestable pa, $products_descriptiontable pd WHERE pd.products_id = p.products_id AND pov.products_options_values_languages_id = '" . intval($_SESSION['language_id']) . "' AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' AND pa.products_id = p.products_id AND pa.options_id='" . $_GET['option_id'] . "' AND pov.products_options_values_id = pa.options_values_id ORDER BY pd.products_name");
+    $products = $dbconn->Execute("SELECT p.products_id, pd.products_name, pov.products_options_values_name FROM $productstable p, $products_options_valuestable pov, $products_attributestable pa, $products_descriptiontable pd WHERE pd.products_id = p.products_id AND pov.products_options_values_languages_id = '" . intval($_SESSION['language_id']) . "' AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' AND pa.products_id = p.products_id AND pa.options_id='" . intval($_GET['option_id']) . "' AND pov.products_options_values_id = pa.options_values_id ORDER BY pd.products_name");
     if ($products->RecordCount()) {
 ?>
 					<thead class="thead-dark">
@@ -460,7 +460,7 @@ function go_option() {
 <?php
   if ($action == 'delete_option_value') { // delete product option value
     $products_options_valuestable = $oostable['products_options_values'];
-    $values = $dbconn->Execute("SELECT products_options_values_id, products_options_values_name FROM $products_options_valuestable WHERE products_options_values_id = '" . $_GET['value_id'] . "' AND products_options_values_languages_id = '" . intval($_SESSION['language_id']) . "'");
+    $values = $dbconn->Execute("SELECT products_options_values_id, products_options_values_name FROM $products_options_valuestable WHERE products_options_values_id = '" . intval($_GET['value_id']) . "' AND products_options_values_languages_id = '" . intval($_SESSION['language_id']) . "'");
     $values_values = $values->fields;
 ?>
               <tr>
@@ -476,7 +476,7 @@ function go_option() {
     $products_attributestable = $oostable['products_attributes'];
     $products_optionstable = $oostable['products_options'];
     $products_descriptiontable = $oostable['products_description'];
-    $products = $dbconn->Execute("SELECT p.products_id, pd.products_name, po.products_options_name FROM $productstable p, $products_attributestable pa, $products_optionstable po, $products_descriptiontable pd WHERE pd.products_id = p.products_id AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' AND po.products_options_languages_id = '" . intval($_SESSION['language_id']) . "' AND pa.products_id = p.products_id AND pa.options_values_id='" . $_GET['value_id'] . "' AND po.products_options_id = pa.options_id ORDER BY pd.products_name");
+    $products = $dbconn->Execute("SELECT p.products_id, pd.products_name, po.products_options_name FROM $productstable p, $products_attributestable pa, $products_optionstable po, $products_descriptiontable pd WHERE pd.products_id = p.products_id AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' AND po.products_options_languages_id = '" . intval($_SESSION['language_id']) . "' AND pa.products_id = p.products_id AND pa.options_values_id='" . intval($_GET['value_id']) . "' AND po.products_options_id = pa.options_id ORDER BY pd.products_name");
     if ($products->RecordCount()) {
 ?>
 					<thead class="thead-dark">

@@ -31,7 +31,7 @@
       case 'save':
         foreach ($_POST['configuration'] as $key => $value) {		
           $configurationtable = $oostable['configuration'];
-          $dbconn->Execute("UPDATE $configurationtable SET configuration_value = '" . $value . "' WHERE configuration_key = '" . $key . "'");
+          $dbconn->Execute("UPDATE $configurationtable SET configuration_value = '" . oos_db_input($value) . "' WHERE configuration_key = '" . oos_db_input($key) . "'");
         }
         oos_redirect_admin(oos_href_link_admin($aContents['plugins'], 'plugin=' . $_GET['plugin']));
         break;
@@ -231,7 +231,7 @@
       if (is_array($plugin_keys) && (sizeof($plugin_keys) > 0)) {
         foreach ($plugin_keys as $key) {
           $configurationtable = $oostable['configuration'];
-          $key_value_result = $dbconn->Execute("SELECT configuration_value, use_function, set_function FROM $configurationtable WHERE configuration_key = '" . $key . "'");
+          $key_value_result = $dbconn->Execute("SELECT configuration_value, use_function, set_function FROM $configurationtable WHERE configuration_key = '" . oos_db_input($key) . "'");
           $key_value = $key_value_result->fields;
 
           $keys_extra[$key]['title'] = constant(strtoupper($key . '_TITLE'));

@@ -30,7 +30,7 @@ $currencies = new currencies();
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
 $cPath = (isset($_GET['cPath']) ? oos_prepare_input($_GET['cPath']) : $current_category_id);
 $cID = (isset($_GET['cID']) ? intval($_GET['cID']) : 0);
-$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);  
+$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
 
 if (!empty($action)) {
     switch ($action) {
@@ -84,27 +84,8 @@ if (!empty($action)) {
 				}
 			}
 
-			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . intval($_GET['pID']) . '&cID=' . intval($_GET['cID']) . '&page=' . $nPage . ((isset($_GET['search']) && !empty($_GET['search'])) ? '&search=' . $_GET['search'] : '')));
+			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . intval($_GET['pID']) . '&cID=' . intval($cID) .  '&page=' . $nPage . ((isset($_GET['search']) && !empty($_GET['search'])) ? '&search=' . $_GET['search'] : '')));
 			break;
-
-
-		case 'delete_category':
-			if (isset($_GET['cID']) && is_numeric($_GET['cID'])) {
-				oos_set_categories_status($_GET['cID'], 0);
-			}
-
-			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath .  '&cID=' . intval($_GET['cID']) . '&page=' . $nPage . ((isset($_GET['search']) && !empty($_GET['search'])) ? '&search=' . $_GET['search'] : '')));
-			break;
-
-		case 'delete_product':
-			if (isset($_GET['pID']) && is_numeric($_GET['pID'])) {
-				oos_set_product_status($_GET['pID'], 0);
-			}
-
-			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath .  '&pID=' . intval($_GET['pID']) . '&page=' . $nPage . ((isset($_GET['search']) && !empty($_GET['search'])) ? '&search=' . $_GET['search'] : '')));
-			break;
-
-
 
 		case 'insert_category':
 		case 'update_category':
@@ -164,9 +145,9 @@ if (!empty($action)) {
 
 
 			$options = array(
-				'image_versions' => array(				
+				'image_versions' => array(
                 // The empty image version key defines options for the original image.
-                // Keep in mind: these image manipulations are inherited by all other image versions from this point onwards. 
+                // Keep in mind: these image manipulations are inherited by all other image versions from this point onwards.
                 // Also note that the property 'no_cache' is not inherited, since it's not a manipulation.
 					'' => array(
 						// Automatically rotate images based on EXIF meta data:
@@ -180,7 +161,7 @@ if (!empty($action)) {
 						// 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
 						'max_width' => 1024, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
 						'max_height' => 1024, // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
-					),					
+					),
 					'medium' => array(
 						// 'auto_orient' => TRUE,
 						// 'crop' => TRUE,
@@ -189,7 +170,7 @@ if (!empty($action)) {
 						// 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
 						'max_width' => 300, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
 						'max_height' => 300 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
-					),				
+					),
 					'small' => array(
 						// 'auto_orient' => TRUE,
 						// 'crop' => TRUE,
@@ -198,10 +179,10 @@ if (!empty($action)) {
 						// 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
 						'max_width' => 150, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
 						'max_height' => 150 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
-					),			
+					),
 				),
 			);
-			
+
 			$oCategoriesImage = new upload('categories_image', $options);
 
 			$dir_fs_catalog_images = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'category/';
@@ -209,34 +190,93 @@ if (!empty($action)) {
 			$oCategoriesImage->parse();
 
 			if (oos_is_not_null($oCategoriesImage->filename)) {
-			
+
 				$categoriestable = $oostable['categories'];
 				$dbconn->Execute("UPDATE $categoriestable
                             SET categories_image = '" . oos_db_input($oCategoriesImage->filename) . "'
-                            WHERE categories_id = '" . intval($categories_id) . "'");				
-			}	
-			
+                            WHERE categories_id = '" . intval($categories_id) . "'");
+			}
+
 			if (isset($_FILES['files'])) {
 				$oImage = new upload('files', $options);
-		
+
 				$dir_fs_catalog_images = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'category/';
 				$oImage->set_destination($dir_fs_catalog_images);
 				$oImage->parse();
-								
+
 				if (oos_is_not_null($oImage->response)) {
-					$sort_order = 0;					
+					$sort_order = 0;
 					foreach ($oImage->response as $index => $value) {
-						$sort_order++;						
+						$sort_order++;
 						$sql_data_array = array('categories_id' => intval($categories_id),
 												'categories_image' => oos_db_prepare_input($value),
 												'sort_order' => intval($sort_order));
-						oos_db_perform($oostable['categories_images'], $sql_data_array);		
+						oos_db_perform($oostable['categories_images'], $sql_data_array);
 					}
 				}
 			}
 
 			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $categories_id));
 
+			break;
+
+		case 'delete_category_confirm':
+			if (isset($_POST['categories_id'])) {
+				$categories_id = oos_db_prepare_input($_POST['categories_id']);
+
+				$categories = oos_get_category_tree($categories_id, '', '0', '', TRUE);
+				$products = array();
+				$products_delete = array();
+
+				for ($i = 0, $n = count($categories); $i < $n; $i++) {
+					$product_ids_result = $dbconn->Execute("SELECT products_id FROM " . $oostable['products_to_categories'] . " WHERE categories_id = '" . intval($categories[$i]['id']) . "'");
+					while ($product_ids = $product_ids_result->fields) {
+						$products[$product_ids['products_id']]['categories'][] = $categories[$i]['id'];
+
+						// Move that ADOdb pointer!
+						$product_ids_result->MoveNext();
+					}
+				}
+
+				reset($products);
+				foreach ($products as $key => $value) {
+					$category_ids = '';
+					for ($i = 0, $n = count($value['categories']); $i < $n; $i++) {
+						$category_ids .= '\'' . $value['categories'][$i] . '\', ';
+					}
+					$category_ids = substr($category_ids, 0, -2);
+
+					$check_result = $dbconn->Execute("SELECT COUNT(*) AS total FROM " . $oostable['products_to_categories'] . " WHERE products_id = '" . intval($key) . "' and categories_id not in (" . $category_ids . ")");
+					$check = $check_result->fields;
+					if ($check['total'] < '1') {
+						$products_delete[$key] = $key;
+					}
+				}
+
+				for ($i = 0, $n = count($categories); $i < $n; $i++) {
+					oos_remove_category($categories[$i]['id']);
+				}
+
+				foreach($products_delete as $key) {
+					product_move_to_trash($key);
+				}
+			}
+
+			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath));
+			break;
+
+		case 'delete_product_confirm':
+			if (isset($_POST['products_id']) && isset($_POST['product_categories']) && is_array($_POST['product_categories'])) {
+				$product_id = oos_db_prepare_input($_POST['products_id']);
+
+				$product_categories_result = $dbconn->Execute("SELECT COUNT(*) AS total FROM " . $oostable['products_to_categories'] . " WHERE products_id = '" . (int)$product_id . "'");
+				$product_categories = $product_categories_result->fields;
+
+				if ($product_categories['total'] == '0') {
+					product_move_to_trash($product_id);
+				}
+			}
+			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath));
 			break;
 
 		case 'move_category_confirm':
@@ -597,13 +637,13 @@ if ($action == 'new_category' || $action == 'edit_category') {
 							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_EDIT_CATEGORIES_DESCRIPTION; ?></label>
 							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
 							<div class="col-lg-9">
-								<?php echo oos_draw_editor_field('categories_description[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '15', (($categories_description[$aLanguages[$i]['id']]) ? stripslashes($categories_description[$aLanguages[$i]['id']]) : oos_get_category_description($cInfo->categories_id, $aLanguages[$i]['id']))); ?>						
+								<?php echo oos_draw_editor_field('categories_description[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '15', (($categories_description[$aLanguages[$i]['id']]) ? stripslashes($categories_description[$aLanguages[$i]['id']]) : oos_get_category_description($cInfo->categories_id, $aLanguages[$i]['id']))); ?>
 							</div>
 						</div>
 					</fieldset>
 			<script>
 				CKEDITOR.replace( 'categories_description[<?php echo $aLanguages[$i]['id']; ?>]');
-			</script>					
+			</script>
 <?php
 		}
 		for ($i=0; $i < count($aLanguages); $i++) {
@@ -659,13 +699,13 @@ if ($action == 'new_category' || $action == 'edit_category') {
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_EDIT_STATUS; ?></label>
                               <div class="col-lg-10"><?php echo oos_draw_pull_down_menu('categories_status', $aSetting, $cInfo->categories_status); ?></div>
                            </div>
-                        </fieldset>					
+                        </fieldset>
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_EDIT_SORT_ORDER; ?></label>
                               <div class="col-lg-10"><?php echo oos_draw_input_field('sort_order', $cInfo->sort_order); ?></div>
                            </div>
-                        </fieldset>								
+                        </fieldset>
                      </div>
                      <div class="tab-pane" id="picture" role="tabpanel">
 	<script type="text/javascript">
@@ -687,8 +727,8 @@ if ($action == 'new_category' || $action == 'edit_category') {
 			addUploadBoxes('place', 'filetemplate', 3);
 		}
 	// ]]> -->
-	</script>					 
-					 
+	</script>
+
 		<div class="row mb-3">
 			<div class="col-3">
 				<strong>Preview</strong>
@@ -704,7 +744,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
   <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
   <div>
     <span class="btn btn-warning btn-file"><span class="fileinput-new"><em class="fa fa-plus-circle fa-fw"></em><?php echo BUTTON_SELECT_IMAGE; ?></span><span class="fileinput-exists"><?php echo BUTTON_CHANGE; ?></span>
-	
+
 	<input type="file" size="40" name="categories_image"></span>
     <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput"><em class="fa fa-times-circle fa-fw"></em><?php echo BUTTON_DELETE; ?></a>
   </div>
@@ -713,7 +753,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 			</div>
 			<div class="col-9">
 				<strong>Details</strong>
-			</div>	
+			</div>
 		</div>
 
 		<div class="row mb-3 pb-3 bb">
@@ -723,7 +763,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
   <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 300px; height: 110px;"></div>
   <div>
     <span class="btn btn-warning btn-file"><span class="fileinput-new"><em class="fa fa-plus-circle fa-fw"></em><?php echo BUTTON_SELECT_IMAGE; ?></span><span class="fileinput-exists"><?php echo BUTTON_CHANGE; ?></span>
-	
+
 	<input type="file" size="40" name="files[]"></span>
     <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput"><em class="fa fa-times-circle fa-fw"></em><?php echo BUTTON_DELETE; ?></a>
   </div>
@@ -732,7 +772,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 			</div>
 			<div class="col-9">
 				<strong>Slider</strong>
-			</div>	
+			</div>
 		</div>
 
 		<div class="row mb-3 pb-3 bb">
@@ -742,7 +782,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
   <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 300px; height: 110px;"></div>
   <div>
     <span class="btn btn-warning btn-file"><span class="fileinput-new"><em class="fa fa-plus-circle fa-fw"></em><?php echo BUTTON_SELECT_IMAGE; ?></span><span class="fileinput-exists"><?php echo BUTTON_CHANGE; ?></span>
-	
+
 	<input type="file" size="40" name="files[]"></span>
     <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput"><em class="fa fa-times-circle fa-fw"></em><?php echo BUTTON_DELETE; ?></a>
   </div>
@@ -751,7 +791,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 			</div>
 			<div class="col-9">
 				<strong>Slider</strong>
-			</div>	
+			</div>
 		</div>
 
 
@@ -765,29 +805,29 @@ if ($action == 'new_category' || $action == 'edit_category') {
 		<!-- This is the template that others are copied from -->
 		<div id="filetemplate" >
                         <div class="row mb-3">
-                           <div class="col-3">		
+                           <div class="col-3">
 <div class="fileinput fileinput-new" data-provides="fileinput">
   <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 300px; height: 110px;"></div>
   <div>
     <span class="btn btn-warning btn-file"><span class="fileinput-new"><em class="fa fa-plus-circle fa-fw"></em><?php echo BUTTON_SELECT_IMAGE; ?></span><span class="fileinput-exists"><?php echo BUTTON_CHANGE; ?></span>
-	
+
 	<input type="file" size="40" name="files[]"></span>
     <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput"><em class="fa fa-times-circle fa-fw"></em><?php echo BUTTON_DELETE; ?></a>
   </div>
-</div>		
+</div>
 
                            </div>
                            <div class="col-9">
                               <strong>Slider</strong>
-                           </div>	
+                           </div>
 						</div>
 		</div>
 	</div>
 	<p id="addUploadBoxes"><a href="javascript:addUploadBoxes('place','filetemplate',3)" title="<?php echo TEXT_NOT_RELOAD; ?>">+ <?php echo TEXT_ADD_MORE_UPLOAD; ?></a></p>
 
 
-			 
-					 
+
+
                      </div>
                   </div>
                </div>
@@ -910,7 +950,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
     $categories_count = 0;
     $rows = 0;
     if (isset($_GET['search'])) {
-      $categories_result = $dbconn->Execute("SELECT c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified, c.categories_status FROM " . $oostable['categories'] . " c, " . $oostable['categories_description'] . " cd WHERE c.categories_id = cd.categories_id and cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "' and cd.categories_name like '%" . $_GET['search'] . "%' ORDER BY c.sort_order, cd.categories_name");
+      $categories_result = $dbconn->Execute("SELECT c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified, c.categories_status FROM " . $oostable['categories'] . " c, " . $oostable['categories_description'] . " cd WHERE c.categories_id = cd.categories_id and cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "' and cd.categories_name like '%" . oos_db_input($_GET['search']) . "%' ORDER BY c.sort_order, cd.categories_name");
     } else {
       $categories_result = $dbconn->Execute("SELECT c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified, c.categories_status FROM " . $oostable['categories'] . " c, " . $oostable['categories_description'] . " cd WHERE c.parent_id = '" . $current_category_id . "' and c.categories_id = cd.categories_id and cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY c.sort_order, cd.categories_name");
     }
@@ -998,7 +1038,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 
 ?></td>
                 <td class="text-center"><?php echo $products['products_sort_order']; ?></td>
-                <td class="text-right"><?php echo 		
+                <td class="text-right"><?php echo
 							'<a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=new_product') . '"><i class="fa fa-pencil" title="' .  BUTTON_EDIT . '"></i></a>
 							<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=delete_product') . '"><i class="fa fa-trash" title="' .  BUTTON_DELETE . '"></i></a>
 							<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=move_product') . '"><i class="fa fa-share" title="' . IMAGE_MOVE . '"></i></a>
@@ -1071,6 +1111,29 @@ if ($action == 'new_category' || $action == 'edit_category') {
         $contents[] = array('text' => sprintf(TEXT_MOVE_CATEGORIES_INTRO, $cInfo->categories_name));
         $contents[] = array('text' => '<br />' . sprintf(TEXT_MOVE, $cInfo->categories_name) . '<br />' . oos_draw_pull_down_menu('move_to_category_id', oos_get_category_tree('0', '', $cInfo->categories_id), $current_category_id));
         $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('move', IMAGE_MOVE) . ' <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
+        break;
+
+      case 'delete_product':
+        $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_PRODUCT . '</b>');
+
+        $contents = array('form' => oos_draw_form('id', 'products', $aContents['categories'], 'action=delete_product_confirm&cPath=' . $cPath, 'post', FALSE) . oos_draw_hidden_field('products_id', $pInfo->products_id));
+        $contents[] = array('text' => TEXT_DELETE_PRODUCT_INTRO);
+        $contents[] = array('text' => '<br /><b>' . $pInfo->products_name . '</b>');
+
+        $product_categories_string = '';
+        $product_categories = oos_generate_category_path($pInfo->products_id, 'product');
+        for ($i = 0, $n = count($product_categories); $i < $n; $i++) {
+          $category_path = '';
+          for ($j = 0, $k = count($product_categories[$i]); $j < $k; $j++) {
+            $category_path .= $product_categories[$i][$j]['text'] . '&nbsp;&gt;&nbsp;';
+          }
+          $category_path = substr($category_path, 0, -16);
+          $product_categories_string .= oos_draw_checkbox_field('product_categories[]', $product_categories[$i][count($product_categories[$i])-1]['id'], true) . '&nbsp;' . $category_path . '<br />';
+        }
+        $product_categories_string = substr($product_categories_string, 0, -4);
+
+        $contents[] = array('text' => '<br />' . $product_categories_string);
+        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', BUTTON_MOVE_TRASH) . ' <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
         break;
 
       case 'move_product':

@@ -44,7 +44,7 @@ require '../includes/classes/class_shopping_cart.php';
 
 // remove entries that have expired
   $whos_onlinetable = $oostable['whos_online'];
-  $dbconn->Execute("DELETE FROM $whos_onlinetable WHERE time_last_click < '" . $xx_mins_ago . "'");
+  $dbconn->Execute("DELETE FROM $whos_onlinetable WHERE time_last_click < '" . oos_db_input($xx_mins_ago) . "'");
 
   require 'includes/header.php';
 ?>
