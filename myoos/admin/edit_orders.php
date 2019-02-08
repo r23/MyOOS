@@ -74,7 +74,7 @@ require_once OOS_ABSOLUTE_PATH . '/includes/classes/class_order.php';
 
   $action = (isset($_GET['action']) ? $_GET['action'] : 'edit');
 //UPDATE_INVENTORY_QUANTITY_START#
-$order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " . $oostable['orders_products'] . " WHERE orders_id = '" . (int)$oID . "'");
+$order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " . $oostable['orders_products'] . " WHERE orders_id = '" . intval($oID) . "'");
 
 
   if (!empty($action)) {
@@ -139,7 +139,7 @@ $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " .
     $order_updated = true;
 
 
-          $check_status_result = $dbconn->Execute("select customers_name, customers_email_address, orders_status, date_purchased from " . $oostable['orders'] . " where orders_id = '" . (int)$oID . "'");
+          $check_status_result = $dbconn->Execute("select customers_name, customers_email_address, orders_status, date_purchased from " . $oostable['orders'] . " where orders_id = '" . intval($oID) . "'");
           $check_status = $check_status_result->fields;
 
     // Update Status History & Email Customer if Necessary
@@ -200,7 +200,7 @@ $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " .
       $order = $order_result->fields;
       if ($products_details['qty'] != $order['products_quantity']){
         $differenza_quantita = ($products_details['qty'] - $order['products_quantity']);
-        $dbconn->Execute("UPDATE " . $oostable['products'] . " SET products_quantity = products_quantity - " . $differenza_quantita . ", products_ordered = products_ordered + " . $differenza_quantita . " WHERE products_id = '" . (int)$order['products_id'] . "'");
+        $dbconn->Execute("UPDATE " . $oostable['products'] . " SET products_quantity = products_quantity - " . intval($differenza_quantita) . ", products_ordered = products_ordered + " . intval($differenza_quantita) . " WHERE products_id = '" . intval($order['products_id']) . "'");
       }
       //UPDATE_INVENTORY_QUANTITY_END
       if($products_details["qty"] > 0)
@@ -240,7 +240,7 @@ $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " .
         $order = $order_result->fields;
         if ($products_details['qty'] != $order['products_quantity']){
           $differenza_quantita = ($products_details['qty'] - $order['products_quantity']);
-          $dbconn->Execute("UPDATE " . $oostable['products'] . " SET products_quantity = products_quantity - " . $differenza_quantita . ", products_ordered = products_ordered + " . $differenza_quantita . " WHERE products_id = '" . (int)$order['products_id'] . "'");
+          $dbconn->Execute("UPDATE " . $oostable['products'] . " SET products_quantity = products_quantity - " . intval($differenza_quantita) . ", products_ordered = products_ordered + " . intval($differenza_quantita) . " WHERE products_id = '" . intval($order['products_id']) . "'");
         }
         //UPDATE_INVENTORY_QUANTITY_END
         $Query = "DELETE FROM " . $oostable['orders_products_attributes'] . " WHERE orders_products_id = '$orders_products_id';";
@@ -470,7 +470,7 @@ $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " .
   if (($action == 'edit') && isset($_GET['oID'])) {
     $oID = oos_db_prepare_input($_GET['oID']);
 
-    $orders_result = $dbconn->Execute("SELECT orders_id FROM " . $oostable['orders'] . " WHERE orders_id = '" . (int)$oID . "'");
+    $orders_result = $dbconn->Execute("SELECT orders_id FROM " . $oostable['orders'] . " WHERE orders_id = '" . intval($oID) . "'");
     $order_exists = true;
     if (!$orders_result->RecordCount()) {
       $order_exists = false;
@@ -720,7 +720,7 @@ $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " .
         // Override order.php Class's Field Limitations
     $index = 0;
     $order->products = array();
-    $orders_products_result = $dbconn->Execute("select * from " . $oostable['orders_products'] . " WHERE orders_id = '" . (int)$oID . "'");
+    $orders_products_result = $dbconn->Execute("select * from " . $oostable['orders_products'] . " WHERE orders_id = '" . intval($oID) . "'");
     while ($orders_products = $orders_products_result->fields) {
     $order->products[$index] = array('qty' => $orders_products['products_quantity'],
                                         'name' => str_replace("'", "&#39;", $orders_products['products_name']),
@@ -731,7 +731,7 @@ $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " .
                                         'orders_products_id' => $orders_products['orders_products_id']);
 
     $subindex = 0;
-    $attributes_result_string = "select * from " . $oostable['orders_products_attributes'] . " WHERE orders_id = '" . (int)$oID . "' and orders_products_id = '" . (int)$orders_products['orders_products_id'] . "'";
+    $attributes_result_string = "select * from " . $oostable['orders_products_attributes'] . " WHERE orders_id = '" . intval($oID) . "' and orders_products_id = '" . intval($orders_products['orders_products_id']) . "'";
     $attributes_result = $dbconn->Execute($attributes_result_string);
 
     if ($attributes_result->RecordCount()) {
@@ -792,7 +792,7 @@ $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " .
 <?php
 
         // Override order.php Class's Field Limitations
-    $totals_result = $dbconn->Execute("select * from " . $oostable['orders_total'] . " WHERE orders_id = '" . (int)$oID . "' order by sort_order");
+    $totals_result = $dbconn->Execute("select * from " . $oostable['orders_total'] . " WHERE orders_id = '" . intval($oID) . "' order by sort_order");
     $order->totals = array();
     while ($totals = $totals_result->fields) { $order->totals[] = array('title' => $totals['title'], 'text' => $totals['text'], 'class' => $totals['class'], 'value' => $totals['value'], 'orders_total_id' => $totals['orders_total_id']); $totals_result->MoveNext();}
 

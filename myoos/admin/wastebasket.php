@@ -104,10 +104,10 @@ if (!empty($action)) {
 				$product_categories = $_POST['product_categories'];
 
 				for ($i = 0, $n = count($product_categories); $i < $n; $i++) {
-					$dbconn->Execute("DELETE FROM " . $oostable['products_to_categories'] . " WHERE products_id = '" . (int)$product_id . "' and categories_id = '" . (int)$product_categories[$i] . "'");
+					$dbconn->Execute("DELETE FROM " . $oostable['products_to_categories'] . " WHERE products_id = '" . intval($product_id) . "' and categories_id = '" . intval($product_categories[$i]) . "'");
 				}
 
-				$product_categories_result = $dbconn->Execute("SELECT COUNT(*) AS total FROM " . $oostable['products_to_categories'] . " WHERE products_id = '" . (int)$product_id . "'");
+				$product_categories_result = $dbconn->Execute("SELECT COUNT(*) AS total FROM " . $oostable['products_to_categories'] . " WHERE products_id = '" . intval($product_id) . "'");
 				$product_categories = $product_categories_result->fields;
 
 				if ($product_categories['total'] == '0') {

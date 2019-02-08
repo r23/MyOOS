@@ -59,7 +59,7 @@
           case PRODUCTS_OPTIONS_TYPE_FILE:
 
             $products_options_values_to_products_optionstable = $oostable['products_options_values_to_products_options'];
-            $dbconn->Execute("INSERT INTO $products_options_values_to_products_optionstable (products_options_values_id, products_options_id) values ('" . PRODUCTS_OPTIONS_VALUES_TEXT_ID .  "', '" .  (int)$products_options_id .  "')");
+            $dbconn->Execute("INSERT INTO $products_options_values_to_products_optionstable (products_options_values_id, products_options_id) values ('" . PRODUCTS_OPTIONS_VALUES_TEXT_ID .  "', '" .  intval($products_options_id) .  "')");
             break;
         }
         oos_redirect_admin(oos_href_link_admin($aContents['products_attributes'], $page_info));

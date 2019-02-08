@@ -70,10 +70,10 @@ require 'includes/main.php';
 
     if ($status == '1') {
       $featuredtable = $oostable['featured'];
-      return $dbconn->Execute("UPDATE $featuredtable SET status = '1', expires_date = NULL, date_status_change = now() WHERE featured_id = '" . (int)$featured_id . "'");
+      return $dbconn->Execute("UPDATE $featuredtable SET status = '1', expires_date = NULL, date_status_change = now() WHERE featured_id = '" . intval($featured_id) . "'");
     } elseif ($status == '0') {
       $featuredtable = $oostable['featured'];
-      return $dbconn->Execute("UPDATE $featuredtable SET status = '0', date_status_change = now() WHERE featured_id = '" . (int)$featured_id . "'");
+      return $dbconn->Execute("UPDATE $featuredtable SET status = '0', date_status_change = now() WHERE featured_id = '" . intval($featured_id) . "'");
     } else {
       return -1;
     }

@@ -40,7 +40,7 @@ require 'includes/main.php';
         $orders_productstable = $oostable['orders_products'];
         $order_sql = "SELECT products_id, products_quantity
                       FROM $orders_productstable
-                      WHERE orders_id = '" . (int)$order_id . "'";
+                      WHERE orders_id = '" . intval($order_id) . "'";
         $order_result = $dbconn->Execute($order_sql);
         while ($order = $order_result->fields) {
           $productstable = $oostable['products'];

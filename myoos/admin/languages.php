@@ -374,7 +374,7 @@ if (!empty($action)) {
         $iso_639_2 = oos_db_prepare_input($_POST['iso_639_2']);
         $iso_639_1 = oos_db_prepare_input($_POST['iso_639_1']);
         $iso_3166_1 = oos_db_prepare_input($_POST['iso_3166_1']);
-        $sort_order = (int)oos_db_prepare_input($_POST['sort_order']);
+        $sort_order = intval(oos_db_prepare_input($_POST['sort_order']));
 		
         $lID = oos_db_prepare_input($_GET['lID']);
 

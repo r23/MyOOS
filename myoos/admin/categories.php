@@ -246,7 +246,7 @@ if (!empty($action)) {
 					}
 					$category_ids = substr($category_ids, 0, -2);
 
-					$check_result = $dbconn->Execute("SELECT COUNT(*) AS total FROM " . $oostable['products_to_categories'] . " WHERE products_id = '" . intval($key) . "' and categories_id not in (" . $category_ids . ")");
+					$check_result = $dbconn->Execute("SELECT COUNT(*) AS total FROM " . $oostable['products_to_categories'] . " WHERE products_id = '" . intval($key) . "' and categories_id not in (" . oos_db_input($category_ids) . ")");
 					$check = $check_result->fields;
 					if ($check['total'] < '1') {
 						$products_delete[$key] = $key;
@@ -269,7 +269,7 @@ if (!empty($action)) {
 			if (isset($_POST['products_id']) && isset($_POST['product_categories']) && is_array($_POST['product_categories'])) {
 				$product_id = oos_db_prepare_input($_POST['products_id']);
 
-				$product_categories_result = $dbconn->Execute("SELECT COUNT(*) AS total FROM " . $oostable['products_to_categories'] . " WHERE products_id = '" . (int)$product_id . "'");
+				$product_categories_result = $dbconn->Execute("SELECT COUNT(*) AS total FROM " . $oostable['products_to_categories'] . " WHERE products_id = '" . intval($product_id) . "'");
 				$product_categories = $product_categories_result->fields;
 
 				if ($product_categories['total'] == '0') {

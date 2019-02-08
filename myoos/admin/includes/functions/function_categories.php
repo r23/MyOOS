@@ -284,7 +284,7 @@ function oos_childs_in_category_count($categories_id) {
     $categoriestable = $oostable['categories'];
     $query = "SELECT categories_id
               FROM $categoriestable
-              WHERE parent_id = '" . (int)$categories_id . "'";
+              WHERE parent_id = '" . intval($categories_id) . "'";
     $result = $dbconn->Execute($query);
 
     while ($categories = $result->fields) {
@@ -617,7 +617,7 @@ function oos_get_manufacturers_name($product_id) {
               FROM $manufacturerstable m,
                    $manufacturers_infotable mi,
                    $productstable p
-              WHERE p.products_id = '" . (int)$product_id . "'
+              WHERE p.products_id = '" . intval($product_id) . "'
                 AND p.manufacturers_id = m.manufacturers_id
                 AND mi.manufacturers_id = m.manufacturers_id";
     $result = $dbconn->Execute($query);
@@ -667,7 +667,7 @@ function oos_get_categories_name($who_am_i) {
     $categories_descriptiontable = $oostable['categories_description'];
     $query = "SELECT categories_name
               FROM $categories_descriptiontable
-              WHERE categories_id = '" . (int)$who_am_i . "'
+              WHERE categories_id = '" . intval($who_am_i) . "'
                 AND categories_languages_id = '" . intval($_SESSION['language_id']) . "'";
     $result = $dbconn->Execute($query);
 

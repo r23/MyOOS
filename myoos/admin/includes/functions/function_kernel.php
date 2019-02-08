@@ -847,10 +847,10 @@ function oos_round($number, $precision) {
                    $geo_zonestable tz
                  ON (tz.geo_zone_id = tr.tax_zone_id)
               WHERE (za.zone_country_id IS null or za.zone_country_id = '0'
-                  OR za.zone_country_id = '" . (int)$country_id . "')
+                  OR za.zone_country_id = '" . intval($country_id) . "')
                 AND (za.zone_id is null OR za.zone_id = '0'
-                  OR za.zone_id = '" . (int)$zone_id . "')
-                AND tr.tax_class_id = '" . (int)$class_id . "'
+                  OR za.zone_id = '" . intval($zone_id) . "')
+                AND tr.tax_class_id = '" . intval($class_id) . "'
             GROUP BY tr.tax_priority";
     $result = $dbconn->Execute($query);
 

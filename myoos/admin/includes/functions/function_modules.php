@@ -47,7 +47,7 @@
 
       $query = "SELECT geo_zone_name 
                 FROM " . $oostable['geo_zones'] . " 
-                WHERE geo_zone_id = '" . (int)$zone_class_id . "'";
+                WHERE geo_zone_id = '" . intval($zone_class_id) . "'";
       $result = $dbconn->Execute($query);
 
       return $result->fields['geo_zone_name'];
@@ -74,7 +74,7 @@
 
     $query = "SELECT orders_status_name
               FROM " . $oostable['orders_status'] . "
-              WHERE orders_status_id = '" . (int)$order_status_id . "'
+              WHERE orders_status_id = '" .  intval($order_status_id) . "'
                 AND orders_languages_id = '" . intval($lang_id) . "'";
     $result = $dbconn->Execute($query);
 
@@ -100,7 +100,7 @@
 
       $query = "SELECT tax_class_title
                 FROM " . $oostable['tax_class'] . "
-                WHERE tax_class_id = '" . (int)$tax_class_id . "'";
+                WHERE tax_class_id = '" . intval($tax_class_id) . "'";
       $result = $dbconn->Execute($query);
 
       return $result->fields['tax_class_title'];
@@ -122,7 +122,7 @@
 
     $query = "SELECT zone_name
               FROM " . $oostable['zones'] . "
-              WHERE zone_id = '" . (int)$zone_id . "'";
+              WHERE zone_id = '" . intval($zone_id) . "'";
     $result = $dbconn->Execute($query);
 
     if (!$result->RecordCount()) {
