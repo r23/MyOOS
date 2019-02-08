@@ -84,7 +84,7 @@ if (!empty($action)) {
 				}
 			}
 
-			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . intval($_GET['pID']) . '&cID=' . intval($cID) .  '&page=' . $nPage . ((isset($_GET['search']) && !empty($_GET['search'])) ? '&search=' . $_GET['search'] : '')));
+			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . intval($_GET['pID']) . '&cID=' . intval($cID) . '&page=' . $nPage . ((isset($_GET['search']) && !empty($_GET['search'])) ? '&search=' . $_GET['search'] : '')));
 			break;
 
 		case 'insert_category':
@@ -246,7 +246,7 @@ if (!empty($action)) {
 					}
 					$category_ids = substr($category_ids, 0, -2);
 
-					$check_result = $dbconn->Execute("SELECT COUNT(*) AS total FROM " . $oostable['products_to_categories'] . " WHERE products_id = '" . intval($key) . "' and categories_id not in (" . oos_db_input($category_ids) . ")");
+					$check_result = $dbconn->Execute("SELECT COUNT(*) AS total FROM " . $oostable['products_to_categories'] . " WHERE products_id = '" . intval($key) . "' AND categories_id not in (" . $category_ids . ")");
 					$check = $check_result->fields;
 					if ($check['total'] < '1') {
 						$products_delete[$key] = $key;
@@ -254,7 +254,7 @@ if (!empty($action)) {
 				}
 
 				for ($i = 0, $n = count($categories); $i < $n; $i++) {
-					oos_remove_category($categories[$i]['id']);
+					category_move_to_trash($categories[$i]['id']);
 				}
 
 				foreach($products_delete as $key) {
@@ -262,12 +262,13 @@ if (!empty($action)) {
 				}
 			}
 
-			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath));
+			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&page=' . $nPage));
 			break;
 
 		case 'delete_product_confirm':
 			if (isset($_POST['products_id']) && isset($_POST['product_categories']) && is_array($_POST['product_categories'])) {
 				$product_id = oos_db_prepare_input($_POST['products_id']);
+				$product_categories = $_POST['product_categories'];
 
 				$product_categories_result = $dbconn->Execute("SELECT COUNT(*) AS total FROM " . $oostable['products_to_categories'] . " WHERE products_id = '" . intval($product_id) . "'");
 				$product_categories = $product_categories_result->fields;
@@ -276,7 +277,7 @@ if (!empty($action)) {
 					product_move_to_trash($product_id);
 				}
 			}
-			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath));
+			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&page=' . $nPage));
 			break;
 
 		case 'move_category_confirm':
@@ -950,9 +951,9 @@ if ($action == 'new_category' || $action == 'edit_category') {
     $categories_count = 0;
     $rows = 0;
     if (isset($_GET['search'])) {
-      $categories_result = $dbconn->Execute("SELECT c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified, c.categories_status FROM " . $oostable['categories'] . " c, " . $oostable['categories_description'] . " cd WHERE c.categories_id = cd.categories_id and cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "' and cd.categories_name like '%" . oos_db_input($_GET['search']) . "%' ORDER BY c.sort_order, cd.categories_name");
+      $categories_result = $dbconn->Execute("SELECT c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified, c.categories_status FROM " . $oostable['categories'] . " c, " . $oostable['categories_description'] . " cd WHERE c.categories_status != 0 AND c.categories_id = cd.categories_id AND cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "' AND cd.categories_name like '%" . oos_db_input($_GET['search']) . "%' ORDER BY c.sort_order, cd.categories_name");
     } else {
-      $categories_result = $dbconn->Execute("SELECT c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified, c.categories_status FROM " . $oostable['categories'] . " c, " . $oostable['categories_description'] . " cd WHERE c.parent_id = '" . $current_category_id . "' and c.categories_id = cd.categories_id and cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY c.sort_order, cd.categories_name");
+      $categories_result = $dbconn->Execute("SELECT c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified, c.categories_status FROM " . $oostable['categories'] . " c, " . $oostable['categories_description'] . " cd WHERE c.categories_status != 0 AND c.parent_id = '" . $current_category_id . "' AND c.categories_id = cd.categories_id AND cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY c.sort_order, cd.categories_name");
     }
     while ($categories = $categories_result->fields) {
       $categories_count++;
@@ -1000,9 +1001,9 @@ if ($action == 'new_category' || $action == 'edit_category') {
 
     $products_count = 0;
     if (isset($_GET['search'])) {
-		$products_result = $dbconn->Execute("SELECT p.products_id, pd.products_name, p.products_quantity, p.products_reorder_level, p.products_image, p.products_price, p.products_base_price, p.products_base_unit, p.products_tax_class_id, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status, p.products_setting, p2c.categories_id, p.products_price_list, p.products_quantity_order_min, p.products_quantity_order_max, p.products_quantity_order_units, p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4, p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty, p.products_discount4_qty, p.products_sort_order FROM " . $oostable['products'] . " p, " . $oostable['products_description'] . " pd, " . $oostable['products_to_categories'] . " p2c WHERE p.products_id = pd.products_id and pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' and p.products_id = p2c.products_id and pd.products_name like '%" . oos_db_input($_GET['search']) . "%' OR p.products_model like '%" . oos_db_input($_GET['search']) . "%' ORDER BY pd.products_name");
+		$products_result = $dbconn->Execute("SELECT p.products_id, pd.products_name, p.products_quantity, p.products_reorder_level, p.products_image, p.products_price, p.products_base_price, p.products_base_unit, p.products_tax_class_id, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status, p.products_setting, p2c.categories_id, p.products_price_list, p.products_quantity_order_min, p.products_quantity_order_max, p.products_quantity_order_units, p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4, p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty, p.products_discount4_qty, p.products_sort_order FROM " . $oostable['products'] . " p, " . $oostable['products_description'] . " pd, " . $oostable['products_to_categories'] . " p2c WHERE p.products_id = pd.products_id AND products_setting != 0 AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' AND p.products_id = p2c.products_id AND pd.products_name like '%" . oos_db_input($_GET['search']) . "%' OR p.products_model like '%" . oos_db_input($_GET['search']) . "%' ORDER BY pd.products_name");
     } else {
-		$products_result = $dbconn->Execute("SELECT p.products_id, pd.products_name, p.products_quantity, p.products_reorder_level, p.products_image, p.products_price,p.products_base_price, p.products_base_unit, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status, p.products_tax_class_id, p.products_setting, p.products_price_list, p.products_quantity_order_min, p.products_quantity_order_max, p.products_quantity_order_units, p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4, p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty, p.products_discount4_qty, p.products_sort_order FROM " . $oostable['products'] . " p, " . $oostable['products_description'] . " pd, " . $oostable['products_to_categories'] . " p2c WHERE p.products_id = pd.products_id and pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' and p.products_id = p2c.products_id and p2c.categories_id = '" . intval($current_category_id) . "' ORDER BY pd.products_name");
+		$products_result = $dbconn->Execute("SELECT p.products_id, pd.products_name, p.products_quantity, p.products_reorder_level, p.products_image, p.products_price,p.products_base_price, p.products_base_unit, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status, p.products_tax_class_id, p.products_setting, p.products_price_list, p.products_quantity_order_min, p.products_quantity_order_max, p.products_quantity_order_units, p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4, p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty, p.products_discount4_qty, p.products_sort_order FROM " . $oostable['products'] . " p, " . $oostable['products_description'] . " pd, " . $oostable['products_to_categories'] . " p2c WHERE p.products_id = pd.products_id AND products_setting != 0 AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' AND p.products_id = p2c.products_id and p2c.categories_id = '" . intval($current_category_id) . "' ORDER BY pd.products_name");
     }
 
     while ($products = $products_result->fields) {

@@ -373,6 +373,22 @@ function product_move_to_trash($products_id) {
 }
 
 
+function category_move_to_trash($categories_id) {
+
+    // Get database information
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
+
+    $categoriestable = $oostable['categories'];
+	$query = "UPDATE $categoriestable
+                SET categories_status = '0',
+					last_modified = now()
+                WHERE categories_id = '" . intval($categories_id) . "'";
+	$result = $dbconn->Execute($query);
+
+	return;
+
+}
 
 
 function oos_generate_category_path($id, $from = 'category', $categories_array = '', $index = 0) {
@@ -384,7 +400,7 @@ function oos_generate_category_path($id, $from = 'category', $categories_array =
     $oostable =& oosDBGetTables();
 
     $products_to_categoriestable = $oostable['products_to_categories'];
-    $categoriestable             = $oostable['categories'];
+    $categoriestable = $oostable['categories'];
     $categories_descriptiontable = $oostable['categories_description'];
 
     if ($from == 'product') {
