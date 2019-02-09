@@ -38,10 +38,10 @@ if (!empty($action)) {
 				$dbconn->Execute("UPDATE " . $oostable['products'] . " SET products_slave_visible = '1' WHERE products_id = " . intval($_GET['slave_id']));
 			}
 			$messageStack->add_session('Slave Deleted', 'success');
-			oos_redirect_admin(oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $_GET['cPath'] . '&amp;pID=' . $_GET['master_id'] . '&amp;action=slave_products'));
+			oos_redirect_admin(oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $_GET['cPath'] . '&pID=' . $_GET['master_id'] . '&action=slave_products'));
 			break;
 
-		case 'setflag':
+		case 'untrash':
 			if ( isset($_GET['flag']) && ($_GET['flag'] == '0') || ($_GET['flag'] == '1') || ($_GET['flag'] == '3') ) {
 				if (isset($_GET['pID']) && is_numeric($_GET['pID'])) {
 					oos_set_product_status($_GET['pID'], $_GET['flag']);
@@ -236,7 +236,7 @@ require 'includes/header.php';
       if (isset($cInfo) && is_object($cInfo) && ($categories['categories_id'] == $cInfo->categories_id) ) {
         echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['wastebasket'], oos_get_path($categories['categories_id'])) . '\'">' . "\n";
       } else {
-        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&amp;cID=' . $categories['categories_id']) . '\'">' . "\n";
+        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&cID=' . $categories['categories_id']) . '\'">' . "\n";
       }
 ?>
                 <td>&nbsp;<?php echo '<a href="' . oos_href_link_admin($aContents['wastebasket'], oos_get_path($categories['categories_id'])) . '"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-folder"></i></button></a>&nbsp;<b>' . ' #' . $categories['categories_id'] . ' ' . $categories['categories_name'] . '</b>'; ?></td>
@@ -244,13 +244,12 @@ require 'includes/header.php';
                  <td class="text-center">
  <?php
        if ($categories['categories_status'] == '1') {
-         echo '<a href="' . oos_href_link_admin($aContents['wastebasket'], 'action=setflag&amp;flag=0&amp;cID=' . $categories['categories_id'] . '&amp;cPath=' . $cPath) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
+         echo '<a href="' . oos_href_link_admin($aContents['wastebasket'], 'action=setflag&flag=0&cID=' . $categories['categories_id'] . '&cPath=' . $cPath) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
        } else {
-         echo '<a href="' . oos_href_link_admin($aContents['wastebasket'], 'action=setflag&amp;flag=1&amp;cID=' . $categories['categories_id'] . '&amp;cPath=' . $cPath) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
+         echo '<a href="' . oos_href_link_admin($aContents['wastebasket'], 'action=setflag&flag=1&cID=' . $categories['categories_id'] . '&cPath=' . $cPath) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
        }
 ?></td>
-                <td class="text-center">&nbsp;<?php echo $categories['sort_order']; ?>&nbsp;</td>
-                <td class="text-right"><?php if (isset($cInfo) && is_object($cInfo) && ($categories['categories_id'] == $cInfo->categories_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&amp;cID=' . $categories['categories_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="text-right"><?php if (isset($cInfo) && is_object($cInfo) && ($categories['categories_id'] == $cInfo->categories_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&cID=' . $categories['categories_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
       // Move that ADOdb pointer!
@@ -281,23 +280,23 @@ require 'includes/header.php';
       }
 
       if (isset($pInfo) && is_object($pInfo) && ($products['products_id'] == $pInfo->products_id) ) {
-        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&amp;pID=' . $products['products_id'] . '&amp;action=new_product_preview') . '\'">' . "\n";
+        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=new_product_preview') . '\'">' . "\n";
       } else {
-        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&amp;pID=' . $products['products_id']) . '\'">' . "\n";
+        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&pID=' . $products['products_id']) . '\'">' . "\n";
       }
 ?>
-                <td><?php echo '<a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&amp;pID=' . $products['products_id'] . '&amp;action=new_product_preview') . '"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-search"></i></button></a>&nbsp;' . '#' . $products['products_id'] . ' ' . $products['products_name']; ?></td>
+                <td><?php echo '<a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=new_product_preview') . '"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-search"></i></button></a>&nbsp;' . '#' . $products['products_id'] . ' ' . $products['products_name']; ?></td>
                 <td><?php echo oos_get_manufacturers_name($products['products_id']) ?></td>
                 <td class="text-center">
 <?php
     if ($products['products_status'] == '0') {
-      echo '<a href="' . oos_href_link_admin($aContents['wastebasket'], 'action=setflag&flag=3&amp;pID=' . $products['products_id'] . '&amp;cPath=' . $cPath) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
+      echo '<a href="' . oos_href_link_admin($aContents['wastebasket'], 'action=setflag&flag=3&pID=' . $products['products_id'] . '&cPath=' . $cPath) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
     } else {
-      echo '<a href="' . oos_href_link_admin($aContents['wastebasket'], 'action=setflag&flag=0&amp;pID=' . $products['products_id'] . '&amp;cPath=' . $cPath) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
+      echo '<a href="' . oos_href_link_admin($aContents['wastebasket'], 'action=setflag&flag=0&pID=' . $products['products_id'] . '&cPath=' . $cPath) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
     }
 
 ?></td>
-                <td class="text-right"><?php if (isset($pInfo) && is_object($pInfo) && ($products['products_id'] == $pInfo->products_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&amp;pID=' . $products['products_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="text-right"><?php if (isset($pInfo) && is_object($pInfo) && ($products['products_id'] == $pInfo->products_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&pID=' . $products['products_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
       // Move that ADOdb pointer!
@@ -317,18 +316,19 @@ require 'includes/header.php';
       case 'delete_category':
         $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_CATEGORY . '</b>');
 
-        $contents = array('form' => oos_draw_form('id', 'categories', $aContents['wastebasket'], 'action=delete_category_confirm&amp;cPath=' . $cPath, 'post', FALSE) . oos_draw_hidden_field('categories_id', $cInfo->categories_id));
+        $contents = array('form' => oos_draw_form('id', 'categories', $aContents['wastebasket'], 'action=delete_category_confirm&cPath=' . $cPath, 'post', FALSE) . oos_draw_hidden_field('categories_id', $cInfo->categories_id));
         $contents[] = array('text' => TEXT_DELETE_CATEGORY_INTRO);
         $contents[] = array('text' => '<br /><b>' . $cInfo->categories_name . '</b>');
         if ($cInfo->childs_count > 0) $contents[] = array('text' => '<br />' . sprintf(TEXT_DELETE_WARNING_CHILDS, $cInfo->childs_count));
         if ($cInfo->products_count > 0) $contents[] = array('text' => '<br />' . sprintf(TEXT_DELETE_WARNING_PRODUCTS, $cInfo->products_count));
-        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', BUTTON_DELETE) . ' <a href="' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&amp;cID=' . $cInfo->categories_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', BUTTON_DELETE) . ' <a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+		
         break;
 
       case 'delete_product':
         $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_PRODUCT . '</b>');
 
-        $contents = array('form' => oos_draw_form('id', 'products', $aContents['wastebasket'], 'action=delete_product_confirm&amp;cPath=' . $cPath, 'post', FALSE) . oos_draw_hidden_field('products_id', $pInfo->products_id));
+        $contents = array('form' => oos_draw_form('id', 'products', $aContents['wastebasket'], 'action=delete_product_confirm&cPath=' . $cPath, 'post', FALSE) . oos_draw_hidden_field('products_id', $pInfo->products_id));
         $contents[] = array('text' => TEXT_DELETE_PRODUCT_INTRO);
         $contents[] = array('text' => '<br /><b>' . $pInfo->products_name . '</b>');
 
@@ -345,24 +345,23 @@ require 'includes/header.php';
         $product_categories_string = substr($product_categories_string, 0, -4);
 
         $contents[] = array('text' => '<br />' . $product_categories_string);
-        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', BUTTON_DELETE) . ' <a href="' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&amp;pID=' . $pInfo->products_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', TEXT_INFO_HEADING_DELETE_CATEGORY) . ' <a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
         break;
 
       default:
         if ($rows > 0) {
           if (isset($cInfo) && is_object($cInfo)) { // category info box contents
             $heading[] = array('text' => '<b>' . $cInfo->categories_name . '</b>');
-
-            $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&amp;cID=' . $cInfo->categories_id . '&amp;action=edit_category') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&amp;cID=' . $cInfo->categories_id . '&amp;action=delete_category') . '">' . oos_button('delete',  BUTTON_DELETE) . '</a> <a href="' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&amp;cID=' . $cInfo->categories_id . '&amp;action=move_category') . '">' . oos_button('move', IMAGE_MOVE) . '</a>');
+            $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id . '&action=edit_category') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id . '&action=delete_category') . '">' . oos_button('delete',  BUTTON_DELETE) . '</a> <a href="' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id . '&action=untrash&flag=1') . '">' . oos_button('move', TEXT_INFO_HEADING_UNTRASH) . '</a>');
             $contents[] = array('text' =>  TEXT_CATEGORIES . ' ' . oos_get_categories_name($cPath) . ' ' . oos_get_categories_name($cID) . '<br />' . TEXT_DATE_ADDED . ' ' . oos_date_short($cInfo->date_added));
 			$contents[] = array('text' => '<br />' . oos_info_image('category/medium/' . $cInfo->categories_image, $cInfo->categories_name) . '<br />' . $cInfo->categories_image);
             $contents[] = array('text' => '<br />' . TEXT_SUBCATEGORIES . ' ' . $cInfo->childs_count . '<br />' . TEXT_PRODUCTS . ' ' . $cInfo->products_count);
           } elseif (isset($pInfo) && is_object($pInfo)) { // product info box contents
             $heading[] = array('text' => '<b>' . $pInfo->products_name . '</b>');
 
-            $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&amp;pID=' . $pInfo->products_id . '&amp;action=new_product') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> 
-			<a href="' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&amp;pID=' . $pInfo->products_id . '&amp;action=delete_product') . '">' . oos_button('delete',  BUTTON_DELETE) . '</a> 
-			<a href="' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&amp;pID=' . $pInfo->products_id . '&amp;action=copy_to') . '">' . oos_button('copy_to', IMAGE_COPY_TO) . '</a>');
+            $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=new_product') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> 
+			<a href="' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=delete_product') . '">' . oos_button('delete',  BUTTON_DELETE) . '</a> 
+			<a href="' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=copy_to') . '">' . oos_button('copy_to', IMAGE_COPY_TO) . '</a>');
 
             $contents[] = array('text' => '#' . $pInfo->products_id . ' ' . TEXT_CATEGORIES . ' ' . oos_get_categories_name($current_category_id) . '<br />' . TEXT_DATE_ADDED . ' ' . oos_date_short($pInfo->products_date_added));
             if (oos_is_not_null($pInfo->products_last_modified)) $contents[] = array('text' => TEXT_LAST_MODIFIED . ' ' . oos_date_short($pInfo->products_last_modified));

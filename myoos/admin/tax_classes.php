@@ -24,9 +24,12 @@ require 'includes/main.php';
 $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
-  if (!empty($action)) {
+if (!empty($action)) {
     switch ($action) {
       case 'insert':
+		$tax_class_title = oos_db_prepare_input($_POST['tax_class_title']);
+        $tax_class_description = oos_db_prepare_input($_POST['tax_class_description']);
+	  
         $tax_classtable = $oostable['tax_class'];
         $dbconn->Execute("INSERT INTO $tax_classtable (tax_class_title, tax_class_description, date_added) VALUES ('" . oos_db_input($tax_class_title) . "', '" . oos_db_input($tax_class_description) . "', now())");
         oos_redirect_admin(oos_href_link_admin($aContents['tax_classes']));
@@ -34,6 +37,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
       case 'save':
         $tax_class_id = oos_db_prepare_input($_GET['tID']);
+        $tax_class_title = oos_db_prepare_input($_POST['tax_class_title']);
+        $tax_class_description = oos_db_prepare_input($_POST['tax_class_description']);
 
         $tax_classtable = $oostable['tax_class'];
         $dbconn->Execute("UPDATE $tax_classtable SET tax_class_id = '" . oos_db_input($tax_class_id) . "', tax_class_title = '" . oos_db_input($tax_class_title) . "', tax_class_description = '" . oos_db_input($tax_class_description) . "', last_modified = now() WHERE tax_class_id = '" . oos_db_input($tax_class_id) . "'");
@@ -165,7 +170,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       $contents[] = array('text' => TEXT_INFO_INSERT_INTRO);
       $contents[] = array('text' => '<br />' . TEXT_INFO_CLASS_TITLE . '<br />' . oos_draw_input_field('tax_class_title'));
       $contents[] = array('text' => '<br />' . TEXT_INFO_CLASS_DESCRIPTION . '<br />' . oos_draw_input_field('tax_class_description'));
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('insert', BUTTON_INSERT) . '&nbsp;<a href="' . oos_href_link_admin($aContents['tax_classes'], 'page=' . $nPage) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('insert', BUTTON_INSERT) . '&nbsp;<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['tax_classes'], 'page=' . $nPage) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
       break;
 
     case 'edit':
@@ -175,7 +180,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       $contents[] = array('text' => TEXT_INFO_EDIT_INTRO);
       $contents[] = array('text' => '<br />' . TEXT_INFO_CLASS_TITLE . '<br />' . oos_draw_input_field('tax_class_title', $tcInfo->tax_class_title));
       $contents[] = array('text' => '<br />' . TEXT_INFO_CLASS_DESCRIPTION . '<br />' . oos_draw_input_field('tax_class_description', $tcInfo->tax_class_description));
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('update', IMAGE_UPDATE) . '&nbsp;<a href="' . oos_href_link_admin($aContents['tax_classes'], 'page=' . $nPage . '&tID=' . $tcInfo->tax_class_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('update', IMAGE_UPDATE) . '&nbsp;<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['tax_classes'], 'page=' . $nPage . '&tID=' . $tcInfo->tax_class_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
       break;
 
     case 'delete':
@@ -184,7 +189,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       $contents = array('form' => oos_draw_form('id', 'classes', $aContents['tax_classes'], 'page=' . $nPage . '&tID=' . $tcInfo->tax_class_id . '&action=deleteconfirm', 'post',  FALSE));
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $contents[] = array('text' => '<br /><b>' . $tcInfo->tax_class_title . '</b>');
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', BUTTON_DELETE) . '&nbsp;<a href="' . oos_href_link_admin($aContents['tax_classes'], 'page=' . $nPage . '&tID=' . $tcInfo->tax_class_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', BUTTON_DELETE) . '&nbsp;<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['tax_classes'], 'page=' . $nPage . '&tID=' . $tcInfo->tax_class_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
       break;
 
     default:

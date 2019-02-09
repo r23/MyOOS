@@ -26,9 +26,7 @@ define('TABLE_HEADING_CATEGORIES_PRODUCTS', 'Kategorien / Artikel');
 define('TABLE_HEADING_ACTION', 'Aktion');
 define('TABLE_HEADING_STATUS', 'Status');
 define('TABLE_HEADING_MANUFACTURERS', 'Hersteller');
-define('TABLE_HEADING_PRODUCT_SORT', 'Sort Order');
 
-define('TEXT_NEW_PRODUCT', 'Neuer Artikel in &quot;%s&quot;');
 define('TEXT_CATEGORIES', 'Kategorien:');
 define('TEXT_SUBCATEGORIES', 'Unterkategorien:');
 define('TEXT_PRODUCTS', 'Artikel:');
@@ -48,17 +46,11 @@ define('TEXT_PRODUCT_DATE_AVAILABLE', 'Dieser Artikel ist erhältlich ab %s.');
 define('TEXT_INFO_PERCENTAGE', 'Prozent:');
 define('TEXT_INFO_EXPIRES_DATE', 'Gültig bis:');
 
-
-define('TEXT_INFO_COPY_TO_INTRO', 'Bitte wählen Sie eine neue Kategorie aus, in die Sie den Artikel kopieren möchten:');
 define('TEXT_INFO_CURRENT_CATEGORIES', 'aktuelle Kategorien:');
 
-define('TEXT_INFO_HEADING_NEW_CATEGORY', 'Neue Kategorie');
 define('TEXT_INFO_HEADING_EDIT_CATEGORY', 'Kategorie bearbeiten');
-define('TEXT_INFO_HEADING_DELETE_CATEGORY', 'Kategorie löschen');
-define('TEXT_INFO_HEADING_MOVE_CATEGORY', 'Kategorie verschieben');
-define('TEXT_INFO_HEADING_DELETE_PRODUCT', 'Artikel löschen');
-define('TEXT_INFO_HEADING_MOVE_PRODUCT', 'Artikel verschieben');
-define('TEXT_INFO_HEADING_COPY_TO', 'Kopieren nach');
+define('TEXT_INFO_HEADING_DELETE_CATEGORY', 'Endgültig löschen');
+define('TEXT_INFO_HEADING_UNTRASH', 'Wiederherstellen');
 
 define('TEXT_DELETE_CATEGORY_INTRO', 'Sind Sie sicher, dass Sie diese Kategorie löschen möchten?');
 define('TEXT_DELETE_PRODUCT_INTRO', 'Sind Sie sicher, dass Sie diesen Artikel löschen möchten?');

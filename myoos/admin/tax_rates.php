@@ -99,16 +99,29 @@ require 'includes/main.php';
 $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
-  if (!empty($action)) {
+if (!empty($action)) {
     switch ($action) {
       case 'insert':
+        $tax_zone_id = oos_db_prepare_input($_POST['tax_zone_id']);
+        $tax_class_id = oos_db_prepare_input($_POST['tax_class_id']);
+        $tax_rate = oos_db_prepare_input($_POST['tax_rate']);
+        $tax_description = oos_db_prepare_input($_POST['tax_description']);
+        $tax_priority = oos_db_prepare_input($_POST['tax_priority']);	  
+ 
         $tax_ratestable = $oostable['tax_rates'];
-        $dbconn->Execute("INSERT INTO $tax_ratestable (tax_zone_id, tax_class_id, tax_rate, tax_description, date_added) VALUES ('" . oos_db_input($tax_zone_id) . "', '" . oos_db_input($tax_class_id) . "', '" . oos_db_input($tax_rate) . "', '" . oos_db_input($tax_description) . "', now())");
+        $dbconn->Execute("INSERT INTO $tax_ratestable (tax_zone_id, tax_class_id, tax_rate, tax_description, tax_priority, date_added) VALUES ('" . oos_db_input($tax_zone_id) . "', '" . oos_db_input($tax_class_id) . "', '" . oos_db_input($tax_rate) . "', '" . oos_db_input($tax_description) . "', '" . oos_db_input($tax_priority) . "', now())");
+
         oos_redirect_admin(oos_href_link_admin($aContents['tax_rates']));
         break;
 
       case 'save':
         $tax_rates_id = oos_db_prepare_input($_GET['tID']);
+
+        $tax_zone_id = oos_db_prepare_input($_POST['tax_zone_id']);
+        $tax_class_id = oos_db_prepare_input($_POST['tax_class_id']);
+        $tax_rate = oos_db_prepare_input($_POST['tax_rate']);
+        $tax_description = oos_db_prepare_input($_POST['tax_description']);
+        $tax_priority = oos_db_prepare_input($_POST['tax_priority']);	 
 
         $tax_ratestable = $oostable['tax_rates'];
         $dbconn->Execute("UPDATE $tax_ratestable SET tax_rates_id = '" . oos_db_input($tax_rates_id) . "', tax_zone_id = '" . oos_db_input($tax_zone_id) . "', tax_class_id = '" . oos_db_input($tax_class_id) . "', tax_rate = '" . oos_db_input($tax_rate) . "', tax_description = '" . oos_db_input($tax_description) . "', tax_priority = '" . oos_db_input($tax_priority) . "', last_modified = now() WHERE tax_rates_id = '" . oos_db_input($tax_rates_id) . "'");
@@ -251,7 +264,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       $contents[] = array('text' => '<br />' . TEXT_INFO_ZONE_NAME . '<br />' . oosGeoZonesPullDown('name="tax_zone_id" style="font-size:10px"'));
       $contents[] = array('text' => '<br />' . TEXT_INFO_TAX_RATE . '<br />' . oos_draw_input_field('tax_rate'));
       $contents[] = array('text' => '<br />' . TEXT_INFO_RATE_DESCRIPTION . '<br />' . oos_draw_input_field('tax_description'));
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('insert', BUTTON_INSERT) . '&nbsp;<a href="' . oos_href_link_admin($aContents['tax_rates'], 'page=' . $nPage) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
+      $contents[] = array('text' => '<br />' . TEXT_INFO_TAX_RATE_PRIORITY . '<br />' . oos_draw_input_field('tax_priority', $trInfo->tax_priority));	  
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('insert', BUTTON_INSERT) . '&nbsp;<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['tax_rates'], 'page=' . $nPage) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
       break;
 
     case 'edit':
@@ -264,7 +278,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       $contents[] = array('text' => '<br />' . TEXT_INFO_TAX_RATE . '<br />' . oos_draw_input_field('tax_rate', $trInfo->tax_rate));
       $contents[] = array('text' => '<br />' . TEXT_INFO_RATE_DESCRIPTION . '<br />' . oos_draw_input_field('tax_description', $trInfo->tax_description));
       $contents[] = array('text' => '<br />' . TEXT_INFO_TAX_RATE_PRIORITY . '<br />' . oos_draw_input_field('tax_priority', $trInfo->tax_priority));
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('update', IMAGE_UPDATE) . '&nbsp;<a href="' . oos_href_link_admin($aContents['tax_rates'], 'page=' . $nPage . '&tID=' . $trInfo->tax_rates_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('update', IMAGE_UPDATE) . '&nbsp;<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['tax_rates'], 'page=' . $nPage . '&tID=' . $trInfo->tax_rates_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
       break;
 
     case 'delete':
@@ -273,7 +287,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       $contents = array('form' => oos_draw_form('id', 'rates', $aContents['tax_rates'], 'page=' . $nPage . '&tID=' . $trInfo->tax_rates_id  . '&action=deleteconfirm', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $contents[] = array('text' => '<br /><b>' . $trInfo->tax_class_title . ' ' . number_format($trInfo->tax_rate, TAX_DECIMAL_PLACES) . '%</b>');
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', BUTTON_DELETE) . '&nbsp;<a href="' . oos_href_link_admin($aContents['tax_rates'], 'page=' . $nPage . '&tID=' . $trInfo->tax_rates_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', BUTTON_DELETE) . '&nbsp;<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['tax_rates'], 'page=' . $nPage . '&tID=' . $trInfo->tax_rates_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
       break;
 
     default:

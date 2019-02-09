@@ -26,9 +26,7 @@ define('TABLE_HEADING_CATEGORIES_PRODUCTS', 'Categories / Products');
 define('TABLE_HEADING_ACTION', 'Action');
 define('TABLE_HEADING_STATUS', 'Status');
 define('TABLE_HEADING_MANUFACTURERS', 'Manufacturers');
-define('TABLE_HEADING_PRODUCT_SORT', 'Sort Order');
 
-define('TEXT_NEW_PRODUCT', 'New Product in &quot;%s&quot;');
 define('TEXT_CATEGORIES', 'Categories:');
 define('TEXT_SUBCATEGORIES', 'Subcategories:');
 define('TEXT_PRODUCTS', 'Products:');
@@ -48,18 +46,12 @@ define('TEXT_PRODUCT_DATE_AVAILABLE', 'This product will be in stock on %s.');
 define('TEXT_INFO_PERCENTAGE', 'Percentage:');
 define('TEXT_INFO_EXPIRES_DATE', 'Expires At:');
 
-
-
-define('TEXT_INFO_COPY_TO_INTRO', 'Please choose a new category you wish to copy this product to');
 define('TEXT_INFO_CURRENT_CATEGORIES', 'Current Categories:');
 
-define('TEXT_INFO_HEADING_NEW_CATEGORY', 'New Category');
 define('TEXT_INFO_HEADING_EDIT_CATEGORY', 'Edit Category');
-define('TEXT_INFO_HEADING_DELETE_CATEGORY', 'Delete Category');
-define('TEXT_INFO_HEADING_MOVE_CATEGORY', 'Move Category');
-define('TEXT_INFO_HEADING_DELETE_PRODUCT', 'Delete Product');
-define('TEXT_INFO_HEADING_MOVE_PRODUCT', 'Move Product');
-define('TEXT_INFO_HEADING_COPY_TO', 'Copy To');
+define('TEXT_INFO_HEADING_DELETE_CATEGORY', 'Delete Permanently');
+define('TEXT_INFO_HEADING_UNTRASH', 'Untrash');
+
 
 define('TEXT_DELETE_CATEGORY_INTRO', 'Are you sure you want to delete this category?');
 define('TEXT_DELETE_PRODUCT_INTRO', 'Are you sure you want to permanently delete this product?');
