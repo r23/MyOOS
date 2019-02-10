@@ -302,9 +302,9 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         $cInfo = new objectInfo($cc_list);
       }
       if (isset($cInfo) && is_object($cInfo) && ($cc_list['unique_id'] == $cInfo->unique_id) ) {
-        echo '          <tr onclick="document.location.href=\'' . oos_href_link_admin('coupon_admin.php', oos_get_all_get_params(array('cID', 'action', 'uid')) . 'cID=' . $cInfo->coupon_id . '&action=voucherreport&uid=' . $cinfo->unique_id) . '\'">' . "\n";
+        echo '          <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['coupon_admin'], oos_get_all_get_params(array('cID', 'action', 'uid')) . 'cID=' . $cInfo->coupon_id . '&action=voucherreport&uid=' . $cinfo->unique_id) . '\'">' . "\n";
       } else {
-        echo '          <tr onclick="document.location.href=\'' . oos_href_link_admin('coupon_admin.php', oos_get_all_get_params(array('cID', 'action', 'uid')) . 'cID=' . $cc_list['coupon_id'] . '&action=voucherreport&uid=' . $cc_list['unique_id']) . '\'">' . "\n";
+        echo '          <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['coupon_admin'], oos_get_all_get_params(array('cID', 'action', 'uid')) . 'cID=' . $cc_list['coupon_id'] . '&action=voucherreport&uid=' . $cc_list['unique_id']) . '\'">' . "\n";
       }
       $customer_result = $dbconn->Execute("SELECT customers_firstname, customers_lastname
                                       FROM " . $oostable['customers'] . "
@@ -453,7 +453,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                 <table border="0" width="100%" cellpadding="0" cellspacing="2">
                   <tr>
                     <td><?php ?>&nbsp;</td>
-                    <td class="text-right"><?php echo '<a href="' . oos_href_link_admin($aContents['coupon_admin']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a> ' . oos_submit_button('send_mail', IMAGE_SEND_EMAIL); ?></td>
+                    <td class="text-right"><?php echo '<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['coupon_admin']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>' . oos_submit_button('send_mail', IMAGE_SEND_EMAIL); ?></td>
                   </tr>
                 </table></td>
               </tr>
@@ -610,7 +610,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
       <tr>
       <td>
-<?php echo oos_draw_form('id', 'coupon', 'coupon_admin.php', 'action=update_confirm&oldaction=' . $_GET['oldaction'] . '&cID=' . $_GET['cID'], 'post', FALSE); ?>
+<?php echo oos_draw_form('id', 'coupon', $aContents['coupon_admin'], 'action=update_confirm&oldaction=' . $_GET['oldaction'] . '&cID=' . $_GET['cID'], 'post', FALSE); ?>
       <table border="0" width="100%" cellspacing="0" cellpadding="6">
 <?php
         $languages = oos_get_languages();
@@ -804,7 +804,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       <tr>
       <td>
 <?php
-    echo oos_draw_form('id', 'coupon', 'coupon_admin.php', 'action=update&oldaction='.$action . '&cID=' . $_GET['cID'], 'post', FALSE);
+    echo oos_draw_form('id', 'coupon', $aContents['coupon_admin'], 'action=update&oldaction='.$action . '&cID=' . $_GET['cID'], 'post', FALSE);
 ?>
       <table border="0" width="100%" cellspacing="0" cellpadding="6">
 <?php
@@ -866,12 +866,12 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       </tr>
        <tr>
         <td align="left" class="main"><?php echo COUPON_PRODUCTS; ?></td>
-        <td class="text-left"><?php echo oos_draw_input_field('coupon_products', $coupon_products); ?> <?php echo '<a href="' . oos_href_link_admin($aContents['validproducts']); ?>" TARGET="_blank" ONCLICK="window.open('<?php echo oos_href_link_admin($aContents['validproducts']); ?>', 'Valid_Products', 'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600'); return false">View</A></td>
+        <td class="text-left"><?php echo oos_draw_input_field('coupon_products', $coupon_products); ?> <?php echo '<a href="' . oos_href_link_admin($aContents['validproducts']); ?>" TARGET="_blank" ONCLICK="window.open('<?php echo oos_href_link_admin($aContents['validproducts']); ?>', 'Valid_Products', 'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600'); return false">View</a></td>
         <td align="left" class="main"><?php echo COUPON_PRODUCTS_HELP; ?></td>
       </tr>
       <tr>
         <td align="left" class="main"><?php echo COUPON_CATEGORIES; ?></td>
-        <td class="text-left"><?php echo oos_draw_input_field('coupon_categories', $coupon_categories); ?> <?php echo '<a href="' . oos_href_link_admin($aContents['validcategories']); ?>" TARGET="_blank" ONCLICK="window.open('<?php echo oos_href_link_admin($aContents['validcategories']); ?>', 'Valid_Categories', 'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600'); return false">View</A></td>
+        <td class="text-left"><?php echo oos_draw_input_field('coupon_categories', $coupon_categories); ?> <?php echo '<a href="' . oos_href_link_admin($aContents['validcategories']); ?>" TARGET="_blank" ONCLICK="window.open('<?php echo oos_href_link_admin($aContents['validcategories']); ?>', 'Valid_Categories', 'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600'); return false">View</a></td>
         <td align="left" class="main"><?php echo COUPON_CATEGORIES_HELP; ?></td>
       </tr>
       <tr>
@@ -899,8 +899,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       </tr>
       <tr>
         <td class="text-left"><?php echo oos_submit_button('preview', IMAGE_PREVIEW); ?></td>
-        <td class="text-left"><?php echo '&nbsp;&nbsp;<a href="' . oos_href_link_admin('coupon_admin.php', ''); ?>"><?php echo oos_button('cancel', BUTTON_CANCEL); ?></a>
-      </td>
+        <td class="text-left"><?php echo '&nbsp;&nbsp;<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['coupon_admin'], '')) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></td>
       </tr>
       </td></table></form>
       </tr>
@@ -1000,9 +999,9 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         $cInfo = new objectInfo($cc_list);
       }
       if (isset($cInfo) && is_object($cInfo) && ($cc_list['coupon_id'] == $cInfo->coupon_id) ) {
-        echo '          <tr onclick="document.location.href=\'' . oos_href_link_admin('coupon_admin.php', oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->coupon_id . '&action=edit') . '\'">' . "\n";
+        echo '          <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['coupon_admin'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->coupon_id . '&action=edit') . '\'">' . "\n";
       } else {
-        echo '          <tr onclick="document.location.href=\'' . oos_href_link_admin('coupon_admin.php', oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cc_list['coupon_id']) . '\'">' . "\n";
+        echo '          <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['coupon_admin'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cc_list['coupon_id']) . '\'">' . "\n";
       }
       $coupon_description_result = $dbconn->Execute("SELECT coupon_name
                                                  FROM " . $oostable['coupons_description'] . "
@@ -1039,7 +1038,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
               </tr>
 
               <tr>
-                <td align="right" colspan="2" class="smallText"><?php echo '<a href="' . oos_href_link_admin('coupon_admin.php', 'page=' . $nPage . '&cID=' . $cInfo->coupon_id . '&action=new') . '">' . oos_button('insert', BUTTON_INSERT) . '</a>'; ?></td>
+                <td align="right" colspan="2" class="smallText"><?php echo '<a href="' . oos_href_link_admin($aContents['coupon_admin'], 'page=' . $nPage . '&cID=' . $cInfo->coupon_id . '&action=new') . '">' . oos_button('insert', BUTTON_INSERT) . '</a>'; ?></td>
               </tr>
             </table></td>
           </tr>
@@ -1078,17 +1077,17 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       }
       if ($action == 'voucherdelete') {
         $contents[] = array('text'=> TEXT_CONFIRM_DELETE . '</br></br>' .
-                '<a href="' . oos_href_link_admin('coupon_admin.php','action=confirmdelete&cID='.$_GET['cID']).'">'.oos_button('confirm','Confirm Delete Voucher').'</a>' .
-                '<a href="' . oos_href_link_admin('coupon_admin.php','cID='.$cInfo->coupon_id).'">'.oos_button('cancel', BUTTON_CANCEL).'</a>'
+                '<a href="' . oos_href_link_admin($aContents['coupon_admin'],'action=confirmdelete&cID='  .$_GET['cID']) . '">' . oos_button('confirm', 'Confirm Delete Voucher') . '</a>' .
+                '<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['coupon_admin'], 'cID=' . $cInfo->coupon_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'
                 );
       } else {
         $prod_details = '';
         if ($cInfo->restrict_to_products) {
-          $prod_details = '<a href="' . oos_href_link_admin($aContents['listproducts'], 'cID=' . $cInfo->coupon_id) . '" TARGET="_blank" ONCLICK="window.open(\'' . $aContents['listproducts'] . '?cID=' . $cInfo->coupon_id . '\', \'Valid_Categories\', \'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600\'); return false">View</A>';
+          $prod_details = '<a href="' . oos_href_link_admin($aContents['listproducts'], 'cID=' . $cInfo->coupon_id) . '" TARGET="_blank" ONCLICK="window.open(\'' . $aContents['listproducts'] . '?cID=' . $cInfo->coupon_id . '\', \'Valid_Categories\', \'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600\'); return false">View</a>';
         }
         $cat_details = '';
         if ($cInfo->restrict_to_categories) {
-          $cat_details = '<a href="' . oos_href_link_admin($aContents['listcategories'], 'cID=' . $cInfo->coupon_id) . '" TARGET="_blank" ONCLICK="window.open(\'' . $aContents['listcategories'] . '?cID=' . $cInfo->coupon_id . '\', \'Valid_Categories\', \'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600\'); return false">View</A>';
+          $cat_details = '<a href="' . oos_href_link_admin($aContents['listcategories'], 'cID=' . $cInfo->coupon_id) . '" TARGET="_blank" ONCLICK="window.open(\'' . $aContents['listcategories'] . '?cID=' . $cInfo->coupon_id . '\', \'Valid_Categories\', \'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600\'); return false">View</a>';
         }
         $coupon_name_result = $dbconn->Execute("SELECT coupon_name
                                            FROM " . $oostable['coupons_description'] . "
@@ -1105,10 +1104,10 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                      COUPON_CATEGORIES . ':&nbsp;' . $cat_details . '<br />' .
                      DATE_CREATED . ':&nbsp;' . oos_date_short($cInfo->date_created) . '<br />' .
                      DATE_MODIFIED . ':&nbsp;' . oos_date_short($cInfo->date_modified) . '<br /><br />' .
-                     '<center><a href="' . oos_href_link_admin('coupon_admin.php','action=email&cID='.$cInfo->coupon_id).'">'.oos_button('email', 'Email Voucher').'</a>' .
-                     '<a href="' . oos_href_link_admin('coupon_admin.php','action=voucheredit&cID='.$cInfo->coupon_id).'">'.oos_button('edit', 'Edit Voucher').'</a>' .
-                     '<a href="' . oos_href_link_admin('coupon_admin.php','action=voucherdelete&cID='.$cInfo->coupon_id).'">'.oos_button('delete', 'Delete Voucher').'</a>' .
-                     '<br /><a href="' . oos_href_link_admin('coupon_admin.php','action=voucherreport&cID='.$cInfo->coupon_id).'">'.oos_button('report', 'Voucher Report').'</a></center>'
+                     '<center><a href="' . oos_href_link_admin($aContents['coupon_admin'],'action=email&cID='.$cInfo->coupon_id).'">'.oos_button('email', 'Email Voucher').'</a>' .
+                     '<a href="' . oos_href_link_admin($aContents['coupon_admin'],'action=voucheredit&cID='.$cInfo->coupon_id).'">'.oos_button('edit', 'Edit Voucher').'</a>' .
+                     '<a href="' . oos_href_link_admin($aContents['coupon_admin'],'action=voucherdelete&cID='.$cInfo->coupon_id).'">'.oos_button('delete', 'Delete Voucher').'</a>' .
+                     '<br /><a href="' . oos_href_link_admin($aContents['coupon_admin'],'action=voucherreport&cID='.$cInfo->coupon_id).'">'.oos_button('report', 'Voucher Report').'</a></center>'
                      );
         }
         break;

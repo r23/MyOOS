@@ -215,7 +215,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     case 'release':
       $heading[] = array('text' => '[' . $gInfo->unique_id . '] ' . oos_datetime_short($gInfo->date_created) . ' ' . $currencies->format($gInfo->amount));
 
-      $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['gv_queue'], 'action=confirmrelease&gid=' . $gInfo->unique_id) . '">'.oos_button('confirm_red', IMAGE_CONFIRM) . '</a> <a href="' . oos_href_link_admin($aContents['gv_queue'],'action=cancel&gid=' . $gInfo->unique_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
+      $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['gv_queue'], 'action=confirmrelease&gid=' . $gInfo->unique_id) . '">'.oos_button('confirm_red', IMAGE_CONFIRM) . '</a> <a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['gv_queue'],'action=cancel&gid=' . $gInfo->unique_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
       break;
 
     default:
