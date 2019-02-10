@@ -92,38 +92,48 @@ $currencies = new currencies();
 $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
-  if (!empty($action)) {
+if (!empty($action)) {
     switch ($action) {
       case 'setflag':
-        oos_set_specials_status($_GET['id'], $_GET['flag']);
-        oos_redirect_admin(oos_href_link_admin($aContents['specials'], ''));
+		if (isset($_GET['id']) && is_numeric($_GET['id'])) {	  
+			oos_set_specials_status($_GET['id'], $_GET['flag']);
+		}
+		
+        oos_redirect_admin(oos_href_link_admin($aContents['specials'], 'sID=' . intval($_GET['id']) . '&page=' . $nPage));
         break;
 
       case 'insert':
+
+        $products_id = oos_db_prepare_input($_POST['products_id']);
+        $products_price = oos_db_prepare_input($_POST['products_price']);
+        $specials_price = oos_db_prepare_input($_POST['specials_price']);
+        $expires_date = oos_db_prepare_input($_POST['expires_date']);	  
+	  
         // insert a product on special
         if (substr($_POST['specials_price'], -1) == '%') {
           $productstable = $oostable['products'];
-          $new_special_insert_result = $dbconn->Execute("SELECT products_id, products_price FROM $productstable WHERE products_id = '" . intval($_POST['products_id']) . "'");
+          $new_special_insert_result = $dbconn->Execute("SELECT products_id, products_price FROM $productstable WHERE products_id = '" . intval($products_id) . "'");
           $new_special_insert = $new_special_insert_result->fields;
-          $_POST['products_price'] = $new_special_insert['products_price'];
-          $_POST['specials_price'] = ($_POST['products_price'] - (($_POST['specials_price'] / 100) * $_POST['products_price']));
+
+          $products_price = $new_special_insert['products_price'];
+          $specials_price = ($products_price - (($specials_price / 100) * $products_price));		  
+		  
         } 
 
-		$expires_date = oos_db_prepare_input($_POST['expires_date']);
 
-        $dbconn->Execute("INSERT INTO " . $oostable['specials'] . " (products_id, specials_new_products_price, specials_date_added, expires_date, status) VALUES ('" . intval($_POST['products_id']) . "', '" . oos_db_input($_POST['specials_price']) . "', now(), '" . oos_db_input($expires_date) . "', '1')");
+        $dbconn->Execute("INSERT INTO " . $oostable['specials'] . " (products_id, specials_new_products_price, specials_date_added, expires_date, status) VALUES ('" . intval($products_id) . "', '" . oos_db_input($specials_price) . "', now(), '" . oos_db_input($expires_date) . "', '1')");
         oos_redirect_admin(oos_href_link_admin($aContents['specials'], 'page=' . $nPage));
         break;
 
       case 'update':
-        // update a product on special
-        if (substr($_POST['specials_price'], -1) == '%') {
-          $_POST['specials_price'] = ($_POST['products_price'] - (($_POST['specials_price'] / 100) * $_POST['products_price']));
-        }
-		
-		$expires_date = oos_db_prepare_input($_POST['expires_date']);
+        $specials_id = oos_db_prepare_input($_POST['specials_id']);
+        $products_price = oos_db_prepare_input($_POST['products_price']);
+        $specials_price = oos_db_prepare_input($_POST['specials_price']);
+		$expires_date = oos_db_prepare_input($_POST['expires_date']);	  
+	  	
+        if (substr($specials_price, -1) == '%') $specials_price = ($products_price - (($specials_price / 100) * $products_price));
 
-        $dbconn->Execute("UPDATE " . $oostable['specials'] . " SET specials_new_products_price = '" . oos_db_input($_POST['specials_price']) . "', specials_last_modified = now(), expires_date = '" . oos_db_input($expires_date) . "' WHERE specials_id = '" .intval($_POST['specials_id']) . "'");
+        $dbconn->Execute("UPDATE " . $oostable['specials'] . " SET specials_new_products_price = '" . oos_db_input($specials_price) . "', specials_last_modified = now(), expires_date = '" . oos_db_input($expires_date) . "' WHERE specials_id = '" .intval($specials_id) . "'");
         oos_redirect_admin(oos_href_link_admin($aContents['specials'], 'page=' . $nPage . '&sID=' . $specials_id));
         break;
 
@@ -281,7 +291,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
             <td class="main"><br /><?php echo TEXT_SPECIALS_PRICE_TIP; ?></td>
-            <td class="main" align="right" valign="top"><br /><?php echo (($form_action == 'insert') ? oos_submit_button('insert', BUTTON_INSERT) : oos_submit_button('update', IMAGE_UPDATE)). '&nbsp;&nbsp;&nbsp;<a href="' . oos_href_link_admin($aContents['specials'], 'page=' . $nPage . '&sID=' . $_GET['sID']) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>'; ?></td>
+            <td class="main" align="right" valign="top"><br /><?php echo (($form_action == 'insert') ? oos_submit_button('insert', BUTTON_INSERT) : oos_submit_button('update', IMAGE_UPDATE)). '&nbsp;&nbsp;&nbsp;<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['specials'], 'page=' . $nPage . '&sID=' . $_GET['sID']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></td>
           </tr>
         </table></td>
       </form></tr>
@@ -383,7 +393,9 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       $contents = array('form' => oos_draw_form('id', 'specials', $aContents['specials'], 'page=' . $nPage . '&sID=' . $sInfo->specials_id . '&action=deleteconfirm', 'post',  FALSE));
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $contents[] = array('text' => '<br /><b>' . $sInfo->products_name . '</b>');
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', BUTTON_DELETE) . '&nbsp;<a href="' . oos_href_link_admin($aContents['specials'], 'page=' . $nPage . '&sID=' . $sInfo->specials_id) . '">' . oos_button('cancel', BUTTON_CANCEL) . '</a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', BUTTON_DELETE) . '&nbsp;<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['specials'], 'page=' . $nPage . '&sID=' . $sInfo->specials_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+	  // <a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+
       break;
 
     default:
