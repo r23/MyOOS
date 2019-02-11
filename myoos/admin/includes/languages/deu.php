@@ -260,10 +260,11 @@ define('IMAGE_COPY', 'Kopieren');
 define('IMAGE_COPY_TO', 'Kopieren nach');
 define('IMAGE_DEFINE', 'Definieren');
 define('BUTTON_DELETE', 'L&ouml;schen');
+define('BUTTON_DELETE_PERMANENTLY', 'Endgültig löschen');
+
 define('BUTTON_EDIT', 'Bearbeiten');
 define('IMAGE_EMAIL', 'eMail versenden');
 define('IMAGE_FEATURED', 'Top-Angebote');
-define('IMAGE_FILE_MANAGER', 'Datei-Manager');
 define('IMAGE_ICON_STATUS_GREEN', 'aktiv');
 define('IMAGE_ICON_STATUS_GREEN_LIGHT', 'aktivieren');
 define('IMAGE_ICON_STATUS_RED', 'inaktiv');
@@ -305,10 +306,13 @@ define('BUTTON_SEND_PASSWORD', 'Passwort senden');
 define('IMAGE_SPECIALS', 'Sonderangebot');
 define('IMAGE_STATUS', 'Kundengruppe');
 define('IMAGE_UNLOCK', 'Entsperren');
+define('BUTTON_UNTRASH', 'Wiederherstellen');
 define('IMAGE_UPDATE', 'Aktualisieren');
 define('IMAGE_UPDATE_CURRENCIES', 'Wechselkurse aktualisieren');
 define('IMAGE_UPLOAD', 'Hochladen');
 define('IMAGE_WISHLIST', 'Wunschzettel');
+
+
 
 $aLang['image_new_tax_rate'] = 'Neuen Steuersatz anlegen';
 $aLang['image_new_zone'] = 'Neues Bundesland einfügen';

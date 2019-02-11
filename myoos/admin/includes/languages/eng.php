@@ -256,6 +256,7 @@ define('IMAGE_COPY', 'Copy');
 define('IMAGE_COPY_TO', 'Copy To');
 define('IMAGE_DEFINE', 'Define');
 define('BUTTON_DELETE', 'Delete');
+define('BUTTON_DELETE_PERMANENTLY', 'Delete Permanently');
 define('BUTTON_EDIT', 'Edit');
 define('IMAGE_EMAIL', 'Email');
 define('IMAGE_FEATURED', 'Featured');
