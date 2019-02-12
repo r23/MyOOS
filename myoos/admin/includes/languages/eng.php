@@ -301,6 +301,7 @@ define('BUTTON_SEND_PASSWORD', 'Send password');
 define('IMAGE_SPECIALS', 'Specials');
 define('IMAGE_STATUS', 'Customers Status');
 define('IMAGE_UNLOCK', 'Unlock');
+define('BUTTON_UNTRASH', 'Untrash');
 define('IMAGE_UPDATE', 'Update');
 define('IMAGE_UPDATE_CURRENCIES', 'Update Exchange Rate');
 define('IMAGE_UPLOAD', 'Upload');

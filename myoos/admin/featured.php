@@ -306,7 +306,7 @@ require 'includes/header.php';
 		}	  
 ?></td>
                 <td class="text-right"><?php echo
-						'<a href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=edit') . '"><i class="fa fa-pencil-alt" title="' . BUTTON_EDIT . '"></i></a>
+						'<a href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=edit') . '"><i class="fa fa-pencil" title="' . BUTTON_EDIT . '"></i></a>
 						<a href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=delete') . '"><i class="fa fa-trash" title="' .  BUTTON_DELETE . '"></i></a>';
 ?>				&nbsp;</td>				
 
