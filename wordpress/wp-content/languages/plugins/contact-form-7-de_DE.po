@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Contact Form 7 - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-12-29 18:11:48+0000\n"
+"PO-Revision-Date: 2019-02-11 07:09:49+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -22,6 +22,10 @@ msgstr "API-Schlüssel"
 #: modules/constant-contact.php:9
 msgid "Email Marketing"
 msgstr "E-Mail-Marketing"
+
+#: modules/constant-contact.php:287
+msgid "https://contactform7.com/constant-contact-integration/"
+msgstr "https://contactform7.com/constant-contact-integration/"
 
 #: modules/constant-contact.php:347
 msgid "Redirect URI"
@@ -43,6 +47,11 @@ msgstr "Integration konfigurieren"
 #: modules/recaptcha.php:175 modules/recaptcha.php:373
 msgid "reCAPTCHA (v3)"
 msgstr "reCAPTCHA (v3)"
+
+#. translators: 1: response code, 2: response message, 3: URL
+#: includes/functions.php:384
+msgid "HTTP Response: %1$s %2$s from %3$s"
+msgstr "HTTP-Response: %1$s %2$s von %3$s"
 
 #: includes/config-validator.php:586
 msgid "It is not allowed to use files outside the wp-content directory."
@@ -400,13 +409,6 @@ msgstr "Eine Fehlkonfiguration führt zu Fehlern bei der E-Mail-Zustellung oder 
 msgid "You are not allowed to validate configuration."
 msgstr "Du hast nicht die Berechtigung, die Konfiguration zu validieren."
 
-#. translators: %s: number of contact forms
-#: admin/includes/config-validator.php:109
-msgid "Validate %s Contact Form Now"
-msgid_plural "Validate %s Contact Forms Now"
-msgstr[0] "Validiere jetzt %s Kontaktformular"
-msgstr[1] "Validiere jetzt %s Kontaktformulare"
-
 #: admin/includes/config-validator.php:118
 msgid "Validate Configuration"
 msgstr "Validiere die Konfiguration"
@@ -454,6 +456,13 @@ msgid "Configuration validation completed. %s invalid contact form was found."
 msgid_plural "Configuration validation completed. %s invalid contact forms were found."
 msgstr[0] "Validieren der Konfiguration abgeschlossen. %s ungültiges Kontaktformular wurde gefunden."
 msgstr[1] "Validieren der Konfiguration abgeschlossen. %s ungültige Kontaktformulare wurden gefunden."
+
+#. translators: %s: number of contact forms
+#: admin/includes/config-validator.php:109
+msgid "Validate %s Contact Form Now"
+msgid_plural "Validate %s Contact Forms Now"
+msgstr[0] "%s Kontaktformular jetzt validieren"
+msgstr[1] "%s Kontaktformulare jetzt validieren"
 
 #: modules/recaptcha.php:364
 msgid "Settings saved."
