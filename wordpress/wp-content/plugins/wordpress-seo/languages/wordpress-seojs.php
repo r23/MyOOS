@@ -47,7 +47,7 @@ $generated_i18n_strings = array(
 	__( 'Readability analysis (beta)', 'wordpress-seo' ),
 
 	// Reference: js/src/components/contentAnalysis/ReadabilityAnalysis.js:67
-	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:294
+	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:270
 	__( 'Analysis results', 'wordpress-seo' ),
 
 	// Reference: js/src/components/contentAnalysis/ReadabilityAnalysis.js:74
@@ -56,38 +56,39 @@ $generated_i18n_strings = array(
 	// Reference: js/src/components/contentAnalysis/RecalibrationBetaNotification.js:40
 	__( 'Recalibration beta is active', 'wordpress-seo' ),
 
-	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:114
-	__( 'Would you like to add keyphrase synonyms?', 'wordpress-seo' ),
-
-	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:139
+	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:115
 	__( '(Opens in a new browser tab!)', 'wordpress-seo' ),
 
-	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:148
+	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:124
 	// Reference: js/src/components/modals/KeywordSynonyms.js:63
 	// Reference: js/src/components/modals/MultipleKeywords.js:63
+	// Reference: js/src/components/modals/RedirectUpsell.js:90
 	__( 'Get %s', 'wordpress-seo' ),
 
-	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:167
+	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:143
 	__( 'Would you like to add a related keyphrase?', 'wordpress-seo' ),
 
-	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:198
+	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:174
 	__( 'Add related keyphrase', 'wordpress-seo' ),
 
-	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:222
+	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:198
 	__( 'Help on choosing the perfect focus keyphrase', 'wordpress-seo' ),
 
-	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:257
+	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:233
 	__( 'Focus keyphrase (beta)', 'wordpress-seo' ),
 
-	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:262
+	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:238
 	__( 'Enter a focus keyphrase to calculate the SEO score', 'wordpress-seo' ),
 
-	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:282
+	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:258
 	// Reference: js/src/values/defaultReplaceVariables.js:50
 	__( 'Focus keyphrase', 'wordpress-seo' ),
 
-	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:84
+	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:60
 	__( 'Add synonyms', 'wordpress-seo' ),
+
+	// Reference: js/src/components/contentAnalysis/SeoAnalysis.js:90
+	__( 'Would you like to add keyphrase synonyms?', 'wordpress-seo' ),
 
 	// Reference: js/src/components/modals/KeywordSynonyms.js:22
 	__( 'Great news: you can, with %s!', 'wordpress-seo' ),
@@ -121,10 +122,20 @@ $generated_i18n_strings = array(
 
 	// Reference: js/src/components/modals/KeywordSynonyms.js:72
 	// Reference: js/src/components/modals/MultipleKeywords.js:72
+	// Reference: js/src/components/modals/RedirectUpsell.js:132
 	__( '1 year free updates and upgrades included!', 'wordpress-seo' ),
 
 	// Reference: js/src/components/modals/MultipleKeywords.js:22
 	__( 'Great news: you can, with %1$s!', 'wordpress-seo' ),
+
+	// Reference: js/src/components/modals/RedirectUpsell.js:102
+	__( 'To be able to create a redirect and fix this issue, you need %1$s. ', 'wordpress-seo' ),
+
+	// Reference: js/src/components/modals/RedirectUpsell.js:108
+	__( 'You can buy the plugin, including one year of support and updates, on %1$s.', 'wordpress-seo' ),
+
+	// Reference: js/src/components/modals/RedirectUpsell.js:96
+	__( 'Creating redirects is a %s feature', 'wordpress-seo' ),
 
 	// Reference: js/src/containers/SnippetEditor.js:107
 	__( 'Please provide a meta description by editing the snippet below.', 'wordpress-seo' ),
