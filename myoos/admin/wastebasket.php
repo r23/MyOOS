@@ -42,7 +42,7 @@ if (!empty($action)) {
 			break;
 
 		case 'untrash':
-			if ( isset($_GET['flag']) && ($_GET['flag'] == '0') || ($_GET['flag'] == '1') || ($_GET['flag'] == '3') ) {
+			if ( isset($_GET['flag']) && ($_GET['flag'] == '1') || ($_GET['flag'] == '2') ) {
 				if (isset($_GET['pID']) && is_numeric($_GET['pID'])) {
 					oos_set_product_status($_GET['pID'], $_GET['flag']);
 				} elseif (isset($_GET['cID']) && is_numeric($_GET['cID'])) {
@@ -243,11 +243,8 @@ require 'includes/header.php';
                 <td class="text-right"><?php  echo
            '<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id . '&action=edit_category') . '"><i class="fa fa-pencil" title="' .  BUTTON_EDIT . '"></i></a>
 			<a href="' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id . '&action=delete_category') . '"><i class="fa fa-trash" title="' .  BUTTON_DELETE_PERMANENTLY . '"></i></a>
-			<a href="' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id . '&action=untrash&flag=1') .  '"><i class="fas fa-undo" title="' . BUTTON_UNTRASH. '"></i></a>';
+			<a href="' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id . '&action=untrash&flag=2') .  '"><i class="fa fa-undo" title="' . BUTTON_UNTRASH. '"></i></a>';
 			?>&nbsp;</td>				
-				
-<?php #		if (isset($cInfo) && is_object($cInfo) && ($categories['categories_id'] == $cInfo->categories_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&cID=' . $categories['categories_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>
-
               </tr>
 <?php
       // Move that ADOdb pointer!

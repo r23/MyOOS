@@ -26,7 +26,7 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
 ?><!DOCTYPE html>
 <html lang="<?php echo $_SESSION['iso_639_1']; ?>">
 <head>
-    <meta charset="<?php echo CHARSET; ?>">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
 	<title><?php echo HEADING_TITLE . ' - ' . TITLE; ?></title>

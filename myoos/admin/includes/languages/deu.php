@@ -60,7 +60,7 @@
 // Global entries for the <html> tag
 define('HTML_PARAMS',' lang="de"');
 
-// charset for web pages and emails
+// charset for emails
 define('CHARSET', 'utf-8');
 
 // page title

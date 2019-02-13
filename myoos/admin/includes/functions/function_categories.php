@@ -479,7 +479,7 @@ function oos_remove_category($category_id) {
     $categoriestable = $oostable['categories'];
     $category_image_query = "SELECT categories_image
                              FROM $categoriestable
-                             WHERE categories_id = '" . oos_db_input($category_id) . "'";
+                             WHERE categories_id = '" . intval($category_id) . "'";
     $category_image_result = $dbconn->Execute($category_image_query);
     $category_image = $category_image_result->fields;
 
@@ -490,14 +490,45 @@ function oos_remove_category($category_id) {
     $duplicate_image = $duplicate_image_result->fields;
 
     if ($duplicate_image['total'] < 2) {
-		if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . $category_image['categories_image'])) {
-			@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . $category_image['categories_image']);
+		if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'category/originals/' . $category_image['categories_image'])) {
+			@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'category/large/' . $category_image['categories_image']);
+			@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'category/medium/' . $category_image['categories_image']);
+			@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'category/small/' . $category_image['categories_image']);
+			@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'category/originals/' . $category_image['categories_image']);
 		}
 	}
 
-    $dbconn->Execute("DELETE FROM " . $oostable['categories'] . " WHERE categories_id = '" . oos_db_input($category_id) . "'");
-    $dbconn->Execute("DELETE FROM " . $oostable['categories_description'] . " WHERE categories_id = '" . oos_db_input($category_id) . "'");
-    $dbconn->Execute("DELETE FROM " . $oostable['products_to_categories'] . " WHERE categories_id = '" . oos_db_input($category_id) . "'");
+    $categories_imagestable = $oostable['categories_images'];
+    $category_image_query = "SELECT categories_image
+                             FROM $categories_imagestable
+                             WHERE categories_id = '" . intval($category_id) . "'";
+    $category_image_result = $dbconn->Execute($category_image_query);
+    while ($category_image = $category_image_result->fields) {
+
+		$duplicate_image = "SELECT COUNT(*) AS total
+                              FROM $categories_imagestable
+                              WHERE categories_image = '" . oos_db_input($category_image['categories_image']) . "'";
+		$duplicate_image_result = $dbconn->Execute($duplicate_image);
+		$duplicate_image = $duplicate_image_result->fields;
+
+		if ($duplicate_image['total'] < 2) {
+			if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'category/originals/' . $category_image['categories_image'])) {
+				@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'category/large/' . $category_image['categories_image']);
+				@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'category/medium/' . $category_image['categories_image']);
+				@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'category/small/' . $category_image['categories_image']);
+				@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'category/originals/' . $category_image['categories_image']);
+			}
+		}
+		// Move that ADOdb pointer!
+		$category_image_result->MoveNext();
+	}
+
+    $dbconn->Execute("DELETE FROM " . $oostable['categories'] . " WHERE categories_id = '" . intval($category_id) . "'");
+    $dbconn->Execute("DELETE FROM " . $oostable['categories_description'] . " WHERE categories_id = '" . intval($category_id) . "'");
+	$dbconn->Execute("DELETE FROM " . $oostable['categories_images'] . " WHERE categories_id = '" . intval($category_id) . "'");	
+    $dbconn->Execute("DELETE FROM " . $oostable['products_to_categories'] . " WHERE categories_id = '" . intval($category_id) . "'");
+
+	
 }
 
 
