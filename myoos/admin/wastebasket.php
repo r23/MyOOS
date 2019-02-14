@@ -121,21 +121,6 @@ if (!empty($action)) {
     }
 }
 
-
-$cPath_back = '';
-if (is_array($aPath) && count($aPath) > 0) {
-	for ($i = 0, $n = count($aPath) - 1; $i < $n; $i++) {
-		if (empty($cPath_back)) {
-			$cPath_back .= $aPath[$i];
-		} else {
-			$cPath_back .= '_' . $aPath[$i];
-		}
-	}
-}
-
-$cPath_back = (oos_is_not_null($cPath_back)) ? 'cPath=' . $cPath_back . '&' : '';
-
-
 // check if the catalog image directory exists
 require 'includes/header.php';
 ?>
@@ -158,19 +143,6 @@ require 'includes/header.php';
 	<section>
 		<!-- Page content //-->
 		<div class="content-wrapper">
-
-<?php
-	$image_icon_status_array = array();
-	$image_icon_status_array = array(array('id' => '0', 'text' => TEXT_PRODUCT_NOT_AVAILABLE));
-	$image_icon_status_result = $dbconn->Execute("SELECT products_status_id, products_status_name FROM " . $oostable['products_status'] . " WHERE products_status_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY products_status_id");
-	while ($image_icon_status = $image_icon_status_result->fields) {
-		$image_icon_status_array[] = array('id' => $image_icon_status['products_status_id'],
-											'text' => $image_icon_status['products_status_name']);
-
-		// Move that ADOdb pointer!
-		$image_icon_status_result->MoveNext();
-    }
-?>
 
 	<!-- Breadcrumbs //-->
 	<div class="content-heading">
@@ -213,30 +185,31 @@ require 'includes/header.php';
     $categories_count = 0;
     $rows = 0;
     if (isset($_GET['search'])) {
-      $categories_result = $dbconn->Execute("SELECT c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified, c.categories_status FROM " . $oostable['categories'] . " c, " . $oostable['categories_description'] . " cd WHERE c.categories_id = cd.categories_id AND c.categories_status = 0 AND cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "' AND cd.categories_name like '%" . oos_db_input($_GET['search']) . "%' ORDER BY c.sort_order, cd.categories_name");	  
+		$categories_result = $dbconn->Execute("SELECT c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified, c.categories_status FROM " . $oostable['categories'] . " c, " . $oostable['categories_description'] . " cd WHERE c.categories_id = cd.categories_id AND c.categories_status = 0 AND cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "' AND cd.categories_name like '%" . oos_db_input($_GET['search']) . "%' ORDER BY c.sort_order, cd.categories_name");	  
     } else {
-      $categories_result = $dbconn->Execute("SELECT c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified, c.categories_status FROM " . $oostable['categories'] . " c, " . $oostable['categories_description'] . " cd WHERE c.parent_id = '" . $current_category_id . "' AND c.categories_status = 0 AND c.categories_id = cd.categories_id AND cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY c.sort_order, cd.categories_name");
+		$categories_result = $dbconn->Execute("SELECT c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified, c.categories_status FROM " . $oostable['categories'] . " c, " . $oostable['categories_description'] . " cd WHERE c.parent_id = '" . intval($current_category_id) . "' AND c.categories_status = 0 AND c.categories_id = cd.categories_id AND cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY c.sort_order, cd.categories_name");
     }
+	
     while ($categories = $categories_result->fields) {
-      $categories_count++;
-      $rows++;
+		$categories_count++;
+		$rows++;
 
 // Get parent_id for subcategories if search
-      if (isset($_GET['search'])) $cPath = $categories['parent_id'];
+		if (isset($_GET['search'])) $cPath = intval($categories['parent_id']);
 
-      if ((!isset($_GET['cID']) && !isset($_GET['pID']) || (isset($_GET['cID']) && ($_GET['cID'] == $categories['categories_id']))) && !isset($cInfo) && (substr($action, 0, 3) != 'new')) {
-        $category_childs = array('childs_count' => oos_childs_in_category_count($categories['categories_id']));
-        $category_products = array('products_count' => oos_products_in_category_count($categories['categories_id']));
+		if ((!isset($_GET['cID']) && !isset($_GET['pID']) || (isset($_GET['cID']) && ($_GET['cID'] == $categories['categories_id']))) && !isset($cInfo) && (substr($action, 0, 3) != 'new')) {
+			$category_childs = array('childs_count' => oos_childs_in_category_count($categories['categories_id']));
+			$category_products = array('products_count' => oos_products_in_category_count($categories['categories_id']));
 
-        $cInfo_array = array_merge($categories, $category_childs, $category_products);
-        $cInfo = new objectInfo($cInfo_array);
-      }
+			$cInfo_array = array_merge($categories, $category_childs, $category_products);
+			$cInfo = new objectInfo($cInfo_array);
+		}
 
-      if (isset($cInfo) && is_object($cInfo) && ($categories['categories_id'] == $cInfo->categories_id) ) {
-        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['wastebasket'], oos_get_path($categories['categories_id'])) . '\'">' . "\n";
-      } else {
-        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&cID=' . $categories['categories_id']) . '\'">' . "\n";
-      }
+		if (isset($cInfo) && is_object($cInfo) && ($categories['categories_id'] == $cInfo->categories_id) ) {
+			echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['wastebasket'], oos_get_path($categories['categories_id'])) . '\'">' . "\n";
+		} else {
+			echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&cID=' . $categories['categories_id']) . '\'">' . "\n";
+		}
 ?>
                 <td>&nbsp;<?php echo '<a href="' . oos_href_link_admin($aContents['wastebasket'], oos_get_path($categories['categories_id'])) . '"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-folder"></i></button></a>&nbsp;<b>' . ' #' . $categories['categories_id'] . ' ' . $categories['categories_name'] . '</b>'; ?></td>
                 <td class="text-center">&nbsp;</td>
@@ -247,10 +220,9 @@ require 'includes/header.php';
 			?>&nbsp;</td>				
               </tr>
 <?php
-      // Move that ADOdb pointer!
-      $categories_result->MoveNext();
-    }
-
+		// Move that ADOdb pointer!
+		$categories_result->MoveNext();
+	}
 
     $products_count = 0;
     if (isset($_GET['search'])) {
@@ -264,7 +236,7 @@ require 'includes/header.php';
       $rows++;
 
 // Get categories_id for product if search
-      if (isset($_GET['search'])) $cPath=$products['categories_id'];
+      if (isset($_GET['search'])) $cPath = intval($products['categories_id']);
 
       if ((!isset($_GET['pID']) && !isset($_GET['cID']) || (isset($_GET['pID']) && ($_GET['pID'] == $products['products_id']))) && !isset($pInfo)  && !isset($cInfo) && (substr($action, 0, 3) != 'new')) {
         // find out the rating average from customer reviews
@@ -285,10 +257,8 @@ require 'includes/header.php';
 
                 <td class="text-right"><?php echo
 							'<a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=new_product') . '"><i class="fa fa-pencil" title="' .  BUTTON_EDIT . '"></i></a>
-							<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=delete_product') . '"><i class="fa fa-trash" title="' .  BUTTON_DELETE . '"></i></a>
-							<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=move_product') . '"><i class="fa fa-share" title="' . IMAGE_MOVE . '"></i></a>
-							<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=copy_to') . '"><i class="fa fa-copy" title="' . IMAGE_COPY_TO . '"></i></a>
-							<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=slave_products') . '"><i class="fa fa-sticky-note" title="' . IMAGE_SLAVE . '"></i></a>';
+							<a href="' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=delete_product') . '"><i class="fa fa-trash" title="' .  BUTTON_DELETE . '"></i></a>
+							<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . 'action=untrash&flag=2') . '"><i class="fa fa-undo" title="' . BUTTON_UNTRASH . '"></i></a>';
 			?>&nbsp;</td>
 
 
@@ -347,7 +317,9 @@ require 'includes/header.php';
         if ($rows > 0) {
           if (isset($cInfo) && is_object($cInfo)) { // category info box contents
             $heading[] = array('text' => '<b>' . $cInfo->categories_name . '</b>');
-            $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id . '&action=edit_category') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id . '&action=delete_category') . '">' . oos_button('delete',  BUTTON_DELETE) . '</a> <a href="' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id . '&action=untrash&flag=1') . '">' . oos_button('move', TEXT_INFO_HEADING_UNTRASH) . '</a>');
+            $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id . '&action=edit_category') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> 
+			<a href="' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id . '&action=delete_category') . '">' . oos_button('delete',  BUTTON_DELETE) . '</a> 
+			<a href="' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id . '&action=untrash&flag=2') . '">' . oos_button('untrash', BUTTON_UNTRASH) . '</a>');
             $contents[] = array('text' =>  TEXT_CATEGORIES . ' ' . oos_get_categories_name($cPath) . ' ' . oos_get_categories_name($cID) . '<br />' . TEXT_DATE_ADDED . ' ' . oos_date_short($cInfo->date_added));
 			$contents[] = array('text' => '<br />' . oos_info_image('category/medium/' . $cInfo->categories_image, $cInfo->categories_name) . '<br />' . $cInfo->categories_image);
             $contents[] = array('text' => '<br />' . TEXT_SUBCATEGORIES . ' ' . $cInfo->childs_count . '<br />' . TEXT_PRODUCTS . ' ' . $cInfo->products_count);
@@ -356,7 +328,7 @@ require 'includes/header.php';
 
             $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=new_product') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> 
 			<a href="' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=delete_product') . '">' . oos_button('delete',  BUTTON_DELETE) . '</a> 
-			<a href="' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=copy_to') . '">' . oos_button('copy_to', IMAGE_COPY_TO) . '</a>');
+			<a href="' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=untrash&flag=2') . '">' . oos_button('untrash', BUTTON_UNTRASH) . '</a>');
 
             $contents[] = array('text' => '#' . $pInfo->products_id . ' ' . TEXT_CATEGORIES . ' ' . oos_get_categories_name($current_category_id) . '<br />' . TEXT_DATE_ADDED . ' ' . oos_date_short($pInfo->products_date_added));
             if (oos_is_not_null($pInfo->products_last_modified)) $contents[] = array('text' => TEXT_LAST_MODIFIED . ' ' . oos_date_short($pInfo->products_last_modified));

@@ -643,7 +643,7 @@ function oos_get_languages() {
 
 
 
-  function oos_remove_product($product_id) {
+function oos_remove_product($product_id) {
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -661,14 +661,45 @@ function oos_get_languages() {
                         FROM $productstable
                         WHERE products_image = '" . oos_db_input($product_image['products_image']) . "'";
     $duplicate_result = $dbconn->Execute($duplicate_query);
+    $duplicate_image = $duplicate_image_result->fields;
+	
+    if ($duplicate_image['total'] < 2) {
+		if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/originals/' . $product_image['products_image'])) {
+			@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/large/' . $product_image['products_image']);
+			@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/medium/' . $product_image['products_image']);
+			@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/medium_large/' . $product_image['products_image']);
+			@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/small/' . $product_image['products_image']);
+			@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/min/' . $product_image['products_image']);			
+			@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/originals/' . $product_image['products_image']);
+		}
+	}
 
-/*  Todo remove Image
-    if ($duplicate_result->fields['total'] < 2) {
-      if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . $product_image['products_image'])) {
-        @unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . $product_image['products_image']);
-      }
-    }
-*/
+    $products_imagestable = $oostable['products_images'];
+    $product_image_query = "SELECT products_image
+                             FROM $products_imagestable
+                             WHERE products_id = '" . intval($product_id) . "'";
+    $products_image_result = $dbconn->Execute($products_image_query);
+    while ($product_image = $products_image_result->fields) {
+
+		$duplicate_image = "SELECT COUNT(*) AS total
+                              FROM $categories_imagestable
+                              WHERE categories_image = '" . oos_db_input($product_image['products_image']) . "'";
+		$duplicate_image_result = $dbconn->Execute($duplicate_image);
+		$duplicate_image = $duplicate_image_result->fields;
+
+		if ($duplicate_image['total'] < 2) {
+			if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/originals/' . $product_image['products_image'])) {
+				@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/large/' . $product_image['products_image']);
+				@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/medium/' . $product_image['products_image']);
+				@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/medium_large/' . $product_image['products_image']);
+				@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/small/' . $product_image['products_image']);
+				@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/min/' . $product_image['products_image']);			
+				@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/originals/' . $product_image['products_image']);
+			}
+		}
+		// Move that ADOdb pointer!
+		$products_image_result->MoveNext();
+	}
 
     $dbconn->Execute("DELETE FROM " . $oostable['specials'] . " WHERE products_id = '" . intval($product_id) . "'");
     $dbconn->Execute("DELETE FROM " . $oostable['products'] . " WHERE products_id = '" . intval($product_id) . "'");
@@ -689,15 +720,15 @@ function oos_get_languages() {
     $reviews_result = $dbconn->Execute($reviews_query);
 
     while ($product_reviews = $reviews_result->fields) {
-      $dbconn->Execute("DELETE FROM " . $oostable['reviews_description'] . " WHERE reviews_id = '" . intval($product_reviews['reviews_id']) . "'");
+		$dbconn->Execute("DELETE FROM " . $oostable['reviews_description'] . " WHERE reviews_id = '" . intval($product_reviews['reviews_id']) . "'");
 
-      // Move that ADOdb pointer!
-      $reviews_result->MoveNext();
+		// Move that ADOdb pointer!
+		$reviews_result->MoveNext();
     }
 
-    $dbconn->Execute("DELETE FROM " . $oostable['reviews'] . " WHERE products_id = '" . intval($product_id) . "'");
+	$dbconn->Execute("DELETE FROM " . $oostable['reviews'] . " WHERE products_id = '" . intval($product_id) . "'");
 
-  }
+}
 
 
   function oos_class_exits($class_name) {
