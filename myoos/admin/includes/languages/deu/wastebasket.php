@@ -50,6 +50,7 @@ define('TEXT_INFO_CURRENT_CATEGORIES', 'aktuelle Kategorien:');
 
 define('TEXT_INFO_HEADING_EDIT_CATEGORY', 'Kategorie bearbeiten');
 define('TEXT_INFO_HEADING_DELETE_CATEGORY', 'Endgültig löschen');
+define('TEXT_INFO_HEADING_DELETE_PRODUCT', 'Artikel löschen');
 define('TEXT_INFO_HEADING_UNTRASH', 'Wiederherstellen');
 
 define('TEXT_DELETE_CATEGORY_INTRO', 'Sind Sie sicher, dass Sie diese Kategorie löschen möchten?');

@@ -221,7 +221,7 @@ if (!empty($action)) {
 			break;
 
 		case 'delete_category_confirm':
-			if (isset($_POST['categories_id'])) {
+			if (isset($_POST['categories_id']) && is_numeric($_POST['categories_id'])) {
 				$categories_id = oos_db_prepare_input($_POST['categories_id']);
 
 				$categories = oos_get_category_tree($categories_id, '', '0', '', TRUE);
@@ -266,16 +266,11 @@ if (!empty($action)) {
 			break;
 
 		case 'delete_product_confirm':
-			if (isset($_POST['products_id']) && isset($_POST['product_categories']) && is_array($_POST['product_categories'])) {
+			if (isset($_POST['products_id']) && is_numeric($_POST['products_id'])) {
 				$product_id = oos_db_prepare_input($_POST['products_id']);
-				$product_categories = $_POST['product_categories'];
 
-				$product_categories_result = $dbconn->Execute("SELECT COUNT(*) AS total FROM " . $oostable['products_to_categories'] . " WHERE products_id = '" . intval($product_id) . "'");
-				$product_categories = $product_categories_result->fields;
+				product_move_to_trash($product_id);
 
-				if ($product_categories['total'] == '0') {
-					product_move_to_trash($product_id);
-				}
 			}
 			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&page=' . $nPage));
 			break;
@@ -1124,19 +1119,6 @@ if ($action == 'new_category' || $action == 'edit_category') {
         $contents[] = array('text' => TEXT_DELETE_PRODUCT_INTRO);
         $contents[] = array('text' => '<br /><b>' . $pInfo->products_name . '</b>');
 
-        $product_categories_string = '';
-        $product_categories = oos_generate_category_path($pInfo->products_id, 'product');
-        for ($i = 0, $n = count($product_categories); $i < $n; $i++) {
-          $category_path = '';
-          for ($j = 0, $k = count($product_categories[$i]); $j < $k; $j++) {
-            $category_path .= $product_categories[$i][$j]['text'] . '&nbsp;&gt;&nbsp;';
-          }
-          $category_path = substr($category_path, 0, -16);
-          $product_categories_string .= oos_draw_checkbox_field('product_categories[]', $product_categories[$i][count($product_categories[$i])-1]['id'], true) . '&nbsp;' . $category_path . '<br />';
-        }
-        $product_categories_string = substr($product_categories_string, 0, -4);
-
-        $contents[] = array('text' => '<br />' . $product_categories_string);
         $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', BUTTON_MOVE_TRASH) . ' <a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
 
         break;

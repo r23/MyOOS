@@ -50,6 +50,7 @@ define('TEXT_INFO_CURRENT_CATEGORIES', 'Current Categories:');
 
 define('TEXT_INFO_HEADING_EDIT_CATEGORY', 'Edit Category');
 define('TEXT_INFO_HEADING_DELETE_CATEGORY', 'Delete Permanently');
+define('TEXT_INFO_HEADING_DELETE_PRODUCT', 'Delete Product');
 define('TEXT_INFO_HEADING_UNTRASH', 'Untrash');
 
 

@@ -54,7 +54,7 @@ if (!empty($action)) {
 			break;
 
 		case 'delete_category_confirm':
-			if (isset($_POST['categories_id'])) {
+			if (isset($_POST['categories_id']) && is_numeric($_POST['categories_id'])) {
 				$categories_id = oos_db_prepare_input($_POST['categories_id']);
 
 				$categories = oos_get_category_tree($categories_id, '', '0', '', TRUE);
@@ -297,6 +297,7 @@ require 'includes/header.php';
         $contents[] = array('text' => TEXT_DELETE_PRODUCT_INTRO);
         $contents[] = array('text' => '<br /><b>' . $pInfo->products_name . '</b>');
 
+	
         $product_categories_string = '';
         $product_categories = oos_generate_category_path($pInfo->products_id, 'product');
         for ($i = 0, $n = count($product_categories); $i < $n; $i++) {
@@ -309,7 +310,7 @@ require 'includes/header.php';
         }
         $product_categories_string = substr($product_categories_string, 0, -4);
 
-        $contents[] = array('text' => '<br />' . $product_categories_string);
+        $contents[] = array('text' => '<br />' . $product_categories_string);		
         $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', BUTTON_DELETE_PERMANENTLY) . ' <a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
         break;
 
