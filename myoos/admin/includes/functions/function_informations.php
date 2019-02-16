@@ -19,7 +19,7 @@
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    if (!$lang_id) $lang_id = $_SESSION['language_id'];
+    if (empty($lang_id) || !is_numeric($lang_id)) $lang_id = intval($_SESSION['language_id']);
 
     $information_descriptiontable = $oostable['information_description'];
     $query = "SELECT information_name
@@ -40,7 +40,7 @@
 
   function oos_get_informations_description($informations_id, $lang_id = '') {
 
-    if (!$lang_id) $lang_id = $_SESSION['language_id'];
+    if (empty($lang_id) || !is_numeric($lang_id)) $lang_id = intval($_SESSION['language_id']);
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -64,7 +64,7 @@
 
   function oos_get_informations_heading_title($informations_id, $lang_id = '') {
 
-    if (!$lang_id) $lang_id = $_SESSION['language_id'];
+    if (empty($lang_id) || !is_numeric($lang_id)) $lang_id = intval($_SESSION['language_id']);
 
     // Get database information
     $dbconn =& oosDBGetConn();

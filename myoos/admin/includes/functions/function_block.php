@@ -21,16 +21,6 @@
 
 
  /**
-  * Content Block
-  *
-  * @link https://www.oos-shop.de
-  * @package Content Block
-  * @author r23 <info@r23.de>
-  * @copyright 2003 r23
-  * @version $Revision: 1.1 $ - changed by $Author: r23 $ on $Date: 2007/06/08 14:02:48 $
-  */
-
- /**
   * Return Block Side (left right)
   *
   * @param $block_id
@@ -41,7 +31,7 @@
     for ($i = 0, $n = count($select_array); $i < $n; $i++) {
       $name = 'block_side';
       $string .= '<br /><input type="radio" name="' . $name . '" value="' . $select_array[$i] . '"';
-      if ($key_value == $select_array[$i]) $string .= ' CHECKED';
+      if ($key_value == $select_array[$i]) $string .= ' checked="checked"';
       $string .= '> ' . $select_array[$i];
     }
     return $string;

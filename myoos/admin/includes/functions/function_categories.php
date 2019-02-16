@@ -123,7 +123,7 @@ function oos_get_category_name($category_id, $lang_id = '') {
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    if (!$lang_id) $lang_id = $_SESSION['language_id'];
+    if (empty($lang_id) || !is_numeric($lang_id)) $lang_id = intval($_SESSION['language_id']);
 
     $categories_descriptiontable = $oostable['categories_description'];
     $query = "SELECT categories_name
@@ -145,7 +145,7 @@ function oos_get_products_description($product_id, $lang_id = '') {
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    if (!$lang_id) $lang_id = $_SESSION['language_id'];
+    if (empty($lang_id) || !is_numeric($lang_id)) $lang_id = intval($_SESSION['language_id']);
 
     $products_descriptiontable = $oostable['products_description'];
     $query = "SELECT products_description
@@ -165,7 +165,7 @@ function oos_get_products_description_meta($product_id, $lang_id = '') {
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    if (!$lang_id) $lang_id = $_SESSION['language_id'];
+    if (empty($lang_id) || !is_numeric($lang_id)) $lang_id = intval($_SESSION['language_id']);
 
     $products_descriptiontable = $oostable['products_description'];
     $query = "SELECT products_description_meta
@@ -186,7 +186,7 @@ function oos_get_products_keywords_meta($product_id, $lang_id = '') {
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    if (!$lang_id) $lang_id = $_SESSION['language_id'];
+    if (empty($lang_id) || !is_numeric($lang_id)) $lang_id = intval($_SESSION['language_id']);
 
     $products_descriptiontable = $oostable['products_description'];
     $query = "SELECT products_keywords_meta
@@ -207,7 +207,7 @@ function oos_get_products_url($product_id, $lang_id) {
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    if (!$lang_id) $lang_id = $_SESSION['language_id'];
+    if (empty($lang_id) || !is_numeric($lang_id)) $lang_id = intval($_SESSION['language_id']);
 
     $products_descriptiontable = $oostable['products_description'];
     $query = "SELECT products_url
@@ -543,7 +543,7 @@ function oos_get_category_heading_title($category_id, $lang_id = '') {
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    if (!$lang_id) $lang_id = $_SESSION['language_id'];
+    if (empty($lang_id) || !is_numeric($lang_id)) $lang_id = intval($_SESSION['language_id']);
 
     $categories_descriptiontable = $oostable['categories_description'];
     $query = "SELECT categories_heading_title
@@ -563,7 +563,7 @@ function oos_get_category_description($category_id, $lang_id = '') {
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    if (!$lang_id) $lang_id = $_SESSION['language_id'];
+    if (empty($lang_id) || !is_numeric($lang_id)) $lang_id = intval($_SESSION['language_id']);
 
     $categories_descriptiontable = $oostable['categories_description'];
     $query = "SELECT categories_description
@@ -584,7 +584,7 @@ function oos_get_category_description_meta($category_id, $lang_id = '') {
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    if (!$lang_id) $lang_id = $_SESSION['language_id'];
+    if (empty($lang_id) || !is_numeric($lang_id)) $lang_id = intval($_SESSION['language_id']);
 
     $categories_descriptiontable = $oostable['categories_description'];
     $query = "SELECT categories_description_meta
@@ -604,7 +604,7 @@ function oos_get_category_keywords_meta($category_id, $lang_id = '') {
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    if (!$lang_id) $lang_id = $_SESSION['language_id'];
+    if (empty($lang_id) || !is_numeric($lang_id)) $lang_id = intval($_SESSION['language_id']);
 
     $categories_descriptiontable = $oostable['categories_description'];
     $query = "SELECT categories_keywords_meta

@@ -21,13 +21,6 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
- /**
-  * Module
-  *
-  * @link https://www.oos-shop.de
-  * @package Module
-  * @version $Revision: 1.1 $ - changed by $Author: r23 $ on $Date: 2007/06/08 14:02:48 $
-  */
 
  /**
   * Returns Zone Class Name
@@ -66,7 +59,7 @@
 
     if ($order_status_id < 1) return TEXT_DEFAULT;
 
-    if (!$lang_id) $lang_id = $_SESSION['language_id'];
+    if (empty($lang_id) || !is_numeric($lang_id)) $lang_id = intval($_SESSION['language_id']);
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -156,7 +149,7 @@
     for ($i = 0, $n = count($select_array); $i < $n; $i++) {
       $name = (($key) ? 'configuration[' . $key . ']' : 'configuration_value');
       $string .= '<br /><input type="radio" name="' . $name . '" value="' . $select_array[$i] . '"';
-      if ($key_value == $select_array[$i]) $string .= ' CHECKED';
+      if ($key_value == $select_array[$i]) $string .= ' checked="checked"';
       $string .= '> ' . $select_array[$i];
     }
 

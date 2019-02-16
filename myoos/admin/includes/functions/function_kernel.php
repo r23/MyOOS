@@ -508,7 +508,7 @@ function oos_get_languages() {
   */
   function oos_get_products_name($product_id, $lang_id = '') {
 
-    if (!$lang_id) $lang_id = $_SESSION['language_id'];
+    if (empty($lang_id) || !is_numeric($lang_id)) $lang_id = intval($_SESSION['language_id']);
 
     // Get database information
     $dbconn =& oosDBGetConn();
