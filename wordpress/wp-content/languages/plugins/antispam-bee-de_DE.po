@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Antispam Bee - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-01-15 13:36:56+0000\n"
+"PO-Revision-Date: 2019-02-15 07:22:46+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,11 @@ msgstr ""
 "X-Generator: GlotPress/2.4.0-alpha\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Antispam Bee - Stable (latest release)\n"
+
+#: antispam_bee.php:1862
+msgctxt "Word count type. Do not translate!"
+msgid "words"
+msgstr "words"
 
 #: inc/gui.class.php:540
 msgid "https://wordpress.org/support/plugin/antispam-bee"
@@ -23,15 +28,15 @@ msgstr "https://github.com/pluginkollektiv/antispam-bee/wiki/de-Home"
 msgid "Delete Antispam Bee data when uninstalling"
 msgstr "Antispam Bee Daten bei Deinstallation löschen"
 
-#: antispam_bee.php:2504
+#: antispam_bee.php:2523
 msgid "Trackback"
 msgstr "Trackback"
 
-#: antispam_bee.php:2504
+#: antispam_bee.php:2523
 msgid "Comment"
 msgstr "Kommentar"
 
-#: antispam_bee.php:424
+#: antispam_bee.php:437
 msgid "Identical Post title and blog title"
 msgstr "Identischer Beitrags- und Blog-Titel"
 
@@ -43,16 +48,16 @@ msgstr "Wenn diese Option aktiviert ist, werden alle von Antispam Bee erstellten
 msgid "Block or allow comments from specific countries"
 msgstr "Kommentare aus bestimmten Ländern blockieren oder zulassen"
 
-#: antispam_bee.php:415
+#: antispam_bee.php:428
 msgid "Honeypot"
 msgstr "Honeypot"
 
 #. translators: The number of spam comments Antispam Bee blocked so far.
-#: antispam_bee.php:684
+#: antispam_bee.php:697
 msgid "%d Blocked"
 msgstr "%d blockiert"
 
-#. Description of the plugin/theme
+#. Description of the plugin
 msgid "Antispam plugin with a sophisticated toolset for effective day to day comment and trackback spam-fighting. Built with data protection and privacy in mind."
 msgstr "Antispam-Plugin mit einem hochentwickelten Tool-Set für effektive tägliche Kommentar- und Trackback-Spam-Bekämpfung. Entwickelt mit Blick auf Datenschutz und Privatsphäre."
 
@@ -82,15 +87,15 @@ msgstr "Deutsch"
 msgid "Detect and approve only the specified language. Please note the %1$sprivacy notice%2$s for this option."
 msgstr "Kommentare nur in angegebener Sprache zulassen. Bitte beachte den %1$sDatenschutzhinweis%2$s für diese Option."
 
-#: antispam_bee.php:419
+#: antispam_bee.php:432
 msgid "Local DB Spam"
 msgstr "Lokale Spam-DB"
 
-#: antispam_bee.php:422
+#: antispam_bee.php:435
 msgid "Comment Language"
 msgstr "Kommentarsprache"
 
-#: antispam_bee.php:418
+#: antispam_bee.php:431
 msgid "Fake IP"
 msgstr "Gefälschte IP"
 
@@ -158,31 +163,31 @@ msgstr "Vordefinierte und eigene Muster via Plugin-Hook"
 msgid "Manual"
 msgstr "Dokumentation"
 
-#: antispam_bee.php:416
+#: antispam_bee.php:429
 msgid "Comment time"
 msgstr "Kommentarzeit"
 
-#: antispam_bee.php:417
+#: antispam_bee.php:430
 msgid "Empty Data"
 msgstr "Unausgefüllte Felder"
 
-#: antispam_bee.php:420
+#: antispam_bee.php:433
 msgid "Country Check"
 msgstr "Ländererkennung"
 
-#: antispam_bee.php:421
+#: antispam_bee.php:434
 msgid "BBCode"
 msgstr "BBCode"
 
-#: antispam_bee.php:423
+#: antispam_bee.php:436
 msgid "Regular Expression"
 msgstr "Regulärer Ausdruck"
 
-#: antispam_bee.php:544 inc/gui.class.php:531
+#: inc/gui.class.php:531 antispam_bee.php:557
 msgid "Donate"
 msgstr "Spenden"
 
-#: antispam_bee.php:545 inc/gui.class.php:540
+#: inc/gui.class.php:540 antispam_bee.php:558
 msgid "Support"
 msgstr "Support"
 
@@ -226,39 +231,39 @@ msgstr "Keine Spam-Prüfung für Link-Benachrichtigungen"
 msgid "Check for spam data on your own blog"
 msgstr "Den Spam-Bestand des eigenen Blogs durchsuchen"
 
-#: antispam_bee.php:2519
+#: antispam_bee.php:2538
 msgid "Trash it"
 msgstr "In den Papierkorb"
 
-#: antispam_bee.php:520
+#: antispam_bee.php:533
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: antispam_bee.php:791
+#: antispam_bee.php:804
 msgid "No data available."
 msgstr "Noch keine Daten vorhanden."
 
-#: antispam_bee.php:2495
+#: antispam_bee.php:2514
 msgid "Author"
 msgstr "Autor"
 
-#: antispam_bee.php:2503
+#: antispam_bee.php:2522
 msgid "Type"
 msgstr "Typ"
 
-#: antispam_bee.php:2525
+#: antispam_bee.php:2544
 msgid "Delete it"
 msgstr "Löschen"
 
-#: antispam_bee.php:2531
+#: antispam_bee.php:2550
 msgid "Approve it"
 msgstr "Freigeben"
 
-#: antispam_bee.php:2539
+#: antispam_bee.php:2558
 msgid "Notify message by Antispam Bee"
 msgstr "Benachrichtigung von Antispam Bee"
 
-#: antispam_bee.php:2540
+#: antispam_bee.php:2559
 msgid "http://antispambee.com"
 msgstr "http://antispambee.de"
 
@@ -343,15 +348,15 @@ msgstr "Überwachung des Formulars auf Archivseiten"
 msgid "Save Changes"
 msgstr "Änderungen speichern"
 
-#. Plugin Name of the plugin/theme
+#. Plugin Name of the plugin
 msgid "Antispam Bee"
 msgstr "Antispam Bee"
 
-#. Author of the plugin/theme
+#. Author of the plugin
 msgid "pluginkollektiv"
 msgstr "pluginkollektiv"
 
-#: antispam_bee.php:2484
+#: antispam_bee.php:2503
 msgid "Content removed by Antispam Bee"
 msgstr "Inhalt von Antispam Bee entfernt"
 
@@ -359,7 +364,7 @@ msgstr "Inhalt von Antispam Bee entfernt"
 msgid "Filter in the execution order"
 msgstr "Filter in der Ausführungsreihenfolge"
 
-#. Plugin URI of the plugin/theme
+#. Plugin URI of the plugin
 msgid "https://wordpress.org/plugins/antispam-bee/"
 msgstr "https://de.wordpress.org/plugins/antispam-bee/"
 
@@ -371,7 +376,7 @@ msgstr "Erkannten Spam markieren, nicht löschen"
 msgid "Notify admins by e-mail about incoming spam"
 msgstr "E-Mail-Benachrichtigung an den Admin bei erkanntem Spam"
 
-#: antispam_bee.php:2476
+#: antispam_bee.php:2495
 msgid "Comment marked as spam"
 msgstr "Kommentar als Spam markiert"
 
@@ -388,7 +393,7 @@ msgstr "Nicht empfohlen beim Caching von Blog-Seiten"
 msgid "Delete existing spam after %s days"
 msgstr "Vorhandenen Spam nach %s&nbsp;Tagen löschen"
 
-#. Author URI of the plugin/theme
+#. Author URI of the plugin
 msgid "https://pluginkollektiv.org"
 msgstr "https://pluginkollektiv.org"
 
@@ -408,7 +413,7 @@ msgstr "Bei definierten Spam-Gründen sofort löschen"
 msgid "Do not save the spam reason"
 msgstr "Spam-Grund des Kommentars nicht speichern"
 
-#: antispam_bee.php:2491
+#: antispam_bee.php:2510
 msgid "New spam comment on your post"
 msgstr "Neuer Spam-Kommentar zu deinem Beitrag"
 
@@ -420,11 +425,11 @@ msgstr "Andere Spam-Typen werden sofort gelöscht"
 msgid "Spam counter on the dashboard"
 msgstr "Spam-Zähler auf dem Dashboard anzeigen"
 
-#: antispam_bee.php:2535
+#: antispam_bee.php:2554
 msgid "Spam list"
 msgstr "Spam-Liste"
 
-#: antispam_bee.php:2510 inc/columns.class.php:28 inc/gui.class.php:468
+#: inc/gui.class.php:468 inc/columns.class.php:28 antispam_bee.php:2529
 msgid "Spam Reason"
 msgstr "Spam-Grund"
 
