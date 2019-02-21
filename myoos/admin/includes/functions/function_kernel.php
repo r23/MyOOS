@@ -681,10 +681,10 @@ function oos_remove_product($product_id) {
     $products_image_result = $dbconn->Execute($products_image_query);
     while ($product_image = $products_image_result->fields) {
 
-		$duplicate_image = "SELECT COUNT(*) AS total
+		$duplicate_query = "SELECT COUNT(*) AS total
                               FROM $categories_imagestable
                               WHERE categories_image = '" . oos_db_input($product_image['products_image']) . "'";
-		$duplicate_image_result = $dbconn->Execute($duplicate_image);
+		$duplicate_image_result = $dbconn->Execute($duplicate_query);
 		$duplicate_image = $duplicate_image_result->fields;
 
 		if ($duplicate_image['total'] < 2) {

@@ -507,19 +507,18 @@ require 'includes/header.php';
 		<div class="content-wrapper">
 <?php
 if ($action == 'new_category' || $action == 'edit_category') {
-    $parameters = array('categories_name' => '',
+    $parameters = array('categories_id' => '',
+						'categories_name' => '',
                        'categories_heading_title' => '',
                        'categories_description' => '',
                        'categories_description_meta' => '',
                        'categories_keywords_meta' => '',
-                       'categories_id' => '',
+                       'categories_image' => '',
                        'parent_id' => '',
                        'sort_order' => '',
                        'date_added' => '',
                        'categories_status' => 2,
-                       'products_weight' => '',
                        'last_modified' => '');
-
 	$cInfo = new objectInfo($parameters);
 
 	if (isset($_GET['cID']) && empty($_POST)) {
@@ -538,15 +537,6 @@ if ($action == 'new_category' || $action == 'edit_category') {
         $category = $categories_result->fields;
 
         $cInfo = new objectInfo($category);
-	} elseif (oos_is_not_null($_POST)) {
-        $cInfo = new objectInfo($_POST);
-        $categories_name = $_POST['categories_name'];
-        $categories_heading_title = $_POST['categories_heading_title'];
-        $categories_description = $_POST['categories_description'];
-        $categories_description_meta = $_POST['categories_description_meta'];
-        $categories_keywords_meta = $_POST['categories_keywords_meta'];
-        $categories_url = $_POST['categories_url'];
-		$categories_status = $_POST['categories_status'];
 	}
 
 	$aLanguages = oos_get_languages();
@@ -593,7 +583,6 @@ if ($action == 'new_category' || $action == 'edit_category') {
 	echo oos_draw_form('fileupload', 'new_category', $aContents['categories'], 'cPath=' . $cPath . (isset($_GET['cID']) ? '&cID=' . $cID : '') . '&action=' . $form_action, 'post', TRUE, 'enctype="multipart/form-data"');
 		echo oos_draw_hidden_field('categories_date_added', (($cInfo->date_added) ? $cInfo->date_added : date('Y-m-d')));
 		echo oos_draw_hidden_field('parent_id', $cInfo->parent_id);
-		echo oos_draw_hidden_field('categories_previous_image', $cInfo->categories_image);
 		echo oos_hide_session_id();
 ?>
                <div role="tabpanel">
@@ -733,8 +722,18 @@ if ($action == 'new_category' || $action == 'edit_category') {
 				<strong>Details</strong>
 			</div>
 		</div>
+
 		<div class="row mb-3 pb-3 bb">
-			<div class="col-6 col-md-3">
+			<div class="col-6 col-md-3">		
+		
+<?php	
+	if (oos_is_not_null($cInfo->categories_image)) {
+
+        echo oos_info_image('category/medium/' . $cInfo->categories_image, $cInfo->categories_name) . '<br />' . $cInfo->categories_image;
+	
+		echo oos_draw_hidden_field('categories_previous_image', $cInfo->categories_image);	
+	} else {		
+?>
 
 <div class="fileinput fileinput-new" data-provides="fileinput">
   <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
@@ -745,7 +744,9 @@ if ($action == 'new_category' || $action == 'edit_category') {
     <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput"><em class="fa fa-times-circle fa-fw"></em><?php echo BUTTON_DELETE; ?></a>
   </div>
 </div>
-
+<?php
+	}
+?>
 			</div>
 			<div class="col-9">
 				<strong>Details</strong>
@@ -1304,8 +1305,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 
 	</div>
 </div>
-                        <em class="fa-2x mr-2 fas fa-users"></em>
-                        <span>users</span>
+
 <?php
 	require 'includes/bottom.php';
 	require 'includes/nice_exit.php';

@@ -12,6 +12,7 @@
    
 $orders_result = $dbconn->Execute("SELECT COUNT(*) AS count FROM " . $oostable['orders'] . " WHERE orders_status = '0'");
 $orders = $orders_result->fields;
+
 $reviews_result = $dbconn->Execute("SELECT COUNT(*) AS count FROM " . $oostable['reviews']  . " WHERE reviews_status = '0'");
 $reviews = $reviews_result->fields;   
    
@@ -21,10 +22,10 @@ $reviews = $reviews_result->fields;
 	<div class="navbar-header">
 		<a href="<?php echo oos_href_link_admin($aContents['default']); ?>" class="navbar-brand">
 			<div class="brand-logo">
-				<img src="images/myoos.png" alt=" MyOOS [Shopsystem]" class="img-fluid">
+				<img src="images/myoos.png" alt="MyOOS [Shopsystem]" class="img-fluid">
 			</div>
 			<div class="brand-logo-collapsed">
-				<img src="images/myoos-single.png" alt=" MyOOS [Shopsystem]" class="img-fluid">
+				<img src="images/myoos-single.png" alt="MyOOS [Shopsystem]" class="img-fluid">
 			</div>
 		</a>
 	</div>
