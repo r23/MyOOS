@@ -12,9 +12,9 @@
  */
 function twentynineteen_custom_colors_css() {
 
-	$primary_color = 199;
+	$primary_color = twentynineteen_get_default_hue();
 	if ( 'default' !== get_theme_mod( 'primary_color', 'default' ) ) {
-		$primary_color = absint( get_theme_mod( 'primary_color_hue', 199 ) );
+		$primary_color = absint( get_theme_mod( 'primary_color_hue', $primary_color ) );
 	}
 
 	/**
@@ -24,7 +24,7 @@ function twentynineteen_custom_colors_css() {
 	 *
 	 * @param int $saturation Color saturation level.
 	 */
-	$saturation = apply_filters( 'twentynineteen_custom_colors_saturation', 100 );
+	$saturation = twentynineteen_get_default_saturation();
 	$saturation = absint( $saturation ) . '%';
 
 	/**
@@ -34,8 +34,8 @@ function twentynineteen_custom_colors_css() {
 	 *
 	 * @param int $saturation_selection Selection color saturation level.
 	 */
-	$saturation_selection = absint( apply_filters( 'twentynineteen_custom_colors_saturation_selection', 50 ) );
-	$saturation_selection = $saturation_selection . '%';
+	$saturation_selection = twentynineteen_get_default_saturation_selection();
+	$saturation_selection = absint( $saturation_selection ) . '%';
 
 	/**
 	 * Filter Twenty Nineteen default lightness level.
@@ -44,7 +44,7 @@ function twentynineteen_custom_colors_css() {
 	 *
 	 * @param int $lightness Color lightness level.
 	 */
-	$lightness = apply_filters( 'twentynineteen_custom_colors_lightness', 33 );
+	$lightness = twentynineteen_get_default_lightness();
 	$lightness = absint( $lightness ) . '%';
 
 	/**
@@ -54,7 +54,7 @@ function twentynineteen_custom_colors_css() {
 	 *
 	 * @param int $lightness_hover Hover color lightness level.
 	 */
-	$lightness_hover = apply_filters( 'twentynineteen_custom_colors_lightness_hover', 23 );
+	$lightness_hover = twentynineteen_get_default_lightness_hover();
 	$lightness_hover = absint( $lightness_hover ) . '%';
 
 	/**
@@ -64,7 +64,7 @@ function twentynineteen_custom_colors_css() {
 	 *
 	 * @param int $lightness_selection Selection color lightness level.
 	 */
-	$lightness_selection = apply_filters( 'twentynineteen_custom_colors_lightness_selection', 90 );
+	$lightness_selection = twentynineteen_get_default_lightness_selection();
 	$lightness_selection = absint( $lightness_selection ) . '%';
 
 	$theme_css = '
@@ -132,20 +132,14 @@ function twentynineteen_custom_colors_css() {
 		}
 
 		/*
-		 * Set left border color for:
+		 * Set border color for:
 		 * wp block quote
+		 * :focus
 		 */
 		blockquote,
 		.entry .entry-content blockquote,
 		.entry .entry-content .wp-block-quote:not(.is-large),
-		.entry .entry-content .wp-block-quote:not(.is-style-large) {
-			border-left-color: hsl( ' . $primary_color . ', ' . $saturation . ', ' . $lightness . ' ); /* base: #0073a8; */
-		}
-
-		/*
-		 * Set border color for:
-		 * :focus
-		 */
+		.entry .entry-content .wp-block-quote:not(.is-style-large),
 		input[type="text"]:focus,
 		input[type="email"]:focus,
 		input[type="url"]:focus,
@@ -231,7 +225,7 @@ function twentynineteen_custom_colors_css() {
 
 		.editor-block-list__layout .editor-block-list__block .wp-block-quote:not(.is-large):not(.is-style-large),
 		.editor-styles-wrapper .editor-block-list__layout .wp-block-freeform blockquote {
-			border-left: 2px solid hsl( ' . $primary_color . ', ' . $saturation . ', ' . $lightness . ' ); /* base: #0073a8; */
+			border-color: hsl( ' . $primary_color . ', ' . $saturation . ', ' . $lightness . ' ); /* base: #0073a8; */
 		}
 
 		.editor-block-list__layout .editor-block-list__block .wp-block-pullquote.is-style-solid-color:not(.has-background-color) {

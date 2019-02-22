@@ -29,29 +29,29 @@
  * Ersetze datenbankname_hier_einfuegen
  * mit dem Namen der Datenbank, die du verwenden möchtest.
  */
-define('DB_NAME', 'datenbankname_hier_einfuegen');
+define( 'DB_NAME', 'datenbankname_hier_einfuegen' );
 
 /**
  * Ersetze benutzername_hier_einfuegen
  * mit deinem MySQL-Datenbank-Benutzernamen.
  */
-define('DB_USER', 'benutzername_hier_einfuegen');
+define( 'DB_USER', 'benutzername_hier_einfuegen' );
 
 /**
  * Ersetze passwort_hier_einfuegen mit deinem MySQL-Passwort.
  */
-define('DB_PASSWORD', 'passwort_hier_einfuegen');
+define( 'DB_PASSWORD', 'passwort_hier_einfuegen' );
 
 /**
  * Ersetze localhost mit der MySQL-Serveradresse.
  */
-define('DB_HOST', 'localhost');
+define( 'DB_HOST', 'localhost' );
 
 /**
  * Der Datenbankzeichensatz, der beim Erstellen der
  * Datenbanktabellen verwendet werden soll
  */
-define('DB_CHARSET', 'utf8');
+define( 'DB_CHARSET', 'utf8' );
 
 /**
  * Der Collate-Type sollte nicht geändert werden.
@@ -70,14 +70,14 @@ define('DB_COLLATE', '');
  *
  * @since 2.6.0
  */
-define('AUTH_KEY',         'Füge hier deine Zeichenkette ein');
-define('SECURE_AUTH_KEY',  'Füge hier deine Zeichenkette ein');
-define('LOGGED_IN_KEY',    'Füge hier deine Zeichenkette ein');
-define('NONCE_KEY',        'Füge hier deine Zeichenkette ein');
-define('AUTH_SALT',        'Füge hier deine Zeichenkette ein');
-define('SECURE_AUTH_SALT', 'Füge hier deine Zeichenkette ein');
-define('LOGGED_IN_SALT',   'Füge hier deine Zeichenkette ein');
-define('NONCE_SALT',       'Füge hier deine Zeichenkette ein');
+define( 'AUTH_KEY',         'Füge hier deine Zeichenkette ein' );
+define( 'SECURE_AUTH_KEY',  'Füge hier deine Zeichenkette ein' );
+define( 'LOGGED_IN_KEY',    'Füge hier deine Zeichenkette ein' );
+define( 'NONCE_KEY',        'Füge hier deine Zeichenkette ein' );
+define( 'AUTH_SALT',        'Füge hier deine Zeichenkette ein' );
+define( 'SECURE_AUTH_SALT', 'Füge hier deine Zeichenkette ein' );
+define( 'LOGGED_IN_SALT',   'Füge hier deine Zeichenkette ein' );
+define( 'NONCE_SALT',       'Füge hier deine Zeichenkette ein' );
 
 /**#@-*/
 
@@ -88,7 +88,7 @@ define('NONCE_SALT',       'Füge hier deine Zeichenkette ein');
  * verschiedene WordPress-Installationen betreiben.
  * Bitte verwende nur Zahlen, Buchstaben und Unterstriche!
  */
-$table_prefix  = 'wp_';
+$table_prefix = 'wp_';
 
 /**
  * Für Entwickler: Der WordPress-Debug-Modus.
@@ -102,14 +102,15 @@ $table_prefix  = 'wp_';
  *
  * @link https://codex.wordpress.org/Debugging_in_WordPress
  */
-define('WP_DEBUG', false);
+define( 'WP_DEBUG', false );
 
-/* Das war’s, Schluss mit dem Bearbeiten! Viel Spaß beim Bloggen. */
-/* That's all, stop editing! Happy blogging. */
+/* Das war’s, Schluss mit dem Bearbeiten! Viel Spaß. */
+/* That's all, stop editing! Happy publishing. */
 
 /** Der absolute Pfad zum WordPress-Verzeichnis. */
-if ( !defined('ABSPATH') )
-	define('ABSPATH', dirname(__FILE__) . '/');
+if ( ! defined( 'ABSPATH' ) ) {
+	define( 'ABSPATH', dirname( __FILE__ ) . '/' );
+}
 
 /** Definiert WordPress-Variablen und fügt Dateien ein.  */
-require_once(ABSPATH . 'wp-settings.php');
+require_once( ABSPATH . 'wp-settings.php' );

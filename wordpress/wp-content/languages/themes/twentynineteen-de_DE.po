@@ -65,19 +65,19 @@ msgctxt "primary color"
 msgid "Default"
 msgstr "Standard"
 
-#: functions.php:166
+#: functions.php:170
 msgid "White"
 msgstr "Weiß"
 
-#: functions.php:161
+#: functions.php:165
 msgid "Light Gray"
 msgstr "Hellgrau"
 
-#: functions.php:156
+#: functions.php:160
 msgid "Dark Gray"
 msgstr "Dunkelgrau"
 
-#: functions.php:151
+#: functions.php:155
 msgid "Secondary"
 msgstr "Sekundär"
 
@@ -126,11 +126,11 @@ msgstr "Vollständige Größe"
 msgid "Page"
 msgstr "Seite"
 
-#: functions.php:190
+#: functions.php:194
 msgid "Add widgets here to appear in your footer."
 msgstr "Füge hier Widgets hinzu, die in deinem Footer erscheinen sollen."
 
-#: functions.php:188 template-parts/footer/footer-widgets.php:12
+#: template-parts/footer/footer-widgets.php:12 functions.php:192
 msgid "Footer"
 msgstr "Footer"
 
@@ -168,9 +168,9 @@ msgstr "Oberes Menü"
 msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
 msgstr "<span class=\"screen-reader-text\">\"%s\"</span> weiterlesen"
 
-#: image.php:52 template-parts/content/content-page.php:27
 #: template-parts/content/content.php:49
-#: template-parts/content/content-single.php:40
+#: template-parts/content/content-page.php:27
+#: template-parts/content/content-single.php:40 image.php:52
 msgid "Pages:"
 msgstr "Seiten:"
 
@@ -299,11 +299,11 @@ msgstr "<span class=\"screen-reader-text\">%s</span> bearbeiten"
 msgid "Skip to content"
 msgstr "Zum Inhalt springen"
 
-#: functions.php:61 template-parts/header/site-branding.php:46
+#: template-parts/header/site-branding.php:46 functions.php:61
 msgid "Social Links Menu"
 msgstr "Social-Links-Menü"
 
-#: functions.php:59 functions.php:146
+#: functions.php:59 functions.php:150
 msgid "Primary"
 msgstr "Primär"
 
