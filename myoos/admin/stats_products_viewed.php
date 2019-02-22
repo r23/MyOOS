@@ -138,7 +138,7 @@ $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GE
           <tr>
             <td colspan="3"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="smallText" valign="top"><?php echo '<a href="' . oos_href_link_admin($aContents['stats_products_viewed'],"action=reset") . '">' . oos_button('reset', IMAGE_RESET) . '</a>'; ?></td>
+                <td class="smallText" valign="top"><?php echo '<a href="' . oos_href_link_admin($aContents['stats_products_viewed'],"action=reset") . '">' . oos_button('reset', BUTTON_RESET) . '</a>'; ?></td>
               </tr>
             </table></td>
           </tr>

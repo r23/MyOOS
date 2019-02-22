@@ -791,7 +791,7 @@ function check_form() {
     if (oos_is_not_null($_GET['search'])) {
 ?>
                   <tr>
-                    <td align="right" colspan="7"><?php echo '<a href="' . oos_href_link_admin($aContents['customers']) . '">' . oos_button('reset', IMAGE_RESET) . '</a>'; ?></td>
+                    <td align="right" colspan="7"><?php echo '<a href="' . oos_href_link_admin($aContents['customers']) . '">' . oos_button('reset', BUTTON_RESET) . '</a>'; ?></td>
                   </tr>
 <?php
     }

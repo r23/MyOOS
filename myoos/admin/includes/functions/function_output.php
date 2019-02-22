@@ -174,6 +174,18 @@ function oos_submit_button($id, $title = '', $params = '') {
 	return '<button class="btn btn-sm btn-primary mb-20" type="submit"><strong>' . $title . '</strong></button>';
 }
 
+/**
+ * Outputs a submit button
+ *
+ * @param $title
+ * @param $params
+ * @return string
+ */
+function oos_reset_button($id, $title = '', $params = '') {
+	return '<button class="btn btn-sm btn-primary mb-20" type="reset"><strong>' . $title . '</strong></button>';
+}
+
+
 
  /**
   * javascript to dynamically update the states/provinces list when the country is changed

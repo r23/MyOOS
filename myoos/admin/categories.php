@@ -554,6 +554,21 @@ if ($action == 'new_category' || $action == 'edit_category') {
 		$setting_result->MoveNext();
 	}
 
+
+	if (isset($_GET['origin'])) {
+		$sOrigin = oos_db_prepare_input($_GET['origin']);
+        $pos_params = strpos($sOrigin, '?', 0);
+        if ($pos_params != false) {
+          $back_url = substr($sOrigin, 0, $pos_params);
+          $back_url_params = substr($sOrigin, $pos_params + 1);
+        } else {
+          $back_url = $sOrigin;
+          $back_url_params = '';
+        }
+	} else {
+        $back_url = $aContents['categories'];
+        $back_url_params = 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id;
+	}
 ?>
 <script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
 	<!-- Breadcrumbs //-->
@@ -581,10 +596,15 @@ if ($action == 'new_category' || $action == 'edit_category') {
 <?php
 	$form_action = (isset($_GET['cID'])) ? 'update_category' : 'insert_category';
 	echo oos_draw_form('fileupload', 'new_category', $aContents['categories'], 'cPath=' . $cPath . (isset($_GET['cID']) ? '&cID=' . $cID : '') . '&action=' . $form_action, 'post', TRUE, 'enctype="multipart/form-data"');
-		echo oos_draw_hidden_field('categories_date_added', (($cInfo->date_added) ? $cInfo->date_added : date('Y-m-d')));
 		echo oos_draw_hidden_field('parent_id', $cInfo->parent_id);
 		echo oos_hide_session_id();
 ?>
+				<div class="text-right mt-3">
+					<?php echo '<a href="' . oos_href_link_admin($back_url, $back_url_params) . '">' . oos_button('back', IMAGE_BACK) . '</a>'; ?>
+					<?php echo oos_submit_button('save', IMAGE_SAVE); ?>
+					<?php echo oos_reset_button('reset', BUTTON_RESET); ?>			   
+				</div>
+
                <div role="tabpanel">
                   <ul class="nav nav-tabs nav-justified">
                      <li class="nav-item" role="presentation">
@@ -829,33 +849,14 @@ if ($action == 'new_category' || $action == 'edit_category') {
                   </div>
                </div>
             <div class="text-right mt-3">
-			   <?php echo oos_submit_button('save', IMAGE_SAVE); ?>
+				<?php echo '<a href="' . oos_href_link_admin($back_url, $back_url_params) . '">' . oos_button('back', IMAGE_BACK) . '</a>'; ?>
+				<?php echo oos_submit_button('save', IMAGE_SAVE); ?>
+				<?php echo oos_reset_button('reset', BUTTON_RESET); ?>			   
             </div>
-            </form>
-			</div>
+		</form>
+	</div>
 
-		</div>
-<?php
-
-	if (isset($_GET['origin'])) {
-		$sOrigin = oos_db_prepare_input($_GET['origin']);
-        $pos_params = strpos($sOrigin, '?', 0);
-        if ($pos_params != false) {
-          $back_url = substr($sOrigin, 0, $pos_params);
-          $back_url_params = substr($sOrigin, $pos_params + 1);
-        } else {
-          $back_url = $sOrigin;
-          $back_url_params = '';
-        }
-	} else {
-        $back_url = $aContents['categories'];
-        $back_url_params = 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id;
-	}
-?>
-      <tr>
-        <td class="text-right"><?php echo '<a href="' . oos_href_link_admin($back_url, $back_url_params) . '">' . oos_button('back', IMAGE_BACK) . '</a>'; ?></td>
-      </tr>
-	    </table>
+</div>
 <!-- body_text_eof //-->
 <?php
 } else {

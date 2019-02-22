@@ -294,7 +294,7 @@ define('IMAGE_ORDERS_WEBPRINTER', 'WebPrinter');
 define('IMAGE_PLUGINS_INSTALL', 'Plugins Installieren');
 define('IMAGE_PLUGINS_REMOVE', 'Plugins Entfernen');
 define('IMAGE_PREVIEW', 'Vorschau');
-define('IMAGE_RESET', 'Zurücksetzen');
+define('BUTTON_RESET', 'Zurücksetzen');
 define('IMAGE_RESTORE', 'Zurücksichern');
 define('IMAGE_SAVE', 'Speichern');
 define('IMAGE_SEARCH', 'Suchen');
