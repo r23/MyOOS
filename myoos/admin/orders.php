@@ -418,7 +418,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
         echo '            <td colspan="7" valign="top">' . 
                           oos_draw_form('id', 'serial_form', $aContents['orders'], 'action=update_serial&oID=' . $oID . '&serial=' . $order->products[$i]['id'], 'post', FALSE) . 
-                          oos_draw_input_field('serial_number', $serial_number, '', false, 'text', true) . '&nbsp;&nbsp;' . oos_submit_button('update', IMAGE_UPDATE) . '</td>' . "\n" .
+                          oos_draw_input_field('serial_number', $serial_number, '', false, 'text', true) . '&nbsp;&nbsp;' . oos_submit_button(IMAGE_UPDATE) . '</td>' . "\n" .
              '          </tr>' . "\n";
       }
     }
@@ -499,7 +499,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                 <td class="main"><b><?php echo ENTRY_NOTIFY_COMMENTS; ?></b> <?php echo oos_draw_checkbox_field('notify_comments', '', true); ?></td>
               </tr>
             </table></td>
-            <td valign="top"><?php echo oos_submit_button('update', IMAGE_UPDATE); ?></td>
+            <td valign="top"><?php echo oos_submit_button(IMAGE_UPDATE); ?></td>
           </tr>
         </table></td>
       </form></tr>
@@ -665,7 +665,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       $contents = array('form' => oos_draw_form('id', 'orders', $aContents['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $oInfo->orders_id . '&action=deleteconfirm', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO . '<br /><br /><b>' . $cInfo->customers_firstname . ' ' . $cInfo->customers_lastname . '</b>');
       $contents[] = array('text' => '<br />' . oos_draw_checkbox_field('restock') . ' ' . TEXT_INFO_RESTOCK_PRODUCT_QUANTITY);
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', BUTTON_DELETE) . ' <a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $oInfo->orders_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $oInfo->orders_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
       break;
 
     default:

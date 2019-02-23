@@ -634,7 +634,7 @@ function check_form() {
         </table></td>
       </tr>
       <tr>
-        <td align="right" class="main"><?php echo oos_submit_button('update', IMAGE_UPDATE) . ' <a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('action'))) .'" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></td>
+        <td align="right" class="main"><?php echo oos_submit_button(IMAGE_UPDATE) . ' <a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('action'))) .'" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></td>
       </tr></form>
 	 </table>
 	 <!-- body_text_eof //-->
@@ -810,7 +810,7 @@ function check_form() {
       $contents = array('form' => oos_draw_form('id', 'customers', $aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=deleteconfirm', 'post', FALSE));
       $contents[] = array('text' => TEXT_DELETE_INTRO . '<br /><br /><b>' . $cInfo->customers_firstname . ' ' . $cInfo->customers_lastname . '</b>');
       if ($cInfo->number_of_reviews > 0) $contents[] = array('text' => '<br />' . oos_draw_checkbox_field('delete_reviews', 'on', true) . ' ' . sprintf(TEXT_DELETE_REVIEWS, $cInfo->number_of_reviews));
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', BUTTON_DELETE) . ' <a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
 
       break;
 
@@ -838,7 +838,7 @@ function check_form() {
           $contents[] = array('text' => '<tr>' . "\n" . ' <td class="smallText" colspan="2">' . TEXT_NO_CUSTOMER_HISTORY . '</td>' . "\n" . ' </tr>' . "\n");
       }
       $contents[] = array('text' => '</table>');
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('update', IMAGE_UPDATE) . ' <a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(IMAGE_UPDATE) . ' <a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
 
       break;
 
@@ -864,7 +864,7 @@ function check_form() {
         $login_result = $dbconn->Execute($sql);
         $login = $login_result->fields;
         if ($login['status'] != '0') {
-          $contents[] = array('align' => 'center', 'text' => oos_draw_login_form('login',$aCatalog['login_admin'], 'action=login_admin','POST', 'target=_blank') . oos_draw_hidden_field('verif_key', $login['man_key']) . oos_draw_hidden_field('email_address', $cInfo->customers_email_address) . oos_submit_button('login', IMAGE_LOGIN) . '</form>');
+          $contents[] = array('align' => 'center', 'text' => oos_draw_login_form('login',$aCatalog['login_admin'], 'action=login_admin','POST', 'target=_blank') . oos_draw_hidden_field('verif_key', $login['man_key']) . oos_draw_hidden_field('email_address', $cInfo->customers_email_address) . oos_submit_button(IMAGE_LOGIN) . '</form>');
         }
         $contents[] = array('text' => '<br />'  . oos_customers_payment($customer_status['customers_status_payment']));
         $contents[] = array('text' => '<br />' . TEXT_DATE_ACCOUNT_CREATED . ' ' . oos_date_short($cInfo->date_account_created));

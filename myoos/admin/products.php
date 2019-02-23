@@ -973,7 +973,7 @@ function calcBasePriceFactor() {
                   </div>
                </div>
             <div class="text-right mt-3">
-			   <?php echo oos_submit_button('save', IMAGE_SAVE); ?>
+			   <?php echo oos_submit_button(IMAGE_SAVE); ?>
             </div>
             </form>
 <!-- body_text_eof //-->

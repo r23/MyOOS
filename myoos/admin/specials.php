@@ -291,7 +291,7 @@ if (!empty($action)) {
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
             <td class="main"><br /><?php echo TEXT_SPECIALS_PRICE_TIP; ?></td>
-            <td class="main" align="right" valign="top"><br /><?php echo (($form_action == 'insert') ? oos_submit_button('insert', BUTTON_INSERT) : oos_submit_button('update', IMAGE_UPDATE)). '&nbsp;&nbsp;&nbsp;<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['specials'], 'page=' . $nPage . '&sID=' . $_GET['sID']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></td>
+            <td class="main" align="right" valign="top"><br /><?php echo (($form_action == 'insert') ? oos_submit_button(BUTTON_INSERT) : oos_submit_button(IMAGE_UPDATE)). '&nbsp;&nbsp;&nbsp;<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['specials'], 'page=' . $nPage . '&sID=' . $_GET['sID']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></td>
           </tr>
         </table></td>
       </form></tr>
@@ -393,7 +393,7 @@ if (!empty($action)) {
       $contents = array('form' => oos_draw_form('id', 'specials', $aContents['specials'], 'page=' . $nPage . '&sID=' . $sInfo->specials_id . '&action=deleteconfirm', 'post',  FALSE));
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $contents[] = array('text' => '<br /><b>' . $sInfo->products_name . '</b>');
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', BUTTON_DELETE) . '&nbsp;<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['specials'], 'page=' . $nPage . '&sID=' . $sInfo->specials_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(BUTTON_DELETE) . '&nbsp;<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['specials'], 'page=' . $nPage . '&sID=' . $sInfo->specials_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
 
       break;
 

@@ -453,7 +453,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                 <table border="0" width="100%" cellpadding="0" cellspacing="2">
                   <tr>
                     <td><?php ?>&nbsp;</td>
-                    <td class="text-right"><?php echo '<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['coupon_admin']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>' . oos_submit_button('send_mail', IMAGE_SEND_EMAIL); ?></td>
+                    <td class="text-right"><?php echo '<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['coupon_admin']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>' . oos_submit_button(IMAGE_SEND_EMAIL); ?></td>
                   </tr>
                 </table></td>
               </tr>
@@ -572,7 +572,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                 <td colspan="2"></td>
               </tr>
               <tr>
-                <td colspan="2" align="right"><?php echo oos_submit_button('send_mail', IMAGE_SEND_EMAIL); ?></td>
+                <td colspan="2" align="right"><?php echo oos_submit_button(IMAGE_SEND_EMAIL); ?></td>
               </tr>
             </table></td>
           </form></tr>
@@ -727,7 +727,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     echo oos_draw_hidden_field('coupon_finishdate', date('Y-m-d', mktime(0, 0, 0, $_POST['coupon_finishdate_month'],$_POST['coupon_finishdate_day'] ,$_POST['coupon_finishdate_year'] )));
 ?>
      <tr>
-        <td class="text-left"><?php echo oos_submit_button('confirm', COUPON_BUTTON_CONFIRM); ?></td>
+        <td class="text-left"><?php echo oos_submit_button(COUPON_BUTTON_CONFIRM); ?></td>
         <td class="text-left"><?php echo oos_submit_button('back', COUPON_BUTTON_BACK, 'name=back'); ?></td>
       </td>
       </tr>

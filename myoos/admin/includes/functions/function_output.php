@@ -162,7 +162,6 @@ function oos_button($id, $title = '', $params = '') {
 	return '<button class="btn btn-sm btn-primary mb-20"><strong>' . $title . '</strong></button>';
 }
 
-
 /**
  * Outputs a submit button
  *
@@ -170,22 +169,29 @@ function oos_button($id, $title = '', $params = '') {
  * @param $params
  * @return string
  */
-function oos_submit_button($id, $title = '', $params = '') {
-	return '<button class="btn btn-sm btn-primary mb-20" type="submit"><strong>' . $title . '</strong></button>';
+function oos_submit_button($title = '', $params = '') {
+	return '<button class="btn btn-sm btn-primary mb-20" type="submit"><strong><i class="fa fa-check-circle"></i> ' . $title . '</strong></button>';
 }
 
 /**
- * Outputs a submit button
+ * Outputs a reset button
  *
  * @param $title
- * @param $params
  * @return string
  */
-function oos_reset_button($id, $title = '', $params = '') {
-	return '<button class="btn btn-sm btn-primary mb-20" type="reset"><strong>' . $title . '</strong></button>';
+function oos_reset_button($title = '') {
+	return '<button class="btn btn-sm btn-primary mb-20" type="reset"><strong><i class="fa fa-plus-circle"></i> ' . $title . '</strong></button>';
 }
 
-
+/**
+ * Outputs a back button
+ *
+ * @param $title
+ * @return string
+ */
+function oos_back_button($title = '') {
+	return '<button class="btn btn-sm btn-primary mb-20"><strong><i class="fa fa-chevron-left"></i> ' . $title . '</strong></button>';
+}
 
  /**
   * javascript to dynamically update the states/provinces list when the country is changed

@@ -229,7 +229,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 		}
 ?>
       <tr>
-        <td align="right" class="smallText"><?php echo '<a href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id . '&action=edit') . '">' . oos_button('back', IMAGE_BACK) . '</a> ' . oos_submit_button('update', IMAGE_UPDATE) . ' <a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></td>
+        <td align="right" class="smallText"><?php echo '<a href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id . '&action=edit') . '">' . oos_button('back', IMAGE_BACK) . '</a> ' . oos_submit_button(IMAGE_UPDATE) . ' <a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></td>
       </form></tr>
 <?php
     } else {
@@ -345,7 +345,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         $contents = array('form' => oos_draw_form('id', 'reviews', $aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id . '&action=deleteconfirm', 'post',  FALSE));
         $contents[] = array('text' => TEXT_INFO_DELETE_REVIEW_INTRO);
         $contents[] = array('text' => '<br /><b>' . $rInfo->products_name . '</b>');
-        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button('delete', BUTTON_DELETE) . ' <a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
         break;
 
       default:

@@ -206,8 +206,8 @@
 ?>
                 <table border="0" width="100%" cellpadding="0" cellspacing="2">
                   <tr>
-                    <td><?php echo oos_submit_button('back', IMAGE_BACK, 'name="back"'); ?></td>
-                    <td class="text-right"><?php echo '<a href="' . oos_href_link_admin($aContents['mail']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>' . oos_submit_button('send_mail', IMAGE_SEND_EMAIL); ?></td>
+                    <td><?php echo oos_submit_button( IMAGE_BACK); ?></td>
+                    <td class="text-right"><?php echo '<a href="' . oos_href_link_admin($aContents['mail']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>' . oos_submit_button(IMAGE_SEND_EMAIL); ?></td>
                   </tr>
                 </table></td>
               </tr>
@@ -268,7 +268,7 @@
                 <td colspan="2"></td>
               </tr>
               <tr>
-                <td colspan="2" align="right"><?php echo oos_submit_button('send_mail', IMAGE_SEND_EMAIL); ?></td>
+                <td colspan="2" align="right"><?php echo oos_submit_button(IMAGE_SEND_EMAIL); ?></td>
               </tr>
             </table></td>
           </form></tr>
