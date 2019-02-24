@@ -143,7 +143,19 @@ if (!empty($action)) {
 				}
 			}
 
-
+			if ( ($_POST['remove_image'] == 'yes') && (isset($_POST['categories_previous_image'])) ) {
+				$categories_previous_image = oos_db_prepare_input($_POST['categories_previous_image']);
+				
+				$categoriestable = $oostable['categories'];
+				$dbconn->Execute("UPDATE $categoriestable
+                            SET categories_image = NULL
+                            WHERE categories_id = '" . intval($categories_id) . "'");				
+				
+				oos_remove_category_image($categories_previous_image);
+				
+			}
+# echo 'jeep';
+# exit;
 			$options = array(
 				'image_versions' => array(
                 // The empty image version key defines options for the original image.
@@ -190,7 +202,6 @@ if (!empty($action)) {
 			$oCategoriesImage->parse();
 
 			if (oos_is_not_null($oCategoriesImage->filename)) {
-
 				$categoriestable = $oostable['categories'];
 				$dbconn->Execute("UPDATE $categoriestable
                             SET categories_image = '" . oos_db_input($oCategoriesImage->filename) . "'
@@ -749,9 +760,11 @@ if ($action == 'new_category' || $action == 'edit_category') {
 <?php	
 	if (oos_is_not_null($cInfo->categories_image)) {
 
-        echo oos_info_image('category/medium/' . $cInfo->categories_image, $cInfo->categories_name) . '<br />' . $cInfo->categories_image;
+        echo oos_info_image('category/medium/' . $cInfo->categories_image, $cInfo->categories_name);
 	
-		echo oos_draw_hidden_field('categories_previous_image', $cInfo->categories_image);	
+		echo oos_draw_hidden_field('categories_previous_image', $cInfo->categories_image);
+		echo '<br>';
+		echo oos_draw_checkbox_field('remove_image', 'yes') . ' ' . TEXT_IMAGE_REMOVE;	
 	} else {		
 ?>
 

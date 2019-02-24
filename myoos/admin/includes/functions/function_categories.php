@@ -469,6 +469,18 @@ function oos_output_generated_category_path($id, $from = 'category') {
 	return $calculated_category_path_string;
 }
 
+function oos_remove_category_image($image) {
+	$sImage = oos_var_prep_for_os($image);
+	
+	if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'category/originals/' .$sImage)) {
+		@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'category/large/' .$sImage);
+		@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'category/medium/' .$sImage);
+		@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'category/small/' .$sImage);
+		@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'category/originals/' .$sImage);
+	}
+}
+
+
 
 function oos_remove_category($category_id) {
 
@@ -490,12 +502,7 @@ function oos_remove_category($category_id) {
     $duplicate_image = $duplicate_image_result->fields;
 
     if ($duplicate_image['total'] < 2) {
-		if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'category/originals/' . $category_image['categories_image'])) {
-			@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'category/large/' . $category_image['categories_image']);
-			@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'category/medium/' . $category_image['categories_image']);
-			@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'category/small/' . $category_image['categories_image']);
-			@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'category/originals/' . $category_image['categories_image']);
-		}
+		oos_remove_category_image($category_image['categories_image']);
 	}
 
     $categories_imagestable = $oostable['categories_images'];
@@ -512,12 +519,7 @@ function oos_remove_category($category_id) {
 		$duplicate_image = $duplicate_image_result->fields;
 
 		if ($duplicate_image['total'] < 2) {
-			if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'category/originals/' . $category_image['categories_image'])) {
-				@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'category/large/' . $category_image['categories_image']);
-				@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'category/medium/' . $category_image['categories_image']);
-				@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'category/small/' . $category_image['categories_image']);
-				@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'category/originals/' . $category_image['categories_image']);
-			}
+			oos_remove_category_image($category_image['categories_image']);
 		}
 		// Move that ADOdb pointer!
 		$category_image_result->MoveNext();

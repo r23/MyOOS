@@ -126,8 +126,6 @@ define('BUTTON_DELETE_SLAVE', 'Lösche diese Produktoption');
 define('TEXT_SUCCESSFULLY_SLAVE', 'Dieses Produkt wurde erfolgreich als Slave hinzugefügt.');
 define('TEXT_ERROR_SLAVE', 'Dieses Produkt existiert nicht oder ist bereits als Slave hinzugefügt worden.');
 
-// Qty Min/Units and List/Rebates
-// categories.php definitions
 define('CAT_CATEGORY_ID_TEXT', 'ID # ');
 define('CAT_PRODUCT_ID_TEXT', 'ID # ');
 define('CAT_ATTRIBUTES_BASE_PRICE_TEXT', 'Basispreis: ');
@@ -137,7 +135,6 @@ define('CAT_QUANTITY_MIN_TEXT', 'Mindestbestellmenge: ');
 define('CAT_QUANTITY_MAX_TEXT', 'maximale Bestellmenge: ');
 define('CAT_QUANTITY_UNITS_TEXT', 'Verpackungseinheit: ');
 
-// Attribute Copy Option
 define('TEXT_COPY_ATTRIBUTES_ONLY', 'Nur Produktinformationen kopieren ...');
 define('TEXT_COPY_ATTRIBUTES', 'Artikeloptionen kopieren?');
 define('TEXT_COPY_ATTRIBUTES_YES', 'Ja');
@@ -146,8 +143,5 @@ define('TEXT_COPY_ATTRIBUTES_NO', 'Nein');
 define('TEXT_DATA', 'Daten');
 define('TEXT_IMAGES', 'Bilder');
 define('TEXT_UPLOAD', 'Bilder hochladen');
-define('TEXT_GRAPHICS_INFO', 'Das webbasierten Hochladen akzeptiert die folgenden Formate: %s, und %s.');
-define('TEXT_GRAPHICS_NOTE', 'Anmerkung:');
-define('TEXT_GRAPHICS_ZIP', 'ZIP-Dateien dürfen nur von MyOOS unterstützte Bildformate enthalten.');
-define('TEXT_GRAPHICS_MAXIMUM', 'Die maximale Grö&szlig;e pro Hochlade-Vorgang ist <strong>%sB</strong> und die maximale Größe insgesamt <strong>%sB</strong>. Diese sind von <code>upload_max_filesize</code> und <code>post_max_size</code> Ihrer PHP-Konfiguration so vorgegeben.');
-define('TEXT_GRAPHICS_MAX_SIZE', 'Die maximale Größe pro Hochlade-Vorgang ist <strong>%sB</strong>. Dies ist von <code>post_max_size</code> Ihrer PHP-Konfiguration vorgegeben.');
+define('TEXT_IMAGE_REMOVE', '<b>Entfernen</b> des Bildes von der Kategorie?');
+

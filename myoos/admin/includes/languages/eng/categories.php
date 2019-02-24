@@ -127,9 +127,6 @@ define('BUTTON_DELETE_SLAVE', 'Delete this slave product');
 define('TEXT_SUCCESSFULLY_SLAVE', 'This product was successfully added as a slave.');
 define('TEXT_ERROR_SLAVE', 'This product does not exist or is already a slave.');
 
-
-// Qty Min/Units and List/Rebates
-// categories.php definitions
 define('CAT_CATEGORY_ID_TEXT', 'ID # ');
 define('CAT_PRODUCT_ID_TEXT', 'ID # ');
 define('CAT_ATTRIBUTES_BASE_PRICE_TEXT', ' Attribute Base Price: ');
@@ -139,7 +136,6 @@ define('CAT_QUANTITY_MIN_TEXT', 'Min: ');
 define('CAT_QUANTITY_MIN_TEXT', 'Max: ');
 define('CAT_QUANTITY_UNITS_TEXT', 'Units: ');
 
-// Attribute Copy Option
 define('TEXT_COPY_ATTRIBUTES_ONLY', 'Only used for Duplicate Products ...');
 define('TEXT_COPY_ATTRIBUTES', 'Copy Product Attribuites to Duplicate?');
 define('TEXT_COPY_ATTRIBUTES_YES', 'Yes');
@@ -148,9 +144,5 @@ define('TEXT_COPY_ATTRIBUTES_NO', 'No');
 define('TEXT_DATA', 'Daten');
 define('TEXT_IMAGES', 'Images');
 define('TEXT_UPLOAD', 'File Upload');
+define('TEXT_IMAGE_REMOVE', '<b>Remove</b> this Image from this Category?');
 
-define('TEXT_GRAPHICS_INFO', 'This web-based upload accepts the file formats: %s, and %s.');
-define('TEXT_GRAPHICS_NOTE', 'Note:');
-define('TEXT_GRAPHICS_ZIP', 'ZIP files must contain only MyOOS supported <em>image</em> types.');
-define('TEXT_GRAPHICS_MAXIMUM', 'The maximum size for any one file is <strong>%sB</strong> and the maximum size for one total upload is <strong>%sB</strong> which are set by your PHP configuration <code>upload_max_filesize</code> and <code>post_max_size</code>.');
-define('TEXT_GRAPHICS_MAX_SIZE', 'The maximum size for your total upload is <strong>%sB</strong> which is set by your PHP configuration <code>post_max_size</code>.');
