@@ -16,8 +16,8 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  define('OOS_VALID_MOD', 'yes');
-  require 'includes/main.php';
+define('OOS_VALID_MOD', 'yes');
+require 'includes/main.php';
 
  /**
   * Return Page Type Name
@@ -26,9 +26,9 @@
   * @param $language
   * @return string
   */ 
-  function oosGetPageTypeName($page_type_id,$lang_id = '') {
+function oosGetPageTypeName($page_type_id, $language_id = '') {
 
-    if (empty($lang_id) || !is_numeric($lang_id)) $lang_id = intval($_SESSION['language_id']);
+    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -37,11 +37,11 @@
     $page_type_sql = "SELECT page_type_name 
                       FROM " . $oostable['page_type'] . " 
                       WHERE page_type_id = '" . $page_type_id . "' 
-                      AND page_type_languages_id = '" . intval($lang_id) . "'";
+                      AND page_type_languages_id = '" . intval($language_id) . "'";
     $page_type = $dbconn->Execute($page_type_sql);
 
     return $page_type->fields['page_type_name'];
-  }
+}
 
 
  /**
@@ -49,7 +49,7 @@
   *
   * @return array
   */
-  function oosGetPageType() {
+function oosGetPageType() {
 
     $page_type_array = array();
 
@@ -63,20 +63,20 @@
                       ORDER BY page_type_id";
     $page_type_result = $dbconn->Execute($page_type_sql);
     while ($page_type = $page_type_result->fields) {
-      $page_type_array[] = array('id' => $page_type['page_type_id'],
+		$page_type_array[] = array('id' => $page_type['page_type_id'],
                                  'text' => $page_type['page_type_name']
                                     );
-      // Move that ADOdb pointer!
-      $page_type_result->MoveNext();
+		// Move that ADOdb pointer!
+		$page_type_result->MoveNext();
     }
 
     return $page_type_array;
-  }
+}
 
 $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
-  if (!empty($action)) {
+if (!empty($action)) {
     switch ($action) {
       case 'insert':
       case 'save':
@@ -85,9 +85,9 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         $languages = oos_get_languages();
         for ($i = 0, $n = count($languages); $i < $n; $i++) {
           $page_type_name_array = $_POST['page_type_name'];
-          $lang_id = $languages[$i]['id'];
+          $language_id = $languages[$i]['id'];
 
-          $sql_data_array = array('page_type_name' => oos_db_prepare_input($page_type_name_array[$lang_id]));
+          $sql_data_array = array('page_type_name' => oos_db_prepare_input($page_type_name_array[$language_id]));
 
           if ($action == 'insert') {
             if (oos_empty($page_type_id)) {
@@ -97,13 +97,13 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
             }
 
             $insert_sql_data = array('page_type_id' => $page_type_id,
-                                     'page_type_languages_id' => $lang_id);
+                                     'page_type_languages_id' => $language_id);
 
             $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
 
             oos_db_perform($oostable['page_type'], $sql_data_array);
           } elseif ($action == 'save') {
-            oos_db_perform($oostable['page_type'], $sql_data_array, 'UPDATE', "page_type_id = '" . oos_db_input($page_type_id) . "' and page_type_languages_id = '" . intval($lang_id) . "'");
+            oos_db_perform($oostable['page_type'], $sql_data_array, 'UPDATE', "page_type_id = '" . oos_db_input($page_type_id) . "' and page_type_languages_id = '" . intval($language_id) . "'");
           }
         }
         oos_redirect_admin(oos_href_link_admin($aContents['content_page_type'], 'page=' . $nPage . '&ptID=' . $page_type_id));

@@ -27,7 +27,7 @@ define('TEXT_SELECTED_PRODUCTS', 'Selected Products');
 
 define('JS_PLEASE_SELECT_PRODUCTS', 'Please select some products.');
 
-define('BUTTON_GLOBAL', 'Global');
+define('BUTTON_GLOBAL', 'GLOBAL');
 define('BUTTON_SELECT', '>>>');
 define('BUTTON_UNSELECT', '<<<');
 define('BUTTON_SUBMIT', 'Submit');

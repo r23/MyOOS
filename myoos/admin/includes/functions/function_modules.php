@@ -55,11 +55,11 @@
   * @param $language
   * @return string
   */
-  function oos_cfg_get_order_status_name($order_status_id, $lang_id = '') {
+  function oos_cfg_get_order_status_name($order_status_id, $language_id = '') {
 
     if ($order_status_id < 1) return TEXT_DEFAULT;
 
-    if (empty($lang_id) || !is_numeric($lang_id)) $lang_id = intval($_SESSION['language_id']);
+    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -68,7 +68,7 @@
     $query = "SELECT orders_status_name
               FROM " . $oostable['orders_status'] . "
               WHERE orders_status_id = '" .  intval($order_status_id) . "'
-                AND orders_languages_id = '" . intval($lang_id) . "'";
+                AND orders_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
     return $result->fields['orders_status_name'];
@@ -133,7 +133,7 @@
   * @return string
   */
   function oos_cfg_textarea($text) {
-     return oos_draw_textarea_field('configuration_value', false, 35, 5, $text);
+     return oos_draw_textarea_field('configuration_value', FALSE, 35, 5, $text);
   }
 
 

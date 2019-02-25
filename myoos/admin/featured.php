@@ -20,7 +20,7 @@ define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
   function oos_draw_products_pull_down($name, $parameters = '', $exclude = '') {
-    global $currencies;
+    GLOBAL $currencies;
 
     if ($exclude == '') {
       $exclude = array();

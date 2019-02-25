@@ -71,23 +71,23 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
           $information_name_array = $_POST['information_name'];
           $information_heading_title_array = $_POST['information_heading_title'];
           $information_description_array = $_POST['information_description'];
-          $lang_id = $languages[$i]['id'];
+          $language_id = $languages[$i]['id'];
 
-          $sql_data_array = array('information_name' => oos_db_prepare_input($information_name_array[$lang_id]));
-          $sql_data_array_head = array('information_heading_title' => oos_db_prepare_input($information_heading_title_array[$lang_id]));
-          $sql_data_array_desc = array('information_description' => oos_db_prepare_input($information_description_array[$lang_id]));
+          $sql_data_array = array('information_name' => oos_db_prepare_input($information_name_array[$language_id]));
+          $sql_data_array_head = array('information_heading_title' => oos_db_prepare_input($information_heading_title_array[$language_id]));
+          $sql_data_array_desc = array('information_description' => oos_db_prepare_input($information_description_array[$language_id]));
 
           $sql_data_array = array_merge($sql_data_array, $sql_data_array_desc , $sql_data_array_head);
 
           if ($action == 'insert') {
             $insert_sql_data = array('information_id' => $information_id,
-                                     'information_languages_id' => $lang_id);
+                                     'information_languages_id' => $language_id);
 
             $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
 
             oos_db_perform($oostable['information_description'], $sql_data_array);
           } elseif ($action == 'save') {
-            oos_db_perform($oostable['information_description'], $sql_data_array, 'UPDATE', "information_id = '" . oos_db_input($information_id) . "' AND information_languages_id = '" . intval($lang_id) . "'");
+            oos_db_perform($oostable['information_description'], $sql_data_array, 'UPDATE', "information_id = '" . oos_db_input($information_id) . "' AND information_languages_id = '" . intval($language_id) . "'");
           }
         }
 

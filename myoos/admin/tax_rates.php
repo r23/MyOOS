@@ -50,9 +50,6 @@ require 'includes/main.php';
       $result->MoveNext();
     }
 
-    // Close result set
-    $result->Close();
-
     $select_string .= '</select>';
 
     return $select_string;
@@ -87,9 +84,6 @@ require 'includes/main.php';
       // Move that ADOdb pointer!
       $result->MoveNext();
     }
-
-    // Close result set
-    $result->Close();
 
     $select_string .= '</select>';
 

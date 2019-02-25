@@ -267,7 +267,7 @@ class upload {
     }
 
     public function check_destination() {
-		global $aLang, $messageStack;
+		GLOBAL $aLang, $messageStack;
 
 		if (!is_writeable($this->destination)) {
 			if (is_dir($this->destination)) {
@@ -1268,7 +1268,7 @@ class upload {
         }
     }
 	
-    public function generate_response($content, $print_response = true) {
+    public function generate_response($content, $print_response = TRUE) {
 		$files = isset($content[$this->options['param_name']]) ?
                     $content[$this->options['param_name']] : null;
 		if ($files && is_array($files) && is_object($files[0]) && $files[0]->name) {

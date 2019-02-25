@@ -19,21 +19,22 @@
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
-  function oos_get_products_status_name($products_status_id, $lang_id = '') {
+function oos_get_products_status_name($products_status_id, $language_id = '') {
 
-    if (empty($lang_id) || !is_numeric($lang_id)) $lang_id = intval($_SESSION['language_id']);
+    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
 
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable = oosDBGetTables();
 
     $products_statustable = $oostable['products_status'];
-    $products_status = $dbconn->Execute("SELECT products_status_name FROM $products_statustable WHERE products_status_id = '" . intval($products_status_id) . "' AND products_status_languages_id = '" . intval($lang_id)  . "'");
+    $products_status = $dbconn->Execute("SELECT products_status_name FROM $products_statustable WHERE products_status_id = '" . intval($products_status_id) . "' AND products_status_languages_id = '" . intval($language_id)  . "'");
 
     return $products_status->fields['products_status_name'];
-  }
+}
 
-  function oos_get_products_status() {
+
+function oos_get_products_status() {
 
     $products_status_array = array();
 
@@ -44,24 +45,25 @@ require 'includes/main.php';
     $products_statustable = $oostable['products_status'];
     $products_status_result = $dbconn->Execute("SELECT products_status_id, products_status_name FROM $products_statustable WHERE products_status_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY products_status_id");
     while ($products_status = $products_status_result->fields) {
-      $products_status_array[] = array('id' => $products_status['products_status_id'],
+		$products_status_array[] = array('id' => $products_status['products_status_id'],
                                        'text' => $products_status['products_status_name']
                                        );
 
-      // Move that ADOdb pointer!
-      $products_status_result->MoveNext();
+		// Move that ADOdb pointer!
+		$products_status_result->MoveNext();
     }
 
     // Close result set
     $products_status_result->Close();
 
     return $products_status_array;
-  }
+}
+
 
 $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
-  if (!empty($action)) {
+if (!empty($action)) {
     switch ($action) {
       case 'insert':
       case 'save':
@@ -70,9 +72,9 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         $languages = oos_get_languages();
         for ($i = 0, $n = count($languages); $i < $n; $i++) {
           $products_status_name_array = $_POST['products_status_name'];
-          $lang_id = $languages[$i]['id'];
+          $language_id = $languages[$i]['id'];
 
-          $sql_data_array = array('products_status_name' => oos_db_prepare_input($products_status_name_array[$lang_id]));
+          $sql_data_array = array('products_status_name' => oos_db_prepare_input($products_status_name_array[$language_id]));
 
           if ($action == 'insert') {
             if (oos_empty($products_status_id)) {
@@ -83,13 +85,13 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
             }
 
             $insert_sql_data = array('products_status_id' => $products_status_id,
-                                     'products_status_languages_id' => $lang_id);
+                                     'products_status_languages_id' => $language_id);
 
             $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
 
             oos_db_perform($oostable['products_status'], $sql_data_array);
           } elseif ($action == 'save') {
-            oos_db_perform($oostable['products_status'], $sql_data_array, 'UPDATE', "products_status_id = '" . oos_db_input($products_status_id) . "' AND products_status_languages_id = '" . intval($lang_id) . "'");
+            oos_db_perform($oostable['products_status'], $sql_data_array, 'UPDATE', "products_status_id = '" . oos_db_input($products_status_id) . "' AND products_status_languages_id = '" . intval($language_id) . "'");
           }
         }
 

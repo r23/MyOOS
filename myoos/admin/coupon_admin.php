@@ -143,9 +143,9 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         $_POST['coupon_code'] = trim($_POST['coupon_code']);
         $languages = oos_get_languages();
         for ($i = 0, $n = count($languages); $i < $n; $i++) {
-          $lang_id = $languages[$i]['id'];
-          $_POST['coupon_name'][$iso_639_2] = trim($_POST['coupon_name'][$lang_id]);
-          $_POST['coupon_desc'][$iso_639_2] = trim($_POST['coupon_desc'][$lang_id]);
+          $language_id = $languages[$i]['id'];
+          $_POST['coupon_name'][$iso_639_2] = trim($_POST['coupon_name'][$language_id]);
+          $_POST['coupon_desc'][$iso_639_2] = trim($_POST['coupon_desc'][$language_id]);
         }
         $_POST['coupon_amount'] = trim($_POST['coupon_amount']);
         $update_errors = 0;
@@ -196,25 +196,25 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                                   'date_modified' => 'now()');
           $languages = oos_get_languages();
           for ($i = 0, $n = count($languages); $i < $n; $i++) {
-            $lang_id = $languages[$i]['id'];
-            $sql_data_marray[$i] = array('coupon_name' => oos_db_prepare_input($_POST['coupon_name'][$lang_id]),
-                                         'coupon_description' => oos_db_prepare_input($_POST['coupon_desc'][$lang_id])
+            $language_id = $languages[$i]['id'];
+            $sql_data_marray[$i] = array('coupon_name' => oos_db_prepare_input($_POST['coupon_name'][$language_id]),
+                                         'coupon_description' => oos_db_prepare_input($_POST['coupon_desc'][$language_id])
                                    );
           }
           if (isset($_GET['oldaction']) && ($_GET['oldaction'] == 'voucheredit')) {
             oos_db_perform($oostable['coupons'], $sql_data_array, 'UPDATE', "coupon_id='" . intval($_GET['cID']) . "'");
             for ($i = 0, $n = count($languages); $i < $n; $i++) {
-              $lang_id = $languages[$i]['id'];
-              $update = $dbconn->Execute("UPDATE " . $oostable['coupons_description'] . " SET coupon_name = '" . oos_db_prepare_input($_POST['coupon_name'][$lang_id]) . "', coupon_description = '" . oos_db_prepare_input($_POST['coupon_desc'][$lang_id]) . "' WHERE coupon_id = '" . intval($_GET['cID']) . "' and coupon_languages_id = '" . intval($lang_id) . "'");
+              $language_id = $languages[$i]['id'];
+              $update = $dbconn->Execute("UPDATE " . $oostable['coupons_description'] . " SET coupon_name = '" . oos_db_prepare_input($_POST['coupon_name'][$language_id]) . "', coupon_description = '" . oos_db_prepare_input($_POST['coupon_desc'][$language_id]) . "' WHERE coupon_id = '" . intval($_GET['cID']) . "' and coupon_languages_id = '" . intval($language_id) . "'");
             }
           } else {
             $query = oos_db_perform($oostable['coupons'], $sql_data_array);
             $insert_id = $dbconn->Insert_ID();
 
             for ($i = 0, $n = count($languages); $i < $n; $i++) {
-              $lang_id = $languages[$i]['id'];
+              $language_id = $languages[$i]['id'];
               $sql_data_marray[$i]['coupon_id'] = $insert_id;
-              $sql_data_marray[$i]['coupon_languages_id'] = $lang_id;
+              $sql_data_marray[$i]['coupon_languages_id'] = $language_id;
               oos_db_perform($oostable['coupons_description'], $sql_data_marray[$i]);
             }
           }
@@ -615,11 +615,11 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 <?php
         $languages = oos_get_languages();
         for ($i = 0, $n = count($languages); $i < $n; $i++) {
-           $lang_id = $languages[$i]['id'];
+           $language_id = $languages[$i]['id'];
 ?>
       <tr>
         <td class="text-left"><?php echo COUPON_NAME; ?></td>
-        <td class="text-left"><?php echo $_POST['coupon_name'][$lang_id]; ?></td>
+        <td class="text-left"><?php echo $_POST['coupon_name'][$language_id]; ?></td>
       </tr>
 <?php
 }
@@ -627,11 +627,11 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 <?php
         $languages = oos_get_languages();
         for ($i = 0, $n = count($languages); $i < $n; $i++) {
-            $lang_id = $languages[$i]['id'];
+            $language_id = $languages[$i]['id'];
 ?>
       <tr>
         <td class="text-left"><?php echo COUPON_DESC; ?></td>
-        <td class="text-left"><?php echo $_POST['coupon_desc'][$lang_id]; ?></td>
+        <td class="text-left"><?php echo $_POST['coupon_desc'][$language_id]; ?></td>
       </tr>
 <?php
 }
@@ -711,9 +711,9 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 <?php
         $languages = oos_get_languages();
         for ($i = 0, $n = count($languages); $i < $n; $i++) {
-          $lang_id = $languages[$i]['id'];
-          echo oos_draw_hidden_field('coupon_name[' . $languages[$i]['id'] . ']', $_POST['coupon_name'][$lang_id]);
-          echo oos_draw_hidden_field('coupon_desc[' . $languages[$i]['id'] . ']', $_POST['coupon_desc'][$lang_id]);
+          $language_id = $languages[$i]['id'];
+          echo oos_draw_hidden_field('coupon_name[' . $languages[$i]['id'] . ']', $_POST['coupon_name'][$language_id]);
+          echo oos_draw_hidden_field('coupon_desc[' . $languages[$i]['id'] . ']', $_POST['coupon_desc'][$language_id]);
        }
     echo oos_draw_hidden_field('coupon_amount', $_POST['coupon_amount']);
     echo oos_draw_hidden_field('coupon_min_order', $_POST['coupon_min_order']);
@@ -743,14 +743,14 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
   // warum?
     $languages = oos_get_languages();
     for ($i = 0, $n = count($languages); $i < $n; $i++) {
-      $lang_id = $languages[$i]['id'];
+      $language_id = $languages[$i]['id'];
       $coupon_result = $dbconn->Execute("SELECT coupon_name,coupon_description
                                     FROM " . $oostable['coupons_description'] . "
                                     WHERE coupon_id = '" .  $_GET['cID'] . "' AND
-                                          coupon_languages_id = '" . intval($lang_id) . "'");
+                                          coupon_languages_id = '" . intval($language_id) . "'");
       $coupon = $coupon_result->fields;
-      $coupon_name[$lang_id] = $coupon['coupon_name'];
-      $coupon_desc[$lang_id] = $coupon['coupon_description'];
+      $coupon_name[$language_id] = $coupon['coupon_name'];
+      $coupon_desc[$language_id] = $coupon['coupon_description'];
     }
     $coupon_result = $dbconn->Execute("SELECT coupon_code, coupon_amount, coupon_type, coupon_minimum_order, coupon_start_date,
                                           coupon_expire_date, uses_per_coupon, uses_per_user, restrict_to_products,
@@ -810,11 +810,11 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 <?php
         $languages = oos_get_languages();
         for ($i = 0, $n = count($languages); $i < $n; $i++) {
-          $lang_id = $languages[$i]['id'];
+          $language_id = $languages[$i]['id'];
 ?>
       <tr>
         <td align="left" class="main"><?php if ($i==0) echo COUPON_NAME; ?></td>
-        <td class="text-left"><?php echo oos_draw_input_field('coupon_name[' . $languages[$i]['id'] . ']', $coupon_name[$lang_id]) . '&nbsp;' . oos_flag_icon($languages[$i]); ?></td>
+        <td class="text-left"><?php echo oos_draw_input_field('coupon_name[' . $languages[$i]['id'] . ']', $coupon_name[$language_id]) . '&nbsp;' . oos_flag_icon($languages[$i]); ?></td>
         <td align="left" class="main" width="40%"><?php if ($i==0) echo COUPON_NAME_HELP; ?></td>
       </tr>
 <?php
@@ -823,12 +823,12 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 <?php
         $languages = oos_get_languages();
         for ($i = 0, $n = count($languages); $i < $n; $i++) {
-          $lang_id = $languages[$i]['id'];
+          $language_id = $languages[$i]['id'];
 ?>
 
       <tr>
         <td align="left" valign="top" class="main"><?php if ($i==0) echo COUPON_DESC; ?></td>
-        <td align="left" valign="top"><?php echo oos_draw_textarea_field('coupon_desc[' . $languages[$i]['id'] . ']','physical','24','3', $coupon_desc[$lang_id]) . '&nbsp;' . oos_flag_icon($languages[$i]); ?></td>
+        <td align="left" valign="top"><?php echo oos_draw_textarea_field('coupon_desc[' . $languages[$i]['id'] . ']','physical','24','3', $coupon_desc[$language_id]) . '&nbsp;' . oos_flag_icon($languages[$i]); ?></td>
         <td align="left" valign="top" class="main"><?php if ($i==0) echo COUPON_DESC_HELP; ?></td>
       </tr>
 <?php

@@ -864,7 +864,7 @@ function check_form() {
         $login_result = $dbconn->Execute($sql);
         $login = $login_result->fields;
         if ($login['status'] != '0') {
-          $contents[] = array('align' => 'center', 'text' => oos_draw_login_form('login',$aCatalog['login_admin'], 'action=login_admin','POST', 'target=_blank') . oos_draw_hidden_field('verif_key', $login['man_key']) . oos_draw_hidden_field('email_address', $cInfo->customers_email_address) . oos_submit_button(IMAGE_LOGIN) . '</form>');
+          $contents[] = array('align' => 'center', 'text' => oos_draw_login_form('login', $aCatalog['login_admin'], 'action=login_admin', 'POST') . oos_draw_hidden_field('verif_key', $login['man_key']) . oos_draw_hidden_field('email_address', $cInfo->customers_email_address) . oos_submit_button(IMAGE_LOGIN) . '</form>');
         }
         $contents[] = array('text' => '<br />'  . oos_customers_payment($customer_status['customers_status_payment']));
         $contents[] = array('text' => '<br />' . TEXT_DATE_ACCOUNT_CREATED . ' ' . oos_date_short($cInfo->date_account_created));

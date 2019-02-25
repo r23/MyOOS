@@ -37,7 +37,7 @@ class tableBlock {
 	function tableThead($contents) {
 		$sTableBox = '';
 
-		$form_set = false;
+		$form_set = FALSE;
 	
 		for ($i = 0, $n = count($contents); $i < $n; $i++) {
 			$sTableBox .= '  <tr';
@@ -66,10 +66,10 @@ class tableBlock {
 	function tableBlock($contents) {
 		$sTableBox = '';
 
-		$form_set = false;
+		$form_set = FALSE;
 		if (isset($contents['form'])) {
 			$sTableBox .= $contents['form'] . "\n";
-			$form_set = true;
+			$form_set = TRUE;
 			array_shift($contents);
 		}		
 
@@ -111,7 +111,7 @@ class tableBlock {
 			$sTableBox .= '  </tr>' . "\n";
 		}
 		
-		if ($form_set == true) $sTableBox .= '</form>' . "\n";
+		if ($form_set == TRUE) $sTableBox .= '</form>' . "\n";
 
 		return $sTableBox;
 	}

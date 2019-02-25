@@ -29,13 +29,13 @@ class newsletter {
     var $show_choose_audience, $title, $content;
 
 	public function __construct($title, $content) {
-      $this->show_choose_audience = false;
+      $this->show_choose_audience = FALSE;
       $this->title = $title;
       $this->content = $content;
     }
 
     public function choose_audience() {
-      return false;
+      return FALSE;
     }
 
     public function confirm() {

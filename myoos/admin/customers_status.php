@@ -62,13 +62,13 @@ if (!empty($action)) {
           $customers_status_ot_minimum = oos_db_prepare_input($_POST['customers_status_ot_minimum']);
           $customers_status_qty_discounts = oos_db_prepare_input($_POST['customers_status_qty_discounts']);  
 		  
-          $lang_id = $languages[$i]['id'];
+          $language_id = $languages[$i]['id'];
 
           if (isset($_REQUEST['payment'])) {
             $customers_status_payment = implode(';', $_REQUEST['payment']);
           }
 
-          $sql_data_array = array('customers_status_name' => $customers_status_name_array[$lang_id],
+          $sql_data_array = array('customers_status_name' => $customers_status_name_array[$language_id],
                                   'customers_status_public' => $customers_status_public,
                                   'customers_status_show_price' => $customers_status_show_price,
                                   'customers_status_show_price_tax' => $customers_status_show_price_tax,
@@ -86,13 +86,13 @@ if (!empty($action)) {
             }
 
             $insert_sql_data = array('customers_status_id' => oos_db_prepare_input($customers_status_id),
-                                     'customers_status_languages_id' => $lang_id);
+                                     'customers_status_languages_id' => $language_id);
 
             $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
 
             oos_db_perform($oostable['customers_status'], $sql_data_array);
           } elseif ($action == 'save') {
-            oos_db_perform($oostable['customers_status'], $sql_data_array, 'UPDATE', "customers_status_id = '" . oos_db_input($customers_status_id) . "' AND customers_status_languages_id = '" . intval($lang_id) . "'");
+            oos_db_perform($oostable['customers_status'], $sql_data_array, 'UPDATE', "customers_status_id = '" . oos_db_input($customers_status_id) . "' AND customers_status_languages_id = '" . intval($language_id) . "'");
           }
         }
 

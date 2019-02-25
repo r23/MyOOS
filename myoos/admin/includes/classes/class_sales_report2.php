@@ -25,7 +25,7 @@
   defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
   class sales_report {
-    var $mode, $globalStartDate, $startDate, $endDate, $actDate, $showDate, $showDateEnd, $sortString, $status, $outlet;
+    var $mode, $GLOBALStartDate, $startDate, $endDate, $actDate, $showDate, $showDateEnd, $sortString, $status, $outlet;
 
 	public function __construct($mode, $startDate = 0, $endDate = 0, $sort = 0, $statusFilter = 0, $filter = 0) {
 
@@ -42,7 +42,7 @@
 
       $firstQuery = $dbconn->Execute("SELECT UNIX_TIMESTAMP(min(date_purchased)) as first FROM " . $oostable['orders']);
       $first = $firstQuery->fields;
-      $this->globalStartDate = mktime(0, 0, 0, date("m", $first['first']), date("d", $first['first']), date("Y", $first['first']));
+      $this->GLOBALStartDate = mktime(0, 0, 0, date("m", $first['first']), date("d", $first['first']), date("Y", $first['first']));
       $statusQuery = $dbconn->Execute("SELECT * FROM " . $oostable['orders_status']);
       $i = 0;
       while ($outResp = $statusQuery->fields) {
@@ -54,9 +54,9 @@
       $this->status = $status;
 
 
-      if ($startDate == 0  or $startDate < $this->globalStartDate) {
-        // set startDate to globalStartDate
-        $this->startDate = $this->globalStartDate;
+      if ($startDate == 0  or $startDate < $this->GLOBALStartDate) {
+        // set startDate to GLOBALStartDate
+        $this->startDate = $this->GLOBALStartDate;
       } else {
         $this->startDate = $startDate;
       }

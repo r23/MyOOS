@@ -28,9 +28,9 @@ require 'includes/main.php';
   * @param $language
   * @return string
   */
-  function oos_get_orders_status_name($orders_status_id, $lang_id = '') {
+  function oos_get_orders_status_name($orders_status_id, $language_id = '') {
 
-    if (empty($lang_id) || !is_numeric($lang_id)) $lang_id = intval($_SESSION['language_id']);
+    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -40,7 +40,7 @@ require 'includes/main.php';
     $query = "SELECT orders_status_name
                 FROM $orders_statustable
                WHERE orders_status_id = '" . intval($orders_status_id) . "'
-                 AND orders_languages_id = '" . intval($lang_id)  . "'";
+                 AND orders_languages_id = '" . intval($language_id)  . "'";
     $orders_status_name = $dbconn->GetOne($query);
 
     return $orders_status_name;
@@ -89,9 +89,9 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         $languages = oos_get_languages();
         for ($i = 0, $n = count($languages); $i < $n; $i++) {
           $orders_status_name_array = $_POST['orders_status_name'];
-          $lang_id = $languages[$i]['id'];
+          $language_id = $languages[$i]['id'];
 
-          $sql_data_array = array('orders_status_name' => oos_db_prepare_input($orders_status_name_array[$lang_id]));
+          $sql_data_array = array('orders_status_name' => oos_db_prepare_input($orders_status_name_array[$language_id]));
 
           if ($action == 'insert') {
             if (!oos_is_not_null($orders_status_id)) {
@@ -101,13 +101,13 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
             }
 
             $insert_sql_data = array('orders_status_id' => $orders_status_id,
-                                     'orders_languages_id' => $lang_id);
+                                     'orders_languages_id' => $language_id);
 
             $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
 
             oos_db_perform($oostable['orders_status'], $sql_data_array);
           } elseif ($action == 'save') {
-            oos_db_perform($oostable['orders_status'], $sql_data_array, 'UPDATE', "orders_status_id = '" . intval($orders_status_id) . "' AND orders_languages_id = '" . intval($lang_id) . "'");
+            oos_db_perform($oostable['orders_status'], $sql_data_array, 'UPDATE', "orders_status_id = '" . intval($orders_status_id) . "' AND orders_languages_id = '" . intval($language_id) . "'");
           }
         }
 

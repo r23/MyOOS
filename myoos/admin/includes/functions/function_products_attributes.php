@@ -16,24 +16,16 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
- /**
-  * Products Attributes
-  *
-  * @link https://www.oos-shop.de
-  * @package Products Attributes
-  * @version $Revision: 1.1 $ - changed by $Author: r23 $ on $Date: 2007/06/08 14:02:48 $
-  */
-
- /**
-  * Return options name
-  *
-  * @param $options_id
-  * @return string
-  */
-  function oos_options_name($options_id) {
+/**
+ * Return options name
+ *
+ * @param $options_id
+ * @return string
+ */
+function oos_options_name($options_id) {
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -42,17 +34,14 @@
     $products_optionstable = $oostable['products_options'];
     $query = "SELECT products_options_name
               FROM $products_optionstable
-              WHERE products_options_id = '" . $options_id . "'
+              WHERE products_options_id = '" . intval($options_id) . "'
                 AND products_options_languages_id = '" . intval($_SESSION['language_id']) . "'";
     $result = $dbconn->Execute($query);
 
     $products_options_name = $result->fields['products_options_name'];
 
-    // Close result set
-    $result->Close();
-
     return $products_options_name;
-  }
+}
 
 
  /**
@@ -61,7 +50,7 @@
   * @param $values_id
   * @return string
   */
-  function oos_values_name($values_id) {
+function oos_values_name($values_id) {
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -70,45 +59,42 @@
     $products_options_valuestable = $oostable['products_options_values'];
     $query = "SELECT products_options_values_name
               FROM $products_options_valuestable
-              WHERE products_options_values_id = '" . $values_id . "'
+              WHERE products_options_values_id = '" . intval($values_id) . "'
                 AND products_options_values_languages_id = '" . intval($_SESSION['language_id']) . "'";
     $result = $dbconn->Execute($query);
 
     $products_options_values_name = $result->fields['products_options_values_name'];
 
-    // Close result set
-    $result->Close();
-
     return $products_options_values_name;
-  }
+}
 
 
- /**
-  * Draw a pulldown for Option Types
-  *
-  * @param $name
-  * @param $default
-  */
-  function oos_draw_option_type_pull_down_menu($name, $default = '') {
-    global $products_options_types_list;
+/**
+ * Draw a pulldown for Option Types
+ *
+ * @param $name
+ * @param $default
+ */
+function oos_draw_option_type_pull_down_menu($name, $default = '') {
+    GLOBAL $products_options_types_list;
 
     $values = array();
     foreach ($products_options_types_list as $id => $text) {
-      $values[] = array('id' => $id, 'text' => $text);
+		$values[] = array('id' => $id, 'text' => $text);
     }
     return oos_draw_pull_down_menu($name, $values, $default);
-  }
+}
 
 
- /**
-  * Return options type name
-  *
-  * @param $opt_type
-  */
-  function oos_options_type_name($opt_type) {
-    global $products_options_types_list;
+/**
+ * Return options type name
+ *
+ * @param $opt_type
+ */
+function oos_options_type_name($opt_type) {
+    GLOBAL $products_options_types_list;
 
     return isset($products_options_types_list[$opt_type]) ? $products_options_types_list[$opt_type] : 'Error ' . $opt_type;
-  }
+}
 
  

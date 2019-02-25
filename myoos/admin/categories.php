@@ -125,12 +125,12 @@ if (!empty($action)) {
 			$nLanguages = count($aLanguages);
 
 			for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
-				$lang_id = $aLanguages[$i]['id'];
-				$sql_data_array = array('categories_name' => oos_db_prepare_input($_POST['categories_name'][$lang_id]),
-										'categories_heading_title' => oos_db_prepare_input($_POST['categories_heading_title'][$lang_id]),
-										'categories_description' => oos_db_prepare_input($_POST['categories_description'][$lang_id]),
-										'categories_description_meta' => oos_db_prepare_input($_POST['categories_description_meta'][$lang_id]),
-										'categories_keywords_meta' => oos_db_prepare_input($_POST['categories_keywords_meta'][$lang_id]));
+				$language_id = $aLanguages[$i]['id'];
+				$sql_data_array = array('categories_name' => oos_db_prepare_input($_POST['categories_name'][$language_id]),
+										'categories_heading_title' => oos_db_prepare_input($_POST['categories_heading_title'][$language_id]),
+										'categories_description' => oos_db_prepare_input($_POST['categories_description'][$language_id]),
+										'categories_description_meta' => oos_db_prepare_input($_POST['categories_description_meta'][$language_id]),
+										'categories_keywords_meta' => oos_db_prepare_input($_POST['categories_keywords_meta'][$language_id]));
 
 				if ($action == 'insert_category') {
 					$insert_sql_data = array('categories_id' => intval($categories_id),
@@ -151,11 +151,9 @@ if (!empty($action)) {
                             SET categories_image = NULL
                             WHERE categories_id = '" . intval($categories_id) . "'");				
 				
-				oos_remove_category_image($categories_previous_image);
-				
+				oos_remove_category_image($categories_previous_image);				
 			}
-# echo 'jeep';
-# exit;
+
 			$options = array(
 				'image_versions' => array(
                 // The empty image version key defines options for the original image.

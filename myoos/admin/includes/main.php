@@ -52,14 +52,14 @@ require 'includes/define.php';
 use Symfony\Component\HttpFoundation\Request;
 
 $autoloader = require_once MYOOS_INCLUDE_PATH . '/vendor/autoload.php';
-$request = Request::createFromGlobals();
+$request = Request::createFromGLOBALs();
 
 
 
 require 'includes/filename.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/tables.php';
 
-require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_global.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_GLOBAL.php';
 require 'includes/functions/function_kernel.php';
 
 

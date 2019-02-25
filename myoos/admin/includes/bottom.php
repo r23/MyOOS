@@ -23,7 +23,7 @@ if ($bForm == TRUE) {
 <?php
 } 
 ?>
-<!-- JS Global Compulsory -->      
+<!-- JS GLOBAL Compulsory -->      
 <script src="js/jquery/jquery.min.js"></script>
 <script src="js/bootstrap/bootstrap.min.js"></script>
 <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>

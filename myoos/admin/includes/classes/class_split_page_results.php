@@ -62,7 +62,7 @@ class splitPageResults {
 
 
 	public function display_links($query_numrows, $max_rows_per_page, $max_page_links, $current_page_number, $parameters = '', $page_name = 'page') {
-		global $session;
+		GLOBAL $session;
 	  
 		if ( oos_is_not_null($parameters) && (substr($parameters, -1) != '&') ) $parameters .= '&';
 

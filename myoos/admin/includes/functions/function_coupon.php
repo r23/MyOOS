@@ -23,25 +23,18 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
- /**
-  * Credit Class GV/Discount Coupon 
-  *
-  * @link https://www.oos-shop.de
-  * @package Credit Class GV/Discount Coupon 
-  * @version $Revision: 1.1 $ - changed by $Author: r23 $ on $Date: 2007/06/08 14:02:48 $
-  */
 
- /**
-  * Create a Coupon Code. length may be between 1 and 16 Characters
-  *
-  * @param $salt
-  * @param $length
-  * @return string
-  */
-  function oos_create_coupon_code($salt="secret", $length=SECURITY_CODE_LENGTH) {
+/**
+ * Create a Coupon Code. length may be between 1 and 16 Characters
+ *
+ * @param $salt
+ * @param $length
+ * @return string
+ */
+function oos_create_coupon_code($salt="secret", $length=SECURITY_CODE_LENGTH) {
 
     $ccid = md5(uniqid("","salt"));
     $ccid .= md5(uniqid("","salt"));
@@ -65,11 +58,9 @@
       if ($result->RecordCount() == 0) $good_result = 1;
     }
 
-    // Close result set
-    $result->Close();
 
     return $coupon_code;
-  }
+}
 
 
  /**

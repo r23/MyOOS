@@ -22,7 +22,7 @@
 defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
 function oos_get_path($current_category_id = '') {
-	global $cPath_array;
+	GLOBAL $cPath_array;
 
 	if (!is_array($cPath_array)) $cPath_array = array();
 	
@@ -41,14 +41,14 @@ function oos_get_path($current_category_id = '') {
 			$categoriestable = $oostable['categories'];
 			$query = "SELECT parent_id
                   FROM $categoriestable
-                  WHERE categories_id = '" . $cPath_array[(count($cPath_array)-1)] . "'";
+                  WHERE categories_id = '" . intval($cPath_array[(count($cPath_array)-1)]) . "'";
 			$last_category_result = $dbconn->Execute($query);
 			$last_category = $last_category_result->fields;
 
 			$categoriestable = $oostable['categories'];
 			$query = "SELECT parent_id
                   FROM $categoriestable
-                  WHERE categories_id = '" . $current_category_id . "'";
+                  WHERE categories_id = '" . intval($current_category_id) . "'";
 			$current_category_result = $dbconn->Execute($query);
 
 			$current_category = $current_category_result->fields;
@@ -117,19 +117,19 @@ function oos_get_category_tree($parent_id = '0', $spacing = '', $exclude = '', $
 }
 
 
-function oos_get_category_name($category_id, $lang_id = '') {
+function oos_get_category_name($category_id, $language_id = '') {
 
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    if (empty($lang_id) || !is_numeric($lang_id)) $lang_id = intval($_SESSION['language_id']);
+    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
 
     $categories_descriptiontable = $oostable['categories_description'];
     $query = "SELECT categories_name
               FROM $categories_descriptiontable
               WHERE categories_id = '" . intval($category_id) . "'
-                AND categories_languages_id = '" . intval($lang_id) . "'";
+                AND categories_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
     $categories_name = $result->fields['categories_name'];
@@ -139,19 +139,19 @@ function oos_get_category_name($category_id, $lang_id = '') {
 }
 
 
-function oos_get_products_description($product_id, $lang_id = '') {
+function oos_get_products_description($product_id, $language_id = '') {
 
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    if (empty($lang_id) || !is_numeric($lang_id)) $lang_id = intval($_SESSION['language_id']);
+    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
 
     $products_descriptiontable = $oostable['products_description'];
     $query = "SELECT products_description
               FROM $products_descriptiontable
               WHERE products_id = '" . intval($product_id) . "'
-                AND products_languages_id = '" . intval($lang_id) . "'";
+                AND products_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
     $products_description = $result->fields['products_description'];
@@ -159,19 +159,19 @@ function oos_get_products_description($product_id, $lang_id = '') {
     return $products_description;
 }
 
-function oos_get_products_description_meta($product_id, $lang_id = '') {
+function oos_get_products_description_meta($product_id, $language_id = '') {
 
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    if (empty($lang_id) || !is_numeric($lang_id)) $lang_id = intval($_SESSION['language_id']);
+    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
 
     $products_descriptiontable = $oostable['products_description'];
     $query = "SELECT products_description_meta
               FROM $products_descriptiontable
               WHERE products_id = '" . intval($product_id) . "'
-                AND products_languages_id = '" . intval($lang_id) . "'";
+                AND products_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
     $products_description_meta = $result->fields['products_description_meta'];
@@ -180,19 +180,19 @@ function oos_get_products_description_meta($product_id, $lang_id = '') {
 }
 
 
-function oos_get_products_keywords_meta($product_id, $lang_id = '') {
+function oos_get_products_keywords_meta($product_id, $language_id = '') {
 
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    if (empty($lang_id) || !is_numeric($lang_id)) $lang_id = intval($_SESSION['language_id']);
+    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
 
     $products_descriptiontable = $oostable['products_description'];
     $query = "SELECT products_keywords_meta
               FROM $products_descriptiontable
               WHERE products_id = '" . intval($product_id) . "' 
-                AND products_languages_id = '" . intval($lang_id) . "'";
+                AND products_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
     $products_keywords_meta = $result->fields['products_keywords_meta'];
@@ -201,19 +201,19 @@ function oos_get_products_keywords_meta($product_id, $lang_id = '') {
 }
 
 
-function oos_get_products_url($product_id, $lang_id) {
+function oos_get_products_url($product_id, $language_id) {
 
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    if (empty($lang_id) || !is_numeric($lang_id)) $lang_id = intval($_SESSION['language_id']);
+    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
 
     $products_descriptiontable = $oostable['products_description'];
     $query = "SELECT products_url
               FROM $products_descriptiontable
               WHERE products_id = '" . intval($product_id) . "'
-                AND products_languages_id = '" . intval($lang_id) . "'";
+                AND products_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
     $products_url = $result->fields['products_url'];
@@ -406,7 +406,7 @@ function oos_generate_category_path($id, $from = 'category', $categories_array =
     if ($from == 'product') {
 		$categories_query = "SELECT categories_id
                            FROM $products_to_categoriestable
-                           WHERE products_id = '" . $id . "'";
+                           WHERE products_id = '" . intval($id) . "'";
 		$categories_result = $dbconn->Execute($categories_query);
 
 		while ($categories = $categories_result->fields) {
@@ -416,7 +416,7 @@ function oos_generate_category_path($id, $from = 'category', $categories_array =
 				$category_query = "SELECT cd.categories_name, c.parent_id
                              FROM $categoriestable c,
                                   $categories_descriptiontable cd
-                             WHERE c.categories_id = '" . $categories['categories_id'] . "'
+                             WHERE c.categories_id = '" . intval($categories['categories_id']) . "'
                                AND c.categories_id = cd.categories_id
                                AND cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "'";
 				$category_result = $dbconn->Execute($category_query);
@@ -438,7 +438,7 @@ function oos_generate_category_path($id, $from = 'category', $categories_array =
 		$category_query = "SELECT cd.categories_name, c.parent_id
                            FROM $categoriestable c,
                                 $categories_descriptiontable cd
-                          WHERE c.categories_id = '" . $id . "' 
+                          WHERE c.categories_id = '" . intval($id) . "' 
                             AND c.categories_id = cd.categories_id
                             AND cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "'";
 		$category_result = $dbconn->Execute($category_query);
@@ -539,19 +539,19 @@ function oos_remove_category($category_id) {
  * Author:   Brian Lowe <blowe@wpcusrgrp.org>
  * Date:     June 2002
  */
-function oos_get_category_heading_title($category_id, $lang_id = '') {
+function oos_get_category_heading_title($category_id, $language_id = '') {
 
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    if (empty($lang_id) || !is_numeric($lang_id)) $lang_id = intval($_SESSION['language_id']);
+    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
 
     $categories_descriptiontable = $oostable['categories_description'];
     $query = "SELECT categories_heading_title
               FROM $categories_descriptiontable
               WHERE categories_id = '" . intval($category_id) . "'
-                AND categories_languages_id = '" . intval($lang_id) . "'";
+                AND categories_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
     $categories_heading_title = $result->fields['categories_heading_title'];
@@ -559,19 +559,19 @@ function oos_get_category_heading_title($category_id, $lang_id = '') {
     return $categories_heading_title;
 }
 
-function oos_get_category_description($category_id, $lang_id = '') {
+function oos_get_category_description($category_id, $language_id = '') {
 
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    if (empty($lang_id) || !is_numeric($lang_id)) $lang_id = intval($_SESSION['language_id']);
+    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
 
     $categories_descriptiontable = $oostable['categories_description'];
     $query = "SELECT categories_description
               FROM $categories_descriptiontable
               WHERE categories_id = '" . intval($category_id) . "'
-                AND categories_languages_id = '" . intval($lang_id) . "'";
+                AND categories_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
     $categories_description = $result->fields['categories_description'];
@@ -580,19 +580,19 @@ function oos_get_category_description($category_id, $lang_id = '') {
 }
 
 
-function oos_get_category_description_meta($category_id, $lang_id = '') {
+function oos_get_category_description_meta($category_id, $language_id = '') {
 
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    if (empty($lang_id) || !is_numeric($lang_id)) $lang_id = intval($_SESSION['language_id']);
+    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
 
     $categories_descriptiontable = $oostable['categories_description'];
     $query = "SELECT categories_description_meta
                 FROM $categories_descriptiontable
                WHERE categories_id = '" . intval($category_id) . "'
-                 AND categories_languages_id = '" . intval($lang_id). "'";
+                 AND categories_languages_id = '" . intval($language_id). "'";
     $result = $dbconn->Execute($query);
 
     $categories_description_meta = $result->fields['categories_description_meta'];
@@ -600,19 +600,19 @@ function oos_get_category_description_meta($category_id, $lang_id = '') {
     return $categories_description_meta;
 }
 
-function oos_get_category_keywords_meta($category_id, $lang_id = '') {
+function oos_get_category_keywords_meta($category_id, $language_id = '') {
 
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    if (empty($lang_id) || !is_numeric($lang_id)) $lang_id = intval($_SESSION['language_id']);
+    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
 
     $categories_descriptiontable = $oostable['categories_description'];
     $query = "SELECT categories_keywords_meta
               FROM $categories_descriptiontable
               WHERE categories_id = '" . intval($category_id) . "'
-                AND categories_languages_id = '" . intval($lang_id) . "'";
+                AND categories_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
     $categories_keywords_meta = $result->fields['categories_keywords_meta'];

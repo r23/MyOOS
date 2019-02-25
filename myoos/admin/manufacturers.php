@@ -23,16 +23,16 @@ require 'includes/main.php';
 
 require 'includes/classes/class_upload.php';
 
-function oos_get_manufacturer_url($manufacturer_id, $lang_id = '') {
+function oos_get_manufacturer_url($manufacturer_id, $language_id = '') {
 
-	if (empty($lang_id) || !is_numeric($lang_id)) $lang_id = intval($_SESSION['language_id']);
+	if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
 
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
     $manufacturers_infotable = $oostable['manufacturers_info'];
-    $manufacturer = $dbconn->Execute("SELECT manufacturers_url FROM $manufacturers_infotable WHERE manufacturers_id = '" . intval($manufacturer_id) . "' AND manufacturers_languages_id = '" . intval($lang_id) . "'");
+    $manufacturer = $dbconn->Execute("SELECT manufacturers_url FROM $manufacturers_infotable WHERE manufacturers_id = '" . intval($manufacturer_id) . "' AND manufacturers_languages_id = '" . intval($language_id) . "'");
 
     return $manufacturer->fields['manufacturers_url'];
 }
@@ -70,19 +70,19 @@ if (!empty($action)) {
 
 			for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
 				$manufacturers_url_array = oos_db_prepare_input($_POST['manufacturers_url']);
-				$lang_id = $aLanguages[$i]['id'];
+				$language_id = $aLanguages[$i]['id'];
 
-				$sql_data_array = array('manufacturers_url' => oos_db_prepare_input($manufacturers_url_array[$lang_id]));
+				$sql_data_array = array('manufacturers_url' => oos_db_prepare_input($manufacturers_url_array[$language_id]));
 
 				if ($action == 'insert') {
 					$insert_sql_data = array('manufacturers_id' => intval($manufacturers_id),
-										'manufacturers_languages_id' => intval($lang_id));
+										'manufacturers_languages_id' => intval($language_id));
 
 					$sql_data_array = array_merge($sql_data_array, $insert_sql_data);
 
 					oos_db_perform($oostable['manufacturers_info'], $sql_data_array);
 				} elseif ($action == 'save') {
-					oos_db_perform($oostable['manufacturers_info'], $sql_data_array, 'UPDATE', "manufacturers_id = '" . intval($manufacturers_id) . "' AND manufacturers_languages_id = '" . intval($lang_id) . "'");
+					oos_db_perform($oostable['manufacturers_info'], $sql_data_array, 'UPDATE', "manufacturers_id = '" . intval($manufacturers_id) . "' AND manufacturers_languages_id = '" . intval($language_id) . "'");
 				}
 			}
 

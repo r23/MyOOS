@@ -18,21 +18,10 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
- /**
-  * Admin Kernel
-  *
-  * @link https://www.oos-shop.de
-  * @package Admin Kernel
-  * @author r23 <info@r23.de>
-  * @copyright 2003 r23
-  * @version $Revision: 1.1 $ - changed by $Author: r23 $ on $Date: 2007/06/08 14:02:48 $
-  */
-
-
-  function oos_admin_check_login() {
+function oos_admin_check_login() {
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -41,31 +30,32 @@
     $aContents = oos_get_content();
 
     if (!isset($_SESSION['login_id'])) {
-      oos_redirect_admin(oos_href_link_admin($aContents['login'], ''));
+		oos_redirect_admin(oos_href_link_admin($aContents['login'], ''));
     } else {
-      $filename = preg_split('/\?/', basename($_SERVER['SCRIPT_NAME']));
-      $filename = $filename[0];
-      $page_key = array_search($filename, $aContents);
+		$filename = preg_split('/\?/', basename($_SERVER['SCRIPT_NAME']));
+		$filename = $filename[0];
+		$page_key = array_search($filename, $aContents);
 
-      if ($filename != $aContents['default'] && $filename != $aContents['forbiden'] && $filename != $aContents['logoff'] && $filename != $aContents['admin_account']  && $filename != $aContents['packingslip'] && $filename != $aContents['popup_image_product']  && $filename != $aContents['invoice'] && $filename != $aContents['edit_orders']) {
-        $admin_filestable = $oostable['admin_files'];
-        $query = "SELECT admin_files_name
+		if ($filename != $aContents['default'] && $filename != $aContents['forbiden'] && $filename != $aContents['logoff'] && $filename != $aContents['admin_account']  && $filename != $aContents['packingslip'] && $filename != $aContents['popup_image_product']  && $filename != $aContents['invoice'] && $filename != $aContents['edit_orders']) {
+  
+			$admin_filestable = $oostable['admin_files'];
+			$query = "SELECT admin_files_name
                   FROM $admin_filestable
                   WHERE FIND_IN_SET( '" . intval($_SESSION['login_groups_id']) . "', admin_groups_id)
                     AND admin_files_name = '" . oos_db_input($page_key) . "'";
-        $result = $dbconn->Execute($query);
+			$result = $dbconn->Execute($query);
 
-        if (!$result->RecordCount()) {
-          oos_redirect_admin(oos_href_link_admin($aContents['forbiden']));
-        }
-      }
-    }
-  }
-
-
+			if (!$result->RecordCount()) {
+				oos_redirect_admin(oos_href_link_admin($aContents['forbiden']));
+			}
+		}
+	}
+}
 
 
-  function oos_admin_check_boxes($filename, $boxes ='') {
+
+
+function oos_admin_check_boxes($filename, $boxes ='') {
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -73,7 +63,7 @@
 
     $is_boxes = 1;
     if ($boxes == 'sub_boxes') {
-      $is_boxes = 0;
+		$is_boxes = 0;
     }
 
     $admin_filestable = $oostable['admin_files'];
@@ -86,14 +76,14 @@
 
     $return_value = FALSE;
     if ($result->RecordCount()) {
-      $return_value = TRUE;
+		$return_value = TRUE;
     }
 
     return $return_value;
-  }
+}
 
 
-  function oos_admin_files_boxes($filename, $parameters) {
+function oos_admin_files_boxes($filename, $parameters) {
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -114,10 +104,10 @@
     }
 
     return; 
-  }
+}
 
 
-  function oos_selected_file($filename) {
+function oos_selected_file($filename) {
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -136,21 +126,21 @@
     $result = $dbconn->Execute($query);
 	
     if ($result->RecordCount()) {
-      $boxes_id = $result->fields;
+		$boxes_id = $result->fields;
 
-      $admin_filestable = $oostable['admin_files'];
-      $randomize_query = "SELECT admin_files_name
+		$admin_filestable = $oostable['admin_files'];
+		$randomize_query = "SELECT admin_files_name
                            FROM $admin_filestable
                            WHERE FIND_IN_SET( '" . intval($_SESSION['login_groups_id']) . "', admin_groups_id)
                              AND admin_files_is_boxes = '0'
                              AND admin_files_to_boxes = '" . intval($boxes_id['boxes_id']) . "'";
-      $randomize_result = $dbconn->Execute($randomize_query);
-      if ($randomize_result->RecordCount()) {
-        $randomize = $randomize_result->fields['admin_files_name'];
-      }
-    }
+		$randomize_result = $dbconn->Execute($randomize_query);
+		if ($randomize_result->RecordCount()) {
+			$randomize = $randomize_result->fields['admin_files_name'];
+		}
+	}
     return $aContents[$randomize];
-  }
+}
 
 /**
  * Redirect to another page or site
@@ -165,7 +155,7 @@ function oos_redirect_admin($url) {
     }
 
     if ( strpos($url, '&amp;') !== FALSE ) {
-      $url = str_replace('&amp;', '&', $url);
+		$url = str_replace('&amp;', '&', $url);
     }
 
     header('Location: ' . $url);	
@@ -173,7 +163,8 @@ function oos_redirect_admin($url) {
     exit;
 }
 
-  function oos_customers_name($customers_id) {
+
+function oos_customers_name($customers_id) {
 
     $sName = '';
 
@@ -189,15 +180,12 @@ function oos_redirect_admin($url) {
 
     $sName = $result->fields['customers_firstname'] . ' ' . $result->fields['customers_lastname'];
 
-    // Close result set
-    $result->Close();
-
     return $sName;
-  }
+}
 
 
-  function oos_get_all_get_params($exclude_array = '') {
-	global $session;
+function oos_get_all_get_params($exclude_array = '') {
+	GLOBAL $session;
 	
     if ($exclude_array == '') $exclude_array = array();
 
@@ -209,7 +197,7 @@ function oos_redirect_admin($url) {
     }
 
     return $get_url;
-  }
+}
 
  /**
   * ready operating system output
@@ -227,7 +215,7 @@ function oos_redirect_admin($url) {
   * @return prepared variable if only one variable passed
   * in, otherwise an array of prepared variables
   */
-  function oos_var_prep_for_os() {
+function oos_var_prep_for_os() {
     static $search = array('!\.\./!si', // .. (directory traversal)
                            '!^.*://!si', // .*:// (start of URL)
                            '!/!si',     // Forward slash (directory traversal)
@@ -254,25 +242,23 @@ function oos_redirect_admin($url) {
 
     // Return vars
     if (func_num_args() == 1) {
-      return $resarray[0];
+		return $resarray[0];
     } else {
-      return $resarray;
+		return $resarray;
     }
-  }
+}
 
 
 
 
-  function oos_get_content() {
+function oos_get_content() {
     GLOBAL $aContents;
 
     return $aContents;
-  }
+}
 
 
-
-
-  function oos_datetime_short($raw_datetime) {
+function oos_datetime_short($raw_datetime) {
     if ( ($raw_datetime == '0000-00-00 00:00:00') || ($raw_datetime == '') ) return FALSE;
 
     $year = (int)substr($raw_datetime, 0, 4);
@@ -287,38 +273,38 @@ function oos_redirect_admin($url) {
 
 
 
-  function oos_in_array($lookup_value, $lookup_array) {
+function oos_in_array($lookup_value, $lookup_array) {
     if (in_array($lookup_value, $lookup_array)) return TRUE;
 
     return FALSE;
-  }
+}
 
 
 
-  function oos_break_string($string, $len, $break_char = '-') {
+function oos_break_string($string, $len, $break_char = '-') {
     $l = 0;
     $output = '';
     for ($i = 0; $i < strlen($string); $i++) {
-      $char = substr($string, $i, 1);
-      if ($char != ' ') {
-        $l++;
-      } else {
-        $l = 0;
-      }
-      if ($l > $len) {
-        $l = 1;
-        $output .= $break_char;
-      }
-      $output .= $char;
-    }
+		$char = substr($string, $i, 1);
+		if ($char != ' ') {
+			$l++;
+		} else {
+			$l = 0;
+		}
+		if ($l > $len) {
+			$l = 1;
+			$output .= $break_char;
+		}
+		$output .= $char;
+	}
 
     return $output;
-  }
+}
 
 
-  function oos_browser_detect($component) {
+function oos_browser_detect($component) {
     return stristr($_SERVER['HTTP_USER_AGENT'], $component);
-  }
+}
 
 /**
  * Parse and output a user submited value
@@ -327,8 +313,7 @@ function oos_redirect_admin($url) {
  * @param array $aTranslate An array containing the characters to parse
  * @access public
  */
-function oos_output_string($sStr, $aTranslate = null)
-{
+function oos_output_string($sStr, $aTranslate = null) {
 
     if (empty($aTranslate)) {
         $aTranslate = array('"' => '&quot;');
@@ -338,7 +323,7 @@ function oos_output_string($sStr, $aTranslate = null)
 }
 
 
-  function oos_address_format($address_format_id, $address, $html, $boln, $eoln) {
+function oos_address_format($address_format_id, $address, $html, $boln, $eoln) {
 
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
@@ -350,9 +335,6 @@ function oos_output_string($sStr, $aTranslate = null)
     $result = $dbconn->Execute($query);
 
     $address_format = $result->fields;
-
-    // Close result set
-    $result->Close();
 
     $company = addslashes($address['company']);
     $firstname = addslashes($address['firstname']);
@@ -402,10 +384,10 @@ function oos_output_string($sStr, $aTranslate = null)
     }
 
     return $boln . $address . $eoln;
-  }
+}
 
 
-  function oos_get_zone_code($country, $zone, $def_state) {
+function oos_get_zone_code($country, $zone, $def_state) {
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -419,20 +401,17 @@ function oos_output_string($sStr, $aTranslate = null)
     $result = $dbconn->Execute($query);
 
     if (!$result->RecordCount()) {
-      $state_prov_code = $def_state;
+		$state_prov_code = $def_state;
     } else {
-      $state_prov_values = $result->fields;
-      $state_prov_code = $state_prov_values['zone_code'];
+		$state_prov_values = $result->fields;
+		$state_prov_code = $state_prov_values['zone_code'];
     }
 
-    // Close result set
-    $result->Close();
-
     return $state_prov_code;
-  }
+}
 
 
-  function oos_get_country_name($country_id) {
+function oos_get_country_name($country_id) {
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -445,28 +424,28 @@ function oos_output_string($sStr, $aTranslate = null)
     $result = $dbconn->Execute($query);
 
     if (!$result->RecordCount()) {
-      return $country_id;
+		return $country_id;
     } else {
-      return $result->fields['countries_name'];
+		return $result->fields['countries_name'];
     }
-  }
+}
 
 
-  function oos_get_uprid($prid, $params) {
-    $uprid = $prid;
-    if ( (is_array($params)) && (!strstr($prid, '{')) ) {
-      foreach ($params as $option => $value) {		  
-        $uprid = $uprid . '{' . $option . '}' . $value;
-      }
-    }
-    return $uprid;
-  }
+function oos_get_uprid($prid, $params) {
+	$uprid = $prid;
+	if ( (is_array($params)) && (!strstr($prid, '{')) ) {
+		foreach ($params as $option => $value) {		  
+			$uprid = $uprid . '{' . $option . '}' . $value;
+		}
+	}
+	return $uprid;
+}
 
-  function oos_get_prid($uprid) {
-    $pieces = explode ('{', $uprid);
+function oos_get_prid($uprid) {
+	$pieces = explode ('{', $uprid);
 
-    return $pieces[0];
-  }
+	return $pieces[0];
+}
 
 
 function oos_get_languages() {
@@ -506,9 +485,9 @@ function oos_get_languages() {
   * @param $language
   * @return string
   */
-  function oos_get_products_name($product_id, $lang_id = '') {
+function oos_get_products_name($product_id, $language_id = '') {
 
-    if (empty($lang_id) || !is_numeric($lang_id)) $lang_id = intval($_SESSION['language_id']);
+    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -518,24 +497,21 @@ function oos_get_languages() {
     $query = "SELECT products_name
               FROM $products_descriptiontable
               WHERE products_id = '" . $product_id . "'
-                AND products_languages_id = '" . intval($lang_id) . "'";
+                AND products_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
     $products_name = $result->fields['products_name'];
 
-    // Close result set
-    $result->Close();
-
     return $products_name;
-  }
+}
 
 
 
-  function oos_get_countries($default = '') {
+function oos_get_countries($default = '') {
 
     $countries_array = array();
     if ($default) {
-      $countries_array[] = array('id' => '',
+		$countries_array[] = array('id' => '',
                                  'text' => $default);
     }
 
@@ -550,21 +526,18 @@ function oos_get_languages() {
     $result = $dbconn->Execute($query);
 
     while ($countries = $result->fields) {
-      $countries_array[] = array('id' => $countries['countries_id'],
+		$countries_array[] = array('id' => $countries['countries_id'],
                                  'text' => $countries['countries_name']);
 
-      // Move that ADOdb pointer!
-      $result->MoveNext();
-    }
-
-    // Close result set
-    $result->Close();
+		// Move that ADOdb pointer!
+		$result->MoveNext();
+	}
 
     return $countries_array;
-  }
+}
 
 
-  function oos_get_country_zones($country_id) {
+function oos_get_country_zones($country_id) {
 
     $zones_array = array();
 
@@ -580,47 +553,44 @@ function oos_get_languages() {
     $result = $dbconn->Execute($query);
 
     while ($zones = $result->fields) {
-      $zones_array[] = array('id' => $zones['zone_id'],
+		$zones_array[] = array('id' => $zones['zone_id'],
                              'text' => $zones['zone_name']);
 
-      // Move that ADOdb pointer!
-      $result->MoveNext();
+		// Move that ADOdb pointer!
+		$result->MoveNext();
     }
 
-    // Close result set
-    $result->Close();
-
     return $zones_array;
-  }
+}
 
 
-  function oos_prepare_country_zones_pull_down($country_id = '') {
+function oos_prepare_country_zones_pull_down($country_id = '') {
 // preset the width of the drop-down for Netscape
     $pre = '';
     if ( (!oos_browser_detect('MSIE')) && (oos_browser_detect('Mozilla/4')) ) {
-      for ($i=0; $i<45; $i++) $pre .= '&nbsp;';
+		for ($i=0; $i<45; $i++) $pre .= '&nbsp;';
     }
 
     $zones = oos_get_country_zones($country_id);
 
     if (count($zones) > 0) {
-      $zones_select = array(array('id' => '', 'text' => PLEASE_SELECT));
-      $zones = array_merge($zones_select, $zones);
+		$zones_select = array(array('id' => '', 'text' => PLEASE_SELECT));
+		$zones = array_merge($zones_select, $zones);
     } else {
-      $zones = array(array('id' => '', 'text' => TYPE_BELOW));
+		$zones = array(array('id' => '', 'text' => TYPE_BELOW));
 // create dummy options for Netscape to preset the height of the drop-down
-      if ( (!oos_browser_detect('MSIE')) && (oos_browser_detect('Mozilla/4')) ) {
-        for ($i=0; $i<9; $i++) {
-          $zones[] = array('id' => '', 'text' => $pre);
-        }
-      }
-    }
+		if ( (!oos_browser_detect('MSIE')) && (oos_browser_detect('Mozilla/4')) ) {
+			for ($i=0; $i<9; $i++) {
+				$zones[] = array('id' => '', 'text' => $pre);
+			}
+		}
+	}
 
     return $zones;
-  }
+}
 
 
-  function oos_get_uploaded_file($filename) {
+function oos_get_uploaded_file($filename) {
     if (isset($_FILES[$filename])) {
       $uploaded_file = array('name' => $_FILES[$filename]['name'],
                              'type' => $_FILES[$filename]['type'],
@@ -629,17 +599,17 @@ function oos_get_languages() {
     }
 
     return $uploaded_file;
-  }
+}
 
 
-  function oos_get_copy_uploaded_file($filename, $target) {
+function oos_get_copy_uploaded_file($filename, $target) {
     if (substr($target, -1) != '/') $target .= '/';
 
     $target .= $filename['name'];
 
     move_uploaded_file($filename['tmp_name'], $target);
     @chmod($target, 0644);
-  }
+}
 
 
 
@@ -731,82 +701,82 @@ function oos_remove_product($product_id) {
 }
 
 
-  function oos_class_exits($class_name) {
+function oos_class_exits($class_name) {
     if (function_exists('class_exists')) {
-      return class_exists($class_name);
+		return class_exists($class_name);
     } else {
-      return TRUE;
+		return TRUE;
     }
-  }
+}
 
 
-  function oos_remove($source) {
-    global $messageStack, $oos_remove_error;
+function oos_remove($source) {
+    GLOBAL $messageStack, $oos_remove_error;
 
     if (isset($oos_remove_error)) $oos_remove_error = FALSE;
 
     if (is_dir($source)) {
-      $dir = dir($source);
-      while ($file = $dir->read()) {
-        if ( ($file != '.') && ($file != '..') ) {
-          if (is_writeable($source . '/' . $file)) {
-            oos_remove($source . '/' . $file);
-          } else {
-            $messageStack->add(sprintf(ERROR_FILE_NOT_REMOVEABLE, $source . '/' . $file), 'error');
-            $oos_remove_error = TRUE;
-          }
-        }
-      }
-      $dir->close();
+		$dir = dir($source);
+		while ($file = $dir->read()) {
+			if ( ($file != '.') && ($file != '..') ) {
+				if (is_writeable($source . '/' . $file)) {
+					oos_remove($source . '/' . $file);
+				} else {
+					$messageStack->add(sprintf(ERROR_FILE_NOT_REMOVEABLE, $source . '/' . $file), 'error');
+					$oos_remove_error = TRUE;
+				}
+			}
+		}
+		$dir->close();
 
-      if (is_writeable($source)) {
-        rmdir($source);
-      } else {
-        $messageStack->add(sprintf(ERROR_DIRECTORY_NOT_REMOVEABLE, $source), 'error');
-        $oos_remove_error = TRUE;
-      }
-    } else {
-      if (is_writeable($source)) {
-        unlink($source);
-      } else {
-        $messageStack->add(sprintf(ERROR_FILE_NOT_REMOVEABLE, $source), 'error');
-        $oos_remove_error = TRUE;
-      }
+		if (is_writeable($source)) {
+			rmdir($source);
+		} else {
+			$messageStack->add(sprintf(ERROR_DIRECTORY_NOT_REMOVEABLE, $source), 'error');
+			$oos_remove_error = TRUE;
+		}
+	} else {
+		if (is_writeable($source)) {
+			unlink($source);
+		} else {
+			$messageStack->add(sprintf(ERROR_FILE_NOT_REMOVEABLE, $source), 'error');
+			$oos_remove_error = TRUE;
+		}
     }
-  }
+}
 
 
-  function oos_display_tax_value($value, $padding = TAX_DECIMAL_PLACES) {
-    if (strpos($value, '.')) {
-      $loop = TRUE;
-      while ($loop) {
-        if (substr($value, -1) == '0') {
-          $value = substr($value, 0, -1);
-        } else {
-          $loop = FALSE;
-          if (substr($value, -1) == '.') {
-            $value = substr($value, 0, -1);
-          }
-        }
-      }
+function oos_display_tax_value($value, $padding = TAX_DECIMAL_PLACES) {
+	if (strpos($value, '.')) {
+		$loop = TRUE;
+		while ($loop) {
+			if (substr($value, -1) == '0') {
+				$value = substr($value, 0, -1);
+			} else {
+				$loop = FALSE;
+				if (substr($value, -1) == '.') {
+					$value = substr($value, 0, -1);
+				}
+			}
+		}
     }
 
     if ($padding > 0) {
-      if ($decimal_pos = strpos($value, '.')) {
-        $decimals = strlen(substr($value, ($decimal_pos+1)));
-        for ($i=$decimals; $i<$padding; $i++) {
-          $value .= '0';
-        }
-      } else {
-        $value .= '.';
-        for ($i=0; $i<$padding; $i++) {
-          $value .= '0';
-        }
-      }
-    }
+		if ($decimal_pos = strpos($value, '.')) {
+			$decimals = strlen(substr($value, ($decimal_pos+1)));
+			for ($i=$decimals; $i<$padding; $i++) {
+				$value .= '0';
+			}
+		} else {
+			$value .= '.';
+			for ($i=0; $i<$padding; $i++) {
+				$value .= '0';
+			}
+		}
+	}
 
     return $value;
-  }
+}
 
 
 /**
@@ -834,13 +804,13 @@ function oos_round($number, $precision) {
 
 
 
-  function oos_add_tax($price, $tax) {
-    global $currencies;
+function oos_add_tax($price, $tax) {
+    GLOBAL $currencies;
 
     if (DISPLAY_PRICE_WITH_TAX == 'true') {
-      return round($price, $currencies->currencies[DEFAULT_CURRENCY]['decimal_places']) + oos_calculate_tax($price, $tax);
+		return round($price, $currencies->currencies[DEFAULT_CURRENCY]['decimal_places']) + oos_calculate_tax($price, $tax);
     } else {
-      return round($price, $currencies->currencies[DEFAULT_CURRENCY]['decimal_places']);
+		return round($price, $currencies->currencies[DEFAULT_CURRENCY]['decimal_places']);
     }
   }
 
@@ -852,16 +822,16 @@ function oos_round($number, $precision) {
   * @param $country_id
   * @param $zone_id
   */
-  function oos_get_tax_rate($class_id, $country_id = -1, $zone_id = -1) {
+function oos_get_tax_rate($class_id, $country_id = -1, $zone_id = -1) {
 
     if ( ($country_id == -1) && ($zone_id == -1) ) {
-      if (!isset($_SESSION['customer_id'])) {
-        $country_id = STORE_COUNTRY;
-        $zone_id = STORE_ZONE;
-      } else {
-        $country_id = $_SESSION['customer_country_id'];
-        $zone_id = $_SESSION['customer_zone_id'];
-      }
+		if (!isset($_SESSION['customer_id'])) {
+			$country_id = STORE_COUNTRY;
+			$zone_id = STORE_ZONE;
+		} else {
+			$country_id = $_SESSION['customer_country_id'];
+			$zone_id = $_SESSION['customer_zone_id'];
+		}
     }
 
     // Get database information
@@ -886,38 +856,38 @@ function oos_round($number, $precision) {
     $result = $dbconn->Execute($query);
 
     if ($result->RecordCount()) {
-      $tax_multiplier = 0;
-      while ($tax = $result->fields) {
-        $tax_multiplier += $tax['tax_rate'];
+		$tax_multiplier = 0;
+		while ($tax = $result->fields) {
+			$tax_multiplier += $tax['tax_rate'];
 
-        // Move that ADOdb pointer!
-        $result->MoveNext();
-      }
+			// Move that ADOdb pointer!
+			$result->MoveNext();
+		}
 
-      return $tax_multiplier;
-    } else {
-      return 0;
-    }
-  }
+		return $tax_multiplier;
+	} else {
+		return 0;
+	}
+}
 
 
-  function oos_calculate_tax($price, $tax) {
-    global $currencies;
+function oos_calculate_tax($price, $tax) {
+    GLOBAL $currencies;
 
     return round($price * $tax / 100, $currencies->currencies[DEFAULT_CURRENCY]['decimal_places']);
-  }
+}
 
 
-  function oos_call_function($function, $parameter, $object = '') {
+function oos_call_function($function, $parameter, $object = '') {
     if ($object == '') {
-      return call_user_func($function, $parameter);
+		return call_user_func($function, $parameter);
     } else {
-      return call_user_func(array($object, $function), $parameter);
+		return call_user_func(array($object, $function), $parameter);
     }
-  }
+}
 
 
-  function oos_get_serialized_variable(&$serialization_data, $variable_name, $variable_type = 'string') {
+function oos_get_serialized_variable(&$serialization_data, $variable_name, $variable_type = 'string') {
     $serialized_variable = '';
 
     switch ($variable_type) {
@@ -952,19 +922,19 @@ function oos_round($number, $precision) {
     }
 
     return $serialized_variable;
-  }
+}
 
 
-  function oos_prepare_input($string) {
+function oos_prepare_input($string) {
     if (is_array ($string))  return $string;
 
     if (get_magic_quotes_gpc()) {
-      $string = stripslashes($string);
+		$string = stripslashes($string);
     }
     $string = trim($string);
 
     return $string;
-  }
+}
 
 
  /**
@@ -973,14 +943,14 @@ function oos_round($number, $precision) {
   * @param $filename
   * @return string
   */
-  function oos_get_extension($filename) {
+function oos_get_extension($filename) {
     $filename  = strtolower($filename);
     $extension = explode("[/\\.]", $filename);
     $n = count($extension)-1;
     $extension = $extension[$n];
 
     return $extension;
-  }
+}
 
   
 function oos_strtolower ($sStr) {
@@ -1026,10 +996,10 @@ function parse_size($size) {
 	}
 }  
 
-  /**
-   * Mail function (uses phpMailer)
-   */
-  function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $from_email_name, $from_email_address) {
+/**
+ * Mail function (uses phpMailer)
+ */
+function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $from_email_name, $from_email_address) {
 
 
     if (preg_match('~[\r\n]~', $to_name)) return FALSE;
@@ -1061,20 +1031,20 @@ function parse_size($size) {
 
     // Add smtp values if needed
     if ( EMAIL_TRANSPORT == 'smtp' ) {
-      $mail->IsSMTP(); // set mailer to use SMTP
-      $mail->SMTPAuth = OOS_SMTPAUTH; // turn on SMTP authentication
-      $mail->Username = OOS_SMTPUSER; // SMTP username
-      $mail->Password = OOS_SMTPPASS; // SMTP password
-      $mail->Host     = OOS_SMTPHOST; // specify main and backup server
-    } else
-      // Set sendmail path
-      if ( EMAIL_TRANSPORT == 'sendmail' ) {
-        if (!oos_empty(OOS_SENDMAIL)) {
-          $mail->Sendmail = OOS_SENDMAIL;
-          $mail->IsSendmail();
-        }
-    }
-
+		$mail->IsSMTP(); // set mailer to use SMTP
+		$mail->SMTPAuth = OOS_SMTPAUTH; // turn on SMTP authentication
+		$mail->Username = OOS_SMTPUSER; // SMTP username
+		$mail->Password = OOS_SMTPPASS; // SMTP password
+		$mail->Host     = OOS_SMTPHOST; // specify main and backup server
+    } else {
+		// Set sendmail path
+		if ( EMAIL_TRANSPORT == 'sendmail' ) {
+			if (!oos_empty(OOS_SENDMAIL)) {
+				$mail->Sendmail = OOS_SENDMAIL;
+				$mail->IsSendmail();
+			}
+		}
+	}
 
     $mail->AddAddress($to_email_address, $to_name);
     $mail->Subject = $email_subject;
@@ -1083,14 +1053,14 @@ function parse_size($size) {
     // Build the text version
     $text = strip_tags($email_text);
     if (EMAIL_USE_HTML == 'true') {
-      $mail->IsHTML(TRUE);
-      $mail->Body = $email_text;
-      $mail->AltBody = $text;
+		$mail->IsHTML(TRUE);
+		$mail->Body = $email_text;
+		$mail->AltBody = $text;
     } else {
-      $mail->Body = $text;
+		$mail->Body = $text;
     }
 
-    // Send message
+	// Send message
     $mail->Send();
-  }
+}
 

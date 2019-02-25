@@ -28,9 +28,9 @@ require 'includes/main.php';
   * @param $language
   * @return string
   */
-  function oos_get_products_units_name($products_units_id, $lang_id = '') {
+  function oos_get_products_units_name($products_units_id, $language_id = '') {
 
-    if (empty($lang_id) || !is_numeric($lang_id)) $lang_id = intval($_SESSION['language_id']);
+    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -40,7 +40,7 @@ require 'includes/main.php';
     $orders_sql = "SELECT products_unit_name
                    FROM $products_unitstable
                    WHERE products_units_id = '" . intval($products_units_id) . "'
-                   AND languages_id = '" . intval($lang_id) . "'";
+                   AND languages_id = '" . intval($language_id) . "'";
     $products_units = $dbconn->Execute($orders_sql);
 
     return $products_units->fields['products_unit_name'];
@@ -91,9 +91,9 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         $languages = oos_get_languages();
         for ($i = 0, $n = count($languages); $i < $n; $i++) {
           $products_unit_name_array = $_POST['products_unit_name'];
-          $lang_id = $languages[$i]['id'];
+          $language_id = $languages[$i]['id'];
 
-          $sql_data_array = array('products_unit_name' => oos_db_prepare_input($products_unit_name_array[$lang_id]));
+          $sql_data_array = array('products_unit_name' => oos_db_prepare_input($products_unit_name_array[$language_id]));
 
           if ($action == 'insert') {
             if (oos_empty($products_units_id)) {
@@ -105,13 +105,13 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
             }
 
             $insert_sql_data = array('products_units_id' => $products_units_id,
-                                     'languages_id' => $lang_id);
+                                     'languages_id' => $language_id);
 
             $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
 
             oos_db_perform($oostable['products_units'], $sql_data_array);
           } elseif ($action == 'save') {
-            oos_db_perform($oostable['products_units'], $sql_data_array, 'UPDATE', "products_units_id = '" . intval($products_units_id) . "' AND languages_id = '" . intval($lang_id) . "'");
+            oos_db_perform($oostable['products_units'], $sql_data_array, 'UPDATE', "products_units_id = '" . intval($products_units_id) . "' AND languages_id = '" . intval($language_id) . "'");
           }
         }
 

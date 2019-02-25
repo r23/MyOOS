@@ -32,9 +32,9 @@
   * @param $language
   * @return string
   */
-  function oos_get_customer_status_name($customers_status_id, $lang_id = '') {
+  function oos_get_customer_status_name($customers_status_id, $language_id = '') {
 
-    if (empty($lang_id) || !is_numeric($lang_id)) $lang_id = intval($_SESSION['language_id']);
+    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -42,14 +42,11 @@
 
     $query = "SELECT customers_status_name
               FROM " . $oostable['customers_status'] . "
-              WHERE customers_status_id = '" . $customers_status_id . "'
-                AND customers_status_languages_id = '" . intval($lang_id) . "'";
+              WHERE customers_status_id = '" . intval($customers_status_id) . "'
+                AND customers_status_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
     $customers_status_name = $result->fields['customers_status_name'];
-
-    // Close result set
-    $result->Close();
 
     return $customers_status_name;
   }
@@ -153,7 +150,7 @@
 
       return;
     } else {
-      return false;
+      return FALSE;
     }
   }
 
@@ -165,8 +162,8 @@
   * @param $customers_payment
   * @return string
   */
-  function oos_installed_payment($customers_payment = '') {
-    global $aLang;
+function oos_installed_payment($customers_payment = '') {
+    GLOBAL $aLang;
 
     $install_payment = '';
     $installed_payment = explode(';', MODULE_PAYMENT_INSTALLED);
@@ -189,7 +186,7 @@
       }
     }
     return $install_payment;
-  }
+}
 
  /**
   * Customers Payment
@@ -200,7 +197,7 @@
   * @return string
   */
   function oos_customers_payment($customers_payment = '') {
-    global $aLang;
+    GLOBAL $aLang;
 
     $payment_title = '';
     if (oos_is_not_null($customers_payment)) {

@@ -23,8 +23,8 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
  /**
   * Return the country_id based on the country's name 
@@ -32,76 +32,73 @@
   * @param $country_name string
   * @return integer
   */
-  function oos_get_country_id($country_name) {
+function oos_get_country_id($country_name) {
 
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
     $query = "SELECT countries_id
               FROM " . $oostable['countries'] . " 
-              WHERE countries_name = '" . $country_name . "'";
+              WHERE countries_name = '" . oos_db_input($country_name) . "'";
     $result = $dbconn->Execute($query);
     if (!$result->RecordCount()) {
-      $country_id = 0;
+		$country_id = 0;
     } else {
-      $country_id = $result->fields['countries_id'];
+		$country_id = $result->fields['countries_id'];
     }
-    // Close result set
-    $result->Close();
-    return $country_id;
-  }
 
- /**
-  * Return the country_iso_code_2 based on the country's id 
-  *
-  * @param $country_id integer 
-  * @return string
-  */
-  function oos_get_country_isocode2($country_id) {
+    return $country_id;
+}
+
+/**
+ * Return the country_iso_code_2 based on the country's id 
+ *
+ * @param $country_id integer 
+ * @return string
+ */
+function oos_get_country_isocode2($country_id) {
 
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
     $query = "SELECT countries_iso_code_2
               FROM " . $oostable['countries'] . "
-              WHERE countries_id = '" . $country_id . "'";
+              WHERE countries_id = '" . intval($country_id) . "'";
     $result = $dbconn->Execute($query);
     if (!$result->RecordCount()) {
-      $country_iso = 0;
+		$country_iso = 0;
     } else {
-      $country_iso = $result->fields['countries_iso_code_2'];
+		$country_iso = $result->fields['countries_iso_code_2'];
     }
-    // Close result set
-    $result->Close();
-    return $country_iso;
-  }
 
- /**
-  * Return the zone_id based on the zone's name
-  *
-  * @param $country_id integer 
-  * @param $zone_name string
-  * @return integer
-  */
-  function oos_get_zone_id($country_id, $zone_name) {
+    return $country_iso;
+}
+
+/**
+ * Return the zone_id based on the zone's name
+ *
+ * @param $country_id integer 
+ * @param $zone_name string
+ * @return integer
+ */
+function oos_get_zone_id($country_id, $zone_name) {
 
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
     $query = "SELECT zone_id
               FROM " . $oostable['zones'] . "
-              WHERE zone_country_id = '" . $country_id . "'
-                AND zone_name = '" . $zone_name . "'";
+              WHERE zone_country_id = '" . intval($country_id) . "'
+                AND zone_name = '" . oos_db_input($zone_name) . "'";
     $result = $dbconn->Execute($query);
     if (!$result->RecordCount()) {
-      $zone_id = 0;
+		$zone_id = 0;
     } else {
-      $zone_id = $result->fields['zone_id'];
+		$zone_id = $result->fields['zone_id'];
     }
-    // Close result set
-    $result->Close();
+
     return $zone_id;
-  }
+}
 
  /**
   * Return result of check the existence of a database field
@@ -110,38 +107,38 @@
   * @param $field string
   * @return boolean
   */
-  function oos_field_exists($table, $field) {
+function oos_field_exists($table, $field) {
 
     // Get database information
     $dbconn =& oosDBGetConn();
     $describe_result = $dbconn->Execute("describe $table");
     while($d_row = $describe_result->fields) {
-      if ($d_row["Field"] == "$field")  return true;
-       // Move that ADOdb pointer!
-      $describe_result->MoveNext();
+		if ($d_row["Field"] == "$field")  return TRUE;
+		
+		// Move that ADOdb pointer!
+		$describe_result->MoveNext();
     }
-    // Close result set
-    $describe_result->Close();
-    return false;
-  }
 
- /**
-  * Return string with changed quotes to HTML equivalents for form inputs.
-  *
-  * @param $string string
-  * @return string
-  */
-  function oos_html_quotes($string) {
-    return str_replace("'", "&#39;", $string);
-  }
+    return FALSE;
+}
 
- /**
-  * Return string with changed HTML equivalents back to quotes
-  *
-  * @param $string string
-  * @return string
-  */
-  function oos_html_unquote($string) {
-    return str_replace("&#39;", "'", $string);
-  }
+/**
+ * Return string with changed quotes to HTML equivalents for form inputs.
+ *
+ * @param $string string
+ * @return string
+ */
+function oos_html_quotes($string) {
+	return str_replace("'", "&#39;", $string);
+}
+
+/**
+ * Return string with changed HTML equivalents back to quotes
+ *
+ * @param $string string
+ * @return string
+ */
+function oos_html_unquote($string) {
+	return str_replace("&#39;", "'", $string);
+}
 

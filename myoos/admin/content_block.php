@@ -84,19 +84,19 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         $languages = oos_get_languages();
         for ($i = 0, $n = count($languages); $i < $n; $i++) {
           $block_content_name_array = oos_db_prepare_input($_POST['block_name']);
-          $lang_id = $languages[$i]['id'];
+          $language_id = $languages[$i]['id'];
 
-          $sql_data_array = array('block_name' => oos_db_prepare_input($block_content_name_array[$lang_id]));
+          $sql_data_array = array('block_name' => oos_db_prepare_input($block_content_name_array[$language_id]));
 
           if ($action == 'insert') {
             $insert_sql_data = array('block_id' => $block_content_id,
-                                     'block_languages_id' => $lang_id);
+                                     'block_languages_id' => $language_id);
 
             $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
 
             oos_db_perform($oostable['block_info'], $sql_data_array);
           } elseif ($action == 'save') {
-            oos_db_perform($oostable['block_info'], $sql_data_array, 'UPDATE', "block_id = '" . intval($block_content_id) . "' AND block_languages_id = '" . intval($lang_id) . "'");
+            oos_db_perform($oostable['block_info'], $sql_data_array, 'UPDATE', "block_id = '" . intval($block_content_id) . "' AND block_languages_id = '" . intval($language_id) . "'");
           }
         }
 

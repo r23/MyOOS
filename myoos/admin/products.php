@@ -166,22 +166,22 @@ if (!empty($action)) {
 			$nLanguages = count($aLanguages);
 
 			for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
-				$lang_id = $aLanguages[$i]['id'];
-				$sql_data_array = array('products_name' => oos_db_prepare_input($_POST['products_name'][$lang_id]),
+				$language_id = $aLanguages[$i]['id'];
+				$sql_data_array = array('products_name' => oos_db_prepare_input($_POST['products_name'][$language_id]),
                                    'products_description' => oos_db_prepare_input($_POST['products_description_' .$aLanguages[$i]['id']]),
                                     'products_description_meta' => oos_db_prepare_input($_POST['products_description_meta_' .$aLanguages[$i]['id']]),
                                     'products_keywords_meta' => oos_db_prepare_input($_POST['products_keywords_meta_' .$aLanguages[$i]['id']]),
-                                    'products_url' => oos_db_prepare_input($_POST['products_url'][$lang_id]));
+                                    'products_url' => oos_db_prepare_input($_POST['products_url'][$language_id]));
 
 				if ($action == 'insert_product') {
 					$insert_sql_data = array('products_id' => $products_id,
-                                      'products_languages_id' => $lang_id);
+                                      'products_languages_id' => $language_id);
 
 					$sql_data_array = array_merge($sql_data_array, $insert_sql_data);
 
 					oos_db_perform($oostable['products_description'], $sql_data_array);
 				} elseif ($action == 'update_product') {
-					oos_db_perform($oostable['products_description'], $sql_data_array, 'UPDATE', 'products_id = \'' . intval($products_id) . '\' AND products_languages_id = \'' . intval($lang_id) . '\'');
+					oos_db_perform($oostable['products_description'], $sql_data_array, 'UPDATE', 'products_id = \'' . intval($products_id) . '\' AND products_languages_id = \'' . intval($language_id) . '\'');
 				}
 			}
         

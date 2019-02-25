@@ -49,7 +49,7 @@
   * @param $reverse
   * @return string
   */
-  function oos_date_raw($date, $reverse = false) {
+  function oos_date_raw($date, $reverse = FALSE) {
     if ($reverse) {
       return substr($date, 0, 2) . substr($date, 3, 2) . substr($date, 6, 4);
     } else {
@@ -57,7 +57,7 @@
     }
   }
 
-// Global entries for the <html> tag
+// GLOBAL entries for the <html> tag
 define('HTML_PARAMS',' lang="de"');
 
 // charset for emails
