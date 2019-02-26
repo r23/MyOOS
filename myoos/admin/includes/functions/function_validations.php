@@ -18,15 +18,6 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/**
- * validations
- *
- * @package validations
- * @copyright (C) 2006 by the MyOOS Development Team.
- * @license GPL <http://www.gnu.org/licenses/gpl.html>
- * @link https://www.oos-shop.de
- */
-
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 

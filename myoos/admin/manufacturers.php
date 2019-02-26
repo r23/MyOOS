@@ -276,7 +276,7 @@ if (!empty($action)) {
   if (empty($action)) {
 ?>
               <tr>
-                <td align="right" colspan="2" class="smallText"><?php echo '<a href="' . oos_href_link_admin($aContents['manufacturers'], 'page=' . $nPage . '&mID=' . $mInfo->manufacturers_id . '&action=new') . '">' . oos_button('insert', BUTTON_INSERT) . '</a>'; ?></td>
+                <td align="right" colspan="2" class="smallText"><?php echo '<a href="' . oos_href_link_admin($aContents['manufacturers'], 'page=' . $nPage . '&mID=' . $mInfo->manufacturers_id . '&action=new') . '">' . oos_button(BUTTON_INSERT) . '</a>'; ?></td>
               </tr>
 <?php
   }
@@ -350,7 +350,7 @@ if (!empty($action)) {
       if (isset($mInfo) && is_object($mInfo)) {
         $heading[] = array('text' => '<b>' . $mInfo->manufacturers_name . '</b>');
 
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['manufacturers'], 'page=' . $nPage . '&mID=' . $mInfo->manufacturers_id . '&action=edit') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['manufacturers'], 'page=' . $nPage . '&mID=' . $mInfo->manufacturers_id . '&action=delete') . '">' . oos_button('delete',  BUTTON_DELETE) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['manufacturers'], 'page=' . $nPage . '&mID=' . $mInfo->manufacturers_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['manufacturers'], 'page=' . $nPage . '&mID=' . $mInfo->manufacturers_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>');
         $contents[] = array('text' => '<br />' . TEXT_DATE_ADDED . ' ' . oos_date_short($mInfo->date_added));
         if (oos_is_not_null($mInfo->last_modified)) $contents[] = array('text' => TEXT_LAST_MODIFIED . ' ' . oos_date_short($mInfo->last_modified));
 		$manufacturers_image = 'brands/medium/' . $mInfo->manufacturers_image;

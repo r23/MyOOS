@@ -326,7 +326,7 @@ require 'includes/header.php';
   if (empty($action)) {
 ?>
                   <tr> 
-                    <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&action=new') . '">' . oos_button('new_product', IMAGE_NEW_PRODUCT) . '</a>'; ?></td>
+                    <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&action=new') . '">' . oos_button(IMAGE_NEW_PRODUCT) . '</a>'; ?></td>
                   </tr>
 <?php
   }
@@ -353,7 +353,7 @@ require 'includes/header.php';
       if (isset($sInfo) && is_object($sInfo)) {
         $heading[] = array('text' => '<b>' . $sInfo->products_name . '</b>');
 
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=edit') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=delete') . '">' . oos_button('delete',  BUTTON_DELETE) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>');
         $contents[] = array('text' => '<br />' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($sInfo->featured_date_added));
         $contents[] = array('text' => '' . TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($sInfo->featured_last_modified));
         $contents[] = array('align' => 'center', 'text' => '<br />' . product_info_image($sInfo->products_image, $sInfo->products_name));

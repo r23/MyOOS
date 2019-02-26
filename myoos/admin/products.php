@@ -1191,7 +1191,7 @@ if ( $q1 < $q0 ) {
       }
 ?>
       <tr>
-        <td class="text-right"><?php echo '<a href="' . oos_href_link_admin($back_url, $back_url_params) . '">' . oos_button('back', IMAGE_BACK) . '</a>'; ?></td>
+        <td class="text-right"><?php echo '<a href="' . oos_href_link_admin($back_url, $back_url_params) . '">' . oos_button(IMAGE_BACK) . '</a>'; ?></td>
       </tr>
 
 	      </table>

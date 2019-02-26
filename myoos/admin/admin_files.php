@@ -167,7 +167,7 @@
                 <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
                     <td class="smallText" valign="top"><?php echo TEXT_COUNT_FILES . $file_count; ?></td>
-                    <td class="smallText" valign="top" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['admin_files'], 'cID=' . $_GET['cPath']) . '">' . oos_button('back', IMAGE_BACK) . '</a>&nbsp<a href="' . oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath'] . '&action=store_file') . '">' . oos_button('admin_files', BUTTON_INSERT_FILE) . '</a>'; ?>&nbsp;</td>
+                    <td class="smallText" valign="top" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['admin_files'], 'cID=' . $_GET['cPath']) . '">' . oos_button(IMAGE_BACK) . '</a>&nbsp<a href="' . oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath'] . '&action=store_file') . '">' . oos_button(BUTTON_INSERT_FILE) . '</a>'; ?>&nbsp;</td>
                   </tr>
                 </table></td>
               </tr>
@@ -351,7 +351,7 @@
       if (isset($fInfo) && is_object($fInfo)) {
         $heading[] = array('text' => '<b>' . TEXT_INFO_NEW_FILE_BOX .  ucfirst(substr_replace ($current_box['admin_box_name'], '', -4)) . '</b>');
 
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath'] . '&action=store_file') . '">' . oos_button('admin_files', BUTTON_INSERT_FILE) . '</a> <a href="' . oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath'] . '&fID=' . $fInfo->admin_files_id . '&action=remove_file') . '">' . oos_button('admin_remove', BUTTON_DELETE) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath'] . '&action=store_file') . '">' . oos_button(BUTTON_INSERT_FILE) . '</a> <a href="' . oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath'] . '&fID=' . $fInfo->admin_files_id . '&action=remove_file') . '">' . oos_button(BUTTON_DELETE) . '</a>');
         $contents[] = array('text' => '<br />' . TEXT_INFO_DEFAULT_FILE_INTRO . ucfirst(substr_replace ($current_box['admin_box_name'], '', -4)));
       }
   }

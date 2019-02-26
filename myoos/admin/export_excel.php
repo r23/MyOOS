@@ -236,7 +236,7 @@ if ($dir_ok) {
 ?>
               <tr>
                 <td class="smallText" colspan="3"><?php echo TEXT_EXPORT_DIRECTORY . ' ' . OOS_EXPORT_PATH; ?></td>
-                <td align="right" class="smallText"><?php if ($action != 'backup')  echo '<a href="' . oos_href_link_admin($aContents['export_excel'], 'action=backup') . '">' . oos_button('backup', IMAGE_BACKUP) . '</a>'; ?></td>
+                <td align="right" class="smallText"><?php if ($action != 'backup')  echo '<a href="' . oos_href_link_admin($aContents['export_excel'], 'action=backup') . '">' . oos_button(IMAGE_BACKUP) . '</a>'; ?></td>
              </tr>
             </table></td>
 <?php
@@ -277,7 +277,7 @@ if ($dir_ok) {
       if (isset($buInfo) && is_object($buInfo)) {
         $heading[] = array('text' => '<b>' . $buInfo->date . '</b>');
 
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['export_excel'], 'file=' . $buInfo->file . '&action=delete') . '">' . oos_button('delete',  BUTTON_DELETE) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['export_excel'], 'file=' . $buInfo->file . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>');
         $contents[] = array('text' => '<br />' . TEXT_INFO_DATE . ' ' . $buInfo->date);
         $contents[] = array('text' => TEXT_INFO_SIZE . ' ' . $buInfo->size);
         $contents[] = array('text' => '<br />' . TEXT_INFO_COMPRESSION . ' ' . $buInfo->compression);

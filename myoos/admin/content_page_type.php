@@ -229,7 +229,7 @@ if (!empty($action)) {
   if (empty($action)) {
 ?>
                   <tr>
-                    <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['content_page_type'], 'page=' . $nPage . '&action=new') . '">' . oos_button('insert', BUTTON_INSERT) . '</a>'; ?></td>
+                    <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['content_page_type'], 'page=' . $nPage . '&action=new') . '">' . oos_button(BUTTON_INSERT) . '</a>'; ?></td>
                   </tr>
 <?php
   }
@@ -289,7 +289,7 @@ if (!empty($action)) {
       if (isset($oInfo) && is_object($oInfo)) {
         $heading[] = array('text' => '<b>' . $oInfo->page_type_name . '</b>');
 
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['content_page_type'], 'page=' . $nPage . '&ptID=' . $oInfo->page_type_id . '&action=edit') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['content_page_type'], 'page=' . $nPage . '&ptID=' . $oInfo->page_type_id . '&action=delete') . '">' . oos_button('delete',  BUTTON_DELETE) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['content_page_type'], 'page=' . $nPage . '&ptID=' . $oInfo->page_type_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['content_page_type'], 'page=' . $nPage . '&ptID=' . $oInfo->page_type_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>');
 
         $page_type_inputs_string = '';
         $languages = oos_get_languages();

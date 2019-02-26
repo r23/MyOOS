@@ -21,14 +21,6 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
-/**
- * html output
- *
- * @link https://www.oos-shop.de
- * @package Admin html output
- * @version $Revision: 1.1 $ - changed by $Author: r23 $ on $Date: 2007/06/08 14:02:48 $
- */
-
 
  /**
   * The HTML href link wrapper function
@@ -143,6 +135,7 @@ function oos_image($src, $alt = '', $width = '', $height = '', $params = '') {
     return $image;
   }
 
+
  /**
   * Draw a 1 pixel black line
   */
@@ -155,10 +148,9 @@ function oos_image($src, $alt = '', $width = '', $height = '', $params = '') {
  * Output a function button in the selected language
  *
  * @param $title
- * @param $params
  * @return string
  */
-function oos_button($id, $title = '', $params = '') {
+function oos_button($title = '',) {
 	return '<button class="btn btn-sm btn-primary mb-20"><strong>' . $title . '</strong></button>';
 }
 
@@ -166,10 +158,9 @@ function oos_button($id, $title = '', $params = '') {
  * Outputs a submit button
  *
  * @param $title
- * @param $params
  * @return string
  */
-function oos_submit_button($title = '', $params = '') {
+function oos_submit_button($title = '') {
 	return '<button class="btn btn-sm btn-primary mb-20" type="submit"><strong><i class="fa fa-check-circle"></i> ' . $title . '</strong></button>';
 }
 

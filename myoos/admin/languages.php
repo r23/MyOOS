@@ -563,7 +563,7 @@ if (!empty($action)) {
   if (empty($action)) {
 ?>
                   <tr>
-                    <td align="right" colspan="2"><?php echo '<a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id . '&action=new') . '">' . oos_button('new_language', IMAGE_NEW_LANGUAGE) . '</a>'; ?></td>
+                    <td align="right" colspan="2"><?php echo '<a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id . '&action=new') . '">' . oos_button(IMAGE_NEW_LANGUAGE) . '</a>'; ?></td>
                   </tr>
 <?php
   }
@@ -609,7 +609,7 @@ if (!empty($action)) {
 
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $contents[] = array('text' => '<br /><b>' . $lInfo->name . '</b>');
-      $contents[] = array('align' => 'center', 'text' => '<br />' . (($remove_language) ? '<a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id . '&action=deleteconfirm') . '">' . oos_button('delete',  BUTTON_DELETE) . '</a>' : '') . ' <a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . (($remove_language) ? '<a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id . '&action=deleteconfirm') . '">' . oos_button(BUTTON_DELETE) . '</a>' : '') . ' <a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
 
       break;
 
@@ -617,7 +617,7 @@ if (!empty($action)) {
       if (isset($lInfo) && is_object($lInfo)) {
         $heading[] = array('text' => '<b>' . $lInfo->name . '</b>');
 
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id . '&action=edit') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id . '&action=delete') . '">' . oos_button('delete',  BUTTON_DELETE) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>');
         $contents[] = array('text' => '<br />' . TEXT_INFO_LANGUAGE_NAME . ' ' . $lInfo->name);
         $contents[] = array('text' => TEXT_INFO_LANGUAGE_ISO_639_2 . ' ' . $lInfo->iso_639_2);
         $contents[] = array('text' => TEXT_INFO_LANGUAGE_ISO_639_1 . ' ' . $lInfo->iso_639_1);

@@ -229,7 +229,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 		}
 ?>
       <tr>
-        <td align="right" class="smallText"><?php echo '<a href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id . '&action=edit') . '">' . oos_button('back', IMAGE_BACK) . '</a> ' . oos_submit_button(IMAGE_UPDATE) . ' <a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></td>
+        <td align="right" class="smallText"><?php echo '<a href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id . '&action=edit') . '">' . oos_button(IMAGE_BACK) . '</a> ' . oos_submit_button(IMAGE_UPDATE) . ' <a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></td>
       </form></tr>
 <?php
     } else {
@@ -242,7 +242,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       }
 ?>
       <tr>
-        <td class="text-right"><?php echo '<a href="' . oos_href_link_admin($back_url, $back_url_params) . '">' . oos_button('back', IMAGE_BACK) . '</a>'; ?></td>
+        <td class="text-right"><?php echo '<a href="' . oos_href_link_admin($back_url, $back_url_params) . '">' . oos_button(IMAGE_BACK) . '</a>'; ?></td>
       </tr>
 <?php
     }
@@ -352,7 +352,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       if (isset($rInfo) && is_object($rInfo)) {
         $heading[] = array('text' => '<b>' . $rInfo->products_name . '</b>');
 
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id . '&action=edit') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id . '&action=delete') . '">' . oos_button('delete', BUTTON_DELETE) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id . '&action=delete') . '">' . oos_button( BUTTON_DELETE) . '</a>');
         $contents[] = array('text' => '<br />' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($rInfo->date_added));
         if (oos_is_not_null($rInfo->last_modified)) $contents[] = array('text' => TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($rInfo->last_modified));
         $contents[] = array('text' => '<br />' . oos_info_image($rInfo->products_image, $rInfo->products_name, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT));

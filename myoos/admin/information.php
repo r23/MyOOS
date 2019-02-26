@@ -225,7 +225,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
   if (empty($action)) {
 ?>
               <tr>
-                <td align="right" colspan="3" class="smallText"><?php echo '<a href="' . oos_href_link_admin($aContents['information'], 'page=' . $nPage . '&mID=' . $iInfo->information_id . '&action=new') . '">' . oos_button('insert', BUTTON_INSERT) . '</a>'; ?></td>
+                <td align="right" colspan="3" class="smallText"><?php echo '<a href="' . oos_href_link_admin($aContents['information'], 'page=' . $nPage . '&mID=' . $iInfo->information_id . '&action=new') . '">' . oos_button(BUTTON_INSERT) . '</a>'; ?></td>
               </tr>
 <?php
   }
@@ -305,9 +305,9 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       if (isset($iInfo) && is_object($iInfo)) {
         $heading[] = array('text' => '<b>' . $iInfo->information_name . '</b>');
         if ($iInfo->information_id > 5) {
-          $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['information'], 'page=' . $nPage . '&mID=' . $iInfo->information_id . '&action=edit') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['information'], 'page=' . $nPage . '&mID=' . $iInfo->information_id . '&action=delete') . '">' . oos_button('delete',  BUTTON_DELETE) . '</a>');
+          $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['information'], 'page=' . $nPage . '&mID=' . $iInfo->information_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['information'], 'page=' . $nPage . '&mID=' . $iInfo->information_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>');
         } else {
-          $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['information'], 'page=' . $nPage . '&mID=' . $iInfo->information_id . '&action=edit') . '">' . oos_button('edit', BUTTON_EDIT) . '</a>');
+          $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['information'], 'page=' . $nPage . '&mID=' . $iInfo->information_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a>');
         }
         $contents[] = array('text' => '<br />' . TEXT_DATE_ADDED . ' ' . oos_date_short($iInfo->date_added));
         if (oos_is_not_null($iInfo->last_modified)) $contents[] = array('text' => TEXT_LAST_MODIFIED . ' ' . oos_date_short($iInfo->last_modified));

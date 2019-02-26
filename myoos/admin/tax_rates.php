@@ -236,7 +236,7 @@ if (!empty($action)) {
   if (empty($action)) {
 ?>
                   <tr>
-                    <td colspan="5" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['tax_rates'], 'page=' . $nPage . '&action=new') . '">' . oos_button('new_tex_rate', IMAGE_NEW_TAX_RATE) . '</a>'; ?></td>
+                    <td colspan="5" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['tax_rates'], 'page=' . $nPage . '&action=new') . '">' . oos_button(IMAGE_NEW_TAX_RATE) . '</a>'; ?></td>
                   </tr>
 <?php
   }
@@ -287,7 +287,7 @@ if (!empty($action)) {
     default:
       if (isset($trInfo) && is_object($trInfo)) {
         $heading[] = array('text' => '<b>' . $trInfo->tax_class_title . '</b>');
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['tax_rates'], 'page=' . $nPage . '&tID=' . $trInfo->tax_rates_id . '&action=edit') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['tax_rates'], 'page=' . $nPage . '&tID=' . $trInfo->tax_rates_id . '&action=delete') . '">' . oos_button('delete',  BUTTON_DELETE) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['tax_rates'], 'page=' . $nPage . '&tID=' . $trInfo->tax_rates_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['tax_rates'], 'page=' . $nPage . '&tID=' . $trInfo->tax_rates_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>');
         $contents[] = array('text' => '<br />' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($trInfo->date_added));
         $contents[] = array('text' => '' . TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($trInfo->last_modified));
         $contents[] = array('text' => '<br />' . TEXT_INFO_RATE_DESCRIPTION . '<br />' . $trInfo->tax_description);

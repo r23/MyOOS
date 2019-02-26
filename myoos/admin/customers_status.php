@@ -289,7 +289,7 @@ if (!empty($action)) {
    if (empty($action)) {
 ?>
                   <tr>
-                    <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage . '&action=new') . '">' . oos_button('insert', BUTTON_INSERT) . '</a>'; ?></td>
+                    <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage . '&action=new') . '">' . oos_button(BUTTON_INSERT) . '</a>'; ?></td>
                   </tr>
 <?php
   }
@@ -359,7 +359,7 @@ if (!empty($action)) {
       if (isset($cInfo) && is_object($cInfo)) {
         $heading[] = array('text' => '<b>' . $cInfo->customers_status_name . '</b>');
 
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage . '&cID=' . $cInfo->customers_status_id . '&action=edit') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage . '&cID=' . $cInfo->customers_status_id . '&action=delete') . '">' . oos_button('delete',  BUTTON_DELETE) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage . '&cID=' . $cInfo->customers_status_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage . '&cID=' . $cInfo->customers_status_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>');
         $customers_status_inputs_string = '';
         $languages = oos_get_languages();
         for ($i = 0, $n = count($languages); $i < $n; $i++) {

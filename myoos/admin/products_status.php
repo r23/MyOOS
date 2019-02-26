@@ -271,7 +271,7 @@ if (!empty($action)) {
       if (isset($psInfo) && is_object($psInfo)) {
         $heading[] = array('text' => '<b>' . $psInfo->products_status_name . '</b>');
 
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['products_status'], 'page=' . $nPage . '&psID=' . $psInfo->products_status_id . '&action=edit') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['products_status'], 'page=' . $nPage . '&psID=' . $psInfo->products_status_id . '&action=delete') . '">' . oos_button('delete',  BUTTON_DELETE) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['products_status'], 'page=' . $nPage . '&psID=' . $psInfo->products_status_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['products_status'], 'page=' . $nPage . '&psID=' . $psInfo->products_status_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>');
 
         $products_status_inputs_string = '';
         $languages = oos_get_languages();

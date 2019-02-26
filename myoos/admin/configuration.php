@@ -295,7 +295,7 @@ if (!empty($action)) {
    default:
       if (isset($cInfo) && is_object($cInfo)) {
         $heading[] = array('text' => '<b>' . constant(strtoupper($cInfo->configuration_key . '_TITLE')) . '</b>');
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $cInfo->configuration_id . '&action=edit') . '">' . oos_button('edit', BUTTON_EDIT) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $cInfo->configuration_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a>');
 		if  ($cID == 2) {
 			$contents[] = array('text' => '<br />' . oos_info_image('logo/medium/' . $cInfo->configuration_value, $cInfo->configuration_value));		
 		} elseif ($cID == 3) {

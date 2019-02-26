@@ -278,8 +278,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
             <td class="pageHeading"></td>
             <td class="pageHeading" align="right"></td>
             <td class="pageHeading" align="right">
-            <?php echo '<a href="' . oos_href_link_admin($aContents['edit_orders'], oos_get_all_get_params(array('action'))) . '">' . oos_button('edit', BUTTON_EDIT) . '</a> &nbsp; '; ?>
-            <?php echo '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('action'))) . '">' . oos_button('back', IMAGE_BACK) . '</a>'; ?>
+            <?php echo '<a href="' . oos_href_link_admin($aContents['edit_orders'], oos_get_all_get_params(array('action'))) . '">' . oos_button(BUTTON_EDIT) . '</a> &nbsp; '; ?>
+            <?php echo '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('action'))) . '">' . oos_button(IMAGE_BACK) . '</a>'; ?>
             </td>
           </tr>
         </table></td>
@@ -504,7 +504,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         </table></td>
       </form></tr>
       <tr>
-        <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['invoice'], 'oID=' . $_GET['oID']) . '" TARGET="_blank">' . oos_button('invoice', IMAGE_ORDERS_INVOICE) . '</a> <a href="' . oos_href_link_admin($aContents['packingslip'], 'oID=' . $_GET['oID']) . '" TARGET="_blank">' . oos_button('pachingslip', IMAGE_ORDERS_PACKINGSLIP) . '</a> <a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('action'))) . '">' . oos_button('back', IMAGE_BACK) . '</a>'; ?></td>
+        <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['invoice'], 'oID=' . $_GET['oID']) . '" TARGET="_blank">' . oos_button(IMAGE_ORDERS_INVOICE) . '</a> <a href="' . oos_href_link_admin($aContents['packingslip'], 'oID=' . $_GET['oID']) . '" TARGET="_blank">' . oos_button(IMAGE_ORDERS_PACKINGSLIP) . '</a> <a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('action'))) . '">' . oos_button(IMAGE_BACK) . '</a>'; ?></td>
       </tr>
 	      </table>
 <?php
@@ -672,8 +672,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       if (isset($oInfo) && is_object($oInfo)) {
         $heading[] = array('text' => '<b>[' . $oInfo->orders_id . ']&nbsp;&nbsp;' . oos_datetime_short($oInfo->date_purchased) . '</b>');
 
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $oInfo->orders_id . '&action=edit') . '">' . oos_button('edit', BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $oInfo->orders_id . '&action=delete') . '">' . oos_button('delete',  BUTTON_DELETE) . '</a>');
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['invoice'], 'oID=' . $oInfo->orders_id) . '" TARGET="_blank">' . oos_button('invoice', IMAGE_ORDERS_INVOICE) . '</a> <a href="' . oos_href_link_admin($aContents['packingslip'], 'oID=' . $oInfo->orders_id) . '" TARGET="_blank">' . oos_button('packingslip', IMAGE_ORDERS_PACKINGSLIP) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $oInfo->orders_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $oInfo->orders_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['invoice'], 'oID=' . $oInfo->orders_id) . '" TARGET="_blank">' . oos_button(IMAGE_ORDERS_INVOICE) . '</a> <a href="' . oos_href_link_admin($aContents['packingslip'], 'oID=' . $oInfo->orders_id) . '" TARGET="_blank">' . oos_button(IMAGE_ORDERS_PACKINGSLIP) . '</a>');
 
         $contents[] = array('text' => '<br />' . TEXT_DATE_ORDER_CREATED . ' ' . oos_date_short($oInfo->date_purchased));
         if (oos_is_not_null($oInfo->last_modified)) $contents[] = array('text' => TEXT_DATE_ORDER_LAST_MODIFIED . ' ' . oos_date_short($oInfo->last_modified));
