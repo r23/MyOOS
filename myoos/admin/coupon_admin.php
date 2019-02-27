@@ -899,7 +899,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       </tr>
       <tr>
         <td class="text-left"><?php echo oos_submit_button('preview', IMAGE_PREVIEW); ?></td>
-        <td class="text-left"><?php echo '&nbsp;&nbsp;<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['coupon_admin'], '')) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></td>
+        <td class="text-left"><?php echo '&nbsp;&nbsp;<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['coupon_admin']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></td>
       </tr>
       </td></table></form>
       </tr>

@@ -212,7 +212,6 @@ function oos_get_all_get_params($exclude_array = '') {
   * @param var variable to prepare
   * @param ...
   * @returns string/array
-  * @return prepared variable if only one variable passed
   * in, otherwise an array of prepared variables
   */
 function oos_var_prep_for_os() {

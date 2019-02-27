@@ -67,7 +67,6 @@ require 'includes/main.php';
   *
   * @param $specials_id
   * @param $status
-  * @return boolan
   */
   function oos_set_specials_status($specials_id, $status) {
 
@@ -82,7 +81,7 @@ require 'includes/main.php';
       $specialstable = $oostable['specials'];
       return $dbconn->Execute("UPDATE $specialstable SET status = '0', date_status_change = now() WHERE specials_id = '" . intval($specials_id) . "'");
     } else {
-      return -1;
+      return FALSE;
     }
   }
 

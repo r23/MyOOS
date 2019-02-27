@@ -150,7 +150,7 @@ function oos_image($src, $alt = '', $width = '', $height = '', $params = '') {
  * @param $title
  * @return string
  */
-function oos_button($title = '',) {
+function oos_button($title = '') {
 	return '<button class="btn btn-sm btn-primary mb-20"><strong>' . $title . '</strong></button>';
 }
 
