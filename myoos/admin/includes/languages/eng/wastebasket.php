@@ -27,7 +27,7 @@ define('TABLE_HEADING_ACTION', 'Action');
 define('TABLE_HEADING_STATUS', 'Status');
 define('TABLE_HEADING_MANUFACTURERS', 'Manufacturers');
 
-define('TEXT_CATEGORIES', 'Categories:');
+define('TEXT_CATEGORIES', 'Categories');
 define('TEXT_SUBCATEGORIES', 'Subcategories:');
 define('TEXT_PRODUCTS', 'Products:');
 define('TEXT_PRODUCTS_PRICE_INFO', 'Price:');
@@ -80,7 +80,7 @@ define('TEXT_PRODUCTS_KEYWORDS_META', 'Article of search words for Keyword TAG (
 define('TEXT_PRODUCTS_QUANTITY', 'Products Quantity:');
 define('TEXT_PRODUCTS_REORDER_LEVEL', 'Products Reorder Level:');
 define('TEXT_PRODUCTS_MODEL', 'Products Model:');
-define('TEXT_PRODUCTS_IMAGE', 'Products Image:');
+define('TEXT_PRODUCTS_IMAGE', 'Products Image');
 define('TEXT_PRODUCTS_URL', 'Products URL:');
 define('TEXT_PRODUCTS_URL_WITHOUT_HTTP', '<small>(without http://)</small>');
 define('TEXT_PRODUCTS_PRICE', 'Products Price:');

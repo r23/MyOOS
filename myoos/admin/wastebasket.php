@@ -104,16 +104,20 @@ if (!empty($action)) {
 				$product_categories = $_POST['product_categories'];
 
 				for ($i = 0, $n = count($product_categories); $i < $n; $i++) {
-					$dbconn->Execute("DELETE FROM " . $oostable['products_to_categories'] . " WHERE products_id = '" . intval($product_id) . "' and categories_id = '" . intval($product_categories[$i]) . "'");
+					$dbconn->Execute("DELETE FROM " . $oostable['products_to_categories'] . " WHERE products_id = '" . intval($product_id) . "' AND categories_id = '" . intval($product_categories[$i]) . "'");
 				}
 
 				$product_categories_result = $dbconn->Execute("SELECT COUNT(*) AS total FROM " . $oostable['products_to_categories'] . " WHERE products_id = '" . intval($product_id) . "'");
 				$product_categories = $product_categories_result->fields;
 
-				if ($product_categories['total'] == '0') {
+				if ($product_categories['total'] == '0') {		
 					oos_remove_product($product_id);
 				}
 			}
+			
+			
+			
+			
 			oos_redirect_admin(oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath));
 			break;
 
@@ -308,7 +312,7 @@ require 'includes/header.php';
           $category_path = substr($category_path, 0, -16);
           $product_categories_string .= oos_draw_checkbox_field('product_categories[]', $product_categories[$i][count($product_categories[$i])-1]['id'], true) . '&nbsp;' . $category_path . '<br />';
         }
-        $product_categories_string = substr($product_categories_string, 0, -4);
+        $product_categories_string = substr($product_categories_string, 0, -6);
 
         $contents[] = array('text' => '<br />' . $product_categories_string);		
         $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(BUTTON_DELETE_PERMANENTLY) . ' <a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');

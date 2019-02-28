@@ -644,26 +644,26 @@ function oos_remove_product($product_id) {
 	}
 
     $products_imagestable = $oostable['products_images'];
-    $product_image_query = "SELECT products_image
+    $product_image_query = "SELECT image_name
                              FROM $products_imagestable
                              WHERE products_id = '" . intval($product_id) . "'";
-    $products_image_result = $dbconn->Execute($products_image_query);
+    $products_image_result = $dbconn->Execute($product_image_query);
     while ($product_image = $products_image_result->fields) {
 
 		$duplicate_query = "SELECT COUNT(*) AS total
-                              FROM $categories_imagestable
-                              WHERE categories_image = '" . oos_db_input($product_image['products_image']) . "'";
+                              FROM $products_imagestable
+                              WHERE image_name = '" . oos_db_input($product_image['image_name']) . "'";
 		$duplicate_image_result = $dbconn->Execute($duplicate_query);
 		$duplicate_image = $duplicate_image_result->fields;
 
 		if ($duplicate_image['total'] < 2) {
-			if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/originals/' . $product_image['products_image'])) {
-				@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/large/' . $product_image['products_image']);
-				@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/medium/' . $product_image['products_image']);
-				@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/medium_large/' . $product_image['products_image']);
-				@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/small/' . $product_image['products_image']);
-				@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/min/' . $product_image['products_image']);			
-				@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/originals/' . $product_image['products_image']);
+			if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/originals/' . $product_image['image_name'])) {
+				@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/large/' . $product_image['image_name']);
+				@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/medium/' . $product_image['image_name']);
+				@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/medium_large/' . $product_image['image_name']);
+				@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/small/' . $product_image['image_name']);
+				@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/min/' . $product_image['image_name']);			
+				@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/originals/' . $product_image['image_name']);
 			}
 		}
 		// Move that ADOdb pointer!

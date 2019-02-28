@@ -424,6 +424,27 @@ require 'includes/header.php';
 		// Move that ADOdb pointer!
 		$setting_result->MoveNext();
 	}
+	
+
+	if (isset($_GET['origin'])) {
+		$sOrigin = oos_db_prepare_input($_GET['origin']);
+        $pos_params = strpos($sOrigin, '?', 0);
+        if ($pos_params != false) {
+          $back_url = substr($sOrigin, 0, $pos_params);
+          $back_url_params = substr($sOrigin, $pos_params + 1);
+        } else {
+          $back_url = $sOrigin;
+          $back_url_params = '';
+        }
+	} else {
+        $back_url = $aContents['categories'];
+        $back_url_params = 'cPath=' . $cPath;
+        if (oos_is_not_null($pInfo->products_id)) {
+			$back_url_params .= '&pID=' . $pInfo->products_id;
+        }		
+	}	
+
+	
 ?>
 <script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
 <?php
@@ -472,7 +493,9 @@ function calcBasePriceFactor() {
 	<!-- END Breadcrumbs //-->
 
 	<?php echo oos_draw_form('id', 'new_product', $aContents['products'], 'cPath=' . $cPath . (!empty($pID) ? '&pID=' . intval($pID) : '') . '&action=' . $form_action, 'post', FALSE, 'enctype="multipart/form-data"'); ?>
-		<?php echo oos_draw_hidden_field('products_date_added', (($pInfo->products_date_added) ? $pInfo->products_date_added : date('Y-m-d'))); ?>
+		<?php echo oos_draw_hidden_field('products_date_added', (($pInfo->products_date_added) ? $pInfo->products_date_added : date('Y-m-d')));
+				echo oos_hide_session_id();
+		?>
                <div role="tabpanel">
                   <ul class="nav nav-tabs nav-justified">
                      <li class="nav-item" role="presentation">
@@ -486,6 +509,11 @@ function calcBasePriceFactor() {
                      </li>
                   </ul>
                   <div class="tab-content">
+					<div class="text-right mt-3 mb-3">
+						<?php echo '<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($back_url, $back_url_params) . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . IMAGE_BACK . '</strong></a>'; ?>
+						<?php echo oos_submit_button(IMAGE_SAVE); ?>
+						<?php echo oos_reset_button(BUTTON_RESET); ?>			   
+					</div>			  
                      <div class="tab-pane active" id="edit" role="tabpanel">
 
                         <fieldset>
@@ -973,8 +1001,11 @@ function calcBasePriceFactor() {
                   </div>
                </div>
             <div class="text-right mt-3">
-			   <?php echo oos_submit_button(IMAGE_SAVE); ?>
-            </div>
+				<?php echo '<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($back_url, $back_url_params) . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . IMAGE_BACK . '</strong></a>'; ?>
+				<?php echo oos_submit_button(IMAGE_SAVE); ?>
+				<?php echo oos_reset_button(BUTTON_RESET); ?>			   
+			</div>				
+			
             </form>
 <!-- body_text_eof //-->
 <?php

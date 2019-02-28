@@ -76,7 +76,6 @@ function oos_get_category_tree($parent_id = '0', $spacing = '', $exclude = '', $
 
     if (!is_array($category_tree_array)) $category_tree_array = array();
     if ( (count($category_tree_array) < 1) && ($exclude != '0') ) $category_tree_array[] = array('id' => '0', 'text' => TEXT_TOP);
-
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
@@ -99,7 +98,8 @@ function oos_get_category_tree($parent_id = '0', $spacing = '', $exclude = '', $
     $query = "SELECT c.categories_id, cd.categories_name, c.parent_id
               FROM $categoriestable c,
                    $categories_descriptiontable cd
-              WHERE c.categories_id = cd.categories_id 
+              WHERE c.categories_status != 0 
+				AND c.categories_id = cd.categories_id 
                 AND cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "'
                 AND c.parent_id = '" . intval($parent_id) . "'
            ORDER BY c.sort_order, cd.categories_name";
@@ -115,6 +115,7 @@ function oos_get_category_tree($parent_id = '0', $spacing = '', $exclude = '', $
 
     return $category_tree_array;
 }
+
 
 
 function oos_get_category_name($category_id, $language_id = '') {

@@ -22,8 +22,8 @@
 define('HEADING_TITLE', 'New Product');   
    
 define('TEXT_NEW_PRODUCT', 'New Product in &quot;%s&quot;');
-define('TEXT_PRODUCTS', 'Products:');
-define('TEXT_PRODUCTS_DATA', 'Productsdata:');
+define('TEXT_PRODUCTS', 'Products');
+define('TEXT_PRODUCTS_DATA', 'Productsdata');
 define('TEXT_PRODUCTS_PRICE_INFO', 'Price:');
 define('TEXT_PRODUCTS_TAX_CLASS', 'Tax Class:');
 define('TEXT_PRODUCTS_AVERAGE_RATING', 'Average Rating:');
@@ -57,7 +57,7 @@ define('TEXT_NOT_RELOAD', 'Does not reload!');
 
 define('ENTRY_STATUS', 'Status:');
 define('TEXT_PRODUCTS_STATUS', 'Products Status:');
-define('TEXT_CATEGORIES', 'Categories:');
+define('TEXT_CATEGORIES', 'Categories');
 define('TEXT_PRODUCTS_DATE_AVAILABLE', 'Date Available:');
 define('TEXT_PRODUCT_NOT_AVAILABLE', 'not available');
 define('TEXT_PRODUCTS_MANUFACTURER', 'Products Manufacturer:');
@@ -70,7 +70,7 @@ define('TEXT_PRODUCTS_REORDER_LEVEL', 'Products Reorder Level:');
 define('TEXT_REPLACEMENT_PRODUCT', 'Replacement Product:');
 define('TEXT_PRODUCTS_MODEL', 'Products Model:');
 define('TEXT_PRODUCTS_EAN', 'EAN :');
-define('TEXT_PRODUCTS_IMAGE', 'Products Image:');
+define('TEXT_PRODUCTS_IMAGE', 'Products Image');
 define('TEXT_PRODUCTS_URL', 'Products URL:');
 define('TEXT_PRODUCTS_URL_WITHOUT_HTTP', '<small>(without http://)</small>');
 define('TEXT_PRODUCTS_PRICE', 'Products Price:');
