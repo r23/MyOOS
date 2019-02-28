@@ -32,6 +32,7 @@ define('TABLE_HEADING_PRODUCT_SORT', 'Sort Order');
 
 define('TEXT_NEW_PRODUCT', 'New Product in &quot;%s&quot;');
 define('TEXT_CATEGORIES', 'Categories:');
+define('TEXT_CATEGORY', 'Category');
 define('TEXT_SUBCATEGORIES', 'Subcategories:');
 define('TEXT_PRODUCTS', 'Products:');
 define('TEXT_PRODUCTS_PRICE_INFO', 'Price:');
