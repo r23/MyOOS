@@ -145,5 +145,5 @@ define('TEXT_COPY_ATTRIBUTES_NO', 'No');
 define('TEXT_DATA', 'Daten');
 define('TEXT_IMAGES', 'Images');
 define('TEXT_UPLOAD', 'File Upload');
-define('TEXT_IMAGE_REMOVE', '<b>Remove</b> this Image from this Category?');
+define('TEXT_IMAGE_REMOVE', '<b>Remove</b> this Image from this category?');
 

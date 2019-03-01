@@ -760,9 +760,10 @@ if ($action == 'new_category' || $action == 'edit_category') {
 		
 <?php	
 	if (oos_is_not_null($cInfo->categories_image)) {
-
+		echo '<div class="text-center"><div class="d-block" style="width: 200px; height: 150px;">';
         echo oos_info_image('category/medium/' . $cInfo->categories_image, $cInfo->categories_name);
-	
+		echo '</div></div>';
+
 		echo oos_draw_hidden_field('categories_previous_image', $cInfo->categories_image);
 		echo '<br>';
 		echo oos_draw_checkbox_field('remove_image', 'yes') . ' ' . TEXT_IMAGE_REMOVE;	

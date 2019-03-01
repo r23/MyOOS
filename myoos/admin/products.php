@@ -74,25 +74,6 @@ if (!empty($action)) {
 				}
 			}
 
-/*
-			if ( ($_POST['products_image'] != 'none') && (isset($_FILES['products_image'])) ) {
-				$products_image = oos_get_uploaded_file('products_image');
-				$image_directory = oos_get_local_path(OOS_ABSOLUTE_PATH . OOS_IMAGES);
-			}
-			if (is_uploaded_file($products_image['tmp_name'])) {
-				$products_image = oos_copy_uploaded_file($products_image, $image_directory);
-			} else {
-				$products_image = oos_db_prepare_input($_POST['products_previous_image']);
-			}
-
-
-			if ($_POST['delete_image'] == 'yes') {
-				if (oos_duplicate_product_image_check($products_image)) {
-					oos_remove_product_image($products_image);
-				}
-			}
-*/
-
 			$products_id = oos_db_prepare_input($_GET['pID']);
 			$products_date_available = oos_db_prepare_input($_POST['products_date_available']);
 
@@ -184,7 +165,19 @@ if (!empty($action)) {
 					oos_db_perform($oostable['products_description'], $sql_data_array, 'UPDATE', 'products_id = \'' . intval($products_id) . '\' AND products_languages_id = \'' . intval($language_id) . '\'');
 				}
 			}
-        
+
+
+			if ( ($_POST['remove_image'] == 'yes') && (isset($_POST['products_previous_image'])) ) {
+				$products_previous_image = oos_db_prepare_input($_POST['products_previous_image']);
+				
+				$productsstable = $oostable['products'];
+				$dbconn->Execute("UPDATE $productsstable
+                                 SET products_image = NULL
+                                 WHERE products_id = '" . intval($products_id) . "'");				
+				
+				oos_remove_product_image($products_previous_image);				
+			}
+
 			$options = array(
 				'image_versions' => array(				
                 // The empty image version key defines options for the original image.
@@ -863,6 +856,20 @@ function calcBasePriceFactor() {
 		<div class="row mb-3 pb-3 bb">
 			<div class="col-6 col-md-3">
 
+<?php	
+	if (oos_is_not_null($pInfo->products_image)) {
+		echo '<div class="text-center"><div class="d-block" style="width: 200px; height: 150px;">';
+		echo oos_info_image('product/small/' . $pInfo->products_image, $pInfo->products_name);
+	    echo '</div></div>';
+		
+		
+		echo oos_draw_hidden_field('products_previous_image', $pInfo->products_name);
+		echo '<br>';
+		echo oos_draw_checkbox_field('remove_image', 'yes') . ' ' . TEXT_IMAGE_REMOVE;	
+	} else {		
+?>
+
+
 <div class="fileinput fileinput-new" data-provides="fileinput">
   <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
   <div>
@@ -872,7 +879,9 @@ function calcBasePriceFactor() {
     <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput"><em class="fa fa-times-circle fa-fw"></em><?php echo BUTTON_DELETE; ?></a>
   </div>
 </div>
-
+<?php
+	}
+?>
 			</div>
 			<div class="col-9">
 				<strong>Details</strong>
@@ -947,56 +956,6 @@ function calcBasePriceFactor() {
 	</div>
 	<p id="addUploadBoxes"><a href="javascript:addUploadBoxes('place','filetemplate',3)" title="<?php echo TEXT_NOT_RELOAD; ?>">+ <?php echo TEXT_ADD_MORE_UPLOAD; ?></a></p>
 
-<?php
-	if (isset($_GET['pID']) && empty($_POST)) {
-?>
-                        <div class="row mb-3">
-                           <div class="col-3">
-                              <strong>Preview</strong>
-                           </div>
-                           <div class="col-9">
-                              <strong>Details</strong>
-                           </div>
-                        </div>
-                        <div class="row mb-3 pb-3 bb">
-                           <div class="col-6 col-md-3">
-                              <a href="#" title="Product 1">
-                                 <img class="img-fluid" src="img/bg7.jpg" alt="Product 1">
-                              </a>
-                           </div>
-                           <div class="col-6 col-md-9">
-                              <fieldset>
-                                 <div class="form-group row">
-                                    <input class="form-control" type="text" placeholder="Brief description..">
-                                 </div>
-                              </fieldset>
-                              <p>
-                                 <strong>Picture type</strong>
-                              </p>
-                              <div class="c-radio c-radio-nofont">
-                                 <label>
-                                    <input type="radio" name="prod1-pic" value="option1" checked="">
-                                    <span></span>Primary</label>
-                              </div>
-                              <div class="c-radio c-radio-nofont">
-                                 <label>
-                                    <input type="radio" name="prod1-pic" value="option2">
-                                    <span></span>Thumbnail</label>
-                              </div>
-                              <div class="c-radio c-radio-nofont">
-                                 <label>
-                                    <input type="radio" name="prod1-pic" value="option3">
-                                    <span></span>Gallery</label>
-                              </div>
-                              <div class="text-right">
-                                 <button class="btn btn-sm btn-danger" type="button">
-                                    <em class="fa fa-times-circle fa-fw"></em>Remove</button>
-                              </div>
-                           </div>
-                        </div>
-<?php
-	}
-?>
                      </div>
                   </div>
                </div>

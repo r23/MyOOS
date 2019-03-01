@@ -643,9 +643,16 @@ function oos_duplicate_product_image_check($image) {
 
 
 function oos_remove_product_image($image) {
-    if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . $image)) {
-		@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . $image);
-    }
+	$sImage = oos_var_prep_for_os($image);
+	
+	if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/originals/' .$sImage)) {
+		@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/large/' .$sImage);
+		@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/medium_large/' .$sImage);		
+		@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/medium/' .$sImage);
+		@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/small/' .$sImage);
+		@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/min/' .$sImage);		
+		@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/originals/' .$sImage);
+	}	
 }
 
 /**
