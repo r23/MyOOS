@@ -308,11 +308,30 @@ require 'includes/header.php';
 				<div class="row">
 					<div class="col-lg-12">
 <?php
-  if ($action == 'new_product') {
-    if (!empty($pID) && empty($_POST)) {
-      $productstable = $oostable['products'];
-      $products_descriptiontable = $oostable['products_description'];
-      $product_result = $dbconn->Execute("SELECT pd.products_name, pd.products_description, pd.products_url,
+if ($action == 'new_product') {
+    $parameters = array('products_name' => '',
+                       'products_description' => '',
+                       'products_url' => '',
+                       'products_id' => '',
+                       'products_quantity' => '',
+                       'products_model' => '',
+                       'products_image' => '',
+                       'products_larger_images' => array(),
+                       'products_price' => '',
+                       'products_weight' => '',
+                       'products_date_added' => '',
+                       'products_last_modified' => '',
+                       'products_date_available' => '',
+                       'products_status' => '',
+                       'products_tax_class_id' => '',
+                       'manufacturers_id' => '');
+
+    $pInfo = new objectInfo($parameters);	  
+	  
+	if (isset($_GET['pID']) && empty($_POST)) {	  
+		$productstable = $oostable['products'];
+		$products_descriptiontable = $oostable['products_description'];
+		$product_result = $dbconn->Execute("SELECT p.products_id, pd.products_name, pd.products_description, pd.products_url,
                                                  pd.products_description_meta, pd.products_keywords_meta, p.products_id,
                                                  p.products_quantity, p.products_reorder_level, p.products_model,
                                                  p.products_replacement_product_id, p.products_ean, p.products_image,
@@ -331,18 +350,27 @@ require 'includes/header.php';
                                            WHERE p.products_id = '" . intval($pID) . "' AND
                                                  p.products_id = pd.products_id AND
                                                  pd.products_languages_id = '" . intval($_SESSION['language_id']) . "'");
-      $product = $product_result->fields;
+		$product = $product_result->fields;
 
 		$pInfo = new objectInfo($product);
+
+		$products_imagestable = $oostable['products_images'];
+		$products_images_result =  $dbconn->Execute("SELECT products_id, image_name, sort_order FROM $products_imagestable WHERE products_id = '" . intval($product['products_id']) . "' ORDER BY sort_order");
+			
+		while ($product_images = $products_images_result->fields) {
+			$pInfo->products_larger_images[] = array('products_id' => $product_images['products_id'],
+													'image' => $product_images['image_name'],
+													'sort_order' => $product_images['sort_order']);
+			// Move that ADOdb pointer!
+			$products_images_result->MoveNext();
+		}
     } elseif (oos_is_not_null($_POST)) {
-		$pInfo = new objectInfo($_POST);
 		$products_name = $_POST['products_name'];
 		$products_description = $_POST['products_description'];
 		$products_description_meta = $_POST['products_description_meta'];
 		$products_keywords_meta = $_POST['products_keywords_meta'];
 		$products_url = $_POST['products_url'];
     } else {
-		$pInfo = new objectInfo(array());
 		$pInfo->products_setting = 2; // DEFAULT_SETTING_ID
 		$pInfo->products_status = DEFAULT_PRODUTS_STATUS_ID;
 		$pInfo->products_base_price = 1.0;
@@ -863,7 +891,7 @@ function calcBasePriceFactor() {
 	    echo '</div></div>';
 		
 		
-		echo oos_draw_hidden_field('products_previous_image', $pInfo->products_name);
+		echo oos_draw_hidden_field('products_previous_image', $pInfo->products_image);
 		echo '<br>';
 		echo oos_draw_checkbox_field('remove_image', 'yes') . ' ' . TEXT_IMAGE_REMOVE;	
 	} else {		
@@ -887,6 +915,37 @@ function calcBasePriceFactor() {
 				<strong>Details</strong>
 			</div>	
 		</div>
+		
+<?php
+    $nCounter = 0;
+    foreach ($pInfo->products_larger_images as $image) {
+		$nCounter++;
+?>
+
+		<div class="row mb-3 pb-3 bb">
+			<div class="col-6 col-md-3">
+
+<?php	
+		echo '<div class="text-center"><div class="d-block" style="width: 200px; height: 150px;">';
+		echo oos_info_image('product/small/' .  $image['image'], $pInfo->products_name);
+	    echo '</div></div>';
+		
+		
+		echo oos_draw_hidden_field('products_previous_large_image_'. $nCounter, $image['image']);
+		echo '<br>';
+		echo oos_draw_checkbox_field('remove_image_'. $nCounter, 'yes') . ' ' . TEXT_IMAGE_REMOVE;		
+?>
+			</div>
+			<div class="col-9">
+				<strong>Details</strong>
+			</div>	
+		</div>
+<?php
+	}
+	echo oos_draw_hidden_field('image_counter', $nCounter);
+?>		
+		
+		
 		<div class="row mb-3 pb-3 bb">
 			<div class="col-6 col-md-3">
 

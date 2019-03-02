@@ -523,6 +523,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
                        'categories_description_meta' => '',
                        'categories_keywords_meta' => '',
                        'categories_image' => '',
+					   'categories_larger_images' => array(),
                        'parent_id' => '',
                        'sort_order' => '',
                        'date_added' => '',
@@ -546,6 +547,17 @@ if ($action == 'new_category' || $action == 'edit_category') {
         $category = $categories_result->fields;
 
         $cInfo = new objectInfo($category);
+		
+		$categories_imagestable = $oostable['categories_images'];
+		$categories_images_result =  $dbconn->Execute("SELECT categories_id, categories_image, sort_order FROM $categories_imagestable WHERE categories_id = '" . intval($category['categories_id']) . "' ORDER BY sort_order");
+			
+		while ($categories_images = $categories_images_result->fields) {
+			$cInfo->categories_larger_images[] = array('categories_id' => $categories_images['categories_id'],
+														'image' => $categories_images['categories_image'],
+														'sort_order' => $product_images['sort_order']);
+			// Move that ADOdb pointer!
+			$categories_images_result->MoveNext();
+		}
 	}
 
 	$aLanguages = oos_get_languages();
@@ -614,7 +626,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 
                <div role="tabpanel">
                   <ul class="nav nav-tabs nav-justified">
-                     <li class="nav-item" role="presentation"><?php echo TEXT_CATEGORY; ?>
+                     <li class="nav-item" role="presentation">
                         <a class="nav-link active" href="#edit" aria-controls="edit" role="tab" data-toggle="tab"><?php echo TEXT_CATEGORY; ?></a>
                      </li>
                      <li class="nav-item" role="presentation">
@@ -787,7 +799,34 @@ if ($action == 'new_category' || $action == 'edit_category') {
 				<strong>Details</strong>
 			</div>
 		</div>
+<?php
+    $nCounter = 0;
+    foreach ($cInfo->categories_larger_images as $image) {
+		$nCounter++;
+?>
 
+		<div class="row mb-3 pb-3 bb">
+			<div class="col-6 col-md-3">
+
+<?php	
+		echo '<div class="text-center"><div class="d-block" style="width: 200px; height: 150px;">';
+		echo oos_info_image('category/medium/' .  $image['image'], $pInfo->products_name);
+	    echo '</div></div>';
+		
+		
+		echo oos_draw_hidden_field('products_previous_large_image_'. $nCounter, $image['image']);
+		echo '<br>';
+		echo oos_draw_checkbox_field('remove_image_'. $nCounter, 'yes') . ' ' . TEXT_IMAGE_REMOVE;	
+?>
+			</div>
+			<div class="col-9">
+				<strong>Details</strong>
+			</div>	
+		</div>
+<?php
+	}
+	echo oos_draw_hidden_field('image_counter', $nCounter);
+?>	
 		<div class="row mb-3 pb-3 bb">
 			<div class="col-6 col-md-3">
 
