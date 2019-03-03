@@ -55,6 +55,8 @@ if (!empty($action)) {
 					}
 				}
 			}
+			$nImageCounter = (!isset($_POST['image_counter']) || !is_numeric($_POST['image_counter'])) ? 0 : intval($_POST['image_counter']);
+
 
 			$sProductsQuantity = oos_db_prepare_input($_POST['products_quantity']);
 			$sProductsStatus = oos_db_prepare_input($_POST['products_status']);
@@ -178,6 +180,17 @@ if (!empty($action)) {
 				oos_remove_product_image($products_previous_image);				
 			}
 
+			for ($i = 1, $n = $nImageCounter+1; $i < $n; $i++) {
+				if ( ($_POST['remove_products_image'][$i] == 'yes') && (isset($_POST['products_previous_large_image'][$i])) ) {
+					$products_previous_large_image = oos_db_prepare_input($_POST['products_previous_large_image'][$i]);
+
+					$dbconn->Execute("DELETE FROM " . $oostable['products_images'] . " WHERE image_name = '" . oos_db_input($products_previous_large_image) . "'");		
+				
+					oos_remove_category_image($products_previous_large_image);				
+				}
+			}
+
+
 			$options = array(
 				'image_versions' => array(				
                 // The empty image version key defines options for the original image.
@@ -205,7 +218,6 @@ if (!empty($action)) {
 						'max_width' => 600, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
 						'max_height' => 600 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
 					),					
-					
 					'medium' => array(
 						// 'auto_orient' => TRUE,
 						// 'crop' => TRUE,
@@ -240,10 +252,8 @@ if (!empty($action)) {
 			
 			$dir_fs_catalog_images = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/';
 			$oProductImage->set_destination($dir_fs_catalog_images);
-			$oProductImage->parse();
 
-			if (oos_is_not_null($oProductImage->filename)) {
-			
+			if ($oProductImage->parse() && oos_is_not_null($oProductImage->filename)) {		
 				$productstable = $oostable['products'];
 				$dbconn->Execute("UPDATE $productstable
                             SET products_image = '" . oos_db_input($oProductImage->filename) . "'
@@ -254,11 +264,12 @@ if (!empty($action)) {
 				$oImage = new upload('files', $options);
 		
 				$dir_fs_catalog_images = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/';
-				$oImage->set_destination($dir_fs_catalog_images);
+				$oImage->set_destination($dir_fs_catalog_images);			
 				$oImage->parse();
-								
+
 				if (oos_is_not_null($oImage->response)) {
-					$sort_order = 0;					
+					
+					$sort_order = 0 + $nImageCounter;				
 					foreach ($oImage->response as $index => $value) {
 						$sort_order++;						
 						$sql_data_array = array('products_id' => intval($products_id),
@@ -268,7 +279,7 @@ if (!empty($action)) {
 					}
 				}
 			}
-			
+
 			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $products_id));
 		break;
 
@@ -917,9 +928,11 @@ function calcBasePriceFactor() {
 		</div>
 		
 <?php
-    $nCounter = 0;
-    foreach ($pInfo->products_larger_images as $image) {
-		$nCounter++;
+	if (is_array($pInfo->products_larger_images) || is_object($pInfo->products_larger_images)) {
+		$nCounter = 0;
+		
+		foreach ($pInfo->products_larger_images as $image) {
+			$nCounter++;
 ?>
 
 		<div class="row mb-3 pb-3 bb">
@@ -930,10 +943,11 @@ function calcBasePriceFactor() {
 		echo oos_info_image('product/small/' .  $image['image'], $pInfo->products_name);
 	    echo '</div></div>';
 		
+		echo $image['image'];
 		
-		echo oos_draw_hidden_field('products_previous_large_image_'. $nCounter, $image['image']);
+		echo oos_draw_hidden_field('products_previous_large_image['. $nCounter . ']', $image['image']);
 		echo '<br>';
-		echo oos_draw_checkbox_field('remove_image_'. $nCounter, 'yes') . ' ' . TEXT_IMAGE_REMOVE;		
+		echo oos_draw_checkbox_field('remove_products_image['. $nCounter . ']', 'yes') . ' ' . TEXT_IMAGE_REMOVE;		
 ?>
 			</div>
 			<div class="col-9">
@@ -941,6 +955,7 @@ function calcBasePriceFactor() {
 			</div>	
 		</div>
 <?php
+		}
 	}
 	echo oos_draw_hidden_field('image_counter', $nCounter);
 ?>		

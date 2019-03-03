@@ -91,6 +91,20 @@ if (!empty($action)) {
 		case 'update_category':
 			$nStatus = oos_db_prepare_input($_POST['categories_status']);
 			$sort_order = oos_db_prepare_input($_POST['sort_order']);
+			$nImageCounter = (!isset($_POST['image_counter']) || !is_numeric($_POST['image_counter'])) ? 0 : intval($_POST['image_counter']);
+
+			if (isset($_FILES['files'])) {
+				foreach ($_FILES['files']['name'] as $key => $name) {
+					if (empty($name)) {
+						// purge empty slots
+						unset($_FILES['files']['name'][$key]);
+						unset($_FILES['files']['type'][$key]);
+						unset($_FILES['files']['tmp_name'][$key]);
+						unset($_FILES['files']['error'][$key]);
+						unset($_FILES['files']['size'][$key]);
+					}
+				}
+			}
 
 			if (isset($_POST['categories_id'])) $categories_id = oos_db_prepare_input($_POST['categories_id']);
 
@@ -154,6 +168,17 @@ if (!empty($action)) {
 				oos_remove_category_image($categories_previous_image);				
 			}
 
+		
+			for ($i = 1, $n = $nImageCounter+1; $i < $n; $i++) {
+				if ( ($_POST['remove_category_image'][$i] == 'yes') && (isset($_POST['categories_previous_large_image'][$i])) ) {
+					$categories_previous_large_image = oos_db_prepare_input($_POST['categories_previous_large_image'][$i]);
+
+					$dbconn->Execute("DELETE FROM " . $oostable['categories_images'] . " WHERE categories_image = '" . oos_db_input($categories_previous_large_image) . "'");		
+				
+					oos_remove_category_image($categories_previous_large_image);				
+				}
+			}
+
 			$options = array(
 				'image_versions' => array(
                 // The empty image version key defines options for the original image.
@@ -196,16 +221,16 @@ if (!empty($action)) {
 			$oCategoriesImage = new upload('categories_image', $options);
 
 			$dir_fs_catalog_images = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'category/';
-			$oCategoriesImage->set_destination($dir_fs_catalog_images);
-			$oCategoriesImage->parse();
+			$oCategoriesImage->set_destination($dir_fs_catalog_images);	
+			
+			if ($oCategoriesImage->parse() && oos_is_not_null($oCategoriesImage->filename)) {
 
-			if (oos_is_not_null($oCategoriesImage->filename)) {
 				$categoriestable = $oostable['categories'];
 				$dbconn->Execute("UPDATE $categoriestable
                             SET categories_image = '" . oos_db_input($oCategoriesImage->filename) . "'
                             WHERE categories_id = '" . intval($categories_id) . "'");
 			}
-
+			
 			if (isset($_FILES['files'])) {
 				$oImage = new upload('files', $options);
 
@@ -214,7 +239,7 @@ if (!empty($action)) {
 				$oImage->parse();
 
 				if (oos_is_not_null($oImage->response)) {
-					$sort_order = 0;
+					$sort_order = 0 + $nImageCounter;
 					foreach ($oImage->response as $index => $value) {
 						$sort_order++;
 						$sql_data_array = array('categories_id' => intval($categories_id),
@@ -800,9 +825,10 @@ if ($action == 'new_category' || $action == 'edit_category') {
 			</div>
 		</div>
 <?php
-    $nCounter = 0;
-    foreach ($cInfo->categories_larger_images as $image) {
-		$nCounter++;
+	if (is_array($cInfo->categories_larger_images) || is_object($cInfo->categories_larger_images)) {
+	    $nCounter = 0;
+		foreach ($cInfo->categories_larger_images as $image) {
+			$nCounter++;
 ?>
 
 		<div class="row mb-3 pb-3 bb">
@@ -810,13 +836,12 @@ if ($action == 'new_category' || $action == 'edit_category') {
 
 <?php	
 		echo '<div class="text-center"><div class="d-block" style="width: 200px; height: 150px;">';
-		echo oos_info_image('category/medium/' .  $image['image'], $pInfo->products_name);
+		echo oos_info_image('category/medium/' .  $image['image'], $cInfo->categories_name);
 	    echo '</div></div>';
-		
-		
-		echo oos_draw_hidden_field('products_previous_large_image_'. $nCounter, $image['image']);
+			
+		echo oos_draw_hidden_field('categories_previous_large_image['. $nCounter . ']', $image['image']);
 		echo '<br>';
-		echo oos_draw_checkbox_field('remove_image_'. $nCounter, 'yes') . ' ' . TEXT_IMAGE_REMOVE;	
+		echo oos_draw_checkbox_field('remove_category_image['. $nCounter . ']', 'yes') . ' ' . TEXT_IMAGE_REMOVE;	
 ?>
 			</div>
 			<div class="col-9">
@@ -824,8 +849,9 @@ if ($action == 'new_category' || $action == 'edit_category') {
 			</div>	
 		</div>
 <?php
+		}
+		echo oos_draw_hidden_field('image_counter', $nCounter);
 	}
-	echo oos_draw_hidden_field('image_counter', $nCounter);
 ?>	
 		<div class="row mb-3 pb-3 bb">
 			<div class="col-6 col-md-3">

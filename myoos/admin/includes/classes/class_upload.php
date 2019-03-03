@@ -727,8 +727,8 @@ class upload {
     }
 
     protected function gd_create_scaled_image($file_name, $version, $options) {
-        if (!function_exists('imagecreateTRUEcolor')) {
-            error_log('Function not found: imagecreateTRUEcolor');
+        if (!function_exists('imagecreatetruecolor')) {
+            error_log('Function not found: imagecreatetruecolor');
             return FALSE;
         }
         list($file_path, $new_file_path) =
@@ -798,7 +798,7 @@ class upload {
             $new_height = $img_height * $scale;
             $dst_x = 0;
             $dst_y = 0;
-            $new_img = imagecreateTRUEcolor($new_width, $new_height);
+            $new_img = imagecreatetruecolor($new_width, $new_height);
         } else {
             if (($img_width / $img_height) >= ($max_width / $max_height)) {
                 $new_width = $img_width / ($img_height / $max_height);
@@ -809,7 +809,7 @@ class upload {
             }
             $dst_x = 0 - ($new_width - $max_width) / 2;
             $dst_y = 0 - ($new_height - $max_height) / 2;
-            $new_img = imagecreateTRUEcolor($max_width, $max_height);
+            $new_img = imagecreatetruecolor($max_width, $max_height);
         }
         // Handle transparency in GIF and PNG images:
         switch ($type) {
@@ -1356,10 +1356,10 @@ class upload {
 		$response = array($this->options['param_name'] => $files);
 		$this->generate_response($response, $print_response);
 
-		if (isset($upload['error'])) {
-			return FALSE;			
+		if (isset($upload['error']) && $upload['error'] != 0) {		
+			return FALSE;				
 		} else {
-			return TRUE;
+			return TRUE;	
 		}
     }
 
