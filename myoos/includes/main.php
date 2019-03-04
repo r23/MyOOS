@@ -22,7 +22,7 @@
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
 // debug
-$debug = FALSE;
+$debug = TRUE;
 
 date_default_timezone_set('Europe/Berlin'); 
   
@@ -37,7 +37,7 @@ if (is_readable('includes/local/configure.php')) {
  * Currently version.
  * use SemVer - https://semver.org
  */
-define('OOS_VERSION', '2.0.120 -dev');
+define('OOS_VERSION', '2.0.121 -dev');
 
 // Complete software name string
 define('OOS_FULL_NAME', 'MyOOS ' . OOS_VERSION);
