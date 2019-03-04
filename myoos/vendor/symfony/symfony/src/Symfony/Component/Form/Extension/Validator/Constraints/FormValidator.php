@@ -26,10 +26,10 @@ class FormValidator extends ConstraintValidator
     /**
      * {@inheritdoc}
      */
-    public function validate($form, Constraint $constraint)
+    public function validate($form, Constraint $formConstraint)
     {
-        if (!$constraint instanceof Form) {
-            throw new UnexpectedTypeException($constraint, __NAMESPACE__.'\Form');
+        if (!$formConstraint instanceof Form) {
+            throw new UnexpectedTypeException($formConstraint, __NAMESPACE__.'\Form');
         }
 
         if (!$form instanceof FormInterface) {
@@ -41,7 +41,7 @@ class FormValidator extends ConstraintValidator
 
         $validator = $this->context->getValidator()->inContext($this->context);
 
-        if ($form->isSynchronized()) {
+        if ($form->isSubmitted() && $form->isSynchronized()) {
             // Validate the form data only if transformation succeeded
             $groups = self::getValidationGroups($form);
             $data = $form->getData();
@@ -62,8 +62,8 @@ class FormValidator extends ConstraintValidator
                 // Otherwise validate a constraint only once for the first
                 // matching group
                 foreach ($groups as $group) {
-                    if (\in_array($group, $constraint->groups)) {
-                        $validator->atPath('data')->validate($form->getData(), $constraint, $group);
+                    if (\in_array($group, $formConstraint->groups)) {
+                        $validator->atPath('data')->validate($form->getData(), $formConstraint, $group);
                         if (\count($this->context->getViolations()) > 0) {
                             break;
                         }
@@ -90,7 +90,7 @@ class FormValidator extends ConstraintValidator
                     }
                 }
             }
-        } else {
+        } elseif (!$form->isSynchronized()) {
             $childrenSynchronized = true;
 
             /** @var FormInterface $child */
@@ -113,7 +113,7 @@ class FormValidator extends ConstraintValidator
                     ? (string) $form->getViewData()
                     : \gettype($form->getViewData());
 
-                $this->context->setConstraint($constraint);
+                $this->context->setConstraint($formConstraint);
                 $this->context->buildViolation($config->getOption('invalid_message'))
                     ->setParameters(array_replace(['{{ value }}' => $clientDataAsString], $config->getOption('invalid_message_parameters')))
                     ->setInvalidValue($form->getViewData())
@@ -125,7 +125,7 @@ class FormValidator extends ConstraintValidator
 
         // Mark the form with an error if it contains extra fields
         if (!$config->getOption('allow_extra_fields') && \count($form->getExtraData()) > 0) {
-            $this->context->setConstraint($constraint);
+            $this->context->setConstraint($formConstraint);
             $this->context->buildViolation($config->getOption('extra_fields_message'))
                 ->setParameter('{{ extra_fields }}', '"'.implode('", "', array_keys($form->getExtraData())).'"')
                 ->setInvalidValue($form->getExtraData())

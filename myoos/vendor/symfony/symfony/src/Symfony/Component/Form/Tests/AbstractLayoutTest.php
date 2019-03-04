@@ -19,6 +19,8 @@ use Symfony\Component\Form\Test\FormIntegrationTestCase;
 
 abstract class AbstractLayoutTest extends FormIntegrationTestCase
 {
+    use VersionAwareTest;
+
     protected $csrfTokenManager;
     protected $testableFeatures = [];
 
@@ -1790,6 +1792,21 @@ abstract class AbstractLayoutTest extends FormIntegrationTestCase
         $this->assertWidgetMatchesXpath($form->createView(), [],
 '/input
     [@type="number"]
+    [@name="name"]
+    [@value="123"]
+'
+        );
+    }
+
+    public function testIntegerTypeWithGroupingRendersAsTextInput()
+    {
+        $form = $this->factory->createNamed('name', 'Symfony\Component\Form\Extension\Core\Type\IntegerType', 123, [
+            'grouping' => true,
+        ]);
+
+        $this->assertWidgetMatchesXpath($form->createView(), [],
+'/input
+    [@type="text"]
     [@name="name"]
     [@value="123"]
 '

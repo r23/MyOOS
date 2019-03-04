@@ -11,18 +11,26 @@
 
 namespace Symfony\Component\Form\Tests\Extension\Validator\Constraints;
 
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Exception\TransformationFailedException;
+use Symfony\Component\Form\Extension\Core\DataMapper\PropertyPathMapper;
 use Symfony\Component\Form\Extension\Validator\Constraints\Form;
 use Symfony\Component\Form\Extension\Validator\Constraints\FormValidator;
 use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\FormFactoryBuilder;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\SubmitButtonBuilder;
+use Symfony\Component\Translation\IdentityTranslator;
 use Symfony\Component\Validator\Constraints\GroupSequence;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\Constraints\Valid;
+use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
+use Symfony\Component\Validator\Validation;
 
 /**
  * @author Bernhard Schussek <bschussek@gmail.com>
@@ -30,43 +38,31 @@ use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 class FormValidatorTest extends ConstraintValidatorTestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var EventDispatcherInterface
      */
     private $dispatcher;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var FormFactoryInterface
      */
     private $factory;
 
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $serverParams;
-
     protected function setUp()
     {
-        $this->dispatcher = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();
-        $this->factory = $this->getMockBuilder('Symfony\Component\Form\FormFactoryInterface')->getMock();
-        $this->serverParams = $this->getMockBuilder('Symfony\Component\Form\Extension\Validator\Util\ServerParams')->setMethods(['getNormalizedIniPostMaxSize', 'getContentLength'])->getMock();
+        $this->dispatcher = new EventDispatcher();
+        $this->factory = (new FormFactoryBuilder())->getFormFactory();
 
         parent::setUp();
 
         $this->constraint = new Form();
     }
 
-    protected function createValidator()
-    {
-        return new FormValidator($this->serverParams);
-    }
-
     public function testValidate()
     {
-        $object = $this->getMockBuilder('\stdClass')->getMock();
+        $object = new \stdClass();
         $options = ['validation_groups' => ['group1', 'group2']];
-        $form = $this->getBuilder('name', '\stdClass', $options)
-            ->setData($object)
-            ->getForm();
+        $form = $this->getCompoundForm($object, $options);
+        $form->submit([]);
 
         $this->expectValidateAt(0, 'data', $object, ['group1', 'group2']);
 
@@ -77,7 +73,7 @@ class FormValidatorTest extends ConstraintValidatorTestCase
 
     public function testValidateConstraints()
     {
-        $object = $this->getMockBuilder('\stdClass')->getMock();
+        $object = new \stdClass();
         $constraint1 = new NotNull(['groups' => ['group1', 'group2']]);
         $constraint2 = new NotBlank(['groups' => 'group2']);
 
@@ -85,9 +81,8 @@ class FormValidatorTest extends ConstraintValidatorTestCase
             'validation_groups' => ['group1', 'group2'],
             'constraints' => [$constraint1, $constraint2],
         ];
-        $form = $this->getBuilder('name', '\stdClass', $options)
-            ->setData($object)
-            ->getForm();
+        $form = $this->getCompoundForm($object, $options);
+        $form->submit([]);
 
         // First default constraints
         $this->expectValidateAt(0, 'data', $object, ['group1', 'group2']);
@@ -103,20 +98,19 @@ class FormValidatorTest extends ConstraintValidatorTestCase
 
     public function testValidateChildIfValidConstraint()
     {
-        $object = $this->getMockBuilder('\stdClass')->getMock();
+        $object = new \stdClass();
 
         $parent = $this->getBuilder('parent')
             ->setCompound(true)
-            ->setDataMapper($this->getDataMapper())
+            ->setDataMapper(new PropertyPathMapper())
             ->getForm();
         $options = [
             'validation_groups' => ['group1', 'group2'],
             'constraints' => [new Valid()],
         ];
-        $form = $this->getBuilder('name', '\stdClass', $options)->getForm();
+        $form = $this->getCompoundForm($object, $options);
         $parent->add($form);
-
-        $form->setData($object);
+        $parent->submit([]);
 
         $this->expectValidateAt(0, 'data', $object, ['group1', 'group2']);
 
@@ -127,11 +121,11 @@ class FormValidatorTest extends ConstraintValidatorTestCase
 
     public function testDontValidateIfParentWithoutValidConstraint()
     {
-        $object = $this->getMockBuilder('\stdClass')->getMock();
+        $object = new \stdClass();
 
         $parent = $this->getBuilder('parent', null)
             ->setCompound(true)
-            ->setDataMapper($this->getDataMapper())
+            ->setDataMapper(new PropertyPathMapper())
             ->getForm();
         $options = ['validation_groups' => ['group1', 'group2']];
         $form = $this->getBuilder('name', '\stdClass', $options)->getForm();
@@ -149,8 +143,8 @@ class FormValidatorTest extends ConstraintValidatorTestCase
     public function testMissingConstraintIndex()
     {
         $object = new \stdClass();
-        $form = new FormBuilder('name', '\stdClass', $this->dispatcher, $this->factory);
-        $form = $form->setData($object)->getForm();
+        $form = $this->getCompoundForm($object);
+        $form->submit([]);
 
         $this->expectValidateAt(0, 'data', $object, ['Default']);
 
@@ -161,22 +155,21 @@ class FormValidatorTest extends ConstraintValidatorTestCase
 
     public function testValidateConstraintsOptionEvenIfNoValidConstraint()
     {
-        $object = $this->getMockBuilder('\stdClass')->getMock();
+        $object = new \stdClass();
         $constraint1 = new NotNull(['groups' => ['group1', 'group2']]);
         $constraint2 = new NotBlank(['groups' => 'group2']);
 
         $parent = $this->getBuilder('parent', null)
             ->setCompound(true)
-            ->setDataMapper($this->getDataMapper())
+            ->setDataMapper(new PropertyPathMapper())
             ->getForm();
         $options = [
             'validation_groups' => ['group1', 'group2'],
             'constraints' => [$constraint1, $constraint2],
         ];
-        $form = $this->getBuilder('name', '\stdClass', $options)
-            ->setData($object)
-            ->getForm();
+        $form = $this->getCompoundForm($object, $options);
         $parent->add($form);
+        $parent->submit([]);
 
         $this->expectValidateValueAt(0, 'data', $object, $constraint1, 'group1');
         $this->expectValidateValueAt(1, 'data', $object, $constraint2, 'group2');
@@ -188,7 +181,7 @@ class FormValidatorTest extends ConstraintValidatorTestCase
 
     public function testDontValidateIfNoValidationGroups()
     {
-        $object = $this->getMockBuilder('\stdClass')->getMock();
+        $object = new \stdClass();
 
         $form = $this->getBuilder('name', '\stdClass', [
                 'validation_groups' => [],
@@ -207,13 +200,11 @@ class FormValidatorTest extends ConstraintValidatorTestCase
 
     public function testDontValidateConstraintsIfNoValidationGroups()
     {
-        $object = $this->getMockBuilder('\stdClass')->getMock();
-        $constraint1 = $this->getMockBuilder('Symfony\Component\Validator\Constraint')->getMock();
-        $constraint2 = $this->getMockBuilder('Symfony\Component\Validator\Constraint')->getMock();
+        $object = new \stdClass();
 
         $options = [
             'validation_groups' => [],
-            'constraints' => [$constraint1, $constraint2],
+            'constraints' => [new NotBlank(), new NotNull()],
         ];
         $form = $this->getBuilder('name', '\stdClass', $options)
             ->setData($object)
@@ -231,7 +222,7 @@ class FormValidatorTest extends ConstraintValidatorTestCase
 
     public function testDontValidateIfNotSynchronized()
     {
-        $object = $this->getMockBuilder('\stdClass')->getMock();
+        $object = new \stdClass();
 
         $form = $this->getBuilder('name', '\stdClass', [
                 'invalid_message' => 'invalid_message_key',
@@ -265,7 +256,7 @@ class FormValidatorTest extends ConstraintValidatorTestCase
 
     public function testAddInvalidErrorEvenIfNoValidationGroups()
     {
-        $object = $this->getMockBuilder('\stdClass')->getMock();
+        $object = new \stdClass();
 
         $form = $this->getBuilder('name', '\stdClass', [
                 'invalid_message' => 'invalid_message_key',
@@ -300,14 +291,12 @@ class FormValidatorTest extends ConstraintValidatorTestCase
 
     public function testDontValidateConstraintsIfNotSynchronized()
     {
-        $object = $this->getMockBuilder('\stdClass')->getMock();
-        $constraint1 = $this->getMockBuilder('Symfony\Component\Validator\Constraint')->getMock();
-        $constraint2 = $this->getMockBuilder('Symfony\Component\Validator\Constraint')->getMock();
+        $object = new \stdClass();
 
         $options = [
             'invalid_message' => 'invalid_message_key',
             'validation_groups' => ['group1', 'group2'],
-            'constraints' => [$constraint1, $constraint2],
+            'constraints' => [new NotBlank(), new NotBlank()],
         ];
         $form = $this->getBuilder('name', '\stdClass', $options)
             ->setData($object)
@@ -335,7 +324,8 @@ class FormValidatorTest extends ConstraintValidatorTestCase
     // https://github.com/symfony/symfony/issues/4359
     public function testDontMarkInvalidIfAnyChildIsNotSynchronized()
     {
-        $object = $this->getMockBuilder('\stdClass')->getMock();
+        $object = new \stdClass();
+        $object->child = 'bar';
 
         $failingTransformer = new CallbackTransformer(
             function ($data) { return $data; },
@@ -346,7 +336,7 @@ class FormValidatorTest extends ConstraintValidatorTestCase
             ->setData($object)
             ->addViewTransformer($failingTransformer)
             ->setCompound(true)
-            ->setDataMapper($this->getDataMapper())
+            ->setDataMapper(new PropertyPathMapper())
             ->add(
                 $this->getBuilder('child')
                     ->addViewTransformer($failingTransformer)
@@ -365,11 +355,10 @@ class FormValidatorTest extends ConstraintValidatorTestCase
 
     public function testHandleGroupSequenceValidationGroups()
     {
-        $object = $this->getMockBuilder('\stdClass')->getMock();
+        $object = new \stdClass();
         $options = ['validation_groups' => new GroupSequence(['group1', 'group2'])];
-        $form = $this->getBuilder('name', '\stdClass', $options)
-            ->setData($object)
-            ->getForm();
+        $form = $this->getCompoundForm($object, $options);
+        $form->submit([]);
 
         $this->expectValidateAt(0, 'data', $object, new GroupSequence(['group1', 'group2']));
         $this->expectValidateAt(1, 'data', $object, new GroupSequence(['group1', 'group2']));
@@ -381,11 +370,10 @@ class FormValidatorTest extends ConstraintValidatorTestCase
 
     public function testHandleCallbackValidationGroups()
     {
-        $object = $this->getMockBuilder('\stdClass')->getMock();
+        $object = new \stdClass();
         $options = ['validation_groups' => [$this, 'getValidationGroups']];
-        $form = $this->getBuilder('name', '\stdClass', $options)
-            ->setData($object)
-            ->getForm();
+        $form = $this->getCompoundForm($object, $options);
+        $form->submit([]);
 
         $this->expectValidateAt(0, 'data', $object, ['group1', 'group2']);
 
@@ -396,11 +384,10 @@ class FormValidatorTest extends ConstraintValidatorTestCase
 
     public function testDontExecuteFunctionNames()
     {
-        $object = $this->getMockBuilder('\stdClass')->getMock();
+        $object = new \stdClass();
         $options = ['validation_groups' => 'header'];
-        $form = $this->getBuilder('name', '\stdClass', $options)
-            ->setData($object)
-            ->getForm();
+        $form = $this->getCompoundForm($object, $options);
+        $form->submit([]);
 
         $this->expectValidateAt(0, 'data', $object, ['header']);
 
@@ -411,13 +398,12 @@ class FormValidatorTest extends ConstraintValidatorTestCase
 
     public function testHandleClosureValidationGroups()
     {
-        $object = $this->getMockBuilder('\stdClass')->getMock();
+        $object = new \stdClass();
         $options = ['validation_groups' => function (FormInterface $form) {
             return ['group1', 'group2'];
         }];
-        $form = $this->getBuilder('name', '\stdClass', $options)
-            ->setData($object)
-            ->getForm();
+        $form = $this->getCompoundForm($object, $options);
+        $form->submit([]);
 
         $this->expectValidateAt(0, 'data', $object, ['group1', 'group2']);
 
@@ -428,11 +414,11 @@ class FormValidatorTest extends ConstraintValidatorTestCase
 
     public function testUseValidationGroupOfClickedButton()
     {
-        $object = $this->getMockBuilder('\stdClass')->getMock();
+        $object = new \stdClass();
 
         $parent = $this->getBuilder('parent')
             ->setCompound(true)
-            ->setDataMapper($this->getDataMapper())
+            ->setDataMapper(new PropertyPathMapper())
             ->getForm();
         $form = $this->getForm('name', '\stdClass', [
             'validation_groups' => 'form_group',
@@ -455,13 +441,13 @@ class FormValidatorTest extends ConstraintValidatorTestCase
 
     public function testDontUseValidationGroupOfUnclickedButton()
     {
-        $object = $this->getMockBuilder('\stdClass')->getMock();
+        $object = new \stdClass();
 
         $parent = $this->getBuilder('parent')
             ->setCompound(true)
-            ->setDataMapper($this->getDataMapper())
+            ->setDataMapper(new PropertyPathMapper())
             ->getForm();
-        $form = $this->getForm('name', '\stdClass', [
+        $form = $this->getCompoundForm($object, [
             'validation_groups' => 'form_group',
             'constraints' => [new Valid()],
         ]);
@@ -471,7 +457,7 @@ class FormValidatorTest extends ConstraintValidatorTestCase
             'validation_groups' => 'button_group',
         ]));
 
-        $form->setData($object);
+        $parent->submit([]);
 
         $this->expectValidateAt(0, 'data', $object, ['form_group']);
 
@@ -482,18 +468,17 @@ class FormValidatorTest extends ConstraintValidatorTestCase
 
     public function testUseInheritedValidationGroup()
     {
-        $object = $this->getMockBuilder('\stdClass')->getMock();
+        $object = new \stdClass();
 
         $parentOptions = ['validation_groups' => 'group'];
         $parent = $this->getBuilder('parent', null, $parentOptions)
             ->setCompound(true)
-            ->setDataMapper($this->getDataMapper())
+            ->setDataMapper(new PropertyPathMapper())
             ->getForm();
         $formOptions = ['constraints' => [new Valid()]];
-        $form = $this->getBuilder('name', '\stdClass', $formOptions)->getForm();
+        $form = $this->getCompoundForm($object, $formOptions);
         $parent->add($form);
-
-        $form->setData($object);
+        $parent->submit([]);
 
         $this->expectValidateAt(0, 'data', $object, ['group']);
 
@@ -504,18 +489,17 @@ class FormValidatorTest extends ConstraintValidatorTestCase
 
     public function testUseInheritedCallbackValidationGroup()
     {
-        $object = $this->getMockBuilder('\stdClass')->getMock();
+        $object = new \stdClass();
 
         $parentOptions = ['validation_groups' => [$this, 'getValidationGroups']];
         $parent = $this->getBuilder('parent', null, $parentOptions)
             ->setCompound(true)
-            ->setDataMapper($this->getDataMapper())
+            ->setDataMapper(new PropertyPathMapper())
             ->getForm();
         $formOptions = ['constraints' => [new Valid()]];
-        $form = $this->getBuilder('name', '\stdClass', $formOptions)->getForm();
+        $form = $this->getCompoundForm($object, $formOptions);
         $parent->add($form);
-
-        $form->setData($object);
+        $parent->submit([]);
 
         $this->expectValidateAt(0, 'data', $object, ['group1', 'group2']);
 
@@ -526,22 +510,21 @@ class FormValidatorTest extends ConstraintValidatorTestCase
 
     public function testUseInheritedClosureValidationGroup()
     {
-        $object = $this->getMockBuilder('\stdClass')->getMock();
+        $object = new \stdClass();
 
         $parentOptions = [
-            'validation_groups' => function (FormInterface $form) {
+            'validation_groups' => function () {
                 return ['group1', 'group2'];
             },
         ];
         $parent = $this->getBuilder('parent', null, $parentOptions)
             ->setCompound(true)
-            ->setDataMapper($this->getDataMapper())
+            ->setDataMapper(new PropertyPathMapper())
             ->getForm();
         $formOptions = ['constraints' => [new Valid()]];
-        $form = $this->getBuilder('name', '\stdClass', $formOptions)->getForm();
+        $form = $this->getCompoundForm($object, $formOptions);
         $parent->add($form);
-
-        $form->setData($object);
+        $parent->submit([]);
 
         $this->expectValidateAt(0, 'data', $object, ['group1', 'group2']);
 
@@ -552,10 +535,9 @@ class FormValidatorTest extends ConstraintValidatorTestCase
 
     public function testAppendPropertyPath()
     {
-        $object = $this->getMockBuilder('\stdClass')->getMock();
-        $form = $this->getBuilder('name', '\stdClass')
-            ->setData($object)
-            ->getForm();
+        $object = new \stdClass();
+        $form = $this->getCompoundForm($object);
+        $form->submit([]);
 
         $this->expectValidateAt(0, 'data', $object, ['Default']);
 
@@ -581,7 +563,7 @@ class FormValidatorTest extends ConstraintValidatorTestCase
     {
         $form = $this->getBuilder('parent', null, ['extra_fields_message' => 'Extra!'])
             ->setCompound(true)
-            ->setDataMapper($this->getDataMapper())
+            ->setDataMapper(new PropertyPathMapper())
             ->add($this->getBuilder('child'))
             ->getForm();
 
@@ -602,7 +584,7 @@ class FormValidatorTest extends ConstraintValidatorTestCase
     {
         $form = $this->getBuilder('parent', null, ['extra_fields_message' => 'Extra!'])
             ->setCompound(true)
-            ->setDataMapper($this->getDataMapper())
+            ->setDataMapper(new PropertyPathMapper())
             ->add($this->getBuilder('child'))
             ->getForm();
 
@@ -621,22 +603,21 @@ class FormValidatorTest extends ConstraintValidatorTestCase
 
     public function testNoViolationIfAllowExtraData()
     {
-        $context = $this->getMockExecutionContext();
-
         $form = $this
             ->getBuilder('parent', null, ['allow_extra_fields' => true])
             ->setCompound(true)
-            ->setDataMapper($this->getDataMapper())
+            ->setDataMapper(new PropertyPathMapper())
             ->add($this->getBuilder('child'))
             ->getForm();
 
-        $form->submit(['foo' => 'bar']);
+        $context = new ExecutionContext(Validation::createValidator(), $form, new IdentityTranslator());
 
-        $context->expects($this->never())
-            ->method('addViolation');
+        $form->submit(['foo' => 'bar']);
 
         $this->validator->initialize($context);
         $this->validator->validate($form, new Form());
+
+        $this->assertCount(0, $context->getViolations());
     }
 
     /**
@@ -649,22 +630,30 @@ class FormValidatorTest extends ConstraintValidatorTestCase
         return ['group1', 'group2'];
     }
 
-    private function getMockExecutionContext()
+    public function testCauseForNotAllowedExtraFieldsIsTheFormConstraint()
     {
-        $context = $this->getMockBuilder('Symfony\Component\Validator\Context\ExecutionContextInterface')->getMock();
-        $validator = $this->getMockBuilder('Symfony\Component\Validator\Validator\ValidatorInterface')->getMock();
-        $contextualValidator = $this->getMockBuilder('Symfony\Component\Validator\Validator\ContextualValidatorInterface')->getMock();
+        $form = $this
+            ->getBuilder('form', null, ['constraints' => [new NotBlank(['groups' => ['foo']])]])
+            ->setCompound(true)
+            ->setDataMapper(new PropertyPathMapper())
+            ->getForm();
+        $form->submit([
+            'extra_data' => 'foo',
+        ]);
 
-        $validator->expects($this->any())
-            ->method('inContext')
-            ->with($context)
-            ->will($this->returnValue($contextualValidator));
+        $context = new ExecutionContext(Validation::createValidator(), $form, new IdentityTranslator());
+        $constraint = new Form();
 
-        $context->expects($this->any())
-            ->method('getValidator')
-            ->will($this->returnValue($validator));
+        $this->validator->initialize($context);
+        $this->validator->validate($form, $constraint);
 
-        return $context;
+        $this->assertCount(1, $context->getViolations());
+        $this->assertSame($constraint, $context->getViolations()->get(0)->getConstraint());
+    }
+
+    protected function createValidator()
+    {
+        return new FormValidator();
     }
 
     private function getBuilder(string $name = 'name', string $dataClass = null, array $options = []): FormBuilder
@@ -682,18 +671,19 @@ class FormValidatorTest extends ConstraintValidatorTestCase
         return $this->getBuilder($name, $dataClass, $options)->getForm();
     }
 
+    private function getCompoundForm($data, array $options = [])
+    {
+        return $this->getBuilder('name', \get_class($data), $options)
+            ->setData($data)
+            ->setCompound(true)
+            ->setDataMapper(new PropertyPathMapper())
+            ->getForm();
+    }
+
     private function getSubmitButton($name = 'name', array $options = [])
     {
         $builder = new SubmitButtonBuilder($name, $options);
 
         return $builder->getForm();
-    }
-
-    /**
-     * @return \PHPUnit_Framework_MockObject_MockObject
-     */
-    private function getDataMapper()
-    {
-        return $this->getMockBuilder('Symfony\Component\Form\DataMapperInterface')->getMock();
     }
 }

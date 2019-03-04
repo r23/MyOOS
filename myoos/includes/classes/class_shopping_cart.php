@@ -392,7 +392,7 @@
 
     public function in_cart($products_id) {
       if (isset($this->contents[$products_id])) {
-        return true;
+        return TRUE;
       } else {
         return FALSE;
       }

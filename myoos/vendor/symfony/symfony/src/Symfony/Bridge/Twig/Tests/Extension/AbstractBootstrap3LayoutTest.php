@@ -16,6 +16,8 @@ use Symfony\Component\Form\Tests\AbstractLayoutTest;
 
 abstract class AbstractBootstrap3LayoutTest extends AbstractLayoutTest
 {
+    protected static $supportedFeatureSetVersion = 304;
+
     public function testLabelOnForm()
     {
         $form = $this->factory->createNamed('name', 'Symfony\Component\Form\Extension\Core\Type\DateType');
@@ -1893,6 +1895,22 @@ abstract class AbstractBootstrap3LayoutTest extends AbstractLayoutTest
         $this->assertWidgetMatchesXpath($form->createView(), ['attr' => ['class' => 'my&class']],
 '/input
     [@type="number"]
+    [@name="name"]
+    [@class="my&class form-control"]
+    [@value="123"]
+'
+        );
+    }
+
+    public function testIntegerTypeWithGroupingRendersAsTextInput()
+    {
+        $form = $this->factory->createNamed('name', 'Symfony\Component\Form\Extension\Core\Type\IntegerType', 123, [
+            'grouping' => true,
+        ]);
+
+        $this->assertWidgetMatchesXpath($form->createView(), ['attr' => ['class' => 'my&class']],
+'/input
+    [@type="text"]
     [@name="name"]
     [@class="my&class form-control"]
     [@value="123"]
