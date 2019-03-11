@@ -47,7 +47,7 @@ function smarty_function_logo($params, &$smarty)
 
     $image = $basedir . $dir . '/' . STORE_LOGO;
 
-	return '<img id="logo-header" class="img-fluid" src="' . $image . '" alt="' . STORE_NAME.'" title="' . STORE_NAME . '">';
+	return '<img id="logo-header" class="img-fluid" src="' . $image . '" alt="' . STORE_NAME. '" title="' . STORE_NAME . '">';
 	
 }
 

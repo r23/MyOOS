@@ -165,7 +165,6 @@ $aLang = [
 //footer
 'get_in_touch_with_us' => '' . $sServer . ' entdecken',
 'header_title_service'            => 'Shop Service',
-'block_service_new'               => 'Neue Produkte',
 'block_service_specials'          => 'Angebote',
 'block_service_sitemap'           => 'Sitemap',
 'block_service_advanced_search'   => 'Erweiterte Suche',
@@ -173,6 +172,9 @@ $aLang = [
 'block_service_shopping_cart'     => 'Warenkorb',
 'block_service_contact'           => 'Kontakt',
 
+'page_order_history'   		      => 'Meine Bestellungen',
+'page_products_new'               => 'Neue Produkte',
+'page_specials'      		      => 'Angebote',
 
 'review_text'                     => 'Die Rezension muss mindestens aus ' . REVIEW_TEXT_MIN_LENGTH . ' Buchstaben bestehen.',
 'review_rating'                   => 'Geben Sie Ihre Bewertung ein.',
@@ -351,7 +353,9 @@ $aLang = [
 'text_no_new_products'       => 'Zur Zeit gibt es keine neuen Produkte.',
 'text_unknown_tax_rate'      => 'Unbekannter Steuersatz',
 'text_required'              => 'erforderlich',
-
+'text_more'                  => 'mehr...',
+'text_new'                   => 'NEU',
+'text_categories' 			 => 'KATEGORIEN',
 
 'warning_install_directory_exists'           => 'Warnung: Das Installationverzeichnis ist noch vorhanden auf: ' . dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/install. Bitte löschen Sie das Verzeichnis aus Gründen der Sicherheit!',
 'warning_config_file_writeable'              => 'Warnung: MyOOS [Shopsystem] kann in die Konfigurationsdatei schreiben: ' . dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/includes/configure.php. Das stellt ein mögliches Sicherheitsrisiko dar - bitte korrigieren Sie die Benutzerberechtigungen zu dieser Datei!',

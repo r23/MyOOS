@@ -145,7 +145,6 @@ $aLang = [
 'login_block_new_customer'    => 'New Customer',
 'login_block_account_edit'    => 'Edit Account Info.',
 'login_block_account_history'   => 'Account History',
-'login_block_order_history'     => 'Order History',
 'login_block_address_book'      => 'My Address Book',
 'login_block_product_notifications'   => 'Product Notifications',
 'login_block_my_account'              => 'General Information',
@@ -181,13 +180,16 @@ $aLang = [
 // footer
 'get_in_touch_with_us'             => 'Get in touch with us',
 'header_title_service'             => 'Shop service',
-'block_service_new'                => 'New Products',
 'block_service_specials'           => 'Specials',
 'block_service_sitemap'            => 'Sitemap',
 'block_service_advanced_search'    => 'Advanced Search',
 'block_service_reviews'            => 'Reviews',
 'block_service_shopping_cart'      => 'Cart Contents',
 'block_service_contact'            => 'Contact',
+
+'page_order_history' 		  	  => 'Order History',
+'page_products_new'                => 'New Products',
+'page_specials' 		           => 'Specials',
 
 'review_text'       => 'The \'Review Text\' must have at least ' . REVIEW_TEXT_MIN_LENGTH . ' characters.',
 'review_rating'     => 'You must rate the product for your review.',
@@ -364,7 +366,9 @@ $aLang = [
 'text_no_new_products'     => 'There are currently no products.',
 'text_unknown_tax_rate'    => 'Unknown tax rate',
 'text_required'            => 'Required',
-
+'text_more'                => 'more...',
+'text_new'                 => 'NEW',
+'text_categories' 	       => 'CATEGORIES',
 
 'warning_install_directory_exists'  => 'Warning: Installation directory exists at: ' . dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/install. Please remove this directory for security reasons.',
 'warning_config_file_writeable'     => 'Warning: I am able to write to the configuration file: ' . dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/includes/configure.php. This is a potential security risk - please set the right user permissions on this file.',

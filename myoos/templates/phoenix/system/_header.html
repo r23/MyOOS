@@ -43,220 +43,170 @@
 
 {$oos_js}
 
+
 </head>
 <body>
 <div class="wrapper">
-
-	<!-- top bar -->
-	<div id="topBar" class="clearfix">
-		<div class="container">
-
-			<!-- right -->
-			<ul class="top-links list-inline float-right">
-
-				<li class="hidden-xs-down">
-					<a class="dropdown-toggle no-text-underline" data-toggle="dropdown" href="#"><i class="fa fa-user hidden-xs-down"></i> {$lang.header_title_my_account}</a>
-					<ul class="dropdown-menu float-right">
-						<li><a tabindex="-1" href="{html_href_link content=$filename.account_history page=1}" rel="nofollow"><i class="fa fa-history" aria-hidden="true"></i> {$lang.login_block_account_history}</a></li>
-						<li class="divider"></li>
-						<li><a tabindex="-1" href="{html_href_link content=$filename.account_wishlist page=1}" rel="nofollow"><i class="fa fa-bookmark" aria-hidden="true"></i> {$lang.button_wishlist}</a></li>
-						<li><a tabindex="-1" href="{html_href_link content=$filename.account}" rel="nofollow"><i class="fa fa-edit" aria-hidden="true"></i> {$lang.login_block_my_account}</a></li>
-						<li><a tabindex="-1" href="{html_href_link content=$filename.account_address_book}" rel="nofollow"><i class="fa fa-address-book" aria-hidden="true"></i> {$lang.login_block_address_book}</a></li>
-						<li class="divider"></li>
-						<li><a tabindex="-1" href="{html_href_link content=$filename.logoff}" rel="nofollow"><i class="fa fa-power-off" aria-hidden="true"></i> {$lang.header_title_logoff}</a></li>
-					</ul>
-				</li>
-								
-				<li class="hidden-xs-down">
-				{if (isset($smarty.session.customer_id)) }
-					<a href="{html_href_link content=$filename.logoff}">{$lang.header_title_logoff}</a>
-				{else}
-					<a href="{html_href_link content=$filename.login}">{$lang.header_title_login}</a>
-				{/if}
-				</li>				
-				<li class="hidden-xs-down"><a href="{html_href_link content=$filename.checkout_shipping}" rel="nofollow">{$lang.header_title_checkout}</a></li>		
-			</ul>
 			
-			<!-- left -->
-			<ul class="top-links list-inline">	
-			
-				<li class="hidden-xs-down"><a href="{html_href_link content=$filename.contact_us}">{$lang.block_service_contact}</a></li>
-			{if $languages_block}
-				<li>
-					<a class="dropdown-toggle no-text-underline" data-toggle="dropdown" href="#">{$lang.header_select_language}: ({$language})</a>
-					<ul class="dropdown-langs dropdown-menu">
-					{foreach item=languages from=$languages_contents}
-						{if $languages.iso_639_2 == $language}
-							<li class="active">
-						{else}
-							<li>
-						{/if}
-								<a tabindex="-1" href="{html_href_link content=$page_file oos_get=$lang_get_parameters language=$languages.iso_639_2}">
-									{$languages.name} ({$languages.iso_639_2}){if $languages.iso_639_2 == $language} <i class="fa fa-check" aria-hidden="true"></i>{/if}
-								</a>
-							</li>
-					{/foreach}
-					</ul>
-				</li>
-			{/if}	
 
-			{if $currency_block}
-				<li>
-					<a class="dropdown-toggle no-text-underline" data-toggle="dropdown" href="#">{$lang.header_select_currencies}: ({$currency})</a>
-					<ul class="dropdown-langs dropdown-menu">
-					{foreach item=currencies from=$currencies_contents}
-						{if $currencies.id == $currency}
-							<li class="active">
-						{else}
-							<li>
-						{/if}							
-								<a tabindex="-1" href="{html_href_link content=$page_file oos_get=$currency_get_parameters currency=$currencies.id}">
-									{$currencies.text} {if $currencies.id == $currency} <i class="fa fa-check" aria-hidden="true"></i>{/if}
-								</a>
-							</li>
-					{/foreach}
-					</ul>
-				</li>
-			{/if}
-			
-			</ul>
+		<nav id="header" class="header-light header-fixed header-shadow-1">
+			<div class="container">
 
-		</div>
-	</div>
-	<!-- /top bar -->
+				<button class="nav-toggle"></button>
 
-			
-	<div id="header" class="navbar-toggleable-md clearfix">
+				<!-- LOGO -->
+				<a class="logo float-left" href="{html_href_link content=$filename.home}">
+					{logo dir=medium}
+				</a>
 
-		<!-- search header -->
-		<div class="search-box over-header">
-			<a id="closeSearch" href="#" class="fa fa-remove"></a>
-
-			<form action="{html_href_link content=$filename.advanced_search_result}" method="GET" role="form">
-			{if $mySystem.sed}
-				<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
-				<input type="hidden" name="formid" value="{$mySystem.formid}">
-			{/if}
-				<input type="hidden" name="content" value="{$filename.advanced_search_result}">				
-				<input type="text" name="keywords" class="form-control" placeholder="{$lang.text_search}">
-			</form>
-	
-		</div> 
-		<!-- /search header -->
-
-
-				<!-- top nav -->
-				<header id="topNav">
-					<div class="container">
-
-						<!-- mobile menu button -->
-						<button class="btn btn-mobile" data-toggle="collapse" data-target=".nav-main-collapse">
-							<i class="fa fa-bars"></i>
-						</button>
-
-						<!-- buttons -->
-						<ul class="float-right nav nav-pills nav-second-main mr-auto">
-
-							<!-- search -->
-							<li class="search">
-								<a href="javascript:;">
-									<i class="fa fa-search"></i>
-								</a>
-							</li>
-							<!-- /search -->
-
-
-							<!-- quick shop cart -->
-							<li class="quick-cart">
-								<a href="{html_href_link content=$filename.shopping_cart}">
-									<span class="badge badge-aqua btn-sm badge-corner">{$cart_count_contents}</span>
-									<i class="fa fa-shopping-cart"></i> 
-								</a>
-								<div class="quick-cart-box">
-									<h4>{$lang.block_service_shopping_cart}</h4>
-								{if $cart_count_contents > 0}
-									<div class="quick-cart-wrapper">
-									{foreach item=products from=$cart_products}
-										<a href="{product_link products_id=$products.id}"><!-- cart item -->
-											{min_product_image image=$products.image alt=$products.name|strip_tags}
-											<h6><span>{$products.quantity|quantity}&nbsp;x&nbsp;</span> {$products.name|truncate:25:"...":true|close_tags}</h6>
-											<small>{display_price price=$products.final_price tax=$products.tax quantity=$products.quantity}</small>
-										</a><!-- /cart item -->
-									{/foreach}
-									</div>
-									
-									<!-- quick cart footer -->
-									<div class="quick-cart-footer clearfix">
-										<a href="{html_href_link content=$filename.shopping_cart}" class="btn btn-primary btn-sm float-right">{$lang.header_title_cart_contents}</a>
-										<span class="float-left"><strong>{$lang.sub_title_total}</strong> {$cart_show_total}</span>
-									</div>
-									<!-- /quick cart footer -->
-								{else}	
-									<!-- cart no items -->
-									<a class="text-center" href="{html_href_link content=$filename.shopping_cart}">
-										<h6>{$lang.block_shopping_cart_empty}</h6>
-									</a>
-								{/if}	
-								
-
-								</div>
-							</li>
-							<!-- /quick shop carT -->
-
-						</ul>
-						<!-- /buttons -->
-
-
-						<a class="logo float-left" href="{html_href_link content=$filename.home}">
-							{logo dir=medium}
+				<ul class="list-inline header-buttons">
+				
+					<li class="list-inline-item header-button-arrow">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+							<i class="fa fa-user-o" aria-hidden="true"></i>
+							{$lang.header_title_my_account}
 						</a>
-
-						<!-- navigation -->
-						<div class="navbar-collapse collapse float-right nav-main-collapse submenu-dark">
-							<nav class="nav-main">
-
-								<ul id="topMain" class="nav nav-pills nav-main ml-auto">
-									<li {if $home_activei}class="active"{/if}>
-										<a href="{html_href_link content=$filename.home}">{$lang.header_title_top}</a>
-									</li>
-									<li {if $login_active}class="active"{/if}>
+						<div class="dropdown-menu dropdown-menu-right">
+							<div class="pl-15 pr-15 pt-15 pb-15">
+								<h4 class="fs-13 fw-400 mb-10">{$lang.header_title_top}</h4>							
+							</div>
 									{if (isset($smarty.session.customer_id)) }
-										<a href="{html_href_link content=$filename.logoff}">{$lang.header_title_logoff}</a>
+										<a href="{html_href_link content=$filename.logoff}" class="btn btn-primary btn-sm btn-block fw-300">{$lang.header_title_logoff}</a>
 									{else}
-										<a href="{html_href_link content=$filename.login}">{$lang.header_title_login}</a>
+										<a href="{html_href_link content=$filename.login}" class="btn btn-primary btn-sm btn-block fw-300">{$lang.header_title_login}</a>
 									{/if}
-									</li>
-									<li class="dropdown {if $account_active}active{/if}">
-										<a class="dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{$lang.header_title_my_account}</a>
-										<ul class="dropdown-menu dropdown-menu-right">
-											<li><a href="{html_href_link content=$filename.account}" rel="nofollow">{$lang.login_block_my_account}</a></li>
-											<li><a href="{html_href_link content=$filename.account_edit}" rel="nofollow">{$lang.login_block_account_edit}</a></li>
-											<li><a href="{html_href_link content=$filename.account_history page=1}" rel="nofollow">{$lang.login_block_account_history}</a></li>
-											<li><a href="{html_href_link content=$filename.account_order_history page=1}" rel="nofollow">{$lang.login_block_order_history}</a></li>
-											<li><a href="{html_href_link content=$filename.account_address_book}" rel="nofollow">{$lang.login_block_address_book}</a></li>
-										{if $oEvent->installed_plugin('notify')}
-											<li><a href="{html_href_link content=$filename.product_notifications}" rel="nofollow">{$lang.login_block_product_notifications}</a></li>
-										{/if}				
-										</ul>
-									</li>
-									<li {if $cart_active}class="active"{/if}>
-										<a href="{html_href_link content=$filename.shopping_cart}">{$lang.header_title_cart_contents}</a>
-									</li>
-									<li {if $checkout_active}class="active"{/if}>
-										<a href="{html_href_link content=$filename.checkout_shipping}" rel="nofollow">{$lang.header_title_checkout}</a>
-									</li>									
+							<a class="dropdown-item" href="{html_href_link content=$filename.account_wishlist page=1}">{$lang.button_wishlist}</a>
+							<a class="dropdown-item" href="{html_href_link content=$filename.account}" rel="nofollow">{$lang.login_block_my_account}</a>
+							<a class="dropdown-item" href="{html_href_link content=$filename.account_order_history page=1}" rel="nofollow">{$lang.page_order_history}</a>
+							<a class="dropdown-item"  href="{html_href_link content=$filename.account_address_book}" rel="nofollow">{$lang.login_block_address_book}</a> 
+							{if $oEvent->installed_plugin('notify')}
+								<a class="dropdown-item" href="{html_href_link content=$filename.product_notifications}" rel="nofollow">{$lang.login_block_product_notifications}</a> 
+							{/if}						
+							<a class="dropdown-item" href="{html_href_link content=$filename.account}" rel="nofollow">{$lang.text_more}</a> 
 
-								</ul>
 
-							</nav>
+						
+						{if (isset($smarty.session.customer_id)) }
+							<a class="dropdown-item dropdown-custom-icon dropdown-myaccount-logout" href="{html_href_link content=$filename.logoff}">
+								<i class="fa fa-power-off" aria-hidden="true"></i> 
+								<b>{$lang.header_title_logoff}</b>
+							</a>
+						{/if}							
 						</div>
+					</li>
 
+
+					<li class="list-inline-item hidden-xs-down">
+						<a href="{html_href_link content=$filename.account_wishlist page=1}" rel="nofollow">
+							<i class="fa fa-heart-o" aria-hidden="true"></i>
+							{$lang.button_wishlist}
+						</a>
+					</li>
+					
+					<!-- quick shop cart -->
+					<li class="quick-cart list-inline-item">
+						<a href="{html_href_link content=$filename.shopping_cart}">
+							<i class="fa fa-shopping-cart" aria-hidden="true"></i>
+							<span class="badge badge-default">{$cart_count_contents}</span>
+							{$lang.header_title_cart_contents}
+						</a>
+						<div class="quick-cart-box">
+							<h4>{$lang.block_service_shopping_cart}</h4>
+							{if $cart_count_contents > 0}
+								<div class="quick-cart-wrapper">
+								{foreach item=products from=$cart_products}
+									<a href="{product_link products_id=$products.id}"><!-- cart item -->
+										{min_product_image image=$products.image alt=$products.name|strip_tags}
+										<h6><span>{$products.quantity|quantity}&nbsp;x&nbsp;</span> {$products.name|truncate:25:"...":true|close_tags}</h6>
+										<small>{display_price price=$products.final_price tax=$products.tax quantity=$products.quantity}</small>
+									</a><!-- /cart item -->
+								{/foreach}
+								</div>
+									
+								<!-- quick cart footer -->
+								<div class="quick-cart-footer clearfix">
+									<a href="{html_href_link content=$filename.shopping_cart}" class="btn btn-primary btn-sm float-right">{$lang.header_title_cart_contents}</a>
+									<span class="float-left"><strong>{$lang.sub_title_total}</strong> {$cart_show_total}</span>
+								</div>
+								<!-- /quick cart footer -->
+							{else}	
+								<!-- cart no items -->
+								<a class="text-center" href="{html_href_link content=$filename.shopping_cart}">
+									<h6>{$lang.block_shopping_cart_empty}</h6>
+								</a>
+							{/if}	
+								
+
+						</div>
+					</li>
+					<!-- /quick shop cart -->
+				</ul>
+
+
+				<form action="{html_href_link content=$filename.advanced_search_result}" class="search-global hidden-sm-down" method="GET" role="form">
+				{if $mySystem.sed}
+					<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+					<input type="hidden" name="formid" value="{$mySystem.formid}">
+				{/if}			
+					<input type="hidden" name="content" value="{$filename.advanced_search_result}">					
+					<input type="text" name="s" class="form-control" placeholder="{$lang.text_search}">
+					<button class="btn btn-default" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+				</form>
+
+
+				<!-- main-nav -->
+				<nav class="main-nav main-nav-toggle">
+
+					<div class="main-nav-mobile-header clearfix">
+						<button class="nav-toggle-close"></button>
+							{logo dir=medium}
 					</div>
-				</header>
-				<!-- /top nav -->
+
+					<div class="main-nav-mobile-scroll">
+						<ul class="list-unstyled mb-0">
+
+							<li class="main-nav-search hidden-md-up">
+								<form action="{html_href_link content=$filename.advanced_search_result}" class="search-global input-group mb-0" method="GET" role="form">
+								{if $mySystem.sed}
+									<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+									<input type="hidden" name="formid" value="{$mySystem.formid}">
+								{/if}			
+									<input type="hidden" name="content" value="{$filename.advanced_search_result}">					
+									<input type="text" name="s" class="form-control" placeholder="{$lang.text_search}">
+									<button class="btn btn-default" type="submit">
+										<i class="fa fa-search" aria-hidden="true"></i>
+									</button>
+								</form>
+							</li>
+
+							<li>
+								<span>
+									<a href="{html_href_link content=$filename.sitemap}" data-text="&ndash; {$lang.block_service_sitemap}">
+										{$lang.text_categories}
+									</a>
+								</span>
+							</li>
+
+							<li class="main-nav-item">
+								<a href="{html_href_link content=$filename.products_new}" title="{$lang.page_products_new}">
+									<i class="fa fa-circle-o-notch" aria-hidden="true"></i>
+									<span class="badge badge-danger">{$lang.text_new}</span> {$lang.page_products_new}
+								</a>
+							</li>
+						{if $oEvent->installed_plugin('spezials')}
+							<li class="main-nav-item">
+								<a href="{html_href_link content=$filename.specials}" title="{$lang.page_specials}">
+									<i class="fa fa-circle-o-notch" aria-hidden="true"></i> 
+									{$lang.page_specials}
+								</a>
+							</li>
+						{/if}
+						</ul>
+					</div>
+
+				</nav>
 
 			</div>
-
-	
-	
+		</nav>
+		<!-- /HEADER -->	
 	

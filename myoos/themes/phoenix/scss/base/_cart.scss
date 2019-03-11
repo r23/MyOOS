@@ -170,9 +170,6 @@
     li.quick-cart .quick-cart-box {
       margin-top: 18px;
     }
-    &.dark li.search .search-box {
-      margin-top: 38px !important;
-    }
   }
 }
 
@@ -193,11 +190,6 @@
     li.quick-cart .quick-cart-wrapper {
       max-height: 200px;
       overflow-y: auto;
-    }
-    ul.has-topBar > li {
-      &.quick-cart .quick-cart-box, &.search .search-box {
-        top: 98px !important;
-      }
     }
   }
   /** 
