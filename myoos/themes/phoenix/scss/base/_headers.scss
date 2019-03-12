@@ -31,7 +31,7 @@
   }
 }
 
-/** HEADER : LOGO
+/** LOGO
  *************************************************** **/
 
 @media only screen and (max-width: 768px) {
@@ -86,6 +86,26 @@
   }
 }
 
+/** STICKY
+ *************************************************** **/
+
+#header {
+  &.header-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    + #wrapper {
+      margin-top: 120px;
+    }
+  }
+  &.header-shadow {
+    -webkit-box-shadow: 0px 0px 60px 0px rgba(0, 0, 0, 0.07);
+    -moz-box-shadow: 0px 0px 60px 0px rgba(0, 0, 0, 0.07);
+    box-shadow: 0px 0px 60px 0px rgba(0, 0, 0, 0.07);
+  }
+}
 	
 
 .navbar {
