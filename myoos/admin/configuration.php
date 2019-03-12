@@ -35,13 +35,13 @@ if (!empty($action)) {
         $dbconn->Execute("UPDATE " . $oostable['configuration'] . " SET configuration_value = '" . oos_db_input($configuration_value) . "', last_modified = now() WHERE configuration_id = '" . intval($cID) . "'");
 		
 		
-		if  ($cID == 2 || $cID == 3) {
+		if ($cID == 2 || $cID == 3) {
 	
 			require 'includes/classes/class_upload.php';
 			
 			
 			// Logo		
-			if  ($cID == 2)  {
+			if ($cID == 2) {
 				$options = array(
 					'image_versions' => array(				
 						// The empty image version key defines options for the original image.
@@ -57,7 +57,7 @@ if (!empty($action)) {
 							// 'jpeg_quality' => 82,
 							// 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
 							// 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-							'max_width' => 150, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+							'max_width' => 320, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
 							'max_height' => 150 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
 						),				
 						'small' => array(
@@ -66,14 +66,14 @@ if (!empty($action)) {
 							// 'jpeg_quality' => 82,
 							// 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
 							// 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-							'max_width' => 120, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
-							'max_height' => 120 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
+							'max_width' => 128, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+							'max_height' => 60 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
 						),			
 					),
 				);
 				$dir_fs_catalog_images = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'logo/';
 				
-			} elseif  ($cID == 3)  { 
+			} elseif ($cID == 3) { 
 				// Site Icons 
 				$options = array(
 					'image_versions' => array(				
@@ -141,10 +141,8 @@ if (!empty($action)) {
 			
 			$oLogo = new upload('site_image', $options);
 			$oLogo->set_destination($dir_fs_catalog_images);
-			$oLogo->parse();
-
-			if (oos_is_not_null($oLogo->filename)) {
-			
+			if ($oLogo->parse() && oos_is_not_null($oLogo->filename)) {
+		
 				$configurationtable =  $oostable['configuration'];
 				$dbconn->Execute("UPDATE $configurationtable
                             SET configuration_value = '" . oos_db_input($oLogo->filename) . "', 
