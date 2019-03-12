@@ -72,7 +72,19 @@
   }
 }
 
-
+#header.header-light {
+  color: #121212;
+  background-color: #ffffff;
+  a {
+    color: #121212;
+  }
+  .dropdown-menu a:not(.active):not(.btn):hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  .nav-toggle {
+    background: url('../images/burger.svg') center no-repeat;
+  }
+}
 
 	
 
