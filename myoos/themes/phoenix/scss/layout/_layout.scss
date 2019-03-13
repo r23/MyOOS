@@ -1,15 +1,3 @@
-#topMain>li>a {
-	display: block;
-	position: relative;
-	padding-left: 15px;
-	padding-right: 15px;
-}
-#topMain>li>a>.badge {
-	margin-top: 8px;
-}
-#topMain .dropdown-toggle::after {
-	border: 0;
-}
 #header .badge,
 #slider .badge,
 #slider .page-header {
