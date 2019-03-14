@@ -37,19 +37,19 @@
 							<header class="g-bg-gray-light-v5 g-pa-20">
 								<div class="row">
 									<div class="col-md-4 m-mb-20">
-										<h4 class="m-font-size-12 text-uppercase m-mb-2">{$lang.heading_order_date}</h4>
-										<span class="m-font-size-13"> {$order->info.date_purchased|oos_date_long}</span>
+										<h4 class="fs-12 text-uppercase m-mb-2">{$lang.heading_order_date}</h4>
+										<span class="fs-13"> {$order->info.date_purchased|oos_date_long}</span>
 									</div>
 
 									<div class="col-md-4 m-mb-20">
-										<h4 class="m-font-size-12 text-uppercase m-mb-2">{$lang.heading_order_total}</h4>
-										<span class="m-font-size-13"> {$order->info.total}</span>
+										<h4 class="fs-12 text-uppercase m-mb-2">{$lang.heading_order_total}</h4>
+										<span class="fs-13"> {$order->info.total}</span>
 									</div>
 
 									<div class="col-md-4 ml-auto text-sm-right">
 										<h4 class="text-uppercase g-mb-2">{$lang.heading_order_number} # {$smarty.get.order_id}</h4>
-										<span class="m-font-size-13">{$order->info.orders_status}</span>
-										<!-- <a class="m-font-size-13" href="#!">Invoice</a> -->
+										<span class="fs-13">{$order->info.orders_status}</span>
+										<!-- <a class="fs-13" href="#!">Invoice</a> -->
 									</div>
 								</div>
 							</header>
@@ -100,7 +100,7 @@
 												<h4 class="h6 g-font-weight-400">{$products.name}{if $products.serial_number != '' }&nbsp;&nbsp;({$lang.serial}{$products.serial_number}){/if}</h4>
 												{if ( isset($products.attributes) && sizeof($products.attributes) gt 0 ) }
 													{foreach item=attributes from=$products.attributes}
-														<br><nobr><span class="d-block g-color-gray-dark-v4 m-font-size-13 m-mb-2">small>&nbsp;<i> - {$attributes.option}: {$attributes.value}</i></span></small></nobr>
+														<br><nobr><span class="d-block g-color-gray-dark-v4 fs-13 m-mb-2">small>&nbsp;<i> - {$attributes.option}: {$attributes.value}</i></span></small></nobr>
 													{/foreach}
 												{/if}
 												<span class="d-block g-color-lightred mb-2">{oos_display_price price=$products.final_price tax=$products.tax qty=$products.qty currency=$order->info.currency currency_value=$order->info.currency_value}</span>
@@ -133,7 +133,7 @@
 
 							<div class="row">
 								<div class="col-md-12">				
-									<h4 class="m-font-size-12 text-uppercase m-mb-2">{$lang.heading_order_history}</h4>
+									<h4 class="fs-12 text-uppercase m-mb-2">{$lang.heading_order_history}</h4>
 								</div>
 							</div>
 							{foreach item=statuses from=$statuses_array}			

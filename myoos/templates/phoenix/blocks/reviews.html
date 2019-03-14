@@ -8,13 +8,13 @@
 			{small_product_image image=$random_product.products_image alt=$random_product.products_name|strip_tags}
 		</a>
 	</div>
-	<div class="m-font-size-12 text-left">
+	<div class="fs-12 text-left">
 		<a href="{html_href_link content=$filename.product_reviews_info products_id=$random_product.products_id reviews_id=$random_product.reviews_id}">
 			{$random_product.reviews_text|strip|truncate:55:"...":true|close_tags}
 		</a>	
 	</div>	
 		
-	<div class="rating rating-{$random_product.reviews_rating} m-font-size-13 fw-100 text-center"><!-- rating-0 ... rating-5 --></div>
+	<div class="rating rating-{$random_product.reviews_rating} fs-13 fw-100 text-center"><!-- rating-0 ... rating-5 --></div>
 
 	{elseif (isset($smarty.get.products_id))}
 	<ul class="list-group list-unstyled">

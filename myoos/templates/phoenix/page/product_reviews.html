@@ -42,7 +42,7 @@
 									<tr>
 										<td>{$smarty.section.i.rownum|number_format}</td>
 										<td><a href="{html_href_link content=$filename.product_reviews_info products_id=$smarty.get.products_id reviews_id=$reviews[i].id}">{$reviews[i].customers_name}</a></td>
-										<td><div class="rating rating-{$reviews[i].rating} m-font-size-13 fw-100 text-center"><!-- rating-0 ... rating-5 --></div></td>
+										<td><div class="rating rating-{$reviews[i].rating} fs-13 fw-100 text-center"><!-- rating-0 ... rating-5 --></div></td>
 										<td>{$reviews[i].read}</td>
 										<td>{$reviews[i].date_added}</td>
 										<td><a href="{html_href_link content=$filename.product_reviews_info products_id=$smarty.get.products_id reviews_id=$reviews[i].id}" class="btn btn-sm btn-secondary-outlined" role="button">{$lang.button_view}</a></td>

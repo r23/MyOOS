@@ -12,10 +12,10 @@
 						{min_product_image image=$products_history.products_image alt=$products_history.products_name|strip_tags}
 					</a>
 				</div>  
-				<a class="block m-font-size-12" href="{product_link products_id=$products_history.products_id}">{$products_history.products_name|truncate:11:"":true|close_tags}</a>
+				<a class="block fs-12" href="{product_link products_id=$products_history.products_id}">{$products_history.products_name|truncate:11:"":true|close_tags}</a>
 {*
   todo			
-				<div class="rating rating-4 m-font-size-13 fw-100 text-left"><!-- rating-0 ... rating-5 --></div>
+				<div class="rating rating-4 fs-13 fw-100 text-left"><!-- rating-0 ... rating-5 --></div>
 				<div class="fs-18 text-left">00.00 €</div>
 *}	
 				{if $myUser.show_price eq 1 }
