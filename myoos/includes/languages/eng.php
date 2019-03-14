@@ -63,8 +63,7 @@ define('LANG', 'en');
 define('DOB_FORMAT_STRING', 'mm/dd/yyyy');
 
 $aLang = [
-'welcome_msg'           => 'MANY PRODUCTS REDUCED 40%',
-'welcome_msg_title'     => '',
+'welcome_msg'           => 'Welcome to %s!',
 'danger'                => 'Oh snap! You got an error!',
 'warning'               => 'Warning!',
 
@@ -144,12 +143,13 @@ $aLang = [
 'button_login'                => 'Login',
 'login_block_new_customer'    => 'New Customer',
 'login_block_account_edit'    => 'Edit Account Info.',
-'login_block_account_history'   => 'Account History',
+'login_block_account_history'   => 'My Account History',
+'login_block_order_history'         => 'My Orders',
 'login_block_address_book'      => 'My Address Book',
 'login_block_product_notifications'   => 'Product Notifications',
 'login_block_my_account'              => 'General Information',
 'login_block_logoff'                  => 'Log Off',
-'login_entry_remember_me'             => 'Aoto Log On',
+
 
 // checkout procedure text
 'checkout_bar_delivery'             => 'Delivery Information',

@@ -78,9 +78,9 @@ $smarty->assign(
 
 	
 		'pagetitle'			=> $sPagetitle,
-		'meta_description'	=> $sDescription
+		'meta_description'	=> $sDescription,
 
-		
+		'welcome'         => sprintf($aLang['welcome_msg'], STORE_NAME)
 	)
 
 );

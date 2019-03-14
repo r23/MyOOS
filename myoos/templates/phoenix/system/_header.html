@@ -65,14 +65,13 @@
 						</a>
 						<div class="dropdown-menu dropdown-menu-right">
 							<div class="pl-15 pr-15 pt-15 pb-15">
-								<h4 class="fs-13 fw-400 mb-10">{$lang.header_title_top}</h4>							
+								<h4 class="fs-13 fw-400 mb-10">{$welcome}</h4>							
 							</div>
 									{if (isset($smarty.session.customer_id)) }
 										<a href="{html_href_link content=$filename.logoff}" class="btn btn-primary btn-sm btn-block fw-300">{$lang.header_title_logoff}</a>
 									{else}
 										<a href="{html_href_link content=$filename.login}" class="btn btn-primary btn-sm btn-block fw-300">{$lang.header_title_login}</a>
 									{/if}
-							<a class="dropdown-item" href="{html_href_link content=$filename.account_wishlist page=1}">{$lang.button_wishlist}</a>
 							<a class="dropdown-item" href="{html_href_link content=$filename.account}" rel="nofollow">{$lang.login_block_my_account}</a>
 							<a class="dropdown-item" href="{html_href_link content=$filename.account_order_history page=1}" rel="nofollow">{$lang.page_order_history}</a>
 							<a class="dropdown-item"  href="{html_href_link content=$filename.account_address_book}" rel="nofollow">{$lang.login_block_address_book}</a> 

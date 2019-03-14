@@ -57,8 +57,7 @@ define('DOB_FORMAT_STRING', 'tt.mm.jjjj');
 
 $aLang = [
 
-'welcome_msg'           => 'VIELE PRODUKTE 40% REDUZIERT',
-'welcome_msg_title'     => '',
+'welcome_msg'           => 'Willkommen bei %s!',
 'danger'                => 'Oh nein! Es ist ein Fehler aufgetreten!',
 'warning'               => 'Warnung!',
 
@@ -128,13 +127,12 @@ $aLang = [
 'button_login'                      => 'Login',
 'login_block_new_customer'          => 'Neukunde',
 'login_block_account_edit'          => 'Daten ändern',
-'login_block_account_history'       => 'Bestellübersicht',
-'login_block_order_history'         => 'Einkaufsliste',
-'login_block_address_book'          => 'Adressbuch',
+'login_block_account_history'       => 'Mein Kontoverlauf',
+'login_block_order_history'         => 'Meine Bestellungen',
+'login_block_address_book'          => 'Mein Adressbuch',
 'login_block_product_notifications'  => 'Benachrichtigungen',
-'login_block_my_account'            => 'persönliche Daten',
+'login_block_my_account'            => 'Mein Konto',
 'login_block_logoff'                => 'Abmelden',
-'login_entry_remember_me'           => 'Einlogautomatik',
 
 
 // checkout procedure text

@@ -1,4 +1,4 @@
-#header .badge,
+
 #slider .badge,
 #slider .page-header {
 	border-radius: 2px;
@@ -151,6 +151,12 @@ section.section-xlg {
 	padding:140px 0;
 }
 
+
+@media (min-width: 768px) {
+  .hidden-md-up {
+    display: none !important;
+  }
+}
 
 /** sign-out
  **************************************************************** **/
