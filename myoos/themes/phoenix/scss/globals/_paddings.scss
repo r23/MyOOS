@@ -58,8 +58,12 @@
   padding-bottom: 18px !important;
 }
 
-.pb-20, .pb-25 {
+.pb-20 {
   padding-bottom: 20px !important;
+}
+
+.pb-25 {
+  padding-bottom: 25px !important;
 }
 
 .pb-30 {
@@ -186,8 +190,12 @@
   padding-top: 18px !important;
 }
 
-.pt-20, .pt-25 {
+.pt-20 {
   padding-top: 20px !important;
+}
+
+.pt-25 {
+  padding-top: 25px !important;
 }
 
 .pt-30 {
@@ -310,8 +318,12 @@
   padding-left: 18px !important;
 }
 
-.pl-20, .pl-25 {
+.pl-20 {
   padding-left: 20px !important;
+}
+
+.pl-25 {
+  padding-left: 25px !important;
 }
 
 .pl-30 {
@@ -434,8 +446,12 @@
   padding-right: 18px !important;
 }
 
-.pr-20, .pr-25 {
+.pr-20 {
   padding-right: 20px !important;
+}
+
+.pr-25 {
+  padding-right: 25px !important;
 }
 
 .pr-30 {
@@ -558,8 +574,12 @@
   padding: 18px !important;
 }
 
-.p-20, .p-25 {
+.p-20 {
   padding: 20px !important;
+}
+
+.p-25 {
+  padding: 25px !important;
 }
 
 .p-30 {
@@ -626,35 +646,35 @@
   
 /* P */  
 .m-py-10 {
-	@include px-to-rem(padding-top, 10px !important);
-	@include px-to-rem(padding-bottom, 10px !important);
+	padding-top: 10px !important;
+	padding-bottom: 10px !important;
 }
 /* P */  
 .m-py-15 {
-	@include px-to-rem(padding-top, 15px !important);
-	@include px-to-rem(padding-bottom, 15px !important);
+	padding-top: 15px !important;
+	padding-bottom: 15px !important;
 }
 /* P */  
 .m-py-20 {
-	@include px-to-rem(padding-top, 20px !important);
-	@include px-to-rem(padding-bottom, 20px !important);
+	padding-top: 20px !important;
+	padding-bottom: 20px !important;
 }
 /* P */  
 .m-py-25 {
-	@include px-to-rem(padding-top, 25px !important);
-	@include px-to-rem(padding-bottom, 25px !important);
+	padding-top: 25px !important;
+	padding-bottom: 25px !important;
 }
 /* P */  
 .m-py-60 {
-	@include px-to-rem(padding-top, 60px !important);
-	@include px-to-rem(padding-bottom, 60px !important);
+	padding-top: 60px !important;
+	padding-bottom: 60px !important;
 }
 .m-py-80 {
-	@include px-to-rem(padding-top, 80px !important);
-	@include px-to-rem(padding-bottom, 80px !important);
+	padding-top: 80px !important;
+	padding-bottom: 80px !important;
 }
 .m-py-100 {
-	@include px-to-rem(padding-top, 100px !important);
-	@include px-to-rem(padding-bottom, 100px !important);
+	padding-top: 100px !important;
+	padding-bottom: 100px !important;
 }
 

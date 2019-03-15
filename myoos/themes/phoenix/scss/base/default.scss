@@ -38,7 +38,7 @@ ul.nav-tabs .nav-item .nav-link.active, .category-content {
 .aboutSection h2:after {
   background: tint($primary-color, 50%)!important;
 }
-.masking-hover, .imageBox .productImage .productMasking, .whiteSection .featuredProducts .slide .productImage .productMasking, .mainContent .featuredProducts .slide .productImage .productMasking, .productsContent .productBox .productImage .productMasking, .whiteSection .featuredCollection .thumbnail .imageWrapper .masking, .mainContent .featuredCollection .thumbnail .imageWrapper .masking, .productListSingle .media .media-left .maskingImage {
+.masking-hover, .imageBox .productImage .productMasking, .whiteSection .featuredProducts .slide .productImage .productMasking, .mainContent .featuredProducts .slide .productImage .productMasking, .productsContent .productBox .productImage .productMasking, .whiteSection .featuredCollection .thumbnail .masking, .mainContent .featuredCollection .thumbnail .masking, .productListSingle .media .media-left .maskingImage {
   background-color: rgba($primary-color, 0.9)!important;
 }
 .quick-view .modal-dialog .modal-content .modal-body .media .media-body .btn-area .btn-primary:hover, .quick-view-drone .modal-dialog .modal-content .modal-body .media .media-body .btn-area .btn-primary:hover, .singleProduct .media .media-body .btn-area .btn-primary:hover {

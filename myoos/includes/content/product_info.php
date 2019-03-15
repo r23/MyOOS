@@ -221,6 +221,7 @@ if (!$product_info_result->RecordCount()) {
     }
 
     $smarty->assign('product_info', $product_info);
+	$smarty->assign('heading_title', $product_info['products_name']);
     $smarty->assign('options', $options);
 
     $smarty->assign('redirect', oos_href_link($aContents['redirect'], 'action=url&amp;goto=' . urlencode($product_info['products_url']), FALSE, FALSE));

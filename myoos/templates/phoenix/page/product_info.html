@@ -2,6 +2,8 @@
 
 {include file="phoenix/system/_breadcrumbs.html"}
 
+<!-- wrapper -->
+<div id="wrapper">	
 {if $message}
     {foreach $message as $info}
         {include file="phoenix/system/_message.html"}
@@ -204,7 +206,7 @@
 				<span class="d-block g-color-gray-light-v1 fs-70 mb-4">
 					<i class="fa fa-pencil-square" aria-hidden="true"></i>
 				</span>
-				<h2 class="m-mb-20">{$lang.text_product_notifications}</h2>
+				<h2 class="mb-20">{$lang.text_product_notifications}</h2>
 				<p>{$lang.text_product_notifications_introduction}</p>
 			</div>
 		{if $notification_exists}
