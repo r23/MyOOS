@@ -261,6 +261,10 @@ $aInfoMessage = array();
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_message_stack.php';
 $oMessage = new messageStack;
 
+// Nav Menu
+include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_nav_menu.php';
+$oNavMenu = new nav_menu;
+
 
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php';
 

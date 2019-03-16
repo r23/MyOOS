@@ -204,7 +204,8 @@ dosql($table, $flds);
 $table = $prefix_table . 'categories';
 $flds = "
   categories_id I NOTNULL AUTO PRIMARY,
-  categories_image C(250),  
+  categories_image C(250), 
+  color C(23),   
   parent_id I NOTNULL DEFAULT '0',
   sort_order I1,
   date_added T,
