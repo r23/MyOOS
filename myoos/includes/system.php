@@ -60,11 +60,6 @@ if (isset($_GET['products_id'])) {
 if (empty($sPagetitle)) $sPagetitle = OOS_META_TITLE;
 if (empty($sDescription)) $sDescription = OOS_META_DESCRIPTION;
 
-/*
-echo '<pre>';
-print_r($oNavMenu->build());
-echo '<pre>';
-*/
 
 $smarty->assign(
 	array(
