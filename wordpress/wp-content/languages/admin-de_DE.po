@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.1.x - Development - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-03-10 15:08:37+0000\n"
+"PO-Revision-Date: 2019-03-19 08:37:08+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -6856,12 +6856,6 @@ msgstr "Seiten zu verwalten ist genauso einfach wie das Verwalten von Beiträgen
 msgid "If a media file has not been attached to any content, you will see that in the Uploaded To column, and can click on Attach to launch a small popup that will allow you to search for existing content and attach the file."
 msgstr "Falls eine Datei in keinem Beitrag oder Seite verwendet wird, so wird dies in der Spalte „Hochgeladen zu“ kenntlich gemacht. Mit einem Klick auf „Verknüpfen“ kannst du Beiträge oder Seiten suchen, mit denen du die Datei verknüpfen möchtest."
 
-#: wp-admin/upload.php:235
-msgid "Hovering over a row reveals action links: Edit, Delete Permanently, and View. Clicking Edit or on the media file&#8217;s name displays a simple screen to edit that individual file&#8217;s metadata. Clicking Delete Permanently will delete the file from the media library (as well as from any posts to which it is currently attached). View will take you to the display page for that file."
-msgstr ""
-"Bei Mauszeigerkontakt einer Datei in der Liste werden zusätzliche Optionen angezeigt: Bearbeiten, Unwiderruflich löschen und Anschauen.\n"
-"Beim Klick auf „Bearbeiten“ werden die Metadaten der Datei angezeigt und können auch bearbeitet werden. Ein Klick auf „Unwiderruflich löschen“, löscht eine Datei aus der Mediathek und allen Beiträgen, in der sie verwendet wurde. „Anschauen“ öffnet eine Seite, auf welcher die Datei angezeigt wird."
-
 #: wp-admin/edit-comments.php:191
 msgid "In the <strong>Author</strong> column, in addition to the author&#8217;s name, email address, and blog URL, the commenter&#8217;s IP address is shown. Clicking on this link will show you all the comments made from this IP address."
 msgstr "In der Spalte <strong>Autor</strong> werden Daten wie der Name, E-Mail-Adresse, Website-URL und IP-Adresse des Kommentierenden angezeigt. Wenn du auf die IP-Adresse klickst, siehst du alle Kommentare, die von dieser IP-Adresse abgegeben wurden."
@@ -6881,6 +6875,12 @@ msgstr "Du kannst Kommentare auf deiner Website ähnlich wie Beiträge und ander
 #: wp-admin/edit.php:278
 msgid "You can also perform the same types of actions, including narrowing the list by using the filters, acting on a page using the action links that appear when you hover over a row, or using the Bulk Actions menu to edit the metadata for multiple pages at once."
 msgstr "Du kannst auch die gleichen Arten von Aktionen ausführen, beispielsweise die Liste mit Hilfe der Filter einschränken. Und grundsätzlich mit Seiten arbeiten, indem du die bei Mauszeigerkontakt erscheinenden Links nutzt oder das Drop-down-Menü für die Mehrfachaktionen verwendest, um die Metadaten für mehrere Seiten auf einmal zu bearbeiten."
+
+#: wp-admin/upload.php:235
+msgid "Hovering over a row reveals action links: Edit, Delete Permanently, and View. Clicking Edit or on the media file&#8217;s name displays a simple screen to edit that individual file&#8217;s metadata. Clicking Delete Permanently will delete the file from the media library (as well as from any posts to which it is currently attached). View will take you to the display page for that file."
+msgstr ""
+"Bei Mauszeigerkontakt einer Datei in der Liste werden zusätzliche Optionen angezeigt: Bearbeiten, Endgültig löschen und Anschauen.\n"
+"Beim Klick auf „Bearbeiten“ werden die Metadaten der Datei angezeigt und können auch bearbeitet werden. Ein Klick auf „Endgültig löschen“, löscht eine Datei aus der Mediathek und von allen Beiträgen, in der sie verwendet wurde. „Anschauen“ öffnet eine Seite, auf welcher die Datei angezeigt wird."
 
 #: wp-admin/link-manager.php:56
 msgid "Links may be separated into Link Categories; these are different than the categories used on your posts."
