@@ -25,13 +25,13 @@ class nav_menu {
 	var $root_category_id = 0,
         $max_level = 0,
         $data = array(),
-        $root_start_string = '',
-        $root_end_string = '',
+        $root_start_string = '<li class="main-nav-item main-nav-expanded">',
+        $root_end_string = '</li>',
         $parent_start_string = '',
         $parent_end_string = '',
         $parent_group_start_string = '',
         $parent_group_end_string = '',
-        $child_start_string = '<li class="main-nav-item main-nav-expanded">',
+        $child_start_string = '',
         $child_end_string = '</li>',
         $breadcrumb_separator = '_',
         $breadcrumb_usage = TRUE,
@@ -90,11 +90,11 @@ class nav_menu {
 
 		if (isset($this->data[$parent_id])) {
 			foreach ($this->data[$parent_id] as $category_id => $category) {
-			#	if ($this->breadcrumb_usage == TRUE) {
-			#		$category_link = $this->buildBreadcrumb($category_id);
-			#	} else {
+				if ($this->breadcrumb_usage == TRUE) {
+					$category_link = $this->buildBreadcrumb($category_id);
+				} else {
 					$category_link = $category_id;
-			#	}
+				}
 
 				$sLink = '<a href="' . oos_href_link($aContents['shop'], 'category=' . $category_link) . '" title="' . $category['name'] . '">';
 
@@ -113,8 +113,7 @@ class nav_menu {
 				$result .= $sLink;
 				
 				if ($level == 0) {
-					// todo add color
-					$result .= '<i class="fa fa-circle-o-notch" aria-hidden="true"></i>';
+					$result .= '<i class="fa fa-circle-o-notch ' . $category['color'] . '" aria-hidden="true"></i>';
 				}
 
 				if ($this->follow_cpath === TRUE) {
@@ -151,74 +150,38 @@ class nav_menu {
 			}
 		}
 
-		$result .= $this->parent_group_end_string;
+		$result .= $this->parent_group_end_string  . "\n";
 
 		return $result;
 	}
 
 
-    public function buildBranchArray($parent_id, $level = 0, $result = '') {
-      if (empty($result)) {
-        $result = array();
-      }
-
-      if (isset($this->data[$parent_id])) {
-        foreach ($this->data[$parent_id] as $category_id => $category) {
-         # if ($this->breadcrumb_usage == TRUE) {
-         #   $category_link = $this->buildBreadcrumb($category_id);
-        #  } else {
-            $category_link = $category_id;
-         # }
-
-          $result[] = array('id' => $category_link,
-                            'title' => str_repeat($this->spacer_string, $this->spacer_multiplier * $level) . $category['name']);
-
-          if (isset($this->data[$category_id]) && (($this->max_level == '0') || ($this->max_level > $level+1))) {
-            if ($this->follow_cpath === TRUE) {
-              if (in_array($category_id, $this->cpath_array)) {
-                $result = $this->buildBranchArray($category_id, $level+1, $result);
-              }
-            } else {
-              $result = $this->buildBranchArray($category_id, $level+1, $result);
-            }
-          }
-        }
-      }
-
-      return $result;
-    }
-
 
     public function buildBreadcrumb($category_id, $level = 0) {
-      $breadcrumb = '';
+		$breadcrumb = '';
 
-      foreach ($this->data as $parent => $categories) {
-        foreach ($categories as $id => $info) {
-          if ($id == $category_id) {
-            if ($level < 1) {
-              $breadcrumb = $id;
-            } else {
-              $breadcrumb = $id . $this->breadcrumb_separator . $breadcrumb;
-            }
+		foreach ($this->data as $parent => $categories) {
+			foreach ($categories as $id => $info) {
+				if ($id == $category_id) {
+					if ($level < 1) {
+						$breadcrumb = $id;
+					} else {
+						$breadcrumb = $id . $this->breadcrumb_separator . $breadcrumb;
+					}
 
-            if ($parent != $this->root_category_id) {
-              $breadcrumb = $this->buildBreadcrumb($parent, $level+1) . $breadcrumb;
-            }
-          }
-        }
-      }
+					if ($parent != $this->root_category_id) {
+						$breadcrumb = $this->buildBreadcrumb($parent, $level+1) . $breadcrumb;
+					}
+				}
+			}
+		}
 
-      return $breadcrumb;
+		return $breadcrumb;
     }
 
     public function build() {
 		return $this->buildBranch($this->root_category_id);
     }
-
-    public function getTree($parent_id = '') {
-      return $this->buildBranchArray((empty($parent_id) ? $this->root_category_id : $parent_id));
-    }
-
 
     public function setRootCategoryID($root_category_id) {
       $this->root_category_id = $root_category_id;
