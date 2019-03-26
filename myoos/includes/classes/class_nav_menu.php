@@ -27,11 +27,11 @@ class nav_menu {
         $data = array(),
         $root_start_string = '<li class="main-nav-item main-nav-expanded">',
         $root_end_string = '</li>',
-        $parent_start_string = '',
-        $parent_end_string = '',
-        $parent_group_start_string = '',
-        $parent_group_end_string = '',
-        $child_start_string = '',
+        $parent_start_string = '<li>',
+        $parent_end_string = '</li>',
+        $parent_group_start_string = '<ul>',
+        $parent_group_end_string = '</ul>',
+        $child_start_string = '<li>',
         $child_end_string = '</li>',
         $breadcrumb_separator = '_',
         $breadcrumb_usage = TRUE,
@@ -41,6 +41,7 @@ class nav_menu {
         $cpath_array = array(),
         $cpath_start_string = '',
         $cpath_end_string = '';
+
 
 	public function __construct() {
 		
@@ -72,24 +73,21 @@ class nav_menu {
 																						'menu_type' => $categories['menu_type'], 
 																						'count' => 0);
 
+
 			// Move that ADOdb pointer!
 			$categories_result->MoveNext();
-		}
-		
-		echo '<pre>';
-		print_r($this->data);
-		echo '</pre>';		
-		
+		}	
 		
     }
 
-    public function buildBranch($parent_id, $level = 0) {
-		$result = $this->parent_group_start_string;
+    public function buildBranch($parent_id, $level = 0, $submenu = 0, $nCount = 0, $bLast = FALSE) {
 
 		$aContents = oos_get_content();
 
+
 		if (isset($this->data[$parent_id])) {
 			foreach ($this->data[$parent_id] as $category_id => $category) {
+				
 				if ($this->breadcrumb_usage == TRUE) {
 					$category_link = $this->buildBreadcrumb($category_id);
 				} else {
@@ -98,20 +96,37 @@ class nav_menu {
 
 				$sLink = '<a href="' . oos_href_link($aContents['shop'], 'category=' . $category_link) . '" title="' . $category['name'] . '">';
 
-				$result .= $this->child_start_string;
 
-				if (isset($this->data[$category_id])) {
-					$result .= $this->parent_start_string;
+				switch ($level) {
+					case 0:
+						$result .= $this->root_start_string  . "\n";
+						break;
+				
+					case 1:
+						$nCount++;
+				
+						if ($submenu == 0) {
+							$submenu++;
+							$result .= '<div class="main-nav-submenu">
+											<div class="row">
+											
+												<div class="col-md-3">
+													<ul class="list-unstyled">
+														<li>';
+						} else {			
+							$result .= 	'<ul class="list-unstyled">
+											<li>';
+						}
+					break;
+					
+					case 2:
+						$result .= $this->parent_start_string;
+						break;
 				}
 
-				if ($level == 0) {
-					$result .= $this->root_start_string;
-				}
-
-				$result .= str_repeat($this->spacer_string, $this->spacer_multiplier * $level);
 
 				$result .= $sLink;
-				
+
 				if ($level == 0) {
 					$result .= '<i class="fa fa-circle-o-notch ' . $category['color'] . '" aria-hidden="true"></i>';
 				}
@@ -125,18 +140,13 @@ class nav_menu {
 				} else {
 					$result .= $category['name'];
 				}
+				
 				$result .= '</a>';
-
-
-				if ($level == 0) {
-					$result .= $this->root_end_string;
+		  
+				if ($level == 1) {
+					$result .= '</li>'  . "\n";
 				}
 
-				if (isset($this->data[$category_id])) {
-					$result .= $this->parent_end_string;
-				}
-
-				$result .= $this->child_end_string;
 
 				if (isset($this->data[$category_id]) && (($this->max_level == '0') || ($this->max_level > $level+1))) {
 					if ($this->follow_cpath === TRUE) {
@@ -144,13 +154,33 @@ class nav_menu {
 							$result .= $this->buildBranch($category_id, $level+1);
 						}
 					} else {
-						$result .= $this->buildBranch($category_id, $level+1);
+						$result .= $this->buildBranch($category_id, $level+1, $submenu, $nCount);
 					}
 				}
+			 
+			 
+				switch ($level) {
+					case 0:
+						$result .= $this->root_end_string . "\n\n\n";
+						break;
+						
+					case 1:		
+						$result .= 	'</ul>'  . "\n";
+						
+						if (!isset($this->data[$category_id])) {		
+							$result .= '</div>'  . "\n";					
+						}
+						break;
+						
+					case 2:		
+						$result .= $this->parent_end_string  . "\n";
+						break;
+				}
+		
+	
+			
 			}
 		}
-
-		$result .= $this->parent_group_end_string  . "\n";
 
 		return $result;
 	}
@@ -246,14 +276,6 @@ class nav_menu {
     public function setCategoryPathString($cpath_start_string, $cpath_end_string) {
       $this->cpath_start_string = $cpath_start_string;
       $this->cpath_end_string = $cpath_end_string;
-    }
-
-    public function setShowCategoryProductCount($show_category_product_count) {
-      if ($show_category_product_count === TRUE) {
-        $this->show_category_product_count = TRUE;
-      } else {
-        $this->show_category_product_count = FALSE;
-      }
     }
 
     public function setCategoryProductCountString($category_product_count_start_string, $category_product_count_end_string) {
