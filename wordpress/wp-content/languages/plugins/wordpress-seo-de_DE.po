@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Yoast SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-03-22 10:57:13+0000\n"
+"PO-Revision-Date: 2019-03-26 15:52:26+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -177,17 +177,23 @@ msgstr "Seite %s"
 
 #: languages/yoast-seo-js.php:322
 msgid "%3$sImage alt attributes%5$s: Out of %2$d images on this page, %1$d have alt attributes with words from your keyphrase or synonyms. That's a bit much. %4$sOnly include the keyphrase or its synonyms when it really fits the image%5$s."
-msgstr "%3$sBilder mit Alt-Attributen%5$s: die Alt-Attribute bei %1$d von %2$d Bildern auf dieser Seite enthalten Wörter aus der Keyphrase oder entsprechende Synonyme. Das ist etwas viel. %4$sVerwende die Keyphrase bzw. Synonyme davon nur wenn sie zum Bild passen%5$s."
+msgstr "%3$sBilder mit Alt-Attributen%5$s: Die Alt-Attribute bei %1$d von %2$d Bildern auf dieser Seite enthalten Wörter aus der Keyphrase oder entsprechende Synonyme. Das ist etwas viel. %4$sVerwende die Keyphrase bzw. Synonyme davon nur wenn sie zum Bild passen%5$s."
 
 #: languages/yoast-seo-js.php:319
 msgid "%1$sImage alt attributes%2$s: Good job!"
-msgstr "%1$sBild Alt-Attribute%2$s: Gut gemacht!"
+msgstr "%1$sBilder mit Alt-Attributen%2$s: Gut gemacht!"
 
 #: languages/yoast-seo-js.php:316
 msgid "%3$sImage alt attributes%5$s: Out of %2$d images on this page, only %1$d has an alt attribute that reflects the topic of your text. %4$sAdd your keyphrase or synonyms to the alt tags of more relevant images%5$s!"
 msgid_plural "%3$sImage alt attributes%5$s: Out of %2$d images on this page, only %1$d have alt attributes that reflect the topic of your text. %4$sAdd your keyphrase or synonyms to the alt tags of more relevant images%5$s!"
 msgstr[0] "%3$sBilder mit Alt-Attributen%5$s: Von %2$d Bildern auf dieser Seite, hat nur %1$d Bild ein Alt-Attribut, welches das Thema deines Textes widerspiegelt. %4$sFüge deine Keyphrase oder entsprechende Synonyme zu den Alt-Tags bei passenden Bildern hinzu%5$s!"
 msgstr[1] "%3$sBilder mit Alt-Attributen%5$s: Von %2$d Bildern auf dieser Seite, haben nur %1$d Bilder ein Alt-Attribut, welches das Thema deines Textes widerspiegelt. %4$sFüge deine Keyphrase oder entsprechende Synonyme zu den Alt-Tags bei passenden Bildern hinzu%5$s!"
+
+#. Translators: %1$s and %2$s expand to links on yoast.com, %3$s expands to the
+#. anchor end tag
+#: languages/yoast-seo-js.php:313
+msgid "%1$sImage alt attributes%3$s: Images on this page do not have alt attributes that reflect the topic of your text. %2$sAdd your keyphrase or synonyms to the alt tags of relevant images%3$s!"
+msgstr "%1$sBilder mit Alt-Attributen%3$s: Die Bilder auf dieser Seite haben keine Alt-Attribute, die das Thema deines Textes widerspiegeln. %2$sFüge deine Keyphrase oder entsprechende Synonyme zu den Alt-Attributen bei passenden Bildern hinzu%3$s!"
 
 #: languages/yoast-seo-js.php:308
 msgid "%1$sImage alt attributes%3$s: Images on this page have alt attributes, but you have not set your keyphrase. %2$sFix that%3$s!"
@@ -197,7 +203,7 @@ msgstr "%1$sBilder mit Alt-Attributen%3$s: Die Bilder auf dieser Seite haben Alt
 msgid "%1$sKeyphrase in subheading%2$s: %3$s of your higher-level subheadings reflects the topic of your copy. Good job!"
 msgid_plural "%1$sKeyphrase in subheading%2$s: %3$s of your higher-level subheadings reflect the topic of your copy. Good job!"
 msgstr[0] "%1$sKeyphrase in Zwischenüberschriften%2$s: %3$s deiner hierarchisch höheren Zwischenüberschriften spiegelt das Thema deines Textes wider. Gut gemacht!"
-msgstr[1] "%1$sSchlüsselphrase in Zwischenüberschriften%2$s: %3$s deiner hierarchisch höheren Zwischenüberschriften spiegeln das Thema deines Textes wider. Gut gemacht!"
+msgstr[1] "%1$sKeyphrase in Zwischenüberschriften%2$s: %3$s deiner hierarchisch höheren Zwischenüberschriften spiegeln das Thema deines Textes wider. Gut gemacht!"
 
 #: languages/yoast-seo-js.php:250
 msgid "%1$sKeyphrase in subheading%2$s: Your higher-level subheading reflects the topic of your copy. Good job!"
@@ -387,7 +393,7 @@ msgstr "%4$sBereits verwendete Keyphrase%6$s: Du hast diese Keyphrase zuvor scho
 #. the anchor end tag.
 #: languages/yoast-seo-js.php:364
 msgid "%3$sPreviously used keyphrase%5$s: You've used this keyphrase %1$sonce before%2$s. %4$sDo not use your keyphrase more than once%5$s."
-msgstr "%3$sBereits verwendete Schlüsselphrase%5$s: Du hast diese Schlüsselphrase bereits zuvor schon %1$seinmal%2$s verwendet. %4$sVerwende Schlüsselphrasen immer nur einmal.%5$s."
+msgstr "%3$sBereits verwendete Keyphrase%5$s: Du hast diese Keyphrase bereits zuvor schon %1$seinmal%2$s verwendet. %4$sVerwende Keyphrases immer nur einmal.%5$s."
 
 #: languages/yoast-seo-js.php:359
 msgid "%1$sPreviously used keyphrase%2$s: You've not used this keyphrase before, very good."
@@ -435,7 +441,7 @@ msgstr "%1$sKeyphrase im Titel%2$s: Die wortwörtliche Form der Keyphrase ersche
 
 #: languages/yoast-seo-js.php:305
 msgid "%1$sImage alt attributes%3$s: No images appear on this page. %2$sAdd some%3$s!"
-msgstr "%1$s Bild Alt-Attribute%3$s: Auf dieser Seite werden keine Bilder angezeigt. %2$s Füge Einige hinzu%3$s!"
+msgstr "%1$s Bilder mit Alt-Attributen%3$s: Auf dieser Seite gibt es keine Bilder. %2$s Füge welche hinzu%3$s!"
 
 #: languages/yoast-seo-js.php:302
 msgid "%1$sLink keyphrase%3$s: You're linking to another page with the words you want this page to rank for. %2$sDon't do that%3$s!"
@@ -757,6 +763,10 @@ msgstr "Der Parameter `%1$s` darf nicht leer sein."
 msgid "SEO: No Focus Keyphrase"
 msgstr "SEO: Kein Fokus-Keyword"
 
+#: inc/class-wpseo-admin-bar-menu.php:312
+msgid "Check Keyphrase Density"
+msgstr "Überprüfe die Keyphrasendichte"
+
 #: admin/views/tabs/network/features.php:53
 msgid "Disable"
 msgstr "Deaktivieren"
@@ -804,6 +814,14 @@ msgstr "%1$s Video"
 msgid "This feature has been disabled by the network admin."
 msgstr "Diese Funktion wurde durch den Netzwerkadministrator deaktiviert."
 
+#: admin/class-meta-columns.php:132 admin/class-meta-columns.php:616
+msgid "Focus keyphrase not set."
+msgstr "Fokuskeyphrase nicht festgelegt."
+
+#: admin/class-premium-upsell-admin-block.php:56
+msgid "Multiple keyphrases"
+msgstr "mehrere Keyphrasen"
+
 #: admin/class-yoast-form.php:545 admin/metabox/class-metabox.php:559
 #: admin/taxonomy/class-taxonomy-fields-presenter.php:125
 msgid "Clear Image"
@@ -822,6 +840,14 @@ msgstr "Bild löschen"
 msgid "Get %s"
 msgstr "Erhalte %s"
 
+#: languages/wordpress-seojs.php:221
+msgid "Describe the duration of the instruction:"
+msgstr "Beschreibe die Dauer der Anleitung:"
+
+#: languages/wordpress-seojs.php:52
+msgid "Learn more about the readability analysis"
+msgstr "Lerne mehr über die Lesbarkeitsanalyse"
+
 #: inc/class-wpseo-admin-bar-menu.php:653
 msgid "There is a new notification."
 msgid_plural "There are new notifications."
@@ -831,6 +857,12 @@ msgstr[1] "Es gibt neue Benachrichtigungen."
 #: inc/options/class-wpseo-option-titles.php:819
 msgid "Colon"
 msgstr "Doppelpunkt"
+
+#. translators: %1$s expands to Yoast SEO, %2$s: 'SEO' plugin name of possibly
+#. conflicting plugin with regard to the creation of duplicate SEO meta.
+#: admin/class-plugin-conflict.php:165
+msgid "Both %1$s and %2$s manage the SEO of your site. Running two SEO plugins at the same time is detrimental."
+msgstr "%1$s und %2$s leiten die Suchmaschinenoptimierung deiner Seite. Es ist schädlich, zwei verschiedene SEO Plugins gleichzeitig zu nutzen."
 
 #: languages/yoast-components.php:17
 msgid "This is a list of related content to which you could link in your post. {{a}}Read our article about site structure{{/a}} to learn more about how internal linking can help improve your SEO."
@@ -917,6 +949,10 @@ msgstr "Häufig gestellte Fragen (FAQ)"
 #: languages/wordpress-seojs.php:83
 msgid "Great news: you can, with %s!"
 msgstr "Tolle Neuigkeiten: Du kannst es, mit %s!"
+
+#: languages/wordpress-seojs.php:32
+msgid "Select the primary %s"
+msgstr "Wähle die primären %s"
 
 #: inc/class-wpseo-admin-bar-menu.php:307
 msgid "Check links to this URL"
@@ -1903,6 +1939,10 @@ msgstr "Erlaube Suchmaschinen diesen %s in den Suchergebnissen anzuzeigen?"
 msgid "Search Appearance"
 msgstr "Darstellung in der Suche"
 
+#: admin/config-ui/fields/class-field-post-type-visibility.php:19
+msgid "Please specify what content types you would like to appear in search engines. If you do not know the differences between these, it's best to choose the default settings."
+msgstr "Bitte definiere, welche Inhaltstypen du in den Suchergebnissen sehen möchtest. Wenn du die Unterschiede zwischen ihnen nicht kennst, ist es am besten die Standardeinstellungen zu wählen."
+
 #. Translators: %1$s expands to the name of the post type. The options given to
 #. the user are "visible" and "hidden"
 #: admin/config-ui/fields/class-field-choice-post-type.php:32
@@ -2533,6 +2573,11 @@ msgstr "Scrolle, um die Vorschau zu sehen."
 #: admin/views/class-yoast-feature-toggles.php:88
 msgid "Cornerstone content"
 msgstr "Cornerstone-Inhalt"
+
+#. translators: %1$s expands to Yoast SEO.
+#: admin/config-ui/fields/class-field-success-message.php:21
+msgid "%1$s will now take care of all the needed technical optimization of your site. To really improve your site's performance in the search results, it's important to start creating content that ranks well for keyphrases you care about. Check out this video in which we explain how to use the %1$s metabox when you edit posts or pages."
+msgstr "%1$s wird nun alle nötigen technischen Optimierungen für deine Website vornehmen. Um die Performance deiner Seite in den Suchergebnissen wirklich zu verbessern, ist es wichtig Inhalte zu kreieren, die für die von dir ausgewählten Keyphrasen ranken. Schaue dir dieses Video an, in dem wir erklären wie du die %1$s Metabox benutzt, wenn du Beiträge oder Seiten veränderst. "
 
 #. translators: %1$s resolves to Local SEO
 #: admin/config-ui/components/class-component-suggestions.php:100
@@ -3412,6 +3457,10 @@ msgstr[1] "%s Benachrichtigungen"
 #: admin/views/user-profile.php:57
 msgid "Disable readability analysis"
 msgstr "Deaktivere die Lesbarkeits-Analyse"
+
+#: admin/views/user-profile.php:60
+msgid "Removes the readability analysis section from the metabox and disables all readability-related suggestions."
+msgstr "Entfernt den Lesbarkeitsanalyse-Reiter aus der Metabox und deaktiviert alle lesbarkeitsbezogenen Empfehlungen."
 
 #: languages/wordpress-seojs.php:45
 #: admin/views/class-yoast-feature-toggles.php:80
