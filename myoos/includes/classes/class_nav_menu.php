@@ -24,6 +24,7 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 class nav_menu {
 	var $root_category_id = 0,
         $max_level = 0,
+		$count = 0,
         $data = array(),
         $root_start_string = '<li class="main-nav-item main-nav-expanded">',
         $root_end_string = '</li>',
@@ -80,13 +81,13 @@ class nav_menu {
 		
     }
 
-    public function buildBranch($parent_id, $level = 0, $submenu = 0, $nCount = 0, $bLast = FALSE) {
+    public function buildBranch($parent_id, $level = 0, $submenu = 0) {
 
 		$aContents = oos_get_content();
 
-
-		if (isset($this->data[$parent_id])) {
+		if (isset($this->data[$parent_id])) {	
 			foreach ($this->data[$parent_id] as $category_id => $category) {
+				$this->count++;
 				
 				if ($this->breadcrumb_usage == TRUE) {
 					$category_link = $this->buildBreadcrumb($category_id);
@@ -94,30 +95,26 @@ class nav_menu {
 					$category_link = $category_id;
 				}
 
+
 				$sLink = '<a href="' . oos_href_link($aContents['shop'], 'category=' . $category_link) . '" title="' . $category['name'] . '">';
 
 
 				switch ($level) {
 					case 0:
-						$result .= $this->root_start_string  . "\n";
+						$result .= $this->root_start_string;
 						break;
 				
 					case 1:
-						$nCount++;
-				
 						if ($submenu == 0) {
 							$submenu++;
-							$result .= '<div class="main-nav-submenu">
-											<div class="row">
-											
-												<div class="col-md-3">
-													<ul class="list-unstyled">
-														<li>';
-						} else {			
-							$result .= 	'<ul class="list-unstyled">
-											<li>';
+							$this->count = 0;
+							
+							$result .= '<div class="main-nav-submenu"><div class="row"><div class="col-md-3"><ul class="list-unstyled"><li>';
+						} else {
+							$this->count+2;							
+							$result .= '<ul class="list-unstyled"><li>';
 						}
-					break;
+						break;
 					
 					case 2:
 						$result .= $this->parent_start_string;
@@ -144,41 +141,46 @@ class nav_menu {
 				$result .= '</a>';
 		  
 				if ($level == 1) {
-					$result .= '</li>'  . "\n";
+					$result .= '</li>';
 				}
 
-
+				if ($level == 2) {		
+					if ($this->count > 12) {	
+						$this->count = 0;				
+						$result .= '</li></ul></div><div class="col-md-3"><ul class="list-unstyled">';				
+					}
+				}
+				
 				if (isset($this->data[$category_id]) && (($this->max_level == '0') || ($this->max_level > $level+1))) {
 					if ($this->follow_cpath === TRUE) {
 						if (in_array($category_id, $this->cpath_array)) {
 							$result .= $this->buildBranch($category_id, $level+1);
 						}
 					} else {
-						$result .= $this->buildBranch($category_id, $level+1, $submenu, $nCount);
+						$result .= $this->buildBranch($category_id, $level+1, $submenu);
 					}
 				}
-			 
-			 
+
+	
 				switch ($level) {
 					case 0:
-						$result .= $this->root_end_string . "\n\n\n";
+						$result .= $this->root_end_string;
 						break;
 						
 					case 1:		
-						$result .= 	'</ul>'  . "\n";
+						$result .= 	'</ul>';
 						
 						if (!isset($this->data[$category_id])) {		
-							$result .= '</div>'  . "\n";					
+							$result .= '</div>';					
 						}
 						break;
 						
-					case 2:		
-						$result .= $this->parent_end_string  . "\n";
+					case 2:	
+						if ($this->count > 0) {					
+							$result .= $this->parent_end_string;
+						}
 						break;
-				}
-		
-	
-			
+				}			
 			}
 		}
 
@@ -214,73 +216,53 @@ class nav_menu {
     }
 
     public function setRootCategoryID($root_category_id) {
-      $this->root_category_id = $root_category_id;
+		$this->root_category_id = $root_category_id;
     }
 
     public function setMaximumLevel($max_level) {
-      $this->max_level = $max_level;
+		$this->max_level = $max_level;
     }
 
     public function setRootString($root_start_string, $root_end_string) {
-      $this->root_start_string = $root_start_string;
-      $this->root_end_string = $root_end_string;
-    }
-
-    public function setParentString($parent_start_string, $parent_end_string) {
-      $this->parent_start_string = $parent_start_string;
-      $this->parent_end_string = $parent_end_string;
-    }
-
-    public function setParentGroupString($parent_group_start_string, $parent_group_end_string) {
-      $this->parent_group_start_string = $parent_group_start_string;
-      $this->parent_group_end_string = $parent_group_end_string;
-    }
-
-    public function setChildString($child_start_string, $child_end_string) {
-      $this->child_start_string = $child_start_string;
-      $this->child_end_string = $child_end_string;
+		$this->root_start_string = $root_start_string;
+		$this->root_end_string = $root_end_string;
     }
 
     public function setBreadcrumbSeparator($breadcrumb_separator) {
-      $this->breadcrumb_separator = $breadcrumb_separator;
+		$this->breadcrumb_separator = $breadcrumb_separator;
     }
 
     public function setBreadcrumbUsage($breadcrumb_usage) {
-      if ($breadcrumb_usage === TRUE) {
-        $this->breadcrumb_usage = TRUE;
-      } else {
-        $this->breadcrumb_usage = FALSE;
-      }
-    }
-
-    public function setSpacerString($spacer_string, $spacer_multiplier = 2) {
-      $this->spacer_string = $spacer_string;
-      $this->spacer_multiplier = $spacer_multiplier;
+		if ($breadcrumb_usage === TRUE) {
+			$this->breadcrumb_usage = TRUE;
+		} else {
+			$this->breadcrumb_usage = FALSE;
+		}
     }
 
     public function setCategoryPath($cpath, $cpath_start_string = '', $cpath_end_string = '') {
-      $this->follow_cpath = TRUE;
-      $this->cpath_array = explode($this->breadcrumb_separator, $cpath);
-      $this->cpath_start_string = $cpath_start_string;
-      $this->cpath_end_string = $cpath_end_string;
+		$this->follow_cpath = TRUE;
+		$this->cpath_array = explode($this->breadcrumb_separator, $cpath);
+		$this->cpath_start_string = $cpath_start_string;
+		$this->cpath_end_string = $cpath_end_string;
     }
 
     public function setFollowCategoryPath($follow_cpath) {
-      if ($follow_cpath === TRUE) {
-        $this->follow_cpath = TRUE;
-      } else {
-        $this->follow_cpath = FALSE;
-      }
+		if ($follow_cpath === TRUE) {
+			$this->follow_cpath = TRUE;
+		} else {
+			$this->follow_cpath = FALSE;
+		}
     }
 
     public function setCategoryPathString($cpath_start_string, $cpath_end_string) {
-      $this->cpath_start_string = $cpath_start_string;
-      $this->cpath_end_string = $cpath_end_string;
+		$this->cpath_start_string = $cpath_start_string;
+		$this->cpath_end_string = $cpath_end_string;
     }
 
     public function setCategoryProductCountString($category_product_count_start_string, $category_product_count_end_string) {
-      $this->category_product_count_start_string = $category_product_count_start_string;
-      $this->category_product_count_end_string = $category_product_count_end_string;
-    }
-  }
+		$this->category_product_count_start_string = $category_product_count_start_string;
+		$this->category_product_count_end_string = $category_product_count_end_string;
+	}
+}
 
