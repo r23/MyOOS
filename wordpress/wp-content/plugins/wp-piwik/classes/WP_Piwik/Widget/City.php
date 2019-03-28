@@ -4,7 +4,7 @@
 
 	use WP_Piwik\Widget;
 
-	class Country extends Widget {
+	class City extends Widget {
 	
 		public $className = __CLASS__;
 
@@ -16,7 +16,7 @@
 				'date'  => $timeSettings['date']
 			);
 			$this->title = $prefix.__('Countries', 'wp-piwik').' ('.__($timeSettings['description'],'wp-piwik').')';
-			$this->method = 'UserCountry.getCountry ';
+			$this->method = 'UserCountry.getCity';
 			$this->context = 'normal';
 			wp_enqueue_script('wp-piwik', self::$wpPiwik->getPluginURL().'js/wp-piwik.js', array(), self::$wpPiwik->getPluginVersion(), true);
 			wp_enqueue_script('wp-piwik-jqplot',self::$wpPiwik->getPluginURL().'js/jqplot/wp-piwik.jqplot.js',array('jquery'));
@@ -36,7 +36,7 @@
 			if (!empty($response['result']) && $response['result'] ='error')
 				echo '<strong>'.__('Piwik error', 'wp-piwik').':</strong> '.htmlentities($response['message'], ENT_QUOTES, 'utf-8');
 			else {
-				$tableHead = array(__('Country', 'wp-piwik'), __('Unique', 'wp-piwik'), __('Percent', 'wp-piwik'));
+				$tableHead = array(__('City', 'wp-piwik'), __('Unique', 'wp-piwik'), __('Percent', 'wp-piwik'));
 				if (isset($response[0]['nb_uniq_visitors'])) $unique = 'nb_uniq_visitors';
 				else $unique = 'sum_daily_nb_uniq_visitors';
 				$count = 0;

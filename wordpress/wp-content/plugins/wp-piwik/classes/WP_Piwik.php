@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The main WP-Piwik class configures, registers and manages the plugin
+ * The main WP-Matomo class configures, registers and manages the plugin
  *
  * @author Andr&eacute; Br&auml;kling <webmaster@braekling.de>
  * @package WP_Piwik
@@ -12,7 +12,7 @@ class WP_Piwik {
 	 *
 	 * @var Runtime environment variables
 	 */
-	private static $revisionId = 2017101501, $version = '1.0.19', $blog_id, $pluginBasename = NULL, $logger, $settings, $request, $optionsPageId;
+	private static $revisionId = 2019032601, $version = '1.0.21', $blog_id, $pluginBasename = NULL, $logger, $settings, $request, $optionsPageId;
 
 	/**
 	 * Constructor class to configure and register all WP-Piwik components
@@ -208,11 +208,11 @@ class WP_Piwik {
 	/**
 	 * Uninstall WP-Piwik
 	 */
-	public static function uninstallPlugin() {
+	public function uninstallPlugin() {
 		self::$logger->log ( 'Running WP-Piwik uninstallation' );
 		if (! defined ( 'WP_UNINSTALL_PLUGIN' ))
 			exit ();
-		$this->deleteWordPressOption ( 'wp-piwik-notices' );
+		self::deleteWordPressOption ( 'wp-piwik-notices' );
 		self::$settings->resetSettings ( true );
 	}
 
@@ -325,6 +325,8 @@ class WP_Piwik {
                 return '//' . parse_url(self::$settings->getGlobalOption ( 'proxy_url' ), PHP_URL_HOST);
             case 'cloud' :
                 return '//' . self::$settings->getGlobalOption ( 'piwik_user' ) . '.innocraft.cloud';
+            case 'cloud-matomo' :
+                return '//' . self::$settings->getGlobalOption ( 'matomo_user' ) . '.matomo.cloud';
             default :
                 return '//' . parse_url(self::$settings->getGlobalOption ( 'piwik_url' ), PHP_URL_HOST);
         }
@@ -640,7 +642,7 @@ class WP_Piwik {
 	 * @return boolean Is WP-Piwik configured?
 	 */
 	public static function isConfigured() {
-		return (self::$settings->getGlobalOption ( 'piwik_token' ) && (self::$settings->getGlobalOption ( 'piwik_mode' ) != 'disabled') && (((self::$settings->getGlobalOption ( 'piwik_mode' ) == 'http') && (self::$settings->getGlobalOption ( 'piwik_url' ))) || ((self::$settings->getGlobalOption ( 'piwik_mode' ) == 'php') && (self::$settings->getGlobalOption ( 'piwik_path' ))) || ((self::$settings->getGlobalOption ( 'piwik_mode' ) == 'cloud') && (self::$settings->getGlobalOption ( 'piwik_user' )))));
+		return (self::$settings->getGlobalOption ( 'piwik_token' ) && (self::$settings->getGlobalOption ( 'piwik_mode' ) != 'disabled') && (((self::$settings->getGlobalOption ( 'piwik_mode' ) == 'http') && (self::$settings->getGlobalOption ( 'piwik_url' ))) || ((self::$settings->getGlobalOption ( 'piwik_mode' ) == 'php') && (self::$settings->getGlobalOption ( 'piwik_path' ))) || ((self::$settings->getGlobalOption ( 'piwik_mode' ) == 'cloud') && (self::$settings->getGlobalOption ( 'piwik_user' ))) || ((self::$settings->getGlobalOption ( 'piwik_mode' ) == 'cloud-matomo') && (self::$settings->getGlobalOption ( 'matomo_user' )))));
 	}
 
 	/**
@@ -1139,10 +1141,10 @@ class WP_Piwik {
 		$isCurrent = ! self::$settings->checkNetworkActivation () || empty ( $blogId );
 		$id = WP_Piwik\Request::register ( 'SitesManager.updateSite', array (
 				'idSite' => $siteId,
-				'urls' => $isCurrent ? get_bloginfo ( 'url' ) : get_blog_details ( $blogId )->$siteurl,
-				'siteName' => $isCurrent ? get_bloginfo ( 'name' ) : get_blog_details ( $blogId )->$blogname
+				'urls' => $isCurrent ? get_bloginfo ( 'url' ) : get_blog_details ( $blogId )->siteurl,
+				'siteName' => $isCurrent ? get_bloginfo ( 'name' ) : get_blog_details ( $blogId )->blogname
 		) );
-		$result = $this->request ( $id );
+		$this->request ( $id );
 		self::$logger->log ( 'Update Piwik site: WordPress site ' . ($isCurrent ? get_bloginfo ( 'url' ) : get_blog_details ( $blogId )->$siteurl) );
 	}
 
@@ -1241,8 +1243,11 @@ class WP_Piwik {
 		new \WP_Piwik\Widget\Browsers ( $this, self::$settings, $this->statsPageId );
 		new \WP_Piwik\Widget\BrowserDetails ( $this, self::$settings, $this->statsPageId );
 		new \WP_Piwik\Widget\Screens ( $this, self::$settings, $this->statsPageId );
+		new \WP_Piwik\Widget\Types ( $this, self::$settings, $this->statsPageId );
+		new \WP_Piwik\Widget\Models ( $this, self::$settings, $this->statsPageId );
 		new \WP_Piwik\Widget\Systems ( $this, self::$settings, $this->statsPageId );
 		new \WP_Piwik\Widget\SystemDetails ( $this, self::$settings, $this->statsPageId );
+		new \WP_Piwik\Widget\City ( $this, self::$settings, $this->statsPageId );
 		new \WP_Piwik\Widget\Country ( $this, self::$settings, $this->statsPageId );
 	}
 
