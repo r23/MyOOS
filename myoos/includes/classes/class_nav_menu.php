@@ -25,6 +25,7 @@ class nav_menu {
 	var $root_category_id = 0,
         $max_level = 0,
 		$count = 0,
+		$submenu = 0,
         $data = array(),
         $root_start_string = '<li class="main-nav-item main-nav-expanded">',
         $root_end_string = '</li>',
@@ -95,9 +96,7 @@ class nav_menu {
 					$category_link = $category_id;
 				}
 
-
 				$sLink = '<a href="' . oos_href_link($aContents['shop'], 'category=' . $category_link) . '" title="' . $category['name'] . '">';
-
 
 				switch ($level) {
 					case 0:
@@ -108,8 +107,11 @@ class nav_menu {
 						if ($submenu == 0) {
 							$submenu++;
 							$this->count = 0;
+							$this->submenu = 1;
 							
-							$result .= '<div class="main-nav-submenu"><div class="row"><div class="col-md-3"><ul class="list-unstyled"><li>';
+							$result .= '<div class="main-nav-submenu">
+							
+											<div class="row"><div class="col-md-3"><ul class="list-unstyled"><li>';
 						} else {
 							$this->count+2;							
 							$result .= '<ul class="list-unstyled"><li>';
@@ -160,24 +162,23 @@ class nav_menu {
 						$result .= $this->buildBranch($category_id, $level+1, $submenu);
 					}
 				}
-
-	
+			
 				switch ($level) {
 					case 0:
+						if ($this->submenu > 0) {		
+							$result .=  '</div></div></div>';	
+						}
+						$this->submenu = 0;
 						$result .= $this->root_end_string;
 						break;
 						
 					case 1:		
 						$result .= 	'</ul>';
-						
-						if (!isset($this->data[$category_id])) {		
-							$result .= '</div>';					
-						}
 						break;
 						
 					case 2:	
 						if ($this->count > 0) {					
-							$result .= $this->parent_end_string;
+							$result .=  $this->parent_end_string;
 						}
 						break;
 				}			
