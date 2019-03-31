@@ -90,6 +90,7 @@ if (!empty($action)) {
 		case 'insert_category':
 		case 'update_category':
 			$nStatus = oos_db_prepare_input($_POST['categories_status']);
+			$color = oos_db_prepare_input($_POST['color']);
 			$sort_order = oos_db_prepare_input($_POST['sort_order']);
 			$nImageCounter = (!isset($_POST['image_counter']) || !is_numeric($_POST['image_counter'])) ? 0 : intval($_POST['image_counter']);
 
@@ -113,7 +114,8 @@ if (!empty($action)) {
 			}
 
 			$sql_data_array = array();
-			$sql_data_array = array('sort_order' => intval($sort_order));
+			$sql_data_array = array('color' => oos_db_prepare_input($color),
+									'sort_order' => intval($sort_order));
 
 			if ($action == 'insert_category') {
 				$insert_sql_data = array();
@@ -550,6 +552,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
                        'categories_image' => '',
 					   'categories_larger_images' => array(),
                        'parent_id' => '',
+					   'color' => '',
                        'sort_order' => '',
                        'date_added' => '',
                        'categories_status' => 2,
@@ -561,7 +564,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
         $categories_descriptiontable = $oostable['categories_description'];
         $query = "SELECT c.categories_id, cd.categories_name, cd.categories_heading_title,
                          cd.categories_description, cd.categories_description_meta, cd.categories_keywords_meta,
-                         c.categories_image, c.parent_id, c.sort_order, c.date_added, c.categories_status, c.last_modified
+                         c.categories_image, c.parent_id, c.color, c.sort_order, c.date_added, c.categories_status, c.last_modified
                   FROM $categoriestable c,
                        $categories_descriptiontable cd
                   WHERE c.categories_id = '" . intval($cID) . "' AND
@@ -600,6 +603,8 @@ if ($action == 'new_category' || $action == 'edit_category') {
 		$setting_result->MoveNext();
 	}
 
+	$aColor = array();
+	$aColor = array('text-primary', 'text-success', 'text-danger', 'text-warning', 'text-dark', 'text-muted');
 
 	if (isset($_GET['origin'])) {
 		$sOrigin = oos_db_prepare_input($_GET['origin']);
@@ -760,6 +765,27 @@ if ($action == 'new_category' || $action == 'edit_category') {
                               <div class="col-lg-10"><?php echo oos_draw_input_field('sort_order', $cInfo->sort_order); ?></div>
                            </div>
                         </fieldset>
+                        <div class="form-group row">
+							<label class="col-lg-2 col-form-label"><?php echo TEXT_EDIT_COLOR; ?></label>
+							<div class="col-lg-10">
+<?php
+		foreach ($aColor as $v) {
+?>		
+								<div class="c-radio c-radio-nofont">
+									<label>
+										<?php
+											echo '<input type="radio" name="color" value="' . $v  . '"'; 
+											if ($cInfo->color == $v) echo ' checked="checked"';
+											echo  '>';
+									   ?>
+										<?php echo '<span class="' . $v . '">' . TEXT_CATEGORY . '</span>'; ?>
+									</label>
+								</div>
+<?php
+		}
+?>								
+							</div>
+						</div>					
                      </div>
                      <div class="tab-pane" id="picture" role="tabpanel">
 	<script type="text/javascript">

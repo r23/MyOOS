@@ -53,14 +53,15 @@ define('TEXT_INFO_EXPIRES_DATE', 'Gültig bis:');
 
 define('TEXT_EDIT_INTRO', 'Bitte führen Sie alle notwendigen Änderungen durch.');
 define('TEXT_EDIT_CATEGORIES_ID', 'Kategorie ID:');
-define('TEXT_EDIT_CATEGORIES_NAME', 'Kategorie Name');
+define('TEXT_EDIT_CATEGORIES_NAME', 'Kategorie Name:');
 define('TEXT_EDIT_CATEGORIES_IMAGE', 'Kategorie Bild');
-define('TEXT_EDIT_CATEGORIES_HEADING_TITLE', 'Meta Tag Titel');
-define('TEXT_EDIT_CATEGORIES_DESCRIPTION', 'Kategorie Beschreibung');
-define('TEXT_EDIT_CATEGORIES_DESCRIPTION_META', 'Meta Tag Beschreibung');
-define('TEXT_EDIT_CATEGORIES_KEYWORDS_META', 'Meta Tag Suchworte');
-define('TEXT_EDIT_SORT_ORDER', 'Sortierreihenfolge');
-define('TEXT_EDIT_STATUS', 'Status');
+define('TEXT_EDIT_CATEGORIES_HEADING_TITLE', 'Meta Tag Titel:');
+define('TEXT_EDIT_CATEGORIES_DESCRIPTION', 'Kategorie Beschreibung:');
+define('TEXT_EDIT_CATEGORIES_DESCRIPTION_META', 'Meta Tag Beschreibung:');
+define('TEXT_EDIT_CATEGORIES_KEYWORDS_META', 'Meta Tag Suchworte:');
+define('TEXT_EDIT_COLOR', 'Farbe:');
+define('TEXT_EDIT_SORT_ORDER', 'Sortierreihenfolge:');
+define('TEXT_EDIT_STATUS', 'Statu:s');
 define('TEXT_TAX_INFO', 'Netto:');
 define('TEXT_PRODUCTS_LIST_PRICE', 'UVP:');
 
