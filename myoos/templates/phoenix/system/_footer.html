@@ -1,5 +1,5 @@
-	<!-- Footer -->
-	<div class="m-bg-black-opacity-0_9 m-color-white-opacity-0_8 m-py-60">
+	<!-- FOOTER -->
+	<div id="down" class="m-bg-black-opacity-0_9 m-color-white-opacity-0_8 m-py-60">
 		<div class="container">
 			<div class="row">
 					
@@ -16,11 +16,10 @@
 					{/if}						
 					</ul>
 
-
-			<ul class="top-links list-inline">	
+			<ul class="list-inline">	
 			{if $languages_block}
 				<li>
-					<a class="dropdown-toggle no-text-underline" data-toggle="dropdown" href="#">{$lang.header_select_language}: ({$language})</a>
+					<a class="dropdown-toggle no-text-underline dropup m-color-white-opacity-0_8 m-color-white--hover" data-toggle="dropdown" href="#">{$lang.header_select_language}: ({$language})</a>
 					<ul class="dropdown-langs dropdown-menu">
 					{foreach item=languages from=$languages_contents}
 						{if $languages.iso_639_2 == $language}
@@ -28,18 +27,17 @@
 						{else}
 							<li>
 						{/if}
-								<a tabindex="-1" href="{html_href_link content=$page_file oos_get=$lang_get_parameters language=$languages.iso_639_2}">
+								<a tabindex="-1" class="m-color-white-opacity-0_8 m-color-white--hover" href="{html_href_link content=$page_file oos_get=$lang_get_parameters language=$languages.iso_639_2}">
 									{$languages.name} ({$languages.iso_639_2}){if $languages.iso_639_2 == $language} <i class="fa fa-check" aria-hidden="true"></i>{/if}
 								</a>
 							</li>
 					{/foreach}
 					</ul>
 				</li>
-			{/if}	
-
+			{/if}
 			{if $currency_block}
 				<li>
-					<a class="dropdown-toggle no-text-underline" data-toggle="dropdown" href="#">{$lang.header_select_currencies}: ({$currency})</a>
+					<a class="dropdown-toggle no-text-underline dropup m-color-white-opacity-0_8 m-color-white--hover" data-toggle="dropdown" href="#">{$lang.header_select_currencies}: ({$currency})</a>
 					<ul class="dropdown-langs dropdown-menu">
 					{foreach item=currencies from=$currencies_contents}
 						{if $currencies.id == $currency}
@@ -47,18 +45,17 @@
 						{else}
 							<li>
 						{/if}							
-								<a tabindex="-1" href="{html_href_link content=$page_file oos_get=$currency_get_parameters currency=$currencies.id}">
+								<a tabindex="-1" class="m-color-white-opacity-0_8 m-color-white--hover" href="{html_href_link content=$page_file oos_get=$currency_get_parameters currency=$currencies.id}">
 									{$currencies.text} {if $currencies.id == $currency} <i class="fa fa-check" aria-hidden="true"></i>{/if}
 								</a>
 							</li>
 					{/foreach}
 					</ul>
 				</li>
-			{/if}
-			
+			{/if}		
 			</ul>					
-					
-					
+			
+			
 				</div><!-- .col -->
 					
 				<div class="col-md-3 col-sm-6">

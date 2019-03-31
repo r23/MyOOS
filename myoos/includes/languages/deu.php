@@ -72,8 +72,8 @@ $aLang = [
 'header_title_login'           => 'Anmelden',
 'header_title_contact'         => 'Kontakt',
 'header_title_whats_new'       => 'Neue Produkte',
-'header_select_language'       => 'Ihre Sprache',
-'header_select_currencies'     => 'Währung',
+'header_select_language'       => 'Meine Sprache',
+'header_select_currencies'     => 'Meine Währung',
 'sub_title_total'              => 'Summe:',
 'block_heading_specials'       => 'Angebote',
 // footer text in includes/oos_footer.php
