@@ -72,10 +72,10 @@ function oos_get_path($current_category_id = '') {
 }
 
 
-function oos_get_category_tree($parent_id = '0', $spacing = '', $exclude = '', $category_tree_array = '', $include_itself = FALSE) {
+function oos_get_category_tree($parent_id = '0', $spacing = '', $exclude = '', $aCategoryTree = '', $include_itself = FALSE) {
 
-    if (!is_array($category_tree_array)) $category_tree_array = array();
-    if ( (count($category_tree_array) < 1) && ($exclude != '0') ) $category_tree_array[] = array('id' => '0', 'text' => TEXT_TOP);
+    if (!is_array($aCategoryTree)) $aCategoryTree = array();
+    if ( (count($aCategoryTree) < 1) && ($exclude != '0') ) $aCategoryTree[] = array('id' => '0', 'text' => TEXT_TOP);
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
@@ -90,7 +90,7 @@ function oos_get_category_tree($parent_id = '0', $spacing = '', $exclude = '', $
 		$category_result = $dbconn->Execute($query);
 	
 		$category = $category_result->fields;
-		$category_tree_array[] = array('id' => $parent_id, 'text' => $category['categories_name']);
+		$aCategoryTree[] = array('id' => $parent_id, 'text' => $category['categories_name']);
 	}
 
     $categoriestable = $oostable['categories'];
@@ -106,14 +106,14 @@ function oos_get_category_tree($parent_id = '0', $spacing = '', $exclude = '', $
     $categories_result = $dbconn->Execute($query);
 
 	while ($categories = $categories_result->fields) {
-		if ($exclude != $categories['categories_id']) $category_tree_array[] = array('id' => $categories['categories_id'], 'text' => $spacing . $categories['categories_name']);
-		$category_tree_array = oos_get_category_tree($categories['categories_id'], $spacing . '&nbsp;&nbsp;&nbsp;', $exclude, $category_tree_array);
+		if ($exclude != $categories['categories_id']) $aCategoryTree[] = array('id' => $categories['categories_id'], 'text' => $spacing . $categories['categories_name']);
+		$aCategoryTree = oos_get_category_tree($categories['categories_id'], $spacing . '&nbsp;&nbsp;&nbsp;', $exclude, $aCategoryTree);
 
 		// Move that ADOdb pointer!
 		$categories_result->MoveNext();
     }
 
-    return $category_tree_array;
+    return $aCategoryTree;
 }
 
 

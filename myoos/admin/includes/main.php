@@ -59,7 +59,7 @@ $request = Request::createFromGLOBALs();
 require 'includes/filename.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/tables.php';
 
-require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_GLOBAL.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_global.php';
 require 'includes/functions/function_kernel.php';
 
 
@@ -141,7 +141,7 @@ $aLang = array();
 $sLanguage = oos_var_prep_for_os($_SESSION['language']);
 require 'includes/languages/' . $sLanguage . '.php';
 require 'includes/languages/' . $sLanguage . '/configuration_group.php';
-$current_page = basename($_SERVER['SCRIPT_NAME']);
+$current_page = oos_var_prep_for_os(basename($_SERVER['SCRIPT_NAME']));
 if (file_exists('includes/languages/' . $sLanguage . '/' . $current_page)) {
 	require 'includes/languages/' . $sLanguage . '/' . $current_page;
 }
