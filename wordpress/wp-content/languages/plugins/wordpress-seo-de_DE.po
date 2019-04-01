@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Yoast SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-03-26 15:52:26+0000\n"
+"PO-Revision-Date: 2019-03-31 08:40:59+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -254,6 +254,11 @@ msgstr "Indexierbare Metadaten für die indexierbare ID %1$s mit dem Metaschlüs
 #: src/exceptions/no-indexable-found.php:100
 msgid "There is no meta found for indexable id %1$s and meta key %2$s."
 msgstr "Für die indexierbare ID %1$s und den Metaschlüssel %2$s wurde kein Meta Tag gefunden."
+
+#. translators: 1: expands to the term id. 2: expand to the taxonomy
+#: src/exceptions/no-indexable-found.php:64
+msgid "There is no primary term found for post id %1$s and taxonomy %2$s."
+msgstr "Es gibt keinen primären Begriff für Bericht-ID %1$s und die Taxonomie %2$s."
 
 #. translators: 1: expands to the term id. 2: expand to the taxonomy
 #: src/exceptions/no-indexable-found.php:45
