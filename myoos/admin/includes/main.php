@@ -24,7 +24,7 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 
 
 // debug
-$debug = '0';
+$debug = '1';
 
 // for debug set the level of error reporting
 // error_reporting(E_ALL);
