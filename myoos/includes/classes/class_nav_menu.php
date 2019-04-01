@@ -124,11 +124,49 @@ class nav_menu {
 				}
 
 
+
+				switch ($level) {
+					case 0:
+						$result .= $this->root_start_string;
+						break;
+				
+					case 1:
+						if ($submenu == 0) {
+							$submenu++;
+							$this->count = 0;
+							$this->submenu = 1;
+							
+							$result .= '<div class="main-nav-submenu">
+							
+											<div class="row"><div class="col-md-3"><ul class="list-unstyled"><li>';
+						} else {
+							$this->count+2;							
+							$result .= '<ul class="list-unstyled"><li>';
+						}
+						break;
+					
+					case 2:
+						$result .= $this->parent_start_string;
+						break;
+				}
+
+
 				$result .= $sLink;
 
 				if ($level == 0) {
 					$result .= '<i class="fa fa-circle-o-notch ' . $category['color'] . '" aria-hidden="true"></i>';
-				}
+				} 
+				
+				switch ($category['menu_type'] ) {				
+					case 'NEW':
+						$result .= '<span class="badge badge-danger float-right">NEW</span>';
+						break;
+						
+					case 'PROMO':
+						$result .= '<span class="badge badge-success float-right">PROMO</span>';
+						break;										
+				}				
+				
 
 				if ($this->follow_cpath === TRUE) {
 					if (in_array($category_id, $this->cpath_array)) {

@@ -60,6 +60,7 @@ define('TEXT_EDIT_CATEGORIES_DESCRIPTION', 'Kategorie Beschreibung:');
 define('TEXT_EDIT_CATEGORIES_DESCRIPTION_META', 'Meta Tag Beschreibung:');
 define('TEXT_EDIT_CATEGORIES_KEYWORDS_META', 'Meta Tag Suchworte:');
 define('TEXT_EDIT_COLOR', 'Farbe:');
+define('TEXT_EDIT_MENU_TYPE', 'Anstecker:');
 define('TEXT_EDIT_SORT_ORDER', 'Sortierreihenfolge:');
 define('TEXT_EDIT_STATUS', 'Statu:s');
 define('TEXT_TAX_INFO', 'Netto:');

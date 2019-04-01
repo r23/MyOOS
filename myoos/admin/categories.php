@@ -91,6 +91,7 @@ if (!empty($action)) {
 		case 'update_category':
 			$nStatus = oos_db_prepare_input($_POST['categories_status']);
 			$color = oos_db_prepare_input($_POST['color']);
+			$menu_type  = oos_db_prepare_input($_POST['menu_type']);
 			$sort_order = oos_db_prepare_input($_POST['sort_order']);
 			$nImageCounter = (!isset($_POST['image_counter']) || !is_numeric($_POST['image_counter'])) ? 0 : intval($_POST['image_counter']);
 
@@ -115,6 +116,7 @@ if (!empty($action)) {
 
 			$sql_data_array = array();
 			$sql_data_array = array('color' => oos_db_prepare_input($color),
+									'menu_type' => oos_db_prepare_input($menu_type),
 									'sort_order' => intval($sort_order));
 
 			if ($action == 'insert_category') {
@@ -553,6 +555,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 					   'categories_larger_images' => array(),
                        'parent_id' => '',
 					   'color' => '',
+					   'menu_type'  => '',
                        'sort_order' => '',
                        'date_added' => '',
                        'categories_status' => 2,
@@ -564,7 +567,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
         $categories_descriptiontable = $oostable['categories_description'];
         $query = "SELECT c.categories_id, cd.categories_name, cd.categories_heading_title,
                          cd.categories_description, cd.categories_description_meta, cd.categories_keywords_meta,
-                         c.categories_image, c.parent_id, c.color, c.sort_order, c.date_added, c.categories_status, c.last_modified
+                         c.categories_image, c.parent_id, c.color, c.menu_type, c.sort_order, c.date_added, c.categories_status, c.last_modified
                   FROM $categoriestable c,
                        $categories_descriptiontable cd
                   WHERE c.categories_id = '" . intval($cID) . "' AND
@@ -785,7 +788,42 @@ if ($action == 'new_category' || $action == 'edit_category') {
 		}
 ?>								
 							</div>
-						</div>					
+						</div>
+                        <div class="form-group row">
+							<label class="col-lg-2 col-form-label"><?php echo TEXT_EDIT_MENU_TYPE; ?></label>
+							<div class="col-lg-10">
+								<div class="c-radio c-radio-nofont">
+									<label>
+										<input type="radio" name="menu_type" value="DEFAULT" checked="checked">
+										<span></span>
+									</label>
+								</div>	
+								<div class="c-radio c-radio-nofont">
+									<label>
+										<?php
+											echo '<input type="radio" name="menu_type" value="NEW"'; 
+											if ($cInfo->menu_type == 'NEW') echo ' checked="checked"';
+											echo  '>&nbsp;';
+									   ?>
+										<span class="badge badge-danger float-right">NEW</span>
+									</label>
+								</div>
+								<div class="c-radio c-radio-nofont">
+									<label>
+										<?php
+											echo '<input type="radio" name="menu_type" value="PROMO"'; 
+											if ($cInfo->menu_type == 'PROMO') echo ' checked="checked"';
+											echo  '>&nbsp;';
+									   ?>
+										<span class="badge badge-success float-right">PROMO</span>
+									</label>
+								</div>
+								
+								
+								
+							</div>
+						</div>
+						
                      </div>
                      <div class="tab-pane" id="picture" role="tabpanel">
 	<script type="text/javascript">
@@ -1091,9 +1129,9 @@ if ($action == 'new_category' || $action == 'edit_category') {
 ?></td>
                 <td class="text-center">&nbsp;<?php echo $categories['sort_order']; ?>&nbsp;</td>
                 <td class="text-right"><?php echo
-					'<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id . '&action=edit_category') . '"><i class="fa fa-pencil" title="' . BUTTON_EDIT . '"></i></a>
-					<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id . '&action=delete_category') . '"><i class="fa fa-trash" title="' . BUTTON_DELETE . '"></i></a>
-					<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id . '&action=move_category') . '"><i class="fa fa-share" title="' .  IMAGE_MOVE  . '"></i></a>';
+					'<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $categories['categories_id'] . '&action=edit_category') . '"><i class="fa fa-pencil" title="' . BUTTON_EDIT . '"></i></a>
+					<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $categories['categories_id'] . '&action=delete_category') . '"><i class="fa fa-trash" title="' . BUTTON_DELETE . '"></i></a>
+					<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $categories['categories_id'] . '&action=move_category') . '"><i class="fa fa-share" title="' .  IMAGE_MOVE  . '"></i></a>';
 ?>				&nbsp;</td>
               </tr>
 <?php
