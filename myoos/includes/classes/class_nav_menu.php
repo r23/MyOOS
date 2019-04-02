@@ -42,7 +42,10 @@ class nav_menu {
         $follow_cpath = FALSE,
         $cpath_array = array(),
         $cpath_start_string = '',
-        $cpath_end_string = '';
+        $cpath_end_string = '',
+		$banner_image = '',
+		$banner_link = '';
+
 
 
 	public function __construct() {
@@ -55,7 +58,7 @@ class nav_menu {
 
 		$categoriestable = $oostable['categories'];
 		$categories_descriptionstable = $oostable['categories_description'];
-		$sql = "SELECT c.categories_id, cd.categories_name, c.parent_id, c.color, c.menu_type, c.categories_status
+		$sql = "SELECT c.categories_id, cd.categories_name, c.parent_id, c.categories_banner, c.color, c.menu_type, c.categories_status
               FROM $categoriestable c,
                    $categories_descriptionstable cd
               WHERE c.categories_status = '2'
@@ -71,6 +74,7 @@ class nav_menu {
 
 		while ($categories = $categories_result->fields) {
 			$this->data[$categories['parent_id']][$categories['categories_id']] = array('name' => $categories['categories_name'], 
+																						'banner' => $categories['categories_banner'], 
 																						'color' => $categories['color'], 
 																						'menu_type' => $categories['menu_type'], 
 																						'count' => 0);
@@ -207,6 +211,13 @@ class nav_menu {
 							$result .=  '</div></div></div>';	
 						}
 						$this->submenu = 0;
+						/*
+							<div class="col-md-3 text-right hidden-sm-down">
+								<a class="mt-15 block" href="#">
+									<img class="img-fluid" src="/banners/banner_menu_1col.png" alt="">
+								</a>
+							</div>						
+						*/
 						$result .= $this->root_end_string;
 						break;
 						

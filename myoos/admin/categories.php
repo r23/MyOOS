@@ -552,6 +552,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
                        'categories_description_meta' => '',
                        'categories_keywords_meta' => '',
                        'categories_image' => '',
+					   'categories_banner' => '',
 					   'categories_larger_images' => array(),
                        'parent_id' => '',
 					   'color' => '',
@@ -567,7 +568,8 @@ if ($action == 'new_category' || $action == 'edit_category') {
         $categories_descriptiontable = $oostable['categories_description'];
         $query = "SELECT c.categories_id, cd.categories_name, cd.categories_heading_title,
                          cd.categories_description, cd.categories_description_meta, cd.categories_keywords_meta,
-                         c.categories_image, c.parent_id, c.color, c.menu_type, c.sort_order, c.date_added, c.categories_status, c.last_modified
+                         c.categories_image, c.categories_banner, c.parent_id, c.color, c.menu_type, c.sort_order,
+						 c.date_added, c.categories_status, c.last_modified
                   FROM $categoriestable c,
                        $categories_descriptiontable cd
                   WHERE c.categories_id = '" . intval($cID) . "' AND
@@ -868,7 +870,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 		echo oos_draw_hidden_field('categories_previous_image', $cInfo->categories_image);
 		echo '<br>';
 		echo oos_draw_checkbox_field('remove_image', 'yes') . ' ' . TEXT_IMAGE_REMOVE;	
-	} else {		
+	} else {	
 ?>
 
 <div class="fileinput fileinput-new" data-provides="fileinput">
@@ -882,7 +884,19 @@ if ($action == 'new_category' || $action == 'edit_category') {
 </div>
 <?php
 	}
-?>
+	
+if (oos_is_not_null($cInfo->categories_banner)) {
+		echo '<div class="text-center"><div class="d-block" style="width: 200px; height: 150px;">';
+        echo oos_info_image('banners/medium/' . $cInfo->categories_banner, $cInfo->categories_name);
+		echo '</div></div>';
+
+		echo oos_draw_hidden_field('categories_previous_banner', $cInfo->categories_banner);
+		echo '<br>';
+		echo oos_draw_checkbox_field('remove_banner', 'yes') . ' ' . TEXT_IMAGE_REMOVE;	
+	} else {		
+
+	}
+?>	
 			</div>
 			<div class="col-9">
 				<strong>Details</strong>
@@ -1181,11 +1195,11 @@ if ($action == 'new_category' || $action == 'edit_category') {
 ?></td>
                 <td class="text-center"><?php echo $products['products_sort_order']; ?></td>
                 <td class="text-right"><?php echo
-							'<a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=new_product') . '"><i class="fa fa-pencil" title="' .  BUTTON_EDIT . '"></i></a>
-							<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=delete_product') . '"><i class="fa fa-trash" title="' .  BUTTON_DELETE . '"></i></a>
-							<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=move_product') . '"><i class="fa fa-share" title="' . IMAGE_MOVE . '"></i></a>
-							<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=copy_to') . '"><i class="fa fa-copy" title="' . IMAGE_COPY_TO . '"></i></a>
-							<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=slave_products') . '"><i class="fa fa-sticky-note" title="' . IMAGE_SLAVE . '"></i></a>';
+							'<a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=new_product') . '"><i class="fa fa-pencil" title="' .  BUTTON_EDIT . '"></i></a>
+							<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=delete_product') . '"><i class="fa fa-trash" title="' .  BUTTON_DELETE . '"></i></a>
+							<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=move_product') . '"><i class="fa fa-share" title="' . IMAGE_MOVE . '"></i></a>
+							<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=copy_to') . '"><i class="fa fa-copy" title="' . IMAGE_COPY_TO . '"></i></a>
+							<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=slave_products') . '"><i class="fa fa-sticky-note" title="' . IMAGE_SLAVE . '"></i></a>';
 			?>&nbsp;</td>
               </tr>
 <?php

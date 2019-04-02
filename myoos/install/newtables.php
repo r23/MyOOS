@@ -205,6 +205,7 @@ $table = $prefix_table . 'categories';
 $flds = "
   categories_id I NOTNULL AUTO PRIMARY,
   categories_image C(250), 
+  categories_banner C(250), 
   color C(23), 
   menu_type C(23),  
   parent_id I NOTNULL DEFAULT '0',
