@@ -66,6 +66,12 @@ define('TEXT_EDIT_STATUS', 'Status:');
 define('TEXT_TAX_INFO', ' ex VAT:');
 define('TEXT_PRODUCTS_LIST_PRICE', 'List:');
 
+define('TEXT_INFO_BANNER', 'Banner');
+define('TEXT_INFO_DETAILS', 'Details');
+define('TEXT_INFO_PREVIEW', 'Preview');
+define('TEXT_INFO_PRIMARY', 'Primary');
+define('TEXT_INFO_SLIDER', 'Slider');
+
 
 define('TEXT_INFO_COPY_TO_INTRO', 'Please choose a new category you wish to copy this product to');
 define('TEXT_INFO_CURRENT_CATEGORIES', 'Current Categories:');

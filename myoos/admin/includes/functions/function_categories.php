@@ -482,6 +482,17 @@ function oos_remove_category_image($image) {
 }
 
 
+function oos_remove_category_banner($image) {
+	$sImage = oos_var_prep_for_os($image);
+	
+	if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'banners/originals/' .$sImage)) {
+		@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'banners/large/' .$sImage);
+		@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'banners/medium/' .$sImage);
+		@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'banners/originals/' .$sImage);
+	}
+}
+
+
 
 function oos_remove_category($category_id) {
 

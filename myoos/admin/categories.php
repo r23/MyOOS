@@ -171,7 +171,17 @@ if (!empty($action)) {
 				
 				oos_remove_category_image($categories_previous_image);				
 			}
-
+			
+			if ( ($_POST['remove_banner'] == 'yes') && (isset($_POST['categories_previous_banner'])) ) {
+				$categories_previous_banner = oos_db_prepare_input($_POST['categories_previous_banner']);
+				
+				$categoriestable = $oostable['categories'];
+				$dbconn->Execute("UPDATE $categoriestable
+                            SET categories_banner = NULL
+                            WHERE categories_id = '" . intval($categories_id) . "'");				
+				
+				oos_remove_category_banner($categories_previous_banner);				
+			}
 		
 			for ($i = 1, $n = $nImageCounter+1; $i < $n; $i++) {
 				if ( ($_POST['remove_category_image'][$i] == 'yes') && (isset($_POST['categories_previous_large_image'][$i])) ) {
@@ -182,7 +192,52 @@ if (!empty($action)) {
 					oos_remove_category_image($categories_previous_large_image);				
 				}
 			}
+			
+			// Banner
+			$options = array(
+				'image_versions' => array(
+                // The empty image version key defines options for the original image.
+                // Keep in mind: these image manipulations are inherited by all other image versions from this point onwards.
+                // Also note that the property 'no_cache' is not inherited, since it's not a manipulation.
+					'' => array(
+						// Automatically rotate images based on EXIF meta data:
+						'auto_orient' => TRUE
+					),
+					'large' => array(
+						// 'auto_orient' => TRUE,
+						// 'crop' => TRUE,
+						// 'jpeg_quality' => 82,
+						// 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+						// 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+						'max_width' => 1024, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+						'max_height' => 1024, // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
+					),
+					'medium' => array(
+						// 'auto_orient' => TRUE,
+						// 'crop' => TRUE,
+						// 'jpeg_quality' => 82,
+						// 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+						// 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+						'max_width' => 300, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+						'max_height' => 300 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
+					),
+				),
+			);
 
+			$oCategoriesBanner = new upload('categories_banner', $options);
+
+			$dir_fs_catalog_banner = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'banners/';
+			$oCategoriesBanner->set_destination($dir_fs_catalog_banner);	
+			
+			if ($oCategoriesBanner->parse() && oos_is_not_null($oCategoriesBanner->filename)) {
+
+				$categoriestable = $oostable['categories'];
+				$dbconn->Execute("UPDATE $categoriestable
+                            SET categories_banner = '" . oos_db_input($oCategoriesBanner->filename) . "'
+                            WHERE categories_id = '" . intval($categories_id) . "'");
+			}			
+			
+			// Primary
 			$options = array(
 				'image_versions' => array(
                 // The empty image version key defines options for the original image.
@@ -851,17 +906,36 @@ if ($action == 'new_category' || $action == 'edit_category') {
 
 		<div class="row mb-3">
 			<div class="col-3">
-				<strong>Preview</strong>
+				<strong><?php echo TEXT_INFO_PREVIEW; ?></strong>
 			</div>
 			<div class="col-9">
-				<strong>Details</strong>
+				<strong><?php echo TEXT_INFO_DETAILS; ?></strong>
+			</div>
+		</div>
+
+		<div class="row mb-3 pb-3 bb">
+			<div class="col-6 col-md-3">
+<?php
+	if (oos_is_not_null($cInfo->categories_banner)) {
+		echo '<div class="text-center"><div class="d-block" style="width: 200px; height: 150px;">';
+        echo oos_info_image('banners/medium/' . $cInfo->categories_banner, $cInfo->categories_name);
+		echo '</div></div>';
+
+		echo oos_draw_hidden_field('categories_previous_banner', $cInfo->categories_banner);
+		echo '<br>';
+		echo oos_draw_checkbox_field('remove_banner', 'yes') . ' ' . TEXT_IMAGE_REMOVE;	
+?>	
+			</div>
+			<div class="col-9">
+				<strong><?php echo TEXT_INFO_BANNER; ?></strong>
 			</div>
 		</div>
 
 		<div class="row mb-3 pb-3 bb">
 			<div class="col-6 col-md-3">		
-		
-<?php	
+
+<?php
+	}	
 	if (oos_is_not_null($cInfo->categories_image)) {
 		echo '<div class="text-center"><div class="d-block" style="width: 200px; height: 150px;">';
         echo oos_info_image('category/medium/' . $cInfo->categories_image, $cInfo->categories_name);
@@ -884,22 +958,29 @@ if ($action == 'new_category' || $action == 'edit_category') {
 </div>
 <?php
 	}
-	
-if (oos_is_not_null($cInfo->categories_banner)) {
-		echo '<div class="text-center"><div class="d-block" style="width: 200px; height: 150px;">';
-        echo oos_info_image('banners/medium/' . $cInfo->categories_banner, $cInfo->categories_name);
-		echo '</div></div>';
-
-		echo oos_draw_hidden_field('categories_previous_banner', $cInfo->categories_banner);
-		echo '<br>';
-		echo oos_draw_checkbox_field('remove_banner', 'yes') . ' ' . TEXT_IMAGE_REMOVE;	
-	} else {		
-
-	}
 ?>	
 			</div>
 			<div class="col-9">
-				<strong>Details</strong>
+				<div class="c-radio c-radio-nofont">
+					<label>
+					<?php
+						echo '<input type="radio" name="image_type" value="Primary"'; 
+						if ($cInfo->image_type == 'NEW') echo ' checked="checked"';
+						echo  '>&nbsp;';
+					?>
+						<span class="float-right"><?php echo TEXT_INFO_PRIMARY; ?></span>
+					</label>
+				</div>
+				<div class="c-radio c-radio-nofont">
+					<label>
+					<?php
+						echo '<input type="radio" name="image_type" value="Banner"'; 
+						if ($cInfo->image_type == 'PROMO') echo ' checked="checked"';
+							echo  '>&nbsp;';
+					?>
+						<span class="float-right"><?php echo TEXT_INFO_BANNER; ?></span>
+					</label>
+				</div>				
 			</div>
 		</div>
 <?php
@@ -923,7 +1004,7 @@ if (oos_is_not_null($cInfo->categories_banner)) {
 ?>
 			</div>
 			<div class="col-9">
-				<strong>Details</strong>
+				<strong><?php echo TEXT_INFO_PRIMARY; ?></strong>
 			</div>	
 		</div>
 <?php
@@ -946,7 +1027,7 @@ if (oos_is_not_null($cInfo->categories_banner)) {
 
 			</div>
 			<div class="col-9">
-				<strong>Slider</strong>
+				<strong><?php echo TEXT_INFO_SLIDER; ?></strong>
 			</div>
 		</div>
 
@@ -965,7 +1046,7 @@ if (oos_is_not_null($cInfo->categories_banner)) {
 
 			</div>
 			<div class="col-9">
-				<strong>Slider</strong>
+				<strong><?php echo TEXT_INFO_SLIDER; ?></strong>
 			</div>
 		</div>
 
@@ -993,7 +1074,7 @@ if (oos_is_not_null($cInfo->categories_banner)) {
 
                            </div>
                            <div class="col-9">
-                              <strong>Slider</strong>
+                              <strong><?php echo TEXT_INFO_SLIDER; ?></strong>
                            </div>
 						</div>
 		</div>

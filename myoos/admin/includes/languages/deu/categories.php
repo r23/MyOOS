@@ -66,6 +66,12 @@ define('TEXT_EDIT_STATUS', 'Statu:s');
 define('TEXT_TAX_INFO', 'Netto:');
 define('TEXT_PRODUCTS_LIST_PRICE', 'UVP:');
 
+define('TEXT_INFO_BANNER', 'Banner');
+define('TEXT_INFO_DETAILS', 'Details');
+define('TEXT_INFO_PREVIEW', 'Preview');
+define('TEXT_INFO_PRIMARY', 'Primary');
+define('TEXT_INFO_SLIDER', 'Slider');
+
 
 define('TEXT_INFO_COPY_TO_INTRO', 'Bitte wählen Sie eine neue Kategorie aus, in die Sie den Artikel kopieren möchten:');
 define('TEXT_INFO_CURRENT_CATEGORIES', 'aktuelle Kategorien:');
