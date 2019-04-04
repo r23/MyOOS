@@ -67,7 +67,7 @@ class Yoast_Google_WPIO extends Yoast_Google_IO {
 		$params = array(
 			'user-agent' => $request->getUserAgent(),
 			'timeout'    => 30,
-			'sslverify'  => true,
+			'sslverify'  => false,
 		);
 
 		$curl_version = $this->get_curl_version();
@@ -89,6 +89,7 @@ class Yoast_Google_WPIO extends Yoast_Google_IO {
 		// There might be some problems with decompressing, so we prevent this by setting the param to false
 		$params['decompress'] = false;
 
+
 		switch ( $request->getRequestMethod() ) {
 			case 'POST' :
 				$response = wp_remote_post( $request->getUrl(), $params );
@@ -96,7 +97,6 @@ class Yoast_Google_WPIO extends Yoast_Google_IO {
 
 			case 'GET' :
 				$response = wp_remote_get( $request->getUrl(), $params );
-
 				break;
 			case 'DELETE' :
 				$params['method'] = 'DELETE';

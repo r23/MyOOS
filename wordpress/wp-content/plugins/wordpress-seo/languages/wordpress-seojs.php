@@ -1,9 +1,6 @@
 <?php
 /* THIS IS A GENERATED FILE. DO NOT EDIT DIRECTLY. */
 $generated_i18n_strings = array(
-	// Reference: js/src/analysis/handleWorkerError.js:24
-	__( 'We\'re sorry! Unfortunately, the recalibrated analysis beta doesn\'t work as intended with your current setup {{bold}}yet{{/bold}}. Please deactivate the recalibration beta under "SEO - General - Features" and please try again later. We value your input! If you can\'t access the feature page, please contact your administrator. ', 'wordpress-seo' ),
-
 	// Reference: js/src/components/AnalysisUpsell.js:54
 	__( 'Did you know %s also analyzes the different word forms of your keyphrase, like plurals and past tenses?', 'wordpress-seo' ),
 

@@ -76,3 +76,9 @@ prepros-6.config
 /myoos/images/ico/144x144/*.png
 /myoos/images/ico/180x180/*.png
 /myoos/images/ico/originals/*.png
+/myoos/images/banners/large/*.png
+/myoos/images/banners/medium/*.png
+/myoos/images/banners/originals/*.png
+/myoos/images/banners/originals/*.jpg
+/myoos/images/banners/medium/*.jpg
+/myoos/images/banners/large/*.jpg
