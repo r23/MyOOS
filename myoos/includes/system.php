@@ -86,7 +86,8 @@ $smarty->assign(
 
 $smarty->assign('oos_base', OOS_HTTPS_SERVER . OOS_SHOP);
 
-$smarty->assign('nav_menu', $oNavMenu->build());
+$sNavMenue = $oNavMenu->build();
+$smarty->assign('nav_menu', $sNavMenue);
 
 $cart_products = array();
 $cart_count_contents = 0;

@@ -259,11 +259,11 @@ if ( empty( $sContent ) || !is_string( $sContent ) ) {
 // initialize the message stack for output messages
 $aInfoMessage = array();
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_message_stack.php';
-$oMessage = new messageStack;
+$oMessage = new messageStack();
 
 // Nav Menu
 include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_nav_menu.php';
-$oNavMenu = new nav_menu;
+$oNavMenu = new nav_menu();
 
 
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php';
