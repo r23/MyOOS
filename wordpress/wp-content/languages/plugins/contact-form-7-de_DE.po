@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Contact Form 7 - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-02-20 14:39:34+0000\n"
+"PO-Revision-Date: 2019-04-04 09:07:14+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -458,18 +458,6 @@ msgstr "Ein oder mehrere Felder sind fehlerhaft. Bitte überprüfe sie und versu
 msgid "You must accept the terms and conditions before sending your message."
 msgstr "Du musst die Bedingungen akzeptieren bevor du deine Mitteilung absendest."
 
-#: includes/contact-form-template.php:182
-msgid "The field is required."
-msgstr "Das Feld ist erforderlich."
-
-#: includes/contact-form-template.php:189
-msgid "The field is too long."
-msgstr "Das Feld ist zu lang."
-
-#: includes/contact-form-template.php:196
-msgid "The field is too short."
-msgstr "Das Feld ist zu kurz."
-
 #: includes/contact-form-template.php:147
 msgid "Thank you for your message. It has been sent."
 msgstr "Vielen Dank für deine Mitteilung. Sie wurde versandt."
@@ -491,6 +479,18 @@ msgid "Validate %s Contact Form Now"
 msgid_plural "Validate %s Contact Forms Now"
 msgstr[0] "%s Kontaktformular jetzt validieren"
 msgstr[1] "%s Kontaktformulare jetzt validieren"
+
+#: includes/contact-form-template.php:196
+msgid "The field is too short."
+msgstr "Deine Eingabe ist zu kurz."
+
+#: includes/contact-form-template.php:189
+msgid "The field is too long."
+msgstr "Deine Eingabe ist zu lang."
+
+#: includes/contact-form-template.php:182
+msgid "The field is required."
+msgstr "Dies ist ein Pflichtfeld."
 
 #: modules/recaptcha.php:364
 msgid "Settings saved."
@@ -773,13 +773,13 @@ msgstr "Unter <strong>Mitteilungen</strong> kannst du verschiedene Arten von Mit
 msgid "While form-tags have a comparatively complex syntax, you don&#8217;t need to know the syntax to add form-tags because you can use the straightforward tag generator (<strong>Generate Tag</strong> button on this screen)."
 msgstr "Weil Formular-Tags einen vergleichsweisen komplexen Aufbau haben, wird Ihnen zur Erleichterung ein komfortabler Tag-Generator <strong>(Button Tag generieren</strong> in dieser Anzeige) zur Verfügung gestellt."
 
-#: admin/includes/help-tabs.php:75
-msgid "A form-tag is a short code enclosed in square brackets used in a form content. A form-tag generally represents an input field, and its components can be separated into four parts: type, name, options, and values. Contact Form 7 supports several types of form-tags including text fields, number fields, date fields, checkboxes, radio buttons, menus, file-uploading fields, CAPTCHAs, and quiz fields."
-msgstr "Ein Formular-Tag ist ein Shortcode in eckigen Klammern, den du in Formularen verwenden kannst. Ein Formular-Tag ist in der Regel ein Eingabefeld und seine Komponenten werden in vier Teile getrennt: Typ, Name, Optionen und Werte. Contact Form 7 unterstützt mehrere Arten von Formular-Tags einschließlich Textfeldern, Zahlenfeldern, Datumsfeldern, Auswahlboxen, Auswahlmenüs, Optionsfeldern, Feldern zum Hochladen von Dateien, CAPTCHAs und Quiz-Feldern."
-
 #: admin/includes/help-tabs.php:78
 msgid "A mail-tag is also a short code enclosed in square brackets that you can use in every Mail and Mail (2) field. A mail-tag represents a user input value through an input field of a corresponding form-tag."
 msgstr "Ein E-Mail-Tag ist auch ein Shortcode in eckigen Klammern, den du in jeder E-Mail und E-Mail (2) verwenden kannst. Ein E-Mail-Tag gibt den Eingabewert wieder, den ein Benutzer über ein zugehöriges Eingabefeld eingegeben hat."
+
+#: admin/includes/help-tabs.php:75
+msgid "A form-tag is a short code enclosed in square brackets used in a form content. A form-tag generally represents an input field, and its components can be separated into four parts: type, name, options, and values. Contact Form 7 supports several types of form-tags including text fields, number fields, date fields, checkboxes, radio buttons, menus, file-uploading fields, CAPTCHAs, and quiz fields."
+msgstr "Ein Formular-Tag ist ein Shortcode in eckigen Klammern, den du in Formularen verwenden kannst. Ein Formular-Tag ist in der Regel ein Eingabefeld und seine Komponenten werden in vier Teile getrennt: Typ, Name, Optionen und Werte. Contact Form 7 unterstützt mehrere Arten von Formular-Tags einschließlich Textfeldern, Zahlenfeldern, Datumsfeldern, Auswahlboxen, Auswahlmenüs, Optionsfeldern, Feldern zum Hochladen von Dateien, CAPTCHAs und Quiz-Feldern."
 
 #: admin/includes/help-tabs.php:79
 msgid "There are also special mail-tags that have specific names, but don&#8217;t have corresponding form-tags. They are used to represent meta information of form submissions like the submitter&#8217;s IP address or the URL of the page."
