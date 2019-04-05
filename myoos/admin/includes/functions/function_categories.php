@@ -74,8 +74,11 @@ function oos_get_path($current_category_id = '') {
 
 function oos_get_category_tree($parent_id = '0', $spacing = '', $exclude = '', $aCategoryTree = '', $include_itself = FALSE) {
 
+	if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+
     if (!is_array($aCategoryTree)) $aCategoryTree = array();
     if ( (count($aCategoryTree) < 1) && ($exclude != '0') ) $aCategoryTree[] = array('id' => '0', 'text' => TEXT_TOP);
+	
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
@@ -85,28 +88,29 @@ function oos_get_category_tree($parent_id = '0', $spacing = '', $exclude = '', $
 		$categories_descriptiontable = $oostable['categories_description'];
 		$query = "SELECT cd.categories_name
                 FROM $categories_descriptiontable cd
-                WHERE cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "'
+                WHERE cd.categories_languages_id = '" . intval($language_id) . "'
                   AND cd.categories_id = '" . intval($parent_id) . "'";
 		$category_result = $dbconn->Execute($query);
 	
 		$category = $category_result->fields;
 		$aCategoryTree[] = array('id' => $parent_id, 'text' => $category['categories_name']);
 	}
-
+	
     $categoriestable = $oostable['categories'];
     $categories_descriptiontable = $oostable['categories_description'];
-    $query = "SELECT c.categories_id, cd.categories_name, c.parent_id
+    $query = "SELECT c.categories_id, cd.categories_name, c.parent_id, c.sort_order
               FROM $categoriestable c,
                    $categories_descriptiontable cd
-              WHERE c.categories_status != 0 
+              WHERE c.categories_status != 0
+				AND c.parent_id = '" . intval($parent_id) . "'
 				AND c.categories_id = cd.categories_id 
-                AND cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "'
-                AND c.parent_id = '" . intval($parent_id) . "'
+                AND cd.categories_languages_id = '" . intval($language_id) . "'              
            ORDER BY c.sort_order, cd.categories_name";
     $categories_result = $dbconn->Execute($query);
-
+	
 	while ($categories = $categories_result->fields) {
 		if ($exclude != $categories['categories_id']) $aCategoryTree[] = array('id' => $categories['categories_id'], 'text' => $spacing . $categories['categories_name']);
+				
 		$aCategoryTree = oos_get_category_tree($categories['categories_id'], $spacing . '&nbsp;&nbsp;&nbsp;', $exclude, $aCategoryTree);
 
 		// Move that ADOdb pointer!

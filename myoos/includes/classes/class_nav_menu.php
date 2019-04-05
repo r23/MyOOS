@@ -25,6 +25,7 @@ class nav_menu {
 	var $root_category_id = 0,
         $max_level = 0,
 		$count = 0,
+		$count_col = 0,
 		$submenu = 0,
         $data = array(),
         $root_start_string = '<li class="main-nav-item main-nav-expanded">',
@@ -44,8 +45,8 @@ class nav_menu {
         $cpath_start_string = '',
         $cpath_end_string = '',
 		$banner_image = '',
-		$banner_link = '';
-
+		$banner_link = '',
+		$banner_name = '';
 
 
 	public function __construct() {
@@ -101,35 +102,16 @@ class nav_menu {
 				}
 
 				$sLink = '<a href="' . oos_href_link($aContents['shop'], 'category=' . $category_link) . '" title="' . $category['name'] . '">';
-
-				switch ($level) {
-					case 0:
-						$result .= $this->root_start_string;
-						break;
 				
-					case 1:
-						if ($submenu == 0) {
-							$submenu++;
-							$this->count = 0;
-							$this->submenu = 1;
-							
-							$result .= '<div class="main-nav-submenu">
-							
-											<div class="row"><div class="col-md-3"><ul class="list-unstyled"><li>';
-						} else {
-							$this->count+2;							
-							$result .= '<ul class="list-unstyled"><li>';
-						}
-						break;
-					
-					case 2:
-						$result .= $this->parent_start_string;
-						break;
+				if ($category['banner'] != '') {
+					$this->banner_image = OOS_IMAGES . 'banners/large/' . $category['banner'];
+					$this->banner_link = oos_href_link($aContents['shop'], 'category=' . $category_link);
+					$this->banner_name = $category['name'];				
 				}
 
 
 
-				switch ($level) {
+			switch ($level) {
 					case 0:
 						$result .= $this->root_start_string;
 						break;
@@ -139,9 +121,9 @@ class nav_menu {
 							$submenu++;
 							$this->count = 0;
 							$this->submenu = 1;
+							$this->count_col++;
 							
 							$result .= '<div class="main-nav-submenu">
-							
 											<div class="row"><div class="col-md-3"><ul class="list-unstyled"><li>';
 						} else {
 							$this->count+2;							
@@ -150,7 +132,7 @@ class nav_menu {
 						break;
 					
 					case 2:
-						$result .= $this->parent_start_string;
+						$result .= $this->parent_start_string . "\n";
 						break;
 				}
 
@@ -189,9 +171,11 @@ class nav_menu {
 				}
 
 				if ($level == 2) {		
-					if ($this->count > 12) {	
-						$this->count = 0;				
-						$result .= '</li></ul></div><div class="col-md-3"><ul class="list-unstyled">';				
+					if ($this->count > 8) {	
+						$this->count = 0;
+						$this->count_col++;
+						
+						$result .= '</li></ul></div><div class="col-md-3">' . "\n";
 					}
 				}
 				
@@ -206,23 +190,34 @@ class nav_menu {
 				}
 			
 				switch ($level) {
-					case 0:
-						if ($this->submenu > 0) {		
-							$result .=  '</div></div></div>';	
+					case 0:					
+						if ($this->submenu > 0) {
+					
+							if (($this->banner_image != '') && ($this->count_col <= 3)) {
+								if ($this->count_col == 1) {
+									$result .= '</div><div class="col-md-9 text-right hidden-sm-down">';
+								} elseif ($this->count_col == 2) {
+									$result .= '</div><div class="col-md-6 text-right hidden-sm-down">';
+								} elseif ($this->count_col == 1) {
+									$result .= '</div><div class="col-md-6 text-right hidden-sm-down">';
+								}									
+								$result .= '<a class="mt-15 block" href="'. $this->banner_link . '">
+												<img class="img-fluid" src="' . $this->banner_image . '" alt="' . $this->banner_name .'">
+											</a>';							
+							} 
+							
+							$result .=  '</div></div></div>'  . "\n";
+
 						}
 						$this->submenu = 0;
-						/*
-							<div class="col-md-3 text-right hidden-sm-down">
-								<a class="mt-15 block" href="#">
-									<img class="img-fluid" src="/banners/banner_menu_1col.png" alt="">
-								</a>
-							</div>						
-						*/
+
 						$result .= $this->root_end_string;
 						break;
 						
-					case 1:		
-						$result .= 	'</ul>';
+					case 1:	
+						if ($this->count > 0) {						
+							$result .= 	'</ul>';
+						}
 						break;
 						
 					case 2:	

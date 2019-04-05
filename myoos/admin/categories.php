@@ -1157,7 +1157,6 @@ if ($action == 'new_category' || $action == 'edit_category') {
 				</div>
 			</div>
 
-
 			<div class="row">
 				<div class="col-lg-12">
 

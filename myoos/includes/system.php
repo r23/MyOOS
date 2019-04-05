@@ -33,6 +33,7 @@ if ($debug == 1) {
 
 // object register
 $smarty->assignByRef("oEvent", $oEvent);
+$smarty->assignByRef("oNavMenu", $oNavMenu);
 
 // cache_id
 $sCacheID			= $sTheme . '|block|' . $sLanguage;
@@ -58,7 +59,6 @@ if (isset($_GET['products_id'])) {
 
 // Meta-Tags
 if (empty($sPagetitle)) $sPagetitle = OOS_META_TITLE;
-if (empty($sDescription)) $sDescription = OOS_META_DESCRIPTION;
 
 
 $smarty->assign(

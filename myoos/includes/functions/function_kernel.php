@@ -134,7 +134,6 @@ function oos_random_select($query, $limit = '') {
   * @param var variable to prepare
   * @param ...
   * @returns string/array
-  * @return variable if only one variable passed
   * in, otherwise an array of prepared variables
   */
   function oos_var_prep_for_os() {
