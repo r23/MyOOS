@@ -129,7 +129,7 @@ $generated_i18n_strings = array(
 	// Reference: js/src/containers/SnippetEditor.js:107
 	__( 'Please provide a meta description by editing the snippet below.', 'wordpress-seo' ),
 
-	// Reference: js/src/courses-overview.js:114
+	// Reference: js/src/courses-overview.js:112
 	__( 'Free', 'wordpress-seo' ),
 
 	// Reference: js/src/structured-data-blocks/faq/block.js:13
