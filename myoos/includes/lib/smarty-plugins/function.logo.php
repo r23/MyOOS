@@ -29,6 +29,9 @@
  */
 function smarty_function_logo($params, &$smarty)
 {
+	
+	if (empty(STORE_LOGO)) return '';
+
 	require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
 
     $basedir = OOS_IMAGES . 'logo/';
