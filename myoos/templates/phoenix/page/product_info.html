@@ -17,7 +17,7 @@
 			<div class="col-12 col-md-4">
 				<div class="product_details_thumb">
 					{if $product_info.products_image != '' }
-						{medium_large_product_image image=$product_info.products_image alt=$product_info.products_name|strip_tags}
+						{product_image dir=medium_large image=$product_info.products_image alt=$product_info.products_name|strip_tags}
  					{/if}
 				</div>
 			</div>

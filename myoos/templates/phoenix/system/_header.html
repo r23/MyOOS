@@ -113,7 +113,7 @@
 								<div class="quick-cart-wrapper">
 								{foreach item=products from=$cart_products}
 									<a href="{product_link products_id=$products.id}"><!-- cart item -->
-										{min_product_image image=$products.image alt=$products.name|strip_tags}
+										{product_image dir=min image=$products.image alt=$products.name|strip_tags}
 										<h6><span>{$products.quantity|quantity}&nbsp;x&nbsp;</span> {$products.name|truncate:25:"...":true|close_tags}</h6>
 										<small>{display_price price=$products.final_price tax=$products.tax quantity=$products.quantity}</small>
 									</a><!-- /cart item -->

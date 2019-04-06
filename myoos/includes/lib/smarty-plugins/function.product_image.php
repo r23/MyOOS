@@ -27,11 +27,12 @@
  * @return string
  * @uses smarty_function_escape_special_chars()
  */
-function smarty_function_small_product_image($params, &$smarty)
+function smarty_function_product_image($params, &$smarty)
 {
 	require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
 
-    $basedir = OOS_IMAGES . 'product/small/';
+    $basedir = OOS_IMAGES . 'product/';
+	$dir = 'large';
     $border = 0;
     $alt = '';
     $image = '';
@@ -41,6 +42,7 @@ function smarty_function_small_product_image($params, &$smarty)
       switch($_key) {
         case 'image':
         case 'basedir':
+		case 'dir':
         case 'alt':
 		case 'class':
            if (!is_array($_val)) {
@@ -60,7 +62,7 @@ function smarty_function_small_product_image($params, &$smarty)
       }
     }
 
-    $image = $basedir . $image;
+    $image = $basedir . $dir . '/' . $image;
 
     if ((empty($image) || ($image == OOS_IMAGES))) {
         return FALSE;

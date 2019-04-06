@@ -16,7 +16,7 @@
                 <div class="imageBox">
 					<div class="productImage clearfix">
 						<a href="{product_link products_id=$spezial.products_id}">
-							{medium_product_image image=$spezial.products_image alt=$spezial.products_name|strip_tags}
+							{product_image dir=medium image=$spezial.products_image alt=$spezial.products_name|strip_tags}
 						</a>
 						{if $myUser.show_price eq 1 }
 						<div class="productMasking">
