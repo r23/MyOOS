@@ -29,7 +29,7 @@
 					{foreach $slider as $i}	
 					<!-- item -->
 					<div class="carousel-item {if $i@first}active{/if}">
-						{large_category_image image=$i.image alt=$category.categories_name|strip_tags}
+						{category_image dir=large image=$i.image alt=$category.categories_name|strip_tags}
 					</div>
 					<!-- item -->
 					{/foreach}
