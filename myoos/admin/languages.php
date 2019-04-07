@@ -80,7 +80,7 @@ if (!empty($action)) {
         }
         // create additional categories_description records
         $categories_result = $dbconn->Execute("SELECT c.categories_id, cd.categories_name, cd.categories_heading_title, cd.categories_description,
-                                                  cd.categories_description_meta, cd.categories_keywords_meta
+                                                  cd.categories_description_meta
                                           FROM " . $oostable['categories'] . " c LEFT JOIN
                                                " . $oostable['categories_description'] . " cd
                                              ON c.categories_id = cd.categories_id
@@ -92,15 +92,13 @@ if (!empty($action)) {
                        categories_name,
                        categories_heading_title,
                        categories_description,
-                       categories_description_meta, 
-                       categories_keywords_meta) 
+                       categories_description_meta) 
                        VALUES ('" . $categories['categories_id'] . "',
                                '" . intval($insert_id) . "',
                                '" . oos_db_input($categories['categories_name']) . "',
                                '" . oos_db_input($categories['categories_heading_title']) . "',
                                '" . oos_db_input($categories['categories_description']) . "',
-                               '" . oos_db_input($categories['categories_description_meta']) . "',
-                               '" . oos_db_input($categories['categories_keywords_meta']) . "')");
+                               '" . oos_db_input($categories['categories_description_meta']) . "')");
 
           // Move that ADOdb pointer!
           $categories_result->MoveNext();

@@ -144,11 +144,18 @@ if (!empty($action)) {
 
 			for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
 				$language_id = $aLanguages[$i]['id'];
+				
+				$categories_description = oos_db_prepare_input($_POST['categories_description'][$language_id]);		
+				$categories_description_meta = oos_db_prepare_input($_POST['categories_description_meta'][$language_id]);
+
+				if (empty($categories_description_meta)) {				
+					$categories_description_meta =  substr(strip_tags(preg_replace('!(\r\n|\r|\n)!', '',$categories_description)),0 , 160);
+				}
+
 				$sql_data_array = array('categories_name' => oos_db_prepare_input($_POST['categories_name'][$language_id]),
 										'categories_heading_title' => oos_db_prepare_input($_POST['categories_heading_title'][$language_id]),
-										'categories_description' => oos_db_prepare_input($_POST['categories_description'][$language_id]),
-										'categories_description_meta' => oos_db_prepare_input($_POST['categories_description_meta'][$language_id]),
-										'categories_keywords_meta' => oos_db_prepare_input($_POST['categories_keywords_meta'][$language_id]));
+										'categories_description' =>$categories_description,
+										'categories_description_meta' => $categories_description_meta));
 
 				if ($action == 'insert_category') {
 					$insert_sql_data = array('categories_id' => intval($categories_id),
@@ -605,7 +612,6 @@ if ($action == 'new_category' || $action == 'edit_category') {
                        'categories_heading_title' => '',
                        'categories_description' => '',
                        'categories_description_meta' => '',
-                       'categories_keywords_meta' => '',
                        'categories_image' => '',
 					   'categories_banner' => '',
 					   'categories_larger_images' => array(),
@@ -622,7 +628,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
         $categoriestable = $oostable['categories'];
         $categories_descriptiontable = $oostable['categories_description'];
         $query = "SELECT c.categories_id, cd.categories_name, cd.categories_heading_title,
-                         cd.categories_description, cd.categories_description_meta, cd.categories_keywords_meta,
+                         cd.categories_description, cd.categories_description_meta,
                          c.categories_image, c.categories_banner, c.parent_id, c.color, c.menu_type, c.sort_order,
 						 c.date_added, c.categories_status, c.last_modified
                   FROM $categoriestable c,
@@ -786,19 +792,6 @@ if ($action == 'new_category' || $action == 'edit_category') {
 							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
 							<div class="col-lg-9">
 								<?php echo oos_draw_textarea_field('categories_description_meta[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '2', (($categories_description_meta[$aLanguages[$i]['id']]) ? stripslashes($categories_description_meta[$aLanguages[$i]['id']]) : oos_get_category_description_meta($cInfo->categories_id, $aLanguages[$i]['id']))); ?>
-							</div>
-						</div>
-					</fieldset>
-<?php
-		}
-		for ($i=0; $i < count($aLanguages); $i++) {
-?>
-					<fieldset>
-						<div class="form-group row">
-							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_EDIT_CATEGORIES_KEYWORDS_META; ?></label>
-							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
-							<div class="col-lg-9">
-								<?php echo oos_draw_textarea_field('categories_keywords_meta[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '2', (($categories_keywords_meta[$aLanguages[$i]['id']]) ? stripslashes($categories_keywords_meta[$aLanguages[$i]['id']]) : oos_get_category_keywords_meta($cInfo->categories_id, $aLanguages[$i]['id']))); ?>
 							</div>
 						</div>
 					</fieldset>

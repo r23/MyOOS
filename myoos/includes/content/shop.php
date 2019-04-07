@@ -82,7 +82,7 @@ if ($category_depth == 'nested') {
 		$categoriestable = $oostable['categories'];
 		$categories_descriptiontable = $oostable['categories_description'];
 		$sql = "SELECT cd.categories_name, cd.categories_heading_title, cd.categories_description,
-                     cd.categories_description_meta, cd.categories_keywords_meta, c.categories_image
+                     cd.categories_description_meta, c.categories_image
               FROM $categoriestable c,
                    $categories_descriptiontable cd 
               WHERE c.categories_id = '" . intval($nCurrentCategoryID) . "'
@@ -90,11 +90,8 @@ if ($category_depth == 'nested') {
                 AND cd.categories_languages_id = '" .  intval($nLanguageID) . "'";
 		$category = $dbconn->GetRow($sql);
 
-		if (empty($category['categories_description_meta'])) {
-			$smarty->assign('meta_description', substr(strip_tags(preg_replace('!(\r\n|\r|\n)!', '',$category['categories_description'])),0 , 160));
-		} else {
-			$smarty->assign('meta_description', $category['categories_description_meta']);
-		}
+		$smarty->assign('meta_description', $category['categories_description_meta']);
+
 
 		if (isset($sCategory) && strpos('_', $sCategory)) {
 			// check to see if there are deeper categories within the current category
@@ -178,8 +175,7 @@ if ($category_depth == 'nested') {
 	$categoriestable = $oostable['categories'];
 	$categories_descriptiontable = $oostable['categories_description'];
 	$sql = "SELECT cd.categories_name, cd.categories_heading_title, cd.categories_description,
-                     cd.categories_description_meta, cd.categories_keywords_meta,
-                     c.categories_image
+                     cd.categories_description_meta, c.categories_image
               FROM $categoriestable c,
                    $categories_descriptiontable cd
               WHERE c.categories_id = '" . intval($nCurrentCategoryID) . "'

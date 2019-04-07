@@ -57,7 +57,6 @@ define('TEXT_EDIT_CATEGORIES_NAME', 'Category Name:');
 define('TEXT_EDIT_CATEGORIES_HEADING_TITLE', 'Meta Tag Title:');
 define('TEXT_EDIT_CATEGORIES_DESCRIPTION', 'Category Description:');
 define('TEXT_EDIT_CATEGORIES_DESCRIPTION_META', 'Meta Tag Description:');
-define('TEXT_EDIT_CATEGORIES_KEYWORDS_META', 'Meta Tag Keywords:');
 define('TEXT_EDIT_CATEGORIES_IMAGE', 'Category Image:');
 define('TEXT_EDIT_COLOR', 'Color:');
 define('TEXT_EDIT_MENU_TYPE', 'Badge:');

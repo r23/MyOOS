@@ -58,7 +58,6 @@ define('TEXT_EDIT_CATEGORIES_IMAGE', 'Kategorie Bild');
 define('TEXT_EDIT_CATEGORIES_HEADING_TITLE', 'Meta Tag Titel:');
 define('TEXT_EDIT_CATEGORIES_DESCRIPTION', 'Kategorie Beschreibung:');
 define('TEXT_EDIT_CATEGORIES_DESCRIPTION_META', 'Meta Tag Beschreibung:');
-define('TEXT_EDIT_CATEGORIES_KEYWORDS_META', 'Meta Tag Suchworte:');
 define('TEXT_EDIT_COLOR', 'Farbe:');
 define('TEXT_EDIT_MENU_TYPE', 'Anstecker:');
 define('TEXT_EDIT_SORT_ORDER', 'Sortierreihenfolge:');

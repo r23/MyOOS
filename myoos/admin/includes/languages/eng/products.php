@@ -64,7 +64,6 @@ define('TEXT_PRODUCTS_MANUFACTURER', 'Products Manufacturer:');
 define('TEXT_PRODUCTS_NAME', 'Products Name:');
 define('TEXT_PRODUCTS_DESCRIPTION', 'Products Description:');
 define('TEXT_EDIT_CATEGORIES_DESCRIPTION_META', 'Category description for Description TAG (max. 250 letters)');
-define('TEXT_EDIT_CATEGORIES_KEYWORDS_META', 'Category of search words for Keyword TAG (references by commaseparately - max. 250 letters)');
 define('TEXT_PRODUCTS_QUANTITY', 'Products Quantity:');
 define('TEXT_PRODUCTS_REORDER_LEVEL', 'Products Reorder Level:');
 define('TEXT_REPLACEMENT_PRODUCT', 'Replacement Product:');

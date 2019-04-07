@@ -229,8 +229,7 @@ $flds = "
   categories_name C(32) NOTNULL,
   categories_heading_title C(250),
   categories_description X,
-  categories_description_meta C(250),
-  categories_keywords_meta C(250)
+  categories_description_meta C(250)
 ";
 dosql($table, $flds);
 

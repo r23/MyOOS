@@ -616,26 +616,6 @@ function oos_get_category_description_meta($category_id, $language_id = '') {
     return $categories_description_meta;
 }
 
-function oos_get_category_keywords_meta($category_id, $language_id = '') {
-
-    // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
-
-    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
-
-    $categories_descriptiontable = $oostable['categories_description'];
-    $query = "SELECT categories_keywords_meta
-              FROM $categories_descriptiontable
-              WHERE categories_id = '" . intval($category_id) . "'
-                AND categories_languages_id = '" . intval($language_id) . "'";
-    $result = $dbconn->Execute($query);
-
-    $categories_keywords_meta = $result->fields['categories_keywords_meta'];
-
-    return $categories_keywords_meta;
-}
-
 
 function oos_duplicate_product_image_check($image) {
 
