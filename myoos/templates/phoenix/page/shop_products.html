@@ -46,7 +46,7 @@
 				<!-- /CAROUSEL -->	
 			{/if}
 
-			{if $category.categories_description != '' }
+			{if !empty($category.categories_description) }
 				<div class="clearfix mb-5">
 					<div class="">
 						<h2>{$category.categories_name}</h2>

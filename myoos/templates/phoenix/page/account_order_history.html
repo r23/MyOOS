@@ -42,7 +42,7 @@
 									<a href="{product_link products_id=$order_history[i].id}">{$order_history[i].name}</a>
 								</td>
 								<td>
-									{if $order_history[i].manufacturer != ''}
+									{if !empty($order_history[i].manufacturer)}
 										{$lang.text_manufacturer} {$order_history[i].manufacturer}
 									{/if}
 								</td>

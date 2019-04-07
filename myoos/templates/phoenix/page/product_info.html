@@ -13,15 +13,15 @@
 <section class="mainContent clearfix" itemscope itemtype="https://schema.org/Product">
 	<div class="container">
 		<div class="row">
-
+		
+			{if !empty($product_info.products_image) }
 			<div class="col-12 col-md-4">
 				<div class="product_details_thumb">
-					{if $product_info.products_image != '' }
-						{product_image dir=medium_large image=$product_info.products_image alt=$product_info.products_name|strip_tags}
- 					{/if}
+					{product_image dir=medium_large image=$product_info.products_image alt=$product_info.products_name|strip_tags}
 				</div>
 			</div>
-
+			{/if}
+			
 			<div class="col-12 col-md-8">
 				<div class="product_details_desc">
 					{if $oEvent->installed_plugin('manufacturers')}
@@ -184,7 +184,7 @@
 								{/if}
 							{/if}
 
-							{if $product_info.products_url != '' }
+							{if !empty($product_info.products_url) }
 								<p>{$redirect|string_format:$lang.text_more_information}</p>
 							{/if}								
 

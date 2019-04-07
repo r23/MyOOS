@@ -99,7 +99,7 @@
 						</div>						
 						<hr />
 						
-					{if $order->info.comments != ''}
+					{if !empty($order->info.comments)}
 						<div class="row checkout-info">
 							<div class="col-12">
 								<div class="d-flex justify-content-between">
@@ -168,7 +168,7 @@
 							
 							<div class="table-responsive">
 								<table class="table">
- {if $order_total_output != ''}
+ {if !empty($order_total_output)}
     {$order_total_output}
  {/if}
 								</table>
@@ -181,7 +181,7 @@
 	<input type="hidden" name="formid" value="{$mySystem.formid}">
 {/if}
 		
-{if $payment_modules_process_button != '' }
+{if !empty($payment_modules_process_button) }
   {$payment_modules_process_button}
 {/if}
 

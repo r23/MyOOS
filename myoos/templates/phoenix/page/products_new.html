@@ -49,7 +49,7 @@
 							{/if}
 							
 							{if $oEvent->installed_plugin('manufacturers')}
-								{if $products_new[i].manufacturer != ''}
+								{if !empty($products_new[i].manufacturer)}
 								<p>
 									{$lang.text_manufacturer} <a href="{html_href_link content=$filename.shop manufacturers_id=$products_new[i].manufacturers_id}">
 										{$products_new[i].manufacturer}

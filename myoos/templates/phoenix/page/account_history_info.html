@@ -97,7 +97,7 @@
 											</div>
 
 											<div class="col-8 col-sm-9 g-mb-30">
-												<h4 class="h6 g-font-weight-400">{$products.name}{if $products.serial_number != '' }&nbsp;&nbsp;({$lang.serial}{$products.serial_number}){/if}</h4>
+												<h4 class="h6 g-font-weight-400">{$products.name}{if !empty($products.serial_number) }&nbsp;&nbsp;({$lang.serial}{$products.serial_number}){/if}</h4>
 												{if ( isset($products.attributes) && sizeof($products.attributes) gt 0 ) }
 													{foreach item=attributes from=$products.attributes}
 														<br><nobr><span class="d-block g-color-gray-dark-v4 fs-13 mb-2">small>&nbsp;<i> - {$attributes.option}: {$attributes.value}</i></span></small></nobr>
