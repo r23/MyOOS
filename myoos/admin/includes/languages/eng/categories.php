@@ -107,7 +107,6 @@ define('TEXT_PRODUCTS_MANUFACTURER', 'Products Manufacturer:');
 define('TEXT_PRODUCTS_NAME', 'Products Name:');
 define('TEXT_PRODUCTS_DESCRIPTION', 'Products Description:');
 define('TEXT_PRODUCTS_DESCRIPTION_META', 'Description of article for Description TAG (max. 250 letters)');
-define('TEXT_PRODUCTS_KEYWORDS_META', 'Article of search words for Keyword TAG (references by commaseparately - max. 250 letters)');
 define('TEXT_PRODUCTS_QUANTITY', 'Products Quantity:');
 define('TEXT_PRODUCTS_REORDER_LEVEL', 'Products Reorder Level:');
 define('TEXT_PRODUCTS_MODEL', 'Products Model:');

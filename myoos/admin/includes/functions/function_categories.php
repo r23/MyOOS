@@ -185,27 +185,6 @@ function oos_get_products_description_meta($product_id, $language_id = '') {
 }
 
 
-function oos_get_products_keywords_meta($product_id, $language_id = '') {
-
-    // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
-
-    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
-
-    $products_descriptiontable = $oostable['products_description'];
-    $query = "SELECT products_keywords_meta
-              FROM $products_descriptiontable
-              WHERE products_id = '" . intval($product_id) . "' 
-                AND products_languages_id = '" . intval($language_id) . "'";
-    $result = $dbconn->Execute($query);
-
-    $products_keywords_meta = $result->fields['products_keywords_meta'];
-
-    return $products_keywords_meta;
-}
-
-
 function oos_get_products_url($product_id, $language_id) {
 
     // Get database information

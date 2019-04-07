@@ -208,11 +208,8 @@ if ($category_depth == 'nested') {
 	} else {
 		$sPagetitle = $category['categories_heading_title'] . ' ' . OOS_META_TITLE;
 	}
-	if (empty($category['categories_description_meta'])) {
-		$sDescription = substr(strip_tags(preg_replace('!(\r\n|\r|\n)!', '',$category['categories_description'])),0 , 250);
-	} else {
-		$sDescription = $category['categories_description_meta'];
-	}
+	$sDescription = $category['categories_description_meta'];
+
 	
     $nManufacturersID = isset($_GET['manufacturers_id']) ? $_GET['manufacturers_id']+0 : 0;
     $nPage = isset($_GET['page']) ? intval( $_GET['page'] ) : 1;

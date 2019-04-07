@@ -75,7 +75,6 @@ define('TEXT_PRODUCTS_MANUFACTURER', 'Artikel-Hersteller:');
 define('TEXT_PRODUCTS_NAME', 'Artikelname:');
 define('TEXT_PRODUCTS_DESCRIPTION', 'Artikelbeschreibung:');
 define('TEXT_PRODUCTS_DESCRIPTION_META', 'Artikelbeschreibung für Description Tag (max. 250 Zeichen)');
-define('TEXT_PRODUCTS_KEYWORDS_META', 'Artikel Suchworte für Keyword Tag (Stichworte durch Komma getrennt - max. 250 Zeichen)');
 define('TEXT_PRODUCTS_QUANTITY', 'Artikelanzahl:');
 define('TEXT_PRODUCTS_REORDER_LEVEL', 'Mindestlagerbestand:');
 define('TEXT_PRODUCTS_MODEL', 'Artikel-Nr.:');

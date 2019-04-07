@@ -154,8 +154,8 @@ if (!empty($action)) {
 
 				$sql_data_array = array('categories_name' => oos_db_prepare_input($_POST['categories_name'][$language_id]),
 										'categories_heading_title' => oos_db_prepare_input($_POST['categories_heading_title'][$language_id]),
-										'categories_description' =>$categories_description,
-										'categories_description_meta' => $categories_description_meta));
+										'categories_description' => $categories_description,
+										'categories_description_meta' => $categories_description_meta);
 
 				if ($action == 'insert_category') {
 					$insert_sql_data = array('categories_id' => intval($categories_id),
@@ -495,7 +495,7 @@ if (!empty($action)) {
                                   '" . $product['products_slave_visible'] . "',
                                   '" . $product['products_sort_order'] . "')");
 				$dup_products_id = $dbconn->Insert_ID();
-				$description_result = $dbconn->Execute("SELECT products_languages_id, products_name, products_description, products_url, products_description_meta, products_keywords_meta  FROM " . $oostable['products_description'] . " WHERE products_id = '" . oos_db_input($products_id) . "'");
+				$description_result = $dbconn->Execute("SELECT products_languages_id, products_name, products_description, products_url, products_description_meta   FROM " . $oostable['products_description'] . " WHERE products_id = '" . oos_db_input($products_id) . "'");
 				while ($description = $description_result->fields) {
 					$dbconn->Execute("INSERT INTO " . $oostable['products_description'] . "
 									(products_id,
@@ -504,16 +504,14 @@ if (!empty($action)) {
                             products_description,
                             products_url,
                             products_viewed,
-                            products_description_meta,
-                            products_keywords_meta)
+                            products_description_meta)
                             VALUES ('" . $dup_products_id . "',
                                     '" . $description['products_languages_id'] . "',
                                     '" . oos_db_input($description['products_name']) . "',
                                     '" . oos_db_input($description['products_description']) . "',
                                     '" . oos_db_input($description['products_url']) . "',
 									'0',
-                                    '" . oos_db_input($description['products_description_meta']) . "',
-                                    '" . oos_db_input($description['products_keywords_meta']) . "')");
+                                    '" . oos_db_input($description['products_description_meta']). "')");
 
 					// Move that ADOdb pointer!
 					$description_result->MoveNext();
