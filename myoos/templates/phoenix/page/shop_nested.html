@@ -15,11 +15,11 @@
 
 			<!-- left column -->
 			<div class="col-lg-9 col-md-9 col-sm-9">
-			{if $category.categories_description != '' }
+			{if !empty($category.categories_description) || !empty($category.categories_image) }
 				<div class="row">
 					<div class="category-info">
 						<div class="image">
-							<img src="{$category.image}" alt="{$heading_title}">
+							{category_image dir=large image=$category.categories_image alt=$category.categories_name class=image}
 						</div>
 						<div class="description">
 							<p>{$category.categories_description}</p>
@@ -33,7 +33,7 @@
 						<div class="category">
 							<div class="image">
 								<a href="{html_href_link content=$filename.shop category=$category.path}">
-									<img src="{$category.image}" alt="{$category.name}" class="img-fluid image">
+									{category_image dir=medium image=$category.image alt=$category.name class=image}
 								</a>
 							</div><!-- .image -->
 							<div class="text">

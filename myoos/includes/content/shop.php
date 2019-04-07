@@ -155,14 +155,14 @@ if ($category_depth == 'nested') {
 		}
 		$smarty->assign('new_products', $smarty->fetch($aTemplate['new_products'], $sContentCacheID));
 		
+		$sPagetitle = $category['categories_name'] . ' ' . OOS_META_TITLE;
+		$smarty->assign('pagetitle',  $sPagetitle);
+		$smarty->assign('heading_title', $category['categories_name']);
+		
 		// assign Smarty variables;
 		if (!empty($category['categories_heading_title'])) {
-			$sPagetitle = $category['categories_name'] . ' ' . OOS_META_TITLE;
-			$smarty->assign('pagetitle',  $sPagetitle);
 			$smarty->assign('heading_title', $category['categories_heading_title']);
-		} else {
-			$smarty->assign('heading_title', $aLang['heading_title']);
-		}
+		} 
 
 		$smarty->assign(
 			array(

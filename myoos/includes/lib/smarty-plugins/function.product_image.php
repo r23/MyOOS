@@ -62,20 +62,21 @@ function smarty_function_product_image($params, &$smarty)
       }
     }
 
-    $image = $basedir . $dir . '/' . $image;
-
-    if ((empty($image) || ($image == OOS_IMAGES))) {
+    if (empty($image)) {
         return FALSE;
     }
+
+    $image = $basedir . $dir . '/' . $image;
+
 
     if (isset($template->smarty->security_policy)) {
         // local file
 		if (!$template->smarty->security_policy->isTrustedResourceDir($image)) {
 			return;
         }
-    }		
+    }	
 	
-    return '<img class="img-fluid ' . $class . '" src="' . $image . '"' . $extra . ' />';
+	return '<img class="img-fluid ' . $class . '" src="' . $image . '" alt="' . strip_tags($alt) . '" ' . $extra . ' />';
 
 }
 

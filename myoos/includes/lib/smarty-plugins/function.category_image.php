@@ -62,11 +62,13 @@ function smarty_function_category_image($params, &$smarty)
       }
     }
 
-    $image = $basedir . $dir . '/' . $image;
-
-    if ((empty($image) || ($image == OOS_IMAGES))) {
+    if (empty($image)) {
         return FALSE;
     }
+
+    $image = $basedir . $dir . '/' . $image;
+
+
 
     if (isset($template->smarty->security_policy)) {
         // local file
@@ -75,7 +77,7 @@ function smarty_function_category_image($params, &$smarty)
         }
     }		
 	
-    return '<img class="img-fluid ' . $class . '" src="' . $image . '" alt="' . $alt . '" ' . $extra . ' />';
+    return '<img class="img-fluid ' . $class . '" src="' . $image . '" alt="' . strip_tags($alt) . '" ' . $extra . ' />';
 
 }
 
