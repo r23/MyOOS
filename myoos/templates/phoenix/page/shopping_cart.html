@@ -56,7 +56,7 @@
 								<tr>
 								    <td class=""><input type="checkbox" class="form-check-input" name="cart_delete[]" value="{$product.id}">
 									<td class="">
-										<span class="cartImage"><a href="{product_link products_id=$product.id}">{product_image dir=small image=$product.image alt=$product.name|strip_tags}</a></span>
+										<span class="cartImage"><a href="{product_link products_id=$product.id}">{product_image dir=small image=$product.image alt=$product.name}</a></span>
 									</td>
 									{if $smarty.const.PRODUCT_LIST_MODEL > 0}	  
 										<td class=""><a href="{product_link products_id=$product.id}">{$product.model}</a></td>

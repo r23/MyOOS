@@ -9,7 +9,7 @@
 			<li class="clearfix"><!-- item -->
 				<div class="thumbnail featured clearfix float-left">
 					<a href="{product_link products_id=$products_history.products_id}">
-						{product_image dir=min image=$products_history.products_image alt=$products_history.products_name|strip_tags}
+						{product_image dir=min image=$products_history.products_image alt=$products_history.products_name}
 					</a>
 				</div>  
 				<a class="block fs-12" href="{product_link products_id=$products_history.products_id}">{$products_history.products_name|truncate:11:"":true|close_tags}</a>

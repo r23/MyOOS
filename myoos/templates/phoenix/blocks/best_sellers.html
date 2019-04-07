@@ -10,7 +10,7 @@
 			{if $smarty.const.BLOCK_BEST_SELLERS_IMAGE eq 'true'}
 				<div class="thumbnail featured clearfix float-left">
 					<a href="{product_link products_id=$best_seller.products_id}">
-						{product_image dir=small image=$best_seller.products_image alt=$best_seller.products_name|strip_tags}
+						{product_image dir=small image=$best_seller.products_image alt=$best_seller.products_name}
 					</a>
 				</div>  
 			{/if}
