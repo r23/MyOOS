@@ -13,6 +13,7 @@ namespace Symfony\Bridge\Twig\Command;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
+use Symfony\Component\Console\Formatter\OutputFormatter;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -20,6 +21,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Finder\Finder;
 use Twig\Environment;
+use Twig\Loader\ChainLoader;
 use Twig\Loader\FilesystemLoader;
 
 /**
@@ -36,6 +38,7 @@ class DebugCommand extends Command
     private $bundlesMetadata;
     private $twigDefaultPath;
     private $rootDir;
+    private $filesystemLoaders;
 
     public function __construct(Environment $twig, string $projectDir = null, array $bundlesMetadata = [], string $twigDefaultPath = null, string $rootDir = null)
     {
@@ -87,7 +90,7 @@ EOF
         $name = $input->getArgument('name');
         $filter = $input->getOption('filter');
 
-        if (null !== $name && !$this->twig->getLoader() instanceof FilesystemLoader) {
+        if (null !== $name && [] === $this->getFilesystemLoaders()) {
             throw new InvalidArgumentException(sprintf('Argument "name" not supported, it requires the Twig loader "%s"', FilesystemLoader::class));
         }
 
@@ -150,9 +153,11 @@ EOF
                 $message = 'No template paths configured for your application';
             } else {
                 $message = sprintf('No template paths configured for "@%s" namespace', $namespace);
-                $namespaces = $this->twig->getLoader()->getNamespaces();
-                foreach ($this->findAlternatives($namespace, $namespaces) as $namespace) {
-                    $alternatives[] = '@'.$namespace;
+                foreach ($this->getFilesystemLoaders() as $loader) {
+                    $namespaces = $loader->getNamespaces();
+                    foreach ($this->findAlternatives($namespace, $namespaces) as $namespace) {
+                        $alternatives[] = '@'.$namespace;
+                    }
                 }
             }
 
@@ -184,12 +189,13 @@ EOF
 
     private function displayGeneralText(SymfonyStyle $io, string $filter = null)
     {
+        $decorated = $io->isDecorated();
         $types = ['functions', 'filters', 'tests', 'globals'];
         foreach ($types as $index => $type) {
             $items = [];
             foreach ($this->twig->{'get'.ucfirst($type)}() as $name => $entity) {
                 if (!$filter || false !== strpos($name, $filter)) {
-                    $items[$name] = $name.$this->getPrettyMetadata($type, $entity);
+                    $items[$name] = $name.$this->getPrettyMetadata($type, $entity, $decorated);
                 }
             }
 
@@ -217,6 +223,7 @@ EOF
 
     private function displayGeneralJson(SymfonyStyle $io, $filter)
     {
+        $decorated = $io->isDecorated();
         $types = ['functions', 'filters', 'tests', 'globals'];
         $data = [];
         foreach ($types as $type) {
@@ -234,34 +241,35 @@ EOF
             $data['loader_paths'] = $paths;
         }
 
-        if ($wronBundles = $this->findWrongBundleOverrides()) {
-            $data['warnings'] = $this->buildWarningMessages($wronBundles);
+        if ($wrongBundles = $this->findWrongBundleOverrides()) {
+            $data['warnings'] = $this->buildWarningMessages($wrongBundles);
         }
 
-        $io->writeln(json_encode($data));
+        $data = json_encode($data, JSON_PRETTY_PRINT);
+        $io->writeln($decorated ? OutputFormatter::escape($data) : $data);
     }
 
     private function getLoaderPaths(string $name = null): array
     {
-        /** @var FilesystemLoader $loader */
-        $loader = $this->twig->getLoader();
         $loaderPaths = [];
-        $namespaces = $loader->getNamespaces();
-        if (null !== $name) {
-            $namespace = $this->parseTemplateName($name)[0];
-            $namespaces = array_intersect([$namespace], $namespaces);
-        }
-
-        foreach ($namespaces as $namespace) {
-            $paths = array_map([$this, 'getRelativePath'], $loader->getPaths($namespace));
-
-            if (FilesystemLoader::MAIN_NAMESPACE === $namespace) {
-                $namespace = '(None)';
-            } else {
-                $namespace = '@'.$namespace;
+        foreach ($this->getFilesystemLoaders() as $loader) {
+            $namespaces = $loader->getNamespaces();
+            if (null !== $name) {
+                $namespace = $this->parseTemplateName($name)[0];
+                $namespaces = array_intersect([$namespace], $namespaces);
             }
 
-            $loaderPaths[$namespace] = $paths;
+            foreach ($namespaces as $namespace) {
+                $paths = array_map([$this, 'getRelativePath'], $loader->getPaths($namespace));
+
+                if (FilesystemLoader::MAIN_NAMESPACE === $namespace) {
+                    $namespace = '(None)';
+                } else {
+                    $namespace = '@'.$namespace;
+                }
+
+                $loaderPaths[$namespace] = array_merge($loaderPaths[$namespace] ?? [], $paths);
+            }
         }
 
         return $loaderPaths;
@@ -323,7 +331,7 @@ EOF
         }
     }
 
-    private function getPrettyMetadata($type, $entity)
+    private function getPrettyMetadata($type, $entity, $decorated)
     {
         if ('tests' === $type) {
             return '';
@@ -335,7 +343,7 @@ EOF
                 return '(unknown?)';
             }
         } catch (\UnexpectedValueException $e) {
-            return ' <error>'.$e->getMessage().'</error>';
+            return sprintf(' <error>%s</error>', $decorated ? OutputFormatter::escape($e->getMessage()) : $e->getMessage());
         }
 
         if ('globals' === $type) {
@@ -343,7 +351,9 @@ EOF
                 return ' = object('.\get_class($meta).')';
             }
 
-            return ' = '.substr(@json_encode($meta), 0, 50);
+            $description = substr(@json_encode($meta), 0, 50);
+
+            return sprintf(' = %s', $decorated ? OutputFormatter::escape($description) : $description);
         }
 
         if ('functions' === $type) {
@@ -437,22 +447,22 @@ EOF
 
     private function findTemplateFiles(string $name): array
     {
-        /** @var FilesystemLoader $loader */
-        $loader = $this->twig->getLoader();
-        $files = [];
         list($namespace, $shortname) = $this->parseTemplateName($name);
 
-        foreach ($loader->getPaths($namespace) as $path) {
-            if (!$this->isAbsolutePath($path)) {
-                $path = $this->projectDir.'/'.$path;
-            }
-            $filename = $path.'/'.$shortname;
+        $files = [];
+        foreach ($this->getFilesystemLoaders() as $loader) {
+            foreach ($loader->getPaths($namespace) as $path) {
+                if (!$this->isAbsolutePath($path)) {
+                    $path = $this->projectDir.'/'.$path;
+                }
+                $filename = $path.'/'.$shortname;
 
-            if (is_file($filename)) {
-                if (false !== $realpath = realpath($filename)) {
-                    $files[] = $this->getRelativePath($realpath);
-                } else {
-                    $files[] = $this->getRelativePath($filename);
+                if (is_file($filename)) {
+                    if (false !== $realpath = realpath($filename)) {
+                        $files[] = $this->getRelativePath($realpath);
+                    } else {
+                        $files[] = $this->getRelativePath($filename);
+                    }
                 }
             }
         }
@@ -534,5 +544,29 @@ EOF
     private function isAbsolutePath(string $file): bool
     {
         return strspn($file, '/\\', 0, 1) || (\strlen($file) > 3 && ctype_alpha($file[0]) && ':' === $file[1] && strspn($file, '/\\', 2, 1)) || null !== parse_url($file, PHP_URL_SCHEME);
+    }
+
+    /**
+     * @return FilesystemLoader[]
+     */
+    private function getFilesystemLoaders(): array
+    {
+        if (null !== $this->filesystemLoaders) {
+            return $this->filesystemLoaders;
+        }
+        $this->filesystemLoaders = [];
+
+        $loader = $this->twig->getLoader();
+        if ($loader instanceof FilesystemLoader) {
+            $this->filesystemLoaders[] = $loader;
+        } elseif ($loader instanceof ChainLoader) {
+            foreach ($loader->getLoaders() as $l) {
+                if ($l instanceof FilesystemLoader) {
+                    $this->filesystemLoaders[] = $l;
+                }
+            }
+        }
+
+        return $this->filesystemLoaders;
     }
 }
