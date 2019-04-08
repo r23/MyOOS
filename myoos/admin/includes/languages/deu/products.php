@@ -55,6 +55,9 @@ define('TEXT_PRODUCTS_BUTTON_DELETE', '<b>Löschen</b> des Bildes vom Server?');
 define('TEXT_ADD_MORE_UPLOAD', 'Mehr Felder zum Hochladen hinzufügen');
 define('TEXT_NOT_RELOAD', 'Lädt nicht erneut!');
 
+define('TEXT_INFO_DETAILS', 'Details');
+define('TEXT_INFO_PREVIEW', 'Voransicht');
+
 define('ENTRY_STATUS', 'Status:');
 define('TEXT_PRODUCTS_STATUS', 'Produktstatus:');
 define('TEXT_CATEGORIES', 'Kategorien:');

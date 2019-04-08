@@ -55,6 +55,9 @@ define('TEXT_PRODUCTS_BUTTON_DELETE', '<b>Delete</b> this Image from the Server?
 define('TEXT_ADD_MORE_UPLOAD', 'Add more upload boxes');
 define('TEXT_NOT_RELOAD', 'Does not reload!');
 
+define('TEXT_INFO_DETAILS', 'Details');
+define('TEXT_INFO_PREVIEW', 'Preview');
+
 define('ENTRY_STATUS', 'Status:');
 define('TEXT_PRODUCTS_STATUS', 'Products Status:');
 define('TEXT_CATEGORIES', 'Categories');

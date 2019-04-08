@@ -39,7 +39,7 @@ $aLang['text_password_forgotten'] = 'Sie haben Ihr Passwort vergessen?';
 $aLang['link_password_forgotten'] = 'Dann klicken Sie <u>hier</u>';
 
 $aLang['text_login_error'] = '<strong>FEHLER:</strong> Keine Übereinstimmung der eingebenen \'eMail-Adresse\' und/oder dem \'Passwort\'.';
-$aLang['text_visitors_cart'] = '<strong>ACHTUNG:</strong> Ihre Besuchereingaben werden automatisch mit Ihrem Kundenkonto verbunden.[Mehr Information]</a>';
+$aLang['text_visitors_cart'] = '<strong>ACHTUNG:</strong> Ihre Besuchereingaben werden automatisch mit Ihrem Kundenkonto verbunden.';
 
 $aLang['sub_heading_title'] = 'Warenkorb';
 $aLang['sub_heading_title_1'] = 'Besucherwarenkorb';

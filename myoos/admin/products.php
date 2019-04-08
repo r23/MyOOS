@@ -223,8 +223,8 @@ if (!empty($action)) {
 						// 'jpeg_quality' => 82,
 						// 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
 						// 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-						'max_width' => 300, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
-						'max_height' => 300 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
+						'max_width' => 420, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+						'max_height' => 455 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
 					),				
 					'small' => array(
 						// 'auto_orient' => TRUE,
@@ -377,11 +377,12 @@ if ($action == 'new_product') {
     } elseif (oos_is_not_null($_POST)) {
 		$products_name = oos_db_prepare_input($_POST['products_name']);
 		$products_description = oos_db_prepare_input($_POST['products_description']);
-		$products_description_meta = oos_db_prepare_input($_POST['products_description_meta']));
+		$products_description_meta = oos_db_prepare_input($_POST['products_description_meta']);
 		$products_url = oos_db_prepare_input($_POST['products_url']);
     } else {
 		$pInfo->products_setting = 2; // DEFAULT_SETTING_ID
 		$pInfo->products_status = DEFAULT_PRODUTS_STATUS_ID;
+		$pInfo->products_price = 0.0;
 		$pInfo->products_base_price = 1.0;
 		$pInfo->products_product_quantity = 1.0;
 		$pInfo->products_base_quantity = 1.0;
@@ -871,10 +872,10 @@ function calcBasePriceFactor() {
 
 		<div class="row mb-3">
 			<div class="col-3">
-				<strong>Preview</strong>
+				<strong><?php echo TEXT_INFO_PREVIEW; ?></strong>
 			</div>
 			<div class="col-9">
-				<strong>Details</strong>
+				<strong><?php echo TEXT_INFO_DETAILS; ?></strong>
 			</div>
 		</div>
 		<div class="row mb-3 pb-3 bb">
@@ -908,7 +909,7 @@ function calcBasePriceFactor() {
 ?>
 			</div>
 			<div class="col-9">
-				<strong>Details</strong>
+				<strong><?php echo TEXT_INFO_DETAILS; ?></strong>
 			</div>	
 		</div>
 		
@@ -936,7 +937,7 @@ function calcBasePriceFactor() {
 ?>
 			</div>
 			<div class="col-9">
-				<strong>Details</strong>
+				<strong><?php echo TEXT_INFO_DETAILS; ?></strong>
 			</div>	
 		</div>
 <?php
@@ -961,7 +962,7 @@ function calcBasePriceFactor() {
 
 			</div>
 			<div class="col-9">
-				<strong>Details</strong>
+				<strong><?php echo TEXT_INFO_DETAILS; ?></strong>
 			</div>	
 		</div>
 
@@ -980,7 +981,7 @@ function calcBasePriceFactor() {
 
 			</div>
 			<div class="col-9">
-				<strong>Details</strong>
+				<strong><?php echo TEXT_INFO_DETAILS; ?></strong>
 			</div>	
 		</div>
 
@@ -1008,7 +1009,7 @@ function calcBasePriceFactor() {
 
                            </div>
                            <div class="col-9">
-                              <strong>Details</strong>
+                              <strong><?php echo TEXT_INFO_DETAILS; ?></strong>
                            </div>	
 						</div>
 		</div>

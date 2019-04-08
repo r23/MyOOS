@@ -40,7 +40,7 @@ $aLang['link_password_forgotten'] = 'Click here to recover.';
 
 
 $aLang['text_login_error'] = '<strong>ERROR:</strong> No match for \'E-Mail-Address\' and/or \'Password\'.';
-$aLang['text_visitors_cart'] = '<strong>NOTE:</strong> Your &quot;Visitors Cart&quot; contents will be merged with your &quot;Members Cart&quot; contents once you have logged on. [More Info]</a>';
+$aLang['text_visitors_cart'] = '<strong>NOTE:</strong> Your &quot;Visitors Cart&quot; contents will be merged with your &quot;Members Cart&quot; contents once you have logged on. ';
 
 $aLang['sub_heading_title'] = 'Visitors Cart / Members Cart';
 $aLang['sub_heading_title_1'] = 'Visitors Cart';
