@@ -31,7 +31,7 @@
 					</div>
                 </div> 
                 <div class="shop-item-summary text-center">
-                    <h4><a href="{product_link products_id=$featur.products_id}">{$featur.products_name}</a></h4>
+                    <h4><a href="{product_link products_id=$featur.products_id}" title="{$featur.products_name}">{$featur.products_name|truncate:18}</a></h4>
 
 					<div class="product-price clearfix">
 					{if $myUser.show_price eq 1 }	
