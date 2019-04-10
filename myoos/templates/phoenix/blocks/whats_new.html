@@ -9,7 +9,7 @@
 		</a>
 	</div>
 	<div class="text-center">
-		<a href="{product_link products_id=$random_product.products_id}">{$random_product.products_name}</a>
+		<a href="{product_link products_id=$random_product.products_id}">{$random_product.products_name|truncate:18:"":true|close_tags}</a>
 	</div>
 
 	{if $myUser.show_price eq 1 }
