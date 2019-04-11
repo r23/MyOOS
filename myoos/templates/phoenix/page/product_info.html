@@ -18,7 +18,7 @@
 			<div class="col-12 col-md-4">
 				<div class="product_details_thumb">
 					{product_image dir=medium_large image=$product_info.products_image alt=$product_info.products_name}
-				</div>
+				</div>		
 			</div>
 			{/if}
 			
@@ -158,9 +158,6 @@
                             <a class="add_to_wishlist" href="{html_href_link content=$filename.account_wishlist action=add_wishlist products_id=$product_info.products_id}" rel="nofollow"><i class="fa fa-heart" aria-hidden="true"></i> {$lang.button_add_wishlist}</a>
                         </div>
 						
-{if $smarty.const.OOS_MO_PIC eq 'true'}
-  {include file="$theme_set/products/mo_pics.html"}
-{/if}
                     </div>
                 </div>
 

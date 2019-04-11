@@ -164,11 +164,11 @@ if (!$product_info_result->RecordCount()) {
     // assign Smarty variables;
     $smarty->assign(
         array(
-            'info_product_price'              => $info_product_price,
-			'schema_product_price'				=> $schema_product_price, 
-            'info_product_special_price'      => $info_product_special_price,
-            'info_base_product_price'         => $info_base_product_price,
-			'discounts_price' =>  $discounts_price
+            'info_product_price'			=> $info_product_price,
+			'schema_product_price'			=> $schema_product_price, 
+            'info_product_special_price'	=> $info_product_special_price,
+            'info_base_product_price'		=> $info_base_product_price,
+			'discounts_price' 				=> $discounts_price
         )
     );
 
