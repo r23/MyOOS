@@ -15,11 +15,37 @@
 		<div class="row">
 		
 			{if !empty($product_info.products_image) }
+			<!-- IMAGE -->
 			<div class="col-12 col-md-4">
-				<div class="product_details_thumb">
-					{product_image dir=medium_large image=$product_info.products_image alt=$product_info.products_name}
-				</div>		
+
+								
+									
+									<div class="thumbnail relative mb-3">
+
+										<!-- 
+											IMAGE ZOOM 
+											
+											data-mode="mouseover|grab|click|toggle"
+										-->
+										<figure id="zoom-primary" class="zoom" data-mode="mouseover">
+											<!-- 
+												zoom button
+												
+												positions available:
+													.bottom-right
+													.bottom-left
+													.top-right
+													.top-left
+											-->
+											<a class="lightbox bottom-right" href="{product_image_link dir=large image=$product_info.products_image}" data-plugin-options='{literal}{"type":"image"}{/literal}'><i class="fa fa-search" aria-hidden="true"></i></a>
+											
+											{product_image dir=large image=$product_info.products_image alt=$product_info.products_name}
+										</figure>
+
+									</div>
+
 			</div>
+			<!-- /IMAGE -->	
 			{/if}
 			
 			<div class="col-12 col-md-8">

@@ -35,6 +35,8 @@
 	
 		}
 		_owl_carousel();
+		_lightbox();
+		_zoom();
 
 	}
 
@@ -575,7 +577,146 @@
 		});
 	}
 
+	
+/** LightBox
+ **************************************************************** **/
+	function _lightbox() {
+		var _el = jQuery(".lightbox");
 
+		if(_el.length > 0) {
+
+
+				if(typeof(jQuery.magnificPopup) == "undefined") {
+					return false;
+				}
+
+				jQuery.extend(true, jQuery.magnificPopup.defaults, {
+					tClose: 		'Close',
+					tLoading: 		'Loading...',
+
+					gallery: {
+						tPrev: 		'Previous',
+						tNext: 		'Next',
+						tCounter: 	'%curr% / %total%'
+					},
+
+					image: 	{ 
+						tError: 	'Image not loaded!' 
+					},
+
+					ajax: 	{ 
+						tError: 	'Content not loaded!' 
+					}
+				});
+
+				_el.each(function() {
+
+					var _t 			= jQuery(this),
+						options 	= _t.attr('data-plugin-options'),
+						config		= {},
+						defaults 	= {
+							type: 				'image',
+							fixedContentPos: 	false,
+							fixedBgPos: 		false,
+							mainClass: 			'mfp-no-margins mfp-with-zoom',
+							closeOnContentClick: true,
+							closeOnBgClick: 	true,
+							image: {
+								verticalFit: 	true
+							},
+
+							zoom: {
+								enabled: 		false,
+								duration: 		300
+							},
+
+							gallery: {
+								enabled: false,
+								navigateByImgClick: true,
+								preload: 			[0,1],
+								arrowMarkup: 		'<button title="%title%" type="button" class="mfp-arrow mfp-arrow-%dir%"></button>',
+								tPrev: 				'Previous',
+								tNext: 				'Next',
+								tCounter: 			'<span class="mfp-counter">%curr% / %total%</span>'
+							},
+						};
+
+					if(_t.data("plugin-options")) {
+						config = jQuery.extend({}, defaults, options, _t.data("plugin-options"));
+					}
+
+					jQuery(this).magnificPopup(config);
+
+				});
+
+		}
+
+	}	
+
+
+/** Image Zoom
+ **************************************************************** **/
+	function _zoom() {
+		var _container = jQuery('figure.zoom');
+		
+		if(_container.length > 0) {
+		
+				
+				if(jQuery().zoom) {
+				
+					_container.each(function() {
+						var _t 		= jQuery(this),
+							_mode 	= _t.attr('data-mode'),
+							_id		= _t.attr('id');
+
+						if(_mode == 'grab') {
+							_t.zoom({ on:'grab' });
+						} else
+
+						if(_mode == 'click') {
+							_t.zoom({ on:'click' });
+						} else
+
+						if(_mode == 'toggle') {
+							_t.zoom({ on:'toggle' });
+						} else {
+							_t.zoom();
+						}
+
+						if(isMobile.any())  {
+							_t.zoom({ on:'toggle' });
+						}
+
+						// Thumbnails
+						if(_id) {
+							jQuery('.zoom-more[data-for='+_id+'] a').bind("click", function(e) {
+								e.preventDefault();
+
+								var _href = jQuery(this).attr('href');
+								
+								if(_href != "#") {
+									jQuery('.zoom-more[data-for='+_id+'] a').removeClass('active');
+									jQuery(this).addClass('active');
+
+									jQuery('figure#'+_id + '>.lightbox').attr('href', _href);
+
+									jQuery('figure#'+_id + '>img').fadeOut(0, function() {
+										jQuery('figure#'+_id + '>img').attr('src', _href);
+									}).fadeIn(500);
+
+
+								}
+							});
+						}
+
+					});
+
+				}
+			
+		
+		}
+
+	}
 
 
 /**  OWL Carousel
