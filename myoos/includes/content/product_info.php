@@ -203,6 +203,29 @@ if (!$product_info_result->RecordCount()) {
 			$smarty->assign('average_rating', $reviews_average);		  
 		}
     }	
+
+	// more products images
+	$products_imagestable = $oostable['products_images'];
+	$products_images_sql = "SELECT image_name, sort_order
+                        FROM $products_imagestable
+                        WHERE products_id = '" . intval($nProductsID) . "'
+						ORDER BY sort_order";
+	$products_images_result = $dbconn->Execute($products_images_sql);	
+	if ($products_images_result->RecordCount()) {
+		
+		$aProductsImages = array();
+		while ($products_images = $products_images_result->fields) {
+
+			$aProductsImages[] = array('image' => $products_images['image_name']);
+			
+			// Move that ADOdb pointer!
+			$products_images_result->MoveNext();
+		}
+
+		$smarty->assign('products_images', $aProductsImages);
+	}
+	
+
 	
     require_once MYOOS_INCLUDE_PATH . '/includes/modules/products_options.php';
 

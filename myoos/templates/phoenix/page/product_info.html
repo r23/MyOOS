@@ -16,11 +16,8 @@
 		
 			{if !empty($product_info.products_image) }
 			<!-- IMAGE -->
-			<div class="col-12 col-md-4">
-
-								
-									
-									<div class="thumbnail relative mb-3">
+			<div class="col-12 col-md-4">		
+				<div class="thumbnail relative mb-3">
 
 										<!-- 
 											IMAGE ZOOM 
@@ -41,9 +38,23 @@
 											
 											{product_image dir=large image=$product_info.products_image alt=$product_info.products_name}
 										</figure>
+				</div>
+				{if $products_images}				
+					<!-- Thumbnails -->
+					<div data-for="zoom-primary" class="zoom-more owl-carousel owl-padding-3 featured" data-plugin-options='{literal}{"singleItem": false, "autoPlay": false, "navigation": true, "pagination": false}{/literal}'>
+						<a class="thumbnail active" href="{product_image_link dir=large image=$product_info.products_image}">
+							{product_image dir=large height="100" image=$product_info.products_image alt=$product_info.products_name}
+						</a>
+					{foreach $products_images as $images}
+						<a class="thumbnail active" href="{product_image_link dir=large image=$images.image}">
+							{product_image dir=small height="100" image=$images.image alt=$product_info.products_name}
+						</a>
+					{/foreach}
+					</div>
+					<!-- /Thumbnails -->
+				{/if}
 
-									</div>
-
+			
 			</div>
 			<!-- /IMAGE -->	
 			{/if}
