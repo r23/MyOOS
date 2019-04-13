@@ -39,9 +39,6 @@
 		_zoom();
 
 	}
-
-
-
 	
 
 
@@ -417,6 +414,7 @@
 		
 	}
 
+
 /**  Side Nav
  **************************************************************** **/
 	function _sideNav() {
@@ -719,7 +717,7 @@
 	}
 
 
-/** 03. OWL Carousel
+/** OWL Carousel
  **************************************************************** **/
 	function _owl_carousel() {
 
@@ -876,100 +874,6 @@
 		}
 
 
-
-		// OWL CAROUSEL 2
-		var _container2 = jQuery("div.owl-carousel-2");
-
-		if(_container2.length > 0) {
-
-			loadScript(plugin_path + 'owl-carousel-2/owl.carousel.min.js', function() {
-
-
-				_container2.each(function() {
-					var _this 		= jQuery(this),
-						_options 	= _this.attr('data-plugin-options');
-
-					_defaults = {
-					    loop: 					true,
-					    margin: 				10,
-					    nav: 					true,
-
-					    center: 				false,
-					    mouseDrag: 				true,
-					    touchDrag: 				true,
-					    pullDrag: 				true,
-					    freeDrag: 				false,
-					    stagePadding: 			0,
-					    merge: 					false,
-					    mergeFit: 				true,
-					    autoWidth: 				false,
-					    startPosition: 			0,
-					    URLhashListener: 		false,
-					    navRewind: 				true,
-					    navText: 				[
-													'<i class="fa fa-angle-left"></i>',
-													'<i class="fa fa-angle-right"></i>'
-												],
-						slideBy: 				1,
-						dots: 					true,
-						dotsEach: 				false,
-						dotData: 				false,
-						lazyLoad: 				false,
-						lazyContent: 			false,
-						autoplay: 				false,
-						autoplayTimeout: 		3000,
-						autoplayHoverPause: 	false,
-						smartSpeed: 			250,
-						//fluidSpeed: 			'Number',
-						autoplaySpeed: 			false,
-						navSpeed: 				false,
-						//dotsSpeed: 			'Number/Boolean',
-						dragEndSpeed: 			false,
-						callbacks: 				true,
-						responsiveRefreshRate: 	200,
-						responsiveBaseElement: 	'#wrapper',
-						responsiveClass: 		true,
-						video: 					false,
-						videoHeight: 			false,
-						videoWidth: 			false,
-						animateOut: 			false,
-						animateIn: 				false,
-						fallbackEasing: 		'swing',
-						info: 					false,
-						nestedItemSelector: 	false,
-						itemElement: 			'div',
-						navContainer: 			false,
-						dotsContainer: 			false,
-
-						animateOut: 			"slideOutDown", 
-						animateIn: 				"flipInX", 
-
-					    responsive:{
-					        0:{
-					            items:1
-					        },
-					        600:{
-					            items:2
-					        },
-					        1000:{
-					            items:5
-					        }
-					    }
-					};
-
-
-					var _config = jQuery.extend({}, _defaults, JSON.parse(_options));
-					_this.owlCarousel(_config).addClass("owl-loaded");
-
-
-				});
-
-
-			});
-
-		}
-
-
 	}
 
 
@@ -1002,3 +906,4 @@
 	        return (isMobile.iOS() || isMobile.Android() || isMobile.BlackBerry() || isMobile.Opera() || isMobile.Windows());
 	    }
 	};
+	
