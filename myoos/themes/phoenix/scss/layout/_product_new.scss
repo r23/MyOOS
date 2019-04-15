@@ -1,0 +1,44 @@
+/* 1 Column */
+
+.shop-item-list > {
+  .col-lg-12 {
+    > .shop-item {
+      position: relative;
+      min-height: 230px;
+      h2 {
+        font-size: 20px;
+      }
+      > .thumbnail {
+        float: left;
+        width: 200px;
+      }
+    }
+    margin-bottom: 30px;
+    width: 100%;
+  }
+  .col-md-12 > .shop-item > .thumbnail {
+    float: left;
+    width: 200px;
+  }
+  .col-lg-12 > .shop-item > .shop-item-summary, .col-md-12 > .shop-item > .shop-item-summary {
+    text-align: left !important;
+    position: absolute;
+    left: 230px;
+  }
+  .col-lg-12 > .shop-item > .shop-item-buttons, .col-md-12 > .shop-item > .shop-item-buttons {
+    text-align: left;
+  }
+  .col-lg-12 > .shop-item > .shop-item-summary > .shop-item-price > span, .col-md-12 > .shop-item > .shop-item-summary > .shop-item-price > span {
+    padding-left: 0;
+  }
+  .col-lg-12 > .shop-item p {
+    margin: 15px 0;
+    display: inline-block;
+  }
+}
+
+/* list item buttons */
+
+div.shop-item-buttons {
+  margin-top: 8px;
+}

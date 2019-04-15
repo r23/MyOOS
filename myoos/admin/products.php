@@ -150,9 +150,10 @@ if (!empty($action)) {
 
 			for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
 				$language_id = $aLanguages[$i]['id'];
+							
 				$sql_data_array = array('products_name' => oos_db_prepare_input($_POST['products_name'][$language_id]),
-                                   'products_description' => oos_db_prepare_input($_POST['products_description_' .$aLanguages[$i]['id']]),
-                                    'products_description_meta' => oos_db_prepare_input($_POST['products_description_meta_' .$aLanguages[$i]['id']]),
+                                   'products_description' => oos_db_prepare_input($_POST['products_description_' . $aLanguages[$i]['id']]),
+                                    'products_description_meta' => oos_db_prepare_input($_POST['products_description_meta_' . $aLanguages[$i]['id']]),
                                     'products_url' => oos_db_prepare_input($_POST['products_url'][$language_id]));
 
 				if ($action == 'insert_product') {

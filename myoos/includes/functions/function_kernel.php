@@ -1058,7 +1058,7 @@ function oos_output_string($sStr, $aTranslate = null) {
   */
   function oos_remove_tags($source) {
 
-    $allowedTags = '<h1><strong><i><a><ul><li><pre><hr><br><blockquote>';
+    $allowedTags = '<h1><strong><i><a><ul><li><pre><hr><br><blockquote><p>';
     $source = strip_tags($source, $allowedTags);
 
     return $source;
