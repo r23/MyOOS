@@ -6,4 +6,8 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'FasterImage\\Exception\\InvalidImageException' => $vendorDir . '/fasterimage/fasterimage/src/FasterImage/Exception/InvalidImageException.php',
+    'FasterImage\\ExifParser' => $vendorDir . '/fasterimage/fasterimage/src/FasterImage/ExifParser.php',
+    'FasterImage\\FasterImage' => $vendorDir . '/fasterimage/fasterimage/src/FasterImage/FasterImage.php',
+    'FasterImage\\ImageParser' => $vendorDir . '/fasterimage/fasterimage/src/FasterImage/ImageParser.php',
 );

@@ -4,12 +4,16 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit84d88395c78b653d0e64b83bc394a5d2
+class ComposerStaticInit827e61deccfa9f79cdf08e64e91986f6
 {
     public static $prefixLengthsPsr4 = array (
-        'P' => 
+        'c' => 
         array (
-            'PHPCompatibility\\' => 17,
+            'cweagans\\Composer\\' => 18,
+        ),
+        'W' => 
+        array (
+            'WillWashburn\\' => 13,
         ),
         'D' => 
         array (
@@ -18,9 +22,13 @@ class ComposerStaticInit84d88395c78b653d0e64b83bc394a5d2
     );
 
     public static $prefixDirsPsr4 = array (
-        'PHPCompatibility\\' => 
+        'cweagans\\Composer\\' => 
         array (
-            0 => __DIR__ . '/..' . '/wimg/php-compatibility/PHPCompatibility',
+            0 => __DIR__ . '/..' . '/cweagans/composer-patches/src',
+        ),
+        'WillWashburn\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/willwashburn/stream/src',
         ),
         'Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\' => 
         array (
@@ -38,12 +46,20 @@ class ComposerStaticInit84d88395c78b653d0e64b83bc394a5d2
         ),
     );
 
+    public static $classMap = array (
+        'FasterImage\\Exception\\InvalidImageException' => __DIR__ . '/..' . '/fasterimage/fasterimage/src/FasterImage/Exception/InvalidImageException.php',
+        'FasterImage\\ExifParser' => __DIR__ . '/..' . '/fasterimage/fasterimage/src/FasterImage/ExifParser.php',
+        'FasterImage\\FasterImage' => __DIR__ . '/..' . '/fasterimage/fasterimage/src/FasterImage/FasterImage.php',
+        'FasterImage\\ImageParser' => __DIR__ . '/..' . '/fasterimage/fasterimage/src/FasterImage/ImageParser.php',
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit84d88395c78b653d0e64b83bc394a5d2::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit84d88395c78b653d0e64b83bc394a5d2::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit84d88395c78b653d0e64b83bc394a5d2::$prefixesPsr0;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit827e61deccfa9f79cdf08e64e91986f6::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit827e61deccfa9f79cdf08e64e91986f6::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit827e61deccfa9f79cdf08e64e91986f6::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit827e61deccfa9f79cdf08e64e91986f6::$classMap;
 
         }, null, ClassLoader::class);
     }

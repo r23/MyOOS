@@ -13,17 +13,50 @@ use WillWashburn\Stream\Stream;
  * (https://github.com/sdsykes/fastimage)
  *
  * MIT Licensed
- *
- * @version 0.01
  */
 class FasterImage
 {
     /**
-     * The default timeout
+     * The default timeout.
      *
      * @var int
      */
     protected $timeout = 10;
+
+    /**
+     * The default buffer size.
+     *
+     * @var int
+     */
+    protected $bufferSize = 256;
+
+    /**
+     * The default for whether to verify SSL peer.
+     *
+     * @var bool
+     */
+    protected $sslVerifyPeer = false;
+
+    /**
+     * The default for whether to verify SSL host.
+     *
+     * @var bool
+     */
+    protected $sslVerifyHost = false;
+
+    /**
+     * If the content length should be included in the result set.
+     *
+     * @var bool
+     */
+    protected $includeContentLength = false;
+
+    /**
+     * The default user agent to set for requests.
+     *
+     * @var string
+     */
+    protected $userAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/537.36';
 
     /**
      * Get the size of each of the urls in a list
@@ -80,11 +113,51 @@ class FasterImage
     }
 
     /**
-     * @param $seconds
+     * @param int $seconds
      */
     public function setTimeout($seconds)
     {
-        $this->timeout = $seconds;
+        $this->timeout = (int) $seconds;
+    }
+
+    /**
+     * @param int $bufferSize
+     */
+    public function setBufferSize($bufferSize)
+    {
+        $this->bufferSize = (int) $bufferSize;
+    }
+
+    /**
+     * @param bool $sslVerifyPeer
+     */
+    public function setSslVerifyPeer($sslVerifyPeer)
+    {
+        $this->sslVerifyPeer = (bool) $sslVerifyPeer;
+    }
+
+    /**
+     * @param bool $sslVerifyHost
+     */
+    public function setSslVerifyHost($sslVerifyHost)
+    {
+        $this->sslVerifyHost = (bool) $sslVerifyHost;
+    }
+
+    /**
+     * @param bool $bool
+     */
+    public function setIncludeContentLength($bool)
+    {
+        $this->includeContentLength = (bool) $bool;
+    }
+
+    /**
+     * @param string $userAgent
+     */
+    public function setUserAgent($userAgent)
+    {
+        $this->userAgent = $userAgent;
     }
 
     /**
@@ -107,17 +180,17 @@ class FasterImage
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-        curl_setopt($ch, CURLOPT_BUFFERSIZE, 1024);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_BUFFERSIZE, $this->bufferSize);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $this->sslVerifyPeer ? 1 : 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, $this->sslVerifyHost ? 2 : 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $this->timeout);
         curl_setopt($ch, CURLOPT_TIMEOUT, $this->timeout);
 
         #  Some web servers require the useragent to be not a bot. So we are liars.
-        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/537.36');
+        curl_setopt($ch, CURLOPT_USERAGENT, $this->userAgent);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
-            "Accept: text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5",
+            "Accept: image/webp,image/*,*/*;q=0.8",
             "Cache-Control: max-age=0",
             "Connection: keep-alive",
             "Keep-Alive: 300",
@@ -126,6 +199,26 @@ class FasterImage
             "Pragma: ", // browsers keep this blank.
         ]);
         curl_setopt($ch, CURLOPT_ENCODING, "");
+
+
+        /*
+         * We parse the headers to find the content-length. This is added to the
+         * result array and can be useful to determine the overall image filesize.
+         */
+        if ($this->includeContentLength) {
+
+            curl_setopt($ch, CURLOPT_HEADERFUNCTION, function ($curl, $header) use (&$result) {
+
+                $len    = strlen($header);
+                $header = explode(':', $header, 2);
+
+                if ( strtolower($header[0]) === 'content-length' ) {
+                    $result['content-length'] = trim($header[1]);
+                }
+
+                return $len;
+            });
+        }
 
         curl_setopt($ch, CURLOPT_WRITEFUNCTION, function ($ch, $str) use (& $result, & $parser, & $stream, $url) {
 
