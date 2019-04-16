@@ -69,7 +69,7 @@
 							</div>
 										
 							<div class="shop-item-summary text-center">
-								<h2><a href="{product_link products_id=$product.products_id}">{$product.products_name}</a></h2>
+								<h2><a href="{product_link products_id=$product.products_id}">{$product.products_name|truncate:18:"":true|close_tags}</a></h2>
 								
 {*
   todo								
