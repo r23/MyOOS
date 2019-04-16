@@ -38,6 +38,24 @@ $generated_i18n_strings = array(
 	// Reference: js/src/components/modals/Modal.js:78
 	__( 'Close', 'wordpress-seo' ),
 
+	// Reference: js/src/components/WordPressUserSelector.js:107
+	__( 'Select a user...', 'wordpress-seo' ),
+
+	// Reference: js/src/components/WordPressUserSelectorOnboardingWizard.js:45
+	__( 'The name of the person', 'wordpress-seo' ),
+
+	// Reference: js/src/components/WordPressUserSelectorOnboardingWizard.js:53
+	__( 'You can edit the details shown in meta data, like the social profiles, the name and the description of this user on their %1$s profile page.', 'wordpress-seo' ),
+
+	// Reference: js/src/components/WordPressUserSelectorSearchAppearance.js:124
+	__( 'Name:', 'wordpress-seo' ),
+
+	// Reference: js/src/components/WordPressUserSelectorSearchAppearance.js:76
+	__( 'Error: Please select a user below to make your site\'s meta data complete.', 'wordpress-seo' ),
+
+	// Reference: js/src/components/WordPressUserSelectorSearchAppearance.js:93
+	__( 'You have selected the user %1$s as the person this site represents. Their user profile information will now be used in search results. %2$sUpdate their profile to make sure the information is correct.%3$s', 'wordpress-seo' ),
+
 	// Reference: js/src/components/contentAnalysis/ReadabilityAnalysis.js:50
 	__( 'Readability analysis', 'wordpress-seo' ),
 

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit5501a8bf1f868cbc0d56aab5ab6c3af6
+class ComposerStaticInitf22b8825991ccda35c7813f5b3928f77
 {
     public static $prefixLengthsPsr4 = array (
         'C' => 
@@ -177,7 +177,7 @@ class ComposerStaticInit5501a8bf1f868cbc0d56aab5ab6c3af6
         'WPSEO_Config_Field_Google_Search_Console_Intro' => __DIR__ . '/../..' . '/admin/config-ui/fields/class-field-google-search-console-intro.php',
         'WPSEO_Config_Field_Mailchimp_Signup' => __DIR__ . '/../..' . '/admin/config-ui/fields/class-field-mailchimp-signup.php',
         'WPSEO_Config_Field_Multiple_Authors' => __DIR__ . '/../..' . '/admin/config-ui/fields/class-field-multiple-authors.php',
-        'WPSEO_Config_Field_Person_Name' => __DIR__ . '/../..' . '/admin/config-ui/fields/class-field-person-name.php',
+        'WPSEO_Config_Field_Person' => __DIR__ . '/../..' . '/admin/config-ui/fields/class-field-person.php',
         'WPSEO_Config_Field_Post_Type_Visibility' => __DIR__ . '/../..' . '/admin/config-ui/fields/class-field-post-type-visibility.php',
         'WPSEO_Config_Field_Profile_URL_Facebook' => __DIR__ . '/../..' . '/admin/config-ui/fields/class-field-profile-url-facebook.php',
         'WPSEO_Config_Field_Profile_URL_GooglePlus' => __DIR__ . '/../..' . '/deprecated/admin/config-ui/fields/class-field-profile-url-googleplus.php',
@@ -191,7 +191,6 @@ class ComposerStaticInit5501a8bf1f868cbc0d56aab5ab6c3af6
         'WPSEO_Config_Field_Separator' => __DIR__ . '/../..' . '/admin/config-ui/fields/class-field-separator.php',
         'WPSEO_Config_Field_Site_Name' => __DIR__ . '/../..' . '/admin/config-ui/fields/class-field-site-name.php',
         'WPSEO_Config_Field_Site_Type' => __DIR__ . '/../..' . '/admin/config-ui/fields/class-field-site-type.php',
-        'WPSEO_Config_Field_Social_Profiles_Intro' => __DIR__ . '/../..' . '/admin/config-ui/fields/class-field-social-profiles-intro.php',
         'WPSEO_Config_Field_Success_Message' => __DIR__ . '/../..' . '/admin/config-ui/fields/class-field-success-message.php',
         'WPSEO_Config_Field_Suggestions' => __DIR__ . '/../..' . '/admin/config-ui/fields/class-field-suggestions.php',
         'WPSEO_Config_Field_Title_Intro' => __DIR__ . '/../..' . '/admin/config-ui/fields/class-field-title-intro.php',
@@ -251,6 +250,7 @@ class ComposerStaticInit5501a8bf1f868cbc0d56aab5ab6c3af6
         'WPSEO_GSC_Service' => __DIR__ . '/../..' . '/admin/google_search_console/class-gsc-service.php',
         'WPSEO_GSC_Settings' => __DIR__ . '/../..' . '/admin/google_search_console/class-gsc-settings.php',
         'WPSEO_GSC_Table' => __DIR__ . '/../..' . '/admin/google_search_console/class-gsc-table.php',
+        'WPSEO_Graph_Piece' => __DIR__ . '/../..' . '/frontend/schema/interface-wpseo-graph-piece.php',
         'WPSEO_Gutenberg_Compatibility' => __DIR__ . '/../..' . '/admin/class-gutenberg-compatibility.php',
         'WPSEO_Handle_404' => __DIR__ . '/../..' . '/frontend/class-handle-404.php',
         'WPSEO_Help_Center' => __DIR__ . '/../..' . '/admin/class-help-center.php',
@@ -286,7 +286,6 @@ class ComposerStaticInit5501a8bf1f868cbc0d56aab5ab6c3af6
         'WPSEO_Installation' => __DIR__ . '/../..' . '/inc/class-wpseo-installation.php',
         'WPSEO_Invalid_Argument_Exception' => __DIR__ . '/../..' . '/inc/exceptions/class-invalid-argument-exception.php',
         'WPSEO_Invalid_Indexable_Exception' => __DIR__ . '/../..' . '/inc/exceptions/class-invalid-indexable-exception.php',
-        'WPSEO_JSON_LD' => __DIR__ . '/../..' . '/frontend/class-json-ld.php',
         'WPSEO_Keyword_Synonyms_Modal' => __DIR__ . '/../..' . '/admin/class-keyword-synonyms-modal.php',
         'WPSEO_Keyword_Validator' => __DIR__ . '/../..' . '/inc/indexables/validators/class-keyword-validator.php',
         'WPSEO_Language_Utils' => __DIR__ . '/../..' . '/inc/language-utils.php',
@@ -407,6 +406,17 @@ class ComposerStaticInit5501a8bf1f868cbc0d56aab5ab6c3af6
         'WPSEO_Role_Manager_VIP' => __DIR__ . '/../..' . '/admin/roles/class-role-manager-vip.php',
         'WPSEO_Role_Manager_WP' => __DIR__ . '/../..' . '/admin/roles/class-role-manager-wp.php',
         'WPSEO_Ryte_Service' => __DIR__ . '/../..' . '/admin/onpage/class-ryte-service.php',
+        'WPSEO_Schema' => __DIR__ . '/../..' . '/frontend/schema/class-schema.php',
+        'WPSEO_Schema_Article' => __DIR__ . '/../..' . '/frontend/schema/class-schema-article.php',
+        'WPSEO_Schema_Author' => __DIR__ . '/../..' . '/frontend/schema/class-schema-author.php',
+        'WPSEO_Schema_Breadcrumb' => __DIR__ . '/../..' . '/frontend/schema/class-schema-breadcrumb.php',
+        'WPSEO_Schema_Context' => __DIR__ . '/../..' . '/frontend/schema/class-schema-context.php',
+        'WPSEO_Schema_IDs' => __DIR__ . '/../..' . '/frontend/schema/class-schema-ids.php',
+        'WPSEO_Schema_Organization' => __DIR__ . '/../..' . '/frontend/schema/class-schema-organization.php',
+        'WPSEO_Schema_Person' => __DIR__ . '/../..' . '/frontend/schema/class-schema-person.php',
+        'WPSEO_Schema_Person_Upgrade_Notification' => __DIR__ . '/../..' . '/admin/class-schema-person-upgrade-notification.php',
+        'WPSEO_Schema_WebPage' => __DIR__ . '/../..' . '/frontend/schema/class-schema-webpage.php',
+        'WPSEO_Schema_Website' => __DIR__ . '/../..' . '/frontend/schema/class-schema-website.php',
         'WPSEO_Shortcode_Filter' => __DIR__ . '/../..' . '/admin/ajax/class-shortcode-filter.php',
         'WPSEO_Shortlinker' => __DIR__ . '/../..' . '/inc/class-wpseo-shortlinker.php',
         'WPSEO_Sitemap_Cache_Data' => __DIR__ . '/../..' . '/inc/sitemaps/class-sitemap-cache-data.php',
@@ -680,10 +690,10 @@ class ComposerStaticInit5501a8bf1f868cbc0d56aab5ab6c3af6
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit5501a8bf1f868cbc0d56aab5ab6c3af6::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit5501a8bf1f868cbc0d56aab5ab6c3af6::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit5501a8bf1f868cbc0d56aab5ab6c3af6::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit5501a8bf1f868cbc0d56aab5ab6c3af6::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitf22b8825991ccda35c7813f5b3928f77::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitf22b8825991ccda35c7813f5b3928f77::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitf22b8825991ccda35c7813f5b3928f77::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitf22b8825991ccda35c7813f5b3928f77::$classMap;
 
         }, null, ClassLoader::class);
     }
