@@ -18,32 +18,16 @@
 			<!-- IMAGE -->
 			<div class="col-12 col-md-4">		
 				<div class="thumbnail relative mb-3">
-
-										<!-- 
-											IMAGE ZOOM 
-											
-											data-mode="mouseover|grab|click|toggle"
-										-->
-										<figure id="zoom-primary" class="zoom" data-mode="mouseover">
-											<!-- 
-												zoom button
-												
-												positions available:
-													.bottom-right
-													.bottom-left
-													.top-right
-													.top-left
-											-->
-											<a class="lightbox bottom-right" href="{product_image_link dir=large image=$product_info.products_image}" data-plugin-options='{literal}{"type":"image"}{/literal}'><i class="fa fa-search" aria-hidden="true"></i></a>
-											
-											{product_image dir=large image=$product_info.products_image alt=$product_info.products_name}
-										</figure>
+					<figure id="zoom-primary" class="zoom" data-mode="{$smarty.const.IMAGE_ZOOM|default:'mouseover'}">
+						<a class="lightbox {$smarty.const.ZOOM_BUTTON|default:'bottom-right'}" href="{product_image_link dir=large image=$product_info.products_image}" data-plugin-options='{literal}{"type":"image"}{/literal}'><i class="fa fa-search" aria-hidden="true"></i></a>					
+						{product_image dir=large image=$product_info.products_image alt=$product_info.products_name}
+					</figure>
 				</div>
 				{if $products_images}				
 					<!-- Thumbnails -->
 					<div data-for="zoom-primary" class="zoom-more owl-carousel owl-padding-3 featured" data-plugin-options='{literal}{"singleItem": false, "autoPlay": false, "navigation": true, "pagination": false}{/literal}'>
 						<a class="thumbnail active" href="{product_image_link dir=large image=$product_info.products_image}">
-							{product_image dir=large height="100" image=$product_info.products_image alt=$product_info.products_name}
+							{product_image dir=small height="100" image=$product_info.products_image alt=$product_info.products_name}
 						</a>
 					{foreach $products_images as $images}
 						<a class="thumbnail active" href="{product_image_link dir=large image=$images.image}">
@@ -62,6 +46,7 @@
 			<div class="col-12 col-md-8">
 				<div class="product_details_desc">
 					{if $oEvent->installed_plugin('manufacturers')}
+						{if !empty($manufacturers_info.manufacturers_name) }
 						<div class="manufacturer" itemprop="manufacturer" itemscope itemtype="https://schema.org/Organization">
 							<span itemprop="brand" itemscope itemtype="https://schema.org/Brand">
 								<meta itemprop="name" content="{$manufacturers_info.manufacturers_name}">
@@ -71,7 +56,8 @@
 									{$manufacturers_info.manufacturers_name}	
 								</a>
 							</h2>
-						</div>				
+						</div>
+						{/if}						
 					{/if}
 					
 						<div class="product-name" itemprop="name">					
