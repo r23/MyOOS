@@ -110,7 +110,8 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configur
 $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('MAX_DISPLAY_PRODUCTS_IN_PRODUCTS_HISTORY_BOX', '3', 3, 27, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
 
 //4
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('IMAGE_ZOOM', 'mouseover', 4, 15, 10, " . $db->DBTimeStamp($today) . ", NULL, 'oos_cfg_select_option(array(\'mouseover\', \'grab\',\'click\', \'toggle\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('IMAGE_ZOOM', 'mouseover', 4, 10, " . $db->DBTimeStamp($today) . ", NULL, 'oos_cfg_select_option(array(\'mouseover\', \'grab\',\'click\', \'toggle\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('ZOOM_BUTTON', 'bottom-right', 4, 11, " . $db->DBTimeStamp($today) . ", NULL, 'oos_cfg_select_option(array(\'bottom-right\', \'bottom-left\',\'top-right\', \'top-left\'),')") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
 
 
 

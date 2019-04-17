@@ -76,14 +76,14 @@
 
 		// Mobile Submenu
 		var addActiveClass 	= false;
-		jQuery("#topMain a.dropdown-toggle").bind("click", function(e) {
+		jQuery("#down a.dropdown-toggle").bind("click", function(e) {
 			
 			if(jQuery(this).attr('href') == "#") {
 				e.preventDefault();
 			}
 
 			addActiveClass = jQuery(this).parent().hasClass("resp-active");
-			jQuery("#topMain").find(".resp-active").removeClass("resp-active");
+			jQuery("#down").find(".resp-active").removeClass("resp-active");
 
 			if(!addActiveClass) {
 				jQuery(this).parents("li").addClass("resp-active");
