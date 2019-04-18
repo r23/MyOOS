@@ -124,6 +124,8 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
 
     private $removedIds = [];
 
+    private $removedBindingIds = [];
+
     private static $internalTypes = [
         'int' => true,
         'float' => true,
@@ -826,6 +828,10 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
     {
         $alias = (string) $alias;
 
+        if ('' === $alias || '\\' === $alias[-1] || \strlen($alias) !== strcspn($alias, "\0\r\n'")) {
+            throw new InvalidArgumentException(sprintf('Invalid alias id: "%s"', $alias));
+        }
+
         if (\is_string($id)) {
             $id = new Alias($id);
         } elseif (!$id instanceof Alias) {
@@ -978,6 +984,10 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
         }
 
         $id = (string) $id;
+
+        if ('' === $id || '\\' === $id[-1] || \strlen($id) !== strcspn($id, "\0\r\n'")) {
+            throw new InvalidArgumentException(sprintf('Invalid service id: "%s"', $id));
+        }
 
         unset($this->aliasDefinitions[$id], $this->removedIds[$id]);
 
@@ -1458,6 +1468,35 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
     public function log(CompilerPassInterface $pass, string $message)
     {
         $this->getCompiler()->log($pass, $this->resolveEnvPlaceholders($message));
+    }
+
+    /**
+     * Gets removed binding ids.
+     *
+     * @return array
+     *
+     * @internal
+     */
+    public function getRemovedBindingIds()
+    {
+        return $this->removedBindingIds;
+    }
+
+    /**
+     * Adds a removed binding id.
+     *
+     * @param int $id
+     *
+     * @internal
+     */
+    public function addRemovedBindingIds($id)
+    {
+        if ($this->hasDefinition($id)) {
+            foreach ($this->getDefinition($id)->getBindings() as $key => $binding) {
+                list(, $bindingId) = $binding->getValues();
+                $this->removedBindingIds[(int) $bindingId] = true;
+            }
+        }
     }
 
     /**

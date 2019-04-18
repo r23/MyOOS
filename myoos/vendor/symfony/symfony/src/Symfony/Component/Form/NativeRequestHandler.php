@@ -41,6 +41,8 @@ class NativeRequestHandler implements RequestHandlerInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @throws Exception\UnexpectedTypeException If the $request is not null
      */
     public function handleRequest(FormInterface $form, $request = null)
     {
@@ -131,6 +133,30 @@ class NativeRequestHandler implements RequestHandlerInterface
         // that the submitted data is a file upload if the "error" value is an integer
         // (this value must have been injected by PHP itself).
         return \is_array($data) && isset($data['error']) && \is_int($data['error']);
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getUploadFileError($data)
+    {
+        if (!\is_array($data)) {
+            return null;
+        }
+
+        if (!isset($data['error'])) {
+            return null;
+        }
+
+        if (!\is_int($data['error'])) {
+            return null;
+        }
+
+        if (UPLOAD_ERR_OK === $data['error']) {
+            return null;
+        }
+
+        return $data['error'];
     }
 
     /**

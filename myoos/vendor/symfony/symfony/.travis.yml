@@ -48,6 +48,8 @@ before_install:
       # Enable Sury ppa
       sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6B05F25D762E3157
       sudo add-apt-repository -y ppa:ondrej/php
+      sudo rm /etc/apt/sources.list.d/google-chrome.list
+      sudo rm /etc/apt/sources.list.d/mongodb-3.4.list
       sudo apt update
       sudo apt install -y librabbitmq-dev libsodium-dev
 
@@ -193,6 +195,12 @@ install:
           COMPONENTS=$(find src/Symfony -mindepth 2 -type f -name phpunit.xml.dist -printf '%h\n')
       else
           SYMFONY_VERSION=$(cat composer.json | grep '^ *"dev-master". *"[1-9]' | grep -o '[0-9.]*')
+      fi
+
+    - |
+      # Skip the phpunit-bridge on not-master branches when $deps is empty
+      if [[ ! $deps && $TRAVIS_BRANCH != master ]]; then
+          COMPONENTS=$(find src/Symfony -mindepth 3 -type f -name phpunit.xml.dist -not -wholename '*/Bridge/PhpUnit/*' -printf '%h\n')
       fi
 
     - |
