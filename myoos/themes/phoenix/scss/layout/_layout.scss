@@ -169,7 +169,6 @@ section.section-xlg {
 
 /** sign-out
  **************************************************************** **/
-
 .sign-out {
 	@include px-to-rem( font-size, 200px);
 	@include px-to-rem( line-height, 200px);
@@ -182,3 +181,8 @@ section.section-xlg {
 	bottom: 0;
 }
 
+/** sidebar
+ **************************************************************** **/
+.thumbnail.float-left {
+    margin-right: 20px;
+}

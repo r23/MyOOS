@@ -1,10 +1,6 @@
 /** Default Styles
 *************************************************** **/
 
-html, body {
-	height:100%;
-	direction: ltr;
-}
 
 body {
   color: $m-color-main;
@@ -31,6 +27,8 @@ body #wrapper {
 .container {
 	position:relative;
 }
+
+
 
 a {
   color: $m-color-primary;

@@ -11,16 +11,18 @@
 					<a href="{product_link products_id=$products_history.products_id}">
 						{product_image dir=min image=$products_history.products_image alt=$products_history.products_name}
 					</a>
-				</div>  
-				<a class="block fs-12" href="{product_link products_id=$products_history.products_id}">{$products_history.products_name|truncate:11:"":true|close_tags}</a>
+				</div> 
+				<div class="block">
+					<a class="block fs-12" href="{product_link products_id=$products_history.products_id}">{$products_history.products_name|truncate:11:"":true|close_tags}</a>
 {*
   todo			
-				<div class="rating rating-4 fs-13 fw-100 text-left"><!-- rating-0 ... rating-5 --></div>
-				<div class="fs-18 text-left">00.00 €</div>
+					<div class="rating rating-4 fs-13 fw-100 text-left"><!-- rating-0 ... rating-5 --></div>
+					<div class="fs-18 text-left">00.00 €</div>
 *}	
-				{if $myUser.show_price eq 1 }
-					<a href="{html_href_link content=$page_file oos_get=$get_params action=buy_now products_id=$products_history.products_id}" class="btn btn-secondary float-right" role="button"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
-				{/if}	
+					{if $myUser.show_price eq 1 }
+						<a href="{html_href_link content=$page_file oos_get=$get_params action=buy_now products_id=$products_history.products_id}" class="btn btn-secondary float-right" role="button"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+					{/if}
+				</div>
 			</li><!-- /item -->
 		{/foreach}
 
