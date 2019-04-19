@@ -70,7 +70,7 @@ function smarty_function_html_oos_image($params, &$smarty)
 
     $image = $basedir . $image;
 
-    if ((empty($image) || ($image == OOS_IMAGES)) && (IMAGE_REQUIRED == 'false')) {
+    if (empty($image) || ($image == OOS_IMAGES)) {
         return FALSE;
     }
 	

@@ -186,8 +186,14 @@ define('SUBCATEGORY_IMAGE_WIDTH_DESC', 'Die Breite von Unterkategorie-Bildern in
 define('SUBCATEGORY_IMAGE_HEIGHT_TITLE', 'Höhe Unterkategorie-Bilder');
 define('SUBCATEGORY_IMAGE_HEIGHT_DESC', 'Die Höhe von Unterkategorie-Bildern in Pixeln');
 
-define('IMAGE_REQUIRED_TITLE', 'Bild erforderlich');
-define('IMAGE_REQUIRED_DESC', 'Einschalten, um tote Links zu Bildern darzustellen. Hilfreich bei der Entwicklung.');
+define('IMAGE_ZOOM_TITLE', 'Bild auf der Produktinfo Seite vergrößern.');
+define('IMAGE_ZOOM_DESC', 'Bild vergrößern bei:');
+
+define('IMAGE_ZOOM_TITLE', 'Bild auf der Produktinfo Seite vergrößern.');
+define('IMAGE_ZOOM_DESC', 'Bild vergrößern bei:');
+
+define('ZOOM_BUTTON_TITLE', 'Position der Schaltfläche \'Zoom In\'.');
+define('ZOOM_BUTTON_DESC', 'Die Button Position auf dem Bild der Produktinfo Seite');
 
 define('CUSTOMER_NOT_LOGIN_TITLE', 'Zugangsberechtigung');
 define('CUSTOMER_NOT_LOGIN_DESC', 'Die Zugangsberechtigung wird durch den Administrator nach Prüfung der Kundendaten erteilt');

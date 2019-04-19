@@ -192,8 +192,11 @@ define('SUBCATEGORY_IMAGE_WIDTH_DESC', 'The pixel width of subcategory images');
 define('SUBCATEGORY_IMAGE_HEIGHT_TITLE', 'Subcategory Image Height');
 define('SUBCATEGORY_IMAGE_HEIGHT_DESC', 'The pixel height of subcategory images');
 
-define('IMAGE_REQUIRED_TITLE', 'Image Required');
-define('IMAGE_REQUIRED_DESC', 'Enable to display broken images. Good for development.');
+define('IMAGE_ZOOM_TITLE', 'Enlarge image on product info pagee');
+define('IMAGE_ZOOM_DESC', 'Enlarge image on:');
+
+define('ZOOM_BUTTON_TITLE', 'Position of the \'Zoom In\' button');
+define('ZOOM_BUTTON_DESC', 'The button position on the image of the product info page');
 
 define('CUSTOMER_NOT_LOGIN_TITLE', 'Access authorisation');
 define('CUSTOMER_NOT_LOGIN_DESC', 'The access authorization is granted by the administrator after checking the customer data.');

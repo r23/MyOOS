@@ -107,7 +107,7 @@ function oos_href_link($page = '', $parameters = '', $add_session_id = TRUE, $se
   * @return string
   */
   function oos_image($src, $title = null, $width = 0, $height = 0, $parameters = null) {
-    if ( (empty($src) || ($src == OOS_IMAGES)) && (IMAGE_REQUIRED == 'false') ) {
+    if (empty($src) || ($src == OOS_IMAGES)) {
       return FALSE;
     }
 
