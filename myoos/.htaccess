@@ -1137,7 +1137,7 @@ Options -Indexes
 	RewriteCond %{QUERY_STRING} ^.*(%24&x).* [NC,OR]
 	RewriteCond %{QUERY_STRING} ^.*(127\.0).* [NC,OR]
 	RewriteCond %{QUERY_STRING} ^.*(globals|encode|localhost|loopback).* [NC,OR]
-	RewriteCond %{QUERY_STRING} ^.*(request|concat|insert|union|declare).* [NC]
+	RewriteCond %{QUERY_STRING} ^.*(request|concat|union|declare).* [NC]
 	RewriteCond %{HTTP_REFERER} !^http://maps\.googleapis\.com(.*)$
 	RewriteRule ^(.*)$ - [F]
 		

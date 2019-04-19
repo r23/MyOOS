@@ -610,6 +610,7 @@ function calcBasePriceFactor() {
 		<script>
 			CKEDITOR.replace( 'products_description_<?php echo $aLanguages[$i]['id']; ?>');
 		</script>
+
 <?php
     }
 	for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
