@@ -18,12 +18,15 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  define('OOS_VALID_MOD', 'yes');
-  require 'includes/main.php';
-  require 'includes/functions/function_coupon.php';
+define('OOS_VALID_MOD', 'yes');
 
-  require 'includes/classes/class_currencies.php';
-  $currencies = new currencies();
+require 'includes/main.php';
+require 'includes/functions/function_coupon.php';
+require 'includes/classes/class_currencies.php';
+
+require_once MYOOS_INCLUDE_PATH . '/includes/lib/htmlpurifier/library/HTMLPurifier.auto.php';
+
+$currencies = new currencies();
 
   $action = (isset($_GET['action']) ? $_GET['action'] : '');
 

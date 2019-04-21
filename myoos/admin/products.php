@@ -24,8 +24,10 @@ require 'includes/main.php';
 
 require 'includes/functions/function_categories.php';
 require 'includes/classes/class_upload.php';
-
 require 'includes/classes/class_currencies.php';
+
+require_once MYOOS_INCLUDE_PATH . '/includes/lib/htmlpurifier/library/HTMLPurifier.auto.php';
+
 $currencies = new currencies();
 
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
@@ -152,9 +154,10 @@ if (!empty($action)) {
 				$language_id = $aLanguages[$i]['id'];
 							
 				$sql_data_array = array('products_name' => oos_db_prepare_input($_POST['products_name'][$language_id]),
-                                   'products_description' => oos_db_prepare_input($_POST['products_description_' . $aLanguages[$i]['id']]),
-                                    'products_description_meta' => oos_db_prepare_input($_POST['products_description_meta_' . $aLanguages[$i]['id']]),
-                                    'products_url' => oos_db_prepare_input($_POST['products_url'][$language_id]));
+										'products_description' => oos_db_prepare_input($_POST['products_description_' . $aLanguages[$i]['id']]),
+										'products_essential_characteristics' => oos_db_prepare_input($_POST['products_essential_characteristics_' . $aLanguages[$i]['id']]),
+										'products_description_meta' => oos_db_prepare_input($_POST['products_description_meta_' . $aLanguages[$i]['id']]),
+										'products_url' => oos_db_prepare_input($_POST['products_url'][$language_id]));
 
 				if ($action == 'insert_product') {
 					$insert_sql_data = array('products_id' => $products_id,
@@ -322,6 +325,7 @@ require 'includes/header.php';
 if ($action == 'new_product') {
     $parameters = array('products_name' => '',
                        'products_description' => '',
+					   'products_essential_characteristics' => '',
                        'products_url' => '',
                        'products_id' => '',
                        'products_quantity' => '',
@@ -342,8 +346,8 @@ if ($action == 'new_product') {
 	if (isset($_GET['pID']) && empty($_POST)) {	  
 		$productstable = $oostable['products'];
 		$products_descriptiontable = $oostable['products_description'];
-		$product_result = $dbconn->Execute("SELECT p.products_id, pd.products_name, pd.products_description, pd.products_url,
-                                                 pd.products_description_meta, p.products_id,
+		$product_result = $dbconn->Execute("SELECT p.products_id, pd.products_name, pd.products_description, pd.products_essential_characteristics,
+													pd.products_url, pd.products_description_meta, 
                                                  p.products_quantity, p.products_reorder_level, p.products_model,
                                                  p.products_replacement_product_id, p.products_ean, p.products_image,
                                                  p.products_price, p.products_base_price, p.products_base_quantity,
@@ -378,6 +382,7 @@ if ($action == 'new_product') {
     } elseif (oos_is_not_null($_POST)) {
 		$products_name = oos_db_prepare_input($_POST['products_name']);
 		$products_description = oos_db_prepare_input($_POST['products_description']);
+		$products_essential_characteristics = oos_db_prepare_input($_POST['products_essential_characteristics']);
 		$products_description_meta = oos_db_prepare_input($_POST['products_description_meta']);
 		$products_url = oos_db_prepare_input($_POST['products_url']);
     } else {
@@ -613,6 +618,25 @@ function calcBasePriceFactor() {
 
 <?php
     }
+    for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
+?>
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_PRODUCTS_ESSENTIAL_CHARACTERISTICS; ?></label>
+							  <?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
+                              <div class="col-lg-9">
+<?php
+       echo oos_draw_textarea_field('products_essential_characteristics_' . $aLanguages[$i]['id'], 'soft', '70', '15', ($_POST['products_essential_characteristics_' .$aLanguages[$i]['id']] ? stripslashes($_POST['products_essential_characteristics_' .$aLanguages[$i]['id']]) : oos_get_products_essential_characteristicsn($pInfo->products_id, $aLanguages[$i]['id'])));
+?>
+                              </div>
+                           </div>
+                        </fieldset>
+		<script>
+			CKEDITOR.replace( 'products_essential_characteristics_<?php echo $aLanguages[$i]['id']; ?>');
+		</script>
+
+<?php
+    }	
 	for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
 ?>
 					<fieldset>

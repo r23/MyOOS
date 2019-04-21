@@ -258,7 +258,7 @@ if (!empty($action)) {
         }
 
         //products_description
-        $products_result = $dbconn->Execute("SELECT p.products_id, pd.products_name, pd.products_description, pd.products_url 
+        $products_result = $dbconn->Execute("SELECT p.products_id, pd.products_name, pd.products_description, pd.products_essential_characteristics, pd.products_url 
                                          FROM " . $oostable['products'] . " p LEFT JOIN
                                               " . $oostable['products_description'] . " pd
                                             ON p.products_id = pd.products_id
@@ -269,11 +269,13 @@ if (!empty($action)) {
                        products_languages_id,
                        products_name,
                        products_description,
+					   products_essential_characteristics
                        products_url) 
                        VALUES ('" . $products['products_id'] . "',
                                '" . intval($insert_id) . "',
                                '" . oos_db_input($products['products_name']) . "',
                                '" . oos_db_input($products['products_description']) . "',
+							   '" . oos_db_input($products['products_essential_characteristics']) . "',
                                '" . oos_db_input($products['products_url']) . "')");
 
            // Move that ADOdb pointer!

@@ -164,6 +164,29 @@ function oos_get_products_description($product_id, $language_id = '') {
     return $products_description;
 }
 
+
+function oos_get_products_essential_characteristicsn($product_id, $language_id = '') {
+
+    // Get database information
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
+
+    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+
+    $products_descriptiontable = $oostable['products_description'];
+    $query = "SELECT products_essential_characteristics
+              FROM $products_descriptiontable
+              WHERE products_id = '" . intval($product_id) . "'
+                AND products_languages_id = '" . intval($language_id) . "'";
+    $result = $dbconn->Execute($query);
+
+    $products_essential_characteristics = $result->fields['products_essential_characteristics'];
+
+    return $products_essential_characteristics;
+}
+
+
+
 function oos_get_products_description_meta($product_id, $language_id = '') {
 
     // Get database information

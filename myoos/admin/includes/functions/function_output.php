@@ -436,14 +436,21 @@ function oos_draw_textarea_field($name, $wrap, $width, $height, $text = '', $par
 	
 	if ( ($reinsert_value == TRUE) && ( (isset($_GET[$name]) && is_string($_GET[$name])) || (isset($_POST[$name]) && is_string($_POST[$name])) ) ) {
 		if (isset($_GET[$name]) && is_string($_GET[$name])) {
-			$field .= htmlspecialchars(stripslashes($_GET[$name]));
+			$text = stripslashes($_GET[$name]);
 		} elseif (isset($_POST[$name]) && is_string($_POST[$name])) {
-			$field .= htmlspecialchars(stripslashes($_POST[$name]));
+			$text = stripslashes($_POST[$name]);
 		}		
-	} elseif (oos_is_not_null($text)) {
-		$field .= htmlspecialchars($text);
-	}
-    $field .= '</textarea>';
+	} 
+	
+	if (oos_is_not_null($text)) {
+		$config = HTMLPurifier_Config::createDefault();
+		$purifier = new HTMLPurifier($config);
+		$clean_html = $purifier->purify($text);	
+		$field .= $clean_html;
+	}	
+	
+	$field .= '</textarea>';
+
 
     return $field;
 }
