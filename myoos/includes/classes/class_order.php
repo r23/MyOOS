@@ -385,7 +385,6 @@ class order {
         }
 
 		$nPrice = $oCurrencies->calculate_price($this->products[$index]['final_price'], $this->products[$index]['tax'], $this->products[$index]['qty']);
-       # $nPrice = oos_add_tax($this->products[$index]['final_price'], $this->products[$index]['tax']) * $this->products[$index]['qty'];
         $this->info['subtotal'] += $nPrice;
 
         $products_tax = $this->products[$index]['tax'];
@@ -400,14 +399,16 @@ class order {
         } else {
 			$this->info['tax'] += ($products_tax / 100) * $nPrice;
 			if (isset($this->info['tax_groups']["$products_tax_description"])) {
-				$this->info['tax_groups']["$products_tax"] += ($products_tax / 100) * $nPrice;
+				$this->info['tax_groups']["$products_tax_description"] += ($products_tax / 100) * $nPrice;
 			} else {
-				$this->info['tax_groups']["$products_tax"] = ($products_tax / 100) * $nPrice;
+				$this->info['tax_groups']["$products_tax_description"] = ($products_tax / 100) * $nPrice;
 			}
         }
 
         $index++;
       }
+	  
+  
 
 		if ($aUser['price_with_tax'] == 1) {
 			$this->info['total'] = $this->info['subtotal'] + $this->info['shipping_cost'];
