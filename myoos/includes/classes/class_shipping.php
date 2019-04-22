@@ -36,9 +36,8 @@
         if ( (oos_is_not_null($module)) && (in_array(substr($module['id'], 0, strpos($module['id'], '_')) . '.' . substr($_SERVER['PHP_SELF'], (strrpos($_SERVER['PHP_SELF'], '.')+1)), $this->modules)) ) {
           $include_modules[] = array('class' => substr($module['id'], 0, strpos($module['id'], '_')), 'file' => substr($module['id'], 0, strpos($module['id'], '_')) . '.' . substr($_SERVER['PHP_SELF'], (strrpos($_SERVER['PHP_SELF'], '.')+1)));
         } else {
-          reset($this->modules);
           foreach ($this->modules as $value) {
-            $class = substr($value, 0, strrpos($value, '.'));
+            $class = basename($value, '.php');
             $include_modules[] = array('class' => $class, 'file' => $value);
           }
         }
@@ -77,9 +76,8 @@
 
         $include_quotes = array();
 
-        reset($this->modules);
         foreach ($this->modules as $value) {
-          $class = substr($value, 0, strrpos($value, '.'));
+		  $class = basename($value, '.php');
           if (oos_is_not_null($module)) {
             if ( ($module == $class) && ($GLOBALS[$class]->enabled) ) {
               $include_quotes[] = $class;
@@ -103,9 +101,8 @@
       if (is_array($this->modules)) {
         $rates = array();
 
-        reset($this->modules);
         foreach ($this->modules as $value) {
-          $class = substr($value, 0, strrpos($value, '.'));
+          $class = basename($value, '.php');
           if ($GLOBALS[$class]->enabled) {
             $quotes = $GLOBALS[$class]->quotes;
             $size = count($quotes['methods']);

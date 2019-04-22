@@ -20,116 +20,116 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  class eubanktransfer {
+class eubanktransfer {
     var $code, $title, $description, $enabled;
 
 // class constructor
     public function __construct() {
-      global $oOrder, $aLang;
+		global $oOrder, $aLang;
 
-      $this->code = 'eubanktransfer';
-      $this->title = $aLang['module_payment_eu_banktransfer_text_title'];
-      $this->description = $aLang['module_payment_eu_banktransfer_text_description'];
-      $this->enabled = (defined('MODULE_PAYMENT_EU_BANKTRANSFER_STATUS') && (MODULE_PAYMENT_EU_BANKTRANSFER_STATUS == 'True') ? true : false);
-      $this->sort_order = (defined('MODULE_PAYMENT_EU_BANKTRANSFER_SORT_ORDER') ? MODULE_PAYMENT_EU_BANKTRANSFER_SORT_ORDER : null);
+		$this->code = 'eubanktransfer';
+		$this->title = $aLang['module_payment_eu_banktransfer_text_title'];
+		$this->description = $aLang['module_payment_eu_banktransfer_text_description'];
+		$this->enabled = (defined('MODULE_PAYMENT_EU_BANKTRANSFER_STATUS') && (MODULE_PAYMENT_EU_BANKTRANSFER_STATUS == 'True') ? TRUE : FALSE);
+		$this->sort_order = (defined('MODULE_PAYMENT_EU_BANKTRANSFER_SORT_ORDER') ? MODULE_PAYMENT_EU_BANKTRANSFER_SORT_ORDER : NULL);
 
-      if ((defined('MODULE_PAYMENT_EU_BANKTRANSFER_ORDER_STATUS_ID') && (int)MODULE_PAYMENT_EU_BANKTRANSFER_ORDER_STATUS_ID > 0)) {
-        $this->order_status = MODULE_PAYMENT_EU_BANKTRANSFER_ORDER_STATUS_ID;
-      }
+		if ((defined('MODULE_PAYMENT_EU_BANKTRANSFER_ORDER_STATUS_ID') && (int)MODULE_PAYMENT_EU_BANKTRANSFER_ORDER_STATUS_ID > 0)) {
+			$this->order_status = MODULE_PAYMENT_EU_BANKTRANSFER_ORDER_STATUS_ID;
+		}
 
-      if (is_object($oOrder)) $this->update_status();
+		if ( $this->enabled === true ) {
+			if ( isset($oOrder) && is_object($oOrder) ) {
+				$this->update_status();
+			}
+		}	
 
-      $this->email_footer = $aLang['module_payment_eu_banktransfer_email_footer'];
+		$this->email_footer = $aLang['module_payment_eu_banktransfer_email_footer'];
     }
 
 // class methodsi
     function update_status() {
-      global $oOrder, $aLang;
+		global $oOrder, $aLang;
 
-      if ($_SESSION['shipping']['id'] == 'selfpickup_selfpickup') {
-        $this->enabled = FALSE;
-      }
+		if ($_SESSION['shipping']['id'] == 'selfpickup_selfpickup') {
+			$this->enabled = FALSE;
+		}
 
-      if ( ($this->enabled == TRUE) && ((int)MODULE_PAYMENT_EU_BANKTRANSFER_ZONE > 0) ) {
-        $check_flag = FALSE;
+		if ( ($this->enabled == TRUE) && ((int)MODULE_PAYMENT_EU_BANKTRANSFER_ZONE > 0) ) {
+			$check_flag = FALSE;
 
-        // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+			// Get database information
+			$dbconn =& oosDBGetConn();
+			$oostable =& oosDBGetTables();
 
-        $zones_to_geo_zonestable = $oostable['zones_to_geo_zones'];
-        $check_result = $dbconn->Execute("SELECT zone_id FROM $zones_to_geo_zonestable WHERE geo_zone_id = '" . MODULE_PAYMENT_INVOICE_ZONE . "' AND zone_country_id = '" . $oOrder->delivery['country']['id'] . "' ORDER BY zone_id");
-        while ($check = $check_result->fields) {
-          if ($check['zone_id'] < 1) {
-            $check_flag = TRUE;
-            break;
-          } elseif ($check['zone_id'] == $oOrder->delivery['zone_id']) {
-            $check_flag = TRUE;
-            break;
-          }
+			$zones_to_geo_zonestable = $oostable['zones_to_geo_zones'];
+			$check_result = $dbconn->Execute("SELECT zone_id FROM $zones_to_geo_zonestable WHERE geo_zone_id = '" . MODULE_PAYMENT_INVOICE_ZONE . "' AND zone_country_id = '" . $oOrder->delivery['country']['id'] . "' ORDER BY zone_id");
+			while ($check = $check_result->fields) {
+				if ($check['zone_id'] < 1) {
+					$check_flag = TRUE;
+					break;
+				} elseif ($check['zone_id'] == $oOrder->delivery['zone_id']) {
+					$check_flag = TRUE;
+					break;
+				}
 
-          // Move that ADOdb pointer!
-          $check_result->MoveNext();
-        }
+				// Move that ADOdb pointer!
+				$check_result->MoveNext();
+			}
 
-        // Close result set
-        $check_result->Close();
-
-        if ($check_flag == FALSE) {
-          $this->enabled = FALSE;
-        }
-      }
+			if ($check_flag == FALSE) {
+				$this->enabled = FALSE;
+			}
+		}
 
 // disable the module if the order only contains virtual products
-      if ($this->enabled == TRUE) {
-        if ($oOrder->content_type == 'virtual') {
-          $this->enabled = FALSE;
-        }
-      }
+		if ($this->enabled == TRUE) {
+			if ($oOrder->content_type == 'virtual') {
+				$this->enabled = FALSE;
+			}
+		}
     }
 
 
     function javascript_validation() {
-      return FALSE;
+		return FALSE;
     }
 
     function selection() {
-      return array('id' => $this->code,
+		return array('id' => $this->code,
                    'module' => $this->title);
     }
 
     function pre_confirmation_check(){
-      return FALSE;
+		return FALSE;
     }
 
     function confirmation() {
-      global $aLang;
-      return array('title' => $aLang['module_payment_eu_banktransfer_text_description']);
+ 		global $aLang;
+		return array('title' => $aLang['module_payment_eu_banktransfer_text_description']);
     }
 
     function process_button() {
-      return FALSE;
+		return FALSE;
     }
 
     function before_process() {
-      return FALSE;
+		return FALSE;
     }
 
     function after_process() {
-      return FALSE;
+		return FALSE;
     }
 
     function get_error() {
-      return FALSE;
+		return FALSE;
     }
 
-
     function check() {
-      if (!isset($this->_check)) {
-        $this->_check = defined('MODULE_PAYMENT_EU_BANKTRANSFER_STATUS');
-      }
+		if (!isset($this->_check)) {
+			$this->_check = defined('MODULE_PAYMENT_EU_BANKTRANSFER_STATUS');
+		}
 
-      return $this->_check;
+		return $this->_check;
     }
 
     function install() {
@@ -162,8 +162,7 @@
     }
 
     function keys() {
-      return array('MODULE_PAYMENT_EU_BANKTRANSFER_STATUS', 'MODULE_PAYMENT_EU_BANKTRANSFER_ORDER_STATUS_ID', 'MODULE_PAYMENT_EU_BANKTRANSFER_SORT_ORDER', 'MODULE_PAYMENT_EU_BANKTRANSFER_BANKNAME', 'MODULE_PAYMENT_EU_BANKTRANSFER_KONTONAME', 'MODULE_PAYMENT_EU_BANKTRANSFER_KONTONUM', 'MODULE_PAYMENT_EU_BANKTRANSFER_IBAN', 'MODULE_PAYMENT_EU_BANKTRANSFER_BIC');
+		return array('MODULE_PAYMENT_EU_BANKTRANSFER_STATUS', 'MODULE_PAYMENT_EU_BANKTRANSFER_ORDER_STATUS_ID', 'MODULE_PAYMENT_EU_BANKTRANSFER_SORT_ORDER', 'MODULE_PAYMENT_EU_BANKTRANSFER_BANKNAME', 'MODULE_PAYMENT_EU_BANKTRANSFER_KONTONAME', 'MODULE_PAYMENT_EU_BANKTRANSFER_KONTONUM', 'MODULE_PAYMENT_EU_BANKTRANSFER_IBAN', 'MODULE_PAYMENT_EU_BANKTRANSFER_BIC');
     }
-
-  }
+}
 

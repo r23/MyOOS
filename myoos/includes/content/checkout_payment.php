@@ -95,6 +95,7 @@ if (!isset($_SESSION['billto'])) {
 
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order.php';
 $oOrder = new order;
+
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order_total.php';
 $order_total_modules = new order_total;
 
@@ -107,6 +108,7 @@ $total_count = $_SESSION['cart']->count_contents_virtual();
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_payment.php';
 $payment_modules = new payment;
 $selection = $payment_modules->selection();
+
 $credit_selection = $order_total_modules->credit_selection();
 
 // links breadcrumb

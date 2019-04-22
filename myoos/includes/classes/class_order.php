@@ -18,10 +18,10 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  class order {
+class order {
     var $info;
     var $totals;
     var $products;
@@ -30,30 +30,30 @@
     var $content_type;
 
 	public function __construct( $order_id = '') {
-      $this->info = array();
-      $this->totals = array();
-      $this->products = array();
-      $this->customer = array();
-      $this->delivery = array();
+		$this->info = array();
+		$this->totals = array();
+		$this->products = array();
+		$this->customer = array();
+		$this->delivery = array();
 
-      if (oos_is_not_null($order_id)) {
-        $this->query($order_id);
-      } else {
-        $this->cart();
-      }
+		if (oos_is_not_null($order_id)) {
+			$this->query($order_id);
+		} else {
+			$this->cart();
+		}
     }
 
     public function query($order_id) {
 
-      $order_id = oos_db_prepare_input($order_id);
-      $nLanguageID = isset($_SESSION['language_id']) ? intval( $_SESSION['language_id'] ) : DEFAULT_LANGUAGE_ID;
+		$order_id = oos_db_prepare_input($order_id);
+		$nLanguageID = isset($_SESSION['language_id']) ? intval( $_SESSION['language_id'] ) : DEFAULT_LANGUAGE_ID;
 
-      // Get database information
-      $dbconn =& oosDBGetConn();
-      $oostable =& oosDBGetTables();
+		// Get database information
+		$dbconn =& oosDBGetConn();
+		$oostable =& oosDBGetTables();
 
-      $orderstable = $oostable['orders'];
-      $sql = "SELECT customers_id, customers_name, customers_company, customers_street_address,
+		$orderstable = $oostable['orders'];
+		$sql = "SELECT customers_id, customers_name, customers_company, customers_street_address,
                      customers_city, customers_postcode, customers_state,
                      customers_country, customers_telephone, customers_email_address,
                      customers_address_format_id, delivery_name, delivery_company,
@@ -65,37 +65,37 @@
                      date_purchased, orders_status, last_modified
               FROM $orderstable
               WHERE orders_id = '" . intval($order_id) . "'";
-      $order = $dbconn->GetRow($sql);
+		$order = $dbconn->GetRow($sql);
 
-      $orders_totaltable = $oostable['orders_total'];
-      $sql = "SELECT title, text
+		$orders_totaltable = $oostable['orders_total'];
+		$sql = "SELECT title, text
               FROM $orders_totaltable
               WHERE orders_id = '" . intval($order_id) . "'
               ORDER BY sort_order";
-      $this->totals = $dbconn->GetAll($sql);
+		$this->totals = $dbconn->GetAll($sql);
 
-      $orders_totaltable = $oostable['orders_total'];
-      $sql = "SELECT text
+		$orders_totaltable = $oostable['orders_total'];
+		$sql = "SELECT text
               FROM $orders_totaltable
               WHERE orders_id = '" . intval($order_id) . "'
                 AND class = 'ot_total'";
-      $order_total_text = $dbconn->GetOne($sql);
+		$order_total_text = $dbconn->GetOne($sql);
 
-      $orders_totaltable = $oostable['orders_total'];
-      $sql = "SELECT title
+		$orders_totaltable = $oostable['orders_total'];
+		$sql = "SELECT title
               FROM $orders_totaltable
               WHERE orders_id = '" . intval($order_id) . "'
                 AND class = 'ot_shipping'";
-      $shipping_method_title = $dbconn->GetOne($sql);
+		$shipping_method_title = $dbconn->GetOne($sql);
 
-      $orders_statustable = $oostable['orders_status'];
-      $sql = "SELECT orders_status_name
+		$orders_statustable = $oostable['orders_status'];
+		$sql = "SELECT orders_status_name
               FROM $orders_statustable
               WHERE orders_status_id = '" . $order['orders_status'] . "'
                 AND orders_languages_id = '" .  intval($nLanguageID) . "'";
-      $orders_status_name = $dbconn->GetOne($sql);
+		$orders_status_name = $dbconn->GetOne($sql);
 
-      $this->info = array('currency' => $order['currency'],
+		$this->info = array('currency' => $order['currency'],
                           'currency_value' => $order['currency_value'],
                           'payment_method' => $order['payment_method'],
                           'cc_type' => $order['cc_type'],
@@ -108,7 +108,7 @@
                           'total' => strip_tags($order_total_text),
                           'shipping_method' => ((substr($shipping_method_title, -1) == ':') ? substr(strip_tags($shipping_method_title), 0, -1) : strip_tags($shipping_method_title)));
 
-      $this->customer = array('id' => $order['customers_id'],
+		$this->customer = array('id' => $order['customers_id'],
                               'name' => $order['customers_name'],
                               'company' => $order['customers_company'],
                               'street_address' => $order['customers_street_address'],
@@ -120,7 +120,7 @@
                               'telephone' => $order['customers_telephone'],
                               'email_address' => $order['customers_email_address']);
 
-      $this->delivery = array('name' => $order['delivery_name'],
+		$this->delivery = array('name' => $order['delivery_name'],
                               'company' => $order['delivery_company'],
                               'street_address' => $order['delivery_street_address'],
                               'city' => $order['delivery_city'],
@@ -129,11 +129,11 @@
                               'country' => $order['delivery_country'],
                               'format_id' => $order['delivery_address_format_id']);
 
-      if (empty($this->delivery['name']) && empty($this->delivery['street_address'])) {
-        $this->delivery = FALSE;
-      }
+		if (empty($this->delivery['name']) && empty($this->delivery['street_address'])) {
+			$this->delivery = FALSE;
+		}
 
-      $this->billing = array('name' => $order['billing_name'],
+		$this->billing = array('name' => $order['billing_name'],
                              'company' => $order['billing_company'],
                              'street_address' => $order['billing_street_address'],
                              'city' => $order['billing_city'],
@@ -142,17 +142,17 @@
                              'country' => $order['billing_country'],
                              'format_id' => $order['billing_address_format_id']);
 
-      $index = 0;
+		$index = 0;
 
-      $orders_productstable = $oostable['orders_products'];
-      $sql = "SELECT orders_products_id, products_id, products_name, products_model,
+		$orders_productstable = $oostable['orders_products'];
+		$sql = "SELECT orders_products_id, products_id, products_name, products_model,
                       products_ean, products_serial_number, products_price, products_tax,
                      products_quantity, final_price
               FROM $orders_productstable
               WHERE orders_id = '" . intval($order_id) . "'";
-      $orders_products_result = $dbconn->Execute($sql);
-      while ($orders_products = $orders_products_result->fields) {
-        $this->products[$index] = array('qty' => $orders_products['products_quantity'],
+		$orders_products_result = $dbconn->Execute($sql);
+		while ($orders_products = $orders_products_result->fields) {
+			$this->products[$index] = array('qty' => $orders_products['products_quantity'],
                                         'id' => $orders_products['products_id'],
                                         'name' => $orders_products['products_name'],
                                         'model' => $orders_products['products_model'],
@@ -162,45 +162,41 @@
                                         'price' => $orders_products['products_price'],
                                         'final_price' => $orders_products['final_price']);
 
-        $subindex = 0;
-        $orders_products_attributestable = $oostable['orders_products_attributes'];
-        $sql = "SELECT products_options, products_options_values, options_values_price, price_prefix
+			$subindex = 0;
+			$orders_products_attributestable = $oostable['orders_products_attributes'];
+			$sql = "SELECT products_options, products_options_values, options_values_price, price_prefix
                 FROM $orders_products_attributestable
                 WHERE orders_id = '" . intval($order_id) . "'
                   AND orders_products_id = '" . $orders_products['orders_products_id'] . "'";
-        $attributes_result = $dbconn->Execute($sql);
-        if ($attributes_result->RecordCount()) {
-          while ($attributes = $attributes_result->fields) {
-            $this->products[$index]['attributes'][$subindex] = array('option' => $attributes['products_options'],
+			$attributes_result = $dbconn->Execute($sql);
+			if ($attributes_result->RecordCount()) {
+				while ($attributes = $attributes_result->fields) {
+					$this->products[$index]['attributes'][$subindex] = array('option' => $attributes['products_options'],
                                                                      'value' => $attributes['products_options_values'],
                                                                      'prefix' => $attributes['price_prefix'],
                                                                      'price' => $attributes['options_values_price']);
 
-            $subindex++;
+					$subindex++;
 
-            // Move that ADOdb pointer!
-            $attributes_result->MoveNext();
-          }
-          // Close result set
-          $attributes_result->Close();
-        }
+					// Move that ADOdb pointer!
+					$attributes_result->MoveNext();
+				}
+			}
 
-        $this->info['tax_groups']["{$this->products[$index]['tax']}"] = '1';
+			$this->info['tax_groups']["{$this->products[$index]['tax']}"] = '1';
 
-        $index++;
+			$index++;
 
-        // Move that ADOdb pointer!
-        $orders_products_result->MoveNext();
-      }
-      // Close result set
-      $orders_products_result->Close();
+			// Move that ADOdb pointer!
+			$orders_products_result->MoveNext();
+		}
     }
 
     public function cart() {
-      global $oCurrencies, $aUser;
+		global $oCurrencies, $aUser;
 
-      $this->content_type = $_SESSION['cart']->get_content_type();
-      $nLanguageID = isset($_SESSION['language_id']) ? intval( $_SESSION['language_id'] ) : DEFAULT_LANGUAGE_ID;
+		$this->content_type = $_SESSION['cart']->get_content_type();
+		$nLanguageID = isset($_SESSION['language_id']) ? intval( $_SESSION['language_id'] ) : DEFAULT_LANGUAGE_ID;
 
       // Get database information
       $dbconn =& oosDBGetConn();
@@ -227,7 +223,7 @@
 
       $address_booktable = $oostable['address_book'];
       $zonestable = $oostable['zones'];
-      $countriestable = $oostable['countries'];
+      $countriestable = $oostable['delivery_address_countries'];
       $sql = "SELECT ab.entry_firstname, ab.entry_lastname, ab.entry_company, ab.entry_street_address,
                      ab.entry_postcode, ab.entry_city, ab.entry_zone_id, z.zone_name,
                      ab.entry_country_id, c.countries_id, c.countries_name, c.countries_iso_code_2,
@@ -256,7 +252,7 @@
               WHERE ab.customers_id = '" . intval($_SESSION['customer_id']) . "' AND
                     ab.address_book_id = '" . intval($_SESSION['billto']) . "'";
       $billing_address = $dbconn->GetRow($sql);
- 
+
       $class =& $_SESSION['payment'];
 
       $this->info = array('order_status' => DEFAULT_ORDERS_STATUS_ID,

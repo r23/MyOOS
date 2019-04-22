@@ -137,6 +137,8 @@ $nLanguageID = isset($_SESSION['language_id']) ? intval( $_SESSION['language_id'
 $sLanguageCode = isset($_SESSION['iso_639_1']) ? oos_var_prep_for_os( $_SESSION['iso_639_1'] ) : DEFAULT_LANGUAGE_CODE;
 $sLanguageName = isset($_SESSION['languages_name']) ? oos_var_prep_for_os( $_SESSION['languages_name'] ) : DEFAULT_LANGUAGE_NAME;
 
+$test = (defined('MODULE_PAYMENT_CASH_STATUS') && (MODULE_PAYMENT_CASH_STATUS == 'True') ? true : false);
+
 
 if (!isset($_SESSION['language']) || isset($_GET['language'])) {
     // include the language class

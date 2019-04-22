@@ -19,91 +19,90 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  class paypal {
+class paypal {
     var $code, $title, $description, $enabled = FALSE;
 
 // class constructor
     public function __construct() {
-      global $oOrder, $aLang;
+		global $oOrder, $aLang;
 
-      $this->code = 'paypal';
-      $this->title = $aLang['module_payment_paypal_text_title'];
-      $this->description = $aLang['module_payment_paypal_text_description'];
-      $this->enabled = (defined('MODULE_PAYMENT_PAYPAL_STATUS') && (MODULE_PAYMENT_PAYPAL_STATUS == 'True') ? true : false);
-      $this->sort_order = (defined('MODULE_PAYMENT_PAYPAL_SORT_ORDER') ? MODULE_PAYMENT_PAYPAL_SORT_ORDER : null);
+		$this->code = 'paypal';
+		$this->title = $aLang['module_payment_paypal_text_title'];
+		$this->description = $aLang['module_payment_paypal_text_description'];
+		$this->enabled = (defined('MODULE_PAYMENT_PAYPAL_STATUS') && (MODULE_PAYMENT_PAYPAL_STATUS == 'True') ? TRUE : FALSE);
+		$this->sort_order = (defined('MODULE_PAYMENT_PAYPAL_SORT_ORDER') ? MODULE_PAYMENT_PAYPAL_SORT_ORDER : NULL);
 
-      if ((defined('MODULE_PAYMENT_PAYPAL_ORDER_STATUS_ID') && (int)MODULE_PAYMENT_PAYPAL_ORDER_STATUS_ID > 0)) {
-        $this->order_status = MODULE_PAYMENT_PAYPAL_ORDER_STATUS_ID;
-      }
+		if ((defined('MODULE_PAYMENT_PAYPAL_ORDER_STATUS_ID') && (int)MODULE_PAYMENT_PAYPAL_ORDER_STATUS_ID > 0)) {
+			$this->order_status = MODULE_PAYMENT_PAYPAL_ORDER_STATUS_ID;
+		}
 
-      if (is_object($oOrder)) $this->update_status();
+		if ( $this->enabled === TRUE ) {
+			if ( isset($oOrder) && is_object($oOrder) ) {
+				$this->update_status();
+			}
+		}
 
       $this->form_action_url = 'https://www.paypal.com/de/cgi-bin/webscr';
     }
 
 // class methods
     function update_status() {
-      global $oOrder;
+		global $oOrder;
 
-      if ( ($this->enabled == TRUE) && ((int)MODULE_PAYMENT_PAYPAL_ZONE > 0) ) {
-        $check_flag = FALSE;
+		if ( ($this->enabled == TRUE) && ((int)MODULE_PAYMENT_PAYPAL_ZONE > 0) ) {
+			$check_flag = FALSE;
 
-        // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+			// Get database information
+			$dbconn =& oosDBGetConn();
+			$oostable =& oosDBGetTables();
 
-        $zones_to_geo_zonestable = $oostable['zones_to_geo_zones'];
-        $check_result = $dbconn->Execute("SELECT zone_id FROM $zones_to_geo_zonestable WHERE geo_zone_id = '" . MODULE_PAYMENT_PAYPAL_ZONE . "' AND zone_country_id = '" . $oOrder->billing['country']['id'] . "' ORDER BY zone_id");
-        while ($check = $check_result->fields) {
-          if ($check['zone_id'] < 1) {
-            $check_flag = TRUE;
-            break;
+			$zones_to_geo_zonestable = $oostable['zones_to_geo_zones'];
+			$check_result = $dbconn->Execute("SELECT zone_id FROM $zones_to_geo_zonestable WHERE geo_zone_id = '" . MODULE_PAYMENT_PAYPAL_ZONE . "' AND zone_country_id = '" . $oOrder->billing['country']['id'] . "' ORDER BY zone_id");
+			while ($check = $check_result->fields) {
+				if ($check['zone_id'] < 1) {
+					$check_flag = TRUE;
+					break;
+				} elseif ($check['zone_id'] == $oOrder->billing['zone_id']) {
+					$check_flag = TRUE;
+					break;
+				}
 
-          } elseif ($check['zone_id'] == $oOrder->billing['zone_id']) {
-            $check_flag = TRUE;
-            break;
+				// Move that ADOdb pointer!
+				$check_result->MoveNext();
+			}
 
-          }
-
-          // Move that ADOdb pointer!
-          $check_result->MoveNext();
-        }
-
-        // Close result set
-        $check_result->Close();
-
-        if ($check_flag == FALSE) {
-          $this->enabled = FALSE;
-        }
-      }
-    }
+			if ($check_flag == FALSE) {
+				$this->enabled = FALSE;
+			}
+		}
+	}
 
     function javascript_validation() {
-      return FALSE;
+		return FALSE;
     }
 
     function selection() {
-      return array('id' => $this->code,
+		return array('id' => $this->code,
                    'module' => $this->title);
     }
 
     function pre_confirmation_check() {
-      return FALSE;
+		return FALSE;
     }
 
     function confirmation() {
-      return FALSE;
+		return FALSE;
     }
 
     function process_button() {
-      global $oOrder, $oCurrencies;
+		global $oOrder, $oCurrencies;
 
-      $my_currency = $_SESSION['currency'];
+		$my_currency = $_SESSION['currency'];
 
-      if (!in_array($my_currency, array('CAD', 'EUR', 'GBP', 'JPY', 'USD'))) {
-        $my_currency = 'EUR';
-      }
-      $aContents = oos_get_content();
+		if (!in_array($my_currency, array('CAD', 'EUR', 'GBP', 'JPY', 'USD'))) {
+			$my_currency = 'EUR';
+		}
+		$aContents = oos_get_content();
 
       $process_button_string = oos_draw_hidden_field('cmd', '_xclick') .
                                oos_draw_hidden_field('business', MODULE_PAYMENT_PAYPAL_ID) .
@@ -130,15 +129,15 @@
     }
 
     function before_process() {
-      return FALSE;
+		return FALSE;
     }
 
     function after_process() {
-      return FALSE;
+		return FALSE;
     }
 
     function output_error() {
-      return FALSE;
+		return FALSE;
     }
 
     function check() {
@@ -174,6 +173,6 @@
     }
 
     function keys() {
-      return array('MODULE_PAYMENT_PAYPAL_STATUS', 'MODULE_PAYMENT_PAYPAL_ID', 'MODULE_PAYMENT_PAYPAL_ZONE', 'MODULE_PAYMENT_PAYPAL_ORDER_STATUS_ID', 'MODULE_PAYMENT_PAYPAL_SORT_ORDER');
+		return array('MODULE_PAYMENT_PAYPAL_STATUS', 'MODULE_PAYMENT_PAYPAL_ID', 'MODULE_PAYMENT_PAYPAL_ZONE', 'MODULE_PAYMENT_PAYPAL_ORDER_STATUS_ID', 'MODULE_PAYMENT_PAYPAL_SORT_ORDER');
     }
-  }
+}

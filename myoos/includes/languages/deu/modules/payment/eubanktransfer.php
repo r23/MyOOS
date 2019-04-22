@@ -47,7 +47,7 @@ define('MODULE_PAYMENT_EU_BANKTRANSFER_BIC_TITLE', 'Your account BIC / SWIFT cod
 define('MODULE_PAYMENT_EU_BANKTRANSFER_BIC_DESC', 'International bank id.<br />(ask your bank if you don\'t know it)');
 
 define('MODULE_PAYMENT_EU_BANKTRANSFER_ZONE_TITLE', 'Zahlungszone');
-define('MODULE_PAYMENT_EU_BANKTRANSFER_ZONE_DESC',  'Wenn eine Zone ausgewählt ist, gilt die Zahlungsmethode nur für diese Zone.');
+define('MODULE_PAYMENT_EU_BANKTRANSFER_ZONE_DESC',  'Wenn eine Zone ausgewÃ¤hlt ist, gilt die Zahlungsmethode nur fÃ¼r diese Zone.');
 
 define('MODULE_PAYMENT_EU_BANKTRANSFER_SORT_ORDER_TITLE', 'Anzeigereihenfolge');
 define('MODULE_PAYMENT_EU_BANKTRANSFER_SORT_ORDER_DESC', 'Reihenfolge der Anzeige. Kleinste Ziffer wird zuerst angezeigt.');
@@ -57,8 +57,8 @@ define('MODULE_PAYMENT_EU_BANKTRANSFER_ORDER_STATUS_ID_DESC', 'Bestellungen, wel
 
 
 $aLang['module_payment_eu_banktransfer_text_title'] = 'European Bank Transfer';
-$aLang['module_payment_eu_banktransfer_text_description'] = '<br />Die einfachste Zahlungsmethode innerhalb der EU ist die Überweisung mittels IBAN und BIC.' .
-                                                            '<br />Bitte verwenden Sie folgende Daten für die Überweisung des Gesamtbetrages:<br />' .
+$aLang['module_payment_eu_banktransfer_text_description'] = '<br />Die einfachste Zahlungsmethode innerhalb der EU ist die Ãœberweisung mittels IBAN und BIC.' .
+                                                            '<br />Bitte verwenden Sie folgende Daten fÃ¼r die Ãœberweisung des Gesamtbetrages:<br />' .
                                                             '<br />Name der Bank: ' . MODULE_PAYMENT_EU_BANKTRANSFER_BANKNAME .
                                                             '<br />Kontoname: ' . MODULE_PAYMENT_EU_BANKTRANSFER_KONTONAME .
                                                             '<br />Kontonummer: ' . MODULE_PAYMENT_EU_BANKTRANSFER_KONTONUM .
@@ -67,8 +67,8 @@ $aLang['module_payment_eu_banktransfer_text_description'] = '<br />Die einfachst
                                                             '<br /><br />Die Ware wird ausgeliefert wenn der Betrag auf unserem Konto eingegangen ist.<br />';
 
 
-$aLang['module_payment_eu_banktransfer_email_footer'] = 'Die einfachste Zahlungsmethode innerhalb der EU ist die Überweisung mittels IBAN und BIC.' .
-                                                        'Bitte verwenden Sie folgende Daten für die Überweisung des Gesamtbetrages:' . "\n\n" .
+$aLang['module_payment_eu_banktransfer_email_footer'] = 'Die einfachste Zahlungsmethode innerhalb der EU ist die Ãœberweisung mittels IBAN und BIC.' .
+                                                        'Bitte verwenden Sie folgende Daten fÃ¼r die Ãœberweisung des Gesamtbetrages:' . "\n\n" .
                                                         'Name der Bank: ' . MODULE_PAYMENT_EU_BANKTRANSFER_BANKNAME . "\n" .
                                                         'Kontoname: ' . MODULE_PAYMENT_EU_BANKTRANSFER_KONTONAME . "\n" .
                                                         'Kontonummer: ' . MODULE_PAYMENT_EU_BANKTRANSFER_KONTONUM . "\n" .

@@ -33,7 +33,7 @@ $aLang['text_select_payment_method'] = 'Bitte wählen Sie die gewünschte Zahlun
 $aLang['title_please_select'] = 'Bitte wählen Sie';
 $aLang['text_enter_payment_information'] = 'Zur Zeit bieten wir Ihnen nur eine Zahlungsweise an.';
 
-$aLang['table_heading_comments'] = 'Fügen Sie hier Ihre Anmerkungen zu dieser Bestellung ein';
+$aLang['table_heading_comments'] = 'Fügen Sie hier Ihre Anmerkungen zu dieser Bestellung ein:';
 
 $aLang['title_continue_checkout_procedure'] = 'Fortsetzung des Bestellvorganges';
 $aLang['text_continue_checkout_procedure'] = 'zur Bestätigung Ihrer Bestellung.';

@@ -34,7 +34,7 @@ $aLang['text_choose_shipping_method'] = 'Bitte wählen Sie die gewünschte Versa
 $aLang['title_please_select'] = 'Bitte wählen Sie';
 $aLang['text_enter_shipping_information'] = 'Zur Zeit bieten wir Ihnen folgende Versandart an.';
 
-$aLang['table_heading_comments'] = 'Fügen Sie hier Ihre Anmerkungen zu dieser Bestellung ein';
+$aLang['table_heading_comments'] = 'Fügen Sie hier Ihre Anmerkungen zu dieser Bestellung ein:';
 
 $aLang['title_continue_checkout_procedure'] = 'Fortsetzung des Bestellvorganges';
 $aLang['text_continue_checkout_procedure'] = 'zur Auswahl der gewünschten Zahlungsweise.';

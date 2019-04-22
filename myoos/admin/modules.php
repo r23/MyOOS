@@ -250,7 +250,7 @@
   switch ($action) {
     case 'edit':
       $keys = '';
-      reset($mInfo->keys);
+#      reset($mInfo->keys);
       foreach ($mInfo->keys as $key => $value) {		  
         $keys .= '<b>' . $value['title'] . '</b><br />' . $value['description'] . '<br />';
 
