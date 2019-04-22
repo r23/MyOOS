@@ -594,8 +594,8 @@
         $nQuantity = $this->contents[$products_id]['qty'];
         $productstable = $oostable['products'];
         $products_descriptiontable = $oostable['products_description'];
-        $sql = "SELECT p.products_id, pd.products_name, p.products_image, p.products_model, p.products_ean,
-                       p.products_price, p.products_weight, p.products_tax_class_id, p.products_quantity
+        $sql = "SELECT p.products_id, pd.products_name, pd.products_essential_characteristics, p.products_image, p.products_model, 
+					   p.products_ean, p.products_price, p.products_weight, p.products_tax_class_id, p.products_quantity
                 FROM $productstable p,
                      $products_descriptiontable pd
                 WHERE p.products_id = '" . oos_get_product_id($products_id) . "' AND
@@ -627,6 +627,7 @@
 		  
           $aProducts[] = array('id' => $products_id,
                                     'name' => $products['products_name'],
+									'essential_characteristics' => $products['products_essential_characteristics'],
                                     'model' => $products['products_model'],
                                     'image' => $products['products_image'],
                                     'ean' => $products['products_ean'],

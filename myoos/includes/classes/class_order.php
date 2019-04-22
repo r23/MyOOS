@@ -320,6 +320,8 @@ class order {
       for ($i=0, $n=sizeof($products); $i<$n; $i++) {
         $this->products[$index] = array('qty' => $products[$i]['quantity'],
                                         'name' => $products[$i]['name'],
+										'essential_characteristics' => $products[$i]['essential_characteristics'],
+                                        'image' => $products[$i]['image'],																				
                                         'model' => $products[$i]['model'],
                                         'ean' => $products[$i]['ean'],
                                         'tax' => oos_get_tax_rate($products[$i]['tax_class_id'], $billing_address['entry_country_id'], $$billing_address['entry_zone_id']),

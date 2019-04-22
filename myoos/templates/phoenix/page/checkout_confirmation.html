@@ -44,8 +44,16 @@
 
 						<div class="page-header">
 							<h4>{$lang.heading_title}</h4>
-						</div>					
-
+						</div>
+						
+						<div class="row checkout-info">
+							<div class="col-12">
+								<div class="d-flex">
+									<p>{$lang.text_checkout_info}</p>
+								</div>
+								<hr />
+							</div>
+						</div>
 						<div class="row checkout-info">
 							<div class="col-6">
 							{if $smarty.session.sendto != false}
@@ -122,7 +130,7 @@
 
 						<p><strong>{$lang.heading_shooping_card}</strong> <a href="{html_href_link content=$filename.shopping_cart}"><i class="fa fa-pencil" aria-hidden="true"></i> {$lang.text_edit}</a></p>
 
-							<div class="table-responsive">
+							<div class="table-responsive bg-light">
 								<table class="table">
 									<thead>
 										<tr>
@@ -133,18 +141,18 @@
 										{if sizeof($order->info.tax_groups) > 1}
 											<th>{$lang.heading_tax}</th>
 										{/if}
-											<th align="right">{$lang.heading_total}</th>											
+											<th align="right"><span class="text-right">{$lang.heading_total}</span></th>											
 										</tr>										
 									</thead>
 									<tbody>	
 								{foreach item=products from=$order->products}
-									<tr>
+									<tr>								
 										<td><a href="{html_href_link content=$filename.product_info products_id=$products.id oos_get='con=1'}">{product_image dir=small image=$products.image alt=$products.name}</a></td>
 										<td><strong>{$products.name}</strong>&nbsp;
 									{if $smarty.const.STOCK_CHECK eq 'true'}
 										{oos_check_stock products_id=$products.id products_quantity=$products.qty}
 									{/if}
-										<br>{$products.short_description}
+										<br>{$products.essential_characteristics}
 										<br><a href="{html_href_link content=$filename.product_info products_id=$products.id oos_get='con=1'}">{$lang.text_more}</a>
 										<br>
 										{if ( isset($products.attributes) && sizeof($products.attributes) gt 0 ) }
