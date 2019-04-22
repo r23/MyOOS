@@ -255,15 +255,19 @@ class order {
 
       $class =& $_SESSION['payment'];
 
+		if ($this->content_type == 'virtual') {
+			$tax_address = array('entry_country_id' => $billing_address['entry_country_id'],
+								'entry_zone_id' => $billing_address['entry_zone_id']);
+		} else {
+			$tax_address = array('entry_country_id' => $shipping_address['entry_country_id'],
+								'entry_zone_id' => $shipping_address['entry_zone_id']);
+		}
+
+
       $this->info = array('order_status' => DEFAULT_ORDERS_STATUS_ID,
                           'currency' => $_SESSION['currency'],
                           'currency_value' => $oCurrencies->currencies[$_SESSION['currency']]['value'],
                           'payment_method' => $GLOBALS[$class]->title,
-                          'cc_type' => (isset($GLOBALS['cc_type']) ? $GLOBALS['cc_type'] : ''),
-                          'cc_owner' => (isset($GLOBALS['cc_owner']) ? $GLOBALS['cc_owner'] : ''),
-                          'cc_number' => (isset($GLOBALS['cc_number']) ? $GLOBALS['cc_number'] : ''),
-                          'cc_expires' => (isset($GLOBALS['cc_expires']) ? $GLOBALS['cc_expires'] : ''),
-                          'cc_cvv' => (isset($GLOBALS['cc_cvv']) ? $GLOBALS['cc_cvv'] : ''),
                           'shipping_method' => $_SESSION['shipping']['title'],
                           'shipping_cost' => $_SESSION['shipping']['cost'],
                           'comments' => (isset($_SESSION['comments']) ? $_SESSION['comments'] : ''),
@@ -324,8 +328,7 @@ class order {
                                         'image' => $products[$i]['image'],																				
                                         'model' => $products[$i]['model'],
                                         'ean' => $products[$i]['ean'],
-                                        'tax' => oos_get_tax_rate($products[$i]['tax_class_id'], $billing_address['entry_country_id'], $$billing_address['entry_zone_id']),
-                                        'tax_description' => oos_get_tax_description($products[$i]['tax_class_id'], $billing_address['entry_country_id'], $billing_address['entry_zone_id']),
+                                        'tax' => oos_get_tax_rate($products[$i]['tax_class_id'], $tax_address['entry_country_id'], $$tax_address['entry_zone_id']),
                                         'price' => $products[$i]['price'],
                                         'final_price' => $products[$i]['price'] + $_SESSION['cart']->attributes_price($products[$i]['id']),
                                         'weight' => $products[$i]['weight'],
@@ -388,20 +391,19 @@ class order {
         $this->info['subtotal'] += $nPrice;
 
         $products_tax = $this->products[$index]['tax'];
-		$products_tax_description = $this->products[$index]['tax_description'];
         if ($aUser['price_with_tax'] == 1) {
 			$this->info['tax'] += $nPrice - ($nPrice / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax)));
-			if (isset($this->info['tax_groups']["$products_tax_description"])) {
-				$this->info['tax_groups']["$products_tax_description"] += $nPrice - ($nPrice / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax)));
+			if (isset($this->info['tax_groups']["$products_tax"])) {
+				$this->info['tax_groups']["$products_tax"] += $nPrice - ($nPrice / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax)));
 			} else {
-				$this->info['tax_groups']["$products_tax_description"] = $nPrice - ($nPrice / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax)));
+				$this->info['tax_groups']["$products_tax"] = $nPrice - ($nPrice / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax)));
 			}
         } else {
 			$this->info['tax'] += ($products_tax / 100) * $nPrice;
-			if (isset($this->info['tax_groups']["$products_tax_description"])) {
-				$this->info['tax_groups']["$products_tax_description"] += ($products_tax / 100) * $nPrice;
+			if (isset($this->info['tax_groups']["$products_tax"])) {
+				$this->info['tax_groups']["$products_tax"] += ($products_tax / 100) * $nPrice;
 			} else {
-				$this->info['tax_groups']["$products_tax_description"] = ($products_tax / 100) * $nPrice;
+				$this->info['tax_groups']["$products_tax"] = ($products_tax / 100) * $nPrice;
 			}
         }
 

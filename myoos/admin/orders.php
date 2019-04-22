@@ -343,31 +343,6 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
             <td class="main"><b><?php echo ENTRY_PAYMENT_METHOD; ?></b></td>
             <td class="main"><?php echo $order->info['payment_method']; ?></td>
           </tr>
-<?php
-    if (oos_is_not_null($order->info['cc_type']) || oos_is_not_null($order->info['cc_owner']) || oos_is_not_null($order->info['cc_number'])) {
-?>
-          <tr>
-            <td colspan="2"></td>
-          </tr>
-          <tr>
-            <td class="main"><?php echo ENTRY_CREDIT_CARD_TYPE; ?></td>
-            <td class="main"><?php echo $order->info['cc_type']; ?></td>
-          </tr>
-          <tr>
-            <td class="main"><?php echo ENTRY_CREDIT_CARD_OWNER; ?></td>
-            <td class="main"><?php echo $order->info['cc_owner']; ?></td>
-          </tr>
-          <tr>
-            <td class="main"><?php echo ENTRY_CREDIT_CARD_NUMBER; ?></td>
-            <td class="main"><?php echo $order->info['cc_number']; ?></td>
-          </tr>
-          <tr>
-            <td class="main"><?php echo ENTRY_CREDIT_CARD_EXPIRES; ?></td>
-            <td class="main"><?php echo $order->info['cc_expires']; ?></td>
-          </tr>
-<?php
-    }
-?>
         </table></td>
       </tr>
       <tr>

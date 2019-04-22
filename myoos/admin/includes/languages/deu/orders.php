@@ -67,10 +67,6 @@ define('ENTRY_ORDER_NUMBER', 'Bestellnummer');
 define('ENTRY_ORDER_DATE', 'Bestelldatum');
 
 define('ENTRY_PAYMENT_METHOD', 'Zahlungsweise:');
-define('ENTRY_CREDIT_CARD_TYPE', 'Kreditkartentyp:');
-define('ENTRY_CREDIT_CARD_OWNER', 'Kreditkarteninhaber:');
-define('ENTRY_CREDIT_CARD_NUMBER', 'Kerditkartennnummer:');
-define('ENTRY_CREDIT_CARD_EXPIRES', 'Kreditkarte läuft ab am:');
 define('ENTRY_SUB_TOTAL', 'Zwischensumme:');
 define('ENTRY_TAX', 'MwSt.:');
 define('ENTRY_SHIPPING', 'Versandkosten:');

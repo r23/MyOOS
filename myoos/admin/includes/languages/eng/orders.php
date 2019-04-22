@@ -67,10 +67,6 @@ define('ENTRY_ORDER_NUMBER', 'Order #');
 define('ENTRY_ORDER_DATE', 'Order Date & Time');
 
 define('ENTRY_PAYMENT_METHOD', 'Payment Method:');
-define('ENTRY_CREDIT_CARD_TYPE', 'Credit Card Type:');
-define('ENTRY_CREDIT_CARD_OWNER', 'Credit Card Owner:');
-define('ENTRY_CREDIT_CARD_NUMBER', 'Credit Card Number:');
-define('ENTRY_CREDIT_CARD_EXPIRES', 'Credit Card Expires:');
 define('ENTRY_SUB_TOTAL', 'Sub-Total:');
 define('ENTRY_TAX', 'Tax:');
 define('ENTRY_SHIPPING', 'Shipping:');

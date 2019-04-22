@@ -119,9 +119,7 @@ $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " .
       delivery_state = '" . oos_db_input(stripslashes($update_delivery_state)) . "',
       delivery_postcode = '" . oos_db_input($update_delivery_postcode) . "',
       delivery_country = '" . oos_db_input(stripslashes($update_delivery_country)) . "',
-      payment_method = '" . oos_db_input($update_info_payment_method) . "',
-      cc_type = '" . oos_db_input($update_info_cc_type) . "',
-      cc_owner = '" . oos_db_input($update_info_cc_owner) . "',";
+      payment_method = '" . oos_db_input($update_info_payment_method) . "',";
 
 
     if(substr($update_info_cc_number,0,8) != "(Last 4)")
@@ -673,29 +671,6 @@ $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " .
       ?></td>
     </tr>
 
-  <?php if ($order->info['cc_type'] || $order->info['cc_owner'] || $order->info['payment_method'] == "Credit Card" || $order->info['cc_number']) { ?>
-    <!-- Begin Credit Card Info Block -->
-    <tr>
-      <td colspan="2"></td>
-    </tr>
-    <tr>
-      <td class="main"><?php echo ENTRY_CREDIT_CARD_TYPE; ?></td>
-      <td class="main"><input name='update_info_cc_type' size='10' value='<?php echo $order->info['cc_type']; ?>'></td>
-    </tr>
-    <tr>
-      <td class="main"><?php echo ENTRY_CREDIT_CARD_OWNER; ?></td>
-      <td class="main"><input name='update_info_cc_owner' size='20' value='<?php echo $order->info['cc_owner']; ?>'></td>
-    </tr>
-    <tr>
-      <td class="main"><?php echo ENTRY_CREDIT_CARD_NUMBER; ?></td>
-      <td class="main"><input name='update_info_cc_number' size='20' value='<?php echo "(Last 4) " . substr($order->info['cc_number'],-4); ?>'></td>
-    </tr>
-    <tr>
-      <td class="main"><?php echo ENTRY_CREDIT_CARD_EXPIRES; ?></td>
-      <td class="main"><input name='update_info_cc_expires' size='4' value='<?php echo $order->info['cc_expires']; ?>'></td>
-    </tr>
-    <!-- End Credit Card Info Block -->
-  <?php } ?>
   </table></td>
       </tr>
 <!-- End Payment Block -->
