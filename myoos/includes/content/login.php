@@ -143,10 +143,6 @@ if (isset($bError) && ($bError == TRUE)) {
     $sErrorMessage = $aLang['text_login_error'];
 } 
   
-if (isset($_SESSION) && is_object($_SESSION['cart']) && ($_SESSION['cart']->count_contents()) ) {
-    $sInfoMessage = $aLang['text_visitors_cart'];
-}
-
 $aTemplate['page'] = $sTheme . '/page/user_login.html';
 
 $nPageType = OOS_PAGE_TYPE_SERVICE;

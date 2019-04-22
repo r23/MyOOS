@@ -39,7 +39,6 @@ $aLang['text_password_forgotten'] = 'Sie haben Ihr Passwort vergessen?';
 $aLang['link_password_forgotten'] = 'Dann klicken Sie <u>hier</u>';
 
 $aLang['text_login_error'] = '<strong>FEHLER:</strong> Keine Übereinstimmung der eingebenen \'eMail-Adresse\' und/oder dem \'Passwort\'.';
-$aLang['text_visitors_cart'] = '<strong>ACHTUNG:</strong> Ihre Besuchereingaben werden automatisch mit Ihrem Kundenkonto verbunden.';
 
 $aLang['sub_heading_title'] = 'Warenkorb';
 $aLang['sub_heading_title_1'] = 'Besucherwarenkorb';
@@ -48,4 +47,4 @@ $aLang['sub_heading_title_3'] = 'Information';
 $aLang['sub_heading_text_1'] = 'Jeder Besucher unseres Online-Shops bekommt einen \'Besucherwarenkorb\'. Damit kann er seine ausgewählten Produkte sammeln. Sobald der Besucher den Online-Shop verlässt, verfällt dessen Inhalt.';
 $aLang['sub_heading_text_2'] = 'Jeder angemeldete Kunde verfügt über einen \'Kundenwarenkorb\' zum Einkaufen, mit dem er auch zu einem späterem Zeitpunkt den Einkauf beenden kann. Jeder Artikel bleibt darin registriert bis der Kunde zur Kasse geht, oder die Produkte darin löscht.';
 $aLang['sub_heading_text_3'] = 'Die Besuchereingaben werden automatisch bei der Registrierung als Kunde in den Kundenwarenkorb übernommen.';
-$aLang['text_close_window'] = '<strong><u>[Fenster schließen]</strong></u>';
+
