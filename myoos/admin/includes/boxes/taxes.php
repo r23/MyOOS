@@ -28,15 +28,10 @@ $aBlocks[] = array(
 	'active' => $bActive,
 	'contents' => array(
 		array(
-			'code' => $aContents['billing_address_countries'],
-			'title' => BOX_TAXES_BILLING_ADDRESS_COUNTRIES,
-			'link' => oos_admin_files_boxes('billing_address_countries', 'selected_box=taxes')
+			'code' => $aContents['countries'],
+			'title' => BOX_TAXES_COUNTRIES,
+			'link' => oos_admin_files_boxes('countries', 'selected_box=taxes')
 		),
-		array(
-			'code' => $aContents['delivery_address_countries'],
-			'title' => BOX_TAXES_DELIVERY_ADDRESS_COUNTRIES,
-			'link' => oos_admin_files_boxes('delivery_address_countries', 'selected_box=taxes')
-		),		
 		array(
 			'code' => $aContents['zones'],
 			'title' => BOX_TAXES_ZONES,

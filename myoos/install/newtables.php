@@ -291,7 +291,7 @@ dosql($table, $flds);
 
 
 
-$table = $prefix_table . 'billing_address_countries';
+$table = $prefix_table . 'countries';
 $flds = "
   countries_id I NOTNULL AUTO PRIMARY,
   countries_name C(64) NOTNULL,
@@ -305,23 +305,6 @@ dosql($table, $flds);
 $idxname = 'idx_countries_name';
 $idxflds = 'countries_name';
 idxsql($idxname, $table, $idxflds);
-
-
-$table = $prefix_table . 'delivery_address_countries';
-$flds = "
-  countries_id I NOTNULL AUTO PRIMARY,
-  countries_name C(64) NOTNULL,
-  countries_iso_code_2 C(2) NOTNULL,
-  countries_iso_code_3 C(3) NOTNULL,
-  address_format_id I DEFAULT '0' NOTNULL
-";
-dosql($table, $flds);
-
-
-$idxname = 'idx_countries_name';
-$idxflds = 'countries_name';
-idxsql($idxname, $table, $idxflds);
-
 
 
 $table = $prefix_table . 'coupons';

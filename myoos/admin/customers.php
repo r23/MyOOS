@@ -737,7 +737,7 @@ function check_form() {
       $info = $info_result->fields;
 
       if ((!isset($_GET['cID']) || (isset($_GET['cID']) && ($_GET['cID'] == $customers['customers_id']))) && !isset($cInfo)) {
-        $countriestable = $oostable['billing_address_countries'];
+        $countriestable = $oostable['countries'];
         $country_result = $dbconn->Execute("SELECT countries_name
                                             FROM $countriestable
                                             WHERE countries_id = '" . $customers['entry_country_id'] . "'");

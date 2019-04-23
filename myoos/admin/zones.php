@@ -84,7 +84,7 @@ require 'includes/header.php';
 							<?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
 						</li>
 						<li class="breadcrumb-item">
-							<?php echo '<a href="' . oos_href_link_admin($aContents['billing_address_countries'], 'selected_box=taxes') . '">' . BOX_HEADING_LOCATION_AND_TAXES . '</a>'; ?>
+							<?php echo '<a href="' . oos_href_link_admin($aContents['countries'], 'selected_box=taxes') . '">' . BOX_HEADING_LOCATION_AND_TAXES . '</a>'; ?>
 						</li>
 						<li class="breadcrumb-item active">
 							<strong><?php echo HEADING_TITLE; ?></strong>
@@ -114,7 +114,7 @@ require 'includes/header.php';
 					</thead>	
 <?php
   $zonestable = $oostable['zones'];
-  $countriestable = $oostable['billing_address_countries'];
+  $countriestable = $oostable['countries'];
   $zones_query_raw = "SELECT z.zone_id, c.countries_id, c.countries_name, z.zone_name, z.zone_code, z.zone_country_id 
                       FROM $zonestable z,
                            $countriestable c

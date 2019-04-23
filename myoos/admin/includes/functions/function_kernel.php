@@ -416,7 +416,7 @@ function oos_get_country_name($country_id) {
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    $countriestable = $oostable['billing_address_countries'];
+    $countriestable = $oostable['countries'];
     $query = "SELECT countries_name
               FROM $countriestable
               WHERE countries_id = '" . $country_id . "'";
@@ -518,7 +518,7 @@ function oos_get_countries($default = '') {
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    $countriestable = $oostable['billing_address_countries'];
+    $countriestable = $oostable['countries'];
     $query = "SELECT countries_id, countries_name
               FROM $countriestable
               ORDER BY countries_name";

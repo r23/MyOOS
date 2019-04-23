@@ -205,7 +205,7 @@ class order {
       $customerstable = $oostable['customers'];
       $address_booktable = $oostable['address_book'];
       $zonestable = $oostable['zones'];
-      $countriestable = $oostable['billing_address_countries'];
+      $countriestable = $oostable['countries'];
       $sql = "SELECT c.customers_firstname, c.customers_lastname, c.customers_telephone, c.customers_email_address,
                      ab.entry_company, ab.entry_street_address, ab.entry_postcode, ab.entry_city,
                      ab.entry_zone_id, z.zone_name, co.countries_id, co.countries_name, co.countries_iso_code_2,
@@ -223,7 +223,7 @@ class order {
 
       $address_booktable = $oostable['address_book'];
       $zonestable = $oostable['zones'];
-      $countriestable = $oostable['delivery_address_countries'];
+      $countriestable = $oostable['countries'];
       $sql = "SELECT ab.entry_firstname, ab.entry_lastname, ab.entry_company, ab.entry_street_address,
                      ab.entry_postcode, ab.entry_city, ab.entry_zone_id, z.zone_name,
                      ab.entry_country_id, c.countries_id, c.countries_name, c.countries_iso_code_2,
@@ -239,7 +239,7 @@ class order {
 
       $address_booktable = $oostable['address_book'];
       $zonestable = $oostable['zones'];
-      $countriestable = $oostable['billing_address_countries'];
+      $countriestable = $oostable['countries'];
       $sql = "SELECT ab.entry_firstname, ab.entry_lastname, ab.entry_company, ab.entry_street_address,
                      ab.entry_postcode, ab.entry_city, ab.entry_zone_id, z.zone_name,
                      ab.entry_country_id, c.countries_id, c.countries_name, c.countries_iso_code_2,

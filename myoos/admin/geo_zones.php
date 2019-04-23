@@ -191,7 +191,7 @@ function update_zone(theForm) {
 							<?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
 						</li>
 						<li class="breadcrumb-item">
-							<?php echo '<a href="' . oos_href_link_admin($aContents['billing_address_countries'], 'selected_box=taxes') . '">' . BOX_HEADING_LOCATION_AND_TAXES . '</a>'; ?>
+							<?php echo '<a href="' . oos_href_link_admin($aContents['countries'], 'selected_box=taxes') . '">' . BOX_HEADING_LOCATION_AND_TAXES . '</a>'; ?>
 						</li>
 						<li class="breadcrumb-item active">
 							<strong><?php echo HEADING_TITLE; ?></strong>
@@ -224,7 +224,7 @@ function update_zone(theForm) {
 					</thead>
 <?php
     $rows = 0;
-    $zones_result_raw = "SELECT a.association_id, a.zone_country_id, c.countries_name, a.zone_id, a.geo_zone_id, a.last_modified, a.date_added, z.zone_name FROM " . $oostable['zones_to_geo_zones'] . " a left join " . $oostable['billing_address_countries'] . " c on a.zone_country_id = c.countries_id left join " . $oostable['zones'] . " z on a.zone_id = z.zone_id WHERE a.geo_zone_id = " . intval($_GET['zID']) . " ORDER BY association_id";
+    $zones_result_raw = "SELECT a.association_id, a.zone_country_id, c.countries_name, a.zone_id, a.geo_zone_id, a.last_modified, a.date_added, z.zone_name FROM " . $oostable['zones_to_geo_zones'] . " a left join " . $oostable['countries'] . " c on a.zone_country_id = c.countries_id left join " . $oostable['zones'] . " z on a.zone_id = z.zone_id WHERE a.geo_zone_id = " . intval($_GET['zID']) . " ORDER BY association_id";
     $zones_split = new splitPageResults($nsPage, MAX_DISPLAY_SEARCH_RESULTS, $zones_result_raw, $zones_result_numrows);
     $zones_result = $dbconn->Execute($zones_result_raw);
     while ($zones = $zones_result->fields) {
