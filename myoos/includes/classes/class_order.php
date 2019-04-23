@@ -61,7 +61,7 @@ class order {
                      delivery_state, delivery_country, delivery_address_format_id, billing_name,
                      billing_company, billing_street_address, billing_city,
                      billing_postcode, billing_state, billing_country, billing_address_format_id,
-                     payment_method, cc_type, cc_owner, cc_number, cc_expires, currency, currency_value,
+                     payment_method, currency, currency_value,
                      date_purchased, orders_status, last_modified
               FROM $orderstable
               WHERE orders_id = '" . intval($order_id) . "'";
