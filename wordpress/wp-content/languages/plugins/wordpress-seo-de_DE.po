@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Yoast SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-04-16 10:01:07+0000\n"
+"PO-Revision-Date: 2019-04-23 13:17:21+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -38,6 +38,14 @@ msgstr "Der Name der Organisation"
 msgid "The person"
 msgstr "Die Person"
 
+#: admin/class-admin.php:275
+msgid "(if one exists)"
+msgstr "(wenn eine existiert)"
+
+#: admin/class-admin.php:275
+msgid "Wikipedia page about you"
+msgstr "Wikipedia-Seite über dich"
+
 #: admin/class-admin.php:274
 msgid "YouTube profile URL"
 msgstr "YouTube Profil URL"
@@ -54,9 +62,17 @@ msgstr "SoundCloud Profil URL"
 msgid "MySpace profile URL"
 msgstr "MySpace Profil URL"
 
+#: frontend/schema/class-schema-article.php:157
+msgid "Uncategorized"
+msgstr "Nicht kategorisiert"
+
 #: languages/wordpress-seojs.php:51
 msgid "Name:"
 msgstr "Name:"
+
+#: languages/wordpress-seojs.php:42
+msgid "Select a user..."
+msgstr "Wähle einen Benutzer…"
 
 #. translators: %s expands to the SEO score.
 #: inc/class-wpseo-admin-bar-menu.php:606
