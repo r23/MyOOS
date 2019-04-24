@@ -23,7 +23,7 @@ if (isset($_SESSION)) {
 		$productstable = $oostable['products'];
 		$products_descriptiontable = $oostable['products_description'];
 		$products_sql = "SELECT p.products_id, p.products_image, pd.products_name,
-                            substring(pd.products_description, 1, 150) AS products_description
+                            substring(pd.products_short_description, 1, 150) AS products_description
                      FROM $productstable p,
                           $products_descriptiontable pd
                      WHERE p.products_id IN (" . $product_ids . ")

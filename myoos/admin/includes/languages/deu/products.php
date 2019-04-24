@@ -66,6 +66,7 @@ define('TEXT_PRODUCT_NOT_AVAILABLE', 'nicht lieferbar');
 define('TEXT_PRODUCTS_MANUFACTURER', 'Artikel-Hersteller:');
 define('TEXT_PRODUCTS_NAME', 'Artikelname:');
 define('TEXT_PRODUCTS_DESCRIPTION', 'Artikelbeschreibung:');
+define('TEXT_PRODUCTS_SHORT_DESCRIPTION', 'Artikelkurzbeschreibung:');
 define('TEXT_PRODUCTS_ESSENTIAL_CHARACTERISTICS', 'Die wesentlichen Merkmale:');
 define('TEXT_PRODUCTS_DESCRIPTION_META', 'Artikelbeschreibung für Description Tag (max. 250 Zeichen)');
 define('TEXT_PRODUCTS_QUANTITY', 'Lagerbestand:');

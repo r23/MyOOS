@@ -31,7 +31,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/produc
 
 $productstable = $oostable['products'];
 $products_descriptiontable = $oostable['products_description'];
-$product_info_sql = "SELECT p.products_id, pd.products_name, pd.products_description, pd.products_url,
+$product_info_sql = "SELECT p.products_id, pd.products_name, pd.products_description, pd.products_short_description, pd.products_url,
                               pd.products_description_meta, p.products_model, p.products_replacement_product_id,
                               p.products_quantity, p.products_image, p.products_price, p.products_base_price,
 							  p.products_product_quantity, p.products_base_unit, p.products_quantity_order_min, 

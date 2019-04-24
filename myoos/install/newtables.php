@@ -921,6 +921,7 @@ $flds = "
   products_languages_id I NOTNULL DEFAULT '1' PRIMARY,
   products_name C(64) NOTNULL,
   products_description X,
+  products_short_description X,  
   products_essential_characteristics X,
   products_url C(255) NULL,
   products_viewed I2 DEFAULT '0',

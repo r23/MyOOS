@@ -95,6 +95,17 @@
 						</div>
 						<!-- /rating -->
 					{/if}
+
+
+					{if !empty($product_info.products_short_description) }
+						<div class="product-short-description mb-15">			
+							{$product_info.products_short_description}
+						</div>
+					{/if}
+
+
+
+
 				
 {if $myUser.show_price eq 1 }
 	{if (!empty($info_product_special_price))}

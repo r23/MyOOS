@@ -55,7 +55,7 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
     $specials_result_raw = "SELECT p.products_id, pd.products_name, p.products_image, p.products_price,
                                    p.products_base_price, p.products_base_unit, p.products_tax_class_id,
                                    p.products_units_id, p.products_image, s.specials_new_products_price,
-                                   substring(pd.products_description, 1, 150) AS products_description
+                                   substring(pd.products_short_description, 1, 150) AS products_description
                             FROM $productstable p,
                                  $products_descriptiontable pd,
                                  $specialstable s

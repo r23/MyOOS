@@ -269,6 +269,7 @@ if (isset($search_keywords) && (count($search_keywords) > 0)) {
 								OR p.products_model LIKE '%" . oos_db_input($keyword) . "%'
 								OR p.products_ean LIKE '%" . oos_db_input($keyword) . "%'
 								OR m.manufacturers_name LIKE '%" . oos_db_input($keyword) . "%'";
+					if (isset($_GET['search_in_description']) && ($_GET['search_in_description'] == '1')) $where_str .= " OR pd.products_short_description LIKE '%" . oos_db_input($keyword) . "%'";
 					if (isset($_GET['search_in_description']) && ($_GET['search_in_description'] == '1')) $where_str .= " OR pd.products_description LIKE '%" . oos_db_input($keyword) . "%'";
 					$where_str .= ')';
 					break;
