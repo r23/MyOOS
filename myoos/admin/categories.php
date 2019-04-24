@@ -523,21 +523,35 @@ if (!empty($action)) {
 					// Move that ADOdb pointer!
 					$description_result->MoveNext();
 				}
-
-				$dbconn->Execute("INSERT INTO " . $oostable['products_to_categories'] . "
-                          (products_id,
-                           categories_id)
-                           VALUES ('" . $dup_products_id . "',
-                                   '" . intval($categories_id) . "')");
-
+				
 				$products_id_from = oos_db_input($products_id);
 				$products_id_to = $dup_products_id;
 				$products_id = $dup_products_id;
 
+				$dbconn->Execute("INSERT INTO " . $oostable['products_to_categories'] . "
+                          (products_id,
+                           categories_id)
+                           VALUES ('" . intval($dup_products_id) . "',
+                                   '" . intval($categories_id) . "')");
+
+				$products_images_copy_result= $dbconn->Execute("SELECT image_name, sort_order FROM " . $oostable['products_images'] . " WHERE products_id='" . intval($products_id_from) . "'");
+				while ( $products_images_copy = $products_images_copy_result->fields) {
+						$sql = "INSERT INTO " . $oostable['products_images'] . "
+							(products_id,
+							image_name,
+							sort_order)
+							VALUES ('" . intval($products_id_to) . "',
+									'" . $products_images_copy['image_name'] . "',
+									'" . $products_images_copy['sort_order'] . "')";
+						$dbconn->Execute($sql);
+
+						// Move that ADOdb pointer!
+						$products_images_copy_result->MoveNext();
+				}
+
 				if ( $_POST['copy_attributes']=='copy_attributes_yes' and $_POST['copy_as'] == 'duplicate' ) {
 					$products_copy_from_result= $dbconn->Execute("SELECT options_id, options_values_id, options_values_price, price_prefix, options_sort_order FROM " . $oostable['products_attributes'] . " WHERE products_id='" . intval($products_id_from) . "'");
 					while ( $products_copy_from = $products_copy_from_result->fields) {
-						$rows++;
 						$sql = "INSERT INTO " . $oostable['products_attributes'] . "
 							(products_id,
 							options_id,
@@ -545,7 +559,7 @@ if (!empty($action)) {
 							options_values_price,
 							price_prefix,
 							options_sort_order)
-							VALUES ('" . $products_id_to . "',
+							VALUES ('" . intval($products_id_to) . "',
 									'" . $products_copy_from['options_id'] . "',
 									'" . $products_copy_from['options_values_id'] . "',
 									'" . $products_copy_from['options_values_price'] . "',
