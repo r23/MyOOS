@@ -82,3 +82,4 @@ prepros-6.config
 /myoos/images/banners/originals/*.jpg
 /myoos/images/banners/medium/*.jpg
 /myoos/images/banners/large/*.jpg
+/myoos/includes/lib/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer/HTML
