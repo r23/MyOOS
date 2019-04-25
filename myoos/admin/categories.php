@@ -430,7 +430,6 @@ if (!empty($action)) {
 													WHERE products_id = '" . oos_db_input($products_id) . "'");
 				$product = $product_result->fields;
 
-				$products_date_available = (date('Y-m-d') < $product['products_date_available']) ? $product['products_date_available'] : 'null';
 				$dbconn->Execute("INSERT INTO " . $oostable['products'] . "
                          (products_quantity,
                           products_reorder_level,
@@ -474,7 +473,7 @@ if (!empty($action)) {
                                   '" . $product['products_base_price'] . "',
                                   '" . $product['products_base_unit'] . "',
                                   now(),
-								  '" . $products_date_available . "',
+								  " . (empty($product['products_date_available']) ? "null" : "'" . oos_db_input($product['products_date_available']) . "'") . ",
                                   '" . $product['products_weight'] . "',
                                   '" . $product['products_status'] . "',
                                   '3',

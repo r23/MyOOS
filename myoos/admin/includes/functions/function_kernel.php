@@ -630,7 +630,7 @@ function oos_remove_product($product_id) {
                         FROM $productstable
                         WHERE products_image = '" . oos_db_input($product_image['products_image']) . "'";
     $duplicate_result = $dbconn->Execute($duplicate_query);
-    $duplicate_image = $duplicate_image_result->fields;
+    $duplicate_image = $duplicate_result->fields;
 	
     if ($duplicate_image['total'] < 2) {
 		if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/originals/' . $product_image['products_image'])) {
