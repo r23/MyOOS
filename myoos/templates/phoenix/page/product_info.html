@@ -226,9 +226,8 @@
 							{if !empty($product_info.products_url) }
 								<p>{$redirect|string_format:$lang.text_more_information}</p>
 							{/if}								
-{$product_info.products_date_available}
-{$oosDate}
-							{if ($product_info.products_date_available > $oosDate) }
+
+							{if ($product_info.products_date_available > $today) }
 								<p class="text-danger">{$product_info.products_date_available|oos_date_long|string_format:$lang.text_date_available}</p>
 							{else}
 								{if $smarty.const.SHOW_DATE_ADDED_AVAILABLE eq 'true'}

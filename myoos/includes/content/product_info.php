@@ -238,10 +238,13 @@ if (!$product_info_result->RecordCount()) {
 	);
 
     if (!isset($block_get_parameters)) {
-      $block_get_parameters = oos_get_all_get_parameters(array('action'));
-      $block_get_parameters = oos_remove_trailing($block_get_parameters);
-      $smarty->assign('get_params', $block_get_parameters);
+		$block_get_parameters = oos_get_all_get_parameters(array('action'));
+		$block_get_parameters = oos_remove_trailing($block_get_parameters);
+		$smarty->assign('get_params', $block_get_parameters);
     }
+
+	$today = date("Y-m-d H:i:s");
+	$smarty->assign('today', $today);
 
     $smarty->assign('product_info', $product_info);
 	$smarty->assign('heading_title', $product_info['products_name']);
@@ -249,7 +252,6 @@ if (!$product_info_result->RecordCount()) {
 
     $smarty->assign('redirect', oos_href_link($aContents['redirect'], 'action=url&amp;goto=' . urlencode($product_info['products_url']), FALSE, FALSE));
 
-	
 	
 	$notifications_block = FALSE;
 	if ($oEvent->installed_plugin('notify')) {

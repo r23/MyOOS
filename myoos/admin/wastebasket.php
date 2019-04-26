@@ -208,13 +208,8 @@ require 'includes/header.php';
 			$cInfo_array = array_merge($categories, $category_childs, $category_products);
 			$cInfo = new objectInfo($cInfo_array);
 		}
-
-		if (isset($cInfo) && is_object($cInfo) && ($categories['categories_id'] == $cInfo->categories_id) ) {
-			echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['wastebasket'], oos_get_path($categories['categories_id'])) . '\'">' . "\n";
-		} else {
-			echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&cID=' . $categories['categories_id']) . '\'">' . "\n";
-		}
 ?>
+			<tr>
                 <td>&nbsp;<?php echo '<a href="' . oos_href_link_admin($aContents['wastebasket'], oos_get_path($categories['categories_id'])) . '"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-folder"></i></button></a>&nbsp;<b>' . ' #' . $categories['categories_id'] . ' ' . $categories['categories_name'] . '</b>'; ?></td>
                 <td class="text-center">&nbsp;</td>
                 <td class="text-right"><?php  echo
@@ -260,9 +255,9 @@ require 'includes/header.php';
                 <td><?php echo oos_get_manufacturers_name($products['products_id']) ?></td>
 
                 <td class="text-right"><?php echo
-							'<a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=new_product') . '"><i class="fa fa-pencil" title="' .  BUTTON_EDIT . '"></i></a>
-							<a href="' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=delete_product') . '"><i class="fa fa-trash" title="' .  BUTTON_DELETE . '"></i></a>
-							<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . 'action=untrash&flag=2') . '"><i class="fa fa-undo" title="' . BUTTON_UNTRASH . '"></i></a>';
+							'<a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=new_product') . '"><i class="fa fa-pencil" title="' .  BUTTON_EDIT . '"></i></a>
+							<a href="' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=delete_product') . '"><i class="fa fa-trash" title="' .  BUTTON_DELETE . '"></i></a>
+							<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $products['products_id'] . 'action=untrash&flag=2') . '"><i class="fa fa-undo" title="' . BUTTON_UNTRASH . '"></i></a>';
 			?>&nbsp;</td>
 
 
