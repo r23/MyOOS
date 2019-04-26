@@ -1208,12 +1208,8 @@ if ($action == 'new_category' || $action == 'edit_category') {
         $cInfo = new objectInfo($cInfo_array);
       }
 
-      if (isset($cInfo) && is_object($cInfo) && ($categories['categories_id'] == $cInfo->categories_id) ) {
-        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['categories'], oos_get_path($categories['categories_id'])) . '\'">' . "\n";
-      } else {
-        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $categories['categories_id']) . '\'">' . "\n";
-      }
 ?>
+			<tr>
                 <td>&nbsp;<?php echo '<a href="' . oos_href_link_admin($aContents['categories'], oos_get_path($categories['categories_id'])) . '"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-folder"></i></button></a>&nbsp;<b>' . ' #' . $categories['categories_id'] . ' ' . $categories['categories_name'] . '</b>'; ?></td>
                 <td class="text-center">&nbsp;</td>
                  <td class="text-center">
@@ -1260,7 +1256,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
       }
 
       if (isset($pInfo) && is_object($pInfo) && ($products['products_id'] == $pInfo->products_id) ) {
-        echo '              <tr onclick="document.location.href=\'' . oos_catalog_link($aCatalog['product_info'], 'products_id=' . $products['products_id']) . '\'">' . "\n";
+        echo '              <tr>' . "\n";
       } else {
         echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $products['products_id']) . '\'">' . "\n";
       }
@@ -1446,7 +1442,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
             $contents[] = array('text' => '#' . $pInfo->products_id . ' ' . TEXT_CATEGORIES . ' ' . oos_get_categories_name($current_category_id) . '<br />' . TEXT_DATE_ADDED . ' ' . oos_date_short($pInfo->products_date_added));
             if (oos_is_not_null($pInfo->products_last_modified)) $contents[] = array('text' => TEXT_LAST_MODIFIED . ' ' . oos_date_short($pInfo->products_last_modified));
             if (date('Y-m-d') < $pInfo->products_date_available) $contents[] = array('text' => TEXT_DATE_AVAILABLE . ' ' . oos_date_short($pInfo->products_date_available));
-            $contents[] = array('text' => '<br /><a href="' . oos_catalog_link($aCatalog['product_info'], 'products_id=' . $products['products_id']) . '" target="_blank" rel="noopener">' . product_info_image($pInfo->products_image, $pInfo->products_name) . '</a><br />' . $pInfo->products_image);
+            $contents[] = array('text' => '<br /><a href="' . oos_catalog_link($aCatalog['product_info'], 'products_id=' . $pInfo->products_id) . '" target="_blank" rel="noopener">' . product_info_image($pInfo->products_image, $pInfo->products_name) . '</a><br />' . $pInfo->products_image);
 
             $sPrice = $pInfo->products_price;
             $sPriceList = $pInfo->products_price_list;

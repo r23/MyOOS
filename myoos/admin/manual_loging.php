@@ -162,12 +162,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       if ((!isset($_GET['sID']) || (isset($_GET['sID']) && ($_GET['sID'] == $palm_doa['man_info_id']))) && !isset($sInfo)) {
         $sInfo = new objectInfo($palm_doa);
       }
-      if (isset($sInfo) && is_object($sInfo) && ($palm_doa['man_info_id'] == $sInfo->man_info_id) ) {
-        echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['manual_loging'], 'page=' . $nPage . '&sID=' . $sInfo->man_info_id . '&action=edit') . '\'">' . "\n";
-      } else {
-        echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['manual_loging'], 'page=' . $nPage . '&sID=' . $palm_doa['man_info_id']) . '\'">' . "\n";
-      }
 ?>
+			<tr>
                 <td class="text-left"><?php echo $palm_doa['man_name']; ?></td>
                 <td class="text-center">
 <?php

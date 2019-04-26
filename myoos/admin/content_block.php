@@ -205,13 +205,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     if ((!isset($_GET['bID']) || (isset($_GET['bID']) && ($_GET['bID'] == $block['block_id']))) && !isset($bInfo) && (substr($action, 0, 3) != 'new')) {
       $bInfo = new objectInfo($block);
     }
-
-    if (isset($bInfo) && is_object($bInfo) && ($block['block_id'] == $bInfo->block_id) ) {
-      echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['content_block'], 'page=' . $nPage . '&bID=' . $block['block_id'] . '&action=edit') . '\'">' . "\n";
-    } else {
-      echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['content_block'], 'page=' . $nPage . '&bID=' . $block['block_id']) . '\'">' . "\n";
-    }
 ?>
+			<tr>
                 <td><?php echo $block['block_name']; ?></td>
                 <td class="text-center"><?php echo $block['block_side']; ?></td>
                 <td class="text-center"><?php echo $block['block_sort_order']; ?></td>
