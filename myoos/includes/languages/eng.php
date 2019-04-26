@@ -370,6 +370,9 @@ $aLang = [
 'text_new'                 => 'NEW',
 'text_categories' 	       => 'CATEGORIES',
 
+'text_no_longer_available'	=> 'No longer available',
+'text_replacement_product'	=> 'There is a replacement product',
+
 'warning_install_directory_exists'  => 'Warning: Installation directory exists at: ' . dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/install. Please remove this directory for security reasons.',
 'warning_config_file_writeable'     => 'Warning: I am able to write to the configuration file: ' . dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/includes/configure.php. This is a potential security risk - please set the right user permissions on this file.',
 'warning_download_directory_non_existent'  => 'Warning: The downloadable products directory does not exist: ' . OOS_DOWNLOAD_PATH . '. Downloadable products will not work until this directory is valid.',

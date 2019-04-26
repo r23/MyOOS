@@ -355,6 +355,9 @@ $aLang = [
 'text_new'                   => 'NEU',
 'text_categories' 			 => 'KATEGORIEN',
 
+'text_no_longer_available'	=> 'Nicht mehr verfügbar',
+'text_replacement_product'	=> 'Es gibt ein Ersatzprodukt',
+
 'warning_install_directory_exists'           => 'Warnung: Das Installationverzeichnis ist noch vorhanden auf: ' . dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/install. Bitte löschen Sie das Verzeichnis aus Gründen der Sicherheit!',
 'warning_config_file_writeable'              => 'Warnung: MyOOS [Shopsystem] kann in die Konfigurationsdatei schreiben: ' . dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/includes/configure.php. Das stellt ein mögliches Sicherheitsrisiko dar - bitte korrigieren Sie die Benutzerberechtigungen zu dieser Datei!',
 'warning_download_directory_non_existent'    => 'Warnung: Das Verzeichnis für den Artikel Download existiert nicht: ' . OOS_DOWNLOAD_PATH . '. Diese Funktion wird nicht funktionieren bis das Verzeichnis erstellt wurde!',

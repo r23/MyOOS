@@ -466,14 +466,14 @@ if (!empty($action)) {
                           VALUES ('" . $product['products_quantity'] . "',
                                   '" . $product['products_reorder_level'] . "',
                                   '" . $product['products_model'] . "',
-								  '" . (empty($product['products_replacement_product_id']) ? "null" : "'" . oos_db_input($product['products_replacement_product_id']) . "'") . "',
+								  '" . $product['products_replacement_product_id'] . "',
                                   '" . $product['products_ean'] . "',
                                   '" . $product['products_image'] . "',
                                   '" . $product['products_price'] . "',
                                   '" . $product['products_base_price'] . "',
                                   '" . $product['products_base_unit'] . "',
                                   now(),
-								  " . (empty($product['products_date_available']) ? "null" : "'" . oos_db_input($product['products_date_available']) . "'") . ",
+								  '" . (empty($product['products_date_available']) ? "null" : "'" . oos_db_input($product['products_date_available']) . "'") . "',
                                   '" . $product['products_weight'] . "',
                                   '" . $product['products_status'] . "',
                                   '3',
@@ -1260,12 +1260,12 @@ if ($action == 'new_category' || $action == 'edit_category') {
       }
 
       if (isset($pInfo) && is_object($pInfo) && ($products['products_id'] == $pInfo->products_id) ) {
-        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=new_product_preview') . '\'">' . "\n";
+        echo '              <tr onclick="document.location.href=\'' . oos_catalog_link($aCatalog['product_info'], 'products_id=' . $products['products_id']) . '\'">' . "\n";
       } else {
         echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $products['products_id']) . '\'">' . "\n";
       }
 ?>
-                <td><?php echo '<a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=new_product_preview') . '"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-search"></i></button></a>&nbsp;' . '#' . $products['products_id'] . ' ' . $products['products_name']; ?></td>
+                <td><?php echo '<a href="' . oos_catalog_link($aCatalog['product_info'], 'products_id=' . $products['products_id']) . '" target="_blank" rel="noopener"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-search"></i></button></a>&nbsp;' . '#' . $products['products_id'] . ' ' . $products['products_name']; ?></td>
                 <td><?php echo oos_get_manufacturers_name($products['products_id']) ?></td>
                 <td class="text-center">
 <?php
@@ -1446,7 +1446,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
             $contents[] = array('text' => '#' . $pInfo->products_id . ' ' . TEXT_CATEGORIES . ' ' . oos_get_categories_name($current_category_id) . '<br />' . TEXT_DATE_ADDED . ' ' . oos_date_short($pInfo->products_date_added));
             if (oos_is_not_null($pInfo->products_last_modified)) $contents[] = array('text' => TEXT_LAST_MODIFIED . ' ' . oos_date_short($pInfo->products_last_modified));
             if (date('Y-m-d') < $pInfo->products_date_available) $contents[] = array('text' => TEXT_DATE_AVAILABLE . ' ' . oos_date_short($pInfo->products_date_available));
-            $contents[] = array('text' => '<br /><a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=new_product_preview') . '">' . product_info_image($pInfo->products_image, $pInfo->products_name) . '</a><br />' . $pInfo->products_image);
+            $contents[] = array('text' => '<br /><a href="' . oos_catalog_link($aCatalog['product_info'], 'products_id=' . $products['products_id']) . '" target="_blank" rel="noopener">' . product_info_image($pInfo->products_image, $pInfo->products_name) . '</a><br />' . $pInfo->products_image);
 
             $sPrice = $pInfo->products_price;
             $sPriceList = $pInfo->products_price_list;

@@ -63,12 +63,11 @@ if (!empty($action)) {
 			$sProductsQuantity = oos_db_prepare_input($_POST['products_quantity']);
 			$sProductsStatus = oos_db_prepare_input($_POST['products_status']);
 			$sProductsReplacementProductID = oos_db_prepare_input($_POST['products_replacement_product_id']);
-
-			if (oos_is_not_null($sProductsReplacementProductID)) {
+			if (isset($_POST['products_replacement_product_id']) && is_numeric($_POST['products_replacement_product_id']) && ($_POST['products_replacement_product_id'] > 0) ) {		
 				$messageStack->add_session(ERROR_REPLACEMENT, 'error');
 				$sProductsStatus = 4;
 			} else {
-				$sProductsReplacementProductID = 'null';
+				$sProductsReplacementProductID = '';
 			}
 
 			if (STOCK_CHECK == 'true') {

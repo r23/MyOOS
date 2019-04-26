@@ -182,16 +182,24 @@
 								<span class="stock-label text-success"><i class="fa fa-check"></i> {$lang.in_stock}</span>
 							</div>					
 						</form>
+						
+                        <div class="others_info_area mb-15 d-flex">
+                            <a class="add_to_wishlist" href="{html_href_link content=$filename.account_wishlist action=add_wishlist products_id=$product_info.products_id}" rel="nofollow"><i class="fa fa-heart" aria-hidden="true"></i> {$lang.button_add_wishlist}</a>
+                        </div>
+					{elseif $product_info.products_status eq 4 }
+						<div class="clearfix mb-30">
+							<span class="text-danger"><i class="fa fa-remove"></i> {$lang.text_no_longer_available}
+							{if (!empty($product_info.products_replacement_product_id))}
+							<a class="text-danger" href="{product_link products_id=$products_replacement_product_id}"><i class="fa fa-paper-plane"></i> {$lang.text_replacement_product}</a>
+							{/if}
+							</span>
+						</div>			
 					{else}
 						<div class="clearfix mb-30">
 							<span class="text-danger"><i class="fa fa-remove"></i> {$lang.out_of_stock}</span>
 						</div>					
 					{/if}
-					
-                        <div class="others_info_area mb-15 d-flex">
-                            <a class="add_to_wishlist" href="{html_href_link content=$filename.account_wishlist action=add_wishlist products_id=$product_info.products_id}" rel="nofollow"><i class="fa fa-heart" aria-hidden="true"></i> {$lang.button_add_wishlist}</a>
-                        </div>
-						
+											
                     </div>
                 </div>
 
@@ -218,7 +226,8 @@
 							{if !empty($product_info.products_url) }
 								<p>{$redirect|string_format:$lang.text_more_information}</p>
 							{/if}								
-
+{$product_info.products_date_available}
+{$oosDate}
 							{if ($product_info.products_date_available > $oosDate) }
 								<p class="text-danger">{$product_info.products_date_available|oos_date_long|string_format:$lang.text_date_available}</p>
 							{else}
