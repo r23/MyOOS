@@ -27,7 +27,6 @@ require 'includes/classes/class_upload.php';
 
 require_once MYOOS_INCLUDE_PATH . '/includes/lib/htmlpurifier/library/HTMLPurifier.auto.php';
 
-
 $currencies = new currencies();
 
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
@@ -81,7 +80,7 @@ if (!empty($action)) {
 		case 'setflag':
 			if ( isset($_GET['flag']) && ($_GET['flag'] == '1') || ($_GET['flag'] == '2') ) {
 				if (isset($_GET['pID']) && is_numeric($_GET['pID'])) {
-					oos_set_product_status($_GET['pID'], $_GET['flag']);
+					oos_set_product_status($_GET['pID'], $_GET['flag']);				
 				} elseif (isset($_GET['cID']) && is_numeric($_GET['cID'])) {
 					oos_set_categories_status($_GET['cID'], $_GET['flag']);
 				}
@@ -1208,8 +1207,12 @@ if ($action == 'new_category' || $action == 'edit_category') {
         $cInfo = new objectInfo($cInfo_array);
       }
 
+      if (isset($cInfo) && is_object($cInfo) && ($categories['categories_id'] == $cInfo->categories_id) ) {
+        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['categories'], oos_get_path($categories['categories_id'])) . '\'">' . "\n";
+      } else {
+        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $categories['categories_id']) . '\'">' . "\n";
+      }
 ?>
-			<tr>
                 <td>&nbsp;<?php echo '<a href="' . oos_href_link_admin($aContents['categories'], oos_get_path($categories['categories_id'])) . '"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-folder"></i></button></a>&nbsp;<b>' . ' #' . $categories['categories_id'] . ' ' . $categories['categories_name'] . '</b>'; ?></td>
                 <td class="text-center">&nbsp;</td>
                  <td class="text-center">

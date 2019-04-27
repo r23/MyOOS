@@ -121,7 +121,6 @@ function oos_get_category_tree($parent_id = '0', $spacing = '', $exclude = '', $
 }
 
 
-
 function oos_get_category_name($category_id, $language_id = '') {
 
     // Get database information

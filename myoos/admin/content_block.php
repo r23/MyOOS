@@ -20,7 +20,7 @@ define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 require 'includes/functions/function_block.php';
 
-$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
+$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
   if (!empty($action)) {
@@ -50,14 +50,14 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       case 'insert':
       case 'save':
         $block_content_id = oos_db_prepare_input($_GET['bID']);
-		
+
 		$block_side = oos_db_prepare_input($_POST['block_side']);
 		$function  = oos_db_prepare_input($_POST['function']);
 		$block_cache  = oos_db_prepare_input($_POST['block_cache']);
 		$sort_order  = oos_db_prepare_input($_POST['sort_order']);
 		$block_status  = oos_db_prepare_input($_POST['block_status']);
-		$block_login_flag  = oos_db_prepare_input($_POST['block_login_flag']);	
-		
+		$block_login_flag  = oos_db_prepare_input($_POST['block_login_flag']);
+
         $sql_data_array = array('block_side' => $block_side,
                                 'block_file' => $function,
                                 'block_cache' => $block_cache,
@@ -127,7 +127,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     }
   }
 
-  require 'includes/header.php'; 
+  require 'includes/header.php';
 ?>
 <div class="wrapper">
 	<!-- Header //-->
@@ -143,12 +143,12 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 		</div>
 		<!-- END Sidebar (left) //-->
 	</aside>
-	
+
 	<!-- Main section //-->
 	<section>
 		<!-- Page content //-->
 		<div class="content-wrapper">
-			
+
 			<!-- Breadcrumbs //-->
 			<div class="content-heading">
 				<div class="col-lg-12">
@@ -167,16 +167,16 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 				</div>
 			</div>
 			<!-- END Breadcrumbs //-->
-			
+
 			<div class="wrapper wrapper-content">
 				<div class="row">
-					<div class="col-lg-12">	
+					<div class="col-lg-12">
 <!-- body_text //-->
 	<div class="table-responsive">
 		<table class="table w-100">
           <tr>
             <td valign="top">
-			
+
 				<table class="table table-striped table-hover w-100">
 					<thead class="thead-dark">
 						<tr>
@@ -186,7 +186,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 							<th class="text-center"><?php echo TABLE_HEADING_STATUS; ?></th>
 							<th class="text-center"><?php echo TABLE_HEADING_LOGIN; ?></th>
 							<th class="text-right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>
-						</tr>	
+						</tr>
 					</thead>
 <?php
    $blocktable = $oostable['block'];
@@ -344,10 +344,10 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 		<table class="table table-striped">
 <?php
 		$box = new box;
-		echo $box->infoBox($heading, $contents);  
+		echo $box->infoBox($heading, $contents);
 ?>
-		</table> 
-	</td> 
+		</table>
+	</td>
 <?php
   }
 ?>
@@ -369,7 +369,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 </div>
 
 
-<?php 
+<?php
 	require 'includes/bottom.php';
 	require 'includes/nice_exit.php';
 ?>

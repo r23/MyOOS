@@ -16,13 +16,13 @@
    Copyright (c) 2002 - 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
    P&G Shipping Module Version 0.4 12/03/2002
    osCommerce Shipping Management Module
    Copyright (c) 2002  - Oliver Baelde
    http://www.francecontacts.com
    dev@francecontacts.com
-   - eCommerce Solutions development and integration - 
+   - eCommerce Solutions development and integration -
 
    osCommerce, Open Source E-Commerce Solutions
    Copyright (c) 2002 osCommerce
@@ -31,7 +31,7 @@
    IMPORTANT NOTE:
    This script is not part of the official osCommerce distribution
    but an add-on contributed to the osCommerce community. Please
-   read the README and  INSTALL documents that are provided 
+   read the README and  INSTALL documents that are provided
    with this file for further information and installation notes.
 
    LICENSE:
@@ -83,10 +83,10 @@ function oos_set_login_status($man_info_id, $status) {
 		return $dbconn->Execute("UPDATE " . $oostable['manual_info'] . " SET status = '1', man_key  = '" . oos_db_input($newkey) . "', man_key2  = '" . oos_db_input($newkey2) . "', expires_date = NULL, manual_last_modified = now(), date_status_change =now() WHERE man_info_id = '" . $man_info_id . "'");
     } else {
 		return $dbconn->Execute("UPDATE " . $oostable['manual_info'] . " SET status = '0', man_key = '', man_key2 = '', manual_last_modified = now() WHERE man_info_id = '" . $man_info_id . "'");
-    } 
+    }
 }
 
-$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
+$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
   if (!empty($action)) {
@@ -97,7 +97,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         break;
     }
   }
-  require 'includes/header.php'; 
+  require 'includes/header.php';
 ?>
 <div class="wrapper">
 	<!-- Header //-->
@@ -113,12 +113,12 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 		</div>
 		<!-- END Sidebar (left) //-->
 	</aside>
-	
+
 	<!-- Main section //-->
 	<section>
 		<!-- Page content //-->
 		<div class="content-wrapper">
-			
+
 			<!-- Breadcrumbs //-->
 			<div class="row gray-bg page-heading">
 				<div class="col-lg-12">
@@ -137,22 +137,22 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 				</div>
 			</div>
 			<!-- END Breadcrumbs //-->
-			
+
 			<div class="row">
-				<div class="col-lg-12">	
+				<div class="col-lg-12">
 <!-- body_text //-->
 <div class="table-responsive">
 	<table class="table w-100">
           <tr>
             <td valign="top">
-			
+
 				<table class="table table-striped table-hover w-100">
 					<thead class="thead-dark">
 						<tr>
 							<th><?php echo TABLE_HEADING_MANUAL_ENTRY; ?></th>
 							<th class="text-center"><?php echo TABLE_HEADING_STATUS; ?></th>
 							<th class="text-right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>
-						</tr>	
+						</tr>
 					</thead>
 <?php
     $payment_dai_result_raw = "SELECT man_info_id, man_name, status, manual_date_added, manual_last_modified, date_status_change FROM " . $oostable['manual_info'] . "";
@@ -217,20 +217,20 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       }
       break;
   }
- 
+
     if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
 ?>
 	<td class="w-25">
 		<table class="table table-striped">
 <?php
 		$box = new box;
-		echo $box->infoBox($heading, $contents);  
+		echo $box->infoBox($heading, $contents);
 ?>
-		</table> 
-	</td> 
+		</table>
+	</td>
 <?php
   }
-?> 
+?>
           </tr>
         </table>
 	</div>
@@ -249,7 +249,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 	</footer>
 </div>
 
-<?php 
+<?php
 	require 'includes/bottom.php';
 	require 'includes/nice_exit.php';
 ?>
