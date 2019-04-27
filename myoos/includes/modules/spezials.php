@@ -27,11 +27,9 @@ if (!is_numeric(MAX_DISPLAY_NEW_SPEZILAS)) return FALSE;
 $productstable = $oostable['products'];
 $products_descriptiontable = $oostable['products_description'];
 $specialstable = $oostable['specials'];
-$sql = "SELECT p.products_id, pd.products_name, p.products_price, p.products_tax_class_id, 
+$sql = "SELECT p.products_id, pd.products_name, pd.products_short_description, p.products_price, p.products_tax_class_id, 
 				p.products_units_id, p.products_quantity_order_min, p.products_quantity_order_max,
-				p.products_product_quantity,
-                 substring(pd.products_short_description, 1, 150) AS products_description,
-                 p.products_image, p.products_base_price, p.products_base_unit, s.specials_new_products_price 
+				p.products_product_quantity, p.products_image, p.products_base_price, p.products_base_unit, s.specials_new_products_price 
           FROM $productstable p,
                $products_descriptiontable pd,
                $specialstable s
@@ -66,7 +64,7 @@ if ($new_spezials_result->RecordCount() >= MIN_DISPLAY_NEW_SPEZILAS) {
 		$aSpezials[] = array('products_id' => $new_spezials['products_id'],
                                     'products_image' => $new_spezials['products_image'],
                                     'products_name' => $new_spezials['products_name'],
-                                    'products_description' => oos_remove_tags($new_spezials['products_description']),
+                                    'products_short_description' => $new_spezials['products_short_description'],
                                     'order_min' => $order_min,
                                     'order_max' => $order_max,
                                     'product_quantity' => $new_spezials['products_product_quantity'],

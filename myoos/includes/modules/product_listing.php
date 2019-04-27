@@ -89,7 +89,7 @@ if ($listing_split->number_of_rows > 0) {
 						'products_image' => $listing['products_image'],
 						'products_name' => $listing['products_name'],
 						'products_model' => $listing['products_model'],
-						'products_description' => oos_remove_tags($listing['products_description']),
+						'products_short_description' => $listing['products_short_description'],
 						'manufacturers_id' => $listing['manufacturers_id'],
 						'manufacturers_name' =>	$listing['manufacturers_name'],				   
 						'order_min' => $order_min,

@@ -28,10 +28,9 @@ if ( (!isset($nCurrentCategoryID)) || ($nCurrentCategoryID == '0') ) {
 	$productstable = $oostable['products'];
 	$products_descriptiontable = $oostable['products_description'];
 	$specialstable = $oostable['specials'];
-	$sql = "SELECT p.products_id, pd.products_name, p.products_image, p.products_tax_class_id, p.products_units_id,
+	$sql = "SELECT p.products_id, pd.products_name, p.products_image,  pd.products_short_description, p.products_tax_class_id, p.products_units_id,
                    p.products_price, p.products_base_price, p.products_base_unit, p.products_product_quantity, 
 				   p.products_quantity_order_min, p.products_quantity_order_max,
-				   substring(pd.products_short_description, 1, 150) AS products_description,
                    IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price
             FROM $productstable p LEFT JOIN
                  $specialstable s ON p.products_id = s.products_id,
@@ -46,10 +45,9 @@ if ( (!isset($nCurrentCategoryID)) || ($nCurrentCategoryID == '0') ) {
 	$specialstable = $oostable['specials'];
 	$products_to_categoriestable = $oostable['products_to_categories'];
 	$categoriestable = $oostable['categories'];
-	$sql = "SELECT DISTINCT p.products_id, pd.products_name, p.products_image, p.products_tax_class_id, p.products_units_id,
+	$sql = "SELECT DISTINCT p.products_id, pd.products_name, pd.products_short_description, p.products_image, p.products_tax_class_id, p.products_units_id,
                    p.products_price, p.products_base_price, p.products_base_unit, p.products_product_quantity,
 				   p.products_quantity_order_min, p.products_quantity_order_max,
-				   substring(pd.products_short_description, 1, 150) AS products_description,
                    IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price
             FROM $productstable p LEFT JOIN
                  $specialstable s ON p.products_id = s.products_id,
@@ -99,7 +97,7 @@ while ($new_products = $new_products_result->fields) {
 	$aNewProducts[] = array('products_id' => $new_products['products_id'],
                                   'products_image' => $new_products['products_image'],
                                   'products_name' => $new_products['products_name'],
-                                  'products_description' => oos_remove_tags($new_products['products_description']),
+                                  'products_short_description' => $new_products['products_short_description'],
 								  'order_min' => $order_min,
 								  'order_max' => $order_max,
 								  'product_quantity' => $new_products['products_product_quantity'],

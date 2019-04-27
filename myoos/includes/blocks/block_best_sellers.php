@@ -30,8 +30,7 @@ if (isset($nCurrentCategoryID) && ($nCurrentCategoryID > 0)) {
     $products_descriptiontable = $oostable['products_description'];
     $products_to_categoriestable = $oostable['products_to_categories'];
     $categoriestable = $oostable['categories'];
-    $query = "SELECT DISTINCT p.products_id, p.products_image, pd.products_name,
-                     substring(pd.products_short_description, 1, 150) AS products_description
+    $query = "SELECT DISTINCT p.products_id, p.products_image, pd.products_name, pd.products_short_description
               FROM $productstable p,
                    $products_descriptiontable pd,
                    $products_to_categoriestable p2c,
@@ -48,7 +47,7 @@ if (isset($nCurrentCategoryID) && ($nCurrentCategoryID > 0)) {
     $productstable = $oostable['products'];
     $products_descriptiontable = $oostable['products_description'];
     $query = "SELECT DISTINCT p.products_id, p.products_image, pd.products_name,
-                     substring(pd.products_short_description, 1, 150) AS products_description
+                      pd.products_short_description
               FROM $productstable p,
                    $products_descriptiontable pd
               WHERE p.products_setting = '2'

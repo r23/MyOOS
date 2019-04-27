@@ -56,8 +56,7 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
                                        p.products_base_price, p.products_base_unit, p.products_units_id,
 									   p.products_product_quantity,  p.products_quantity_order_min, 
 										p.products_quantity_order_max, p.products_quantity_order_units,
-                                       p.products_tax_class_id,
-									   substring(pd.products_short_description, 1, 150) AS products_description,
+                                       p.products_tax_class_id, pd.products_short_description,
                                        IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price,
                                        p.products_date_added, p.manufacturers_id, m.manufacturers_name
                                FROM $productstable p LEFT JOIN
@@ -97,7 +96,7 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 									'id' => $products_new['products_id'],
 									'name' => $products_new['products_name'],
                                     'image' => $products_new['products_image'],
-									'products_description' => oos_remove_tags($products_new['products_description']),
+									'products_short_description' => $products_new['products_short_description'],
                                     'new_product_price' => $new_product_price,
                                     'new_product_units' => $products_new['products_units_id'],
 									'new_product_quantity' => $products_new['products_product_quantity'],
