@@ -36,6 +36,7 @@
         "ext-zlib": "*",
         "lib-libxml": "*",
 		"symfony/symfony": "~4.2",
-		"smarty/smarty": "~3.1"
+		"smarty/smarty": "~3.1",
+		"php-ai/php-ml": "^0.8.0"
     }
 }

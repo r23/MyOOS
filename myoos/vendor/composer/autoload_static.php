@@ -39,6 +39,7 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
             'Psr\\Link\\' => 9,
             'Psr\\Container\\' => 14,
             'Psr\\Cache\\' => 10,
+            'Phpml\\' => 6,
         ),
         'F' => 
         array (
@@ -117,6 +118,10 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         'Psr\\Cache\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/cache/src',
+        ),
+        'Phpml\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-ai/php-ml/src',
         ),
         'Fig\\Link\\' => 
         array (
