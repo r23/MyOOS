@@ -623,6 +623,14 @@ require 'includes/header.php';
 		<div class="content-wrapper">
 <?php
 if ($action == 'new_category' || $action == 'edit_category') {
+	$categoriestable = $oostable['categories'];
+	$query = "SELECT COUNT(*) AS total
+                  FROM $categoriestable c
+                  WHERE parent_id = '" . intval($current_category_id) . "'";
+	$categories_count_result = $dbconn->Execute($query);
+	$categories_count = $categories_count_result->fields['total'];
+	$categories_count++;
+	
     $parameters = array('categories_id' => '',
 						'categories_name' => '',
                        'categories_heading_title' => '',
@@ -634,7 +642,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
                        'parent_id' => '',
 					   'color' => '',
 					   'menu_type'  => '',
-                       'sort_order' => '',
+                       'sort_order' => $categories_count,
                        'date_added' => '',
                        'categories_status' => 2,
                        'last_modified' => '');

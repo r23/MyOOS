@@ -76,20 +76,20 @@ function oos_href_link($page = '', $parameters = '', $add_session_id = TRUE, $se
 	
 	
     if ( ($search_engine_safe == TRUE) &&  $oEvent->installed_plugin('sefu') ) {
-      $link = str_replace(array('?', '&amp;', '='), '/', $link);
+		$link = str_replace(array('?', '&amp;', '='), '/', $link);
 
-      $separator = '?';
+		$separator = '?';
 
-      $pos = strpos ($link, 'action');
-      if ($pos === FALSE) {
-        $url_rewrite = new url_rewrite;
-        $link = $url_rewrite->transform_uri($link);
-      }
+		$pos = strpos ($link, 'action');
+		if ($pos === FALSE) {
+			$url_rewrite = new url_rewrite;
+			$link = $url_rewrite->transform_uri($link);
+		}
 
     }
 
     if (isset($_sid)) {
-      $link .= $separator . oos_output_string($_sid);
+		$link .= $separator . oos_output_string($_sid);
     }
 
     return $link;
