@@ -412,6 +412,7 @@ class ComposerStaticInitf22b8825991ccda35c7813f5b3928f77
         'WPSEO_Schema_Breadcrumb' => __DIR__ . '/../..' . '/frontend/schema/class-schema-breadcrumb.php',
         'WPSEO_Schema_Context' => __DIR__ . '/../..' . '/frontend/schema/class-schema-context.php',
         'WPSEO_Schema_IDs' => __DIR__ . '/../..' . '/frontend/schema/class-schema-ids.php',
+        'WPSEO_Schema_Image' => __DIR__ . '/../..' . '/frontend/schema/class-schema-image.php',
         'WPSEO_Schema_Organization' => __DIR__ . '/../..' . '/frontend/schema/class-schema-organization.php',
         'WPSEO_Schema_Person' => __DIR__ . '/../..' . '/frontend/schema/class-schema-person.php',
         'WPSEO_Schema_Person_Upgrade_Notification' => __DIR__ . '/../..' . '/admin/class-schema-person-upgrade-notification.php',

@@ -387,6 +387,7 @@ return array(
     'WPSEO_Schema_Breadcrumb' => $baseDir . '/frontend/schema/class-schema-breadcrumb.php',
     'WPSEO_Schema_Context' => $baseDir . '/frontend/schema/class-schema-context.php',
     'WPSEO_Schema_IDs' => $baseDir . '/frontend/schema/class-schema-ids.php',
+    'WPSEO_Schema_Image' => $baseDir . '/frontend/schema/class-schema-image.php',
     'WPSEO_Schema_Organization' => $baseDir . '/frontend/schema/class-schema-organization.php',
     'WPSEO_Schema_Person' => $baseDir . '/frontend/schema/class-schema-person.php',
     'WPSEO_Schema_Person_Upgrade_Notification' => $baseDir . '/admin/class-schema-person-upgrade-notification.php',

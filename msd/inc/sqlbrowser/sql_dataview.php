@@ -114,7 +114,7 @@ else
 		else
 		{
 			$sql_temp="SELECT count(*) as anzahl FROM (".$sql_temp.") as query;";
-			$res=@MSD_query($sql_temp,false);
+			$res=@MSD_query($sql_temp,false);		
 			if ($res)
 			{
 				if ($row=mysqli_fetch_object($res))
