@@ -77,7 +77,9 @@ define('TEXT_PRODUCTS_EAN', 'EAN :');
 define('TEXT_PRODUCTS_IMAGE', 'Products Image');
 define('TEXT_PRODUCTS_URL', 'Products URL:');
 define('TEXT_PRODUCTS_URL_WITHOUT_HTTP', '<small>(without http://)</small>');
-define('TEXT_PRODUCTS_PRICE', 'Products Price:');
+define('TEXT_PRODUCTS_PRICE', 'Products Price (Net):');
+define('TEXT_PRODUCTS_PRICE_WITH_TAX', 'Products Price (Gross):');
+
 define('TEXT_PRODUCTS_WEIGHT', 'Products Weight:');
 define('TEXT_IMAGE_REMOVE', '<b>Remove</b> this Image from this product?');
 

@@ -319,7 +319,6 @@ if (!empty($action)) {
 			}
 
 			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $categories_id));
-
 			break;
 
 		case 'delete_category_confirm':
@@ -879,7 +878,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 											if ($cInfo->menu_type == 'NEW') echo ' checked="checked"';
 											echo  '>&nbsp;';
 									   ?>
-										<span class="badge badge-danger float-right">NEW</span>
+										<span class="badge badge-danger float-right"><?php echo TEXT_EDIT_NEW; ?></span>
 									</label>
 								</div>
 								<div class="c-radio c-radio-nofont">
@@ -889,7 +888,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 											if ($cInfo->menu_type == 'PROMO') echo ' checked="checked"';
 											echo  '>&nbsp;';
 									   ?>
-										<span class="badge badge-success float-right">PROMO</span>
+										<span class="badge badge-success float-right"><?php echo TEXT_EDIT_PROMO; ?></span>
 									</label>
 								</div>
 								

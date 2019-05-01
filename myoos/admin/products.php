@@ -323,6 +323,9 @@ require 'includes/header.php';
 					<div class="col-lg-12">
 <?php
 if ($action == 'new_product') {
+	defined('DEFAULT_SETTING_ID') or define('DEFAULT_SETTING_ID', '2');
+	defined('DEFAULT_TAX_CLASS_ID') or define('DEFAULT_TAX_CLASS_ID', '1');
+	
     $parameters = array('products_name' => '',
                        'products_description' => '',
 					   'products_short_description' => '',
@@ -333,13 +336,18 @@ if ($action == 'new_product') {
                        'products_model' => '',
                        'products_image' => '',
                        'products_larger_images' => array(),
-                       'products_price' => '',
+                       'products_price' => 0.0,
+                       'products_base_price' => 1.0,
+                       'products_product_quantity' => 1.0,
+                       'products_base_quantity' => 1.0,				   
                        'products_weight' => '',
                        'products_date_added' => '',
                        'products_last_modified' => '',
                        'products_date_available' => '',
-                       'products_status' => '',
-                       'products_tax_class_id' => '',
+					   'products_setting' => DEFAULT_SETTING_ID,
+                       'products_status' => DEFAULT_PRODUTS_STATUS_ID,
+                       'products_tax_class_id' => DEFAULT_TAX_CLASS_ID,
+					   'products_units_id' => DEFAULT_PRODUCTS_UNITS_ID,
                        'manufacturers_id' => '');
 
     $pInfo = new objectInfo($parameters);	  
@@ -381,33 +389,25 @@ if ($action == 'new_product') {
 			$products_images_result->MoveNext();
 		}
     } elseif (oos_is_not_null($_POST)) {
+		// todo remove... 
 		$products_name = oos_db_prepare_input($_POST['products_name']);
 		$products_description = oos_db_prepare_input($_POST['products_description']);
 		$products_short_description = oos_db_prepare_input($_POST['products_short_description']);
 		$products_essential_characteristics = oos_db_prepare_input($_POST['products_essential_characteristics']);
 		$products_description_meta = oos_db_prepare_input($_POST['products_description_meta']);
 		$products_url = oos_db_prepare_input($_POST['products_url']);
-    } else {
-		$pInfo->products_setting = 2; // DEFAULT_SETTING_ID
-		$pInfo->products_status = DEFAULT_PRODUTS_STATUS_ID;
-		$pInfo->products_price = 0.0;
-		$pInfo->products_base_price = 1.0;
-		$pInfo->products_product_quantity = 1.0;
-		$pInfo->products_base_quantity = 1.0;
-		$pInfo->products_units_id = DEFAULT_PRODUCTS_UNITS_ID;
-		$pInfo->products_tax_class_id = 1; // DEFAULT_TAX_CLASS_ID
-    }
-
+    } 
+	
     $manufacturers_array = array();
     $manufacturers_array = array(array('id' => '', 'text' => TEXT_NONE));
     $manufacturerstable = $oostable['manufacturers'];
     $manufacturers_result = $dbconn->Execute("SELECT manufacturers_id, manufacturers_name FROM $manufacturerstable ORDER BY manufacturers_name");
     while ($manufacturers = $manufacturers_result->fields) {
-      $manufacturers_array[] = array('id' => $manufacturers['manufacturers_id'],
+		$manufacturers_array[] = array('id' => $manufacturers['manufacturers_id'],
                                      'text' => $manufacturers['manufacturers_name']);
 
-      // Move that ADOdb pointer!
-      $manufacturers_result->MoveNext();
+		// Move that ADOdb pointer!
+		$manufacturers_result->MoveNext();
     }
 
     $tax_class_array = array();
@@ -415,11 +415,11 @@ if ($action == 'new_product') {
     $tax_classtable = $oostable['tax_class'];
     $tax_class_result = $dbconn->Execute("SELECT tax_class_id, tax_class_title FROM $tax_classtable ORDER BY tax_class_title");
     while ($tax_class = $tax_class_result->fields) {
-      $tax_class_array[] = array('id' => $tax_class['tax_class_id'],
+		$tax_class_array[] = array('id' => $tax_class['tax_class_id'],
                                  'text' => $tax_class['tax_class_title']);
 
-      // Move that ADOdb pointer!
-      $tax_class_result->MoveNext();
+		// Move that ADOdb pointer!
+		$tax_class_result->MoveNext();
     }
 
 
@@ -428,11 +428,11 @@ if ($action == 'new_product') {
     $products_unitstable = $oostable['products_units'];
     $products_units_result = $dbconn->Execute("SELECT products_units_id, products_unit_name FROM $products_unitstable WHERE languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY products_unit_name");
     while ($products_units = $products_units_result->fields) {
-      $products_units_array[] = array('id' => $products_units['products_units_id'],
+		$products_units_array[] = array('id' => $products_units['products_units_id'],
                                       'text' => $products_units['products_unit_name']);
 
-      // Move that ADOdb pointer!
-      $products_units_result->MoveNext();
+		// Move that ADOdb pointer!
+		$products_units_result->MoveNext();
     }
 
 
@@ -442,11 +442,11 @@ if ($action == 'new_product') {
     $products_statustable = $oostable['products_status'];
     $products_status_result = $dbconn->Execute("SELECT products_status_id, products_status_name FROM $products_statustable WHERE products_status_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY products_status_id");
     while ($products_status = $products_status_result->fields) {
-      $products_status_array[] = array('id' => $products_status['products_status_id'],
+		$products_status_array[] = array('id' => $products_status['products_status_id'],
                                        'text' => $products_status['products_status_name']);
 
-      // Move that ADOdb pointer!
-      $products_status_result->MoveNext();
+		// Move that ADOdb pointer!
+		$products_status_result->MoveNext();
     }
 
     $aLanguages = oos_get_languages();
@@ -486,14 +486,52 @@ if ($action == 'new_product') {
 	
 ?>
 <script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
+
+<script type="text/javascript"><!--
+var tax_rates = new Array();
 <?php
-  if (BASE_PRICE == 'true') {
+    for ($i=0, $n=sizeof($tax_class_array); $i<$n; $i++) {
+      if ($tax_class_array[$i]['id'] > 0) {
+        echo 'tax_rates["' . $tax_class_array[$i]['id'] . '"] = ' . oos_get_tax_rate_value($tax_class_array[$i]['id']) . ';' . "\n";
+      }
+    }
 ?>
-<script type="text/javascript">
-// <!-- <![CDATA[
 
 function doRound(x, places) {
   return Math.round(x * Math.pow(10, places)) / Math.pow(10, places);
+}
+
+function getTaxRate() {
+  var selected_value = document.forms["new_product"].products_tax_class_id.selectedIndex;
+  var parameterVal = document.forms["new_product"].products_tax_class_id[selected_value].value;
+
+  if ( (parameterVal > 0) && (tax_rates[parameterVal] > 0) ) {
+    return tax_rates[parameterVal];
+  } else {
+    return 0;
+  }
+}
+
+function updateWithTax() {
+  var taxRate = getTaxRate();
+  var grossValue = document.forms["new_product"].products_price.value;
+
+  if (taxRate > 0) {
+    grossValue = grossValue * ((taxRate / 100) + 1);
+  }
+
+  document.forms["new_product"].products_price_gross.value = doRound(grossValue, 4);
+}
+
+function updateNet() {
+  var taxRate = getTaxRate();
+  var netValue = document.forms["new_product"].products_price_gross.value;
+
+  if (taxRate > 0) {
+    netValue = netValue / ((taxRate / 100) + 1);
+  }
+
+  document.forms["new_product"].products_price.value = doRound(netValue, 4);
 }
 
 function calcBasePriceFactor() {
@@ -507,11 +545,7 @@ function calcBasePriceFactor() {
   }
 
 }
-	// ]]> -->
 </script>
-<?php
-  }
-?>
 	<!-- Breadcrumbs //-->
 	<div class="content-heading">
 		<div class="col-lg-12">
@@ -694,24 +728,31 @@ function calcBasePriceFactor() {
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_PRICE; ?></label>
                               <div class="col-lg-10">
                                 <?php
-									$sPrice = number_format($pInfo->products_price, TAX_DECIMAL_PLACES, '.', '');
-									echo oos_draw_input_field('products_price', $sPrice);
-								?>
+									echo oos_draw_input_field('products_price', $pInfo->products_price, 'onkeyup="updateWithTax()"');
+								?>								
                               </div>
                            </div>
                         </fieldset>
                         <fieldset>
                            <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_PRICE_WITH_TAX; ?></label>
+                              <div class="col-lg-10">
+                                <?php
+									echo oos_draw_input_field('products_price_gross', $pInfo->products_price, 'onkeyup="updateNet()"');
+								?>
+                              </div>
+                           </div>
+                        </fieldset>						
+                        <fieldset>
+                           <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_LIST_PRICE; ?></label>
                               <div class="col-lg-10">
                                 <?php
-									$sPriceList = number_format($pInfo->products_price_list, TAX_DECIMAL_PLACES, '.', '');
-									echo oos_draw_input_field('products_price_list', $sPriceList);
+									echo oos_draw_input_field('products_price_list', $pInfo->products_price_list);
 								?>
                               </div>
                            </div>
                         </fieldset>
-
 <?php
   if (BASE_PRICE == 'true') {
 ?>
@@ -719,7 +760,7 @@ function calcBasePriceFactor() {
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_PRODUCT_QUANTITY; ?></label>
                               <div class="col-lg-10">
-                                 <?php echo oos_draw_input_field('products_product_quantity', $pInfo->products_product_quantity, 'OnKeyUp="calcBasePriceFactor()"'); ?>
+                                 <?php echo oos_draw_input_field('products_product_quantity', $pInfo->products_product_quantity, 'onkeyup="calcBasePriceFactor()"'); ?>
                               </div>
                            </div>
                         </fieldset>
@@ -735,7 +776,7 @@ function calcBasePriceFactor() {
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_BASE_QUANTITY; ?></label>
                               <div class="col-lg-10">
-                                 <?php echo oos_draw_input_field('products_base_quantity', $pInfo->products_base_quantity, 'OnKeyUp="calcBasePriceFactor()"'); ?>
+                                 <?php echo oos_draw_input_field('products_base_quantity', $pInfo->products_base_quantity, 'onkeyup="calcBasePriceFactor()"'); ?>
                               </div>
                            </div>
                         </fieldset>
@@ -762,11 +803,13 @@ function calcBasePriceFactor() {
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_TAX_CLASS; ?></label>
                               <div class="col-lg-10">
-                                 <?php echo oos_draw_pull_down_menu('products_tax_class_id', $tax_class_array, $pInfo->products_tax_class_id); ?>
+                                 <?php echo oos_draw_pull_down_menu('products_tax_class_id', $tax_class_array, $pInfo->products_tax_class_id, 'onchange="updateWithTax()"') ?>
                               </div>
                            </div>
                         </fieldset>
-
+<script type="text/javascript"><!--
+updateWithTax();
+//--></script>
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_DISCOUNTS_TITLE; ?></label>

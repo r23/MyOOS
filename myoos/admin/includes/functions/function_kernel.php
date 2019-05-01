@@ -745,6 +745,36 @@ function oos_remove($source) {
 }
 
 
+
+/**
+ * rounding the price
+ */
+function oos_round($number, $precision) {
+	if (strpos($number, '.') && (strlen(substr($number, strpos($number, '.')+1)) > $precision)) {
+		$number = substr($number, 0, strpos($number, '.') + 1 + $precision + 1);
+
+		if (substr($number, -1) >= 5) {
+			if ($precision > 1) {
+				$number = substr($number, 0, -1) + ('0.' . str_repeat(0, $precision-1) . '1');
+			} elseif ($precision == 1) {
+				$number = substr($number, 0, -1) + 0.1;
+			} else {
+				$number = substr($number, 0, -1) + 1;
+			}
+		} else {
+			$number = substr($number, 0, -1);
+		}
+	}
+
+    return $number;
+}
+
+
+function oos_get_tax_rate_value($class_id) {
+    return oos_get_tax_rate($class_id, -1, -1);
+}
+
+
 function oos_display_tax_value($value, $padding = TAX_DECIMAL_PLACES) {
 	if (strpos($value, '.')) {
 		$loop = TRUE;
@@ -776,31 +806,6 @@ function oos_display_tax_value($value, $padding = TAX_DECIMAL_PLACES) {
 
     return $value;
 }
-
-
-/**
- * rounding the price
- */
-function oos_round($number, $precision) {
-	if (strpos($number, '.') && (strlen(substr($number, strpos($number, '.')+1)) > $precision)) {
-		$number = substr($number, 0, strpos($number, '.') + 1 + $precision + 1);
-
-		if (substr($number, -1) >= 5) {
-			if ($precision > 1) {
-				$number = substr($number, 0, -1) + ('0.' . str_repeat(0, $precision-1) . '1');
-			} elseif ($precision == 1) {
-				$number = substr($number, 0, -1) + 0.1;
-			} else {
-				$number = substr($number, 0, -1) + 1;
-			}
-		} else {
-			$number = substr($number, 0, -1);
-		}
-	}
-
-    return $number;
-}
-
 
 
 function oos_add_tax($price, $tax) {

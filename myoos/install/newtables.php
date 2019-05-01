@@ -413,7 +413,7 @@ $flds = "
    customers_status  C(1) DEFAULT '1' NOTNULL,
    customers_login C(1) DEFAULT '0' NOTNULL,
    customers_language C(3),
-   customers_max_order N '15.8' NOTNULL DEFAULT '0.00000000'
+   customers_max_order N '8.4' NOTNULL DEFAULT '0.00000000'
 ";
 dosql($table, $flds);
 
@@ -425,7 +425,7 @@ $flds = "
   to_wishlist_id C(32) NOTNULL,
   products_id C(32) NOTNULL,
   customers_basket_quantity I2 NOTNULL DEFAULT '1', 
-  final_price N '15.8'  NOTNULL,
+  final_price N '10.4'  NOTNULL,
   customers_basket_date_added C(8)
 ";
 dosql($table, $flds);
@@ -498,7 +498,7 @@ $flds = "
   customers_wishlist_link_id C(32) NOTNULL DEFAULT '',
   products_id C(32) NOTNULL,
   customers_wishlist_quantity I2 NOTNULL DEFAULT '1', 
-  final_price N '15.8'  NOTNULL,
+  final_price N '10.4'  NOTNULL,
   customers_wishlist_date_added C(8) DEFAULT ''
 ";
 dosql($table, $flds);
@@ -746,8 +746,8 @@ $flds = "
   products_ean C(13),
   products_name C(64) NOTNULL,
   products_serial_number C(250),
-  products_price N '15.8' NOTNULL DEFAULT '0.00000000',
-  final_price N '15.8' NOTNULL DEFAULT '0.00000000',
+  products_price N '10.4' NOTNULL DEFAULT '0.00000000',
+  final_price N '10.4' NOTNULL DEFAULT '0.00000000',
   products_tax N '7.4' NOTNULL DEFAULT '0.0000',
   products_quantity I2 NOTNULL DEFAULT '1'
 ";
@@ -789,7 +789,7 @@ $flds = "
   orders_products_id I NOTNULL,
   products_options C(32) NOTNULL,
   products_options_values C(32) NOTNULL,
-  options_values_price N '15.8' NOTNULL DEFAULT '0.00000000',
+  options_values_price N '10.4' NOTNULL DEFAULT '0.00000000',
   price_prefix C(1) NOTNULL
 ";
 dosql($table, $flds);
@@ -814,7 +814,7 @@ $flds = "
   orders_id I NOTNULL,
   title C(255) NOTNULL,
   text C(255) NOTNULL,
-  value N '15.8'  NOTNULL,
+  value N '10.4'  NOTNULL,
   class C(32) NOTNULL,
   sort_order I NOTNULL
 ";
@@ -852,7 +852,7 @@ $flds = "
   products_ean C(13) NULL,
   products_image C(255) NULL,
   products_average_rating N '10.2', 
-  products_price N '15.8' NOTNULL DEFAULT '0.00000000',
+  products_price N '10.4' NOTNULL DEFAULT '0.0000',
   products_base_price N '10.6' NOTNULL DEFAULT '1.000000',
   products_product_quantity I2 NOTNULL DEFAULT '1', 
   products_base_quantity I2 NOTNULL DEFAULT '1', 
@@ -871,11 +871,11 @@ $flds = "
   products_quantity_order_min I2 NOTNULL DEFAULT '1', 
   products_quantity_order_max I4 NOTNULL DEFAULT '30',    
   products_quantity_order_units I NOTNULL DEFAULT '1',
-  products_price_list N '15.8'  DEFAULT '0.0000',
-  products_discount1 N '15.8' NOTNULL DEFAULT '0.00000000',
-  products_discount2 N '15.8' NOTNULL DEFAULT '0.00000000',
-  products_discount3 N '15.8' NOTNULL DEFAULT '0.00000000',
-  products_discount4 N '15.8' NOTNULL DEFAULT '0.00000000',
+  products_price_list N '10.4'  DEFAULT '0.0000',
+  products_discount1 N '10.4' NOTNULL DEFAULT '0.0000',
+  products_discount2 N '10.4' NOTNULL DEFAULT '0.0000',
+  products_discount3 N '10.4' NOTNULL DEFAULT '0.0000',
+  products_discount4 N '10.4' NOTNULL DEFAULT '0.0000',
   products_discount1_qty I2 NOTNULL DEFAULT '0',
   products_discount2_qty I2 NOTNULL DEFAULT '0',
   products_discount3_qty I2 NOTNULL DEFAULT '0',
@@ -898,7 +898,7 @@ $flds = "
   products_id I NOTNULL,
   options_id I NOTNULL,
   options_values_id I NOTNULL,
-  options_values_price N '15.8'  NOTNULL,
+  options_values_price N '10.4'  NOTNULL,
   price_prefix C(1) NOTNULL,
   options_sort_order I1 DEFAULT '0'
 ";
@@ -1085,7 +1085,7 @@ $table = $prefix_table . 'specials';
 $flds = "
   specials_id I NOTNULL AUTO PRIMARY,
   products_id I NOTNULL,
-  specials_new_products_price N '15.8'  NOTNULL,
+  specials_new_products_price N '10.4'  NOTNULL,
   specials_date_added T,
   specials_last_modified T,
   expires_date T,

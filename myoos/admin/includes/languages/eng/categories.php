@@ -60,6 +60,8 @@ define('TEXT_EDIT_CATEGORIES_DESCRIPTION_META', 'Meta Tag Description:');
 define('TEXT_EDIT_CATEGORIES_IMAGE', 'Category Image:');
 define('TEXT_EDIT_COLOR', 'Color:');
 define('TEXT_EDIT_MENU_TYPE', 'Badge:');
+define('TEXT_EDIT_NEW', 'NEW');
+define('TEXT_EDIT_PROMO', 'PROMO');
 define('TEXT_EDIT_SORT_ORDER', 'Sort Order:');
 define('TEXT_EDIT_STATUS', 'Status:');
 define('TEXT_TAX_INFO', ' ex VAT:');
