@@ -505,6 +505,34 @@ function oos_get_products_name($product_id, $language_id = '') {
 }
 
 
+ /**
+  * Return Products Page Title for SEO
+  *
+  * @param $product_id
+  * @param $language
+  * @return string
+  */
+function oos_get_products_title($product_id, $language_id = '') {
+
+    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+
+    // Get database information
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
+
+    $products_descriptiontable = $oostable['products_description'];
+    $query = "SELECT products_title
+              FROM $products_descriptiontable
+              WHERE products_id = '" . $product_id . "'
+                AND products_languages_id = '" . intval($language_id) . "'";
+    $result = $dbconn->Execute($query);
+
+    $products_title = $result->fields['products_title'];
+
+    return $products_title;
+}
+
+
 
 function oos_get_countries($default = '') {
 

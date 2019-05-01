@@ -65,6 +65,7 @@ define('TEXT_PRODUCTS_DATE_AVAILABLE', 'Erscheinungsdatum:');
 define('TEXT_PRODUCT_NOT_AVAILABLE', 'nicht lieferbar');
 define('TEXT_PRODUCTS_MANUFACTURER', 'Artikel-Hersteller:');
 define('TEXT_PRODUCTS_NAME', 'Artikelname:');
+define('TEXT_PRODUCTS_TITLE', 'Artikel-Titel für SEO:');
 define('TEXT_PRODUCTS_DESCRIPTION', 'Artikelbeschreibung:');
 define('TEXT_PRODUCTS_SHORT_DESCRIPTION', 'Artikelkurzbeschreibung:');
 define('TEXT_PRODUCTS_ESSENTIAL_CHARACTERISTICS', 'Die wesentlichen Merkmale:');

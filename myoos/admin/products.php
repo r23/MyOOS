@@ -153,6 +153,7 @@ if (!empty($action)) {
 				$language_id = $aLanguages[$i]['id'];
 							
 				$sql_data_array = array('products_name' => oos_db_prepare_input($_POST['products_name'][$language_id]),
+										'products_title' => oos_db_prepare_input($_POST['products_title'][$language_id]),
 										'products_description' => oos_db_prepare_input($_POST['products_description_' . $aLanguages[$i]['id']]),
 										'products_short_description' => oos_db_prepare_input($_POST['products_short_description_' . $aLanguages[$i]['id']]),
 										'products_essential_characteristics' => oos_db_prepare_input($_POST['products_essential_characteristics_' . $aLanguages[$i]['id']]),
@@ -327,6 +328,7 @@ if ($action == 'new_product') {
 	defined('DEFAULT_TAX_CLASS_ID') or define('DEFAULT_TAX_CLASS_ID', '1');
 	
     $parameters = array('products_name' => '',
+						'products_title' => '',
                        'products_description' => '',
 					   'products_short_description' => '',
 					   'products_essential_characteristics' => '',
@@ -355,7 +357,7 @@ if ($action == 'new_product') {
 	if (isset($_GET['pID']) && empty($_POST)) {	  
 		$productstable = $oostable['products'];
 		$products_descriptiontable = $oostable['products_description'];
-		$product_result = $dbconn->Execute("SELECT p.products_id, pd.products_name, pd.products_description, pd.products_short_description,
+		$product_result = $dbconn->Execute("SELECT p.products_id, pd.products_name, pd.products_title, pd.products_description, pd.products_short_description,
 												pd.products_essential_characteristics, pd.products_url, pd.products_description_meta, 
                                                  p.products_quantity, p.products_reorder_level, p.products_model,
                                                  p.products_replacement_product_id, p.products_ean, p.products_image,
@@ -609,10 +611,27 @@ function calcBasePriceFactor() {
 								<?php echo oos_draw_input_field('products_name[' . $aLanguages[$i]['id'] . ']', (($products_name[$aLanguages[$i]['id']]) ? stripslashes($products_name[$aLanguages[$i]['id']]) : oos_get_products_name($pInfo->products_id, $aLanguages[$i]['id']))); ?>
                               </div>
                            </div>
-                        </fieldset>
+                        </fieldset>						
 <?php
     }
 ?>
+<?php
+    for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
+?>
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_PRODUCTS_TITLE; ?></label>
+							  <?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
+                              <div class="col-lg-9">
+								<?php echo oos_draw_input_field('products_title[' . $aLanguages[$i]['id'] . ']', (($products_title[$aLanguages[$i]['id']]) ? stripslashes($products_title[$aLanguages[$i]['id']]) : oos_get_products_title($pInfo->products_id, $aLanguages[$i]['id']))); ?>
+                              </div>
+                           </div>
+                        </fieldset>						
+<?php
+    }
+?>
+
+
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_DATE_AVAILABLE; ?><br /><small>(YYYY-MM-DD)</small></label>
