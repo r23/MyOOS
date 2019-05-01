@@ -70,7 +70,7 @@ function oos_admin_check_boxes($filename, $boxes ='') {
     $query = "SELECT admin_files_id
               FROM $admin_filestable
               WHERE FIND_IN_SET( '" . intval($_SESSION['login_groups_id']) . "', admin_groups_id)
-                AND admin_files_is_boxes = '" . $is_boxes . "'
+                AND admin_files_is_boxes = '" . intval($is_boxes) . "'
                 AND admin_files_name = '" . oos_db_input($filename) . "'";
     $result = $dbconn->Execute($query);
 
@@ -330,7 +330,7 @@ function oos_address_format($address_format_id, $address, $html, $boln, $eoln) {
     $address_formattable = $oostable['address_format'];
     $query = "SELECT address_format as format
               FROM $address_formattable
-              WHERE address_format_id = '" . $address_format_id . "'";
+              WHERE address_format_id = '" . intval($address_format_id) . "'";
     $result = $dbconn->Execute($query);
 
     $address_format = $result->fields;
@@ -395,8 +395,8 @@ function oos_get_zone_code($country, $zone, $def_state) {
     $zonestable = $oostable['zones'];
     $query = "SELECT zone_code
               FROM $zonestable
-              WHERE zone_country_id = '" . $country . "'
-                AND zone_id = '" . $zone . "'";
+              WHERE zone_country_id = '" . intval($country) . "'
+                AND zone_id = '" . intval($zone) . "'";
     $result = $dbconn->Execute($query);
 
     if (!$result->RecordCount()) {
@@ -495,7 +495,7 @@ function oos_get_products_name($product_id, $language_id = '') {
     $products_descriptiontable = $oostable['products_description'];
     $query = "SELECT products_name
               FROM $products_descriptiontable
-              WHERE products_id = '" . $product_id . "'
+              WHERE products_id = '" . intval($product_id) . "'
                 AND products_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
@@ -523,7 +523,7 @@ function oos_get_products_title($product_id, $language_id = '') {
     $products_descriptiontable = $oostable['products_description'];
     $query = "SELECT products_title
               FROM $products_descriptiontable
-              WHERE products_id = '" . $product_id . "'
+              WHERE products_id = '" . intval($product_id) . "'
                 AND products_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
@@ -575,7 +575,7 @@ function oos_get_country_zones($country_id) {
     $zonestable = $oostable['zones'];
     $query = "SELECT zone_id, zone_name
               FROM $zonestable
-              WHERE zone_country_id = '" . $country_id . "'
+              WHERE zone_country_id = '" . intval($country_id) . "'
               ORDER BY zone_name";
     $result = $dbconn->Execute($query);
 
