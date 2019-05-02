@@ -56,11 +56,22 @@ if (isset($sCategory) && oos_is_not_null($sCategory)) {
 
 if ($category_depth == 'nested') {
 
+	$categoriestable = $oostable['categories'];
+	$categories_descriptiontable = $oostable['categories_description'];
+	$sql = "SELECT cd.categories_name, cd.categories_page_title, cd.categories_heading_title, cd.categories_description,
+                     cd.categories_description_meta, c.categories_image
+              FROM $categoriestable c,
+                   $categories_descriptiontable cd 
+              WHERE c.categories_id = '" . intval($nCurrentCategoryID) . "'
+                AND cd.categories_id = '" . intval($nCurrentCategoryID) . "'
+                AND cd.categories_languages_id = '" .  intval($nLanguageID) . "'";
+	$category = $dbconn->GetRow($sql);
+
 	$aTemplate['page'] = $sTheme . '/page/shop_nested.html';
 	$aTemplate['new_products'] = $sTheme . '/products/_new_products.html';
 	
 	$nPageType = OOS_PAGE_TYPE_CATALOG;
-	$sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
+	$sPagetitle = (empty($category['categories_page_title']) ? $category['categories_heading_title'] : $category['categories_page_title']); 
 
 	$sGroup = trim($aUser['text']);
 	$sContentCacheID = $sTheme . '|shop|nested|' . intval($nCurrentCategoryID) . '|' . $sCategory . '|' . $sGroup . '|' . $sLanguage;
@@ -71,27 +82,15 @@ if ($category_depth == 'nested') {
 		require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 	}
 
-	if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
-		$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
-	}
-
+	$smarty->assign('meta_description', $category['categories_description_meta']);
 	$smarty->assign('breadcrumb', $oBreadcrumb->trail());
 	$smarty->assign('canonical', $sCanonical);
 
+	if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
+		$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
+	}
+	
 	if (!$smarty->isCached($aTemplate['page'], $sContentCacheID)) {
-		$categoriestable = $oostable['categories'];
-		$categories_descriptiontable = $oostable['categories_description'];
-		$sql = "SELECT cd.categories_name, cd.categories_heading_title, cd.categories_description,
-                     cd.categories_description_meta, c.categories_image
-              FROM $categoriestable c,
-                   $categories_descriptiontable cd 
-              WHERE c.categories_id = '" . intval($nCurrentCategoryID) . "'
-                AND cd.categories_id = '" . intval($nCurrentCategoryID) . "'
-                AND cd.categories_languages_id = '" .  intval($nLanguageID) . "'";
-		$category = $dbconn->GetRow($sql);
-
-		$smarty->assign('meta_description', $category['categories_description_meta']);
-
 
 		if (isset($sCategory) && strpos('_', $sCategory)) {
 			// check to see if there are deeper categories within the current category
@@ -152,11 +151,7 @@ if ($category_depth == 'nested') {
 		}
 		$smarty->assign('new_products', $smarty->fetch($aTemplate['new_products'], $sContentCacheID));
 		
-		$sPagetitle = $category['categories_name'] . ' ' . OOS_META_TITLE;
-		$smarty->assign('pagetitle',  $sPagetitle);
 		$smarty->assign('heading_title', $category['categories_name']);
-		
-		// assign Smarty variables;
 		if (!empty($category['categories_heading_title'])) {
 			$smarty->assign('heading_title', $category['categories_heading_title']);
 		} 

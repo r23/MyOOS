@@ -155,6 +155,7 @@ if (!empty($action)) {
 				}
 
 				$sql_data_array = array('categories_name' => oos_db_prepare_input($_POST['categories_name'][$language_id]),
+										'categories_page_title' => oos_db_prepare_input($_POST['categories_page_title'][$language_id]),
 										'categories_heading_title' => oos_db_prepare_input($_POST['categories_heading_title'][$language_id]),
 										'categories_description' => $categories_description,
 										'categories_description_meta' => $categories_description_meta);
@@ -634,6 +635,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 	
     $parameters = array('categories_id' => '',
 						'categories_name' => '',
+						'categories_page_title' => '',
                        'categories_heading_title' => '',
                        'categories_description' => '',
                        'categories_description_meta' => '',
@@ -652,7 +654,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 	if (isset($_GET['cID']) && empty($_POST)) {
         $categoriestable = $oostable['categories'];
         $categories_descriptiontable = $oostable['categories_description'];
-        $query = "SELECT c.categories_id, cd.categories_name, cd.categories_heading_title,
+        $query = "SELECT c.categories_id, cd.categories_name, cd.categories_page_title, cd.categories_heading_title,
                          cd.categories_description, cd.categories_description_meta,
                          c.categories_image, c.categories_banner, c.parent_id, c.color, c.menu_type, c.sort_order,
 						 c.date_added, c.categories_status, c.last_modified
@@ -784,16 +786,13 @@ if ($action == 'new_category' || $action == 'edit_category') {
 ?>
 					<fieldset>
 						<div class="form-group row">
-							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_EDIT_CATEGORIES_DESCRIPTION; ?></label>
+							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_EDIT_CATEGORIES_PAGE_TITLE; ?></label>
 							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
 							<div class="col-lg-9">
-								<?php echo oos_draw_editor_field('categories_description[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '15', (($categories_description[$aLanguages[$i]['id']]) ? stripslashes($categories_description[$aLanguages[$i]['id']]) : oos_get_category_description($cInfo->categories_id, $aLanguages[$i]['id']))); ?>
+								<?php echo oos_draw_input_field('categories_page_title[' . $aLanguages[$i]['id'] . ']', (($categories_page_title[$aLanguages[$i]['id']]) ? stripslashes($categories_page_title[$aLanguages[$i]['id']]) : oos_get_categories_page_title($cInfo->categories_id, $aLanguages[$i]['id']))); ?>
 							</div>
 						</div>
 					</fieldset>
-			<script>
-				CKEDITOR.replace( 'categories_description[<?php echo $aLanguages[$i]['id']; ?>]');
-			</script>
 <?php
 		}
 		for ($i=0; $i < count($aLanguages); $i++) {
@@ -807,6 +806,22 @@ if ($action == 'new_category' || $action == 'edit_category') {
 							</div>
 						</div>
 					</fieldset>
+<?php
+		}		
+		for ($i=0; $i < count($aLanguages); $i++) {
+?>
+					<fieldset>
+						<div class="form-group row">
+							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_EDIT_CATEGORIES_DESCRIPTION; ?></label>
+							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
+							<div class="col-lg-9">
+								<?php echo oos_draw_editor_field('categories_description[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '15', (($categories_description[$aLanguages[$i]['id']]) ? stripslashes($categories_description[$aLanguages[$i]['id']]) : oos_get_category_description($cInfo->categories_id, $aLanguages[$i]['id']))); ?>
+							</div>
+						</div>
+					</fieldset>
+			<script>
+				CKEDITOR.replace( 'categories_description[<?php echo $aLanguages[$i]['id']; ?>]');
+			</script>
 <?php
 		}
 		for ($i=0; $i < count($aLanguages); $i++) {
@@ -1197,9 +1212,9 @@ if ($action == 'new_category' || $action == 'edit_category') {
     $categories_count = 0;
     $rows = 0;
     if (isset($_GET['search'])) {
-      $categories_result = $dbconn->Execute("SELECT c.categories_id, cd.categories_name, c.categories_image, c.color, c.menu_type, c.parent_id, c.sort_order, c.date_added, c.last_modified, c.categories_status FROM " . $oostable['categories'] . " c, " . $oostable['categories_description'] . " cd WHERE c.categories_status != 0 AND c.categories_id = cd.categories_id AND cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "' AND cd.categories_name like '%" . oos_db_input($_GET['search']) . "%' ORDER BY c.sort_order, cd.categories_name");
+      $categories_result = $dbconn->Execute("SELECT c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified, c.categories_status FROM " . $oostable['categories'] . " c, " . $oostable['categories_description'] . " cd WHERE c.categories_status != 0 AND c.categories_id = cd.categories_id AND cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "' AND cd.categories_name like '%" . oos_db_input($_GET['search']) . "%' ORDER BY c.sort_order, cd.categories_name");
     } else {
-      $categories_result = $dbconn->Execute("SELECT c.categories_id, cd.categories_name, c.categories_image, c.color, c.menu_type, c.parent_id, c.sort_order, c.date_added, c.last_modified, c.categories_status FROM " . $oostable['categories'] . " c, " . $oostable['categories_description'] . " cd WHERE c.categories_status != 0 AND c.parent_id = '" . $current_category_id . "' AND c.categories_id = cd.categories_id AND cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY c.sort_order, cd.categories_name");
+      $categories_result = $dbconn->Execute("SELECT c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified, c.categories_status FROM " . $oostable['categories'] . " c, " . $oostable['categories_description'] . " cd WHERE c.categories_status != 0 AND c.parent_id = '" . intval($current_category_id) . "' AND c.categories_id = cd.categories_id AND cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY c.sort_order, cd.categories_name");
     }
     while ($categories = $categories_result->fields) {
       $categories_count++;

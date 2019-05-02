@@ -143,6 +143,29 @@ function oos_get_category_name($category_id, $language_id = '') {
 }
 
 
+
+function oos_get_categories_page_title($category_id, $language_id = '') {
+
+    // Get database information
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
+
+    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+
+    $categories_descriptiontable = $oostable['categories_description'];
+    $query = "SELECT categories_page_title
+              FROM $categories_descriptiontable
+              WHERE categories_id = '" . intval($category_id) . "'
+                AND categories_languages_id = '" . intval($language_id) . "'";
+    $result = $dbconn->Execute($query);
+
+    $categories_page_title = $result->fields['categories_page_title'];
+
+
+    return $categories_page_title;
+}
+
+
 function oos_get_products_description($product_id, $language_id = '') {
 
     // Get database information

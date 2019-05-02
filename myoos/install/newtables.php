@@ -227,6 +227,7 @@ $flds = "
   categories_id I NOTNULL DEFAULT '0' PRIMARY,
   categories_languages_id I NOTNULL DEFAULT '1' PRIMARY,
   categories_name C(32) NOTNULL,
+  categories_page_title C(255) NULL,
   categories_heading_title C(250),
   categories_description X,
   categories_description_meta C(250)
