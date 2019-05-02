@@ -482,7 +482,23 @@ sub DoDump {
                         
         if ($dump_table==1)
         {
-            $r+=$db_tables{$tablename}{Rows}; #calculate nr of records
+
+			#www.betanet-web.ch - 30.04.2019
+			#Erweitert mit SQL Abfrage für Ausgabe Anzahl der Einträge in der Tabelle (analog PHP)
+			$sql_create = "SELECT COUNT(*) FROM `$tablename`";	
+			$sth = $dbh->prepare($sql_create);
+            if (!$sth)
+			{
+				err_trap("<font color=\"red\">Fatal error sending Query '".$sql_create."'! MySQL-Error: ".$DBI::errstr);
+			}				
+				
+			$sth->execute || err_trap("Couldn't execute ".$sql_create);
+			$rct = $sth->fetchrow;
+			$sth->finish;
+				
+			$r+=$rct;
+			#Ende der Erweiterung			
+
             push(@tables,$db_tables{$tablename}{Name}); # add tablename to backuped tables
             $t++;
             if (!defined $db_tables{$tablename}{Update_time})
@@ -581,8 +597,23 @@ sub DoDump {
                 $fieldlist=substr($fieldlist,0,length($fieldlist)-1).")";
 
                 # how many rows
-                $rct=$db_tables{$tablename}{Rows};
-
+		
+				#www.betanet-web.ch - 30.04.2019
+				#Erweitert mit SQL Abfrage für Ausgabe Anzahl der Einträge in der Tabelle (analog PHP)
+				$sql_create = "SELECT COUNT(*) FROM `$tablename`";	
+				$sth = $dbh->prepare($sql_create);
+                if (!$sth)
+                {
+                    err_trap("<font color=\"red\">Fatal error sending Query '".$sql_create."'! MySQL-Error: ".$DBI::errstr);
+                }				
+				
+				$sth->execute || err_trap("Couldn't execute ".$sql_create);
+				$rct = $sth->fetchrow;
+				$sth->finish;
+			
+				#Ende der Erweiterung
+				
+				
                 for (my $ttt=0;$ttt<$rct;$ttt+=$perlspeed) 
                 {
                     # default beginning for INSERT-String

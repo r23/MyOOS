@@ -85,6 +85,9 @@ if ($databases['Name'][$dbid]!=$databases['db_actual'])
 		.'parent.MyOOS_Dumper_menu.location.href=\'menu.php?dbindex='.$dbid.'\';</script>';
 
 }
+
+
+
 echo '</p><p class="tablename">' . ( $tn != '' ? $lang['L_TABLE'] . ' <strong>`' . $databases['db_actual'] . '`.`' . $tn . '`</strong><br>' : '' );
 if (isset($msg)) echo $msg;
 
@@ -93,6 +96,8 @@ $numrows=0;
 // Vorgehensweise - es soll die Summe der Datensaetze ermittelt werden, wenn es kein LIMIT gibt,
 // um die Blaettern-Links korrekt anzuzeigen
 $skip_mysql_execution=false;
+
+
 if ($sql_to_display_data == 0)
 {
 	//mehrere SQL-Statements
@@ -104,6 +109,9 @@ if ($sql_to_display_data == 0)
 else
 {
 	$sql_temp=strtolower($sql['sql_statement']);
+
+
+	
 	if (substr($sql_temp,0,7) == 'select ')
 	{
 		if (false !== strpos($sql_temp,' limit '))
@@ -132,8 +140,13 @@ else
 }
 
 $sqltmp=$sql['sql_statement'] . $sql['order_statement'] . ( strpos(strtolower($sql['sql_statement'] . $sql['order_statement']),' limit ') ? '' : $limit );
+
+
 if (!$skip_mysql_execution) $res=MSD_query($sqltmp);
 $numrows=@mysqli_num_rows($res);
+
+
+
 if ($numrowsabs == -1) $numrowsabs=$numrows;
 if ($limitende > $numrowsabs) $limitende=$numrowsabs;
 
@@ -232,6 +245,7 @@ if ($numrowsabs > 0 && $Anzahl_SQLs <= 1)
 		unset($temp);
 
 		$temp=array();
+		
 		//und jetzt Daten holen
 		mysqli_data_seek($res,0);
 
@@ -245,7 +259,23 @@ if ($numrowsabs > 0 && $Anzahl_SQLs <= 1)
 			{
 				// Spalten sortieren, wenn wir uns in einer Tabellenuebersicht befinden
 				$xx=mu_sort($data,"$s[0],$s[1],$s[2],$s[3],$s[4],$s[5],$s[6],$s[7],$s[8],$s[9],$s[10],$s[11],$s[12],$s[13],$s[14],$s[15],$s[16]");
-				$temp[$i]=$xx[0];
+				$temp[$i]=$xx[0];		
+				
+				/***********************
+				Ergänzung www.betanet-web.ch - 30.04.2019
+				Anz. Einträge in der Tabelle wird in Ausgabe Array überschrieben, damit alle Daten exportiert werden.
+				************************/
+
+				$tabellenname = $data[0]['Name'];
+				$numrows12 = 0;
+				$select12 = "select * from $tabellenname";
+				$res12 = MSD_query($select12);
+				$numrows12 = @mysqli_num_rows($res12);
+					
+				// Überschreiben mit neuem Wert
+				$temp[$i]['Rows'] = $numrows12;
+
+				
 			}
 			else
 				$temp[$i]=$data[0];
