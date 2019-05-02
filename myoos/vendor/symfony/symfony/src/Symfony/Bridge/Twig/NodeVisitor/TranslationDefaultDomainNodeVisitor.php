@@ -95,7 +95,7 @@ class TranslationDefaultDomainNodeVisitor extends AbstractNodeVisitor
     protected function doLeaveNode(Node $node, Environment $env)
     {
         if ($node instanceof TransDefaultDomainNode) {
-            return false;
+            return null;
         }
 
         if ($node instanceof BlockNode || $node instanceof ModuleNode) {

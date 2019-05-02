@@ -95,6 +95,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Component\Translation\Command\XliffLintCommand as BaseXliffLintCommand;
 use Symfony\Component\Translation\Translator;
+use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\ObjectInitializerInterface;
 use Symfony\Component\Validator\Util\LegacyTranslatorProxy;
@@ -192,6 +193,8 @@ class FrameworkExtension extends Extension
                     'vscode' => 'vscode://file/%%f:%%l',
                 ];
                 $ide = $config['ide'];
+                // mark any env vars found in the ide setting as used
+                $container->resolveEnvPlaceholders($ide);
 
                 $container->setParameter('templating.helper.code.file_link_format', str_replace('%', '%%', ini_get('xdebug.file_link_format') ?: get_cfg_var('xdebug.file_link_format')) ?: (isset($links[$ide]) ? $links[$ide] : $ide));
             }
@@ -1108,7 +1111,7 @@ class FrameworkExtension extends Extension
 
         $validatorBuilder = $container->getDefinition('validator.builder');
 
-        if (class_exists(LegacyTranslatorProxy::class)) {
+        if (interface_exists(TranslatorInterface::class) && class_exists(LegacyTranslatorProxy::class)) {
             $calls = $validatorBuilder->getMethodCalls();
             $calls[1] = ['setTranslator', [new Definition(LegacyTranslatorProxy::class, [new Reference('translator')])]];
             $validatorBuilder->setMethodCalls($calls);
@@ -1409,7 +1412,9 @@ class FrameworkExtension extends Extension
         }
 
         if ($config['max_depth_handler'] ?? false) {
-            $container->getDefinition('serializer.normalizer.object')->addMethodCall('setMaxDepthHandler', [new Reference($config['max_depth_handler'])]);
+            $defaultContext = $container->getDefinition('serializer.normalizer.object')->getArgument(6);
+            $defaultContext += ['max_depth_handler' => new Reference($config['max_depth_handler'])];
+            $container->getDefinition('serializer.normalizer.object')->replaceArgument(6, $defaultContext);
         }
     }
 

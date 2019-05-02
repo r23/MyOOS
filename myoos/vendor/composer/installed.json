@@ -1238,17 +1238,17 @@
     },
     {
         "name": "symfony/symfony",
-        "version": "v4.2.7",
-        "version_normalized": "4.2.7.0",
+        "version": "v4.2.8",
+        "version_normalized": "4.2.8.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/symfony.git",
-            "reference": "6122c791d640b75702514c18c8aae816dbbefae2"
+            "reference": "203a87abd66becb72ca347cb3a8a35d29e4390fa"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/symfony/zipball/6122c791d640b75702514c18c8aae816dbbefae2",
-            "reference": "6122c791d640b75702514c18c8aae816dbbefae2",
+            "url": "https://api.github.com/repos/symfony/symfony/zipball/203a87abd66becb72ca347cb3a8a35d29e4390fa",
+            "reference": "203a87abd66becb72ca347cb3a8a35d29e4390fa",
             "shasum": ""
         },
         "require": {
@@ -1268,7 +1268,7 @@
             "symfony/polyfill-intl-icu": "~1.0",
             "symfony/polyfill-mbstring": "~1.0",
             "symfony/polyfill-php72": "~1.5",
-            "twig/twig": "^1.35|^2.4.4"
+            "twig/twig": "^1.40|^2.9"
         },
         "conflict": {
             "phpdocumentor/reflection-docblock": "<3.0||>=3.2.0,<3.2.2",
@@ -1355,7 +1355,7 @@
             "symfony/phpunit-bridge": "~3.4|~4.0",
             "symfony/security-acl": "~2.8|~3.0"
         },
-        "time": "2019-04-17T16:17:33+00:00",
+        "time": "2019-05-01T13:31:27+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
