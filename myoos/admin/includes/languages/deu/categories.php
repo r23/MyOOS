@@ -64,7 +64,7 @@ define('TEXT_EDIT_MENU_TYPE', 'Anstecker:');
 define('TEXT_EDIT_NEW', 'NEW');
 define('TEXT_EDIT_PROMO', 'PROMO');
 define('TEXT_EDIT_SORT_ORDER', 'Sortierreihenfolge:');
-define('TEXT_EDIT_STATUS', 'Statu:s');
+define('TEXT_EDIT_STATUS', 'Status:');
 define('TEXT_TAX_INFO', 'Netto:');
 define('TEXT_PRODUCTS_LIST_PRICE', 'UVP:');
 
