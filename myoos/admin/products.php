@@ -493,10 +493,10 @@ if ($action == 'new_product') {
 var tax_rates = new Array();
 <?php
     for ($i=0, $n=sizeof($tax_class_array); $i<$n; $i++) {
-      if ($tax_class_array[$i]['id'] > 0) {
-        echo 'tax_rates["' . $tax_class_array[$i]['id'] . '"] = ' . oos_get_tax_rate_value($tax_class_array[$i]['id']) . ';' . "\n";
-      }
-    }
+		if ($tax_class_array[$i]['id'] > 0) {
+			echo 'tax_rates["' . $tax_class_array[$i]['id'] . '"] = ' . oos_get_tax_rate_value($tax_class_array[$i]['id']) . ';' . "\n";
+		}
+	}
 ?>
 
 function doRound(x, places) {
@@ -547,7 +547,7 @@ function calcBasePriceFactor() {
   }
 
 }
-</script>
+//--></script>
 	<!-- Breadcrumbs //-->
 	<div class="content-heading">
 		<div class="col-lg-12">
@@ -741,13 +741,15 @@ function calcBasePriceFactor() {
     }
 ?>
                      </div>
+				 
                      <div class="tab-pane" id="data" role="tabpanel">
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_PRICE; ?></label>
                               <div class="col-lg-10">
                                 <?php
-									echo oos_draw_input_field('products_price', $pInfo->products_price, 'onkeyup="updateWithTax()"');
+									$sPrice = number_format($pInfo->products_price, 4, '.', '');
+									echo oos_draw_input_field('products_price', $sPrice, 'onkeyup="updateWithTax()"');
 								?>								
                               </div>
                            </div>
@@ -757,7 +759,8 @@ function calcBasePriceFactor() {
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_PRICE_WITH_TAX; ?></label>
                               <div class="col-lg-10">
                                 <?php
-									echo oos_draw_input_field('products_price_gross', $pInfo->products_price, 'onkeyup="updateNet()"');
+									$sPrice = number_format($pInfo->products_price, TAX_DECIMAL_PLACES, '.', '');
+									echo oos_draw_input_field('products_price_gross', $sPrice, 'onkeyup="updateNet()"');
 								?>
                               </div>
                            </div>
@@ -767,7 +770,8 @@ function calcBasePriceFactor() {
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_LIST_PRICE; ?></label>
                               <div class="col-lg-10">
                                 <?php
-									echo oos_draw_input_field('products_price_list', $pInfo->products_price_list);
+									$sPriceList = number_format($pInfo->products_price_list, TAX_DECIMAL_PLACES, '.', '');
+									echo oos_draw_input_field('products_price_list', $sPriceList);
 								?>
                               </div>
                            </div>

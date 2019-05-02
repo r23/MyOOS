@@ -117,9 +117,9 @@
 						<div class="updateArea">				  
 							<div class="input-group">
 								<input type="text" class="form-control" placeholder="{$lang.text_apply_coupon}" aria-describedby="basic-addon2">
-								<button class="btn btn-outline-primary float-right" type="submit">{$lang.button_apply_coupon}</button>
+								<button class="btn btn-primary float-right" type="submit">{$lang.button_apply_coupon}</button>
 							</div>
-							<button class="btn btn-outline-primary float-right" type="submit"><i class="fa fa-check" aria-hidden="true"></i> {$lang.button_update_cart}</button>
+							<button class="btn btn-primary float-right" type="submit"><i class="fa fa-check" aria-hidden="true"></i> {$lang.button_update_cart}</button>
 						</div>
 						<div class="row totalAmountArea">
 							<div class="col-sm-4 ml-sm-auto">
@@ -135,7 +135,7 @@
 						</div>
 						<div class="checkBtnArea">
 						{if $myUser.show_price eq 1 }
-							<a href="{html_href_link content=$filename.checkout_shipping}" class="btn btn-primary btn-default" role="button">{$lang.button_checkout} <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+							<a href="{html_href_link content=$filename.checkout_shipping}" class="btn btn-danger btn-default" role="button">{$lang.button_checkout} <i class="fa fa-angle-right" aria-hidden="true"></i></a>
 						{/if}
 						</div>
 					</form>

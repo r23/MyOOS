@@ -232,12 +232,12 @@ span.out-of-stock {
 		.btn{
 			display: inline-block;
 			@include transition(all 0.3s ease-in-out);
-			color: $m-color-secondary;
+			color: $m-color-white;
 			font-size: 13px;
 			font-weight: 700;
-			&.btn-primary-outlined {
+			&.btn-primary {
 				&:hover {
-					color: $m-color-white;
+					opacity: 1.28;
 				}
 			}
 		}
@@ -267,7 +267,7 @@ span.out-of-stock {
 	.checkBtnArea{
 		@extend %tableDiv;
 		border-bottom-width: 5px;
-		.btn-primary{
+		.btn-danger{
 			float: right;
 			letter-spacing: 1px;
 			font-weight: 700;
@@ -276,7 +276,7 @@ span.out-of-stock {
 				margin-left: 10px;
 			}
 			&:hover{
-				opacity: .8;
+				opacity: 1.28;
 			}
 		}
 	}
