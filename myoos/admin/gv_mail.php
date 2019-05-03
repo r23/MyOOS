@@ -50,9 +50,9 @@ $currencies = new currencies();
 
         $customerstable = $oostable['customers'];
         $mail_result = $dbconn->Execute("SELECT customers_firstname, customers_lastname, customers_email_address FROM $customerstable WHERE customers_email_address = '" . oos_db_input($customers_email_address) . "'");
-        $mail_sent_to = $_POST['customers_email_address'];
+        $mail_sent_to = oos_db_prepare_input($_POST['customers_email_address']);
         if ( (isset($_POST['email_to'])) && (!empty($_POST['email_to'])) ) {
-          $mail_sent_to = $_POST['email_to'];
+          $mail_sent_to = oos_db_prepare_input($_POST['email_to']);
         }
         break;
     }
@@ -60,7 +60,7 @@ $currencies = new currencies();
     if ( ($action == 'send_email_to_user') && ($_POST['customers_email_address']) && (!$_POST['back_x']) ) {
       while ($mail = $mail_result->fields) {
         $id1 = oos_create_coupon_code($mail['customers_email_address']);
-        $message = $_POST['message'];
+        $message =  oos_db_prepare_input($_POST['message']);
         $message .= "\n\n" . TEXT_GV_WORTH  . $currencies->format($_POST['amount']) . "\n\n";
         $message .= TEXT_TO_REDEEM;
         $message .= TEXT_WHICH_IS . $id1 . TEXT_IN_CASE . "\n\n";
@@ -243,9 +243,9 @@ $currencies = new currencies();
         break;
 
       default:
-        $mail_sent_to = $_POST['customers_email_address'];
+        $mail_sent_to = oos_db_prepare_input($_POST['customers_email_address']);
         if ( (isset($_POST['email_to'])) && (!empty($_POST['email_to'])) ) {
-          $mail_sent_to = $_POST['email_to'];
+          $mail_sent_to =  oos_db_prepare_input($_POST['email_to']);
         }
         break;
     }

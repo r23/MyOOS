@@ -103,7 +103,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         break;
 
       case 'group_define':
-        $selected_checkbox = $_POST['groups_to_boxes'];
+        $selected_checkbox = oos_db_prepare_input($_POST['groups_to_boxes']);
 
         $admin_filestable = $oostable['admin_files'];
         $define_files_query = "SELECT admin_files_id FROM $admin_filestable ORDER BY admin_files_id";
@@ -113,10 +113,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
           if (in_array ($admin_files_id, $selected_checkbox)) {
             $sql_data_array = array('admin_groups_id' => oos_db_prepare_input($_POST['checked_' . $admin_files_id]));
-            //$set_group_id = $_POST['checked_' . $admin_files_id];
           } else {
             $sql_data_array = array('admin_groups_id' => oos_db_prepare_input($_POST['unchecked_' . $admin_files_id]));
-            //$set_group_id = $_POST['unchecked_' . $admin_files_id];
           }
           oos_db_perform($oostable['admin_files'], $sql_data_array, 'UPDATE', 'admin_files_id = \'' . $admin_files_id . '\'');
 

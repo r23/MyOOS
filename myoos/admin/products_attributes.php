@@ -48,8 +48,8 @@
     switch ($action) {
       case 'add_product_options':
         for ($i = 0, $n = count($languages); $i < $n; $i ++) {
-          $option_name = $_POST['option_name'];
-          $option_type = $_POST['option_type'];
+          $option_name =  oos_db_prepare_input($_POST['option_name']);
+          $option_type = oos_db_prepare_input($_POST['option_type']);
 
           $products_optionstable = $oostable['products_options'];
           $dbconn->Execute("INSERT INTO $products_optionstable (products_options_id, products_options_name, products_options_languages_id,products_options_type) VALUES ('" . intval($_POST['products_options_id']) . "', '" . oos_db_input($option_name[$languages[$i]['id']]) . "', '" . oos_db_input($languages[$i]['id']) . "', '" . oos_db_input($option_type) . "')");
@@ -67,7 +67,7 @@
 
       case 'add_product_option_values':
         for ($i = 0, $n = count($languages); $i < $n; $i ++) {
-          $value_name = $_POST['value_name'];
+          $value_name = oos_db_prepare_input($_POST['value_name']);
 
           $products_options_valuestable = $oostable['products_options_values'];
           $dbconn->Execute("INSERT INTO $products_options_valuestable (products_options_values_id, products_options_values_languages_id, products_options_values_name) VALUES ('" . intval($_POST['value_id']) . "', '" . intval($languages[$i]['id']) . "', '" . oos_db_input($value_name[$languages[$i]['id']]) . "')");
@@ -96,8 +96,8 @@
 
       case 'update_option_name':
         for ($i = 0, $n = count($languages); $i < $n; $i ++) {
-          $option_name = $_POST['option_name'];
-          $option_type = $_POST['option_type'];
+          $option_name = oos_db_prepare_input($_POST['option_name']);
+          $option_type = oos_db_prepare_input($_POST['option_type']);
           $products_optionstable = $oostable['products_options'];
           $dbconn->Execute("UPDATE $products_optionstable SET products_options_name = '" . $option_name[$languages[$i]['id']] . "', products_options_type = '" . $option_type . "' WHERE products_options_id = '" . intval($_POST['option_id']) . "' AND products_options_languages_id = '" . $languages[$i]['id'] . "'");
         }
@@ -116,7 +116,7 @@
 
       case 'update_value':
         for ($i = 0, $n = count($languages); $i < $n; $i ++) {
-          $value_name = $_POST['value_name'];
+          $value_name = oos_db_prepare_input($_POST['value_name']);
 
           $products_options_valuestable = $oostable['products_options_values'];
           $dbconn->Execute("UPDATE $products_options_valuestable SET products_options_values_name = '" . $value_name[$languages[$i]['id']] . "' WHERE products_options_values_id = '" . intval($_POST['value_id']) . "' AND  products_options_values_languages_id= '" . $languages[$i]['id'] . "'");
@@ -140,7 +140,7 @@
             $values_id = PRODUCTS_OPTIONS_VALUE_TEXT_ID;
             break;
           default:
-            $values_id = $_POST['values_id'];
+            $values_id = oos_db_prepare_input($_POST['values_id']);
         }
 
         $products_attributestable = $oostable['products_attributes'];

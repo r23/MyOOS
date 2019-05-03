@@ -131,7 +131,7 @@ function selectAll(FormName, SelectBox) {
           $customers_result->MoveNext();
         }
       } else {
-        $chosen = $_POST['chosen'];
+        $chosen =  oos_db_prepare_input($_POST['chosen']);
 
         $ids = implode(',', $chosen);
 
@@ -215,7 +215,7 @@ function selectAll(FormName, SelectBox) {
           $customers_result->MoveNext();
         }
       } else {
-        $chosen = $_POST['chosen'];
+        $chosen =  oos_db_prepare_input($_POST['chosen']);
 
         $ids = implode(',', $chosen);
 

@@ -45,14 +45,14 @@ require_once OOS_ABSOLUTE_PATH . '/includes/classes/class_order.php';
   $language = $_SESSION['language'];
 
   if (isset($_GET['step']) && !empty($_GET['step'])) {
-    $step = $_GET['step'];
+    $step = oos_db_prepare_input($_GET['step']);
   } elseif (isset($_POST['step']) && !empty($_POST['step'])) {
-    $step = $_POST['step'];
+    $step = oos_db_prepare_input($_POST['step']);
   }
-  $oID = $_GET['oID'];
-  $update_products = $_POST['update_products'];
-  $update_totals = $_POST['update_totals'];
-  $add_product_options = $_POST['add_product_options'];
+  $oID = intval($_GET['oID']);
+  $update_products = oos_db_prepare_input($_POST['update_products']);
+  $update_totals = oos_db_prepare_input($_POST['update_totals']);
+  $add_product_options = oos_db_prepare_input($_POST['add_product_options']);
 
   // New "Status History" table has different format.
   $OldNewStatusValues = (oos_field_exists($oostable['orders_status_history'], "old_value") && oos_field_exists($oostable['orders_status_history'], "new_value"));

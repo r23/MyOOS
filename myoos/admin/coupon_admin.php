@@ -59,7 +59,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       $mail_result = $dbconn->Execute("SELECT customers_firstname, customers_lastname, customers_email_address
                                   FROM " . $oostable['customers'] . "
                                   WHERE customers_email_address = '" . oos_db_input($customers_email_address) . "'");
-      $mail_sent_to = $_POST['customers_email_address'];
+      $mail_sent_to = oos_db_prepare_input($_POST['customers_email_address']);
       break;
     }
     $coupon_result = $dbconn->Execute("SELECT coupon_code
@@ -162,10 +162,10 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         if (!$_POST['coupon_code']) {
           $coupon_code = oos_create_coupon_code();
         }
-        if ($_POST['coupon_code']) $coupon_code = $_POST['coupon_code'];
+        if ($_POST['coupon_code']) $coupon_code = oos_db_prepare_input($_POST['coupon_code']);
         $query1 = $dbconn->Execute("SELECT coupon_code
                                 FROM " . $oostable['coupons'] . "
-                                WHERE coupon_code = '" . oos_db_prepare_input($coupon_code) . "'");
+                                WHERE coupon_code = '" . oos_db_input($coupon_code) . "'");
         if ($query1->RecordCount() && $_POST['coupon_code'] && $_GET['oldaction'] != 'voucheredit')  {
           $update_errors = 1;
           $messageStack->add(ERROR_COUPON_EXISTS, 'error');
@@ -373,7 +373,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       $mail_sent_to = TEXT_NEWSLETTER_CUSTOMERS;
       break;
     default:
-      $mail_sent_to = $_POST['customers_email_address'];
+      $mail_sent_to = oos_db_prepare_input($_POST['customers_email_address']);
       break;
     }
 ?>
@@ -666,7 +666,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         <td class="text-left"><?php echo COUPON_CODE; ?></td>
 <?php
     if (isset($_POST['coupon_code'])) {
-      $c_code = $_POST['coupon_code'];
+      $c_code = oos_db_prepare_input($_POST['coupon_code']);
     } else {
       $c_code = $coupon_code;
     }

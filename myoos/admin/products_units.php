@@ -90,7 +90,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
         $languages = oos_get_languages();
         for ($i = 0, $n = count($languages); $i < $n; $i++) {
-          $products_unit_name_array = $_POST['products_unit_name'];
+          $products_unit_name_array = oos_db_prepare_input($_POST['products_unit_name']);
           $language_id = $languages[$i]['id'];
 
           $sql_data_array = array('products_unit_name' => oos_db_prepare_input($products_unit_name_array[$language_id]));

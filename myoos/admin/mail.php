@@ -42,7 +42,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/lib/htmlpurifier/library/HTMLPurifi
         $customers_email_address = oos_db_prepare_input($_POST['customers_email_address']);
 
         $mail_result = $dbconn->Execute("SELECT customers_firstname, customers_lastname, customers_email_address FROM " . $oostable['customers'] . " WHERE customers_email_address = '" . oos_db_input($customers_email_address) . "'");
-        $mail_sent_to = $_POST['customers_email_address'];
+        $mail_sent_to = oos_db_prepare_input($_POST['customers_email_address']);
         break;
     }
 
@@ -160,7 +160,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/lib/htmlpurifier/library/HTMLPurifi
         break;
 
       default:
-        $mail_sent_to = $_POST['customers_email_address'];
+        $mail_sent_to =  oos_db_prepare_input($_POST['customers_email_address']);
         break;
     }
 ?>

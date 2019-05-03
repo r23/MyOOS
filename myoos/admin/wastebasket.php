@@ -101,7 +101,7 @@ if (!empty($action)) {
 		case 'delete_product_confirm':
 			if (isset($_POST['products_id']) && isset($_POST['product_categories']) && is_array($_POST['product_categories'])) {
 				$product_id = oos_db_prepare_input($_POST['products_id']);
-				$product_categories = $_POST['product_categories'];
+				$product_categories = oos_db_prepare_input($_POST['product_categories']);
 
 				for ($i = 0, $n = count($product_categories); $i < $n; $i++) {
 					$dbconn->Execute("DELETE FROM " . $oostable['products_to_categories'] . " WHERE products_id = '" . intval($product_id) . "' AND categories_id = '" . intval($product_categories[$i]) . "'");
