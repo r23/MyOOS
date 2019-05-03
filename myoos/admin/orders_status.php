@@ -75,12 +75,12 @@ require 'includes/main.php';
     }
 
     return $orders_status_array;
-  }
+}
 
 $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
-  if (!empty($action)) {
+if (!empty($action)) {
     switch ($action) {
       case 'insert':
       case 'save':
@@ -88,10 +88,9 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
         $languages = oos_get_languages();
         for ($i = 0, $n = count($languages); $i < $n; $i++) {
-          $orders_status_name_array = $_POST['orders_status_name'];
           $language_id = $languages[$i]['id'];
 
-          $sql_data_array = array('orders_status_name' => oos_db_prepare_input($orders_status_name_array[$language_id]));
+          $sql_data_array = array('orders_status_name' => oos_db_prepare_input($_POST['orders_status_name'][$language_id]));
 
           if ($action == 'insert') {
             if (!oos_is_not_null($orders_status_id)) {

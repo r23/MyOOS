@@ -71,10 +71,9 @@ if (!empty($action)) {
 
         $languages = oos_get_languages();
         for ($i = 0, $n = count($languages); $i < $n; $i++) {
-          $products_status_name_array = $_POST['products_status_name'];
           $language_id = $languages[$i]['id'];
 
-          $sql_data_array = array('products_status_name' => oos_db_prepare_input($products_status_name_array[$language_id]));
+          $sql_data_array = array('products_status_name' => oos_db_prepare_input($_POST['products_status_name'][$language_id]));
 
           if ($action == 'insert') {
             if (oos_empty($products_status_id)) {

@@ -84,10 +84,9 @@ if (!empty($action)) {
 
         $languages = oos_get_languages();
         for ($i = 0, $n = count($languages); $i < $n; $i++) {
-          $page_type_name_array = $_POST['page_type_name'];
           $language_id = $languages[$i]['id'];
 
-          $sql_data_array = array('page_type_name' => oos_db_prepare_input($page_type_name_array[$language_id]));
+          $sql_data_array = array('page_type_name' => oos_db_prepare_input($_POST['page_type_name'][$language_id]));
 
           if ($action == 'insert') {
             if (oos_empty($page_type_id)) {
