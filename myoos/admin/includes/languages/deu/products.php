@@ -80,6 +80,7 @@ define('TEXT_PRODUCTS_URL', 'Herstellerlink:');
 define('TEXT_PRODUCTS_URL_WITHOUT_HTTP', '<small>(ohne führendes http://)</small>');
 define('TEXT_PRODUCTS_PRICE', 'Artikelpreis (Netto):');
 define('TEXT_PRODUCTS_PRICE_WITH_TAX', 'Artikelpreis (Brutto):');
+
 define('TEXT_PRODUCTS_WEIGHT', 'Artikelgewicht:');
 define('TEXT_IMAGE_REMOVE', '<b>Entfernen</b> des Bildes vom Artikel?');
 
@@ -93,4 +94,5 @@ define('ERROR_REPLACEMENT', 'Es wurde ein Ersatzprodukt angeben. Der Status wurd
 define('TEXT_DISCOUNTS_TITLE', 'Staffelpreise');
 define('TEXT_DISCOUNTS_BREAKS', 'Staffel');
 define('TEXT_DISCOUNTS_QTY', 'Menge');
-define('TEXT_DISCOUNTS_PRICE', 'Preis');
+define('TEXT_DISCOUNTS_PRICE', 'Preis (Netto):');
+define('TEXT_DISCOUNTS_PRICE_WITH_TAX', 'Preis (Brutto):');

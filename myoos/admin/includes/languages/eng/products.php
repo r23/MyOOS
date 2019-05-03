@@ -94,4 +94,5 @@ define('ERROR_REPLACEMENT', 'A replacement product was specified. The status has
 define('TEXT_DISCOUNTS_TITLE','Quantity Discounts');
 define('TEXT_DISCOUNTS_BREAKS','Breaks');
 define('TEXT_DISCOUNTS_QTY','Quantity');
-define('TEXT_DISCOUNTS_PRICE','Price');
+define('TEXT_DISCOUNTS_PRICE','Price (Net)');
+define('TEXT_DISCOUNTS_PRICE_WITH_TAX', 'Price (Gross):');
