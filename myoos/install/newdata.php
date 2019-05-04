@@ -568,6 +568,7 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "information (informatio
 $result = $db->Execute("INSERT INTO " . $prefix_table . "information (information_id, sort_order, date_added, last_modified, status) VALUES (3,  '3', " . $db->DBTimeStamp($today) . ", NULL, '1' )") OR die ("<b>".NOTUPDATED . $prefix_table . "information</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "information (information_id, sort_order, date_added, last_modified, status) VALUES (4,  '4', " . $db->DBTimeStamp($today) . ", NULL, '1' )") OR die ("<b>".NOTUPDATED . $prefix_table . "information</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "information (information_id, sort_order, date_added, last_modified, status) VALUES (5,  '5', " . $db->DBTimeStamp($today) . ", NULL, '1' )") OR die ("<b>".NOTUPDATED . $prefix_table . "information</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "information (information_id, sort_order, date_added, last_modified, status) VALUES (6,  '6', " . $db->DBTimeStamp($today) . ", NULL, '1' )") OR die ("<b>".NOTUPDATED . $prefix_table . "information</b>");
 
 echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $prefix_table . "information " . UPDATED .'</font>';
 

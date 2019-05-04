@@ -113,7 +113,7 @@ if (!empty($action)) {
 			if (isset($_POST['categories_id'])) $categories_id = oos_db_prepare_input($_POST['categories_id']);
 
 			if ((isset($_GET['cID'])) && ($categories_id == '')) {
-				$categories_id = oos_db_prepare_input($_GET['cID']);
+				$categories_id = intval($_GET['cID']);
 			}
 
 			$sql_data_array = array();
@@ -167,7 +167,7 @@ if (!empty($action)) {
 					$sql_data_array = array_merge($sql_data_array, $insert_sql_data);
 					oos_db_perform($oostable['categories_description'], $sql_data_array);
 				} elseif ($action == 'update_category') {
-					oos_db_perform($oostable['categories_description'], $sql_data_array, 'UPDATE', 'categories_id = \'' . intval($categories_id) . '\' and categories_languages_id = \'' . intval($aLanguages[$i]['id']) . '\'');
+					oos_db_perform($oostable['categories_description'], $sql_data_array, 'UPDATE', 'categories_id = \'' . intval($categories_id) . '\' AND categories_languages_id = \'' . intval($language_id) . '\'');
 				}
 			}
 

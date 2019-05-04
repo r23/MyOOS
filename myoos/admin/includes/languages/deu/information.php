@@ -21,9 +21,11 @@
 
 define('HEADING_TITLE', 'Rechtlich relevante Seiten');
 
-define('TABLE_HEADING_INFORMATION', 'Rechtlich relevante Seiten');
+define('TABLE_HEADING_INFORMATION', 'Rechtlich relevante Seite');
 define('TABLE_HEADING_ACTION', 'Aktion');
 define('TABLE_HEADING_STATUS', 'Status');
+define('TABLE_HEADING_SORT', 'Sortierung');
+
 
 define('TEXT_HEADING_NEW_INFORMATION', 'Neue rechtlich relevante Seite');
 define('TEXT_HEADING_EDIT_INFORMATION', 'Information bearbeiten');
@@ -32,7 +34,6 @@ define('TEXT_HEADING_DELETE_INFORMATION', 'Information löschen');
 define('TEXT_INFORMATION', 'Information:');
 define('TEXT_DATE_ADDED', 'hinzugefügt am:');
 define('TEXT_LAST_MODIFIED', 'letzte Änderung am:');
-define('TEXT_PRODUCTS', 'Artikel:');
 
 define('TEXT_NEW_INTRO', 'Bitte geben Sie die neuen Informationen mit allen relevanten Daten ein.');
 define('TEXT_EDIT_INTRO', 'Bitte führen Sie alle notwendigen Änderungen durch');
@@ -44,7 +45,5 @@ define('TEXT_INFORMATION_SORT_ORDER', 'Sortierung:');
 
 define('TEXT_DELETE_INTRO', 'Sind Sie sicher, dass Sie diese Seite löschen möchten?');
 
-define('ERROR_DIRECTORY_NOT_WRITEABLE', 'Fehler: Das Verzeichnis %s ist schreibgeschützt. Bitte korrigieren Sie die Zugriffsrechte zu diesem Verzeichnis!');
-define('ERROR_DIRECTORY_DOES_NOT_EXIST', 'Fehler: Das Verzeichnis %s existiert nicht!');
 
-
+define('TEXT_DATA', 'Daten');

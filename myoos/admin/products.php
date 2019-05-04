@@ -593,7 +593,7 @@ function calcBasePriceFactor() {
 
 	<?php echo oos_draw_form('id', 'new_product', $aContents['products'], 'cPath=' . $cPath . (!empty($pID) ? '&pID=' . intval($pID) : '') . '&action=' . $form_action, 'post', FALSE, 'enctype="multipart/form-data"'); ?>
 		<?php echo oos_draw_hidden_field('products_date_added', (($pInfo->products_date_added) ? $pInfo->products_date_added : date('Y-m-d')));
-				echo oos_hide_session_id();
+			  echo oos_hide_session_id();
 		?>
                <div role="tabpanel">
                   <ul class="nav nav-tabs nav-justified">

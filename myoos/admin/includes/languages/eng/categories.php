@@ -151,7 +151,7 @@ define('TEXT_COPY_ATTRIBUTES', 'Copy Product Attribuites to Duplicate?');
 define('TEXT_COPY_ATTRIBUTES_YES', 'Yes');
 define('TEXT_COPY_ATTRIBUTES_NO', 'No');
 
-define('TEXT_DATA', 'Daten');
+define('TEXT_DATA', 'Data');
 define('TEXT_IMAGES', 'Images');
 define('TEXT_UPLOAD', 'File Upload');
 define('TEXT_IMAGE_REMOVE', '<b>Remove</b> this Image from this category?');

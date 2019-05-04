@@ -19,32 +19,29 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-define('HEADING_TITLE', 'Information');
+define('HEADING_TITLE', 'Legally relevant pages');
 
-define('TABLE_HEADING_INFORMATION', 'Information');
-define('TABLE_HEADING_ACTION', 'Aktion');
+define('TABLE_HEADING_INFORMATION', 'Legally relevant page');
+define('TABLE_HEADING_ACTION', 'Action');
 define('TABLE_HEADING_STATUS', 'Status');
+define('TABLE_HEADING_SORT', 'Sort Order');
 
-define('TEXT_HEADING_NEW_INFORMATION', 'Neue Information');
-define('TEXT_HEADING_EDIT_INFORMATION', 'Information bearbeiten');
-define('TEXT_HEADING_DELETE_INFORMATION', 'Information l&ouml;schen');
+define('TEXT_HEADING_NEW_INFORMATION', 'New legally relevant page');
+define('TEXT_HEADING_EDIT_INFORMATION', 'Edit Information');
+define('TEXT_HEADING_DELETE_INFORMATION', 'Delete information');
 
 define('TEXT_INFORMATION', 'Information:');
-define('TEXT_DATE_ADDED', 'hinzugefügt am:');
-define('TEXT_LAST_MODIFIED', 'letzte Änderung am:');
-define('TEXT_PRODUCTS', 'Artikel:');
+define('TEXT_DATE_ADDED', 'Date Added:');
+define('TEXT_LAST_MODIFIED', 'Last Modified:');
 
-define('TEXT_NEW_INTRO', 'Bitte geben Sie die neuen Informationen mit allen relevanten Daten ein.');
-define('TEXT_EDIT_INTRO', 'Bitte führen Sie alle notwendigen Änderungen durch');
+define('TEXT_NEW_INTRO', 'Please enter the new information with all relevant data.');
+define('TEXT_EDIT_INTRO', 'Please make all necessary changes.');
 
-define('TEXT_INFORMATION_NAME', 'Informationname:');
-define('TEXT_INFORMATION_DESCRIPTION', 'Informationsbeschreibung:');
-define('TEXT_INFORMATION_HEADING_TITLE', 'Site Title:');
-define('TEXT_INFORMATION_SORT_ORDER', 'Sort order:');
+define('TEXT_INFORMATION_NAME', 'Information Name:');
+define('TEXT_INFORMATION_DESCRIPTION', 'Information Description:');
+define('TEXT_INFORMATION_HEADING_TITLE', 'Page Title:');
+define('TEXT_INFORMATION_SORT_ORDER', 'Sort Order:');
 
-define('TEXT_DELETE_INTRO', 'Sind Sie sicher, dass Sie diese Seite l&ouml;schen m&ouml;chten?');
+define('TEXT_DELETE_INTRO', 'Are you sure you want to delete this page?');
 
-define('ERROR_DIRECTORY_NOT_WRITEABLE', 'Fehler: Das Verzeichnis %s ist schreibgeschützt. Bitte korrigieren Sie die Zugriffsrechte zu diesem Verzeichnis!');
-define('ERROR_DIRECTORY_DOES_NOT_EXIST', 'Fehler: Das Verzeichnis %s existiert nicht!');
-
-
+define('TEXT_DATA', 'Data');
