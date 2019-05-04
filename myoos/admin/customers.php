@@ -35,7 +35,7 @@ $customers_statuses_array = oos_get_customers_statuses();
 $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
-  if (!empty($action)) {
+if (!empty($action)) {
     switch ($action) {
        case 'setflag':
         if ( ($_GET['loginflag'] == '0') || ($_GET['loginflag'] == '1') ) {

@@ -928,7 +928,7 @@ $flds = "
   products_url C(255) NULL,
   products_viewed I2 DEFAULT '0',
   products_description_meta C(250) NULL,
-  products_keywords C(250) NULL,
+  products_keywords C(250) NULL
 ";
 dosql($table, $flds);
 

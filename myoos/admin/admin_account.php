@@ -109,7 +109,6 @@
 						</li>
 						<li class="breadcrumb-item">
 							<?php echo '<a href="' . oos_href_link_admin($aContents['admin_account'], 'selected_box=administrator') . '">' . BOX_HEADING_ADMINISTRATOR . '</a>'; ?>
-						</li>						
 						</li>
 						<li class="breadcrumb-item active">
 							<strong><?php echo HEADING_TITLE; ?></strong>
@@ -125,10 +124,8 @@
 			<div class="row">
 				<div class="col-lg-12">	
 <!-- body_text //-->
- <table border="0" width="100%" cellspacing="0" cellpadding="2">
-
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="0" align="center">
+<div class="table-responsive">
+	<table class="table w-100">
           <tr>
             <td valign="top">
 <?php
@@ -260,8 +257,6 @@
 <?php
   }
 ?>
-          </tr>
-        </table></td>
       </tr>
     </table></form>
 <!-- body_text_eof //-->
