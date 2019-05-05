@@ -55,13 +55,7 @@ function print_SelectOOS() {
   echo '<font class="oos-title">' . OOSUPGRADE_1 . ':</font><br /><br />' . "\n" .
        '<font class="oos-error">' . UPGRADE_INFO . '</font><br /><br />' . "\n" .
        '<form name="oos updrade" action="update.php" method="post">' . "\n" .
-       '<input type="hidden" name="aupdate" value="oos140">' . "\n";
-  echo '<table width="50%" align="center">' . "\n" .
-         ' <tr>' . "\n" .
-         '  <td><input type="submit"  name ="op" value="OOS 1.4.0"></td>' . "\n" .
-         '</tr></table></form><br>' . "\n" .
-         '<form name="oos updrade" action="update.php" method="post">' . "\n" .
-         '<input type="hidden" name="aupdate" value="oos160">' . "\n";
+       '<input type="hidden" name="aupdate" value="oos160">' . "\n";
   print_FormHidden();
   echo '<table width="50%" align="center">' . "\n" .
        ' <tr>' . "\n" .

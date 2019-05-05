@@ -50,28 +50,42 @@
  * Please read the credits file for more information on who has made this project possible.
  */
 
- // Set the level of error reporting
-  error_reporting(E_ALL & ~E_NOTICE);
+// Set the level of error reporting
+error_reporting(E_ALL & ~E_NOTICE);
+define('OOS_VALID_MOD', true);
 
+// Set the local configuration parameters - mainly for developers
+if (is_readable('../includes/local/configure.php')) {
+    require_once '../includes/local/configure.php';
+} else {
+    require_once '../includes/configure.php';
+}
 
-  require '../includes/functions/function_kernel.php';
+if (OOS_DB_TYPE == '') {
+	$server = $_SERVER['HTTP_HOST'];
+	$path = $_SERVER['SCRIPT_NAME'];
+	$path = dirname($path);
+	$url = trim('http://' . $server . $path .'/');
+	header('Location: ' . $url);
+	exit;
+}
 
-  if (OOS_DB_TYPE == '') {
-    $server = $_SERVER['HTTP_HOST'];
-    $path = $_SERVER['SCRIPT_NAME'];
-    $path = dirname($path);
-    $url = trim('http://' . $server . $path .'/index.htm');
-    header('Location: ' . $url);
-    exit;
-  }
+echo 'Es steht kein Update zur Verfügung!<br>There is no update available!';
+exit;
 
-  if (file_exists('../includes/classes/thirdparty/adodb/adodb-errorhandler.inc.php')) {
-    require '../includes/classes/thirdparty/adodb/adodb-errorhandler.inc.php';
-     require '../includes/classes/thirdparty/adodb/adodb.inc.php';
-  } else {
-    include '../' . OOS_ADODB . 'adodb-errorhandler.inc.php';
-    include '../' .OOS_ADODB . 'adodb.inc.php';
-  }
+if(!defined('MYOOS_INCLUDE_PATH')) {
+	define('MYOOS_INCLUDE_PATH', OOS_ABSOLUTE_PATH);
+}
+
+$autoloader = require_once MYOOS_INCLUDE_PATH . '/vendor/autoload.php';
+
+require_once '../includes/functions/function_kernel.php';
+
+// require the database functions
+require_once '../includes/lib/adodb/adodb-errorhandler.inc.php';
+require_once '../includes/lib/adodb/adodb.inc.php';
+
+require_once '../includes/classes/class_template.php';
 
   require 'modify_configure.php';
   require 'upgrade.php';
@@ -79,12 +93,6 @@
   require 'gui.php';
   require 'db.php';
   require 'language.php';
-
-  if (isset($_POST)) {
-    foreach ($_POST as $k=>$v) {
-      $$k = oos_prepare_input($v);
-    }
-  }
 
   $dbtype = OOS_DB_TYPE;
   $dbhost = OOS_DB_SERVER;
@@ -121,23 +129,15 @@
     break;
 
     default:
-      include(SMARTY_DIR . 'Smarty.class.php');
 
-      $smarty = new Smarty;
-      $dir = OOS_TEMP_PATH . 'shop/';
-      if (substr($dir, -1) != "/") {
-        $dir = $dir."/";
-      }
+		$smarty = new myOOS_Smarty();
 
-      $smarty->compile_dir = $dir . 'templates_c/';
-      $smarty->cache_dir = $dir . 'cache/';
-      $smarty->clear_all_cache();
-      $smarty->clear_compiled_tpl();
+		$smarty->force_compile   = TRUE;
+		$smarty->clearAllCache();
+		$smarty->clearCompiledTemplate();
 
-      print_SelectOOS();
-      break;
+		print_SelectOOS();
+		break;
   }
 
-  require 'footer.php';
-
-
+require 'footer.php';
