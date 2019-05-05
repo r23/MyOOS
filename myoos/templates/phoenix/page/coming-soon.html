@@ -23,6 +23,8 @@
 			
 		<div style="max-width:550px; margin:auto;">
 
+		{if $smarty.const.NEWSLETTER eq 'true'}
+
 			<form name="subscribe" action="{html_get_link}" method="POST" role="form">
 				<input type="hidden" name="action" value="process">
 				<input type="hidden" name="content" value="{$page_file}">
@@ -42,7 +44,7 @@
 			</form>
 
 			<span class="text-muted fs-11">{$lang.block_newsletter_subscribe}</span>
-
+		{/if}
 		</div>
 
 	</div>
