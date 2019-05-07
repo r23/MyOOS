@@ -108,53 +108,58 @@
       $languages_selected = $languages[$i]['iso_639_2'];
     }
   }
+  
+require 'includes/header.php'; 
 ?>
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html <?php echo HTML_PARAMS; ?>>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<title><?php echo TITLE; ?> - Administration [OOS]</title>
-<style type="text/css">
-a { color:#080381; text-decoration:none; }
-a:hover { color:#aabbdd; text-decoration:underline; }
-a.text:link, a.text:visited { color: #000000; text-decoration: none; }
-a:text:hover { color: #000000; text-decoration: underline; }
-a.main:link, a.main:visited { color: #ffffff; text-decoration: none; }
-A.main:hover { color: #ffffff; text-decoration: underline; }
-a.sub:link, a.sub:visited { color: #dddddd; text-decoration: none; }
-A.sub:hover { color: #dddddd; text-decoration: underline; }
-.heading { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 20px; font-weight: bold; line-height: 1.5; color: #D3DBFF; }
-.main { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 17px; font-weight: bold; line-height: 1.5; color: #ffffff; }
-.main_false { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 17px; font-weight: bold; line-height: 1.5; color: #dddddd; }
-.sub { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12px; font-weight: bold; line-height: 1.5; color: #ffffff; }
-.sub_false { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12px; font-weight: bold; line-height: 1.5; color: #C1C1C1; }
-.text { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-weight: bold; line-height: 1.5; color: #000000; }
-.menuBoxHeading { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12px; color: #ffffff; font-weight: bold; background-color: #7187bb; border-color: #7187bb; border-style: solid; border-width: 1px; }
-.infoBox { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 10px; color: #080381; background-color: #f2f4ff; border-color: #7187bb; border-style: solid; border-width: 1px; }
-.smallText { font-family: Verdana, Arial, sans-serif; font-size: 10px; }
-.messageBox { font-family: Verdana, Arial, sans-serif; font-size: 10px; }
-.messageStackError, .messageStackWarning { font-family: Verdana, Arial, sans-serif; font-size: 10px; background-color: #ffb3b5; }
-.messageStackSuccess { font-family: Verdana, Arial, sans-serif; font-size: 10px; background-color: #99ff00; }
-</style>
-
-
-</head>
-<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
+<div class="wrapper">
+	<!-- Header //-->
+	<header class="topnavbar-wrapper">
+		<!-- Top Navbar //-->
+		<?php require 'includes/menue.php'; ?>
+	</header>
+	<!-- END Header //-->
+	<aside class="aside">
+		<!-- Sidebar //-->
+		<div class="aside-inner">
+			<?php require 'includes/blocks.php'; ?>
+		</div>
+		<!-- END Sidebar (left) //-->
+	</aside>
+	
+	<!-- Main section //-->
+	<section>
+		<!-- Page content //-->
+		<div class="content-wrapper">
+							
+			<!-- Breadcrumbs //-->
+			<div class="content-heading">
+				<div class="col-lg-12">
+					<h2><?php echo HEADING_TITLE; ?></h2>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item active">
+							<strong><?php echo HEADER_TITLE_TOP; ?></strong>
+						</li>
+					</ol>
+				</div>
+			</div>
+			<!-- END Breadcrumbs //-->
+			
+			<div class="wrapper wrapper-content">
+				<div class="row">
+					<div class="col-lg-12">	
+									
 <?php
   if ($messageStack->size > 0) {
     echo $messageStack->output();
   }
 ?>
+<!-- body_text //-->
 <table border="0" width="600" height="100%" cellspacing="0" cellpadding="0" align="center" valign="middle">
   <tr>
     <td><table border="0" width="600" height="440" cellspacing="0" cellpadding="1" align="center" valign="middle">
-      <tr bgcolor="#000000">
+      <tr bgcolor="">
         <td><table border="0" width="600" height="440" cellspacing="0" cellpadding="0">
-          <tr bgcolor="#ffffff" height="50">
-            <td height="50"></td>
-            <td align="right" class="text" nowrap><?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_ADMINISTRATION . '</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="' . oos_catalog_link($aCatalog['default']) . '">' . HEADER_TITLE_ONLINE_CATALOG . '</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="https://www.oos-shop.de" target="_blank" rel="noopener">' . HEADER_TITLE_SUPPORT_SITE . '</a>'; ?>&nbsp;&nbsp;</td>
-          </tr>
-          <tr bgcolor="#8C8E8F">
+          <tr bgcolor="">
             <td colspan="2"><table border="0" width="460" height="390" cellspacing="0" cellpadding="2">
               <tr>
                 <td width="140" valign="top"><table border="0" width="140" height="390" cellspacing="0" cellpadding="2">
@@ -231,15 +236,6 @@ A.sub:hover { color: #dddddd; text-decoration: underline; }
   echo '<br />';
 
   $contents = array();
-
-  if ( (oos_server_get_var('HTTPS') == 'on') || (oos_server_get_var('HTTPS') == '1') ) {
-    $size = ((oos_server_get_var('SSL_CIPHER_ALGKEYSIZE')) ? oos_server_get_var('SSL_CIPHER_ALGKEYSIZE') . '-bit' : '<i>' . BOX_CONNECTION_UNKNOWN . '</i>');
-    $contents[] = array('params' => 'class="infoBox"',
-                        'text' => oos_image(OOS_IMAGES . 'icons/locked.gif', ICON_LOCKED, '', '', 'align="right"') . sprintf(BOX_CONNECTION_PROTECTED, $size));
-  } else {
-    $contents[] = array('params' => 'class="infoBox"',
-                        'text' => oos_image(OOS_IMAGES . 'icons/unlocked.gif', ICON_UNLOCKED, '', '', 'align="right"') . BOX_CONNECTION_UNPROTECTED);
-  }
 
   $box = new box;
   echo $box->tableBlock($contents);
@@ -343,7 +339,21 @@ A.sub:hover { color: #dddddd; text-decoration: underline; }
     </table></td>
   </tr>
 </table>
+<!-- body_text_eof //-->
 
+				</div>
+			</div>
+        </div>
 
-<?php require 'includes/bottom.php'; ?>
-<?php require 'includes/nice_exit.php'; ?>
+		</div>
+	</section>
+	<!-- Page footer //-->
+	<footer>
+		<span>&copy; 2019 - <a href="https://www.oos-shop.de" target="_blank" rel="noopener">MyOOS [Shopsystem]</a></span>
+	</footer>
+</div>
+
+<?php 
+	require 'includes/bottom.php';
+	require 'includes/nice_exit.php';
+?>

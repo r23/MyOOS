@@ -20,7 +20,7 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-define('HEADING_TITLE', 'Choose an action..');
+define('HEADING_TITLE', 'Dashboard');
 
 define('BOX_TITLE_ORDERS', 'Orders');
 define('BOX_TITLE_STATISTICS', 'Statistics');
