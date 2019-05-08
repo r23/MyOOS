@@ -65,19 +65,19 @@ msgctxt "primary color"
 msgid "Default"
 msgstr "Standard"
 
-#: functions.php:170
+#: functions.php:166
 msgid "White"
 msgstr "Weiß"
 
-#: functions.php:165
+#: functions.php:161
 msgid "Light Gray"
 msgstr "Hellgrau"
 
-#: functions.php:160
+#: functions.php:156
 msgid "Dark Gray"
 msgstr "Dunkelgrau"
 
-#: functions.php:155
+#: functions.php:151
 msgid "Secondary"
 msgstr "Sekundär"
 
@@ -126,11 +126,11 @@ msgstr "Vollständige Größe"
 msgid "Page"
 msgstr "Seite"
 
-#: functions.php:194
+#: functions.php:190
 msgid "Add widgets here to appear in your footer."
 msgstr "Füge hier Widgets hinzu, die in deinem Footer erscheinen sollen."
 
-#: template-parts/footer/footer-widgets.php:12 functions.php:192
+#: functions.php:188 template-parts/footer/footer-widgets.php:12
 msgid "Footer"
 msgstr "Footer"
 
@@ -168,9 +168,9 @@ msgstr "Oberes Menü"
 msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
 msgstr "<span class=\"screen-reader-text\">\"%s\"</span> weiterlesen"
 
+#: image.php:52 template-parts/content/content-page.php:27
 #: template-parts/content/content.php:49
-#: template-parts/content/content-page.php:27
-#: template-parts/content/content-single.php:40 image.php:52
+#: template-parts/content/content-single.php:40
 msgid "Pages:"
 msgstr "Seiten:"
 
@@ -295,15 +295,15 @@ msgstr "Kategorie-Archive:"
 msgid "Edit <span class=\"screen-reader-text\">%s</span>"
 msgstr "<span class=\"screen-reader-text\">%s</span> bearbeiten"
 
-#: header.php:24
+#: header.php:25
 msgid "Skip to content"
 msgstr "Zum Inhalt springen"
 
-#: template-parts/header/site-branding.php:46 functions.php:61
+#: functions.php:61 template-parts/header/site-branding.php:46
 msgid "Social Links Menu"
 msgstr "Social-Links-Menü"
 
-#: functions.php:59 functions.php:150
+#: functions.php:59 functions.php:146
 msgid "Primary"
 msgstr "Primär"
 
@@ -350,20 +350,20 @@ msgstr "Schreib einen Kommentar"
 msgid "Join the Conversation"
 msgstr "Beteilige dich an der Unterhaltung"
 
-#: classes/class-twentynineteen-walker-comment.php:100
+#: classes/class-twentynineteen-walker-comment.php:99
 msgid "Your comment is awaiting moderation."
 msgstr "Dein Kommentar wartet auf Freigabe."
 
-#: classes/class-twentynineteen-walker-comment.php:95
+#: classes/class-twentynineteen-walker-comment.php:94
 msgid "Edit"
 msgstr "Bearbeiten"
 
 #. translators: 1: comment date, 2: comment time
-#: classes/class-twentynineteen-walker-comment.php:87
+#: classes/class-twentynineteen-walker-comment.php:86
 msgid "%1$s at %2$s"
 msgstr "%1$s um %2$s"
 
-#: classes/class-twentynineteen-walker-comment.php:67
+#: classes/class-twentynineteen-walker-comment.php:66
 msgid "%s <span class=\"screen-reader-text says\">says:</span>"
 msgstr "%s <span class=\"screen-reader-text says\">sagt:</span>"
 
@@ -378,10 +378,6 @@ msgstr "Die Seite konnte leider nicht gefunden werden."
 #. Author of the theme
 msgid "the WordPress team"
 msgstr "Das WordPress-Team"
-
-#. Theme URI of the theme
-msgid "https://github.com/WordPress/twentynineteen"
-msgstr "https://github.com/WordPress/twentynineteen"
 
 #. Author URI of the theme
 #: footer.php:25

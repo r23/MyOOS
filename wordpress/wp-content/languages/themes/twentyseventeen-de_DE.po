@@ -255,7 +255,7 @@ msgstr "Seiten:"
 msgid "Menu"
 msgstr "Menü"
 
-#: header.php:27
+#: header.php:28
 msgid "Skip to content"
 msgstr "Zum Inhalt springen"
 

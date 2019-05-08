@@ -64,7 +64,7 @@ function twentynineteen_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
 		'primary_color_hue',
 		array(
-			'default'           => twentynineteen_get_default_hue(),
+			'default'           => 199,
 			'transport'         => 'postMessage',
 			'sanitize_callback' => 'absint',
 		)
@@ -126,9 +126,6 @@ function twentynineteen_customize_partial_blogdescription() {
  */
 function twentynineteen_customize_preview_js() {
 	wp_enqueue_script( 'twentynineteen-customize-preview', get_theme_file_uri( '/js/customize-preview.js' ), array( 'customize-preview' ), '20181231', true );
-	wp_localize_script( 'twentynineteen-customize-preview', '_TwentyNineteenPreviewData', array(
-		'default_hue' => twentynineteen_get_default_hue()
-	));
 }
 add_action( 'customize_preview_init', 'twentynineteen_customize_preview_js' );
 
