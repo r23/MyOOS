@@ -382,11 +382,14 @@
 
 			firstChildStyle.display  = nextSiblingStyle.display;
 			nextSiblingStyle.display = lastChildStyle.display = (firstChildStyle.display) ? '' : 'none';
+
+			// Don't submit if inside a form
+			return false;
 		-->
 		<template><![CDATA[
 			<div class="spoiler">
 				<div class="spoiler-header">
-					<button onclick="var a=parentNode.nextSibling.style,b=firstChild.style,c=lastChild.style;b.display=a.display;a.display=c.display=(b.display)?'':'none'"><span>]]><var name="showStr">Show</var><![CDATA[</span><span style="display:none">]]><var name="hideStr">Hide</var><![CDATA[</span></button>
+					<button onclick="var a=parentNode.nextSibling.style,b=firstChild.style,c=lastChild.style;b.display=a.display;a.display=c.display=(b.display)?'':'none';return!1"><span>]]><var name="showStr">Show</var><![CDATA[</span><span style="display:none">]]><var name="hideStr">Hide</var><![CDATA[</span></button>
 					<span class="spoiler-title">]]><var name="spoilerStr">Spoiler:</var><![CDATA[ {TEXT1}</span>
 				</div>
 				<div class="spoiler-content" style="display:none">{TEXT2}</div>
@@ -430,9 +433,11 @@
 	</bbcode>
 
 	<bbcode name="TD">
-		<usage>[TD align={CHOICE=left,center,right,justify;caseSensitive;optional;preFilter=strtolower} #createParagraphs=false]{TEXT}[/TD]</usage>
+		<usage>[TD align={CHOICE=left,center,right,justify;caseSensitive;optional;preFilter=strtolower} colspan={UINT?} rowspan={UINT?} #createParagraphs=false]{TEXT}[/TD]</usage>
 		<template><![CDATA[
 			<td>
+				<xsl:copy-of select="@colspan"/>
+				<xsl:copy-of select="@rowspan"/>
 				<xsl:if test="@align">
 					<xsl:attribute name="style">text-align:{CHOICE}</xsl:attribute>
 				</xsl:if>
@@ -442,9 +447,11 @@
 	</bbcode>
 
 	<bbcode name="TH">
-		<usage>[TH align={CHOICE=left,center,right,justify;caseSensitive;optional;preFilter=strtolower} #createParagraphs=false]{TEXT}[/TH]</usage>
+		<usage>[TH align={CHOICE=left,center,right,justify;caseSensitive;optional;preFilter=strtolower} colspan={UINT?} rowspan={UINT?} #createParagraphs=false]{TEXT}[/TH]</usage>
 		<template><![CDATA[
 			<th>
+				<xsl:copy-of select="@colspan"/>
+				<xsl:copy-of select="@rowspan"/>
 				<xsl:if test="@align">
 					<xsl:attribute name="style">text-align:{CHOICE}</xsl:attribute>
 				</xsl:if>

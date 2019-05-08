@@ -2,7 +2,7 @@
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateNormalizations;
@@ -12,7 +12,8 @@ class ConvertCurlyExpressionsInText extends AbstractNormalization
 	protected $queries = ['//*[namespace-uri() != $XSL]/text()[contains(., "{@") or contains(., "{$")]'];
 	protected function insertTextBefore($text, $node)
 	{
-		$node->parentNode->insertBefore($this->createTextNode($text), $node);
+		if ($text > '')
+			$node->parentNode->insertBefore($this->createText($text), $node);
 	}
 	protected function normalizeNode(DOMNode $node)
 	{

@@ -2,7 +2,7 @@
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Plugins\MediaEmbed\Configurator\Collections;
@@ -63,7 +63,7 @@ class XmlFileDefinitionCollection extends SiteDefinitionCollection
 	protected function getConfigFromXmlFile($filepath)
 	{
 		$dom = new DOMDocument;
-		$dom->load($filepath, \LIBXML_NOCDATA);
+		$dom->loadXML(\file_get_contents($filepath), \LIBXML_NOCDATA);
 		return $this->getElementConfig($dom->documentElement);
 	}
 	protected function getElementConfig(DOMElement $element)

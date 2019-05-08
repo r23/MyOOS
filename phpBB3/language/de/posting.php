@@ -148,6 +148,7 @@ $lang = array_merge($lang, array(
 	'LOAD_DRAFT_EXPLAIN'		=> 'Hier kannst du den Entwurf auswählen, mit dessen Erstellung du fortfahren möchtest. Dein derzeitiger Beitrag wird abgebrochen und die Inhalte der Eingabefelder gelöscht. In deinem persönlichen Bereich kannst du Entwürfe ansehen, bearbeiten oder löschen.',
 	'LOGIN_EXPLAIN_BUMP'		=> 'Du musst dich anmelden, um in diesem Forum Themen als neu zu markieren.',
 	'LOGIN_EXPLAIN_DELETE'		=> 'Du musst dich anmelden, um in diesem Forum Beiträge zu löschen.',
+	'LOGIN_EXPLAIN_SOFT_DELETE'	=> 'Du musst dich anmelden, um in diesem Forum Beiträge als gelöscht zu markieren.',
 	'LOGIN_EXPLAIN_POST'		=> 'Du musst dich anmelden, um in diesem Forum Beiträge zu schreiben.',
 	'LOGIN_EXPLAIN_QUOTE'		=> 'Du musst dich anmelden, um in diesem Forum Beiträge zu zitieren.',
 	'LOGIN_EXPLAIN_REPLY'		=> 'Du musst dich anmelden, um in diesem Forum auf Beiträge zu antworten.',

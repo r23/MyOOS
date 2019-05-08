@@ -114,6 +114,7 @@ $lang = array_merge($lang, array(
 	'GROUP_USERS_ADDED'				=> 'Die neuen Benutzer wurden erfolgreich der Gruppe hinzugefügt.',
 	'GROUP_USERS_EXIST'				=> 'Die gewählten Benutzer sind bereits Mitglied der Gruppen.',
 	'GROUP_USERS_REMOVE'			=> 'Benutzer aus der Gruppe entfernt; neue Hauptgruppen erfolgreich eingestellt.',
+	'GROUP_USERS_INVALID'			=> 'Es wurden keine Benutzer zu der Gruppe hinzugefügt, da keine Benutzer mit folgenden Benutzernamen existieren: %s',
 
 	'LEGEND_EXPLAIN'				=> 'Diese Gruppen werden in der Gruppen-Legende angezeigt:',
 	'LEGEND_SETTINGS'				=> 'Einstellungen für Legende',

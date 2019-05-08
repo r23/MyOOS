@@ -787,6 +787,10 @@ $lang = array_merge($lang, array(
 	'TOPIC_REVIEW'		=> 'Die letzten Beiträge des Themas',
 	'TOPIC_TITLE'		=> 'Titel des Themas',
 	'TOPIC_UNAPPROVED'	=> 'Dieses Thema wurde noch nicht freigegeben.',
+	'TOPIC_UNAPPROVED_FORUM'	=> array(
+		1	=> 'Thema wartet auf Freigabe',
+		2	=> 'Themen warten auf Freigabe',
+	),
 	'TOPIC_DELETED'		=> 'Dieses Thema wurde gelöscht.',
 	'TOTAL_ATTACHMENTS'	=> 'Dateianhang',
 	'TOTAL_LOGS'		=> array(

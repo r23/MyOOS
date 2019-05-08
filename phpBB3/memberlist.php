@@ -489,9 +489,31 @@ switch ($mode)
 		}
 
 		// Get user...
-		$sql = 'SELECT *
-			FROM ' . USERS_TABLE . '
-			WHERE ' . (($username) ? "username_clean = '" . $db->sql_escape(utf8_clean_string($username)) . "'" : "user_id = $user_id");
+		$sql_array = array(
+			'SELECT'	=> 'u.*',
+			'FROM'		=> array(
+				USERS_TABLE		=> 'u'
+			),
+			'WHERE'		=> (($username) ? "u.username_clean = '" . $db->sql_escape(utf8_clean_string($username)) . "'" : "u.user_id = $user_id"),
+		);
+
+		/**
+		 * Modify user data SQL before member profile row is created
+		 *
+		 * @event core.memberlist_modify_viewprofile_sql
+		 * @var int		user_id				The user ID
+		 * @var string	username			The username
+		 * @var array	sql_array			Array containing the main query
+		 * @since 3.2.6-RC1
+		 */
+		$vars = array(
+			'user_id',
+			'username',
+			'sql_array',
+		);
+		extract($phpbb_dispatcher->trigger_event('core.memberlist_modify_viewprofile_sql', compact($vars)));
+
+		$sql = $db->sql_build_query('SELECT', $sql_array);
 		$result = $db->sql_query($sql);
 		$member = $db->sql_fetchrow($result);
 		$db->sql_freeresult($result);
@@ -523,12 +545,37 @@ switch ($mode)
 		$sql_uid_ary = ($auth_hidden_groups) ? array($user_id) : array($user_id, (int) $user->data['user_id']);
 
 		// Do the SQL thang
-		$sql = 'SELECT g.group_id, g.group_name, g.group_type, ug.user_id
-			FROM ' . GROUPS_TABLE . ' g, ' . USER_GROUP_TABLE . ' ug
-			WHERE ' . $db->sql_in_set('ug.user_id', $sql_uid_ary) . '
-				AND g.group_id = ug.group_id
-				AND ug.user_pending = 0';
-		$result = $db->sql_query($sql);
+		$sql_ary = [
+			'SELECT'	=> 'g.group_id, g.group_name, g.group_type, ug.user_id',
+
+			'FROM'		=> [
+				GROUPS_TABLE => 'g',
+			],
+
+			'LEFT_JOIN' => [
+				[
+					'FROM' => [USER_GROUP_TABLE => 'ug'],
+					'ON'   => 'g.group_id = ug.group_id',
+				],
+			],
+
+			'WHERE'		=> $db->sql_in_set('ug.user_id', $sql_uid_ary) . '
+				AND ug.user_pending = 0',
+		];
+
+		/**
+		* Modify the query used to get the group data
+		*
+		* @event core.modify_memberlist_viewprofile_group_sql
+		* @var array	sql_ary			Array containing the query
+		* @since 3.2.6-RC1
+		*/
+		$vars = array(
+			'sql_ary',
+		);
+		extract($phpbb_dispatcher->trigger_event('core.modify_memberlist_viewprofile_group_sql', compact($vars)));
+
+		$result = $db->sql_query($db->sql_build_query('SELECT', $sql_ary));
 
 		// Divide data into profile data and current user data
 		$profile_groups = $user_groups = array();
@@ -566,6 +613,20 @@ switch ($mode)
 		unset($profile_groups);
 		unset($user_groups);
 		asort($group_sort);
+
+		/**
+		* Modify group data before options is created and data is unset
+		*
+		* @event core.modify_memberlist_viewprofile_group_data
+		* @var array	group_data			Array containing the group data
+		* @var array	group_sort			Array containing the sorted group data
+		* @since 3.2.6-RC1
+		*/
+		$vars = array(
+			'group_data',
+			'group_sort',
+		);
+		extract($phpbb_dispatcher->trigger_event('core.modify_memberlist_viewprofile_group_data', compact($vars)));
 
 		$group_options = '';
 		foreach ($group_sort as $group_id => $null)
@@ -702,42 +763,58 @@ switch ($mode)
 			$member['posts_in_queue'] = 0;
 		}
 
-		$template->assign_vars(array(
-			'L_POSTS_IN_QUEUE'	=> $user->lang('NUM_POSTS_IN_QUEUE', $member['posts_in_queue']),
+		// Define the main array of vars to assign to memberlist_view.html
+		$template_ary = array(
+			'L_POSTS_IN_QUEUE'			=> $user->lang('NUM_POSTS_IN_QUEUE', $member['posts_in_queue']),
 
-			'POSTS_DAY'			=> $user->lang('POST_DAY', $posts_per_day),
-			'POSTS_PCT'			=> $user->lang('POST_PCT', $percentage),
+			'POSTS_DAY'					=> $user->lang('POST_DAY', $posts_per_day),
+			'POSTS_PCT'					=> $user->lang('POST_PCT', $percentage),
 
-			'SIGNATURE'		=> $member['user_sig'],
-			'POSTS_IN_QUEUE'=> $member['posts_in_queue'],
+			'SIGNATURE'					=> $member['user_sig'],
+			'POSTS_IN_QUEUE'			=> $member['posts_in_queue'],
 
-			'PM_IMG'		=> $user->img('icon_contact_pm', $user->lang['SEND_PRIVATE_MESSAGE']),
-			'L_SEND_EMAIL_USER'	=> $user->lang('SEND_EMAIL_USER', $member['username']),
-			'EMAIL_IMG'		=> $user->img('icon_contact_email', $user->lang['EMAIL']),
-			'JABBER_IMG'	=> $user->img('icon_contact_jabber', $user->lang['JABBER']),
-			'SEARCH_IMG'	=> $user->img('icon_user_search', $user->lang['SEARCH']),
+			'PM_IMG'					=> $user->img('icon_contact_pm', $user->lang['SEND_PRIVATE_MESSAGE']),
+			'L_SEND_EMAIL_USER'			=> $user->lang('SEND_EMAIL_USER', $member['username']),
+			'EMAIL_IMG'					=> $user->img('icon_contact_email', $user->lang['EMAIL']),
+			'JABBER_IMG'				=> $user->img('icon_contact_jabber', $user->lang['JABBER']),
+			'SEARCH_IMG'				=> $user->img('icon_user_search', $user->lang['SEARCH']),
 
-			'S_PROFILE_ACTION'	=> append_sid("{$phpbb_root_path}memberlist.$phpEx", 'mode=group'),
-			'S_GROUP_OPTIONS'	=> $group_options,
-			'S_CUSTOM_FIELDS'	=> (isset($profile_fields['row']) && count($profile_fields['row'])) ? true : false,
+			'S_PROFILE_ACTION'			=> append_sid("{$phpbb_root_path}memberlist.$phpEx", 'mode=group'),
+			'S_GROUP_OPTIONS'			=> $group_options,
+			'S_CUSTOM_FIELDS'			=> (isset($profile_fields['row']) && count($profile_fields['row'])) ? true : false,
 
-			'U_USER_ADMIN'			=> ($auth->acl_get('a_user')) ? append_sid("{$phpbb_admin_path}index.$phpEx", 'i=users&amp;mode=overview&amp;u=' . $user_id, true, $user->session_id) : '',
-			'U_USER_BAN'			=> ($auth->acl_get('m_ban') && $user_id != $user->data['user_id']) ? append_sid("{$phpbb_root_path}mcp.$phpEx", 'i=ban&amp;mode=user&amp;u=' . $user_id, true, $user->session_id) : '',
-			'U_MCP_QUEUE'			=> ($auth->acl_getf_global('m_approve')) ? append_sid("{$phpbb_root_path}mcp.$phpEx", 'i=queue', true, $user->session_id) : '',
+			'U_USER_ADMIN'				=> ($auth->acl_get('a_user')) ? append_sid("{$phpbb_admin_path}index.$phpEx", 'i=users&amp;mode=overview&amp;u=' . $user_id, true, $user->session_id) : '',
+			'U_USER_BAN'				=> ($auth->acl_get('m_ban') && $user_id != $user->data['user_id']) ? append_sid("{$phpbb_root_path}mcp.$phpEx", 'i=ban&amp;mode=user&amp;u=' . $user_id, true, $user->session_id) : '',
+			'U_MCP_QUEUE'				=> ($auth->acl_getf_global('m_approve')) ? append_sid("{$phpbb_root_path}mcp.$phpEx", 'i=queue', true, $user->session_id) : '',
 
-			'U_SWITCH_PERMISSIONS'	=> ($auth->acl_get('a_switchperm') && $user->data['user_id'] != $user_id) ? append_sid("{$phpbb_root_path}ucp.$phpEx", "mode=switch_perm&amp;u={$user_id}&amp;hash=" . generate_link_hash('switchperm')) : '',
-			'U_EDIT_SELF'			=> ($user_id == $user->data['user_id'] && $auth->acl_get('u_chgprofileinfo')) ? append_sid("{$phpbb_root_path}ucp.$phpEx", 'i=ucp_profile&amp;mode=profile_info') : '',
+			'U_SWITCH_PERMISSIONS'		=> ($auth->acl_get('a_switchperm') && $user->data['user_id'] != $user_id) ? append_sid("{$phpbb_root_path}ucp.$phpEx", "mode=switch_perm&amp;u={$user_id}&amp;hash=" . generate_link_hash('switchperm')) : '',
+			'U_EDIT_SELF'				=> ($user_id == $user->data['user_id'] && $auth->acl_get('u_chgprofileinfo')) ? append_sid("{$phpbb_root_path}ucp.$phpEx", 'i=ucp_profile&amp;mode=profile_info') : '',
 
-			'S_USER_NOTES'		=> ($user_notes_enabled) ? true : false,
-			'S_WARN_USER'		=> ($warn_user_enabled) ? true : false,
-			'S_ZEBRA'			=> ($user->data['user_id'] != $user_id && $user->data['is_registered'] && $zebra_enabled) ? true : false,
-			'U_ADD_FRIEND'		=> (!$friend && !$foe && $friends_enabled) ? append_sid("{$phpbb_root_path}ucp.$phpEx", 'i=zebra&amp;add=' . urlencode(htmlspecialchars_decode($member['username']))) : '',
-			'U_ADD_FOE'			=> (!$friend && !$foe && $foes_enabled) ? append_sid("{$phpbb_root_path}ucp.$phpEx", 'i=zebra&amp;mode=foes&amp;add=' . urlencode(htmlspecialchars_decode($member['username']))) : '',
-			'U_REMOVE_FRIEND'	=> ($friend && $friends_enabled) ? append_sid("{$phpbb_root_path}ucp.$phpEx", 'i=zebra&amp;remove=1&amp;usernames[]=' . $user_id) : '',
-			'U_REMOVE_FOE'		=> ($foe && $foes_enabled) ? append_sid("{$phpbb_root_path}ucp.$phpEx", 'i=zebra&amp;remove=1&amp;mode=foes&amp;usernames[]=' . $user_id) : '',
+			'S_USER_NOTES'				=> ($user_notes_enabled) ? true : false,
+			'S_WARN_USER'				=> ($warn_user_enabled) ? true : false,
+			'S_ZEBRA'					=> ($user->data['user_id'] != $user_id && $user->data['is_registered'] && $zebra_enabled) ? true : false,
+			'U_ADD_FRIEND'				=> (!$friend && !$foe && $friends_enabled) ? append_sid("{$phpbb_root_path}ucp.$phpEx", 'i=zebra&amp;add=' . urlencode(htmlspecialchars_decode($member['username']))) : '',
+			'U_ADD_FOE'					=> (!$friend && !$foe && $foes_enabled) ? append_sid("{$phpbb_root_path}ucp.$phpEx", 'i=zebra&amp;mode=foes&amp;add=' . urlencode(htmlspecialchars_decode($member['username']))) : '',
+			'U_REMOVE_FRIEND'			=> ($friend && $friends_enabled) ? append_sid("{$phpbb_root_path}ucp.$phpEx", 'i=zebra&amp;remove=1&amp;usernames[]=' . $user_id) : '',
+			'U_REMOVE_FOE'				=> ($foe && $foes_enabled) ? append_sid("{$phpbb_root_path}ucp.$phpEx", 'i=zebra&amp;remove=1&amp;mode=foes&amp;usernames[]=' . $user_id) : '',
 
-			'U_CANONICAL'	=> generate_board_url() . '/' . append_sid("memberlist.$phpEx", 'mode=viewprofile&amp;u=' . $user_id, true, ''),
-		));
+			'U_CANONICAL'				=> generate_board_url() . '/' . append_sid("memberlist.$phpEx", 'mode=viewprofile&amp;u=' . $user_id, true, ''),
+		);
+
+		/**
+		* Modify user's template vars before we display the profile
+		*
+		* @event core.memberlist_modify_view_profile_template_vars
+		* @var	array	template_ary	Array with user's template vars
+		* @since 3.2.6-RC1
+		*/
+		$vars = array(
+			'template_ary',
+		);
+		extract($phpbb_dispatcher->trigger_event('core.memberlist_modify_view_profile_template_vars', compact($vars)));
+
+		// Assign vars to memberlist_view.html
+		$template->assign_vars($template_ary);
 
 		if (!empty($profile_fields['row']))
 		{
@@ -1308,11 +1385,6 @@ switch ($mode)
 		}
 		$sort_params[] = "mode=$mode";
 
-		$pagination_url = append_sid("{$phpbb_root_path}memberlist.$phpEx", implode('&amp;', $params));
-		$sort_url = append_sid("{$phpbb_root_path}memberlist.$phpEx", implode('&amp;', $sort_params));
-
-		unset($search_params, $sort_params);
-
 		$u_first_char_params = implode('&amp;', $u_first_char_params);
 		$u_first_char_params .= ($u_first_char_params) ? '&amp;' : '';
 
@@ -1324,15 +1396,46 @@ switch ($mode)
 		}
 		$first_characters['other'] = $user->lang['OTHER'];
 
+		$first_char_block_vars = [];
+
 		foreach ($first_characters as $char => $desc)
 		{
-			$template->assign_block_vars('first_char', array(
+			$first_char_block_vars[] = [
 				'DESC'			=> $desc,
 				'VALUE'			=> $char,
 				'S_SELECTED'	=> ($first_char == $char) ? true : false,
 				'U_SORT'		=> append_sid("{$phpbb_root_path}memberlist.$phpEx", $u_first_char_params . 'first_char=' . $char) . '#memberlist',
-			));
+			];
 		}
+
+		/**
+		 * Modify memberlist sort and pagination parameters
+		 *
+		 * @event core.memberlist_modify_sort_pagination_params
+		 * @var array	sort_params				Array with URL parameters for sorting
+		 * @var array	params					Array with URL parameters for pagination
+		 * @var array	first_characters		Array that maps each letter in a-z, 'other' and the empty string to their display representation
+		 * @var string	u_first_char_params		Concatenated URL parameters for first character search links
+		 * @var array	first_char_block_vars	Template block variables for each first character
+		 * @var int		total_users				Total number of users found in this search
+		 * @since 3.2.6-RC1
+		 */
+		$vars = [
+			'sort_params',
+			'params',
+			'first_characters',
+			'u_first_char_params',
+			'first_char_block_vars',
+			'total_users',
+		];
+		extract($phpbb_dispatcher->trigger_event('core.memberlist_modify_sort_pagination_params', compact($vars)));
+
+		$template->assign_block_vars_array('first_char', $first_char_block_vars);
+
+		$pagination_url = append_sid("{$phpbb_root_path}memberlist.$phpEx", implode('&amp;', $params));
+		$sort_url = append_sid("{$phpbb_root_path}memberlist.$phpEx", implode('&amp;', $sort_params));
+
+		unset($search_params, $sort_params);
 
 		// Some search user specific data
 		if (($mode == '' || $mode == 'searchuser') && ($config['load_search'] || $auth->acl_get('a_')))
@@ -1469,19 +1572,58 @@ switch ($mode)
 			// Do the SQL thang
 			if ($mode == 'group')
 			{
-				$sql = "SELECT u.*
-						$sql_select
-					FROM " . USERS_TABLE . " u
-						$sql_from
-					WHERE " . $db->sql_in_set('u.user_id', $user_list) . "
-						$sql_where_data";
+				$sql_from_ary = explode(',', $sql_from);
+				$extra_tables = [];
+				foreach ($sql_from_ary as $entry)
+				{
+					$table_data = explode(' ', trim($entry));
+
+					if (empty($table_data[0]) || empty($table_data[1]))
+					{
+						continue;
+					}
+
+					$extra_tables[$table_data[0]] = $table_data[1];
+				}
+
+				$sql_array = array(
+					'SELECT'	=> 'u.*' . $sql_select,
+					'FROM'		=> array_merge([USERS_TABLE => 'u'], $extra_tables),
+					'WHERE'		=> $db->sql_in_set('u.user_id', $user_list) . $sql_where_data . '',
+				);
 			}
 			else
 			{
-				$sql = 'SELECT *
-					FROM ' . USERS_TABLE . '
-					WHERE ' . $db->sql_in_set('user_id', $user_list);
+				$sql_array = array(
+					'SELECT'	=> 'u.*',
+					'FROM'		=> array(
+						USERS_TABLE		=> 'u'
+					),
+					'WHERE'		=> $db->sql_in_set('u.user_id', $user_list),
+				);
 			}
+
+			/**
+			 * Modify user data SQL before member row is created
+			 *
+			 * @event core.memberlist_modify_memberrow_sql
+			 * @var string	mode				Memberlist mode
+			 * @var string	sql_select			Additional select statement
+			 * @var string	sql_from			Additional from statement
+			 * @var array	sql_array			Array containing the main query
+			 * @var array	user_list			Array containing list of users
+			 * @since 3.2.6-RC1
+			 */
+			$vars = array(
+				'mode',
+				'sql_select',
+				'sql_from',
+				'sql_array',
+				'user_list',
+			);
+			extract($phpbb_dispatcher->trigger_event('core.memberlist_modify_memberrow_sql', compact($vars)));
+
+			$sql = $db->sql_build_query('SELECT', $sql_array);
 			$result = $db->sql_query($sql);
 
 			$id_cache = array();
@@ -1492,9 +1634,10 @@ switch ($mode)
 
 				$id_cache[$row['user_id']] = $row;
 			}
+
 			$db->sql_freeresult($result);
 
-			// Load custom profile fields
+			// Load custom profile fields if required
 			if ($config['load_cpf_memberlist'])
 			{
 				// Grab all profile fields from users in id cache for later use - similar to the poster cache

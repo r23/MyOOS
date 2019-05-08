@@ -317,6 +317,7 @@ $lang = array_merge($lang, array(
 	'IMPORTANT_NEWS'			=> 'Wichtige Bekanntmachungen',
 	'INVALID_USER_BIRTHDAY'			=> 'Der angegebene Geburtstag ist kein gültiges Datum.',
 	'INVALID_CHARS_USERNAME'	=> 'Der Benutzername enthält unzulässige Zeichen.',
+	'INVALID_EMOJIS_USERNAME'	=> 'Der Benutzername enthält unzulässige Zeichen (Emojis).',
 	'INVALID_CHARS_NEW_PASSWORD'=> 'Das Passwort enthält nicht die erforderlichen Zeichen.',
 	'ITEMS_REQUIRED'			=> 'Die mit * markierten Felder sind erforderlich und müssen ausgefüllt werden.',
 
@@ -347,6 +348,7 @@ $lang = array_merge($lang, array(
 	'MESSAGE_EDITED'				=> 'Nachricht erfolgreich geändert.',
 	'MESSAGE_HISTORY'				=> 'Nachrichten-Verlauf',
 	'MESSAGE_REMOVED_FROM_OUTBOX'	=> 'Diese Nachricht wurde von ihrem Autor gelöscht.',
+	'MESSAGE_REPORTED_MESSAGE'		=> 'Gemeldete Nachricht',
 	'MESSAGE_SENT_ON'				=> 'am',
 	'MESSAGE_STORED'				=> 'Die Nachricht wurde erfolgreich gesendet.',
 	'MESSAGE_TO'					=> 'An',
@@ -580,7 +582,7 @@ $lang = array_merge($lang, array(
 
 	'UCP_PREFS'					=> 'Einstellungen',
 	'UCP_PREFS_PERSONAL'		=> 'Persönliche Einstellungen',
-	'UCP_PREFS_POST'			=> 'Nachrichten erstellen',
+	'UCP_PREFS_POST'			=> 'Beitragsoptionen ändern',
 	'UCP_PREFS_VIEW'			=> 'Anzeigeoptionen ändern',
 
 	'UCP_PM'					=> 'Private Nachrichten',

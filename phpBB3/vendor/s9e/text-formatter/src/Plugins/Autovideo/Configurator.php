@@ -2,7 +2,7 @@
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Plugins\Autovideo;
@@ -21,7 +21,7 @@ class Configurator extends ConfiguratorBase
 		$tag = $this->configurator->tags->add($this->tagName);
 		$filter = $this->configurator->attributeFilters['#url'];
 		$tag->attributes->add($this->attrName)->filterChain->append($filter);
-		$tag->template = '<video src="{@' . $this->attrName . '}"/>';
+		$tag->template = '<video controls="" src="{@' . $this->attrName . '}"/>';
 		$tag->rules->allowChild('URL');
 	}
 }

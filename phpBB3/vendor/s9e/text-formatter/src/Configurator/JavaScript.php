@@ -2,7 +2,7 @@
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator;
@@ -27,7 +27,8 @@ class JavaScript
 	protected $configOptimizer;
 	protected $configurator;
 	public $encoder;
-	public $exportMethods = [
+	public $exportMethods;
+	public $exports = [
 		'disablePlugin',
 		'disableTag',
 		'enablePlugin',
@@ -35,6 +36,7 @@ class JavaScript
 		'getLogger',
 		'parse',
 		'preview',
+		'registeredVars',
 		'setNestingLimit',
 		'setParameter',
 		'setTagLimit'
@@ -45,6 +47,7 @@ class JavaScript
 	protected $xsl;
 	public function __construct(Configurator $configurator)
 	{
+		$this->exportMethods =& $this->exports;
 		$this->encoder              = new Encoder;
 		$this->callbackGenerator    = new CallbackGenerator;
 		$this->configOptimizer      = new ConfigOptimizer($this->encoder);
@@ -96,12 +99,13 @@ class JavaScript
 	}
 	protected function getExports()
 	{
-		if (empty($this->exportMethods))
+		if (empty($this->exports))
 			return '';
-		$methods = [];
-		foreach ($this->exportMethods as $method)
-			$methods[] = "'" . $method . "':" . $method;
-		return "window['s9e']['TextFormatter'] = {" . \implode(',', $methods) . '}';
+		$exports = [];
+		foreach ($this->exports as $export)
+			$exports[] = "'" . $export . "':" . $export;
+		\sort($exports);
+		return "window['s9e']['TextFormatter'] = {" . \implode(',', $exports) . '}';
 	}
 	protected function getHints()
 	{
@@ -173,13 +177,14 @@ class JavaScript
 	{
 		$rootDir = __DIR__ . '/..';
 		$src     = '';
-		$logger = (\in_array('getLogger', $this->exportMethods)) ? 'Logger.js' : 'NullLogger.js';
+		$logger = (\in_array('getLogger', $this->exports)) ? 'Logger.js' : 'NullLogger.js';
 		$files   = \glob($rootDir . '/Parser/AttributeFilters/*.js');
 		$files[] = $rootDir . '/Parser/utils.js';
+		$files[] = $rootDir . '/Parser/FilterProcessing.js';
 		$files[] = $rootDir . '/Parser/' . $logger;
 		$files[] = $rootDir . '/Parser/Tag.js';
 		$files[] = $rootDir . '/Parser.js';
-		if (\in_array('preview', $this->exportMethods, \true))
+		if (\in_array('preview', $this->exports, \true))
 		{
 			$files[] = $rootDir . '/render.js';
 			$src .= '/** @const */ var xsl=' . $this->getStylesheet() . ";\n";

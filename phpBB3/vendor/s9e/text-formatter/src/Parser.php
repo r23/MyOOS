@@ -2,12 +2,13 @@
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter;
 use InvalidArgumentException;
 use RuntimeException;
+use s9e\TextFormatter\Parser\FilterProcessing;
 use s9e\TextFormatter\Parser\Logger;
 use s9e\TextFormatter\Parser\Tag;
 class Parser
@@ -70,6 +71,8 @@ class Parser
 	}
 	protected function reset($text)
 	{
+		if (!\preg_match('//u', $text))
+			throw new InvalidArgumentException('Invalid UTF-8 input');
 		$text = \preg_replace('/\\r\\n?/', "\n", $text);
 		$text = \preg_replace('/[\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F]+/S', '', $text);
 		$this->logger->clear();
@@ -139,139 +142,6 @@ class Parser
 	{
 		$this->setTagOption($tagName, 'nestingLimit', $nestingLimit);
 	}
-	public static function executeAttributePreprocessors(Tag $tag, array $tagConfig)
-	{
-		if (!empty($tagConfig['attributePreprocessors']))
-			foreach ($tagConfig['attributePreprocessors'] as $_5f417eec)
-			{
-				list($attrName, $regexp, $map) = $_5f417eec;
-				if (!$tag->hasAttribute($attrName))
-					continue;
-				self::executeAttributePreprocessor($tag, $attrName, $regexp, $map);
-			}
-		return \true;
-	}
-	protected static function executeAttributePreprocessor(Tag $tag, $attrName, $regexp, $map)
-	{
-		$attrValue = $tag->getAttribute($attrName);
-		$captures  = self::getNamedCaptures($attrValue, $regexp, $map);
-		foreach ($captures as $k => $v)
-			if ($k === $attrName || !$tag->hasAttribute($k))
-				$tag->setAttribute($k, $v);
-	}
-	protected static function getNamedCaptures($attrValue, $regexp, $map)
-	{
-		if (!\preg_match($regexp, $attrValue, $m))
-			return [];
-		$values = [];
-		foreach ($map as $i => $k)
-			if (isset($m[$i]) && $m[$i] !== '')
-				$values[$k] = $m[$i];
-		return $values;
-	}
-	protected static function executeFilter(array $filter, array $vars)
-	{
-		$callback = $filter['callback'];
-		$params   = (isset($filter['params'])) ? $filter['params'] : [];
-		$args = [];
-		foreach ($params as $k => $v)
-			if (\is_numeric($k))
-				$args[] = $v;
-			elseif (isset($vars[$k]))
-				$args[] = $vars[$k];
-			elseif (isset($vars['registeredVars'][$k]))
-				$args[] = $vars['registeredVars'][$k];
-			else
-				$args[] = \null;
-		return \call_user_func_array($callback, $args);
-	}
-	public static function filterAttributes(Tag $tag, array $tagConfig, array $registeredVars, Logger $logger)
-	{
-		if (empty($tagConfig['attributes']))
-		{
-			$tag->setAttributes([]);
-			return \true;
-		}
-		foreach ($tagConfig['attributes'] as $attrName => $attrConfig)
-			if (isset($attrConfig['generator']))
-				$tag->setAttribute(
-					$attrName,
-					self::executeFilter(
-						$attrConfig['generator'],
-						[
-							'attrName'       => $attrName,
-							'logger'         => $logger,
-							'registeredVars' => $registeredVars
-						]
-					)
-				);
-		foreach ($tag->getAttributes() as $attrName => $attrValue)
-		{
-			if (!isset($tagConfig['attributes'][$attrName]))
-			{
-				$tag->removeAttribute($attrName);
-				continue;
-			}
-			$attrConfig = $tagConfig['attributes'][$attrName];
-			if (!isset($attrConfig['filterChain']))
-				continue;
-			$logger->setAttribute($attrName);
-			foreach ($attrConfig['filterChain'] as $filter)
-			{
-				$attrValue = self::executeFilter(
-					$filter,
-					[
-						'attrName'       => $attrName,
-						'attrValue'      => $attrValue,
-						'logger'         => $logger,
-						'registeredVars' => $registeredVars
-					]
-				);
-				if ($attrValue === \false)
-				{
-					$tag->removeAttribute($attrName);
-					break;
-				}
-			}
-			if ($attrValue !== \false)
-				$tag->setAttribute($attrName, $attrValue);
-			$logger->unsetAttribute();
-		}
-		foreach ($tagConfig['attributes'] as $attrName => $attrConfig)
-			if (!$tag->hasAttribute($attrName))
-				if (isset($attrConfig['defaultValue']))
-					$tag->setAttribute($attrName, $attrConfig['defaultValue']);
-				elseif (!empty($attrConfig['required']))
-					return \false;
-		return \true;
-	}
-	protected function filterTag(Tag $tag)
-	{
-		$tagName   = $tag->getName();
-		$tagConfig = $this->tagsConfig[$tagName];
-		$isValid   = \true;
-		if (!empty($tagConfig['filterChain']))
-		{
-			$this->logger->setTag($tag);
-			$vars = [
-				'logger'         => $this->logger,
-				'openTags'       => $this->openTags,
-				'parser'         => $this,
-				'registeredVars' => $this->registeredVars,
-				'tag'            => $tag,
-				'tagConfig'      => $tagConfig,
-				'text'           => $this->text
-			];
-			foreach ($tagConfig['filterChain'] as $filter)
-				if (!self::executeFilter($filter, $vars))
-				{
-					$isValid = \false;
-					break;
-				}
-			$this->logger->unsetTag();
-		}
-		return $isValid;
-	}
 	protected function finalizeOutput()
 	{
 		$this->outputText($this->textLen, 0, \true);
@@ -282,6 +152,7 @@ class Parser
 		while ($cnt > 0);
 		if (\strpos($this->output, '</i><i>') !== \false)
 			$this->output = \str_replace('</i><i>', '', $this->output);
+		$this->output = \preg_replace('([\\x00-\\x08\\x0B-\\x1F])', '', $this->output);
 		$this->output = Utils::encodeUnicodeSupplementaryCharacters($this->output);
 		$tagName = ($this->isRich) ? 'r' : 't';
 		$tmp = '<' . $tagName;
@@ -381,7 +252,7 @@ class Parser
 			$catchupLen  = $catchupPos - $this->pos;
 			$catchupText = \substr($this->text, $this->pos, $catchupLen);
 			if (\strspn($catchupText, " \n\t") < $catchupLen)
-				$catchupText = '<i>' . $catchupText . '</i>';
+				$catchupText = '<i>' . \htmlspecialchars($catchupText, \ENT_NOQUOTES, 'UTF-8') . '</i>';
 			$this->output .= $catchupText;
 			$this->pos = $catchupPos;
 			if ($closeParagraph)
@@ -782,11 +653,9 @@ class Parser
 			$tag->invalidate();
 			return;
 		}
-		if (!$this->filterTag($tag))
-		{
-			$tag->invalidate();
+		FilterProcessing::filterTag($tag, $this, $this->tagsConfig, $this->openTags);
+		if ($tag->isInvalid())
 			return;
-		}
 		if ($this->currentFixingCost < $this->maxFixingCost)
 			if ($this->fosterParent($tag) || $this->closeParent($tag) || $this->closeAncestor($tag))
 				return;
@@ -990,7 +859,8 @@ class Parser
 		$tag = new Tag($type, $name, $pos, $len, $prio);
 		if (isset($this->tagsConfig[$name]))
 			$tag->setFlags($this->tagsConfig[$name]['rules']['flags']);
-		if (!isset($this->tagsConfig[$name]) && !$tag->isSystemTag())
+		if ((!isset($this->tagsConfig[$name]) && !$tag->isSystemTag())
+		 || $this->isInvalidTextSpan($pos, $len))
 			$tag->invalidate();
 		elseif (!empty($this->tagsConfig[$name]['isDisabled']))
 		{
@@ -1003,11 +873,13 @@ class Parser
 			);
 			$tag->invalidate();
 		}
-		elseif ($len < 0 || $pos < 0 || $pos + $len > $this->textLen)
-			$tag->invalidate();
 		else
 			$this->insertTag($tag);
 		return $tag;
+	}
+	protected function isInvalidTextSpan($pos, $len)
+	{
+		return ($len < 0 || $pos < 0 || $pos + $len > $this->textLen || \preg_match('([\\x80-\\xBF])', \substr($this->text, $pos, 1) . \substr($this->text, $pos + $len, 1)));
 	}
 	protected function insertTag(Tag $tag)
 	{

@@ -327,6 +327,7 @@ $lang = array_merge($lang, array(
 	'TOTAL_SIZE'			=> 'Gesamtgröße',
 
 	'UCP'					=> 'Persönlicher Bereich',
+	'URL_INVALID'			=> 'Die für die Einstellung „%1$s“ angegebene URL ist ungültig.',
 	'USERNAMES_EXPLAIN'		=> 'Verwende für jeden Benutzernamen eine neue Zeile.',
 	'USER_CONTROL_PANEL'	=> 'Persönlicher Bereich',
 

@@ -2,7 +2,7 @@
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter;
@@ -115,7 +115,6 @@ class Configurator implements ConfigProvider
 	}
 	public function asConfig()
 	{
-		$this->plugins->finalize();
 		$properties = \get_object_vars($this);
 		unset($properties['attributeFilters']);
 		unset($properties['bundleGenerator']);
@@ -152,7 +151,7 @@ class Configurator implements ConfigProvider
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator;
@@ -182,7 +181,7 @@ class BundleGenerator
 		$php = [];
 		$php[] = '/**';
 		$php[] = '* @package   s9e\TextFormatter';
-		$php[] = '* @copyright Copyright (c) 2010-2017 The s9e Authors';
+		$php[] = '* @copyright Copyright (c) 2010-2019 The s9e Authors';
 		$php[] = '* @license   http://www.opensource.org/licenses/mit-license.php The MIT License';
 		$php[] = '*/';
 		if ($namespace)
@@ -298,7 +297,7 @@ class BundleGenerator
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator;
@@ -309,7 +308,7 @@ interface ConfigProvider
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator;
@@ -320,7 +319,7 @@ interface FilterableConfigValue
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\Helpers;
@@ -330,52 +329,15 @@ abstract class AVTHelper
 {
 	public static function parse($attrValue)
 	{
+		\preg_match_all('(\\{\\{|\\{(?:[^\'"}]|\'[^\']*\'|"[^"]*")+\\}|\\{|[^{]++)', $attrValue, $matches);
 		$tokens  = [];
-		$attrLen = \strlen($attrValue);
-		$pos = 0;
-		while ($pos < $attrLen)
-		{
-			if ($attrValue[$pos] === '{')
-			{
-				if (\substr($attrValue, $pos, 2) === '{{')
-				{
-					$tokens[] = ['literal', '{'];
-					$pos += 2;
-					continue;
-				}
-				++$pos;
-				$expr = '';
-				while ($pos < $attrLen)
-				{
-					$spn = \strcspn($attrValue, '\'"}', $pos);
-					if ($spn)
-					{
-						$expr .= \substr($attrValue, $pos, $spn);
-						$pos += $spn;
-					}
-					if ($pos >= $attrLen)
-						throw new RuntimeException('Unterminated XPath expression');
-					$c = $attrValue[$pos];
-					++$pos;
-					if ($c === '}')
-						break;
-					$quotePos = \strpos($attrValue, $c, $pos);
-					if ($quotePos === \false)
-						throw new RuntimeException('Unterminated XPath expression');
-					$expr .= $c . \substr($attrValue, $pos, $quotePos + 1 - $pos);
-					$pos = 1 + $quotePos;
-				}
-				$tokens[] = ['expression', $expr];
-			}
-			$spn = \strcspn($attrValue, '{', $pos);
-			if ($spn)
-			{
-				$str = \substr($attrValue, $pos, $spn);
-				$str = \str_replace('}}', '}', $str);
-				$tokens[] = ['literal', $str];
-				$pos += $spn;
-			}
-		}
+		foreach ($matches[0] as $str)
+			if ($str === '{{' || $str === '{')
+				$tokens[] = ['literal', '{'];
+			elseif ($str[0] === '{')
+				$tokens[] = ['expression', \substr($str, 1, -1)];
+			else
+				$tokens[] = ['literal', \str_replace('}}', '}', $str)];
 		return $tokens;
 	}
 	public static function replace(DOMAttr $attribute, callable $callback)
@@ -416,7 +378,7 @@ abstract class AVTHelper
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\Helpers;
@@ -521,7 +483,7 @@ class CharacterClassBuilder
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\Helpers;
@@ -622,7 +584,7 @@ abstract class ConfigHelper
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\Helpers;
@@ -633,113 +595,109 @@ class ElementInspector
 	protected static $htmlElements = [
 		'a'=>['c'=>"\17\0\0\0\0\1",'c3'=>'@href','ac'=>"\0",'dd'=>"\10\0\0\0\0\1",'t'=>1,'fe'=>1],
 		'abbr'=>['c'=>"\7",'ac'=>"\4",'dd'=>"\0"],
-		'address'=>['c'=>"\3\40",'ac'=>"\1",'dd'=>"\0\45",'b'=>1,'cp'=>['p']],
-		'article'=>['c'=>"\3\4",'ac'=>"\1",'dd'=>"\0",'b'=>1,'cp'=>['p']],
+		'address'=>['c'=>"\3\40",'ac'=>"\1",'dd'=>"\200\44",'b'=>1,'cp'=>['p']],
+		'article'=>['c'=>"\3\4",'ac'=>"\1",'dd'=>"\0\0\0\0\10",'b'=>1,'cp'=>['p']],
 		'aside'=>['c'=>"\3\4",'ac'=>"\1",'dd'=>"\0\0\0\0\10",'b'=>1,'cp'=>['p']],
 		'audio'=>['c'=>"\57",'c3'=>'@controls','c1'=>'@controls','ac'=>"\0\0\0\104",'ac26'=>'not(@src)','dd'=>"\0\0\0\0\0\2",'dd41'=>'@src','t'=>1],
 		'b'=>['c'=>"\7",'ac'=>"\4",'dd'=>"\0",'fe'=>1],
-		'base'=>['c'=>"\20",'ac'=>"\0",'dd'=>"\0",'nt'=>1,'e'=>1,'v'=>1,'b'=>1],
+		'base'=>['c'=>"\100",'ac'=>"\0",'dd'=>"\0",'nt'=>1,'e'=>1,'v'=>1,'b'=>1],
 		'bdi'=>['c'=>"\7",'ac'=>"\4",'dd'=>"\0"],
 		'bdo'=>['c'=>"\7",'ac'=>"\4",'dd'=>"\0"],
-		'blockquote'=>['c'=>"\203",'ac'=>"\1",'dd'=>"\0",'b'=>1,'cp'=>['p']],
-		'body'=>['c'=>"\200\0\4",'ac'=>"\1",'dd'=>"\0",'b'=>1],
+		'blockquote'=>['c'=>"\23",'ac'=>"\1",'dd'=>"\0",'b'=>1,'cp'=>['p']],
+		'body'=>['c'=>"\20\0\2",'ac'=>"\1",'dd'=>"\0",'b'=>1],
 		'br'=>['c'=>"\5",'ac'=>"\0",'dd'=>"\0",'nt'=>1,'e'=>1,'v'=>1],
-		'button'=>['c'=>"\117",'ac'=>"\4",'dd'=>"\10"],
-		'canvas'=>['c'=>"\47",'ac'=>"\0",'dd'=>"\0",'t'=>1],
+		'button'=>['c'=>"\17\1",'ac'=>"\4",'dd'=>"\10"],
 		'caption'=>['c'=>"\0\2",'ac'=>"\1",'dd'=>"\0\0\0\200",'b'=>1],
 		'cite'=>['c'=>"\7",'ac'=>"\4",'dd'=>"\0"],
 		'code'=>['c'=>"\7",'ac'=>"\4",'dd'=>"\0",'fe'=>1],
-		'col'=>['c'=>"\0\0\20",'ac'=>"\0",'dd'=>"\0",'nt'=>1,'e'=>1,'v'=>1,'b'=>1],
-		'colgroup'=>['c'=>"\0\2",'ac'=>"\0\0\20",'ac20'=>'not(@span)','dd'=>"\0",'nt'=>1,'e'=>1,'e?'=>'@span','b'=>1],
+		'col'=>['c'=>"\0\0\10",'ac'=>"\0",'dd'=>"\0",'nt'=>1,'e'=>1,'v'=>1,'b'=>1],
+		'colgroup'=>['c'=>"\0\2",'ac'=>"\0\0\10",'ac19'=>'not(@span)','dd'=>"\0",'nt'=>1,'e'=>1,'e?'=>'@span','b'=>1],
 		'data'=>['c'=>"\7",'ac'=>"\4",'dd'=>"\0"],
-		'datalist'=>['c'=>"\5",'ac'=>"\4\200\0\10",'dd'=>"\0"],
-		'dd'=>['c'=>"\0\0\200",'ac'=>"\1",'dd'=>"\0",'b'=>1,'cp'=>['dd','dt']],
+		'datalist'=>['c'=>"\5",'ac'=>"\4\0\200\10",'dd'=>"\0"],
+		'dd'=>['c'=>"\0\100\100",'ac'=>"\1",'dd'=>"\0",'b'=>1,'cp'=>['dd','dt']],
 		'del'=>['c'=>"\5",'ac'=>"\0",'dd'=>"\0",'t'=>1],
-		'details'=>['c'=>"\213",'ac'=>"\1\0\0\2",'dd'=>"\0",'b'=>1,'cp'=>['p']],
+		'details'=>['c'=>"\33",'ac'=>"\1\0\0\2",'dd'=>"\0",'b'=>1,'cp'=>['p']],
 		'dfn'=>['c'=>"\7\0\0\0\40",'ac'=>"\4",'dd'=>"\0\0\0\0\40"],
-		'div'=>['c'=>"\3",'ac'=>"\1",'dd'=>"\0",'b'=>1,'cp'=>['p']],
-		'dl'=>['c'=>"\3",'c1'=>'dt and dd','ac'=>"\0\200\200",'dd'=>"\0",'nt'=>1,'b'=>1,'cp'=>['p']],
-		'dt'=>['c'=>"\0\0\200",'ac'=>"\1",'dd'=>"\0\5\0\40",'b'=>1,'cp'=>['dd','dt']],
+		'dialog'=>['c'=>"\21",'ac'=>"\1",'dd'=>"\0",'b'=>1],
+		'div'=>['c'=>"\3\100",'ac'=>"\1\0\300",'ac0'=>'not(ancestor::dl)','dd'=>"\0",'b'=>1,'cp'=>['p']],
+		'dl'=>['c'=>"\3",'c1'=>'dt and dd','ac'=>"\0\100\200",'dd'=>"\0",'nt'=>1,'b'=>1,'cp'=>['p']],
+		'dt'=>['c'=>"\0\100\100",'ac'=>"\1",'dd'=>"\200\4\0\40",'b'=>1,'cp'=>['dd','dt']],
 		'em'=>['c'=>"\7",'ac'=>"\4",'dd'=>"\0",'fe'=>1],
 		'embed'=>['c'=>"\57",'ac'=>"\0",'dd'=>"\0",'nt'=>1,'e'=>1,'v'=>1],
-		'fieldset'=>['c'=>"\303",'ac'=>"\1\0\0\20",'dd'=>"\0",'b'=>1,'cp'=>['p']],
+		'fieldset'=>['c'=>"\23\1",'ac'=>"\1\0\0\20",'dd'=>"\0",'b'=>1,'cp'=>['p']],
 		'figcaption'=>['c'=>"\0\0\0\0\0\4",'ac'=>"\1",'dd'=>"\0",'b'=>1,'cp'=>['p']],
-		'figure'=>['c'=>"\203",'ac'=>"\1\0\0\0\0\4",'dd'=>"\0",'b'=>1,'cp'=>['p']],
+		'figure'=>['c'=>"\23",'ac'=>"\1\0\0\0\0\4",'dd'=>"\0",'b'=>1,'cp'=>['p']],
 		'footer'=>['c'=>"\3\40",'ac'=>"\1",'dd'=>"\0\0\0\0\10",'b'=>1,'cp'=>['p']],
 		'form'=>['c'=>"\3\0\0\0\20",'ac'=>"\1",'dd'=>"\0\0\0\0\20",'b'=>1,'cp'=>['p']],
-		'h1'=>['c'=>"\3\1",'ac'=>"\4",'dd'=>"\0",'b'=>1,'cp'=>['p']],
-		'h2'=>['c'=>"\3\1",'ac'=>"\4",'dd'=>"\0",'b'=>1,'cp'=>['p']],
-		'h3'=>['c'=>"\3\1",'ac'=>"\4",'dd'=>"\0",'b'=>1,'cp'=>['p']],
-		'h4'=>['c'=>"\3\1",'ac'=>"\4",'dd'=>"\0",'b'=>1,'cp'=>['p']],
-		'h5'=>['c'=>"\3\1",'ac'=>"\4",'dd'=>"\0",'b'=>1,'cp'=>['p']],
-		'h6'=>['c'=>"\3\1",'ac'=>"\4",'dd'=>"\0",'b'=>1,'cp'=>['p']],
-		'head'=>['c'=>"\0\0\4",'ac'=>"\20",'dd'=>"\0",'nt'=>1,'b'=>1],
+		'h1'=>['c'=>"\203",'ac'=>"\4",'dd'=>"\0",'b'=>1,'cp'=>['p']],
+		'h2'=>['c'=>"\203",'ac'=>"\4",'dd'=>"\0",'b'=>1,'cp'=>['p']],
+		'h3'=>['c'=>"\203",'ac'=>"\4",'dd'=>"\0",'b'=>1,'cp'=>['p']],
+		'h4'=>['c'=>"\203",'ac'=>"\4",'dd'=>"\0",'b'=>1,'cp'=>['p']],
+		'h5'=>['c'=>"\203",'ac'=>"\4",'dd'=>"\0",'b'=>1,'cp'=>['p']],
+		'h6'=>['c'=>"\203",'ac'=>"\4",'dd'=>"\0",'b'=>1,'cp'=>['p']],
+		'head'=>['c'=>"\0\0\2",'ac'=>"\100",'dd'=>"\0",'nt'=>1,'b'=>1],
 		'header'=>['c'=>"\3\40\0\40",'ac'=>"\1",'dd'=>"\0\0\0\0\10",'b'=>1,'cp'=>['p']],
-		'hr'=>['c'=>"\1\100",'ac'=>"\0",'dd'=>"\0",'nt'=>1,'e'=>1,'v'=>1,'b'=>1,'cp'=>['p']],
-		'html'=>['c'=>"\0",'ac'=>"\0\0\4",'dd'=>"\0",'nt'=>1,'b'=>1],
+		'hr'=>['c'=>"\1",'ac'=>"\0",'dd'=>"\0",'nt'=>1,'e'=>1,'v'=>1,'b'=>1,'cp'=>['p']],
+		'html'=>['c'=>"\0",'ac'=>"\0\0\2",'dd'=>"\0",'nt'=>1,'b'=>1],
 		'i'=>['c'=>"\7",'ac'=>"\4",'dd'=>"\0",'fe'=>1],
 		'iframe'=>['c'=>"\57",'ac'=>"\4",'dd'=>"\0"],
-		'img'=>['c'=>"\57\20\10",'c3'=>'@usemap','ac'=>"\0",'dd'=>"\0",'nt'=>1,'e'=>1,'v'=>1],
+		'img'=>['c'=>"\57\20\4",'c3'=>'@usemap','ac'=>"\0",'dd'=>"\0",'nt'=>1,'e'=>1,'v'=>1],
 		'input'=>['c'=>"\17\20",'c3'=>'@type!="hidden"','c12'=>'@type!="hidden" or @type="hidden"','c1'=>'@type!="hidden"','ac'=>"\0",'dd'=>"\0",'nt'=>1,'e'=>1,'v'=>1],
 		'ins'=>['c'=>"\7",'ac'=>"\0",'dd'=>"\0",'t'=>1],
 		'kbd'=>['c'=>"\7",'ac'=>"\4",'dd'=>"\0"],
-		'keygen'=>['c'=>"\117",'ac'=>"\0",'dd'=>"\0",'nt'=>1,'e'=>1,'v'=>1],
-		'label'=>['c'=>"\17\20\0\0\4",'ac'=>"\4",'dd'=>"\0\0\1\0\4"],
-		'legend'=>['c'=>"\0\0\0\20",'ac'=>"\4",'dd'=>"\0",'b'=>1],
+		'label'=>['c'=>"\17\20\0\0\4",'ac'=>"\4",'dd'=>"\0\200\0\0\4"],
+		'legend'=>['c'=>"\0\0\0\20",'ac'=>"\204",'dd'=>"\0",'b'=>1],
 		'li'=>['c'=>"\0\0\0\0\200",'ac'=>"\1",'dd'=>"\0",'b'=>1,'cp'=>['li']],
-		'link'=>['c'=>"\20",'ac'=>"\0",'dd'=>"\0",'nt'=>1,'e'=>1,'v'=>1,'b'=>1],
+		'link'=>['c'=>"\105",'ac'=>"\0",'dd'=>"\0",'nt'=>1,'e'=>1,'v'=>1],
 		'main'=>['c'=>"\3\0\0\0\10",'ac'=>"\1",'dd'=>"\0",'b'=>1,'cp'=>['p']],
 		'mark'=>['c'=>"\7",'ac'=>"\4",'dd'=>"\0"],
 		'media element'=>['c'=>"\0\0\0\0\0\2",'ac'=>"\0",'dd'=>"\0",'nt'=>1,'b'=>1],
-		'menu'=>['c'=>"\1\100",'ac'=>"\0\300",'dd'=>"\0",'nt'=>1,'b'=>1,'cp'=>['p']],
-		'menuitem'=>['c'=>"\0\100",'ac'=>"\0",'dd'=>"\0",'nt'=>1,'e'=>1,'v'=>1,'b'=>1],
-		'meta'=>['c'=>"\20",'ac'=>"\0",'dd'=>"\0",'nt'=>1,'e'=>1,'v'=>1,'b'=>1],
-		'meter'=>['c'=>"\7\0\1\0\2",'ac'=>"\4",'dd'=>"\0\0\0\0\2"],
+		'meta'=>['c'=>"\100",'ac'=>"\0",'dd'=>"\0",'nt'=>1,'e'=>1,'v'=>1,'b'=>1],
+		'meter'=>['c'=>"\7\200\0\0\2",'ac'=>"\4",'dd'=>"\0\0\0\0\2"],
 		'nav'=>['c'=>"\3\4",'ac'=>"\1",'dd'=>"\0\0\0\0\10",'b'=>1,'cp'=>['p']],
-		'noscript'=>['c'=>"\25",'ac'=>"\0",'dd'=>"\0",'nt'=>1],
-		'object'=>['c'=>"\147",'ac'=>"\0\0\0\0\1",'dd'=>"\0",'t'=>1],
-		'ol'=>['c'=>"\3",'c1'=>'li','ac'=>"\0\200\0\0\200",'dd'=>"\0",'nt'=>1,'b'=>1,'cp'=>['p']],
-		'optgroup'=>['c'=>"\0\0\2",'ac'=>"\0\200\0\10",'dd'=>"\0",'nt'=>1,'b'=>1,'cp'=>['optgroup','option']],
-		'option'=>['c'=>"\0\0\2\10",'ac'=>"\0",'dd'=>"\0",'b'=>1,'cp'=>['option']],
-		'output'=>['c'=>"\107",'ac'=>"\4",'dd'=>"\0"],
+		'object'=>['c'=>"\47\1",'ac'=>"\0\0\0\0\1",'dd'=>"\0",'t'=>1],
+		'ol'=>['c'=>"\3",'c1'=>'li','ac'=>"\0\0\200\0\200",'dd'=>"\0",'nt'=>1,'b'=>1,'cp'=>['p']],
+		'optgroup'=>['c'=>"\0\0\1",'ac'=>"\0\0\200\10",'dd'=>"\0",'nt'=>1,'b'=>1,'cp'=>['optgroup','option']],
+		'option'=>['c'=>"\0\0\1\10",'ac'=>"\0",'dd'=>"\0",'b'=>1,'cp'=>['option']],
+		'output'=>['c'=>"\7\1",'ac'=>"\4",'dd'=>"\0"],
 		'p'=>['c'=>"\3",'ac'=>"\4",'dd'=>"\0",'b'=>1,'cp'=>['p']],
 		'param'=>['c'=>"\0\0\0\0\1",'ac'=>"\0",'dd'=>"\0",'nt'=>1,'e'=>1,'v'=>1,'b'=>1],
-		'picture'=>['c'=>"\45",'ac'=>"\0\200\10",'dd'=>"\0",'nt'=>1],
+		'picture'=>['c'=>"\45",'ac'=>"\0\0\204",'dd'=>"\0",'nt'=>1],
 		'pre'=>['c'=>"\3",'ac'=>"\4",'dd'=>"\0",'pre'=>1,'b'=>1,'cp'=>['p']],
-		'progress'=>['c'=>"\7\0\1\1",'ac'=>"\4",'dd'=>"\0\0\0\1"],
+		'progress'=>['c'=>"\7\200\0\1",'ac'=>"\4",'dd'=>"\0\0\0\1"],
 		'q'=>['c'=>"\7",'ac'=>"\4",'dd'=>"\0"],
 		'rb'=>['c'=>"\0\10",'ac'=>"\4",'dd'=>"\0",'b'=>1],
-		'rp'=>['c'=>"\0\10\100",'ac'=>"\4",'dd'=>"\0",'b'=>1,'cp'=>['rp','rt']],
-		'rt'=>['c'=>"\0\10\100",'ac'=>"\4",'dd'=>"\0",'b'=>1,'cp'=>['rp','rt']],
-		'rtc'=>['c'=>"\0\10",'ac'=>"\4\0\100",'dd'=>"\0",'b'=>1],
+		'rp'=>['c'=>"\0\10\40",'ac'=>"\4",'dd'=>"\0",'b'=>1,'cp'=>['rp','rt']],
+		'rt'=>['c'=>"\0\10\40",'ac'=>"\4",'dd'=>"\0",'b'=>1,'cp'=>['rp','rt']],
+		'rtc'=>['c'=>"\0\10",'ac'=>"\4\0\40",'dd'=>"\0",'b'=>1],
 		'ruby'=>['c'=>"\7",'ac'=>"\4\10",'dd'=>"\0"],
 		's'=>['c'=>"\7",'ac'=>"\4",'dd'=>"\0",'fe'=>1],
 		'samp'=>['c'=>"\7",'ac'=>"\4",'dd'=>"\0"],
-		'script'=>['c'=>"\25\200",'ac'=>"\0",'dd'=>"\0",'to'=>1],
+		'script'=>['c'=>"\105\0\200",'ac'=>"\0",'dd'=>"\0",'to'=>1],
 		'section'=>['c'=>"\3\4",'ac'=>"\1",'dd'=>"\0",'b'=>1,'cp'=>['p']],
-		'select'=>['c'=>"\117",'ac'=>"\0\200\2",'dd'=>"\0",'nt'=>1],
+		'select'=>['c'=>"\17\1",'ac'=>"\0\0\201",'dd'=>"\0",'nt'=>1],
 		'small'=>['c'=>"\7",'ac'=>"\4",'dd'=>"\0",'fe'=>1],
-		'source'=>['c'=>"\0\0\10\4",'ac'=>"\0",'dd'=>"\0",'nt'=>1,'e'=>1,'v'=>1,'b'=>1],
+		'source'=>['c'=>"\0\0\4\4",'ac'=>"\0",'dd'=>"\0",'nt'=>1,'e'=>1,'v'=>1,'b'=>1],
 		'span'=>['c'=>"\7",'ac'=>"\4",'dd'=>"\0"],
 		'strong'=>['c'=>"\7",'ac'=>"\4",'dd'=>"\0",'fe'=>1],
-		'style'=>['c'=>"\20",'ac'=>"\0",'dd'=>"\0",'to'=>1,'b'=>1],
+		'style'=>['c'=>"\101",'ac'=>"\0",'dd'=>"\0",'to'=>1,'b'=>1],
 		'sub'=>['c'=>"\7",'ac'=>"\4",'dd'=>"\0"],
-		'summary'=>['c'=>"\0\0\0\2",'ac'=>"\4\1",'dd'=>"\0",'b'=>1],
+		'summary'=>['c'=>"\0\0\0\2",'ac'=>"\204",'dd'=>"\0",'b'=>1],
 		'sup'=>['c'=>"\7",'ac'=>"\4",'dd'=>"\0"],
-		'table'=>['c'=>"\3\0\0\200",'ac'=>"\0\202",'dd'=>"\0",'nt'=>1,'b'=>1,'cp'=>['p']],
-		'tbody'=>['c'=>"\0\2",'ac'=>"\0\200\0\0\100",'dd'=>"\0",'nt'=>1,'b'=>1,'cp'=>['tbody','td','tfoot','th','thead','tr']],
-		'td'=>['c'=>"\200\0\40",'ac'=>"\1",'dd'=>"\0",'b'=>1,'cp'=>['td','th']],
-		'template'=>['c'=>"\25\200\20",'ac'=>"\0",'dd'=>"\0",'nt'=>1],
-		'textarea'=>['c'=>"\117",'ac'=>"\0",'dd'=>"\0",'pre'=>1,'to'=>1],
-		'tfoot'=>['c'=>"\0\2",'ac'=>"\0\200\0\0\100",'dd'=>"\0",'nt'=>1,'b'=>1,'cp'=>['tbody','td','th','thead','tr']],
-		'th'=>['c'=>"\0\0\40",'ac'=>"\1",'dd'=>"\0\5\0\40",'b'=>1,'cp'=>['td','th']],
-		'thead'=>['c'=>"\0\2",'ac'=>"\0\200\0\0\100",'dd'=>"\0",'nt'=>1,'b'=>1],
+		'table'=>['c'=>"\3\0\0\200",'ac'=>"\0\2\200",'dd'=>"\0",'nt'=>1,'b'=>1,'cp'=>['p']],
+		'tbody'=>['c'=>"\0\2",'ac'=>"\0\0\200\0\100",'dd'=>"\0",'nt'=>1,'b'=>1,'cp'=>['tbody','td','th','thead','tr']],
+		'td'=>['c'=>"\20\0\20",'ac'=>"\1",'dd'=>"\0",'b'=>1,'cp'=>['td','th']],
+		'template'=>['c'=>"\0\0\10",'ac'=>"\0",'dd'=>"\0",'nt'=>1,'b'=>1],
+		'textarea'=>['c'=>"\17\1",'ac'=>"\0",'dd'=>"\0",'pre'=>1,'to'=>1],
+		'tfoot'=>['c'=>"\0\2",'ac'=>"\0\0\200\0\100",'dd'=>"\0",'nt'=>1,'b'=>1,'cp'=>['tbody','td','th','thead','tr']],
+		'th'=>['c'=>"\0\0\20",'ac'=>"\1",'dd'=>"\200\4\0\40",'b'=>1,'cp'=>['td','th']],
+		'thead'=>['c'=>"\0\2",'ac'=>"\0\0\200\0\100",'dd'=>"\0",'nt'=>1,'b'=>1],
 		'time'=>['c'=>"\7",'ac'=>"\4",'ac2'=>'@datetime','dd'=>"\0"],
-		'title'=>['c'=>"\20",'ac'=>"\0",'dd'=>"\0",'to'=>1,'b'=>1],
-		'tr'=>['c'=>"\0\2\0\0\100",'ac'=>"\0\200\40",'dd'=>"\0",'nt'=>1,'b'=>1,'cp'=>['td','th','tr']],
+		'title'=>['c'=>"\100",'ac'=>"\0",'dd'=>"\0",'to'=>1,'b'=>1],
+		'tr'=>['c'=>"\0\2\0\0\100",'ac'=>"\0\0\220",'dd'=>"\0",'nt'=>1,'b'=>1,'cp'=>['td','th','tr']],
 		'track'=>['c'=>"\0\0\0\100",'ac'=>"\0",'dd'=>"\0",'nt'=>1,'e'=>1,'v'=>1,'b'=>1],
 		'u'=>['c'=>"\7",'ac'=>"\4",'dd'=>"\0",'fe'=>1],
-		'ul'=>['c'=>"\3",'c1'=>'li','ac'=>"\0\200\0\0\200",'dd'=>"\0",'nt'=>1,'b'=>1,'cp'=>['p']],
+		'ul'=>['c'=>"\3",'c1'=>'li','ac'=>"\0\0\200\0\200",'dd'=>"\0",'nt'=>1,'b'=>1,'cp'=>['p']],
 		'var'=>['c'=>"\7",'ac'=>"\4",'dd'=>"\0"],
 		'video'=>['c'=>"\57",'c3'=>'@controls','ac'=>"\0\0\0\104",'ac26'=>'not(@src)','dd'=>"\0\0\0\0\0\2",'dd41'=>'@src','t'=>1],
 		'wbr'=>['c'=>"\5",'ac'=>"\0",'dd'=>"\0",'nt'=>1,'e'=>1,'v'=>1]
@@ -748,7 +706,7 @@ class ElementInspector
 	{
 		$parentName = $parent->nodeName;
 		$childName  = $child->nodeName;
-		return !empty(self::$htmlElements[$parentName]['cp']) && \in_array($childName, self::$htmlElements[$parentName]['cp'], \true);
+		return !empty(self::$htmlElements[$childName]['cp']) && \in_array($parentName, self::$htmlElements[$childName]['cp'], \true);
 	}
 	public static function disallowsText(DOMElement $element)
 	{
@@ -835,7 +793,99 @@ class ElementInspector
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
+* @license   http://www.opensource.org/licenses/mit-license.php The MIT License
+*/
+namespace s9e\TextFormatter\Configurator\Helpers;
+use DOMDocument;
+use DOMXPath;
+abstract class NodeLocator
+{
+	public static function getAttributesByRegexp(DOMDocument $dom, $regexp)
+	{
+		return self::getNodesByRegexp($dom, $regexp, 'attribute');
+	}
+	public static function getCSSNodes(DOMDocument $dom)
+	{
+		$regexp = '/^style$/i';
+		$nodes  = \array_merge(
+			self::getAttributesByRegexp($dom, $regexp),
+			self::getElementsByRegexp($dom, '/^style$/i')
+		);
+		return $nodes;
+	}
+	public static function getElementsByRegexp(DOMDocument $dom, $regexp)
+	{
+		return self::getNodesByRegexp($dom, $regexp, 'element');
+	}
+	public static function getJSNodes(DOMDocument $dom)
+	{
+		$regexp = '/^(?:data-s9e-livepreview-postprocess$|on)/i';
+		$nodes  = \array_merge(
+			self::getAttributesByRegexp($dom, $regexp),
+			self::getElementsByRegexp($dom, '/^script$/i')
+		);
+		return $nodes;
+	}
+	public static function getObjectParamsByRegexp(DOMDocument $dom, $regexp)
+	{
+		$xpath = new DOMXPath($dom);
+		$nodes = [];
+		foreach (self::getAttributesByRegexp($dom, $regexp) as $attribute)
+			if ($attribute->nodeType === \XML_ATTRIBUTE_NODE)
+			{
+				if (\strtolower($attribute->parentNode->localName) === 'embed')
+					$nodes[] = $attribute;
+			}
+			elseif ($xpath->evaluate('count(ancestor::embed)', $attribute))
+				$nodes[] = $attribute;
+		foreach ($xpath->query('//object//param') as $param)
+			if (\preg_match($regexp, $param->getAttribute('name')))
+				$nodes[] = $param;
+		return $nodes;
+	}
+	public static function getURLNodes(DOMDocument $dom)
+	{
+		$regexp = '/(?:^(?:action|background|c(?:ite|lassid|odebase)|data|formaction|href|icon|longdesc|manifest|p(?:ing|luginspage|oster|rofile)|usemap)|src)$/i';
+		$nodes  = self::getAttributesByRegexp($dom, $regexp);
+		foreach (self::getObjectParamsByRegexp($dom, '/^(?:dataurl|movie)$/i') as $param)
+		{
+			$node = $param->getAttributeNode('value');
+			if ($node)
+				$nodes[] = $node;
+		}
+		return $nodes;
+	}
+	protected static function getNodes(DOMDocument $dom, $type)
+	{
+		$nodes  = [];
+		$prefix = ($type === 'attribute') ? '@' : '';
+		$xpath  = new DOMXPath($dom);
+		foreach ($xpath->query('//' . $prefix . '*') as $node)
+			$nodes[] = [$node, $node->nodeName];
+		foreach ($xpath->query('//xsl:' . $type) as $node)
+			$nodes[] = [$node, $node->getAttribute('name')];
+		foreach ($xpath->query('//xsl:copy-of') as $node)
+			if (\preg_match('/^' . $prefix . '(\\w+)$/', $node->getAttribute('select'), $m))
+				$nodes[] = [$node, $m[1]];
+		return $nodes;
+	}
+	protected static function getNodesByRegexp(DOMDocument $dom, $regexp, $type)
+	{
+		$nodes = [];
+		foreach (self::getNodes($dom, $type) as $_13697a20)
+		{
+			list($node, $name) = $_13697a20;
+			if (\preg_match($regexp, $name))
+				$nodes[] = $node;
+		}
+		return $nodes;
+	}
+}
+
+/*
+* @package   s9e\TextFormatter
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\Helpers;
@@ -1351,7 +1401,7 @@ abstract class RegexpBuilder
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\Helpers;
@@ -1496,7 +1546,7 @@ abstract class RulesHelper
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\Helpers;
@@ -1506,190 +1556,86 @@ use DOMDocument;
 use DOMElement;
 use DOMNode;
 use DOMProcessingInstruction;
+use DOMText;
 use DOMXPath;
-use RuntimeException;
-use s9e\TextFormatter\Configurator\Exceptions\InvalidXslException;
-use s9e\TextFormatter\Configurator\Helpers\RegexpBuilder;
 abstract class TemplateHelper
 {
 	const XMLNS_XSL = 'http://www.w3.org/1999/XSL/Transform';
 	public static function getAttributesByRegexp(DOMDocument $dom, $regexp)
 	{
-		$xpath = new DOMXPath($dom);
-		$nodes = [];
-		foreach ($xpath->query('//@*') as $attribute)
-			if (\preg_match($regexp, $attribute->name))
-				$nodes[] = $attribute;
-		foreach ($xpath->query('//xsl:attribute') as $attribute)
-			if (\preg_match($regexp, $attribute->getAttribute('name')))
-				$nodes[] = $attribute;
-		foreach ($xpath->query('//xsl:copy-of') as $node)
-		{
-			$expr = $node->getAttribute('select');
-			if (\preg_match('/^@(\\w+)$/', $expr, $m)
-			 && \preg_match($regexp, $m[1]))
-				$nodes[] = $node;
-		}
-		return $nodes;
+		return NodeLocator::getAttributesByRegexp($dom, $regexp);
 	}
 	public static function getCSSNodes(DOMDocument $dom)
 	{
-		$regexp = '/^style$/i';
-		$nodes  = \array_merge(
-			self::getAttributesByRegexp($dom, $regexp),
-			self::getElementsByRegexp($dom, '/^style$/i')
-		);
-		return $nodes;
+		return NodeLocator::getCSSNodes($dom);
 	}
 	public static function getElementsByRegexp(DOMDocument $dom, $regexp)
 	{
-		$xpath = new DOMXPath($dom);
-		$nodes = [];
-		foreach ($xpath->query('//*') as $element)
-			if (\preg_match($regexp, $element->localName))
-				$nodes[] = $element;
-		foreach ($xpath->query('//xsl:element') as $element)
-			if (\preg_match($regexp, $element->getAttribute('name')))
-				$nodes[] = $element;
-		foreach ($xpath->query('//xsl:copy-of') as $node)
-		{
-			$expr = $node->getAttribute('select');
-			if (\preg_match('/^\\w+$/', $expr)
-			 && \preg_match($regexp, $expr))
-				$nodes[] = $node;
-		}
-		return $nodes;
+		return NodeLocator::getElementsByRegexp($dom, $regexp);
 	}
 	public static function getJSNodes(DOMDocument $dom)
 	{
-		$regexp = '/^(?>data-s9e-livepreview-postprocess$|on)/i';
-		$nodes  = \array_merge(
-			self::getAttributesByRegexp($dom, $regexp),
-			self::getElementsByRegexp($dom, '/^script$/i')
-		);
-		return $nodes;
+		return NodeLocator::getJSNodes($dom);
 	}
 	public static function getObjectParamsByRegexp(DOMDocument $dom, $regexp)
 	{
-		$xpath = new DOMXPath($dom);
-		$nodes = [];
-		foreach (self::getAttributesByRegexp($dom, $regexp) as $attribute)
-			if ($attribute->nodeType === \XML_ATTRIBUTE_NODE)
-			{
-				if (\strtolower($attribute->parentNode->localName) === 'embed')
-					$nodes[] = $attribute;
-			}
-			elseif ($xpath->evaluate('ancestor::embed', $attribute))
-				$nodes[] = $attribute;
-		foreach ($dom->getElementsByTagName('object') as $object)
-			foreach ($object->getElementsByTagName('param') as $param)
-				if (\preg_match($regexp, $param->getAttribute('name')))
-					$nodes[] = $param;
-		return $nodes;
+		return NodeLocator::getObjectParamsByRegexp($dom, $regexp);
 	}
 	public static function getParametersFromXSL($xsl)
 	{
 		$paramNames = [];
-		$xsl = '<xsl:stylesheet xmlns:xsl="' . self::XMLNS_XSL . '"><xsl:template>'
-		     . $xsl
-		     . '</xsl:template></xsl:stylesheet>';
-		$dom = new DOMDocument;
-		$dom->loadXML($xsl);
-		$xpath = new DOMXPath($dom);
+		$xpath      = new DOMXPath(TemplateLoader::load($xsl));
 		$query = '//xsl:*/@match | //xsl:*/@select | //xsl:*/@test';
 		foreach ($xpath->query($query) as $attribute)
-			foreach (XPathHelper::getVariables($attribute->value) as $varName)
-			{
-				$varQuery = 'ancestor-or-self::*/preceding-sibling::xsl:variable[@name="' . $varName . '"]';
-				if (!$xpath->query($varQuery, $attribute)->length)
-					$paramNames[] = $varName;
-			}
+		{
+			$expr        = $attribute->value;
+			$paramNames += \array_flip(self::getParametersFromExpression($attribute, $expr));
+		}
 		$query = '//*[namespace-uri() != "' . self::XMLNS_XSL . '"]/@*[contains(., "{")]';
 		foreach ($xpath->query($query) as $attribute)
-		{
-			$tokens = AVTHelper::parse($attribute->value);
-			foreach ($tokens as $token)
-			{
-				if ($token[0] !== 'expression')
-					continue;
-				foreach (XPathHelper::getVariables($token[1]) as $varName)
+			foreach (AVTHelper::parse($attribute->value) as $token)
+				if ($token[0] === 'expression')
 				{
-					$varQuery = 'ancestor-or-self::*/preceding-sibling::xsl:variable[@name="' . $varName . '"]';
-					if (!$xpath->query($varQuery, $attribute)->length)
-						$paramNames[] = $varName;
+					$expr        = $token[1];
+					$paramNames += \array_flip(self::getParametersFromExpression($attribute, $expr));
 				}
-			}
-		}
-		$paramNames = \array_unique($paramNames);
-		\sort($paramNames);
-		return $paramNames;
+		\ksort($paramNames);
+		return \array_keys($paramNames);
 	}
 	public static function getURLNodes(DOMDocument $dom)
 	{
-		$regexp = '/(?>^(?>action|background|c(?>ite|lassid|odebase)|data|formaction|href|icon|longdesc|manifest|p(?>luginspage|oster|rofile)|usemap)|src)$/i';
-		$nodes  = self::getAttributesByRegexp($dom, $regexp);
-		foreach (self::getObjectParamsByRegexp($dom, '/^(?:dataurl|movie)$/i') as $param)
-		{
-			$node = $param->getAttributeNode('value');
-			if ($node)
-				$nodes[] = $node;
-		}
-		return $nodes;
+		return NodeLocator::getURLNodes($dom);
 	}
 	public static function highlightNode(DOMNode $node, $prepend, $append)
 	{
+		$dom = $node->ownerDocument->cloneNode(\true);
+		$dom->formatOutput = \true;
+		$xpath = new DOMXPath($dom);
+		$node  = $xpath->query($node->getNodePath())->item(0);
 		$uniqid = \uniqid('_');
 		if ($node instanceof DOMAttr)
 			$node->value .= $uniqid;
 		elseif ($node instanceof DOMElement)
 			$node->setAttribute($uniqid, '');
-		elseif ($node instanceof DOMCharacterData
-		     || $node instanceof DOMProcessingInstruction)
+		elseif ($node instanceof DOMCharacterData || $node instanceof DOMProcessingInstruction)
 			$node->data .= $uniqid;
-		$dom = $node->ownerDocument;
-		$dom->formatOutput = \true;
-		$docXml = self::innerXML($dom->documentElement);
+		$docXml = TemplateLoader::innerXML($dom->documentElement);
 		$docXml = \trim(\str_replace("\n  ", "\n", $docXml));
 		$nodeHtml = \htmlspecialchars(\trim($dom->saveXML($node)));
 		$docHtml  = \htmlspecialchars($docXml);
 		$html = \str_replace($nodeHtml, $prepend . $nodeHtml . $append, $docHtml);
-		if ($node instanceof DOMAttr)
-		{
-			$node->value = \substr($node->value, 0, -\strlen($uniqid));
-			$html = \str_replace($uniqid, '', $html);
-		}
-		elseif ($node instanceof DOMElement)
-		{
-			$node->removeAttribute($uniqid);
-			$html = \str_replace(' ' . $uniqid . '=&quot;&quot;', '', $html);
-		}
-		elseif ($node instanceof DOMCharacterData
-		     || $node instanceof DOMProcessingInstruction)
-		{
-			$node->data .= $uniqid;
-			$html = \str_replace($uniqid, '', $html);
-		}
+		$html = \str_replace(' ' . $uniqid . '=&quot;&quot;', '', $html);
+		$html = \str_replace($uniqid, '', $html);
 		return $html;
 	}
 	public static function loadTemplate($template)
 	{
-		$dom = self::loadTemplateAsXML($template);
-		if ($dom)
-			return $dom;
-		$dom = self::loadTemplateAsXML(self::fixEntities($template));
-		if ($dom)
-			return $dom;
-		if (\strpos($template, '<xsl:') !== \false)
-		{
-			$error = \libxml_get_last_error();
-			throw new InvalidXslException($error->message);
-		}
-		return self::loadTemplateAsHTML($template);
+		return TemplateLoader::load($template);
 	}
 	public static function replaceHomogeneousTemplates(array &$templates, $minCount = 3)
 	{
-		$tagNames = [];
 		$expr = 'name()';
+		$tagNames = [];
 		foreach ($templates as $tagName => $template)
 		{
 			$elName = \strtolower(\preg_replace('/^[^:]+:/', '', $tagName));
@@ -1703,7 +1649,7 @@ abstract class TemplateHelper
 		if (\count($tagNames) < $minCount)
 			return;
 		$chars = \preg_replace('/[^A-Z]+/', '', \count_chars(\implode('', $tagNames), 3));
-		if (\is_string($chars) && $chars !== '')
+		if ($chars > '')
 			$expr = 'translate(' . $expr . ",'" . $chars . "','" . \strtolower($chars) . "')";
 		$template = '<xsl:element name="{' . $expr . '}"><xsl:apply-templates/></xsl:element>';
 		foreach ($tagNames as $tagName)
@@ -1711,138 +1657,30 @@ abstract class TemplateHelper
 	}
 	public static function replaceTokens($template, $regexp, $fn)
 	{
-		if ($template === '')
-			return $template;
-		$dom   = self::loadTemplate($template);
-		$xpath = new DOMXPath($dom);
-		foreach ($xpath->query('//@*') as $attribute)
-		{
-			$attrValue = \preg_replace_callback(
-				$regexp,
-				function ($m) use ($fn, $attribute)
-				{
-					$replacement = $fn($m, $attribute);
-					if ($replacement[0] === 'expression')
-						return '{' . $replacement[1] . '}';
-					elseif ($replacement[0] === 'passthrough')
-						return '{.}';
-					else
-						return $replacement[1];
-				},
-				$attribute->value
-			);
-			$attribute->value = \htmlspecialchars($attrValue, \ENT_COMPAT, 'UTF-8');
-		}
-		foreach ($xpath->query('//text()') as $node)
-		{
-			\preg_match_all(
-				$regexp,
-				$node->textContent,
-				$matches,
-				\PREG_SET_ORDER | \PREG_OFFSET_CAPTURE
-			);
-			if (empty($matches))
-				continue;
-			$parentNode = $node->parentNode;
-			$lastPos = 0;
-			foreach ($matches as $m)
-			{
-				$pos = $m[0][1];
-				if ($pos > $lastPos)
-					$parentNode->insertBefore(
-						$dom->createTextNode(
-							\substr($node->textContent, $lastPos, $pos - $lastPos)
-						),
-						$node
-					);
-				$lastPos = $pos + \strlen($m[0][0]);
-				$_m = [];
-				foreach ($m as $capture)
-					$_m[] = $capture[0];
-				$replacement = $fn($_m, $node);
-				if ($replacement[0] === 'expression')
-					$parentNode
-						->insertBefore(
-							$dom->createElementNS(self::XMLNS_XSL, 'xsl:value-of'),
-							$node
-						)
-						->setAttribute('select', $replacement[1]);
-				elseif ($replacement[0] === 'passthrough')
-					$parentNode->insertBefore(
-						$dom->createElementNS(self::XMLNS_XSL, 'xsl:apply-templates'),
-						$node
-					);
-				else
-					$parentNode->insertBefore($dom->createTextNode($replacement[1]), $node);
-			}
-			$text = \substr($node->textContent, $lastPos);
-			if ($text > '')
-				$parentNode->insertBefore($dom->createTextNode($text), $node);
-			$parentNode->removeChild($node);
-		}
-		return self::saveTemplate($dom);
+		return TemplateModifier::replaceTokens($template, $regexp, $fn);
 	}
 	public static function saveTemplate(DOMDocument $dom)
 	{
-		return self::innerXML($dom->documentElement);
+		return TemplateLoader::save($dom);
 	}
-	protected static function fixEntities($template)
+	protected static function getParametersFromExpression(DOMNode $node, $expr)
 	{
-		return \preg_replace_callback(
-			'(&(?!quot;|amp;|apos;|lt;|gt;)\\w+;)',
-			function ($m)
-			{
-				return \html_entity_decode($m[0], \ENT_NOQUOTES, 'UTF-8');
-			},
-			\preg_replace('(&(?![A-Za-z0-9]+;|#\\d+;|#x[A-Fa-f0-9]+;))', '&amp;', $template)
-		);
-	}
-	protected static function innerXML(DOMElement $element)
-	{
-		$xml = $element->ownerDocument->saveXML($element);
-		$pos = 1 + \strpos($xml, '>');
-		$len = \strrpos($xml, '<') - $pos;
-		if ($len < 1)
-			return '';
-		$xml = \substr($xml, $pos, $len);
-		return $xml;
-	}
-	protected static function loadTemplateAsHTML($template)
-	{
-		$dom  = new DOMDocument;
-		$html = '<?xml version="1.0" encoding="utf-8" ?><html><body><div>' . $template . '</div></body></html>';
-		$useErrors = \libxml_use_internal_errors(\true);
-		$dom->loadHTML($html);
-		self::removeInvalidAttributes($dom);
-		\libxml_use_internal_errors($useErrors);
-		$xml = '<?xml version="1.0" encoding="utf-8" ?><xsl:template xmlns:xsl="' . self::XMLNS_XSL . '">' . self::innerXML($dom->documentElement->firstChild->firstChild) . '</xsl:template>';
-		$useErrors = \libxml_use_internal_errors(\true);
-		$dom->loadXML($xml);
-		\libxml_use_internal_errors($useErrors);
-		return $dom;
-	}
-	protected static function loadTemplateAsXML($template)
-	{
-		$xml = '<?xml version="1.0" encoding="utf-8" ?><xsl:template xmlns:xsl="' . self::XMLNS_XSL . '">' . $template . '</xsl:template>';
-		$useErrors = \libxml_use_internal_errors(\true);
-		$dom       = new DOMDocument;
-		$success   = $dom->loadXML($xml);
-		self::removeInvalidAttributes($dom);
-		\libxml_use_internal_errors($useErrors);
-		return ($success) ? $dom : \false;
-	}
-	protected static function removeInvalidAttributes(DOMDocument $dom)
-	{
-		$xpath = new DOMXPath($dom);
-		foreach ($xpath->query('//@*') as $attribute)
-			if (!\preg_match('(^(?:[-\\w]+:)?(?!\\d)[-\\w]+$)D', $attribute->nodeName))
-				$attribute->parentNode->removeAttributeNode($attribute);
+		$varNames   = XPathHelper::getVariables($expr);
+		$paramNames = [];
+		$xpath      = new DOMXPath($node->ownerDocument);
+		foreach ($varNames as $name)
+		{
+			$query = 'ancestor-or-self::*/preceding-sibling::xsl:variable[@name="' . $name . '"]';
+			if (!$xpath->query($query, $node)->length)
+				$paramNames[] = $name;
+		}
+		return $paramNames;
 	}
 }
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\Helpers;
@@ -1909,7 +1747,7 @@ class TemplateInspector
 	{
 		foreach ($this->rootNodes as $rootNode)
 			foreach ($parent->leafNodes as $leafNode)
-				if (ElementInspector::closesParent($leafNode, $rootNode))
+				if (ElementInspector::closesParent($rootNode, $leafNode))
 					return \true;
 		return \false;
 	}
@@ -2121,477 +1959,146 @@ class TemplateInspector
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\Helpers;
 use DOMDocument;
 use DOMElement;
-use DOMNode;
 use DOMXPath;
 use RuntimeException;
+abstract class TemplateLoader
+{
+	const XMLNS_XSL = 'http://www.w3.org/1999/XSL/Transform';
+	public static function innerXML(DOMElement $element)
+	{
+		$xml = $element->ownerDocument->saveXML($element);
+		$pos = 1 + \strpos($xml, '>');
+		$len = \strrpos($xml, '<') - $pos;
+		return ($len < 1) ? '' : \substr($xml, $pos, $len);
+	}
+	public static function load($template)
+	{
+		$dom = self::loadAsXML($template) ?: self::loadAsXML(self::fixEntities($template));
+		if ($dom)
+			return $dom;
+		if (\strpos($template, '<xsl:') !== \false)
+		{
+			$error = \libxml_get_last_error();
+			throw new RuntimeException('Invalid XSL: ' . $error->message);
+		}
+		return self::loadAsHTML($template);
+	}
+	public static function save(DOMDocument $dom)
+	{
+		$xml = self::innerXML($dom->documentElement);
+		if (\strpos($xml, 'xmlns:xsl') !== \false)
+			$xml = \preg_replace('((<[^>]+?) xmlns:xsl="' . self::XMLNS_XSL . '")', '$1', $xml);
+		return $xml;
+	}
+	protected static function fixEntities($template)
+	{
+		return \preg_replace_callback(
+			'(&(?!quot;|amp;|apos;|lt;|gt;)\\w+;)',
+			function ($m)
+			{
+				return \html_entity_decode($m[0], \ENT_NOQUOTES, 'UTF-8');
+			},
+			\preg_replace('(&(?![A-Za-z0-9]+;|#\\d+;|#x[A-Fa-f0-9]+;))', '&amp;', $template)
+		);
+	}
+	protected static function loadAsHTML($template)
+	{
+		$dom  = new DOMDocument;
+		$html = '<?xml version="1.0" encoding="utf-8" ?><html><body><div>' . $template . '</div></body></html>';
+		$useErrors = \libxml_use_internal_errors(\true);
+		$dom->loadHTML($html, \LIBXML_NSCLEAN);
+		self::removeInvalidAttributes($dom);
+		\libxml_use_internal_errors($useErrors);
+		$xml = '<?xml version="1.0" encoding="utf-8" ?><xsl:template xmlns:xsl="' . self::XMLNS_XSL . '">' . self::innerXML($dom->documentElement->firstChild->firstChild) . '</xsl:template>';
+		$useErrors = \libxml_use_internal_errors(\true);
+		$dom->loadXML($xml, \LIBXML_NSCLEAN);
+		\libxml_use_internal_errors($useErrors);
+		return $dom;
+	}
+	protected static function loadAsXML($template)
+	{
+		$xml = '<?xml version="1.0" encoding="utf-8" ?><xsl:template xmlns:xsl="' . self::XMLNS_XSL . '">' . $template . '</xsl:template>';
+		$useErrors = \libxml_use_internal_errors(\true);
+		$dom       = new DOMDocument;
+		$success   = $dom->loadXML($xml, \LIBXML_NSCLEAN);
+		self::removeInvalidAttributes($dom);
+		\libxml_use_internal_errors($useErrors);
+		return ($success) ? $dom : \false;
+	}
+	protected static function removeInvalidAttributes(DOMDocument $dom)
+	{
+		$xpath = new DOMXPath($dom);
+		foreach ($xpath->query('//@*') as $attribute)
+			if (!\preg_match('(^(?:[-\\w]+:)?(?!\\d)[-\\w]+$)D', $attribute->nodeName))
+				$attribute->parentNode->removeAttributeNode($attribute);
+	}
+}
+
+/*
+* @package   s9e\TextFormatter
+* @copyright Copyright (c) 2010-2019 The s9e Authors
+* @license   http://www.opensource.org/licenses/mit-license.php The MIT License
+*/
+namespace s9e\TextFormatter\Configurator\Helpers;
+use s9e\TextFormatter\Configurator\Helpers\TemplateParser\Normalizer;
+use s9e\TextFormatter\Configurator\Helpers\TemplateParser\Optimizer;
+use s9e\TextFormatter\Configurator\Helpers\TemplateParser\Parser;
 class TemplateParser
 {
 	const XMLNS_XSL = 'http://www.w3.org/1999/XSL/Transform';
 	public static $voidRegexp = '/^(?:area|base|br|col|command|embed|hr|img|input|keygen|link|meta|param|source|track|wbr)$/Di';
 	public static function parse($template)
 	{
-		$xsl = '<xsl:template xmlns:xsl="' . self::XMLNS_XSL . '">' . $template . '</xsl:template>';
-		$dom = new DOMDocument;
-		$dom->loadXML($xsl);
-		$ir = new DOMDocument;
-		$ir->loadXML('<template/>');
-		self::parseChildren($ir->documentElement, $dom->documentElement);
-		self::normalize($ir);
-		return $ir;
+		$parser = new Parser(new Normalizer(new Optimizer));
+		return $parser->parse($template);
 	}
 	public static function parseEqualityExpr($expr)
 	{
-		$eq = '(?<equality>(?<key>@[-\\w]+|\\$\\w+|\\.)(?<operator>\\s*=\\s*)(?:(?<literal>(?<string>"[^"]*"|\'[^\']*\')|0|[1-9][0-9]*)|(?<concat>concat\\(\\s*(?&string)\\s*(?:,\\s*(?&string)\\s*)+\\)))|(?:(?<literal>(?&literal))|(?<concat>(?&concat)))(?&operator)(?<key>(?&key)))';
-		$regexp = '(^(?J)\\s*' . $eq . '\\s*(?:or\\s*(?&equality)\\s*)*$)';
-		if (!\preg_match($regexp, $expr))
-			return \false;
-		\preg_match_all("((?J)$eq)", $expr, $matches, \PREG_SET_ORDER);
-		$map = [];
-		foreach ($matches as $m)
-		{
-			$key = $m['key'];
-			if (!empty($m['concat']))
-			{
-				\preg_match_all('(\'[^\']*\'|"[^"]*")', $m['concat'], $strings);
-				$value = '';
-				foreach ($strings[0] as $string)
-					$value .= \substr($string, 1, -1);
-			}
-			else
-			{
-				$value = $m['literal'];
-				if ($value[0] === "'" || $value[0] === '"')
-					$value = \substr($value, 1, -1);
-			}
-			$map[$key][] = $value;
-		}
-		return $map;
-	}
-	protected static function parseChildren(DOMElement $ir, DOMElement $parent)
-	{
-		foreach ($parent->childNodes as $child)
-		{
-			switch ($child->nodeType)
-			{
-				case \XML_COMMENT_NODE:
-					break;
-				case \XML_TEXT_NODE:
-					if (\trim($child->textContent) !== '')
-						self::appendOutput($ir, 'literal', $child->textContent);
-					break;
-				case \XML_ELEMENT_NODE:
-					self::parseNode($ir, $child);
-					break;
-				default:
-					throw new RuntimeException("Cannot parse node '" . $child->nodeName . "''");
-			}
-		}
-	}
-	protected static function parseNode(DOMElement $ir, DOMElement $node)
-	{
-		if ($node->namespaceURI === self::XMLNS_XSL)
-		{
-			$methodName = 'parseXsl' . \str_replace(' ', '', \ucwords(\str_replace('-', ' ', $node->localName)));
-			if (!\method_exists(__CLASS__, $methodName))
-				throw new RuntimeException("Element '" . $node->nodeName . "' is not supported");
-			return self::$methodName($ir, $node);
-		}
-		$element = self::appendElement($ir, 'element');
-		$element->setAttribute('name', $node->nodeName);
-		$xpath = new DOMXPath($node->ownerDocument);
-		foreach ($xpath->query('namespace::*', $node) as $ns)
-			if ($node->hasAttribute($ns->nodeName))
-			{
-				$irAttribute = self::appendElement($element, 'attribute');
-				$irAttribute->setAttribute('name', $ns->nodeName);
-				self::appendOutput($irAttribute, 'literal', $ns->nodeValue);
-			}
-		foreach ($node->attributes as $attribute)
-		{
-			$irAttribute = self::appendElement($element, 'attribute');
-			$irAttribute->setAttribute('name', $attribute->nodeName);
-			self::appendOutput($irAttribute, 'avt', $attribute->value);
-		}
-		self::parseChildren($element, $node);
-	}
-	protected static function parseXslApplyTemplates(DOMElement $ir, DOMElement $node)
-	{
-		$applyTemplates = self::appendElement($ir, 'applyTemplates');
-		if ($node->hasAttribute('select'))
-			$applyTemplates->setAttribute(
-				'select',
-				$node->getAttribute('select')
-			);
-	}
-	protected static function parseXslAttribute(DOMElement $ir, DOMElement $node)
-	{
-		$attrName = $node->getAttribute('name');
-		if ($attrName !== '')
-		{
-			$attribute = self::appendElement($ir, 'attribute');
-			$attribute->setAttribute('name', $attrName);
-			self::parseChildren($attribute, $node);
-		}
-	}
-	protected static function parseXslChoose(DOMElement $ir, DOMElement $node)
-	{
-		$switch = self::appendElement($ir, 'switch');
-		foreach ($node->getElementsByTagNameNS(self::XMLNS_XSL, 'when') as $when)
-		{
-			if ($when->parentNode !== $node)
-				continue;
-			$case = self::appendElement($switch, 'case');
-			$case->setAttribute('test', $when->getAttribute('test'));
-			self::parseChildren($case, $when);
-		}
-		foreach ($node->getElementsByTagNameNS(self::XMLNS_XSL, 'otherwise') as $otherwise)
-		{
-			if ($otherwise->parentNode !== $node)
-				continue;
-			$case = self::appendElement($switch, 'case');
-			self::parseChildren($case, $otherwise);
-			break;
-		}
-	}
-	protected static function parseXslComment(DOMElement $ir, DOMElement $node)
-	{
-		$comment = self::appendElement($ir, 'comment');
-		self::parseChildren($comment, $node);
-	}
-	protected static function parseXslCopyOf(DOMElement $ir, DOMElement $node)
-	{
-		$expr = $node->getAttribute('select');
-		if (\preg_match('#^@([-\\w]+)$#', $expr, $m))
-		{
-			$switch = self::appendElement($ir, 'switch');
-			$case   = self::appendElement($switch, 'case');
-			$case->setAttribute('test', $expr);
-			$attribute = self::appendElement($case, 'attribute');
-			$attribute->setAttribute('name', $m[1]);
-			self::appendOutput($attribute, 'xpath', $expr);
-			return;
-		}
-		if ($expr === '@*')
-		{
-			self::appendElement($ir, 'copyOfAttributes');
-			return;
-		}
-		throw new RuntimeException("Unsupported <xsl:copy-of/> expression '" . $expr . "'");
-	}
-	protected static function parseXslElement(DOMElement $ir, DOMElement $node)
-	{
-		$elName = $node->getAttribute('name');
-		if ($elName !== '')
-		{
-			$element = self::appendElement($ir, 'element');
-			$element->setAttribute('name', $elName);
-			self::parseChildren($element, $node);
-		}
-	}
-	protected static function parseXslIf(DOMElement $ir, DOMElement $node)
-	{
-		$switch = self::appendElement($ir, 'switch');
-		$case   = self::appendElement($switch, 'case');
-		$case->setAttribute('test', $node->getAttribute('test'));
-		self::parseChildren($case, $node);
-	}
-	protected static function parseXslText(DOMElement $ir, DOMElement $node)
-	{
-		self::appendOutput($ir, 'literal', $node->textContent);
-	}
-	protected static function parseXslValueOf(DOMElement $ir, DOMElement $node)
-	{
-		self::appendOutput($ir, 'xpath', $node->getAttribute('select'));
-	}
-	protected static function normalize(DOMDocument $ir)
-	{
-		self::addDefaultCase($ir);
-		self::addElementIds($ir);
-		self::addCloseTagElements($ir);
-		self::markEmptyElements($ir);
-		self::optimize($ir);
-		self::markConditionalCloseTagElements($ir);
-		self::setOutputContext($ir);
-		self::markBranchTables($ir);
-	}
-	protected static function addDefaultCase(DOMDocument $ir)
-	{
-		$xpath = new DOMXPath($ir);
-		foreach ($xpath->query('//switch[not(case[not(@test)])]') as $switch)
-			self::appendElement($switch, 'case');
-	}
-	protected static function addElementIds(DOMDocument $ir)
-	{
-		$id = 0;
-		foreach ($ir->getElementsByTagName('element') as $element)
-			$element->setAttribute('id', ++$id);
-	}
-	protected static function addCloseTagElements(DOMDocument $ir)
-	{
-		$xpath = new DOMXPath($ir);
-		$exprs = [
-			'//applyTemplates[not(ancestor::attribute)]',
-			'//comment',
-			'//element',
-			'//output[not(ancestor::attribute)]'
-		];
-		foreach ($xpath->query(\implode('|', $exprs)) as $node)
-		{
-			$parentElementId = self::getParentElementId($node);
-			if (isset($parentElementId))
-				$node->parentNode
-				     ->insertBefore($ir->createElement('closeTag'), $node)
-				     ->setAttribute('id', $parentElementId);
-			if ($node->nodeName === 'element')
-			{
-				$id = $node->getAttribute('id');
-				self::appendElement($node, 'closeTag')->setAttribute('id', $id);
-			}
-		}
-	}
-	protected static function markConditionalCloseTagElements(DOMDocument $ir)
-	{
-		$xpath = new DOMXPath($ir);
-		foreach ($ir->getElementsByTagName('closeTag') as $closeTag)
-		{
-			$id = $closeTag->getAttribute('id');
-			$query = 'ancestor::switch/following-sibling::*/descendant-or-self::closeTag[@id = "' . $id . '"]';
-			foreach ($xpath->query($query, $closeTag) as $following)
-			{
-				$following->setAttribute('check', '');
-				$closeTag->setAttribute('set', '');
-			}
-		}
-	}
-	protected static function markEmptyElements(DOMDocument $ir)
-	{
-		foreach ($ir->getElementsByTagName('element') as $element)
-		{
-			$elName = $element->getAttribute('name');
-			if (\strpos($elName, '{') !== \false)
-				$element->setAttribute('void', 'maybe');
-			elseif (\preg_match(self::$voidRegexp, $elName))
-				$element->setAttribute('void', 'yes');
-			$isEmpty = self::isEmpty($element);
-			if ($isEmpty === 'yes' || $isEmpty === 'maybe')
-				$element->setAttribute('empty', $isEmpty);
-		}
-	}
-	protected static function getOutputContext(DOMNode $output)
-	{
-		$xpath = new DOMXPath($output->ownerDocument);
-		if ($xpath->evaluate('boolean(ancestor::attribute)', $output))
-			return 'attribute';
-		if ($xpath->evaluate('boolean(ancestor::element[@name="script"])', $output))
-			return 'raw';
-		return 'text';
-	}
-	protected static function getParentElementId(DOMNode $node)
-	{
-		$parentNode = $node->parentNode;
-		while (isset($parentNode))
-		{
-			if ($parentNode->nodeName === 'element')
-				return $parentNode->getAttribute('id');
-			$parentNode = $parentNode->parentNode;
-		}
-	}
-	protected static function setOutputContext(DOMDocument $ir)
-	{
-		foreach ($ir->getElementsByTagName('output') as $output)
-			$output->setAttribute('escape', self::getOutputContext($output));
-	}
-	protected static function optimize(DOMDocument $ir)
-	{
-		$xml = $ir->saveXML();
-		$remainingLoops = 10;
-		do
-		{
-			$old = $xml;
-			self::optimizeCloseTagElements($ir);
-			$xml = $ir->saveXML();
-		}
-		while (--$remainingLoops > 0 && $xml !== $old);
-		self::removeCloseTagSiblings($ir);
-		self::removeContentFromVoidElements($ir);
-		self::mergeConsecutiveLiteralOutputElements($ir);
-		self::removeEmptyDefaultCases($ir);
-	}
-	protected static function removeCloseTagSiblings(DOMDocument $ir)
-	{
-		$xpath = new DOMXPath($ir);
-		$query = '//switch[not(case[not(closeTag)])]/following-sibling::closeTag';
-		foreach ($xpath->query($query) as $closeTag)
-			$closeTag->parentNode->removeChild($closeTag);
-	}
-	protected static function removeEmptyDefaultCases(DOMDocument $ir)
-	{
-		$xpath = new DOMXPath($ir);
-		foreach ($xpath->query('//case[not(@test | node())]') as $case)
-			$case->parentNode->removeChild($case);
-	}
-	protected static function mergeConsecutiveLiteralOutputElements(DOMDocument $ir)
-	{
-		$xpath = new DOMXPath($ir);
-		foreach ($xpath->query('//output[@type="literal"]') as $output)
-			while ($output->nextSibling
-				&& $output->nextSibling->nodeName === 'output'
-				&& $output->nextSibling->getAttribute('type') === 'literal')
-			{
-				$output->nodeValue
-					= \htmlspecialchars($output->nodeValue . $output->nextSibling->nodeValue);
-				$output->parentNode->removeChild($output->nextSibling);
-			}
-	}
-	protected static function optimizeCloseTagElements(DOMDocument $ir)
-	{
-		self::cloneCloseTagElementsIntoSwitch($ir);
-		self::cloneCloseTagElementsOutOfSwitch($ir);
-		self::removeRedundantCloseTagElementsInSwitch($ir);
-		self::removeRedundantCloseTagElements($ir);
-	}
-	protected static function cloneCloseTagElementsIntoSwitch(DOMDocument $ir)
-	{
-		$xpath = new DOMXPath($ir);
-		$query = '//switch[name(following-sibling::*) = "closeTag"]';
-		foreach ($xpath->query($query) as $switch)
-		{
-			$closeTag = $switch->nextSibling;
-			foreach ($switch->childNodes as $case)
-				if (!$case->lastChild || $case->lastChild->nodeName !== 'closeTag')
-					$case->appendChild($closeTag->cloneNode());
-		}
-	}
-	protected static function cloneCloseTagElementsOutOfSwitch(DOMDocument $ir)
-	{
-		$xpath = new DOMXPath($ir);
-		$query = '//switch[not(preceding-sibling::closeTag)]';
-		foreach ($xpath->query($query) as $switch)
-		{
-			foreach ($switch->childNodes as $case)
-				if (!$case->firstChild || $case->firstChild->nodeName !== 'closeTag')
-					continue 2;
-			$switch->parentNode->insertBefore($switch->lastChild->firstChild->cloneNode(), $switch);
-		}
-	}
-	protected static function removeRedundantCloseTagElementsInSwitch(DOMDocument $ir)
-	{
-		$xpath = new DOMXPath($ir);
-		$query = '//switch[name(following-sibling::*) = "closeTag"]';
-		foreach ($xpath->query($query) as $switch)
-			foreach ($switch->childNodes as $case)
-				while ($case->lastChild && $case->lastChild->nodeName === 'closeTag')
-					$case->removeChild($case->lastChild);
-	}
-	protected static function removeRedundantCloseTagElements(DOMDocument $ir)
-	{
-		$xpath = new DOMXPath($ir);
-		foreach ($xpath->query('//closeTag') as $closeTag)
-		{
-			$id    = $closeTag->getAttribute('id');
-			$query = 'following-sibling::*/descendant-or-self::closeTag[@id="' . $id . '"]';
-			foreach ($xpath->query($query, $closeTag) as $dupe)
-				$dupe->parentNode->removeChild($dupe);
-		}
-	}
-	protected static function removeContentFromVoidElements(DOMDocument $ir)
-	{
-		$xpath = new DOMXPath($ir);
-		foreach ($xpath->query('//element[@void="yes"]') as $element)
-		{
-			$id    = $element->getAttribute('id');
-			$query = './/closeTag[@id="' . $id . '"]/following-sibling::*';
-			foreach ($xpath->query($query, $element) as $node)
-				$node->parentNode->removeChild($node);
-		}
-	}
-	protected static function markBranchTables(DOMDocument $ir)
-	{
-		$xpath = new DOMXPath($ir);
-		foreach ($xpath->query('//switch[case[2][@test]]') as $switch)
-		{
-			$key = \null;
-			$branchValues = [];
-			foreach ($switch->childNodes as $i => $case)
-			{
-				if (!$case->hasAttribute('test'))
-					continue;
-				$map = self::parseEqualityExpr($case->getAttribute('test'));
-				if ($map === \false)
-					continue 2;
-				if (\count($map) !== 1)
-					continue 2;
-				if (isset($key) && $key !== \key($map))
-					continue 2;
-				$key = \key($map);
-				$branchValues[$i] = \end($map);
-			}
-			$switch->setAttribute('branch-key', $key);
-			foreach ($branchValues as $i => $values)
-			{
-				\sort($values);
-				$switch->childNodes->item($i)->setAttribute('branch-values', \serialize($values));
-			}
-		}
-	}
-	protected static function appendElement(DOMElement $parentNode, $name, $value = '')
-	{
-		if ($value === '')
-			$element = $parentNode->ownerDocument->createElement($name);
-		else
-			$element = $parentNode->ownerDocument->createElement($name, $value);
-		$parentNode->appendChild($element);
-		return $element;
-	}
-	protected static function appendOutput(DOMElement $ir, $type, $content)
-	{
-		if ($type === 'avt')
-		{
-			foreach (AVTHelper::parse($content) as $token)
-			{
-				$type = ($token[0] === 'expression') ? 'xpath' : 'literal';
-				self::appendOutput($ir, $type, $token[1]);
-			}
-			return;
-		}
-		if ($type === 'xpath')
-			$content = \trim($content);
-		if ($type === 'literal' && $content === '')
-			return;
-		self::appendElement($ir, 'output', \htmlspecialchars($content))
-			->setAttribute('type', $type);
-	}
-	protected static function isEmpty(DOMElement $ir)
-	{
-		$xpath = new DOMXPath($ir->ownerDocument);
-		if ($xpath->evaluate('count(comment | element | output[@type="literal"])', $ir))
-			return 'no';
-		$cases = [];
-		foreach ($xpath->query('switch/case', $ir) as $case)
-			$cases[self::isEmpty($case)] = 1;
-		if (isset($cases['maybe']))
-			return 'maybe';
-		if (isset($cases['no']))
-		{
-			if (!isset($cases['yes']))
-				return 'no';
-			return 'maybe';
-		}
-		if ($xpath->evaluate('count(applyTemplates | output[@type="xpath"])', $ir))
-			return 'maybe';
-		return 'yes';
+		return XPathHelper::parseEqualityExpr($expr);
 	}
 }
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
+* @license   http://www.opensource.org/licenses/mit-license.php The MIT License
+*/
+namespace s9e\TextFormatter\Configurator\Helpers\TemplateParser;
+use DOMDocument;
+use DOMElement;
+use DOMNode;
+use DOMXPath;
+abstract class IRProcessor
+{
+	const XMLNS_XSL = 'http://www.w3.org/1999/XSL/Transform';
+	protected $xpath;
+	protected function appendElement(DOMElement $parentNode, $name, $value = '')
+	{
+		return $parentNode->appendChild($parentNode->ownerDocument->createElement($name, $value));
+	}
+	protected function createXPath(DOMDocument $dom)
+	{
+		$this->xpath = new DOMXPath($dom);
+	}
+	protected function evaluate($expr, DOMNode $node = \null)
+	{
+		return (isset($node)) ? $this->xpath->evaluate($expr, $node) : $this->xpath->evaluate($expr);
+	}
+	protected function query($query, DOMNode $node = \null)
+	{
+		return (isset($node)) ? $this->xpath->query($query, $node) : $this->xpath->query($query);
+	}
+}
+
+/*
+* @package   s9e\TextFormatter
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\Helpers;
@@ -2641,11 +2148,43 @@ abstract class XPathHelper
 		$expr = \strtr($expr, $strings);
 		return $expr;
 	}
+	public static function parseEqualityExpr($expr)
+	{
+		$eq = '(?<equality>(?<key>@[-\\w]+|\\$\\w+|\\.)(?<operator>\\s*=\\s*)(?:(?<literal>(?<string>"[^"]*"|\'[^\']*\')|0|[1-9][0-9]*)|(?<concat>concat\\(\\s*(?&string)\\s*(?:,\\s*(?&string)\\s*)+\\)))|(?:(?<literal>(?&literal))|(?<concat>(?&concat)))(?&operator)(?<key>(?&key)))';
+		$regexp = '(^(?J)\\s*' . $eq . '\\s*(?:or\\s*(?&equality)\\s*)*$)';
+		if (!\preg_match($regexp, $expr))
+			return \false;
+		\preg_match_all("((?J)$eq)", $expr, $matches, \PREG_SET_ORDER);
+		$map = [];
+		foreach ($matches as $m)
+		{
+			$key   = $m['key'];
+			$value = (!empty($m['concat']))
+			       ? self::evaluateConcat($m['concat'])
+			       : self::evaluateLiteral($m['literal']);
+			$map[$key][] = $value;
+		}
+		return $map;
+	}
+	protected static function evaluateConcat($expr)
+	{
+		\preg_match_all('(\'[^\']*\'|"[^"]*")', $expr, $strings);
+		$value = '';
+		foreach ($strings[0] as $string)
+			$value .= \substr($string, 1, -1);
+		return $value;
+	}
+	protected static function evaluateLiteral($expr)
+	{
+		if ($expr[0] === '"' || $expr[0] === "'")
+			$expr = \substr($expr, 1, -1);
+		return $expr;
+	}
 }
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\Items;
@@ -2729,7 +2268,7 @@ class Template
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\JavaScript;
@@ -2857,7 +2396,7 @@ class FunctionProvider
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator;
@@ -2868,7 +2407,7 @@ interface RendererGenerator
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\RendererGenerators\PHP;
@@ -2925,7 +2464,7 @@ abstract class AbstractOptimizer
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\RendererGenerators\PHP;
@@ -3152,7 +2691,7 @@ class BranchOutputOptimizer
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\RendererGenerators\PHP;
@@ -3355,7 +2894,7 @@ class Optimizer
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\RendererGenerators\PHP;
@@ -3376,19 +2915,19 @@ class Quick
 		unset($compiledTemplates['s']);
 		foreach ($compiledTemplates as $tagName => $php)
 		{
-			$rendering = self::getRenderingStrategy($php);
-			if ($rendering === \false)
+			$renderings = self::getRenderingStrategy($php);
+			if (empty($renderings))
 			{
 				$unsupported[] = $tagName;
 				continue;
 			}
-			foreach ($rendering as $i => $_562c18b7)
+			foreach ($renderings as $i => $_562c18b7)
 			{
 				list($strategy, $replacement) = $_562c18b7;
 				$match = (($i) ? '/' : '') . $tagName;
 				$map[$strategy][$match] = $replacement;
 			}
-			if (!isset($rendering[1]))
+			if (!isset($renderings[1]))
 				$tagNames[] = $tagName;
 		}
 		$php = [];
@@ -3434,44 +2973,16 @@ class Quick
 	}
 	public static function getRenderingStrategy($php)
 	{
-		$chunks = \explode('$this->at($node);', $php);
-		$renderings = [];
-		if (\count($chunks) <= 2)
-		{
-			foreach ($chunks as $k => $chunk)
-			{
-				$rendering = self::getStaticRendering($chunk);
-				if ($rendering !== \false)
-				{
-					$renderings[$k] = ['static', $rendering];
-					continue;
-				}
-				if ($k === 0)
-				{
-					$rendering = self::getDynamicRendering($chunk);
-					if ($rendering !== \false)
-					{
-						$renderings[$k] = ['dynamic', $rendering];
-						continue;
-					}
-				}
-				$renderings[$k] = \false;
-			}
-			if (!\in_array(\false, $renderings, \true))
-				return $renderings;
-		}
-		$phpRenderings = self::getQuickRendering($php);
-		if ($phpRenderings === \false)
-			return \false;
-		foreach ($phpRenderings as $i => $phpRendering)
-			if (!isset($renderings[$i]) || $renderings[$i] === \false || \strpos($phpRendering, '$this->attributes[]') !== \false)
+		$renderings = self::getStringRenderings($php);
+		foreach (self::getQuickRendering($php) as $i => $phpRendering)
+			if (!isset($renderings[$i]) || \strpos($phpRendering, '$this->attributes[]') !== \false)
 				$renderings[$i] = ['php', $phpRendering];
 		return $renderings;
 	}
 	protected static function getQuickRendering($php)
 	{
 		if (\preg_match('(\\$this->at\\((?!\\$node\\);))', $php))
-			return \false;
+			return [];
 		$tokens   = \token_get_all('<?php ' . $php);
 		$tokens[] = [0, ''];
 		\array_shift($tokens);
@@ -3500,7 +3011,7 @@ class Quick
 			 && $tokens[$i + 6]    === ';')
 			{
 				if (++$branch['passthrough'] > 1)
-					return \false;
+					return [];
 				$i += 6;
 				continue;
 			}
@@ -3520,8 +3031,7 @@ class Quick
 					$branch =& $branch['parent'];
 					$j = $i;
 					while ($tokens[++$j][0] === \T_WHITESPACE);
-					if ($tokens[$j][0] !== \T_ELSEIF
-					 && $tokens[$j][0] !== \T_ELSE)
+					if ($tokens[$j][0] !== \T_ELSEIF && $tokens[$j][0] !== \T_ELSE)
 					{
 						$passthroughs = self::getBranchesPassthrough($branch['branches']);
 						if ($passthroughs === [0])
@@ -3536,7 +3046,7 @@ class Quick
 							++$branch['passthrough'];
 							continue;
 						}
-						return \false;
+						return [];
 					}
 				}
 				continue;
@@ -3572,7 +3082,7 @@ class Quick
 		$tail .= $branch['tail'];
 		self::convertPHP($head, $tail, (bool) $branch['passthrough']);
 		if (\preg_match('((?<!-|\\$this)->)', $head . $tail))
-			return \false;
+			return [];
 		return ($branch['passthrough']) ? [$head, $tail] : [$head];
 	}
 	protected static function convertPHP(&$head, &$tail, $passthrough)
@@ -3609,6 +3119,7 @@ class Quick
 	protected static function replacePHP(&$php)
 	{
 		$getAttribute = "\\\$node->getAttribute\\(('[^']+')\\)";
+		$string       = "'(?:[^\\\\']|\\\\.)*+'";
 		$replacements = [
 			'$this->out' => '$html',
 			'(htmlspecialchars\\(' . $getAttribute . ',' . \ENT_NOQUOTES . '\\))'
@@ -3622,32 +3133,32 @@ class Quick
 				=> 'strtr($attributes[$1],$2,$3)',
 			'(' . $getAttribute . '(!?=+)' . $getAttribute . ')'
 				=> '$attributes[$1]$2$attributes[$3]',
-			'(' . $getAttribute . "===('.*?(?<!\\\\)(?:\\\\\\\\)*'))s"
+			'(' . $getAttribute . '===(' . $string . '))s'
 				=> function ($m)
 				{
 					return '$attributes[' . $m[1] . ']===' . \htmlspecialchars($m[2], \ENT_COMPAT);
 				},
-			"(('.*?(?<!\\\\)(?:\\\\\\\\)*')===" . $getAttribute . ')s'
+			'((' . $string . ')===' . $getAttribute . ')s'
 				=> function ($m)
 				{
 					return \htmlspecialchars($m[1], \ENT_COMPAT) . '===$attributes[' . $m[2] . ']';
 				},
-			'(strpos\\(' . $getAttribute . ",('.*?(?<!\\\\)(?:\\\\\\\\)*')\\)([!=]==(?:0|false)))s"
+			'(strpos\\(' . $getAttribute . ',(' . $string . ')\\)([!=]==(?:0|false)))s'
 				=> function ($m)
 				{
 					return 'strpos($attributes[' . $m[1] . "]," . \htmlspecialchars($m[2], \ENT_COMPAT) . ')' . $m[3];
 				},
-			"(strpos\\(('.*?(?<!\\\\)(?:\\\\\\\\)*')," . $getAttribute . '\\)([!=]==(?:0|false)))s'
+			'(strpos\\((' . $string . '),' . $getAttribute . '\\)([!=]==(?:0|false)))s'
 				=> function ($m)
 				{
 					return 'strpos(' . \htmlspecialchars($m[1], \ENT_COMPAT) . ',$attributes[' . $m[2] . '])' . $m[3];
 				},
-			'(' . $getAttribute . '(?=(?:==|[-+*])\\d+))'        => '$attributes[$1]',
-			'((?<!\\w)(\\d+(?:==|[-+*]))' . $getAttribute . ')'  => '$1$attributes[$2]',
-			"(empty\\(\\\$node->getAttribute\\(('[^']+')\\)\\))" => 'empty($attributes[$1])',
-			"(\\\$node->hasAttribute\\(('[^']+')\\))"            => 'isset($attributes[$1])',
-			'if($node->attributes->length)' => 'if($this->hasNonNullValues($attributes))',
-			"(\\\$node->getAttribute\\(('[^']+')\\))" => 'htmlspecialchars_decode($attributes[$1])'
+			'(' . $getAttribute . '(?=(?:==|[-+*])\\d+))'  => '$attributes[$1]',
+			'(\\b(\\d+(?:==|[-+*]))' . $getAttribute . ')' => '$1$attributes[$2]',
+			'(empty\\(' . $getAttribute . '\\))'           => 'empty($attributes[$1])',
+			"(\\\$node->hasAttribute\\(('[^']+')\\))"      => 'isset($attributes[$1])',
+			'if($node->attributes->length)'                => 'if($this->hasNonNullValues($attributes))',
+			'(' . $getAttribute . ')' => 'htmlspecialchars_decode($attributes[$1])'
 		];
 		foreach ($replacements as $match => $replace)
 			if ($replace instanceof Closure)
@@ -3760,10 +3271,30 @@ class Quick
 	{
 		if ($php === '')
 			return '';
-		$regexp = "(^\\\$this->out\.='((?>[^'\\\\]+|\\\\['\\\\])*)';\$)";
+		$regexp = "(^\\\$this->out\.='((?>[^'\\\\]|\\\\['\\\\])*+)';\$)";
 		if (\preg_match($regexp, $php, $m))
 			return \stripslashes($m[1]);
 		return \false;
+	}
+	protected static function getStringRenderings($php)
+	{
+		$chunks = \explode('$this->at($node);', $php);
+		if (\count($chunks) > 2)
+			return [];
+		$renderings = [];
+		foreach ($chunks as $k => $chunk)
+		{
+			$rendering = self::getStaticRendering($chunk);
+			if ($rendering !== \false)
+				$renderings[$k] = ['static', $rendering];
+			elseif ($k === 0)
+			{
+				$rendering = self::getDynamicRendering($chunk);
+				if ($rendering !== \false)
+					$renderings[$k] = ['dynamic', $rendering];
+			}
+		}
+		return $renderings;
 	}
 	protected static function replacePlaceholder(&$str, $uniqid, $index)
 	{
@@ -3783,7 +3314,7 @@ class Quick
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\RendererGenerators\PHP;
@@ -3795,20 +3326,12 @@ use s9e\TextFormatter\Configurator\Helpers\TemplateParser;
 class Serializer
 {
 	public $convertor;
+	protected $isVoid;
 	public $useMultibyteStringFunctions = \false;
+	protected $xpath;
 	public function __construct()
 	{
 		$this->convertor = new XPathConvertor;
-	}
-	protected function convertAttributeValueTemplate($attrValue)
-	{
-		$phpExpressions = [];
-		foreach (AVTHelper::parse($attrValue) as $token)
-			if ($token[0] === 'literal')
-				$phpExpressions[] = \var_export($token[1], \true);
-			else
-				$phpExpressions[] = $this->convertXPath($token[1]);
-		return \implode('.', $phpExpressions);
 	}
 	public function convertCondition($expr)
 	{
@@ -3819,6 +3342,24 @@ class Serializer
 	{
 		$this->convertor->useMultibyteStringFunctions = $this->useMultibyteStringFunctions;
 		return $this->convertor->convertXPath($expr);
+	}
+	public function serialize(DOMElement $ir)
+	{
+		$this->xpath  = new DOMXPath($ir->ownerDocument);
+		$this->isVoid = [];
+		foreach ($this->xpath->query('//element') as $element)
+			$this->isVoid[$element->getAttribute('id')] = $element->getAttribute('void');
+		return $this->serializeChildren($ir);
+	}
+	protected function convertAttributeValueTemplate($attrValue)
+	{
+		$phpExpressions = [];
+		foreach (AVTHelper::parse($attrValue) as $token)
+			if ($token[0] === 'literal')
+				$phpExpressions[] = \var_export($token[1], \true);
+			else
+				$phpExpressions[] = $this->convertXPath($token[1]);
+		return \implode('.', $phpExpressions);
 	}
 	protected function escapeLiteral($text, $context)
 	{
@@ -3836,8 +3377,7 @@ class Serializer
 	}
 	protected function hasMultipleCases(DOMElement $switch)
 	{
-		$xpath = new DOMXPath($switch->ownerDocument);
-		return $xpath->evaluate('count(case[@test]) > 1', $switch);
+		return $this->xpath->evaluate('count(case[@test]) > 1', $switch);
 	}
 	protected function serializeApplyTemplates(DOMElement $applyTemplates)
 	{
@@ -3856,37 +3396,27 @@ class Serializer
 		     . $this->serializeChildren($attribute)
 		     . "\$this->out.='\"';";
 	}
-	public function serialize(DOMElement $ir)
-	{
-		return $this->serializeChildren($ir);
-	}
 	protected function serializeChildren(DOMElement $ir)
 	{
 		$php = '';
 		foreach ($ir->childNodes as $node)
-		{
-			$methodName = 'serialize' . \ucfirst($node->localName);
-			$php .= $this->$methodName($node);
-		}
+			if ($node instanceof DOMElement)
+			{
+				$methodName = 'serialize' . \ucfirst($node->localName);
+				$php .= $this->$methodName($node);
+			}
 		return $php;
 	}
 	protected function serializeCloseTag(DOMElement $closeTag)
 	{
-		$php = '';
+		$php = "\$this->out.='>';";
 		$id  = $closeTag->getAttribute('id');
-		if ($closeTag->hasAttribute('check'))
-			$php .= 'if(!isset($t' . $id . ')){';
 		if ($closeTag->hasAttribute('set'))
 			$php .= '$t' . $id . '=1;';
-		$xpath   = new DOMXPath($closeTag->ownerDocument);
-		$element = $xpath->query('ancestor::element[@id="' . $id . '"]', $closeTag)->item(0);
-		if (!($element instanceof DOMElement))
-			throw new RuntimeException;
-		$php .= "\$this->out.='>';";
-		if ($element->getAttribute('void') === 'maybe')
-			$php .= 'if(!$v' . $id . '){';
 		if ($closeTag->hasAttribute('check'))
-			$php .= '}';
+			$php = 'if(!isset($t' . $id . ')){' . $php . '}';
+		if ($this->isVoid[$id] === 'maybe')
+			$php .= 'if(!$v' . $id . '){';
 		return $php;
 	}
 	protected function serializeComment(DOMElement $comment)
@@ -3929,20 +3459,13 @@ class Serializer
 	protected function serializeHash(DOMElement $switch)
 	{
 		$statements = [];
-		foreach ($switch->getElementsByTagName('case') as $case)
-		{
-			if (!$case->parentNode->isSameNode($switch))
-				continue;
-			if ($case->hasAttribute('branch-values'))
-			{
-				$php = $this->serializeChildren($case);
-				foreach (\unserialize($case->getAttribute('branch-values')) as $value)
-					$statements[$value] = $php;
-			}
-		}
+		foreach ($this->xpath->query('case[@branch-values]', $switch) as $case)
+			foreach (\unserialize($case->getAttribute('branch-values')) as $value)
+				$statements[$value] = $this->serializeChildren($case);
 		if (!isset($case))
 			throw new RuntimeException;
-		$defaultCode = ($case->hasAttribute('branch-values')) ? '' : $this->serializeChildren($case);
+		$defaultCase = $this->xpath->query('case[not(@branch-values)]', $switch)->item(0);
+		$defaultCode = ($defaultCase instanceof DOMElement) ? $this->serializeChildren($defaultCase) : '';
 		$expr        = $this->convertXPath($switch->getAttribute('branch-key'));
 		return SwitchStatement::generate($expr, $statements, $defaultCode);
 	}
@@ -3961,20 +3484,16 @@ class Serializer
 	{
 		if ($switch->hasAttribute('branch-key') && $this->hasMultipleCases($switch))
 			return $this->serializeHash($switch);
-		$php  = '';
-		$else = '';
-		foreach ($switch->getElementsByTagName('case') as $case)
+		$php   = '';
+		$if    = 'if';
+		foreach ($this->xpath->query('case', $switch) as $case)
 		{
-			if (!$case->parentNode->isSameNode($switch))
-				continue;
 			if ($case->hasAttribute('test'))
-				$php .= $else . 'if(' . $this->convertCondition($case->getAttribute('test')) . ')';
+				$php .= $if . '(' . $this->convertCondition($case->getAttribute('test')) . ')';
 			else
 				$php .= 'else';
-			$else = 'else';
-			$php .= '{';
-			$php .= $this->serializeChildren($case);
-			$php .= '}';
+			$php .= '{' . $this->serializeChildren($case) . '}';
+			$if   = 'elseif';
 		}
 		return $php;
 	}
@@ -3982,7 +3501,7 @@ class Serializer
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\RendererGenerators\PHP;
@@ -4026,7 +3545,7 @@ class SwitchStatement
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\RendererGenerators\PHP;
@@ -4051,9 +3570,9 @@ class XPathConvertor
 		if (\preg_match('#^not\\(@([-\\w]+)\\)$#', $expr, $m))
 			return '!$node->hasAttribute(' . \var_export($m[1], \true) . ')';
 		if (\preg_match('#^\\$(\\w+)$#', $expr, $m))
-			return '!empty($this->params[' . \var_export($m[1], \true) . '])';
+			return '$this->params[' . \var_export($m[1], \true) . "]!==''";
 		if (\preg_match('#^not\\(\\$(\\w+)\\)$#', $expr, $m))
-			return 'empty($this->params[' . \var_export($m[1], \true) . '])';
+			return '$this->params[' . \var_export($m[1], \true) . "]===''";
 		if (\preg_match('#^([$@][-\\w]+)\\s*([<>])\\s*(\\d+)$#', $expr, $m))
 			return $this->convertXPath($m[1]) . $m[2] . $m[3];
 		if (!\preg_match('#[=<>]|\\bor\\b|\\band\\b|^[-\\w]+\\s*\\(#', $expr))
@@ -4114,9 +3633,12 @@ class XPathConvertor
 	{
 		return '$node->nodeName';
 	}
-	protected function number($number)
+	protected function number($sign, $number)
 	{
-		return "'" . $number . "'";
+		$number = \ltrim($number, '0') ?: 0;
+		if (!$number)
+			$sign = '';
+		return "'" . $sign . $number . "'";
 	}
 	protected function strlen($expr)
 	{
@@ -4220,28 +3742,19 @@ class XPathConvertor
 		$from = $matches[0];
 		\preg_match_all('(.)su', \substr($to, 1, -1), $matches);
 		$to = $matches[0];
-		if (\count($to) > \count($from))
-			$to = \array_slice($to, 0, \count($from));
-		else
-			while (\count($from) > \count($to))
-				$to[] = '';
 		$from = \array_unique($from);
 		$to   = \array_intersect_key($to, $from);
+		$to  += \array_fill_keys(\array_keys(\array_diff_key($from, $to)), '');
 		$php = 'strtr(' . $this->convertXPath($str) . ',';
 		if ([1] === \array_unique(\array_map('strlen', $from))
 		 && [1] === \array_unique(\array_map('strlen', $to)))
 			$php .= \var_export(\implode('', $from), \true) . ',' . \var_export(\implode('', $to), \true);
 		else
 		{
-			$php .= '[';
-			$cnt = \count($from);
-			for ($i = 0; $i < $cnt; ++$i)
-			{
-				if ($i)
-					$php .= ',';
-				$php .= \var_export($from[$i], \true) . '=>' . \var_export($to[$i], \true);
-			}
-			$php .= ']';
+			$elements = [];
+			foreach ($from as $k => $str)
+				$elements[] = \var_export($str, \true) . '=>' . \var_export($to[$k], \true);
+			$php .= '[' . \implode(',', $elements) . ']';
 		}
 		$php .= ')';
 		return $php;
@@ -4259,33 +3772,26 @@ class XPathConvertor
 	protected function exportXPath($expr)
 	{
 		$phpTokens = [];
-		$pos = 0;
-		$len = \strlen($expr);
-		while ($pos < $len)
+		foreach ($this->tokenizeXPathForExport($expr) as $_f6b3b659)
 		{
-			if ($expr[$pos] === "'" || $expr[$pos] === '"')
-			{
-				$nextPos = \strpos($expr, $expr[$pos], 1 + $pos);
-				if ($nextPos === \false)
-					throw new RuntimeException('Unterminated string literal in XPath expression ' . \var_export($expr, \true));
-				$phpTokens[] = \var_export(\substr($expr, $pos, $nextPos + 1 - $pos), \true);
-				$pos = $nextPos + 1;
-				continue;
-			}
-			if ($expr[$pos] === '$' && \preg_match('/\\$(\\w+)/', $expr, $m, 0, $pos))
-			{
-				$phpTokens[] = '$this->getParamAsXPath(' . \var_export($m[1], \true) . ')';
-				$pos += \strlen($m[0]);
-				continue;
-			}
-			$spn = \strcspn($expr, '\'"$', $pos);
-			if ($spn)
-			{
-				$phpTokens[] = \var_export(\substr($expr, $pos, $spn), \true);
-				$pos += $spn;
-			}
+			list($type, $content) = $_f6b3b659;
+			$methodName  = 'exportXPath' . \ucfirst($type);
+			$phpTokens[] = $this->$methodName($content);
 		}
 		return \implode('.', $phpTokens);
+	}
+	protected function exportXPathCurrent()
+	{
+		return '$node->getNodePath()';
+	}
+	protected function exportXPathFragment($fragment)
+	{
+		return \var_export($fragment, \true);
+	}
+	protected function exportXPathParam($param)
+	{
+		$paramName = \ltrim($param, '$');
+		return '$this->getParamAsXPath(' . \var_export($paramName, \true) . ')';
 	}
 	protected function generateXPathRegexp()
 	{
@@ -4298,7 +3804,7 @@ class XPathConvertor
 			'lname'     => 'local-name\\(\\)',
 			'param'     => ['\\$', '(?<param0>\\w+)'],
 			'string'    => '"[^"]*"|\'[^\']*\'',
-			'number'    => ['-?', '\\d++'],
+			'number'    => ['(?<number0>-?)', '(?<number1>\\d++)'],
 			'strlen'    => ['string-length', '\\(', '(?<strlen0>(?&value)?)', '\\)'],
 			'contains'  => [
 				'contains',
@@ -4387,16 +3893,44 @@ class XPathConvertor
 				$valueExprs[] = '(?<' . $name . '>' . $pattern . ')';
 		}
 		\array_unshift($exprs, '(?<value>' . \implode('|', $valueExprs) . ')');
-
 		$regexp = '#^(?:' . \implode('|', $exprs) . ')$#S';
 		$regexp = \str_replace(' ', '\\s*', $regexp);
 		$this->regexp = $regexp;
+	}
+	protected function matchXPathForExport($expr)
+	{
+		$tokenExprs = [
+			'(?<current>\\bcurrent\\(\\))',
+			'(?<param>\\$\\w+)',
+			'(?<fragment>"[^"]*"|\'[^\']*\'|.)'
+		];
+		\preg_match_all('(' . \implode('|', $tokenExprs) . ')s', $expr, $matches, \PREG_SET_ORDER);
+		$i = \count($matches);
+		while (--$i > 0)
+			if (isset($matches[$i]['fragment'], $matches[$i - 1]['fragment']))
+			{
+				$matches[$i - 1]['fragment'] .= $matches[$i]['fragment'];
+				unset($matches[$i]);
+			}
+		return \array_values($matches);
+	}
+	protected function tokenizeXPathForExport($expr)
+	{
+		$tokens = [];
+		foreach ($this->matchXPathForExport($expr) as $match)
+			foreach (\array_reverse($match) as $k => $v)
+				if (!\is_numeric($k))
+				{
+					$tokens[] = [$k, $v];
+					break;
+				}
+		return $tokens;
 	}
 }
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\RulesGenerators\Interfaces;
@@ -4408,7 +3942,7 @@ interface BooleanRulesGenerator
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\RulesGenerators\Interfaces;
@@ -4420,7 +3954,7 @@ interface TargetedRulesGenerator
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator;
@@ -4434,7 +3968,7 @@ abstract class TemplateCheck
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateNormalizations;
@@ -4460,12 +3994,23 @@ abstract class AbstractNormalization
 	}
 	protected function createElement($nodeName, $textContent = '')
 	{
-		$value = \htmlspecialchars($textContent, \ENT_NOQUOTES, 'UTF-8');
-		$pos   = \strpos($nodeName, ':');
-		if ($pos === \false)
-			return $this->ownerDocument->createElement($nodeName, $value);
-		$namespaceURI = $this->ownerDocument->lookupNamespaceURI(\substr($nodeName, 0, $pos));
-		return $this->ownerDocument->createElementNS($namespaceURI, $nodeName, $value);
+		$methodName = 'createElement';
+		$args       = [$nodeName];
+		if ($textContent !== '')
+			$args[] = \htmlspecialchars($textContent, \ENT_NOQUOTES, 'UTF-8');
+		$prefix = \strstr($nodeName, ':', \true);
+		if ($prefix > '')
+		{
+			$methodName .= 'NS';
+			\array_unshift($args, $this->ownerDocument->lookupNamespaceURI($prefix));
+		}
+		return \call_user_func_array([$this->ownerDocument, $methodName], $args);
+	}
+	protected function createText($content)
+	{
+		return (\trim($content) === '')
+		     ? $this->createElement('xsl:text', $content)
+		     : $this->ownerDocument->createTextNode($content);
 	}
 	protected function createTextNode($content)
 	{
@@ -4513,7 +4058,7 @@ abstract class AbstractNormalization
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\Traits;
@@ -4567,7 +4112,7 @@ trait CollectionProxy
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\Traits;
@@ -4670,7 +4215,7 @@ trait Configurable
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\Traits;
@@ -4717,7 +4262,7 @@ trait TemplateSafeness
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\Validators;
@@ -4738,7 +4283,7 @@ abstract class AttributeName
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\Validators;
@@ -4761,7 +4306,7 @@ abstract class TagName
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\Collections;
@@ -4808,7 +4353,444 @@ class Collection implements ConfigProvider, Countable, Iterator
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
+* @license   http://www.opensource.org/licenses/mit-license.php The MIT License
+*/
+namespace s9e\TextFormatter\Configurator\Helpers\TemplateParser;
+use DOMDocument;
+use DOMElement;
+use DOMNode;
+use s9e\TextFormatter\Configurator\Helpers\XPathHelper;
+class Normalizer extends IRProcessor
+{
+	protected $optimizer;
+	public $voidRegexp = '/^(?:area|base|br|col|command|embed|hr|img|input|keygen|link|meta|param|source|track|wbr)$/Di';
+	public function __construct(Optimizer $optimizer)
+	{
+		$this->optimizer = $optimizer;
+	}
+	public function normalize(DOMDocument $ir)
+	{
+		$this->createXPath($ir);
+		$this->addDefaultCase($ir);
+		$this->addElementIds($ir);
+		$this->addCloseTagElements($ir);
+		$this->markVoidElements($ir);
+		$this->optimizer->optimize($ir);
+		$this->markConditionalCloseTagElements($ir);
+		$this->setOutputContext($ir);
+		$this->markBranchTables($ir);
+	}
+	protected function addCloseTagElements(DOMDocument $ir)
+	{
+		$exprs = [
+			'//applyTemplates[not(ancestor::attribute)]',
+			'//comment',
+			'//element',
+			'//output[not(ancestor::attribute)]'
+		];
+		foreach ($this->query(\implode('|', $exprs)) as $node)
+		{
+			$parentElementId = $this->getParentElementId($node);
+			if (isset($parentElementId))
+				$node->parentNode
+				     ->insertBefore($ir->createElement('closeTag'), $node)
+				     ->setAttribute('id', $parentElementId);
+			if ($node->nodeName === 'element')
+			{
+				$id = $node->getAttribute('id');
+				$this->appendElement($node, 'closeTag')->setAttribute('id', $id);
+			}
+		}
+	}
+	protected function addDefaultCase(DOMDocument $ir)
+	{
+		foreach ($this->query('//switch[not(case[not(@test)])]') as $switch)
+			$this->appendElement($switch, 'case');
+	}
+	protected function addElementIds(DOMDocument $ir)
+	{
+		$id = 0;
+		foreach ($this->query('//element') as $element)
+			$element->setAttribute('id', ++$id);
+	}
+	protected function getOutputContext(DOMNode $output)
+	{
+		$contexts = [
+			'boolean(ancestor::attribute)'             => 'attribute',
+			'@disable-output-escaping="yes"'           => 'raw',
+			'count(ancestor::element[@name="script"])' => 'raw'
+		];
+		foreach ($contexts as $expr => $context)
+			if ($this->evaluate($expr, $output))
+				return $context;
+		return 'text';
+	}
+	protected function getParentElementId(DOMNode $node)
+	{
+		$parentNode = $node->parentNode;
+		while (isset($parentNode))
+		{
+			if ($parentNode->nodeName === 'element')
+				return $parentNode->getAttribute('id');
+			$parentNode = $parentNode->parentNode;
+		}
+	}
+	protected function markBranchTables(DOMDocument $ir)
+	{
+		foreach ($this->query('//switch[case[2][@test]]') as $switch)
+			$this->markSwitchTable($switch);
+	}
+	protected function markSwitchTable(DOMElement $switch)
+	{
+		$cases = [];
+		$maps  = [];
+		foreach ($this->query('./case[@test]', $switch) as $i => $case)
+		{
+			$map = XPathHelper::parseEqualityExpr($case->getAttribute('test'));
+			if ($map === \false)
+				return;
+			$maps     += $map;
+			$cases[$i] = [$case, \end($map)];
+		}
+		if (\count($maps) !== 1)
+			return;
+		$switch->setAttribute('branch-key', \key($maps));
+		foreach ($cases as $_6920557c)
+		{
+			list($case, $values) = $_6920557c;
+			\sort($values);
+			$case->setAttribute('branch-values', \serialize($values));
+		}
+	}
+	protected function markConditionalCloseTagElements(DOMDocument $ir)
+	{
+		foreach ($this->query('//closeTag') as $closeTag)
+		{
+			$id = $closeTag->getAttribute('id');
+			$query = 'ancestor::switch/following-sibling::*/descendant-or-self::closeTag[@id = "' . $id . '"]';
+			foreach ($this->query($query, $closeTag) as $following)
+			{
+				$following->setAttribute('check', '');
+				$closeTag->setAttribute('set', '');
+			}
+		}
+	}
+	protected function markVoidElements(DOMDocument $ir)
+	{
+		foreach ($this->query('//element') as $element)
+		{
+			$elName = $element->getAttribute('name');
+			if (\strpos($elName, '{') !== \false)
+				$element->setAttribute('void', 'maybe');
+			elseif (\preg_match($this->voidRegexp, $elName))
+				$element->setAttribute('void', 'yes');
+		}
+	}
+	protected function setOutputContext(DOMDocument $ir)
+	{
+		foreach ($this->query('//output') as $output)
+			$output->setAttribute('escape', $this->getOutputContext($output));
+	}
+}
+
+/*
+* @package   s9e\TextFormatter
+* @copyright Copyright (c) 2010-2019 The s9e Authors
+* @license   http://www.opensource.org/licenses/mit-license.php The MIT License
+*/
+namespace s9e\TextFormatter\Configurator\Helpers\TemplateParser;
+use DOMDocument;
+use DOMElement;
+use DOMNode;
+class Optimizer extends IRProcessor
+{
+	public function optimize(DOMDocument $ir)
+	{
+		$this->createXPath($ir);
+		$xml = $ir->saveXML();
+		$remainingLoops = 10;
+		do
+		{
+			$old = $xml;
+			$this->optimizeCloseTagElements($ir);
+			$xml = $ir->saveXML();
+		}
+		while (--$remainingLoops > 0 && $xml !== $old);
+		$this->removeCloseTagSiblings($ir);
+		$this->removeContentFromVoidElements($ir);
+		$this->mergeConsecutiveLiteralOutputElements($ir);
+		$this->removeEmptyDefaultCases($ir);
+	}
+	protected function cloneCloseTagElementsIntoSwitch(DOMDocument $ir)
+	{
+		$query = '//switch[name(following-sibling::*[1]) = "closeTag"]';
+		foreach ($this->query($query) as $switch)
+		{
+			$closeTag = $switch->nextSibling;
+			foreach ($this->query('case', $switch) as $case)
+				if (!$case->lastChild || $case->lastChild->nodeName !== 'closeTag')
+					$case->appendChild($closeTag->cloneNode());
+		}
+	}
+	protected function cloneCloseTagElementsOutOfSwitch(DOMDocument $ir)
+	{
+		$query = '//switch[case/closeTag][not(case[name(*[1]) != "closeTag"])]';
+		foreach ($this->query($query) as $switch)
+		{
+			$case = $this->query('case/closeTag', $switch)->item(0);
+			$switch->parentNode->insertBefore($case->cloneNode(), $switch);
+		}
+	}
+	protected function mergeConsecutiveLiteralOutputElements(DOMDocument $ir)
+	{
+		foreach ($this->query('//output[@type="literal"]') as $output)
+		{
+			$disableOutputEscaping = $output->getAttribute('disable-output-escaping');
+			while ($this->nextSiblingIsLiteralOutput($output, $disableOutputEscaping))
+			{
+				$output->nodeValue = \htmlspecialchars($output->nodeValue . $output->nextSibling->nodeValue);
+				$output->parentNode->removeChild($output->nextSibling);
+			}
+		}
+	}
+	protected function nextSiblingIsLiteralOutput(DOMElement $node, $disableOutputEscaping)
+	{
+		return isset($node->nextSibling) && $node->nextSibling->nodeName === 'output' && $node->nextSibling->getAttribute('type') === 'literal' && $node->nextSibling->getAttribute('disable-output-escaping') === $disableOutputEscaping;
+	}
+	protected function optimizeCloseTagElements(DOMDocument $ir)
+	{
+		$this->cloneCloseTagElementsIntoSwitch($ir);
+		$this->cloneCloseTagElementsOutOfSwitch($ir);
+		$this->removeRedundantCloseTagElementsInSwitch($ir);
+		$this->removeRedundantCloseTagElements($ir);
+	}
+	protected function removeCloseTagSiblings(DOMDocument $ir)
+	{
+		$query = '//switch[not(case[not(closeTag)])]/following-sibling::closeTag';
+		$this->removeNodes($ir, $query);
+	}
+	protected function removeContentFromVoidElements(DOMDocument $ir)
+	{
+		foreach ($this->query('//element[@void="yes"]') as $element)
+		{
+			$id    = $element->getAttribute('id');
+			$query = './/closeTag[@id="' . $id . '"]/following-sibling::*';
+			$this->removeNodes($ir, $query, $element);
+		}
+	}
+	protected function removeEmptyDefaultCases(DOMDocument $ir)
+	{
+		$query = '//case[not(@test)][not(*)][. = ""]';
+		$this->removeNodes($ir, $query);
+	}
+	protected function removeNodes(DOMDocument $ir, $query, DOMNode $contextNode = \null)
+	{
+		foreach ($this->query($query, $contextNode) as $node)
+			if ($node->parentNode instanceof DOMElement)
+				$node->parentNode->removeChild($node);
+	}
+	protected function removeRedundantCloseTagElements(DOMDocument $ir)
+	{
+		foreach ($this->query('//closeTag') as $closeTag)
+		{
+			$id    = $closeTag->getAttribute('id');
+			$query = 'following-sibling::*/descendant-or-self::closeTag[@id="' . $id . '"]';
+			$this->removeNodes($ir, $query, $closeTag);
+		}
+	}
+	protected function removeRedundantCloseTagElementsInSwitch(DOMDocument $ir)
+	{
+		$query = '//switch[name(following-sibling::*[1]) = "closeTag"]';
+		foreach ($this->query($query) as $switch)
+			foreach ($this->query('case', $switch) as $case)
+				while ($case->lastChild && $case->lastChild->nodeName === 'closeTag')
+					$case->removeChild($case->lastChild);
+	}
+}
+
+/*
+* @package   s9e\TextFormatter
+* @copyright Copyright (c) 2010-2019 The s9e Authors
+* @license   http://www.opensource.org/licenses/mit-license.php The MIT License
+*/
+namespace s9e\TextFormatter\Configurator\Helpers\TemplateParser;
+use DOMDocument;
+use DOMElement;
+use DOMXPath;
+use RuntimeException;
+use s9e\TextFormatter\Configurator\Helpers\AVTHelper;
+use s9e\TextFormatter\Configurator\Helpers\TemplateHelper;
+class Parser extends IRProcessor
+{
+	protected $normalizer;
+	public function __construct(Normalizer $normalizer)
+	{
+		$this->normalizer = $normalizer;
+	}
+	public function parse($template)
+	{
+		$dom = TemplateHelper::loadTemplate($template);
+		$ir = new DOMDocument;
+		$ir->loadXML('<template/>');
+		$this->createXPath($dom);
+		$this->parseChildren($ir->documentElement, $dom->documentElement);
+		$this->normalizer->normalize($ir);
+		return $ir;
+	}
+	protected function appendAVT(DOMElement $parentNode, $avt)
+	{
+		foreach (AVTHelper::parse($avt) as $token)
+			if ($token[0] === 'expression')
+				$this->appendXPathOutput($parentNode, $token[1]);
+			else
+				$this->appendLiteralOutput($parentNode, $token[1]);
+	}
+	protected function appendLiteralOutput(DOMElement $parentNode, $content)
+	{
+		if ($content === '')
+			return;
+		$this->appendElement($parentNode, 'output', \htmlspecialchars($content))
+		     ->setAttribute('type', 'literal');
+	}
+	protected function appendConditionalAttributes(DOMElement $parentNode, $expr)
+	{
+		\preg_match_all('(@([-\\w]+))', $expr, $matches);
+		foreach ($matches[1] as $attrName)
+		{
+			$switch = $this->appendElement($parentNode, 'switch');
+			$case   = $this->appendElement($switch, 'case');
+			$case->setAttribute('test', '@' . $attrName);
+			$attribute = $this->appendElement($case, 'attribute');
+			$attribute->setAttribute('name', $attrName);
+			$this->appendXPathOutput($attribute, '@' . $attrName);
+		}
+	}
+	protected function appendXPathOutput(DOMElement $parentNode, $expr)
+	{
+		$this->appendElement($parentNode, 'output', \htmlspecialchars(\trim($expr)))
+		     ->setAttribute('type', 'xpath');
+	}
+	protected function parseChildren(DOMElement $ir, DOMElement $parent)
+	{
+		foreach ($parent->childNodes as $child)
+		{
+			switch ($child->nodeType)
+			{
+				case \XML_COMMENT_NODE:
+					break;
+				case \XML_TEXT_NODE:
+					if (\trim($child->textContent) !== '')
+						$this->appendLiteralOutput($ir, $child->textContent);
+					break;
+				case \XML_ELEMENT_NODE:
+					$this->parseNode($ir, $child);
+					break;
+				default:
+					throw new RuntimeException("Cannot parse node '" . $child->nodeName . "''");
+			}
+		}
+	}
+	protected function parseNode(DOMElement $ir, DOMElement $node)
+	{
+		if ($node->namespaceURI === self::XMLNS_XSL)
+		{
+			$methodName = 'parseXsl' . \str_replace(' ', '', \ucwords(\str_replace('-', ' ', $node->localName)));
+			if (!\method_exists($this, $methodName))
+				throw new RuntimeException("Element '" . $node->nodeName . "' is not supported");
+			return $this->$methodName($ir, $node);
+		}
+		$element = $this->appendElement($ir, 'element');
+		$element->setAttribute('name', $node->nodeName);
+		$xpath = new DOMXPath($node->ownerDocument);
+		foreach ($xpath->query('namespace::*', $node) as $ns)
+			if ($node->hasAttribute($ns->nodeName))
+			{
+				$irAttribute = $this->appendElement($element, 'attribute');
+				$irAttribute->setAttribute('name', $ns->nodeName);
+				$this->appendLiteralOutput($irAttribute, $ns->nodeValue);
+			}
+		foreach ($node->attributes as $attribute)
+		{
+			$irAttribute = $this->appendElement($element, 'attribute');
+			$irAttribute->setAttribute('name', $attribute->nodeName);
+			$this->appendAVT($irAttribute, $attribute->value);
+		}
+		$this->parseChildren($element, $node);
+	}
+	protected function parseXslApplyTemplates(DOMElement $ir, DOMElement $node)
+	{
+		$applyTemplates = $this->appendElement($ir, 'applyTemplates');
+		if ($node->hasAttribute('select'))
+			$applyTemplates->setAttribute('select', $node->getAttribute('select'));
+	}
+	protected function parseXslAttribute(DOMElement $ir, DOMElement $node)
+	{
+		$attribute = $this->appendElement($ir, 'attribute');
+		$attribute->setAttribute('name', $node->getAttribute('name'));
+		$this->parseChildren($attribute, $node);
+	}
+	protected function parseXslChoose(DOMElement $ir, DOMElement $node)
+	{
+		$switch = $this->appendElement($ir, 'switch');
+		foreach ($this->query('./xsl:when', $node) as $when)
+		{
+			$case = $this->appendElement($switch, 'case');
+			$case->setAttribute('test', $when->getAttribute('test'));
+			$this->parseChildren($case, $when);
+		}
+		foreach ($this->query('./xsl:otherwise', $node) as $otherwise)
+		{
+			$case = $this->appendElement($switch, 'case');
+			$this->parseChildren($case, $otherwise);
+			break;
+		}
+	}
+	protected function parseXslComment(DOMElement $ir, DOMElement $node)
+	{
+		$comment = $this->appendElement($ir, 'comment');
+		$this->parseChildren($comment, $node);
+	}
+	protected function parseXslCopyOf(DOMElement $ir, DOMElement $node)
+	{
+		$expr = $node->getAttribute('select');
+		if (\preg_match('#^@[-\\w]+(?:\\s*\\|\\s*@[-\\w]+)*$#', $expr, $m))
+			$this->appendConditionalAttributes($ir, $expr);
+		elseif ($expr === '@*')
+			$this->appendElement($ir, 'copyOfAttributes');
+		else
+			throw new RuntimeException("Unsupported <xsl:copy-of/> expression '" . $expr . "'");
+	}
+	protected function parseXslElement(DOMElement $ir, DOMElement $node)
+	{
+		$element = $this->appendElement($ir, 'element');
+		$element->setAttribute('name', $node->getAttribute('name'));
+		$this->parseChildren($element, $node);
+	}
+	protected function parseXslIf(DOMElement $ir, DOMElement $node)
+	{
+		$switch = $this->appendElement($ir, 'switch');
+		$case   = $this->appendElement($switch, 'case');
+		$case->setAttribute('test', $node->getAttribute('test'));
+		$this->parseChildren($case, $node);
+	}
+	protected function parseXslText(DOMElement $ir, DOMElement $node)
+	{
+		$this->appendLiteralOutput($ir, $node->textContent);
+		if ($node->getAttribute('disable-output-escaping') === 'yes')
+			$ir->lastChild->setAttribute('disable-output-escaping', 'yes');
+	}
+	protected function parseXslValueOf(DOMElement $ir, DOMElement $node)
+	{
+		$this->appendXPathOutput($ir, $node->getAttribute('select'));
+		if ($node->getAttribute('disable-output-escaping') === 'yes')
+			$ir->lastChild->setAttribute('disable-output-escaping', 'yes');
+	}
+}
+
+/*
+* @package   s9e\TextFormatter
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\Items;
@@ -4824,7 +4806,6 @@ class Attribute implements ConfigProvider
 	use TemplateSafeness;
 	protected $defaultValue;
 	protected $filterChain;
-	protected $generator;
 	protected $required = \true;
 	public function __construct(array $options = \null)
 	{
@@ -4841,23 +4822,17 @@ class Attribute implements ConfigProvider
 				return \true;
 		return !empty($this->markedSafe[$context]);
 	}
-	public function setGenerator($callback)
-	{
-		if (!($callback instanceof ProgrammableCallback))
-			$callback = new ProgrammableCallback($callback);
-		$this->generator = $callback;
-	}
 	public function asConfig()
 	{
 		$vars = \get_object_vars($this);
 		unset($vars['markedSafe']);
-		return ConfigHelper::toArray($vars);
+		return ConfigHelper::toArray($vars) + ['filterChain' => []];
 	}
 }
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\Items;
@@ -4962,7 +4937,7 @@ class ProgrammableCallback implements ConfigProvider
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\Items;
@@ -5040,7 +5015,7 @@ class Regexp implements ConfigProvider, FilterableConfigValue
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\Items;
@@ -5069,10 +5044,10 @@ class Tag implements ConfigProvider
 		$this->attributePreprocessors = new AttributePreprocessorCollection;
 		$this->filterChain            = new TagFilterChain;
 		$this->rules                  = new Ruleset;
-		$this->filterChain->append('s9e\\TextFormatter\\Parser::executeAttributePreprocessors')
+		$this->filterChain->append('s9e\\TextFormatter\\Parser\\FilterProcessing::executeAttributePreprocessors')
 		                  ->addParameterByName('tagConfig')
 		                  ->setJS('executeAttributePreprocessors');
-		$this->filterChain->append('s9e\\TextFormatter\\Parser::filterAttributes')
+		$this->filterChain->append('s9e\\TextFormatter\\Parser\\FilterProcessing::filterAttributes')
 		                  ->addParameterByName('tagConfig')
 		                  ->addParameterByName('registeredVars')
 		                  ->addParameterByName('logger')
@@ -5090,7 +5065,7 @@ class Tag implements ConfigProvider
 		unset($vars['template']);
 		if (!\count($this->attributePreprocessors))
 		{
-			$callback = 's9e\\TextFormatter\\Parser::executeAttributePreprocessors';
+			$callback = 's9e\\TextFormatter\\Parser\\FilterProcessing::executeAttributePreprocessors';
 			$filterChain = clone $vars['filterChain'];
 			$i = \count($filterChain);
 			while (--$i >= 0)
@@ -5098,7 +5073,7 @@ class Tag implements ConfigProvider
 					unset($filterChain[$i]);
 			$vars['filterChain'] = $filterChain;
 		}
-		return ConfigHelper::toArray($vars);
+		return ConfigHelper::toArray($vars) + ['attributes' => [], 'filterChain' => []];
 	}
 	public function getTemplate()
 	{
@@ -5146,7 +5121,7 @@ class Tag implements ConfigProvider
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\JavaScript;
@@ -5170,7 +5145,7 @@ class Code implements FilterableConfigValue
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\RendererGenerators;
@@ -5249,7 +5224,7 @@ class PHP implements RendererGenerator
 		           ? $this->className
 		           : $this->defaultClassPrefix . \sha1($php);
 		$this->lastClassName = $className;
-		$header = "\n/**\n* @package   s9e\TextFormatter\n* @copyright Copyright (c) 2010-2017 The s9e Authors\n* @license   http://www.opensource.org/licenses/mit-license.php The MIT License\n*/\n";
+		$header = "\n/**\n* @package   s9e\TextFormatter\n* @copyright Copyright (c) 2010-2019 The s9e Authors\n* @license   http://www.opensource.org/licenses/mit-license.php The MIT License\n*/\n";
 		$pos = \strrpos($className, '\\');
 		if ($pos !== \false)
 		{
@@ -5279,7 +5254,7 @@ class PHP implements RendererGenerator
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\RendererGenerators\PHP;
@@ -5422,7 +5397,7 @@ class ControlStructuresOptimizer extends AbstractOptimizer
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator;
@@ -5494,7 +5469,7 @@ class Rendering
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator;
@@ -5589,7 +5564,7 @@ class RulesGenerator implements ArrayAccess, Iterator
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\RulesGenerators;
@@ -5605,7 +5580,7 @@ class AutoCloseIfVoid implements BooleanRulesGenerator
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\RulesGenerators;
@@ -5621,7 +5596,7 @@ class AutoReopenFormattingElements implements BooleanRulesGenerator
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\RulesGenerators;
@@ -5637,7 +5612,7 @@ class BlockElementsCloseFormattingElements implements TargetedRulesGenerator
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\RulesGenerators;
@@ -5653,7 +5628,7 @@ class BlockElementsFosterFormattingElements implements TargetedRulesGenerator
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\RulesGenerators;
@@ -5669,7 +5644,7 @@ class DisableAutoLineBreaksIfNewLinesArePreserved implements BooleanRulesGenerat
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\RulesGenerators;
@@ -5715,7 +5690,7 @@ class EnforceContentModels implements BooleanRulesGenerator, TargetedRulesGenera
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\RulesGenerators;
@@ -5731,7 +5706,7 @@ class EnforceOptionalEndTags implements TargetedRulesGenerator
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\RulesGenerators;
@@ -5747,7 +5722,7 @@ class IgnoreTagsInCode implements BooleanRulesGenerator
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\RulesGenerators;
@@ -5763,7 +5738,7 @@ class IgnoreTextIfDisallowed implements BooleanRulesGenerator
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\RulesGenerators;
@@ -5779,7 +5754,7 @@ class IgnoreWhitespaceAroundBlockElements implements BooleanRulesGenerator
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\RulesGenerators;
@@ -5795,7 +5770,7 @@ class TrimFirstLineInCodeBlocks implements BooleanRulesGenerator
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator;
@@ -5862,7 +5837,7 @@ class TemplateChecker implements ArrayAccess, Iterator
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateChecks;
@@ -5904,6 +5879,12 @@ abstract class AbstractDynamicContentCheck extends TemplateCheck
 		if (!$this->tagFiltersAttributes($tag) || !$this->isSafe($tag->attributes[$attrName]))
 			throw new UnsafeTemplateException("Attribute '" . $attrName . "' is not properly sanitized to be used in this context", $node);
 	}
+	protected function checkAttributeExpression(DOMNode $node, Tag $tag, $expr)
+	{
+		\preg_match_all('(@([-\\w]+))', $expr, $matches);
+		foreach ($matches[1] as $attrName)
+			$this->checkAttribute($node, $tag, $attrName);
+	}
 	protected function checkAttributeNode(DOMAttr $attribute, Tag $tag)
 	{
 		foreach (AVTHelper::parse($attribute->value) as $token)
@@ -5936,26 +5917,18 @@ abstract class AbstractDynamicContentCheck extends TemplateCheck
 	{
 		$this->checkContext($node);
 		if (\preg_match('/^\\$(\\w+)$/', $expr, $m))
-		{
 			$this->checkVariable($node, $tag, $m[1]);
-			return;
-		}
-		if ($this->isExpressionSafe($expr))
-			return;
-		if (\preg_match('/^@(\\w+)$/', $expr, $m))
-		{
-			$this->checkAttribute($node, $tag, $m[1]);
-			return;
-		}
-		throw new UnsafeTemplateException("Cannot assess the safety of expression '" . $expr . "'", $node);
+		elseif (\preg_match('/^@[-\\w]+(?:\\s*\\|\\s*@[-\\w]+)*$/', $expr))
+			$this->checkAttributeExpression($node, $tag, $expr);
+		elseif (!$this->isExpressionSafe($expr))
+			throw new UnsafeTemplateException("Cannot assess the safety of expression '" . $expr . "'", $node);
 	}
 	protected function checkNode(DOMNode $node, Tag $tag)
 	{
 		if ($node instanceof DOMAttr)
 			$this->checkAttributeNode($node, $tag);
 		elseif ($node instanceof DOMElement)
-			if ($node->namespaceURI === self::XMLNS_XSL
-			 && $node->localName    === 'copy-of')
+			if ($node->namespaceURI === self::XMLNS_XSL && $node->localName === 'copy-of')
 				$this->checkCopyOfNode($node, $tag);
 			else
 				$this->checkElementNode($node, $tag);
@@ -5992,13 +5965,13 @@ abstract class AbstractDynamicContentCheck extends TemplateCheck
 	}
 	protected function tagFiltersAttributes(Tag $tag)
 	{
-		return $tag->filterChain->containsCallback('s9e\\TextFormatter\\Parser::filterAttributes');
+		return $tag->filterChain->containsCallback('s9e\\TextFormatter\\Parser\\FilterProcessing::filterAttributes');
 	}
 }
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateChecks;
@@ -6128,7 +6101,7 @@ abstract class AbstractFlashRestriction extends TemplateCheck
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateChecks;
@@ -6150,7 +6123,7 @@ class DisallowAttributeSets extends TemplateCheck
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateChecks;
@@ -6171,7 +6144,7 @@ class DisallowCopy extends TemplateCheck
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateChecks;
@@ -6193,7 +6166,7 @@ class DisallowDisableOutputEscaping extends TemplateCheck
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateChecks;
@@ -6214,7 +6187,7 @@ class DisallowDynamicAttributeNames extends TemplateCheck
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateChecks;
@@ -6235,7 +6208,7 @@ class DisallowDynamicElementNames extends TemplateCheck
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateChecks;
@@ -6262,7 +6235,7 @@ class DisallowElementNS extends TemplateCheck
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateChecks;
@@ -6285,7 +6258,7 @@ class DisallowObjectParamsWithGeneratedName extends TemplateCheck
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateChecks;
@@ -6320,7 +6293,7 @@ class DisallowPHPTags extends TemplateCheck
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateChecks;
@@ -6336,7 +6309,7 @@ class DisallowUnsafeCopyOf extends TemplateCheck
 		foreach ($nodes as $node)
 		{
 			$expr = $node->getAttribute('select');
-			if (!\preg_match('#^@[-\\w]*$#D', $expr))
+			if (!\preg_match('#^@[-\\w]*(?:\\s*\\|\\s*@[-\\w]*)*$#D', $expr))
 				throw new UnsafeTemplateException("Cannot assess the safety of '" . $node->nodeName . "' select expression '" . $expr . "'", $node);
 		}
 	}
@@ -6344,7 +6317,7 @@ class DisallowUnsafeCopyOf extends TemplateCheck
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateChecks;
@@ -6392,7 +6365,7 @@ class DisallowXPathFunction extends TemplateCheck
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateNormalizations;
@@ -6449,7 +6422,7 @@ abstract class AbstractChooseOptimization extends AbstractNormalization
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateNormalizations;
@@ -6493,7 +6466,36 @@ abstract class AbstractConstantFolding extends AbstractNormalization
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
+* @license   http://www.opensource.org/licenses/mit-license.php The MIT License
+*/
+namespace s9e\TextFormatter\Configurator\TemplateNormalizations;
+use DOMElement;
+use s9e\TextFormatter\Configurator\Helpers\ElementInspector;
+class EnforceHTMLOmittedEndTags extends AbstractNormalization
+{
+	protected $queries = ['//*[namespace-uri() = ""]/*[namespace-uri() = ""]'];
+	protected function normalizeElement(DOMElement $element)
+	{
+		$parentNode = $element->parentNode;
+		if (ElementInspector::isVoid($parentNode) || ElementInspector::closesParent($element, $parentNode))
+			$this->reparentElement($element);
+	}
+	protected function reparentElement(DOMElement $element)
+	{
+		$parentNode = $element->parentNode;
+		do
+		{
+			$lastChild = $parentNode->lastChild;
+			$parentNode->parentNode->insertBefore($lastChild, $parentNode->nextSibling);
+		}
+		while (!$lastChild->isSameNode($element));
+	}
+}
+
+/*
+* @package   s9e\TextFormatter
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateNormalizations;
@@ -6505,10 +6507,12 @@ class FixUnescapedCurlyBracesInHtmlAttributes extends AbstractNormalization
 	{
 		$match = [
 			'(\\b(?:do|else|(?:if|while)\\s*\\(.*?\\))\\s*\\{(?![{@]))',
+			'(\\bfunction\\s*\\w*\\s*\\([^\\)]*\\)\\s*\\{(?!\\{))',
 			'((?<!\\{)(?:\\{\\{)*\\{(?!\\{)[^}]*+$)',
 			'((?<!\\{)\\{\\s*(?:"[^"]*"|\'[^\']*\'|[a-z]\\w*(?:\\s|:\\s|:(?:["\']|\\w+\\s*,))))i'
 		];
 		$replace = [
+			'$0{',
 			'$0{',
 			'{$0',
 			'{$0'
@@ -6520,7 +6524,7 @@ class FixUnescapedCurlyBracesInHtmlAttributes extends AbstractNormalization
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateNormalizations;
@@ -6546,7 +6550,7 @@ class InlineAttributes extends AbstractNormalization
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateNormalizations;
@@ -6557,13 +6561,13 @@ class InlineCDATA extends AbstractNormalization
 	protected function normalizeNode(DOMNode $node)
 	{
 		if ($node->nodeType === \XML_CDATA_SECTION_NODE)
-			$node->parentNode->replaceChild($this->createTextNode($node->textContent), $node);
+			$node->parentNode->replaceChild($this->createText($node->textContent), $node);
 	}
 }
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateNormalizations;
@@ -6594,7 +6598,7 @@ class InlineElements extends AbstractNormalization
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateNormalizations;
@@ -6602,13 +6606,13 @@ use DOMAttr;
 use DOMElement;
 use DOMNode;
 use s9e\TextFormatter\Configurator\Helpers\AVTHelper;
-use s9e\TextFormatter\Configurator\Helpers\TemplateParser;
+use s9e\TextFormatter\Configurator\Helpers\XPathHelper;
 class InlineInferredValues extends AbstractNormalization
 {
 	protected $queries = ['//xsl:if', '//xsl:when'];
 	protected function normalizeElement(DOMElement $element)
 	{
-		$map = TemplateParser::parseEqualityExpr($element->getAttribute('test'));
+		$map = XPathHelper::parseEqualityExpr($element->getAttribute('test'));
 		if ($map === \false || \count($map) !== 1 || \count($map[\key($map)]) !== 1)
 			return;
 		$expr  = \key($map);
@@ -6638,23 +6642,20 @@ class InlineInferredValues extends AbstractNormalization
 	}
 	protected function replaceValueOf(DOMElement $valueOf, $value)
 	{
-		$valueOf->parentNode->replaceChild(
-			$valueOf->ownerDocument->createTextNode($value),
-			$valueOf
-		);
+		$valueOf->parentNode->replaceChild($this->createText($value), $valueOf);
 	}
 }
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateNormalizations;
 use DOMElement;
 class InlineTextElements extends AbstractNormalization
 {
-	protected $queries = ['//xsl:text'];
+	protected $queries = ['//xsl:text[not(@disable-output-escaping="yes")]'];
 	protected function isFollowedByText(DOMElement $element)
 	{
 		return ($element->nextSibling && $element->nextSibling->nodeType === \XML_TEXT_NODE);
@@ -6674,7 +6675,7 @@ class InlineTextElements extends AbstractNormalization
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateNormalizations;
@@ -6716,13 +6717,13 @@ class InlineXPathLiterals extends AbstractNormalization
 	{
 		$textContent = $this->getTextContent($element->getAttribute('select'));
 		if ($textContent !== \false)
-			$element->parentNode->replaceChild($this->createTextNode($textContent), $element);
+			$element->parentNode->replaceChild($this->createText($textContent), $element);
 	}
 }
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateNormalizations;
@@ -6758,7 +6759,7 @@ class MinifyInlineCSS extends AbstractNormalization
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateNormalizations;
@@ -6795,7 +6796,7 @@ class MinifyXPathExpressions extends AbstractNormalization
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateNormalizations;
@@ -6803,15 +6804,14 @@ use DOMAttr;
 use DOMElement;
 class NormalizeAttributeNames extends AbstractNormalization
 {
-	protected $queries = ['//@*', '//xsl:attribute[not(contains(@name, "{"))]'];
+	protected $queries = [
+		'//@*[name() != translate(name(), "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz")]',
+		'//xsl:attribute[not(contains(@name, "{"))][@name != translate(@name, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz")]'
+	];
 	protected function normalizeAttribute(DOMAttr $attribute)
 	{
-		$attrName = $this->lowercase($attribute->localName);
-		if ($attrName !== $attribute->localName)
-		{
-			$attribute->parentNode->setAttribute($attrName, $attribute->value);
-			$attribute->parentNode->removeAttributeNode($attribute);
-		}
+		$attribute->parentNode->setAttribute($this->lowercase($attribute->localName), $attribute->value);
+		$attribute->parentNode->removeAttributeNode($attribute);
 	}
 	protected function normalizeElement(DOMElement $element)
 	{
@@ -6821,7 +6821,7 @@ class NormalizeAttributeNames extends AbstractNormalization
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateNormalizations;
@@ -6866,7 +6866,7 @@ class NormalizeElementNames extends AbstractNormalization
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateNormalizations;
@@ -6917,7 +6917,7 @@ class NormalizeUrls extends AbstractNormalization
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateNormalizations;
@@ -6935,7 +6935,7 @@ class OptimizeConditionalAttributes extends AbstractNormalization
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateNormalizations;
@@ -6956,7 +6956,7 @@ class OptimizeConditionalValueOf extends AbstractNormalization
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateNormalizations;
@@ -6972,7 +6972,7 @@ class PreserveSingleSpaces extends AbstractNormalization
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateNormalizations;
@@ -6988,7 +6988,7 @@ class RemoveComments extends AbstractNormalization
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateNormalizations;
@@ -7004,7 +7004,7 @@ class RemoveInterElementWhitespace extends AbstractNormalization
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2016 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateNormalizations;
@@ -7028,7 +7028,7 @@ class RemoveLivePreviewAttributes extends AbstractNormalization
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateNormalizations;
@@ -7061,7 +7061,7 @@ class SetRelNoreferrerOnTargetedLinks extends AbstractNormalization
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateNormalizations;
@@ -7070,20 +7070,29 @@ use DOMElement;
 use s9e\TextFormatter\Configurator\Helpers\AVTHelper;
 class UninlineAttributes extends AbstractNormalization
 {
-	protected $queries = ['//*[namespace-uri() != $XSL]'];
+	protected $queries = ['//*[namespace-uri() != $XSL][@*]'];
 	protected function normalizeElement(DOMElement $element)
 	{
-		$firstChild = $element->firstChild;
+		$fragment = $element->ownerDocument->createDocumentFragment();
 		while ($element->attributes->length > 0)
 		{
 			$attribute = $element->attributes->item(0);
-			$element->insertBefore($this->uninlineAttribute($attribute), $firstChild);
+			$fragment->appendChild($this->uninlineAttribute($attribute));
 		}
+		$element->insertBefore($fragment, $element->firstChild);
 	}
 	protected function uninlineAttribute(DOMAttr $attribute)
 	{
-		$xslAttribute  = $this->createElement('xsl:attribute');
+		$xslAttribute = (\strpos($attribute->value, '{') === \false)
+		              ? $this->uninlineStaticAttribute($attribute)
+		              : $this->uninlineDynamicAttribute($attribute);
 		$xslAttribute->setAttribute('name', $attribute->nodeName);
+		$attribute->parentNode->removeAttributeNode($attribute);
+		return $xslAttribute;
+	}
+	protected function uninlineDynamicAttribute(DOMAttr $attribute)
+	{
+		$xslAttribute = $this->createElement('xsl:attribute');
 		foreach (AVTHelper::parse($attribute->value) as $_f6b3b659)
 		{
 			list($type, $content) = $_f6b3b659;
@@ -7093,20 +7102,20 @@ class UninlineAttributes extends AbstractNormalization
 				$childNode->setAttribute('select', $content);
 			}
 			else
-			{
-				$childNode = $this->createElement('xsl:text');
-				$childNode->appendChild($this->createTextNode($content));
-			}
+				$childNode = $this->createText($content);
 			$xslAttribute->appendChild($childNode);
 		}
-		$attribute->parentNode->removeAttributeNode($attribute);
 		return $xslAttribute;
+	}
+	protected function uninlineStaticAttribute(DOMAttr $attribute)
+	{
+		return $this->createElement('xsl:attribute', \str_replace('}}', '}', $attribute->value));
 	}
 }
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license'); The MIT License
 */
 namespace s9e\TextFormatter\Configurator;
@@ -7127,23 +7136,24 @@ class TemplateNormalizer implements ArrayAccess, Iterator
 		$this->collection->append('PreserveSingleSpaces');
 		$this->collection->append('RemoveComments');
 		$this->collection->append('RemoveInterElementWhitespace');
+		$this->collection->append('NormalizeElementNames');
 		$this->collection->append('FixUnescapedCurlyBracesInHtmlAttributes');
-		$this->collection->append('UninlineAttributes');
-		$this->collection->append('FoldArithmeticConstants');
-		$this->collection->append('FoldConstantXPathExpressions');
+		$this->collection->append('EnforceHTMLOmittedEndTags');
 		$this->collection->append('InlineCDATA');
 		$this->collection->append('InlineElements');
 		$this->collection->append('InlineTextElements');
-		$this->collection->append('InlineXPathLiterals');
+		$this->collection->append('UninlineAttributes');
 		$this->collection->append('MinifyXPathExpressions');
 		$this->collection->append('NormalizeAttributeNames');
-		$this->collection->append('NormalizeElementNames');
-		$this->collection->append('NormalizeUrls');
 		$this->collection->append('OptimizeConditionalAttributes');
+		$this->collection->append('FoldArithmeticConstants');
+		$this->collection->append('FoldConstantXPathExpressions');
+		$this->collection->append('InlineXPathLiterals');
+		$this->collection->append('OptimizeChooseText');
 		$this->collection->append('OptimizeConditionalValueOf');
 		$this->collection->append('OptimizeChoose');
-		$this->collection->append('OptimizeChooseText');
 		$this->collection->append('InlineAttributes');
+		$this->collection->append('NormalizeUrls');
 		$this->collection->append('InlineInferredValues');
 		$this->collection->append('SetRelNoreferrerOnTargetedLinks');
 		$this->collection->append('MinifyInlineCSS');
@@ -7175,7 +7185,7 @@ class TemplateNormalizer implements ArrayAccess, Iterator
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator;
@@ -7230,7 +7240,7 @@ class UrlConfig implements ConfigProvider
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\Collections;
@@ -7294,7 +7304,7 @@ class AttributePreprocessorCollection extends Collection
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\Collections;
@@ -7394,7 +7404,7 @@ class NormalizedCollection extends Collection implements ArrayAccess
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\Collections;
@@ -7548,7 +7558,7 @@ class Ruleset extends Collection implements ArrayAccess, ConfigProvider
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\Items;
@@ -7558,7 +7568,7 @@ abstract class Filter extends ProgrammableCallback
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateChecks;
@@ -7584,7 +7594,7 @@ class DisallowUnsafeDynamicCSS extends AbstractDynamicContentCheck
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateChecks;
@@ -7610,7 +7620,7 @@ class DisallowUnsafeDynamicJS extends AbstractDynamicContentCheck
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateChecks;
@@ -7649,7 +7659,7 @@ class DisallowUnsafeDynamicURL extends AbstractDynamicContentCheck
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateChecks;
@@ -7666,7 +7676,7 @@ class RestrictFlashScriptAccess extends AbstractFlashRestriction
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateNormalizations;
@@ -7675,9 +7685,9 @@ class FoldArithmeticConstants extends AbstractConstantFolding
 {
 	protected function getOptimizationPasses()
 	{
-		$n = '-?\\.\\d++|-?\\d++(?:\\.\\d++)?';
+		$n = '-?\\.[0-9]++|-?[0-9]++(?:\\.[0-9]++)?';
 		return [
-			'(^[-+0-9\\s]+$)'                                            => 'foldOperation',
+			'(^[0-9\\s]*[-+][-+0-9\\s]+$)'                               => 'foldOperation',
 			'( \\+ 0(?! [^+\\)])|(?<![-\\w])0 \\+ )'                     => 'foldAdditiveIdentity',
 			'(^((?>' . $n . ' [-+] )*)(' . $n . ') div (' . $n . '))'    => 'foldDivision',
 			'(^((?>' . $n . ' [-+] )*)(' . $n . ') \\* (' . $n . '))'    => 'foldMultiplication',
@@ -7734,7 +7744,7 @@ class FoldArithmeticConstants extends AbstractConstantFolding
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateNormalizations;
@@ -7792,17 +7802,17 @@ class FoldConstantXPathExpressions extends AbstractConstantFolding
 	}
 	protected function isConstantExpression($expr)
 	{
-		$expr = \preg_replace('("[^"]*"|\'[^\']*\')', '', $expr);
+		$expr = \preg_replace('("[^"]*"|\'[^\']*\')', '0', $expr);
 		\preg_match_all('(\\w[-\\w]+(?=\\())', $expr, $m);
 		if (\count(\array_diff($m[0], $this->supportedFunctions)) > 0)
 			return \false;
-		return !\preg_match('([^\\s\\-0-9a-z\\(-.]|\\.(?![0-9])|\\b[-a-z](?![-\\w]+\\())i', $expr);
+		return !\preg_match('([^\\s\\-0-9a-z\\(-.]|\\.(?![0-9])|\\b[-a-z](?![-\\w]+\\()|\\(\\s*\\))i', $expr);
 	}
 }
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateNormalizations;
@@ -7920,7 +7930,7 @@ class OptimizeChoose extends AbstractChooseOptimization
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateNormalizations;
@@ -7979,7 +7989,7 @@ class OptimizeChooseText extends AbstractChooseOptimization
 		{
 			$this->adjustTextNodes('firstChild', $len);
 			$this->choose->parentNode->insertBefore(
-				$this->createTextNode(\substr($strings[0], 0, $len)),
+				$this->createText(\substr($strings[0], 0, $len)),
 				$this->choose
 			);
 		}
@@ -7994,7 +8004,7 @@ class OptimizeChooseText extends AbstractChooseOptimization
 		{
 			$this->adjustTextNodes('lastChild', 0, -$len);
 			$this->choose->parentNode->insertBefore(
-				$this->createTextNode(\substr($strings[0], -$len)),
+				$this->createText(\substr($strings[0], -$len)),
 				$this->choose->nextSibling
 			);
 		}
@@ -8003,7 +8013,7 @@ class OptimizeChooseText extends AbstractChooseOptimization
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\Collections;
@@ -8035,7 +8045,7 @@ class AttributeCollection extends NormalizedCollection
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\Collections;
@@ -8083,7 +8093,7 @@ class AttributeFilterCollection extends NormalizedCollection
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\Collections;
@@ -8153,7 +8163,7 @@ class NormalizedList extends NormalizedCollection
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\Collections;
@@ -8219,7 +8229,7 @@ class PluginCollection extends NormalizedCollection
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\Collections;
@@ -8251,7 +8261,7 @@ class TagCollection extends NormalizedCollection
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\Collections;
@@ -8270,7 +8280,7 @@ class TemplateParameterCollection extends NormalizedCollection
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\Items;
@@ -8299,7 +8309,7 @@ class AttributeFilter extends Filter
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\Items;
@@ -8315,7 +8325,7 @@ class TagFilter extends Filter
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\Collections;
@@ -8346,7 +8356,7 @@ abstract class FilterChain extends NormalizedList
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\Collections;
@@ -8398,7 +8408,7 @@ class HostnameList extends NormalizedList
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\Collections;
@@ -8424,7 +8434,7 @@ class RulesGeneratorList extends NormalizedList
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\Collections;
@@ -8447,7 +8457,7 @@ class SchemeList extends NormalizedList
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\Collections;
@@ -8467,7 +8477,7 @@ class TemplateCheckList extends NormalizedList
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\Collections;
@@ -8488,7 +8498,7 @@ class TemplateNormalizationList extends NormalizedList
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\Items\AttributeFilters;
@@ -8520,7 +8530,7 @@ class UrlFilter extends AttributeFilter
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\Collections;
@@ -8540,7 +8550,7 @@ class AttributeFilterChain extends FilterChain
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\Collections;

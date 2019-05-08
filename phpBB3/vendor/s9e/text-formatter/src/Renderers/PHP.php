@@ -2,7 +2,7 @@
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Renderers;
@@ -39,7 +39,12 @@ abstract class PHP extends Renderer
 	}
 	protected function canQuickRender($xml)
 	{
-		return ($this->enableQuickRenderer && !\preg_match($this->quickRenderingTest, $xml));
+		return ($this->enableQuickRenderer && !\preg_match($this->quickRenderingTest, $xml) && \substr($xml, -4) === '</r>');
+	}
+	protected function checkTagPairContent($id, $xml)
+	{
+		if (\strpos($xml, '<' . $id, 1) !== \false)
+			throw new RuntimeException;
 	}
 	protected function getParamAsXPath($paramName)
 	{
@@ -94,11 +99,6 @@ abstract class PHP extends Renderer
 		if (isset($this->dynamic[$id]))
 			return \preg_replace($this->dynamic[$id][0], $this->dynamic[$id][1], $m[0], 1);
 		return $this->renderQuickTemplate($id, $m[0]);
-	}
-	protected function checkTagPairContent($id, $xml)
-	{
-		if (\strpos($xml, '<' . $id, 1) !== \false)
-			throw new RuntimeException;
 	}
 	protected function renderQuickSelfClosingTag(array $m)
 	{

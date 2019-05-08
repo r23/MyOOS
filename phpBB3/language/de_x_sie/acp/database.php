@@ -41,14 +41,15 @@ if (empty($lang) || !is_array($lang))
 
 // Database Backup/Restore
 $lang = array_merge($lang, array(
-	'ACP_BACKUP_EXPLAIN'	=> 'Hier können Sie all Ihre phpBB-Daten sichern. Sie können die Sicherung in Ihrem <samp>store/</samp>-Ordner speichern oder sie direkt herunterladen. Abhängig von der Konfiguration Ihres Servers können Sie die Datei auf verschiedene Arten komprimieren.',
+	'ACP_BACKUP_EXPLAIN'	=> 'Hier können Sie all Ihre phpBB-Daten sichern. Das Archiv wird in Ihrem <samp>store/</samp>-Ordner gespeichert. Abhängig von der Konfiguration Ihres Servers können Sie die Datei auf verschiedene Arten komprimieren.',
 	'ACP_RESTORE_EXPLAIN'	=> 'Hiermit wird eine vollständige Wiederherstellung aller phpBB-Tabellen aus einer gespeicherten Datei durchgeführt. Sofern von Ihrem Server unterstützt, kann auch eine komprimierte gzip- oder bzip2-Datei verwendet werden, die dann automatisch dekomprimiert wird. <strong>ACHTUNG:</strong> Dieser Vorgang überschreibt alle vorhandenen Daten. Die Wiederherstellung kann einige Zeit in Anspruch nehmen, bitte wechslen Sie nicht auf eine andere Seite, bis der Vorgang abgeschlossen ist. Backups werden im <samp>store/</samp>-Ordner gespeichert. phpBB geht davon aus, dass die Backups in diesem Ordner mit der phpBB-eigenen Backup-Funktion erstellt wurden. Die Wiederherstellung anders erstellter Backups kann, muss aber nicht funktionieren.',
 
-	'BACKUP_DELETE'		=> 'Die Backup-Datei wurde erfolgreich gelöscht.',
-	'BACKUP_INVALID'	=> 'Die ausgewählte Backup-Datei ist ungültig.',
-	'BACKUP_OPTIONS'	=> 'Backup-Optionen',
-	'BACKUP_SUCCESS'	=> 'Die Backup-Datei wurde erfolgreich erstellt.',
-	'BACKUP_TYPE'		=> 'Backup-Art',
+	'BACKUP_DELETE'			=> 'Die Backup-Datei wurde erfolgreich gelöscht.',
+	'BACKUP_INVALID'		=> 'Die ausgewählte Backup-Datei ist ungültig.',
+	'BACKUP_NOT_SUPPORTED'	=> 'Die ausgewählte Backup-Option wird nicht unterstützt',
+	'BACKUP_OPTIONS'		=> 'Backup-Optionen',
+	'BACKUP_SUCCESS'		=> 'Die Backup-Datei wurde erfolgreich erstellt.',
+	'BACKUP_TYPE'			=> 'Backup-Art',
 
 	'DATABASE'			=> 'Datenbank-Tools',
 	'DATA_ONLY'			=> 'Nur Daten',

@@ -2,7 +2,7 @@
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Plugins\MediaEmbed\Configurator\TemplateGenerators;
@@ -14,7 +14,7 @@ class Iframe extends TemplateGenerator
 		'scrolling'       => 'no',
 		'style'           => ['border' => '0']
 	];
-	protected $iframeAttributes = ['data-s9e-livepreview-ignore-attrs', 'data-s9e-livepreview-postprocess', 'onload', 'scrolling', 'src', 'style'];
+	protected $iframeAttributes = ['allow', 'data-s9e-livepreview-ignore-attrs', 'data-s9e-livepreview-postprocess', 'onload', 'scrolling', 'src', 'style'];
 	protected function getContentTemplate()
 	{
 		$attributes = $this->mergeAttributes($this->defaultIframeAttributes, $this->getFilteredAttributes());

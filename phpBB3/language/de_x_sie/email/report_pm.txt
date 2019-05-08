@@ -1,4 +1,4 @@
-Subject: Gemeldete Private Nachricht — „{TOPIC_TITLE}“
+Subject: Gemeldete Private Nachricht — „{SUBJECT}“
 
 Guten Tag {USERNAME},
 

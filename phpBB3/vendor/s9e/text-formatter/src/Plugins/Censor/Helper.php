@@ -2,7 +2,7 @@
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Plugins\Censor;
@@ -24,11 +24,11 @@ class Helper
 	{
 		$attributesExpr = '';
 		if ($censorAttributes)
-			$attributesExpr = '|[^<">]*+(?=<|$|"(?> [-\\w]+="[^"]*+")*+\\/?>)';
+			$attributesExpr = '|[^<">]*+(?="(?> [-\\w]+="[^"]*+")*+\\/?>)';
 		$delim  = $this->regexpHtml[0];
 		$pos    = \strrpos($this->regexpHtml, $delim);
 		$regexp = $delim
-		        . '(?<!&#)(?<!&)'
+		        . '(?<!&|&#)'
 		        . \substr($this->regexpHtml, 1, $pos - 1)
 		        . '(?=[^<>]*+(?=<|$)' . $attributesExpr . ')'
 		        . \substr($this->regexpHtml, $pos);

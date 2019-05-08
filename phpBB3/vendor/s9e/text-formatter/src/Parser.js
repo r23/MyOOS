@@ -308,235 +308,6 @@ function copyTagConfig(tagName)
 }
 
 //==========================================================================
-// Filter processing
-//==========================================================================
-
-/**
-* Execute all the attribute preprocessors of given tag
-*
-* @private
-*
-* @param  {!Tag}     tag       Source tag
-* @param  {!Object}  tagConfig Tag's config
-* @return {!boolean}           Unconditionally TRUE
-*/
-function executeAttributePreprocessors(tag, tagConfig)
-{
-	if (tagConfig.attributePreprocessors)
-	{
-		tagConfig.attributePreprocessors.forEach(function(attributePreprocessor)
-		{
-			var attrName = attributePreprocessor[0],
-				regexp   = attributePreprocessor[1],
-				map      = attributePreprocessor[2];
-
-			if (!tag.hasAttribute(attrName))
-			{
-				return;
-			}
-
-			executeAttributePreprocessor(tag, attrName, regexp, map);
-		});
-	}
-
-	return true;
-}
-
-/**
-* Execute an attribute preprocessor
-*
-* @param  {!Tag}            tag
-* @param  {!string}         attrName
-* @param  {!string}         regexp
-* @param  {!Array<!string>} map
-*/
-function executeAttributePreprocessor(tag, attrName, regexp, map)
-{
-	var attrValue = tag.getAttribute(attrName),
-		captures  = getNamedCaptures(attrValue, regexp, map),
-		k;
-	
-	for (k in captures)
-	{
-		// Attribute preprocessors cannot overwrite other attributes but they can
-		// overwrite themselves
-		if (k === attrName || !tag.hasAttribute(k))
-		{
-			tag.setAttribute(k, captures[k]);
-		}
-	}
-}
-
-/**
-* Execute a regexp and return the values of the mapped captures
-*
-* @param  {!string}                  attrValue
-* @param  {!string}                  regexp
-* @param  {!Array<!string>}          map
-* @return {!Object<!string,!string>}
-*/
-function getNamedCaptures(attrValue, regexp, map)
-{
-	var m = regexp.exec(attrValue);
-	if (!m)
-	{
-		return [];
-	}
-
-	var values = {};
-	map.forEach(function(k, i)
-	{
-		if (typeof m[i] === 'string' && m[i] !== '')
-		{
-			values[k] = m[i];
-		}
-	});
-
-	return values;
-}
-
-/**
-* Filter the attributes of given tag
-*
-* @private
-*
-* @param  {!Tag}     tag            Tag being checked
-* @param  {!Object}  tagConfig      Tag's config
-* @param  {!Object}  registeredVars Vars registered for use in attribute filters
-* @param  {!Logger}  logger         This parser's Logger instance
-* @return {!boolean}                Whether the whole attribute set is valid
-*/
-function filterAttributes(tag, tagConfig, registeredVars, logger)
-{
-	if (!tagConfig.attributes)
-	{
-		tag.setAttributes({});
-
-		return true;
-	}
-
-	var attrName, attrConfig;
-
-	// Generate values for attributes with a generator set
-	if (HINT.attributeGenerator)
-	{
-		for (attrName in tagConfig.attributes)
-		{
-			attrConfig = tagConfig.attributes[attrName];
-
-			if (attrConfig.generator)
-			{
-				tag.setAttribute(attrName, attrConfig.generator(attrName));
-			}
-		}
-	}
-
-	// Filter and remove invalid attributes
-	var attributes = tag.getAttributes();
-	for (attrName in attributes)
-	{
-		var attrValue = attributes[attrName];
-
-		// Test whether this attribute exists and remove it if it doesn't
-		if (!tagConfig.attributes[attrName])
-		{
-			tag.removeAttribute(attrName);
-			continue;
-		}
-
-		attrConfig = tagConfig.attributes[attrName];
-
-		// Test whether this attribute has a filterChain
-		if (!attrConfig.filterChain)
-		{
-			continue;
-		}
-
-		// Record the name of the attribute being filtered into the logger
-		logger.setAttribute(attrName);
-
-		for (var i = 0; i < attrConfig.filterChain.length; ++i)
-		{
-			// NOTE: attrValue is intentionally set as the first argument to facilitate inlining
-			attrValue = attrConfig.filterChain[i](attrValue, attrName);
-
-			if (attrValue === false)
-			{
-				tag.removeAttribute(attrName);
-				break;
-			}
-		}
-
-		// Update the attribute value if it's valid
-		if (attrValue !== false)
-		{
-			tag.setAttribute(attrName, attrValue);
-		}
-
-		// Remove the attribute's name from the logger
-		logger.unsetAttribute();
-	}
-
-	// Iterate over the attribute definitions to handle missing attributes
-	for (attrName in tagConfig.attributes)
-	{
-		attrConfig = tagConfig.attributes[attrName];
-
-		// Test whether this attribute is missing
-		if (!tag.hasAttribute(attrName))
-		{
-			if (HINT.attributeDefaultValue && attrConfig.defaultValue !== undefined)
-			{
-				// Use the attribute's default value
-				tag.setAttribute(attrName, attrConfig.defaultValue);
-			}
-			else if (attrConfig.required)
-			{
-				// This attribute is missing, has no default value and is required, which means
-				// the attribute set is invalid
-				return false;
-			}
-		}
-	}
-
-	return true;
-}
-
-/**
-* Execute given tag's filterChain
-*
-* @param  {!Tag}     tag Tag to filter
-* @return {!boolean}     Whether the tag is valid
-*/
-function filterTag(tag)
-{
-	var tagName   = tag.getName(),
-		tagConfig = tagsConfig[tagName],
-		isValid   = true;
-
-	if (tagConfig.filterChain)
-	{
-		// Record the tag being processed into the logger it can be added to the context of
-		// messages logged during the execution
-		logger.setTag(tag);
-
-		for (var i = 0; i < tagConfig.filterChain.length; ++i)
-		{
-			if (!tagConfig.filterChain[i](tag, tagConfig))
-			{
-				isValid = false;
-				break;
-			}
-		}
-
-		// Remove the tag from the logger
-		logger.unsetTag();
-	}
-
-	return isValid;
-}
-
-//==========================================================================
 // Output handling
 //==========================================================================
 
@@ -583,7 +354,10 @@ function finalizeOutput()
 	while (output !== tmp);
 
 	// Merge consecutive <i> tags
-	output = output.replace(/<\/i><i>/g, '', output);
+	output = output.replace(/<\/i><i>/g, '');
+
+	// Remove control characters from the output to ensure it's valid XML
+	output = output.replace(/[\x00-\x08\x0B-\x1F]/g, '');
 
 	// Encode Unicode characters that are outside of the BMP
 	encodeUnicodeSupplementaryCharacters();
@@ -797,7 +571,7 @@ function outputText(catchupPos, maxLines, closeParagraph)
 		// If the catchup text is not entirely composed of whitespace, we put it inside ignore tags
 		if (!/^[ \n\t]*$/.test(catchupText))
 		{
-			catchupText = '<i>' + catchupText + '</i>';
+			catchupText = '<i>' + htmlspecialchars_noquotes(catchupText) + '</i>';
 		}
 
 		output += catchupText;
@@ -1383,9 +1157,10 @@ function addFosterTag(tag, fosterTag)
 *
 * @param  {!Tag}    startTag Start tag
 * @param  {!number} tagPos   End tag's position (will be adjusted for whitespace if applicable)
+* @param  {number=} prio     End tag's priority
 * @return {!Tag}
 */
-function addMagicEndTag(startTag, tagPos)
+function addMagicEndTag(startTag, tagPos, prio)
 {
 	var tagName = startTag.getName();
 
@@ -1396,7 +1171,7 @@ function addMagicEndTag(startTag, tagPos)
 	}
 
 	// Add a 0-width end tag that is paired with the given start tag
-	var endTag = addEndTag(tagName, tagPos, 0);
+	var endTag = addEndTag(tagName, tagPos, 0, prio || 0);
 	endTag.pairWith(startTag);
 
 	return endTag;
@@ -1634,10 +1409,9 @@ function processStartTag(tag)
 		return;
 	}
 
-	if (!filterTag(tag))
+	filterTag(tag);
+	if (tag.isInvalid())
 	{
-		tag.invalidate();
-
 		return;
 	}
 
@@ -1969,7 +1743,7 @@ function tagIsAllowed(tagName)
 * @param  {!string} name Name of the tag
 * @param  {!number} pos  Position of the tag in the text
 * @param  {!number} len  Length of text consumed by the tag
-* @param  {number}  prio Tags' priority
+* @param  {number=} prio Tags' priority
 * @return {!Tag}
 */
 function addStartTag(name, pos, len, prio)
@@ -1983,7 +1757,7 @@ function addStartTag(name, pos, len, prio)
 * @param  {!string} name Name of the tag
 * @param  {!number} pos  Position of the tag in the text
 * @param  {!number} len  Length of text consumed by the tag
-* @param  {number}  prio Tags' priority
+* @param  {number=} prio Tags' priority
 * @return {!Tag}
 */
 function addEndTag(name, pos, len, prio)
@@ -1997,7 +1771,7 @@ function addEndTag(name, pos, len, prio)
 * @param  {!string} name Name of the tag
 * @param  {!number} pos  Position of the tag in the text
 * @param  {!number} len  Length of text consumed by the tag
-* @param  {number}  prio Tags' priority
+* @param  {number=} prio Tags' priority
 * @return {!Tag}
 */
 function addSelfClosingTag(name, pos, len, prio)
@@ -2009,7 +1783,7 @@ function addSelfClosingTag(name, pos, len, prio)
 * Add a 0-width "br" tag to force a line break at given position
 *
 * @param  {!number} pos  Position of the tag in the text
-* @param  {number}  prio Tags' priority
+* @param  {number=} prio Tags' priority
 * @return {!Tag}
 */
 function addBrTag(pos, prio)
@@ -2022,7 +1796,7 @@ function addBrTag(pos, prio)
 *
 * @param  {!number} pos  Position of the tag in the text
 * @param  {!number} len  Length of text consumed by the tag
-* @param  {number}  prio Tags' priority
+* @param  {number=} prio Tags' priority
 * @return {!Tag}
 */
 function addIgnoreTag(pos, len, prio)
@@ -2036,7 +1810,7 @@ function addIgnoreTag(pos, len, prio)
 * Uses a zero-width tag that is actually never output in the result
 *
 * @param  {!number} pos  Position of the tag in the text
-* @param  {number}  prio Tags' priority
+* @param  {number=} prio Tags' priority
 * @return {!Tag}
 */
 function addParagraphBreak(pos, prio)
@@ -2050,7 +1824,7 @@ function addParagraphBreak(pos, prio)
 * @param  {!Tag}    tag Original tag
 * @param  {!number} pos Copy's position
 * @param  {!number} len Copy's length
-* @param  {number}  prio Tags' priority
+* @param  {number=} prio Tags' priority
 * @return {!Tag}         Copy tag
 */
 function addCopyTag(tag, pos, len, prio)
@@ -2068,7 +1842,7 @@ function addCopyTag(tag, pos, len, prio)
 * @param  {!string} name Name of the tag
 * @param  {!number} pos  Position of the tag in the text
 * @param  {!number} len  Length of text consumed by the tag
-* @param  {number}  prio Tags' priority
+* @param  {number=} prio Tags' priority
 * @return {!Tag}
 */
 function addTag(type, name, pos, len, prio)
@@ -2084,7 +1858,7 @@ function addTag(type, name, pos, len, prio)
 
 	// Invalidate this tag if it's an unknown tag, a disabled tag, if either of its length or
 	// position is negative or if it's out of bounds
-	if (!tagsConfig[name] && !tag.isSystemTag())
+	if ((!tagsConfig[name] && !tag.isSystemTag()) || isInvalidTextSpan(pos, len))
 	{
 		tag.invalidate();
 	}
@@ -2099,16 +1873,24 @@ function addTag(type, name, pos, len, prio)
 		);
 		tag.invalidate();
 	}
-	else if (len < 0 || pos < 0 || pos + len > textLen)
-	{
-		tag.invalidate();
-	}
 	else
 	{
 		insertTag(tag);
 	}
 
 	return tag;
+}
+
+/**
+* Test whether given text span is outside text boundaries or an invalid UTF sequence
+*
+* @param  {number}  pos Start of text
+* @param  {number}  len Length of text
+* @return {boolean}
+*/
+function isInvalidTextSpan(pos, len)
+{
+	return (len < 0 || pos < 0 || pos + len > textLen || /[\uDC00-\uDFFF]/.test(text.substr(pos, 1) + text.substr(pos + len, 1)));
 }
 
 /**
@@ -2143,7 +1925,7 @@ function insertTag(tag)
 * @param  {!number} startLen Length of the start tag
 * @param  {!number} endPos   Position of the start tag
 * @param  {!number} endLen   Length of the start tag
-* @param  {number}  prio     Start tag's priority (the end tag will be set to minus that value)
+* @param  {number=}  prio     Start tag's priority (the end tag will be set to minus that value)
 * @return {!Tag}             Start tag
 */
 function addTagPair(name, startPos, startLen, endPos, endLen, prio)

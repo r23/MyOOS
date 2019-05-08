@@ -28,9 +28,9 @@ class mcp_main
 	var $p_master;
 	var $u_action;
 
-	function __construct(&$p_master)
+	function __construct($p_master)
 	{
-		$this->p_master = &$p_master;
+		$this->p_master = $p_master;
 	}
 
 	function main($id, $mode)
@@ -174,7 +174,10 @@ class mcp_main
 		switch ($mode)
 		{
 			case 'front':
-				include($phpbb_root_path . 'includes/mcp/mcp_front.' . $phpEx);
+				if (!function_exists('mcp_front_view'))
+				{
+					include($phpbb_root_path . 'includes/mcp/mcp_front.' . $phpEx);
+				}
 
 				$user->add_lang('acp/common');
 
@@ -185,7 +188,10 @@ class mcp_main
 			break;
 
 			case 'forum_view':
-				include($phpbb_root_path . 'includes/mcp/mcp_forum.' . $phpEx);
+				if (!function_exists('mcp_forum_view'))
+				{
+					include($phpbb_root_path . 'includes/mcp/mcp_forum.' . $phpEx);
+				}
 
 				$user->add_lang('viewforum');
 
@@ -208,7 +214,10 @@ class mcp_main
 			break;
 
 			case 'topic_view':
-				include($phpbb_root_path . 'includes/mcp/mcp_topic.' . $phpEx);
+				if (!function_exists('mcp_topic_view'))
+				{
+					include($phpbb_root_path . 'includes/mcp/mcp_topic.' . $phpEx);
+				}
 
 				mcp_topic_view($id, $mode, $action);
 
@@ -217,7 +226,10 @@ class mcp_main
 			break;
 
 			case 'post_details':
-				include($phpbb_root_path . 'includes/mcp/mcp_post.' . $phpEx);
+				if (!function_exists('mcp_post_details'))
+				{
+					include($phpbb_root_path . 'includes/mcp/mcp_post.' . $phpEx);
+				}
 
 				mcp_post_details($id, $mode, $action);
 
@@ -366,7 +378,7 @@ function lock_unlock($action, $ids)
 */
 function change_topic_type($action, $topic_ids)
 {
-	global $user, $db, $request, $phpbb_log;
+	global $user, $db, $request, $phpbb_log, $phpbb_dispatcher;
 
 	switch ($action)
 	{
@@ -414,6 +426,25 @@ function change_topic_type($action, $topic_ids)
 
 	if (confirm_box(true))
 	{
+
+		/**
+		 * Perform additional actions before changing topic(s) type
+		 *
+		 * @event core.mcp_change_topic_type_before
+		 * @var	int		new_topic_type		The candidated topic type.
+		 * @var	int		forum_id			The forum ID for the topic ID(s).
+		 * @var	array	topic_ids			Array containing the topic ID(s) that will be changed
+		 * @since 3.2.6-RC1
+		 */
+		$vars = array(
+			'new_topic_type',
+			'forum_id',
+			'topic_ids',
+		);
+		extract($phpbb_dispatcher->trigger_event('core.mcp_change_topic_type_before', compact($vars)));
+
+		$db->sql_transaction('begin');
+
 		$sql = 'UPDATE ' . TOPICS_TABLE . "
 			SET topic_type = $new_topic_type
 			WHERE " . $db->sql_in_set('topic_id', $topic_ids);
@@ -425,12 +456,9 @@ function change_topic_type($action, $topic_ids)
 			$sql = 'DELETE FROM ' . TOPICS_TABLE . '
 				WHERE ' . $db->sql_in_set('topic_moved_id', $topic_ids);
 			$db->sql_query($sql);
-
-			$sql = 'UPDATE ' . TOPICS_TABLE . "
-				SET topic_type = $new_topic_type
-					WHERE " . $db->sql_in_set('topic_id', $topic_ids);
-			$db->sql_query($sql);
 		}
+
+		$db->sql_transaction('commit');
 
 		$success_msg = (count($topic_ids) == 1) ? 'TOPIC_TYPE_CHANGED' : 'TOPICS_TYPE_CHANGED';
 
@@ -447,6 +475,22 @@ function change_topic_type($action, $topic_ids)
 				));
 			}
 		}
+
+		/**
+		 * Perform additional actions after changing topic types
+		 *
+		 * @event core.mcp_change_topic_type_after
+		 * @var	int		new_topic_type		The newly changed topic type.
+		 * @var	int		forum_id			The forum ID where the newly changed topic type belongs to.
+		 * @var	array	topic_ids			Array containing the topic IDs that have been changed
+		 * @since 3.2.6-RC1
+		 */
+		$vars = array(
+			'new_topic_type',
+			'forum_id',
+			'topic_ids',
+		);
+		extract($phpbb_dispatcher->trigger_event('core.mcp_change_topic_type_after', compact($vars)));
 
 		meta_refresh(2, $redirect);
 		$message = $user->lang[$success_msg];
@@ -930,10 +974,11 @@ function mcp_delete_topic($topic_ids, $is_soft = false, $soft_delete_reason = ''
 			'DELETE_TOPIC_PERMANENTLY_EXPLAIN'	=> $user->lang('DELETE_TOPIC_PERMANENTLY', count($topic_ids)),
 		));
 
-		$l_confirm = (count($topic_ids) == 1) ? 'DELETE_TOPIC' : 'DELETE_TOPICS';
+		$count = count($topic_ids);
+		$l_confirm = $count === 1 ? 'DELETE_TOPIC' : 'DELETE_TOPICS';
 		if ($only_softdeleted)
 		{
-			$l_confirm .= '_PERMANENTLY';
+			$l_confirm = array($l_confirm . '_PERMANENTLY', $count);
 			$s_hidden_fields['delete_permanent'] = '1';
 		}
 		else if ($only_shadow || !$auth->acl_get('m_softdelete', $forum_id))
@@ -1184,10 +1229,11 @@ function mcp_delete_post($post_ids, $is_soft = false, $soft_delete_reason = '', 
 			'DELETE_POST_PERMANENTLY_EXPLAIN'	=> $user->lang('DELETE_POST_PERMANENTLY', count($post_ids)),
 		));
 
-		$l_confirm = (count($post_ids) == 1) ? 'DELETE_POST' : 'DELETE_POSTS';
+		$count = count($post_ids);
+		$l_confirm = $count === 1 ? 'DELETE_POST' : 'DELETE_POSTS';
 		if ($only_softdeleted)
 		{
-			$l_confirm .= '_PERMANENTLY';
+			$l_confirm = array($l_confirm . '_PERMANENTLY', $count);
 			$s_hidden_fields['delete_permanent'] = '1';
 		}
 		else if (!$auth->acl_get('m_softdelete', $forum_id))

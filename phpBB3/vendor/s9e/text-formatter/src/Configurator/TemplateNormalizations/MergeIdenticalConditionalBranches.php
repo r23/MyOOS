@@ -2,13 +2,13 @@
 
 /*
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2017 The s9e Authors
+* @copyright Copyright (c) 2010-2019 The s9e Authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Configurator\TemplateNormalizations;
 use DOMElement;
 use DOMNode;
-use s9e\TextFormatter\Configurator\Helpers\TemplateParser;
+use s9e\TextFormatter\Configurator\Helpers\XPathHelper;
 class MergeIdenticalConditionalBranches extends AbstractNormalization
 {
 	protected $queries = ['//xsl:choose'];
@@ -19,7 +19,7 @@ class MergeIdenticalConditionalBranches extends AbstractNormalization
 		$values = [];
 		while ($node && $this->isXsl($node, 'when'))
 		{
-			$branch = TemplateParser::parseEqualityExpr($node->getAttribute('test'));
+			$branch = XPathHelper::parseEqualityExpr($node->getAttribute('test'));
 			if ($branch === \false || \count($branch) !== 1)
 				break;
 			if (isset($key) && \key($branch) !== $key)
