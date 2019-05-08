@@ -173,7 +173,6 @@ define('BOX_LOCALIZATION_CUSTOMERS_STATUS', 'Kundengruppen');
 
 // export
 define('BOX_HEADING_EXPORT', 'Export');
-define('BOX_EXPORT_GOOGLEBASE', 'Googlebase');
 
 //information
 define('BOX_HEADING_INFORMATION', 'Information');

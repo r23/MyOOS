@@ -33,10 +33,6 @@ define('BOX_ENTRY_CUSTOMERS', 'Customers:');
 define('BOX_ENTRY_PRODUCTS', 'Products:');
 define('BOX_ENTRY_REVIEWS', 'Reviews:');
 
-define('BOX_CONNECTION_PROTECTED', 'You are protected by a %s secure SSL connection.');
-define('BOX_CONNECTION_UNPROTECTED', 'You are <font color="#ff0000">not</font> protected by a secure SSL connection.');
-define('BOX_CONNECTION_UNKNOWN', 'unknown');
-
 define('CATALOG_CONTENTS', 'Contents');
 
 define('REPORTS_PRODUCTS', 'Products');
