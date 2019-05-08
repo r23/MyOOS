@@ -42,8 +42,7 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
 	<!-- DATETIMEPICKER-->
 	<link href="js/plugins/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 
-	<link href="css/plugins/flag-icon/css/flag-icon.min.css" rel="stylesheet" />	
-	<link rel="stylesheet" href="includes/stylesheet.css" type="text/css" >	
+	<link href="css/plugins/flag-icon/css/flag-icon.min.css" rel="stylesheet" />
 </head>
 <body>
 <?php

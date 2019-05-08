@@ -146,13 +146,7 @@ require 'includes/header.php';
 			
 			<div class="wrapper wrapper-content">
 				<div class="row">
-					<div class="col-lg-12">	
-									
-<?php
-  if ($messageStack->size > 0) {
-    echo $messageStack->output();
-  }
-?>
+					<div class="col-lg-12">
 <!-- body_text //-->
 <table border="0" width="600" height="100%" cellspacing="0" cellpadding="0" align="center" valign="middle">
   <tr>
