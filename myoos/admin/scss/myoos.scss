@@ -18,18 +18,43 @@
 @import "settings/variables";
 
 
-
 //
 // Tools
 //
 
 @import "tools/resets";
 @import "tools/mixins";
+// Block Components
 @import "tools/button-sizes";
+
+
+
+//
+// Core
+//
+
+
+//
+// Components
+//
+
+
+
+//
+// Globals
+//
+
+@import "globals/colors";
+@import "globals/bg-colors";
+
+// Spaces (Margins & Paddings)
+@import "globals/paddings";
+@import "globals/margin";
+
 
 
 //
 // Custom
 //
 //
-@import "custom";
+@import "custom/custom";
