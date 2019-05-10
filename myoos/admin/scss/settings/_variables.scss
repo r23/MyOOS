@@ -107,8 +107,8 @@ $landscape:                                    #{"(max-device-width: ${mq-tablet
 // based on the bootstrap navbar styles and markup
 // ----------------------------------------------------
 
-$nav-header-wd:                 $aside-wd;
-$nav-header-wd-toggled:         $aside-wd-collapsed;
+$nav-header-wd:                 55px;
+$nav-header-wd-toggled:         55px;
 
 $nav-top-bg:                    #23b7e5;
 $nav-top-bg-start:              $nav-top-bg;
@@ -123,7 +123,7 @@ $nav-top-item-desktop-active:   $nav-top-item-mobile-active;
 
 
 
-$sidebar-bg:                      $aside-bg;
+$sidebar-bg:                      #fff;
 
 $sidebar-item-color:              #515253;
 $sidebar-item-color-active:       $nav-top-bg;

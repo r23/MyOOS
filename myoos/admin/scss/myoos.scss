@@ -43,9 +43,8 @@
 //
 // Globals
 //
+@import "base/base"; 
 
-@import "globals/colors";
-@import "globals/bg-colors";
 
 // Spaces (Margins & Paddings)
 @import "globals/paddings";
@@ -57,4 +56,4 @@
 // Custom
 //
 //
-@import "custom/custom";
+@import "custom";
