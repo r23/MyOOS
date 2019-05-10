@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.2.x - Development - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-05-02 17:29:55+0000\n"
+"PO-Revision-Date: 2019-05-09 16:09:18+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -262,7 +262,7 @@ msgstr "Deine Seite hat 1 installiertes Plugin und ist auf dem neuesten Stand."
 
 #: wp-admin/site-health.php:117
 msgid "Passed tests"
-msgstr "Abgeschlossene Tests"
+msgstr "Bestandene Tests"
 
 #: wp-admin/site-health.php:20
 msgid "Sorry, you are not allowed to access site health information."
@@ -474,7 +474,7 @@ msgstr "Aktualisierung nicht möglich"
 
 #: wp-admin/includes/update.php:847
 msgid "You are in recovery mode. This means there may be an error with a theme or plugin. To exit recovery mode, log out or use the Exit button."
-msgstr "Die Website befindet dich im Wiederherstellungsmodus. Das bedeutet, dass es einen Fehler mit einem Theme oder Plugin geben kann. Um den Wiederherstellungsmodus zu verlassen, melde dich ab oder verwende den Button Beenden."
+msgstr "Die Website befindet sich im Wiederherstellungsmodus. Das bedeutet, dass es einen Fehler mit einem Theme oder Plugin geben kann. Um den Wiederherstellungsmodus zu verlassen, melde dich ab oder verwende den Button Verlassen."
 
 #: wp-admin/includes/update.php:458
 msgid "There is a new version of %1$s available, but it doesn&#8217;t work with your version of PHP. <a href=\"%2$s\" %3$s>View version %4$s details</a> or <a href=\"%5$s\">learn more about updating PHP</a>."
@@ -1244,27 +1244,27 @@ msgstr "cURL-Version"
 
 #: wp-admin/includes/class-wp-debug-data.php:633
 msgid "PHP post max size"
-msgstr "Maximale PHP-Beitrags-Größe"
+msgstr "Maximale Größe der PHP-Post-Daten (post_max_size)"
 
 #: wp-admin/includes/class-wp-debug-data.php:629
 msgid "Upload max filesize"
-msgstr "Maximale Dateigröße beim Upload"
+msgstr "Maximale Dateigröße beim Upload (upload_max_filesize)"
 
 #: wp-admin/includes/class-wp-debug-data.php:625
 msgid "Max input time"
-msgstr "Maximale Eingabe-Zeit"
+msgstr "Maximale Eingabe-Zeit (max_input_time)"
 
 #: wp-admin/includes/class-wp-debug-data.php:621
 msgid "PHP memory limit"
-msgstr "PHP-Memory-Limit"
+msgstr "PHP-Speicher-Limit (memory_limit)"
 
 #: wp-admin/includes/class-wp-debug-data.php:617
 msgid "PHP time limit"
-msgstr "PHP-Zeit-Limit"
+msgstr "Maximale PHP-Ausführungszeit (max_execution_time)"
 
 #: wp-admin/includes/class-wp-debug-data.php:613
 msgid "PHP max input variables"
-msgstr "Maximale PHP-Eingabe-Variablen"
+msgstr "Maximale PHP-Eingabe-Variablen (max_input_vars)"
 
 #: wp-admin/includes/class-wp-debug-data.php:608
 msgid "Unable to determine some settings, as the ini_get() function has been disabled."
