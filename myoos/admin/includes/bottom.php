@@ -32,6 +32,7 @@ if ($bForm == TRUE) {
 <script src="js/plugins/moment/min/moment-with-locales.min.js"></script>
 <script src="js/plugins/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
 <script src="js/plugins/jasny/jasny-bootstrap.min.js"></script>
+<script src="js/general.js"></script>
 
 <!-- HTML5 shim and Respond.js IE support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
