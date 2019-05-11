@@ -25,8 +25,92 @@
 
 @import "tools/resets";
 @import "tools/mixins";
+// Block Components
 @import "tools/button-sizes";
 
+
+
+//
+// Core
+//
+
+@import "core/style";
+@import "core/typo-font-sizes";
+@import "core/bar-rating";
+@import "core/sub-nav";
+@import "core/table";
+
+//
+// Components
+//
+
+// Bases
+@import "base/alerts";
+@import "base/arrows";
+
+// Badges
+@import "base/badges";
+
+// Dividers
+@import "base/dividers";
+
+// Headers
+@import "base/headers";
+@import "base/main-nav";
+@import "base/submenu";
+
+//Footer
+@import "base/dropdown";
+
+// Cart
+@import "base/cart";
+
+// page header
+@import "base/page_header";
+
+// Buttons
+@import "base/buttons";
+
+
+// User Profile
+@import "base/user-profile";
+
+
+//
+// Globals
+//
+
+@import "globals/colors";
+@import "globals/bg-colors";
+
+// Spaces (Margins & Paddings)
+@import "globals/paddings";
+@import "globals/margin";
+
+
+//
+// Layout / Pages
+//
+//
+@import "layout/403";
+@import "layout/404";
+@import "layout/home";
+@import "layout/layout";
+@import "layout/product_info";
+@import "layout/product_new";
+@import "layout/shop_item";
+@import "layout/shopping_cart";
+@import "layout/steps";
+@import "layout/success";
+@import "layout/wishlist";
+
+//
+// Plugins
+//
+//
+@import "plugins/owl_carousel";
+@import "plugins/image-zoom";
+@import "plugins/magnific-popup";
 
 //
 // Custom
