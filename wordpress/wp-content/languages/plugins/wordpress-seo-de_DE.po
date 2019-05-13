@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Yoast SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-05-08 12:10:01+0000\n"
+"PO-Revision-Date: 2019-05-12 11:00:02+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,6 +11,30 @@ msgstr ""
 "Language: de\n"
 "Project-Id-Version: Plugins - Yoast SEO - Stable (latest release)\n"
 
+#. Translators: %1$s: expands to opening anchor tag, %2$s expands to closing
+#. anchor tag.
+#: admin/google_search_console/views/gsc-display.php:43
+msgid "To view your current crawl errors, %1$splease visit Google Search Console%2$s."
+msgstr "Um deine aktuellen Crawling-Fehler zu sehen, %1$sbesuche die Google Search Console%2$s."
+
+#. Translators: %1$s: expands to opening anchor tag, %2$s expands to closing
+#. anchor tag.
+#: admin/google_search_console/views/gsc-display.php:36
+msgid "Google has discontinued its Crawl Errors API. Therefore, any possible crawl errors you might have cannot be displayed here anymore. %1$sRead our statement on this for further information%2$s."
+msgstr "Google hat die API zur Anzeige der Crawling-Fehler eingestellt. Deswegen können mögliche Crawling-Fehler hier nicht mehr dargestellt werden. %1$sBitte lies unsere Stellungnahme für weitergehende Informationen%2$s."
+
+#: languages/wordpress-seojs.php:29
+msgid "Get the %s plugin now"
+msgstr "Hol dir jetzt das %s-Plugin"
+
+#: languages/wordpress-seojs.php:23
+msgid "Serving local customers?"
+msgstr "Betreuung lokaler Kunden?"
+
+#: languages/wordpress-seojs.php:26
+msgid "Truly optimize your site for a local audience with our %s plugin! Optimized address details, opening hours, store locator and pickup option!"
+msgstr "Optimiere deine Website für ein lokales Publikum mit unserem %s-Plugin! Optimierte Adressdaten, Öffnungszeiten, Filialfinder und Abhol-Option!"
+
 #: admin/views/tabs/metas/paper-content/general/knowledge-graph.php:50
 msgid "Organization logo"
 msgstr "Organisations-Logo"
@@ -18,6 +42,26 @@ msgstr "Organisations-Logo"
 #: admin/views/tabs/metas/paper-content/general/knowledge-graph.php:49
 msgid "Organization name"
 msgstr "Organisations-Name"
+
+#: admin/views/tabs/metas/paper-content/general/knowledge-graph.php:37
+msgid "Choose whether the site represents an organization or a person."
+msgstr "Wähle, ob die Website eine Organisation oder eine Person repräsentiert."
+
+#: admin/views/tabs/metas/paper-content/general/knowledge-graph.php:23
+msgid "Knowledge Graph & Schema.org"
+msgstr "Knowledge Graph & Schema.org"
+
+#: admin/views/tabs/social/accounts.php:84
+msgid "Organization social profiles"
+msgstr "Soziale Profile der Organisation"
+
+#: admin/views/tabs/social/accounts.php:72
+msgid "To change the social accounts used for your site, update the details for %1$s."
+msgstr "Um die Sozialen Konten zu ändern, die auf deiner Website benutzt werden, aktualisiere die Details für %1$s."
+
+#: admin/views/tabs/social/accounts.php:65
+msgid "Your website is currently configured to represent a Person"
+msgstr "Deine Website ist für die Repräsentation einer Person konfiguriert"
 
 #: admin/config-ui/class-configuration-structure.php:69
 #: admin/views/tabs/metas/paper-content/general/knowledge-graph.php:44
@@ -29,6 +73,10 @@ msgstr "Organisation oder Person"
 #: admin/views/tabs/metas/paper-content/general/knowledge-graph.php:47
 msgid "Organization"
 msgstr "Organisation"
+
+#: admin/config-ui/fields/class-field-company-or-person.php:19
+msgid "Does your site represent a person or an organization?"
+msgstr "Repräsentiert deine Website eine Person oder eine Organisation?"
 
 #: admin/config-ui/fields/class-field-company-name.php:19
 msgid "The name of the organization"
@@ -65,6 +113,10 @@ msgstr "MySpace Profil URL"
 #: frontend/schema/class-schema-article.php:157
 msgid "Uncategorized"
 msgstr "Nicht kategorisiert"
+
+#: languages/wordpress-seojs.php:66
+msgid "Error: Please select a user below to make your site's meta data complete."
+msgstr "Fehler: Bitte unten einen Benutzer auswählen, um die Metadaten deiner Website zu komplettieren."
 
 #: languages/wordpress-seojs.php:63
 msgid "Name:"
@@ -932,7 +984,7 @@ msgstr "Gute Arbeit!"
 #. expands to a call to action based on the score
 #: languages/yoast-seo-js.php:50
 msgid "%1$sFlesch Reading Ease%2$s: The copy scores %3$s in the test, which is considered %4$s to read. %5$s%6$s%7$s"
-msgstr "%1$sLesefreundlichkeit (Flesch-Reading-Ease)%2$s: Die Kopie erreicht %3$s im Test, was als %4$s zum Lesen gilt. %5$s%6$s%7$s"
+msgstr "%1$sLesefreundlichkeit (Flesch-Reading-Ease)%2$s: Der Text erreicht %3$s im Test, was als %4$s zum Lesen gilt. %5$s%6$s%7$s"
 
 #: languages/wordpress-seojs.php:101
 msgid "Focus keyphrase"
@@ -1009,6 +1061,11 @@ msgstr "Deaktivieren"
 msgid "Allow Control"
 msgstr "Kontrolle zulassen"
 
+#. translators: %s expands to Yoast SEO
+#: admin/views/tabs/network/features.php:24
+msgid "This tab allows you to selectively disable %s features for all sites in the network. By default all features are enabled, which allows site admins to choose for themselves if they want to toggle a feature on or off for their site. When you disable a feature here, site admins will not be able to use that feature at all."
+msgstr "Diese Registerkarte ermöglicht es dir, die %s Funktionen für alle Seiten im Netzwerk selektiv zu deaktivieren. Standardmäßig sind alle Funktionen aktiviert, so dass die Administratoren der Website selbst entscheiden können, ob sie eine Funktion für ihre Website ein- oder ausschalten möchten. Wenn du eine Funktion hier deaktivieren möchtest, können die Administratoren diese Funktion überhaupt nicht verwenden."
+
 #: languages/wordpress-seojs.php:113 admin/views/sidebar.php:28
 msgid "Rank better with synonyms & related keyphrases"
 msgstr "Ranke besser mit Synonymen & verwandten Keyphrasen."
@@ -1074,6 +1131,10 @@ msgstr "Bild löschen"
 msgid "Get %s"
 msgstr "Erhalte %s"
 
+#: languages/wordpress-seojs.php:251
+msgid "Optional. Customize how you want to describe the duration of the instruction"
+msgstr "Optional. Passe an, wie du die Dauer der Anleitung beschreiben möchtest. "
+
 #: languages/wordpress-seojs.php:248
 msgid "Describe the duration of the instruction:"
 msgstr "Beschreibe die Dauer der Anleitung:"
@@ -1128,6 +1189,14 @@ msgid_plural "%d days"
 msgstr[0] "%d Tag"
 msgstr[1] "%d Tage"
 
+#: languages/wordpress-seojs.php:276
+msgid "Enter a step title"
+msgstr "Schritt-Titel eingeben"
+
+#: languages/wordpress-seojs.php:245
+msgid "Optional. This can give you better control over the styling of the steps."
+msgstr "Optional. Dies kann dir eine bessere Kontrolle über das Styling der Schritte geben."
+
 #: languages/wordpress-seojs.php:242
 msgid "CSS class(es) to apply to the steps"
 msgstr "CSS-Klasse(n), die auf die Schritte angewendet werden sollen"
@@ -1144,9 +1213,21 @@ msgstr "Stunden"
 msgid "days"
 msgstr "Tage"
 
+#: languages/wordpress-seojs.php:203
+msgid "Create a How-to guide in an SEO-friendly way. You can only use one How-to block per post."
+msgstr "Erstelle eine Anleitung auf SEO-freundliche Weise. Du kannst nur einen How-to-Absatz pro Beitrag verwenden."
+
+#: languages/wordpress-seojs.php:166
+msgid "List your Frequently Asked Questions in an SEO-friendly way. You can only use one FAQ block per post."
+msgstr "Liste deine häufig gestellten Fragen SEO-freundlich auf. Du kannst nur einen FAQ-Absatz pro Bericht verwenden."
+
 #: languages/wordpress-seojs.php:38
 msgid "Copy error"
 msgstr "Fehler kopieren"
+
+#: languages/wordpress-seojs.php:35
+msgid "An error occurred loading the %s primary taxonomy picker."
+msgstr "Beim Laden des primären Taxonomie-Pickers %s ist ein Fehler aufgetreten."
 
 #. translators: %1$s expands to Yoast.
 #: inc/class-structured-data-blocks.php:62
@@ -1204,6 +1285,14 @@ msgstr "Links zu dieser URL überprüfen"
 #: inc/class-wpseo-admin-bar-menu.php:248
 msgid "Keyword research training"
 msgstr "Übungen zur Keyword-Suche"
+
+#. translators: %1$s is the archive template link start tag, %2$s is the link
+#. closing tag, %3$s is a comma separated string with content types.
+#: admin/notifiers/class-post-type-archive-notification-handler.php:65
+msgid "Please check the %1$sarchive template%2$s for the following content type: %3$s."
+msgid_plural "Please check the %1$sarchive templates%2$s for the following content types: %3$s."
+msgstr[0] "Überprüfe die %1$sArchiv-Vorlage%2$s für den folgenden Inhaltstyp: %3$s."
+msgstr[1] "Überprüfe die %1$sArchiv-Vorlagen%2$s für die folgenden Inhaltstypen: %3$s."
 
 #: languages/yoast-components.php:89
 msgid "Are you trying to use multiple keyphrases? You should add them separately below."
@@ -1331,6 +1420,10 @@ msgstr "Es ist dir nicht erlaubt, nicht registrierte Netzwerk-Einstellungen zu �
 #: admin/class-yoast-network-admin.php:81
 msgid "deleted"
 msgstr "gelöscht"
+
+#: admin/class-multiple-keywords-modal.php:21
+msgid "Would you like to add another keyphrase?"
+msgstr "Möchten Sie eine weitere Schlüsselphrase hinzufügen?"
 
 #: languages/yoast-components.php:47
 msgid "image preview"
@@ -2558,6 +2651,12 @@ msgstr ""
 "Hinweis: Wir speichern deine Daten nicht und haben keinen vollständigen Zugang zu deinem Konto.\n"
 "Deine Privatsphäre ist bei uns sicher."
 
+#. translators: %1$s is the plugin name. %2$s is a link start tag to a Yoast
+#. help page, %3$s is the link closing tag.
+#: admin/config-ui/fields/class-field-google-search-console-intro.php:22
+msgid "%1$s integrates with Google Search Console, a must-have tool for site owners. It provides you with information about the health of your site. Don't have a Google account or is your site not activated yet? Find out %2$show to connect Google Search Console to your site%3$s."
+msgstr "%1$s integriert sich in Google Search Console, ein Pflicht-Tool für Website-Besitzer, das dir Informationen über den Zustand deiner Website liefert. Hast du noch kein Google-Konto oder ist deine Website noch nicht aktiviert? Finde heraus, wie man %2$sdie Google Search Console mit deiner Website verbindet.%3$s"
+
 #: admin/config-ui/fields/class-field-environment.php:24
 msgid "Option B: My site is under construction and should not be indexed"
 msgstr "Option B: Meine Seite befindet sich im Aufbau und sollte nicht indiziert werden."
@@ -2566,9 +2665,19 @@ msgstr "Option B: Meine Seite befindet sich im Aufbau und sollte nicht indiziert
 msgid "Option A: My site is live and ready to be indexed"
 msgstr "Option A: Meine Seite ist live und bereit für die Indexierung"
 
+#: admin/config-ui/fields/class-field-environment.php:21
+msgid "Choose under construction if you want to keep the site out of the index of search engines. Don't forget to activate it once you're ready to publish your site."
+msgstr "Wähle Im Aufbau, falls du deine Website aus dem Index von Suchmaschinen heraushalten willst. Denke daran, es zu aktivieren, sobald du soweit bist, deine Website zu veröffentlichen."
+
 #: admin/config-ui/fields/class-field-environment.php:19
 msgid "Please specify if your site is under construction or already active."
 msgstr "Bitte wähle ob deine Seite sich im Aufbau befindet oder bereits aktiv ist."
+
+#: admin/config-ui/fields/class-field-company-or-person.php:21
+msgid "This information will be used in Google's Knowledge Graph Card, the big block of information you see on the right side of the search results."
+msgstr ""
+"Diese Information wird in der Google's Knowledge Graph Karte verwendet, der große\n"
+"Block mit Informationen, den du auf der rechten Seite in den Suchergebnissen siehst."
 
 #: admin/config-ui/class-configuration-page.php:141
 msgid "Close wizard"
@@ -2689,6 +2798,10 @@ msgstr "Text Link Zähler"
 #: admin/links/class-link-columns.php:192
 msgid "Number of internal links linking to this post. See \"Yoast Columns\" text in the help tab for more info."
 msgstr "Anzahl interner Links welche zu diesem Beitrag verweisen. Für mehr Information konsultiere den \"Yoast Spalten\" Text im Hilfe Tab."
+
+#: admin/links/class-link-columns.php:185
+msgid "Number of outgoing internal links in this post. See \"Yoast Columns\" text in the help tab for more info."
+msgstr "Anzahl interner Links in diesem Beitrag. Für mehr Information konsultiere den \"Yoast Spalten\" Text im Hilfe Tab."
 
 #. translators: %1$s: Yoast SEO, %2$s: Link to article about content analysis,
 #. %3$s: Anchor closing, %4$s: Link to article about text links, %5$s: Emphasis
@@ -2813,6 +2926,13 @@ msgstr "Großartige Neuigkeit: Du kannst es, mit %1$s!"
 #: admin/class-yoast-form.php:152
 msgid "Save changes"
 msgstr "Änderungen speichern"
+
+#: languages/wordpress-seojs.php:142 admin/class-multiple-keywords-modal.php:39
+#: admin/formatter/class-metabox-formatter.php:206
+#: admin/class-keyword-synonyms-modal.php:39 admin/class-premium-popup.php:88
+#: admin/class-add-keyword-modal.php:39
+msgid "1 year free support and updates included!"
+msgstr "1 Jahr kostenfreie Updates und Upgrades inbegriffen!"
 
 #. translators: %2$s expands to 'RS Head Cleaner' plugin name of possibly
 #. conflicting plugin with regard to differentiating output between search
@@ -3104,7 +3224,7 @@ msgstr "%1$s Video Tutorial"
 #. link closing tag.
 #: admin/class-product-upsell-notice.php:154
 msgid "%1$sPlease don't show me this notification anymore%2$s"
-msgstr "%1$sBitte zeige mir diese Benachrichtigung nicht mehr an%2$s"
+msgstr "%1$sDiese Benachrichtigung bitte nicht mehr anzeigen%2$s"
 
 #. translators: %1$s is a link start tag to the bugreport guidelines on the
 #. Yoast knowledge base, %2$s is the link closing tag.
@@ -3148,6 +3268,12 @@ msgstr "%1$s zu %2$s"
 #: admin/class-admin.php:304
 msgid "Warning: the variable %s cannot be used in this template. See the help center for more info."
 msgstr "Warnung: Die Variable %s kann in diesem Template nicht genutzt werden. Schau ins Hilfe-Center für weitere Informationen."
+
+#. translators: %1$s expands anchor to premium plugin page, %2$s expands to
+#. </a>
+#: admin/class-product-upsell-notice.php:120
+msgid "By the way, did you know we also have a %1$sPremium plugin%2$s? It offers advanced features, like a redirect manager and support for multiple keyphrases. It also comes with 24/7 personal support."
+msgstr "Übrigens, wusstest du, dass wir auch ein %1$sPremium Plugin%2$s haben? Es bietet erweiterte Funktionen, wie einen Redirect Manager und Unterstützung für mehrere Schlüsselphrasen. Unser persönlicher 24/7 Support gehört selbstverständlich ebenfalls zum Lieferumfang."
 
 #: admin/class-bulk-editor-list-table.php:784
 msgid "(no title)"
@@ -3459,6 +3585,10 @@ msgstr "Google Trends"
 #: inc/class-wpseo-admin-bar-menu.php:199
 msgid "Notifications"
 msgstr "Benachrichtigungen"
+
+#: admin/views/user-profile.php:48
+msgid "Removes the focus keyphrase section from the metabox and disables all SEO-related suggestions."
+msgstr "Entfernt den Reiter für Schlüsselphrasen aus der Metabox und deaktiviert alle für die SEO-Bewertung relevanten Vorschläge."
 
 #: admin/views/user-profile.php:45
 msgid "Disable SEO analysis"
@@ -4668,6 +4798,12 @@ msgstr "Die Premium-Version von %1$s mit mehr Funktionen & Unterstützung."
 msgid "Person"
 msgstr "Person"
 
+#. translators: %1$s opens the link to the Yoast.com article about Google's
+#. Knowledge Graph, %2$s closes the link,
+#: admin/views/tabs/metas/paper-content/general/knowledge-graph.php:15
+msgid "This data is shown as metadata in your site. It is intended to appear in %1$sGoogle's Knowledge Graph%2$s. You can be either an organization, or a person."
+msgstr "Diese Daten werden als Metadaten auf deiner Website angezeigt. Sie sollen in %1$sGoogle's Knowledge Graph%2$s erscheinen. Du kannst ein Unternehmen oder eine Person sein."
+
 #: admin/config-ui/fields/class-field-site-name.php:19
 msgid "Website name"
 msgstr "Name der Website"
@@ -5095,6 +5231,11 @@ msgstr "Die URL, auf die diese Seite weitergeleitet werden soll."
 #: admin/metabox/class-metabox.php:105
 msgid "301 Redirect"
 msgstr "301-Weiterleitung"
+
+#. translators: 1: link open tag; 2: link close tag.
+#: admin/metabox/class-metabox.php:100
+msgid "The canonical URL that this page should point to. Leave empty to default to permalink. %1$sCross domain canonical%2$s supported too."
+msgstr "Die Canonical-URL auf die diese Seite zeigen soll. Ist das Feld leer, wird der Permalink übernommen. %1$sCross Domain canonical%2$s wird ebenfalls unterstützt."
 
 #: admin/metabox/class-metabox.php:96
 #: admin/taxonomy/class-taxonomy-settings-fields.php:51
