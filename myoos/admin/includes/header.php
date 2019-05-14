@@ -38,7 +38,6 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
 	<link href="css/jasny-bootstrap.min.css" rel="stylesheet">
 	<link href="css/icons.min.css" rel="stylesheet">	
 	<link href="css/myoos.min.css" rel="stylesheet">
-	
 	<!-- DATETIMEPICKER-->
 	<link href="js/plugins/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 
