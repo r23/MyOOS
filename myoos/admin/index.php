@@ -23,7 +23,6 @@
 
   $cat = array(array('title' => BOX_HEADING_MY_ACCOUNT,
                      'access' => true,
-                     'image' => 'my_account.gif',
                      'href' => oos_href_link_admin($aContents['admin_account']),
                      'children' => array(array('title' => BOX_MY_ACCOUNT, 'link' => oos_href_link_admin($aContents['admin_account'], 'selected_box=administrator'),
                                                'access' => true),
@@ -31,7 +30,6 @@
                                                'access' => true))),
                array('title' => BOX_HEADING_ADMINISTRATOR,
                      'access' => oos_admin_check_boxes('administrator.php'),
-                     'image' => 'administrator.gif',
                      'href' => oos_href_link_admin(oos_selected_file('administrator.php'), 'selected_box=administrator'),
                      'children' => array(array('title' => BOX_ADMINISTRATOR_MEMBER, 'link' => oos_href_link_admin($aContents['admin_members'], 'selected_box=administrator'),
                                                'access' => oos_admin_check_boxes('admin_members', 'sub_boxes')),
@@ -39,7 +37,6 @@
                                                'access' => oos_admin_check_boxes('admin_files', 'sub_boxes')))),
                array('title' => BOX_HEADING_CONFIGURATION,
                      'access' => oos_admin_check_boxes('configuration.php'),
-                     'image' => 'configuration.gif',
                      'href' => oos_href_link_admin($aContents['configuration'], 'selected_box=configuration&gID=1'),
                      'children' => array(array('title' => BOX_CONFIGURATION_MYSTORE, 'link' => oos_href_link_admin($aContents['configuration'], 'selected_box=configuration&gID=1'),
                                                'access' => oos_admin_check_boxes('configuration', 'sub_boxes')),
@@ -49,7 +46,6 @@
                                                'access' => oos_admin_check_boxes('configuration', 'sub_boxes')))),
                array('title' => BOX_HEADING_MODULES,
                      'access' => oos_admin_check_boxes('modules.php'),
-                     'image' => 'modules.gif',
                      'href' => oos_href_link_admin(oos_selected_file('modules.php'), 'selected_box=modules&set=payment'),
                      'children' => array(array('title' => BOX_MODULES_PAYMENT, 'link' => oos_href_link_admin($aContents['modules'], 'selected_box=modules&set=payment'),
                                                'access' => oos_admin_check_boxes('modules', 'sub_boxes')),
@@ -57,7 +53,6 @@
                                                'access' => oos_admin_check_boxes('modules', 'sub_boxes')))),
                array('title' => BOX_HEADING_CATALOG,
                      'access' => oos_admin_check_boxes('catalog.php'),
-                     'image' => 'catalog.gif',
                      'href' => oos_href_link_admin(oos_selected_file('catalog.php'), 'selected_box=catalog'),
                      'children' => array(array('title' => CATALOG_CONTENTS, 'link' => oos_href_link_admin($aContents['categories'], 'selected_box=catalog'),
                                                'access' => oos_admin_check_boxes('categories', 'sub_boxes')),
@@ -73,7 +68,6 @@
                                                'access' => oos_admin_check_boxes('geo_zones', 'sub_boxes')))),
                array('title' => BOX_HEADING_CUSTOMERS,
                      'access' => oos_admin_check_boxes('customers.php'),
-                     'image' => 'customers.gif',
                      'href' => oos_href_link_admin(oos_selected_file('customers.php'), 'selected_box=customers'),
                      'children' => array(array('title' => BOX_CUSTOMERS_CUSTOMERS, 'link' => oos_href_link_admin($aContents['customers'], 'selected_box=customers'),
                                                'access' => oos_admin_check_boxes('customers', 'sub_boxes')),
@@ -81,7 +75,6 @@
                                                'access' => oos_admin_check_boxes('orders', 'sub_boxes')))),
                array('title' => BOX_HEADING_LOCALIZATION,
                      'access' => oos_admin_check_boxes('localization.php'),
-                     'image' => 'localization.gif',
                      'href' => oos_href_link_admin(oos_selected_file('localization.php'), 'selected_box=localization'),
                      'children' => array(array('title' => BOX_LOCALIZATION_CURRENCIES, 'link' => oos_href_link_admin($aContents['currencies'], 'selected_box=localization'),
                                                'access' => oos_admin_check_boxes('currencies', 'sub_boxes')),
@@ -89,7 +82,6 @@
                                                'access' => oos_admin_check_boxes('languages', 'sub_boxes')))),
                array('title' => BOX_HEADING_REPORTS,
                      'access' => oos_admin_check_boxes('reports.php'),
-                     'image' => 'reports.gif',
                      'href' => oos_href_link_admin($aContents['stats_products_purchased'], 'selected_box=reports'),
                      'children' => array(array('title' => REPORTS_PRODUCTS, 'link' => oos_href_link_admin($aContents['stats_products_purchased'], 'selected_box=reports'),
                                                'access' => oos_admin_check_boxes('stats_products_purchased', 'sub_boxes')),
@@ -258,7 +250,7 @@ require 'includes/header.php';
 
     echo '                    <td><table border="0" cellspacing="0" cellpadding="2">' . "\n" .
          '                      <tr>' . "\n" .
-         '                        <td><a href="' . $cat[$i]['href'] . '">' . oos_image(OOS_IMAGES . 'categories/' . $cat[$i]['image'], $cat[$i]['title'], '50', '50') . '</a></td>' . "\n" .
+         '                        <td></td>' . "\n" .
          '                        <td><table border="0" cellspacing="0" cellpadding="1">' . "\n" .
          '                          <tr>' . "\n" .
          '                            <td class="main"><a href="' . $cat[$i]['href'] . '" class="main">' . $cat[$i]['title'] . '</a></td>' . "\n" .
@@ -294,7 +286,7 @@ require 'includes/header.php';
 
     echo '                    <td><table border="0" cellspacing="0" cellpadding="2">' . "\n" .
          '                      <tr>' . "\n" .
-         '                        <td>' . oos_image(OOS_IMAGES . 'categories/' . $cat[$i]['image'], $cat[$i]['title'], '50', '50') . '</td>' . "\n" .
+         '                        <td></td>' . "\n" .
          '                        <td><table border="0" cellspacing="0" cellpadding="1">' . "\n" .
          '                          <tr>' . "\n" .
          '                            <td class="main_false">' . $cat[$i]['title'] . '</td>' . "\n" .
