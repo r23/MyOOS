@@ -6,7 +6,7 @@ License URI: http://www.gnu.org/licenses/gpl.html
 Tags: SEO, XML sitemap, Content analysis, Readability
 Requires at least: 4.9
 Tested up to: 5.2
-Stable tag: 11.2
+Stable tag: 11.2.1
 Requires PHP: 5.2.4
 
 Improve your WordPress SEO: Write better content and have a fully optimized WordPress site using the Yoast SEO plugin.
@@ -104,6 +104,18 @@ You'll find answers to many of your questions on [kb.yoast.com](https://yoa.st/1
 6. Easily import SEO data from other SEO plugins like All In One SEO pack, HeadSpace2 SEO and wpSEO.de.
 
 == Changelog ==
+
+= 11.2.1 =
+Release Date: May 16th, 2019
+
+Bugfixes:
+
+* Fixes a bug where the metabox would be empty on WordPress versions below 5.0.
+* Fixes a bug where the metabox would be empty when both the classic editor plugin as well as the Gutenberg plugin were installed.
+
+Other:
+
+* Introduces a notification that encourages updating to the latest WordPress version.
 
 = 11.2.0 =
 Release Date: May 15th, 2019
