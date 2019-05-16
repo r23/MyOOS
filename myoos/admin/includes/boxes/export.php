@@ -31,7 +31,11 @@ $aBlocks[] = array(
 			'code' => $aContents['export_excel'],
 			'title' => BOX_CATALOG_EXPORT_EXCEL,
 			'link' => oos_admin_files_boxes('export_excel', 'selected_box=export')
-		),	
+		),
+		array(
+		'code' => $aContents['import_excel'],
+			'title' => BOX_CATALOG_IMPORT_EXCEL,
+			'link' => oos_admin_files_boxes('import_excel', 'selected_box=catalog')
+		),		
 	),
 );
-

@@ -220,8 +220,7 @@ require 'includes/header.php';
 
 ?>
 <!-- body_text //-->
-	<table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr><form name="new_feature" <?php echo 'action="' . oos_href_link_admin($aContents['featured'], oos_get_all_get_params(array('action', 'info', 'fID')) . 'action=' . $form_action) . '"'; ?> method="post">
+<form name="new_feature" <?php echo 'action="' . oos_href_link_admin($aContents['featured'], oos_get_all_get_params(array('action', 'info', 'fID')) . 'action=' . $form_action) . '"'; ?> method="post">
 <?php
 	if ($form_action == 'update') {
 		echo oos_draw_hidden_field('featured_id', intval($_GET['fID']));
@@ -229,6 +228,8 @@ require 'includes/header.php';
 		echo oos_draw_hidden_field('products_id', $sInfo->products_id);
 	}
 ?>
+	<table border="0" width="100%" cellspacing="0" cellpadding="2">
+      <tr>
         <td><br /><table border="0" cellspacing="0" cellpadding="2">
           <tr>
             <td class="main"><?php echo TEXT_FEATURED_EXPIRES_DATE; ?>&nbsp;</td>
@@ -257,8 +258,9 @@ require 'includes/header.php';
             <td class="main" align="right" valign="top"><br /><?php echo (($form_action == 'insert') ? oos_submit_button(BUTTON_INSERT) : oos_submit_button(IMAGE_UPDATE)). '&nbsp;&nbsp;&nbsp;<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $_GET['fID']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></td>
           </tr>
         </table></td>
-      </form></tr>
+		</tr>
 	</table>
+      </form>
 <?php
   } else {
 ?>
@@ -362,6 +364,7 @@ require 'includes/header.php';
       }
       break;
   }
+
     if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
 ?>
 	<td class="w-25">
@@ -374,11 +377,13 @@ require 'includes/header.php';
 	</td> 
 <?php
   }
-}
 ?>
           </tr>
         </table>
 	</div>
+<?php
+  }
+?>
 <!-- body_text_eof //-->
 				</div>
 			</div>
