@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Contact Form 7 - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-04-04 09:07:14+0000\n"
+"PO-Revision-Date: 2019-05-15 12:45:54+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -53,14 +53,6 @@ msgstr "reCAPTCHA (v3)"
 msgid "HTTP Response: %1$s %2$s from %3$s"
 msgstr "HTTP-Response: %1$s %2$s von %3$s"
 
-#: modules/recaptcha.php:172
-msgid "API keys for reCAPTCHA v3 are different from those for v2; keys for v2 don&#8217;t work with the v3 API. You need to register your sites again to get new keys for v3. For details, see %s."
-msgstr "API-Schlüssel für reCAPTCHA v3 sind unterschiedlich zu denen für v2; Schlüssel für v2 funktionieren nicht mit der v3 API. Du musst deine Websites erneut registrieren, um neue Schlüssel für die v3 zu erhalten. Für mehr Informationen siehe %s."
-
-#: modules/recaptcha.php:370
-msgid "reCAPTCHA protects you against spam and other types of automated abuse. With Contact Form 7&#8217;s reCAPTCHA integration module, you can block abusive form submissions by spam bots. For details, see %s."
-msgstr "reCAPTCHA schützt dich gegen Spam und anderen Arten automatischen Missbrauchs. Mit dem Contact Form 7 reCAPTCHA Integrations-Modul kannst du diese Formular-Absendungen von Spam-Bots blockieren. Für mehr Informationen siehe %s."
-
 #: modules/constant-contact.php:330
 msgid "App Secret"
 msgstr "App Secret"
@@ -73,13 +65,21 @@ msgstr "Zur Constant Contact-API verbinden"
 msgid "Constant Contact"
 msgstr "Constant Contact"
 
-#: modules/constant-contact.php:285
-msgid "The Constant Contact integration module allows you to send contact data collected through your contact forms to the Constant Contact API. You can create reliable email subscription services in a few easy steps. For details, see %s."
-msgstr "Das Constant Contact-Integrations-Modul erlaubt dir Daten aus gesendeten Kontaktformularen an die Constant Contact-API zu senden. Du kannst zuverlässige E-Mail-Abonnement-Dienste in ein paar einfachen Schritten erstellen. Für mehr Informationen siehe %s."
-
 #: modules/constant-contact.php:291
 msgid "Constant Contact Integration"
 msgstr "Constant-Contact-Integration"
+
+#: modules/recaptcha.php:370
+msgid "reCAPTCHA protects you against spam and other types of automated abuse. With Contact Form 7&#8217;s reCAPTCHA integration module, you can block abusive form submissions by spam bots. For details, see %s."
+msgstr "reCAPTCHA schützt dich gegen Spam und anderen Arten automatischen Missbrauchs. Mit dem reCAPTCHA-Integrations-Modul von Contact Form 7 kannst du diese Formular-Absendungen von Spam-Bots blockieren. Für mehr Informationen siehe %s."
+
+#: modules/recaptcha.php:172
+msgid "API keys for reCAPTCHA v3 are different from those for v2; keys for v2 don&#8217;t work with the v3 API. You need to register your sites again to get new keys for v3. For details, see %s."
+msgstr "API-Schlüssel für reCAPTCHA v3 unterscheiden sich von denen für v2; Schlüssel für v2 funktionieren nicht mit der API von v3. Du musst deine Websites erneut registrieren, um neue Schlüssel für die v3 zu erhalten. Für mehr Informationen siehe %s."
+
+#: modules/constant-contact.php:285
+msgid "The Constant Contact integration module allows you to send contact data collected through your contact forms to the Constant Contact API. You can create reliable email subscription services in a few easy steps. For details, see %s."
+msgstr "Mit dem Integrations-Modul für Constant Contact kannst du Daten aus gesendeten Kontaktformularen an die Constant-Contact-API senden. Du kannst zuverlässige E-Mail-Abonnement-Dienste in wenigen einfachen Schritten erstellen. Für mehr Informationen siehe %s."
 
 #: includes/config-validator.php:586
 msgid "It is not allowed to use files outside the wp-content directory."
@@ -420,15 +420,6 @@ msgstr "Das Datum liegt nach dem letzten erlaubten Datum."
 msgid "The date format is incorrect."
 msgstr "Das Datumsformat ist ungültig."
 
-#: includes/contact-form-template.php:52 includes/contact-form-template.php:87
-msgctxt "mail subject"
-msgid "%1$s \"%2$s\""
-msgstr "%1$s \"%2$s\""
-
-#: admin/includes/config-validator.php:41
-msgid "Validate Contact Form 7 Configuration"
-msgstr "Validiere die Konfiguration von Contact Form 7"
-
 #: admin/includes/config-validator.php:44
 msgid "Misconfiguration leads to mail delivery failure or other troubles. Validate your contact forms now."
 msgstr "Eine Fehlkonfiguration führt zu Fehlern bei der E-Mail-Zustellung oder anderen Problemen. Validiere jetzt deine Kontaktformulare."
@@ -436,10 +427,6 @@ msgstr "Eine Fehlkonfiguration führt zu Fehlern bei der E-Mail-Zustellung oder 
 #: admin/includes/config-validator.php:66
 msgid "You are not allowed to validate configuration."
 msgstr "Du hast nicht die Berechtigung, die Konfiguration zu validieren."
-
-#: admin/includes/config-validator.php:118
-msgid "Validate Configuration"
-msgstr "Validiere die Konfiguration"
 
 #: admin/admin.php:535
 msgid "Configuration validation completed. No invalid contact form was found."
@@ -491,6 +478,19 @@ msgstr "Deine Eingabe ist zu lang."
 #: includes/contact-form-template.php:182
 msgid "The field is required."
 msgstr "Dies ist ein Pflichtfeld."
+
+#: includes/contact-form-template.php:52 includes/contact-form-template.php:87
+msgctxt "mail subject"
+msgid "%1$s \"%2$s\""
+msgstr "%1$s „%2$s“"
+
+#: admin/includes/config-validator.php:118
+msgid "Validate Configuration"
+msgstr "Konfiguration validieren"
+
+#: admin/includes/config-validator.php:41
+msgid "Validate Contact Form 7 Configuration"
+msgstr "Konfiguration von Contact Form 7 validieren"
 
 #: modules/recaptcha.php:364
 msgid "Settings saved."
@@ -577,18 +577,6 @@ msgstr "Kontaktformular"
 msgid "Contact form %d"
 msgstr "Kontaktformular %d"
 
-#: modules/date.php:118
-msgid "Date format that the sender entered is invalid"
-msgstr "Das Datumsformat des Absenders ist ungültig!"
-
-#: modules/date.php:123
-msgid "Date is earlier than minimum limit"
-msgstr "Datum ist früher als das minimum Limit"
-
-#: modules/date.php:128
-msgid "Date is later than maximum limit"
-msgstr "Datum ist später als das maximum Limit"
-
 #: modules/textarea.php:166 modules/date.php:176 modules/text.php:259
 #: modules/number.php:184
 msgid "Default value"
@@ -645,14 +633,6 @@ msgstr "Name"
 #: modules/number.php:121
 msgid "Number format that the sender entered is invalid"
 msgstr "Das Nummernformat des Absenders ist ungültig!"
-
-#: modules/number.php:131
-msgid "Number is larger than maximum limit"
-msgstr "Zahl ist grösser als das maximum Limit"
-
-#: modules/number.php:126
-msgid "Number is smaller than minimum limit"
-msgstr "Zahl ist kleiner als das minimum Limit"
 
 #: admin/includes/help-tabs.php:16 admin/includes/help-tabs.php:30
 #: admin/includes/help-tabs.php:49
@@ -724,10 +704,6 @@ msgstr "Die URL des Absenders ist ungültig!"
 msgid "Untitled"
 msgstr "Ohne Titel"
 
-#: modules/file.php:189
-msgid "Uploaded file is too large"
-msgstr "Die hochgeladene Datei ist zu gross!"
-
 #: modules/file.php:194
 msgid "Uploading a file fails for PHP error"
 msgstr "Das Hochladen der Datei verursachte einen PHP-Error."
@@ -769,6 +745,10 @@ msgstr "Fragen und Antworten"
 msgid "In <strong>Messages</strong>, you can edit various types of messages used for this contact form. These messages are relatively short messages, like a validation error message you see when you leave a required field blank."
 msgstr "Unter <strong>Mitteilungen</strong> kannst du verschiedene Arten von Mitteilungen bearbeiten, die für dieses Kontaktformular verwendet werden. Diese Mitteilungen sind vergleichsweise kurze Meldungen, wie ein Hinweis auf einen Validierungsfehler, der angezeigt wird, wenn du ein Pflichtfeld frei lässt."
 
+#: admin/includes/help-tabs.php:75
+msgid "A form-tag is a short code enclosed in square brackets used in a form content. A form-tag generally represents an input field, and its components can be separated into four parts: type, name, options, and values. Contact Form 7 supports several types of form-tags including text fields, number fields, date fields, checkboxes, radio buttons, menus, file-uploading fields, CAPTCHAs, and quiz fields."
+msgstr "Ein Formular-Tag ist ein Shortcode in eckigen Klammern, den du in Formularen verwenden kannst. Ein Formular-Tag ist in der Regel ein Eingabefeld und seine Komponenten werden in vier Teile getrennt: Typ, Name, Optionen und Werte. Contact Form 7 unterstützt mehrere Arten von Formular-Tags einschließlich Textfeldern, Zahlenfeldern, Datumsfeldern, Auswahlboxen, Auswahlmenüs, Optionsfeldern, Feldern zum Hochladen von Dateien, CAPTCHAs und Quiz-Feldern."
+
 #: admin/includes/help-tabs.php:76
 msgid "While form-tags have a comparatively complex syntax, you don&#8217;t need to know the syntax to add form-tags because you can use the straightforward tag generator (<strong>Generate Tag</strong> button on this screen)."
 msgstr "Weil Formular-Tags einen vergleichsweisen komplexen Aufbau haben, wird Ihnen zur Erleichterung ein komfortabler Tag-Generator <strong>(Button Tag generieren</strong> in dieser Anzeige) zur Verfügung gestellt."
@@ -776,10 +756,6 @@ msgstr "Weil Formular-Tags einen vergleichsweisen komplexen Aufbau haben, wird I
 #: admin/includes/help-tabs.php:78
 msgid "A mail-tag is also a short code enclosed in square brackets that you can use in every Mail and Mail (2) field. A mail-tag represents a user input value through an input field of a corresponding form-tag."
 msgstr "Ein E-Mail-Tag ist auch ein Shortcode in eckigen Klammern, den du in jeder E-Mail und E-Mail (2) verwenden kannst. Ein E-Mail-Tag gibt den Eingabewert wieder, den ein Benutzer über ein zugehöriges Eingabefeld eingegeben hat."
-
-#: admin/includes/help-tabs.php:75
-msgid "A form-tag is a short code enclosed in square brackets used in a form content. A form-tag generally represents an input field, and its components can be separated into four parts: type, name, options, and values. Contact Form 7 supports several types of form-tags including text fields, number fields, date fields, checkboxes, radio buttons, menus, file-uploading fields, CAPTCHAs, and quiz fields."
-msgstr "Ein Formular-Tag ist ein Shortcode in eckigen Klammern, den du in Formularen verwenden kannst. Ein Formular-Tag ist in der Regel ein Eingabefeld und seine Komponenten werden in vier Teile getrennt: Typ, Name, Optionen und Werte. Contact Form 7 unterstützt mehrere Arten von Formular-Tags einschließlich Textfeldern, Zahlenfeldern, Datumsfeldern, Auswahlboxen, Auswahlmenüs, Optionsfeldern, Feldern zum Hochladen von Dateien, CAPTCHAs und Quiz-Feldern."
 
 #: admin/includes/help-tabs.php:79
 msgid "There are also special mail-tags that have specific names, but don&#8217;t have corresponding form-tags. They are used to represent meta information of form submissions like the submitter&#8217;s IP address or the URL of the page."
@@ -869,12 +845,6 @@ msgstr "Kontrollkästchen, Radio-Buttons und Menüs"
 msgid "Field type"
 msgstr "Feld-Typ"
 
-#: modules/file.php:231 modules/checkbox.php:295 modules/textarea.php:155
-#: modules/select.php:177 modules/date.php:165 modules/text.php:248
-#: modules/number.php:173
-msgid "Required field"
-msgstr "Erforderliches Feld"
-
 #: modules/checkbox.php:312 modules/select.php:193
 msgid "One option per line."
 msgstr "Eine Option pro Zeile. "
@@ -920,10 +890,6 @@ msgstr "Min."
 #: modules/date.php:192 modules/number.php:200
 msgid "Max"
 msgstr "Max."
-
-#: modules/file.php:184
-msgid "Uploaded file is not allowed for file type"
-msgstr "Die hochgeladene Datei ist als Dateityp nicht zugelassen!"
 
 #: modules/file.php:207
 msgid "file"
@@ -1171,6 +1137,40 @@ msgstr "Optionen"
 #: modules/quiz.php:210
 msgid "One pipe-separated question-answer pair (e.g. The capital of Brazil?|Rio) per line."
 msgstr "Ein mit dem Pipe-Zeichen getrenntes Frage-Antwort-Paar (z.B. Die Hauptstadt von Brasilien?|Brasília) pro Zeile."
+
+#: modules/number.php:126
+msgid "Number is smaller than minimum limit"
+msgstr "Zahl ist niedriger als das erlaubte Minimum"
+
+#: modules/date.php:123
+msgid "Date is earlier than minimum limit"
+msgstr "Das Datum liegt vor dem ersten erlaubten Datum."
+
+#: modules/number.php:131
+msgid "Number is larger than maximum limit"
+msgstr "Zahl ist größer als das erlaubte Maximum"
+
+#: modules/file.php:189
+msgid "Uploaded file is too large"
+msgstr "Die hochgeladene Datei ist zu groß"
+
+#: modules/file.php:184
+msgid "Uploaded file is not allowed for file type"
+msgstr "Das Hochladen ist für den Dateityp nicht erlaubt"
+
+#: modules/date.php:128
+msgid "Date is later than maximum limit"
+msgstr "Das Datum liegt nach dem letzten erlaubten Datum"
+
+#: modules/date.php:118
+msgid "Date format that the sender entered is invalid"
+msgstr "Das eingegebene Datumsformat ist ungültig"
+
+#: modules/file.php:231 modules/checkbox.php:295 modules/textarea.php:155
+#: modules/select.php:177 modules/date.php:165 modules/text.php:248
+#: modules/number.php:173
+msgid "Required field"
+msgstr "Pflichtfeld"
 
 #. translators: %s: time since the creation of the contact form
 #: admin/includes/class-contact-forms-list-table.php:241
