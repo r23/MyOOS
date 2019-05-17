@@ -29,9 +29,9 @@ define('BOX_ENTRY_HAMPEAGE', 'Homepage');
 define('BOX_ENTRY_MAILING_LISTS', 'Mailing Listen');
 define('BOX_ENTRY_FAQ', 'FAQ');
 
-define('BOX_ENTRY_CUSTOMERS', 'Kunden:');
-define('BOX_ENTRY_PRODUCTS', 'Produkte:');
-define('BOX_ENTRY_REVIEWS', 'Bewertungen:');
+define('BOX_ENTRY_CUSTOMERS', 'Kunden');
+define('BOX_ENTRY_PRODUCTS', 'Produkte');
+define('BOX_ENTRY_REVIEWS', 'Bewertungen');
 
 define('CATALOG_CONTENTS', 'Inhalt');
 

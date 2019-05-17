@@ -139,6 +139,69 @@ require 'includes/header.php';
 			<div class="wrapper wrapper-content">
 				<div class="row">
 					<div class="col-lg-12">
+
+
+<?php
+	$customers_result = $dbconn->Execute("SELECT COUNT(*) AS count FROM " . $oostable['customers']);
+	$customers = $customers_result->fields;
+	
+	$products_result = $dbconn->Execute("SELECT COUNT(*) AS count FROM " . $oostable['products'] . " WHERE products_status >= '1'");
+	$products = $products_result->fields;
+	
+	$reviews_result = $dbconn->Execute("SELECT COUNT(*) AS count FROM " . $oostable['reviews']);
+	$reviews = $reviews_result->fields;
+?>
+					<div class="row">
+						<div class="col-xl-3 col-md-6">
+							<div class="card flex-row align-items-center align-items-stretch border-0">
+								<div class="col-4 d-flex align-items-center bg-primary-dark justify-content-center rounded-left">
+									<em class="fa fa-users fa-3x"></em>
+								</div>
+								<div class="col-8 py-3 bg-primary rounded-right">
+									<div class="h2 mt-0"><?php echo $customers['count']; ?></div>
+									<div class="text-uppercase"><?php echo BOX_ENTRY_CUSTOMERS; ?></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-3 col-md-6">
+							<div class="card flex-row align-items-center align-items-stretch border-0">
+								<div class="col-4 d-flex align-items-center bg-purple-dark justify-content-center rounded-left">
+									<em class="fa fa-cubes fa-3x"></em>
+								</div>
+								<div class="col-8 py-3 bg-purple rounded-right">
+									<div class="h2 mt-0"><?php echo $products['count']; ?></div>
+									<div class="text-uppercase"><?php echo BOX_ENTRY_PRODUCTS; ?></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-3 col-lg-6 col-md-12">
+							<div class="card flex-row align-items-center align-items-stretch border-0">
+								<div class="col-4 d-flex align-items-center bg-green-dark justify-content-center rounded-left">
+									<em class="fa fa-comments-o fa-3x"></em>
+								</div>
+								<div class="col-8 py-3 bg-green rounded-right">
+									<div class="h2 mt-0"><?php echo $reviews['count']; ?></div>
+									<div class="text-uppercase"><?php echo BOX_ENTRY_REVIEWS; ?></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-3 col-lg-6 col-md-12">
+							<div class="card flex-row align-items-center align-items-stretch border-0">
+								<div class="col-4 d-flex align-items-center bg-info-dark justify-content-center rounded-left">
+									<em class="fa fa-language fa-3x"></em>
+								</div>
+								<div class="col-8 py-4 bg-info justify-content-center rounded-right">
+									<div class="text-center">
+										<?php echo oos_draw_form('id', 'languages', 'index.php', '', 'get', FALSE); ?>
+										<?php echo oos_draw_pull_down_menu('language', $languages_array, $languages_selected, 'onChange="this.form.submit();"'); ?> 
+										</form>								
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					
 <!-- body_text //-->
 <table border="0" width="600" height="100%" cellspacing="0" cellpadding="0" align="center" valign="middle">
   <tr>
@@ -198,26 +261,6 @@ require 'includes/header.php';
 
   echo '<br />';
 
-  $customers_result = $dbconn->Execute("SELECT COUNT(*) AS count FROM " . $oostable['customers']);
-  $customers = $customers_result->fields;
-  $products_result = $dbconn->Execute("SELECT COUNT(*) AS count FROM " . $oostable['products'] . " WHERE products_status >= '1'");
-  $products = $products_result->fields;
-  $reviews_result = $dbconn->Execute("SELECT COUNT(*) AS count FROM " . $oostable['reviews']);
-  $reviews = $reviews_result->fields;
-
-  $heading = array();
-  $contents = array();
-
-  $heading[] = array('params' => 'class="menuBoxHeading"',
-                     'text'  => BOX_TITLE_STATISTICS);
-
-  $contents[] = array('params' => 'class="infoBox"',
-                      'text'  => BOX_ENTRY_CUSTOMERS . ' ' . $customers['count'] . '<br />' .
-                                 BOX_ENTRY_PRODUCTS . ' ' . $products['count'] . '<br />' .
-                                 BOX_ENTRY_REVIEWS . ' ' . $reviews['count']);
-
-  $box = new box;
-  echo $box->menuBox($heading, $contents);
 
   echo '<br />';
 
