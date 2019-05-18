@@ -21,69 +21,69 @@
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
- /**
-  * Output a form pull down menu
-  *
-  * @param $name
-  * @param $parameters
-  * @param $exclude
-  * @return string
-  */
-  function oos_draw_products_pull_down($name, $parameters = '', $exclude = '') {
+/**
+ * Output a form pull down menu
+ *
+ * @param $name
+ * @param $parameters
+ * @param $exclude
+ * @return string
+ */
+function oos_draw_products_pull_down($name, $parameters = '', $exclude = '') {
     GLOBAL $currencies;
 
-    if ($exclude == '') {
-      $exclude = array();
+	if ($exclude == '') {
+		$exclude = array();
     }
-    $select_string = '<select name="' . $name . '"';
-    if ($parameters) {
-      $select_string .= ' ' . $parameters;
+	$select_string = '<select name="' . $name . '"';
+	if ($parameters) {
+		$select_string .= ' ' . $parameters;
     }
-    $select_string .= '>';
+	$select_string .= '>';
 
-    // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+	// Get database information
+	$dbconn =& oosDBGetConn();
+	$oostable =& oosDBGetTables();
 
-    $productstable = $oostable['products'];
+	$productstable = $oostable['products'];
     $products_descriptiontable = $oostable['products_description'];
     $products_result = $dbconn->Execute("SELECT p.products_id, pd.products_name, p.products_price FROM $productstable p, $products_descriptiontable pd WHERE p.products_id = pd.products_id AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY products_name");
     while ($products = $products_result->fields) {
-      if (!oos_in_array($products['products_id'], $exclude)) {
-        $select_string .= '<option value="' . $products['products_id'] . '">' . $products['products_name'] . ' (' . $currencies->format($products['products_price']) . ')</option>';
-      }
+		if (!oos_in_array($products['products_id'], $exclude)) {
+			$select_string .= '<option value="' . $products['products_id'] . '">' . $products['products_name'] . ' (' . $currencies->format($products['products_price']) . ')</option>';
+		}
 
-      // Move that ADOdb pointer!
-      $products_result->MoveNext();
+		// Move that ADOdb pointer!
+		$products_result->MoveNext();
     }
     $select_string .= '</select>';
 
     return $select_string;
-  }
+}
 
 
- /**
-  * Sets the status of a special
-  *
-  * @param $specials_id
-  * @param $status
-  */
-  function oos_set_specials_status($specials_id, $status) {
+/**
+ * Sets the status of a special
+ *
+ * @param $specials_id
+ * @param $status
+ */
+function oos_set_specials_status($specials_id, $status) {
 
-    // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+	// Get database information
+	$dbconn =& oosDBGetConn();
+	$oostable =& oosDBGetTables();
 
-    if ($status == '1') {
-      $specialstable = $oostable['specials'];
-      return $dbconn->Execute("UPDATE $specialstable SET status = '1', expires_date = NULL, date_status_change = NULL WHERE specials_id = '" . intval($specials_id) . "'");
-    } elseif ($status == '0') {
-      $specialstable = $oostable['specials'];
-      return $dbconn->Execute("UPDATE $specialstable SET status = '0', date_status_change = now() WHERE specials_id = '" . intval($specials_id) . "'");
-    } else {
-      return FALSE;
-    }
-  }
+	if ($status == '1') {
+		$specialstable = $oostable['specials'];
+		return $dbconn->Execute("UPDATE $specialstable SET status = '1', expires_date = NULL, date_status_change = NULL WHERE specials_id = '" . intval($specials_id) . "'");
+	} elseif ($status == '0') {
+		$specialstable = $oostable['specials'];
+		return $dbconn->Execute("UPDATE $specialstable SET status = '0', date_status_change = now() WHERE specials_id = '" . intval($specials_id) . "'");
+	} else {
+		return FALSE;
+	}
+}
 
 require 'includes/classes/class_currencies.php';
 $currencies = new currencies();
@@ -93,16 +93,15 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
 if (!empty($action)) {
     switch ($action) {
-      case 'setflag':
-		if (isset($_GET['id']) && is_numeric($_GET['id'])) {	  
-			oos_set_specials_status($_GET['id'], $_GET['flag']);
-		}
+		case 'setflag':
+			if (isset($_GET['id']) && is_numeric($_GET['id'])) {	  
+				oos_set_specials_status($_GET['id'], $_GET['flag']);
+			}
 		
-        oos_redirect_admin(oos_href_link_admin($aContents['specials'], 'sID=' . intval($_GET['id']) . '&page=' . $nPage));
-        break;
+			oos_redirect_admin(oos_href_link_admin($aContents['specials'], 'sID=' . intval($_GET['id']) . '&page=' . $nPage));
+			break;
 
       case 'insert':
-
         $products_id = oos_db_prepare_input($_POST['products_id']);
         $products_price = oos_db_prepare_input($_POST['products_price']);
         $specials_price = oos_db_prepare_input($_POST['specials_price']);
@@ -194,15 +193,16 @@ if (!empty($action)) {
 					<div class="col-lg-12">				
 <!-- body_text //-->
 <?php
-  if ( ($action == 'new') || ($action == 'edit') ) {
-    $form_action = 'insert';
-    if ( ($action == 'edit') && isset($_GET['sID']) ) {
-      $form_action = 'update';
 
-      $productstable = $oostable['products'];
-      $products_descriptiontable = $oostable['products_description'];
-      $specialstable = $oostable['specials'];
-      $sql = "SELECT p.products_tax_class_id, p.products_id, p.products_image, pd.products_name,
+if ( ($action == 'new') || ($action == 'edit') ) {
+	$form_action = 'insert';
+	if ( ($action == 'edit') && isset($_GET['sID']) ) {
+		$form_action = 'update';
+
+		$productstable = $oostable['products'];
+		$products_descriptiontable = $oostable['products_description'];
+		$specialstable = $oostable['specials'];
+		$sql = "SELECT p.products_tax_class_id, p.products_id, p.products_image, pd.products_name,
 					p.products_price, s.specials_new_products_price, s.expires_date
               FROM $productstable p,
                    $products_descriptiontable pd,
@@ -211,92 +211,120 @@ if (!empty($action)) {
                   pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' AND
                   p.products_id = s.products_id AND
                   s.specials_id = '" . intval($_GET['sID']) . "'";
-      $product = $dbconn->GetRow($sql);
+		$product = $dbconn->GetRow($sql);
 
-      $sInfo = new objectInfo($product);
-    } elseif ( ($action == 'new') && isset($_GET['pID']) ) {
-      $productstable = $oostable['products'];
-      $products_descriptiontable = $oostable['products_description'];
-      $sql = "SELECT p.products_tax_class_id, p.products_id, p.products_image, pd.products_name, p.products_price
+		$sInfo = new objectInfo($product);
+	} elseif ( ($action == 'new') && isset($_GET['pID']) ) {
+		$productstable = $oostable['products'];
+		$products_descriptiontable = $oostable['products_description'];
+		$sql = "SELECT p.products_tax_class_id, p.products_id, p.products_image, pd.products_name, p.products_price
               FROM $productstable p,
                    $products_descriptiontable pd
               WHERE p.products_id = pd.products_id AND
                     pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' AND
                     p.products_id = '" . intval($_GET['pID']) . "'";
-	  $product = $dbconn->GetRow($sql);
+		$product = $dbconn->GetRow($sql);
 	  
-      $sInfo = new objectInfo($product);
-    } else {
-      $sInfo = new objectInfo(array());
+		$sInfo = new objectInfo($product);
+	} else {
+		$sInfo = new objectInfo(array());
 
 // create an array of products on special, which will be excluded from the pull down menu of products
 // (when creating a new product on special)
-      $specials_array = array();
-      $productstable = $oostable['products'];
-      $specialstable = $oostable['specials'];
-      $specials_result = $dbconn->Execute("SELECT p.products_id FROM $productstable p, $specialstable s WHERE s.products_id = p.products_id");
-      while ($specials = $specials_result->fields) {
-        $specials_array[] = $specials['products_id'];
+		$specials_array = array();
+		$productstable = $oostable['products'];
+		$specialstable = $oostable['specials'];
+		$specials_result = $dbconn->Execute("SELECT p.products_id FROM $productstable p, $specialstable s WHERE s.products_id = p.products_id");
+		while ($specials = $specials_result->fields) {
+			$specials_array[] = $specials['products_id'];
 
-        // Move that ADOdb pointer!
-        $specials_result->MoveNext();
-      }
-    }
+			// Move that ADOdb pointer!
+			$specials_result->MoveNext();
+		}
+	}
 
 	
 ?>
-	<table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr><form name="new_special" <?php echo 'action="' . oos_href_link_admin($aContents['specials'], oos_get_all_get_params(array('action', 'info', 'sID')) . 'action=' . $form_action) . '"'; ?> method="post">
+	<form name="new_special" <?php echo 'action="' . oos_href_link_admin($aContents['specials'], oos_get_all_get_params(array('action', 'info', 'sID')) . 'action=' . $form_action) . '"'; ?> method="post">
 		<?php if ($form_action == 'update') echo oos_draw_hidden_field('specials_id', intval($_GET['sID'])); ?>
-        <td><br /><table border="0" cellspacing="0" cellpadding="2">
-          <tr>
-            <td class="main"><?php echo TEXT_SPECIALS_PRODUCT; echo ($sInfo->products_name) ? "" :  '('.TEXT_TAX_INFO.')'; ?>&nbsp;
-			<?php echo ($sInfo->products_name) ? product_info_image($sInfo->products_image, $sInfo->products_name) . '</a>' : ''; ?></td>
-<?php
-    $in_price = $sInfo->products_price; 
-    $in_new_price = $sInfo->specials_new_products_price;
-    $in_price=round($in_price,TAX_DECIMAL_PLACES);
-    $in_new_price=round($in_new_price,TAX_DECIMAL_PLACES);
 
+<?php
     if (isset($_GET['pID']) ) {
       echo '<input type="hidden" name="products_id" value="' . $sInfo->products_id . '">';
     } else {
-      echo '<input type="hidden" name="products_up_id" value="' . $sInfo->products_id . '">';
+      // echo '<input type="hidden" name="products_up_id" value="' . $sInfo->products_id . '">';
     }
+
+	if (!empty($sInfo->products_name)) {
+		echo '<br /><a href="' . oos_catalog_link($aCatalog['product_info'], 'products_id=' . $sInfo->products_id) . '" target="_blank" rel="noopener">' . product_info_image($sInfo->products_image, $sInfo->products_name) . '</a><br>';
+
+        $tax_result = $dbconn->Execute("SELECT tax_rate FROM " . $oostable['tax_rates'] . " WHERE tax_class_id = '" . intval($sInfo->products_tax_class_id) . "' ");
+		$tax = $tax_result->fields;
+
+        $in_price_netto = $sInfo->products_price; 
+        $in_new_price_netto = $sInfo->specials_new_products_price;
+		
+		$in_price = ($in_price_netto*($tax['tax_rate']+100)/100);
+		$in_new_price = ($in_new_price_netto*($tax['tax_rate']+100)/100);	
+		
+        $in_price_netto = round($in_price_netto,TAX_DECIMAL_PLACES);
+        $in_new_price_netto = round($in_new_price_netto,TAX_DECIMAL_PLACES);
+
+		$in_price = round($in_price,TAX_DECIMAL_PLACES);
+		$in_new_price = round($in_new_price,TAX_DECIMAL_PLACES);		
+		
+		
+		echo $sInfo->products_name;
+		echo '<br>' . TEXT_INFO_ORIGINAL_PRICE . ' ' . $currencies->format($in_price) . ' - ' . TEXT_TAX_INFO . $currencies->format($in_price_netto);
+		echo '<br>' . TEXT_INFO_NEW_PRICE . ' ' . $currencies->format($in_new_price) . ' - ' . TEXT_TAX_INFO . $currencies->format($in_new_price_netto);
+		echo '<br>' . TEXT_INFO_PERCENTAGE . ' ' . number_format(100 - (($sInfo->specials_new_products_price / $sInfo->products_price) * 100)) . '%';				
+	} else {
 ?>
-            <td class="main"><?php echo ($sInfo->products_name) ? $sInfo->products_name . ' <small>(' . $currencies->format($in_price) . ' - ' . TEXT_TAX_INFO . $currencies->format($in_price_netto) . ')</small>' : oos_draw_products_pull_down('products_id', 'style="font-size:10px"', $specials_array); echo oos_draw_hidden_field('products_price', $sInfo->products_price); ?></td>
+                     <fieldset>
+                        <div class="form-group row mb-2 mt-3">
+                           <label class="col-md-2 col-form-label mb-2"><?php echo TEXT_SPECIALS_PRODUCT; ?></label>
+                           <div class="col-md-10">
+								<?php echo oos_draw_products_pull_down('products_id', '', $specials_array); echo oos_draw_hidden_field('products_price', $sInfo->products_price); ?>
+                           </div>
+                        </div>
+                     </fieldset>
+<?php 
+	} 
+?>
+                     <fieldset>
+                        <div class="form-group row mb-2">
+                           <label class="col-md-2 col-form-label" for="input-id-1"><?php echo TEXT_SPECIALS_SPECIAL_PRICE; ?></label>
+                           <div class="col-md-10">
+                              <?php echo oos_draw_input_field('specials_price', $in_new_price_netto); ?> 
+                           </div>
+                        </div>
+                     </fieldset>
+                     <fieldset>
+                        <div class="form-group row mb-2">
+                           <label class="col-md-2 col-form-label mb-2"><?php echo TEXT_SPECIALS_EXPIRES_DATE; ?></label>
+                           <div class="col-xl-6 col-10">
+                              <div class="input-group date" id="datetimepicker1">
+                                 <input class="form-control" type="text" name="expires_date" value="<?php echo $sInfo->expires_date; ?>">
+                                 <span class="input-group-addon">
+                                    <span class="fa fa-calendar"></span>
+                                 </span>
+                              </div>
+                           </div>
+                        </div>
+                     </fieldset>
 
-          </tr>
-          <tr>
-            <td class="main"><?php echo TEXT_SPECIALS_SPECIAL_PRICE; ?>&nbsp;</td>
-            <td class="main"><?php echo oos_draw_input_field('specials_price', $in_new_price); echo '  ' . TEXT_TAX_INFO . $in_new_price_netto; ?> </td>
-          </tr>
-          <tr>
-            <td class="main"><?php echo TEXT_SPECIALS_EXPIRES_DATE; ?>&nbsp;</td>
-            <td class="main">
-			
-				<div class="input-group date" id="datetimepicker1">
-					<input class="form-control" type="text" name="expires_date" value="<?php echo $sInfo->expires_date; ?>">
-					<span class="input-group-addon">
-						<span class="fa fa-calendar"></span>
-					</span>
-				</div>
-
-			</td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td class="main"><br /><?php echo TEXT_SPECIALS_PRICE_TIP; ?></td>
-            <td class="main" align="right" valign="top"><br /><?php echo (($form_action == 'insert') ? oos_submit_button(BUTTON_INSERT) : oos_submit_button(IMAGE_UPDATE)). '&nbsp;&nbsp;&nbsp;<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['specials'], 'page=' . $nPage . '&sID=' . $_GET['sID']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></td>
-          </tr>
-        </table></td>
-      </form></tr>
-	</table>
+		<div class="text-md-left mt-3">
+			<p><?php echo TEXT_SPECIALS_PRICE_TIP; ?></p>
+		</div>
+	
+		<div class="text-right mt-3">
+			<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['specials'], 'page=' . $nPage . '&sID=' . intval($_GET['sID'])) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?>
+			<?php echo (($form_action == 'insert') ? oos_submit_button(BUTTON_INSERT) : oos_submit_button(IMAGE_UPDATE)); ?>
+		</div>
+	</form>
+	  
 <?php
-  } else {
+} else {
 ?>
 	<div class="table-responsive">
 		<table border="0" width="100%" cellspacing="0" cellpadding="0">
@@ -347,7 +375,7 @@ if (!empty($action)) {
       $in_new_price = $sInfo->specials_new_products_price;
 ?>
                 <td><?php echo $specials['products_name']; ?></td>
-                <td  align="right"><span class="oldPrice"><?php echo $currencies->format($specials['products_price']); ?></span> <span class="specialPrice"><?php echo $currencies->format($specials['specials_new_products_price']); ?></span></td>
+                <td  align="right"><s><?php echo $currencies->format($specials['products_price']); ?></s> <span><?php echo $currencies->format($specials['specials_new_products_price']); ?></span></td>
                 <td  align="right">
 <?php  
 		if ($specials['status'] == '1') {
@@ -392,7 +420,7 @@ if (!empty($action)) {
       $contents = array('form' => oos_draw_form('id', 'specials', $aContents['specials'], 'page=' . $nPage . '&sID=' . $sInfo->specials_id . '&action=deleteconfirm', 'post',  FALSE));
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $contents[] = array('text' => '<br /><b>' . $sInfo->products_name . '</b>');
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(BUTTON_DELETE) . '&nbsp;<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['specials'], 'page=' . $nPage . '&sID=' . $sInfo->specials_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(BUTTON_DELETE) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['specials'], 'page=' . $nPage . '&sID=' . $sInfo->specials_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
 
       break;
 

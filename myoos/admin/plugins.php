@@ -301,7 +301,7 @@
 
       $contents = array('form' => oos_draw_form('id', 'plugins', $aContents['plugins'], 'plugin=' . $_GET['plugin'] . '&action=save', 'post',  FALSE));
       $contents[] = array('text' => $keys);
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(IMAGE_UPDATE) . ' <a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['plugins'], 'plugin=' . $_GET['plugin']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(IMAGE_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['plugins'], 'plugin=' . $_GET['plugin']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
       break;
 
 

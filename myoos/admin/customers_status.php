@@ -320,7 +320,7 @@ if (!empty($action)) {
       $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_STAFFELPREIS_INTRO . '<br /><b>' . ENTRY_STAFFELPREIS . '</b> ' . oos_draw_pull_down_menu('customers_status_qty_discounts', $customers_status_qty_discounts_array, $cInfo->customers_status_qty_discounts ))  ;
       $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_PAYMENT_INTRO . '<br /><b>' . ENTRY_CUSTOMERS_STATUS_PAYMENT . '</b><br /> ' . oos_installed_payment($cInfo->customers_status_payment))  ;
       $contents[] = array('text' => '<br />' . oos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT);
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(BUTTON_INSERT) . ' <a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(BUTTON_INSERT) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
 
       break;
 
@@ -341,7 +341,7 @@ if (!empty($action)) {
       $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_STAFFELPREIS_INTRO . '<br /><b>' . ENTRY_STAFFELPREIS . '</b> ' . oos_draw_pull_down_menu('customers_status_qty_discounts', $customers_status_qty_discounts_array, $cInfo->customers_status_qty_discounts))  ;
       $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_PAYMENT_INTRO . '<br /><b>' . ENTRY_CUSTOMERS_STATUS_PAYMENT . '</b><br />'.  oos_installed_payment($cInfo->customers_status_payment));
       if (DEFAULT_CUSTOMERS_STATUS_ID != $cInfo->customers_status_id) $contents[] = array('text' => '<br />' . oos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT);
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(IMAGE_UPDATE) . ' <a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage . '&cID=' . $cInfo->customers_status_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(IMAGE_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage . '&cID=' . $cInfo->customers_status_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
 
       break;
 
@@ -351,7 +351,7 @@ if (!empty($action)) {
       $contents = array('form' => oos_draw_form('id', 'status', $aContents['customers_status'], 'page=' . $nPage . '&cID=' . $cInfo->customers_status_id  . '&action=deleteconfirm', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $contents[] = array('text' => '<br /><b>' . $cInfo->customers_status_name . '</b>');
-      if ($remove_status) $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage . '&cID=' . $cInfo->customers_status_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      if ($remove_status) $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage . '&cID=' . $cInfo->customers_status_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
 
       break;
 

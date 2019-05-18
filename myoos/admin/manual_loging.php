@@ -204,7 +204,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       $contents = array('form' => oos_draw_form('id', 'palm_daily', $aContents['manual_loging'], 'page=' . $nPage . '&sID=' . $sInfo->man_info_id . '&action=deleteconfirm', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $contents[] = array('text' => '<br /><b>' . $sInfo->contact_info_name . '</b>');
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(BUTTON_DELETE) . '&nbsp;<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['manual_loging'], 'page=' . $nPage . '&sID=' . $sInfo->man_info_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(BUTTON_DELETE) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['manual_loging'], 'page=' . $nPage . '&sID=' . $sInfo->man_info_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
 
       break;
     default:

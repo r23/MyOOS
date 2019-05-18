@@ -210,7 +210,7 @@ if ($action == 'new' || $action == 'edit') {
                   </ul>
                   <div class="tab-content">
 					<div class="text-right mt-3 mb-3">   
-						<?php echo '<a  class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['information'], 'selected_box=information') . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . IMAGE_BACK . '</strong></a>'; ?>		
+						<?php echo '<a  class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['information'], 'selected_box=information') . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . IMAGE_BACK . '</strong></a>'; ?>		
 						<?php echo oos_submit_button(IMAGE_SAVE); ?>
 						<?php echo oos_reset_button(BUTTON_RESET); ?>			   
 					</div>				  
@@ -297,7 +297,7 @@ if ($action == 'new' || $action == 'edit') {
                   </div>
                </div>
 					<div class="text-right mt-3 mb-3">   
-						<?php echo '<a  class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['information'], 'selected_box=information') . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . IMAGE_BACK . '</strong></a>'; ?>		
+						<?php echo '<a  class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['information'], 'selected_box=information') . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . IMAGE_BACK . '</strong></a>'; ?>		
 						<?php echo oos_submit_button(IMAGE_SAVE); ?>
 						<?php echo oos_reset_button(BUTTON_RESET); ?>			   
 					</div>				   
@@ -415,7 +415,7 @@ if ($action == 'new' || $action == 'edit') {
         $contents = array('form' => oos_draw_form('id', 'information', $aContents['information'], 'page=' . $nPage . '&iID=' . $iInfo->information_id . '&action=deleteconfirm', 'post', FALSE));
         $contents[] = array('text' => TEXT_DELETE_INTRO);
         $contents[] = array('text' => '<br /><b>' . $iInfo->information_name . '</b>');
-        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['information'], 'page=' . $nPage . '&iID=' . $iInfo->information_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['information'], 'page=' . $nPage . '&iID=' . $iInfo->information_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
       }
       break;
 

@@ -255,7 +255,7 @@ require 'includes/header.php';
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="main" align="right" valign="top"><br /><?php echo (($form_action == 'insert') ? oos_submit_button(BUTTON_INSERT) : oos_submit_button(IMAGE_UPDATE)). '&nbsp;&nbsp;&nbsp;<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $_GET['fID']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></td>
+            <td class="main" align="right" valign="top"><br /><?php echo (($form_action == 'insert') ? oos_submit_button(BUTTON_INSERT) : oos_submit_button(IMAGE_UPDATE)). '&nbsp;&nbsp;&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $_GET['fID']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></td>
           </tr>
         </table></td>
 		</tr>
@@ -347,7 +347,7 @@ require 'includes/header.php';
       $contents = array('form' => oos_draw_form('id', 'featured', $aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=deleteconfirm', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $contents[] = array('text' => '<br /><b>' . $sInfo->products_name . '</b>');
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(BUTTON_DELETE) . '&nbsp;<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(BUTTON_DELETE) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
 
       break;
 

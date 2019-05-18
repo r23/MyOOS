@@ -455,7 +455,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                 <table border="0" width="100%" cellpadding="0" cellspacing="2">
                   <tr>
                     <td><?php ?>&nbsp;</td>
-                    <td class="text-right"><?php echo '<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['coupon_admin']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>' . oos_submit_button(IMAGE_SEND_EMAIL); ?></td>
+                    <td class="text-right"><?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['coupon_admin']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>' . oos_submit_button(IMAGE_SEND_EMAIL); ?></td>
                   </tr>
                 </table></td>
               </tr>
@@ -901,7 +901,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       </tr>
       <tr>
         <td class="text-left"><?php echo oos_submit_button('preview', IMAGE_PREVIEW); ?></td>
-        <td class="text-left"><?php echo '&nbsp;&nbsp;<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['coupon_admin']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></td>
+        <td class="text-left"><?php echo '&nbsp;&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['coupon_admin']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></td>
       </tr>
       </td></table></form>
       </tr>
@@ -1080,7 +1080,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       if ($action == 'voucherdelete') {
         $contents[] = array('text'=> TEXT_CONFIRM_DELETE . '</br></br>' .
                 '<a href="' . oos_href_link_admin($aContents['coupon_admin'],'action=confirmdelete&cID='  .$_GET['cID']) . '">' . oos_button('Confirm Delete Voucher') . '</a>' .
-                '<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['coupon_admin'], 'cID=' . $cInfo->coupon_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'
+                '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['coupon_admin'], 'cID=' . $cInfo->coupon_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'
                 );
       } else {
         $prod_details = '';

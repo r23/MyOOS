@@ -161,7 +161,7 @@ function oos_button($title = '') {
  * @return string
  */
 function oos_submit_button($title = '') {
-	return '<button class="btn btn-sm btn-primary mb-20" type="submit"><strong><i class="fa fa-check-circle"></i> ' . $title . '</strong></button>';
+	return '<button class="btn btn-sm btn-success mb-20" type="submit"><strong><i class="fa fa-check-circle"></i> ' . $title . '</strong></button>';
 }
 
 /**

@@ -237,7 +237,7 @@ if (!empty($action)) {
 
       $contents[] = array('text' => '<br />' . TEXT_INFO_PRODUCTS_STATUS_NAME . $products_status_inputs_string);
       $contents[] = array('text' => '<br />' . oos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT);
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(BUTTON_INSERT) . ' <a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['products_status'], 'page=' . $nPage) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(BUTTON_INSERT) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_status'], 'page=' . $nPage) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
       break;
 
     case 'edit':
@@ -254,7 +254,7 @@ if (!empty($action)) {
 
       $contents[] = array('text' => '<br />' . TEXT_INFO_PRODUCTS_STATUS_NAME . $products_status_inputs_string);
       if (DEFAULT_PRODUTS_STATUS_ID != $psInfo->products_status_id) $contents[] = array('text' => '<br />' . oos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT);
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(IMAGE_UPDATE) . ' <a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['products_status'], 'page=' . $nPage . '&psID=' . $psInfo->products_status_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(IMAGE_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_status'], 'page=' . $nPage . '&psID=' . $psInfo->products_status_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
       break;
 
     case 'delete':
@@ -263,7 +263,7 @@ if (!empty($action)) {
       $contents = array('form' => oos_draw_form('id', 'status', $aContents['products_status'], 'page=' . $nPage . '&psID=' . $psInfo->products_status_id  . '&action=deleteconfirm', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $contents[] = array('text' => '<br /><b>' . $psInfo->products_status_name . '</b>');
-      if ($remove_status) $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['products_status'], 'page=' . $nPage . '&psID=' . $psInfo->products_status_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      if ($remove_status) $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_status'], 'page=' . $nPage . '&psID=' . $psInfo->products_status_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
       break;
 
     default:

@@ -642,7 +642,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       $contents = array('form' => oos_draw_form('id', 'orders', $aContents['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $oInfo->orders_id . '&action=deleteconfirm', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO . '<br /><br /><b>' . $cInfo->customers_firstname . ' ' . $cInfo->customers_lastname . '</b>');
       $contents[] = array('text' => '<br />' . oos_draw_checkbox_field('restock') . ' ' . TEXT_INFO_RESTOCK_PRODUCT_QUANTITY);
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $oInfo->orders_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID', 'action')) . 'oID=' . $oInfo->orders_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
       break;
 
     default:
