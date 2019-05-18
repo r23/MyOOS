@@ -122,19 +122,36 @@ require 'includes/header.php';
 	<section>
 		<!-- Page content //-->
 		<div class="content-wrapper">
-							
-			<!-- Breadcrumbs //-->
-			<div class="content-heading">
-				<div class="col-lg-12">
-					<h2><?php echo HEADING_TITLE; ?></h2>
-					<ol class="breadcrumb">
-						<li class="breadcrumb-item active">
-							<strong><?php echo HEADER_TITLE_TOP; ?></strong>
-						</li>
-					</ol>
+			<div class="row  justify-content-between mb-5">			
+
+				<div class="col-xl-3 col-lg-6 col-md-12">
+				<!-- Breadcrumbs //-->
+					<div class="content-heading">
+						<h2><?php echo HEADING_TITLE; ?></h2>
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item active">
+								<strong><?php echo HEADER_TITLE_TOP; ?></strong>
+							</li>
+						</ol>
+					</div>
+					<!-- END Breadcrumbs //-->
+				</div>
+				<div class="col-xl-3 col-lg-6 col-md-12">
+					<div class="card flex-row align-items-center align-items-stretch border-0">
+						<div class="col-4 d-flex align-items-center bg-info-dark justify-content-center rounded-left">
+							<em class="fa fa-language fa-3x"></em>
+						</div>
+						<div class="col-8 py-4 bg-info justify-content-center rounded-right">
+							<div class="text-center">
+								<?php echo oos_draw_form('id', 'languages', 'index.php', '', 'get', FALSE); ?>
+									<?php echo oos_draw_pull_down_menu('language', $languages_array, $languages_selected, 'onChange="this.form.submit();"'); ?> 
+								</form>								
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
-			<!-- END Breadcrumbs //-->
+			
 			
 			<div class="wrapper wrapper-content">
 				<div class="row">
@@ -187,15 +204,15 @@ require 'includes/header.php';
 						</div>
 						<div class="col-xl-3 col-lg-6 col-md-12">
 							<div class="card flex-row align-items-center align-items-stretch border-0">
-								<div class="col-4 d-flex align-items-center bg-info-dark justify-content-center rounded-left">
-									<em class="fa fa-language fa-3x"></em>
-								</div>
-								<div class="col-8 py-4 bg-info justify-content-center rounded-right">
+								<div class="col-4 d-flex align-items-center bg-green justify-content-center rounded-left">
 									<div class="text-center">
-										<?php echo oos_draw_form('id', 'languages', 'index.php', '', 'get', FALSE); ?>
-										<?php echo oos_draw_pull_down_menu('language', $languages_array, $languages_selected, 'onChange="this.form.submit();"'); ?> 
-										</form>								
+										<div class="text-sm" data-now="" data-format="MMMM"></div>
+										<div class="h2 mt-0" data-now="" data-format="D"></div>
 									</div>
+								</div>
+								<div class="col-8 py-3 rounded-right">
+									<div class="text-uppercase" data-now="" data-format="dddd"></div>
+									<div class="h2 mt-0" data-now="" data-format="H:mm"></div>
 								</div>
 							</div>
 						</div>
@@ -274,12 +291,7 @@ require 'includes/header.php';
                 </table></td>
                 <td width="460" valign="center"><table border="0" width="460" height="375" cellspacing="1" cellpadding="1">
                   <tr>
-                    <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
-                      <tr><?php echo oos_draw_form('id', 'languages', 'index.php', '', 'get', FALSE); ?>
-                        <td class="heading"><?php echo HEADING_TITLE; ?></td>
-                        <td class="text-right"><?php echo oos_draw_pull_down_menu('language', $languages_array, $languages_selected, 'onChange="this.form.submit();"'); ?></td>
-                      </form></tr>
-                    </table></td>
+                    <td colspan="2"></td>
                   </tr>
 <?php
   $col = 2;
