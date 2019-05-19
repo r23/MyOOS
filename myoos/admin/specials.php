@@ -21,46 +21,6 @@
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
-/**
- * Output a form pull down menu
- *
- * @param $name
- * @param $parameters
- * @param $exclude
- * @return string
- */
-function oos_draw_products_pull_down($name, $parameters = '', $exclude = '') {
-    GLOBAL $currencies;
-
-	if ($exclude == '') {
-		$exclude = array();
-    }
-	$select_string = '<select name="' . $name . '"';
-	if ($parameters) {
-		$select_string .= ' ' . $parameters;
-    }
-	$select_string .= '>';
-
-	// Get database information
-	$dbconn =& oosDBGetConn();
-	$oostable =& oosDBGetTables();
-
-	$productstable = $oostable['products'];
-    $products_descriptiontable = $oostable['products_description'];
-    $products_result = $dbconn->Execute("SELECT p.products_id, pd.products_name, p.products_price FROM $productstable p, $products_descriptiontable pd WHERE p.products_id = pd.products_id AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY products_name");
-    while ($products = $products_result->fields) {
-		if (!oos_in_array($products['products_id'], $exclude)) {
-			$select_string .= '<option value="' . $products['products_id'] . '">' . $products['products_name'] . ' (' . $currencies->format($products['products_price']) . ')</option>';
-		}
-
-		// Move that ADOdb pointer!
-		$products_result->MoveNext();
-    }
-    $select_string .= '</select>';
-
-    return $select_string;
-}
-
 
 /**
  * Sets the status of a special
@@ -191,7 +151,6 @@ if (!empty($action)) {
 			<div class="wrapper wrapper-content">
 				<div class="row">
 					<div class="col-lg-12">				
-<!-- body_text //-->
 <?php
 
 if ( ($action == 'new') || ($action == 'edit') ) {
@@ -229,8 +188,6 @@ if ( ($action == 'new') || ($action == 'edit') ) {
 	} else {
 		$sInfo = new objectInfo(array());
 
-// create an array of products on special, which will be excluded from the pull down menu of products
-// (when creating a new product on special)
 		$specials_array = array();
 		$productstable = $oostable['products'];
 		$specialstable = $oostable['specials'];
@@ -245,8 +202,13 @@ if ( ($action == 'new') || ($action == 'edit') ) {
 
 	
 ?>
-	<form name="new_special" <?php echo 'action="' . oos_href_link_admin($aContents['specials'], oos_get_all_get_params(array('action', 'info', 'sID')) . 'action=' . $form_action) . '"'; ?> method="post">
-		<?php if ($form_action == 'update') echo oos_draw_hidden_field('specials_id', intval($_GET['sID'])); ?>
+<!-- body_text //-->
+	<div class="card card-default">
+		<div class="card-header"><?php echo HEADING_TITLE; ?></div>
+			<div class="card-body">
+
+				<form name="new_special" <?php echo 'action="' . oos_href_link_admin($aContents['specials'], oos_get_all_get_params(array('action', 'info', 'sID')) . 'action=' . $form_action) . '"'; ?> method="post">
+					<?php if ($form_action == 'update') echo oos_draw_hidden_field('specials_id', intval($_GET['sID'])); ?>
 
 <?php
     if (isset($_GET['pID']) ) {
@@ -321,7 +283,10 @@ if ( ($action == 'new') || ($action == 'edit') ) {
 			<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['specials'], 'page=' . $nPage . '&sID=' . intval($_GET['sID'])) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?>
 			<?php echo (($form_action == 'insert') ? oos_submit_button(BUTTON_INSERT) : oos_submit_button(IMAGE_UPDATE)); ?>
 		</div>
-	</form>
+					
+			</form>	
+		</div>
+	</div>
 	  
 <?php
 } else {

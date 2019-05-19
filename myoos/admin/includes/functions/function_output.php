@@ -579,6 +579,46 @@ function oos_draw_pull_down_menu($name, $values, $default = '', $params = '', $r
     return $field;
 }
 
+
+/**
+ * Output a form pull down menu
+ *
+ * @param $name
+ * @param $parameters
+ * @param $exclude
+ * @return string
+ */
+function oos_draw_products_pull_down($name, $parameters = '', $exclude = '') {
+    GLOBAL $currencies;
+
+	if ($exclude == '') {
+		$exclude = array();
+    }
+	$select_string = '<select class="form-control" id="select2-1" name="' . $name . '"';
+	$select_string .= '>';
+
+	// Get database information
+	$dbconn =& oosDBGetConn();
+	$oostable =& oosDBGetTables();
+
+	$productstable = $oostable['products'];
+    $products_descriptiontable = $oostable['products_description'];
+    $products_result = $dbconn->Execute("SELECT p.products_id, pd.products_name, p.products_price FROM $productstable p, $products_descriptiontable pd WHERE p.products_id = pd.products_id AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY products_name");
+    while ($products = $products_result->fields) {
+		if (!oos_in_array($products['products_id'], $exclude)) {
+			$select_string .= '<option value="' . $products['products_id'] . '">' . $products['products_name'] . ' (' . $currencies->format($products['products_price']) . ')</option>';
+		}
+
+		// Move that ADOdb pointer!
+		$products_result->MoveNext();
+    }
+    $select_string .= '</select>';
+
+    return $select_string;
+}
+
+
+
  /**
   * Output a flag-icon
   *

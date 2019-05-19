@@ -19,47 +19,6 @@
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
-  function oos_draw_products_pull_down($name, $parameters = '', $exclude = '') {
-    GLOBAL $currencies;
-
-    if ($exclude == '') {
-      $exclude = array();
-    }
-    $select_string = '<select name="' . $name . '"';
-    if ($parameters) {
-      $select_string .= ' ' . $parameters;
-    }
-    $select_string .= '>';
-
-    // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
-
-    $productsstable = $oostable['products'];
-    $products_descriptionstable = $oostable['products_description'];
-    $query = "SELECT p.products_id, pd.products_name, p.products_price
-              FROM $productsstable p,
-                   $products_descriptionstable pd
-              WHERE p.products_status >= '1' AND 
-                    p.products_id = pd.products_id AND 
-                   pd.products_languages_id = '" . intval($_SESSION['language_id']) . "'
-              ORDER BY products_name";
-    $result = $dbconn->Execute($query);
-
-    while ($products = $result->fields) {
-      if (!oos_in_array($products['products_id'], $exclude)) {
-        $select_string .= '<option value="' . $products['products_id'] . '">' . $products['products_name'] . ' (' . $currencies->format($products['products_price']) . ')</option>';
-      }
-
-      // Move that ADOdb pointer!
-      $result->MoveNext();
-    }
-
-    $select_string .= '</select>';
-
-    return $select_string;
-  }
-
 
   function oos_set_featured_status($featured_id, $status) {
 
@@ -169,15 +128,15 @@ require 'includes/header.php';
 				<div class="col-lg-12">		
 
 <?php
-  if ( ($action == 'new') || ($action == 'edit') ) {
-    $form_action = 'insert';
-    if ( ($action == 'edit') && isset($_GET['fID']) ) {
-      $form_action = 'update';
+if ( ($action == 'new') || ($action == 'edit') ) {
+	$form_action = 'insert';
+	if ( ($action == 'edit') && isset($_GET['fID']) ) {
+		$form_action = 'update';
 
-      $featuredtable = $oostable['featured'];
-      $productstable = $oostable['products'];
-      $products_descriptiontable = $oostable['products_description'];
-      $query = "SELECT p.products_id, p.products_image, pd.products_name, f.expires_date
+		$featuredtable = $oostable['featured'];
+		$productstable = $oostable['products'];
+		$products_descriptiontable = $oostable['products_description'];
+		$query = "SELECT p.products_id, p.products_image, pd.products_name, f.expires_date
                 FROM $productstable p,
                      $products_descriptiontable pd,
                      $featuredtable f
@@ -186,41 +145,43 @@ require 'includes/header.php';
                       p.products_id = f.products_id AND
                       f.featured_id = '" . intval($_GET['fID']) . "'
                    ORDER BY pd.products_name";
-      $product = $dbconn->GetRow($query);
+		$product = $dbconn->GetRow($query);
 
-      $sInfo = new objectInfo($product);
-    } elseif ( ($action == 'new') && isset($_GET['pID']) ) {
-      $productstable = $oostable['products'];
-      $products_descriptiontable = $oostable['products_description'];
-      $sql = "SELECT p.products_id, p.products_image, pd.products_name
+		$sInfo = new objectInfo($product);
+	} elseif ( ($action == 'new') && isset($_GET['pID']) ) {
+		$productstable = $oostable['products'];
+		$products_descriptiontable = $oostable['products_description'];
+		$sql = "SELECT p.products_id, p.products_image, pd.products_name
               FROM $productstable p,
                    $products_descriptiontable pd
               WHERE p.products_id = pd.products_id AND
                     pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' AND
                     p.products_id = '" . intval($_GET['pID']) . "'";
-      $product = $dbconn->GetRow($sql);
+		$product = $dbconn->GetRow($sql);
 
-      $sInfo = new objectInfo($product);
-    } else {
-      $sInfo = new objectInfo(array());
+		$sInfo = new objectInfo($product);
+	} else {
+		$sInfo = new objectInfo(array());
 
-// create an array of featured products, which will be excluded from the pull down menu of products
-// (when creating a new featured product)
-      $featured_array = array();
-      $featuredtable = $oostable['featured'];
-      $productstable = $oostable['products'];
-      $featured_result = $dbconn->Execute("SELECT p.products_id FROM $productstable p, $featuredtable f WHERE f.products_id = p.products_id");
-      while ($featured = $featured_result->fields) {
-        $featured_array[] = $featured['products_id'];
+		$featured_array = array();
+		$featuredtable = $oostable['featured'];
+		$productstable = $oostable['products'];
+		$featured_result = $dbconn->Execute("SELECT p.products_id FROM $productstable p, $featuredtable f WHERE f.products_id = p.products_id");
+		while ($featured = $featured_result->fields) {
+			$featured_array[] = $featured['products_id'];
 
-        // Move that ADOdb pointer!
-        $featured_result->MoveNext();
-      }
-    }
+			// Move that ADOdb pointer!
+		$featured_result->MoveNext();
+	}
+}
 
 ?>
 <!-- body_text //-->
-<form name="new_feature" <?php echo 'action="' . oos_href_link_admin($aContents['featured'], oos_get_all_get_params(array('action', 'info', 'fID')) . 'action=' . $form_action) . '"'; ?> method="post">
+	<div class="card card-default">
+		<div class="card-header"><?php echo HEADING_TITLE; ?></div>
+			<div class="card-body">
+
+				<form name="new_feature" <?php echo 'action="' . oos_href_link_admin($aContents['featured'], oos_get_all_get_params(array('action', 'info', 'fID')) . 'action=' . $form_action) . '"'; ?> method="post">
 <?php
 	if ($form_action == 'update') {
 		echo oos_draw_hidden_field('featured_id', intval($_GET['fID']));
@@ -228,39 +189,48 @@ require 'includes/header.php';
 		echo oos_draw_hidden_field('products_id', $sInfo->products_id);
 	}
 ?>
-	<table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr>
-        <td><br /><table border="0" cellspacing="0" cellpadding="2">
-          <tr>
-            <td class="main"><?php echo TEXT_FEATURED_EXPIRES_DATE; ?>&nbsp;</td>
-            <td class="main">
-				<div class="input-group date" id="datetimepicker1">
-					<input class="form-control" type="text" name="expires_date" value="<?php echo $sInfo->expires_date; ?>">
-					<span class="input-group-addon">
-						<span class="fa fa-calendar"></span>
-					</span>
-				</div>			
-			</td>
-          </tr>		
+
+<?php
+	if (!empty($sInfo->products_name)) {
+		echo '<br /><a href="' . oos_catalog_link($aCatalog['product_info'], 'products_id=' . $sInfo->products_id) . '" target="_blank" rel="noopener">' . product_info_image($sInfo->products_image, $sInfo->products_name) . '</a><br>';
+	} else {
+?>
+					<fieldset>
+                        <div class="form-group row mb-3 mt-3">
+                           <label class="col-md-2 col-form-label mb-2"><?php echo TEXT_FEATURED_PRODUCT; ?></label>
+                           <div class="col-md-10">
+								<?php echo oos_draw_products_pull_down('products_id', '', $featured_array); ?>
+                           </div>
+                        </div>
+                     </fieldset>
+<?php 
+	} 
+?>
+                     <fieldset>
+                        <div class="form-group row mb-3">
+                           <label class="col-md-2 col-form-label mb-2"><?php echo TEXT_FEATURED_EXPIRES_DATE; ?></label>
+                           <div class="col-xl-6 col-10">
+                              <div class="input-group date" id="datetimepicker1">
+                                 <input class="form-control" type="text" name="expires_date" value="<?php echo $sInfo->expires_date; ?>">
+                                 <span class="input-group-addon">
+                                    <span class="fa fa-calendar"></span>
+                                 </span>
+                              </div>
+                           </div>
+                        </div>
+                     </fieldset>
 		
-		
-          <tr>
-            <td class="main"><?php echo TEXT_FEATURED_PRODUCT; ?>&nbsp;</td>
-            <td class="main">
-			<?php echo ($sInfo->products_name) ? product_info_image($sInfo->products_image, $sInfo->products_name) . '</a>' : ''; ?>		
-			<?php echo ($sInfo->products_name) ? $sInfo->products_name : oos_draw_products_pull_down('products_id', 'style="font-size:10px"', $featured_array); echo oos_draw_hidden_field('products_price', $sInfo->products_price); ?></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td class="main" align="right" valign="top"><br /><?php echo (($form_action == 'insert') ? oos_submit_button(BUTTON_INSERT) : oos_submit_button(IMAGE_UPDATE)). '&nbsp;&nbsp;&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $_GET['fID']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></td>
-          </tr>
-        </table></td>
-		</tr>
-	</table>
-      </form>
+					<div class="clearfix mt-120"></div>
+					
+					<div class="text-right mt-3">
+						<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $_GET['fID']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?>
+						<?php echo (($form_action == 'insert') ? oos_submit_button(BUTTON_INSERT) : oos_submit_button(IMAGE_UPDATE)); ?>
+					</div>					
+					
+			</form>	
+		</div>
+	</div>
+
 <?php
   } else {
 ?>
