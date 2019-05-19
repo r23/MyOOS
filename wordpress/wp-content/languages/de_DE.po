@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.2.x - Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-05-17 08:04:59+0000\n"
+"PO-Revision-Date: 2019-05-18 09:16:22+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -70,7 +70,7 @@ msgid "&#8221;"
 msgstr "&#8220;"
 
 #. translators: opening curly double quote
-#: wp-includes/formatting.php:98 wp-includes/formatting.php:5237
+#: wp-includes/formatting.php:98 wp-includes/formatting.php:5241
 msgctxt "opening curly double quote"
 msgid "&#8220;"
 msgstr "&#8222;"
@@ -86,6 +86,14 @@ msgstr "."
 #: wp-includes/class-wp-locale.php:213
 msgid "number_format_decimal_point"
 msgstr ","
+
+#: wp-includes/taxonomy.php:2281
+msgid "Could not insert term taxonomy into the database."
+msgstr "Der Taxonomie-Begriff konnte nicht in die Datenbank eingefügt werden."
+
+#: wp-includes/load.php:152
+msgid "Insufficient Requirements"
+msgstr "Unzureichende Voraussetzungen"
 
 #. translators: 1: link to tutorial, 2: additional link attributes, 3:
 #. accessibility text
@@ -193,7 +201,7 @@ msgstr "[%s] Änderungsanfrage für E-Mail-Adresse des Netzwerkadministrators"
 
 #. translators: Site admin email change notification email subject. %s: Site
 #. title
-#: wp-includes/functions.php:6602
+#: wp-includes/functions.php:6610
 msgid "[%s] Admin Email Changed"
 msgstr "[%s] Admin-E-Mail geändert"
 
@@ -681,7 +689,7 @@ msgstr "Fehlende Anforderungs-ID."
 msgid "Usage of the title attribute on the login logo is not recommended for accessibility reasons. Use the link text instead."
 msgstr "Die Verwendung des title-Attributs für das Login-Logo wird aus Gründen der Barrierefreiheit nicht empfohlen. Verwende stattdessen den Linktext."
 
-#: wp-includes/functions.php:7020
+#: wp-includes/functions.php:7028
 msgid "Update PHP"
 msgstr "PHP aktualisieren"
 
@@ -699,7 +707,7 @@ msgid "REST API routes must be registered on the %s action."
 msgstr "REST-API-Routen müssen für die Aktion %s registriert werden."
 
 #. translators: used to join last two items in a list with more than 2 times
-#: wp-includes/formatting.php:4916
+#: wp-includes/formatting.php:4920
 msgid "%1$s, and %2$s"
 msgstr "%1$s, und %2$s"
 
@@ -787,16 +795,16 @@ msgid "Formats"
 msgstr "Formate"
 
 #. translators: used to join items in a list with more than 2 items
-#: wp-includes/formatting.php:4914
+#: wp-includes/formatting.php:4918
 msgid "%1$s, %2$s"
 msgstr "%1$s, %2$s"
 
 #. translators: %s: default Update PHP page URL
-#: wp-includes/functions.php:6963
+#: wp-includes/functions.php:6971
 msgid "This resource is provided by your web host, and is specific to your site. For more information, <a href=\"%s\" target=\"_blank\">see the official WordPress documentation</a>."
 msgstr "Diese Ressource wird von deinem Webhoster bereitgestellt und ist spezifisch für deine Website. Für weitere Informationen siehe <a href=\"%s\" target=\"_blank\">die offizielle WordPress-Dokumentation (engl.)</a>."
 
-#: wp-includes/functions.php:6920
+#: wp-includes/functions.php:6928
 msgctxt "localized PHP upgrade information page"
 msgid "https://wordpress.org/support/update-php/"
 msgstr "https://de.wordpress.org/support/update-php/"
@@ -3279,7 +3287,7 @@ msgstr "Individuelle Schriftgröße"
 #: wp-includes/widgets/class-wp-widget-custom-html.php:313
 #: wp-includes/media-template.php:173
 #: wp-includes/customize/class-wp-customize-nav-menu-locations-control.php:59
-#: wp-includes/functions.php:7022
+#: wp-includes/functions.php:7030
 #: wp-includes/class-wp-customize-manager.php:4270
 #: wp-includes/class-wp-customize-manager.php:5572
 #: wp-includes/class-wp-customize-manager.php:5593
@@ -4000,12 +4008,12 @@ msgid "User Requests"
 msgstr "Benutzer-Anfragen"
 
 #. translators: deleted long text
-#: wp-includes/functions.php:6748
+#: wp-includes/functions.php:6756
 msgid "This content was deleted by the author."
 msgstr "Dieser Inhalt wurde vom Autor gelöscht."
 
 #. translators: deleted text
-#: wp-includes/functions.php:6744
+#: wp-includes/functions.php:6752
 msgid "[deleted]"
 msgstr "[gelöscht]"
 
@@ -4928,13 +4936,13 @@ msgstr ""
 msgid "User cannot be added to this site."
 msgstr "Benutzer kann nicht zu dieser Website hinzugefügt werden."
 
-#: wp-includes/load.php:1441
+#: wp-includes/load.php:1448
 msgid "Scrape nonce check failed. Please try again."
 msgstr "Scrape-Nonce-Prüfung fehlgeschlagen. Bitte versuche es nochmal."
 
 #. translators: Do not translate OLD_EMAIL, NEW_EMAIL, SITENAME, SITEURL: those
 #. are placeholders.
-#: wp-includes/functions.php:6585
+#: wp-includes/functions.php:6593
 msgid ""
 "Hi,\n"
 "\n"
@@ -4960,7 +4968,7 @@ msgstr ""
 "von allen auf ###SITENAME###\n"
 "###SITEURL###"
 
-#: wp-includes/functions.php:6501
+#: wp-includes/functions.php:6509
 msgid "Only UUID V4 is supported at this time."
 msgstr "Zur Zeit wird nur UUID V4 unterstützt."
 
@@ -7828,7 +7836,7 @@ msgstr "Pause"
 msgid "Play"
 msgstr "Abspielen"
 
-#: wp-includes/taxonomy.php:2124 wp-includes/taxonomy.php:2838
+#: wp-includes/taxonomy.php:2124 wp-includes/taxonomy.php:2842
 msgid "A name is required for this term."
 msgstr "Für diesen Begriff ist ein Name erforderlich."
 
@@ -8094,12 +8102,12 @@ msgstr "Passwort geändert für Benutzer: %s"
 msgid "Image crop area preview. Requires mouse interaction."
 msgstr "Vorschau des Bereichs &#8222;Bilder zuschneiden&#8220;. Erfordert Maus-Interaktion."
 
-#: wp-includes/formatting.php:4674
+#: wp-includes/formatting.php:4678
 msgid "https://codex.wordpress.org/Using_Permalinks#Choosing_your_permalink_structure"
 msgstr "https://codex.wordpress.org/Using_Permalinks#Choosing_your_permalink_structure"
 
 #. translators: %s: Codex URL
-#: wp-includes/formatting.php:4673
+#: wp-includes/formatting.php:4677
 msgid "A structure tag is required when using custom permalinks. <a href=\"%s\">Learn more</a>"
 msgstr "Um benutzerdefinierte Permalinks benutzen zu können, ist ein Struktur-Schlagwort erforderlich. <a href=\"%s\">Erfahre mehr</a>"
 
@@ -8446,7 +8454,7 @@ msgstr "https://codex.wordpress.org/Debugging_in_WordPress"
 msgid "Please see <a href=\"%s\">Debugging in WordPress</a> for more information."
 msgstr "Weitere Informationen: <a href=\"%s\">Debugging in WordPress (engl.)</a>"
 
-#: wp-includes/load.php:486
+#: wp-includes/load.php:493
 msgid "<strong>ERROR</strong>: %1$s in %2$s can only contain numbers, letters, and underscores."
 msgstr "<strong>FEHLER</strong>: %1$s in %2$s darf ausschließlich Zahlen, Buchstaben und Unterstriche beinhalten."
 
@@ -9088,7 +9096,7 @@ msgstr "Bereich umschalten: %s"
 #. Asian characters), enter 'characters_excluding_spaces' or
 #. 'characters_including_spaces'. Otherwise, enter 'words'. Do not translate
 #. into your own language.
-#: wp-includes/script-loader.php:2165 wp-includes/formatting.php:3760
+#: wp-includes/script-loader.php:2165 wp-includes/formatting.php:3764
 #: wp-includes/js/dist/editor.js:12850
 msgctxt "Word count type. Do not translate!"
 msgid "words"
@@ -9822,7 +9830,7 @@ msgstr "Installation erfolgreich abgeschlossen."
 msgid "Taxonomy names must be between 1 and 32 characters in length."
 msgstr "Taxonomie-Namen müssen eine Länge zwischen 1 und 32 Zeichen haben."
 
-#: wp-includes/taxonomy.php:3800
+#: wp-includes/taxonomy.php:3804
 msgid "Could not split shared term."
 msgstr "Der gemeinsam genutzte Begriff konnte nicht aufgeteilt werden."
 
@@ -10343,7 +10351,7 @@ msgstr "Mehrfachauswahl"
 
 #. translators: %s: taxonomy label, %l: list of terms formatted as per
 #. $term_template
-#: wp-includes/taxonomy.php:4313
+#: wp-includes/taxonomy.php:4317
 msgid "%s: %l."
 msgstr "%s: %l."
 
@@ -11594,7 +11602,7 @@ msgstr "Ungültig"
 
 #. translators: Time difference between two dates, in years. %s: Number of
 #. years
-#: wp-includes/formatting.php:3658
+#: wp-includes/formatting.php:3662
 msgid "%s year"
 msgid_plural "%s years"
 msgstr[0] "%s Jahr"
@@ -11602,7 +11610,7 @@ msgstr[1] "%s Jahren"
 
 #. translators: Time difference between two dates, in months. %s: Number of
 #. months
-#: wp-includes/formatting.php:3651
+#: wp-includes/formatting.php:3655
 msgid "%s month"
 msgid_plural "%s months"
 msgstr[0] "%s Monat"
@@ -11610,7 +11618,7 @@ msgstr[1] "%s Monaten"
 
 #. translators: Time difference between two dates, in weeks. %s: Number of
 #. weeks
-#: wp-includes/formatting.php:3644
+#: wp-includes/formatting.php:3648
 msgid "%s week"
 msgid_plural "%s weeks"
 msgstr[0] "%s Woche"
@@ -12100,7 +12108,7 @@ msgctxt "Display name based on first name and last name"
 msgid "%1$s %2$s"
 msgstr "%1$s %2$s"
 
-#: wp-includes/taxonomy.php:2536
+#: wp-includes/taxonomy.php:2540
 msgid "Could not insert term relationship into the database."
 msgstr "Die Begriffsbeziehung konnte nicht in die Datenbank eingefügt werden."
 
@@ -12383,7 +12391,7 @@ msgstr "Du bist leider nicht berechtigt, Begriffe in dieser Taxonomie zu bearbei
 #: wp-includes/class-wp-xmlrpc-server.php:2161
 #: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:414
 #: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:537
-#: wp-includes/taxonomy.php:2135 wp-includes/taxonomy.php:2842
+#: wp-includes/taxonomy.php:2135 wp-includes/taxonomy.php:2846
 msgid "Parent term does not exist."
 msgstr "Übergeordneter Begriff existiert nicht."
 
@@ -12408,8 +12416,8 @@ msgstr "Du bist leider nicht berechtigt, in dieser Taxonomie Begriffe zu erstell
 #: wp-includes/taxonomy.php:721 wp-includes/taxonomy.php:821
 #: wp-includes/taxonomy.php:1003 wp-includes/taxonomy.php:1169
 #: wp-includes/taxonomy.php:1968 wp-includes/taxonomy.php:2106
-#: wp-includes/taxonomy.php:2417 wp-includes/taxonomy.php:2592
-#: wp-includes/taxonomy.php:2796
+#: wp-includes/taxonomy.php:2421 wp-includes/taxonomy.php:2596
+#: wp-includes/taxonomy.php:2800
 msgid "Invalid taxonomy."
 msgstr "Ungültige Taxonomie."
 
@@ -12737,7 +12745,7 @@ msgstr "<strong>FEHLER</strong>: Website-Adresse ist schon vergeben."
 msgid "Documentation"
 msgstr "Dokumentation"
 
-#: wp-includes/general-template.php:4046 wp-includes/formatting.php:3749
+#: wp-includes/general-template.php:4046 wp-includes/formatting.php:3753
 msgid "&hellip;"
 msgstr "&hellip;"
 
@@ -12803,7 +12811,7 @@ msgctxt "admin color scheme"
 msgid "Blue"
 msgstr "Blau"
 
-#: wp-includes/formatting.php:4655
+#: wp-includes/formatting.php:4659
 msgid "The timezone you have entered is not valid. Please select a valid timezone."
 msgstr "Die von dir eingegebene Zeitzone ist ungültig. Bitte wähle eine gültige Zeitzone aus."
 
@@ -13225,7 +13233,7 @@ msgid "F, Y"
 msgstr "F Y"
 
 #. translators: used to join items in a list with only 2 items
-#: wp-includes/formatting.php:4918
+#: wp-includes/formatting.php:4922
 msgid "%1$s and %2$s"
 msgstr "%1$s und %2$s"
 
@@ -13482,7 +13490,7 @@ msgstr ""
 msgid "Sorry, that site already exists!"
 msgstr "Diese Website existiert bereits!"
 
-#: wp-includes/load.php:598
+#: wp-includes/load.php:605
 msgid "The site you have requested is not installed properly. Please contact the system administrator."
 msgstr "Die Website, die du aufrufen möchtest, wurde nicht korrekt installiert. Bitte kontaktiere den Administrator."
 
@@ -13494,15 +13502,15 @@ msgstr "Diese Website wurde deaktiviert oder archiviert."
 msgid "The given object ID is not that of a menu item."
 msgstr "Die übergebene ID gehört zu keinem Menüeintrag."
 
-#: wp-includes/formatting.php:4596
+#: wp-includes/formatting.php:4600
 msgid "The Site address you entered did not appear to be a valid URL. Please enter a valid URL."
 msgstr "Die Website-Adresse, die du eingegeben hast, scheint keine gültige URL zu sein. Bitte gib eine gültige URL ein."
 
-#: wp-includes/formatting.php:4583
+#: wp-includes/formatting.php:4587
 msgid "The WordPress address you entered did not appear to be a valid URL. Please enter a valid URL."
 msgstr "Die angegebene WordPress-Adresse scheint keine gültige URL zu sein. Bitte gib eine gültige URL an."
 
-#: wp-includes/formatting.php:4473
+#: wp-includes/formatting.php:4477
 msgid "The email address entered did not appear to be a valid email address. Please enter a valid email address."
 msgstr "Diese E-Mail-Adresse scheint keine gültige E-Mail-Adresse zu sein. Bitte gib eine gültige E-Mail-Adresse an."
 
@@ -13577,13 +13585,13 @@ msgstr "Als Beitragsbild nutzen"
 msgid "Page %s"
 msgstr "Seite %s"
 
-#: wp-includes/load.php:223
+#: wp-includes/load.php:230
 msgid "Briefly unavailable for scheduled maintenance. Check back in a minute."
 msgstr ""
 "Wegen Wartungsarbeiten ist diese Website kurzzeitig nicht verfügbar. \n"
 "Schau in einer Minute nochmal vorbei."
 
-#: wp-includes/load.php:224
+#: wp-includes/load.php:231
 msgid "Maintenance"
 msgstr "Wartungsmodus"
 
@@ -13775,7 +13783,7 @@ msgstr "WordPress-Datenbank-Fehler %1$s für die Abfrage %2$s"
 msgid "WordPress database error %1$s for query %2$s made by %3$s"
 msgstr "WordPress-Datenbank-Fehler %1$s für Abfrage %2$s von %3$s"
 
-#: wp-includes/load.php:148
+#: wp-includes/load.php:151
 msgid "Your PHP installation appears to be missing the MySQL extension which is required by WordPress."
 msgstr "Deine PHP-Installation scheint nicht über die von WordPress benötigte MySQL-Erweiterung zu verfügen."
 
@@ -14154,12 +14162,12 @@ msgstr "Es fehlt ein Stylesheet."
 msgid "The parent theme is missing. Please install the \"%s\" parent theme."
 msgstr "Das übergeordnete Theme fehlt. Bitte installiere das übergeordnete Theme &#8222;%s&#8220;, da du Child-Themes sonst nicht nutzen kannst."
 
-#: wp-includes/taxonomy.php:4385
+#: wp-includes/taxonomy.php:4389
 msgid "Invalid object ID."
 msgstr "Ungültige Objekt-ID."
 
 #. translators: %s: taxonomy term slug
-#: wp-includes/taxonomy.php:2904
+#: wp-includes/taxonomy.php:2908
 msgid "The slug &#8220;%s&#8221; is already in use by another term."
 msgstr "Die Titelform &#8222;%s&#8220; wird bereits von einem anderen Begriff verwendet."
 
@@ -14171,8 +14179,8 @@ msgstr "Der Begriff konnte nicht in die Datenbank eingefügt werden."
 msgid "Invalid item ID."
 msgstr "Ungültige Element-ID."
 
-#: wp-includes/taxonomy.php:817 wp-includes/taxonomy.php:2809
-#: wp-includes/taxonomy.php:4167
+#: wp-includes/taxonomy.php:817 wp-includes/taxonomy.php:2813
+#: wp-includes/taxonomy.php:4171
 msgid "Empty Term."
 msgstr "Leerer Begriff."
 
@@ -15331,7 +15339,7 @@ msgid ", "
 msgstr ", "
 
 #. translators: Time difference between two dates, in days. %s: Number of days
-#: wp-includes/formatting.php:3637
+#: wp-includes/formatting.php:3641
 msgid "%s day"
 msgid_plural "%s days"
 msgstr[0] "%s Tag"
@@ -15340,7 +15348,7 @@ msgstr[1] "%s Tagen"
 #. translators: Time duration in hour or hours.
 #. translators: Time difference between two dates, in hours. %s: Number of
 #. hours
-#: wp-includes/functions.php:377 wp-includes/formatting.php:3630
+#: wp-includes/functions.php:377 wp-includes/formatting.php:3634
 msgid "%s hour"
 msgid_plural "%s hours"
 msgstr[0] "%s Stunde"
@@ -15348,7 +15356,7 @@ msgstr[1] "%s Stunden"
 
 #. translators: Time difference between two dates, in minutes (min=minute). %s:
 #. Number of minutes
-#: wp-includes/formatting.php:3623
+#: wp-includes/formatting.php:3627
 msgid "%s min"
 msgid_plural "%s mins"
 msgstr[0] "%s Minute"
