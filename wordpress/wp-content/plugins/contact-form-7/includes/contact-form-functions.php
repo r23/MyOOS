@@ -143,6 +143,8 @@ function wpcf7_save_contact_form( $args = '', $context = 'save' ) {
 		'additional_settings' => null,
 	) );
 
+	$args = wp_unslash( $args );
+
 	$args['id'] = (int) $args['id'];
 
 	if ( -1 == $args['id'] ) {
