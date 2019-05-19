@@ -39,7 +39,7 @@ Documentation
 -------------
 
 ### MyOOS [Shopsystem]
-Use your browser to open the [doku.oos-shop.de/](http://doku.oos-shop.de) page for links to documentation.
+Use your browser to open the [doku.oos-shop.de](http://doku.oos-shop.de) page for links to documentation.
 
 
 Support
@@ -54,7 +54,7 @@ Released under the GNU General Public License. You can find the whole license te
 
 ## Further reading
 
-* [MyOOS [Shopsystem]](https://www.oos-shop.de - Homepage of MyOOS [Shopsystem]
-* [MyOOS [Shopsystem] Documentation](http://doku.oos-shop.de) - MyOOS [Shopsystem] documentation
-* [MyOOS [Shopsystem] Forum](https://foren.myoos.de) - Community forum
-* [MyOOS [Shopsystem] Demo (https://oos-shop.de/shop/index.php?content=product_info&products_id=1) MyOOS [Shopsystem] demo
+* [MyOOS](https://www.oos-shop.de - Homepage of MyOOS [Shopsystem]
+* [MyOOS Documentation](http://doku.oos-shop.de) - MyOOS [Shopsystem] documentation
+* [MyOOS Forum](https://foren.myoos.de) - Community forum
+* [MyOOS Demo](https://oos-shop.de/shop/index.php?content=product_info&products_id=1) MyOOS [Shopsystem] demo
