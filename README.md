@@ -53,8 +53,8 @@ Released under the GNU General Public License. You can find the whole license te
 
 
 ## Further reading
-
-* [MyOOS](https://www.oos-shop.de - Homepage of MyOOS [Shopsystem]
+-------------
+* [MyOOS Homepage](https://www.oos-shop.de - Homepage of MyOOS [Shopsystem]
 * [MyOOS Documentation](http://doku.oos-shop.de) - MyOOS [Shopsystem] documentation
 * [MyOOS Forum](https://foren.myoos.de) - Community forum
-* [MyOOS Demo](https://oos-shop.de/shop/index.php?content=product_info&products_id=1) MyOOS [Shopsystem] demo
+* [MyOOS Demo](https://oos-shop.de/shop/index.php?content=product_info&products_id=1) - MyOOS [Shopsystem] demo
