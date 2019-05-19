@@ -21,13 +21,13 @@ Requirements
 - MySQL version 5.6 or higher.
 - The Apache module mod_rewrite.
 - HTTPS support.
-- A link to oos-shop.com on your website.
+- A link to oos-shop.de on your website.
 
 
 Installation
 ------------
 
-1. [Download MyOOS](https://github.com/r23/MyOOS/releases)
+1. [Download MyOOS [Shopsystem]](https://github.com/r23/MyOOS/releases)
 2. Unzip the downloaded zip file 
 3. Extract the file into an empty directory and upload everything from the directory myoos to the server.
 4. Your online shop with MyOOS is only available under HTTPS support. Please set up HTTPS before installation.
@@ -39,9 +39,22 @@ Documentation
 -------------
 
 ### MyOOS [Shopsystem]
-Use your browser to open the [doku.oos-shop.de/](http://doku.oos-shop.de/) page for links to documentation.
+Use your browser to open the [doku.oos-shop.de/](http://doku.oos-shop.de) page for links to documentation.
 
 
 Support
--------
-For free support, visit our support site: [https://foren.myoos.de/)
+-------------
+For free support, visit our support site: (https://foren.myoos.de)
+
+
+License
+-------------
+Released under the GNU General Public License. You can find the whole license text in the `license.txt` file.
+
+
+## Further reading
+
+* [MyOOS [Shopsystem]](https://www.oos-shop.de - Homepage of MyOOS [Shopsystem]
+* [MyOOS [Shopsystem] Documentation](http://doku.oos-shop.de) - MyOOS [Shopsystem] documentation
+* [MyOOS [Shopsystem] Forum](https://foren.myoos.de) - Community forum
+* [MyOOS [Shopsystem] Demo (https://oos-shop.de/shop/index.php?content=product_info&products_id=1) MyOOS [Shopsystem] demo
