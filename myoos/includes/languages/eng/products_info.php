@@ -21,7 +21,7 @@
 
 $aLang['text_product_not_found'] = 'Product not found!';
 $aLang['text_current_reviews'] = 'Current Reviews:';
-$aLang['text_more_information'] = 'For more information, please visit this products <a href="%s" target="_blank"><u>webpage</u></a>.';
+$aLang['text_more_information'] = 'For more information, please visit this products <a href="%s" target="_blank" rel="noopener"><u>webpage</u></a>.';
 $aLang['text_manufacturer_info_homepage'] = '%s Homepage';
 $aLang['text_date_added'] = 'This product was added to our catalog on %s.';
 $aLang['text_date_available'] = 'This product will be in stock on %s.';

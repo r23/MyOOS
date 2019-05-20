@@ -49,8 +49,8 @@ $aLang['heading_conditions_text'] = 'Put here your information about the right o
 $aLang['text_checkout_info'] = 'Before submitting your order, you have the opportunity here to correct the data and articles you have entered.<br> 
 You can end the ordering process at any time by closing the browser window, or by pressing the <strong>Order now at the price stated</strong> button.';
 
-$aLang['text_conditions'] = 'I have read the general <a href="%s" target="_blank"><strong>Terms and Conditions</strong></a> of the provider and declare my agreement by sending the order.<br>
-I have read and understood the <a href="%s" target="_blank"><strong>Right of Recission / the Sample Revocation Form</strong></a>.<br>
-I have read the provisions of the <a href="%s" target="_blank"><strong>data protection declaration</strong></a> and agree with the provisions set out.';
+$aLang['text_conditions'] = 'I have read the general <a href="%s" target="_blank" rel="noopener"><strong>Terms and Conditions</strong></a> of the provider and declare my agreement by sending the order.<br>
+I have read and understood the <a href="%s" target="_blank" rel="noopener"><strong>Right of Recission / the Sample Revocation Form</strong></a>.<br>
+I have read the provisions of the <a href="%s" target="_blank" rel="noopener"><strong>data protection declaration</strong></a> and agree with the provisions set out.';
 
 
