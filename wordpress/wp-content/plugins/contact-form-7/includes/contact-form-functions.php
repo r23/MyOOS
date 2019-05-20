@@ -205,7 +205,7 @@ function wpcf7_sanitize_form( $input, $default = '' ) {
 }
 
 function wpcf7_sanitize_mail( $input, $defaults = array() ) {
-	$defaults = wp_parse_args( $defaults, array(
+	$input = wp_parse_args( $input, array(
 		'active' => false,
 		'subject' => '',
 		'sender' => '',

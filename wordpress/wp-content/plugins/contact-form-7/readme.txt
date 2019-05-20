@@ -4,7 +4,7 @@ Donate link: https://contactform7.com/donate/
 Tags: contact, form, contact form, feedback, email, ajax, captcha, akismet, multilingual
 Requires at least: 4.9
 Tested up to: 5.2
-Stable tag: 5.1.2
+Stable tag: 5.1.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -74,6 +74,10 @@ Do you have questions or issues with Contact Form 7? Use these support channels 
 == Changelog ==
 
 For more information, see [Releases](https://contactform7.com/category/releases/).
+
+= 5.1.3 =
+
+* Fixes a bug making it unable to unselect an option in the Mail tab panel.
 
 = 5.1.2 =
 
