@@ -73,6 +73,10 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
     );
 
     public static $prefixLengthsPsr4 = array (
+        'Z' => 
+        array (
+            'Zend\\Escaper\\' => 13,
+        ),
         'T' => 
         array (
             'Twig\\' => 5,
@@ -98,7 +102,9 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
             'Psr\\Container\\' => 14,
             'Psr\\Cache\\' => 10,
             'Phpml\\' => 6,
+            'PhpOffice\\PhpWord\\' => 18,
             'PhpOffice\\PhpSpreadsheet\\' => 25,
+            'PhpOffice\\Common\\' => 17,
         ),
         'M' => 
         array (
@@ -122,6 +128,10 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
     );
 
     public static $prefixDirsPsr4 = array (
+        'Zend\\Escaper\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/zendframework/zend-escaper/src',
+        ),
         'Twig\\' => 
         array (
             0 => __DIR__ . '/..' . '/twig/twig/src',
@@ -190,9 +200,17 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         array (
             0 => __DIR__ . '/..' . '/php-ai/php-ml/src',
         ),
+        'PhpOffice\\PhpWord\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpoffice/phpword/src/PhpWord',
+        ),
         'PhpOffice\\PhpSpreadsheet\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpoffice/phpspreadsheet/src/PhpSpreadsheet',
+        ),
+        'PhpOffice\\Common\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpoffice/common/src/Common',
         ),
         'Matrix\\' => 
         array (
@@ -248,6 +266,7 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         'IntlDateFormatter' => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Component/Intl/Resources/stubs/IntlDateFormatter.php',
         'Locale' => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Component/Intl/Resources/stubs/Locale.php',
         'NumberFormatter' => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Component/Intl/Resources/stubs/NumberFormatter.php',
+        'PclZip' => __DIR__ . '/..' . '/pclzip/pclzip/pclzip.lib.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

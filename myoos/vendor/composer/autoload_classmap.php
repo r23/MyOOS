@@ -10,4 +10,5 @@ return array(
     'IntlDateFormatter' => $vendorDir . '/symfony/symfony/src/Symfony/Component/Intl/Resources/stubs/IntlDateFormatter.php',
     'Locale' => $vendorDir . '/symfony/symfony/src/Symfony/Component/Intl/Resources/stubs/Locale.php',
     'NumberFormatter' => $vendorDir . '/symfony/symfony/src/Symfony/Component/Intl/Resources/stubs/NumberFormatter.php',
+    'PclZip' => $vendorDir . '/pclzip/pclzip/pclzip.lib.php',
 );
