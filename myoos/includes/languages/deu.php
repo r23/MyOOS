@@ -315,6 +315,7 @@ $aLang = [
 'button_update'                      => 'Aktualisieren',
 'button_update_cart'                 => 'Warenkorb aktualisieren',
 'button_write_review'                => 'Bewertung schreiben',
+'button_write_first_review'          => 'Schreiben Sie die erste Kundenmeinung',
 'button_add_quick'                   => 'Schnellkauf!',
 'image_wishlist_delete'              => 'löschen',
 'button_add_wishlist'                => 'Artikel merken',

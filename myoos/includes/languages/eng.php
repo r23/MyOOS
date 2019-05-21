@@ -332,6 +332,7 @@ $aLang = [
 'button_update'                => 'Update',
 'button_update_cart'           => 'Update Cart',
 'button_write_review'          => 'Write Review',
+'button_write_first_review'    => 'Write the first customer opinion',
 'button_add_quick'             => 'Add a Quickie!',
 'image_wishlist_delete'        => 'delete',
 'button_add_wishlist'          => 'Wishlist',
