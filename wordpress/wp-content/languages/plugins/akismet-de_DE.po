@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Akismet Anti-Spam - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-11-12 20:00:30+0000\n"
+"PO-Revision-Date: 2019-05-13 08:02:25+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -55,7 +55,7 @@ msgstr "Akismet Datenschutz-Hinweis"
 msgid "Privacy"
 msgstr "Datenschutz"
 
-#: class.akismet.php:1423
+#: class.akismet.php:1418
 msgid "This site uses Akismet to reduce spam. <a href=\"%s\" target=\"_blank\" rel=\"nofollow noopener\">Learn how your comment data is processed</a>."
 msgstr "Diese Website verwendet Akismet, um Spam zu reduzieren. <a href=\"%s\" target=\"_blank\" rel=\"nofollow noopener\">Erfahre mehr darüber, wie deine Kommentardaten verarbeitet werden</a>."
 
@@ -63,7 +63,7 @@ msgstr "Diese Website verwendet Akismet, um Spam zu reduzieren. <a href=\"%s\" t
 msgid "We collect information about visitors who comment on Sites that use our Akismet anti-spam service. The information we collect depends on how the User sets up Akismet for the Site, but typically includes the commenter's IP address, user agent, referrer, and Site URL (along with other information directly provided by the commenter such as their name, username, email address, and the comment itself)."
 msgstr "Wir sammeln Informationen über Besucher, die Kommentare auf Websites, die unseren Akismet Anti-Spam Service benutzen, hinterlassen. Das Ausmaß an Informationen, die wir sammeln, hängt davon ab, wie der Benutzer seine Website eingestellt hat. Normalerweise beinhalten diese Daten die IP-Adresse des Benutzers, den User Agent, Referrer und Website-URL (sowie die Informationen, die der Benutzer direkt eingegeben hat wie z.B. Namen, Benutzernamen, E-Mail-Adresse und den Kommentar selbst)."
 
-#: class.akismet.php:226
+#: class.akismet.php:231
 msgid "Comment discarded."
 msgstr "Kommentar verworfen."
 
@@ -221,7 +221,7 @@ msgstr "Es gab keine Kommentare zu überprüfen. Akismet überprüft ausschließ
 msgid "Checking for Spam"
 msgstr "Auf Spam prüfen"
 
-#: class.akismet.php:507
+#: class.akismet.php:512
 msgid "Comment not found."
 msgstr "Kommentar nicht gefunden."
 
@@ -344,7 +344,7 @@ msgstr "Dein Pro-Abonnement erlaubt die Benutzung von Akismet nur für eine Webs
 
 #: views/notice.php:115
 msgid "The connection to akismet.com could not be established. Please refer to <a href=\"%s\" target=\"_blank\">our guide about firewalls</a> and check your server configuration."
-msgstr "Die Verbindung zu akismet.com konnte nicht eingerichtet werden. Schau dir <a href=\"%s\" target=\"_blank\">unser Handbuch zu Firefalls</a> an und prüfe deine Server-Konfiguration."
+msgstr "Die Verbindung zu akismet.com konnte nicht eingerichtet werden. Schau dir <a href=\"%s\" target=\"_blank\">unser Handbuch zu Firewalls</a> an und prüfe deine Server-Konfiguration."
 
 #: views/notice.php:114
 msgid "The API key you entered could not be verified."
@@ -693,11 +693,11 @@ msgstr "Akismet hat diesen Kommentar durch eine erneute Überprüfung als Spam e
 msgid "Akismet cleared this comment during an automatic retry."
 msgstr "Akismet hat diesen Kommentar durch eine erneute Überprüfung als frei von Spam erkannt. "
 
-#: class.akismet.php:1268
+#: class.akismet.php:1277
 msgid "Please <a href=\"%1$s\">upgrade WordPress</a> to a current version, or <a href=\"%2$s\">downgrade to version 2.4 of the Akismet plugin</a>."
 msgstr "Bitte <a href=\"%1$s\">aktualisiere WordPress</a> auf eine aktuelle Version oder führe ein <a href=\"%2$s\">Downgrade auf Version 2.4 des Akismet-Plugins</a> durch."
 
-#: class.akismet.php:1268
+#: class.akismet.php:1277
 msgid "Akismet %s requires WordPress %s or higher."
 msgstr "Akismet %s benötigt WordPress %s oder höher."
 
