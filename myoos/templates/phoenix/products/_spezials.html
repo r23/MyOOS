@@ -35,7 +35,7 @@
 
 					<div class="product-price clearfix">
 						{if $myUser.show_price eq 1 }	
-							<s>{$spezial.products_price}</s><br>
+							{$lang.price_reduced_from} <del>{$spezial.products_price}</del><br>
 							{$spezial.products_special_price}<br>
 						
 						

@@ -14,7 +14,7 @@
 	
 	{if $myUser.show_price eq 1 }
 	<div class="text-center">
-		<s>{$specials_random_product_price}</s><br>
+		{$lang.price_reduced_from} <del>{$specials_random_product_price}</del><br>
 
 		<span class="special_price">{$specials_random_product_special_price}</span><br>
 		{if $specials_random_product.products_base_price != 1}

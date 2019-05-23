@@ -109,7 +109,7 @@
 				
 {if $myUser.show_price eq 1 }
 	{if (!empty($info_product_special_price))}
-		<del>{$info_product_price}</del><br>
+		{$lang.price_reduced_from} <del>{$info_product_price}</del><br>
 		<span class="special_price">{$info_product_special_price}</span><br>
 	{else}
 		{if $price_discount}
@@ -128,7 +128,7 @@
 
 	<p><small>{$panginfov}</small></p>  
 	{if $info_product_price_list > 0}
-		<p>{$info_product_price_list}</p>
+		<p>{$lang.price_rrp} {$info_product_price_list}</p>
 	{/if}
 {else}
 	<a href="{html_href_link content=$filename.login}" class="btn btn-primary-filled" role="button">{$lang.button_login}</a>

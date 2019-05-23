@@ -48,7 +48,7 @@
 								</td>
 								<td class="">
 								{if (!empty($order_history[i].new_product_special_price))}
-									{$lang.text_price} <s>{$order_history[i].new_product_price}</s><br>
+									{$lang.price_reduced_from} <del>{$order_history[i].new_product_price}</del><br>
 									<span class="special_price">{$lang.text_price} {$order_history[i].new_product_special_price}</span>
 								{else}
 										{$lang.text_price} {$order_history[i].new_product_price}

@@ -70,7 +70,7 @@
 										<td class="">
 											{if $myUser.show_price eq 1 }
 												{if (!empty($wishlist[i].special_price))}
-													<s>{$wishlist[i].product_price}</s><br>
+													{$lang.price_reduced_from} <del>{$wishlist[i].product_price}</del><br>
 													<span class="special_price">{$wishlist[i].product_special_price}</span>
 												{else}
 													{$wishlist[i].product_price}
