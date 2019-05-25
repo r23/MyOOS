@@ -15,8 +15,8 @@
 	{if $myUser.show_price eq 1 }
 		<div class="text-center">
 		{if (!empty($whats_new_special_price))}
-			{$lang.price_reduced_from} <del>{$whats_new_product_price}</del><br>
-			<span class="special_price">{$whats_new_product_special_price}</span>
+			{$lang.price_reduced_from} <span class="line-through">{$whats_new_product_price}</span><br>
+			<span class="price-offer">{$whats_new_product_special_price}</span>
 		{else}
 			{$whats_new_product_price}
 		{/if}

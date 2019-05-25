@@ -33,8 +33,8 @@
 					<div class="product-price clearfix">
 					{if $myUser.show_price eq 1 }
 						{if (!empty($new_product.new_product_special_price))}
-							{$lang.price_reduced_from} <del>{$new_product.new_product_price}</del><br>
-							<span class="special_price">{$new_product.new_product_special_price}</span><br>
+							{$lang.price_reduced_from} <span class="line-through">{$new_product.new_product_price}</span><br>
+							<span class="price-offer">{$new_product.new_product_special_price}</span><br>
 						{else}
 							{$new_product.new_product_price}<br>
 						{/if}					
