@@ -37,4 +37,19 @@
 .product-price span.price-old {
 	font-size:18px;
 	color:#808080;
+	text-decoration: line-through;
+}
+
+
+
+.shop-item-price span.price-offer {
+	color:#ef4135;
+	font-size:24px;
+	padding-right:5px;
+}
+
+.product-price span.price-old {
+	font-size:18px;
+	color:#808080;
+	text-decoration: line-through;
 }

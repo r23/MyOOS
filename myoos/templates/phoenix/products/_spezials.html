@@ -35,11 +35,9 @@
 
 					<div class="product-price clearfix">
 						{if $myUser.show_price eq 1 }	
-							<span class="price-old">{$lang.price_reduced_from} <span class="line-through">{$spezial.products_price}</span></span><br>
-							<span class="price-offer">{$spezial.products_special_price}</span><br>
+							<span class="price-offer">{$spezial.products_special_price}</span> <span class="price-old">{$lang.price_reduced_from} {$spezial.products_price}</span> 
 						
-						
-							{if $spezial.products_base_price != 1}{$spezial.product_quantity} {$products_units[$spezial.products_units]} <span class="special_base_price">({$spezial.base_product_special_price}/{$products_units[$spezial.products_base_unit]})</span><br>{/if}
+							{if $spezial.products_base_price != 1}<br>{$spezial.product_quantity} {$products_units[$spezial.products_units]} <span class="special_base_price">({$spezial.base_product_special_price}/{$products_units[$spezial.products_base_unit]})</span><br>{/if}
 						{/if}
 						
 					</div>
