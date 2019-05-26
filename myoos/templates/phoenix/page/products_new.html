@@ -70,7 +70,7 @@
 								<div class="shop-item-price">
 
 									{if (!empty($products_new[i].new_product_special_price))}
-									<span class="price-offer">{$products_new[i].new_product_special_price}</span> <span class="price-old">{$products_new[i].new_product_price}</span>
+									<span class="price-offer">{$products_new[i].new_product_special_price}</span> <span class="price-old">{$lang.price_reduced_from} <span class="line-through">{$products_new[i].new_product_price}</span></span>
 									{else}
 										{if $products_new[i].new_product_discount_price}
 											 <span class="discount_price">{$lang.text_price} {$products_new[i].new_product_discount_price}</span>

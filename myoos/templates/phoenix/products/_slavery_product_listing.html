@@ -66,7 +66,7 @@
 						<div class="shop-item-price">
 						{if $myUser.show_price eq 1 }
 							{if (!empty($product.listing_product_special_price))}
-								<span class="price-offer">{$product.listing_product_special_price}</span> <span class="price-old">{$product.listing_product_price}</span>
+								<span class="price-offer">{$product.listing_product_special_price}</span> <span class="price-old">{$lang.price_reduced_from} <span class="line-through">{$product.listing_product_price}</span></span>
 							{else}
 								{if (!empty($product.listing_discount_price))}
 									{$lang.price_from} {$product.listing_discount_price}
