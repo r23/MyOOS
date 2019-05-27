@@ -531,6 +531,12 @@ a.thumbnail:hover,
 	border-color: $m-color-primary;
 }
 
+.btn-secondary-filled,
+.btn-secondary-filled:hover,
+.btn-secondary-filled:active,
+.btn-secondary-filled:focus {
+	color: #6c757d;
+}
 
 section.featured-grid div.row>div .ribbon:before,
 .modal-content {

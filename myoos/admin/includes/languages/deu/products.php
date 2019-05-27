@@ -37,7 +37,6 @@ define('TEXT_PRODUCT_DATE_ADDED', 'Diesen Artikel haben wir am %s in unseren Kat
 define('TEXT_PRODUCT_DATE_AVAILABLE', 'Dieser Artikel ist erhältlich ab %s.');
 
 define('TEXT_TAX_INFO', 'Netto:');
-define('TEXT_PRODUCTS_LIST_PRICE', 'empfohlener Verkaufspreis des Herstellers:');
 
 define('TEXT_PRODUCTS_BASE_PRICE', 'Grundpreis ');
 define('TEXT_PRODUCTS_BASE_UNIT', 'Grundpreiseinheiten:');
@@ -80,6 +79,8 @@ define('TEXT_PRODUCTS_URL', 'Herstellerlink:');
 define('TEXT_PRODUCTS_URL_WITHOUT_HTTP', '<small>(ohne führendes http://)</small>');
 define('TEXT_PRODUCTS_PRICE', 'Artikelpreis (Netto):');
 define('TEXT_PRODUCTS_PRICE_WITH_TAX', 'Artikelpreis (Brutto):');
+define('TEXT_PRODUCTS_LIST_PRICE', 'empfohlener Verkaufspreis des Herstellers (Netto):');
+define('TEXT_PRODUCTS_LIST_PRICE_WITH_TAX', 'empfohlener Verkaufspreis des Herstellers (Brutto):');
 
 define('TEXT_PRODUCTS_WEIGHT', 'Artikelgewicht:');
 define('TEXT_IMAGE_REMOVE', '<b>Entfernen</b> des Bildes vom Artikel?');

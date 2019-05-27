@@ -128,7 +128,7 @@
 
 	<p><small>{$panginfov}</small></p>  
 	{if $info_product_price_list > 0}
-		<p>{$lang.price_rrp} {$info_product_price_list}</p>
+		<p>{$lang.price_rrp} <span class="line-through">{$info_product_price_list}</span></p>
 	{/if}
 {else}
 	<a href="{html_href_link content=$filename.login}" class="btn btn-primary-filled" role="button">{$lang.button_login}</a>

@@ -37,7 +37,6 @@ define('TEXT_PRODUCT_DATE_ADDED', 'This product was added to our catalog on %s.'
 define('TEXT_PRODUCT_DATE_AVAILABLE', 'This product will be in stock on %s.');
 
 define('TEXT_TAX_INFO', ' ex VAT:');
-define('TEXT_PRODUCTS_LIST_PRICE', 'List:');
 
 define('TEXT_PRODUCTS_BASE_PRICE', 'Base Price ');
 define('TEXT_PRODUCTS_BASE_UNIT', 'Base Price Units:');
@@ -80,6 +79,9 @@ define('TEXT_PRODUCTS_URL', 'Products URL:');
 define('TEXT_PRODUCTS_URL_WITHOUT_HTTP', '<small>(without http://)</small>');
 define('TEXT_PRODUCTS_PRICE', 'Products Price (Net):');
 define('TEXT_PRODUCTS_PRICE_WITH_TAX', 'Products Price (Gross):');
+define('TEXT_PRODUCTS_LIST_PRICE', 'Recommended retail price of the manufacturer (Net):');
+define('TEXT_PRODUCTS_LIST_PRICE_WITH_TAX', 'recommended retail price of the manufacturer (Gross):');
+
 
 define('TEXT_PRODUCTS_WEIGHT', 'Products Weight:');
 define('TEXT_IMAGE_REMOVE', '<b>Remove</b> this Image from this product?');
