@@ -146,7 +146,7 @@ class ProfilerController
 
         $url = null;
         try {
-            $url = $this->generator->generate('_profiler', ['token' => $token]);
+            $url = $this->generator->generate('_profiler', ['token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
         } catch (\Exception $e) {
             // the profiler is not enabled
         }
@@ -282,7 +282,7 @@ class ProfilerController
 
         $this->profiler->disable();
 
-        $ip = preg_replace('/[^:\d\.]/', '', $request->query->get('ip'));
+        $ip = $request->query->get('ip');
         $method = $request->query->get('method');
         $statusCode = $request->query->get('status_code');
         $url = $request->query->get('url');

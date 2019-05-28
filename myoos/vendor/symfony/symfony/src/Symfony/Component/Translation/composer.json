@@ -17,7 +17,7 @@
     ],
     "require": {
         "php": "^7.1.3",
-        "symfony/contracts": "^1.0.2",
+        "symfony/contracts": "^1.1.1",
         "symfony/polyfill-mbstring": "~1.0"
     },
     "require-dev": {
@@ -37,7 +37,7 @@
         "symfony/yaml": "<3.4"
     },
     "provide": {
-        "symfony/translation-contracts-implementation": "1.0"
+        "symfony/translation-implementation": "1.0"
     },
     "suggest": {
         "symfony/config": "",
