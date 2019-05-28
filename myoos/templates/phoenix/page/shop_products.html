@@ -124,11 +124,18 @@
 								<div class="shop-item-price">
 								{if $myUser.show_price eq 1 }
 									{if (!empty($product.listing_product_special_price))}
-										<span class="price-offer">{$product.listing_product_special_price}</span> <span class="price-old">{$lang.price_reduced_from} <span class="line-through">{$product.listing_product_price}</span></span>
+										<span class="price-old">{$lang.price_reduced_from} <span class="line-through">{$product.listing_product_price}</span></span><br>
+										<span class="price-offer">{$product.listing_product_special_price}</span>
+									{elseif $product.listing_product_price_list ne 0}
+										<span class="price-old">{$lang.price_reduced_from} <span class="line-through">{$product.listing_product_price_list}</span></span><br>
+										{$product.listing_product_price}										
 									{else}
 										{if (!empty($product.listing_discount_price))}
+											<p class="clearfix"></p>
 											{$lang.price_from} {$product.listing_discount_price}
-										{else}									
+											
+										{else}
+											<p class="clearfix"></p>										
 											{$product.listing_product_price}
 										{/if}
 									{/if}					
@@ -145,6 +152,7 @@
 							</div>
 							<!-- /buttons -->
 						</div>
+
 
 					</li>
 					<!-- /item -->				

@@ -52,7 +52,7 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
     $specialsstable = $oostable['specials'];
     $manufacturersstable = $oostable['manufacturers'];
     $products_descriptiontable = $oostable['products_description'];
-    $products_new_result_raw = "SELECT p.products_id, pd.products_name, p.products_image, p.products_price,
+    $products_new_result_raw = "SELECT p.products_id, pd.products_name, p.products_image, p.products_price, p.products_price_list,
                                        p.products_base_price, p.products_base_unit, p.products_units_id,
 									   p.products_product_quantity,  p.products_quantity_order_min, 
 										p.products_quantity_order_max, p.products_quantity_order_units,
@@ -73,12 +73,14 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
     while ($products_new = $products_new_result->fields) {
 
 		$new_product_price = '';
+		$new_product_price_list = '';
 		$new_product_special_price = '';
 		$new_product_discount_price = '';
 		$new_base_product_price = '';
 		$base_product_price = $products_new['products_price'];
 
 		$new_product_price = $oCurrencies->display_price($products_new['products_price'], oos_get_tax_rate($products_new['products_tax_class_id']));
+		$new_product_price_list = $oCurrencies->display_price($products_new['products_price_list'], oos_get_tax_rate($products_new['products_tax_class_id']));
 		
 		if (isset($products_new['specials_new_products_price'])) {
 			$base_product_price = $products_new['specials_new_products_price'];
@@ -89,8 +91,8 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 			$new_base_product_price = $oCurrencies->display_price($base_product_price * $products_new['products_base_price'], oos_get_tax_rate($products_new['products_tax_class_id']));
 		}
 		
-		$order_min = number_format($listing['products_quantity_order_min']);
-		$order_max = number_format($listing['products_quantity_order_max']);
+		$order_min = number_format($products_new['products_quantity_order_min']);
+		$order_max = number_format($products_new['products_quantity_order_max']);
 		
 		$products_new_array[] = array(
 									'id' => $products_new['products_id'],
@@ -98,6 +100,7 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
                                     'image' => $products_new['products_image'],
 									'products_short_description' => $products_new['products_short_description'],
                                     'new_product_price' => $new_product_price,
+									'new_product_price_list' => $new_product_price_list,
                                     'new_product_units' => $products_new['products_units_id'],
 									'new_product_quantity' => $products_new['products_product_quantity'],
 									'order_min' => $order_min,

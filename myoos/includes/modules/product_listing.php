@@ -50,13 +50,15 @@ if ($listing_split->number_of_rows > 0) {
 		$discount = NULL;
 
 		$listing_product_price = NULL;
+		$listing_product_price_list = NULL;
 		$listing_product_special_price = NULL;
 		$listing_base_product_price = NULL;
 		$base_product_price = $listing['products_price'];
 
 		if ($aUser['show_price'] == 1 ) {
 			$listing_product_price = $oCurrencies->display_price($listing['products_price'], oos_get_tax_rate($listing['products_tax_class_id']));
-			
+			$listing_product_price_list = $oCurrencies->display_price($listing['products_price_list'], oos_get_tax_rate($listing['products_tax_class_id']));
+
             if ( $listing['products_discount4'] > 0 ) {
 				$discount = $listing['products_discount4'];
             } elseif ( $listing['products_discount3'] > 0 ) {
@@ -99,6 +101,7 @@ if ($listing_split->number_of_rows > 0) {
 						'products_base_unit' => $listing['products_base_unit'],
 						'products_units' => $listing['products_units_id'],
 						'listing_product_price' => $listing_product_price,
+						'listing_product_price_list' => $listing_product_price_list,
 						'listing_discount_price' => $listing_discount_price,
 						'listing_product_special_price' => $listing_product_special_price,
 						'listing_base_product_price' => $listing_base_product_price);			   
