@@ -97,8 +97,8 @@ class Ruckusing_FrameworkRunner
      */
     public function __construct($config, $argv, \YoastSEO_Vendor\Ruckusing_Util_Logger $log = null)
     {
-        \set_error_handler(array('Ruckusing_Exception', 'errorHandler'), \E_ALL);
-        \set_exception_handler(array('Ruckusing_Exception', 'exceptionHandler'));
+        \set_error_handler(array('\YoastSEO_Vendor\Ruckusing_Exception', 'errorHandler'), \E_ALL);
+        \set_exception_handler(array('\YoastSEO_Vendor\Ruckusing_Exception', 'exceptionHandler'));
         //parse arguments
         $this->parse_args($argv);
         //set config variables

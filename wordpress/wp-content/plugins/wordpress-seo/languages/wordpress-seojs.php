@@ -107,7 +107,7 @@ $generated_i18n_strings = array(
 	__( 'Would you like to add keyphrase synonyms?', 'wordpress-seo' ),
 
 	// Reference: js/src/components/modals/KeywordSynonyms.js:21
-	__( 'Great news: you can, with %s!', 'wordpress-seo' ),
+	__( 'Great news: you can, with %1$s!', 'wordpress-seo' ),
 
 	// Reference: js/src/components/modals/KeywordSynonyms.js:31
 	__( 'Rank better with synonyms & related keyphrases', 'wordpress-seo' ),
@@ -126,7 +126,7 @@ $generated_i18n_strings = array(
 
 	// Reference: js/src/components/modals/KeywordSynonyms.js:45
 	// Reference: js/src/components/modals/MultipleKeywords.js:38
-	__( '24/7 support', 'wordpress-seo' ),
+	__( '24/7 email support', 'wordpress-seo' ),
 
 	// Reference: js/src/components/modals/KeywordSynonyms.js:46
 	// Reference: js/src/components/modals/MultipleKeywords.js:39
@@ -145,7 +145,7 @@ $generated_i18n_strings = array(
 	__( 'Open', 'wordpress-seo' ),
 
 	// Reference: js/src/components/modals/MultipleKeywords.js:20
-	__( 'Great news: you can, with %1$s!', 'wordpress-seo' ),
+	__( 'Great news: you can, with %s!', 'wordpress-seo' ),
 
 	// Reference: js/src/components/modals/RedirectUpsell.js:101
 	__( 'To be able to create a redirect and fix this issue, you need %1$s. ', 'wordpress-seo' ),
@@ -347,6 +347,15 @@ $generated_i18n_strings = array(
 	__( 'Tag description', 'wordpress-seo' ),
 
 	// Reference: js/src/values/defaultReplaceVariables.js:95
-	__( 'Term description', 'wordpress-seo' )
+	__( 'Term description', 'wordpress-seo' ),
+
+	// Reference: js/src/wp-seo-help-center.js:132
+	__( 'Video tutorial', 'wordpress-seo' ),
+
+	// Reference: js/src/wp-seo-help-center.js:144
+	__( 'Knowledge base', 'wordpress-seo' ),
+
+	// Reference: js/src/wp-seo-help-center.js:40
+	__( 'Get support', 'wordpress-seo' )
 );
 /* THIS IS THE END OF THE GENERATED FILE */

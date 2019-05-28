@@ -1,47 +1,53 @@
 <?php
+/**
+ * Yoast I18n module.
+ *
+ * @package Yoast\I18n-module
+ */
 
 /**
- * This class defines a promo box and checks your translation site's API for stats about it, then shows them to the user.
+ * This class defines a promo box and checks your translation site's API for stats about it,
+ * then shows them to the user.
  */
 class Yoast_I18n_v3 {
 
 	/**
-	 * Your translation site's logo
+	 * Your translation site's logo.
 	 *
 	 * @var string
 	 */
 	private $glotpress_logo;
 
 	/**
-	 * Your translation site's name
+	 * Your translation site's name.
 	 *
 	 * @var string
 	 */
 	private $glotpress_name;
 
 	/**
-	 * Your translation site's URL
+	 * Your translation site's URL.
 	 *
 	 * @var string
 	 */
 	private $glotpress_url;
 
 	/**
-	 * The URL to actually do the API request to
+	 * The URL to actually do the API request to.
 	 *
 	 * @var string
 	 */
 	private $api_url;
 
 	/**
-	 * Hook where you want to show the promo box
+	 * Hook where you want to show the promo box.
 	 *
 	 * @var string
 	 */
 	private $hook;
 
 	/**
-	 * Will contain the site's locale
+	 * Will contain the site's locale.
 	 *
 	 * @access private
 	 * @var string
@@ -49,7 +55,7 @@ class Yoast_I18n_v3 {
 	private $locale;
 
 	/**
-	 * Will contain the locale's name, obtained from your translation site
+	 * Will contain the locale's name, obtained from your translation site.
 	 *
 	 * @access private
 	 * @var string
@@ -57,7 +63,7 @@ class Yoast_I18n_v3 {
 	private $locale_name;
 
 	/**
-	 * Will contain the percentage translated for the plugin translation project in the locale
+	 * Will contain the percentage translated for the plugin translation project in the locale.
 	 *
 	 * @access private
 	 * @var int
@@ -65,28 +71,28 @@ class Yoast_I18n_v3 {
 	private $percent_translated;
 
 	/**
-	 * Name of your plugin
+	 * Name of your plugin.
 	 *
 	 * @var string
 	 */
 	private $plugin_name;
 
 	/**
-	 * Project slug for the project on your translation site
+	 * Project slug for the project on your translation site.
 	 *
 	 * @var string
 	 */
 	private $project_slug;
 
 	/**
-	 * URL to point to for registration links
+	 * URL to point to for registration links.
 	 *
 	 * @var string
 	 */
 	private $register_url;
 
 	/**
-	 * Your plugins textdomain
+	 * Your plugins textdomain.
 	 *
 	 * @var string
 	 */
@@ -109,10 +115,10 @@ class Yoast_I18n_v3 {
 	private $translation_loaded;
 
 	/**
-	 * Class constructor
+	 * Class constructor.
 	 *
-	 * @param array $args                   Contains the settings for the class.
-	 * @param bool $show_translation_box    Whether the translation box should be shown.
+	 * @param array $args                 Contains the settings for the class.
+	 * @param bool  $show_translation_box Whether the translation box should be shown.
 	 */
 	public function __construct( $args, $show_translation_box = true ) {
 		if ( ! is_admin() ) {
@@ -139,7 +145,7 @@ class Yoast_I18n_v3 {
 	 *
 	 * @return bool Returns true if the language is en_US.
 	 */
-	protected function is_default_language( $language  ) {
+	protected function is_default_language( $language ) {
 		return 'en_US' === $language;
 	}
 
@@ -167,7 +173,7 @@ class Yoast_I18n_v3 {
 	 *
 	 * @access private
 	 *
-	 * @param array $args
+	 * @param array $args Contains the settings for the class.
 	 */
 	private function init( $args ) {
 		foreach ( $args as $key => $arg ) {
@@ -176,7 +182,7 @@ class Yoast_I18n_v3 {
 	}
 
 	/**
-	 * Check whether the promo should be hidden or not
+	 * Check whether the promo should be hidden or not.
 	 *
 	 * @access private
 	 *
@@ -210,7 +216,7 @@ class Yoast_I18n_v3 {
 	}
 
 	/**
-	 * Generates a promo message
+	 * Generates a promo message.
 	 *
 	 * @access private
 	 *
@@ -223,18 +229,34 @@ class Yoast_I18n_v3 {
 		$message = false;
 
 		if ( $this->translation_exists && $this->translation_loaded && $this->percent_translated < 90 ) {
+			/* translators: 1: language name; 3: completion percentage; 4: link to translation platform. */
 			$message = __( 'As you can see, there is a translation of this plugin in %1$s. This translation is currently %3$d%% complete. We need your help to make it complete and to fix any errors. Please register at %4$s to help complete the translation to %1$s!', $this->textdomain );
-		} else if ( ! $this->translation_loaded && $this->translation_exists ) {
+		}
+		elseif ( ! $this->translation_loaded && $this->translation_exists ) {
+			/* translators: 1: language name; 2: plugin name; 3: completion percentage; 4: link to translation platform. */
 			$message = __( 'You\'re using WordPress in %1$s. While %2$s has been translated to %1$s for %3$d%%, it\'s not been shipped with the plugin yet. You can help! Register at %4$s to help complete the translation to %1$s!', $this->textdomain );
-		} else if ( ! $this->translation_exists ) {
+		}
+		elseif ( ! $this->translation_exists ) {
+			/* translators: 2: plugin name; 4: link to translation platform. */
 			$message = __( 'You\'re using WordPress in a language we don\'t support yet. We\'d love for %2$s to be translated in that language too, but unfortunately, it isn\'t right now. You can change that! Register at %4$s to help translate it!', $this->textdomain );
 		}
 
-		$registration_link = sprintf( '<a href="%1$s">%2$s</a>', esc_url( $this->register_url ), esc_html( $this->glotpress_name ) );
-		$message           = sprintf( $message, esc_html( $this->locale_name ), esc_html( $this->plugin_name ), $this->percent_translated, $registration_link );
+		$registration_link = sprintf(
+			'<a href="%1$s">%2$s</a>',
+			esc_url( $this->register_url ),
+			esc_html( $this->glotpress_name )
+		);
+
+		$message = sprintf(
+			esc_html( $message ),
+			esc_html( $this->locale_name ),
+			esc_html( $this->plugin_name ),
+			(int) $this->percent_translated,
+			$registration_link
+		);
 
 		if ( $message ) {
-			$message = '<p>' . $message . '</p>' . '<p><a href="' . esc_url( $this->register_url ) . '">' . __( 'Register now &raquo;', $this->textdomain ) . '</a></p>';
+			$message = '<p>' . $message . '</p><p><a href="' . esc_url( $this->register_url ) . '">' . esc_html__( 'Register now &raquo;', $this->textdomain ) . '</a></p>';
 		}
 
 		return $message;
@@ -250,7 +272,7 @@ class Yoast_I18n_v3 {
 	public function get_dismiss_i18n_message_button() {
 		return sprintf(
 			/* translators: %1$s is the notification dismissal link start tag, %2$s is the link closing tag. */
-			__( '%1$sPlease don\'t show me this notification anymore%2$s', $this->textdomain ),
+			esc_html__( '%1$sPlease don\'t show me this notification anymore%2$s', $this->textdomain ),
 			'<a class="button" href="' . esc_url( add_query_arg( array( 'remove_i18n_promo' => '1' ) ) ) . '">',
 			'</a>'
 		);
@@ -269,10 +291,12 @@ class Yoast_I18n_v3 {
 			echo '<a href="' . esc_url( add_query_arg( array( 'remove_i18n_promo' => '1' ) ) ) . '" style="color:#333;text-decoration:none;font-weight:bold;font-size:16px;border:1px solid #ccc;padding:1px 4px;" class="alignright">X</a>';
 
 			echo '<div>';
-			echo '<h2>' . sprintf( __( 'Translation of %s', $this->textdomain ), $this->plugin_name ) . '</h2>';
-			if ( isset( $this->glotpress_logo ) && '' != $this->glotpress_logo ) {
+			/* translators: %s: plugin name. */
+			echo '<h2>' . sprintf( esc_html__( 'Translation of %s', $this->textdomain ), esc_html( $this->plugin_name ) ) . '</h2>';
+			if ( isset( $this->glotpress_logo ) && is_string( $this->glotpress_logo ) && '' !== $this->glotpress_logo ) {
 				echo '<a href="' . esc_url( $this->register_url ) . '"><img class="alignright" style="margin:0 5px 5px 5px;max-width:200px;" src="' . esc_url( $this->glotpress_logo ) . '" alt="' . esc_attr( $this->glotpress_name ) . '"/></a>';
 			}
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- correctly escaped in promo_message() method.
 			echo $message;
 			echo '</div>';
 			echo '</div>';
@@ -334,7 +358,7 @@ class Yoast_I18n_v3 {
 	}
 
 	/**
-	 * Retrieve the translation details from Yoast Translate
+	 * Retrieve the translation details from Yoast Translate.
 	 *
 	 * @access private
 	 *
@@ -360,6 +384,11 @@ class Yoast_I18n_v3 {
 					continue;
 				}
 
+				// For informal and formal locales, we have to complete the locale code by concatenating the slug ('formal' or 'informal') to the xx_XX part.
+				if ( $set->slug !== 'default' && strtolower( $this->locale ) === strtolower( $set->wp_locale . '_' . $set->slug ) ) {
+					return $set;
+				}
+
 				if ( $this->locale === $set->wp_locale ) {
 					return $set;
 				}
@@ -370,9 +399,9 @@ class Yoast_I18n_v3 {
 	}
 
 	/**
-	 * Set the needed private variables based on the results from Yoast Translate
+	 * Set the needed private variables based on the results from Yoast Translate.
 	 *
-	 * @param object $set The translation set
+	 * @param object $set The translation set.
 	 *
 	 * @access private
 	 */
@@ -380,7 +409,8 @@ class Yoast_I18n_v3 {
 		if ( $this->translation_exists && is_object( $set ) ) {
 			$this->locale_name        = $set->name;
 			$this->percent_translated = $set->percent_translated;
-		} else {
+		}
+		else {
 			$this->locale_name        = '';
 			$this->percent_translated = '';
 		}

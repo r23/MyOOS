@@ -1,4 +1,9 @@
 <?php
+/**
+ * Yoast I18n module.
+ *
+ * @package Yoast\I18n-module
+ */
 
 /**
  * The Yoast i18n module with a connection to WordPress.org.
@@ -13,10 +18,12 @@ class Yoast_I18n_WordPressOrg_v3 {
 	protected $i18n;
 
 	/**
-	 * Constructs the i18n module for wordpress.org. Required fields are the 'textdomain', 'plugin_name' and 'hook'
+	 * Constructs the i18n module for wordpress.org.
 	 *
-	 * @param array $args                   The settings for the i18n module.
-	 * @param bool $show_translation_box    Whether the translation box should be shown.
+	 * Required fields are the 'textdomain', 'plugin_name' and 'hook'.
+	 *
+	 * @param array $args                 The settings for the i18n module.
+	 * @param bool  $show_translation_box Whether the translation box should be shown.
 	 */
 	public function __construct( $args, $show_translation_box = true ) {
 		$args = $this->set_defaults( $args );
@@ -26,11 +33,11 @@ class Yoast_I18n_WordPressOrg_v3 {
 	}
 
 	/**
-	 * Returns the i18n_promo message from the i18n_module. Returns en empty string if the promo shouldn't be shown.
+	 * Returns the i18n_promo message from the i18n_module.
 	 *
 	 * @access public
 	 *
-	 * @return string The i18n promo message.
+	 * @return string The i18n promo message or an empty string if the promo shouldn't be shown.
 	 */
 	public function get_promo_message() {
 		return $this->i18n->get_promo_message();
