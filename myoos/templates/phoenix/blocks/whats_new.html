@@ -13,14 +13,13 @@
 	</div>
 
 	{if $myUser.show_price eq 1 }
-		<div class="text-center">
+		<div class="shop-item-price text-center">
 		{if (!empty($whats_new_special_price))}
 			<span class="price-offer">{$whats_new_product_special_price}</span> <span class="price-old">{$lang.price_reduced_from} <span class="line-through">{$whats_new_product_price}</span></span>
 		{else}
 			{$whats_new_product_price}
 		{/if}
 			{if $random_product.products_base_price != 1}<br>{$random_product.products_product_quantity}{$products_units[$random_product.products_units_id]} <span class="base_price">({$whats_new_base_product_price}/{$products_units[$random_product.products_base_unit]})</span>{/if}
-
 		</div>
 	{/if}
 </div>
