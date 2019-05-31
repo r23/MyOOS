@@ -17,9 +17,10 @@ use Symfony\Bundle\FrameworkBundle\DependencyInjection\Configuration;
 use Symfony\Bundle\FullStack;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Config\Definition\Processor;
+use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\Lock\Store\SemaphoreStore;
+use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Serializer\Serializer;
 
 class ConfigurationTest extends TestCase
 {
@@ -187,6 +188,31 @@ class ConfigurationTest extends TestCase
         yield [$createPackageConfig($config), 'You cannot use both "version" and "json_manifest_path" at the same time under "assets" packages.'];
     }
 
+    public function testItShowANiceMessageIfTwoMessengerBusesAreConfiguredButNoDefaultBus()
+    {
+        $expectedMessage = 'You must specify the "default_bus" if you define more than one bus.';
+        if (method_exists($this, 'expectException')) {
+            $this->expectException(InvalidConfigurationException::class);
+            $this->expectExceptionMessage($expectedMessage);
+        } else {
+            $this->setExpectedException(InvalidConfigurationException::class, $expectedMessage);
+        }
+        $processor = new Processor();
+        $configuration = new Configuration(true);
+
+        $processor->processConfiguration($configuration, [
+            'framework' => [
+                'messenger' => [
+                    'default_bus' => null,
+                    'buses' => [
+                        'first_bus' => [],
+                        'second_bus' => [],
+                    ],
+                ],
+            ],
+        ]);
+    }
+
     protected static function getBundleDefaultConfig()
     {
         return [
@@ -208,6 +234,7 @@ class ConfigurationTest extends TestCase
             'fragments' => [
                 'enabled' => false,
                 'path' => '/_fragment',
+                'hinclude_default_template' => null,
             ],
             'profiler' => [
                 'enabled' => false,
@@ -232,6 +259,11 @@ class ConfigurationTest extends TestCase
                 'mapping' => [
                     'paths' => [],
                 ],
+                'auto_mapping' => [],
+                'not_compromised_password' => [
+                    'enabled' => true,
+                    'endpoint' => null,
+                ],
             ],
             'annotations' => [
                 'cache' => 'php_array',
@@ -247,6 +279,7 @@ class ConfigurationTest extends TestCase
             'property_access' => [
                 'magic_call' => false,
                 'throw_exception_on_invalid_index' => false,
+                'throw_exception_on_invalid_property_path' => true,
             ],
             'property_info' => [
                 'enabled' => !class_exists(FullStack::class),
@@ -323,13 +356,25 @@ class ConfigurationTest extends TestCase
                 'enabled' => !class_exists(FullStack::class) && interface_exists(MessageBusInterface::class),
                 'routing' => [],
                 'transports' => [],
+                'failure_transport' => null,
                 'serializer' => [
-                    'id' => !class_exists(FullStack::class) && class_exists(Serializer::class) ? 'messenger.transport.symfony_serializer' : null,
-                    'format' => 'json',
-                    'context' => [],
+                    'default_serializer' => 'messenger.transport.native_php_serializer',
+                    'symfony_serializer' => [
+                        'format' => 'json',
+                        'context' => [],
+                    ],
                 ],
                 'default_bus' => null,
                 'buses' => ['messenger.bus.default' => ['default_middleware' => true, 'middleware' => []]],
+            ],
+            'disallow_search_engine_index' => true,
+            'http_client' => [
+                'enabled' => !class_exists(FullStack::class) && class_exists(HttpClient::class),
+                'scoped_clients' => [],
+            ],
+            'mailer' => [
+                'dsn' => 'smtp://null',
+                'enabled' => !class_exists(FullStack::class) && class_exists(Mailer::class),
             ],
         ];
     }

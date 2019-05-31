@@ -30,8 +30,11 @@ use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Security\Core\Encoder\Argon2iPasswordEncoder;
+use Symfony\Component\Security\Core\Encoder\NativePasswordEncoder;
+use Symfony\Component\Security\Core\Encoder\SodiumPasswordEncoder;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Http\Controller\UserValueResolver;
+use Symfony\Component\Templating\PhpEngine;
 
 /**
  * SecurityExtension.
@@ -97,7 +100,9 @@ class SecurityExtension extends Extension implements PrependExtensionInterface
         $loader->load('security.xml');
         $loader->load('security_listeners.xml');
         $loader->load('security_rememberme.xml');
-        $loader->load('templating_php.xml');
+        if (class_exists(PhpEngine::class)) {
+            $loader->load('templating_php.xml');
+        }
         $loader->load('templating_twig.xml');
         $loader->load('collectors.xml');
         $loader->load('guard.xml');
@@ -553,20 +558,24 @@ class SecurityExtension extends Extension implements PrependExtensionInterface
 
         // bcrypt encoder
         if ('bcrypt' === $config['algorithm']) {
+            @trigger_error('Configuring an encoder with "bcrypt" as algorithm is deprecated since Symfony 4.3, use "auto" instead.', E_USER_DEPRECATED);
+
             return [
                 'class' => 'Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder',
-                'arguments' => [$config['cost']],
+                'arguments' => [$config['cost'] ?? 13],
             ];
         }
 
         // Argon2i encoder
         if ('argon2i' === $config['algorithm']) {
+            @trigger_error('Configuring an encoder with "argon2i" as algorithm is deprecated since Symfony 4.3, use "auto" instead.', E_USER_DEPRECATED);
+
             if (!Argon2iPasswordEncoder::isSupported()) {
                 if (\extension_loaded('sodium') && !\defined('SODIUM_CRYPTO_PWHASH_SALTBYTES')) {
-                    throw new InvalidConfigurationException('The installed libsodium version does not have support for Argon2i. Use Bcrypt instead.');
+                    throw new InvalidConfigurationException('The installed libsodium version does not have support for Argon2i. Use "auto" instead.');
                 }
 
-                throw new InvalidConfigurationException('Argon2i algorithm is not supported. Install the libsodium extension or use BCrypt instead.');
+                throw new InvalidConfigurationException('Argon2i algorithm is not supported. Install the libsodium extension or use "auto" instead.');
             }
 
             return [
@@ -575,6 +584,31 @@ class SecurityExtension extends Extension implements PrependExtensionInterface
                     $config['memory_cost'],
                     $config['time_cost'],
                     $config['threads'],
+                ],
+            ];
+        }
+
+        if ('native' === $config['algorithm']) {
+            return [
+                'class' => NativePasswordEncoder::class,
+                'arguments' => [
+                    $config['time_cost'],
+                    (($config['memory_cost'] ?? 0) << 10) ?: null,
+                    $config['cost'],
+                ],
+            ];
+        }
+
+        if ('sodium' === $config['algorithm']) {
+            if (!SodiumPasswordEncoder::isSupported()) {
+                throw new InvalidConfigurationException('Libsodium is not available. Install the sodium extension or use "auto" instead.');
+            }
+
+            return [
+                'class' => SodiumPasswordEncoder::class,
+                'arguments' => [
+                    $config['time_cost'],
+                    (($config['memory_cost'] ?? 0) << 10) ?: null,
                 ],
             ];
         }

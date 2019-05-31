@@ -11,7 +11,8 @@
             <tag name="cache.pool" clearer="cache.app_clearer" reset="reset" />
         </service>
 
-        <service id="cache.app.simple" class="Symfony\Component\Cache\Simple\Psr6Cache">
+        <service id="cache.app.simple" class="Symfony\Component\Cache\Psr16Cache">
+            <deprecated>The "Psr\SimpleCache\CacheInterface" / "%service_id%" service is deprecated since Symfony 4.3. Use "Symfony\Contracts\Cache\CacheInterface" / "cache.app" instead.</deprecated>
             <argument type="service" id="cache.app" />
         </service>
 
@@ -32,6 +33,14 @@
         </service>
 
         <service id="cache.annotations" parent="cache.system" public="false">
+            <tag name="cache.pool" />
+        </service>
+
+        <service id="cache.property_info" parent="cache.system" public="false">
+            <tag name="cache.pool" />
+        </service>
+
+        <service id="cache.messenger.restart_workers_signal" parent="cache.app" public="false">
             <tag name="cache.pool" />
         </service>
 

@@ -18,14 +18,14 @@ use Symfony\Component\Messenger\Envelope;
  *
  * @author Nicolas Grekas <p@tchwork.com>
  *
- * @experimental in 4.2
+ * @experimental in 4.3
  */
 interface HandlersLocatorInterface
 {
     /**
      * Returns the handlers for the given message name.
      *
-     * @return iterable|callable[] Indexed by handler alias if available
+     * @return iterable|HandlerDescriptor[] Indexed by handler alias if available
      */
     public function getHandlers(Envelope $envelope): iterable;
 }

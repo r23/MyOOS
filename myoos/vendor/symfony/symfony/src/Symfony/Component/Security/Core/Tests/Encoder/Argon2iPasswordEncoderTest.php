@@ -16,6 +16,8 @@ use Symfony\Component\Security\Core\Encoder\Argon2iPasswordEncoder;
 
 /**
  * @author Zan Baldwin <hello@zanbaldwin.com>
+ *
+ * @group legacy
  */
 class Argon2iPasswordEncoderTest extends TestCase
 {

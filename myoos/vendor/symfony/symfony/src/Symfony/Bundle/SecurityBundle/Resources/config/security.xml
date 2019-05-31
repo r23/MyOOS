@@ -99,7 +99,6 @@
         </service>
         <service id="Symfony\Component\Security\Core\Role\RoleHierarchyInterface" alias="security.role_hierarchy" />
 
-
         <!-- Security Voters -->
         <service id="security.access.simple_role_voter" class="Symfony\Component\Security\Core\Authorization\Voter\RoleVoter">
             <tag name="security.voter" priority="245" />

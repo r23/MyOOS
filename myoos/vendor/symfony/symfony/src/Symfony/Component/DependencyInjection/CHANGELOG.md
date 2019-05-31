@@ -1,6 +1,22 @@
 CHANGELOG
 =========
 
+4.3.0
+-----
+
+ * added `%env(trim:...)%` processor to trim a string value
+ * added `%env(default:param_name:...)%` processor to fallback to a parameter or to null when using `%env(default::...)%`
+ * added `%env(url:...)%` processor to convert an URL or DNS into an array of components
+ * added `%env(query_string:...)%` processor to convert a query string into an array of key values
+ * added support for deprecating aliases
+ * made `ContainerParametersResource` final and not implement `Serializable` anymore
+ * added `ReverseContainer`: a container that turns services back to their ids
+ * added ability to define an index for a tagged collection
+ * added ability to define an index for services in an injected service locator argument
+ * made `ServiceLocator` implement `ServiceProviderInterface`
+ * deprecated support for non-string default env() parameters
+ * added `%env(require:...)%` processor to `require()` a PHP file and use the value returned from it
+
 4.2.0
 -----
 

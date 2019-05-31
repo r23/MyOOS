@@ -16,12 +16,17 @@ use Symfony\Component\Messenger\Envelope;
 /**
  * @author Samuel Roze <samuel.roze@gmail.com>
  *
- * @experimental in 4.2
+ * @experimental in 4.3
  */
 interface SenderInterface
 {
     /**
      * Sends the given envelope.
+     *
+     * The sender can read different stamps for transport configuration,
+     * like delivery delay.
+     *
+     * If applicable, the returned Envelope should contain a TransportMessageIdStamp.
      */
     public function send(Envelope $envelope): Envelope;
 }

@@ -154,7 +154,7 @@ class DateType extends AbstractType
             $builder->addModelTransformer(new DateTimeImmutableToDateTimeTransformer());
         } elseif ('string' === $options['input']) {
             $builder->addModelTransformer(new ReversedTransformer(
-                new DateTimeToStringTransformer($options['model_timezone'], $options['model_timezone'], 'Y-m-d')
+                new DateTimeToStringTransformer($options['model_timezone'], $options['model_timezone'], $options['input_format'])
             ));
         } elseif ('timestamp' === $options['input']) {
             $builder->addModelTransformer(new ReversedTransformer(
@@ -283,6 +283,7 @@ class DateType extends AbstractType
                 return $options['compound'] ? [] : '';
             },
             'choice_translation_domain' => false,
+            'input_format' => 'Y-m-d',
         ]);
 
         $resolver->setNormalizer('placeholder', $placeholderNormalizer);
@@ -305,6 +306,16 @@ class DateType extends AbstractType
         $resolver->setAllowedTypes('years', 'array');
         $resolver->setAllowedTypes('months', 'array');
         $resolver->setAllowedTypes('days', 'array');
+        $resolver->setAllowedTypes('input_format', 'string');
+
+        $resolver->setDeprecated('html5', function (Options $options, $html5) {
+            if ($html5 && 'single_text' === $options['widget'] && self::HTML5_FORMAT !== $options['format']) {
+                return sprintf('Using a custom format when the "html5" option of %s is enabled is deprecated since Symfony 4.3 and will lead to an exception in 5.0.', self::class);
+                //throw new LogicException(sprintf('Cannot use the "format" option of %s when the "html5" option is disabled.', self::class));
+            }
+
+            return '';
+        });
     }
 
     /**

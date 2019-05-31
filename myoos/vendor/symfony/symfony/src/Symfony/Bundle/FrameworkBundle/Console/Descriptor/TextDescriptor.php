@@ -12,6 +12,7 @@
 namespace Symfony\Bundle\FrameworkBundle\Console\Descriptor;
 
 use Symfony\Component\Console\Formatter\OutputFormatter;
+use Symfony\Component\Console\Helper\Dumper;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DependencyInjection\Alias;
@@ -24,6 +25,7 @@ use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpKernel\Debug\FileLinkFormatter;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 
@@ -34,6 +36,13 @@ use Symfony\Component\Routing\RouteCollection;
  */
 class TextDescriptor extends Descriptor
 {
+    private $fileLinkFormatter;
+
+    public function __construct(FileLinkFormatter $fileLinkFormatter = null)
+    {
+        $this->fileLinkFormatter = $fileLinkFormatter;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -48,17 +57,18 @@ class TextDescriptor extends Descriptor
 
         $tableRows = [];
         foreach ($routes->all() as $name => $route) {
+            $controller = $route->getDefault('_controller');
+
             $row = [
                 $name,
                 $route->getMethods() ? implode('|', $route->getMethods()) : 'ANY',
                 $route->getSchemes() ? implode('|', $route->getSchemes()) : 'ANY',
                 '' !== $route->getHost() ? $route->getHost() : 'ANY',
-                $route->getPath(),
+                $this->formatControllerLink($controller, $route->getPath()),
             ];
 
             if ($showControllers) {
-                $controller = $route->getDefault('_controller');
-                $row[] = $controller ? $this->formatCallable($controller) : '';
+                $row[] = $controller ? $this->formatControllerLink($controller, $this->formatCallable($controller)) : '';
             }
 
             $tableRows[] = $row;
@@ -92,6 +102,10 @@ class TextDescriptor extends Descriptor
             ['Defaults', $this->formatRouterConfig($route->getDefaults())],
             ['Options', $this->formatRouterConfig($route->getOptions())],
         ];
+
+        if ('' !== $route->getCondition()) {
+            $tableRows[] = ['Condition', $route->getCondition()];
+        }
 
         $table = new Table($this->getOutput());
         $table->setHeaders($tableHeaders)->setRows($tableRows);
@@ -339,6 +353,10 @@ class TextDescriptor extends Descriptor
                     } else {
                         $argumentsInformation[] = sprintf('Iterator (%d element(s))', \count($argument->getValues()));
                     }
+
+                    foreach ($argument->getValues() as $ref) {
+                        $argumentsInformation[] = sprintf('- Service(%s)', $ref);
+                    }
                 } elseif ($argument instanceof ServiceLocatorArgument) {
                     $argumentsInformation[] = sprintf('Service locator (%d element(s))', \count($argument->getValues()));
                 } elseif ($argument instanceof Definition) {
@@ -383,6 +401,71 @@ class TextDescriptor extends Descriptor
                 [$options['parameter'], $this->formatParameter($parameter),
             ],
         ]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function describeContainerEnvVars(array $envs, array $options = [])
+    {
+        $dump = new Dumper($this->output);
+        $options['output']->title('Symfony Container Environment Variables');
+
+        if (null !== $name = $options['name'] ?? null) {
+            $options['output']->comment('Displaying detailed environment variable usage matching '.$name);
+
+            $matches = false;
+            foreach ($envs as $env) {
+                if ($name === $env['name'] || false !== stripos($env['name'], $name)) {
+                    $matches = true;
+                    $options['output']->section('%env('.$env['processor'].':'.$env['name'].')%');
+                    $options['output']->table([], [
+                        ['<info>Default value</>', $env['default_available'] ? $dump($env['default_value']) : 'n/a'],
+                        ['<info>Real value</>', $env['runtime_available'] ? $dump($env['runtime_value']) : 'n/a'],
+                        ['<info>Processed value</>', $env['default_available'] || $env['runtime_available'] ? $dump($env['processed_value']) : 'n/a'],
+                    ]);
+                }
+            }
+
+            if (!$matches) {
+                $options['output']->block('None of the environment variables match this name.');
+            } else {
+                $options['output']->comment('Note real values might be different between web and CLI.');
+            }
+
+            return;
+        }
+
+        if (!$envs) {
+            $options['output']->block('No environment variables are being used.');
+
+            return;
+        }
+
+        $rows = [];
+        $missing = [];
+        foreach ($envs as $env) {
+            if (isset($rows[$env['name']])) {
+                continue;
+            }
+
+            $rows[$env['name']] = [
+                $env['name'],
+                $env['default_available'] ? $dump($env['default_value']) : 'n/a',
+                $env['runtime_available'] ? $dump($env['runtime_value']) : 'n/a',
+            ];
+            if (!$env['default_available'] && !$env['runtime_available']) {
+                $missing[$env['name']] = true;
+            }
+        }
+
+        $options['output']->table(['Name', 'Default value', 'Real value'], $rows);
+        $options['output']->comment('Note real values might be different between web and CLI.');
+
+        if ($missing) {
+            $options['output']->warning('The following variables are missing:');
+            $options['output']->listing(array_keys($missing));
+        }
     }
 
     /**
@@ -447,6 +530,35 @@ class TextDescriptor extends Descriptor
         }
 
         return trim($configAsString);
+    }
+
+    private function formatControllerLink($controller, string $anchorText): string
+    {
+        if (null === $this->fileLinkFormatter) {
+            return $anchorText;
+        }
+
+        try {
+            if (\is_array($controller)) {
+                $r = new \ReflectionMethod($controller);
+            } elseif ($controller instanceof \Closure) {
+                $r = new \ReflectionFunction($controller);
+            } elseif (method_exists($controller, '__invoke')) {
+                $r = new \ReflectionMethod($controller, '__invoke');
+            } elseif (!\is_string($controller)) {
+                return $anchorText;
+            } elseif (false !== strpos($controller, '::')) {
+                $r = new \ReflectionMethod($controller);
+            } else {
+                $r = new \ReflectionFunction($controller);
+            }
+        } catch (\ReflectionException $e) {
+            return $anchorText;
+        }
+
+        $fileLink = $this->fileLinkFormatter->format($r->getFileName(), $r->getStartLine());
+
+        return sprintf('<href=%s>%s</>', $fileLink, $anchorText);
     }
 
     private function formatCallable($callable): string

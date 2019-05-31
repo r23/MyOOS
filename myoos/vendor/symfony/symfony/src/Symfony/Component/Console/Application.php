@@ -44,6 +44,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Debug\ErrorHandler;
 use Symfony\Component\Debug\Exception\FatalThrowableError;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\EventDispatcher\LegacyEventDispatcherProxy;
 
 /**
  * An Application is the container for a collection of commands.
@@ -90,9 +91,12 @@ class Application
         $this->defaultCommand = 'list';
     }
 
+    /**
+     * @final since Symfony 4.3, the type-hint will be updated to the interface from symfony/contracts in 5.0
+     */
     public function setDispatcher(EventDispatcherInterface $dispatcher)
     {
-        $this->dispatcher = $dispatcher;
+        $this->dispatcher = LegacyEventDispatcherProxy::decorate($dispatcher);
     }
 
     public function setCommandLoader(CommandLoaderInterface $commandLoader)
@@ -235,7 +239,7 @@ class Application
             if (!($e instanceof CommandNotFoundException && !$e instanceof NamespaceNotFoundException) || 1 !== \count($alternatives = $e->getAlternatives()) || !$input->isInteractive()) {
                 if (null !== $this->dispatcher) {
                     $event = new ConsoleErrorEvent($input, $output, $e);
-                    $this->dispatcher->dispatch(ConsoleEvents::ERROR, $event);
+                    $this->dispatcher->dispatch($event, ConsoleEvents::ERROR);
 
                     if (0 === $event->getExitCode()) {
                         return 0;
@@ -254,7 +258,7 @@ class Application
             if (!$style->confirm(sprintf('Do you want to run "%s" instead? ', $alternative), false)) {
                 if (null !== $this->dispatcher) {
                     $event = new ConsoleErrorEvent($input, $output, $e);
-                    $this->dispatcher->dispatch(ConsoleEvents::ERROR, $event);
+                    $this->dispatcher->dispatch($event, ConsoleEvents::ERROR);
 
                     return $event->getExitCode();
                 }
@@ -929,7 +933,7 @@ class Application
         $e = null;
 
         try {
-            $this->dispatcher->dispatch(ConsoleEvents::COMMAND, $event);
+            $this->dispatcher->dispatch($event, ConsoleEvents::COMMAND);
 
             if ($event->commandShouldRun()) {
                 $exitCode = $command->run($input, $output);
@@ -938,7 +942,7 @@ class Application
             }
         } catch (\Throwable $e) {
             $event = new ConsoleErrorEvent($input, $output, $e, $command);
-            $this->dispatcher->dispatch(ConsoleEvents::ERROR, $event);
+            $this->dispatcher->dispatch($event, ConsoleEvents::ERROR);
             $e = $event->getError();
 
             if (0 === $exitCode = $event->getExitCode()) {
@@ -947,7 +951,7 @@ class Application
         }
 
         $event = new ConsoleTerminateEvent($command, $input, $output, $exitCode);
-        $this->dispatcher->dispatch(ConsoleEvents::TERMINATE, $event);
+        $this->dispatcher->dispatch($event, ConsoleEvents::TERMINATE);
 
         if (null !== $e) {
             throw $e;

@@ -13,7 +13,6 @@ use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Tests\Fixtures\AbstractNormalizerDummy;
 use Symfony\Component\Serializer\Tests\Fixtures\Dummy;
 use Symfony\Component\Serializer\Tests\Fixtures\NullableConstructorArgumentDummy;
-use Symfony\Component\Serializer\Tests\Fixtures\ProxyDummy;
 use Symfony\Component\Serializer\Tests\Fixtures\StaticConstructorDummy;
 use Symfony\Component\Serializer\Tests\Fixtures\StaticConstructorNormalizer;
 use Symfony\Component\Serializer\Tests\Fixtures\VariadicConstructorTypedArgsDummy;
@@ -101,18 +100,6 @@ class AbstractNormalizerTest extends TestCase
 
         $result = $this->normalizer->getAllowedAttributes('c', [AbstractNormalizer::GROUPS => ['other']], false);
         $this->assertEquals([$a3, $a4], $result);
-    }
-
-    public function testObjectToPopulateWithProxy()
-    {
-        $proxyDummy = new ProxyDummy();
-
-        $context = [AbstractNormalizer::OBJECT_TO_POPULATE => $proxyDummy];
-
-        $normalizer = new ObjectNormalizer();
-        $normalizer->denormalize(['foo' => 'bar'], 'Symfony\Component\Serializer\Tests\Fixtures\ToBeProxyfiedDummy', null, $context);
-
-        $this->assertSame('bar', $proxyDummy->getFoo());
     }
 
     public function testObjectWithStaticConstructor()

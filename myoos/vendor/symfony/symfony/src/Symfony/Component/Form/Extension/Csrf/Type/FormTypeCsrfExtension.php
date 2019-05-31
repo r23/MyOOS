@@ -91,6 +91,7 @@ class FormTypeCsrfExtension extends AbstractTypeExtension
             $data = (string) $options['csrf_token_manager']->getToken($tokenId);
 
             $csrfForm = $factory->createNamed($options['csrf_field_name'], 'Symfony\Component\Form\Extension\Core\Type\HiddenType', $data, [
+                'block_prefix' => 'csrf_token',
                 'mapped' => false,
             ]);
 

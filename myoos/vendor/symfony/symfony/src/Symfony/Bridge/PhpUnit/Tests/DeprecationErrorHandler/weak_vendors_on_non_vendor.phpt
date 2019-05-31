@@ -3,7 +3,7 @@ Test DeprecationErrorHandler in weak vendors mode on a non vendor file
 --FILE--
 <?php
 
-putenv('SYMFONY_DEPRECATIONS_HELPER=weak_vendors');
+putenv('SYMFONY_DEPRECATIONS_HELPER=max[self]=0');
 putenv('ANSICON');
 putenv('ConEmuANSI');
 putenv('TERM');
@@ -61,7 +61,7 @@ Unsilenced deprecation notices (3)
   1x: unsilenced bar deprecation
     1x in FooTestCase::testNonLegacyBar
 
-Remaining deprecation notices (1)
+Remaining self deprecation notices (1)
 
   1x: silenced bar deprecation
     1x in FooTestCase::testNonLegacyBar

@@ -4,12 +4,18 @@ UPGRADE FROM 4.x to 5.0
 BrowserKit
 ----------
 
+ * Removed `Client`, use `AbstractBrowser` instead
+ * Removed the possibility to extend `Response` by making it final.
+ * Removed `Response::buildHeader()`
+ * Removed `Response::getStatus()`, use `Response::getStatusCode()` instead
  * The `Client::submit()` method has a new `$serverParameters` argument.
 
 Cache
 -----
 
  * Removed `CacheItem::getPreviousTags()`, use `CacheItem::getMetadata()` instead.
+ * Removed all PSR-16 adapters, use `Psr16Cache` or `Symfony\Contracts\Cache\CacheInterface` implementations instead.
+ * Removed `SimpleCacheAdapter`, use `Psr16Adapter` instead.
 
 Config
 ------
@@ -18,6 +24,8 @@ Config
  * Added the `getChildNodeDefinitions()` method to `ParentNodeDefinitionInterface`.
  * The `Processor` class has been made final
  * Removed `FileLoaderLoadException`, use `LoaderLoadException` instead.
+ * Using environment variables with `cannotBeEmpty()` if the value is validated with `validate()` will throw an exception.
+ * Removed the `root()` method in `TreeBuilder`, pass the root node information to the constructor instead
 
 Console
 -------
@@ -47,22 +55,51 @@ DependencyInjection
 
  * Removed the `TypedReference::canBeAutoregistered()` and  `TypedReference::getRequiringClass()` methods.
  * Removed support for auto-discovered extension configuration class which does not implement `ConfigurationInterface`.
+ * Removed support for non-string default env() parameters
+
+   Before:
+   ```yaml
+   parameters:
+        env(NAME): 1.5
+   ```
+
+   After:
+   ```yaml
+   parameters:
+        env(NAME): '1.5'
+   ```
 
 DoctrineBridge
 --------------
 
  * Deprecated injecting `ClassMetadataFactory` in `DoctrineExtractor`, an instance of `EntityManagerInterface` should be
    injected instead
+ * Passing an `IdReader` to the `DoctrineChoiceLoader` when the query cannot be optimized with single id field will throw an exception, pass `null` instead
+ * Not passing an `IdReader` to the `DoctrineChoiceLoader` when the query can be optimized with single id field will throw an exception
+
 
 DomCrawler
 ----------
 
  * The `Crawler::children()` method has a new `$selector` argument.
 
+Dotenv
+------
+
+ * First parameter `$usePutenv` of `Dotenv::__construct()` now default to `false`.
+
 EventDispatcher
 ---------------
 
  * The `TraceableEventDispatcherInterface` has been removed.
+ * The signature of the `EventDispatcherInterface::dispatch()` method has been updated to `dispatch($event, string $eventName = null)`
+ * The `Event` class has been removed, use `Symfony\Contracts\EventDispatcher\Event` instead
+
+Filesystem
+----------
+
+ * The `Filesystem::dumpFile()` method no longer supports arrays in the `$content` argument.
+ * The `Filesystem::appendToFile()` method no longer supports arrays in the `$content` argument.
 
 Finder
 ------
@@ -72,6 +109,12 @@ Finder
 Form
 ----
 
+ * Removed support for using the `format` option of `DateType` and `DateTimeType` when the `html5` option is enabled.
+ * Using names for buttons that do not start with a letter, a digit, or an underscore leads to an exception.
+ * Using names for buttons that do not contain only letters, digits, underscores, hyphens, and colons leads to an
+   exception.
+ * Using the `date_format`, `date_widget`, and `time_widget` options of the `DateTimeType` when the `widget` option is
+   set to `single_text` is not supported anymore.
  * The `getExtendedType()` method was removed from the `FormTypeExtensionInterface`. It is replaced by the the static
    `getExtendedTypes()` method which must return an iterable of extended types.
 
@@ -126,6 +169,8 @@ Form
 FrameworkBundle
 ---------------
 
+ * The project dir argument of the constructor of `AssetsInstallCommand` is required.
+
  * Removed support for `bundle:controller:action` syntax to reference controllers. Use `serviceOrFqcn::method`
    instead where `serviceOrFqcn` is either the service ID when using controllers as services or the FQCN of the controller.
 
@@ -157,6 +202,7 @@ FrameworkBundle
  * The `Templating\Helper\TranslatorHelper::transChoice()` method has been removed, use the `trans()` one instead with a `%count%` parameter.
  * Removed support for legacy translations directories `src/Resources/translations/` and `src/Resources/<BundleName>/translations/`, use `translations/` instead.
  * Support for the legacy directory structure in `translation:update` and `debug:translation` commands has been removed.
+ * Removed the "Psr\SimpleCache\CacheInterface" / "cache.app.simple" service, use "Symfony\Contracts\Cache\CacheInterface" / "cache.app" instead.
 
 HttpFoundation
 --------------
@@ -166,15 +212,46 @@ HttpFoundation
  * The `getSession()` method of the `Request` class throws an exception when session is null.
  * The default value of the "$secure" and "$samesite" arguments of Cookie's constructor
    changed respectively from "false" to "null" and from "null" to "lax".
+ * The `MimeTypeGuesserInterface` and `ExtensionGuesserInterface` interfaces have been removed,
+   use `Symfony\Component\Mime\MimeTypesInterface` instead.
+ * The `MimeType` and `MimeTypeExtensionGuesser` classes have been removed,
+   use `Symfony\Component\Mime\MimeTypes` instead.
+ * The `FileBinaryMimeTypeGuesser` class has been removed,
+   use `Symfony\Component\Mime\FileBinaryMimeTypeGuesser` instead.
+ * The `FileinfoMimeTypeGuesser` class has been removed,
+   use `Symfony\Component\Mime\FileinfoMimeTypeGuesser` instead.
 
 HttpKernel
 ----------
 
+ * Removed `Client`, use `HttpKernelBrowser` instead
  * The `Kernel::getRootDir()` and the `kernel.root_dir` parameter have been removed
  * The `KernelInterface::getName()` and the `kernel.name` parameter have been removed
  * Removed the first and second constructor argument of `ConfigDataCollector`
- * Removed `ConfigDataCollector::getApplicationName()` 
+ * Removed `ConfigDataCollector::getApplicationName()`
  * Removed `ConfigDataCollector::getApplicationVersion()`
+ * Removed `FilterControllerArgumentsEvent`, use `ControllerArgumentsEvent` instead
+ * Removed `FilterControllerEvent`, use `ControllerEvent` instead
+ * Removed `FilterResponseEvent`, use `ResponseEvent` instead
+ * Removed `GetResponseEvent`, use `RequestEvent` instead
+ * Removed `GetResponseForControllerResultEvent`, use `ViewEvent` instead
+ * Removed `GetResponseForExceptionEvent`, use `ExceptionEvent` instead
+ * Removed `PostResponseEvent`, use `TerminateEvent` instead
+ * Removed `TranslatorListener` in favor of `LocaleAwareListener`
+
+Intl
+----
+
+ * Removed `ResourceBundle` namespace
+ * Removed `Intl::getLanguageBundle()`, use `Languages` or `Scripts` instead
+ * Removed `Intl::getCurrencyBundle()`, use `Currencies` instead
+ * Removed `Intl::getLocaleBundle()`, use `Locales` instead
+ * Removed `Intl::getRegionBundle()`, use `Countries` instead
+
+Messenger
+---------
+
+ * The `LoggingMiddleware` class has been removed, pass a logger to `SendMessageMiddleware` instead.
 
 Monolog
 -------
@@ -200,9 +277,22 @@ Process
    $process = Process::fromShellCommandline('ls -l');
    ```
 
+Routing
+-------
+
+ * The `generator_base_class`, `generator_cache_class`, `matcher_base_class`, and `matcher_cache_class` router
+   options have been removed.
+ * `Route` and `CompiledRoute` don't implement `Serializable` anymore; if you serialize them, please
+   ensure your unserialization logic can recover from a failure related to an updated serialization format
+
 Security
 --------
 
+ * The `Role` and `SwitchUserRole` classes have been removed.
+ * The `getReachableRoles()` method of the `RoleHierarchy` class has been removed. It has been replaced by the new
+   `getReachableRoleNames()` method.
+ * The `getRoles()` method has been removed from the `TokenInterface`. It has been replaced by the new
+   `getRoleNames()` method.
  * The `ContextListener::setLogoutOnUserChange()` method has been removed.
  * The `Symfony\Component\Security\Core\User\AdvancedUserInterface` has been removed.
  * The `ExpressionVoter::addExpressionLanguageProvider()` method has been removed.
@@ -213,6 +303,44 @@ Security
  * `SimpleAuthenticatorInterface`, `SimpleFormAuthenticatorInterface`, `SimplePreAuthenticatorInterface`,
    `SimpleAuthenticationProvider`, `SimpleAuthenticationHandler`, `SimpleFormAuthenticationListener` and
    `SimplePreAuthenticationListener` have been removed. Use Guard instead.
+ * The `ListenerInterface` has been removed, turn your listeners into callables instead.
+ * The `Firewall::handleRequest()` method has been removed, use `Firewall::callListeners()` instead.
+ * `\Serializable` interface has been removed from `AbstractToken` and `AuthenticationException`,
+   thus `serialize()` and `unserialize()` aren't available.
+   Use `__serialize()` and `__unserialize()` instead.
+
+   Before:
+   ```php
+   public function serialize()
+   {
+       return [$this->myLocalVar, parent::serialize()];
+   }
+
+   public function unserialize($serialized)
+   {
+       [$this->myLocalVar, $parentSerialized] = unserialize($serialized);
+       parent::unserialize($parentSerialized);
+   }
+   ```
+
+   After:
+   ```php
+   public function __serialize(): array
+   {
+       return [$this->myLocalVar, parent::__serialize()];
+   }
+
+   public function __unserialize(array $data): void
+   {
+       [$this->myLocalVar, $parentData] = $data;
+       parent::__unserialize($parentData);
+   }
+   ```
+
+ * The `Argon2iPasswordEncoder` class has been removed, use `SodiumPasswordEncoder` instead.
+ * The `BCryptPasswordEncoder` class has been removed, use `NativePasswordEncoder` instead.
+ * Classes implementing the `TokenInterface` must implement the two new methods
+   `__serialize` and `__unserialize`
 
 SecurityBundle
 --------------
@@ -228,6 +356,12 @@ SecurityBundle
    use Guard instead.
  * The `SimpleFormFactory` and `SimplePreAuthenticationFactory` classes have been removed,
    use Guard instead.
+ * The names of the cookies configured in the `logout.delete_cookies` option are
+   no longer normalized. If any of your cookie names has dashes they won't be
+   changed to underscores.
+   Before: `my-cookie` deleted the `my_cookie` cookie (with an underscore).
+   After: `my-cookie` deletes the `my-cookie` cookie (with a dash).
+ * Configuring encoders using `argon2i` or `bcrypt` as algorithm is not supported anymore, use `auto` instead.
 
 Serializer
 ----------
@@ -250,6 +384,13 @@ TwigBundle
  * The default value (`false`) of the `twig.strict_variables` configuration option has been changed to `%kernel.debug%`.
  * The `transchoice` tag and filter have been removed, use the `trans` ones instead with a `%count%` parameter.
  * Removed support for legacy templates directories `src/Resources/views/` and `src/Resources/<BundleName>/views/`, use `templates/` and `templates/bundles/<BundleName>/` instead.
+ 
+TwigBridge
+----------
+
+ * removed the `$requestStack` and `$requestContext` arguments of the 
+   `HttpFoundationExtension`, pass a `Symfony\Component\HttpFoundation\UrlHelper`
+   instance as the only argument instead
 
 Validator
 --------
@@ -272,3 +413,73 @@ Workflow
  * `add` method has been removed use `addWorkflow` method in `Workflow\Registry` instead.
  * `SupportStrategyInterface` has been removed, use `WorkflowSupportStrategyInterface` instead.
  * `ClassInstanceSupportStrategy` has been removed, use `InstanceOfSupportStrategy` instead.
+ * `MarkingStoreInterface::setMarking()` has a third argument: `array $context = []`.
+ * Removed support of `initial_place`. Use `initial_places` instead.
+ * `MultipleStateMarkingStore` has been removed. Use `MethodMarkingStore` instead.
+
+   Before:
+   ```yaml
+   framework:
+       workflows:
+           type: workflow
+           article:
+               marking_store:
+                   type: multiple
+                   arguments: states
+   ```
+
+   After:
+   ```yaml
+   framework:
+       workflows:
+           type: workflow
+           article:
+               marking_store:
+                   property: states
+   ```
+ * `SingleStateMarkingStore` has been removed. Use `MethodMarkingStore` instead.
+
+   Before:
+   ```yaml
+   framework:
+       workflows:
+           article:
+               marking_store:
+                   arguments: state
+   ```
+
+   After:
+   ```yaml
+   framework:
+       workflows:
+           article:
+               marking_store:
+                   property: state
+   ```
+
+
+ * Support for using a workflow with a single state marking is dropped. Use a state machine instead.
+
+   Before:
+   ```yaml
+   framework:
+       workflows:
+           article:
+               type: workflow
+               marking_store:
+                   type: single_state
+   ```
+
+   After:
+   ```yaml
+   framework:
+       workflows:
+           article:
+               type: state_machine
+   ```
+
+Yaml
+----
+
+ * The parser is now stricter and will throw a `ParseException` when a
+   mapping is found inside a multi-line string.

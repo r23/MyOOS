@@ -14,28 +14,34 @@ namespace Symfony\Component\Security\Http\Firewall;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Authentication\AuthenticationTrustResolver;
 use Symfony\Component\Security\Core\Authentication\AuthenticationTrustResolverInterface;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\Security\Core\Authentication\Token\RememberMeToken;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\SwitchUserToken;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Role\SwitchUserRole;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Symfony\Component\Security\Http\Event\DeauthenticatedEvent;
 
 /**
  * ContextListener manages the SecurityContext persistence through a session.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
+ *
+ * @final since Symfony 4.3
  */
 class ContextListener implements ListenerInterface
 {
+    use LegacyListenerTrait;
+
     private $tokenStorage;
     private $sessionKey;
     private $logger;
@@ -76,7 +82,7 @@ class ContextListener implements ListenerInterface
     /**
      * Reads the Security Token from the session.
      */
-    public function handle(GetResponseEvent $event)
+    public function __invoke(RequestEvent $event)
     {
         if (!$this->registered && null !== $this->dispatcher && $event->isMasterRequest()) {
             $this->dispatcher->addListener(KernelEvents::RESPONSE, [$this, 'onKernelResponse']);
@@ -189,10 +195,14 @@ class ContextListener implements ListenerInterface
                 if (null !== $this->logger) {
                     $context = ['provider' => \get_class($provider), 'username' => $refreshedUser->getUsername()];
 
-                    foreach ($token->getRoles() as $role) {
-                        if ($role instanceof SwitchUserRole) {
-                            $context['impersonator_username'] = $role->getSource()->getUsername();
-                            break;
+                    if ($token instanceof SwitchUserToken) {
+                        $context['impersonator_username'] = $token->getOriginalToken()->getUsername();
+                    } else {
+                        foreach ($token->getRoles(false) as $role) {
+                            if ($role instanceof SwitchUserRole) {
+                                $context['impersonator_username'] = $role->getSource(false)->getUsername();
+                                break;
+                            }
                         }
                     }
 
@@ -214,6 +224,10 @@ class ContextListener implements ListenerInterface
         if ($userDeauthenticated) {
             if (null !== $this->logger) {
                 $this->logger->debug('Token was deauthenticated after trying to refresh it.');
+            }
+
+            if (null !== $this->dispatcher) {
+                $this->dispatcher->dispatch(new DeauthenticatedEvent($token, $newToken), DeauthenticatedEvent::class);
             }
 
             return null;

@@ -18,7 +18,7 @@ use Symfony\Component\Intl\Data\Bundle\Reader\BundleEntryReaderInterface;
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  *
- * @internal
+ * @internal to be removed in 5.0.
  */
 class ScriptDataProvider
 {

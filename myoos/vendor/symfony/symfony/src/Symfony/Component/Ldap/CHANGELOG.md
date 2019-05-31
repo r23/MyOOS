@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+4.3.0
+-----
+
+ * added `EntryManager::move`, not implementing it is deprecated
+ * Added pagination support to the ExtLdap adapter with the pageSize query option
+
 4.2.0
 -----
 

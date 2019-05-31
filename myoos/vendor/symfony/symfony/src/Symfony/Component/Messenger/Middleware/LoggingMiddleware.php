@@ -11,13 +11,15 @@
 
 namespace Symfony\Component\Messenger\Middleware;
 
+@trigger_error(sprintf('The "%s" class is deprecated since Symfony 4.3, pass a logger to SendMessageMiddleware instead.', LoggingMiddleware::class), E_USER_DEPRECATED);
+
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Messenger\Envelope;
 
 /**
  * @author Samuel Roze <samuel.roze@gmail.com>
  *
- * @experimental in 4.2
+ * @deprecated since 4.3, pass a logger to SendMessageMiddleware instead
  */
 class LoggingMiddleware implements MiddlewareInterface
 {
@@ -44,7 +46,7 @@ class LoggingMiddleware implements MiddlewareInterface
             $envelope = $stack->next()->handle($envelope, $stack);
         } catch (\Throwable $e) {
             $context['exception'] = $e;
-            $this->logger->warning('An exception occurred while handling message "{class}"', $context);
+            $this->logger->warning('An exception occurred while handling message "{class}": '.$e->getMessage(), $context);
 
             throw $e;
         }

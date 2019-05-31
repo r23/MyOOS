@@ -11,6 +11,8 @@
 
 namespace Symfony\Component\Security\Core\Encoder;
 
+@trigger_error(sprintf('The "%s" class is deprecated since Symfony 4.3, use "%s" instead.', Argon2iPasswordEncoder::class, SodiumPasswordEncoder::class), E_USER_DEPRECATED);
+
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 
 /**
@@ -18,6 +20,8 @@ use Symfony\Component\Security\Core\Exception\BadCredentialsException;
  *
  * @author Zan Baldwin <hello@zanbaldwin.com>
  * @author Dominik Müller <dominik.mueller@jkweb.ch>
+ *
+ * @deprecated since Symfony 4.3, use SodiumPasswordEncoder instead
  */
 class Argon2iPasswordEncoder extends BasePasswordEncoder implements SelfSaltingEncoderInterface
 {

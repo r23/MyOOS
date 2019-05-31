@@ -17,6 +17,7 @@ use Symfony\Component\Intl\Intl;
 /**
  * @author Bernhard Schussek <bschussek@gmail.com>
  * @group intl-data
+ * @group legacy
  */
 abstract class AbstractScriptDataProviderTest extends AbstractDataProviderTest
 {
@@ -212,7 +213,6 @@ abstract class AbstractScriptDataProviderTest extends AbstractDataProviderTest
         'Zsym',
         'Zxxx',
         'Zyyy',
-        'Zzzz',
     ];
 
     /**

@@ -84,6 +84,10 @@ class EncoderFactory implements EncoderFactoryInterface
 
     private function getEncoderConfigFromAlgorithm($config)
     {
+        if ('auto' === $config['algorithm']) {
+            $config['algorithm'] = SodiumPasswordEncoder::isSupported() ? 'sodium' : 'native';
+        }
+
         switch ($config['algorithm']) {
             case 'plaintext':
                 return [
@@ -102,12 +106,33 @@ class EncoderFactory implements EncoderFactoryInterface
                     ],
                 ];
 
+            /* @deprecated since Symfony 4.3 */
             case 'bcrypt':
                 return [
                     'class' => BCryptPasswordEncoder::class,
                     'arguments' => [$config['cost']],
                 ];
 
+            case 'native':
+                return [
+                    'class' => NativePasswordEncoder::class,
+                    'arguments' => [
+                        $config['time_cost'] ?? null,
+                        (($config['memory_cost'] ?? 0) << 10) ?: null,
+                        $config['cost'] ?? null,
+                    ],
+                ];
+
+            case 'sodium':
+                return [
+                    'class' => SodiumPasswordEncoder::class,
+                    'arguments' => [
+                        $config['time_cost'] ?? null,
+                        (($config['memory_cost'] ?? 0) << 10) ?: null,
+                    ],
+                ];
+
+            /* @deprecated since Symfony 4.3 */
             case 'argon2i':
                 return [
                     'class' => Argon2iPasswordEncoder::class,
