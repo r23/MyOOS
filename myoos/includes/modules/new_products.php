@@ -29,7 +29,9 @@ if ( (!isset($nCurrentCategoryID)) || ($nCurrentCategoryID == '0') ) {
 	$products_descriptiontable = $oostable['products_description'];
 	$specialstable = $oostable['specials'];
 	$sql = "SELECT p.products_id, pd.products_name, p.products_image,  pd.products_short_description, p.products_tax_class_id, p.products_units_id,
-                   p.products_price, p.products_base_price, p.products_base_unit, p.products_product_quantity, 
+                   p.products_price, p.products_price_list, p.products_base_price, p.products_base_unit, p.products_product_quantity, 
+					p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4, 
+					p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty, p.products_discount4_qty,					   
 				   p.products_quantity_order_min, p.products_quantity_order_max,
                    IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price
             FROM $productstable p LEFT JOIN
@@ -46,7 +48,9 @@ if ( (!isset($nCurrentCategoryID)) || ($nCurrentCategoryID == '0') ) {
 	$products_to_categoriestable = $oostable['products_to_categories'];
 	$categoriestable = $oostable['categories'];
 	$sql = "SELECT DISTINCT p.products_id, pd.products_name, pd.products_short_description, p.products_image, p.products_tax_class_id, p.products_units_id,
-                   p.products_price, p.products_base_price, p.products_base_unit, p.products_product_quantity,
+                   p.products_price, p.products_price_list, p.products_base_price, p.products_base_unit, p.products_product_quantity,
+					p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4, 
+					p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty, p.products_discount4_qty,	
 				   p.products_quantity_order_min, p.products_quantity_order_max,
                    IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price
             FROM $productstable p LEFT JOIN
@@ -68,7 +72,10 @@ $aNewProducts = array();
 
 while ($new_products = $new_products_result->fields) {
 
+	$discount = NULL;
+
 	$new_product_price = NULL;
+	$new_product_price_list = NULL;
 	$new_product_special_price = NULL;
 	$new_product_discount_price = NULL;
 	$new_base_product_price = NULL;
@@ -79,6 +86,23 @@ while ($new_products = $new_products_result->fields) {
 		$base_product_price = $new_products['products_price'];
 
 		$new_product_price = $oCurrencies->display_price($new_products['products_price'], oos_get_tax_rate($new_products['products_tax_class_id']));
+		$new_product_price_list = $oCurrencies->display_price($new_products['products_price_list'], oos_get_tax_rate($new_products['products_tax_class_id']));
+
+        if ( $new_products['products_discount4'] > 0 ) {
+			$discount = $new_products['products_discount4'];
+        } elseif ( $new_products['products_discount3'] > 0 ) {
+			$discount = $new_products['products_discount3'];
+        } elseif ( $new_products['products_discount2'] > 0 ) {
+			$discount = $new_products['products_discount2'];
+        } elseif ( $new_products['products_discount1'] > 0 ) {
+			$discount = $new_products['products_discount1'];
+        }
+
+        if ( $discount > 0 ) {
+			$base_product_price = $discount;
+			$new_product_discount_price = $oCurrencies->display_price($discount, oos_get_tax_rate($new_products['products_tax_class_id']));
+        } 	
+		
 		$new_special_price = $new_products['specials_new_products_price'];
 
 		if (oos_is_not_null($new_special_price)) {
@@ -90,6 +114,7 @@ while ($new_products = $new_products_result->fields) {
 			$new_base_product_price = $oCurrencies->display_price($base_product_price * $new_products['products_base_price'], oos_get_tax_rate($new_products['products_tax_class_id']));
 		}
 	}
+echo $new_product_discount_price;
 
 	$order_min = number_format($new_products['products_quantity_order_min']);
 	$order_max = number_format($new_products['products_quantity_order_max']);
@@ -105,6 +130,7 @@ while ($new_products = $new_products_result->fields) {
                                   'products_base_unit' => $new_products['products_base_unit'],
                                   'new_product_units' => $new_products['products_units_id'],
                                   'new_product_price' => $new_product_price,
+								  'new_product_price_list' => $new_product_price_list,
                                   'new_product_special_price' => $new_product_special_price,
                                   'new_product_discount_price' => $new_product_discount_price,
                                   'new_base_product_price' => $new_base_product_price,

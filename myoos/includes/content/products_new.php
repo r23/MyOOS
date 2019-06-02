@@ -54,6 +54,8 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
     $products_descriptiontable = $oostable['products_description'];
     $products_new_result_raw = "SELECT p.products_id, pd.products_name, p.products_image, p.products_price, p.products_price_list,
                                        p.products_base_price, p.products_base_unit, p.products_units_id,
+										p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4, 
+										p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty, p.products_discount4_qty,									   
 									   p.products_product_quantity,  p.products_quantity_order_min, 
 										p.products_quantity_order_max, p.products_quantity_order_units,
                                        p.products_tax_class_id, pd.products_short_description,
@@ -72,25 +74,45 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
     $products_new_array = array();
     while ($products_new = $products_new_result->fields) {
 
-		$new_product_price = '';
-		$new_product_price_list = '';
-		$new_product_special_price = '';
-		$new_product_discount_price = '';
-		$new_base_product_price = '';
+		$discount = NULL;
+		
+		$new_product_price = NULL;
+		$new_product_price_list = NULL;
+		$new_product_special_price = NULL;
+		$new_product_discount_price = NULL;
+		$new_base_product_price = NULL;
 		$base_product_price = $products_new['products_price'];
 
-		$new_product_price = $oCurrencies->display_price($products_new['products_price'], oos_get_tax_rate($products_new['products_tax_class_id']));
-		$new_product_price_list = $oCurrencies->display_price($products_new['products_price_list'], oos_get_tax_rate($products_new['products_tax_class_id']));
-		
-		if (isset($products_new['specials_new_products_price'])) {
-			$base_product_price = $products_new['specials_new_products_price'];
-			$new_product_special_price = $oCurrencies->display_price($products_new['specials_new_products_price'], oos_get_tax_rate($products_new['products_tax_class_id']));
-		} 
+		if ($aUser['show_price'] == 1 ) {
+			$new_product_price = $oCurrencies->display_price($products_new['products_price'], oos_get_tax_rate($products_new['products_tax_class_id']));
+			$new_product_price_list = $oCurrencies->display_price($products_new['products_price_list'], oos_get_tax_rate($products_new['products_tax_class_id']));
 
-		if ($products_new['products_base_price'] != 1) {
-			$new_base_product_price = $oCurrencies->display_price($base_product_price * $products_new['products_base_price'], oos_get_tax_rate($products_new['products_tax_class_id']));
-		}
+            if ( $listing['products_discount4'] > 0 ) {
+				$discount = $listing['products_discount4'];
+            } elseif ( $listing['products_discount3'] > 0 ) {
+				$discount = $listing['products_discount3'];
+            } elseif ( $listing['products_discount2'] > 0 ) {
+				$discount = $listing['products_discount2'];
+            } elseif ( $listing['products_discount1'] > 0 ) {
+				$discount = $listing['products_discount1'];
+            }
+
+            if ( $discount > 0 ) {
+				$base_product_price = $discount;
+				$listing_discount_price = $oCurrencies->display_price($discount, oos_get_tax_rate($listing['products_tax_class_id']));
+            } 
+
 		
+			if (isset($products_new['specials_new_products_price'])) {
+				$base_product_price = $products_new['specials_new_products_price'];
+				$new_product_special_price = $oCurrencies->display_price($products_new['specials_new_products_price'], oos_get_tax_rate($products_new['products_tax_class_id']));
+			} 
+
+			if ($products_new['products_base_price'] != 1) {
+				$new_base_product_price = $oCurrencies->display_price($base_product_price * $products_new['products_base_price'], oos_get_tax_rate($products_new['products_tax_class_id']));
+			}
+		}		
+
 		$order_min = number_format($products_new['products_quantity_order_min']);
 		$order_max = number_format($products_new['products_quantity_order_max']);
 		

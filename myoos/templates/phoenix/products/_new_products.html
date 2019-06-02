@@ -30,12 +30,22 @@
                 <div class="shop-item-summary text-center">
                     <h4><a href="{product_link products_id=$new_product.products_id}" title="{$new_product.products_name}">{$new_product.products_name|truncate:18:"":true|close_tags}</a></h4>
 
-					<div class="product-price clearfix">
+					<div class="shop-item-price clearfix">
 					{if $myUser.show_price eq 1 }
 						{if (!empty($new_product.new_product_special_price))}
-							<span class="price-offer">{$new_product.new_product_special_price}</span> <span class="price-old">{$lang.price_reduced_from} <span class="line-through">{$new_product.new_product_price}</span></span>
+							<span class="price-old">{$lang.price_reduced_from} <span class="line-through">{$new_product.new_product_price}</span></span><br>
+							<span class="price-offer">{$new_product.new_product_special_price}</span>
+						{elseif $new_product.new_product_price_list ne 0}
+							<span class="price-old">{$lang.price_rrp} <span class="line-through">{$new_product.new_product_price_list}</span></span><br>
+							{$new_product.new_product_price}										
 						{else}
-							{$new_product.new_product_price}
+							{if (!empty($new_product.new_product_discount_price))}
+								<p class="clearfix"></p>
+								{$lang.price_from} {$new_product.new_product_discount_price}											
+							{else}
+								<p class="clearfix"></p>	
+								{$new_product.new_product_price}
+							{/if}	
 						{/if}					
 
 						{if $new_product.products_base_price != 1}<br>{$new_product.product_quantity} {$products_units[$new_product.new_product_units]} <span class="base_price">({$new_product.new_base_product_price}/{$products_units[$new_product.products_base_unit]})</span><br>{/if}
