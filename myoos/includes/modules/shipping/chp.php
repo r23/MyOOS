@@ -104,7 +104,7 @@
 
       for ($j=1; $j<=$this->num_chp; $j++) {
         $countries_table = constant('MODULE_SHIPPING_CHP_COUNTRIES_' . $j);
-        $country_zones = preg_split("/[,]/", $countries_table);
+        $country_zones = preg_split("/[:,]/", $countries_table);
         if (in_array($dest_country, $country_zones)) {
           $dest_zone = $j;
           break;

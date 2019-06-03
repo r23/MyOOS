@@ -460,6 +460,11 @@ $aLang = [
 'tax_info_excl'         => 'exkl. MwSt.',
 'text_shipping'         => ' und zzgl. <a href="%s">Service- und Versandkosten</a>.',
 
+'text_excl_tax_plus_shipping'   => 'exkl. MwSt., zzgl. <a href="%s">Versandkosten</a>',
+'text_incl_tax_plus_shipping'   => 'inkl. MwSt., zzgl. <a href="%s">Versandkosten</a>',
+
+
+
 'price'                => 'Preis',
 'price_from'          => 'Ab',
 

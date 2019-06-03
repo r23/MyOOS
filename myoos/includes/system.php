@@ -174,12 +174,15 @@ $products_units = $dbconn->GetAssoc($query);
 $sPAngV = $aLang['text_taxt_incl'];
 if ($aUser['show_price'] == 1) {
 	if ($aUser['price_with_tax'] == 1) {
-		$sPAngV = $aLang['text_taxt_incl'];
+		$tax_plus_shipping = sprintf($aLang['text_incl_tax_plus_shipping'], oos_href_link($aContents['information'], 'information_id=5'));
+		$sPAngV = $aLang['text_taxt_incl'];	
 	} else {
+		$tax_plus_shipping = sprintf($aLang['text_excl_tax_plus_shipping'], oos_href_link($aContents['information'], 'information_id=5'));		
 		$sPAngV = $aLang['text_taxt_add'];
 	}
 
 	if (isset($_SESSION['customers_vat_id_status']) && ($_SESSION['customers_vat_id_status'] == 1)) {
+		$tax_plus_shipping = sprintf($aLang['text_excl_tax_plus_shipping'], oos_href_link($aContents['information'], 'information_id=5'));
 		$sPAngV = $aLang['tax_info_excl'];
 	}
 }
@@ -189,6 +192,7 @@ $sPAngV .= sprintf($aLang['text_shipping'], oos_href_link($aContents['informatio
 $smarty->assign(
 	array(
 		'pangv' => $sPAngV,
+		'tax_plus_shipping' => $tax_plus_shipping,
 		'products_units'=> $products_units,
 	)
 );
