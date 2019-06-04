@@ -80,6 +80,8 @@ if (!empty($action)) {
 			$products_id = oos_db_prepare_input($_GET['pID']);
 			$products_date_available = oos_db_prepare_input($_POST['products_date_available']);
 
+
+
 			if (isset($_POST['products_base_price']) ) {
 				$products_base_price = oos_db_prepare_input($_POST['products_base_price']);
 				$products_product_quantity = oos_db_prepare_input($_POST['products_product_quantity']);
@@ -92,6 +94,10 @@ if (!empty($action)) {
 				$products_base_unit = '';
 			}
 
+			if ((date('Y-m-d') < $products_date_available) && ($sProductsStatus == 3)) {
+				$sProductsStatus = 2;
+			}
+			
 			$products_date_available = (date('Y-m-d') < $products_date_available) ? $products_date_available : 'null';
 
 			$sql_data_array = array('products_quantity' => $sProductsQuantity,

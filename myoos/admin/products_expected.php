@@ -79,6 +79,7 @@ $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GE
 				<table class="table table-striped table-hover w-100">
 					<thead class="thead-dark">
 						<tr>
+							<th></th>
 							<th><?php echo TABLE_HEADING_PRODUCTS; ?></th>
 							<th class="text-center"><?php echo TABLE_HEADING_DATE_EXPECTED; ?></th>
 							<th class="text-right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>
@@ -107,9 +108,13 @@ $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GE
       echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['products_expected'], 'page=' . $nPage . '&pID=' . $products['products_id']) . '\'">' . "\n";
     }
 ?>
+                <td><?php echo '<a href="' . oos_catalog_link($aCatalog['product_info'], 'products_id=' . $products['products_id']) . '" target="_blank" rel="noopener"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-search"></i></button></a>&nbsp;' . '#' . $products['products_id'] . ' ' . $products['products_name']; ?></td>
                 <td><?php echo $products['products_name']; ?></td>
                 <td class="text-center"><?php echo oos_date_short($products['products_date_available']); ?></td>
-                <td class="text-right"><?php if (isset($pInfo) && is_object($pInfo) && ($products['products_id'] == $pInfo->products_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['products_expected'], 'page=' . $nPage . '&pID=' . $products['products_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="text-right"><?php echo
+							'<a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=new_product') . '"><i class="fa fa-pencil" title="' .  BUTTON_EDIT . '"></i></a>';
+			?>				
+				
               </tr>
 <?php
     // Move that ADOdb pointer!
@@ -117,7 +122,7 @@ $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GE
   }
 ?>
               <tr>
-                <td colspan="3"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+                <td colspan="4"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
                     <td class="smallText" valign="top"><?php echo $products_split->display_count($products_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $nPage, TEXT_DISPLAY_NUMBER_OF_PRODUCTS_EXPECTED); ?></td>
                     <td class="smallText" align="right"><?php echo $products_split->display_links($products_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage); ?></td>
@@ -125,31 +130,7 @@ $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GE
                 </table></td>
               </tr>
             </table></td>
-<?php
-  $heading = array();
-  $contents = array();
-  if (isset($pInfo) && is_object($pInfo)) {
-    $heading[] = array('text' => '<b>' . $pInfo->products_name . '</b>');
 
-    $cPath = oos_get_product_path($pInfo->products_id);
-
-    $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['categories'], 'pID=' . $pInfo->products_id . '&cPath=' . $cPath . '&action=new_product') . '">' . oos_button(BUTTON_EDIT) . '</a>');
-    $contents[] = array('text' => '<br />' . TEXT_INFO_DATE_EXPECTED . ' ' . oos_date_short($pInfo->products_date_available));
-  }
-
-    if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
-?>
-	<td class="w-25">
-		<table class="table table-striped">
-<?php
-		$box = new box;
-		echo $box->infoBox($heading, $contents);  
-?>
-		</table> 
-	</td> 
-<?php
-  }
-?>
           </tr>
         </table>
 	</div>

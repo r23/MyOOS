@@ -114,7 +114,6 @@ while ($new_products = $new_products_result->fields) {
 			$new_base_product_price = $oCurrencies->display_price($base_product_price * $new_products['products_base_price'], oos_get_tax_rate($new_products['products_tax_class_id']));
 		}
 	}
-echo $new_product_discount_price;
 
 	$order_min = number_format($new_products['products_quantity_order_min']);
 	$order_max = number_format($new_products['products_quantity_order_max']);
