@@ -259,6 +259,20 @@ abstract class HttpClientTestCase extends TestCase
         $this->assertSame($expected, $filteredHeaders);
     }
 
+    public function testInvalidRedirect()
+    {
+        $client = $this->getHttpClient(__FUNCTION__);
+        $response = $client->request('GET', 'http://localhost:8057/301/invalid');
+
+        $this->assertSame(301, $response->getStatusCode());
+        $this->assertSame(['//?foo=bar'], $response->getHeaders(false)['location']);
+        $this->assertSame(0, $response->getInfo('redirect_count'));
+        $this->assertNull($response->getInfo('redirect_url'));
+
+        $this->expectException(RedirectionExceptionInterface::class);
+        $response->getHeaders();
+    }
+
     public function testRelativeRedirects()
     {
         $client = $this->getHttpClient(__FUNCTION__);
@@ -479,6 +493,16 @@ abstract class HttpClientTestCase extends TestCase
         ]);
 
         $this->assertSame(['foo' => '0123456789', 'REQUEST_METHOD' => 'POST'], $response->toArray());
+    }
+
+    public function testCancel()
+    {
+        $client = $this->getHttpClient(__FUNCTION__);
+        $response = $client->request('GET', 'http://localhost:8057/timeout-header');
+
+        $response->cancel();
+        $this->expectException(TransportExceptionInterface::class);
+        $response->getHeaders();
     }
 
     public function testOnProgressCancel()

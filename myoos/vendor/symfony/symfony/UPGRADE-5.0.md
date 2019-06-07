@@ -75,7 +75,7 @@ DoctrineBridge
  * Deprecated injecting `ClassMetadataFactory` in `DoctrineExtractor`, an instance of `EntityManagerInterface` should be
    injected instead
  * Passing an `IdReader` to the `DoctrineChoiceLoader` when the query cannot be optimized with single id field will throw an exception, pass `null` instead
- * Not passing an `IdReader` to the `DoctrineChoiceLoader` when the query can be optimized with single id field will throw an exception
+ * Not passing an `IdReader` to the `DoctrineChoiceLoader` when the query can be optimized with single id field will not apply any optimization
 
 
 DomCrawler
@@ -282,8 +282,9 @@ Routing
 
  * The `generator_base_class`, `generator_cache_class`, `matcher_base_class`, and `matcher_cache_class` router
    options have been removed.
- * `Route` and `CompiledRoute` don't implement `Serializable` anymore; if you serialize them, please
-   ensure your unserialization logic can recover from a failure related to an updated serialization format
+ * `Serializable` implementing methods for `Route` and `CompiledRoute` are final.
+   Instead of overwriting them, use `__serialize` and `__unserialize` as extension points which are forward compatible
+   with the new serialization methods in PHP 7.4.
 
 Security
 --------

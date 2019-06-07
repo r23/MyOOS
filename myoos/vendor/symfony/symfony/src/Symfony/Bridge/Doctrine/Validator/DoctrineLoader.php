@@ -17,6 +17,7 @@ use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\ORM\Mapping\MappingException as OrmMappingException;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\Valid;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Mapping\Loader\LoaderInterface;
 
@@ -42,7 +43,7 @@ final class DoctrineLoader implements LoaderInterface
     public function loadClassMetadata(ClassMetadata $metadata): bool
     {
         $className = $metadata->getClassName();
-        if (null !== $this->classValidatorRegexp && !preg_match($this->classValidatorRegexp, $className)) {
+        if (null === $this->classValidatorRegexp || !preg_match($this->classValidatorRegexp, $className)) {
             return false;
         }
 
@@ -72,13 +73,17 @@ final class DoctrineLoader implements LoaderInterface
                 $metadata->addConstraint(new UniqueEntity(['fields' => $mapping['fieldName']]));
             }
 
-            if (null === ($mapping['length'] ?? null)) {
+            if (null === ($mapping['length'] ?? null) || !\in_array($mapping['type'], ['string', 'text'], true)) {
                 continue;
             }
 
             $constraint = $this->getLengthConstraint($metadata, $mapping['fieldName']);
             if (null === $constraint) {
-                $metadata->addPropertyConstraint($mapping['fieldName'], new Length(['max' => $mapping['length']]));
+                if (isset($mapping['originalClass'])) {
+                    $metadata->addPropertyConstraint($mapping['declaredField'], new Valid());
+                } elseif (property_exists($className, $mapping['fieldName'])) {
+                    $metadata->addPropertyConstraint($mapping['fieldName'], new Length(['max' => $mapping['length']]));
+                }
             } elseif (null === $constraint->max) {
                 // If a Length constraint exists and no max length has been explicitly defined, set it
                 $constraint->max = $mapping['length'];

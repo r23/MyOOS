@@ -925,6 +925,9 @@ function twig_in_filter($value, $compare)
     if ($value instanceof Markup) {
         $value = (string) $value;
     }
+    if ($compare instanceof Markup) {
+        $compare = (string) $compare;
+    }
 
     if (\is_array($compare)) {
         return \in_array($value, $compare, \is_object($value) || \is_resource($value));
@@ -1080,13 +1083,20 @@ function twig_capitalize_string_filter(Environment $env, $string)
 /**
  * @internal
  */
-function twig_call_macro($object, string $method, array $args, int $lineno, Source $source)
+function twig_call_macro(Template $template, string $method, array $args, int $lineno, array $context, Source $source)
 {
-    if (!method_exists($object, $method)) {
-        throw new RuntimeError(sprintf('Macro "%s" is not defined in template "%s".', substr($method, \strlen('macro_')), $object->getTemplateName()), $lineno, $source);
+    if (!method_exists($template, $method)) {
+        $parent = $template;
+        while ($parent = $parent->getParent($context)) {
+            if (method_exists($parent, $method)) {
+                return $parent->$method(...$args);
+            }
+        }
+
+        throw new RuntimeError(sprintf('Macro "%s" is not defined in template "%s".', substr($method, \strlen('macro_')), $template->getTemplateName()), $lineno, $source);
     }
 
-    return $object->$method(...$args);
+    return $template->$method(...$args);
 }
 
 /**

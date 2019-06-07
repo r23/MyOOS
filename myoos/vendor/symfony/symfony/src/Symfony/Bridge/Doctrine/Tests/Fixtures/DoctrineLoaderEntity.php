@@ -21,7 +21,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @author Kévin Dunglas <dunglas@gmail.com>
  */
-class DoctrineLoaderEntity
+class DoctrineLoaderEntity extends DoctrineLoaderParentEntity
 {
     /**
      * @ORM\Id
@@ -55,4 +55,18 @@ class DoctrineLoaderEntity
      * @ORM\Column(unique=true)
      */
     public $alreadyMappedUnique;
+
+    /**
+     * @ORM\Embedded(class=DoctrineLoaderEmbed::class)
+     */
+    public $embedded;
+
+    /** @ORM\Column(type="text", nullable=true, length=1000) */
+    public $textField;
+
+    /** @ORM\Id @ORM\Column(type="guid", length=50) */
+    protected $guidField;
+
+    /** @ORM\Column(type="simple_array", length=100) */
+    public $simpleArrayField = [];
 }

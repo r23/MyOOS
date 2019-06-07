@@ -1,3 +1,13 @@
+* 2.11.2 (2019-06-05)
+
+ * fixed macro auto-import
+
+* 2.11.1 (2019-06-04)
+
+ * added support for "Twig\Markup" instances in the "in" test (again)
+ * allowed string operators as variables names in assignments
+ * fixed support for macros defined in parent templates
+
 * 2.11.0 (2019-05-31)
 
  * added the possibility to register classes/interfaces as being safe for the escaper ("EscaperExtension::addSafeClass()")
@@ -239,7 +249,16 @@
  * improved the performance of the filesystem loader
  * removed features that were deprecated in 1.x
 
-* 1.42.0 (2019-XX-XX)
+* 1.42.2 (2019-XX-XX)
+
+ * n/a
+
+* 1.42.1 (2019-06-04)
+
+ * added support for "Twig\Markup" instances in the "in" test (again)
+ * allowed string operators as variables names in assignments
+
+* 1.42.0 (2019-05-31)
 
  * fixed the "filter" filter when the argument is \Traversable but does not implement \Iterator (\SimpleXmlElement for instance)
  * fixed a PHP fatal error when calling a macro imported in a block in a nested block
