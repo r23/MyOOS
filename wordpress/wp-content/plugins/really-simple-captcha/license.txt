@@ -1,4 +1,4 @@
-Really Simple CAPTCHA - WordPress Plugin, 2007-2017 Takayuki Miyoshi
+Really Simple CAPTCHA - WordPress Plugin, 2007-2019 Takayuki Miyoshi
 Really Simple CAPTCHA is distributed under the terms of the GNU GPL
 
 This program is free software; you can redistribute it and/or modify
@@ -20,7 +20,7 @@ Really Simple CAPTCHA WordPress Plugin bundles the following third-party resourc
 
 Gentium Basic Release 1.102
 Gentium is released under the SIL Open Font License
-Source: http://software.sil.org/gentium/
+Source: https://software.sil.org/gentium/
 
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=

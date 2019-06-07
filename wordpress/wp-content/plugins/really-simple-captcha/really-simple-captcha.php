@@ -6,10 +6,10 @@ Description: Really Simple CAPTCHA is a CAPTCHA module intended to be called fro
 Author: Takayuki Miyoshi
 Author URI: https://ideasilo.wordpress.com/
 Text Domain: really-simple-captcha
-Version: 2.0.1
+Version: 2.0.2
 */
 
-define( 'REALLYSIMPLECAPTCHA_VERSION', '2.0.1' );
+define( 'REALLYSIMPLECAPTCHA_VERSION', '2.0.2' );
 
 class ReallySimpleCaptcha {
 
@@ -107,7 +107,12 @@ class ReallySimpleCaptcha {
 		$dir = trailingslashit( $this->tmp_dir );
 		$filename = null;
 
-		if ( $im = imagecreatetruecolor( $this->img_size[0], $this->img_size[1] ) ) {
+		$im = imagecreatetruecolor(
+			$this->img_size[0],
+			$this->img_size[1]
+		);
+
+		if ( $im ) {
 			$bg = imagecolorallocate( $im, $this->bg[0], $this->bg[1], $this->bg[2] );
 			$fg = imagecolorallocate( $im, $this->fg[0], $this->fg[1], $this->fg[2] );
 
@@ -143,7 +148,7 @@ class ReallySimpleCaptcha {
 			}
 
 			imagedestroy( $im );
-			chmod( $file, $this->file_mode );
+			@chmod( $file, $this->file_mode );
 		}
 
 		$this->generate_answer_file( $prefix, $word );
@@ -171,7 +176,7 @@ class ReallySimpleCaptcha {
 			fclose( $fh );
 		}
 
-		chmod( $answer_file, $this->answer_file_mode );
+		@chmod( $answer_file, $this->answer_file_mode );
 	}
 
 	/**
@@ -193,12 +198,13 @@ class ReallySimpleCaptcha {
 		$filename = sanitize_file_name( $prefix . '.txt' );
 		$file = $this->normalize_path( $dir . $filename );
 
-		if ( is_readable( $file ) && ( $code = file_get_contents( $file ) ) ) {
+		if ( is_readable( $file )
+		and $code = file_get_contents( $file ) ) {
 			$code = explode( '|', $code, 2 );
 			$salt = $code[0];
 			$hash = $code[1];
 
-			if ( hash_hmac( 'md5', $response, $salt ) == $hash ) {
+			if ( hash_hmac( 'md5', $response, $salt ) === $hash ) {
 				return true;
 			}
 		}
@@ -220,7 +226,7 @@ class ReallySimpleCaptcha {
 			$file = $this->normalize_path( $dir . $filename );
 
 			if ( is_file( $file ) ) {
-				unlink( $file );
+				@unlink( $file );
 			}
 		}
 	}
@@ -235,7 +241,8 @@ class ReallySimpleCaptcha {
 		$dir = trailingslashit( $this->tmp_dir );
 		$dir = $this->normalize_path( $dir );
 
-		if ( ! is_dir( $dir ) || ! is_readable( $dir ) ) {
+		if ( ! is_dir( $dir )
+		or ! is_readable( $dir ) ) {
 			return false;
 		}
 
@@ -255,14 +262,15 @@ class ReallySimpleCaptcha {
 
 				$file = $this->normalize_path( $dir . $filename );
 
-				if ( ! file_exists( $file ) || ! ( $stat = stat( $file ) ) ) {
+				if ( ! file_exists( $file )
+				or ! $stat = stat( $file ) ) {
 					continue;
 				}
 
 				if ( ( $stat['mtime'] + $minutes * 60 ) < time() ) {
-					if ( ! unlink( $file ) ) {
-						chmod( $file, 0644 );
-						unlink( $file );
+					if ( ! @unlink( $file ) ) {
+						@chmod( $file, 0644 );
+						@unlink( $file );
 					}
 
 					$count += 1;
