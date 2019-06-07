@@ -164,61 +164,65 @@ require 'includes/header.php';
 	
 	$products_result = $dbconn->Execute("SELECT COUNT(*) AS count FROM " . $oostable['products'] . " WHERE products_status >= '1'");
 	$products = $products_result->fields;
-	
+/*	
 	$reviews_result = $dbconn->Execute("SELECT COUNT(*) AS count FROM " . $oostable['reviews']);
 	$reviews = $reviews_result->fields;
+	
+    $orders_result = $dbconn->Execute("SELECT COUNT(*) AS count FROM " . $oostable['orders'] . " WHERE orders_status = '" . $orders_status['orders_status_id'] . "'");
+    $orders_pending = $orders_pending_result->fields;	
+*/	
+
+	
 ?>
 					<div class="row">
 						<div class="col-xl-3 col-md-6">
 							<div class="card flex-row align-items-center align-items-stretch border-0">
-								<div class="col-4 d-flex align-items-center bg-primary-dark justify-content-center rounded-left">
-									<em class="fa fa-users fa-3x"></em>
+								<div class="col-4 d-flex align-items-center bg-primary-dark card-title justify-content-center rounded-left">
+									<a href="<?php echo oos_href_link_admin($aContents['customers'], 'selected_box=customers'); ?>"><em class="fa fa-users fa-3x"></em></a>
 								</div>
-								<div class="col-8 py-3 bg-primary rounded-right">
+								<div class="col-8 py-3 card-body bg-primary rounded-right">
 									<div class="h2 mt-0"><?php echo $customers['count']; ?></div>
-									<div class="text-uppercase"><?php echo BOX_ENTRY_CUSTOMERS; ?></div>
+									<div class="text-uppercase"><a href="<?php echo oos_href_link_admin($aContents['customers'], 'selected_box=customers'); ?>"><?php echo BOX_ENTRY_CUSTOMERS; ?></a></div>
 								</div>
 							</div>
-						</div>
+						</div>		
+						
 						<div class="col-xl-3 col-md-6">
 							<div class="card flex-row align-items-center align-items-stretch border-0">
-								<div class="col-4 d-flex align-items-center bg-purple-dark justify-content-center rounded-left">
-									<em class="fa fa-cubes fa-3x"></em>
+								<div class="col-4 d-flex align-items-center bg-purple-dark card-title justify-content-center rounded-left">
+									<a href="<?php echo oos_href_link_admin(oos_selected_file('catalog.php'), 'selected_box=catalog'); ?>"><em class="fa fa-cubes fa-3x"></em></a>
 								</div>
-								<div class="col-8 py-3 bg-purple rounded-right">
+								<div class="col-8 py-3 card-body bg-purple rounded-right">
 									<div class="h2 mt-0"><?php echo $products['count']; ?></div>
-									<div class="text-uppercase"><?php echo BOX_ENTRY_PRODUCTS; ?></div>
+									<div class="text-uppercase"><a href="<?php echo oos_href_link_admin(oos_selected_file('catalog.php'), 'selected_box=catalog'); ?>"><?php echo BOX_ENTRY_PRODUCTS; ?></a></div>
 								</div>
 							</div>
 						</div>
 						<div class="col-xl-3 col-lg-6 col-md-12">
 							<div class="card flex-row align-items-center align-items-stretch border-0">
-								<div class="col-4 d-flex align-items-center bg-green-dark justify-content-center rounded-left">
-									<em class="fa fa-comments-o fa-3x"></em>
+								<div class="col-4 d-flex align-items-center bg-green-dark card-title justify-content-center rounded-left">
+									<a href="<?php echo oos_href_link_admin($aContents['reviews'], 'selected_box=catalog'); ?>"><em class="fa fa-comments-o fa-3x"></em></a>
 								</div>
-								<div class="col-8 py-3 bg-green rounded-right">
+								<div class="col-8 py-3 card-body bg-green rounded-right">
 									<div class="h2 mt-0"><?php echo $reviews['count']; ?></div>
-									<div class="text-uppercase"><?php echo BOX_ENTRY_REVIEWS; ?></div>
+									<div class="text-uppercase"><a href="<?php echo oos_href_link_admin($aContents['reviews'], 'selected_box=catalog'); ?>"><?php echo BOX_ENTRY_REVIEWS; ?></a></div>
 								</div>
 							</div>
 						</div>
 						<div class="col-xl-3 col-lg-6 col-md-12">
 							<div class="card flex-row align-items-center align-items-stretch border-0">
-								<div class="col-4 d-flex align-items-center bg-green justify-content-center rounded-left">
-									<div class="text-center">
-										<div class="text-sm" data-now="" data-format="MMMM"></div>
-										<div class="h2 mt-0" data-now="" data-format="D"></div>
-									</div>
+								<div class="col-4 d-flex align-items-center bg-danger-dark card-title justify-content-center rounded-left">
+									<a href="<?php echo oos_href_link_admin($aContents['orders'], 'selected_box=customers'); ?>"><em class="fa fa-shopping-cart fa-3x"></em></a>
 								</div>
-								<div class="col-8 py-3 rounded-right">
-									<div class="text-uppercase" data-now="" data-format="dddd"></div>
-									<div class="h2 mt-0" data-now="" data-format="H:mm"></div>
+								<div class="col-8 py-3 card-body bg-danger rounded-right">
+									<div class="h2 mt-0"><?php echo $orders['count']; ?></div>
+									<div class="text-uppercase"><a href="<?php echo oos_href_link_admin($aContents['orders'], 'selected_box=customers'); ?>"><?php echo BOX_TITLE_ORDERS; ?></a></div>
 								</div>
 							</div>
 						</div>
 					</div>
-					
-					
+				
+				
 <!-- body_text //-->
 <table border="0" width="600" height="100%" cellspacing="0" cellpadding="0" align="center" valign="middle">
   <tr>

@@ -38,15 +38,15 @@ $aBlocks[] = array(
 			'link' => oos_admin_files_boxes('specials', 'selected_box=catalog')
 		),
 		array(
-			'code' => $aContents['products_expected'],
-			'title' => BOX_CATALOG_PRODUCTS_EXPECTED,
-			'link' => oos_admin_files_boxes('products_expected', 'selected_box=catalog')
-		),
-		array(
 			'code' => $aContents['featured'],
 			'title' => BOX_CATALOG_PRODUCTS_FEATURED,
 			'link' => oos_admin_files_boxes('featured', 'selected_box=catalog')
 		),
+		array(
+			'code' => $aContents['products_expected'],
+			'title' => BOX_CATALOG_PRODUCTS_EXPECTED,
+			'link' => oos_admin_files_boxes('products_expected', 'selected_box=catalog')
+		),		
 		array(
 			'code' => $aContents['products_attributes'],
 			'title' => BOX_CATALOG_CATEGORIES_PRODUCTS_ATTRIBUTES,
