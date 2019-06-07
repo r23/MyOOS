@@ -309,12 +309,12 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                 <td><?php echo '<a href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $reviews['reviews_id'] . '&action=preview') . '"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-search"></i></button></a>&nbsp;' . oos_get_products_name($reviews['products_id']); ?></td>
                 <td class="text-right"><?php echo $reviews['reviews_rating']; ?></td>
                 <td class="text-center">
- <?php
-       if ($reviews['reviews_status'] == '1') {
-         echo '<a href="' . oos_href_link_admin($aContents['reviews'], 'action=setflag&amp;flag=0&amp;rID=' . $reviews['reviews_id'] . '&amp;page=' . $nPage) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
-       } else {
-         echo '<a href="' . oos_href_link_admin($aContents['reviews'], 'action=setflag&amp;flag=1&amp;rID=' . $reviews['reviews_id'] . '&amp;page=' . $nPage) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
-       }
+ <?php   
+		if ($reviews['reviews_status'] == '1') {
+			echo '<i class="fa fa-circle text-success" title="' . IMAGE_ICON_STATUS_GREEN . '"></i>&nbsp;<a href="' . oos_href_link_admin($aContents['reviews'], 'action=setflag&flag=0&rID=' . $reviews['reviews_id'] . '&page=' . $nPage) . '"><i class="fa fa-circle-o text-danger" title="' . IMAGE_ICON_STATUS_RED_LIGHT . '"></i></a>';
+		} else {
+			echo '<a href="' . oos_href_link_admin($aContents['reviews'], 'action=setflag&flag=1&rID=' . $reviews['reviews_id'] . '&page=' . $nPage). '"><i class="fa fa-circle-o text-success" title="' . IMAGE_ICON_STATUS_GREEN_LIGHT . '"></i></a>&nbsp;<i class="fa fa-circle text-danger" title="' . IMAGE_ICON_STATUS_RED . '"></i>';
+		}
 ?></td>				
                 <td class="text-right"><?php echo oos_date_short($reviews['date_added']); ?></td>
                 <td class="text-right"><?php if (isset($rInfo) && is_object($rInfo) && ($reviews['reviews_id'] == $rInfo->reviews_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $reviews['reviews_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
@@ -357,7 +357,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id . '&action=delete') . '">' . oos_button( BUTTON_DELETE) . '</a>');
         $contents[] = array('text' => '<br />' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($rInfo->date_added));
         if (oos_is_not_null($rInfo->last_modified)) $contents[] = array('text' => TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($rInfo->last_modified));
-        $contents[] = array('text' => '<br />' . oos_info_image($rInfo->products_image, $rInfo->products_name, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT));
+        $contents[] = array('text' => '<br />' . product_info_image($rInfo->products_image, $rInfo->products_name));
         $contents[] = array('text' => '<br />' . TEXT_INFO_REVIEW_AUTHOR . ' ' . $rInfo->customers_name);
         $contents[] = array('text' => TEXT_INFO_REVIEW_RATING . ' ' . oos_image(OOS_HTTPS_SERVER . OOS_SHOP . OOS_IMAGES . 'stars_' . $rInfo->reviews_rating . '.gif'));
         $contents[] = array('text' => TEXT_INFO_REVIEW_READ . ' ' . $rInfo->reviews_read);
