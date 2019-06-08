@@ -25,8 +25,8 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-define('TOP_BAR_TITLE', 'Statistics');
-define('HEADING_TITLE', 'unterschrittene Mindestmengen');
+define('TOP_BAR_TITLE', 'Statistik');
+define('HEADING_TITLE', 'Unterschrittene Mindestmengen');
 
 define('TABLE_HEADING_NUMBER', 'Nr.');
 define('TABLE_HEADING_PRODUCTS', 'Produkt Name');

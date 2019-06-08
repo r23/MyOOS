@@ -21,75 +21,6 @@
   define('OOS_VALID_MOD', 'yes');
   require 'includes/main.php';
 
-  $cat = array(array('title' => BOX_HEADING_MY_ACCOUNT,
-                     'access' => true,
-                     'href' => oos_href_link_admin($aContents['admin_account']),
-                     'children' => array(array('title' => BOX_MY_ACCOUNT, 'link' => oos_href_link_admin($aContents['admin_account'], 'selected_box=administrator'),
-                                               'access' => true),
-                                         array('title' => BOX_MY_ACCOUNT_LOGOFF, 'link' => oos_href_link_admin($aContents['logoff']),
-                                               'access' => true))),
-               array('title' => BOX_HEADING_ADMINISTRATOR,
-                     'access' => oos_admin_check_boxes('administrator.php'),
-                     'href' => oos_href_link_admin(oos_selected_file('administrator.php'), 'selected_box=administrator'),
-                     'children' => array(array('title' => BOX_ADMINISTRATOR_MEMBER, 'link' => oos_href_link_admin($aContents['admin_members'], 'selected_box=administrator'),
-                                               'access' => oos_admin_check_boxes('admin_members', 'sub_boxes')),
-                                         array('title' => BOX_ADMINISTRATOR_BOXES, 'link' => oos_href_link_admin($aContents['admin_files'], 'selected_box=administrator'),
-                                               'access' => oos_admin_check_boxes('admin_files', 'sub_boxes')))),
-               array('title' => BOX_HEADING_CONFIGURATION,
-                     'access' => oos_admin_check_boxes('configuration.php'),
-                     'href' => oos_href_link_admin($aContents['configuration'], 'selected_box=configuration&gID=1'),
-                     'children' => array(array('title' => BOX_CONFIGURATION_MYSTORE, 'link' => oos_href_link_admin($aContents['configuration'], 'selected_box=configuration&gID=1'),
-                                               'access' => oos_admin_check_boxes('configuration', 'sub_boxes')),
-                                         array('title' => BOX_CONFIGURATION_LOGGING, 'link' => oos_href_link_admin($aContents['configuration'], 'selected_box=configuration&gID=10'),
-                                               'access' => oos_admin_check_boxes('configuration', 'sub_boxes')),
-                                         array('title' => BOX_CONFIGURATION_CACHE, 'link' => oos_href_link_admin($aContents['configuration'], 'selected_box=configuration&gID=11'),
-                                               'access' => oos_admin_check_boxes('configuration', 'sub_boxes')))),
-               array('title' => BOX_HEADING_MODULES,
-                     'access' => oos_admin_check_boxes('modules.php'),
-                     'href' => oos_href_link_admin(oos_selected_file('modules.php'), 'selected_box=modules&set=payment'),
-                     'children' => array(array('title' => BOX_MODULES_PAYMENT, 'link' => oos_href_link_admin($aContents['modules'], 'selected_box=modules&set=payment'),
-                                               'access' => oos_admin_check_boxes('modules', 'sub_boxes')),
-                                         array('title' => BOX_MODULES_SHIPPING, 'link' => oos_href_link_admin($aContents['modules'], 'selected_box=modules&set=shipping'),
-                                               'access' => oos_admin_check_boxes('modules', 'sub_boxes')))),
-               array('title' => BOX_HEADING_CATALOG,
-                     'access' => oos_admin_check_boxes('catalog.php'),
-                     'href' => oos_href_link_admin(oos_selected_file('catalog.php'), 'selected_box=catalog'),
-                     'children' => array(array('title' => CATALOG_CONTENTS, 'link' => oos_href_link_admin($aContents['categories'], 'selected_box=catalog'),
-                                               'access' => oos_admin_check_boxes('categories', 'sub_boxes')),
-                                         array('title' => BOX_CATALOG_MANUFACTURERS, 'link' => oos_href_link_admin($aContents['manufacturers'], 'selected_box=catalog'),
-                                               'access' => oos_admin_check_boxes('manufacturers', 'sub_boxes')))),
-               array('title' => BOX_HEADING_LOCATION_AND_TAXES,
-                     'access' => oos_admin_check_boxes('taxes.php'),
-                     'image' => 'location.gif',				 
-                     'href' => oos_href_link_admin($aContents['countries'], 'selected_box=taxes'),
-                     'children' => array(array('title' => BOX_TAXES_COUNTRIES, 'link' => oos_href_link_admin($aContents['countries'], 'selected_box=taxes'),
-                                               'access' => oos_admin_check_boxes('countries', 'sub_boxes')),									   
-                                         array('title' => BOX_TAXES_GEO_ZONES, 'link' => oos_href_link_admin($aContents['geo_zones'], 'selected_box=taxes'),
-                                               'access' => oos_admin_check_boxes('geo_zones', 'sub_boxes')))),
-               array('title' => BOX_HEADING_CUSTOMERS,
-                     'access' => oos_admin_check_boxes('customers.php'),
-                     'href' => oos_href_link_admin(oos_selected_file('customers.php'), 'selected_box=customers'),
-                     'children' => array(array('title' => BOX_CUSTOMERS_CUSTOMERS, 'link' => oos_href_link_admin($aContents['customers'], 'selected_box=customers'),
-                                               'access' => oos_admin_check_boxes('customers', 'sub_boxes')),
-                                         array('title' => BOX_CUSTOMERS_ORDERS, 'link' => oos_href_link_admin($aContents['orders'], 'selected_box=customers'),
-                                               'access' => oos_admin_check_boxes('orders', 'sub_boxes')))),
-               array('title' => BOX_HEADING_LOCALIZATION,
-                     'access' => oos_admin_check_boxes('localization.php'),
-                     'href' => oos_href_link_admin(oos_selected_file('localization.php'), 'selected_box=localization'),
-                     'children' => array(array('title' => BOX_LOCALIZATION_CURRENCIES, 'link' => oos_href_link_admin($aContents['currencies'], 'selected_box=localization'),
-                                               'access' => oos_admin_check_boxes('currencies', 'sub_boxes')),
-                                         array('title' => BOX_LOCALIZATION_LANGUAGES, 'link' => oos_href_link_admin($aContents['languages'], 'selected_box=localization'),
-                                               'access' => oos_admin_check_boxes('languages', 'sub_boxes')))),
-               array('title' => BOX_HEADING_REPORTS,
-                     'access' => oos_admin_check_boxes('reports.php'),
-                     'href' => oos_href_link_admin($aContents['stats_products_purchased'], 'selected_box=reports'),
-                     'children' => array(array('title' => REPORTS_PRODUCTS, 'link' => oos_href_link_admin($aContents['stats_products_purchased'], 'selected_box=reports'),
-                                               'access' => oos_admin_check_boxes('stats_products_purchased', 'sub_boxes')),
-                                         array('title' => REPORTS_ORDERS, 'link' => oos_href_link_admin($aContents['stats_customers'], 'selected_box=reports'),              
-                                               'access' => oos_admin_check_boxes('stats_customers', 'sub_boxes')))),
-
-);
-
   $languages = oos_get_languages();
   $languages_array = array();
   $languages_selected = DEFAULT_LANGUAGE;
@@ -164,15 +95,7 @@ require 'includes/header.php';
 	
 	$products_result = $dbconn->Execute("SELECT COUNT(*) AS count FROM " . $oostable['products'] . " WHERE products_status >= '1'");
 	$products = $products_result->fields;
-/*	
-	$reviews_result = $dbconn->Execute("SELECT COUNT(*) AS count FROM " . $oostable['reviews']);
-	$reviews = $reviews_result->fields;
-	
-    $orders_result = $dbconn->Execute("SELECT COUNT(*) AS count FROM " . $oostable['orders'] . " WHERE orders_status = '" . $orders_status['orders_status_id'] . "'");
-    $orders_pending = $orders_pending_result->fields;	
-*/	
 
-	
 ?>
 					<div class="row">
 						<div class="col-xl-3 col-md-6">
@@ -220,172 +143,14 @@ require 'includes/header.php';
 								</div>
 							</div>
 						</div>
-					</div>
-				
-				
+					</div>				
 <!-- body_text //-->
-<table border="0" width="600" height="100%" cellspacing="0" cellpadding="0" align="center" valign="middle">
-  <tr>
-    <td><table border="0" width="600" height="440" cellspacing="0" cellpadding="1" align="center" valign="middle">
-      <tr bgcolor="">
-        <td><table border="0" width="600" height="440" cellspacing="0" cellpadding="0">
-          <tr bgcolor="">
-            <td colspan="2"><table border="0" width="460" height="390" cellspacing="0" cellpadding="2">
-              <tr>
-                <td width="140" valign="top"><table border="0" width="140" height="390" cellspacing="0" cellpadding="2">
-                  <tr>
-                    <td valign="center">
-<?php
-  $heading = array();
-  $contents = array();
-
-  $heading[] = array('params' => 'class="menuBoxHeading"',
-                     'text'  => 'OSIS online Shop');
-
-  $contents[] = array('params' => 'class="infoBox"',
-                      'text'  => '<a href="https://www.oos-shop.de" target="_blank" rel="noopener">' . BOX_ENTRY_HAMPEAGE . '</a><br />' .
-                                 '<a href="https://github.com/r23/MyOOS/" target="_blank" rel="noopener">GitHub</a><br />' .
-                                 '<a href="https://doku.oos-shop.de/" target="_blank" rel="noopener">' . BOX_ENTRY_FAQ . '</a><br />');
-
-  $box = new box;
-  echo $box->menuBox($heading, $contents);
-
-  echo '<br />';
-
-  $orders_contents = '';
-  $orders_status_result = $dbconn->Execute("SELECT orders_status_name, orders_status_id FROM " . $oostable['orders_status'] . " WHERE orders_languages_id = '" . intval($_SESSION['language_id']) . "'");
-  while ($orders_status = $orders_status_result->fields) {
-    $orders_pending_result = $dbconn->Execute("SELECT COUNT(*) AS count FROM " . $oostable['orders'] . " WHERE orders_status = '" . $orders_status['orders_status_id'] . "'");
-    $orders_pending = $orders_pending_result->fields;
-    if (oos_admin_check_boxes($aContents['orders'], 'sub_boxes') == true) { 
-      $orders_contents .= '<a href="' . oos_href_link_admin($aContents['orders'], 'selected_box=customers&status=' . $orders_status['orders_status_id']) . '">' . $orders_status['orders_status_name'] . '</a>: ' . $orders_pending['count'] . '<br />';
-    } else {
-      $orders_contents .= '' . $orders_status['orders_status_name'] . ': ' . $orders_pending['count'] . '<br />';
-    }
-
-    // Move that ADOdb pointer!
-    $orders_status_result->MoveNext();
-  }
-  $orders_contents = substr($orders_contents, 0, -4);
-
-  $heading = array();
-  $contents = array();
-
-  $heading[] = array('params' => 'class="menuBoxHeading"',
-                     'text'  => BOX_TITLE_ORDERS);
-
-  $contents[] = array('params' => 'class="infoBox"',
-                      'text'  => $orders_contents);
-
-  $box = new box;
-  echo $box->menuBox($heading, $contents);
-
-  echo '<br />';
-
-
-  echo '<br />';
-
-  $contents = array();
-
-  $box = new box;
-  echo $box->tableBlock($contents);
-?>
-                    </td>
-                  </tr>
-                </table></td>
-                <td width="460" valign="center"><table border="0" width="460" height="375" cellspacing="1" cellpadding="1">
-                  <tr>
-                    <td colspan="2"></td>
-                  </tr>
-<?php
-  $col = 2;
-  $counter = 0;
-  for ($i = 0, $n = count($cat); $i < $n; $i++) {
-    if ($cat[$i]['access'] == true) {
-    $counter++;
-    if ($counter < $col) {
-      echo '                  <tr>' . "\n";
-    }
-
-    echo '                    <td><table border="0" cellspacing="0" cellpadding="2">' . "\n" .
-         '                      <tr>' . "\n" .
-         '                        <td></td>' . "\n" .
-         '                        <td><table border="0" cellspacing="0" cellpadding="1">' . "\n" .
-         '                          <tr>' . "\n" .
-         '                            <td class="main"><a href="' . $cat[$i]['href'] . '" class="main">' . $cat[$i]['title'] . '</a></td>' . "\n" .
-         '                          </tr>' . "\n" .
-         '                          <tr>' . "\n" .
-         '                            <td class="sub_false">';
-
-    $children = '';
-    for ($j = 0, $k = count($cat[$i]['children']); $j < $k; $j++) {
-      if ($cat[$i]['children'][$j]['access'] == true) {
-      $children .= '<a href="' . $cat[$i]['children'][$j]['link'] . '" class="sub">' . $cat[$i]['children'][$j]['title'] . '</a>, ';
-      } else {
-        $children .= '' . $cat[$i]['children'][$j]['title'] . ', ';
-      }
-    }
-    echo substr($children, 0, -2);
-
-    echo '</td> ' . "\n" .
-         '                          </tr>' . "\n" .
-         '                        </table></td>' . "\n" .
-         '                      </tr>' . "\n" .
-         '                    </table></td>' . "\n";
-
-    if ($counter >= $col) {
-      echo '                  </tr>' . "\n";
-      $counter = 0;
-    }
-    } elseif ($cat[$i]['access'] == false) {
-    $counter++;
-    if ($counter < $col) {
-      echo '                  <tr>' . "\n";
-    }
-
-    echo '                    <td><table border="0" cellspacing="0" cellpadding="2">' . "\n" .
-         '                      <tr>' . "\n" .
-         '                        <td></td>' . "\n" .
-         '                        <td><table border="0" cellspacing="0" cellpadding="1">' . "\n" .
-         '                          <tr>' . "\n" .
-         '                            <td class="main_false">' . $cat[$i]['title'] . '</td>' . "\n" .
-         '                          </tr>' . "\n" .
-         '                          <tr>' . "\n" .
-         '                            <td class="sub_false">';
-
-    $children = '';
-    for ($j = 0, $k = count($cat[$i]['children']); $j < $k; $j++) {
-      $children .= '' . $cat[$i]['children'][$j]['title'] . ', ';
-    }
-    echo substr($children, 0, -2);
-
-    echo '</td> ' . "\n" .
-         '                          </tr>' . "\n" .
-         '                        </table></td>' . "\n" .
-         '                      </tr>' . "\n" .
-         '                    </table></td>' . "\n";
-
-    if ($counter >= $col) {
-      echo '                  </tr>' . "\n";
-      $counter = 0;
-    }
-    }
-  }
-?>
-                </table></td>
-              </tr>
-            </table></td>
-          </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td></td>
-      </tr>
-    </table></td>
-  </tr>
-</table>
+					<div class="row">
+						<div class="col-sm-3 col-md-6 col-lg-4">....</div>
+						<div class="col-sm-3 col-md-6 col-lg-4">....</div>
+						<div class="col-sm-3 col-md-6 col-lg-4">....</div>		
+					</div>
 <!-- body_text_eof //-->
-
 				</div>
 			</div>
         </div>
