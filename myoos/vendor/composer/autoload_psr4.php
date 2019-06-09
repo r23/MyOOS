@@ -31,6 +31,7 @@ return array(
     'PhpOffice\\Common\\' => array($vendorDir . '/phpoffice/common/src/Common'),
     'Matrix\\' => array($vendorDir . '/markbaker/matrix/classes/src'),
     'Fig\\Link\\' => array($vendorDir . '/fig/link-util/src'),
+    'Doctrine\\Common\\Lexer\\' => array($vendorDir . '/doctrine/lexer/lib/Doctrine/Common/Lexer'),
     'Doctrine\\Common\\Collections\\' => array($vendorDir . '/doctrine/collections/lib/Doctrine/Common/Collections'),
     'Doctrine\\Common\\Cache\\' => array($vendorDir . '/doctrine/cache/lib/Doctrine/Common/Cache'),
     'Doctrine\\Common\\Annotations\\' => array($vendorDir . '/doctrine/annotations/lib/Doctrine/Common/Annotations'),

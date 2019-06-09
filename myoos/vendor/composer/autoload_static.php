@@ -120,6 +120,7 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         ),
         'D' => 
         array (
+            'Doctrine\\Common\\Lexer\\' => 22,
             'Doctrine\\Common\\Collections\\' => 28,
             'Doctrine\\Common\\Cache\\' => 22,
             'Doctrine\\Common\\Annotations\\' => 28,
@@ -232,6 +233,10 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         array (
             0 => __DIR__ . '/..' . '/fig/link-util/src',
         ),
+        'Doctrine\\Common\\Lexer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/lexer/lib/Doctrine/Common/Lexer',
+        ),
         'Doctrine\\Common\\Collections\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/collections/lib/Doctrine/Common/Collections',
@@ -266,10 +271,6 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         ),
         'D' => 
         array (
-            'Doctrine\\Common\\Lexer\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/doctrine/lexer/lib',
-            ),
             'Detection' => 
             array (
                 0 => __DIR__ . '/..' . '/mobiledetect/mobiledetectlib/namespaced',
