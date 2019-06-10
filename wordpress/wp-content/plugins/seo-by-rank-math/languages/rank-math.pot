@@ -1,0 +1,5557 @@
+# Copyright (C) 2019 rank-math
+# This file is distributed under the same license as the rank-math package.
+msgid ""
+msgstr ""
+"Project-Id-Version: rank-math\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language-Team: MyThemeShop\n"
+"Last-Translator: MyThemeShop\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "None"
+msgstr ""
+
+msgid "Username is not entered."
+msgstr ""
+
+msgid "Password is not entered."
+msgstr ""
+
+msgid "Thank you for connecting your Rank Math account."
+msgstr ""
+
+#. translators: sitename
+msgid "I just installed @RankMathSEO #WordPress Plugin. It looks great! %s"
+msgstr ""
+
+#. translators: sitename
+msgid "I just installed Rank Math SEO WordPress Plugin. It looks promising!"
+msgstr ""
+
+msgid "SEO by Rank Math"
+msgstr ""
+
+msgid "Tweet"
+msgstr ""
+
+msgid "Share"
+msgstr ""
+
+msgid "Rank Math"
+msgstr ""
+
+msgid "Help &amp; Support"
+msgstr ""
+
+msgid "Dashboard"
+msgstr ""
+
+msgid "Twitter username (without @)"
+msgstr ""
+
+msgid "Facebook profile URL"
+msgstr ""
+
+msgid "The canonical URL you entered does not seem to be a valid URL. Please double check it in the SEO meta box &raquo; Advanced tab."
+msgstr ""
+
+msgid "Copy Link URL to Clipboard"
+msgstr ""
+
+msgid "Insert Link in Content"
+msgstr ""
+
+msgid "Modules"
+msgstr ""
+
+msgid "Help"
+msgstr ""
+
+msgid "Setup Wizard"
+msgstr ""
+
+msgid "Import &amp; Export"
+msgstr ""
+
+msgid "Rate Rank Math SEO"
+msgstr ""
+
+msgid "Hey, we noticed you are using Rank Math SEO plugin for more than 2 weeks – <em>that's awesome!</em> <br>Could you please do us a BIG favor and give it a <strong>5-star</strong> rating on WordPress to help us spread the word and boost our motivation?"
+msgstr ""
+
+msgid "I already did. Please don't show this message again."
+msgstr ""
+
+msgid "Please use the correct format."
+msgstr ""
+
+msgid "This field is required."
+msgstr ""
+
+msgid "Please enter a valid email address."
+msgstr ""
+
+msgid "Please enter a valid URL."
+msgstr ""
+
+#. translators: plugin url
+msgid "Thank you for using <a href=\"%s\" target=\"_blank\">Rank Math</a>"
+msgstr ""
+
+msgid "Insert/edit link"
+msgstr ""
+
+msgid "Update"
+msgstr ""
+
+msgid "Add Link"
+msgstr ""
+
+msgid "(no title)"
+msgstr ""
+
+msgid "No matches found."
+msgstr ""
+
+msgid "Link selected."
+msgstr ""
+
+msgid "Link inserted."
+msgstr ""
+
+msgid "Add <code>rel=\"nofollow\"</code>"
+msgstr ""
+
+msgid "Link Title"
+msgstr ""
+
+msgid "Off"
+msgstr ""
+
+msgid "On"
+msgstr ""
+
+msgid "Quick Feedback"
+msgstr ""
+
+msgid "If you have a moment, please share why you are deactivating Rank Math:"
+msgstr ""
+
+msgid "Submit & Deactivate"
+msgstr ""
+
+msgid "Skip & Deactivate"
+msgstr ""
+
+msgid "I no longer need the plugin"
+msgstr ""
+
+msgid "I found a better plugin"
+msgstr ""
+
+msgid "Please share which plugin"
+msgstr ""
+
+msgid "I couldn't get the plugin to work"
+msgstr ""
+
+msgid "It's a temporary deactivation"
+msgstr ""
+
+msgid "Other"
+msgstr ""
+
+msgid "Please share the reason"
+msgstr ""
+
+msgid "Are you sure you want to import settings into Rank Math? Don't worry, your current configuration will be saved as a backup."
+msgstr ""
+
+msgid "Are you sure you want to restore this backup? Your current configuration will be overwritten."
+msgstr ""
+
+msgid "Are you sure you want to delete this backup?"
+msgstr ""
+
+msgid "Are you sure you want erase traces of plugin?"
+msgstr ""
+
+#. translators: Plugin name
+msgid "Cleanup of %s data successfully done."
+msgstr ""
+
+#. translators: Plugin name
+msgid "Cleanup of %s data failed."
+msgstr ""
+
+msgid "Action not allowed."
+msgstr ""
+
+msgid "Unable to create backup this time."
+msgstr ""
+
+#. translators: Backup formatted date
+#. translators: Backup formatted date
+msgid "Backup: %s"
+msgstr ""
+
+msgid "Backup created successfully."
+msgstr ""
+
+msgid "No backup key found to delete."
+msgstr ""
+
+msgid "Backup successfully deleted."
+msgstr ""
+
+msgid "No backup key found to restore."
+msgstr ""
+
+msgid "Backup does not exist."
+msgstr ""
+
+msgid "Backup restored successfully."
+msgstr ""
+
+msgid "Settings successfully imported. Your old configuration has been saved as a backup."
+msgstr ""
+
+msgid "No settings found to be imported."
+msgstr ""
+
+msgid "Settings could not be imported:"
+msgstr ""
+
+msgid "Settings could not be imported: Upload failed."
+msgstr ""
+
+msgid "The featured image should be at least 200 by 200 pixels to be picked up by Facebook and other social media sites."
+msgstr ""
+
+msgid "Rank Math SEO"
+msgstr ""
+
+msgid "Link Suggestions"
+msgstr ""
+
+msgid "Click on the button to copy URL or insert link in content. You can also drag and drop links in the post content."
+msgstr ""
+
+msgid "We can't show any link suggestions for this post. Try selecting categories and tags for this post, and mark other posts as Pillar Content to make them show up here."
+msgstr ""
+
+msgid "Description"
+msgstr ""
+
+msgid "General"
+msgstr ""
+
+msgid "This tab contains general options."
+msgstr ""
+
+msgid "Advanced"
+msgstr ""
+
+msgid "This tab contains advance options."
+msgstr ""
+
+msgid "Social"
+msgstr ""
+
+msgid "This tab contains social options."
+msgstr ""
+
+#. translators: post names
+msgid "We detected new post type(s) (%1$s), and you would want to check the settings of <a href=\"%2$s\">Titles &amp; Meta page</a>."
+msgstr ""
+
+msgid "Links"
+msgstr ""
+
+#. translators: Link to kb article
+msgid "This tab contains the options related to links and URLs. %s."
+msgstr ""
+
+msgid "Learn More"
+msgstr ""
+
+msgid "Images"
+msgstr ""
+
+#. translators: Link to kb article
+msgid "SEO options related to featured images and media appearing in your post content. %s."
+msgstr ""
+
+msgid "Learn more"
+msgstr ""
+
+msgid "Breadcrumbs"
+msgstr ""
+
+#. translators: Link to kb article
+msgid "Here you can set up the breadcrumbs function. %s Use the following code in your theme template files to display breadcrumbs:"
+msgstr ""
+
+msgid "Webmaster Tools"
+msgstr ""
+
+#. translators: Link to kb article
+msgid "Here you can enter verification codes for various third-party webmaster tools. %s You can safely paste the full HTML tags, or just the ID codes."
+msgstr ""
+
+msgid "Edit robots.txt"
+msgstr ""
+
+#. translators: Link to kb article
+msgid "Here you can edit the virtual robots.txt file. Leave the field empty to let WordPress handle the contents dynamically. If an actual robots.txt file is present in the root folder of your site, this option won't take effect and you have to edit the file directly, or delete it and then edit from here. %s."
+msgstr ""
+
+msgid "Edit .htaccess"
+msgstr ""
+
+#. translators: Link to kb article
+msgid "Here you can edit the contents of your .htaccess file. This file is mainly used by WordPress to control permalinks and redirections, but it may be useful to edit it in a number of cases. %s."
+msgstr ""
+
+msgid "Others"
+msgstr ""
+
+#. translators: Link to kb article
+msgid "Control how your plugin communicates with Rank Math and change how your RSS content looks. %s."
+msgstr ""
+
+msgid "SEO Settings"
+msgstr ""
+
+msgid "General Settings"
+msgstr ""
+
+msgid "Global Meta"
+msgstr ""
+
+#. translators: Link to KB article
+msgid "This tab contains SEO titles and meta options related to all the pages of your site. %s."
+msgstr ""
+
+msgid "Local SEO"
+msgstr ""
+
+#. translators: Redirection page url
+msgid "This tab contains settings related to contact information & opening hours of your local business. Use the <code>[rank_math_contact_info]</code> shortcode to display contact information in a nicely formatted way. %s. You should also claim your business on Google if you have not already."
+msgstr ""
+
+msgid "Social Meta"
+msgstr ""
+
+#. translators: Link to social setting KB article
+msgid "This tab contains settings related to social networks and feeds. Social page URLs will be displayed in the contact shortcode and added to the pages as metadata to be displayed in Knowledge Graph cards. Unable to find the details? %s for the tutorial."
+msgstr ""
+
+msgid "Click here"
+msgstr ""
+
+msgid "Homepage"
+msgstr ""
+
+#. translators: something
+msgid "A static page is used as front page (as set in Settings &gt; Reading). To set up the title, description, and meta of the homepage, use the meta box in the page editor.<br><br><a href=\"%1$s\">Edit Page: %2$s</a>"
+msgstr ""
+
+#. translators: Link to KB article
+msgid "This tab contains SEO options for your website's homepage. Change options like homepage title and homepage meta description here. %s."
+msgstr ""
+
+msgid "Authors"
+msgstr ""
+
+#. translators: Link to KB article
+msgid "Change SEO options related to the author archive pages. Author archives list the posts from a particular author in chronological order. %s."
+msgstr ""
+
+msgid "Misc Pages"
+msgstr ""
+
+#. translators: Link to KB article
+msgid "This tab contains meta data settings related to pages like search results, 404 error pages etc. %s."
+msgstr ""
+
+msgid "SEO Titles &amp; Meta"
+msgstr ""
+
+msgid "Titles &amp; Meta"
+msgstr ""
+
+msgid "Post Types:"
+msgstr ""
+
+#. translators: 1. post type name 2. link
+#. translators: 1. taxonomy name 2. link
+msgid "This tab contains SEO options for %1$s. %2$s"
+msgstr ""
+
+msgid "Post Formats"
+msgstr ""
+
+msgid "Post Formats Archive"
+msgstr ""
+
+msgid "Failed to backup .htaccess file. Please check file permissions."
+msgstr ""
+
+msgid "Failed to update .htaccess file. Please check file permissions."
+msgstr ""
+
+msgid ".htaccess file updated successfully."
+msgstr ""
+
+msgid "Panel"
+msgstr ""
+
+msgid "Search Options"
+msgstr ""
+
+msgid "Titles Settings"
+msgstr ""
+
+msgid "Sitemap Settings"
+msgstr ""
+
+msgid "No data found."
+msgstr ""
+
+msgid "Bulk Edit This Field"
+msgstr ""
+
+msgid "Save All Edits"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "SEO Details"
+msgstr ""
+
+msgid "SEO Title"
+msgstr ""
+
+msgid "SEO Desc"
+msgstr ""
+
+msgid "Title"
+msgstr ""
+
+msgid "Alternative Text"
+msgstr ""
+
+msgid "Save"
+msgstr ""
+
+msgid "Update your post"
+msgstr ""
+
+msgid "Is Pillar"
+msgstr ""
+
+msgid "Focus Keyword"
+msgstr ""
+
+msgid "Keyword"
+msgstr ""
+
+msgid "Not Set"
+msgstr ""
+
+msgid "Schema"
+msgstr ""
+
+msgid "All Posts"
+msgstr ""
+
+msgid "SEO Score: Great"
+msgstr ""
+
+msgid "SEO Score: Good"
+msgstr ""
+
+msgid "SEO Score: Bad"
+msgstr ""
+
+msgid "Focus Keyword Not Set"
+msgstr ""
+
+msgid "Articles noindexed"
+msgstr ""
+
+msgid "Pillar Content"
+msgstr ""
+
+msgid "Rank Math Product Registration"
+msgstr ""
+
+msgid "Return to dashboard"
+msgstr ""
+
+msgid "Username/Email"
+msgstr ""
+
+msgid "Password"
+msgstr ""
+
+#. translators: Link to Rank Math privay policy
+#. translators: link to privacy policy
+msgid "Gathering usage data helps us make Rank Math SEO plugin better - for you. By understanding how you use Rank Math, we can introduce new features and find out if existing features are working well for you. If you don’t want us to collect data from your website, uncheck the tickbox. Please note that licensing information may still be sent back to us for authentication. We collect data anonymously, read more %s."
+msgstr ""
+
+msgid "Connect FREE Account"
+msgstr ""
+
+#. translators: Link to Rank Math signup page
+msgid "You need to connect with your <a href=\"%s\" target=\"_blank\"><strong>FREE Rank Math account</strong></a> to use Rank Math on this site."
+msgstr ""
+
+msgid "Account Successfully Connected"
+msgstr ""
+
+msgid "You have successfully activated Rank Math."
+msgstr ""
+
+msgid "Activate Rank Math"
+msgstr ""
+
+msgid "Deactivate License"
+msgstr ""
+
+msgid "Skip Now"
+msgstr ""
+
+msgid "Next"
+msgstr ""
+
+msgid "Toggle tests: %s"
+msgstr ""
+
+#. translators: link to registration screen
+msgid "Please connect your %s to calculate the Power Words used."
+msgstr ""
+
+#. translators: link to registration screen
+msgid "Please connect your %s to calculate the Sentiments of the content."
+msgstr ""
+
+msgid "Hurray! You're using Focus Keyword in the SEO Title."
+msgstr ""
+
+msgid "Focus Keyword does not appear in the SEO title."
+msgstr ""
+
+msgid "Add Focus Keyword to the SEO title."
+msgstr ""
+
+msgid "Make sure the focus keyword appears in the SEO post title too."
+msgstr ""
+
+msgid "Focus Keyword used inside SEO Meta Description."
+msgstr ""
+
+msgid "Focus Keyword not found in your SEO Meta Description."
+msgstr ""
+
+msgid "Add Focus Keyword to your SEO Meta Description."
+msgstr ""
+
+msgid "Make sure the focus keyword appears in the SEO description too."
+msgstr ""
+
+msgid "Focus Keyword used in the URL."
+msgstr ""
+
+msgid "Focus Keyword not found in the URL."
+msgstr ""
+
+msgid "Use Focus Keyword in the URL."
+msgstr ""
+
+msgid "Include the focus keyword in the slug (permalink) of this post."
+msgstr ""
+
+msgid "Focus Keyword appears in the first 10% of the content."
+msgstr ""
+
+msgid "Focus Keyword doesn't appear at the beginning of your content."
+msgstr ""
+
+msgid "Use Focus Keyword at the beginning of your content."
+msgstr ""
+
+msgid "The first 10% of the content should contain the Focus Keyword preferably at the beginning."
+msgstr ""
+
+msgid "Focus Keyword found in the content."
+msgstr ""
+
+msgid "Focus Keyword doesn't appear in the content."
+msgstr ""
+
+msgid "Use Focus Keyword in the content."
+msgstr ""
+
+msgid "It is recommended to make the focus keyword appear in the post content too."
+msgstr ""
+
+msgid "Your content is {0} words long. Good job!"
+msgstr ""
+
+msgid "Your content is {0} words long. Consider using at least 600 words."
+msgstr ""
+
+#. translators: link to kb article
+msgid "Content should be %s long."
+msgstr ""
+
+msgid "Minimum recommended content length should be 600 words."
+msgstr ""
+
+msgid "URL is {0} characters long. Kudos!"
+msgstr ""
+
+msgid "URL is {0} characters long. Considering shortening it."
+msgstr ""
+
+msgid "URL unavailable. Add a short URL."
+msgstr ""
+
+msgid "Permalink should be at most 75 characters long."
+msgstr ""
+
+msgid "Focus Keyword found in the subheading(s)."
+msgstr ""
+
+msgid "Focus Keyword not found in subheading(s) like H2, H3, H4, etc.."
+msgstr ""
+
+msgid "Use Focus Keyword in subheading(s) like H2, H3, H4, etc.."
+msgstr ""
+
+msgid "It is recommended to add the focus keyword as part of one or more subheadings in the content."
+msgstr ""
+
+msgid "Focus Keyword found in image alt attribute(s)."
+msgstr ""
+
+msgid "Focus Keyword not found in image alt attribute(s)."
+msgstr ""
+
+msgid "Add an image with your Focus Keyword as alt text."
+msgstr ""
+
+msgid "We detected a gallery in your content & assuming that you added Focus Keyword in alt in at least one of the gallery images."
+msgstr ""
+
+msgid "It is recommended to add the focus keyword in the alt attribute of one or more images."
+msgstr ""
+
+msgid "Great! You are linking to external resources."
+msgstr ""
+
+msgid "No outbound links were found. Link out to external resources."
+msgstr ""
+
+msgid "Link out to external resources."
+msgstr ""
+
+msgid "It helps visitors read more about a topic and prevents pogosticking."
+msgstr ""
+
+msgid "At least one external link with DoFollow found in your content."
+msgstr ""
+
+msgid "We found {0} outbound links in your content and all of them are nofollow."
+msgstr ""
+
+msgid "Add DoFollow links pointing to external resources."
+msgstr ""
+
+msgid "PageRank Sculpting no longer works. Your posts should have a mix of nofollow and DoFollow links."
+msgstr ""
+
+msgid "Keyword Density is {0}, the Focus Keyword and combination appears {1} times."
+msgstr ""
+
+msgid "Keyword Density is {0}. Aim for around 1% Keyword Density."
+msgstr ""
+
+msgid "There is no ideal keyword density percentage, but it should not be too high. The most important thing is to keep the copy natural."
+msgstr ""
+
+msgid "You are linking to other resources on your website which is great."
+msgstr ""
+
+msgid "We couldn't find any internal links in your content."
+msgstr ""
+
+msgid "Add internal links in your content."
+msgstr ""
+
+msgid "Internal links decrease your bounce rate and improve SEO."
+msgstr ""
+
+msgid "You haven't used this Focus Keyword before."
+msgstr ""
+
+#. translators: focus keyword link
+msgid "You have %s this Focus Keyword."
+msgstr ""
+
+msgid "already used"
+msgstr ""
+
+msgid "Set a Focus Keyword for this content."
+msgstr ""
+
+msgid "We are searching in database."
+msgstr ""
+
+msgid "Focus Keyword used at the beginning of SEO title."
+msgstr ""
+
+msgid "Focus Keyword doesn't appear at the beginning of SEO title."
+msgstr ""
+
+msgid "Use the Focus Keyword near the beginning of SEO title."
+msgstr ""
+
+msgid "The SEO page title should contain the Focus Keyword preferably at the beginning."
+msgstr ""
+
+msgid "Your title has a positive or a negative sentiment."
+msgstr ""
+
+#. translators: link to kb article
+msgid "Your title doesn't contain a %s word."
+msgstr ""
+
+msgid "Titles with positive or negative sentiment work best for higher CTR."
+msgstr ""
+
+msgid "Headlines with a strong emotional sentiment (positive or negative) tend to receive more clicks."
+msgstr ""
+
+msgid "Your title contains {0} power word(s). Booyah!"
+msgstr ""
+
+#. translators: link to kb article
+msgid "Your title doesn't contain a %s. Add at least one."
+msgstr ""
+
+#. translators: link to kb article
+msgid "Add %s to your title to increase CTR."
+msgstr ""
+
+#. translators: link to registration screen
+msgid "Power Words are tried-and-true words that copywriters use to attract more clicks."
+msgstr ""
+
+msgid "You are using a number in your SEO title."
+msgstr ""
+
+msgid "Your SEO title doesn't contain a number."
+msgstr ""
+
+msgid "Add a number to your title to improve CTR."
+msgstr ""
+
+msgid "Headlines with numbers are 36% more likely to generate clicks, according to research by Conductor."
+msgstr ""
+
+#. translators: link to kb article
+msgid "You seem to be using a <a href=\"%s\" target=\"_blank\">Table of Contents plugin</a> to break-down your text."
+msgstr ""
+
+#. translators: link to kb article
+msgid "You don't seem to be using a <a href=\"%s\" target=\"_blank\">Table of Contents plugin</a>."
+msgstr ""
+
+msgid "Use Table of Content to break-down your text."
+msgstr ""
+
+msgid " Table of Contents help break down content into smaller, digestible chunks. It makes reading easier which in turn results in better rankings."
+msgstr ""
+
+#. translators: Link to kb article
+msgid "Your Flesch Readability score is {1} and is regarded as {0}"
+msgstr ""
+
+msgid "Your Flesch Readability score is {1} and is regarded as {0}."
+msgstr ""
+
+msgid "Add some content to calculate Flesch Readability score."
+msgstr ""
+
+msgid "Try to make shorter sentences, using less difficult words to improve readability."
+msgstr ""
+
+msgid "Kudos! You are using short paragraphs."
+msgstr ""
+
+msgid "At least one paragraph is long. Consider using short paragraphs."
+msgstr ""
+
+msgid "Add short and concise paragraphs for better readability and UX."
+msgstr ""
+
+msgid "Short paragraphs are easier to read and more pleasing to the eye. Long paragraphs scare the visitor, and they might result to SERPs looking for better readable content."
+msgstr ""
+
+msgid "Your content contains images and/or video(s)."
+msgstr ""
+
+msgid "You are not using rich media like images or videos."
+msgstr ""
+
+msgid "Add a few images and/or videos to make your content appealing."
+msgstr ""
+
+msgid "Content with images and/or video feels more inviting to users. It also helps supplement your textual content."
+msgstr ""
+
+msgid "Make sure the focus keyword appears in the SEO Term too."
+msgstr ""
+
+msgid "Include the focus keyword in the slug (permalink) of this term."
+msgstr ""
+
+msgid "The SEO Term title should contain the Focus Keyword preferably at the beginning."
+msgstr ""
+
+msgid "You have already used this Focus Keyword."
+msgstr ""
+
+msgid "Make sure the focus keyword appears in the SEO Author too."
+msgstr ""
+
+msgid "Include the focus keyword in the slug (permalink) of this author."
+msgstr ""
+
+msgid "The SEO Author title should contain the Focus Keyword preferably at the beginning."
+msgstr ""
+
+msgid "Basic SEO"
+msgstr ""
+
+msgid "Additional"
+msgstr ""
+
+msgid "Title Readability"
+msgstr ""
+
+msgid "Content Readability"
+msgstr ""
+
+msgid "Unkown"
+msgstr ""
+
+msgid "Preview"
+msgstr ""
+
+msgid "Desktop Preview"
+msgstr ""
+
+msgid "Mobile Preview"
+msgstr ""
+
+msgid "Click to enter custom title"
+msgstr ""
+
+msgid "Click to enter permalink"
+msgstr ""
+
+msgid "Click to enter custom meta description"
+msgstr ""
+
+msgid "Noindex robots meta is enabled"
+msgstr ""
+
+msgid "This page will not appear in search results. You can disable noindex in the Advanced tab."
+msgstr ""
+
+msgid "Edit Snippet"
+msgstr ""
+
+msgid "Close Editor"
+msgstr ""
+
+msgid "Price range: "
+msgstr ""
+
+msgid "Calories: "
+msgstr ""
+
+msgid "In stock"
+msgstr ""
+
+#. translators: total reviews
+msgid "Rating: %s"
+msgstr ""
+
+#. translators: total reviews
+msgid "%s reviews"
+msgstr ""
+
+msgid "Price"
+msgstr ""
+
+msgid "Price range"
+msgstr ""
+
+msgid "Cooking time"
+msgstr ""
+
+msgid "Calories"
+msgstr ""
+
+msgid "In Stock"
+msgstr ""
+
+msgid "Date"
+msgstr ""
+
+msgid "Location"
+msgstr ""
+
+msgid "Rating"
+msgstr ""
+
+msgid "Requirements"
+msgstr ""
+
+msgid "Import"
+msgstr ""
+
+msgid "Your Site"
+msgstr ""
+
+msgid "Search Console"
+msgstr ""
+
+msgid "Sitemaps"
+msgstr ""
+
+msgid "Optimization"
+msgstr ""
+
+msgid "Ready"
+msgstr ""
+
+msgid "Role Manager"
+msgstr ""
+
+msgid "404 + Redirection"
+msgstr ""
+
+msgid "Misc"
+msgstr ""
+
+msgid "Advance Options"
+msgstr ""
+
+msgid "Deactivated"
+msgstr ""
+
+msgid "Skip step"
+msgstr ""
+
+msgid "Import Settings"
+msgstr ""
+
+msgid "Import plugin settings, global meta, sitemap settings, etc."
+msgstr ""
+
+msgid "Import Post Meta"
+msgstr ""
+
+msgid "Import meta information of your posts/pages like the focus keyword, titles, descriptions, robots meta, OpenGraph info, etc."
+msgstr ""
+
+msgid "Import Term Meta"
+msgstr ""
+
+msgid "Import data like category, tag, and CPT meta data from SEO."
+msgstr ""
+
+msgid "Import Author Meta"
+msgstr ""
+
+msgid "Import meta information like titles, descriptions, focus keyword, robots meta, etc., of your author archive pages."
+msgstr ""
+
+msgid "Import Redirections"
+msgstr ""
+
+msgid "Import all the redirections you have already set up in."
+msgstr ""
+
+msgid "Unable to perform action this time."
+msgstr ""
+
+msgid "Import Rich Snippets"
+msgstr ""
+
+msgid "Import all Schema data for Posts, Pages, and custom post types."
+msgstr ""
+
+msgid "Import AIO SEO plugin settings, global meta, sitemap settings, etc."
+msgstr ""
+
+msgid "Import meta information of your posts/pages like the titles, descriptions, robots meta, OpenGraph info, etc."
+msgstr ""
+
+msgid "Settings imported successfully."
+msgstr ""
+
+msgid "Plugin deactivated successfully."
+msgstr ""
+
+#. translators: start, end, total
+msgid "Imported post meta for posts %1$s - %2$s out of %3$s "
+msgstr ""
+
+#. translators: total
+msgid "Imported term meta for %s terms."
+msgstr ""
+
+#. translators: start, end, total
+msgid "Imported user meta for users %1$s - %2$s out of %3$s "
+msgstr ""
+
+#. translators: total
+msgid "Imported %s redirections."
+msgstr ""
+
+msgid "Settings import failed."
+msgstr ""
+
+msgid "Posts meta import failed."
+msgstr ""
+
+msgid "Term meta import failed."
+msgstr ""
+
+msgid "User meta import failed."
+msgstr ""
+
+msgid "There are no redirection to import."
+msgstr ""
+
+msgid "Plugin settings and site-wide meta data."
+msgstr ""
+
+msgid "Next steps&hellip;"
+msgstr ""
+
+msgid "Setup Rank Math"
+msgstr ""
+
+msgid "How to Properly Setup Rank Math"
+msgstr ""
+
+msgid "How to Import Data from Your Previous SEO Plugin"
+msgstr ""
+
+msgid "Post Screen"
+msgstr ""
+
+msgid "How to Make Your Posts Pass All the Tests"
+msgstr ""
+
+msgid "Visit Knowledge Base"
+msgstr ""
+
+msgid "Product Support"
+msgstr ""
+
+msgid "Online Documentation"
+msgstr ""
+
+msgid "Understand all the capabilities of Rank Math"
+msgstr ""
+
+msgid "Browse FAQ's"
+msgstr ""
+
+msgid "Find answers to the most commonly asked questions."
+msgstr ""
+
+msgid "Ticket Support"
+msgstr ""
+
+msgid "Direct help from our qualified support team"
+msgstr ""
+
+msgid "Visit Support Center"
+msgstr ""
+
+msgid "Welcome to Rank Math!"
+msgstr ""
+
+msgid "The most complete WordPress SEO plugin to convert your website into a traffic generating machine."
+msgstr ""
+
+msgid "Getting started"
+msgstr ""
+
+msgid "AMP"
+msgstr ""
+
+msgid "Accelerated Mobile Pages, or AMP for short, is a way for you to create fast loading pages that load blazing fast on mobile browsers. AMPs deliver consistent performance across multiple mobile devices."
+msgstr ""
+
+msgid "Because they work so well and help pages load fast, Google has come to love the AMP enabled websites over their counterparts when it comes to rankings in the SERPs."
+msgstr ""
+
+msgid "That is why having an AMP enabled website is so essential these days. But, having an AMP website brings its challenges with regards to the SEO. When you create AMPs, there are two versions of your site - one for the regular desktop browsers and one for the mobile browsers. If not handled properly, AMPs can backfire and create duplicate content issues which lead to de-ranked or worse, de-indexing of your posts."
+msgstr ""
+
+msgid "Thankfully, we have thought this through and equipped Rank Math with the right tools to make sure your AMPS help your SEO, not ruin it."
+msgstr ""
+
+#. translators: link to module dashboard
+msgid "To get the most out of AMP along with Rank Math - simply install any of the below AMP plugin and then <a href=\"%1$s\" target=\"_blank\">enable the AMP module of Rank Math</a>."
+msgstr ""
+
+msgid "AMP for WordPress"
+msgstr ""
+
+msgid "AMP for WP"
+msgstr ""
+
+msgid "WP AMP Ninja"
+msgstr ""
+
+msgid "AMP on WordPress – weeblrAMP CE"
+msgstr ""
+
+msgid "AMP for WooCommerce"
+msgstr ""
+
+msgid "WP AMP"
+msgstr ""
+
+msgid "If you face any issues with it, simply <a rel=\"nofollow noopener noreferrer\" href=\"https://support.rankmath.com/\" target=\"_blank\">open a support ticket here</a>."
+msgstr ""
+
+msgid "Congratulations on installing Rank Math. We hope that you've had no issues with installing Rank Math on your website. After the installation, the next step is to run the setup wizard and configure Rank Math."
+msgstr ""
+
+msgid "While Rank Math automatically initiates the setup wizard once you install it, it is possible to skip it accidentally. If you’ve also skipped Rank Math’s setup wizard, then you can rerun the setup wizard by going to Rank Math’s dashboard, and then clicking the Setup Wizard tab."
+msgstr ""
+
+msgid "Rank Math Setup Wizard Tab"
+msgstr ""
+
+msgid "Click here to read full setup tutorial"
+msgstr ""
+
+#. translators: link to support
+msgid "If you have any questions about the setup process or are facing difficulties in setting up Rank Math for your website, then get in touch with our support staff by <a href=\"%1$s\" target=\"_blank\">opening a support ticket</a>. The support staff is available 24x7x365 and will help you out with any issues that you have."
+msgstr ""
+
+msgid "Local SEO is a way for you to rank better for searches made by your people in the area where you operate. It is the best way for you to get your products and services in front of the local customers."
+msgstr ""
+
+msgid "There are various methods for optimizing your website for local SEO but the easiest method is built right inside the Rank Math plugin."
+msgstr ""
+
+#. translators: link to local-seo
+msgid "Simply <a rel=\"nofollow noopener noreferrer\" href=\"%1$s\" target=\"_blank\">setup your business as Local Business</a> during the setup wizard."
+msgstr ""
+
+msgid "Make sure the Local SEO & Google Knowledge Graph module is enabled."
+msgstr ""
+
+#. translators: link to local seo settings
+msgid "Then, head over to <a href=\"%1$s\">Rank Math > Titles and Meta > Local SEO</a> and add more information about your Local Business like your Company Name, Logo, Email ID, Phone number, Address, And Contact/About pages."
+msgstr ""
+
+#. translators: link to support
+msgid "If you face any sort of issue, <a href=\"%1$s\" target=\"_blank\">open a new ticket here</a> so that we can help."
+msgstr ""
+
+msgid "Create Backup"
+msgstr ""
+
+msgid "Backups"
+msgstr ""
+
+msgid "Restore"
+msgstr ""
+
+msgid "Delete"
+msgstr ""
+
+msgid "There is no backup."
+msgstr ""
+
+msgid "Export Settings"
+msgstr ""
+
+msgid "Panels"
+msgstr ""
+
+msgid "Titles &amp; Metas"
+msgstr ""
+
+msgid "Role Manager Settings"
+msgstr ""
+
+msgid "Redirections"
+msgstr ""
+
+msgid "Choose the panels to export."
+msgstr ""
+
+msgid "Export"
+msgstr ""
+
+msgid "Setting File"
+msgstr ""
+
+msgid "Please select a file to import."
+msgstr ""
+
+msgid "Import settings by locating setting file and clicking \"Import settings\"."
+msgstr ""
+
+#. translators: Link to learn about import export panel KB article
+msgid "Import your previous backed up setting. Or, Export your Rank Math settings and meta data for backup or for reuse on (another) blog. %s"
+msgstr ""
+
+msgid "Learn more about the Import/Export option."
+msgstr ""
+
+msgid "Plugin Importers"
+msgstr ""
+
+msgid "No plugin detected with importable data."
+msgstr ""
+
+msgid "Clean"
+msgstr ""
+
+msgid "Plugin Activation"
+msgstr ""
+
+msgid "Plugin Activated"
+msgstr ""
+
+msgid "Not Activated"
+msgstr ""
+
+msgid "Rank Math Email/Username"
+msgstr ""
+
+msgid "Rank Math Password"
+msgstr ""
+
+msgid "You have successfully activated Rank Math. If you find the plugin useful, feel free to recommend it to your friends or colleagues."
+msgstr ""
+
+msgid "Connect Your Account"
+msgstr ""
+
+msgid "Don’t have an account?"
+msgstr ""
+
+msgid "Plugin Updates"
+msgstr ""
+
+msgid "Update Available"
+msgstr ""
+
+msgid "Plugin up to date"
+msgstr ""
+
+msgid "Installed Version"
+msgstr ""
+
+msgid "Latest Available Version"
+msgstr ""
+
+msgid "Check for Updates"
+msgstr ""
+
+#. translators: deactivation link
+msgid "Please keep only one SEO plugin active, otherwise, you might lose your rankings and traffic. %s."
+msgstr ""
+
+#. translators: deactivation link
+msgid "Please keep only one Sitemap plugin active, otherwise, you might lose your rankings and traffic. %s."
+msgstr ""
+
+msgid "Import SEO Settings"
+msgstr ""
+
+msgid "You can import SEO settings from the following plugins:"
+msgstr ""
+
+msgid "Importing: "
+msgstr ""
+
+msgid "Completed"
+msgstr ""
+
+msgid "Deactivating Plugins..."
+msgstr ""
+
+msgid "Skip, Don't Import Now"
+msgstr ""
+
+msgid "Continue"
+msgstr ""
+
+msgid "Start Import"
+msgstr ""
+
+msgid "Input Data From:"
+msgstr ""
+
+#. translators: 1 is plugin name
+msgid "Import meta data from the %1$s plugin."
+msgstr ""
+
+msgid "Import settings and meta data from the %1$s plugin."
+msgstr ""
+
+#. translators: 2 is link to Knowledge Base article
+msgid "The process may take a few minutes if you have a large number of posts or pages <a href=\"%2$s\" target=\"_blank\">Learn more about the import process here.</a>"
+msgstr ""
+
+#. translators: 1 is plugin name
+msgid " %1$s plugin will be disabled automatically moving forward to avoid conflicts. <strong>It is thus recommended to import the data you need now.</strong>"
+msgstr ""
+
+msgid "Miscellaneous "
+msgstr ""
+
+msgid "Control different settings for important aspects of your website here."
+msgstr ""
+
+msgid "Save and Continue"
+msgstr ""
+
+msgid "Add missing ALT attributes"
+msgstr ""
+
+#. translators: Link to setting screen
+msgid "Add missing <code>alt</code> attribute for <code>img</code> tags in your post contents and featured images. This option will not change the stored content of the post, it adds the attribute on the fly when the content is displayed. You can see %s."
+msgstr ""
+
+msgid "all options we offer here"
+msgstr ""
+
+msgid "Rich Snippet"
+msgstr ""
+
+msgid "Use automatic structured data to mark up content, to help Google better understand your content's context for display in Search. You can set different defaults for your posts here."
+msgstr ""
+
+#. translators: Google article snippet doc link
+#. translators: Google article snippet doc link
+#. translators: Google article snippet doc link
+msgid "Google does not allow Person as the Publisher for articles. Organization will be used instead. You can read more about this <a href=\"%s\" target=\"_blank\">here</a>."
+msgstr ""
+
+msgid "Article Type"
+msgstr ""
+
+msgid "Article"
+msgstr ""
+
+msgid "Blog Post"
+msgstr ""
+
+msgid "News Article"
+msgstr ""
+
+#. translators: Post type name
+msgid "Rich Snippet Type for %s"
+msgstr ""
+
+#. translators: link to title setting screen
+msgid "Default rich snippet selected when creating a new product."
+msgstr ""
+
+msgid "Product"
+msgstr ""
+
+msgid "Default rich snippet selected when creating a new post of this type. "
+msgstr ""
+
+msgid "None (Click here to set one)"
+msgstr ""
+
+msgid "404 Monitor"
+msgstr ""
+
+msgid "Set default values for the 404 error monitor here."
+msgstr ""
+
+msgid "Learn about the options here."
+msgstr ""
+
+#. translators: Link to kb article
+msgid "The 404 monitor will let you see if visitors or search engines bump into any <code>404 Not Found</code> error while browsing your site."
+msgstr ""
+
+msgid "Set default values for the redirection module from here."
+msgstr ""
+
+msgid "Learn more about Redirections."
+msgstr ""
+
+msgid "Set up temporary or permanent redirections. Combined with the 404 monitor, you can easily redirect faulty URLs on your site, or add custom redirections."
+msgstr ""
+
+msgid "SEO Tweaks"
+msgstr ""
+
+#. translators: Link to How to Optimization KB article
+msgid "Automate some of your SEO tasks like making external links nofollow, redirecting attachment pages, etc.. %s"
+msgstr ""
+
+msgid "Noindex Empty Category and Tag Archives"
+msgstr ""
+
+msgid "Setting empty archives to <code>noindex</code> is useful for avoiding indexation of thin content pages and dilution of page rank. As soon as a post is added, the page is updated to <code>index</code>."
+msgstr ""
+
+msgid "Nofollow Image File Links"
+msgstr ""
+
+msgid "Automatically add <code>rel=\"nofollow\"</code> attribute for links pointing to external image files. The attribute is dynamically applied when the content is displayed, and the stored content is not changed."
+msgstr ""
+
+msgid "Nofollow External Links"
+msgstr ""
+
+msgid "Automatically add <code>rel=\"nofollow\"</code> attribute for external links appearing in your posts, pages, and other post types. The attribute is dynamically applied when the content is displayed, and the stored content is not changed."
+msgstr ""
+
+msgid "Open External Links in New Tab/Window"
+msgstr ""
+
+msgid "Automatically add a <code>target=\"_blank\"</code> attribute to external links appearing in your posts, pages, and other post types. The attributes are applied when the content is displayed, which does not change the stored content."
+msgstr ""
+
+msgid "Strip Category Base"
+msgstr ""
+
+#. translators: Link to kb article
+msgid "Remove /category/ from category archive URLs. <a href=\"%s\" target=\"_blank\">Why do this?</a><br>E.g. <code>example.com/category/my-category/</code> becomes <code>example.com/my-category</code>"
+msgstr ""
+
+msgid "Set capabilities here."
+msgstr ""
+
+msgid "Google&trade; Search Console"
+msgstr ""
+
+#. translators: Link to How to Setup Google Search Console KB article
+msgid "Verify your site on Google Search Console and connect it here to see crawl error notifications, keyword statistics and other important information right in your WordPress dashboard. %s"
+msgstr ""
+
+msgid "Read more about it here."
+msgstr ""
+
+msgid "Connect Rank Math with Google Search Console to see the most important information from Google directly in your WordPress dashboard."
+msgstr ""
+
+msgid "Authorize Rank Math to access data from the Google Search Console."
+msgstr ""
+
+msgid "Domain Property: "
+msgstr ""
+
+msgid "Search Console Profile"
+msgstr ""
+
+msgid "After authenticating with Google Search Console, select your website from the dropdown list."
+msgstr ""
+
+msgid "Please note that the Sitemaps overview in the Search Console module will not be available when using a Domain Property."
+msgstr ""
+
+#. translators: Link to setting screen
+#. translators: setting url
+msgid "Is your site not listed? <a href=\"%1$s\" target=\"_blank\">Click here</a> to get your website verified."
+msgstr ""
+
+msgid "Refresh Sites"
+msgstr ""
+
+msgid "De-authorize Account"
+msgstr ""
+
+msgid "Authorize"
+msgstr ""
+
+msgid "Get Authorization Code"
+msgstr ""
+
+msgid "Sitemap"
+msgstr ""
+
+#. translators: Link to How to Setup Sitemap KB article
+msgid "Choose your Sitemap configuration and select which type of posts or pages you want to include in your Sitemaps. %s"
+msgstr ""
+
+msgid "Learn more."
+msgstr ""
+
+msgid "XML Sitemaps help search engines index your website&#039;s content more effectively."
+msgstr ""
+
+msgid "Include Images"
+msgstr ""
+
+msgid "Include reference to images from the post content in sitemaps. This helps search engines index your images better."
+msgstr ""
+
+msgid "Public Post Types"
+msgstr ""
+
+msgid "Select post types to enable SEO options for them and include them in the sitemap."
+msgstr ""
+
+msgid "Public Taxonomies"
+msgstr ""
+
+msgid "Select taxonomies to enable SEO options for them and include them in the sitemap."
+msgstr ""
+
+#. translators: sitename
+msgid "%1$s is a&hellip;"
+msgstr ""
+
+msgid "Business Type"
+msgstr ""
+
+msgid "Select the type that best describes your business. If you can't find one that applies exactly, use the generic \"Organization\" or \"Local Business\" types."
+msgstr ""
+
+msgid "Company Name"
+msgstr ""
+
+msgid "Logo for Google"
+msgstr ""
+
+msgid "<strong>Min Size: 160Χ90px, Max Size: 1920X1080px</strong>.<br />A squared image is preferred by the search engines."
+msgstr ""
+
+msgid "Default Social Share Image"
+msgstr ""
+
+msgid "When a featured image is not set, this image will be used as a thumbnail when your post is shared on Facebook. <strong>Recommended image size 1200 x 630 pixels.</strong>"
+msgstr ""
+
+msgid "Personal Blog"
+msgstr ""
+
+msgid "Community Blog/News Site"
+msgstr ""
+
+msgid "Personal Portfolio"
+msgstr ""
+
+msgid "Small Business Site"
+msgstr ""
+
+msgid "Webshop"
+msgstr ""
+
+msgid "Other Personal Website"
+msgstr ""
+
+msgid "Other Business Website"
+msgstr ""
+
+msgid "Your website is compatible to run Rank Math SEO"
+msgstr ""
+
+msgid "More"
+msgstr ""
+
+msgid "Less"
+msgstr ""
+
+#. translators: php version
+msgid "Your PHP Version: %s"
+msgstr ""
+
+msgid "Recommended: PHP 7.2 or later"
+msgstr ""
+
+msgid "Rank Math is compatible with your PHP version but we recommend updating to PHP 7.2 for increased speed and security."
+msgstr ""
+
+msgid "More information"
+msgstr ""
+
+msgid "This plugin is compatible with your PHP version but we recommend updating to PHP 7.2 for increased speed and security."
+msgstr ""
+
+#. translators: php version
+msgid "Your PHP Version: %s | Recommended version: 7.2 | Minimal required: 5.4"
+msgstr ""
+
+#. translators: WordPress version
+msgid "WordPress Version: %s"
+msgstr ""
+
+#. translators: WordPress version
+msgid "Your WordPress Version: %s | Recommended version: 4.4+"
+msgstr ""
+
+msgid "PHP DOM Extension installed"
+msgstr ""
+
+msgid "PHP DOM Extension missing"
+msgstr ""
+
+msgid "PHP SimpleXML Extension installed"
+msgstr ""
+
+msgid "PHP SimpleXML Extension missing"
+msgstr ""
+
+msgid "PHP GD Extension installed"
+msgstr ""
+
+msgid "PHP GD Extension missing"
+msgstr ""
+
+msgid "Your server is correctly configured to use Rank Math."
+msgstr ""
+
+msgid "Your server is correctly configured to use this plugin."
+msgstr ""
+
+msgid "Please resolve the issues above to be able to use all features of Rank Math plugin. If you are not sure how to do it, please contact your hosting provider."
+msgstr ""
+
+msgid "Please resolve the issues above to be able to use all SEO features. If you are not sure how to do it, please contact your hosting provider."
+msgstr ""
+
+msgid "The following active plugins on your site may cause conflict issues when used alongside Rank Math: "
+msgstr ""
+
+msgid "The following active plugins on your site may cause conflict issues when used alongside this plugin: "
+msgstr ""
+
+msgid "You can import settings in the next step."
+msgstr ""
+
+msgid "Deactivate Plugin"
+msgstr ""
+
+msgid "No known conflicting plugins found."
+msgstr ""
+
+msgid "Start Wizard"
+msgstr ""
+
+msgid "Setup Wizard - Rank Math"
+msgstr ""
+
+msgid "Getting Started"
+msgstr ""
+
+msgid "Your site is ready!"
+msgstr ""
+
+msgid "Proudly Show the SEO Score to Your Visitors"
+msgstr ""
+
+msgid "Join FREE Facebook Group"
+msgstr ""
+
+msgid "Rank Math Knowledge Base"
+msgstr ""
+
+msgid "Common WordPress Errors & Fixes"
+msgstr ""
+
+msgid "Get 24x7 Support"
+msgstr ""
+
+msgid "Proceed to Help Page"
+msgstr ""
+
+msgid "Setup Advanced Options"
+msgstr ""
+
+msgid "Your site is now optimized."
+msgstr ""
+
+msgid "Proceed to Settings"
+msgstr ""
+
+#. translators: sitename
+msgid "Your Website: %s"
+msgstr ""
+
+msgid "Let us know a few things about your site&hellip;"
+msgstr ""
+
+#. translators: help link
+msgid "If you are new to Rank Math, <a href=\"%s\" data-target=\"rank-math-wizard-tabs\" class=\"rank-math-collapsible-trigger\">click here</a> to learn more."
+msgstr ""
+
+msgid "Setup Tutorial"
+msgstr ""
+
+msgid "Knowledge Base"
+msgstr ""
+
+msgid "Click here to learn how to setup Rank Math properly"
+msgstr ""
+
+msgid "Search the Knowledge Base for answers to your questions:"
+msgstr ""
+
+msgid "Type here to search..."
+msgstr ""
+
+msgid "Search"
+msgstr ""
+
+#. translators: this should be an array of stop words for your language, separated by comma's.
+msgid "a,about,above,after,again,against,all,am,an,and,any,are,as,at,be,because,been,before,being,below,between,both,but,by,could,did,do,does,doing,down,during,each,few,for,from,further,had,has,have,having,he,he'd,he'll,he's,her,here,here's,hers,herself,him,himself,his,how,how's,i,i'd,i'll,i'm,i've,if,in,into,is,it,it's,its,itself,let's,me,more,most,my,myself,nor,of,on,once,only,or,other,ought,our,ours,ourselves,out,over,own,same,she,she'd,she'll,she's,should,so,some,such,than,that,that's,the,their,theirs,them,themselves,then,there,there's,these,they,they'd,they'll,they're,they've,this,those,through,to,too,under,until,up,very,was,we,we'd,we'll,we're,we've,were,what,what's,when,when's,where,where's,which,while,who,who's,whom,why,why's,with,would,you,you'd,you'll,you're,you've,your,yours,yourself,yourselves"
+msgstr ""
+
+msgid "Rank Math Dashboard"
+msgstr ""
+
+msgid "Homepage SEO"
+msgstr ""
+
+msgid "Edit Homepage SEO Settings"
+msgstr ""
+
+#. translators: Post Type Singular Name
+#. translators: Taxonomy Singular Name
+msgid "SEO Settings for %s"
+msgstr ""
+
+msgid "Edit default SEO settings for this post type"
+msgstr ""
+
+msgid "Edit SEO settings for this archive page"
+msgstr ""
+
+msgid "SEO Settings for Date Archives"
+msgstr ""
+
+msgid "SEO Settings for Search Page"
+msgstr ""
+
+msgid "Edit SEO settings for the search results page"
+msgstr ""
+
+msgid "Mark this page"
+msgstr ""
+
+msgid "As Pillar Content"
+msgstr ""
+
+msgid "As NoIndex"
+msgstr ""
+
+msgid "As NoFollow"
+msgstr ""
+
+msgid "External Tools"
+msgstr ""
+
+msgid "Third Party SEO Tools"
+msgstr ""
+
+msgid "Google Structured Data"
+msgstr ""
+
+msgid "Google Structured Data Testing Tool"
+msgstr ""
+
+msgid "Google PageSpeed"
+msgstr ""
+
+msgid "Google PageSpeed Insights"
+msgstr ""
+
+msgid "Google Mobile-Friendly"
+msgstr ""
+
+msgid "Google Mobile-Friendly Test"
+msgstr ""
+
+msgid "Google Cache"
+msgstr ""
+
+msgid "See Google's cached version of your site"
+msgstr ""
+
+msgid "Facebook Debugger"
+msgstr ""
+
+msgid "Facebook Sharing Debugger"
+msgstr ""
+
+#. translators: %s is a Rank Math link.
+msgid "Powered by %s"
+msgstr ""
+
+msgid "SEO Score"
+msgstr ""
+
+msgid "Front End SEO Score"
+msgstr ""
+
+msgid "Show the SEO Score on the front end for this post."
+msgstr ""
+
+msgid "Home"
+msgstr ""
+
+#. translators: Archive title
+#. translators: placeholder
+msgid "Archives for %s"
+msgstr ""
+
+#. translators: Search query term
+#. translators: placeholder
+msgid "Results for %s"
+msgstr ""
+
+msgid "404 Error: page not found"
+msgstr ""
+
+msgid "Records the URLs on which visitors & search engines run into 404 Errors. You can also turn on Redirections to redirect the error causing URLs to other URLs."
+msgstr ""
+
+msgid "Local SEO & Google Knowledge Graph"
+msgstr ""
+
+msgid "Dominate the search results for local audience by optimizing your website and posts using this Rank Math module."
+msgstr ""
+
+msgid "Redirect non-existent content easily with 301 and 302 status code. This can help reduce errors and improve your site ranking."
+msgstr ""
+
+msgid "Rich Snippets"
+msgstr ""
+
+msgid "Enable support for the Rich Snippets, which adds metadata to your website, resulting in rich search results and more traffic."
+msgstr ""
+
+msgid "The Role Manager allows you to use internal WordPress' roles to control which of your site admins can change Rank Math's settings"
+msgstr ""
+
+msgid "SEO Analysis"
+msgstr ""
+
+msgid "Let Rank Math analyze your website and your website's content using 70+ different tests to provide tailor-made SEO Analysis to you."
+msgstr ""
+
+msgid "Enable Rank Math's sitemap feature, which helps search engines index your website's content effectively."
+msgstr ""
+
+#. translators: Link to AMP plugin
+msgid "Install %s from WordPress.org to make Rank Math work with Accelerated Mobile Pages. It is required because AMP are different than WordPress pages and our plugin doesn't work with them out-of-the-box."
+msgstr ""
+
+msgid "AMP plugin"
+msgstr ""
+
+msgid "WooCommerce"
+msgstr ""
+
+msgid "WooCommerce module to use Rank Math to optimize WooCommerce Product Pages."
+msgstr ""
+
+msgid "Please activate WooCommerce plugin to use this module."
+msgstr ""
+
+msgid "Link Counter"
+msgstr ""
+
+msgid "Counts the total number of internal, external links, to and from links inside your posts."
+msgstr ""
+
+msgid "bbPress"
+msgstr ""
+
+msgid "Add proper Meta tags to your bbPress forum posts, categories, profiles, etc. Get more options to take control of what search engines see and how they see it."
+msgstr ""
+
+msgid "Please activate bbPress plugin to use this module."
+msgstr ""
+
+msgid "Settings"
+msgstr ""
+
+msgid "Toggle"
+msgstr ""
+
+msgid "Status:"
+msgstr ""
+
+msgid "Active"
+msgstr ""
+
+msgid "Inactive"
+msgstr ""
+
+msgid "Items per page"
+msgstr ""
+
+msgid "A replacement variable can only contain alphanumeric characters, an underscore or a dash. Try renaming your variable."
+msgstr ""
+
+msgid "A replacement variable with the same name has already been registered. Try making your variable name unique."
+msgstr ""
+
+msgid "You cannot overrule a Rank Math standard variable replacement by registering a variable with the same name. Use the \"wpseo_replacements\" filter instead to adjust the replacement value."
+msgstr ""
+
+msgid "Hello World"
+msgstr ""
+
+msgid "Post Title"
+msgstr ""
+
+msgid "Title of the current post/page"
+msgstr ""
+
+msgid "Post Title of parent page"
+msgstr ""
+
+msgid "Title of the parent page of the current post/page"
+msgstr ""
+
+msgid "Example Title"
+msgstr ""
+
+msgid "Separator Character"
+msgstr ""
+
+msgid "Separator character, as set in the Title Settings"
+msgstr ""
+
+msgid "Site Title"
+msgstr ""
+
+msgid "Title of the site"
+msgstr ""
+
+msgid "Site Description"
+msgstr ""
+
+msgid "Description of the site"
+msgstr ""
+
+msgid "Date Published"
+msgstr ""
+
+msgid "Publication date of the current post/page <strong>OR</strong> specified date on date archives"
+msgstr ""
+
+msgid "Date Modified"
+msgstr ""
+
+msgid "Last modification date of the current post/page"
+msgstr ""
+
+msgid "Post Excerpt"
+msgstr ""
+
+msgid "Excerpt of the current post (or auto-generated if it does not exist)"
+msgstr ""
+
+msgid "Excerpt of the current post (without auto-generation)"
+msgstr ""
+
+msgid "Post Tag"
+msgstr ""
+
+msgid "First tag (alphabetically) associated to the current post <strong>OR</strong> current tag on tag archives"
+msgstr ""
+
+msgid "Example Tag"
+msgstr ""
+
+msgid "Post Tags"
+msgstr ""
+
+msgid "Comma-separated list of tags associated to the current post"
+msgstr ""
+
+msgid "Example Tag 1, Example Tag 2"
+msgstr ""
+
+msgid "Post Category"
+msgstr ""
+
+msgid "First category (alphabetically) associated to the current post <strong>OR</strong> current category on category archives"
+msgstr ""
+
+msgid "Example Category"
+msgstr ""
+
+msgid "Post Categories"
+msgstr ""
+
+msgid "Comma-separated list of categories associated to the current post"
+msgstr ""
+
+msgid "Example Category 1, Example Category 2"
+msgstr ""
+
+msgid "Current Term"
+msgstr ""
+
+msgid "Current term name"
+msgstr ""
+
+msgid "Example Term"
+msgstr ""
+
+msgid "Term Description"
+msgstr ""
+
+msgid "Current term description"
+msgstr ""
+
+msgid "Example Term Description"
+msgstr ""
+
+msgid "Search Query"
+msgstr ""
+
+msgid "Search query (only available on search results page)"
+msgstr ""
+
+msgid "example search"
+msgstr ""
+
+msgid "Post Author"
+msgstr ""
+
+msgid "Display author's nicename of the current post, page or author archive."
+msgstr ""
+
+msgid "Author Description"
+msgstr ""
+
+msgid "Author's biographical info of the current post, page or author archive."
+msgstr ""
+
+msgid "File Name"
+msgstr ""
+
+msgid "File Name of the attachment"
+msgstr ""
+
+msgid "Author ID"
+msgstr ""
+
+msgid "Author's user id of the current post, page or author archive."
+msgstr ""
+
+msgid "Post ID"
+msgstr ""
+
+msgid "ID of the current post/page"
+msgstr ""
+
+msgid "Focus Keyword of the current post"
+msgstr ""
+
+msgid "Page"
+msgstr ""
+
+msgid "Page number with context (i.e. page 2 of 4). Only displayed on page 2 and above."
+msgstr ""
+
+msgid "Max Pages"
+msgstr ""
+
+msgid "Max pages number"
+msgstr ""
+
+msgid "Page Number"
+msgstr ""
+
+msgid "Current page number"
+msgstr ""
+
+msgid "Current Time"
+msgstr ""
+
+msgid "Current server time"
+msgstr ""
+
+msgid "Current Date"
+msgstr ""
+
+msgid "Current server date"
+msgstr ""
+
+msgid "Current Day"
+msgstr ""
+
+msgid "Current server day"
+msgstr ""
+
+msgid "Current Month"
+msgstr ""
+
+msgid "Current server month"
+msgstr ""
+
+msgid "Current Year"
+msgstr ""
+
+msgid "Current server year"
+msgstr ""
+
+msgid "Post Type Name Singular"
+msgstr ""
+
+msgid "Name of current post type (singular)"
+msgstr ""
+
+msgid "Post Type Name Plural"
+msgstr ""
+
+msgid "Name of current post type (plural)"
+msgstr ""
+
+msgid "Products"
+msgstr ""
+
+msgid "Custom Field (advanced)"
+msgstr ""
+
+msgid "Custom field value."
+msgstr ""
+
+msgid "Custom field value"
+msgstr ""
+
+msgid "Date Published (advanced)"
+msgstr ""
+
+msgid "Publish date with custom formatting pattern."
+msgstr ""
+
+msgid "Date Modified (advanced)"
+msgstr ""
+
+msgid "Modified date with custom formatting pattern."
+msgstr ""
+
+msgid "Current Time (advanced)"
+msgstr ""
+
+msgid "Current server time with custom formatting pattern."
+msgstr ""
+
+msgid "Categories (advanced)"
+msgstr ""
+
+msgid "Output list of categories associated to the current post, with customization options."
+msgstr ""
+
+msgid "Example Category 1 | Example Category 2"
+msgstr ""
+
+msgid "Tags (advanced)"
+msgstr ""
+
+msgid "Output list of tags associated to the current post, with customization options."
+msgstr ""
+
+msgid "Example Tag 1 | Example Tag 2"
+msgstr ""
+
+msgid "Counter"
+msgstr ""
+
+msgid "Starts at 1 and increments by 1."
+msgstr ""
+
+#. translators: Taxonomy name.
+msgid "%s Title"
+msgstr ""
+
+#. translators: Taxonomy name.
+msgid "%s Description"
+msgstr ""
+
+msgid "Custom Term title."
+msgstr ""
+
+msgid "Custom Term description."
+msgstr ""
+
+#. translators: 1: current page number, 2: total number of pages.
+msgid "Page %1$d of %2$d"
+msgstr ""
+
+#. translators: %s: product tag
+msgid "Products tagged &ldquo;%s&rdquo;"
+msgstr ""
+
+#. translators: %s expands to the current page number
+msgid "Page %s"
+msgstr ""
+
+msgid "Admin only notice: this page has no meta description set. Please edit the page to add one, or setup a template in Rank Math -> Titles &amp; Metas."
+msgstr ""
+
+msgid "Search Engine Optimization by Rank Math - https://s.rankmath.com/home"
+msgstr ""
+
+msgid "Rank Math WordPress SEO plugin"
+msgstr ""
+
+msgid "Address:"
+msgstr ""
+
+msgid "Hours:"
+msgstr ""
+
+msgid "Page not found"
+msgstr ""
+
+msgid "Play icon"
+msgstr ""
+
+msgid "GIF icon"
+msgstr ""
+
+msgid "No Index"
+msgstr ""
+
+msgid "Prevents pages from being indexed and displayed in search engine result pages"
+msgstr ""
+
+msgid "No Follow"
+msgstr ""
+
+msgid "Prevents search engines from following links on the pages"
+msgstr ""
+
+msgid "No Archive"
+msgstr ""
+
+msgid "Prevents search engines from showing Cached links for pages"
+msgstr ""
+
+msgid "No Image Index"
+msgstr ""
+
+msgid "Lets you specify that you do not want your pages to appear as the referring page for images that appear in image search results"
+msgstr ""
+
+msgid "No Snippet"
+msgstr ""
+
+msgid "Prevents a snippet from being shown in the search results"
+msgstr ""
+
+msgid "Any"
+msgstr ""
+
+msgid "Book"
+msgstr ""
+
+msgid "Course"
+msgstr ""
+
+msgid "Event"
+msgstr ""
+
+msgid "Job Posting"
+msgstr ""
+
+msgid "Music"
+msgstr ""
+
+msgid "Recipe"
+msgstr ""
+
+msgid "Restaurant"
+msgstr ""
+
+msgid "Video"
+msgstr ""
+
+msgid "Person"
+msgstr ""
+
+msgid "Review"
+msgstr ""
+
+msgid "Service"
+msgstr ""
+
+msgid "Software Application"
+msgstr ""
+
+msgid "301 Permanent Move"
+msgstr ""
+
+msgid "302 Temporary Move"
+msgstr ""
+
+msgid "307 Temporary Redirect"
+msgstr ""
+
+msgid "410 Content Deleted"
+msgstr ""
+
+msgid "451 Content Unavailable for Legal Reasons"
+msgstr ""
+
+msgid "Exact"
+msgstr ""
+
+msgid "Contains"
+msgstr ""
+
+msgid "Starts With"
+msgstr ""
+
+msgid "End With"
+msgstr ""
+
+msgid "Regex"
+msgstr ""
+
+msgid "Titles & Meta Settings"
+msgstr ""
+
+msgid "404 Monitor Log"
+msgstr ""
+
+msgid "Link Builder"
+msgstr ""
+
+msgid "Site-Wide Analysis"
+msgstr ""
+
+msgid "On-Page Analysis"
+msgstr ""
+
+msgid "On-Page General Settings"
+msgstr ""
+
+msgid "On-Page Advanced Settings"
+msgstr ""
+
+msgid "On-Page Rich Snippet Settings"
+msgstr ""
+
+msgid "On-Page Social Settings"
+msgstr ""
+
+msgid "Top Admin Bar"
+msgstr ""
+
+msgid "Index"
+msgstr ""
+
+msgid "Instructs search engines to index and show these pages in the search results."
+msgstr ""
+
+msgid "Robots Meta"
+msgstr ""
+
+msgid "Custom values for robots meta tag."
+msgstr ""
+
+msgid "Canonical URL"
+msgstr ""
+
+msgid "The canonical URL informs search crawlers which page is the main page if you have double content."
+msgstr ""
+
+msgid "Breadcrumb Title"
+msgstr ""
+
+msgid "Breadcrumb Title to use for this post"
+msgstr ""
+
+msgid "This is what will appear in the first line when this post shows up in the search results."
+msgstr ""
+
+msgid "This is the unique URL of this page, displayed below the post title in the search results."
+msgstr ""
+
+msgid "This is what will appear as the description when this post shows up in the search results."
+msgstr ""
+
+#. translators: Link to kb article
+msgid "Insert keywords you want to rank for. Try to <a href=\"%s\" target=\"_blank\">attain 100/100 points</a> for better chances of ranking."
+msgstr ""
+
+#. translators: link to connect page.
+msgid "Get keyword suggestions from Google & optimize upto 5 Focus Keywords by <a href=\"%s\" target=\"_blank\">linking your Rank Math account</a>."
+msgstr ""
+
+msgid "Example: Rank Math SEO"
+msgstr ""
+
+msgid "This post is a Pillar Content"
+msgstr ""
+
+msgid "Select one or more Pillar Content posts for each post tag or category to show them in the Link Suggestions meta box."
+msgstr ""
+
+msgid "Facebook"
+msgstr ""
+
+msgid "Twitter"
+msgstr ""
+
+msgid "Facebook Preview"
+msgstr ""
+
+msgid "Twitter Preview"
+msgstr ""
+
+msgid "2hrs"
+msgstr ""
+
+msgid "2h"
+msgstr ""
+
+#. translators: Link to global title setting
+msgid "Set your default image for Facebook & Twitter by adding <a href=\"%s\" target=\"_blank\">OpenGraph Thumbnail</a>"
+msgstr ""
+
+#. translators: link to title setting screen
+msgid "Customize the title, description and images of your post used while sharing on Facebook and Twitter. <a href=\"%s\" target=\"_blank\">Read more</a>"
+msgstr ""
+
+msgid "Image"
+msgstr ""
+
+msgid "Add Image"
+msgstr ""
+
+msgid "Upload at least 600x315px image. Recommended size is 1200x630px."
+msgstr ""
+
+msgid "Image is smaller than the minimum size, please select a different image."
+msgstr ""
+
+msgid "MyThemeShop -- Test Drive"
+msgstr ""
+
+msgid "MyThemeShop -- Description"
+msgstr ""
+
+msgid "Add icon overlay to thumbnail"
+msgstr ""
+
+msgid "<div class=\"notice notice-alt notice-warning warning inline\"><p>Please be careful with this option. Although this option will help increase CTR on Facebook, it might get you penalised if over-used.</p></div>"
+msgstr ""
+
+msgid "Icon overlay"
+msgstr ""
+
+msgid "Author Profile URL"
+msgstr ""
+
+#. translators: option page link
+msgid "Insert a Facebook profile URL to display author name when the page is shared on Facebook.<br>The author name will be clickable if the profile is set to allow public followers.<br>You can set up default URL for fallback in <a href=\"%s\" target=\"_blank\">SEO &raquo; Titles &amp; Meta &raquo; Social</a>."
+msgstr ""
+
+msgid "Use Data from Facebook Tab"
+msgstr ""
+
+msgid "Summary Card with Large Image"
+msgstr ""
+
+msgid "Summary Card"
+msgstr ""
+
+msgid "App Card"
+msgstr ""
+
+msgid "Player Card"
+msgstr ""
+
+msgid "Card type"
+msgstr ""
+
+#. translators: Link to twitter player card doc
+msgid "Video clips and audio streams have a special place on the Twitter platform thanks to the Player Card. Player Cards must be submitted for approval before they can be used. More information: %s"
+msgstr ""
+
+#. translators: Link to twitter app card doc
+msgid "The App Card is a great way to represent mobile applications on Twitter and to drive installs. More information: %s"
+msgstr ""
+
+msgid "Images for this Card support an aspect ratio of 2:1 with minimum dimensions of 300x157 or maximum of 4096x4096 pixels. Images must be less than 5MB in size."
+msgstr ""
+
+msgid "<div class=\"notice notice-alt notice-warning warning inline\"><p>Please be careful with this option. Although this option will help increace CTR on Facebook, it might get you penalised if over-used.</p></div>"
+msgstr ""
+
+#. translators: option page link
+msgid "Insert Twitter username to add twitter:creator tag to posts when the page is shared on Twitter.<br>You can set up default URL for fallback in <a href=\"%s\" target=\"_blank\">SEO &raquo; Titles &amp; Meta &raquo; Social</a>."
+msgstr ""
+
+msgid "Player URL"
+msgstr ""
+
+msgid "HTTPS URL to iFrame player. This must be a HTTPS URL which does not generate active mixed content warnings in a web browser. The audio or video player must not require plugins such as Adobe Flash."
+msgstr ""
+
+msgid "Player Size"
+msgstr ""
+
+msgid "iFrame width and height, specified in pixels in the following format: 600x400."
+msgstr ""
+
+msgid "Stream URL"
+msgstr ""
+
+msgid "Optional URL to raw stream that will be rendered in Twitter’s mobile applications directly. If provided, the stream must be delivered in the MPEG-4 container format (the .mp4 extension). The container can store a mix of audio and video with the following codecs: Video: H.264, Baseline Profile (BP), Level 3.0, up to 640 x 480 at 30 fps. Audio: AAC, Low Complexity Profile (LC)."
+msgstr ""
+
+msgid "Stream Content Type"
+msgstr ""
+
+msgid "The MIME type/subtype combination that describes the content contained in twitter:player:stream. Takes the form specified in RFC 6381. Currently supported content_type values are those defined in RFC 4337 (MIME Type Registration for MP4)."
+msgstr ""
+
+msgid "App Description"
+msgstr ""
+
+msgid "You can use this as a more concise description than what you may have on the app store. This field has a maximum of 200 characters. (optional)"
+msgstr ""
+
+msgid "iPhone App Name"
+msgstr ""
+
+msgid "The name of your app to show."
+msgstr ""
+
+msgid "iPhone App ID"
+msgstr ""
+
+msgid "The numeric representation of your app ID in the App Store."
+msgstr ""
+
+msgid "iPhone App URL"
+msgstr ""
+
+msgid "Your app's custom URL scheme (must include \"://\")."
+msgstr ""
+
+msgid "iPad App Name"
+msgstr ""
+
+msgid "iPad App ID"
+msgstr ""
+
+msgid "iPad App URL"
+msgstr ""
+
+msgid "Google Play App Name"
+msgstr ""
+
+msgid "Google Play App ID"
+msgstr ""
+
+msgid "Your app ID in the Google Play (.i.e. \"com.android.app\")"
+msgstr ""
+
+msgid "Google Play App URL"
+msgstr ""
+
+msgid "App Country"
+msgstr ""
+
+msgid "If your application is not available in the US App Store, you must set this value to the two-letter country code for the App Store that contains your application."
+msgstr ""
+
+#. translators: delete counter
+msgid "%d log(s) deleted."
+msgstr ""
+
+#. translators: delete counter
+msgid "Log cleared - %d items deleted."
+msgstr ""
+
+msgid "Overview"
+msgstr ""
+
+msgid "Screen Content"
+msgstr ""
+
+msgid "Available Actions"
+msgstr ""
+
+msgid "Bulk Actions"
+msgstr ""
+
+msgid "Are you sure you wish to delete all 404 error logs?"
+msgstr ""
+
+#. translators: 1. Link to kb article 2. Link to redirection setting scree
+msgid "The 404 monitor lets you see the URLs where visitors and search engine crawlers run into 404 not found errors on your site. %1$s. Turn on %2$s too to redirect the faulty URLs easily."
+msgstr ""
+
+msgid "404 Monitor Stats"
+msgstr ""
+
+msgid "404 Monitor Log Count"
+msgstr ""
+
+msgid "404 URI Hits"
+msgstr ""
+
+msgid "Review 404 errors on your site"
+msgstr ""
+
+msgid "No valid id found."
+msgstr ""
+
+msgid "Log successfully deleted."
+msgstr ""
+
+msgid "event"
+msgstr ""
+
+msgid "events"
+msgstr ""
+
+msgid "The 404 error log is empty."
+msgstr ""
+
+msgid "Clear Log"
+msgstr ""
+
+msgid "View Redirection"
+msgstr ""
+
+msgid "Redirect"
+msgstr ""
+
+msgid "URI"
+msgstr ""
+
+msgid "Referer"
+msgstr ""
+
+msgid "User-Agent"
+msgstr ""
+
+msgid "Hits"
+msgstr ""
+
+msgid "Access Time"
+msgstr ""
+
+msgid "Hovering over a row in the list will display action links that allow you to manage the item. You can perform the following actions:"
+msgstr ""
+
+msgid "<strong>View Details</strong> shows details about the 404 requests."
+msgstr ""
+
+msgid "<strong>Redirect</strong> takes you to the Redirections manager to redirect the 404 URL."
+msgstr ""
+
+msgid "<strong>Delete</strong> permanently removes the item from the list."
+msgstr ""
+
+msgid "You can also redirect or delete multiple items at once. Selecting multiple items to redirect allows you to redirect them to a single URL."
+msgstr ""
+
+msgid "The 404 monitor lets you find the URLs where visitors and search engine crawlers see a 404 not found page."
+msgstr ""
+
+msgid "You can customize the display of this screen's contents in a number of ways:"
+msgstr ""
+
+msgid "You can hide/display columns based on your needs."
+msgstr ""
+
+msgid "You can decide how many items to list per screen using the Screen Options tab."
+msgstr ""
+
+msgid "You can search items using the search form at the top."
+msgstr ""
+
+msgid "You can reorder the list by clicking on the column headings. "
+msgstr ""
+
+msgid "404 errors happen when someone requests a page or file that doesn't exist - actually, it's more accurate to say the web server can't find the file."
+msgstr ""
+
+msgid "404s happen when:"
+msgstr ""
+
+msgid "Someone types the wrong address"
+msgstr ""
+
+msgid "Someone links to the wrong address"
+msgstr ""
+
+msgid "The file or page moves to a different address"
+msgstr ""
+
+msgid "The page or file is deleted"
+msgstr ""
+
+msgid "The page or file never existed"
+msgstr ""
+
+msgid "They're actually very common on the web. And they're never a good thing."
+msgstr ""
+
+msgid "If you visit a site, you probably want to read or view content on that site. You won't stay on the site if the content is missing. Serving 404 errors to your visitors is a good way to lose them."
+msgstr ""
+
+msgid "It doesn't matter if it's your fault, their fault, or someone else's. Maybe they clicked on a broken link caused by a typing mistake on another website. Maybe they cut-and-pasted a URL wrong. Or possibly they made a spelling mistake when they typed a URL manually."
+msgstr ""
+
+msgid "Maybe you changed the URL of an article to make it more appealing to the search engines."
+msgstr ""
+
+msgid "Whatever the cause, the result is a disappointed reader. So fixing 404 errors is a usability issue. Patching them up will result in more useful traffic to your site, and for many sites, that means more revenue."
+msgstr ""
+
+msgid "Click here to read full 404 Monitor tutorial"
+msgstr ""
+
+#. translators: 1: link to Monitor docs 2: link to Fix 404 docs
+msgid "Find out where users are unable to find your content with the 404 monitor tool. You can also learn more about how to %1$s and %2$s with Rank Math."
+msgstr ""
+
+msgctxt "in 404 monitor description"
+msgid "monitor"
+msgstr ""
+
+msgctxt "in 404 monitor description"
+msgid "fix 404s"
+msgstr ""
+
+msgid "If you have hundreds of 404 errors, your error log might increase quickly. Only choose this option if you have a very few 404s and are unable to replicate the 404 error on a particular URL from your end."
+msgstr ""
+
+msgid "Mode"
+msgstr ""
+
+msgid "The Simple mode only logs URI and access time, while the Advanced mode creates detailed logs including additional information such as the Referer URL."
+msgstr ""
+
+msgid "Simple"
+msgstr ""
+
+msgid "Log Limit"
+msgstr ""
+
+msgid "Sets the max number of rows in a log. Set to 0 to disable the limit."
+msgstr ""
+
+msgid "Exclude Paths"
+msgstr ""
+
+msgid "Enter URIs or keywords you wish to prevent from getting logged by the 404 monitor."
+msgstr ""
+
+msgid "Add another"
+msgstr ""
+
+msgid "Remove"
+msgstr ""
+
+msgid "Ignore Query Parameters"
+msgstr ""
+
+msgid "Turn ON to ignore all query parameters (the part after a question mark in a URL) when logging 404 errors."
+msgstr ""
+
+msgid "Links: "
+msgstr ""
+
+msgid "Internal Links"
+msgstr ""
+
+msgid "External Links"
+msgstr ""
+
+msgid "Incoming Links"
+msgstr ""
+
+msgid "Person or Company"
+msgstr ""
+
+msgid "Organization"
+msgstr ""
+
+msgid "Choose whether the site represents a person or an organization."
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
+msgid "Your name or company name"
+msgstr ""
+
+msgid "Logo"
+msgstr ""
+
+msgid "<strong>Min Size: 160Χ90px, Max Size: 1920X1080px</strong>.<br /> A squared image is preferred by the search engines."
+msgstr ""
+
+msgid "URL"
+msgstr ""
+
+msgid "URL of the item."
+msgstr ""
+
+msgid "Email"
+msgstr ""
+
+msgid "Search engines display your email address."
+msgstr ""
+
+msgid "Phone"
+msgstr ""
+
+msgid "Search engines may prominently display your contact phone number for mobile users."
+msgstr ""
+
+msgid "Address"
+msgstr ""
+
+msgid "Address Format"
+msgstr ""
+
+msgid "Format used when the address is displayed using the <code>[rank_math_contact_info]</code> shortcode.<br><strong>Available Tags: {address}, {locality}, {region}, {postalcode}, {country}, {gps}</strong>"
+msgstr ""
+
+msgid "Opening Hours"
+msgstr ""
+
+msgid "Select opening hours. You can add multiple sets if you have different opening or closing hours on some days or if you have a mid-day break. Times are specified using 24:00 time."
+msgstr ""
+
+msgid "Add time"
+msgstr ""
+
+msgid "Monday"
+msgstr ""
+
+msgid "Tuesday"
+msgstr ""
+
+msgid "Wednesday"
+msgstr ""
+
+msgid "Thursday"
+msgstr ""
+
+msgid "Friday"
+msgstr ""
+
+msgid "Saturday"
+msgstr ""
+
+msgid "Sunday"
+msgstr ""
+
+msgid "e.g. 09:00-17:00"
+msgstr ""
+
+msgid "Opening Hours Format"
+msgstr ""
+
+msgid "Time format used in the contact shortcode."
+msgstr ""
+
+msgid "Phone Number"
+msgstr ""
+
+msgid "Add number"
+msgstr ""
+
+msgid "Customer Service"
+msgstr ""
+
+msgid "Technical Support"
+msgstr ""
+
+msgid "Billing Support"
+msgstr ""
+
+msgid "Bill Payment"
+msgstr ""
+
+msgid "Sales"
+msgstr ""
+
+msgid "Reservations"
+msgstr ""
+
+msgid "Credit Card Support"
+msgstr ""
+
+msgid "Emergency"
+msgstr ""
+
+msgid "Baggage Tracking"
+msgstr ""
+
+msgid "Roadside Assistance"
+msgstr ""
+
+msgid "Package Tracking"
+msgstr ""
+
+msgid "Format: +1-401-555-1212"
+msgstr ""
+
+msgid "Price Range"
+msgstr ""
+
+msgid "The price range of the business, for example $$$."
+msgstr ""
+
+msgid "Select Page"
+msgstr ""
+
+msgid "About Page"
+msgstr ""
+
+msgid "Select a page on your site where you want to show the LocalBusiness meta data."
+msgstr ""
+
+msgid "Contact Page"
+msgstr ""
+
+msgid "Google Maps API Key"
+msgstr ""
+
+#. translators: %s expands to "Google Maps Embed API" https://developers.google.com/maps/documentation/embed/
+msgid "An API Key is required to display embedded Google Maps on your site. Get it here: %s"
+msgstr ""
+
+msgid "Google Maps Embed API"
+msgstr ""
+
+msgid "Geo Coordinates"
+msgstr ""
+
+msgid "Latitude and longitude values separated by comma."
+msgstr ""
+
+msgid "*Multiple Location option is coming soon."
+msgstr ""
+
+msgid "Maintenance Code"
+msgstr ""
+
+msgid "This field must not be empty."
+msgstr ""
+
+#. translators: Link to kb article
+msgid "Enable Redirections to set up custom 301, 302, 307, 410, or 451 redirections. %s."
+msgstr ""
+
+msgid "Redirections Stats"
+msgstr ""
+
+msgid "Redirections Count"
+msgstr ""
+
+msgid "Redirections Hits"
+msgstr ""
+
+msgid "No valid action found."
+msgstr ""
+
+msgid "Redirection successfully activated."
+msgstr ""
+
+msgid "Redirection successfully deactivated."
+msgstr ""
+
+msgid "Redirection successfully moved to Trash."
+msgstr ""
+
+msgid "Redirection successfully restored."
+msgstr ""
+
+#. translators: delete counter
+msgid "%d redirection(s) successfully deleted."
+msgstr ""
+
+msgid "Add"
+msgstr ""
+
+msgid "Update Redirection"
+msgstr ""
+
+msgid "Add Redirection"
+msgstr ""
+
+msgid "Source URLs"
+msgstr ""
+
+msgid "Destination URL"
+msgstr ""
+
+msgid "Redirection Type"
+msgstr ""
+
+msgid "Status"
+msgstr ""
+
+msgid "Activate"
+msgstr ""
+
+msgid "Deactivate"
+msgstr ""
+
+msgid "Please add at least one valid source URL."
+msgstr ""
+
+msgid "Edit redirection for the URL of this post."
+msgstr ""
+
+msgid "Create new redirection for the URL of this post."
+msgstr ""
+
+msgid "Publish or update the post to save the redirection."
+msgstr ""
+
+msgid "Redirection successfully deleted."
+msgstr ""
+
+msgid "New redirection created."
+msgstr ""
+
+#. translators: source pattern
+msgid "Invalid regex pattern: %s"
+msgstr ""
+
+msgid "Create and edit redirections"
+msgstr ""
+
+msgid "Manage Redirections"
+msgstr ""
+
+msgid "Redirection Settings"
+msgstr ""
+
+msgid "&raquo; Redirect this page"
+msgstr ""
+
+msgid "Redirect the current URL"
+msgstr ""
+
+msgid "redirection"
+msgstr ""
+
+msgid "redirections"
+msgstr ""
+
+msgid "No redirections found in Trash."
+msgstr ""
+
+msgid "No redirections added yet. <a href=\"#\" class=\"rank-math-add-new-redirection\">Add New Redirection</a>"
+msgstr ""
+
+msgid "Show more"
+msgstr ""
+
+msgid "Hide details"
+msgstr ""
+
+msgid "Hide"
+msgstr ""
+
+msgid "Delete Permanently"
+msgstr ""
+
+msgid "Edit"
+msgstr ""
+
+msgid "Trash"
+msgstr ""
+
+msgid "From"
+msgstr ""
+
+msgid "To"
+msgstr ""
+
+msgid "Type"
+msgstr ""
+
+msgid "Last Accessed"
+msgstr ""
+
+msgid "Move to Trash"
+msgstr ""
+
+msgid "All"
+msgstr ""
+
+msgid "Empty Trash"
+msgstr ""
+
+#. translators: %1$s: post type label, %2$s: edit redirection URL.
+#. translators: %1$s: post type label, %2$s: edit redirection URL.
+msgid "SEO Notice: you just changed the slug of a %1$s and Rank Math has automatically created a redirection. You can edit the redirection by <a href=\"%2$s\">clicking here</a>."
+msgstr ""
+
+#. translators: 1. url to new screen, 2. old trashed post permalink
+#. translators: 1. url to new screen, 2. old trashed post permalink
+msgid "<strong>SEO Notice:</strong> A previously published post has been moved to trash. You may redirect it <code>%2$s</code> to <a href=\"%1$s\">new url</a>."
+msgstr ""
+
+msgid "Redirection Debugger"
+msgstr ""
+
+msgid "Redirecting from "
+msgstr ""
+
+msgid " To "
+msgstr ""
+
+#. translators: countdown seconds
+msgid "Redirecting in %s seconds..."
+msgstr ""
+
+msgid "Stop Redirection"
+msgstr ""
+
+msgid "Continue redirecting"
+msgstr ""
+
+msgid "Manage This Redirection"
+msgstr ""
+
+msgid "Manage All Redirections"
+msgstr ""
+
+msgid "<strong>Note:</strong> This interstitial page is displayed only to administrators. Site visitors are redirected without delay."
+msgstr ""
+
+msgid "<strong>Edit</strong> redirection details: from/to URLs and the redirection type."
+msgstr ""
+
+msgid "<strong>Activate/Deactivate</strong> redirections. Deactivated redirections do not take effect on your site."
+msgstr ""
+
+msgid "<strong>Delete</strong> permanently removes the redirection."
+msgstr ""
+
+msgid "You can also activate, deactivate, or delete multiple items at once using the Bulk Actions dropdown."
+msgstr ""
+
+msgid "Here you can set up custom redirections. It is important to choose the right type of redirection."
+msgstr ""
+
+msgid "301 redirections are <em>permananent</em>. The old URL will be removed in search engines and replaced by the new one, passing on SearchRank and other SEO scores. Browsers may also store the new URL in cache and redirect to it even after the redirection is deleted from the list here."
+msgstr ""
+
+msgid "Using a 302 <em>temporary</em> redirection is useful when you want to test a new page for client feedback temporarily without affecting the SEO scores of the original page."
+msgstr ""
+
+msgid "Redirections can be exported to your .htaccess file for faster redirections, in SEO > Settings > Import/Export."
+msgstr ""
+
+msgid "An HTTP redirection is a magical thing. When you visit a URL with a redirection, your browser automatically jumps to a new address."
+msgstr ""
+
+msgid "You’ve seen this before with URL shortener services like bit.ly – instead of typing a long address, you type a short one. Your browser is automatically redirected to a different site, and it happens faster than you can blink."
+msgstr ""
+
+msgid "HTTP redirections are powerful tools in SEO, and they have lots of other uses, too. You can read about why that’s a good idea in this article."
+msgstr ""
+
+msgid "Rank Math makes it easy to set up HTTP redirects – in this article, we show you how."
+msgstr ""
+
+msgid "Click here to read full Redirection tutorial"
+msgstr ""
+
+msgid "Add New"
+msgstr ""
+
+msgid "Export to .htaccess"
+msgstr ""
+
+msgid "Export to Nginx config file"
+msgstr ""
+
+msgid "Debug Redirections"
+msgstr ""
+
+msgid "Display the Debug Console instead of being redirected. Administrators only."
+msgstr ""
+
+msgid "Fallback Behavior"
+msgstr ""
+
+msgid "If nothing similar is found, this behavior will be applied."
+msgstr ""
+
+msgid "Default 404"
+msgstr ""
+
+msgid "Redirect to Homepage"
+msgstr ""
+
+msgid "Custom Redirection"
+msgstr ""
+
+msgid "Custom Url "
+msgstr ""
+
+msgid "Auto Post Redirect"
+msgstr ""
+
+msgid "Extend the functionality of WordPress by creating redirects in our plugin when you change the slug of a post, page, category or a CPT. You can modify the redirection further according to your needs."
+msgstr ""
+
+msgid "This tab contains snippet options."
+msgstr ""
+
+msgid "Post ID does not exists or was deleted."
+msgstr ""
+
+msgid "Snippet not selected."
+msgstr ""
+
+msgid "Edition"
+msgstr ""
+
+msgid "Author"
+msgstr ""
+
+msgid "ISBN"
+msgstr ""
+
+msgid "Format"
+msgstr ""
+
+msgid "Editor's Rating:"
+msgstr ""
+
+msgid "Course Provider"
+msgstr ""
+
+msgid "Course Provider Name"
+msgstr ""
+
+msgid "Course Provider URL"
+msgstr ""
+
+msgid "Event Type"
+msgstr ""
+
+msgid "Venue Name"
+msgstr ""
+
+msgid "Venue URL"
+msgstr ""
+
+msgid "Performer"
+msgstr ""
+
+msgid "Performer Name"
+msgstr ""
+
+msgid "Performer URL"
+msgstr ""
+
+msgid "Event Status"
+msgstr ""
+
+msgid "Start Date"
+msgstr ""
+
+msgid "End Date"
+msgstr ""
+
+msgid "Ticket URL"
+msgstr ""
+
+msgid "Entry Price"
+msgstr ""
+
+msgid "Currency"
+msgstr ""
+
+msgid "Availability"
+msgstr ""
+
+msgid "Availability Starts"
+msgstr ""
+
+msgid "Stock Inventory"
+msgstr ""
+
+msgid "Salary"
+msgstr ""
+
+msgid "Salary Currency"
+msgstr ""
+
+msgid "Payroll"
+msgstr ""
+
+msgid "Date Posted"
+msgstr ""
+
+msgid "Expiry Posted"
+msgstr ""
+
+msgid "Unpublish when expired"
+msgstr ""
+
+msgid "Employment Type "
+msgstr ""
+
+msgid "Hiring Organization "
+msgstr ""
+
+msgid "Posting ID"
+msgstr ""
+
+msgid "Organization URL"
+msgstr ""
+
+msgid "Organization Logo"
+msgstr ""
+
+msgid "Product SKU"
+msgstr ""
+
+msgid "Product Brand"
+msgstr ""
+
+msgid "Product Currency"
+msgstr ""
+
+msgid "Product Price"
+msgstr ""
+
+msgid "Price Valid Until"
+msgstr ""
+
+msgid "Product In-Stock"
+msgstr ""
+
+msgid "Cuisine"
+msgstr ""
+
+msgid "Keywords"
+msgstr ""
+
+msgid "Recipe Yield"
+msgstr ""
+
+msgid "Preparation Time"
+msgstr ""
+
+msgid "Cooking Time"
+msgstr ""
+
+msgid "Total Time"
+msgstr ""
+
+msgid "Rating Minimum"
+msgstr ""
+
+msgid "Rating Maximum"
+msgstr ""
+
+msgid "Recipe Video"
+msgstr ""
+
+msgid "Recipe Video Thumbnail"
+msgstr ""
+
+msgid "Recipe Video Name"
+msgstr ""
+
+msgid "Video Upload Date"
+msgstr ""
+
+msgid "Recipe Video Description"
+msgstr ""
+
+msgid "Recipe Ingredients"
+msgstr ""
+
+msgid "Recipe Instruction Name"
+msgstr ""
+
+msgid "Recipe Instructions"
+msgstr ""
+
+msgid "Opening Time"
+msgstr ""
+
+msgid "Closing Time"
+msgstr ""
+
+msgid "Open Days"
+msgstr ""
+
+msgid "Serves Cuisine"
+msgstr ""
+
+msgid "Menu URL"
+msgstr ""
+
+msgid "Content URL"
+msgstr ""
+
+msgid "Embed URL"
+msgstr ""
+
+msgid "Duration"
+msgstr ""
+
+msgid "Views"
+msgstr ""
+
+msgid "Gender"
+msgstr ""
+
+msgid "Job Title"
+msgstr ""
+
+msgid "Service Type"
+msgstr ""
+
+msgid "Price Currency"
+msgstr ""
+
+msgid "Operating System"
+msgstr ""
+
+msgid "Application Category"
+msgstr ""
+
+msgid "Book Editions"
+msgstr ""
+
+msgid "Either a specific edition of the written work, or the volume of the work."
+msgstr ""
+
+msgid "Book Edition {#}"
+msgstr ""
+
+msgid "The title of the tome. Use for the title of the tome if it differs from the book.<br>*Optional when tome has the same title as the book."
+msgstr ""
+
+msgid "The edition of the book."
+msgstr ""
+
+msgid "The ISBN of the print book."
+msgstr ""
+
+msgid "URL specific to this edition if one exists."
+msgstr ""
+
+msgid "Author(s)"
+msgstr ""
+
+msgid "The author(s) of the tome. Use if the author(s) of the tome differ from the related book. Provide one Person entity per author.<br>*Optional when the tome has the same set of authors as the book."
+msgstr ""
+
+msgid "Date of first publication of this tome."
+msgstr ""
+
+msgid "Book Format"
+msgstr ""
+
+msgid "The format of the book."
+msgstr ""
+
+msgid "EBook"
+msgstr ""
+
+msgid "Hardcover"
+msgstr ""
+
+msgid "Paperback"
+msgstr ""
+
+msgid "Audio Book"
+msgstr ""
+
+msgid "Type of the event."
+msgstr ""
+
+msgid "Business Event"
+msgstr ""
+
+msgid "Childrens Event"
+msgstr ""
+
+msgid "Comedy Event"
+msgstr ""
+
+msgid "Dance Event"
+msgstr ""
+
+msgid "Delivery Event"
+msgstr ""
+
+msgid "Education Event"
+msgstr ""
+
+msgid "Exhibition Event"
+msgstr ""
+
+msgid "Festival"
+msgstr ""
+
+msgid "Food Event"
+msgstr ""
+
+msgid "Literary Event"
+msgstr ""
+
+msgid "Music Event"
+msgstr ""
+
+msgid "Publication Event"
+msgstr ""
+
+msgid "Sale Event"
+msgstr ""
+
+msgid "Screening Event"
+msgstr ""
+
+msgid "Social Event"
+msgstr ""
+
+msgid "Sports Event"
+msgstr ""
+
+msgid "Theater Event"
+msgstr ""
+
+msgid "Visual Arts Event"
+msgstr ""
+
+msgid "The venue name."
+msgstr ""
+
+msgid "Website URL of the venue"
+msgstr ""
+
+msgid "A performer at the event"
+msgstr ""
+
+msgid "Current status of the event (optional)"
+msgstr ""
+
+msgid "Scheduled"
+msgstr ""
+
+msgid "Cancelled"
+msgstr ""
+
+msgid "Postponed"
+msgstr ""
+
+msgid "Rescheduled"
+msgstr ""
+
+msgid "Date and time of the event."
+msgstr ""
+
+msgid "End date and time of the event."
+msgstr ""
+
+msgid "A URL where visitors can purchase tickets for the event."
+msgstr ""
+
+msgid "Entry price of the event (optional)"
+msgstr ""
+
+msgid "ISO 4217 Currency code. Example: EUR"
+msgstr ""
+
+msgid "Please use the correct format. Example: EUR"
+msgstr ""
+
+msgid "Offer availability"
+msgstr ""
+
+msgid "Sold Out"
+msgstr ""
+
+msgid "Preorder"
+msgstr ""
+
+msgid "Date and time when offer is made available. (optional)"
+msgstr ""
+
+msgid "Number of tickets (optional)"
+msgstr ""
+
+msgid "Google has changed over the years. They've made their results pages more interesting and more useful at the same time. New kinds of content were added."
+msgstr ""
+
+msgid "You often see all kinds of content in a SERP. Images, videos, tweets, and maps. Business listings and little bits of trivia (like personal bios or historical facts) were added."
+msgstr ""
+
+msgid "These were the first wave of enhancements. They were \"added\" content, as they were added to the original results (which were pushed down the page). Google has also added enhancements to the way certain listings are displayed."
+msgstr ""
+
+msgid "Do you remember when you used to see author pictures next to certain listings?"
+msgstr ""
+
+msgid "These were \"authorship\" snippets - they were displayed whenever Google recognized the author of an article. Google has dropped support for authorship, but there are other enhancements that it does support today."
+msgstr ""
+
+msgid "For instance, there are \"rich snippets\" for articles, videos, businesses, events, products, and recipes."
+msgstr ""
+
+msgid "These snippets look different - which makes them stand out. They also tend to rank higher - above the fold (in the top 4 results)."
+msgstr ""
+
+msgid "Both of these benefits make Rich Snippets extremely attractive. But Google can't display rich snippets unless it understands your content type. And it needs your help."
+msgstr ""
+
+msgid "Google needs you to include special meta-data in your markup to describe what your content is. You need to use a special format called Schema.org, and it has to be perfectly valid."
+msgstr ""
+
+msgid "Rank Math can format the Schema.org markup for you - that's what the Rich Snippet tab does for you."
+msgstr ""
+
+msgid "Click here to read full Rich Snippet tutorial"
+msgstr ""
+
+msgid "Salary (Recommended)"
+msgstr ""
+
+msgid "Insert amount, e.g. \"50.00\", or a salary range, e.g. \"40.00-50.00\"."
+msgstr ""
+
+msgid "Payroll (Recommended)"
+msgstr ""
+
+msgid "Salary amount is for"
+msgstr ""
+
+msgid "Yearly"
+msgstr ""
+
+msgid "Monthly"
+msgstr ""
+
+msgid "Weekly"
+msgstr ""
+
+msgid "Daily"
+msgstr ""
+
+msgid "Hourly"
+msgstr ""
+
+msgid "The original date on which employer posted the job. You can leave it empty to use the post publication date as job posted date."
+msgstr ""
+
+msgid "The date when the job posting will expire. If a job posting never expires, or you do not know when the job will expire, do not include this property."
+msgstr ""
+
+msgid "If checked, post status will be changed to Draft and its URL will return a 404 error, as required by the Rich Result guidelines."
+msgstr ""
+
+msgid "Employment Type (Recommended)"
+msgstr ""
+
+msgid "Type of employment. You can choose more than one value."
+msgstr ""
+
+msgid "Full Time"
+msgstr ""
+
+msgid "Part Time"
+msgstr ""
+
+msgid "Contractor"
+msgstr ""
+
+msgid "Temporary"
+msgstr ""
+
+msgid "Intern"
+msgstr ""
+
+msgid "Volunteer"
+msgstr ""
+
+msgid "Per Diem"
+msgstr ""
+
+msgid "Hiring Organization"
+msgstr ""
+
+msgid "The name of the company. Leave empty to use your own company information."
+msgstr ""
+
+msgid "Posting ID (Recommended)"
+msgstr ""
+
+msgid "The hiring organization's unique identifier for the job. Leave empty to use the post ID."
+msgstr ""
+
+msgid "Organization URL (Recommended)"
+msgstr ""
+
+msgid "The URL of the organization offering the job position. Leave empty to use your own company information."
+msgstr ""
+
+msgid "Organization Logo (Recommended)"
+msgstr ""
+
+msgid "Logo URL of the organization offering the job position. Leave empty to use your own company information."
+msgstr ""
+
+msgid "Insert $ / $$ / $$$ / $$$$."
+msgstr ""
+
+msgid "Rank Math automatically inserts additional Rich Snippet meta data for WooCommerce products. You can set the Rich Snippet Type to \"None\" to disable this feature and just use the default data added by WooCommerce."
+msgstr ""
+
+msgid "Rich Snippet Type"
+msgstr ""
+
+#. translators: link to title setting screen
+#. translators: link to title setting screen
+msgid "Rich Snippets help you stand out in SERPs. <a href=\"%s\" target=\"_blank\">Learn more</a>."
+msgstr ""
+
+msgid "Shortcode"
+msgstr ""
+
+msgid "Copy & paste this shortcode in the content."
+msgstr ""
+
+msgid "Headline"
+msgstr ""
+
+msgid "MusicGroup"
+msgstr ""
+
+msgid "MusicAlbum"
+msgstr ""
+
+msgid "Job title"
+msgstr ""
+
+msgid "The job title of the person (for example, Financial Manager)."
+msgstr ""
+
+msgid "ISO 4217 Currency Code"
+msgstr ""
+
+msgid "The date after which the price will no longer be available."
+msgstr ""
+
+msgid "Type of dish, for example \"appetizer\", or \"dessert\"."
+msgstr ""
+
+msgid "The cuisine of the recipe (for example, French or Ethiopian)."
+msgstr ""
+
+msgid "Other terms for your recipe such as the season, the holiday, or other descriptors. Separate multiple entries with commas."
+msgstr ""
+
+msgid "Quantity produced by the recipe, for example \"4 servings\""
+msgstr ""
+
+msgid "The number of calories in the recipe. Optional."
+msgstr ""
+
+msgid " ISO 8601 duration format. Example: 1H30M"
+msgstr ""
+
+msgid "Please use the correct format. Example: 1H30M"
+msgstr ""
+
+msgid "Rating score of the recipe. Optional."
+msgstr ""
+
+msgid "Rating minimum score of the recipe."
+msgstr ""
+
+msgid "Rating maximum score of the recipe."
+msgstr ""
+
+msgid "A recipe video URL. Optional."
+msgstr ""
+
+msgid "A recipe video thumbnail URL."
+msgstr ""
+
+msgid "A recipe video Name."
+msgstr ""
+
+msgid "A recipe video Description."
+msgstr ""
+
+msgid "Recipe ingredients, add one item per line"
+msgstr ""
+
+msgid "Instruction Type"
+msgstr ""
+
+msgid "Single Field"
+msgstr ""
+
+msgid "How To Step"
+msgstr ""
+
+msgid "How To Section"
+msgstr ""
+
+msgid "Instruction name of the recipe."
+msgstr ""
+
+msgid "Steps to take, add one instruction per line"
+msgstr ""
+
+msgid "Add New Instruction"
+msgstr ""
+
+msgid "Instruction {#}"
+msgstr ""
+
+msgid "Text"
+msgstr ""
+
+msgid "The type of cuisine we serve. Separated by comma."
+msgstr ""
+
+msgid "URL pointing to the menu of the restaurant."
+msgstr ""
+
+msgid "Worst Rating"
+msgstr ""
+
+msgid "Minimum rating."
+msgstr ""
+
+msgid "Best Rating"
+msgstr ""
+
+msgid "Maximum rating."
+msgstr ""
+
+msgid "Final rating of the item."
+msgstr ""
+
+msgid "Review Location"
+msgstr ""
+
+msgid "The review or rating must be displayed on the page to comply with Google's Rich Snippet guidelines."
+msgstr ""
+
+msgid "Below Content"
+msgstr ""
+
+msgid "Above Content"
+msgstr ""
+
+msgid "Above & Below Content"
+msgstr ""
+
+msgid "Custom (use shortcode)"
+msgstr ""
+
+msgid "The type of service being offered, e.g. veterans' benefits, emergency relief, etc."
+msgstr ""
+
+msgid "Average of all ratings (1-5). Example: 4.7"
+msgstr ""
+
+msgid "Rating Count"
+msgstr ""
+
+msgid "Number of ratings"
+msgstr ""
+
+msgid "For example, \"Windows 7\", \"OSX 10.6\", \"Android 1.6\""
+msgstr ""
+
+msgid "For example, \"Game\", \"Multimedia\""
+msgstr ""
+
+msgid "A URL pointing to the actual video media file."
+msgstr ""
+
+msgid "A URL pointing to the embeddable player for the video."
+msgstr ""
+
+msgid "Number of views"
+msgstr ""
+
+msgid "You are not authorized to perform this action."
+msgstr ""
+
+msgid "In this knowledge base article, we are going to discuss one of the most amazing features of Rank Math, the Role Manager."
+msgstr ""
+
+msgid "You may have started your website alone, but as it grows, you will have to hire help or outsource certain tasks to keep your website growing. When you get more people working on your website, it poses a significant problem. You have to give them access to your backend. But as you probably understand, giving someone else full access to your website can lead to accidents, disasters, and frauds."
+msgstr ""
+
+msgid "To prevent that from happening, we created the Role Manager in Rank Math. It’s an innovative feature that lets you restrict Rank Math’s individual features for each user, depending on what roles you give them on your website. If you didn’t understand that, do not worry. You will understand once we get into the details."
+msgstr ""
+
+msgid "Click here to read full Role Manager tutorial"
+msgstr ""
+
+#. translators: %s is a Learn More link to the documentation
+msgid "Control which user has access to which options of Rank Math. %s"
+msgstr ""
+
+msgid "Update Capabilities"
+msgstr ""
+
+msgid "analytic"
+msgstr ""
+
+msgid "analytics"
+msgstr ""
+
+msgid "No data."
+msgstr ""
+
+msgid "Pages"
+msgstr ""
+
+msgid "Clicks"
+msgstr ""
+
+msgid "Impressions"
+msgstr ""
+
+msgid "CTR"
+msgstr ""
+
+msgid "Position"
+msgstr ""
+
+#. translators: previous value
+#. translators: previous value
+msgid "Previously: %s"
+msgstr ""
+
+msgid "Bad request. Please check the code."
+msgstr ""
+
+msgid "Total clicks"
+msgstr ""
+
+msgid "Total impressions"
+msgstr ""
+
+msgid "Avg. CTR"
+msgstr ""
+
+msgid "Avg. Position"
+msgstr ""
+
+msgid "Total keywords"
+msgstr ""
+
+msgid "Total pages"
+msgstr ""
+
+msgid "Review analytics and sitemaps"
+msgstr ""
+
+msgid "Search Console Stats"
+msgstr ""
+
+msgid "Total Keywords"
+msgstr ""
+
+msgid "Total Pages"
+msgstr ""
+
+msgid "Total Clicks"
+msgstr ""
+
+msgid "Total Impressions"
+msgstr ""
+
+msgid "Average Position"
+msgstr ""
+
+msgid "Average CTR"
+msgstr ""
+
+msgid "The Search Analytics tab will give you insights about how your site performs in search engines: you can see the top search queries to find your site and your most popular landing pages."
+msgstr ""
+
+msgid "The Sitemaps tab gives you an overview of the sitemaps submitted to the Search Console."
+msgstr ""
+
+#. translators: Link to kb article
+msgid "Connect Rank Math with your Google Search Console profile to see the most important information from Google directly in your WordPress dashboard. %s."
+msgstr ""
+
+msgid "Search Analytics"
+msgstr ""
+
+msgid "Keyword Tracker"
+msgstr ""
+
+msgid "No authentication code found."
+msgstr ""
+
+msgid "Not a valid settings founds to delete cache."
+msgstr ""
+
+msgid "Google oAuth is not authorized."
+msgstr ""
+
+msgid "sitemap"
+msgstr ""
+
+msgid "sitemaps"
+msgstr ""
+
+msgid "No sitemaps submitted."
+msgstr ""
+
+msgid "News"
+msgstr ""
+
+#. translators: content: submitted and indexed
+msgid "%1$d <span class=\"indexed\">(%2$d indexed)</span><br>"
+msgstr ""
+
+msgid "Warnings"
+msgstr ""
+
+msgid "Errors"
+msgstr ""
+
+msgid "Path"
+msgstr ""
+
+msgid "Last Downloaded"
+msgstr ""
+
+msgid "Items"
+msgstr ""
+
+msgid "Refresh Sitemaps"
+msgstr ""
+
+msgid "Sitemaps list refreshed."
+msgstr ""
+
+msgid "Google Search Console is a website management tool by Google. Specifically, it was created so that website owners can see important information about their websites and resolve issues related to search engines. Your Google Search Console account will contain important information such as your website’s index status, crawl or other issues, your search engines rankings and most importantly, the keywords that your website ranks for. This information comes directly from Google and is very accurate compared to any 3rd party tool."
+msgstr ""
+
+msgid "Once you setup Rank Math to work with Google Search Console, then Rank Math can fetch important information like keyword ranking, craw errors etc from Search Console and display it right inside your WordPress admin. This saves you a lot of time and gives you actionable information to work with when creating new content."
+msgstr ""
+
+msgid "Click here to read full Search Console tutorial"
+msgstr ""
+
+msgid "Review sitemaps submitted to your Search Console account."
+msgstr ""
+
+msgid "Authorize the plugin to access data from Google Search Console."
+msgstr ""
+
+msgid "After authenticating with Google Search Console, select the site from the dropdown list."
+msgstr ""
+
+#. translators: date
+msgid "The data sets are empty in your cache. You can wait for the next cronjob (%s) or <strong>Update Manually</strong>."
+msgstr ""
+
+msgid "<strong>Note:</strong> Please update your data by clicking on 'Update Manually'. Google only stores data from the last 90 days - a dataset older than that can't be updated anymore."
+msgstr ""
+
+msgid "Cache Limit <br><small>Days to keep data rows in cache</small>"
+msgstr ""
+
+msgid "Delete Recent Cache (last 90 days)"
+msgstr ""
+
+msgid "Delete Cache"
+msgstr ""
+
+msgid "Update Cache manually"
+msgstr ""
+
+msgid "Fetching in Progress"
+msgstr ""
+
+#. translators: number of days
+msgid "Cached Days: %s"
+msgstr ""
+
+#. translators: number of rows
+msgid "Data Rows: %s"
+msgstr ""
+
+#. translators: database size
+msgid "Size: %s"
+msgstr ""
+
+#. translators: admin screen link
+msgid "Please navigate to <a href=\"%s\">SEO > Settings > Search Console</a> to authorize access to Google Search Console."
+msgstr ""
+
+#. translators: admin screen link
+msgid "The data sets are empty in your cache. You can wait for the next cronjob or <strong>Update Manually</strong>. Please navigate to <a href=\"%s\">SEO > Settings > Search Console</a>."
+msgstr ""
+
+msgid "Click History"
+msgstr ""
+
+msgid "Impressions History"
+msgstr ""
+
+msgid "CTR History"
+msgstr ""
+
+msgid "Position History"
+msgstr ""
+
+msgid "Coming Soon"
+msgstr ""
+
+msgid "Run the SEO Analysis to see suggestions on improving your rank in search engines."
+msgstr ""
+
+msgid "How to fix"
+msgstr ""
+
+msgid "OK"
+msgstr ""
+
+msgid "Failed"
+msgstr ""
+
+msgid "Warning"
+msgstr ""
+
+msgid "Info"
+msgstr ""
+
+msgid "Site-wide analysis"
+msgstr ""
+
+msgid "Analyze this Page"
+msgstr ""
+
+msgid "SEO Analysis for this page"
+msgstr ""
+
+msgid "Passed Tests"
+msgstr ""
+
+msgid "Failed Tests"
+msgstr ""
+
+msgid "Start Site-Wide Analysis"
+msgstr ""
+
+#. translators: API error
+msgid "<strong>API Error:</strong> %s"
+msgstr ""
+
+msgid "Facebook Connected"
+msgstr ""
+
+msgid "Instagram"
+msgstr ""
+
+msgid "Instagram Connected"
+msgstr ""
+
+msgid "Linkedin"
+msgstr ""
+
+msgid "Linkedin Connected"
+msgstr ""
+
+msgid "Twitter Connected"
+msgstr ""
+
+msgid "Youtube"
+msgstr ""
+
+msgid "Youtube Connected"
+msgstr ""
+
+#. translators: link to social option setting
+msgid "Add Social Schema to your website by linking your social profiles <a href=\"%s\">here</a>."
+msgstr ""
+
+#. translators: social name
+msgid "Your website has a %s page connected to it."
+msgstr ""
+
+msgid "Your website has no %s connected to it."
+msgstr ""
+
+msgid "Advanced SEO"
+msgstr ""
+
+msgid "Performance"
+msgstr ""
+
+msgid "Security"
+msgstr ""
+
+msgid "Social SEO"
+msgstr ""
+
+msgid "Site Tagline"
+msgstr ""
+
+#. translators: link to general setting screen
+msgid "Your theme may display the Site Tagline, and it can also be used in SEO titles &amp; descriptions. Set it to something unique. You can change it by navigating to <a href=\"%s\">Settings &gt; General</a>."
+msgstr ""
+
+msgid "Most WordPress themes place your site's tagline in a prominent position (inside header tags near the top of the page).  Using the right tagline can give your site an SEO boost."
+msgstr ""
+
+msgid "Unfortunately, the standard WordPress tagline is \"Just Another WordPress site.\"  That's pretty sloppy looking, and it does nothing for your SEO.  In fact, it's actually a security risk - it makes it easy for hackers with a WordPress exploit to locate your site with an automated search."
+msgstr ""
+
+#. translators: link to general setting screen
+msgid "Changing your tagline is very easy.  Just head on over to <a target=\"_blank\" href=\"%1$s\">Settings - General</a> in WordPress's admin menu (on the left), or click on the link in this sentence."
+msgstr ""
+
+msgid "The tagline is the second option.  Choose a tagline that summarizes your site in a few words.  The tagline is also a good place to use your main keyword."
+msgstr ""
+
+msgid "Blog Public"
+msgstr ""
+
+#. translators: link to general setting screen
+msgid "Your site may not be visible to search engine."
+msgstr ""
+
+#. translators: %1$s resolves to the opening tag of the link to the reading settings, %1$s resolves to the closing tag for the link
+#. translators: %1$s resolves to the opening tag of the link to the reading settings, %1$s resolves to the closing tag for the link
+msgid "You must %1$sgo to your Reading Settings%2$s and uncheck the box for Search Engine Visibility."
+msgstr ""
+
+msgid "Permalink Structure"
+msgstr ""
+
+#. translators: link to permalink setting screen
+msgid "For the best SEO results, use a custom permalink structure, preferably one that includes the post title (<code>%%postname%%</code>). You can change it by navigating to <a href=\"%s\">Settings &gt; Permalinks</a>"
+msgstr ""
+
+msgid "The standard permalink structure is pretty ugly - WordPress generates offputting URLs like: http://www.yoursite.com/?p=99"
+msgstr ""
+
+msgid "It's not very kind on the eyes, and it does nothing for your site's SEO.  In fact, it can hurt it - Google's bot is quite cautious about crawling pages that look auto-generated."
+msgstr ""
+
+#. translators: link to permalink setting screen
+msgid "Fortunately, it's very easy to fix.  Just hop on over to <a target=\"_blank\" href=\"%1$s\">Settings - Permalinks</a>.  Then chose the \"Post Name\" option."
+msgstr ""
+
+msgid "This option will replace the \"?p=99\" part of the URL with the post's title, like this: http://www.yoursite.com/my-amazing-post-title/"
+msgstr ""
+
+msgid "This looks nice for readers - and it gets your keywords into the URL (keywords in the URL is a ranking factor)."
+msgstr ""
+
+msgid "Focus Keywords"
+msgstr ""
+
+msgid "Setting focus keywords for your posts allows Rank Math to analyse the content."
+msgstr ""
+
+msgid "Rank Math allows you to set a focus keyword for every post and page you write - the option is in the \"Meta Box\", which appears under the text editor in the screen where you write and edit content."
+msgstr ""
+
+msgid "Rank Math uses these focus keywords to analyze your on-page content.  It can tell if you've done a good job of optimizing your text to rank for these keywords."
+msgstr ""
+
+msgid "Of course, if you don't give Rank Math a focus keyword to work with, it can't give you any useful feedback."
+msgstr ""
+
+msgid "Fixing this issue is easy - just edit the post, and set a Focus Keyword.  Then follow Rank Math's analysis to improve your rankings."
+msgstr ""
+
+msgid "Post Titles Missing Focus Keywords"
+msgstr ""
+
+msgid "Make sure the focus keywords you set for the posts appear in their titles."
+msgstr ""
+
+msgid "HTML Page Titles play a large role in Google's ranking algorithm.  When you add a Focus Keyword to a post or page, Rank Math will check to see that you used the keyword in the title.  If it finds any posts or pages that are missing the keyword in the title, it will tell you here."
+msgstr ""
+
+msgid "Fixing the issue is simple - just edit the post/page and add the focus keyword(s) to the title."
+msgstr ""
+
+#. translators: link to plugin setting screen
+msgid "Register at Google Search Console and verificate your site by adding the code to <a href=\"%1$s\">Settings &gt; Verificate Tools</a>, then navigate to <a href=\"%2$s\">Settings &gt; Search Console</a> to authenticate and link your site."
+msgstr ""
+
+msgid "Google's Search Console is a vital source of information concerning your rankings and click-through rates.  Rank Math can import this data, so you don't have to log into your Google account to get the data you need."
+msgstr ""
+
+#. translators: link to plugin search console setting screen
+msgid "You can integrate the Google Search Console with Rank math in the <a href=\"%1$s\" target=\"_blank\">Search Console tab</a>. of Rank Math's General Settings menu."
+msgstr ""
+
+#. translators: Link to Search Console KB article
+msgid "Read <a href=\"%1$s\" target=\"_blank\">this article</a> for detailed instructions on setting up your Google Webmaster account and getting Rank Math to work with the Google Search Console."
+msgstr ""
+
+msgid "XML sitemaps are a special type of text file that tells search engines about the structure of your site. They're a list of all the resources (pages and files) you would like the search engine to index. You can assign different priorities, so certain pages will be crawled first. Before XML sitemaps, search engines were limited to indexing the content they could find by following links. That's still an important feature for search engine spiders, but XML sitemaps have made it easier for content creators and search engines to collaborate."
+msgstr ""
+
+msgid "If you don't have an XML sitemap, the best option is to install a plugin that creates sitemaps for you. That way you'll know the sitemap will always be up-to-date. Plugins can also automatically ping the search engines when the XML file is updated. The Rank Math WordPress plugin gives you complete control over your site's XML sitemaps. You can control the settings for each page as you write or edit it, and Rank Math will ping Google as soon as you submit your edits. This results in fast crawls and indexing."
+msgstr ""
+
+#. translators: 1: link open tag; 2: link close tag.
+msgid "You still have the default WordPress tagline, even an empty one is probably better. %1$sYou can fix this in the customizer%2$s."
+msgstr ""
+
+msgid "Your Site Tagline is set to the default value <em>Just another WordPress site</em>."
+msgstr ""
+
+msgid "Your Site Tagline is set to a custom value."
+msgstr ""
+
+msgid "Permalinks are set to the default value. <em>Pretty permalinks</em> are disabled. "
+msgstr ""
+
+msgid "Permalinks are set to a custom structure but the post titles do not appear in the permalinks."
+msgstr ""
+
+#. translators: permalink structure
+msgid "Post permalink structure is set to %s."
+msgstr ""
+
+msgid "Google Search Console has been linked."
+msgstr ""
+
+msgid "You have not linked Google Search Console yet."
+msgstr ""
+
+msgid "All published posts have focus keywords set."
+msgstr ""
+
+#. translators: post type links
+msgid "There are %s with no focus keyword set."
+msgstr ""
+
+msgid "Focus keywords appear in the titles of published posts where it is set."
+msgstr ""
+
+#. translators: post id count
+msgid "+%d More..."
+msgstr ""
+
+#. translators: post type links
+msgid "There are %s published posts where the focus keyword does not appear in the post title."
+msgstr ""
+
+msgid "Your site has one or more sitemaps."
+msgstr ""
+
+msgid "No sitemaps found."
+msgstr ""
+
+msgid "Attention: Search Engines can't see your website."
+msgstr ""
+
+msgid "Your site is accessible by search engine."
+msgstr ""
+
+msgid "In this section, we're going to introduce the SEO analysis tool. As the name suggests, it analyzes your site's SEO and points out what you're doing right and the issues you need to fix."
+msgstr ""
+
+msgid "Analyzing your SEO is the first step to making it perfect, so you should run this tool as your first step. It's a fast process, and it puts you on the right path."
+msgstr ""
+
+msgid "You may have used SEO tools in the past - many of these tools check your page as you type and tell you if you're optimizing it properly. Rank Math does this too - but it does much more."
+msgstr ""
+
+msgid "Checking a page as you type will detect \"on-page\" ranking factors - factors that influence the rankings for individual pages. But that only covers a single piece of the SEO puzzle. Although on-page factors are extremely important, there are other details that affect your site's rankings."
+msgstr ""
+
+msgid "These include technical and performance issues, like caching, URL structure, and pagination."
+msgstr ""
+
+msgid "Before you dig into every post and page on your site, you should fix any site-wide issues. But you have to identify them first - and that's where the analysis tool comes into play."
+msgstr ""
+
+msgid "You have better things to do than spend hours poring over settings and working through checklists - that's why Rank Math has a built-in SEO Analysis tool. It scans your site in seconds and gives you a detailed breakdown of any issues it locates."
+msgstr ""
+
+msgid "The tool also gives you instructions on how to fix each issue it finds - whether it's changing a setting or installing a simple plugin, you'll know what to do and how to do it."
+msgstr ""
+
+msgid "Click here to read full SEO Analysis tutorial"
+msgstr ""
+
+msgid "What is this?"
+msgstr ""
+
+msgid "Selected page: %s"
+msgstr ""
+
+msgid "Change URL"
+msgstr ""
+
+msgid "Start Page Analysis"
+msgstr ""
+
+msgid "Analysing Page&hellip;"
+msgstr ""
+
+msgid "Analysing Website&hellip;"
+msgstr ""
+
+msgid "Complete"
+msgstr ""
+
+msgid "Analyze your site by <a href=\"%1$s\" target=\"_blank\">linking your Rank Math account"
+msgstr ""
+
+msgid "This tab contains settings related to the XML sitemaps."
+msgstr ""
+
+#. translators: sitemap url
+msgid "When sitemaps are enabled, your sitemap index can be found here: %s"
+msgstr ""
+
+#. translators: Learn more link.
+msgid "Set the sitemap options for author archive pages. %s."
+msgstr ""
+
+msgid "attachments"
+msgstr ""
+
+msgid "your product pages"
+msgstr ""
+
+#. translators: Post Type label
+msgid "single %s"
+msgstr ""
+
+#. translators: %1$s: thing, %2$s: Learn more link.
+#. translators: %1$s: thing, %2$s: Learn more link.
+msgid "Sitemap settings for %1$s. %2$s."
+msgstr ""
+
+#. translators: Post Type Sitemap Url
+#. translators: Taxonomy Sitemap Url
+msgid "Sitemap URL: %s"
+msgstr ""
+
+msgid "Please note that this will add the attachment page URLs to the sitemap, not direct image URLs."
+msgstr ""
+
+msgid "Taxonomies:"
+msgstr ""
+
+#. translators: Taxonomy singular label
+msgid "your product %s pages"
+msgstr ""
+
+#. translators: Taxonomy singular label
+msgid "%s archives"
+msgstr ""
+
+msgid "Special Sitemaps:"
+msgstr ""
+
+msgid "News Sitemap - Genres"
+msgstr ""
+
+msgid "A comma-separated list of properties characterizing the content of the article, such as \"PressRelease\" or \"UserGenerated.\" See <a href=\"https://support.google.com/news/publisher/answer/93992\" target=\"_blank\">Google News content properties</a> for a list of possible values."
+msgstr ""
+
+msgid "News Sitemap - Keywords"
+msgstr ""
+
+msgid "A comma-separated list of keywords describing the topic of the article. Keywords may be drawn from, but are not limited to, the list of existing Google News keywords. More information: <a href=\"https://support.google.com/news/publisher/answer/116037\" target=\"_blank\">Google News keywords</a>."
+msgstr ""
+
+msgid "News Sitemap - Stock Tickers"
+msgstr ""
+
+msgid "A comma-separated list of up to 5 stock tickers of the companies, mutual funds, or other financial entities that are the main subject of the article. Relevant primarily for business articles. More information: <a href=\"https://support.google.com/news/publisher/answer/74288\" target=\"_blank\">Creating a Google News Sitemap</a>."
+msgstr ""
+
+msgid "Exclude this image from sitemap"
+msgstr ""
+
+#. translators: post names
+msgid "We detected new post type(s) (%1$s), and you would want to check the settings of <a href=\"%2$s\">Titles &amp; Meta page</a> and <a href=\"%3$s\">the Sitemap</a>."
+msgstr ""
+
+#. translators: 1. separator, 2. blogname
+msgid "XML Sitemap %1$s %2$s"
+msgstr ""
+
+msgid "Exclude User Roles"
+msgstr ""
+
+msgid "Selected roles will be excluded in the sitemap."
+msgstr ""
+
+msgid "Exclude Users"
+msgstr ""
+
+msgid "Add user IDs, separated by commas, to exclude them from the sitemap."
+msgstr ""
+
+msgid "Links Per Sitemap"
+msgstr ""
+
+msgid "Max number of links on each sitemap page."
+msgstr ""
+
+msgid "Images in Sitemaps"
+msgstr ""
+
+msgid "Include reference to images from the post content in sitemaps. This helps search engines index the important images on your pages."
+msgstr ""
+
+msgid "Include Featured Images"
+msgstr ""
+
+msgid "Include the Featured Image too, even if it does not appear directly in the post content."
+msgstr ""
+
+msgid "Exclude Posts"
+msgstr ""
+
+msgid "Enter post IDs of posts you want to exclude from the sitemap, separated by commas. This option **applies** to all posts types including posts, pages, and custom post types."
+msgstr ""
+
+msgid "Exclude Terms"
+msgstr ""
+
+msgid "Add term IDs, separated by comma. This option is applied for all taxonomies."
+msgstr ""
+
+msgid "Ping Search Engines"
+msgstr ""
+
+msgid "Automatically notify Google &amp; Bing when a sitemap gets updated."
+msgstr ""
+
+msgid "To generate attachment sitemap disable attachment redirection to parent."
+msgstr ""
+
+msgid "Include in Sitemap"
+msgstr ""
+
+msgid "Include this post type in the XML sitemap."
+msgstr ""
+
+msgid "Image Custom Fields"
+msgstr ""
+
+msgid "Insert custom field (post meta) names which contain image URLs to include them in the sitemaps. Add one per line."
+msgstr ""
+
+msgid "Include archive pages for terms of this taxonomy in the XML sitemap."
+msgstr ""
+
+msgid "Include Empty Terms"
+msgstr ""
+
+msgid "Include archive pages of terms that have no posts associated."
+msgstr ""
+
+msgid "KML File"
+msgstr ""
+
+#. translators: link to rankmath.com
+msgid "This KML Fiile is generated by <a href=\"%s\" target=\"_blank\">Rank Math WordPress SEO Plugin</a>. It is used to provide location information to Google."
+msgstr ""
+
+#. translators: link to rankmath.com
+msgid "Learn more about <a href=\"%s\" target=\"_blank\">KML File</a>."
+msgstr ""
+
+#. translators: xsl value count
+#. translators: xsl value count
+msgid "<a href=\"%s\">&#8592; Sitemap Index</a>"
+msgstr ""
+
+msgid "Phone number"
+msgstr ""
+
+msgid "Latitude"
+msgstr ""
+
+msgid "Longitude"
+msgstr ""
+
+msgid "XML Sitemap"
+msgstr ""
+
+#. translators: link to rankmath.com
+msgid "This XML Sitemap is generated by <a href=\"%s\" target=\"_blank\">Rank Math WordPress SEO Plugin</a>. It is what search engines like Google use to crawl and re-crawl posts/pages/products/images/archives on your website."
+msgstr ""
+
+#. translators: link to rankmath.com
+msgid "Learn more about <a href=\"%s\" target=\"_blank\">XML Sitemaps</a>."
+msgstr ""
+
+#. translators: xsl value count
+msgid "This XML Sitemap Index file contains <strong>%s</strong> sitemaps."
+msgstr ""
+
+msgid "Last Modified"
+msgstr ""
+
+#. translators: xsl value count
+msgid "This XML Sitemap contains <strong>%s</strong> URLs."
+msgstr ""
+
+msgid "Last Mod."
+msgstr ""
+
+msgid "XML sitemaps are files that serve a single purpose - to help search engines find and index all of your content."
+msgstr ""
+
+msgid "Once upon a time, search engine bots would have a hard time finding all the content on a site. Many sites had a weak internal link structure, and that meant that some pages or posts would go overlooked."
+msgstr ""
+
+msgid "The early search engines gave us forms where we could enter our URLs one at a time. They'd feed this information into their queue of pages to crawl, and the pages would get visited and indexed at some point."
+msgstr ""
+
+msgid "Typing in dozens or even hundreds of URLs was a tedious job - in fact, many companies popped up offering to submit your site to the search engines, because who had the time to do that?"
+msgstr ""
+
+msgid "When Google appeared on the scene, people soon noticed that submitting pages didn't lead to fast crawls. Linking to a page from another page (even on the same site) would get the bot to visit quickly."
+msgstr ""
+
+msgid "To solve the problem of getting pages crawled and indexed, many webmasters created a \"sitemap\". It was an ugly HTML page with nothing but links to all the site's content. It was a bit of an eyesore, and human users had little use for it. But it helped the spiders to find pages and it got them into the index."
+msgstr ""
+
+msgid "Search engines realized that people were building these pages that didn't do anything for human visitors, and they decided to cut us a break. They invented a new XML based file that we could use to communicate directly with the robots. We could announce our new pages without cluttering up our sites with pointless pages."
+msgstr ""
+
+msgid "Click here to read how to configure Sitemaps"
+msgstr ""
+
+msgid "The WooCommerce lets you see the URLs where visitors and search engine crawlers run into 404 not found errors on your site. Turn on Redirections too to redirect the faulty URLs easily."
+msgstr ""
+
+msgid "Product's price."
+msgstr ""
+
+msgid "Product's price of the current product"
+msgstr ""
+
+msgid "Product's SKU."
+msgstr ""
+
+msgid "Product's SKU of the current product"
+msgstr ""
+
+msgid "Product's short description."
+msgstr ""
+
+msgid "Product's short description of the current product"
+msgstr ""
+
+msgid "Product's brand."
+msgstr ""
+
+msgid "Product's brand of the current product"
+msgstr ""
+
+msgid "SEO is the backbone of any website and it couldn't be more true for a WooCommerce store."
+msgstr ""
+
+msgid "When you sell something online, you want people to buy it. And, SEO is the best way to do so in the long run."
+msgstr ""
+
+msgid "With the Rank Math SEO plugin, you can easily optimize your WooCommerce store in general and product pages in particular."
+msgstr ""
+
+msgid "Optimizing Your WooCommerce Store"
+msgstr ""
+
+#. translators: link to local seo settings
+msgid "Rank Math can help you make your product category or tag archives `noindex`. You can do that from <a href=\"%1$s\">WordPress Dashboard > Rank Math > Titles & Meta > Product Categories</a>"
+msgstr ""
+
+msgid "or"
+msgstr ""
+
+msgid "WordPress Dashboard > Rank Math > Titles & Meta > Product Tags."
+msgstr ""
+
+msgid "Optimizing Your Product Pages"
+msgstr ""
+
+#. translators: link to local seo settings
+msgid "You can customize and automate the SEO Title/Description generation easily as well. Just head over to <a href=\"%1$s\">WordPress Dashboard > Rank Math > Titles & Meta > Products</a>"
+msgstr ""
+
+msgid "You can also add rich snippets to your product pages easily with Rank Math, apart from doing the regular SEO like you would do on posts."
+msgstr ""
+
+#. translators: link to local seo settings
+msgid "Do that from the product pages themeselve. Go to <a href=\"%1$s\">WordPress Dashboard > Products > Add New</a>"
+msgstr ""
+
+msgid "And, choose the product schema from the Rich Snippets tab."
+msgstr ""
+
+msgid "Optimizing Your Product URLs"
+msgstr ""
+
+msgid "Rank Math offers you to remove category base from your product archive URLs so the URLs are cleaner, more SEO friendly and easier to remember."
+msgstr ""
+
+#. translators: link to local seo settings
+msgid "To access those options, head over to <a href=\"%1$s\">WordPress Dashboard > Rank Math > General Settings > WooCommerce</a>."
+msgstr ""
+
+msgid "Remove base"
+msgstr ""
+
+msgid "Remove prefix from product URL."
+msgstr ""
+
+msgid "default: /shop/accessories/action-figures/acme/ - changed: /accessories/action-figures/acme/"
+msgstr ""
+
+msgid "Remove category base"
+msgstr ""
+
+msgid "Remove prefix from category URL."
+msgstr ""
+
+msgid "default: /product-category/accessories/action-figures/ - changed: /accessories/action-figures/"
+msgstr ""
+
+msgid " Remove parent slugs"
+msgstr ""
+
+msgid "Remove parent slugs from category URL."
+msgstr ""
+
+msgid "default: /product-category/accessories/action-figures/ - changed: /product-category/action-figures/"
+msgstr ""
+
+msgid "Remove Generator Tag"
+msgstr ""
+
+msgid "Remove WooCommerce generator tag from the source code."
+msgstr ""
+
+msgid "Remove Snippet Data"
+msgstr ""
+
+msgid "Remove Snippet Data from WooCommerce Shop page."
+msgstr ""
+
+msgid "Brand"
+msgstr ""
+
+msgid "Select Product Brand Taxonomy to use in Schema.org & OpenGraph markup."
+msgstr ""
+
+msgid "Module slug"
+msgstr ""
+
+msgid "Module state either on or off"
+msgstr ""
+
+msgid "Site token didn't match."
+msgstr ""
+
+msgid "Site disconnected successfully."
+msgstr ""
+
+msgid "Site token"
+msgstr ""
+
+msgid "Sorry, field is empty which is not allowed."
+msgstr ""
+
+msgid "Enable breadcrumbs function"
+msgstr ""
+
+msgid "Turning off breadcrumbs will hide breadcrumbs inserted in template files too."
+msgstr ""
+
+msgid "Separator character or string that appears between breadcrumb items."
+msgstr ""
+
+msgid "Show Homepage Link"
+msgstr ""
+
+msgid "Display homepage breadcrumb in trail."
+msgstr ""
+
+msgid "Homepage label"
+msgstr ""
+
+msgid "Label used for homepage link (first item) in breadcrumbs."
+msgstr ""
+
+msgid "Homepage Link"
+msgstr ""
+
+msgid "Link to use for homepage (first item) in breadcrumbs."
+msgstr ""
+
+msgid "Prefix Breadcrumb"
+msgstr ""
+
+msgid "Prefix for the breadcrumb path."
+msgstr ""
+
+msgid "Archive Format"
+msgstr ""
+
+msgid "Format the label used for archive pages."
+msgstr ""
+
+msgid "Search Results Format"
+msgstr ""
+
+msgid "Format the label used for search results pages."
+msgstr ""
+
+msgid "404 label"
+msgstr ""
+
+msgid "Label used for 404 error item in breadcrumbs."
+msgstr ""
+
+msgid "Hide Post Title"
+msgstr ""
+
+msgid "Hide Post title from Breadcrumb."
+msgstr ""
+
+msgid "Show Category(s)"
+msgstr ""
+
+msgid "If category is a child category, show all ancestor categories."
+msgstr ""
+
+msgid "Hide Taxonomy Name"
+msgstr ""
+
+msgid "Hide Taxonomy Name from Breadcrumb."
+msgstr ""
+
+msgid ".htaccess file not found."
+msgstr ""
+
+msgid ".htaccess file not writable."
+msgstr ""
+
+msgid "I understand the risks and I want to edit the file"
+msgstr ""
+
+msgid "Be careful when editing the htaccess file, it is easy to make mistakes and break your site. If that happens, you can restore the file to its state <strong>before the last edit</strong> by replacing the htaccess file with the backup copy created by Rank Math in the same directory (<em>.htaccess_back_xxxxxx</em>) using an FTP client."
+msgstr ""
+
+msgid "Add <code>alt</code> attributes for <code>images</code> without <code>alt</code> attributes automatically. The attribute is dynamically applied when the content is displayed, and the stored content is not changed."
+msgstr ""
+
+msgid "Alt attribute format"
+msgstr ""
+
+msgid "Format used for the new <code>alt</code> attribute values."
+msgstr ""
+
+msgid "Add missing TITLE attributes"
+msgstr ""
+
+msgid "Add <code>TITLE</code> attribute for all <code>images</code> without a <code>TITLE</code> attribute automatically. The attribute is dynamically applied when the content is displayed, and the stored content is not changed."
+msgstr ""
+
+msgid "Title attribute format"
+msgstr ""
+
+msgid "Format used for the new <code>title</code> attribute values."
+msgstr ""
+
+#. translators: Link to kb article
+msgid "Remove /category/ from category archive URLs. %s <br>E.g. <code>example.com/category/my-category/</code> becomes <code>example.com/my-category</code>"
+msgstr ""
+
+msgid "Why do this?"
+msgstr ""
+
+#. translators: Redirection page url
+msgid "Redirection Manager"
+msgstr ""
+
+msgid "Redirections Manager"
+msgstr ""
+
+msgid "Please enable Redirections module."
+msgstr ""
+
+msgid "Redirect Attachments"
+msgstr ""
+
+#. translators: Link to kb article
+msgid "Redirect all attachment page URLs to the post they appear in. For more advanced redirection control, use the built-in %s."
+msgstr ""
+
+msgid "Redirect Orphan Media"
+msgstr ""
+
+msgid "Redirect attachments without a parent post to this URL. Leave empty for no redirection."
+msgstr ""
+
+msgid "Remove Stopwords from Permalinks"
+msgstr ""
+
+msgid "Remove stopwords such as <strong>a, and, the</strong>, etc. from permalinks. This option will only affect the auto-generated URLs for newly created posts and pages."
+msgstr ""
+
+msgid "Stopwords List"
+msgstr ""
+
+msgid "List of stopwords to remove. Add one per line."
+msgstr ""
+
+msgid "Nofollow Domains"
+msgstr ""
+
+msgid "Only add <code>nofollow</code> attribute for the link if target domain is in this list. Add one per line. Leave empty to apply nofollow for <strong>ALL</strong> external domains."
+msgstr ""
+
+msgid "Nofollow Exclude Domains"
+msgstr ""
+
+msgid "The <code>nofollow</code> attribute <strong>will not be added</strong> for the link if target domain is in this list. Add one per line."
+msgstr ""
+
+msgid "Automatically add <code>target=\"_blank\"</code> attribute for external links appearing in your posts, pages, and other post types to make them open in a new browser tab or window. The attribute is dynamically applied when the content is displayed, and the stored content is not changed."
+msgstr ""
+
+msgid "Usage Tracking"
+msgstr ""
+
+msgid "Help make Rank Math even more powerful by allowing us to collect non-sensitive diagnostic data and usage information."
+msgstr ""
+
+msgid "Find out more."
+msgstr ""
+
+msgid "Show SEO Score"
+msgstr ""
+
+#. translators: %s is the shortcode
+msgid "Show the calculated SEO Score as a badge on the front end for selected post types. It can be disabled for specific posts."
+msgstr ""
+
+msgid "SEO Score Post Types"
+msgstr ""
+
+msgid "SEO Score Template"
+msgstr ""
+
+msgid "Change the styling for the front end SEO score badge."
+msgstr ""
+
+msgid "Circle"
+msgstr ""
+
+msgid "Square"
+msgstr ""
+
+msgid "SEO Score Position"
+msgstr ""
+
+#. translators: %1$s is the shortcode
+msgid "Display the badges automatically, or insert the %1$s shortcode in your posts and the %2$s template tag in your theme template files."
+msgstr ""
+
+msgid "Support Us with a Link"
+msgstr ""
+
+#. translators: %s is th word "nofollow" inside a HTML tag
+msgid "If you are showing the SEO scores on the front end, this option will insert a %s backlink to RankMath.com to show your support."
+msgstr ""
+
+msgid "RSS Before Content"
+msgstr ""
+
+msgid "Add content before each post in your site feeds."
+msgstr ""
+
+msgid "RSS After Content"
+msgstr ""
+
+msgid "Add content after each post in your site feeds."
+msgstr ""
+
+msgid "Contents are locked because robots.txt file is present in the root folder."
+msgstr ""
+
+msgid "Available variables"
+msgstr ""
+
+msgid "Variable"
+msgstr ""
+
+msgid "A link to the archive for the post author, with the authors name as anchor text."
+msgstr ""
+
+msgid "A link to the post, with the title as anchor text."
+msgstr ""
+
+msgid "A link to your site, with your site's name as anchor text."
+msgstr ""
+
+msgid "A link to your site, with your site's name and description as anchor text."
+msgstr ""
+
+msgid "Featured image of the article."
+msgstr ""
+
+msgid "Google Search Console"
+msgstr ""
+
+#. translators: Google Search Console Link
+msgid "Enter your Google Search Console verification HTML code or ID. Get it from here: %s"
+msgstr ""
+
+msgid "Search Console Verification Page"
+msgstr ""
+
+msgid "Bing Webmaster Tools"
+msgstr ""
+
+#. translators: Bing webmaster link
+msgid "Enter your Bing Webmaster Tools verification HTML code or ID. Get it here: %s"
+msgstr ""
+
+msgid "Bing Webmaster Verification Page"
+msgstr ""
+
+msgid "Baidu Webmaster Tools"
+msgstr ""
+
+#. translators: Baidu webmaster link
+msgid "Enter your Baidu Webmaster Tools verification HTML code or ID. Get it from here: %s"
+msgstr ""
+
+msgid "Alexa Verification ID"
+msgstr ""
+
+#. translators: Alexa webmaster link
+msgid "Enter your Alexa verification HTML code or ID. Get it from here: %s"
+msgstr ""
+
+msgid "Alexa Account"
+msgstr ""
+
+msgid "Yandex Verification ID"
+msgstr ""
+
+#. translators: Yandex webmaster link
+msgid "Enter your Yandex verification HTML code or ID. Get it from here: %s"
+msgstr ""
+
+msgid "Yandex.Webmaster Page"
+msgstr ""
+
+msgid "Pinterest Verification ID"
+msgstr ""
+
+#. translators: Pinterest webmaster link
+msgid "Enter your Pinterest verification HTML code or ID. Get it from here: %s"
+msgstr ""
+
+msgid "Pinterest Account"
+msgstr ""
+
+msgid "Norton Safe Web Verification ID"
+msgstr ""
+
+#. translators: Norton webmaster link
+msgid "Enter your Norton Safe Web verification HTML code or ID. Get it from here: %s"
+msgstr ""
+
+msgid "Norton Ownership Verification Page"
+msgstr ""
+
+msgid "Author Archives"
+msgstr ""
+
+msgid "Redirect author archives to homepage. Useful for single-author blogs, where the author archive shows the same posts as the homepage/blog page. Alternatively, you can set the author archives to noindex."
+msgstr ""
+
+msgid "Disabled"
+msgstr ""
+
+msgid "Enabled"
+msgstr ""
+
+msgid "Author Base"
+msgstr ""
+
+msgid "Change the <code>/author/</code> part in author archive URLs."
+msgstr ""
+
+#. translators: post type name
+msgid "Author Robots Meta"
+msgstr ""
+
+msgid "Select custom robots meta for author page, such as <code>nofollow</code>, <code>noarchive</code>, etc. Otherwise the default meta will be used, as set in the Global Meta tab."
+msgstr ""
+
+msgid "Default"
+msgstr ""
+
+msgid "Custom"
+msgstr ""
+
+msgid "Custom values for robots meta tag on author page."
+msgstr ""
+
+msgid "Author Archive Title"
+msgstr ""
+
+msgid "Title tag on author archives. SEO options for specific authors can be set with the meta box available in the user profiles."
+msgstr ""
+
+msgid "Author Archive Description"
+msgstr ""
+
+msgid "Author archive meta description. SEO options for specific author archives can be set with the meta box in the user profiles."
+msgstr ""
+
+msgid "Add SEO Meta Box for Users"
+msgstr ""
+
+msgid "Add SEO Meta Box for user profile pages. Access to the Meta Box can be fine tuned with code, using a special filter hook."
+msgstr ""
+
+msgid "Default values for robots meta tag. These can be changed for individual posts, taxonomies, etc."
+msgstr ""
+
+msgid "You can use the separator character in titles by inserting <code>%separator%</code> or <code>%sep%</code> in the title fields."
+msgstr ""
+
+msgid "Rewrite Titles"
+msgstr ""
+
+msgid "Your current theme doesn't support title-tag. Enable this option to rewrite page, post, category, search and archive page titles."
+msgstr ""
+
+msgid "Capitalize Titles"
+msgstr ""
+
+msgid "Automatically capitalize the first character of all title tags."
+msgstr ""
+
+msgid "OpenGraph Thumbnail"
+msgstr ""
+
+msgid "When a featured image is not set, this image will be used as a thumbnail when your post is shared on Facebook. Recommended image size 1200 x 630 pixels."
+msgstr ""
+
+msgid "Twitter Card Type"
+msgstr ""
+
+msgid "Card type selected when creating a new post. This will also be applied for posts without a card type selected."
+msgstr ""
+
+msgid "Homepage Title"
+msgstr ""
+
+msgid "Homepage title tag."
+msgstr ""
+
+msgid "Homepage Meta Description"
+msgstr ""
+
+msgid "Homepage meta description."
+msgstr ""
+
+msgid "Homepage Robots Meta"
+msgstr ""
+
+msgid "Select custom robots meta for homepage, such as <code>nofollow</code>, <code>noarchive</code>, etc. Otherwise the default meta will be used, as set in the Global Meta tab."
+msgstr ""
+
+msgid "Custom values for robots meta tag on homepage."
+msgstr ""
+
+msgid "Homepage Title for Facebook"
+msgstr ""
+
+msgid "Title of your site when shared on Facebook, Twitter and other social networks."
+msgstr ""
+
+msgid "Homepage Description for Facebook"
+msgstr ""
+
+msgid "Description of your site when shared on Facebook, Twitter and other social networks."
+msgstr ""
+
+msgid "Homepage Thumbnail for Facebook"
+msgstr ""
+
+msgid "Image displayed when your homepage is shared on Facebook and other social networks. Use images that are at least 1200 x 630 pixels for the best display on high resolution devices."
+msgstr ""
+
+msgid "Date Archives"
+msgstr ""
+
+msgid "Redirect date archives to homepage."
+msgstr ""
+
+msgid "Date Archive Title"
+msgstr ""
+
+msgid "Title tag on day/month/year based archives."
+msgstr ""
+
+msgid "Date Archive Description"
+msgstr ""
+
+msgid "Date archive description."
+msgstr ""
+
+msgid "Search Results Title"
+msgstr ""
+
+msgid "Title tag on search results page."
+msgstr ""
+
+msgid "404 Title"
+msgstr ""
+
+msgid "Title tag on 404 Not Found error page."
+msgstr ""
+
+#. translators: post type name
+msgid "Date Robots Meta"
+msgstr ""
+
+msgid "Custom values for robots meta tag on date page."
+msgstr ""
+
+msgid "Noindex Search Results"
+msgstr ""
+
+msgid "Prevent search results pages from getting indexed by search engines. Search results could be considered to be thin content and prone to duplicate content issues."
+msgstr ""
+
+msgid "Noindex Paginated Pages"
+msgstr ""
+
+msgid "Set this to on to prevent /page/2 and further of any archive to show up in the search results."
+msgstr ""
+
+msgid "Noindex Archive Subpages"
+msgstr ""
+
+msgid "Prevent paginated archive pages from getting indexed by search engines."
+msgstr ""
+
+msgid "Noindex Password Protected Pages"
+msgstr ""
+
+msgid "Prevent password protected pages & posts from getting indexed by search engines."
+msgstr ""
+
+#. translators: post type name
+msgid "Single %s Title"
+msgstr ""
+
+#. translators: post type name
+msgid "Default title tag for single %s pages. This can be changed on a per-post basis on the post editor screen."
+msgstr ""
+
+#. translators: post type name
+msgid "Single %s Description"
+msgstr ""
+
+#. translators: post type name
+msgid "Default description for single %s pages. This can be changed on a per-post basis on the post editor screen."
+msgstr ""
+
+#. translators: post type name
+msgid "%s Archive Title"
+msgstr ""
+
+#. translators: post type name
+msgid "Title for %s archive pages."
+msgstr ""
+
+#. translators: post type name
+msgid "%s Archive Description"
+msgstr ""
+
+#. translators: post type name
+msgid "Description for %s archive pages."
+msgstr ""
+
+#. translators: post type name
+#. translators: post type name
+msgid "%s Robots Meta"
+msgstr ""
+
+#. translators: post type name
+msgid "Select custom robots meta, such as <code>nofollow</code>, <code>noarchive</code>, etc. for single %s pages. Otherwise the default meta will be used, as set in the Global Meta tab."
+msgstr ""
+
+msgid "Enable Link Suggestions meta box for this post type, along with the Pillar Content feature."
+msgstr ""
+
+msgid "Link Suggestion Titles"
+msgstr ""
+
+msgid "Use the Focus Keyword as the default text for the links instead of the post titles."
+msgstr ""
+
+msgid "Titles"
+msgstr ""
+
+msgid "Primary Taxonomy"
+msgstr ""
+
+#. translators: post type name
+msgid "Select taxonomy to show in the Breadcrumbs when a single %1$s is being viewed."
+msgstr ""
+
+msgid "Thumbnail for Facebook"
+msgstr ""
+
+msgid "Image displayed when your page is shared on Facebook and other social networks. Use images that are at least 1200 x 630 pixels for the best display on high resolution devices."
+msgstr ""
+
+msgid "Bulk Editing"
+msgstr ""
+
+msgid "Add bulk editing columns to the post listing screen."
+msgstr ""
+
+msgid "Read Only"
+msgstr ""
+
+msgid "Add SEO Meta Box"
+msgstr ""
+
+msgid "Add the SEO Meta Box for the editor screen to customize SEO options for posts in this post type."
+msgstr ""
+
+msgid "Facebook Page URL"
+msgstr ""
+
+msgid "Enter your complete Facebook page URL here. eg:"
+msgstr ""
+
+msgid "Facebook Authorship"
+msgstr ""
+
+msgid "Insert personal Facebook profile URL to show Facebook Authorship when your articles are being shared on Facebook. eg:"
+msgstr ""
+
+msgid "Facebook Admin"
+msgstr ""
+
+#. translators: numeric user ID link
+msgid "Enter %s. Use a comma to separate multiple IDs. Alternatively, you can enter an app ID below."
+msgstr ""
+
+msgid "Facebook App"
+msgstr ""
+
+#. translators: numeric app ID link
+msgid "Enter %s. Alternatively, you can enter a user ID above."
+msgstr ""
+
+msgid "Facebook Secret"
+msgstr ""
+
+#. translators: Learn more link
+msgid "Enter alphanumeric secret ID. %s."
+msgstr ""
+
+msgid "Twitter Profile URL"
+msgstr ""
+
+msgid "Enter your complete Twitter Profile URL here. eg:"
+msgstr ""
+
+msgid "Twitter Username"
+msgstr ""
+
+msgid "Enter the Twitter username of the author to add <code>twitter:creator</code> tag to posts. eg: <code>MyThemeShopTeam</code>"
+msgstr ""
+
+msgid "Google Places"
+msgstr ""
+
+#. translators: How to find it? link
+msgid "Enter full URL of your Google Places listing here. %s"
+msgstr ""
+
+msgid "Yelp Page URL"
+msgstr ""
+
+msgid "Enter your Yelp Listing's full URL here. eg:"
+msgstr ""
+
+msgid "FourSquare Page URL"
+msgstr ""
+
+msgid "Enter your FourSquare Page's full URL here."
+msgstr ""
+
+msgid "Flickr Page URL"
+msgstr ""
+
+msgid "Enter your Flickr Page or Profile URL here. eg:"
+msgstr ""
+
+msgid "Reddit Page URL"
+msgstr ""
+
+msgid "Enter your domain's Reddit URL here. eg:"
+msgstr ""
+
+msgid "LinkedIn Page URL"
+msgstr ""
+
+msgid "Enter your LinkedIn profile URL (for personal blogs) or your company URL (for business blogs). eg:"
+msgstr ""
+
+msgid "Instagram Page URL"
+msgstr ""
+
+msgid "Enter your Instagram profile URL here. e.g: "
+msgstr ""
+
+msgid "Youtube Channel URL"
+msgstr ""
+
+msgid "Enter your YouTube Channel's URL here. e.g"
+msgstr ""
+
+msgid "Pinterest Page URL"
+msgstr ""
+
+msgid "Enter your Pinterest Profile URL here. eg:"
+msgstr ""
+
+msgid "SoundClound Page URL"
+msgstr ""
+
+msgid "Enter your SoundCloud URL here. eg:"
+msgstr ""
+
+msgid "Tumblr Page URL"
+msgstr ""
+
+msgid "Enter your Tumblr URL here. eg:"
+msgstr ""
+
+msgid "Myspace Page URL"
+msgstr ""
+
+msgid " Enter your MySpace profile here. e.g: "
+msgstr ""
+
+#. translators: taxonomy name
+msgid "%s Archive Titles"
+msgstr ""
+
+#. translators: taxonomy name
+msgid "Title tag for %s archives"
+msgstr ""
+
+#. translators: taxonomy name
+msgid "%s Archive Descriptions"
+msgstr ""
+
+#. translators: taxonomy name
+msgid "Description for %s archives"
+msgstr ""
+
+#. translators: taxonomy name
+#. translators: taxonomy name
+msgid "%s Archives Robots Meta"
+msgstr ""
+
+#. translators: taxonomy name
+msgid "Select custom robots meta, such as <code>nofollow</code>, <code>noarchive</code>, etc. for %s archive pages. Otherwise the default meta will be used, as set in the Global Meta tab."
+msgstr ""
+
+msgid "Add the SEO Meta Box for the term editor screen to customize SEO options for individual terms in this taxonomy."
+msgstr ""
+
+#. translators: taxonomy name
+msgid "Remove schema data from %s."
+msgstr ""
+
+msgid "Error: Nonce verification failed"
+msgstr ""
+
+#. translators: WordPress Version
+msgid "Rank Math requires WordPress version %s or above. Please update WordPress to run this plugin."
+msgstr ""
+
+#. translators: PHP Version
+msgid "Rank Math requires PHP version %s or above. Please update PHP to run this plugin."
+msgstr ""
+
+msgid "Documentation"
+msgstr ""
+
+msgid "Once Weekly"
+msgstr ""
