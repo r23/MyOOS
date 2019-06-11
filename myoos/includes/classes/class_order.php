@@ -145,7 +145,7 @@ class order {
 		$index = 0;
 
 		$orders_productstable = $oostable['orders_products'];
-		$sql = "SELECT orders_products_id, products_id, products_name, products_model,
+		$sql = "SELECT orders_products_id, products_id, products_name, products_model, products_image,
                       products_ean, products_serial_number, products_price, products_tax,
                      products_quantity, final_price
               FROM $orders_productstable
@@ -155,6 +155,7 @@ class order {
 			$this->products[$index] = array('qty' => $orders_products['products_quantity'],
                                         'id' => $orders_products['products_id'],
                                         'name' => $orders_products['products_name'],
+										'image' => $orders_products['products_image'],
                                         'model' => $orders_products['products_model'],
                                         'ean' => $orders_products['products_ean'],
                                         'serial_number' => $orders_products['products_serial_number'],

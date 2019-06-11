@@ -31,7 +31,7 @@
 				
 
 				{section name=i loop=$history}
-					<div class="row history-info m-mt-20">
+					<div class="row history-info mt-20">
 						<div class="col-6">
 								<div class="d-flex float-left">
 									<h5><strong>{$lang.text_order_number}</strong> {$history[i].orders_id}</h5>
@@ -50,7 +50,7 @@
 								<tr>
 									<td><strong>{$lang.text_order_date}</strong> {$history[i].date_purchased|oos_date_long}<br><strong>{$lang.text_order_shipped_to}</strong> {$history[i].delivery_name}</td>
 									<td><strong>{$lang.text_order_products}</strong> {$history[i].products_total}<br><strong>{$lang.text_order_cost}</strong> {$history[i].order_total}</td>
-									<td align="right"><a href="{html_href_link content=$filename.account_history_info page=$page order_id=$history[i].orders_id}" class="btn btn-sm btn-secondary-outlined"  role="button">{$lang.text_view_order}</a></td>
+									<td align="right"><a href="{html_href_link content=$filename.account_history_info page=$page order_id=$history[i].orders_id}" class="btn btn-sm btn-primary" role="button">{$lang.text_view_order}</a></td>
 								</tr>
 							</tbody>
 						</table>

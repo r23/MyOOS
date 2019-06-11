@@ -53,7 +53,7 @@
 								{else}
 										{$lang.text_price} {$order_history[i].new_product_price}
 								{/if}
-									{if $order_history[i].products_base_price != 1}{$$order_history[i].product_quantity} {$products_units[$order_history[i].products_units]} <span class="base_price">({$order_history[i].new_base_product_price}/{$products_units[$order_history[i].products_base_unit]})</span><br>{/if}
+									{if $order_history[i].products_base_price != 1}{$order_history[i].product_quantity} {$products_units[$order_history[i].products_units]} <span class="base_price">({$order_history[i].new_base_product_price}/{$products_units[$order_history[i].products_base_unit]})</span><br>{/if}
 
 								</td>
 								<td class="text-right">
@@ -70,7 +70,7 @@
 						{$lang.text_no_purchases}
 					</div> 			
 			{/if}		
-					<span class="pangv m-mt-30">{$pangv}</span>
+					<span class="pangv mt-30">{$pangv}</span>
 					<hr />							
 					<!-- pagination -->
 					<div class="text-center">

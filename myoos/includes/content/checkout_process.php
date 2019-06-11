@@ -199,6 +199,7 @@ for ($i=0, $n=count($oOrder->products); $i<$n; $i++) {
                             'products_model' => $oOrder->products[$i]['model'],
                             'products_ean' => $oOrder->products[$i]['ean'],
                             'products_name' => $oOrder->products[$i]['name'],
+							'products_image' => $oOrder->products[$i]['image'],
                             'products_price' => $oOrder->products[$i]['price'],
                             'final_price' => $oOrder->products[$i]['final_price'],
                             'products_tax' => $oOrder->products[$i]['tax'],

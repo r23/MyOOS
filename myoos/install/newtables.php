@@ -746,9 +746,10 @@ $flds = "
   products_model C(12),
   products_ean C(13),
   products_name C(64) NOTNULL,
+  products_image C(255) NULL,
   products_serial_number C(250),
-  products_price N '10.4' NOTNULL DEFAULT '0.00000000',
-  final_price N '10.4' NOTNULL DEFAULT '0.00000000',
+  products_price N '10.4' NOTNULL DEFAULT '0.0000',
+  final_price N '10.4' NOTNULL DEFAULT '0.0000',
   products_tax N '7.4' NOTNULL DEFAULT '0.0000',
   products_quantity I2 NOTNULL DEFAULT '1'
 ";
