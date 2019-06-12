@@ -40,8 +40,8 @@ if (isset($_GET['products_id'])) {
     if ($products_attributes->fields['total'] > 0) {
 
       $options .= '<strong>' . $aLang['text_product_options'] . '</strong><br />' .
-                  '<table border="0" cellpadding="0" cellspacing="0">';
-
+                  '<div class="table-responsive">' .
+                  '    <table class="table w-100">' .  
 
       if (PRODUCTS_OPTIONS_SORT_BY_PRICE == 'true') {
         $options_sort_by = ' ORDER BY pa.options_sort_order, pa.options_values_price';
@@ -66,7 +66,7 @@ if (isset($_GET['products_id'])) {
 
         switch ($products_options_name['products_options_type']) {
           case PRODUCTS_OPTIONS_TYPE_TEXT:
-            $options .= '<tr><td class="main">' . $products_options_name['products_options_name'] . ': </td><td class="main">' . "\n";
+            $options .= '<tr><td>' . $products_options_name['products_options_name'] . ': </td><td>' . "\n";
 
             $products_attributestable = $oostable['products_attributes'];
             $products_attribs_sql = "SELECT DISTINCT patrib.options_values_price, patrib.price_prefix
@@ -108,11 +108,11 @@ if (isset($_GET['products_id'])) {
 
               $options .= '<tr>';
               if ($row == 1) {
-                $options .= '<td class="main">' . $products_options_name['products_options_name'] . ': </td>';
+                $options .= '<td>' . $products_options_name['products_options_name'] . ': </td>';
               } else {
-                $options .= '<td class="main"></td>';
+                $options .= '<td></td>';
               }
-              $options .= '<td class="main">';
+              $options .= '<td>';
 
 
               $checked = FALSE;
@@ -142,8 +142,8 @@ if (isset($_GET['products_id'])) {
             break;
 
           case PRODUCTS_OPTIONS_TYPE_CHECKBOX:
-            $options .= '<tr><td class="main">'  . "\n";
-            $options .= $products_options_name['products_options_name'] . ': </td><td class="main">';
+            $options .= '<tr><td>'  . "\n";
+            $options .= $products_options_name['products_options_name'] . ': </td><td>';
 
             $products_attributestable = $oostable['products_attributes'];
             $products_options_valuestable = $oostable['products_options_values'];
@@ -191,7 +191,7 @@ if (isset($_GET['products_id'])) {
             $products_attribs_result = $dbconn->Execute($products_attribs_sql);
             $products_attribs_array = $products_attribs_result->fields;
 
-            $options .= '<tr><td class="main">' . "\n";
+            $options .= '<tr><td>' . "\n";
             $options .= $products_options_name['products_options_name'];
             $options .= ':&nbsp;';
 
@@ -205,14 +205,14 @@ if (isset($_GET['products_id'])) {
               }
             }
 
-            $options .= '</td><td class="main"><input type="file" name="id[' . TEXT_PREFIX . $products_options_name['products_options_id'] . ']"><br />' . $_SESSION['cart']->contents[$sProductsId]['attributes_values'][$products_options_name['products_options_id']] . oos_draw_hidden_field(UPLOAD_PREFIX . $number_of_uploads, $products_options_name['products_options_id']) . oos_draw_hidden_field(TEXT_PREFIX . UPLOAD_PREFIX . $number_of_uploads, $_SESSION['cart']->contents[$sProductsId]['attributes_values'][$products_options_name['products_options_id']]);
+            $options .= '</td><td><input type="file" name="id[' . TEXT_PREFIX . $products_options_name['products_options_id'] . ']"><br />' . $_SESSION['cart']->contents[$sProductsId]['attributes_values'][$products_options_name['products_options_id']] . oos_draw_hidden_field(UPLOAD_PREFIX . $number_of_uploads, $products_options_name['products_options_id']) . oos_draw_hidden_field(TEXT_PREFIX . UPLOAD_PREFIX . $number_of_uploads, $_SESSION['cart']->contents[$sProductsId]['attributes_values'][$products_options_name['products_options_id']]);
             $options .= oos_draw_hidden_field('number_of_uploads', $number_of_uploads);
             $options .= '</td></tr>';
             break;
 
           case PRODUCTS_OPTIONS_TYPE_SELECT:
           default:
-            $options .= '<tr><td class="main">' . $products_options_name['products_options_name'] . ':</td><td class="main">' . "\n";
+            $options .= '<tr><td>' . $products_options_name['products_options_name'] . ':</td><td class="main">' . "\n";
 
             $selected = 0;
             $products_options_array = array();
@@ -252,7 +252,8 @@ if (isset($_GET['products_id'])) {
         $products_options_name_result->MoveNext();
       }
 
-      $options .= '</table>';
+      $options .= '      </table>' . 
+                  '</div>'; 
     }
   }
 
