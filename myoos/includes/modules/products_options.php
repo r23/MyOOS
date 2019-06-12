@@ -41,7 +41,7 @@ if (isset($_GET['products_id'])) {
 
       $options .= '<strong>' . $aLang['text_product_options'] . '</strong><br />' .
                   '<div class="table-responsive">' .
-                  '    <table class="table w-100">' .  
+                  '    <table class="table w-100">';
 
       if (PRODUCTS_OPTIONS_SORT_BY_PRICE == 'true') {
         $options_sort_by = ' ORDER BY pa.options_sort_order, pa.options_values_price';

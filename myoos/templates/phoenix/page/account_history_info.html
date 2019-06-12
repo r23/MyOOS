@@ -91,10 +91,7 @@
 
 										<div class="row">
 											<div class="col-4 col-sm-3 mb-30">
-											<a href="{product_link products_id=$products.id}">{product_image dir=small image=$products.image alt=$products.name}</a>
-											<!--
-												<img class="img-fluid" src="/150x150/img9.jpg" alt="Image Description">
-											-->
+												<a href="{product_link products_id=$products.id}">{product_image dir=small image=$products.image alt=$products.name}</a>
 											</div>
 
 											<div class="col-8 col-sm-9 g-mb-30">
@@ -111,6 +108,9 @@
 									</div>
 
 									<div class="col-md-4">
+										<a href="{html_href_link content=$filename.product_reviews_write products_id=$products.id}" class="btn btn-primary" role="button">
+											<i class="fa fa-pencil" aria-hidden="true"></i> {$lang.button_write_a_product_review}
+										</a>									
 									<!-- 
 										<a class="btn btn-block btn-primary text-uppercase mb-4" href="#!">Track Package</a>
 										<a class="btn btn-block text-uppercase" href="#!">Return Item</a>
