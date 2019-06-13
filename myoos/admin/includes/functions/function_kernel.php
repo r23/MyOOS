@@ -653,51 +653,59 @@ function oos_remove_product($product_id) {
     $product_image_result = $dbconn->Execute($product_image_query);
     $product_image = $product_image_result->fields;
 
-    $productstable = $oostable['products'];
-    $duplicate_query = "SELECT COUNT(*) AS total
+	$orders_productstable = $oostable['orders_products'];
+	$orders_image_query = "SELECT products_id
+                      FROM $orders_productstable
+                       WHERE products_image = '" . oos_db_input($product_image['products_image']) . "'";
+	$orders_result = $dbconn->Execute($orders_image_query);
+	if (!$orders_result->RecordCount()) {
+
+		$productstable = $oostable['products'];
+		$duplicate_query = "SELECT COUNT(*) AS total
                         FROM $productstable
                         WHERE products_image = '" . oos_db_input($product_image['products_image']) . "'";
-    $duplicate_result = $dbconn->Execute($duplicate_query);
-    $duplicate_image = $duplicate_result->fields;
+		$duplicate_result = $dbconn->Execute($duplicate_query);
+		$duplicate_image = $duplicate_result->fields;
 	
-    if ($duplicate_image['total'] < 2) {
-		if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/originals/' . $product_image['products_image'])) {
-			@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/large/' . $product_image['products_image']);
-			@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/medium/' . $product_image['products_image']);
-			@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/medium_large/' . $product_image['products_image']);
-			@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/small/' . $product_image['products_image']);
-			@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/min/' . $product_image['products_image']);			
-			@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/originals/' . $product_image['products_image']);
-		}
-	}
-
-    $products_imagestable = $oostable['products_images'];
-    $product_image_query = "SELECT image_name
-                             FROM $products_imagestable
-                             WHERE products_id = '" . intval($product_id) . "'";
-    $products_image_result = $dbconn->Execute($product_image_query);
-    while ($product_image = $products_image_result->fields) {
-
-		$duplicate_query = "SELECT COUNT(*) AS total
-                              FROM $products_imagestable
-                              WHERE image_name = '" . oos_db_input($product_image['image_name']) . "'";
-		$duplicate_image_result = $dbconn->Execute($duplicate_query);
-		$duplicate_image = $duplicate_image_result->fields;
-
 		if ($duplicate_image['total'] < 2) {
-			if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/originals/' . $product_image['image_name'])) {
-				@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/large/' . $product_image['image_name']);
-				@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/medium/' . $product_image['image_name']);
-				@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/medium_large/' . $product_image['image_name']);
-				@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/small/' . $product_image['image_name']);
-				@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/min/' . $product_image['image_name']);			
-				@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/originals/' . $product_image['image_name']);
+			if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/originals/' . $product_image['products_image'])) {
+				@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/large/' . $product_image['products_image']);
+				@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/medium/' . $product_image['products_image']);
+				@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/medium_large/' . $product_image['products_image']);
+				@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/small/' . $product_image['products_image']);
+				@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/min/' . $product_image['products_image']);			
+				@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/originals/' . $product_image['products_image']);
 			}
 		}
-		// Move that ADOdb pointer!
-		$products_image_result->MoveNext();
-	}
 
+		$products_imagestable = $oostable['products_images'];
+		$product_image_query = "SELECT image_name
+								FROM $products_imagestable
+								WHERE products_id = '" . intval($product_id) . "'";
+		$products_image_result = $dbconn->Execute($product_image_query);
+		while ($product_image = $products_image_result->fields) {
+
+			$duplicate_query = "SELECT COUNT(*) AS total
+								FROM $products_imagestable
+                              WHERE image_name = '" . oos_db_input($product_image['image_name']) . "'";
+			$duplicate_image_result = $dbconn->Execute($duplicate_query);
+			$duplicate_image = $duplicate_image_result->fields;
+	
+			if ($duplicate_image['total'] < 2) {
+				if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/originals/' . $product_image['image_name'])) {
+					@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/large/' . $product_image['image_name']);
+					@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/medium/' . $product_image['image_name']);
+					@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/medium_large/' . $product_image['image_name']);
+					@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/small/' . $product_image['image_name']);
+					@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/min/' . $product_image['image_name']);			
+					@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/originals/' . $product_image['image_name']);
+				}
+			}
+			// Move that ADOdb pointer!
+			$products_image_result->MoveNext();
+		}
+	}
+	
     $dbconn->Execute("DELETE FROM " . $oostable['specials'] . " WHERE products_id = '" . intval($product_id) . "'");
     $dbconn->Execute("DELETE FROM " . $oostable['products'] . " WHERE products_id = '" . intval($product_id) . "'");
     $dbconn->Execute("DELETE FROM " . $oostable['products_to_categories'] . " WHERE products_id = '" . intval($product_id) . "'");
