@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Themes - Twenty Nineteen package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-04-13 19:47:23+0000\n"
+"PO-Revision-Date: 2019-06-12 22:36:20+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -374,6 +374,10 @@ msgstr "Wie es aussieht, wurde an dieser Stelle nichts gefunden. Möchtest du ei
 #: 404.php:20
 msgid "Oops! That page can&rsquo;t be found."
 msgstr "Die Seite konnte leider nicht gefunden werden."
+
+#. Theme URI of the theme
+msgid "https://wordpress.org/themes/twentynineteen/"
+msgstr "https://de.wordpress.org/themes/twentynineteen/"
 
 #. Author of the theme
 msgid "the WordPress team"

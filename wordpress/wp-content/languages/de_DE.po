@@ -532,7 +532,7 @@ msgstr "Fehler-Details"
 msgid "A recovery link was already sent %1$s ago. Please wait another %2$s before requesting a new email."
 msgstr "Ein Wiederherstellungslink wurde bereits vor %1$s gesendet. Bitte warte noch einmal %2$s, bevor du eine neue E-Mail anforderst."
 
-#: wp-includes/class-wp-recovery-mode-email-service.php:65
+#: wp-login.php:429 wp-includes/class-wp-recovery-mode-email-service.php:65
 msgid "The email could not be sent. Possible reason: your host may have disabled the mail() function."
 msgstr "Die E-Mail konnte nicht gesendet werden. Möglicherweise hat dein Provider die Funktion mail() deaktiviert."
 
@@ -557,31 +557,31 @@ msgid "Recovery Mode not initialized."
 msgstr "Wiederherstellungsmodus nicht initialisiert."
 
 #. translators: user role for subscriber
-#: wp-includes/capabilities.php:994
+#: wp-includes/capabilities.php:1019
 msgctxt "User role"
 msgid "Subscriber"
 msgstr "Abonnent"
 
 #. translators: user role for contributors
-#: wp-includes/capabilities.php:992
+#: wp-includes/capabilities.php:1017
 msgctxt "User role"
 msgid "Contributor"
 msgstr "Mitarbeiter"
 
 #. translators: user role for authors
-#: wp-includes/capabilities.php:990
+#: wp-includes/capabilities.php:1015
 msgctxt "User role"
 msgid "Author"
 msgstr "Autor"
 
 #. translators: user role for editors
-#: wp-includes/capabilities.php:988
+#: wp-includes/capabilities.php:1013
 msgctxt "User role"
 msgid "Editor"
 msgstr "Redakteur"
 
 #. translators: user role for administrators
-#: wp-includes/capabilities.php:986
+#: wp-includes/capabilities.php:1011
 msgctxt "User role"
 msgid "Administrator"
 msgstr "Administrator"
@@ -11671,10 +11671,6 @@ msgstr "Der Web-Browser auf deinem Gerät kann leider nicht zum Hochladen von Da
 msgid "<strong>ERROR</strong>: Couldn&#8217;t register you&hellip; please contact the <a href=\"mailto:%s\">webmaster</a> !"
 msgstr "<strong>FEHLER</strong>: Du konntest nicht registriert werden, bitte kontaktiere den <a href=\"mailto:%s\">Webmaster</a>"
 
-#: wp-login.php:429
-msgid "Possible reason: your host may have disabled the mail() function."
-msgstr "Mögliche Ursache: Ihr Host könnte die Funktion mail() deaktiviert haben."
-
 #: wp-includes/post-template.php:298
 msgid "(more&hellip;)"
 msgstr "(mehr&#160;&hellip;)"
@@ -14110,10 +14106,6 @@ msgstr "<strong>FEHLER</strong>: Bitte gib deine E-Mail-Adresse ein."
 #: wp-includes/user.php:3621
 msgid "Invalid key."
 msgstr "Ungültiger Schlüssel"
-
-#: wp-login.php:429
-msgid "The email could not be sent."
-msgstr "Die E-Mail konnte nicht gesendet werden."
 
 #. translators: Password reset notification email subject. %s: Site title
 #: wp-login.php:399
