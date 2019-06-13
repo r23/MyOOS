@@ -460,35 +460,32 @@ $generated_i18n_strings = array(
 	   the anchor end tag */
 	__( '%4$sPreviously used keyphrase%6$s: You\'ve used this keyphrase %1$s%2$d times before%3$s. %5$sDo not use your keyphrase more than once%6$s.', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/src/config/presenter.js:11
-	__( 'Feedback', 'wordpress-seo' ),
+	// Reference: node_modules/yoastseo/src/config/presenter.js:8
+	__( 'Content optimization:', 'wordpress-seo' ),
 
 	// Reference: node_modules/yoastseo/src/config/presenter.js:12
-	__( 'Content optimization: Has feedback', 'wordpress-seo' ),
+	__( 'Feedback', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/src/config/presenter.js:17
-	// Reference: node_modules/yoastseo/src/config/presenter.js:19
-	__( 'Needs improvement', 'wordpress-seo' ),
+	// Reference: node_modules/yoastseo/src/config/presenter.js:13
+	__( 'Has feedback', 'wordpress-seo' ),
 
 	// Reference: node_modules/yoastseo/src/config/presenter.js:18
-	__( 'Content optimization: Needs improvement', 'wordpress-seo' ),
-
-	// Reference: node_modules/yoastseo/src/config/presenter.js:23
-	__( 'OK SEO score', 'wordpress-seo' ),
+	// Reference: node_modules/yoastseo/src/config/presenter.js:19
+	// Reference: node_modules/yoastseo/src/config/presenter.js:20
+	__( 'Needs improvement', 'wordpress-seo' ),
 
 	// Reference: node_modules/yoastseo/src/config/presenter.js:24
-	__( 'Content optimization: OK SEO score', 'wordpress-seo' ),
-
 	// Reference: node_modules/yoastseo/src/config/presenter.js:25
+	__( 'OK SEO score', 'wordpress-seo' ),
+
+	// Reference: node_modules/yoastseo/src/config/presenter.js:26
 	__( 'OK', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/src/config/presenter.js:29
+	// Reference: node_modules/yoastseo/src/config/presenter.js:30
+	// Reference: node_modules/yoastseo/src/config/presenter.js:31
 	__( 'Good SEO score', 'wordpress-seo' ),
 
-	// Reference: node_modules/yoastseo/src/config/presenter.js:30
-	__( 'Content optimization: Good SEO score', 'wordpress-seo' ),
-
-	// Reference: node_modules/yoastseo/src/config/presenter.js:31
+	// Reference: node_modules/yoastseo/src/config/presenter.js:32
 	__( 'Good', 'wordpress-seo' ),
 
 	// Reference: node_modules/yoastseo/src/renderers/AssessorPresenter.js:361

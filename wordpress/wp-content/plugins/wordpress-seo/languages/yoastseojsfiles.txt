@@ -72,6 +72,7 @@
 ./node_modules/yoastseo/src/helpers/getLanguage.js
 ./node_modules/yoastseo/src/helpers/getLanguageAvailability.js
 ./node_modules/yoastseo/src/helpers/getLanguagesWithWordFormSupport.js
+./node_modules/yoastseo/src/helpers/getStemForLanguage.js
 ./node_modules/yoastseo/src/helpers/getTransitionWords.js
 ./node_modules/yoastseo/src/helpers/gini.js
 ./node_modules/yoastseo/src/helpers/html.js
@@ -93,6 +94,7 @@
 ./node_modules/yoastseo/src/markers/index.js
 ./node_modules/yoastseo/src/markers/removeDuplicateMarks.js
 ./node_modules/yoastseo/src/markers/removeMarks.js
+./node_modules/yoastseo/src/morphology/english/determineStem.js
 ./node_modules/yoastseo/src/morphology/english/getAdjectiveForms.js
 ./node_modules/yoastseo/src/morphology/english/getForms.js
 ./node_modules/yoastseo/src/morphology/english/getNounForms.js
@@ -219,6 +221,8 @@
 ./node_modules/yoastseo/src/researches/getLinkStatistics.js
 ./node_modules/yoastseo/src/researches/getParagraphLength.js
 ./node_modules/yoastseo/src/researches/getPassiveVoice.js
+./node_modules/yoastseo/src/researches/getProminentWordsForInsights.js
+./node_modules/yoastseo/src/researches/getProminentWordsForInternalLinking.js
 ./node_modules/yoastseo/src/researches/getSentenceBeginnings.js
 ./node_modules/yoastseo/src/researches/getSubheadingTextLengths.js
 ./node_modules/yoastseo/src/researches/getTopicDensity.js
@@ -306,6 +310,7 @@
 ./node_modules/yoastseo/src/stringProcessing/createRegexFromArray.js
 ./node_modules/yoastseo/src/stringProcessing/createRegexFromDoubleArray.js
 ./node_modules/yoastseo/src/stringProcessing/createWordRegex.js
+./node_modules/yoastseo/src/stringProcessing/determineProminentWords.js
 ./node_modules/yoastseo/src/stringProcessing/directPrecedenceException.js
 ./node_modules/yoastseo/src/stringProcessing/directPrecedenceExceptionWithoutRegex.js
 ./node_modules/yoastseo/src/stringProcessing/findEmptyDivisions.js
@@ -366,6 +371,7 @@
 ./node_modules/yoastseo/src/values/Mark.js
 ./node_modules/yoastseo/src/values/Paper.js
 ./node_modules/yoastseo/src/values/Participle.js
+./node_modules/yoastseo/src/values/ProminentWord.js
 ./node_modules/yoastseo/src/values/Sentence.js
 ./node_modules/yoastseo/src/values/SentencePart.js
 ./node_modules/yoastseo/src/values/WordCombination.js
