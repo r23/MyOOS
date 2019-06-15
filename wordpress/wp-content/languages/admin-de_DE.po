@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.2.x - Development - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-06-10 16:02:28+0000\n"
+"PO-Revision-Date: 2019-06-13 17:30:07+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,6 +21,11 @@ msgstr "Europe/Berlin"
 msgctxt "start of week"
 msgid "1"
 msgstr "1"
+
+#. translators: %s: Recovery Mode exit link
+#: wp-admin/includes/update.php:854
+msgid "You are in recovery mode. This means there may be an error with a theme or plugin. To exit recovery mode, log out or use the Exit button. <a href=\"%s\">Exit Recovery Mode</a>"
+msgstr "Die Website befindet sich im Wiederherstellungsmodus. Das bedeutet, dass es einen Fehler mit einem Theme oder Plugin geben kann. Um den Wiederherstellungsmodus zu verlassen, melde dich ab oder verwende den Button Beenden.<a href=\"%s\">Wiederherstellungsmodus beenden</a>"
 
 #. translators: 1: wp_body_open 2: <body>
 #: wp-admin/about.php:169
@@ -475,10 +480,6 @@ msgstr[1] "Deine Website hat %d inaktive Plugins."
 msgctxt "plugin"
 msgid "Cannot Update"
 msgstr "Aktualisierung nicht möglich"
-
-#: wp-admin/includes/update.php:847
-msgid "You are in recovery mode. This means there may be an error with a theme or plugin. To exit recovery mode, log out or use the Exit button."
-msgstr "Die Website befindet sich im Wiederherstellungsmodus. Das bedeutet, dass es einen Fehler mit einem Theme oder Plugin geben kann. Um den Wiederherstellungsmodus zu verlassen, melde dich ab oder verwende den Button Verlassen."
 
 #: wp-admin/includes/update.php:458
 msgid "There is a new version of %1$s available, but it doesn&#8217;t work with your version of PHP. <a href=\"%2$s\" %3$s>View version %4$s details</a> or <a href=\"%5$s\">learn more about updating PHP</a>."
@@ -3355,10 +3356,6 @@ msgstr "Falls du Version %s neu installieren musst, dann kannst du das hier mach
 #: wp-admin/update-core.php:59
 msgid "You are using a development version of WordPress. You can update to the latest nightly build automatically:"
 msgstr "Du verwendest die Entwicklungs-Version von WordPress. Du kannst automatisch auf den neuesten Nightly Build aktualisieren:"
-
-#: wp-admin/themes.php:323 wp-admin/themes.php:485
-msgid "New version available."
-msgstr "Neue Version verfügbar."
 
 #: wp-admin/theme-install.php:232
 msgid "Edit Filters"
