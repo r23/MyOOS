@@ -101,7 +101,7 @@ class Table extends List_Table {
 	 * @param object $item The current item.
 	 */
 	protected function column_uri( $item ) {
-		return $item['uri_decoded'] . $this->column_actions( $item );
+		return esc_html( $item['uri_decoded'] ) . $this->column_actions( $item );
 	}
 
 	/**
@@ -110,7 +110,7 @@ class Table extends List_Table {
 	 * @param object $item The current item.
 	 */
 	protected function column_referer( $item ) {
-		return '<a href="' . $item['referer'] . '" target="_blank">' . $item['referer'] . '</a>';
+		return '<a href="' . esc_attr( $item['referer'] ) . '" target="_blank">' . esc_html( $item['referer'] ) . '</a>';
 	}
 
 	/**
@@ -121,7 +121,7 @@ class Table extends List_Table {
 	 */
 	public function column_default( $item, $column_name ) {
 		if ( in_array( $column_name, [ 'times_accessed', 'accessed', 'user_agent' ], true ) ) {
-			return $item[ $column_name ];
+			return esc_html( $item[ $column_name ] );
 		}
 
 		return print_r( $item, true );

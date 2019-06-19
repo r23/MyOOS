@@ -84,6 +84,15 @@ class Singular implements IPaper {
 	}
 
 	/**
+	 * Retrieves meta keywords.
+	 *
+	 * @return string The focus keywords.
+	 */
+	public function keywords() {
+		return Post::get_meta( 'focus_keyword', $this->object->ID );
+	}
+
+	/**
 	 * Set post object.
 	 *
 	 * @param WP_Post $object Current post object.

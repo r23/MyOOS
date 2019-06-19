@@ -272,16 +272,10 @@ class Breadcrumbs {
 		global $post;
 
 		$this->prepend_shop_page();
-		$this->maybe_add_primary_term(
-			wc_get_product_terms(
-				$post->ID,
-				'product_cat',
-				[
-					'orderby' => 'parent',
-					'order'   => 'DESC',
-				]
-			)
-		);
+		$main_tax = Helper::get_settings( 'titles.pt_product_primary_taxonomy' );
+		if ( $main_tax ) {
+			$this->maybe_add_primary_term( get_the_terms( $post->ID, $main_tax ) );
+		}
 
 		if ( isset( $post->ID ) ) {
 			$this->add_crumb( $this->get_breadcrumb_title( 'post', $post->ID, get_the_title( $post ) ), get_permalink( $post ) );

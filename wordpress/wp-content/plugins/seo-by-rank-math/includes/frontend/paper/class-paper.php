@@ -66,6 +66,13 @@ class Paper {
 	private $canonical = null;
 
 	/**
+	 * Hold keywords.
+	 *
+	 * @var string
+	 */
+	private $keywords = null;
+
+	/**
 	 * Initialize object
 	 *
 	 * @return object Post|Term|User.
@@ -211,6 +218,36 @@ class Paper {
 		$this->robots = apply_filters( 'rank_math/frontend/robots', array_unique( $this->robots ) );
 
 		return $this->robots;
+	}
+
+	/**
+	 * Get focus keywords
+	 *
+	 * @return string
+	 */
+	public function get_keywords() {
+		/**
+		 * Passing a truthy value to the filter will effectively short-circuit the
+		 * set keywords process.
+		 *
+		 * @param bool $return Short-circuit return value. Either false or true.
+		 */
+		if ( ! apply_filters( 'rank_math/frontend/show_keywords', false ) ) {
+			return false;
+		}
+
+		if ( ! is_null( $this->keywords ) ) {
+			return $this->keywords;
+		}
+
+		$this->keywords = $this->paper->keywords();
+
+		/**
+		 * Allows filtering of the meta keywords.
+		 *
+		 * @param array $keywords The meta keywords to be echoed.
+		 */
+		return apply_filters( 'rank_math/frontend/keywords', $this->keywords );
 	}
 
 	/**

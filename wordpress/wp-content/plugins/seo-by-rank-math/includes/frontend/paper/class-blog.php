@@ -74,4 +74,17 @@ class Blog implements IPaper {
 
 		return [ 'canonical' => $canonical ];
 	}
+
+	/**
+	 * Retrieves the keywords.
+	 *
+	 * @return string The focus keywords.
+	 */
+	public function keywords() {
+		if ( ! Post::is_posts_page() ) {
+			return '';
+		}
+
+		return Post::get_meta( 'focus_keyword', get_option( 'page_for_posts' ) );
+	}
 }

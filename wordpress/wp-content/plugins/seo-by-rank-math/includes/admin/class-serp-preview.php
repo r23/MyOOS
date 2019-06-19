@@ -1,6 +1,6 @@
 <?php
 /**
- * The serp preview functionality.
+ * The SERP preview functionality, in the metabox.
  *
  * @since      0.9.0
  * @package    RankMath
@@ -293,7 +293,7 @@ class Serp_Preview {
 	}
 
 	/**
-	 * Get desktop preview
+	 * Get desktop preview.
 	 *
 	 * @param  array $data         Snippet data array.
 	 * @param  int   $rating       Ratings.
@@ -343,7 +343,7 @@ class Serp_Preview {
 	}
 
 	/**
-	 * Get mobile preview
+	 * Get mobile preview.
 	 *
 	 * @param  array $data         Snippet data array.
 	 * @param  int   $rating       Ratings.

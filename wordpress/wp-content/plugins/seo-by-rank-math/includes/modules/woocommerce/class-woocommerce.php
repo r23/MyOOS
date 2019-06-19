@@ -26,6 +26,13 @@ class WooCommerce {
 	use Hooker;
 
 	/**
+	 * Hold product categories.
+	 *
+	 * @var array
+	 */
+	private $categories;
+
+	/**
 	 * The Constructor.
 	 */
 	public function __construct() {
@@ -34,41 +41,7 @@ class WooCommerce {
 			new Admin;
 		}
 
-		// Permalink Manager.
-		if ( ! is_admin() ) {
-			if (
-				Helper::get_settings( 'general.wc_remove_product_base' ) ||
-				Helper::get_settings( 'general.wc_remove_category_base' ) ||
-				Helper::get_settings( 'general.wc_remove_category_parent_slugs' )
-			) {
-				$this->action( 'request', 'request' );
-			}
-
-			if ( Helper::get_settings( 'general.wc_remove_generator' ) ) {
-				remove_action( 'get_the_generator_html', 'wc_generator_tag', 10 );
-				remove_action( 'get_the_generator_xhtml', 'wc_generator_tag', 10 );
-			}
-
-			// Add metadescription filter.
-			$this->filter( 'rank_math/frontend/description', 'metadesc' );
-
-			// Robots.
-			$this->filter( 'rank_math/frontend/robots', 'robots' );
-
-			// OpenGraph.
-			$this->filter( 'language_attributes', 'og_product_namespace', 11 );
-			$this->filter( 'rank_math/opengraph/desc', 'og_desc_product_taxonomy' );
-			$this->action( 'rank_math/opengraph/facebook', 'og_enhancement', 50 );
-			$this->action( 'rank_math/opengraph/facebook/add_additional_images', 'set_opengraph_image' );
-
-			// Sitemap.
-			$this->filter( 'rank_math/sitemap/exclude_post_type', 'sitemap_exclude_post_type', 10, 2 );
-			$this->filter( 'rank_math/sitemap/post_type_archive_link', 'sitemap_taxonomies', 10, 2 );
-			$this->filter( 'rank_math/sitemap/post_type_archive_link', 'sitemap_post_type_archive_link', 10, 2 );
-			$this->filter( 'rank_math/sitemap/urlimages', 'add_product_images_to_xml_sitemap', 10, 2 );
-
-		}
-
+		$this->action( 'wp', 'integrations' );
 		if ( Helper::get_settings( 'general.wc_remove_product_base' ) ) {
 			$this->filter( 'post_type_link', 'product_post_type_link', 1, 2 );
 		}
@@ -76,7 +49,45 @@ class WooCommerce {
 			$this->filter( 'term_link', 'product_term_link', 1, 3 );
 		}
 
+		$this->filter( 'rewrite_rules_array', 'add_rewrite_rules', 99 );
 		$this->action( 'rank_math/vars/register_extra_replacements', 'register_replacements' );
+	}
+
+	/**
+	 * Initialize integrations.
+	 */
+	public function integrations() {
+		// Permalink Manager.
+		if (
+			Helper::get_settings( 'general.wc_remove_product_base' ) ||
+			Helper::get_settings( 'general.wc_remove_category_base' ) ||
+			Helper::get_settings( 'general.wc_remove_category_parent_slugs' )
+		) {
+			$this->action( 'request', 'request' );
+		}
+
+		if ( Helper::get_settings( 'general.wc_remove_generator' ) ) {
+			remove_action( 'get_the_generator_html', 'wc_generator_tag', 10 );
+			remove_action( 'get_the_generator_xhtml', 'wc_generator_tag', 10 );
+		}
+
+		// Add metadescription filter.
+		$this->filter( 'rank_math/frontend/description', 'metadesc' );
+
+		// Robots.
+		$this->filter( 'rank_math/frontend/robots', 'robots' );
+
+		// OpenGraph.
+		$this->filter( 'language_attributes', 'og_product_namespace', 11 );
+		$this->filter( 'rank_math/opengraph/desc', 'og_desc_product_taxonomy' );
+		$this->action( 'rank_math/opengraph/facebook', 'og_enhancement', 50 );
+		$this->action( 'rank_math/opengraph/facebook/add_additional_images', 'set_opengraph_image' );
+
+		// Sitemap.
+		$this->filter( 'rank_math/sitemap/exclude_post_type', 'sitemap_exclude_post_type', 10, 2 );
+		$this->filter( 'rank_math/sitemap/post_type_archive_link', 'sitemap_taxonomies', 10, 2 );
+		$this->filter( 'rank_math/sitemap/post_type_archive_link', 'sitemap_post_type_archive_link', 10, 2 );
+		$this->filter( 'rank_math/sitemap/urlimages', 'add_product_images_to_xml_sitemap', 10, 2 );
 	}
 
 	/**
@@ -197,6 +208,12 @@ class WooCommerce {
 	 * @return array Modified robots.
 	 */
 	public function robots( $robots ) {
+
+		// Early Bail if current page is Woocommerce OnePage Checkout.
+		if ( function_exists( 'is_wcopc_checkout' ) && is_wcopc_checkout() ) {
+			return $robots;
+		}
+
 		if ( is_cart() || is_checkout() || is_account_page() ) {
 			remove_action( 'wp_head', 'wc_page_noindex' );
 			return array(
@@ -573,6 +590,88 @@ class WooCommerce {
 			return $product->get_short_description();
 		}
 		return $product->post->post_excerpt;
+	}
+
+	/**
+	 * Add rewrite rules for wp.
+	 *
+	 * @param array $rules The compiled array of rewrite rules.
+	 * @return array
+	 */
+	public function add_rewrite_rules( $rules ) {
+		global $wp_rewrite;
+		wp_cache_flush();
+
+		$permalink_structure  = wc_get_permalink_structure();
+		$remove_product_base  = Helper::get_settings( 'general.wc_remove_product_base' );
+		$remove_category_base = Helper::get_settings( 'general.wc_remove_category_base' );
+		$remove_parent_slugs  = Helper::get_settings( 'general.wc_remove_category_parent_slugs' );
+
+		$category_base   = $remove_category_base ? '' : $permalink_structure['category_rewrite_slug'];
+		$use_parent_slug = Str::contains( '%product_cat%', $permalink_structure['product_rewrite_slug'] );
+
+		$product_rules  = [];
+		$category_rules = [];
+		foreach ( $this->get_categories() as $category ) {
+			$category_slug = $remove_parent_slugs ? $category['slug'] : $this->get_category_fullpath( $category );
+
+			$category_rules[ $category_base . $category_slug . '/?$' ]                                    = 'index.php?product_cat=' . $category['slug'];
+			$category_rules[ $category_base . $category_slug . '/(?:feed/)?(feed|rdf|rss|rss2|atom)/?$' ] = 'index.php?product_cat=' . $category['slug'] . '&feed=$matches[1]';
+			$category_rules[ $category_base . $category_slug . '/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$' ] = 'index.php?product_cat=' . $category['slug'] . '&paged=$matches[1]';
+
+			if ( $remove_product_base && $use_parent_slug ) {
+				$product_rules[ $category_slug . '/([^/]+)/?$' ] = 'index.php?product=$matches[1]';
+				$product_rules[ $category_slug . '/([^/]+)/' . $wp_rewrite->comments_pagination_base . '-([0-9]{1,})/?$' ] = 'index.php?product=$matches[1]&cpage=$matches[2]';
+			}
+		}
+
+		$rules = empty( $rules ) ? [] : $rules;
+		return $category_rules + $product_rules + $rules;
+	}
+
+	/**
+	 * Returns categories array.
+	 *
+	 * ['category id' => ['slug' => 'category slug', 'parent' => 'parent category id']]
+	 *
+	 * @return array
+	 */
+	protected function get_categories() {
+		if ( is_null( $this->categories ) ) {
+			$categories = get_categories(array(
+				'taxonomy'   => 'product_cat',
+				'hide_empty' => false,
+			));
+
+			$slugs = [];
+			foreach ( $categories as $category ) {
+				$slugs[ $category->term_id ] = array(
+					'parent' => $category->parent,
+					'slug'   => $category->slug,
+				);
+			}
+
+			$this->categories = $slugs;
+		}
+
+		return $this->categories;
+	}
+
+	/**
+	 * Recursively builds category full path.
+	 *
+	 * @param object $category Term object.
+	 * @return string
+	 */
+	protected function get_category_fullpath( $category ) {
+		$categories = $this->get_categories();
+		$parent     = $category['parent'];
+
+		if ( $parent > 0 && array_key_exists( $parent, $categories ) ) {
+			return $this->get_category_fullpath( $categories[ $parent ] ) . '/' . $category['slug'];
+		}
+
+		return $category['slug'];
 	}
 
 	/**

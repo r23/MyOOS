@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Activation and De-Activation
+ * Plugin activation and deactivation functionality.
  *
  * This class defines all code necessary to run during the plugin's activation.
  *
@@ -27,7 +27,7 @@ class Installer {
 	use Hooker;
 
 	/**
-	 * Binding all events
+	 * Bind all events.
 	 */
 	public function __construct() {
 		register_activation_hook( RANK_MATH_FILE, [ $this, 'activation' ] );
@@ -40,7 +40,7 @@ class Installer {
 	}
 
 	/**
-	 * Does something when activating Rank Math.
+	 * Do things when activating Rank Math.
 	 *
 	 * @param bool $network_wide Whether the plugin is being activated network-wide.
 	 */
@@ -54,7 +54,7 @@ class Installer {
 	}
 
 	/**
-	 * Does something when deactivating Rank Math.
+	 * Do things when deactivating Rank Math.
 	 *
 	 * @param bool $network_wide Whether the plugin is being activated network-wide.
 	 */
@@ -102,7 +102,7 @@ class Installer {
 	}
 
 	/**
-	 * Run network-wide (de-)activation of the plugin.
+	 * Run network-wide activation/deactivation of the plugin.
 	 *
 	 * @param bool $activate True for plugin activation, false for de-activation.
 	 */
@@ -158,7 +158,7 @@ class Installer {
 	}
 
 	/**
-	 * Runs on deactivate of the plugin.
+	 * Runs on deactivation of the plugin.
 	 */
 	private function deactivate() {
 		$this->clear_rewrite_rules( false );
@@ -168,7 +168,7 @@ class Installer {
 	}
 
 	/**
-	 * Set up the database tables which the plugin needs to function.
+	 * Set up the database tables.
 	 */
 	private function create_tables() {
 		global $wpdb;
@@ -271,7 +271,7 @@ class Installer {
 			'profiles'   => [],
 		]);
 
-		// Update "known CPTs" list, So we can send notice about new ones later.
+		// Update "known CPTs" list, so we can send notice about new ones later.
 		add_option( 'rank_math_known_post_types', Helper::get_accessible_post_types() );
 
 		$modules = [
@@ -279,8 +279,6 @@ class Installer {
 			'search-console',
 			'seo-analysis',
 			'sitemap',
-
-			// Premium.
 			'rich-snippet',
 			'woocommerce',
 		];
@@ -347,6 +345,9 @@ class Installer {
 			'usage_tracking'                      => 'on',
 			'wc_remove_generator'                 => 'on',
 			'remove_shop_snippet_data'            => 'on',
+			'frontend_seo_score'                  => 'off',
+			'frontend_seo_score_post_types'       => [ 'post' ],
+			'frontend_seo_score_position'         => 'top',
 		]));
 	}
 

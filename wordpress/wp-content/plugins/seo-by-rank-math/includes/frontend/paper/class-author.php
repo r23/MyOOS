@@ -74,4 +74,13 @@ class Author implements IPaper {
 			'canonical_override' => User::get_meta( 'canonical_url', get_query_var( 'author' ) ),
 		];
 	}
+
+	/**
+	 * Retrieves the keywords.
+	 *
+	 * @return string The focus keywords.
+	 */
+	public function keywords() {
+		return User::get_meta( 'focus_keyword', get_query_var( 'author' ) );
+	}
 }

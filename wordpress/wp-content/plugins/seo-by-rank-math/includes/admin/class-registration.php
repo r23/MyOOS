@@ -164,7 +164,7 @@ class Registration {
 	 */
 	public function render_page() {
 
-		// Do not proceed, if we're not on the right page.
+		// Early bail if we're not on the right page.
 		if ( Param::get( 'page' ) !== $this->slug ) {
 			return;
 		}
@@ -261,7 +261,7 @@ class Registration {
 	}
 
 	/**
-	 * Skik wizard handler.
+	 * Skip wizard handler.
 	 */
 	public function skip_wizard() {
 		check_admin_referer( 'rank-math-wizard', 'security' );
@@ -328,7 +328,7 @@ class Registration {
 	}
 
 	/**
-	 * Print javascript
+	 * Print Javascript.
 	 */
 	private function print_script() {
 		?>

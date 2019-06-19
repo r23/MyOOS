@@ -40,7 +40,7 @@ class Assets implements Runner {
 	}
 
 	/**
-	 * Register styles and scripts required by plugin.
+	 * Register styles and scripts.
 	 */
 	public function register() {
 
@@ -85,13 +85,13 @@ class Assets implements Runner {
 		);
 
 		/**
-		 * Allow other plugins to register styles or scripts into admin after plugin assets.
+		 * Allow other plugins to register/deregister admin styles or scripts after plugin assets.
 		 */
 		$this->do_action( 'admin/register_scripts' );
 	}
 
 	/**
-	 * Enqueue Styles and Scripts required by plugin.
+	 * Enqueue styles and scripts.
 	 */
 	public function enqueue() {
 		$screen = get_current_screen();
@@ -107,7 +107,7 @@ class Assets implements Runner {
 		Helper::add_json( 'maxTags', Helper::is_site_connected() ? 5 : 1 );
 
 		/**
-		 * Allow other plugins to enqueue styles or scripts into admin after plugin assets.
+		 * Allow other plugins to enqueue/dequeue admin styles or scripts after plugin assets.
 		 */
 		$this->do_action( 'admin/enqueue_scripts' );
 	}
@@ -125,6 +125,7 @@ class Assets implements Runner {
 
 	/**
 	 * Overwrite wplink script file.
+	 * Rank Math adds new options in the link popup when editing a post.
 	 */
 	public function overwrite_wplink() {
 

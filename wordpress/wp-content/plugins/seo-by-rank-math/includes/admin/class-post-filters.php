@@ -49,7 +49,7 @@ class Post_Filters implements Runner {
 	}
 
 	/**
-	 * Filter post in admin by Rank Math's Filter value.
+	 * Filter posts in admin by Rank Math's Filter value.
 	 *
 	 * @param \WP_Query $query The wp_query instance.
 	 */
@@ -70,7 +70,7 @@ class Post_Filters implements Runner {
 
 		$meta_query = [];
 
-		// Check for pillar content filter.
+		// Check for Pillar Content filter.
 		if ( ! empty( $_GET['pillar_content'] ) ) {
 			$meta_query[] = [
 				'key'   => 'rank_math_pillar_content',
@@ -83,7 +83,7 @@ class Post_Filters implements Runner {
 	}
 
 	/**
-	 * Filter post in admin by pillar content.
+	 * Filter post in admin by Pillar Content.
 	 *
 	 * @param \WP_Query $query The wp_query instance.
 	 */
@@ -168,14 +168,14 @@ class Post_Filters implements Runner {
 		?>
 		<select name="seo-filter">
 			<?php foreach ( $options as $val => $option ) : ?>
-				<option value="<?php echo $val; ?>" <?php selected( $selected, $val, true ); ?>><?php echo $option; ?></option>
+				<option value="<?php echo esc_attr( $val ); ?>" <?php selected( $selected, $val, true ); ?>><?php echo esc_html( $option ); ?></option>
 			<?php endforeach; ?>
 		</select>
 		<?php
 	}
 
 	/**
-	 * Add view to filter list for pillar content.
+	 * Add view to filter list for Pillar Content.
 	 *
 	 * @param array $views An array of available list table views.
 	 */
@@ -268,7 +268,7 @@ class Post_Filters implements Runner {
 	}
 
 	/**
-	 * Can apply focus keyword filter.
+	 * Can apply Focus Keyword filter.
 	 *
 	 * @return bool
 	 */
@@ -282,7 +282,7 @@ class Post_Filters implements Runner {
 	}
 
 	/**
-	 * Check if focus keyword is in title.
+	 * Check if Focus Keyword is in title.
 	 *
 	 * @return bool|array
 	 */
@@ -313,6 +313,7 @@ class Post_Filters implements Runner {
 			],
 		]);
 
+		$screen = get_current_screen();
 		$mq_sql = $meta_query->get_sql( 'post', $wpdb->posts, 'ID' );
 		return $wpdb->get_col( "SELECT {$wpdb->posts}.ID FROM $wpdb->posts {$mq_sql['join']} WHERE 1=1 {$mq_sql['where']} AND {$wpdb->posts}.post_type = '$screen->post_type' AND ({$wpdb->posts}.post_status = 'publish') AND {$wpdb->posts}.post_title NOT REGEXP REPLACE({$wpdb->postmeta}.meta_value, ',', '|')" ); // phpcs:ignore
 	}

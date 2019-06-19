@@ -75,8 +75,8 @@ class Term extends Metadata {
 	/**
 	 * Get term meta value.
 	 *
-	 * @param string $key      Internal key of the value to get (without prefix).
-	 * @param mixed  $term     Term to get the meta value for either (string) term name, (int) term id or (object) term.
+	 * @param string $key      Meta key.
+	 * @param mixed  $term     Term name, term ID, or term object.
 	 * @param string $taxonomy Optional. Limit matched terms to those matching `$taxonomy`. Only used for
 	 *                         disambiguating potentially shared terms.
 	 * @return mixed
@@ -92,7 +92,7 @@ class Term extends Metadata {
 	}
 
 	/**
-	 * Check if term archive query is for multiple terms (/term-1,term2/ or /term-1+term-2/).
+	 * Check if the current query is for multiple terms (e.g. /term-1,term-2/).
 	 *
 	 * @return bool
 	 */

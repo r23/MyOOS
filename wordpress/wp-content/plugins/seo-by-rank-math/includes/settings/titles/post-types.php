@@ -38,7 +38,7 @@ $cmb->add_field([
 	'desc'            => sprintf( esc_html__( 'Default title tag for single %s pages. This can be changed on a per-post basis on the post editor screen.', 'rank-math' ), $name ),
 	'classes'         => 'rank-math-supports-variables rank-math-title',
 	'default'         => '%title% %page% %sep% %sitename%',
-	'sanitization_cb' => true,
+	'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_textfield' ],
 ]);
 
 $cmb->add_field([

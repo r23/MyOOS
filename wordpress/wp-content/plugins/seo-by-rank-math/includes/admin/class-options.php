@@ -104,7 +104,7 @@ class Options {
 	}
 
 	/**
-	 * Create option object and add settings
+	 * Create option object and add settings.
 	 */
 	function register_option_page() {
 		$cmb = new_cmb2_box(
@@ -176,7 +176,7 @@ class Options {
 	}
 
 	/**
-	 * Set the default values if not set
+	 * Set the default values if not set.
 	 *
 	 * @param CMB2 $cmb The CMB2 object to hookup.
 	 */
@@ -195,7 +195,7 @@ class Options {
 	}
 
 	/**
-	 * Reset options
+	 * Reset options.
 	 */
 	public function reset_options() {
 		$url = wp_get_referer();
@@ -211,7 +211,7 @@ class Options {
 	}
 
 	/**
-	 * Enqueue styles and scripts
+	 * Enqueue styles and scripts.
 	 */
 	public function enqueue() {
 		$screen = get_current_screen();
@@ -232,7 +232,7 @@ class Options {
 	}
 
 	/**
-	 * Add classes to <body> of WordPress admin
+	 * Add classes to <body> of WordPress admin.
 	 *
 	 * @param string $classes Space-separated list of CSS classes.
 	 * @return string
@@ -242,7 +242,7 @@ class Options {
 	}
 
 	/**
-	 * Display Setting on a page
+	 * Display Setting on a page.
 	 *
 	 * @param CMB2_Options $machine CUrrent CMB2 box object.
 	 */
@@ -286,7 +286,7 @@ class Options {
 	}
 
 	/**
-	 * Is the page is currrent page
+	 * Check if we are on the correct page.
 	 *
 	 * @return bool
 	 */
@@ -295,7 +295,7 @@ class Options {
 	}
 
 	/**
-	 * Get setting tabs
+	 * Get setting tabs.
 	 *
 	 * @return array
 	 */
@@ -313,7 +313,7 @@ class Options {
 	}
 
 	/**
-	 * Locate tab options file
+	 * Locate tab options file.
 	 *
 	 * @param  string $id  Tab id.
 	 * @param  array  $tab Tab options.

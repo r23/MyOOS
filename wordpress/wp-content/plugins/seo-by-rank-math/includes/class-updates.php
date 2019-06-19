@@ -1,6 +1,6 @@
 <?php
 /**
- * Updates related functions and actions.
+ * Functions and actions related to updates.
  *
  * @since      0.9.0
  * @package    RankMath
@@ -44,12 +44,12 @@ class Updates implements Runner {
 	}
 
 	/**
-	 * Check if need any update is required.
+	 * Check if any update is required.
 	 */
 	public function do_updates() {
 		$installed_version = get_option( 'rank_math_version' );
 
-		// may be it's the first install.
+		// Maybe it's the first install.
 		if ( ! $installed_version ) {
 			return;
 		}

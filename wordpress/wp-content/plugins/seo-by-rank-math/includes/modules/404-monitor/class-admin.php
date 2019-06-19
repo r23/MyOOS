@@ -53,8 +53,10 @@ class Admin extends Module {
 			$this->action( 'init', 'init' );
 		}
 
-		$this->action( 'rank_math/dashboard/widget', 'dashboard_widget', 11 );
-		$this->filter( 'rank_math/settings/general', 'add_settings' );
+		if ( Helper::has_cap( '404_monitor' ) ) {
+			$this->action( 'rank_math/dashboard/widget', 'dashboard_widget', 11 );
+			$this->filter( 'rank_math/settings/general', 'add_settings' );
+		}
 	}
 
 	/**

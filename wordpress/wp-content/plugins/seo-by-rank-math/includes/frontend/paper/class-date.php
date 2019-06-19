@@ -70,4 +70,13 @@ class Date implements IPaper {
 
 		return [ 'canonical' => $canonical ];
 	}
+
+	/**
+	 * Retrieves meta keywords.
+	 *
+	 * @return string
+	 */
+	public function keywords() {
+		return '';
+	}
 }

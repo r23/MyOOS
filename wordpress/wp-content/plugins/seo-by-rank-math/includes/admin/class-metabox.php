@@ -49,10 +49,10 @@ class Metabox implements Runner {
 	}
 
 	/**
-	 * Enqueue Styles and Scripts required for metabox.
+	 * Enqueue styles and scripts for the metabox.
 	 */
 	public function enqueue() {
-		// Early bail out if is not the valid screen or if it's WPBakery's Frontend editor.
+		// Early bail if we're not on the valid screens or if it's WPBakery's Frontend editor.
 		$screen = get_current_screen();
 		if (
 			! in_array( $screen->base, array( 'post', 'term', 'profile', 'user-edit' ), true ) ||
@@ -203,7 +203,7 @@ class Metabox implements Runner {
 			$allowed_post_types[] = $post_type;
 		}
 
-		// Early Bail!
+		// Early bail.
 		if ( empty( $allowed_post_types ) ) {
 			return;
 		}
@@ -239,7 +239,7 @@ class Metabox implements Runner {
 	}
 
 	/**
-	 * Output the WordPress editor.
+	 * Output the WordPress editor for term SEO description.
 	 *
 	 * @param object $term Current taxonomy term object.
 	 */
@@ -292,7 +292,7 @@ class Metabox implements Runner {
 	 */
 	public function invalidate_facebook_object_cache( $field_id, $updated, $action, $field ) {
 
-		// Early Bail!
+		// Early bail.
 		if ( ! in_array( $field_id, [ 'rank_math_facebook_title', 'rank_math_facebook_image', 'rank_math_facebook_description' ], true ) || ! $updated ) {
 			return;
 		}
@@ -300,7 +300,7 @@ class Metabox implements Runner {
 		$app_id = Helper::get_settings( 'titles.facebook_app_id' );
 		$secret = Helper::get_settings( 'titles.facebook_secret' );
 
-		// Early Bail!
+		// Early bail.
 		if ( ! $app_id || ! $secret ) {
 			return;
 		}
@@ -318,7 +318,7 @@ class Metabox implements Runner {
 	}
 
 	/**
-	 * Get object types to register metabox to
+	 * Get object types to register metaboxes to.
 	 *
 	 * @return array
 	 */
@@ -341,7 +341,7 @@ class Metabox implements Runner {
 	}
 
 	/**
-	 * Get metabox priority
+	 * Get metabox priority.
 	 *
 	 * @return string
 	 */
@@ -352,6 +352,9 @@ class Metabox implements Runner {
 		);
 		$priority  = 'product' === $post_type ? 'default' : 'high';
 
+		/**
+		 * Filter: Change metabox priority.
+		 */
 		return $this->do_filter( 'metabox/priority', $priority );
 	}
 
@@ -374,7 +377,7 @@ class Metabox implements Runner {
 	}
 
 	/**
-	 * Can add metabox
+	 * Check if user has the necessary capabilities for seeing the meta box.
 	 *
 	 * @return bool
 	 */
@@ -386,7 +389,7 @@ class Metabox implements Runner {
 	}
 
 	/**
-	 * Is user metabox enabled.
+	 * Check if user meta box is enabled.
 	 *
 	 * @return bool
 	 */
@@ -397,7 +400,7 @@ class Metabox implements Runner {
 	}
 
 	/**
-	 * Get tabs.
+	 * Get metabox tabs.
 	 *
 	 * @return array
 	 */
@@ -428,7 +431,7 @@ class Metabox implements Runner {
 		];
 
 		/**
-		 * Allow developers to add new tabs into main metabox.
+		 * Allow developers to add new tabs in the main metabox.
 		 *
 		 * @param array $tabs Array of tabs.
 		 */
@@ -436,7 +439,7 @@ class Metabox implements Runner {
 	}
 
 	/**
-	 * Assessor data
+	 * Assessor data.
 	 */
 	private function assessor() {
 		$data = [
@@ -453,7 +456,7 @@ class Metabox implements Runner {
 	}
 
 	/**
-	 * Return power words
+	 * Return power words.
 	 *
 	 * @return array
 	 */
@@ -463,7 +466,7 @@ class Metabox implements Runner {
 	}
 
 	/**
-	 * Check if any TOC plugin detected
+	 * Check if any TOC plugin is installed.
 	 *
 	 * @return bool
 	 */

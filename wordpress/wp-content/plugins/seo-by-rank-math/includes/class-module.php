@@ -47,14 +47,14 @@ class Module {
 	public function register_admin_page() {}
 
 	/**
-	 * Admin Initialize.
+	 * Admin initialize.
 	 */
 	public function admin_init() {
 		$this->table = new $this->table;
 	}
 
 	/**
-	 * Add help tab into help page.
+	 * Add help tab on help page.
 	 *
 	 * @param array $tabs Array of tabs.
 	 * @return array
@@ -66,7 +66,7 @@ class Module {
 	}
 
 	/**
-	 * Register screen options
+	 * Register screen options.
 	 */
 	private function register_screen_options() {
 		if ( ! isset( $this->screen_options ) ) {
@@ -89,9 +89,9 @@ class Module {
 	}
 
 	/**
-	 * Set screen options
+	 * Set screen options.
 	 *
-	 * @param bool|int $status  Screen option value. Default false to skip.
+	 * @param bool|int $status Screen option value. Default false to skip.
 	 * @param string   $option The option name.
 	 * @param int      $value  The number of rows to use.
 	 */

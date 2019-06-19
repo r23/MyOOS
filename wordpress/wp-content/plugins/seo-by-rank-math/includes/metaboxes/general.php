@@ -21,7 +21,7 @@ $cmb->add_field( array(
 	'type'            => 'text',
 	'desc'            => esc_html__( 'This is what will appear in the first line when this post shows up in the search results.', 'rank-math' ),
 	'classes'         => 'rank-math-supports-variables',
-	'sanitization_cb' => true,
+	'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_textfield' ],
 	'attributes'      => array(
 		'class'             => 'regular-text wp-exclude-emoji',
 		'data-gramm_editor' => 'false',

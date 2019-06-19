@@ -20,17 +20,17 @@ defined( 'ABSPATH' ) || exit;
 class User extends Metadata {
 
 	/**
-	 * Type of object metadata is for
+	 * The type of object the metadata is for.
 	 *
 	 * @var string
 	 */
 	protected $meta_type = 'user';
 
 	/**
-	 * Retrieve User instance.
+	 * Get User instance.
 	 *
-	 * @param WP_User|object|int $user User to get either (int) user id or (WP_User|object) user.
-	 * @return User|false User object, false otherwise.
+	 * @param WP_User|object|int $user User ID or user object.
+	 * @return User|false User object or false if not found.
 	 */
 	public static function get( $user = 0 ) {
 		if ( is_int( $user ) && 0 === absint( $user ) ) {
@@ -55,10 +55,10 @@ class User extends Metadata {
 	}
 
 	/**
-	 * Get user meta value.
+	 * Get user meta data.
 	 *
-	 * @param string $key  Internal key of the value to get (without prefix).
-	 * @param mixed  $user User to get the meta value for either (string) term name, (int) term id or (object) term.
+	 * @param string $key  Meta key.
+	 * @param mixed  $user User ID or user object.
 	 * @return mixed
 	 */
 	public static function get_meta( $key, $user = 0 ) {

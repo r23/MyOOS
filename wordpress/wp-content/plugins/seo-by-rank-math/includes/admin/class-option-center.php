@@ -92,7 +92,7 @@ class Option_Center implements Runner {
 		];
 
 		/**
-		 * Allow developers to add new section into general setting option panel.
+		 * Allow developers to add new sections in the General Settings.
 		 *
 		 * @param array $tabs
 		 */
@@ -109,7 +109,7 @@ class Option_Center implements Runner {
 	}
 
 	/**
-	 * Remove general tabs.
+	 * Remove unneeded tabs from the General Settings.
 	 *
 	 * @param  array $tabs Hold tabs for optional panel.
 	 * @return array
@@ -173,7 +173,7 @@ class Option_Center implements Runner {
 		];
 
 		/**
-		 * Allow developers to add new section into title setting option panel.
+		 * Allow developers to add new section in the Title Settings.
 		 *
 		 * @param array $tabs
 		 */
@@ -196,9 +196,9 @@ class Option_Center implements Runner {
 	}
 
 	/**
-	 * Add post type tabs into title option panel
+	 * Add post type tabs in the Title Settings panel.
 	 *
-	 * @param  array $tabs Hold tabs for optional panel.
+	 * @param  array $tabs Holds the tabs of the options panel.
 	 * @return array
 	 */
 	public function title_post_type_settings( $tabs ) {
@@ -241,9 +241,9 @@ class Option_Center implements Runner {
 	}
 
 	/**
-	 * Add taxonomy tabs into title option panel
+	 * Add taxonomy tabs in the Title Settings panel.
 	 *
-	 * @param  array $tabs Hold tabs for optional panel.
+	 * @param  array $tabs Holds the tabs of the options panel.
 	 * @return array
 	 */
 	public function title_taxonomy_settings( $tabs ) {
@@ -305,10 +305,9 @@ class Option_Center implements Runner {
 	public function check_updated_fields( $object_id, $updated ) {
 
 		/**
-		 * Allow developers to add option fields to check against updatation.
-		 * And if updated flush the rewrite rules.
+		 * Filter: Allow developers to add option fields which will flush the rewrite rules when updated.
 		 *
-		 * @param array $flush_fields Array of fields id for which we need to flush.
+		 * @param array $flush_fields Array of field IDs for which we need to flush.
 		 */
 		$flush_fields = $this->do_filter(
 			'flush_fields',

@@ -92,7 +92,7 @@ class Import_Export implements Runner {
 	}
 
 	/**
-	 * Handles AJAX plugin run clean.
+	 * Handles AJAX run plugin clean.
 	 */
 	public function clean_plugin() {
 		$this->verify_nonce( 'rank-math-ajax-nonce' );
@@ -109,7 +109,7 @@ class Import_Export implements Runner {
 	}
 
 	/**
-	 * Handles AJAX plugin run import.
+	 * Handles AJAX run plugin import.
 	 */
 	public function import_plugin() {
 		$this->verify_nonce( 'rank-math-ajax-nonce' );
@@ -181,7 +181,7 @@ class Import_Export implements Runner {
 	}
 
 	/**
-	 * Run backup actions
+	 * Run backup actions.
 	 *
 	 * @param  string $action Action to perform.
 	 * @param  array  $key    Key to backup.
@@ -260,7 +260,7 @@ class Import_Export implements Runner {
 	}
 
 	/**
-	 * Import has valid fule.
+	 * Import has valid file.
 	 *
 	 * @return mixed
 	 */
@@ -386,7 +386,7 @@ class Import_Export implements Runner {
 	/**
 	 * Gets export data.
 	 *
-	 * @param array $panels Which panels do you want to export. It will export all panels if this param is empty.
+	 * @param array $panels Which panels to export. All panels will be exported if this param is empty.
 	 * @return array
 	 */
 	private function get_export_data( array $panels = [] ) {
@@ -432,7 +432,7 @@ class Import_Export implements Runner {
 	}
 
 	/**
-	 * Is action allowed.
+	 * Check if given action is in the list of allowed actions.
 	 *
 	 * @param string $perform Action to check.
 	 *

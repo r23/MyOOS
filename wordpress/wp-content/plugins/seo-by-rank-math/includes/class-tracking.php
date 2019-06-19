@@ -177,9 +177,9 @@ class Tracking {
 	}
 
 	/**
-	 * Returns details about the curl version.
+	 * Get curl version and SSL support.
 	 *
-	 * @return array|null The curl info. Or null when curl isn't available..
+	 * @return array|null The curl info in an array or null when curl isn't available.
 	 */
 	private function get_curl_info() {
 
@@ -201,9 +201,9 @@ class Tracking {
 	}
 
 	/**
-	 * Formats the plugin array.
+	 * Format the plugin array.
 	 *
-	 * @param  array $plugin The plugin details.
+	 * @param  array $plugin The plugin info.
 	 * @return array The formatted array.
 	 */
 	protected function format_plugin( array $plugin ) {

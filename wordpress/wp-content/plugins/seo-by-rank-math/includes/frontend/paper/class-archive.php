@@ -67,6 +67,15 @@ class Archive implements IPaper {
 	}
 
 	/**
+	 * Retrieves meta keywords.
+	 *
+	 * @return string
+	 */
+	public function keywords() {
+		return '';
+	}
+
+	/**
 	 * Retrieves the queried post type
 	 *
 	 * @return string The queried post type.

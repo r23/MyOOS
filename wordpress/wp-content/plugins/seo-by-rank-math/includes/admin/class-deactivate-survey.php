@@ -71,7 +71,7 @@ class Deactivate_Survey implements Runner {
 	}
 
 	/**
-	 * Print deactivate feedback dialog.
+	 * Output deactivate feedback popup.
 	 */
 	public function deactivate_scripts() {
 		$screen = get_current_screen();

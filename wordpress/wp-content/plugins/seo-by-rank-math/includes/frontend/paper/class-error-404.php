@@ -52,4 +52,13 @@ class Error_404 implements IPaper {
 	public function canonical() {
 		return [];
 	}
+
+	/**
+	 * Retrieves meta keywords.
+	 *
+	 * @return string
+	 */
+	public function keywords() {
+		return '';
+	}
 }

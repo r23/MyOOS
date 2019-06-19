@@ -55,8 +55,10 @@ class Admin extends Module {
 		$this->ajax_hooks();
 		$this->load_metabox();
 
-		$this->action( 'rank_math/dashboard/widget', 'dashboard_widget', 12 );
-		$this->filter( 'rank_math/settings/general', 'add_settings' );
+		if ( Helper::has_cap( 'redirections' ) ) {
+			$this->action( 'rank_math/dashboard/widget', 'dashboard_widget', 12 );
+			$this->filter( 'rank_math/settings/general', 'add_settings' );
+		}
 
 		if ( $this->page->is_current_page() || 'rank_math_save_redirections' === Param::post( 'action' ) ) {
 			$this->form = new Form;

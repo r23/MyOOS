@@ -1,6 +1,6 @@
 <?php
 /**
- * The serp checklist functionality.
+ * The SERP checklist functionality.
  *
  * @since      0.9.0
  * @package    RankMath
@@ -414,7 +414,7 @@ class Serp_Checklist {
 	}
 
 	/**
-	 * Add locale
+	 * Add locale.
 	 *
 	 * @param string $id   List id.
 	 * @param array  $item List info.

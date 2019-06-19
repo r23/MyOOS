@@ -1,9 +1,8 @@
 <?php
 /**
- * Variable Replacer
+ * Variable replacer.
  *
- * This class implements the replacing of `%variable_placeholders%` with their real value based on the current
- * requested page/post/cpt/etc in text strings.
+ * Replace '%variables%' in strings based on context.
  *
  * @since      0.9.0
  * @package    RankMath
@@ -50,7 +49,7 @@ class Replace_Vars {
 	protected static $counters = [];
 
 	/**
-	 * Default post/page/cpt information.
+	 * Default post data.
 	 *
 	 * @var array
 	 */
@@ -70,17 +69,17 @@ class Replace_Vars {
 	);
 
 	/**
-	 * Replace `%variable_placeholders%` with their real value based on the current requested page/post/cpt.
+	 *  Replace `%variables%` with context-dependent value.
 	 *
-	 * @param  string $string The string to replace the variables in.
-	 * @param  array  $args   The object some of the replacement values might come from, could be a post, taxonomy or term.
-	 * @param  array  $omit   Variables that should not be replaced by this function.
+	 * @param  string $string  The string containing the %variables%.
+	 * @param  array  $args    Context object, can be post, taxonomy or term.
+	 * @param  array  $exclude Excluded variables won't be replaced.
 	 * @return string
 	 */
-	public function replace( $string, $args = [], $omit = [] ) {
+	public function replace( $string, $args = [], $exclude = [] ) {
 		$string = strip_tags( $string );
 
-		// Let's see if we can bail super early.
+		// Bail early.
 		if ( ! Str::contains( '%', $string ) ) {
 			return $string;
 		}
@@ -91,43 +90,41 @@ class Replace_Vars {
 
 		$this->args = (object) wp_parse_args( $args, $this->defaults );
 
-		// Clean $omit array.
-		if ( is_array( $omit ) && ! empty( $omit ) ) {
-			$omit = array_map( array( __CLASS__, 'remove_var_delimiter' ), $omit );
+		// Clean $exclude.
+		if ( is_array( $exclude ) && ! empty( $exclude ) ) {
+			$exclude = array_map( array( __CLASS__, 'remove_var_delimiter' ), $exclude );
 		}
 
 		$replacements = [];
 		if ( preg_match_all( '/%(([a-z0-9_-]+)\(([^)]*)\)|[^\s]+)%/iu', $string, $matches ) ) {
-			$replacements = $this->set_up_replacements( $matches, $omit );
+			$replacements = $this->set_up_replacements( $matches, $exclude );
 		}
 
 		/**
-		 * Allow customization of the replacements before they are applied.
+		 * Filter: Allow customizing the replacements.
 		 *
-		 * @param array $replacements The replacements.
+		 * @param array $replacements
 		 */
 		$replacements = $this->do_filter( 'replacements', $replacements );
 
-		// Do the actual replacements.
+		// Do the replacements.
 		if ( is_array( $replacements ) && [] !== $replacements ) {
 			$string = str_replace( array_keys( $replacements ), array_values( $replacements ), $string );
 		}
 
 		/**
-		 * Allow overruling of whether or not to remove placeholders which didn't yield a replacement.
+		 * Filter: strip variables which don't have a replacement.
 		 *
-		 * @example <code>add_filter( 'rank_math/replacements_final', '__return_false' );</code>
 		 * @param bool $final
 		 */
-		if ( true === $this->do_filter( 'replacements_final', true ) && ( isset( $matches[1] ) && is_array( $matches[1] ) ) ) {
+		if ( true === $this->do_filter( 'replacements_remove_nonreplaced', true ) && ( isset( $matches[1] ) && is_array( $matches[1] ) ) ) {
 			// Remove non-replaced variables.
-			// Make sure the $omit variables do not get removed.
-			$remove = array_diff( $matches[1], $omit );
+			// Don't remove the $exclude variables.
+			$remove = array_diff( $matches[1], $exclude );
 			$remove = array_map( array( __CLASS__, 'add_var_delimiter' ), $remove );
 			$string = str_replace( $remove, '', $string );
 		}
 
-		// Undouble separators which have nothing between them, i.e. where a non-replaced variable was removed.
 		if ( isset( $replacements['%sep%'] ) && Str::is_non_empty( $replacements['%sep%'] ) ) {
 			$q_sep  = preg_quote( $replacements['%sep%'], '`' );
 			$string = preg_replace( '`' . $q_sep . '(?:\s*' . $q_sep . ')*`u', $replacements['%sep%'], $string );
@@ -137,48 +134,66 @@ class Replace_Vars {
 	}
 
 	/**
-	 * Register new replacement %variables%.
-	 * For use by other plugins/themes to register extra variables.
+	 * Register extra %variables%. For developers.
+	 * See rank_math_register_var_replacement().
 	 *
-	 * @see rank_math_register_var_replacement() for a usage example.
+	 * @codeCoverageIgnore
 	 *
-	 * @param  string $var       The name of the variable to replace, i.e. '%var%' the surrounding % are optional.
-	 * @param  mixed  $callback  Function or method to call to retrieve the replacement value for the variable
-	 *                           and should *return* the replacement value. DON'T echo it.
-	 * @param  array  $args      Array with title, desc and example values.
+	 * @param  string $var       Variable name, for example %custom%. '%' signs are optional.
+	 * @param  mixed  $callback  Replacement callback. Should return value, not output it.
+	 * @param  array  $args      Array with additional title, description and example values for the variable.
+	 *
 	 * @return bool Whether the replacement function was succesfully registered.
 	 */
 	public static function register_replacement( $var, $callback, $args = [] ) {
 		$success = false;
 
-		if ( ! is_string( $var ) || empty( $var ) ) {
+		if ( ! self::is_valid_variable( $var ) ) {
 			return false;
 		}
 
 		$var = self::remove_var_delimiter( $var );
-
-		if ( false === preg_match( '`^[A-Z0-9_-]+$`i', $var ) ) {
-			trigger_error( esc_html__( 'A replacement variable can only contain alphanumeric characters, an underscore or a dash. Try renaming your variable.', 'rank-math' ), E_USER_WARNING );
-			return false;
-		}
 
 		if ( ! method_exists( __CLASS__, 'get_' . $var ) ) {
 			if ( ! isset( self::$external_replacements[ $var ] ) ) {
 				$success                             = true;
 				$args['callback']                    = $callback;
 				self::$external_replacements[ $var ] = $args;
-			} else {
-				trigger_error( esc_html__( 'A replacement variable with the same name has already been registered. Try making your variable name unique.', 'rank-math' ), E_USER_WARNING );
+
+				return $success;
 			}
-		} else {
-			trigger_error( esc_html__( 'You cannot overrule a Rank Math standard variable replacement by registering a variable with the same name. Use the "wpseo_replacements" filter instead to adjust the replacement value.', 'rank-math' ), E_USER_WARNING );
+
+			trigger_error( esc_html__( 'The variable has already been registered.', 'rank-math' ), E_USER_WARNING );
+			return $success;
 		}
 
+		trigger_error( esc_html__( 'Standard variables cannot be overridden by registering them again. Use the "rankmath/replacements" filter for this.', 'rank-math' ), E_USER_WARNING );
 		return $success;
 	}
 
 	/**
-	 * Enqueue Styles and Scripts required by plugin.
+	 * Check if variable is valid before further processing.
+	 *
+	 * @param string $var Variable name.
+	 *
+	 * @return boolean      Whether the variable is valid or not.
+	 */
+	public static function is_valid_variable( $var ) {
+		if ( ! is_string( $var ) || empty( $var ) ) {
+			return false;
+		}
+
+		$var = self::remove_var_delimiter( $var );
+		if ( false === preg_match( '`^[A-Z0-9_-]+$`i', $var ) ) {
+			trigger_error( esc_html__( 'Variable names can only contain alphanumeric characters, underscores and dashes.', 'rank-math' ), E_USER_WARNING );
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Enqueue styles and scripts.
 	 */
 	public static function setup_json() {
 
@@ -248,7 +263,7 @@ class Replace_Vars {
 	}
 
 	/**
-	 * Setup the replacements.
+	 * Set up replacements.
 	 */
 	public static function setup() {
 		global $wp_customize;
@@ -262,8 +277,7 @@ class Replace_Vars {
 
 		if ( empty( self::$external_replacements ) ) {
 			/**
-			 * Action: 'rank_math/vars/register_extra_replacements' - Allows for registration of additional
-			 * variables to replace.
+			 * Action: 'rank_math/vars/register_extra_replacements' - Allows adding extra variables.
 			 */
 			do_action( 'rank_math/vars/register_extra_replacements' );
 		}
@@ -568,9 +582,9 @@ class Replace_Vars {
 	}
 
 	/**
-	 * Retrieves the queried post type.
+	 * Get the current post type.
 	 *
-	 * @return string The queried post type.
+	 * @return string Post type name.
 	 */
 	protected function get_queried_post_type() {
 		$post_type = get_post_type();
@@ -588,7 +602,7 @@ class Replace_Vars {
 	}
 
 	/**
-	 * Get the separator for use as replacement string.
+	 * Get the separator to use as a replacement.
 	 *
 	 * @return string
 	 */
@@ -599,8 +613,7 @@ class Replace_Vars {
 	}
 
 	/**
-	 * Get the title of the parent page of the current page/cpt for use as replacement string.
-	 * Only applicable for hierarchical post types.
+	 * Get the parent page title of the current page/CPT to use as a replacement.
 	 *
 	 * @return string|null
 	 */
@@ -617,7 +630,7 @@ class Replace_Vars {
 	}
 
 	/**
-	 * Get the site's name for use as replacement string.
+	 * Get the site name to use as a replacement.
 	 *
 	 * @return string|null
 	 */
@@ -635,7 +648,7 @@ class Replace_Vars {
 	}
 
 	/**
-	 * Get the site's tag line / description for use as replacement string.
+	 * Get the site tag line to use as a replacement.
 	 *
 	 * @return string|null
 	 */
@@ -653,9 +666,9 @@ class Replace_Vars {
 	}
 
 	/**
-	 * Get the date of the post/page/cpt for use as replacement string.
+	 * Get the date of the post to use as a replacement.
 	 *
-	 * @param string $format (Optional) PHP date format defaults to the date_format option if not specified. Default: ''.
+	 * @param string $format (Optional) PHP date format.
 	 * @return string|null
 	 */
 	private function get_date( $format = '' ) {
@@ -680,9 +693,9 @@ class Replace_Vars {
 	}
 
 	/**
-	 * Get the post/page/cpt modified time for use as replacement string.
+	 * Get the post modified time to use as a replacement.
 	 *
-	 * @param string $format (Optional) PHP date format defaults to the date_format option if not specified. Default: ''.
+	 * @param string $format (Optional) PHP date format.
 	 * @return string|null
 	 */
 	private function get_modified( $format = '' ) {
@@ -697,8 +710,7 @@ class Replace_Vars {
 	}
 
 	/**
-	 * Get the post/page/cpt excerpt for use as replacement string.
-	 * The excerpt will be auto-generated if it does not exist.
+	 * Get the post excerpt to use as a replacement. It will be auto-generated if it does not exist.
 	 *
 	 * @return string|null
 	 */
@@ -717,7 +729,7 @@ class Replace_Vars {
 	}
 
 	/**
-	 * Get the post/page/cpt excerpt for use as replacement string (without auto-generation).
+	 * Get the post excerpt to use as a replacement (without auto-generating).
 	 *
 	 * @return string|null
 	 */
@@ -732,7 +744,7 @@ class Replace_Vars {
 	}
 
 	/**
-	 * Get the current tag for use as replacement string.
+	 * Get the current tag to use as a replacement.
 	 *
 	 * @return string|null
 	 */
@@ -750,9 +762,9 @@ class Replace_Vars {
 	}
 
 	/**
-	 * Get the current tags for use as replacement string.
+	 * Get the current tags to use as a replacement.
 	 *
-	 * @param array $args Arguments to get terms.
+	 * @param array $args Arguments for get_terms().
 	 * @return string|null
 	 */
 	private function get_tags( $args = [] ) {
@@ -769,7 +781,7 @@ class Replace_Vars {
 	}
 
 	/**
-	 * Get the post/cpt category for use as replacement string.
+	 * Get the post category to use as a replacement.
 	 *
 	 * @return string|null
 	 */
@@ -791,7 +803,7 @@ class Replace_Vars {
 	}
 
 	/**
-	 * Get the post/cpt categories (comma separated) for use as replacement string.
+	 * Get the comma-separate post categories to use as a replacement.
 	 *
 	 * @param array $args Array of arguments.
 	 * @return string|null
@@ -810,7 +822,7 @@ class Replace_Vars {
 	}
 
 	/**
-	 * Get the term name for use as replacement string.
+	 * Get the term name to use as a replacement.
 	 *
 	 * @return string|null
 	 */
@@ -828,7 +840,7 @@ class Replace_Vars {
 	}
 
 	/**
-	 * Get the term description for use as replacement string.
+	 * Get the term description to use as a replacement.
 	 *
 	 * @return string|null
 	 */
@@ -849,7 +861,7 @@ class Replace_Vars {
 	}
 
 	/**
-	 * Get the current search phrase for use as replacement string.
+	 * Get the current search query to use as a replacement
 	 *
 	 * @return string|null
 	 */
@@ -867,7 +879,7 @@ class Replace_Vars {
 	}
 
 	/**
-	 * Get the post/page/cpt author's user id for use as replacement string.
+	 * Get the post author's user ID to use as a replacement.
 	 *
 	 * @return string
 	 */
@@ -876,7 +888,7 @@ class Replace_Vars {
 	}
 
 	/**
-	 * Get the post/page/cpt author's "nice name" for use as replacement string.
+	 * Get the post author's "nice name" to use as a replacement.
 	 *
 	 * @return string|null
 	 */
@@ -893,7 +905,7 @@ class Replace_Vars {
 	}
 
 	/**
-	 * Get the filename of the attachment.
+	 * Get the filename of the attachment to use as a replacement.
 	 *
 	 * @return string|null
 	 */
@@ -905,13 +917,13 @@ class Replace_Vars {
 		$replacement = null;
 		$name        = \pathinfo( $this->args->filename );
 
-		// Remove size if any embedded.
+		// Remove size if embedded.
 		$name = explode( '-', $name['filename'] );
 		if ( Str::contains( 'x', end( $name ) ) ) {
 			array_pop( $name );
 		}
 
-		// Format name.
+		// Format filename.
 		$name = join( ' ', $name );
 		$name = trim( str_replace( '_', ' ', $name ) );
 		if ( '' !== $name ) {
@@ -922,7 +934,7 @@ class Replace_Vars {
 	}
 
 	/**
-	 * Get the post/page/cpt author's users description for use as a replacement string.
+	 * Get the post author's user description to use as a replacement.
 	 *
 	 * @return string|null
 	 */
@@ -939,7 +951,7 @@ class Replace_Vars {
 	}
 
 	/**
-	 * Get the post/page/cpt ID for use as replacement string.
+	 * Get the numeric post ID to use as a replacement
 	 *
 	 * @return string|null
 	 */
@@ -954,7 +966,7 @@ class Replace_Vars {
 	}
 
 	/**
-	 * Get the post/page/cpt's focus keyword for use as replacement string.
+	 * Get the focus keyword to use as a replacement.
 	 *
 	 * @return string|null
 	 */
@@ -972,7 +984,7 @@ class Replace_Vars {
 	}
 
 	/**
-	 * Get the current page number with context (i.e. 'page 2 of 4') for use as replacement string.
+	 * Get the current page number (i.e. "page 2 of 4") to use as a replacement.
 	 *
 	 * @return string
 	 */
@@ -992,7 +1004,7 @@ class Replace_Vars {
 	}
 
 	/**
-	 * Get the current page number for use as replacement string.
+	 * Get only the page number (without context) to use as a replacement.
 	 *
 	 * @return string|null
 	 */
@@ -1008,7 +1020,7 @@ class Replace_Vars {
 	}
 
 	/**
-	 * Get the current page total for use as replacement string.
+	 * Get the may page number to use as a replacement.
 	 *
 	 * @return string|null
 	 */
@@ -1024,9 +1036,9 @@ class Replace_Vars {
 	}
 
 	/**
-	 * Get the current time for use as replacement string.
+	 * Get the current time to use as a replacement.
 	 *
-	 * @param string $format (Optional) PHP date format defaults to the date_format option if not specified. Default: ''.
+	 * @param string $format (Optional) PHP date format.
 	 * @return string
 	 */
 	private function get_currenttime( $format = '' ) {
@@ -1041,9 +1053,9 @@ class Replace_Vars {
 	}
 
 	/**
-	 * Get the current date for use as replacement string.
+	 * Get the current date to use as a replacement.
 	 *
-	 * @param string $format (Optional) PHP date format defaults to the date_format option if not specified. Default: ''.
+	 * @param string $format (Optional) PHP date format.
 	 * @return string
 	 */
 	private function get_currentdate( $format = '' ) {
@@ -1058,7 +1070,7 @@ class Replace_Vars {
 	}
 
 	/**
-	 * Get the current day for use as replacement string.
+	 * Get the current day to use as a replacement.
 	 *
 	 * @return string
 	 */
@@ -1073,7 +1085,7 @@ class Replace_Vars {
 	}
 
 	/**
-	 * Get the current month for use as replacement string.
+	 * Get the current month to use as a replacement.
 	 *
 	 * @return string
 	 */
@@ -1088,7 +1100,7 @@ class Replace_Vars {
 	}
 
 	/**
-	 * Get the current year for use as replacement string.
+	 * Get the current year to use as a replacement.
 	 *
 	 * @return string
 	 */
@@ -1103,7 +1115,7 @@ class Replace_Vars {
 	}
 
 	/**
-	 * Get the post type single label for use as replacement string.
+	 * Get the post type "single" label to use as a replacement.
 	 *
 	 * @return string|null
 	 */
@@ -1119,9 +1131,9 @@ class Replace_Vars {
 	}
 
 	/**
-	 * Get a post/page/cpt's custom field value for use as replacement string.
+	 * Get a specific custom field value to use as a replacement.
 	 *
-	 * @param  string $name The name of custom field of which value is to be retrieved.
+	 * @param  string $name The name of the custom field to retrieve.
 	 * @return string|null
 	 */
 	private function get_customfield( $name ) {
@@ -1142,9 +1154,9 @@ class Replace_Vars {
 
 
 	/**
-	 * Get a post/page/cpt's custom term value for use as replacement string.
+	 * Get a custom taxonomy term to use as a replacement.
 	 *
-	 * @param  string $name The name of the taxonomy of which value is to be retrieved.
+	 * @param  string $name The name of the taxonomy.
 	 * @return string|null
 	 */
 	private function get_customterm( $name ) {
@@ -1173,7 +1185,7 @@ class Replace_Vars {
 	}
 
 	/**
-	 * Get the post type plural label for use as replacement string.
+	 * Get the post type "plural" label to use as a replacement.
 	 *
 	 * @return string|null
 	 */
@@ -1189,20 +1201,20 @@ class Replace_Vars {
 	}
 
 	/**
-	 * Retrieve the replacements for the variables found.
+	 * Get the replacements for the variables.
 	 *
-	 * @param  array $matches Variables found in the original string - regex result.
-	 * @param  array $omit    Variables that should not be replaced by this function.
-	 * @return array Retrieved replacements - this might be a smaller array as some variables
-	 *               may not yield a replacement in certain contexts.
+	 * @param  array $matches Regex matches found in the string.
+	 * @param  array $exclude Variables that should not be replaced.
+	 *
+	 * @return array Retrieved replacements.
 	 */
-	private function set_up_replacements( $matches, $omit ) {
+	private function set_up_replacements( $matches, $exclude ) {
 		$replacements = [];
 
 		foreach ( $matches[1] as $k => $var ) {
 
-			// Don't set up replacements which should be omitted.
-			if ( in_array( $var, $omit, true ) ) {
+			// Don't set up excluded replacements.
+			if ( in_array( $var, $exclude, true ) ) {
 				continue;
 			}
 
@@ -1221,7 +1233,7 @@ class Replace_Vars {
 				$replacement = call_user_func( self::$external_replacements[ $var ]['callback'], $var, $args );
 			}
 
-			// Replacement retrievals can return null if no replacement can be determined, root those outs.
+			// If replacement value is null, remove it.
 			if ( isset( $replacement ) ) {
 				$var                  = self::add_var_delimiter( $var );
 				$replacements[ $var ] = $replacement;
@@ -1234,7 +1246,7 @@ class Replace_Vars {
 	}
 
 	/**
-	 * Get the title of the post/page/cpt for use as replacement string.
+	 * Get the title of the post to use as a replacement.
 	 *
 	 * @return string|null
 	 */
@@ -1253,9 +1265,10 @@ class Replace_Vars {
 	}
 
 	/**
-	 * Convert string to argument array.
+	 * Convert arguments string to arguments array.
 	 *
-	 * @param  string $string The string need to be convereted.
+	 * @param  string $string The string that needs to be converted.
+	 *
 	 * @return array
 	 */
 	private function normalize_args( $string ) {
@@ -1267,19 +1280,20 @@ class Replace_Vars {
 	}
 
 	/**
-	 * Get a post's terms, comma delimited.
+	 * Get a comma separated list of the post's terms.
 	 *
-	 * @param int    $id            ID of the post to get the terms for.
-	 * @param string $taxonomy      The taxonomy to get the terms for this post from.
-	 * @param bool   $return_single If true, return the first term.
-	 * @param array  $args          Array of passed arguments.
+	 * @param int    $id            ID of the post.
+	 * @param string $taxonomy      The taxonomy to get the terms from.
+	 * @param bool   $return_single Return the first term only.
+	 * @param array  $args          Array of arguments.
 	 * @param string $field         The term field to return.
-	 * @return string Either a single term or a comma delimited string of terms.
+	 *
+	 * @return string Either a single term field or a comma delimited list of terms.
 	 */
 	private function get_terms( $id, $taxonomy, $return_single = false, $args = [], $field = 'name' ) {
 		$output = '';
 
-		// If we're on a specific tag, category or taxonomy page, use that.
+		// If we're on a taxonomy archive, use the selected term.
 		if ( is_category() || is_tag() || is_tax() ) {
 			$term   = $GLOBALS['wp_query']->get_queried_object();
 			$output = $term->name;
@@ -1328,9 +1342,9 @@ class Replace_Vars {
 		unset( $terms, $term );
 
 		/**
-		 * Allows filtering of the terms list used to replace %category%, %tag%.
+		 * Filter: Allows changing the %category% and %tag% terms lists.
 		 *
-		 * @param string $output Comma-delimited string containing the terms.
+		 * @param string $output The terms list, comma separated.
 		 */
 		return $this->do_filter( 'vars/terms', $output );
 	}

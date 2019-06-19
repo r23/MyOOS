@@ -9,7 +9,7 @@
  *
  * @wordpress-plugin
  * Plugin Name:       Rank Math SEO
- * Version:           1.0.26
+ * Version:           1.0.27
  * Plugin URI:        https://s.rankmath.com/home
  * Description:       Rank Math is a revolutionary SEO product that combines the features of many SEO tools and lets you multiply your traffic in the easiest way possible.
  * Author:            Rank Math
@@ -25,16 +25,16 @@ defined( 'ABSPATH' ) || exit;
 /**
  * RankMath class.
  *
- * @class The class that holds the entire plugin.
+ * @class Main class of the plugin.
  */
 final class RankMath {
 
 	/**
-	 * Plugin version
+	 * Plugin version.
 	 *
 	 * @var string
 	 */
-	public $version = '1.0.26';
+	public $version = '1.0.27';
 
 	/**
 	 * Rank Math database version.
@@ -44,42 +44,42 @@ final class RankMath {
 	public $db_version = '1';
 
 	/**
-	 * Minimum version of WordPress required to run the plugin
+	 * Minimum version of WordPress required to run Rank Math.
 	 *
 	 * @var string
 	 */
 	private $wordpress_version = '4.6';
 
 	/**
-	 * Minimum version of PHP required to run the plugin
+	 * Minimum version of PHP required to run Rank Math.
 	 *
 	 * @var string
 	 */
 	private $php_version = '5.6';
 
 	/**
-	 * Holds various class instances
+	 * Holds various class instances.
 	 *
 	 * @var array
 	 */
 	private $container = [];
 
 	/**
-	 * Hold messages
+	 * Hold install error messages.
 	 *
 	 * @var bool
 	 */
 	private $messages = [];
 
 	/**
-	 * The single instance of the class
+	 * The single instance of the class.
 	 *
 	 * @var RankMath
 	 */
 	protected static $instance = null;
 
 	/**
-	 * Magic isset to bypass referencing plugin
+	 * Magic isset to bypass referencing plugin.
 	 *
 	 * @param  string $prop Property to check.
 	 * @return bool
@@ -89,7 +89,7 @@ final class RankMath {
 	}
 
 	/**
-	 * Magic get method
+	 * Magic getter method.
 	 *
 	 * @param  string $prop Property to get.
 	 * @return mixed Property value or NULL if it does not exists
@@ -103,7 +103,7 @@ final class RankMath {
 	}
 
 	/**
-	 * Magic set method
+	 * Magic setter method.
 	 *
 	 * @param mixed $prop  Property to set.
 	 * @param mixed $value Value to set.
@@ -141,7 +141,13 @@ final class RankMath {
 	}
 
 	/**
-	 * Main RankMath instance
+	 * Initialize.
+	 */
+	public function init() {
+	}
+
+	/**
+	 * Retrieve main RankMath instance.
 	 *
 	 * Ensure only one instance is loaded or can be loaded.
 	 *
@@ -158,23 +164,23 @@ final class RankMath {
 	}
 
 	/**
-	 * Instantiate the plugin
+	 * Instantiate the plugin.
 	 */
 	private function setup() {
 		if ( ! $this->is_requirements_meet() ) {
 			return;
 		}
 
-		// Define constants.
+		// Define plugin constants.
 		$this->define_constants();
 
 		// Include required files.
 		$this->includes();
 
-		// instantiate classes.
+		// Instantiate classes.
 		$this->instantiate();
 
-		// Initialize the action hooks.
+		// Initialize the action and filter hooks.
 		$this->init_actions();
 
 		// Loaded action.
@@ -182,19 +188,19 @@ final class RankMath {
 	}
 
 	/**
-	 * Check that the WordPress and PHP setup meets the plugin requirements
+	 * Check that the WordPress and PHP setup meets the plugin requirements.
 	 *
 	 * @return bool
 	 */
 	private function is_requirements_meet() {
 
-		// Check if WordPress version is enough to run this plugin.
+		// Check WordPress version.
 		if ( version_compare( get_bloginfo( 'version' ), $this->wordpress_version, '<' ) ) {
 			/* translators: WordPress Version */
 			$this->messages[] = sprintf( esc_html__( 'Rank Math requires WordPress version %s or above. Please update WordPress to run this plugin.', 'rank-math' ), $this->wordpress_version );
 		}
 
-		// Check if PHP version is enough to run this plugin.
+		// Check PHP version.
 		if ( version_compare( phpversion(), $this->php_version, '<' ) ) {
 			/* translators: PHP Version */
 			$this->messages[] = sprintf( esc_html__( 'Rank Math requires PHP version %s or above. Please update PHP to run this plugin.', 'rank-math' ), $this->php_version );
@@ -212,7 +218,7 @@ final class RankMath {
 	}
 
 	/**
-	 * Auto-deactivate plugin if requirement not meet and display a notice
+	 * Auto-deactivate plugin if requirements are not met, and display a notice.
 	 */
 	public function auto_deactivate() {
 		deactivate_plugins( plugin_basename( RANK_MATH_FILE ) );
@@ -222,7 +228,7 @@ final class RankMath {
 	}
 
 	/**
-	 * Plugin activation notice
+	 * Error notice on plugin activation.
 	 */
 	public function activation_error() {
 		?>
@@ -235,7 +241,7 @@ final class RankMath {
 	}
 
 	/**
-	 * Define the plugin constants
+	 * Define the plugin constants.
 	 */
 	private function define_constants() {
 		define( 'RANK_MATH_VERSION', $this->version );
@@ -245,12 +251,13 @@ final class RankMath {
 	}
 
 	/**
-	 * Include the required files
+	 * Include the required files.
 	 */
 	private function includes() {
 		include dirname( __FILE__ ) . '/vendor/autoload.php';
 
-		// For Theme Developers.
+		// For Theme Developers:
+		// theme-folder/rankmath.php will be loaded automatically.
 		$file = get_stylesheet_directory() . '/rank-math.php';
 		if ( file_exists( $file ) ) {
 			require_once $file;
@@ -258,7 +265,7 @@ final class RankMath {
 	}
 
 	/**
-	 * Instantiate classes
+	 * Instantiate classes.
 	 */
 	private function instantiate() {
 		new \RankMath\Rollbar;
@@ -281,12 +288,12 @@ final class RankMath {
 
 		$this->container['manager'] = new \RankMath\Module_Manager;
 
-		// Just Init.
+		// Just init without storing it in the container.
 		new \RankMath\Common;
 		$this->container['rewrite'] = new \RankMath\Rewrite;
 		new \RankMath\Compatibility;
 
-		// Usage Tracking.
+		// Usage Tracking, if it's enabled and this is a CRON request.
 		if ( defined( 'DOING_CRON' ) && ! defined( 'DOING_AJAX' ) && \RankMath\Helper::get_settings( 'general.usage_tracking' ) ) {
 			new \RankMath\Tracking;
 		}
@@ -296,7 +303,7 @@ final class RankMath {
 	}
 
 	/**
-	 * Initialize WordPress action hooks
+	 * Initialize WordPress action and filter hooks.
 	 */
 	private function init_actions() {
 
@@ -311,11 +318,12 @@ final class RankMath {
 		add_action( 'plugins_loaded', [ $this, 'init' ], 14 );
 		add_action( 'rest_api_init', [ $this, 'init_rest_api' ] );
 
+		// Load admin-related functionality.
 		if ( is_admin() ) {
 			add_action( 'plugins_loaded', [ $this, 'init_admin' ], 15 );
 		}
 
-		// Frontend Only.
+		// Frontend-only functionality.
 		if ( ! is_admin() || in_array( \MyThemeShop\Helpers\Param::request( 'action' ), [ 'elementor', 'elementor_ajax' ], true ) ) {
 			add_action( 'plugins_loaded', [ $this, 'init_frontend' ], 15 );
 		}
@@ -327,19 +335,9 @@ final class RankMath {
 	}
 
 	/**
-	 * Initialize the essential files.
-	 */
-	public function init() {
-	}
-
-	/**
-	 * Loads the rest api endpoints.
+	 * Load the REST API endpoints.
 	 */
 	public function init_rest_api() {
-		// We can't do anything when requirements are not met.
-		if ( ! \RankMath\Helper::is_api_available() ) {
-			return;
-		}
 
 		$controllers = [
 			new \RankMath\Rest\Admin,
@@ -352,21 +350,23 @@ final class RankMath {
 	}
 
 	/**
-	 * Initialize the admin.
+	 * Initialize the admin-related functionality.
+	 * Runs on 'plugins_loaded'.
 	 */
 	public function init_admin() {
 		new \RankMath\Admin\Engine;
 	}
 
 	/**
-	 * Initialize the frontend.
+	 * Initialize the frontend functionality.
+	 * Runs on 'plugins_loaded'.
 	 */
 	public function init_frontend() {
 		$this->container['frontend'] = new \RankMath\Frontend\Frontend;
 	}
 
 	/**
-	 * Initialize the WP-CLI integration.
+	 * Add our custom WP-CLI commands.
 	 */
 	public function init_wp_cli() {
 		WP_CLI::add_command( 'rankmath sitemap generate', [ '\RankMath\CLI\Commands', 'sitemap_generate' ] );
@@ -389,7 +389,7 @@ final class RankMath {
 	}
 
 	/**
-	 * Show row meta on the plugin screen.
+	 * Add extra links as row meta on the plugin screen.
 	 *
 	 * @param  mixed $links Plugin Row Meta.
 	 * @param  mixed $file  Plugin Base file.
@@ -437,9 +437,9 @@ final class RankMath {
 	}
 
 	/**
-	 * Add more cron schedules.
+	 * Add cron schedules.
 	 *
-	 * @param  array $schedules List of WP scheduled cron jobs.
+	 * @param  array $schedules List of schedules for cron jobs.
 	 * @return array
 	 */
 	public function cron_schedules( $schedules ) {
@@ -454,8 +454,6 @@ final class RankMath {
 }
 
 /**
- * Main instance of RankMath.
- *
  * Returns the main instance of RankMath to prevent the need to use globals.
  *
  * @return RankMath
@@ -464,5 +462,5 @@ function rank_math() {
 	return RankMath::get();
 }
 
-// Kick it off.
+// Start it.
 rank_math();

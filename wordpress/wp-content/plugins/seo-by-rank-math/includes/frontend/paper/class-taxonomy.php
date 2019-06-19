@@ -95,6 +95,21 @@ class Taxonomy implements IPaper {
 	}
 
 	/**
+	 * Retrieves the keywords.
+	 *
+	 * @return string The focus keywords.
+	 */
+	public function keywords() {
+		$object = get_queried_object();
+
+		if ( empty( $object ) || Term::is_multiple_terms_query() ) {
+			return '';
+		}
+
+		return Term::get_meta( 'focus_keyword', $object, $object->taxonomy );
+	}
+
+	/**
 	 * Whether to noindex empty terms.
 	 *
 	 * @param object $object Current taxonomy term object.

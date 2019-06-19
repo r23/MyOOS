@@ -18,28 +18,28 @@ defined( 'ABSPATH' ) || exit;
 abstract class Metadata {
 
 	/**
-	 * Type of object metadata is for
+	 * Type of object the metadata is for.
 	 *
 	 * @var string
 	 */
 	protected $meta_type = 'post';
 
 	/**
-	 * Hold object.
+	 * Holds the object.
 	 *
 	 * @var WP_Post|WP_Term|WP_User
 	 */
 	protected $object = null;
 
 	/**
-	 * Hold object id.
+	 * Holds the object ID.
 	 *
 	 * @var int
 	 */
 	protected $object_id = null;
 
 	/**
-	 * Hold objects.
+	 * Holds multiple objects.
 	 *
 	 * @var array
 	 */
@@ -74,7 +74,7 @@ abstract class Metadata {
 	}
 
 	/**
-	 * If object found
+	 * If object found.
 	 *
 	 * @return bool
 	 */
@@ -83,7 +83,7 @@ abstract class Metadata {
 	}
 
 	/**
-	 * Get object attached
+	 * Get attached object.
 	 *
 	 * @return object
 	 */
@@ -92,9 +92,9 @@ abstract class Metadata {
 	}
 
 	/**
-	 * Get metadata for the object
+	 * Get metadata for the object.
 	 *
-	 * @param  string $key Internal key of the value to get (without prefix).
+	 * @param  string $key Value to get, without prefix.
 	 * @return mixed
 	 */
 	public function get_metadata( $key ) {
@@ -104,7 +104,7 @@ abstract class Metadata {
 		}
 
 		$value    = $this->$meta_key;
-		$replaced = $this->may_replace_vars( $key, $value, $this->object );
+		$replaced = $this->maybe_replace_vars( $key, $value, $this->object );
 		if ( false !== $replaced ) {
 			$this->$meta_key = $replaced;
 			return $this->$meta_key;
@@ -119,17 +119,17 @@ abstract class Metadata {
 	}
 
 	/**
-	 * Maybe we need to replace vars for this meta data
+	 * Maybe replace variables in meta data.
 	 *
 	 * @param  string $key    Key to check whether it contains variables.
 	 * @param  mixed  $value  Value used to replace variables in.
 	 * @param  object $object Object used for replacements.
 	 * @return string|bool False if replacement not needed. Replaced variable string.
 	 */
-	public function may_replace_vars( $key, $value, $object ) {
+	public function maybe_replace_vars( $key, $value, $object ) {
 		$need_replacements = array( 'title', 'description', 'facebook_title', 'twitter_title', 'facebook_description', 'twitter_description', 'snippet_name', 'snippet_desc' );
 
-		// Early Bail!
+		// Early bail.
 		if ( ! in_array( $key, $need_replacements, true ) || ! is_string( $value ) || '' === $value ) {
 			return false;
 		}

@@ -75,8 +75,10 @@ class Search_Console extends Module {
 		$this->crawler = new Data_Fetcher;
 
 		if ( is_admin() ) {
-			$this->action( 'rank_math/dashboard/widget', 'dashboard_widget', 10 );
-			$this->filter( 'rank_math/settings/general', 'add_settings' );
+			if ( Helper::has_cap( 'search_console' ) ) {
+				$this->action( 'rank_math/dashboard/widget', 'dashboard_widget', 10 );
+				$this->filter( 'rank_math/settings/general', 'add_settings' );
+			}
 
 			// AJAX.
 			$this->ajax( 'search_console_authentication', 'authentication' );

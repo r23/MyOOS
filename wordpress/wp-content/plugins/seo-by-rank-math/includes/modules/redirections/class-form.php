@@ -140,6 +140,7 @@ class Form {
 		}
 
 		if ( $url = Param::get( 'url' ) ) { // phpcs:ignore
+			$url = esc_attr( $url );
 			return [ 'sources' => [ [ 'pattern' => $url ] ] ];
 		}
 

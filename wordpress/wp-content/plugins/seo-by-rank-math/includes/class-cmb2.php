@@ -245,6 +245,47 @@ class CMB2 {
 	}
 
 	/**
+	 * Handles sanitization for text fields.
+	 *
+	 * @param string $value The unsanitized value from the form.
+	 *
+	 * @return string Sanitized value to be stored.
+	 */
+	public static function sanitize_textfield( $value ) {
+		if ( is_object( $value ) || is_array( $value ) ) {
+			return '';
+		}
+
+		$value    = (string) $value;
+		$filtered = wp_check_invalid_utf8( $value );
+
+		if ( strpos( $filtered, '<' ) !== false ) {
+			$filtered = wp_pre_kses_less_than( $filtered );
+			// This will strip extra whitespace for us.
+			$filtered = wp_strip_all_tags( $filtered, false );
+
+			// Use html entities in a special case to make sure no later
+			// newline stripping stage could lead to a functional tag!
+			$filtered = str_replace( "<\n", "&lt;\n", $filtered );
+		}
+		$filtered = preg_replace( '/[\r\n\t ]+/', ' ', $filtered );
+		$filtered = trim( $filtered );
+
+		$found = false;
+		while ( preg_match( '/%[0-9]{2}/i', $filtered, $match ) ) {
+			$filtered = str_replace( $match[0], '', $filtered );
+			$found    = true;
+		}
+
+		if ( $found ) {
+			// Strip out the whitespace that may now exist after removing the octets.
+			$filtered = trim( preg_replace( '/ +/', ' ', $filtered ) );
+		}
+
+		return apply_filters( 'sanitize_text_field', $filtered, $value );
+	}
+
+	/**
 	 * Handles sanitization for webmaster tag and remove <meta> tag.
 	 *
 	 * @param mixed $value The unsanitized value from the form.

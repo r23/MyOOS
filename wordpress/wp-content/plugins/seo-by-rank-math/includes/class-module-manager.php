@@ -23,21 +23,21 @@ class Module_Manager {
 	use Hooker;
 
 	/**
-	 * Hold modules.
+	 * Holds modules.
 	 *
 	 * @var array
 	 */
 	public $modules = [];
 
 	/**
-	 * Hold module object.
+	 * Holds module objects.
 	 *
 	 * @var array
 	 */
 	private $controls = [];
 
 	/**
-	 * Hold active module ids.
+	 * Holds active module IDs.
 	 *
 	 * @var array
 	 */
@@ -218,7 +218,7 @@ class Module_Manager {
 	}
 
 	/**
-	 * Check if we can load the module
+	 * Check if we can load the module.
 	 *
 	 * @param  string $module_id ID to get module.
 	 * @param  string $module Module arguments.
@@ -318,7 +318,7 @@ class Module_Manager {
 	}
 
 	/**
-	 * Get module by id.
+	 * Get module by ID.
 	 *
 	 * @param  string $id ID to get module.
 	 * @return object     Module class object.

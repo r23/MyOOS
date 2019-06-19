@@ -55,7 +55,7 @@ class Setup_Wizard {
 	protected $slug = 'rank-math-wizard';
 
 	/**
-	 * CMB2 object
+	 * CMB2 object.
 	 *
 	 * @var \CMB2
 	 */
@@ -77,7 +77,7 @@ class Setup_Wizard {
 		$this->action( 'admin_menu', 'add_admin_menu' );
 		$this->action( 'admin_post_rank_math_save_wizard', 'save_wizard' );
 
-		// If not the page is not this page stop here.
+		// If the page is not this page stop here.
 		if ( ! $this->is_current_page() ) {
 			return;
 		}

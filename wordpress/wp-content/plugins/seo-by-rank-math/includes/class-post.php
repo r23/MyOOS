@@ -21,7 +21,7 @@ defined( 'ABSPATH' ) || exit;
 class Post extends Metadata {
 
 	/**
-	 * Type of object metadata is for
+	 * Type of object metadata is for (e.g., comment, post, or user).
 	 *
 	 * @var string
 	 */
@@ -51,7 +51,7 @@ class Post extends Metadata {
 	}
 
 	/**
-	 * Get post id
+	 * Get the post ID.
 	 *
 	 * @param  integer $post Post ID.
 	 * @return integer
@@ -74,10 +74,10 @@ class Post extends Metadata {
 	}
 
 	/**
-	 * Get post meta value.
+	 * Get a post meta value.
 	 *
-	 * @param  string  $key     Internal key of the value to get (without prefix).
-	 * @param  integer $post_id Post ID of the post to get the value for.
+	 * @param  string  $key     Value to get, without prefix.
+	 * @param  integer $post_id ID of the post.
 	 * @return mixed
 	 */
 	public static function get_meta( $key, $post_id = 0 ) {
@@ -91,13 +91,13 @@ class Post extends Metadata {
 	}
 
 	/**
-	 * Returns the id of the currently opened page.
+	 * Get the ID of the current page.
 	 *
-	 * @return int The id of the currently opened page.
+	 * @return int The ID of the page.
 	 */
 	public static function get_simple_page_id() {
 		/**
-		 * Filter: Allow changing the default page id. Short-circuit if 3rd party set page id.
+		 * Filter: Allow changing the default page ID. Short-circuit if 3rd party set page ID.
 		 *
 		 * @param unsigned int $page_id The default page id.
 		 */
@@ -119,17 +119,17 @@ class Post extends Metadata {
 		}
 
 		/**
-		 * Filter: Allow changing the default page id.
+		 * Filter: Allow changing the default page ID.
 		 *
-		 * @param unsigned int $page_id The default page id.
+		 * @param unsigned int $page_id The default page ID.
 		 */
 		return apply_filters( 'rank_math/simple_page_id', 0 );
 	}
 
 	/**
-	 * Returns the id of the set WooCommerce shop page.
+	 * Returns the ID of the selected WooCommerce shop page.
 	 *
-	 * @return int The ID of the set page.
+	 * @return int The ID of the Shop page.
 	 */
 	public static function get_shop_page_id() {
 		static $shop_page_id;
@@ -141,18 +141,18 @@ class Post extends Metadata {
 	}
 
 	/**
-	 * Checks if the currently opened page is a simple page.
+	 * Checks if the current page is a simple page.
 	 *
-	 * @return bool Whether the currently opened page is a simple page.
+	 * @return bool Whether the current page is a simple page.
 	 */
 	public static function is_simple_page() {
 		return self::get_simple_page_id() > 0;
 	}
 
 	/**
-	 * Checks if the current page is the shop page.
+	 * Checks if the current page is the WooCommerce "Shop" page.
 	 *
-	 * @return bool Whether the current page is the WooCommerce shop page.
+	 * @return bool Whether the current page is the shop page.
 	 */
 	public static function is_shop_page() {
 		if ( function_exists( 'is_shop' ) && function_exists( 'wc_get_page_id' ) ) {
@@ -163,9 +163,9 @@ class Post extends Metadata {
 	}
 
 	/**
-	 * Checks if the current page is one of the woocommerce page.
+	 * Checks if the current page is one of the WooCommerce pages: Cart/Account/Checkout.
 	 *
-	 * @return bool Whether the current page is the WooCommerce Cart/Account/Checkout page.
+	 * @return bool Whether the current page is a WooCommerce page.
 	 */
 	public static function is_woocommerce_page() {
 		if ( Conditional::is_woocommerce_active() ) {
@@ -176,7 +176,7 @@ class Post extends Metadata {
 	}
 
 	/**
-	 * Determine whether this is the homepage and shows posts.
+	 * Check whether this is the homepage and if it shows the posts.
 	 *
 	 * @return bool
 	 */
@@ -185,7 +185,7 @@ class Post extends Metadata {
 	}
 
 	/**
-	 * Determine whether the this is the static frontpage.
+	 * Check whether this is the static frontpage.
 	 *
 	 * @return bool
 	 */
@@ -194,7 +194,7 @@ class Post extends Metadata {
 	}
 
 	/**
-	 * Determine whether this is the posts page, when it's not the frontpage.
+	 * Check if this is the posts page and that it's not the frontpage.
 	 *
 	 * @return bool
 	 */

@@ -49,6 +49,7 @@ class Head {
 		$this->action( 'rank_math/head', 'robots', 10 );
 		$this->action( 'rank_math/head', 'canonical', 20 );
 		$this->action( 'rank_math/head', 'adjacent_rel_links', 21 );
+		$this->action( 'rank_math/head', 'metakeywords', 22 );
 
 		$this->filter( 'wp_title', 'title', 15 );
 		$this->filter( 'thematic_doctitle', 'title', 15 );
@@ -241,6 +242,16 @@ class Head {
 			return;
 		}
 		$this->adjacent_rel_links_archive();
+	}
+
+	/**
+	 * Output the meta keywords value.
+	 */
+	public function metakeywords() {
+		$keywords = Paper::get()->get_keywords();
+		if ( Str::is_non_empty( $keywords ) ) {
+			echo '<meta name="keywords" content="', esc_attr( $keywords ), '"/>', "\n";
+		}
 	}
 
 	/**

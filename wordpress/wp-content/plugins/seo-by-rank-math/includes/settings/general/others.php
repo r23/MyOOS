@@ -62,7 +62,7 @@ $cmb->add_field([
 		'<code>&lt;?php&nbsp;rank_math_the_seo_score();&nbsp;?&gt;</code>'
 	),
 	'classes' => 'nob',
-	'default' => 'bottom',
+	'default' => 'top',
 	'options' => [
 		'bottom' => esc_html__( 'Below Content', 'rank-math' ),
 		'top'    => esc_html__( 'Above Content', 'rank-math' ),

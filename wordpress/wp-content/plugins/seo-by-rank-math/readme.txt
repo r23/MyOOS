@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection
 Tested up to: 5.2.1
 Requires at least: 4.6.0
 Requires PHP: 5.6
-Stable tag: 1.0.26
+Stable tag: 1.0.27
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -451,18 +451,21 @@ We look forward to helping you.
 
 == Changelog ==
 
-= 1.0.26 [Jun 6, 2019] =
-* Added new variables to display custom taxonomies term in the post title & description fields
-* Improved the Review Schema options to honor decimals in the score
-* Improved SEO Analysis to detect external Sitemaps 
-* Improved detection of title & description tags on the backend by adding proper sanitization
-* Improved the cron job related to the Search Console's data not updating regularly. It should be working fine now
-* Fixed a compatibility issue with ESSB plugin
-* Fixed an issue with the SEO Analyzer throwing errors on old installations
-* Fixed bulk edit options not working since the last version
-* Fixed insecure warning appearing due to one HTTP call in the plugin
-* Fixed bulk delete option not working in the 404 Monitor
-* Fixed an issue with the AMP plugin printing the Schema Markup twice
-* Fixed a problem with emojis not displaying in the Meta description settings in the plugin's settings page
+= 1.0.27 [Jun 18, 2019] =
+* Added a filter to [show Meta Keywords tag](https://s.rankmath.com/keywordmetatag) to the Search Engines like Yandex
+* Added some important security fixes
+* Added more improvements to how the SEO Analyzer works inside the plugin
+* Enhanced the output of the Rich Snippet's Shortcode showing the formatted date
+* Improved the comments to make them more meaningful
+* Fixed an issue with the Breadcrumbs not showing the primary category on the product pages
+* Fixed a compatibility issue with the Indexing API plugin and Rank Math
+* Fixed an issue where product categories were showing 404 when Remove Category Base option was enabled
+* Fixed the problem with the categories date variables not working correctly in the settings fields
+* Fixed a conflict with Woocommerce One Page checkout plugin
+* Fixed an issue where the feeds were not updating when the WooCommerce module was activated
+* Fixed a compatibility issue with the Ultra theme, not showing the text editor
+* Fixed an issue where the Search Console Box was appearing for all the users in the dashboard
+* Fixed a problem in the SEO Analysis where missing 'Focus Keyword in Title' test wasn't working as intended
+* Prepared the plugin for upcoming updates related to Gutenberg's compatibility
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://rankmath.com/changelog)**

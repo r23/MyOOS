@@ -57,19 +57,17 @@ function rank_math_the_seo_score( $args = [] ) {
 }
 
 /**
- * Register new replacement %variables%.
- * For use by other plugins/themes to register extra variables.
+ * Register extra %variables%. For developers.
+ * See rank_math_register_var_replacement().
  *
  * @codeCoverageIgnore
  *
- * @param  string $var       The name of the variable to replace, i.e. '%var%'
- *                           - the surrounding % are optional.
- * @param  mixed  $callback  Function or method to call to retrieve the replacement value for the variable
- *                           and should *return* the replacement value. DON'T echo it.
- * @param  array  $args      Array with title, desc and example values.
+ * @param  string $var       Variable name, for example %custom%. '%' signs are optional.
+ * @param  mixed  $callback  Replacement callback. Should return value, not output it.
+ * @param  array  $args      Array with additional title, description and example values for the variable.
  *
  * @return bool Whether the replacement function was succesfully registered.
  */
 function rank_math_register_var_replacement( $var, $callback, $args = [] ) {
-  RankMath\Replace_Vars::register_replacement( $var, $callback, $args );
+	return RankMath\Replace_Vars::register_replacement( $var, $callback, $args );
 }

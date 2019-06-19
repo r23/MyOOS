@@ -138,6 +138,8 @@ class Snippet_Shortcode {
 			return;
 		}
 
+		$id = 'event_startdate_date' === $id ? 'event_startdate' : $id;
+		$id = 'event__enddate' === $id ? 'event_enddate' : $id;
 		if ( ! $value = Helper::get_post_meta( "snippet_{$id}", $post->ID ) ) { // phpcs:ignore
 			return;
 		}
@@ -151,6 +153,10 @@ class Snippet_Shortcode {
 				return;
 			}
 
+			if ( in_array( $id, [ 'jobposting_startdate', 'jobposting_expirydate', 'event_startdate', 'event_enddate' ] ) ) {
+				echo date( 'Y-m-d H:i', $value );
+				return;
+			}
 			echo is_array( $value ) ? implode( ', ', $value ) : esc_html( $value );
 			?>
 		</p>

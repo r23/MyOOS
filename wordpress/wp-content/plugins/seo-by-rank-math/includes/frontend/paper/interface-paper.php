@@ -44,4 +44,11 @@ interface IPaper {
 	 * @return array
 	 */
 	public function canonical();
+
+	/**
+	 * Retrieves the keywords.
+	 *
+	 * @return string The focus keywords.
+	 */
+	public function keywords();
 }

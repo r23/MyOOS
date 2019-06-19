@@ -59,6 +59,15 @@ class Shop extends Singular {
 	}
 
 	/**
+	 * Retrieves meta keywords.
+	 *
+	 * @return string The focus keywords.
+	 */
+	public function keywords() {
+		return Post::get_meta( 'focus_keyword', Post::get_shop_page_id() );
+	}
+
+	/**
 	 * Auto-generate description.
 	 *
 	 * @param object|null $object Object to retrieve the description from.

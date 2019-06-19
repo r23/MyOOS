@@ -55,4 +55,13 @@ class Search implements IPaper {
 		$search_query = get_search_query();
 		return [ 'canonical' => ! empty( $search_query ) && ! preg_match( '|^page/\d+$|', $search_query ) ? get_search_link() : '' ];
 	}
+
+	/**
+	 * Retrieves meta keywords.
+	 *
+	 * @return string
+	 */
+	public function keywords() {
+		return '';
+	}
 }

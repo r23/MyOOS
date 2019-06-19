@@ -34,7 +34,7 @@ class Notices implements Runner {
 	}
 
 	/**
-	 * Run all notices routine
+	 * Run all notices routine.
 	 */
 	public function notices() {
 		$this->is_plugin_configured();
@@ -60,7 +60,7 @@ class Notices implements Runner {
 	}
 
 	/**
-	 * If plugin configuration not done
+	 * If plugin configuration not done.
 	 */
 	private function is_plugin_configured() {
 		if ( 'mts-install-plugins' === Param::get( 'page' ) ) {
@@ -83,7 +83,7 @@ class Notices implements Runner {
 	}
 
 	/**
-	 * If any new post type detected
+	 * Add notification if a new post type is detected.
 	 */
 	private function new_post_type() {
 		$known   = get_option( 'rank_math_known_post_types', [] );

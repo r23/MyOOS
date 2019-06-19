@@ -107,7 +107,7 @@ class Post_Columns implements Runner {
 	}
 
 	/**
-	 * Register post column hooks
+	 * Register post column hooks.
 	 */
 	private function register_post_columns() {
 		foreach ( Helper::get_allowed_post_types() as $post_type ) {
@@ -133,7 +133,7 @@ class Post_Columns implements Runner {
 	}
 
 	/**
-	 * Register media column hooks
+	 * Register media column hooks.
 	 */
 	private function register_media_columns() {
 		if ( ! Helper::get_settings( 'titles.pt_attachment_bulk_editing' ) ) {
@@ -145,7 +145,7 @@ class Post_Columns implements Runner {
 	}
 
 	/**
-	 * Enqueue Styles and Scripts required by plugin.
+	 * Enqueue styles and scripts.
 	 */
 	public function enqueue() {
 		$screen = get_current_screen();
@@ -192,7 +192,7 @@ class Post_Columns implements Runner {
 	}
 
 	/**
-	 * Make seo_score column sortable
+	 * Make seo_score column sortable.
 	 *
 	 * @param  array $columns An array of column names.
 	 * @return array

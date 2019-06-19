@@ -1,6 +1,6 @@
 <?php
 /**
- * This code handles the category and author rewrites.
+ * This class handles the category and author rewrites.
  *
  * @since      0.9.0
  * @package    RankMath
@@ -65,9 +65,10 @@ class Rewrite {
 	}
 
 	/**
-	 * Redirect the user permalink properly for the new one.
+	 * Redirect the old user permalink to the new one.
 	 *
-	 * @param  array $query_vars Query vars to check for existence of redirect var.
+	 * @param  array $query_vars Query vars to check for author_name var.
+	 *
 	 * @return array
 	 */
 	public function author_request( $query_vars ) {
@@ -87,7 +88,7 @@ class Rewrite {
 	}
 
 	/**
-	 * Removes rewrite rules.
+	 * Remove the rewrite rules.
 	 */
 	public function remove_rules() {
 		$this->remove_filter( 'query_vars', 'query_vars' );
@@ -99,13 +100,13 @@ class Rewrite {
 	}
 
 	/**
-	 * Change author permalink base.
+	 * Change the base for author permalinks.
 	 */
 	public static function change_author_base() {
 		global $wp_rewrite;
 
 		/**
-		 * Allow developers to change the author base.
+		 * Filter: Change the author base.
 		 *
 		 * @param string $base The author base.
 		 */
@@ -119,9 +120,10 @@ class Rewrite {
 	}
 
 	/**
-	 * Update the query vars with the redirect var when stripcategorybase is active.
+	 * Add the redirect var to the query vars if the "strip category bases" option is enabled.
 	 *
-	 * @param  array $query_vars Main query vars to filter.
+	 * @param  array $query_vars Query vars to filter.
+	 *
 	 * @return array
 	 */
 	public function query_vars( $query_vars ) {
@@ -131,9 +133,9 @@ class Rewrite {
 	}
 
 	/**
-	 * Redirect the "old" category URL to the new one.
+	 * Redirect the original category URL to the new one.
 	 *
-	 * @param  array $query_vars Query vars to check for existence of redirect var.
+	 * @param  array $query_vars Query vars to check for redirect var.
 	 * @return array
 	 */
 	public function request( $query_vars ) {
@@ -147,7 +149,7 @@ class Rewrite {
 	}
 
 	/**
-	 * This function taken and only slightly adapted from WP No Category Base plugin by Saurabh Gupta.
+	 * This function was taken and slightly adapted from WP No Category Base plugin by Saurabh Gupta.
 	 *
 	 * @return array
 	 */
@@ -189,7 +191,7 @@ class Rewrite {
 	}
 
 	/**
-	 * Override the category link to remove the category base.
+	 * Remove the category base from the category link.
 	 *
 	 * @param  string $link     Term link.
 	 * @param  object $term     Current Term Object.
@@ -218,7 +220,7 @@ class Rewrite {
 	}
 
 	/**
-	 * Get categories after handling for WPML
+	 * Get categories with WPML compatibility.
 	 *
 	 * @return array
 	 */
@@ -238,7 +240,7 @@ class Rewrite {
 	}
 
 	/**
-	 * Get blog prefix
+	 * Get the blog prefix.
 	 *
 	 * @return string
 	 */

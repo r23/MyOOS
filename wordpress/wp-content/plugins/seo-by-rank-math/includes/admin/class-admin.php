@@ -34,7 +34,7 @@ class Admin implements Runner {
 	 */
 	public function hooks() {
 		$this->action( 'init', 'flush', 999 );
-		$this->filter( 'user_contactmethods', 'update_contactmethods' );
+		$this->filter( 'user_contactmethods', 'update_user_contactmethods' );
 		$this->action( 'save_post', 'canonical_check_notice' );
 		$this->action( 'wp_dashboard_setup', 'add_dashboard_widgets' );
 		$this->action( 'cmb2_save_options-page_fields', 'update_is_configured_value', 10, 2 );
@@ -46,7 +46,7 @@ class Admin implements Runner {
 	}
 
 	/**
-	 * If the flush option is set, flush the rewrite rules.
+	 * Flush the rewrite rules once if the rank_math_flush_rewrite option is set.
 	 */
 	public function flush() {
 		if ( get_option( 'rank_math_flush_rewrite' ) ) {
@@ -56,13 +56,12 @@ class Admin implements Runner {
 	}
 
 	/**
-	 * Filter the $contactmethods array and add Facebook, Google+ and Twitter.
-	 * These are used with the Facebook author, rel="author" and Twitter cards implementation.
+	 * Add Facebook and Twitter as contact method for the users.
 	 *
-	 * @param array $contactmethods Currently set contactmethods.
-	 * @return array $contactmethods with added contactmethods.
+	 * @param array $contactmethods Current contactmethods.
+	 * @return array New contactmethods with extra items.
 	 */
-	public function update_contactmethods( $contactmethods ) {
+	public function update_user_contactmethods( $contactmethods ) {
 		$contactmethods['twitter']  = esc_html__( 'Twitter username (without @)', 'rank-math' );
 		$contactmethods['facebook'] = esc_html__( 'Facebook profile URL', 'rank-math' );
 
@@ -99,7 +98,7 @@ class Admin implements Runner {
 					continue;
 				}
 				?>
-			<a class="nav-tab<?php echo Param::get( 'view', 'modules' ) === $id ? ' nav-tab-active' : ''; ?>" href="<?php echo esc_url( Helper::get_admin_url( $link['url'], $link['args'] ) ); ?>" title="<?php echo $link['title']; ?>"><?php echo $link['title']; ?></a>
+			<a class="nav-tab<?php echo Param::get( 'view', 'modules' ) === sanitize_html_class( $id ) ? ' nav-tab-active' : ''; ?>" href="<?php echo esc_url( Helper::get_admin_url( $link['url'], $link['args'] ) ); ?>" title="<?php echo esc_attr( $link['title'] ); ?>"><?php echo esc_html( $link['title'] ); ?></a>
 			<?php endforeach; ?>
 		</h2>
 		<?php
@@ -149,7 +148,7 @@ class Admin implements Runner {
 	}
 
 	/**
-	 * CHeck if the keyword already used or not.
+	 * Check if the keyword has been used before for another post.
 	 */
 	public function is_keyword_new() {
 		global $wpdb;
@@ -257,7 +256,7 @@ class Admin implements Runner {
 	 * Set term query.
 	 *
 	 * @param array  $query    Array of query.
-	 * @param int    $post_id  Post id to get terms from.
+	 * @param int    $post_id  Post ID to get terms from.
 	 * @param string $taxonomy Taxonomy to get terms for.
 	 */
 	private function set_term_query( &$query, $post_id, $taxonomy ) {

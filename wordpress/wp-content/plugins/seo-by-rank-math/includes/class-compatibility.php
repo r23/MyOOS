@@ -39,7 +39,7 @@ class Compatibility {
 	}
 
 	/**
-	 * Subscribe to comments reloaded page id
+	 * Subscribe to comments reloaded page ID.
 	 *
 	 * @param  int $page_id Change page id to real page.
 	 * @return int
@@ -60,14 +60,14 @@ class Compatibility {
 	}
 
 	/**
-	 * Remove robots for this plugin
+	 * Remove robots for this plugin.
 	 */
 	public function subscribe_to_comments_reloaded_remove_robots() {
 		remove_action( 'rank_math/frontend/robots', '__return_empty_array' );
 	}
 
 	/**
-	 * Remove Pirate forms plugin scripts and styles from setting panels
+	 * Remove Pirate forms plugin scripts and styles from setting panels.
 	 */
 	public function pirate_forms_dequeue_scripts() {
 
@@ -88,7 +88,7 @@ class Compatibility {
 	}
 
 	/**
-	 * Disable genesis seo functionality
+	 * Disable Genesis SEO functionality.
 	 *
 	 * @param array $array Array hold disable info.
 	 *
