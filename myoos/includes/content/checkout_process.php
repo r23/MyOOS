@@ -322,7 +322,7 @@ for ($i=0, $n=count($oOrder->products); $i<$n; $i++) {
                  $aLang['email_text_invoice_url'] . ' ' . oos_href_link($aContents['account_history_info'], 'order_id=' . $insert_id, FALSE) . "\n" .
                  $aLang['email_text_date_ordered'] . ' ' . strftime(DATE_FORMAT_LONG) . "\n\n";
   if ($oOrder->info['comments']) {
-    $email_order .= oosDBOutput($oOrder->info['comments']) . "\n\n";
+    $email_order .= oos_db_input($oOrder->info['comments']) . "\n\n";
   }
 
   $email_order .= $aLang['email_text_products'] . "\n" .
