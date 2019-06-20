@@ -33,7 +33,6 @@ $aContents = [
 'account_address_book'            => $prefix_filename . 'account_address_book',
 'account_address_book_process'    => $prefix_filename . 'account_address_book_process',
 'account_wishlist'                => $prefix_filename . 'account_wishlist',
-'account_order_history'           => $prefix_filename . 'account_order_history',
 //admin
 'admin_login'                     => $prefix_filename . 'admin_login',
 //gv
