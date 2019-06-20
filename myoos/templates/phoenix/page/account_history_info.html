@@ -87,6 +87,7 @@
 							<div class="mb-20 mt-30">
 							{foreach item=products from=$order->products}
 								<div class="row">
+								{if $products.status eq 3 }
 									<div class="col-md-8">
 
 										<div class="row">
@@ -102,7 +103,7 @@
 													{/foreach}
 												{/if}
 												<span class="d-block g-color-lightred mb-2">{oos_display_price price=$products.final_price tax=$products.tax qty=$products.qty currency=$order->info.currency currency_value=$order->info.currency_value}</span>
-												<!-- <a class="btn g-brd-around rounded" href="#!">Buy it Again</a> -->
+												<a class="btn btn-primary" href="{html_href_link content=$filename.account_history_info action=buy_now products_id=$products.id order_id=$products.orders_id page=$page}" role="button"><i class="fa fa-cart-plus" aria-hidden="true"></i> {$lang.button_buy_it_again}</a>
 											</div>
 										</div>
 									</div>
@@ -119,6 +120,39 @@
 										<a class="btn btn-block text-uppercase" href="#!">Archive Order</a>
 									-->
 									</div>
+									
+								{else}	
+									
+									<div class="col-md-8">
+
+										<div class="row">
+											<div class="col-4 col-sm-3 mb-30">
+												{product_image dir=small image=$products.image alt=$products.name}
+											</div>
+
+											<div class="col-8 col-sm-9 g-mb-30">
+												<h4 class="h6 g-font-weight-400">{$products.name}{if !empty($products.serial_number) }&nbsp;&nbsp;({$lang.serial}{$products.serial_number}){/if}</h4>
+												{if ( isset($products.attributes) && sizeof($products.attributes) gt 0 ) }
+													{foreach item=attributes from=$products.attributes}
+														<br><nobr><span class="d-block g-color-gray-dark-v4 fs-13 mb-2">small>&nbsp;<i> - {$attributes.option}: {$attributes.value}</i></span></small></nobr>
+													{/foreach}
+												{/if}
+												<span class="d-block g-color-lightred mb-2">{oos_display_price price=$products.final_price tax=$products.tax qty=$products.qty currency=$order->info.currency currency_value=$order->info.currency_value}</span>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-md-4">							
+									<!-- 
+										<a class="btn btn-block text-uppercase" href="#!">Track Package</a>
+										<a class="btn btn-block text-uppercase" href="#!">Return Item</a>
+										<a class="btn btn-block text-uppercase" href="#!">Leave Package Feedback</a>
+										<a class="btn btn-block text-uppercase" href="#!">Archive Order</a>
+									-->
+									</div>									
+								{/if}									
+									
+									
 								</div>
 							{/foreach}	
 								<div class="row">

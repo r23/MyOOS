@@ -151,9 +151,12 @@ class order {
               FROM $orders_productstable
               WHERE orders_id = '" . intval($order_id) . "'";
 		$orders_products_result = $dbconn->Execute($sql);
-		while ($orders_products = $orders_products_result->fields) {
+		while ($orders_products = $orders_products_result->fields) {		
+			$products_status = oos_get_products_status($orders_products['products_id']);
 			$this->products[$index] = array('qty' => $orders_products['products_quantity'],
                                         'id' => $orders_products['products_id'],
+										'orders_id' => intval($order_id),
+										'status' => $products_status,
                                         'name' => $orders_products['products_name'],
 										'image' => $orders_products['products_image'],
                                         'model' => $orders_products['products_model'],
@@ -341,11 +344,10 @@ class order {
           reset($products[$i]['attributes']);
           foreach ($products[$i]['attributes'] as $option => $value) {		  
 		  
-             $products_optionstable = $oostable['products_options'];
+            $products_optionstable = $oostable['products_options'];
             $products_options_valuestable = $oostable['products_options_values'];
             $products_attributestable = $oostable['products_attributes'];
 
-//            if (($option == 4) || ($option == 3)) {
             if ($value == PRODUCTS_OPTIONS_VALUE_TEXT_ID) {
               $sql = "SELECT popt.products_options_name, poval.products_options_values_name,
                              pa.options_values_price, pa.price_prefix

@@ -193,6 +193,29 @@ function oos_random_select($query, $limit = '') {
 
     return $products_name;
   }
+
+/**
+ * Return Product's StatusName
+ *
+ * @param $nProductID
+ * @return string
+ */
+function oos_get_products_status($nProductID) {
+
+    // Get database information
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
+
+	$productstable = $oostable['products'];
+	$query = "SELECT products_status
+               FROM $productstable 
+              WHERE products_id = '" . intval($nProductID) . "'";
+    $products_status = $dbconn->GetOne($query);
+
+    return $products_status;
+}
+
+
   
  /**
   * Create a Wishlist Code. length may be between 1 and 16 Characters
