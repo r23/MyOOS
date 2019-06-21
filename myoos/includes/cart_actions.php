@@ -64,7 +64,7 @@ switch ($action) {
           if ( ($_POST['cart_quantity'][$i] >= $products_order_min) ) {
             if ($_POST['cart_quantity'][$i]%$products_order_units == 0) {
               $attributes = ($_POST['id'][$_POST['products_id'][$i]]) ? $_POST['id'][$_POST['products_id'][$i]] : '';
-              $_SESSION['cart']->add_cart($_POST['products_id'][$i], $_POST['cart_quantity'][$i], $attributes, false, $_POST['to_wl_id'][$i]);
+              $_SESSION['cart']->add_cart($_POST['products_id'][$i], $_POST['cart_quantity'][$i], $attributes, FALSE, $_POST['to_wl_id'][$i]);
             } else {
               $_SESSION['error_cart_msg'] = oos_get_products_name($_POST['products_id'][$i]) . ' - ' . $aLang['error_products_units_invalid'] . ' ' . $_POST['cart_quantity'][$i] . ' - ' . $aLang['products_order_qty_unit_text_cart'] . ' ' . $products_order_units;
             }
@@ -304,57 +304,6 @@ switch ($action) {
       }
       break;
 
-    case 'add_a_quickie' :
-		if (isset($_POST['cart_quantity']) && is_numeric($_POST['cart_quantity'])) {
-			$cart_quantity = oos_prepare_input($_POST['cart_quantity']);		  
-		  
-        if (isset($_POST['quickie'])) {
-          $productstable = $oostable['products'];
-          $quickie_result = $dbconn->Execute("SELECT products_id FROM $productstable WHERE (products_model = '" . oos_db_input($quickie) . "' OR products_ean = '" . oos_db_input($quickie) . "')");
-          if (!$quickie_result->RecordCount()) {
-            $productstable = $oostable['products'];
-            $quickie_result = $dbconn->Execute("SELECT products_id FROM $productstable WHERE (products_model LIKE '%" . oos_db_input($quickie) . "%' OR products_ean LIKE '%" . oos_db_input($quickie) . "%')");
-          }
-          if ($quickie_result->RecordCount() != 1) {
-            oos_redirect(oos_href_link($aContents['advanced_search_result'], 'keywords=' . rawurlencode($quickie)));
-          }
-          $products_quickie = $quickie_result->fields;
-
-          if (oos_has_product_attributes($products_quickie['products_id'])) {
-            oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $products_quickie['products_id']));
-          } else {
-			// start the session
-			if ( $session->hasStarted() === FALSE ) $session->start();
-
-			// create the shopping cart
-			if (!isset($_SESSION['cart'])) {
-				$_SESSION['cart'] = new shoppingCart();
-			}			
-            $cart_qty = $_SESSION['cart']->get_quantity($products_quickie['products_id']);
-            $news_qty = $cart_qty + $cart_quantity;
-
-            $products_order_min = oos_get_products_quantity_order_min($products_quickie['products_id']);
-            $products_order_units = oos_get_products_quantity_order_units($products_quickie['products_id']);
-
-            if ( ($cart_quantity >= $products_order_min) or ($cart_qty >= $products_order_min) ) {
-              if ( ($cart_quantity%$products_order_units == 0) and ($news_qty >= $products_order_min) ) {
-                $_SESSION['cart']->add_cart($products_quickie['products_id'], $news_qty);
-              } else {
-                $_SESSION['error_cart_msg'] = $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_units_invalid'] . $cart_quantity  . ' - ' . $aLang['products_order_qty_unit_text_info'] . ' ' . $products_order_units;
-              }
-            } else {
-              $_SESSION['error_cart_msg'] = $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_quantity_invalid'] . $cart_quantity . ' - ' . $aLang['products_order_qty_min_text_info'] . ' ' . $products_order_min;
-            }
-            if ($_SESSION['error_cart_msg'] == '') {
-              oos_redirect(oos_href_link($goto_file, oos_get_all_get_parameters($parameters)));
-            } else {
-              oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $products_quickie['products_id']));
-            }
-          }
-        }
-      }
-      break;
-
     case 'notify' :
       if (isset($_SESSION['customer_id'])) {
         if (isset($_GET['products_id'])) {
@@ -474,22 +423,6 @@ switch ($action) {
 	  
     case 'wishlist_add_product' :
 	
-/*
-    [action] => wishlist_add_product
-    [content] => account_wishlist
-    [page] => 1
-    [PHOENIXSID] => fo4vr7b2mirjqnfdoaq26oijoj
-    [formid] => 035020f86f09961c6e57e8ccd8fc933b
-    [products_id] => 7
-    [wl_products_id] => 7
-	
-	echo '<pre>';
-	print_r($_POST);
-	echo '</pre>';
-exit;
-*/	
-	
-	
 		// start the session
 		if ( $session->hasStarted() === FALSE ) $session->start();
 
@@ -515,7 +448,7 @@ exit;
 
 			if ( ($cart_quantity >= $products_order_min) or ($cart_qty >= $products_order_min) ) {
 				if ( ($cart_quantity%$products_order_units == 0) and ($news_qty >= $products_order_min) ) {
-					$_SESSION['cart']->add_cart($_POST['products_id'], intval($news_qty), $_POST['id'], true, $_POST['to_wl_id']);   
+					$_SESSION['cart']->add_cart($_POST['products_id'], $news_qty, $_POST['id'], TRUE, $_POST['wl_products_id']);   
 				} else {
 					$_SESSION['error_cart_msg'] = $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_units_invalid'] . $cart_quantity  . ' - ' . $aLang['products_order_qty_unit_text_info'] . ' ' . $products_order_units;
 				}

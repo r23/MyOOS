@@ -102,11 +102,13 @@
 
 
     // Wishlist names
+	/*
     if (oos_is_not_null($products[$i]['towlid'])) {
       $shopping_cart_detail .= '<br /><a href="' . oos_href_link($aContents['wishlist'], 'wlid=' . $products[$i]['towlid']) . '">' . oos_image(OOS_IMAGES . 'wl.gif', oos_get_wishlist_name($products[$i]['towlid'])) . '</a>' . "\n";
       $shopping_cart_detail .= '<small><i><a href="' . oos_href_link($aContents['wishlist'], 'wlid=' . $products[$i]['towlid']) . '">' . oos_get_wishlist_name($products[$i]['towlid']) . '</a></i></small>';
       $shopping_cart_detail .= oos_draw_hidden_field('to_wl_id[]', $products[$i]['towlid']);
     }
+	*/
 
 
      // Product options names
