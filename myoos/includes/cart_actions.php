@@ -27,6 +27,7 @@ if (isset($_GET['action'])) {
     $action = oos_var_prep_for_os($_POST['action']);
 }
 
+
 if (DISPLAY_CART == 'true') {
     $goto_file = $aContents['shopping_cart'];
     $parameters = array('action', 'category', 'products_id', 'pid');
@@ -472,6 +473,23 @@ switch ($action) {
 	  
 	  
     case 'wishlist_add_product' :
+	
+/*
+    [action] => wishlist_add_product
+    [content] => account_wishlist
+    [page] => 1
+    [PHOENIXSID] => fo4vr7b2mirjqnfdoaq26oijoj
+    [formid] => 035020f86f09961c6e57e8ccd8fc933b
+    [products_id] => 7
+    [wl_products_id] => 7
+	
+	echo '<pre>';
+	print_r($_POST);
+	echo '</pre>';
+exit;
+*/	
+	
+	
 		// start the session
 		if ( $session->hasStarted() === FALSE ) $session->start();
 
@@ -479,11 +497,16 @@ switch ($action) {
 		if (!isset($_SESSION['cart'])) {
 			$_SESSION['cart'] = new shoppingCart();
 		}
-		
-		if (isset($_POST['products_id']) && is_numeric($_POST['cart_quantity'])) {
 
+	
+		if (isset($_POST['cart_quantity']) && is_numeric($_POST['cart_quantity'])) {
 			$cart_quantity = oos_prepare_input($_POST['cart_quantity']);
-	  
+		} else {
+			$cart_quantity = 1;
+		}
+		
+		if (isset($_POST['products_id'])) {
+
 			$cart_qty = $_SESSION['cart']->get_quantity(oos_get_uprid($_POST['products_id'], $_POST['id']));
 			$news_qty = $cart_qty + $cart_quantity;
 	
@@ -500,7 +523,7 @@ switch ($action) {
 				$_SESSION['error_cart_msg'] = $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_quantity_invalid'] . $cart_quantity . ' - ' . $aLang['products_order_qty_min_text_info'] . ' ' . $products_order_min;
 			}
 			if ($_SESSION['error_cart_msg'] == '') {
-				oos_redirect(oos_href_link($goto_file, oos_get_all_get_parameters($parameters)));
+				oos_redirect(oos_href_link($aContents['account_wishlist'], 'page=' . intval($_POST['page'])));
 			} else {
 				oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_POST['products_id']));
 			}

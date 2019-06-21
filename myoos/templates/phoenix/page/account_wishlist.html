@@ -33,14 +33,7 @@
 						<h4>{$lang.heading_title}</h4>
 						
 						{if $wishlist}				
-							<form name="cart_quantity" action="{html_get_link}" method="POST" role="form">
-								<input type="hidden" name="action" value="wishlist_add_product">
-								<input type="hidden" name="content" value="{$page_file}">
-							{if $mySystem.sed}
-								<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
-								<input type="hidden" name="formid" value="{$mySystem.formid}">
-							{/if}
-						
+				
 							<div class="table-responsive">
 								<table class="table">
 									<thead>
@@ -55,8 +48,9 @@
 									<tbody>				
 				
 									{section name=i loop=$wishlist}
+
 	  
-									<tr>
+									<tr>										
 										<td class="text-left m-py-25">											
 											<div class="media">
 											{product_image dir=small image=$wishlist[i].products_image alt=$wishlist[i].products_name class="mr-3"}
@@ -81,30 +75,40 @@
 											{/if}
 										</td>
 										<td class="count-input">
+											{if $myUser.show_price eq 1 }
+												<form name="cart_quantity" action="{html_get_link}" method="POST" role="form">
+													<input type="hidden" name="action" value="wishlist_add_product">
+													<input type="hidden" name="content" value="{$page_file}">
+													<input type="hidden" name="page" value="{$page}">
+												{if $mySystem.sed}
+													<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+													<input type="hidden" name="formid" value="{$mySystem.formid}">
+												{/if}										
+													<input type="hidden" name="products_id" value="{$wishlist[i].wl_products_id}">
+													<input type="hidden" name="wl_products_id" value="{$wishlist[i].products_id}">
+													{$wishlist[i].attributes_hidden}
+											{/if}
 											<a class="incr-btn" data-action="decrease" href="#"><i class="fa fa-minus"></i></a>
 											<input class="quantity" type="text" name="cart_quantity" value="1">
 											<a class="incr-btn" data-action="increase" href="#"><i class="fa fa-plus"></i></a>
 										</td>	
 										<td class="">
-											{$wishlist[i].attributes_hidden}
-											{if $myUser.show_price eq 1 }
-												<input type="hidden" name="products_id" value="{$wishlist[i].wl_products_id}">
-												<input type="hidden" name="wl_products_id" value="{$wishlist[i].products_id}">
-												<button class="btn btn-success-filled" type="submit"><i class="fa fa-shopping-cart" aria-hidden="true"></i> {$lang.button_in_cart}</button>
+											{if $myUser.show_price eq 1 }									
+													<button class="btn btn-success-filled" type="submit"><i class="fa fa-shopping-cart" aria-hidden="true"></i> {$lang.button_in_cart}</button>		
 											{/if}
+											</form>	
 										</td>
 										<td class="">
 											<a href="{html_href_link content=$page_file page=$page action=remove_wishlist pid=$wishlist[i].products_id}" class="btn btn-primary-filled" role="button"><i class="fa fa fa-trash" aria-hidden="true"></i></a>
 										</td>
 									</tr>
-									
+																					
 									{/section}
 									
 									</tbody>
 								</table>
 							</div>				
-				
-							</form>
+
 						{else}
 						
 							<div class="alert alert-info alert-dismissible" role="alert">

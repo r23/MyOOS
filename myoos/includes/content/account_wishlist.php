@@ -86,8 +86,8 @@ while ($wishlist = $wishlist_result->fields) {
     $sql = "SELECT products_options_id, products_options_value_id
             FROM $customers_wishlist_attributestable
             WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'
-              AND customers_wishlist_link_id = '" . oos_db_input($_SESSION['customer_wishlist_link_id']) . "' AND
-                  products_id = '" . oos_db_input($wishlist['products_id']) . "'";
+              AND customers_wishlist_link_id = '" . oos_db_input($_SESSION['customer_wishlist_link_id']) . "'
+              AND products_id = '" . oos_db_input($wishlist['products_id']) . "'";
     $attributes_result = $dbconn->Execute($sql);
     $attributes_print = '';
 	$attributes_hidden_field = '';
