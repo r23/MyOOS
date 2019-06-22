@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.2.x - Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-06-13 17:08:54+0000\n"
+"PO-Revision-Date: 2019-06-21 10:18:58+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -404,7 +404,7 @@ msgstr "Lies mehr über Permalinks"
 
 #: wp-includes/js/dist/edit-post.js:5663
 msgid "The last part of the URL. "
-msgstr "Der letzte Teil der URL."
+msgstr "Der letzte Teil der URL. "
 
 #: wp-includes/js/dist/edit-post.js:5630
 msgid "URL Slug"
