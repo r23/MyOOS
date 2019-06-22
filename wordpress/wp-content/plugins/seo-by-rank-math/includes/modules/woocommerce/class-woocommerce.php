@@ -41,7 +41,8 @@ class WooCommerce {
 			new Admin;
 		}
 
-		$this->action( 'wp', 'integrations' );
+		$this->integrations();
+
 		if ( Helper::get_settings( 'general.wc_remove_product_base' ) ) {
 			$this->filter( 'post_type_link', 'product_post_type_link', 1, 2 );
 		}
@@ -57,6 +58,10 @@ class WooCommerce {
 	 * Initialize integrations.
 	 */
 	public function integrations() {
+		if ( is_admin() ) {
+			return;
+		}
+
 		// Permalink Manager.
 		if (
 			Helper::get_settings( 'general.wc_remove_product_base' ) ||
@@ -104,10 +109,9 @@ class WooCommerce {
 			$replace = [];
 			$url     = explode( '/', $url );
 			$slug    = array_pop( $url );
-
+		
 			if ( 'feed' === $slug ) {
-				$replace['feed'] = $slug;
-				$slug            = array_pop( $url );
+				return $request;
 			}
 
 			if ( 'amp' === $slug ) {
@@ -613,15 +617,16 @@ class WooCommerce {
 		$product_rules  = [];
 		$category_rules = [];
 		foreach ( $this->get_categories() as $category ) {
-			$category_slug = $remove_parent_slugs ? $category['slug'] : $this->get_category_fullpath( $category );
+			$category_path = $this->get_category_fullpath( $category );
+			$category_slug = $remove_parent_slugs ? $category['slug'] : $category_path;
 
 			$category_rules[ $category_base . $category_slug . '/?$' ]                                    = 'index.php?product_cat=' . $category['slug'];
 			$category_rules[ $category_base . $category_slug . '/(?:feed/)?(feed|rdf|rss|rss2|atom)/?$' ] = 'index.php?product_cat=' . $category['slug'] . '&feed=$matches[1]';
 			$category_rules[ $category_base . $category_slug . '/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$' ] = 'index.php?product_cat=' . $category['slug'] . '&paged=$matches[1]';
 
 			if ( $remove_product_base && $use_parent_slug ) {
-				$product_rules[ $category_slug . '/([^/]+)/?$' ] = 'index.php?product=$matches[1]';
-				$product_rules[ $category_slug . '/([^/]+)/' . $wp_rewrite->comments_pagination_base . '-([0-9]{1,})/?$' ] = 'index.php?product=$matches[1]&cpage=$matches[2]';
+				$product_rules[ $category_path . '/([^/]+)/?$' ] = 'index.php?product=$matches[1]';
+				$product_rules[ $category_path . '/([^/]+)/' . $wp_rewrite->comments_pagination_base . '-([0-9]{1,})/?$' ] = 'index.php?product=$matches[1]&cpage=$matches[2]';
 			}
 		}
 

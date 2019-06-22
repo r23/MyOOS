@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection
 Tested up to: 5.2.1
 Requires at least: 4.6.0
 Requires PHP: 5.6
-Stable tag: 1.0.27
+Stable tag: 1.0.27.1
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -451,21 +451,9 @@ We look forward to helping you.
 
 == Changelog ==
 
-= 1.0.27 [Jun 18, 2019] =
-* Added a filter to [show Meta Keywords tag](https://s.rankmath.com/keywordmetatag) to the Search Engines like Yandex
-* Added some important security fixes
-* Added more improvements to how the SEO Analyzer works inside the plugin
-* Enhanced the output of the Rich Snippet's Shortcode showing the formatted date
-* Improved the comments to make them more meaningful
-* Fixed an issue with the Breadcrumbs not showing the primary category on the product pages
-* Fixed a compatibility issue with the Indexing API plugin and Rank Math
-* Fixed an issue where product categories were showing 404 when Remove Category Base option was enabled
-* Fixed the problem with the categories date variables not working correctly in the settings fields
-* Fixed a conflict with Woocommerce One Page checkout plugin
-* Fixed an issue where the feeds were not updating when the WooCommerce module was activated
-* Fixed a compatibility issue with the Ultra theme, not showing the text editor
-* Fixed an issue where the Search Console Box was appearing for all the users in the dashboard
-* Fixed a problem in the SEO Analysis where missing 'Focus Keyword in Title' test wasn't working as intended
-* Prepared the plugin for upcoming updates related to Gutenberg's compatibility
+= 1.0.27.1 [Jun 21, 2019] =
+* Fixed Product page showing 'Page not found error' when Remove base option is enabled
+* Fixed security issue related to Rank Math Settings for logged in users
+* Fixed exclude posts option not working in the Sitemap
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://rankmath.com/changelog)**

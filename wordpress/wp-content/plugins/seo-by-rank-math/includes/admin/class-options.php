@@ -198,6 +198,11 @@ class Options {
 	 * Reset options.
 	 */
 	public function reset_options() {
+
+		if ( ! check_admin_referer( 'rank-math-reset-options' ) || ! current_user_can( 'manage_options' ) ) {
+			return false;
+		}
+
 		$url = wp_get_referer();
 		if ( ! $url ) {
 			$url = admin_url();
@@ -274,6 +279,7 @@ class Options {
 				<?php $machine->options_page_metabox(); ?>
 
 				<footer class="form-footer rank-math-ui settings-footer wp-clearfix">
+					<?php wp_nonce_field( 'rank-math-reset-options' ); ?>
 					<input type="submit" name="reset-cmb" id="rank-math-reset-cmb" value="Reset Options" class="button button-secondary button-xlarge reset-options alignleft">
 					<input type="submit" name="submit-cmb" id="submit-cmb" class="button button-primary button-xlarge save-options" value="Save Changes">
 				</footer>

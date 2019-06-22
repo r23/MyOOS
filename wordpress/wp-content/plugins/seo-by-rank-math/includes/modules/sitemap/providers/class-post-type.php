@@ -183,8 +183,8 @@ class Post_Type implements Provider {
 			}
 
 			foreach ( $posts as $post ) {
-
-				if ( ! Helper::is_post_indexable( $post->ID ) ) {
+				$post_id = (int) $post->ID;
+				if ( ! Helper::is_post_indexable( $post_id ) ) {
 					continue;
 				}
 
@@ -206,7 +206,7 @@ class Post_Type implements Provider {
 				}
 
 				$stacked_urls[] = $url['loc'];
-				if ( $post->ID === $this->get_page_for_posts_id() || $post->ID === $this->get_page_on_front_id() ) {
+				if ( $post_id === $this->get_page_for_posts_id() || $post_id === $this->get_page_on_front_id() ) {
 					array_unshift( $links, $url );
 					continue;
 				}
