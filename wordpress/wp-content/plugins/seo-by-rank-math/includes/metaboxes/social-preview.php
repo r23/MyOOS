@@ -8,6 +8,7 @@
 
 use RankMath\Helper;
 use RankMath\Admin\Admin_Helper;
+use MyThemeShop\Helpers\Param;
 
 global $post;
 
@@ -18,7 +19,7 @@ $fb_thumbnail = '';
 if ( Admin_Helper::is_post_edit() ) {
 	$fb_thumbnail = get_post_meta( $post->ID, 'rank_math_facebook_image_id', true );
 } elseif ( Admin_Helper::is_term_edit() ) {
-	$term_id      = isset( $_REQUEST['tag_ID'] ) ? absint( $_REQUEST['tag_ID'] ) : 0;
+	$term_id      = Param::request( 'tag_ID', 0, FILTER_VALIDATE_INT );
 	$fb_thumbnail = get_term_meta( $term_id, 'rank_math_facebook_image_id', true );
 } elseif ( Admin_Helper::is_user_edit() ) {
 	global $user_id;
@@ -35,7 +36,7 @@ $tw_thumbnail = '';
 if ( Admin_Helper::is_post_edit() ) {
 	$tw_thumbnail = get_post_meta( $post->ID, 'rank_math_twitter_image_id', true );
 } elseif ( Admin_Helper::is_term_edit() ) {
-	$term_id      = isset( $_REQUEST['tag_ID'] ) ? absint( $_REQUEST['tag_ID'] ) : 0;
+	$term_id      = Param::request( 'tag_ID', 0, FILTER_VALIDATE_INT );
 	$tw_thumbnail = get_term_meta( $term_id, 'rank_math_twitter_image_id', true );
 } elseif ( Admin_Helper::is_user_edit() ) {
 	global $user_id;

@@ -194,7 +194,7 @@ class Form {
 		$redirection = Redirection::from( $values );
 		if ( false === $redirection->save() ) {
 			Helper::add_notification( __( 'Please add at least one valid source URL.', 'rank-math' ), [ 'type' => 'error' ] );
-			wp_safe_redirect( wp_unslash( $_POST['_wp_http_referer'] ) );
+			wp_safe_redirect( Param::post( '_wp_http_referer' ) );
 			exit;
 		}
 
@@ -209,11 +209,11 @@ class Form {
 	 */
 	public function is_editing() {
 
-		if ( isset( $_GET['action'] ) && 'edit' !== $_GET['action'] ) {
+		if ( 'edit' !== Param::get( 'action' ) ) {
 			return false;
 		}
 
-		return isset( $_GET['redirection'] ) ? absint( $_GET['redirection'] ) : false;
+		return Param::get( 'redirection', false, FILTER_VALIDATE_INT );
 	}
 
 	/**

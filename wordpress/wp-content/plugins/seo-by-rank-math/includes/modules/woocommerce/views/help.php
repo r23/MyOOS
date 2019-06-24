@@ -35,7 +35,7 @@ use RankMath\Helper;
 	<a href="<?php echo Helper::get_admin_url( 'options-titles#setting-panel-taxonomy-product_tag' ); ?>"><?php esc_html_e( 'WordPress Dashboard > Rank Math > Titles & Meta > Product Tags.', 'rank-math' ); ?></a>
 </p>
 
-<p><img src="https://rankmath.com/wp-content/uploads/2019/03/product-archive-settings.jpg" alt="make categories noindex" /></p>
+<p><img src="<?php echo rank_math()->plugin_url() . 'assets/admin/img/help/product-archive-settings.jpg'; ?>" alt="make categories noindex" /></p>
 
 <p><strong><?php esc_html_e( 'Optimizing Your Product Pages', 'rank-math' ); ?></strong></p>
 
@@ -49,7 +49,7 @@ use RankMath\Helper;
 	?>
 </p>
 
-<p><img src="https://rankmath.com/wp-content/uploads/2019/03/individual-product-settings.jpg" alt="product seo title" /></p>
+<p><img src="<?php echo rank_math()->plugin_url() . 'assets/admin/img/help/individual-product-settings.jpg'; ?>" alt="product seo title" /></p>
 
 <p><?php esc_html_e( 'You can also add rich snippets to your product pages easily with Rank Math, apart from doing the regular SEO like you would do on posts.', 'rank-math' ); ?></p>
 
@@ -65,7 +65,7 @@ use RankMath\Helper;
 
 <p><?php esc_html_e( 'And, choose the product schema from the Rich Snippets tab.', 'rank-math' ); ?></p>
 
-<p><img src="https://rankmath.com/wp-content/uploads/2019/03/product-rich-snippets.jpg" alt="product rich snippets" /></p>
+<p><img src="<?php echo rank_math()->plugin_url() . 'assets/admin/img/help/product-rich-snippets.jpg'; ?>" alt="product rich snippets" /></p>
 
 <p><strong><?php esc_html_e( 'Optimizing Your Product URLs', 'rank-math' ); ?></strong></p>
 
@@ -81,4 +81,4 @@ use RankMath\Helper;
 	?>
 </p>
 
-<p><img src="https://rankmath.com/wp-content/uploads/2019/03/woocommerce-url-settings.jpg" alt="product category base" /></p>
+<p><img src="<?php echo rank_math()->plugin_url() . 'assets/admin/img/help/woocommerce-url-settings.jpg'; ?>" alt="product category base" /></p>

@@ -208,7 +208,7 @@ class Options {
 			$url = admin_url();
 		}
 
-		if ( isset( $_POST['reset-cmb'] ) && Param::post( 'action' ) === $this->key ) {
+		if ( filter_has_var( INPUT_POST, 'reset-cmb' ) && Param::post( 'action' ) === $this->key ) {
 			delete_option( $this->key );
 			wp_safe_redirect( esc_url_raw( $url ), WP_Http::SEE_OTHER );
 			exit;
@@ -227,7 +227,7 @@ class Options {
 
 		CMB2_hookup::enqueue_cmb_css();
 		Replace_Vars::setup_json();
-		wp_enqueue_style( 'font-awesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', null, rank_math()->version );
+		wp_enqueue_style( 'font-awesome', rank_math()->plugin_url() . 'assets/vendor/font-awesome/css/font-awesome.min.css', null, '4.7.0' );
 		wp_enqueue_style( 'rank-math-options', rank_math()->plugin_url() . 'assets/admin/css/option-panel.css', [ 'select2-rm', 'rank-math-common', 'rank-math-cmb2' ], rank_math()->version );
 		wp_enqueue_script( 'rank-math-options', rank_math()->plugin_url() . 'assets/admin/js/option-panel.js', [ 'underscore', 'select2-rm', 'rank-math-common', 'rank-math-validate' ], rank_math()->version, true );
 

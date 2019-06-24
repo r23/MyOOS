@@ -14,6 +14,7 @@ namespace RankMath;
 
 use RankMath\Traits\Hooker;
 use MyThemeShop\Helpers\Str;
+use MyThemeShop\Helpers\Param;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -74,7 +75,7 @@ class Tracking {
 
 		$server = [];
 		if ( isset( $_SERVER['SERVER_SOFTWARE'] ) && ! empty( $_SERVER['SERVER_SOFTWARE'] ) ) {
-			$server['software'] = $_SERVER['SERVER_SOFTWARE'];
+			$server['software'] = Param::server( 'SERVER_SOFTWARE' );
 		}
 
 		if ( function_exists( 'phpversion' ) ) {
@@ -89,7 +90,7 @@ class Tracking {
 		}
 
 		// Validate if the server address is a valid IP-address.
-		$ipaddress = filter_input( INPUT_SERVER, 'SERVER_ADDR', FILTER_VALIDATE_IP );
+		$ipaddress = Param::server( 'SERVER_ADDR', false, FILTER_VALIDATE_IP );
 		if ( $ipaddress ) {
 			$server['ip']       = $ipaddress;
 			$server['hostname'] = gethostbyaddr( $ipaddress );

@@ -12,6 +12,7 @@ namespace RankMath\Redirections;
 
 use RankMath\Helper;
 use RankMath\Traits\Hooker;
+use MyThemeShop\Helpers\Param;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -99,7 +100,7 @@ class Watcher {
 			);
 
 			// Update the meta value as well.
-			if ( 'edit-post' === $_POST['screen'] ) {
+			if ( 'edit-post' === Param::post( 'screen' ) ) {
 				update_post_meta( $post_id, 'rank_math_permalink', $post->post_name );
 			}
 

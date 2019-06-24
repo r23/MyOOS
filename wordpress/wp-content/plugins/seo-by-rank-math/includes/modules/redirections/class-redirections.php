@@ -12,6 +12,7 @@ namespace RankMath\Redirections;
 
 use RankMath\Helper;
 use RankMath\Traits\Hooker;
+use MyThemeShop\Helpers\Param;
 use MyThemeShop\Helpers\Conditional;
 
 /**
@@ -105,7 +106,7 @@ class Redirections {
 			$items['redirections-redirect-me'] = [
 				'id'        => 'rank-math-redirections-redirect-me',
 				'title'     => esc_html__( '&raquo; Redirect this page', 'rank-math' ),
-				'href'      => add_query_arg( 'url', urlencode( ltrim( $_SERVER['REQUEST_URI'], '/' ) ), Helper::get_admin_url( 'redirections' ) ),
+				'href'      => add_query_arg( 'url', urlencode( ltrim( Param::server( 'REQUEST_URI' ), '/' ) ), Helper::get_admin_url( 'redirections' ) ),
 				'parent'    => 'rank-math-redirections',
 				'meta'      => [ 'title' => esc_html__( 'Redirect the current URL', 'rank-math' ) ],
 				'_priority' => 53,
@@ -121,11 +122,11 @@ class Redirections {
 	 * @return boolean
 	 */
 	private function is_script_uri_or_http_x() {
-		if ( isset( $_SERVER['SCRIPT_URI'] ) && ! empty( $_SERVER['SCRIPT_URI'] ) && admin_url( 'admin-ajax.php' ) === $_SERVER['SCRIPT_URI'] ) {
+		if ( isset( $_SERVER['SCRIPT_URI'] ) && ! empty( $_SERVER['SCRIPT_URI'] ) && admin_url( 'admin-ajax.php' ) === Param::server( 'SCRIPT_URI' ) ) {
 			return true;
 		}
 
-		if ( isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ! empty( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && strtolower( $_SERVER['HTTP_X_REQUESTED_WITH'] ) === 'xmlhttprequest' ) {
+		if ( isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ! empty( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && strtolower( Param::server( 'HTTP_X_REQUESTED_WITH' ) ) === 'xmlhttprequest' ) {
 			return true;
 		}
 

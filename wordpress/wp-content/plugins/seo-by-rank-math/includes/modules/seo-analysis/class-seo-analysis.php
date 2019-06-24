@@ -12,6 +12,7 @@ namespace RankMath\SEO_Analysis;
 
 use RankMath\Helper;
 use RankMath\Traits\Hooker;
+use MyThemeShop\Helpers\Param;
 use MyThemeShop\Helpers\Conditional;
 
 defined( 'ABSPATH' ) || exit;
@@ -55,7 +56,7 @@ class SEO_Analysis {
 		];
 
 		if ( ! is_admin() && ! is_404() ) {
-			$link = is_front_page() ? '' : ( is_ssl() ? 'https' : 'http' ) . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+			$link = is_front_page() ? '' : ( is_ssl() ? 'https' : 'http' ) . '://' . Param::server( 'HTTP_HOST' ) . Param::server( 'REQUEST_URI' );
 
 			$items['analyze'] = [
 				'id'        => 'rank-math-analyze-me',

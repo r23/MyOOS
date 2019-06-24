@@ -14,6 +14,7 @@ use WP_Query;
 use RankMath\Helper;
 use RankMath\Traits\Hooker;
 use MyThemeShop\Helpers\Str;
+use MyThemeShop\Helpers\Param;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -74,7 +75,7 @@ class Redirector {
 	 * Set the required values.
 	 */
 	private function start() {
-		$this->uri = str_replace( site_url( '/' ), '', $_SERVER['REQUEST_URI'] );
+		$this->uri = str_replace( site_url( '/' ), '', Param::server( 'REQUEST_URI' ) );
 		$this->uri = trim( $this->uri, '/' );
 		$this->uri = urldecode( $this->uri );
 		$this->uri = trim( Redirection::strip_subdirectory( $this->uri ), '/' );

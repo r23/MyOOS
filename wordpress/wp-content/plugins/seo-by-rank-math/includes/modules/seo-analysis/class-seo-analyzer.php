@@ -16,6 +16,7 @@ use RankMath\Traits\Ajax;
 use RankMath\Traits\Hooker;
 use Rollbar\Payload\Level;
 use MyThemeShop\Helpers\Str;
+use MyThemeShop\Helpers\Param;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -75,8 +76,8 @@ class SEO_Analyzer {
 		$this->api_url     = $this->do_filter( 'seo_analysis/api_endpoint', 'https://mythemeshop.com/analyze/v2/json/' );
 		$this->analyse_url = get_home_url();
 
-		if ( ! empty( $_REQUEST['u'] ) && $this->is_allowed_url( $_REQUEST['u'] ) ) {
-			$this->analyse_url     = $_REQUEST['u'];
+		if ( ! empty( $_REQUEST['u'] ) && $this->is_allowed_url( Param::request( 'u' ) ) ) {
+			$this->analyse_url     = Param::request( 'u' );
 			$this->analyse_subpage = true;
 		}
 

@@ -12,6 +12,7 @@ namespace RankMath\Role_Manager;
 
 use RankMath\Helper;
 use RankMath\Traits\Hooker;
+use MyThemeShop\Helpers\Param;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -54,7 +55,7 @@ class Members {
 	 */
 	public function register_caps() {
 		$caps = Helper::get_capabilities();
-		if ( isset( $_GET['role'] ) && 'administrator' === $_GET['role'] ) {
+		if ( 'administrator' === Param::get( 'role' ) ) {
 			$caps['rank_math_edit_htaccess'] = esc_html__( 'Edit .htaccess', 'rank-math' );
 		}
 

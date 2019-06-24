@@ -205,7 +205,7 @@ class Snippet_Shortcode {
 	 * @param array $field   Array of review value and count field.
 	 */
 	public function show_ratings( $post_id, $field ) {
-		wp_enqueue_style( 'font-awesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', null, rank_math()->version );
+		wp_enqueue_style( 'font-awesome', rank_math()->plugin_url() . 'assets/vendor/font-awesome/css/font-awesome.min.css', null, '4.7.0' );
 		$rating = isset( $field['value'] ) ? Helper::get_post_meta( "snippet_{$field['value']}", $post_id ) : '';
 		$count  = isset( $field['count'] ) ? Helper::get_post_meta( $field['count'], $post_id ) : '';
 		?>

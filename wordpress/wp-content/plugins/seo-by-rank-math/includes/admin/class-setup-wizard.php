@@ -205,8 +205,9 @@ class Setup_Wizard {
 	public function save_wizard() {
 
 		// If no form submission, bail.
+		$referer = Param::post( '_wp_http_referer' );
 		if ( empty( $_POST ) ) {
-			return wp_safe_redirect( $_POST['_wp_http_referer'] );
+			return wp_safe_redirect( $referer );
 		}
 
 		check_admin_referer( 'rank-math-wizard', 'security' );
@@ -214,7 +215,7 @@ class Setup_Wizard {
 		$values       = $this->cmb->get_sanitized_values( $_POST );
 		$show_content = $this->wizard_step->save( $values, $this );
 
-		$redirect = $show_content ? $this->step_next_link() : $_POST['_wp_http_referer'];
+		$redirect = $show_content ? $this->step_next_link() : $referer;
 		if ( is_string( $show_content ) ) {
 			$redirect = $show_content;
 		}

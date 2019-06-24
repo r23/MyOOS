@@ -13,6 +13,7 @@ namespace RankMath\WooCommerce;
 use RankMath\Helper;
 use RankMath\Traits\Hooker;
 use MyThemeShop\Helpers\Str;
+use MyThemeShop\Helpers\Param;
 use MyThemeShop\Helpers\Attachment;
 use RankMath\OpenGraph\Image as OpenGraph_Image;
 
@@ -109,7 +110,7 @@ class WooCommerce {
 			$replace = [];
 			$url     = explode( '/', $url );
 			$slug    = array_pop( $url );
-		
+
 			if ( 'feed' === $slug ) {
 				return $request;
 			}
@@ -548,7 +549,7 @@ class WooCommerce {
 	 * @return null|WC_Product
 	 */
 	protected function get_product() {
-		$product_id = isset( $_GET['post'] ) ? $_GET['post'] : get_queried_object_id();
+		$product_id = Param::get( 'post', get_queried_object_id(), FILTER_VALIDATE_INT );
 		if ( ! $product_id && ( ! is_singular( 'product' ) || ! function_exists( 'wc_get_product' ) ) ) {
 			return null;
 		}

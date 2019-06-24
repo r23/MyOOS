@@ -11,6 +11,7 @@
 namespace RankMath\Redirections;
 
 use RankMath\Traits\Hooker;
+use MyThemeShop\Helpers\Param;
 
 /**
  * Export class.
@@ -32,7 +33,7 @@ class Export {
 	 * Export redirections.
 	 */
 	public function export() {
-		$server = isset( $_GET['export'] ) ? filter_input( INPUT_GET, 'export' ) : false;
+		$server = Param::get( 'export' );
 		if ( ! $server || ! in_array( $server, [ 'apache', 'nginx' ], true ) ) {
 			return;
 		}

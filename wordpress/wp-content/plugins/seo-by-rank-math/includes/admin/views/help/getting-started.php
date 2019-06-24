@@ -16,7 +16,7 @@ use RankMath\KB;
 	<?php esc_html_e( 'While Rank Math automatically initiates the setup wizard once you install it, it is possible to skip it accidentally. If you’ve also skipped Rank Math’s setup wizard, then you can rerun the setup wizard by going to Rank Math’s dashboard, and then clicking the Setup Wizard tab.', 'rank-math' ); ?>
 </p>
 <p>
-	<img src="https://rankmath.com/wp-content/uploads/2018/08/rank-math-setup-wizard-tab.jpg" alt="<?php esc_attr_e( 'Rank Math Setup Wizard Tab', 'rank-math' ); ?>" style="max-width: 100%; height: auto;" width="900" height="535" class="aligncenter size-full wp-image-327302" />
+	<img src="<?php echo rank_math()->plugin_url() . 'assets/admin/img/help/rank-math-setup-wizard-tab.jpg'; ?>" alt="<?php esc_attr_e( 'Rank Math Setup Wizard Tab', 'rank-math' ); ?>" style="max-width: 100%; height: auto;" width="900" height="535" class="aligncenter size-full wp-image-327302" />
 </p>
 <p>
 	<a href="<?php KB::the( 'how-to-setup' ); ?>" target="_blank"><?php esc_html_e( 'Click here to read full setup tutorial', 'rank-math' ); ?></a>

@@ -6,9 +6,10 @@
  */
 
 use RankMath\Helper;
+use MyThemeShop\Helpers\Param;
 
 $dir = dirname( __FILE__ ) . '/';
-$tab = isset( $_GET['view'] ) ? $_GET['view'] : 'overview';
+$tab = Param::get( 'view', 'overview' );
 ?>
 <div class="wrap rank-math-wrap rank-math-search-console rank-math-search-console-<?php echo $tab; ?>">
 

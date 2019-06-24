@@ -246,8 +246,9 @@ class Registration {
 	public function save_registration() {
 
 		// If no form submission, bail.
+		$referer = Param::post( '_wp_http_referer' );
 		if ( Param::post( 'step' ) !== 'register' ) {
-			return wp_safe_redirect( $_POST['_wp_http_referer'] );
+			return wp_safe_redirect( $referer );
 		}
 
 		check_admin_referer( 'rank-math-wizard', 'security' );
@@ -255,7 +256,7 @@ class Registration {
 		Admin_Helper::allow_tracking();
 
 		$show_content = $this->register_handler( $this->cmb->get_sanitized_values( $_POST ) );
-		$redirect     = true === $show_content ? Helper::get_admin_url( 'wizard' ) : $_POST['_wp_http_referer'];
+		$redirect     = true === $show_content ? Helper::get_admin_url( 'wizard' ) : $referer;
 		wp_safe_redirect( $redirect );
 		exit;
 	}

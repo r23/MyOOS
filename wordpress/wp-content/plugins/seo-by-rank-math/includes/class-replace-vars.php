@@ -12,11 +12,12 @@
 
 namespace RankMath;
 
-use MyThemeShop\Helpers\Str;
-use MyThemeShop\Helpers\WordPress;
 use RankMath\Admin\Admin_Helper;
 use RankMath\Traits\Hooker;
 use RankMath\Traits\Replacement;
+use MyThemeShop\Helpers\Str;
+use MyThemeShop\Helpers\Param;
+use MyThemeShop\Helpers\WordPress;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -236,7 +237,7 @@ class Replace_Vars {
 		// Fetch data for this term.
 		if ( Admin_Helper::is_term_edit() ) {
 			global $taxnow;
-			$tag_id = isset( $_REQUEST['tag_ID'] ) ? absint( $_REQUEST['tag_ID'] ) : 0;
+			$tag_id = Param::request( 'tag_ID', 0, FILTER_VALIDATE_INT );
 			$term   = get_term( $tag_id, $taxnow, OBJECT, 'edit' );
 
 			self::$replacements['term']['example']             = $term->name;

@@ -77,11 +77,11 @@ class Import_Export implements Runner {
 	 * Handle import or export.
 	 */
 	public function handler() {
-		if ( ! isset( $_POST['object_id'] ) ) {
+		$object_id = Param::post( 'object_id' );
+		if ( false === $object_id ) {
 			return;
 		}
 
-		$object_id = Param::post( 'object_id' );
 		if ( 'export-plz' === $object_id && check_admin_referer( 'rank-math-export-settings' ) ) {
 			$this->export();
 		}
@@ -221,7 +221,7 @@ class Import_Export implements Runner {
 	 * Handle export.
 	 */
 	private function export() {
-		$panels   = $_POST['panels'];
+		$panels   = Param::post( 'panels', [], FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
 		$data     = $this->get_export_data( $panels );
 		$filename = 'rank-math-settings-' . date( 'Y-m-d-H-i-s' ) . '.txt';
 

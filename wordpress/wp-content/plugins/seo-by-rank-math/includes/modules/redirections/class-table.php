@@ -44,7 +44,7 @@ class Table extends List_Table {
 			'orderby' => $this->get_orderby( 'id' ),
 			'paged'   => $this->get_pagenum(),
 			'search'  => $this->get_search(),
-			'status'  => isset( $_REQUEST['status'] ) ? $_REQUEST['status'] : 'any',
+			'status'  => Param::request( 'status', 'any' ),
 		]);
 
 		$this->items = $data['redirections'];

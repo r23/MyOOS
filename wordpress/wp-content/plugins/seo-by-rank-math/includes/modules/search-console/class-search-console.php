@@ -18,6 +18,7 @@ use RankMath\Traits\Ajax;
 use MyThemeShop\Admin\Page;
 use MyThemeShop\Helpers\Arr;
 use MyThemeShop\Helpers\Str;
+use MyThemeShop\Helpers\Param;
 use MyThemeShop\Helpers\Conditional;
 
 defined( 'ABSPATH' ) || exit;
@@ -99,7 +100,7 @@ class Search_Console extends Module {
 		}
 
 		$this->get_filters();
-		$this->current_tab = isset( $_GET['view'] ) ? $_GET['view'] : 'overview';
+		$this->current_tab = Param::get( 'view', 'overview' );
 
 		if ( ! $this->client->is_authorized ) {
 			return;
@@ -166,14 +167,14 @@ class Search_Console extends Module {
 				],
 				'assets'     => [
 					'styles'  => [
-						'font-awesome'             => 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css',
-						'jquery-date-range-picker' => 'https://cdnjs.cloudflare.com/ajax/libs/jquery-date-range-picker/0.16.1/daterangepicker.min.css',
+						'font-awesome'             => rank_math()->plugin_url() . 'assets/vendor/font-awesome/css/font-awesome.min.css',
+						'jquery-date-range-picker' => rank_math()->plugin_url() . 'assets/vendor/date-range-picker/daterangepicker.min.css',
 						'rank-math-search-console' => $plugin_uri . '/assets/search-console.css',
 					],
 					'scripts' => [
 						'rank-math-common' => '',
-						'momentjs'         => 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js',
-						'date-picker'      => 'https://cdnjs.cloudflare.com/ajax/libs/jquery-date-range-picker/0.16.1/jquery.daterangepicker.min.js',
+						'moment'           => '',
+						'date-picker'      => rank_math()->plugin_url() . 'assets/vendor/date-range-picker/jquery.daterangepicker.min.js',
 						'google-charts'    => '//www.gstatic.com/charts/loader.js',
 						'rank-math-sc'     => $plugin_uri . '/assets/search-console.js',
 					],
@@ -255,7 +256,8 @@ class Search_Console extends Module {
 		check_ajax_referer( 'rank-math-ajax-nonce', 'security' );
 		$this->has_cap_ajax( 'search_console' );
 
-		$code = isset( $_POST['code'] ) ? trim( wp_unslash( $_POST['code'] ) ) : false;
+		$code = Param::post( 'code' );
+		$code = $code ? trim( wp_unslash( $code ) ) : false;
 		if ( ! $code ) {
 			$this->error( esc_html__( 'No authentication code found.', 'rank-math' ) );
 		}
@@ -326,12 +328,12 @@ class Search_Console extends Module {
 		check_ajax_referer( 'rank-math-ajax-nonce', 'security' );
 		$this->has_cap_ajax( 'search_console' );
 
-		$days = isset( $_GET['days'] ) ? $_GET['days'] : false;
+		$days = Param::get( 'days', false, FILTER_VALIDATE_INT );
 		if ( ! $days ) {
 			$this->error( esc_html__( 'Not a valid settings founds to delete cache.', 'rank-math' ) );
 		}
 
-		DB::delete( intval( $days ) );
+		DB::delete( $days );
 		$db_info            = DB::info();
 		$db_info['message'] = sprintf( '<div class="rank-math-console-db-info"><span class="dashicons dashicons-calendar-alt"></span> Cached Days: <strong>%s</strong></div>', $db_info['days'] ) .
 		sprintf( '<div class="rank-math-console-db-info"><span class="dashicons dashicons-editor-ul"></span> Data Rows: <strong>%s</strong></div>', Str::human_number( $db_info['rows'] ) ) .
@@ -352,7 +354,7 @@ class Search_Console extends Module {
 		}
 
 		try {
-			$days  = isset( $_GET['days'] ) ? $_GET['days'] : 90;
+			$days  = Param::get( 'days', 90, FILTER_VALIDATE_INT );
 			$start = Helper::get_midnight( time() - DAY_IN_SECONDS );
 
 			for ( $current = 1; $current <= $days; $current++ ) {
@@ -450,7 +452,7 @@ class Search_Console extends Module {
 	private function get_filter_data( $filter, $default ) {
 		$cookie_key = 'rank_math_sc_' . $filter;
 		if ( isset( $_POST[ $filter ] ) && ! empty( $_POST[ $filter ] ) ) {
-			$value = $_POST[ $filter ];
+			$value = Param::post( $filter );
 			setcookie( $cookie_key, $value, time() + ( HOUR_IN_SECONDS * 30 ), COOKIEPATH, COOKIE_DOMAIN );
 			return $value;
 		}

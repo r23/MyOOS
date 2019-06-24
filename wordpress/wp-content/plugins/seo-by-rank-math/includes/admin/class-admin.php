@@ -117,7 +117,7 @@ class Admin implements Runner {
 			return $post_id;
 		}
 
-		if ( ! empty( $_POST['rank_math_canonical_url'] ) && false === filter_var( $_POST['rank_math_canonical_url'], FILTER_VALIDATE_URL ) ) {
+		if ( ! empty( $_POST['rank_math_canonical_url'] ) && false === Param::post( 'rank_math_canonical_url', false, FILTER_VALIDATE_URL ) ) {
 			$message = esc_html__( 'The canonical URL you entered does not seem to be a valid URL. Please double check it in the SEO meta box &raquo; Advanced tab.', 'rank-math' );
 			Helper::add_notification( $message, [ 'type' => 'error' ] );
 		}
@@ -134,7 +134,7 @@ class Admin implements Runner {
 			return;
 		}
 
-		$layout  = filter_input( INPUT_POST, 'layout', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
+		$layout  = Param::post( 'layout', [], FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
 		$allowed = [
 			'basic'               => 1,
 			'advanced'            => 1,

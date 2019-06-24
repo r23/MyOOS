@@ -16,6 +16,7 @@ use RankMath\Helper;
 use RankMath\Runner;
 use RankMath\Traits\Hooker;
 use MyThemeShop\Helpers\Arr;
+use MyThemeShop\Helpers\Param;
 use MyThemeShop\Helpers\WordPress;
 
 defined( 'ABSPATH' ) || exit;
@@ -343,12 +344,12 @@ class Option_Center implements Runner {
 	 * Update .htaccess.
 	 */
 	private function update_htaccess() {
-		if ( ! isset( $_POST['htaccess_accept_changes'] ) || ! isset( $_POST['htaccess_content'] ) ) {
+		$content = Param::post( 'htaccess_content', false );
+		if ( empty( $content ) ) {
 			return;
 		}
 
-		$content = stripslashes( $_POST['htaccess_content'] );
-
+		$content = stripslashes( $content );
 		if ( ! $this->do_htaccess_backup() ) {
 			Helper::add_notification(
 				esc_html__( 'Failed to backup .htaccess file. Please check file permissions.', 'rank-math' ),

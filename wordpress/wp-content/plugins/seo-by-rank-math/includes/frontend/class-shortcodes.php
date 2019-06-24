@@ -190,7 +190,7 @@ class Shortcodes {
 			foreach ( $combined as $time => $days ) {
 				if ( $format ) {
 					$hours = explode( '-', $time );
-					$time  = date( 'g:i a', strtotime( $hours[0] ) ) . '-' . date( 'g:i a', strtotime( $hours[1] ) );
+					$time  = isset( $hours[1] ) ? date( 'g:i a', strtotime( $hours[0] ) ) . '-' . date( 'g:i a', strtotime( $hours[1] ) ) : $time;
 				}
 				$time = str_replace( '-', ' &ndash; ', $time );
 

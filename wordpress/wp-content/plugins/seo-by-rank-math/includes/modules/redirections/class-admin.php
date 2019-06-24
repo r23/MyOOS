@@ -239,7 +239,7 @@ class Admin extends Module {
 		check_ajax_referer( 'redirection_list_action', 'security' );
 		$this->has_cap_ajax( 'redirections' );
 
-		$id     = isset( $_REQUEST['redirection'] ) ? absint( $_REQUEST['redirection'] ) : 0;
+		$id     = Param::request( 'redirection', 0, FILTER_VALIDATE_INT );
 		$action = str_replace( 'rank_math_redirection_', '', $action );
 
 		if ( ! $id ) {
