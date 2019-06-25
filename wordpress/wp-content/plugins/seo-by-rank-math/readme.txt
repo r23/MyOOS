@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection
 Tested up to: 5.2.2
 Requires at least: 4.6.0
 Requires PHP: 5.6
-Stable tag: 1.0.27.3
+Stable tag: 1.0.27.4
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -451,7 +451,8 @@ We look forward to helping you.
 
 == Changelog ==
 
-= 1.0.27.3 [Jun 24, 2019] =
-* Fixed '500 error' appearing on some installations after updating the plugin settings
+= 1.0.27.4 [Jun 25, 2019] =
+* Fixed redirections not working on some installations
+* Fixed ‘500 error’ appearing on some installations after updating the plugin settings
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://rankmath.com/changelog)**

@@ -344,12 +344,16 @@ class Option_Center implements Runner {
 	 * Update .htaccess.
 	 */
 	private function update_htaccess() {
-		$content = Param::post( 'htaccess_content', false );
+		if ( empty( Param::post( 'htaccess_accept_changes' ) ) ) {
+			return;
+		}
+
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Writing to .htaccess file and escaping for HTML will break functionality.
+		$content = wp_unslash( $_POST['htaccess_content'] );
 		if ( empty( $content ) ) {
 			return;
 		}
 
-		$content = stripslashes( $content );
 		if ( ! $this->do_htaccess_backup() ) {
 			Helper::add_notification(
 				esc_html__( 'Failed to backup .htaccess file. Please check file permissions.', 'rank-math' ),

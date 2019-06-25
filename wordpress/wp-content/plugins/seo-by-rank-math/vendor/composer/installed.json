@@ -142,47 +142,6 @@
         ]
     },
     {
-        "name": "mythemeshop/wordpress-helpers",
-        "version": "1.0.4",
-        "version_normalized": "1.0.4.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/MyThemeShopTeam/wordpress-helpers.git",
-            "reference": "817bca625d21d96c1c46c6e11873286faee90b4b"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/MyThemeShopTeam/wordpress-helpers/zipball/817bca625d21d96c1c46c6e11873286faee90b4b",
-            "reference": "817bca625d21d96c1c46c6e11873286faee90b4b",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.6"
-        },
-        "time": "2019-04-29T15:30:36+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "MyThemeShop\\Helpers\\": "src/"
-            },
-            "classmap": [
-                "src/"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "MyThemeShop",
-                "email": "info@mythemeshop.com"
-            }
-        ],
-        "description": "Collection of utilities required during development of a plugin or theme for WordPress. Build for developers by developers."
-    },
-    {
         "name": "monolog/monolog",
         "version": "1.24.0",
         "version_normalized": "1.24.0.0",
@@ -322,5 +281,46 @@
             "logging",
             "monitoring"
         ]
+    },
+    {
+        "name": "mythemeshop/wordpress-helpers",
+        "version": "1.0.6",
+        "version_normalized": "1.0.6.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/MyThemeShopTeam/wordpress-helpers.git",
+            "reference": "0be3a3ece83e8dafd12d7f1b29ba472203e296c0"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/MyThemeShopTeam/wordpress-helpers/zipball/0be3a3ece83e8dafd12d7f1b29ba472203e296c0",
+            "reference": "0be3a3ece83e8dafd12d7f1b29ba472203e296c0",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.6"
+        },
+        "time": "2019-06-25T04:12:00+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "MyThemeShop\\Helpers\\": "src/"
+            },
+            "classmap": [
+                "src/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "MyThemeShop",
+                "email": "info@mythemeshop.com"
+            }
+        ],
+        "description": "Collection of utilities required during development of a plugin or theme for WordPress. Build for developers by developers."
     }
 ]
