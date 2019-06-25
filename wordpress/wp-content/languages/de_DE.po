@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.2.x - Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-06-21 10:18:58+0000\n"
+"PO-Revision-Date: 2019-06-23 09:03:07+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2679,11 +2679,11 @@ msgstr "Veröffentlichen…"
 
 #: wp-includes/js/dist/editor.js:10731
 msgid "Publish:"
-msgstr "Veröffentlichung: "
+msgstr "Veröffentlichung:"
 
 #: wp-includes/js/dist/editor.js:10725
 msgid "Visibility:"
-msgstr "Sichtbarkeit: "
+msgstr "Sichtbarkeit:"
 
 #: wp-includes/js/dist/editor.js:10718
 msgid "Double-check your settings before publishing."
@@ -11635,7 +11635,7 @@ msgstr "#%d (kein Titel)"
 
 #: wp-includes/post-template.php:1941
 msgid "JavaScript must be enabled to use this feature."
-msgstr "Um dieses Feature zu nutzen, muss JavaScript aktiviert sein. "
+msgstr "Um diese Funktion zu nutzen, muss JavaScript aktiviert sein."
 
 #. translators: Date/Time format, see https://secure.php.net/date
 #. translators: localized date and time format, see https://secure.php.net/date
@@ -12439,7 +12439,7 @@ msgstr "Template"
 
 #: wp-includes/widgets/class-wp-widget-links.php:176
 msgid "Number of links to show:"
-msgstr "Anzahl der zu zeigenden Links: "
+msgstr "Anzahl der zu zeigenden Links:"
 
 #: wp-includes/widgets/class-wp-widget-links.php:161
 msgid "Link ID"
