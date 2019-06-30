@@ -25,6 +25,8 @@ use Symfony\Component\Lock\StoreInterface;
  */
 class ZookeeperStore implements StoreInterface
 {
+    use ExpiringStoreTrait;
+
     private $zookeeper;
 
     public function __construct(\Zookeeper $zookeeper)
@@ -45,6 +47,8 @@ class ZookeeperStore implements StoreInterface
         $token = $this->getUniqueToken($key);
 
         $this->createNewLock($resource, $token);
+
+        $this->checkNotExpired($key);
     }
 
     /**
@@ -127,8 +131,8 @@ class ZookeeperStore implements StoreInterface
         // For example: foo/bar will become /foo-bar and /foo/bar will become /-foo-bar
         $resource = (string) $key;
 
-        if (false !== \strpos($resource, '/')) {
-            $resource = \strtr($resource, ['/' => '-']).'-'.sha1($resource);
+        if (false !== strpos($resource, '/')) {
+            $resource = strtr($resource, ['/' => '-']).'-'.sha1($resource);
         }
 
         if ('' === $resource) {

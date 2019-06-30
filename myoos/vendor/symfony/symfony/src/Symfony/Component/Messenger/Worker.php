@@ -17,13 +17,11 @@ use Symfony\Component\Messenger\Event\WorkerMessageHandledEvent;
 use Symfony\Component\Messenger\Event\WorkerMessageReceivedEvent;
 use Symfony\Component\Messenger\Event\WorkerStoppedEvent;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
-use Symfony\Component\Messenger\Exception\LogicException;
-use Symfony\Component\Messenger\Exception\UnrecoverableMessageHandlingException;
+use Symfony\Component\Messenger\Exception\UnrecoverableExceptionInterface;
 use Symfony\Component\Messenger\Retry\RetryStrategyInterface;
 use Symfony\Component\Messenger\Stamp\DelayStamp;
 use Symfony\Component\Messenger\Stamp\ReceivedStamp;
 use Symfony\Component\Messenger\Stamp\RedeliveryStamp;
-use Symfony\Component\Messenger\Stamp\SentStamp;
 use Symfony\Component\Messenger\Transport\Receiver\ReceiverInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
@@ -140,15 +138,17 @@ class Worker implements WorkerInterface
 
             $this->dispatchEvent(new WorkerMessageFailedEvent($envelope, $transportName, $throwable, $shouldRetry));
 
+            $retryCount = RedeliveryStamp::getRetryCountFromEnvelope($envelope);
             if ($shouldRetry) {
-                $retryCount = $this->getRetryCount($envelope) + 1;
+                ++$retryCount;
+                $delay = $retryStrategy->getWaitingTime($envelope);
                 if (null !== $this->logger) {
-                    $this->logger->error('Retrying {class} - retry #{retryCount}.', $context + ['retryCount' => $retryCount, 'error' => $throwable]);
+                    $this->logger->error('Error thrown while handling message {class}. Dispatching for retry #{retryCount} using {delay} ms delay. Error: "{error}"', $context + ['retryCount' => $retryCount, 'delay' => $delay, 'error' => $throwable->getMessage(), 'exception' => $throwable]);
                 }
 
                 // add the delay and retry stamp info + remove ReceivedStamp
-                $retryEnvelope = $envelope->with(new DelayStamp($retryStrategy->getWaitingTime($envelope)))
-                    ->with(new RedeliveryStamp($retryCount, $this->getSenderClassOrAlias($envelope)))
+                $retryEnvelope = $envelope->with(new DelayStamp($delay))
+                    ->with(new RedeliveryStamp($retryCount, $transportName))
                     ->withoutAll(ReceivedStamp::class);
 
                 // re-send the message
@@ -157,7 +157,7 @@ class Worker implements WorkerInterface
                 $receiver->ack($envelope);
             } else {
                 if (null !== $this->logger) {
-                    $this->logger->critical('Rejecting {class} (removing from transport).', $context + ['error' => $throwable]);
+                    $this->logger->critical('Error thrown while handling message {class}. Removing from transport after {retryCount} retries. Error: "{error}"', $context + ['retryCount' => $retryCount, 'error' => $throwable->getMessage(), 'exception' => $throwable]);
                 }
 
                 $receiver->reject($envelope);
@@ -191,40 +191,10 @@ class Worker implements WorkerInterface
 
     private function shouldRetry(\Throwable $e, Envelope $envelope, RetryStrategyInterface $retryStrategy): bool
     {
-        if ($e instanceof UnrecoverableMessageHandlingException) {
-            return false;
-        }
-
-        $sentStamp = $envelope->last(SentStamp::class);
-        if (null === $sentStamp) {
-            if (null !== $this->logger) {
-                $this->logger->warning('Message will not be retried because the SentStamp is missing and so the target sender cannot be determined.');
-            }
-
+        if ($e instanceof UnrecoverableExceptionInterface) {
             return false;
         }
 
         return $retryStrategy->isRetryable($envelope);
-    }
-
-    private function getRetryCount(Envelope $envelope): int
-    {
-        /** @var RedeliveryStamp|null $retryMessageStamp */
-        $retryMessageStamp = $envelope->last(RedeliveryStamp::class);
-
-        return $retryMessageStamp ? $retryMessageStamp->getRetryCount() : 0;
-    }
-
-    private function getSenderClassOrAlias(Envelope $envelope): string
-    {
-        /** @var SentStamp|null $sentStamp */
-        $sentStamp = $envelope->last(SentStamp::class);
-
-        if (null === $sentStamp) {
-            // should not happen, because of the check in shouldRetry()
-            throw new LogicException('Could not find SentStamp.');
-        }
-
-        return $sentStamp->getSenderAlias() ?: $sentStamp->getSenderClass();
     }
 }

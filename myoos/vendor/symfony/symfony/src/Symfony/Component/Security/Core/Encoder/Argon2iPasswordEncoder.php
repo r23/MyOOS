@@ -51,10 +51,6 @@ class Argon2iPasswordEncoder extends BasePasswordEncoder implements SelfSaltingE
             return true;
         }
 
-        if (\class_exists('ParagonIE_Sodium_Compat') && \method_exists('ParagonIE_Sodium_Compat', 'crypto_pwhash_is_available')) {
-            return \ParagonIE_Sodium_Compat::crypto_pwhash_is_available();
-        }
-
         return \function_exists('sodium_crypto_pwhash_str') || \extension_loaded('libsodium');
     }
 
@@ -91,8 +87,8 @@ class Argon2iPasswordEncoder extends BasePasswordEncoder implements SelfSaltingE
             return !$this->isPasswordTooLong($raw) && password_verify($raw, $encoded);
         }
         if (\function_exists('sodium_crypto_pwhash_str_verify')) {
-            $valid = !$this->isPasswordTooLong($raw) && \sodium_crypto_pwhash_str_verify($encoded, $raw);
-            \sodium_memzero($raw);
+            $valid = !$this->isPasswordTooLong($raw) && sodium_crypto_pwhash_str_verify($encoded, $raw);
+            sodium_memzero($raw);
 
             return $valid;
         }
@@ -113,12 +109,12 @@ class Argon2iPasswordEncoder extends BasePasswordEncoder implements SelfSaltingE
 
     private function encodePasswordSodiumFunction($raw)
     {
-        $hash = \sodium_crypto_pwhash_str(
+        $hash = sodium_crypto_pwhash_str(
             $raw,
             \SODIUM_CRYPTO_PWHASH_OPSLIMIT_INTERACTIVE,
             \SODIUM_CRYPTO_PWHASH_MEMLIMIT_INTERACTIVE
         );
-        \sodium_memzero($raw);
+        sodium_memzero($raw);
 
         return $hash;
     }

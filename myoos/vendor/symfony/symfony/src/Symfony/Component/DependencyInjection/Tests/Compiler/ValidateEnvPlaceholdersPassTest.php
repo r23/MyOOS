@@ -278,16 +278,15 @@ class ValidateEnvPlaceholdersPassTest extends TestCase
 
     /**
      * @group legacy
+     * @expectedDeprecation A tree builder without a root node is deprecated since Symfony 4.2 and will not be supported anymore in 5.0.
      */
     public function testConfigurationWithoutRootNode(): void
     {
         $container = new ContainerBuilder();
         $container->registerExtension(new EnvExtension(new EnvConfigurationWithoutRootNode()));
-        $container->loadFromExtension('env_extension');
+        $container->loadFromExtension('env_extension', ['foo' => 'bar']);
 
-        $this->doProcess($container);
-
-        $this->addToAssertionCount(1);
+        (new ValidateEnvPlaceholdersPass())->process($container);
     }
 
     public function testEmptyConfigFromMoreThanOneSource()
@@ -400,8 +399,8 @@ class ConfigurationWithArrayNodeRequiringOneElement implements ConfigurationInte
 {
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $treeBuilder->root('env_extension')
+        $treeBuilder = new TreeBuilder('env_extension');
+        $treeBuilder->getRootNode()
             ->children()
                 ->arrayNode('nodes')
                     ->isRequired()

@@ -64,13 +64,17 @@ class Transport
             throw new InvalidArgumentException(sprintf('The "%s" mailer DSN is invalid.', $dsn));
         }
 
+        if (!isset($parsedDsn['scheme'])) {
+            throw new InvalidArgumentException(sprintf('The "%s" mailer DSN must contain a transport scheme.', $dsn));
+        }
+
         if (!isset($parsedDsn['host'])) {
             throw new InvalidArgumentException(sprintf('The "%s" mailer DSN must contain a mailer name.', $dsn));
         }
 
-        $user = \urldecode($parsedDsn['user'] ?? '');
-        $pass = \urldecode($parsedDsn['pass'] ?? '');
-        \parse_str($parsedDsn['query'] ?? '', $query);
+        $user = urldecode($parsedDsn['user'] ?? '');
+        $pass = urldecode($parsedDsn['pass'] ?? '');
+        parse_str($parsedDsn['query'] ?? '', $query);
 
         switch ($parsedDsn['host']) {
             case 'null':
@@ -101,13 +105,13 @@ class Transport
                 }
 
                 if ('smtp' === $parsedDsn['scheme']) {
-                    return new Mailgun\Smtp\MailgunTransport($user, $pass, $dispatcher, $logger);
+                    return new Mailgun\Smtp\MailgunTransport($user, $pass, $query['region'] ?? null, $dispatcher, $logger);
                 }
                 if ('http' === $parsedDsn['scheme']) {
-                    return new Mailgun\Http\MailgunTransport($user, $pass, $client, $dispatcher, $logger);
+                    return new Mailgun\Http\MailgunTransport($user, $pass, $query['region'] ?? null, $client, $dispatcher, $logger);
                 }
                 if ('api' === $parsedDsn['scheme']) {
-                    return new Mailgun\Http\Api\MailgunTransport($user, $pass, $client, $dispatcher, $logger);
+                    return new Mailgun\Http\Api\MailgunTransport($user, $pass, $query['region'] ?? null, $client, $dispatcher, $logger);
                 }
 
                 throw new LogicException(sprintf('The "%s" scheme is not supported for mailer "%s".', $parsedDsn['scheme'], $parsedDsn['host']));

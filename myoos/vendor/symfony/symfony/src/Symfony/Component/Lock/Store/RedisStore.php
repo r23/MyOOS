@@ -15,7 +15,6 @@ use Symfony\Component\Cache\Traits\RedisClusterProxy;
 use Symfony\Component\Cache\Traits\RedisProxy;
 use Symfony\Component\Lock\Exception\InvalidArgumentException;
 use Symfony\Component\Lock\Exception\LockConflictedException;
-use Symfony\Component\Lock\Exception\LockExpiredException;
 use Symfony\Component\Lock\Key;
 use Symfony\Component\Lock\StoreInterface;
 
@@ -26,6 +25,8 @@ use Symfony\Component\Lock\StoreInterface;
  */
 class RedisStore implements StoreInterface
 {
+    use ExpiringStoreTrait;
+
     private $redis;
     private $initialTtl;
 
@@ -67,11 +68,12 @@ class RedisStore implements StoreInterface
             throw new LockConflictedException();
         }
 
-        if ($key->isExpired()) {
-            throw new LockExpiredException(sprintf('Failed to store the "%s" lock.', $key));
-        }
+        $this->checkNotExpired($key);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function waitAndSave(Key $key)
     {
         throw new InvalidArgumentException(sprintf('The store "%s" does not supports blocking locks.', \get_class($this)));
@@ -95,9 +97,7 @@ class RedisStore implements StoreInterface
             throw new LockConflictedException();
         }
 
-        if ($key->isExpired()) {
-            throw new LockExpiredException(sprintf('Failed to put off the expiration of the "%s" lock within the specified time.', $key));
-        }
+        $this->checkNotExpired($key);
     }
 
     /**

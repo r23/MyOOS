@@ -26,8 +26,14 @@ class DeprecationTest extends TestCase
 
     public function testItCanTellWhetherItIsInternal()
     {
+        $r = new \ReflectionClass(Deprecation::class);
+
+        if (dirname($r->getFileName(), 2) !== dirname(__DIR__, 2)) {
+            $this->markTestSkipped('Test case is not compatible with having the bridge in vendor/');
+        }
+
         $deprecation = new Deprecation('💩', $this->debugBacktrace(), __FILE__);
-        $this->assertTrue($deprecation->isSelf());
+        $this->assertSame(Deprecation::TYPE_SELF, $deprecation->getType());
     }
 
     public function testLegacyTestMethodIsDetectedAsSuch()
@@ -46,7 +52,7 @@ class DeprecationTest extends TestCase
     public function testItRulesOutFilesOutsideVendorsAsIndirect()
     {
         $deprecation = new Deprecation('💩', $this->debugBacktrace(), __FILE__);
-        $this->assertFalse($deprecation->isIndirect());
+        $this->assertNotSame(Deprecation::TYPE_INDIRECT, $deprecation->getType());
     }
 
     /**
