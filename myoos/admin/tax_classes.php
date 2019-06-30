@@ -137,8 +137,7 @@ if (!empty($action)) {
     $classes_result->MoveNext();
   }
 
-  // Close result set
-  $classes_result->Close();
+
 ?>
               <tr>
                 <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">

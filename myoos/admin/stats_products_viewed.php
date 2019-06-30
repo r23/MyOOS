@@ -122,8 +122,6 @@ $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GE
      // Move that ADOdb pointer!
     $products_result->MoveNext();
   }
-  // Close result set
-  $products_result->Close();
 ?>
             </table></td>
           </tr>

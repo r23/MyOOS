@@ -420,9 +420,6 @@ function go_option() {
       // Move that ADOdb pointer!
       $options->MoveNext();
     }
-
-    // Close result set
-    $options->Close();
 ?>
               <tr>
                 <td colspan="4"><?php echo oos_black_line(); ?></td>
@@ -627,9 +624,6 @@ function go_option() {
           // Move that ADOdb pointer!
           $options->MoveNext();
         }
-
-        // Close result set
-        $options->Close();
 ?>
                 </select>&nbsp;</td>
                 <td class="smallText"><?php echo $inputs; ?></td>
@@ -677,9 +671,6 @@ function go_option() {
         // Move that ADOdb pointer!
         $options->MoveNext();
       }
-
-      // Close result set
-      $options->Close();
 
       $inputs = '';
       for ($i = 0, $n = count($languages); $i < $n; $i ++) {
@@ -813,9 +804,6 @@ function go_option() {
         // Move that ADOdb pointer!
         $products->MoveNext();
       }
-
-      // Close result set
-      $products->Close();
 ?>
             </select>&nbsp;</td>
             <td class="smallText">&nbsp;<select name="options_id">
@@ -851,9 +839,6 @@ function go_option() {
          // Move that ADOdb pointer!
         $values->MoveNext();
       }
-
-      // Close result set
-      $values->Close();
 ?>
             </select>&nbsp;</td>
             <td align="right" class="smallText">&nbsp;<input type="text" name="sort_order" value="<?php echo $attributes_values['options_sort_order']; ?>" size="4">&nbsp;</td>
@@ -940,9 +925,6 @@ function go_option() {
     $attributes->MoveNext();
   }
 
-  // Close result set
-  $attributes->Close();
-
   if ($action != 'update_attribute') {
 ?>
           <tr>
@@ -973,10 +955,6 @@ function go_option() {
       // Move that ADOdb pointer!
       $options->MoveNext();
     }
-
-    // Close result set
-    $options->Close();
-
 ?>
             </select>&nbsp;</td>
             <td class="smallText">&nbsp;<select name="values_id">

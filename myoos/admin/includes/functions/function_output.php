@@ -98,11 +98,11 @@ function oos_image($src, $alt = '', $width = '', $height = '', $params = '') {
 	$image = '<img src="' . oos_output_string($src) . '" border="0" alt="' . oos_output_string($alt) . '"';
    
     if (oos_is_not_null($alt)) {
-      $image .= ' title="' . oos_output_string($alt) . '"';
+		$image .= ' title="' . oos_output_string($alt) . '"';
     }
 
     if (oos_is_not_null($width) && oos_is_not_null($height)) {
-      $image .= ' width="' . oos_output_string($width) . '" height="' . oos_output_string($height) . '"';
+		$image .= ' width="' . oos_output_string($width) . '" height="' . oos_output_string($height) . '"';
     }
 
     if (oos_is_not_null($params)) $image .= ' ' . $params;
@@ -110,38 +110,38 @@ function oos_image($src, $alt = '', $width = '', $height = '', $params = '') {
     $image .= '>';
 
     return $image;
-  }
+}
 
 
 
-  function product_info_image($image, $alt, $width = '', $height = '') {
+function product_info_image($image, $alt, $width = '', $height = '') {
     if ( ($image) && (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/medium/' . $image)) ) {
-      $image = oos_image(OOS_SHOP_IMAGES . 'product/medium/' . $image, $alt, $width, $height);
+		$image = oos_image(OOS_SHOP_IMAGES . 'product/medium/' . $image, $alt, $width, $height);
     } else {
-      $image = TEXT_IMAGE_NONEXISTENT;
+		$image = TEXT_IMAGE_NONEXISTENT;
     }
 
-    return $image;
-  }
+	return $image;
+}
 
 
-  function oos_info_image($image, $alt, $width = '', $height = '') {
+function oos_info_image($image, $alt, $width = '', $height = '') {
     if ( ($image) && (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . $image)) ) {
-      $image = oos_image(OOS_SHOP_IMAGES . $image, $alt, $width, $height);
+		$image = oos_image(OOS_SHOP_IMAGES . $image, $alt, $width, $height);
     } else {
-      $image = TEXT_IMAGE_NONEXISTENT;
+		$image = TEXT_IMAGE_NONEXISTENT;
     }
 
     return $image;
-  }
+}
 
 
  /**
   * Draw a 1 pixel black line
   */
-  function oos_black_line() {
-    return oos_image(OOS_IMAGES . 'pixel_black.gif', '', '100%', '1');
-  }
+function oos_black_line() {
+	return oos_image(OOS_IMAGES . 'pixel_black.gif', '', '100%', '1');
+}
 
 
 /**
@@ -205,38 +205,32 @@ function oos_is_zone_list($country, $form, $field) {
     $num_country = 1;
     $output_string = '';
     while ($countries = $countries_result->fields) {
-      if ($num_country == 1) {
-        $output_string .= '  if (' . $country . ' == "' . $countries['zone_country_id'] . '") {' . "\n";
-      } else {
-        $output_string .= '  } else if (' . $country . ' == "' . $countries['zone_country_id'] . '") {' . "\n";
-      }
+		if ($num_country == 1) {
+			$output_string .= '  if (' . $country . ' == "' . $countries['zone_country_id'] . '") {' . "\n";
+		} else {
+			$output_string .= '  } else if (' . $country . ' == "' . $countries['zone_country_id'] . '") {' . "\n";
+		}
 
-      $states_query = "SELECT zone_name, zone_id
+		$states_query = "SELECT zone_name, zone_id
                        FROM " . $oostable['zones'] . "
                        WHERE zone_country_id = '" . $countries['zone_country_id'] . "'
                        ORDER BY zone_name";
-      $states_result = $dbconn->Execute($states_query);
+		$states_result = $dbconn->Execute($states_query);
 
-      $num_state = 1;
-      while ($states = $states_result->fields) {
-        if ($num_state == '1') $output_string .= '    ' . $form . '.' . $field . '.options[0] = new Option("' . PLEASE_SELECT . '", "");' . "\n";
-        $output_string .= '    ' . $form . '.' . $field . '.options[' . $num_state . '] = new Option("' . $states['zone_name'] . '", "' . $states['zone_id'] . '");' . "\n";
-        $num_state++;
+		$num_state = 1;
+		while ($states = $states_result->fields) {
+			if ($num_state == '1') $output_string .= '    ' . $form . '.' . $field . '.options[0] = new Option("' . PLEASE_SELECT . '", "");' . "\n";
+			$output_string .= '    ' . $form . '.' . $field . '.options[' . $num_state . '] = new Option("' . $states['zone_name'] . '", "' . $states['zone_id'] . '");' . "\n";
+			$num_state++;
 
-        // Move that ADOdb pointer!
-        $states_result->MoveNext();
-      }
-      $num_country++;
+			// Move that ADOdb pointer!
+			$states_result->MoveNext();
+		}
+		$num_country++;
 
-      // Close result set
-      $states_result->Close();
-
-      // Move that ADOdb pointer!
-      $countries_result->MoveNext();
+		// Move that ADOdb pointer!
+		$countries_result->MoveNext();
     }
-
-    // Close result set
-    $countries_result->Close();
 
     $output_string .= '  } else {' . "\n" .
                       '    ' . $form . '.' . $field . '.options[0] = new Option("' . TYPE_BELOW . '", "");' . "\n" .
@@ -369,14 +363,14 @@ function oos_draw_file_field($name, $required = FALSE) {
 function oos_draw_selection_field($name, $type, $value = '', $checked = FALSE, $compare = '', $parameter = '') {
     $selection = '<input type="' . $type . '" name="' . $name . '"';
     if ($value != '') {
-      $selection .= ' value="' . $value . '"';
+		$selection .= ' value="' . $value . '"';
     }
     if ( ($checked == TRUE) || (isset($_GET[$name]) && is_string($_GET[$name]) && (($_GET[$name] == 'on') || (stripslashes($_GET[$name]) == $value))) || (isset($_POST[$name]) && is_string($_POST[$name]) && (($_POST[$name] == 'on') || (stripslashes($_POST[$name]) == $value))) || (oos_is_not_null($compare) && ($value == $compare)) ) {
-	
-      $selection .= ' checked="checked"';
+
+		$selection .= ' checked="checked"';
     }
     if ($parameter != '') {
-      $selection .= ' ' . $parameter;
+		$selection .= ' ' . $parameter;
     }   
     $selection .= '>';
 

@@ -53,9 +53,6 @@ function oos_get_products_status() {
 		$products_status_result->MoveNext();
     }
 
-    // Close result set
-    $products_status_result->Close();
-
     return $products_status_array;
 }
 
@@ -206,9 +203,6 @@ if (!empty($action)) {
     // Move that ADOdb pointer!
     $products_status_result->MoveNext();
   }
-
-  // Close result set
-  $products_status_result->Close();
 ?>
               <tr>
                 <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
