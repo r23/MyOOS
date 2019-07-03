@@ -269,6 +269,13 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
                 0 => __DIR__ . '/..' . '/twig/twig/lib',
             ),
         ),
+        'P' => 
+        array (
+            'PayPal' => 
+            array (
+                0 => __DIR__ . '/..' . '/paypal/rest-api-sdk-php/lib',
+            ),
+        ),
         'D' => 
         array (
             'Detection' => 
