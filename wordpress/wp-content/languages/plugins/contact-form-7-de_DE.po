@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Contact Form 7 - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-06-04 17:24:43+0000\n"
+"PO-Revision-Date: 2019-07-03 07:19:12+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -15,10 +15,6 @@ msgstr ""
 msgid "reCAPTCHA score (%1$.2f) is lower than the threshold (%2$.2f)."
 msgstr "reCAPTCHA-Punktzahl (%1$.2f) liegt unterhalb der Schwelle (%2$.2f)."
 
-#: includes/submission.php:308
-msgid "User-Agent string is unnaturally short."
-msgstr "Benutzer-Agent Zeichenkette ist unnatürlich kurz."
-
 #: modules/constant-contact.php:473
 msgid "Configuration updated."
 msgstr "Konfiguration aktualisiert. "
@@ -26,10 +22,6 @@ msgstr "Konfiguration aktualisiert. "
 #: modules/constant-contact.php:460
 msgid "Connection established."
 msgstr "Verbindung aufgebaut."
-
-#: modules/constant-contact.php:467
-msgid "Failed to establish connection. Please double-check your configuration."
-msgstr "Herstellen der Verbindung ist fehlgeschlagen. Bitte überprüfe erneut deine Konfiguration."
 
 #: modules/constant-contact.php:565
 msgctxt "API keys"
@@ -44,10 +36,6 @@ msgstr "Kontaktlisten"
 #: modules/constant-contact.php:494
 msgid "This site is connected to the Constant Contact API."
 msgstr "Diese Webeite ist mit der Constant Contact API verbunden."
-
-#: includes/submission.php:326
-msgid "Blacklisted words are used."
-msgstr "Es werden Wörter aus der Blacklist verwendet."
 
 #: includes/submission.php:317
 msgid "Submitted nonce is invalid."
@@ -65,6 +53,18 @@ msgstr "Wähle Listen aus, zu denen neu hinzugefügte Kontakte gehören sollen."
 msgctxt "Constant Contact"
 msgid "Contact Lists: Select lists to which newly added contacts are to belong."
 msgstr "Kontaktlisten: Wähle Listen aus, zu denen neu hinzugefügte Kontakte gehören sollen."
+
+#: includes/submission.php:326
+msgid "Blacklisted words are used."
+msgstr "Es werden Wörter von der Blacklist verwendet."
+
+#: includes/submission.php:308
+msgid "User-Agent string is unnaturally short."
+msgstr "Der User-Agent-String ist unnatürlich kurz."
+
+#: modules/constant-contact.php:467
+msgid "Failed to establish connection. Please double-check your configuration."
+msgstr "Herstellen der Verbindung ist fehlgeschlagen. Bitte überprüfe deine Konfiguration noch einmal."
 
 #: modules/recaptcha.php:512
 msgid "Save Changes"
@@ -161,10 +161,6 @@ msgstr "%1$s &#38; %2$s"
 msgid "Do you need help?"
 msgstr "Brauchst du Hilfe?"
 
-#: admin/edit-contact-form.php:186
-msgid "Here are some available options to help solve your problems."
-msgstr "Hier sind einige verfügbare Optionen, um zu helfen, deine Probleme zu lösen."
-
 #: admin/edit-contact-form.php:202
 msgid "Support Forums"
 msgstr "Support-Foren"
@@ -172,6 +168,10 @@ msgstr "Support-Foren"
 #: admin/edit-contact-form.php:206
 msgid "Professional Services"
 msgstr "Professionelle Dienste"
+
+#: admin/edit-contact-form.php:186
+msgid "Here are some available options to help solve your problems."
+msgstr "Hier sind einige verfügbare Optionen, um dir bei der Lösung deiner Probleme zu helfen."
 
 #: modules/acceptance.php:245
 msgid "Condition"
@@ -201,10 +201,6 @@ msgstr "Nicht zugestimmt"
 #: modules/acceptance.php:186
 msgid "Consented"
 msgstr "Zugestimmt"
-
-#: includes/submission.php:206
-msgid "Sending mail has been aborted."
-msgstr "Der E-Mailversand wurde abgebrochen."
 
 #: admin/includes/editor.php:211
 msgid "You can edit messages used in various situations here. For details, see %s."
@@ -240,6 +236,10 @@ msgstr "%1$s %2$s Tasten wechseln die Anzeige"
 #: admin/includes/editor.php:130
 msgid "You can edit the mail template here. For details, see %s."
 msgstr "Hier kannst du die E-Mail-Vorlage bearbeiten. Für Details siehe %s."
+
+#: includes/submission.php:206
+msgid "Sending mail has been aborted."
+msgstr "Der E-Mail-Versand wurde abgebrochen."
 
 #: admin/includes/welcome-panel.php:37
 msgid "Your donation will help encourage and support the plugin&#8217;s continued development and better user support."
@@ -431,10 +431,6 @@ msgstr "Die Telefonnummer ist ungültig."
 msgid "The date is before the earliest one allowed."
 msgstr "Das Datum liegt vor dem ersten erlaubten Datum."
 
-#: modules/file.php:180
-msgid "There was an unknown error uploading the file."
-msgstr "Ein unbekannter Fehler trat beim Hochladen der Datei auf."
-
 #: modules/file.php:185
 msgid "You are not allowed to upload files of this type."
 msgstr "Du hast nicht die Berechtigung, Dateien dieses Typs hochzuladen."
@@ -442,10 +438,6 @@ msgstr "Du hast nicht die Berechtigung, Dateien dieses Typs hochzuladen."
 #: modules/file.php:190
 msgid "The file is too big."
 msgstr "Die Datei ist zu groß."
-
-#: modules/file.php:195
-msgid "There was an error uploading the file."
-msgstr "Es trat ein Fehler beim Hochladen der Datei auf."
 
 #: modules/number.php:122
 msgid "The number format is invalid."
@@ -470,6 +462,14 @@ msgstr "Die Antwort auf das Quiz ist falsch."
 #: modules/date.php:129
 msgid "The date is after the latest one allowed."
 msgstr "Das Datum liegt nach dem letzten erlaubten Datum."
+
+#: modules/file.php:195
+msgid "There was an error uploading the file."
+msgstr "Beim Hochladen der Datei ist ein Fehler aufgetreten."
+
+#: modules/file.php:180
+msgid "There was an unknown error uploading the file."
+msgstr "Beim Hochladen der Datei ist ein unbekannter Fehler aufgetreten."
 
 #: modules/date.php:119
 msgid "The date format is incorrect."
@@ -637,10 +637,6 @@ msgstr "Kontaktformular %d"
 msgid "Default value"
 msgstr "Standardwert"
 
-#: modules/text.php:176
-msgid "Email address that the sender entered is invalid"
-msgstr "Die E-Mail-Adresse des Absenders ist ungültig!"
-
 #: admin/includes/help-tabs.php:91
 msgid "For more information:"
 msgstr "Für weitere Informationen:"
@@ -685,10 +681,6 @@ msgstr "Nachrichtentext:"
 msgid "Name"
 msgstr "Name"
 
-#: modules/number.php:121
-msgid "Number format that the sender entered is invalid"
-msgstr "Das Nummernformat des Absenders ist ungültig!"
-
 #: admin/includes/help-tabs.php:16 admin/includes/help-tabs.php:30
 #: admin/includes/help-tabs.php:49
 msgid "Overview"
@@ -714,10 +706,6 @@ msgstr "Betreff: %s"
 #: includes/contact-form-template.php:166
 msgid "Submission was referred to as spam"
 msgstr "Eingabe wurde als Spam erkannt"
-
-#: modules/text.php:190
-msgid "Telephone number that the sender entered is invalid"
-msgstr "Die Telefonnummer des Absenders ist ungültig!"
 
 #: modules/really-simple-captcha.php:224
 msgid "The code that sender entered does not match the CAPTCHA"
@@ -750,10 +738,6 @@ msgstr "Dieses Feld erfordert den Namen des Autors"
 #: modules/text.php:210
 msgid "URL"
 msgstr "URL"
-
-#: modules/text.php:183
-msgid "URL that the sender entered is invalid"
-msgstr "Die URL des Absenders ist ungültig!"
 
 #: includes/contact-form.php:93 includes/contact-form.php:245
 msgid "Untitled"
@@ -855,22 +839,6 @@ msgstr "Erzeuge ein Formular-Tag für eine Zustimmungs-Kontrollkästchen. Weiter
 #: modules/acceptance.php:230
 msgid "Acceptance Checkbox"
 msgstr "Zustimmungs-Kontrollkästchen"
-
-#: modules/quiz.php:216 modules/text.php:294 modules/submit.php:70
-#: modules/acceptance.php:260 modules/file.php:252 modules/date.php:200
-#: modules/number.php:208 modules/checkbox.php:323
-#: modules/really-simple-captcha.php:292 modules/really-simple-captcha.php:307
-#: modules/textarea.php:172 modules/select.php:201
-msgid "Id attribute"
-msgstr "ID Eigenschaft"
-
-#: modules/quiz.php:221 modules/text.php:299 modules/submit.php:75
-#: modules/acceptance.php:265 modules/file.php:257 modules/date.php:205
-#: modules/number.php:213 modules/checkbox.php:328
-#: modules/really-simple-captcha.php:297 modules/really-simple-captcha.php:312
-#: modules/textarea.php:177 modules/select.php:206
-msgid "Class attribute"
-msgstr "Klassen Eigenschaft"
 
 #: modules/checkbox.php:260
 msgid "checkboxes"
@@ -1226,6 +1194,38 @@ msgstr "Das eingegebene Datumsformat ist ungültig"
 #: modules/select.php:177
 msgid "Required field"
 msgstr "Pflichtfeld"
+
+#: modules/text.php:190
+msgid "Telephone number that the sender entered is invalid"
+msgstr "Die eingegebene Telefonnummer des Absenders ist ungültig"
+
+#: modules/text.php:183
+msgid "URL that the sender entered is invalid"
+msgstr "Die eingegebene URL des Absenders ist ungültig"
+
+#: modules/text.php:176
+msgid "Email address that the sender entered is invalid"
+msgstr "Die eingegebene E-Mail-Adresse des Absenders ist ungültig"
+
+#: modules/number.php:121
+msgid "Number format that the sender entered is invalid"
+msgstr "Die eingegebene Zahlenformat ist ungültig"
+
+#: modules/quiz.php:216 modules/text.php:294 modules/submit.php:70
+#: modules/acceptance.php:260 modules/file.php:252 modules/date.php:200
+#: modules/number.php:208 modules/checkbox.php:323
+#: modules/really-simple-captcha.php:292 modules/really-simple-captcha.php:307
+#: modules/textarea.php:172 modules/select.php:201
+msgid "Id attribute"
+msgstr "Attribut „id“"
+
+#: modules/quiz.php:221 modules/text.php:299 modules/submit.php:75
+#: modules/acceptance.php:265 modules/file.php:257 modules/date.php:205
+#: modules/number.php:213 modules/checkbox.php:328
+#: modules/really-simple-captcha.php:297 modules/really-simple-captcha.php:312
+#: modules/textarea.php:177 modules/select.php:206
+msgid "Class attribute"
+msgstr "Attribut „Klasse“"
 
 #. translators: %s: time since the creation of the contact form
 #: admin/includes/class-contact-forms-list-table.php:241
