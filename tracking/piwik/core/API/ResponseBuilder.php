@@ -15,6 +15,7 @@ use Piwik\DataTable\Renderer;
 use Piwik\DataTable\DataTableInterface;
 use Piwik\DataTable\Filter\ColumnDelete;
 use Piwik\DataTable\Filter\Pattern;
+use Piwik\Http\HttpCodeException;
 use Piwik\Plugins\Monolog\Processor\ExceptionToTextProcessor;
 
 /**
@@ -135,6 +136,13 @@ class ResponseBuilder
         $e       = $this->decorateExceptionWithDebugTrace($e);
         $message = $this->formatExceptionMessage($e);
 
+        if ($this->sendHeader
+            && $e instanceof HttpCodeException
+            && $e->getCode() > 0
+        ) {
+            http_response_code($e->getCode());
+        }
+
         $this->sendHeaderIfEnabled();
 
         return $this->apiRenderer->renderException($message, $e);
@@ -167,6 +175,10 @@ class ResponseBuilder
     private function formatExceptionMessage($exception)
     {
         $message = ExceptionToTextProcessor::getWholeBacktrace($exception, $this->shouldPrintBacktrace);
+
+        if ($exception instanceof \Piwik\Exception\Exception && $exception->isHtmlMessage() && Request::isRootRequestApiRequest()) {
+            $message = strip_tags(str_replace('<br />', PHP_EOL, $message));
+        }
 
         return Renderer::formatValueXml($message);
     }

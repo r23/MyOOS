@@ -397,6 +397,10 @@ login_cookie_expire = 1209600
 ; Sets the session cookie path
 login_cookie_path =
 
+; the amount of time before an idle session is considered expired. only affects session that were created without the
+; "remember me" option checked
+login_session_not_remembered_idle_timeout = 3600
+
 ; email address that appears as a Sender in the password recovery email
 ; if specified, {DOMAIN} will be replaced by the current Matomo domain
 login_password_recovery_email_address = "password-recovery@{DOMAIN}"
@@ -453,6 +457,9 @@ noreply_email_name = ""
 ; set to 0 to disable sending of all emails. useful for testing.
 emails_enabled = 1
 
+; set to 0 to disable sending of emails when a password or email is changed
+enable_update_users_email = 1
+
 ; feedback email address;
 ; when testing, use your own email address or "nobody"
 feedback_email_address = "feedback@matomo.org"
@@ -486,6 +493,8 @@ datatable_archiving_maximum_rows_actions = 500
 ; note: should not exceed the display limit in Piwik\Actions\Controller::ACTIONS_REPORT_ROWS_DISPLAY
 ; because each subdirectory doesn't have paging at the bottom, so all data should be displayed if possible.
 datatable_archiving_maximum_rows_subtable_actions = 100
+; maximum number of rows for the Site Search table
+datatable_archiving_maximum_rows_site_search = 500
 
 ; maximum number of rows for any of the Events tables (Categories, Actions, Names)
 datatable_archiving_maximum_rows_events = 500
@@ -689,6 +698,13 @@ piwik_professional_support_ads_enabled = 1
 ; The number of days to wait before sending the JavaScript tracking code email reminder.
 num_days_before_tracking_code_reminder = 5
 
+; The path to a custom cacert.pem file Matomo should use.
+; By default Matomo uses a file extracted from the Firefox browser and provided here: https://curl.haxx.se/docs/caextract.html.
+; The file contains root CAs and is used to determine if the chain of a SSL certificate is valid and it is safe to connect.
+; Most users will not have to use a custom file here, but if you run your Matomo instance behind a proxy server/firewall that
+; breaks and reencrypts SSL connections you can set your custom file here. 
+custom_cacert_pem=
+
 [Tracker]
 
 ; Matomo uses "Privacy by default" model. When one of your users visit multiple of your websites tracked in this Matomo,
@@ -825,6 +841,11 @@ tracking_requests_require_authentication = 1
 ; You can change how far back Matomo will track your requests without authentication. The configured value is in seconds.
 tracking_requests_require_authentication_when_custom_timestamp_newer_than = 86400;
 
+; if set to 1, all the SQL queries will be recorded by the profiler
+; and a profiling summary will be printed at the end of the request
+; NOTE: you must also set "[Tracker] debug = 1" to enable the profiler.
+enable_sql_profiler = 0
+
 [Segments]
 ; Reports with segmentation in API requests are processed in real time.
 ; On high traffic websites it is recommended to pre-process the data
@@ -944,6 +965,7 @@ Plugins[] = Marketplace
 Plugins[] = ProfessionalServices
 Plugins[] = UserId
 Plugins[] = CustomPiwikJs
+Plugins[] = Tour
 
 [PluginsInstalled]
 PluginsInstalled[] = Diagnostics
