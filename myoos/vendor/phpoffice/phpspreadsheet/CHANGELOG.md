@@ -5,9 +5,39 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
-## [1.7.0] - 2019-05-26
+## [Unreleased]
 
+
+## [1.8.1] - 2019-07-02
+
+### Fixed
+
+- Allow nullable theme for Xlsx Style Reader class - [Issue #1043](https://github.com/PHPOffice/PhpSpreadsheet/issues/1043)
+
+## [1.8.0] - 2019-07-01
+
+### Security Fix (CVE-2019-12331)
+
+- Detect double-encoded xml in the Security scanner, and reject as suspicious.
+- This change also broadens the scope of the `libxml_disable_entity_loader` setting when reading XML-based formats, so that it is enabled while the xml is being parsed and not simply while it is loaded.
+  On some versions of PHP, this can cause problems because it is not thread-safe, and can affect other PHP scripts running on the same server. This flag is set to true when instantiating a loader, and back to its original setting when the Reader is no longer in scope, or manually unset.
+- Provide a check to identify whether libxml_disable_entity_loader is thread-safe or not.
+
+  `XmlScanner::threadSafeLibxmlDisableEntityLoaderAvailability()`
+- Provide an option to disable the libxml_disable_entity_loader call through settings. This is not recommended as it reduces the security of the XML-based readers, and should only be used if you understand the consequences and have no other choice.
+ 
 ### Added
+
+- Added support for the SWITCH function - [Issue #963](https://github.com/PHPOffice/PhpSpreadsheet/issues/963) and [PR #983](https://github.com/PHPOffice/PhpSpreadsheet/pull/983)
+- Add accounting number format style [#974](https://github.com/PHPOffice/PhpSpreadsheet/pull/974)
+
+### Fixed
+
+- Whitelist `tsv` extension when opening CSV files [#429](https://github.com/PHPOffice/PhpSpreadsheet/issues/429)
+- Fix a SUMIF warning with some versions of PHP when having different length of arrays provided as input [#873](https://github.com/PHPOffice/PhpSpreadsheet/pull/873)
+- Fix incorrectly handled backslash-escaped space characters in number format
+
+## [1.7.0] - 2019-05-26
 
 - Added support for inline styles in Html reader (borders, alignment, width, height)
 - QuotedText cells no longer treated as formulae if the content begins with a `=`
