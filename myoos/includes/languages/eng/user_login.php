@@ -30,6 +30,7 @@ if (isset($_GET['origin']) && ($_GET['origin'] == $aContents['checkout_payment']
 
 $aLang['heading_new_customer'] = 'New Customer';
 $aLang['text_new_customer'] = 'Not registered?';
+$aLang['text_new_customer_info'] = 'By creating an account at our shop you will be able to shop faster, be up to date on an orders status, and keep track of the orders you have previously made.'
 $aLang['link_new_customer'] = 'Create an Account.';
 
 $aLang['heading_returning_customer'] = 'Returning Customer';
@@ -37,6 +38,10 @@ $aLang['text_returning_customer'] = 'I am a returning customer.';
 
 $aLang['text_password_forgotten'] = 'Lost your password?';
 $aLang['link_password_forgotten'] = 'Click here to recover.';
+
+$aLang['heading_guest_customer'] = 'Guest Order';
+$aLang['text_guest_customer'] =  'Order without opening a customer account.';
+$aLang['text_guest_customer_info'] =  'With us you can also order as a guest and therefore do not have to register. With your next order you have to enter your data again.';
 
 
 $aLang['text_login_error'] = '<strong>ERROR:</strong> No match for \'E-Mail-Address\' and/or \'Password\'.';
