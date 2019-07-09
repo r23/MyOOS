@@ -30,7 +30,7 @@ if (isset($_GET['origin']) && ($_GET['origin'] == $aContents['checkout_payment']
 
 $aLang['heading_new_customer'] = 'New Customer';
 $aLang['text_new_customer'] = 'Not registered?';
-$aLang['text_new_customer_info'] = 'By creating an account at our shop you will be able to shop faster, be up to date on an orders status, and keep track of the orders you have previously made.'
+$aLang['text_new_customer_info'] = 'By creating an account at our shop you will be able to shop faster, be up to date on an orders status, and keep track of the orders you have previously made.';
 $aLang['link_new_customer'] = 'Create an Account.';
 
 $aLang['heading_returning_customer'] = 'Returning Customer';

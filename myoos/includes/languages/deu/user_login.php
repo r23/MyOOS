@@ -30,7 +30,7 @@ if (isset($_GET['origin']) && ($_GET['origin'] == $aContents['checkout_payment']
 
 $aLang['heading_new_customer'] = 'Neuer Kunde';
 $aLang['text_new_customer'] = 'Sind Sie Neukunde?';
-$aLang['text_new_customer_info'] = 'Durch Ihre Anmeldung bei uns sind Sie in der Lage schneller zu bestellen, kennen jederzeit den Status Ihrer Bestellungen und haben immer eine aktuelle Übersicht über Ihre bisherigen Bestellungen.'
+$aLang['text_new_customer_info'] = 'Durch Ihre Anmeldung bei uns sind Sie in der Lage schneller zu bestellen, kennen jederzeit den Status Ihrer Bestellungen und haben immer eine aktuelle Übersicht über Ihre bisherigen Bestellungen.';
 $aLang['link_new_customer'] = 'Jetzt registrieren.';
 
 $aLang['heading_returning_customer'] = 'Bereits Kunde';
