@@ -12,7 +12,7 @@
 <section id="content">
 	<div class="container">
 	    <div class="row">
-			<div class="col-md-6 offset-md-3">
+			<div class="col-md-6">
 			
 				<div class="sign-form">
 					<h3 class="first-child"><i class="fa fa-users" aria-hidden="true"></i> {$lang.heading_title}</h3>
@@ -47,12 +47,33 @@
 						<hr>
 					</form>
 						<p>{$lang.text_password_forgotten} <a href="{html_href_link content=$filename.password_forgotten}">{$lang.link_password_forgotten}</a></p>
+				</div>
+			</div>
+			
+			<div class="col-md-6">
+			
+				<div class="sign-form">
+					<h3 class="first-child"><i class="fa fa-users" aria-hidden="true"></i> {$lang.text_new_customer}</h3>
+					<hr>
+						<p>{$lang.text_new_customer_info}</p>
 					<div class="bg-light">
 						<h2 class="text-center">{$lang.text_new_customer}</h2>
 						<a href="{html_href_link content=$filename.create_account}"><button type="button" class="btn btn-outline-danger w-100">{$lang.link_new_customer}</button></a>
 					</div>
-				</div>
-			</div>
+				</div>				
+				
+				<div class="sign-form clearfix mt-80">			
+					<h3 class="first-child"><i class="fa fa-users" aria-hidden="true"></i> {$lang.heading_guest_customer}</h3>
+					<hr>
+						<p>{$lang.text_guest_customer_info}</p>
+					<div class="bg-light">
+						<h2 class="text-center">{$lang.text_guest_customer}</h2>
+						<a href="{html_href_link content=$filename.create_account guest=true}"><button type="button" class="btn btn-outline-danger w-100">{$lang.link_guest_customer}</button></a>
+					</div>
+				</div>				
+			</div>			
+	
+			
 		</div><!-- .row -->      
 	</div><!--end container-->
 </section>

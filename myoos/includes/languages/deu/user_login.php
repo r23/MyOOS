@@ -42,6 +42,8 @@ $aLang['link_password_forgotten'] = 'Dann klicken Sie <u>hier</u>';
 $aLang['heading_guest_customer'] = 'Gastbestellung';
 $aLang['text_guest_customer'] =  'Bestellung ohne Eröffnung eines Kundenkontos.';
 $aLang['text_guest_customer_info'] =  'Bei uns können Sie auch als Gast bestellen und müssen sich somit nicht registrieren. Bei Ihrer nächsten Bestellung müssen Sie dann jedoch Ihre Daten wieder erneut eingeben.';
+$aLang['link_guest_customer'] =  'Gastbestellung';
+
 
 $aLang['text_login_error'] = '<strong>FEHLER:</strong> Keine Übereinstimmung der eingebenen \'eMail-Adresse\' und/oder dem \'Passwort\'.';
 

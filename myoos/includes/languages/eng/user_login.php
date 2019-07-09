@@ -40,9 +40,9 @@ $aLang['text_password_forgotten'] = 'Lost your password?';
 $aLang['link_password_forgotten'] = 'Click here to recover.';
 
 $aLang['heading_guest_customer'] = 'Guest Order';
-$aLang['text_guest_customer'] =  'Order without opening a customer account.';
-$aLang['text_guest_customer_info'] =  'With us you can also order as a guest and therefore do not have to register. With your next order you have to enter your data again.';
-
+$aLang['text_guest_customer'] = 'Order without opening a customer account.';
+$aLang['text_guest_customer_info'] = 'With us you can also order as a guest and therefore do not have to register. With your next order you have to enter your data again.';
+$aLang['link_guest_customer'] = 'Guest Order';
 
 $aLang['text_login_error'] = '<strong>ERROR:</strong> No match for \'E-Mail-Address\' and/or \'Password\'.';
 

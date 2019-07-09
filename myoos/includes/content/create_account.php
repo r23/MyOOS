@@ -38,6 +38,12 @@ if ( $_SESSION['login_count'] > 3) {
 	oos_redirect(oos_href_link($aContents['403']));
 }
 
+
+if (isset($_GET['guest'])) {
+	$_SESSION['guest_account'] = 1;
+} 
+
+
 if ( isset($_POST['action']) && ($_POST['action'] == 'process') && 
 	( isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) ){
 
@@ -112,14 +118,18 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 		$bError = TRUE;
 		$oMessage->add('create_account', $aLang['entry_email_address_check_error']);
     } else {
-		$customerstable = $oostable['customers'];
-		$check_email_sql = "SELECT customers_email_address
+		if ($_SESSION['guest_account'] == 1) {
+			$email_address_exists = false;
+		} else {
+			$customerstable = $oostable['customers'];
+			$check_email_sql = "SELECT customers_email_address
                       FROM $customerstable
                       WHERE customers_email_address = '" . oos_db_input($email_address) . "'";
-		$check_email = $dbconn->Execute($check_email_sql);
-		if ($check_email->RecordCount()) {		
-			$bError = TRUE;
-			$oMessage->add('create_account', $aLang['entry_email_address_error_exists']);
+			$check_email = $dbconn->Execute($check_email_sql);
+			if ($check_email->RecordCount()) {		
+				$bError = TRUE;
+				$oMessage->add('create_account', $aLang['entry_email_address_error_exists']);
+			}
 		}
     }
 
@@ -183,17 +193,20 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 		}
 	}	
 
-
-	if (CUSTOMER_NOT_LOGIN == 'false') {
-		if (strlen($password) < ENTRY_PASSWORD_MIN_LENGTH) {
-			$bError = TRUE;
-			$oMessage->add('create_account', $aLang['entry_password_error']);
-		} elseif ($password != $confirmation) {
-			$bError = TRUE;
-			$oMessage->add('create_account', $aLang['entry_password_error_not_matching']);
+	if ($_SESSION['guest_account'] == 1) {
+		$password_error = false;
+	} else {
+		if (CUSTOMER_NOT_LOGIN == 'false') {
+			if (strlen($password) < ENTRY_PASSWORD_MIN_LENGTH) {
+				$bError = TRUE;
+				$oMessage->add('create_account', $aLang['entry_password_error']);
+			} elseif ($password != $confirmation) {
+				$bError = TRUE;
+				$oMessage->add('create_account', $aLang['entry_password_error_not_matching']);
+			}
 		}
 	}
-
+	
 	if (empty($agree)) {
 		$bError = TRUE;
 		$oMessage->add('create_account', $aLang['entry_agree_error']);
@@ -222,6 +235,32 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 								'customers_password' => oos_encrypt_password($password),
 								'customers_wishlist_link_id' => $wishlist_link_id,
 								'customers_default_address_id' => 1);
+
+
+		if ($_SESSION['guest_account'] == 1) {
+			$sql_data_array = array('customers_firstname' => $firstname,
+									'customers_lastname' => $lastname,
+									'customers_email_address' => '',
+									'guest_email_address' => $email_address,
+									'customers_status' => $customers_status,
+									'customers_login' => $customers_login,
+									'customers_language' => $sLanguage,
+									'customers_max_order' => $customer_max_order,
+									'customers_password' => oos_encrypt_password($wishlist_link_id),
+									'customers_wishlist_link_id' => $wishlist_link_id,
+									'customers_default_address_id' => 1);			
+		} else {	
+			$sql_data_array = array('customers_firstname' => $firstname,
+								'customers_lastname' => $lastname,
+								'customers_email_address' => $email_address,
+								'customers_status' => $customers_status,
+								'customers_login' => $customers_login,
+								'customers_language' => $sLanguage,
+								'customers_max_order' => $customer_max_order,
+								'customers_password' => oos_encrypt_password($password),
+								'customers_wishlist_link_id' => $wishlist_link_id,
+								'customers_default_address_id' => 1);
+		}
 
 		if (ACCOUNT_GENDER == 'true') $sql_data_array['customers_gender'] = $gender;
 		if (ACCOUNT_DOB == 'true') $sql_data_array['customers_dob'] = oos_date_raw($dob);
