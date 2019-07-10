@@ -279,15 +279,21 @@ class order {
                           'payment_class' => $_SESSION['payment'],
                           );
 
-      if (isset($GLOBALS['payment']) && is_object($GLOBALS['payment'])) {
-        $this->info['payment_method'] = $GLOBALS['payment']->title;
+		if (isset($GLOBALS['payment']) && is_object($GLOBALS['payment'])) {
+			$this->info['payment_method'] = $GLOBALS['payment']->title;
 
-        if ( isset($GLOBALS['payment']->order_status) && is_numeric($GLOBALS['payment']->order_status) && ($GLOBALS['payment']->order_status > 0) ) {
-          $this->info['order_status'] = $GLOBALS['payment']->order_status;
-        }
-      }
+			if ( isset($GLOBALS['payment']->order_status) && is_numeric($GLOBALS['payment']->order_status) && ($GLOBALS['payment']->order_status > 0) ) {
+				$this->info['order_status'] = $GLOBALS['payment']->order_status;
+			}
+		}
 
-      $this->customer = array('firstname' => $customer_address['customers_firstname'],
+		if (isset($_SESSION['guest_account']) && ($_SESSION['guest_account'] == '1')) {
+			$email_address = oos_db_prepare_input($_SESSION['customers_email_address']);
+		} else {
+			$email_address = $customer_address['customers_email_address'];
+		}	
+
+		$this->customer = array('firstname' => $customer_address['customers_firstname'],
                               'lastname' => $customer_address['customers_lastname'],
                               'company' => $customer_address['entry_company'],
                               'street_address' => $customer_address['entry_street_address'],
@@ -298,9 +304,9 @@ class order {
                               'country' => array('id' => $customer_address['countries_id'], 'title' => $customer_address['countries_name'], 'iso_code_2' => $customer_address['countries_iso_code_2'], 'iso_code_3' => $customer_address['countries_iso_code_3']),
                               'format_id' => $customer_address['address_format_id'],
                               'telephone' => $customer_address['customers_telephone'],
-                              'email_address' => $customer_address['customers_email_address']);
+                              'email_address' => $email_address;
 
-      $this->delivery = array('firstname' => $shipping_address['entry_firstname'],
+		$this->delivery = array('firstname' => $shipping_address['entry_firstname'],
                               'lastname' => $shipping_address['entry_lastname'],
                               'company' => $shipping_address['entry_company'],
                               'street_address' => $shipping_address['entry_street_address'],
@@ -313,7 +319,7 @@ class order {
                               'format_id' => $shipping_address['address_format_id']);
 
 
-      $this->billing = array('firstname' => $billing_address['entry_firstname'],
+		$this->billing = array('firstname' => $billing_address['entry_firstname'],
                              'lastname' => $billing_address['entry_lastname'],
                              'company' => $billing_address['entry_company'],
                              'street_address' => $billing_address['entry_street_address'],

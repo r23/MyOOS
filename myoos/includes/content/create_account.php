@@ -39,11 +39,6 @@ if ( $_SESSION['login_count'] > 3) {
 }
 
 
-if (isset($_GET['guest'])) {
-	$_SESSION['guest_account'] = 1;
-} 
-
-
 if ( isset($_POST['action']) && ($_POST['action'] == 'process') && 
 	( isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) ){
 
@@ -225,18 +220,6 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 		$time = mktime();
 		$wishlist_link_id = oos_create_wishlist_code();
 
-		$sql_data_array = array('customers_firstname' => $firstname,
-								'customers_lastname' => $lastname,
-								'customers_email_address' => $email_address,
-								'customers_status' => $customers_status,
-								'customers_login' => $customers_login,
-								'customers_language' => $sLanguage,
-								'customers_max_order' => $customer_max_order,
-								'customers_password' => oos_encrypt_password($password),
-								'customers_wishlist_link_id' => $wishlist_link_id,
-								'customers_default_address_id' => 1);
-
-
 		if ($_SESSION['guest_account'] == 1) {
 			$sql_data_array = array('customers_firstname' => $firstname,
 									'customers_lastname' => $lastname,
@@ -315,6 +298,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 																	'0',
 																	now())");
 
+
 		if (CUSTOMER_NOT_LOGIN != 'true') {
 			$_SESSION['customer_id'] = $customer_id;
 			if (ACCOUNT_GENDER == 'true') $_SESSION['customer_gender'] = $gender;
@@ -354,13 +338,18 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 			$email_text = $aLang['email_greet_none'];
 		}
 
-		$email_text .= $aLang['email_welcome'];
 
-		if (MODULE_ORDER_TOTAL_GV_STATUS == 'true') {
-			if (NEW_SIGNUP_GIFT_VOUCHER_AMOUNT > 0) {
-				$coupon_code = oos_create_coupon_code();
-				$couponstable = $oostable['coupons'];
-				$insert_result = $dbconn->Execute("INSERT INTO $couponstable
+		if (isset($_SESSION['guest_account']) && ($_SESSION['guest_account'] == '1')) {	
+			// todo coupons for guest account
+		} else {
+
+			$email_text .= $aLang['email_welcome'];
+
+			if (MODULE_ORDER_TOTAL_GV_STATUS == 'true') {
+				if (NEW_SIGNUP_GIFT_VOUCHER_AMOUNT > 0) {
+					$coupon_code = oos_create_coupon_code();
+					$couponstable = $oostable['coupons'];
+					$insert_result = $dbconn->Execute("INSERT INTO $couponstable
                                     (coupon_code,
                                      coupon_type,
                                      coupon_amount,
@@ -368,9 +357,9 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
                                                            'G',
                                                            '" . NEW_SIGNUP_GIFT_VOUCHER_AMOUNT . "',
                                                            now())");
-				$insert_id = $dbconn->Insert_ID();
-				$coupon_email_tracktable = $oostable['coupon_email_track'];
-				$insert_result = $dbconn->Execute("INSERT INTO $coupon_email_tracktable
+					$insert_id = $dbconn->Insert_ID();
+					$coupon_email_tracktable = $oostable['coupon_email_track'];
+					$insert_result = $dbconn->Execute("INSERT INTO $coupon_email_tracktable
                                     (coupon_id,
                                      customer_id_sent,
                                      sent_firstname,
@@ -381,30 +370,30 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
                                                         '" . $email_address . "',
                                                         now() )");
 
-				$email_text .= sprintf($aLang['email_gv_incentive_header'], $oCurrencies->format(NEW_SIGNUP_GIFT_VOUCHER_AMOUNT)) . "\n\n" .
+					$email_text .= sprintf($aLang['email_gv_incentive_header'], $oCurrencies->format(NEW_SIGNUP_GIFT_VOUCHER_AMOUNT)) . "\n\n" .
                        sprintf($aLang['email_gv_redeem'], $coupon_code) . "\n\n" .
                        $aLang['email_gv_link'] . oos_href_link($aContents['gv_redeem'], 'gv_no=' . $coupon_code, false, false) . 
                        "\n\n";  
-			}
+				}
 			
-			if (NEW_SIGNUP_DISCOUNT_COUPON != '') {
-				$coupon_id = NEW_SIGNUP_DISCOUNT_COUPON;
-				$couponstable = $oostable['coupons'];
-				$sql = "SELECT *
+				if (NEW_SIGNUP_DISCOUNT_COUPON != '') {
+					$coupon_id = NEW_SIGNUP_DISCOUNT_COUPON;
+					$couponstable = $oostable['coupons'];
+					$sql = "SELECT *
 						FROM $couponstable
 						WHERE coupon_id = '" . oos_db_input($coupon_id) . "'";
-				$coupon_result = $dbconn->Execute($sql);
+					$coupon_result = $dbconn->Execute($sql);
 
-				$coupons_descriptiontable = $oostable['coupons_description'];
-				$sql = "SELECT *
-					FROM " . $coupons_descriptiontable . "
-					WHERE coupon_id = '" . oos_db_input($coupon_id) . "'
-					AND coupon_languages_id = '" .  intval($nLanguageID) . "'";
-				$coupon_desc_result = $dbconn->Execute($sql);
-				$coupon = $coupon_result->fields;
-				$coupon_desc = $coupon_desc_result->fields;
-				$coupon_email_tracktable = $oostable['coupon_email_track'];
-				$insert_result = $dbconn->Execute("INSERT INTO $coupon_email_tracktable
+					$coupons_descriptiontable = $oostable['coupons_description'];
+					$sql = "SELECT *
+						FROM " . $coupons_descriptiontable . "
+						WHERE coupon_id = '" . oos_db_input($coupon_id) . "'
+						AND coupon_languages_id = '" .  intval($nLanguageID) . "'";
+						$coupon_desc_result = $dbconn->Execute($sql);
+					$coupon = $coupon_result->fields;
+					$coupon_desc = $coupon_desc_result->fields;
+					$coupon_email_tracktable = $oostable['coupon_email_track'];
+					$insert_result = $dbconn->Execute("INSERT INTO $coupon_email_tracktable
                                           (coupon_id,
                                            customer_id_sent,
                                            sent_firstname,
@@ -415,16 +404,17 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
                                                               '" . oos_db_input($email_address) . "',
                                                               now() )");
 
-				$email_text .= $aLang['email_coupon_incentive_header'] .  "\n\n" .
-							$coupon_desc['coupon_description'] .
-						sprintf($aLang['email_coupon_redeem'], $coupon['coupon_code']) . "\n\n" .
-                       "\n\n";
+					$email_text .= $aLang['email_coupon_incentive_header'] .  "\n\n" .
+								$coupon_desc['coupon_description'] .
+							sprintf($aLang['email_coupon_redeem'], $coupon['coupon_code']) . "\n\n" .
+						"\n\n";
+				}
 			}
+
+			$email_text .= $aLang['email_text'] . $aLang['email_contact'] . $aLang['email_warning'] . $aLang['email_disclaimer'];
+
+			oos_mail($name, $email_address, $aLang['email_subject'], nl2br($email_text), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '3');
 		}
-
-		$email_text .= $aLang['email_text'] . $aLang['email_contact'] . $aLang['email_warning'] . $aLang['email_disclaimer'];
-
-		oos_mail($name, $email_address, $aLang['email_subject'], nl2br($email_text), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '3');
 
 		if (SEND_CUSTOMER_EDIT_EMAILS == 'true') {
 			$email_owner = $aLang['owner_email_subject'] . "\n" .
@@ -478,9 +468,25 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 
 			oos_redirect($origin_href);
 		}		
-	
-		oos_redirect(oos_href_link($aContents['create_account_success']));
+
+		if (isset($_SESSION['guest_account']) && ($_SESSION['guest_account'] == '1')) {
+			$_SESSION['customers_email_address'] = $email_address;
+
+			oos_redirect(oos_href_link($aContents['checkout_shipping']));
+		} else {
+			oos_redirect(oos_href_link($aContents['create_account_success']));
+		}
 	}
+}
+
+if (isset($_GET['guest'])) {
+	$_SESSION['guest_account'] = 1;
+} else {
+	if (isset($_SESSION['guest_account']) && ($_SESSION['guest_account'] == '1')) {	
+		unset($_SESSION['customers_email_address']);
+		unset($_SESSION['customer_id']);
+	}	
+	$_SESSION['guest_account'] = 0;
 }
 
 

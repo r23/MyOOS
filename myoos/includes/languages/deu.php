@@ -324,6 +324,7 @@ $aLang = [
 'button_redeem_voucher'              => 'Gutschein einlösen',
 'button_callaction'                  => 'Fordern Sie ein Angebot',
 'button_register'                    => 'Jetzt registrieren',
+'button_further_than_guest'          => 'Weiter als Gast',
 'button_save_info'                   => 'Daten speichern',
 'button_view'                        => 'Details',
 

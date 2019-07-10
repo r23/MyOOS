@@ -343,6 +343,7 @@ $aLang = [
 'button_view'                  => 'View',
 
 'button_register'            => 'Register',
+'button_further_than_guest'  => 'Further than Guest',
 'button_save_info'           => 'Save Info',
 
 'icon_button_mail'           => 'E-mail',

@@ -144,7 +144,8 @@
 								</div>
 							</div>
 						{/if}
-						{if $smarty.const.CUSTOMER_NOT_LOGIN eq 'false'}
+						{if !isset($smarty.get.guest) || $smarty.session.guest_account ne '1' }
+							{if $smarty.const.CUSTOMER_NOT_LOGIN eq 'false'}
 							<hr />
 							<h3>{$lang.category_password}</h3>
 							<div class="form-group">
@@ -159,8 +160,9 @@
 									<input type="password" value="{$smarty.post.confirmation}" class="form-control" id="confirmation" name="confirmation" placeholder="{$lang.entry_password_confirmation}" required>
 								</div>
 							</div>
+							{/if}
 						{/if}
-
+							<hr />
 							<div class="form-check">
 								<div class="col-sm-5 col-sm-offset-4">
 									<div class="checkbox">
@@ -179,7 +181,11 @@
 							</fieldset>
 							<div class="form-group">
 								<div class="col-sm-9 col-sm-offset-4">
-									<button type="submit" class="btn btn-primary"><i class="fa fa-check" aria-hidden="true"></i> {$lang.button_register}</button>
+									{if isset($smarty.get.guest) || $smarty.session.guest_account eq '1' }
+									   <button type="submit" class="btn btn-primary"><i class="fa fa-check" aria-hidden="true"></i> {$lang.button_further_than_guest}</button>
+									{else}
+										<button type="submit" class="btn btn-primary"><i class="fa fa-check" aria-hidden="true"></i> {$lang.button_register}</button>
+									{/if}
 								</div>
 							</div>
 						</form>
