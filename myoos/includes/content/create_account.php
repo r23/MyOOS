@@ -461,19 +461,19 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 				oos_newsletter_subscribe_mail($email_address);
 			}
 		}
-
-		if (count($_SESSION['navigation']->snapshot) > 0) {
-			$origin_href = oos_href_link($_SESSION['navigation']->snapshot['content'], $_SESSION['navigation']->snapshot['get']);
-			$_SESSION['navigation']->clear_snapshot();
-
-			oos_redirect($origin_href);
-		}		
-
+	
 		if (isset($_SESSION['guest_account']) && ($_SESSION['guest_account'] == '1')) {
 			$_SESSION['customers_email_address'] = $email_address;
 
 			oos_redirect(oos_href_link($aContents['checkout_shipping']));
 		} else {
+			if (count($_SESSION['navigation']->snapshot) > 0) {
+				$origin_href = oos_href_link($_SESSION['navigation']->snapshot['content'], $_SESSION['navigation']->snapshot['get']);
+				$_SESSION['navigation']->clear_snapshot();
+
+				oos_redirect($origin_href);
+			}			
+
 			oos_redirect(oos_href_link($aContents['create_account_success']));
 		}
 	}
