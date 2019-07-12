@@ -32,7 +32,6 @@ if (!isset($_SESSION['customer_id'])) {
 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checkout_success.php';
 
-		
 if ( isset($_POST['action']) && ($_POST['action'] == 'notify_process') && 
 	( isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) ){
 	
@@ -100,24 +99,12 @@ $oBreadcrumb->add($aLang['navbar_title_2']);
     }
 }
 
-$aTemplate['page'] = $sTheme . '/page/checkout_success.html';
-
-$nPageType = OOS_PAGE_TYPE_CHECKOUT;
-$sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
-
-require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
-if (!isset($option)) {
-	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-	require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
-}
-
 //ICW ADDED FOR ORDER_TOTAL CREDIT SYSTEM - Start Addition
 $coupon_gv_customertable = $oostable['coupon_gv_customer'];
 $sql = "SELECT amount
           FROM $coupon_gv_customertable
           WHERE customer_id = '" . intval($_SESSION['customer_id']) . "'";
 $gv_amount = $dbconn->GetOne($sql);
-$smarty->assign('gv_amount', $gv_amount);
 
 $products_notify = '';
 if ($global['global_product_notifications'] != '1') {
@@ -135,6 +122,18 @@ if ($global['global_product_notifications'] != '1') {
 	$products_notify .= $aLang['text_see_orders'] . '<br /><br />' . $aLang['text_contact_store_owner'];
 }
 
+
+$aTemplate['page'] = $sTheme . '/page/checkout_success.html';
+
+$nPageType = OOS_PAGE_TYPE_CHECKOUT;
+$sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
+
+require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
+if (!isset($option)) {
+	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+	require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+}
+
 // assign Smarty variables;
 $smarty->assign(
 	array(
@@ -142,7 +141,7 @@ $smarty->assign(
 		'heading_title'		=> $aLang['heading_title'],
 		'robots'			=> 'noindex,nofollow,noodp,noydir',
 		'checkout_active'	=> 1,
-
+		'gv_amount'			=> $gv_amount,
 		'products_notify'	=> $products_notify
 	)
 );
@@ -150,3 +149,20 @@ $smarty->assign(
 // display the template
 $smarty->display($aTemplate['page']);
 
+if ($_SESSION['guest_account'] == 1) {
+	unset($_SESSION['customer_id']);
+	unset($_SESSION['customer_wishlist_link_id']);
+	unset($_SESSION['customer_default_address_id']);
+	unset($_SESSION['customer_gender']);
+	unset($_SESSION['customer_first_name']);
+	unset($_SESSION['customer_lastname']);
+	unset($_SESSION['customer_country_id']);
+	unset($_SESSION['customer_zone_id']);
+	unset($_SESSION['comments']);
+	unset($_SESSION['customer_max_order']);
+	unset($_SESSION['gv_id']);
+	unset($_SESSION['cc_id']);
+	unset($_SESSION['man_key']);
+	unset($_SESSION['customers_email_address']);
+	unset($_SESSION['guest_account']);	
+}

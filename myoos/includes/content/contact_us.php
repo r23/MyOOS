@@ -46,7 +46,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'send')  ) {
 		$email_text .= "\n";
 		$email_text .= $aLang['entry_enquiry']  . ' ' . $enquiry . "\n";		
 		
-		oos_mail(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, $subject, $enquiry, $name, $email_address);
+		oos_mail(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, $subject, $email_text, '', $name, $email_address);
 		oos_redirect(oos_href_link($aContents['contact_us'], 'action=success'));
 	} else {
 		$oMessage->add('contact_us', $aLang['error_email_address']);

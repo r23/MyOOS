@@ -315,15 +315,24 @@ for ($i=0, $n=count($oOrder->products); $i<$n; $i++) {
   }
   $order_total_modules->apply_credit();
 
-  // lets start with the email confirmation
-  $email_order = STORE_NAME . "\n" .
-                 $aLang['email_separator'] . "\n" .
-                 $aLang['email_text_order_number'] . ' ' . $insert_id . "\n" .
-                 $aLang['email_text_invoice_url'] . ' ' . oos_href_link($aContents['account_history_info'], 'order_id=' . $insert_id, FALSE) . "\n" .
-                 $aLang['email_text_date_ordered'] . ' ' . strftime(DATE_FORMAT_LONG) . "\n\n";
-  if ($oOrder->info['comments']) {
-    $email_order .= oos_db_input($oOrder->info['comments']) . "\n\n";
-  }
+// lets start with the email confirmation  
+if ($_SESSION['guest_account'] == 1) {
+	$email_order = STORE_NAME . "\n" .
+				$aLang['email_separator'] . "\n" .
+				$aLang['email_text_order_number'] . ' ' . $insert_id . "\n" .
+				$aLang['email_text_date_ordered'] . ' ' . strftime(DATE_FORMAT_LONG) . "\n\n";
+} else {
+	$email_order = STORE_NAME . "\n" .
+				$aLang['email_separator'] . "\n" .
+				$aLang['email_text_order_number'] . ' ' . $insert_id . "\n" .
+				$aLang['email_text_invoice_url'] . ' ' . oos_href_link($aContents['account_history_info'], 'order_id=' . $insert_id, FALSE) . "\n" .
+				$aLang['email_text_date_ordered'] . ' ' . strftime(DATE_FORMAT_LONG) . "\n\n";
+}
+				 
+				 
+if ($oOrder->info['comments']) {
+	$email_order .= oos_db_input($oOrder->info['comments']) . "\n\n";
+}
 
   $email_order .= $aLang['email_text_products'] . "\n" .
                   $aLang['email_separator'] . "\n" .
@@ -354,12 +363,12 @@ for ($i=0, $n=count($oOrder->products); $i<$n; $i++) {
   }
   
 if (!isset($_SESSION['man_key'])) {
-	oos_mail($oOrder->customer['firstname'] . ' ' . $oOrder->customer['lastname'], $oOrder->customer['email_address'], $aLang['email_text_subject'], nl2br($email_order), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
+	oos_mail($oOrder->customer['firstname'] . ' ' . $oOrder->customer['lastname'], $oOrder->customer['email_address'], $aLang['email_text_subject'], nl2br($email_order), '', STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
 }
 
 // send emails to other people
 if ( (defined (SEND_EXTRA_ORDER_EMAILS_TO)) && (SEND_EXTRA_ORDER_EMAILS_TO != '')) {	
-    oos_mail('', SEND_EXTRA_ORDER_EMAILS_TO, $aLang['email_text_subject'], nl2br($email_order), $oOrder->customer['firstname'] . ' ' . $oOrder->customer['lastname'], $oOrder->customer['email_address'], true);
+    oos_mail('', SEND_EXTRA_ORDER_EMAILS_TO, $aLang['email_text_subject'], nl2br($email_order), '', $oOrder->customer['firstname'] . ' ' . $oOrder->customer['lastname'], $oOrder->customer['email_address'], true);
 }
 
 
@@ -376,6 +385,20 @@ unset($_SESSION['payment']);
 unset($_SESSION['comments']);
 
 $order_total_modules->clear_posts();
+
+
+if ($_SESSION['guest_account'] == 1) {
+	$customers_id = intval($_SESSION['customer_id']);
+	$dbconn->Execute("DELETE FROM " . $oostable['address_book'] . " WHERE customers_id = '" . intval($customers_id) . "'");
+    $dbconn->Execute("DELETE FROM " . $oostable['customers'] . " WHERE customers_id = '" . intval($customers_id) . "'");
+    $dbconn->Execute("DELETE FROM " . $oostable['customers_info'] . " WHERE customers_info_id = '" . intval($customers_id) . "'");
+    $dbconn->Execute("DELETE FROM " . $oostable['customers_basket'] . " WHERE customers_id = '" . intval($customers_id) . "'");
+    $dbconn->Execute("DELETE FROM " . $oostable['customers_basket_attributes'] . " WHERE customers_id = '" . intval($customers_id) . "'");
+    $dbconn->Execute("DELETE FROM " . $oostable['customers_wishlist'] . " WHERE customers_id = '" . intval($customers_id) . "'");
+    $dbconn->Execute("DELETE FROM " . $oostable['customers_wishlist_attributes'] . " WHERE customers_id = '" . intval($customers_id) . "'");
+    $dbconn->Execute("DELETE FROM " . $oostable['customers_status_history'] . " WHERE customers_id = '" . intval($customers_id) . "'");
+}
+ 
 
 oos_redirect(oos_href_link($aContents['checkout_success']));
 

@@ -40,7 +40,7 @@
 							<div class="progress-wizard-dot"></div>
 						</div>
 					</div>
-					
+				
 					<form name="order" action="{html_get_link}" method="POST" role="form">
 						<input type="hidden" name="content" value="{$filename.checkout_success}">
 						{if $mySystem.sed}
@@ -58,11 +58,11 @@
 								<h2 class="mb-30">{$heading_title}</h2>
 							
 								<p>{$lang.text_success}</p>
-						
+							{if $smarty.session.guest_account ne '1' }	
 								{if $oEvent->installed_plugin('notify')}
 									{$products_notify}
 								{/if}
-						
+							{/if}
 								<hr />
 
 								<p>
@@ -73,7 +73,7 @@
 							<button class="btn btn-primary btn-default float-right" type="submit">{$lang.button_continue} <i class="fa fa-angle-right" aria-hidden="true"></i></button>
 						</div>	
 					</form>
-
+					
 				</div>
 			</div>
 		</div>

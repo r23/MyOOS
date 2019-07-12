@@ -304,7 +304,7 @@ class order {
                               'country' => array('id' => $customer_address['countries_id'], 'title' => $customer_address['countries_name'], 'iso_code_2' => $customer_address['countries_iso_code_2'], 'iso_code_3' => $customer_address['countries_iso_code_3']),
                               'format_id' => $customer_address['address_format_id'],
                               'telephone' => $customer_address['customers_telephone'],
-                              'email_address' => $email_address;
+                              'email_address' => $email_address);
 
 		$this->delivery = array('firstname' => $shipping_address['entry_firstname'],
                               'lastname' => $shipping_address['entry_lastname'],
