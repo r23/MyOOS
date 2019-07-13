@@ -14,7 +14,7 @@ $cmb->add_field([
 	'id'      => 'disable_author_archives',
 	'type'    => 'switch',
 	'name'    => esc_html__( 'Author Archives', 'rank-math' ),
-	'desc'    => esc_html__( 'Redirect author archives to homepage. Useful for single-author blogs, where the author archive shows the same posts as the homepage/blog page. Alternatively, you can set the author archives to noindex.', 'rank-math' ),
+	'desc'    => esc_html__( 'Enables or disables Author Archives. If disabled, the Author Archives are redirected to your homepage. To avoid duplicate content issues, noindex author archives if you keep them enabled.', 'rank-math' ),
 	'options' => [
 		'on'  => esc_html__( 'Disabled', 'rank-math' ),
 		'off' => esc_html__( 'Enabled', 'rank-math' ),
@@ -78,9 +78,9 @@ $cmb->add_field([
 	'classes'         => 'rank-math-supports-variables rank-math-description',
 	'dep'             => $dep,
 	'attributes'      => [
-    'class'             => 'cmb2-textarea-small wp-exclude-emoji',
-    'data-gramm_editor' => 'false',
-  ],
+		'class'             => 'cmb2-textarea-small wp-exclude-emoji',
+		'data-gramm_editor' => 'false',
+	],
 	'sanitization_cb' => false,
 ]);
 

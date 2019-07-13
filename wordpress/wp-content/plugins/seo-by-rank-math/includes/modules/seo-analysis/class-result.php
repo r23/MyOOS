@@ -194,6 +194,8 @@ class Result {
 
 	/**
 	 * Render tag cloud
+	 *
+	 * @param array $data Keywords.
 	 */
 	private function render_tag_cloud( $data ) {
 		$font_size_max = 22;

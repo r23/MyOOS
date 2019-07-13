@@ -122,7 +122,7 @@ class Admin extends Module {
 
 			/* translators: Post Type label */
 			$thing = isset( $things[ $post_type ] ) ? $things[ $post_type ] : sprintf( __( 'single %s', 'rank-math' ), $name );
-			$url   = isset( $urls[ $post_type ] ) ? $urls[ $post_type ] : in_array( $name, [ 'post', 'page' ] ) ? KB::get( "sitemap-{$name}" ) : '';
+			$url   = isset( $urls[ $post_type ] ) ? $urls[ $post_type ] : in_array( $name, [ 'post', 'page' ], true ) ? KB::get( "sitemap-{$name}" ) : '';
 
 			$tabs[ 'sitemap-post-type-' . $object->name ] = array(
 				'title'     => $object->label,
@@ -177,7 +177,7 @@ class Admin extends Module {
 					/* translators: Taxonomy singular label */
 					$thing = sprintf( __( '%s archives', 'rank-math' ), strtolower( $taxonomy->labels->singular_name ) );
 					$name  = strtolower( $taxonomy->labels->name );
-					$url   = in_array( $name, [ 'category', 'tags' ] ) ? KB::get( "sitemap-{$name}" ) : '';
+					$url   = in_array( $name, [ 'category', 'tags' ], true ) ? KB::get( "sitemap-{$name}" ) : '';
 			}
 
 			$tabs[ 'sitemap-taxonomy-' . $taxonomy->name ] = array(
@@ -257,7 +257,7 @@ class Admin extends Module {
 	public function show_on( $field ) {
 
 		$news_sitemap_enabled = Helper::is_module_active( 'news-sitemap' );
-		$is_post_type_news    = in_array( get_post_type(), (array) Helper::get_settings( 'sitemap.news_sitemap_post_type' ) );
+		$is_post_type_news    = in_array( get_post_type(), (array) Helper::get_settings( 'sitemap.news_sitemap_post_type' ), true );
 
 		if ( $news_sitemap_enabled && $is_post_type_news ) {
 			return true;

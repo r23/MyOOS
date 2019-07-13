@@ -206,6 +206,7 @@ return array(
     'RankMath\\Paper\\Date' => $baseDir . '/includes/frontend/paper/class-date.php',
     'RankMath\\Paper\\Error_404' => $baseDir . '/includes/frontend/paper/class-error-404.php',
     'RankMath\\Paper\\IPaper' => $baseDir . '/includes/frontend/paper/interface-paper.php',
+    'RankMath\\Paper\\Misc' => $baseDir . '/includes/frontend/paper/class-misc.php',
     'RankMath\\Paper\\Paper' => $baseDir . '/includes/frontend/paper/class-paper.php',
     'RankMath\\Paper\\Search' => $baseDir . '/includes/frontend/paper/class-search.php',
     'RankMath\\Paper\\Shop' => $baseDir . '/includes/frontend/paper/class-shop.php',

@@ -66,7 +66,7 @@ class Admin extends Module {
 	 */
 	public function init() {
 		$action = WordPress::get_request_action();
-		if ( false === $action || ! in_array( $action, [ 'delete', 'clear_log' ] ) ) {
+		if ( false === $action || ! in_array( $action, [ 'delete', 'clear_log' ], true ) ) {
 			return;
 		}
 

@@ -15,19 +15,27 @@ use RankMath\KB;
 		<?php \RankMath\Admin\Admin_Helper::get_social_share(); ?>
 	</h1>
 </header>
-
-<div class="rank-math-score-wrapper">
-	<h3><?php esc_html_e( 'Proudly Show the SEO Score to Your Visitors', 'rank-math' ); ?></h3>
-	<label class="switch">
-		<input class="switch-input" type="checkbox" id="show-seo-score" <?php echo Helper::get_settings( 'general.frontend_seo_score' ) ? 'checked="checked"' : ''; ?> />
-		<span class="switch-label" data-on="Yes" data-off="No"></span>
-		<span class="switch-handle"></span>
-	</label>
-	<div class="rank-math-score-image">
-		<img src="<?php echo rank_math()->plugin_url(); ?>/assets/admin/img/wizard-seo-score.png" />
+<div class="rank-math-additional-options">
+	<div class="rank-math-auto-update-wrapper">
+		<h3><?php esc_html_e( 'Enable auto update of the plugin', 'rank-math' ); ?></h3>
+		<label class="switch">
+			<input class="switch-input" type="checkbox" id="auto-update" <?php echo Helper::get_settings( 'general.enable_auto_update' ) ? 'checked="checked"' : ''; ?> />
+			<span class="switch-label" data-on="Yes" data-off="No"></span>
+			<span class="switch-handle"></span>
+		</label>
+	</div>
+	<div class="rank-math-score-wrapper">
+		<h3><?php esc_html_e( 'Proudly Show the SEO Score to Your Visitors', 'rank-math' ); ?></h3>
+		<label class="switch">
+			<input class="switch-input" type="checkbox" id="show-seo-score" <?php echo Helper::get_settings( 'general.frontend_seo_score' ) ? 'checked="checked"' : ''; ?> />
+			<span class="switch-label" data-on="Yes" data-off="No"></span>
+			<span class="switch-handle"></span>
+		</label>
+		<div class="rank-math-score-image">
+			<img src="<?php echo rank_math()->plugin_url(); ?>/assets/admin/img/wizard-seo-score.png" />
+		</div>
 	</div>
 </div>
-
 <br class="clear">
 <?php if ( ! Helper::is_whitelabel() ) : ?>
 

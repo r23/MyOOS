@@ -42,9 +42,9 @@ $cmb->add_field([
 	'dep'             => $dep,
 	'sanitization_cb' => false,
 	'attributes'      => [
-    'class'             => 'cmb2-textarea-small wp-exclude-emoji',
-    'data-gramm_editor' => 'false',
-  ],
+		'class'             => 'cmb2-textarea-small wp-exclude-emoji',
+		'data-gramm_editor' => 'false',
+	],
 ]);
 
 $cmb->add_field([

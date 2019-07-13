@@ -173,9 +173,8 @@ class SEO_Analyzer {
 			'info'    => 0,
 			'warning' => 0,
 		];
-
 		foreach ( $this->results as $id => $result ) {
-			if ( 'info' === $result->get_status() || $result->is_excluded() ) {
+			if ( ! is_object( $result ) || 'info' === $result->get_status() || $result->is_excluded() ) {
 				continue;
 			}
 			$statuses[ $result->get_status() ]++;
@@ -432,6 +431,9 @@ class SEO_Analyzer {
 	private function sort_results_by_category() {
 		$data = [];
 		foreach ( $this->results as $result ) {
+			if ( ! is_object( $result ) ) {
+				continue;
+			}
 			$category = $result->get_category();
 			if ( ! isset( $data[ $category ] ) ) {
 				$data[ $category ] = [];

@@ -505,13 +505,13 @@ class Replace_Vars {
 		self::$replacements['date(F jS, Y)'] = array(
 			'name'    => esc_html__( 'Date Published (advanced)', 'rank-math' ),
 			'desc'    => esc_html__( 'Publish date with custom formatting pattern.', 'rank-math' ),
-			'example' => date( 'F jS, Y' ),
+			'example' => date_i18n( 'F jS, Y' ),
 		);
 
 		self::$replacements['modified(F jS, Y)'] = array(
 			'name'    => esc_html__( 'Date Modified (advanced)', 'rank-math' ),
 			'desc'    => esc_html__( 'Modified date with custom formatting pattern.', 'rank-math' ),
-			'example' => date( 'F jS, Y' ),
+			'example' => date_i18n( 'F jS, Y' ),
 		);
 
 		self::$replacements['currenttime(F jS, Y)'] = array(
@@ -537,6 +537,18 @@ class Replace_Vars {
 			'desc'    => esc_html__( 'Starts at 1 and increments by 1.', 'rank-math' ),
 			'example' => '2',
 		);
+
+		self::$replacements['customterm(taxonomy-name)'] = array(
+			'name'    => esc_html__( 'Custom Term (advanced)', 'rank-math' ),
+			'desc'    => esc_html__( 'Custom term value.', 'rank-math' ),
+			'example' => esc_html__( 'Custom term value', 'rank-math' ),
+		);
+
+		self::$replacements['customterm(taxonomy-name_desc)'] = array(
+			'name'    => esc_html__( 'Custom Term description', 'rank-math' ),
+			'desc'    => esc_html__( 'Custom Term description.', 'rank-math' ),
+			'example' => esc_html__( 'Custom Term description.', 'rank-math' ),
+		);
 	}
 
 	/**
@@ -553,7 +565,7 @@ class Replace_Vars {
 
 		$json = [];
 		foreach ( $custom_taxonomies as $taxonomy ) {
-			if ( in_array( $taxonomy, [ 'category', 'post_tag' ] ) ) {
+			if ( in_array( $taxonomy, [ 'category', 'post_tag' ], true ) ) {
 				continue;
 			}
 

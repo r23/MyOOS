@@ -92,7 +92,7 @@ class Ask_Review {
 
 				<div class="stars">
 					<?php for ( $i = 1; $i <= 5; $i++ ) { ?>
-						<a href="https://wordpress.org/support/plugin/seo-by-rank-math/reviews/?filter=5#new-post" target="_blank">
+						<a href="https://s.rankmath.com/reviewrankmath" target="_blank">
 							<span class="dashicons dashicons-star-filled"></span>
 						</a>
 					<?php } ?>

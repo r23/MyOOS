@@ -200,12 +200,12 @@ class Sitemap {
 			$ids = array_filter( wp_parse_id_list( $ids ) );
 
 			// Add object.
-			if ( $include && ! in_array( $object_id, $ids ) ) {
+			if ( $include && ! in_array( $object_id, $ids, true ) ) {
 				$ids[] = $object_id;
 			}
 
 			// Remove object.
-			if ( ! $include && in_array( $object_id, $ids ) ) {
+			if ( ! $include && in_array( $object_id, $ids, true ) ) {
 				$ids = array_diff( $ids, array( $object_id ) );
 			}
 

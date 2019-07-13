@@ -99,13 +99,13 @@ class Twitter extends OpenGraph {
 		$this->tag( 'twitter:card', $this->type );
 
 		$remove_tags = false;
-		if ( is_singular() && ! is_front_page() && in_array( $this->type, array( 'app', 'player' ) ) ) {
+		if ( is_singular() && ! is_front_page() && in_array( $this->type, [ 'app', 'player' ], true ) ) {
 			$remove_tags = 'app' === $this->type;
 			$this->action( 'rank_math/opengraph/twitter', $this->type, 15 );
 		}
 
 		$is_archive  = is_archive() && ! ( is_author() || is_category() || is_tag() || is_tax() || is_post_type_archive() );
-		$remove_tags = $is_archive && in_array( $this->type, array( 'summary', 'summary_large_image' ) );
+		$remove_tags = $is_archive && in_array( $this->type, [ 'summary', 'summary_large_image' ], true );
 		if ( $remove_tags ) {
 			$this->remove_tags();
 		}

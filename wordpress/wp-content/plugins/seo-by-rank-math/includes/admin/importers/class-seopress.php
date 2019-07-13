@@ -628,10 +628,10 @@ class SEOPress extends Plugin_Importer {
 	 * @return string $value Snippet value
 	 */
 	private function get_snippet_value( $post_id, $meta_key ) {
-		$prefix = in_array( $meta_key, [ 'events_offers_valid_from_date', 'events_offers_valid_from_time' ] ) ? '_seopress_rich_snippets_' : '_seopress_pro_rich_snippets_';
+		$prefix = in_array( $meta_key, [ 'events_offers_valid_from_date', 'events_offers_valid_from_time' ], true ) ? '_seopress_rich_snippets_' : '_seopress_pro_rich_snippets_';
 		$value  = get_post_meta( $post_id, $prefix . $meta_key, true );
 
-		if ( in_array( $meta_key, [ 'recipes_prep_time', 'recipes_cook_time', 'videos_duration' ] ) ) {
+		if ( in_array( $meta_key, [ 'recipes_prep_time', 'recipes_cook_time', 'videos_duration' ], true ) ) {
 			$value .= 'M';
 		}
 
@@ -760,7 +760,7 @@ class SEOPress extends Plugin_Importer {
 			return;
 		}
 
-		$current[] = ! in_array( 'noindex', $current ) ? 'index' : '';
+		$current[] = ! in_array( 'noindex', $current, true ) ? 'index' : '';
 		$this->update_meta( $object_type, $object_id, 'rank_math_robots', array_unique( $current ) );
 	}
 }

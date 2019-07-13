@@ -62,7 +62,7 @@ class Compatibility implements Wizard_Step {
 		$active_plugins      = get_option( 'active_plugins' );
 		$conflicting_plugins = $this->get_conflicting_plugins_list();
 		foreach ( $conflicting_plugins as $plugin_slug => $plugin_name ) {
-			if ( in_array( $plugin_slug, $active_plugins ) !== false ) {
+			if ( in_array( $plugin_slug, $active_plugins, true ) !== false ) {
 				$plugins_found[ $plugin_slug ] = $plugin_name;
 			}
 		}

@@ -34,6 +34,7 @@ class Updates implements Runner {
 		'1.0.15' => 'updates/update-1.0.15.php',
 		'1.0.18' => 'updates/update-1.0.18.php',
 		'1.0.24' => 'updates/update-1.0.24.php',
+		'1.0.28' => 'updates/update-1.0.28.php',
 	];
 
 	/**
@@ -73,7 +74,7 @@ class Updates implements Runner {
 		}
 
 		// Save install date.
-		if ( false == get_option( 'rank_math_install_date' ) ) {
+		if ( false === boolval( get_option( 'rank_math_install_date' ) ) ) {
 			update_option( 'rank_math_install_date', current_time( 'timestamp' ) );
 		}
 

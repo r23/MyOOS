@@ -153,7 +153,7 @@ class Option_Center implements Runner {
 			'homepage' => [
 				'icon'  => 'fa fa-home',
 				'title' => esc_html__( 'Homepage', 'rank-math' ),
-				'desc'  => 'page' == get_option( 'show_on_front' ) ?
+				'desc'  => 'page' === get_option( 'show_on_front' ) ?
 					/* translators: something */
 					sprintf( wp_kses_post( __( 'A static page is used as front page (as set in Settings &gt; Reading). To set up the title, description, and meta of the homepage, use the meta box in the page editor.<br><br><a href="%1$s">Edit Page: %2$s</a>', 'rank-math' ) ), admin_url( 'post.php?post=' . get_option( 'page_on_front' ) ) . '&action=edit', get_the_title( get_option( 'page_on_front' ) ) ) :
 					/* translators: Link to KB article */

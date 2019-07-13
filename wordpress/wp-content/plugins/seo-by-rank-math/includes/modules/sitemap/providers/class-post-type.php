@@ -70,7 +70,6 @@ class Post_Type implements Provider {
 	public function handles_type( $type ) {
 		if (
 			false === post_type_exists( $type ) ||
-			false === Helper::is_post_type_indexable( $type ) ||
 			( 'attachment' === $type && Helper::get_settings( 'general.attachment_redirect_urls', true ) )
 		) {
 			return false;
@@ -374,7 +373,7 @@ class Post_Type implements Provider {
 		$status = "{$wpdb->posts}.post_status = 'publish'";
 
 		// Based on WP_Query->get_posts(). R.
-		if ( in_array( 'attachment', $post_types ) ) {
+		if ( in_array( 'attachment', $post_types, true ) ) {
 			$join   = " LEFT JOIN {$wpdb->posts} AS p2 ON ({$wpdb->posts}.post_parent = p2.ID) ";
 			$status = "p2.post_status = 'publish'";
 		}

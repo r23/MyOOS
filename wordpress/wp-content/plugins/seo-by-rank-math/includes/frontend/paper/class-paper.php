@@ -13,6 +13,7 @@ namespace RankMath\Paper;
 use RankMath\Post;
 use RankMath\Helper;
 use RankMath\Sitemap\Router;
+use RankMath\Traits\Hooker;
 use MyThemeShop\Helpers\Str;
 use MyThemeShop\Helpers\Url;
 
@@ -22,6 +23,8 @@ defined( 'ABSPATH' ) || exit;
  * Paper class.
  */
 class Paper {
+
+	use Hooker;
 
 	/**
 	 * Hold the class instance.
@@ -92,20 +95,25 @@ class Paper {
 	 * Setup paper.
 	 */
 	private function setup() {
-		$hash = [
-			'Search'    => is_search(),
-			'Shop'      => Post::is_shop_page(),
-			'Singular'  => Post::is_home_static_page() || Post::is_simple_page(),
-			'Blog'      => Post::is_home_posts_page(),
-			'Author'    => is_author() || ( Helper::is_module_active( 'bbpress' ) && function_exists( 'bbp_is_single_user' ) && bbp_is_single_user() ),
-			'Date'      => is_date(),
-			'Taxonomy'  => is_category() || is_tag() || is_tax(),
-			'Archive'   => is_archive(),
-			'Error_404' => true,
-		];
+		$hash = $this->do_filter(
+			'paper/hash',
+			[
+				'Search'    => is_search(),
+				'Shop'      => Post::is_shop_page(),
+				'Singular'  => Post::is_home_static_page() || Post::is_simple_page(),
+				'Blog'      => Post::is_home_posts_page(),
+				'Author'    => is_author() || ( Helper::is_module_active( 'bbpress' ) && function_exists( 'bbp_is_single_user' ) && bbp_is_single_user() ),
+				'Date'      => is_date(),
+				'Taxonomy'  => is_category() || is_tag() || is_tax(),
+				'Archive'   => is_archive(),
+				'Error_404' => is_404(),
+				'Misc'      => true,
+			]
+		);
 
 		foreach ( $hash as $class_name => $is_valid ) {
-			if ( $is_valid ) {
+
+			if ( $this->do_filter( 'paper/is_valid/' . strtolower( $class_name ), $is_valid ) ) {
 				$class_name  = '\\RankMath\\Paper\\' . $class_name;
 				$this->paper = new $class_name;
 				break;
@@ -135,7 +143,7 @@ class Paper {
 		 *
 		 * @param string $title The page title being put out.
 		 */
-		$this->title = apply_filters( 'rank_math/frontend/title', $this->paper->title() );
+		$this->title = $this->do_filter( 'frontend/title', $this->paper->title() );
 
 		// Early Bail!!
 		if ( '' === $this->title ) {
@@ -172,7 +180,7 @@ class Paper {
 		*
 		* @param string $description The description sentence.
 		*/
-		$this->description = apply_filters( 'rank_math/frontend/description', trim( $this->paper->description() ) );
+		$this->description = $this->do_filter( 'frontend/description', trim( $this->paper->description() ) );
 
 		// Early Bail!!
 		if ( '' === $this->description ) {
@@ -215,7 +223,7 @@ class Paper {
 		 *
 		 * @param array $robots The meta robots directives to be echoed.
 		 */
-		$this->robots = apply_filters( 'rank_math/frontend/robots', array_unique( $this->robots ) );
+		$this->robots = $this->do_filter( 'frontend/robots', array_unique( $this->robots ) );
 
 		return $this->robots;
 	}
@@ -232,7 +240,7 @@ class Paper {
 		 *
 		 * @param bool $return Short-circuit return value. Either false or true.
 		 */
-		if ( ! apply_filters( 'rank_math/frontend/show_keywords', false ) ) {
+		if ( ! $this->do_filter( 'frontend/show_keywords', false ) ) {
 			return false;
 		}
 
@@ -247,7 +255,7 @@ class Paper {
 		 *
 		 * @param array $keywords The meta keywords to be echoed.
 		 */
-		return apply_filters( 'rank_math/frontend/keywords', $this->keywords );
+		return $this->do_filter( 'frontend/keywords', $this->keywords );
 	}
 
 	/**

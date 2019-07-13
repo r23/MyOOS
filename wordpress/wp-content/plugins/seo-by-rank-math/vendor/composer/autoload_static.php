@@ -252,6 +252,7 @@ class ComposerStaticInite0bd047aa5058f04568aa38dfc5ac000
         'RankMath\\Paper\\Date' => __DIR__ . '/../..' . '/includes/frontend/paper/class-date.php',
         'RankMath\\Paper\\Error_404' => __DIR__ . '/../..' . '/includes/frontend/paper/class-error-404.php',
         'RankMath\\Paper\\IPaper' => __DIR__ . '/../..' . '/includes/frontend/paper/interface-paper.php',
+        'RankMath\\Paper\\Misc' => __DIR__ . '/../..' . '/includes/frontend/paper/class-misc.php',
         'RankMath\\Paper\\Paper' => __DIR__ . '/../..' . '/includes/frontend/paper/class-paper.php',
         'RankMath\\Paper\\Search' => __DIR__ . '/../..' . '/includes/frontend/paper/class-search.php',
         'RankMath\\Paper\\Shop' => __DIR__ . '/../..' . '/includes/frontend/paper/class-shop.php',

@@ -3,9 +3,9 @@ Contributors: rankmath
 Plugin link: https://s.rankmath.com/homepage
 Tags: seo, sitemap, google search console, schema, redirection
 Tested up to: 5.2.2
-Requires at least: 4.6.0
+Requires at least: 4.7.0
 Requires PHP: 5.6
-Stable tag: 1.0.27.4
+Stable tag: 1.0.28.1
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -451,8 +451,22 @@ We look forward to helping you.
 
 == Changelog ==
 
-= 1.0.27.4 [Jun 25, 2019] =
-* Fixed redirections not working on some installations
-* Fixed ‘500 error’ appearing on some installations after updating the plugin settings
+= 1.0.28.1 [Jul 12, 2019] =
+* Fixed an issue happening on some installations where the content analysis API was conflicting with the MetaBox
+
+= 1.0.28 [Jul 12, 2019] =
+* Added Content Analysis API, now developers can make their custom fields compatible with Rank Math, [more details about the API and implementation](https://s.rankmath.com/analysisapi)
+* Added an option to auto-update the plugin [Rank Math >> General Settings >> Other]
+* Added few extra code checks in the SEO analyzer Page to avoid 503 Error on some websites
+* Improved CSS files by removing vendor prefixing (-webkit)
+* Fixed Sitemap not showing indexable posts in some cases
+* Fixed incorrect `hasPart` type in CollectionPage and BlogPost Schema
+* Fixed recipe ingredients printing in the same line even if a line break or a comma separator was present
+* Fixed range value not working in the salary field of JobListing Schema
+* Fixed a JS bug in the editor screen for non-admin users
+* Fixed custom term variables missing in the Global Settings
+* Fixed missing Image in the Physician schema
+* Fixed Paper class showing 404 data
+* Fixed 404 Monitor not detecting the user-agent correctly
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://rankmath.com/changelog)**

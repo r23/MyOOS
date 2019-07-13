@@ -15,11 +15,12 @@ $cmb->add_field([
 	'type'       => 'text',
 	'name'       => esc_html__( 'Salary (Recommended)', 'rank-math' ),
 	'desc'       => esc_html__( 'Insert amount, e.g. "50.00", or a salary range, e.g. "40.00-50.00".', 'rank-math' ),
-	'classes'    => 'cmb-row-33',
+	'classes'    => 'cmb-row-33 rank-math-validate-field',
 	'dep'        => $jobposting,
 	'attributes' => [
-		'type' => 'number',
-		'step' => 'any',
+		'data-rule-regex'       => 'true',
+		'data-validate-pattern' => '[\d -]+',
+		'data-msg-regex'        => esc_html__( 'Please use the correct format. Example: 50000', 'rank-math' ),
 	],
 ]);
 

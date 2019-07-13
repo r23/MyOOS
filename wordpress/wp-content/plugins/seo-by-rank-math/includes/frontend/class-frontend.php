@@ -323,7 +323,7 @@ class Frontend {
 		$post_id = empty( $post_id ) ? $GLOBALS['post']->ID : $post_id;
 
 		// Get Primary Term.
-		$primary = Helper::get_post_meta( "primary_{$taxonomy}", $post_id );
+		$primary = absint( Helper::get_post_meta( "primary_{$taxonomy}", $post_id ) );
 		if ( ! $primary ) {
 			return $terms;
 		}
@@ -334,7 +334,7 @@ class Frontend {
 
 		$primary_term = null;
 		foreach ( $terms as $index => $term ) {
-			if ( $primary == $term->term_id ) {
+			if ( $primary === $term->term_id ) {
 				$primary_term = $term;
 				unset( $terms[ $index ] );
 				array_unshift( $terms, $primary_term );

@@ -91,7 +91,7 @@ $cmb->add_field([
 	'name'    => esc_html__( 'Remove Snippet Data', 'rank-math' ),
 	/* translators: taxonomy name */
 	'desc'    => sprintf( esc_html__( 'Remove schema data from %s.', 'rank-math' ), $name ),
-	'default' => ( in_array( $taxonomy, [ 'product_cat', 'product_tag' ] ) ) ? 'on' : 'off',
+	'default' => ( in_array( $taxonomy, [ 'product_cat', 'product_tag' ], true ) ) ? 'on' : 'off',
 ]);
 
 if ( 'post_format' === $taxonomy ) {

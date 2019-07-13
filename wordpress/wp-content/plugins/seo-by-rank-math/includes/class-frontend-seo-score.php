@@ -101,7 +101,7 @@ class Frontend_SEO_Score {
 		$post_type     = get_post_type();
 		$post_id       = get_the_ID();
 		$score_enabled = Helper::get_settings( 'general.frontend_seo_score' )
-			&& in_array( $post_type, (array) Helper::get_settings( 'general.frontend_seo_score_post_types' ) )
+			&& in_array( $post_type, (array) Helper::get_settings( 'general.frontend_seo_score_post_types' ), true )
 			&& get_post_meta( $post_id, 'rank_math_dont_show_seo_score', true ) !== 'on';
 
 		return $score_enabled;
@@ -223,7 +223,7 @@ class Frontend_SEO_Score {
 	public static function show_on( $field = array() ) {
 		$post_type     = get_post_type();
 		$score_enabled = Helper::get_settings( 'general.frontend_seo_score' )
-			&& in_array( $post_type, (array) Helper::get_settings( 'general.frontend_seo_score_post_types' ) );
+			&& in_array( $post_type, (array) Helper::get_settings( 'general.frontend_seo_score_post_types' ), true );
 
 		return $score_enabled;
 	}
@@ -288,7 +288,7 @@ class Frontend_SEO_Score {
 		$seo_score  = Helper::get_settings( 'general.frontend_seo_score' );
 		$post_types = Helper::get_settings( 'general.frontend_seo_score_post_types' );
 
-		if ( 'on' == $seo_score && '' == $post_types ) {
+		if ( 'on' === $seo_score && '' === $post_types ) {
 			return [];
 		}
 

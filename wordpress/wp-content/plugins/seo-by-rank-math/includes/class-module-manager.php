@@ -233,7 +233,7 @@ class Module_Manager {
 
 		$is_disabled = isset( $module['disabled'] ) && $module['disabled'];
 		$can_skip    = isset( $module['only'] ) && 'skip' === $module['only'];
-		$inactive    = ! is_array( $this->active ) || ! in_array( $module_id, $this->active );
+		$inactive    = ! is_array( $this->active ) || ! in_array( $module_id, $this->active, true );
 		if ( $is_disabled || $can_skip || $inactive ) {
 			return false;
 		}
@@ -261,7 +261,7 @@ class Module_Manager {
 					continue;
 				}
 
-				$is_active   = is_array( $this->active ) && in_array( $module_id, $this->active );
+				$is_active   = is_array( $this->active ) && in_array( $module_id, $this->active, true );
 				$label_class = '';
 				if ( isset( $module['disabled'] ) && $module['disabled'] ) {
 					$is_active   = false;

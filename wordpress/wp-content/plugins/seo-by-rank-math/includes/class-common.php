@@ -53,6 +53,11 @@ class Common {
 		$this->ajax( 'mark_page_as', 'mark_page_as' );
 
 		add_action( 'wp_ajax_nopriv_rank_math_overlay_thumb', [ $this, 'generate_overlay_thumbnail' ] );
+
+		// Auto-update the plugin.
+		if ( Helper::get_settings( 'general.enable_auto_update' ) ) {
+			$this->filter( 'auto_update_plugin', 'auto_update_plugin', 10, 2 );
+		}
 	}
 
 	/**
@@ -142,6 +147,22 @@ class Common {
 		}
 
 		return $post_link;
+	}
+
+	/**
+	 * Auto update the plugin.
+	 *
+	 * @param bool  $update Whether to update the plugin or not.
+	 * @param array $item  The update plugin object.
+	 *
+	 * @return bool
+	 */
+	public function auto_update_plugin( $update, $item ) {
+		if ( 'rank-math' === $item->slug ) {
+			return true;
+		}
+
+		return $update;
 	}
 
 	/**

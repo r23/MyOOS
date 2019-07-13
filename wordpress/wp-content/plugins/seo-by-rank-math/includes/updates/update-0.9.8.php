@@ -75,9 +75,10 @@ function rank_math_0_9_8_update_tables() {
 		}
 
 		$status = 'active';
-		if ( -1 == $redirection['is_active'] ) {
+		$value  = intval( $redirection['is_active'] );
+		if ( -1 === $value ) {
 			$status = 'trashed';
-		} elseif ( 0 == $redirection['is_active'] ) {
+		} elseif ( 0 === $value ) {
 			$status = 'inactive';
 		}
 

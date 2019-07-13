@@ -1675,6 +1675,9 @@ msgstr ""
 msgid "Your site is ready!"
 msgstr ""
 
+msgid "Enable auto update of the plugin"
+msgstr ""
+
 msgid "Proudly Show the SEO Score to Your Visitors"
 msgstr ""
 
@@ -1920,13 +1923,13 @@ msgstr ""
 msgid "Items per page"
 msgstr ""
 
-msgid "A replacement variable can only contain alphanumeric characters, an underscore or a dash. Try renaming your variable."
+msgid "The variable has already been registered."
 msgstr ""
 
-msgid "A replacement variable with the same name has already been registered. Try making your variable name unique."
+msgid "Standard variables cannot be overridden by registering them again. Use the \"rankmath/replacements\" filter for this."
 msgstr ""
 
-msgid "You cannot overrule a Rank Math standard variable replacement by registering a variable with the same name. Use the \"wpseo_replacements\" filter instead to adjust the replacement value."
+msgid "Variable names can only contain alphanumeric characters, underscores and dashes."
 msgstr ""
 
 msgid "Hello World"
@@ -2196,6 +2199,21 @@ msgstr ""
 msgid "Starts at 1 and increments by 1."
 msgstr ""
 
+msgid "Custom Term (advanced)"
+msgstr ""
+
+msgid "Custom term value."
+msgstr ""
+
+msgid "Custom term value"
+msgstr ""
+
+msgid "Custom Term description"
+msgstr ""
+
+msgid "Custom Term description."
+msgstr ""
+
 #. translators: Taxonomy name.
 msgid "%s Title"
 msgstr ""
@@ -2205,9 +2223,6 @@ msgid "%s Description"
 msgstr ""
 
 msgid "Custom Term title."
-msgstr ""
-
-msgid "Custom Term description."
 msgstr ""
 
 #. translators: 1: current page number, 2: total number of pages.
@@ -3664,6 +3679,9 @@ msgstr ""
 msgid "Insert amount, e.g. \"50.00\", or a salary range, e.g. \"40.00-50.00\"."
 msgstr ""
 
+msgid "Please use the correct format. Example: 50000"
+msgstr ""
+
 msgid "Payroll (Recommended)"
 msgstr ""
 
@@ -4680,7 +4698,7 @@ msgstr ""
 msgid "Click here to read how to configure Sitemaps"
 msgstr ""
 
-msgid "The WooCommerce lets you see the URLs where visitors and search engine crawlers run into 404 not found errors on your site. Turn on Redirections too to redirect the faulty URLs easily."
+msgid "Choose how you want Rank Math to handle your WooCommerce SEO. These options help you create cleaner, SEO friendly URLs, and optimize your WooCommerce product pages."
 msgstr ""
 
 msgid "Product's price."
@@ -5129,7 +5147,7 @@ msgstr ""
 msgid "Author Archives"
 msgstr ""
 
-msgid "Redirect author archives to homepage. Useful for single-author blogs, where the author archive shows the same posts as the homepage/blog page. Alternatively, you can set the author archives to noindex."
+msgid "Enables or disables Author Archives. If disabled, the Author Archives are redirected to your homepage. To avoid duplicate content issues, noindex author archives if you keep them enabled."
 msgstr ""
 
 msgid "Disabled"
@@ -5250,7 +5268,7 @@ msgstr ""
 msgid "Date Archives"
 msgstr ""
 
-msgid "Redirect date archives to homepage."
+msgid "Enable or disable the date archive (_e.g: domain.com/2019/06/_). If this option is disabled, the date archives will be redirected to the homepage."
 msgstr ""
 
 msgid "Date Archive Title"

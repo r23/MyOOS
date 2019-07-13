@@ -47,7 +47,7 @@ class JobPosting implements Snippet {
 				'currency' => Helper::get_post_meta( 'snippet_jobposting_currency' ),
 				'value'    => [
 					'@type'    => 'QuantitativeValue',
-					'value'    => absint( Helper::get_post_meta( 'snippet_jobposting_salary' ) ),
+					'value'    => Helper::get_post_meta( 'snippet_jobposting_salary' ),
 					'unitText' => Helper::get_post_meta( 'snippet_jobposting_payroll' ),
 				],
 			],

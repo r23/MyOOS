@@ -41,7 +41,7 @@ trait Conditional {
 			return false;
 		}
 
-		return in_array( $id, $active_modules ) && array_key_exists( $id, rank_math()->manager->modules );
+		return in_array( $id, $active_modules, true ) && array_key_exists( $id, rank_math()->manager->modules );
 	}
 
 	/**

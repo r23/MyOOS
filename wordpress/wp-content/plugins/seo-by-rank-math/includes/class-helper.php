@@ -65,7 +65,7 @@ class Helper {
 	 */
 	public static function get_midnight( $time ) {
 		if ( is_numeric( $time ) ) {
-			$time = date( 'Y-m-d H:i:s', $time );
+			$time = date_i18n( 'Y-m-d H:i:s', $time );
 		}
 		$date = new \DateTime( $time );
 		$date->setTime( 0, 0, 0 );
@@ -202,7 +202,7 @@ class Helper {
 
 		foreach ( $modules as $module => $action ) {
 			if ( 'off' === $action ) {
-				if ( in_array( $module, $stored ) ) {
+				if ( in_array( $module, $stored, true ) ) {
 					$stored = array_diff( $stored, array( $module ) );
 				}
 				continue;
@@ -265,12 +265,12 @@ class Helper {
 
 		// Build a varniship.
 		$varniship = get_option( 'vhp_varnish_ip' );
-		if ( defined( 'VHP_VARNISH_IP' ) && VHP_VARNISH_IP != false ) {
+		if ( defined( 'VHP_VARNISH_IP' ) && false !== VHP_VARNISH_IP ) {
 			$varniship = VHP_VARNISH_IP;
 		}
 
 		// If we made varniship, let it sail.
-		$purgeme = ( isset( $varniship ) && null != $varniship ) ? $varniship : $parsed_url['host'];
+		$purgeme = ( isset( $varniship ) && null !== $varniship ) ? $varniship : $parsed_url['host'];
 		wp_remote_request( 'http://' . $purgeme,
 			array(
 				'method'  => 'PURGE',

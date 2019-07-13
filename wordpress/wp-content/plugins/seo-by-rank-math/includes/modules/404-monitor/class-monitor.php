@@ -153,9 +153,7 @@ class Monitor {
 			return '';
 		}
 
-		$u_agent = '';
-		$parsed  = $this->parse_user_agent( $u_agent );
-
+		$parsed = $this->parse_user_agent( $u_agent );
 		if ( ! empty( $parsed['browser'] ) ) {
 			$u_agent .= $parsed['browser'];
 		}

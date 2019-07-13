@@ -237,7 +237,7 @@ class JsonLD {
 	public function get_post_collection_item( &$collection, $data ) {
 		$post_id = get_the_ID();
 		$schema  = Helper::get_post_meta( 'rich_snippet', $post_id );
-		if ( ! $schema ) {
+		if ( ! $schema || 'article' !== $schema ) {
 			return;
 		}
 
@@ -245,7 +245,7 @@ class JsonLD {
 		$url   = $this->get_post_url( $post_id );
 
 		$part = [
-			'@type'            => isset( $data['schema'] ) ? $data['schema'] : $schema,
+			'@type'            => isset( $data['schema'] ) ? $data['schema'] : Helper::get_post_meta( 'snippet_article_type', $post_id ),
 			'headline'         => $title,
 			'name'             => $title,
 			'url'              => $url,

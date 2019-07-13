@@ -55,7 +55,7 @@ class Watcher implements Runner {
 		$plugins = get_option( 'active_plugins', [] );
 
 		foreach ( self::get_conflicting_plugins() as $plugin => $type ) {
-			if ( ! isset( $set[ $type ] ) && in_array( $plugin, $plugins ) ) {
+			if ( ! isset( $set[ $type ] ) && in_array( $plugin, $plugins, true ) ) {
 				$set[ $type ] = true;
 				self::set_notification( $type );
 			}
@@ -82,7 +82,7 @@ class Watcher implements Runner {
 	 * @param string $state  Module state.
 	 */
 	public static function module_changed( $module, $state ) {
-		if ( ! in_array( $module, [ 'sitemap', 'redirections', 'rich-snippet' ] ) ) {
+		if ( ! in_array( $module, [ 'sitemap', 'redirections', 'rich-snippet' ], true ) ) {
 			return;
 		}
 

@@ -78,7 +78,7 @@ class Cache_Watcher {
 	 * @param int $post_id Post ID to possibly invalidate for.
 	 */
 	public function save_post( $post_id ) {
-		if ( false === Helper::is_post_type_indexable( get_post_type( $post_id ) ) ) {
+		if ( false === Helper::is_post_indexable( $post_id ) ) {
 			return false;
 		}
 
@@ -116,7 +116,7 @@ class Cache_Watcher {
 
 		// None of our interest..
 		// If the post type is excluded in options, we can stop.
-		if ( 'nav_menu_item' === $post_type || ! Helper::is_post_type_indexable( $post_type ) ) {
+		if ( 'nav_menu_item' === $post_type || ! Helper::is_post_indexable( $post->ID ) ) {
 			return;
 		}
 
@@ -180,10 +180,6 @@ class Cache_Watcher {
 			// Just have the cache deleted for nav_menu_item.
 			if ( 'nav_menu_item' === $post_type ) {
 				continue;
-			}
-
-			if ( ! Helper::is_post_type_indexable( $post_type ) ) {
-				$ping = true;
 			}
 		}
 
@@ -260,12 +256,12 @@ class Cache_Watcher {
 		}
 
 		// Always invalidate the index sitemap as well.
-		if ( ! in_array( '1', $types ) ) {
+		if ( ! in_array( '1', $types, true ) ) {
 			array_unshift( $types, '1' );
 		}
 
 		foreach ( $types as $type ) {
-			if ( ! in_array( $type, self::$clear_types ) ) {
+			if ( ! in_array( $type, self::$clear_types, true ) ) {
 				self::$clear_types[] = $type;
 			}
 		}

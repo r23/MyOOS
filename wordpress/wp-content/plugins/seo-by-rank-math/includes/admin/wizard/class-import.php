@@ -70,7 +70,7 @@ class Import implements Wizard_Step {
 			$multi_checked = 'multicheck-checked';
 			$choices       = array_keys( $plugin['choices'] );
 
-			if ( ( array_key_exists( 'seopress', $plugins ) && ( in_array( $slug, [ 'yoast', 'yoast-premium', 'aioseo' ] ) ) ) || ( array_key_exists( 'yoast', $plugins ) || array_key_exists( 'yoast-premium', $plugins ) ) && 'aioseo' === $slug ) {
+			if ( ( array_key_exists( 'seopress', $plugins ) && ( in_array( $slug, [ 'yoast', 'yoast-premium', 'aioseo' ], true ) ) ) || ( array_key_exists( 'yoast', $plugins ) || array_key_exists( 'yoast-premium', $plugins ) ) && 'aioseo' === $slug ) {
 				$checked       = '';
 				$multi_checked = '';
 				$choices       = [];

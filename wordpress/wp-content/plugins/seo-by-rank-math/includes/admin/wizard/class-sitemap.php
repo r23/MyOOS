@@ -185,7 +185,7 @@ class Sitemap implements Wizard_Step {
 		}
 
 		foreach ( $post_types as $post_type => $object ) {
-			$settings['sitemap'][ "pt_{$post_type}_sitemap" ] = in_array( $post_type, $values['sitemap_post_types'] ) ? 'on' : 'off';
+			$settings['sitemap'][ "pt_{$post_type}_sitemap" ] = in_array( $post_type, $values['sitemap_post_types'], true ) ? 'on' : 'off';
 		}
 
 		return $settings;
@@ -207,7 +207,7 @@ class Sitemap implements Wizard_Step {
 		}
 
 		foreach ( $taxonomies as $taxonomy => $label ) {
-			$settings['sitemap'][ "tax_{$taxonomy}_sitemap" ] = in_array( $taxonomy, $values['sitemap_taxonomies'] ) ? 'on' : 'off';
+			$settings['sitemap'][ "tax_{$taxonomy}_sitemap" ] = in_array( $taxonomy, $values['sitemap_taxonomies'], true ) ? 'on' : 'off';
 		}
 
 		return $settings;

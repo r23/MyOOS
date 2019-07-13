@@ -147,14 +147,14 @@ class Snippet_Shortcode {
 		<p>
 			<strong><?php echo $field; ?>: </strong>
 			<?php
-			if ( in_array( $id, [ 'recipe_instructions', 'book_editions' ], true ) ) {
+			if ( in_array( $id, [ 'recipe_instructions', 'recipe_ingredients', 'book_editions' ], true ) ) {
 				$perform = "get_{$id}";
 				$this->$perform( $value );
 				return;
 			}
 
-			if ( in_array( $id, [ 'jobposting_startdate', 'jobposting_expirydate', 'event_startdate', 'event_enddate' ] ) ) {
-				echo date( 'Y-m-d H:i', $value );
+			if ( in_array( $id, [ 'jobposting_startdate', 'jobposting_expirydate', 'event_startdate', 'event_enddate' ], true ) ) {
+				echo date_i18n( 'Y-m-d H:i', $value );
 				return;
 			}
 			echo is_array( $value ) ? implode( ', ', $value ) : esc_html( $value );
@@ -172,6 +172,15 @@ class Snippet_Shortcode {
 		foreach ( $value as $key => $data ) {
 			echo '<p><strong>' . $data['name'] . ': </strong>' . $data['text'] . '</p>';
 		}
+	}
+
+	/**
+	 * Get Recipe Ingredients.
+	 *
+	 * @param string $value Recipe ingredients.
+	 */
+	public function get_recipe_ingredients( $value ) {
+		echo str_replace( "\r\n", ', ', $value );
 	}
 
 	/**

@@ -144,7 +144,7 @@ class Installer {
 		update_option( 'rank_math_db_version', rank_math()->db_version );
 
 		// Save install date.
-		if ( false == get_option( 'rank_math_install_date' ) ) {
+		if ( false === boolval( get_option( 'rank_math_install_date' ) ) ) {
 			update_option( 'rank_math_install_date', current_time( 'timestamp' ) );
 		}
 
@@ -348,6 +348,8 @@ class Installer {
 			'frontend_seo_score'                  => 'off',
 			'frontend_seo_score_post_types'       => [ 'post' ],
 			'frontend_seo_score_position'         => 'top',
+			'frontend_seo_score'                  => 'off',
+			'enable_auto_update'                  => 'off',
 		]));
 	}
 

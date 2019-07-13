@@ -82,7 +82,7 @@ class AIO_Rich_Snippet extends Plugin_Importer {
 
 		foreach ( $meta_keys as $snippet_key => $snippet_value ) {
 			$value = get_post_meta( $post_id, '_bsf_' . $snippet_key, true );
-			$value = in_array( $snippet_key, [ 'event_start_date', 'event_end_date' ] ) ? strtotime( $value ) : $value;
+			$value = in_array( $snippet_key, [ 'event_start_date', 'event_end_date' ], true ) ? strtotime( $value ) : $value;
 			if ( $this->has_address( $type, $snippet_key ) ) {
 				$address[ $snippet_value ] = $value;
 				$value                     = $address;
@@ -207,10 +207,10 @@ class AIO_Rich_Snippet extends Plugin_Importer {
 				'people_postal'    => 'postalCode',
 			],
 			'product'  => [
-				'product_brand'  => 'product_brand',
-				'product_name'   => 'name',
-				'product_price'  => 'product_price',
-				'product_cur'    => 'product_currency',
+				'product_brand' => 'product_brand',
+				'product_name'  => 'name',
+				'product_price' => 'product_price',
+				'product_cur'   => 'product_currency',
 			],
 			'recipe'   => [
 				'recipes_name'       => 'name',

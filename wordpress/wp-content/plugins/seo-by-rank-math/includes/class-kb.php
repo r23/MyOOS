@@ -210,7 +210,7 @@ class KB {
 		],
 		'review-rm' => [
 			'https://s.rankmath.com/review',
-			'https://wordpress.org/support/plugin/seo-by-rank-math/reviews/?filter=5#new-post'
+			'https://s.rankmath.com/reviewrankmath'
 		],
 		'fb-group' => [
 			'https://s.rankmath.com/fbgroup',
