@@ -61,8 +61,8 @@ class Head {
 
 		// Force Rewrite title.
 		if ( Helper::get_settings( 'titles.rewrite_title' ) && ! current_theme_supports( 'title-tag' ) ) {
-			ob_start();
-			add_action( 'wp_head', [ $this, 'rewrite_title' ], 9999 );
+			$this->action( 'get_header', 'start_ob', 0 );
+			$this->action( 'wp_head', 'rewrite_title', 9999 );
 		}
 	}
 
@@ -369,6 +369,15 @@ class Head {
 		if ( ! Helper::is_whitelabel() ) {
 			echo '<!-- /' . esc_html__( 'Rank Math WordPress SEO plugin', 'rank-math' ) . " -->\n\n";
 		}
+	}
+
+	/**
+	 * Start the Output Buffer.
+	 *
+	 * @since 1.0.29
+	 */
+	public function start_ob() {
+		ob_start();
 	}
 
 	/**

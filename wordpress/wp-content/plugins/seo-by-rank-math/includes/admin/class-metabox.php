@@ -84,6 +84,9 @@ class Metabox implements Runner {
 		wp_enqueue_script( 'jquery-tag-editor', $js . 'jquery.tag-editor.js', [ 'jquery-ui-autocomplete', 'jquery-caret' ], '1.0.21', true );
 		wp_enqueue_script( 'rank-math-assessor', $js . 'assessor.js', null, rank_math()->version, true );
 
+		if ( ! wp_script_is( 'wp-hooks', 'registered' ) ) {
+			wp_register_script( 'wp-hooks', $js . 'hooks.js', [], rank_math()->version, true );
+		}
 		if ( Admin_Helper::is_post_edit() ) {
 			global $post;
 			Helper::add_json( 'objectID', $post->ID );
@@ -255,7 +258,7 @@ class Metabox implements Runner {
 					[
 						'textarea_name' => 'description',
 						'textarea_rows' => 5,
-						'quicktags'     => false,
+						'quicktags'     => true,
 					]
 				);
 				?>

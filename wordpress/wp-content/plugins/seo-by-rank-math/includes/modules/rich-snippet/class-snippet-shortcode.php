@@ -13,6 +13,7 @@ namespace RankMath\RichSnippet;
 use RankMath\Helper;
 use RankMath\Traits\Hooker;
 use RankMath\Traits\Shortcode;
+use MyThemeShop\Helpers\Str;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -180,7 +181,14 @@ class Snippet_Shortcode {
 	 * @param string $value Recipe ingredients.
 	 */
 	public function get_recipe_ingredients( $value ) {
-		echo str_replace( "\r\n", ', ', $value );
+		if ( Str::contains( "\r\n", $value ) ) {
+			echo '<ul>';
+			echo '<li>' . str_replace( "\r\n", "</li>\n<li>", $value ) . '</li>';
+			echo '</ul>';
+			return;
+		}
+
+		echo $value;
 	}
 
 	/**

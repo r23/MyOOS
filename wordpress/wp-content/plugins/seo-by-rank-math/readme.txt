@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection
 Tested up to: 5.2.2
 Requires at least: 4.7.0
 Requires PHP: 5.6
-Stable tag: 1.0.28.1
+Stable tag: 1.0.29
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -451,22 +451,15 @@ We look forward to helping you.
 
 == Changelog ==
 
-= 1.0.28.1 [Jul 12, 2019] =
-* Fixed an issue happening on some installations where the content analysis API was conflicting with the MetaBox
-
-= 1.0.28 [Jul 12, 2019] =
-* Added Content Analysis API, now developers can make their custom fields compatible with Rank Math, [more details about the API and implementation](https://s.rankmath.com/analysisapi)
-* Added an option to auto-update the plugin [Rank Math >> General Settings >> Other]
-* Added few extra code checks in the SEO analyzer Page to avoid 503 Error on some websites
-* Improved CSS files by removing vendor prefixing (-webkit)
-* Fixed Sitemap not showing indexable posts in some cases
-* Fixed incorrect `hasPart` type in CollectionPage and BlogPost Schema
-* Fixed recipe ingredients printing in the same line even if a line break or a comma separator was present
-* Fixed range value not working in the salary field of JobListing Schema
-* Fixed a JS bug in the editor screen for non-admin users
-* Fixed custom term variables missing in the Global Settings
-* Fixed missing Image in the Physician schema
-* Fixed Paper class showing 404 data
-* Fixed 404 Monitor not detecting the user-agent correctly
+= 1.0.29 [Jul 16, 2019] =
+* Added new Google Rich Results testing tool's link in the External tools list menu
+* Added text/HTML tab on the category pages
+* Fixed the `noindex` option not working in the Custom Post Types, due to this CPTs were appearing in the Sitemap
+* Fixed Rank Math metabox not showing up on WP v4.8.x & 4.9.x
+* Fixed WP Rocket minification not working when the Rewrite title option was enabled
+* Fixed RTL styling issue of Review Snippet on the frontend
+* Improved styling of Recipe ingredients section on the frontend
+* Replaced Graph dashicon with the Rank Math's icon in a couple of places
+* Added some small performance improvements
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://rankmath.com/changelog)**

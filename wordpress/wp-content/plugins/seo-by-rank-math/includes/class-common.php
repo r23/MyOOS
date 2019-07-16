@@ -460,6 +460,30 @@ class Common {
 			'_priority' => 230,
 		];
 
+		$items['third-party-google-richresults-mobile'] = [
+			'id'        => 'rank-math-google-richresults-mobile',
+			'title'     => esc_html__( 'Google Rich Results (Mobile)', 'rank-math' ),
+			'href'      => 'https://search.google.com/test/rich-results?url=' . $link_urlencoded . '&user_agent=1',
+			'parent'    => 'rank-math-third-party',
+			'meta'      => [
+				'title'  => esc_html__( 'Google Rich Results Test - Googlebot Smartphone', 'rank-math' ),
+				'target' => '_blank',
+			],
+			'_priority' => 240,
+		];
+
+		$items['third-party-google-richresults-desktop'] = [
+			'id'        => 'rank-math-google-richresults-desktop',
+			'title'     => esc_html__( 'Google Rich Results (Desktop)', 'rank-math' ),
+			'href'      => 'https://search.google.com/test/rich-results?url=' . $link_urlencoded . '&user_agent=2',
+			'parent'    => 'rank-math-third-party',
+			'meta'      => [
+				'title'  => esc_html__( 'Google Rich Results Test - Googlebot Desktop', 'rank-math' ),
+				'target' => '_blank',
+			],
+			'_priority' => 250,
+		];
+
 		if ( ! is_admin() && ! is_preview() ) {
 			$items['third-party-google-cache'] = [
 				'id'        => 'rank-math-google-cache',
@@ -470,7 +494,7 @@ class Common {
 					'title'  => esc_html__( 'See Google\'s cached version of your site', 'rank-math' ),
 					'target' => '_blank',
 				],
-				'_priority' => 240,
+				'_priority' => 260,
 			];
 		}
 
@@ -483,7 +507,7 @@ class Common {
 				'title'  => esc_html__( 'Facebook Sharing Debugger', 'rank-math' ),
 				'target' => '_blank',
 			],
-			'_priority' => 250,
+			'_priority' => 270,
 		];
 	}
 
