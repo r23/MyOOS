@@ -73,6 +73,7 @@ $aContents['products_attributes_add'] = $prefix_filename . 'products_attributes_
 $aContents['products_expected'] = $prefix_filename . 'products_expected.php';
 $aContents['products_status'] = $prefix_filename . 'products_status.php';
 $aContents['products_units'] = $prefix_filename . 'products_units.php';
+$aContents['product_webgl_gltf'] = $prefix_filename . 'product_webgl_gltf.php';
 $aContents['reviews'] = $prefix_filename . 'reviews.php';
 $aContents['shipping_modules'] = $prefix_filename . 'shipping_modules.php';
 $aContents['specials'] = $prefix_filename . 'specials.php';
