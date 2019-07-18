@@ -65,7 +65,7 @@ if (!$product_info_result->RecordCount()) {
     }
 
     $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['products_new']));
-	$sCanonical = oos_href_link($aContents['product_info'], 'products_id='. $nProductsID, FALSE, TRUE);	
+	$sCanonical = oos_href_link($aContents['product_info_webgl_gltf'], 'products_id='. $nProductsID, FALSE, TRUE);	
 	
     $smarty->assign(
         array(
@@ -79,6 +79,13 @@ if (!$product_info_result->RecordCount()) {
 } else {
 
     $product_info = $product_info_result->fields;
+
+
+	ob_start();
+	require_once MYOOS_INCLUDE_PATH . '/includes/modules/three/product_info_webgl_gltf.js.php';
+	$javascript = ob_get_contents();
+	ob_end_clean();
+
 
     // Meta Tags
     $sPagetitle = (empty($product_info['products_title']) ? $product_info['products_name'] : $product_info['products_title']); 
@@ -95,7 +102,8 @@ if (!$product_info_result->RecordCount()) {
     }
 
     // breadcrumb
-	$oBreadcrumb->add($product_info['products_name']);
+	$oBreadcrumb->add($product_info['products_name'], oos_href_link($aContents['product_info'], 'products_id='. $nProductsID));
+	$oBreadcrumb->add('360°');
 	$sCanonical = oos_href_link($aContents['product_info_webgl_gltf'], 'products_id='. $nProductsID, FALSE, TRUE);		
 	
     $info_product_price = NULL;
@@ -162,7 +170,7 @@ if (!$product_info_result->RecordCount()) {
     $smarty->assign(
         array(
 			'breadcrumb' => $oBreadcrumb->trail(),
-			'canonical'		=> $sCanonical
+			'canonical'  => $sCanonical
 		)
 	);
 
@@ -178,6 +186,9 @@ if (!$product_info_result->RecordCount()) {
     $smarty->assign('product_info', $product_info);
 	$smarty->assign('heading_title', $product_info['products_name']);
     $smarty->assign('options', $options);
+	$smarty->assign('javascript', $javascript);	
+	
+	
 
     $smarty->setCaching(false);
 }

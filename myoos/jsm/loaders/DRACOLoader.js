@@ -26,7 +26,7 @@ import {
 	Uint16BufferAttribute,
 	Uint32BufferAttribute,
 	Uint8BufferAttribute
-} from "../../../build/three.module.js";
+} from "../../../js/three/three.module.js";
 
 /**
  * @param {THREE.LoadingManager} manager
