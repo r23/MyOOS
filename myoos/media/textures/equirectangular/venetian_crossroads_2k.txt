@@ -1,0 +1,11 @@
+﻿
+https://hdrihaven.com/hdri/?h=venetian_crossroads
+
+
+    Dynamic Range: 22 EVs (extremely high), unclipped
+    Whitebalance: 5400
+    Taken: 03 November 2017 11:14
+    Published: 13 February 2018 (1 year ago)
+    Location: 45.4312, 12.3571 (approx.)
+    Author: Greg Zaal
+	License: CC0 https://creativecommons.org/publicdomain/zero/1.0/
