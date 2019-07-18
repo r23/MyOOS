@@ -56,6 +56,7 @@ $aContents = [
 'newsletter'                      => $prefix_filename . 'newsletter',
 //products
 'product_info'                    => $prefix_filename . 'product_info',
+'product_info_webgl_gltf'         => $prefix_filename . 'product_info_webgl_gltf',
 'products_new'                    => $prefix_filename . 'products_new',
 'specials'                        => $prefix_filename . 'specials',
 //pub
