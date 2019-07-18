@@ -1,0 +1,10 @@
+﻿
+https://hdrihaven.com/hdri/?h=vignaioli
+
+    Dynamic Range: 8 EVs (medium), unclipped
+    Whitebalance: 5400
+    Taken: 05 November 2017 12:05
+    Published: 26 January 2018 (1 year ago)
+    Location: 44.0988, 9.73777 (approx.)
+    Author: Greg Zaal
+	License: CC0 https://creativecommons.org/publicdomain/zero/1.0/
