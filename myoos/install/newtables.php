@@ -1043,6 +1043,26 @@ $flds = "
 dosql($table, $flds);
 
 
+$table = $prefix_table . 'products_models';
+$flds = "
+  models_id I NOTNULL AUTO PRIMARY,
+  products_id I NOTNULL DEFAULT '1' PRIMARY,
+  models_webgl_gltf C(255) NULL,
+  models_author C(255) NULL,
+  models_author_url C(255) NULL,
+  models_camera_pos C(24) NULL,
+  models_object_rotation: C(10) NULL,
+  models_add_lights C(5) NOTNULL DEFAULT 'true',
+  models_add_ground C(5) NOTNULL DEFAULT 'true',
+  models_shadows C(5) NOTNULL DEFAULT 'true',
+  models_hdr C(255) NULL
+";
+dosql($table, $flds);
+
+
+
+
+
 $table = $prefix_table . 'reviews';
 $flds = "
   reviews_id I NOTNULL AUTO PRIMARY,
