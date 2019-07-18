@@ -39,7 +39,7 @@
 			var scenes = {
 				Boombox: {
 					name: 'BoomBox (PBR)',
-					url: './models/gltf/BoomBox/%s/BoomBox.gltf',
+					url: './media/models/gltf/BoomBox/%s/BoomBox.gltf',
 					author: 'Microsoft',
 					authorURL: 'https://www.microsoft.com/',
 					cameraPos: new THREE.Vector3( 0.02, 0.01, 0.03 ),
@@ -49,7 +49,7 @@
 				},
 				'Bot Skinned': {
 					name: 'Bot Skinned',
-					url: './models/gltf/BotSkinned/%s/Bot_Skinned.gltf',
+					url: './media/models/gltf/BotSkinned/%s/Bot_Skinned.gltf',
 					author: 'MozillaVR',
 					authorURL: 'https://vr.mozilla.org/',
 					cameraPos: new THREE.Vector3( 0.5, 2, 2 ),
@@ -62,7 +62,7 @@
 				},
 				MetalRoughSpheres: {
 					name: 'MetalRoughSpheres (PBR)',
-					url: './models/gltf/MetalRoughSpheres/%s/MetalRoughSpheres.gltf',
+					url: './media/models/gltf/MetalRoughSpheres/%s/MetalRoughSpheres.gltf',
 					author: '@emackey',
 					authorURL: 'https://twitter.com/emackey',
 					cameraPos: new THREE.Vector3( 2, 1, 15 ),
@@ -72,7 +72,7 @@
 				},
 				Duck: {
 					name: 'Duck',
-					url: './models/gltf/Duck/%s/Duck.gltf',
+					url: './media/models/gltf/Duck/%s/Duck.gltf',
 					author: 'Sony',
 					authorURL: 'https://www.playstation.com/en-us/corporate/about/',
 					cameraPos: new THREE.Vector3( 0, 3, 5 ),
@@ -83,7 +83,7 @@
 				},
 				Monster: {
 					name: 'Monster',
-					url: './models/gltf/Monster/%s/Monster.gltf',
+					url: './media/models/gltf/Monster/%s/Monster.gltf',
 					author: '3drt.com',
 					authorURL: 'http://www.3drt.com/downloads.htm',
 					cameraPos: new THREE.Vector3( 3, 1, 7 ),
@@ -98,7 +98,7 @@
 				},
 				'Cesium Man': {
 					name: 'Cesium Man',
-					url: './models/gltf/CesiumMan/%s/CesiumMan.gltf',
+					url: './media/models/gltf/CesiumMan/%s/CesiumMan.gltf',
 					author: 'Cesium',
 					authorURL: 'https://cesiumjs.org/',
 					cameraPos: new THREE.Vector3( 0, 3, 10 ),
@@ -110,7 +110,7 @@
 				},
 				'Cesium Milk Truck': {
 					name: 'Cesium Milk Truck',
-					url: './models/gltf/CesiumMilkTruck/%s/CesiumMilkTruck.gltf',
+					url: './media/models/gltf/CesiumMilkTruck/%s/CesiumMilkTruck.gltf',
 					author: 'Cesium',
 					authorURL: 'https://cesiumjs.org/',
 					cameraPos: new THREE.Vector3( 0, 3, 10 ),
@@ -121,7 +121,7 @@
 				},
 				'Outlined Box': {
 					name: 'Outlined Box',
-					url: './models/gltf/OutlinedBox/OutlinedBox.gltf',
+					url: './media/models/gltf/OutlinedBox/OutlinedBox.gltf',
 					author: '@twittmann',
 					authorURL: 'https://github.com/twittmann',
 					cameraPos: new THREE.Vector3( 0, 5, 15 ),
@@ -156,7 +156,7 @@
 
 				new RGBELoader()
 					.setType( THREE.UnsignedByteType )
-					.setPath( 'textures/equirectangular/' )
+					.setPath( 'media/textures/equirectangular/' )
 					.load( 'venice_sunset_2k.hdr', function ( texture ) {
 
 						var cubeGenerator = new EquirectangularToCubeGenerator( texture, { resolution: 1024 } );
