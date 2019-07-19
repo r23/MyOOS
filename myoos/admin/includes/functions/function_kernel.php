@@ -977,21 +977,15 @@ function oos_prepare_input($string) {
 }
 
 
- /**
-  * Return File Extension
-  *
-  * @param $filename
-  * @return string
-  */
-function oos_get_extension($filename) {
-    $filename  = strtolower($filename);
-    $extension = explode("[/\\.]", $filename);
-    $n = count($extension)-1;
-    $extension = $extension[$n];
-
-    return $extension;
+/**
+ * Returns the suffix of a file name
+ *
+ * @param string $filename
+ * @return string
+ */
+function get_suffix($filename) {
+	return strtolower(substr(strrchr($filename, "."), 1));
 }
-
   
 function oos_strtolower ($sStr) {
 	$sStr = strtolower($sStr);
@@ -1035,6 +1029,62 @@ function parse_size($size) {
 		return $match[1] * $suffixes[strtolower($match[2])];
 	}
 }  
+
+
+
+/**
+ * Unzips an archive
+ *
+ * @param file $file the archive
+ * @param string $dir where the images go
+ */
+function unzip($file, $dir) { 
+
+	//check if zziplib is installed
+	if (function_exists('zip_open')) {
+		$zip = zip_open($file);
+		if ($zip) {
+			while ($zip_entry = zip_read($zip)) { // Skip non-images in the zip file.
+					$fname = zip_entry_name($zip_entry);
+					$seoname = internalToFilesystem(seoFriendly($fname));
+						if (zip_entry_open($zip, $zip_entry, "r")) {
+							$buf = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
+							$path_file = str_replace("/", DIRECTORY_SEPARATOR, $dir . '/' . $seoname);
+							$fp = fopen($path_file, "w");
+							fwrite($fp, $buf);
+							fclose($fp);
+							clearstatcache();
+							zip_entry_close($zip_entry);
+
+						}
+
+				}
+				zip_close($zip);
+			}
+	} else {
+		require_once MYOOS_INCLUDE_PATH . '/includes/lib/lib-pclzip.php';
+		$zip = new PclZip($file);
+		if ($zip->extract(PCLZIP_OPT_PATH, $dir, PCLZIP_OPT_REMOVE_ALL_PATH) == 0) {
+			return false;
+		}
+	}
+	
+	return true;
+}
+
+/**
+ * Checks for a zip file
+ *
+ * @param string $filename name of the file
+ * @return bool
+ */
+function is_zip($filename) {
+	$ext = get_suffix($filename);
+	return ($ext == "zip");
+}
+
+
+
 
 /**
  * Mail function (uses phpMailer)
