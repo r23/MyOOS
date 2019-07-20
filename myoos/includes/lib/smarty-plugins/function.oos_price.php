@@ -43,7 +43,7 @@ function smarty_function_oos_price($params, &$smarty)
   
    $price = '';
    $tax = '';
-   $qty = '';
+   $qty = 1;
    
    
    foreach($params as $_key => $_val) {

@@ -338,7 +338,7 @@ class order {
                                         'image' => $products[$i]['image'],																				
                                         'model' => $products[$i]['model'],
                                         'ean' => $products[$i]['ean'],
-                                        'tax' => oos_get_tax_rate($products[$i]['tax_class_id'], $tax_address['entry_country_id'], $$tax_address['entry_zone_id']),
+                                        'tax' => oos_get_tax_rate($products[$i]['tax_class_id'], $tax_address['entry_country_id'], $tax_address['entry_zone_id']),
                                         'price' => $products[$i]['price'],
                                         'final_price' => $products[$i]['price'] + $_SESSION['cart']->attributes_price($products[$i]['id']),
                                         'weight' => $products[$i]['weight'],
