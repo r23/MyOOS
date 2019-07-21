@@ -19,10 +19,6 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
-
-
 
 if (defined( 'IS_ADMIN_FLAG' ) ) {
 	$composerAutoload = MYOOS_INCLUDE_PATH . '/vendor/autoload.php';
@@ -234,7 +230,7 @@ class paypal_api {
 		die($ex);
 */		
 
-			$_SESSION['error_cart_msg'] = MODULE_PAYMENT_PAYPAL_API_ERROR;
+			$_SESSION['error_message'] = MODULE_PAYMENT_PAYPAL_API_ERROR;
 			oos_redirect(oos_href_link($aContents['checkout_payment']));
 		}
 

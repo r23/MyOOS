@@ -32,7 +32,7 @@
       $this->sort_order = (defined('MODULE_SHIPPING_WEIGHT_SORT_ORDER') ? MODULE_SHIPPING_WEIGHT_SORT_ORDER : null);
       $this->icon = '';
       $this->tax_class = (defined('MODULE_SHIPPING_WEIGHT_TAX_CLASS') ? MODULE_SHIPPING_WEIGHT_TAX_CLASS : null);
-      $this->enabled = (defined('MODULE_SHIPPING_WEIGHT_STATUS') && (MODULE_SHIPPING_WEIGHT_STATUS == 'True') ? true : false);
+      $this->enabled = (defined('MODULE_SHIPPING_WEIGHT_STATUS') && (MODULE_SHIPPING_WEIGHT_STATUS == 'True') ? TRUE : FALSE);
 
       if ( ($this->enabled == TRUE) && ((defined('MODULE_SHIPPING_WEIGHT_ZONE') && (int)MODULE_SHIPPING_WEIGHT_ZONE > 0)) ) {
         $check_flag = FALSE;

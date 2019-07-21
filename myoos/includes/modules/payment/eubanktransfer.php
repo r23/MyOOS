@@ -37,7 +37,7 @@ class eubanktransfer {
 			$this->order_status = MODULE_PAYMENT_EU_BANKTRANSFER_ORDER_STATUS_ID;
 		}
 
-		if ( $this->enabled === true ) {
+		if ( $this->enabled === TRUE ) {
 			if ( isset($oOrder) && is_object($oOrder) ) {
 				$this->update_status();
 			}

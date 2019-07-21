@@ -39,8 +39,8 @@ if (isset($_SESSION)) {
 	if (isset($_SESSION['new_products_id_in_cart'])) {
 		unset($_SESSION['new_products_id_in_cart']);
 	}
-	if (isset($_SESSION['error_cart_msg'])) {
-		unset($_SESSION['error_cart_msg']);
+	if (isset($_SESSION['error_message'])) {
+		unset($_SESSION['error_message']);
 	}
 }
 

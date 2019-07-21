@@ -29,13 +29,13 @@ class cod {
 		$this->code = 'cod';
 		$this->title = $aLang['module_payment_cod_text_title'];
 		$this->description = $aLang['module_payment_cod_text_description'];
-		$this->enabled = (defined('MODULE_PAYMENT_COD_STATUS') && (MODULE_PAYMENT_COD_STATUS == 'True') ? true : false);
+		$this->enabled = (defined('MODULE_PAYMENT_COD_STATUS') && (MODULE_PAYMENT_COD_STATUS == 'True') ? TRUE : FALSE);
 	    
 		$this->sort_order = (defined('MODULE_PAYMENT_COD_SORT_ORDER') ? MODULE_PAYMENT_COD_SORT_ORDER : null);
 
 		$this->order_status = defined('MODULE_PAYMENT_COD_ORDER_STATUS_ID') && ((int)MODULE_PAYMENT_COD_ORDER_STATUS_ID > 0) ? (int)MODULE_PAYMENT_COD_ORDER_STATUS_ID : 0;
 
-		if ( $this->enabled === true ) {
+		if ( $this->enabled === TRUE ) {
 			if ( isset($oOrder) && is_object($oOrder) ) {
 				$this->update_status();
 			}

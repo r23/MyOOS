@@ -34,7 +34,7 @@
       $this->code = 'ot_xmembers';
       $this->title = $aLang['module_xmembers_title'];
       $this->description = $aLang['module_xmembers_description'];
-      $this->enabled = (defined('MODULE_XMEMBERS_STATUS') && (MODULE_XMEMBERS_STATUS == 'TRUE') ? true : false);
+      $this->enabled = (defined('MODULE_XMEMBERS_STATUS') && (MODULE_XMEMBERS_STATUS == 'TRUE') ? TRUE : FALSE);
       $this->sort_order = (defined('MODULE_XMEMBERS_SORT_ORDER') ? MODULE_XMEMBERS_SORT_ORDER : null);
       $this->include_shipping = (defined('MODULE_XMEMBERS_INC_SHIPPING') ? MODULE_XMEMBERS_INC_SHIPPING : null);
       $this->include_tax = (defined('MODULE_XMEMBERS_INC_TAX') ? MODULE_XMEMBERS_INC_TAX : null);
@@ -139,11 +139,11 @@
       $oostable =& oosDBGetTables();
 
       $configurationtable = $oostable['configuration'];
-      $dbconn->Execute("INSERT INTO  $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) values ('MODULE_XMEMBERS_STATUS', 'TRUE', '6', '1','oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
+      $dbconn->Execute("INSERT INTO  $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) values ('MODULE_XMEMBERS_STATUS', 'TRUE', '6', '1','oos_cfg_select_option(array(\'TRUE\', \'FALSE\'), ', now())");
       $dbconn->Execute("INSERT INTO  $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) values ('MODULE_XMEMBERS_SORT_ORDER', '3', '6', '2', now())");
-      $dbconn->Execute("INSERT INTO  $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function ,date_added) values ('MODULE_XMEMBERS_INC_SHIPPING', 'TRUE', '6', '5', 'oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
-      $dbconn->Execute("INSERT INTO  $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function ,date_added) values ('MODULE_XMEMBERS_INC_TAX', 'TRUE', '6', '6','oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
-      $dbconn->Execute("INSERT INTO  $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function ,date_added) values ('MODULE_XMEMBERS_CALC_TAX', 'FALSE', '6', '5','oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
+      $dbconn->Execute("INSERT INTO  $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function ,date_added) values ('MODULE_XMEMBERS_INC_SHIPPING', 'TRUE', '6', '5', 'oos_cfg_select_option(array(\'TRUE\', \'FALSE\'), ', now())");
+      $dbconn->Execute("INSERT INTO  $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function ,date_added) values ('MODULE_XMEMBERS_INC_TAX', 'TRUE', '6', '6','oos_cfg_select_option(array(\'TRUE\', \'FALSE\'), ', now())");
+      $dbconn->Execute("INSERT INTO  $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function ,date_added) values ('MODULE_XMEMBERS_CALC_TAX', 'FALSE', '6', '5','oos_cfg_select_option(array(\'TRUE\', \'FALSE\'), ', now())");
     }
 
     function remove() {

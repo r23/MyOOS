@@ -54,14 +54,6 @@ if ( (WARN_DOWNLOAD_DIRECTORY_NOT_READABLE == 'true') && (DOWNLOAD_ENABLED == 't
     }
 }
 
-// todo remove 
-if (isset($_GET['error_message']) && !empty($_GET['error_message'])) {
-    $sErrorGetMessage = oos_var_prep_for_os(urldecode($_GET['error_message']));
-    $aInfoMessage[] = array('type' => 'danger',
-                            'title' => $aLang['danger'],
-                            'text' => $sErrorGetMessage);
-}
-
 // todo remove
 if (isset($_GET['info_message']) && !empty($_GET['info_message'])) {
     $sInfoGetMessage = oos_var_prep_for_os(urldecode($_GET['info_message']));  
@@ -96,13 +88,6 @@ if (isset($_SESSION)) {
 					'text' => (string)$_SESSION['error_message']);
 		unset($_SESSION['error_message']);
 	}		
-	
-	if (isset($_SESSION['error_cart_msg']) && !empty($_SESSION['error_cart_msg'])) {
-		$aInfoMessage[] = array('type' => 'danger',
-					'title' => $aLang['danger'],
-					'text' => (string)$_SESSION['error_cart_msg']);
-		unset($_SESSION['error_cart_msg']);
-	}	
 }
 
 
