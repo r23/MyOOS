@@ -229,7 +229,7 @@ $flds = "
   categories_name C(32) NOTNULL,
   categories_page_title C(255) NULL,
   categories_heading_title C(250),
-  categories_description X,
+  categories_description XL,
   categories_description_meta C(250)
 ";
 dosql($table, $flds);
@@ -538,9 +538,9 @@ dosql($table, $flds);
 $table = $prefix_table . 'files_uploaded';
 $flds = "
   files_uploaded_id I NOTNULL AUTO PRIMARY,
-  sesskey C(32),
+  sesskey C(252),
   customers_id I,
-  files_uploaded_name C(64) NOTNULL
+  files_uploaded_name C(164) NOTNULL
 ";
 dosql($table, $flds);
 
@@ -575,7 +575,7 @@ $flds = "
   information_languages_id I NOTNULL DEFAULT '1' PRIMARY,
   information_name C(64) NULL,
   information_heading_title C(64) NULL,
-  information_description X
+  information_description XL
 ";
 dosql($table, $flds);
 
@@ -924,7 +924,7 @@ $flds = "
   products_languages_id I NOTNULL DEFAULT '1' PRIMARY,
   products_name C(64) NOTNULL,
   products_title C(255) NULL,
-  products_description X,
+  products_description XL,
   products_short_description X,  
   products_essential_characteristics X,
   products_url C(255) NULL,
@@ -1084,7 +1084,7 @@ $flds = "
   reviews_id I NOTNULL PRIMARY,
   reviews_languages_id I NOTNULL DEFAULT '1' PRIMARY,
   reviews_headline C(255) NOTNULL,
-  reviews_text X NOTNULL
+  reviews_text XL NOTNULL
 ";
 dosql($table, $flds);
 
