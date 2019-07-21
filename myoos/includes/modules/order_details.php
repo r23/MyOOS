@@ -61,7 +61,7 @@
   for ($i=0, $n=count($products); $i<$n; $i++) {
     $shopping_cart_detail .= '  <tr>' . "\n";
 
-    if (SHOPPING_CART_IMAGE_ON == 'true') {
+    if (SHOPPING_CART_IMAGE_ON == 'TRUE') {
       $shopping_cart_detail .= '    <td align="center" valign="top" class="main"><a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $products[$i]['id']) . '">';
       $shopping_cart_detail .=  oos_image(OOS_IMAGES . 'product/small/' . $products[$i]['image'], $products[$i]['name']) . '</a></td>' . "\n";
     }
@@ -95,7 +95,7 @@
     }
 
     // Display marker if stock quantity insufficient
-    if (STOCK_CHECK == 'true') {
+    if (STOCK_CHECK == 'TRUE') {
       $shopping_cart_detail .= $stock_check = oos_check_stock($products[$i]['id'], $products[$i]['quantity']);
       if ($stock_check) $any_out_of_stock = 1;
     }

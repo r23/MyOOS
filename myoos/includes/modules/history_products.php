@@ -12,10 +12,10 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  $products_history_block = 'false';
+  $products_history_block = 'FALSE';
 
   if ($_SESSION['products_history']->count_history() > 0) {
-    $products_history_block = 'true';
+    $products_history_block = 'TRUE';
 
     $product_ids = $_SESSION['products_history']->get_product_id_list();
 

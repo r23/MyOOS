@@ -144,6 +144,7 @@ if (!empty($action)) {
         break;
       case 'statusconfirm':
         $customers_id = oos_db_prepare_input($_GET['cID']);
+		$pdm_status = oos_db_prepare_input($_POST['pdm_status']);
 
         $customerstable = $oostable['customers'];
         $check_status_sql = "SELECT customers_status
