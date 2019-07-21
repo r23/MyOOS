@@ -559,12 +559,22 @@ function oos_draw_pull_down_menu($name, $values, $default = '', $params = '', $r
     $field = '<select class="form-control" name="' . $name . '"';
     if ($params) $field .= ' ' . $params;
     $field .= '>';
-    for ($i=0; $i < count($values); $i++) {
-		$field .= '<option value="' . $values[$i]['id'] . '"';
-		if ( ((strlen($values[$i]['id']) > 0) && ($_GET[$name] == $values[$i]['id'])) || ($default == $values[$i]['id']) ) {
-			$field .= ' selected="selected"';
-		}
-		$field .= '>' . $values[$i]['text'] . '</option>';
+
+    if (empty($default) && ( (isset($_GET[$name]) && is_string($_GET[$name])) || (isset($_POST[$name]) && is_string($_POST[$name])) ) ) {
+      if (isset($_GET[$name]) && is_string($_GET[$name])) {
+        $default = stripslashes($_GET[$name]);
+      } elseif (isset($_POST[$name]) && is_string($_POST[$name])) {
+        $default = stripslashes($_POST[$name]);
+      }
+    }
+
+    for ($i=0, $n=count($values); $i<$n; $i++) {
+      $field .= '<option value="' . $values[$i]['id'] . '"';
+      if ($default == $values[$i]['id']) {
+        $field .= ' selected="selected"';
+      }
+
+      $field .= '>' . $values[$i]['text'] . '</option>';
     }
     $field .= '</select>';
 

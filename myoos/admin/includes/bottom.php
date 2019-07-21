@@ -12,7 +12,7 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
-if ($bForm == TRUE) {
+if (isset($bForm) && ($bForm == TRUE)) {
 ?>
 <!-- PARSLEY-->
 <script src="js/plugins/parsley/parsley.min.js"></script>

@@ -78,7 +78,7 @@
             $module->remove();
           }
         }
-        oos_redirect_admin(oos_href_link_admin($aContents['modules'], 'set=' . $_GET['set'] . '&module=' . $class));
+        oos_redirect_admin(oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class));
         break;
     }
   }
@@ -201,12 +201,12 @@
       }
       if (isset($mInfo) && is_object($mInfo) && ($class == $mInfo->code) ) {
         if ($module->check() > 0) {
-          echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['modules'], 'set=' . $_GET['set'] . '&module=' . $class . '&action=edit') . '\'">' . "\n";
+          echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class . '&action=edit') . '\'">' . "\n";
         } else {
           echo '              <tr class="dataTableRowSelected">' . "\n";
         }
       } else {
-        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['modules'], 'set=' . $_GET['set'] . '&module=' . $class) . '\'">' . "\n";
+        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class) . '\'">' . "\n";
       }
 ?>
                 <td><?php echo $module->title; ?></td>
@@ -214,12 +214,12 @@
                 <td class="text-right">
 <?php
   if ($module->check() > 0) {
-    echo '<a href="' . oos_href_link_admin($aContents['modules'], 'set=' . $_GET['set'] . '&module=' . $class . '&action=remove') . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
+    echo '<a href="' . oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class . '&action=remove') . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
   } else {
-    echo '<a href="' . oos_href_link_admin($aContents['modules'], 'set=' . $_GET['set'] . '&module=' . $class . '&action=install') . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
+    echo '<a href="' . oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class . '&action=install') . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
   }
 ?></td>
-                <td class="text-right"><?php if (isset($mInfo) && is_object($mInfo) && ($class == $mInfo->code) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['modules'], 'set=' . $_GET['set'] . '&module=' . $class) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="text-right"><?php if (isset($mInfo) && is_object($mInfo) && ($class == $mInfo->code) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
     }
@@ -250,7 +250,7 @@
   switch ($action) {
     case 'edit':
       $keys = '';
-#      reset($mInfo->keys);
+      reset($mInfo->keys);
       foreach ($mInfo->keys as $key => $value) {		  
         $keys .= '<b>' . $value['title'] . '</b><br />' . $value['description'] . '<br />';
 
@@ -265,9 +265,9 @@
 
       $heading[] = array('text' => '<b>' . $mInfo->title . '</b>');
 
-      $contents = array('form' => oos_draw_form('id', 'modules', $aContents['modules'], 'set=' . $_GET['set'] . '&module=' . $_GET['module'] . '&action=save', 'post', FALSE));
+      $contents = array('form' => oos_draw_form('id', 'modules', $aContents['modules'], 'set=' . $set . '&module=' . $_GET['module'] . '&action=save', 'post', FALSE));
       $contents[] = array('text' => $keys);
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(IMAGE_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['modules'], 'set=' . $_GET['set'] . '&module=' . $_GET['module']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(IMAGE_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $_GET['module']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
       break;
 
     default:
@@ -298,7 +298,7 @@
         }
         $keys = substr($keys, 0, strrpos($keys, '<br /><br />'));
 
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['modules'], 'set=' . $_GET['set'] . '&module=' . $_GET['module'] . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a>');
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $mInfo->code . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a>');
         $contents[] = array('text' => '<br />' . $mInfo->description);
         $contents[] = array('text' => '<br />' . $keys);
       } else {
