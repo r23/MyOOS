@@ -106,7 +106,7 @@ class Post extends Metadata {
 			return $page_id;
 		}
 
-		if ( is_singular() ) {
+		if ( \is_singular() ) {
 			return get_the_ID();
 		}
 
@@ -156,7 +156,7 @@ class Post extends Metadata {
 	 */
 	public static function is_shop_page() {
 		if ( function_exists( 'is_shop' ) && function_exists( 'wc_get_page_id' ) ) {
-			return is_shop() && ! is_search();
+			return \is_shop() && ! \is_search();
 		}
 
 		return false;
@@ -169,7 +169,7 @@ class Post extends Metadata {
 	 */
 	public static function is_woocommerce_page() {
 		if ( Conditional::is_woocommerce_active() ) {
-			return is_cart() || is_checkout() || is_account_page();
+			return \is_cart() || \is_checkout() || \is_account_page();
 		}
 
 		return false;
@@ -181,7 +181,7 @@ class Post extends Metadata {
 	 * @return bool
 	 */
 	public static function is_home_posts_page() {
-		return ( is_home() && 'posts' === get_option( 'show_on_front' ) );
+		return ( \is_home() && 'posts' === get_option( 'show_on_front' ) );
 	}
 
 	/**
@@ -190,7 +190,7 @@ class Post extends Metadata {
 	 * @return bool
 	 */
 	public static function is_home_static_page() {
-		return ( is_front_page() && 'page' === get_option( 'show_on_front' ) && is_page( get_option( 'page_on_front' ) ) );
+		return ( \is_front_page() && 'page' === get_option( 'show_on_front' ) && \is_page( get_option( 'page_on_front' ) ) );
 	}
 
 	/**
@@ -199,6 +199,6 @@ class Post extends Metadata {
 	 * @return bool
 	 */
 	public static function is_posts_page() {
-		return ( is_home() && 'page' === get_option( 'show_on_front' ) );
+		return ( \is_home() && 'page' === get_option( 'show_on_front' ) );
 	}
 }

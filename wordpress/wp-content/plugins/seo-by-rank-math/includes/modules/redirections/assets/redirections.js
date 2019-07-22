@@ -108,14 +108,20 @@
 				row.addClass( 'nob nopb' )
 				row.find( '.cmb2-radio-list li:gt(2)' ).remove()
 
+				var group = $( '.cmb2-id-url-to' ),
+					field = $( '#url_to' )
+
 				$( '[name=header_code]' ).on( 'change', function() {
-					var value = $( this ).val()
-					if ( 410 == value || 451 == value ) {
-						$( '#url_to' ).addClass( 'exclude' )
+					var value = parseInt( $( this ).val() )
+					if ( 410 === value || 451 === value ) {
+						field.addClass( 'exclude' )
+						group.addClass( 'hidden' )
 					} else {
-						$( '#url_to' ).removeClass( 'exclude' )
+						field.removeClass( 'exclude' )
+						group.removeClass( 'hidden' )
 					}
-				}).trigger( 'change' )
+				})
+				$( '[name=header_code]:checked' ).trigger( 'change' )
 			},
 
 			explodePastedContent: function() {

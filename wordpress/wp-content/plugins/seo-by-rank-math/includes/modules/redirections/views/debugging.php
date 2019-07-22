@@ -90,7 +90,7 @@ use RankMath\Helper;
 
 		<p>
 			<?php $page_url = Helper::get_admin_url( 'redirections' ); ?>
-			<?php if ( is_array( $this->matched ) ) : ?>
+			<?php if ( isset( $this->matched['id'] ) ) : ?>
 			<a target="_blank" href="<?php echo $page_url . '&action=edit&redirection=' . $this->matched['id']; ?>"><?php esc_html_e( 'Manage This Redirection', 'rank-math' ); ?></a> or
 			<?php endif; ?>
 			<a target="_blank" href="<?php echo $page_url; ?>"><?php esc_html_e( 'Manage All Redirections', 'rank-math' ); ?></a>

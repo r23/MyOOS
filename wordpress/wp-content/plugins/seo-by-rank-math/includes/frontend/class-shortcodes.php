@@ -218,10 +218,33 @@ class Shortcodes {
 				continue;
 			}
 
-			$combined[ trim( $hour['time'] ) ][] = $hour['day'];
+			$combined[ trim( $hour['time'] ) ][] = $this->get_localized_day( $hour['day'] );
 		}
 
 		return $combined;
+	}
+
+	/**
+	 * Retrieve the full translated weekday word.
+	 *
+	 * @param string $day Day to translate.
+	 *
+	 * @return string
+	 */
+	private function get_localized_day( $day ) {
+		global $wp_locale;
+
+		$hash = [
+			'Sunday'    => 0,
+			'Monday'    => 1,
+			'Tuesday'   => 2,
+			'Wednesday' => 3,
+			'Thursday'  => 4,
+			'Friday'    => 5,
+			'Saturday'  => 6,
+		];
+
+		return $wp_locale->get_weekday( $hash[ $day ] );
 	}
 
 	/**

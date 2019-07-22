@@ -84,8 +84,11 @@ class Redirection {
 	 * @return Redirection
 	 */
 	public static function from( $data ) {
-		$sources = $data['sources'];
-		unset( $data['sources'] );
+		$sources = [];
+		if ( isset( $data['sources'] ) ) {
+			$sources = $data['sources'];
+			unset( $data['sources'] );
+		}
 
 		$object = new self( $data );
 		$object->add_sources( $sources );
@@ -301,7 +304,6 @@ class Redirection {
 			'https://' . $domain,
 			'https://www.' . $domain,
 			'www.' . $domain,
-			$domain,
 		];
 		$url    = str_replace( $search, '', $url );
 

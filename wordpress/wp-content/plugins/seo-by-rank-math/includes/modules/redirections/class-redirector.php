@@ -47,6 +47,13 @@ class Redirector {
 	private $uri = '';
 
 	/**
+	 * Current query string.
+	 *
+	 * @var string
+	 */
+	private $query_string = '';
+
+	/**
 	 * From cache.
 	 *
 	 * @var bool
@@ -66,9 +73,7 @@ class Redirector {
 	public function __construct() {
 		$this->start();
 		$this->flow();
-		if ( is_array( $this->matched ) ) {
-			$this->redirect();
-		}
+		$this->redirect();
 	}
 
 	/**
@@ -79,6 +84,17 @@ class Redirector {
 		$this->uri = trim( $this->uri, '/' );
 		$this->uri = urldecode( $this->uri );
 		$this->uri = trim( Redirection::strip_subdirectory( $this->uri ), '/' );
+
+		// Remove query string.
+		$this->uri = explode( '?', $this->uri );
+		if ( isset( $this->uri[1] ) ) {
+			$this->query_string = $this->uri[1];
+		}
+		$this->uri = $this->uri[0];
+
+		if ( $this->is_amp_endpoint() ) {
+			$this->uri = \str_replace( '/' . amp_get_slug(), '', $this->uri );
+		}
 	}
 
 	/**
@@ -99,6 +115,10 @@ class Redirector {
 	 * If we got a match redirect.
 	 */
 	private function redirect() {
+		if ( false === $this->matched ) {
+			return;
+		}
+
 		if ( isset( $this->matched['id'], $this->matched['url_to'] ) ) {
 			DB::update_access( $this->matched );
 		}
@@ -113,12 +133,11 @@ class Redirector {
 		$this->do_debugging();
 
 		// @codeCoverageIgnoreStart
-		$x_redirect_by = 'WordPress';
-		if ( true === $this->do_filter( 'redirection/add_redirect_header', true ) ) {
-			$x_redirect_by = 'Rank Math SEO';
+		if ( true === $this->do_filter( 'redirection/add_query_string', true ) && Str::is_non_empty( $this->query_string ) ) {
+			$this->redirect_to .= '/?' . $this->query_string;
 		}
 
-		if ( wp_redirect( $this->redirect_to, $header_code, $x_redirect_by ) ) {
+		if ( wp_redirect( $this->redirect_to, $header_code, $this->get_redirect_header() ) ) {
 			exit;
 		}
 		// @codeCoverageIgnoreEnd
@@ -189,7 +208,7 @@ class Redirector {
 		// If there is a queried object.
 		$object_id = get_queried_object_id();
 		if ( $object_id ) {
-			$redirection = Cache::get_by_object_id( $object_id, $this->current_object_type() );
+			$redirection = Cache::get_by_object_id( $object_id, $this->get_current_object_type() );
 			if ( $redirection && trim( $redirection->from_url, '/' ) === $this->uri ) {
 				$this->cache = true;
 				$this->set_redirection( $redirection->redirection_id );
@@ -238,14 +257,14 @@ class Redirector {
 		}
 
 		if ( 'homepage' === $behavior ) {
-			$this->matched     = true;
+			$this->matched     = [];
 			$this->redirect_to = site_url();
 			return;
 		}
 
 		$custom_url = Helper::get_settings( 'general.redirections_custom_url' );
 		if ( ! empty( $custom_url ) ) {
-			$this->matched     = true;
+			$this->matched     = [];
 			$this->redirect_to = $custom_url;
 		}
 	}
@@ -285,6 +304,10 @@ class Redirector {
 			$this->matched = $redirection;
 			$this->set_redirect_to();
 		}
+
+		if ( $this->is_amp_endpoint() ) {
+			$this->redirect_to = $this->redirect_to . amp_get_slug() . '/';
+		}
 	}
 
 	/**
@@ -314,13 +337,23 @@ class Redirector {
 	}
 
 	/**
+	 * Sets the wp_query to 404 when this is an object.
+	 */
+	private function set_404() {
+		global $wp_query;
+
+		$wp_query         = is_object( $wp_query ) ? $wp_query : new WP_Query;
+		$wp_query->is_404 = true;
+	}
+
+	/**
 	 * Get the object type for the current page.
 	 *
 	 * @codeCoverageIgnore
 	 *
 	 * @return string object type name.
 	 */
-	private function current_object_type() {
+	private function get_current_object_type() {
 		$hash   = [
 			'WP_Post' => 'post',
 			'WP_Term' => 'term',
@@ -333,16 +366,6 @@ class Redirector {
 	}
 
 	/**
-	 * Sets the wp_query to 404 when this is an object.
-	 */
-	private function set_404() {
-		global $wp_query;
-
-		$wp_query         = is_object( $wp_query ) ? $wp_query : new WP_Query;
-		$wp_query->is_404 = true;
-	}
-
-	/**
 	 * Get header code.
 	 *    1. From matched redirection.
 	 *    2. From optgeneral options.
@@ -351,7 +374,28 @@ class Redirector {
 	 */
 	private function get_header_code() {
 		$header_code = isset( $this->matched['header_code'] ) ? $this->matched['header_code'] : Helper::get_settings( 'general.redirections_header_code' );
-
 		return absint( $header_code );
+	}
+
+	/**
+	 * Get redirect header.
+	 *
+	 * @return string
+	 */
+	private function get_redirect_header() {
+		if ( true === $this->do_filter( 'redirection/add_redirect_header', true ) ) {
+			return 'Rank Math SEO';
+		}
+
+		return 'WordPress';
+	}
+
+	/**
+	 * Is AMP url.
+	 *
+	 * @return bool
+	 */
+	private function is_amp_endpoint() {
+		return \function_exists( 'is_amp_endpoint' ) && is_amp_endpoint() && ! amp_is_canonical();
 	}
 }

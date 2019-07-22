@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection
 Tested up to: 5.2.2
 Requires at least: 4.7.0
 Requires PHP: 5.6
-Stable tag: 1.0.29
+Stable tag: 1.0.30
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -451,15 +451,22 @@ We look forward to helping you.
 
 == Changelog ==
 
-= 1.0.29 [Jul 16, 2019] =
-* Added new Google Rich Results testing tool's link in the External tools list menu
-* Added text/HTML tab on the category pages
-* Fixed the `noindex` option not working in the Custom Post Types, due to this CPTs were appearing in the Sitemap
-* Fixed Rank Math metabox not showing up on WP v4.8.x & 4.9.x
-* Fixed WP Rocket minification not working when the Rewrite title option was enabled
-* Fixed RTL styling issue of Review Snippet on the frontend
-* Improved styling of Recipe ingredients section on the frontend
-* Replaced Graph dashicon with the Rank Math's icon in a couple of places
-* Added some small performance improvements
+= 1.0.30 [Jul 22, 2019] =
+* Added localization of weekdays in the Contact Shortcode
+* Added a filter for `GET_query` params so they could be redirected as well
+* Improved the behavior of Rank Math's icon to match the score's color, instead of showing red all the time
+* Improved the redirection behavior when site domain was present in between the URL, it is not getting stripped anymore
+* Improved compatibility with PHP 7.3
+* Changed the behavior of 'Remove category base' option. The new URLs are now using a 301 instead of Canonical URLs
+* Removed Redirection option from 410 and 451 types as it's not needed there
+* Fixed a PHP notice showing up about a Breadcrumb property not being set
+* Fixed the variable of `%focuskw%`, showing all the Focus Keywords instead of just the primary keyword
+* Fixed the image ALT test for the featured images. Plugin wasn't detecting the ALT text in the featured images
+* Fixed Yandex's Schema Markup error for the Collection page
+* Fixed the redirection of the URLs with diatrics in them aka accents
+* Fixed the auto redirection option. It stopped working after the last update
+* Fixed the 404 redirection option to work properly
+* Synced the ALT test with the auto-ALT feature. Now the content analysis won't throw a false warning if `%focuskw%` is used
+* Added small fixes and performance improvements
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://rankmath.com/changelog)**

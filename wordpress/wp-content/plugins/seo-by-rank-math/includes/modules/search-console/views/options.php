@@ -9,9 +9,10 @@ use RankMath\Helper;
 use MyThemeShop\Helpers\Str;
 use RankMath\Search_Console\DB;
 
-$data     = Helper::search_console_data();
-$is_empty = DB::is_empty();
-$db_info  = DB::info();
+$data           = Helper::search_console_data();
+$db_info        = DB::info();
+$is_empty       = DB::is_empty();
+$is_queue_empty = Helper::search_console()->crawler->is_empty();
 
 $primary   = '<button type="button" class="button button-primary">' . ( $data['authorized'] ? esc_html__( 'De-authorize Account', 'rank-math' ) : esc_html__( 'Authorize', 'rank-math' ) ) . '</button>';
 $secondary = '<a href="' . esc_url( Helper::get_console_auth_url() ) . '" class="button button-secondary"' . ( $data['authorized'] ? ' style="display:none;"' : '' ) . '>' . esc_html__( 'Get Authorization Code', 'rank-math' ) . '</a><br />';
@@ -58,7 +59,7 @@ if ( $is_empty ) {
 	]);
 }
 
-$disable = ( ! $data['authorized'] || ! Helper::search_console()->crawler->is_empty() ) ? true : false;
+$disable = ( ! $data['authorized'] || ! $is_queue_empty ) ? true : false;
 
 $cmb->add_field([
 	'id'          => 'console_caching_control',
@@ -68,7 +69,7 @@ $cmb->add_field([
 	'after_field' => '<br>' .
 	'<button class="button console-cache-delete"  data-days="90">' . esc_html__( 'Delete Recent Cache (last 90 days)', 'rank-math' ) . '</button>' .
 	'&nbsp;&nbsp;<button class="button console-cache-delete" data-days="-1">' . esc_html__( 'Delete Cache', 'rank-math' ) . '</button>' .
-	'&nbsp;&nbsp;<button class="button console-cache-update-manually"' . ( $disable ? ' disabled="disabled"' : '' ) . '>' . ( Helper::search_console()->crawler->is_empty() ? esc_html__( 'Update Cache manually', 'rank-math' ) : esc_html__( 'Fetching in Progress', 'rank-math' ) ) . '</button><br>' .
+	'&nbsp;&nbsp;<button class="button console-cache-update-manually"' . ( $disable ? ' disabled="disabled"' : '' ) . '>' . ( $is_queue_empty ? esc_html__( 'Update Cache manually', 'rank-math' ) : esc_html__( 'Fetching in Progress', 'rank-math' ) ) . '</button><br>' .
 	/* translators: number of days */
 	'<div class="rank-math-console-db-info"><span class="dashicons dashicons-calendar-alt"></span> ' . sprintf( esc_html__( 'Cached Days: %s', 'rank-math' ), '<strong>' . $db_info['days'] . '</strong>' ) . '</div>' .
 	/* translators: number of rows */

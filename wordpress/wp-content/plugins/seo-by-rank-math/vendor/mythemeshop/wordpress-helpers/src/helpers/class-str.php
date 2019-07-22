@@ -46,7 +46,7 @@ class Str {
 	 * @return bool
 	 */
 	public static function contains( $needle, $haystack ) {
-		return strpos( $haystack, $needle ) !== false;
+		return '' === $needle ? false : strpos( $haystack, $needle ) !== false;
 	}
 
 	/**

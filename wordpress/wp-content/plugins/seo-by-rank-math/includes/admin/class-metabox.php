@@ -97,14 +97,14 @@ class Metabox implements Runner {
 			Helper::add_json( 'noFollowExternalLinks', Helper::get_settings( 'general.nofollow_external_links' ) );
 			Helper::add_json( 'featuredImageNotice', esc_html__( 'The featured image should be at least 200 by 200 pixels to be picked up by Facebook and other social media sites.', 'rank-math' ) );
 
-			wp_enqueue_script( 'rank-math-post-metabox', $js . 'post-metabox.js', [ 'clipboard', 'rank-math-common', 'rank-math-assessor', 'jquery-tag-editor', 'rank-math-validate', 'wp-hooks' ], rank_math()->version, true );
+			wp_enqueue_script( 'rank-math-post-metabox', $js . 'post-metabox.js', [ 'lodash', 'clipboard', 'rank-math-common', 'rank-math-assessor', 'jquery-tag-editor', 'rank-math-validate', 'wp-hooks' ], rank_math()->version, true );
 		}
 
 		if ( Admin_Helper::is_term_edit() ) {
 			Helper::add_json( 'objectID', Param::request( 'tag_ID', 0, FILTER_VALIDATE_INT ) );
 			Helper::add_json( 'objectType', 'term' );
 
-			wp_enqueue_script( 'rank-math-term-metabox', $js . 'term-metabox.js', [ 'rank-math-common', 'rank-math-assessor', 'jquery-tag-editor', 'wp-hooks' ], rank_math()->version, true );
+			wp_enqueue_script( 'rank-math-term-metabox', $js . 'term-metabox.js', [ 'lodash', 'rank-math-common', 'rank-math-assessor', 'jquery-tag-editor', 'wp-hooks' ], rank_math()->version, true );
 		}
 
 		if ( $this->is_user_metabox() ) {
@@ -112,7 +112,7 @@ class Metabox implements Runner {
 			Helper::add_json( 'objectID', $user_id );
 			Helper::add_json( 'objectType', 'user' );
 
-			wp_enqueue_script( 'rank-math-user-metabox', $js . 'user-metabox.js', [ 'rank-math-common', 'rank-math-assessor', 'jquery-tag-editor', 'wp-hooks' ], rank_math()->version, true );
+			wp_enqueue_script( 'rank-math-user-metabox', $js . 'user-metabox.js', [ 'lodash', 'rank-math-common', 'rank-math-assessor', 'jquery-tag-editor', 'wp-hooks' ], rank_math()->version, true );
 		}
 
 		$this->assessor();

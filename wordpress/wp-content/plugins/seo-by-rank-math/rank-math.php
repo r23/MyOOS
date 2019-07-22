@@ -9,7 +9,7 @@
  *
  * @wordpress-plugin
  * Plugin Name:       Rank Math SEO
- * Version:           1.0.29
+ * Version:           1.0.30
  * Plugin URI:        https://s.rankmath.com/home
  * Description:       Rank Math is a revolutionary SEO product that combines the features of many SEO tools and lets you multiply your traffic in the easiest way possible.
  * Author:            Rank Math
@@ -34,7 +34,7 @@ final class RankMath {
 	 *
 	 * @var string
 	 */
-	public $version = '1.0.29';
+	public $version = '1.0.30';
 
 	/**
 	 * Rank Math database version.
@@ -92,14 +92,18 @@ final class RankMath {
 	 * Magic getter method.
 	 *
 	 * @param  string $prop Property to get.
-	 * @return mixed Property value or NULL if it does not exists
+	 * @return mixed Property value or NULL if it does not exists.
 	 */
 	public function __get( $prop ) {
 		if ( array_key_exists( $prop, $this->container ) ) {
 			return $this->container[ $prop ];
 		}
 
-		return $this->{$prop};
+		if ( isset( $this->{$prop} ) ) {
+			return $this->{$prop};
+		}
+
+		return null;
 	}
 
 	/**

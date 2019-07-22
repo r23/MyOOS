@@ -987,7 +987,7 @@ class Replace_Vars {
 		$replacement = null;
 
 		if ( ! empty( $this->args->ID ) ) {
-			$focus_kw = Helper::get_post_meta( 'focus_keyword', $this->args->ID );
+			$focus_kw = explode( ',', Helper::get_post_meta( 'focus_keyword', $this->args->ID ) )[0];
 			if ( '' !== $focus_kw ) {
 				$replacement = $focus_kw;
 			}

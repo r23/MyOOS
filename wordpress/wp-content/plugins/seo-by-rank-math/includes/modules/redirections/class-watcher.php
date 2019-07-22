@@ -41,9 +41,8 @@ class Watcher {
 			if ( Helper::get_settings( 'general.redirections_post_redirect' ) ) {
 				$this->action( 'pre_post_update', 'pre_post_update' );
 				$this->action( 'post_updated', 'handle_post_update', 10, 3 );
-			} else {
-				$this->action( 'wp_trash_post', 'display_suggestion' );
 			}
+			$this->action( 'wp_trash_post', 'display_suggestion' );
 		}
 		$this->action( 'deleted_post', 'invalidate_post' );
 

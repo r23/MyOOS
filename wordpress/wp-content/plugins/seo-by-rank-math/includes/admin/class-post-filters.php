@@ -313,8 +313,7 @@ class Post_Filters implements Runner {
 			],
 		]);
 
-		$screen = get_current_screen();
-		$mq_sql = $meta_query->get_sql( 'post', $wpdb->posts, 'ID' );
-		return $wpdb->get_col( "SELECT {$wpdb->posts}.ID FROM $wpdb->posts {$mq_sql['join']} WHERE 1=1 {$mq_sql['where']} AND {$wpdb->posts}.post_type = '$screen->post_type' AND ({$wpdb->posts}.post_status = 'publish') AND {$wpdb->posts}.post_title NOT REGEXP REPLACE({$wpdb->postmeta}.meta_value, ',', '|')" ); // phpcs:ignore
+		$meta_query = $meta_query->get_sql( 'post', $wpdb->posts, 'ID' );
+		return $wpdb->get_col( "SELECT {$wpdb->posts}.ID FROM $wpdb->posts {$meta_query['join']} WHERE 1=1 {$meta_query['where']} AND {$wpdb->posts}.post_type = '$screen->post_type' AND ({$wpdb->posts}.post_status = 'publish') AND {$wpdb->posts}.post_title NOT REGEXP REPLACE({$wpdb->postmeta}.meta_value, ',', '|')" ); // phpcs:ignore
 	}
 }

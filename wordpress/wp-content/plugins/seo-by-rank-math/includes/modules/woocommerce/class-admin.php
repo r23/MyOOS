@@ -15,6 +15,7 @@ use RankMath\Module;
 use MyThemeShop\Helpers\Arr;
 use MyThemeShop\Helpers\Str;
 use RankMath\OpenGraph_Image;
+use RankMath\Redirections\Redirection;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -42,6 +43,7 @@ class Admin extends Module {
 		// Permalink Manager.
 		$this->filter( 'rank_math/settings/general', 'add_general_settings' );
 		$this->filter( 'rank_math/flush_fields', 'flush_fields' );
+		$this->action( 'cmb2_save_field_wc_remove_category_base', 'category_base_add_301_redirect', 10, 3 );
 	}
 
 	/**
@@ -74,5 +76,35 @@ class Admin extends Module {
 		$fields[] = 'wc_remove_category_parent_slugs';
 
 		return $fields;
+	}
+
+	/**
+	 * Add 301 redirection.
+	 *
+	 * @param bool       $updated Whether the metadata update action occurred.
+	 * @param string     $action  Action performed. Could be "repeatable", "updated", or "removed".
+	 * @param CMB2_Field $field   This field object.
+	 */
+	public function category_base_add_301_redirect( $updated, $action, $field ) {
+		if ( false === Helper::is_module_active( 'redirections' ) ) {
+			return;
+		}
+
+		$redirection_id = get_option( 'rank_math_wc_category_base_redirection', 0 );
+
+		// Add redirection.
+		if ( 'on' === $field->value && 0 === $redirection_id ) {
+			$redirection = Redirection::from( [ 'url_to' => '$1' ] );
+			$redirection->add_source( 'product-category/(.*)', 'regex' );
+			update_option( 'rank_math_wc_category_base_redirection', $redirection->save() );
+
+			return;
+		}
+
+		// Remove redirection.
+		if ( 'off' === $field->value && $redirection_id > 1 ) {
+			\RankMath\Redirections\DB::delete( $redirection_id );
+			delete_option( 'rank_math_wc_category_base_redirection' );
+		}
 	}
 }
