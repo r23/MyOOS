@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.2.x - Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-06-23 09:03:07+0000\n"
+"PO-Revision-Date: 2019-07-22 22:30:56+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1283,7 +1283,7 @@ msgstr "Zitat"
 
 #: wp-includes/js/dist/block-library.js:6522
 msgid "Give quoted text visual emphasis. \"In quoting others, we cite ourselves.\" — Julio Cortázar"
-msgstr "Hebe das Zitat optisch hervor."
+msgstr "Gib dem dem zitierten Text eine visuelle Betonung."
 
 #: wp-includes/js/dist/block-library.js:19444
 msgid "Solid Color"
@@ -1291,7 +1291,7 @@ msgstr "Farbfüllend"
 
 #: wp-includes/js/dist/block-library.js:19422
 msgid "Give special visual emphasis to a quote from your text."
-msgstr "Hebe das Zitat optisch hervor."
+msgstr "Gib mit einem Zitat deinem Text eine besondere visuelle Note."
 
 #: wp-includes/js/dist/block-library.js:19421
 msgid "Pullquote"
@@ -1327,7 +1327,7 @@ msgstr "Text"
 
 #: wp-includes/js/dist/block-library.js:5826
 msgid "Start with the building block of all narrative."
-msgstr "Starte deine Geschichte von einem soliden Startblock aus."
+msgstr "Starte eine Geschichte mit dem Grundbaustein aller Erzählungen."
 
 #: wp-includes/js/dist/block-library.js:5683
 msgid "Drop Cap"
@@ -1432,7 +1432,7 @@ msgstr "Nummerierte Liste"
 
 #: wp-includes/js/dist/block-library.js:7687
 msgid "Create a bulleted or numbered list."
-msgstr "Eine gepunktete oder nummerierte Liste erstellen."
+msgstr "Eine Aufzählungs- oder nummerierte Liste erstellen."
 
 #: wp-includes/js/dist/block-library.js:18306
 msgid "recent posts"
@@ -1494,7 +1494,7 @@ msgstr "Foto"
 
 #: wp-includes/js/dist/block-library.js:10703
 msgid "Insert an image to make a visual statement."
-msgstr "Ein Bild einfügen, um einen visuellen Akzent zu setzen."
+msgstr "Ein Bild einfügen, um eine visuelle Aussage zu treffen."
 
 #: wp-includes/js/dist/block-library.js:10336
 msgid "Image Dimensions"
@@ -1521,7 +1521,7 @@ msgstr "Bild bearbeiten"
 
 #: wp-includes/js/dist/block-library.js:17131
 msgid "Write HTML…"
-msgstr "Schreibe HTML…"
+msgstr "Schreib HTML…"
 
 #: wp-includes/js/dist/block-library.js:17178
 msgid "embed"
@@ -1554,7 +1554,7 @@ msgstr "Überschrift %d"
 
 #: wp-includes/js/dist/block-library.js:13964
 msgid "Write heading…"
-msgstr "Schreibe Überschrift…"
+msgstr "Schreib eine Überschrift…"
 
 #: wp-includes/js/dist/block-library.js:13926
 msgid "Text Alignment"
@@ -1594,7 +1594,7 @@ msgstr "Bilder zuschneiden"
 
 #: wp-includes/js/dist/block-library.js:13263
 msgid "Drag images, upload new ones or select files from your library."
-msgstr "Ziehe Bilder hierher, lade neue hoch oder wähle Dateien aus deiner Mediathek aus."
+msgstr "Ziehe Bilder hierher, lade neue hoch oder wähle Dateien aus der Mediathek aus."
 
 #: wp-includes/js/dist/block-library.js:13163
 msgid "Thumbnails are not cropped."
@@ -1647,7 +1647,7 @@ msgstr "Datei bearbeiten"
 
 #: wp-includes/js/dist/block-library.js:11933
 msgid "Drag a file, upload a new one or select a file from your library."
-msgstr "Ziehe eine Datei hierher, lade eine neue hoch oder wähle eine Datei aus deiner Mediathek aus."
+msgstr "Ziehe eine Datei hierher, lade eine neue hoch oder wähle eine Datei aus der Mediathek aus."
 
 #: wp-includes/js/dist/block-library.js:4366
 msgid "Add a block that displays content pulled from other sites, like Twitter, Instagram or YouTube."
@@ -1864,7 +1864,7 @@ msgstr "Schreibe einen Titel…"
 
 #: wp-includes/js/dist/block-library.js:14941
 msgid "Drag an image or a video, upload a new one or select a file from your library."
-msgstr "Ziehe ein Bild oder ein Video hierher, lade ein neues hoch oder wähle eine Datei aus deiner Mediathek aus."
+msgstr "Ziehe ein Bild oder ein Video hierher, lade ein neues hoch oder wähle eine Datei aus der Mediathek aus."
 
 #: wp-includes/js/dist/block-library.js:14920
 msgid "Background Opacity"
@@ -1893,7 +1893,7 @@ msgstr "Medien bearbeiten"
 
 #: wp-includes/js/dist/block-library.js:15114
 msgid "Add an image or video with a text overlay — great for headers."
-msgstr "Ein Bild oder Video mit einem Text-Overlay hinzufügen – ideal für Header."
+msgstr "Ein Bild oder Video mit Overlay-Text hinzufügen – ideal für Header."
 
 #: wp-includes/js/dist/block-library.js:14934
 #: wp-includes/js/dist/block-library.js:15113
@@ -2499,7 +2499,7 @@ msgstr "Zusätzliche CSS-Klasse"
 
 #: wp-includes/js/dist/block-editor.js:19600
 msgid "Anchors lets you link directly to a section on a page."
-msgstr "Mit Anker kannst du direkt zu einem Abschnitt auf einer Seite verlinken."
+msgstr "Mit eindeutigen Anker (id) kannst du direkt zu einem Abschnitt auf einer Seite verlinken."
 
 #: wp-includes/js/dist/block-editor.js:19599
 msgid "HTML Anchor"
@@ -2914,19 +2914,19 @@ msgstr "Reihenfolge"
 
 #: wp-includes/js/dist/block-editor.js:16113
 msgid "Drag a video, upload a new one or select a file from your library."
-msgstr "Ziehe ein Video hierher, lade ein neues hoch oder wähle eine Datei aus deiner Mediathek aus."
+msgstr "Ziehe ein Video hierher, lade ein neues hoch oder wähle eine Datei aus der Mediathek aus."
 
 #: wp-includes/js/dist/block-editor.js:16111
 msgid "Drag an image, upload a new one or select a file from your library."
-msgstr "Ziehe ein Bild hierher, lade ein neues hoch oder wähle eine Datei aus deiner Mediathek aus."
+msgstr "Ziehe ein Bild hierher, lade ein neues hoch oder wähle eine Datei aus der Mediathek aus."
 
 #: wp-includes/js/dist/block-editor.js:16109
 msgid "Drag an audio, upload a new one or select a file from your library."
-msgstr "Ziehe ein Audio hierher, lade ein neues hoch oder wähle eine Datei aus deiner Mediathek aus."
+msgstr "Ziehe ein Audio hierher, lade ein neues hoch oder wähle eine Datei aus der Mediathek aus."
 
 #: wp-includes/js/dist/block-editor.js:16106
 msgid "Drag a media file, upload a new one or select a file from your library."
-msgstr "Ziehe eine Mediendatei hierher, lade eine neue hoch oder wähle eine Datei aus deiner Mediathek aus."
+msgstr "Ziehe eine Mediendatei hierher, lade eine neue hoch oder wähle eine Datei aus der Mediathek aus."
 
 #: wp-includes/js/dist/block-editor.js:15944
 msgid "Paste or type URL"
@@ -3186,7 +3186,7 @@ msgstr "Ausrichtung ändern"
 
 #: wp-includes/js/dist/block-editor.js:7974
 msgid "Full width"
-msgstr "Volle Breite"
+msgstr "Gesamte Breite"
 
 #: wp-includes/js/dist/block-editor.js:7970
 msgid "Wide width"
@@ -4362,7 +4362,7 @@ msgstr "Während der Vorschau eines neuen Themes kannst du weiterhin Widgets und
 
 #: wp-includes/class-wp-customize-manager.php:4938
 msgid "Looking for a theme? You can search or browse the WordPress.org theme directory, install and preview themes, then activate them right here."
-msgstr "Suchst du ein Theme? Du kannst im Theme-Verzeichnis von WordPress.org stöbern und suchen, Themes installieren und als Vorschau ansehen, um sie direkt hier zu aktivieren."
+msgstr "Suchst du ein Theme? Du kannst im Theme-Verzeichnis auf WordPress.org stöbern und suchen, Themes installieren und als Vorschau ansehen, um sie direkt hier zu aktivieren."
 
 #: wp-includes/script-loader.php:1326
 msgid "Something went wrong. Your change may not have been saved. Please try again. There is also a chance that you may need to manually fix and upload the file over FTP."
@@ -4370,7 +4370,7 @@ msgstr "Etwas lief schief. Deine Änderung wurde vermutlich nicht gespeichert. B
 
 #: wp-includes/class-wp-customize-manager.php:5580
 msgid "Screen reader users: when in forms mode, you may need to press the escape key twice."
-msgstr "Benutzer von Screen-Readern: Im Formular-Modus kann es sein, dass du die Escape-Taste zweimal drücken musst."
+msgstr "Benutzer von Screen-Readern: Im Formular-Modus kann es sein, dass die Escape-Taste zweimal gedrückt werden muss."
 
 #: wp-includes/class-wp-customize-nav-menus.php:634
 msgctxt "menu locations"
@@ -5238,7 +5238,7 @@ msgstr "Noch keine Änderungen gespeichert, es kann nichts in den Papierkorb gel
 
 #: wp-includes/class-wp-customize-manager.php:3050
 msgid "There was an authentication problem. Please reload and try again."
-msgstr "Es gab ein Authentifizierungsproblem. Bitte lade neu und probiere es nochmal."
+msgstr "Es gab ein Authentifizierungsproblem. Bitte neu laden und nochmal probieren."
 
 #. translators: %s: number of invalid settings
 #: wp-includes/script-loader.php:1464 wp-includes/script-loader.php:1466
@@ -7412,7 +7412,7 @@ msgstr "Besuchern erlauben, neue Beiträge zu kommentieren."
 
 #: wp-includes/option.php:2053
 msgid "Allow link notifications from other blogs (pingbacks and trackbacks) on new articles."
-msgstr "Link-Benachrichtigungen von anderen Blogs (Pingbacks und Trackbacks) zu neuen Beiträgen ermöglichen"
+msgstr "Link-Benachrichtigungen von anderen Blogs (Pingbacks und Trackbacks) zu neuen Beiträgen erlauben"
 
 #: wp-includes/option.php:2038
 msgid "Blog pages show at most."
@@ -9471,7 +9471,7 @@ msgstr "Inhalt:"
 
 #: wp-includes/class-wp-xmlrpc-server.php:620
 msgid "Allow link notifications from other blogs (pingbacks and trackbacks) on new articles"
-msgstr "Link-Benachrichtigungen von anderen Blogs (Pingbacks und Trackbacks) zu neuen Beiträgen ermöglichen"
+msgstr "Link-Benachrichtigungen von anderen Blogs (Pingbacks und Trackbacks) zu neuen Beiträgen erlauben"
 
 #: wp-includes/class-wp-editor.php:1303
 msgid "Ctrl + letter:"
@@ -9572,7 +9572,7 @@ msgstr "In diesem Bereich werden Navigations-Menüs für Inhalte verwaltet, die 
 #. translators: 1: item name, 2: item position, 3: parent item name
 #: wp-includes/class-wp-customize-nav-menus.php:506
 msgid "%1$s. Sub item number %2$d under %3$s."
-msgstr "%1$s. Unterelelement %2$d von %3$s."
+msgstr "%1$s. Unterpunkt %2$d von %3$s."
 
 #. translators: 1: item name, 2: item position, 3: total number of items
 #: wp-includes/class-wp-customize-nav-menus.php:504
@@ -9601,7 +9601,7 @@ msgstr "Unter %s verschieben"
 
 #: wp-includes/class-wp-customize-nav-menus.php:494
 msgid "Move to the top"
-msgstr "Ganz nach oben verschieben"
+msgstr "Nach ganz oben verschieben"
 
 #: wp-includes/class-wp-customize-nav-menus.php:493
 msgid "Move down one"
@@ -9635,7 +9635,7 @@ msgstr "%s (Ausstehend)"
 #. translators: %s: title of menu item which is invalid
 #: wp-includes/class-wp-customize-nav-menus.php:466
 msgid "%s (Invalid)"
-msgstr "%s (ungültig)"
+msgstr "%s (Ungültig)"
 
 #: wp-includes/class-wp-customize-nav-menus.php:462
 msgid "Menu item is now a sub-item"
@@ -10482,7 +10482,7 @@ msgstr "Bitrate"
 
 #: wp-includes/class-wp-customize-widgets.php:418
 msgid "Widgets are independent sections of content that can be placed into widgetized areas provided by your theme (commonly called sidebars)."
-msgstr "Widgets sind eigenständige Inhaltsabschnitte. Widgets können in vorgesehenen Bereichen platziert werden, die von deinem Theme zur Verfügung gestellt werden (üblicherweise Seitenleiste genannt)."
+msgstr "Widgets sind unabhängige Inhaltsbereiche. Widgets können in diversen, vorgesehenen Bereichen platziert werden, die von deinem Theme zur Verfügung gestellt werden (üblicherweise Seitenleiste genannt)."
 
 #. translators: %s: the site/panel title in the Customizer
 #: wp-includes/class-wp-customize-panel.php:362
@@ -10871,7 +10871,7 @@ msgstr "Quadrat"
 
 #: wp-includes/script-loader.php:911 wp-includes/class-wp-editor.php:1080
 msgid "Bulleted list"
-msgstr "Aufzählung"
+msgstr "Aufzählungsliste"
 
 #: wp-includes/class-wp-editor.php:1048
 msgctxt "HTML elements"
@@ -11271,7 +11271,7 @@ msgstr "Einzug verringern"
 #: wp-includes/class-wp-editor.php:1061
 #: wp-includes/js/dist/block-editor.js:7962
 msgid "Align center"
-msgstr "Zentrieren"
+msgstr "Zentriert"
 
 #: wp-includes/class-wp-editor.php:1053
 msgid "Clear formatting"

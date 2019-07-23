@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.2.x - Development - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-06-20 18:41:12+0000\n"
+"PO-Revision-Date: 2019-07-22 21:54:30+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1613,7 +1613,7 @@ msgstr "Du bist leider nicht berechtigt, das Plugin fortzusetzen."
 #. translators: %s: WordPress Planet URL
 #: wp-admin/index.php:87
 msgid "<strong>WordPress Events and News</strong> &mdash; Upcoming events near you as well as the latest news from the official WordPress project and the <a href=\"%s\">WordPress Planet</a>."
-msgstr "<strong>WordPress-Veranstaltungen und -News</strong> &ndash; Kommende Veranstaltungen in deiner Nähe sowie die neuesten Nachrichten aus dem offiziellen WordPress-Projekt und dem <a href=\"%s\">WordPress Planet</a>."
+msgstr "<strong>WordPress-Veranstaltungen und Neuigkeiten</strong> &mdash; Beinhaltet kommende Veranstaltungen in deiner Nähe, sowie die neuesten Nachrichten aus dem offiziellen WordPress-Projekt und dem <a href=\"%s\">WordPress Planet</a>."
 
 #. translators: 1: URL to WordPress release notes, 2: WordPress version number
 #. including locale if necessary
@@ -1915,27 +1915,27 @@ msgstr "Willkommen bei WordPress. Dies ist dein erster Beitrag. Bearbeite oder l
 #. translators: first page content, %s: site admin URL
 #: wp-admin/includes/upgrade.php:302
 msgid "As a new WordPress user, you should go to <a href=\"%s\">your dashboard</a> to delete this page and create new pages for your content. Have fun!"
-msgstr "Als neuer WordPress-Benutzer solltest du dein <a href=\"%s\">Dashboard</a> aufrufen, um diese Seite zu löschen und neue Seiten für deinen Inhalt zu erstellen. Viel Spaß!"
+msgstr "Als neuer WordPress-Benutzer solltest du dein <a href=\"%s\">Dashboard</a> aufrufen, um diese Seite zu löschen und neue Seiten und Beiträge für deine Website erstellen. Viel Spaß!"
 
 #. translators: first page content
 #: wp-admin/includes/upgrade.php:296
 msgid "The XYZ Doohickey Company was founded in 1971, and has been providing quality doohickeys to the public ever since. Located in Gotham City, XYZ employs over 2,000 people and does all kinds of awesome things for the Gotham community."
-msgstr "Das Unternehmen XYZ wurde 1971 gegründet und versorgt die Öffentlichkeit seither mit qualitativ hochwertigen Produkten. An seinem Standort in einer kleinen Großstadt beschäftigt der Betrieb über 2.000 Menschen und unterstützt die Stadtbewohner in vielfacher Hinsicht."
+msgstr "Unsere Firma XYZ wurde 1971 gegründet und hat seither eine Menge hochqualitative ABC-Produkte für die Öffentlichkeit produziert. Ansässig in Gotham City, hat XYZ mittlerweile über 2.000 Mitarbeiter und entwickelt immer wieder großartige Dinge für die ganze Gotham-Gemeinschaft."
 
 #. translators: first page content
 #: wp-admin/includes/upgrade.php:291
 msgid "...or something like this:"
-msgstr "...oder so etwas wie das hier:"
+msgstr "&hellip;&nbsp;oder so etwas wie:"
 
 #. translators: first page content
 #: wp-admin/includes/upgrade.php:286
 msgid "Hi there! I'm a bike messenger by day, aspiring actor by night, and this is my website. I live in Los Angeles, have a great dog named Jack, and I like pi&#241;a coladas. (And gettin' caught in the rain.)"
-msgstr "Hallo! Ich bin tagsüber im Kurierdienst tätig, nachts widme ich mich der Schauspielkunst, und das ist meine Website. Ich lebe in einer Großstadt, habe einen tollen Hund und ich mag Getränke mit Schirmchen (aber nicht ohne Schirm im Regen zu stehen)."
+msgstr "Hallo! Tagsüber arbeite ich als Fahrradkurier, nachts bin ich ein aufstrebender Schauspieler und dies hier ist meine Website. Ich lebe in Berlin, habe einen großen Hund namens Jack, mag Pi&#241;a Coladas, jedoch weniger (ohne Schirm) im Regen stehen gelassen zu werden."
 
 #. translators: first page content
 #: wp-admin/includes/upgrade.php:281
 msgid "This is an example page. It's different from a blog post because it will stay in one place and will show up in your site navigation (in most themes). Most people start with an About page that introduces them to potential site visitors. It might say something like this:"
-msgstr "Dies ist eine Beispiel-Seite. Sie unterscheidet sich von Beiträgen, da sie stets an derselben Stelle bleibt und (bei den meisten Themes) in der Website-Navigation angezeigt wird. Die meisten starten mit einem Impressum, der Datenschutzerklärung oder einer &#8222;Über uns&#8220;-Seite, um sich möglichen Besucher der Website vorzustellen. Dort könnte zum Beispiel stehen:"
+msgstr "Dies ist eine Beispiel-Seite. Sie unterscheidet sich von Beiträgen, da sie stets an derselben Stelle bleibt und (bei den meisten Themes) in der Website-Navigation angezeigt wird. Die meisten starten mit einem Impressum, der Datenschutzerklärung oder einer &#8222;Über uns&#8220;-Seite, um sich potienziellen Besuchern der Website vorzustellen. Dort könnte zum Beispiel stehen:"
 
 #: wp-admin/includes/class-wp-posts-list-table.php:1404
 msgid "Export as JSON"
@@ -2400,7 +2400,7 @@ msgstr "Der Umfang der Informationen, für die es erforderlich sein kann, sie an
 #. translators: privacy policy tutorial.
 #: wp-admin/includes/misc.php:1797
 msgid "In this section you should note your site URL, as well as the name of the company, organization, or individual behind it, and some accurate contact information."
-msgstr "In diesem Abschnitt solltest du die URL deiner Website nennen sowie den Namen des Unternehmens, der Organisation oder des Individuums hinter dem Projekt und auch korrekte Kontakt-Informationen."
+msgstr "In diesem Abschnitt solltest du die URL deiner Website nennen, sowie den Namen des Unternehmens, der Organisation oder des Individuums hinter dem Projekt und auch korrekte Kontakt-Informationen."
 
 #. translators: default privacy policy heading.
 #: wp-admin/includes/misc.php:1793
@@ -5992,7 +5992,7 @@ msgstr "https://de.wordpress.org/support/forum/wordpress-deutschland/"
 
 #: wp-admin/index.php:76
 msgid "<strong>At A Glance</strong> &mdash; Displays a summary of the content on your site and identifies which theme and version of WordPress you are using."
-msgstr "<strong>Auf einen Blick</strong> &mdash; Zeigt eine Zusammenfassung des Inhalts deiner Website und welches Theme und welche WordPress-Version du verwendest."
+msgstr "<strong>Auf einen Blick</strong> &mdash; Zeigt eine Zusammenfassung der Inhalte deiner Website und welches Theme mit welcher WordPress-Version du verwendest."
 
 #: wp-admin/index.php:63
 msgid "<strong>Box Controls</strong> &mdash; Click the title bar of the box to expand or collapse it. Some boxes added by plugins may have configurable content, and will show a &#8220;Configure&#8221; link in the title bar if you hover over it."
@@ -6253,7 +6253,7 @@ msgstr ""
 
 #: wp-admin/index.php:82
 msgid "<strong>Quick Draft</strong> &mdash; Allows you to create a new post and save it as a draft. Also displays links to the 3 most recent draft posts you've started."
-msgstr "<strong>Schneller Entwurf</strong> &ndash; Ermöglicht dir, neue Beiträge zu erstellen und als Entwurf zu speichern. Außerdem werden dir Links zu den letzten 3 Entwürfen angezeigt, die du begonnen hast."
+msgstr "<strong>Schneller Entwurf</strong> &mdash; Ermöglicht dir, neue Beiträge zu erstellen und als Entwurf zu speichern. Außerdem werden dir Links zu den letzten 3 Entwürfen angezeigt, die du begonnen hast."
 
 #: wp-admin/index.php:79
 msgid "<strong>Activity</strong> &mdash; Shows the upcoming scheduled posts, recently published posts, and the most recent comments on your posts and allows you to moderate them."
@@ -6261,7 +6261,7 @@ msgstr "<strong>Aktivität</strong> &mdash; Zeigt anstehende, geplante und vor k
 
 #: wp-admin/index.php:61
 msgid "<strong>Screen Options</strong> &mdash; Use the Screen Options tab to choose which Dashboard boxes to show."
-msgstr "<strong>Ansicht anpassen</strong> &mdash; Verwende den Tab &#8222;Ansicht anpassen&#8220; um auszuwählen, welche Boxen im Dashboard angezeigt werden sollen."
+msgstr "<strong>Ansicht anpassen</strong> &mdash; Verwende den Tab &#8222;Ansicht anpassen&#8220;, um auszuwählen, welche Boxen im Dashboard angezeigt werden sollen."
 
 #: wp-admin/post.php:81
 msgid "Unable to submit this form, please refresh and try again."
@@ -6413,7 +6413,7 @@ msgstr "Deine Website %1$s hat einen kritischen Fehler gemeldet, als versucht wu
 #: wp-admin/includes/class-wp-automatic-updater.php:694
 #: wp-admin/includes/class-wp-automatic-updater.php:713
 msgid "Updating is easy and only takes a few moments:"
-msgstr "Die Aktualisierung ist einfach und dauert nur einen kurzen Augenblick:"
+msgstr "Die Aktualisierung ist einfach und dauert nur wenige Augenblicke:"
 
 #: wp-admin/includes/class-wp-automatic-updater.php:710
 msgid "We tried but were unable to update your site automatically."
@@ -8556,7 +8556,7 @@ msgstr "Die folgenden Einstellungsmöglichkeiten kannst du dazu benutzen, die Zu
 
 #: wp-admin/index.php:62
 msgid "<strong>Drag and Drop</strong> &mdash; To rearrange the boxes, drag and drop by clicking on the title bar of the selected box and releasing when you see a gray dotted-line rectangle appear in the location you want to place the box."
-msgstr "<strong>Drag-and-drop</strong> &ndash; Um die Module neu anzuordnen, klicke auf die Titelleiste des ausgewählten Moduls, halte die Maustaste fest, und ziehe das Modul an die gewünschte Position, und lasse es los, wenn dort ein grau gepunktetes Rechteck auftaucht."
+msgstr "<strong>Drag-and-drop</strong> &mdash; Um die Module neu anzuordnen, klicke auf die Titelleiste des ausgewählten Moduls, halte die Maustaste fest, ziehe das Modul an die gewünschte Position und lasse es los, sobald dort ein grau gepunktetes Rechteck auftaucht."
 
 #: wp-admin/index.php:55
 msgid "Navigation"
