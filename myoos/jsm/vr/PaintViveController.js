@@ -13,7 +13,7 @@ import {
 	MeshBasicMaterial,
 	Shape,
 	ShapeBufferGeometry
-} from "../../../js/three/three.module.js";
+} from "../../js/three/three.module.js";
 import { ViveController } from "../vr/ViveController.js";
 
 var PaintViveController = function ( id ) {

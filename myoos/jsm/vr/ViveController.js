@@ -6,7 +6,7 @@
 import {
 	Matrix4,
 	Object3D
-} from "../../../js/three/three.module.js";
+} from "../../js/three/three.module.js";
 
 var ViveController = function ( id ) {
 

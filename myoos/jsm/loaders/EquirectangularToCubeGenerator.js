@@ -14,7 +14,7 @@ import {
 	ShaderMaterial,
 	UniformsUtils,
 	WebGLRenderTargetCube
-} from "../../../js/three/three.module.js";
+} from "../../js/three/three.module.js";
 
 var CubemapGenerator = function ( renderer ) {
 

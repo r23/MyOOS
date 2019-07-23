@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /* ----------------------------------------------------------------------
 
    MyOOS [Shopsystem]
@@ -144,11 +144,15 @@
 
 			function onload() {
 
-				container = document.getElementById( 'container' );
+				container = document.getElementById( 'scene3d' );
+
+				var CANVAS_WIDTH = 1024;
+				var CANVAS_HEIGHT = 576;
+
 
 				renderer = new THREE.WebGLRenderer( { antialias: true } );
 				renderer.setPixelRatio( window.devicePixelRatio );
-				renderer.setSize( window.innerWidth, window.innerHeight );
+				renderer.setSize( CANVAS_WIDTH, CANVAS_HEIGHT );
 				renderer.gammaOutput = true;
 				renderer.physicallyCorrectLights = true;
 				container.appendChild( renderer.domElement );
@@ -160,7 +164,7 @@
 				new RGBELoader()
 					.setType( THREE.UnsignedByteType )
 					.setPath( 'media/textures/equirectangular/' )
-					.load( 'venice_sunset_2k.hdr', function ( texture ) {
+					.load( 'vignaioli_2k.hdr', function ( texture ) {
 
 						var cubeGenerator = new EquirectangularToCubeGenerator( texture, { resolution: 1024 } );
 						cubeGenerator.update( renderer );
@@ -393,8 +397,17 @@
 
 				camera.aspect = container.offsetWidth / container.offsetHeight;
 				camera.updateProjectionMatrix();
-
-				renderer.setSize( window.innerWidth, window.innerHeight );
+ 
+				const container = renderer.domElement;
+				const width = container.clientWidth;
+				const height = container.clientHeight;
+				const needResize = container.width !== width || container.height !== height;
+				if (needResize) {
+					renderer.setSize(width, height, false);
+				}
+				return needResize;
+				
+				// renderer.setSize( CANVAS_WIDTH, CANVAS_HEIGHT );
 
 			}
 

@@ -610,7 +610,7 @@ AddDefaultCharset utf-8
 # https://mimesniff.spec.whatwg.org/
 
 <IfModule mod_headers.c>
-    Header set X-Content-Type-Options "nosniff"
+	Header set X-Content-Type-Options "nosniff"
 </IfModule>
 
 # ----------------------------------------------------------------------

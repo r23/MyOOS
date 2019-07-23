@@ -26,7 +26,7 @@ import {
 	ShaderMaterial,
 	WebGLRenderTargetCube,
 	sRGBEncoding
-} from "../../../js/three/three.module.js";
+} from "../../js/three/three.module.js";
 
 var PMREMGenerator = ( function () {
 

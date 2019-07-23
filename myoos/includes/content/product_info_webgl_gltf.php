@@ -82,10 +82,9 @@ if (!$product_info_result->RecordCount()) {
 
 
 	ob_start();
-	require_once MYOOS_INCLUDE_PATH . '/includes/modules/three/product_info_webgl_gltf.js.php';
-	$javascript = ob_get_contents();
+	require_once MYOOS_INCLUDE_PATH . '/includes/content/scene3d/product_info_webgl_gltf.js.php';
+	$webgl = ob_get_contents();
 	ob_end_clean();
-
 
     // Meta Tags
     $sPagetitle = (empty($product_info['products_title']) ? $product_info['products_name'] : $product_info['products_title']); 
@@ -186,9 +185,7 @@ if (!$product_info_result->RecordCount()) {
     $smarty->assign('product_info', $product_info);
 	$smarty->assign('heading_title', $product_info['products_name']);
     $smarty->assign('options', $options);
-	$smarty->assign('javascript', $javascript);	
-	
-	
+	$smarty->assign('webgl', $webgl);	
 
     $smarty->setCaching(false);
 }
