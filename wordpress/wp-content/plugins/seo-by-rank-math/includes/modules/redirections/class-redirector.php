@@ -396,6 +396,6 @@ class Redirector {
 	 * @return bool
 	 */
 	private function is_amp_endpoint() {
-		return \function_exists( 'is_amp_endpoint' ) && is_amp_endpoint() && ! amp_is_canonical();
+		return \function_exists( 'is_amp_endpoint' ) && \function_exists( 'amp_is_canonical' ) && is_amp_endpoint() && ! amp_is_canonical();
 	}
 }

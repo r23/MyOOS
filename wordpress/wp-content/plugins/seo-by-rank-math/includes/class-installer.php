@@ -190,7 +190,7 @@ class Installer {
 
 			"CREATE TABLE IF NOT EXISTS {$wpdb->prefix}rank_math_redirections (
 				id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-				sources TEXT NOT NULL CHARACTER SET {$wpdb->charset} COLLATE {$wpdb->charset}_bin,
+				sources TEXT CHARACTER SET {$wpdb->charset} COLLATE {$wpdb->charset}_bin NOT NULL,
 				url_to TEXT NOT NULL,
 				header_code SMALLINT(4) UNSIGNED NOT NULL,
 				hits BIGINT(20) UNSIGNED NOT NULL DEFAULT '0',
@@ -204,7 +204,7 @@ class Installer {
 
 			"CREATE TABLE IF NOT EXISTS {$wpdb->prefix}rank_math_redirections_cache (
 				id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-				from_url TEXT NOT NULL CHARACTER SET {$wpdb->charset} COLLATE {$wpdb->charset}_bin,
+				from_url TEXT CHARACTER SET {$wpdb->charset} COLLATE {$wpdb->charset}_bin NOT NULL,
 				redirection_id BIGINT(20) UNSIGNED NOT NULL,
 				object_id BIGINT(20) UNSIGNED NOT NULL DEFAULT '0',
 				object_type VARCHAR(10) NOT NULL DEFAULT 'post',

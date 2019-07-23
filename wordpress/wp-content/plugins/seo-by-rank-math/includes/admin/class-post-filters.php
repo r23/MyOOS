@@ -133,12 +133,12 @@ class Post_Filters implements Runner {
 					'relation' => 'OR',
 					[
 						'key'     => 'rank_math_focus_keyword',
-						'value'   => $focus_keyword,
+						'value'   => $focus_keyword . ',',
 						'compare' => 'LIKE',
 					],
 					[
 						'key'     => 'rank_math_focus_keyword',
-						'value'   => $focus_keyword . ',',
+						'value'   => $focus_keyword,
 						'compare' => 'LIKE',
 					],
 				],

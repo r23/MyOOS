@@ -46,7 +46,7 @@ class Str {
 	 * @return bool
 	 */
 	public static function contains( $needle, $haystack ) {
-		return '' === $needle ? false : strpos( $haystack, $needle ) !== false;
+		return self::is_non_empty( $needle ) ? strpos( $haystack, $needle ) !== false : false;
 	}
 
 	/**
