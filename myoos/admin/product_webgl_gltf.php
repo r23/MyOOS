@@ -23,12 +23,9 @@ define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
 require 'includes/functions/function_categories.php';
-require 'includes/classes/class_upload.php';
 require 'includes/classes/class_currencies.php';
 
 require_once MYOOS_INCLUDE_PATH . '/includes/lib/htmlpurifier/library/HTMLPurifier.auto.php';
-
-$currencies = new currencies();
 
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
 $cPath = (isset($_GET['cPath']) ? oos_prepare_input($_GET['cPath']) : $current_category_id);
@@ -38,12 +35,7 @@ if (!empty($action)) {
 	switch ($action) {
 		case 'insert_product':
 		case 'update_product':
-			$_POST['products_price'] = str_replace(',', '.', $_POST['products_price']);
-			$_POST['products_price_list'] = str_replace(',', '.', $_POST['products_price_list']);
-			$_POST['products_discount1'] = str_replace(',', '.', $_POST['products_discount1']);
-			$_POST['products_discount2'] = str_replace(',', '.', $_POST['products_discount2']);
-			$_POST['products_discount3'] = str_replace(',', '.', $_POST['products_discount3']);
-			$_POST['products_discount4'] = str_replace(',', '.', $_POST['products_discount4']);
+			$products_id = oos_db_prepare_input($_GET['pID']);		
 
 			if (isset($_FILES['files'])) {
 				foreach ($_FILES['files']['name'] as $key => $name) {
@@ -59,40 +51,6 @@ if (!empty($action)) {
 			}
 			$nImageCounter = (!isset($_POST['image_counter']) || !is_numeric($_POST['image_counter'])) ? 0 : intval($_POST['image_counter']);
 
-
-			$sProductsQuantity = oos_db_prepare_input($_POST['products_quantity']);
-			$sProductsStatus = oos_db_prepare_input($_POST['products_status']);
-			$sProductsReplacementProductID = oos_db_prepare_input($_POST['products_replacement_product_id']);
-			if (isset($_POST['products_replacement_product_id']) && is_numeric($_POST['products_replacement_product_id']) && ($_POST['products_replacement_product_id'] > 0) ) {		
-				$messageStack->add_session(ERROR_REPLACEMENT, 'error');
-				$sProductsStatus = 4;
-			} else {
-				$sProductsReplacementProductID = '';
-			}
-
-			if (STOCK_CHECK == 'true') {
-				if ($sProductsQuantity <= 0 ) {
-					$messageStack->add_session(ERROR_OUTOFSTOCK, 'error');
-					$sProductsStatus = 0;
-				}
-			}
-
-			$products_id = oos_db_prepare_input($_GET['pID']);
-			$products_date_available = oos_db_prepare_input($_POST['products_date_available']);
-
-
-
-			if (isset($_POST['products_base_price']) ) {
-				$products_base_price = oos_db_prepare_input($_POST['products_base_price']);
-				$products_product_quantity = oos_db_prepare_input($_POST['products_product_quantity']);
-				$products_base_quantity = oos_db_prepare_input($_POST['products_base_quantity']);
-				$products_base_unit = oos_db_prepare_input($_POST['products_base_unit']);
-			} else {
-				$products_base_price = 1.0;
-				$products_product_quantity = 1;
-				$products_base_quantity = 1;
-				$products_base_unit = '';
-			}
 
 			if ((date('Y-m-d') < $products_date_available) && ($sProductsStatus == 3)) {
 				$sProductsStatus = 2;
@@ -114,21 +72,7 @@ if (!empty($action)) {
                                   'products_weight' => oos_db_prepare_input($_POST['products_weight']),
                                   'products_status' => $sProductsStatus,
 								  'products_setting' => oos_db_prepare_input($_POST['products_setting']),
-                                  'products_tax_class_id' => oos_db_prepare_input($_POST['products_tax_class_id']),
-                                  'products_units_id' => oos_db_prepare_input($_POST['products_units_id']),
-                                  'manufacturers_id' => oos_db_prepare_input($_POST['manufacturers_id']),
-                                  'products_price_list' => oos_db_prepare_input($_POST['products_price_list']),
-                                  'products_quantity_order_min' => oos_db_prepare_input($_POST['products_quantity_order_min']),
-                                  'products_quantity_order_units' => oos_db_prepare_input($_POST['products_quantity_order_units']),
-								  'products_quantity_order_max' => oos_db_prepare_input($_POST['products_quantity_order_max']),
-                                  'products_discount1' => oos_db_prepare_input($_POST['products_discount1']),
-                                  'products_discount1_qty' => oos_db_prepare_input($_POST['products_discount1_qty']),
-                                  'products_discount2' => oos_db_prepare_input($_POST['products_discount2']),
-                                  'products_discount2_qty' => oos_db_prepare_input($_POST['products_discount2_qty']),
-                                  'products_discount3' => oos_db_prepare_input($_POST['products_discount3']),
-                                  'products_discount3_qty' => oos_db_prepare_input($_POST['products_discount3_qty']),
-                                  'products_discount4' => oos_db_prepare_input($_POST['products_discount4']),
-                                  'products_discount4_qty' => oos_db_prepare_input($_POST['products_discount4_qty']),
+
                                   );
 
 
@@ -329,21 +273,11 @@ require 'includes/header.php';
 				<div class="row">
 					<div class="col-lg-12">
 <?php
-if ($action == 'new_product') {
-	defined('DEFAULT_SETTING_ID') or define('DEFAULT_SETTING_ID', '2');
-	defined('DEFAULT_TAX_CLASS_ID') or define('DEFAULT_TAX_CLASS_ID', '1');
-	
-    $parameters = array('products_name' => '',
-						'products_title' => '',
-                       'products_description' => '',
-					   'products_short_description' => '',
-					   'products_essential_characteristics' => '',
-                       'products_url' => '',
-                       'products_id' => '',
-                       'products_quantity' => '',
-                       'products_model' => '',
-                       'products_image' => '',
-                       'products_larger_images' => array(),
+if ($action == 'edit_3d') {
+		
+    $parameters = array('products_id' => '',
+						'products_name' => '',
+                        'products_larger_images' => array(),
                        'products_price' => 0.0,
                        'products_base_price' => 1.0,
                        'products_product_quantity' => 1.0,
@@ -362,30 +296,20 @@ if ($action == 'new_product') {
 	  
 	if (isset($_GET['pID']) && empty($_POST)) {	  
 		$productstable = $oostable['products'];
+
+
 		$products_descriptiontable = $oostable['products_description'];
-		$product_result = $dbconn->Execute("SELECT p.products_id, pd.products_name, pd.products_title, pd.products_description, pd.products_short_description,
-												pd.products_essential_characteristics, pd.products_url, pd.products_description_meta, 
-                                                 p.products_quantity, p.products_reorder_level, p.products_model,
-                                                 p.products_replacement_product_id, p.products_ean, p.products_image,
-                                                 p.products_price, p.products_base_price, p.products_base_quantity,
-                                                 p.products_product_quantity, p.products_base_unit,
-                                                 p.products_weight, p.products_date_added, p.products_last_modified,
-                                                 date_format(p.products_date_available, '%Y-%m-%d') AS products_date_available,
-                                                 p.products_status, p.products_setting, p.products_tax_class_id, p.products_units_id,
-												 p.manufacturers_id, p.products_price_list,
-                                                 p.products_quantity_order_min, p.products_quantity_order_units, p.products_quantity_order_max,
-                                                 p.products_discount1, p.products_discount2, p.products_discount3,
-                                                 p.products_discount4, p.products_discount1_qty, p.products_discount2_qty,
-                                                 p.products_discount3_qty, p.products_discount4_qty, p.products_sort_order
+		$product_result = $dbconn->Execute("SELECT p.products_id, pd.products_name, 
                                             FROM $productstable p,
                                                  $products_descriptiontable pd
                                            WHERE p.products_id = '" . intval($pID) . "' AND
                                                  p.products_id = pd.products_id AND
-                                                 pd.products_languages_id = '" . intval($_SESSION['language_id']) . "'");
+                                                 pd.products_languages_id = '" . intval($_SESSION['language_id']) . "'");									 
 		$product = $product_result->fields;
 
 		$pInfo = new objectInfo($product);
 
+		$productstable = $oostable['products_models'];
 		$products_imagestable = $oostable['products_images'];
 		$products_images_result =  $dbconn->Execute("SELECT products_id, image_name, sort_order FROM $products_imagestable WHERE products_id = '" . intval($product['products_id']) . "' ORDER BY sort_order");
 			
@@ -630,134 +554,6 @@ function calcBasePriceFactor() {
 <?php
     for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
 ?>
-
-                        <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_PRODUCTS_NAME; ?></label>
-							  <?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
-                              <div class="col-lg-9">
-								<?php echo oos_draw_input_field('products_name[' . $aLanguages[$i]['id'] . ']', (($products_name[$aLanguages[$i]['id']]) ? stripslashes($products_name[$aLanguages[$i]['id']]) : oos_get_products_name($pInfo->products_id, $aLanguages[$i]['id']))); ?>
-                              </div>
-                           </div>
-                        </fieldset>						
-<?php
-    }
-?>
-<?php
-    for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
-?>
-                        <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_PRODUCTS_TITLE; ?></label>
-							  <?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
-                              <div class="col-lg-9">
-								<?php echo oos_draw_input_field('products_title[' . $aLanguages[$i]['id'] . ']', (($products_title[$aLanguages[$i]['id']]) ? stripslashes($products_title[$aLanguages[$i]['id']]) : oos_get_products_title($pInfo->products_id, $aLanguages[$i]['id']))); ?>
-                              </div>
-                           </div>
-                        </fieldset>						
-<?php
-    }
-?>
-
-
-                        <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_DATE_AVAILABLE; ?><br /><small>(YYYY-MM-DD)</small></label>
-                              <div class="col-lg-10">
-								<div class="input-group date" id="datetimepicker1">
-									<input class="form-control" type="text" name="products_date_available" value="<?php echo $pInfo->products_date_available; ?>">
-									<span class="input-group-addon">
-									<span class="fa fa-calendar"></span>
-								</span>
-								</div>
-                              </div>
-                           </div>
-                        </fieldset>
-
-                        <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_MANUFACTURER; ?></label>
-                              <div class="col-lg-10"><?php echo oos_draw_pull_down_menu('manufacturers_id', $manufacturers_array, $pInfo->manufacturers_id); ?></div>
-                           </div>
-                        </fieldset>
-
-<?php
-    for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
-?>
-                        <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_PRODUCTS_DESCRIPTION; ?></label>
-							  <?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
-                              <div class="col-lg-9">
-<?php
-       echo oos_draw_textarea_field('products_description_' . $aLanguages[$i]['id'], 'soft', '70', '15', ($_POST['products_description_' .$aLanguages[$i]['id']] ? stripslashes($_POST['products_description_' .$aLanguages[$i]['id']]) : oos_get_products_description($pInfo->products_id, $aLanguages[$i]['id'])));
-?>
-                              </div>
-                           </div>
-                        </fieldset>
-		<script>
-			CKEDITOR.replace( 'products_description_<?php echo $aLanguages[$i]['id']; ?>');
-		</script>
-
-<?php
-    }
-    for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
-?>
-                        <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_PRODUCTS_SHORT_DESCRIPTION; ?></label>
-							  <?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
-                              <div class="col-lg-9">
-<?php
-       echo oos_draw_textarea_field('products_short_description_' . $aLanguages[$i]['id'], 'soft', '70', '15', ($_POST['products_short_description_' .$aLanguages[$i]['id']] ? stripslashes($_POST['products_short_description_' .$aLanguages[$i]['id']]) : oos_get_products_short_description($pInfo->products_id, $aLanguages[$i]['id'])));
-?>
-                              </div>
-                           </div>
-                        </fieldset>
-		<script>
-			CKEDITOR.replace( 'products_short_description_<?php echo $aLanguages[$i]['id']; ?>');
-		</script>
-
-<?php
-    }	
-    for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
-?>
-                        <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_PRODUCTS_ESSENTIAL_CHARACTERISTICS; ?></label>
-							  <?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
-                              <div class="col-lg-9">
-<?php
-       echo oos_draw_textarea_field('products_essential_characteristics_' . $aLanguages[$i]['id'], 'soft', '70', '15', ($_POST['products_essential_characteristics_' .$aLanguages[$i]['id']] ? stripslashes($_POST['products_essential_characteristics_' .$aLanguages[$i]['id']]) : oos_get_products_essential_characteristicsn($pInfo->products_id, $aLanguages[$i]['id'])));
-?>
-                              </div>
-                           </div>
-                        </fieldset>
-		<script>
-			CKEDITOR.replace( 'products_essential_characteristics_<?php echo $aLanguages[$i]['id']; ?>');
-		</script>
-
-<?php
-    }	
-	for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
-?>
-					<fieldset>
-						<div class="form-group row">
-							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_PRODUCTS_DESCRIPTION_META; ?></label>
-							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
-							<div class="col-lg-9">
-								<?php echo oos_draw_textarea_field('products_description_meta_' . $aLanguages[$i]['id'], 'soft', '70', '4', ($_POST['products_description_meta_' .$aLanguages[$i]['id']] ? stripslashes($_POST['products_description_meta_' .$aLanguages[$i]['id']]) : oos_get_products_description_meta($pInfo->products_id, $aLanguages[$i]['id']))); ?>
-							</div>
-						</div>
-					</fieldset>
-<?php
-	}
-?>
-
-
-<?php
-    for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
-?>
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_PRODUCTS_URL . '<br /><small>' . TEXT_PRODUCTS_URL_WITHOUT_HTTP . '</small>'; ?></label>
@@ -815,113 +611,10 @@ function calcBasePriceFactor() {
                               </div>
                            </div>
                         </fieldset>						
-<?php
-  if (BASE_PRICE == 'true') {
-?>
-                        <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_PRODUCT_QUANTITY; ?></label>
-                              <div class="col-lg-10">
-                                 <?php echo oos_draw_input_field('products_product_quantity', $pInfo->products_product_quantity, 'onkeyup="calcBasePriceFactor()"'); ?>
-                              </div>
-                           </div>
-                        </fieldset>
-                        <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_UNIT; ?></label>
-                              <div class="col-lg-10">
-                                 <?php echo oos_draw_pull_down_menu('products_units_id', $products_units_array, $pInfo->products_units_id); ?>
-                              </div>
-                           </div>
-                        </fieldset>
-                        <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_BASE_QUANTITY; ?></label>
-                              <div class="col-lg-10">
-                                 <?php echo oos_draw_input_field('products_base_quantity', $pInfo->products_base_quantity, 'onkeyup="calcBasePriceFactor()"'); ?>
-                              </div>
-                           </div>
-                        </fieldset>
-                        <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_BASE_UNIT; ?></label>
-                              <div class="col-lg-10">
-                                 <?php echo oos_draw_pull_down_menu('products_base_unit', $products_units_array, $pInfo->products_base_unit); ?>
-                              </div>
-                           </div>
-                        </fieldset>
-                        <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_BASE_PRICE_FACTOR; ?></label>
-                              <div class="col-lg-10">
-                                 <?php echo oos_draw_input_field('products_base_price', $pInfo->products_base_price); ?>
-                              </div>
-                           </div>
-                        </fieldset>
-<?php
-  }
-?>
-                        <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_TAX_CLASS; ?></label>
-                              <div class="col-lg-10">
-                                 <?php echo oos_draw_pull_down_menu('products_tax_class_id', $tax_class_array, $pInfo->products_tax_class_id, 'onchange="updateWithTax()"') ?>
-                              </div>
-                           </div>
-                        </fieldset>
 
-                        <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_DISCOUNTS_TITLE; ?></label>
-                              <div class="col-lg-10">
- <?php
-   $sDiscount1 = number_format($pInfo->products_discount1, 4, '.', '');
-   $sDiscount2 = number_format($pInfo->products_discount2, 4, '.', '');
-   $sDiscount3 = number_format($pInfo->products_discount3, 4, '.', '');
-   $sDiscount4 = number_format($pInfo->products_discount4, 4, '.', '');
- ?>
-<table class="table table-striped">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col"><?php echo TEXT_DISCOUNTS_BREAKS; ?></th>
-      <th scope="col">1</th>
-      <th scope="col">2</th>
-      <th scope="col">3</th>
-	  <th scope="col">4</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row"><?php echo TEXT_DISCOUNTS_QTY; ?></th>
-      <td><?php echo oos_draw_input_field('products_discount1_qty', $pInfo->products_discount1_qty); ?></td>
-      <td><?php echo oos_draw_input_field('products_discount2_qty', $pInfo->products_discount2_qty); ?></td>
-      <td><?php echo oos_draw_input_field('products_discount3_qty', $pInfo->products_discount3_qty); ?></td>
-      <td><?php echo oos_draw_input_field('products_discount4_qty', $pInfo->products_discount4_qty); ?></td>
-    </tr>
-    <tr>
-      <th scope="row"><?php echo TEXT_DISCOUNTS_PRICE; ?></th>
-      <td><?php echo oos_draw_input_field('products_discount1', $sDiscount1, 'onkeyup="updateWithTax()"'); ?></td>
-      <td><?php echo oos_draw_input_field('products_discount2', $sDiscount2, 'onkeyup="updateWithTax()"'); ?></td>
-      <td><?php echo oos_draw_input_field('products_discount3', $sDiscount3, 'onkeyup="updateWithTax()"'); ?></td>
-	  <td><?php echo oos_draw_input_field('products_discount4', $sDiscount4, 'onkeyup="updateWithTax()"'); ?></td>
-    </tr>
-    <tr>
-      <th scope="row"><?php echo TEXT_DISCOUNTS_PRICE_WITH_TAX; ?></th>
-      <td><?php echo oos_draw_input_field('products_discount_gross1', $sDiscount1, 'onkeyup="updateNet()"'); ?></td>
-      <td><?php echo oos_draw_input_field('products_discount_gross2', $sDiscount2, 'onkeyup="updateNet()"'); ?></td>
-      <td><?php echo oos_draw_input_field('products_discount_gross3', $sDiscount3, 'onkeyup="updateNet()"'); ?></td>
-	  <td><?php echo oos_draw_input_field('products_discount_gross4', $sDiscount4, 'onkeyup="updateNet()"'); ?></td>
-    </tr>	
-	
-  </tbody>
-</table>
- 
-                            </div>
-                           </div>
-                        </fieldset>
-<script type="text/javascript"><!--
-updateWithTax();
-//--></script>
+
+
+
                        <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_MODEL; ?></label>
@@ -1208,142 +901,6 @@ updateWithTax();
 ?>
 <!-- body_text //-->
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr>
-        <td>
-<table border="0" width="100%" cellspacing="0" cellpadding="0">
-          <tr>
-            <td class="pageHeading"><?php echo oos_flag_icon($aLanguages[$i]) . '&nbsp;' . $pInfo->products_name; ?></td>
-			<td class="pageHeading" align="right"><?php echo $currencies->format($pInfo->products_price); ?></td>
-          </tr>
-<?php
-
-if ( !($pInfo->products_discount1_qty == 0 and $pInfo->products_discount2_qty == 0 and $pInfo->products_discount3_qty == 0 and $pInfo->products_discount4_qty == 0 )) {
-
-  $the_special = oos_get_products_special_price($_GET['pID']);
-
-  $q0 = $pInfo->products_quantity_order_min;
-  $q1 = $pInfo->products_discount1_qty;
-  $q2 = $pInfo->products_discount2_qty;
-  $q3 = $pInfo->products_discount3_qty;
-  $q4 = $pInfo->products_discount4_qty;
-
-  $col_cnt = 1;
-  if ( $pInfo->products_discount1 > 0 ) {
-    $col_cnt = $col_cnt+1;
-  }
-  if ( $pInfo->products_discount2 > 0 ) {
-    $col_cnt = $col_cnt+1;
-  }
-  if ( $pInfo->products_discount3 > 0 ) {
-    $col_cnt = $col_cnt+1;
-  }
-  if ( $pInfo->products_discount4 > 0 ) {
-    $col_cnt = $col_cnt+1;
-  }
-?>
-
-  <tr>
-    <td colspan="2" class="main" align="right">&nbsp;</td>
-  </tr>
-  <tr>
-    <td colspan="2" class="main" align="right">
-      <table width="<?php echo 50*$col_cnt; ?>" border="1" cellpadding="2" cellspacing="2" align="right">
-        <tr>
-          <td>
-            <table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
-<?php
-if ( $q1 < $q0 ) {
-?>
-              <tr>
-                <td colspan="<?php echo $col_cnt; ?>" class="DiscountPriceTitle" align="center">WARNING: Quanties Minimum &gt;<br /> Price Break 1</td>
-              </tr>
-              <tr>
-                <td colspan="<?php echo $col_cnt; ?>" class="DiscountPriceTitle" align="center">&nbsp;</td>
-              </tr>
-
-<?php
-}
-?>
-              <tr>
-                <td colspan="<?php echo $col_cnt; ?>" class="DiscountPriceTitle" align="center"><?php echo TEXT_DISCOUNTS_TITLE; ?></td>
-              </tr>
-              <tr>
-<?php
-  echo '      <td class="DiscountPriceQty" align="center">';
-  echo (($q1-1) > $q0 ? $q0 . '-' . ($q1-1) : $q0);
-  echo '      </td>';
-
-  if ( $q1 > 0 ) {
-    echo '<td class="DiscountPriceQty" align="center">';
-    echo ($q2 > 0 ? (($q2-1) > $q1 ? $q1 . '-' . ($q2-1) : $q1) : $q1 . '+');
-    echo '</td>';
-  }
-
-  if ( $q2 > 0 ) {
-    echo '<td class="DiscountPriceQty" align="center">';
-    echo ($q3 > 0 ? (($q3-1) > $q2 ? $q2 . '-' . ($q3-1) : $q2) : $q2 . '+');
-    echo '</td>';
-  }
-
-  if ( $q3 > 0 ) {
-    echo '<td class="DiscountPriceQty" align="center">';
-    echo ($q4 > 0 ? (($q4-1) > $q3 ? $q3 . '-' . ($q4-1) : $q3) : $q3 . '+');
-    echo '</td>';
-  }
-
-  if ( $q4 > 0 ) {
-    echo '<td class="DiscountPriceQty" align="center">';
-    echo ($q4 > 0 ? $q4 . '+' : '');
-    echo '</td>';
-  }
-?>
-              </tr>
-
-              <tr>
-<?php
-  echo '<td class="DiscountPrice" align="center">';
-  echo ( ($the_special==0) ? $currencies->format($pInfo->products_price) : $currencies->format($the_special) );
-  echo '</td>';
-
-  if ( $q1 > 0 ) {
-    echo '<td class="DiscountPrice" align="center">';
-    echo $currencies->format($pInfo->products_discount1);
-    echo '</td>';
-  }
-
-  if ( $q2 > 0 ) {
-    echo '<td class="DiscountPrice" align="center">';
-    echo $currencies->format($pInfo->products_discount2);
-    echo '</td>';
-  }
-
-  if ( $q3 > 0 ) {
-    echo '<td class="DiscountPrice" align="center">';
-    echo $currencies->format($pInfo->products_discount3);
-    echo '</td>';
-  }
-
-  if ( $q4 > 0 ) {
-    echo '<td class="DiscountPrice" align="center">';
-    echo $currencies->format($pInfo->products_discount4);
-    echo '</td>';
-  }
-?>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-<?php
-}
-?>
-        </table></td>
-      </tr>
-      <tr>
-        <td></td>
-      </tr>
       <tr>
         <td class="main">
 <?php

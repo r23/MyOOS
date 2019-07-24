@@ -20,3 +20,8 @@
    ---------------------------------------------------------------------- */
 
 
+define('HEADING_TITLE', '3D-Modell');   
+   
+define('TEXT_NEW_PRODUCT', '3D-Modell &quot;%s&quot;');
+define('TEXT_PRODUCTS', 'Artikel');
+define('TEXT_PRODUCTS_DATA', 'Artikeldaten');

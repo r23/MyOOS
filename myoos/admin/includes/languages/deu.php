@@ -256,6 +256,7 @@ define('BUTTON_CHANGE', 'Ändern');
 define('IMAGE_CONFIRM', 'Bestätigen');
 define('IMAGE_COPY', 'Kopieren');
 define('IMAGE_COPY_TO', 'Kopieren nach');
+define('BUTTON_CUBE', '3-D Objekt');
 define('IMAGE_DEFINE', 'Definieren');
 define('BUTTON_DELETE', 'L&ouml;schen');
 define('BUTTON_DELETE_PERMANENTLY', 'Endgültig löschen');

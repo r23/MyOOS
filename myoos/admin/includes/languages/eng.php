@@ -251,9 +251,11 @@ define('BUTTON_CHANGE', 'Change');
 define('IMAGE_CONFIRM', 'Confirm');
 define('IMAGE_COPY', 'Copy');
 define('IMAGE_COPY_TO', 'Copy To');
+define('BUTTON_CUBE', '3-D Objekt');
 define('IMAGE_DEFINE', 'Define');
 define('BUTTON_DELETE', 'Delete');
 define('BUTTON_DELETE_PERMANENTLY', 'Delete Permanently');
+
 define('BUTTON_EDIT', 'Edit');
 define('IMAGE_EMAIL', 'Email');
 define('IMAGE_FEATURED', 'Featured');
