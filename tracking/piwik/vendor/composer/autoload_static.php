@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit4073922495f40acd9009550ec3f192a1
+class ComposerStaticInit20965b5e193daae3814e448b2561c788
 {
     public static $files = array (
         '04c6c5c2f7095ccf6c481d3e53e1776f' => __DIR__ . '/..' . '/mustangostang/spyc/Spyc.php',
@@ -1054,7 +1054,6 @@ class ComposerStaticInit4073922495f40acd9009550ec3f192a1
         'Piwik\\Plugins\\Actions\\Segment' => __DIR__ . '/../..' . '/plugins/Actions/Segment.php',
         'Piwik\\Plugins\\Actions\\Tracker\\ActionsRequestProcessor' => __DIR__ . '/../..' . '/plugins/Actions/Tracker/ActionsRequestProcessor.php',
         'Piwik\\Plugins\\Actions\\VisitorDetails' => __DIR__ . '/../..' . '/plugins/Actions/VisitorDetails.php',
-        'Piwik\\Plugins\\Actions\\tests\\Unit\\ActionSiteSearchPublic' => __DIR__ . '/../..' . '/plugins/Actions/tests/Integration/ActionSiteSearchTest.php',
         'Piwik\\Plugins\\Actions\\tests\\Unit\\ActionSiteSearchTest' => __DIR__ . '/../..' . '/plugins/Actions/tests/Integration/ActionSiteSearchTest.php',
         'Piwik\\Plugins\\Actions\\tests\\Unit\\ArchiverTests' => __DIR__ . '/../..' . '/plugins/Actions/tests/Unit/ArchiverTest.php',
         'Piwik\\Plugins\\Annotations\\API' => __DIR__ . '/../..' . '/plugins/Annotations/API.php',
@@ -1314,6 +1313,7 @@ class ComposerStaticInit4073922495f40acd9009550ec3f192a1
         'Piwik\\Plugins\\CustomPiwikJs\\tests\\Integration\\ApiTest' => __DIR__ . '/../..' . '/plugins/CustomPiwikJs/tests/Integration/ApiTest.php',
         'Piwik\\Plugins\\CustomPiwikJs\\tests\\Integration\\CustomPluginTrackerFiles' => __DIR__ . '/../..' . '/plugins/CustomPiwikJs/tests/Integration/PluginTrackerFilesTest.php',
         'Piwik\\Plugins\\CustomPiwikJs\\tests\\Integration\\CustomPluginTrackerFiles2' => __DIR__ . '/../..' . '/plugins/CustomPiwikJs/tests/Integration/PluginTrackerFilesTest.php',
+        'Piwik\\Plugins\\CustomPiwikJs\\tests\\Integration\\CustomTestFile' => __DIR__ . '/../..' . '/plugins/CustomPiwikJs/tests/Integration/FileTest.php',
         'Piwik\\Plugins\\CustomPiwikJs\\tests\\Integration\\FileTest' => __DIR__ . '/../..' . '/plugins/CustomPiwikJs/tests/Integration/FileTest.php',
         'Piwik\\Plugins\\CustomPiwikJs\\tests\\Integration\\PiwikJsManipulatorTest' => __DIR__ . '/../..' . '/plugins/CustomPiwikJs/tests/Integration/PiwikJsManipulatorTest.php',
         'Piwik\\Plugins\\CustomPiwikJs\\tests\\Integration\\PluginTrackerFilesTest' => __DIR__ . '/../..' . '/plugins/CustomPiwikJs/tests/Integration/PluginTrackerFilesTest.php',
@@ -1432,6 +1432,7 @@ class ComposerStaticInit4073922495f40acd9009550ec3f192a1
         'Piwik\\Plugins\\Diagnostics\\Diagnostic\\DbAdapterCheck' => __DIR__ . '/../..' . '/plugins/Diagnostics/Diagnostic/DbAdapterCheck.php',
         'Piwik\\Plugins\\Diagnostics\\Diagnostic\\DbMaxPacket' => __DIR__ . '/../..' . '/plugins/Diagnostics/Diagnostic/DbMaxPacket.php',
         'Piwik\\Plugins\\Diagnostics\\Diagnostic\\DbOverSSLCheck' => __DIR__ . '/../..' . '/plugins/Diagnostics/Diagnostic/DbOverSSLCheck.php',
+        'Piwik\\Plugins\\Diagnostics\\Diagnostic\\DbReaderCheck' => __DIR__ . '/../..' . '/plugins/Diagnostics/Diagnostic/DbReaderCheck.php',
         'Piwik\\Plugins\\Diagnostics\\Diagnostic\\Diagnostic' => __DIR__ . '/../..' . '/plugins/Diagnostics/Diagnostic/Diagnostic.php',
         'Piwik\\Plugins\\Diagnostics\\Diagnostic\\DiagnosticResult' => __DIR__ . '/../..' . '/plugins/Diagnostics/Diagnostic/DiagnosticResult.php',
         'Piwik\\Plugins\\Diagnostics\\Diagnostic\\DiagnosticResultItem' => __DIR__ . '/../..' . '/plugins/Diagnostics/Diagnostic/DiagnosticResultItem.php',
@@ -1641,6 +1642,7 @@ class ComposerStaticInit4073922495f40acd9009550ec3f192a1
         'Piwik\\Plugins\\Goals\\Widgets\\AddNewGoal' => __DIR__ . '/../..' . '/plugins/Goals/Widgets/AddNewGoal.php',
         'Piwik\\Plugins\\Goals\\Widgets\\EditGoals' => __DIR__ . '/../..' . '/plugins/Goals/Widgets/EditGoals.php',
         'Piwik\\Plugins\\Goals\\tests\\Integration\\APITest' => __DIR__ . '/../..' . '/plugins/Goals/tests/Integration/APITest.php',
+        'Piwik\\Plugins\\Goals\\tests\\System\\NumericAttributeGoalTrackingTest' => __DIR__ . '/../..' . '/plugins/Goals/tests/System/NumericAttributeGoalTrackingTest.php',
         'Piwik\\Plugins\\Goals\\tests\\System\\TrackGoalsAllowMultipleConversionsPerVisitTest' => __DIR__ . '/../..' . '/plugins/Goals/tests/System/TrackGoalsAllowMultipleConversionsPerVisitTest.php',
         'Piwik\\Plugins\\Goals\\tests\\System\\TrackGoalsOneConversionPerVisitTest' => __DIR__ . '/../..' . '/plugins/Goals/tests/System/TrackGoalsOneConversionPerVisitTest.php',
         'Piwik\\Plugins\\Goals\\tests\\Unit\\AppendNameToColumnNamesTest' => __DIR__ . '/../..' . '/plugins/Goals/tests/Unit/AppendNameToColumnNamesTest.php',
@@ -2806,6 +2808,7 @@ class ComposerStaticInit4073922495f40acd9009550ec3f192a1
         'Piwik\\Updates\\Updates_3_0_1_b1' => __DIR__ . '/../..' . '/core/Updates/3.0.1-b1.php',
         'Piwik\\Updates\\Updates_3_10_0_b2' => __DIR__ . '/../..' . '/core/Updates/3.10.0-b2.php',
         'Piwik\\Updates\\Updates_3_10_0_rc5' => __DIR__ . '/../..' . '/core/Updates/3.10.0-rc5.php',
+        'Piwik\\Updates\\Updates_3_11_0_b1' => __DIR__ . '/../..' . '/core/Updates/3.11.0-b1.php',
         'Piwik\\Updates\\Updates_3_5_0_b2' => __DIR__ . '/../..' . '/core/Updates/3.5.0-b2.php',
         'Piwik\\Updates\\Updates_3_5_0_b4' => __DIR__ . '/../..' . '/core/Updates/3.5.0-b4.php',
         'Piwik\\Updates\\Updates_3_5_0_rc2' => __DIR__ . '/../..' . '/core/Updates/3.5.0-rc2.php',
@@ -3398,34 +3401,6 @@ class ComposerStaticInit4073922495f40acd9009550ec3f192a1
         'Twig_TokenStream' => __DIR__ . '/..' . '/twig/twig/lib/Twig/TokenStream.php',
         'Twig_Util_DeprecationCollector' => __DIR__ . '/..' . '/twig/twig/lib/Twig/Util/DeprecationCollector.php',
         'Twig_Util_TemplateDirIterator' => __DIR__ . '/..' . '/twig/twig/lib/Twig/Util/TemplateDirIterator.php',
-        'Zend_Cache' => __DIR__ . '/../..' . '/libs/Zend/Cache.php',
-        'Zend_Cache_Backend' => __DIR__ . '/../..' . '/libs/Zend/Cache/Backend.php',
-        'Zend_Cache_Backend_Apc' => __DIR__ . '/../..' . '/libs/Zend/Cache/Backend/Apc.php',
-        'Zend_Cache_Backend_BlackHole' => __DIR__ . '/../..' . '/libs/Zend/Cache/Backend/BlackHole.php',
-        'Zend_Cache_Backend_ExtendedInterface' => __DIR__ . '/../..' . '/libs/Zend/Cache/Backend/ExtendedInterface.php',
-        'Zend_Cache_Backend_File' => __DIR__ . '/../..' . '/libs/Zend/Cache/Backend/File.php',
-        'Zend_Cache_Backend_Interface' => __DIR__ . '/../..' . '/libs/Zend/Cache/Backend/Interface.php',
-        'Zend_Cache_Backend_Libmemcached' => __DIR__ . '/../..' . '/libs/Zend/Cache/Backend/Libmemcached.php',
-        'Zend_Cache_Backend_Memcached' => __DIR__ . '/../..' . '/libs/Zend/Cache/Backend/Memcached.php',
-        'Zend_Cache_Backend_Sqlite' => __DIR__ . '/../..' . '/libs/Zend/Cache/Backend/Sqlite.php',
-        'Zend_Cache_Backend_Static' => __DIR__ . '/../..' . '/libs/Zend/Cache/Backend/Static.php',
-        'Zend_Cache_Backend_Test' => __DIR__ . '/../..' . '/libs/Zend/Cache/Backend/Test.php',
-        'Zend_Cache_Backend_TwoLevels' => __DIR__ . '/../..' . '/libs/Zend/Cache/Backend/TwoLevels.php',
-        'Zend_Cache_Backend_WinCache' => __DIR__ . '/../..' . '/libs/Zend/Cache/Backend/WinCache.php',
-        'Zend_Cache_Backend_Xcache' => __DIR__ . '/../..' . '/libs/Zend/Cache/Backend/Xcache.php',
-        'Zend_Cache_Backend_ZendPlatform' => __DIR__ . '/../..' . '/libs/Zend/Cache/Backend/ZendPlatform.php',
-        'Zend_Cache_Backend_ZendServer' => __DIR__ . '/../..' . '/libs/Zend/Cache/Backend/ZendServer.php',
-        'Zend_Cache_Backend_ZendServer_Disk' => __DIR__ . '/../..' . '/libs/Zend/Cache/Backend/ZendServer/Disk.php',
-        'Zend_Cache_Backend_ZendServer_ShMem' => __DIR__ . '/../..' . '/libs/Zend/Cache/Backend/ZendServer/ShMem.php',
-        'Zend_Cache_Core' => __DIR__ . '/../..' . '/libs/Zend/Cache/Core.php',
-        'Zend_Cache_Exception' => __DIR__ . '/../..' . '/libs/Zend/Cache/Exception.php',
-        'Zend_Cache_Frontend_Capture' => __DIR__ . '/../..' . '/libs/Zend/Cache/Frontend/Capture.php',
-        'Zend_Cache_Frontend_Class' => __DIR__ . '/../..' . '/libs/Zend/Cache/Frontend/Class.php',
-        'Zend_Cache_Frontend_File' => __DIR__ . '/../..' . '/libs/Zend/Cache/Frontend/File.php',
-        'Zend_Cache_Frontend_Function' => __DIR__ . '/../..' . '/libs/Zend/Cache/Frontend/Function.php',
-        'Zend_Cache_Frontend_Output' => __DIR__ . '/../..' . '/libs/Zend/Cache/Frontend/Output.php',
-        'Zend_Cache_Frontend_Page' => __DIR__ . '/../..' . '/libs/Zend/Cache/Frontend/Page.php',
-        'Zend_Cache_Manager' => __DIR__ . '/../..' . '/libs/Zend/Cache/Manager.php',
         'Zend_Config' => __DIR__ . '/../..' . '/libs/Zend/Config.php',
         'Zend_Config_Exception' => __DIR__ . '/../..' . '/libs/Zend/Config/Exception.php',
         'Zend_Config_Ini' => __DIR__ . '/../..' . '/libs/Zend/Config/Ini.php',
@@ -3554,7 +3529,6 @@ class ComposerStaticInit4073922495f40acd9009550ec3f192a1
         'Zend_Validate_CreditCard' => __DIR__ . '/../..' . '/libs/Zend/Validate/CreditCard.php',
         'Zend_Validate_Date' => __DIR__ . '/../..' . '/libs/Zend/Validate/Date.php',
         'Zend_Validate_Digits' => __DIR__ . '/../..' . '/libs/Zend/Validate/Digits.php',
-        'Zend_Validate_EmailAddress' => __DIR__ . '/../..' . '/libs/Zend/Validate/EmailAddress.php',
         'Zend_Validate_Exception' => __DIR__ . '/../..' . '/libs/Zend/Validate/Exception.php',
         'Zend_Validate_File_Count' => __DIR__ . '/../..' . '/libs/Zend/Validate/File/Count.php',
         'Zend_Validate_File_Crc32' => __DIR__ . '/../..' . '/libs/Zend/Validate/File/Crc32.php',
@@ -3601,11 +3575,11 @@ class ComposerStaticInit4073922495f40acd9009550ec3f192a1
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit4073922495f40acd9009550ec3f192a1::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit4073922495f40acd9009550ec3f192a1::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit4073922495f40acd9009550ec3f192a1::$prefixesPsr0;
-            $loader->fallbackDirsPsr0 = ComposerStaticInit4073922495f40acd9009550ec3f192a1::$fallbackDirsPsr0;
-            $loader->classMap = ComposerStaticInit4073922495f40acd9009550ec3f192a1::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit20965b5e193daae3814e448b2561c788::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit20965b5e193daae3814e448b2561c788::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit20965b5e193daae3814e448b2561c788::$prefixesPsr0;
+            $loader->fallbackDirsPsr0 = ComposerStaticInit20965b5e193daae3814e448b2561c788::$fallbackDirsPsr0;
+            $loader->classMap = ComposerStaticInit20965b5e193daae3814e448b2561c788::$classMap;
 
         }, null, ClassLoader::class);
     }
