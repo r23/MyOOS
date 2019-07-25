@@ -284,7 +284,6 @@ if ($action == 'edit_3d') {
 	if (isset($_GET['pID']) && empty($_POST)) {	  
 		$productstable = $oostable['products'];
 
-
 		$products_descriptiontable = $oostable['products_description'];
 		$product_result = $dbconn->Execute("SELECT p.products_id, pd.products_name
                                             FROM $productstable p,
@@ -296,27 +295,8 @@ if ($action == 'edit_3d') {
 
 		$pInfo = new objectInfo($product);
 
-$table = $prefix_table . 'products_models';
-$flds = "
-  models_id I NOTNULL AUTO PRIMARY,
-  products_id I NOTNULL DEFAULT '1' PRIMARY,
-  models_webgl_gltf C(255) NULL,
-  models_author C(255) NULL,
-  models_author_url C(255) NULL,
-  models_camera_pos C(24) NULL,
-  models_object_rotation: C(10) NULL,
-  models_add_lights C(5) NOTNULL DEFAULT 'true',
-  models_add_ground C(5) NOTNULL DEFAULT 'true',
-  models_shadows C(5) NOTNULL DEFAULT 'true',
-  models_hdr C(255) NULL
-";
-dosql($table, $flds);
-
-
-
-		$productstable = $oostable['products_models'];
-		$products_imagestable = $oostable['products_images'];
-		$products_models_result =  $dbconn->Execute("SELECT models_id, products_id, models_webgl_gltf, models_author, models_author_url, models_camera_pos, models_object_rotation, models_add_lights, models_add_ground, models_shadows, models_hdr FROM $products_imagestable WHERE products_id = '" . intval($product['products_id']) . "'");
+		$products_modelstable = $oostable['products_models'];
+		$products_models_result =  $dbconn->Execute("SELECT models_id, products_id, models_webgl_gltf, models_author, models_author_url, models_camera_pos, models_object_rotation, models_add_lights, models_add_ground, models_shadows, models_extensions, models_hdr FROM $products_modelstable WHERE products_id = '" . intval($product['products_id']) . "'");
 			
 		while ($products_models = $products_models_result->fields) {
 			$pInfo->products_models[] = array('models_id' => $products_models['models_id'],
@@ -329,11 +309,15 @@ dosql($table, $flds);
 											'models_add_lights' => $products_models['models_add_lights'],
 											'models_add_ground' => $products_models['models_add_ground'],
 											'models_shadows' => $products_models['models_shadows'],
+											'models_extensions' => $products_models['models_extensions'],
 											'models_hdr' => $products_models['models_hdr']);
 			// Move that ADOdb pointer!
 			$products_models_result->MoveNext();
 		}
     } 
+
+	$aExtensions = array();
+	$aExtensions = array('glTF', 'glTF-Embedded', 'glTF-pbrSpecularGlossiness', 'glTF-Binary', 'glTF-Draco');
 	
     $form_action = (isset($_GET['pID'])) ? 'update_product' : 'insert_product';
 
@@ -384,16 +368,8 @@ dosql($table, $flds);
 						<?php echo oos_reset_button(BUTTON_RESET); ?>			   
 					</div>			  
                      <div class="tab-pane active" id="edit" role="tabpanel">
-
-                        <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo ENTRY_STATUS; ?></label>
-                              <div class="col-lg-10"><?php echo oos_draw_pull_down_menu('products_setting', $aSetting, $pInfo->products_setting); ?></div>
-                           </div>
-                        </fieldset>
-
 <?php
-	if (is_array($pInfo->products_models) || is_object($pInfo->products_larger_images)) {
+	if (is_array($pInfo->products_models) || is_object($pInfo->products_models)) {
 		$nCounter = 0;
 		
 		foreach ($pInfo->products_models as $models) {
@@ -402,18 +378,83 @@ dosql($table, $flds);
 
 		<div class="row mb-3 pb-3 bb">
 			<div class="col-6 col-md-3">
-
-
+			
                        <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_MODEL; ?></label>
                               <div class="col-lg-10">
-								<?php echo oos_draw_input_field('products_model['. $nCounter . ']', $pInfo->products_model); ?>
+								<?php echo oos_draw_input_field('products_model['. $nCounter . ']',  $models['products_model']); ?>
                               </div>
                            </div>
                         </fieldset>
+                       <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_AUTHOR; ?></label>
+                              <div class="col-lg-10">
+								<?php echo oos_draw_input_field('models_author['. $nCounter . ']',  $models['models_author']); ?>
+                              </div>
+                           </div>
+                        </fieldset>
+                       <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_AUTHOR_URL; ?></label>
+                              <div class="col-lg-10">
+								<?php echo oos_draw_input_field('models_author_url['. $nCounter . ']',  $models['models_author_url']); ?>
+                              </div>
+                           </div>
+                        </fieldset>
+                       <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_CAMERA_POS; ?></label>
+                              <div class="col-lg-10">
+								<?php echo oos_draw_input_field('models_camera_pos['. $nCounter . ']',  $models['models_camera_pos']); ?>
+                              </div>
+                           </div>
+                        </fieldset>
+                       <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_OBJECT_ROTATION; ?></label>
+                              <div class="col-lg-10">
+								<?php echo oos_draw_input_field('models_object_rotation['. $nCounter . ']',  $models['models_object_rotation']); ?>
+                              </div>
+                           </div>
+                        </fieldset>
+                       <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_ADD_LIGHTS; ?></label>
 
-
+								<div class="col-lg-10">
+									<div class="c-radio c-radio-nofont">
+										<label>
+										<?php
+											echo '<input type="radio" name="models_add_lights" value="true"'; 
+											if ('models_add_lights['. $nCounter . ']' == 'true') echo ' checked="checked"';
+											echo  '>&nbsp;';
+									   ?>
+											<span class="badge badge-success float-right"><?php echo ENTRY_YES; ?></span>
+										</label>
+									</div>
+								<div class="c-radio c-radio-nofont">
+									<label>
+										<?php
+											echo '<input type="radio" name="models_add_lights" value="false"'; 
+											if ('models_add_lights['. $nCounter . ']' == 'false') echo ' checked="checked"';
+											echo  '>&nbsp;';
+									   ?>
+										<span class="badge badge-danger float-right"><?php echo ENTRY_NO; ?></span>
+									</label>
+								</div>
+							</div>
+						</div>							  
+                        </fieldset>							  
+					  	<fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_EXTENSIONS; ?></label>
+                              <div class="col-lg-10"><?php echo oos_draw_pull_down_menu('models_extensions['. $nCounter . ']', $aExtensions, $models['models_extensions']); ?></div>
+                           </div>
+                        </fieldset>
+							  
+							  
 
 <?php	
 		echo '<div class="text-center"><div class="d-block" style="width: 200px; height: 150px;">';
@@ -436,33 +477,86 @@ dosql($table, $flds);
 	}
 	echo oos_draw_hidden_field('image_counter', $nCounter);
 ?>		
-			$pInfo->products_models[] = array('models_id' => $products_models['models_id'],
-											'products_id' => $products_models['products_id'],
-											'models_webgl_gltf' => $products_models['models_webgl_gltf'],
-											'models_author' => $products_models['models_author'],
-											'models_author_url' => $products_models['models_author_url'],
-											'models_camera_pos' => $products_models['models_camera_pos'],
-											'models_object_rotation' => $products_models['models_object_rotation'],
-											'models_add_lights' => $products_models['models_add_lights'],
-											'models_add_ground' => $products_models['models_add_ground'],
-											'models_shadows' => $products_models['models_shadows'],
-											'models_hdr' => $products_models['models_hdr']);
 
 
 
-<?php
-    for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
-?>
-                        <fieldset>
+                       <fieldset>
                            <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_PRODUCTS_URL . '<br /><small>' . TEXT_PRODUCTS_URL_WITHOUT_HTTP . '</small>'; ?></label>
-							  <?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
-                              <div class="col-lg-9"><?php echo oos_draw_input_field('products_url[' . $aLanguages[$i]['id'] . ']', (($products_url[$aLanguages[$i]['iso_639_2']]) ? stripslashes($products_url[$aLanguages[$i]['id']]) : oos_get_products_url($pInfo->products_id, $aLanguages[$i]['id']))); ?></div>
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_MODEL; ?></label>
+                              <div class="col-lg-10">
+								<?php echo oos_draw_input_field('products_model['. $nCounter . ']',  $models['products_model']); ?>
+                              </div>
                            </div>
                         </fieldset>
-<?php
-    }
-?>
+                       <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_AUTHOR; ?></label>
+                              <div class="col-lg-10">
+								<?php echo oos_draw_input_field('models_author['. $nCounter . ']',  $models['models_author']); ?>
+                              </div>
+                           </div>
+                        </fieldset>
+                       <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_AUTHOR_URL; ?></label>
+                              <div class="col-lg-10">
+								<?php echo oos_draw_input_field('models_author_url['. $nCounter . ']',  $models['models_author_url']); ?>
+                              </div>
+                           </div>
+                        </fieldset>
+                       <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_CAMERA_POS; ?></label>
+                              <div class="col-lg-10">
+								<?php echo oos_draw_input_field('models_camera_pos['. $nCounter . ']',  $models['models_camera_pos']); ?>
+                              </div>
+                           </div>
+                        </fieldset>
+                       <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_OBJECT_ROTATION; ?></label>
+                              <div class="col-lg-10">
+								<?php echo oos_draw_input_field('models_object_rotation['. $nCounter . ']',  $models['models_object_rotation']); ?>
+                              </div>
+                           </div>
+                        </fieldset>
+                       <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_ADD_LIGHTS; ?></label>
+
+								<div class="col-lg-10">
+									<div class="c-radio c-radio-nofont">
+										<label>
+										<?php
+											echo '<input type="radio" name="models_add_lights" value="true"'; 
+											if ('models_add_lights['. $nCounter . ']' == 'true') echo ' checked="checked"';
+											echo  '>&nbsp;';
+									   ?>
+											<span class="badge badge-success float-right"><?php echo ENTRY_YES; ?></span>
+										</label>
+									</div>
+								<div class="c-radio c-radio-nofont">
+									<label>
+										<?php
+											echo '<input type="radio" name="models_add_lights" value="false"'; 
+											if ('models_add_lights['. $nCounter . ']' == 'false') echo ' checked="checked"';
+											echo  '>&nbsp;';
+									   ?>
+										<span class="badge badge-danger float-right"><?php echo ENTRY_NO; ?></span>
+									</label>
+								</div>
+							</div>
+						</div>							  
+                        </fieldset>							  
+					  	<fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_EXTENSIONS; ?></label>
+                              <div class="col-lg-10"><?php echo oos_draw_pull_down_menu('models_extensions['. $nCounter . ']', $aExtensions, $models['models_extensions']); ?></div>
+                           </div>
+                        </fieldset>
+
+
+
                      </div>
 				 
                      <div class="tab-pane" id="data" role="tabpanel">
@@ -471,7 +565,7 @@ dosql($table, $flds);
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_MODEL; ?></label>
                               <div class="col-lg-10">
-								<?php echo oos_draw_input_field('products_model', $pInfo->products_model); ?>
+								<?php echo oos_draw_input_field('models_author', $pInfo->products_model); ?>
                               </div>
                            </div>
                         </fieldset>
@@ -700,7 +794,9 @@ dosql($table, $flds);
 			
             </form>
 <!-- body_text_eof //-->
-
+<?php
+}
+?>
 
 				</div>
 			</div>

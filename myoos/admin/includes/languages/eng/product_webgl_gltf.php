@@ -25,3 +25,10 @@ define('HEADING_TITLE', '3D Model');
 define('TEXT_NEW_PRODUCT', '3D Model in &quot;%s&quot;');
 define('TEXT_PRODUCTS', 'Products');
 define('TEXT_PRODUCTS_DATA', 'Productsdata');
+
+
+define('TEXT_MODELS_AUTHOR', '3-D Artist');
+define('TEXT_MODELS_AUTHOR_URL', 'Website of the 3-D Artist');
+define('TEXT_MODELS_CAMERA_POS', 'Camera Position');
+define('TEXT_MODELS_OBJECT_ROTATION', 'Object rotation');
+define('TEXT_MODELS_EXTENSIONS', 'Choose glTF format.');
