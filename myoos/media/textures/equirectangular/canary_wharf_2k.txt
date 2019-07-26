@@ -1,0 +1,9 @@
+﻿
+https://hdrihaven.com/hdri/?h=canary_wharf
+	
+    Dynamic Range: 12 EVs (high), unclipped
+    Taken: 19 May 2019 18:09
+    Published: 23 July 2019 (3 days ago)
+    Location: 51.503704, -0.020148 (approx.)
+    Author: Andreas Mischok	
+	License: CC0 https://creativecommons.org/publicdomain/zero/1.0/
