@@ -277,6 +277,7 @@ if ($action == 'edit_3d') {
 		
     $parameters = array('products_id' => '',
 						'products_name' => '',
+						'products_image' => '',
                         'products_models' => array());
 
     $pInfo = new objectInfo($parameters);	  
@@ -285,7 +286,7 @@ if ($action == 'edit_3d') {
 		$productstable = $oostable['products'];
 
 		$products_descriptiontable = $oostable['products_description'];
-		$product_result = $dbconn->Execute("SELECT p.products_id, pd.products_name
+		$product_result = $dbconn->Execute("SELECT p.products_id, p.products_image, pd.products_name
                                             FROM $productstable p,
                                                  $products_descriptiontable pd
                                            WHERE p.products_id = '" . intval($pID) . "' AND
@@ -296,7 +297,7 @@ if ($action == 'edit_3d') {
 		$pInfo = new objectInfo($product);
 
 		$products_modelstable = $oostable['products_models'];
-		$products_models_result =  $dbconn->Execute("SELECT models_id, products_id, models_webgl_gltf, models_author, models_author_url, models_camera_pos, models_object_rotation, models_add_lights, models_add_ground, models_shadows, models_extensions, models_hdr FROM $products_modelstable WHERE products_id = '" . intval($product['products_id']) . "'");
+		$products_models_result =  $dbconn->Execute("SELECT models_id, products_id, models_webgl_gltf, models_author, models_author_url, models_camera_pos, models_object_rotation, models_add_lights, models_add_ground, models_shadows, models_add_env_map, models_extensions, models_hdr FROM $products_modelstable WHERE products_id = '" . intval($product['products_id']) . "'");
 			
 		while ($products_models = $products_models_result->fields) {
 			$pInfo->products_models[] = array('models_id' => $products_models['models_id'],
@@ -309,6 +310,7 @@ if ($action == 'edit_3d') {
 											'models_add_lights' => $products_models['models_add_lights'],
 											'models_add_ground' => $products_models['models_add_ground'],
 											'models_shadows' => $products_models['models_shadows'],
+											'models_add_env_map' => $products_models['models_add_env_map'],
 											'models_extensions' => $products_models['models_extensions'],
 											'models_hdr' => $products_models['models_hdr']);
 			// Move that ADOdb pointer!
@@ -352,13 +354,13 @@ if ($action == 'edit_3d') {
                <div role="tabpanel">
                   <ul class="nav nav-tabs nav-justified">
                      <li class="nav-item" role="presentation">
-                        <a class="nav-link active" href="#edit" aria-controls="edit" role="tab" data-toggle="tab"><?php echo TEXT_PRODUCTS; ?></a>
+                        <a class="nav-link active" href="#product" aria-controls="product" role="tab" data-toggle="tab"><?php echo TEXT_PRODUCTS; ?></a>
                      </li>
                      <li class="nav-item" role="presentation">
-                        <a class="nav-link" href="#data" aria-controls="data" role="tab" data-toggle="tab"><?php echo TEXT_PRODUCTS_DATA; ?></a>
+                        <a class="nav-link" href="#model" aria-controls="model" role="tab" data-toggle="tab"><?php echo TEXT_PRODUCTS_MODEL; ?></a>
                      </li>
                      <li class="nav-item" role="presentation">
-                        <a class="nav-link" href="#picture" aria-controls="picture" role="tab" data-toggle="tab"><?php echo TEXT_PRODUCTS_IMAGE; ?></a>
+                        <a class="nav-link" href="#uplaod" aria-controls="picture" role="tab" data-toggle="tab"><?php echo TEXT_PRODUCTS_IMAGE; ?></a>
                      </li>
                   </ul>
                   <div class="tab-content">
@@ -367,7 +369,22 @@ if ($action == 'edit_3d') {
 						<?php echo oos_submit_button(IMAGE_SAVE); ?>
 						<?php echo oos_reset_button(BUTTON_RESET); ?>			   
 					</div>			  
-                     <div class="tab-pane active" id="edit" role="tabpanel">
+                     <div class="tab-pane active" id="product" role="tabpanel">
+
+
+                           <div class="col-9">
+                              <h2><?php echo $pInfo->products_name; ?></h2>
+                           </div>	
+					 
+                           <div class="col-9">
+                              <?php echo  product_info_image($pInfo->products_image, $pInfo->products_name); ?>
+                           </div>					 
+					 
+                     </div>
+			 
+                     <div class="tab-pane" id="model" role="tabpanel">
+
+
 <?php
 	if (is_array($pInfo->products_models) || is_object($pInfo->products_models)) {
 		$nCounter = 0;
@@ -446,17 +463,107 @@ if ($action == 'edit_3d') {
 								</div>
 							</div>
 						</div>							  
-                        </fieldset>							  
+                        </fieldset>	
+                       <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_ADD_GROUND; ?></label>
+
+								<div class="col-lg-10">
+									<div class="c-radio c-radio-nofont">
+										<label>
+										<?php
+											echo '<input type="radio" name="models_add_ground" value="true"'; 
+											if ('models_add_ground['. $nCounter . ']' == 'true') echo ' checked="checked"';
+											echo  '>&nbsp;';
+									   ?>
+											<span class="badge badge-success float-right"><?php echo ENTRY_YES; ?></span>
+										</label>
+									</div>
+								<div class="c-radio c-radio-nofont">
+									<label>
+										<?php
+											echo '<input type="radio" name="models_add_ground" value="false"'; 
+											if ('models_add_ground['. $nCounter . ']' == 'false') echo ' checked="checked"';
+											echo  '>&nbsp;';
+									   ?>
+										<span class="badge badge-danger float-right"><?php echo ENTRY_NO; ?></span>
+									</label>
+								</div>
+							</div>
+						</div>							  
+                        </fieldset>	
+						
+                       <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_SHADOWS; ?></label>
+
+								<div class="col-lg-10">
+									<div class="c-radio c-radio-nofont">
+										<label>
+										<?php
+											echo '<input type="radio" name="models_shadows" value="true"'; 
+											if ('models_shadows['. $nCounter . ']' == 'true') echo ' checked="checked"';
+											echo  '>&nbsp;';
+									   ?>
+											<span class="badge badge-success float-right"><?php echo ENTRY_YES; ?></span>
+										</label>
+									</div>
+								<div class="c-radio c-radio-nofont">
+									<label>
+										<?php
+											echo '<input type="radio" name="models_shadows" value="false"'; 
+											if ('models_shadows['. $nCounter . ']' == 'false') echo ' checked="checked"';
+											echo  '>&nbsp;';
+									   ?>
+										<span class="badge badge-danger float-right"><?php echo ENTRY_NO; ?></span>
+									</label>
+								</div>
+							</div>
+						</div>							  
+                        </fieldset>	
+                       <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_ENV_MAP; ?></label>
+
+								<div class="col-lg-10">
+									<div class="c-radio c-radio-nofont">
+										<label>
+										<?php
+											echo '<input type="radio" name="models_add_env_map" value="true"'; 
+											if ('models_add_env_map['. $nCounter . ']' == 'true') echo ' checked="checked"';
+											echo  '>&nbsp;';
+									   ?>
+											<span class="badge badge-success float-right"><?php echo ENTRY_YES; ?></span>
+										</label>
+									</div>
+								<div class="c-radio c-radio-nofont">
+									<label>
+										<?php
+											echo '<input type="radio" name="models_add_env_map" value="false"'; 
+											if ('models_add_env_map['. $nCounter . ']' == 'false') echo ' checked="checked"';
+											echo  '>&nbsp;';
+									   ?>
+										<span class="badge badge-danger float-right"><?php echo ENTRY_NO; ?></span>
+									</label>
+								</div>
+							</div>
+						</div>							  
+                        </fieldset>						
+						
+
+						
 					  	<fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_EXTENSIONS; ?></label>
-                              <div class="col-lg-10"><?php echo oos_draw_pull_down_menu('models_extensions['. $nCounter . ']', $aExtensions, $models['models_extensions']); ?></div>
+                              <div class="col-lg-10"><?php echo oos_draw_extensions_menu('models_extensions['. $nCounter . ']', $aExtensions, $models['models_extensions']); ?></div>
                            </div>
                         </fieldset>
 							  
 							  
 
 <?php	
+
+
 		echo '<div class="text-center"><div class="d-block" style="width: 200px; height: 150px;">';
 		echo oos_info_image('product/small/' .  $image['image'], $pInfo->products_name);
 	    echo '</div></div>';
@@ -476,18 +583,10 @@ if ($action == 'edit_3d') {
 		}
 	}
 	echo oos_draw_hidden_field('image_counter', $nCounter);
-?>		
+?>
 
-
-
-                       <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_MODEL; ?></label>
-                              <div class="col-lg-10">
-								<?php echo oos_draw_input_field('products_model['. $nCounter . ']',  $models['products_model']); ?>
-                              </div>
-                           </div>
-                        </fieldset>
+			<div class="col-9">
+			
                        <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_AUTHOR; ?></label>
@@ -520,6 +619,40 @@ if ($action == 'edit_3d') {
                               </div>
                            </div>
                         </fieldset>
+
+
+                       <fieldset>
+                           <div class="form-group row">
+								<label class="col-sm col-form-label"><?php echo TEXT_MODELS_HDR; ?></label>
+								<div class="col-sm">
+									<div class="c-radio c-radio-nofont">
+										<label>
+										<?php
+											echo '<input type="radio" name="models_hdr" value="venetian_crossroads.hdr"'; 
+											if ('models_hdr['. $nCounter . ']' == 'venetian_crossroads.hdr') echo ' checked="checked"';
+											echo  '>&nbsp;venetian_crossroads.hdr';
+											echo oos_image(OOS_IMAGES . 'background/venetian_crossroads.jpg', 'venetian_crossroads.hdr');
+										?>
+										</label>
+									</div>
+								</div>
+								<div class="col-sm">
+									<div class="c-radio c-radio-nofont">
+										<label>
+										<?php
+											echo '<input type="radio" name="models_hdr" value="vignaioli.hdr"'; 
+											if ('models_hdr['. $nCounter . ']' == 'vignaioli.hdr') echo ' checked="checked"';
+											echo  '>&nbsp;vignaioli.hdr';
+											echo oos_image(OOS_IMAGES . 'background/vignaioli.jpg', 'vignaioli.hdr');
+										?>
+										</label>
+									</div>
+								</div>
+                           </div>
+                        </fieldset>
+	  
+						
+						
                        <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_ADD_LIGHTS; ?></label>
@@ -547,107 +680,106 @@ if ($action == 'edit_3d') {
 								</div>
 							</div>
 						</div>							  
-                        </fieldset>							  
+                        </fieldset>	
+                       <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_ADD_GROUND; ?></label>
+
+								<div class="col-lg-10">
+									<div class="c-radio c-radio-nofont">
+										<label>
+										<?php
+											echo '<input type="radio" name="models_add_ground" value="true"'; 
+											if ('models_add_ground['. $nCounter . ']' == 'true') echo ' checked="checked"';
+											echo  '>&nbsp;';
+									   ?>
+											<span class="badge badge-success float-right"><?php echo ENTRY_YES; ?></span>
+										</label>
+									</div>
+								<div class="c-radio c-radio-nofont">
+									<label>
+										<?php
+											echo '<input type="radio" name="models_add_ground" value="false"'; 
+											if ('models_add_ground['. $nCounter . ']' == 'false') echo ' checked="checked"';
+											echo  '>&nbsp;';
+									   ?>
+										<span class="badge badge-danger float-right"><?php echo ENTRY_NO; ?></span>
+									</label>
+								</div>
+							</div>
+						</div>							  
+                        </fieldset>	
+						
+                       <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_SHADOWS; ?></label>
+
+								<div class="col-lg-10">
+									<div class="c-radio c-radio-nofont">
+										<label>
+										<?php
+											echo '<input type="radio" name="models_shadows" value="true"'; 
+											if ('models_shadows['. $nCounter . ']' == 'true') echo ' checked="checked"';
+											echo  '>&nbsp;';
+									   ?>
+											<span class="badge badge-success float-right"><?php echo ENTRY_YES; ?></span>
+										</label>
+									</div>
+								<div class="c-radio c-radio-nofont">
+									<label>
+										<?php
+											echo '<input type="radio" name="models_shadows" value="false"'; 
+											if ('models_shadows['. $nCounter . ']' == 'false') echo ' checked="checked"';
+											echo  '>&nbsp;';
+									   ?>
+										<span class="badge badge-danger float-right"><?php echo ENTRY_NO; ?></span>
+									</label>
+								</div>
+							</div>
+						</div>							  
+                        </fieldset>	
+                       <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_ENV_MAP; ?></label>
+
+								<div class="col-lg-10">
+									<div class="c-radio c-radio-nofont">
+										<label>
+										<?php
+											echo '<input type="radio" name="models_add_env_map" value="true"'; 
+											if ('models_add_env_map['. $nCounter . ']' == 'true') echo ' checked="checked"';
+											echo  '>&nbsp;';
+									   ?>
+											<span class="badge badge-success float-right"><?php echo ENTRY_YES; ?></span>
+										</label>
+									</div>
+								<div class="c-radio c-radio-nofont">
+									<label>
+										<?php
+											echo '<input type="radio" name="models_add_env_map" value="false"'; 
+											if ('models_add_env_map['. $nCounter . ']' == 'false') echo ' checked="checked"';
+											echo  '>&nbsp;';
+									   ?>
+										<span class="badge badge-danger float-right"><?php echo ENTRY_NO; ?></span>
+									</label>
+								</div>
+							</div>
+						</div>							  
+                        </fieldset>						
+					
 					  	<fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_EXTENSIONS; ?></label>
-                              <div class="col-lg-10"><?php echo oos_draw_pull_down_menu('models_extensions['. $nCounter . ']', $aExtensions, $models['models_extensions']); ?></div>
+                              <div class="col-lg-10"><?php echo oos_draw_extensions_menu('models_extensions['. $nCounter . ']', $aExtensions, $models['models_extensions']); ?></div>
                            </div>
                         </fieldset>
-
-
-
-                     </div>
-				 
-                     <div class="tab-pane" id="data" role="tabpanel">
-
-                       <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_MODEL; ?></label>
-                              <div class="col-lg-10">
-								<?php echo oos_draw_input_field('models_author', $pInfo->products_model); ?>
-                              </div>
-                           </div>
-                        </fieldset>
-                        <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_EAN; ?></label>
-                              <div class="col-lg-10">
-                                 <?php echo oos_draw_input_field('products_ean', $pInfo->products_ean); ?>
-                              </div>
-                           </div>
-                        </fieldset>
-                        <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_QUANTITY; ?></label>
-                              <div class="col-lg-10">
-                                 <?php echo oos_draw_input_field('products_quantity', $pInfo->products_quantity); ?>
-                              </div>
-                           </div>
-                        </fieldset>
-                        <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_PRODUCT_MINIMUM_ORDER; ?></label>
-                              <div class="col-lg-10">
-                                 <?php echo oos_draw_input_field('products_quantity_order_min', ($pInfo->products_quantity_order_min==0 ? 1 : $pInfo->products_quantity_order_min)); ?>
-                              </div>
-                           </div>
-                        </fieldset>
-                        <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_PRODUCT_PACKAGING_UNIT; ?></label>
-                              <div class="col-lg-10">
-                                 <?php echo oos_draw_input_field('products_quantity_order_units', ($pInfo->products_quantity_order_units==0 ? 1 : $pInfo->products_quantity_order_units)); ?>
-                              </div>
-                           </div>
-                        </fieldset>
-                        <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_PRODUCT_MAXIMUM_ORDER; ?></label>
-                              <div class="col-lg-10">
-                                 <?php echo oos_draw_input_field('products_quantity_order_max', ($pInfo->products_quantity_order_max==0 ? 30 : $pInfo->products_quantity_order_max)); ?>
-                              </div>
-                           </div>
-                        </fieldset>
-<?php
-	if (STOCK_CHECK == 'true') {
-?>
-                        <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_REORDER_LEVEL; ?></label>
-                              <div class="col-lg-10">
-                                 <?php echo oos_draw_input_field('products_reorder_level', $pInfo->products_reorder_level); ?>
-                              </div>
-                           </div>
-                        </fieldset>
-<?php
-	}
-?>
-                        <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_WEIGHT; ?></label>
-                              <div class="col-lg-10"><?php echo oos_draw_input_field('products_weight', $pInfo->products_weight); ?></div>
-                           </div>
-                        </fieldset>
-                        <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_STATUS; ?></label>
-                              <div class="col-lg-10"><?php echo oos_draw_pull_down_menu('products_status', $products_status_array, $pInfo->products_status); ?></div>
-                           </div>
-                        </fieldset>
-                        <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_REPLACEMENT_PRODUCT; ?></label>
-                              <div class="col-lg-10">
-                                 <?php echo oos_draw_input_field('products_replacement_product_id', $pInfo->products_replacement_product_id); ?>
-                              </div>
-                           </div>
-                        </fieldset>
-
+							  
+							 
+</div>
 
 
                      </div>
-                     <div class="tab-pane" id="picture" role="tabpanel">
+                     <div class="tab-pane" id="uplaod" role="tabpanel">
 		<script type="text/javascript">
 		// <!-- <![CDATA[
 		window.totalinputs = 3;

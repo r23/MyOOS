@@ -24,12 +24,18 @@ define('HEADING_TITLE', '3D-Modell');
    
 define('TEXT_NEW_PRODUCT', '3D-Modell &quot;%s&quot;');
 define('TEXT_PRODUCTS', 'Artikel');
-define('TEXT_PRODUCTS_DATA', 'Artikeldaten');
+define('TEXT_PRODUCTS_MODEL', '3D-Modell');
 
 define('TEXT_MODELS_AUTHOR', '3-D Künstler');
-define('TEXT_MODELS_AUTHOR_URL', 'Website vom 3-D Künstler');
+define('TEXT_MODELS_AUTHOR_URL', 'Die URL vom 3-D Künstler');
 define('TEXT_MODELS_CAMERA_POS', 'Kameraposition');
 define('TEXT_MODELS_OBJECT_ROTATION', 'Objekt-Rotation');
-define('TEXT_MODELS_ADD_LIGHTS', 'Objekt-Rotation');
+define('TEXT_MODELS_ADD_LIGHTS', 'Licht');
+define('TEXT_MODELS_ADD_GROUND', 'Grund');
+define('TEXT_MODELS_SHADOWS', 'Shadows');
+define('TEXT_MODELS_ENV_MAP', 'Environment Mapping');
+define('TEXT_MODELS_HDR', 'Panorama Hintergrundbild');
+
 define('TEXT_MODELS_EXTENSIONS', 'glTF-Formt auswählen');
+
 

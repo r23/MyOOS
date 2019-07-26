@@ -584,6 +584,47 @@ function oos_draw_pull_down_menu($name, $values, $default = '', $params = '', $r
 }
 
 
+ /**
+  * Output a form pull down menu
+  *
+  * @param $name
+  * @param $values
+  * @param $default
+  * @param $params
+  * @param $required
+  * @return string
+  */
+function oos_draw_extensions_menu($name, $values, $default = '', $params = '', $required = FALSE) {
+    $field = '<select class="form-control" name="' . $name . '"';
+    if ($params) $field .= ' ' . $params;
+    $field .= '>';
+
+    if (empty($default) && ( (isset($_GET[$name]) && is_string($_GET[$name])) || (isset($_POST[$name]) && is_string($_POST[$name])) ) ) {
+      if (isset($_GET[$name]) && is_string($_GET[$name])) {
+        $default = stripslashes($_GET[$name]);
+      } elseif (isset($_POST[$name]) && is_string($_POST[$name])) {
+        $default = stripslashes($_POST[$name]);
+      }
+    }
+
+    for ($i=0, $n=count($values); $i<$n; $i++) {
+      $field .= '<option value="' . $values[$i] . '"';
+      if ($default == $values[$i]) {
+        $field .= ' selected="selected"';
+      }
+
+      $field .= '>' . $values[$i] . '</option>';
+    }
+    $field .= '</select>';
+
+    if ($required) $field .= TEXT_FIELD_REQUIRED;
+
+    return $field;
+}
+
+
+
+
 /**
  * Output a form pull down menu
  *

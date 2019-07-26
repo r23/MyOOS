@@ -961,6 +961,7 @@ $flds = "
   models_add_lights C(5) DEFAULT 'true',
   models_add_ground C(5) DEFAULT 'true',
   models_shadows C(5) DEFAULT 'true',
+  models_add_env_map C(5) DEFAULT 'true',  
   models_extensions C(54) NULL,
   models_hdr C(255) NULL
 ";
