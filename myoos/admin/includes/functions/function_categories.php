@@ -697,6 +697,16 @@ function oos_remove_product_image($image) {
 	}	
 }
 
+function oos_remove_products_model($model) {
+	$model = oos_var_prep_for_os($model);
+	
+	$sName = oos_strip_suffix($model);
+	$dir = OOS_ABSOLUTE_PATH . OOS_MEDIA . 'models/gltf' . $sName;
+	rmdir_recursive($dir);
+	// oos_remove($dir);
+}
+
+
 /**
  * Return a product's manufacturer
  *

@@ -1055,6 +1055,17 @@ function oos_get_parent_categories(&$categories, $categories_id) {
   }
 
 
+function rmdir_recursive($dir) {
+    foreach(scandir($dir) as $file) {
+       if ('.' === $file || '..' === $file) continue;
+       if (is_dir("$dir/$file")) rmdir_recursive("$dir/$file");
+       else unlink("$dir/$file");
+   }
+
+   rmdir($dir);
+}
+
+
 
 /**
  * Parse and output a user submited value

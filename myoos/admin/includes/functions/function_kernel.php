@@ -983,9 +983,20 @@ function oos_prepare_input($string) {
  * @param string $filename
  * @return string
  */
-function get_suffix($filename) {
+function oos_get_suffix($filename) {
 	return strtolower(substr(strrchr($filename, "."), 1));
 }
+
+/**
+ * returns a file name sans the suffix
+ *
+ * @param unknown_type $filename
+ * @return unknown
+ */
+function oos_strip_suffix($filename) {
+	return str_replace(strrchr($filename, "."), '', $filename);
+}
+
   
 function oos_strtolower ($sStr) {
 	$sStr = strtolower($sStr);
@@ -1079,7 +1090,7 @@ function unzip($file, $dir) {
  * @return bool
  */
 function is_zip($filename) {
-	$ext = get_suffix($filename);
+	$ext = oos_get_suffix($filename);
 	return ($ext == "zip");
 }
 

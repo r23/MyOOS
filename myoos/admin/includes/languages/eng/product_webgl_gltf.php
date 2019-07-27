@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /* ----------------------------------------------------------------------
    $Id: products.php,v 1.3 2007/06/13 16:15:14 r23 Exp $
 
@@ -26,7 +26,6 @@ define('TEXT_NEW_PRODUCT', '3D Model in &quot;%s&quot;');
 define('TEXT_PRODUCTS', 'Products');
 define('TEXT_PRODUCTS_MODEL', '3D Model');
 
-
 define('TEXT_MODELS_AUTHOR', '3-D Artist');
 define('TEXT_MODELS_AUTHOR_URL', 'Website of the 3-D Artist');
 define('TEXT_MODELS_CAMERA_POS', 'Camera Position');
@@ -36,6 +35,9 @@ define('TEXT_MODELS_ADD_GROUND', 'Ground');
 define('TEXT_MODELS_SHADOWS', 'Schatten');
 define('TEXT_MODELS_ENV_MAP', 'Environment Map');
 define('TEXT_MODELS_HDR', 'Panorama Wallpaper');
-
-
+define('TEXT_MODELS_HDR', 'Remove 3D-Model');
 define('TEXT_MODELS_EXTENSIONS', 'Choose glTF format.');
+
+
+define('TEXT_UPLOAD_MODELS', 'Upload Zip-File');
+define('TEXT_CHOOSE_A_ZIP_FILE', 'Choose a zip file to upload:');

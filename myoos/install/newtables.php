@@ -951,7 +951,7 @@ dosql($table, $flds);
 
 $table = $prefix_table . 'products_models';
 $flds = "
-  models_id I NOTNULL AUTO PRIMARY,
+  models_id I I NOTNULL AUTO PRIMARY,
   products_id I NOTNULL DEFAULT '1' PRIMARY,
   models_webgl_gltf C(255) NULL,
   models_author C(255) NULL,
