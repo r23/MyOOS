@@ -39,10 +39,5 @@ define('TEXT_MODEL_REMOVE', '3D-Modell löschen');
 define('TEXT_MODELS_EXTENSIONS', 'glTF-Formt auswählen');
 
 define('TEXT_UPLOAD_MODELS', 'Upload Zip-Datei');
-
 define('TEXT_CHOOSE_A_ZIP_FILE', 'Wählen Sie eine Zip-Datei zum Hochladen aus:');
-
-Choose a zip file to upload
-Wählen Sie eine Zip-Datei zum Hochladen aus:
-
 
