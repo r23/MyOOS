@@ -1196,6 +1196,29 @@ function oos_output_string($sStr, $aTranslate = null) {
   }
 
 
+
+/**
+ * Returns the suffix of a file name
+ *
+ * @param string $filename
+ * @return string
+ */
+function oos_get_suffix($filename) {
+	return strtolower(substr(strrchr($filename, "."), 1));
+}
+
+/**
+ * returns a file name sans the suffix
+ *
+ * @param unknown_type $filename
+ * @return unknown
+ */
+function oos_strip_suffix($filename) {
+	return str_replace(strrchr($filename, "."), '', $filename);
+}
+
+
+
 /**
  * Strip non-alpha & non-numeric except ._-:
  *

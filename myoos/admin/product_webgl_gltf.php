@@ -56,74 +56,114 @@ if (!empty($action)) {
 				
 				for ($i = 0, $n = $nModelCounter; $i < $n; $i++) {
 								
-					$action = (!isset($_POST['models_id'][$i]) || !is_numeric($_POST['models_id'][$i])) ? 'insert_product' : 'update_product';
+						$action = (!isset($_POST['models_id'][$i]) || !is_numeric($_POST['models_id'][$i])) ? 'insert_product' : 'update_product';
 					
-					$sql_data_array = array('models_author' => oos_db_prepare_input($_POST['models_author'][$i]),
-										'models_author_url' => oos_db_prepare_input($_POST['models_author_url'][$i]),
-										'models_camera_pos' => oos_db_prepare_input($_POST['models_camera_pos'][$i]),
-										'models_object_rotation' => oos_db_prepare_input($_POST['models_object_rotation'][$i]),
-										'models_hdr' => oos_db_prepare_input($_POST['models_hdr'][$i]),
-										'models_add_lights' => oos_db_prepare_input($_POST['models_add_lights'][$i]),
-										'models_add_ground' => oos_db_prepare_input($_POST['models_add_ground'][$i]),
-										'models_shadows' => oos_db_prepare_input($_POST['models_shadows'][$i]),
-										'models_add_env_map' => oos_db_prepare_input($_POST['models_add_env_map'][$i]),
-										'models_extensions' => oos_db_prepare_input($_POST['models_extensions'][$i])
-										);
+						$sql_data_array = array('models_author' => oos_db_prepare_input($_POST['models_author'][$i]),
+											'models_author_url' => oos_db_prepare_input($_POST['models_author_url'][$i]),
+											'models_camera_pos' => oos_db_prepare_input($_POST['models_camera_pos'][$i]),
+											'models_object_rotation' => oos_db_prepare_input($_POST['models_object_rotation'][$i]),
+											'models_hdr' => oos_db_prepare_input($_POST['models_hdr'][$i]),
+											'models_add_lights' => oos_db_prepare_input($_POST['models_add_lights'][$i]),
+											'models_add_ground' => oos_db_prepare_input($_POST['models_add_ground'][$i]),
+											'models_shadows' => oos_db_prepare_input($_POST['models_shadows'][$i]),
+											'models_add_env_map' => oos_db_prepare_input($_POST['models_add_env_map'][$i]),
+											'models_extensions' => oos_db_prepare_input($_POST['models_extensions'][$i])
+											);
 										
 
-			if ($action == 'insert_product') {
-				$insert_sql_data = array('models_date_added' => 'now()');
+					if ($action == 'insert_product') {
+						$insert_sql_data = array('models_date_added' => 'now()');
 
-				$sql_data_array = array_merge($sql_data_array, $insert_sql_data);
+						$sql_data_array = array_merge($sql_data_array, $insert_sql_data);
 
-				oos_db_perform($oostable['products_models'], $sql_data_array);
-				$models_id = $dbconn->Insert_ID();
+						oos_db_perform($oostable['products_models'], $sql_data_array);
+						$models_id = $dbconn->Insert_ID();
 
-			} elseif ($action == 'update_product') {
-				$update_sql_data = array('models_last_modified' => 'now()');
+					} elseif ($action == 'update_product') {
+						$update_sql_data = array('models_last_modified' => 'now()');
+						$models_id = intval($_POST['models_id'][$i]);
+						
+						$sql_data_array = array_merge($sql_data_array, $update_sql_data);
 
-				$sql_data_array = array_merge($sql_data_array, $update_sql_data);
+						oos_db_perform($oostable['products_models'], $sql_data_array, 'UPDATE', 'models_id = \'' . intval($models_id) . '\'');
 
-				oos_db_perform($oostable['products_models'], $sql_data_array, 'UPDATE', 'models_id = \'' . intval($_POST['models_id'][$i]) . '\'');
+					}
 
-			}
+					if ( ($_POST['remove_products_model'][$i] == 'yes') && (isset($_POST['models_webgl_gltf'][$i])) ) {
+						$models_webgl_gltf = oos_db_prepare_input($_POST['models_webgl_gltf'][$i]);
 
+						$dbconn->Execute("DELETE FROM " . $oostable['products_models'] . " WHERE models_id = '" . intval($_POST['models_id'][$i]) . "'");	
 
-
-
-
-			if ( ($_POST['remove_products_model'][$i] == 'yes') && (isset($_POST['models_webgl_gltf'][$i])) ) {
-				$models_webgl_gltf = oos_db_prepare_input($_POST['models_webgl_gltf'][$i]);
-				
-				$dbconn->Execute("DELETE FROM " . $oostable['products_models'] . " WHERE models_id = '" . intval($_POST['models_id'][$i]) . "'");	
-				$productsstable = $oostable['products'];
-				$dbconn->Execute("UPDATE $productsstable
-                                 SET products_image = NULL
-                                 WHERE products_id = '" . intval($products_id) . "'");				
-				
-				oos_remove_products_model($models_webgl_gltf);				
-			}
+						oos_remove_products_model($models_webgl_gltf);
+					}
 
 
-			
-			if (isset($_FILES['files'])) {
+					if (isset($_FILES['zip_file'])) {
+						if ($_FILES["zip_file"]["error"] == UPLOAD_ERR_OK) {
 
-			}
-			
-			}
-			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $products_id));
+							$filename = $_FILES['zip_file']['name'];
+							$source = $_FILES['zip_file']['tmp_name'];
+							$type = $_FILES['zip_file']['type'];
+
+
+							if (is_zip($filename)) {
+								$name = oos_strip_suffix($filename);
+								$models_extensions = oos_db_prepare_input($_POST['models_extensions'][$i]);
+
+								$path = OOS_ABSOLUTE_PATH . OOS_MEDIA . 'models/gltf/' . $name . '/' . $models_extensions . '/';
+								$targetdir = $path;  // target directory
+								$targetzip = $path . $filename; // target zip file
+					
+					
+								if (is_dir($targetdir))  rmdir_recursive ( $targetdir);
+
+								mkdir($path = OOS_ABSOLUTE_PATH . OOS_MEDIA . 'models/gltf/' . $name, 0755);
+								mkdir($path = OOS_ABSOLUTE_PATH . OOS_MEDIA . 'models/gltf/' . $name . '/' . $models_extensions, 0755);							
+
+
+								if (move_uploaded_file($source, $targetzip)) {
+									$zip = new ZipArchive();
+									$x = $zip->open($targetzip);  // open the zip file to extract
+									if ($x === true) {
+										$zip->extractTo($targetdir); // place in the directory with same name  
+										$zip->close();
+	
+										unlink($targetzip);
+									}
+									$messageStack->add_session(TEXT_SUCCESSFULLY_UPLOADED, 'success');
+
+									$folder = opendir($targetdir);
+									while($file = readdir($folder)) {
+										if ($file == '.' || $file == '..' || $file == 'CVS') continue;
+
+										$ext = oos_get_suffix($file);
+										switch ($ext) {
+											case 'glb':
+											case 'gltf':
+												$models_webgl_gltf = $file;
+												break;
+										}
+									}
+
+									$sql_data_array = array('models_webgl_gltf' => oos_db_prepare_input($models_webgl_gltf));
+
+									oos_db_perform($oostable['products_models'], $sql_data_array, 'UPDATE', 'models_id = \'' . intval($models_id) . '\'');
+								
+								} else {  
+									$messageStack->add_session(ERROR_PROBLEM_WITH_ZIP_FILE, 'error');							
+								}
+							} else {
+								$messageStack->add_session(ERROR_NO_ZIP_FILE, 'error');					
+						
+							}
+						}
+					}
+				}
+				oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $products_id));
 			}
 			break;
 
 	}
-}
-
-// check if the catalog image directory exists
-
-if (is_dir(OOS_ABSOLUTE_PATH . OOS_IMAGES)) {
-    if (!is_writeable(OOS_ABSOLUTE_PATH . OOS_IMAGES)) $messageStack->add(ERROR_CATALOG_IMAGE_DIRECTORY_NOT_WRITEABLE, 'error');
-} else {
-    $messageStack->add(ERROR_CATALOG_IMAGE_DIRECTORY_DOES_NOT_EXIST, 'error');
 }
 
 require 'includes/header.php';
@@ -187,8 +227,8 @@ if ($action == 'edit_3d') {
 											'models_webgl_gltf' => '',
 											'models_author' => '',
 											'models_author_url' => 'https://',
-											'models_camera_pos' => '',
-											'models_object_rotation' => '',
+											'models_camera_pos' => '0.02, 0.01, 0.03',
+											'models_object_rotation' => '0, Math.PI, 0',
 											'models_add_lights' => 'false',
 											'models_add_ground' => 'false',
 											'models_shadows' => 'false',
@@ -300,7 +340,7 @@ if ($action == 'edit_3d') {
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_MODEL; ?></label>
                               <div class="col-lg-10">
-								<?php echo oos_draw_input_field('models_webgl_gltf['. $nCounter . ']', '', $models['models_webgl_gltf'], FALSE, 'text', TRUE, TRUE); ?>
+								<?php echo oos_draw_input_field('models_webgl_gltf['. $nCounter . ']', $models['models_webgl_gltf'], '', FALSE, 'text', TRUE, TRUE); ?>
                               </div>
                            </div>
                         </fieldset>	
@@ -542,28 +582,22 @@ if ($action == 'edit_3d') {
             <div class="tab-pane" id="uplaod" role="tabpanel">
 
 
-		<div class="row mb-3">
-			<div class="col-3">
-				<strong><?php echo TEXT_INFO_PREVIEW; ?></strong>
-			</div>
-			<div class="col-9">
+				<div class="row mb-3">
+					<div class="col-3">
+						<strong><?php echo TEXT_CHOOSE_A_ZIP_FILE; ?></strong>
+					</div>
+					<div class="col-9">
 			
-                     <fieldset>
-                        <div class="form-group">
-                           <label class="col-sm-2 col-form-label"><?php echo TEXT_CHOOSE_A_ZIP_FILE; ?></label> 
-                           <div class="col-sm-10">
-								<input type="file" name="zip_file" />
-                              <input type="file" data-classbutton="btn btn-default" data-classinput="form-control inline" class="form-control filestyle">
-                           </div>
-                        </div>
-                     </fieldset>
+						<fieldset>
+							<div class="form-group">
+							<div class="col-sm-10">
+									<input type="file" name="zip_file" />
+							</div>
+							</div>
+						</fieldset>
+					</div>
+				</div>
 			</div>
-		</div>
-
-
-			</div>
-
-
 
 
 

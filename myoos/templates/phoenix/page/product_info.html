@@ -102,10 +102,6 @@
 							{$product_info.products_short_description}
 						</div>
 					{/if}
-
-
-
-
 				
 {if $myUser.show_price eq 1 }
 	{if (!empty($info_product_special_price))}
@@ -203,6 +199,29 @@
                     </div>
                 </div>
 
+	{if $webgl}
+		<div class="container">
+            <div class="row">
+                <div class="col-12">
+					<div class="product_details_desc clearfix">
+				<div id="info">
+					<a href="http://threejs.org" target="_blank" rel="noopener">three.js</a> -
+					<a href="https://github.com/KhronosGroup/glTF" target="_blank" rel="noopener">glTF</a> 2.0 loader<br />
+					<div id="description"></div>
+				</div>
+
+			<div id="scene3d"></div>
+			
+			
+				<div class="description_area">
+				{$lang.navigation_help}
+				</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	{/if}
 		<div class="container">
             <div class="row">
                 <div class="col-12">
@@ -277,5 +296,11 @@
 {if $smarty.const.NEWSLETTER eq 'true'}
 	{include file="phoenix/system/_newsletter.html"}
 {/if}
+
+
+{if $webgl}
+	{$webgl}
+{/if}
+
 
 {include file="phoenix/system/_footer.html"}

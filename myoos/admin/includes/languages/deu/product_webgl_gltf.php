@@ -38,6 +38,11 @@ define('TEXT_MODELS_HDR', 'Panorama Hintergrundbild');
 define('TEXT_MODEL_REMOVE', '3D-Modell löschen');
 define('TEXT_MODELS_EXTENSIONS', 'glTF-Formt auswählen');
 
-define('TEXT_UPLOAD_MODELS', 'Upload Zip-Datei');
+define('TEXT_UPLOAD_MODELS', 'Upload .zip-Datei');
 define('TEXT_CHOOSE_A_ZIP_FILE', 'Wählen Sie eine Zip-Datei zum Hochladen aus:');
+
+define('ERROR_NO_ZIP_FILE', 'Die Datei, die Sie hochladen möchten, ist keine .zip-Datei. Bitte versuchen Sie es erneut.');
+define('TEXT_SUCCESSFULLY_UPLOADED', 'Ihre .zip-Datei wurde hochgeladen und entpackt.');
+define('ERROR_PROBLEM_WITH_ZIP_FILE', 'Es gab ein Problem mit dem Upload. Bitte versuchen Sie es erneut.');
+
 

@@ -19,38 +19,44 @@
    ---------------------------------------------------------------------- */
 ?>
 
-		<script type="module">
+<script type="module">
 
-			import * as THREE from './js/three/three.module.js';
+	import * as THREE from './js/three/three.module.js';
 
-			import { GUI } from './jsm/libs/dat.gui.module.js';
-			import { OrbitControls } from './jsm/controls/OrbitControls.js';
-			import { GLTFLoader } from './jsm/loaders/GLTFLoader.js';
-			import { DDSLoader } from './jsm/loaders/DDSLoader.js';
-			import { DRACOLoader } from './jsm/loaders/DRACOLoader.js';
-			import { RGBELoader } from './jsm/loaders/RGBELoader.js';
-			import { EquirectangularToCubeGenerator } from './jsm/loaders/EquirectangularToCubeGenerator.js';
-			import { PMREMGenerator } from './jsm/pmrem/PMREMGenerator.js';
-			import { PMREMCubeUVPacker } from './jsm/pmrem/PMREMCubeUVPacker.js';
+	import Stats from './jsm/libs/stats.module.js';
 
-			var orbitControls;
-			var container, camera, scene, renderer, loader;
-			var gltf, background, envMap, mixer, gui, extensionControls;
+	import { GUI } from './jsm/libs/dat.gui.module.js';
+	import { OrbitControls } from './jsm/controls/OrbitControls.js';
+	import { GLTFLoader } from './jsm/loaders/GLTFLoader.js';
+	import { DDSLoader } from './jsm/loaders/DDSLoader.js';
+	import { DRACOLoader } from './jsm/loaders/DRACOLoader.js';
+	import { RGBELoader } from './jsm/loaders/RGBELoader.js';
+	import { EquirectangularToCubeGenerator } from './jsm/loaders/EquirectangularToCubeGenerator.js';
+	import { PMREMGenerator } from './jsm/pmrem/PMREMGenerator.js';
+	import { PMREMCubeUVPacker } from './jsm/pmrem/PMREMCubeUVPacker.js';
 
-			var clock = new THREE.Clock();
+	var orbitControls;
+	var container, camera, scene, renderer, loader;
+	var gltf, background, envMap, mixer, gui, extensionControls;
 
-			var scenes = {
+	var clock = new THREE.Clock();
+
+
+	var scenes = {
 				Boombox: {
-					name: 'BoomBox (PBR)',
-					url: './media/models/gltf/BoomBox/%s/BoomBox.gltf',
-					author: 'Microsoft',
-					authorURL: 'https://www.microsoft.com/',
-					cameraPos: new THREE.Vector3( 0.02, 0.01, 0.03 ),
-					objectRotation: new THREE.Euler( 0, Math.PI, 0 ),
-					extensions: [ 'glTF', 'glTF-pbrSpecularGlossiness', 'glTF-Binary', 'glTF-dds' ],
-					addEnvMap: true
+					name: '<?php echo $name; ?>',
+					url: './media/models/gltf/<?php echo $url; ?>',
+					author: '<?php echo $models['models_author']; ?>',
+					authorURL: '<?php echo $models['models_author_url']; ?>',
+					cameraPos: new THREE.Vector3( <?php echo $models['models_camera_pos']; ?> ),
+					objectRotation: new THREE.Euler( <?php echo $models['models_object_rotation']; ?> ),
+					<?php if ($models['models_add_lights'] == 'true') echo 'addLights: true,'; ?>	
+					<?php if ($models['models_add_ground'] == 'true') echo 'addGround: true,'; ?>	
+					<?php if ($models['models_shadows'] == 'true') echo 'shadows: true,'; ?>							
+					<?php if ($models['models_add_env_map'] == 'true') echo 'addEnvMap: true,'; ?>					
+					extensions: [ 'glTF', 'glTF-pbrSpecularGlossiness', 'glTF-Binary', 'glTF-dds' ]
 				},
-			};
+	};
 
 			var state = {
 				scene: Object.keys( scenes )[ 0 ],
@@ -80,7 +86,7 @@
 				new RGBELoader()
 					.setType( THREE.UnsignedByteType )
 					.setPath( 'media/textures/equirectangular/' )
-					.load( 'vignaioli_2k.hdr', function ( texture ) {
+					.load( '<?php echo $models['models_hdr']; ?>', function ( texture ) {
 
 						var cubeGenerator = new EquirectangularToCubeGenerator( texture, { resolution: 1024 } );
 						cubeGenerator.update( renderer );
@@ -100,7 +106,7 @@
 
 						//
 
-						buildGUI();
+						// buildGUI();
 						initScene( scenes[ state.scene ] );
 						animate();
 
@@ -194,8 +200,8 @@
 				loader.setDRACOLoader( new DRACOLoader() );
 				loader.setDDSLoader( new DDSLoader() );
 
-				var url = sceneInfo.url.replace( /%s/g, state.extension );
-
+				//	var url = sceneInfo.url.replace( /%s/g, state.extension );
+				var url = sceneInfo.url;
 				if ( state.extension === 'glTF-Binary' ) {
 
 					url = url.replace( '.gltf', '.glb' );
@@ -210,7 +216,7 @@
 
 					var object = gltf.scene;
 
-					console.info( 'Load time: ' + ( performance.now() - loadStartTime ).toFixed( 2 ) + ' ms.' );
+					// console.info( 'Load time: ' + ( performance.now() - loadStartTime ).toFixed( 2 ) + ' ms.' );
 
 					if ( sceneInfo.cameraPos ) {
 
@@ -323,8 +329,6 @@
 				}
 				return needResize;
 				
-				// renderer.setSize( CANVAS_WIDTH, CANVAS_HEIGHT );
-
 			}
 
 			function animate() {
@@ -347,7 +351,7 @@
 
 			function buildGUI() {
 
-				gui = new GUI( { width: 330 } );
+				gui = new GUI( { width: 0 } );
 				gui.domElement.parentElement.style.zIndex = 101;
 
 				var sceneCtrl = gui.add( state, 'scene', Object.keys( scenes ) );
@@ -394,7 +398,7 @@
 
 				if ( loader && mixer ) mixer.stopAllAction();
 
-				updateGUI();
+				// updateGUI();
 				initScene( scenes[ state.scene ] );
 
 			}

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /* ----------------------------------------------------------------------
    $Id: products.php,v 1.3 2007/06/13 16:15:14 r23 Exp $
 
@@ -38,6 +38,10 @@ define('TEXT_MODELS_HDR', 'Panorama Wallpaper');
 define('TEXT_MODELS_HDR', 'Remove 3D-Model');
 define('TEXT_MODELS_EXTENSIONS', 'Choose glTF format.');
 
-
-define('TEXT_UPLOAD_MODELS', 'Upload Zip-File');
+define('TEXT_UPLOAD_MODELS', 'Upload a .zip file');
 define('TEXT_CHOOSE_A_ZIP_FILE', 'Choose a zip file to upload:');
+
+define('ERROR_NO_ZIP_FILE', 'The file you are trying to upload is not a .zip file. Please try again.');
+define('TEXT_SUCCESSFULLY_UPLOADED', 'Your .zip file was uploaded and unpacked.');
+define('ERROR_PROBLEM_WITH_ZIP_FILE', 'There was a problem with the upload. Please try again.');
+

@@ -50,3 +50,5 @@ $aLang['table_heading_buy_now'] = 'Bestellen';
 $aLang['text_buy'] = '1 x \'';
 $aLang['text_now'] = '\' bestellen!';
 
+$aLang['navigation_help'] = '<h2>Navigationshilfe</h2><p>3D-Modell drehen: Drücken der linken Maustaste und bewegen der Maus<br>Vergrößern/Verkleinern: Mausrad drehen<br>Verschieben: Dr&uuml;cken der rechten Maustaste und bewegen der Maus</p>';
+
