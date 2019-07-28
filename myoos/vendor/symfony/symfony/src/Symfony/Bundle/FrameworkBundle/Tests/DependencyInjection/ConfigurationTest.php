@@ -35,6 +35,9 @@ class ConfigurationTest extends TestCase
         );
     }
 
+    /**
+     * @group legacy
+     */
     public function testDoNoDuplicateDefaultFormResources()
     {
         $input = ['templating' => [
@@ -298,7 +301,6 @@ class ConfigurationTest extends TestCase
                 'cookie_httponly' => true,
                 'cookie_samesite' => null,
                 'gc_probability' => 1,
-                'save_path' => '%kernel.cache_dir%/sessions',
                 'metadata_update_threshold' => 0,
             ],
             'request' => [

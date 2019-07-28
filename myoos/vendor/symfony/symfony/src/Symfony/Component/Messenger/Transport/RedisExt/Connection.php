@@ -51,6 +51,11 @@ class Connection
         $this->connection = $redis ?: new \Redis();
         $this->connection->connect($connectionCredentials['host'] ?? '127.0.0.1', $connectionCredentials['port'] ?? 6379);
         $this->connection->setOption(\Redis::OPT_SERIALIZER, $redisOptions['serializer'] ?? \Redis::SERIALIZER_PHP);
+
+        if (isset($connectionCredentials['auth'])) {
+            $this->connection->auth($connectionCredentials['auth']);
+        }
+
         $this->stream = $configuration['stream'] ?? self::DEFAULT_OPTIONS['stream'];
         $this->group = $configuration['group'] ?? self::DEFAULT_OPTIONS['group'];
         $this->consumer = $configuration['consumer'] ?? self::DEFAULT_OPTIONS['consumer'];
@@ -72,6 +77,7 @@ class Connection
         $connectionCredentials = [
             'host' => $parsedUrl['host'] ?? '127.0.0.1',
             'port' => $parsedUrl['port'] ?? 6379,
+            'auth' => $parsedUrl['pass'] ?? $parsedUrl['user'] ?? null,
         ];
 
         if (isset($parsedUrl['query'])) {
@@ -108,12 +114,15 @@ class Connection
                 1
             );
         } catch (\RedisException $e) {
+            throw new TransportException($e->getMessage(), 0, $e);
         }
 
-        if ($e || false === $messages) {
-            throw new TransportException(
-                ($e ? $e->getMessage() : $this->connection->getLastError()) ?? 'Could not read messages from the redis stream.'
-            );
+        if (false === $messages) {
+            if ($error = $this->connection->getLastError() ?: null) {
+                $this->connection->clearLastError();
+            }
+
+            throw new TransportException($error ?? 'Could not read messages from the redis stream.');
         }
 
         if ($this->couldHavePendingMessages && empty($messages[$this->stream])) {
@@ -138,28 +147,34 @@ class Connection
 
     public function ack(string $id): void
     {
-        $e = null;
         try {
             $acknowledged = $this->connection->xack($this->stream, $this->group, [$id]);
         } catch (\RedisException $e) {
+            throw new TransportException($e->getMessage(), 0, $e);
         }
 
-        if ($e || !$acknowledged) {
-            throw new TransportException(($e ? $e->getMessage() : $this->connection->getLastError()) ?? sprintf('Could not acknowledge redis message "%s".', $id), 0, $e);
+        if (!$acknowledged) {
+            if ($error = $this->connection->getLastError() ?: null) {
+                $this->connection->clearLastError();
+            }
+            throw new TransportException($error ?? sprintf('Could not acknowledge redis message "%s".', $id));
         }
     }
 
     public function reject(string $id): void
     {
-        $e = null;
         try {
             $deleted = $this->connection->xack($this->stream, $this->group, [$id]);
             $deleted = $this->connection->xdel($this->stream, [$id]) && $deleted;
         } catch (\RedisException $e) {
+            throw new TransportException($e->getMessage(), 0, $e);
         }
 
-        if ($e || !$deleted) {
-            throw new TransportException(($e ? $e->getMessage() : $this->connection->getLastError()) ?? sprintf('Could not delete message "%s" from the redis stream.', $id), 0, $e);
+        if (!$deleted) {
+            if ($error = $this->connection->getLastError() ?: null) {
+                $this->connection->clearLastError();
+            }
+            throw new TransportException($error ?? sprintf('Could not delete message "%s" from the redis stream.', $id));
         }
     }
 
@@ -169,16 +184,19 @@ class Connection
             $this->setup();
         }
 
-        $e = null;
         try {
             $added = $this->connection->xadd($this->stream, '*', ['message' => json_encode(
                 ['body' => $body, 'headers' => $headers]
             )]);
         } catch (\RedisException $e) {
+            throw new TransportException($e->getMessage(), 0, $e);
         }
 
-        if ($e || !$added) {
-            throw new TransportException(($e ? $e->getMessage() : $this->connection->getLastError()) ?? 'Could not add a message to the redis stream.', 0, $e);
+        if (!$added) {
+            if ($error = $this->connection->getLastError() ?: null) {
+                $this->connection->clearLastError();
+            }
+            throw new TransportException($error ?? 'Could not add a message to the redis stream.');
         }
     }
 
@@ -188,6 +206,11 @@ class Connection
             $this->connection->xgroup('CREATE', $this->stream, $this->group, 0, true);
         } catch (\RedisException $e) {
             throw new TransportException($e->getMessage(), 0, $e);
+        }
+
+        // group might already exist, ignore
+        if ($this->connection->getLastError()) {
+            $this->connection->clearLastError();
         }
 
         $this->autoSetup = false;

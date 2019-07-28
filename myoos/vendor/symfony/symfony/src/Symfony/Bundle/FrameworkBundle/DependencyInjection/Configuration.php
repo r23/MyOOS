@@ -339,10 +339,7 @@ class Configuration implements ConfigurationInterface
                                         ->defaultNull()
                                     ->end()
                                     ->arrayNode('initial_marking')
-                                        ->beforeNormalization()
-                                            ->ifTrue(function ($v) { return !\is_array($v); })
-                                            ->then(function ($v) { return [$v]; })
-                                        ->end()
+                                        ->beforeNormalization()->castToArray()->end()
                                         ->defaultValue([])
                                         ->prototype('scalar')->end()
                                     ->end()
@@ -525,6 +522,12 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->arrayNode('session')
+                    ->validate()
+                        ->ifTrue(function ($v) {
+                            return empty($v['handler_id']) && !empty($v['save_path']);
+                        })
+                        ->thenInvalid('Session save path is ignored without a handler service')
+                    ->end()
                     ->info('session configuration')
                     ->canBeEnabled()
                     ->children()
@@ -550,7 +553,7 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('gc_divisor')->end()
                         ->scalarNode('gc_probability')->defaultValue(1)->end()
                         ->scalarNode('gc_maxlifetime')->end()
-                        ->scalarNode('save_path')->defaultValue('%kernel.cache_dir%/sessions')->end()
+                        ->scalarNode('save_path')->end()
                         ->integerNode('metadata_update_threshold')
                             ->defaultValue(0)
                             ->info('seconds to wait between 2 session metadata updates')
@@ -605,6 +608,7 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('templating')
                     ->info('templating configuration')
                     ->canBeEnabled()
+                    ->setDeprecated('The "%path%.%node%" configuration is deprecated since Symfony 4.3. Configure the "twig" section provided by the Twig Bundle instead.')
                     ->beforeNormalization()
                         ->ifTrue(function ($v) { return false === $v || \is_array($v) && false === $v['enabled']; })
                         ->then(function () { return ['enabled' => false, 'engines' => false]; })
@@ -1116,6 +1120,7 @@ class Configuration implements ConfigurationInterface
                     ->end()
                     ->children()
                         ->arrayNode('routing')
+                            ->normalizeKeys(false)
                             ->useAttributeAsKey('message_class')
                             ->beforeNormalization()
                                 ->always()
@@ -1175,6 +1180,7 @@ class Configuration implements ConfigurationInterface
                             ->end()
                         ->end()
                         ->arrayNode('transports')
+                            ->normalizeKeys(false)
                             ->useAttributeAsKey('name')
                             ->arrayPrototype()
                                 ->beforeNormalization()
@@ -1195,9 +1201,14 @@ class Configuration implements ConfigurationInterface
                                     ->end()
                                     ->arrayNode('retry_strategy')
                                         ->addDefaultsIfNotSet()
-                                        ->validate()
-                                            ->ifTrue(function ($v) { return null !== $v['service'] && (isset($v['max_retries']) || isset($v['delay']) || isset($v['multiplier']) || isset($v['max_delay'])); })
-                                            ->thenInvalid('"service" cannot be used along with the other retry_strategy options.')
+                                        ->beforeNormalization()
+                                            ->always(function ($v) {
+                                                if (isset($v['service']) && (isset($v['max_retries']) || isset($v['delay']) || isset($v['multiplier']) || isset($v['max_delay']))) {
+                                                    throw new \InvalidArgumentException('The "service" cannot be used along with the other "retry_strategy" options.');
+                                                }
+
+                                                return $v;
+                                            })
                                         ->end()
                                         ->children()
                                             ->scalarNode('service')->defaultNull()->info('Service id to override the retry strategy entirely')->end()
@@ -1217,6 +1228,7 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('default_bus')->defaultNull()->end()
                         ->arrayNode('buses')
                             ->defaultValue(['messenger.bus.default' => ['default_middleware' => true, 'middleware' => []]])
+                            ->normalizeKeys(false)
                             ->useAttributeAsKey('name')
                             ->arrayPrototype()
                                 ->addDefaultsIfNotSet()

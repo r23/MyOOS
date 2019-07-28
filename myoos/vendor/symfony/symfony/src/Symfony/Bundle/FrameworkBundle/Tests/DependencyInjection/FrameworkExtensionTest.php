@@ -20,7 +20,6 @@ use Symfony\Bundle\FullStack;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\Cache\Adapter\ApcuAdapter;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
-use Symfony\Component\Cache\Adapter\ChainAdapter;
 use Symfony\Component\Cache\Adapter\DoctrineAdapter;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\Cache\Adapter\ProxyAdapter;
@@ -56,7 +55,6 @@ use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Validator\DependencyInjection\AddConstraintValidatorsPass;
 use Symfony\Component\Validator\Mapping\Loader\PropertyInfoLoader;
 use Symfony\Component\Validator\Util\LegacyTranslatorProxy;
-use Symfony\Component\Validator\Validation;
 use Symfony\Component\Workflow;
 
 abstract class FrameworkExtensionTest extends TestCase
@@ -562,6 +560,14 @@ abstract class FrameworkExtensionTest extends TestCase
         $this->assertEquals($expected, array_keys($container->getDefinition('session_listener')->getArgument(0)->getValues()));
     }
 
+    /**
+     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
+     */
+    public function testNullSessionHandlerWithSavePath()
+    {
+        $this->createContainerFromFile('session_savepath');
+    }
+
     public function testRequest()
     {
         $container = $this->createContainerFromFile('full');
@@ -602,6 +608,9 @@ abstract class FrameworkExtensionTest extends TestCase
         $this->assertEquals('global_hinclude_template', $container->getParameter('fragment.renderer.hinclude.global_template'), '->registerTemplatingConfiguration() registers the global hinclude.js template');
     }
 
+    /**
+     * @group legacy
+     */
     public function testTemplatingCanBeDisabled()
     {
         $container = $this->createContainerFromFile('templating_disabled');
@@ -695,7 +704,7 @@ abstract class FrameworkExtensionTest extends TestCase
         $this->assertEquals([new Reference('messenger.transport_factory'), 'createTransport'], $transportFactory);
         $this->assertCount(3, $transportArguments);
         $this->assertSame('amqp://localhost/%2f/messages?exchange_name=exchange_name', $transportArguments[0]);
-        $this->assertEquals(['queue' => ['name' => 'Queue']], $transportArguments[1]);
+        $this->assertEquals(['queue' => ['name' => 'Queue'], 'transport_name' => 'customised'], $transportArguments[1]);
         $this->assertEquals(new Reference('messenger.transport.native_php_serializer'), $transportArguments[2]);
 
         $this->assertTrue($container->hasDefinition('messenger.transport.amqp.factory'));
@@ -867,6 +876,7 @@ abstract class FrameworkExtensionTest extends TestCase
     }
 
     /**
+     * @group legacy
      * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
      */
     public function testTemplatingRequiresAtLeastOneEngine()
@@ -896,9 +906,9 @@ abstract class FrameworkExtensionTest extends TestCase
         $this->assertEquals([new Reference('validator.validator_factory')], $calls[0][1]);
         $this->assertSame('setTranslator', $calls[1][0]);
         if (interface_exists(TranslatorInterface::class) && class_exists(LegacyTranslatorProxy::class)) {
-            $this->assertEquals([new Definition(LegacyTranslatorProxy::class, [new Reference('translator')])], $calls[1][1]);
+            $this->assertEquals([new Definition(LegacyTranslatorProxy::class, [new Reference('translator', ContainerInterface::IGNORE_ON_INVALID_REFERENCE)])], $calls[1][1]);
         } else {
-            $this->assertEquals([new Reference('translator')], $calls[1][1]);
+            $this->assertEquals([new Reference('translator', ContainerInterface::IGNORE_ON_INVALID_REFERENCE)], $calls[1][1]);
         }
         $this->assertSame('setTranslationDomain', $calls[2][0]);
         $this->assertSame(['%validator.translation_domain%'], $calls[2][1]);
@@ -1194,10 +1204,6 @@ abstract class FrameworkExtensionTest extends TestCase
 
     public function testDateIntervalNormalizerRegistered()
     {
-        if (!class_exists(DateIntervalNormalizer::class)) {
-            $this->markTestSkipped('The DateIntervalNormalizer has been introduced in the Serializer Component version 3.4.');
-        }
-
         $container = $this->createContainerFromFile('full');
 
         $definition = $container->getDefinition('serializer.normalizer.dateinterval');
@@ -1545,6 +1551,15 @@ abstract class FrameworkExtensionTest extends TestCase
         ], $defaultOptions['peer_fingerprint']);
     }
 
+    public function testMailer(): void
+    {
+        $container = $this->createContainerFromFile('mailer');
+
+        $this->assertTrue($container->hasAlias('mailer'));
+        $this->assertTrue($container->hasDefinition('mailer.default_transport'));
+        $this->assertSame('smtp://example.com', $container->getDefinition('mailer.default_transport')->getArgument(0));
+    }
+
     protected function createContainer(array $data = [])
     {
         return new ContainerBuilder(new ParameterBag(array_merge([
@@ -1576,6 +1591,7 @@ abstract class FrameworkExtensionTest extends TestCase
         if ($resetCompilerPasses) {
             $container->getCompilerPassConfig()->setOptimizationPasses([]);
             $container->getCompilerPassConfig()->setRemovingPasses([]);
+            $container->getCompilerPassConfig()->setAfterRemovingPasses([]);
         }
         $container->getCompilerPassConfig()->setBeforeOptimizationPasses([new LoggerPass()]);
         $container->getCompilerPassConfig()->setBeforeRemovingPasses([new AddConstraintValidatorsPass(), new TranslatorPass('translator.default', 'translation.reader')]);
@@ -1598,6 +1614,7 @@ abstract class FrameworkExtensionTest extends TestCase
 
         $container->getCompilerPassConfig()->setOptimizationPasses([]);
         $container->getCompilerPassConfig()->setRemovingPasses([]);
+        $container->getCompilerPassConfig()->setAfterRemovingPasses([]);
         $container->compile();
 
         return $container;
@@ -1658,10 +1675,6 @@ abstract class FrameworkExtensionTest extends TestCase
                 $this->assertSame(DoctrineAdapter::class, $parentDefinition->getClass());
                 break;
             case 'cache.app':
-                if (ChainAdapter::class === $parentDefinition->getClass()) {
-                    break;
-                }
-                // no break
             case 'cache.adapter.filesystem':
                 $this->assertSame(FilesystemAdapter::class, $parentDefinition->getClass());
                 break;

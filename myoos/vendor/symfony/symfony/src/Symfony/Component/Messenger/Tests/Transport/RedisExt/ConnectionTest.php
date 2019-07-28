@@ -16,7 +16,7 @@ use Symfony\Component\Messenger\Exception\TransportException;
 use Symfony\Component\Messenger\Transport\RedisExt\Connection;
 
 /**
- * @requires extension redis
+ * @requires extension redis >= 4.3.0
  */
 class ConnectionTest extends TestCase
 {
@@ -79,6 +79,16 @@ class ConnectionTest extends TestCase
         $this->assertNotNull($connection->get());
     }
 
+    public function testAuth()
+    {
+        $redis = $this->getMockBuilder(\Redis::class)->disableOriginalConstructor()->getMock();
+
+        $redis->expects($this->exactly(1))->method('auth')
+            ->with('password');
+
+        Connection::fromDsn('redis://password@localhost/queue', [], $redis);
+    }
+
     public function testFirstGetPendingMessagesThenNewMessages()
     {
         $redis = $this->getMockBuilder(\Redis::class)->disableOriginalConstructor()->getMock();
@@ -109,7 +119,7 @@ class ConnectionTest extends TestCase
         $redis->expects($this->once())->method('xreadgroup')->willReturn(false);
         $redis->expects($this->once())->method('getLastError')->willReturn('Redis error happens');
 
-        $connection = Connection::fromDsn('redis://localhost/queue', [], $redis);
+        $connection = Connection::fromDsn('redis://localhost/queue', ['auto_setup' => false], $redis);
         $connection->get();
     }
 
@@ -141,5 +151,32 @@ class ConnectionTest extends TestCase
         $this->assertNotEmpty($message = $connection->get());
         $connection->reject($message['id']);
         $redis->del('messenger-getnonblocking');
+    }
+
+    public function testLastErrorGetsCleared()
+    {
+        $redis = $this->getMockBuilder(\Redis::class)->disableOriginalConstructor()->getMock();
+
+        $redis->expects($this->once())->method('xadd')->willReturn(0);
+        $redis->expects($this->once())->method('xack')->willReturn(0);
+
+        $redis->method('getLastError')->willReturnOnConsecutiveCalls('xadd error', 'xack error');
+        $redis->expects($this->exactly(2))->method('clearLastError');
+
+        $connection = Connection::fromDsn('redis://localhost/messenger-clearlasterror', ['auto_setup' => false], $redis);
+
+        try {
+            $connection->add('message', []);
+        } catch (TransportException $e) {
+        }
+
+        $this->assertSame('xadd error', $e->getMessage());
+
+        try {
+            $connection->ack('1');
+        } catch (TransportException $e) {
+        }
+
+        $this->assertSame('xack error', $e->getMessage());
     }
 }
