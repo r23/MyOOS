@@ -258,23 +258,6 @@ if (!$product_info_result->RecordCount()) {
 		
 		foreach ($aProductsModels as $models) {
 
-/*
-			$aProductsModels[] = array('models_id' => $products_models['models_id'],
-										'products_id' => $products_models['products_id'],
-										'models_webgl_gltf' => $models['models_webgl_gltf'],
-										'models_author' => $products_models['models_author'],
-										'models_author_url' => $products_models['models_author_url'],
-										'models_camera_pos' => $products_models['models_camera_pos'],
-										'models_object_rotation' => $products_models['models_object_rotation'],
-										'models_add_lights' => $products_models['models_add_lights'],
-										'models_add_ground' => $products_models['models_add_ground'],
-										'models_shadows' => $products_models['models_shadows'],
-										'models_add_env_map' => $products_models['models_add_env_map'],
-										'models_extensions' => $products_models['models_extensions'],
-										'models_hdr' => $products_models['models_hdr']);
-										
-	<?php echo $models['models_hdr']; ?>									
-										*/
 			$name = oos_strip_suffix($models['models_webgl_gltf']);
 			$url = $name . '/' . $models['models_extensions'] . '/' . $models['models_webgl_gltf']; 
 

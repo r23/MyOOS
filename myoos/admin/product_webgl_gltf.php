@@ -37,7 +37,7 @@ if (!empty($action)) {
 		case 'update_product':
 		
 			if (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) {		
-				$products_id = oos_db_prepare_input($_POST['products_id']);		
+				$products_id = intval($_POST['products_id']);		
 
 				if (isset($_FILES['files'])) {
 					foreach ($_FILES['files']['name'] as $key => $name) {
@@ -58,7 +58,8 @@ if (!empty($action)) {
 								
 						$action = (!isset($_POST['models_id'][$i]) || !is_numeric($_POST['models_id'][$i])) ? 'insert_product' : 'update_product';
 					
-						$sql_data_array = array('models_author' => oos_db_prepare_input($_POST['models_author'][$i]),
+						$sql_data_array = array('products_id' => intval($products_id),
+											'models_author' => oos_db_prepare_input($_POST['models_author'][$i]),
 											'models_author_url' => oos_db_prepare_input($_POST['models_author_url'][$i]),
 											'models_camera_pos' => oos_db_prepare_input($_POST['models_camera_pos'][$i]),
 											'models_object_rotation' => oos_db_prepare_input($_POST['models_object_rotation'][$i]),
@@ -214,10 +215,6 @@ if ($action == 'edit_3d') {
 		$product = $product_result->fields;
 
 		$pInfo = new objectInfo($product);
-
-
-
-
 
 		$products_modelstable = $oostable['products_models'];
 		$products_models_result =  $dbconn->Execute("SELECT models_id, products_id, models_webgl_gltf, models_author, models_author_url, models_camera_pos, models_object_rotation, models_add_lights, models_add_ground, models_shadows, models_add_env_map, models_extensions, models_hdr FROM $products_modelstable WHERE products_id = '" . intval($product['products_id']) . "'");
