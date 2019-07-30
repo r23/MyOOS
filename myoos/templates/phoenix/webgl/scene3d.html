@@ -1,45 +1,81 @@
-{include file="phoenix/system/_header.html"}
-
-{include file="phoenix/system/_breadcrumbs.html"}
-
-<!-- wrapper -->
-<div id="wrapper">	
-{if $message}
-    {foreach $message as $info}
-        {include file="phoenix/system/_message.html"}
-    {/foreach}
+<!DOCTYPE html>
+<html lang="{$content_language}">
+<head>
+<meta charset="utf-8" />
+<meta name="language" content="{$content_language}" />
+<title>{$pagetitle}</title>
+<!-- mobile settings -->
+<meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
+<!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
+<meta name="author" content="{$smarty.const.OOS_META_AUTHOR}" />
+{*
+	DO NOT REMOVE THE FOLLOWING - FAILURE TO COMPLY IS A DIRECT VIOLATION
+	OF THE GNU GENERAL PUBLIC LICENSE - http://www.gnu.org/copyleft/gpl.html
+*}
+<meta name="Generator" content="{$smarty.const.OOS_FULL_NAME} - {$smarty.const.OOS_HOME}  All rights reserved.">
+<meta name="creation" content="{$smarty.now|date_format:"%a,%d %b %Y"}" />	
+{assign var='robots' value=$robots|default:'index,follow,noodp,noydir'}
+<meta name="robots" content="{$robots}" />
+{if $canonical}
+<link rel="canonical" href="{$canonical}" />
 {/if}
+<base href="{$oos_base}">
 
+<style>
+body {
+	margin: 0;
+	background-color: #000;
+	color: #fff;
+	font-family: Monospace;
+	font-size: 13px;
+	line-height: 24px;
+}
 
+a {
+	color: #ff0;
+	text-decoration: none;
+}
 
-	{if $webgl}
-		<div class="container">
-            <div class="row">
-                <div class="col-12">
-					<div class="product_details_desc clearfix">
-				<div id="info">
-					<a href="http://threejs.org" target="_blank" rel="noopener">three.js</a> -
-					<a href="https://github.com/KhronosGroup/glTF" target="_blank" rel="noopener">glTF</a> 2.0 loader<br />
-					<div id="description"></div>
-				</div>
+a:hover {
+	text-decoration: underline;
+}
 
-			<div id="scene3d"></div>
-			
-			
-				<div class="description_area">
-				{$lang.navigation_help}
-				</div>
+button {
+	cursor: pointer;
+	text-transform: uppercase;
+}
 
-					</div>
-				</div>
-			</div>
-		</div>
-	{/if}
+canvas {
+	display: block;
+}
 
+#info {
+	position: absolute;
+	top: 0px;
+	width: 100%;
+	padding: 10px;
+	box-sizing: border-box;
+	text-align: center;
+	z-index: 1; /* TODO Solve this in HTML */
+}
 
-{if $webgl}
-	{$webgl}
-{/if}
+.dg.ac {
+	z-index: 2 !important; /* TODO Solve this in HTML */
+}
+</style>
+</head>
 
+	<body>
+	
+	<div id="info">
+		<a href="http://threejs.org" target="_blank" rel="noopener">three.js</a> -
+		<a href="https://github.com/KhronosGroup/glTF" target="_blank" rel="noopener">glTF</a> 2.0 loader<br />
+		{$model.models_name} by <a href="{$model.models_author_url}" target="_blank" rel="noopener">{$model.models_author}</a>	
+	</div>
 
-{include file="phoenix/system/_footer.html"}
+		<div id="container"></div>
+
+{$webgl}
+
+	</body>
+</html>

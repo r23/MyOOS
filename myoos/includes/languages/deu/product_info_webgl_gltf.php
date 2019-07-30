@@ -20,35 +20,4 @@
    ---------------------------------------------------------------------- */
 
 $aLang['text_model_not_found'] = '3-D Modell wurde nicht gefunden!';
-$aLang['text_current_reviews'] = 'Aktuelle Meinungen:';
-$aLang['text_more_information'] = 'Für weitere Informationen, besuchen Sie bitte die <a href="%s" target="_blank" rel="noopener"><u>Homepage</u></a> zu diesem Produkt.';
-$aLang['text_manufacturer_info_homepage'] = '%s Homepage';
-$aLang['text_date_added'] = 'Dieses Produkt haben wir am %s in unseren Katalog aufgenommen.';
-$aLang['text_date_available'] = 'Dieses Produkt wird voraussichtlich ab %s wieder vorrätig sein.';
-$aLang['text_also_purchased_products'] = 'Zusätzlich kauften Kunden auch ';
-$aLang['text_xsell_products'] = 'Ähnliche Produkte:';
-$aLang['text_up_sell_products'] = 'Zu diesem Artikel empfehlen wir:';
-$aLang['text_optional_accessories'] = 'Optionales Zubehör';
-$aLang['text_product_options'] = 'Optionen:';
-$aLang['text_click_to_enlarge'] = 'Für eine grössere Darstellung<br />klicken Sie auf das Bild.';
-$aLang['text_close_window'] = 'Fenster schließen [x]';
-$aLang['products_order_qty_text'] = 'Menge';
-$aLang['text_product_notifications'] = 'Ihre Produkt Benachrichtigungen';
-$aLang['text_product_notifications_introduction'] = 'Mit der Benachrichtigungsfunktion ermöglichen wir es Ihnen, über alle unsere Produkte informiert zu sein. Sie erhalten zeitnah die aktuellsten Informationen über unsere Produkte und Sonderangebote.';
-
-$aLang['table_heading_image'] = '';
-$aLang['table_heading_model'] = 'Artikel-Nr.';
-$aLang['table_heading_products'] = 'Produkte';
-$aLang['table_heading_manufacturer'] = 'Hersteller';
-$aLang['table_heading_quantity'] = 'Anzahl';
-$aLang['table_heading_list_price'] = 'UVP';
-$aLang['table_heading_price'] = 'Preis';
-$aLang['table_heading_weight'] = 'Gewicht';
-$aLang['table_heading_buy_now'] = 'Bestellen';
-
-// modules/slavery_listing.php
-$aLang['text_buy'] = '1 x \'';
-$aLang['text_now'] = '\' bestellen!';
-
-$aLang['navigation_help'] = '<h2>Navigationshilfe</h2><p>3D-Modell drehen: Drücken der linken Maustaste und bewegen der Maus<br>Vergrößern/Verkleinern: Mausrad drehen<br>Verschieben: Dr&uuml;cken der rechten Maustaste und bewegen der Maus</p>';
 

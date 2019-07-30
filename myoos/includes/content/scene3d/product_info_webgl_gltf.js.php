@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /* ----------------------------------------------------------------------
 
    MyOOS [Shopsystem]
@@ -111,12 +111,6 @@
 			function initScene( sceneInfo ) {
 
 				var descriptionEl = document.getElementById( 'description' );
-
-				if ( sceneInfo.author && sceneInfo.authorURL ) {
-
-					descriptionEl.innerHTML = sceneInfo.name + ' by <a href="' + sceneInfo.authorURL + '" target="_blank" rel="noopener">' + sceneInfo.author + '</a>';
-
-				}
 
 				scene = new THREE.Scene();
 				scene.background = new THREE.Color( 0x222222 );
@@ -392,3 +386,4 @@
 
 			onload();
 </script>
+

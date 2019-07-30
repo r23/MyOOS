@@ -211,8 +211,10 @@
 
 						<h2>{$model.name}</h2>
 						<div class="embed-responsive embed-responsive-16by9">
-							<iframe  class="embed-responsive-item" src="{html_href_link content=$filename.product_info_webgl_gltf models_id=$model.models_id products_id=$product_info.products_id}" frameborder="0" allow="autoplay; fullscreen; vr" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>			
-			
+							<iframe  class="embed-responsive-item" src="{html_href_link content=$filename.product_info_webgl_gltf models_id=$model.models_id products_id=$product_info.products_id}"  frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen="allowfullscreen"></iframe>			
+						</div>
+						
+						
 						<div class="description_area">
 							{$lang.navigation_help}
 						</div>
