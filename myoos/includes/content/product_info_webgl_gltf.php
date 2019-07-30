@@ -21,39 +21,32 @@
 /** ensure this file is being required by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-if (isset($_GET['products_id'])) {
-	if (!isset($nProductsID)) $nProductsID = oos_get_product_id($_GET['products_id']);
+if (isset($_GET['models_id'])) {
+	if (!isset($nModelsID)) $nModelsID = intval($_GET['models_id']);
 } else {
 	oos_redirect(oos_href_link($aContents['home']));
 }
 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/product_info_webgl_gltf.php';
 
-$productstable = $oostable['products'];
-$products_descriptiontable = $oostable['products_description'];
-$product_info_sql = "SELECT p.products_id, pd.products_name, pd.products_title, pd.products_description, pd.products_short_description, pd.products_url,
-                              pd.products_description_meta, p.products_model, p.products_replacement_product_id,
-                              p.products_quantity, p.products_image, p.products_price, p.products_base_price,
-							  p.products_product_quantity, p.products_base_unit, p.products_quantity_order_min, 
-							  p.products_quantity_order_max, p.products_quantity_order_units,
-                              p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4,
-                              p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty,
-                              p.products_discount4_qty, p.products_tax_class_id, p.products_units_id, p.products_date_added,
-                              p.products_date_available, p.manufacturers_id, p.products_price_list, p.products_status
-                        FROM $productstable p,
-                             $products_descriptiontable pd
-                        WHERE p.products_setting = '2'
-                          AND p.products_id = '" . intval($nProductsID) . "'
-                          AND pd.products_id = p.products_id
-                          AND pd.products_languages_id = '" . intval($nLanguageID) . "'";
-$product_info_result = $dbconn->Execute($product_info_sql);
 
-if (!$product_info_result->RecordCount()) {
+	// 3-D Model
+	$products_modelstable = $oostable['products_models'];
+	$products_models_sql = "SELECT models_id, products_id, models_webgl_gltf, models_author, models_author_url, models_camera_pos, 
+									models_object_rotation, models_add_lights, models_add_ground, models_shadows, models_add_env_map,
+									models_extensions, models_hdr 
+							FROM $products_modelstable 
+							WHERE models_id = '" . intval($nModelsID) . "'";
+	$products_models_result = $dbconn->Execute($products_models_sql);	
+
+
+
+if (!$products_models_result->RecordCount()) {
 	// product not found
 	header('HTTP/1.0 404 Not Found');
-    $aLang['text_information'] = $aLang['text_product_not_found'];
+    $aLang['text_information'] = $aLang['text_model_not_found'];
 
-    $aTemplate['page'] = $sTheme . '/page/info.html';
+    $aTemplate['page'] = $sTheme . '/webgl/model_not_found.html';
 
     $nPageType = OOS_PAGE_TYPE_MAINPAGE;
 	$sPagetitle = '404 Not Found ' . OOS_META_TITLE;
@@ -65,12 +58,12 @@ if (!$product_info_result->RecordCount()) {
     }
 
     $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['products_new']));
-	$sCanonical = oos_href_link($aContents['product_info'], 'products_id='. $nProductsID, FALSE, TRUE);	
+	$sCanonical = oos_href_link($aContents['product_info_webgl_gltf'], 'models_id='. $nModelsID, FALSE, TRUE);	
 	
     $smarty->assign(
         array(
             'breadcrumb'    => $oBreadcrumb->trail(),
-            'heading_title' => $aLang['text_product_not_found'],
+            'heading_title' => $aLang['text_model_not_found'],
 			'robots'		=> 'noindex,follow,noodp,noydir',
 			'canonical'		=> $sCanonical	
         )
@@ -78,7 +71,21 @@ if (!$product_info_result->RecordCount()) {
 
 } else {
 
-    $product_info = $product_info_result->fields;
+    $model_info = $products_models_result->fields;	
+	
+	$name = oos_strip_suffix($model_info['models_webgl_gltf']);
+	$url = $name . '/' . $model_info['models_extensions'] . '/' . $model_info['models_webgl_gltf']; 
+
+		
+			ob_start();
+			require_once MYOOS_INCLUDE_PATH . '/includes/content/scene3d/product_info_webgl_gltf.js.php';
+			$webgl = ob_get_contents();
+			ob_end_clean();
+
+		$smarty->assign('webgl', $webgl);
+		
+		
+		
 
     // Meta Tags
     $sPagetitle = (empty($product_info['products_title']) ? $product_info['products_name'] : $product_info['products_title']); 
@@ -212,8 +219,6 @@ if (!$product_info_result->RecordCount()) {
 	}
 
 	
-    require_once MYOOS_INCLUDE_PATH . '/includes/modules/products_options.php';
-
     // assign Smarty variables;
     $smarty->assign(
         array(

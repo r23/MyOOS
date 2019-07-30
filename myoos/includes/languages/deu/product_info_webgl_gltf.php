@@ -19,7 +19,7 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-$aLang['text_product_not_found'] = 'Produkt wurde nicht gefunden!';
+$aLang['text_model_not_found'] = '3-D Modell wurde nicht gefunden!';
 $aLang['text_current_reviews'] = 'Aktuelle Meinungen:';
 $aLang['text_more_information'] = 'Für weitere Informationen, besuchen Sie bitte die <a href="%s" target="_blank" rel="noopener"><u>Homepage</u></a> zu diesem Produkt.';
 $aLang['text_manufacturer_info_homepage'] = '%s Homepage';

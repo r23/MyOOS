@@ -198,26 +198,29 @@
 											
                     </div>
                 </div>
-
-	{if $webgl}
+				
+	
+	{if $products_models_array}
 		<div class="container">
             <div class="row">
                 <div class="col-12">
+				
+				{foreach $products_models_array as $model}					
 					<div class="product_details_desc clearfix">
-				<div id="info">
-					<a href="http://threejs.org" target="_blank" rel="noopener">three.js</a> -
-					<a href="https://github.com/KhronosGroup/glTF" target="_blank" rel="noopener">glTF</a> 2.0 loader<br />
-					<div id="description"></div>
-				</div>
 
-			<div id="scene3d"></div>
+
+						<h2>{$model.name}</h2>
+						<div class="embed-responsive embed-responsive-16by9">
+							<iframe  class="embed-responsive-item" src="{html_href_link content=$filename.product_info_webgl_gltf models_id=$model.models_id products_id=$product_info.products_id}" frameborder="0" allow="autoplay; fullscreen; vr" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>			
 			
-			
-				<div class="description_area">
-				{$lang.navigation_help}
-				</div>
+						<div class="description_area">
+							{$lang.navigation_help}
+						</div>
 
 					</div>
+				{/foreach}
+
+						
 				</div>
 			</div>
 		</div>

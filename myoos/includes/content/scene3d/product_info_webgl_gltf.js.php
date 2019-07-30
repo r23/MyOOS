@@ -23,8 +23,6 @@
 
 	import * as THREE from './js/three/three.module.js';
 
-	import Stats from './jsm/libs/stats.module.js';
-
 	import { GUI } from './jsm/libs/dat.gui.module.js';
 	import { OrbitControls } from './jsm/controls/OrbitControls.js';
 	import { GLTFLoader } from './jsm/loaders/GLTFLoader.js';
@@ -46,14 +44,14 @@
 				Boombox: {
 					name: '<?php echo $name; ?>',
 					url: './media/models/gltf/<?php echo $url; ?>',
-					author: '<?php echo $models['models_author']; ?>',
-					authorURL: '<?php echo $models['models_author_url']; ?>',
-					cameraPos: new THREE.Vector3( <?php echo $models['models_camera_pos']; ?> ),
-					objectRotation: new THREE.Euler( <?php echo $models['models_object_rotation']; ?> ),
-					<?php if ($models['models_add_lights'] == 'true') echo 'addLights: true,'; ?>	
-					<?php if ($models['models_add_ground'] == 'true') echo 'addGround: true,'; ?>	
-					<?php if ($models['models_shadows'] == 'true') echo 'shadows: true,'; ?>							
-					<?php if ($models['models_add_env_map'] == 'true') echo 'addEnvMap: true,'; ?>					
+					author: '<?php echo $model_info['models_author']; ?>',
+					authorURL: '<?php echo $model_info['models_author_url']; ?>',
+					cameraPos: new THREE.Vector3( <?php echo $model_info['models_camera_pos']; ?> ),
+					objectRotation: new THREE.Euler( <?php echo $model_info['models_object_rotation']; ?> ),
+					<?php if ($model_info['models_add_lights'] == 'true') echo 'addLights: true,'; ?>	
+					<?php if ($model_info['models_add_ground'] == 'true') echo 'addGround: true,'; ?>	
+					<?php if ($model_info['models_shadows'] == 'true') echo 'shadows: true,'; ?>							
+					<?php if ($model_info['models_add_env_map'] == 'true') echo 'addEnvMap: true,'; ?>					
 					extensions: [ 'glTF', 'glTF-pbrSpecularGlossiness', 'glTF-Binary', 'glTF-dds' ]
 				},
 	};
@@ -66,15 +64,11 @@
 
 			function onload() {
 
-				container = document.getElementById( 'scene3d' );
-
-				var CANVAS_WIDTH = 1024;
-				var CANVAS_HEIGHT = 576;
-
+				container = document.getElementById( 'container' );
 
 				renderer = new THREE.WebGLRenderer( { antialias: true } );
 				renderer.setPixelRatio( window.devicePixelRatio );
-				renderer.setSize( CANVAS_WIDTH, CANVAS_HEIGHT );
+				renderer.setSize( window.innerWidth, window.innerHeight );
 				renderer.gammaOutput = true;
 				renderer.physicallyCorrectLights = true;
 				container.appendChild( renderer.domElement );
@@ -86,7 +80,7 @@
 				new RGBELoader()
 					.setType( THREE.UnsignedByteType )
 					.setPath( 'media/textures/equirectangular/' )
-					.load( '<?php echo $models['models_hdr']; ?>', function ( texture ) {
+					.load( '<?php echo $model_info['models_hdr']; ?>', function ( texture ) {
 
 						var cubeGenerator = new EquirectangularToCubeGenerator( texture, { resolution: 1024 } );
 						cubeGenerator.update( renderer );
@@ -319,16 +313,9 @@
 
 				camera.aspect = container.offsetWidth / container.offsetHeight;
 				camera.updateProjectionMatrix();
- 
-				const container = renderer.domElement;
-				const width = container.clientWidth;
-				const height = container.clientHeight;
-				const needResize = container.width !== width || container.height !== height;
-				if (needResize) {
-					renderer.setSize(width, height, false);
-				}
-				return needResize;
-				
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
 			}
 
 			function animate() {
@@ -404,4 +391,4 @@
 			}
 
 			onload();
-		</script>
+</script>
