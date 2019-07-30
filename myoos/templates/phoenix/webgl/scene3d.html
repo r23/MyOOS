@@ -1,0 +1,306 @@
+{include file="phoenix/system/_header.html"}
+
+{include file="phoenix/system/_breadcrumbs.html"}
+
+<!-- wrapper -->
+<div id="wrapper">	
+{if $message}
+    {foreach $message as $info}
+        {include file="phoenix/system/_message.html"}
+    {/foreach}
+{/if}
+
+<section class="mainContent clearfix" itemscope itemtype="https://schema.org/Product">
+	<div class="container">
+		<div class="row">
+		
+			{if !empty($product_info.products_image) }
+			<!-- IMAGE -->
+			<div class="col-12 col-md-4">		
+				<div class="thumbnail relative mb-3">
+					<figure id="zoom-primary" class="zoom" data-mode="{$smarty.const.IMAGE_ZOOM|default:'mouseover'}">
+						<a class="lightbox {$smarty.const.ZOOM_BUTTON|default:'bottom-right'}" href="{product_image_link dir=large image=$product_info.products_image}" data-plugin-options='{literal}{"type":"image"}{/literal}'><i class="fa fa-search" aria-hidden="true"></i></a>					
+						{product_image dir=large image=$product_info.products_image alt=$product_info.products_name}
+					</figure>
+				</div>
+				{if $products_images}				
+					<!-- Thumbnails -->
+					<div data-for="zoom-primary" class="zoom-more owl-carousel owl-padding-3 featured" data-plugin-options='{literal}{"singleItem": false, "autoPlay": false, "navigation": true, "pagination": false}{/literal}'>
+						<a class="thumbnail active" href="{product_image_link dir=large image=$product_info.products_image}">
+							{product_image dir=small height="100" image=$product_info.products_image alt=$product_info.products_name}
+						</a>
+					{foreach $products_images as $images}
+						<a class="thumbnail active" href="{product_image_link dir=large image=$images.image}">
+							{product_image dir=small height="100" image=$images.image alt=$product_info.products_name}
+						</a>
+					{/foreach}
+					</div>
+					<!-- /Thumbnails -->
+				{/if}
+
+			
+			</div>
+			<!-- /IMAGE -->	
+			{/if}
+			
+			<div class="col-12 col-md-8">
+				<div class="product_details_desc">
+					{if $oEvent->installed_plugin('manufacturers')}
+						{if !empty($manufacturers_info.manufacturers_name) }
+						<div class="manufacturer" itemprop="manufacturer" itemscope itemtype="https://schema.org/Organization">
+							<span itemprop="brand" itemscope itemtype="https://schema.org/Brand">
+								<meta itemprop="name" content="{$manufacturers_info.manufacturers_name}">
+							</span>
+							<h2>
+								<a href="{html_href_link content=$filename.shop manufacturers_id=$manufacturers_info.manufacturers_id}">
+									{$manufacturers_info.manufacturers_name}	
+								</a>
+							</h2>
+						</div>
+						{/if}						
+					{/if}
+					
+						<div class="product-name" itemprop="name">					
+							<h1>{$product_info.products_name}</h1>
+						</div>
+
+					{if $product_info.products_product_quantity}
+						<div class="quantity">
+							<span itemprop="weight" itemscope itemtype="https://schema.org/QuantitativeValue">
+								<meta itemprop="value" content="{$product_info.products_product_quantity}"/>
+								<meta itemprop="unitText" content="{$products_units[$product_info.products_units_id]|strtoupper}"/>
+							</span>
+							{if $product_info.products_base_price != 1}<p>{$product_info.products_product_quantity}&nbsp;{$products_units[$product_info.products_units_id]}</p>{/if}
+						</div>							
+					{/if}
+
+					{if $oEvent->installed_plugin('reviews')}				
+						<!-- rating -->
+						<div class="product_details_ratings mb-15">
+						{if $reviews_total gt 0 }
+							<span itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
+								<meta itemprop="ratingCount" content="{$reviews_total}" />
+								<meta itemprop="ratingValue" content="{$average_rating}" />
+							</span>						
+						
+							<div class="rating rating-{$average_rating|round:0} fs-13"><!-- rating-0 ... rating-5 --></div> ({$reviews_total})
+							<a href="{html_href_link content=$filename.product_reviews products_id=$product_info.products_id}" class="btn btn-primary-filled" role="button">
+								<i class="fa fa-commenting"  aria-hidden="true"></i> {$lang.button_reviews}
+							</a>
+						{else}						
+							<a href="{html_href_link content=$filename.product_reviews_write products_id=$product_info.products_id}" class="btn btn-secondary-filled" role="button">
+								<i class="fa fa-pencil" aria-hidden="true"></i> {$lang.button_write_first_review}
+							</a>
+						{/if}
+						</div>
+						<!-- /rating -->
+					{/if}
+
+
+					{if !empty($product_info.products_short_description) }
+						<div class="product-short-description mb-15">			
+							{$product_info.products_short_description}
+						</div>
+					{/if}
+				
+{if $myUser.show_price eq 1 }
+	{if (!empty($info_product_special_price))}
+		<span class="price-old">{$lang.price_reduced_from} <span class="line-through">{$info_product_price}</span></span><br>
+		<span class="price-offer">{$info_product_special_price}</span><br>
+	{else}
+		{if $price_discount}
+			{$lang.price_from} {$price_discount}<br>
+		{else}
+			<h4 class="price">{$info_product_price}</h4>
+			<span itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+				<meta itemprop="price" content="{$schema_product_price}"/>
+				<meta itemprop="priceCurrency" content="{$currency}"/>
+				<meta itemprop="itemCondition" content="https://schema.org/NewCondition"/>
+			</span>				
+		{/if}
+	{/if}
+
+	{if $product_info.products_base_price != 1}<span class="base_price">({$info_base_product_price}/{$products_units[$product_info.products_base_unit]})</span><br>{/if}
+
+	<p><small>{$tax_plus_shipping}</small></p>  
+	{if $info_product_price_list > 0}
+		<p>{$lang.price_rrp} <span class="line-through">{$info_product_price_list}</span></p>
+	{/if}
+{else}
+	<a href="{html_href_link content=$filename.login}" class="btn btn-primary-filled" role="button">{$lang.button_login}</a>
+{/if}
+
+                        <div class="short_overview">
+						{if $smarty.const.PRODUCT_LIST_MODEL > 0}
+							<p>{$product_info.products_model}</p>
+						{/if}
+						</div>
+						
+					{if $product_info.products_status eq 3 }
+						<form name="cart_quantity" action="{html_get_link}" method="POST" role="form" enctype="multipart/form-data">
+							<input type="hidden" name="action" value="add_product">
+							<input type="hidden" name="content" value="{$page_file}">
+						{if $smarty.get.edit}
+							<input type="hidden" name="edit_product" value="{$smarty.get.products_id}">
+						{/if}
+						{if $mySystem.sed}
+							<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+							<input type="hidden" name="formid" value="{$mySystem.formid}">
+						{/if}
+							<input type="hidden" name="products_id" value="{$product_info.products_id}">	
+							
+                        <div class="widget color mb-15">
+                            <div class="widget-desc d-flex">
+								{$options}
+                            </div>
+                        </div>
+
+						<!-- Add to Cart Form -->
+						<div class="cart clearfix mb-15 d-flex align-items-center">
+						{if $myUser.show_price eq 1 }
+                            <div class="quantity">
+                                <span class="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                                <input type="number" class="qty-text" id="qty" step="{$product_info.products_quantity_order_units|quantity}" min="{$product_info.products_quantity_order_min|quantity}" max="{$product_info.products_quantity_order_max|quantity}" name="cart_quantity" value="{$product_info.products_quantity_order_min}">
+                                <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                            </div>
+						{/if}
+                            <button type="submit" class="btn btn-primary ml-2"><i class="fa fa-shopping-basket" aria-hidden="true"></i> {$lang.button_in_cart}</button>
+						</div>
+							{if $product_info.products_quantity_order_min > 1 }
+								<p>{$lang.products_order_qty_min_text} {$product_info.products_quantity_order_min|quantity}</p>
+							{/if}
+							{if $product_info.products_quantity_order_units > 1 }
+								<p>{$lang.products_order_qty_unit_text} {$product_info.products_quantity_order_units|quantity}</p>
+							{/if}							
+
+							<div class="stock-status available">
+								<link itemprop="availability" href="https://schema.org/InStock"/>               
+								<span class="stock-label text-success"><i class="fa fa-check"></i> {$lang.in_stock}</span>
+							</div>					
+						</form>
+						
+                        <div class="others_info_area mb-15 d-flex">
+                            <a class="add_to_wishlist" href="{html_href_link content=$filename.account_wishlist action=add_wishlist products_id=$product_info.products_id}" rel="nofollow"><i class="fa fa-heart" aria-hidden="true"></i> {$lang.button_add_wishlist}</a>
+                        </div>
+					{elseif $product_info.products_status eq 4 }
+						<div class="clearfix mb-30">
+							<span class="text-danger"><i class="fa fa-remove"></i> {$lang.text_no_longer_available}
+							{if (!empty($product_info.products_replacement_product_id))}
+							<a class="text-danger" href="{product_link products_id=$products_replacement_product_id}"><i class="fa fa-paper-plane"></i> {$lang.text_replacement_product}</a>
+							{/if}
+							</span>
+						</div>			
+					{else}
+						<div class="clearfix mb-30">
+							<span class="text-danger"><i class="fa fa-remove"></i> {$lang.out_of_stock}</span>
+						</div>					
+					{/if}
+											
+                    </div>
+                </div>
+
+	{if $webgl}
+		<div class="container">
+            <div class="row">
+                <div class="col-12">
+					<div class="product_details_desc clearfix">
+				<div id="info">
+					<a href="http://threejs.org" target="_blank" rel="noopener">three.js</a> -
+					<a href="https://github.com/KhronosGroup/glTF" target="_blank" rel="noopener">glTF</a> 2.0 loader<br />
+					<div id="description"></div>
+				</div>
+
+			<div id="scene3d"></div>
+			
+			
+				<div class="description_area">
+				{$lang.navigation_help}
+				</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	{/if}
+		<div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="product_details_desc clearfix">
+                                <div class="description_area">
+									{$product_info.products_description}                            
+								</div>
+								
+							{if $cart_count_contents gt 0 }
+								{if $smarty.get.con eq '1' }
+									<a href="{html_href_link content=$filename.checkout_confirmation}" class="btn btn-primary-filled" role="button">{$lang.button_back}</a> 
+								{else}
+									{if $myUser.show_price eq 1 }
+										<a href="{html_href_link content=$filename.checkout_payment}" class="btn btn-primary-filled" role="button">
+											<i class="fa fa-shopping-basket" aria-hidden="true"></i> {$lang.button_checkout}
+										</a>
+									{/if}
+								{/if}
+							{/if}
+
+							{if !empty($product_info.products_url) }
+								<p>{$redirect|string_format:$lang.text_more_information}</p>
+							{/if}								
+
+							{if ($product_info.products_date_available > $today) }
+								<p class="text-danger">{$product_info.products_date_available|oos_date_long|string_format:$lang.text_date_available}</p>
+							{else}
+								{if $smarty.const.SHOW_DATE_ADDED_AVAILABLE eq 'true'}
+									<p class="text-secondary">{$product_info.products_date_added|oos_date_long|string_format:$lang.text_date_added}</p>  
+								{/if}
+							{/if}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+	{if $notifications_block}
+		<div class="container mt-50">
+			<div class="mb-5">
+				<span class="d-block g-color-gray-light-v1 fs-70 mb-4">
+					<i class="fa fa-pencil-square" aria-hidden="true"></i>
+				</span>
+				<h2 class="mb-20">{$lang.text_product_notifications}</h2>
+				<p>{$lang.text_product_notifications_introduction}</p>
+			</div>
+		{if $notification_exists}
+			<a class="btn btn-primary fs-12 m-py-12 m-px-25" href="{html_href_link content=$page_file oos_get=$get_params action=notify_remove}" role="button">{$products_name|string_format:$lang.block_notifications_notify_remove}</a>
+		{else}
+			<a class="btn btn-primary fs-12 m-py-12 m-px-25" href="{html_href_link content=$page_file oos_get=$get_params action=notify}" role="button">{$products_name|string_format:$lang.block_notifications_notify}</a>
+		{/if}
+		</div>	
+	{/if}
+	
+		<div class="container">
+            <div class="row">
+
+{$slavery_products}
+
+{$xsell_products}
+
+{$up_sell_products}
+
+{$also_purchased_products}
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+{if $smarty.const.NEWSLETTER eq 'true'}
+	{include file="phoenix/system/_newsletter.html"}
+{/if}
+
+
+{if $webgl}
+	{$webgl}
+{/if}
+
+
+{include file="phoenix/system/_footer.html"}
