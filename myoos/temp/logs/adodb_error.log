@@ -1,1 +1,0 @@
-﻿(2019-07-28 15:45:20) mysqli error: [1054: Unknown column '$models_webgl_gltf' in 'field list'] in EXECUTE("UPDATE edtq_products_models set $models_webgl_gltf = 'BoomBox.gltf' where models_id = '1'")
