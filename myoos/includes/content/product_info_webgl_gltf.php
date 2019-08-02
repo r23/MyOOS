@@ -66,6 +66,12 @@ if (!$products_models_result->RecordCount()) {
 
 } else {
 
+    $products_models_descriptiontable = $oostable['products_models_description'];
+    $query = "UPDATE $products_models_descriptiontable"
+        . " SET models_viewed = models_viewed+1"
+        . " WHERE models_id = ?"
+        . "   AND models_languages_id = ?";
+    $result = $dbconn->Execute($query, array((int)$nModelsID, (int)$nLanguageID));
     $model_info = $products_models_result->fields;	
 	
 	$name = oos_strip_suffix($model_info['models_webgl_gltf']);

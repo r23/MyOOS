@@ -257,8 +257,9 @@ if (!empty($action)) {
           $page_type_result->MoveNext();
         }
 
-        //products_description
-        $products_result = $dbconn->Execute("SELECT p.products_id, pd.products_name, pd.products_title, pd.products_description, pd.products_short_description, pd.products_essential_characteristics, pd.products_url 
+        //products_description		
+        $products_result = $dbconn->Execute("SELECT p.products_id, pd.products_name, pd.products_title, pd.products_description, pd.products_short_description, pd.products_essential_characteristics, 
+										pd.products_url, pd.products_description_meta,  pd.products_keywords
                                          FROM " . $oostable['products'] . " p LEFT JOIN
                                               " . $oostable['products_description'] . " pd
                                             ON p.products_id = pd.products_id
@@ -271,20 +272,52 @@ if (!empty($action)) {
 					   products_title,
                        products_description,
 					   products_short_description,
-					   products_essential_characteristics
-                       products_url) 
+					   products_essential_characteristics,
+                       products_url,
+					   products_description_meta,
+					   products_keywords) 
                        VALUES ('" . $products['products_id'] . "',
                                '" . intval($insert_id) . "',
                                '" . oos_db_input($products['products_name']) . "',
-                               '" . oos_db_input($products['products_description']) . "',
 							   '" . oos_db_input($products['products_title']) . "',
+                               '" . oos_db_input($products['products_description']) . "',							   
 							   '" . oos_db_input($products['products_short_description']) . "',
 							   '" . oos_db_input($products['products_essential_characteristics']) . "',
-                               '" . oos_db_input($products['products_url']) . "')");
+							   '" . oos_db_input($products['products_url']) . "',
+							   '" . oos_db_input($products['products_description_meta']) . "',
+                               '" . oos_db_input($products['products_keywords']) . "')");
 
            // Move that ADOdb pointer!
            $products_result->MoveNext();
         }
+	
+        //products_models_description
+        $products_result = $dbconn->Execute("SELECT m.models_id, md.models_name, md.models_title, md.models_description_meta, md.models_keywords
+                                         FROM " . $oostable['products_models'] . " m LEFT JOIN
+                                              " . $oostable['products_models_description'] . " md
+                                            ON m.models_id = md.models_id
+                                        WHERE md.models_languages_id = '" . intval($_SESSION['language_id']) . "'");
+        while ($models = $models_result->fields) {
+          $dbconn->Execute("INSERT INTO " . $oostable['products_models_description'] . "
+                      (models_id,
+                       models_languages_id,
+                       models_name,
+					   models_title,
+					   models_description_meta,
+					   models_keywords) 
+                       VALUES ('" . $models['models_id'] . "',
+                               '" . intval($insert_id) . "',
+                               '" . oos_db_input($models['models_name']) . "',
+							   '" . oos_db_input($models['models_title']) . "',							   
+							   '" . oos_db_input($models['models_description_meta']) . "',
+                               '" . oos_db_input($models['models_keywords']) . "')");
+
+           // Move that ADOdb pointer!
+           $models_result->MoveNext();
+        }		
+		
+		
+		
          // products_options
         $products_options_result = $dbconn->Execute("SELECT products_options_id, products_options_name 
                                                  FROM " . $oostable['products_options'] . "
@@ -426,6 +459,7 @@ if (!empty($action)) {
         $dbconn->Execute("DELETE FROM " . $oostable['orders_status'] . " WHERE orders_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['page_type'] . " WHERE page_type_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['products_description'] . " WHERE products_languages_id = '" . intval($lID) . "'");
+		$dbconn->Execute("DELETE FROM " . $oostable['products_models_description'] . " WHERE models_languages_id = '" . intval($lID) . "'");		
         $dbconn->Execute("DELETE FROM " . $oostable['products_options'] . " WHERE products_options_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['products_options_types'] . " WHERE products_options_types_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['products_options_values'] . " WHERE products_options_values_languages_id = '" . intval($lID) . "'");

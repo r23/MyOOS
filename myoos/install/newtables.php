@@ -953,7 +953,6 @@ $table = $prefix_table . 'products_models';
 $flds = "
   models_id I I NOTNULL AUTO PRIMARY,
   products_id I NOTNULL DEFAULT '1' PRIMARY,
-  models_name C(255) NULL,  
   models_webgl_gltf C(255) NULL,
   models_author C(255) NULL,
   models_author_url C(255) NULL,
@@ -969,6 +968,25 @@ $flds = "
   models_last_modified T 
 ";
 dosql($table, $flds);
+
+
+$table = $prefix_table . 'products_models_description';
+$flds = "
+  models_id I DEFAULT '0' NOTNULL PRIMARY,
+  models_languages_id I NOTNULL DEFAULT '1' PRIMARY,
+  models_name C(64) NOTNULL,
+  models_title C(255) NULL,
+  models_viewed I2 DEFAULT '0',
+  models_description_meta C(250) NULL,
+  models_keywords C(250) NULL
+";
+dosql($table, $flds);
+
+$idxname = 'idx_models_name';
+$idxflds = 'models_name';
+idxsql($idxname, $table, $idxflds);
+
+
 
 
 
