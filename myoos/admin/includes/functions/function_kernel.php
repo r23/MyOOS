@@ -999,8 +999,8 @@ function oos_get_suffix($filename) {
 /**
  * returns a file name sans the suffix
  *
- * @param unknown_type $filename
- * @return unknown
+ * @param  string $filename
+ * @return string
  */
 function oos_strip_suffix($filename) {
 	return str_replace(strrchr($filename, "."), '', $filename);
@@ -1055,7 +1055,7 @@ function parse_size($size) {
 /**
  * Unzips an archive
  *
- * @param file $file the archive
+ * @param string $file the archive
  * @param string $dir where the images go
  */
 function unzip($file, $dir) { 
