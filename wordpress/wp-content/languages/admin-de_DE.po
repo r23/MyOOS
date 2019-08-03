@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.2.x - Development - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-07-22 21:54:30+0000\n"
+"PO-Revision-Date: 2019-08-03 11:10:51+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -9255,7 +9255,7 @@ msgstr "Installierte Themes durchsuchen"
 #. translators: %s: link to documentation on child themes
 #: wp-admin/update-core.php:408
 msgid "<strong>Please Note:</strong> Any customizations you have made to theme files will be lost. Please consider using <a href=\"%s\">child themes</a> for modifications."
-msgstr "<strong>Beachte bitte:</strong> Alle Anpassungen, die du am Theme vorgenommen hast, werden verloren gehen. Ziehe in Erwägung, <a href=\"%s\">Child-Themes</a> zu nutzen, um Modifikationen vorzunehmen."
+msgstr "<strong>Beachte bitte:</strong> Alle Anpassungen, die du an Theme-Dateien vorgenommen hast, werden verloren gehen. Ziehe in Erwägung, <a href=\"%s\">Child-Themes (engl.)</a> zu nutzen, um Modifikationen vorzunehmen."
 
 #: wp-admin/includes/class-wp-posts-list-table.php:375
 msgctxt "posts"
