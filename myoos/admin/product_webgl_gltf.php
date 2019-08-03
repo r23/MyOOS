@@ -23,7 +23,6 @@ define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
 require 'includes/functions/function_categories.php';
-require 'includes/classes/class_currencies.php';
 
 require_once MYOOS_INCLUDE_PATH . '/includes/lib/htmlpurifier/library/HTMLPurifier.auto.php';
 
@@ -33,8 +32,8 @@ $pID = (isset($_GET['pID']) ? intval($_GET['pID']) : 0);
 
 if (!empty($action)) {
 	switch ($action) {
-		case 'insert_product':
-		case 'update_product':
+		case 'insert_model':
+		case 'update_model':
 		
 			if (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) {		
 				$products_id = intval($_POST['products_id']);		
@@ -56,8 +55,8 @@ if (!empty($action)) {
 				
 				for ($i = 0, $n = $nModelCounter; $i < $n; $i++) {
 								
-						$action = (!isset($_POST['models_id'][$i]) || !is_numeric($_POST['models_id'][$i])) ? 'insert_product' : 'update_product';
-					
+						$action = (!isset($_POST['models_id'][$i]) || !is_numeric($_POST['models_id'][$i])) ? 'insert_model' : 'update_model';
+			
 						$sql_data_array = array('products_id' => intval($products_id),
 											'models_author' => oos_db_prepare_input($_POST['models_author'][$i]),
 											'models_author_url' => oos_db_prepare_input($_POST['models_author_url'][$i]),
@@ -72,7 +71,7 @@ if (!empty($action)) {
 											);
 										
 
-					if ($action == 'insert_product') {
+					if ($action == 'insert_model') {
 						$insert_sql_data = array('models_date_added' => 'now()');
 
 						$sql_data_array = array_merge($sql_data_array, $insert_sql_data);
@@ -80,7 +79,7 @@ if (!empty($action)) {
 						oos_db_perform($oostable['products_models'], $sql_data_array);
 						$models_id = $dbconn->Insert_ID();
 
-					} elseif ($action == 'update_product') {
+					} elseif ($action == 'update_model') {
 						$update_sql_data = array('models_last_modified' => 'now()');
 						$models_id = intval($_POST['models_id'][$i]);
 						
@@ -89,6 +88,29 @@ if (!empty($action)) {
 						oos_db_perform($oostable['products_models'], $sql_data_array, 'UPDATE', 'models_id = \'' . intval($models_id) . '\'');
 
 					}
+
+					$aLanguages = oos_get_languages();
+					$nLanguages = count($aLanguages);
+
+					for ($li = 0, $l = $nLanguages; $li < $l; $li++) {
+						$language_id = $aLanguages[$li]['id'];
+
+						$sql_data_array = array('models_name' => oos_db_prepare_input($_POST['models_name'][$i][$language_id]),
+												'models_title' => oos_db_prepare_input($_POST['models_title'][$i][$language_id]),
+												'models_description_meta' => oos_db_prepare_input($_POST['models_description_meta_'. $i . '_'  . $aLanguages[$li]['id']]));
+	
+						if ($action == 'insert_model') {
+							$insert_sql_data = array('models_id' => $models_id,
+													'models_languages_id' => $language_id);
+
+							$sql_data_array = array_merge($sql_data_array, $insert_sql_data);
+
+							oos_db_perform($oostable['products_models_description'], $sql_data_array);
+						} elseif ($action == 'update_model') {
+							oos_db_perform($oostable['products_models_description'], $sql_data_array, 'UPDATE', 'models_id = \'' . intval($models_id) . '\' AND models_languages_id = \'' . intval($language_id) . '\'');
+						}
+					}
+
 
 					if ( ($_POST['remove_products_model'][$i] == 'yes') && (isset($_POST['models_webgl_gltf'][$i])) ) {
 						$models_webgl_gltf = oos_db_prepare_input($_POST['models_webgl_gltf'][$i]);
@@ -115,11 +137,13 @@ if (!empty($action)) {
 								$targetdir = $path;  // target directory
 								$targetzip = $path . $filename; // target zip file
 					
-					
 								if (is_dir($targetdir))  rmdir_recursive ( $targetdir);
+								
+								$removedir = OOS_ABSOLUTE_PATH . OOS_MEDIA . 'models/gltf/' . $name . '/';
+								if (is_dir($removedir))  rmdir_recursive ( $removedir);
 
-								mkdir($path = OOS_ABSOLUTE_PATH . OOS_MEDIA . 'models/gltf/' . $name, 0755);
-								mkdir($path = OOS_ABSOLUTE_PATH . OOS_MEDIA . 'models/gltf/' . $name . '/' . $models_extensions, 0755);							
+								mkdir(OOS_ABSOLUTE_PATH . OOS_MEDIA . 'models/gltf/' . $name, 0755);
+								mkdir(OOS_ABSOLUTE_PATH . OOS_MEDIA . 'models/gltf/' . $name . '/' . $models_extensions, 0755);							
 
 
 								if (move_uploaded_file($source, $targetzip)) {
@@ -128,7 +152,7 @@ if (!empty($action)) {
 									if ($x === true) {
 										$zip->extractTo($targetdir); // place in the directory with same name  
 										$zip->close();
-	
+
 										unlink($targetzip);
 									}
 									$messageStack->add_session(TEXT_SUCCESSFULLY_UPLOADED, 'success');
@@ -217,7 +241,16 @@ if ($action == 'edit_3d') {
 		$pInfo = new objectInfo($product);
 
 		$products_modelstable = $oostable['products_models'];
-		$products_models_result =  $dbconn->Execute("SELECT models_id, products_id, models_webgl_gltf, models_author, models_author_url, models_camera_pos, models_object_rotation, models_add_lights, models_add_ground, models_shadows, models_add_env_map, models_extensions, models_hdr FROM $products_modelstable WHERE products_id = '" . intval($product['products_id']) . "'");
+		$products_models_descriptiontable = $oostable['products_models_description'];
+		$products_models_result = $dbconn->Execute("SELECT m.models_id, m.products_id, md.models_name, md.models_title,	md.models_description_meta, 
+													md.models_keywords, m.models_webgl_gltf, m.models_author, m.models_author_url, 
+													m.models_camera_pos, m.models_object_rotation, m.models_add_lights, models_add_ground, m.models_shadows, 
+													m.models_add_env_map, m.models_extensions, m.models_hdr 
+                                            FROM $products_modelstable m,
+                                                 $products_models_descriptiontable md
+                                           WHERE m.products_id = '" . intval($product['products_id']) . "' AND
+                                                 m.models_id = md.models_id AND
+                                                 md.models_languages_id = '" . intval($_SESSION['language_id']) . "'");
 
 		if (!$products_models_result->RecordCount()) {
 			$pInfo->products_models[] = array('products_id' => $product['products_id'],
@@ -256,8 +289,11 @@ if ($action == 'edit_3d') {
 
 	$aExtensions = array();
 	$aExtensions = array('glTF', 'glTF-Embedded', 'glTF-pbrSpecularGlossiness', 'glTF-Binary', 'glTF-Draco');
+
+    $aLanguages = oos_get_languages();
+	$nLanguages = count($aLanguages);
 	
-    $form_action = (isset($_GET['pID'])) ? 'update_product' : 'insert_product';
+    $form_action = (isset($_GET['pID'])) ? 'update_model' : 'insert_model';
 
     $back_url = $aContents['categories'];
     $back_url_params = 'cPath=' . $cPath;
@@ -286,18 +322,21 @@ if ($action == 'edit_3d') {
 	<!-- END Breadcrumbs //-->
 
 	<?php echo oos_draw_form('id', 'new_product', $aContents['product_webgl_gltf'], 'cPath=' . $cPath . (!empty($pID) ? '&pID=' . intval($pID) : '') . '&action=' . $form_action, 'post', FALSE, 'enctype="multipart/form-data"'); ?>
-		<?php  	$sFormid = md5(uniqid(rand(), true));
+		<?php  	
+		
+				$sFormid = md5(uniqid(rand(), true));
 				$_SESSION['formid'] = $sFormid;
 				echo oos_draw_hidden_field('formid', $sFormid);
 				echo oos_draw_hidden_field('products_id', $pInfo->products_id);
-				echo oos_hide_session_id(); ?>
+				echo oos_hide_session_id();
+		?>
                <div role="tabpanel">
                   <ul class="nav nav-tabs nav-justified">
                      <li class="nav-item" role="presentation">
                         <a class="nav-link active" href="#product" aria-controls="product" role="tab" data-toggle="tab"><?php echo TEXT_PRODUCTS; ?></a>
                      </li>
                      <li class="nav-item" role="presentation">
-                        <a class="nav-link" href="#model" aria-controls="model" role="tab" data-toggle="tab"><?php echo TEXT_PRODUCTS_MODEL; ?></a>
+                        <a class="nav-link" href="#model" aria-controls="model" role="tab" data-toggle="tab"><?php echo TEXT_MODELS_MODEL; ?></a>
                      </li>
                      <li class="nav-item" role="presentation">
                         <a class="nav-link" href="#uplaod" aria-controls="picture" role="tab" data-toggle="tab"><?php echo TEXT_UPLOAD_MODELS; ?></a>
@@ -335,9 +374,10 @@ if ($action == 'edit_3d') {
 ?>
 						<fieldset>
                            <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_MODEL; ?></label>
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_MODEL; ?></label>
                               <div class="col-lg-10">
 								<?php echo oos_draw_input_field('models_webgl_gltf['. $nCounter . ']', $models['models_webgl_gltf'], '', FALSE, 'text', TRUE, TRUE); ?>
+								<?php echo oos_draw_hidden_field('models_webgl_gltf['. $nCounter . ']', $models['models_webgl_gltf']); ?>
                               </div>
                            </div>
                         </fieldset>	
@@ -351,7 +391,51 @@ if ($action == 'edit_3d') {
                         </fieldset>	
 <?php						
 			}
-?>						
+
+    for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
+?>
+
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_MODELS_NAME; ?></label>
+							  <?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
+                              <div class="col-lg-9">
+								<?php echo oos_draw_input_field('models_name['. $nCounter . '][' . $aLanguages[$i]['id'] . ']', (($models_name[$aLanguages[$i]['id']]) ? stripslashes($models_name[$aLanguages[$i]['id']]) : oos_get_models_name($models['models_id'], $aLanguages[$i]['id']))); ?>
+                              </div>
+                           </div>
+                        </fieldset>						
+<?php
+    }
+    for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
+?>
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_MODELS_TITLE; ?></label>
+							  <?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
+                              <div class="col-lg-9">
+								<?php echo oos_draw_input_field('models_title['. $nCounter . '][' . $aLanguages[$i]['id'] . ']', (($models_title[$aLanguages[$i]['id']]) ? stripslashes($models_title[$aLanguages[$i]['id']]) : oos_get_models_title($models['models_id'], $aLanguages[$i]['id']))); ?>
+                              </div>
+                           </div>
+                        </fieldset>						
+<?php
+    }	
+	for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
+?>
+					<fieldset>
+						<div class="form-group row">
+							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_MODELS_DESCRIPTION_META; ?></label>
+							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
+							<div class="col-lg-9">
+								<?php echo oos_draw_textarea_field('models_description_meta_'. $nCounter . '_' . $aLanguages[$i]['id'], 'soft', '70', '4', ($_POST['models_description_meta_'. $nCounter . '_' . $aLanguages[$i]['id']] ? stripslashes($_POST['models_description_meta_'. $nCounter . '_' .$aLanguages[$i]['id']]) : oos_get_models_description_meta($models['models_id'], $aLanguages[$i]['id']))); ?>
+							</div>
+						</div>
+					</fieldset>
+<?php
+	}
+?>
+
+
+						
                        <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_AUTHOR; ?></label>

@@ -788,7 +788,7 @@ function rmdir_recursive($dir) {
        else unlink("$dir/$file");
 	}
 
-   rmdir($dir);
+	rmdir($dir);
 }
 
 /**

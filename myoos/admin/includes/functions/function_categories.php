@@ -698,12 +698,23 @@ function oos_remove_product_image($image) {
 }
 
 function oos_remove_products_model($model) {
-	$model = oos_var_prep_for_os($model);
+		
+    // Get database information
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
+
+    $products_modelstable = $oostable['products_models'];
+    $product_models_query = "SELECT models_id
+                            FROM $products_modelstable
+                            WHERE models_webgl_gltf =  '" . oos_db_input($model) . "'";
+	$models_result = $dbconn->Execute($product_models_query);
+	if (!$models_result->RecordCount()) {
+		$sName = oos_strip_suffix($model);
+		$dir = OOS_ABSOLUTE_PATH . OOS_MEDIA . 'models/gltf/' . $sName;
+		oos_remove($dir);
+	}
 	
-	$sName = oos_strip_suffix($model);
-	$dir = OOS_ABSOLUTE_PATH . OOS_MEDIA . 'models/gltf' . $sName;
-	rmdir_recursive($dir);
-	// oos_remove($dir);
+	return;
 }
 
 
@@ -783,5 +794,84 @@ function oos_get_categories_name($who_am_i) {
     $categories_name = $result->fields['categories_name'];
 
     return $categories_name;
+}
+
+
+
+ /**
+  * Return 3D Model Name
+  *
+  * @param $model_id
+  * @param $language
+  * @return string
+  */
+function oos_get_models_name($model_id, $language_id = '') {
+
+    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+
+    // Get database information
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
+
+    $products_models_descriptiontable = $oostable['products_models_description'];
+    $query = "SELECT models_name
+              FROM $products_models_descriptiontable
+              WHERE models_id = '" . intval($model_id) . "'
+                AND models_languages_id = '" . intval($language_id) . "'";
+    $result = $dbconn->Execute($query);
+
+    $models_name = $result->fields['models_name'];
+
+    return $models_name;
+}
+
+
+
+ /**
+  * Return 3D Model Page Title for SEO
+  *
+  * @param $model_id
+  * @param $language
+  * @return string
+  */
+function oos_get_models_title($model_id, $language_id = '') {
+
+    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+
+    // Get database information
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
+
+    $products_models_descriptiontable = $oostable['products_models_description'];
+    $query = "SELECT models_title
+              FROM $products_models_descriptiontable
+              WHERE models_id = '" . intval($model_id) . "'
+                AND models_languages_id = '" . intval($language_id) . "'";
+    $result = $dbconn->Execute($query);
+
+    $models_title = $result->fields['models_title'];
+
+    return $models_title;
+}
+
+
+function oos_get_models_description_meta($model_id, $language_id = '') {
+
+    // Get database information
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
+
+    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+
+    $products_models_descriptiontable = $oostable['products_models_description'];
+    $query = "SELECT models_description_meta
+              FROM $products_models_descriptiontable
+              WHERE models_id = '" . intval($model_id) . "'
+                AND models_languages_id = '" . intval($language_id) . "'";
+    $result = $dbconn->Execute($query);
+
+    $models_description_meta = $result->fields['models_description_meta'];
+
+    return $models_description_meta;
 }
 
