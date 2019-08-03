@@ -29,14 +29,14 @@ class Redirections extends Plugin_Importer {
 	protected $plugin_name = 'Redirections';
 
 	/**
-	 * Array of option keys to import and clean
+	 * Option keys to import and clean.
 	 *
 	 * @var array
 	 */
 	protected $option_keys = [ 'redirection_options' ];
 
 	/**
-	 * Array of choices keys to import
+	 * Choices keys to import.
 	 *
 	 * @var array
 	 */
@@ -68,6 +68,7 @@ class Redirections extends Plugin_Importer {
 					],
 					'url_to'      => $this->get_url_to( $row ),
 					'header_code' => $row->action_code,
+					'status'      => 'disabled' === $row->status ? 'inactive' : 'active',
 				]
 			);
 

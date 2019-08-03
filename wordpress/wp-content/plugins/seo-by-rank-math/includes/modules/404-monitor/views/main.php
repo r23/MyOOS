@@ -10,6 +10,7 @@ use RankMath\Helper;
 use RankMath\KB;
 
 $monitor = Helper::get_module( '404-monitor' )->admin;
+$monitor->table->prepare_items();
 ?>
 <div class="wrap rank-math-404-monitor-wrap">
 
@@ -31,12 +32,12 @@ $monitor = Helper::get_module( '404-monitor' )->admin;
 		);
 		?>
 	</p>
+	<form method="get">
+		<input type="hidden" name="page" value="rank-math-404-monitor">
+		<?php $monitor->table->search_box( esc_html__( 'Search', 'rank-math' ), 's' ); ?>
+	</form>
 	<form method="post">
-	<?php
-		$monitor->table->prepare_items();
-		$monitor->table->search_box( esc_html__( 'Search', 'rank-math' ), 's' );
-		$monitor->table->display();
-	?>
+		<?php $monitor->table->display(); ?>
 	</form>
 
 </div>

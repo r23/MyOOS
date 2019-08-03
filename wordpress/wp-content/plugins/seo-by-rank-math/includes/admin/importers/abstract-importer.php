@@ -30,49 +30,49 @@ abstract class Plugin_Importer {
 	use Hooker, Ajax, Meta;
 
 	/**
-	 * The plugin name
+	 * The plugin name.
 	 *
 	 * @var string
 	 */
 	protected $plugin_name;
 
 	/**
-	 * The plugin file
+	 * The plugin file.
 	 *
 	 * @var string
 	 */
 	protected $plugin_file;
 
 	/**
-	 * Meta key, used in SQL LIKE clause for delete query
+	 * Plugin options meta key.
 	 *
 	 * @var string
 	 */
 	protected $meta_key;
 
 	/**
-	 * Array of option keys to import and clean
+	 * Option keys to import and clean.
 	 *
 	 * @var array
 	 */
 	protected $option_keys;
 
 	/**
-	 * Array of table names to drop while cleaning
+	 * Table names to drop while cleaning.
 	 *
 	 * @var array
 	 */
 	protected $table_names;
 
 	/**
-	 * Array of choices keys to import
+	 * Choices keys to import.
 	 *
 	 * @var array
 	 */
 	protected $choices;
 
 	/**
-	 * Items to parse for post/term/user meta.
+	 * Number of items to parse per page.
 	 *
 	 * @var int
 	 */
@@ -86,7 +86,7 @@ abstract class Plugin_Importer {
 	protected $_pagination_args = [];
 
 	/**
-	 * Class constructor
+	 * Class constructor.
 	 *
 	 * @param string $plugin_file Plugins file.
 	 */
@@ -95,16 +95,16 @@ abstract class Plugin_Importer {
 	}
 
 	/**
-	 * Returns the string for the plugin we're importing from
+	 * Get the name of the plugin we're importing from.
 	 *
-	 * @return string Plugin name
+	 * @return string Plugin name.
 	 */
 	public function get_plugin_name() {
 		return $this->plugin_name;
 	}
 
 	/**
-	 * Returns the string for the plugin file
+	 * Get the plugin file of the plugin we're importing from.
 	 *
 	 * @return string Plugin file
 	 */
@@ -113,7 +113,7 @@ abstract class Plugin_Importer {
 	}
 
 	/**
-	 * Returns array of choices of action which can be performed for plugin
+	 * Get the actions which can be performed for the plugin.
 	 *
 	 * @return array
 	 */
@@ -138,16 +138,16 @@ abstract class Plugin_Importer {
 	}
 
 	/**
-	 * Detects whether an import for this plugin is needed
+	 * Check if import is needed from this plugin.
 	 *
-	 * @return bool Indicating whether there is something to import
+	 * @return bool Whether there is something to import.
 	 */
 	public function run_detect() {
 		return true === $this->has_options() ? true : $this->has_postmeta();
 	}
 
 	/**
-	 * Removes the plugin data from the database.
+	 * Delete all plugin data from the database.
 	 *
 	 * @return bool
 	 */
@@ -164,9 +164,9 @@ abstract class Plugin_Importer {
 	}
 
 	/**
-	 * Run importer routines
+	 * Run importer.
 	 *
-	 * @throws Exception Throw error if no perform function founds.
+	 * @throws Exception Throws error if no perform function founds.
 	 *
 	 * @param string $perform The action to perform when running import action.
 	 */
@@ -232,7 +232,7 @@ abstract class Plugin_Importer {
 	}
 
 	/**
-	 * Replce settings based on key/value hash.
+	 * Replace settings based on key/value hash.
 	 *
 	 * @param array $hash        Array of hash for search and replace.
 	 * @param array $source      Array for source where to search.
@@ -250,7 +250,7 @@ abstract class Plugin_Importer {
 	}
 
 	/**
-	 * Replce meta based on key/value hash.
+	 * Replace meta based on key/value hash.
 	 *
 	 * @param array  $hash        Array of hash for search and replace.
 	 * @param array  $source      Array for source where to search.
@@ -275,7 +275,7 @@ abstract class Plugin_Importer {
 	}
 
 	/**
-	 * Replace and image to its url and id.
+	 * Replace an image to its url and id.
 	 *
 	 * @param string         $source      Source image url.
 	 * @param array|callable $destination Destination array.
@@ -393,7 +393,7 @@ abstract class Plugin_Importer {
 	}
 
 	/**
-	 * Get all post ids of all allowed post types only.
+	 * Get all post IDs of all allowed post types only.
 	 *
 	 * @param bool $count If we need count only for pagination purposes.
 	 * @return int|array
@@ -407,7 +407,7 @@ abstract class Plugin_Importer {
 	}
 
 	/**
-	 * Get all user ids.
+	 * Get all user IDs.
 	 *
 	 * @param bool $count If we need count only for pagination purposes.
 	 * @return int|array
@@ -460,7 +460,7 @@ abstract class Plugin_Importer {
 	}
 
 	/**
-	 * Clean option table.
+	 * Clean options table.
 	 *
 	 * @return bool
 	 */
@@ -471,7 +471,7 @@ abstract class Plugin_Importer {
 
 		$table = DB::query_builder( 'options' );
 		foreach ( $this->option_keys as $option_key ) {
-			$table->orWhere( 'option_name', $option_key );
+			$table->orWhereLike( 'option_name', $option_key );
 		}
 
 		return $table->delete();
@@ -496,7 +496,7 @@ abstract class Plugin_Importer {
 	}
 
 	/**
-	 * Has options.
+	 * Check if plugin has options.
 	 *
 	 * @return bool
 	 */
@@ -514,7 +514,7 @@ abstract class Plugin_Importer {
 	}
 
 	/**
-	 * Has postmeta.
+	 * Check if plugin has postmeta.
 	 *
 	 * @return bool
 	 */

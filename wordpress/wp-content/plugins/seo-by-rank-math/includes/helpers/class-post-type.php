@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) || exit;
 trait Post_Type {
 
 	/**
-	 * Is post indexable.
+	 * Check if post is indexable.
 	 *
 	 * @param  int $post_id Post ID to check.
 	 * @return boolean
@@ -31,8 +31,14 @@ trait Post_Type {
 		}
 
 		$robots = Helper::get_post_meta( 'robots', $post_id );
-		if ( ! empty( $robots ) && is_array( $robots ) && in_array( 'noindex', $robots, true ) ) {
-			return false;
+		if ( ! empty( $robots ) && is_array( $robots ) ) {
+			if ( in_array( 'index', $robots, true ) ) {
+				return true;
+			}
+
+			if ( in_array( 'noindex', $robots, true ) ) {
+				return false;
+			}
 		}
 
 		$post_type = get_post_type( $post_id );
@@ -43,7 +49,7 @@ trait Post_Type {
 	}
 
 	/**
-	 * Is post explicitly excluded.
+	 * Check if post is explicitly excluded.
 	 *
 	 * @param  int $post_id Post ID to check.
 	 * @return bool
@@ -86,7 +92,7 @@ trait Post_Type {
 	}
 
 	/**
-	 * Gets post type label.
+	 * Get the post type label.
 	 *
 	 * @param  string $post_type Post type name.
 	 * @param  bool   $singular  Get singular label.
@@ -101,13 +107,11 @@ trait Post_Type {
 	}
 
 	/**
-	 * Returns an array with the accessible post types.
-	 *
-	 * An accessible post type is a post type that is public.
+	 * Get post types that are public and not set to noindex.
 	 *
 	 * @codeCoverageIgnore
 	 *
-	 * @return array Array with all the accessible post_types.
+	 * @return array All the accessible post types.
 	 */
 	public static function get_accessible_post_types() {
 		static $accessible_post_types;
@@ -120,13 +124,12 @@ trait Post_Type {
 		$accessible_post_types = array_filter( $accessible_post_types, 'is_post_type_viewable' );
 
 		/**
-		 * Filter: 'rank_math/sitemap/excluded_post_types' - Allow changing the accessible post types.
+		 * Changing the list of accessible post types.
 		 *
-		 * @api array $accessible_post_types The public post types.
+		 * @api array $accessible_post_types The post types.
 		 */
 		$accessible_post_types = apply_filters( 'rank_math/sitemap/excluded_post_types', $accessible_post_types );
 
-		// When the array gets messed up somewhere.
 		if ( ! is_array( $accessible_post_types ) ) {
 			$accessible_post_types = [];
 		}

@@ -37,7 +37,7 @@ class Local_Seo {
 	}
 
 	/**
-	 * Init location sitemap if possible.
+	 * Init Local SEO Sitemap if possible.
 	 */
 	public function location_sitemap() {
 		if (
@@ -63,7 +63,7 @@ class Local_Seo {
 	}
 
 	/**
-	 * Ajax search pages
+	 * Ajax search pages.
 	 */
 	public function search_pages() {
 		$term = Param::get( 'term' );
@@ -89,10 +89,10 @@ class Local_Seo {
 	}
 
 	/**
-	 * Outputs code to allow Google to recognize social profiles for use in the Knowledge graph.
+	 * Output structured data for Person or Organization.
 	 *
-	 * @param array  $data    Array of json-ld data.
-	 * @param JsonLD $json_ld JsonLD instance.
+	 * @param array  $data    Array of JSON-LD data.
+	 * @param JsonLD $json_ld The JsonLD instance.
 	 *
 	 * @return array
 	 */
@@ -128,7 +128,7 @@ class Local_Seo {
 	}
 
 	/**
-	 * Can output schema.
+	 * Check if schema data can be output.
 	 *
 	 * @return bool
 	 */
@@ -144,9 +144,9 @@ class Local_Seo {
 	}
 
 	/**
-	 * Schema for Organization.
+	 * Structured data for Organization.
 	 *
-	 * @param array $entity Array of json-ld entity.
+	 * @param array $entity Array of JSON-LD entity.
 	 */
 	private function organization( $entity ) {
 		$name            = Helper::get_settings( 'titles.knowledgegraph_name' );
@@ -168,9 +168,9 @@ class Local_Seo {
 	}
 
 	/**
-	 * Schema for Person.
+	 * Structured data for Person.
 	 *
-	 * @param array  $entity  Array of json-ld entity.
+	 * @param array  $entity  Array of JSON-LD entity.
 	 * @param JsonLD $json_ld JsonLD instance.
 	 */
 	private function person( $entity, $json_ld ) {
@@ -193,9 +193,9 @@ class Local_Seo {
 	}
 
 	/**
-	 * Add Contact Points
+	 * Add Contact Points.
 	 *
-	 * @param array $entity Array of json-ld entity.
+	 * @param array $entity Array of JSON-LD entity.
 	 */
 	private function add_contact_points( &$entity ) {
 		$phone_numbers = Helper::get_settings( 'titles.phone_numbers' );
@@ -214,9 +214,9 @@ class Local_Seo {
 	}
 
 	/**
-	 * Add Geo Cordinates
+	 * Add geo coordinates.
 	 *
-	 * @param array $entity Array of json-ld entity.
+	 * @param array $entity Array of JSON-LD entity.
 	 */
 	private function add_geo_cordinates( &$entity ) {
 		$geo = Str::to_arr( Helper::get_settings( 'titles.geo' ) );
@@ -234,9 +234,9 @@ class Local_Seo {
 	}
 
 	/**
-	 * Add Business Hours
+	 * Add business hours.
 	 *
-	 * @param array $entity Array of json-ld entity.
+	 * @param array $entity Array of JSON-LD entity.
 	 */
 	private function add_business_hours( &$entity ) {
 		$opening_hours = $this->get_opening_hours();
@@ -251,7 +251,7 @@ class Local_Seo {
 	}
 
 	/**
-	 * Get opeing hours.
+	 * Get opening hours.
 	 *
 	 * @return bool|array
 	 */
@@ -274,9 +274,9 @@ class Local_Seo {
 	}
 
 	/**
-	 * Sanitize schema for different organization type
+	 * Sanitize structured data for different organization types.
 	 *
-	 * @param array  $entity Array of schema data.
+	 * @param array  $entity Array of Schema structured data.
 	 * @param string $type   Type of organization.
 	 *
 	 * @return array Sanitized data.
@@ -301,9 +301,10 @@ class Local_Seo {
 	}
 
 	/**
-	 * [sanitize_organization_ecp description]
+	 * Remove `email`, `contactPoint`, `priceRange` properties
+	 * from the Schema entity.
 	 *
-	 * @param array $entity Array of schema data.
+	 * @param array $entity Array of Schema structured data.
 	 *
 	 * @return array Sanitized data.
 	 */
@@ -314,9 +315,10 @@ class Local_Seo {
 	}
 
 	/**
-	 * [sanitize_organization_ecp description]
+	 * Remove `openingHours`, `priceRange` properties
+	 * from the Schema entity.
 	 *
-	 * @param array $entity Array of schema data.
+	 * @param array $entity Array of Schema structured data.
 	 *
 	 * @return array Sanitized data.
 	 */
@@ -327,9 +329,10 @@ class Local_Seo {
 	}
 
 	/**
-	 * [sanitize_organization_ecp description]
+	 * Remove `openingHours`, `priceRange`, `email`, `contactPoint` properties
+	 * from the Schema entity.
 	 *
-	 * @param array $entity Array of schema data.
+	 * @param array $entity Array of Schema structured data.
 	 *
 	 * @return array Sanitized data.
 	 */
@@ -340,7 +343,7 @@ class Local_Seo {
 	}
 
 	/**
-	 * [sanitize_organization_ecp description]
+	 * Change `logo` property to `image` & `contactPoint` to `telephone`.
 	 *
 	 * @param array $entity Array of schema data.
 	 *
@@ -360,7 +363,7 @@ class Local_Seo {
 	}
 
 	/**
-	 * Retrieve the social profiles to display in the organization output.
+	 * Get global social profile URLs, to use in the `sameAs` property.
 	 *
 	 * @link https://developers.google.com/webmasters/structured-data/customize/social-profiles
 	 */

@@ -1,6 +1,6 @@
 <?php
 /**
- * The Edd Product Class
+ * The Easy Digital Downloads Product Class.
  *
  * @since      1.0.13
  * @package    RankMath
@@ -23,7 +23,7 @@ class Product_Edd {
 	/**
 	 * Set product data for rich snippet.
 	 *
-	 * @param array  $entity Array of json-ld entity.
+	 * @param array  $entity Array of JSON-LD entity.
 	 * @param JsonLD $jsonld JsonLD Instance.
 	 */
 	public function set_product( &$entity, $jsonld ) {
@@ -36,7 +36,7 @@ class Product_Edd {
 		$entity['description'] = strip_shortcodes( $jsonld->post->post_content );
 		$entity['category']    = Product::get_category( $product_id, 'download_category' );
 
-		// Sku.
+		// SKU.
 		if ( $product->get_sku() ) {
 			$entity['sku'] = $product->get_sku();
 		}
@@ -73,7 +73,7 @@ class Product_Edd {
 	}
 
 	/**
-	 * If product is variable send variations.
+	 * If product is variable, set variations.
 	 *
 	 * @param  EDD_Download $product Current product.
 	 *

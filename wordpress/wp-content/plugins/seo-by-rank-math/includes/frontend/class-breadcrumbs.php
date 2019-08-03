@@ -102,7 +102,7 @@ class Breadcrumbs {
 	}
 
 	/**
-	 * Get the breadcrumb
+	 * Get the breadcrumbs.
 	 *
 	 * @param array $args Arguments.
 	 * @return string
@@ -150,17 +150,17 @@ class Breadcrumbs {
 		$html = $args['wrap_before'] . $html . $args['wrap_after'];
 
 		/**
-		 * Allow changing the HTML output of the breadcrumbs class
+		 * Change the breadcrumbs HTML output.
 		 *
 		 * @param string      $html   HTML output.
-		 * @param array       $crumbs The crumbs array.
-		 * @param Breadcrumbs $this   Current breadcrumb object.
+		 * @param array       $crumbs The breadcrumbs array.
+		 * @param Breadcrumbs $this   Current breadcrumb.
 		 */
 		return $this->do_filter( 'frontend/breadcrumb/html', $html, $crumbs, $this );
 	}
 
 	/**
-	 * Get the breadrumb trail
+	 * Get the breadrumb trail.
 	 *
 	 * @return array
 	 */
@@ -170,20 +170,20 @@ class Breadcrumbs {
 		}
 
 		/**
-		 * Allow changing the Breadcrumb items
+		 * Change the breadcrumb items.
 		 *
-		 * @param array       $crumbs The crumbs array.
-		 * @param Breadcrumbs $this   Current breadcrumb object.
+		 * @param array       $crumbs The breadcrumbs array.
+		 * @param Breadcrumbs $this   Current breadcrumb.
 		 */
 		return $this->do_filter( 'frontend/breadcrumb/items', $this->crumbs, $this );
 	}
 
 	/**
-	 * Add a crumb so we don't get lost
+	 * Add an item to the breadcrumbs.
 	 *
 	 * @param string $name           Name.
 	 * @param string $link           Link.
-	 * @param bool   $hide_in_schema Boolean.
+	 * @param bool   $hide_in_schema Don't include in JSON-LD.
 	 */
 	private function add_crumb( $name, $link = '', $hide_in_schema = false ) {
 		$this->crumbs[] = [
@@ -194,7 +194,7 @@ class Breadcrumbs {
 	}
 
 	/**
-	 * Generate breadcrumb trail
+	 * Generate the breadcrumb trail.
 	 */
 	private function generate() {
 		$conditionals = [
@@ -235,28 +235,28 @@ class Breadcrumbs {
 	}
 
 	/**
-	 * Is home trail
+	 * Is home trail.
 	 */
 	private function add_crumbs_home() {
 		$this->add_crumb( single_post_title( '', false ) );
 	}
 
 	/**
-	 * 404 trail
+	 * 404 trail.
 	 */
 	private function add_crumbs_404() {
 		$this->add_crumb( $this->strings['error404'] );
 	}
 
 	/**
-	 * Add a breadcrumb for search results
+	 * Search results trail.
 	 */
 	private function add_crumbs_search() {
 		$this->add_crumb( sprintf( $this->strings['search_format'], get_search_query() ), remove_query_arg( 'paged' ) );
 	}
 
 	/**
-	 * Attachment trail
+	 * Attachment trail.
 	 */
 	private function add_crumbs_attachment() {
 		global $post;
@@ -266,7 +266,7 @@ class Breadcrumbs {
 	}
 
 	/**
-	 * Single product trail
+	 * Single product trail.
 	 */
 	private function add_crumbs_product() {
 		global $post;
@@ -283,7 +283,7 @@ class Breadcrumbs {
 	}
 
 	/**
-	 * Single post trail
+	 * Single post trail.
 	 *
 	 * @param int    $post_id   Post ID.
 	 * @param string $permalink Post permalink.
@@ -312,7 +312,7 @@ class Breadcrumbs {
 	}
 
 	/**
-	 * Product category trail
+	 * Product category trail.
 	 */
 	private function add_crumbs_product_category() {
 		$term = $GLOBALS['wp_query']->get_queried_object();
@@ -322,7 +322,7 @@ class Breadcrumbs {
 	}
 
 	/**
-	 * Product tag trail
+	 * Product tag trail.
 	 */
 	private function add_crumbs_product_tag() {
 		$term = $GLOBALS['wp_query']->get_queried_object();
@@ -332,7 +332,7 @@ class Breadcrumbs {
 	}
 
 	/**
-	 * Shop breadcrumb
+	 * Shop trail.
 	 */
 	private function add_crumbs_shop() {
 		$shop_page_id = wc_get_page_id( 'shop' );
@@ -349,7 +349,7 @@ class Breadcrumbs {
 	}
 
 	/**
-	 * Post type archive trail
+	 * Post type archive trail.
 	 *
 	 * @param string $post_type Post type.
 	 */
@@ -369,7 +369,7 @@ class Breadcrumbs {
 	}
 
 	/**
-	 * Category trail
+	 * Category trail.
 	 */
 	private function add_crumbs_category() {
 		$term = $GLOBALS['wp_query']->get_queried_object();
@@ -378,7 +378,7 @@ class Breadcrumbs {
 	}
 
 	/**
-	 * Tag trail
+	 * Tag trail.
 	 */
 	private function add_crumbs_tag() {
 		$term = $GLOBALS['wp_query']->get_queried_object();
@@ -386,7 +386,7 @@ class Breadcrumbs {
 	}
 
 	/**
-	 * Add crumbs for taxonomies
+	 * Taxonomies trail.
 	 */
 	private function add_crumbs_tax() {
 		$term = $GLOBALS['wp_query']->get_queried_object();
@@ -400,7 +400,7 @@ class Breadcrumbs {
 	}
 
 	/**
-	 * Add crumbs for date based archives
+	 * Trail for date based archives.
 	 */
 	private function add_crumbs_date() {
 		if ( is_year() || is_month() || is_day() ) {
@@ -415,7 +415,7 @@ class Breadcrumbs {
 	}
 
 	/**
-	 * Add a breadcrumb for author archives
+	 * Trail for author archives.
 	 */
 	private function add_crumbs_author() {
 		global $author;
@@ -425,7 +425,7 @@ class Breadcrumbs {
 	}
 
 	/**
-	 * Add crumbs for a post
+	 * Single post trail.
 	 *
 	 * @param WP_Post $post Post object.
 	 */
@@ -449,7 +449,7 @@ class Breadcrumbs {
 	}
 
 	/**
-	 * Prepend the shop page to shop breadcrumbs
+	 * Prepend the shop page to the shop trail.
 	 */
 	private function prepend_shop_page() {
 		$permalinks   = wc_get_permalink_structure();
@@ -463,7 +463,7 @@ class Breadcrumbs {
 	}
 
 	/**
-	 * Get the primary term
+	 * Get the primary term.
 	 *
 	 * @param array $terms Terms attached to the current post.
 	 */
@@ -485,7 +485,7 @@ class Breadcrumbs {
 	}
 
 	/**
-	 * Add parent taxonomy crumbs to the crumb property for hierachical taxonomy
+	 * Add ancestor taxonomy crumbs to the hierachical taxonomy trails.
 	 *
 	 * @param object $term Term data object.
 	 */
@@ -507,7 +507,7 @@ class Breadcrumbs {
 	}
 
 	/**
-	 * Adds a page crumb to the visible breadcrumbs.
+	 * Add a page crumb to paginated trails.
 	 *
 	 * @since 1.0.8
 	 */
@@ -526,7 +526,7 @@ class Breadcrumbs {
 	}
 
 	/**
-	 * Get Breadcrumb Title
+	 * Get the breadcrumb title.
 	 *
 	 * @param  string $object_type Object type.
 	 * @param  int    $object_id   Object ID to get the title for.

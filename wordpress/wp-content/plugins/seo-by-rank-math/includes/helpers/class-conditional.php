@@ -26,13 +26,18 @@ trait Conditional {
 	 * @return boolean
 	 */
 	public static function is_whitelabel() {
+		/**
+		 * Enable whitelabel.
+		 *
+		 * @param bool $whitelabel Enable whitelabel.
+		 */
 		return apply_filters( 'rank_math/whitelabel', false );
 	}
 
 	/**
-	 * Is module active.
+	 * Check if module is active.
 	 *
-	 * @param  string $id ID to get module.
+	 * @param  string $id Module ID.
 	 * @return boolean
 	 */
 	public static function is_module_active( $id ) {
@@ -61,7 +66,7 @@ trait Conditional {
 	}
 
 	/**
-	 * Check if site is connected to rank math api.
+	 * Check if the site is connected to the Rank Math API.
 	 *
 	 * @return bool
 	 */
@@ -86,7 +91,7 @@ trait Conditional {
 	}
 
 	/**
-	 * Check if author archive are indexable
+	 * Check if author archives are indexable.
 	 *
 	 * @return bool
 	 */
@@ -103,7 +108,7 @@ trait Conditional {
 	}
 
 	/**
-	 * Check if AMP module is active.
+	 * Check if the AMP module is active.
 	 *
 	 * @return bool
 	 *

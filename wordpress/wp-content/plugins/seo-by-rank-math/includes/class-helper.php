@@ -51,7 +51,7 @@ class Helper {
 	 * @param  mixed  $callback  Replacement callback. Should return value, not output it.
 	 * @param  array  $args      Array with additional title, description and example values for the variable.
 	 *
-	 * @return bool Whether the replacement function was succesfully registered.
+	 * @return bool Replacement was registered successfully or not.
 	 */
 	public static function register_var_replacement( $var, $callback, $args = [] ) {
 		return Replace_Vars::register_replacement( $var, $callback, $args );

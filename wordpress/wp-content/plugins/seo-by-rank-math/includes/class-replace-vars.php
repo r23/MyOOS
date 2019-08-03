@@ -144,7 +144,7 @@ class Replace_Vars {
 	 * @param  mixed  $callback  Replacement callback. Should return value, not output it.
 	 * @param  array  $args      Array with additional title, description and example values for the variable.
 	 *
-	 * @return bool Whether the replacement function was succesfully registered.
+	 * @return bool Replacement was registered successfully or not.
 	 */
 	public static function register_replacement( $var, $callback, $args = [] ) {
 		$success = false;
@@ -874,7 +874,7 @@ class Replace_Vars {
 	}
 
 	/**
-	 * Get the current search query to use as a replacement
+	 * Get the current search query to use as a replacement.
 	 *
 	 * @return string|null
 	 */
@@ -964,7 +964,7 @@ class Replace_Vars {
 	}
 
 	/**
-	 * Get the numeric post ID to use as a replacement
+	 * Get the numeric post ID to use as a replacement.
 	 *
 	 * @return string|null
 	 */

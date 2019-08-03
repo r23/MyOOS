@@ -85,9 +85,8 @@ if ( Helper::has_cap( 'onpage_analysis' ) ) {
 	) );
 }
 
-// Primary Category.
 /**
- * Filter: Allow disabling the primary term feature.
+ * Allow disabling the primary term feature.
  *
  * @param bool $return True to disable.
  */

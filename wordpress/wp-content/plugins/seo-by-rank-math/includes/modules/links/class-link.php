@@ -1,6 +1,6 @@
 <?php
 /**
- * The SEO Link.
+ * The SEO Link class.
  *
  * @since      0.9.0
  * @package    RankMath
@@ -18,14 +18,14 @@ defined( 'ABSPATH' ) || exit;
 class Link {
 
 	/**
-	 * Link url.
+	 * Link URL.
 	 *
 	 * @var string
 	 */
 	protected $url;
 
 	/**
-	 * Link post id.
+	 * Link post ID.
 	 *
 	 * @var int
 	 */
@@ -41,9 +41,9 @@ class Link {
 	/**
 	 * Sets the properties for the object.
 	 *
-	 * @param string $url            The url.
+	 * @param string $url            The URL.
 	 * @param int    $target_post_id ID to the post where the link refers to.
-	 * @param string $type           The url type: internal or outbound.
+	 * @param string $type           The URL type: internal or external.
 	 */
 	public function __construct( $url, $target_post_id, $type ) {
 		$this->url            = $url;
@@ -52,27 +52,27 @@ class Link {
 	}
 
 	/**
-	 * Returns the set URL.
+	 * Returns the URL.
 	 *
-	 * @return string The set url.
+	 * @return string The URL.
 	 */
 	public function get_url() {
 		return $this->url;
 	}
 
 	/**
-	 * Returns the set target post id.
+	 * Returns the target post ID.
 	 *
-	 * @return int The set target post id.
+	 * @return int The target post ID.
 	 */
 	public function get_target_post_id() {
 		return (int) $this->target_post_id;
 	}
 
 	/**
-	 * Return the set link type.
+	 * Return the link type (internal/external).
 	 *
-	 * @return string The set link type.
+	 * @return string The link type.
 	 */
 	public function get_type() {
 		return $this->type;

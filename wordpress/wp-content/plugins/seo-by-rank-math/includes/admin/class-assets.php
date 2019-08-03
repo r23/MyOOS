@@ -1,6 +1,6 @@
 <?php
 /**
- * This class registers all the necessary styles and scripts.
+ * Register all the necessary CSS and JS.
  *
  * @since      0.9.0
  * @package    RankMath
@@ -26,7 +26,7 @@ class Assets implements Runner {
 	use Hooker;
 
 	/**
-	 *  Prefix for naming the assets.
+	 *  Prefix for the enqueue handles.
 	 */
 	const PREFIX = 'rank-math-';
 

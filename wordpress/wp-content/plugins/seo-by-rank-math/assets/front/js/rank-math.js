@@ -2,7 +2,7 @@
 * Rank Math
 *
 * @version 0.9.0
-* @author  MyThemeShop
+* @author  RankMath
 */
 ;(function( $ ) {
 

@@ -38,13 +38,12 @@ class Links {
 	}
 
 	/**
-	 * Saves the links that are used in the post.
+	 * Process and save the links in a post.
 	 *
-	 * @param int     $post_id The post id to.
+	 * @param int     $post_id The post ID to check.
 	 * @param WP_Post $post    The post object.
 	 */
 	public function save_post( $post_id, WP_Post $post ) {
-		// When the post isn't processable, just remove the saved links.
 		if ( ! $this->is_processable( $post ) ) {
 			return;
 		}
@@ -53,25 +52,25 @@ class Links {
 	}
 
 	/**
-	 * Removes the seo links when the post is deleted.
+	 * Remove the links data when the post is deleted.
 	 *
-	 * @param int $post_id The post id.
+	 * @param int $post_id The post ID.
 	 */
 	public function delete_post( $post_id ) {
 		$processor = new ContentProcessor;
 
-		// Fetch links to update related linked objects.
+		// Get links to update linked objects.
 		$links = $processor->get_stored_internal_links( $post_id );
 
-		// Update the storage, remove all links for this post.
+		// Remove all links for this post.
 		$processor->storage->cleanup( $post_id );
 
-		// Update link counts for object and referenced links.
+		// Update link counts.
 		$processor->storage->update_link_counts( $post_id, 0, $links );
 	}
 
 	/**
-	 * Post column content
+	 * Post column content.
 	 *
 	 * @param int $post_id Post id.
 	 */
@@ -116,26 +115,26 @@ class Links {
 			]
 		);
 
-		// Early Bail!
+		// Early Bail.
 		if ( empty( $posts ) ) {
 			wp_clear_scheduled_hook( 'rank_math/links/count_internal_links' );
 			return;
 		}
 
-		// Process!
+		// Process.
 		foreach ( $posts as $post ) {
 			$this->save_post( $post->ID, $post );
 		}
 	}
 
 	/**
-	 * Processes the content for the given post id.
+	 * Process the content for a given post.
 	 *
-	 * @param int    $post_id The post id to process.
-	 * @param string $content The content to process.
+	 * @param int    $post_id The post ID.
+	 * @param string $content The content.
 	 */
 	private function process( $post_id, $content ) {
-		// Apply the filters to have the same content as shown on the frontend.
+		// Apply the filters to get the real content.
 		$content = apply_filters( 'the_content', $content );
 		$content = str_replace( ']]>', ']]&gt;', $content );
 
@@ -145,20 +144,18 @@ class Links {
 	}
 
 	/**
-	 * Checks if the post is processable.
+	 * Check if the post is processable.
 	 *
-	 * @param WP_Post $post    The post object.
+	 * @param WP_Post $post The post object.
 	 *
-	 * @return bool True when the post is processable.
+	 * @return bool True if processable.
 	 */
 	private function is_processable( $post ) {
 
-		// When the post is a revision.
 		if ( wp_is_post_revision( $post->ID ) ) {
 			return false;
 		}
 
-		// Post statuses to skip.
 		if ( in_array( $post->post_status, [ 'auto-draft', 'trash' ], true ) ) {
 			return false;
 		}

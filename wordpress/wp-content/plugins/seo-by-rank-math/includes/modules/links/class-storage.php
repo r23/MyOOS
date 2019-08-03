@@ -27,9 +27,9 @@ class Storage {
 	}
 
 	/**
-	 * Removes all records for given post_id.
+	 * Removes all data for a given post.
 	 *
-	 * @param  int $post_id The post_id to remove the records for.
+	 * @param  int $post_id The post ID to remove the records for.
 	 *
 	 * @return int|false The number of rows updated, or false on error.
 	 */
@@ -38,11 +38,11 @@ class Storage {
 	}
 
 	/**
-	 * Returns an array of links from the database.
+	 * Get array of links from the database for given post.
 	 *
 	 * @param int $post_id The post to get the links for.
 	 *
-	 * @return Link[] The links connected to the post.
+	 * @return Link[] The links array.
 	 */
 	public function get_links( $post_id ) {
 		$links   = [];
@@ -59,10 +59,10 @@ class Storage {
 	}
 
 	/**
-	 * Walks the given links to save them.
+	 * Save links for a post.
 	 *
-	 * @param integer $post_id The post id to save.
-	 * @param Link[]  $links   The link to save.
+	 * @param integer $post_id The post ID to save.
+	 * @param Link[]  $links   The links to save.
 	 *
 	 * @return void
 	 */
@@ -81,11 +81,11 @@ class Storage {
 	}
 
 	/**
-	 * Updates the link counts for the post and referenced posts.
+	 * Update the link counts for a post and its referenced posts.
 	 *
-	 * @param int      $post_id Post to update link counts for.
-	 * @param int|null $counts  Number of links count.
-	 * @param Link[]   $links   Links to process for incoming link count update.
+	 * @param int      $post_id Post to update.
+	 * @param int|null $counts  Links count.
+	 * @param Link[]   $links   Links to update incoming link count.
 	 */
 	public function update_link_counts( $post_id, $counts, array $links ) {
 		$counts = wp_parse_args(
@@ -101,10 +101,10 @@ class Storage {
 	}
 
 	/**
-	 * Updates the incoming link count.
+	 * Update the incoming link count.
 	 *
-	 * @param int    $post_id Post which is processed, this needs to be recalculated too.
-	 * @param Link[] $links   Links to update the incoming link count of.
+	 * @param int    $post_id Post which is processed.
+	 * @param Link[] $links   Links we need to update the incoming link count of.
 	 *
 	 * @return void
 	 */
@@ -115,9 +115,9 @@ class Storage {
 	}
 
 	/**
-	 * Extract the post IDs from the links.
+	 * Get post IDs from the link objects.
 	 *
-	 * @param Link[] $links Links to update the incoming link count of.
+	 * @param Link[] $links Links we need to update the incoming link count of.
 	 *
 	 * @return int[] List of post IDs.
 	 */
@@ -131,9 +131,9 @@ class Storage {
 	}
 
 	/**
-	 * Updates the incoming link count
+	 * Update the incoming link count.
 	 *
-	 * @param array $post_ids The posts to update the incoming link count for.
+	 * @param array $post_ids The posts to update the link count for.
 	 */
 	public function update_incoming_link_count( array $post_ids ) {
 		$results = $this->table()
@@ -155,15 +155,15 @@ class Storage {
 	}
 
 	/**
-	 * Saves the link count to the database.
+	 * Save the link count to the database.
 	 *
-	 * @param int   $post_id   The id to save the link count for.
+	 * @param int   $post_id   The ID to save the link count for.
 	 * @param array $meta_data The total amount of links.
 	 */
 	public function save_meta_data( $post_id, array $meta_data ) {
 		global $wpdb;
 
-		// Suppress database errors.
+		// Suppress database errors and store current state.
 		$last_suppressed_state = $wpdb->suppress_errors();
 
 		$where  = [ 'object_id' => $post_id ];
@@ -174,7 +174,7 @@ class Storage {
 			$result = $wpdb->update( $wpdb->prefix . 'rank_math_internal_meta', $data, $where );
 		}
 
-		// Revert to last known state of suppress database errors.
+		// Revert to previous state of database error suppression.
 		$wpdb->suppress_errors( $last_suppressed_state );
 
 		return $result;

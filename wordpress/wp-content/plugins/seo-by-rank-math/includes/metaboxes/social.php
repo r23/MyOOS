@@ -16,7 +16,7 @@ $cmb->add_field( array(
 ) );
 
 /**
- * Facebook data ---------------------------------------------------------
+ * Facebook data.
  */
 $cmb->add_field( array(
 	'name'    => esc_html__( 'Panel', 'rank-math' ),
@@ -45,7 +45,7 @@ $cmb->add_field( array(
 	'id'         => 'rank_math_facebook_title',
 	'type'       => 'text',
 	'name'       => esc_html__( 'Title', 'rank-math' ),
-	'attributes' => array( 'placeholder' => esc_html__( 'MyThemeShop -- Test Drive', 'rank-math' ) ),
+	'attributes' => array( 'placeholder' => esc_html__( 'RankMath -- Test Drive', 'rank-math' ) ),
 ) );
 
 $cmb->add_field( array(
@@ -55,7 +55,7 @@ $cmb->add_field( array(
 	'attributes' => array(
 		'rows'            => 3,
 		'data-autoresize' => true,
-		'placeholder'     => esc_html__( 'MyThemeShop -- Description', 'rank-math' ),
+		'placeholder'     => esc_html__( 'RankMath -- Description', 'rank-math' ),
 	),
 ) );
 
@@ -94,7 +94,7 @@ $cmb->add_field( array(
 ) );
 
 /**
- * Twitter data ---------------------------------------------------------
+ * Twitter data.
  */
 $dep = array(
 	array( 'rank_math_twitter_use_facebook', 'off' ),
@@ -169,7 +169,7 @@ $cmb->add_field( array(
 	'id'         => 'rank_math_twitter_title',
 	'type'       => 'text',
 	'name'       => esc_html__( 'Title', 'rank-math' ),
-	'attributes' => array( 'placeholder' => esc_html__( 'MyThemeShop -- Test Drive', 'rank-math' ) ),
+	'attributes' => array( 'placeholder' => esc_html__( 'RankMath -- Test Drive', 'rank-math' ) ),
 	'dep'        => $basic,
 ) );
 

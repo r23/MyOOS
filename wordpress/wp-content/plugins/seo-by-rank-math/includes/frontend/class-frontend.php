@@ -2,9 +2,6 @@
 /**
  * The public-facing functionality of the plugin.
  *
- * Defines the plugin name, version, and two examples hooks for how to
- * enqueue the public-specific stylesheet and JavaScript.
- *
  * @since      0.9.0
  * @package    RankMath
  * @subpackage RankMath\Frontend
@@ -52,8 +49,7 @@ class Frontend {
 
 		if ( Helper::get_settings( 'general.breadcrumbs' ) ) {
 			/**
-			 * If breadcrumbs are active (which they supposedly are if the users has enabled this settings,
-			 * there's no reason to have bbPress breadcrumbs as well.
+			 * If RM's breadcrumbs are enabled then we can remove the bbPress breadcrumbs.
 			 */
 			add_filter( 'bbp_get_breadcrumb', '__return_false' );
 		}
@@ -112,7 +108,7 @@ class Frontend {
 	 * Enqueue Styles and Scripts required by plugin.
 	 */
 	public function enqueue() {
-		if ( ! is_user_logged_in() || ! Helper::has_cap( 'admin_bar' ) ) {
+		if ( ! is_admin_bar_showing() || ! Helper::has_cap( 'admin_bar' ) ) {
 			return;
 		}
 
@@ -184,7 +180,7 @@ class Frontend {
 	}
 
 	/**
-	 * Adds the RSS footer (or header) to the full RSS feed item.
+	 * Adds the RSS header and footer messages to the RSS feed item content.
 	 *
 	 * @param  string $content Feed item content.
 	 * @return string
@@ -194,7 +190,7 @@ class Frontend {
 	}
 
 	/**
-	 * Adds the RSS footer (or header) to the excerpt RSS feed item.
+	 * Adds the RSS header and footer messages to the RSS feed item excerpt.
 	 *
 	 * @param  string $content Feed item excerpt.
 	 * @return string
@@ -204,10 +200,10 @@ class Frontend {
 	}
 
 	/**
-	 * Adds the RSS footer and/or header to an RSS feed item.
+	 * Inserts the RSS header and footer messages in the RSS feed item.
 	 *
 	 * @param  string $content Feed item content.
-	 * @param  string $context Feed item context, either 'excerpt' or 'full'.
+	 * @param  string $context Feed item context, 'excerpt' or 'full'.
 	 * @return string
 	 */
 	private function embed_rss( $content, $context = 'full' ) {
@@ -237,7 +233,7 @@ class Frontend {
 	}
 
 	/**
-	 * Can add the RSS footer and/or header to an RSS feed item.
+	 * Check if we can add the RSS footer and/or header to the RSS feed item.
 	 *
 	 * @param string $content Feed item content.
 	 * @param string $context Feed item context, either 'excerpt' or 'full'.
@@ -263,9 +259,9 @@ class Frontend {
 	}
 
 	/**
-	 * Replaces the possible RSS variables with their actual values.
+	 * Replace variables with the actual values in RSS header and footer messages.
 	 *
-	 * @param string $content The RSS content that should have the variables replaced.
+	 * @param string $content The RSS content.
 	 *
 	 * @return string
 	 */
@@ -273,7 +269,7 @@ class Frontend {
 		global $post;
 
 		/**
-		 * Allow the developer to determine whether or not to follow the links in the bits Rank Math adds to the RSS feed, defaults to true.
+		 * Add nofollow for the links in the RSS header and footer messages. Default: true.
 		 *
 		 * @param bool $unsigned Whether or not to follow the links in RSS feed, defaults to true.
 		 */

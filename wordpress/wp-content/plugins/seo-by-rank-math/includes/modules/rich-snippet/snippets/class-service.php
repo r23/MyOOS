@@ -1,6 +1,6 @@
 <?php
 /**
- * The Service Class
+ * The Service Class.
  *
  * @since      1.0.13
  * @package    RankMath
@@ -22,7 +22,7 @@ class Service implements Snippet {
 	/**
 	 * Service rich snippet.
 	 *
-	 * @param array  $data   Array of json-ld data.
+	 * @param array  $data   Array of JSON-LD data.
 	 * @param JsonLD $jsonld JsonLD Instance.
 	 *
 	 * @return array

@@ -56,10 +56,10 @@ class Admin implements Runner {
 	}
 
 	/**
-	 * Add Facebook and Twitter as contact method for the users.
+	 * Add Facebook and Twitter as user contact methods.
 	 *
-	 * @param array $contactmethods Current contactmethods.
-	 * @return array New contactmethods with extra items.
+	 * @param array $contactmethods Current contact methods.
+	 * @return array New contact methods with extra items.
 	 */
 	public function update_user_contactmethods( $contactmethods ) {
 		$contactmethods['twitter']  = esc_html__( 'Twitter username (without @)', 'rank-math' );

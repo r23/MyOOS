@@ -158,7 +158,12 @@ class Common {
 	 * @return bool
 	 */
 	public function auto_update_plugin( $update, $item ) {
-		if ( 'rank-math' === $item->slug ) {
+		if (
+			isset( $item->slug ) &&
+			'seo-by-rank-math' === $item->slug &&
+			isset( $item->new_version ) &&
+			false === stripos( $item->new_version, 'beta' )
+		) {
 			return true;
 		}
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * The Review Class
+ * The Review Class.
  *
  * @since      1.0.13
  * @package    RankMath
@@ -25,7 +25,7 @@ class Review implements Snippet {
 	/**
 	 * Review rich snippet.
 	 *
-	 * @param array  $data   Array of json-ld data.
+	 * @param array  $data   Array of JSON-LD data.
 	 * @param JsonLD $jsonld JsonLD Instance.
 	 *
 	 * @return array
@@ -89,7 +89,7 @@ class Review implements Snippet {
 	}
 
 	/**
-	 * Can add content.
+	 * Check if we can inject the review in the content.
 	 *
 	 * @return boolean|string
 	 */

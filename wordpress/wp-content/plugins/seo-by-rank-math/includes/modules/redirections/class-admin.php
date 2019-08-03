@@ -147,7 +147,7 @@ class Admin extends Module {
 	}
 
 	/**
-	 * Add module settings into general optional panel.
+	 * Add module settings in the General Options panel.
 	 *
 	 * @param  array $tabs Array of option panel tabs.
 	 * @return array
@@ -255,7 +255,7 @@ class Admin extends Module {
 	}
 
 	/**
-	 * Perform action on db.
+	 * Perform action on database.
 	 *
 	 * @codeCoverageIgnore
 	 *

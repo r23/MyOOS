@@ -1,6 +1,6 @@
 <?php
 /**
- * The Website Class
+ * The Website Class.
  *
  * @since      1.0.13
  * @package    RankMath
@@ -22,7 +22,7 @@ class Website implements Snippet {
 	 *
 	 * @link https://developers.google.com/structured-data/site-name
 	 *
-	 * @param array  $data   Array of json-ld data.
+	 * @param array  $data   Array of JSON-LD data.
 	 * @param JsonLD $jsonld JsonLD Instance.
 	 *
 	 * @return array
@@ -37,15 +37,15 @@ class Website implements Snippet {
 		];
 
 		/**
-		 * Allow disabling of the json+ld output.
+		 * Disable the JSON-LD output for the Sitelinks Searchbox.
 		 *
-		 * @param boolean Whether or not to display json+ld search on the frontend
+		 * @param boolean Display or not the JSON-LD for the Sitelinks Searchbox.
 		 */
 		if ( ! apply_filters( 'rank_math/json_ld/disable_search', false ) ) {
 			/**
-			 * Allows filtering of the search URL.
+			 * Change the search URL in the JSON-LD.
 			 *
-			 * @param string $search_url The search URL for this site with a `{search_term_string}` variable.
+			 * @param string $search_url The search URL with `{search_term_string}` placeholder.
 			 */
 			$search_url = apply_filters( 'rank_math/json_ld/search_url', home_url( '/?s={search_term_string}' ) );
 

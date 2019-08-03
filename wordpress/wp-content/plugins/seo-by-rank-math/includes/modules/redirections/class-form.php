@@ -1,6 +1,6 @@
 <?php
 /**
- * The Redirections Form
+ * The Redirections Form.
  *
  * @since      0.9.0
  * @package    RankMath
@@ -155,7 +155,7 @@ class Form {
 	}
 
 	/**
-	 * Get sources for 404 log items
+	 * Get sources for 404 log items.
 	 *
 	 * @return array
 	 */
@@ -217,7 +217,7 @@ class Form {
 	}
 
 	/**
-	 * Stripslashes
+	 * Stripslashes wrapper.
 	 *
 	 * @param  mixed      $value      The unescaped value from the database.
 	 * @param  array      $field_args Array of field arguments.

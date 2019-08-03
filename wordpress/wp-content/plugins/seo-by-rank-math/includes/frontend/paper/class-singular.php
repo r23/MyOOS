@@ -198,7 +198,7 @@ class Singular implements IPaper {
 	/**
 	 * Retrieves the robots set in the post metabox.
 	 *
-	 * @param object|null $object Object to retrieve the description from.
+	 * @param object|null $object Object to retrieve the robots data from.
 	 *
 	 * @return string The robots for the specified object, or queried object if not supplied.
 	 */
@@ -210,7 +210,7 @@ class Singular implements IPaper {
 		$post_type = $object->post_type;
 		$robots    = Paper::robots_combine( Post::get_meta( 'robots', $object->ID ) );
 		if ( empty( $robots ) && Helper::get_settings( "titles.pt_{$post_type}_custom_robots" ) ) {
-			$robots = Paper::robots_combine( Helper::get_settings( "titles.pt_{$post_type}_robots" ) );
+			$robots = Paper::robots_combine( Helper::get_settings( "titles.pt_{$post_type}_robots" ), true );
 		}
 
 		// Noindex these conditions.

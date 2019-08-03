@@ -1,16 +1,11 @@
 <wpml-config>
 	<custom-fields>
 		<custom-field action="translate">rank_math_title</custom-field>
-		<custom-field action="copy">rank_math_permalink</custom-field>
 		<custom-field action="translate">rank_math_description</custom-field>
 		<custom-field action="translate">rank_math_focus_keyword</custom-field>
-		<custom-field action="copy">rank_math_use_default_robots</custom-field>
-		<custom-field action="copy">rank_math_robots</custom-field>
-		<custom-field action="copy">rank_math_pillar_content</custom-field>
-		<custom-field action="copy">rank_math_canonical_url</custom-field>
-		<custom-field action="copy">rank_math_include_local_seo</custom-field>
-		<custom-field action="copy">rank_math_include_sitemap</custom-field>
-		<custom-field action="copy">rank_math_link_builder_exclude</custom-field>
+		<custom-field action="ignore">rank_math_canonical_url</custom-field>
+		<custom-field action="copy-once">rank_math_robots</custom-field>
+		<custom-field action="copy-once">rank_math_pillar_content</custom-field>
 		<custom-field action="copy">rank_math_facebook_enable_image_overlay</custom-field>
 		<custom-field action="copy">rank_math_facebook_image_overlay</custom-field>
 		<custom-field action="copy">rank_math_twitter_use_facebook</custom-field>

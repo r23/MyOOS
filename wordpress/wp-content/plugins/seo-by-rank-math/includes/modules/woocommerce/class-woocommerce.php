@@ -49,6 +49,9 @@ class WooCommerce {
 		}
 		if ( Helper::get_settings( 'general.wc_remove_category_base' ) || Helper::get_settings( 'general.wc_remove_category_parent_slugs' ) ) {
 			$this->filter( 'term_link', 'product_term_link', 1, 3 );
+			add_action( 'created_product_cat', 'RankMath\\Helper::schedule_flush_rewrite' );
+			add_action( 'delete_product_cat', 'RankMath\\Helper::schedule_flush_rewrite' );
+			add_action( 'edited_product_cat', 'RankMath\\Helper::schedule_flush_rewrite' );
 		}
 
 		$this->filter( 'rewrite_rules_array', 'add_rewrite_rules', 99 );

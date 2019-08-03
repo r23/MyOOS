@@ -11,7 +11,7 @@ $cmb->add_field([
 	'type' => 'text',
 	'name' => esc_html__( 'Facebook Page URL', 'rank-math' ),
 	'desc' => esc_html__( 'Enter your complete Facebook page URL here. eg:', 'rank-math' ) .
-		'<br><code>' . htmlspecialchars( 'https://www.facebook.com/MyThemeShop/' ) . '</code>',
+		'<br><code>' . htmlspecialchars( 'https://www.facebook.com/RankMath/' ) . '</code>',
 ]);
 
 $cmb->add_field([
@@ -52,14 +52,14 @@ $cmb->add_field([
 	'type' => 'text',
 	'name' => esc_html__( 'Twitter Profile URL', 'rank-math' ),
 	'desc' => esc_html__( 'Enter your complete Twitter Profile URL here. eg:', 'rank-math' ) .
-		'<br><code>' . htmlspecialchars( 'https://twitter.com/MyThemeShopTeam/' ) . '</code>',
+		'<br><code>' . htmlspecialchars( 'https://twitter.com/RankMathSEO/' ) . '</code>',
 ]);
 
 $cmb->add_field([
 	'id'   => 'twitter_author_names',
 	'type' => 'text',
 	'name' => esc_html__( 'Twitter Username', 'rank-math' ),
-	'desc' => wp_kses_post( __( 'Enter the Twitter username of the author to add <code>twitter:creator</code> tag to posts. eg: <code>MyThemeShopTeam</code>', 'rank-math' ) ),
+	'desc' => wp_kses_post( __( 'Enter the Twitter username of the author to add <code>twitter:creator</code> tag to posts. eg: <code>RankMathSEO</code>', 'rank-math' ) ),
 ]);
 
 $cmb->add_field([
@@ -107,7 +107,7 @@ $cmb->add_field([
 	'type' => 'text',
 	'name' => esc_html__( 'LinkedIn Page URL', 'rank-math' ),
 	'desc' => wp_kses_post( __( 'Enter your LinkedIn profile URL (for personal blogs) or your company URL (for business blogs). eg:', 'rank-math' ) ) .
-		'<br><code>' . htmlspecialchars( 'https://www.linkedin.com/company/mythemeshop/' ) . '</code>',
+		'<br><code>' . htmlspecialchars( 'https://www.linkedin.com/company/rankmath/' ) . '</code>',
 ]);
 
 $cmb->add_field([
@@ -131,7 +131,7 @@ $cmb->add_field([
 	'type' => 'text',
 	'name' => esc_html__( 'Pinterest Page URL', 'rank-math' ),
 	'desc' => wp_kses_post( __( 'Enter your Pinterest Profile URL here. eg:', 'rank-math' ) ) .
-		'<br><code>' . htmlspecialchars( 'https://in.pinterest.com/mythemeshop/' ) . '</code>',
+		'<br><code>' . htmlspecialchars( 'https://in.pinterest.com/rankmath/' ) . '</code>',
 ]);
 
 $cmb->add_field([
@@ -139,7 +139,7 @@ $cmb->add_field([
 	'type' => 'text',
 	'name' => esc_html__( 'SoundClound Page URL', 'rank-math' ),
 	'desc' => wp_kses_post( __( 'Enter your SoundCloud URL here. eg:', 'rank-math' ) ) .
-		'<br><code>' . htmlspecialchars( 'https://soundcloud.com/mythemeshop' ) . '</code>',
+		'<br><code>' . htmlspecialchars( 'https://soundcloud.com/rankmath' ) . '</code>',
 ]);
 
 $cmb->add_field([
@@ -147,7 +147,7 @@ $cmb->add_field([
 	'type' => 'text',
 	'name' => esc_html__( 'Tumblr Page URL', 'rank-math' ),
 	'desc' => wp_kses_post( __( 'Enter your Tumblr URL here. eg:', 'rank-math' ) ) .
-		'<br><code>' . htmlspecialchars( 'https://mythemeshop.tumblr.com' ) . '</code>',
+		'<br><code>' . htmlspecialchars( 'https://rankmath.tumblr.com' ) . '</code>',
 ]);
 
 $cmb->add_field([

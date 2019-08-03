@@ -1,6 +1,6 @@
 <?php
 /**
- * The Api helpers.
+ * The API helpers.
  *
  * @since      1.0.9
  * @package    RankMath
@@ -13,7 +13,7 @@ namespace RankMath\Helpers;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Api class.
+ * API class.
  */
 trait Api {
 
@@ -28,7 +28,7 @@ trait Api {
 	}
 
 	/**
-	 * Add notification.
+	 * Remove notification.
 	 *
 	 * @param string $notification_id Notification id.
 	 */
@@ -48,7 +48,7 @@ trait Api {
 	}
 
 	/**
-	 * Add something to JSON object.
+	 * Add something to the JSON object.
 	 *
 	 * @param string $key         Unique identifier.
 	 * @param mixed  $value       The data itself can be either a single or an array.
@@ -59,7 +59,7 @@ trait Api {
 	}
 
 	/**
-	 * Remove something from JSON object.
+	 * Remove something from the JSON object.
 	 *
 	 * @param string $key         Unique identifier.
 	 * @param string $object_name Name for the JavaScript object. Passed directly, so it should be qualified JS variable.

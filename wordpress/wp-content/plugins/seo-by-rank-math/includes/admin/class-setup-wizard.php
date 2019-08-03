@@ -1,6 +1,6 @@
 <?php
 /**
- * The Setup Wizard - configure the SEO settings in a few steps.
+ * The Setup Wizard - configure the SEO settings in just a few steps.
  *
  * @since      0.9.0
  * @package    RankMath
@@ -237,11 +237,11 @@ class Setup_Wizard {
 	}
 
 	/**
-	 * Add the admin page.
+	 * Output the admin page.
 	 */
 	public function admin_page() {
 
-		// Do not proceed, if we're not on the right page.
+		// Do not proceed if we're not on the right page.
 		if ( Param::get( 'page' ) !== $this->slug ) {
 			return;
 		}
@@ -276,7 +276,7 @@ class Setup_Wizard {
 	}
 
 	/**
-	 * Is navigation item hidden or not.
+	 * Check if navigation item is hidden or not.
 	 *
 	 * @param string $slug Slug of nav item.
 	 *

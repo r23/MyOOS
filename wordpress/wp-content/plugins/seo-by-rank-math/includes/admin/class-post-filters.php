@@ -206,7 +206,7 @@ class Post_Filters implements Runner {
 	}
 
 	/**
-	 * Can apply seo filters.
+	 * Can apply SEO filters.
 	 *
 	 * @return bool
 	 */
@@ -282,7 +282,7 @@ class Post_Filters implements Runner {
 	}
 
 	/**
-	 * Check if Focus Keyword is in title.
+	 * Check if Focus Keyword appears in the title.
 	 *
 	 * @return bool|array
 	 */

@@ -1,6 +1,6 @@
 <?php
 /**
- * The functionality to detect whether we should import from another SEO plugin
+ * The functionality to detect whether we should import from another SEO plugin.
  *
  * @since      0.9.0
  * @package    RankMath
@@ -22,14 +22,16 @@ class Detector {
 	use Hooker;
 
 	/**
-	 * Plugins we can import from
+	 * Plugins we can import from.
 	 *
 	 * @var array
 	 */
 	public static $plugins = null;
 
 	/**
-	 * Detects whether we can import anything
+	 * Detects whether we can import anything or not.
+	 *
+	 * @return array List of plugins we can import from.
 	 */
 	public function detect() {
 		$this->requirments();
@@ -100,9 +102,9 @@ class Detector {
 	}
 
 	/**
-	 * Returns an array of importers available
+	 * Get the list of available importers.
 	 *
-	 * @return array Available importers
+	 * @return array Available importers.
 	 */
 	public function get() {
 		return $this->do_filter( 'importers/detect_plugins', [

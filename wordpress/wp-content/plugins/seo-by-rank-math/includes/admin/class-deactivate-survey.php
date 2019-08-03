@@ -35,7 +35,7 @@ class Deactivate_Survey implements Runner {
 	}
 
 	/**
-	 * Send deactivated feedback to api.
+	 * Send deactivation feedback to the Rank Math API.
 	 */
 	public function deactivate_feedback() {
 

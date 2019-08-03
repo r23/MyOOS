@@ -73,13 +73,15 @@ class SEO_Analyzer {
 	 * The Constructor.
 	 */
 	public function __construct() {
-		$this->api_url     = $this->do_filter( 'seo_analysis/api_endpoint', 'https://mythemeshop.com/analyze/v2/json/' );
+		$this->api_url     = $this->do_filter( 'seo_analysis/api_endpoint', 'https://rankmath.com/analyze/v2/json/' );
 		$this->analyse_url = get_home_url();
 
 		if ( ! empty( $_REQUEST['u'] ) && $this->is_allowed_url( Param::request( 'u' ) ) ) {
 			$this->analyse_url     = Param::request( 'u' );
 			$this->analyse_subpage = true;
 		}
+
+		$this->maybe_clear_storage();
 
 		if ( ! $this->analyse_subpage ) {
 			$this->get_results_from_storage();
@@ -240,6 +242,17 @@ class SEO_Analyzer {
 	}
 
 	/**
+	 * Clear stored results if needed.
+	 */
+	private function maybe_clear_storage() {
+		if ( '1' === Param::request( 'clear_results' ) ) {
+			delete_option( 'rank_math_seo_analysis_results' );
+			wp_safe_redirect( remove_query_arg( 'clear_results' ) );
+			exit;
+		}
+	}
+
+	/**
 	 * Convert result into object.
 	 */
 	private function build_results() {
@@ -288,6 +301,17 @@ class SEO_Analyzer {
 			return false;
 		}
 
+		$this->process_api_results( $response );
+
+		return true;
+	}
+
+	/**
+	 * Process results as needed.
+	 *
+	 * @return boolean
+	 */
+	private function process_api_results(  $response ) {
 		foreach ( $response as $id => $results ) {
 			$this->results[ $id ] = wp_parse_args(
 				$results,
@@ -309,9 +333,10 @@ class SEO_Analyzer {
 	private function get_api_results() {
 		$api_url = add_query_arg(
 			[
-				'u'      => $this->analyse_url,
-				'ak'     => $this->get_api_key(),
-				'locale' => get_locale(),
+				'u'          => $this->analyse_url,
+				'ak'         => $this->get_api_key(),
+				'locale'     => get_locale(),
+				'is_subpage' => $this->analyse_subpage,
 			],
 			$this->api_url
 		);

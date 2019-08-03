@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection
 Tested up to: 5.2.2
 Requires at least: 4.7.0
 Requires PHP: 5.6
-Stable tag: 1.0.30.2
+Stable tag: 1.0.31
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -451,11 +451,20 @@ We look forward to helping you.
 
 == Changelog ==
 
-= 1.0.30.2 [Jul 23, 2019] =
-* Improved the compatibility with the AMPforWP plugin further by making it performant with MariaDB as well
-* Improved the styling of the feedback form upon deactivation
-* Improved Focus Keyword filter further to perform better
-* Fixed an issue with the importing of the Redirections from other plugins
-* Fixed a PHP 7.3 deprecation notice (hopefully!)
+= 1.0.31 [Aug 02, 2019] =
+* Added diacritics into consideration while running the content analysis. Finally, all other language words can be analyzed!
+* Improved the logic of honoring the Global Meta so, there are no mismatches between the settings of a single post vs general settings and also for the importers. Please review your Rank Math's settings properly if you happen to import. [Here's a detailed guide](https://s.rankmath.com/wpmrmguide)
+* Improved the searching in the redirections & 404 errors
+* Improved SEO Analysis text further to make things clearer
+* Updated the analysis's API URL to Rank Math's
+* Fixed a bug with WordPress 4.x (to everyone still using WP 4.x, please update to the latest WP and use Classic Editor plugin alongside)
+* Fixed an issue with the importing of the Redirections. Disabled redirections were getting imported as active. That should not be happening anymore.
+* Fixed a bug where CSS & JS files were loading on the frontend even if the admin bar was disabled
+* Fixed a compatibility issue with WooCommerce's category permalink flushing
+* Fixed an issue with the Snippet Shortcode occurring with a Non-numeric value
+* Fixed an issue with the redirections where QueryString with trailing slash `/` was not working fine
+* Fixed few typos in the description of the helping text
+* Fixed an issue with the auto-update. It should be working fine now.
+* Fixed a compatibility bug with WPML
 
-Full changelog can be found here - **[Rank Math SEO changelog](https://rankmath.com/changelog)**
+Full changelog can be found here - **[Rank Math SEO changelog](https://s.rankmath.com/changelog)**

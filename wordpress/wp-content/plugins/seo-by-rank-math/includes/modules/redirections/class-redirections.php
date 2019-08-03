@@ -1,6 +1,6 @@
 <?php
 /**
- * The Redirections Module
+ * The Redirections Module.
  *
  * @since      0.9.0
  * @package    RankMath
@@ -44,7 +44,7 @@ class Redirections {
 	}
 
 	/**
-	 * Load redirection admin and rest api.
+	 * Load redirection admin and the REST API.
 	 */
 	private function load_admin() {
 		if ( is_admin() ) {
@@ -117,7 +117,7 @@ class Redirections {
 	}
 
 	/**
-	 * Is script uri or http-x request
+	 * Check if request is script URI or a http-x request.
 	 *
 	 * @return boolean
 	 */

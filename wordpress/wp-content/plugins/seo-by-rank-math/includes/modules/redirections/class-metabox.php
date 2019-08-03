@@ -31,7 +31,7 @@ class Metabox {
 	}
 
 	/**
-	 * Metabox settings in advanced tab.
+	 * Add settings in the Advanced tab of the metabox.
 	 *
 	 * @param CMB2 $cmb The CMB2 metabox object.
 	 */
@@ -134,7 +134,7 @@ class Metabox {
 	}
 
 	/**
-	 * I supdate required.
+	 * Check if update is required.
 	 *
 	 * @param  array $values Values.
 	 * @return boolean

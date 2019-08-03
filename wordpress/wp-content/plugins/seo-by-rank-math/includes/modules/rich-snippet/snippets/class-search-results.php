@@ -1,6 +1,6 @@
 <?php
 /**
- * The Search Class
+ * The Search Class.
  *
  * @since      1.0.13
  * @package    RankMath
@@ -18,11 +18,11 @@ defined( 'ABSPATH' ) || exit;
 class Search_Results implements Snippet {
 
 	/**
-	 * Outputs code to allow recognition of the SearchResultsPage.
+	 * Sets the Schema structured data for the SearchResultsPage.
 	 *
 	 * @link https://schema.org/SearchResultsPage
 	 *
-	 * @param array  $data   Array of json-ld data.
+	 * @param array  $data   Array of JSON-LD data.
 	 * @param JsonLD $jsonld JsonLD Instance.
 	 *
 	 * @return array

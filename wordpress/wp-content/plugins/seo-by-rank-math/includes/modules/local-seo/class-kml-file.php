@@ -39,16 +39,16 @@ class KML_File {
 	}
 
 	/**
-	 * Sets up rewrite rules.
+	 * Set up rewrite rules.
 	 */
 	public function init() {
 		add_rewrite_rule( 'locations\.kml$', 'index.php?sitemap=locations', 'top' );
 	}
 
 	/**
-	 * Adds the Local SEO Sitemap to the Index Sitemap.
+	 * Add the Local SEO Sitemap to the sitemap index.
 	 *
-	 * @return string $xml String with the local XML sitemap additions to the index sitemap in it.
+	 * @return string $xml The sitemap index with the Local SEO Sitemap added.
 	 */
 	public function add_local_sitemap() {
 		$xml  = $this->newline( '<sitemap>' );
@@ -60,9 +60,9 @@ class KML_File {
 	}
 
 	/**
-	 * Generate the Local SEO Sitemap content.
+	 * The content of the Local SEO Sitemap.
 	 *
-	 * @return string $urlset Local SEO Sitemap content.
+	 * @return string $urlset Local SEO Sitemap XML content.
 	 */
 	public function local_sitemap_content() {
 		$urlset = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -76,7 +76,7 @@ class KML_File {
 	}
 
 	/**
-	 * This function generates the KML file contents.
+	 * Generate the KML file contents.
 	 *
 	 * @return string $kml KML file content.
 	 */
@@ -125,11 +125,11 @@ class KML_File {
 	}
 
 	/**
-	 * Update Sitemap when Local SEO Settings is changed.
+	 * Update the sitemap when the Local SEO settings are changed.
 	 *
 	 * @param int   $object_id The ID of the current object.
-	 * @param array $updated   Array of field ids that were updated.
-	 *                         Will only include field ids that had values change.
+	 * @param array $updated   Array of field IDs that were updated.
+	 *                         Will only include field IDs that had values change.
 	 */
 	public function update_sitemap( $object_id, $updated ) {
 		$local_seo_fields = [
@@ -151,7 +151,7 @@ class KML_File {
 	}
 
 	/**
-	 * Function to get Local SEO Data.
+	 * Get the Local SEO data.
 	 *
 	 * @return array
 	 */
@@ -180,7 +180,7 @@ class KML_File {
 	}
 
 	/**
-	 * Function to get Modified Date.
+	 * Get the Modified Date.
 	 *
 	 * @return $date
 	 */

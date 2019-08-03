@@ -28,8 +28,14 @@ trait Taxonomy {
 	 */
 	public static function is_term_indexable( $term ) {
 		$robots = Helper::get_term_meta( 'robots', $term, $term->taxonomy );
-		if ( ! empty( $robots ) && is_array( $robots ) && in_array( 'noindex', $robots, true ) ) {
-			return false;
+		if ( ! empty( $robots ) && is_array( $robots ) ) {
+			if ( in_array( 'index', $robots, true ) ) {
+				return true;
+			}
+
+			if ( in_array( 'noindex', $robots, true ) ) {
+				return false;
+			}
 		}
 
 		$robots = Helper::get_settings( 'titles.tax_' . $term->taxonomy . '_custom_robots' );
@@ -56,13 +62,11 @@ trait Taxonomy {
 	}
 
 	/**
-	 * Returns an array with the accessible taxonomies.
-	 *
-	 * An accessible taxonomy is a taxonomy that is public.
+	 * Get the taxonomies that are public and not set to noindex.
 	 *
 	 * @codeCoverageIgnore
 	 *
-	 * @return array Array with all the accessible taxonomies.
+	 * @return array All the accessible taxonomies.
 	 */
 	public static function get_accessible_taxonomies() {
 		static $accessible_taxonomies;
@@ -74,7 +78,6 @@ trait Taxonomy {
 		$accessible_taxonomies = get_taxonomies( [ 'public' => true ], 'objects' );
 		$accessible_taxonomies = self::filter_exclude_taxonomies( $accessible_taxonomies );
 
-		// When the array gets messed up somewhere.
 		if ( ! is_array( $accessible_taxonomies ) ) {
 			$accessible_taxonomies = [];
 		}
@@ -161,10 +164,7 @@ trait Taxonomy {
 	}
 
 	/**
-	 * Determine whether a taxonomy is considered "viewable".
-	 *
-	 * For built-in taxonomies such as categories and tags, the 'public' value will be evaluated.
-	 * For all others, the 'publicly_queryable' value will be used.
+	 * Determine whether a taxonomy is viewable.
 	 *
 	 * @codeCoverageIgnore
 	 *
@@ -180,6 +180,10 @@ trait Taxonomy {
 			}
 		}
 
+		/*
+		 * For categories and tags, we check for the 'public' parameter.
+		 * For others, we use the 'publicly_queryable' parameter.
+		 */
 		return $taxonomy->publicly_queryable || ( $taxonomy->_builtin && $taxonomy->public );
 	}
 }

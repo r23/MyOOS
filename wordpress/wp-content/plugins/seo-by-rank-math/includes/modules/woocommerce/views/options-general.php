@@ -13,7 +13,7 @@ $cmb->add_field( array(
 	'type'    => 'switch',
 	'name'    => esc_html__( 'Remove base', 'rank-math' ),
 	'desc'    => esc_html__( 'Remove prefix from product URL.', 'rank-math' ) .
-		'<br><code>' . esc_html__( 'default: /shop/accessories/action-figures/acme/ - changed: /accessories/action-figures/acme/', 'rank-math' ) . '</code>',
+		'<br><code>' . esc_html__( 'default: /product/accessories/action-figures/acme/ - changed: /accessories/action-figures/acme/', 'rank-math' ) . '</code>',
 	'default' => 'off',
 ) );
 

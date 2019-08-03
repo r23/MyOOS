@@ -30,21 +30,21 @@ class SEOPress extends Plugin_Importer {
 	protected $plugin_name = 'SEOPress SEO';
 
 	/**
-	 * Meta key, used in SQL LIKE clause for delete query.
+	 * Plugin options meta key.
 	 *
 	 * @var string
 	 */
 	protected $meta_key = 'seopress';
 
 	/**
-	 * Array of option keys to import and clean
+	 * Option keys to import and clean.
 	 *
 	 * @var array
 	 */
 	protected $option_keys = [ 'seopress', 'seopress_%' ];
 
 	/**
-	 * Array of choices keys to import
+	 * Choices keys to import.
 	 *
 	 * @var array
 	 */
@@ -419,7 +419,7 @@ class SEOPress extends Plugin_Importer {
 	}
 
 	/**
-	 * Whether to enable sitemap
+	 * Whether to enable sitemap.
 	 *
 	 * @param string $object_prefix    post_types/taxonomies.
 	 * @param string $object_type      Current object type.
@@ -742,6 +742,33 @@ class SEOPress extends Plugin_Importer {
 	 * @param string $object_type Object type.
 	 */
 	private function set_object_robots( $object_id, $object_type ) {
+		// Early bail if robots data is set in Rank Math plugin.
+		if ( ! empty( $this->get_meta( $object_type, $object_id, 'rank_math_robots' ) ) ) {
+			return;
+		}
+
+		$current     = $this->get_robots_by_hash( $object_id, $object_type );
+		$is_noindex  = in_array( 'noindex', $current, true );
+		$is_nofollow = in_array( 'nofollow', $current, true );
+
+		if ( ! $is_noindex || ! $is_nofollow ) {
+			$robots    = $this->get_default_robots( $object_id, $object_type );
+			$current[] = ! $is_noindex && ! empty( $robots['noindex'] ) ? 'noindex' : 'index';
+			$current[] = ! $is_nofollow && ! empty( $robots['nofollow'] ) ? 'nofollow' : '';
+		}
+
+		$this->update_meta( $object_type, $object_id, 'rank_math_robots', array_unique( $current ) );
+	}
+
+	/**
+	 * Get by meta hash.
+	 *
+	 * @param int    $object_id   Object id.
+	 * @param string $object_type Object type.
+	 *
+	 * @return array Array of robots data.
+	 */
+	private function get_robots_by_hash( $object_id, $object_type ) {
 		$current = [];
 		$hash    = [
 			'_seopress_robots_index'      => 'noindex',
@@ -756,11 +783,26 @@ class SEOPress extends Plugin_Importer {
 				$current[] = $value;
 			}
 		}
-		if ( '' === $current ) {
-			return;
+
+		return $current;
+	}
+
+	/**
+	 * Get default robots data from settings.
+	 *
+	 * @param int    $object_id   Object id.
+	 * @param string $object_type Object type.
+	 *
+	 * @return array Array of robots data.
+	 */
+	private function get_default_robots( $object_id, $object_type ) {
+		$seopress_titles = get_option( 'seopress_titles_option_name' );
+		if ( 'post' === $object_type ) {
+			$post_type = get_post_type( $object_id );
+			return isset( $seopress_titles['seopress_titles_single_titles'][ $post_type ] ) ? $seopress_titles['seopress_titles_single_titles'][ $post_type ] : [];
 		}
 
-		$current[] = ! in_array( 'noindex', $current, true ) ? 'index' : '';
-		$this->update_meta( $object_type, $object_id, 'rank_math_robots', array_unique( $current ) );
+		$term = get_term( $object_id );
+		return isset( $seopress_titles['seopress_titles_tax_titles'][ $term->taxonomy ] ) ? $seopress_titles['seopress_titles_tax_titles'][ $term->taxonomy ] : [];
 	}
 }

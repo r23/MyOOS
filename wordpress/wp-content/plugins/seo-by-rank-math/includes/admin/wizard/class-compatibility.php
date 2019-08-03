@@ -1,6 +1,6 @@
 <?php
 /**
- * The Compatibility wizard step
+ * The Compatibility wizard step.
  *
  * @since      0.9.0
  * @package    RankMath
@@ -71,10 +71,9 @@ class Compatibility implements Wizard_Step {
 	}
 
 	/**
-	 * Return list of possibly conflicting plugins.
-	 * Used in SEO Analysis & Setup Wizard.
+	 * Return list of conflicting plugins.
 	 *
-	 * @return array List of plugins in path => name format
+	 * @return array List of plugins in path => name format.
 	 */
 	private function get_conflicting_plugins_list() {
 
@@ -133,7 +132,7 @@ class Compatibility implements Wizard_Step {
 	}
 
 	/**
-	 * Redirection conflicting plugins
+	 * Redirection: conflicting plugins.
 	 *
 	 * @return array
 	 */
@@ -144,7 +143,7 @@ class Compatibility implements Wizard_Step {
 	}
 
 	/**
-	 * Sitemap conflicting plugins
+	 * Sitemap: conflicting plugins.
 	 *
 	 * @return array
 	 */

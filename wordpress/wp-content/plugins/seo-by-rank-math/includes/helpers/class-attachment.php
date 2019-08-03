@@ -15,7 +15,7 @@ use RankMath\Helper;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Arr class.
+ * Attachment trait.
  */
 trait Attachment {
 

@@ -21,7 +21,7 @@ defined( 'ABSPATH' ) || exit;
 trait Choices {
 
 	/**
-	 * Gets list of overlay images for social thumbnail.
+	 * Gets list of overlay images for the social thumbnail.
 	 *
 	 * @codeCoverageIgnore
 	 *
@@ -32,6 +32,11 @@ trait Choices {
 		$uri = rank_math()->plugin_url() . 'assets/admin/img/';
 		$dir = rank_math()->plugin_dir() . 'assets/admin/img/';
 
+		/**
+		 * Allow developers to add/remove overlay images.
+		 *
+		 * @param array $images Image data as array of arrays.
+		 */
 		$list = apply_filters(
 			'rank_math/social/overlay_images',
 			[
@@ -73,7 +78,7 @@ trait Choices {
 	 *
 	 * @codeCoverageIgnore
 	 *
-	 * @param  string $current Current saved separator if any.
+	 * @param  string $current Currently saved separator if any.
 	 * @return array
 	 */
 	public static function choices_separator( $current = '' ) {
@@ -94,7 +99,7 @@ trait Choices {
 	}
 
 	/**
-	 * Get public post type as choices.
+	 * Get all accessible post types as choices.
 	 *
 	 * @codeCoverageIgnore
 	 *
@@ -115,7 +120,7 @@ trait Choices {
 	}
 
 	/**
-	 * Get post types.
+	 * Get all post types.
 	 *
 	 * @codeCoverageIgnore
 	 *
@@ -130,7 +135,7 @@ trait Choices {
 	}
 
 	/**
-	 * Get business type as choices.
+	 * Get business types as choices.
 	 *
 	 * @codeCoverageIgnore
 	 *
@@ -430,7 +435,7 @@ trait Choices {
 	}
 
 	/**
-	 * Gets rich snippet types as choices.
+	 * Get Rich Snippet types as choices.
 	 *
 	 * @codeCoverageIgnore
 	 *
@@ -459,11 +464,16 @@ trait Choices {
 			$types = [ 'off' => $none ] + $types;
 		}
 
+		/**
+		 * Allow developers to add/remove Rich Snippet type choices.
+		 *
+		 * @param array $types Rich Snippet types.
+		 */
 		return apply_filters( 'rank_math/settings/snippet/types', $types );
 	}
 
 	/**
-	 * Gets redirection types.
+	 * Get the redirection types.
 	 *
 	 * @codeCoverageIgnore
 	 *

@@ -2,7 +2,7 @@
 /**
  * Admin helper Functions.
  *
- * This file contains functions need during the admin screens.
+ * This file contains functions needed on the admin screens.
  *
  * @since      0.9.0
  * @package    RankMath
@@ -57,7 +57,7 @@ class Admin_Helper {
 	}
 
 	/**
-	 * Get htaccess related data.
+	 * Get .htaccess related data.
 	 *
 	 * @return array
 	 */
@@ -72,7 +72,7 @@ class Admin_Helper {
 	}
 
 	/**
-	 * Get tooltip html.
+	 * Get tooltip HTML.
 	 *
 	 * @param  string $message Message to show in tooltip.
 	 * @return string
@@ -171,7 +171,7 @@ class Admin_Helper {
 	}
 
 	/**
-	 * Authenticate user routine.
+	 * Authenticate user on RankMath.com.
 	 *
 	 * @param  string $username Username for registration.
 	 * @param  string $password Password for registration.

@@ -85,8 +85,12 @@ class Metabox implements Runner {
 		wp_enqueue_script( 'rank-math-assessor', $js . 'assessor.js', null, rank_math()->version, true );
 
 		if ( ! wp_script_is( 'wp-hooks', 'registered' ) ) {
-			wp_register_script( 'wp-hooks', $js . 'hooks.js', [], rank_math()->version, true );
+			wp_register_script( 'wp-hooks', rank_math()->plugin_url() . 'assets/vendor/hooks.js', [], rank_math()->version, true );
 		}
+		if ( ! wp_script_is( 'lodash', 'registered' ) ) {
+			wp_register_script( 'lodash', rank_math()->plugin_url() . 'assets/vendor/lodash.js', [], rank_math()->version );
+		}
+
 		if ( Admin_Helper::is_post_edit() ) {
 			global $post;
 			Helper::add_json( 'objectID', $post->ID );

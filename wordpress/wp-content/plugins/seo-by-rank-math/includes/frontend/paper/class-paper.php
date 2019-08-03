@@ -205,17 +205,9 @@ class Paper {
 
 		$this->robots = $this->paper->robots();
 		if ( empty( $this->robots ) ) {
-			$this->get_global_robots();
+			$this->robots = self::robots_combine( Helper::get_settings( 'titles.robots_global' ) );
 		}
-
-		// Add Index and Follow.
-		if ( ! isset( $this->robots['index'] ) ) {
-			$this->robots = [ 'index' => 'index' ] + $this->robots;
-		}
-		if ( ! isset( $this->robots['follow'] ) ) {
-			$this->robots = [ 'follow' => 'follow' ] + $this->robots;
-		}
-
+		$this->validate_robots();
 		$this->respect_settings_for_robots();
 
 		/**
@@ -226,6 +218,26 @@ class Paper {
 		$this->robots = $this->do_filter( 'frontend/robots', array_unique( $this->robots ) );
 
 		return $this->robots;
+	}
+
+	/**
+	 * Validate robots.
+	 */
+	private function validate_robots() {
+		if ( empty( $this->robots ) || ! is_array( $this->robots ) ) {
+			return [
+				'index'  => 'index',
+				'follow' => 'follow',
+			];
+		}
+
+		// Add Index and Follow.
+		if ( ! isset( $this->robots['index'] ) ) {
+			$this->robots = [ 'index' => 'index' ] + $this->robots;
+		}
+		if ( ! isset( $this->robots['follow'] ) ) {
+			$this->robots = [ 'follow' => 'follow' ] + $this->robots;
+		}
 	}
 
 	/**
@@ -270,19 +282,6 @@ class Paper {
 		// Noindex for sub-pages.
 		if ( is_paged() && Helper::get_settings( 'titles.noindex_archive_subpages' ) ) {
 			$this->robots['index'] = 'noindex';
-		}
-	}
-
-	/**
-	 * Get global robots
-	 */
-	private function get_global_robots() {
-		$this->robots = self::robots_combine( Helper::get_settings( 'titles.robots_global' ) );
-		if ( empty( $this->robots ) ) {
-			$this->robots = [
-				'index'  => 'index',
-				'follow' => 'follow',
-			];
 		}
 	}
 
@@ -413,13 +412,17 @@ class Paper {
 	/**
 	 * Make robots values as keyed array.
 	 *
-	 * @param array $robots Main instance.
+	 * @param array $robots  Main instance.
+	 * @param bool  $default Append default.
 	 *
 	 * @return array
 	 */
-	public static function robots_combine( $robots ) {
+	public static function robots_combine( $robots, $default = false ) {
 		if ( empty( $robots ) || ! is_array( $robots ) ) {
-			return [];
+			return ! $default ? [] : [
+				'index'  => 'index',
+				'follow' => 'follow',
+			];
 		}
 
 		$robots = array_combine( $robots, $robots );

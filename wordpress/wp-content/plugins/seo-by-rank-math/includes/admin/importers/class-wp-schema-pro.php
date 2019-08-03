@@ -28,21 +28,21 @@ class WP_Schema_Pro extends Plugin_Importer {
 	protected $plugin_name = 'WP Schema Pro';
 
 	/**
-	 * Meta key, used in SQL LIKE clause for delete query.
+	 * Plugin options meta key.
 	 *
 	 * @var string
 	 */
 	protected $meta_key = 'bsf-aiosrs';
 
 	/**
-	 * Array of option keys to import and clean
+	 * Option keys to import and clean.
 	 *
 	 * @var array
 	 */
 	protected $option_keys = [ 'wp-schema-pro-general-settings', 'wp-schema-pro-social-profiles', 'wp-schema-pro-global-schemas' ];
 
 	/**
-	 * Array of choices keys to import
+	 * Choices keys to import.
 	 *
 	 * @var array
 	 */
@@ -223,7 +223,7 @@ class WP_Schema_Pro extends Plugin_Importer {
 	}
 
 	/**
-	 * Returns array of choices of action which can be performed for plugin
+	 * Get the actions which can be performed for the plugin.
 	 *
 	 * @return array
 	 */

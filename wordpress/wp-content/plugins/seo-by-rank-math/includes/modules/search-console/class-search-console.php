@@ -81,6 +81,8 @@ class Search_Console extends Module {
 				$this->filter( 'rank_math/settings/general', 'add_settings' );
 			}
 
+			$this->action( 'rank_math/admin/enqueue_scripts', 'enqueue' );
+
 			// AJAX.
 			$this->ajax( 'search_console_authentication', 'authentication' );
 			$this->ajax( 'search_console_deauthentication', 'deauthentication' );
@@ -88,6 +90,15 @@ class Search_Console extends Module {
 			$this->ajax( 'search_console_delete_cache', 'delete_cache' );
 			$this->ajax( 'search_console_get_cache', 'start_background_process' );
 			$this->set_current_tab();
+		}
+	}
+
+	/**
+	 * Enqueue scripts for the metabox.
+	 */
+	public function enqueue() {
+		if ( ! wp_script_is( 'moment', 'registered' ) ) {
+			wp_register_script( 'moment', rank_math()->plugin_url() . 'assets/vendor/moment.js', [], rank_math()->version );
 		}
 	}
 

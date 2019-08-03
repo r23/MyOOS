@@ -223,7 +223,7 @@ class Snippet_Shortcode {
 	 */
 	public function show_ratings( $post_id, $field ) {
 		wp_enqueue_style( 'font-awesome', rank_math()->plugin_url() . 'assets/vendor/font-awesome/css/font-awesome.min.css', null, '4.7.0' );
-		$rating = isset( $field['value'] ) ? Helper::get_post_meta( "snippet_{$field['value']}", $post_id ) : '';
+		$rating = isset( $field['value'] ) ? (float) Helper::get_post_meta( "snippet_{$field['value']}", $post_id ) : '';
 		$count  = isset( $field['count'] ) ? Helper::get_post_meta( $field['count'], $post_id ) : '';
 		?>
 		<div class="rank-math-total-wrapper">

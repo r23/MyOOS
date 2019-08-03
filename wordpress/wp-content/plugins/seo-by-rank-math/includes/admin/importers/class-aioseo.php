@@ -29,21 +29,21 @@ class AIOSEO extends Plugin_Importer {
 	protected $plugin_name = 'All In One SEO Pack';
 
 	/**
-	 * Meta key, used in SQL LIKE clause for delete query.
+	 * Plugin options meta key.
 	 *
 	 * @var string
 	 */
 	protected $meta_key = '_aioseop_';
 
 	/**
-	 * Array of option keys to import and clean
+	 * Option keys to import and clean.
 	 *
 	 * @var array
 	 */
 	protected $option_keys = [ '_aioseop_%', 'aioseop_options' ];
 
 	/**
-	 * Array of choices keys to import
+	 * Choices keys to import.
 	 *
 	 * @var array
 	 */
@@ -105,7 +105,8 @@ class AIOSEO extends Plugin_Importer {
 			$hash[ "aiosp_{$post_type}_title_format" ] = "pt_{$post_type}_title";
 			$this->set_robots_settings(
 				in_array( $post_type, $postnoindex, true ),
-				in_array( $post_type, $postnofollow, true )
+				in_array( $post_type, $postnofollow, true ),
+				$post_type
 			);
 		}
 
@@ -115,10 +116,11 @@ class AIOSEO extends Plugin_Importer {
 	/**
 	 * Set global robots.
 	 *
-	 * @param bool $noindex  Is noindex set.
-	 * @param bool $nofollow Is nofollow set.
+	 * @param bool   $noindex   Is noindex set.
+	 * @param bool   $nofollow  Is nofollow set.
+	 * @param string $post_type Current Post type.
 	 */
-	private function set_robots_settings( $noindex, $nofollow ) {
+	private function set_robots_settings( $noindex, $nofollow, $post_type ) {
 		if ( ! $noindex && ! $nofollow ) {
 			return;
 		}
@@ -311,9 +313,9 @@ class AIOSEO extends Plugin_Importer {
 	}
 
 	/**
-	 * Set OpenGraph
+	 * Set OpenGraph.
 	 *
-	 * @param int $post_id Post id.
+	 * @param int $post_id Post ID.
 	 */
 	private function set_post_opengraph( $post_id ) {
 		$opengraph_meta = get_post_meta( $post_id, '_aioseop_opengraph_settings', true );
@@ -328,7 +330,7 @@ class AIOSEO extends Plugin_Importer {
 			update_post_meta( $post_id, 'rank_math_twitter_description', $opengraph_meta['aioseop_opengraph_settings_desc'] );
 		}
 
-		$og_thumb = ! empty( $opengraph_meta['aioseop_opengraph_settings_customimg'] ) ? $opengraph_meta['aioseop_opengraph_settings_customimg'] : $opengraph_meta['aioseop_opengraph_settings_image'];
+		$og_thumb = ! empty( $opengraph_meta['aioseop_opengraph_settings_customimg'] ) ? $opengraph_meta['aioseop_opengraph_settings_customimg'] : ( ! empty( $opengraph_meta['aioseop_opengraph_settings_image'] ) ? $opengraph_meta['aioseop_opengraph_settings_image'] : '' );
 		if ( ! empty( $og_thumb ) ) {
 			$this->replace_image( $og_thumb, 'post', 'rank_math_facebook_image', 'rank_math_facebook_image_id', $post_id );
 		}
@@ -340,41 +342,76 @@ class AIOSEO extends Plugin_Importer {
 	}
 
 	/**
-	 * Set post robots
+	 * Set post robots meta.
 	 *
-	 * @param int $post_id Post id.
+	 * @param int $post_id Post ID.
 	 */
 	private function set_post_robots( $post_id ) {
-
-		// ROBOTS.
-		$robots_nofollow = get_post_meta( $post_id, '_aioseop_nofollow', true );
-		$robots_noindex  = get_post_meta( $post_id, '_aioseop_noindex', true );
-
-		// Sitemap.
-		$exclude_sitemap = get_post_meta( $post_id, '_aioseop_sitemap_exclude', true );
-		$exclude_sitemap = 'on' === $exclude_sitemap ? true : false;
-
-		// If all are empty, then keep default robots.
-		if ( empty( $robots_nofollow ) && empty( $robots_noindex ) ) {
-			$robots = $exclude_sitemap ? [ 'noindex' ] : [];
-			update_post_meta( $post_id, 'rank_math_robots', $robots );
+		// Early bail if robots data is set in Rank Math plugin.
+		if ( ! empty( $this->get_meta( 'post', $post_id, 'rank_math_robots' ) ) ) {
 			return;
 		}
 
-		$robots = (array) get_post_meta( $post_id, 'rank_math_robots', true );
-		if ( 'on' === $robots_nofollow ) {
-			$robots[] = 'nofollow';
-		}
-
-		if ( 'on' === $robots_noindex || $exclude_sitemap ) {
-			$robots[] = 'noindex';
-		}
+		// ROBOTS.
+		$robots   = [];
+		$aioseo   = get_option( 'aioseop_options' );
+		$robots[] = $this->get_noindex_robot( $post_id, $aioseo );
+		$robots[] = $this->get_follow_robot( $post_id, $aioseo );
 
 		update_post_meta( $post_id, 'rank_math_robots', array_unique( $robots ) );
 	}
 
 	/**
-	 * Returns array of choices of action which can be performed for plugin
+	 * Get noindex robot.
+	 *
+	 * @param int   $post_id Post ID.
+	 * @param array $aioseo  Option array.
+	 *
+	 * @return string
+	 */
+	private function get_noindex_robot( $post_id, $aioseo ) {
+		$noindex         = get_post_meta( $post_id, '_aioseop_noindex', true );
+		$exclude_sitemap = $this->is_post_excluded_sitemap( $post_id );
+
+		if ( empty( $noindex ) ) {
+			return in_array( get_post_type( $post_id ), $aioseo['aiosp_cpostnoindex'], true ) || $exclude_sitemap ? 'noindex' : 'index';
+		}
+
+		return 'on' === $noindex || $exclude_sitemap ? 'noindex' : 'index';
+	}
+
+	/**
+	 * Get follow robot.
+	 *
+	 * @param int   $post_id Post ID.
+	 * @param array $aioseo  Option array.
+	 *
+	 * @return string
+	 */
+	private function get_follow_robot( $post_id, $aioseo ) {
+		$nofollow = get_post_meta( $post_id, '_aioseop_nofollow', true );
+
+		if ( empty( $nofollow ) ) {
+			return in_array( get_post_type( $post_id ), $aioseo['aiosp_cpostnofollow'], true ) ? 'nofollow' : '';
+		}
+
+		return 'on' === $nofollow ? 'nofollow' : '';
+	}
+
+	/**
+	 * Is post excluded from sitemap.
+	 *
+	 * @param int $post_id Post ID.
+	 *
+	 * @return bool
+	 */
+	private function is_post_excluded_sitemap( $post_id ) {
+		$exclude_sitemap = get_post_meta( $post_id, '_aioseop_sitemap_exclude', true );
+		return 'on' === $exclude_sitemap ? true : false;
+	}
+
+	/**
+	 * Get the actions which can be performed for the plugin.
 	 *
 	 * @return array
 	 */

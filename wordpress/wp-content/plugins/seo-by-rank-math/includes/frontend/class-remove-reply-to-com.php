@@ -26,24 +26,29 @@ class Remove_Reply_To_Com {
 	 * The Constructor.
 	 */
 	public function __construct() {
-		if ( $this->clean_reply_to_com() ) {
+		/**
+		 * Enable or disable the feature that removes the ?replytocom parameters.
+		 *
+		 * @param bool $remove Whether to remove the parameters.
+		 */
+		if ( $this->do_filter( 'frontend/remove_reply_to_com', true ) ) {
 			$this->filter( 'comment_reply_link', 'remove_reply_to_com' );
 			$this->action( 'template_redirect', 'replytocom_redirect', 1 );
 		}
 	}
 
 	/**
-	 * Removes the ?replytocom variable from the link, replacing it with a #comment-<number> anchor.
+	 * Replace the ?replytocom with #comment-[number] in a link.
 	 *
 	 * @param  string $link The comment link as a string.
-	 * @return string The modified link.
+	 * @return string The new link.
 	 */
 	public function remove_reply_to_com( $link ) {
 		return preg_replace( '`href=(["\'])(?:.*(?:\?|&|&#038;)replytocom=(\d+)#respond)`', 'href=$1#comment-$2', $link );
 	}
 
 	/**
-	 * Redirects out the ?replytocom variables.
+	 * Redirect the ?replytocom URLs.
 	 *
 	 * @return bool True when redirect has been done.
 	 */
@@ -63,17 +68,4 @@ class Remove_Reply_To_Com {
 		return false;
 	}
 
-	/**
-	 * Checks whether we can allow the feature that removes ?replytocom query parameters.
-	 *
-	 * @return bool True to remove, false not to remove.
-	 */
-	private function clean_reply_to_com() {
-		/**
-		 * Filter: 'rank_math_remove_reply_to_com' - Allow disabling the feature that removes ?replytocom query parameters.
-		 *
-		 * @param bool $return True to remove, false not to remove.
-		 */
-		return (bool) $this->do_filter( 'frontend/remove_reply_to_com', true );
-	}
 }

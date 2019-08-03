@@ -30,28 +30,28 @@ class Yoast extends Plugin_Importer {
 	protected $plugin_name = 'Yoast SEO';
 
 	/**
-	 * Meta key, used in SQL LIKE clause for delete query.
+	 * Plugin options meta key.
 	 *
 	 * @var string
 	 */
 	protected $meta_key = '_yoast_wpseo_';
 
 	/**
-	 * Array of option keys to import and clean
+	 * Option keys to import and clean.
 	 *
 	 * @var array
 	 */
 	protected $option_keys = [ 'wpseo', 'wpseo_%' ];
 
 	/**
-	 * Array of choices keys to import
+	 * Choices keys to import.
 	 *
 	 * @var array
 	 */
 	protected $choices = [ 'settings', 'postmeta', 'termmeta', 'usermeta', 'redirections' ];
 
 	/**
-	 * Array of table names to drop while cleaning
+	 * Table names to drop while cleaning.
 	 *
 	 * @var array
 	 */
@@ -67,8 +67,8 @@ class Yoast extends Plugin_Importer {
 	public function convert_variables( $string ) {
 		$string = str_replace( '%%term_title%%', '%term%', $string );
 		$string = preg_replace( '/%%cf_([^%]+)%%/i', '%customfield($1)%', $string );
-		$string = preg_replace( '/%%ct_([^%]+)%%/i', '%ct($1)%', $string );
-		$string = preg_replace( '/%%ct_desc_([^%]+)%%/i', '%ct_desc($1)%', $string );
+		$string = preg_replace( '/%%ct_([^%]+)%%/i', '%customterm($1)%', $string );
+		$string = preg_replace( '/%%ct_desc_([^%]+)%%/i', '%customterm($1)%', $string );
 
 		return str_replace( '%%', '%', $string );
 	}
@@ -180,7 +180,7 @@ class Yoast extends Plugin_Importer {
 
 			// Show/Hide Metabox.
 			if ( isset( $yoast_titles[ "display-metabox-tax-{$taxonomy}" ] ) ) {
-				$this->titles[ "tax_{$taxonomy}_add_meta_box" ] = $yoast_titles[ "display-metabox-tax-{$taxonomy}" ] ? 'off' : 'on';
+				$this->titles[ "tax_{$taxonomy}_add_meta_box" ] = $yoast_titles[ "display-metabox-tax-{$taxonomy}" ] ? 'on' : 'off';
 			}
 
 			// Sitemap.
@@ -200,10 +200,13 @@ class Yoast extends Plugin_Importer {
 	 * @param array  $yoast_titles Settings.
 	 */
 	private function set_robots( $prefix, $yoast_prefix, $yoast_titles ) {
-		if ( isset( $yoast_titles[ "noindex-{$yoast_prefix}" ] ) && $yoast_titles[ "noindex-{$yoast_prefix}" ] ) {
+		if ( isset( $yoast_titles[ "noindex-{$yoast_prefix}" ] ) ) {
 			$this->titles[ "{$prefix}_custom_robots" ] = 'on';
-			$this->titles[ "{$prefix}_robots" ][]      = 'noindex';
-			$this->titles[ "{$prefix}_robots" ]        = array_unique( $this->titles[ "{$prefix}_robots" ] );
+			$this->titles[ "{$prefix}_robots" ]        = [];
+			if ( $yoast_titles[ "noindex-{$yoast_prefix}" ] ) {
+				$this->titles[ "{$prefix}_robots" ][] = 'noindex';
+				$this->titles[ "{$prefix}_robots" ]   = array_unique( $this->titles[ "{$prefix}_robots" ] );
+			}
 		}
 
 		if ( isset( $yoast_titles[ "hideeditbox-{$yoast_prefix}" ] ) ) {
@@ -256,13 +259,18 @@ class Yoast extends Plugin_Importer {
 	}
 
 	/**
-	 * Set post robots
+	 * Set post robots.
 	 *
 	 * @param int $post_id Post id.
 	 */
 	private function set_post_robots( $post_id ) {
+		// Early bail if robots data is set in Rank Math plugin.
+		if ( ! empty( $this->get_meta( 'post', $post_id, 'rank_math_robots' ) ) ) {
+			return;
+		}
+
 		$robots_nofollow = get_post_meta( $post_id, '_yoast_wpseo_meta-robots-nofollow', true );
-		$robots_noindex  = get_post_meta( $post_id, '_yoast_wpseo_meta-robots-noindex', true );
+		$robots_noindex  = (int) get_post_meta( $post_id, '_yoast_wpseo_meta-robots-noindex', true );
 		$robots_advanced = (array) get_post_meta( $post_id, '_yoast_wpseo_meta-robots-adv', true );
 
 		// If all are empty, then keep default robots.
@@ -271,13 +279,9 @@ class Yoast extends Plugin_Importer {
 			return;
 		}
 
-		$robots = (array) get_post_meta( $post_id, 'rank_math_robots', true );
+		$robots = [ $this->set_robots_index( $post_id, $robots_noindex ) ];
 		if ( $robots_nofollow ) {
 			$robots[] = 'nofollow';
-		}
-
-		if ( 1 === absint( $robots_noindex ) ) {
-			$robots[] = 'noindex';
 		}
 
 		$robots_advanced = explode( ',', $robots_advanced[0] );
@@ -285,7 +289,24 @@ class Yoast extends Plugin_Importer {
 			$robots = array_merge( $robots, $robots_advanced );
 		}
 
-		update_post_meta( $post_id, 'rank_math_robots', array_unique( $robots ) );
+		update_post_meta( $post_id, 'rank_math_robots', array_filter( array_unique( $robots ) ) );
+	}
+
+	/**
+	 * Set post robots based on the Settings.
+	 *
+	 * @param int $post_id        Post id.
+	 * @param int $robots_noindex Whether or not the post is indexed.
+	 *
+	 * @return string
+	 */
+	private function set_robots_index( $post_id, $robots_noindex ) {
+		if ( 0 === $robots_noindex ) {
+			$yoast_titles = get_option( 'wpseo_titles' );
+			return empty( $yoast_titles[ 'noindex-' . get_post_type( $post_id ) ] ) ? 'index' : 'noindex';
+		}
+
+		return 1 === $robots_noindex ? 'noindex' : 'index';
 	}
 
 	/**
@@ -306,7 +327,7 @@ class Yoast extends Plugin_Importer {
 	}
 
 	/**
-	 * Set post focus keyword.
+	 * Set Focus Keyword.
 	 *
 	 * @param int $post_id Post id.
 	 */
@@ -323,7 +344,7 @@ class Yoast extends Plugin_Importer {
 	}
 
 	/**
-	 * Return focus keyword from entry
+	 * Return Focus Keyword from entry.
 	 *
 	 * @param  array $entry Yoast focus keyword entry.
 	 * @return string
@@ -333,7 +354,7 @@ class Yoast extends Plugin_Importer {
 	}
 
 	/**
-	 * Set primary term for post
+	 * Set primary term for the posts.
 	 *
 	 * @param int[] $post_ids Post ids.
 	 */
@@ -389,17 +410,20 @@ class Yoast extends Plugin_Importer {
 	}
 
 	/**
-	 * Set term robots
+	 * Set term robots.
 	 *
 	 * @param int   $term_id Term id.
 	 * @param array $data    Term data.
 	 */
 	private function set_term_robots( $term_id, $data ) {
-		if ( ! empty( $data['wpseo_noindex'] ) && 'noindex' === $data['wpseo_noindex'] ) {
-			$current   = get_term_meta( $term_id, 'rank_math_robots', true );
-			$current[] = 'noindex';
+		// Early bail if robots data is set in Rank Math plugin.
+		if ( ! empty( $this->get_meta( 'term', $term_id, 'rank_math_robots' ) ) ) {
+			return;
+		}
 
-			update_term_meta( $term_id, 'rank_math_robots', array_unique( $current ) );
+		if ( ! empty( $data['wpseo_noindex'] ) && 'default' !== $data['wpseo_noindex'] ) {
+			$robots = 'noindex' === $data['wpseo_noindex'] ? 'noindex' : 'index';
+			update_term_meta( $term_id, 'rank_math_robots', [ $robots ] );
 		}
 	}
 
@@ -437,6 +461,13 @@ class Yoast extends Plugin_Importer {
 		foreach ( $user_ids as $user ) {
 			$userid = $user->ID;
 			$this->replace_meta( $hash, null, $userid, 'user', 'convert_variables' );
+
+			// Early bail if robots data is set in Rank Math plugin.
+			if ( empty( $this->get_meta( 'user', $userid, 'rank_math_robots' ) ) ) {
+				$noindex_user = get_user_meta( $userid, 'wpseo_noindex_author', true );
+				$noindex_user = $noindex_user ? 'noindex' : 'index';
+				update_user_meta( $userid, 'rank_math_robots', [ $noindex_user ] );
+			}
 		}
 
 		return $this->get_pagination_arg();

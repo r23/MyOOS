@@ -64,7 +64,7 @@ class Taxonomy implements IPaper {
 		$robots = Paper::robots_combine( Term::get_meta( 'robots', $object ) );
 
 		if ( is_object( $object ) && empty( $robots ) && Helper::get_settings( "titles.tax_{$object->taxonomy}_custom_robots" ) ) {
-			$robots = Paper::robots_combine( Helper::get_settings( "titles.tax_{$object->taxonomy}_robots" ) );
+			$robots = Paper::robots_combine( Helper::get_settings( "titles.tax_{$object->taxonomy}_robots" ), true );
 		}
 
 		if ( $this->noindex_term( $object ) ) {

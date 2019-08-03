@@ -45,6 +45,7 @@ class Taxonomy implements Provider {
 		}
 
 		if (
+			empty( $type ) ||
 			false === taxonomy_exists( $type ) ||
 			false === Helper::is_taxonomy_viewable( $type ) ||
 			false === Helper::is_taxonomy_indexable( $type ) ||

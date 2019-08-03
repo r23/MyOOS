@@ -6,8 +6,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language-Team: MyThemeShop\n"
-"Last-Translator: MyThemeShop\n"
+"Language-Team: Rank Math\n"
+"Last-Translator: Rank Math\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -421,6 +421,12 @@ msgid "Titles Settings"
 msgstr ""
 
 msgid "Sitemap Settings"
+msgstr ""
+
+msgid "Save Changes"
+msgstr ""
+
+msgid "Reset Options"
 msgstr ""
 
 msgid "No data found."
@@ -1803,6 +1809,18 @@ msgstr ""
 msgid "Google Mobile-Friendly Test"
 msgstr ""
 
+msgid "Google Rich Results (Mobile)"
+msgstr ""
+
+msgid "Google Rich Results Test - Googlebot Smartphone"
+msgstr ""
+
+msgid "Google Rich Results (Desktop)"
+msgstr ""
+
+msgid "Google Rich Results Test - Googlebot Desktop"
+msgstr ""
+
 msgid "Google Cache"
 msgstr ""
 
@@ -2478,10 +2496,10 @@ msgstr ""
 msgid "Image is smaller than the minimum size, please select a different image."
 msgstr ""
 
-msgid "MyThemeShop -- Test Drive"
+msgid "RankMath -- Test Drive"
 msgstr ""
 
-msgid "MyThemeShop -- Description"
+msgid "RankMath -- Description"
 msgstr ""
 
 msgid "Add icon overlay to thumbnail"
@@ -4780,7 +4798,7 @@ msgstr ""
 msgid "Remove prefix from product URL."
 msgstr ""
 
-msgid "default: /shop/accessories/action-figures/acme/ - changed: /accessories/action-figures/acme/"
+msgid "default: /product/accessories/action-figures/acme/ - changed: /accessories/action-figures/acme/"
 msgstr ""
 
 msgid "Remove category base"
@@ -5003,6 +5021,9 @@ msgid "Help make Rank Math even more powerful by allowing us to collect non-sens
 msgstr ""
 
 msgid "Find out more."
+msgstr ""
+
+msgid "Auto Update"
 msgstr ""
 
 msgid "Show SEO Score"

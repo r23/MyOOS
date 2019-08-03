@@ -1,6 +1,6 @@
 <?php
 /**
- * The Products Page Class
+ * The Products Page Class.
  *
  * @since      1.0.13
  * @package    RankMath
@@ -20,11 +20,11 @@ defined( 'ABSPATH' ) || exit;
 class Products_Page implements Snippet {
 
 	/**
-	 * Outputs code to allow recognition of the CollectionPage.
+	 * Sets the Schema structured data for the CollectionPage.
 	 *
 	 * @link https://schema.org/CollectionPage
 	 *
-	 * @param array  $data   Array of json-ld data.
+	 * @param array  $data   Array of JSON-LD data.
 	 * @param JsonLD $jsonld JsonLD Instance.
 	 *
 	 * @return array
@@ -62,7 +62,7 @@ class Products_Page implements Snippet {
 	}
 
 	/**
-	 * Can add snippet_taxonomy.
+	 * Check if structured data can be added for the current taxonomy.
 	 *
 	 * @return boolean|string
 	 */
@@ -89,7 +89,7 @@ class Products_Page implements Snippet {
 	}
 
 	/**
-	 * Can add snippet_shop.
+	 * Check if structured data can be added for the Shop page.
 	 *
 	 * @return boolean|string
 	 */

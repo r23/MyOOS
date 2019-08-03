@@ -1,6 +1,6 @@
 <?php
 /**
- * The 404 module database operations
+ * The 404 module database operations.
  *
  * @since      0.9.0
  * @package    RankMath
@@ -114,7 +114,7 @@ class DB {
 	/**
 	 * Delete a record.
 	 *
-	 * @param array $ids Array of ids to delete.
+	 * @param array $ids Array of IDs to delete.
 	 *
 	 * @return int Number of records deleted.
 	 */
@@ -150,7 +150,7 @@ class DB {
 	}
 
 	/**
-	 * Update if url is a matched and hit.
+	 * Update if URL is matched and hit.
 	 *
 	 * @param object $row Record to update.
 	 *
@@ -161,6 +161,7 @@ class DB {
 			'accessed'       => current_time( 'mysql' ),
 			'times_accessed' => absint( $row['times_accessed'] ) + 1,
 		];
+
 		return self::table()->set( $update_data )->where( 'id', absint( $row['id'] ) )->update();
 	}
 }

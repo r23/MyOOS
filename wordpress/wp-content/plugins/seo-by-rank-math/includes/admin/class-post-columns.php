@@ -173,9 +173,9 @@ class Post_Columns implements Runner {
 	}
 
 	/**
-	 * Add columns for SEO title, description and focus keywords.
+	 * Add new columns for SEO title, description and focus keywords.
 	 *
-	 * @param  array $columns An array of column names.
+	 * @param  array $columns Array of column names.
 	 * @return array
 	 */
 	public function add_columns( $columns ) {
@@ -192,9 +192,9 @@ class Post_Columns implements Runner {
 	}
 
 	/**
-	 * Make seo_score column sortable.
+	 * Make the SEO Score column sortable.
 	 *
-	 * @param  array $columns An array of column names.
+	 * @param  array $columns Array of column names.
 	 * @return array
 	 */
 	public function sortable_columns( $columns ) {
@@ -204,7 +204,7 @@ class Post_Columns implements Runner {
 	}
 
 	/**
-	 * Add columns for Media Alt & Title.
+	 * Add new columns for Media Alt & Title.
 	 *
 	 * @param  array $columns An array of column names.
 	 * @return array
@@ -357,7 +357,7 @@ class Post_Columns implements Runner {
 	}
 
 	/**
-	 * Get seo score class.
+	 * Get SEO score rating string: great/good/bad.
 	 *
 	 * @param int $score Score.
 	 *

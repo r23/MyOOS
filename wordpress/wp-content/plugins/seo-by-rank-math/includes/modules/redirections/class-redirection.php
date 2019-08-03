@@ -51,7 +51,7 @@ class Redirection {
 	/**
 	 * Retrieve Redirection instance.
 	 *
-	 * @param integer $id ID Redirection ID.
+	 * @param integer $id Redirection ID.
 	 *
 	 * @return Redirection
 	 */
@@ -129,7 +129,7 @@ class Redirection {
 	}
 
 	/**
-	 * Get item id.
+	 * Get item ID.
 	 *
 	 * @return int
 	 */
@@ -138,7 +138,7 @@ class Redirection {
 	}
 
 	/**
-	 * Set item id.
+	 * Set item ID.
 	 *
 	 * @param int $id Item ID.
 	 */
@@ -219,9 +219,9 @@ class Redirection {
 	}
 
 	/**
-	 * Add and sanitize destination url.
+	 * Add and sanitize destination URL.
 	 *
-	 * @param string $url Url to process.
+	 * @param string $url URL to process.
 	 */
 	public function add_destination( $url ) {
 		$processed = trim( $url );
@@ -235,7 +235,7 @@ class Redirection {
 	}
 
 	/**
-	 * Sanitize source
+	 * Sanitize source.
 	 *
 	 * @param string $pattern    Pattern to sanitize.
 	 * @param string $comparison Comparison of pattern.
@@ -282,7 +282,8 @@ class Redirection {
 	 *    https://www.website.com/URI => URI
 	 *    https://www.website.com/URI/ => URI
 	 *
-	 * @param  string $url User-input source URL.
+	 * @param string $url User-input source URL.
+	 *
 	 * @return string|false
 	 */
 	private function sanitize_source_url( $url ) {
@@ -306,6 +307,7 @@ class Redirection {
 			'www.' . $domain,
 		];
 		$url    = str_replace( $search, '', $url );
+		$url    = preg_replace( '/^' . preg_quote( $domain, '/' ) . '/s', '', $url );
 
 		// Empty url.
 		// External domain.
@@ -317,7 +319,7 @@ class Redirection {
 	}
 
 	/**
-	 * Sanitize redirection source for regex
+	 * Sanitize redirection source for regex.
 	 *
 	 * @param  string $pattern Pattern to process.
 	 * @return string
@@ -340,7 +342,7 @@ class Redirection {
 	}
 
 	/**
-	 * Collect WordPress Entity if any to add redirection cache.
+	 * Maybe collect WordPress object to add redirection cache.
 	 *
 	 * @param string $slug Url to search for.
 	 */
@@ -384,7 +386,7 @@ class Redirection {
 	}
 
 	/**
-	 * Save redirection caches
+	 * Save redirection caches.
 	 */
 	private function save_redirection_cache() {
 		if ( ! $this->get_id() || empty( $this->cache ) ) {
@@ -415,7 +417,7 @@ class Redirection {
 	/**
 	 * Strip home directory when WP is installed in subdirectory
 	 *
-	 * @param string $url Url to strip from.
+	 * @param string $url URL to strip from.
 	 *
 	 * @return string
 	 */

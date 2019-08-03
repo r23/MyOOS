@@ -1,6 +1,6 @@
 <?php
 /**
- * The Recipe Class
+ * The Recipe Class.
  *
  * @since      1.0.13
  * @package    RankMath
@@ -23,7 +23,7 @@ class Recipe implements Snippet {
 	/**
 	 * Recipe rich snippet.
 	 *
-	 * @param array  $data   Array of json-ld data.
+	 * @param array  $data   Array of JSON-LD data.
 	 * @param JsonLD $jsonld JsonLD Instance.
 	 *
 	 * @return array
@@ -73,9 +73,9 @@ class Recipe implements Snippet {
 	}
 
 	/**
-	 * Set reciepe how to section.
+	 * Set recipe how to section.
 	 *
-	 * @param array $entity Array of json-ld entity.
+	 * @param array $entity Array of JSON-LD entity.
 	 */
 	private function set_how_to_section( &$entity ) {
 		$instructions = Helper::get_post_meta( 'snippet_recipe_instructions' );
@@ -121,7 +121,7 @@ class Recipe implements Snippet {
 	/**
 	 * Set reciepe how to step.
 	 *
-	 * @param array $entity Array of json-ld entity.
+	 * @param array $entity Array of JSON-LD entity.
 	 */
 	private function set_how_to_step( &$entity ) {
 		$instructions = Str::to_arr_no_empty( Helper::get_post_meta( 'snippet_recipe_single_instructions' ) );
@@ -150,9 +150,9 @@ class Recipe implements Snippet {
 	}
 
 	/**
-	 * Set reciepe calories.
+	 * Set recipe calories.
 	 *
-	 * @param array $entity Array of json-ld entity.
+	 * @param array $entity Array of JSON-LD entity.
 	 */
 	private function set_calories( &$entity ) {
 		if ( $calories = Helper::get_post_meta( 'snippet_recipe_calories' ) ) { // phpcs:ignore
@@ -164,9 +164,9 @@ class Recipe implements Snippet {
 	}
 
 	/**
-	 * Set reciepe rating.
+	 * Set recipe rating.
 	 *
-	 * @param array $entity Array of json-ld entity.
+	 * @param array $entity Array of JSON-LD entity.
 	 */
 	private function set_rating( &$entity ) {
 		if ( $rating = Helper::get_post_meta( 'snippet_recipe_rating' ) ) { // phpcs:ignore
@@ -181,9 +181,9 @@ class Recipe implements Snippet {
 	}
 
 	/**
-	 * Set reciepe video.
+	 * Set recipe video.
 	 *
-	 * @param array $entity Array of json-ld entity.
+	 * @param array $entity Array of JSON-LD entity.
 	 */
 	private function set_video( &$entity ) {
 		if ( $video = Helper::get_post_meta( 'snippet_recipe_video' ) ) { // phpcs:ignore

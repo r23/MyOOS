@@ -1,6 +1,6 @@
 <?php
 /**
- * The Redirections Cache
+ * The Redirections Cache.
  *
  * @since      0.9.0
  * @package    RankMath
@@ -30,9 +30,9 @@ class Cache {
 	}
 
 	/**
-	 * Get redirection by object id.
+	 * Get redirection by object ID.
 	 *
-	 * @param  integer $object_id   Object id to look for.
+	 * @param  integer $object_id   Object ID to look for.
 	 * @param  string  $object_type Current objcect type.
 	 * @return object
 	 */
@@ -41,9 +41,9 @@ class Cache {
 	}
 
 	/**
-	 * Get redirection by url.
+	 * Get redirection by URL.
 	 *
-	 * @param  integer $url Url to look for.
+	 * @param  integer $url URL to look for.
 	 * @return object
 	 */
 	public static function get_by_url( $url ) {
@@ -72,9 +72,9 @@ class Cache {
 	}
 
 	/**
-	 * Purge cache for a redirection
+	 * Purge cache for a redirection.
 	 *
-	 * @param  integer $ids Redirection ids to purge cache for.
+	 * @param  integer $ids Redirection IDs to purge cache for.
 	 * @return integer
 	 */
 	public static function purge( $ids ) {
@@ -82,10 +82,10 @@ class Cache {
 	}
 
 	/**
-	 * Purge cache for an object
+	 * Purge cache for an object.
 	 *
-	 * @param  integer $ids Object ids to purge cache for.
-	 * @param  string  $object_type Current objcect type.
+	 * @param  integer $ids Object IDs to purge cache for.
+	 * @param  string  $object_type Current object type.
 	 * @return integer
 	 */
 	public static function purge_by_object_id( $ids, $object_type ) {

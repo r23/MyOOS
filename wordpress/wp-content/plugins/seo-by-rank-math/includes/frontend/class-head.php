@@ -78,7 +78,7 @@ class Head {
 	}
 
 	/**
-	 * Output Webmaster Tools authentication strings.
+	 * Output authentication codes for all the Webmaster Tools.
 	 */
 	public function webmaster_tools_authentication() {
 		$tools = [
@@ -102,7 +102,7 @@ class Head {
 	}
 
 	/**
-	 * Add Search Result Page schema.
+	 * Add Search Result Page schema as language attributes for the <html> tag.
 	 *
 	 * @param  string $output A space-separated list of language attributes.
 	 * @return string
@@ -116,8 +116,7 @@ class Head {
 	}
 
 	/**
-	 * Main wrapper function attached to wp_head.
-	 * This combines all the output on the frontend of the plugin.
+	 * Main function attached to the wp_head hook.
 	 */
 	public function head() {
 		global $wp_query;
@@ -130,7 +129,7 @@ class Head {
 
 		$this->credits();
 
-		// Remove actions that we will handle through our rank_math/head call, and probably change the output of.
+		// Remove core actions, now handled by Rank Math.
 		remove_action( 'wp_head', 'rel_canonical' );
 		remove_action( 'wp_head', 'index_rel_link' );
 		remove_action( 'wp_head', 'start_post_rel_link' );
@@ -144,7 +143,7 @@ class Head {
 		}
 
 		/**
-		 * Allow other plugins to output inside the Rank Math section of the head tag.
+		 * Add extra output in the head tag.
 		 */
 		$this->do_action( 'head' );
 
@@ -159,7 +158,7 @@ class Head {
 	/**
 	 * Main title function.
 	 *
-	 * @param  string $title Title that might have already been set.
+	 * @param  string $title Already set title or empty string.
 	 * @return string
 	 */
 	public function title( $title ) {
@@ -172,7 +171,7 @@ class Head {
 	}
 
 	/**
-	 * Outputs the meta description element or returns the description text.
+	 * Output the meta description tag with the generated description.
 	 */
 	public function metadesc() {
 		$generated = Paper::get()->get_description();
@@ -185,7 +184,7 @@ class Head {
 	}
 
 	/**
-	 * Output the meta robots value.
+	 * Output the meta robots tag.
 	 */
 	public function robots() {
 		$robots    = Paper::get()->get_robots();
@@ -194,7 +193,8 @@ class Head {
 			echo '<meta name="robots" content="', esc_attr( $robotsstr ), '"/>', "\n";
 		}
 
-		// If a page has a noindex, it should _not_ have a canonical, as these are opposing indexing directives.
+		// If a page is noindex, let's remove the canonical URL.
+		// https://www.seroundtable.com/google-noindex-rel-canonical-confusion-26079.html .
 		if ( isset( $robots['index'] ) && 'noindex' === $robots['index'] ) {
 			$this->remove_action( 'rank_math/head', 'canonical', 20 );
 			$this->remove_action( 'rank_math/head', 'adjacent_rel_links', 21 );
@@ -202,8 +202,7 @@ class Head {
 	}
 
 	/**
-	 * This function normally outputs the canonical but is also used in other places to retrieve
-	 * the canonical URL for the current page.
+	 * Output the canonical URL tag.
 	 */
 	public function canonical() {
 		$canonical = Paper::get()->get_canonical();
@@ -213,25 +212,24 @@ class Head {
 	}
 
 	/**
-	 * Adds 'prev' and 'next' links to archives.
+	 * Add the rel 'prev' and 'next' links to archives or single posts.
 	 *
 	 * @link http://googlewebmastercentral.blogspot.com/2011/09/pagination-with-relnext-and-relprev.html
 	 */
 	public function adjacent_rel_links() {
-		// Don't do this for Genesis, as the way Genesis handles homepage functionality is different and causes issues sometimes.
 		/**
-		 * Allows devs to allow echoing rel="next" / rel="prev" by Rank Math on Genesis installs.
+		 * Enable rel "next" & "prev" tags on sites running Genesis.
 		 *
-		 * @param bool $unsigned Whether or not to rel=next / rel=prev .
+		 * @param bool $unsigned Whether or not to show rel next / prev .
 		 */
 		if ( is_home() && function_exists( 'genesis' ) && false === $this->do_filter( 'frontend/genesis/force_adjacent_rel_home', false ) ) {
 			return;
 		}
 
 		/**
-		 * Allows disabling of Rank Math adjacent links if this is being handled by other code.
+		 * Disable rel 'prev' and 'next' links.
 		 *
-		 * @param bool $links_generated Indicates if other code has handled adjacent links.
+		 * @param bool $disable Rel 'prev' and 'next' links should be disabled or not.
 		 */
 		if ( true === $this->do_filter( 'frontend/disable_adjacent_rel_links', false ) ) {
 			return;
@@ -255,7 +253,7 @@ class Head {
 	}
 
 	/**
-	 * Output the rel next/prev links for a single post / page.
+	 * Output the rel next/prev tags on a paginated single post.
 	 *
 	 * @return void
 	 */
@@ -284,7 +282,7 @@ class Head {
 	}
 
 	/**
-	 * Output the rel next/prev links for an archive page.
+	 * Output the rel next/prev tags on archives.
 	 */
 	private function adjacent_rel_links_archive() {
 		$url = Paper::get()->get_canonical( true, true );
@@ -297,7 +295,6 @@ class Head {
 			$this->adjacent_rel_link( 'prev', $url, $paged - 1 );
 		}
 
-		// Make sure to use index.php when needed, done after paged == 2 check so the prev links to homepage will not have index.php erroneously.
 		if ( is_front_page() ) {
 			$url = Router::get_base_url( '' );
 		}
@@ -312,12 +309,12 @@ class Head {
 	}
 
 	/**
-	 * Get adjacent pages link for archives.
+	 * Build adjacent page link for archives.
 	 *
-	 * @param string $rel       Link relationship, prev or next.
-	 * @param string $url       The un-paginated URL of the current archive.
-	 * @param string $page      The page number to add on to $url for the $link tag.
-	 * @param string $query_arg Optional. The argument to use to set for the page to load.
+	 * @param string $rel       Prev or next.
+	 * @param string $url       The current archive URL without page parameter.
+	 * @param string $page      The page number added to the $url in the link tag.
+	 * @param string $query_arg The pagination query argument to use for the $url.
 	 */
 	private function adjacent_rel_link( $rel, $url, $page, $query_arg = 'paged' ) {
 		global $wp_rewrite;
@@ -327,9 +324,9 @@ class Head {
 		}
 
 		/**
-		 * Allow changing link rel output by Rank Math.
+		 * Change the link rel HTML output.
 		 *
-		 * @param string $link The full `<link` element.
+		 * @param string $link The `<link rel=""` tag.
 		 */
 		$link = $this->do_filter( "frontend/{$rel}_rel_link", '<link rel="' . esc_attr( $rel ) . '" href="' . esc_url( $url ) . "\" />\n" );
 		if ( Str::is_non_empty( $link ) ) {
@@ -338,7 +335,7 @@ class Head {
 	}
 
 	/**
-	 * Return the base for pagination.
+	 * Get pagination base.
 	 *
 	 * @return string The pagination base.
 	 */
@@ -349,12 +346,17 @@ class Head {
 	}
 
 	/**
-	 * Credits
+	 * Credits.
 	 *
 	 * @param boolean $closing Is closing credits needed.
 	 */
 	private function credits( $closing = false ) {
 
+		/**
+		 * Disable credit in the HTML source.
+		 *
+		 * @param bool $remove
+		 */
 		if ( $this->do_filter( 'frontend/remove_credit_notice', false ) ) {
 			return;
 		}
@@ -381,12 +383,12 @@ class Head {
 	}
 
 	/**
-	 * Used in the force rewrite functionality this retrieves the output, replaces the title with the proper SEO
-	 * title and then flushes the output.
+	 * Use output buffering to force rewrite the title tag.
 	 */
 	public function rewrite_title() {
 		global $wp_query;
-		// Check if we're in the main query to support bad themes and plugins.
+
+		// Check if we're in the main query.
 		$old_wp_query = null;
 		if ( ! $wp_query->is_main_query() ) {
 			$old_wp_query = $wp_query;
@@ -399,7 +401,7 @@ class Head {
 			echo $content;
 		}
 
-		// Find all titles, strip them out and add the new one.
+		// Find all title tags, remove them, and add the new one.
 		$content = preg_replace( '/<title.*?\/title>/i', '', $content );
 		$content = str_replace( '<head>', '<head>' . "\n" . '<title>' . esc_html( $title ) . '</title>', $content );
 		if ( ! empty( $old_wp_query ) ) {

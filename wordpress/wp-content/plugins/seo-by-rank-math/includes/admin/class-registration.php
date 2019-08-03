@@ -1,6 +1,6 @@
 <?php
 /**
- * The Setup Wizard - configure the SEO settings in a few steps.
+ * The Setup Wizard - configure the SEO settings in just a few steps.
  *
  * @since      0.9.0
  * @package    RankMath
@@ -160,7 +160,7 @@ class Registration {
 	}
 
 	/**
-	 * Add the admin page.
+	 * Output the admin page.
 	 */
 	public function render_page() {
 
@@ -202,7 +202,7 @@ class Registration {
 	}
 
 	/**
-	 * Render page.
+	 * Render page body.
 	 */
 	protected function body() {
 		?>

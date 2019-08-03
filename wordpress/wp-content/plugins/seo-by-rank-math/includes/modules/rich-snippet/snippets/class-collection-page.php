@@ -1,6 +1,6 @@
 <?php
 /**
- * The CollectionPage Class
+ * The CollectionPage Class.
  *
  * @since      1.0.13
  * @package    RankMath
@@ -20,11 +20,11 @@ defined( 'ABSPATH' ) || exit;
 class Collection_Page implements Snippet {
 
 	/**
-	 * Outputs code to allow recognition of the CollectionPage.
+	 * Sets the Schema structured data for the CollectionPage.
 	 *
 	 * @link https://schema.org/CollectionPage
 	 *
-	 * @param array  $data   Array of json-ld data.
+	 * @param array  $data   Array of JSON-LD data.
 	 * @param JsonLD $jsonld JsonLD Instance.
 	 *
 	 * @return array
@@ -33,7 +33,7 @@ class Collection_Page implements Snippet {
 		$queried_object = get_queried_object();
 
 		/**
-		 * Allow developer to remove snippet data.
+		 * Filter to remove snippet data: rank_math/snippet/remove_taxonomy_data.
 		 *
 		 * @param bool $unsigned Default: false
 		 * @param string $unsigned Taxonomy Name

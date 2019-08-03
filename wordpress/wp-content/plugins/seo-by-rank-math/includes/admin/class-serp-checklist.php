@@ -428,7 +428,7 @@ class Serp_Checklist {
 	}
 
 	/**
-	 * Get heading of the checklist heading.
+	 * Get heading of the checklist group.
 	 *
 	 * @param  string $id ID of the checklist section.
 	 * @return string

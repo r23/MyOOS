@@ -1,6 +1,6 @@
 <?php
 /**
- * The WooCommerce Product Class
+ * The WooCommerce Product Class.
  *
  * @since      1.0.13
  * @package    RankMath
@@ -29,7 +29,7 @@ class Product_WooCommerce {
 	/**
 	 * Set product data for rich snippet.
 	 *
-	 * @param array  $entity Array of json-ld entity.
+	 * @param array  $entity Array of JSON-LD entity.
 	 * @param JsonLD $jsonld JsonLD Instance.
 	 */
 	public function set_product( &$entity, $jsonld ) {
@@ -372,7 +372,7 @@ class Product_WooCommerce {
 	}
 
 	/**
-	 * If product is variable send variations.
+	 * If product is variable, send variations.
 	 *
 	 * @param object $product Current product.
 	 *

@@ -1,6 +1,6 @@
 <?php
 /**
- * The Blog Class
+ * The Blog Class.
  *
  * @since      1.0.13
  * @package    RankMath
@@ -18,11 +18,11 @@ defined( 'ABSPATH' ) || exit;
 class Blog implements Snippet {
 
 	/**
-	 * Outputs code to allow recognition of the Blog.
+	 * Sets the Schema structured data for the Blog.
 	 *
 	 * @link https://schema.org/Blog
 	 *
-	 * @param array  $data   Array of json-ld data.
+	 * @param array  $data   Array of JSON-LD data.
 	 * @param JsonLD $jsonld JsonLD Instance.
 	 *
 	 * @return array

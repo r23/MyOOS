@@ -1,6 +1,6 @@
 <?php
 /**
- * The Singular Class
+ * The Singular Class.
  *
  * @since      1.0.13
  * @package    RankMath
@@ -26,7 +26,7 @@ class Singular implements Snippet {
 	/**
 	 * Generate rich snippet.
 	 *
-	 * @param array  $data   Array of json-ld data.
+	 * @param array  $data   Array of JSON-LD data.
 	 * @param JsonLD $jsonld JsonLD Instance.
 	 *
 	 * @return array
@@ -67,7 +67,7 @@ class Singular implements Snippet {
 	}
 
 	/**
-	 * Can add schema.
+	 * Get Rich Snippet type.
 	 *
 	 * @param JsonLD $jsonld JsonLD Instance.
 	 *
@@ -87,7 +87,7 @@ class Singular implements Snippet {
 	}
 
 	/**
-	 * Get Schema Class.
+	 * Get appropriate Schema Class.
 	 *
 	 * @param string $schema Schema type.
 	 * @return bool|Class

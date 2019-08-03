@@ -72,7 +72,7 @@ class Export {
 	/**
 	 * Apache rewrite rules.
 	 *
-	 * @param array $items Array of db items.
+	 * @param array $items Array of DB items.
 	 *
 	 * @return string
 	 */
@@ -89,7 +89,7 @@ class Export {
 	}
 
 	/**
-	 * Format apache single item.
+	 * Format Apache single item.
 	 *
 	 * @param array $item   Single item.
 	 * @param array $output Output array.
@@ -107,12 +107,12 @@ class Export {
 			}
 
 			// Get rewrite string.
-			$output[] = sprintf( '%sRewriteRule %s %s', $this->is_valid_regex( $from ), $this->get_comparison( $url, $from ), $target );
+			$output[] = sprintf( '%sRewriteRule %s %s', ( $this->is_valid_regex( $from ) ? '' : '# ' ), $this->get_comparison( $url, $from ), $target );
 		}
 	}
 
 	/**
-	 * NGINX rewrite rules.
+	 * Nginx rewrite rules.
 	 *
 	 * @param array $items Array of db items.
 	 *
@@ -142,7 +142,7 @@ class Export {
 		$header_code = '301' === $item['header_code'] ? 'permanent' : 'redirect';
 
 		foreach ( $sources as $from ) {
-			if ( '' !== $this->is_valid_regex( $from ) ) {
+			if ( ! $this->is_valid_regex( $from ) ) {
 				continue;
 			}
 
@@ -161,14 +161,14 @@ class Export {
 	 */
 	private function is_valid_regex( $source ) {
 		if ( 'regex' == $source['comparison'] && @preg_match( $source['pattern'], null ) === false ) { // phpcs:ignore
-			return '# ';
+			return false;
 		}
 
-		return '';
+		return true;
 	}
 
 	/**
-	 * Normalize redirect data
+	 * Normalize redirect data.
 	 *
 	 * @param string $source      Matching pattern.
 	 * @param string $target      Target where to redirect.
@@ -186,10 +186,10 @@ class Export {
 	}
 
 	/**
-	 * Get comparison pattern
+	 * Get comparison pattern.
 	 *
-	 * @param string $url  Url for comparison.
-	 * @param array  $from Comparison type and url.
+	 * @param string $url  URL for comparison.
+	 * @param array  $from Comparison type and URL.
 	 *
 	 * @return string
 	 */
@@ -211,9 +211,9 @@ class Export {
 	}
 
 	/**
-	 * Encode url
+	 * Encode URL.
 	 *
-	 * @param string $url Url to encode.
+	 * @param string $url URL to encode.
 	 *
 	 * @return string
 	 */
@@ -231,9 +231,9 @@ class Export {
 	}
 
 	/**
-	 * Encode regex
+	 * Encode regex.
 	 *
-	 * @param string $url Url to encode.
+	 * @param string $url URL to encode.
 	 *
 	 * @return string
 	 */

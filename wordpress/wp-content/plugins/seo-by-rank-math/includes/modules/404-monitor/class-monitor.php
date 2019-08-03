@@ -1,6 +1,6 @@
 <?php
 /**
- * The 404 Monitor Module
+ * The 404 Monitor Module.
  *
  * @since      0.9.0
  * @package    RankMath
@@ -111,7 +111,7 @@ class Monitor {
 			return;
 		}
 
-		// Mode = advance.
+		// Mode = advanced.
 		DB::add([
 			'uri'        => $uri,
 			'ip'         => Param::server( 'REMOTE_ADDR', '' ),
@@ -121,9 +121,9 @@ class Monitor {
 	}
 
 	/**
-	 * Is current url excluded
+	 * Check if current URL is excluded.
 	 *
-	 * @param string $uri Check this uri for exclusion.
+	 * @param string $uri Check this URI for exclusion.
 	 *
 	 * @return boolean
 	 */
@@ -165,7 +165,7 @@ class Monitor {
 	}
 
 	/**
-	 * Parses a user agent string into its important parts.
+	 * Parses a user-agent string into its parts.
 	 *
 	 * @link https://github.com/donatj/PhpUserAgent
 	 *

@@ -57,7 +57,7 @@ class Author implements IPaper {
 		$robots = Paper::robots_combine( User::get_meta( 'robots', get_query_var( 'author' ) ) );
 
 		if ( empty( $robots ) && Helper::get_settings( 'titles.author_custom_robots' ) ) {
-			$robots = Paper::robots_combine( Helper::get_settings( 'titles.author_robots' ) );
+			$robots = Paper::robots_combine( Helper::get_settings( 'titles.author_robots' ), true );
 		}
 
 		return $robots;

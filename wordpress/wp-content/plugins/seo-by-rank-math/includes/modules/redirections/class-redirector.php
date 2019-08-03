@@ -1,6 +1,6 @@
 <?php
 /**
- * The Redirector
+ * The Redirector.
  *
  * @since      0.9.0
  * @package    RankMath
@@ -33,18 +33,25 @@ class Redirector {
 	private $matched = false;
 
 	/**
-	 * Redirect to this url.
+	 * Redirect to this URL.
 	 *
 	 * @var string
 	 */
 	private $redirect_to;
 
 	/**
-	 * Current request uri.
+	 * Current request URI.
 	 *
 	 * @var string
 	 */
 	private $uri = '';
+
+	/**
+	 * Current request uri with querystring.
+	 *
+	 * @var string
+	 */
+	private $full_uri = '';
 
 	/**
 	 * Current query string.
@@ -68,7 +75,7 @@ class Redirector {
 	protected $template_file_path;
 
 	/**
-	 * The Construct
+	 * The Constructor.
 	 */
 	public function __construct() {
 		$this->start();
@@ -81,16 +88,18 @@ class Redirector {
 	 */
 	private function start() {
 		$this->uri = str_replace( site_url( '/' ), '', Param::server( 'REQUEST_URI' ) );
-		$this->uri = trim( $this->uri, '/' );
 		$this->uri = urldecode( $this->uri );
 		$this->uri = trim( Redirection::strip_subdirectory( $this->uri ), '/' );
+
+		// Complete request uri.
+		$this->full_uri = $this->uri;
 
 		// Remove query string.
 		$this->uri = explode( '?', $this->uri );
 		if ( isset( $this->uri[1] ) ) {
 			$this->query_string = $this->uri[1];
 		}
-		$this->uri = $this->uri[0];
+		$this->uri = trim( $this->uri[0], '/' );
 
 		if ( $this->is_amp_endpoint() ) {
 			$this->uri = \str_replace( '/' . amp_get_slug(), '', $this->uri );
@@ -101,7 +110,7 @@ class Redirector {
 	 * Run the system flow.
 	 */
 	private function flow() {
-		$flow = [ 'from_cahce', 'everything', 'fallback' ];
+		$flow = [ 'pre_filter', 'from_cahce', 'everything', 'fallback' ];
 		foreach ( $flow as $func ) {
 			if ( false !== $this->matched ) {
 				break;
@@ -112,7 +121,7 @@ class Redirector {
 	}
 
 	/**
-	 * If we got a match redirect.
+	 * If we got a match, redirect.
 	 */
 	private function redirect() {
 		if ( false === $this->matched ) {
@@ -133,8 +142,9 @@ class Redirector {
 		$this->do_debugging();
 
 		// @codeCoverageIgnoreStart
+		$this->redirect_to = trailingslashit( $this->redirect_to );
 		if ( true === $this->do_filter( 'redirection/add_query_string', true ) && Str::is_non_empty( $this->query_string ) ) {
-			$this->redirect_to .= '/?' . $this->query_string;
+			$this->redirect_to .= '?' . $this->query_string;
 		}
 
 		if ( wp_redirect( $this->redirect_to, $header_code, $this->get_redirect_header() ) ) {
@@ -199,6 +209,25 @@ class Redirector {
 		}
 
 		return $template;
+	}
+
+	/**
+	 * Pre filter
+	 */
+	private function pre_filter() {
+		$pre = $this->do_filter(
+			'redirection/pre_search',
+			null,
+			$this->uri,
+			$this->full_uri
+		);
+
+		if ( null === $pre || ! is_array( $pre ) ) {
+			return;
+		}
+
+		$this->matched     = $pre;
+		$this->redirect_to = $pre['url_to'];
 	}
 
 	/**
@@ -270,7 +299,7 @@ class Redirector {
 	}
 
 	/**
-	 * Do debugging
+	 * Show debugging interstitial if enabled.
 	 *
 	 * @codeCoverageIgnore
 	 */
@@ -291,9 +320,9 @@ class Redirector {
 	}
 
 	/**
-	 * Set redirection by id.
+	 * Set redirection by ID.
 	 *
-	 * @param integer $redirection Redirection id to set for.
+	 * @param integer $redirection Redirection ID to set for.
 	 */
 	private function set_redirection( $redirection ) {
 		if ( ! is_array( $redirection ) ) {

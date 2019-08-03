@@ -1,6 +1,6 @@
 <?php
 /**
- * The Author Class
+ * The Author Class.
  *
  * @since      1.0.13
  * @package    RankMath
@@ -18,11 +18,11 @@ defined( 'ABSPATH' ) || exit;
 class Author implements Snippet {
 
 	/**
-	 * Outputs code to allow recognition of the ProfilePage.
+	 * Sets the Schema structured data for the ProfilePage.
 	 *
 	 * @link https://schema.org/ProfilePage
 	 *
-	 * @param array  $data   Array of json-ld data.
+	 * @param array  $data   Array of JSON-LD data.
 	 * @param JsonLD $jsonld JsonLD Instance.
 	 *
 	 * @return array

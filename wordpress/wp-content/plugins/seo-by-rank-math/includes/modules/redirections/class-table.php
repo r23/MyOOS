@@ -36,7 +36,7 @@ class Table extends List_Table {
 	public function prepare_items() {
 		global $per_page;
 
-		$per_page = $this->get_items_per_page( 'rank_math_redirections_per_page' );
+		$per_page = $this->get_items_per_page( 'rank_math_redirections_per_page', 100 );
 
 		$data = DB::get_redirections([
 			'limit'   => $per_page,
@@ -309,7 +309,7 @@ class Table extends List_Table {
 	}
 
 	/**
-	 * Checks if is in trashed page.
+	 * Checks if page status is set to trashed.
 	 *
 	 * @return bool
 	 */

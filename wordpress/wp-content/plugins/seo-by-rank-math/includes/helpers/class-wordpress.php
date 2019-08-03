@@ -120,7 +120,7 @@ trait WordPress {
 			return add_query_arg( $args, admin_url( 'admin.php' ) );
 		}
 
-		// Makes sure the plugin is defined before trying to use it.
+		// Makes sure the plugin functions are defined before trying to use them.
 		if ( ! function_exists( 'is_plugin_active_for_network' ) ) {
 			require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
 		}
@@ -129,7 +129,7 @@ trait WordPress {
 	}
 
 	/**
-	 * Get dashboard url.
+	 * Get Rank Math Dashboard url.
 	 *
 	 * @codeCoverageIgnore
 	 *

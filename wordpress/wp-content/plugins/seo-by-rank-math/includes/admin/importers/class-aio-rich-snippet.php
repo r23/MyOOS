@@ -28,21 +28,21 @@ class AIO_Rich_Snippet extends Plugin_Importer {
 	protected $plugin_name = 'AIO Schema Rich Snippet';
 
 	/**
-	 * Meta key, used in SQL LIKE clause for delete query.
+	 * Plugin options meta key.
 	 *
 	 * @var string
 	 */
 	protected $meta_key = '_bsf_post_type';
 
 	/**
-	 * Array of option keys to import and clean
+	 * Option keys to import and clean.
 	 *
 	 * @var array
 	 */
 	protected $option_keys = [ 'bsf_', 'bsf_%' ];
 
 	/**
-	 * Array of choices keys to import
+	 * Choices keys to import.
 	 *
 	 * @var array
 	 */
@@ -110,7 +110,7 @@ class AIO_Rich_Snippet extends Plugin_Importer {
 	}
 
 	/**
-	 * Returns array of choices of action which can be performed for plugin
+	 * Get the actions which can be performed for the plugin.
 	 *
 	 * @return array
 	 */

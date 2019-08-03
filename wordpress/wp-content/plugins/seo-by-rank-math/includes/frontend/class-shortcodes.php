@@ -41,20 +41,20 @@ class Shortcodes {
 		$this->remove_shortcode( 'wpseo_map' );
 		$this->remove_shortcode( 'wpseo_opening_hours' );
 
-		// Yoast compatibility shortcodes.
+		// Add Yoast compatibility shortcodes.
 		$this->add_shortcode( 'wpseo_address', 'yoast_address' );
 		$this->add_shortcode( 'wpseo_map', 'yoast_map' );
 		$this->add_shortcode( 'wpseo_opening_hours', 'yoast_opening_hours' );
 
-		// Contact shortcode.
+		// Add the Contact shortcode.
 		$this->add_shortcode( 'rank_math_contact_info', 'contact_info' );
 
-		// Breadcrumb shortcode.
+		// Add the Breadcrumbs shortcode.
 		$this->add_shortcode( 'rank_math_breadcrumb', 'breadcrumb' );
 	}
 
 	/**
-	 * Get the breadcrumb
+	 * Get the breadcrumbs.
 	 *
 	 * @param array $args Arguments.
 	 *
@@ -142,7 +142,7 @@ class Shortcodes {
 		/**
 		 * Allow developer to change the address part format.
 		 *
-		 * @param string $parts_format String format  how to output address part.
+		 * @param string $parts_format String format to output the address part.
 		 */
 		$parts_format = $this->do_filter( 'shortcode/contact/address_parts_format', '<span class="contact-address-%1$s">%2$s</span>' );
 
@@ -311,7 +311,7 @@ class Shortcodes {
 		}
 
 		/**
-		 * Filter address for Google Map in contact shortcode
+		 * Filter address for Google Map in contact shortcode.
 		 *
 		 * @param string $address
 		 */

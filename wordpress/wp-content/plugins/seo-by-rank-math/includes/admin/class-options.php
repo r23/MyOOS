@@ -239,7 +239,7 @@ class Options {
 	/**
 	 * Add classes to <body> of WordPress admin.
 	 *
-	 * @param string $classes Space-separated list of CSS classes.
+	 * @param string $classes List of CSS classes.
 	 * @return string
 	 */
 	public function body_class( $classes = '' ) {
@@ -249,7 +249,7 @@ class Options {
 	/**
 	 * Display Setting on a page.
 	 *
-	 * @param CMB2_Options $machine CUrrent CMB2 box object.
+	 * @param CMB2_Options $machine Current CMB2 box object.
 	 */
 	public function display( $machine ) {
 		$cmb = $machine->cmb;

@@ -2,7 +2,7 @@
 /**
  * The Content Processor.
  *
- * It will extract links from the content and saves them for the given post id.
+ * Extract and save links from the content of a given post.
  *
  * @since      0.9.0
  * @package    RankMath
@@ -45,10 +45,10 @@ class ContentProcessor {
 	}
 
 	/**
-	 * Process the content for the given post id.
+	 * Process the content.
 	 *
-	 * @param int    $post_id The post id.
-	 * @param string $content The content to process.
+	 * @param int    $post_id The post ID.
+	 * @param string $content The content.
 	 */
 	public function process( $post_id, $content ) {
 		$links  = $this->extract( $content );
@@ -62,7 +62,6 @@ class ContentProcessor {
 			$this->process_link( $link, $new_links, $counts );
 		}
 
-		// Start processing.
 		$old_links = $this->get_stored_internal_links( $post_id );
 		$this->storage->cleanup( $post_id );
 		$this->storage->save_links( $post_id, $new_links );
@@ -70,7 +69,7 @@ class ContentProcessor {
 	}
 
 	/**
-	 * Process link.
+	 * Process a link.
 	 *
 	 * @param string $link   Link to process.
 	 * @param array  $list   Links to add after process.
@@ -92,11 +91,11 @@ class ContentProcessor {
 	}
 
 	/**
-	 * Extracts the hrefs from the content and returns them as an array.
+	 * Extract href property values from HTML string.
 	 *
 	 * @param string $content Content to extract links from.
 	 *
-	 * @return array All the extracted links
+	 * @return array The extracted links.
 	 */
 	public function extract( $content ) {
 		$links = [];
@@ -106,7 +105,7 @@ class ContentProcessor {
 
 		$regexp = '<a\s[^>]*href=("??)([^" >]*?)\\1[^>]*>';
 
-		// Used modifiers iU to match case insensitive and make greedy quantifiers lazy.
+		// Case insensitive & ungreedy modifiers.
 		if ( preg_match_all( "/$regexp/iU", $content, $matches, PREG_SET_ORDER ) ) {
 			foreach ( $matches as $match ) {
 				$links[] = trim( $match[2], "'" );
@@ -129,20 +128,20 @@ class ContentProcessor {
 	}
 
 	/**
-	 * Filters on INTERNAL links.
+	 * Filter internal links.
 	 *
-	 * @param Link $link Link to test type of.
+	 * @param Link $link Link to test.
 	 *
-	 * @return bool True for internal link, false for external link.
+	 * @return bool True if internal, false if external.
 	 */
 	protected function filter_internal_link( Link $link ) {
 		return $link->get_type() === Classifier::TYPE_INTERNAL;
 	}
 
 	/**
-	 * Check if link is valid
+	 * Check if link is valid.
 	 *
-	 * @param string $link Link to evaluate.
+	 * @param string $link Link to check.
 	 *
 	 * @return boolean
 	 */

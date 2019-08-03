@@ -1,6 +1,6 @@
 <?php
 /**
- * The JobPosting Class
+ * The JobPosting Class.
  *
  * @since      1.0.13
  * @package    RankMath

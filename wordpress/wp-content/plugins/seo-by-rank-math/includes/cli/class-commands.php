@@ -24,9 +24,9 @@ defined( 'ABSPATH' ) || exit;
 class Commands extends WP_CLI_Command {
 
 	/**
-	 * Generate sitemap .
+	 * Generate the sitemap.
 	 *
-	 * @param array $args Argument passed.
+	 * @param array $args Arguments passed.
 	 */
 	public function sitemap_generate( $args ) {
 		$sitemap = Helper::get_module( 'sitemap' );
