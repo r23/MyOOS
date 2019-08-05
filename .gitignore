@@ -98,3 +98,5 @@ prepros-6.config
 /myoos/media/models/gltf/SimpleSkinning.gltf
 /myoos/media/models/gltf/SittingBox.glb
 /myoos/media/models/gltf/Soldier.glb
+/myoos/images/panoramas/*.png
+/myoos/images/panoramas/*.jpg

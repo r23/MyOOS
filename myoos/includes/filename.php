@@ -49,6 +49,7 @@ $aContents = [
 //main
 'home'                            => $prefix_filename . 'home',
 'shop'                            => $prefix_filename . 'shop',
+'panorama'                        => $prefix_filename . 'panorama',
 'redirect'                        => $prefix_filename . 'redirect',
 'shopping_cart'                   => $prefix_filename . 'shopping_cart',
 'contact_us'                      => $prefix_filename . 'contact_us',
@@ -78,7 +79,6 @@ $aContents = [
 'logoff'                          => $prefix_filename . 'logoff',
 'password_forgotten'              => $prefix_filename . 'password_forgotten',
 'product_notifications'           => $prefix_filename . 'product_notifications',
-
 //checkout
 'checkout_confirmation'           => $prefix_filename . 'checkout_confirmation',
 'checkout_payment'                => $prefix_filename . 'checkout_payment',
