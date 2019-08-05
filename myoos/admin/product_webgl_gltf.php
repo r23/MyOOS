@@ -26,6 +26,7 @@ require 'includes/functions/function_categories.php';
 
 require_once MYOOS_INCLUDE_PATH . '/includes/lib/htmlpurifier/library/HTMLPurifier.auto.php';
 
+
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
 $cPath = (isset($_GET['cPath']) ? oos_prepare_input($_GET['cPath']) : $current_category_id);
 $pID = (isset($_GET['pID']) ? intval($_GET['pID']) : 0);
@@ -55,9 +56,9 @@ if (!empty($action)) {
 				
 				for ($i = 0, $n = $nModelCounter; $i < $n; $i++) {
 								
-						$action = (!isset($_POST['models_id'][$i]) || !is_numeric($_POST['models_id'][$i])) ? 'insert_model' : 'update_model';
+					$action = (!isset($_POST['models_id'][$i]) || !is_numeric($_POST['models_id'][$i])) ? 'insert_model' : 'update_model';
 			
-						$sql_data_array = array('products_id' => intval($products_id),
+					$sql_data_array = array('products_id' => intval($products_id),
 											'models_author' => oos_db_prepare_input($_POST['models_author'][$i]),
 											'models_author_url' => oos_db_prepare_input($_POST['models_author_url'][$i]),
 											'models_camera_pos' => oos_db_prepare_input($_POST['models_camera_pos'][$i]),
@@ -133,18 +134,17 @@ if (!empty($action)) {
 								$name = oos_strip_suffix($filename);
 								$models_extensions = oos_db_prepare_input($_POST['models_extensions'][$i]);
 
-								$path = OOS_ABSOLUTE_PATH . OOS_MEDIA . 'models/gltf/' . $name . '/' . $models_extensions . '/';
+
+								$check =  OOS_ABSOLUTE_PATH . OOS_MEDIA . 'models/gltf/' . oos_var_prep_for_os($name);
+								if (is_dir($check)) oos_remove ( $check);
+
+
+								$path = OOS_ABSOLUTE_PATH . OOS_MEDIA . 'models/gltf/' . oos_var_prep_for_os($name) . '/' . oos_var_prep_for_os($models_extensions) . '/';
 								$targetdir = $path;  // target directory
 								$targetzip = $path . $filename; // target zip file
-					
-								if (is_dir($targetdir))  rmdir_recursive ( $targetdir);
-								
-								$removedir = OOS_ABSOLUTE_PATH . OOS_MEDIA . 'models/gltf/' . $name . '/';
-								if (is_dir($removedir))  rmdir_recursive ( $removedir);
-
-								mkdir(OOS_ABSOLUTE_PATH . OOS_MEDIA . 'models/gltf/' . $name, 0755);
-								mkdir(OOS_ABSOLUTE_PATH . OOS_MEDIA . 'models/gltf/' . $name . '/' . $models_extensions, 0755);							
-
+													
+								mkdir($check, 0755);
+								mkdir($targetdir, 0755);
 
 								if (move_uploaded_file($source, $targetzip)) {
 									$zip = new ZipArchive();

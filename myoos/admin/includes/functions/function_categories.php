@@ -698,7 +698,9 @@ function oos_remove_product_image($image) {
 }
 
 function oos_remove_products_model($model) {
-		
+	
+	if (empty($model)) return;
+	
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
@@ -710,7 +712,7 @@ function oos_remove_products_model($model) {
 	$models_result = $dbconn->Execute($product_models_query);
 	if (!$models_result->RecordCount()) {
 		$sName = oos_strip_suffix($model);
-		$dir = OOS_ABSOLUTE_PATH . OOS_MEDIA . 'models/gltf/' . $sName;
+		$dir = OOS_ABSOLUTE_PATH . OOS_MEDIA . 'models/gltf/' . oos_var_prep_for_os($sName);
 		oos_remove($dir);
 	}
 	

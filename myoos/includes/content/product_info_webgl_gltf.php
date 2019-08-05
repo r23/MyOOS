@@ -82,7 +82,6 @@ if (!$products_models_result->RecordCount()) {
 	
 	$name = oos_strip_suffix($model_info['models_webgl_gltf']);
 	$url = $name . '/' . $model_info['models_extensions'] . '/' . $model_info['models_webgl_gltf']; 
-$model_info['models_name'] = $name;
 		
 	ob_start();
 	require_once MYOOS_INCLUDE_PATH . '/includes/content/scene3d/product_info_webgl_gltf.js.php';
@@ -91,8 +90,8 @@ $model_info['models_name'] = $name;
 		
 
     // Meta Tags
-    $sPagetitle = $model_info['models_name'] . ' ' . OOS_META_TITLE;
-
+    $sPagetitle = $model_info['models_title'] . ' ' . OOS_META_TITLE;
+	$sDescription = $model_info['models_description_meta'];
 
     $aTemplate['page'] = $sTheme . '/webgl/scene3d.html';
 	
