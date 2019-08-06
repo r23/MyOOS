@@ -289,7 +289,7 @@ define('IMAGE_NEW_ZONE', 'Neues Bundesland anlegen');
 define('IMAGE_ORDERS', 'Bestellungen');
 define('IMAGE_ORDERS_INVOICE', 'Rechnung');
 define('IMAGE_ORDERS_PACKINGSLIP', 'Lieferschein');
-define('IMAGE_ORDERS_WEBPRINTER', 'WebPrinter');
+define('BUTTON_PANORAMA', 'Panorama');
 define('IMAGE_PLUGINS_INSTALL', 'Plugins Installieren');
 define('IMAGE_PLUGINS_REMOVE', 'Plugins Entfernen');
 define('IMAGE_PREVIEW', 'Vorschau');

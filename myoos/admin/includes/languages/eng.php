@@ -284,7 +284,7 @@ define('IMAGE_NEW_ZONE', 'New Zone');
 define('IMAGE_ORDERS', 'Orders');
 define('IMAGE_ORDERS_INVOICE', 'Invoice');
 define('IMAGE_ORDERS_PACKINGSLIP', 'Packing Slip');
-define('IMAGE_ORDERS_WEBPRINTER', 'WebPrinter');
+define('BUTTON_PANORAMA', 'Panorama');
 define('IMAGE_PLUGINS_INSTALL', 'Install Plugins');
 define('IMAGE_PLUGINS_REMOVE', 'Remove Plugins');
 define('IMAGE_PREVIEW', 'Preview');
