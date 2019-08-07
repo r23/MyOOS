@@ -265,6 +265,43 @@ $idxflds = 'categories_images_title';
 idxsql($idxname, $table, $idxflds);
 
 
+$table = $prefix_table . 'categories_panorama';
+$flds = "
+  panorama_id I I NOTNULL AUTO PRIMARY,
+  categories_id I NOTNULL DEFAULT '1' PRIMARY,
+  panorama_image C(255) NULL,
+  panorama_preview C(255) NULL,
+  panorama_author C(255) NULL,
+  panorama_type C(24) NULL,
+  panorama_hfov C(3) NULL,
+  panorama_pitch C(3) NULL,
+  panorama_yaw C(3) NULL,
+  panorama_autoload C(5) DEFAULT 'false',  
+  panorama_autorotates C(5) DEFAULT '-2',  
+  panorama_date_added T,
+  panorama_last_modified T 
+";
+dosql($table, $flds);
+
+
+$table = $prefix_table . 'categories_panorama_description';
+$flds = "
+  panorama_id I DEFAULT '0' NOTNULL PRIMARY,
+  panorama_languages_id I NOTNULL DEFAULT '1' PRIMARY,
+  panorama_name C(64) NOTNULL,
+  panorama_title C(255) NULL,
+  panorama_viewed I2 DEFAULT '0',
+  panorama_description_meta C(250) NULL,
+  panorama_keywords C(250) NULL
+";
+dosql($table, $flds);
+
+$idxname = 'idx_panorama_name';
+$idxflds = 'panorama_name';
+idxsql($idxname, $table, $idxflds);
+
+
+
 
 $table = $prefix_table . 'configuration';
 $flds = "
