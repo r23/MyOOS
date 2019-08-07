@@ -1,0 +1,385 @@
+# Translation of Plugins - Cookie Notice for GDPR - Stable (latest release) in German
+# This file is distributed under the same license as the Plugins - Cookie Notice for GDPR - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2019-02-14 13:47:23+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/2.4.0-alpha\n"
+"Language: de\n"
+"Project-Id-Version: Plugins - Cookie Notice for GDPR - Stable (latest release)\n"
+
+#: cookie-notice.php:554
+msgid "The text of the privacy policy button."
+msgstr "Der Text des Button für die Datenschutzerklärung."
+
+#: cookie-notice.php:745
+msgid "Enter additional button CSS classes separated by spaces."
+msgstr "Gib zusätzliche CSS-Klassen für Buttons mit Leerzeichen getrennt ein."
+
+#: cookie-notice.php:615
+msgid "Select the privacy policy link target."
+msgstr "Wähl das Linkziel zur Datenschutzerklärung aus."
+
+#: cookie-notice.php:586
+msgid "Synchronize with WordPress Privacy Policy page."
+msgstr "Synchronisiere mit der Seite Datenschutzerklärung in WordPress."
+
+#: cookie-notice.php:550
+msgid "Enable privacy policy link."
+msgstr "Link zu den Datenschutzrichtlinien aktivieren."
+
+#: cookie-notice.php:516
+msgid "Select the method for displaying the revoke button - automatic (in the Cookie Notice container) or manual using <code>[cookies_revoke]</code> shortcode."
+msgstr "Wähle die Methode zur Anzeige des Widerrufs-Buttons – automatisch (im Cookie-Notice-Container) oder manuell mit dem Shortcode <code>[cookies_revoke]</code>."
+
+#: cookie-notice.php:508
+msgid "The text of the button to revoke the cookie consent."
+msgstr "Der Text des Buttons, mit dem die Cookie-Einwilligung widerrufen wird."
+
+#: cookie-notice.php:505
+msgid "Enable to give to the user the possibility to revoke their cookie consent <i>(requires \"Refuse cookies\" option enabled)</i>."
+msgstr "Aktivieren, um dem Benutzer die Möglichkeit zu geben, seine Cookie-Einwilligung zu widerrufen <i>(erfordert die aktivierte Option \"Cookies ablehnen\")</i>."
+
+#: cookie-notice.php:490
+msgid "The code to be used in your site footer, before the closing body tag."
+msgstr "Der Code, der in deinem Website-Footer vor dem schließenden Body-Tag verwendet werden soll."
+
+#: cookie-notice.php:486
+msgid "The code to be used in your site header, before the closing head tag."
+msgstr "Der Code, der in deinem Header vor dem schließenden Head-Tag verwendet werden soll."
+
+#: cookie-notice.php:483
+msgid "Body"
+msgstr "Body"
+
+#: cookie-notice.php:482
+msgid "Head"
+msgstr "Head"
+
+#: cookie-notice.php:408
+msgid "Button class"
+msgstr "Button-Klasse"
+
+#: cookie-notice.php:193 cookie-notice.php:395
+msgid "Revoke cookies"
+msgstr "Cookies widerrufen"
+
+#: cookie-notice.php:394
+msgid "Refuse cookies"
+msgstr "Cookies ablehnen"
+
+#: cookie-notice.php:194 cookie-notice.php:392
+msgid "Privacy policy"
+msgstr "Datenschutzerklärung"
+
+#: cookie-notice.php:166
+msgid "An hour"
+msgstr "eine Stunde"
+
+#: cookie-notice.php:147
+msgid "Manual"
+msgstr "Manuell"
+
+#: cookie-notice.php:146
+msgid "Automatic"
+msgstr "Automatisch"
+
+#: cookie-notice.php:527
+msgid "Enable to reload the page after cookies are accepted."
+msgstr "Aktiviere diese Option, um die Seite neu zu laden, nachdem Cookies akzeptiert wurden."
+
+#: cookie-notice.php:397
+msgid "Reloading"
+msgstr "Lade"
+
+#: cookie-notice.php:494
+msgid "To get the cookie notice status use <code>cn_cookies_accepted()</code> function."
+msgstr "Um den Status der Cookie-Benachrichtigung zu erhalten, verwende die Funktion <code>cn_cookies_accepted()</code>."
+
+#: cookie-notice.php:464
+msgid "The text of the button to refuse the usage of the cookies."
+msgstr "Der Text des Buttons, mit dem die Verwendung von Cookies abgelehnt wird."
+
+#: cookie-notice.php:396
+msgid "Script blocking"
+msgstr "Script-Blockierung"
+
+#: cookie-notice.php:358
+msgid "Check out our other <a href=\"%s\" target=\"_blank\">WordPress plugins</a>."
+msgstr "Schau dir auch unsere anderen <a href=\"%s\" target=\"_blank\">WordPress-Plugins</a> an."
+
+#: cookie-notice.php:357
+msgid "Blog about it & link to the <a href=\"%s\" target=\"_blank\">plugin page</a>."
+msgstr "Schreibe darüber & verlinke auf die <a href=\"%s\" target=\"_blank\">Plugin-Seite</a>."
+
+#: cookie-notice.php:356
+msgid "<a href=\"%s\" target=\"_blank\">Rate it 5</a> on WordPress.org"
+msgstr "<a href=\"%s\" target=\"_blank\">Bewerte es mit 5*</a> auf WordPress.org"
+
+#: cookie-notice.php:353
+msgid "If you are having problems with this plugin, please browse it's <a href=\"%s\" target=\"_blank\">Documentation</a> or talk about them in the <a href=\"%s\" target=\"_blank\">Support forum</a>"
+msgstr "Wenn du Probleme mit diesem Plugin hast, dann schau bitte in unsere <a href=\"%s\" target=\"_blank\">Dokumentation</a> oder berichte darüber im <a href=\"%s\" target=\"_blank\">Support-Forum</a>."
+
+#: cookie-notice.php:551
+msgid "Need a Cookie Policy? Generate one with <a href=\"%s\" target=\"_blank\" title=\"iubenda\">iubenda</a>."
+msgstr "Benötigst du eine Cookie-Richtlinie? Generiere eine mit <a href=\"%s\" target=\"_blank\" title=\"iubenda\">iubenda</a>."
+
+#. Author URI of the plugin
+msgid "http://www.dfactory.eu/"
+msgstr "https://dfactory.eu/"
+
+#. Author of the plugin
+msgid "dFactory"
+msgstr "dFactory"
+
+#. Description of the plugin
+msgid "Cookie Notice allows you to elegantly inform users that your site uses cookies and to comply with the EU cookie law GDPR regulations."
+msgstr "Mit Cookie Notice kannst du deine Besucher elegant darüber informieren, dass deine Website Cookies benutzt. Dies ist notwendig, um die EU-Cookie-Richtlinie zu erfüllen."
+
+#. Plugin URI of the plugin
+msgid "http://www.dfactory.eu/plugins/cookie-notice/"
+msgstr "https://dfactory.eu/products/cookie-notice/"
+
+#: cookie-notice.php:1080
+msgid "Are you sure you want to reset these settings to defaults?"
+msgstr "Bist du dir sicher, dass du die Einstellungen zurücksetzen möchtest?"
+
+#: cookie-notice.php:1008
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: cookie-notice.php:991
+msgid "Support"
+msgstr "Support"
+
+#: cookie-notice.php:871
+msgid "Settings restored to defaults."
+msgstr "Standard-Einstellungen wiederhergestellt."
+
+#: cookie-notice.php:732
+msgid "Choose buttons style."
+msgstr "Style der Buttons einstellen."
+
+#: cookie-notice.php:711
+msgid "Number of pixels user has to scroll to accept the usage of the cookies and make the notification disappear."
+msgstr "Anzahl der Pixel, die der Nutzer scrollen muss, um der Verwendung von Cookies zuzustimmen und die Meldung verschwinden zu lassen."
+
+#: cookie-notice.php:708
+msgid "Enable cookie notice acceptance when users scroll."
+msgstr "Der Cookie-Verwendung soll zugestimmt werden, wenn der Nutzer scrollt."
+
+#: cookie-notice.php:697
+msgid "Cookie notice acceptance animation."
+msgstr "Animation beim Akzeptieren der Cookie-Nachricht."
+
+#: cookie-notice.php:676
+msgid "Select location for your cookie notice."
+msgstr "Wähle die Position der Meldung aus."
+
+#: cookie-notice.php:656
+msgid "Select where all the plugin scripts should be placed."
+msgstr "Wähle, wo alle Plugin-Skripte abgelegt werden sollen."
+
+#: cookie-notice.php:638
+msgid "The amount of time that cookie should be stored for."
+msgstr "Für diesen Zeitraum soll der Cookie gespeichert werden."
+
+#: cookie-notice.php:593
+msgid "Enter the full URL starting with http(s)://"
+msgstr "Gib die vollständige URL ein, beginnend mit http(s)://"
+
+#: cookie-notice.php:580
+msgid "Select from one of your site's pages."
+msgstr "Wähle eine der vorhandenen Seiten deiner Website aus."
+
+#: cookie-notice.php:569
+msgid "-- select page --"
+msgstr "-- Seite auswählen --"
+
+#: cookie-notice.php:566
+msgid "Select where to redirect user for more information about cookies."
+msgstr "Gib an, wo die Besucher weitere Informationen über Cookies finden."
+
+#: cookie-notice.php:494
+msgid "Enter non functional cookies Javascript code here (for e.g. Google Analitycs) to be used after cookies are accepted."
+msgstr "Füge nicht-funktionalen Cookie-JavaScript-Code hier ein (z.B. Google Analytics). Er wird nach dem Akzeptieren der Cookies verwendet."
+
+#: cookie-notice.php:460
+msgid "Enable to give to the user the possibility to refuse third party non functional cookies."
+msgstr "Aktivieren, um dem Benutzer die Möglichkeit zu geben, nicht funktionale Cookies von Drittanbietern abzulehnen."
+
+#: cookie-notice.php:449
+msgid "The text of the option to accept the usage of the cookies and make the notification disappear."
+msgstr "Der Text, der angezeigt werden soll, um den Hinweis zu akzeptieren und die Nachricht auszublenden."
+
+#: cookie-notice.php:436
+msgid "Enter the cookie notice message."
+msgstr "Gib hier den Meldungstext ein."
+
+#: cookie-notice.php:424
+msgid "Enable if you want all plugin data to be deleted on deactivation."
+msgstr "Aktiviere diese Funktion, wenn du möchtest, dass alle Plugin-Daten gelöscht werden, sobald das Plugin deaktiviert wird."
+
+#: cookie-notice.php:409
+msgid "Colors"
+msgstr "Farben"
+
+#: cookie-notice.php:407
+msgid "Button style"
+msgstr "Buttonstil"
+
+#: cookie-notice.php:406
+msgid "Animation"
+msgstr "Animation"
+
+#: cookie-notice.php:405
+msgid "Position"
+msgstr "Position"
+
+#: cookie-notice.php:404
+msgid "Design"
+msgstr "Design"
+
+#: cookie-notice.php:401
+msgid "Deactivation"
+msgstr "Deaktivierung"
+
+#: cookie-notice.php:400
+msgid "Script placement"
+msgstr "Script-Platzierung"
+
+#: cookie-notice.php:399
+msgid "Cookie expiry"
+msgstr "Cookie-Gültigkeit"
+
+#: cookie-notice.php:398
+msgid "On scroll"
+msgstr "Beim Scrollen"
+
+#: cookie-notice.php:393
+msgid "Link target"
+msgstr "Linkziel"
+
+#: cookie-notice.php:391
+msgid "Button text"
+msgstr "Buttontext"
+
+#: cookie-notice.php:390
+msgid "Message"
+msgstr "Meldungstext"
+
+#: cookie-notice.php:389
+msgid "Configuration"
+msgstr "Einstellungen"
+
+#: cookie-notice.php:373
+msgid "Reset to defaults"
+msgstr "Auf Standard-Einstellungen zurücksetzen"
+
+#: cookie-notice.php:355
+msgid "Do you like this plugin?"
+msgstr "Gefällt dir das Plugin?"
+
+#: cookie-notice.php:352
+msgid "Need support?"
+msgstr "Benötigst du Hilfe?"
+
+#. Plugin Name of the plugin
+#: cookie-notice.php:336 cookie-notice.php:347 cookie-notice.php:350
+msgid "Cookie Notice"
+msgstr "Cookie Notice"
+
+#: cookie-notice.php:192
+msgid "No"
+msgstr "Nein"
+
+#: cookie-notice.php:191
+msgid "Ok"
+msgstr "OK"
+
+#: cookie-notice.php:190
+msgid "We use cookies to ensure that we give you the best experience on our website. If you continue to use this site we will assume that you are happy with it."
+msgstr "Diese Website benutzt Cookies. Wenn du die Website weiter nutzt, gehen wir von deinem Einverständnis aus."
+
+#: cookie-notice.php:184
+msgid "Footer"
+msgstr "Footer"
+
+#: cookie-notice.php:183
+msgid "Header"
+msgstr "Header"
+
+#: cookie-notice.php:179
+msgid "Slide"
+msgstr "Ausgleiten"
+
+#: cookie-notice.php:178
+msgid "Fade"
+msgstr "Ausblenden"
+
+#: cookie-notice.php:173
+msgid "infinity"
+msgstr "unbegrenzt"
+
+#: cookie-notice.php:172
+msgid "1 year"
+msgstr "1 Jahr"
+
+#: cookie-notice.php:171
+msgid "6 months"
+msgstr "6 Monate"
+
+#: cookie-notice.php:170
+msgid "3 months"
+msgstr "3 Monate"
+
+#: cookie-notice.php:169
+msgid "1 month"
+msgstr "1 Monat"
+
+#: cookie-notice.php:168
+msgid "1 week"
+msgstr "1 Woche"
+
+#: cookie-notice.php:167
+msgid "1 day"
+msgstr "1 Tag"
+
+#: cookie-notice.php:162
+msgid "Bar color"
+msgstr "Hintergrundfarbe"
+
+#: cookie-notice.php:161
+msgid "Text color"
+msgstr "Textfarbe"
+
+#: cookie-notice.php:151
+msgid "Page link"
+msgstr "Seiten-Link"
+
+#: cookie-notice.php:152
+msgid "Custom link"
+msgstr "Benutzerdefinierter Link"
+
+#: cookie-notice.php:142
+msgid "Bootstrap"
+msgstr "Bootstrap"
+
+#: cookie-notice.php:141
+msgid "WordPress"
+msgstr "WordPress"
+
+#: cookie-notice.php:140 cookie-notice.php:177
+msgid "None"
+msgstr "Keine"
+
+#: cookie-notice.php:136
+msgid "Bottom"
+msgstr "Unten"
+
+#: cookie-notice.php:135
+msgid "Top"
+msgstr "Oben"
