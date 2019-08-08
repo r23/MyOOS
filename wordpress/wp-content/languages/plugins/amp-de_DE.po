@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - AMP - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-08-07 17:59:47+0000\n"
+"PO-Revision-Date: 2019-08-08 06:05:11+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1213,7 +1213,7 @@ msgstr "Übergangsmodus"
 #. translators: %s: URL to the ecosystem page.
 #: includes/options/class-amp-options-menu.php:288
 msgid "For a list of themes and plugins that are known to be AMP compatible, please see the <a href=\"%s\">ecosystem page</a>."
-msgstr "Für eine Liste AMP-kompatibler Themes und Plugins, bitte besuche die <a href=\"%s\">Ökosystem Seite</a>."
+msgstr "Für eine Liste AMP-kompatibler Themes und Plugins, besuche bitte die <a href=\"%s\">Ökosystem-Seite (engl.)</a>."
 
 #: includes/options/class-amp-options-menu.php:286
 msgid "Formerly called the <b>classic mode</b>, this mode generates paired AMP content using simplified templates which may not match the look-and-feel of your site. Only posts/pages can be served as AMP in Reader mode. No redirection is performed for mobile visitors; AMP pages are served by AMP consumption platforms."
@@ -1283,7 +1283,7 @@ msgstr "Ein anderes Plugin oder Theme scheint eine inkompatible Version von PHP-
 #. translators: 1: is_amp_endpoint(). 2: wp. 3: amp_skip_post
 #: includes/amp-helper-functions.php:331
 msgid "%1$s was called before the %2$s action which means it will not have access to the queried object to determine if it is an AMP response, thus neither the %3$s filter nor the AMP enabled publish metabox toggle will be considered."
-msgstr "%1$s wurde vor der Aktion %2$s aufgerufen. Dies bedeutet, dass es keinen Zugang zum benötigten Objekt hat, um festzustellen, ob es eine AMP-Antwort ist. Deshalb wird weder der Filter %3$s noch die aktive Veröffentlichungseinstellung der AMP-Metabox berücksichtigt."
+msgstr "%1$s wurde vor der Aktion %2$s aufgerufen. Dies bedeutet, dass es keinen Zugang zum erforderlichen Objekt hat, um festzustellen, ob es eine AMP-Antwort ist. Deshalb wird weder der Filter %3$s noch die aktive Veröffentlichungseinstellung der AMP-Metabox berücksichtigt."
 
 #: includes/sanitizers/class-amp-style-sanitizer.php:2576
 msgid "Warning! AMP CSS processing is limited because a conflicting version of PHP-CSS-Parser has been loaded by another plugin or theme. Tree shaking is not available."
@@ -2006,7 +2006,7 @@ msgstr "Du hast ungesicherte Änderungen. Bist du sicher, dass du die Seite verl
 #: includes/validation/class-amp-validated-url-post-type.php:1404
 #: includes/validation/class-amp-validated-url-post-type.php:1553
 msgid "You do not have permissions to validate an AMP URL. Did you get logged out?"
-msgstr "Du hast nicht die benötigten Berechtigungen, um eine AMP-URL zu validieren. Wurdest du eventuell abgemeldet?"
+msgstr "Du hast nicht die erforderlichen Berechtigungen um eine AMP URL zu validieren. Wurdest du eventuell abgemeldet?"
 
 #: includes/validation/class-amp-validated-url-post-type.php:1362
 msgid "Accept or Reject this error for all instances."
@@ -2319,7 +2319,7 @@ msgstr "Illustration von WordPress mit dem AMP-Plugin."
 
 #: includes/options/class-amp-options-menu.php:708
 msgid "You do not have permission to modify these settings. They are shown here for your reference. Please contact your administrator to make changes."
-msgstr "Du hast nicht die benötigten Berechtigungen, um diese Einstellungen zu ändern. Bitte kontaktiere einen Administrator. um Änderungen vorzunehmen."
+msgstr "Du hast nicht die erforderlichen Berechtigungen, um diese Einstellungen zu ändern. Bitte kontaktiere einen Administrator. um Änderungen vorzunehmen."
 
 #: includes/options/class-amp-options-menu.php:631
 msgid "This will enable post-processor caching to speed up processing an AMP response after WordPress renders a template."
