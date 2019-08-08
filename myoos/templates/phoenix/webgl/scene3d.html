@@ -64,6 +64,18 @@ canvas {
 	z-index: 2 !important; /* TODO Solve this in HTML */
 }
 </style>
+
+{if !empty($smarty.const.SITE_ICONS)}
+<!-- Place favicon.ico and apple-touch-icon.png -->
+<link rel="shortcut icon" href="images/ico/favicon.ico">
+<link rel="icon" type="image/png" href="images/ico/32x32/{$smarty.const.SITE_ICONS}" sizes="32x32">
+<link rel="icon" type="image/png" href="images/ico/96x96/{$smarty.const.SITE_ICONS}" sizes="96x96">
+<link rel="apple-touch-icon-precomposed" sizes="180x180" href="images/ico/180x180/{$smarty.const.SITE_ICONS}">
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/144x144/{$smarty.const.SITE_ICONS}">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/114x114/{$smarty.const.SITE_ICONS}">
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/72x72/{$smarty.const.SITE_ICONS}">
+{/if}
+
 </head>
 
 	<body>
