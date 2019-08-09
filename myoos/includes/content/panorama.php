@@ -13,10 +13,6 @@
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
 
-
-/** ensure this file is being required by a parent file */
-defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
-
 if (isset($_GET['panorama_id'])) {
 	if (!isset($nPanoramaID)) $nPanoramaID = intval($_GET['panorama_id']);
 } else {
@@ -50,7 +46,7 @@ if (!$categories_panorama_result->RecordCount()) {
     $nPageType = OOS_PAGE_TYPE_MAINPAGE;
 	$sPagetitle = '404 Not Found ' . OOS_META_TITLE;
 
-    require_once MYOOS_INCLUDE_PATH . '/includes/systep.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 
     $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['products_new']));
 	
@@ -74,28 +70,25 @@ if (!$categories_panorama_result->RecordCount()) {
     $result = $dbconn->Execute($query, array((int)$nPanoramaID, (int)$nLanguageID));
     $panorama_info = $categories_panorama_result->fields;	
 	
-	$name = oos_strip_suffix($panorama_info['models_webgl_gltf']);
-	$url = $name . '/' . $panorama_info['models_extensions'] . '/' . $panorama_info['models_webgl_gltf']; 
-		
+	
 	ob_start();
 	require_once MYOOS_INCLUDE_PATH . '/includes/content/scene3d/panorama.js.php';
-	$webgl = ob_get_contents();
+	$panorama = ob_get_contents();
 	ob_end_clean();		
 		
 
     // Meta Tags
-    $sPagetitle = $panorama_info['models_title'] . ' ' . OOS_META_TITLE;
-	$sDescription = $panorama_info['models_description_meta'];
+    $sPagetitle = $panorama_info['panorama_title'] . ' ' . OOS_META_TITLE;
+	$sDescription = $panorama_info['panorama_description_meta'];
 
-	$aTemplate['page'] = $sTheme . '/panorama/pannellup.html';
+	$aTemplate['page'] = $sTheme . '/panorama/pannellum.html';
 	
     $nPageType = OOS_PAGE_TYPE_PRODUCTS;
 
-    require_once MYOOS_INCLUDE_PATH . '/includes/systep.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 
 	$smarty->assign('canonical', $sCanonical);
-	$smarty->assign('webgl', $webgl);
-	$smarty->assign('model', $panorama_info);
+	$smarty->assign('panorama', $panorama);
 
     $smarty->setCaching(false);
 }

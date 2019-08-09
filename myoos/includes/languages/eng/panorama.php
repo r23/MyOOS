@@ -12,13 +12,14 @@
 
 $aLang['text_model_not_found'] = 'Panorama Modell not found!';
 
-        "loadButtonLabel": "Click to<br>Load<br>Panorama",
-        "loadingLabel": "Loading...",
-        "bylineLabel": "by %s",
-        "noPanoramaError": "No panorama image was specified.",
-        "fileAccessError": "The file %s could not be accessed.",
-        "malformedURLError": "There is something wrong with the panorama URL.",
-        "iOS8WebGLError": "Due to iOS 8's broken WebGL implementation, only progressive encoded JPEGs work for your device (this panorama uses standard encoding).",
-        "genericWebGLError": "Your browser does not have the necessary WebGL support to display this panorama.",
-        "textureSizeError": "This panorama is too big for your device! It's %spx wide, but your device only supports images up to %spx wide. Try another device. (If you're the author, try scaling down the image.)",
-        "unknownError": "Unknown error. Check developer console."
+$aLang['text_load_button_label'] = 'Click to<br>Load<br>Panorama';
+$aLang['text_loading_label'] = 'Loading...';
+$aLang['text_byline_label'] = 'by %s';
+$aLang['text_no_panorama_error'] = 'No panorama image was specified.';
+$aLang['text_file_access_error'] = 'The file %s could not be accessed.';
+$aLang['text_malformed_url_error'] = 'There is something wrong with the panorama URL.';
+$aLang['text_webgl_error'] = 'Due to iOS 8\'s broken WebGL implementation, only progressive encoded JPEGs work for your device (this panorama uses standard encoding).';
+$aLang['text_generic_webgl_error'] = 'Your browser does not have the necessary WebGL support to display this panorama.';
+$aLang['text_texture_size_error'] = 'This panorama is too big for your device! It\'s %spx wide, but your device only supports images up to %spx wide. Try another device. (If you\'re the author, try scaling down the image.)';
+$aLang['text_unknown_error'] = 'Unknown error. Check developer console.';
+

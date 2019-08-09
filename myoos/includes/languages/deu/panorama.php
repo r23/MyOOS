@@ -12,13 +12,13 @@
 
 $aLang['text_model_not_found'] = 'Panorama wurde leider nicht gefunden!';
 
-		"loadButtonLabel": "Klicke hier, um\nPanorama\nzu laden",
-		"loadingLabel": "Lade...",
-		"bylineLabel": "von %s",    
-		"noPanoramaError": "Es wurde kein Panorama angegeben.",
-		"fileAccessError": "Die Datei %s konnte nicht geöffnet werden.",
-		"malformedURLError": "Da stimmt etwas nicht mit der Panorama URL.",
-		"iOS8WebGLError": "Wegen der fehlerhaften WebGL Implementierung von iOS8 funktionieren nur progressiv enkodierte JPEGs auf Ihrem Gerät (dieses Panorama benutzt Standard Enkodierung).",
-		"genericWebGLError": "Ihr Browser hat nicht die nötige WebGL Unterstützung, um das Panorama anzeigen zu können.",
-		"textureSizeError": "Dieses Panorama ist zu groß für Ihr Gerät! Das Panorama ist %spx breit, ihr Gerät unterstützt allerdings nur eine maximal Größe von %spx. Versuchen Sie ein anderes Gerät. (Falls Sie der Autor sind, versuchen Sie, das Bild herunterzuskalieren.)", 
-		"unknownError": "Unbekannter Fehler. Schauen Sie in die Entwicklerkonsole."	
+$aLang['text_load_button_label'] = 'Klicke hier, um\nPanorama\nzu laden';
+$aLang['text_loading_label'] = 'Lade...';
+$aLang['text_byline_label'] = 'von %s';
+$aLang['text_no_panorama_error'] = 'Es wurde kein Panorama angegeben.';
+$aLang['text_file_access_error'] = 'Die Datei %s konnte nicht geöffnet werden.';
+$aLang['text_malformed_url_error'] = 'Da stimmt etwas nicht mit der Panorama URL.';
+$aLang['text_webgl_error'] = 'Wegen der fehlerhaften WebGL Implementierung von iOS8 funktionieren nur progressiv enkodierte JPEGs auf Ihrem Gerät (dieses Panorama benutzt Standard Enkodierung)';
+$aLang['text_generic_webgl_error'] = 'Ihr Browser hat nicht die nötige WebGL Unterstützung, um das Panorama anzeigen zu können.';
+$aLang['text_texture_size_error'] = 'Dieses Panorama ist zu groß für Ihr Gerät! Das Panorama ist %spx breit, ihr Gerät unterstützt allerdings nur eine maximal Größe von %spx. Versuchen Sie ein anderes Gerät. (Falls Sie der Autor sind, versuchen Sie, das Bild herunterzuskalieren.)';
+$aLang['text_unknown_error'] = 'Unbekannter Fehler. Schauen Sie in die Entwicklerkonsole.';
