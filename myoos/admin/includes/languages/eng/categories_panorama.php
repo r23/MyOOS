@@ -19,9 +19,17 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-define('HEADING_TITLE', 'Categories / Products');
-define('HEADING_TITLE_SEARCH', 'Search:');
-define('HEADING_TITLE_GOTO', 'Go To:');
+define('HEADING_TITLE', 'Panorama');
+define('TEXT_INFO_HEADING_NEW_PANORAMA', 'New Panorama');
+define('TEXT_EDIT_PANORAMA_NAME', 'Panorama Name');
+define('TEXT_EDIT_PANORAMA_TITLE', 'Panorama-Title for SEO:');
+define('TEXT_EDIT_PANORAMA_DESCRIPTION_META', 'Meta Tag Description:');
+
+define('TEXT_PANORAMA_SETTINGS', 'General Settings');
+
+define('TEXT_MODELS_AUTHOR', 'Author:');
+define('TEXT_PANORAMA_AUTOLOAD', 'Auto Rotation:');
+
 
 define('TABLE_HEADING_ID', 'ID');
 define('TABLE_HEADING_CATEGORIES_PRODUCTS', 'Categories / Products');
@@ -103,28 +111,6 @@ define('TEXT_ADD_MORE_UPLOAD', 'Add more upload boxes');
 define('TEXT_NOT_RELOAD', 'Does not reload!');
 define('TEXT_SORT_ORDER', 'Sort Order:');
 
-define('TEXT_PRODUCTS_STATUS', 'Products Status:');
-define('TEXT_PRODUCTS_DATE_AVAILABLE', 'Date Available:');
-define('TEXT_PRODUCT_NOT_AVAILABLE', 'not available');
-define('TEXT_PRODUCTS_MANUFACTURER', 'Products Manufacturer:');
-define('TEXT_PRODUCTS_NAME', 'Products Name:');
-define('TEXT_PRODUCTS_DESCRIPTION', 'Products Description:');
-define('TEXT_PRODUCTS_DESCRIPTION_META', 'Description of article for Description TAG (max. 250 letters)');
-define('TEXT_PRODUCTS_QUANTITY', 'Products Quantity:');
-define('TEXT_PRODUCTS_REORDER_LEVEL', 'Products Reorder Level:');
-define('TEXT_PRODUCTS_MODEL', 'Products Model:');
-define('TEXT_PRODUCTS_IMAGE', 'Products Image:');
-define('TEXT_PRODUCTS_URL', 'Products URL:');
-define('TEXT_PRODUCTS_URL_WITHOUT_HTTP', '<small>(without http://)</small>');
-define('TEXT_PRODUCTS_PRICE', 'Products Price:');
-define('TEXT_PRODUCTS_WEIGHT', 'Products Weight:');
-define('TEXT_PRODUCTS_STATUS', 'Products Status:');
-
-define('EMPTY_CATEGORY', 'Empty Category');
-
-define('TEXT_HOW_TO_COPY', 'Copy Method:');
-define('TEXT_COPY_AS_LINK', 'Link product');
-define('TEXT_COPY_AS_DUPLICATE', 'Duplicate product');
 
 define('ERROR_CANNOT_LINK_TO_SAME_CATEGORY', 'Error: Can not link products in the same category.');
 define('ERROR_CATALOG_IMAGE_DIRECTORY_NOT_WRITEABLE', 'Error: Catalog images directory is not writeable: ' . OOS_ABSOLUTE_PATH . OOS_IMAGES);
@@ -136,20 +122,6 @@ define('TEXT_CURRENT_SLAVE_PRODUCTS', 'Current Slave products:');
 define('BUTTON_DELETE_SLAVE', 'Delete this slave product');
 define('TEXT_SUCCESSFULLY_SLAVE', 'This product was successfully added as a slave.');
 define('TEXT_ERROR_SLAVE', 'This product does not exist or is already a slave.');
-
-define('CAT_CATEGORY_ID_TEXT', 'ID # ');
-define('CAT_PRODUCT_ID_TEXT', 'ID # ');
-define('CAT_ATTRIBUTES_BASE_PRICE_TEXT', ' Attribute Base Price: ');
-define('CAT_LIST_PRICE_TEXT', 'List:');
-define('CAT_REBATE_PRICE_TEXT', 'Rebate: ');
-define('CAT_QUANTITY_MIN_TEXT', 'Min: ');
-define('CAT_QUANTITY_MIN_TEXT', 'Max: ');
-define('CAT_QUANTITY_UNITS_TEXT', 'Units: ');
-
-define('TEXT_COPY_ATTRIBUTES_ONLY', 'Only used for Duplicate Products ...');
-define('TEXT_COPY_ATTRIBUTES', 'Copy Product Attribuites to Duplicate?');
-define('TEXT_COPY_ATTRIBUTES_YES', 'Yes');
-define('TEXT_COPY_ATTRIBUTES_NO', 'No');
 
 define('TEXT_DATA', 'Data');
 define('TEXT_IMAGES', 'Images');

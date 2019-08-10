@@ -124,8 +124,37 @@ if (!empty($action)) {
                                '" . oos_db_input($categories_images['categories_images_description']) . "')");
 
           // Move that ADOdb pointer!
-          $categories_images->MoveNext();
-        }		
+          $categories_images_result->MoveNext();
+        }
+
+        // categories_panorama
+        $categories_panorama_result = $dbconn->Execute("SELECT cp.panorama_id, cpd.panorama_name, cpd.panorama_title,
+												cpd.panorama_description_meta, cpd.panorama_keywords
+                                          FROM " . $oostable['categories_panorama'] . " cp LEFT JOIN
+                                               " . $oostable['categories_panorama_description'] . " cpd
+                                             ON cp.panorama_id = cpd.panorama_id
+                                          WHERE cpd.panorama_languages_id = '" . intval($_SESSION['language_id']) . "'");
+        while ($categories_panorama = $categories_panorama_result->fields) {		
+          $dbconn->Execute("INSERT INTO " . $oostable['categories_panorama_description'] . "
+                      (panorama_id, 
+						panorama_languages_id,
+						panorama_name,
+						panorama_title,
+						panorama_viewed,
+						panorama_description_meta,
+						panorama_keywords) 
+                       VALUES ('" . $categories_panorama['panorama_id'] . "',
+                               '" . intval($insert_id) . "',
+                               '" . oos_db_input($categories_panorama['panorama_name']) . "',
+                               '" . oos_db_input($categories_panorama['panorama_title']) . "',
+							   '0',
+							   '" . oos_db_input($categories_panorama['panorama_description_meta']) . "',
+                               '" . oos_db_input($categories_panorama['panorama_keywords']) . "')");
+
+          // Move that ADOdb pointer!
+          $categories_panorama_result->MoveNext();
+        }
+
         //coupons_description
         $coupon_result = $dbconn->Execute("SELECT c.coupon_id, cd.coupon_name, cd.coupon_description
                                       FROM " . $oostable['coupons'] . " c LEFT JOIN
@@ -443,15 +472,16 @@ if (!empty($action)) {
  
         $remove_language = true;
         if ($lng['iso_639_2'] == DEFAULT_LANGUAGE) {
-          $remove_language = false;
-          $messageStack->add_session(ERROR_REMOVE_DEFAULT_LANGUAGE, 'error');
-          oos_redirect_admin(oos_href_link_admin($aContents['languages'], 'page=' . $nPage));
+			$remove_language = false;
+			$messageStack->add_session(ERROR_REMOVE_DEFAULT_LANGUAGE, 'error');
+			oos_redirect_admin(oos_href_link_admin($aContents['languages'], 'page=' . $nPage));
         }
 
         $dbconn->Execute("DELETE FROM " . $oostable['languages'] . " WHERE languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['block_info'] . " WHERE block_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['categories_description'] . " WHERE categories_languages_id = '" . intval($lID) . "'");
-        $dbconn->Execute("DELETE FROM " . $oostable['categories_images_description'] . " WHERE categories_images_languages_id = '" . intval($lID) . "'");	
+        $dbconn->Execute("DELETE FROM " . $oostable['categories_images_description'] . " WHERE categories_images_languages_id = '" . intval($lID) . "'");
+        $dbconn->Execute("DELETE FROM " . $oostable['categories_panorama_description'] . " WHERE panorama_languages_id = '" . intval($lID) . "'");		
         $dbconn->Execute("DELETE FROM " . $oostable['coupons_description']  . " WHERE coupon_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['customers_status']  . " WHERE customers_status_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['information_description']  . " WHERE information_languages_id = '" . intval($lID) . "'");

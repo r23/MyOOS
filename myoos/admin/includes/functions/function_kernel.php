@@ -124,10 +124,9 @@ function oos_selected_file($filename) {
                 AND admin_files_is_boxes = '1'
                 AND admin_files_name = '" . oos_db_input($filename) . "'";
     $result = $dbconn->Execute($query);
-	
+
     if ($result->RecordCount()) {
 		$boxes_id = $result->fields;
-
 		$admin_filestable = $oostable['admin_files'];
 		$randomize_query = "SELECT admin_files_name
                            FROM $admin_filestable
@@ -139,6 +138,7 @@ function oos_selected_file($filename) {
 			$randomize = $randomize_result->fields['admin_files_name'];
 		}
 	}
+	
     return $aContents[$randomize];
 }
 

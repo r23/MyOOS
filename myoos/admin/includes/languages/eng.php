@@ -371,8 +371,12 @@ define('TEXT_INFO_PASSWORD', 'Password:');
 define('TEXT_NONE', '--none--');
 define('TEXT_TOP', 'Top');
 
-define('ENTRY_TAX_YES','Yes');
-define('ENTRY_TAX_NO','No');
+define('ENTRY_TAX_YES', 'Yes');
+define('ENTRY_TAX_NO', 'No');
+
+define('ENTRY_ON', 'On');
+define('ENTRY_OFF', 'Off');
+
 
 $aLang['error_destination_does_not_exist'] = 'Error: Destination does not exist.';
 $aLang['error_destination_not_writeable'] = 'Error: Destination not writeable.';

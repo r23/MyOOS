@@ -19,9 +19,18 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-define('HEADING_TITLE', 'Kategorien / Artikel');
-define('HEADING_TITLE_SEARCH', 'Suche: ');
-define('HEADING_TITLE_GOTO', 'Gehe zu:');
+define('HEADING_TITLE', 'Panorama');
+define('TEXT_INFO_HEADING_NEW_PANORAMA', 'Neues Panorama');
+define('TEXT_EDIT_PANORAMA_NAME', 'Panorama Name:');
+define('TEXT_EDIT_PANORAMA_TITLE', 'Panorama-Titel für SEO:');
+define('TEXT_EDIT_PANORAMA_DESCRIPTION_META', 'Meta Tag Beschreibung:');
+
+define('TEXT_PANORAMA_SETTINGS', 'Allgemeine Einstellungen');
+
+
+define('TEXT_MODELS_AUTHOR', 'Autor:');
+define('TEXT_PANORAMA_AUTOLOAD', 'Automatische Drehung:');
+
 
 define('TABLE_HEADING_ID', 'ID');
 define('TABLE_HEADING_CATEGORIES_PRODUCTS', 'Kategorien / Artikel');
@@ -78,7 +87,7 @@ define('TEXT_INFO_SLIDER', 'Slider');
 define('TEXT_INFO_COPY_TO_INTRO', 'Bitte wählen Sie eine neue Kategorie aus, in die Sie den Artikel kopieren möchten:');
 define('TEXT_INFO_CURRENT_CATEGORIES', 'aktuelle Kategorien:');
 
-define('TEXT_INFO_HEADING_NEW_CATEGORY', 'Neue Kategorie');
+define('TEXT_INFO_HEADING_NEW_CATEGORY', 'Neues Panorama');
 define('TEXT_INFO_HEADING_EDIT_CATEGORY', 'Kategorie bearbeiten');
 define('TEXT_INFO_HEADING_DELETE_CATEGORY', 'Kategorie löschen');
 define('TEXT_INFO_HEADING_MOVE_CATEGORY', 'Kategorie verschieben');
@@ -103,28 +112,6 @@ define('TEXT_ADD_MORE_UPLOAD', 'Mehr Felder zum Hochladen hinzufügen');
 define('TEXT_NOT_RELOAD', 'Lädt nicht erneut!');
 define('TEXT_SORT_ORDER', 'Sortierreihenfolge:');
 
-define('TEXT_PRODUCTS_STATUS', 'Produktstatus:');
-define('TEXT_PRODUCTS_DATE_AVAILABLE', 'Erscheinungsdatum:');
-define('TEXT_PRODUCT_NOT_AVAILABLE', 'nicht lieferbar');
-define('TEXT_PRODUCTS_MANUFACTURER', 'Artikel-Hersteller:');
-define('TEXT_PRODUCTS_NAME', 'Artikelname:');
-define('TEXT_PRODUCTS_DESCRIPTION', 'Artikelbeschreibung:');
-define('TEXT_PRODUCTS_DESCRIPTION_META', 'Artikelbeschreibung für Description Tag (max. 250 Zeichen)');
-define('TEXT_PRODUCTS_KEYWORDS_META', 'Artikel Suchworte für Keyword Tag (Stichworte durch Komma getrennt - max. 250 Zeichen)');
-define('TEXT_PRODUCTS_QUANTITY', 'Artikelanzahl:');
-define('TEXT_PRODUCTS_REORDER_LEVEL', 'Mindestlagerbestand:');
-define('TEXT_PRODUCTS_MODEL', 'Artikel-Nr.:');
-define('TEXT_PRODUCTS_IMAGE', 'Artikelbild:');
-define('TEXT_PRODUCTS_URL', 'Herstellerlink:');
-define('TEXT_PRODUCTS_URL_WITHOUT_HTTP', '<small>(ohne führendes http://)</small>');
-define('TEXT_PRODUCTS_PRICE', 'Artikelpreis:');
-define('TEXT_PRODUCTS_WEIGHT', 'Artikelgewicht:');
-
-define('EMPTY_CATEGORY', 'Leere Kategorie');
-
-define('TEXT_HOW_TO_COPY', 'Kopiermethode:');
-define('TEXT_COPY_AS_LINK', 'Produkt verlinken');
-define('TEXT_COPY_AS_DUPLICATE', 'Produkt duplizieren');
 
 define('ERROR_CANNOT_LINK_TO_SAME_CATEGORY', 'Fehler: Produkte können nicht in der gleichen Kategorie verlinkt werden.');
 define('ERROR_CATALOG_IMAGE_DIRECTORY_NOT_WRITEABLE', 'Fehler: Das Verzeichnis \'images\' im Katalogverzeichnis ist schreibgeschützt: ' . OOS_ABSOLUTE_PATH . OOS_IMAGES);
@@ -137,19 +124,6 @@ define('BUTTON_DELETE_SLAVE', 'Lösche diese Produktoption');
 define('TEXT_SUCCESSFULLY_SLAVE', 'Dieses Produkt wurde erfolgreich als Slave hinzugefügt.');
 define('TEXT_ERROR_SLAVE', 'Dieses Produkt existiert nicht oder ist bereits als Slave hinzugefügt worden.');
 
-define('CAT_CATEGORY_ID_TEXT', 'ID # ');
-define('CAT_PRODUCT_ID_TEXT', 'ID # ');
-define('CAT_ATTRIBUTES_BASE_PRICE_TEXT', 'Basispreis: ');
-define('CAT_LIST_PRICE_TEXT',  'UVP.: ');
-define('CAT_REBATE_PRICE_TEXT', 'Rabate: ');
-define('CAT_QUANTITY_MIN_TEXT', 'Mindestbestellmenge: ');
-define('CAT_QUANTITY_MAX_TEXT', 'maximale Bestellmenge: ');
-define('CAT_QUANTITY_UNITS_TEXT', 'Verpackungseinheit: ');
-
-define('TEXT_COPY_ATTRIBUTES_ONLY', 'Nur Produktinformationen kopieren ...');
-define('TEXT_COPY_ATTRIBUTES', 'Artikeloptionen kopieren?');
-define('TEXT_COPY_ATTRIBUTES_YES', 'Ja');
-define('TEXT_COPY_ATTRIBUTES_NO', 'Nein');
 
 define('TEXT_DATA', 'Daten');
 define('TEXT_IMAGES', 'Bilder');

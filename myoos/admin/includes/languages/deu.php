@@ -381,6 +381,10 @@ define('TEXT_TOP', 'Top');
 define('ENTRY_YES','ja');
 define('ENTRY_NO','nein');
 
+define('ENTRY_ON', 'An');
+define('ENTRY_OFF', 'Aus');
+
+
 $aLang['error_destination_does_not_exist'] = 'Fehler: Speicherort existiert nicht.';
 $aLang['error_destination_not_writeable'] = 'Fehler: Speicherort ist nicht beschreibbar.';
 $aLang['error_file_not_saved'] = 'Fehler: Datei wurde nicht gespeichert.';

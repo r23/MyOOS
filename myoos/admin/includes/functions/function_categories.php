@@ -877,3 +877,82 @@ function oos_get_models_description_meta($model_id, $language_id = '') {
     return $models_description_meta;
 }
 
+
+
+ /**
+  * Return Panorama Name
+  *
+  * @param $panorama_id
+  * @param $language
+  * @return string
+  */
+function oos_get_panorama_name($panorama_id, $language_id = '') {
+
+    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+
+    // Get database information
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
+
+    $categories_panorama_descriptiontable = $oostable['categories_panorama_description'];
+    $query = "SELECT panorama_name
+              FROM $categories_panorama_descriptiontable
+              WHERE panorama_id = '" . intval($panorama_id) . "'
+                AND panorama_languages_id = '" . intval($language_id) . "'";
+    $result = $dbconn->Execute($query);
+
+    $panorama_name = $result->fields['panorama_name'];
+
+    return $panorama_name;
+}
+
+
+
+ /**
+  * Return Panorama Title for SEO
+  *
+  * @param $panorama_id
+  * @param $language
+  * @return string
+  */
+function oos_get_panorama_title($panorama_id, $language_id = '') {
+
+    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+
+    // Get database information
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
+
+    $categories_panorama_descriptiontable = $oostable['categories_panorama_description'];
+    $query = "SELECT panorama_title
+              FROM $categories_panorama_descriptiontable
+              WHERE panorama_id = '" . intval($panorama_id) . "'
+                AND panorama_languages_id = '" . intval($language_id) . "'";
+    $result = $dbconn->Execute($query);
+
+    $panorama_title = $result->fields['panorama_title'];
+
+    return $panorama_title;
+}
+
+
+
+function oos_get_panorama_description_meta($panorama_id, $language_id = '') {
+
+    // Get database information
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
+
+    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+
+    $categories_panorama_descriptiontable = $oostable['categories_panorama_description'];
+    $query = "SELECT panorama_description_meta
+              FROM $categories_panorama_descriptiontable
+              WHERE panorama_id = '" . intval($model_id) . "'
+                AND panorama_languages_id = '" . intval($language_id) . "'";
+    $result = $dbconn->Execute($query);
+
+    $panorama_description_meta = $result->fields['panorama_description_meta'];
+
+    return $panorama_description_meta;
+}
