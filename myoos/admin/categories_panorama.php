@@ -105,15 +105,15 @@ if (!empty($action)) {
 				}
 			}
 
-			if ( ($_POST['remove_image'] == 'yes') && (isset($_POST['categories_previous_image'])) ) {
-				$categories_previous_image = oos_db_prepare_input($_POST['categories_previous_image']);
+			if ( ($_POST['remove_image'] == 'yes') && (isset($_POST['panorama_preview_image'])) ) {
+				$panorama_preview_image = oos_db_prepare_input($_POST['panorama_preview_image']);
 				
 				$categoriestable = $oostable['categories_panorama'];
 				$dbconn->Execute("UPDATE $categoriestable
                             SET categories_image = NULL
                             WHERE categories_id = '" . intval($categories_id) . "'");				
 				
-				oos_remove_category_image($categories_previous_image);				
+				oos_remove_category_image($panorama_preview_image);				
 			}
 			
 			if ( ($_POST['remove_banner'] == 'yes') && (isset($_POST['categories_previous_banner'])) ) {
@@ -153,8 +153,8 @@ if (!empty($action)) {
 						// 'jpeg_quality' => 82,
 						// 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
 						// 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-						'max_width' => 440, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
-						'max_height' => 500, // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
+						'max_width' => 1920, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+						'max_height' => 1080, // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
 					),
 					'medium' => array(
 						// 'auto_orient' => TRUE,
@@ -309,18 +309,14 @@ if ($action == 'panorama' || $action == 'edit_panorama') {
 
     $parameters = array('panorama_id' => '',
 						'categories_id' => '',
-						'panorama_image' => '',
 						'panorama_preview' => '',
                         'panorama_author' => '',
-                        'panorama_type' => '',
-                        'panorama_hfov' => '',
-                        'panorama_pitch' => '',
-					    'panorama_yaw' => '',
 						'panorama_autoload' => '',
 						'panorama_autorotates' => '-2',
 						'panorama_name' => '',
                         'panorama_title' => '',
                         'panorama_description_meta' => '',
+						'categories_panorama_scene' => array(),						
                         'panorama_date_added' => '',
                         'panorama_last_modified' => '');
 	$pInfo = new objectInfo($parameters);
@@ -330,20 +326,14 @@ $table = $prefix_table . 'categories_panorama';
 $flds = "
   panorama_id I I NOTNULL AUTO PRIMARY,
   categories_id I NOTNULL DEFAULT '1' PRIMARY,
-  panorama_image C(255) NULL,
   panorama_preview C(255) NULL,
   panorama_author C(255) NULL,
-  panorama_type C(24) NULL,
-  panorama_hfov C(3) NULL,
-  panorama_pitch C(3) NULL,
-  panorama_yaw C(3) NULL,
   panorama_autoload C(5) DEFAULT 'false',  
   panorama_autorotates C(5) DEFAULT '-2',  
   panorama_date_added T,
   panorama_last_modified T 
 ";
 dosql($table, $flds);
-
 
 $table = $prefix_table . 'categories_panorama_description';
 $flds = "
@@ -360,15 +350,53 @@ dosql($table, $flds);
 $idxname = 'idx_panorama_name';
 $idxflds = 'panorama_name';
 idxsql($idxname, $table, $idxflds);
+
+
+$table = $prefix_table . 'categories_panorama_scene';
+$flds = "
+  scene_id I NOTNULL AUTO PRIMARY,
+  panorama_id I NOTNULL DEFAULT '1' PRIMARY,
+  scene_image C(255) NULL,
+  scene_type C(24) NULL,
+  scene_hfov C(3) NULL,
+  scene_pitch C(3) NULL,
+  scene_yaw C(3) NULL,
+  scene_default I1 NOTNULL DEFAULT '0'
+";
+dosql($table, $flds);
+
+$idxname = 'idx_scene_image';
+$idxflds = 'scene_image';
+idxsql($idxname, $table, $idxflds);
+
+
+$table = $prefix_table . 'categories_panorama_scene_hotspot';
+$flds = "
+  hotspot_id I I NOTNULL AUTO PRIMARY,
+  scene_id I NOTNULL DEFAULT '1' PRIMARY,
+  hotspot_pitch N '4.2' NOTNULL DEFAULT '0.0',
+  hotspot_yaw N '4.2' NOTNULL DEFAULT '0.0',
+  hotspot_type C(24) NULL,
+  hotspot_url C(255) NULL
+";
+dosql($table, $flds);
+
+
+$table = $prefix_table . 'categories_panorama_scene_hotspot_text';
+$flds = "
+  hotspot_id I DEFAULT '0' NOTNULL PRIMARY,
+  hotspot_languages_id I NOTNULL DEFAULT '1' PRIMARY,
+  hotspot_text C(255) NULL
+";
+dosql($table, $flds);
+
 */
 
 	if (isset($_GET['cID']) && empty($_POST)) {	
         $categories_panoramatable = $oostable['categories_panorama'];
         $categories_panorama_descriptiontable = $oostable['categories_panorama_description'];
-        $query = "SELECT c.panorama_id, c.categories_id, cd.panorama_name, cd.panorama_title, cd.panorama_description_meta,
-                         c.panorama_image, c.panorama_preview, c.panorama_author, c.panorama_type, c.panorama_hfov,
-						 c.panorama_pitch, c.panorama_yaw, c.panorama_autoload, c.panorama_autorotates,
-						 c.panorama_date_added, c.panorama_last_modified
+        $query = "SELECT c.panorama_id, c.categories_id, c.panorama_preview, c.panorama_author, 
+						  c.panorama_autoload, c.panorama_autorotates, c.panorama_date_added, c.panorama_last_modified
                   FROM $categories_panoramatable c,
                        $categories_panorama_descriptiontable cd
                   WHERE c.categories_id = '" . intval($cID) . "' AND
@@ -438,7 +466,7 @@ idxsql($idxname, $table, $idxflds);
                         <a class="nav-link active" href="#edit" aria-controls="edit" role="tab" data-toggle="tab"><?php echo TEXT_PANORAMA_SETTINGS; ?></a>
                      </li>
                      <li class="nav-item" role="presentation">
-                        <a class="nav-link" href="#data" aria-controls="data" role="tab" data-toggle="tab"><?php echo TEXT_DATA; ?></a>
+                        <a class="nav-link" href="#scene" aria-controls="scene" role="tab" data-toggle="tab"><?php echo TEXT_SCENE; ?></a>
                      </li>
                      <li class="nav-item" role="presentation">
                         <a class="nav-link" href="#picture" aria-controls="picture" role="tab" data-toggle="tab"><?php echo TEXT_IMAGES; ?></a>
@@ -497,12 +525,51 @@ idxsql($idxname, $table, $idxflds);
 
                        <fieldset>
                            <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_AUTHOR; ?></label>
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PANORAMA_AUTHOR; ?></label>
                               <div class="col-lg-10">
 								<?php echo oos_draw_input_field('panorama_author',  $panorama['panorama_author']); ?>
                               </div>
                            </div>
                         </fieldset>
+		
+
+
+		<div class="row mb-3 pb-3 bb">
+			<div class="col-lg-2">		
+				<?php echo TEXT_PANORAMA_PREVIEW; ?>
+			</div>
+			<div class="col-lg-10">
+
+
+<?php
+	if (oos_is_not_null($pInfo->panorama_preview)) {
+		echo '<div class="text-center"><div class="d-block" style="width: 460px; height: 260px;">';
+        echo oos_info_image('category/medium/' . $pInfo->panorama_preview, $pInfo->panorama_name);
+		echo '</div></div>';
+
+		echo oos_draw_hidden_field('panorama_preview_image', $pInfo->panorama_preview);
+		echo '<br>';
+		echo oos_draw_checkbox_field('remove_image', 'yes') . ' ' . TEXT_IMAGE_REMOVE;	
+	} else {	
+?>
+
+<div class="fileinput fileinput-new" data-provides="fileinput">
+  <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 460px; height: 260px;"></div>
+  <div>
+    <span class="btn btn-warning btn-file"><span class="fileinput-new"><em class="fa fa-plus-circle fa-fw"></em><?php echo BUTTON_SELECT_IMAGE; ?></span><span class="fileinput-exists"><?php echo BUTTON_CHANGE; ?></span>
+
+	<input type="file" size="40" name="panorama_preview"></span>
+    <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput"><em class="fa fa-times-circle fa-fw"></em><?php echo BUTTON_DELETE; ?></a>
+  </div>
+</div>
+<?php
+	}
+?>
+
+		
+			</div>
+		</div>
+
                        <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PANORAMA_AUTOLOAD; ?></label>
@@ -530,33 +597,26 @@ idxsql($idxname, $table, $idxflds);
 								</div>
 							</div>
 						</div>							  
-                        </fieldset>	
-<?php
-echo $pInfo->panorama_autorotates;
-echo ' und?';
-?>						
+                        </fieldset>					
 						<fieldset>
                            <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_EDIT_STATUS; ?></label>
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_EDIT_AUTOROTATES; ?></label>
                               <div class="col-lg-10"><?php echo oos_draw_select_menu('panorama_autorotates', $aAutorotates, $pInfo->panorama_autorotates); ?></div>
                            </div>
                         </fieldset>
-
-
+						
+						
+						
+						
                      </div>
-                     <div class="tab-pane" id="data" role="tabpanel">
+                     <div class="tab-pane" id="scene" role="tabpanel">
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label">ID:</label>
                               <div class="col-lg-10"><?php echo oos_draw_input_field('categories_id', $pInfo->panorama_id, '', FALSE, 'text', TRUE, TRUE, ''); ?></div>
                            </div>
                         </fieldset>
-						<fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_EDIT_STATUS; ?></label>
-                              <div class="col-lg-10"><?php echo oos_draw_pull_down_menu('categories_status', $aSetting, $cInfo->categories_status); ?></div>
-                           </div>
-                        </fieldset>
+
 	
                        <fieldset>
                            <div class="form-group row">
@@ -620,12 +680,12 @@ echo ' und?';
 			<div class="col-6 col-md-3">		
 
 <?php
-	if (oos_is_not_null($cInfo->categories_image)) {
+	if (oos_is_not_null($pInfo->categories_image)) {
 		echo '<div class="text-center"><div class="d-block" style="width: 200px; height: 150px;">';
-        echo oos_info_image('category/medium/' . $cInfo->categories_image, $cInfo->panorama_name);
+        echo oos_info_image('category/medium/' . $pInfo->categories_image, $pInfo->panorama_name);
 		echo '</div></div>';
 
-		echo oos_draw_hidden_field('categories_previous_image', $cInfo->categories_image);
+		echo oos_draw_hidden_field('panorama_preview_image', $pInfo->categories_image);
 		echo '<br>';
 		echo oos_draw_checkbox_field('remove_image', 'yes') . ' ' . TEXT_IMAGE_REMOVE;	
 	} else {	
@@ -654,12 +714,12 @@ echo ' und?';
 		<div class="row mb-3 pb-3 bb">
 			<div class="col-6 col-md-3">
 <?php
-	if (oos_is_not_null($cInfo->categories_banner)) {
+	if (oos_is_not_null($pInfo->categories_banner)) {
 		echo '<div class="text-center"><div class="d-block" style="width: 200px; height: 150px;">';
-        echo oos_info_image('banners/medium/' . $cInfo->categories_banner, $cInfo->panorama_name);
+        echo oos_info_image('banners/medium/' . $pInfo->categories_banner, $pInfo->panorama_name);
 		echo '</div></div>';
 
-		echo oos_draw_hidden_field('categories_previous_banner', $cInfo->categories_banner);
+		echo oos_draw_hidden_field('categories_previous_banner', $pInfo->categories_banner);
 		echo '<br>';
 		echo oos_draw_checkbox_field('remove_banner', 'yes') . ' ' . TEXT_IMAGE_REMOVE;	
 	} else {
@@ -682,9 +742,9 @@ echo ' und?';
 			</div>
 		</div>		
 <?php
-	if (is_array($cInfo->categories_larger_images) || is_object($cInfo->categories_larger_images)) {
+	if (is_array($pInfo->categories_larger_images) || is_object($pInfo->categories_larger_images)) {
 	    $nCounter = 0;
-		foreach ($cInfo->categories_larger_images as $image) {
+		foreach ($pInfo->categories_larger_images as $image) {
 			$nCounter++;
 ?>
 
@@ -693,7 +753,7 @@ echo ' und?';
 
 <?php	
 		echo '<div class="text-center"><div class="d-block" style="width: 200px; height: 150px;">';
-		echo oos_info_image('category/medium/' .  $image['image'], $cInfo->panorama_name);
+		echo oos_info_image('category/medium/' .  $image['image'], $pInfo->panorama_name);
 	    echo '</div></div>';
 			
 		echo oos_draw_hidden_field('categories_previous_large_image['. $nCounter . ']', $image['image']);

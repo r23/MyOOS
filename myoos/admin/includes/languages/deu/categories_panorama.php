@@ -26,10 +26,13 @@ define('TEXT_EDIT_PANORAMA_TITLE', 'Panorama-Titel für SEO:');
 define('TEXT_EDIT_PANORAMA_DESCRIPTION_META', 'Meta Tag Beschreibung:');
 
 define('TEXT_PANORAMA_SETTINGS', 'Allgemeine Einstellungen');
+define('TEXT_SCENE', 'Szene');
 
 
-define('TEXT_MODELS_AUTHOR', 'Autor:');
-define('TEXT_PANORAMA_AUTOLOAD', 'Automatische Drehung:');
+define('TEXT_PANORAMA_AUTHOR', 'Autor:');
+define('TEXT_PANORAMA_PREVIEW', 'Vorschaubild:');
+define('TEXT_PANORAMA_AUTOLOAD', 'Automatisches Laden:');
+define('TEXT_EDIT_AUTOROTATES', 'Automatische Drehung:');
 
 
 define('TABLE_HEADING_ID', 'ID');

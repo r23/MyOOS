@@ -269,20 +269,14 @@ $table = $prefix_table . 'categories_panorama';
 $flds = "
   panorama_id I I NOTNULL AUTO PRIMARY,
   categories_id I NOTNULL DEFAULT '1' PRIMARY,
-  panorama_image C(255) NULL,
   panorama_preview C(255) NULL,
   panorama_author C(255) NULL,
-  panorama_type C(24) NULL,
-  panorama_hfov C(3) NULL,
-  panorama_pitch C(3) NULL,
-  panorama_yaw C(3) NULL,
   panorama_autoload C(5) DEFAULT 'false',  
   panorama_autorotates C(5) DEFAULT '-2',  
   panorama_date_added T,
   panorama_last_modified T 
 ";
 dosql($table, $flds);
-
 
 $table = $prefix_table . 'categories_panorama_description';
 $flds = "
@@ -300,6 +294,44 @@ $idxname = 'idx_panorama_name';
 $idxflds = 'panorama_name';
 idxsql($idxname, $table, $idxflds);
 
+
+$table = $prefix_table . 'categories_panorama_scene';
+$flds = "
+  scene_id I NOTNULL AUTO PRIMARY,
+  panorama_id I NOTNULL DEFAULT '1' PRIMARY,
+  scene_image C(255) NULL,
+  scene_type C(24) NULL,
+  scene_hfov C(3) NULL,
+  scene_pitch C(3) NULL,
+  scene_yaw C(3) NULL,
+  scene_default I1 NOTNULL DEFAULT '0'
+";
+dosql($table, $flds);
+
+$idxname = 'idx_scene_image';
+$idxflds = 'scene_image';
+idxsql($idxname, $table, $idxflds);
+
+
+$table = $prefix_table . 'categories_panorama_scene_hotspot';
+$flds = "
+  hotspot_id I I NOTNULL AUTO PRIMARY,
+  scene_id I NOTNULL DEFAULT '1' PRIMARY,
+  hotspot_pitch N '4.2' NOTNULL DEFAULT '0.0',
+  hotspot_yaw N '4.2' NOTNULL DEFAULT '0.0',
+  hotspot_type C(24) NULL,
+  hotspot_url C(255) NULL
+";
+dosql($table, $flds);
+
+
+$table = $prefix_table . 'categories_panorama_scene_hotspot_text';
+$flds = "
+  hotspot_id I DEFAULT '0' NOTNULL PRIMARY,
+  hotspot_languages_id I NOTNULL DEFAULT '1' PRIMARY,
+  hotspot_text C(255) NULL
+";
+dosql($table, $flds);
 
 
 

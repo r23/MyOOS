@@ -154,6 +154,26 @@ if (!empty($action)) {
           // Move that ADOdb pointer!
           $categories_panorama_result->MoveNext();
         }
+		
+        // hotspot_text
+        $scene_hotspot_result = $dbconn->Execute("SELECT sh.hotspot_id, sht.hotspot_text
+                                          FROM " . $oostable['categories_panorama_scene_hotspot'] . " sh LEFT JOIN
+                                               " . $oostable['categories_panorama_scene_hotspot_text'] . " sht
+                                             ON sh.hotspot_id = sht.hotspot_id
+                                          WHERE cpd.hotspot_languages_id = '" . intval($_SESSION['language_id']) . "'");
+        while ($scene_hotspot = $scene_hotspot_result->fields) {		
+          $dbconn->Execute("INSERT INTO " . $oostable['categories_panorama_scene_hotspot_text'] . "
+                      (hotspot_id, 
+						hotspot_languages_id,
+						hotspot_text) 
+                       VALUES ('" . $scene_hotspot['hotspot_id'] . "',
+                               '" . intval($insert_id) . "',
+                               '" . oos_db_input($scene_hotspot['hotspot_text']) . "')");
+
+          // Move that ADOdb pointer!
+          $scene_hotspot_result->MoveNext();
+        }		
+		
 
         //coupons_description
         $coupon_result = $dbconn->Execute("SELECT c.coupon_id, cd.coupon_name, cd.coupon_description
@@ -481,7 +501,8 @@ if (!empty($action)) {
         $dbconn->Execute("DELETE FROM " . $oostable['block_info'] . " WHERE block_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['categories_description'] . " WHERE categories_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['categories_images_description'] . " WHERE categories_images_languages_id = '" . intval($lID) . "'");
-        $dbconn->Execute("DELETE FROM " . $oostable['categories_panorama_description'] . " WHERE panorama_languages_id = '" . intval($lID) . "'");		
+        $dbconn->Execute("DELETE FROM " . $oostable['categories_panorama_description'] . " WHERE panorama_languages_id = '" . intval($lID) . "'");	
+        $dbconn->Execute("DELETE FROM " . $oostable['categories_panorama_scene_hotspot_text'] . " WHERE hotspot_languages_id = '" . intval($lID) . "'");		
         $dbconn->Execute("DELETE FROM " . $oostable['coupons_description']  . " WHERE coupon_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['customers_status']  . " WHERE customers_status_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['information_description']  . " WHERE information_languages_id = '" . intval($lID) . "'");
