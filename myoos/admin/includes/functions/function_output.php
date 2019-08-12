@@ -675,12 +675,11 @@ function oos_draw_extensions_menu($name, $values, $default = '', $params = '', $
  * @param $exclude
  * @return string
  */
-function oos_draw_products_pull_down($name, $parameters = '', $exclude = '') {
+function oos_draw_products_pull_down($name, $parameters = '', $exclude) {
     GLOBAL $currencies;
 
-	if ($exclude == '') {
-		$exclude = array();
-    }
+	if (!is_array($exclude)) $exclude = array();
+
 	$select_string = '<select class="form-control" id="select2-1" name="' . $name . '"';
 	$select_string .= '>';
 
@@ -692,7 +691,7 @@ function oos_draw_products_pull_down($name, $parameters = '', $exclude = '') {
     $products_descriptiontable = $oostable['products_description'];
     $products_result = $dbconn->Execute("SELECT p.products_id, pd.products_name, p.products_price FROM $productstable p, $products_descriptiontable pd WHERE p.products_id = pd.products_id AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY products_name");
     while ($products = $products_result->fields) {
-		if (!oos_in_array($products['products_id'], $exclude)) {
+		if (!oos_in_array($products['products_id'], $exclude)) {		
 			$select_string .= '<option value="' . $products['products_id'] . '">' . $products['products_name'] . ' (' . $currencies->format($products['products_price']) . ')</option>';
 		}
 

@@ -799,7 +799,6 @@ function oos_get_categories_name($who_am_i) {
 }
 
 
-
  /**
   * Return 3D Model Name
   *
@@ -956,3 +955,33 @@ function oos_get_panorama_description_meta($panorama_id, $language_id = '') {
 
     return $panorama_description_meta;
 }
+
+
+
+ /**
+  * Return Hotspot Text
+  *
+  * @param $hotspot_id
+  * @param $language
+  * @return string
+  */
+function oos_get_hotspot_text($hotspot_id, $language_id = '') {
+
+    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+
+    // Get database information
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
+
+    $categories_panorama_scene_hotspot_texttable = $oostable['categories_panorama_scene_hotspot_text'];
+    $query = "SELECT hotspot_text
+              FROM $categories_panorama_scene_hotspot_texttable
+              WHERE hotspot_id = '" . intval($hotspot_id) . "'
+                AND hotspot_languages_id = '" . intval($language_id) . "'";
+    $result = $dbconn->Execute($query);
+
+    $hotspot_text = $result->fields['hotspot_text'];
+
+    return $hotspot_text;
+}
+

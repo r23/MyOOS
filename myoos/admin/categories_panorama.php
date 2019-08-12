@@ -22,9 +22,13 @@ define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
 require 'includes/functions/function_categories.php';
+require 'includes/classes/class_currencies.php';
 require 'includes/classes/class_upload.php';
 
 require_once MYOOS_INCLUDE_PATH . '/includes/lib/htmlpurifier/library/HTMLPurifier.auto.php';
+
+$currencies = new currencies();
+
 
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
 $cPath = (isset($_GET['cPath']) ? oos_prepare_input($_GET['cPath']) : $current_category_id);
@@ -253,7 +257,11 @@ if (!empty($action)) {
 				}
 			}
 
-				oos_redirect_admin(oos_href_link_admin($aContents['categories_panorama'], 'cPath=' . $cPath . '&cID=' . $categories_id));
+
+
+				if ($action == 'update_panorama') {
+					oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $categories_id));
+				}
 				break;
 			
 			}
@@ -377,6 +385,9 @@ $flds = "
   hotspot_pitch N '4.2' NOTNULL DEFAULT '0.0',
   hotspot_yaw N '4.2' NOTNULL DEFAULT '0.0',
   hotspot_type C(24) NULL,
+  hotspot_icon_class C(24) NULL,
+  hotspot_product_id I,
+  hotspot_categories_id I
   hotspot_url C(255) NULL
 ";
 dosql($table, $flds);
@@ -415,8 +426,7 @@ dosql($table, $flds);
 
 	$text_new_or_edit = ($action=='panorama') ? TEXT_INFO_HEADING_NEW_PANORAMA : TEXT_INFO_HEADING_EDIT_CATEGORY;
 
-
-	$back_url = $aContents['categories_panorama'];
+	$back_url = $aContents['categories'];
 	$back_url_params = 'cPath=' . $cPath;
 	if (oos_is_not_null($pInfo->panorama_id)) {
 		$back_url_params .= '&cID=' . $pInfo->panorama_id;
@@ -426,7 +436,16 @@ dosql($table, $flds);
 	$aAutorotates = array('-3', '-2', '-1', '1', '2', '3');
 
 ?>
-<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
+<link rel="stylesheet" href="css/pannellum.css"/>
+<script type="text/javascript" src="js/pannellum/pannellum.js"></script>
+    <style>
+    #panorama {
+        width: 600px;
+        height: 400px;
+    }
+    </style>
+
+
 	<!-- Breadcrumbs //-->
 	<div class="content-heading">
 		<div class="col-lg-12">
@@ -469,7 +488,7 @@ dosql($table, $flds);
                         <a class="nav-link" href="#scene" aria-controls="scene" role="tab" data-toggle="tab"><?php echo TEXT_SCENE; ?></a>
                      </li>
                      <li class="nav-item" role="presentation">
-                        <a class="nav-link" href="#picture" aria-controls="picture" role="tab" data-toggle="tab"><?php echo TEXT_IMAGES; ?></a>
+                        <a class="nav-link" href="#hotspot" aria-controls="hotspot" role="tab" data-toggle="tab"><?php echo TEXT_HOTSPOT; ?></a>
                      </li>
                   </ul>
                   <div class="tab-content">
@@ -609,43 +628,108 @@ dosql($table, $flds);
 						
 						
                      </div>
+					 
+					 
                      <div class="tab-pane" id="scene" role="tabpanel">
-                        <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label">ID:</label>
-                              <div class="col-lg-10"><?php echo oos_draw_input_field('categories_id', $pInfo->panorama_id, '', FALSE, 'text', TRUE, TRUE, ''); ?></div>
-                           </div>
-                        </fieldset>
 
-	
-                       <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_CAMERA_POS; ?></label>
-                              <div class="col-lg-10">
-								<?php echo oos_draw_input_field('panorama_pitch',  $panorama['panorama_pitch']); ?>
-                              </div>
-                           </div>
-                        </fieldset>
-                       <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_OBJECT_ROTATION; ?></label>
-                              <div class="col-lg-10">
-								<?php echo oos_draw_input_field('panorama_yaw',  $panorama['panorama_yaw']); ?>
-                              </div>
-                           </div>
-                        </fieldset>
-                       <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_OBJECT_ROTATION; ?></label>
-                              <div class="col-lg-10">
-								<?php echo oos_draw_input_field('panorama_autorotates',  $panorama['panorama_autorotates']); ?>
-                              </div>
-                           </div>
-                        </fieldset>
+						<div class="row mb-3 pb-3 bb">
+							<div class="col-lg-2">		
+								<?php echo TEXT_SCENE_IMAGE; ?>
+							</div>
+							<div class="col-lg-10">		
 
+
+<?php
+	if (oos_is_not_null($pInfo->scene_image)) {
+		echo '<div class="text-center"><div class="d-block" style="width: 460px; height: 260px;;">';
+        echo oos_info_image('category/medium/' . $pInfo->scene_image, $pInfo->panorama_name);
+		echo '</div></div>';
+
+		echo oos_draw_hidden_field('scene_preview_image', $pInfo->scene_image);
+		echo '<br>';
+		echo oos_draw_checkbox_field('scene_image', 'yes') . ' ' . TEXT_IMAGE_REMOVE;	
+	} else {	
+?>
+
+<div class="fileinput fileinput-new" data-provides="fileinput">
+  <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 460px; height: 260px;"></div>
+  <div>
+    <span class="btn btn-warning btn-file"><span class="fileinput-new"><em class="fa fa-plus-circle fa-fw"></em><?php echo BUTTON_SELECT_IMAGE; ?></span><span class="fileinput-exists"><?php echo BUTTON_CHANGE; ?></span>
+
+	<input type="file" size="40" name="scene_image"></span>
+    <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput"><em class="fa fa-times-circle fa-fw"></em><?php echo BUTTON_DELETE; ?></a>
+  </div>
+</div>
+<?php
+	}
+?>	
+							</div>
+						</div>
+<?php
+	if  ($action == 'edit_panorama') {
+?>	
+						<div class="row mb-3 pb-3 bb">
+							<div class="col-lg-2">		
+								<?php echo TEXT_PANORAMA_PREVIEW; ?>
+							</div>
+							
+			<div class="col-lg-10">
+
+<div id="panorama"></div>
+<script>
+pannellum.viewer('panorama', {
+    "type": "equirectangular",
+    "panorama": "/images/bma-1.jpg",
+    /*
+     * Uncomment the next line to print the coordinates of mouse clicks
+     * to the browser's developer console, which makes it much easier
+     * to figure out where to place hot spots. Always remove it when
+     * finished, though.
+     */
+    //"hotSpotDebug": true,
+    "hotSpots": [
+        {
+            "pitch": 14.1,
+            "yaw": 1.5,
+            "type": "info",
+            "text": "Baltimore Museum of Art",
+            "URL": "https://artbma.org/"
+        },
+        {
+            "pitch": -9.4,
+            "yaw": 222.6,
+            "type": "info",
+            "text": "Art Museum Drive"
+        },
+        {
+            "pitch": -0.9,
+            "yaw": 144.4,
+            "type": "info",
+            "text": "North Charles Street"
+        }
+    ]
+});
+</script>
+
+							</div>
+						</div>
 	
+<?php
+} else {
+?>
+            <div class="text-right mt-3 mb-5">
+				<?php echo oos_submit_button(IMAGE_PREVIEW); ?>	
+            </div>
+			
+<div id="panorama"></div>			
+			
+<?php	
+}
+?>	
+		
                      </div>
-                     <div class="tab-pane" id="picture" role="tabpanel">
+                     <div class="tab-pane" id="hotspot" role="tabpanel">
+				 
 	<script type="text/javascript">
 	// <!-- <![CDATA[
 		window.totalinputs = 3;
@@ -667,148 +751,51 @@ dosql($table, $flds);
 	// ]]> -->
 	</script>
 
-		<div class="row mb-3">
-			<div class="col-3">
-				<strong><?php echo TEXT_INFO_PREVIEW; ?></strong>
-			</div>
-			<div class="col-9">
-				<strong><?php echo TEXT_INFO_DETAILS; ?></strong>
-			</div>
-		</div>
-
-		<div class="row mb-3 pb-3 bb">
-			<div class="col-6 col-md-3">		
 
 <?php
-	if (oos_is_not_null($pInfo->categories_image)) {
-		echo '<div class="text-center"><div class="d-block" style="width: 200px; height: 150px;">';
-        echo oos_info_image('category/medium/' . $pInfo->categories_image, $pInfo->panorama_name);
-		echo '</div></div>';
-
-		echo oos_draw_hidden_field('panorama_preview_image', $pInfo->categories_image);
-		echo '<br>';
-		echo oos_draw_checkbox_field('remove_image', 'yes') . ' ' . TEXT_IMAGE_REMOVE;	
-	} else {	
+    for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
 ?>
 
-<div class="fileinput fileinput-new" data-provides="fileinput">
-  <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
-  <div>
-    <span class="btn btn-warning btn-file"><span class="fileinput-new"><em class="fa fa-plus-circle fa-fw"></em><?php echo BUTTON_SELECT_IMAGE; ?></span><span class="fileinput-exists"><?php echo BUTTON_CHANGE; ?></span>
-
-	<input type="file" size="40" name="categories_image"></span>
-    <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput"><em class="fa fa-times-circle fa-fw"></em><?php echo BUTTON_DELETE; ?></a>
-  </div>
-</div>
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_HOTSPOT_TEXT; ?></label>
+							  <?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
+                              <div class="col-lg-9">
+								<?php echo oos_draw_input_field('hotspot_text['. $nCounter . '][' . $aLanguages[$i]['id'] . ']', (($hotspot_text[$aLanguages[$i]['id']]) ? stripslashes($hotspot_text[$aLanguages[$i]['id']]) : oos_get_hotspot_text($models['models_id'], $aLanguages[$i]['id']))); ?>
+                              </div>
+                           </div>
+                        </fieldset>						
 <?php
-	}
-?>	
-			</div>
-			<div class="col-9">
-				<div class="c-radio c-radio-nofont">
-					<?php echo TEXT_INFO_PRIMARY; ?>
-				</div>				
-			</div>
-		</div>
-		
-		<div class="row mb-3 pb-3 bb">
-			<div class="col-6 col-md-3">
-<?php
-	if (oos_is_not_null($pInfo->categories_banner)) {
-		echo '<div class="text-center"><div class="d-block" style="width: 200px; height: 150px;">';
-        echo oos_info_image('banners/medium/' . $pInfo->categories_banner, $pInfo->panorama_name);
-		echo '</div></div>';
-
-		echo oos_draw_hidden_field('categories_previous_banner', $pInfo->categories_banner);
-		echo '<br>';
-		echo oos_draw_checkbox_field('remove_banner', 'yes') . ' ' . TEXT_IMAGE_REMOVE;	
-	} else {
-?>	
-<div class="fileinput fileinput-new" data-provides="fileinput">
-  <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
-  <div>
-    <span class="btn btn-warning btn-file"><span class="fileinput-new"><em class="fa fa-plus-circle fa-fw"></em><?php echo BUTTON_SELECT_IMAGE; ?></span><span class="fileinput-exists"><?php echo BUTTON_CHANGE; ?></span>
-
-	<input type="file" size="40" name="categories_banner"></span>
-    <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput"><em class="fa fa-times-circle fa-fw"></em><?php echo BUTTON_DELETE; ?></a>
-  </div>
-</div>
-<?php
-	}
+    }
 ?>
-			</div>
-			<div class="col-9">
-				<?php echo TEXT_INFO_BANNER; ?>
-			</div>
-		</div>		
+                       <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_HOTSPOT_PITCH; ?></label>
+                              <div class="col-lg-10">
+								<?php echo oos_draw_input_field('hotspot_pitch',  $panorama['hotspot_pitch']); ?>
+                              </div>
+                           </div>
+                        </fieldset>
+                       <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_HOTSPOT_YAW; ?></label>
+                              <div class="col-lg-10">
+								<?php echo oos_draw_input_field('hotspot_yaw',  $panorama['hotspot_yaw']); ?>
+                              </div>
+                           </div>
+                        </fieldset>
 <?php
-	if (is_array($pInfo->categories_larger_images) || is_object($pInfo->categories_larger_images)) {
-	    $nCounter = 0;
-		foreach ($pInfo->categories_larger_images as $image) {
-			$nCounter++;
+		$array = array();
+		$array[] = '';
 ?>
-
-		<div class="row mb-3 pb-3 bb">
-			<div class="col-6 col-md-3">
-
-<?php	
-		echo '<div class="text-center"><div class="d-block" style="width: 200px; height: 150px;">';
-		echo oos_info_image('category/medium/' .  $image['image'], $pInfo->panorama_name);
-	    echo '</div></div>';
-			
-		echo oos_draw_hidden_field('categories_previous_large_image['. $nCounter . ']', $image['image']);
-		echo '<br>';
-		echo oos_draw_checkbox_field('remove_category_image['. $nCounter . ']', 'yes') . ' ' . TEXT_IMAGE_REMOVE;	
-?>
-			</div>
-			<div class="col-9">
-				<strong><?php echo TEXT_INFO_SLIDER; ?></strong>
-			</div>	
-		</div>
-<?php
-		}
-		echo oos_draw_hidden_field('image_counter', $nCounter);
-	}
-?>	
-		<div class="row mb-3 pb-3 bb">
-			<div class="col-6 col-md-3">
-
-<div class="fileinput fileinput-new" data-provides="fileinput">
-  <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 300px; height: 110px;"></div>
-  <div>
-    <span class="btn btn-warning btn-file"><span class="fileinput-new"><em class="fa fa-plus-circle fa-fw"></em><?php echo BUTTON_SELECT_IMAGE; ?></span><span class="fileinput-exists"><?php echo BUTTON_CHANGE; ?></span>
-
-	<input type="file" size="40" name="files[]"></span>
-    <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput"><em class="fa fa-times-circle fa-fw"></em><?php echo BUTTON_DELETE; ?></a>
-  </div>
-</div>
-
-			</div>
-			<div class="col-9">
-				<strong><?php echo TEXT_INFO_SLIDER; ?></strong>
-			</div>
-		</div>
-
-		<div class="row mb-3 pb-3 bb">
-			<div class="col-6 col-md-3">
-
-<div class="fileinput fileinput-new" data-provides="fileinput">
-  <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 300px; height: 110px;"></div>
-  <div>
-    <span class="btn btn-warning btn-file"><span class="fileinput-new"><em class="fa fa-plus-circle fa-fw"></em><?php echo BUTTON_SELECT_IMAGE; ?></span><span class="fileinput-exists"><?php echo BUTTON_CHANGE; ?></span>
-
-	<input type="file" size="40" name="files[]"></span>
-    <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput"><em class="fa fa-times-circle fa-fw"></em><?php echo BUTTON_DELETE; ?></a>
-  </div>
-</div>
-
-			</div>
-			<div class="col-9">
-				<strong><?php echo TEXT_INFO_SLIDER; ?></strong>
-			</div>
-		</div>
-
-
+                     <fieldset>
+                        <div class="form-group row mb-2 mt-3">
+                           <label class="col-md-2 col-form-label mb-2"><?php echo TEXT_HOTSPOT_PRODUCT; ?></label>
+                           <div class="col-md-10">
+								<?php echo oos_draw_products_pull_down('hotspot_product_id', '', $array); ?>
+                           </div>
+                        </div>
+                     </fieldset>
 
 	<div id="uploadboxes">
 		<div id="place" style="display: none;"></div>
@@ -832,7 +819,7 @@ dosql($table, $flds);
 
                            </div>
                            <div class="col-9">
-                              <strong><?php echo TEXT_INFO_SLIDER; ?></strong>
+                             
                            </div>
 						</div>
 		</div>
@@ -840,10 +827,74 @@ dosql($table, $flds);
 	<p id="addUploadBoxes"><a href="javascript:addUploadBoxes('place','filetemplate',3)" title="<?php echo TEXT_NOT_RELOAD; ?>">+ <?php echo TEXT_ADD_MORE_UPLOAD; ?></a></p>
 
 
+
+<?php
+	if  ($action == 'edit_panorama') {
+?>	
+						<div class="row mb-3 pb-3 bb">
+							<div class="col-lg-2">		
+								<?php echo TEXT_PANORAMA_PREVIEW; ?>
+							</div>
+							
+			<div class="col-lg-10">
+
+<div id="panorama"></div>
+<script>
+pannellum.viewer('panorama', {
+    "type": "equirectangular",
+    "panorama": "/images/bma-1.jpg",
+    /*
+     * Uncomment the next line to print the coordinates of mouse clicks
+     * to the browser's developer console, which makes it much easier
+     * to figure out where to place hot spots. Always remove it when
+     * finished, though.
+     */
+    //"hotSpotDebug": true,
+    "hotSpots": [
+        {
+            "pitch": 14.1,
+            "yaw": 1.5,
+            "type": "info",
+            "text": "Baltimore Museum of Art",
+            "URL": "https://artbma.org/"
+        },
+        {
+            "pitch": -9.4,
+            "yaw": 222.6,
+            "type": "info",
+            "text": "Art Museum Drive"
+        },
+        {
+            "pitch": -0.9,
+            "yaw": 144.4,
+            "type": "info",
+            "text": "North Charles Street"
+        }
+    ]
+});
+</script>
+
+							</div>
+						</div>
+	
+<?php
+} else {
+?>
+            <div class="text-right mt-3">			
+				<?php echo oos_submit_button(IMAGE_PREVIEW); ?>	
+            </div>
+			
+			<div id="panorama"></div>
+<?php	
+}
+?>	
+
+
+
                      </div>
                   </div>
                </div>
-            <div class="text-right mt-3">
+            <div class="text-right mt-3">			
 				<?php echo '<a  class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($back_url, $back_url_params) . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . IMAGE_BACK . '</strong></a>'; ?>
 				<?php echo oos_submit_button(IMAGE_SAVE); ?>
 				<?php echo oos_reset_button(BUTTON_RESET); ?>			

@@ -320,6 +320,9 @@ $flds = "
   hotspot_pitch N '4.2' NOTNULL DEFAULT '0.0',
   hotspot_yaw N '4.2' NOTNULL DEFAULT '0.0',
   hotspot_type C(24) NULL,
+  hotspot_icon_class C(24) NULL,
+  hotspot_product_id I,
+  hotspot_categories_id I,
   hotspot_url C(255) NULL
 ";
 dosql($table, $flds);
