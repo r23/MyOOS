@@ -27,8 +27,7 @@ $sCanonical = oos_href_link($aContents['panorama'], 'panorama_id='. $nPanoramaID
 $categories_panoramatable = $oostable['categories_panorama'];
 $categories_panorama_descriptiontable = $oostable['categories_panorama_description'];
 $categories_panorama_sql = "SELECT p.panorama_id, p.categories_id, pd.panorama_name, pd.panorama_title, pd.panorama_description_meta,
-								p.panorama_image, p.panorama_preview, p.panorama_author, p.panorama_type, p.panorama_hfov,
-								p.panorama_pitch, p.panorama_yaw, p.panorama_autoload, p.panorama_autorotates
+								 p.panorama_preview, p.panorama_author, p.panorama_autoload, p.panorama_autorotates
                         FROM $categories_panoramatable p,
                              $categories_panorama_descriptiontable pd
 						WHERE p.panorama_id = '" . intval($nPanoramaID) . "'
@@ -69,7 +68,6 @@ if (!$categories_panorama_result->RecordCount()) {
         . "   AND panorama_languages_id = ?";
     $result = $dbconn->Execute($query, array((int)$nPanoramaID, (int)$nLanguageID));
     $panorama_info = $categories_panorama_result->fields;	
-	
 	
 	ob_start();
 	require_once MYOOS_INCLUDE_PATH . '/includes/content/scene3d/panorama.js.php';

@@ -15,6 +15,14 @@
 
 			<!-- left column -->
 			<div class="col-lg-9 col-md-9 col-sm-9">
+			
+			{if $panorama_info}
+				<div class="embed-responsive embed-responsive-16by9 mb-30">
+					<iframe  class="embed-responsive-item" src="{html_href_link content=$filename.panorama panorama_id=$panorama_info.panorama_id}"  frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen="allowfullscreen"></iframe>			
+				</div>
+			{/if}
+			
+			
 			{if !empty($category.categories_description) || !empty($category.categories_image) }
 				<div class="row">
 					<div class="category-info">

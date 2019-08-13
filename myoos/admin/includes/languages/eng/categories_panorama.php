@@ -21,6 +21,8 @@
 
 define('HEADING_TITLE', 'Panorama');
 define('TEXT_INFO_HEADING_NEW_PANORAMA', 'New Panorama');
+define('TEXT_INFO_HEADING_EDIT_PANORAMA', 'Edit Panorama');
+
 define('TEXT_EDIT_PANORAMA_NAME', 'Panorama Name');
 define('TEXT_EDIT_PANORAMA_TITLE', 'Panorama-Title for SEO:');
 define('TEXT_EDIT_PANORAMA_DESCRIPTION_META', 'Meta Tag Description:');
@@ -42,3 +44,9 @@ define('TEXT_HOTSPOT_PRODUCT', 'Product:');
 
 define('TEXT_ADD_MORE_UPLOAD', 'Add more upload boxes');
 define('TEXT_NOT_RELOAD', 'Does not reload!');
+
+define('TEXT_IMAGE_NONEXISTENT', 'IMAGE DOES NOT EXIST');
+define('TEXT_IMAGE_REMOVE', '<b>Remove</b> this Image?');
+
+define('ERROR_NO_IMAGE_FILE', 'Invalid file extension. Only png, jpg, jpeg, webp and gif files are allowed.');
+define('TEXT_SUCCESSFULLY_UPLOADED', 'Image successfully uploaded.');

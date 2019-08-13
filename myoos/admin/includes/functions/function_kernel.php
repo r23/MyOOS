@@ -1103,6 +1103,18 @@ function is_zip($filename) {
 	return ($ext == "zip");
 }
 
+/**
+ * Checking the file extension
+ *
+ * @param string $filename name of the file
+ * @return bool
+ */
+function is_image($filename) {
+	$ext = oos_get_suffix($filename);
+	$allowed_extensions = array('png', 'jpg', 'jpeg', 'gif', 'webp');
+	
+	return in_array($ext, $allowed_extensions);
+}
 
 
 

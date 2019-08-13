@@ -55,7 +55,6 @@ if (isset($sCategory) && oos_is_not_null($sCategory)) {
 }
 
 if ($category_depth == 'nested') {
-
 	$categoriestable = $oostable['categories'];
 	$categories_descriptiontable = $oostable['categories_description'];
 	$sql = "SELECT cd.categories_name, cd.categories_page_title, cd.categories_heading_title, cd.categories_description,
@@ -156,6 +155,18 @@ if ($category_depth == 'nested') {
 			$smarty->assign('heading_title', $category['categories_heading_title']);
 		} 
 
+		// Panorama
+		$categories_panoramatable = $oostable['categories_panorama'];
+		$categories_panorama_sql = "SELECT panorama_id
+									FROM $categories_panoramatable
+									WHERE categories_id = '" . intval($nCurrentCategoryID) . "'";					
+		$panorama_result = $dbconn->Execute($categories_panorama_sql);
+		if ($panorama_result->RecordCount()) {	
+			$panorama_info = $panorama_result->fields;
+			$smarty->assign('panorama_info', $panorama_info); 
+		}
+
+
 		$smarty->assign(
 			array(
 				'category'      => $category,
@@ -178,6 +189,7 @@ if ($category_depth == 'nested') {
                 AND cd.categories_languages_id = '" .  intval($nLanguageID) . "'";
 	$category = $dbconn->GetRow($sql);
 
+	// Slider
 	$categories_imagestable = $oostable['categories_images'];
 	$sql = "SELECT categories_image
               FROM $categories_imagestable
@@ -527,7 +539,18 @@ if ($category_depth == 'nested') {
 				'category' => $category
 			)
 		);
-		
+
+		// Panorama
+		$categories_panoramatable = $oostable['categories_panorama'];
+		$categories_panorama_sql = "SELECT panorama_id
+									FROM $categories_panoramatable
+									WHERE categories_id = '" . intval($nCurrentCategoryID) . "'";					
+		$panorama_result = $dbconn->Execute($categories_panorama_sql);
+		if ($panorama_result->RecordCount()) {	
+			$panorama_info = $panorama_result->fields;
+			$smarty->assign('panorama_info', $panorama_info); 
+		}
+
 		if (isset($aCategorySlider) && is_array($aCategorySlider)) {
 			$smarty->assign('slider', $aCategorySlider);   			
 		}

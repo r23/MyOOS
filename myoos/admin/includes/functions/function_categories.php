@@ -544,6 +544,16 @@ function oos_remove_category_banner($image) {
 }
 
 
+function oos_remove_panorama_preview_image($image) {
+	$sImage = oos_var_prep_for_os($image);
+	
+	if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'panoramas/originals/' .$sImage)) {
+		@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'panoramas/large/' .$sImage);
+		@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'panoramas/medium/' .$sImage);
+		@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'panoramas/originals/' .$sImage);		
+	}
+}
+
 
 function oos_remove_category($category_id) {
 

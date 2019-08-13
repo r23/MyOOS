@@ -29,7 +29,6 @@ require_once MYOOS_INCLUDE_PATH . '/includes/lib/htmlpurifier/library/HTMLPurifi
 
 $currencies = new currencies();
 
-
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
 $cPath = (isset($_GET['cPath']) ? oos_prepare_input($_GET['cPath']) : $current_category_id);
 $cID = (isset($_GET['cID']) ? intval($_GET['cID']) : 0);
@@ -65,7 +64,6 @@ if (!empty($action)) {
 
 				$sql_data_array = array();
 				$sql_data_array = array('categories_id' => intval($categories_id),
-										'panorama_author' => oos_db_prepare_input($_POST['panorama_author']),
 										'panorama_author' => oos_db_prepare_input($_POST['panorama_author']),
 										'panorama_autoload' => oos_db_prepare_input($_POST['panorama_autoload']),
 										'panorama_autorotates' => oos_db_prepare_input($_POST['panorama_autorotates']));
@@ -103,155 +101,116 @@ if (!empty($action)) {
 												'panorama_languages_id' => intval($aLanguages[$i]['id']));
 
 						$sql_data_array = array_merge($sql_data_array, $insert_sql_data);
+					
 						oos_db_perform($oostable['categories_panorama_description'], $sql_data_array);
-					} elseif ($action == 'update_panorama') {
+					} elseif ($action == 'update_panorama') {					
 						oos_db_perform($oostable['categories_panorama_description'], $sql_data_array, 'UPDATE', 'panorama_id = \'' . intval($panorama_id) . '\' AND panorama_languages_id = \'' . intval($language_id) . '\'');
 					}
 				}
 
-			if ( ($_POST['remove_image'] == 'yes') && (isset($_POST['panorama_preview_image'])) ) {
-				$panorama_preview_image = oos_db_prepare_input($_POST['panorama_preview_image']);
+				if ( ($_POST['remove_image'] == 'yes') && (isset($_POST['panorama_preview_image'])) ) {
+					$panorama_preview_image = oos_db_prepare_input($_POST['panorama_preview_image']);
 				
-				$categoriestable = $oostable['categories_panorama'];
-				$dbconn->Execute("UPDATE $categoriestable
-                            SET categories_image = NULL
-                            WHERE categories_id = '" . intval($categories_id) . "'");				
+					$categoriestable = $oostable['categories_panorama'];
+					$dbconn->Execute("UPDATE $categoriestable
+								SET panorama_preview = NULL
+								WHERE panorama_id = '" . intval($panorama_id) . "'");				
 				
-				oos_remove_category_image($panorama_preview_image);				
-			}
-			
-			if ( ($_POST['remove_banner'] == 'yes') && (isset($_POST['categories_previous_banner'])) ) {
-				$categories_previous_banner = oos_db_prepare_input($_POST['categories_previous_banner']);
-				
-				$categoriestable = $oostable['categories_panorama'];
-				$dbconn->Execute("UPDATE $categoriestable
-                            SET categories_banner = NULL
-                            WHERE categories_id = '" . intval($categories_id) . "'");				
-				
-				oos_remove_category_banner($categories_previous_banner);				
-			}
-		
-		
-			// Panorama Preview
-			$aPreviewOptions = array(
-				'image_versions' => array(
-                // The empty image version key defines options for the original image.
-                // Keep in mind: these image manipulations are inherited by all other image versions from this point onwards.
-                // Also note that the property 'no_cache' is not inherited, since it's not a manipulation.
-					'' => array(
-						// Automatically rotate images based on EXIF meta data:
-						'auto_orient' => TRUE
-					),
-					'large' => array(
-						// 'auto_orient' => TRUE,
-						// 'crop' => TRUE,
-						// 'jpeg_quality' => 82,
-						// 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
-						// 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-						'max_width' => 1920, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
-						'max_height' => 1080, // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
-					),
-					'medium' => array(
-						// 'auto_orient' => TRUE,
-						// 'crop' => TRUE,
-						// 'jpeg_quality' => 82,
-						// 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
-						// 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-						'max_width' => 675, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
-						'max_height' => 380 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
-					),
-				),
-			);
-
-			$oPanoramaPreview = new upload('panorama_preview', $aPreviewOptions);
-
-			$dir_fs_panorama_preview = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'panoramas/';
-			$oPanoramaPreview->set_destination($dir_fs_panorama_preview);	
-			
-			if ($oPanoramaPreview->parse() && oos_is_not_null($oPanoramaPreview->filename)) {
-
-				$categories_panoramatable = $oostable['categories_panorama'];
-				$dbconn->Execute("UPDATE $categories_panoramatable
-                            SET panorama_preview = '" . oos_db_input($oPanoramaPreview->filename) . "'
-                            WHERE panorama_id = '" . intval($panorama_id) . "'");
-			}			
-			
-			// Primary
-			$options = array(
-				'image_versions' => array(
-                // The empty image version key defines options for the original image.
-                // Keep in mind: these image manipulations are inherited by all other image versions from this point onwards.
-                // Also note that the property 'no_cache' is not inherited, since it's not a manipulation.
-					'' => array(
-						// Automatically rotate images based on EXIF meta data:
-						'auto_orient' => TRUE
-					),
-					'large' => array(
-						// 'auto_orient' => TRUE,
-						// 'crop' => TRUE,
-						// 'jpeg_quality' => 82,
-						// 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
-						// 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-						'max_width' => 1024, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
-						'max_height' => 1024, // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
-					),
-					'medium' => array(
-						// 'auto_orient' => TRUE,
-						// 'crop' => TRUE,
-						// 'jpeg_quality' => 82,
-						// 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
-						// 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-						'max_width' => 300, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
-						'max_height' => 300 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
-					),
-					'small' => array(
-						// 'auto_orient' => TRUE,
-						// 'crop' => TRUE,
-						// 'jpeg_quality' => 82,
-						// 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
-						// 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-						'max_width' => 150, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
-						'max_height' => 150 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
-					),
-				),
-			);
-
-			$oCategoriesImage = new upload('panorama_image', $options);
-
-			$dir_fs_catalog_images = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'category/';
-			$oCategoriesImage->set_destination($dir_fs_catalog_images);	
-			
-			if ($oCategoriesImage->parse() && oos_is_not_null($oCategoriesImage->filename)) {
-
-				$categoriestable = $oostable['categories_panorama'];
-				$dbconn->Execute("UPDATE $categoriestable
-                            SET categories_image = '" . oos_db_input($oCategoriesImage->filename) . "'
-                            WHERE categories_id = '" . intval($categories_id) . "'");
-			}
-			
-			if (isset($_FILES['files'])) {
-				$oImage = new upload('files', $options);
-
-				$dir_fs_catalog_images = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'category/';
-				$oImage->set_destination($dir_fs_catalog_images);
-				$oImage->parse();
-
-				if (oos_is_not_null($oImage->response)) {
-					$sort_order = 0 + $nImageCounter;
-					foreach ($oImage->response as $index => $value) {
-						$sort_order++;
-						$sql_data_array = array('categories_id' => intval($categories_id),
-												'panorama_image' => oos_db_prepare_input($value),
-												'sort_order' => intval($sort_order));
-						oos_db_perform($oostable['categories_images'], $sql_data_array);
-					}
+					oos_remove_panorama_preview_image($panorama_preview_image);				
 				}
-			}
+
+				// Panorama Preview
+				$aPreviewOptions = array(
+					'image_versions' => array(
+					// The empty image version key defines options for the original image.
+					// Keep in mind: these image manipulations are inherited by all other image versions from this point onwards.
+					// Also note that the property 'no_cache' is not inherited, since it's not a manipulation.
+						'' => array(
+							// Automatically rotate images based on EXIF meta data:
+							'auto_orient' => TRUE
+						),
+						'large' => array(
+							// 'auto_orient' => TRUE,
+							// 'crop' => TRUE,
+							// 'jpeg_quality' => 82,
+							// 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+							// 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+							'max_width' => 1920, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+							'max_height' => 1080, // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
+						),
+						'medium' => array(
+							// 'auto_orient' => TRUE,
+							// 'crop' => TRUE,
+							// 'jpeg_quality' => 82,
+							// 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+							// 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+							'max_width' => 675, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+							'max_height' => 380 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
+						),
+					),
+				);
+
+				$oPanoramaPreview = new upload('panorama_preview', $aPreviewOptions);
+
+				$dir_fs_panorama_preview = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'panoramas/';
+				$oPanoramaPreview->set_destination($dir_fs_panorama_preview);	
+			
+				if ($oPanoramaPreview->parse() && oos_is_not_null($oPanoramaPreview->filename)) {
+
+					$categories_panoramatable = $oostable['categories_panorama'];
+					$dbconn->Execute("UPDATE $categories_panoramatable
+								SET panorama_preview = '" . oos_db_input($oPanoramaPreview->filename) . "'
+								WHERE panorama_id = '" . intval($panorama_id) . "'");
+				}			
+			
+
+			
+					if (isset($_FILES['scene_image'])) {
+						if ($_FILES["scene_image"]["error"] == UPLOAD_ERR_OK) {
+
+							$filename = $_FILES['scene_image']['name'];
+							$source = $_FILES['scene_image']['tmp_name'];
+							$type = $_FILES['scene_image']['type'];
+
+							if (is_image($filename)) {
+								
+								$dir_fs_panoramas = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'panoramas/';								
+								$filename = pathinfo($_FILES['scene_image']['name'], PATHINFO_FILENAME);
+								$extension = strtolower(pathinfo($_FILES['scene_image']['name'], PATHINFO_EXTENSION));
+ 
+								$scene_image = $filename.'.'.$extension;
+								$new_path = $dir_fs_panoramas.$scene_image;
+ 
+								//New file name if the file already exists
+								if (file_exists($new_path)) { 
+									$id = 1;
+									do {
+										// If file exists, append a number to the file name
+									   $scene_image = $filename.'_'.$id.'.'.$extension;
+									   $new_path = $dir_fs_panoramas.$scene_image;
+										$id++;
+									} while(file_exists($new_path));
+								}
+ 
+								move_uploaded_file($source, $new_path);
+					
+								$messageStack->add_session(TEXT_SUCCESSFULLY_UPLOADED, 'success');
 
 
+								$sql_data_array = array();
+								$sql_data_array = array('panorama_id' => intval($panorama_id),
+														'scene_image' => oos_db_prepare_input($scene_image),
+														'scene_type' => 'equirectangular');
+								oos_db_perform($oostable['categories_panorama_scene'], $sql_data_array);
+						
+							} else {
+								$messageStack->add_session(ERROR_NO_IMAGE_FILE, 'error');					
+							}
+						}
+					}
 
 				if ($action == 'update_panorama') {
-					oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $categories_id));
+#					oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $categories_id));
 				}
 				break;
 			
@@ -304,13 +263,13 @@ require 'includes/header.php';
 		<!-- Page content //-->
 		<div class="content-wrapper">
 <?php
-if ($action == 'panorama' || $action == 'edit_panorama') {
+if ($action == 'panorama' || $action == 'update_panorama') {
 
     $parameters = array('panorama_id' => '',
 						'categories_id' => '',
 						'panorama_preview' => '',
                         'panorama_author' => '',
-						'panorama_autoload' => '',
+						'panorama_autoload' => 'false',
 						'panorama_autorotates' => '-2',
 						'panorama_name' => '',
                         'panorama_title' => '',
@@ -393,7 +352,7 @@ $flds = "
 dosql($table, $flds);
 
 */
-	if (isset($_GET['cID']) && empty($_POST)) {	
+	if (isset($_GET['cID'])) {	
         $categories_panoramatable = $oostable['categories_panorama'];
         $categories_panorama_descriptiontable = $oostable['categories_panorama_description'];
         $query = "SELECT c.panorama_id, c.categories_id, c.panorama_preview, c.panorama_author, 
@@ -420,7 +379,7 @@ dosql($table, $flds);
 	$aLanguages = oos_get_languages();
 	$nLanguages = count($aLanguages);
 
-	$text_new_or_edit = ($action=='panorama') ? TEXT_INFO_HEADING_NEW_PANORAMA : TEXT_INFO_HEADING_EDIT_CATEGORY;
+	$text_new_or_edit = ($action=='panorama') ? TEXT_INFO_HEADING_NEW_PANORAMA : TEXT_INFO_HEADING_EDIT_PANORAMA;
 
 	$back_url = $aContents['categories'];
 	$back_url_params = 'cPath=' . $cPath;
@@ -435,6 +394,7 @@ dosql($table, $flds);
 <link rel="stylesheet" href="css/pannellum.css"/>
 <script type="text/javascript" src="js/pannellum/pannellum.js"></script>
     <style>
+	#panorama_hot,
     #panorama {
         width: 800px;
         height: 450px;
@@ -527,7 +487,7 @@ dosql($table, $flds);
 							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_EDIT_PANORAMA_DESCRIPTION_META; ?></label>
 							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
 							<div class="col-lg-9">
-								<?php echo oos_draw_textarea_field('panorama_description_meta[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '2', (($panorama_description_meta[$aLanguages[$i]['id']]) ? stripslashes($panorama_description_meta[$aLanguages[$i]['id']]) : oos_get_category_description_meta($pInfo->panorama_id, $aLanguages[$i]['id']))); ?>
+								<?php echo oos_draw_textarea_field('panorama_description_meta[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '2', (($panorama_description_meta[$aLanguages[$i]['id']]) ? stripslashes($panorama_description_meta[$aLanguages[$i]['id']]) : oos_get_panorama_description_meta($pInfo->panorama_id, $aLanguages[$i]['id']))); ?>
 							</div>
 						</div>
 					</fieldset>
@@ -549,8 +509,8 @@ dosql($table, $flds);
 						<div class="col-lg-10">
 <?php
 	if (oos_is_not_null($pInfo->panorama_preview)) {
-		echo '<div class="text-center"><div class="d-block" style="width: 460px; height: 260px;">';
-        echo oos_info_image('category/medium/' . $pInfo->panorama_preview, $pInfo->panorama_name);
+		echo '<div class="text-center"><div class="d-block" style="width: 675px; height: 380px;">';
+        echo oos_info_image('panoramas/medium/' . $pInfo->panorama_preview, $pInfo->panorama_name);
 		echo '</div></div>';
 
 		echo oos_draw_hidden_field('panorama_preview_image', $pInfo->panorama_preview);
@@ -560,7 +520,7 @@ dosql($table, $flds);
 ?>
 
 <div class="fileinput fileinput-new" data-provides="fileinput">
-  <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 460px; height: 260px;"></div>
+  <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 675px; height: 380px;"></div>
   <div>
     <span class="btn btn-warning btn-file"><span class="fileinput-new"><em class="fa fa-plus-circle fa-fw"></em><?php echo BUTTON_SELECT_IMAGE; ?></span><span class="fileinput-exists"><?php echo BUTTON_CHANGE; ?></span>
 
@@ -623,7 +583,7 @@ dosql($table, $flds);
 
 <?php
 	if (oos_is_not_null($pInfo->scene_image)) {
-		echo '<div class="text-center"><div class="d-block" style="width: 460px; height: 260px;;">';
+		echo '<div class="text-center"><div class="d-block" style="width: 460px; height: 260px;">';
         echo oos_info_image('category/medium/' . $pInfo->scene_image, $pInfo->panorama_name);
 		echo '</div></div>';
 
@@ -648,8 +608,12 @@ dosql($table, $flds);
 							</div>
 						</div>
 <?php
-	if  ($action == 'edit_panorama') {
-?>	
+	if  ($action == 'update_panorama') {
+?>
+						<div class="text-right mt-3 mb-5">
+							<?php echo oos_submit_button(IMAGE_PREVIEW); ?>	
+						</div>
+						
 						<div class="row mb-3 pb-3 bb">
 							<div class="col-lg-2">		
 								<?php echo TEXT_PANORAMA_PREVIEW; ?>
@@ -811,18 +775,23 @@ pannellum.viewer('panorama', {
 
 
 <?php
-	if  ($action == 'edit_panorama') {
+	if  ($action == 'update_panorama') {
 ?>	
+						<div class="text-right mt-3 mb-5">
+							<?php echo oos_submit_button(IMAGE_PREVIEW); ?>	
+						</div>
+
 						<div class="row mb-3 pb-3 bb">
+												
 							<div class="col-lg-2">		
 								<?php echo TEXT_PANORAMA_PREVIEW; ?>
 							</div>
 							
 			<div class="col-lg-10">
 
-<div id="panorama"></div>
+<div id="panorama_hot"></div>
 <script>
-pannellum.viewer('panorama', {
+pannellum.viewer('panorama_hot', {
     "type": "equirectangular",
     "panorama": "/images/bma-1.jpg",
     /*

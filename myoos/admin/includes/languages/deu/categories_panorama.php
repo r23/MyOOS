@@ -21,6 +21,8 @@
 
 define('HEADING_TITLE', 'Panorama');
 define('TEXT_INFO_HEADING_NEW_PANORAMA', 'Neues Panorama');
+define('TEXT_INFO_HEADING_EDIT_PANORAMA', 'Panorama bearbeiten');
+
 define('TEXT_EDIT_PANORAMA_NAME', 'Panorama Name:');
 define('TEXT_EDIT_PANORAMA_TITLE', 'Panorama-Titel für SEO:');
 define('TEXT_EDIT_PANORAMA_DESCRIPTION_META', 'Meta Tag Beschreibung:');
@@ -42,3 +44,10 @@ define('TEXT_HOTSPOT_PRODUCT', 'Artikel:');
 
 define('TEXT_ADD_MORE_UPLOAD', 'Mehr Felder zum Hochladen hinzufügen');
 define('TEXT_NOT_RELOAD', 'Lädt nicht erneut!');
+
+define('TEXT_IMAGE_NONEXISTENT', 'BILD EXISTIERT NICHT');
+define('TEXT_IMAGE_REMOVE', '<b>Entfernen</b> des Bildes?');
+
+define('ERROR_NO_IMAGE_FILE', 'Ungültige Dateiendung. Nur png, jpg, jpeg, webp und gif-Dateien sind erlaubt.');
+define('TEXT_SUCCESSFULLY_UPLOADED', 'Bild erfolgreich hochgeladen.');
+

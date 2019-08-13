@@ -134,10 +134,8 @@ if (!empty($action)) {
 								$name = oos_strip_suffix($filename);
 								$models_extensions = oos_db_prepare_input($_POST['models_extensions'][$i]);
 
-
 								$check =  OOS_ABSOLUTE_PATH . OOS_MEDIA . 'models/gltf/' . oos_var_prep_for_os($name);
-								if (is_dir($check)) oos_remove ( $check);
-
+								if (is_dir($check)) oos_remove($check);
 
 								$path = OOS_ABSOLUTE_PATH . OOS_MEDIA . 'models/gltf/' . oos_var_prep_for_os($name) . '/' . oos_var_prep_for_os($models_extensions) . '/';
 								$targetdir = $path;  // target directory
