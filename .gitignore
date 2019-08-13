@@ -100,3 +100,7 @@ prepros-6.config
 /myoos/media/models/gltf/Soldier.glb
 /myoos/images/panoramas/*.png
 /myoos/images/panoramas/*.jpg
+/myoos/images/panoramas/large/*.jpg
+/myoos/images/panoramas/medium/bildschirm.jpg
+/myoos/images/panoramas/originals/*.jpg
+/myoos/images/panoramas/medium/*.jpg
