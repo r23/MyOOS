@@ -748,7 +748,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 ?>
 
                <div role="tabpanel">
-                  <ul class="nav nav-tabs nav-justified">
+                  <ul class="nav nav-tabs nav-justified" id="myTab">
                      <li class="nav-item" role="presentation">
                         <a class="nav-link active" href="#edit" aria-controls="edit" role="tab" data-toggle="tab"><?php echo TEXT_CATEGORY; ?></a>
                      </li>

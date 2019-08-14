@@ -200,7 +200,7 @@ if ($action == 'new' || $action == 'edit') {
 		?>
 
                <div role="tabpanel">
-                  <ul class="nav nav-tabs nav-justified">
+                  <ul class="nav nav-tabs nav-justified" id="myTab">
                      <li class="nav-item" role="presentation">
                         <a class="nav-link active" href="#edit" aria-controls="edit" role="tab" data-toggle="tab"><?php echo TABLE_HEADING_INFORMATION; ?></a>
                      </li>

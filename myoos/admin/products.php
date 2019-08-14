@@ -600,7 +600,7 @@ function calcBasePriceFactor() {
 			  echo oos_hide_session_id();
 		?>
                <div role="tabpanel">
-                  <ul class="nav nav-tabs nav-justified">
+                  <ul class="nav nav-tabs nav-justified" id="myTab">
                      <li class="nav-item" role="presentation">
                         <a class="nav-link active" href="#edit" aria-controls="edit" role="tab" data-toggle="tab"><?php echo TEXT_PRODUCTS; ?></a>
                      </li>
