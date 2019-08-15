@@ -41,6 +41,7 @@ define('TEXT_HOTSPOT_TEXT', 'Hotspot Content:');
 define('TEXT_HOTSPOT_PITCH', 'Pitch:');
 define('TEXT_HOTSPOT_YAW', 'Yaw:');
 define('TEXT_HOTSPOT_PRODUCT', 'Product:');
+define('TEXT_HOTSPOT_ID', 'Hotspot:');
 
 define('TEXT_ADD_MORE_UPLOAD', 'Add more upload boxes');
 define('TEXT_NOT_RELOAD', 'Does not reload!');

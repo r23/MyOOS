@@ -316,6 +316,7 @@ idxsql($idxname, $table, $idxflds);
 $table = $prefix_table . 'categories_panorama_scene_hotspot';
 $flds = "
   hotspot_id I I NOTNULL AUTO PRIMARY,
+  panorama_id I NOTNULL DEFAULT '1' PRIMARY,
   scene_id I NOTNULL DEFAULT '1' PRIMARY,
   hotspot_pitch N '4.2' NOTNULL DEFAULT '0.0',
   hotspot_yaw N '4.2' NOTNULL DEFAULT '0.0',

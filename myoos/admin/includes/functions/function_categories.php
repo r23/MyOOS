@@ -555,6 +555,15 @@ function oos_remove_panorama_preview_image($image) {
 }
 
 
+function oos_remove_scene_image($image) {
+	$sImage = oos_var_prep_for_os($image);
+	
+	if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'panoramas/' .$sImage)) {
+		@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'panoramas/originals/' .$sImage);		
+	}
+}
+
+
 function oos_remove_category($category_id) {
 
     // Get database information

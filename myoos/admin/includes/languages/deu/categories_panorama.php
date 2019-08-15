@@ -41,6 +41,8 @@ define('TEXT_HOTSPOT_TEXT', 'Hotspot Text:');
 define('TEXT_HOTSPOT_PITCH', 'Pitch:');
 define('TEXT_HOTSPOT_YAW', 'Yaw:');
 define('TEXT_HOTSPOT_PRODUCT', 'Artikel:');
+define('TEXT_HOTSPOT_ID', 'Hotspot:');
+
 
 define('TEXT_ADD_MORE_UPLOAD', 'Mehr Felder zum Hochladen hinzufügen');
 define('TEXT_NOT_RELOAD', 'Lädt nicht erneut!');

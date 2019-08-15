@@ -702,7 +702,10 @@ function onDocumentMouseDown(event) {
         console.log('Pitch: ' + coords[0] + ', Yaw: ' + coords[1] + ', Center Pitch: ' +
             config.pitch + ', Center Yaw: ' + config.yaw + ', HFOV: ' + config.hfov);
     }
-    
+ 
+	var coords = mouseEventToCoords(event);
+	jQuery("#panoramadata").html('Pitch: ' + coords[0] + ', Yaw: ' + coords[1]);
+	 
     // Turn off auto-rotation if enabled
     stopAnimation();
 
