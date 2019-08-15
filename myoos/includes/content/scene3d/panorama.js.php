@@ -22,7 +22,7 @@
 <script>
 pannellum.viewer('panorama', {
     "type": "equirectangular",
-    "panorama": "<?php echo OOS_HTTPS_SERVER . OOS_SHOP . OOS_IMAGES . 'panoramas/' . oos_output_string($panorama_info['panorama_image']); ?>",
+	"panorama": "<?php echo OOS_HTTPS_SERVER . OOS_SHOP . OOS_IMAGES . 'panoramas/' . oos_output_string($panorama_info['scene_image']); ?>",
 <?php if (!empty($panorama_info['panorama_pitch']))  echo '"pitch": "' . $panorama_info['panorama_pitch'] . '," '; ?>	
 <?php if (!empty($panorama_info['panorama_yaw']))  echo '"yaw": "' . $panorama_info['panorama_yaw'] . '," '; ?>
 <?php if (!empty($panorama_info['panorama_hfov']))  echo '"hfov": "' . $panorama_info['panorama_hfov'] . '," '; ?>			
@@ -32,7 +32,11 @@ pannellum.viewer('panorama', {
 <?php if (!empty($panorama_info['panorama_author'])) { ?>
     "title": "<?php echo $panorama_info['panorama_title']; ?>",
     "author": "<?php echo $panorama_info['panorama_author']; ?>",
-<?php } ?>
+<?php 
+	} 
+
+	if (!empty($html)) echo $html;
+?>
     "strings": {
 		"loadButtonLabel": "<?php echo $aLang['text_load_button_label']; ?>",
 		"loadingLabel": "<?php echo $aLang['text_loading_label']; ?>",

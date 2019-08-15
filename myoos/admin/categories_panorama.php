@@ -687,8 +687,8 @@ if (!empty($pInfo->panorama_id)) {
 	$hotspot_result = $dbconn->Execute($query);	
 	while ($hotspot = $hotspot_result->fields) {
 		
-		if (($hotspot['hotspot_pitch'] != 0) || ($hotspot['hotspot_yaw'] != 0)) {
-					$html .= '       {' . "\n";
+		if (($hotspot['hotspot_pitch'] != '0.00') && ($hotspot['hotspot_yaw'] != '0.00')) {
+			$html .= '       {' . "\n";
 			$html .= '            "pitch": ' . $hotspot['hotspot_pitch'] . ',' . "\n";
 			$html .= '            "yaw": ' . $hotspot['hotspot_yaw'] . ',' . "\n";
 			$html .= '            "type": "' . $hotspot['hotspot_type'] . '",' . "\n";
@@ -742,9 +742,9 @@ if (!empty($pInfo->panorama_id)) {
                            <div class="col-md-10">
 								<?php
 									$array = array();
-									$array[] = $hotspot['products_id'];
+									$array[] = '';
 								?>
-								<?php echo oos_draw_products_pull_down('products_id['. $id . ']', '', $array); ?>
+								<?php echo oos_draw_products_pull_down('products_id['. $id . ']', '', $array, $hotspot['products_id']); ?>
                            </div>
                         </div>
                      </fieldset>

@@ -273,6 +273,7 @@ function oos_datetime_short($raw_datetime) {
 
 
 function oos_in_array($lookup_value, $lookup_array) {
+	
     if (in_array($lookup_value, $lookup_array)) return TRUE;
 
     return FALSE;

@@ -301,9 +301,9 @@ $flds = "
   panorama_id I NOTNULL DEFAULT '1' PRIMARY,
   scene_image C(255) NULL,
   scene_type C(24) NULL,
-  scene_hfov C(3) NULL,
-  scene_pitch C(3) NULL,
-  scene_yaw C(3) NULL,
+  scene_hfov  N '6.2' NOTNULL DEFAULT '0.0',
+  scene_pitch N '6.2' NOTNULL DEFAULT '0.0',
+  scene_yaw N '6.2' NOTNULL DEFAULT '0.0',
   scene_default I1 NOTNULL DEFAULT '0'
 ";
 dosql($table, $flds);
@@ -318,12 +318,12 @@ $flds = "
   hotspot_id I I NOTNULL AUTO PRIMARY,
   panorama_id I NOTNULL DEFAULT '1' PRIMARY,
   scene_id I NOTNULL DEFAULT '1' PRIMARY,
-  hotspot_pitch N '4.2' NOTNULL DEFAULT '0.0',
-  hotspot_yaw N '4.2' NOTNULL DEFAULT '0.0',
+  hotspot_pitch N '6.2' NOTNULL DEFAULT '0.0',
+  hotspot_yaw N '6.2' NOTNULL DEFAULT '0.0',
   hotspot_type C(24) NULL,
   hotspot_icon_class C(24) NULL,
-  hotspot_product_id I,
-  hotspot_categories_id I,
+  products_id I,
+  categories_id I,
   hotspot_url C(255) NULL
 ";
 dosql($table, $flds);
