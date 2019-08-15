@@ -718,6 +718,21 @@ function oos_remove_product($product_id) {
     $dbconn->Execute("DELETE FROM " . $oostable['products_to_master'] . " WHERE master_id = '" . intval($product_id) . "' OR slave_id = '" . intval($product_id) . "'");
     $dbconn->Execute("DELETE FROM " . $oostable['products_images'] . " WHERE products_id = '" . intval($product_id) . "'");
 
+	$categories_panorama_scene_hotspot = $oostable['categories_panorama_scene_hotspot'];
+	$hotspot_query = "SELECT hotspot_id
+						FROM $categories_panorama_scene_hotspot
+						WHERE products_id = '" . intval($product_id) . "'";			
+	$hotspot_result = $dbconn->Execute($hotspot_query);	
+	
+	while ($hotspot = $hotspot_result->fields) {
+		$dbconn->Execute("DELETE FROM " . $oostable['categories_panorama_scene_hotspot_text'] . " WHERE hotspot_id = '" . intval($hotspot['hotspot_id']) . "'");
+
+		// Move that ADOdb pointer!
+		$hotspot_result->MoveNext();
+    }
+
+	$dbconn->Execute("DELETE FROM " . $oostable['categories_panorama_scene_hotspot'] . " WHERE products_id = '" . intval($product_id) . "'");
+
     $reviewstable = $oostable['reviews'];
     $reviews_query = "SELECT reviews_id
                       FROM $reviewstable
@@ -1051,46 +1066,6 @@ function parse_size($size) {
 }  
 
 
-
-/**
- * Unzips an archive
- *
- * @param string $file the archive
- * @param string $dir where the images go
- */
-function unzip($file, $dir) { 
-
-	//check if zziplib is installed
-	if (function_exists('zip_open')) {
-		$zip = zip_open($file);
-		if ($zip) {
-			while ($zip_entry = zip_read($zip)) { // Skip non-images in the zip file.
-					$fname = zip_entry_name($zip_entry);
-					$seoname = internalToFilesystem(seoFriendly($fname));
-						if (zip_entry_open($zip, $zip_entry, "r")) {
-							$buf = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
-							$path_file = str_replace("/", DIRECTORY_SEPARATOR, $dir . '/' . $seoname);
-							$fp = fopen($path_file, "w");
-							fwrite($fp, $buf);
-							fclose($fp);
-							clearstatcache();
-							zip_entry_close($zip_entry);
-
-						}
-
-				}
-				zip_close($zip);
-			}
-	} else {
-		require_once MYOOS_INCLUDE_PATH . '/includes/lib/lib-pclzip.php';
-		$zip = new PclZip($file);
-		if ($zip->extract(PCLZIP_OPT_PATH, $dir, PCLZIP_OPT_REMOVE_ALL_PATH) == 0) {
-			return false;
-		}
-	}
-	
-	return true;
-}
 
 /**
  * Checks for a zip file

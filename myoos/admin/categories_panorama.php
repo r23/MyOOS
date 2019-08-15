@@ -241,8 +241,8 @@ if (!empty($action)) {
 												'hotspot_yaw' => oos_db_prepare_input($_POST['hotspot_yaw'][$h]),
 												'hotspot_type' => 'info',
 												'hotspot_icon_class' => '',
-												'hotspot_product_id' => oos_db_prepare_input($_POST['hotspot_product_id'][$h]),
-												'hotspot_categories_id' => oos_db_prepare_input($_POST['hotspot_categories_id'][$h]),										
+												'products_id' => oos_db_prepare_input($_POST['products_id'][$h]),
+												'categories_id' => oos_db_prepare_input($_POST['categories_id'][$h]),										
 												'hotspot_url' => oos_db_prepare_input($_POST['hotspot_url'][$h]));
 
 						if ($action == 'insert_panorama') {
@@ -675,9 +675,8 @@ if (!empty($pInfo->panorama_id)) {
 	
 	$categories_panorama_scene_hotspot = $oostable['categories_panorama_scene_hotspot'];
 	$categories_panorama_scene_hotspot_texttable = $oostable['categories_panorama_scene_hotspot_text'];
-	$featuredtable = $oostable['featured'];
 	$query = "SELECT h.hotspot_id, h.scene_id, h.hotspot_pitch, h.hotspot_yaw, h.hotspot_type,
-                 h.hotspot_icon_class, h.hotspot_product_id, h.hotspot_categories_id, h.hotspot_url, 
+                 h.hotspot_icon_class, h.products_id, h.categories_id, h.hotspot_url, 
 				 ht.hotspot_text
           FROM $categories_panorama_scene_hotspot h,
                $categories_panorama_scene_hotspot_texttable ht
@@ -694,7 +693,7 @@ if (!empty($pInfo->panorama_id)) {
 			$html .= '            "yaw": ' . $hotspot['hotspot_yaw'] . ',' . "\n";
 			$html .= '            "type": "' . $hotspot['hotspot_type'] . '",' . "\n";
 			if (!empty($hotspot['hotspot_text'])) $html .= '            "text": "' . $hotspot['hotspot_text'] . '",' . "\n";
-			if (!empty($hotspot['hotspot_product_id'])) $html .= '            "URL":  "' .  oos_catalog_link($aCatalog['product_info'], 'products_id=' . $hotspot['hotspot_product_id']) . '",' . "\n";
+			if (!empty($hotspot['products_id'])) $html .= '            "URL":  "' .  oos_catalog_link($aCatalog['product_info'], 'products_id=' . $hotspot['products_id']) . '",' . "\n";
 			$html .= '        },' . "\n";
 		}
 		
@@ -743,9 +742,9 @@ if (!empty($pInfo->panorama_id)) {
                            <div class="col-md-10">
 								<?php
 									$array = array();
-									$array[] = $hotspot['hotspot_product_id'];
+									$array[] = $hotspot['products_id'];
 								?>
-								<?php echo oos_draw_products_pull_down('hotspot_product_id['. $id . ']', '', $array); ?>
+								<?php echo oos_draw_products_pull_down('products_id['. $id . ']', '', $array); ?>
                            </div>
                         </div>
                      </fieldset>
@@ -805,7 +804,7 @@ if (!empty($pInfo->panorama_id)) {
                         <div class="form-group row mb-2 mt-3">
                            <label class="col-md-2 col-form-label mb-2"><?php echo TEXT_HOTSPOT_PRODUCT; ?></label>
                            <div class="col-md-10">
-								<?php echo oos_draw_products_pull_down('hotspot_product_id['. $h . ']', '', $array); ?>
+								<?php echo oos_draw_products_pull_down('products_id['. $h . ']', '', $array); ?>
                            </div>
                         </div>
                      </fieldset>
