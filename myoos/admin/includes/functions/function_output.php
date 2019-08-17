@@ -687,12 +687,12 @@ function oos_draw_extensions_menu($name, $values, $default = '', $params = '', $
  * @param $exclude
  * @return string
  */
-function oos_draw_products_pull_down($name, $parameters = '', $exclude, $default = '') {
+function oos_draw_products_pull_down($name, $parameters = '', $exclude, $default = '', $id = 1) {
     GLOBAL $currencies;
 
 	if (!is_array($exclude)) $exclude = array();
 
-	$select_string = '<select class="form-control" id="select2-1" name="' . $name . '">';
+	$select_string = '<select class="form-control" id="select2-' . $id . '" name="' . $name . '">';
 
 
 	// Get database information

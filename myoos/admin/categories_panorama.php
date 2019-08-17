@@ -667,6 +667,9 @@ pannellum.viewer('panorama', {
 	 
 <?php
 
+$array = array();
+$array[] = '';
+
 if (!empty($pInfo->panorama_id)) {
 	$id = 0;
 
@@ -740,11 +743,7 @@ if (!empty($pInfo->panorama_id)) {
                         <div class="form-group row mb-2 mt-3">
                            <label class="col-md-2 col-form-label mb-2"><?php echo TEXT_HOTSPOT_PRODUCT; ?></label>
                            <div class="col-md-10">
-								<?php
-									$array = array();
-									$array[] = '';
-								?>
-								<?php echo oos_draw_products_pull_down('products_id['. $id . ']', '', $array, $hotspot['products_id']); ?>
+								<?php echo oos_draw_products_pull_down('products_id['. $id . ']', '', $array, $hotspot['products_id'], $id); ?>
                            </div>
                         </div>
                      </fieldset>
@@ -758,8 +757,6 @@ if (!empty($pInfo->panorama_id)) {
 	
 } else {
 
-	$array = array();
-	$array[] = '';
 	$html = '';
 	
 	for ($h = 0; $h <= 3; $h++) {
@@ -804,7 +801,7 @@ if (!empty($pInfo->panorama_id)) {
                         <div class="form-group row mb-2 mt-3">
                            <label class="col-md-2 col-form-label mb-2"><?php echo TEXT_HOTSPOT_PRODUCT; ?></label>
                            <div class="col-md-10">
-								<?php echo oos_draw_products_pull_down('products_id['. $h . ']', '', $array); ?>
+								<?php echo oos_draw_products_pull_down('products_id['. $h . ']', '', $array, '', $id); ?>
                            </div>
                         </div>
                      </fieldset>
@@ -839,7 +836,7 @@ pannellum.viewer('panorama_hot', {
 <?php if (!empty($panorama['panorama_yaw']))  echo '"yaw": "' . $panorama['panorama_yaw'] . '," '; ?>
 <?php if (!empty($panorama['panorama_hfov']))  echo '"hfov": "' . $panorama['panorama_hfov'] . '," '; ?>			
 <?php if (!empty($panorama['panorama_preview']))  echo '"preview": "' . OOS_HTTPS_SERVER . OOS_SHOP . OOS_IMAGES . 'panoramas/large/' . oos_output_string($panorama['panorama_preview']) . '",'; ?>
-<?php if (!empty($panorama['panorama_autoload']) && ($panorama['panorama_autoload'] == 'true'))  echo '"autoLoad": true, '; ?>								
+<?php echo '"autoLoad": true, '; ?>							
 <?php if (!empty($panorama['panorama_autorotates']))  echo '"autoRotate": ' . $panorama['panorama_autorotates']. ','; ?>
 <?php if (!empty($panorama['panorama_author'])) { ?>
     "title": "<?php echo $panorama['panorama_title']; ?>",

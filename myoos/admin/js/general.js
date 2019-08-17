@@ -527,7 +527,46 @@
         $('#select2-1').select2({
             theme: 'bootstrap'
         });
-
+        $('#select2-2').select2({
+            theme: 'bootstrap'
+        });
+        $('#select2-3').select2({
+            theme: 'bootstrap'
+        });		
+        $('#select2-4').select2({
+            theme: 'bootstrap'
+        });
+        $('#select2-5').select2({
+            theme: 'bootstrap'
+        });		
+        $('#select2-6').select2({
+            theme: 'bootstrap'
+        });
+        $('#select2-7').select2({
+            theme: 'bootstrap'
+        });	
+        $('#select2-8').select2({
+            theme: 'bootstrap'
+        });
+        $('#select2-9').select2({
+            theme: 'bootstrap'
+        });
+        $('#select2-10').select2({
+            theme: 'bootstrap'
+        });		
+        $('#select2-11').select2({
+            theme: 'bootstrap'
+        });
+        $('#select2-12').select2({
+            theme: 'bootstrap'
+        });		
+        $('#select2-13').select2({
+            theme: 'bootstrap'
+        });
+        $('#select2-14').select2({
+            theme: 'bootstrap'
+        });		
+		
     });
 
 })(window, document, window.jQuery);
