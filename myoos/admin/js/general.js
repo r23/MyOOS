@@ -749,19 +749,19 @@
       var templateNavItem = $('#templateNavItem').html();
       Mustache.parse(templateNavItem);
 
-      $.each(spotArray, function(k, v) {
-        $('#hotspot-content').append(Mustache.render(templateHotspot, v));
-        $('#hotspot-setup').append(Mustache.render(templateNavItem, v));
-      });
-
       $('#section_hotspot a[data-action="addNewHotspotForm"]').on('click', function() {
         var spotSize = $('#hotspot-setup li').length + 1;
-        var data = {
-            counter: spotSize
+		var id = spotSize - 1;
+		
+		var data = {
+           counter: spotSize,
+		   id: id
         };
+
         $('#hotspot-setup').append(Mustache.render(templateNavItem, data));
         $('#hotspot-content').append(Mustache.render(templateHotspot, data));
-        $('#hotspot li:last-child a').tab('show') // Select last tab
+		$('#hotspot a').removeClass('active');
+		$('#hotspot li:last-child a').tab('show') // Select last tab
       });
 
   });

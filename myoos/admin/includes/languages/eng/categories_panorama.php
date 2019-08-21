@@ -49,5 +49,8 @@ define('TEXT_NOT_RELOAD', 'Does not reload!');
 define('TEXT_IMAGE_NONEXISTENT', 'IMAGE DOES NOT EXIST');
 define('TEXT_IMAGE_REMOVE', '<b>Remove</b> this Image?');
 
-define('ERROR_NO_IMAGE_FILE', 'Invalid file extension. Only png, jpg, jpeg, webp and gif files are allowed.');
 define('TEXT_SUCCESSFULLY_UPLOADED', 'Image successfully uploaded.');
+
+define('ERROR_NO_IMAGE_FILE', 'Invalid file extension. Only png, jpg, jpeg, webp and gif files are allowed.');
+define('ERROR_NO_PANORAMA', 'Please first upload the 360 degree panorama photo under the menu item Scene.');
+

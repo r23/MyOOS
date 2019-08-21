@@ -219,7 +219,7 @@ if (!empty($action)) {
 									$scene_id = $dbconn->Insert_ID();
 								} else {
 									// todo 360 Tour
-									oos_db_perform($oostable['categories_panorama_scene'], $sql_data_array, 'UPDATE', 'scene_id = \'' . $scene_id . '\'');
+									oos_db_perform($oostable['categories_panorama_scene'], $sql_data_array, 'UPDATE', 'scene_id = \'' .  intval($scene_id) . '\'');
 								}
 						
 							} else {
@@ -228,50 +228,58 @@ if (!empty($action)) {
 						}
 					}
 
-
-					// HOTSPOT			
-					for ($h = 1; $h <= 4; $h++) {
+					// HOTSPOT
+					if (isset($_POST['hotspot_count'])) {
+						$nHotspots = count($_POST['hotspot_count']);
+			
+						for ($h = 0, $nh = $nHotspots; $h < $nh; $h++) {
 						
-						if (isset($_POST['hotspot_id'][$h])) $hotspot_id = intval($_POST['hotspot_id'][$h]);						
-						
-						$sql_data_array = array();
-						$sql_data_array = array('panorama_id' => intval($panorama_id),
-												'scene_id' => intval($scene_id),
-												'hotspot_pitch' => oos_db_prepare_input($_POST['hotspot_pitch'][$h]),
-												'hotspot_yaw' => oos_db_prepare_input($_POST['hotspot_yaw'][$h]),
-												'hotspot_type' => 'info',
-												'hotspot_icon_class' => '',
-												'products_id' => oos_db_prepare_input($_POST['products_id'][$h]),
-												'categories_id' => oos_db_prepare_input($_POST['categories_id'][$h]),										
-												'hotspot_url' => oos_db_prepare_input($_POST['hotspot_url'][$h]));
-
-						if ($action == 'insert_panorama') {
-							oos_db_perform($oostable['categories_panorama_scene_hotspot'], $sql_data_array);
-
-							$hotspot_id = $dbconn->Insert_ID();
-						} elseif ($action == 'update_panorama') {
-							oos_db_perform($oostable['categories_panorama_scene_hotspot'], $sql_data_array, 'UPDATE', 'hotspot_id = \'' . $hotspot_id . '\'');
-						}
-		
-
-						for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
-							$language_id = $aLanguages[$i]['id'];
-				
-							$sql_data_array = array('hotspot_text' => oos_db_prepare_input($_POST['hotspot_text'][$h][$language_id]));
-
-							if ($action == 'insert_panorama') {
-								$insert_sql_data = array('hotspot_id' => intval($hotspot_id),
-														'hotspot_languages_id' => intval($aLanguages[$i]['id']));
-
-								$sql_data_array = array_merge($sql_data_array, $insert_sql_data);
+							$hotspot_action = 'insert_hotspot';
+							if (isset($_POST['hotspot_id'][$h]) || is_numeric($_POST['hotspot_id'][$h])) {
+								$hotspot_id = intval($_POST['hotspot_id'][$h]);
+								$hotspot_action = 'update_hotspot';
+							}
 					
-								oos_db_perform($oostable['categories_panorama_scene_hotspot_text'], $sql_data_array);
-							} elseif ($action == 'update_panorama') {					
-								oos_db_perform($oostable['categories_panorama_scene_hotspot_text'], $sql_data_array, 'UPDATE', 'hotspot_id = \'' . intval($hotspot_id) . '\' AND hotspot_languages_id = \'' . intval($language_id) . '\'');
+							$sql_data_array = array();
+							$sql_data_array = array('panorama_id' => intval($panorama_id),
+													'scene_id' => intval($scene_id),
+													'hotspot_pitch' => oos_db_prepare_input($_POST['hotspot_pitch'][$h]),
+													'hotspot_yaw' => oos_db_prepare_input($_POST['hotspot_yaw'][$h]),
+													'hotspot_type' => 'info',
+													'hotspot_icon_class' => '',
+													'products_id' => oos_db_prepare_input($_POST['products_id'][$h]),
+													'categories_id' => oos_db_prepare_input($_POST['categories_id'][$h]),										
+													'hotspot_url' => oos_db_prepare_input($_POST['hotspot_url'][$h]));
+
+							if ($hotspot_action == 'insert_hotspot') {
+								oos_db_perform($oostable['categories_panorama_scene_hotspot'], $sql_data_array);
+
+								$hotspot_id = $dbconn->Insert_ID();
+							} elseif ($hotspot_action == 'update_hotspot') {
+								oos_db_perform($oostable['categories_panorama_scene_hotspot'], $sql_data_array, 'UPDATE', 'hotspot_id = \'' . intval($hotspot_id) . '\'');
+							}
+
+			
+							for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
+								$language_id = $aLanguages[$i]['id'];
+			
+								$sql_data_array = array('hotspot_text' => oos_db_prepare_input($_POST['hotspot_text'][$h][$language_id]));
+
+								if ($hotspot_action == 'insert_hotspot') {								
+									$insert_sql_data = array('hotspot_id' => intval($hotspot_id),
+															'hotspot_languages_id' => intval($aLanguages[$i]['id']));
+	
+									$sql_data_array = array_merge($sql_data_array, $insert_sql_data);				
+									oos_db_perform($oostable['categories_panorama_scene_hotspot_text'], $sql_data_array);
+								} elseif ($hotspot_action == 'update_hotspot') {					
+									oos_db_perform($oostable['categories_panorama_scene_hotspot_text'], $sql_data_array, 'UPDATE', 'hotspot_id = \'' . intval($hotspot_id) . '\' AND hotspot_languages_id = \'' . intval($language_id) . '\'');
+								}
+								
+								
 							}
 						}
 					}
-
+										
 					$preview = (isset($_POST['preview']) ? $_POST['preview'] : '');
 					if (!empty($preview)) {
 						switch ($preview) {
@@ -287,9 +295,7 @@ if (!empty($action)) {
 					oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $categories_id));
 
 				break;
-			
 			}
-
     }
 }
 
@@ -396,18 +402,6 @@ if ($action == 'panorama' || $action == 'update_panorama') {
 	$aAutorotates = array('-3', '-2', '-1', '1', '2', '3');
 
 ?>
-<link rel="stylesheet" href="css/pannellum.css"/>
-<script type="text/javascript" src="js/pannellum/libpannellum.js"></script>
-<script type="text/javascript" src="js/pannellum/pannellum.js"></script>
-    <style>
-	#panorama_hot,
-    #panorama {
-        width: 800px;
-        height: 450px;
-    }
-    </style>
-
-
 	<!-- Breadcrumbs //-->
 	<div class="content-heading">
 		<div class="col-lg-12">
@@ -625,9 +619,9 @@ if ($action == 'panorama' || $action == 'update_panorama') {
 								<?php echo TEXT_PANORAMA_PREVIEW; ?>
 							</div>
 							
-			<div class="col-lg-10">
+							<div class="col-lg-10">
 
-<div id="panorama"></div>
+								<div id="panorama"></div>
 
 <script>
 pannellum.viewer('panorama', {
@@ -652,30 +646,27 @@ pannellum.viewer('panorama', {
 <?php
 } else {
 ?>
-            <div class="text-right mt-3 mb-5">
-				<?php echo oos_preview_button(IMAGE_PREVIEW, 'scene'); ?>
-            </div>
+						<div class="text-right mt-3 mb-5">
+							<?php echo oos_preview_button(IMAGE_PREVIEW, 'scene'); ?>
+						</div>
 			
-<div id="panorama"></div>			
+						<div id="panorama"></div>			
 			
 <?php	
 }
 ?>	
 		
-                     </div>
-                     <div class="tab-pane" id="hotspot" role="tabpanel">
-	 
+                    </div>
+                    <div class="tab-pane" id="hotspot" role="tabpanel">
+
 <?php
 
+$spot_array = array();
 $array = array();
 $array[] = '';
 
 if (!empty($pInfo->panorama_id)) {
-	$id = 0;
 
-	$html = "\n";
-	$html .= '"hotSpots": [' . "\n";
-	
 	$categories_panorama_scene_hotspot = $oostable['categories_panorama_scene_hotspot'];
 	$categories_panorama_scene_hotspot_texttable = $oostable['categories_panorama_scene_hotspot_text'];
 	$query = "SELECT h.hotspot_id, h.scene_id, h.hotspot_pitch, h.hotspot_yaw, h.hotspot_type,
@@ -687,27 +678,209 @@ if (!empty($pInfo->panorama_id)) {
 			AND h.panorama_id = '" . intval($pInfo->panorama_id) . "'
             AND h.hotspot_id = ht.hotspot_id
             AND ht.hotspot_languages_id = '" . intval($nLanguageID) . "'";			
-	$hotspot_result = $dbconn->Execute($query);	
-	while ($hotspot = $hotspot_result->fields) {
-		
-		if (($hotspot['hotspot_pitch'] != '0.00') && ($hotspot['hotspot_yaw'] != '0.00')) {
-			$html .= '       {' . "\n";
-			$html .= '            "pitch": ' . $hotspot['hotspot_pitch'] . ',' . "\n";
-			$html .= '            "yaw": ' . $hotspot['hotspot_yaw'] . ',' . "\n";
-			$html .= '            "type": "' . $hotspot['hotspot_type'] . '",' . "\n";
-			if (!empty($hotspot['hotspot_text'])) $html .= '            "text": "' . $hotspot['hotspot_text'] . '",' . "\n";
-			if (!empty($hotspot['products_id'])) $html .= '            "URL":  "' .  oos_catalog_link($aCatalog['product_info'], 'products_id=' . $hotspot['products_id']) . '",' . "\n";
-			$html .= '        },' . "\n";
-		}
-		
-		$id++;
-		echo oos_draw_hidden_field('hotspot_id['. $id . ']', $hotspot['hotspot_id']);
+	$hotspot_result = $dbconn->Execute($query);
 
+	if ($hotspot_result->RecordCount() >= 1) {
+		
+		$html = "\n";
+		$html .= '"hotSpots": [' . "\n";
+		
+		while ($hotspot = $hotspot_result->fields) {
+		
+			if (($hotspot['hotspot_pitch'] != '0.00') && ($hotspot['hotspot_yaw'] != '0.00')) {
+				$html .= '       {' . "\n";
+				$html .= '            "pitch": ' . $hotspot['hotspot_pitch'] . ',' . "\n";
+				$html .= '            "yaw": ' . $hotspot['hotspot_yaw'] . ',' . "\n";
+				$html .= '            "type": "' . $hotspot['hotspot_type'] . '",' . "\n";
+				if (!empty($hotspot['hotspot_text'])) $html .= '            "text": "' . $hotspot['hotspot_text'] . '",' . "\n";
+				if (!empty($hotspot['products_id'])) $html .= '            "URL":  "' .  oos_catalog_link($aCatalog['product_info'], 'products_id=' . $hotspot['products_id']) . '",' . "\n";
+				$html .= '        },' . "\n";
+			}
+			
+			$spot_array[] = array('hotspot_id' => $hotspot['hotspot_id'],
+								'scene_id' => $hotspot['scene_id'],
+								'hotspot_pitch' => $hotspot['hotspot_pitch'],
+								'hotspot_yaw' => $hotspot['hotspot_yaw'],
+								'hotspot_type' => $hotspot['hotspot_type'],
+								'hotspot_icon_class' => $hotspot['hotspot_icon_class'],
+								'categories_id' => $hotspot['categories_id'],
+								'hotspot_url' => $hotspot['hotspot_url'],
+								'hotspot_text' => $hotspot['hotspot_text'],
+								'hotspot_id' => $hotspot['hotspot_id']);
+			// Move that ADOdb pointer!
+			$hotspot_result->MoveNext();	
+		}
+	
+		$html .= ']' . "\n";
+	}	
 ?>
-					<div class="mb-3 pb-3 bb">
+						<div class="row">
+                            <div class="col-md-12">
+                                <div id="section_hotspot" class="card-box">
+
+                                    <ul id="hotspot-setup" class="nav nav-pills navtab-bg">
+<?php
+	$nSpot = count($spot_array);
+	if ($nSpot < 1) {
+?>
+			<li class="nav-item">
+				<a href="#hotspot1" data-toggle="tab" aria-expanded="true" class="nav-link active">
+					<i class="fa fa-dot-circle-o"></i> 1
+				</a>
+			</li>
+<?php			
+	} else {
+									
+		for ($i = 1, $n = $nSpot; $i <= $n; $i++) {	
+?>
+			<li class="nav-item">
+				<a href="#hotspot<?php echo $i; ?>" data-toggle="tab" aria-expanded="true" class="nav-link <?php if ($i == 1) echo 'active'; ?>">
+					<i class="fa fa-dot-circle-o"></i> <?php echo $i; ?>
+				</a>
+			</li>
+<?php									
+		}
+	}
+?>		
+									</ul>
+									<ul class="nav nav-pills navtab-bg">
+                                        <li class="nav-item">
+											<a href="#" class="nav-link" data-action="addNewHotspotForm"><i class="fa fa-plus"></i>
+												&nbsp;hinzufügen
+											</a>
+                                        </li>
+                                    </ul>
+                                    <div id="hotspot-content" class="tab-content">
+<?php
+	$nSpot = count($spot_array);
+	if ($nSpot < 1) {
+		echo oos_draw_hidden_field('hotspot_count[0]', $id);
+?>
+					<div class="tab-pane fade show active" id="hotspot1">
 						<h2>			
-							<?php echo TEXT_HOTSPOT_ID . ' ' . $id; ?>
+							<?php echo TEXT_HOTSPOT_ID . '  1'; ?>
 						</h2>		
+<?php
+			for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
+?>
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_HOTSPOT_TEXT; ?></label>
+							  <?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
+                              <div class="col-lg-9">
+								<?php echo oos_draw_input_field('hotspot_text[0][' . $aLanguages[$i]['id'] . ']', ''); ?>
+                              </div>
+                           </div>
+                        </fieldset>						
+<?php
+			}
+?>
+                       <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_HOTSPOT_PITCH; ?></label>
+                              <div class="col-lg-10">
+								<?php echo oos_draw_input_field('hotspot_pitch[0]', ''); ?>
+                              </div>
+                           </div>
+                        </fieldset>
+                       <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_HOTSPOT_YAW; ?></label>
+                              <div class="col-lg-10">
+								<?php echo oos_draw_input_field('hotspot_yaw[0]', ''); ?>
+                              </div>
+                           </div>
+                        </fieldset>
+                     <fieldset>
+                        <div class="form-group row mb-2 mt-3">
+                           <label class="col-md-2 col-form-label mb-2"><?php echo TEXT_HOTSPOT_PRODUCT; ?></label>
+                           <div class="col-md-10">
+								<?php echo oos_draw_products_pull_down('products_id[0]', '', $array, '', $id); ?>
+                           </div>
+                        </div>
+                     </fieldset>
+				</div>		
+<?php		
+	} else {
+
+		for ($id = 0, $nh = $nSpot; $id < $nh; $id++) {
+			
+			echo oos_draw_hidden_field('hotspot_id['. $id . ']', $spot_array[$id]['hotspot_id']);
+			echo oos_draw_hidden_field('hotspot_count['. $id . ']', $id);
+			
+			$nHotspot = $id+1;
+?>
+					<div class="tab-pane fade <?php if ($id == 0) echo 'show active'; ?>" id="hotspot<?php echo $nHotspot; ?>">
+						<h2>			
+							<?php echo TEXT_HOTSPOT_ID . ' ' . $nHotspot; ?>
+						</h2>		
+<?php
+			for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
+?>
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_HOTSPOT_TEXT; ?></label>
+							  <?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
+                              <div class="col-lg-9">
+								<?php echo oos_draw_input_field('hotspot_text['. $id . '][' . $aLanguages[$i]['id'] . ']', oos_get_hotspot_text($spot_array[$id]['hotspot_id'], $aLanguages[$i]['id'])); ?>
+                              </div>
+                           </div>
+                        </fieldset>						
+<?php
+			}
+?>
+                       <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_HOTSPOT_PITCH; ?></label>
+                              <div class="col-lg-10">
+								<?php echo oos_draw_input_field('hotspot_pitch['. $id . ']',  $spot_array[$id]['hotspot_pitch']); ?>
+                              </div>
+                           </div>
+                        </fieldset>
+                       <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_HOTSPOT_YAW; ?></label>
+                              <div class="col-lg-10">
+								<?php echo oos_draw_input_field('hotspot_yaw['. $id . ']',  $spot_array[$id]['hotspot_yaw']); ?>
+                              </div>
+                           </div>
+                        </fieldset>
+                     <fieldset>
+                        <div class="form-group row mb-2 mt-3">
+                           <label class="col-md-2 col-form-label mb-2"><?php echo TEXT_HOTSPOT_PRODUCT; ?></label>
+                           <div class="col-md-10">
+								<?php echo oos_draw_products_pull_down('products_id['. $id . ']', '', $array, $spot_array[$id]['products_id'], $id); ?>
+                           </div>
+                        </div>
+                     </fieldset>
+				</div>
+<?php
+		}
+	}
+?>
+				
+										
+                                    </div>
+                                </div>
+                            </div> <!-- end col -->
+						</div>
+                        <!-- end row -->
+
+
+<script id="templateNavItem" type="x-tmpl-mustache">
+	<li class="nav-item">
+			<a href="#hotspot{{counter}}" data-toggle="tab" aria-expanded="true" class="nav-link">
+				<i class="fa fa-dot-circle-o"></i> {{counter}}
+			</a>
+	</li>
+</script>
+
+<script id="templateHotspot" type="x-tmpl-mustache">
+<div class="tab-pane fade" id="hotspot{{counter}}">
+	<h2>			
+		<?php echo TEXT_HOTSPOT_ID; ?> {{counter}}
+		<?php echo oos_draw_hidden_field('hotspot_count[{{id}}]', '{{counter}}'); ?>
+	</h2>
 <?php
 		for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
 ?>
@@ -716,18 +889,18 @@ if (!empty($pInfo->panorama_id)) {
                               <label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_HOTSPOT_TEXT; ?></label>
 							  <?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
                               <div class="col-lg-9">
-								<?php echo oos_draw_input_field('hotspot_text['. $id . '][' . $aLanguages[$i]['id'] . ']', oos_get_hotspot_text($hotspot['hotspot_id'], $aLanguages[$i]['id'])); ?>
+								<?php echo oos_draw_input_field('hotspot_text[{{id}}][' . $aLanguages[$i]['id'] . ']', ''); ?>
                               </div>
                            </div>
                         </fieldset>						
 <?php
 		}
-?>
+?>	
                        <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_HOTSPOT_PITCH; ?></label>
                               <div class="col-lg-10">
-								<?php echo oos_draw_input_field('hotspot_pitch['. $id . ']',  $hotspot['hotspot_pitch']); ?>
+								<?php echo oos_draw_input_field('hotspot_pitch[{{id}}]', ''); ?>
                               </div>
                            </div>
                         </fieldset>
@@ -735,7 +908,7 @@ if (!empty($pInfo->panorama_id)) {
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_HOTSPOT_YAW; ?></label>
                               <div class="col-lg-10">
-								<?php echo oos_draw_input_field('hotspot_yaw['. $id . ']',  $hotspot['hotspot_yaw']); ?>
+								<?php echo oos_draw_input_field('hotspot_yaw[{{id}}]', ''); ?>
                               </div>
                            </div>
                         </fieldset>
@@ -743,73 +916,14 @@ if (!empty($pInfo->panorama_id)) {
                         <div class="form-group row mb-2 mt-3">
                            <label class="col-md-2 col-form-label mb-2"><?php echo TEXT_HOTSPOT_PRODUCT; ?></label>
                            <div class="col-md-10">
-								<?php echo oos_draw_products_pull_down('products_id['. $id . ']', '', $array, $hotspot['products_id'], $id); ?>
+								<?php echo oos_draw_products_pull_down('products_id[{{id}}]', '', $array, '', '{{counter}}'); ?>
                            </div>
                         </div>
                      </fieldset>
 				</div>
-<?php 
-		// Move that ADOdb pointer!
-		$hotspot_result->MoveNext();
-	}
-	
-	$html .= ']' . "\n";
-	
-} else {
+</script>
 
-	$html = '';
 	
-	for ($h = 0; $h <= 3; $h++) {
-	    $id = 1+ $h;
-?>
-					<div class="mb-3 pb-3 bb">
-						<h2>			
-							<?php echo TEXT_HOTSPOT_ID . ' ' . $id; ?>
-						</h2>		
-<?php
-     for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
-?>
-                        <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_HOTSPOT_TEXT; ?></label>
-							  <?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
-                              <div class="col-lg-9">
-								<?php echo oos_draw_input_field('hotspot_text['. $h . '][' . $aLanguages[$i]['id'] . ']', ''); ?>
-                              </div>
-                           </div>
-                        </fieldset>						
-<?php
-    }
-?>
-                       <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_HOTSPOT_PITCH; ?></label>
-                              <div class="col-lg-10">
-								<?php echo oos_draw_input_field('hotspot_pitch['. $h . ']',  ''); ?>
-                              </div>
-                           </div>
-                        </fieldset>
-                       <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_HOTSPOT_YAW; ?></label>
-                              <div class="col-lg-10">
-								<?php echo oos_draw_input_field('hotspot_yaw['. $h . ']', ''); ?>
-                              </div>
-                           </div>
-                        </fieldset>
-                     <fieldset>
-                        <div class="form-group row mb-2 mt-3">
-                           <label class="col-md-2 col-form-label mb-2"><?php echo TEXT_HOTSPOT_PRODUCT; ?></label>
-                           <div class="col-md-10">
-								<?php echo oos_draw_products_pull_down('products_id['. $h . ']', '', $array, '', $id); ?>
-                           </div>
-                        </div>
-                     </fieldset>
-				</div>
-<?php
-    }
-}
-?>		
 
 
 <?php
@@ -825,9 +939,9 @@ if (!empty($pInfo->panorama_id)) {
 								<?php echo TEXT_PANORAMA_PREVIEW; ?>
 							</div>
 							
-			<div class="col-lg-10">
+						<div class="col-lg-10">
 
-<div id="panorama_hot"></div>
+							<div id="panorama_hot"></div>
 <script>
 pannellum.viewer('panorama_hot', {
     "type": "equirectangular",
@@ -836,28 +950,25 @@ pannellum.viewer('panorama_hot', {
 <?php if (!empty($panorama['panorama_yaw']))  echo '"yaw": "' . $panorama['panorama_yaw'] . '," '; ?>
 <?php if (!empty($panorama['panorama_hfov']))  echo '"hfov": "' . $panorama['panorama_hfov'] . '," '; ?>			
 <?php if (!empty($panorama['panorama_preview']))  echo '"preview": "' . OOS_HTTPS_SERVER . OOS_SHOP . OOS_IMAGES . 'panoramas/large/' . oos_output_string($panorama['panorama_preview']) . '",'; ?>
-<?php echo '"autoLoad": true, '; ?>							
+<?php if (!empty($panorama['panorama_autoload']) && ($panorama['panorama_autoload'] == 'true'))  echo '"autoLoad": true, '; ?>						
 <?php if (!empty($panorama['panorama_autorotates']))  echo '"autoRotate": ' . $panorama['panorama_autorotates']. ','; ?>
 <?php if (!empty($panorama['panorama_author'])) { ?>
     "title": "<?php echo $panorama['panorama_title']; ?>",
     "author": "<?php echo $panorama['panorama_author']; ?>",
 <?php 
 	} 
-
 	echo $html;
 ?>		
 });
 </script>
 
-      <div id="panoramadata" style="font-weight: bold;"></div>
+								<div id="panoramadata" style="font-weight: bold;"></div>
   
-  </div>
-</div>
 							</div>
 						</div>
 	
 <?php
-} else {
+	} else {
 ?>
 						<div class="text-right mt-3 mb-5">
 							<?php echo oos_preview_button(IMAGE_PREVIEW, 'hotspot'); ?>	
@@ -865,12 +976,20 @@ pannellum.viewer('panorama_hot', {
 			
 						<div id="panorama"></div>
 <?php	
+	}
+	
+} else {
+?>
+
+					<div class="alert alert-danger" role="alert">
+						<?php echo ERROR_NO_PANORAMA; ?>	
+					</div>
+<?php
 }
-?>	
+?>
 
 
-
-                     </div>
+                     </div> <!-- tabpanel_eof //-->
                   </div>
                </div>
             <div class="text-right mt-3">			
@@ -880,15 +999,11 @@ pannellum.viewer('panorama_hot', {
             </div>
 		</form>
 	</div>
-
 </div>
-<!-- body_text_eof //-->
 <?php
   }
 ?>
-
-
-				</div>
+<!-- body_text_eof //-->
 			</div>
         </div>
 

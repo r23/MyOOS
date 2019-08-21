@@ -50,6 +50,7 @@ define('TEXT_NOT_RELOAD', 'Lädt nicht erneut!');
 define('TEXT_IMAGE_NONEXISTENT', 'BILD EXISTIERT NICHT');
 define('TEXT_IMAGE_REMOVE', '<b>Entfernen</b> des Bildes?');
 
-define('ERROR_NO_IMAGE_FILE', 'Ungültige Dateiendung. Nur png, jpg, jpeg, webp und gif-Dateien sind erlaubt.');
 define('TEXT_SUCCESSFULLY_UPLOADED', 'Bild erfolgreich hochgeladen.');
 
+define('ERROR_NO_IMAGE_FILE', 'Ungültige Dateiendung. Nur png, jpg, jpeg, webp und gif-Dateien sind erlaubt.');
+define('ERROR_NO_PANORAMA', 'Bitte zuerst das 360 Grad Panoramafoto unter dem Menuepunkt Scene hochladen.');
