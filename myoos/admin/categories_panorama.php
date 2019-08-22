@@ -239,6 +239,22 @@ if (!empty($action)) {
 								$hotspot_id = intval($_POST['hotspot_id'][$h]);
 								$hotspot_action = 'update_hotspot';
 							}
+
+							if (isset($_POST['delete-hotspott'][$h])) {
+								$hotspot_action = 'delete_hotspot';
+								
+								if (is_numeric($_POST['delete-hotspott'][$h])) {	
+									$delete_hotspot = intval($_POST['delete-hotspott'][$h]);
+									
+									if (isset($_POST['hotspot_id'][$h]) || is_numeric($_POST['hotspot_id'][$h])) {
+										$hotspot_id = intval($_POST['hotspot_id'][$h]);	
+								
+										$dbconn->Execute("DELETE FROM " . $oostable['categories_panorama_scene_hotspot'] . " WHERE hotspot_id = '" . intval($hotspot_id) . "'");
+										$dbconn->Execute("DELETE FROM " . $oostable['categories_panorama_scene_hotspot_text'] . " WHERE hotspot_id = '" . intval($hotspot_id) . "'");
+									}
+								}
+							}
+
 					
 							$sql_data_array = array();
 							$sql_data_array = array('panorama_id' => intval($panorama_id),
@@ -279,7 +295,7 @@ if (!empty($action)) {
 							}
 						}
 					}
-										
+									
 					$preview = (isset($_POST['preview']) ? $_POST['preview'] : '');
 					if (!empty($preview)) {
 						switch ($preview) {
@@ -745,8 +761,8 @@ if (!empty($pInfo->panorama_id)) {
 									</ul>
 									<ul class="nav nav-pills navtab-bg">
                                         <li class="nav-item">
-											<a href="#" class="nav-link" data-action="addNewHotspotForm"><i class="fa fa-plus"></i>
-												&nbsp;hinzufügen
+											<a href="#" class="add" data-action="addNewHotspotForm"><i class="fa fa-plus"></i>
+												&nbsp;<?php echo TEXT_ADD_HOTSPOT; ?>
 											</a>
                                         </li>
                                     </ul>
@@ -757,9 +773,23 @@ if (!empty($pInfo->panorama_id)) {
 		echo oos_draw_hidden_field('hotspot_count[0]', $id);
 ?>
 					<div class="tab-pane fade show active" id="hotspot1">
-						<h2>			
-							<?php echo TEXT_HOTSPOT_ID . '  1'; ?>
-						</h2>		
+					
+						<div class="row  mt-3 mb-5">
+							<div class="col-lg-10">
+								<h2>			
+									<?php echo TEXT_HOTSPOT_ID  . '  1'; ?>
+								</h2>
+							</div>
+							<div class="col-lg-2">		
+								<div class="text-right">
+									<div class="form-check">
+										<?php echo oos_draw_checkbox_field('delete-hotspott[0]', '1') . ' ' . TEXT_HOTSPOT_REMOVE; ?>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- end row -->					
+	
 <?php
 			for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
 ?>
@@ -811,9 +841,21 @@ if (!empty($pInfo->panorama_id)) {
 			$nHotspot = $id+1;
 ?>
 					<div class="tab-pane fade <?php if ($id == 0) echo 'show active'; ?>" id="hotspot<?php echo $nHotspot; ?>">
-						<h2>			
-							<?php echo TEXT_HOTSPOT_ID . ' ' . $nHotspot; ?>
-						</h2>		
+						<div class="row  mt-3 mb-5">
+							<div class="col-lg-10">
+								<h2>			
+									<?php echo TEXT_HOTSPOT_ID . ' ' . $nHotspot; ?>
+								</h2>
+							</div>
+							<div class="col-lg-2">		
+								<div class="text-right">
+									<div class="form-check">
+										<?php echo oos_draw_checkbox_field('delete-hotspott['. $id . ']', $spot_array[$id]['hotspot_id']) . ' ' . TEXT_HOTSPOT_REMOVE; ?>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- end row -->						
 <?php
 			for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
 ?>
@@ -877,10 +919,23 @@ if (!empty($pInfo->panorama_id)) {
 
 <script id="templateHotspot" type="x-tmpl-mustache">
 <div class="tab-pane fade" id="hotspot{{counter}}">
-	<h2>			
-		<?php echo TEXT_HOTSPOT_ID; ?> {{counter}}
-		<?php echo oos_draw_hidden_field('hotspot_count[{{id}}]', '{{counter}}'); ?>
-	</h2>
+	<div class="row  mt-3 mb-5">
+		<div class="col-lg-10">
+			<h2>			
+				<?php echo TEXT_HOTSPOT_ID; ?> {{counter}}
+				<?php echo oos_draw_hidden_field('hotspot_count[{{id}}]', '{{counter}}'); ?>
+			</h2>
+		</div>
+		<div class="col-lg-2">		
+			<div class="text-right">
+				<div class="form-check">
+					<?php echo oos_draw_checkbox_field('delete-hotspott[{{id}}]', 'YES') . ' ' . TEXT_HOTSPOT_REMOVE; ?>
+				</div>			
+			</div>
+		</div>
+	</div>
+	<!-- end row -->
+
 <?php
 		for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
 ?>

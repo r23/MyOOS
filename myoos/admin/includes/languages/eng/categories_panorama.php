@@ -42,9 +42,9 @@ define('TEXT_HOTSPOT_PITCH', 'Pitch:');
 define('TEXT_HOTSPOT_YAW', 'Yaw:');
 define('TEXT_HOTSPOT_PRODUCT', 'Product:');
 define('TEXT_HOTSPOT_ID', 'Hotspot:');
+define('TEXT_ADD_HOTSPOT', 'Add Hotspot');
+define('TEXT_HOTSPOT_REMOVE', '<b>Remove</b> Hotspot?');
 
-define('TEXT_ADD_MORE_UPLOAD', 'Add more upload boxes');
-define('TEXT_NOT_RELOAD', 'Does not reload!');
 
 define('TEXT_IMAGE_NONEXISTENT', 'IMAGE DOES NOT EXIST');
 define('TEXT_IMAGE_REMOVE', '<b>Remove</b> this Image?');

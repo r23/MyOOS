@@ -42,10 +42,9 @@ define('TEXT_HOTSPOT_PITCH', 'Pitch:');
 define('TEXT_HOTSPOT_YAW', 'Yaw:');
 define('TEXT_HOTSPOT_PRODUCT', 'Artikel:');
 define('TEXT_HOTSPOT_ID', 'Hotspot:');
+define('TEXT_ADD_HOTSPOT', 'Hotspot hinzufügen');
+define('TEXT_HOTSPOT_REMOVE', 'Hotspot <b>entfernen</b>?');
 
-
-define('TEXT_ADD_MORE_UPLOAD', 'Mehr Felder zum Hochladen hinzufügen');
-define('TEXT_NOT_RELOAD', 'Lädt nicht erneut!');
 
 define('TEXT_IMAGE_NONEXISTENT', 'BILD EXISTIERT NICHT');
 define('TEXT_IMAGE_REMOVE', '<b>Entfernen</b> des Bildes?');
