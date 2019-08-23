@@ -20,8 +20,15 @@
    ---------------------------------------------------------------------- */
 
 define('HEADING_TITLE', 'Panorama');
-define('TEXT_INFO_HEADING_NEW_PANORAMA', 'New Panorama');
-define('TEXT_INFO_HEADING_EDIT_PANORAMA', 'Edit Panorama');
+define('TEXT_INFO_HEADING_NEW_PANORAMA', 'New panorama for &quot;%s&quot;.');
+define('TEXT_INFO_HEADING_EDIT_PANORAMA', 'Edit panorama for &quot;%s&quot;.');
+define('TEXT_INFO_HEADING_DELETE_PANORAMA', 'Remove Panorama for &quot;%s&quot;.');
+
+define('TEXT_EDIT_PANORAMA', '360 degree panorama for &quot;%s&quot;.');
+define('TEXT_PANORAMA_DELETE', '<b>Remove</b> this panorama?');
+
+define('TEXT_INFO_HEADING_DELETE_PANORAMA', 'Remove Panorama');
+define('TEXT_DELETE_PANORAMA_INTRO', 'Are you sure you want to delete this 360 degree panorama?n?');
 
 define('TEXT_EDIT_PANORAMA_NAME', 'Panorama Name');
 define('TEXT_EDIT_PANORAMA_TITLE', 'Panorama-Title for SEO:');

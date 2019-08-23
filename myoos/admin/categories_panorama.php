@@ -122,8 +122,8 @@ if (!empty($action)) {
 				if ( ($_POST['scene_image'] == 'yes') && (isset($_POST['scene_preview_image'])) ) {
 					$scene_preview_image = oos_db_prepare_input($_POST['scene_preview_image']);
 				
-					$categoriestable = $oostable['categories_panorama_scene'];
-					$dbconn->Execute("UPDATE $categoriestable
+					$categories_panorama_scenetable = $oostable['categories_panorama_scene'];
+					$dbconn->Execute("UPDATE $categories_panorama_scenetable
 								SET scene_image = NULL
 								WHERE panorama_id = '" . intval($panorama_id) . "'");				
 				
@@ -300,19 +300,30 @@ if (!empty($action)) {
 					if (!empty($preview)) {
 						switch ($preview) {
 							case 'scene':
-								oos_redirect_admin(oos_href_link_admin($aContents['categories_panorama'], 'cPath=' . $cPath . (isset($_GET['cID']) ? '&cID=' . $cID : '') . '&action=update_panorama#scene'));
+								oos_redirect_admin(oos_href_link_admin($aContents['categories_panorama'], 'cPath=' . $cPath . (isset($_GET['cID']) ? '&cID=' . $cID : '') . '&page=' . $nPage . '&action=update_panorama#scene'));
 								break;
 							case 'hotspot':
-								oos_redirect_admin(oos_href_link_admin($aContents['categories_panorama'], 'cPath=' . $cPath . (isset($_GET['cID']) ? '&cID=' . $cID : '') . '&action=update_panorama#hotspot'));
+								oos_redirect_admin(oos_href_link_admin($aContents['categories_panorama'], 'cPath=' . $cPath . (isset($_GET['cID']) ? '&cID=' . $cID : '')  . '&page=' . $nPage . '&action=update_panorama#hotspot'));
 								break;								
 						}
 					}
 
-					oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $categories_id));
-
-				break;
+					oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $categories_id . '&page=' . $nPage));
+		
 			}
-    }
+			break;
+
+		case 'delete_panorama_confirm':
+			if (isset($_POST['panorama_id']) && is_numeric($_POST['panorama_id'])) {
+				$panorama_id = oos_db_prepare_input($_POST['panorama_id']);
+
+				oos_remove_panorama($panorama_id);
+
+			}
+			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&page=' . $nPage));
+			break;	
+	
+	}
 }
 
 
@@ -359,8 +370,6 @@ require 'includes/header.php';
 		<!-- Page content //-->
 		<div class="content-wrapper">
 <?php
-if ($action == 'panorama' || $action == 'update_panorama') {
-
     $parameters = array('panorama_id' => '',
 						'categories_id' => '',
 						'panorama_preview' => '',
@@ -403,13 +412,70 @@ if ($action == 'panorama' || $action == 'update_panorama') {
 	}
 
 
+if ($action == 'delete_panorama') {
+
+?>
+	<!-- Breadcrumbs //-->
+	<div class="content-heading">
+		<div class="col-lg-12">
+			<h2><?php echo sprintf(TEXT_INFO_HEADING_DELETE_PANORAMA, oos_get_category_name($pInfo->categories_id)); ?></h2>
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item">
+					<?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
+				</li>
+				<li class="breadcrumb-item">
+					<?php echo '<a href="' . oos_href_link_admin(oos_selected_file('catalog.php'), 'selected_box=catalog') . '">' . BOX_HEADING_CATALOG . '</a>'; ?>
+				</li>
+				<li class="breadcrumb-item active">
+					<strong><?php echo sprintf(TEXT_INFO_HEADING_DELETE_PANORAMA, oos_get_category_name($pInfo->categories_id)); ?></strong>
+				</li>
+			</ol>
+		</div>
+	</div>
+	<!-- END Breadcrumbs //-->
+
+	<div class="wrapper wrapper-content">
+		<div class="row">
+			<div class="col-lg-12">
+<?php
+				echo oos_draw_form('delete', 'panorama', $aContents['categories_panorama'], 'cPath=' . $cPath . '&cID=' . $cID . '&action=delete_panorama_confirm&page=' . $nPage, 'post', FALSE);
+				echo oos_draw_hidden_field('panorama_id', $pInfo->panorama_id);
+?>
+				<div class="row  mt-3 mb-5">
+					<div class="col-lg-12">
+						<div class="alert alert-danger" role="alert">
+							<h4 class="alert-heading"><?php echo TEXT_HEADING_DELETE_PANORAMA; ?></h4>
+							<p><?php echo TEXT_DELETE_PANORAMA_INTRO; ?></p>
+							<hr>
+							<p class="mb-0"></p>
+						</div>				
+					</div>
+				</div>
+				<!-- end row -->
+
+				<div class="row">
+					<div class="col-lg-12">
+						<p>		
+							<?php echo  oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['categories_panorama'], 'cPath=' . $cPath . '&cID=' . $cID . '&page=' . $nPage . '&action=panorama') . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?>
+						</p>
+					</div>
+				</div>
+				</form>
+				<!-- end row -->		
+
+			</div>
+		</div>
+	</div>
+<?php
+} elseif ($action == 'panorama' || $action == 'update_panorama') {
+
 	$aLanguages = oos_get_languages();
 	$nLanguages = count($aLanguages);
 
-	$text_new_or_edit = ($action=='panorama') ? TEXT_INFO_HEADING_NEW_PANORAMA : TEXT_INFO_HEADING_EDIT_PANORAMA;
+	$text_new_or_edit = ($form_action == 'insert_panorama') ? TEXT_INFO_HEADING_NEW_PANORAMA : TEXT_INFO_HEADING_EDIT_PANORAMA;
 
 	$back_url = $aContents['categories'];
-	$back_url_params = 'cPath=' . $cPath;
+	$back_url_params = 'cPath=' . $cPath . '&page=' . $nPage;
 	if (oos_is_not_null($pInfo->categories_id)) {
 		$back_url_params .= '&cID=' . $pInfo->categories_id;
 	}			
@@ -421,7 +487,7 @@ if ($action == 'panorama' || $action == 'update_panorama') {
 	<!-- Breadcrumbs //-->
 	<div class="content-heading">
 		<div class="col-lg-12">
-			<h2><?php echo sprintf($text_new_or_edit, oos_output_generated_category_path($current_category_id)); ?></h2>
+			<h2><?php echo sprintf($text_new_or_edit, oos_get_category_name($cID)); ?></h2>
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item">
 					<?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
@@ -430,7 +496,7 @@ if ($action == 'panorama' || $action == 'update_panorama') {
 					<?php echo '<a href="' . oos_href_link_admin(oos_selected_file('catalog.php'), 'selected_box=catalog') . '">' . BOX_HEADING_CATALOG . '</a>'; ?>
 				</li>
 				<li class="breadcrumb-item active">
-					<strong><?php echo sprintf($text_new_or_edit, oos_output_generated_category_path($current_category_id)); ?></strong>
+					<strong><?php echo sprintf($text_new_or_edit, oos_get_category_name($cID)); ?></strong>
 				</li>
 			</ol>
 		</div>
@@ -469,6 +535,26 @@ if ($action == 'panorama' || $action == 'update_panorama') {
 						<?php echo oos_reset_button(BUTTON_RESET); ?>			   
 					</div>				  
 					<div class="tab-pane active" id="edit" role="tabpanel">
+
+						<div class="row  mt-3 mb-5">
+							<div class="col-lg-10">
+								<h2>			
+									<?php echo sprintf(TEXT_EDIT_PANORAMA, oos_get_category_name($cID)); ?>
+								</h2>
+							</div>
+							<div class="col-lg-2">		
+								<div class="text-right">
+						<?php
+							if ($form_action == 'update_panorama') {		
+								echo '<a href="' . oos_href_link_admin($aContents['categories_panorama'], 'cPath=' . $cPath . '&cID=' . $cID . '&page=' . $nPage . '&action=delete_panorama') . '"><i class="fa fa-trash" title="' . BUTTON_DELETE . '"></i> ' . TEXT_PANORAMA_DELETE . '</a>';
+							}
+						?>
+								</div>
+							</div>
+						</div>
+
+
+
 <?php
 		for ($i=0; $i < count($aLanguages); $i++) {
 ?>

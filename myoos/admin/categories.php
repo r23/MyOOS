@@ -1249,10 +1249,10 @@ if ($action == 'new_category' || $action == 'edit_category') {
 ?></td>
                 <td class="text-center">&nbsp;<?php echo $categories['sort_order']; ?>&nbsp;</td>
                 <td class="text-right"><?php echo
-					'<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $categories['categories_id'] . '&action=edit_category') . '"><i class="fa fa-pencil" title="' . BUTTON_EDIT . '"></i></a>
-					<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $categories['categories_id'] . '&action=delete_category') . '"><i class="fa fa-trash" title="' . BUTTON_DELETE . '"></i></a>
-					<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $categories['categories_id'] . '&action=move_category') . '"><i class="fa fa-share" title="' .  IMAGE_MOVE  . '"></i></a>
-					<a href="' . oos_href_link_admin($aContents['categories_panorama'], 'cPath=' . $cPath . '&cID=' . $categories['categories_id'] . '&action=panorama') . '"><i class="fa fa-street-view" title="' .  BUTTON_PANORAMA  . '"></i></a>';
+					'<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $categories['categories_id'] . '&page=' . $nPage . '&action=edit_category') . '"><i class="fa fa-pencil" title="' . BUTTON_EDIT . '"></i></a>
+					<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $categories['categories_id'] . '&page=' . $nPage . '&action=delete_category') . '"><i class="fa fa-trash" title="' . BUTTON_DELETE . '"></i></a>
+					<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $categories['categories_id'] . '&page=' . $nPage . '&action=move_category') . '"><i class="fa fa-share" title="' .  IMAGE_MOVE  . '"></i></a>
+					<a href="' . oos_href_link_admin($aContents['categories_panorama'], 'cPath=' . $cPath . '&cID=' . $categories['categories_id'] . '&page=' . $nPage . '&action=panorama') . '"><i class="fa fa-street-view" title="' .  BUTTON_PANORAMA  . '"></i></a>';
 ?>				&nbsp;</td>
               </tr>
 <?php

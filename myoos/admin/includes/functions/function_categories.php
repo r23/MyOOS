@@ -612,7 +612,16 @@ function oos_remove_category($category_id) {
 	$dbconn->Execute("DELETE FROM " . $oostable['categories_images'] . " WHERE categories_id = '" . intval($category_id) . "'");	
     $dbconn->Execute("DELETE FROM " . $oostable['products_to_categories'] . " WHERE categories_id = '" . intval($category_id) . "'");
 
-	
+    $categories_panoramatable = $oostable['categories_panorama'];
+    $category_panorama_query = "SELECT panorama_id
+                             FROM $categories_panoramatable
+                             WHERE categories_id = '" . intval($category_id) . "'";
+    $category_panorama_result = $dbconn->Execute($category_panorama_query);
+	if ($category_panorama_result->RecordCount()) {	
+		$category_panorama = $category_panorama_result->fields;
+		
+		oos_remove_panorama($category_panorama['panorama_id']);
+	}	
 }
 
 
@@ -1004,3 +1013,50 @@ function oos_get_hotspot_text($hotspot_id, $language_id = '') {
     return $hotspot_text;
 }
 
+
+function oos_remove_panorama($panorama_id) {
+
+    // Get database information
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
+
+    $categoriestable = $oostable['categories_panorama'];
+    $panorama_preview_query = "SELECT panorama_preview
+                             FROM $categoriestable
+                             WHERE panorama_id = '" . intval($panorama_id) . "'";
+    $panorama_preview_result = $dbconn->Execute($panorama_preview_query);
+    $panorama_preview = $panorama_preview_result->fields;
+
+	oos_remove_panorama_preview_image($panorama_preview['panorama_preview']);
+
+
+	$categories_panorama_scenetable = $oostable['categories_panorama_scene'];
+    $scene_image_query = "SELECT scene_image
+                             FROM $categories_panorama_scenetable
+                             WHERE panorama_id = '" . intval($panorama_id) . "'";
+    $scene_image_result = $dbconn->Execute($scene_image_query);
+	$scene_image = $scene_image_result->fields;	
+	
+	oos_remove_scene_image($scene_image['scene_image']);
+	
+	$categories_panorama_scene_hotspot = $oostable['categories_panorama_scene_hotspot'];
+	$query = "SELECT hotspot_id
+              FROM $categories_panorama_scene_hotspot
+              WHERE panorama_id = '" . intval($panorama_id) . "'";			
+	$hotspot_result = $dbconn->Execute($query);	
+	while ($hotspot = $hotspot_result->fields) {
+	
+		$dbconn->Execute("DELETE FROM " . $oostable['categories_panorama_scene_hotspot'] . " WHERE hotspot_id = '" . intval($hotspot['hotspot_text']) . "'");
+		$dbconn->Execute("DELETE FROM " . $oostable['categories_panorama_scene_hotspot_text'] . " WHERE hotspot_id = '" . intval($hotspot['hotspot_text']) . "'");	
+	
+
+		// Move that ADOdb pointer!
+		$hotspot_result->MoveNext();
+	}
+
+    $dbconn->Execute("DELETE FROM " . $oostable['categories_panorama'] . " WHERE panorama_id = '" . intval($panorama_id) . "'");
+    $dbconn->Execute("DELETE FROM " . $oostable['categories_panorama_description'] . " WHERE panorama_id = '" . intval($panorama_id) . "'");
+	$dbconn->Execute("DELETE FROM " . $oostable['categories_panorama_scene'] . " WHERE panorama_id = '" . intval($panorama_id) . "'");	
+
+	
+}
