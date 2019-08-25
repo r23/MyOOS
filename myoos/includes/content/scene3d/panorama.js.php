@@ -30,7 +30,7 @@ pannellum.viewer('panorama', {
 <?php if (!empty($panorama_info['panorama_autoload']) && ($panorama_info['panorama_autoload'] == 'true'))  echo '"autoLoad": true, '; ?>								
 <?php if (!empty($panorama_info['panorama_autorotates']))  echo '"autoRotate": ' . $panorama_info['panorama_autorotates']. ','; ?>
 <?php if (!empty($panorama_info['panorama_author'])) { ?>
-    "title": "<?php echo $panorama_info['panorama_title']; ?>",
+    "title": "<?php echo $panorama_info['panorama_name']; ?>",
     "author": "<?php echo $panorama_info['panorama_author']; ?>",
 <?php 
 	} 
