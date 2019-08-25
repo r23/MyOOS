@@ -113,11 +113,11 @@ require 'includes/header.php';
 						<div class="col-xl-3 col-md-6">
 							<div class="card flex-row align-items-center align-items-stretch border-0">
 								<div class="col-4 d-flex align-items-center bg-purple-dark card-title justify-content-center rounded-left">
-									<a href="<?php echo oos_href_link_admin(oos_selected_file('catalog.php'), 'selected_box=catalog'); ?>"><em class="fa fa-cubes fa-3x"></em></a>
+									<a href="<?php echo oos_href_link_admin($aContents['categories'], 'selected_box=catalog'); ?>"><em class="fa fa-cubes fa-3x"></em></a>
 								</div>
 								<div class="col-8 py-3 card-body bg-purple rounded-right">
 									<div class="h2 mt-0"><?php echo $products['count']; ?></div>
-									<div class="text-uppercase"><a href="<?php echo oos_href_link_admin(oos_selected_file('catalog.php'), 'selected_box=catalog'); ?>"><?php echo BOX_ENTRY_PRODUCTS; ?></a></div>
+									<div class="text-uppercase"><a href="<?php echo oos_href_link_admin($aContents['categories'], 'selected_box=catalog'); ?>"><?php echo BOX_ENTRY_PRODUCTS; ?></a></div>
 								</div>
 							</div>
 						</div>

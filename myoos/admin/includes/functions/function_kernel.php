@@ -107,41 +107,6 @@ function oos_admin_files_boxes($filename, $parameters) {
 }
 
 
-function oos_selected_file($filename) {
-
-    // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
-
-    $aContents = oos_get_content();
-
-    $randomize = 'admin_account';
-
-    $admin_filestable = $oostable['admin_files'];
-    $query = "SELECT admin_files_id AS boxes_id
-              FROM $admin_filestable
-              WHERE FIND_IN_SET( '" . intval($_SESSION['login_groups_id']) . "', admin_groups_id)
-                AND admin_files_is_boxes = '1'
-                AND admin_files_name = '" . oos_db_input($filename) . "'";
-    $result = $dbconn->Execute($query);
-
-    if ($result->RecordCount()) {
-		$boxes_id = $result->fields;
-		$admin_filestable = $oostable['admin_files'];
-		$randomize_query = "SELECT admin_files_name
-                           FROM $admin_filestable
-                           WHERE FIND_IN_SET( '" . intval($_SESSION['login_groups_id']) . "', admin_groups_id)
-                             AND admin_files_is_boxes = '0'
-                             AND admin_files_to_boxes = '" . intval($boxes_id['boxes_id']) . "'";
-		$randomize_result = $dbconn->Execute($randomize_query);
-		if ($randomize_result->RecordCount()) {
-			$randomize = $randomize_result->fields['admin_files_name'];
-		}
-	}
-	
-    return $aContents[$randomize];
-}
-
 /**
  * Redirect to another page or site
  *
