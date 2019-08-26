@@ -173,7 +173,7 @@
 							<?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
 						</li>
 						<li class="breadcrumb-item">
-							<?php echo '<a href="' . oos_href_link_admin(oos_selected_file('plugins.php'), 'selected_box=plugins') . '">' . BOX_HEADING_PLUGINS . '</a>'; ?>
+							<?php echo '<a href="' . oos_href_link_admin($aContents['plugins'], 'selected_box=plugins') . '">' . BOX_HEADING_PLUGINS . '</a>'; ?>
 						</li>
 						<li class="breadcrumb-item active">
 							<strong><?php echo HEADING_TITLE; ?></strong>

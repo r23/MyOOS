@@ -68,7 +68,8 @@ var config,
     specifiedPhotoSphereExcludes = [],
     update = false, // Should we update when still to render dynamic content
     eps = 1e-6,
-    hotspotsCreated = false;
+    hotspotsCreated = false,
+    destroyed = false;
 
 var defaultConfig = {
     hfov: 100,
@@ -335,7 +336,6 @@ function init() {
         } else {
             if (config.panorama === undefined) {
                 anError(config.strings.noPanoramaError);
-                loaded = undefined;
                 return;
             }
             panoImage = new Image();
@@ -625,6 +625,7 @@ function anError(errorMsg) {
     infoDisplay.load.box.style.display = 'none';
     infoDisplay.errorMsg.style.display = 'table';
     error = true;
+    loaded = undefined;
     renderContainer.style.display = 'none';
     fireEvent('error', errorMsg);
 }
@@ -1357,6 +1358,10 @@ function animateInit() {
  * @private
  */
 function animate() {
+    if (destroyed) {
+        return;
+    }
+
     render();
     if (autoRotateStart)
         clearTimeout(autoRotateStart);
@@ -2186,7 +2191,7 @@ function zoomOut() {
 function constrainHfov(hfov) {
     // Keep field of view within bounds
     var minHfov = config.minHfov;
-    if (config.type == 'multires' && renderer && config.multiResMinHfov) {
+    if (config.type == 'multires' && renderer && !config.multiResMinHfov) {
         minHfov = Math.min(minHfov, renderer.getCanvas().width / (config.multiRes.cubeResolution / 90 * 0.9));
     }
     if (minHfov > config.maxHfov) {
@@ -3079,6 +3084,9 @@ function fireEvent(type) {
  * @memberof Viewer
  */
 this.destroy = function() {
+    destroyed = true;
+    clearTimeout(autoRotateStart);
+
     if (renderer)
         renderer.destroy();
     if (listenersAdded) {

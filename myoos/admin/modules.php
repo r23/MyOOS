@@ -114,7 +114,7 @@
 							<?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
 						</li>
 						<li class="breadcrumb-item">
-							<?php echo '<a href="' . oos_href_link_admin(oos_selected_file('modules.php'), 'selected_box=modules&set=payment') . '">' . BOX_HEADING_MODULES . '</a>'; ?>
+							<?php echo '<a href="' . oos_href_link_admin($aContents['modules'], 'selected_box=modules&set=payment') . '">' . BOX_HEADING_MODULES . '</a>'; ?>
 						</li>
 						<li class="breadcrumb-item active">
 							<strong><?php echo HEADING_TITLE; ?></strong>
