@@ -225,7 +225,7 @@ class FrameworkExtension extends Extension
 
         if ($this->isConfigEnabled($container, $config['session'])) {
             if (!\extension_loaded('session')) {
-                throw new LogicException('Session support cannot be enabled as the session extension is not installed. See https://www.php.net/session.installation for instructions.');
+                throw new LogicException('Session support cannot be enabled as the session extension is not installed. See https://php.net/session.installation for instructions.');
             }
 
             $this->sessionConfigEnabled = true;
@@ -874,7 +874,7 @@ class FrameworkExtension extends Extension
         // session storage
         $container->setAlias('session.storage', $config['storage_id'])->setPrivate(true);
         $options = ['cache_limiter' => '0'];
-        foreach (['name', 'cookie_lifetime', 'cookie_path', 'cookie_domain', 'cookie_secure', 'cookie_httponly', 'cookie_samesite', 'use_cookies', 'gc_maxlifetime', 'gc_probability', 'gc_divisor'] as $key) {
+        foreach (['name', 'cookie_lifetime', 'cookie_path', 'cookie_domain', 'cookie_secure', 'cookie_httponly', 'cookie_samesite', 'use_cookies', 'gc_maxlifetime', 'gc_probability', 'gc_divisor', 'sid_length', 'sid_bits_per_character'] as $key) {
             if (isset($config[$key])) {
                 $options[$key] = $config[$key];
             }
@@ -892,20 +892,11 @@ class FrameworkExtension extends Extension
 
         // session handler (the internal callback registered with PHP session management)
         if (null === $config['handler_id']) {
-            // If the user set a save_path without using a non-default \SessionHandler, it will silently be ignored
-            if (isset($config['save_path'])) {
-                throw new LogicException('Session save path is ignored without a handler service');
-            }
-
             // Set the handler class to be null
             $container->getDefinition('session.storage.native')->replaceArgument(1, null);
             $container->getDefinition('session.storage.php_bridge')->replaceArgument(0, null);
         } else {
             $container->setAlias('session.handler', $config['handler_id'])->setPrivate(true);
-        }
-
-        if (!isset($config['save_path'])) {
-            $config['save_path'] = ini_get('session.save_path');
         }
 
         $container->setParameter('session.save_path', $config['save_path']);
@@ -1128,12 +1119,12 @@ class FrameworkExtension extends Extension
         $defaultDir = $container->getParameterBag()->resolveValue($config['default_path']);
         $rootDir = $container->getParameter('kernel.root_dir');
         foreach ($container->getParameter('kernel.bundles_metadata') as $name => $bundle) {
-            if (is_dir($dir = $bundle['path'].'/Resources/translations')) {
+            if ($container->fileExists($dir = $bundle['path'].'/Resources/translations')) {
                 $dirs[] = $dir;
             } else {
                 $nonExistingDirs[] = $dir;
             }
-            if (is_dir($dir = $rootDir.sprintf('/Resources/%s/translations', $name))) {
+            if ($container->fileExists($dir = $rootDir.sprintf('/Resources/%s/translations', $name))) {
                 @trigger_error(sprintf('Translations directory "%s" is deprecated since Symfony 4.2, use "%s" instead.', $dir, $defaultDir), E_USER_DEPRECATED);
                 $dirs[] = $dir;
             } else {
@@ -1142,7 +1133,7 @@ class FrameworkExtension extends Extension
         }
 
         foreach ($config['paths'] as $dir) {
-            if (is_dir($dir)) {
+            if ($container->fileExists($dir)) {
                 $dirs[] = $transPaths[] = $dir;
             } else {
                 throw new \UnexpectedValueException(sprintf('%s defined in translator.paths does not exist or is not a directory', $dir));
@@ -1157,13 +1148,13 @@ class FrameworkExtension extends Extension
             $container->getDefinition('console.command.translation_update')->replaceArgument(6, $transPaths);
         }
 
-        if (is_dir($defaultDir)) {
+        if ($container->fileExists($defaultDir)) {
             $dirs[] = $defaultDir;
         } else {
             $nonExistingDirs[] = $defaultDir;
         }
 
-        if (is_dir($dir = $rootDir.'/Resources/translations')) {
+        if ($container->fileExists($dir = $rootDir.'/Resources/translations')) {
             if ($dir !== $defaultDir) {
                 @trigger_error(sprintf('Translations directory "%s" is deprecated since Symfony 4.2, use "%s" instead.', $dir, $defaultDir), E_USER_DEPRECATED);
             }
@@ -1929,9 +1920,7 @@ class FrameworkExtension extends Extension
     }
 
     /**
-     * Returns the base path for the XSD files.
-     *
-     * @return string The XSD base path
+     * {@inheritdoc}
      */
     public function getXsdValidationBasePath()
     {

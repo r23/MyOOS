@@ -100,6 +100,8 @@ final class CurlResponse implements ResponseInterface
 
                     return 1; // Abort the request
                 }
+
+                return null;
             });
         }
 
@@ -255,6 +257,7 @@ final class CurlResponse implements ResponseInterface
 
         try {
             self::$performing = true;
+            $active = 0;
             while (CURLM_CALL_MULTI_PERFORM === curl_multi_exec($multi->handle, $active));
 
             while ($info = curl_multi_info_read($multi->handle)) {

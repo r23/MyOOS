@@ -51,7 +51,7 @@ class UserPasswordEncoderCommandTest extends AbstractWebTestCase
             'command' => 'security:encode-password',
         ], ['interactive' => false]);
 
-        $this->assertContains('[ERROR] The password must not be empty.', $this->passwordEncoderCommandTester->getDisplay());
+        $this->assertStringContainsString('[ERROR] The password must not be empty.', $this->passwordEncoderCommandTester->getDisplay());
         $this->assertEquals($statusCode, 1);
     }
 
@@ -68,7 +68,7 @@ class UserPasswordEncoderCommandTest extends AbstractWebTestCase
         ], ['interactive' => false]);
 
         $output = $this->passwordEncoderCommandTester->getDisplay();
-        $this->assertContains('Password encoding succeeded', $output);
+        $this->assertStringContainsString('Password encoding succeeded', $output);
 
         $encoder = new BCryptPasswordEncoder(17);
         preg_match('# Encoded password\s{1,}([\w+\/$.]+={0,2})\s+#', $output, $matches);
@@ -92,7 +92,7 @@ class UserPasswordEncoderCommandTest extends AbstractWebTestCase
         ], ['interactive' => false]);
 
         $output = $this->passwordEncoderCommandTester->getDisplay();
-        $this->assertContains('Password encoding succeeded', $output);
+        $this->assertStringContainsString('Password encoding succeeded', $output);
 
         $encoder = new Argon2iPasswordEncoder();
         preg_match('#  Encoded password\s+(\$argon2id?\$[\w,=\$+\/]+={0,2})\s+#', $output, $matches);
@@ -109,7 +109,7 @@ class UserPasswordEncoderCommandTest extends AbstractWebTestCase
         ], ['interactive' => false]);
 
         $output = $this->passwordEncoderCommandTester->getDisplay();
-        $this->assertContains('Password encoding succeeded', $output);
+        $this->assertStringContainsString('Password encoding succeeded', $output);
 
         $encoder = new NativePasswordEncoder();
         preg_match('# Encoded password\s{1,}([\w+\/$.,=]+={0,2})\s+#', $output, $matches);
@@ -130,7 +130,7 @@ class UserPasswordEncoderCommandTest extends AbstractWebTestCase
         ], ['interactive' => false]);
 
         $output = $this->passwordEncoderCommandTester->getDisplay();
-        $this->assertContains('Password encoding succeeded', $output);
+        $this->assertStringContainsString('Password encoding succeeded', $output);
 
         preg_match('#  Encoded password\s+(\$?\$[\w,=\$+\/]+={0,2})\s+#', $output, $matches);
         $hash = $matches[1];
@@ -146,7 +146,7 @@ class UserPasswordEncoderCommandTest extends AbstractWebTestCase
         ], ['interactive' => false]);
 
         $output = $this->passwordEncoderCommandTester->getDisplay();
-        $this->assertContains('Password encoding succeeded', $output);
+        $this->assertStringContainsString('Password encoding succeeded', $output);
 
         $encoder = new Pbkdf2PasswordEncoder('sha512', true, 1000);
         preg_match('# Encoded password\s{1,}([\w+\/]+={0,2})\s+#', $output, $matches);
@@ -165,9 +165,9 @@ class UserPasswordEncoderCommandTest extends AbstractWebTestCase
             ], ['interactive' => false]
         );
 
-        $this->assertContains('Password encoding succeeded', $this->passwordEncoderCommandTester->getDisplay());
-        $this->assertContains(' Encoded password   p@ssw0rd', $this->passwordEncoderCommandTester->getDisplay());
-        $this->assertContains(' Generated salt ', $this->passwordEncoderCommandTester->getDisplay());
+        $this->assertStringContainsString('Password encoding succeeded', $this->passwordEncoderCommandTester->getDisplay());
+        $this->assertStringContainsString(' Encoded password   p@ssw0rd', $this->passwordEncoderCommandTester->getDisplay());
+        $this->assertStringContainsString(' Generated salt ', $this->passwordEncoderCommandTester->getDisplay());
     }
 
     public function testEncodePasswordEmptySaltOutput()
@@ -179,9 +179,9 @@ class UserPasswordEncoderCommandTest extends AbstractWebTestCase
             '--empty-salt' => true,
         ]);
 
-        $this->assertContains('Password encoding succeeded', $this->passwordEncoderCommandTester->getDisplay());
-        $this->assertContains(' Encoded password   p@ssw0rd', $this->passwordEncoderCommandTester->getDisplay());
-        $this->assertNotContains(' Generated salt ', $this->passwordEncoderCommandTester->getDisplay());
+        $this->assertStringContainsString('Password encoding succeeded', $this->passwordEncoderCommandTester->getDisplay());
+        $this->assertStringContainsString(' Encoded password   p@ssw0rd', $this->passwordEncoderCommandTester->getDisplay());
+        $this->assertStringNotContainsString(' Generated salt ', $this->passwordEncoderCommandTester->getDisplay());
     }
 
     public function testEncodePasswordNativeOutput()
@@ -192,7 +192,7 @@ class UserPasswordEncoderCommandTest extends AbstractWebTestCase
             'user-class' => 'Custom\Class\Native\User',
         ], ['interactive' => false]);
 
-        $this->assertNotContains(' Generated salt ', $this->passwordEncoderCommandTester->getDisplay());
+        $this->assertStringNotContainsString(' Generated salt ', $this->passwordEncoderCommandTester->getDisplay());
     }
 
     /**
@@ -211,7 +211,7 @@ class UserPasswordEncoderCommandTest extends AbstractWebTestCase
             'user-class' => 'Custom\Class\Argon2i\User',
         ], ['interactive' => false]);
 
-        $this->assertNotContains(' Generated salt ', $this->passwordEncoderCommandTester->getDisplay());
+        $this->assertStringNotContainsString(' Generated salt ', $this->passwordEncoderCommandTester->getDisplay());
     }
 
     public function testEncodePasswordSodiumOutput()
@@ -227,17 +227,13 @@ class UserPasswordEncoderCommandTest extends AbstractWebTestCase
             'user-class' => 'Custom\Class\Sodium\User',
         ], ['interactive' => false]);
 
-        $this->assertNotContains(' Generated salt ', $this->passwordEncoderCommandTester->getDisplay());
+        $this->assertStringNotContainsString(' Generated salt ', $this->passwordEncoderCommandTester->getDisplay());
     }
 
     public function testEncodePasswordNoConfigForGivenUserClass()
     {
-        if (method_exists($this, 'expectException')) {
-            $this->expectException('\RuntimeException');
-            $this->expectExceptionMessage('No encoder has been configured for account "Foo\Bar\User".');
-        } else {
-            $this->setExpectedException('\RuntimeException', 'No encoder has been configured for account "Foo\Bar\User".');
-        }
+        $this->expectException('\RuntimeException');
+        $this->expectExceptionMessage('No encoder has been configured for account "Foo\Bar\User".');
 
         $this->passwordEncoderCommandTester->execute([
             'command' => 'security:encode-password',
@@ -254,7 +250,7 @@ class UserPasswordEncoderCommandTest extends AbstractWebTestCase
             'password' => 'password',
         ], ['decorated' => false]);
 
-        $this->assertContains(<<<EOTXT
+        $this->assertStringContainsString(<<<EOTXT
  For which user class would you like to encode a password? [Custom\Class\Native\User]:
   [0] Custom\Class\Native\User
   [1] Custom\Class\Pbkdf2\User
@@ -271,15 +267,13 @@ EOTXT
             'password' => 'password',
         ], ['interactive' => false]);
 
-        $this->assertContains('Encoder used       Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder', $this->passwordEncoderCommandTester->getDisplay());
+        $this->assertStringContainsString('Encoder used       Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder', $this->passwordEncoderCommandTester->getDisplay());
     }
 
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage There are no configured encoders for the "security" extension.
-     */
     public function testThrowsExceptionOnNoConfiguredEncoders()
     {
+        $this->expectException('RuntimeException');
+        $this->expectExceptionMessage('There are no configured encoders for the "security" extension.');
         $application = new ConsoleApplication();
         $application->add(new UserPasswordEncoderCommand($this->getMockBuilder(EncoderFactoryInterface::class)->getMock(), []));
 
@@ -292,7 +286,7 @@ EOTXT
         ], ['interactive' => false]);
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         putenv('COLUMNS='.(119 + \strlen(PHP_EOL)));
         $kernel = $this->createKernel(['test_case' => 'PasswordEncode']);
@@ -305,7 +299,7 @@ EOTXT
         $this->passwordEncoderCommandTester = new CommandTester($passwordEncoderCommand);
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->passwordEncoderCommandTester = null;
     }

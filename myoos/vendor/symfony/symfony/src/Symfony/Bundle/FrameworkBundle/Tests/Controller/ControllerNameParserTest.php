@@ -23,7 +23,7 @@ class ControllerNameParserTest extends TestCase
 {
     protected $loader;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->loader = new ClassLoader();
         $this->loader->add('TestBundle', __DIR__.'/../Fixtures');
@@ -31,7 +31,7 @@ class ControllerNameParserTest extends TestCase
         $this->loader->register();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->loader->unregister();
         $this->loader = null;
@@ -129,9 +129,9 @@ class ControllerNameParserTest extends TestCase
 
             if (false === $suggestedBundleName) {
                 // make sure we don't have a suggestion
-                $this->assertNotContains('Did you mean', $e->getMessage());
+                $this->assertStringNotContainsString('Did you mean', $e->getMessage());
             } else {
-                $this->assertContains(sprintf('Did you mean "%s"', $suggestedBundleName), $e->getMessage());
+                $this->assertStringContainsString(sprintf('Did you mean "%s"', $suggestedBundleName), $e->getMessage());
             }
         }
     }

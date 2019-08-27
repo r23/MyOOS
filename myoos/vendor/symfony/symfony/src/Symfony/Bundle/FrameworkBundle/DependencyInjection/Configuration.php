@@ -225,7 +225,7 @@ class Configuration implements ConfigurationInterface
                     ->canBeEnabled()
                     ->beforeNormalization()
                         ->always(function ($v) {
-                            if (true === $v['enabled']) {
+                            if (\is_array($v) && true === $v['enabled']) {
                                 $workflows = $v;
                                 unset($workflows['enabled']);
 
@@ -522,12 +522,6 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->arrayNode('session')
-                    ->validate()
-                        ->ifTrue(function ($v) {
-                            return empty($v['handler_id']) && !empty($v['save_path']);
-                        })
-                        ->thenInvalid('Session save path is ignored without a handler service')
-                    ->end()
                     ->info('session configuration')
                     ->canBeEnabled()
                     ->children()
@@ -553,7 +547,7 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('gc_divisor')->end()
                         ->scalarNode('gc_probability')->defaultValue(1)->end()
                         ->scalarNode('gc_maxlifetime')->end()
-                        ->scalarNode('save_path')->end()
+                        ->scalarNode('save_path')->defaultValue('%kernel.cache_dir%/sessions')->end()
                         ->integerNode('metadata_update_threshold')
                             ->defaultValue(0)
                             ->info('seconds to wait between 2 session metadata updates')
@@ -1348,7 +1342,7 @@ class Configuration implements ConfigurationInterface
                                     ->info('A comma separated list of hosts that do not require a proxy to be reached.')
                                 ->end()
                                 ->floatNode('timeout')
-                                    ->info('Defaults to "default_socket_timeout" ini parameter.')
+                                    ->info('The idle timeout, defaults to the "default_socket_timeout" ini parameter.')
                                 ->end()
                                 ->scalarNode('bindto')
                                     ->info('A network interface name, IP address, a host name or a UNIX socket to bind to.')
@@ -1481,7 +1475,7 @@ class Configuration implements ConfigurationInterface
                                         ->info('A comma separated list of hosts that do not require a proxy to be reached.')
                                     ->end()
                                     ->floatNode('timeout')
-                                        ->info('Defaults to "default_socket_timeout" ini parameter.')
+                                        ->info('The idle timeout, defaults to the "default_socket_timeout" ini parameter.')
                                     ->end()
                                     ->scalarNode('bindto')
                                         ->info('A network interface name, IP address, a host name or a UNIX socket to bind to.')

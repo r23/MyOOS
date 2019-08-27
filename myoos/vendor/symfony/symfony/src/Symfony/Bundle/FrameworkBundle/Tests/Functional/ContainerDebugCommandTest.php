@@ -45,7 +45,7 @@ class ContainerDebugCommandTest extends AbstractWebTestCase
         $tester = new ApplicationTester($application);
         $tester->run(['command' => 'debug:container']);
 
-        $this->assertContains('public', $tester->getDisplay());
+        $this->assertStringContainsString('public', $tester->getDisplay());
     }
 
     public function testPrivateAlias()
@@ -57,12 +57,12 @@ class ContainerDebugCommandTest extends AbstractWebTestCase
 
         $tester = new ApplicationTester($application);
         $tester->run(['command' => 'debug:container', '--show-hidden' => true]);
-        $this->assertNotContains('public', $tester->getDisplay());
-        $this->assertNotContains('private_alias', $tester->getDisplay());
+        $this->assertStringNotContainsString('public', $tester->getDisplay());
+        $this->assertStringNotContainsString('private_alias', $tester->getDisplay());
 
         $tester->run(['command' => 'debug:container']);
-        $this->assertContains('public', $tester->getDisplay());
-        $this->assertContains('private_alias', $tester->getDisplay());
+        $this->assertStringContainsString('public', $tester->getDisplay());
+        $this->assertStringContainsString('private_alias', $tester->getDisplay());
     }
 
     /**
@@ -77,7 +77,7 @@ class ContainerDebugCommandTest extends AbstractWebTestCase
 
         $tester = new ApplicationTester($application);
         $tester->run(['command' => 'debug:container', 'name' => $validServiceId]);
-        $this->assertNotContains('No services found', $tester->getDisplay());
+        $this->assertStringNotContainsString('No services found', $tester->getDisplay());
     }
 
     public function testDescribeEnvVars()
@@ -130,7 +130,7 @@ TXT
         $tester = new ApplicationTester($application);
         $tester->run(['command' => 'debug:container', '--env-var' => 'js'], ['decorated' => false]);
 
-        $this->assertContains(file_get_contents(__DIR__.'/Fixtures/describe_env_vars.txt'), $tester->getDisplay(true));
+        $this->assertStringContainsString(file_get_contents(__DIR__.'/Fixtures/describe_env_vars.txt'), $tester->getDisplay(true));
     }
 
     public function provideIgnoreBackslashWhenFindingService()

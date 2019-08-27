@@ -51,15 +51,15 @@ class PassConfig
         $this->optimizationPasses = [[
             new ValidateEnvPlaceholdersPass(),
             new ResolveChildDefinitionsPass(),
-            new ServiceLocatorTagPass(),
             new RegisterServiceSubscribersPass(),
             new DecoratorServicePass(),
             new ResolveParameterPlaceHoldersPass(false),
             new ResolveFactoryClassPass(),
-            new CheckDefinitionValidityPass(),
             new ResolveNamedArgumentsPass(),
             new AutowireRequiredMethodsPass(),
             new ResolveBindingsPass(),
+            new ServiceLocatorTagPass(),
+            new CheckDefinitionValidityPass(),
             new AutowirePass(false),
             new ResolveTaggedIteratorArgumentPass(),
             new ResolveServiceSubscribersPass(),
@@ -110,9 +110,8 @@ class PassConfig
     /**
      * Adds a pass.
      *
-     * @param CompilerPassInterface $pass     A Compiler pass
-     * @param string                $type     The pass type
-     * @param int                   $priority Used to sort the passes
+     * @param CompilerPassInterface $pass A Compiler pass
+     * @param string                $type The pass type
      *
      * @throws InvalidArgumentException when a pass type doesn't exist
      */

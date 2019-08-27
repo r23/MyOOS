@@ -10,7 +10,7 @@
  */
 
 // Please update when phpunit needs to be reinstalled with fresh deps:
-// Cache-Id-Version: 2019-07-04 18:00 UTC
+// Cache-Id: 2019-08-09 13:00 UTC
 
 error_reporting(-1);
 
@@ -116,6 +116,8 @@ if (!file_exists("$PHPUNIT_DIR/phpunit-$PHPUNIT_VERSION/phpunit") || md5_file(__
     if (5.1 <= $PHPUNIT_VERSION && $PHPUNIT_VERSION < 5.4) {
         passthru("$COMPOSER require --no-update phpunit/phpunit-mock-objects \"~3.1.0\"");
     }
+
+    passthru("$COMPOSER config --unset platform");
     if (file_exists($path = $root.'/vendor/symfony/phpunit-bridge')) {
         passthru("$COMPOSER require --no-update symfony/phpunit-bridge \"*@dev\"");
         passthru("$COMPOSER config repositories.phpunit-bridge path ".escapeshellarg(str_replace('/', DIRECTORY_SEPARATOR, $path)));
@@ -164,6 +166,14 @@ EOPHP
 global $argv, $argc;
 $argv = isset($_SERVER['argv']) ? $_SERVER['argv'] : array();
 $argc = isset($_SERVER['argc']) ? $_SERVER['argc'] : 0;
+
+if ($PHPUNIT_VERSION < 8.0) {
+    $argv = array_filter($argv, function ($v) use (&$argc) { if ('--do-not-cache-result' !== $v) return true; --$argc; return false; });
+} elseif (filter_var(getenv('SYMFONY_PHPUNIT_DISABLE_RESULT_CACHE'), FILTER_VALIDATE_BOOLEAN)) {
+    $argv[] = '--do-not-cache-result';
+    ++$argc;
+}
+
 $components = array();
 $cmd = array_map('escapeshellarg', $argv);
 $exit = 0;

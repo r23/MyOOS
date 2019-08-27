@@ -27,7 +27,7 @@ use Symfony\Component\Intl\Exception\RuntimeException;
 class LanguageDataGenerator extends AbstractDataGenerator
 {
     /**
-     * Source: http://www-01.sil.org/iso639-3/codes.asp.
+     * Source: https://iso639-3.sil.org/code_tables/639/data.
      */
     private static $preferredAlpha2ToAlpha3Mapping = [
         'ak' => 'aka',
@@ -140,6 +140,8 @@ class LanguageDataGenerator extends AbstractDataGenerator
 
             return $data;
         }
+
+        return null;
     }
 
     /**
@@ -164,7 +166,6 @@ class LanguageDataGenerator extends AbstractDataGenerator
         return [
             'Version' => $rootBundle['Version'],
             'Languages' => $this->languageCodes,
-            'Aliases' => array_column(iterator_to_array($metadataBundle['alias']['language']), 'replacement'),
             'Alpha2ToAlpha3' => $this->generateAlpha2ToAlpha3Mapping($metadataBundle),
         ];
     }
@@ -179,9 +180,9 @@ class LanguageDataGenerator extends AbstractDataGenerator
         $aliases = iterator_to_array($metadataBundle['alias']['language']);
         $alpha2ToAlpha3 = [];
 
-        foreach ($aliases as $alias => $language) {
-            $language = $language['replacement'];
-            if (2 === \strlen($language) && 3 === \strlen($alias)) {
+        foreach ($aliases as $alias => $data) {
+            $language = $data['replacement'];
+            if (2 === \strlen($language) && 3 === \strlen($alias) && 'overlong' === $data['reason']) {
                 if (isset(self::$preferredAlpha2ToAlpha3Mapping[$language])) {
                     // Validate to prevent typos
                     if (!isset($aliases[self::$preferredAlpha2ToAlpha3Mapping[$language]])) {
@@ -203,6 +204,8 @@ class LanguageDataGenerator extends AbstractDataGenerator
                 }
             }
         }
+
+        asort($alpha2ToAlpha3);
 
         return $alpha2ToAlpha3;
     }

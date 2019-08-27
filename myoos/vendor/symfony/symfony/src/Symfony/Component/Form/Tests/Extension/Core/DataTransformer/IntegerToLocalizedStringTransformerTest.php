@@ -19,13 +19,13 @@ class IntegerToLocalizedStringTransformerTest extends TestCase
 {
     private $defaultLocale;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->defaultLocale = \Locale::getDefault();
         \Locale::setDefault('en');
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         \Locale::setDefault($this->defaultLocale);
     }
@@ -230,21 +230,17 @@ class IntegerToLocalizedStringTransformerTest extends TestCase
         $this->assertEquals($output, $transformer->reverseTransform($input));
     }
 
-    /**
-     * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
-     */
     public function testReverseTransformExpectsString()
     {
+        $this->expectException('Symfony\Component\Form\Exception\TransformationFailedException');
         $transformer = new IntegerToLocalizedStringTransformer();
 
         $transformer->reverseTransform(1);
     }
 
-    /**
-     * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
-     */
     public function testReverseTransformExpectsValidNumber()
     {
+        $this->expectException('Symfony\Component\Form\Exception\TransformationFailedException');
         $transformer = new IntegerToLocalizedStringTransformer();
 
         $transformer->reverseTransform('foo');
@@ -252,10 +248,10 @@ class IntegerToLocalizedStringTransformerTest extends TestCase
 
     /**
      * @dataProvider floatNumberProvider
-     * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
      */
     public function testReverseTransformExpectsInteger($number, $locale)
     {
+        $this->expectException('Symfony\Component\Form\Exception\TransformationFailedException');
         IntlTestHelper::requireFullIntl($this, false);
 
         \Locale::setDefault($locale);
@@ -273,41 +269,33 @@ class IntegerToLocalizedStringTransformerTest extends TestCase
         ];
     }
 
-    /**
-     * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
-     */
     public function testReverseTransformDisallowsNaN()
     {
+        $this->expectException('Symfony\Component\Form\Exception\TransformationFailedException');
         $transformer = new IntegerToLocalizedStringTransformer();
 
         $transformer->reverseTransform('NaN');
     }
 
-    /**
-     * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
-     */
     public function testReverseTransformDisallowsNaN2()
     {
+        $this->expectException('Symfony\Component\Form\Exception\TransformationFailedException');
         $transformer = new IntegerToLocalizedStringTransformer();
 
         $transformer->reverseTransform('nan');
     }
 
-    /**
-     * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
-     */
     public function testReverseTransformDisallowsInfinity()
     {
+        $this->expectException('Symfony\Component\Form\Exception\TransformationFailedException');
         $transformer = new IntegerToLocalizedStringTransformer();
 
         $transformer->reverseTransform('∞');
     }
 
-    /**
-     * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
-     */
     public function testReverseTransformDisallowsNegativeInfinity()
     {
+        $this->expectException('Symfony\Component\Form\Exception\TransformationFailedException');
         $transformer = new IntegerToLocalizedStringTransformer();
 
         $transformer->reverseTransform('-∞');

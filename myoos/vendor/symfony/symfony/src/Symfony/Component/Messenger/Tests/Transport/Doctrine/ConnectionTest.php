@@ -15,6 +15,8 @@ use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Driver\Statement;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Query\QueryBuilder;
+use Doctrine\DBAL\Schema\AbstractSchemaManager;
+use Doctrine\DBAL\Schema\SchemaConfig;
 use Doctrine\DBAL\Schema\Synchronizer\SchemaSynchronizer;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Tests\Fixtures\DummyMessage;
@@ -76,11 +78,9 @@ class ConnectionTest extends TestCase
         $this->assertNull($doctrineEnvelope);
     }
 
-    /**
-     * @expectedException \Symfony\Component\Messenger\Exception\TransportException
-     */
     public function testItThrowsATransportExceptionIfItCannotAcknowledgeMessage()
     {
+        $this->expectException('Symfony\Component\Messenger\Exception\TransportException');
         $driverConnection = $this->getDBALConnectionMock();
         $driverConnection->method('delete')->willThrowException(new DBALException());
 
@@ -88,11 +88,9 @@ class ConnectionTest extends TestCase
         $connection->ack('dummy_id');
     }
 
-    /**
-     * @expectedException \Symfony\Component\Messenger\Exception\TransportException
-     */
     public function testItThrowsATransportExceptionIfItCannotRejectMessage()
     {
+        $this->expectException('Symfony\Component\Messenger\Exception\TransportException');
         $driverConnection = $this->getDBALConnectionMock();
         $driverConnection->method('delete')->willThrowException(new DBALException());
 
@@ -102,25 +100,26 @@ class ConnectionTest extends TestCase
 
     private function getDBALConnectionMock()
     {
-        $driverConnection = $this->getMockBuilder(\Doctrine\DBAL\Connection::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $platform = $this->getMockBuilder(AbstractPlatform::class)
-            ->getMock();
+        $driverConnection = $this->createMock(\Doctrine\DBAL\Connection::class);
+        $platform = $this->createMock(AbstractPlatform::class);
         $platform->method('getWriteLockSQL')->willReturn('FOR UPDATE');
-        $configuration = $this->getMockBuilder(\Doctrine\DBAL\Configuration::class)
-            ->getMock();
+        $configuration = $this->createMock(\Doctrine\DBAL\Configuration::class);
         $driverConnection->method('getDatabasePlatform')->willReturn($platform);
         $driverConnection->method('getConfiguration')->willReturn($configuration);
+
+        $schemaManager = $this->createMock(AbstractSchemaManager::class);
+        $schemaConfig = $this->createMock(SchemaConfig::class);
+        $schemaConfig->method('getMaxIdentifierLength')->willReturn(63);
+        $schemaConfig->method('getDefaultTableOptions')->willReturn([]);
+        $schemaManager->method('createSchemaConfig')->willReturn($schemaConfig);
+        $driverConnection->method('getSchemaManager')->willReturn($schemaManager);
 
         return $driverConnection;
     }
 
     private function getQueryBuilderMock()
     {
-        $queryBuilder = $this->getMockBuilder(QueryBuilder::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $queryBuilder = $this->createMock(QueryBuilder::class);
 
         $queryBuilder->method('select')->willReturn($queryBuilder);
         $queryBuilder->method('update')->willReturn($queryBuilder);
@@ -138,9 +137,7 @@ class ConnectionTest extends TestCase
 
     private function getStatementMock($expectedResult)
     {
-        $stmt = $this->getMockBuilder(Statement::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $stmt = $this->createMock(Statement::class);
         $stmt->expects($this->once())
             ->method('fetch')
             ->willReturn($expectedResult);
@@ -150,8 +147,7 @@ class ConnectionTest extends TestCase
 
     private function getSchemaSynchronizerMock()
     {
-        return $this->getMockBuilder(SchemaSynchronizer::class)
-            ->getMock();
+        return $this->createMock(SchemaSynchronizer::class);
     }
 
     /**
@@ -240,19 +236,15 @@ class ConnectionTest extends TestCase
         ];
     }
 
-    /**
-     * @expectedException \Symfony\Component\Messenger\Exception\InvalidArgumentException
-     */
     public function testItThrowsAnExceptionIfAnExtraOptionsInDefined()
     {
+        $this->expectException('Symfony\Component\Messenger\Exception\InvalidArgumentException');
         Connection::buildConfiguration('doctrine://default', ['new_option' => 'woops']);
     }
 
-    /**
-     * @expectedException \Symfony\Component\Messenger\Exception\InvalidArgumentException
-     */
     public function testItThrowsAnExceptionIfAnExtraOptionsInDefinedInDSN()
     {
+        $this->expectException('Symfony\Component\Messenger\Exception\InvalidArgumentException');
         Connection::buildConfiguration('doctrine://default?new_option=woops');
     }
 
@@ -307,9 +299,7 @@ class ConnectionTest extends TestCase
             'headers' => json_encode(['type' => DummyMessage::class]),
         ];
 
-        $stmt = $this->getMockBuilder(Statement::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $stmt = $this->createMock(Statement::class);
         $stmt->expects($this->once())
             ->method('fetchAll')
             ->willReturn([$message1, $message2]);

@@ -99,11 +99,11 @@ class TwigExtractorTest extends TestCase
     }
 
     /**
-     * @expectedException \Twig\Error\Error
      * @dataProvider resourcesWithSyntaxErrorsProvider
      */
     public function testExtractSyntaxError($resources)
     {
+        $this->expectException('Twig\Error\Error');
         $twig = new Environment($this->getMockBuilder('Twig\Loader\LoaderInterface')->getMock());
         $twig->addExtension(new TranslationExtension($this->getMockBuilder(TranslatorInterface::class)->getMock()));
 

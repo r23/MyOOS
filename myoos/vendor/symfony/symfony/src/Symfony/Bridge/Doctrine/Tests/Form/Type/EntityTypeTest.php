@@ -16,6 +16,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Tools\SchemaTool;
+use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Bridge\Doctrine\Form\DoctrineOrmExtension;
 use Symfony\Bridge\Doctrine\Form\DoctrineOrmTypeGuesser;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -53,13 +54,13 @@ class EntityTypeTest extends BaseTypeTest
     private $em;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject|ManagerRegistry
+     * @var MockObject|ManagerRegistry
      */
     private $emRegistry;
 
     protected static $supportedFeatureSetVersion = 304;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->em = DoctrineTestHelper::createTestEntityManager();
         $this->emRegistry = $this->createRegistryMock('default', $this->em);
@@ -89,7 +90,7 @@ class EntityTypeTest extends BaseTypeTest
         }
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
 
@@ -115,19 +116,15 @@ class EntityTypeTest extends BaseTypeTest
         // be managed!
     }
 
-    /**
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
-     */
     public function testClassOptionIsRequired()
     {
+        $this->expectException('Symfony\Component\OptionsResolver\Exception\MissingOptionsException');
         $this->factory->createNamed('name', static::TESTED_TYPE);
     }
 
-    /**
-     * @expectedException \Symfony\Component\Form\Exception\RuntimeException
-     */
     public function testInvalidClassOption()
     {
+        $this->expectException('Symfony\Component\Form\Exception\RuntimeException');
         $this->factory->createNamed('name', static::TESTED_TYPE, null, [
             'class' => 'foo',
         ]);
@@ -187,11 +184,9 @@ class EntityTypeTest extends BaseTypeTest
         $this->assertEquals([1 => new ChoiceView($entity1, '1', 'Foo'), 2 => new ChoiceView($entity2, '2', 'Bar')], $view->vars['choices']);
     }
 
-    /**
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     */
     public function testConfigureQueryBuilderWithNonQueryBuilderAndNonClosure()
     {
+        $this->expectException('Symfony\Component\OptionsResolver\Exception\InvalidOptionsException');
         $field = $this->factory->createNamed('name', static::TESTED_TYPE, null, [
             'em' => 'default',
             'class' => self::SINGLE_IDENT_CLASS,
@@ -199,11 +194,9 @@ class EntityTypeTest extends BaseTypeTest
         ]);
     }
 
-    /**
-     * @expectedException \Symfony\Component\Form\Exception\UnexpectedTypeException
-     */
     public function testConfigureQueryBuilderWithClosureReturningNonQueryBuilder()
     {
+        $this->expectException('Symfony\Component\Form\Exception\UnexpectedTypeException');
         $field = $this->factory->createNamed('name', static::TESTED_TYPE, null, [
             'em' => 'default',
             'class' => self::SINGLE_IDENT_CLASS,
@@ -1637,7 +1630,7 @@ class EntityTypeTest extends BaseTypeTest
         ]);
         $form->setData($emptyArray);
         $form->submit(null);
-        $this->assertInternalType('array', $form->getData());
+        $this->assertIsArray($form->getData());
         $this->assertEquals([], $form->getData());
         $this->assertEquals([], $form->getNormData());
         $this->assertSame([], $form->getViewData(), 'View data is always an array');
@@ -1655,7 +1648,7 @@ class EntityTypeTest extends BaseTypeTest
         $existing = [0 => $entity1];
         $form->setData($existing);
         $form->submit(null);
-        $this->assertInternalType('array', $form->getData());
+        $this->assertIsArray($form->getData());
         $this->assertEquals([], $form->getData());
         $this->assertEquals([], $form->getNormData());
         $this->assertSame([], $form->getViewData(), 'View data is always an array');

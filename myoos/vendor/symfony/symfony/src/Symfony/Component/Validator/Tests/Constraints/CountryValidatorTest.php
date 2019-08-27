@@ -18,6 +18,22 @@ use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
 class CountryValidatorTest extends ConstraintValidatorTestCase
 {
+    private $defaultLocale;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->defaultLocale = \Locale::getDefault();
+    }
+
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+
+        \Locale::setDefault($this->defaultLocale);
+    }
+
     protected function createValidator()
     {
         return new CountryValidator();
@@ -37,11 +53,9 @@ class CountryValidatorTest extends ConstraintValidatorTestCase
         $this->assertNoViolation();
     }
 
-    /**
-     * @expectedException \Symfony\Component\Validator\Exception\UnexpectedValueException
-     */
     public function testExpectsStringCompatibleType()
     {
+        $this->expectException('Symfony\Component\Validator\Exception\UnexpectedValueException');
         $this->validator->validate(new \stdClass(), new Country());
     }
 

@@ -27,15 +27,15 @@ class NoTemplatingEntryTest extends TestCase
 
         $container = $kernel->getContainer();
         $content = $container->get('twig')->render('index.html.twig');
-        $this->assertContains('{ a: b }', $content);
+        $this->assertStringContainsString('{ a: b }', $content);
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->deleteTempDir();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->deleteTempDir();
     }

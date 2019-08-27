@@ -16,7 +16,7 @@ use Symfony\Component\Security\Core\Encoder\SodiumPasswordEncoder;
 
 class SodiumPasswordEncoderTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         if (!SodiumPasswordEncoder::isSupported()) {
             $this->markTestSkipped('Libsodium is not available.');
@@ -37,11 +37,9 @@ class SodiumPasswordEncoderTest extends TestCase
         $this->assertTrue($encoder->isPasswordValid('$2y$04$M8GDODMoGQLQRpkYCdoJh.lbiZPee3SZI32RcYK49XYTolDGwoRMm', 'abc', null));
     }
 
-    /**
-     * @expectedException \Symfony\Component\Security\Core\Exception\BadCredentialsException
-     */
     public function testEncodePasswordLength()
     {
+        $this->expectException('Symfony\Component\Security\Core\Exception\BadCredentialsException');
         $encoder = new SodiumPasswordEncoder();
         $encoder->encodePassword(str_repeat('a', 4097), 'salt');
     }

@@ -25,7 +25,7 @@ abstract class AbstractLayoutTest extends FormIntegrationTestCase
     protected $csrfTokenManager;
     protected $testableFeatures = [];
 
-    protected function setUp()
+    protected function setUp(): void
     {
         if (!\extension_loaded('intl')) {
             $this->markTestSkipped('Extension intl is required.');
@@ -45,7 +45,7 @@ abstract class AbstractLayoutTest extends FormIntegrationTestCase
         ];
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->csrfTokenManager = null;
 
@@ -2507,7 +2507,7 @@ abstract class AbstractLayoutTest extends FormIntegrationTestCase
 
         $html = $this->renderWidget($form->createView());
 
-        $this->assertNotContains('foo="', $html);
+        $this->assertStringNotContainsString('foo="', $html);
     }
 
     public function testButtonAttributes()
@@ -2543,7 +2543,7 @@ abstract class AbstractLayoutTest extends FormIntegrationTestCase
 
         $html = $this->renderWidget($form->createView());
 
-        $this->assertNotContains('foo="', $html);
+        $this->assertStringNotContainsString('foo="', $html);
     }
 
     public function testTextareaWithWhitespaceOnlyContentRetainsValue()
@@ -2552,7 +2552,7 @@ abstract class AbstractLayoutTest extends FormIntegrationTestCase
 
         $html = $this->renderWidget($form->createView());
 
-        $this->assertContains('>  </textarea>', $html);
+        $this->assertStringContainsString('>  </textarea>', $html);
     }
 
     public function testTextareaWithWhitespaceOnlyContentRetainsValueWhenRenderingForm()
@@ -2563,7 +2563,7 @@ abstract class AbstractLayoutTest extends FormIntegrationTestCase
 
         $html = $this->renderForm($form->createView());
 
-        $this->assertContains('>  </textarea>', $html);
+        $this->assertStringContainsString('>  </textarea>', $html);
     }
 
     public function testWidgetContainerAttributeHiddenIfFalse()
@@ -2575,7 +2575,7 @@ abstract class AbstractLayoutTest extends FormIntegrationTestCase
         $html = $this->renderWidget($form->createView());
 
         // no foo
-        $this->assertNotContains('foo="', $html);
+        $this->assertStringNotContainsString('foo="', $html);
     }
 
     public function testTranslatedAttributes()

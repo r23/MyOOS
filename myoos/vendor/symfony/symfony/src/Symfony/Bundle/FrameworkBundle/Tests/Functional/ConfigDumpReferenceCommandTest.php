@@ -23,7 +23,7 @@ class ConfigDumpReferenceCommandTest extends AbstractWebTestCase
 {
     private $application;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $kernel = static::createKernel(['test_case' => 'ConfigDump', 'root_config' => 'config.yml']);
         $this->application = new Application($kernel);
@@ -36,8 +36,8 @@ class ConfigDumpReferenceCommandTest extends AbstractWebTestCase
         $ret = $tester->execute(['name' => 'TestBundle']);
 
         $this->assertSame(0, $ret, 'Returns 0 in case of success');
-        $this->assertContains('test:', $tester->getDisplay());
-        $this->assertContains('    custom:', $tester->getDisplay());
+        $this->assertStringContainsString('test:', $tester->getDisplay());
+        $this->assertStringContainsString('    custom:', $tester->getDisplay());
     }
 
     public function testDumpAtPath()
@@ -70,7 +70,7 @@ EOL
         ]);
 
         $this->assertSame(1, $ret);
-        $this->assertContains('[ERROR] The "path" option is only available for the "yaml" format.', $tester->getDisplay());
+        $this->assertStringContainsString('[ERROR] The "path" option is only available for the "yaml" format.', $tester->getDisplay());
     }
 
     /**

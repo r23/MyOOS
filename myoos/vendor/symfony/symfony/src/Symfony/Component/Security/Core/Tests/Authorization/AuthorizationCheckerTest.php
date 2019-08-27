@@ -23,7 +23,7 @@ class AuthorizationCheckerTest extends TestCase
     private $authorizationChecker;
     private $tokenStorage;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->authenticationManager = $this->getMockBuilder('Symfony\Component\Security\Core\Authentication\AuthenticationManagerInterface')->getMock();
         $this->accessDecisionManager = $this->getMockBuilder('Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface')->getMock();
@@ -67,11 +67,9 @@ class AuthorizationCheckerTest extends TestCase
         $this->assertSame($newToken, $this->tokenStorage->getToken());
     }
 
-    /**
-     * @expectedException \Symfony\Component\Security\Core\Exception\AuthenticationCredentialsNotFoundException
-     */
     public function testVoteWithoutAuthenticationToken()
     {
+        $this->expectException('Symfony\Component\Security\Core\Exception\AuthenticationCredentialsNotFoundException');
         $this->authorizationChecker->isGranted('ROLE_FOO');
     }
 

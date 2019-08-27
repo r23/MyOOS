@@ -41,11 +41,9 @@ class DependencyInjectionExtensionTest extends TestCase
         $this->assertSame([$typeExtension3, $typeExtension4], $extension->getTypeExtensions('other'));
     }
 
-    /**
-     * @expectedException \Symfony\Component\Form\Exception\InvalidArgumentException
-     */
     public function testThrowExceptionForInvalidExtendedType()
     {
+        $this->expectException('Symfony\Component\Form\Exception\InvalidArgumentException');
         $extensions = [
             'unmatched' => new \ArrayIterator([new TestTypeExtension()]),
         ];

@@ -37,8 +37,7 @@ class CombinedStore implements StoreInterface, LoggerAwareInterface
     private $strategy;
 
     /**
-     * @param StoreInterface[]  $stores   The list of synchronized stores
-     * @param StrategyInterface $strategy
+     * @param StoreInterface[] $stores The list of synchronized stores
      *
      * @throws InvalidArgumentException
      */
@@ -94,7 +93,7 @@ class CombinedStore implements StoreInterface, LoggerAwareInterface
 
     public function waitAndSave(Key $key)
     {
-        throw new NotSupportedException(sprintf('The store "%s" does not supports blocking locks.', \get_class($this)));
+        throw new NotSupportedException(sprintf('The store "%s" does not support blocking locks.', \get_class($this)));
     }
 
     /**

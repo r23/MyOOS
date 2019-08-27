@@ -40,11 +40,9 @@ class ChainUserProviderTest extends TestCase
         $this->assertSame($account, $provider->loadUserByUsername('foo'));
     }
 
-    /**
-     * @expectedException \Symfony\Component\Security\Core\Exception\UsernameNotFoundException
-     */
     public function testLoadUserByUsernameThrowsUsernameNotFoundException()
     {
+        $this->expectException('Symfony\Component\Security\Core\Exception\UsernameNotFoundException');
         $provider1 = $this->getProvider();
         $provider1
             ->expects($this->once())
@@ -105,11 +103,9 @@ class ChainUserProviderTest extends TestCase
         $this->assertSame($account, $provider->refreshUser($this->getAccount()));
     }
 
-    /**
-     * @expectedException \Symfony\Component\Security\Core\Exception\UnsupportedUserException
-     */
     public function testRefreshUserThrowsUnsupportedUserException()
     {
+        $this->expectException('Symfony\Component\Security\Core\Exception\UnsupportedUserException');
         $provider1 = $this->getProvider();
         $provider1
             ->expects($this->once())

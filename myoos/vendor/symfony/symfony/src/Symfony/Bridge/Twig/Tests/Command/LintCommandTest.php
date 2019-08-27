@@ -31,7 +31,7 @@ class LintCommandTest extends TestCase
         $ret = $tester->execute(['filename' => [$filename]], ['verbosity' => OutputInterface::VERBOSITY_VERBOSE, 'decorated' => false]);
 
         $this->assertEquals(0, $ret, 'Returns 0 in case of success');
-        $this->assertContains('OK in', trim($tester->getDisplay()));
+        $this->assertStringContainsString('OK in', trim($tester->getDisplay()));
     }
 
     public function testLintIncorrectFile()
@@ -45,11 +45,9 @@ class LintCommandTest extends TestCase
         $this->assertRegExp('/ERROR  in \S+ \(line /', trim($tester->getDisplay()));
     }
 
-    /**
-     * @expectedException \RuntimeException
-     */
     public function testLintFileNotReadable()
     {
+        $this->expectException('RuntimeException');
         $tester = $this->createCommandTester();
         $filename = $this->createFile('');
         unlink($filename);
@@ -95,12 +93,12 @@ class LintCommandTest extends TestCase
         return $filename;
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->files = [];
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         foreach ($this->files as $file) {
             if (file_exists($file)) {

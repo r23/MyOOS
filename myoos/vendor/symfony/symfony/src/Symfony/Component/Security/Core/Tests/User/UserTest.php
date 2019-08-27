@@ -18,11 +18,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class UserTest extends TestCase
 {
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testConstructorException()
     {
+        $this->expectException('InvalidArgumentException');
         new User('', 'superpass');
     }
 

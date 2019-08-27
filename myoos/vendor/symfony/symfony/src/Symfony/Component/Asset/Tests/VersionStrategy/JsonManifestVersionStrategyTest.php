@@ -37,21 +37,17 @@ class JsonManifestVersionStrategyTest extends TestCase
         $this->assertEquals('css/other.css', $strategy->getVersion('css/other.css'));
     }
 
-    /**
-     * @expectedException \RuntimeException
-     */
     public function testMissingManifestFileThrowsException()
     {
+        $this->expectException('RuntimeException');
         $strategy = $this->createStrategy('non-existent-file.json');
         $strategy->getVersion('main.js');
     }
 
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Error parsing JSON
-     */
     public function testManifestFileWithBadJSONThrowsException()
     {
+        $this->expectException('RuntimeException');
+        $this->expectExceptionMessage('Error parsing JSON');
         $strategy = $this->createStrategy('manifest-invalid.json');
         $strategy->getVersion('main.js');
     }

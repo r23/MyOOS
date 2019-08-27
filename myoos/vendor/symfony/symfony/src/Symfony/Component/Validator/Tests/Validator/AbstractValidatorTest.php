@@ -47,7 +47,7 @@ abstract class AbstractValidatorTest extends TestCase
      */
     public $referenceMetadata;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->metadataFactory = new FakeMetadataFactory();
         $this->metadata = new ClassMetadata(self::ENTITY_CLASS);
@@ -56,7 +56,7 @@ abstract class AbstractValidatorTest extends TestCase
         $this->metadataFactory->addMetadata($this->referenceMetadata);
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->metadataFactory = null;
         $this->metadata = null;
@@ -499,11 +499,9 @@ abstract class AbstractValidatorTest extends TestCase
         $this->assertCount(0, $violations);
     }
 
-    /**
-     * @expectedException \Symfony\Component\Validator\Exception\NoSuchMetadataException
-     */
     public function testFailOnScalarReferences()
     {
+        $this->expectException('Symfony\Component\Validator\Exception\NoSuchMetadataException');
         $entity = new Entity();
         $entity->reference = 'string';
 
@@ -738,11 +736,9 @@ abstract class AbstractValidatorTest extends TestCase
         $this->assertCount(0, $violations);
     }
 
-    /**
-     * @expectedException \Symfony\Component\Validator\Exception\NoSuchMetadataException
-     */
     public function testMetadataMustExistIfTraversalIsDisabled()
     {
+        $this->expectException('Symfony\Component\Validator\Exception\NoSuchMetadataException');
         $entity = new Entity();
         $entity->reference = new \ArrayIterator();
 

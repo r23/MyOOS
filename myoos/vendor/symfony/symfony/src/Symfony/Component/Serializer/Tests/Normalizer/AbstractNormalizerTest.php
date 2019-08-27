@@ -2,6 +2,7 @@
 
 namespace Symfony\Component\Serializer\Tests\Normalizer;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Mapping\AttributeMetadata;
 use Symfony\Component\Serializer\Mapping\ClassMetadata;
@@ -30,11 +31,11 @@ class AbstractNormalizerTest extends TestCase
     private $normalizer;
 
     /**
-     * @var ClassMetadataFactoryInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var ClassMetadataFactoryInterface|MockObject
      */
     private $classMetadata;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $loader = $this->getMockBuilder('Symfony\Component\Serializer\Mapping\Loader\LoaderChain')->setConstructorArgs([[]])->getMock();
         $this->classMetadata = $this->getMockBuilder('Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory')->setConstructorArgs([$loader])->getMock();

@@ -591,8 +591,9 @@ abstract class AbstractCurrencyDataProviderTest extends AbstractDataProviderTest
      * @var CurrencyDataProvider
      */
     protected $dataProvider;
+    private $defaultLocale;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -600,6 +601,15 @@ abstract class AbstractCurrencyDataProviderTest extends AbstractDataProviderTest
             $this->getDataDirectory().'/'.Intl::CURRENCY_DIR,
             $this->createEntryReader()
         );
+
+        $this->defaultLocale = \Locale::getDefault();
+    }
+
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+
+        \Locale::setDefault($this->defaultLocale);
     }
 
     abstract protected function getDataDirectory();
@@ -708,7 +718,7 @@ abstract class AbstractCurrencyDataProviderTest extends AbstractDataProviderTest
      */
     public function testGetFractionDigits($currency)
     {
-        $this->assertInternalType('numeric', $this->dataProvider->getFractionDigits($currency));
+        $this->assertIsNumeric($this->dataProvider->getFractionDigits($currency));
     }
 
     /**
@@ -716,7 +726,7 @@ abstract class AbstractCurrencyDataProviderTest extends AbstractDataProviderTest
      */
     public function testGetRoundingIncrement($currency)
     {
-        $this->assertInternalType('numeric', $this->dataProvider->getRoundingIncrement($currency));
+        $this->assertIsNumeric($this->dataProvider->getRoundingIncrement($currency));
     }
 
     public function provideCurrenciesWithNumericEquivalent()
@@ -745,10 +755,10 @@ abstract class AbstractCurrencyDataProviderTest extends AbstractDataProviderTest
 
     /**
      * @dataProvider provideCurrenciesWithoutNumericEquivalent
-     * @expectedException \Symfony\Component\Intl\Exception\MissingResourceException
      */
     public function testGetNumericCodeFailsIfNoNumericEquivalent($currency)
     {
+        $this->expectException('Symfony\Component\Intl\Exception\MissingResourceException');
         $this->dataProvider->getNumericCode($currency);
     }
 
@@ -790,10 +800,10 @@ abstract class AbstractCurrencyDataProviderTest extends AbstractDataProviderTest
 
     /**
      * @dataProvider provideInvalidNumericCodes
-     * @expectedException \Symfony\Component\Intl\Exception\MissingResourceException
      */
     public function testForNumericCodeFailsIfInvalidNumericCode($currency)
     {
+        $this->expectException('Symfony\Component\Intl\Exception\MissingResourceException');
         $this->dataProvider->forNumericCode($currency);
     }
 

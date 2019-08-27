@@ -75,7 +75,7 @@ final class CurlHttpClient implements HttpClientInterface, LoggerAwareInterface
             curl_multi_setopt($this->multi->handle, CURLMOPT_MAX_HOST_CONNECTIONS, 0 < $maxHostConnections ? $maxHostConnections : PHP_INT_MAX);
         }
 
-        // Skip configuring HTTP/2 push when it's unsupported or buggy, see https://bugs.php.net/bug.php?id=77535
+        // Skip configuring HTTP/2 push when it's unsupported or buggy, see https://bugs.php.net/77535
         if (0 >= $maxPendingPushes || \PHP_VERSION_ID < 70217 || (\PHP_VERSION_ID >= 70300 && \PHP_VERSION_ID < 70304)) {
             return;
         }
@@ -108,12 +108,14 @@ final class CurlHttpClient implements HttpClientInterface, LoggerAwareInterface
         if ($pushedResponse = $this->multi->pushedResponses[$url] ?? null) {
             unset($this->multi->pushedResponses[$url]);
             // Accept pushed responses only if their headers related to authentication match the request
-            $expectedHeaders = [
-                $options['headers']['authorization'] ?? null,
-                $options['headers']['cookie'] ?? null,
-                $options['headers']['x-requested-with'] ?? null,
-                $options['headers']['range'] ?? null,
-            ];
+            $expectedHeaders = ['authorization', 'cookie', 'x-requested-with', 'range'];
+            foreach ($expectedHeaders as $k => $v) {
+                $expectedHeaders[$k] = null;
+
+                foreach ($options['normalized_headers'][$v] ?? [] as $h) {
+                    $expectedHeaders[$k][] = substr($h, 2 + \strlen($v));
+                }
+            }
 
             if ('GET' === $method && $expectedHeaders === $pushedResponse->headers && !$options['body']) {
                 $this->logger && $this->logger->debug(sprintf('Connecting request to pushed response: "%s %s"', $method, $url));
@@ -138,7 +140,7 @@ final class CurlHttpClient implements HttpClientInterface, LoggerAwareInterface
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_MAXREDIRS => 0 < $options['max_redirects'] ? $options['max_redirects'] : 0,
             CURLOPT_COOKIEFILE => '', // Keep track of cookies during redirects
-            CURLOPT_CONNECTTIMEOUT_MS => 1000 * $options['timeout'],
+            CURLOPT_TIMEOUT => 0,
             CURLOPT_PROXY => $options['proxy'],
             CURLOPT_NOPROXY => $options['no_proxy'] ?? $_SERVER['no_proxy'] ?? $_SERVER['NO_PROXY'] ?? '',
             CURLOPT_SSL_VERIFYPEER => $options['verify_peer'],
@@ -206,11 +208,11 @@ final class CurlHttpClient implements HttpClientInterface, LoggerAwareInterface
             $curlopts[CURLOPT_NOSIGNAL] = true;
         }
 
-        if (!isset($options['headers']['accept-encoding'])) {
+        if (!isset($options['normalized_headers']['accept-encoding'])) {
             $curlopts[CURLOPT_ENCODING] = ''; // Enable HTTP compression
         }
 
-        foreach ($options['request_headers'] as $header) {
+        foreach ($options['headers'] as $header) {
             if (':' === $header[-2] && \strlen($header) - 2 === strpos($header, ': ')) {
                 // curl requires a special syntax to send empty headers
                 $curlopts[CURLOPT_HTTPHEADER][] = substr_replace($header, ';', -2);
@@ -221,7 +223,7 @@ final class CurlHttpClient implements HttpClientInterface, LoggerAwareInterface
 
         // Prevent curl from sending its default Accept and Expect headers
         foreach (['accept', 'expect'] as $header) {
-            if (!isset($options['headers'][$header])) {
+            if (!isset($options['normalized_headers'][$header])) {
                 $curlopts[CURLOPT_HTTPHEADER][] = $header.':';
             }
         }
@@ -237,9 +239,9 @@ final class CurlHttpClient implements HttpClientInterface, LoggerAwareInterface
                 };
             }
 
-            if (isset($options['headers']['content-length'][0])) {
-                $curlopts[CURLOPT_INFILESIZE] = $options['headers']['content-length'][0];
-            } elseif (!isset($options['headers']['transfer-encoding'])) {
+            if (isset($options['normalized_headers']['content-length'][0])) {
+                $curlopts[CURLOPT_INFILESIZE] = substr($options['normalized_headers']['content-length'][0], \strlen('Content-Length: '));
+            } elseif (!isset($options['normalized_headers']['transfer-encoding'])) {
                 $curlopts[CURLOPT_HTTPHEADER][] = 'Transfer-Encoding: chunked'; // Enable chunked request bodies
             }
 
@@ -288,6 +290,7 @@ final class CurlHttpClient implements HttpClientInterface, LoggerAwareInterface
             throw new \TypeError(sprintf('%s() expects parameter 1 to be an iterable of CurlResponse objects, %s given.', __METHOD__, \is_object($responses) ? \get_class($responses) : \gettype($responses)));
         }
 
+        $active = 0;
         while (CURLM_CALL_MULTI_PERFORM === curl_multi_exec($this->multi->handle, $active));
 
         return new ResponseStream(CurlResponse::stream($responses, $timeout));
@@ -300,6 +303,7 @@ final class CurlHttpClient implements HttpClientInterface, LoggerAwareInterface
             curl_multi_setopt($this->multi->handle, CURLMOPT_PUSHFUNCTION, null);
         }
 
+        $active = 0;
         while (CURLM_CALL_MULTI_PERFORM === curl_multi_exec($this->multi->handle, $active));
 
         foreach ($this->multi->openHandles as $ch) {
@@ -387,12 +391,12 @@ final class CurlHttpClient implements HttpClientInterface, LoggerAwareInterface
         $redirectHeaders = [];
         if (0 < $options['max_redirects']) {
             $redirectHeaders['host'] = $host;
-            $redirectHeaders['with_auth'] = $redirectHeaders['no_auth'] = array_filter($options['request_headers'], static function ($h) {
+            $redirectHeaders['with_auth'] = $redirectHeaders['no_auth'] = array_filter($options['headers'], static function ($h) {
                 return 0 !== stripos($h, 'Host:');
             });
 
-            if (isset($options['headers']['authorization']) || isset($options['headers']['cookie'])) {
-                $redirectHeaders['no_auth'] = array_filter($options['request_headers'], static function ($h) {
+            if (isset($options['normalized_headers']['authorization']) || isset($options['normalized_headers']['cookie'])) {
+                $redirectHeaders['no_auth'] = array_filter($options['headers'], static function ($h) {
                     return 0 !== stripos($h, 'Authorization:') && 0 !== stripos($h, 'Cookie:');
                 });
             }

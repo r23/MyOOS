@@ -92,8 +92,7 @@ class TimezoneTransformer extends Transformer
      *
      * @return string A timezone identifier
      *
-     * @see    http://php.net/manual/en/timezones.others.php
-     * @see    http://www.twinsun.com/tz/tz-link.htm
+     * @see https://php.net/timezones.others
      *
      * @throws NotImplementedException   When the GMT time zone have minutes offset different than zero
      * @throws \InvalidArgumentException When the value can not be matched with pattern
@@ -103,7 +102,7 @@ class TimezoneTransformer extends Transformer
         if (preg_match('/GMT(?P<signal>[+-])(?P<hours>\d{2}):?(?P<minutes>\d{2})/', $formattedTimeZone, $matches)) {
             $hours = (int) $matches['hours'];
             $minutes = (int) $matches['minutes'];
-            $signal = '-' == $matches['signal'] ? '+' : '-';
+            $signal = '-' === $matches['signal'] ? '+' : '-';
 
             if (0 < $minutes) {
                 throw new NotImplementedException(sprintf('It is not possible to use a GMT time zone with minutes offset different than zero (0). GMT time zone tried: %s.', $formattedTimeZone));

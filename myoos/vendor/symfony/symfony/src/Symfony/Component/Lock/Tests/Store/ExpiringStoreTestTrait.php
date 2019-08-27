@@ -57,11 +57,10 @@ trait ExpiringStoreTestTrait
 
     /**
      * Tests the store thrown exception when TTL expires.
-     *
-     * @expectedException \Symfony\Component\Lock\Exception\LockExpiredException
      */
     public function testAbortAfterExpiration()
     {
+        $this->expectException('\Symfony\Component\Lock\Exception\LockExpiredException');
         $key = new Key(uniqid(__METHOD__, true));
 
         /** @var StoreInterface $store */

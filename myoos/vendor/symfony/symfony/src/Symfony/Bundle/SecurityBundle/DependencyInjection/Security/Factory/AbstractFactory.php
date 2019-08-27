@@ -98,10 +98,9 @@ abstract class AbstractFactory implements SecurityFactoryInterface
      * Subclasses must return the id of a service which implements the
      * AuthenticationProviderInterface.
      *
-     * @param ContainerBuilder $container
-     * @param string           $id             The unique id of the firewall
-     * @param array            $config         The options array for this listener
-     * @param string           $userProviderId The id of the user provider
+     * @param string $id             The unique id of the firewall
+     * @param array  $config         The options array for this listener
+     * @param string $userProviderId The id of the user provider
      *
      * @return string never null, the id of the authentication provider
      */
@@ -131,9 +130,9 @@ abstract class AbstractFactory implements SecurityFactoryInterface
      * @param ContainerBuilder $container
      * @param string           $id
      * @param array            $config
-     * @param string           $defaultEntryPointId
+     * @param string|null      $defaultEntryPointId
      *
-     * @return string the entry point id
+     * @return string|null the entry point id
      */
     protected function createEntryPoint($container, $id, $config, $defaultEntryPointId)
     {

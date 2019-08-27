@@ -13,4 +13,5 @@ return array(
     'Mobile_Detect' => $vendorDir . '/mobiledetect/mobiledetectlib/Mobile_Detect.php',
     'NumberFormatter' => $vendorDir . '/symfony/symfony/src/Symfony/Component/Intl/Resources/stubs/NumberFormatter.php',
     'PclZip' => $vendorDir . '/pclzip/pclzip/pclzip.lib.php',
+    'ProxyManager\\Generator\\Util\\ProxiedMethodReturnExpression' => $vendorDir . '/symfony/symfony/src/Symfony/Bridge/ProxyManager/Legacy/ProxiedMethodReturnExpression.php',
 );

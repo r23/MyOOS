@@ -63,10 +63,10 @@ class ConfigurationTest extends TestCase
 
     /**
      * @dataProvider getTestInvalidSessionName
-     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
      */
     public function testInvalidSessionName($sessionName)
     {
+        $this->expectException('Symfony\Component\Config\Definition\Exception\InvalidConfigurationException');
         $processor = new Processor();
         $processor->processConfiguration(
             new Configuration(true),
@@ -140,12 +140,8 @@ class ConfigurationTest extends TestCase
      */
     public function testInvalidAssetsConfiguration(array $assetConfig, $expectedMessage)
     {
-        if (method_exists($this, 'expectException')) {
-            $this->expectException(InvalidConfigurationException::class);
-            $this->expectExceptionMessage($expectedMessage);
-        } else {
-            $this->setExpectedException(InvalidConfigurationException::class, $expectedMessage);
-        }
+        $this->expectException(InvalidConfigurationException::class);
+        $this->expectExceptionMessage($expectedMessage);
 
         $processor = new Processor();
         $configuration = new Configuration(true);
@@ -194,12 +190,8 @@ class ConfigurationTest extends TestCase
     public function testItShowANiceMessageIfTwoMessengerBusesAreConfiguredButNoDefaultBus()
     {
         $expectedMessage = 'You must specify the "default_bus" if you define more than one bus.';
-        if (method_exists($this, 'expectException')) {
-            $this->expectException(InvalidConfigurationException::class);
-            $this->expectExceptionMessage($expectedMessage);
-        } else {
-            $this->setExpectedException(InvalidConfigurationException::class, $expectedMessage);
-        }
+        $this->expectException(InvalidConfigurationException::class);
+        $this->expectExceptionMessage($expectedMessage);
         $processor = new Processor();
         $configuration = new Configuration(true);
 
@@ -301,6 +293,7 @@ class ConfigurationTest extends TestCase
                 'cookie_httponly' => true,
                 'cookie_samesite' => null,
                 'gc_probability' => 1,
+                'save_path' => '%kernel.cache_dir%/sessions',
                 'metadata_update_threshold' => 0,
             ],
             'request' => [

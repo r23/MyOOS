@@ -80,12 +80,10 @@ class EntityUserProviderTest extends TestCase
         $this->assertSame($user, $provider->loadUserByUsername('user1'));
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage You must either make the "Symfony\Bridge\Doctrine\Tests\Fixtures\User" entity Doctrine Repository ("Doctrine\ORM\EntityRepository") implement "Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface" or set the "property" option in the corresponding entity provider configuration.
-     */
     public function testLoadUserByUsernameWithNonUserLoaderRepositoryAndWithoutProperty()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessage('You must either make the "Symfony\Bridge\Doctrine\Tests\Fixtures\User" entity Doctrine Repository ("Doctrine\ORM\EntityRepository") implement "Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface" or set the "property" option in the corresponding entity provider configuration.');
         $em = DoctrineTestHelper::createTestEntityManager();
         $this->createSchema($em);
 
@@ -105,10 +103,8 @@ class EntityUserProviderTest extends TestCase
         $user1 = new User(null, null, 'user1');
         $provider = new EntityUserProvider($this->getManager($em), 'Symfony\Bridge\Doctrine\Tests\Fixtures\User', 'name');
 
-        $this->expectException(
-            'InvalidArgumentException',
-            'You cannot refresh a user from the EntityUserProvider that does not contain an identifier. The user object has to be serialized with its own identifier mapped by Doctrine'
-        );
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessage('You cannot refresh a user from the EntityUserProvider that does not contain an identifier. The user object has to be serialized with its own identifier mapped by Doctrine');
         $provider->refreshUser($user1);
     }
 
@@ -125,10 +121,9 @@ class EntityUserProviderTest extends TestCase
         $provider = new EntityUserProvider($this->getManager($em), 'Symfony\Bridge\Doctrine\Tests\Fixtures\User', 'name');
 
         $user2 = new User(1, 2, 'user2');
-        $this->expectException(
-            'Symfony\Component\Security\Core\Exception\UsernameNotFoundException',
-            'User with id {"id1":1,"id2":2} not found'
-        );
+        $this->expectException('Symfony\Component\Security\Core\Exception\UsernameNotFoundException');
+        $this->expectExceptionMessage('User with id {"id1":1,"id2":2} not found');
+
         $provider->refreshUser($user2);
     }
 
@@ -167,11 +162,9 @@ class EntityUserProviderTest extends TestCase
         $provider->loadUserByUsername('name');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testLoadUserByUserNameShouldDeclineInvalidInterface()
     {
+        $this->expectException('InvalidArgumentException');
         $repository = $this->getMockBuilder('\Symfony\Component\Security\Core\User\AdvancedUserInterface')->getMock();
 
         $provider = new EntityUserProvider(

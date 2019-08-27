@@ -55,20 +55,16 @@ class PackagesTest extends TestCase
         $this->assertEquals('/foo?a', $packages->getUrl('/foo', 'a'));
     }
 
-    /**
-     * @expectedException \Symfony\Component\Asset\Exception\LogicException
-     */
     public function testNoDefaultPackage()
     {
+        $this->expectException('Symfony\Component\Asset\Exception\LogicException');
         $packages = new Packages();
         $packages->getPackage();
     }
 
-    /**
-     * @expectedException \Symfony\Component\Asset\Exception\InvalidArgumentException
-     */
     public function testUndefinedPackage()
     {
+        $this->expectException('Symfony\Component\Asset\Exception\InvalidArgumentException');
         $packages = new Packages();
         $packages->getPackage('a');
     }

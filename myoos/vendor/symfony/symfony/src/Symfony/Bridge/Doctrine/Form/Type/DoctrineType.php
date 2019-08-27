@@ -160,6 +160,8 @@ abstract class DoctrineType extends AbstractType implements ResetInterface
 
                 return $doctrineChoiceLoader;
             }
+
+            return null;
         };
 
         $choiceName = function (Options $options) {
@@ -171,6 +173,7 @@ abstract class DoctrineType extends AbstractType implements ResetInterface
             }
 
             // Otherwise, an incrementing integer is used as name automatically
+            return null;
         };
 
         // The choices are always indexed by ID (see "choices" normalizer
@@ -184,6 +187,7 @@ abstract class DoctrineType extends AbstractType implements ResetInterface
             }
 
             // Otherwise, an incrementing integer is used as value automatically
+            return null;
         };
 
         $emNormalizer = function (Options $options, $em) {
@@ -265,9 +269,8 @@ abstract class DoctrineType extends AbstractType implements ResetInterface
     /**
      * Return the default loader object.
      *
-     * @param ObjectManager $manager
-     * @param mixed         $queryBuilder
-     * @param string        $class
+     * @param mixed  $queryBuilder
+     * @param string $class
      *
      * @return EntityLoaderInterface
      */

@@ -79,12 +79,10 @@ class PhpFileLoaderTest extends TestCase
         yield ['lazy_fqcn'];
     }
 
-    /**
-     * @expectedException \Symfony\Component\DependencyInjection\Exception\InvalidArgumentException
-     * @expectedExceptionMessage The service "child_service" cannot have a "parent" and also have "autoconfigure". Try disabling autoconfiguration for the service.
-     */
     public function testAutoConfigureAndChildDefinitionNotAllowed()
     {
+        $this->expectException('Symfony\Component\DependencyInjection\Exception\InvalidArgumentException');
+        $this->expectExceptionMessage('The service "child_service" cannot have a "parent" and also have "autoconfigure". Try disabling autoconfiguration for the service.');
         $fixtures = realpath(__DIR__.'/../Fixtures');
         $container = new ContainerBuilder();
         $loader = new PhpFileLoader($container, new FileLocator());
@@ -92,12 +90,10 @@ class PhpFileLoaderTest extends TestCase
         $container->compile();
     }
 
-    /**
-     * @expectedException \Symfony\Component\DependencyInjection\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Invalid factory "factory:method": the "service:method" notation is not available when using PHP-based DI configuration. Use "[ref('factory'), 'method']" instead.
-     */
     public function testFactoryShortNotationNotAllowed()
     {
+        $this->expectException('Symfony\Component\DependencyInjection\Exception\InvalidArgumentException');
+        $this->expectExceptionMessage('Invalid factory "factory:method": the "service:method" notation is not available when using PHP-based DI configuration. Use "[ref(\'factory\'), \'method\']" instead.');
         $fixtures = realpath(__DIR__.'/../Fixtures');
         $container = new ContainerBuilder();
         $loader = new PhpFileLoader($container, new FileLocator());

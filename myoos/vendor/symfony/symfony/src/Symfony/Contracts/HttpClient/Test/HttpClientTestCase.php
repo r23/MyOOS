@@ -26,7 +26,7 @@ abstract class HttpClientTestCase extends TestCase
 {
     private static $server;
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         TestHttpServer::start();
     }
@@ -446,7 +446,7 @@ abstract class HttpClientTestCase extends TestCase
 
         $body = $response->toArray();
 
-        $this->assertContains('json', $body['content-type']);
+        $this->assertStringContainsString('json', $body['content-type']);
         unset($body['content-type']);
         $this->assertSame(['foo' => 'bar', 'REQUEST_METHOD' => 'POST'], $body);
     }
@@ -580,7 +580,17 @@ abstract class HttpClientTestCase extends TestCase
 
         $response = null;
         $this->expectException(TransportExceptionInterface::class);
-        $client->request('GET', 'http://symfony.com:8057/', ['timeout' => 3]);
+        $client->request('GET', 'http://symfony.com:8057/', ['timeout' => 1]);
+    }
+
+    public function testNotATimeout()
+    {
+        $client = $this->getHttpClient(__FUNCTION__);
+        $response = $client->request('GET', 'http://localhost:8057/timeout-header', [
+            'timeout' => 0.5,
+        ]);
+        usleep(510000);
+        $this->assertSame(200, $response->getStatusCode());
     }
 
     public function testTimeoutOnAccess()
@@ -643,7 +653,6 @@ abstract class HttpClientTestCase extends TestCase
     {
         $client = $this->getHttpClient(__FUNCTION__);
 
-        $downloaded = 0;
         $start = microtime(true);
         $client->request('GET', 'http://localhost:8057/timeout-long');
         $client = null;
@@ -706,11 +715,11 @@ abstract class HttpClientTestCase extends TestCase
         $headers = $response->getHeaders();
 
         $this->assertSame(['Accept-Encoding'], $headers['vary']);
-        $this->assertContains('gzip', $headers['content-encoding'][0]);
+        $this->assertStringContainsString('gzip', $headers['content-encoding'][0]);
 
         $body = $response->toArray();
 
-        $this->assertContains('gzip', $body['HTTP_ACCEPT_ENCODING']);
+        $this->assertStringContainsString('gzip', $body['HTTP_ACCEPT_ENCODING']);
     }
 
     public function testBaseUri()
@@ -758,7 +767,7 @@ abstract class HttpClientTestCase extends TestCase
         $headers = $response->getHeaders();
 
         $this->assertSame(['Accept-Encoding'], $headers['vary']);
-        $this->assertContains('gzip', $headers['content-encoding'][0]);
+        $this->assertStringContainsString('gzip', $headers['content-encoding'][0]);
 
         $body = $response->getContent();
         $this->assertSame("\x1F", $body[0]);

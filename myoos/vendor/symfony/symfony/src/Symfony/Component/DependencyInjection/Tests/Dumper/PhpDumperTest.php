@@ -47,7 +47,7 @@ class PhpDumperTest extends TestCase
 {
     protected static $fixturesPath;
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         self::$fixturesPath = realpath(__DIR__.'/../Fixtures/');
     }
@@ -154,10 +154,10 @@ class PhpDumperTest extends TestCase
 
     /**
      * @dataProvider provideInvalidParameters
-     * @expectedException \InvalidArgumentException
      */
     public function testExportParameters($parameters)
     {
+        $this->expectException('InvalidArgumentException');
         $container = new ContainerBuilder(new ParameterBag($parameters));
         $container->compile();
         $dumper = new PhpDumper($container);
@@ -182,12 +182,10 @@ class PhpDumperTest extends TestCase
         $this->assertStringEqualsFile(self::$fixturesPath.'/php/services8.php', $dumper->dump(), '->dump() dumps parameters');
     }
 
-    /**
-     * @expectedException \Symfony\Component\DependencyInjection\Exception\LogicException
-     * @expectedExceptionMessage Cannot dump an uncompiled container.
-     */
     public function testAddServiceWithoutCompilation()
     {
+        $this->expectException('Symfony\Component\DependencyInjection\Exception\LogicException');
+        $this->expectExceptionMessage('Cannot dump an uncompiled container.');
         $container = include self::$fixturesPath.'/containers/container9.php';
         new PhpDumper($container);
     }
@@ -314,11 +312,11 @@ class PhpDumperTest extends TestCase
 
     /**
      * @dataProvider provideInvalidFactories
-     * @expectedException \Symfony\Component\DependencyInjection\Exception\RuntimeException
-     * @expectedExceptionMessage Cannot dump definition
      */
     public function testInvalidFactories($factory)
     {
+        $this->expectException('Symfony\Component\DependencyInjection\Exception\RuntimeException');
+        $this->expectExceptionMessage('Cannot dump definition');
         $container = new ContainerBuilder();
         $def = new Definition('stdClass');
         $def->setPublic(true);
@@ -383,12 +381,10 @@ class PhpDumperTest extends TestCase
         $this->assertFalse($container->has('foo'));
     }
 
-    /**
-     * @expectedException \Symfony\Component\DependencyInjection\Exception\InvalidArgumentException
-     * @expectedExceptionMessage The "decorator_service" service is already initialized, you cannot replace it.
-     */
     public function testOverrideServiceWhenUsingADumpedContainer()
     {
+        $this->expectException('Symfony\Component\DependencyInjection\Exception\InvalidArgumentException');
+        $this->expectExceptionMessage('The "decorator_service" service is already initialized, you cannot replace it.');
         require_once self::$fixturesPath.'/php/services9_compiled.php';
 
         $container = new \ProjectServiceContainer();
@@ -602,12 +598,10 @@ class PhpDumperTest extends TestCase
         $this->assertStringEqualsFile(__FILE__, $container->getParameter('random'));
     }
 
-    /**
-     * @expectedException \Symfony\Component\DependencyInjection\Exception\EnvParameterException
-     * @expectedExceptionMessage Environment variables "FOO" are never used. Please, check your container's configuration.
-     */
     public function testUnusedEnvParameter()
     {
+        $this->expectException('Symfony\Component\DependencyInjection\Exception\EnvParameterException');
+        $this->expectExceptionMessage('Environment variables "FOO" are never used. Please, check your container\'s configuration.');
         $container = new ContainerBuilder();
         $container->getParameter('env(FOO)');
         $container->compile();
@@ -615,12 +609,10 @@ class PhpDumperTest extends TestCase
         $dumper->dump();
     }
 
-    /**
-     * @expectedException \Symfony\Component\DependencyInjection\Exception\ParameterCircularReferenceException
-     * @expectedExceptionMessage Circular reference detected for parameter "env(resolve:DUMMY_ENV_VAR)" ("env(resolve:DUMMY_ENV_VAR)" > "env(resolve:DUMMY_ENV_VAR)").
-     */
     public function testCircularDynamicEnv()
     {
+        $this->expectException('Symfony\Component\DependencyInjection\Exception\ParameterCircularReferenceException');
+        $this->expectExceptionMessage('Circular reference detected for parameter "env(resolve:DUMMY_ENV_VAR)" ("env(resolve:DUMMY_ENV_VAR)" > "env(resolve:DUMMY_ENV_VAR)").');
         $container = new ContainerBuilder();
         $container->setParameter('foo', '%bar%');
         $container->setParameter('bar', '%env(resolve:DUMMY_ENV_VAR)%');
@@ -700,12 +692,8 @@ class PhpDumperTest extends TestCase
         $dumper = new PhpDumper($container);
 
         $message = 'Circular reference detected for service "foo", path: "foo -> bar -> foo". Try running "composer require symfony/proxy-manager-bridge".';
-        if (method_exists($this, 'expectException')) {
-            $this->expectException(ServiceCircularReferenceException::class);
-            $this->expectExceptionMessage($message);
-        } else {
-            $this->setExpectedException(ServiceCircularReferenceException::class, $message);
-        }
+        $this->expectException(ServiceCircularReferenceException::class);
+        $this->expectExceptionMessage($message);
 
         $dumper->dump();
     }
@@ -996,6 +984,13 @@ class PhpDumperTest extends TestCase
         $this->assertEquals((object) ['bar6' => (object) []], $foo6);
 
         $this->assertInstanceOf(\stdClass::class, $container->get('root'));
+
+        $manager3 = $container->get('manager3');
+        $listener3 = $container->get('listener3');
+        $this->assertSame($manager3, $listener3->manager);
+
+        $listener4 = $container->get('listener4');
+        $this->assertInstanceOf('stdClass', $listener4);
     }
 
     public function provideAlmostCircular()
@@ -1048,6 +1043,11 @@ class PhpDumperTest extends TestCase
         $this->assertStringEqualsFile(self::$fixturesPath.'/php/services_inline_self_ref.php', $dumper->dump(['class' => 'Symfony_DI_PhpDumper_Test_Inline_Self_Ref']));
     }
 
+    /**
+     * @group issue-32995
+     *
+     * @runInSeparateProcess https://github.com/symfony/symfony/issues/32995
+     */
     public function testHotPathOptimizations()
     {
         $container = include self::$fixturesPath.'/containers/container_inline_requires.php';
@@ -1177,12 +1177,10 @@ class PhpDumperTest extends TestCase
         $this->assertSame('foo', $container->getParameter('BAR'));
     }
 
-    /**
-     * @expectedException \Symfony\Component\DependencyInjection\Exception\RuntimeException
-     * @expectedExceptionMessage Service "errored_definition" is broken.
-     */
     public function testErroredDefinition()
     {
+        $this->expectException('Symfony\Component\DependencyInjection\Exception\RuntimeException');
+        $this->expectExceptionMessage('Service "errored_definition" is broken.');
         $container = include self::$fixturesPath.'/containers/container9.php';
         $container->setParameter('foo_bar', 'foo_bar');
         $container->compile();
@@ -1244,6 +1242,30 @@ class PhpDumperTest extends TestCase
 
         $this->assertTrue($container->has('foo'));
         $this->assertSame('some value', $container->get('foo'));
+    }
+
+    public function testAliasCanBeFoundInTheDumpedContainerWhenBothTheAliasAndTheServiceArePublic()
+    {
+        $container = new ContainerBuilder();
+
+        $container->register('foo', 'stdClass')->setPublic(true);
+        $container->setAlias('bar', 'foo')->setPublic(true);
+
+        $container->compile();
+
+        // Bar is found in the compiled container
+        $service_ids = $container->getServiceIds();
+        $this->assertContains('bar', $service_ids);
+
+        $dumper = new PhpDumper($container);
+        $dump = $dumper->dump(['class' => 'Symfony_DI_PhpDumper_AliasesCanBeFoundInTheDumpedContainer']);
+        eval('?>'.$dump);
+
+        $container = new \Symfony_DI_PhpDumper_AliasesCanBeFoundInTheDumpedContainer();
+
+        // Bar should still be found in the compiled container
+        $service_ids = $container->getServiceIds();
+        $this->assertContains('bar', $service_ids);
     }
 
     public function testWither()

@@ -65,18 +65,16 @@ class LocaleValidatorTest extends ConstraintValidatorTestCase
     /**
      * @group legacy
      * @expectedDeprecation The "canonicalize" option with value "false" is deprecated since Symfony 4.1, set it to "true" instead.
-     * @expectedException \Symfony\Component\Validator\Exception\UnexpectedValueException
      */
     public function testLegacyExpectsStringCompatibleType()
     {
+        $this->expectException('Symfony\Component\Validator\Exception\UnexpectedTypeException');
         $this->validator->validate(new \stdClass(), new Locale());
     }
 
-    /**
-     * @expectedException \Symfony\Component\Validator\Exception\UnexpectedValueException
-     */
     public function testExpectsStringCompatibleType()
     {
+        $this->expectException('Symfony\Component\Validator\Exception\UnexpectedValueException');
         $this->validator->validate(new \stdClass(), new Locale(['canonicalize' => true]));
     }
 

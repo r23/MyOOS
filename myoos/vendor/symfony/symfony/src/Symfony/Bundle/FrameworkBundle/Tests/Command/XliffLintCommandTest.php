@@ -69,7 +69,7 @@ EOF;
         );
 
         $this->assertEquals(0, $tester->getStatusCode(), 'Returns 0 in case of success');
-        $this->assertContains('[OK] All 0 XLIFF files contain valid syntax', trim($tester->getDisplay()));
+        $this->assertStringContainsString('[OK] All 0 XLIFF files contain valid syntax', trim($tester->getDisplay()));
     }
 
     /**
@@ -131,13 +131,13 @@ EOF;
         return $application;
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         @mkdir(sys_get_temp_dir().'/xliff-lint-test');
         $this->files = [];
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         foreach ($this->files as $file) {
             if (file_exists($file)) {

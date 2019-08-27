@@ -95,21 +95,18 @@ class UrlPackageTest extends TestCase
         $this->assertEquals('https://cdn.com/bar/main.css', $package->getUrl('main.css'));
     }
 
-    /**
-     * @expectedException \Symfony\Component\Asset\Exception\LogicException
-     */
     public function testNoBaseUrls()
     {
+        $this->expectException('Symfony\Component\Asset\Exception\LogicException');
         new UrlPackage([], new EmptyVersionStrategy());
     }
 
     /**
      * @dataProvider getWrongBaseUrlConfig
-     *
-     * @expectedException \Symfony\Component\Asset\Exception\InvalidArgumentException
      */
     public function testWrongBaseUrl($baseUrls)
     {
+        $this->expectException('Symfony\Component\Asset\Exception\InvalidArgumentException');
         new UrlPackage($baseUrls, new EmptyVersionStrategy());
     }
 

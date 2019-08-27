@@ -40,8 +40,8 @@ interface HttpClientInterface
                                 //   value if they are not defined - typically "application/json"
         'user_data' => null,    // mixed - any extra data to attach to the request (scalar, callable, object...) that
                                 //   MUST be available via $response->getInfo('user_data') - not used internally
-        'max_redirects' => 20,  // int - the maximum number of redirects to follow; a value lower or equal to 0 means
-                                //   redirects should not be followed; "Authorization" and "Cookie" headers MUST
+        'max_redirects' => 20,  // int - the maximum number of redirects to follow; a value lower than or equal to 0
+                                //   means redirects should not be followed; "Authorization" and "Cookie" headers MUST
                                 //   NOT follow except for the initial host name
         'http_version' => null, // string - defaults to the best supported version, typically 1.1 or 2.0
         'base_uri' => null,     // string - the URI to resolve relative URLs, following rules in RFC 3986, section 2
@@ -52,7 +52,9 @@ interface HttpClientInterface
         'resolve' => [],        // string[] - a map of host to IP address that SHOULD replace DNS resolution
         'proxy' => null,        // string - by default, the proxy-related env vars handled by curl SHOULD be honored
         'no_proxy' => null,     // string - a comma separated list of hosts that do not require a proxy to be reached
-        'timeout' => null,      // float - the inactivity timeout - defaults to ini_get('default_socket_timeout')
+        'timeout' => null,      // float - the idle timeout - defaults to ini_get('default_socket_timeout')
+        'max_duration' => 0,    // float - the maximum execution time for the request+response as a whole;
+                                //   a value lower than or equal to 0 means it is unlimited
         'bindto' => '0',        // string - the interface or the local socket to bind to
         'verify_peer' => true,  // see https://php.net/context.ssl for the following options
         'verify_host' => true,
@@ -85,7 +87,7 @@ interface HttpClientInterface
      * Yields responses chunk by chunk as they complete.
      *
      * @param ResponseInterface|ResponseInterface[]|iterable $responses One or more responses created by the current HTTP client
-     * @param float|null                                     $timeout   The inactivity timeout before exiting the iterator
+     * @param float|null                                     $timeout   The idle timeout before yielding timeout chunks
      */
     public function stream($responses, float $timeout = null): ResponseStreamInterface;
 }

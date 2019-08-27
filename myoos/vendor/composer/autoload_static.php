@@ -293,6 +293,7 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         'Mobile_Detect' => __DIR__ . '/..' . '/mobiledetect/mobiledetectlib/Mobile_Detect.php',
         'NumberFormatter' => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Component/Intl/Resources/stubs/NumberFormatter.php',
         'PclZip' => __DIR__ . '/..' . '/pclzip/pclzip/pclzip.lib.php',
+        'ProxyManager\\Generator\\Util\\ProxiedMethodReturnExpression' => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Bridge/ProxyManager/Legacy/ProxiedMethodReturnExpression.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

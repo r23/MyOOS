@@ -9,17 +9,17 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\Form\Test;
+namespace Symfony\Bundle\FrameworkBundle\Test;
 
 use PHPUnit\Framework\TestCase;
 
 // Auto-adapt to PHPUnit 8 that added a `void` return-type to the setUp/tearDown methods
 
-if ((new \ReflectionMethod(TestCase::class, 'tearDown'))->hasReturnType()) {
+if (method_exists(\ReflectionMethod::class, 'hasReturnType') && (new \ReflectionMethod(TestCase::class, 'tearDown'))->hasReturnType()) {
     /**
      * @internal
      */
-    trait TestCaseSetUpTearDownTrait
+    trait ForwardCompatTestTrait
     {
         private function doSetUp(): void
         {
@@ -43,7 +43,7 @@ if ((new \ReflectionMethod(TestCase::class, 'tearDown'))->hasReturnType()) {
     /**
      * @internal
      */
-    trait TestCaseSetUpTearDownTrait
+    trait ForwardCompatTestTrait
     {
         /**
          * @return void

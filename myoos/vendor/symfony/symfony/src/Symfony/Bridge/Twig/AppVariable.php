@@ -68,7 +68,7 @@ class AppVariable
     /**
      * Returns the current user.
      *
-     * @return mixed
+     * @return object|null
      *
      * @see TokenInterface::getUser()
      */
@@ -79,13 +79,12 @@ class AppVariable
         }
 
         if (!$token = $tokenStorage->getToken()) {
-            return;
+            return null;
         }
 
         $user = $token->getUser();
-        if (\is_object($user)) {
-            return $user;
-        }
+
+        return \is_object($user) ? $user : null;
     }
 
     /**
@@ -112,10 +111,9 @@ class AppVariable
         if (null === $this->requestStack) {
             throw new \RuntimeException('The "app.session" variable is not available.');
         }
+        $request = $this->getRequest();
 
-        if ($request = $this->getRequest()) {
-            return $request->getSession();
-        }
+        return $request && $request->hasSession() ? $request->getSession() : null;
     }
 
     /**
@@ -157,8 +155,7 @@ class AppVariable
     public function getFlashes($types = null)
     {
         try {
-            $session = $this->getSession();
-            if (null === $session) {
+            if (null === $session = $this->getSession()) {
                 return [];
             }
         } catch (\RuntimeException $e) {

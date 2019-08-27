@@ -24,12 +24,12 @@ class PhpEngineTest extends TestCase
 {
     protected $loader;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->loader = new ProjectTemplateLoader();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->loader = null;
     }
@@ -124,11 +124,11 @@ class PhpEngineTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      * @dataProvider forbiddenParameterNames
      */
     public function testRenderForbiddenParameter($name)
     {
+        $this->expectException('InvalidArgumentException');
         $engine = new ProjectTemplateEngine(new TemplateNameParser(), $this->loader);
         $this->loader->setTemplate('foo.php', 'bar');
         $engine->render('foo.php', [$name => 'foo']);

@@ -37,11 +37,11 @@ class GuardAuthenticationFactoryTest extends TestCase
     }
 
     /**
-     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
      * @dataProvider getInvalidConfigurationTests
      */
     public function testAddInvalidConfiguration(array $inputConfig)
     {
+        $this->expectException('Symfony\Component\Config\Definition\Exception\InvalidConfigurationException');
         $factory = new GuardAuthenticationFactory();
         $nodeDefinition = new ArrayNodeDefinition('guard');
         $factory->addConfiguration($nodeDefinition);
@@ -130,11 +130,9 @@ class GuardAuthenticationFactoryTest extends TestCase
         $this->assertEquals('some_default_entry_point', $entryPointId);
     }
 
-    /**
-     * @expectedException \LogicException
-     */
     public function testCannotOverrideDefaultEntryPoint()
     {
+        $this->expectException('LogicException');
         // any existing default entry point is used
         $config = [
             'authenticators' => ['authenticator123'],
@@ -143,11 +141,9 @@ class GuardAuthenticationFactoryTest extends TestCase
         $this->executeCreate($config, 'some_default_entry_point');
     }
 
-    /**
-     * @expectedException \LogicException
-     */
     public function testMultipleAuthenticatorsRequiresEntryPoint()
     {
+        $this->expectException('LogicException');
         // any existing default entry point is used
         $config = [
             'authenticators' => ['authenticator123', 'authenticatorABC'],

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Bundle\FrameworkBundle\Test;
+namespace Symfony\Component\Form\Test;
 
 use PHPUnit\Framework\TestCase;
 
@@ -19,7 +19,7 @@ if ((new \ReflectionMethod(TestCase::class, 'tearDown'))->hasReturnType()) {
     /**
      * @internal
      */
-    trait TestCaseSetUpTearDownTrait
+    trait ForwardCompatTestTrait
     {
         private function doSetUp(): void
         {
@@ -43,13 +43,19 @@ if ((new \ReflectionMethod(TestCase::class, 'tearDown'))->hasReturnType()) {
     /**
      * @internal
      */
-    trait TestCaseSetUpTearDownTrait
+    trait ForwardCompatTestTrait
     {
-        private function doSetUp(): void
+        /**
+         * @return void
+         */
+        private function doSetUp()
         {
         }
 
-        private function doTearDown(): void
+        /**
+         * @return void
+         */
+        private function doTearDown()
         {
         }
 

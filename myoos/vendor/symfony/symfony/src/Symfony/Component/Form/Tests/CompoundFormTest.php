@@ -269,11 +269,9 @@ class CompoundFormTest extends AbstractFormTest
         $this->assertSame(['foo' => $child], $this->form->all());
     }
 
-    /**
-     * @expectedException \Symfony\Component\Form\Exception\AlreadySubmittedException
-     */
     public function testAddThrowsExceptionIfAlreadySubmitted()
     {
+        $this->expectException('Symfony\Component\Form\Exception\AlreadySubmittedException');
         $this->form->submit([]);
         $this->form->add($this->getBuilder('foo')->getForm());
     }
@@ -288,11 +286,9 @@ class CompoundFormTest extends AbstractFormTest
         $this->assertCount(0, $this->form);
     }
 
-    /**
-     * @expectedException \Symfony\Component\Form\Exception\AlreadySubmittedException
-     */
     public function testRemoveThrowsExceptionIfAlreadySubmitted()
     {
+        $this->expectException('Symfony\Component\Form\Exception\AlreadySubmittedException');
         $this->form->add($this->getBuilder('foo')->setCompound(false)->getForm());
         $this->form->submit(['foo' => 'bar']);
         $this->form->remove('foo');

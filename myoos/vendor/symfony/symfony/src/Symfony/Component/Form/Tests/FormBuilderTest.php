@@ -24,14 +24,14 @@ class FormBuilderTest extends TestCase
     private $factory;
     private $builder;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->dispatcher = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();
         $this->factory = $this->getMockBuilder('Symfony\Component\Form\FormFactoryInterface')->getMock();
         $this->builder = new FormBuilder('name', null, $this->dispatcher, $this->factory);
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->dispatcher = null;
         $this->factory = null;
@@ -169,12 +169,8 @@ class FormBuilderTest extends TestCase
 
     public function testGetUnknown()
     {
-        if (method_exists($this, 'expectException')) {
-            $this->expectException('Symfony\Component\Form\Exception\InvalidArgumentException');
-            $this->expectExceptionMessage('The child with the name "foo" does not exist.');
-        } else {
-            $this->setExpectedException('Symfony\Component\Form\Exception\InvalidArgumentException', 'The child with the name "foo" does not exist.');
-        }
+        $this->expectException('Symfony\Component\Form\Exception\InvalidArgumentException');
+        $this->expectExceptionMessage('The child with the name "foo" does not exist.');
 
         $this->builder->get('foo');
     }
