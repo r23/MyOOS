@@ -37,7 +37,7 @@ class Post_Columns implements Runner {
 	 * Intialize.
 	 */
 	public function init() {
-		if ( ! Helper::has_cap( 'general' ) ) {
+		if ( ! Helper::has_cap( 'onpage_general' ) ) {
 			return;
 		}
 
@@ -56,7 +56,7 @@ class Post_Columns implements Runner {
 	 */
 	public function save() {
 		check_ajax_referer( 'rank-math-ajax-nonce', 'security' );
-		$this->has_cap_ajax( 'general' );
+		$this->has_cap_ajax( 'onpage_general' );
 		$rows = Param::post( 'rows', '', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
 		if ( ! $rows ) {
 			$this->error( esc_html__( 'No data found.', 'rank-math' ) );
@@ -285,13 +285,13 @@ class Post_Columns implements Runner {
 		$score     = $score ? $score : 0;
 		$class     = $this->get_seo_score_class( $score );
 
-		$score = $score . ' / 100';
+		$score = Helper::is_score_enabled() ? $score . ' / 100' : false;
 		if ( ! metadata_exists( 'post', $post_id, 'rank_math_seo_score' ) ) {
 			$score = __( 'Update your post', 'rank-math' );
 			$class = 'no-score';
 		}
 		?>
-		<span class="rank-math-column-display seo-score <?php echo $class; ?>">
+		<span class="rank-math-column-display seo-score <?php echo $class; ?> <?php echo ! $score ? 'disabled' : ''; ?>">
 			<strong><?php echo $score; ?></strong>
 			<?php if ( $is_pillar ) : ?>
 				<img class="is-pillar" src="<?php echo esc_url( rank_math()->plugin_url() . 'assets/admin/img/pillar.svg' ); ?>" alt="<?php _e( 'Is Pillar', 'rank-math' ); ?>" title="<?php _e( 'Is Pillar', 'rank-math' ); ?>" width="25" />

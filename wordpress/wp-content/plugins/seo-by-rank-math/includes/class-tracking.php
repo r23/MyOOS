@@ -46,7 +46,7 @@ class Tracking {
 		 * @param array
 		 */
 		$data = $this->do_filter( 'tracker_data', [
-			'@timestamp'  => (int) date( 'Uv' ),
+			'@timestamp'  => (int) date_i18n( 'Uv' ),
 			'name'        => get_option( 'blogname' ),
 			'url'         => home_url(),
 			'admin_url'   => admin_url(),

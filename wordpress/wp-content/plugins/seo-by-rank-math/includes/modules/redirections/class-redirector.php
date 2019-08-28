@@ -142,12 +142,11 @@ class Redirector {
 		$this->do_debugging();
 
 		// @codeCoverageIgnoreStart
-		$this->redirect_to = trailingslashit( $this->redirect_to );
 		if ( true === $this->do_filter( 'redirection/add_query_string', true ) && Str::is_non_empty( $this->query_string ) ) {
 			$this->redirect_to .= '?' . $this->query_string;
 		}
 
-		if ( wp_redirect( $this->redirect_to, $header_code, $this->get_redirect_header() ) ) {
+		if ( wp_redirect( esc_url_raw( $this->redirect_to ), $header_code, $this->get_redirect_header() ) ) {
 			exit;
 		}
 		// @codeCoverageIgnoreEnd
@@ -258,6 +257,10 @@ class Redirector {
 	 */
 	private function everything() {
 		$redirection = DB::match_redirections( $this->uri );
+		if ( ! $redirection ) {
+			$redirection = DB::match_redirections( $this->full_uri );
+		}
+
 		if ( $redirection ) {
 			Cache::add([
 				'from_url'       => $this->uri,

@@ -131,8 +131,8 @@ class Search_Console extends Module {
 		$week      = $today - ( DAY_IN_SECONDS * 7 );
 		$data_info = DB::data_info(
 			[
-				'start_date' => date( 'Y-m-d', $week ),
-				'end_date'   => date( 'Y-m-d', $today ),
+				'start_date' => date_i18n( 'Y-m-d', $week ),
+				'end_date'   => date_i18n( 'Y-m-d', $today ),
 			]
 		);
 		?>
@@ -369,7 +369,7 @@ class Search_Console extends Module {
 			$start = Helper::get_midnight( time() - DAY_IN_SECONDS );
 
 			for ( $current = 1; $current <= $days; $current++ ) {
-				$this->crawler->push_to_queue( date( 'Y-m-d', $start - ( DAY_IN_SECONDS * $current ) ) );
+				$this->crawler->push_to_queue( date_i18n( 'Y-m-d', $start - ( DAY_IN_SECONDS * $current ) ) );
 			}
 			$this->crawler->save()->dispatch();
 			$this->success( 'Data fetching started in the background.' );
@@ -419,15 +419,15 @@ class Search_Console extends Module {
 		$start     = $this->get_filter_data( 'start_date', ( $today - ( DAY_IN_SECONDS * 30 ) ) );
 		$dimension = $this->get_filter_data( 'dimension', 'query' );
 
-		$start_date = date( 'Y-m-d', $start );
-		$end_date   = date( 'Y-m-d', $end );
+		$start_date = date_i18n( 'Y-m-d', $start );
+		$end_date   = date_i18n( 'Y-m-d', $end );
 		$picker     = $start_date . ' to ' . $end_date;
 
 		// Previous Dates.
 		$prev_end_date   = $start - ( DAY_IN_SECONDS * 1 );
 		$prev_start_date = $prev_end_date - abs( $start - $end );
-		$prev_end_date   = date( 'Y-m-d', $prev_end_date );
-		$prev_start_date = date( 'Y-m-d', $prev_start_date );
+		$prev_end_date   = date_i18n( 'Y-m-d', $prev_end_date );
+		$prev_start_date = date_i18n( 'Y-m-d', $prev_start_date );
 
 		// Difference.
 		$diff          = abs( $start - $end ) / DAY_IN_SECONDS;

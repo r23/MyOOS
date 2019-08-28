@@ -48,10 +48,10 @@ class Event implements Snippet {
 		];
 
 		if ( $start_date = Helper::get_post_meta( 'snippet_event_startdate' ) ) { // phpcs:ignore
-			$entity['startDate'] = str_replace( ' ', 'T', date( 'Y-m-d H:i', $start_date ) );
+			$entity['startDate'] = str_replace( ' ', 'T', date_i18n( 'Y-m-d H:i', $start_date ) );
 		}
 		if ( $end_date = Helper::get_post_meta( 'snippet_event_enddate' ) ) { // phpcs:ignore
-			$entity['endDate'] = str_replace( ' ', 'T', date( 'Y-m-d H:i', $end_date ) );
+			$entity['endDate'] = str_replace( ' ', 'T', date_i18n( 'Y-m-d H:i', $end_date ) );
 		}
 
 		$jsonld->set_address( 'event', $entity['location'] );
@@ -66,7 +66,7 @@ class Event implements Snippet {
 		], $entity['offers'] );
 
 		if ( ! empty( $entity['offers']['validFrom'] ) ) {
-			$entity['offers']['validFrom'] = str_replace( ' ', 'T', date( 'Y-m-d H:i', $entity['offers']['validFrom'] ) );
+			$entity['offers']['validFrom'] = str_replace( ' ', 'T', date_i18n( 'Y-m-d H:i', $entity['offers']['validFrom'] ) );
 		}
 
 		$entity = $this->add_performer( $entity );

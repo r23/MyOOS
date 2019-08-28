@@ -74,6 +74,11 @@ class Singular implements Snippet {
 	 * @return boolean|string
 	 */
 	private function can_add_schema( $jsonld ) {
+		$pages = array_map( 'absint', array_filter( [ Helper::get_settings( 'titles.local_seo_about_page' ), Helper::get_settings( 'titles.local_seo_contact_page' ) ] ) );
+		if ( ! empty( $jsonld->post_id ) && in_array( $jsonld->post_id, $pages, true ) ) {
+			return false;
+		}
+
 		$schema = Helper::get_post_meta( 'rich_snippet' );
 		if (
 			! $schema &&

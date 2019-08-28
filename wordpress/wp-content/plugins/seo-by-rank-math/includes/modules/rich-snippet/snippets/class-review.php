@@ -68,20 +68,18 @@ class Review implements Snippet {
 	 * @since 1.0.12
 	 */
 	public function add_review_to_content( $content ) {
-		global $multipage, $numpages, $page;
-
-		$location = $this->can_add_content();
+		$location = $this->get_content_location();
 		if ( false === $location ) {
 			return $content;
 		}
 
 		$review = do_shortcode( '[rank_math_review_snippet]' );
 
-		if ( 'top' === $location || 'both' === $location ) {
+		if ( $this->can_add( 'top', $location ) ) {
 			$content = $review . $content;
 		}
 
-		if ( ( 'bottom' === $location || 'both' === $location ) && ( ! $multipage || $page === $numpages ) ) {
+		if ( $this->can_add( 'bottom', $location ) && $this->can_add_multi_page() ) {
 			$content .= $review;
 		}
 
@@ -93,7 +91,7 @@ class Review implements Snippet {
 	 *
 	 * @return boolean|string
 	 */
-	private function can_add_content() {
+	private function get_content_location() {
 		if ( ! is_main_query() || ! in_the_loop() ) {
 			return false;
 		}
@@ -115,5 +113,32 @@ class Review implements Snippet {
 		}
 
 		return $location;
+	}
+
+	/**
+	 * Check if we can inject the review in the content.
+	 *
+	 * @param string $where    Adding where.
+	 * @param string $location Location to check against.
+	 *
+	 * @return bool
+	 */
+	private function can_add( $where, $location ) {
+		if ( $where === $location || 'both' === $location ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Check if we can add content if multipage.
+	 *
+	 * @return bool
+	 */
+	private function can_add_multi_page() {
+		global $multipage, $numpages, $page;
+
+		return ( ! $multipage || $page === $numpages );
 	}
 }

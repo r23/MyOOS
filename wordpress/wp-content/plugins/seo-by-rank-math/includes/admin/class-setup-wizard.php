@@ -139,9 +139,9 @@ class Setup_Wizard {
 				'class' => '\\RankMath\\Wizard\\Monitor_Redirection',
 			],
 
-			'misc'          => [
-				'name'  => esc_html__( 'Misc', 'rank-math' ),
-				'class' => '\\RankMath\\Wizard\\Misc',
+			'schema-markup' => [
+				'name'  => esc_html__( 'Schema Markup', 'rank-math' ),
+				'class' => '\\RankMath\\Wizard\\Schema_Markup',
 			],
 		];
 
@@ -288,7 +288,7 @@ class Setup_Wizard {
 		}
 
 		$is_advanced   = $this->is_advance();
-		$advance_steps = [ 'role', 'redirection', 'misc' ];
+		$advance_steps = [ 'role', 'redirection', 'schema-markup' ];
 
 		return in_array( $slug, $advance_steps, true ) ? ! $is_advanced : $is_advanced;
 	}
@@ -346,7 +346,7 @@ class Setup_Wizard {
 	 */
 	private function is_advance() {
 		$step = Param::request( 'step' );
-		return $step && in_array( $step, [ 'role', 'redirection', 'misc' ], true );
+		return $step && in_array( $step, [ 'role', 'redirection', 'schema-markup' ], true );
 	}
 
 	/**

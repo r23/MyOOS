@@ -56,7 +56,7 @@ class Export {
 		}
 
 		$text[] = '# Created by Rank Math';
-		$text[] = '# ' . date( 'r' );
+		$text[] = '# ' . date_i18n( 'r' );
 		$text[] = '# Rank Math ' . trim( rank_math()->version ) . ' - https://rankmath.com/';
 		$text[] = '';
 

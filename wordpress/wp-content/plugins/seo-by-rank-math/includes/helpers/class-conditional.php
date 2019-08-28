@@ -125,4 +125,30 @@ trait Conditional {
 
 		return true;
 	}
+
+	/**
+	 * Check if editing the file is allowed.
+	 *
+	 * @return bool
+	 *
+	 * @since 1.0.32
+	 */
+	public static function is_edit_allowed() {
+		return ( ! defined( 'DISALLOW_FILE_EDIT' ) || ! DISALLOW_FILE_EDIT ) && ( ! defined( 'DISALLOW_FILE_MODS' ) || ! DISALLOW_FILE_MODS );
+	}
+
+	/**
+	 * Check whether to show SEO score.
+	 *
+	 * @return boolean
+	 * @since 1.0.32
+	 */
+	public static function is_score_enabled() {
+		/**
+		 * Enable SEO Score.
+		 *
+		 * @param bool Enable SEO Score.
+		 */
+		return apply_filters( 'rank_math/show_score', true );
+	}
 }

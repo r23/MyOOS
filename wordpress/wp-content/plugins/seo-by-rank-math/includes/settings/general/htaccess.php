@@ -7,6 +7,7 @@
  */
 
 use RankMath\Admin\Admin_Helper;
+use RankMath\Helper;
 
 $data = Admin_Helper::get_htaccess_data();
 
@@ -25,12 +26,12 @@ $attrs = [
 	'readonly' => 'readonly',
 ];
 
-if ( ! $data['writable'] ) {
+if ( ! $data['writable'] || ! Helper::is_edit_allowed() ) {
 	$cmb->add_field([
 		'id'      => 'htaccess_not_writable',
 		'type'    => 'notice',
 		'what'    => 'error',
-		'content' => esc_html__( '.htaccess file not writable.', 'rank-math' ),
+		'content' => esc_html__( '.htaccess file is not writable.', 'rank-math' ),
 	]);
 } else {
 

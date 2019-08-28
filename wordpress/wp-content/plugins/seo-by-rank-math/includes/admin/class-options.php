@@ -104,10 +104,12 @@ class Options {
 	}
 
 	/**
-	 * Create option object and add settings.
+	 * Create cmb2 box.
+	 *
+	 * @return CMB2
 	 */
-	function register_option_page() {
-		$cmb = new_cmb2_box(
+	private function create_cmb2() {
+		return new_cmb2_box(
 			[
 				'id'           => $this->cmb_id,
 				'title'        => $this->title,
@@ -120,8 +122,15 @@ class Options {
 				'display_cb'   => [ $this, 'display' ],
 			]
 		);
+	}
 
+	/**
+	 * Create option object and add settings.
+	 */
+	public function register_option_page() {
+		$cmb  = $this->create_cmb2();
 		$tabs = $this->get_tabs();
+
 		$cmb->add_field(
 			[
 				'id'   => 'setting-panel-container-' . $this->cmb_id,

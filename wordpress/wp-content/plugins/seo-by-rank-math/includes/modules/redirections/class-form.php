@@ -61,17 +61,27 @@ class Form {
 	}
 
 	/**
+	 * Create box
+	 *
+	 * @return CMB2
+	 */
+	private function create_box() {
+		return new_cmb2_box(
+			[
+				'id'           => 'rank-math-redirections',
+				'object_types' => [ 'options-page' ],
+				'option_key'   => 'rank-math-redirections',
+				'hookup'       => false,
+				'save_fields'  => false,
+			]
+		);
+	}
+
+	/**
 	 * Register form for Add New Record.
 	 */
 	public function register_form() {
-
-		$cmb = new_cmb2_box([
-			'id'           => 'rank-math-redirections',
-			'object_types' => [ 'options-page' ],
-			'option_key'   => 'rank-math-redirections',
-			'hookup'       => false,
-			'save_fields'  => false,
-		]);
+		$cmb = $this->create_box();
 
 		$cmb->add_field([
 			'id'      => 'sources',

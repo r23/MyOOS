@@ -179,6 +179,21 @@ class Module_Manager {
 				'disabled_text' => esc_html__( 'Please activate bbPress plugin to use this module.', 'rank-math' ),
 				'only'          => 'skip',
 			),
+			'robots-txt'     => array(
+				'id'    => 'robots-txt',
+				'title' => esc_html__( 'Robotx Txt', 'rank-math' ),
+				'only'  => 'internal',
+				'class' => 'RankMath\Robots_Txt',
+			),
+			'buddypress'     => array(
+				'id'            => 'buddypress',
+				'title'         => esc_html__( 'BuddyPress', 'rank-math' ),
+				'desc'          => esc_html__( 'Add proper Meta tags to your BuddyPress pages.', 'rank-math' ),
+				'icon'          => 'dashicons-cart',
+				'class'         => 'RankMath\BuddyPress\BuddyPress',
+				'disabled'      => ! class_exists( 'BuddyPress' ),
+				'disabled_text' => esc_html__( 'Please activate BuddyPress plugin to use this module.', 'rank-math' ),
+			),
 		) );
 
 		ksort( $modules );

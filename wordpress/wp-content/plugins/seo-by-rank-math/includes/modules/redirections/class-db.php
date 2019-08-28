@@ -377,7 +377,7 @@ class DB {
 	 * @return int Number of records deleted.
 	 */
 	public static function periodic_clean_trash() {
-		$ids = self::table()->select( 'id' )->where( 'status', 'trashed' )->where( 'updated', '<=', date( 'Y-m-d', strtotime( '30 days ago' ) ) )->get( ARRAY_A );
+		$ids = self::table()->select( 'id' )->where( 'status', 'trashed' )->where( 'updated', '<=', date_i18n( 'Y-m-d', strtotime( '30 days ago' ) ) )->get( ARRAY_A );
 		if ( empty( $ids ) ) {
 			return 0;
 		}

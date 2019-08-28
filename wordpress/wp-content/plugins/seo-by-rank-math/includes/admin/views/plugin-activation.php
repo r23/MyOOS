@@ -37,7 +37,8 @@ $class         = $is_registered ? 'status-green' : 'status-red';
 			<input class="regular-text fullwidth required" data-rule-required="true" type="password" name="connect-password" value="">
 			<br><br>
 			<div class="frm-gather-data">
-				<input type="checkbox" class="cmb2-option cmb2-list" name="rank-math-usage-tracking" id="rank-math-usage-tracking" value="on" checked="checked" />
+				<?php $checked = Helper::get_settings( 'general.usage_tracking' ) ? 'checked=checked' : ''; ?>
+				<input type="checkbox" class="cmb2-option cmb2-list" name="rank-math-usage-tracking" id="rank-math-usage-tracking" value="on" <?php echo esc_attr( $checked ); ?> />
 				<label for="rank-math-usage-tracking">
 					<?php
 					/* translators: link to privacy policy */

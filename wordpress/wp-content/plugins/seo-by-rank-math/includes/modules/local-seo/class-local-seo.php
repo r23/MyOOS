@@ -134,8 +134,7 @@ class Local_Seo {
 	 */
 	private function can_output_schema() {
 		$post_id = Post::get_simple_page_id();
-		$pages   = array_filter( [ Helper::get_settings( 'titles.local_seo_about_page' ), Helper::get_settings( 'titles.local_seo_contact_page' ) ] );
-
+		$pages   = array_map( 'absint', array_filter( [ Helper::get_settings( 'titles.local_seo_about_page' ), Helper::get_settings( 'titles.local_seo_contact_page' ) ] ) );
 		if ( $post_id > 0 && ! in_array( $post_id, $pages, true ) && ! is_front_page() ) {
 			return false;
 		}

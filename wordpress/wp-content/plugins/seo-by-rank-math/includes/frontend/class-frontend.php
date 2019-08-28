@@ -80,11 +80,6 @@ class Frontend {
 		if ( Helper::get_settings( 'titles.disable_author_archives' ) || Helper::get_settings( 'titles.disable_date_archives' ) ) {
 			$this->action( 'wp', 'archive_redirect' );
 		}
-
-		// Custom robots text.
-		if ( Helper::get_settings( 'general.robots_txt_content' ) ) {
-			$this->action( 'robots_txt', 'robots_txt', 10, 2 );
-		}
 	}
 
 	/**
@@ -162,21 +157,6 @@ class Frontend {
 			Helper::redirect( get_bloginfo( 'url' ), 301 );
 			exit;
 		}
-	}
-
-	/**
-	 * Replace robots.txt content.
-	 *
-	 * @param  string $content Robots.txt file content.
-	 * @param  bool   $public  Whether the site is considered "public".
-	 * @return string New robots.txt content.
-	 */
-	public function robots_txt( $content, $public ) {
-		if ( is_admin() ) {
-			return $content;
-		}
-
-		return 0 === absint( $public ) ? $content : Helper::get_settings( 'general.robots_txt_content' );
 	}
 
 	/**

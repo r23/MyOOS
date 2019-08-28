@@ -276,8 +276,8 @@ class DB {
 		if ( -1 === $days ) {
 			self::table()->truncate();
 		} else {
-			$start = date( 'Y-m-d H:i:s', strtotime( '-1 days' ) );
-			$end   = date( 'Y-m-d H:i:s', strtotime( '-90 days' ) );
+			$start = date_i18n( 'Y-m-d H:i:s', strtotime( '-1 days' ) );
+			$end   = date_i18n( 'Y-m-d H:i:s', strtotime( '-90 days' ) );
 
 			self::table()->whereBetween( 'date', [ $end, $start ] )->delete();
 		}

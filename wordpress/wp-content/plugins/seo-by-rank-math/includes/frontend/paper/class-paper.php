@@ -81,7 +81,6 @@ class Paper {
 	 * @return object Post|Term|User.
 	 */
 	public static function get() {
-
 		if ( ! is_null( self::$instance ) ) {
 			return self::$instance;
 		}
@@ -95,7 +94,29 @@ class Paper {
 	 * Setup paper.
 	 */
 	private function setup() {
-		$hash = $this->do_filter(
+		foreach ( $this->get_papers() as $class_name => $is_valid ) {
+			if ( $this->do_filter( 'paper/is_valid/' . strtolower( $class_name ), $is_valid ) ) {
+				$class_name  = '\\RankMath\\Paper\\' . $class_name;
+				$this->paper = new $class_name;
+				break;
+			}
+		}
+
+		if ( Post::is_home_static_page() ) {
+			$this->paper->set_object( get_queried_object() );
+		} elseif ( Post::is_simple_page() ) {
+			$post = Post::get( Post::get_simple_page_id() );
+			$this->paper->set_object( $post->get_object() );
+		}
+	}
+
+	/**
+	 * Get papers types.
+	 *
+	 * @return array
+	 */
+	private function get_papers() {
+		return $this->do_filter(
 			'paper/hash',
 			[
 				'Search'    => is_search(),
@@ -110,22 +131,6 @@ class Paper {
 				'Misc'      => true,
 			]
 		);
-
-		foreach ( $hash as $class_name => $is_valid ) {
-
-			if ( $this->do_filter( 'paper/is_valid/' . strtolower( $class_name ), $is_valid ) ) {
-				$class_name  = '\\RankMath\\Paper\\' . $class_name;
-				$this->paper = new $class_name;
-				break;
-			}
-		}
-
-		if ( Post::is_home_static_page() ) {
-			$this->paper->set_object( get_queried_object() );
-		} elseif ( Post::is_simple_page() ) {
-			$post = Post::get( Post::get_simple_page_id() );
-			$this->paper->set_object( $post->get_object() );
-		}
 	}
 
 	/**

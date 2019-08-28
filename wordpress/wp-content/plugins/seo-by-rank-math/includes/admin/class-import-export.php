@@ -142,7 +142,7 @@ class Import_Export implements Runner {
 		$this->success([
 			'key'     => $key,
 			/* translators: Backup formatted date */
-			'backup'  => sprintf( esc_html__( 'Backup: %s', 'rank-math' ), date( 'M jS Y, H:i a', $key ) ),
+			'backup'  => sprintf( esc_html__( 'Backup: %s', 'rank-math' ), date_i18n( 'M jS Y, H:i a', $key ) ),
 			'message' => esc_html__( 'Backup created successfully.', 'rank-math' ),
 		]);
 	}
@@ -223,7 +223,7 @@ class Import_Export implements Runner {
 	private function export() {
 		$panels   = Param::post( 'panels', [], FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
 		$data     = $this->get_export_data( $panels );
-		$filename = 'rank-math-settings-' . date( 'Y-m-d-H-i-s' ) . '.txt';
+		$filename = 'rank-math-settings-' . date_i18n( 'Y-m-d-H-i-s' ) . '.txt';
 
 		header( 'Content-Type: application/txt' );
 		header( 'Content-Disposition: attachment; filename=' . $filename );

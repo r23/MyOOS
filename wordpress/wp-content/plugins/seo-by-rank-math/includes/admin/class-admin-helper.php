@@ -24,39 +24,6 @@ defined( 'ABSPATH' ) || exit;
 class Admin_Helper {
 
 	/**
-	 * Get robots.txt related data.
-	 *
-	 * @return array
-	 */
-	public static function get_robots_data() {
-		$wp_filesystem = WordPress::get_filesystem();
-
-		if ( $wp_filesystem->exists( ABSPATH . 'robots.txt' ) ) {
-			return [
-				'exists'  => true,
-				'default' => $wp_filesystem->get_contents( ABSPATH . 'robots.txt' ),
-			];
-		}
-
-		$default  = '# This file is automatically added by Rank Math SEO plugin to help a website index better';
-		$default .= "\n# More info: https://s.rankmath.com/home\n";
-		$default .= "User-Agent: *\n";
-		$public   = get_option( 'blog_public' );
-		if ( 0 === absint( $public ) ) {
-			$default .= "Disallow: /\n";
-		} else {
-			$site_url = parse_url( site_url() );
-			$default .= "Disallow: /wp-admin/\n";
-			$default .= "Allow: /wp-admin/admin-ajax.php\n";
-		}
-
-		return [
-			'exists'  => false,
-			'default' => apply_filters( 'robots_txt', $default, $public ),
-		];
-	}
-
-	/**
 	 * Get .htaccess related data.
 	 *
 	 * @return array

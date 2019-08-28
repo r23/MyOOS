@@ -309,9 +309,11 @@ class SEO_Analyzer {
 	/**
 	 * Process results as needed.
 	 *
+	 * @param array $response Response.
+	 *
 	 * @return boolean
 	 */
-	private function process_api_results(  $response ) {
+	private function process_api_results( $response ) {
 		foreach ( $response as $id => $results ) {
 			$this->results[ $id ] = wp_parse_args(
 				$results,

@@ -1,8 +1,8 @@
 <?php
 /**
- * The Misc wizard step
+ * The Schema_Markup wizard step
  *
- * @since      0.9.0
+ * @since      1.0.32
  * @package    RankMath
  * @subpackage RankMath\Wizard
  * @author     Rank Math <support@rankmath.com>
@@ -18,7 +18,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Step class.
  */
-class Misc implements Wizard_Step {
+class Schema_Markup implements Wizard_Step {
 
 	/**
 	 * Render step body.
@@ -30,8 +30,8 @@ class Misc implements Wizard_Step {
 	public function render( $wizard ) {
 		?>
 		<header>
-			<h1><?php esc_html_e( 'Miscellaneous ', 'rank-math' ); ?> </h1>
-			<p><?php esc_html_e( 'Control different settings for important aspects of your website here.', 'rank-math' ); ?></p>
+			<h1><?php esc_html_e( 'Schema Markup ', 'rank-math' ); ?> </h1>
+			<p><?php esc_html_e( 'Rich Snippets adds metadata to your website, resulting in rich search results and more traffic.', 'rank-math' ); ?></p>
 		</header>
 
 		<?php $wizard->cmb->show_form(); ?>
@@ -51,15 +51,6 @@ class Misc implements Wizard_Step {
 	 * @return void
 	 */
 	public function form( $wizard ) {
-		$wizard->cmb->add_field([
-			'id'      => 'add_img_alt',
-			'type'    => 'switch',
-			'name'    => esc_html__( 'Add missing ALT attributes', 'rank-math' ),
-			/* translators: Link to setting screen */
-			'desc'    => sprintf( wp_kses_post( __( 'Add missing <code>alt</code> attribute for <code>img</code> tags in your post contents and featured images. This option will not change the stored content of the post, it adds the attribute on the fly when the content is displayed. You can see %s.', 'rank-math' ) ), '<a href="' . Helper::get_admin_url( 'options-general#setting-panel-images' ) . '" target="_blank">' . esc_html__( 'all options we offer here', 'rank-math' ) . '</a>' ),
-			'default' => Helper::get_settings( 'general.add_img_alt' ) ? 'on' : 'off',
-		]);
-
 		$wizard->cmb->add_field([
 			'id'      => 'rich_snippet',
 			'type'    => 'switch',

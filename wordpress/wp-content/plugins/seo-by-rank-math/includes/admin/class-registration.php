@@ -131,8 +131,10 @@ class Registration {
 			'classes'    => 'nob nopb rank-math-validate-field',
 			'attributes' => [
 				'data-rule-required' => 'true',
+				'required'           => '',
 				'autocomplete'       => 'off',
 			],
+			'after'      => '<label id="username-error" class="invalid" for="username" style="display:none;">' . esc_html__( 'This field is required.', 'rank-math' ) . '</label>',
 		]);
 
 		$this->cmb->add_field([
@@ -143,8 +145,10 @@ class Registration {
 			'attributes' => [
 				'data-rule-required' => 'true',
 				'autocomplete'       => 'off',
+				'required'           => '',
 				'type'               => 'password',
 			],
+			'after'      => '<label id="validation_code-error" class="invalid" for="validation_code" style="display:none;">' . esc_html__( 'This field is required.', 'rank-math' ) . '</label>',
 		]);
 
 		$this->cmb->add_field([
@@ -153,7 +157,7 @@ class Registration {
 			/* translators: Link to Rank Math privay policy */
 			'name'    => sprintf( __( 'Gathering usage data helps us make Rank Math SEO plugin better - for you. By understanding how you use Rank Math, we can introduce new features and find out if existing features are working well for you. If you don’t want us to collect data from your website, uncheck the tickbox. Please note that licensing information may still be sent back to us for authentication. We collect data anonymously, read more %s.', 'rank-math' ), '<a href="' . KB::get( 'rm-privacy' ) . '" target="_blank">here</a>' ),
 			'classes' => 'nob nopb',
-			'default' => Helper::get_settings( 'general.usage_tracking' ) ? 'on' : 'off',
+			'default' => Helper::get_settings( 'general.usage_tracking' ) ? 'on' : '',
 		]);
 
 		CMB2::pre_init( $this->cmb );
@@ -207,22 +211,7 @@ class Registration {
 	protected function body() {
 		?>
 		<header>
-
-		<?php if ( $this->invalid ) { ?>
-			<h1><?php esc_html_e( 'Connect FREE Account', 'rank-math' ); ?></h1>
-			<div class="notice notice-warning rank-math-registration-notice inline">
-				<p>
-					<?php
-					/* translators: Link to Rank Math signup page */
-					printf( wp_kses_post( __( 'You need to connect with your <a href="%s" target="_blank"><strong>FREE Rank Math account</strong></a> to use Rank Math on this site.', 'rank-math' ) ), KB::get( 'free-account' ) );
-					?>
-				</p>
-			</div>
-		<?php } else { ?>
-			<h1><?php esc_html_e( 'Account Successfully Connected', 'rank-math' ); ?></h1>
-			<h3 style="text-align: center; padding-top:15px;"><?php esc_html_e( 'You have successfully activated Rank Math.', 'rank-math' ); ?></h3>
-		<?php } ?>
-
+			<?php $this->header_content(); ?>
 		</header>
 
 		<span class="wp-header-end"></span>
@@ -238,6 +227,31 @@ class Registration {
 
 		<?php
 		$this->print_script();
+	}
+
+	/**
+	 * Header content.
+	 */
+	private function header_content() {
+		if ( $this->invalid ) :
+			?>
+			<h1><?php esc_html_e( 'Connect FREE Account', 'rank-math' ); ?></h1>
+			<div class="notice notice-warning rank-math-registration-notice inline">
+				<p>
+					<?php
+					/* translators: Link to Rank Math signup page */
+					printf( wp_kses_post( __( 'You need to connect with your <a href="%s" target="_blank"><strong>FREE Rank Math account</strong></a> to use Rank Math on this site.', 'rank-math' ) ), KB::get( 'free-account' ) );
+					?>
+				</p>
+			</div>
+			<?php
+			return;
+		endif;
+		?>
+
+		<h1><?php esc_html_e( 'Account Successfully Connected', 'rank-math' ); ?></h1>
+		<h3 style="text-align: center; padding-top:15px;"><?php esc_html_e( 'You have successfully activated Rank Math.', 'rank-math' ); ?></h3>
+		<?php
 	}
 
 	/**

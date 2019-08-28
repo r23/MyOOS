@@ -53,28 +53,6 @@ class Result {
 
 	/**
 	 * Magic method.
-	 *
-	 * @param string $method    Method name.
-	 * @param array  $arguments Argument array.
-	 *
-	 * @return mixed
-	 */
-	public function __call( $method, $arguments ) {
-		$property = substr( $method, 4 );
-
-		if ( 'id' === $property ) {
-			return $this->id;
-		}
-
-		if ( array_key_exists( $property, $this->result ) ) {
-			return $this->result[ $property ];
-		}
-
-		return $this->$method();
-	}
-
-	/**
-	 * Magic method.
 	 */
 	public function __toString() {
 		ob_start();
@@ -119,6 +97,33 @@ class Result {
 		</div>
 		<?php
 		return ob_get_clean();
+	}
+
+	/**
+	 * Get result id.
+	 *
+	 * @return string
+	 */
+	public function get_id() {
+		return $this->id;
+	}
+
+	/**
+	 * Get category
+	 *
+	 * @return string
+	 */
+	public function get_category() {
+		return isset( $this->result['category'] ) ? $this->result['category'] : '';
+	}
+
+	/**
+	 * Get status
+	 *
+	 * @return string
+	 */
+	public function get_status() {
+		return isset( $this->result['status'] ) ? $this->result['status'] : '';
 	}
 
 	/**

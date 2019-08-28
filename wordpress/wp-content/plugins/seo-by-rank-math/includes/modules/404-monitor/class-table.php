@@ -136,35 +136,7 @@ class Table extends List_Table {
 		$actions = [];
 
 		if ( Helper::get_module( 'redirections' ) ) {
-			$redirection = Cache::get_by_url( $item['uri_decoded'] );
-
-			if ( $redirection ) {
-				$url = esc_url(
-					Helper::get_admin_url(
-						'redirections',
-						[
-							'redirection' => $redirection->redirection_id,
-							'security'    => wp_create_nonce( 'redirection_list_action' ),
-						]
-					)
-				);
-
-				$actions['view_redirection'] = sprintf( '<a href="%s" target="_blank">' . esc_html__( 'View Redirection', 'rank-math' ) . '</a>', $url );
-			} else {
-				$url = esc_url(
-					Helper::get_admin_url(
-						'redirections',
-						[
-							'url' => $item['uri_decoded'],
-						]
-					)
-				);
-
-				$actions['redirect'] = sprintf(
-					'<a href="%1$s" class="rank-math-404-redirect-btn">%2$s</a>',
-					$url, esc_html__( 'Redirect', 'rank-math' )
-				);
-			}
+			$this->add_redirection_actions( $item, $actions );
 		}
 
 		$actions['delete'] = sprintf(
@@ -180,6 +152,45 @@ class Table extends List_Table {
 		);
 
 		return $this->row_actions( $actions );
+	}
+
+	/**
+	 * Add redirection actions.
+	 *
+	 * @param object $item    The current item.
+	 * @param array  $actions Array of actions.
+	 */
+	private function add_redirection_actions( $item, &$actions ) {
+		$redirection = Cache::get_by_url( $item['uri_decoded'] );
+
+		if ( $redirection ) {
+			$url = esc_url(
+				Helper::get_admin_url(
+					'redirections',
+					[
+						'redirection' => $redirection->redirection_id,
+						'security'    => wp_create_nonce( 'redirection_list_action' ),
+					]
+				)
+			);
+
+			$actions['view_redirection'] = sprintf( '<a href="%s" target="_blank">' . esc_html__( 'View Redirection', 'rank-math' ) . '</a>', $url );
+			return;
+		}
+
+		$url = esc_url(
+			Helper::get_admin_url(
+				'redirections',
+				[
+					'url' => $item['uri_decoded'],
+				]
+			)
+		);
+
+		$actions['redirect'] = sprintf(
+			'<a href="%1$s" class="rank-math-404-redirect-btn">%2$s</a>',
+			$url, esc_html__( 'Redirect', 'rank-math' )
+		);
 	}
 
 	/**

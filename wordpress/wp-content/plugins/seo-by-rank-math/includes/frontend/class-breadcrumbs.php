@@ -215,12 +215,9 @@ class Breadcrumbs {
 			'is_author',
 		];
 
-		if ( ! empty( $this->settings['home'] ) ) {
-			$this->add_crumb( $this->strings['home'], $this->strings['home_link'] );
-		}
+		$this->maybe_add_home_crumb();
 
-		$condition = ( ! is_front_page() && ! ( is_post_type_archive() && function_exists( 'wc_get_page_id' ) && intval( get_option( 'page_on_front' ) ) === wc_get_page_id( 'shop' ) ) ) || is_paged();
-		if ( ! $condition ) {
+		if ( ! $this->can_generate() ) {
 			return;
 		}
 
@@ -232,6 +229,22 @@ class Breadcrumbs {
 		}
 
 		$this->maybe_add_page_crumb();
+	}
+
+	/**
+	 * Can generate breadcrumb.
+	 *
+	 * @return bool
+	 */
+	private function can_generate() {
+		return (
+			! is_front_page() &&
+			! (
+				is_post_type_archive() &&
+				function_exists( 'wc_get_page_id' ) &&
+				intval( get_option( 'page_on_front' ) ) === wc_get_page_id( 'shop' ) )
+			) ||
+			is_paged();
 	}
 
 	/**
@@ -491,7 +504,7 @@ class Breadcrumbs {
 	 */
 	private function maybe_add_term_ancestors( $term ) {
 		// Early Bail!
-		if ( 0 === $term->parent || false === $this->settings['show_ancestors'] || false === is_taxonomy_hierarchical( $term->taxonomy ) ) {
+		if ( ! $this->can_add_term_ancestors( $term ) ) {
 			return;
 		}
 
@@ -504,6 +517,21 @@ class Breadcrumbs {
 				$this->add_crumb( $this->get_breadcrumb_title( 'term', $ancestor, $ancestor->name ), get_term_link( $ancestor ) );
 			}
 		}
+	}
+
+	/**
+	 * Can add ancestor taxonomy crumbs to the hierachical taxonomy trails.
+	 *
+	 * @param object $term Term data object.
+	 *
+	 * @return bool
+	 */
+	private function can_add_term_ancestors( $term ) {
+		if ( 0 === $term->parent || false === $this->settings['show_ancestors'] || false === is_taxonomy_hierarchical( $term->taxonomy ) ) {
+			return false;
+		}
+
+		return true;
 	}
 
 	/**
@@ -523,6 +551,15 @@ class Breadcrumbs {
 
 		/* translators: %s expands to the current page number */
 		$this->add_crumb( sprintf( esc_html__( 'Page %s', 'rank-math' ), $current_page ), '', true );
+	}
+
+	/**
+	 * Add home label.
+	 */
+	private function maybe_add_home_crumb() {
+		if ( ! empty( $this->settings['home'] ) ) {
+			$this->add_crumb( $this->strings['home'], $this->strings['home_link'] );
+		}
 	}
 
 	/**

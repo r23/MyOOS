@@ -72,7 +72,7 @@ class Sitemaps_List extends List_Table {
 	protected function column_lastDownloaded( $item ) {
 		if ( ! empty( $item['lastDownloaded'] ) ) {
 			$date = date_parse( $item['lastDownloaded'] );
-			$date = date( 'Y-m-d H:i:s', mktime( $date['hour'], $date['minute'], $date['second'], $date['month'], $date['day'], $date['year'] ) );
+			$date = date_i18n( 'Y-m-d H:i:s', mktime( $date['hour'], $date['minute'], $date['second'], $date['month'], $date['day'], $date['year'] ) );
 			return $date;
 		}
 	}

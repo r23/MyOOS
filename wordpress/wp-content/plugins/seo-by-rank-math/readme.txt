@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection
 Tested up to: 5.2.2
 Requires at least: 4.7.0
 Requires PHP: 5.6
-Stable tag: 1.0.31
+Stable tag: 1.0.32
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -451,20 +451,22 @@ We look forward to helping you.
 
 == Changelog ==
 
-= 1.0.31 [Aug 02, 2019] =
-* Added diacritics into consideration while running the content analysis. Finally, all other language words can be analyzed!
-* Improved the logic of honoring the Global Meta so, there are no mismatches between the settings of a single post vs general settings and also for the importers. Please review your Rank Math's settings properly if you happen to import. [Here's a detailed guide](https://s.rankmath.com/wpmrmguide)
-* Improved the searching in the redirections & 404 errors
-* Improved SEO Analysis text further to make things clearer
-* Updated the analysis's API URL to Rank Math's
-* Fixed a bug with WordPress 4.x (to everyone still using WP 4.x, please update to the latest WP and use Classic Editor plugin alongside)
-* Fixed an issue with the importing of the Redirections. Disabled redirections were getting imported as active. That should not be happening anymore.
-* Fixed a bug where CSS & JS files were loading on the frontend even if the admin bar was disabled
-* Fixed a compatibility issue with WooCommerce's category permalink flushing
-* Fixed an issue with the Snippet Shortcode occurring with a Non-numeric value
-* Fixed an issue with the redirections where QueryString with trailing slash `/` was not working fine
-* Fixed few typos in the description of the helping text
-* Fixed an issue with the auto-update. It should be working fine now.
-* Fixed a compatibility bug with WPML
+= 1.0.32 [Aug 28, 2019] =
+* Improved WooCommerce's module for speed and readability
+* Added complete compatibility for the BuddyPress plugin
+* Added Rank Math's options in the [Screen options](https://i.rankmath.com/uy1kCn) for users with `onpage_general` capability (like Editors etc.)
+* Added redirection to old product links, to the new ones, when Remove Product Base option was turned on. Previously the plugin was only adding a Canonical URL
+* Added changes in the Setup wizard to make it more GDPR-friendly
+* Added a [filter to hide SEO scores](https://rankmath.com/kb/filters-hooks-api-developer/#hide-seo-score)
+* Updated all date() to date_i18n() functions
+* Removed default Schema from About & Contact pages
+* Fixed an issue where the plugin was not obeying the DISALLOW_FILE_EDIT rule
+* Fixed Dashboard widget showing an empty box instead of hiding itself when the permissions were not correct
+* Fixed Redirection issues when + or ? were used in the source URLs. They should be working fine now
+* Fixed an issue with the redirection to the document file showing a 404 page. Document files should normally open now as expected
+* Fixed a CSS overflow in SEO Analysis when long URLs were displayed
+* Fixed Robots.txt editor not working when the site was set to NoIndex
+* Fixed an issue where the auto-generated description was removing diacritics from the preview area
+* Fixed an issue where About Us and Contact pages were not showing in the Organization data of Schema Markup
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://s.rankmath.com/changelog)**

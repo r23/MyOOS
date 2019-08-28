@@ -72,12 +72,6 @@ class Option_Center implements Runner {
 				/* translators: Link to kb article */
 				'desc'  => sprintf( esc_html__( 'Here you can enter verification codes for various third-party webmaster tools. %s You can safely paste the full HTML tags, or just the ID codes.', 'rank-math' ), '<a href="' . KB::get( 'webmaster-tools' ) . '" target="_blank">' . esc_html__( 'Learn more', 'rank-math' ) . '</a>.<br />' ),
 			],
-			'robots'      => [
-				'icon'  => 'fa fa-simplybuilt',
-				'title' => esc_html__( 'Edit robots.txt', 'rank-math' ),
-				/* translators: Link to kb article */
-				'desc'  => sprintf( esc_html__( 'Here you can edit the virtual robots.txt file. Leave the field empty to let WordPress handle the contents dynamically. If an actual robots.txt file is present in the root folder of your site, this option won\'t take effect and you have to edit the file directly, or delete it and then edit from here. %s.', 'rank-math' ), '<a href="' . KB::get( 'edit-robotstxt' ) . '" target="_blank">' . esc_html__( 'Learn more', 'rank-math' ) . '</a>' ),
-			],
 			'htaccess'    => [
 				'icon'  => 'fa fa-file',
 				'title' => esc_html__( 'Edit .htaccess', 'rank-math' ),

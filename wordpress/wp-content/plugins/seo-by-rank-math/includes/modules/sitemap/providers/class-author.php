@@ -95,7 +95,7 @@ class Author implements Provider {
 			$mod = isset( $user->last_update ) ? $user->last_update : strtotime( $user->user_registered );
 			$url = array(
 				'loc' => $author_link,
-				'mod' => date( DATE_W3C, $mod ),
+				'mod' => date_i18n( DATE_W3C, $mod ),
 			);
 
 			/** This filter is documented at includes/modules/sitemap/providers/class-post-type.php */

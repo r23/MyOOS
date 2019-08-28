@@ -72,6 +72,11 @@ class Admin implements Runner {
 	 * Register dashboard widget.
 	 */
 	public function add_dashboard_widgets() {
+		// Early Bail if action is not registered for the dashboard widget hook.
+		if ( ! has_action( 'rank_math/dashboard/widget' ) ) {
+			return;
+		}
+
 		wp_add_dashboard_widget( 'rank_math_dashboard_widget', esc_html__( 'Rank Math', 'rank-math' ), [ $this, 'render_dashboard_widget' ] );
 	}
 

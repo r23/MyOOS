@@ -54,7 +54,7 @@ if ( $is_empty ) {
 		'type'    => 'notice',
 		'what'    => 'error',
 		/* translators: date */
-		'content' => sprintf( __( 'The data sets are empty in your cache. You can wait for the next cronjob (%s) or <strong>Update Manually</strong>.', 'rank-math' ), date( 'd/m/Y 00:00:00', strtotime( '+1 days' ) ) ) .
+		'content' => sprintf( __( 'The data sets are empty in your cache. You can wait for the next cronjob (%s) or <strong>Update Manually</strong>.', 'rank-math' ), date_i18n( 'd/m/Y 00:00:00', strtotime( '+1 days' ) ) ) .
 		'<p class="note">' . __( '<strong>Note:</strong> Please update your data by clicking on \'Update Manually\'. Google only stores data from the last 90 days - a dataset older than that can\'t be updated anymore.', 'rank-math' ) . '</p>',
 	]);
 }

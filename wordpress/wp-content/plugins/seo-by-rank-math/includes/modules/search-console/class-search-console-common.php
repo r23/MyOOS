@@ -64,7 +64,7 @@ class Search_Console_Common extends Module {
 		$crawler = new Data_Fetcher;
 		$start   = Helper::get_midnight( time() - DAY_IN_SECONDS );
 
-		$crawler->push_to_queue( date( 'Y-m-d', $start - ( DAY_IN_SECONDS * 2 ) ) );
+		$crawler->push_to_queue( date_i18n( 'Y-m-d', $start - ( DAY_IN_SECONDS * 2 ) ) );
 		$crawler->save()->dispatch();
 	}
 }
