@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - AMP - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-08-08 06:05:11+0000\n"
+"PO-Revision-Date: 2019-08-25 10:50:40+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,367 +11,487 @@ msgstr ""
 "Language: de\n"
 "Project-Id-Version: Plugins - AMP - Stable (latest release)\n"
 
-#: assets/js/amp-block-validation.js:5
-msgid "Remove Block"
-msgstr "Block entfernen"
+#. translators: %s: error message describing the problem
+#: assets/js/wp-server-side-render.js:3
+msgid "Error loading block: %s"
+msgstr "Fehler beim Laden des Blocks: %s"
 
-#: assets/js/amp-block-editor.js:11
-msgid "AMP stories"
+#: assets/js/amp-stories-editor.js:34
+msgid "Inline Text Color"
+msgstr "Inline-Textfarbe"
+
+#: assets/js/amp-stories-editor.js:34
+msgid "Inline Background Color"
+msgstr "Inline-Hintergrundfarbe"
+
+#: assets/js/amp-stories-editor.js:34
+msgid "Highlight Color"
+msgstr "Highlight-Farbe"
+
+#: assets/js/amp-stories-editor.js:32
+msgctxt "background media"
+msgid "Remove"
+msgstr "Entfernen"
+
+#: assets/js/amp-stories-editor.js:26
+msgid "Export Story"
+msgstr "Story exportieren"
+
+#: assets/js/amp-stories-editor.js:26
+msgid "Generating story archive…"
+msgstr "Story-Archiv generieren…"
+
+#: assets/js/amp-stories-editor.js:26
+msgid "Could not generate story archive."
+msgstr "Das Story-Archiv konnte nicht generiert werden."
+
+#: assets/js/amp-stories-editor.js:26
+msgid "Select or Upload Media"
+msgstr "Medium wählen oder hochladen"
+
+#. translators: %d: the number of actual megabytes per second
+#: assets/js/amp-stories-editor.js:20
+msgid "Write caption…"
+msgstr "Schreibe eine Beschriftung…"
+
+#: assets/js/amp-stories-editor.js:16
+msgid "Loop"
+msgstr "Schleife"
+
+#: assets/js/amp-stories-editor.js:16
+msgid "Video Settings"
+msgstr "Video-Einstellungen"
+
+#: assets/js/amp-stories-editor.js:16
+msgid "Edit video"
+msgstr "Video bearbeiten"
+
+#: assets/js/amp-stories-editor.js:14
+msgid "Note: If you turn this off, the current caption text will be removed."
+msgstr "Hinweis: Wenn du dies deaktivierst, wird der aktuelle Beschriftungs-Text entfernt."
+
+#: assets/js/amp-stories-editor.js:14
+msgid "Display Caption"
+msgstr "Beschriftung anzeigen"
+
+#: assets/js/amp-stories-editor.js:14
+msgid "Add element"
+msgstr "Element hinzufügen"
+
+#: assets/js/amp-stories-editor.js:14
+msgid "Search for an element"
+msgstr "Element suchen"
+
+#: assets/js/amp-block-editor.js:15
+msgid "Display your most recent stories."
+msgstr "Deine neuesten Stories anzeigen."
+
+#: assets/js/amp-block-editor.js:15
+msgid "Content ID (required)"
+msgstr "Content ID (erforderlich)"
+
+#: assets/js/amp-block-editor.js:15
+msgid "Site ID (required)"
+msgstr "Site ID (erforderlich)"
+
+#: assets/js/amp-block-editor.js:15
+msgid "Embed ID (required)"
+msgstr "Embed ID (erforderlich)"
+
+#: assets/js/amp-block-editor.js:15
+msgid "Partner ID (required)"
+msgstr "Partner ID (erforderlich)"
+
+#. translators: 1: the recommended max MB per second for videos. 2: the actual
+#. MB per second of the video.
+#: assets/js/amp-block-editor.js:15 assets/js/amp-stories-editor.js:26
+msgid "A video size of less than %1$s MB per second is recommended. The selected video is %2$s MB per second."
+msgstr "Es ist empfohlen, dass die Videogröße weniger als %1$s MB pro Sekunde beträgt. Das ausgewählte Video ist %2$s MB pro Sekunde groß."
+
+#. translators: 1: the selected file type.
+#: assets/js/amp-block-editor.js:13 assets/js/amp-stories-editor.js:24
+msgid "The selected file mime type, %1$s, is not allowed."
+msgstr "Der ausgewählte Dateityp, %1$s ist nicht erlaubt."
+
+#: includes/class-amp-story-post-type.php:2022
+msgid "Could not open the generated ZIP archive."
+msgstr "Das generierte ZIP-Archiv konnte nicht geöffnet werden."
+
+#: includes/class-amp-story-post-type.php:1973
+msgid "Could not retrieve story HTML."
+msgstr "Das Story-HTML konnte nicht abgerufen werden."
+
+#. translators: %s is the ZipArchive error code.
+#: includes/class-amp-story-post-type.php:1948
+msgid "There was an error generating the ZIP archive. Error code: %s"
+msgstr "Es gab einen Fehler beim Generieren des ZIP-Archivs. Fehlercode: %s"
+
+#: includes/class-amp-story-post-type.php:1937
+msgid "The story does not exist."
+msgstr "Die Story existiert nicht."
+
+#: includes/class-amp-story-post-type.php:1921
+msgid "Could not generate the story archive."
+msgstr "Das Story-Archiv konnte nicht generiert werden."
+
+#: includes/class-amp-story-post-type.php:1891
+msgid "Save the story before exporting."
+msgstr "Story speichern, bevor sie exportiert wird."
+
+#. translators: %s is the ZipArchive class name.
+#: includes/class-amp-story-post-type.php:1881
+msgid "The %s class is required to export stories."
+msgstr "Die Klasse %s ist erforderlich, um Stories zu exportieren."
+
+#: includes/class-amp-story-post-type.php:1870
+msgid "You do not have the required permissions to export stories."
+msgstr "Du hast nicht die erforderlichen Berechtigungen, um Stories zu exportieren."
+
+#: includes/class-amp-story-media.php:369
+msgid "The ID of the featured media for the object."
+msgstr "Die ID des Beitragsbilds für das Objekt."
+
+#: includes/class-amp-story-media.php:223
+msgid "Story Page"
+msgstr "Story-Seite"
+
+#: includes/class-amp-story-media.php:71
+msgid "Whether the attachment is a poster image."
+msgstr "Ob der Anhang ein Vorschaubild ist."
+
+#: includes/options/class-amp-options-menu.php:668
+msgid "AMP requires most asset URLs to be absolute as opposed to relative. In order to export stories with the desired absolute URLs, you can provide the required URL base here. This base URL will be used for the uploaded files, as well as, links to other stories. If left empty, the default URLs will be used. Meaning, uploaded images and videos will be referenced from the WordPress install. Remember that the provided URL should be HTTPS."
+msgstr "AMP erfordert, dass die meisten Asset-URLs absolut und nicht relativ sind. Um Stories mit den gewünschten absoluten URLs zu exportieren, kannst du hier die gewünschte Basis-URL angeben. Diese Basis-URL wird für die hochgeladenen Dateien sowie für Links zu anderen Stories benutzt. Wenn leer gelassen, werden die Standard-URLs benutzt. Das heißt, hochgeladene Bilder und Videos werden von der WordPress-Installation aus referenziert. Denke daran, dass die angegebene URL HTTPS sein sollte."
+
+#: includes/options/class-amp-options-menu.php:663
+msgid "Base URL for exported stories."
+msgstr "Basis-URL für exportierte Stories."
+
+#: includes/options/class-amp-options-menu.php:128
+msgid "Stories Export"
+msgstr "Stories-Export"
+
+#: assets/js/wp-server-side-render.js:1
+msgid "Block rendered as empty."
+msgstr "Der Block wurde als leer gerendert."
+
+#: assets/js/amp-block-editor.js:15
+msgid "AMP Stories"
 msgstr "AMP Stories"
 
-#: assets/js/amp-block-editor.js:11
-msgid "Recent stories"
+#: assets/js/amp-block-editor.js:15
+msgid "recent stories"
 msgstr "Neuste Stories"
 
-#: assets/js/amp-block-editor.js:11
-msgid "See the latest AMP stories"
-msgstr "Schau die letzten AMP Stories an"
-
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Latest Stories"
 msgstr "Neuste Stories"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Latest Stories Settings"
 msgstr "Einstellungen – Neueste Stories"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Time ago"
 msgstr "Verstrichene Zeit"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Time difference"
 msgstr "Zeit Unterschied"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "AMP Timeago"
 msgstr "AMP Timeago"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Cutoff (seconds)"
 msgstr "Abschaltung (Sekunden)"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "AMP Timeago Settings"
 msgstr "AMP-Timeago-Einstellungen"
 
-#: assets/js/amp-block-editor.js:5 assets/js/amp-block-validation.js:1
+#: assets/js/amp-block-editor.js:9 assets/js/amp-block-validation.js:1
 msgctxt "font size"
 msgid "XL"
 msgstr "XL"
 
-#: assets/js/amp-block-editor.js:5 assets/js/amp-block-validation.js:1
+#: assets/js/amp-block-editor.js:9 assets/js/amp-block-validation.js:1
 msgctxt "font size"
 msgid "L"
 msgstr "L"
 
-#: assets/js/amp-block-editor.js:5 assets/js/amp-block-validation.js:1
+#: assets/js/amp-block-editor.js:9 assets/js/amp-block-validation.js:1
 msgctxt "font size"
 msgid "M"
 msgstr "M"
 
-#: assets/js/amp-block-editor.js:5 assets/js/amp-block-validation.js:1
+#: assets/js/amp-block-editor.js:9 assets/js/amp-block-validation.js:1
 msgctxt "font size"
 msgid "S"
 msgstr "S"
 
-#: assets/js/amp-stories-editor.js:26
+#: assets/js/amp-stories-editor.js:34
 msgid "paragraph"
 msgstr "Absatz"
 
-#: assets/js/amp-stories-editor.js:26
+#: assets/js/amp-stories-editor.js:34
 msgid "heading"
 msgstr "Überschrift"
 
-#: assets/js/amp-stories-editor.js:26
-msgid "Add free-form text to your story"
-msgstr "Füge Freitext zu deiner Story hinzu"
+#: assets/js/amp-stories-editor.js:34
+msgid "Add free-form text to your story."
+msgstr "Füge Freitext zu deiner Story hinzu."
 
-#: assets/js/amp-stories-editor.js:26
+#: assets/js/amp-stories-editor.js:34
 msgid "Text"
 msgstr "Text"
 
-#: assets/js/amp-stories-editor.js:26
+#: assets/js/amp-stories-editor.js:34
 msgid "Page"
 msgstr "Seite"
 
-#: assets/js/amp-stories-editor.js:26
-msgid "A minimum time is enforced because there are animated blocks on this page"
-msgstr "Eine minimale Zeit wird erzwungen, da es auf dieser Seite animierte Blöcke gibt"
+#: assets/js/amp-stories-editor.js:34
+msgid "A minimum time is enforced because there are animated blocks on this page."
+msgstr "Eine minimale Zeit wird erzwungen, da es auf dieser Seite animierte Blöcke gibt."
 
-#: assets/js/amp-stories-editor.js:26
+#: assets/js/amp-stories-editor.js:34
 msgid "Time in seconds"
 msgstr "Zeit in Sekunden"
 
-#: assets/js/amp-stories-editor.js:26
+#: assets/js/amp-stories-editor.js:34
 msgid "Advance to next page"
 msgstr "Zur nächsten Seite springen"
 
-#: assets/js/amp-stories-editor.js:26
+#: assets/js/amp-stories-editor.js:34
 msgid "Page Settings"
 msgstr "Seiteneinstellungen"
 
-#: assets/js/amp-stories-editor.js:26
+#: assets/js/amp-stories-editor.js:34
 msgid "Focal Point Picker"
 msgstr "Fokuspunkt-Auswahl"
 
-#: assets/js/amp-stories-editor.js:26
-msgid "Remove Poster Image"
-msgstr "Vorschaubild entfernen"
-
-#: assets/js/amp-stories-editor.js:26
+#: assets/js/amp-stories-editor.js:16 assets/js/amp-stories-editor.js:34
 msgid "Set Poster Image"
 msgstr "Vorschaubild auswählen"
 
-#: assets/js/amp-stories-editor.js:26
+#: assets/js/amp-stories-editor.js:16 assets/js/amp-stories-editor.js:34
 msgid "Replace Poster Image"
 msgstr "Vorschaubild ersetzen"
 
-#: assets/js/amp-stories-editor.js:26
+#: assets/js/amp-stories-editor.js:16 assets/js/amp-stories-editor.js:34
 msgid "Select Poster Image"
 msgstr "Vorschaubild auswählen"
 
 #. translators: 1: 720p. 2: 720w. 3: 1280h
-#: assets/js/amp-stories-editor.js:26
+#: assets/js/amp-stories-editor.js:16 assets/js/amp-stories-editor.js:34
 msgid "A poster image must be set."
 msgstr "Es muss ein Vorschaubild ausgewählt werden."
 
 #. translators: 1: 720p. 2: 720w. 3: 1280h
-#: assets/js/amp-stories-editor.js:26
+#: assets/js/amp-stories-editor.js:34
 msgid "The recommended dimensions for a poster image are: %1$s (%2$s x %3$s)"
 msgstr "Die empfohlenen Abmessungen für ein Vorschaubild sind: %1$s (%2$s x %3$s)"
 
-#: assets/js/amp-stories-editor.js:24
+#: assets/js/amp-stories-editor.js:16 assets/js/amp-stories-editor.js:32
 msgid "Poster Image"
 msgstr "Vorschaubild"
 
-#: assets/js/amp-stories-editor.js:24
-msgid "Remove image"
-msgstr "Bild entfernen"
-
-#: assets/js/amp-stories-editor.js:24
-msgid "Remove Video"
-msgstr "Video entfernen"
-
-#: assets/js/amp-stories-editor.js:24
+#: assets/js/amp-stories-editor.js:32
 msgid "Select Media"
 msgstr "Datei auswählen"
 
 #. translators: %d: the number of actual megabytes per second
-#: assets/js/amp-stories-editor.js:24
+#: assets/js/amp-stories-editor.js:32
 msgid "Change Media"
 msgstr "Datei ersetzen"
 
 #. translators: %d: the number of actual megabytes per second
-#: assets/js/amp-stories-editor.js:24
+#: assets/js/amp-stories-editor.js:20 assets/js/amp-stories-editor.js:32
 msgid "The selected video is %d MB per second."
 msgstr "Das ausgewählte Video hat %d MB pro Sekunde."
 
 #. translators: %d: the number of recommended megabytes per second
-#: assets/js/amp-stories-editor.js:22
+#: assets/js/amp-stories-editor.js:18 assets/js/amp-stories-editor.js:30
 msgid "A video size of less than %d MB per second is recommended."
 msgstr "Eine Videogröße mit weniger als %d MB pro Sekunde ist empfohlen."
 
-#: assets/js/amp-stories-editor.js:20
+#: assets/js/amp-stories-editor.js:28
 msgid "Background Media"
 msgstr "Hintergrundbild/-video"
 
-#: assets/js/amp-stories-editor.js:20
+#: assets/js/amp-stories-editor.js:14 assets/js/amp-stories-editor.js:28
 msgid "Opacity"
 msgstr "Transparenz"
 
-#: assets/js/amp-stories-editor.js:20
+#: assets/js/amp-stories-editor.js:28
 msgid "Remove Gradient"
 msgstr "Verlauf entfernen"
 
-#: assets/js/amp-stories-editor.js:20
+#: assets/js/amp-stories-editor.js:28
 msgid "Add Gradient"
 msgstr "Verlauf hinzufügen"
 
-#: assets/js/amp-stories-editor.js:20
+#: assets/js/amp-stories-editor.js:28
 msgid "Based on the duration of all animated blocks on the page"
 msgstr "Basierend auf der Dauer aller animierten Blöcke auf der Seite"
 
-#: assets/js/amp-stories-editor.js:20
+#: assets/js/amp-stories-editor.js:28
 msgid "Based on the first media block encountered on the page"
 msgstr "Basierend auf dem ersten Medien-Block auf der Seite"
 
-#: assets/js/amp-stories-editor.js:20
+#: assets/js/amp-stories-editor.js:28
 msgid "After media has played"
 msgstr "Nachdem die Medien abgespielt wurden"
 
-#: assets/js/amp-stories-editor.js:20
+#: assets/js/amp-stories-editor.js:28
 msgid "After a certain time"
 msgstr "Nach einer gewissen Zeit"
 
-#: assets/js/amp-stories-editor.js:20
+#: assets/js/amp-stories-editor.js:28
 msgid "Manual"
 msgstr "Manuell"
 
-#: assets/js/amp-stories-editor.js:20
+#: assets/js/amp-stories-editor.js:28
 msgid "To edit the background image or video, you need permission to upload media."
 msgstr "Du benötigst die Berechtigung, Medien hochzuladen, um das Hintergrund-Bild oder -Video bearbeiten zu können."
 
 #. translators: %s: color number
-#: assets/js/amp-stories-editor.js:20
+#: assets/js/amp-stories-editor.js:28
 msgid "Color %s"
 msgstr "Farbe %s"
 
-#: assets/js/amp-stories-editor.js:18 assets/js/amp-stories-editor.js:20
+#: assets/js/amp-stories-editor.js:26 assets/js/amp-stories-editor.js:28
 msgid "Color"
 msgstr "Farbe"
 
-#: assets/js/amp-stories-editor.js:18
+#: assets/js/amp-stories-editor.js:26
 msgid "button"
 msgstr "Button"
 
-#: assets/js/amp-stories-editor.js:18
+#: assets/js/amp-stories-editor.js:26
 msgid "cta"
 msgstr "CTA"
 
-#: assets/js/amp-stories-editor.js:18
-msgid "call to action"
-msgstr "Call to Action"
-
-#: assets/js/amp-stories-editor.js:18
+#: assets/js/amp-stories-editor.js:26
 msgid "Prompt visitors to take action with a button-style link."
 msgstr "Besucher mit einem Link im Button-Stil auffordern, aktiv zu werden."
 
-#: assets/js/amp-stories-editor.js:18
+#: assets/js/amp-stories-editor.js:26
 msgid "Call to Action"
 msgstr "Call to Action"
 
-#: assets/js/amp-stories-editor.js:18
+#: assets/js/amp-stories-editor.js:26
 msgid "Apply"
 msgstr "Anwenden"
 
-#: assets/js/amp-stories-editor.js:18
+#: assets/js/amp-stories-editor.js:26
 msgid "Add text…"
 msgstr "Text hinzufügen…"
 
-#: assets/js/amp-stories-editor.js:18
+#: assets/js/amp-stories-editor.js:26
 msgid "Add story title…"
 msgstr "Story-Titel hinzufügen..."
 
-#: assets/js/amp-stories-editor.js:18 assets/js/amp-stories-editor.js:26
+#: assets/js/amp-stories-editor.js:26 assets/js/amp-stories-editor.js:34
 msgid "title"
 msgstr "Titel"
 
-#: assets/js/amp-stories-editor.js:18
+#: assets/js/amp-stories-editor.js:26
 msgid "Display the story title. Modify by changing the overall title of the document."
 msgstr "Story-Titel anzeigen. Kann durch eine Anpassung des Dokumententitels geändert werden."
 
-#: assets/js/amp-stories-editor.js:18
+#: assets/js/amp-stories-editor.js:26
 msgid "Story Title"
 msgstr "Story-Titel"
 
-#: assets/js/amp-stories-editor.js:18
-msgid "date"
-msgstr "Datum"
-
-#: assets/js/amp-stories-editor.js:18
-msgid "published date"
-msgstr "Veröffentlichungsdatum"
-
-#: assets/js/amp-stories-editor.js:18
+#: assets/js/amp-stories-editor.js:26
 msgid "publish date"
 msgstr "Veröffentlichungsdatum"
 
-#: assets/js/amp-stories-editor.js:18
+#: assets/js/amp-stories-editor.js:26
 msgid "Display the publish date of the story. Modify by changing the date in the document settings."
 msgstr "Publikationsdatum der Story anzeigen. Kann durch eine Anpassung des Datums in den Dokumenteneinstellungen geändert werden."
 
-#: assets/js/amp-stories-editor.js:18
+#: assets/js/amp-stories-editor.js:26
 msgid "Story Date"
 msgstr "Story-Datum"
 
-#: assets/js/amp-stories-editor.js:18
+#: assets/js/amp-stories-editor.js:26
 msgid "byline"
 msgstr "Autorenzeile"
 
-#: assets/js/amp-stories-editor.js:18
+#: assets/js/amp-stories-editor.js:26
 msgid "name"
 msgstr "Name"
 
-#: assets/js/amp-stories-editor.js:18
+#: assets/js/amp-stories-editor.js:26
 msgid "author"
 msgstr "Autor"
 
-#: assets/js/amp-stories-editor.js:18
+#: assets/js/amp-stories-editor.js:26
 msgid "post"
 msgstr "Beitrag"
 
-#: assets/js/amp-stories-editor.js:18
+#: assets/js/amp-stories-editor.js:26
 msgid "Display the name of the story’s author. Modify by changing the author in the document settings."
 msgstr "Name des Story-Autors anzeigen. Kann durch eine Anpassung des Autors in den Dokumenteneinstellungen geändert werden."
 
-#: assets/js/amp-stories-editor.js:18
+#: assets/js/amp-stories-editor.js:26
 msgid "Story Author"
 msgstr "Story-Autor"
 
-#: assets/js/amp-stories-editor.js:18
+#: assets/js/amp-stories-editor.js:26
 msgid "Save as Template"
 msgstr "Als Template speichern"
 
-#: assets/js/amp-stories-editor.js:18
+#: assets/js/amp-stories-editor.js:26
 msgid "Template"
 msgstr "Template"
 
-#: assets/js/amp-stories-editor.js:18
+#: assets/js/amp-stories-editor.js:26
 msgid "White"
 msgstr "Weiß"
 
-#: assets/js/amp-stories-editor.js:18
+#: assets/js/amp-stories-editor.js:26
 msgid "Half Rounded"
 msgstr "Halb-abgerundet"
 
-#: assets/js/amp-stories-editor.js:18
+#: assets/js/amp-stories-editor.js:26
 msgid "Rounded"
 msgstr "Abgerundet"
 
-#: assets/js/amp-stories-editor.js:18 assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15 assets/js/amp-stories-editor.js:26
 msgid "Choose image"
 msgstr "Bild auswählen"
 
-#. translators: 1: image width in pixels. 2: image height in pixels. 3:
-#. required minimum width in pixels. 4: required minimum height in pixels.
-#: assets/js/amp-stories-editor.js:18 assets/js/amp-block-editor.js:11
+#. translators: 1: the recommended max MB per second for videos. 2: the actual
+#. MB per second of the video.
+#: assets/js/amp-block-editor.js:15 assets/js/amp-stories-editor.js:26
 msgid "Select"
 msgstr "Auswählen"
 
 #. translators: 1: image width in pixels. 2: image height in pixels. 3:
 #. required minimum width in pixels. 4: required minimum height in pixels.
-#: assets/js/amp-stories-editor.js:18 assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:11 assets/js/amp-stories-editor.js:22
 msgid "The selected image is too small (%1$s by %2$s pixels). It should have a size of at least %3$s by %4$s pixels."
 msgstr "Das ausgewählte Bild ist zu klein (%1$s x %2$s Pixel). Es sollte mindestens eine Größe von %3$s mal %4$s Pixel besitzen."
 
-#: assets/js/amp-stories-editor.js:16
-msgid "A poster is required for videos in stories."
-msgstr "Für Videos in Stories ist ein Vorschaubild erforderlich."
-
-#: assets/js/amp-stories-editor.js:16
+#: assets/js/amp-stories-editor.js:20
 msgid "This block can not be used on the first page."
 msgstr "Dieser Block kann nicht auf der ersten Seite benutzt werden."
 
-#: assets/js/amp-stories-editor.js:16
+#: assets/js/amp-stories-editor.js:20
 msgid "This block can only be used once per page."
 msgstr "Dieser Block kann nur einmal pro Seite benutzt werden."
 
-#: assets/js/amp-stories-editor.js:16
+#: assets/js/amp-stories-editor.js:20
 msgid "Find original"
 msgstr "Original suchen"
 
-#: assets/js/amp-stories-editor.js:16
+#: assets/js/amp-stories-editor.js:20
 msgid "Remove"
 msgstr "Entfernen"
-
-#: assets/js/amp-stories-editor.js:14
-msgid "Toggle on to show image caption. If you turn this off the current caption text will be deleted."
-msgstr "Aktivieren, um die Bildunterschrift anzuzeigen. Wenn du dies abschaltest, wird der aktuelle Bildunterschriften-Text gelöscht."
-
-#: assets/js/amp-stories-editor.js:14
-msgid "Show or hide the caption"
-msgstr "Bildunterschrift anzeigen oder ausblenden"
 
 #: assets/js/amp-stories-editor.js:14
 msgid "Story Settings"
@@ -381,15 +501,11 @@ msgstr "Story-Einstellungen"
 msgid "Animation"
 msgstr "Animation"
 
-#: assets/js/amp-stories-editor.js:14
-msgid "Background Opacity"
-msgstr "Hintergrund-Deckkraft"
-
-#: assets/js/amp-stories-editor.js:14
+#: assets/js/amp-stories-editor.js:14 assets/js/amp-stories-editor.js:34
 msgid "Text Color"
 msgstr "Textfarbe"
 
-#: assets/js/amp-stories-editor.js:14 assets/js/amp-stories-editor.js:20
+#: assets/js/amp-stories-editor.js:14 assets/js/amp-stories-editor.js:28
 msgid "Background Color"
 msgstr "Hintergrundfarbe"
 
@@ -413,7 +529,7 @@ msgstr "Absatz"
 msgid "Select text type"
 msgstr "Textart auswählen"
 
-#: assets/js/amp-stories-editor.js:14 assets/js/amp-block-editor.js:5
+#: assets/js/amp-block-editor.js:9 assets/js/amp-stories-editor.js:14
 #: assets/js/amp-block-validation.js:1
 msgid "Automatically fit text to container"
 msgstr "Text automatisch an Container anpassen"
@@ -463,14 +579,6 @@ msgid "Anonymous"
 msgstr "Anonym"
 
 #: assets/js/amp-stories-editor.js:14
-msgid "Add a block"
-msgstr "Einen Block hinzufügen"
-
-#: assets/js/amp-stories-editor.js:14
-msgid "Add block"
-msgstr "Block hinzufügen"
-
-#: assets/js/amp-stories-editor.js:14
 msgid "No blocks found."
 msgstr "Keine Blöcke gefunden."
 
@@ -490,10 +598,6 @@ msgstr "Häufig genutzt"
 #: assets/js/amp-stories-editor.js:14
 msgid "Available block types"
 msgstr "Verfügbare Block-Typen"
-
-#: assets/js/amp-stories-editor.js:14
-msgid "Search for a block"
-msgstr "Suche nach einem Block"
 
 #: assets/js/amp-stories-editor.js:14
 msgid "%d result found."
@@ -607,20 +711,20 @@ msgid "Animation Type"
 msgstr "Animationsart"
 
 #. translators: 1: minimum width, 2: minimum height.
-#: assets/js/amp-stories-editor.js:7 assets/js/amp-block-editor.js:9
+#: assets/js/amp-block-editor.js:9 assets/js/amp-stories-editor.js:7
 msgid "The featured image should have a size of at least %1$s by %2$s pixels."
 msgstr "Das Beitragsbild sollte mindestens eine Größe von %1$s x %2$s Pixel besitzen."
 
 #. translators: 1: .jpg, 2: .png. 3: .gif
-#: assets/js/amp-stories-editor.js:5 assets/js/amp-block-editor.js:7
+#: assets/js/amp-block-editor.js:7 assets/js/amp-stories-editor.js:5
 msgid "The featured image must be in %1$s, %2$s, or %3$s format."
 msgstr "Das Beitragsbild muss das Format %1$s, %2$s, oder %3$s haben."
 
-#: assets/js/amp-stories-editor.js:3 assets/js/amp-block-editor.js:5
+#: assets/js/amp-block-editor.js:5 assets/js/amp-stories-editor.js:3
 msgid "Selecting a featured image is recommended for an optimal user experience."
 msgstr "Für ein optimales Nutzererlebnis ist es empfehlenswert, ein Beitragsbild auszuwählen."
 
-#: assets/js/amp-stories-editor.js:3 assets/js/amp-block-editor.js:5
+#: assets/js/amp-block-editor.js:5 assets/js/amp-stories-editor.js:3
 msgid "Selecting a featured image is required."
 msgstr "Die Auswahl eines Beitragsbildes ist zwingend erforderlich."
 
@@ -733,10 +837,6 @@ msgstr "Fallen"
 msgid "None"
 msgstr "Keine"
 
-#: includes/sanitizers/class-amp-form-sanitizer.php:189
-msgid "Learn more"
-msgstr "Mehr erfahren"
-
 #: includes/sanitizers/class-amp-form-sanitizer.php:180
 msgid "Please contact the developer of this form processor to improve this message."
 msgstr "Bitte kontaktiere den Entwickler dieses Formularprozessors, um diese Nachricht zu verbessern."
@@ -763,68 +863,68 @@ msgid "Submitting…"
 msgstr "Sendevorgang läuft …"
 
 #. translators: %s: CSS selector for admin bar element
-#: includes/sanitizers/class-amp-style-sanitizer.php:2682
+#: includes/sanitizers/class-amp-style-sanitizer.php:2716
 msgid "Admin bar (%s) was removed to preserve AMP validity due to excessive CSS."
 msgstr "Die Adminleiste (%s) wurde wegen des umfangreichen CSS entfernt, um einen gültigen AMP-Code zu erhalten."
 
 #. translators: %s: the fetched URL
-#: includes/sanitizers/class-amp-style-sanitizer.php:1229
+#: includes/sanitizers/class-amp-style-sanitizer.php:1270
 msgid "Failed to fetch: %s"
 msgstr "Konnte nicht abgerufen werden: %s"
 
 #. translators: Admin screen title. %s: Admin screen name
-#: includes/validation/class-amp-validated-url-post-type.php:2102
+#: includes/validation/class-amp-validated-url-post-type.php:2095
 msgid "%s &#8212; WordPress"
 msgstr "%s &#8212; WordPress"
 
-#: includes/admin/class-amp-story-templates.php:277
-#: includes/admin/class-amp-story-templates.php:280
+#: includes/admin/class-amp-story-templates.php:290
+#: includes/admin/class-amp-story-templates.php:293
 msgid "Story Template"
 msgstr "Story-Vorlage"
 
-#: includes/admin/class-amp-story-templates.php:221
+#: includes/admin/class-amp-story-templates.php:234
 msgid "Template: Fandom Intro"
 msgstr "Template: Fandom Intro"
 
-#: includes/admin/class-amp-story-templates.php:217
+#: includes/admin/class-amp-story-templates.php:230
 msgid "Template: Fandom Fact Text"
 msgstr "Template: Fandom Fact Text"
 
-#: includes/admin/class-amp-story-templates.php:213
+#: includes/admin/class-amp-story-templates.php:226
 msgid "Template: Fandom Fact"
 msgstr "Template: Fandom Fact"
 
-#: includes/admin/class-amp-story-templates.php:209
+#: includes/admin/class-amp-story-templates.php:222
 msgid "Template: Fandom CTA"
 msgstr "Template: Fandom CTA"
 
-#: includes/admin/class-amp-story-templates.php:205
+#: includes/admin/class-amp-story-templates.php:218
 msgid "Template: Fandom Title"
 msgstr "Template: Fandom Title"
 
-#: includes/admin/class-amp-story-templates.php:201
+#: includes/admin/class-amp-story-templates.php:214
 msgid "Template: Travel Vertical"
 msgstr "Template: Travel Vertical"
 
-#: includes/admin/class-amp-story-templates.php:197
+#: includes/admin/class-amp-story-templates.php:210
 msgid "Template: Title Page"
 msgstr "Template: Title Page"
 
-#: includes/admin/class-amp-story-templates.php:193
+#: includes/admin/class-amp-story-templates.php:206
 msgid "Template: Travel CTA"
 msgstr "Template: Travel CTA"
 
-#: includes/admin/class-amp-story-templates.php:189
+#: includes/admin/class-amp-story-templates.php:202
 msgid "Template: Quote"
 msgstr "Template: Quote"
 
-#: includes/admin/class-amp-story-templates.php:185
+#: includes/admin/class-amp-story-templates.php:198
 msgid "Template: Travel Tip"
 msgstr "Template: Travel Tip"
 
 #: includes/admin/class-amp-admin-pointers.php:99
-msgid "Head over here to create your first AMP story."
-msgstr "Beginne damit, deine erste AMP Story zu erstellen."
+msgid "Head over here to create your first story."
+msgstr "Beginne damit, deine erste Story zu erstellen."
 
 #: includes/admin/class-amp-admin-pointers.php:82
 msgid "You can now enable Stories, a visual storytelling format for the open web which immerses your readers in fast-loading, full-screen, and visually rich experiences."
@@ -834,234 +934,230 @@ msgstr "Du kannst nun Stories aktivieren, ein Storytelling-Format für das offen
 msgid "Stories"
 msgstr "Stories"
 
-#: includes/options/class-amp-options-manager.php:756
+#: includes/options/class-amp-options-manager.php:760
 msgid "Standard mode activated!"
 msgstr "Standard-Modus aktiviert!"
 
-#: includes/options/class-amp-options-menu.php:316
+#: includes/options/class-amp-options-menu.php:333
 msgid "Standard"
 msgstr "Standard"
 
-#: includes/options/class-amp-options-menu.php:301
+#: includes/options/class-amp-options-menu.php:318
 msgid "Your active theme is known to work well in standard or transitional mode."
 msgstr "Dein aktives Theme funktioniert bekanntlich gut im Standard- oder Übergangsmodus."
 
-#: includes/options/class-amp-options-menu.php:297
+#: includes/options/class-amp-options-menu.php:314
 msgid "Your active theme is known to work well in standard mode."
 msgstr "Dein aktives Theme funktioniert bekanntlich gut im Standard-Modus."
 
-#: includes/options/class-amp-options-menu.php:267
+#: includes/options/class-amp-options-menu.php:284
 msgid "You must select at least one experience."
 msgstr "Du musst mindestens ein Erlebnis auswählen."
 
 #. translators: %s: Stories documentation URL.
-#: includes/options/class-amp-options-menu.php:233
+#: includes/options/class-amp-options-menu.php:250
 msgid "Stories is a visual storytelling format for the open web which immerses your readers in fast-loading, full-screen, and visually rich experiences. Stories can be a great addition to your overall content strategy. Read more about <a href=\"%s\" target=\"_blank\">AMP Stories</a>."
 msgstr "Stories sind ein visuelles Storytelling-Format für das offene Web, welches Ihre Leser mit einem schnellen, visuell reichhaltigen Erlebnis im Vollformat in den Bann zieht. Stories können eine großartige Ergänzung deiner Content-Strategie sein. Erfahre mehr über <a href=\"%s\" target=\"_blank\">AMP Stories (engl.)</a>."
 
 #. translators: %s: Gutenberg plugin name
-#: includes/options/class-amp-options-menu.php:222
+#: includes/options/class-amp-options-menu.php:239
 msgid "To use stories, you currently must have the latest version of the %s plugin installed and activated."
 msgstr "Um Stories benutzen zu können, musst du die neuste Version des %s-Plugins installieren und aktivieren."
 
-#: includes/options/class-amp-options-menu.php:207
+#: includes/options/class-amp-options-menu.php:224
 msgid "Stories <span>Beta</span>"
 msgstr "Stories <span>Beta</span>"
 
 #. translators: %s: Stories documentation URL.
-#: includes/options/class-amp-options-menu.php:198
+#: includes/options/class-amp-options-menu.php:215
 msgid "AMP is a powerful web components framework that helps you build fast, user-first websites that monetize well. AMP puts tons of advanced capabilities at your fingertips, effectively reducing the operating and development costs of your sites. Read more about <a href=\"%s\" target=\"_blank\">AMP Websites</a>."
 msgstr "AMP ist ein leistungsfähiges Framework mit Web-Komponenten, das dir hilft, schnelle, benutzerorientierte Websites zu erstellen, die sich gut monetarisieren lassen. AMP stellt dir umfassende Zusatzfunktionen zur Verfügung, um die Betriebs- und Entwicklungskosten deiner Websites zu reduzieren. Erfahre mehr über <a href=\"%s\" target=\"_blank\">AMP Websites (engl.)</a>."
 
-#: includes/options/class-amp-options-menu.php:190
+#: includes/options/class-amp-options-menu.php:207
 msgid "Website"
 msgstr "Website"
 
-#: includes/options/class-amp-options-menu.php:92
+#: includes/options/class-amp-options-menu.php:95
 msgid "Website Mode"
 msgstr "Website-Modus"
 
-#: includes/options/class-amp-options-menu.php:81
+#: includes/options/class-amp-options-menu.php:84
 msgid "Experiences"
 msgstr "Erlebnisse"
 
-#: includes/class-amp-http.php:379
+#: includes/class-amp-http.php:378
 msgid "Redirecting…"
 msgstr "Leite weiter…"
 
-#: includes/class-amp-story-post-type.php:1545
-msgid "AMP Story Max Size"
-msgstr "Maximale Größe der AMP Story"
-
-#: includes/class-amp-story-post-type.php:1416
+#: includes/class-amp-story-media.php:319
 msgid "Image could not be processed. Please go back and try again."
 msgstr "Bild konnte nicht verarbeitet werden. Bitte gehe zurück und versuche es erneut."
 
 #. translators: 1: the post author. 2: the amount of time ago.
-#: includes/class-amp-story-post-type.php:1190
+#: includes/class-amp-story-post-type.php:1575
 msgid "%1$s &#8226; %2$s ago"
 msgstr "%1$s &#8226; vor %2$s"
 
-#: includes/class-amp-story-post-type.php:940
+#: includes/class-amp-story-post-type.php:1175
 msgctxt "Add new subset (greek, cyrillic, devanagari, vietnamese)"
 msgid "no-subset"
 msgstr "no-subset"
 
-#: includes/class-amp-story-post-type.php:196
-#: assets/js/amp-stories-editor.js:26
+#: includes/class-amp-story-post-type.php:175
+#: assets/js/amp-stories-editor.js:34
 msgid "Write text…"
 msgstr "Text schreiben..."
 
-#: includes/class-amp-story-post-type.php:167
+#: includes/class-amp-story-post-type.php:146
 msgctxt "add new on admin bar"
 msgid "Story"
 msgstr "Story"
 
-#: includes/class-amp-story-post-type.php:166
+#: includes/class-amp-story-post-type.php:145
 msgctxt "admin menu"
 msgid "Stories"
 msgstr "Stories"
 
-#: includes/class-amp-story-post-type.php:165
+#: includes/class-amp-story-post-type.php:144
 msgid "Story updated."
 msgstr "Story aktualisiert."
 
-#: includes/class-amp-story-post-type.php:164
+#: includes/class-amp-story-post-type.php:143
 msgid "Story scheduled"
 msgstr "Story geplant"
 
-#: includes/class-amp-story-post-type.php:163
+#: includes/class-amp-story-post-type.php:142
 msgid "Story reverted to draft."
 msgstr "Story auf Entwurf zurückgesetzt."
 
-#: includes/class-amp-story-post-type.php:162
-msgid "SStory published privately."
+#: includes/class-amp-story-post-type.php:141
+msgid "Story published privately."
 msgstr "Story privat veröffentlicht."
 
-#: includes/class-amp-story-post-type.php:161
+#: includes/class-amp-story-post-type.php:140
 msgid "Story published."
 msgstr "Story veröffentlicht."
 
-#: includes/class-amp-story-post-type.php:160
+#: includes/class-amp-story-post-type.php:139
 msgid "Stories list"
 msgstr "Stories-Liste"
 
-#: includes/class-amp-story-post-type.php:159
+#: includes/class-amp-story-post-type.php:138
 msgid "Stories list navigation"
 msgstr "Navigation für Stories-Liste"
 
-#: includes/class-amp-story-post-type.php:158
+#: includes/class-amp-story-post-type.php:137
 msgid "Filter stories list"
 msgstr "Stories-Liste filtern"
 
-#: includes/class-amp-story-post-type.php:157
+#: includes/class-amp-story-post-type.php:136
 msgid "Use as featured image"
 msgstr "Als Beitragsbild nutzen"
 
-#: includes/class-amp-story-post-type.php:156
+#: includes/class-amp-story-post-type.php:135
 msgid "Remove featured image"
 msgstr "Beitragsbild entfernen"
 
-#: includes/class-amp-story-post-type.php:155
+#: includes/class-amp-story-post-type.php:134
 msgid "Set featured image"
 msgstr "Beitragsbild festlegen"
 
-#: includes/class-amp-story-post-type.php:154
-#: assets/js/amp-stories-editor.js:16 assets/js/amp-block-editor.js:9
+#: includes/class-amp-story-post-type.php:133 assets/js/amp-block-editor.js:9
+#: assets/js/amp-stories-editor.js:20
 msgid "Featured Image"
 msgstr "Beitragsbild"
 
-#: includes/class-amp-story-post-type.php:153
+#: includes/class-amp-story-post-type.php:132
 msgid "Uploaded to this story"
 msgstr "Zu dieser Story hochgeladen"
 
-#: includes/class-amp-story-post-type.php:152
+#: includes/class-amp-story-post-type.php:131
 msgid "Insert into story"
 msgstr "In Story einfügen"
 
-#: includes/class-amp-story-post-type.php:151
+#: includes/class-amp-story-post-type.php:130
 msgid "Story Attributes"
 msgstr "Story-Attribute"
 
-#: includes/class-amp-story-post-type.php:150
+#: includes/class-amp-story-post-type.php:129
 msgid "Story Archives"
 msgstr "Story-Archive"
 
-#: includes/class-amp-story-post-type.php:149
+#: includes/class-amp-story-post-type.php:128
 msgid "All Stories"
 msgstr "Alle Stories"
 
-#: includes/class-amp-story-post-type.php:148
+#: includes/class-amp-story-post-type.php:127
 msgid "No stories found in Trash."
 msgstr "Keine Stories im Papierkorb gefunden."
 
-#: includes/class-amp-story-post-type.php:147 assets/js/amp-block-editor.js:11
+#: includes/class-amp-story-post-type.php:126 assets/js/amp-block-editor.js:15
 msgid "No stories found."
 msgstr "Keine Stories gefunden."
 
-#: includes/class-amp-story-post-type.php:146
+#: includes/class-amp-story-post-type.php:125
 msgid "Search Stories"
 msgstr "Stories suchen"
 
-#: includes/class-amp-story-post-type.php:145
+#: includes/class-amp-story-post-type.php:124
 msgid "View Stories"
 msgstr "Stories ansehen"
 
-#: includes/class-amp-story-post-type.php:144
+#: includes/class-amp-story-post-type.php:123
 msgid "View Story"
 msgstr "Story ansehen"
 
-#: includes/class-amp-story-post-type.php:143
+#: includes/class-amp-story-post-type.php:122
 msgid "New Story"
 msgstr "Neue Story"
 
-#: includes/class-amp-story-post-type.php:142
+#: includes/class-amp-story-post-type.php:121
 msgid "Edit Story"
 msgstr "Story bearbeiten"
 
-#: includes/class-amp-story-post-type.php:141
+#: includes/class-amp-story-post-type.php:120
 msgid "Add New Story"
 msgstr "Neue Story hinzufügen"
 
-#: includes/class-amp-story-post-type.php:138
+#: includes/class-amp-story-post-type.php:117
 msgctxt "post type general name"
 msgid "Stories"
 msgstr "Stories"
 
-#: includes/class-amp-story-post-type.php:139
+#: includes/class-amp-story-post-type.php:118
 msgctxt "post type singular name"
 msgid "Story"
 msgstr "Story"
 
-#: includes/class-amp-story-post-type.php:140
+#: includes/class-amp-story-post-type.php:119
 msgctxt "story"
 msgid "New"
 msgstr "Neu"
 
-#: includes/amp-helper-functions.php:1134
+#: includes/amp-helper-functions.php:1167
 msgid "Non-AMP"
 msgstr "Nicht-AMP"
 
-#: amp.php:170 amp.php:190
+#: amp.php:174 amp.php:194
 msgid "AMP plugin unable to initialize."
 msgstr "AMP-Plugin konnte nicht initialisiert werden."
 
 #. translators: %s is list of missing extensions
-#: amp.php:135
+#: amp.php:139
 msgid "The following PHP function is missing: %s. Please contact your host to finish installation."
 msgid_plural "The following PHP functions are missing: %s. Please contact your host to finish installation."
 msgstr[0] "Die folgende PHP-Funktion fehlt: %s. Bitte kontaktiere deinen Hoster, um die Installation abzuschließen."
 msgstr[1] "Die folgenden PHP-Funktionen fehlen: %s. Bitte kontaktiere deinen Hoster, um die Installation abzuschließen."
 
 #. translators: %s is list of missing extensions
-#: amp.php:120
+#: amp.php:124
 msgid "The following PHP class is missing: %s. Please contact your host to finish installation."
 msgid_plural "The following PHP classes are missing: %s. Please contact your host to finish installation."
 msgstr[0] "Die folgende PHP-Klasse fehlt: %s. Bitte kontaktiere deinen Hoster, um die Installation abzuschließen."
 msgstr[1] "Die folgenden PHP-Klassen fehlen: %s. Bitte kontaktiere deinen Hoster, um die Installation abzuschließen."
 
 #. translators: %s is list of missing extensions
-#: amp.php:105
+#: amp.php:109
 msgid "The following PHP extension is missing: %s. Please contact your host to finish installation."
 msgid_plural "The following PHP extensions are missing: %s. Please contact your host to finish installation."
 msgstr[0] "Die folgende PHP-Erweiterung fehlt: %s. Bitte kontaktiere deinen Hoster, um die Installation abzuschließen."
@@ -1086,41 +1182,41 @@ msgid "The issues are not directly due to content here."
 msgstr "Die Fehler stammen nicht direkt vom Inhalt hier."
 
 #. translators: %s is error code
-#: includes/validation/class-amp-validation-manager.php:1940
+#: includes/validation/class-amp-validation-manager.php:1902
 msgid "URL validation failed. Error code: %s."
 msgstr "URL-Validierung ist fehlgeschlagen. Fehlercode: %s."
 
 #. translators: localized date and time format, see http://php.net/date
-#: includes/validation/class-amp-validation-error-taxonomy.php:1882
+#: includes/validation/class-amp-validation-error-taxonomy.php:1874
 msgid "F j, Y g:i a"
 msgstr "j. F Y G:i"
 
 #. translators: %s: style[amp-custom]
-#: includes/sanitizers/class-amp-style-sanitizer.php:2541
+#: includes/sanitizers/class-amp-style-sanitizer.php:2573
 msgid "The following stylesheets are too large to be included in %s:"
 msgstr "Die folgenden Stylesheets sind zu groß, um in %s eingebunden zu werden:"
 
 #. translators: %s: style[amp-custom]
-#: includes/sanitizers/class-amp-style-sanitizer.php:2514
+#: includes/sanitizers/class-amp-style-sanitizer.php:2546
 msgid "The %s element is populated with:"
 msgstr "Das %s Element wurde befüllt mit:"
 
-#: includes/sanitizers/class-amp-style-sanitizer.php:1235
+#: includes/sanitizers/class-amp-style-sanitizer.php:1276
 msgid "Response did not contain the expected text/css content type."
 msgstr "Antwort enthielt nicht den erwarteten text/css Inhaltstyp."
 
 #. translators: %s is the original URL
-#: includes/sanitizers/class-amp-style-sanitizer.php:955
+#: includes/sanitizers/class-amp-style-sanitizer.php:1000
 msgid "URL is missing path: %s"
 msgstr "Pfad fehlt in URL: %s"
 
 #. translators: %s is the original URL
-#: includes/sanitizers/class-amp-style-sanitizer.php:951
+#: includes/sanitizers/class-amp-style-sanitizer.php:996
 msgid "URL is missing host: %s"
 msgstr "Host fehlt in URL: %s"
 
 #. translators: %s is the path with the remaining relative segments.
-#: includes/sanitizers/class-amp-style-sanitizer.php:887
+#: includes/sanitizers/class-amp-style-sanitizer.php:932
 msgid "There are remaining relative path segments: %s"
 msgstr "Es gibt übrig gebliebene relative Pfadsegmente: %s"
 
@@ -1141,8 +1237,8 @@ msgid "The %1$s is deprecated when adding amp theme support in favor of declarat
 msgstr "%1$s in Kombination mit AMP-Theme-Unterstützung ist zugunsten der %2$s-Einstellung veraltet."
 
 #. translators: 1: embed handler. 2: AMP_Embed_Handler
-#: includes/templates/class-amp-content.php:182
 #: includes/class-amp-theme-support.php:1149
+#: includes/templates/class-amp-content.php:174
 msgid "Embed Handler (%1$s) must extend `%2$s`"
 msgstr "Embed Handler (%1$s) muss `%2$s` erweitern"
 
@@ -1175,70 +1271,70 @@ msgstr "https://developers.google.com/analytics/devguides/collection/amp-analyti
 msgid "For Google Analytics, please see <a href=\"%1$s\" target=\"_blank\">Adding Analytics to your AMP pages</a>; see also the <a href=\"%2$s\" target=\"_blank\">Analytics wiki page</a> and the AMP project's <a href=\"%3$s\" target=\"_blank\">%4$s documentation</a>. The analytics configuration supplied below must take the form of JSON objects, which begin with a %5$s and end with a %6$s. Do not include any HTML tags like %4$s or %7$s. A common entry would have the type %8$s (see <a href=\"%9$s\" target=\"_blank\">available vendors</a>) and a configuration that looks like the following (where %10$s is replaced with your own site's account number):"
 msgstr "Lies bitte <a href=\"%1$s\" target=\"_blank\">Analytics zu Ihren AMP-Seiten hinzufügen (engl.)</a> für Google Analytics; siehe auch die <a href=\"%2$s\" target=\"_blank\">Analytics Wiki-Seite (engl.)</a> und die <a href=\"%3$s\" target=\"_blank\">%4$s-Dokumentation (engl.)</a> des AMP-Projekts. Die Analytics-Konfiguration, welche unten angegeben ist, muss das Format eines JSON-Objekts haben, das mit einem %5$s beginnt und mit einem %6$s endet. Füge keine HTML-Tags wie %4$s oder %7$s hinzu. Ein normaler Eintrag hat den Typ %8$s (siehe <a href=\"%9$s\" target=\"_blank\">verfügbare Anbieter (engl.)</a>) und eine Konfiguration, welche folgendermassen aussieht (wobei %10$s durch die Account-Nummer deiner Website ersetzt wird):"
 
-#: includes/options/class-amp-options-manager.php:762
+#: includes/options/class-amp-options-manager.php:766
 msgid "Transitional mode activated!"
 msgstr "Übergangsmodus aktiviert!"
 
-#: includes/options/class-amp-options-manager.php:562
+#: includes/options/class-amp-options-manager.php:566
 msgid "https://github.com/ampproject/amp-wp/wiki/Post-Processor-Cache"
 msgstr "https://github.com/ampproject/amp-wp/wiki/Post-Processor-Cache"
 
 #. translators: %s: post-processor cache support URL
-#: includes/options/class-amp-options-manager.php:561
+#: includes/options/class-amp-options-manager.php:565
 msgid "The AMP plugin&lsquo;s post-processor cache was disabled due to the detection of highly-variable content. <a href=\"%s\">More details</a>"
 msgstr "Der Post-Prozessor-Cache des AMP-Plugins wurde aufgrund von variablem Inhalt deaktiviert. <a href=\"%s\">Mehr Informationen</a>"
 
-#: includes/options/class-amp-options-manager.php:537
+#: includes/options/class-amp-options-manager.php:541
 msgid "https://codex.wordpress.org/Class_Reference/WP_Object_Cache#Persistent_Caching"
 msgstr "https://codex.wordpress.org/Class_Reference/WP_Object_Cache#Persistent_Caching"
 
 #. translators: %s: Persistent object cache support URL
-#: includes/options/class-amp-options-manager.php:536
+#: includes/options/class-amp-options-manager.php:540
 msgid "The AMP plugin performs at its best when persistent object cache is enabled. <a href=\"%s\">More details</a>"
 msgstr "Das AMP-Plugin funktioniert am besten mit aktivem persistenten Objekt-Cache. <a href=\"%s\">Mehr erfahren</a>"
 
 #. translators: %s: available_callback
-#: includes/options/class-amp-options-menu.php:508
+#: includes/options/class-amp-options-menu.php:525
 msgid "Your theme is using the deprecated %s argument for AMP theme support."
 msgstr "Dein Theme verwendet das veraltete %s-Argument für die AMP-Theme-Unterstütung."
 
-#: includes/options/class-amp-options-menu.php:334
+#: includes/options/class-amp-options-menu.php:351
 msgid "Reader"
 msgstr "Lesemodus"
 
-#: includes/options/class-amp-options-menu.php:325
+#: includes/options/class-amp-options-menu.php:342
 msgid "Transitional"
 msgstr "Übergangsmodus"
 
 #. translators: %s: URL to the ecosystem page.
-#: includes/options/class-amp-options-menu.php:288
+#: includes/options/class-amp-options-menu.php:305
 msgid "For a list of themes and plugins that are known to be AMP compatible, please see the <a href=\"%s\">ecosystem page</a>."
 msgstr "Für eine Liste AMP-kompatibler Themes und Plugins, besuche bitte die <a href=\"%s\">Ökosystem-Seite (engl.)</a>."
 
-#: includes/options/class-amp-options-menu.php:286
+#: includes/options/class-amp-options-menu.php:303
 msgid "Formerly called the <b>classic mode</b>, this mode generates paired AMP content using simplified templates which may not match the look-and-feel of your site. Only posts/pages can be served as AMP in Reader mode. No redirection is performed for mobile visitors; AMP pages are served by AMP consumption platforms."
 msgstr "Auch bekannt als <b>Classic-Modus</b> werden in diesem Modus AMP-Inhalte in simplifizierten Templates dargestellt, welche nicht unbedingt mit der Darstellung deines Themes übereinstimmen. Nur Beiträge und Seiten werden im Lesemodus unterstützt. Mobile-Besucher werden nicht automatisch weitergeleitet, die AMP-Inhalte werden stattdessen von AMP-Plattformen bereitgestellt."
 
 #. translators: %s: URL to the documentation.
-#: includes/options/class-amp-options-menu.php:285
+#: includes/options/class-amp-options-menu.php:302
 msgid "The active theme’s templates are used to generate non-AMP and AMP versions of your content, allowing for each canonical URL to have a corresponding (paired) AMP URL. This mode is useful to progressively transition towards a fully AMP-first site. Depending on your theme/plugins, a varying level of <a href=\"%s\">development work</a> may be required."
 msgstr "Die Templates des aktiven Themes werden genutzt, um AMP- und Nicht-AMP-Versionen deiner Inhalte zu generieren. Dies erlaubt es, für jede kanonische URL eine entsprechende (verbundene) AMP-URL zu haben. Dieser Modus ist hilfreich für den schrittweisen Übergang zu einer vollständigen AMP-First-Website. Abhängig von deinem Theme und den benutzten Plugins kann ein gewisses Maß an <a href=\"%s\">Entwicklungsarbeit (engl.)</a> erforderlich sein."
 
 #. translators: %s: URL to the documentation.
-#: includes/options/class-amp-options-menu.php:283
+#: includes/options/class-amp-options-menu.php:300
 msgid "The active theme integrates AMP as the framework for your site by using its templates and styles to render webpages. This means your site is <b>AMP-first</b> and your canonical URLs are AMP! Depending on your theme/plugins, a varying level of <a href=\"%s\">development work</a> may be required."
 msgstr "Integriert AMP als Framework für deine Website unter Verwendung deines aktiven Themes. Das bedeutet, deine Website ist <b>AMP-first</b> und all deine URLs werden über AMP ausgeliefert! Abhängig von deinem Theme und den benutzten Plugins kann ein gewisses Maß an<a href=\"%s\">Entwicklungsarbeit (engl.)</a> erforderlich sein."
 
-#: includes/class-amp-service-worker.php:323
+#: includes/class-amp-service-worker.php:325
 msgid "Installing service worker..."
 msgstr "Installiere Service Worker..."
 
-#: includes/class-amp-service-worker.php:308
-#: includes/class-amp-service-worker.php:320
+#: includes/class-amp-service-worker.php:310
+#: includes/class-amp-service-worker.php:322
 msgid "Service Worker Installation"
 msgstr "Service Worker Installation"
 
-#: includes/class-amp-service-worker.php:307
+#: includes/class-amp-service-worker.php:309
 msgid "No service workers registered for the requested scope."
 msgstr "Keine Service Workers registriert für diesen Scope."
 
@@ -1249,17 +1345,17 @@ msgstr "Bitte aktualisiere auf PWA 0.2. Erwartete WP_Service_Worker_Scripts als 
 
 #. translators: 1: the analytics entry ID. 2: type. 3: attributes. 4:
 #. config_data. 5: comma-separated list of the actual entry keys.
-#: includes/amp-helper-functions.php:682
+#: includes/amp-helper-functions.php:689
 msgid "Analytics entry for %1$s is missing one of the following keys: `%2$s`, `%3$s`, or `%4$s` (array keys: %5$s)"
 msgstr "In der Analytics-Konfiguration für %1$s fehlt einer der folgenden Einträge: `%2$s`, `%3$s`, oder `%4$s` (Einträge: %5$s)"
 
 #. translators: 1: is_amp_endpoint(), 2: WP_Query
-#: includes/amp-helper-functions.php:284
+#: includes/amp-helper-functions.php:282
 msgid "%1$s was called before the %2$s was instantiated."
 msgstr "%1$s wurde aufgerufen, bevor %2$s instanziiert wurde."
 
 #. translators: 1: is_amp_endpoint(), 2: parse_query
-#: includes/amp-helper-functions.php:271
+#: includes/amp-helper-functions.php:269
 msgid "%1$s was called before the %2$s hook was called."
 msgstr "%1$s wurde noch vor dem %2$s Hook aufgerufen."
 
@@ -1271,31 +1367,31 @@ msgstr "Link zum Verlassen des Lesemodus anzeigen?"
 msgid "AMP Project Contributors"
 msgstr "Mitwirkende des AMP-Projekts"
 
-#: includes/options/class-amp-options-manager.php:600
+#: includes/options/class-amp-options-manager.php:604
 msgid "PHP-CSS-Parser is not available so CSS processing will not be available."
 msgstr "PHP-CSS-Parser ist nicht verfügbar und dadurch auch keine CSS Verarbeitung."
 
 #. translators: %s: path to the conflicting library
-#: includes/options/class-amp-options-manager.php:593
+#: includes/options/class-amp-options-manager.php:597
 msgid "A conflicting version of PHP-CSS-Parser appears to be installed by another plugin or theme (located in %s). Because of this, CSS processing will be limited, and tree shaking will not be available."
 msgstr "Ein anderes Plugin oder Theme scheint eine inkompatible Version von PHP-CSS-Parser zu verwenden (gefunden in %s). Aus diesem Grund ist die CSS-Verarbeitung imitiert und Tree Shaking ist nicht verfügbar."
 
 #. translators: 1: is_amp_endpoint(). 2: wp. 3: amp_skip_post
-#: includes/amp-helper-functions.php:331
+#: includes/amp-helper-functions.php:329
 msgid "%1$s was called before the %2$s action which means it will not have access to the queried object to determine if it is an AMP response, thus neither the %3$s filter nor the AMP enabled publish metabox toggle will be considered."
 msgstr "%1$s wurde vor der Aktion %2$s aufgerufen. Dies bedeutet, dass es keinen Zugang zum erforderlichen Objekt hat, um festzustellen, ob es eine AMP-Antwort ist. Deshalb wird weder der Filter %3$s noch die aktive Veröffentlichungseinstellung der AMP-Metabox berücksichtigt."
 
-#: includes/sanitizers/class-amp-style-sanitizer.php:2576
+#: includes/sanitizers/class-amp-style-sanitizer.php:2608
 msgid "Warning! AMP CSS processing is limited because a conflicting version of PHP-CSS-Parser has been loaded by another plugin or theme. Tree shaking is not available."
 msgstr "Achtung! CSS-Verarbeitung ist eingeschränkt, weil ein anderes Plugin oder Theme eine inkompatible Version von PHP-CSS-Parser verwendet. Tree Shaking ist nicht verfügbar."
 
 #. translators: %s: number of excluded bytes.
-#: includes/sanitizers/class-amp-style-sanitizer.php:2556
+#: includes/sanitizers/class-amp-style-sanitizer.php:2588
 msgid "Total excluded size: %s bytes"
 msgstr "Insgesamt ausgeschlossen: %s Bytes"
 
 #. translators: %s: number of included bytes.
-#: includes/sanitizers/class-amp-style-sanitizer.php:2528
+#: includes/sanitizers/class-amp-style-sanitizer.php:2560
 msgid "Total included size: %s bytes"
 msgstr "Insgesamt eingebunden: %s Bytes"
 
@@ -1354,122 +1450,122 @@ msgid_plural "There are %s issues from AMP validation which need review."
 msgstr[0] "Es gibt %s AMP-Validierungsfehler, der eine Überprüfung erfordert."
 msgstr[1] "Es gibt %s AMP-Validierungsfehler, die eine Überprüfung erfordern."
 
-#: assets/js/amp-block-editor.js:5 assets/js/amp-block-validation.js:1
+#: assets/js/amp-block-editor.js:9 assets/js/amp-block-validation.js:1
 msgid "Display as carousel"
 msgstr "Als Karussell darstellen"
 
-#: assets/js/amp-block-editor.js:5 assets/js/amp-block-validation.js:1
+#: assets/js/amp-block-editor.js:9 assets/js/amp-block-validation.js:1
 msgid "Add lightbox effect"
 msgstr "Lightbox-Effekt hinzufügen"
 
-#: assets/js/amp-block-editor.js:5 assets/js/amp-block-validation.js:1
+#: assets/js/amp-block-editor.js:9 assets/js/amp-block-validation.js:1
 msgid "Maximum font size"
 msgstr "Maximale Schriftgröße"
 
-#: assets/js/amp-block-editor.js:5 assets/js/amp-block-validation.js:1
+#: assets/js/amp-block-editor.js:9 assets/js/amp-block-validation.js:1
 msgid "The min font size must less than the max font size."
 msgstr "Die minimale Schriftgröße muss kleiner als die maximale sein."
 
-#: assets/js/amp-block-editor.js:5 assets/js/amp-block-validation.js:1
+#: assets/js/amp-block-editor.js:9 assets/js/amp-block-validation.js:1
 msgid "Minimum font size"
 msgstr "Minimale Schriftgröße"
 
-#: assets/js/amp-block-editor.js:5 assets/js/amp-block-validation.js:1
+#: assets/js/amp-block-editor.js:9 assets/js/amp-block-validation.js:1
 msgid "The height must be greater than the max font size."
 msgstr "Die Höhe muss größer als die maximale Schriftgröße sein."
 
-#: assets/js/amp-block-editor.js:5 assets/js/amp-block-validation.js:1
+#: assets/js/amp-block-editor.js:9 assets/js/amp-block-validation.js:1
 msgid "Height"
 msgstr "Höhe"
 
-#: assets/js/amp-block-editor.js:5 assets/js/amp-block-validation.js:1
+#: assets/js/amp-block-editor.js:9 assets/js/amp-block-validation.js:1
 msgid "AMP Noloading"
 msgstr "AMP Noloading"
 
-#: assets/js/amp-block-editor.js:5 assets/js/amp-block-validation.js:1
+#: assets/js/amp-block-editor.js:9 assets/js/amp-block-validation.js:1
 msgid "AMP Layout (modifies width/height)"
 msgstr "AMP Layout (ändert Breite/Höhe)"
 
-#: assets/js/amp-block-editor.js:5 assets/js/amp-block-validation.js:1
+#: assets/js/amp-block-editor.js:9 assets/js/amp-block-validation.js:1
 msgid "AMP Layout"
 msgstr "AMP Layout"
 
 #. translators: %s: error count
-#: includes/amp-helper-functions.php:206
+#: includes/amp-helper-functions.php:204
 msgid "There is %s validation error that is blocking the amphtml version from being available."
 msgid_plural "There are %s validation errors that are blocking the amphtml version from being available."
 msgstr[0] "Es gibt %s Validierungsfehler, der das Ausliefern einer amphtml Version verhindert."
 msgstr[1] "Es gibt %s Validierungsfehler, die das Ausliefern einer amphtml Version verhindern."
 
-#: includes/amp-helper-functions.php:193
+#: includes/amp-helper-functions.php:191
 msgid "There is no amphtml version available for this URL."
 msgstr "Es ist keine amphtml-Version verfügbar für diese URL."
 
-#: includes/sanitizers/class-amp-base-sanitizer.php:587
-#: includes/embeds/class-amp-gallery-embed.php:143
+#: includes/embeds/class-amp-gallery-embed.php:145
+#: includes/sanitizers/class-amp-base-sanitizer.php:586
 msgid "Close"
 msgstr "Schließen"
 
 #. translators: 1: total combined bytes. 2: is percentage of CSS after tree
 #. shaking. 3: is total before tree shaking.
-#: includes/sanitizers/class-amp-style-sanitizer.php:2567
+#: includes/sanitizers/class-amp-style-sanitizer.php:2599
 msgid "Total combined size: %1$s bytes (%2$d%% of %3$s total after tree shaking)"
 msgstr "Total kombinierte Grösse: %1$s Bytes (%2$d%% von insgesamt %3$s nach Tree Shaking)"
 
 #. translators: 1: number of excluded bytes. 2: percentage of total CSS
 #. actually excluded even after tree shaking. 3: total excluded size.
-#: includes/sanitizers/class-amp-style-sanitizer.php:2548
+#: includes/sanitizers/class-amp-style-sanitizer.php:2580
 msgid "Total excluded size: %1$s bytes (%2$d%% of %3$s total after tree shaking)"
 msgstr "Total ausgeschlossene Grösse: %1$s Bytes (%2$d%% von insgesamt %3$s nach Tree Shaking)"
 
 #. translators: 1: number of included bytes. 2: percentage of total CSS
 #. actually included after tree shaking. 3: total included size.
-#: includes/sanitizers/class-amp-style-sanitizer.php:2520
+#: includes/sanitizers/class-amp-style-sanitizer.php:2552
 msgid "Total included size: %1$s bytes (%2$d%% of %3$s total after tree shaking)"
 msgstr "Total eingebundene Grösse: %1$s Bytes (%2$d%% von insgesamt %3$s nach Tree Shaking)"
 
 #. translators: 1: @import. 2: wp_enqueue_style(). 3: font CDN URL.
-#: includes/sanitizers/class-amp-style-sanitizer.php:1374
+#: includes/sanitizers/class-amp-style-sanitizer.php:1415
 msgid "It is not a best practice to use %1$s to load font CDN stylesheets. Please use %2$s to enqueue %3$s as its own separate script."
 msgstr "CSS für Schriftarten sollte nicht über %1$s geladen werden. Verwende stattdessen %2$s um %3$s als eigenes Skript einzubinden."
 
 #. translators: %s: the file URL.
-#: includes/sanitizers/class-amp-style-sanitizer.php:1020
+#: includes/sanitizers/class-amp-style-sanitizer.php:1065
 msgid "Unable to locate filesystem path for %s."
 msgstr "Datei %s konnte nicht gefunden werden."
 
 #. translators: %s: the file URL.
-#: includes/sanitizers/class-amp-style-sanitizer.php:1016
+#: includes/sanitizers/class-amp-style-sanitizer.php:1061
 msgid "Disallowed URL filesystem path for %s."
 msgstr "Ungültiger Dateipfad %s."
 
 #. translators: %s: the file URL
-#: includes/sanitizers/class-amp-style-sanitizer.php:993
+#: includes/sanitizers/class-amp-style-sanitizer.php:1038
 msgid "URL is located on an external domain: %s."
 msgstr "URL befindet sich auf externer Domain: %s"
 
 #. translators: %s: the file URL.
-#: includes/sanitizers/class-amp-style-sanitizer.php:987
+#: includes/sanitizers/class-amp-style-sanitizer.php:1032
 msgid "File does not have an allowed file extension for filesystem access (%s)."
 msgstr "Datei hat eine unerlaubte Dateiendung (%s)"
 
+#: includes/sanitizers/class-amp-nav-menu-dropdown-sanitizer.php:152
 #: includes/sanitizers/class-amp-core-theme-sanitizer.php:271
 #: includes/sanitizers/class-amp-core-theme-sanitizer.php:297
 #: includes/sanitizers/class-amp-core-theme-sanitizer.php:313
 #: includes/sanitizers/class-amp-core-theme-sanitizer.php:329
-#: includes/sanitizers/class-amp-nav-menu-dropdown-sanitizer.php:154
 msgid "collapse child menu"
 msgstr "Untermenü einklappen"
 
+#: includes/sanitizers/class-amp-nav-menu-dropdown-sanitizer.php:149
 #: includes/sanitizers/class-amp-core-theme-sanitizer.php:270
 #: includes/sanitizers/class-amp-core-theme-sanitizer.php:296
 #: includes/sanitizers/class-amp-core-theme-sanitizer.php:312
 #: includes/sanitizers/class-amp-core-theme-sanitizer.php:328
-#: includes/sanitizers/class-amp-nav-menu-dropdown-sanitizer.php:151
 msgid "expand child menu"
 msgstr "Untermenü ausklappen"
 
-#: includes/class-amp-theme-support.php:2148
+#: includes/class-amp-theme-support.php:2150
 msgid "Redirecting to non-AMP version."
 msgstr "Leite weiter zur Nicht-AMP Version."
 
@@ -1481,7 +1577,7 @@ msgstr "Fehlerseite (404)"
 msgid "Search"
 msgstr "Suche"
 
-#: includes/class-amp-theme-support.php:869 assets/js/amp-block-editor.js:11
+#: includes/class-amp-theme-support.php:869 assets/js/amp-block-editor.js:15
 msgid "Date"
 msgstr "Datumsarchiv"
 
@@ -1527,237 +1623,236 @@ msgid "Expected AMP theme support to keys (%1$s) but saw (%2$s)"
 msgstr "Erwartete AMP-Theme-Unterstützungs-Einträge (%1$s) aber erhielt stattdessen (%2$s)"
 
 #. translators: %s: AMP_VALIDATION
-#: includes/validation/class-amp-validation-manager.php:1935
+#: includes/validation/class-amp-validation-manager.php:1897
 msgid "URL validation failed to due to unexpected JSON in the %s comment after the body."
 msgstr "URL-Valdierung ist fehlgeschlagen aufgrund von unerwartetem JSON im %s-Kommentar nach dem Body."
 
 #. translators: %s: AMP_VALIDATION
-#: includes/validation/class-amp-validation-manager.php:1929
+#: includes/validation/class-amp-validation-manager.php:1891
 msgid "URL validation failed to due to the absence of the expected JSON-containing %s comment after the body."
 msgstr "URL-Validierung ist fehlgeschlagen aufgrund von fehlendem %s-Kommentar nach dem Body."
 
-#: includes/validation/class-amp-validation-manager.php:1925
+#: includes/validation/class-amp-validation-manager.php:1887
 msgid "An internal server error occurred when fetching the URL for validation."
 msgstr "Während dem Aufruf der URL zur Validierung ist ein interner Serverfehler aufgetreten."
 
-#: includes/validation/class-amp-validation-manager.php:1923
+#: includes/validation/class-amp-validation-manager.php:1885
 msgid "The fetched URL was not found. It may have been deleted. If so, you can trash this."
 msgstr "Die aufgerufene URL wurde nicht gefunden. Falls sie gelöscht wurde, kannst du das hier in den Papierkorb legen."
 
-#: includes/validation/class-amp-validation-manager.php:1921
+#: includes/validation/class-amp-validation-manager.php:1883
 msgid "Unable to validate URL. Encountered a white screen of death likely due to a fatal error. Please check your server's PHP error logs."
 msgstr "URL-Validierung fehlgeschlagen. Möglicherweise wegen einem internen Serverfehler. Überprüfe die PHP Log-Datei deines Servers."
 
-#: includes/validation/class-amp-validation-manager.php:1919
+#: includes/validation/class-amp-validation-manager.php:1881
 msgid "Failed to fetch URL(s) to validate. This may be due to a request timeout."
 msgstr "Validierung der URL(s) fehlgeschlagen. Möglicherweise wegen einer Zeitüberschreitung."
 
-#: includes/validation/class-amp-validation-manager.php:900
+#: includes/validation/class-amp-validation-manager.php:919
 #: assets/js/amp-block-validation.js:5
 msgid "Review issues"
 msgstr "Fehler prüfen"
 
-#: includes/validation/class-amp-validation-manager.php:894
+#: includes/validation/class-amp-validation-manager.php:913
 #: assets/js/amp-block-validation.js:5
 msgid "Non-accepted validation errors prevent AMP from being served, and the user will be redirected to the non-AMP version."
 msgstr "Nicht akzeptierte Validierungsfehler verhindern die Auslieferung von AMP und Besucher werden auf die Nicht-AMP-Version weitergeleitet."
 
-#: includes/validation/class-amp-validation-manager.php:891
+#: includes/validation/class-amp-validation-manager.php:910
 msgid "Though your site is configured to automatically accept sanitization errors, there are rejected error(s). This could be because auto-acceptance of errors was disabled earlier. You should review the issues to confirm whether or not sanitization should be accepted or rejected."
 msgstr "Obwohl deine Website zu konfiguriert ist, dass sie automatisch Bereinigungsfehler akzeptiert, gibt es einen oder mehrere zurückgewiesene Fehler. Dies könnte deshalb der Fall sein, weil das automatische Akzeptieren von Fehlern früher deaktiviert war. Du solltest die Fehlermeldungen durchsehen, um zu entscheiden, ob die Bereinigung akzeptiert oder abgelehnt werden sollte."
 
-#: includes/validation/class-amp-validation-manager.php:883
+#: includes/validation/class-amp-validation-manager.php:902
 msgid "However, your site is configured to automatically accept sanitization of the offending markup. You should review the issues to confirm whether or not sanitization should be accepted or rejected."
 msgstr "Jedenfalls ist deine Website so konfiguriert, dass sie die automatische Bereinigung von nicht regelkonformem Markup akzeptiert. Du solltest die Fehlermeldungen durchsehen, um zu entscheiden, ob die Bereinigung akzeptiert oder abgelehnt werden sollte."
 
-#: includes/validation/class-amp-validation-manager.php:877
+#: includes/validation/class-amp-validation-manager.php:896
 msgid "There is content which fails AMP validation."
 msgstr "Es gibt Inhalt mit AMP-Validierungsfehlern."
 
-#: includes/validation/class-amp-validation-manager.php:662
+#: includes/validation/class-amp-validation-manager.php:682
 msgid "AMP validity status"
 msgstr "AMP-Validierungsstatus"
 
-#: includes/validation/class-amp-validation-manager.php:427
+#: includes/validation/class-amp-validation-manager.php:445
 msgid "View AMP version"
 msgstr "AMP-Version ansehen"
 
-#: includes/validation/class-amp-validation-manager.php:427
+#: includes/validation/class-amp-validation-manager.php:445
 msgid "View non-AMP version"
 msgstr "Nicht-AMP-Version ansehen"
 
 #. translators: %s is count of validation errors
-#: includes/validation/class-amp-validation-manager.php:412
-#: includes/validation/class-amp-validation-manager.php:1684
+#: includes/validation/class-amp-validation-manager.php:430
+#: includes/validation/class-amp-validation-manager.php:1646
 msgid "Re-validate (%s validation error)"
 msgid_plural "Re-validate (%s validation errors)"
 msgstr[0] "Re-validieren (%s Validierungsfehler)"
 msgstr[1] "Re-validieren (%s Validierungsfehler)"
 
-#: includes/validation/class-amp-validation-manager.php:407
+#: includes/validation/class-amp-validation-manager.php:425
 msgid "Re-validate"
 msgstr "Erneut validieren"
 
-#: includes/validation/class-amp-validation-error-taxonomy.php:2292
+#: includes/validation/class-amp-validation-error-taxonomy.php:2281
 msgid "Remove unused CSS rules"
 msgstr "Nicht verwendete CSS-Regeln entfernen"
 
-#: includes/validation/class-amp-validation-error-taxonomy.php:2288
+#: includes/validation/class-amp-validation-error-taxonomy.php:2279
 msgid "Disallowed file extension"
 msgstr "Nicht erlaubte Dateiendung"
 
 #. translators: %s: @
-#: includes/validation/class-amp-validation-error-taxonomy.php:2284
+#: includes/validation/class-amp-validation-error-taxonomy.php:2275
 msgid "Illegal CSS %s rule"
 msgstr "Ungültige CSS-Regel %s"
 
-#: includes/validation/class-amp-validation-error-taxonomy.php:2280
+#: includes/validation/class-amp-validation-error-taxonomy.php:2271
 msgid "Excessive CSS"
 msgstr "Exzessives CSS"
 
-#: includes/validation/class-amp-validation-error-taxonomy.php:2278
-#: includes/validation/class-amp-validation-error-taxonomy.php:2290
+#: includes/validation/class-amp-validation-error-taxonomy.php:2269
 msgid "File path not allowed"
 msgstr "Dateipfad nicht erlaubt"
 
-#: includes/validation/class-amp-validation-error-taxonomy.php:2276
+#: includes/validation/class-amp-validation-error-taxonomy.php:2267
 msgid "Invalid attribute"
 msgstr "Ungültiges Attribut"
 
-#: includes/validation/class-amp-validation-error-taxonomy.php:2274
+#: includes/validation/class-amp-validation-error-taxonomy.php:2265
 msgid "Invalid element"
 msgstr "Ungültiges Element"
 
-#: includes/validation/class-amp-validation-error-taxonomy.php:2248
+#: includes/validation/class-amp-validation-error-taxonomy.php:2239
 msgid "You do not have authorization."
 msgstr "Du hast keine Berechtigung."
 
-#: includes/validation/class-amp-validation-error-taxonomy.php:2243
+#: includes/validation/class-amp-validation-error-taxonomy.php:2234
 msgid "The link you followed has expired."
 msgstr "Dieser Link ist abgelaufen."
 
-#: includes/validation/class-amp-validation-error-taxonomy.php:2107
+#: includes/validation/class-amp-validation-error-taxonomy.php:2098
 msgid "JavaScript"
 msgstr "JavaScript"
 
-#: includes/validation/class-amp-validation-error-taxonomy.php:2106
+#: includes/validation/class-amp-validation-error-taxonomy.php:2097
 msgid "HTML Attribute"
 msgstr "HTML-Attribut"
 
-#: includes/validation/class-amp-validation-error-taxonomy.php:2105
+#: includes/validation/class-amp-validation-error-taxonomy.php:2096
 msgid "HTML Element"
 msgstr "HTML-Element"
 
-#: includes/validation/class-amp-validation-error-taxonomy.php:2023
-#: includes/validation/class-amp-validation-error-taxonomy.php:2040
+#: includes/validation/class-amp-validation-error-taxonomy.php:2014
+#: includes/validation/class-amp-validation-error-taxonomy.php:2031
 msgid "Invalid markup:"
 msgstr "Ungültiges Markup:"
 
-#: includes/validation/class-amp-validation-error-taxonomy.php:1917
+#: includes/validation/class-amp-validation-error-taxonomy.php:1908
 msgid "Other attributes:"
 msgstr "Andere Attribute:"
 
-#: includes/validation/class-amp-validation-error-taxonomy.php:1914
+#: includes/validation/class-amp-validation-error-taxonomy.php:1905
 msgid "Element attributes:"
 msgstr "Element-Attribute:"
 
-#: includes/validation/class-amp-validation-error-taxonomy.php:1875
+#: includes/validation/class-amp-validation-error-taxonomy.php:1867
 msgid "n/a"
 msgstr "n/v"
 
-#: includes/validation/class-amp-validation-error-taxonomy.php:1829
+#: includes/validation/class-amp-validation-error-taxonomy.php:1821
 msgid "Status:"
 msgstr "Status:"
 
-#: includes/validation/class-amp-validation-error-taxonomy.php:1715
-#: includes/validation/class-amp-validation-error-taxonomy.php:2108
+#: includes/validation/class-amp-validation-error-taxonomy.php:1707
+#: includes/validation/class-amp-validation-error-taxonomy.php:2099
 msgid "CSS"
 msgstr "CSS"
 
-#: includes/validation/class-amp-validation-error-taxonomy.php:1712
+#: includes/validation/class-amp-validation-error-taxonomy.php:1704
 msgid "HTML (Attribute)"
 msgstr "HTML (Attribut)"
 
-#: includes/validation/class-amp-validation-error-taxonomy.php:1709
+#: includes/validation/class-amp-validation-error-taxonomy.php:1701
 msgid "HTML (Element)"
 msgstr "HTML (Element)"
 
-#: includes/validation/class-amp-validation-error-taxonomy.php:1706
+#: includes/validation/class-amp-validation-error-taxonomy.php:1698
 msgid "JS"
 msgstr "JS"
 
-#: includes/validation/class-amp-validation-error-taxonomy.php:1604
-#: includes/validation/class-amp-validation-error-taxonomy.php:1763
+#: includes/validation/class-amp-validation-error-taxonomy.php:1596
+#: includes/validation/class-amp-validation-error-taxonomy.php:1755
 msgid "Toggle error details"
 msgstr "Fehler-Details umschalten"
 
 #. translators: %s is the number of validation errors cleared
-#: includes/validation/class-amp-validation-error-taxonomy.php:1565
+#: includes/validation/class-amp-validation-error-taxonomy.php:1557
 msgid "Cleared %s validation error that no longer occurs on the site."
 msgid_plural "Cleared %s validation errors that no longer occur on the site."
 msgstr[0] "%s Validierungsfehler gelöscht, der nicht mehr länger auftritt."
 msgstr[1] "%s Validierungsfehler gelöscht, die nicht mehr länger auftreten."
 
 #. translators: %s is number of errors rejected
-#: includes/validation/class-amp-validation-error-taxonomy.php:1542
+#: includes/validation/class-amp-validation-error-taxonomy.php:1534
 msgid "Rejected %s error. It will continue to block related URLs from being served as AMP."
 msgid_plural "Rejected %s errors. They will continue to block related URLs from being served as AMP."
 msgstr[0] "%s Fehler zurückgewiesen. Dieser verhindert das Ausliefern von AMP für die betroffenen URLs."
 msgstr[1] "%s Fehler zurückgewiesen. Diese verhindern das Ausliefern von AMP für die betroffenen URLs."
 
 #. translators: %s is number of errors accepted
-#: includes/validation/class-amp-validation-error-taxonomy.php:1531
+#: includes/validation/class-amp-validation-error-taxonomy.php:1523
 msgid "Accepted %s error. It will no longer block related URLs from being served as AMP."
 msgid_plural "Accepted %s errors. They will no longer block related URLs from being served as AMP."
 msgstr[0] "%s Fehler akzeptiert. Das Ausliefern von AMP für die betroffenen URLs wird nicht mehr länger verhindert."
 msgstr[1] "%s Fehler akzeptiert. Das Ausliefern von AMP für die betroffenen URLs wird nicht mehr länger verhindert."
 
-#: includes/validation/class-amp-validation-error-taxonomy.php:1469
+#: includes/validation/class-amp-validation-error-taxonomy.php:1462
 msgid "Clear Empty"
 msgstr "Leere entfernen"
 
-#: includes/validation/class-amp-validation-error-taxonomy.php:1452
+#: includes/validation/class-amp-validation-error-taxonomy.php:1445
 msgid "CSS Errors"
 msgstr "CSS-Fehler"
 
-#: includes/validation/class-amp-validation-error-taxonomy.php:1450
+#: includes/validation/class-amp-validation-error-taxonomy.php:1443
 msgid "With CSS Errors"
 msgstr "Mit CSS-Fehlern"
 
-#: includes/validation/class-amp-validation-error-taxonomy.php:1445
+#: includes/validation/class-amp-validation-error-taxonomy.php:1438
 msgid "JS Errors"
 msgstr "JS-Fehler"
 
-#: includes/validation/class-amp-validation-error-taxonomy.php:1443
+#: includes/validation/class-amp-validation-error-taxonomy.php:1436
 msgid "With JS Errors"
 msgstr "Mit JS-Fehlern"
 
-#: includes/validation/class-amp-validation-error-taxonomy.php:1438
+#: includes/validation/class-amp-validation-error-taxonomy.php:1431
 msgid "HTML (Attribute) Errors"
 msgstr "HTML-(Attribut-)Fehler"
 
-#: includes/validation/class-amp-validation-error-taxonomy.php:1436
+#: includes/validation/class-amp-validation-error-taxonomy.php:1429
 msgid "With HTML (Attribute) Errors"
 msgstr "Mit HTML-(Attribut-)Fehlern"
 
-#: includes/validation/class-amp-validation-error-taxonomy.php:1431
+#: includes/validation/class-amp-validation-error-taxonomy.php:1424
 msgid "HTML (Element) Errors"
 msgstr "HTML-(Element-)Fehler"
 
-#: includes/validation/class-amp-validation-error-taxonomy.php:1429
+#: includes/validation/class-amp-validation-error-taxonomy.php:1422
 msgid "With HTML (Element) Errors"
 msgstr "Mit HTML-(Element-)Fehlern"
 
-#: includes/validation/class-amp-validation-error-taxonomy.php:1425
+#: includes/validation/class-amp-validation-error-taxonomy.php:1418
 msgid "All Error Types"
 msgstr "Alle Fehlertypen"
 
-#: includes/validation/class-amp-validation-error-taxonomy.php:1422
+#: includes/validation/class-amp-validation-error-taxonomy.php:1415
 msgid "Filter by error type"
 msgstr "Nach Fehlerart filtern"
 
 #. translators: %s: the rejected term count.
-#: includes/validation/class-amp-validation-error-taxonomy.php:1381
+#: includes/validation/class-amp-validation-error-taxonomy.php:1374
 msgctxt "terms"
 msgid "Rejected Error <span class=\"count\">(%s)</span>"
 msgid_plural "Rejected Errors <span class=\"count\">(%s)</span>"
@@ -1765,7 +1860,7 @@ msgstr[0] "Abgelehnter Fehler <span class=\"count\">(%s)</span>"
 msgstr[1] "Abgelehnte Fehler <span class=\"count\">(%s)</span>"
 
 #. translators: %s: the rejected term count.
-#: includes/validation/class-amp-validation-error-taxonomy.php:1369
+#: includes/validation/class-amp-validation-error-taxonomy.php:1362
 msgctxt "terms"
 msgid "With Rejected Error <span class=\"count\">(%s)</span>"
 msgid_plural "With Rejected Errors <span class=\"count\">(%s)</span>"
@@ -1773,7 +1868,7 @@ msgstr[0] "Mit zurückgewiesenem Fehler <span class=\"count\">(%s)</span>"
 msgstr[1] "Mit zurückgewiesenen Fehlern <span class=\"count\">(%s)</span>"
 
 #. translators: %s: the accepted term count.
-#: includes/validation/class-amp-validation-error-taxonomy.php:1352
+#: includes/validation/class-amp-validation-error-taxonomy.php:1345
 msgctxt "terms"
 msgid "Accepted Error <span class=\"count\">(%s)</span>"
 msgid_plural "Accepted Errors <span class=\"count\">(%s)</span>"
@@ -1781,7 +1876,7 @@ msgstr[0] "Akzeptierter Fehler <span class=\"count\">(%s)</span>"
 msgstr[1] "Akzeptierte Fehler <span class=\"count\">(%s)</span>"
 
 #. translators: %s: the accepted term count.
-#: includes/validation/class-amp-validation-error-taxonomy.php:1340
+#: includes/validation/class-amp-validation-error-taxonomy.php:1333
 msgctxt "terms"
 msgid "With Accepted Error <span class=\"count\">(%s)</span>"
 msgid_plural "With Accepted Errors <span class=\"count\">(%s)</span>"
@@ -1789,7 +1884,7 @@ msgstr[0] "Mit akzeptiertem Fehler <span class=\"count\">(%s)</span>"
 msgstr[1] "Mit akzeptierten Fehlern <span class=\"count\">(%s)</span>"
 
 #. translators: %s: the new term count.
-#: includes/validation/class-amp-validation-error-taxonomy.php:1323
+#: includes/validation/class-amp-validation-error-taxonomy.php:1316
 msgctxt "terms"
 msgid "New Error <span class=\"count\">(%s)</span>"
 msgid_plural "New Errors <span class=\"count\">(%s)</span>"
@@ -1797,26 +1892,26 @@ msgstr[0] "Neuer Fehler <span class=\"count\">(%s)</span>"
 msgstr[1] "Neue Fehler <span class=\"count\">(%s)</span>"
 
 #. translators: %s: the new term count.
-#: includes/validation/class-amp-validation-error-taxonomy.php:1311
+#: includes/validation/class-amp-validation-error-taxonomy.php:1304
 msgctxt "terms"
 msgid "With New Error <span class=\"count\">(%s)</span>"
 msgid_plural "With New Errors <span class=\"count\">(%s)</span>"
 msgstr[0] "Mit neuem Fehler <span class=\"count\">(%s)</span>"
 msgstr[1] "Mit neuen Fehlern <span class=\"count\">(%s)</span>"
 
-#: includes/validation/class-amp-validation-error-taxonomy.php:1306
+#: includes/validation/class-amp-validation-error-taxonomy.php:1299
 msgid "All Statuses"
 msgstr "Alle Status"
 
-#: includes/validation/class-amp-validation-error-taxonomy.php:1304
+#: includes/validation/class-amp-validation-error-taxonomy.php:1297
 msgid "Filter by error status"
 msgstr "Nach Fehlerstatus filtern"
 
-#: includes/validation/class-amp-validation-error-taxonomy.php:1215
+#: includes/validation/class-amp-validation-error-taxonomy.php:1208
 msgid "View Validated URLs"
 msgstr "Validierte URLs ansehen"
 
-#: includes/validation/class-amp-validation-error-taxonomy.php:1170
+#: includes/validation/class-amp-validation-error-taxonomy.php:1163
 msgid "Apply Filter"
 msgstr "Filter anwenden"
 
@@ -1828,15 +1923,15 @@ msgstr "Alle Quellen umschalten"
 msgid "Toggle all details"
 msgstr "Alle Details ein-/ausblenden"
 
-#: includes/validation/class-amp-validation-error-taxonomy.php:853
+#: includes/validation/class-amp-validation-error-taxonomy.php:840
 msgid "Found URLs"
 msgstr "Gefundene URLs"
 
-#: includes/validation/class-amp-validation-error-taxonomy.php:852
+#: includes/validation/class-amp-validation-error-taxonomy.php:839
 msgid "Last Seen"
 msgstr "Zuletzt gesehen"
 
-#: includes/validation/class-amp-validation-error-taxonomy.php:310
+#: includes/validation/class-amp-validation-error-taxonomy.php:297
 msgid "Method must be passed a term slug (string) or error attributes (array)."
 msgstr "Die Methode erwartet die Titelform eines Schlagworts (Zeichenfolge) oder Fehlerattribute (Array)."
 
@@ -1874,7 +1969,7 @@ msgid "Back to AMP Validation Errors"
 msgstr "Zurück zu AMP-Validierungsfehlern"
 
 #: includes/validation/class-amp-validation-error-taxonomy.php:244
-#: includes/validation/class-amp-validation-error-taxonomy.php:1654
+#: includes/validation/class-amp-validation-error-taxonomy.php:1646
 msgid "Error Index"
 msgstr "Fehlerindex"
 
@@ -1893,95 +1988,95 @@ msgid "AMP Validation Error Index"
 msgstr "AMP-Validierungsfehlerindex"
 
 #. translators: %s is the number of posts restored from trash.
-#: includes/validation/class-amp-validated-url-post-type.php:2253
+#: includes/validation/class-amp-validated-url-post-type.php:2247
 msgid "%s validated URL unforgotten."
 msgid_plural "%s validated URLs unforgotten."
 msgstr[0] "%s validierte URL wiederhergestellt."
 msgstr[1] "%s validierte URLs wiederhergestellt."
 
 #. translators: %s is the number of posts forgotten
-#: includes/validation/class-amp-validated-url-post-type.php:2239
-#: includes/validation/class-amp-validated-url-post-type.php:2246
+#: includes/validation/class-amp-validated-url-post-type.php:2233
+#: includes/validation/class-amp-validated-url-post-type.php:2240
 msgid "%s validated URL forgotten."
 msgid_plural "%s validated URLs forgotten."
 msgstr[0] "%s validierte URL ignoriert."
 msgstr[1] "%s validierte URLs ignoriert."
 
-#: includes/validation/class-amp-validated-url-post-type.php:2217
+#: includes/validation/class-amp-validated-url-post-type.php:2211
 msgid "Forgotten"
 msgstr "Vergessen"
 
 #. translators: %s: post title
-#: includes/validation/class-amp-validated-url-post-type.php:2198
+#: includes/validation/class-amp-validated-url-post-type.php:2192
 msgid "Forget &#8220;%s&#8221;"
 msgstr "&#8220;%s&#8221; vergessen"
 
-#: includes/validation/class-amp-validated-url-post-type.php:2176
+#: includes/validation/class-amp-validated-url-post-type.php:2170
 msgid "View"
 msgstr "Ansehen"
 
 #. translators: %s is the name of the page with the the validation error(s)
-#: includes/validation/class-amp-validated-url-post-type.php:2142
+#: includes/validation/class-amp-validated-url-post-type.php:2135
 msgid "Errors for: %s"
 msgstr "Fehler für: %s"
 
-#: includes/validation/class-amp-validated-url-post-type.php:2130
+#: includes/validation/class-amp-validated-url-post-type.php:2123
 msgid "Single URL"
 msgstr "Detailansicht-URL"
 
 #. translators: %s is the validation error count
-#: includes/validation/class-amp-validated-url-post-type.php:2056
+#: includes/validation/class-amp-validated-url-post-type.php:2049
 msgid "%s URL w/ new AMP errors"
 msgid_plural "%s URLs w/ new AMP errors"
 msgstr[0] "%s URL mit neuen AMP-Fehlern"
 msgstr[1] "%s URLs mit neuen AMP-Fehlern"
 
-#: includes/validation/class-amp-validated-url-post-type.php:1881
+#: includes/validation/class-amp-validated-url-post-type.php:1874
 msgid "Search Errors"
 msgstr "Fehler suchen"
 
-#: includes/validation/class-amp-validated-url-post-type.php:1846
+#: includes/validation/class-amp-validated-url-post-type.php:1839
 msgid "Invalid taxonomy."
 msgstr "Ungültige Taxonomie."
 
-#: includes/validation/class-amp-validated-url-post-type.php:1798
+#: includes/validation/class-amp-validated-url-post-type.php:1791
 msgid "Update"
 msgstr "Aktualisieren"
 
-#: includes/validation/class-amp-validated-url-post-type.php:1783
+#: includes/validation/class-amp-validated-url-post-type.php:1776
 msgid "View User"
 msgstr "Benutzer anzeigen"
 
-#: includes/validation/class-amp-validated-url-post-type.php:1781
+#: includes/validation/class-amp-validated-url-post-type.php:1774
 msgid "Edit User"
 msgstr "Benutzer bearbeiten"
 
-#: includes/validation/class-amp-validated-url-post-type.php:1766
+#: includes/validation/class-amp-validated-url-post-type.php:1759
 msgid "View URL"
 msgstr "URL aufrufen"
 
-#: includes/validation/class-amp-validated-url-post-type.php:1757
+#: includes/validation/class-amp-validated-url-post-type.php:1750
 msgid "Please recheck."
 msgstr "Bitte erneut prüfen."
 
-#: includes/validation/class-amp-validated-url-post-type.php:1754
+#: includes/validation/class-amp-validated-url-post-type.php:1747
 msgid "Different plugins were active when these results were obtained."
 msgstr "Andere Plugins waren aktiv, als diese Ergebnisse zustande kamen."
 
-#: includes/validation/class-amp-validated-url-post-type.php:1751
+#: includes/validation/class-amp-validated-url-post-type.php:1744
 msgid "A different theme was active when these results were obtained."
 msgstr "Ein anderes Theme war aktiv, als diese Ergebnisse zustande kamen."
 
-#: includes/validation/class-amp-validated-url-post-type.php:1748
+#: includes/validation/class-amp-validated-url-post-type.php:1741
 msgid "Different theme and plugins were active when these results were obtained."
 msgstr "Andere Themes und Plugins waren aktiv, als diese Ergebnisse zustande kamen."
 
-#: includes/validation/class-amp-validated-url-post-type.php:1732
+#: includes/validation/class-amp-validated-url-post-type.php:1725
 msgid "Preview Changes"
 msgstr "Änderungsvorschau"
 
 #. translators: %s: The date this was published
-#: includes/validation/class-amp-validated-url-post-type.php:1718
+#: includes/validation/class-amp-validated-url-post-type.php:1711
 msgid "Last checked: <b>%s</b>"
 msgstr "Zuletzt geprüft: <b>%s</b>"
 
@@ -2003,198 +2098,198 @@ msgstr "Alle anzeigen"
 msgid "You have unsaved changes. Are you sure you want to leave?"
 msgstr "Du hast ungesicherte Änderungen. Bist du sicher, dass du die Seite verlassen möchtest?"
 
-#: includes/validation/class-amp-validated-url-post-type.php:1404
-#: includes/validation/class-amp-validated-url-post-type.php:1553
+#: includes/validation/class-amp-validated-url-post-type.php:1397
+#: includes/validation/class-amp-validated-url-post-type.php:1546
 msgid "You do not have permissions to validate an AMP URL. Did you get logged out?"
 msgstr "Du hast nicht die erforderlichen Berechtigungen um eine AMP URL zu validieren. Wurdest du eventuell abgemeldet?"
 
-#: includes/validation/class-amp-validated-url-post-type.php:1362
+#: includes/validation/class-amp-validated-url-post-type.php:1355
 msgid "Accept or Reject this error for all instances."
 msgstr "Fehler für alle Instanzen akzeptieren oder zurückweisen."
 
-#: includes/validation/class-amp-validated-url-post-type.php:1358
+#: includes/validation/class-amp-validated-url-post-type.php:1351
 msgid "Rejecting an error means that any URL on which it occurs will redirect to the non-AMP version. If all errors occurring on a URL are accepted, then it will not redirect."
 msgstr "Wenn du die Bereinigung eines Fehler ablehnst, dann wird jede URL, auf der dieser Fehler auftritt, auf die Nicht-AMP-Version umgeleitet. Falls die Bereinigung sämtlicher Fehler einer URL akzeptiert wird, gibt es keine Weiterleitung."
 
-#: includes/validation/class-amp-validated-url-post-type.php:1356
+#: includes/validation/class-amp-validated-url-post-type.php:1349
 msgid "Rejecting an error means that any URL on which it occurs will not be served as AMP. If all errors occurring on a URL are accepted, then it will be served as AMP."
 msgstr "Das Ablehnen eines Fehlers bedeutet, dass jede betroffene URL nicht als AMP ausgeliefert wird. Falls die Bereinigung sämtlicher Fehler einer URL akzeptiert wird, dann wird sie als AMP ausgeliefert."
 
-#: includes/validation/class-amp-validated-url-post-type.php:1352
-#: includes/validation/class-amp-validated-url-post-type.php:1366
-#: includes/validation/class-amp-validated-url-post-type.php:1885
-#: includes/validation/class-amp-validation-error-taxonomy.php:815
-#: includes/validation/class-amp-validation-error-taxonomy.php:1643
+#: includes/validation/class-amp-validated-url-post-type.php:1345
+#: includes/validation/class-amp-validated-url-post-type.php:1359
+#: includes/validation/class-amp-validated-url-post-type.php:1878
+#: includes/validation/class-amp-validation-error-taxonomy.php:802
+#: includes/validation/class-amp-validation-error-taxonomy.php:1635
 msgid "Accept"
 msgstr "Akzeptieren"
 
-#: includes/validation/class-amp-validated-url-post-type.php:1350
+#: includes/validation/class-amp-validated-url-post-type.php:1343
 msgid "Accept this error for all instances."
 msgstr "Fehler überall akzeptieren."
 
-#: includes/validation/class-amp-validated-url-post-type.php:1344
-#: includes/validation/class-amp-validated-url-post-type.php:1346
+#: includes/validation/class-amp-validated-url-post-type.php:1337
+#: includes/validation/class-amp-validated-url-post-type.php:1339
 msgid "Accepting all validation errors which occur on a URL will allow it to be served as AMP."
 msgstr "Das Akzeptieren aller Validierungsfehler, die auf einer URL auftreten, erlaubt das Ausliefern von AMP."
 
-#: includes/validation/class-amp-validated-url-post-type.php:1340
-#: includes/validation/class-amp-validated-url-post-type.php:1364
-#: includes/validation/class-amp-validated-url-post-type.php:1886
-#: includes/validation/class-amp-validation-error-taxonomy.php:816
-#: includes/validation/class-amp-validation-error-taxonomy.php:1633
+#: includes/validation/class-amp-validated-url-post-type.php:1333
+#: includes/validation/class-amp-validated-url-post-type.php:1357
+#: includes/validation/class-amp-validated-url-post-type.php:1879
+#: includes/validation/class-amp-validation-error-taxonomy.php:803
+#: includes/validation/class-amp-validation-error-taxonomy.php:1625
 msgid "Reject"
 msgstr "Zurückweisen"
 
-#: includes/validation/class-amp-validated-url-post-type.php:1338
+#: includes/validation/class-amp-validated-url-post-type.php:1331
 msgid "Reject this validation error for all instances."
 msgstr "Alle Vorkommnisse dieses Validierungsfehlers zurückweisen."
 
-#: includes/validation/class-amp-validated-url-post-type.php:1334
+#: includes/validation/class-amp-validated-url-post-type.php:1327
 msgid "Rejecting an error means that any URL on which it occurs will redirect to the non-AMP version."
 msgstr "Einen Fehler zurückweisen bedeutet, dass jede betroffene URL auf die Nicht-AMP-Version weitergeleitet wird."
 
-#: includes/validation/class-amp-validated-url-post-type.php:1332
+#: includes/validation/class-amp-validated-url-post-type.php:1325
 msgid "Rejecting an error means that any URL on which it occurs will not be served as AMP."
 msgstr "Das Zurückweisen eines Fehlers bedeutet, dass jede betroffene URL nicht als AMP ausgeliefert wird."
 
-#: includes/validation/class-amp-validated-url-post-type.php:1276
+#: includes/validation/class-amp-validated-url-post-type.php:1269
 msgid "The site is using AMP reader mode, your theme templates are not used and the errors below are irrelevant."
 msgstr "Die Website benutzt den AMP-Lesemodus, deine Theme-Templates werden nicht verwendet und die genannten Fehler sind irrelevant."
 
 #. translators: %s is a link to the AMP settings screen
-#: includes/validation/class-amp-validated-url-post-type.php:1272
+#: includes/validation/class-amp-validated-url-post-type.php:1265
 msgid "The site is using transitional AMP mode without auto-sanitization, the validation errors found require action and influence which pages are shown in AMP. For automatically handling the errors turn on auto-sanitization from <a href=\"%s\">Validation Handling settings</a>."
 msgstr "Die Website benutzt den AMP-Übergangsmodus ohne automatische Bereinigung. Die gefundenen Validierungsfehler beeinflussen, für welche Seiten AMP ausgeliefert wird und müssen überprüft werden. Automatische Fehlerbereinigung kann in den <a href=\"%s\">Validierungseinstellungen</a> aktiviert werden."
 
-#: includes/validation/class-amp-validated-url-post-type.php:1268
+#: includes/validation/class-amp-validated-url-post-type.php:1261
 msgid "The site is using transitional AMP mode with auto-sanitization turned on, the validation errors found are already automatically handled."
 msgstr "Diese Website nutzt den Übergangsmodus von AMP mit automatischer Bereinigung von Validierungsfehlern. Validierungsfehler, die gefunden werden, werden automatisch behandelt."
 
-#: includes/validation/class-amp-validated-url-post-type.php:1266
+#: includes/validation/class-amp-validated-url-post-type.php:1259
 msgid "The site is using standard AMP mode, the validation errors found are already automatically handled."
 msgstr "Die Website benutzt den Standard-Modus von AMP, die gefundenen Validierungsfehler werden bereits automatisch behandelt."
 
 #. translators: %s is count of validation errors updated
-#: includes/validation/class-amp-validated-url-post-type.php:1241
+#: includes/validation/class-amp-validated-url-post-type.php:1234
 msgid "Updated %s validation error."
 msgid_plural "Updated %s validation errors."
 msgstr[0] "%s Validierungsfehler aktualisiert."
 msgstr[1] "%s Validierungsfehler aktualisiert."
 
-#: includes/validation/class-amp-validated-url-post-type.php:1220
+#: includes/validation/class-amp-validated-url-post-type.php:1213
 msgid "The rechecked URL is free of unaccepted validation errors."
 msgid_plural "The rechecked URLs are free of unaccepted validation errors."
 msgstr[0] "Die erneut überprüfte URL hat keine Validierungsfehler mehr."
 msgstr[1] "Die erneut überprüften URLs haben keine Validierungsfehler mehr."
 
-#: includes/validation/class-amp-validated-url-post-type.php:1217
+#: includes/validation/class-amp-validated-url-post-type.php:1210
 msgid "The rechecked URL still has unaccepted validation errors."
 msgid_plural "The rechecked URLs still have unaccepted validation errors."
 msgstr[0] "Die erneut überprüfte URL hat weiterhin Validierungsfehler."
 msgstr[1] "Die erneut überprüften URLs haben weiterhin Validierungsfehler."
 
-#: includes/validation/class-amp-validated-url-post-type.php:1118
-#: includes/validation/class-amp-validated-url-post-type.php:1794
-#: includes/validation/class-amp-validated-url-post-type.php:2199
+#: includes/validation/class-amp-validated-url-post-type.php:1111
+#: includes/validation/class-amp-validated-url-post-type.php:1787
+#: includes/validation/class-amp-validated-url-post-type.php:2193
 msgid "Forget"
 msgstr "Vergessen"
 
 #. translators: %s is the guessed theme as the source for the error
-#: includes/validation/class-amp-validated-url-post-type.php:1099
+#: includes/validation/class-amp-validated-url-post-type.php:1092
 msgid "%s (?)"
 msgstr "%s (?)"
 
-#: includes/validation/class-amp-validated-url-post-type.php:1073
+#: includes/validation/class-amp-validated-url-post-type.php:1066
 msgid "Other"
 msgstr "Andere"
 
-#: includes/validation/class-amp-validated-url-post-type.php:1042
+#: includes/validation/class-amp-validated-url-post-type.php:1035
 msgid "Plugins"
 msgstr "Plugins"
 
-#: includes/validation/class-amp-validated-url-post-type.php:1042
+#: includes/validation/class-amp-validated-url-post-type.php:1035
 msgid "Must-Use Plugins"
 msgstr "Must-Use-Plugins"
 
-#: includes/validation/class-amp-validated-url-post-type.php:955
-#: includes/validation/class-amp-validated-url-post-type.php:1744
+#: includes/validation/class-amp-validated-url-post-type.php:948
+#: includes/validation/class-amp-validated-url-post-type.php:1737
 msgid "Stale results"
 msgstr "Veraltete Ergebnisse"
 
-#: includes/validation/class-amp-validated-url-post-type.php:931
-#: includes/validation/class-amp-validation-error-taxonomy.php:851
+#: includes/validation/class-amp-validated-url-post-type.php:924
+#: includes/validation/class-amp-validation-error-taxonomy.php:838
 msgid "Type"
 msgstr "Typ"
 
-#: includes/validation/class-amp-validated-url-post-type.php:926
-#: includes/validation/class-amp-validation-error-taxonomy.php:847
+#: includes/validation/class-amp-validated-url-post-type.php:919
+#: includes/validation/class-amp-validation-error-taxonomy.php:834
 msgid "The parent element of where the error occurred."
 msgstr "Das übergeordnete Element dessen, wo der Fehler auftrat. "
 
-#: includes/validation/class-amp-validated-url-post-type.php:907
-#: includes/validation/class-amp-validation-error-taxonomy.php:828
+#: includes/validation/class-amp-validated-url-post-type.php:900
+#: includes/validation/class-amp-validation-error-taxonomy.php:815
 msgid "Error"
 msgstr "Fehler"
 
-#: includes/validation/class-amp-validated-url-post-type.php:886
-#: includes/validation/class-amp-validated-url-post-type.php:892
+#: includes/validation/class-amp-validated-url-post-type.php:879
+#: includes/validation/class-amp-validated-url-post-type.php:885
 msgid "Last Checked"
 msgstr "Zuletzt geprüft"
 
-#: includes/validation/class-amp-validated-url-post-type.php:880
-#: includes/validation/class-amp-validated-url-post-type.php:893
+#: includes/validation/class-amp-validated-url-post-type.php:873
+#: includes/validation/class-amp-validated-url-post-type.php:886
 msgid "URL"
 msgstr "URL"
 
-#: includes/validation/class-amp-validated-url-post-type.php:875
-#: includes/validation/class-amp-validated-url-post-type.php:891
-#: includes/validation/class-amp-validated-url-post-type.php:930
+#: includes/validation/class-amp-validated-url-post-type.php:868
+#: includes/validation/class-amp-validated-url-post-type.php:884
+#: includes/validation/class-amp-validated-url-post-type.php:923
 msgid "Sources"
 msgstr "Quellen"
 
-#: includes/validation/class-amp-validated-url-post-type.php:874
+#: includes/validation/class-amp-validated-url-post-type.php:867
 msgid "Invalid"
 msgstr "Ungültig"
 
-#: includes/validation/class-amp-validated-url-post-type.php:870
-#: includes/validation/class-amp-validated-url-post-type.php:915
-#: includes/validation/class-amp-validation-error-taxonomy.php:836
+#: includes/validation/class-amp-validated-url-post-type.php:863
+#: includes/validation/class-amp-validated-url-post-type.php:908
+#: includes/validation/class-amp-validation-error-taxonomy.php:823
 msgid "An accepted validation error is one that will not block a URL from being served as AMP; the validation error will be sanitized, normally resulting in the offending markup being stripped from the response to ensure AMP validity."
 msgstr "Ein akzeptierter Validierungsfehler verhindert die Auslieferung einer URL als AMP nicht. Der Validierungsfehler wird normalerweise dadurch bereinigt, dass der nicht-korrekte Markup aus der Antwort gefiltert wird, um die AMP-Validität sicherzustellen."
 
-#: includes/validation/class-amp-validated-url-post-type.php:518
+#: includes/validation/class-amp-validated-url-post-type.php:511
 msgid "AMP: Disabled"
 msgstr "AMP: deaktiviert"
 
-#: includes/validation/class-amp-validated-url-post-type.php:516
+#: includes/validation/class-amp-validated-url-post-type.php:509
 msgid "AMP: Enabled"
 msgstr "AMP: aktiviert"
 
-#: includes/validation/class-amp-validated-url-post-type.php:504
-#: includes/validation/class-amp-validation-error-taxonomy.php:1847
-#: includes/validation/class-amp-validation-error-taxonomy.php:2311
+#: includes/validation/class-amp-validated-url-post-type.php:497
+#: includes/validation/class-amp-validation-error-taxonomy.php:1839
+#: includes/validation/class-amp-validation-error-taxonomy.php:2300
 msgid "Rejected"
 msgstr "Zurückgewiesen"
 
-#: includes/validation/class-amp-validated-url-post-type.php:496
-#: includes/validation/class-amp-validation-error-taxonomy.php:1844
-#: includes/validation/class-amp-validation-error-taxonomy.php:2308
+#: includes/validation/class-amp-validated-url-post-type.php:489
+#: includes/validation/class-amp-validation-error-taxonomy.php:1836
+#: includes/validation/class-amp-validation-error-taxonomy.php:2297
 msgid "Accepted"
 msgstr "Akzeptiert"
 
-#: includes/validation/class-amp-validated-url-post-type.php:488
-#: includes/validation/class-amp-validation-error-taxonomy.php:1836
-#: includes/validation/class-amp-validation-error-taxonomy.php:2317
+#: includes/validation/class-amp-validated-url-post-type.php:481
+#: includes/validation/class-amp-validation-error-taxonomy.php:1828
+#: includes/validation/class-amp-validation-error-taxonomy.php:2306
 msgid "New Accepted"
 msgstr "Neu akzeptiert"
 
-#: includes/validation/class-amp-validated-url-post-type.php:480
-#: includes/validation/class-amp-validation-error-taxonomy.php:1839
-#: includes/validation/class-amp-validation-error-taxonomy.php:2314
+#: includes/validation/class-amp-validated-url-post-type.php:473
+#: includes/validation/class-amp-validation-error-taxonomy.php:1831
+#: includes/validation/class-amp-validation-error-taxonomy.php:2303
 msgid "New Rejected"
 msgstr "Neu zurückgewiesen"
 
-#: includes/validation/class-amp-validated-url-post-type.php:348
+#: includes/validation/class-amp-validated-url-post-type.php:341
 msgid "View Error Index"
 msgstr "Fehlerindex ansehen"
 
@@ -2232,15 +2327,15 @@ msgid "New AMP Template Modes"
 msgstr "Neue AMP-Template-Modi"
 
 #. translators: %s is a link to the AMP settings screen
-#: includes/admin/class-amp-post-meta-box.php:346
+#: includes/admin/class-amp-post-meta-box.php:349
 msgid "There are no <a href=\"%s\">supported templates</a> to display this in AMP."
 msgstr "Es gibt keine <a href=\"%s\">unterstützten Templates</a>, um diesen Inhalt in AMP anzuzeigen."
 
-#: includes/admin/class-amp-post-meta-box.php:340
+#: includes/admin/class-amp-post-meta-box.php:343
 msgid "Your site does not allow AMP to be enabled."
 msgstr "Deine Website erlaubt es nicht, AMP zu aktivieren."
 
-#: includes/admin/class-amp-post-meta-box.php:338
+#: includes/admin/class-amp-post-meta-box.php:341
 msgid "Your site does not allow AMP to be disabled."
 msgstr "Deine Website erlaubt es nicht, AMP zu deaktivieren."
 
@@ -2257,153 +2352,150 @@ msgid "e.g. googleanalytics"
 msgstr "z.&nbsp;B. googleanalytics"
 
 #. translators: %s is an AMP URL
-#: includes/options/class-amp-options-manager.php:771
+#: includes/options/class-amp-options-manager.php:775
 msgid "Reader mode activated! View the <a href=\"%s\">AMP version of a recent post</a>. It is recommended that you upgrade to Standard or Transitional mode."
 msgstr "Lesemodus aktiviert! <a href=\"%s\">AMP-Version eines aktuellen Artikels ansehen</a>. Es ist empfohlen, dass du zum Standard- oder Übergangsmodus wechselst."
 
 #. translators: 1: URL to review issues. 2: count of new errors.
-#: includes/options/class-amp-options-manager.php:737
+#: includes/options/class-amp-options-manager.php:741
 msgid "Please also <a href=\"%1$s\">review %2$s issue</a> which may need to be fixed (for one URL at least)."
 msgid_plural "Please also <a href=\"%1$s\">review %2$s issues</a> which may need to be fixed (for one URL at least)."
 msgstr[0] "Bitte <a href=\"%1$s\">überprüfe %2$s Fehler</a>, der behoben werden muss."
 msgstr[1] "Bitte <a href=\"%1$s\">überprüfe %2$s Fehler</a>, die behoben werden müssen."
 
 #. translators: %s is an AMP URL
-#: includes/options/class-amp-options-manager.php:728
+#: includes/options/class-amp-options-manager.php:732
 msgid "View an <a href=\"%s\">AMP version of your site</a>."
 msgstr "<a href=\"%s\">AMP-Version der Website ansehen</a>."
 
 #. translators: %s is URL to review issues
-#: includes/options/class-amp-options-manager.php:712
+#: includes/options/class-amp-options-manager.php:716
 msgid "<a href=\"%s\">Review Issue</a>."
 msgid_plural "<a href=\"%s\">Review Issues</a>."
 msgstr[0] "<a href=\"%s\">Fehler prüfen</a>."
 msgstr[1] "<a href=\"%s\">Fehler prüfen</a>."
 
 #. translators: %s is count of rejected errors
-#: includes/options/class-amp-options-manager.php:697
+#: includes/options/class-amp-options-manager.php:701
 msgid "However, AMP is not yet available due to %s validation error (for one URL at least)."
 msgid_plural "However, AMP is not yet available due to %s validation errors (for one URL at least)."
 msgstr[0] "AMP ist noch nicht verfügbar wegen %s Validierungsfehler."
 msgstr[1] "AMP ist noch nicht verfügbar wegen %s Validierungsfehlern."
 
 #. translators: %s is the error code
-#: includes/options/class-amp-options-manager.php:669
+#: includes/options/class-amp-options-manager.php:673
 msgid "Error code: %s."
 msgstr "Fehlercode: %s"
 
 #. translators: 1: error message. 2: error code.
-#: includes/options/class-amp-options-manager.php:658
+#: includes/options/class-amp-options-manager.php:662
 msgid "However, there was an error when checking the AMP validity for your site."
 msgstr "Es gab jedoch ein Fehler bei der AMP-Validierung deiner Website."
 
-#: includes/options/class-amp-options-manager.php:480
+#: includes/sanitizers/class-amp-form-sanitizer.php:189
+#: includes/options/class-amp-options-manager.php:484
 msgid "Learn More"
 msgstr "Mehr erfahren"
 
-#: includes/options/class-amp-options-manager.php:479
+#: includes/options/class-amp-options-manager.php:483
 msgid "From granular controls that help you create AMP content, to Core Gutenberg support, to a sanitizer that only shows visitors error-free pages, to a full error workflow for developers, this release enables rich, performant experiences for your WordPress site."
 msgstr "Von den detaillierten Steuerungsmöglichkeiten bei der Erstellung von AMP-Inhalt über die Unterstützung des Gutenberg-Editors und die Bereinigungsfunktion, die den Besuchern ausschließlich fehlerfreie Seiten präsentiert, bis hin zum umfassenden Fehler-Workflow für Entwickler: Diese Version ermöglicht reichhaltige, performante Erlebnisse für deine WordPress-Website."
 
-#: includes/options/class-amp-options-manager.php:478
+#: includes/options/class-amp-options-manager.php:482
 msgid "Bring the speed and features of the open source AMP project to your site, complete with the tools to support content authoring and website development."
 msgstr "Bringt die Geschwindigkeit und Funktionen des Open-Source-AMP-Projekts zu deiner Website mitsamt allen Werkzeugen zur Inhaltserstellung und Website-Entwicklung."
 
-#: includes/options/class-amp-options-manager.php:477
+#: includes/options/class-amp-options-manager.php:481
 msgid "Welcome to AMP for WordPress"
 msgstr "Willkommen bei AMP für WordPress"
 
-#: includes/options/class-amp-options-manager.php:475
+#: includes/options/class-amp-options-manager.php:479
 msgid "Illustration of WordPress running AMP plugin."
 msgstr "Illustration von WordPress mit dem AMP-Plugin."
 
-#: includes/options/class-amp-options-menu.php:708
-msgid "You do not have permission to modify these settings. They are shown here for your reference. Please contact your administrator to make changes."
-msgstr "Du hast nicht die erforderlichen Berechtigungen, um diese Einstellungen zu ändern. Bitte kontaktiere einen Administrator. um Änderungen vorzunehmen."
-
-#: includes/options/class-amp-options-menu.php:631
+#: includes/options/class-amp-options-menu.php:648
 msgid "This will enable post-processor caching to speed up processing an AMP response after WordPress renders a template."
 msgstr "Damit wird das Post-Prozessor-Caching aktiviert, um die Verarbeitung einer AMP-Antwort zu beschleunigen, nachdem WordPress ein Template gerendert hat."
 
-#: includes/options/class-amp-options-menu.php:628
+#: includes/options/class-amp-options-menu.php:645
 msgid "Enable post-processor caching."
 msgstr "Post-Prozessor-Caching aktivieren."
 
-#: includes/options/class-amp-options-menu.php:622
+#: includes/options/class-amp-options-menu.php:639
 msgid "Read more"
 msgstr "Weiterlesen"
 
-#: includes/options/class-amp-options-menu.php:621
+#: includes/options/class-amp-options-menu.php:638
 msgid "Randomly generated content was detected on this web page.  To avoid filling up the cache with unusable content, the AMP plugin's post-processor cache was automatically disabled."
 msgstr "Auf dieser Webseite wurde zufällig generierter Inhalt festgestellt. Um zu verhindern, dass der Cache mit unbrauchbarem Inhalt gefüllt wird, wurde der Post-Prozessor-Cache des AMP-Plugins automatisch deaktiviert."
 
-#: includes/options/class-amp-options-menu.php:620
+#: includes/options/class-amp-options-menu.php:637
 msgid "on this web page."
 msgstr "auf dieser Webseite."
 
-#: includes/options/class-amp-options-menu.php:620
+#: includes/options/class-amp-options-menu.php:637
 msgid "The post-processor cache was disabled due to detecting randomly generated content found on"
 msgstr "Der Post-Prozessor-Cache wurde wegen der Entdeckung von zufälligen Inhalten deaktiviert."
 
-#: includes/options/class-amp-options-menu.php:558
+#: includes/options/class-amp-options-menu.php:575
 msgid "Templates"
 msgstr "Templates"
 
-#: includes/options/class-amp-options-menu.php:523
+#: includes/options/class-amp-options-menu.php:540
 msgid "The following content types will be available as AMP:"
 msgstr "Die folgenden Inhaltstypen werden als AMP-Version verfügbar sein:"
 
-#: includes/options/class-amp-options-menu.php:521
+#: includes/options/class-amp-options-menu.php:538
 msgid "Content Types"
 msgstr "Inhaltstypen"
 
-#: includes/options/class-amp-options-menu.php:498
+#: includes/options/class-amp-options-menu.php:515
 msgid "This will allow all of the URLs on your site to be served as AMP by default."
 msgstr "Dies erlaubt es dir, alle URLs auf deiner Website standardmäßig als AMP auszuliefern."
 
-#: includes/options/class-amp-options-menu.php:494
+#: includes/options/class-amp-options-menu.php:511
 msgid "Serve all templates as AMP regardless of what is being queried."
 msgstr "Alle Templates als AMP ausliefern, unabhängig von der Art des Inhalts."
 
-#: includes/options/class-amp-options-menu.php:487
+#: includes/options/class-amp-options-menu.php:504
 msgid "The current theme requires all templates to support AMP."
 msgstr "Das aktuelle Theme erzwingt AMP-Support für alle Templates."
 
 #. translators: %s is URL to validation errors screen
-#: includes/options/class-amp-options-menu.php:426
+#: includes/options/class-amp-options-menu.php:443
 msgid "Existing validation errors which you have already rejected will not be modified (you may want to consider <a href=\"%s\">bulk-accepting them</a>)."
 msgstr "Bestehende Validierungsfehler, deren automatische Bereinigung du bereits abgelehnt hast, werden nicht beeinflusst (du kannst diese aber <a href=\"%s\">global akzeptieren</a>)."
 
-#: includes/options/class-amp-options-menu.php:421
+#: includes/options/class-amp-options-menu.php:438
 msgid "This will ensure your responses are always valid AMP but some important content may get stripped out (e.g. scripts)."
 msgstr "Damit ist sichergestellt, dass immer gültige AMP-Seiten ausgeliefert werden, allerdings wird unter Umständen wichtiger Inhalt ausgefiltert (z.&nbsp;B. Skripte)."
 
-#: includes/options/class-amp-options-menu.php:417
+#: includes/options/class-amp-options-menu.php:434
 msgid "Automatically accept sanitization for any newly encountered AMP validation errors."
 msgstr "Zukünfte AMP-Validierungsfehler automatisch bereinigen."
 
-#: includes/options/class-amp-options-menu.php:411
+#: includes/options/class-amp-options-menu.php:428
 msgid "All new validation errors are automatically accepted when in standard mode."
 msgstr "Im Standard-Modus werden alle neuen Validierungsfehler automatisch akzeptiert."
 
-#: includes/options/class-amp-options-menu.php:406
+#: includes/options/class-amp-options-menu.php:423
 msgid "Your install is configured via a theme or plugin to automatically sanitize any AMP validation error that is encountered."
 msgstr "Deine Website wurde durch ein Theme oder Plugin so konfiguriert, dass alle AMP-Validierungsfehler automatisch bereinigt werden."
 
 #. translators: %1: link to invalid URLs. 2: link to validation errors.
-#: includes/options/class-amp-options-menu.php:347
+#: includes/options/class-amp-options-menu.php:364
 msgid "View current site compatibility results for standard and transitional modes: %1$s and %2$s."
 msgstr "Aktuelle Kompatibilitätsresultate für Standard- und Übergangsmodus ansehen: %1$s und %2$s."
 
-#: includes/options/class-amp-options-menu.php:141
+#: includes/options/class-amp-options-menu.php:158
 msgid "Caching"
 msgstr "Caching"
 
-#: includes/options/class-amp-options-menu.php:114
+#: includes/options/class-amp-options-menu.php:117
 msgid "Supported Templates"
 msgstr "Unterstützte Templates"
 
-#: includes/options/class-amp-options-menu.php:103
+#: includes/options/class-amp-options-menu.php:106
 msgid "Validation Handling"
 msgstr "Validierungseinstellungen"
 
@@ -2412,20 +2504,20 @@ msgid "Settings"
 msgstr "Einstellungen"
 
 #. translators: %s: the human-readable time difference.
-#. translators: %s: human readable timestamp
-#: templates/meta-time.php:22 back-compat/templates-v0-3/meta-time.php:15
-#: includes/validation/class-amp-validation-error-taxonomy.php:1886
+#: back-compat/templates-v0-3/meta-time.php:15
+#: includes/validation/class-amp-validation-error-taxonomy.php:1878
+#: templates/meta-time.php:28
 msgid "%s ago"
 msgstr "vor %s"
 
 #. translators: %1$s is the current directory name, and %2$s is the required
 #. directory name
-#: amp.php:228
+#: amp.php:229
 msgid "You appear to have installed the AMP plugin incorrectly. It is currently installed in the <code>%1$s</code> directory, but it needs to be placed in a directory named <code>%2$s</code>. Please rename the directory. This is important for WordPress plugin auto-updates."
 msgstr "Das AMP-Plugin scheint nicht korrekt installiert zu sein. Es liegt aktuell im <code>%1$s</code>-Verzeichnis, sollte aber im <code>%2$s</code>-Verzeichnis sein. Bitte benenne den Ordner um. Dies ist wichtig für die WordPress-Plugin-Aktualisierungen."
 
 #. translators: %s: composer install && npm install && npm run build
-#: amp.php:153
+#: amp.php:157
 msgid "You appear to be running the AMP plugin from source. Please do %s to finish installation."
 msgstr "Du scheinst die Entwicklungsversion des AMP-Plugins zu benutzen. Bitte führe %s aus, um die Installation abzuschließen."
 
@@ -2457,319 +2549,295 @@ msgstr "Layout"
 msgid "Previews for this are unavailable in the editor, sorry!"
 msgstr "Vorschauen für dies sind im Editor leider nicht verfügbar, entschuldige!"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Springboard Player"
 msgstr "Springboard Player"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Number of video is playlist (required)"
 msgstr "Anzahl Videos in Playlist (erforderlich)"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Playlist"
 msgstr "Playlist"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Video"
 msgstr "Video"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Mode (required)"
 msgstr "Modus (erforderlich)"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Springboard partner domain"
 msgstr "Springboard Partner-Domain"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Player ID"
 msgstr "Player ID"
 
-#: assets/js/amp-block-editor.js:11
-msgid "Player content ID (required)"
-msgstr "Player-Inhalts-ID (erforderlich)"
-
-#: assets/js/amp-block-editor.js:11
-msgid "SprintBoard site ID (required)"
-msgstr "SprintBoard-Website-ID (erforderlich)"
-
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Springboard Player Settings"
 msgstr "Springboard-Player-Einstellungen"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Displays the Springboard Player used in the Springboard Video Platform"
 msgstr "Zeigt den Springboard-Player an, der auf der Springboard-Video-Plattform benutzt wird"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "AMP Springboard Player"
 msgstr "AMP Springboard Player"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Add Reach player embed ID to use the block."
 msgstr "Reach-Player-Embed-ID hinzufügen, um den Block zu benutzen."
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Reach Player"
 msgstr "Reach Player"
 
-#: assets/js/amp-block-editor.js:11
-msgid "The Reach player embed id (required)"
-msgstr "Die Reach-Player-Embed-ID (erforderlich)"
-
-#: assets/js/amp-block-editor.js:11
-msgid "Reach settings"
+#: assets/js/amp-block-editor.js:15
+msgid "Reach Settings"
 msgstr "Reach-Einstellungen"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:9 assets/js/amp-block-editor.js:15
+#: assets/js/amp-block-validation.js:1
 msgid "Fixed Height"
 msgstr "Fixe Höhe"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Beachfront Reach video"
 msgstr "Beachfront Reach Video"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Displays the Reach Player configured in the Beachfront Reach platform."
 msgstr "Zeigt den Reach-Player an, der in der Beachfront-Reach-Plattform konfiguriert ist."
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "AMP Reach Player"
 msgstr "AMP Reach Player"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Ooyala Player"
 msgstr "Ooyala Player"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "V4"
 msgstr "V4"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "V3"
 msgstr "V3"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Player version"
 msgstr "Player-Version"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Provider code for the account (required)"
 msgstr "Anbieter-Code für das Konto (erforderlich)"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Video embed code (required)"
 msgstr "Video-Embed-Code (erforderlich)"
 
-#: assets/js/amp-block-editor.js:11
-msgid "Ooyala settings"
+#: assets/js/amp-block-editor.js:15
+msgid "Ooyala Settings"
 msgstr "Ooyala-Einstellungen"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Ooyala video"
 msgstr "Ooyala Video"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Displays an Ooyala video."
 msgstr "Zeigt ein Ooyala-Video an."
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "AMP Ooyala Player"
 msgstr "AMP Ooyala Player"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "O2 Player"
 msgstr "O2 Player"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Playlist ID"
 msgstr "Playlist ID"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Video ID (either buyer or video ID is required)"
 msgstr "Video-ID (entweder die Käufer- oder Video-ID ist erforderlich)"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Buyer Company ID (either buyer or video ID is required)"
 msgstr "Buyer-Company-ID (entweder Buyer- oder Video-ID ist erforderlich)"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "O2 Player Settings"
 msgstr "O2-Player-Einstellungen"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "AOL O2Player"
 msgstr "AOL O2Player"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "AMP O2 Player"
 msgstr "AMP O2 Player"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Insert formula"
 msgstr "Formel einfügen"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Scientific content "
 msgstr "Wissenschaftlicher Inhalt"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Mathematical formula"
 msgstr "Mathematische Formel"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "AMP MathML"
 msgstr "AMP MathML"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "JW Player"
 msgstr "JW Player"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Playlist ID (required if media ID not set)"
 msgstr "Playlist-ID (erforderlich, wenn die Medien-ID nicht angegeben ist)"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Media ID (required if playlist ID not set)"
 msgstr "Medien-ID (erforderlich, wenn die Playlist-ID nicht angegeben ist)"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Player ID (required)"
 msgstr "Player ID (erforderlich)"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "JW Player Settings"
 msgstr "JW-Player-Einstellungen"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Displays a cloud-hosted JW Player."
 msgstr "Zeigt einen JW-Player an, der in der Cloud gehostet wird."
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "AMP JW Player"
 msgstr "AMP JW Player"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "IMA Video"
 msgstr "IMA Video"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Delay Ad Request"
 msgstr "Werbe-Anfrage verzögern"
 
-#: assets/js/amp-block-editor.js:11
-msgid "Https URL to preview image"
+#: assets/js/amp-block-editor.js:15
+msgid "HTTPS URL to preview image"
 msgstr "HTTPS-URL für die Bildvorschau"
 
-#: assets/js/amp-block-editor.js:11
-msgid "Https URL of your video content (required)"
+#: assets/js/amp-block-editor.js:15
+msgid "HTTPS URL of your video content (required)"
 msgstr "HTTPS-URL deines Video-Inhalts (erforderlich)"
 
-#: assets/js/amp-block-editor.js:11
-msgid "Https URL for your VAST ad document (required)"
+#: assets/js/amp-block-editor.js:15
+msgid "HTTPS URL for your VAST ad document (required)"
 msgstr "HTTPS-URL für dein VAST-Werbe-Dokument (erforderlich)"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "IMA Video Settings"
 msgstr "IMA-Video-Einstellungen"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Embeds a video player for instream video ads that are integrated with the IMA SDK"
 msgstr "Bettet einen Video-Player für Instream-Videoanzeigen ein, die in das IMA SDK integriert sind"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "AMP IMA Video"
 msgstr "AMP IMA Video"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Add required data to use the block."
 msgstr "Erforderliche Daten angeben, um den Block zu benutzen."
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Brid Player"
 msgstr "Brid Player"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Autoplay"
 msgstr "Autoplay"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Playlist ID (one of video / playlist / outstream ID is required)"
 msgstr "Playlist-ID (entweder Video-, Playlist- oder Outstream-ID ist erforderlich)"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Outstream unit ID (one of video / playlist / outstream ID is required)"
 msgstr "Outstream-unit-ID (entweder Video-, Playlist- oder Outstream-ID ist erforderlich)"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Video ID (one of video / playlist / outstream ID is required)"
 msgstr "Video-ID (entweder Video-, Playlist- oder Outstream-ID ist erforderlich)"
 
-#: assets/js/amp-block-editor.js:11
-msgid "Brid.tv player ID (required)"
-msgstr "Brid.tv-player-ID (erforderlich)"
-
-#: assets/js/amp-block-editor.js:11
-msgid "Brid.tv partner ID (required)"
-msgstr "Brid.tv-partner-ID (erforderlich)"
-
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Brid Player Settings"
 msgstr "Brid-Player-Einstellungen"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Flex-item"
 msgstr "Flex-item"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Embed"
 msgstr "Einbetten"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Displays the Brid Player used in Brid.tv Video Platform."
 msgstr "Zeigt den Brid-Player von der Video-Plattform Brid.tv an."
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "AMP Brid Player"
 msgstr "AMP Brid Player"
 
-#: assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:15
 msgid "Enable AMP"
 msgstr "AMP aktivieren"
 
-#: assets/js/amp-block-editor.js:5 assets/js/amp-block-validation.js:1
+#: assets/js/amp-block-editor.js:9 assets/js/amp-block-validation.js:1
 msgid "Default"
 msgstr "Standard"
 
-#: assets/js/amp-block-editor.js:5 assets/js/amp-block-validation.js:1
+#: assets/js/amp-block-editor.js:9 assets/js/amp-block-validation.js:1
 msgid "Intrinsic"
 msgstr "Intrinsisch"
 
-#: assets/js/amp-block-editor.js:5 assets/js/amp-block-validation.js:1
+#: assets/js/amp-block-editor.js:9 assets/js/amp-block-validation.js:1
 msgid "Flex Item"
 msgstr "Flex-Element"
 
-#: assets/js/amp-block-editor.js:5 assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:9 assets/js/amp-block-editor.js:15
 #: assets/js/amp-block-validation.js:1
 msgid "Fill"
 msgstr "Füllen"
 
-#: assets/js/amp-block-editor.js:5 assets/js/amp-block-editor.js:11
-#: assets/js/amp-block-validation.js:1
-msgid "Fixed height"
-msgstr "Fixe Höhe"
-
-#: assets/js/amp-block-editor.js:5 assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:9 assets/js/amp-block-editor.js:15
 #: assets/js/amp-block-validation.js:1
 msgid "Responsive"
 msgstr "Responsiv"
 
-#: assets/js/amp-block-editor.js:5 assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:9 assets/js/amp-block-editor.js:15
 #: assets/js/amp-block-validation.js:1
 msgid "Fixed"
 msgstr "Fixiert"
 
-#: assets/js/amp-block-editor.js:5 assets/js/amp-block-editor.js:11
+#: assets/js/amp-block-editor.js:9 assets/js/amp-block-editor.js:15
 #: assets/js/amp-block-validation.js:1
 msgid "No Display"
 msgstr "Verbergen"
@@ -2818,23 +2886,23 @@ msgstr "Monat auswählen"
 msgid "Select Year"
 msgstr "Jahr auswählen"
 
-#: includes/widgets/class-amp-widget-archives.php:44
 #: includes/class-amp-theme-support.php:862
+#: includes/widgets/class-amp-widget-archives.php:44
 msgid "Archives"
 msgstr "Archiv"
 
 #. translators: Meta box date format
-#: includes/validation/class-amp-validated-url-post-type.php:1720
+#: includes/validation/class-amp-validated-url-post-type.php:1713
 msgid "M j, Y @ H:i"
 msgstr "j. M Y, G:i"
 
-#: includes/validation/class-amp-validated-url-post-type.php:865
-#: includes/validation/class-amp-validated-url-post-type.php:869
-#: includes/validation/class-amp-validated-url-post-type.php:910
-#: includes/validation/class-amp-validated-url-post-type.php:914
-#: includes/validation/class-amp-validated-url-post-type.php:1681
-#: includes/validation/class-amp-validation-error-taxonomy.php:831
-#: includes/validation/class-amp-validation-error-taxonomy.php:835
+#: includes/validation/class-amp-validated-url-post-type.php:858
+#: includes/validation/class-amp-validated-url-post-type.php:862
+#: includes/validation/class-amp-validated-url-post-type.php:903
+#: includes/validation/class-amp-validated-url-post-type.php:907
+#: includes/validation/class-amp-validated-url-post-type.php:1674
+#: includes/validation/class-amp-validation-error-taxonomy.php:818
+#: includes/validation/class-amp-validation-error-taxonomy.php:822
 msgid "Status"
 msgstr "Status"
 
@@ -2842,24 +2910,28 @@ msgstr "Status"
 msgid "Validation Error"
 msgstr "Validierungsfehler"
 
-#: includes/validation/class-amp-validated-url-post-type.php:1122
-#: includes/validation/class-amp-validated-url-post-type.php:1728
-#: includes/validation/class-amp-validated-url-post-type.php:2183
+#: includes/validation/class-amp-validated-url-post-type.php:1115
+#: includes/validation/class-amp-validated-url-post-type.php:1721
+#: includes/validation/class-amp-validated-url-post-type.php:2177
 msgid "Recheck"
 msgstr "Erneut prüfen"
 
-#: includes/validation/class-amp-validated-url-post-type.php:983
-#: includes/validation/class-amp-validated-url-post-type.php:1005
+#: includes/validation/class-amp-validated-url-post-type.php:976
+#: includes/validation/class-amp-validated-url-post-type.php:998
 msgid "--"
 msgstr "--"
 
-#: includes/validation/class-amp-validation-manager.php:1979
+#: assets/js/amp-block-validation.js:5
+msgid "Remove Element"
+msgstr "Element entfernen"
+
+#: includes/validation/class-amp-validation-manager.php:1941
 msgid "Warning: The following plugin may be incompatible with AMP:"
 msgid_plural "Warning: The following plugins may be incompatible with AMP:"
 msgstr[0] "Achtung: Das folgende Plugin könnte mit AMP inkompatibel sein:"
 msgstr[1] "Achtung: Die folgenden Plugins könnten mit AMP inkompatibel sein:"
 
-#: includes/validation/class-amp-validation-manager.php:1974
+#: includes/validation/class-amp-validation-manager.php:1936
 msgid "More details"
 msgstr "Mehr Details"
 
@@ -2867,21 +2939,21 @@ msgstr "Mehr Details"
 msgid "No validation errors found."
 msgstr "Keine Validierungsfehler gefunden."
 
-#: includes/validation/class-amp-validation-manager.php:914
+#: includes/validation/class-amp-validation-manager.php:933
 msgid "Invalid attributes:"
 msgstr "Ungültige Attribute:"
 
-#: includes/validation/class-amp-validation-manager.php:908
+#: includes/validation/class-amp-validation-manager.php:927
 msgid "Invalid elements:"
 msgstr "Ungültige Elemente:"
 
-#: includes/validation/class-amp-validated-url-post-type.php:921
-#: includes/validation/class-amp-validated-url-post-type.php:925
-#: includes/validation/class-amp-validated-url-post-type.php:2166
-#: includes/validation/class-amp-validation-error-taxonomy.php:842
-#: includes/validation/class-amp-validation-error-taxonomy.php:846
-#: includes/validation/class-amp-validation-error-taxonomy.php:1605
-#: includes/validation/class-amp-validation-error-taxonomy.php:1619
+#: includes/validation/class-amp-validated-url-post-type.php:914
+#: includes/validation/class-amp-validated-url-post-type.php:918
+#: includes/validation/class-amp-validated-url-post-type.php:2160
+#: includes/validation/class-amp-validation-error-taxonomy.php:829
+#: includes/validation/class-amp-validation-error-taxonomy.php:833
+#: includes/validation/class-amp-validation-error-taxonomy.php:1597
+#: includes/validation/class-amp-validation-error-taxonomy.php:1611
 msgid "Details"
 msgstr "Details"
 
@@ -2890,29 +2962,29 @@ msgid "Edit AMP Validation Error"
 msgstr "AMP-Validierungsfehler bearbeiten"
 
 #. translators: %s: the charset of the current site.
-#: includes/class-amp-theme-support.php:2171
+#: includes/class-amp-theme-support.php:2173
 msgid "The database has the %s encoding when it needs to be utf-8 to work with AMP."
 msgstr "Die Datenbank verwendet die Kodierung %s, das AMP-Plugin benötigt jedoch UTF-8."
 
-#: includes/class-amp-theme-support.php:1351
+#: includes/class-amp-theme-support.php:1350
 msgid "Click here to cancel reply."
 msgstr "Hier klicken um Antwort abzubrechen."
 
-#: includes/class-amp-http.php:475
+#: includes/class-amp-http.php:474
 msgid "Your comment is awaiting moderation."
 msgstr "Dein Beitrag wartet auf Freigabe."
 
-#: includes/class-amp-http.php:473
+#: includes/class-amp-http.php:472
 msgid "Your comment has been posted."
 msgstr "Dein Kommentar wurde veröffentlicht."
 
 #. translators: %s: $post
-#: includes/amp-helper-functions.php:729 includes/amp-helper-functions.php:792
+#: includes/amp-helper-functions.php:736 includes/amp-helper-functions.php:799
 msgid "The %s argument is deprecated when theme supports AMP."
 msgstr "Das Argument %s ist veraltet, wenn das Theme AMP unterstützt."
 
 #. translators: %s: required PHP version
-#: amp.php:32
+#: amp.php:36
 msgid "The AMP plugin requires PHP %s. Please contact your host to update your PHP version."
 msgstr "Das AMP-Plugin benötigt PHP %s. Bitte kontaktiere deinen Hostingprovider, um deine PHP-Version zu aktualisieren."
 
@@ -2924,87 +2996,88 @@ msgstr "Umfrage anzeigen"
 msgid "View Survey"
 msgstr "Befragung anzeigen"
 
-#: templates/admin/amp-status.php:49 assets/js/amp-stories-editor.js:8
+#: includes/templates/amp-enabled-classic-editor-toggle.php:49
+#: assets/js/amp-stories-editor.js:8
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: templates/admin/amp-status.php:47
+#: includes/templates/amp-enabled-classic-editor-toggle.php:47
 msgid "OK"
 msgstr "OK"
 
-#: includes/admin/class-amp-post-meta-box.php:364
+#: includes/admin/class-amp-post-meta-box.php:367
 msgid "Unavailable for an unknown reason."
 msgstr "Aus unbekannten Gründen nicht verfügbar."
 
-#: includes/admin/class-amp-post-meta-box.php:361
+#: includes/admin/class-amp-post-meta-box.php:364
 msgid "A plugin or theme has disabled AMP support."
 msgstr "Ein Plugin oder Theme hat Unterstützung für AMP deaktiviert."
 
 #. translators: %s is a link to the AMP settings screen
-#: includes/admin/class-amp-post-meta-box.php:356
+#: includes/admin/class-amp-post-meta-box.php:359
 msgid "AMP cannot be enabled because this <a href=\"%s\">post type does not support it</a>."
 msgstr "AMP kann nicht aktiviert werden, weil der <a href=\"%s\">Inhaltstyp dies nicht unterstützt</a>."
 
-#: includes/admin/class-amp-post-meta-box.php:351
+#: includes/admin/class-amp-post-meta-box.php:354
 msgid "AMP cannot be enabled on password protected posts."
 msgstr "AMP kann nicht für Passwort geschützte Beitrage verwendet werden."
 
-#: templates/admin/amp-status.php:27
+#: includes/templates/amp-enabled-classic-editor-toggle.php:27
 msgid "Edit Status"
 msgstr "Status bearbeiten"
 
-#: templates/admin/amp-status.php:26
+#: includes/templates/amp-enabled-classic-editor-toggle.php:26
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: templates/admin/amp-status.php:23
+#: includes/templates/amp-enabled-classic-editor-toggle.php:23
 msgid "AMP:"
 msgstr "AMP:"
 
-#: includes/options/class-amp-options-menu.php:67
+#: includes/options/class-amp-options-menu.php:70
 msgid "General"
 msgstr "Allgemein"
 
-#: includes/options/class-amp-options-menu.php:66
-#: assets/js/amp-block-editor.js:5 assets/js/amp-block-validation.js:1
+#: includes/options/class-amp-options-menu.php:69
+#: assets/js/amp-block-editor.js:9 assets/js/amp-block-validation.js:1
 msgid "AMP Settings"
 msgstr "AMP-Einstellungen"
 
 #. translators: %s: Post type name.
-#: includes/options/class-amp-options-manager.php:376
+#: includes/options/class-amp-options-manager.php:380
 msgid "\"%s\" could not be deactivated because support is added by a plugin or theme"
 msgstr "\"%s\" konnte nicht deaktiviert werden, da die AMP-Unterstützung von einem Plugin oder Theme konfiguriert wurde."
 
 #. translators: %s: Post type name.
-#: includes/options/class-amp-options-manager.php:372
+#: includes/options/class-amp-options-manager.php:376
 msgid "\"%s\" could not be activated because support is removed by a plugin or theme"
 msgstr "\"%s\" konnte nicht aktiviert werden, da die AMP-Unterstützung von einem Plugin oder Theme entfernt wurde."
 
-#: includes/options/class-amp-options-manager.php:310
+#: includes/options/class-amp-options-manager.php:311
 msgid "Duplicate analytics entry found."
 msgstr "Doppelter Analytics-Eintrag gefunden."
 
-#: includes/options/class-amp-options-manager.php:294
+#: includes/options/class-amp-options-manager.php:295
 msgid "Invalid analytics config JSON."
 msgstr "Ungültige Analytics-JSON-Konfiguration."
 
-#: includes/options/class-amp-options-manager.php:287
+#: includes/options/class-amp-options-manager.php:288
 msgid "Missing vendor type or config."
 msgstr "Fehlende Analytics-Anbieterkonfiguration."
 
-#: includes/options/class-amp-options-manager.php:257
+#: includes/options/class-amp-options-manager.php:258
 msgid "Unrecognized post type."
 msgstr "Unbekannter Inhaltstyp."
 
-#: includes/admin/class-amp-post-meta-box.php:285
+#: includes/admin/class-amp-post-meta-box.php:288
 msgid "Disabled"
 msgstr "Deaktiviert"
 
-#: includes/admin/class-amp-post-meta-box.php:284
+#: includes/admin/class-amp-post-meta-box.php:287
 msgid "Enabled"
 msgstr "Aktiviert"
 
-#: includes/admin/class-amp-post-meta-box.php:186
+#: includes/admin/class-amp-post-meta-box.php:187
 msgid "Preview changes in AMP (opens in new window)"
 msgstr "Änderungsvorschau in AMP (öffnet neues Fenster)"
 
@@ -3012,7 +3085,7 @@ msgstr "Änderungsvorschau in AMP (öffnet neues Fenster)"
 msgid "AMP status."
 msgstr "AMP-Status."
 
-#: includes/admin/class-amp-customizer.php:306
+#: includes/admin/class-amp-customizer.php:309
 msgid "AMP preview enabled"
 msgstr "AMP-Vorschau aktiviert"
 
@@ -3024,18 +3097,18 @@ msgstr "Zu AMP-kompatibler Seite navigieren"
 msgid "AMP is not available for the page currently being previewed."
 msgstr "AMP ist für die aktuelle Seite nicht verfügbar."
 
-#: includes/options/class-amp-options-manager.php:416
+#: includes/options/class-amp-options-manager.php:420
 msgid "Sorry, you do not have the necessary permissions to perform this action"
 msgstr "Entschuldige, du hast nicht die erforderliche Berechtigungen, um diese Aktion auszuführen."
 
-#: includes/validation/class-amp-validated-url-post-type.php:1208
-#: includes/validation/class-amp-validated-url-post-type.php:1228
-#: includes/validation/class-amp-validated-url-post-type.php:1250
-#: includes/validation/class-amp-validation-manager.php:1982
+#: includes/validation/class-amp-validation-manager.php:1944
+#: includes/validation/class-amp-validated-url-post-type.php:1201
+#: includes/validation/class-amp-validated-url-post-type.php:1221
+#: includes/validation/class-amp-validated-url-post-type.php:1243
 msgid "Dismiss this notice."
 msgstr "Hinweis ausblenden."
 
-#: includes/options/class-amp-options-manager.php:427
+#: includes/options/class-amp-options-manager.php:431
 msgid "The analytics entry was successfully saved!"
 msgstr "Der Analytics-Eintrag wurde erfolgreich gespeichert!"
 
@@ -3068,7 +3141,7 @@ msgstr "Neuen Eintrag hinzufügen:"
 msgid "Analytics: %s"
 msgstr "Analytics: %s"
 
-#: includes/options/class-amp-options-menu.php:56
+#: includes/options/class-amp-options-menu.php:59
 msgid "AMP Options"
 msgstr "AMP Einstellungen"
 
@@ -3086,12 +3159,12 @@ msgid "Sanitizer (%s) class does not exist"
 msgstr "Sanitizer (%s) Klasse existiert nicht"
 
 #. translators: %s: list of tags.
-#: templates/meta-taxonomy.php:38
+#: templates/meta-taxonomy.php:44
 msgid "Tags: %s"
 msgstr "Schlagwörter: %s"
 
 #. translators: %s: list of categories.
-#: templates/meta-taxonomy.php:21
+#: templates/meta-taxonomy.php:27
 msgid "Categories: %s"
 msgstr "Kategorien: %s"
 
@@ -3136,25 +3209,25 @@ msgstr "Schreibe einen Kommentar"
 msgid "<a href=\"%s\" target=\"_blank\">The AMP Project</a> is a Google-led initiative that dramatically improves loading speeds on phones and tablets. You can use the Customizer to preview changes to your AMP template before publishing them."
 msgstr "<a href=\"%s\" target=\"_blank\">Das AMP-Projekt</a> ist eine von Google gestartete Initiative, die die Ladezeit auf Mobiltelefonen und Tablets drastisch verkürzen soll. Du kannst den Customizer benutzen, um Änderungen an deinem AMP-Template vorzunehmen, bevor du sie veröffentlichst."
 
-#: assets/js/amp-stories-editor.js:14 assets/js/amp-stories-editor.js:20
+#: assets/js/amp-stories-editor.js:14 assets/js/amp-stories-editor.js:28
 msgid "Automatic"
 msgstr "Automatisch"
 
 #. Plugin Name of the plugin
-#: includes/options/class-amp-options-menu.php:57
-#: includes/admin/functions.php:112 includes/admin/functions.php:113
+#: includes/amp-helper-functions.php:1167
+#: includes/validation/class-amp-validation-manager.php:413
+#: includes/options/class-amp-options-menu.php:60
 #: includes/admin/class-amp-admin-pointers.php:65
 #: includes/admin/class-amp-admin-pointers.php:80
 #: includes/admin/class-amp-admin-pointers.php:98
-#: includes/admin/class-amp-customizer.php:95
-#: includes/validation/class-amp-validation-manager.php:395
-#: includes/amp-helper-functions.php:1134
+#: includes/admin/class-amp-customizer.php:95 includes/admin/functions.php:112
+#: includes/admin/functions.php:113
 msgid "AMP"
 msgstr "AMP"
 
-#: templates/meta-taxonomy.php:15 templates/meta-taxonomy.php:29
 #: back-compat/templates-v0-3/meta-taxonomy.php:8
 #: back-compat/templates-v0-3/meta-taxonomy.php:17
+#: templates/meta-taxonomy.php:21 templates/meta-taxonomy.php:35
 msgctxt "Used between list items, there is a space after the comma."
 msgid ", "
 msgstr ", "
@@ -3165,6 +3238,6 @@ msgid "Path validation for template (%1$s) failed. Path cannot traverse and must
 msgstr "Die Pfad-Validierung für das Template (%1$s) ist fehlgeschlagen. Der Pfad darf sich nicht überschneiden und muss in `%2$s` liegen."
 
 #. translators: %s is key name
-#: includes/templates/class-amp-post-template.php:171
+#: includes/templates/class-amp-post-template.php:172
 msgid "Called for non-existent key (\"%s\")."
 msgstr "Erfolgter Aufruf eines nicht existierenden Schlüssels (\"%s\")."
