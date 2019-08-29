@@ -1060,7 +1060,32 @@ $idxflds = 'models_name';
 idxsql($idxname, $table, $idxflds);
 
 
+$table = $prefix_table . 'products_model_viewer';
+$flds = "
+  model_viewer_id I I NOTNULL AUTO PRIMARY,
+  products_id I NOTNULL DEFAULT '1' PRIMARY,
+  model_viewer_glb C(255) NULL,
+  model_viewer_usdz C(255) NULL,
+  model_viewer_background-color C(5) DEFAULT '#222',  
+  model_viewer_auto-rotate C(5) DEFAULT 'true',
+  model_viewer_hdr C(255) NULL,
+  model_viewer_date_added T,
+  model_viewer_last_modified T 
+";
+dosql($table, $flds);
 
+
+$table = $prefix_table . 'products_model_viewer_description';
+$flds = "
+  model_viewer_id I DEFAULT '0' NOTNULL PRIMARY,
+  model_viewer_languages_id I NOTNULL DEFAULT '1' PRIMARY,
+  model_viewer_title C(255) NULL,
+  model_viewer_description X, 
+  model_viewer_viewed I2 DEFAULT '0',
+  models_description_meta C(250) NULL,
+  models_keywords C(250) NULL
+";
+dosql($table, $flds);
 
 
 $table = $prefix_table . 'products_notifications';

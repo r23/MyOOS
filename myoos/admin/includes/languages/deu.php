@@ -244,6 +244,7 @@ define('PLACEHOLDER_PASSWORD', 'Passwort');
 
 // images
 define('IMAGE_ANI_SEND_EMAIL', 'eMail versenden');
+define('BUTTON_AR', 'Augmented Reality');
 define('IMAGE_BACK', 'Zurück');
 define('IMAGE_BACKUP', 'Datensicherung');
 define('BUTTON_CANCEL', 'Abbrechen');
