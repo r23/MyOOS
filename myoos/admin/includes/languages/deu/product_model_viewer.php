@@ -26,9 +26,11 @@ define('TEXT_NEW_PRODUCT', 'Augmented Reality &quot;%s&quot;');
 define('TEXT_PRODUCTS', 'Artikel');
 define('TEXT_MODELS_MODEL', '3D-Modell');
 
-define('TEXT_MODELS_NAME', '3D-Modellname:');
-define('TEXT_MODELS_TITLE', '3D-Modell-Titel für SEO:');
-define('TEXT_MODELS_DESCRIPTION_META', '3D-Modellbeschreibung für Description Tag (max. 250 Zeichen)');
+define('TEXT_MODELS_GLB', '3D-Modell .glb Format');
+define('TEXT_MODELS_USDZ', '3D-Modell .usdz Format optional für Apple');
+
+define('TEXT_MODELS_TITLE', 'Alternativtext für ALT-Attribut oder ALT-Tag:');
+define('TEXT_MODELS_DESCRIPTION', '3D-Modellbeschreibung');
 
 define('TEXT_MODELS_AUTHOR', '3-D Künstler');
 define('TEXT_MODELS_AUTHOR_URL', 'Die URL vom 3-D Künstler');

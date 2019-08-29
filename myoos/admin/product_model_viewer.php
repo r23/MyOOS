@@ -56,69 +56,93 @@ if (!empty($action)) {
 				
 				for ($i = 0, $n = $nModelCounter; $i < $n; $i++) {
 								
-					$action = (!isset($_POST['models_id'][$i]) || !is_numeric($_POST['models_id'][$i])) ? 'insert_model' : 'update_model';
-			
+					$action = (!isset($_POST['model_viewer_id'][$i]) || !is_numeric($_POST['model_viewer_id'][$i])) ? 'insert_model' : 'update_model';
+		
 					$sql_data_array = array('products_id' => intval($products_id),
-											'models_author' => oos_db_prepare_input($_POST['models_author'][$i]),
-											'models_author_url' => oos_db_prepare_input($_POST['models_author_url'][$i]),
-											'models_camera_pos' => oos_db_prepare_input($_POST['models_camera_pos'][$i]),
-											'models_object_rotation' => oos_db_prepare_input($_POST['models_object_rotation'][$i]),
-											'models_hdr' => oos_db_prepare_input($_POST['models_hdr'][$i]),
-											'models_add_lights' => oos_db_prepare_input($_POST['models_add_lights'][$i]),
-											'models_add_ground' => oos_db_prepare_input($_POST['models_add_ground'][$i]),
-											'models_shadows' => oos_db_prepare_input($_POST['models_shadows'][$i]),
-											'models_add_env_map' => oos_db_prepare_input($_POST['models_add_env_map'][$i]),
-											'models_extensions' => oos_db_prepare_input($_POST['models_extensions'][$i])
+											'model_viewer_background_color' => oos_db_prepare_input($_POST['model_viewer_background_color'][$i]),
+											'model_viewer_auto_rotate' => oos_db_prepare_input($_POST['model_viewer_auto_rotate'][$i]),
+											'model_viewer_hdr' => oos_db_prepare_input($_POST['model_viewer_hdr'][$i])
 											);
-										
 
 					if ($action == 'insert_model') {
-						$insert_sql_data = array('models_date_added' => 'now()');
+						$insert_sql_data = array('model_viewer_date_added' => 'now()');
 
 						$sql_data_array = array_merge($sql_data_array, $insert_sql_data);
 
-						oos_db_perform($oostable['products_models'], $sql_data_array);
-						$models_id = $dbconn->Insert_ID();
+						oos_db_perform($oostable['products_model_viewer'], $sql_data_array);
+						$model_viewer_id = $dbconn->Insert_ID();
 
 					} elseif ($action == 'update_model') {
 						$update_sql_data = array('models_last_modified' => 'now()');
-						$models_id = intval($_POST['models_id'][$i]);
+						$model_viewer_id = intval($_POST['model_viewer_id'][$i]);
 						
 						$sql_data_array = array_merge($sql_data_array, $update_sql_data);
 
-						oos_db_perform($oostable['products_models'], $sql_data_array, 'UPDATE', 'models_id = \'' . intval($models_id) . '\'');
+						oos_db_perform($oostable['products_model_viewer'], $sql_data_array, 'UPDATE', 'model_viewer_id = \'' . intval($model_viewer_id) . '\'');
 
 					}
 
 					$aLanguages = oos_get_languages();
 					$nLanguages = count($aLanguages);
 
+/*
+$table = $prefix_table . 'products_model_viewer';
+$flds = "
+  model_viewer_id I I NOTNULL AUTO PRIMARY,
+  products_id I NOTNULL DEFAULT '1' PRIMARY,
+  model_viewer_glb C(255) NULL,
+  model_viewer_usdz C(255) NULL,
+  model_viewer_background_color C(5) DEFAULT '#222',  
+  model_viewer_auto_rotate C(5) DEFAULT 'true',
+  model_viewer_hdr C(255) NULL,
+  model_viewer_date_added T,
+  model_viewer_last_modified T 
+";
+dosql($table, $flds);
+
+
+$table = $prefix_table . 'products_model_viewer_description';
+$flds = "
+  model_viewer_id I DEFAULT '0' NOTNULL PRIMARY,
+  model_viewer_languages_id I NOTNULL DEFAULT '1' PRIMARY,
+  model_viewer_title C(255) NULL,
+  model_viewer_description X, 
+  model_viewer_viewed I2 DEFAULT '0',
+  models_keywords C(250) NULL
+";
+dosql($table, $flds);
+*/
+
+
+
 					for ($li = 0, $l = $nLanguages; $li < $l; $li++) {
 						$language_id = $aLanguages[$li]['id'];
 
-						$sql_data_array = array('models_name' => oos_db_prepare_input($_POST['models_name'][$i][$language_id]),
-												'models_title' => oos_db_prepare_input($_POST['models_title'][$i][$language_id]),
-												'models_description_meta' => oos_db_prepare_input($_POST['models_description_meta_'. $i . '_'  . $aLanguages[$li]['id']]));
+						$sql_data_array = array('model_viewer_title' => oos_db_prepare_input($_POST['model_viewer_title'][$i][$language_id]),
+												'model_viewer_description' => oos_db_prepare_input($_POST['model_viewer_description_'. $i . '_'  . $aLanguages[$li]['id']]));
 	
 						if ($action == 'insert_model') {
-							$insert_sql_data = array('models_id' => $models_id,
-													'models_languages_id' => $language_id);
+							$insert_sql_data = array('model_viewer_id' => $model_viewer_id,
+													'model_viewer_languages_id' => $language_id);
 
 							$sql_data_array = array_merge($sql_data_array, $insert_sql_data);
 
 							oos_db_perform($oostable['products_models_description'], $sql_data_array);
 						} elseif ($action == 'update_model') {
-							oos_db_perform($oostable['products_models_description'], $sql_data_array, 'UPDATE', 'models_id = \'' . intval($models_id) . '\' AND models_languages_id = \'' . intval($language_id) . '\'');
+							oos_db_perform($oostable['products_models_description'], $sql_data_array, 'UPDATE', 'model_viewer_id = \'' . intval($model_viewer_id) . '\' AND model_viewer_languages_id = \'' . intval($language_id) . '\'');
 						}
 					}
 
 
-					if ( ($_POST['remove_products_model'][$i] == 'yes') && (isset($_POST['models_webgl_gltf'][$i])) ) {
-						$models_webgl_gltf = oos_db_prepare_input($_POST['models_webgl_gltf'][$i]);
+					if ( ($_POST['remove_products_model_viewer'][$i] == 'yes') && (isset($_POST['model_viewer_glb'][$i])) ) {
+						$model_viewer_glb = oos_db_prepare_input($_POST['model_viewer_glb'][$i]);
+						$model_viewer_usd =  oos_db_prepare_input($_POST['model_viewer_usdz'][$i]);
 
-						$dbconn->Execute("DELETE FROM " . $oostable['products_models'] . " WHERE models_id = '" . intval($_POST['models_id'][$i]) . "'");	
+						$dbconn->Execute("DELETE FROM " . $oostable['products_model_viewer'] . " WHERE model_viewer_id = '" . intval($_POST['model_viewer_id'][$i]) . "'");	
 
-						oos_remove_products_model($models_webgl_gltf);
+						oos_remove_products_model($model_viewer_glb);
+						
+						//todo remove 	model_viewer_usdz
 					}
 
 
@@ -163,14 +187,14 @@ if (!empty($action)) {
 										switch ($ext) {
 											case 'glb':
 											case 'gltf':
-												$models_webgl_gltf = $file;
+												$model_viewer_glb = $file;
 												break;
 										}
 									}
 
-									$sql_data_array = array('models_webgl_gltf' => oos_db_prepare_input($models_webgl_gltf));
+									$sql_data_array = array('model_viewer_glb' => oos_db_prepare_input($model_viewer_glb));
 
-									oos_db_perform($oostable['products_models'], $sql_data_array, 'UPDATE', 'models_id = \'' . intval($models_id) . '\'');
+									oos_db_perform($oostable['products_models'], $sql_data_array, 'UPDATE', 'model_viewer_id = \'' . intval($model_viewer_id) . '\'');
 								
 								} else {  
 									$messageStack->add_session(ERROR_PROBLEM_WITH_ZIP_FILE, 'error');							
@@ -191,6 +215,7 @@ if (!empty($action)) {
 
 require 'includes/header.php';
 ?>
+<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
 <!-- body //-->
 <div class="wrapper">
 	<!-- Header //-->
@@ -216,36 +241,6 @@ require 'includes/header.php';
 					<div class="col-lg-12">
 <?php
 if ($action == 'edit_3d') {
-
-/*
-$table = $prefix_table . 'products_model_viewer';
-$flds = "
-  model_viewer_id I I NOTNULL AUTO PRIMARY,
-  products_id I NOTNULL DEFAULT '1' PRIMARY,
-  model_viewer_glb C(255) NULL,
-  model_viewer_usdz C(255) NULL,
-  model_viewer_background-color C(5) DEFAULT '#222',  
-  model_viewer_auto-rotate C(5) DEFAULT 'true',
-  model_viewer_hdr C(255) NULL,
-  model_viewer_date_added T,
-  model_viewer_last_modified T 
-";
-dosql($table, $flds);
-
-
-$table = $prefix_table . 'products_model_viewer_description';
-$flds = "
-  model_viewer_id I DEFAULT '0' NOTNULL PRIMARY,
-  model_viewer_languages_id I NOTNULL DEFAULT '1' PRIMARY,
-  model_viewer_title C(255) NULL,
-  model_viewer_description X, 
-  model_viewer_viewed I2 DEFAULT '0',
-  models_description_meta C(250) NULL,
-  models_keywords C(250) NULL
-";
-dosql($table, $flds);
-*/
-
 		
     $parameters = array('products_id' => '',
 						'products_name' => '',
@@ -268,55 +263,39 @@ dosql($table, $flds);
 
 		$pInfo = new objectInfo($product);
 
-		$products_modelstable = $oostable['products_models'];
-		$products_models_descriptiontable = $oostable['products_models_description'];
-		$products_models_result = $dbconn->Execute("SELECT m.models_id, m.products_id, md.models_name, md.models_title,	md.models_description_meta, 
-													md.models_keywords, m.models_webgl_gltf, m.models_author, m.models_author_url, 
-													m.models_camera_pos, m.models_object_rotation, m.models_add_lights, models_add_ground, m.models_shadows, 
-													m.models_add_env_map, m.models_extensions, m.models_hdr 
-                                            FROM $products_modelstable m,
-                                                 $products_models_descriptiontable md
+		$products_model_viewertable = $oostable['products_model_viewer'];
+		$products_model_viewer_descriptiontable = $oostable['products_model_viewer_description'];
+		$products_models_result = $dbconn->Execute("SELECT m.model_viewer_id, m.products_id, md.model_viewer_title, md.model_viewer_description,
+													m.model_viewer_glb, m.model_viewer_usdz, m.model_viewer_background_color,
+													m.model_viewer_auto_rotate, m.model_viewer_hdr
+                                            FROM $products_model_viewertable m,
+                                                 $products_model_viewer_descriptiontable md
                                            WHERE m.products_id = '" . intval($product['products_id']) . "' AND
-                                                 m.models_id = md.models_id AND
-                                                 md.models_languages_id = '" . intval($_SESSION['language_id']) . "'");
+                                                 m.model_viewer_id = md.model_viewer_id AND
+                                                 md.model_viewer_languages_id = '" . intval($_SESSION['language_id']) . "'");
 
 		if (!$products_models_result->RecordCount()) {
 			$pInfo->products_models[] = array('products_id' => $product['products_id'],
-											'models_webgl_gltf' => '',
-											'models_author' => '',
-											'models_author_url' => 'https://',
-											'models_camera_pos' => '0.02, 0.01, 0.03',
-											'models_object_rotation' => '0, Math.PI, 0',
-											'models_add_lights' => 'false',
-											'models_add_ground' => 'false',
-											'models_shadows' => 'false',
-											'models_add_env_map' => 'true',
-											'models_extensions' => 'glTF',
-											'models_hdr' => 'venice_sunset_2k.hdr');
+											'model_viewer_glb' => '',
+											'model_viewer_usdz' => '',
+											'model_viewer_background_color' => '',
+											'model_viewer_auto_rotate' => 'true',
+											'model_viewer_hdr' => 'venice_sunset_2k.hdr');
 
 		} else {			
 			while ($products_models = $products_models_result->fields) {
-				$pInfo->products_models[] = array('models_id' => $products_models['models_id'],
+				$pInfo->products_models[] = array('model_viewer_id' => $products_models['model_viewer_id'],
 											'products_id' => $products_models['products_id'],
-											'models_webgl_gltf' => $products_models['models_webgl_gltf'],
-											'models_author' => $products_models['models_author'],
-											'models_author_url' => $products_models['models_author_url'],
-											'models_camera_pos' => $products_models['models_camera_pos'],
-											'models_object_rotation' => $products_models['models_object_rotation'],
-											'models_add_lights' => $products_models['models_add_lights'],
-											'models_add_ground' => $products_models['models_add_ground'],
-											'models_shadows' => $products_models['models_shadows'],
-											'models_add_env_map' => $products_models['models_add_env_map'],
-											'models_extensions' => $products_models['models_extensions'],
-											'models_hdr' => $products_models['models_hdr']);
+											'model_viewer_glb' => $products_models['model_viewer_glb'],
+											'model_viewer_usdz' => $products_models['model_viewer_usdz'],
+											'model_viewer_background_color' => $products_models['model_viewer_background_color'],
+											'model_viewer_auto_rotate' => $products_models['model_viewer_auto_rotate'],
+											'model_viewer_hdr' => $products_models['model_viewer_hdr']);
 				// Move that ADOdb pointer!
 				$products_models_result->MoveNext();
 			} 	
 		}
 	} 
-
-	$aExtensions = array();
-	$aExtensions = array('glTF', 'glTF-Embedded', 'glTF-pbrSpecularGlossiness', 'glTF-Binary', 'glTF-Draco');
 
     $aLanguages = oos_get_languages();
 	$nLanguages = count($aLanguages);
@@ -397,23 +376,34 @@ dosql($table, $flds);
 	
 		foreach ($pInfo->products_models as $models) {
 
-			if (isset($models['models_id'])) {
-				echo oos_draw_hidden_field('models_id['. $nCounter . ']', $models['models_id']);
+			if (isset($models['model_viewer_id'])) {
+				echo oos_draw_hidden_field('model_viewer_id['. $nCounter . ']', $models['model_viewer_id']);
 ?>
 						<fieldset>
                            <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_MODEL; ?></label>
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_GLB; ?></label>
                               <div class="col-lg-10">
-								<?php echo oos_draw_input_field('models_webgl_gltf['. $nCounter . ']', $models['models_webgl_gltf'], '', FALSE, 'text', TRUE, TRUE); ?>
-								<?php echo oos_draw_hidden_field('models_webgl_gltf['. $nCounter . ']', $models['models_webgl_gltf']); ?>
+								<?php echo oos_draw_input_field('model_viewer_glb['. $nCounter . ']', $models['model_viewer_glb'], '', FALSE, 'text', TRUE, TRUE); ?>
+								<?php echo oos_draw_hidden_field('model_viewer_glb['. $nCounter . ']', $models['model_viewer_glb']); ?>
                               </div>
                            </div>
-                        </fieldset>	
+                        </fieldset>
+
+						<fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_USDZ; ?></label>
+                              <div class="col-lg-10">
+								<?php echo oos_draw_input_field('model_viewer_usdz['. $nCounter . ']', $models['model_viewer_usdz'], '', FALSE, 'text', TRUE, TRUE); ?>
+								<?php echo oos_draw_hidden_field('model_viewer_usdz['. $nCounter . ']', $models['model_viewer_usdz']); ?>
+                              </div>
+                           </div>
+                        </fieldset>							
+						
 						<fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"></label>
                               <div class="col-lg-10">
-								<?php echo oos_draw_checkbox_field('remove_products_model['. $nCounter . ']', 'yes') . ' ' . TEXT_MODEL_REMOVE; ?>
+								<?php echo oos_draw_checkbox_field('remove_products_model_viewer['. $nCounter . ']', 'yes') . ' ' . TEXT_MODEL_REMOVE; ?>
                               </div>
                            </div>
                         </fieldset>	
@@ -425,10 +415,10 @@ dosql($table, $flds);
 
                         <fieldset>
                            <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_MODELS_NAME; ?></label>
+                              <label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_MODELS_TITLE; ?></label>
 							  <?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
                               <div class="col-lg-9">
-								<?php echo oos_draw_input_field('models_name['. $nCounter . '][' . $aLanguages[$i]['id'] . ']', (($models_name[$aLanguages[$i]['id']]) ? stripslashes($models_name[$aLanguages[$i]['id']]) : oos_get_models_name($models['models_id'], $aLanguages[$i]['id']))); ?>
+								<?php echo oos_draw_input_field('model_viewer_title['. $nCounter . '][' . $aLanguages[$i]['id'] . ']', (($model_viewer_title[$aLanguages[$i]['id']]) ? stripslashes($model_viewer_title[$aLanguages[$i]['id']]) : oos_get_model_viewer_title($models['model_viewer_id'], $aLanguages[$i]['id']))); ?>
                               </div>
                            </div>
                         </fieldset>						
@@ -438,26 +428,18 @@ dosql($table, $flds);
 ?>
                         <fieldset>
                            <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_MODELS_TITLE; ?></label>
+                              <label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_MODELS_DESCRIPTION; ?></label>
 							  <?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
                               <div class="col-lg-9">
-								<?php echo oos_draw_input_field('models_title['. $nCounter . '][' . $aLanguages[$i]['id'] . ']', (($models_title[$aLanguages[$i]['id']]) ? stripslashes($models_title[$aLanguages[$i]['id']]) : oos_get_models_title($models['models_id'], $aLanguages[$i]['id']))); ?>
+<?php
+       echo oos_draw_textarea_field('model_viewer_description_'. $nCounter . '_' . $aLanguages[$i]['id'], 'soft', '70', '15', ($_POST['model_viewer_description' .$aLanguages[$i]['id']] ? stripslashes($_POST['model_viewer_description' .$aLanguages[$i]['id']]) : oos_get_model_viewer_description($models['model_viewer_id'], $aLanguages[$i]['id'])));
+?>
                               </div>
                            </div>
-                        </fieldset>						
-<?php
-    }	
-	for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
-?>
-					<fieldset>
-						<div class="form-group row">
-							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_MODELS_DESCRIPTION_META; ?></label>
-							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
-							<div class="col-lg-9">
-								<?php echo oos_draw_textarea_field('models_description_meta_'. $nCounter . '_' . $aLanguages[$i]['id'], 'soft', '70', '4', ($_POST['models_description_meta_'. $nCounter . '_' . $aLanguages[$i]['id']] ? stripslashes($_POST['models_description_meta_'. $nCounter . '_' .$aLanguages[$i]['id']]) : oos_get_models_description_meta($models['models_id'], $aLanguages[$i]['id']))); ?>
-							</div>
-						</div>
-					</fieldset>
+                        </fieldset>
+		<script>
+			CKEDITOR.replace( 'model_viewer_description_<?php echo  $nCounter . '_' . $aLanguages[$i]['id']; ?>');
+		</script>
 <?php
 	}
 ?>
@@ -505,8 +487,8 @@ dosql($table, $flds);
 									<div class="c-radio c-radio-nofont">
 										<label>
 										<?php
-											echo '<input type="radio" name="models_hdr['. $nCounter . ']" value="venetian_crossroads_2k.hdr"'; 
-											if ($models['models_hdr'] == 'venetian_crossroads_2k.hdr') echo ' checked="checked"';
+											echo '<input type="radio" name="model_viewer_hdr['. $nCounter . ']" value="venetian_crossroads_2k.hdr"'; 
+											if ($models['model_viewer_hdr'] == 'venetian_crossroads_2k.hdr') echo ' checked="checked"';
 											echo  '>&nbsp;venetian_crossroads_2k.hdr';
 											echo oos_image(OOS_IMAGES . 'background/venetian_crossroads.jpg', 'venetian_crossroads_2k.hdr');
 										?>
@@ -517,8 +499,8 @@ dosql($table, $flds);
 									<div class="c-radio c-radio-nofont">
 										<label>
 										<?php
-											echo '<input type="radio" name="models_hdr['. $nCounter . ']" value="vignaioli_2k.hdr"'; 
-											if ($models['models_hdr'] == 'vignaioli_2k.hdr') echo ' checked="checked"';
+											echo '<input type="radio" name="model_viewer_hdr['. $nCounter . ']" value="vignaioli_2k.hdr"'; 
+											if ($models['model_viewer_hdr'] == 'vignaioli_2k.hdr') echo ' checked="checked"';
 											echo  '>&nbsp;vignaioli_2k.hdr';
 											echo oos_image(OOS_IMAGES . 'background/vignaioli.jpg', 'vignaioli_2k.hdr');
 										?>
@@ -534,8 +516,8 @@ dosql($table, $flds);
 									<div class="c-radio c-radio-nofont">
 										<label>
 										<?php
-											echo '<input type="radio" name="models_hdr['. $nCounter . ']" value="canary_wharf_2k.hdr"'; 
-											if ($models['models_hdr'] == 'canary_wharf_2k.hdr') echo ' checked="checked"';
+											echo '<input type="radio" name="model_viewer_hdr['. $nCounter . ']" value="canary_wharf_2k.hdr"'; 
+											if ($models['model_viewer_hdr'] == 'canary_wharf_2k.hdr') echo ' checked="checked"';
 											echo  '>&nbsp;canary_wharf_2k.hdr';
 											echo oos_image(OOS_IMAGES . 'background/canary_wharf.jpg', 'canary_wharf_2k.hdr');
 										?>
@@ -546,8 +528,8 @@ dosql($table, $flds);
 									<div class="c-radio c-radio-nofont">
 										<label>
 										<?php
-											echo '<input type="radio" name="models_hdr['. $nCounter . ']" value="venice_sunset_2k.hdr"'; 
-											if ($models['models_hdr'] == 'venice_sunset_2k.hdr') echo ' checked="checked"';
+											echo '<input type="radio" name="model_viewer_hdr['. $nCounter . ']" value="venice_sunset_2k.hdr"'; 
+											if ($models['model_viewer_hdr'] == 'venice_sunset_2k.hdr') echo ' checked="checked"';
 											echo  '>&nbsp;venice_sunset_2k.hdr';
 											echo oos_image(OOS_IMAGES . 'background/venice_sunset.jpg', 'venice_sunset_2k.hdr');
 										?>
@@ -670,12 +652,6 @@ dosql($table, $flds);
 						</div>							  
                         </fieldset>						
 					
-					  	<fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_EXTENSIONS; ?></label>
-                              <div class="col-lg-10"><?php echo oos_draw_extensions_menu('models_extensions['. $nCounter . ']', $aExtensions, $models['models_extensions']); ?></div>
-                           </div>
-                        </fieldset>
 							  
 							 
 				</div>

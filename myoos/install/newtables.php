@@ -1066,8 +1066,8 @@ $flds = "
   products_id I NOTNULL DEFAULT '1' PRIMARY,
   model_viewer_glb C(255) NULL,
   model_viewer_usdz C(255) NULL,
-  model_viewer_background-color C(5) DEFAULT '#222',  
-  model_viewer_auto-rotate C(5) DEFAULT 'true',
+  model_viewer_background_color C(8) DEFAULT '#222',  
+  model_viewer_auto_rotate C(5) DEFAULT 'true',
   model_viewer_hdr C(255) NULL,
   model_viewer_date_added T,
   model_viewer_last_modified T 
@@ -1082,8 +1082,7 @@ $flds = "
   model_viewer_title C(255) NULL,
   model_viewer_description X, 
   model_viewer_viewed I2 DEFAULT '0',
-  models_description_meta C(250) NULL,
-  models_keywords C(250) NULL
+  model_viewer_keywords C(250) NULL
 ";
 dosql($table, $flds);
 

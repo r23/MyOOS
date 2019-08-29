@@ -985,6 +985,55 @@ function oos_get_panorama_description_meta($panorama_id, $language_id = '') {
 }
 
 
+ /**
+  * Return 3D Model Page for ALT-TAG 
+  *
+  * @param $model_viewer_id
+  * @param $language
+  * @return string
+  */
+function oos_get_model_viewer_title($model_viewer_id, $language_id = '') {
+
+    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+
+    // Get database information
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
+
+    $products_model_viewer_descriptiontable = $oostable['products_model_viewer_description'];
+    $query = "SELECT model_viewer_title
+              FROM $products_model_viewer_descriptiontable
+              WHERE model_viewer_id = '" . intval($model_viewer_id) . "'
+                AND model_viewer_languages_id = '" . intval($language_id) . "'";
+    $result = $dbconn->Execute($query);
+
+    $model_viewer_title = $result->fields['model_viewer_title'];
+
+    return $model_viewer_title;
+}
+
+
+function oos_get_model_viewer_description($model_viewer_id, $language_id = '') {
+
+    // Get database information
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
+
+    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+
+    $products_model_viewer_descriptiontable = $oostable['products_model_viewer_description'];
+    $query = "SELECT model_viewer_description
+              FROM $products_model_viewer_descriptiontable
+              WHERE model_viewer_id = '" . intval($model_viewer_id) . "'
+                AND model_viewer_languages_id = '" . intval($language_id) . "'";
+    $result = $dbconn->Execute($query);
+
+    $model_viewer_description = $result->fields['model_viewer_description'];
+
+    return $model_viewer_description;
+}
+
+
 
  /**
   * Return Hotspot Text

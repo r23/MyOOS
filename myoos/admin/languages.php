@@ -341,7 +341,7 @@ if (!empty($action)) {
         }
 	
         //products_models_description
-        $products_result = $dbconn->Execute("SELECT m.models_id, md.models_name, md.models_title, md.models_description_meta, md.models_keywords
+        $models_result = $dbconn->Execute("SELECT m.models_id, md.models_name, md.models_title, md.models_description_meta, md.models_keywords
                                          FROM " . $oostable['products_models'] . " m LEFT JOIN
                                               " . $oostable['products_models_description'] . " md
                                             ON m.models_id = md.models_id
@@ -364,8 +364,31 @@ if (!empty($action)) {
            // Move that ADOdb pointer!
            $models_result->MoveNext();
         }		
-		
-		
+
+
+        //products_model_viewer_description
+        $products_model_viewer_result = $dbconn->Execute("SELECT m.model_viewer_id, md.model_viewer_title, md.model_viewer_description, md.model_viewer_keywords
+                                         FROM " . $oostable['products_model_viewer'] . " m LEFT JOIN
+                                              " . $oostable['products_model_viewer_description'] . " md
+                                            ON m.model_viewer_id = md.model_viewer_id
+                                        WHERE md.model_viewer_languages_id = '" . intval($_SESSION['language_id']) . "'");
+        while ($model_viewer = $products_model_viewer_result->fields) {
+          $dbconn->Execute("INSERT INTO " . $oostable['products_model_viewer_description'] . "
+                      (model_viewer_id,
+                       model_viewer_languages_id,
+                       model_viewer_title,
+					   model_viewer_description,
+					   model_viewer_keywords) 
+                       VALUES ('" . $model_viewer['model_viewer_id'] . "',
+                               '" . intval($insert_id) . "',
+                               '" . oos_db_input($model_viewer['model_viewer_title']) . "',
+							   '" . oos_db_input($model_viewer['model_viewer_description']) . "',							   
+                               '" . oos_db_input($model_viewer['model_viewer_keywords']) . "')");
+
+           // Move that ADOdb pointer!
+           $products_model_viewer_result->MoveNext();
+        }
+
 		
          // products_options
         $products_options_result = $dbconn->Execute("SELECT products_options_id, products_options_name 
@@ -510,13 +533,13 @@ if (!empty($action)) {
         $dbconn->Execute("DELETE FROM " . $oostable['orders_status'] . " WHERE orders_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['page_type'] . " WHERE page_type_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['products_description'] . " WHERE products_languages_id = '" . intval($lID) . "'");
+		$dbconn->Execute("DELETE FROM " . $oostable['products_model_viewer_description'] . " WHERE model_viewer_languages_id = '" . intval($lID) . "'");	
 		$dbconn->Execute("DELETE FROM " . $oostable['products_models_description'] . " WHERE models_languages_id = '" . intval($lID) . "'");		
         $dbconn->Execute("DELETE FROM " . $oostable['products_options'] . " WHERE products_options_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['products_options_types'] . " WHERE products_options_types_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['products_options_values'] . " WHERE products_options_values_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['products_status'] . " WHERE products_status_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['setting'] . " WHERE setting_languages_id = '" . intval($lID) . "'");
-
 
         oos_redirect_admin(oos_href_link_admin($aContents['languages'], 'page=' . $nPage));
         break;
