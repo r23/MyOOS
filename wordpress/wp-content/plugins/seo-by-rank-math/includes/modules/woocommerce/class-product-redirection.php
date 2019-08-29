@@ -100,17 +100,10 @@ class Product_Redirection {
 	 * @return bool
 	 */
 	private function can_redirect() {
-		if ( ! $this->do_filter( 'woocommerce/product_redirection', true ) ) {
+		if ( ! ( is_product() || is_product_category() || $this->do_filter( 'woocommerce/product_redirection', true ) ) ) {
 			return false;
 		}
 
-		if (
-			( Helper::get_settings( 'general.wc_remove_product_base' ) && is_product() ) ||
-			( Helper::get_settings( 'general.wc_remove_category_base' ) && is_product_category() )
-		) {
-			return true;
-		}
-
-		return false;
+		return true;
 	}
 }

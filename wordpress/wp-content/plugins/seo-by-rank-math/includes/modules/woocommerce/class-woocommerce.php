@@ -78,7 +78,6 @@ class WooCommerce extends WC_Vars {
 		if ( is_admin() ) {
 			return;
 		}
-
 		// Permalink Manager.
 		if ( $this->remove_product_base || $this->remove_category_base || $this->remove_parent_slugs ) {
 			$this->action( 'request', 'request' );
@@ -138,6 +137,8 @@ class WooCommerce extends WC_Vars {
 
 			return $replace;
 		}
+
+		return $request;
 	}
 
 	/**

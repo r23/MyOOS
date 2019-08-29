@@ -83,18 +83,19 @@ class Robots_Txt {
 	 */
 	public static function get_robots_data() {
 		$wp_filesystem = WordPress::get_filesystem();
+		$public        = absint( get_option( 'blog_public' ) );
 
 		if ( $wp_filesystem->exists( ABSPATH . 'robots.txt' ) ) {
 			return [
 				'exists'  => true,
 				'default' => $wp_filesystem->get_contents( ABSPATH . 'robots.txt' ),
+				'public'  => $public,
 			];
 		}
 
 		$default  = '# This file is automatically added by Rank Math SEO plugin to help a website index better';
 		$default .= "\n# More info: https://s.rankmath.com/home\n";
 		$default .= "User-Agent: *\n";
-		$public   = absint( get_option( 'blog_public' ) );
 		if ( 0 === $public ) {
 			$default .= "Disallow: /\n";
 		} else {

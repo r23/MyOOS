@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection
 Tested up to: 5.2.2
 Requires at least: 4.7.0
 Requires PHP: 5.6
-Stable tag: 1.0.32
+Stable tag: 1.0.32.1
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -468,5 +468,9 @@ We look forward to helping you.
 * Fixed Robots.txt editor not working when the site was set to NoIndex
 * Fixed an issue where the auto-generated description was removing diacritics from the preview area
 * Fixed an issue where About Us and Contact pages were not showing in the Organization data of Schema Markup
+
+= 1.0.32.1 [Aug 29, 2019] =
+* Fixed fatal error happening on some WooCommerce installations
+* Fixed WooCommerce redirection issue on some installations
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://s.rankmath.com/changelog)**

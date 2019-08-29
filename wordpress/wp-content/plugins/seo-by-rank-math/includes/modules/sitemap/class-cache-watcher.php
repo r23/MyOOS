@@ -234,7 +234,7 @@ class Cache_Watcher {
 			update_user_meta( $user_id, 'last_update', time() );
 		}
 
-		if ( ! is_null( $user->roles ) && ! in_array( 'subscriber', $user->roles, true ) ) {
+		if ( $user && ! is_null( $user->roles ) && ! in_array( 'subscriber', $user->roles, true ) ) {
 			self::invalidate( 'author' );
 		}
 	}
