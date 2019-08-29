@@ -25,11 +25,13 @@ if (isset($bForm) && ($bForm == TRUE)) {
 ?>
 <!-- JS GLOBAL Compulsory -->      
 <script src="js/jquery/jquery.min.js"></script>
+<script src="js/plugins/popper/dist/umd/popper.min.js"></script>
 <script src="js/bootstrap/bootstrap.min.js"></script>
 <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="js/plugins/screenfull/dist/screenfull.min.js"></script>
 <script src="js/plugins/jquery-storage-api/jquery.storageapi.min.js"></script>
 <script src="js/plugins/moment/min/moment-with-locales.min.js"></script>
+<script src="js/plugins/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
 <script src="js/plugins/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
 <script src="js/plugins/jasny/jasny-bootstrap.min.js"></script>
 <script src="js/plugins/select2/dist/js/select2.full.min.js"></script>

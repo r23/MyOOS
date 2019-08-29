@@ -768,6 +768,37 @@
 
 })(window, document, window.jQuery);
 
+
+
+// Color picker
+// -----------------------------------
+
+(function(window, document, $, undefined){
+    'use strict';
+
+    $(initColorPicker);
+
+    function initColorPicker() {
+
+        if (!$.fn.colorpicker) return;
+
+        $('#color_selectors').colorpicker({
+            colorSelectors: {
+                'default': '#222',
+                'primary': APP_COLORS['primary'],
+                'success': APP_COLORS['success'],
+                'info': APP_COLORS['info'],
+                'warning': APP_COLORS['warning'],
+                'danger': APP_COLORS['danger']
+            }
+        });
+
+    }
+
+})(window, document, window.jQuery);
+
+
+
 // Custom jQuery
 // ----------------------------------- 
 

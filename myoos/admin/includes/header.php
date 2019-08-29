@@ -40,6 +40,8 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
 	<link href="css/myoos.min.css" rel="stylesheet">
 	<!-- DATETIMEPICKER-->
 	<link href="js/plugins/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+	<!-- COLORPICKER-->
+	<link href="js/plugins/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css" rel="stylesheet">
 	<link href="css/plugins/flag-icon/css/flag-icon.min.css" rel="stylesheet" />
 	<link href="css/pannellum.min.css" rel="stylesheet" />
 

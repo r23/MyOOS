@@ -450,6 +450,9 @@ if ($action == 'edit_3d') {
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_AUTHOR; ?></label>
                               <div class="col-lg-10">
+								<input class="form-control" id="color_selectors" type="text" data-format="hex" >
+				  
+							  
 								<?php echo oos_draw_input_field('models_author['. $nCounter . ']',  $models['models_author']); ?>
                               </div>
                            </div>
