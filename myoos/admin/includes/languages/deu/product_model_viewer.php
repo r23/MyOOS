@@ -29,26 +29,26 @@ define('TEXT_MODELS_MODEL', '3D-Modell');
 define('TEXT_MODELS_GLB', '3D-Modell .glb Format');
 define('TEXT_MODELS_USDZ', '3D-Modell .usdz Format optional für Apple');
 
-define('TEXT_MODELS_TITLE', 'Alternativtext für ALT-Attribut oder ALT-Tag:');
+define('TEXT_MODELS_TITLE', 'Alternativtext für ALT-Attribut:');
 define('TEXT_MODELS_DESCRIPTION', '3D-Modellbeschreibung');
-
-define('TEXT_MODELS_AUTHOR', '3-D Künstler');
-define('TEXT_MODELS_AUTHOR_URL', 'Die URL vom 3-D Künstler');
-define('TEXT_MODELS_CAMERA_POS', 'Kameraposition');
-define('TEXT_MODELS_OBJECT_ROTATION', 'Objekt-Rotation');
-define('TEXT_MODELS_ADD_LIGHTS', 'Licht');
-define('TEXT_MODELS_ADD_GROUND', 'Grund');
-define('TEXT_MODELS_SHADOWS', 'Shadows');
-define('TEXT_MODELS_ENV_MAP', 'Environment Mapping');
+define('TEXT_MODELS_BACKGROUND_COLOR', 'Hintergrundfarbe');
 define('TEXT_MODELS_HDR', 'Panorama Hintergrundbild');
+define('TEXT_MODELS_OBJECT_ROTATION', 'Objekt-Rotation');
+
+
+define('TEXT_MODELS_HDR', 'Panorama Hintergrundbild');
+define('TEXT_MODELS_HDR_NONE', 'Kein Hintergrundbild verwenden');
+
+
 define('TEXT_MODEL_REMOVE', '3D-Modell löschen');
 define('TEXT_MODELS_EXTENSIONS', 'glTF-Formt auswählen');
 
-define('TEXT_UPLOAD_MODELS', 'Upload .zip-Datei');
-define('TEXT_CHOOSE_A_ZIP_FILE', 'Wählen Sie eine Zip-Datei zum Hochladen aus:');
+define('TEXT_UPLOAD_MODELS', 'Upload 3D-Modell');
 
-define('ERROR_NO_ZIP_FILE', 'Die Datei, die Sie hochladen möchten, ist keine .zip-Datei. Bitte versuchen Sie es erneut.');
-define('TEXT_SUCCESSFULLY_UPLOADED', 'Ihre .zip-Datei wurde hochgeladen und entpackt.');
-define('ERROR_PROBLEM_WITH_ZIP_FILE', 'Es gab ein Problem mit dem Upload. Bitte versuchen Sie es erneut.');
+define('ERROR_NO_GLB_FILE', 'Die Datei, die Sie hochladen möchten, ist keine .glb-Datei. Bitte versuchen Sie es erneut.');
+define('TEXT_SUCCESSFULLY_UPLOADED_GLB', 'Ihre .glb-Datei wurde hochgeladen.');
+define('ERROR_PROBLEM_WITH_GLB_FILE', 'Es gab ein Problem mit dem Upload. Bitte versuchen Sie es erneut.');
 
-
+define('ERROR_NO_USDZ_FILE', 'Die Datei, die Sie hochladen möchten, ist keine .usdz-Datei. Bitte versuchen Sie es erneut.');
+define('TEXT_SUCCESSFULLY_UPLOADED_USDZ', 'Ihre usdz-Datei wurde hochgeladen.');
+define('ERROR_PROBLEM_WITH_USDZ_FILE', 'Es gab ein Problem mit dem Upload der usdz-Datei. Bitte versuchen Sie es erneut.');

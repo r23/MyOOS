@@ -39,8 +39,9 @@ define('TEXT_MODELS_ADD_GROUND', 'Ground');
 define('TEXT_MODELS_SHADOWS', 'Schatten');
 define('TEXT_MODELS_ENV_MAP', 'Environment Map');
 define('TEXT_MODELS_HDR', 'Panorama Wallpaper');
-define('TEXT_MODELS_HDR', 'Remove 3D-Model');
+define('TEXT_MODEL_REMOVE', 'Remove 3D-Model');
 define('TEXT_MODELS_EXTENSIONS', 'Choose glTF format.');
+
 
 define('TEXT_UPLOAD_MODELS', 'Upload a .zip file');
 define('TEXT_CHOOSE_A_ZIP_FILE', 'Choose a zip file to upload:');

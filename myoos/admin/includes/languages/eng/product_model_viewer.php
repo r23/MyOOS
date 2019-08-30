@@ -31,23 +31,20 @@ define('TEXT_MODELS_USDZ', '3D-Modell .usdz File format optional for Apple');
 
 define('TEXT_MODELS_TITLE', 'Alternative text for ALT attribute:');
 define('TEXT_MODELS_DESCRIPTION', '3D Model description');
-
-define('TEXT_MODELS_AUTHOR', '3-D Artist');
-define('TEXT_MODELS_AUTHOR_URL', 'Website of the 3-D Artist');
-define('TEXT_MODELS_CAMERA_POS', 'Camera Position');
-define('TEXT_MODELS_OBJECT_ROTATION', 'Object Rotation');
-define('TEXT_MODELS_ADD_LIGHTS', 'Lights');
-define('TEXT_MODELS_ADD_GROUND', 'Ground');
-define('TEXT_MODELS_SHADOWS', 'Schatten');
-define('TEXT_MODELS_ENV_MAP', 'Environment Map');
+define('TEXT_MODELS_BACKGROUND_COLOR', 'Background Color');
 define('TEXT_MODELS_HDR', 'Panorama Wallpaper');
-define('TEXT_MODELS_HDR', 'Remove 3D-Model');
-define('TEXT_MODELS_EXTENSIONS', 'Choose glTF format.');
+define('TEXT_MODELS_HDR_NONE', 'Do not use a background image');
 
-define('TEXT_UPLOAD_MODELS', 'Upload a .zip file');
-define('TEXT_CHOOSE_A_ZIP_FILE', 'Choose a zip file to upload:');
 
-define('ERROR_NO_ZIP_FILE', 'The file you are trying to upload is not a .zip file. Please try again.');
-define('TEXT_SUCCESSFULLY_UPLOADED', 'Your .zip file was uploaded and unpacked.');
-define('ERROR_PROBLEM_WITH_ZIP_FILE', 'There was a problem with the upload. Please try again.');
+define('TEXT_MODEL_REMOVE', 'Remove 3D-Model');
+
+define('TEXT_UPLOAD_MODELS', 'Upload file');
+
+define('ERROR_NO_GLB_FILE', 'The file you are trying to upload is not a .glb file. Please try again.');
+define('TEXT_SUCCESSFULLY_UPLOADED_GLB', 'Your .glb file was uploaded.');
+define('ERROR_PROBLEM_WITH_GLB_FILE', 'There was a problem with the upload. Please try again.');
+
+define('ERROR_NO_USDZ_FILE', 'The file you are trying to upload is not a .usdz file. Please try again.');
+define('TEXT_SUCCESSFULLY_UPLOADED_USDZ', 'Your .usdz file was uploaded.');
+define('ERROR_PROBLEM_WITH_USDZ_FILE', 'There was a problem with the .usdz file upload. Please try again.');
 

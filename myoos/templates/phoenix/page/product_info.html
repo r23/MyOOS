@@ -227,6 +227,36 @@
 			</div>
 		</div>
 	{/if}
+	
+	{if $model_viewer_array}
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					{foreach $model_viewer_array as $ar}
+						<div class="embed-responsive embed-responsive-16by9">				
+							<model-viewer class="embed-responsive-item" src="./media/models/gltf/{$ar.url_glb}" ar camera-controls alt="{$ar.model_viewer_title}" background-color="{$ar.model_viewer_background_color|default:'#222'}" ios-src="./media/models/usdz/{$ar.model_viewer_usdz}" {if ($ar.model_viewer_auto_rotate eq 'true')} auto-rotate {/if} {if ($ar.model_viewer_hdr ne 'none')} background-image="./media/textures/equirectangular/{$ar.model_viewer_hdr}" {/if} magic-leap unstable-webxr></model-viewer>				
+						</div>				
+				
+						
+						<div class="description_area">
+							{$ar.model_viewer_description}
+						</div>					
+				{/foreach}
+
+
+
+
+
+		<!-- Loads <model-viewer> only on modern browsers: -->
+		<script type="module" 
+			src="js/model-viewer/dist/model-viewer.js">
+		</script>
+
+	{/if}
+
+	
+	
+	
 		<div class="container">
             <div class="row">
                 <div class="col-12">

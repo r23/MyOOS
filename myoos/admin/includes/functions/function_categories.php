@@ -739,9 +739,37 @@ function oos_remove_products_model($model) {
                             WHERE models_webgl_gltf =  '" . oos_db_input($model) . "'";
 	$models_result = $dbconn->Execute($product_models_query);
 	if (!$models_result->RecordCount()) {
-		$sName = oos_strip_suffix($model);
-		$dir = OOS_ABSOLUTE_PATH . OOS_MEDIA . 'models/gltf/' . oos_var_prep_for_os($sName);
-		oos_remove($dir);
+		$products_model_viewertable = $oostable['products_model_viewer'];
+		$product_models_query = "SELECT model_viewer_id
+                            FROM $products_model_viewertable
+                            WHERE model_viewer_glb =  '" . oos_db_input($model) . "'";
+		$models_result = $dbconn->Execute($product_models_query);
+		if (!$models_result->RecordCount()) {		
+			$sName = oos_strip_suffix($model);
+			$dir = OOS_ABSOLUTE_PATH . OOS_MEDIA . 'models/gltf/' . oos_var_prep_for_os($sName);
+			oos_remove($dir);
+		}
+	}
+	
+	return;
+}
+
+
+function oos_remove_model_usds($model) {
+	
+	if (empty($model)) return;
+	
+    // Get database information
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
+
+    $products_model_viewertable = $oostable['products_model_viewer'];
+    $product_models_query = "SELECT model_viewer_id
+                            FROM $products_model_viewertable
+                            WHERE model_viewer_usdz =  '" . oos_db_input($model) . "'";
+	$models_result = $dbconn->Execute($product_models_query);
+	if (!$models_result->RecordCount()) {
+		@unlink(OOS_ABSOLUTE_PATH . OOS_MEDIA . 'models/usdz/' .$model);	
 	}
 	
 	return;

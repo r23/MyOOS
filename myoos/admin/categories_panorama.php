@@ -180,9 +180,9 @@ if (!empty($action)) {
 					if (isset($_FILES['scene_image'])) {
 						if ($_FILES["scene_image"]["error"] == UPLOAD_ERR_OK) {
 
-							$filename = $_FILES['scene_image']['name'];
+							$filename = oos_db_prepare_input($_FILES['scene_image']['name']);
 							$source = $_FILES['scene_image']['tmp_name'];
-							$type = $_FILES['scene_image']['type'];
+							$type = oos_db_prepare_input($_FILES['scene_image']['type']);
 
 							if (is_image($filename)) {
 								

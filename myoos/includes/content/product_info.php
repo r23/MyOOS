@@ -247,7 +247,53 @@ if (!$product_info_result->RecordCount()) {
 		$smarty->assign('products_models_array', $aProductsModels);
 	}
 
+	// AR  Model
+	$products_model_viewertable = $oostable['products_model_viewer'];
+	$products_model_viewer_descriptiontable = $oostable['products_model_viewer_description'];
+	$products_model_viewer_sql = "SELECT m.model_viewer_id, m.products_id, m.model_viewer_glb,
+										m.model_viewer_usdz, m.model_viewer_background_color, 
+										m.model_viewer_auto_rotate, m.model_viewer_hdr,
+										md.model_viewer_title, md.model_viewer_description
+								FROM $products_model_viewertable m,
+										$products_model_viewer_descriptiontable md
+								WHERE m.products_id = '" . intval($nProductsID) . "'
+								AND m.model_viewer_id = md.model_viewer_id
+								AND md.model_viewer_languages_id = '" . intval($nLanguageID) . "'";							
+	$products_model_viewer_result = $dbconn->Execute($products_model_viewer_sql);	
+	if ($products_model_viewer_result->RecordCount()) {
 	
+		$aModelViewer = array();
+		while ($model_viewer = $products_model_viewer_result->fields) {
+
+			$products_model_viewer_descriptiontable = $oostable['products_model_viewer_description'];
+			$query = "UPDATE $products_model_viewer_descriptiontable"
+				. " SET model_viewer_viewed = model_viewer_viewed+1"
+				. " WHERE model_viewer_id = ?"
+				. "   AND model_viewer_languages_id = ?";
+			$result = $dbconn->Execute($query, array((int)$model_viewer['model_viewer_id'], (int)$nLanguageID));
+
+			$name = oos_strip_suffix($model_viewer['model_viewer_glb']);
+			$url = $name . '/glTF-Binary/' . $model_viewer['model_viewer_glb']; 
+
+
+			$aModelViewer[] = array('model_viewer_id' => $model_viewer['model_viewer_id'],
+                           'model_viewer_glb' => $model_viewer['model_viewer_glb'],
+						   'url_glb' => $url,
+                           'model_viewer_usdz' => $model_viewer['model_viewer_usdz'],
+                           'model_viewer_background_color' => $model_viewer['model_viewer_background_color'],
+						   'model_viewer_auto_rotate' => $model_viewer['model_viewer_auto_rotate'],
+						   'model_viewer_hdr' => $model_viewer['model_viewer_hdr'],						   
+						   'model_viewer_title' => $model_viewer['model_viewer_title'],
+                           'model_viewer_description' => $model_viewer['model_viewer_description']);
+						   
+			// Move that ADOdb pointer!
+			$products_model_viewer_result->MoveNext();
+		}
+
+		$smarty->assign('model_viewer_array', $aModelViewer);
+	}
+
+
     require_once MYOOS_INCLUDE_PATH . '/includes/modules/products_options.php';
 
     // assign Smarty variables;

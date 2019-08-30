@@ -125,9 +125,9 @@ if (!empty($action)) {
 					if (isset($_FILES['zip_file'])) {
 						if ($_FILES["zip_file"]["error"] == UPLOAD_ERR_OK) {
 
-							$filename = $_FILES['zip_file']['name'];
+							$filename = oos_db_prepare_input($_FILES['zip_file']['name']);
 							$source = $_FILES['zip_file']['tmp_name'];
-							$type = $_FILES['zip_file']['type'];
+							$type = oos_db_prepare_input($_FILES['zip_file']['type']);
 
 
 							if (is_zip($filename)) {

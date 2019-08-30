@@ -19,6 +19,8 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
+
+
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
@@ -52,6 +54,8 @@ if (!empty($action)) {
 					}
 				}
 
+
+
 				$nModelCounter = (!isset($_POST['model_counter']) || !is_numeric($_POST['model_counter'])) ? 0 : intval($_POST['model_counter']);
 				
 				for ($i = 0, $n = $nModelCounter; $i < $n; $i++) {
@@ -73,7 +77,7 @@ if (!empty($action)) {
 						$model_viewer_id = $dbconn->Insert_ID();
 
 					} elseif ($action == 'update_model') {
-						$update_sql_data = array('models_last_modified' => 'now()');
+						$update_sql_data = array('model_viewer_last_modified' => 'now()');
 						$model_viewer_id = intval($_POST['model_viewer_id'][$i]);
 						
 						$sql_data_array = array_merge($sql_data_array, $update_sql_data);
@@ -84,36 +88,6 @@ if (!empty($action)) {
 
 					$aLanguages = oos_get_languages();
 					$nLanguages = count($aLanguages);
-
-/*
-$table = $prefix_table . 'products_model_viewer';
-$flds = "
-  model_viewer_id I I NOTNULL AUTO PRIMARY,
-  products_id I NOTNULL DEFAULT '1' PRIMARY,
-  model_viewer_glb C(255) NULL,
-  model_viewer_usdz C(255) NULL,
-  model_viewer_background_color C(5) DEFAULT '#222',  
-  model_viewer_auto_rotate C(5) DEFAULT 'true',
-  model_viewer_hdr C(255) NULL,
-  model_viewer_date_added T,
-  model_viewer_last_modified T 
-";
-dosql($table, $flds);
-
-
-$table = $prefix_table . 'products_model_viewer_description';
-$flds = "
-  model_viewer_id I DEFAULT '0' NOTNULL PRIMARY,
-  model_viewer_languages_id I NOTNULL DEFAULT '1' PRIMARY,
-  model_viewer_title C(255) NULL,
-  model_viewer_description X, 
-  model_viewer_viewed I2 DEFAULT '0',
-  models_keywords C(250) NULL
-";
-dosql($table, $flds);
-*/
-
-
 
 					for ($li = 0, $l = $nLanguages; $li < $l; $li++) {
 						$language_id = $aLanguages[$li]['id'];
@@ -127,83 +101,95 @@ dosql($table, $flds);
 
 							$sql_data_array = array_merge($sql_data_array, $insert_sql_data);
 
-							oos_db_perform($oostable['products_models_description'], $sql_data_array);
+							oos_db_perform($oostable['products_model_viewer_description'], $sql_data_array);
 						} elseif ($action == 'update_model') {
-							oos_db_perform($oostable['products_models_description'], $sql_data_array, 'UPDATE', 'model_viewer_id = \'' . intval($model_viewer_id) . '\' AND model_viewer_languages_id = \'' . intval($language_id) . '\'');
+							oos_db_perform($oostable['products_model_viewer_description'], $sql_data_array, 'UPDATE', 'model_viewer_id = \'' . intval($model_viewer_id) . '\' AND model_viewer_languages_id = \'' . intval($language_id) . '\'');
 						}
 					}
 
 
 					if ( ($_POST['remove_products_model_viewer'][$i] == 'yes') && (isset($_POST['model_viewer_glb'][$i])) ) {
 						$model_viewer_glb = oos_db_prepare_input($_POST['model_viewer_glb'][$i]);
-						$model_viewer_usd =  oos_db_prepare_input($_POST['model_viewer_usdz'][$i]);
+						$model_viewer_usds =  oos_db_prepare_input($_POST['model_viewer_usdz'][$i]);
 
 						$dbconn->Execute("DELETE FROM " . $oostable['products_model_viewer'] . " WHERE model_viewer_id = '" . intval($_POST['model_viewer_id'][$i]) . "'");	
 
 						oos_remove_products_model($model_viewer_glb);
-						
-						//todo remove 	model_viewer_usdz
+						oos_remove_model_usds($model_viewer_usds);
 					}
 
 
-					if (isset($_FILES['zip_file'])) {
-						if ($_FILES["zip_file"]["error"] == UPLOAD_ERR_OK) {
+					// glb
+					if (isset($_FILES['glb'])) {
+						if ($_FILES["glb"]["error"] == UPLOAD_ERR_OK) {
 
-							$filename = $_FILES['zip_file']['name'];
-							$source = $_FILES['zip_file']['tmp_name'];
-							$type = $_FILES['zip_file']['type'];
+							$filename = oos_db_prepare_input($_FILES['glb']['name']);
+							$source = $_FILES['glb']['tmp_name'];
+							$type = oos_db_prepare_input($_FILES['glb']['type']);
 
-
-							if (is_zip($filename)) {
-								$name = oos_strip_suffix($filename);
-								$models_extensions = oos_db_prepare_input($_POST['models_extensions'][$i]);
-
+							$name = oos_strip_suffix($filename);
+							$ext = oos_get_suffix($filename);					
+							if ($ext == 'glb') {
+							
 								$check =  OOS_ABSOLUTE_PATH . OOS_MEDIA . 'models/gltf/' . oos_var_prep_for_os($name);
 								if (is_dir($check)) oos_remove($check);
-
-								$path = OOS_ABSOLUTE_PATH . OOS_MEDIA . 'models/gltf/' . oos_var_prep_for_os($name) . '/' . oos_var_prep_for_os($models_extensions) . '/';
+								
+								$path = OOS_ABSOLUTE_PATH . OOS_MEDIA . 'models/gltf/' . oos_var_prep_for_os($name) . '/glTF-Binary/';
 								$targetdir = $path;  // target directory
-								$targetzip = $path . $filename; // target zip file
-													
+								$uploadfile = $path . $filename; // target zip file
+		
 								mkdir($check, 0755);
 								mkdir($targetdir, 0755);
 
-								if (move_uploaded_file($source, $targetzip)) {
-									$zip = new ZipArchive();
-									$x = $zip->open($targetzip);  // open the zip file to extract
-									if ($x === true) {
-										$zip->extractTo($targetdir); // place in the directory with same name  
-										$zip->close();
-
-										unlink($targetzip);
-									}
-									$messageStack->add_session(TEXT_SUCCESSFULLY_UPLOADED, 'success');
-
-									$folder = opendir($targetdir);
-									while($file = readdir($folder)) {
-										if ($file == '.' || $file == '..' || $file == 'CVS') continue;
-
-										$ext = oos_get_suffix($file);
-										switch ($ext) {
-											case 'glb':
-											case 'gltf':
-												$model_viewer_glb = $file;
-												break;
-										}
-									}
-
-									$sql_data_array = array('model_viewer_glb' => oos_db_prepare_input($model_viewer_glb));
-
-									oos_db_perform($oostable['products_models'], $sql_data_array, 'UPDATE', 'model_viewer_id = \'' . intval($model_viewer_id) . '\'');
-								
-								} else {  
-									$messageStack->add_session(ERROR_PROBLEM_WITH_ZIP_FILE, 'error');							
+								if (move_uploaded_file($source, $uploadfile)) {
+									$messageStack->add_session(TEXT_SUCCESSFULLY_UPLOADED_GLB, 'success');
+								} else {
+									$messageStack->add_session(ERROR_PROBLEM_WITH_GLB_FILE, 'error');
 								}
+								
+								$sql_data_array = array('model_viewer_glb' => oos_db_prepare_input($filename));
+
+								oos_db_perform($oostable['products_model_viewer'], $sql_data_array, 'UPDATE', 'model_viewer_id = \'' . intval($model_viewer_id) . '\'');							
+								
 							} else {
-								$messageStack->add_session(ERROR_NO_ZIP_FILE, 'error');					
-						
-							}
-						}
+								$messageStack->add_session(ERROR_NO_GLB_FILE, 'error');					
+							}			
+						}	
+					}
+
+
+					// usdz
+					if (isset($_FILES['usdz'])) {
+						if ($_FILES["usdz"]["error"] == UPLOAD_ERR_OK) {
+
+							$filename = oos_db_prepare_input($_FILES['usdz']['name']);
+							$source = $_FILES['usdz']['tmp_name'];
+							$type = oos_db_prepare_input($_FILES['usdz']['type']);
+
+							$name = oos_strip_suffix($filename);
+							$ext = oos_get_suffix($filename);					
+							if ($ext == 'usdz') {
+														
+								$path = OOS_ABSOLUTE_PATH . OOS_MEDIA . 'models/usdz/';
+								$targetdir = $path;  // target directory
+								$uploadfile = $path . $filename; // target zip file
+													
+								mkdir($targetdir, 0755);
+
+								if (move_uploaded_file($source, $uploadfile)) {
+									$messageStack->add_session(TEXT_SUCCESSFULLY_UPLOADED_USDZ, 'success');
+								} else {
+									$messageStack->add_session(ERROR_PROBLEM_WITH_USDZ_FILE, 'error');
+								}
+								
+								$sql_data_array = array('model_viewer_usdz' => oos_db_prepare_input($filename));
+
+								oos_db_perform($oostable['products_model_viewer'], $sql_data_array, 'UPDATE', 'model_viewer_id = \'' . intval($model_viewer_id) . '\'');							
+								
+							} else {
+								$messageStack->add_session(ERROR_PROBLEM_WITH_USDZ_FILE, 'error');					
+							}				
+						}	
 					}
 				}
 				oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $products_id));
@@ -444,48 +430,38 @@ if ($action == 'edit_3d') {
 	}
 ?>
 
-
+                       <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_BACKGROUND_COLOR; ?></label>
+                              <div class="col-lg-10">
+								<input class="form-control" id="color_selectors" type="text" data-format="hex" data-color="<?php echo $models['model_viewer_background_color']; ?>" name="model_viewer_background_color[<?php echo $nCounter; ?>]" value="<?php echo $models['model_viewer_background_color']; ?>" /> 
+                              </div>
+                           </div>
+                        </fieldset>
 						
-                       <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_AUTHOR; ?></label>
-                              <div class="col-lg-10">
-								<input class="form-control" id="color_selectors" type="text" data-format="hex" >
-				  
-							  
-								<?php echo oos_draw_input_field('models_author['. $nCounter . ']',  $models['models_author']); ?>
-                              </div>
-                           </div>
-                        </fieldset>
-                       <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_AUTHOR_URL; ?></label>
-                              <div class="col-lg-10">
-								<?php echo oos_draw_input_field('models_author_url['. $nCounter . ']',  $models['models_author_url']); ?>
-                              </div>
-                           </div>
-                        </fieldset>
-                       <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_CAMERA_POS; ?></label>
-                              <div class="col-lg-10">
-								<?php echo oos_draw_input_field('models_camera_pos['. $nCounter . ']',  $models['models_camera_pos']); ?>
-                              </div>
-                           </div>
-                        </fieldset>
-                       <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_OBJECT_ROTATION; ?></label>
-                              <div class="col-lg-10">
-								<?php echo oos_draw_input_field('models_object_rotation['. $nCounter . ']',  $models['models_object_rotation']); ?>
-                              </div>
-                           </div>
-                        </fieldset>
-
 
                        <fieldset>
                            <div class="form-group row mt-5">
 								<label class="col-sm col-form-label"><?php echo TEXT_MODELS_HDR; ?></label>
+								<div class="col-sm">
+									<div class="c-radio c-radio-nofont">
+										<label>
+										<?php
+											echo '<input type="radio" name="model_viewer_hdr['. $nCounter . ']" value="none"'; 
+											if ($models['model_viewer_hdr'] == 'none') echo ' checked="checked"';
+											echo  '>&nbsp;' . TEXT_MODELS_HDR_NONE;
+										?>
+										</label>
+									</div>
+								</div>
+								<div class="col-sm">
+									<div class="c-radio c-radio-nofont">
+									</div>
+								</div>
+                           </div>								
+								
+	                           <div class="form-group row mt-5">
+								<label class="col-sm col-form-label"></label>								
 								<div class="col-sm">
 									<div class="c-radio c-radio-nofont">
 										<label>
@@ -541,16 +517,18 @@ if ($action == 'edit_3d') {
 								</div>
                            </div>					   
                         </fieldset>
+
+
                        <fieldset>
                            <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_ADD_LIGHTS; ?></label>
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_OBJECT_ROTATION; ?></label>
 
 								<div class="col-lg-10">
 									<div class="c-radio c-radio-nofont">
 										<label>
 										<?php
-											echo '<input type="radio" name="models_add_lights['. $nCounter . ']" value="true"'; 
-											if ($models['models_add_lights'] == 'true') echo ' checked="checked"';
+											echo '<input type="radio" name="model_viewer_auto_rotate['. $nCounter . ']" value="true"'; 
+											if ($models['model_viewer_auto_rotate'] == 'true') echo ' checked="checked"';
 											echo  '>&nbsp;';
 									   ?>
 											<span class="badge badge-success float-right"><?php echo ENTRY_YES; ?></span>
@@ -559,93 +537,8 @@ if ($action == 'edit_3d') {
 								<div class="c-radio c-radio-nofont">
 									<label>
 										<?php
-											echo '<input type="radio" name="models_add_lights['. $nCounter . ']" value="false"'; 
-											if ($models['models_add_lights'] == 'false') echo ' checked="checked"';
-											echo  '>&nbsp;';
-									   ?>
-										<span class="badge badge-danger float-right"><?php echo ENTRY_NO; ?></span>
-									</label>
-								</div>
-							</div>
-						</div>							  
-                        </fieldset>	
-                       <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_ADD_GROUND; ?></label>
-
-								<div class="col-lg-10">
-									<div class="c-radio c-radio-nofont">
-										<label>
-										<?php
-											echo '<input type="radio" name="models_add_ground['. $nCounter . ']" value="true"'; 
-											if ($models['models_add_ground'] == 'true') echo ' checked="checked"';
-											echo  '>&nbsp;';
-									   ?>
-											<span class="badge badge-success float-right"><?php echo ENTRY_YES; ?></span>
-										</label>
-									</div>
-								<div class="c-radio c-radio-nofont">
-									<label>
-										<?php
-											echo '<input type="radio" name="models_add_ground['. $nCounter . ']" value="false"'; 
-											if ($models['models_add_ground'] == 'false') echo ' checked="checked"';
-											echo  '>&nbsp;';
-									   ?>
-										<span class="badge badge-danger float-right"><?php echo ENTRY_NO; ?></span>
-									</label>
-								</div>
-							</div>
-						</div>							  
-                        </fieldset>	
-						
-                       <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_SHADOWS; ?></label>
-
-								<div class="col-lg-10">
-									<div class="c-radio c-radio-nofont">
-										<label>
-										<?php
-											echo '<input type="radio" name="models_shadows['. $nCounter . ']" value="true"'; 
-											if ($models['models_shadows'] == 'true') echo ' checked="checked"';
-											echo  '>&nbsp;';
-									   ?>
-											<span class="badge badge-success float-right"><?php echo ENTRY_YES; ?></span>
-										</label>
-									</div>
-								<div class="c-radio c-radio-nofont">
-									<label>
-										<?php
-											echo '<input type="radio" name="models_shadows['. $nCounter . ']" value="false"'; 
-											if ($models['models_shadows'] == 'false') echo ' checked="checked"';
-											echo  '>&nbsp;';
-									   ?>
-										<span class="badge badge-danger float-right"><?php echo ENTRY_NO; ?></span>
-									</label>
-								</div>
-							</div>
-						</div>							  
-                        </fieldset>	
-                       <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_ENV_MAP; ?></label>
-
-								<div class="col-lg-10">
-									<div class="c-radio c-radio-nofont">
-										<label>
-										<?php
-											echo '<input type="radio" name="models_add_env_map['. $nCounter . ']" value="true"'; 
-											if ($models['models_add_env_map'] == 'true') echo ' checked="checked"';
-											echo  '>&nbsp;';
-									   ?>
-											<span class="badge badge-success float-right"><?php echo ENTRY_YES; ?></span>
-										</label>
-									</div>
-								<div class="c-radio c-radio-nofont">
-									<label>
-										<?php
-											echo '<input type="radio" name="models_add_env_map['. $nCounter . ']" value="false"'; 
-											if ($models['models_add_env_map'] == 'false') echo ' checked="checked"';
+											echo '<input type="radio" name="model_viewer_auto_rotate['. $nCounter . ']" value="false"'; 
+											if ($models['model_viewer_auto_rotate'] == 'false') echo ' checked="checked"';
 											echo  '>&nbsp;';
 									   ?>
 										<span class="badge badge-danger float-right"><?php echo ENTRY_NO; ?></span>
@@ -670,21 +563,27 @@ if ($action == 'edit_3d') {
             <div class="tab-pane" id="uplaod" role="tabpanel">
 
 
-				<div class="row mb-3">
-					<div class="col-3">
-						<strong><?php echo TEXT_CHOOSE_A_ZIP_FILE; ?></strong>
-					</div>
-					<div class="col-9">
-			
+
 						<fieldset>
-							<div class="form-group">
-							<div class="col-sm-10">
-									<input type="file" name="zip_file" />
-							</div>
-							</div>
-						</fieldset>
-					</div>
-				</div>
+                           <div class="form-group row">
+                              <label class="col-lg-3 col-form-label"><?php echo TEXT_MODELS_GLB; ?></label>
+                              <div class="col-lg-9">
+									<input type="file" name="glb" />
+                              </div>
+                           </div>
+                        </fieldset>
+
+						<fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-3 col-form-label"><?php echo TEXT_MODELS_USDZ; ?></label>
+                              <div class="col-lg-9">
+								<input type="file" name="usdz" />
+                              </div>
+                           </div>
+                        </fieldset>		
+
+
+
 			</div>
 
 

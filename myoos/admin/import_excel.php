@@ -57,7 +57,7 @@
   }
 
   if (isset($_GET['split']) && !empty($_GET['split'])) {
-    $split = $_GET['split'];
+    $split = oos_db_prepare_input($_GET['split']);
   }
 
   if (isset($_FILES['usrfl']) && !empty($_FILES['usrfl'])) {
