@@ -25,7 +25,7 @@ define('HEADING_TITLE', '3D-Modell');
 define('TEXT_NEW_PRODUCT', '3D-Modell &quot;%s&quot;');
 define('TEXT_PRODUCTS', 'Artikel');
 define('TEXT_MODELS_MODEL', '3D-Modell');
-
+define('TEXT_IMAGE_NONEXISTENT', 'BILD EXISTIERT NICHT');
 define('TEXT_MODELS_NAME', '3D-Modellname:');
 define('TEXT_MODELS_TITLE', '3D-Modell-Titel für SEO:');
 define('TEXT_MODELS_DESCRIPTION_META', '3D-Modellbeschreibung für Description Tag (max. 250 Zeichen)');

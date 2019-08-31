@@ -25,7 +25,7 @@ define('HEADING_TITLE', 'Augmented Reality');
 define('TEXT_NEW_PRODUCT', 'Augmented Reality &quot;%s&quot;');
 define('TEXT_PRODUCTS', 'Artikel');
 define('TEXT_MODELS_MODEL', '3D-Modell');
-
+define('TEXT_IMAGE_NONEXISTENT', 'BILD EXISTIERT NICHT');
 define('TEXT_MODELS_GLB', '3D-Modell .glb Format');
 define('TEXT_MODELS_USDZ', '3D-Modell .usdz Format optional für Apple');
 
