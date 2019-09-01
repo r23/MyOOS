@@ -59,6 +59,12 @@ if (isset($_GET['products_id'])) {
 
 // Meta-Tags
 if (empty($sPagetitle)) $sPagetitle = OOS_META_TITLE;
+if (empty($facebook_title)) $facebook_title = $sPagetitle;
+if (empty($twitter_title)) $twitter_title = $facebook_title;
+
+if (empty($sDescription)) $sDescription = OOS_META_DESCRIPTION;
+if (empty($facebook_description)) $facebook_description = $sDescription;
+if (empty($twitter_description)) $twitter_description = $facebook_description;
 
 
 $smarty->assign(
@@ -75,10 +81,14 @@ $smarty->assign(
 		'content_language'	=> $sLanguageCode,
 		'currency'			=> $sCurrency,
 
-	
 		'pagetitle'			=> $sPagetitle,
+		'facebook_title'	=> $facebook_title,
+		'twitter_title'		=> $twitter_title,
+		
 		'meta_description'	=> $sDescription,
-
+		'facebook_description'	=> $facebook_description,
+		'twitter_description'	=> $twitter_description,
+		
 		'welcome'         => sprintf($aLang['welcome_msg'], STORE_NAME)
 	)
 
