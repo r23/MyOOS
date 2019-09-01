@@ -298,7 +298,7 @@ if ($action == 'edit_3d') {
 	<!-- Breadcrumbs //-->
 	<div class="content-heading">
 		<div class="col-lg-12">
-			<h2><?php echo sprintf(TEXT_NEW_PRODUCT, oos_output_generated_category_path($current_category_id)); ?></h2>
+			<h2><?php echo sprintf(TEXT_NEW_PRODUCT, $pInfo->products_name); ?></h2>
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item">
 					<?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
@@ -307,7 +307,7 @@ if ($action == 'edit_3d') {
 					<?php echo '<a href="' . oos_href_link_admin($aContents['categories'], 'selected_box=catalog') . '">' . BOX_HEADING_CATALOG . '</a>'; ?>
 				</li>
 				<li class="breadcrumb-item active">
-					<strong><?php echo sprintf(TEXT_NEW_PRODUCT, oos_output_generated_category_path($current_category_id)); ?></strong>
+					<strong><?php echo sprintf(TEXT_NEW_PRODUCT, $pInfo->products_name); ?></strong>
 				</li>
 			</ol>
 		</div>

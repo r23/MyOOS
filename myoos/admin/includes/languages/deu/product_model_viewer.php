@@ -30,10 +30,10 @@ define('TEXT_MODELS_GLB', '3D-Modell .glb Format');
 define('TEXT_MODELS_USDZ', '3D-Modell .usdz Format optional für Apple');
 
 define('TEXT_MODELS_TITLE', 'Alternativtext für ALT-Attribut:');
-define('TEXT_MODELS_DESCRIPTION', '3D-Modellbeschreibung');
-define('TEXT_MODELS_BACKGROUND_COLOR', 'Hintergrundfarbe');
-define('TEXT_MODELS_HDR', 'Panorama Hintergrundbild');
-define('TEXT_MODELS_OBJECT_ROTATION', 'Objekt-Rotation');
+define('TEXT_MODELS_DESCRIPTION', '3D-Modellbeschreibung:');
+define('TEXT_MODELS_BACKGROUND_COLOR', 'Hintergrundfarbe:');
+define('TEXT_MODELS_HDR', 'Panorama Hintergrundbild:');
+define('TEXT_MODELS_OBJECT_ROTATION', 'Objekt-Rotation:');
 
 
 define('TEXT_MODELS_HDR', 'Panorama Hintergrundbild');
