@@ -101,7 +101,7 @@ require 'includes/header.php';
 						<div class="col-xl-3 col-md-6">
 							<div class="card flex-row align-items-center align-items-stretch border-0">
 								<div class="col-4 d-flex align-items-center bg-primary-dark card-title justify-content-center rounded-left">
-									<a href="<?php echo oos_href_link_admin($aContents['customers'], 'selected_box=customers'); ?>"><em class="fa fa-users fa-3x"></em></a>
+									<a href="<?php echo oos_href_link_admin($aContents['customers'], 'selected_box=customers'); ?>"><em class="fas fa-users fa-3x"></em></a>
 								</div>
 								<div class="col-8 py-3 card-body bg-primary rounded-right">
 									<div class="h2 mt-0"><?php echo $customers['count']; ?></div>
@@ -124,7 +124,7 @@ require 'includes/header.php';
 						<div class="col-xl-3 col-lg-6 col-md-12">
 							<div class="card flex-row align-items-center align-items-stretch border-0">
 								<div class="col-4 d-flex align-items-center bg-green-dark card-title justify-content-center rounded-left">
-									<a href="<?php echo oos_href_link_admin($aContents['reviews'], 'selected_box=catalog'); ?>"><em class="fa fa-comments-o fa-3x"></em></a>
+									<a href="<?php echo oos_href_link_admin($aContents['reviews'], 'selected_box=catalog'); ?>"><em class="far fa-comments fa-3x"></em></a>
 								</div>
 								<div class="col-8 py-3 card-body bg-green rounded-right">
 									<div class="h2 mt-0"><?php echo $reviews['count']; ?></div>

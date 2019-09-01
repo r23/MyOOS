@@ -22,7 +22,7 @@ $bActive = ($_SESSION['selected_box'] == 'content' ) ? TRUE : FALSE;
 $aBlocks[] = array(
 	'heading' => BOX_HEADING_CONTENT,
 	'link' => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=content'),
-	'icon' => 'fa fa-files-o',
+	'icon' => 'fas fa-object-ungroup',
 	'active' => $bActive,
 	'contents' => array(
 		array(

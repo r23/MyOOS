@@ -24,7 +24,7 @@ $bActive = ($_SESSION['selected_box'] == 'reports' ) ? TRUE : FALSE;
 $aBlocks[] = array(
 	'heading' => BOX_HEADING_REPORTS,
 	'link' => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=reports'),
-	'icon' => 'fa fa-bar-chart-o',
+	'icon' => 'fas fa-chart-bar',
 	'active' => $bActive,
 	'contents' => array(
 		array(

@@ -94,7 +94,7 @@ if (is_array($aBlocks)) {
 
 		if (!empty($panels)) {		
 			echo '<a href="#' . oos_strtolower($panels['heading']) . '" title="' . $panels['heading'] . '" data-toggle="collapse">' . "\n" .
-				'	<em class="' . $panels['icon'] . '" aria-hidden="true"></em>' . "\n" .
+				'	<i class="' . $panels['icon'] . '" aria-hidden="true"></i>' . "\n" .
 				'  <span data-localize="sidebar.nav.' . oos_strtolower($panels['heading']) . '.' . oos_strtoupper($panels['heading']) . '">' . $panels['heading'] . '</span>' . "\n" .
 				'</a>' . "\n";			
 		}

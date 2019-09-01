@@ -34,10 +34,10 @@ $reviews = $reviews_result->fields;
 	<ul class="navbar-nav mr-auto flex-row">
 		<li class="nav-item">
 			<a class="nav-link d-none d-md-block d-lg-block d-xl-block" href="#" data-trigger-resize="" data-toggle-state="aside-collapsed">
-				<i class="fa fa-navicon" aria-hidden="true"></i>
+				<i class="fas fa-bars" aria-hidden="true"></i>
 			</a>
 			<a class="nav-link sidebar-toggle d-md-none" href="#" data-toggle-state="aside-toggled" data-no-persist="true">
-				<i class="fa fa-navicon" aria-hidden="true"></i>
+				<i class="fas fa-bars" aria-hidden="true"></i>
 			</a>
 		</li>
 	</ul>
@@ -47,29 +47,29 @@ $reviews = $reviews_result->fields;
 		<!-- Fullscreen (only desktops) //-->
 		<li class="nav-item d-none d-md-block">
 			<a class="nav-link" href="#" data-toggle-fullscreen="">
-				<i class="fa fa-expand" aria-hidden="true"></i>
+				<i class="fas fa-expand" aria-hidden="true"></i>
 			</a>
 		</li>
 		<li class="nav-item">
 			<a class="nav-link" href="<?php echo oos_href_link_admin($aContents['reviews'], 'selected_box=catalog'); ?>">
-				<i class="fa fa-comment" aria-hidden="true"></i>
+				<i class="fas fa-comment" aria-hidden="true"></i>
 				<span class="badge badge-danger"><?php echo $reviews['count']; ?></span>
 			</a>
 		</li>
 		<li class="nav-item">
 			<a class="nav-link" href="<?php echo oos_href_link_admin($aContents['orders'], 'selected_box=customers'); ?>">
- 			<i class="fa fa-bell" aria-hidden="true"></i>
+ 			<i class="fas fa-bell" aria-hidden="true"></i>
 				<span class="badge badge-danger"><?php echo $orders['count']; ?></span>
 			</a>
 		</li>			
 		<li class="nav-item">
 			<a class="nav-link" href="<?php echo oos_catalog_link($aCatalog['default']); ?>">
-				<i class="fa fa-shopping-cart" aria-hidden="true"></i> <?php echo HEADER_TITLE_ONLINE_CATALOG; ?>
+				<i class="fas fa-shopping-cart" aria-hidden="true"></i> <?php echo HEADER_TITLE_ONLINE_CATALOG; ?>
 			</a>
 		</li>
 		<li class="nav-item">
 			<a class="nav-link" href="<?php echo oos_href_link_admin($aContents['logoff']); ?>">
-				<i class="fa fa-sign-out" aria-hidden="true"></i> <?php echo $aLang['header_title_logoff']; ?>
+				<i class="fas fa-sign-out-alt" aria-hidden="true"></i> <?php echo $aLang['header_title_logoff']; ?>
 			</a>
 		</li>			
 	</ul>

@@ -1249,7 +1249,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 ?></td>
                 <td class="text-center">&nbsp;<?php echo $categories['sort_order']; ?>&nbsp;</td>
                 <td class="text-right"><?php echo
-					'<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $categories['categories_id'] . '&page=' . $nPage . '&action=edit_category') . '"><i class="fa fa-pencil" title="' . BUTTON_EDIT . '"></i></a>
+					'<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $categories['categories_id'] . '&page=' . $nPage . '&action=edit_category') . '"><i class="fas fa-pencil-alt" title="' . BUTTON_EDIT . '"></i></a>
 					<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $categories['categories_id'] . '&page=' . $nPage . '&action=delete_category') . '"><i class="fa fa-trash" title="' . BUTTON_DELETE . '"></i></a>
 					<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $categories['categories_id'] . '&page=' . $nPage . '&action=move_category') . '"><i class="fa fa-share" title="' .  IMAGE_MOVE  . '"></i></a>
 					<a href="' . oos_href_link_admin($aContents['categories_panorama'], 'cPath=' . $cPath . '&cID=' . $categories['categories_id'] . '&page=' . $nPage . '&action=panorama') . '"><i class="fa fa-street-view" title="' .  BUTTON_PANORAMA  . '"></i></a>';
@@ -1302,12 +1302,12 @@ if ($action == 'new_category' || $action == 'edit_category') {
 ?></td>
                 <td class="text-center"><?php echo $products['products_sort_order']; ?></td>
                 <td class="text-right"><?php echo
-							'<a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=new_product') . '"><i class="fa fa-pencil" title="' .  BUTTON_EDIT . '"></i></a>
+							'<a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=new_product') . '"><i class="fas fa-pencil-alt" title="' .  BUTTON_EDIT . '"></i></a>
 							<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=delete_product') . '"><i class="fa fa-trash" title="' .  BUTTON_DELETE . '"></i></a>
 							<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=move_product') . '"><i class="fa fa-share" title="' . IMAGE_MOVE . '"></i></a>
 							<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=copy_to') . '"><i class="fa fa-copy" title="' . IMAGE_COPY_TO . '"></i></a>
 							<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=slave_products') . '"><i class="fa fa-sticky-note" title="' . IMAGE_SLAVE . '"></i><a>
-							<a href="' . oos_href_link_admin($aContents['product_model_viewer'], 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=edit_3d') . '"><i class="fa fa-hand-spock-o" title="' .  BUTTON_AR . '"></i></a>
+							<a href="' . oos_href_link_admin($aContents['product_model_viewer'], 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=edit_3d') . '"><i class="fas fa-hand-spock" title="' .  BUTTON_AR . '"></i></a>
 							<a href="' . oos_href_link_admin($aContents['product_webgl_gltf'], 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=edit_3d') . '"><i class="fa fa-cube" title="' .  BUTTON_CUBE . '"></i></a>';
 
 			?>&nbsp;</td>

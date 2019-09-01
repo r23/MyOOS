@@ -34,7 +34,7 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
 
 	<!-- Bootstrap style  --> 
 	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/font-awesome.min.css" rel="stylesheet">
+	<link href="css/fontawesome/css/all.min.css" rel="stylesheet">
 	<link href="css/jasny-bootstrap.min.css" rel="stylesheet">
 	<link href="css/icons.min.css" rel="stylesheet">	
 	<link href="css/myoos.min.css" rel="stylesheet">
