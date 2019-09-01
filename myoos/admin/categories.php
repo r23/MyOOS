@@ -756,6 +756,9 @@ if ($action == 'new_category' || $action == 'edit_category') {
                         <a class="nav-link" href="#data" aria-controls="data" role="tab" data-toggle="tab"><?php echo TEXT_DATA; ?></a>
                      </li>
                      <li class="nav-item" role="presentation">
+                        <a class="nav-link" href="#social" aria-controls="data" role="tab" data-toggle="tab"><?php echo TEXT_SOCIAL; ?></a>
+                     </li>
+                     <li class="nav-item" role="presentation">
                         <a class="nav-link" href="#picture" aria-controls="picture" role="tab" data-toggle="tab"><?php echo TEXT_IMAGES; ?></a>
                      </li>
                   </ul>
@@ -915,6 +918,77 @@ if ($action == 'new_category' || $action == 'edit_category') {
 						</div>
 						
                      </div>
+					 
+					<div class="tab-pane active" id="social" role="tabpanel">
+
+						<div class="col-12 mt-3">
+							<h2>Facebook</h2>
+						</div>
+
+
+<?php
+		for ($i=0; $i < count($aLanguages); $i++) {
+?>
+					<fieldset>
+						<div class="form-group row">
+							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_TITLE; ?></label>
+							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
+							<div class="col-lg-9">
+								<?php echo oos_draw_input_field('categories_name[' . $aLanguages[$i]['id'] . ']', (($categories_name[$aLanguages[$i]['id']]) ? stripslashes($categories_name[$aLanguages[$i]['id']]) : oos_get_category_name($cInfo->categories_id, $aLanguages[$i]['id'])), '', FALSE, 'text', TRUE, FALSE, TEXT_EDIT_CATEGORIES_NAME); ?>
+							</div>
+						</div>
+					</fieldset>
+<?php
+		}
+		for ($i=0; $i < count($aLanguages); $i++) {
+?>
+					<fieldset>
+						<div class="form-group row">
+							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_EDIT_CATEGORIES_DESCRIPTION_META; ?></label>
+							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
+							<div class="col-lg-9">
+								<?php echo oos_draw_textarea_field('categories_description_meta[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '2', (($categories_description_meta[$aLanguages[$i]['id']]) ? stripslashes($categories_description_meta[$aLanguages[$i]['id']]) : oos_get_category_description_meta($cInfo->categories_id, $aLanguages[$i]['id']))); ?>
+							</div>
+						</div>
+					</fieldset>
+<?php
+		}
+?>
+
+
+						<div class="col-12 mt-3">
+							<h2>Twitter</h2>
+						</div>
+
+                        <div class="form-group row">
+							<label class="col-lg-2 col-form-label"><?php echo TEXT_DATA_FROM_FACEBOOK; ?></label>
+							<div class="col-lg-10">
+								<div class="c-radio c-radio-nofont">
+									<label>
+										<?php
+											echo '<input type="radio" name="menu_type" value="YES"'; 
+											if ($cInfo->menu_type == 'YES') echo ' checked="checked"';
+											echo  '>&nbsp;';
+									   ?>
+										<span class="badge badge-danger float-right"><?php echo ENTRY_YES; ?></span>
+									</label>
+								</div>
+								<div class="c-radio c-radio-nofont">
+									<label>
+										<?php
+											echo '<input type="radio" name="menu_type" value="NO"'; 
+											if ($cInfo->menu_type == 'NO') echo ' checked="checked"';
+											echo  '>&nbsp;';
+									   ?>
+										<span class="badge badge-success float-right"><?php echo ENTRY_NO; ?></span>
+									</label>
+								</div>
+							</div>
+						</div>
+
+                     </div>
+
+##
                      <div class="tab-pane" id="picture" role="tabpanel">
 	<script type="text/javascript">
 	// <!-- <![CDATA[

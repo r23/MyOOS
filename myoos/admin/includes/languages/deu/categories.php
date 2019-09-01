@@ -151,6 +151,14 @@ define('TEXT_COPY_ATTRIBUTES', 'Artikeloptionen kopieren?');
 define('TEXT_COPY_ATTRIBUTES_YES', 'Ja');
 define('TEXT_COPY_ATTRIBUTES_NO', 'Nein');
 
+define('TEXT_SOCIAL', 'Social');
+define('TEXT_HEADER_FACEBOOK', 'Facebook');
+define('TEXT_HEADER_TWITTER', 'Twitter');
+define('TEXT_TITLE', 'Titel:');
+define('TEXT_DESCRIPTION', 'Beschreibung:');
+define('TEXT_DATA_FROM_FACEBOOK', 'Daten von Facebook verwenden?');
+
+
 define('TEXT_DATA', 'Daten');
 define('TEXT_IMAGES', 'Bilder');
 define('TEXT_UPLOAD', 'Bilder hochladen');

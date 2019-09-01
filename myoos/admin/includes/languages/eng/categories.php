@@ -151,6 +151,14 @@ define('TEXT_COPY_ATTRIBUTES', 'Copy Product Attribuites to Duplicate?');
 define('TEXT_COPY_ATTRIBUTES_YES', 'Yes');
 define('TEXT_COPY_ATTRIBUTES_NO', 'No');
 
+define('TEXT_SOCIAL', 'Social');
+define('TEXT_HEADER_FACEBOOK', 'Facebook');
+define('TEXT_HEADER_TWITTER', 'Twitter');
+define('TEXT_TITLE', 'Title:');
+define('TEXT_DESCRIPTION', 'Description:');
+define('TEXT_DATA_FROM_FACEBOOK', 'Use Data from Facebook Tab?');
+
+
 define('TEXT_DATA', 'Data');
 define('TEXT_IMAGES', 'Images');
 define('TEXT_UPLOAD', 'File Upload');
