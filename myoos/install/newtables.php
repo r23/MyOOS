@@ -230,7 +230,11 @@ $flds = "
   categories_page_title C(255) NULL,
   categories_heading_title C(250),
   categories_description XL,
-  categories_description_meta C(250)
+  categories_description_meta C(250),
+  categories_facebook_title C(255) NULL,
+  categories_facebook_description C(255) NULL,
+  categories_twitter_title C(255) NULL,
+  categories_twitter_description C(255) NULL 
 ";
 dosql($table, $flds);
 
@@ -1003,7 +1007,11 @@ $flds = "
   products_url C(255) NULL,
   products_viewed I2 DEFAULT '0',
   products_description_meta C(250) NULL,
-  products_keywords C(250) NULL
+  products_facebook_title C(255) NULL,
+  products_facebook_description C(255) NULL,
+  products_twitter_title C(255) NULL,
+  products_twitter_description C(255) NULL,   
+  products_keywords C(255) NULL
 ";
 dosql($table, $flds);
 
