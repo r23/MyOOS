@@ -157,6 +157,11 @@ section.section-xlg {
     display: none !important;
   }
 }
+@media (max-width: 767px) {
+  .hidden-sm-down {
+    display: none !important; 
+  } 
+}
 
 
 
