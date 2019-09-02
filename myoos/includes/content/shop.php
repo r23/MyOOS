@@ -19,6 +19,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
+// categories_facebook_title, categories_facebook_description, categories_twitter_title, categories_twitter_description
+
+
 /** ensure this file is being required by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
@@ -55,10 +58,12 @@ if (isset($sCategory) && oos_is_not_null($sCategory)) {
 }
 
 if ($category_depth == 'nested') {
+	
 	$categoriestable = $oostable['categories'];
 	$categories_descriptiontable = $oostable['categories_description'];
 	$sql = "SELECT cd.categories_name, cd.categories_page_title, cd.categories_heading_title, cd.categories_description,
-                     cd.categories_description_meta, c.categories_image
+                     cd.categories_description_meta, cd.categories_facebook_title, cd.categories_facebook_description, 
+					 cd.categories_twitter_title, cd.categories_twitter_description, c.categories_image
               FROM $categoriestable c,
                    $categories_descriptiontable cd 
               WHERE c.categories_id = '" . intval($nCurrentCategoryID) . "'
@@ -70,7 +75,14 @@ if ($category_depth == 'nested') {
 	$aTemplate['new_products'] = $sTheme . '/products/_new_products.html';
 	
 	$nPageType = OOS_PAGE_TYPE_CATALOG;
-	$sPagetitle = (empty($category['categories_page_title']) ? $category['categories_heading_title'] : $category['categories_page_title']); 
+	$sPagetitle = (empty($category['categories_page_title']) ? $category['categories_name'] : $category['categories_page_title']); 
+
+	$facebook_title = $category['categories_facebook_title'];
+	$twitter_title = $category['categories_twitter_title'];
+
+	$sDescription = $category['categories_description_meta'];
+	$facebook_description = $category['categories_facebook_description'];
+	$twitter_description = $category['categories_twitter_description'];
 
 	$sGroup = trim($aUser['text']);
 	$sContentCacheID = $sTheme . '|shop|nested|' . intval($nCurrentCategoryID) . '|' . $sCategory . '|' . $sGroup . '|' . $sLanguage;
@@ -81,7 +93,6 @@ if ($category_depth == 'nested') {
 		require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 	}
 
-	$smarty->assign('meta_description', $category['categories_description_meta']);
 	$smarty->assign('breadcrumb', $oBreadcrumb->trail());
 	$smarty->assign('canonical', $sCanonical);
 
@@ -181,7 +192,8 @@ if ($category_depth == 'nested') {
 	$categoriestable = $oostable['categories'];
 	$categories_descriptiontable = $oostable['categories_description'];
 	$sql = "SELECT cd.categories_name, cd.categories_heading_title, cd.categories_description,
-                     cd.categories_description_meta, c.categories_image
+                     cd.categories_description_meta, cd.categories_facebook_title, cd.categories_facebook_description, 
+					 cd.categories_twitter_title, cd.categories_twitter_description, c.categories_image
               FROM $categoriestable c,
                    $categories_descriptiontable cd
               WHERE c.categories_id = '" . intval($nCurrentCategoryID) . "'
@@ -217,7 +229,13 @@ if ($category_depth == 'nested') {
 	}
 	$sDescription = $category['categories_description_meta'];
 
-	
+	$facebook_title = $category['categories_facebook_title'];
+	$twitter_title = $category['categories_twitter_title'];
+
+	$sDescription = $category['categories_description_meta'];
+	$facebook_description = $category['categories_facebook_description'];
+	$twitter_description = $category['categories_twitter_description'];
+
     $nManufacturersID = isset($_GET['manufacturers_id']) ? $_GET['manufacturers_id']+0 : 0;
     $nPage = isset($_GET['page']) ? intval( $_GET['page'] ) : 1;
     $nFilterID = intval($_GET['filter_id']) ? $_GET['filter_id']+0 : 0;

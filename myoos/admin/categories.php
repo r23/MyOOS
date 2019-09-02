@@ -143,7 +143,9 @@ if (!empty($action)) {
 
 			$aLanguages = oos_get_languages();
 			$nLanguages = count($aLanguages);
-
+echo '<pre>';
+print_r($_POST);
+echo '<pre>';
 			for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
 				$language_id = $aLanguages[$i]['id'];
 				
@@ -151,15 +153,36 @@ if (!empty($action)) {
 				$categories_description_meta = oos_db_prepare_input($_POST['categories_description_meta'][$language_id]);
 
 				if (empty($categories_description_meta)) {				
-					$categories_description_meta =  substr(strip_tags(preg_replace('!(\r\n|\r|\n)!', '',$categories_description)),0 , 160);
+					$categories_description_meta =  substr(strip_tags(preg_replace('!(\r\n|\r|\n)!', '',$categories_description)),0 , 250);
 				}
 
+				$categories_facebook_title = oos_db_prepare_input($_POST['categories_facebook_title'][$language_id]);		
+				$categories_facebook_description = oos_db_prepare_input($_POST['categories_facebook_description'][$language_id]);				
+				$categories_twitter_title = oos_db_prepare_input($_POST['categories_twitter_title'][$language_id]);		
+				$categories_twitter_description = oos_db_prepare_input($_POST['categories_twitter_description'][$language_id]);
+
+
+
+
+				if (empty($categories_facebook_title)) $categories_facebook_title = oos_db_prepare_input($_POST['categories_name'][$language_id]);
+				if (empty($categories_facebook_description)) $categories_facebook_description = $categories_description_meta;				 
+
+				if (empty($categories_twitter_title)) $categories_twitter_title = $categories_facebook_title;
+				if (empty($categories_twitter_description)) $categories_twitter_description = $categories_facebook_description;
+				
 				$sql_data_array = array('categories_name' => oos_db_prepare_input($_POST['categories_name'][$language_id]),
 										'categories_page_title' => oos_db_prepare_input($_POST['categories_page_title'][$language_id]),
 										'categories_heading_title' => oos_db_prepare_input($_POST['categories_heading_title'][$language_id]),
 										'categories_description' => $categories_description,
-										'categories_description_meta' => $categories_description_meta);
-
+										'categories_description_meta' => $categories_description_meta,
+										'categories_facebook_title' => $categories_facebook_title,
+										'categories_facebook_description' => $categories_facebook_description,										
+										'categories_twitter_title' => $categories_twitter_title,
+										'categories_twitter_description' => $categories_twitter_description
+										);
+echo '<pre>';
+print_r($sql_data_array);
+echo '<pre>';
 				if ($action == 'insert_category') {
 					$insert_sql_data = array('categories_id' => intval($categories_id),
 											'categories_languages_id' => intval($aLanguages[$i]['id']));
@@ -639,6 +662,10 @@ if ($action == 'new_category' || $action == 'edit_category') {
                        'categories_heading_title' => '',
                        'categories_description' => '',
                        'categories_description_meta' => '',
+					   'categories_facebook_title' => '', 
+					   'categories_facebook_description' => '',
+					   'categories_twitter_title' => '',
+					   'categories_twitter_description' => '',
                        'categories_image' => '',
 					   'categories_banner' => '',
 					   'categories_larger_images' => array(),
@@ -655,7 +682,8 @@ if ($action == 'new_category' || $action == 'edit_category') {
         $categoriestable = $oostable['categories'];
         $categories_descriptiontable = $oostable['categories_description'];
         $query = "SELECT c.categories_id, cd.categories_name, cd.categories_page_title, cd.categories_heading_title,
-                         cd.categories_description, cd.categories_description_meta,
+                         cd.categories_description, cd.categories_description_meta, cd.categories_facebook_title, 
+						 cd.categories_facebook_description, cd.categories_twitter_title, cd.categories_twitter_description, 
                          c.categories_image, c.categories_banner, c.parent_id, c.color, c.menu_type, c.sort_order,
 						 c.date_added, c.categories_status, c.last_modified
                   FROM $categoriestable c,
@@ -779,7 +807,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_EDIT_CATEGORIES_NAME; ?></label>
 							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
 							<div class="col-lg-9">
-								<?php echo oos_draw_input_field('categories_name[' . $aLanguages[$i]['id'] . ']', (($categories_name[$aLanguages[$i]['id']]) ? stripslashes($categories_name[$aLanguages[$i]['id']]) : oos_get_category_name($cInfo->categories_id, $aLanguages[$i]['id'])), '', FALSE, 'text', TRUE, FALSE, TEXT_EDIT_CATEGORIES_NAME); ?>
+								<?php echo oos_draw_input_field('categories_name[' . $aLanguages[$i]['id'] . ']', (empty($cInfo->categories_id) ? '' : oos_get_category_name($cInfo->categories_id, $aLanguages[$i]['id'])), '', FALSE, 'text', TRUE, FALSE, TEXT_EDIT_CATEGORIES_NAME); ?>
 							</div>
 						</div>
 					</fieldset>
@@ -792,7 +820,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_EDIT_CATEGORIES_PAGE_TITLE; ?></label>
 							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
 							<div class="col-lg-9">
-								<?php echo oos_draw_input_field('categories_page_title[' . $aLanguages[$i]['id'] . ']', (($categories_page_title[$aLanguages[$i]['id']]) ? stripslashes($categories_page_title[$aLanguages[$i]['id']]) : oos_get_categories_page_title($cInfo->categories_id, $aLanguages[$i]['id']))); ?>
+								<?php echo oos_draw_input_field('categories_page_title[' . $aLanguages[$i]['id'] . ']', (empty($cInfo->categories_id) ? '' : oos_get_categories_page_title($cInfo->categories_id, $aLanguages[$i]['id']))); ?>
 							</div>
 						</div>
 					</fieldset>
@@ -805,7 +833,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_EDIT_CATEGORIES_HEADING_TITLE; ?></label>
 							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
 							<div class="col-lg-9">
-								<?php echo oos_draw_input_field('categories_heading_title[' . $aLanguages[$i]['id'] . ']', (($categories_heading_title[$aLanguages[$i]['id']]) ? stripslashes($categories_heading_title[$aLanguages[$i]['id']]) : oos_get_category_heading_title($cInfo->categories_id, $aLanguages[$i]['id'])), '', FALSE, 'text', TRUE, FALSE, ''); ?>
+								<?php echo oos_draw_input_field('categories_heading_title[' . $aLanguages[$i]['id'] . ']', (empty($cInfo->categories_id) ? '' : oos_get_category_heading_title($cInfo->categories_id, $aLanguages[$i]['id'])), '', FALSE, 'text', TRUE, FALSE, ''); ?>
 							</div>
 						</div>
 					</fieldset>
@@ -818,7 +846,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_EDIT_CATEGORIES_DESCRIPTION; ?></label>
 							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
 							<div class="col-lg-9">
-								<?php echo oos_draw_editor_field('categories_description[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '15', (($categories_description[$aLanguages[$i]['id']]) ? stripslashes($categories_description[$aLanguages[$i]['id']]) : oos_get_category_description($cInfo->categories_id, $aLanguages[$i]['id']))); ?>
+								<?php echo oos_draw_editor_field('categories_description[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '15', (empty($cInfo->categories_id) ? '' :  oos_get_category_description($cInfo->categories_id, $aLanguages[$i]['id']))); ?>
 							</div>
 						</div>
 					</fieldset>
@@ -834,7 +862,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_EDIT_CATEGORIES_DESCRIPTION_META; ?></label>
 							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
 							<div class="col-lg-9">
-								<?php echo oos_draw_textarea_field('categories_description_meta[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '2', (($categories_description_meta[$aLanguages[$i]['id']]) ? stripslashes($categories_description_meta[$aLanguages[$i]['id']]) : oos_get_category_description_meta($cInfo->categories_id, $aLanguages[$i]['id']))); ?>
+								<?php echo oos_draw_textarea_field('categories_description_meta[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '2', (empty($cInfo->categories_id) ? '' : oos_get_category_description_meta($cInfo->categories_id, $aLanguages[$i]['id']))); ?>
 							</div>
 						</div>
 					</fieldset>
@@ -922,7 +950,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 					<div class="tab-pane active" id="social" role="tabpanel">
 
 						<div class="col-12 mt-3">
-							<h2>Facebook</h2>
+							<h2><?php echo TEXT_HEADER_FACEBOOK; ?></h2>
 						</div>
 
 
@@ -934,7 +962,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_TITLE; ?></label>
 							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
 							<div class="col-lg-9">
-								<?php echo oos_draw_input_field('categories_name[' . $aLanguages[$i]['id'] . ']', (($categories_name[$aLanguages[$i]['id']]) ? stripslashes($categories_name[$aLanguages[$i]['id']]) : oos_get_category_name($cInfo->categories_id, $aLanguages[$i]['id'])), '', FALSE, 'text', TRUE, FALSE, TEXT_EDIT_CATEGORIES_NAME); ?>
+								<?php echo oos_draw_input_field('categories_facebook_title[' . $aLanguages[$i]['id'] . ']', (empty($cInfo->categories_id) ? '' : oos_get_categories_facebook_title($cInfo->categories_id, $aLanguages[$i]['id']))); ?>
 							</div>
 						</div>
 					</fieldset>
@@ -944,10 +972,10 @@ if ($action == 'new_category' || $action == 'edit_category') {
 ?>
 					<fieldset>
 						<div class="form-group row">
-							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_EDIT_CATEGORIES_DESCRIPTION_META; ?></label>
+							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_DESCRIPTION; ?></label>
 							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
 							<div class="col-lg-9">
-								<?php echo oos_draw_textarea_field('categories_description_meta[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '2', (($categories_description_meta[$aLanguages[$i]['id']]) ? stripslashes($categories_description_meta[$aLanguages[$i]['id']]) : oos_get_category_description_meta($cInfo->categories_id, $aLanguages[$i]['id']))); ?>
+								<?php echo oos_draw_textarea_field('categories_facebook_description[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '2', (empty($cInfo->categories_id) ? '' : oos_get_categories_facebook_description($cInfo->categories_id, $aLanguages[$i]['id']))); ?>
 							</div>
 						</div>
 					</fieldset>
@@ -957,7 +985,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 
 
 						<div class="col-12 mt-3">
-							<h2>Twitter</h2>
+							<h2><?php echo TEXT_HEADER_TWITTER; ?></h2>
 						</div>
 
                         <div class="form-group row">
@@ -965,30 +993,51 @@ if ($action == 'new_category' || $action == 'edit_category') {
 							<div class="col-lg-10">
 								<div class="c-radio c-radio-nofont">
 									<label>
-										<?php
-											echo '<input type="radio" name="menu_type" value="YES"'; 
-											if ($cInfo->menu_type == 'YES') echo ' checked="checked"';
-											echo  '>&nbsp;';
-									   ?>
+										<input type="radio" name="facebook-data" value="YES" checked="checked">&nbsp;
 										<span class="badge badge-danger float-right"><?php echo ENTRY_YES; ?></span>
 									</label>
 								</div>
 								<div class="c-radio c-radio-nofont">
 									<label>
-										<?php
-											echo '<input type="radio" name="menu_type" value="NO"'; 
-											if ($cInfo->menu_type == 'NO') echo ' checked="checked"';
-											echo  '>&nbsp;';
-									   ?>
+										<input type="radio" name="facebook-data" value="NO" >&nbsp;
 										<span class="badge badge-success float-right"><?php echo ENTRY_NO; ?></span>
 									</label>
 								</div>
 							</div>
 						</div>
 
+<?php
+		for ($i=0; $i < count($aLanguages); $i++) {
+?>
+					<fieldset>
+						<div class="form-group row">
+							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_TITLE; ?></label>
+							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
+							<div class="col-lg-9">
+								<?php echo oos_draw_input_field('categories_twitter_title[' . $aLanguages[$i]['id'] . ']', (empty($cInfo->categories_id) ? '' : oos_get_categories_twitter_title($cInfo->categories_id, $aLanguages[$i]['id']))); ?>
+							</div>
+						</div>
+					</fieldset>
+<?php
+		}
+		for ($i=0; $i < count($aLanguages); $i++) {
+?>
+					<fieldset>
+						<div class="form-group row">
+							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_DESCRIPTION; ?></label>
+							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
+							<div class="col-lg-9">
+								<?php echo oos_draw_textarea_field('categories_twitter_description[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '2', (empty($cInfo->categories_id) ? '' : oos_get_categories_twitter_description($cInfo->categories_id, $aLanguages[$i]['id']))); ?>
+							</div>
+						</div>
+					</fieldset>
+<?php
+		}
+?>
+
+
                      </div>
 
-##
                      <div class="tab-pane" id="picture" role="tabpanel">
 	<script type="text/javascript">
 	// <!-- <![CDATA[
