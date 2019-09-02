@@ -42,3 +42,30 @@
 div.shop-item-buttons {
   margin-top: 14px;
 }
+
+@media only screen and (max-width: 480px) {
+	.shop-item-list>.col-lg-12>.shop-item {
+		min-height:100px;
+	}
+	.shop-item-list>.col-lg-12>.shop-item>.thumbnail,
+	.shop-item-list>.col-md-12>.shop-item>.thumbnail {
+		float:none;
+		width:100%;
+	}
+	.shop-item-list>.col-lg-12>.shop-item>.shop-item-summary,
+	.shop-item-list>.col-md-12>.shop-item>.shop-item-summary {
+		position:relative;
+		left:0;
+	}
+	.shop-item-list>.col-lg-12>.shop-item>.shop-item-buttons,
+	.shop-item-list>.col-md-12>.shop-item>.shop-item-buttons,
+	.shop-item-list>.col-lg-12>.shop-item>.shop-item-summary,
+	.shop-item-list>.col-md-12>.shop-item>.shop-item-summary {
+		float:none;
+		text-align:center !important;
+	}
+	.shop-item-list>.col-lg-12>.shop-item>.shop-item-summary>.shop-item-price>span,
+	.shop-item-list>.col-md-12>.shop-item>.shop-item-summary>.shop-item-price>span {
+		padding:0 10px;
+	}
+}
