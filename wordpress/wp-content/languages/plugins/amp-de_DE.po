@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - AMP - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-08-25 10:50:40+0000\n"
+"PO-Revision-Date: 2019-09-02 16:35:52+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1323,7 +1323,7 @@ msgstr "Die Templates des aktiven Themes werden genutzt, um AMP- und Nicht-AMP-V
 #. translators: %s: URL to the documentation.
 #: includes/options/class-amp-options-menu.php:300
 msgid "The active theme integrates AMP as the framework for your site by using its templates and styles to render webpages. This means your site is <b>AMP-first</b> and your canonical URLs are AMP! Depending on your theme/plugins, a varying level of <a href=\"%s\">development work</a> may be required."
-msgstr "Integriert AMP als Framework für deine Website unter Verwendung deines aktiven Themes. Das bedeutet, deine Website ist <b>AMP-first</b> und all deine URLs werden über AMP ausgeliefert! Abhängig von deinem Theme und den benutzten Plugins kann ein gewisses Maß an<a href=\"%s\">Entwicklungsarbeit (engl.)</a> erforderlich sein."
+msgstr "Integriert AMP als Framework für deine Website unter Verwendung deines aktiven Themes. Das bedeutet, deine Website ist <b>AMP-first</b> und all deine URLs werden über AMP ausgeliefert! Abhängig von deinem Theme und den benutzten Plugins kann ein gewisses Maß an <a href=\"%s\">Entwicklungsarbeit (engl.)</a> erforderlich sein."
 
 #: includes/class-amp-service-worker.php:325
 msgid "Installing service worker..."
