@@ -78,7 +78,7 @@
 				// Load background and generate envMap
 
 				new RGBELoader()
-					.setType( THREE.UnsignedByteType )
+					.setDataType( THREE.UnsignedByteType )
 					.setPath( 'media/textures/equirectangular/' )
 					.load( '<?php echo $model_info['models_hdr']; ?>', function ( texture ) {
 
