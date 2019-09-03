@@ -66,6 +66,8 @@ if (empty($sDescription)) $sDescription = OOS_META_DESCRIPTION;
 if (empty($facebook_description)) $facebook_description = $sDescription;
 if (empty($twitter_description)) $twitter_description = $facebook_description;
 
+if (empty($twitter_card)) $twitter_card = TWITTER_CARD;
+
 
 $smarty->assign(
 	array(
