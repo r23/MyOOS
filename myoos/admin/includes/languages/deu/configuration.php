@@ -361,6 +361,12 @@ define('OOS_META_COPYRIGHT_DESC', 'Der Entwickler des Shop');
 define('SITE_ICONS_TITLE', 'Website Icons');
 define('SITE_ICONS_DESC', 'Website-Icons erscheinen in Browser-Tabs und Lesezeichenleisten. Laden Sie hier eins hoch!');
 
+define('OPEN_GRAPH_THUMBNAIL_TITLE', 'OpenGraph Thumbnail');
+define('OPEN_GRAPH_THUMBNAIL_DESC', 'Wenn ein Bild nicht eingestellt ist, wird dieses Bild als Miniaturbild verwendet, wenn Ihr Online Shop auf Facebook geteilt wird. Empfohlene Bildgröße 1200 x 630 Pixel.');
+
+define('TWITTER_CARD_TITLE', 'Twitter Kartentyp');
+define('TWITTER_CARD_DESC', 'Kartentyp, der beim Erstellen eines neuen Beitrags ausgewählt wurde. Dies gilt auch für Beiträge ohne gewählten Kartentyp.');
+
 define('FACEBOOK_URL_TITLE', 'Facebook');
 define('FACEBOOK_URL_DESC', 'URL der Facebook Seite');
 

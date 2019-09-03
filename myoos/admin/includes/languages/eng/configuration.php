@@ -363,6 +363,12 @@ define('OOS_META_COPYRIGHT_DESC', 'Der Entwickler des Shop');
 define('SITE_ICONS_TITLE', 'Site Icons');
 define('SITE_ICONS_DESC', 'Site Icons are what you see in browser tabs and bookmark bars. Upload one here!');
 
+define('OPEN_GRAPH_THUMBNAIL_TITLE', 'OpenGraph Thumbnail');
+define('OPEN_GRAPH_THUMBNAIL_DESC', 'When a featured image is not set, this image will be used as a thumbnail when your post is shared on Facebook. Recommended image size 1200 x 630 pixels.');
+
+define('TWITTER_CARD_TITLE', 'Twitter Card Type');
+define('TWITTER_CARD_DESC', 'Card type selected when creating a new post. This will also be applied for posts without a card type selected.');
+
 define('FACEBOOK_URL_TITLE', 'Facebook');
 define('FACEBOOK_URL_DESC', 'URL of the Facebook page:');
 
