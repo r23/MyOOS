@@ -58,6 +58,7 @@ if (isset($_GET['products_id'])) {
 }
 
 // Meta-Tags
+$locale = locale($sLanguageCode);
 if (empty($sPagetitle)) $sPagetitle = OOS_META_TITLE;
 if (empty($facebook_title)) $facebook_title = $sPagetitle;
 if (empty($twitter_title)) $twitter_title = $facebook_title;
@@ -82,7 +83,8 @@ $smarty->assign(
 		'language'			=> $sLanguage,
 		'content_language'	=> $sLanguageCode,
 		'currency'			=> $sCurrency,
-
+		
+		'locale'			=> $locale,
 		'pagetitle'			=> $sPagetitle,
 		'facebook_title'	=> $facebook_title,
 		'twitter_title'		=> $twitter_title,
