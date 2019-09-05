@@ -84,6 +84,9 @@ if ($category_depth == 'nested') {
 	$facebook_description = $category['categories_facebook_description'];
 	$twitter_description = $category['categories_twitter_description'];
 
+	$og_image = OOS_HTTPS_SERVER . OOS_SHOP . OOS_IMAGES . 'category/large/' . $category['categories_image'];
+
+
 	$sGroup = trim($aUser['text']);
 	$sContentCacheID = $sTheme . '|shop|nested|' . intval($nCurrentCategoryID) . '|' . $sCategory . '|' . $sGroup . '|' . $sLanguage;
 
@@ -235,6 +238,8 @@ if ($category_depth == 'nested') {
 	$sDescription = $category['categories_description_meta'];
 	$facebook_description = $category['categories_facebook_description'];
 	$twitter_description = $category['categories_twitter_description'];
+
+	$og_image = OOS_HTTPS_SERVER . OOS_SHOP . OOS_IMAGES . 'category/large/' . $category['categories_image'];
 
     $nManufacturersID = isset($_GET['manufacturers_id']) ? $_GET['manufacturers_id']+0 : 0;
     $nPage = isset($_GET['page']) ? intval( $_GET['page'] ) : 1;

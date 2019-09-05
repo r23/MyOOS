@@ -69,6 +69,16 @@ if (empty($twitter_description)) $twitter_description = $facebook_description;
 
 if (empty($twitter_card)) $twitter_card = TWITTER_CARD;
 
+if (!empty(OPEN_GRAPH_THUMBNAIL)) {
+	if (empty($og_image)) $og_image = OOS_HTTPS_SERVER . OOS_SHOP . OOS_IMAGES . 'og/1200x630/' . OPEN_GRAPH_THUMBNAIL;	
+}
+
+if (!empty($og_image)) {
+	$size = @getimagesize($og_image);
+	$smarty->assign('og_image',	$og_image);
+	$smarty->assign('size',	$size);
+}
+
 
 $smarty->assign(
 	array(

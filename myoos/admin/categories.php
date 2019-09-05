@@ -143,9 +143,7 @@ if (!empty($action)) {
 
 			$aLanguages = oos_get_languages();
 			$nLanguages = count($aLanguages);
-echo '<pre>';
-print_r($_POST);
-echo '<pre>';
+
 			for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
 				$language_id = $aLanguages[$i]['id'];
 				
@@ -180,9 +178,7 @@ echo '<pre>';
 										'categories_twitter_title' => $categories_twitter_title,
 										'categories_twitter_description' => $categories_twitter_description
 										);
-echo '<pre>';
-print_r($sql_data_array);
-echo '<pre>';
+
 				if ($action == 'insert_category') {
 					$insert_sql_data = array('categories_id' => intval($categories_id),
 											'categories_languages_id' => intval($aLanguages[$i]['id']));
@@ -286,8 +282,8 @@ echo '<pre>';
 						// 'jpeg_quality' => 82,
 						// 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
 						// 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-						'max_width' => 1024, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
-						'max_height' => 1024, // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
+						'max_width' => 1200, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+						'max_height' => 1200, // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
 					),
 					'medium' => array(
 						// 'auto_orient' => TRUE,

@@ -35,7 +35,7 @@ if (!empty($action)) {
         $dbconn->Execute("UPDATE " . $oostable['configuration'] . " SET configuration_value = '" . oos_db_input($configuration_value) . "', last_modified = now() WHERE configuration_id = '" . intval($cID) . "'");
 		
 		
-		if ($cID == 2 || $cID == 3) {
+		if ($cID == 2 || $cID == 3 || $cID == 4) {
 	
 			require 'includes/classes/class_upload.php';
 			
@@ -136,6 +136,37 @@ if (!empty($action)) {
 					),
 				);
 				$dir_fs_catalog_images = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'ico/';			
+			} elseif ($cID == 4) { 
+				// OpenGraph Thumbnail
+				$options = array(
+					'image_versions' => array(				
+						// The empty image version key defines options for the original image.
+						// Keep in mind: these image manipulations are inherited by all other image versions from this point onwards. 
+						// Also note that the property 'no_cache' is not inherited, since it's not a manipulation.
+						'' => array(
+							// Automatically rotate images based on EXIF meta data:
+							'auto_orient' => TRUE
+						),				
+						'1200x630' => array(
+							// 'auto_orient' => TRUE,
+							// 'crop' => TRUE,
+							// 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+							// 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+							'max_width' => 1200, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+							'max_height' => 630 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.				
+						),
+						'medium' => array(
+							// 'auto_orient' => TRUE,
+							// 'crop' => TRUE,
+							// 'jpeg_quality' => 82,
+							// 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+							// 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+							'max_width' => 320, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+							'max_height' => 168 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
+						),							
+					),
+				);
+				$dir_fs_catalog_images = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'og/';			
 			}
 			
 			
@@ -272,10 +303,8 @@ if (!empty($action)) {
     case 'edit':
       $heading[] = array('text' => '<b>' . constant(strtoupper($cInfo->configuration_key . '_TITLE')) . '</b>');
 
-		if  ($cID == 2 || $cID == 3) {
-
+		if  ($cID == 2 || $cID == 3 || $cID == 4) {
 			$value_field = oos_draw_file_field('site_image') . '<br />' . $cInfo->configuration_value;
-
 		} else {
 			if ($cInfo->set_function) {
 				eval('$value_field = ' . $cInfo->set_function . '"' . htmlspecialchars($cInfo->configuration_value) . '");');
@@ -298,6 +327,8 @@ if (!empty($action)) {
 			$contents[] = array('text' => '<br />' . oos_info_image('logo/medium/' . $cInfo->configuration_value, $cInfo->configuration_value));		
 		} elseif ($cID == 3) {
 			$contents[] = array('text' => '<br />' . oos_info_image('ico/180x180/' . $cInfo->configuration_value, $cInfo->configuration_value));		
+		} elseif ($cID == 4) {
+			$contents[] = array('text' => '<br />' . oos_info_image('og/medium/' . $cInfo->configuration_value, $cInfo->configuration_value));		
 		}
         $contents[] = array('text' => '<br />' . constant(strtoupper($cInfo->configuration_key . '_DESC')));
         $contents[] = array('text' => '<br />' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($cInfo->date_added));
