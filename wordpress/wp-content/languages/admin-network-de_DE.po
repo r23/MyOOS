@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.2.x - Development - Administration - Network Admin package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-04-14 17:11:32+0000\n"
+"PO-Revision-Date: 2019-09-05 11:46:38+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -289,7 +289,7 @@ msgstr "Theme"
 
 #: wp-admin/includes/class-wp-ms-themes-list-table.php:251
 msgid "You do not appear to have any themes available at this time."
-msgstr "Du scheinst zur Zeit keine Themes verfügbar zu haben."
+msgstr "Du scheinst zurzeit keine Themes verfügbar zu haben."
 
 #: wp-admin/includes/class-wp-ms-themes-list-table.php:249
 msgid "No themes found."

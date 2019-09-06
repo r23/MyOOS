@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.2.x - Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-08-13 13:07:53+0000\n"
+"PO-Revision-Date: 2019-09-05 12:55:55+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -4970,7 +4970,7 @@ msgstr ""
 
 #: wp-includes/functions.php:6509
 msgid "Only UUID V4 is supported at this time."
-msgstr "Zur Zeit wird nur UUID V4 unterstützt."
+msgstr "Zurzeit wird nur UUID V4 unterstützt."
 
 #: wp-includes/deprecated.php:3935 wp-includes/deprecated.php:3952
 msgid "The Press This plugin is required."
@@ -14332,7 +14332,7 @@ msgstr "Alle offenen Tags schließen"
 #: wp-includes/blocks/rss.php:27 wp-includes/rss.php:917
 #: wp-includes/widgets.php:1471
 msgid "An error has occurred, which probably means the feed is down. Try again later."
-msgstr "Ein Fehler ist aufgetreten – der Feed funktioniert zur Zeit nicht. Versuche es später noch einmal."
+msgstr "Ein Fehler ist aufgetreten – der Feed funktioniert zurzeit nicht. Versuche es später noch einmal."
 
 #: wp-includes/user.php:2152
 msgid "Jabber / Google Talk"
