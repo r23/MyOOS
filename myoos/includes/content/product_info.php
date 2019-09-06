@@ -32,7 +32,8 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/produc
 $productstable = $oostable['products'];
 $products_descriptiontable = $oostable['products_description'];
 $product_info_sql = "SELECT p.products_id, pd.products_name, pd.products_title, pd.products_description, pd.products_short_description, pd.products_url,
-                              pd.products_description_meta, p.products_model, p.products_replacement_product_id,
+                              pd.products_description_meta, pd.products_facebook_title, pd.products_facebook_description, pd.products_twitter_title,
+							  pd.products_twitter_description, p.products_model, p.products_replacement_product_id,
                               p.products_quantity, p.products_image, p.products_price, p.products_base_price,
 							  p.products_product_quantity, p.products_base_unit, p.products_quantity_order_min, 
 							  p.products_quantity_order_max, p.products_quantity_order_units,
@@ -89,6 +90,15 @@ if (!$product_info_result->RecordCount()) {
     // Meta Tags
     $sPagetitle = (empty($product_info['products_title']) ? $product_info['products_name'] : $product_info['products_title']); 
     $sDescription = $product_info['products_description_meta'];
+
+	$facebook_title = $product_info['products_facebook_title'];
+	$twitter_title = $product_info['products_twitter_title'];
+
+	$sDescription = $product_info['products_description_meta'];
+	$facebook_description = $product_info['products_facebook_description'];
+	$twitter_description = $product_info['products_twitter_description'];
+
+	$og_image = OOS_HTTPS_SERVER . OOS_SHOP . OOS_IMAGES . 'product/large/' . $product_info['products_image'];
 
     $aTemplate['page'] = $sTheme . '/page/product_info.html';
     $aTemplate['also_purchased_products'] = $sTheme . '/products/_also_purchased_products.html';

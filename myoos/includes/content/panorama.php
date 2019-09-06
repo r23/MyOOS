@@ -39,20 +39,6 @@ $categories_panorama_sql = "SELECT c.panorama_id, c.categories_id, c.panorama_pr
 							AND	s.panorama_id = c.panorama_id
 							AND cd.panorama_languages_id = '" . intval($nLanguageID) . "'";		
 $categories_panorama_result = $dbconn->Execute($categories_panorama_sql);
-
-/*
-$categories_panoramatable = $oostable['categories_panorama'];
-$categories_panorama_descriptiontable = $oostable['categories_panorama_description'];
-$categories_panorama_sql = "SELECT p.panorama_id, p.categories_id, pd.panorama_name, pd.panorama_title, pd.panorama_description_meta,
-								 p.panorama_preview, p.panorama_author, p.panorama_autoload, p.panorama_autorotates
-                        FROM $categories_panoramatable p,
-                             $categories_panorama_descriptiontable pd
-						WHERE p.panorama_id = '" . intval($nPanoramaID) . "'
-                          AND pd.panorama_id = p.panorama_id
-                          AND pd.panorama_languages_id = '" . intval($nLanguageID) . "'";						
-$categories_panorama_result = $dbconn->Execute($categories_panorama_sql);	
-*/
-
 if (!$categories_panorama_result->RecordCount()) {
 	// product not found
 	header('HTTP/1.0 404 Not Found');
