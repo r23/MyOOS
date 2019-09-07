@@ -264,7 +264,9 @@ if (!empty($action)) {
         }
         $cfgValue = oos_call_function($class_method[1], $configuration['configuration_value'], ${$class_method[0]});
       } else {
-        $cfgValue = oos_call_function($use_function, $configuration['configuration_value']);
+        if (function_exists($use_function)) { 
+			$cfgValue = oos_call_function($use_function, $configuration['configuration_value']);
+        }		  
       }
     } else {
       $cfgValue = $configuration['configuration_value'];

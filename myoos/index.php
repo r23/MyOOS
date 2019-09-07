@@ -43,6 +43,7 @@ define('MYOOS_INCLUDE_PATH', dirname(__FILE__)=='/'?'':dirname(__FILE__));
 define('OOS_VALID_MOD', true);
 require 'includes/main.php';
 
+
 if ( empty( $sContent ) || !is_string( $sContent ) ) {
 	$sContent = $aContents['403'];
 	require MYOOS_INCLUDE_PATH . '/includes/content/error403.php'; // 403 Forbidden

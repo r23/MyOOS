@@ -122,7 +122,10 @@ if ( defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING') && (MODULE_ORDER_TOTAL
 
 
 // process the selected shipping method
-if ( isset($_POST['action']) && ($_POST['action'] == 'process') ) {
+if ( isset($_POST['action']) && ($_POST['action'] == 'process') && 
+	( isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) ){	
+	
+	
 	if ( (isset($_POST['comments'])) && (empty($_POST['comments'])) ) {
 		$_SESSION['comments'] = '';
 	} elseif (oos_is_not_null($_POST['comments'])) {
@@ -146,8 +149,12 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') ) {
 					unset($_SESSION['shipping']);
 				} else {
 					if ( (isset($quote[0]['methods'][0]['title'])) && (isset($quote[0]['methods'][0]['cost'])) ) {
+						$sWay = ''; 
+						if (!empty($quote[0]['methods'][0]['title'])) {
+							$sWay = ' (' . $quote[0]['methods'][0]['title'] . ')'; 
+						}						
 						$_SESSION['shipping'] = array('id' => $_SESSION['shipping'],
-                                            'title' => (($free_shipping == TRUE) ?  $quote[0]['methods'][0]['title'] : $quote[0]['module'] . ' (' . $quote[0]['methods'][0]['title'] . ')'),
+											'title' => (($free_shipping == true) ?  $quote[0]['methods'][0]['title'] : $quote[0]['module'] . $sWay), 
                                             'cost' => $quote[0]['methods'][0]['cost']);
 
 						oos_redirect(oos_href_link($aContents['checkout_payment']));
