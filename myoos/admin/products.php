@@ -157,13 +157,36 @@ if (!empty($action)) {
 
 			for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
 				$language_id = $aLanguages[$i]['id'];
-							
+	
+				$products_description = oos_db_prepare_input($_POST['products_description_' . $aLanguages[$i]['id']]);		
+				$products_description_meta = oos_db_prepare_input($_POST['products_description_meta_' . $aLanguages[$i]['id']]);	
+
+				if (empty($products_description_meta)) {				
+					$products_description_meta =  substr(strip_tags(preg_replace('!(\r\n|\r|\n)!', '',$products_description)),0 , 250);
+				}
+
+				$products_facebook_title = oos_db_prepare_input($_POST['products_facebook_title'][$language_id]);		
+				$products_facebook_description = oos_db_prepare_input($_POST['products_facebook_description'][$language_id]);				
+				$products_twitter_title = oos_db_prepare_input($_POST['products_twitter_title'][$language_id]);		
+				$products_twitter_description = oos_db_prepare_input($_POST['products_twitter_description'][$language_id]);
+
+				if (empty($products_facebook_title)) $products_facebook_title = oos_db_prepare_input($_POST['products_name'][$language_id]);
+				if (empty($products_facebook_description)) $products_facebook_description = $categories_description_meta;				 
+
+				if (empty($products_twitter_title)) $products_twitter_title = $products_facebook_title;
+				if (empty($products_twitter_description)) $products_twitter_description = $products_facebook_description;
+
+	
 				$sql_data_array = array('products_name' => oos_db_prepare_input($_POST['products_name'][$language_id]),
 										'products_title' => oos_db_prepare_input($_POST['products_title'][$language_id]),
-										'products_description' => oos_db_prepare_input($_POST['products_description_' . $aLanguages[$i]['id']]),
+										'products_description' => $products_description,
 										'products_short_description' => oos_db_prepare_input($_POST['products_short_description_' . $aLanguages[$i]['id']]),
 										'products_essential_characteristics' => oos_db_prepare_input($_POST['products_essential_characteristics_' . $aLanguages[$i]['id']]),
-										'products_description_meta' => oos_db_prepare_input($_POST['products_description_meta_' . $aLanguages[$i]['id']]),
+										'products_description_meta' => $products_description_meta,
+										'products_facebook_title' => $products_facebook_title,
+										'products_facebook_description' => $products_facebook_description,
+										'products_twitter_title' => $products_twitter_title,
+										'products_twitter_description' => $products_twitter_description,									
 										'products_url' => oos_db_prepare_input($_POST['products_url'][$language_id]));
 
 				if ($action == 'insert_product') {
@@ -216,8 +239,8 @@ if (!empty($action)) {
 						// 'jpeg_quality' => 82,
 						// 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
 						// 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-						'max_width' => 1024, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
-						'max_height' => 1024, // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
+						'max_width' => 1200, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+						'max_height' => 1200, // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
 					),
 					'medium_large' => array(
 						// 'auto_orient' => TRUE,
@@ -333,13 +356,13 @@ if ($action == 'new_product') {
 	defined('DEFAULT_SETTING_ID') or define('DEFAULT_SETTING_ID', '2');
 	defined('DEFAULT_TAX_CLASS_ID') or define('DEFAULT_TAX_CLASS_ID', '1');
 	
-    $parameters = array('products_name' => '',
+    $parameters = array('products_id' => '',
+						'products_name' => '',
 						'products_title' => '',
                        'products_description' => '',
 					   'products_short_description' => '',
 					   'products_essential_characteristics' => '',
                        'products_url' => '',
-                       'products_id' => '',
                        'products_quantity' => '',
                        'products_model' => '',
                        'products_image' => '',
@@ -364,7 +387,8 @@ if ($action == 'new_product') {
 		$productstable = $oostable['products'];
 		$products_descriptiontable = $oostable['products_description'];
 		$product_result = $dbconn->Execute("SELECT p.products_id, pd.products_name, pd.products_title, pd.products_description, pd.products_short_description,
-												pd.products_essential_characteristics, pd.products_url, pd.products_description_meta, 
+												pd.products_essential_characteristics, pd.products_url, pd.products_description_meta, pd.products_facebook_title,
+												pd.products_facebook_description, pd.products_twitter_title, pd.products_twitter_description,
                                                  p.products_quantity, p.products_reorder_level, p.products_model,
                                                  p.products_replacement_product_id, p.products_ean, p.products_image,
                                                  p.products_price, p.products_base_price, p.products_base_quantity,
@@ -607,6 +631,9 @@ function calcBasePriceFactor() {
                      <li class="nav-item" role="presentation">
                         <a class="nav-link" href="#data" aria-controls="data" role="tab" data-toggle="tab"><?php echo TEXT_PRODUCTS_DATA; ?></a>
                      </li>
+                     <li class="nav-item" role="presentation">
+                        <a class="nav-link" href="#social" aria-controls="data" role="tab" data-toggle="tab"><?php echo TEXT_SOCIAL; ?></a>
+                     </li>					 
                      <li class="nav-item" role="presentation">
                         <a class="nav-link" href="#picture" aria-controls="picture" role="tab" data-toggle="tab"><?php echo TEXT_PRODUCTS_IMAGE; ?></a>
                      </li>
@@ -1008,6 +1035,98 @@ updateWithTax();
 
 
                      </div>
+
+					<div class="tab-pane active" id="social" role="tabpanel">
+
+						<div class="col-12 mt-3">
+							<h2><?php echo TEXT_HEADER_FACEBOOK; ?></h2>
+						</div>
+
+
+<?php
+		for ($i=0; $i < count($aLanguages); $i++) {
+?>
+					<fieldset>
+						<div class="form-group row">
+							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_TITLE; ?></label>
+							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
+							<div class="col-lg-9">
+								<?php echo oos_draw_input_field('products_facebook_title[' . $aLanguages[$i]['id'] . ']', (empty($pInfo->products_id) ? '' : oos_get_products_facebook_title($pInfo->products_id, $aLanguages[$i]['id']))); ?>
+							</div>
+						</div>
+					</fieldset>
+<?php
+		}
+		for ($i=0; $i < count($aLanguages); $i++) {
+?>
+					<fieldset>
+						<div class="form-group row">
+							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_DESCRIPTION; ?></label>
+							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
+							<div class="col-lg-9">
+								<?php echo oos_draw_textarea_field('products_facebook_description[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '2', (empty($pInfo->products_id) ? '' : oos_get_products_facebook_description($pInfo->products_id, $aLanguages[$i]['id']))); ?>
+							</div>
+						</div>
+					</fieldset>
+<?php
+		}
+?>
+
+
+						<div class="col-12 mt-3">
+							<h2><?php echo TEXT_HEADER_TWITTER; ?></h2>
+						</div>
+
+                        <div class="form-group row">
+							<label class="col-lg-2 col-form-label"><?php echo TEXT_DATA_FROM_FACEBOOK; ?></label>
+							<div class="col-lg-10">
+								<div class="c-radio c-radio-nofont">
+									<label>
+										<input type="radio" name="facebook-data" value="YES" checked="checked">&nbsp;
+										<span class="badge badge-danger float-right"><?php echo ENTRY_YES; ?></span>
+									</label>
+								</div>
+								<div class="c-radio c-radio-nofont">
+									<label>
+										<input type="radio" name="facebook-data" value="NO" >&nbsp;
+										<span class="badge badge-success float-right"><?php echo ENTRY_NO; ?></span>
+									</label>
+								</div>
+							</div>
+						</div>
+
+<?php
+		for ($i=0; $i < count($aLanguages); $i++) {
+?>
+					<fieldset>
+						<div class="form-group row">
+							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_TITLE; ?></label>
+							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
+							<div class="col-lg-9">
+								<?php echo oos_draw_input_field('products_twitter_title[' . $aLanguages[$i]['id'] . ']', (empty($pInfo->products_id) ? '' : oos_get_products_twitter_title($pInfo->products_id, $aLanguages[$i]['id']))); ?>
+							</div>
+						</div>
+					</fieldset>
+<?php
+		}
+		for ($i=0; $i < count($aLanguages); $i++) {
+?>
+					<fieldset>
+						<div class="form-group row">
+							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_DESCRIPTION; ?></label>
+							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
+							<div class="col-lg-9">
+								<?php echo oos_draw_textarea_field('products_twitter_description[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '2', (empty($pInfo->products_id) ? '' : oos_get_products_twitter_description($pInfo->products_id, $aLanguages[$i]['id']))); ?>
+							</div>
+						</div>
+					</fieldset>
+<?php
+		}
+?>
+
+
+                     </div>
+				 				 
                      <div class="tab-pane" id="picture" role="tabpanel">
 		<script type="text/javascript">
 		// <!-- <![CDATA[

@@ -49,6 +49,13 @@ define('TEXT_PRODUCTS_PRODUCT_MAXIMUM_ORDER', 'Maximum Order Quantity');
 
 define('TEXT_PRODUCTS_UNIT', 'Product Unit');
 
+define('TEXT_SOCIAL', 'Social');
+define('TEXT_HEADER_FACEBOOK', 'Facebook');
+define('TEXT_HEADER_TWITTER', 'Twitter');
+define('TEXT_TITLE', 'Title:');
+define('TEXT_DESCRIPTION', 'Description:');
+define('TEXT_DATA_FROM_FACEBOOK', 'Use Data from Facebook Tab?');
+
 define('TEXT_PRODUCTS_IMAGE_REMOVE', '<b>Remove</b> this Image from this Product?');
 define('TEXT_PRODUCTS_BUTTON_DELETE', '<b>Delete</b> this Image from the Server?');
 define('TEXT_ADD_MORE_UPLOAD', 'Add more upload boxes');

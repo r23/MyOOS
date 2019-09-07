@@ -49,6 +49,13 @@ define('TEXT_PRODUCTS_PRODUCT_MAXIMUM_ORDER', 'maximale Bestellmenge:');
 
 define('TEXT_PRODUCTS_UNIT', 'Produkteinheit:');
 
+define('TEXT_SOCIAL', 'Social');
+define('TEXT_HEADER_FACEBOOK', 'Facebook');
+define('TEXT_HEADER_TWITTER', 'Twitter');
+define('TEXT_TITLE', 'Titel:');
+define('TEXT_DESCRIPTION', 'Beschreibung:');
+define('TEXT_DATA_FROM_FACEBOOK', 'Daten von Facebook verwenden?');
+
 define('TEXT_PRODUCTS_IMAGE_REMOVE', '<b>Entfernen</b> des Bildes vom Artikel?');
 define('TEXT_PRODUCTS_BUTTON_DELETE', '<b>Löschen</b> des Bildes vom Server?');
 define('TEXT_ADD_MORE_UPLOAD', 'Mehr Felder zum Hochladen hinzufügen');

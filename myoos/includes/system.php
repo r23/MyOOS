@@ -98,11 +98,11 @@ $smarty->assign(
 		'pagetitle'			=> $sPagetitle,
 		'facebook_title'	=> $facebook_title,
 		'twitter_title'		=> $twitter_title,
-		
+		'twitter_card'		=> $twitter_card,
 		'meta_description'	=> $sDescription,
 		'facebook_description'	=> $facebook_description,
 		'twitter_description'	=> $twitter_description,
-		
+				
 		'welcome'         => sprintf($aLang['welcome_msg'], STORE_NAME)
 	)
 

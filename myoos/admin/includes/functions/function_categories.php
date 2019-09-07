@@ -253,6 +253,92 @@ function oos_get_products_description_meta($product_id, $language_id = '') {
 }
 
 
+function oos_get_products_facebook_title($product_id, $language_id = '') {
+
+    // Get database information
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
+
+    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+
+    $products_descriptiontable = $oostable['products_description'];
+    $query = "SELECT products_facebook_title
+              FROM $products_descriptiontable
+              WHERE products_id = '" . intval($product_id) . "'
+                AND products_languages_id = '" . intval($language_id) . "'";
+    $result = $dbconn->Execute($query);
+
+    $products_facebook_title = $result->fields['products_facebook_title'];
+
+    return $products_facebook_title;
+}
+
+function oos_get_products_facebook_description($product_id, $language_id = '') {
+
+    // Get database information
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
+
+    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+
+    $products_descriptiontable = $oostable['products_description'];
+    $query = "SELECT products_facebook_description
+              FROM $products_descriptiontable
+              WHERE products_id = '" . intval($product_id) . "'
+                AND products_languages_id = '" . intval($language_id) . "'";
+    $result = $dbconn->Execute($query);
+
+    $products_facebook_description = $result->fields['products_facebook_description'];
+
+    return $products_facebook_description;
+}
+
+function oos_get_products_twitter_title($product_id, $language_id = '') {
+
+    // Get database information
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
+
+    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+
+    $products_descriptiontable = $oostable['products_description'];
+    $query = "SELECT products_twitter_title
+              FROM $products_descriptiontable
+              WHERE products_id = '" . intval($product_id) . "'
+                AND products_languages_id = '" . intval($language_id) . "'";
+    $result = $dbconn->Execute($query);
+
+    $products_twitter_title = $result->fields['products_twitter_title'];
+
+    return $products_twitter_title;
+}
+
+function oos_get_products_twitter_description($product_id, $language_id = '') {
+
+    // Get database information
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
+
+    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+
+    $products_descriptiontable = $oostable['products_description'];
+    $query = "SELECT products_twitter_description
+              FROM $products_descriptiontable
+              WHERE products_id = '" . intval($product_id) . "'
+                AND products_languages_id = '" . intval($language_id) . "'";
+    $result = $dbconn->Execute($query);
+
+    $products_twitter_description = $result->fields['products_twitter_description'];
+
+    return $products_twitter_description;
+}
+
+
+
+
+
+
+
 function oos_get_categories_facebook_title($category_id, $language_id = '') {
 
     // Get database information

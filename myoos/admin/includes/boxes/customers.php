@@ -19,8 +19,11 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-$bActive = ($_SESSION['selected_box'] == 'customers' ) ? TRUE : FALSE;
-      
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+
+
+$bActive = ($_SESSION['selected_box'] == 'customers' ) ? TRUE : FALSE;   
    
 $aBlocks[] = array(
 	'heading' => BOX_HEADING_CUSTOMERS,
