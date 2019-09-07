@@ -366,8 +366,16 @@ define('SITE_ICONS_DESC', 'Site Icons are what you see in browser tabs and bookm
 define('OPEN_GRAPH_THUMBNAIL_TITLE', 'OpenGraph Thumbnail');
 define('OPEN_GRAPH_THUMBNAIL_DESC', 'When a featured image is not set, this image will be used as a thumbnail when your post is shared on Facebook. Recommended image size 1200 x 630 pixels.');
 
+define('SITE_NAME_TITLE', 'Store Name');
+define('SITE_NAME_DESC', 'The name of my store');
+
 define('TWITTER_CARD_TITLE', 'Twitter Card Type');
 define('TWITTER_CARD_DESC', 'Card type selected when creating a new post. This will also be applied for posts without a card type selected.');
+
+define('TWITTER_CREATOR_TITLE', 'Twitter Username');
+define('TWITTER_CREATOR_DESC', 'Enter the Twitter username of the author to add twitter:creator tag to posts.');
+
+
 
 define('FACEBOOK_URL_TITLE', 'Facebook');
 define('FACEBOOK_URL_DESC', 'URL of the Facebook page:');

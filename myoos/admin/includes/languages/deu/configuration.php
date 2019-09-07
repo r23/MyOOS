@@ -364,8 +364,16 @@ define('SITE_ICONS_DESC', 'Website-Icons erscheinen in Browser-Tabs und Lesezeic
 define('OPEN_GRAPH_THUMBNAIL_TITLE', 'OpenGraph Thumbnail');
 define('OPEN_GRAPH_THUMBNAIL_DESC', 'Wenn ein Bild nicht eingestellt ist, wird dieses Bild als Miniaturbild verwendet, wenn Ihr Online Shop auf Facebook geteilt wird. Empfohlene Bildgröße 1200 x 630 Pixel.');
 
+define('SITE_NAME_TITLE', 'Shop Name');
+define('SITE_NAME_DESC', 'Der Name meines Shops');
+
 define('TWITTER_CARD_TITLE', 'Twitter Kartentyp');
 define('TWITTER_CARD_DESC', 'Kartentyp, der beim Erstellen eines neuen Beitrags ausgewählt wurde. Dies gilt auch für Beiträge ohne gewählten Kartentyp.');
+
+define('TWITTER_CREATOR_TITLE', 'Twitter Benutzername');
+define('TWITTER_CREATOR_DESC', 'Geben Sie den Twitter-Benutzernamen des Autors ein, um twitter:creator-Tag zu den Artikeln  hinzuzufügen.');
+
+
 
 define('FACEBOOK_URL_TITLE', 'Facebook');
 define('FACEBOOK_URL_DESC', 'URL der Facebook Seite');

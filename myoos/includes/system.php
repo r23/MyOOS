@@ -69,6 +69,8 @@ if (empty($twitter_description)) $twitter_description = $facebook_description;
 
 if (empty($twitter_card)) $twitter_card = TWITTER_CARD;
 
+$site_name = (!empty(SITE_NAME) ? SITE_NAME : STORE_NAME);
+
 if (!empty(OPEN_GRAPH_THUMBNAIL)) {
 	if (empty($og_image)) $og_image = OOS_HTTPS_SERVER . OOS_SHOP . OOS_IMAGES . 'og/1200x630/' . OPEN_GRAPH_THUMBNAIL;	
 }
@@ -97,6 +99,7 @@ $smarty->assign(
 		'locale'			=> $locale,
 		'pagetitle'			=> $sPagetitle,
 		'facebook_title'	=> $facebook_title,
+		'site_name'			=> $site_name,
 		'twitter_title'		=> $twitter_title,
 		'twitter_card'		=> $twitter_card,
 		'meta_description'	=> $sDescription,

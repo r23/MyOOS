@@ -25,7 +25,7 @@
 <meta property="og:title" content="{$facebook_title}">
 <meta property="og:description" content="{$facebook_description}">
 <meta property="og:url" content="{$canonical}">
-<meta property="og:site_name" content="Virtual Reality, Augmented Reality und 3D News ❤ r23">
+<meta property="og:site_name" content="{$site_name}">
 {if $og_image}
 <meta property="og:image" content="{$og_image}">
 <meta property="og:image:secure_url" content="{$og_image}">
@@ -36,7 +36,7 @@
 <meta name="twitter:card" content="{$twitter_card}">
 <meta name="twitter:title" content="{$twitter_title}">
 <meta name="twitter:description" content="{$twitter_description}">
-<meta name="twitter:creator" content="@r_23">
+<meta name="twitter:creator" content="{$smarty.const.TWITTER_CREATOR}">
 {if $og_image}
 <meta name="twitter:image" content="{$og_image}">
 {/if}
