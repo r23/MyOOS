@@ -24,17 +24,17 @@
 					<!-- end pagination -->
 				</div>
 
-				<ul class="shop-item-list row list-inline m-0">	
+				<ul class="product-list row list-inline m-0">	
 				{section name=i loop=$specials}
 
 					<!-- item -->
 					<li class="col-lg-4 col-sm-4">
 
-						<div class="shop-item">
+						<div class="product">
 
 							<div class="thumbnail">
 								<!-- product image(s) -->
-								<a class="shop-item-image" href="{product_link products_id=$specials[i].products_id}">
+								<a class="product-image" href="{product_link products_id=$specials[i].products_id}">
 									{product_image dir=medium image=$specials[i].products_image alt=$specials[i].products_name}
 								</a>
 								<!-- end product image(s) -->
@@ -48,7 +48,7 @@
 								{/if}
 								
 								<!-- product more info -->
-								<div class="shop-item-info">
+								<div class="product-info">
 									<span class="badge badge-success">NEW</span>
 									<span class="badge badge-danger">SALE</span>
 								</div>
@@ -57,11 +57,11 @@
 											
 							</div>
 										
-							<div class="shop-item-summary text-center">
+							<div class="product-summary text-center">
 								<h2><a href="{product_link products_id=$specials[i].products_id}">{$specials[i].products_name}</a></h2>
 											
 								<!-- price -->
-								<div class="shop-item-price">
+								<div class="product-price">
 									{$lang.price_reduced_from} <span class="line-through">{$specials[i].products_price}</span>
 									{$specials[i].products_special_price}
 																		
@@ -76,7 +76,7 @@
 										
 								{if $myUser.show_price eq 1 }
 								<!-- buttons -->
-								<div class="shop-item-buttons text-center">
+								<div class="product-buttons text-center">
 									<a class="btn btn-default" href="{html_href_link content=$filename.specials action=buy_now page=$page products_id=$specials[i].products_id}" role="button"><i class="fa fa-cart-plus" aria-hidden="true"></i></i> {$lang.button_in_cart}</a>
 								</div>
 								<!-- end buttons -->

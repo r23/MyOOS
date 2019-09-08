@@ -5,7 +5,7 @@
 			<h2>{$lang.text_also_purchased_products}</h2>
 		</div>
 		
-		<ul class="shop-item-list row list-inline m-0">
+		<ul class="product-list row list-inline m-0">
 
 		{foreach item=purchased from=$also_purchased}
           
@@ -18,7 +18,7 @@
 						</a>
 					</div>
                 </div> 
-                <div class="shop-item-summary text-center">
+                <div class="product-summary text-center">
                     <h4><a href="{product_link products_id=$purchased.products_id}">{$purchased.products_name}</a></h4>
                 </div>
             </li>		

@@ -106,3 +106,7 @@ prepros-6.config
 /myoos/images/panoramas/medium/*.jpg
 /myoos/media/models/usdz/*.usdz
 /myoos/media/models/gltf/Astronaut/glTF-Binary/*.glb
+/myoos/images/og/originals/*.jpg
+/myoos/images/og/medium/*.jpg
+/myoos/images/og/1200x630/dada.jpg
+/myoos/images/og/1200x630/*.jpg

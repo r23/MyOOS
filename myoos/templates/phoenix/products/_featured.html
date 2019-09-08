@@ -7,7 +7,7 @@
 			<h2>{$lang.table_heading_featured_products}</h2>
 		</div>
 		
-		<ul class="shop-item-list row list-inline m-0">
+		<ul class="product-list row list-inline m-0">
 
 		{foreach item=featur from=$featured}
           
@@ -30,7 +30,7 @@
 						
 					</div>
                 </div> 
-                <div class="shop-item-summary text-center">
+                <div class="product-summary text-center">
                     <h4><a href="{product_link products_id=$featur.products_id}" title="{$featur.products_name}">{$featur.products_name|truncate:18:"":true|close_tags}</a></h4>
 
 					<div class="product-price clearfix">

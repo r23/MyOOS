@@ -37,16 +37,16 @@
 				<!-- /list options -->
 			
 
-				<ul class="shop-item-list row list-inline m-0">
+				<ul class="product-list row list-inline m-0">
 				{foreach item=product from=$listing}
 					<!-- item -->
 					<li class="col-lg-3 col-sm-3">
 
-						<div class="shop-item">
+						<div class="product">
 
 							<div class="thumbnail">
 								<!-- product image -->
-								<a class="shop-item-image" href="{product_link products_id=$product.products_id}">
+								<a class="product-image" href="{product_link products_id=$product.products_id}">
 									{product_image dir=medium image=$product.products_image alt=$product.products_name}
 								</a>
 								<!-- /product image -->
@@ -58,7 +58,7 @@
 								<!-- /hover buttons -->
 
 								<!-- product more info -->
-								<div class="shop-item-info">
+								<div class="product-info">
 {*
   todo								
 									<span class="badge badge-success">NEW</span>
@@ -68,20 +68,20 @@
 								<!-- /product more info -->
 							</div>
 										
-							<div class="shop-item-summary text-center">
+							<div class="product-summary text-center">
 								<h2><a href="{product_link products_id=$product.products_id}">{$product.products_name|truncate:18:"":true|close_tags}</a></h2>
 								
 {*
   todo								
 								<!-- rating -->
-								<div class="shop-item-rating-line">
+								<div class="product-rating-line">
 									<div class="rating rating-4 fs-13"><!-- rating-0 ... rating-5 --></div>
 								</div>
 								<!-- /rating -->
 *}
 
 								<!-- price -->
-								<div class="shop-item-price">
+								<div class="product-price">
 								{if $myUser.show_price eq 1 }
 									{if (!empty($product.listing_product_special_price))}
 										<span class="price-old">{$lang.price_reduced_from} <span class="line-through">{$product.listing_product_price}</span></span><br>
@@ -105,7 +105,7 @@
 							</div>
 
 							<!-- buttons -->
-							<div class="shop-item-buttons text-center">
+							<div class="product-buttons text-center">
 								<a class="btn btn-default" href="{html_href_link content=$page_file oos_get=$get_params action=buy_now cart_quantity=$product.order_min products_id=$product.products_id}" role="button"><i class="fa fa-cart-plus" aria-hidden="true"></i> {$lang.button_in_cart}</a>
 							</div>
 							<!-- /buttons -->

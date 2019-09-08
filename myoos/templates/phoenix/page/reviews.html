@@ -24,29 +24,29 @@
 
 				{section name=i loop=$reviews}
 					{if $smarty.section.i.first}
-						<ul class="shop-item-list row list-inline m-0">
+						<ul class="product-list row list-inline m-0">
 					{/if}
 							<!-- item -->
 							<li class="col-lg-12">
 
-								<div class="shop-item clearfix">
+								<div class="product clearfix">
 
 									<div class="thumbnail">
 										<!-- product image -->
-										<a class="shop-item-image" href="{product_link products_id=$reviews[i].products_id}">
+										<a class="product-image" href="{product_link products_id=$reviews[i].products_id}">
 											{product_image dir=small image=$reviews[i].products_image alt=$reviews[i].products_name}
 										</a>
 										<!-- /product image -->
 {*
   todo	
-										<div class="shop-item-info">
+										<div class="product-info">
 											<span class="badge badge-success">NEW</span>
 											<span class="badge badge-danger">SALE</span>
 										</div>
 *}
 									</div>
 										
-									<div class="shop-item-summary">
+									<div class="product-summary">
 										<h2><a href="{product_link products_id=$reviews[i].products_id}">{$reviews[i].products_name}</a></h2>
 											
 										<!-- rating -->
@@ -68,7 +68,7 @@
 										</p>
 
 										<!-- buttons -->
-										<div class="shop-item-buttons">
+										<div class="product-buttons">
 											<a class="btn btn-default add-wishlist" href="{html_href_link content=$filename.$filename.reviews action=add_wishlist products_id=$reviews[i].products_id page=$page}" role="button"><i class="fa fa-heart p-0" aria-hidden="true"></i></a>
 											<a class="btn btn-default" href="{html_href_link content=$filename.product_reviews_info products_id=$reviews[i].products_id reviews_id=$reviews[i].reviews_id}" role="button">{$lang.button_continue} <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
 										</div>
