@@ -97,6 +97,7 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
             'Symfony\\Bridge\\ProxyManager\\' => 28,
             'Symfony\\Bridge\\Monolog\\' => 23,
             'Symfony\\Bridge\\Doctrine\\' => 24,
+            'Stripe\\' => 7,
         ),
         'P' => 
         array (
@@ -188,6 +189,10 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         'Symfony\\Bridge\\Doctrine\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Bridge/Doctrine',
+        ),
+        'Stripe\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/stripe/stripe-php/lib',
         ),
         'Psr\\SimpleCache\\' => 
         array (

@@ -41,7 +41,8 @@
 		"phpoffice/phpspreadsheet": "^1.6",
 		"phpoffice/phpword": "^0.16.0",
 		"mobiledetect/mobiledetectlib": "^2.8",
-		"paypal/rest-api-sdk-php": "*"
+		"paypal/rest-api-sdk-php": "*",
+		"stripe/stripe-php": "^7.0"
     }	
 	
 }
