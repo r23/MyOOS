@@ -27,6 +27,7 @@
 
 <section class="mainContent section-xxs">
 	<div class="container">
+	{if $featured}
 		{$featured}	
 		<!-- divider -->
 		<div class="row">
@@ -35,7 +36,9 @@
 				</div>
 			</div>
 		</div>
-		<!-- end divider -->	
+		<!-- end divider -->
+	{/if}	
+	{if $spezials}
 		{$spezials}			
 		<!-- divider -->
 		<div class="row">
@@ -45,6 +48,8 @@
 			</div>
 		</div>
 		<!-- end divider -->
+	{/if}	
+	{if $new_products}
 		{$new_products}
 		<!-- divider -->
 		<div class="row">
@@ -54,6 +59,13 @@
 			</div>
 		</div>
 		<!-- end divider -->
+	{/if}	
+		<div class="row">
+			<div class="col-md-12">
+				<span class="pangv mt-30">{$pangv}</span>
+			</div>
+		</div>			
+	{if $mod_manufacturers}
 		<div class="row">
 			<div class="col-md-12">
 				{$mod_manufacturers}
@@ -67,18 +79,12 @@
 			</div>
 		</div>
 		<!-- end divider -->
+	{/if}
 		<div class="row">
 			<div class="col-md-12">
 				{$upcoming_products}
 			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-md-12">
-				<span class="pangv mt-30">{$pangv}</span>
-			</div>
 		</div>		
-		
 	</div>
 </section>
 <!-- end content -->
