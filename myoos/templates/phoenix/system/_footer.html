@@ -230,23 +230,12 @@
 <script type="text/javascript" src="js/plugins/image-zoom/jquery.zoom.min.js"></script>
 <script type="text/javascript" src="js/plugins/image-zoom/jquery.zoom.min.js"></script>
 {literal}
-<script type='text/javascript'>
-/* <![CDATA[ */
-var cnArgs = {"ajaxurl":"http:\/\/localhost\/ent\/MyOOS\/wordpress\/wp-admin\/admin-ajax.php","hideEffect":"none","onScroll":"no","onScrollOffset":"100","cookieName":"cookie_notice_accepted","cookieValue":"true","cookieTime":"31536000","cookiePath":"\/ent\/MyOOS\/wordpress\/","cookieDomain":"","redirection":"","cache":"","refuse":"no","revoke_cookies":"0","revoke_cookies_opt":"automatic","secure":"0"};
-/* ]]> */
-</script>
-{/literal}
-
-
-
-{literal}
 <script type="text/javascript">
 /* <![CDATA[ */
 var cnArgs = {/literal}{$cookiearray|@json_encode nofilter};{literal}
 /* ]]> */
 </script>
 {/literal}
-
 <script type='text/javascript' src="js/plugins/cookie-notice/js/front.min.js"></script>
 <script type="text/javascript" src="{$theme}/js/shop.app.js"></script>
 
