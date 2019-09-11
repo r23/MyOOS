@@ -223,3 +223,23 @@ $smarty->assign(
 		'products_units'=> $products_units,
 	)
 );
+
+// cookie-notice 
+$aCookie = array();
+$aCookie = array(
+				'hideEffect'			=> 'none',
+				'onScroll'				=> 'no',
+				'onScrollOffset'		=> '100',
+				'cookieName'			=> 'cookie_notice_accepted',
+				'cookieValue'			=> 'true',
+				'cookieTime'			=> '31536000',
+				'cookiePath'			=> OOS_SHOP,
+				'cookieDomain'			=> '',
+				'redirection'			=> '',
+				'cache'					=> '',
+				'refuse'				=> 'no',
+				'revoke_cookies'		=> '0',
+				'revoke_cookies_opt'	=> 'automatic',
+				'secure'				=> '1'
+		);
+$smarty->assign('cookiearray', $aCookie);

@@ -1,0 +1,3 @@
+[Tue Sep 10 15:50:29 2019] [error] [client 127.0.0.1] (MyOOS 2.3.8 -dev) User Error mysqli error: [2002: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte.
+] in CONNECT(localhost, '****', '****', myoos)
+ in file C:\xampp\htdocs\ent\MyOOS\myoos\includes\lib\adodb\adodb-errorhandler.inc.php line 79
