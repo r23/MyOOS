@@ -38,6 +38,9 @@ $sGroup = trim($aUser['text']);
 $nPage = isset($_GET[page]) ? $_GET[page]+0 : 1;
 $nContentCacheID = $sTheme . '|info|' . $sGroup . '|spezials|' . $nPage . '|' . $sLanguage;
 
+$sCanonical = oos_href_link($aContents['specials'], 'page='. $nPage, FALSE, TRUE);
+
+
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
 	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
@@ -97,7 +100,6 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 
     // links breadcrumb
     $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['specials']));
-	$sCanonical = oos_href_link($aContents['specials'], 'page='. $nPage, FALSE, TRUE);
 	
     // assign Smarty variables;
     $smarty->assign(

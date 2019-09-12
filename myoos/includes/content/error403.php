@@ -19,7 +19,9 @@ include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/403.ph
 $aTemplate['page'] = $sTheme . '/page/403.html';
 
 $nPageType = OOS_PAGE_TYPE_SERVICE;
+
 $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
+$sCanonical = oos_href_link($aContents['403'], '', FALSE, TRUE);
   
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
@@ -33,7 +35,7 @@ if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title']);
-$sCanonical = oos_href_link($aContents['403'], '', FALSE, TRUE);
+
 
 // assign Smarty variables;
 $smarty->assign(

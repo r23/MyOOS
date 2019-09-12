@@ -53,6 +53,8 @@ $nPage = isset($_GET['page']) ? intval( $_GET['page'] ) : 1;
 $sGroup = trim($aUser['text']);
 $nContentCacheID = $sTheme . '|products|reviews|' . $nPage. '|' . $sGroup . '|' . $sLanguage;
 
+$sCanonical = oos_href_link($aContents['reviews'], 'page=' . $nPage, FALSE, TRUE);
+
 if ($oMessage->size('reviews') > 0) {
 	$aInfoMessage = array_merge ($aInfoMessage, $oMessage->output('reviews') );
 }
@@ -107,7 +109,6 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 
 	// links breadcrumb
 	$oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['reviews']));
-	$sCanonical = oos_href_link($aContents['reviews'], 'page=' . $nPage, FALSE, TRUE);
 	
 	$smarty->assign(
         array(

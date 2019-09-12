@@ -19,8 +19,6 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-// categories_facebook_title, categories_facebook_description, categories_twitter_title, categories_twitter_description
-
 
 /** ensure this file is being required by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
@@ -56,6 +54,8 @@ if (isset($sCategory) && oos_is_not_null($sCategory)) {
 		}
 	}
 }
+
+
 
 if ($category_depth == 'nested') {
 	

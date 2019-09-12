@@ -58,6 +58,7 @@ if (!$product_info_result->RecordCount()) {
 
     $nPageType = OOS_PAGE_TYPE_MAINPAGE;
 	$sPagetitle = '404 Not Found ' . OOS_META_TITLE;
+	$sCanonical = oos_href_link($aContents['product_info'], 'products_id='. $nProductsID, FALSE, TRUE);	
 
     require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 	if (!isset($option)) {
@@ -66,7 +67,6 @@ if (!$product_info_result->RecordCount()) {
     }
 
     $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['products_new']));
-	$sCanonical = oos_href_link($aContents['product_info'], 'products_id='. $nProductsID, FALSE, TRUE);	
 	
     $smarty->assign(
         array(
@@ -109,6 +109,8 @@ if (!$product_info_result->RecordCount()) {
 	$aTemplate['slavery_products'] = $sTheme . '/products/_slavery_product_listing.html';
 	$aTemplate['slavery_page_navigation'] = $sTheme . '/system/_pagination.htm';	
 	
+	$sCanonical = oos_href_link($aContents['product_info'], 'products_id='. $nProductsID, FALSE, TRUE);		
+
     $nPageType = OOS_PAGE_TYPE_PRODUCTS;
 
     require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
@@ -119,7 +121,7 @@ if (!$product_info_result->RecordCount()) {
 
     // breadcrumb
 	$oBreadcrumb->add($product_info['products_name']);
-	$sCanonical = oos_href_link($aContents['product_info'], 'products_id='. $nProductsID, FALSE, TRUE);		
+	
 	
     // products history
 	if (isset($_SESSION)) {

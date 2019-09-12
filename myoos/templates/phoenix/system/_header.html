@@ -41,9 +41,7 @@
 <meta name="twitter:image" content="{$og_image}">
 {/if}
 
-{literal}
-<script type="application/ld+json">[{"@context":"https:\/\/schema.org\/","@type":"Product","sku":"","name":"360\u00b0 Panoramarendering","description":"Bruttogeschossfl\u00e4che bis 150m\u00b2 Bearbeitungszeitraum 23 Tage Ver\u00f6ffentlichung als VR Foto auf der Website des Kunden.","releaseDate":"2018-09-13T18:50:02+00:00","url":"https:\/\/blog.r23.de\/online-buchungsservice\/360-panoramarendering\/","category":"3D-Visualisierung > Architekturvisualisierung","isRelatedTo":[{"@type":"Product","url":"https:\/\/blog.r23.de\/online-buchungsservice\/objektwebseite\/","name":"Objektwebseite"},{"@type":"Product","url":"https:\/\/blog.r23.de\/online-buchungsservice\/architekturanimation\/","name":"Architekturanimation"},{"@type":"Product","url":"https:\/\/blog.r23.de\/online-buchungsservice\/3d-aussenansichten\/","name":"3D-Au\u00dfenansichten"},{"@type":"Product","url":"https:\/\/blog.r23.de\/online-buchungsservice\/innenraumperspektive\/","name":"Innenraumperspektive"}],"image":{"@type":"ImageObject","url":"https:\/\/blog.r23.de\/wp-content\/uploads\/2017\/12\/v1.2_sunset.jpg","width":4800,"height":2700},"offers":{"@type":"Offer","price":"980","priceCurrency":"EUR","availability":"https:\/\/schema.org\/InStock","itemCondition":"NewCondition","seller":{"@type":"Organization","@id":"https:\/\/blog.r23.de\/","name":"r23","url":"https:\/\/blog.r23.de","logo":false},"url":"https:\/\/blog.r23.de\/online-buchungsservice\/360-panoramarendering\/","priceValidUntil":""}}]</script>
-{/literal}
+{literal}<script type="application/ld+json">[{/literal}{$part|@json_encode nofilter}{literal}]</script>{/literal}
 
 <base href="{$oos_base}">
 

@@ -81,6 +81,16 @@ if (!empty($og_image)) {
 	$smarty->assign('size',	$size);
 }
 
+$part = [
+			'@context'            => 'http://schema.org',
+			'headline'         => $sPagetitle,
+			'name'             => $sPagetitle,
+			'description'	   => $sDescription,			
+			'url'              => $sCanonical,
+			'mainEntityOfPage' => $sCanonical,
+			'image'            => $og_image,
+		];
+
 
 $smarty->assign(
 	array(
@@ -105,8 +115,9 @@ $smarty->assign(
 		'meta_description'	=> $sDescription,
 		'facebook_description'	=> $facebook_description,
 		'twitter_description'	=> $twitter_description,
-				
-		'welcome'         => sprintf($aLang['welcome_msg'], STORE_NAME)
+
+		'part'				=> $part,
+		'welcome'			=> sprintf($aLang['welcome_msg'], STORE_NAME)
 	)
 
 );
@@ -243,3 +254,4 @@ $aCookie = array(
 				'secure'				=> '1'
 		);
 $smarty->assign('cookiearray', $aCookie);
+$smarty->assign('cookie_notice', sprintf($aLang['cookie_notice'], STORE_NAME, oos_href_link($aContents['information'], 'information_id=4')));

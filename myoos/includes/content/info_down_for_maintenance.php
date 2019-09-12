@@ -28,7 +28,7 @@ $aTemplate['page'] = $sTheme . '/page/coming-soon.html';
 
 $nPageType = OOS_PAGE_TYPE_MAINPAGE;
 $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
-
+$sCanonical = oos_href_link($aContents['info_down_for_maintenance'], '', FALSE, TRUE);
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
@@ -39,7 +39,6 @@ if (!isset($option)) {
 
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['info_down_for_maintenance']));
-$sCanonical = oos_href_link($aContents['info_down_for_maintenance'], '', FALSE, TRUE);
 	
 // assign Smarty variables;
 $smarty->assign(
