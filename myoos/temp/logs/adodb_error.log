@@ -1,2 +1,0 @@
-(2019-09-10 15:50:29) mysqli error: [2002: Es konnte keine Verbindung hergestellt werden, da der Zielcomputer die Verbindung verweigerte.
-] in CONNECT(localhost, '****', '****', myoos)
