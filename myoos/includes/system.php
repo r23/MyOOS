@@ -251,7 +251,7 @@ $aCookie = array(
 				'refuse'				=> 'no',
 				'revoke_cookies'		=> '0',
 				'revoke_cookies_opt'	=> 'automatic',
-				'secure'				=> '1'
+				'secure'				=> '0'
 		);
 $smarty->assign('cookiearray', $aCookie);
 $smarty->assign('cookie_notice', sprintf($aLang['cookie_notice'], STORE_NAME, oos_href_link($aContents['information'], 'information_id=4')));
