@@ -111,3 +111,4 @@ prepros-6.config
 /myoos/images/og/1200x630/dada.jpg
 /myoos/images/og/1200x630/*.jpg
 /myoos/nbproject
+/tracking/piwik/tmp
