@@ -1,0 +1,27 @@
+{include file="phoenix/system/_header.html"}
+
+{include file="phoenix/system/_breadcrumbs.html"}
+
+{if $message}
+    {foreach $message as $info}
+        {include file="phoenix/system/_message.html"}
+    {/foreach}
+{/if}
+
+	<!-- start content -->
+	<section id="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+				{$help_text}
+            </div>
+        </div>
+    </div>
+    </section>
+	<!-- end content -->
+
+{if $smarty.const.NEWSLETTER eq 'true'}
+	{include file="phoenix/system/_newsletter.html"}
+{/if}
+	
+{include file="phoenix/system/_footer.html"}

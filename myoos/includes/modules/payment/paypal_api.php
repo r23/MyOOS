@@ -234,7 +234,7 @@ class paypal_api {
 			oos_redirect(oos_href_link($aContents['checkout_payment']));
 		}
 
-	return;
+		return;
 		
 
     }

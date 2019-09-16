@@ -18,9 +18,11 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/gv_popup_coupon_help.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/gv_popup_coupon_help.php';
 
-  $text_coupon_help = $aLang['text_coupon_help_header'];
+$aTemplate['page'] = $sTheme . '/page/help.html';
+
+$text_coupon_help = $aLang['text_coupon_help_header'];
 
   if (isset($_GET['cID'])) {
     $cid = intval($_GET['cID']);
@@ -125,27 +127,31 @@
     $cid = 0;
   }
 
-  $aTemplate['popup_help'] = $sTheme . '/system/popup_help.html';
+$sCanonical = oos_href_link($aContents['popup_coupon_help'], 'cID=' . intval($cid), FALSE, TRUE);
 
-  //smarty
-  require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
- $smarty = new myOOS_Smarty();
+require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
+if (!isset($option)) {
+	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+	require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+}
 
-  $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
-  $cid += 0;
-  $help_cache_id = $sTheme . '|popup|coupon|' . $cid . '|' . $sLanguage;
 
-  if (!$smarty->isCached($aTemplate['popup_help'], $help_cache_id )) {
+// links breadcrumb
+$oBreadcrumb->add($information['heading_coupon_help']);
+	
+// assign Smarty variables;
+$smarty->assign(
+        array(
+            'breadcrumb'    => $oBreadcrumb->trail(),
+			'pagetitle' 	=> $information['heading_coupon_help'],
+            'heading_title' => $information['heading_coupon_help'],
+            'canonical'     => $sCanonical,
+			
+            'help_text'       => $text_coupon_help
+        )
+);
 
-    // assign Smarty variables;
-    $smarty->assign('oos_base', OOS_HTTPS_SERVER . OOS_SHOP);
-    $smarty->assign('lang', $aLang);
-    $smarty->assign('heading_titel', $aLang['heading_coupon_help']);
-    $smarty->assign('help_text', $text_coupon_help);
-    $smarty->assign('theme_image', 'themes/' . $sTheme . '/images');
-    $smarty->assign('theme_css', 'themes/' . $sTheme);
-  }
-
-  // display the template
-  $smarty->display($aTemplate['popup_help'], $help_cache_id);
+  
+// display the template
+$smarty->display($aTemplate['page']);
 
