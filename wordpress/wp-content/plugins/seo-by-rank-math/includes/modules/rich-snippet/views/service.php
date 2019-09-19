@@ -20,11 +20,13 @@ $cmb->add_field([
 	'id'         => 'rank_math_snippet_service_price',
 	'type'       => 'text',
 	'name'       => esc_html__( 'Price', 'rank-math' ),
-	'classes'    => 'cmb-row-50',
+	'desc'       => esc_html__( 'Insert price, e.g. "50.00", or a price range, e.g. "40.00-50.00".', 'rank-math' ),
+	'classes'    => 'cmb-row-50 rank-math-validate-field',
 	'dep'        => $service,
 	'attributes' => [
-		'type' => 'number',
-		'step' => 'any',
+		'data-rule-regex'       => 'true',
+		'data-validate-pattern' => '[\d -]+',
+		'data-msg-regex'        => esc_html__( 'Please use the correct format. Example: 25', 'rank-math' ),
 	],
 ]);
 

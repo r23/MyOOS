@@ -475,7 +475,7 @@ class Replace_Vars {
 		self::$replacements['currentmonth'] = array(
 			'name'    => esc_html__( 'Current Month', 'rank-math' ),
 			'desc'    => esc_html__( 'Current server month', 'rank-math' ),
-			'example' => current_time( 'F' ),
+			'example' => date_i18n( 'F' ),
 		);
 
 		self::$replacements['currentyear'] = array(

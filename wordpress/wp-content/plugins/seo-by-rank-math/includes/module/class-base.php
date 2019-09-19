@@ -6,20 +6,20 @@
  *
  * @since      0.9.0
  * @package    RankMath
- * @subpackage RankMath\Core
+ * @subpackage RankMath\Module
  * @author     Rank Math <support@rankmath.com>
  */
 
-namespace RankMath;
+namespace RankMath\Module;
 
 use RankMath\Traits\Hooker;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Module class.
+ * Base class.
  */
-class Module {
+class Base {
 
 	use Hooker;
 

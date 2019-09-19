@@ -68,6 +68,16 @@ class Admin extends WP_REST_Controller {
 				'permission_callback' => [ '\\RankMath\\Rest\\Helper', 'can_manage_options' ],
 			]
 		);
+
+		register_rest_route(
+			$this->namespace,
+			'/toolsAction',
+			[
+				'methods'             => WP_REST_Server::EDITABLE,
+				'callback'            => [ $this, 'tools_actions' ],
+				'permission_callback' => [ '\\RankMath\\Rest\\Helper', 'can_manage_options' ],
+			]
+		);
 	}
 
 	/**
@@ -141,5 +151,17 @@ class Admin extends WP_REST_Controller {
 				'validate_callback' => [ '\\RankMath\\Rest\\Helper', 'is_param_empty' ],
 			],
 		];
+	}
+
+	/**
+	 * Tools actions.
+	 *
+	 * @param WP_REST_Request $request Full details about the request.
+	 *
+	 * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
+	 */
+	public function tools_actions( WP_REST_Request $request ) {
+		$action = $request->get_param( 'action' );
+		return apply_filters( 'rank_math/tools/' . $action, 'Something went wrong.' );
 	}
 }

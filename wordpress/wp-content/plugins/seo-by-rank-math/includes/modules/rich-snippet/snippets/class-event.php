@@ -69,6 +69,10 @@ class Event implements Snippet {
 			$entity['offers']['validFrom'] = str_replace( ' ', 'T', date_i18n( 'Y-m-d H:i', $entity['offers']['validFrom'] ) );
 		}
 
+		if ( empty( $entity['offers']['price'] ) ) {
+			$entity['offers']['price'] = 0;
+		}
+
 		$entity = $this->add_performer( $entity );
 
 		return $entity;

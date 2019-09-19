@@ -75,7 +75,7 @@ class Ask_Review {
 			<h3><?php _e( 'Rate Rank Math SEO', 'rank-math' ); ?></h3>
 
 			<p>
-				<?php _e( 'Hey, we noticed you are using Rank Math SEO plugin for more than 2 weeks – <em>that\'s awesome!</em> <br>Could you please do us a BIG favor and give it a <strong>5-star</strong> rating on WordPress to help us spread the word and boost our motivation?', 'rank-math' ); ?>
+				<?php _e( 'Hey, we noticed you are using Rank Math SEO plugin for more than 2 weeks – <em>that\'s awesome!</em> <br>Could you please do us a BIG favor and give it a rating on WordPress to help us spread the word and boost our motivation?', 'rank-math' ); ?>
 			</p>
 
 			<div class="stars-wrapper">

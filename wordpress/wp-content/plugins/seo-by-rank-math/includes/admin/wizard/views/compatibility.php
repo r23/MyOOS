@@ -147,7 +147,7 @@ if ( $all_good ) :
 </div> <!-- /collapsible -->
 <?php endif; ?>
 
-<footer class="form-footer custom wp-core-ui rank-math-ui text-center">
+<footer class="form-footer rank-math-custom wp-core-ui rank-math-ui text-center">
 	<?php if ( $all_good ) : ?>
 	<button type="submit" class="button button-primary"><?php esc_html_e( 'Start Wizard', 'rank-math' ); ?> <i class="dashicons dashicons-arrow-right-alt2"></i></button>
 	<?php endif; ?>

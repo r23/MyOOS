@@ -2,10 +2,10 @@
 Contributors: rankmath
 Plugin link: https://s.rankmath.com/homepage
 Tags: seo, sitemap, google search console, schema, redirection
-Tested up to: 5.2.2
+Tested up to: 5.2.3
 Requires at least: 4.7.0
 Requires PHP: 5.6
-Stable tag: 1.0.32.1
+Stable tag: 1.0.33
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -451,26 +451,24 @@ We look forward to helping you.
 
 == Changelog ==
 
-= 1.0.32 [Aug 28, 2019] =
-* Improved WooCommerce's module for speed and readability
-* Added complete compatibility for the BuddyPress plugin
-* Added Rank Math's options in the [Screen options](https://i.rankmath.com/uy1kCn) for users with `onpage_general` capability (like Editors etc.)
-* Added redirection to old product links, to the new ones, when Remove Product Base option was turned on. Previously the plugin was only adding a Canonical URL
-* Added changes in the Setup wizard to make it more GDPR-friendly
-* Added a [filter to hide SEO scores](https://rankmath.com/kb/filters-hooks-api-developer/#hide-seo-score)
-* Updated all date() to date_i18n() functions
-* Removed default Schema from About & Contact pages
-* Fixed an issue where the plugin was not obeying the DISALLOW_FILE_EDIT rule
-* Fixed Dashboard widget showing an empty box instead of hiding itself when the permissions were not correct
-* Fixed Redirection issues when + or ? were used in the source URLs. They should be working fine now
-* Fixed an issue with the redirection to the document file showing a 404 page. Document files should normally open now as expected
-* Fixed a CSS overflow in SEO Analysis when long URLs were displayed
-* Fixed Robots.txt editor not working when the site was set to NoIndex
-* Fixed an issue where the auto-generated description was removing diacritics from the preview area
-* Fixed an issue where About Us and Contact pages were not showing in the Organization data of Schema Markup
-
-= 1.0.32.1 [Aug 29, 2019] =
-* Fixed fatal error happening on some WooCommerce installations
-* Fixed WooCommerce redirection issue on some installations
+= 1.0.33 [Sep 18, 2019] =
+* Added complete ACF support. Simply activate the ACF plugin, and Rank Math will detect the custom fields for Content Analysis. No more tinkering with code
+* Added status and Tools pages for better debugging
+* Added range value for the price field in Service Schema
+* Added some performance fixes to get the plugin ready for an upcoming major update
+* Improved the working of power words, sentiment words and the focus keywords
+* Improved module manager and optimized for speed
+* Changed the default priority to show description text before the excerpts in the Schema data
+* Updated WordPress Helper library to 1.0.8
+* Updated auto keyword suggestion API to the latest version from Google
+* Removed BreadcrumbList Schema from the frontpage to adhere with Google's guidelines
+* Fixed a few tests not running if secondary focus keyword is selected
+* Fixed an Open Graph error on single product pages of WooCommerce
+* Fixed few tests in the SEO Analyzer, so it does not fail on some installations
+* Fixed a warning when filtering the content for missing focus keyword in the title of the post
+* Fixed an issue where WooCommerce variables were not working in the previous version properly
+* Fixed a compatibility issue with the Ultra Seven Theme
+* Fixed the "WordPress Database Error Column 'term_id' in field list is ambiguous" error
+* Fixed an issue where `%currentmonth%` variable was not showing a translated month in the preview
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://s.rankmath.com/changelog)**

@@ -22,7 +22,7 @@ $cmb->add_field( array(
 	'name'    => esc_html__( 'Panel', 'rank-math' ),
 	'id'      => 'setting-panel-social-tab-content-start',
 	'type'    => 'raw',
-	'content' => '<div class="rank-math-tabs-content custom">',
+	'content' => '<div class="rank-math-tabs-content rank-math-custom">',
 ) );
 
 $cmb->add_field( array(

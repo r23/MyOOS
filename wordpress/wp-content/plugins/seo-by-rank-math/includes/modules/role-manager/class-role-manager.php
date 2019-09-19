@@ -11,7 +11,7 @@
 namespace RankMath\Role_Manager;
 
 use RankMath\Helper;
-use RankMath\Module;
+use RankMath\Module\Base;
 use MyThemeShop\Admin\Page;
 use MyThemeShop\Helpers\WordPress;
 
@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Role_Manager class.
  */
-class Role_Manager extends Module {
+class Role_Manager extends Base {
 
 	/**
 	 * The Constructor.

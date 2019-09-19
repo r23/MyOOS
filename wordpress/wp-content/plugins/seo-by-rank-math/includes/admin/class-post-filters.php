@@ -289,6 +289,7 @@ class Post_Filters implements Runner {
 	private function fk_in_title() {
 		global $wpdb;
 
+		$screen      = get_current_screen();
 		$fk_in_title = Param::get( 'fk_in_title' );
 		if ( ! $fk_in_title ) {
 			return false;

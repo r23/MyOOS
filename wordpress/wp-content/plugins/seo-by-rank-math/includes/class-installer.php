@@ -281,6 +281,7 @@ class Installer {
 			'sitemap',
 			'rich-snippet',
 			'woocommerce',
+			'acf',
 		];
 
 		// Role Manager.

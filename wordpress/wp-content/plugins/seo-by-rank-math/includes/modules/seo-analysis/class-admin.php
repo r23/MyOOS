@@ -4,14 +4,14 @@
  *
  * @since      0.9.0
  * @package    RankMath
- * @subpackage RankMath\modules
+ * @subpackage RankMath\SEO_Analysis
  * @author     Rank Math <support@rankmath.com>
  */
 
 namespace RankMath\SEO_Analysis;
 
 use RankMath\Helper;
-use RankMath\Module;
+use RankMath\Module\Base;
 use MyThemeShop\Admin\Page;
 
 defined( 'ABSPATH' ) || exit;
@@ -19,7 +19,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Admin class.
  */
-class Admin extends Module {
+class Admin extends Base {
 
 	/**
 	 * The Constructor.

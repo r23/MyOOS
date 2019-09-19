@@ -61,7 +61,7 @@ $twitter_username = $twitter_username ? $twitter_username : esc_html( 'username'
 <div id="setting-panel-container-social-tabs" class="rank-math-tabs">
 
 	<div class="social-tabs-navigation-wrapper">
-		<div class="rank-math-tabs-navigation custom social-tabs-navigation wp-clearfix" data-active-class="tab-active">
+		<div class="rank-math-tabs-navigation rank-math-custom social-tabs-navigation wp-clearfix" data-active-class="tab-active">
 			<a href="#setting-panel-social-facebook" class="preview-network tab-facebook"><span class="dashicons dashicons-facebook-alt"></span><?php esc_html_e( 'Facebook', 'rank-math' ); ?></a><a href="#setting-panel-social-twitter" class="preview-network tab-twitter"><span class="dashicons dashicons-twitter"></span><?php esc_html_e( 'Twitter', 'rank-math' ); ?></a>
 		</div>
 	</div>

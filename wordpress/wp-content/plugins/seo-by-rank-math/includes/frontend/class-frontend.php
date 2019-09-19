@@ -55,7 +55,7 @@ class Frontend {
 		}
 
 		new Add_Attributes;
-		new Remove_Reply_To_Com;
+		new Comments;
 	}
 
 	/**
@@ -138,9 +138,10 @@ class Frontend {
 		/**
 		 * Redirect atachment to its parent post.
 		 *
-		 * @param string $redirect URL as calculated for redirection.
+		 * @param string  $redirect URL as calculated for redirection.
+		 * @param WP_Post $post     Current post instance.
 		 */
-		Helper::redirect( $this->do_filter( 'frontend/attachment/redirect_url', $redirect ), 301 );
+		Helper::redirect( $this->do_filter( 'frontend/attachment/redirect_url', $redirect, $post ), 301 );
 		exit;
 	}
 
@@ -162,7 +163,8 @@ class Frontend {
 	/**
 	 * Adds the RSS header and footer messages to the RSS feed item content.
 	 *
-	 * @param  string $content Feed item content.
+	 * @param string $content Feed item content.
+	 *
 	 * @return string
 	 */
 	public function embed_rssfooter( $content ) {
@@ -172,7 +174,8 @@ class Frontend {
 	/**
 	 * Adds the RSS header and footer messages to the RSS feed item excerpt.
 	 *
-	 * @param  string $content Feed item excerpt.
+	 * @param string $content Feed item excerpt.
+	 *
 	 * @return string
 	 */
 	public function embed_rssfooter_excerpt( $content ) {
@@ -182,8 +185,9 @@ class Frontend {
 	/**
 	 * Inserts the RSS header and footer messages in the RSS feed item.
 	 *
-	 * @param  string $content Feed item content.
-	 * @param  string $context Feed item context, 'excerpt' or 'full'.
+	 * @param string $content Feed item content.
+	 * @param string $context Feed item context, 'excerpt' or 'full'.
+	 *
 	 * @return string
 	 */
 	private function embed_rss( $content, $context = 'full' ) {
@@ -191,25 +195,18 @@ class Frontend {
 			return $content;
 		}
 
-		$before = $this->do_filter( 'frontend/rss/before_content', Helper::get_settings( 'general.rss_before_content' ) );
-		$after  = $this->do_filter( 'frontend/rss/after_content', Helper::get_settings( 'general.rss_after_content' ) );
+		$before = $this->get_rss_content( 'before' );
+		$after  = $this->get_rss_content( 'after' );
 
-		if ( '' !== $before ) {
-			$before = wpautop( $this->rss_replace_vars( $before ) );
+		if ( '' === $before && '' === $after ) {
+			return $content;
 		}
 
-		if ( '' !== $after ) {
-			$after = wpautop( $this->rss_replace_vars( $after ) );
+		if ( 'excerpt' === $context && '' !== trim( $content ) ) {
+			$content = wpautop( $content );
 		}
 
-		if ( '' !== $before || '' !== $after ) {
-			if ( 'excerpt' === $context && '' !== trim( $content ) ) {
-				$content = wpautop( $content );
-			}
-			$content = $before . $content . $after;
-		}
-
-		return $content;
+		return $before . $content . $after;
 	}
 
 	/**
@@ -218,7 +215,7 @@ class Frontend {
 	 * @param string $content Feed item content.
 	 * @param string $context Feed item context, either 'excerpt' or 'full'.
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	private function can_embed_footer( $content, $context ) {
 		/**
@@ -231,11 +228,20 @@ class Frontend {
 			return false;
 		}
 
-		if ( ! is_feed() ) {
-			return false;
-		}
+		return is_feed();
+	}
 
-		return true;
+	/**
+	 * Get rss content for specified location.
+	 *
+	 * @param string $which Location id.
+	 *
+	 * @return string
+	 */
+	private function get_rss_content( $which ) {
+		$content = $this->do_filter( 'frontend/rss/' . $which . '_content', Helper::get_settings( 'general.rss_' . $which . '_content' ) );
+
+		return '' !== $content ? wpautop( $this->rss_replace_vars( $content ) ) : $content;
 	}
 
 	/**
@@ -281,9 +287,10 @@ class Frontend {
 	/**
 	 * Reorder terms for a post to put primary category to the beginning.
 	 *
-	 * @param  array|WP_Error $terms    List of attached terms, or WP_Error on failure.
-	 * @param  int            $post_id  Post ID.
-	 * @param  string         $taxonomy Name of the taxonomy.
+	 * @param array|WP_Error $terms    List of attached terms, or WP_Error on failure.
+	 * @param int            $post_id  Post ID.
+	 * @param string         $taxonomy Name of the taxonomy.
+	 *
 	 * @return array
 	 */
 	public function reorder_the_terms( $terms, $post_id, $taxonomy ) {

@@ -180,7 +180,7 @@ class Admin implements Runner {
 		$main = $wpdb->{$object_type . 's'};
 		$meta = $wpdb->{$object_type . 'meta'};
 
-		$query = sprintf( 'select %1$s from %2$s inner join %3$s on %2$s.%1$s = %3$s.%4$s_id where ', $column_ids[ $object_type ], $main, $meta, $object_type );
+		$query = sprintf( 'select %2$s.%1$s from %2$s inner join %3$s on %2$s.%1$s = %3$s.%4$s_id where ', $column_ids[ $object_type ], $main, $meta, $object_type );
 		if ( 'post' === $object_type ) {
 			$query .= sprintf( '%s.post_status = \'publish\' and ', $main );
 		}

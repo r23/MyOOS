@@ -66,13 +66,6 @@ class Serp_Checklist {
 	 * Display SERP checklist for posts.
 	 */
 	private function display_post_list() {
-		$is_connected = Helper::is_site_connected();
-
-		/* translators: link to registration screen */
-		$power_words_not_connected = sprintf( esc_html__( 'Please connect your %s to calculate the Power Words used.', 'rank-math' ), '<a href="' . Helper::get_connect_url() . '" target="_blank">Rank Math account</a>' );
-		/* translators: link to registration screen */
-		$sentiments_not_connected = sprintf( esc_html__( 'Please connect your %s to calculate the Sentiments of the content.', 'rank-math' ), '<a href="' . Helper::get_connect_url() . '" target="_blank">Rank Math account</a>' );
-
 		$tests = [
 			'basic'               => [
 				'keywordInTitle'           => [
@@ -188,17 +181,17 @@ class Serp_Checklist {
 					'score'   => 3,
 				],
 				'titleSentiment'        => [
-					'ok'      => $is_connected ? esc_html__( 'Your title has a positive or a negative sentiment.', 'rank-math' ) : $sentiments_not_connected,
+					'ok'      => esc_html__( 'Your title has a positive or a negative sentiment.', 'rank-math' ),
 					/* translators: link to kb article */
-					'fail'    => $is_connected ? sprintf( __( 'Your title doesn\'t contain a %s word.', 'rank-math' ), '<a href="' . KB::get( 'sentiments' ) . '" target="_blank">positive or a negative sentiment</a>' ) : $sentiments_not_connected,
+					'fail'    => sprintf( __( 'Your title doesn\'t contain a %s word.', 'rank-math' ), '<a href="' . KB::get( 'sentiments' ) . '" target="_blank">positive or a negative sentiment</a>' ),
 					'empty'   => esc_html__( 'Titles with positive or negative sentiment work best for higher CTR.', 'rank-math' ),
 					'tooltip' => esc_html__( 'Headlines with a strong emotional sentiment (positive or negative) tend to receive more clicks.', 'rank-math' ),
 					'score'   => 1,
 				],
 				'titleHasPowerWords'    => [
-					'ok'      => $is_connected ? esc_html__( 'Your title contains {0} power word(s). Booyah!', 'rank-math' ) : $power_words_not_connected,
+					'ok'      => esc_html__( 'Your title contains {0} power word(s). Booyah!', 'rank-math' ),
 					/* translators: link to kb article */
-					'fail'    => $is_connected ? sprintf( esc_html__( 'Your title doesn\'t contain a %s. Add at least one.', 'rank-math' ), '<a href="https://sumo.com/stories/power-words" target="_blank">power word</a>' ) : $power_words_not_connected,
+					'fail'    => sprintf( esc_html__( 'Your title doesn\'t contain a %s. Add at least one.', 'rank-math' ), '<a href="https://sumo.com/stories/power-words" target="_blank">power word</a>' ),
 					/* translators: link to kb article */
 					'empty'   => sprintf( esc_html__( 'Add %s to your title to increase CTR.', 'rank-math' ), '<a href="https://sumo.com/stories/power-words" target="_blank">power words</a>' ),
 					/* translators: link to registration screen */
@@ -253,6 +246,7 @@ class Serp_Checklist {
 			[
 				'researchesTests' => array_merge( $tests['basic'], $tests['advanced'], $tests['title-readability'], $tests['content-readability'] ),
 				'imgAlt'          => Helper::get_settings( 'general.add_img_alt' ) && Helper::get_settings( 'general.img_alt_format' ) ? trim( Helper::get_settings( 'general.img_alt_format' ) ) : false,
+				'defaultScore'    => $this->get_default_score( $tests, 'post' ),
 			]
 		);
 
@@ -309,6 +303,7 @@ class Serp_Checklist {
 			'assessor',
 			[
 				'researchesTests' => array_merge( $tests['basic'], $tests['advanced'] ),
+				'defaultScore'    => $this->get_default_score( $tests, 'term' ),
 			]
 		);
 
@@ -365,10 +360,27 @@ class Serp_Checklist {
 			'assessor',
 			[
 				'researchesTests' => array_merge( $tests['basic'], $tests['advanced'] ),
+				'defaultScore'    => $this->get_default_score( $tests, 'user' ),
 			]
 		);
 
 		return $tests;
+	}
+
+	/**
+	 * Get default score.
+	 *
+	 * @param array  $tests  Array of tests.
+	 * @param string $object Object type.
+	 *
+	 * @return int Default score.
+	 */
+	private function get_default_score( $tests, $object ) {
+		$all_tests = array_merge( $tests['basic'], $tests['advanced'] );
+		if ( 'post' === $object ) {
+			$all_tests = array_merge( $all_tests, $tests['title-readability'], $tests['content-readability'] );
+		}
+		return 100 - array_sum( array_column( $all_tests, 'score' ) );
 	}
 
 	/**

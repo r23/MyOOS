@@ -404,7 +404,7 @@ class Import_Export implements Runner {
 			$data = $this->do_filter( 'export/settings', $data, $panel );
 		}
 
-		$data['modules'] = rank_math()->manager->get_active_modules();
+		$data['modules'] = get_option( 'rank_math_modules', [] );
 
 		return $data;
 	}

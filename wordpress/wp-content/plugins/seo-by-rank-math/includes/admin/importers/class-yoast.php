@@ -150,10 +150,7 @@ class Yoast extends Plugin_Importer {
 			$hash[ "metadesc-ptarchive-{$post_type}" ] = "pt_{$post_type}_archive_description";
 
 			// NOINDEX and Sitemap.
-			$this->sitemap[ "pt_{$post_type}_sitemap" ] = 'on';
-			if ( isset( $yoast_titles[ "noindex-{$post_type}" ] ) && $yoast_titles[ "noindex-{$post_type}" ] ) {
-				$this->sitemap[ "pt_{$post_type}_sitemap" ] = 'off';
-			}
+			$this->sitemap[ "pt_{$post_type}_sitemap" ] = isset( $yoast_titles[ "noindex-{$post_type}" ] ) && $yoast_titles[ "noindex-{$post_type}" ] ? 'off' : 'on';
 
 			// Show/Hide Metabox.
 			if ( isset( $yoast_titles[ "display-metabox-pt-{$post_type}" ] ) ) {
@@ -179,9 +176,7 @@ class Yoast extends Plugin_Importer {
 			$hash[ "metadesc-tax-{$taxonomy}" ] = "tax_{$taxonomy}_description";
 
 			// Show/Hide Metabox.
-			if ( isset( $yoast_titles[ "display-metabox-tax-{$taxonomy}" ] ) ) {
-				$this->titles[ "tax_{$taxonomy}_add_meta_box" ] = $yoast_titles[ "display-metabox-tax-{$taxonomy}" ] ? 'on' : 'off';
-			}
+			$this->titles[ "tax_{$taxonomy}_add_meta_box" ] = isset( $yoast_titles[ "display-metabox-tax-{$taxonomy}" ] ) && $yoast_titles[ "display-metabox-tax-{$taxonomy}" ] ? 'on' : 'off';
 
 			// Sitemap.
 			$key   = "taxonomies-{$taxonomy}-not_in_sitemap";
@@ -209,9 +204,7 @@ class Yoast extends Plugin_Importer {
 			}
 		}
 
-		if ( isset( $yoast_titles[ "hideeditbox-{$yoast_prefix}" ] ) ) {
-			$this->titles[ "{$prefix}_add_meta_box" ] = $yoast_titles[ "hideeditbox-{$yoast_prefix}" ] ? 'off' : 'on';
-		}
+		$this->titles[ "{$prefix}_add_meta_box" ] = isset( $yoast_titles[ "hideeditbox-{$yoast_prefix}" ] ) && $yoast_titles[ "hideeditbox-{$yoast_prefix}" ] ? 'off' : 'on';
 	}
 
 	/**

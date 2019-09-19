@@ -400,7 +400,7 @@ class WooCommerce extends WC_Vars {
 				! is_singular( 'product' ) ||
 				! function_exists( 'wc_get_product' )
 			)
-		) ? false : wc_get_product( $product_id );
+		) ? null : wc_get_product( $product_id );
 
 		return $this->product;
 	}

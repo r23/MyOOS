@@ -4,7 +4,7 @@
  *
  * @since      0.9.0
  * @package    RankMath
- * @subpackage RankMath\modules
+ * @subpackage RankMath\SEO_Analysis
  * @author     Rank Math <support@rankmath.com>
  */
 

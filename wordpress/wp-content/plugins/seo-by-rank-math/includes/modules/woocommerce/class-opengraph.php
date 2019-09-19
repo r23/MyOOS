@@ -114,15 +114,16 @@ class Opengraph extends Sitemap {
 			return;
 		}
 
-		$this->set_image_ids( $product );
+		$this->set_image_ids( $product, $opengraph_image );
 	}
 
 	/**
 	 * Set images for the given product.
 	 *
-	 * @param WC_Product $product The product to get the image ids for.
+	 * @param WC_Product      $product         The product to get the image ids for.
+	 * @param OpenGraph_Image $opengraph_image The OpenGraph image to use.
 	 */
-	protected function set_image_ids( $product ) {
+	protected function set_image_ids( $product, $opengraph_image ) {
 		$img_ids = method_exists( $product, 'get_gallery_image_ids' ) ?
 			$product->get_gallery_image_ids() : $product->get_gallery_attachment_ids();
 

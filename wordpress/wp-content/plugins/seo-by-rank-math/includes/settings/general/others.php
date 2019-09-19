@@ -13,7 +13,7 @@ $cmb->add_field([
 	'id'      => 'usage_tracking',
 	'type'    => 'switch',
 	'name'    => esc_html__( 'Usage Tracking', 'rank-math' ),
-	'desc'    => esc_html__( 'Help make Rank Math even more powerful by allowing us to collect non-sensitive diagnostic data and usage information.', 'rank-math' ) . ' <a href="' . KB::get( 'rm-privacy' ) . '" target="_blank">' . esc_html__( 'Find out more.', 'rank-math' ) . '</a>',
+	'desc'    => esc_html__( 'Help make Rank Math even more powerful by allowing us to collect non-sensitive diagnostic data and usage information.', 'rank-math' ) . ' <a href="' . KB::get( 'rm-privacy' ) . '" target="_blank">' . esc_html__( 'Find out more.', 'rank-math' ) . '</a> <br />' . '<a href="' . esc_url( Helper::get_admin_url( 'status', 'tab=status' ) ) . '">' . esc_html__( 'Show me the data', 'rank-math' ) . '</a>',
 	'default' => 'on',
 ]);
 

@@ -173,7 +173,7 @@ class CMB2 {
 			?>
 			<h2 class="rank-math-metabox-frame-title"><?php esc_html_e( 'Rank Math', 'rank-math' ); ?></h2>
 		<?php endif; ?>
-		<div class="rank-math-tabs-navigation custom wp-clearfix">
+		<div class="rank-math-tabs-navigation rank-math-custom wp-clearfix">
 
 			<?php
 			foreach ( $field->args( 'tabs' ) as $id => $tab ) :
@@ -185,7 +185,7 @@ class CMB2 {
 			<?php endforeach; ?>
 		</div>
 
-		<div class="rank-math-tabs-content custom">
+		<div class="rank-math-tabs-content rank-math-custom">
 		<?php
 		return $field;
 	}

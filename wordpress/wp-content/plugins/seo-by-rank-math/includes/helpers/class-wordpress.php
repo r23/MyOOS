@@ -190,21 +190,33 @@ trait WordPress {
 		$caps = array_keys( self::get_capabilities() );
 
 		foreach ( WP_Helper::get_roles() as $slug => $role ) {
-			$role = get_role( $slug );
-			if ( ! $role ) {
-				continue;
-			}
-
-			$slug = esc_attr( $slug );
-			foreach ( $caps as $cap ) {
-				$granted = $role->has_cap( $cap );
-				if ( $granted ) {
-					$data[ $slug ][] = $cap;
-				}
-			}
+			self::get_role_capabilities( $slug, $caps, $data );
 		}
 
 		return $data;
+	}
+
+	/**
+	 * Get active capabilities for role.
+	 *
+	 * @codeCoverageIgnore
+	 *
+	 * @param string $slug Role slug.
+	 * @param array  $caps Array of capabilities.
+	 * @param array  $data Data instance.
+	 */
+	private static function get_role_capabilities( $slug, $caps, &$data ) {
+		$role = get_role( $slug );
+		if ( ! $role ) {
+			return;
+		}
+
+		$slug = esc_attr( $slug );
+		foreach ( $caps as $cap ) {
+			if ( $role->has_cap( $cap ) ) {
+				$data[ $slug ][] = $cap;
+			}
+		}
 	}
 
 	/**

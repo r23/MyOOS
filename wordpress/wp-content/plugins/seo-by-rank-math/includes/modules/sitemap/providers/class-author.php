@@ -56,10 +56,10 @@ class Author implements Provider {
 
 		foreach ( $user_pages as $user_page ) {
 			$user    = array_shift( $user_page ); // Time descending, first user on page is most recently updated.
-			$index[] = array(
+			$index[] = [
 				'loc'     => Router::get_base_url( 'author-sitemap' . $page . '.xml' ),
 				'lastmod' => '@' . $user->last_update,
-			);
+			];
 
 			$page++;
 		}
@@ -77,30 +77,19 @@ class Author implements Provider {
 	 */
 	public function get_sitemap_links( $type, $max_entries, $current_page ) {
 		$links = [];
-		$users = $this->get_users( array(
-			'offset' => ( $current_page - 1 ) * $max_entries,
-			'number' => $max_entries,
-		) );
+		$users = $this->get_users(
+			[
+				'offset' => ( $current_page - 1 ) * $max_entries,
+				'number' => $max_entries,
+			]
+		);
 
 		if ( empty( $users ) ) {
 			return $links;
 		}
 
 		foreach ( $users as $user ) {
-			$author_link = get_author_posts_url( $user->ID );
-			if ( empty( $author_link ) ) {
-				continue;
-			}
-
-			$mod = isset( $user->last_update ) ? $user->last_update : strtotime( $user->user_registered );
-			$url = array(
-				'loc' => $author_link,
-				'mod' => date_i18n( DATE_W3C, $mod ),
-			);
-
-			/** This filter is documented at includes/modules/sitemap/providers/class-post-type.php */
-			$url = $this->do_filter( 'sitemap/entry', $url, 'user', $user );
-
+			$url = $this->get_sitemap_url( $user );
 			if ( ! empty( $url ) ) {
 				$links[] = $url;
 			}
@@ -110,42 +99,64 @@ class Author implements Provider {
 	}
 
 	/**
+	 * Get sitemap urlset.
+	 *
+	 * @param WP_User $user User instance.
+	 *
+	 * @return bool|array
+	 */
+	private function get_sitemap_url( $user ) {
+		$author_link = get_author_posts_url( $user->ID );
+		if ( empty( $author_link ) ) {
+			return false;
+		}
+
+		$mod = isset( $user->last_update ) ? $user->last_update : strtotime( $user->user_registered );
+		$url = [
+			'loc' => $author_link,
+			'mod' => date_i18n( DATE_W3C, $mod ),
+		];
+
+		/** This filter is documented at includes/modules/sitemap/providers/class-post-type.php */
+		return $this->do_filter( 'sitemap/entry', $url, 'user', $user );
+	}
+
+	/**
 	 * Retrieve users, taking account of all necessary exclusions.
 	 *
 	 * @param  array $args Arguments to add.
 	 * @return array
 	 */
 	protected function get_users( $args = [] ) {
-
-		$defaults = array(
+		$defaults = [
 			'orderby'    => 'meta_value_num',
 			'order'      => 'DESC',
-			'meta_query' => array(
+			'meta_query' => [
 				'relation' => 'AND',
-				array(
+				[
 					'relation' => 'OR',
-					array(
+					[
 						'key' => 'last_update',
-					),
-					array(
+					],
+					[
 						'key'     => 'last_update',
 						'compare' => 'NOT EXISTS',
-					),
-				),
-				array(
+					],
+				],
+				[
 					'relation' => 'OR',
-					array(
+					[
 						'key'     => 'rank_math_robots',
 						'value'   => 'noindex',
 						'compare' => 'NOT LIKE',
-					),
-					array(
+					],
+					[
 						'key'     => 'rank_math_robots',
 						'compare' => 'NOT EXISTS',
-					),
-				),
-			),
-		);
+					],
+				],
+			],
+		];
 
 		$exclude_roles = Helper::get_settings( 'sitemap.exclude_roles' );
 		if ( ! empty( $exclude_roles ) ) {

@@ -119,7 +119,7 @@ class JsonLD {
 		 *
 		 * @param bool $unsigned Default: true
 		 */
-		return Helper::get_settings( 'general.breadcrumbs' ) && $this->do_filter( 'json_ld/breadcrumbs_enabled', true );
+		return ! is_front_page() && Helper::get_settings( 'general.breadcrumbs' ) && $this->do_filter( 'json_ld/breadcrumbs_enabled', true );
 	}
 
 	/**
@@ -489,7 +489,7 @@ class JsonLD {
 		if ( ! $desc ) {
 			$desc = Helper::replace_vars( Helper::get_settings( "titles.pt_{$this->post->post_type}_default_snippet_desc" ), $this->post );
 		}
-		$parts['desc'] = $desc ? $desc : ( $parts['excerpt'] ? $parts['excerpt'] : Helper::get_post_meta( 'description' ) );
+		$parts['desc'] = $desc ? $desc : ( Helper::get_post_meta( 'description' ) ? Helper::get_post_meta( 'description' ) : $parts['excerpt'] );
 
 		// Author.
 		$author          = Helper::get_post_meta( 'snippet_author' );

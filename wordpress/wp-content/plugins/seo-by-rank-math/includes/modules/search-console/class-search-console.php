@@ -12,7 +12,7 @@ namespace RankMath\Search_Console;
 
 use Exception;
 use RankMath\Helper;
-use RankMath\Module;
+use RankMath\Module\Base;
 use RankMath\Admin\Admin_Helper;
 use RankMath\Traits\Ajax;
 use MyThemeShop\Admin\Page;
@@ -26,7 +26,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Search_Console class.
  */
-class Search_Console extends Module {
+class Search_Console extends Base {
 
 	use Ajax;
 

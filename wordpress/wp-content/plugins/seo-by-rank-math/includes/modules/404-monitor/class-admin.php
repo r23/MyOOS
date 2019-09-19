@@ -11,7 +11,7 @@
 namespace RankMath\Monitor;
 
 use RankMath\Helper;
-use RankMath\Module;
+use RankMath\Module\Base;
 use MyThemeShop\Admin\Page;
 use MyThemeShop\Helpers\Str;
 use MyThemeShop\Helpers\Arr;
@@ -23,7 +23,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Admin class.
  */
-class Admin extends Module {
+class Admin extends Base {
 
 	/**
 	 * The Constructor.

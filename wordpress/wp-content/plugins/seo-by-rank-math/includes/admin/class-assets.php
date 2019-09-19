@@ -104,7 +104,7 @@ class Assets implements Runner {
 		// Add thank you.
 		$this->filter( 'admin_footer_text', 'admin_footer_text' );
 
-		Helper::add_json( 'maxTags', Helper::is_site_connected() ? 5 : 1 );
+		Helper::add_json( 'maxTags', 5 );
 		Helper::add_json( 'showScore', Helper::is_score_enabled() );
 
 		/**

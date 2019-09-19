@@ -1,8 +1,8 @@
 <?php
 /**
- * The class handles the removal of replytocom.
+ * The class handles the comments functionalities.
  *
- * @since      1.0.15
+ * @since      1.0.33
  * @package    RankMath
  * @subpackage RankMath\Frontend
  * @author     Rank Math <support@rankmath.com>
@@ -12,13 +12,14 @@ namespace RankMath\Frontend;
 
 use RankMath\Helper;
 use RankMath\Traits\Hooker;
+use MyThemeShop\Helpers\HTML;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Remove Reply To Com class.
+ * Comments class.
  */
-class Remove_Reply_To_Com {
+class Comments {
 
 	use Hooker;
 
@@ -26,6 +27,24 @@ class Remove_Reply_To_Com {
 	 * The Constructor.
 	 */
 	public function __construct() {
+		$this->action( 'wp_head', 'add_attributes', 99 );
+	}
+
+	/**
+	 * Add ugc attribute and remove ?replytocom parameters.
+	 */
+	public function add_attributes() {
+
+		/**
+		 * Enable or disable the feature that adds ugc attribute.
+		 *
+		 * @param bool $remove Whether to remove the parameters.
+		 */
+		if ( $this->do_filter( 'frontend/add_ugc_attribute', true ) ) {
+			$this->filter( 'comment_text', 'add_ugc_attribute' );
+			$this->filter( 'get_comment_author_link', 'add_ugc_attribute' );
+		}
+
 		/**
 		 * Enable or disable the feature that removes the ?replytocom parameters.
 		 *
@@ -66,6 +85,29 @@ class Remove_Reply_To_Com {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Add 'ugc' attribute to comment.
+	 *
+	 * @param  string $text Comment or author link text to add ugc attribute.
+	 * @return string
+	 */
+	public function add_ugc_attribute( $text ) {
+		preg_match_all( '/<(a\s[^>]+)>/', $text, $matches );
+		if ( empty( $matches ) || empty( $matches[0] ) ) {
+			return $text;
+		}
+
+		foreach ( $matches[0] as $link ) {
+			$attrs        = HTML::extract_attributes( $link );
+			$attrs['rel'] = empty( $attrs['rel'] ) ? 'ugc' : $attrs['rel'] . ' ugc';
+
+			$new  = '<a' . HTML::attributes_to_string( $attrs ) . '>';
+			$text = str_replace( $link, $new, $text );
+		}
+
+		return $text;
 	}
 
 }

@@ -10,18 +10,18 @@
 
 namespace RankMath\Sitemap;
 
+use RankMath\KB;
 use RankMath\Helper;
-use RankMath\Module;
+use RankMath\Module\Base;
 use RankMath\Admin\Options;
 use MyThemeShop\Helpers\Str;
-use RankMath\KB;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Admin class.
  */
-class Admin extends Module {
+class Admin extends Base {
 
 	/**
 	 * The Constructor.

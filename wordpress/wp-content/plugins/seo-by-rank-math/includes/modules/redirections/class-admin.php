@@ -12,7 +12,7 @@ namespace RankMath\Redirections;
 
 use CMB2_hookup;
 use RankMath\Helper;
-use RankMath\Module;
+use RankMath\Module\Base;
 use RankMath\Traits\Ajax;
 use RankMath\Traits\Hooker;
 use RankMath\Admin\Admin_Helper;
@@ -26,7 +26,7 @@ use MyThemeShop\Helpers\Conditional;
 /**
  * Admin class.
  */
-class Admin extends Module {
+class Admin extends Base {
 
 	use Ajax, Hooker;
 

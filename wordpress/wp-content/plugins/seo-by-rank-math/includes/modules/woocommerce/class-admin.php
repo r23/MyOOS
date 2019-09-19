@@ -11,7 +11,7 @@
 namespace RankMath\WooCommerce;
 
 use RankMath\Helper;
-use RankMath\Module;
+use RankMath\Module\Base;
 use MyThemeShop\Helpers\Arr;
 
 defined( 'ABSPATH' ) || exit;
@@ -19,7 +19,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Admin class.
  */
-class Admin extends Module {
+class Admin extends Base {
 
 	/**
 	 * The Constructor.

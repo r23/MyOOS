@@ -11,7 +11,7 @@
 namespace RankMath\Search_Console;
 
 use RankMath\Helper;
-use RankMath\Module;
+use RankMath\Traits\Hooker;
 use MyThemeShop\Helpers\Conditional;
 
 defined( 'ABSPATH' ) || exit;
@@ -19,13 +19,14 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Search_Console class.
  */
-class Search_Console_Common extends Module {
+class Search_Console_Common {
+
+	use Hooker;
 
 	/**
 	 * The Constructor
 	 */
 	public function __construct() {
-
 		if ( Conditional::is_heartbeat() ) {
 			return;
 		}

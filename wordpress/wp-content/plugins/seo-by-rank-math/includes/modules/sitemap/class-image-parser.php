@@ -287,16 +287,12 @@ class Image_Parser {
 		}
 
 		foreach ( $matches as $shortcode ) {
-			if ( 'gallery' === $shortcode[2] ) {
-
-				$attributes = shortcode_parse_atts( $shortcode[3] );
-
-				if ( '' === $attributes ) { // Valid shortcode without any attributes. R.
-					$attributes = [];
-				}
-
-				$galleries[] = $attributes;
+			if ( 'gallery' !== $shortcode[2] ) {
+				continue;
 			}
+
+			$attributes  = shortcode_parse_atts( $shortcode[3] );
+			$galleries[] = '' === $attributes ? [] : $attributes;
 		}
 
 		return $galleries;
@@ -403,21 +399,12 @@ class Image_Parser {
 		}
 
 		if ( true === Url::is_relative( $src ) ) {
-
-			if ( '/' !== $src[0] ) {
-				return $src;
-			}
-
-			// The URL is relative, we'll have to make it absolute.
-			return $this->home_url . $src;
+			return '/' !== $src[0] ? $src :
+				$this->home_url . $src; // The URL is relative, we'll have to make it absolute.
 		}
 
-		if ( ! Str::starts_with( 'http', $src ) ) {
-			// Protocol relative url, we add the scheme as the standard requires a protocol.
-			return $this->scheme . ':' . $src;
-		}
-
-		return $src;
+		// If not starting with protocol, we add the scheme as the standard requires a protocol.
+		return ! Str::starts_with( 'http', $src ) ? $this->scheme . ':' . $src : $src;
 	}
 
 	/**
@@ -429,7 +416,6 @@ class Image_Parser {
 	 * @return array The selected attachments.
 	 */
 	private function get_gallery_attachments( $id, $gallery ) {
-
 		// When there are attachments to include.
 		if ( ! empty( $gallery['include'] ) ) {
 			return $this->get_gallery_attachments_for_included( $gallery['include'] );

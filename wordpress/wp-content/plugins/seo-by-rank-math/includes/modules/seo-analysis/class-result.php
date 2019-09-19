@@ -4,7 +4,7 @@
  *
  * @since      1.0.24
  * @package    RankMath
- * @subpackage RankMath\modules
+ * @subpackage RankMath\SEO_Analysis
  * @author     Rank Math <support@rankmath.com>
  */
 
@@ -69,7 +69,7 @@ class Result {
 
 		<div class="row-description">
 
-			<?php $this->output_status(); ?>
+			<?php $this->the_status(); ?>
 
 			<div class="row-content">
 
@@ -78,9 +78,10 @@ class Result {
 				<?php endif; ?>
 
 				<?php echo wp_kses_post( $this->result['message'] ); ?>
+
 				<?php
 				if ( isset( $this->result['data'] ) && ! empty( $this->result['data'] ) ) {
-					$this->output_data();
+					$this->the_content();
 				}
 				?>
 
@@ -138,7 +139,7 @@ class Result {
 	/**
 	 * Output test result status.
 	 */
-	private function output_status() {
+	private function the_status() {
 		$status = $this->result['status'];
 		if ( ! empty( $this->result['is_info'] ) ) {
 			$status = 'info';
@@ -169,28 +170,20 @@ class Result {
 	/**
 	 * Output test data
 	 */
-	private function output_data() {
+	private function the_content() {
 		$data = $this->result['data'];
 
 		if ( 'common_keywords' === $this->id ) {
-			$this->render_tag_cloud( $data );
+			$this->the_tag_cloud( $data );
 			return;
 		}
 
-		$is_list            = in_array( $this->id, [ 'img_alt', 'minify_css', 'minify_js', 'active_plugins' ], true );
-		$is_reverse_heading = in_array( $this->id, [ 'links_ratio', 'keywords_meta', 'page_objects' ], true );
-		if ( $is_list || $is_reverse_heading ) {
-			$html = '<ul class="info-list">';
-			foreach ( $data as $label => $text ) {
-				$text  = is_array( $text ) ? join( ', ', $text ) : $text;
-				$html .= $is_reverse_heading ? '<li><strong>' . $label . ': </strong> ' . esc_html( $text ) . '</li>' :
-					'<li>' . esc_html( ( is_string( $label ) ? $label . ' (' . $text . ')' : $text ) ) . '</li>';
-			}
-			echo $html . '</ul>';
+		if ( $this->is_list() || $this->is_reverse_heading() ) {
+			$this->the_list( $data );
 			return;
 		}
 
-		$explode = [ 'h1_heading', 'h2_headings', 'title_length', 'canonical' ];
+		$explode = [ 'h1_heading', 'h2_headings', 'title_length', 'description_length', 'canonical' ];
 		if ( in_array( $this->id, $explode, true ) ) {
 			echo '<br><code>' . join( ', ', (array) $data ) . '</code>';
 			return;
@@ -198,11 +191,46 @@ class Result {
 	}
 
 	/**
+	 * Render list
+	 *
+	 * @param array $data Keywords.
+	 */
+	private function the_list( $data ) {
+		$is_reverse_heading = $this->is_reverse_heading();
+
+		$html = '<ul class="info-list">';
+		foreach ( $data as $label => $text ) {
+			$text  = is_array( $text ) ? join( ', ', $text ) : $text;
+			$html .= $is_reverse_heading ? '<li><strong>' . $label . ': </strong> ' . esc_html( $text ) . '</li>' :
+				'<li>' . esc_html( ( is_string( $label ) ? $label . ' (' . $text . ')' : $text ) ) . '</li>';
+		}
+		echo $html . '</ul>';
+	}
+
+	/**
+	 * Is data to be render as list.
+	 *
+	 * @return bool
+	 */
+	private function is_list() {
+		return in_array( $this->id, [ 'img_alt', 'minify_css', 'minify_js', 'active_plugins' ], true );
+	}
+
+	/**
+	 * Is data to be render as reverse heading.
+	 *
+	 * @return bool
+	 */
+	private function is_reverse_heading() {
+		return in_array( $this->id, [ 'links_ratio', 'keywords_meta', 'page_objects' ], true );
+	}
+
+	/**
 	 * Render tag cloud
 	 *
 	 * @param array $data Keywords.
 	 */
-	private function render_tag_cloud( $data ) {
+	private function the_tag_cloud( $data ) {
 		$font_size_max = 22;
 		$font_size_min = 10;
 

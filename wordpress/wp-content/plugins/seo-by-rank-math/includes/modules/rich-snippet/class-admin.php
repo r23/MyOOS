@@ -11,8 +11,8 @@
 namespace RankMath\RichSnippet;
 
 use RankMath\Helper;
+use RankMath\Module\Base;
 use RankMath\Admin\Admin_Helper;
-use RankMath\Module;
 use MyThemeShop\Helpers\Arr;
 
 defined( 'ABSPATH' ) || exit;
@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Admin class.
  */
-class Admin extends Module {
+class Admin extends Base {
 
 	/**
 	 * The Constructor.

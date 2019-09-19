@@ -36,11 +36,11 @@ use RankMath\KB;
 		</header>
 
 		<div id="rank-math-wizard-tabs" class="rank-math-collapsible-content rank-math-tabs">
-			<div class="rank-math-tabs-navigation custom wp-clearfix">
+			<div class="rank-math-tabs-navigation rank-math-custom wp-clearfix">
 				<a href="#help-panel-video" class="active"><span class="dashicons dashicons-editor-video"></span><?php esc_html_e( 'Setup Tutorial', 'rank-math' ); ?></a>
 				<a href="#help-panel-knowledge"><span class="dashicons dashicons-book-alt"></span><?php esc_html_e( 'Knowledge Base', 'rank-math' ); ?></a>
 			</div>
-			<div class="rank-math-tabs-content custom">
+			<div class="rank-math-tabs-content rank-math-custom">
 				<div id="help-panel-video" class="rank-math-tab">
 					<a href="<?php KB::the( 'your-site' ); ?>" target="_blank" style="font-size: 15px; border-bottom: 1px dashed;">
 						<?php _e( 'Click here to learn how to setup Rank Math properly', 'rank-math' ); ?>

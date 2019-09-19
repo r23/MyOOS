@@ -82,28 +82,39 @@ class Post_Columns implements Runner {
 	 */
 	private function save_row( $post_id, $data ) {
 		foreach ( $data as $key => $value ) {
-			if ( ! in_array( $key, [ 'focus_keyword', 'title', 'description', 'image_alt', 'image_title' ], true ) ) {
-				continue;
-			}
-
-			if ( 'image_title' === $key ) {
-				wp_update_post([
-					'ID'         => $post_id,
-					'post_title' => $value,
-				]);
-				continue;
-			}
-
-			if ( 'focus_keyword' === $key ) {
-				$fk    = get_post_meta( $post_id, 'rank_math_' . $key, true );
-				$fk    = explode( ',', $fk );
-				$fk[0] = $value;
-				$value = implode( ',', $fk );
-			}
-
-			$key = 'image_alt' === $key ? '_wp_attachment_image_alt' : 'rank_math_' . $key;
-			update_post_meta( $post_id, $key, $value );
+			$this->save_column( $post_id, $key, $value );
 		}
+	}
+
+	/**
+	 * Save row columns.
+	 *
+	 * @param int    $post_id Post id.
+	 * @param string $column  Column name.
+	 * @param string $value   Column value.
+	 */
+	private function save_column( $post_id, $column, $value ) {
+		if ( ! in_array( $column, [ 'focus_keyword', 'title', 'description', 'image_alt', 'image_title' ], true ) ) {
+			return;
+		}
+
+		if ( 'image_title' === $column ) {
+			wp_update_post([
+				'ID'         => $post_id,
+				'post_title' => $value,
+			]);
+			return;
+		}
+
+		if ( 'focus_keyword' === $column ) {
+			$focus_keyword    = get_post_meta( $post_id, 'rank_math_' . $column, true );
+			$focus_keyword    = explode( ',', $focus_keyword );
+			$focus_keyword[0] = $value;
+			$value            = implode( ',', $focus_keyword );
+		}
+
+		$column = 'image_alt' === $column ? '_wp_attachment_image_alt' : 'rank_math_' . $column;
+		update_post_meta( $post_id, $column, $value );
 	}
 
 	/**
