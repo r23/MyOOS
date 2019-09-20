@@ -123,14 +123,16 @@ class paypal_api {
 		$itemList = new ItemList();
 		$nOrder = count($oOrder->products);
 		for ($i=0, $n=$nOrder; $i<$n; $i++) {
+			
+			$name = html_entity_decode($oOrder->products[$i]['name'], ENT_NOQUOTES, 'UTF-8');
+			
 			if ($aUser['price_with_tax'] == 1) {
 				$final_price = number_format(oos_round(oos_add_tax($oOrder->products[$i]['final_price'], $oOrder->products[$i]['tax']),2), 2, '.', '');
 			} else {
 				$final_price = $oOrder->products[$i]['final_price'];
 			}
-
 			$item = new Item();
-			$item->setName($oOrder->products[$i]['name'])
+			$item->setName($name)
 				->setCurrency($my_currency)
 				->setQuantity($oOrder->products[$i]['qty'])
 				->setPrice($final_price);				
@@ -187,8 +189,8 @@ class paypal_api {
 		// Set the urls that the buyer must be redirected to after 
 		// payment approval/ cancellation.
 		$aContents = oos_get_content();
-		$sReturnUrl .= oos_href_link($aContents['checkout_process']);
-		$sCancelUrl .= oos_href_link($aContents['checkout_payment']);
+		$sReturnUrl = oos_href_link($aContents['checkout_process']);
+		$sCancelUrl = oos_href_link($aContents['checkout_payment']);
 
 		// ### Payment
 		// A Payment Resource; create one using
@@ -197,6 +199,7 @@ class paypal_api {
 		$redirectUrls->setReturnUrl($sReturnUrl)
 					->setCancelUrl($sCancelUrl);
 
+		#		->setExperienceProfileId(web_profile_id())
 		$payment = new Payment();
 		$payment->setIntent("sale")
 				->setPayer($payer)
