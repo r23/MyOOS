@@ -31,6 +31,8 @@ use PayPal\Api\Item;
 use PayPal\Api\ItemList; 
 use PayPal\Api\Payer; 
 use PayPal\Api\Payment; 
+use PayPal\Api\Presentation;
+use PayPal\Api\WebProfile;
 use PayPal\Api\PaymentExecution; 
 use PayPal\Api\RedirectUrls;
 use PayPal\Api\Transaction;
@@ -117,6 +119,87 @@ class paypal_api {
 
 		$my_currency = $_SESSION['currency'];
 
+		$brand_name = STORE_NAME;
+
+		// Replace these values by entering your own ClientId and Secret by visiting https://developer.paypal.com/developer/applications/
+		$clientId =  MODULE_PAYMENT_PAYPAL_API_CLIENTID;
+		$clientSecret = MODULE_PAYMENT_PAYPAL_API_SECURE;
+
+		/**
+		* All default curl options are stored in the array inside the PayPalHttpConfig class. To make changes to those settings
+		* for your specific environments, feel free to add them using the code shown below
+		* Uncomment below line to override any default curl options.
+		*/
+		// \PayPal\Core\PayPalHttpConfig::$defaultCurlOptions[CURLOPT_SSLVERSION] = CURL_SSLVERSION_TLSv1_2;
+
+
+		/** @var \Paypal\Rest\ApiContext $apiContext */
+		$apiContext = getApiContext($clientId, $clientSecret);
+
+
+        $presentation = new Presentation();
+		
+		/**
+		* A URL to the logo image. A valid media type is `.gif`, `.jpg`, or `.png`. The maximum width of the image is 190 pixels. 
+		*/
+		if (!empty(STORE_LOGO)) {
+			if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . '/logo/checkout/' . STORE_LOGO)) {
+				$checkout_logo = OOS_HTTPS_SERVER . OOS_SHOP . '/logo/checkout/' . STORE_LOGO;
+				$presentation->setLogoImage($checkout_logo);
+			}
+		}
+		
+		if (!empty($brand_name)) {
+			$presentation->setBrandName($brand_name);
+		}
+		
+		/**
+		* The locale of pages displayed by PayPal payment experience. A valid value is `AU`, `AT`, `BE`, `BR`, `CA`, `CH`, `CN`, `DE`, `ES`, `GB`, `FR`, `IT`, `NL`, `PL`, `PT`, `RU`, or `US`. 
+		* A 5-character code is also valid for languages in specific countries: `da_DK`, `he_IL`, `id_ID`, `ja_JP`, `no_NO`, `pt_BR`, `ru_RU`, `sv_SE`, `th_TH`, `zh_CN`, `zh_HK`, or `zh_TW`.
+		*/
+        if (!empty(STORE_COUNTRY)) {
+			
+			// Get database information
+			$dbconn =& oosDBGetConn();
+			$oostable =& oosDBGetTables();
+			
+            $countriestable = $oostable['countries'];
+            $query = "SELECT countries_iso_code_2
+                      FROM $countriestable
+                      WHERE countries_id = '" . intval(STORE_COUNTRY) . "'";	
+			$country_result = $dbconn->Execute($query);
+			$country = $country_result->fields;
+			
+            $presentation->setLocaleCode($country['countries_iso_code_2']);
+        }
+
+
+
+		$web_profile = new WebProfile();
+
+        $web_profile
+            ->setName(substr($brand_name . uniqid(), 0, 50))
+            ->setPresentation($presentation);
+
+        $web_profile_id = null;
+        try {
+            if ($local_id && $web_profile->update($apiContext)) {
+                $web_profile_id = $local_id;
+            } else {
+                $response = $web_profile->create($apiContext);
+                $web_profile_id = $response->getId();
+            }
+        } catch (PayPalConnectionException $exc) {
+/*
+			echo $exc->getData();
+			die($exc);
+*/		
+			$_SESSION['error_message'] = MODULE_PAYMENT_PAYPAL_API_ERROR;
+			oos_redirect(oos_href_link($aContents['checkout_payment']));		
+			
+        }
+
+
 		$payer = new Payer();
 		$payer->setPaymentMethod("paypal");
 
@@ -185,6 +268,7 @@ class paypal_api {
 					->setDescription("Payment description")
 					->setInvoiceNumber(uniqid());
 
+
 		// ### Redirect urls
 		// Set the urls that the buyer must be redirected to after 
 		// payment approval/ cancellation.
@@ -199,27 +283,12 @@ class paypal_api {
 		$redirectUrls->setReturnUrl($sReturnUrl)
 					->setCancelUrl($sCancelUrl);
 
-		#		->setExperienceProfileId(web_profile_id())
 		$payment = new Payment();
 		$payment->setIntent("sale")
+				->setExperienceProfileId($web_profile_id)
 				->setPayer($payer)
 				->setRedirectUrls($redirectUrls)
 				->setTransactions(array($transaction));
-
-		// Replace these values by entering your own ClientId and Secret by visiting https://developer.paypal.com/developer/applications/
-		$clientId =  MODULE_PAYMENT_PAYPAL_API_CLIENTID;
-		$clientSecret = MODULE_PAYMENT_PAYPAL_API_SECURE;
-
-		/**
-		* All default curl options are stored in the array inside the PayPalHttpConfig class. To make changes to those settings
-		* for your specific environments, feel free to add them using the code shown below
-		* Uncomment below line to override any default curl options.
-		*/
-		// \PayPal\Core\PayPalHttpConfig::$defaultCurlOptions[CURLOPT_SSLVERSION] = CURL_SSLVERSION_TLSv1_2;
-
-
-		/** @var \Paypal\Rest\ApiContext $apiContext */
-		$apiContext = getApiContext($clientId, $clientSecret);
 
 
 		try {
@@ -237,7 +306,7 @@ class paypal_api {
 			oos_redirect(oos_href_link($aContents['checkout_payment']));
 		}
 
-	return;
+		return;
 		
 
     }
