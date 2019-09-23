@@ -49,6 +49,6 @@ define('MODULE_PAYMENT_PAYPAL_API_ORDER_STATUS_ID_DESC', 'Set the status of orde
 
 define('MODULE_PAYMENT_PAYPAL_API_ERROR', 'An error has occurred! Paypal is currently not available, choose another payment method.');
 
-$aLang['module_payment_PAYPAL_API_text_title'] = 'PayPal API';
-$aLang['module_payment_PAYPAL_API_text_description'] = 'PayPal API';
+$aLang['module_payment_PAYPAL_API_text_title'] = 'PayPal';
+$aLang['module_payment_PAYPAL_API_text_description'] = 'PayPal';
 

@@ -19,8 +19,8 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-define('MODULE_PAYMENT_PAYPAL_API_STATUS_TITLE', 'PayPal API Modul aktivieren');
-define('MODULE_PAYMENT_PAYPAL_API_STATUS_DESC', 'Möchten Sie Zahlungen per PayPal API akzeptieren?');
+define('MODULE_PAYMENT_PAYPAL_API_STATUS_TITLE', 'PayPal Modul aktivieren');
+define('MODULE_PAYMENT_PAYPAL_API_STATUS_DESC', 'Möchten Sie Zahlungen per PayPal akzeptieren?');
 
 define('MODULE_PAYMENT_PAYPAL_API_ID_TITLE', 'eMail Adresse');
 define('MODULE_PAYMENT_PAYPAL_API_ID_DESC', 'eMail Adresse, welche für PayPal verwendet wird.');
@@ -48,6 +48,6 @@ define('MODULE_PAYMENT_PAYPAL_API_ORDER_STATUS_ID_DESC', 'Bestellungen, welche m
 
 define('MODULE_PAYMENT_PAYPAL_API_ERROR', 'Es ist ein Fehler aufgetreten! Paypal steht momentan nicht zur Verfügung, wählen Sie eine andere Zahlungsart.');
 
-$aLang['module_payment_paypal_api_text_title'] = 'PayPal API';
-$aLang['module_payment_paypal_api_text_description'] = 'PayPal API';
+$aLang['module_payment_paypal_api_text_title'] = 'PayPal';
+$aLang['module_payment_paypal_api_text_description'] = 'PayPal';
 
