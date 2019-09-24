@@ -173,6 +173,8 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'login_process') &&
     }
 }
 
+
+
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['login']));
 $sCanonical = oos_href_link($aContents['login'], '', FALSE, TRUE);
@@ -200,11 +202,12 @@ $smarty->assign(
 );
 
 
+
 if (isset($_GET['action']) && ($_GET['action'] == 'login_admin')) {
 
     $email_address = oos_prepare_input($_POST['email_address']);
 	$verif_key = oos_prepare_input($_POST['verif_key']);
-	
+
     if ( empty( $email_address ) || !is_string( $email_address ) ) {
         oos_redirect(oos_href_link($aContents['403']));
     }

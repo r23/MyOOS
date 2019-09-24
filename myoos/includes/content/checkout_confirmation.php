@@ -168,8 +168,9 @@ if (is_array($payment_modules->modules)) {
 }
 
 if (is_array($payment_modules->modules)) {
-	$payment_modules_process_button =  $payment_modules->process_button();
+	$payment_modules_process_button = $payment_modules->process_button();
 }
+
 
 if (isset(${$_SESSION['payment']}->form_action_url)) {
 	$form_action_url = ${$_SESSION['payment']}->form_action_url;

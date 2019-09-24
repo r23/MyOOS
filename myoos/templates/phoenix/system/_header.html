@@ -68,7 +68,7 @@
 </head>
 <body>
 
-	<nav id="header" class="header-light header-fixed header-shadow-1">
+	<nav id="header" class="header-light header-shadow-1">
 		<div class="container">
 
 			<button class="nav-toggle"></button>
@@ -95,7 +95,7 @@
 										<a href="{html_href_link content=$filename.login}" class="btn btn-primary btn-sm btn-block fw-300">{$lang.header_title_login}</a>
 									{/if}
 							<a class="dropdown-item" href="{html_href_link content=$filename.account}" rel="nofollow">{$lang.login_block_my_account}</a>
-							<a class="dropdown-item" href="{html_href_link content=$filename.account_history page=1}"  rel="nofollow">{$lang.page_order_history}</a>
+							<a class="dropdown-item" href="{html_href_link content=$filename.account_history page=1}" rel="nofollow">{$lang.page_order_history}</a>
 							<a class="dropdown-item"  href="{html_href_link content=$filename.account_address_book}" rel="nofollow">{$lang.login_block_address_book}</a> 
 							{if $oEvent->installed_plugin('notify')}
 								<a class="dropdown-item" href="{html_href_link content=$filename.product_notifications}" rel="nofollow">{$lang.login_block_product_notifications}</a> 
