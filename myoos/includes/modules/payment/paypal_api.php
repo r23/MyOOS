@@ -208,7 +208,8 @@ class paypal_api {
 		for ($i=0, $n=$nOrder; $i<$n; $i++) {
 			
 			$name = html_entity_decode($oOrder->products[$i]['name'], ENT_NOQUOTES, 'UTF-8');
-			
+			$sku = $oOrder->products[$i]['model'];
+
 			if ($aUser['price_with_tax'] == 1) {
 				$final_price = number_format(oos_round(oos_add_tax($oOrder->products[$i]['final_price'], $oOrder->products[$i]['tax']),2), 2, '.', '');
 			} else {
@@ -219,6 +220,10 @@ class paypal_api {
 				->setCurrency($my_currency)
 				->setQuantity($oOrder->products[$i]['qty'])
 				->setPrice($final_price);				
+
+			if (!empty($sku)) {
+				$item->setSku($sku);
+			}
 
 			// add item to list
 			$itemList->addItem($item);
