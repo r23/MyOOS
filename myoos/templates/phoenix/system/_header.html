@@ -15,8 +15,8 @@
 *}
 <meta name="Generator" content="{$smarty.const.OOS_FULL_NAME} - {$smarty.const.OOS_HOME}  All rights reserved.">
 <meta name="creation" content="{$smarty.now|date_format:"%a,%d %b %Y"}" />	
-{assign var='robots' value=$robots|default:'index,follow,noodp,noydir'}
-<meta name="robots" content="{$robots}" />
+{assign var='robots' value=$robots|default:'index, follow, noodp, noydir'}
+<meta name="robots" content="{$robots}, max-snippet:100, max-image-preview:large" />
 {if $canonical}
 <link rel="canonical" href="{$canonical}" />
 {/if}
