@@ -49,35 +49,35 @@ class moneyorder {
     function update_status() {
       global $oOrder;
 
-/*
+		if ( ($this->enabled == TRUE) && ((int)MODULE_PAYMENT_MONEYORDER_ZONE > 0) ) {
+			$check_flag = FALSE;
 
-      if ( ($this->enabled == TRUE) && ((int)MODULE_PAYMENT_MONEYORDER_ZONE > 0) ) {
-        $check_flag = FALSE;
+			// Get database information
+			$dbconn =& oosDBGetConn();
+			$oostable =& oosDBGetTables();
 
-        // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+			$zones_to_geo_zonestable = $oostable['zones_to_geo_zones'];
+			$check_result = $dbconn->Execute("SELECT zone_id FROM $zones_to_geo_zonestable WHERE geo_zone_id = '" . MODULE_PAYMENT_MONEYORDER_ZONE . "' AND zone_country_id = '" . $oOrder->billing['country']['id'] . "' ORDER BY zone_id");
+			while ($check = $check_result->fields) {
+				if ($check['zone_id'] < 1) {
+					$check_flag = TRUE;
+					break;
+				} elseif ($check['zone_id'] == $oOrder->billing['zone_id']) {
+					$check_flag = TRUE;
+					break;
+				}
 
-        $zones_to_geo_zonestable = $oostable['zones_to_geo_zones'];
-        $check_result = $dbconn->Execute("SELECT zone_id FROM $zones_to_geo_zonestable WHERE geo_zone_id = '" . MODULE_PAYMENT_MONEYORDER_ZONE . "' AND zone_country_id = '" . $oOrder->billing['country']['id'] . "' ORDER BY zone_id");
-        while ($check = $check_result->fields) {
-          if ($check['zone_id'] < 1) {
-            $check_flag = TRUE;
-            break;
-          } elseif ($check['zone_id'] == $oOrder->billing['zone_id']) {
-            $check_flag = TRUE;
-            break;
-          }
+				// Move that ADOdb pointer!
+				$check_result->MoveNext();
+			}
 
-          // Move that ADOdb pointer!
-          $check_result->MoveNext();
-        }
+			if ($check_flag == FALSE) {
+				$this->enabled = FALSE;
+			}
+		}
 
-        if ($check_flag == FALSE) {
-          $this->enabled = FALSE;
-        }
-      }
-*/
+
+
     }
 
     function javascript_validation() {

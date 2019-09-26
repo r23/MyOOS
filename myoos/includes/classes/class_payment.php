@@ -49,6 +49,7 @@ class payment {
 			$sLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : DEFAULT_LANGUAGE;
 
 			for ($i=0, $n=sizeof($include_modules); $i<$n; $i++) {
+
 				include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/modules/payment/' . $include_modules[$i]['file'];
 				include_once MYOOS_INCLUDE_PATH . '/includes/modules/payment/' . $include_modules[$i]['file'];
 

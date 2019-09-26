@@ -47,10 +47,6 @@ class cod {
 		global $oOrder;
 
 
-		if ($_SESSION['shipping']['id'] == 'selfpickup_selfpickup') {
-			$this->enabled = FALSE;
-		}
-
 		if ( ($this->enabled == TRUE) && ((int)MODULE_PAYMENT_COD_ZONE > 0) ) {
 			$check_flag = FALSE;
 
@@ -91,7 +87,7 @@ class cod {
 		return FALSE;
     }
 
-    function selection() {
+    function selection() {	
 		return array('id' => $this->code,
                    'module' => $this->title);
     }

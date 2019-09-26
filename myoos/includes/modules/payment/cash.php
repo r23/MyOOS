@@ -51,8 +51,7 @@ class cash {
 		$this->code = 'cash';
 		$this->title = $aLang['module_payment_cash_text_title'];
 		$this->description = $aLang['module_payment_cash_text_description'];
-		$this->enabled = (defined('MODULE_PAYMENT_CASH_STATUS') && (MODULE_PAYMENT_CASH_STATUS == 'True') ? TRUE : FALSE);
-	  
+		$this->enabled = (defined('MODULE_PAYMENT_CASH_STATUS') && (MODULE_PAYMENT_CASH_STATUS == 'True') ? TRUE : FALSE);  
 		$this->sort_order = (defined('MODULE_PAYMENT_CASH_SORT_ORDER') ? MODULE_PAYMENT_CASH_SORT_ORDER : NULL);
 
 		if ((defined('MODULE_PAYMENT_CASH_ORDER_STATUS_ID') && (int)MODULE_PAYMENT_CASH_ORDER_STATUS_ID > 0)) {
@@ -118,7 +117,7 @@ class cash {
 		return FALSE;
     }
 
-    function selection() {
+    function selection() {	
 		return array('id' => $this->code,
                    'module' => $this->title);
     }
