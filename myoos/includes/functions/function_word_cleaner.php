@@ -1,17 +1,26 @@
 <?php
-/*
-  $Id: account_word_cleaner.php,v 2.3 01/05/2017 Sloppy Words Cleaner Exp $
-  this version by @raiwa info@oscaddons.com www.oscaddons.com
+/* ----------------------------------------------------------------------
+
+   MyOOS [Shopsystem]
+   https://www.oos-shop.de
+
+   Copyright (c) 2003 - 2019 by the MyOOS Development Team.
+   ----------------------------------------------------------------------
+   Based on:
+
+   File: account_word_cleaner.php,v 2.3 01/05/2017 Sloppy Words Cleaner
+   ----------------------------------------------------------------------
+   this version by @raiwa info@oscaddons.com www.oscaddons.com
   
-  http://www.gokartsrus.com
+   http://www.gokartsrus.com
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
+   osCommerce, Open Source E-Commerce Solutions
+   http://www.oscommerce.com
 
-  Copyright (c) 2017 osCommerce
-
-  Released under the GNU General Public License
-*/
+   Copyright (c) 2017 osCommerce
+   ----------------------------------------------------------------------
+   Released under the GNU General Public License
+   ---------------------------------------------------------------------- */
 
   function replace_word($str) {
 
