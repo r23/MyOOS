@@ -21,8 +21,9 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checkout_shipping_address.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_word_cleaner.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checkout_shipping_address.php';
 
 // start the session
 if ( $session->hasStarted() === FALSE ) $session->start();  
@@ -84,7 +85,12 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'submit') &&
 			}
 		}
 		$country = oos_db_prepare_input($_POST['country']);
-			
+	
+		$firstname = oos_remove_shouting($firstname, TRUE);
+		$lastname = oos_remove_shouting_name($lastname, TRUE);
+		$street_address = oos_remove_shouting($street_address);
+		$postcode = strtoupper($postcode);
+		$city = oos_remove_shouting($city);
 			
 		if (ACCOUNT_GENDER == 'true') {
 			if ( ($gender != 'm') && ($gender != 'f') ) {

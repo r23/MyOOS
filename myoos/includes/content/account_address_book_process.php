@@ -34,6 +34,7 @@ if (!isset($_SESSION['customer_id'])) {
 }
 
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_word_cleaner.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_address_book_process.php';
 
 if ( isset($_POST['action']) && ($_POST['action'] == 'deleteconfirm') && isset($_POST['entry_id']) && is_numeric($_POST['entry_id'])  && 
@@ -91,6 +92,13 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') || ($_POST['acti
 		}
     }
     $country = oos_db_prepare_input($_POST['country']);
+
+	$firstname = oos_remove_shouting($firstname, TRUE);
+	$lastname = oos_remove_shouting_name($lastname, TRUE);
+	$street_address = oos_remove_shouting($street_address);
+	$postcode = strtoupper($postcode);
+	$city = oos_remove_shouting($city);
+
 
 	$bError = FALSE; // reset error flag
     if (ACCOUNT_GENDER == 'true') {

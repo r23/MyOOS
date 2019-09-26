@@ -22,7 +22,8 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  function replace_word($str) {
+
+function replace_word($sStr) {
 
 	// replace target words
     $word = array (
@@ -32,10 +33,11 @@
 	  "Saints" => "Sts", // femenin of the word must be interpreted too in present case
 	  "Saintes" => "Stes", // femenin plural of the word must be interpreted too in present case
 	);
-	return strtr($str,$word);
-  }
+	return strtr($sStr,$word);
+}
 
-  function RemoveShouting($str, $is_name=false) {
+
+function oos_remove_shouting($sStr, $is_name = FALSE) {
 	
     $specials_first = 'ä|ö|ü|á|é|ó|ú|í|ñ|à|è|ò|ù|ì|â|ê|ô|û|î|ë|ï|å|ã|æ|ø|ç';
 
@@ -53,26 +55,26 @@
    $suffixes = "'S";
    
    // captialize all first letters
-   $str = mb_convert_case($str, MB_CASE_TITLE, CHARSET);
+   $sStr = mb_convert_case($sStr, MB_CASE_TITLE, "UTF-8");
 
    if ($specials_first) {
-     $str = preg_replace_callback(
+     $sStr = preg_replace_callback(
           "/\\b($prefixes)($specials_first)($specials_first)?\\b/", 
           function ($m) {
-            return $m[1] . mb_convert_case($m[2], MB_CASE_UPPER, CHARSET) . $m[3];
+            return $m[1] . mb_convert_case($m[2], MB_CASE_UPPER, "UTF-8") . $m[3];
           },
-          $str
+          $sStr
           );
    }
    
    if ($all_uppercase) {
    	 // capitalize acronymns and initialisms i.e. PO
-       $str = preg_replace_callback(
+       $sStr = preg_replace_callback(
    	 		   "/\\b($all_uppercase)\\b/",
            function ($m) {
-             return mb_convert_case($m[1], MB_CASE_UPPER, CHARSET);
+             return mb_convert_case($m[1], MB_CASE_UPPER, "UTF-8");
            },
-           $str
+           $sStr
            );
    }
    
@@ -80,55 +82,55 @@
    	 // decapitalize short words i.e. and
        if ($is_name) {
        	 // all occurences will be changed to lowercase
-           $str = preg_replace_callback(
+           $sStr = preg_replace_callback(
            	 	"/\\b($all_lowercase)\\b/",
            	 	function ($m) {
-           	 		return mb_convert_case($m[1], MB_CASE_LOWER, CHARSET);
+           	 		return mb_convert_case($m[1], MB_CASE_LOWER, "UTF-8");
            	 	},
-           	 	$str
+           	 	$sStr
            	 	);   
        } else {
        	 // first and last word will not be changed to lower case (i.e. titles)
-           $str = preg_replace_callback(
+           $sStr = preg_replace_callback(
            	 	"/(?<=\\W)($all_lowercase)(?=\\W)/",
            	 	function ($m) {
-           	 		return mb_convert_case($m[1], MB_CASE_LOWER, CHARSET);
+           	 		return mb_convert_case($m[1], MB_CASE_LOWER, "UTF-8");
            	 	},
-           	 	$str
+           	 	$sStr
            	 	);   
        }
    }
    
    if ($prefixes) {
    	 // capitalize letter after certain name prefixes i.e. 'Mc'
-       $str = preg_replace_callback(
+       $sStr = preg_replace_callback(
           "/\\b($prefixes)(\\w)/",
           function ($m) {
-          	return $m[1] . mb_convert_case($m[2], MB_CASE_UPPER, CHARSET);
+          	return $m[1] . mb_convert_case($m[2], MB_CASE_UPPER, "UTF-8");
           },
-          $str
+          $sStr
           );   
    }
 
    if ($suffixes) {
    	 // decapitalize certain word suffixes i.e. 's
-       $str = preg_replace_callback(
+       $sStr = preg_replace_callback(
           "/(\\w)($suffixes)\\b/",
           function ($m) {
-          	return $m[1] . mb_convert_case(stripslashes($m[2]), MB_CASE_LOWER, CHARSET);
+          	return $m[1] . mb_convert_case(stripslashes($m[2]), MB_CASE_LOWER, "UTF-8");
           },
-          $str
+          $sStr
           );   
    }
    
    // replace target words after RemoveShouting
-   $str = replace_word($str);
+   $sStr = replace_word($sStr);
 
-   return $str;
+   return $sStr;
 }
 
 // Last Name, edit to suite your needs
-function RemoveShoutingLN($str, $is_name=true) {
+function oos_remove_shouting_name($sStr, $is_name = TRUE) {
 	
     $specials_first = 'ä|ö|ü|á|é|ó|ú|í|ñ|à|è|ò|ù|ì|â|ê|ô|û|î|ë|ï|å|ã|æ|ø|ç';
 
@@ -143,139 +145,71 @@ function RemoveShoutingLN($str, $is_name=true) {
    $prefixes = "'|Mc|Mac";
    $suffixes = "'S";
    
-   $str = mb_convert_case($str, MB_CASE_TITLE, CHARSET);
+   $sStr = mb_convert_case($sStr, MB_CASE_TITLE, "UTF-8");
 
    if ($specials_first) {
-     $str = preg_replace_callback(
+     $sStr = preg_replace_callback(
           "/\\b($prefixes)($specials_first)($specials_first)?\\b/", 
           function ($m) {
-            return $m[1] . mb_convert_case($m[2], MB_CASE_UPPER, CHARSET) . $m[3];
+            return $m[1] . mb_convert_case($m[2], MB_CASE_UPPER, "UTF-8") . $m[3];
           },
-          $str
+          $sStr
           );
    }
    
    if ($all_uppercase) {
-       $str = preg_replace_callback(
+       $sStr = preg_replace_callback(
    	 		   "/\\b($all_uppercase)\\b/",
            function ($m) {
-             return mb_convert_case($m[1], MB_CASE_UPPER, CHARSET);
+             return mb_convert_case($m[1], MB_CASE_UPPER, "UTF-8");
            },
-           $str
+           $sStr
            );
    }
    
    if ($all_lowercase) {
        if ($is_name) {
-           $str = preg_replace_callback(
+           $sStr = preg_replace_callback(
            	 	"/\\b($all_lowercase)\\b/",
            	 	function ($m) {
-           	 		return mb_convert_case($m[1], MB_CASE_LOWER, CHARSET);
+           	 		return mb_convert_case($m[1], MB_CASE_LOWER, "UTF-8");
            	 	},
-           	 	$str
+           	 	$sStr
            	 	); 
        } else {
-           $str = preg_replace_callback(
+           $sStr = preg_replace_callback(
            	 	"/(?<=\\W)($all_lowercase)(?=\\W)/",
            	 	function ($m) {
-           	 		return mb_convert_case($m[1], MB_CASE_LOWER, CHARSET);
+           	 		return mb_convert_case($m[1], MB_CASE_LOWER, "UTF-8");
            	 	},
-           	 	$str
+           	 	$sStr
            	 	);   
        }
    }
    
    if ($prefixes) {
-       $str = preg_replace_callback(
+       $sStr = preg_replace_callback(
           "/\\b($prefixes)(\\w)/",
           function ($m) {
-          	return $m[1] . mb_convert_case($m[2], MB_CASE_UPPER, CHARSET);
+          	return $m[1] . mb_convert_case($m[2], MB_CASE_UPPER, "UTF-8");
           },
-          $str
+          $sStr
           );   
    }
    
    if ($suffixes) {
-       $str = preg_replace_callback(
+       $sStr = preg_replace_callback(
           "/(\\w)($suffixes)\\b/",
           function ($m) {
-          	return $m[1] . mb_convert_case(stripslashes($m[2]), MB_CASE_LOWER, CHARSET);
+          	return $m[1] . mb_convert_case(stripslashes($m[2]), MB_CASE_LOWER, "UTF-8");
           },
-          $str
+          $sStr
           );   
    }
    
    // replace target words after RemoveShouting
-   $str = replace_word($str);
+   $sStr = replace_word($sStr);
 
-   return $str;
+   return $sStr;
 }
 
-// Company Name, edit to suite your needs
-function RemoveShoutingCN($str, $is_name=false) {
-	
-   if ($is_name) {
-       $all_uppercase = '';
-       $all_lowercase = 'De La|De Las|Del|De Los|Der|Van De|Van Der|Vit De|Von|Or|And';
-   } else {
-       $all_uppercase = 'S.a.|S.l.|3m|Aa|Aaa|Ab|Abc|Abn|Aflac|Ag|Akso|Amd|Aol|Basf|Bb|Bbb|Bmw|Ca|Cbs|Cc|Ccc|Csx|Cvs|Dd|Ddd|Dec|Dhl|Ee|Eee|Ff|Fff|Ftd|Gg|Ggg|Ge|Gm|Gnc|Hh|Hhh|Hsbc|Ii|Iii|Ibm|Jj|Jjj|Jal|Jbl|Jvc|Kk|Kkk|Kfc|Klm|Lcl|Ll|Lll|Ltd|Lg|Mbna|Mips|Mm|Mmm|Mci|Mgm|Mvc|Ncr|Nn|Nnn|Nec|Oo|Ooo|Pmc|Pp|Ppp|Pg&e|Qq|Qqq|Qantas|Qvc|Rca|Reo|Rr|Rrr|Rsa|Sa|Saab|Sap|Sas|Scb|Sco|Sega|Skf|Snk|Ss|Sss|Stx|Tcl|Tcs|Tnt|Tt|Ttt|Twa|Uu|Uuu|Ua|Ubl|Ubs|Ul|Ups|Usx|Vv|Vvv|Vw|Ww|Www|Xx|Xxx|Yy|Yyy|Zz|Zzz';
-       $all_lowercase = 'A|And|As|By|In|Of|Or|To|The';
-   }
-   
-   $prefixes = '';
-   $suffixes = "'S";
-   
-   $str = mb_convert_case($str, MB_CASE_TITLE, CHARSET);
-
-   if ($all_uppercase) {
-       $str = preg_replace_callback(
-   	 		   "/\\b($all_uppercase)\\b/",
-           function ($m) {
-             return mb_convert_case($m[1], MB_CASE_UPPER, CHARSET);
-           },
-           $str
-           );
-   }
-   
-   if ($all_lowercase) {
-       if ($is_name) {
-           $str = preg_replace_callback(
-           	 	"/\\b($all_lowercase)\\b/",
-           	 	function ($m) {
-           	 		return mb_convert_case($m[1], MB_CASE_LOWER, CHARSET);
-           	 	},
-           	 	$str
-           	 	);   
-       } else {
-           $str = preg_replace_callback(
-           	 	"/(?<=\\W)($all_lowercase)(?=\\W)/",
-           	 	function ($m) {
-           	 		return mb_convert_case($m[1], MB_CASE_LOWER, CHARSET);
-           	 	},
-           	 	$str
-           	 	);   
-       }
-   }
-   
-   if ($prefixes) {
-       $str = preg_replace_callback(
-          "/\\b($prefixes)(\\w)/",
-          function ($m) {
-          	return $m[1] . mb_convert_case($m[2], MB_CASE_UPPER, CHARSET);
-          },
-          $str
-          );   
-   }
-   
-   if ($suffixes) {
-       $str = preg_replace_callback(
-          "/(\\w)($suffixes)\\b/",
-          function ($m) {
-          	return $m[1] . mb_convert_case(stripslashes($m[2]), MB_CASE_LOWER, CHARSET);
-          },
-          $str
-          );   
-   }
-   return $str;
-}  
-?>

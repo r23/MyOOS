@@ -32,6 +32,8 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'send')  ) {
 	$phone = oos_prepare_input($_POST['phone']);
 	$subject = oos_prepare_input($_POST['subject']);
 	$enquiry = oos_prepare_input($_POST['enquiry']);
+
+	$email_address = strtolower($email_address);
 		
 	if (oos_validate_is_email(trim($email_address))) {
 

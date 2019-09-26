@@ -24,6 +24,7 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 // require  the password crypto functions
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_password.php'; 
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validate_vatid.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_word_cleaner.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/create_account.php';
 
 // start the session
@@ -77,6 +78,15 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
     if (isset($_POST['agree'])) {
 		$agree = oos_db_prepare_input($_POST['agree']);
     } 
+
+
+	$firstname = oos_remove_shouting($firstname, TRUE);
+	$lastname = oos_remove_shouting_name($lastname, TRUE);
+	$email_address = strtolower($email_address);
+	$street_address = oos_remove_shouting($street_address);
+   	$postcode = strtoupper($postcode);
+	$city = oos_remove_shouting($city);
+
 	
 	$bError = FALSE; // reset error flag
     if (ACCOUNT_GENDER == 'true') {

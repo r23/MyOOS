@@ -36,6 +36,7 @@ if (!isset($_SESSION['customer_id'])) {
 // require  the password crypto functions
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_password.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validate_vatid.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_word_cleaner.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_edit.php';
 
 
@@ -60,6 +61,11 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
     if (isset($_POST['newsletter'])) {
 		$newsletter = oos_db_prepare_input($_POST['newsletter']);
     } 
+	
+	$firstname = oos_remove_shouting($firstname, TRUE);
+	$lastname = oos_remove_shouting_name($lastname, TRUE);
+	$email_address = strtolower($email_address);	
+	
 	
 	$bError = FALSE; // reset error flag
 
@@ -169,12 +175,21 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 				}
 			}
 
+/*
 			$email_owner .= $aLang['owner_email_first_name'] . ' ' . $firstname . "\n" .
                       $aLang['owner_email_last_name'] . ' ' . $lastname . "\n\n" .
                       $aLang['owner_email_street'] . ' ' . $street_address . "\n" .
                       $aLang['owner_email_post_code'] . ' ' . $postcode . "\n" .
                       $aLang['owner_email_city'] . ' ' . $city . "\n" .
                       $aLang['email_separator'] . "\n\n" .
+                      $aLang['owner_email_contact'] . "\n" .
+                      $aLang['owner_email_telephone_number'] . ' ' . $telephone . "\n" .
+                      $aLang['owner_email_address'] . ' ' . $email_address . "\n" .
+                      $aLang['email_separator'] . "\n\n" .
+                      $aLang['owner_email_options'] . "\n";
+*/
+			$email_owner .= $aLang['owner_email_first_name'] . ' ' . $firstname . "\n" .
+                      $aLang['owner_email_last_name'] . ' ' . $lastname . "\n\n" .
                       $aLang['owner_email_contact'] . "\n" .
                       $aLang['owner_email_telephone_number'] . ' ' . $telephone . "\n" .
                       $aLang['owner_email_address'] . ' ' . $email_address . "\n" .
