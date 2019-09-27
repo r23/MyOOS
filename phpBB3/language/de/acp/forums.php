@@ -100,6 +100,7 @@ $lang = array_merge($lang, array(
 	'FORUM_LINK_TRACK_EXPLAIN'			=> 'Hält die Anzahl fest, wie oft ein Forum-Link aufgerufen wurde.',
 	'FORUM_NAME'						=> 'Name des Forums',
 	'FORUM_NAME_EMPTY'					=> 'Du musst einen Namen für dieses Forum angeben.',
+	'FORUM_NAME_EMOJI'					=> 'Der Name des Forums, den du eingegeben hast, ist ungültig.<br>Er enthält die folgenden nicht unterstützten Zeichen:<br>%s',
 	'FORUM_PARENT'						=> 'Übergeordnetes Forum',
 	'FORUM_PASSWORD'					=> 'Forum-Passwort',
 	'FORUM_PASSWORD_CONFIRM'			=> 'Forum-Passwort bestätigen',

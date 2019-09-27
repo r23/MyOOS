@@ -978,6 +978,30 @@ function topic_review($topic_id, $forum_id, $mode = 'topic_review', $cur_post_id
 			AND u.user_id = p.poster_id',
 	);
 
+	/**
+	* Event to modify the SQL query for topic reviews
+	*
+	* @event core.topic_review_modify_sql_ary
+	* @var	int		topic_id			The topic ID that is being reviewed
+	* @var	int		forum_id			The topic's forum ID
+	* @var	string	mode				The topic review mode
+	* @var	int		cur_post_id			Post offset ID
+	* @var	bool	show_quote_button	Flag indicating if the quote button should be displayed
+	* @var	array	post_list			Array with the post IDs
+	* @var	array	sql_ary				Array with the SQL query
+	* @since 3.2.8-RC1
+	*/
+	$vars = array(
+		'topic_id',
+		'forum_id',
+		'mode',
+		'cur_post_id',
+		'show_quote_button',
+		'post_list',
+		'sql_ary',
+	);
+	extract($phpbb_dispatcher->trigger_event('core.topic_review_modify_sql_ary', compact($vars)));
+
 	$sql = $db->sql_build_query('SELECT', $sql_ary);
 	$result = $db->sql_query($sql);
 
@@ -1284,6 +1308,7 @@ function delete_post($forum_id, $topic_id, $post_id, &$data, $is_soft = false, $
 				delete_topics('topic_id', array($topic_id), false);
 
 				$phpbb_content_visibility->remove_topic_from_statistic($data, $sql_data);
+				$config->increment('num_posts', -1, false);
 
 				$update_sql = update_post_information('forum', $forum_id, true);
 				if (count($update_sql))
@@ -2052,6 +2077,11 @@ function submit_post($mode, $subject, $username, $topic_type, &$poll_ary, &$data
 			if ($attach_row['is_orphan'] && !isset($orphan_rows[$attach_row['attach_id']]))
 			{
 				continue;
+			}
+
+			if (preg_match('/[\x{10000}-\x{10FFFF}]/u', $attach_row['attach_comment']))
+			{
+				trigger_error('ATTACH_COMMENT_NO_EMOJIS');
 			}
 
 			if (!$attach_row['is_orphan'])

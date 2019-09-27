@@ -988,6 +988,20 @@ mcp_move_before
 * Since: 3.1.10-RC1
 * Purpose: Add content before move topic/post form
 
+mcp_move_destination_forum_after
+===
+* Locations:
+    + styles/prosilver/template/mcp_move.html
+* Since: 3.2.8-RC1
+* Purpose: Add content after the destination select element in the move topic/post form
+
+mcp_move_destination_forum_before
+===
+* Locations:
+    + styles/prosilver/template/mcp_move.html
+* Since: 3.2.8-RC1
+* Purpose: Add content before the destination select element in the move topic/post form
+
 mcp_post_additional_options
 ===
 * Locations:
@@ -1036,6 +1050,20 @@ mcp_topic_options_before
     + styles/prosilver/template/mcp_topic.html
 * Since: 3.1.6-RC1
 * Purpose: Add some options (field, checkbox, ...) before the subject field when split a subject
+
+mcp_topic_post_author_full_append
+===
+* Locations:
+    + styles/prosilver/template/mcp_topic.html
+* Since: 3.2.8-RC1
+* Purpose: Append information to message author username for post details in topic moderation
+
+mcp_topic_post_author_full_prepend
+===
+* Locations:
+    + styles/prosilver/template/mcp_topic.html
+* Since: 3.2.8-RC1
+* Purpose: Prepend information to message author username for post details in topic moderation
 
 mcp_topic_postrow_attachments_after
 ===
@@ -1740,14 +1768,14 @@ posting_attach_body_file_list_after
 * Locations:
     + styles/prosilver/template/posting_attach_body.html
 * Since: 3.2.6-RC1
-* Purpose: Add content after attachments list 
+* Purpose: Add content after attachments list
 
 posting_attach_body_file_list_before
 ===
 * Locations:
     + styles/prosilver/template/posting_attach_body.html
 * Since: 3.2.6-RC1
-* Purpose: Add content before attachments list 
+* Purpose: Add content before attachments list
 
 posting_editor_add_panel_tab
 ===
@@ -1910,12 +1938,40 @@ posting_preview_poll_after
 * Since: 3.1.7-RC1
 * Purpose: Add content after the poll preview block
 
+posting_review_row_post_author_username_append
+===
+* Locations:
+    + styles/prosilver/template/posting_review.html
+* Since: 3.2.8-RC1
+* Purpose: Append information to post author username of member
+
+posting_review_row_post_author_username_prepend
+===
+* Locations:
+    + styles/prosilver/template/posting_review.html
+* Since: 3.2.8-RC1
+* Purpose: Prepend information to post author username of member
+
 posting_topic_review_row_content_after
 ===
 * Locations:
     + styles/prosilver/template/posting_topic_review.html
 * Since: 3.2.4-RC1
 * Purpose: Add content after the message content in topic review
+
+posting_topic_review_row_post_author_username_append
+===
+* Locations:
+    + styles/prosilver/template/posting_topic_review.html
+* Since: 3.2.8-RC1
+* Purpose: Append information to post author username of member
+
+posting_topic_review_row_post_author_username_prepend
+===
+* Locations:
+    + styles/prosilver/template/posting_topic_review.html
+* Since: 3.2.8-RC1
+* Purpose: Prepend information to post author username of member
 
 posting_topic_review_row_post_details_after
 ===
@@ -2102,14 +2158,14 @@ search_results_header_before
 search_results_last_post_author_username_append
 ===
 * Locations:
-    + styles/prosilver/template/search_results.html
+    + styles/prosilver/template/search_results.html (2)
 * Since: 3.2.4-RC1
 * Purpose: Append information to last post author username of member
 
 search_results_last_post_author_username_prepend
 ===
 * Locations:
-    + styles/prosilver/template/search_results.html
+    + styles/prosilver/template/search_results.html (2)
 * Since: 3.2.4-RC1
 * Purpose: Prepend information to last post author username of member
 
@@ -2253,6 +2309,24 @@ topiclist_row_prepend
 * Changed: 3.1.6-RC1 Added event to mcp_forum.html
 * Purpose: Add content into topic rows (inside the elements containing topic titles)
 
+topiclist_row_topic_by_author_after
+===
+* Locations:
+    + styles/prosilver/template/search_results.html
+    + styles/prosilver/template/viewforum_body.html
+    + styles/prosilver/template/mcp_forum.html
+* Since: 3.2.8-RC1
+* Purpose: Add content into topic rows (after the "by topic author" row)
+
+topiclist_row_topic_by_author_before
+===
+* Locations:
+    + styles/prosilver/template/search_results.html
+    + styles/prosilver/template/viewforum_body.html
+    + styles/prosilver/template/mcp_forum.html
+* Since: 3.2.8-RC1
+* Purpose: Add content into topic rows (before the "by topic author" row)
+
 topiclist_row_topic_title_after
 ===
 * Locations:
@@ -2363,6 +2437,20 @@ ucp_pm_history_review_before
     + styles/prosilver/template/ucp_pm_history.html
 * Since: 3.1.6-RC1
 * Purpose: Add content before the private messages history review.
+
+ucp_pm_history_row_message_author_username_append
+===
+* Locations:
+    + styles/prosilver/template/ucp_pm_history.html
+* Since: 3.2.8-RC1
+* Purpose: Append information to message author username of member
+
+ucp_pm_history_row_message_author_username_prepend
+===
+* Locations:
+    + styles/prosilver/template/ucp_pm_history.html
+* Since: 3.2.8-RC1
+* Purpose: Prepend information to message author username of member
 
 ucp_pm_viewmessage_avatar_after
 ===
@@ -2612,14 +2700,14 @@ ucp_register_profile_fields_before
 viewforum_body_last_post_author_username_append
 ===
 * Locations:
-    + styles/prosilver/template/viewforum_body.html
+    + styles/prosilver/template/viewforum_body.html (2)
 * Since: 3.2.4-RC1
 * Purpose: Append information to last post author username of member
 
 viewforum_body_last_post_author_username_prepend
 ===
 * Locations:
-    + styles/prosilver/template/viewforum_body.html
+    + styles/prosilver/template/viewforum_body.html (2)
 * Since: 3.2.4-RC1
 * Purpose: Prepend information to last post author username of member
 

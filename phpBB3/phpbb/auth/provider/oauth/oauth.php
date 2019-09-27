@@ -264,7 +264,7 @@ class oauth extends \phpbb\auth\provider\base
 			}
 
 			// Retrieve the user's account
-			$sql = 'SELECT user_id, username, user_password, user_passchg, user_email, user_type, user_login_attempts
+			$sql = 'SELECT user_id, username, user_password, user_passchg, user_email, user_ip, user_type, user_login_attempts
 				FROM ' . $this->users_table . '
 					WHERE user_id = ' . (int) $row['user_id'];
 			$result = $this->db->sql_query($sql);
@@ -423,7 +423,7 @@ class oauth extends \phpbb\auth\provider\base
 			if ($credentials['key'] && $credentials['secret'])
 			{
 				$actual_name = str_replace('auth.provider.oauth.service.', '', $service_name);
-				$redirect_url = build_url(false) . '&login=external&oauth_service=' . $actual_name;
+				$redirect_url = generate_board_url() . '/ucp.' . $this->php_ext . '?mode=login&login=external&oauth_service=' . $actual_name;
 				$login_data['BLOCK_VARS'][$service_name] = array(
 					'REDIRECT_URL'	=> redirect($redirect_url, true),
 					'SERVICE_NAME'	=> $this->user->lang['AUTH_PROVIDER_OAUTH_SERVICE_' . strtoupper($actual_name)],
@@ -634,6 +634,21 @@ class oauth extends \phpbb\auth\provider\base
 	*/
 	protected function link_account_perform_link(array $data)
 	{
+		// Check if the external account is already associated with other user
+		$sql = 'SELECT user_id
+			FROM ' . $this->auth_provider_oauth_token_account_assoc . "
+			WHERE provider = '" . $this->db->sql_escape($data['provider']) . "'
+				AND oauth_provider_id = '" . $this->db->sql_escape($data['oauth_provider_id']) . "'";
+		$result = $this->db->sql_query($sql);
+		$row = $this->db->sql_fetchrow($result);
+		$this->db->sql_freeresult($result);
+
+		if ($row)
+		{
+			trigger_error('AUTH_PROVIDER_OAUTH_ERROR_ALREADY_LINKED');
+		}
+
+		// Link account
 		$sql = 'INSERT INTO ' . $this->auth_provider_oauth_token_account_assoc . '
 			' . $this->db->sql_build_array('INSERT', $data);
 		$this->db->sql_query($sql);

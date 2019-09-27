@@ -46,6 +46,7 @@ $lang = array_merge($lang, array(
 	'ADD_POLL'					=> 'Umfrage erstellen',
 	'ADD_POLL_EXPLAIN'			=> 'Wenn Sie zu dem Thema keine Umfrage hinzufügen möchten, lassen Sie die Felder einfach leer.',
 	'ALREADY_DELETED'			=> 'Diese Nachricht wurde bereits gelöscht.',
+	'ATTACH_COMMENT_NO_EMOJIS'	=> 'Der Kommentar für den Dateianhang enthält nicht zulässige Zeichen (Emoji).',
 	'ATTACH_DISK_FULL'			=> 'Es steht nicht genügend Speicherplatz zur Verfügung, um diesen Anhang zu veröffentlichen.',
 	'ATTACH_QUOTA_REACHED'		=> 'Das Kontingent für Dateianhänge ist bereits vollständig ausgenutzt.',
 	'ATTACH_SIG'				=> 'Signatur anhängen (die Signatur kann im persönlichen Bereich geändert werden)',

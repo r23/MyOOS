@@ -3,12 +3,12 @@
  * Random_* Compatibility Library
  * for using the new PHP 7 random_* API in PHP 5 projects
  *
- * @version 1.4.3
- * @released 2018-04-04
+ * @version 2.0.17
+ * @released 2018-07-04
  *
  * The MIT License (MIT)
  *
- * Copyright (c) 2015 - 2016 Paragon Initiative Enterprises
+ * Copyright (c) 2015 - 2018 Paragon Initiative Enterprises
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -54,9 +54,9 @@ if (!defined('RANDOM_COMPAT_READ_BUFFER')) {
 
 $RandomCompatDIR = dirname(__FILE__);
 
-require_once $RandomCompatDIR . '/byte_safe_strings.php';
-require_once $RandomCompatDIR . '/cast_to_int.php';
-require_once $RandomCompatDIR . '/error_polyfill.php';
+require_once $RandomCompatDIR . DIRECTORY_SEPARATOR . 'byte_safe_strings.php';
+require_once $RandomCompatDIR . DIRECTORY_SEPARATOR . 'cast_to_int.php';
+require_once $RandomCompatDIR . DIRECTORY_SEPARATOR . 'error_polyfill.php';
 
 if (!is_callable('random_bytes')) {
     /**
@@ -76,9 +76,9 @@ if (!is_callable('random_bytes')) {
     if (extension_loaded('libsodium')) {
         // See random_bytes_libsodium.php
         if (PHP_VERSION_ID >= 50300 && is_callable('\\Sodium\\randombytes_buf')) {
-            require_once $RandomCompatDIR . '/random_bytes_libsodium.php';
+            require_once $RandomCompatDIR . DIRECTORY_SEPARATOR . 'random_bytes_libsodium.php';
         } elseif (method_exists('Sodium', 'randombytes_buf')) {
-            require_once $RandomCompatDIR . '/random_bytes_libsodium_legacy.php';
+            require_once $RandomCompatDIR . DIRECTORY_SEPARATOR . 'random_bytes_libsodium_legacy.php';
         }
     }
 
@@ -97,9 +97,9 @@ if (!is_callable('random_bytes')) {
                 strtolower($RandomCompat_basedir)
             );
             $RandomCompatUrandom = (array() !== array_intersect(
-                    array('/dev', '/dev/', '/dev/urandom'),
-                    $RandomCompat_open_basedir
-                ));
+                array('/dev', '/dev/', '/dev/urandom'),
+                $RandomCompat_open_basedir
+            ));
             $RandomCompat_open_basedir = null;
         }
 
@@ -117,7 +117,7 @@ if (!is_callable('random_bytes')) {
             // place, that is not helpful to us here.
 
             // See random_bytes_dev_urandom.php
-            require_once $RandomCompatDIR . '/random_bytes_dev_urandom.php';
+            require_once $RandomCompatDIR . DIRECTORY_SEPARATOR . 'random_bytes_dev_urandom.php';
         }
         // Unset variables after use
         $RandomCompat_basedir = null;
@@ -159,7 +159,7 @@ if (!is_callable('random_bytes')) {
         extension_loaded('mcrypt')
     ) {
         // See random_bytes_mcrypt.php
-        require_once $RandomCompatDIR . '/random_bytes_mcrypt.php';
+        require_once $RandomCompatDIR . DIRECTORY_SEPARATOR . 'random_bytes_mcrypt.php';
     }
     $RandomCompatUrandom = null;
 
@@ -184,7 +184,7 @@ if (!is_callable('random_bytes')) {
                 $RandomCompatCOMtest = new COM('CAPICOM.Utilities.1');
                 if (method_exists($RandomCompatCOMtest, 'GetRandom')) {
                     // See random_bytes_com_dotnet.php
-                    require_once $RandomCompatDIR . '/random_bytes_com_dotnet.php';
+                    require_once $RandomCompatDIR . DIRECTORY_SEPARATOR . 'random_bytes_com_dotnet.php';
                 }
             } catch (com_exception $e) {
                 // Don't try to use it.
@@ -192,30 +192,6 @@ if (!is_callable('random_bytes')) {
         }
         $RandomCompat_disabled_classes = null;
         $RandomCompatCOMtest = null;
-    }
-
-    /**
-     * openssl_random_pseudo_bytes()
-     */
-    if (
-        (
-            // Unix-like with PHP >= 5.3.0 or
-            (
-                DIRECTORY_SEPARATOR === '/'
-                &&
-                PHP_VERSION_ID >= 50300
-            )
-            ||
-            // Windows with PHP >= 5.4.1
-            PHP_VERSION_ID >= 50401
-        )
-        &&
-        !function_exists('random_bytes')
-        &&
-        extension_loaded('openssl')
-    ) {
-        // See random_bytes_openssl.php
-        require_once $RandomCompatDIR . '/random_bytes_openssl.php';
     }
 
     /**
@@ -227,8 +203,9 @@ if (!is_callable('random_bytes')) {
          * and hope the developer won't let it fail silently.
          *
          * @param mixed $length
-         * @return void
+         * @psalm-suppress InvalidReturnType
          * @throws Exception
+         * @return string
          */
         function random_bytes($length)
         {
@@ -236,12 +213,13 @@ if (!is_callable('random_bytes')) {
             throw new Exception(
                 'There is no suitable CSPRNG installed on your system'
             );
+            return '';
         }
     }
 }
 
 if (!is_callable('random_int')) {
-    require_once $RandomCompatDIR . '/random_int.php';
+    require_once $RandomCompatDIR . DIRECTORY_SEPARATOR . 'random_int.php';
 }
 
 $RandomCompatDIR = null;

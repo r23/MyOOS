@@ -7,7 +7,7 @@ das Benutzerkonto von „{USERNAME}“ wurde deaktiviert oder neu erstellt. Du s
 Du kannst das Profil des Benutzers betrachten, wenn du folgenden Link aufrufst:
 {U_USER_DETAILS}
 
-Um das Benutzerkonto zu aktivieren, musst du folgenden Link aufrufen:
+Du kannst das Benutzerkonto direkt mit folgendem Link aktivieren:
 {U_ACTIVATE}
 
 {EMAIL_SIG}

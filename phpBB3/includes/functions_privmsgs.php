@@ -490,7 +490,7 @@ function place_pm_into_folder(&$global_privmsgs_rules, $release = false)
 				'bcc'				=> explode(':', $row['bcc_address']),
 				'friend'			=> (isset($zebra[$row['author_id']])) ? $zebra[$row['author_id']]['friend'] : 0,
 				'foe'				=> (isset($zebra[$row['author_id']])) ? $zebra[$row['author_id']]['foe'] : 0,
-				'user_in_group'		=> array($user->data['group_id']),
+				'user_in_group'		=> $user->data['group_id'],
 				'author_in_group'	=> array())
 			);
 
@@ -1966,7 +1966,7 @@ function submit_pm($mode, $subject, &$data_ary, $put_in_outbox = true)
 */
 function message_history($msg_id, $user_id, $message_row, $folder, $in_post_mode = false)
 {
-	global $db, $user, $template, $phpbb_root_path, $phpEx, $auth;
+	global $db, $user, $template, $phpbb_root_path, $phpEx, $auth, $phpbb_dispatcher;
 
 	// Select all receipts and the author from the pm we currently view, to only display their pm-history
 	$sql = 'SELECT author_id, user_id
@@ -1985,9 +1985,7 @@ function message_history($msg_id, $user_id, $message_row, $folder, $in_post_mode
 	$recipients = array_unique($recipients);
 
 	// Get History Messages (could be newer)
-	$sql = 'SELECT t.*, p.*, u.*
-		FROM ' . PRIVMSGS_TABLE . ' p, ' . PRIVMSGS_TO_TABLE . ' t, ' . USERS_TABLE . ' u
-		WHERE t.msg_id = p.msg_id
+	$sql_where = 't.msg_id = p.msg_id
 			AND p.author_id = u.user_id
 			AND t.folder_id NOT IN (' . PRIVMSGS_NO_BOX . ', ' . PRIVMSGS_HOLD_BOX . ')
 			AND ' . $db->sql_in_set('t.author_id', $recipients, false, true) . "
@@ -1998,13 +1996,37 @@ function message_history($msg_id, $user_id, $message_row, $folder, $in_post_mode
 
 	if (!$message_row['root_level'])
 	{
-		$sql .= " AND (p.root_level = $msg_id OR (p.root_level = 0 AND p.msg_id = $msg_id))";
+		$sql_where .= " AND (p.root_level = $msg_id OR (p.root_level = 0 AND p.msg_id = $msg_id))";
 	}
 	else
 	{
-		$sql .= " AND (p.root_level = " . $message_row['root_level'] . ' OR p.msg_id = ' . $message_row['root_level'] . ')';
+		$sql_where .= " AND (p.root_level = " . $message_row['root_level'] . ' OR p.msg_id = ' . $message_row['root_level'] . ')';
 	}
-	$sql .= ' ORDER BY p.message_time DESC';
+
+	$sql_ary = array(
+		'SELECT'	=> 't.*, p.*, u.*',
+		'FROM'		=> array(
+			PRIVMSGS_TABLE		=> 'p',
+			PRIVMSGS_TO_TABLE	=> 't',
+			USERS_TABLE			=> 'u'
+		),
+		'LEFT_JOIN'	=> array(),
+		'WHERE'		=> $sql_where,
+		'ORDER_BY'	=> 'p.message_time DESC',
+	);
+
+	/**
+	* Event to modify the SQL query before the message history in private message is queried
+	*
+	* @event core.message_history_modify_sql_ary
+	* @var	array	sql_ary		The SQL array to get the data of the message history in private message
+	* @since 3.2.8-RC1
+	*/
+	$vars = array('sql_ary');
+	extract($phpbb_dispatcher->trigger_event('core.message_history_modify_sql_ary', compact($vars)));
+
+	$sql = $db->sql_build_query('SELECT', $sql_ary);
+	unset($sql_ary);
 
 	$result = $db->sql_query($sql);
 	$row = $db->sql_fetchrow($result);
@@ -2087,7 +2109,7 @@ function message_history($msg_id, $user_id, $message_row, $folder, $in_post_mode
 			$previous_history_pm = $prev_id;
 		}
 
-		$template->assign_block_vars('history_row', array(
+		$template_vars = array(
 			'MESSAGE_AUTHOR_QUOTE'		=> (($decoded_message) ? addslashes(get_username_string('username', $author_id, $row['username'], $row['user_colour'], $row['username'])) : ''),
 			'MESSAGE_AUTHOR_FULL'		=> get_username_string('full', $author_id, $row['username'], $row['user_colour'], $row['username']),
 			'MESSAGE_AUTHOR_COLOUR'		=> get_username_string('colour', $author_id, $row['username'], $row['user_colour'], $row['username']),
@@ -2109,8 +2131,25 @@ function message_history($msg_id, $user_id, $message_row, $folder, $in_post_mode
 			'USER_ID'			=> $row['user_id'],
 			'U_VIEW_MESSAGE'	=> "$url&amp;f=$folder_id&amp;p=" . $row['msg_id'],
 			'U_QUOTE'			=> (!$in_post_mode && $auth->acl_get('u_sendpm') && $author_id != ANONYMOUS) ? "$url&amp;mode=compose&amp;action=quote&amp;f=" . $folder_id . "&amp;p=" . $row['msg_id'] : '',
-			'U_POST_REPLY_PM'	=> ($author_id != $user->data['user_id'] && $author_id != ANONYMOUS && $auth->acl_get('u_sendpm')) ? "$url&amp;mode=compose&amp;action=reply&amp;f=$folder_id&amp;p=" . $row['msg_id'] : '')
+			'U_POST_REPLY_PM'	=> ($author_id != $user->data['user_id'] && $author_id != ANONYMOUS && $auth->acl_get('u_sendpm')) ? "$url&amp;mode=compose&amp;action=reply&amp;f=$folder_id&amp;p=" . $row['msg_id'] : ''
 		);
+
+		/**
+		* Modify the template vars for displaying the message history in private message
+		*
+		* @event core.message_history_modify_template_vars
+		* @var array	template_vars		Array containing the query
+		* @var array	row					Array containing the action user row
+		* @since 3.2.8-RC1
+		*/
+		$vars = array(
+			'template_vars',
+			'row',
+		);
+		extract($phpbb_dispatcher->trigger_event('core.message_history_modify_template_vars', compact($vars)));
+
+		$template->assign_block_vars('history_row', $template_vars);
+
 		unset($rowset[$i]);
 		$prev_id = $id;
 	}

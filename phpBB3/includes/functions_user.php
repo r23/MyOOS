@@ -1732,7 +1732,7 @@ function phpbb_validate_timezone($timezone)
  * @return mixed							Either false if validation succeeded or a string which will be
  *											used as the error message (with the variable name appended)
  */
-function validate_username($username, $allowed_username = false)
+function validate_username($username, $allowed_username = false, $allow_all_names = false)
 {
 	global $config, $db, $user, $cache;
 
@@ -1815,13 +1815,16 @@ function validate_username($username, $allowed_username = false)
 		return 'USERNAME_TAKEN';
 	}
 
-	$bad_usernames = $cache->obtain_disallowed_usernames();
-
-	foreach ($bad_usernames as $bad_username)
+	if (!$allow_all_names)
 	{
-		if (preg_match('#^' . $bad_username . '$#', $clean_username))
+		$bad_usernames = $cache->obtain_disallowed_usernames();
+
+		foreach ($bad_usernames as $bad_username)
 		{
-			return 'USERNAME_DISALLOWED';
+			if (preg_match('#^' . $bad_username . '$#', $clean_username))
+			{
+				return 'USERNAME_DISALLOWED';
+			}
 		}
 	}
 
@@ -1942,9 +1945,10 @@ function validate_user_email($email, $allowed_email = false)
 		return $validate_email;
 	}
 
-	if (($ban = $user->check_ban(false, false, $email, true)) !== false)
+	$ban = $user->check_ban(false, false, $email, true);
+	if (!empty($ban))
 	{
-		return ($ban === true) ? 'EMAIL_BANNED' : (!empty($ban['ban_give_reason']) ? $ban['ban_give_reason'] : $ban);
+		return !empty($ban['ban_give_reason']) ? $ban['ban_give_reason'] : 'EMAIL_BANNED';
 	}
 
 	if (!$config['allow_emailreuse'])

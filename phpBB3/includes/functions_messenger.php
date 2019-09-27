@@ -181,10 +181,9 @@ class messenger
 	/**
 	* Adds X-AntiAbuse headers
 	*
-	* @param array $config		Configuration array
-	* @param user $user			A user object
-	*
-	* @return null
+	* @param \phpbb\config\config	$config		Config object
+	* @param \phpbb\user			$user		User object
+	* @return void
 	*/
 	function anti_abuse_headers($config, $user)
 	{
@@ -1582,6 +1581,14 @@ class smtp_class
 	*/
 	protected function starttls()
 	{
+		global $config;
+
+		// allow SMTPS (what was used by phpBB 3.0) if hostname is prefixed with tls:// or ssl://
+		if (strpos($config['smtp_host'], 'tls://') === 0 || strpos($config['smtp_host'], 'ssl://') === 0)
+		{
+			return true;
+		}
+
 		if (!function_exists('stream_socket_enable_crypto'))
 		{
 			return false;
@@ -1604,7 +1611,9 @@ class smtp_class
 
 		if (socket_set_blocking($this->socket, 1))
 		{
-			$result = stream_socket_enable_crypto($this->socket, true, STREAM_CRYPTO_METHOD_TLS_CLIENT);
+			// https://secure.php.net/manual/en/function.stream-socket-enable-crypto.php#119122
+			$crypto = (phpbb_version_compare(PHP_VERSION, '5.6.7', '<')) ? STREAM_CRYPTO_METHOD_TLS_CLIENT : STREAM_CRYPTO_METHOD_SSLv23_CLIENT;
+			$result = stream_socket_enable_crypto($this->socket, true, $crypto);
 			socket_set_blocking($this->socket, (int) $stream_meta['blocked']);
 		}
 
