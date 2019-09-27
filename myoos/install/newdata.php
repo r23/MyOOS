@@ -70,6 +70,28 @@ $address_format = '$firstname $lastname$cr$streets$cr$postcode $city$cr$country'
 $address_summary = '$city / $country';
 $result = $db->Execute("INSERT INTO " . $prefix_table . "address_format (address_format_id, address_format, address_summary) VALUES (5, '" . $address_format . "', '" . $address_summary . "')") OR die ("<b>".NOTUPDATED . $prefix_table . "address_format</b>");
 
+$address_format = '$firstname $lastname$cr$streets$cr$city$cr$state   $postcode$cr$country';
+$address_summary = '$city $country';
+$result = $db->Execute("INSERT INTO " . $prefix_table . "address_format (address_format_id, address_format, address_summary) VALUES (6, '" . $address_format . "', '" . $address_summary . "')") OR die ("<b>".NOTUPDATED . $prefix_table . "address_format</b>");
+
+$address_format = '$firstname $lastname$cr$streets$cr$city$cr$state$cr$postcode$cr$country';
+$address_summary = '$city, $state / $country';
+$result = $db->Execute("INSERT INTO " . $prefix_table . "address_format (address_format_id, address_format, address_summary) VALUES (7, '" . $address_format . "', '" . $address_summary . "')") OR die ("<b>".NOTUPDATED . $prefix_table . "address_format</b>");
+
+$address_format = '$firstname $lastname$cr$streets$cr$city$cr$postcode $country';
+$address_summary = '$country / $postcode';
+$result = $db->Execute("INSERT INTO " . $prefix_table . "address_format (address_format_id, address_format, address_summary) VALUES (8, '" . $address_format . "', '" . $address_summary . "')") OR die ("<b>".NOTUPDATED . $prefix_table . "address_format</b>");
+
+$address_format = '$firstname $lastname$cr$streets$cr$city $state $postcode$cr$country';
+$address_summary = '$city / $country';
+$result = $db->Execute("INSERT INTO " . $prefix_table . "address_format (address_format_id, address_format, address_summary) VALUES (9, '" . $address_format . "', '" . $address_summary . "')") OR die ("<b>".NOTUPDATED . $prefix_table . "address_format</b>");
+
+$address_format = '$firstname $lastname$cr$streets$cr$postcode $city$cr$country';
+$address_summary = '$city / $country';
+$result = $db->Execute("INSERT INTO " . $prefix_table . "address_format (address_format_id, address_format, address_summary) VALUES (10, '" . $address_format . "', '" . $address_summary . "')") OR die ("<b>".NOTUPDATED . $prefix_table . "address_format</b>");
+
+
+
 echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $prefix_table . "address_format " . UPDATED .'</font>';
 
 $result = $db->Execute("INSERT INTO " . $prefix_table . "admin_files (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('administrator.php', 1, 0, 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "admin_files</b>");
@@ -301,7 +323,6 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "block_to_page_type (blo
 
 echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $prefix_table . "block_to_page_type " . UPDATED .'</font>';
 
-
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (1, 'Afghanistan', 'AF', 'AFG', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (2, 'Albania', 'AL', 'ALB', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (3, 'Algeria', 'DZ', 'DZA', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
@@ -314,7 +335,7 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (10, 'Argentina', 'AR', 'ARG', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (11, 'Armenia', 'AM', 'ARM', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (12, 'Aruba', 'AW', 'ABW', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (13, 'Australia', 'AU', 'AUS', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (13, 'Australia', 'AU', 'AUS', 6)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (14, 'Austria', 'AT', 'AUT', 5)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (15, 'Azerbaijan', 'AZ', 'AZE', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (16, 'Bahamas', 'BS', 'BHS', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
@@ -339,7 +360,7 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (35, 'Burundi', 'BI', 'BDI', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (36, 'Cambodia', 'KH', 'KHM', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (37, 'Cameroon', 'CM', 'CMR', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (38, 'Canada', 'CA', 'CAN', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (38, 'Canada', 'CA', 'CAN', 2)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (39, 'Cape Verde', 'CV', 'CPV', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (40, 'Cayman Islands', 'KY', 'CYM', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (41, 'Central African Republic', 'CF', 'CAF', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
@@ -404,7 +425,7 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (100, 'Indonesia', 'ID', 'IDN', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (101, 'Iran (Islamic Republic of)', 'IR', 'IRN', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (102, 'Iraq', 'IQ', 'IRQ', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (103, 'Ireland', 'IE', 'IRL', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (103, 'Ireland', 'IE', 'IRL', 9)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (104, 'Israel', 'IL', 'ISR', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (105, 'Italy', 'IT', 'ITA', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (106, 'Jamaica', 'JM', 'JAM', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
@@ -451,7 +472,7 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (147, 'Namibia', 'NA', 'NAM', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (148, 'Nauru', 'NR', 'NRU', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (149, 'Nepal', 'NP', 'NPL', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (150, 'Netherlands', 'NL', 'NLD', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (150, 'Netherlands', 'NL', 'NLD', 10)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (151, 'Netherlands Antilles', 'AN', 'ANT', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (152, 'New Caledonia', 'NC', 'NCL', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (153, 'New Zealand', 'NZ', 'NZL', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
@@ -489,7 +510,7 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (185, 'Senegal', 'SN', 'SEN', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (186, 'Seychelles', 'SC', 'SYC', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (187, 'Sierra Leone', 'SL', 'SLE', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (188, 'Singapore', 'SG', 'SGP', 4)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (188, 'Singapore', 'SG', 'SGP', 7)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (189, 'Slovakia (Slovak Republic)', 'SK', 'SVK', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (190, 'Slovenia', 'SI', 'SVN', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (191, 'Solomon Islands', 'SB', 'SLB', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
@@ -504,7 +525,7 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (200, 'Suriname', 'SR', 'SUR', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (201, 'Svalbard and Jan Mayen Islands', 'SJ', 'SJM', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (202, 'Swaziland', 'SZ', 'SWZ', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (203, 'Sweden', 'SE', 'SWE', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (203, 'Sweden', 'SE', 'SWE', 5)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (204, 'Switzerland', 'CH', 'CHE', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (205, 'Syrian Arab Republic', 'SY', 'SYR', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (206, 'Taiwan', 'TW', 'TWN', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
@@ -522,8 +543,8 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (218, 'Tuvalu', 'TV', 'TUV', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (219, 'Uganda', 'UG', 'UGA', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (220, 'Ukraine', 'UA', 'UKR', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (221, 'United Arab Emirates', 'AE', 'ARE', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (222, 'United Kingdom', 'GB', 'GBR', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (221, 'United Arab Emirates', 'AE', 'ARE', 6)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (222, 'United Kingdom', 'GB', 'GBR', 7)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (223, 'United States', 'US', 'USA', 2)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (224, 'United States Minor Outlying Islands', 'UM', 'UMI', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES (225, 'Uruguay', 'UY', 'URY', 1)") OR die ("<b>".NOTUPDATED . $prefix_table . "countries</b>");
@@ -755,6 +776,16 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "tax_rates (tax_rates_id
 
 
 echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $prefix_table . "tax_rates " . UPDATED .'</font>';
+
+// Australian states
+$result = $db->Execute("INSERT INTO " . $prefix_table . "zones (zone_id, zone_country_id, zone_code, zone_name) VALUES (1, 13, 'VIC', 'Victoria')") OR die ("<b>".NOTUPDATED . $prefix_table . "zones</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "zones (zone_id, zone_country_id, zone_code, zone_name) VALUES (2, 13, 'NSW', 'New South Wales')") OR die ("<b>".NOTUPDATED . $prefix_table . "zones</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "zones (zone_id, zone_country_id, zone_code, zone_name) VALUES (3, 13, 'QLD', 'Queensland')") OR die ("<b>".NOTUPDATED . $prefix_table . "zones</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "zones (zone_id, zone_country_id, zone_code, zone_name) VALUES (4, 13, 'SA', 'South Australia')") OR die ("<b>".NOTUPDATED . $prefix_table . "zones</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "zones (zone_id, zone_country_id, zone_code, zone_name) VALUES (5, 13, 'NT', 'Northern Territory')") OR die ("<b>".NOTUPDATED . $prefix_table . "zones</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "zones (zone_id, zone_country_id, zone_code, zone_name) VALUES (6, 13, 'TAS', 'Tasmania')") OR die ("<b>".NOTUPDATED . $prefix_table . "zones</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "zones (zone_id, zone_country_id, zone_code, zone_name) VALUES (7, 13, 'ACT', 'Australian Capital Territory')") OR die ("<b>".NOTUPDATED . $prefix_table . "zones</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "zones (zone_id, zone_country_id, zone_code, zone_name) VALUES (8, 13, 'WA', 'Western Australia')") OR die ("<b>".NOTUPDATED . $prefix_table . "zones</b>");
 
 
 $result = $db->Execute("INSERT INTO " . $prefix_table . "zones (zone_id, zone_country_id, zone_code, zone_name) VALUES (66, 38, 'AB', 'Alberta')") OR die ("<b>".NOTUPDATED . $prefix_table . "zones</b>");
