@@ -124,7 +124,7 @@ if (!empty($action)) {
         $status = $status_result->fields;
 
         $remove_status = true;
-        if (($cID == DEFAULT_CUSTOMERS_STATUS_ID) || ($cID == DEFAULT_CUSTOMERS_STATUS_ID_GUEST) || ($cID == DEFAULT_CUSTOMERS_STATUS_ID_NEWSLETTER)) {
+        if ($cID == DEFAULT_CUSTOMERS_STATUS_ID) {
           $remove_status = false;
           $messageStack->add(ERROR_REMOVE_DEFAULT_CUSTOMERS_STATUS, 'error');
         } elseif ($status['count'] > 0) {
