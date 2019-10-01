@@ -339,8 +339,8 @@ class paypal_api {
 			// Get the payment Object by passing paymentId
 			// payment id was previously stored in session in
 			// CreatePaymentUsingPayPal.php
-			#  $paymentId = $_GET['paymentId'];
-			# $payment = Payment::get($paymentId, $apiContext);
+			$paymentId = $_GET['paymentId'];
+			$payment = Payment::get($paymentId, $apiContext);
 
 			// ### Payment Execute
 			// PaymentExecution object includes information necessary
