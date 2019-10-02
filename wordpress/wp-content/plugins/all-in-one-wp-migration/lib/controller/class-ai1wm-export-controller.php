@@ -103,13 +103,16 @@ class Ai1wm_Export_Controller {
 							exit;
 						}
 
-						wp_remote_post( apply_filters( 'ai1wm_http_export_url', admin_url( 'admin-ajax.php?action=ai1wm_export' ) ), array(
-							'timeout'   => apply_filters( 'ai1wm_http_export_timeout', 10 ),
-							'blocking'  => apply_filters( 'ai1wm_http_export_blocking', false ),
-							'sslverify' => apply_filters( 'ai1wm_http_export_sslverify', false ),
-							'headers'   => apply_filters( 'ai1wm_http_export_headers', array() ),
-							'body'      => apply_filters( 'ai1wm_http_export_body', $params ),
-						) );
+						wp_remote_post(
+							apply_filters( 'ai1wm_http_export_url', admin_url( 'admin-ajax.php?action=ai1wm_export' ) ),
+							array(
+								'timeout'   => apply_filters( 'ai1wm_http_export_timeout', 10 ),
+								'blocking'  => apply_filters( 'ai1wm_http_export_blocking', false ),
+								'sslverify' => apply_filters( 'ai1wm_http_export_sslverify', false ),
+								'headers'   => apply_filters( 'ai1wm_http_export_headers', array() ),
+								'body'      => apply_filters( 'ai1wm_http_export_body', $params ),
+							)
+						);
 						exit;
 					}
 				}
@@ -122,24 +125,122 @@ class Ai1wm_Export_Controller {
 	}
 
 	public static function buttons() {
-		return array(
-			apply_filters( 'ai1wm_export_file', Ai1wm_Template::get_content( 'export/button-file' ) ),
-			apply_filters( 'ai1wm_export_ftp', Ai1wm_Template::get_content( 'export/button-ftp' ) ),
-			apply_filters( 'ai1wm_export_dropbox', Ai1wm_Template::get_content( 'export/button-dropbox' ) ),
-			apply_filters( 'ai1wm_export_gdrive', Ai1wm_Template::get_content( 'export/button-gdrive' ) ),
-			apply_filters( 'ai1wm_export_s3', Ai1wm_Template::get_content( 'export/button-s3' ) ),
-			apply_filters( 'ai1wm_export_b2', Ai1wm_Template::get_content( 'export/button-b2' ) ),
-			apply_filters( 'ai1wm_export_onedrive', Ai1wm_Template::get_content( 'export/button-onedrive' ) ),
-			apply_filters( 'ai1wm_export_box', Ai1wm_Template::get_content( 'export/button-box' ) ),
-			apply_filters( 'ai1wm_export_mega', Ai1wm_Template::get_content( 'export/button-mega' ) ),
-			apply_filters( 'ai1wm_export_digitalocean', Ai1wm_Template::get_content( 'export/button-digitalocean' ) ),
-			apply_filters( 'ai1wm_export_gcloud_storage', Ai1wm_Template::get_content( 'export/button-gcloud-storage' ) ),
-			apply_filters( 'ai1wm_export_azure_storage', Ai1wm_Template::get_content( 'export/button-azure-storage' ) ),
-			apply_filters( 'ai1wm_export_glacier', Ai1wm_Template::get_content( 'export/button-glacier' ) ),
-			apply_filters( 'ai1wm_export_pcloud', Ai1wm_Template::get_content( 'export/button-pcloud' ) ),
-			apply_filters( 'ai1wm_export_webdav', Ai1wm_Template::get_content( 'export/button-webdav' ) ),
-			apply_filters( 'ai1wm_export_s3_client', Ai1wm_Template::get_content( 'export/button-s3-client' ) ),
-		);
+		$active_filters = array();
+		$static_filters = array();
+
+		// All in One WP Migration
+		if ( defined( 'AI1WM_PLUGIN_NAME' ) ) {
+			$active_filters[] = apply_filters( 'ai1wm_export_file', Ai1wm_Template::get_content( 'export/button-file' ) );
+		} else {
+			$static_filters[] = apply_filters( 'ai1wm_export_file', Ai1wm_Template::get_content( 'export/button-file' ) );
+		}
+
+		// Add FTP Extension
+		if ( defined( 'AI1WMFE_PLUGIN_NAME' ) ) {
+			$active_filters[] = apply_filters( 'ai1wm_export_ftp', Ai1wm_Template::get_content( 'export/button-ftp' ) );
+		} else {
+			$static_filters[] = apply_filters( 'ai1wm_export_ftp', Ai1wm_Template::get_content( 'export/button-ftp' ) );
+		}
+
+		// Add Dropbox Extension
+		if ( defined( 'AI1WMDE_PLUGIN_NAME' ) ) {
+			$active_filters[] = apply_filters( 'ai1wm_export_dropbox', Ai1wm_Template::get_content( 'export/button-dropbox' ) );
+		} else {
+			$static_filters[] = apply_filters( 'ai1wm_export_dropbox', Ai1wm_Template::get_content( 'export/button-dropbox' ) );
+		}
+
+		// Add Google Drive Extension
+		if ( defined( 'AI1WMGE_PLUGIN_NAME' ) ) {
+			$active_filters[] = apply_filters( 'ai1wm_export_gdrive', Ai1wm_Template::get_content( 'export/button-gdrive' ) );
+		} else {
+			$static_filters[] = apply_filters( 'ai1wm_export_gdrive', Ai1wm_Template::get_content( 'export/button-gdrive' ) );
+		}
+
+		// Add Amazon S3 Extension
+		if ( defined( 'AI1WMSE_PLUGIN_NAME' ) ) {
+			$active_filters[] = apply_filters( 'ai1wm_export_s3', Ai1wm_Template::get_content( 'export/button-s3' ) );
+		} else {
+			$static_filters[] = apply_filters( 'ai1wm_export_s3', Ai1wm_Template::get_content( 'export/button-s3' ) );
+		}
+
+		// Add Backblaze B2 Extension
+		if ( defined( 'AI1WMAE_PLUGIN_NAME' ) ) {
+			$active_filters[] = apply_filters( 'ai1wm_export_b2', Ai1wm_Template::get_content( 'export/button-b2' ) );
+		} else {
+			$static_filters[] = apply_filters( 'ai1wm_export_b2', Ai1wm_Template::get_content( 'export/button-b2' ) );
+		}
+
+		// Add OneDrive Extension
+		if ( defined( 'AI1WMOE_PLUGIN_NAME' ) ) {
+			$active_filters[] = apply_filters( 'ai1wm_export_onedrive', Ai1wm_Template::get_content( 'export/button-onedrive' ) );
+		} else {
+			$static_filters[] = apply_filters( 'ai1wm_export_onedrive', Ai1wm_Template::get_content( 'export/button-onedrive' ) );
+		}
+
+		// Add Box Extension
+		if ( defined( 'AI1WMBE_PLUGIN_NAME' ) ) {
+			$active_filters[] = apply_filters( 'ai1wm_export_box', Ai1wm_Template::get_content( 'export/button-box' ) );
+		} else {
+			$static_filters[] = apply_filters( 'ai1wm_export_box', Ai1wm_Template::get_content( 'export/button-box' ) );
+		}
+
+		// Add Mega Extension
+		if ( defined( 'AI1WMEE_PLUGIN_NAME' ) ) {
+			$active_filters[] = apply_filters( 'ai1wm_export_mega', Ai1wm_Template::get_content( 'export/button-mega' ) );
+		} else {
+			$static_filters[] = apply_filters( 'ai1wm_export_mega', Ai1wm_Template::get_content( 'export/button-mega' ) );
+		}
+
+		// Add DigitalOcean Spaces Extension
+		if ( defined( 'AI1WMIE_PLUGIN_NAME' ) ) {
+			$active_filters[] = apply_filters( 'ai1wm_export_digitalocean', Ai1wm_Template::get_content( 'export/button-digitalocean' ) );
+		} else {
+			$static_filters[] = apply_filters( 'ai1wm_export_digitalocean', Ai1wm_Template::get_content( 'export/button-digitalocean' ) );
+		}
+
+		// Add Google Cloud Storage Extension
+		if ( defined( 'AI1WMCE_PLUGIN_NAME' ) ) {
+			$active_filters[] = apply_filters( 'ai1wm_export_gcloud_storage', Ai1wm_Template::get_content( 'export/button-gcloud-storage' ) );
+		} else {
+			$static_filters[] = apply_filters( 'ai1wm_export_gcloud_storage', Ai1wm_Template::get_content( 'export/button-gcloud-storage' ) );
+		}
+
+		// Add Microsoft Azure Extension
+		if ( defined( 'AI1WMZE_PLUGIN_NAME' ) ) {
+			$active_filters[] = apply_filters( 'ai1wm_export_azure_storage', Ai1wm_Template::get_content( 'export/button-azure-storage' ) );
+		} else {
+			$static_filters[] = apply_filters( 'ai1wm_export_azure_storage', Ai1wm_Template::get_content( 'export/button-azure-storage' ) );
+		}
+
+		// Add Amazon Glacier Extension
+		if ( defined( 'AI1WMRE_PLUGIN_NAME' ) ) {
+			$active_filters[] = apply_filters( 'ai1wm_export_glacier', Ai1wm_Template::get_content( 'export/button-glacier' ) );
+		} else {
+			$static_filters[] = apply_filters( 'ai1wm_export_glacier', Ai1wm_Template::get_content( 'export/button-glacier' ) );
+		}
+
+		// Add pCloud Extension
+		if ( defined( 'AI1WMPE_PLUGIN_NAME' ) ) {
+			$active_filters[] = apply_filters( 'ai1wm_export_pcloud', Ai1wm_Template::get_content( 'export/button-pcloud' ) );
+		} else {
+			$static_filters[] = apply_filters( 'ai1wm_export_pcloud', Ai1wm_Template::get_content( 'export/button-pcloud' ) );
+		}
+
+		// Add WebDAV Extension
+		if ( defined( 'AI1WMWE_PLUGIN_NAME' ) ) {
+			$active_filters[] = apply_filters( 'ai1wm_export_webdav', Ai1wm_Template::get_content( 'export/button-webdav' ) );
+		} else {
+			$static_filters[] = apply_filters( 'ai1wm_export_webdav', Ai1wm_Template::get_content( 'export/button-webdav' ) );
+		}
+
+		// Add S3 Client Extension
+		if ( defined( 'AI1WMNE_PLUGIN_NAME' ) ) {
+			$active_filters[] = apply_filters( 'ai1wm_export_s3_client', Ai1wm_Template::get_content( 'export/button-s3-client' ) );
+		} else {
+			$static_filters[] = apply_filters( 'ai1wm_export_s3_client', Ai1wm_Template::get_content( 'export/button-s3-client' ) );
+		}
+
+		return array_merge( $active_filters, $static_filters );
 	}
 
 	public static function http_export_headers( $headers = array() ) {

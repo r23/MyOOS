@@ -39,12 +39,14 @@ class Ai1wm_Handler {
 	 * @return void
 	 */
 	public static function error( $errno, $errstr, $errfile, $errline ) {
-		Ai1wm_Log::error( array(
-			'Number'  => $errno,
-			'Message' => $errstr,
-			'File'    => $errfile,
-			'Line'    => $errline,
-		) );
+		Ai1wm_Log::error(
+			array(
+				'Number'  => $errno,
+				'Message' => $errstr,
+				'File'    => $errfile,
+				'Line'    => $errline,
+			)
+		);
 	}
 
 	/**

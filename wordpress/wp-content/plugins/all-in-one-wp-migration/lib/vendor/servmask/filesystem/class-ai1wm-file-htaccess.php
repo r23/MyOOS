@@ -36,17 +36,23 @@ class Ai1wm_File_Htaccess {
 	 * @return boolean
 	 */
 	public static function create( $path ) {
-		return Ai1wm_File::create( $path, implode( PHP_EOL, array(
-			'<IfModule mod_mime.c>',
-			'AddType application/octet-stream .wpress',
-			'</IfModule>',
-			'<IfModule mod_dir.c>',
-			'DirectoryIndex index.php',
-			'</IfModule>',
-			'<IfModule mod_autoindex.c>',
-			'Options -Indexes',
-			'</IfModule>',
-		) ) );
+		return Ai1wm_File::create(
+			$path,
+			implode(
+				PHP_EOL,
+				array(
+					'<IfModule mod_mime.c>',
+					'AddType application/octet-stream .wpress',
+					'</IfModule>',
+					'<IfModule mod_dir.c>',
+					'DirectoryIndex index.php',
+					'</IfModule>',
+					'<IfModule mod_autoindex.c>',
+					'Options -Indexes',
+					'</IfModule>',
+				)
+			)
+		);
 	}
 
 	/**
@@ -56,10 +62,14 @@ class Ai1wm_File_Htaccess {
 	 * @return boolean
 	 */
 	public static function litespeed( $path ) {
-		return Ai1wm_File::create_with_markers( $path, 'LiteSpeed', array(
-			'<IfModule Litespeed>',
-			'SetEnv noabort 1',
-			'</IfModule>',
-		) );
+		return Ai1wm_File::create_with_markers(
+			$path,
+			'LiteSpeed',
+			array(
+				'<IfModule Litespeed>',
+				'SetEnv noabort 1',
+				'</IfModule>',
+			)
+		);
 	}
 }

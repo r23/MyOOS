@@ -662,12 +662,15 @@ function ai1wm_table_prefix( $blog_id = null ) {
  * @return array
  */
 function ai1wm_content_filters( $filters = array() ) {
-	return array_merge( $filters, array(
-		AI1WM_BACKUPS_NAME,
-		AI1WM_PACKAGE_NAME,
-		AI1WM_MULTISITE_NAME,
-		AI1WM_DATABASE_NAME,
-	) );
+	return array_merge(
+		$filters,
+		array(
+			AI1WM_BACKUPS_NAME,
+			AI1WM_PACKAGE_NAME,
+			AI1WM_MULTISITE_NAME,
+			AI1WM_DATABASE_NAME,
+		)
+	);
 }
 
 /**
@@ -1254,6 +1257,17 @@ function ai1wm_cache_flush() {
 	// Remove WP filters
 	remove_all_filters( 'sanitize_option_siteurl' );
 	remove_all_filters( 'sanitize_option_home' );
+}
+
+/**
+ * Flush Elementor cache
+ *
+ * @return void
+ */
+function ai1wm_elementor_cache_flush() {
+	delete_post_meta_by_key( '_elementor_css' );
+	delete_option( '_elementor_global_css' );
+	delete_option( 'elementor-custom-breakpoints-files' );
 }
 
 /**

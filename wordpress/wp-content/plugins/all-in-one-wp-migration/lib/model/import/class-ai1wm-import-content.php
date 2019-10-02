@@ -150,12 +150,18 @@ class Ai1wm_Import_Content {
 			$exclude_files = array_keys( _get_dropins() );
 
 			// Exclude plugin files
-			$exclude_files = array_merge( $exclude_files, array(
-				AI1WM_PACKAGE_NAME,
-				AI1WM_MULTISITE_NAME,
-				AI1WM_DATABASE_NAME,
-				AI1WM_MUPLUGINS_NAME,
-			) );
+			$exclude_files = array_merge(
+				$exclude_files,
+				array(
+					AI1WM_PACKAGE_NAME,
+					AI1WM_MULTISITE_NAME,
+					AI1WM_DATABASE_NAME,
+					AI1WM_MUPLUGINS_NAME,
+				)
+			);
+
+			// Exclude Elementor files
+			$exclude_files = array_merge( $exclude_files, array( AI1WM_ELEMENTOR_CSS_NAME ) );
 
 			// Exclude content extensions
 			$exclude_extensions = array( AI1WM_LESS_CACHE_NAME );

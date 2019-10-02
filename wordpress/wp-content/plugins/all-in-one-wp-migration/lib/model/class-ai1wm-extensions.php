@@ -37,7 +37,7 @@ class Ai1wm_Extensions {
 	public static function get() {
 		$extensions = array();
 
-		// Add Microsoft Azure extension
+		// Add Microsoft Azure Extension
 		if ( defined( 'AI1WMZE_PLUGIN_NAME' ) ) {
 			$extensions[ AI1WMZE_PLUGIN_NAME ] = array(
 				'key'      => AI1WMZE_PLUGIN_KEY,
@@ -50,7 +50,7 @@ class Ai1wm_Extensions {
 			);
 		}
 
-		// Add Backblaze B2 extension
+		// Add Backblaze B2 Extension
 		if ( defined( 'AI1WMAE_PLUGIN_NAME' ) ) {
 			$extensions[ AI1WMAE_PLUGIN_NAME ] = array(
 				'key'      => AI1WMAE_PLUGIN_KEY,
@@ -167,7 +167,7 @@ class Ai1wm_Extensions {
 			);
 		}
 
-		// Add Amazon Glacier extension
+		// Add Amazon Glacier Extension
 		if ( defined( 'AI1WMRE_PLUGIN_NAME' ) ) {
 			$extensions[ AI1WMRE_PLUGIN_NAME ] = array(
 				'key'      => AI1WMRE_PLUGIN_KEY,
@@ -245,7 +245,7 @@ class Ai1wm_Extensions {
 			);
 		}
 
-		// Add Amazon S3 extension
+		// Add Amazon S3 Extension
 		if ( defined( 'AI1WMSE_PLUGIN_NAME' ) ) {
 			$extensions[ AI1WMSE_PLUGIN_NAME ] = array(
 				'key'      => AI1WMSE_PLUGIN_KEY,
@@ -284,7 +284,7 @@ class Ai1wm_Extensions {
 			);
 		}
 
-		// Add WebDAV extension
+		// Add WebDAV Extension
 		if ( defined( 'AI1WMWE_PLUGIN_NAME' ) ) {
 			$extensions[ AI1WMWE_PLUGIN_NAME ] = array(
 				'key'      => AI1WMWE_PLUGIN_KEY,

@@ -48,6 +48,23 @@ class Ai1wm_Export_Enumerate {
 		// Set progress
 		Ai1wm_Status::info( __( 'Retrieving a list of all WordPress files...', AI1WM_PLUGIN_NAME ) );
 
+		if ( isset( $params['options']['no_media'] )
+			&& isset( $params['options']['no_themes'] )
+			&& isset( $params['options']['no_muplugins'] )
+			&& isset( $params['options']['no_plugins'] ) ) {
+
+			// Create map file
+			$filemap = ai1wm_open( ai1wm_filemap_path( $params ), 'w' );
+
+			// Close the filemap file
+			ai1wm_close( $filemap );
+
+			// Set progress
+			Ai1wm_Status::info( __( 'Done retrieving a list of all WordPress files.', AI1WM_PLUGIN_NAME ) );
+
+			return $params;
+		}
+
 		// Set exclude filters
 		$exclude_filters = ai1wm_content_filters();
 
@@ -91,8 +108,7 @@ class Ai1wm_Export_Enumerate {
 			if ( isset( $params['options']['no_inactive_plugins'] ) ) {
 				foreach ( get_plugins() as $plugin => $info ) {
 					if ( is_plugin_inactive( $plugin ) ) {
-						$inactive_plugins[] = 'plugins' . DIRECTORY_SEPARATOR .
-							( ( dirname( $plugin ) === '.' ) ? basename( $plugin ) : dirname( $plugin ) );
+						$inactive_plugins[] = 'plugins' . DIRECTORY_SEPARATOR . ( ( dirname( $plugin ) === '.' ) ? basename( $plugin ) : dirname( $plugin ) );
 					}
 				}
 			}
@@ -104,6 +120,14 @@ class Ai1wm_Export_Enumerate {
 		// Exclude media
 		if ( isset( $params['options']['no_media'] ) ) {
 			$exclude_filters = array_merge( $exclude_filters, array( 'uploads', 'blogs.dir' ) );
+		}
+
+		// Exclude selected files
+		if ( isset( $params['options']['exclude_files'] ) && isset( $params['excluded_files'] ) ) {
+			$excluded_files = explode( ',', $params['excluded_files'] );
+			if ( $excluded_files ) {
+				$exclude_filters = array_merge( $exclude_filters, $excluded_files );
+			}
 		}
 
 		// Create map file

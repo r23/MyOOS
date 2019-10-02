@@ -117,10 +117,13 @@ class Ai1wm_Updater {
 
 		// Get extension updates
 		foreach ( Ai1wm_Extensions::get() as $slug => $extension ) {
-			$response = wp_remote_get( $extension['about'], array(
-				'timeout' => 15,
-				'headers' => array( 'Accept' => 'application/json' ),
-			) );
+			$response = wp_remote_get(
+				$extension['about'],
+				array(
+					'timeout' => 15,
+					'headers' => array( 'Accept' => 'application/json' ),
+				)
+			);
 
 			// Add updates
 			if ( ! is_wp_error( $response ) ) {
@@ -177,17 +180,23 @@ class Ai1wm_Updater {
 				if ( get_option( $extension['key'] ) ) {
 
 					// Add "Check for updates" link
-					$links[] = Ai1wm_Template::get_content( 'updater/check', array(
-						'url' => $updater_url,
-					) );
+					$links[] = Ai1wm_Template::get_content(
+						'updater/check',
+						array(
+							'url' => $updater_url,
+						)
+					);
 
 				} else {
 
 					// Add modal
-					$links[] = Ai1wm_Template::get_content( 'updater/modal', array(
-						'url'   => $updater_url,
-						'modal' => $modal_index,
-					) );
+					$links[] = Ai1wm_Template::get_content(
+						'updater/modal',
+						array(
+							'url'   => $updater_url,
+							'modal' => $modal_index,
+						)
+					);
 
 				}
 			}

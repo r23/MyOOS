@@ -35,7 +35,7 @@ define( 'AI1WM_DEBUG', false );
 // ==================
 // = Plugin Version =
 // ==================
-define( 'AI1WM_VERSION', '7.7' );
+define( 'AI1WM_VERSION', '7.8' );
 
 // ===============
 // = Plugin Name =
@@ -171,6 +171,11 @@ define( 'AI1WM_MUPLUGINS_NAME', 'mu-plugins' );
 // = Less Cache Extension Name =
 // =============================
 define( 'AI1WM_LESS_CACHE_NAME', '.less.cache' );
+
+// ============================
+// = Elementor CSS Cache Name =
+// ============================
+define( 'AI1WM_ELEMENTOR_CSS_NAME', 'uploads' . DIRECTORY_SEPARATOR . 'elementor' . DIRECTORY_SEPARATOR . 'css' );
 
 // =============================
 // = Endurance Page Cache Name =

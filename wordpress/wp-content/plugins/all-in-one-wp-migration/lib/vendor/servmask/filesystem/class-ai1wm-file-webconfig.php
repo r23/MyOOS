@@ -36,20 +36,26 @@ class Ai1wm_File_Webconfig {
 	 * @return boolean
 	 */
 	public static function create( $path ) {
-		return Ai1wm_File::create( $path, implode( PHP_EOL, array(
-			'<configuration>',
-			'<system.webServer>',
-			'<staticContent>',
-			'<mimeMap fileExtension=".wpress" mimeType="application/octet-stream" />',
-			'</staticContent>',
-			'<defaultDocument>',
-			'<files>',
-			'<add value="index.php" />',
-			'</files>',
-			'</defaultDocument>',
-			'<directoryBrowse enabled="false" />',
-			'</system.webServer>',
-			'</configuration>',
-		) ) );
+		return Ai1wm_File::create(
+			$path,
+			implode(
+				PHP_EOL,
+				array(
+					'<configuration>',
+					'<system.webServer>',
+					'<staticContent>',
+					'<mimeMap fileExtension=".wpress" mimeType="application/octet-stream" />',
+					'</staticContent>',
+					'<defaultDocument>',
+					'<files>',
+					'<add value="index.php" />',
+					'</files>',
+					'</defaultDocument>',
+					'<directoryBrowse enabled="false" />',
+					'</system.webServer>',
+					'</configuration>',
+				)
+			)
+		);
 	}
 }

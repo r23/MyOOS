@@ -33,6 +33,7 @@ class Ai1wm_Import_Done {
 
 		// Check multisite.json file
 		if ( true === is_file( ai1wm_multisite_path( $params ) ) ) {
+
 			// Read multisite.json file
 			$handle = ai1wm_open( ai1wm_multisite_path( $params ), 'r' );
 
@@ -50,35 +51,42 @@ class Ai1wm_Import_Done {
 
 			// Deactivate WordPress SSL plugins
 			if ( ! is_ssl() ) {
-				ai1wm_deactivate_plugins( array(
-					ai1wm_discover_plugin_basename( 'really-simple-ssl/rlrsssl-really-simple-ssl.php' ),
-					ai1wm_discover_plugin_basename( 'wordpress-https/wordpress-https.php' ),
-					ai1wm_discover_plugin_basename( 'wp-force-ssl/wp-force-ssl.php' ),
-					ai1wm_discover_plugin_basename( 'force-https-littlebizzy/force-https.php' ),
-				) );
+				ai1wm_deactivate_plugins(
+					array(
+						ai1wm_discover_plugin_basename( 'really-simple-ssl/rlrsssl-really-simple-ssl.php' ),
+						ai1wm_discover_plugin_basename( 'wordpress-https/wordpress-https.php' ),
+						ai1wm_discover_plugin_basename( 'wp-force-ssl/wp-force-ssl.php' ),
+						ai1wm_discover_plugin_basename( 'force-https-littlebizzy/force-https.php' ),
+					)
+				);
 			}
 
 			// Deactivate WordPress plugins
-			ai1wm_deactivate_plugins( array(
-				ai1wm_discover_plugin_basename( 'invisible-recaptcha/invisible-recaptcha.php' ),
-				ai1wm_discover_plugin_basename( 'wps-hide-login/wps-hide-login.php' ),
-				ai1wm_discover_plugin_basename( 'hide-my-wp/index.php' ),
-				ai1wm_discover_plugin_basename( 'hide-my-wordpress/index.php' ),
-				ai1wm_discover_plugin_basename( 'mycustomwidget/my_custom_widget.php' ),
-				ai1wm_discover_plugin_basename( 'lockdown-wp-admin/lockdown-wp-admin.php' ),
-				ai1wm_discover_plugin_basename( 'rename-wp-login/rename-wp-login.php' ),
-				ai1wm_discover_plugin_basename( 'wp-simple-firewall/icwp-wpsf.php' ),
-				ai1wm_discover_plugin_basename( 'join-my-multisite/joinmymultisite.php' ),
-				ai1wm_discover_plugin_basename( 'multisite-clone-duplicator/multisite-clone-duplicator.php' ),
-				ai1wm_discover_plugin_basename( 'wordpress-mu-domain-mapping/domain_mapping.php' ),
-				ai1wm_discover_plugin_basename( 'pro-sites/pro-sites.php' ),
-			) );
+			ai1wm_deactivate_plugins(
+				array(
+					ai1wm_discover_plugin_basename( 'invisible-recaptcha/invisible-recaptcha.php' ),
+					ai1wm_discover_plugin_basename( 'wps-hide-login/wps-hide-login.php' ),
+					ai1wm_discover_plugin_basename( 'hide-my-wp/index.php' ),
+					ai1wm_discover_plugin_basename( 'hide-my-wordpress/index.php' ),
+					ai1wm_discover_plugin_basename( 'mycustomwidget/my_custom_widget.php' ),
+					ai1wm_discover_plugin_basename( 'lockdown-wp-admin/lockdown-wp-admin.php' ),
+					ai1wm_discover_plugin_basename( 'rename-wp-login/rename-wp-login.php' ),
+					ai1wm_discover_plugin_basename( 'wp-simple-firewall/icwp-wpsf.php' ),
+					ai1wm_discover_plugin_basename( 'join-my-multisite/joinmymultisite.php' ),
+					ai1wm_discover_plugin_basename( 'multisite-clone-duplicator/multisite-clone-duplicator.php' ),
+					ai1wm_discover_plugin_basename( 'wordpress-mu-domain-mapping/domain_mapping.php' ),
+					ai1wm_discover_plugin_basename( 'pro-sites/pro-sites.php' ),
+				)
+			);
 
 			// Deactivate Revolution Slider
 			ai1wm_deactivate_revolution_slider( ai1wm_discover_plugin_basename( 'revslider/revslider.php' ) );
 
 			// Deactivate Jetpack modules
 			ai1wm_deactivate_jetpack_modules( array( 'photon', 'sso' ) );
+
+			// Flush Elementor cache
+			ai1wm_elementor_cache_flush();
 
 		} else {
 
@@ -112,40 +120,48 @@ class Ai1wm_Import_Done {
 
 				// Deactivate WordPress SSL plugins
 				if ( ! is_ssl() ) {
-					ai1wm_deactivate_plugins( array(
-						ai1wm_discover_plugin_basename( 'really-simple-ssl/rlrsssl-really-simple-ssl.php' ),
-						ai1wm_discover_plugin_basename( 'wordpress-https/wordpress-https.php' ),
-						ai1wm_discover_plugin_basename( 'wp-force-ssl/wp-force-ssl.php' ),
-						ai1wm_discover_plugin_basename( 'force-https-littlebizzy/force-https.php' ),
-					) );
+					ai1wm_deactivate_plugins(
+						array(
+							ai1wm_discover_plugin_basename( 'really-simple-ssl/rlrsssl-really-simple-ssl.php' ),
+							ai1wm_discover_plugin_basename( 'wordpress-https/wordpress-https.php' ),
+							ai1wm_discover_plugin_basename( 'wp-force-ssl/wp-force-ssl.php' ),
+							ai1wm_discover_plugin_basename( 'force-https-littlebizzy/force-https.php' ),
+						)
+					);
 				}
 
 				// Deactivate WordPress plugins
-				ai1wm_deactivate_plugins( array(
-					ai1wm_discover_plugin_basename( 'invisible-recaptcha/invisible-recaptcha.php' ),
-					ai1wm_discover_plugin_basename( 'wps-hide-login/wps-hide-login.php' ),
-					ai1wm_discover_plugin_basename( 'hide-my-wp/index.php' ),
-					ai1wm_discover_plugin_basename( 'hide-my-wordpress/index.php' ),
-					ai1wm_discover_plugin_basename( 'mycustomwidget/my_custom_widget.php' ),
-					ai1wm_discover_plugin_basename( 'lockdown-wp-admin/lockdown-wp-admin.php' ),
-					ai1wm_discover_plugin_basename( 'rename-wp-login/rename-wp-login.php' ),
-					ai1wm_discover_plugin_basename( 'wp-simple-firewall/icwp-wpsf.php' ),
-					ai1wm_discover_plugin_basename( 'join-my-multisite/joinmymultisite.php' ),
-					ai1wm_discover_plugin_basename( 'multisite-clone-duplicator/multisite-clone-duplicator.php' ),
-					ai1wm_discover_plugin_basename( 'wordpress-mu-domain-mapping/domain_mapping.php' ),
-					ai1wm_discover_plugin_basename( 'pro-sites/pro-sites.php' ),
-				) );
+				ai1wm_deactivate_plugins(
+					array(
+						ai1wm_discover_plugin_basename( 'invisible-recaptcha/invisible-recaptcha.php' ),
+						ai1wm_discover_plugin_basename( 'wps-hide-login/wps-hide-login.php' ),
+						ai1wm_discover_plugin_basename( 'hide-my-wp/index.php' ),
+						ai1wm_discover_plugin_basename( 'hide-my-wordpress/index.php' ),
+						ai1wm_discover_plugin_basename( 'mycustomwidget/my_custom_widget.php' ),
+						ai1wm_discover_plugin_basename( 'lockdown-wp-admin/lockdown-wp-admin.php' ),
+						ai1wm_discover_plugin_basename( 'rename-wp-login/rename-wp-login.php' ),
+						ai1wm_discover_plugin_basename( 'wp-simple-firewall/icwp-wpsf.php' ),
+						ai1wm_discover_plugin_basename( 'join-my-multisite/joinmymultisite.php' ),
+						ai1wm_discover_plugin_basename( 'multisite-clone-duplicator/multisite-clone-duplicator.php' ),
+						ai1wm_discover_plugin_basename( 'wordpress-mu-domain-mapping/domain_mapping.php' ),
+						ai1wm_discover_plugin_basename( 'pro-sites/pro-sites.php' ),
+					)
+				);
 
 				// Deactivate Revolution Slider
 				ai1wm_deactivate_revolution_slider( ai1wm_discover_plugin_basename( 'revslider/revslider.php' ) );
 
 				// Deactivate Jetpack modules
 				ai1wm_deactivate_jetpack_modules( array( 'photon', 'sso' ) );
+
+				// Flush Elementor cache
+				ai1wm_elementor_cache_flush();
 			}
 		}
 
 		// Check blogs.json file
 		if ( true === is_file( ai1wm_blogs_path( $params ) ) ) {
+
 			// Read blogs.json file
 			$handle = ai1wm_open( ai1wm_blogs_path( $params ), 'r' );
 
@@ -176,35 +192,42 @@ class Ai1wm_Import_Done {
 
 				// Deactivate WordPress SSL plugins
 				if ( ! is_ssl() ) {
-					ai1wm_deactivate_plugins( array(
-						ai1wm_discover_plugin_basename( 'really-simple-ssl/rlrsssl-really-simple-ssl.php' ),
-						ai1wm_discover_plugin_basename( 'wordpress-https/wordpress-https.php' ),
-						ai1wm_discover_plugin_basename( 'wp-force-ssl/wp-force-ssl.php' ),
-						ai1wm_discover_plugin_basename( 'force-https-littlebizzy/force-https.php' ),
-					) );
+					ai1wm_deactivate_plugins(
+						array(
+							ai1wm_discover_plugin_basename( 'really-simple-ssl/rlrsssl-really-simple-ssl.php' ),
+							ai1wm_discover_plugin_basename( 'wordpress-https/wordpress-https.php' ),
+							ai1wm_discover_plugin_basename( 'wp-force-ssl/wp-force-ssl.php' ),
+							ai1wm_discover_plugin_basename( 'force-https-littlebizzy/force-https.php' ),
+						)
+					);
 				}
 
 				// Deactivate WordPress plugins
-				ai1wm_deactivate_plugins( array(
-					ai1wm_discover_plugin_basename( 'invisible-recaptcha/invisible-recaptcha.php' ),
-					ai1wm_discover_plugin_basename( 'wps-hide-login/wps-hide-login.php' ),
-					ai1wm_discover_plugin_basename( 'hide-my-wp/index.php' ),
-					ai1wm_discover_plugin_basename( 'hide-my-wordpress/index.php' ),
-					ai1wm_discover_plugin_basename( 'mycustomwidget/my_custom_widget.php' ),
-					ai1wm_discover_plugin_basename( 'lockdown-wp-admin/lockdown-wp-admin.php' ),
-					ai1wm_discover_plugin_basename( 'rename-wp-login/rename-wp-login.php' ),
-					ai1wm_discover_plugin_basename( 'wp-simple-firewall/icwp-wpsf.php' ),
-					ai1wm_discover_plugin_basename( 'join-my-multisite/joinmymultisite.php' ),
-					ai1wm_discover_plugin_basename( 'multisite-clone-duplicator/multisite-clone-duplicator.php' ),
-					ai1wm_discover_plugin_basename( 'wordpress-mu-domain-mapping/domain_mapping.php' ),
-					ai1wm_discover_plugin_basename( 'pro-sites/pro-sites.php' ),
-				) );
+				ai1wm_deactivate_plugins(
+					array(
+						ai1wm_discover_plugin_basename( 'invisible-recaptcha/invisible-recaptcha.php' ),
+						ai1wm_discover_plugin_basename( 'wps-hide-login/wps-hide-login.php' ),
+						ai1wm_discover_plugin_basename( 'hide-my-wp/index.php' ),
+						ai1wm_discover_plugin_basename( 'hide-my-wordpress/index.php' ),
+						ai1wm_discover_plugin_basename( 'mycustomwidget/my_custom_widget.php' ),
+						ai1wm_discover_plugin_basename( 'lockdown-wp-admin/lockdown-wp-admin.php' ),
+						ai1wm_discover_plugin_basename( 'rename-wp-login/rename-wp-login.php' ),
+						ai1wm_discover_plugin_basename( 'wp-simple-firewall/icwp-wpsf.php' ),
+						ai1wm_discover_plugin_basename( 'join-my-multisite/joinmymultisite.php' ),
+						ai1wm_discover_plugin_basename( 'multisite-clone-duplicator/multisite-clone-duplicator.php' ),
+						ai1wm_discover_plugin_basename( 'wordpress-mu-domain-mapping/domain_mapping.php' ),
+						ai1wm_discover_plugin_basename( 'pro-sites/pro-sites.php' ),
+					)
+				);
 
 				// Deactivate Revolution Slider
 				ai1wm_deactivate_revolution_slider( ai1wm_discover_plugin_basename( 'revslider/revslider.php' ) );
 
 				// Deactivate Jetpack modules
 				ai1wm_deactivate_jetpack_modules( array( 'photon', 'sso' ) );
+
+				// Flush Elementor cache
+				ai1wm_elementor_cache_flush();
 			}
 		}
 
