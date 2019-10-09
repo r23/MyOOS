@@ -13,6 +13,7 @@ namespace Symfony\Component\HttpClient\Response;
 
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpClient\Chunk\FirstChunk;
+use Symfony\Component\HttpClient\Chunk\InformationalChunk;
 use Symfony\Component\HttpClient\Exception\TransportException;
 use Symfony\Component\HttpClient\Internal\CurlClientState;
 use Symfony\Contracts\HttpClient\ResponseInterface;
@@ -120,18 +121,17 @@ final class CurlResponse implements ResponseInterface
 
             if (\in_array($waitFor, ['headers', 'destruct'], true)) {
                 try {
-                    if (\defined('CURLOPT_STREAM_WEIGHT')) {
-                        curl_setopt($ch, CURLOPT_STREAM_WEIGHT, 32);
+                    foreach (self::stream([$response]) as $chunk) {
+                        if ($chunk->isFirst()) {
+                            break;
+                        }
                     }
-                    self::stream([$response])->current();
                 } catch (\Throwable $e) {
                     // Persist timeouts thrown during initialization
                     $response->info['error'] = $e->getMessage();
                     $response->close();
                     throw $e;
                 }
-            } elseif ('content' === $waitFor && ($response->multi->handlesActivity[$response->id][0] ?? null) instanceof FirstChunk) {
-                self::stream([$response])->current();
             }
 
             curl_setopt($ch, CURLOPT_HEADERFUNCTION, null);
@@ -140,7 +140,7 @@ final class CurlResponse implements ResponseInterface
         };
 
         // Schedule the request in a non-blocking way
-        $multi->openHandles[$id] = $ch;
+        $multi->openHandles[$id] = [$ch, $options];
         curl_multi_add_handle($multi->handle, $ch);
         self::perform($multi);
     }
@@ -314,8 +314,11 @@ final class CurlResponse implements ResponseInterface
             return \strlen($data);
         }
 
-        // End of headers: handle redirects and add to the activity list
+        // End of headers: handle informational responses, redirects, etc.
+
         if (200 > $statusCode = curl_getinfo($ch, CURLINFO_RESPONSE_CODE)) {
+            $multi->handlesActivity[$id][] = new InformationalChunk($statusCode, $headers);
+
             return \strlen($data);
         }
 
@@ -342,7 +345,7 @@ final class CurlResponse implements ResponseInterface
 
         if ($statusCode < 300 || 400 <= $statusCode || curl_getinfo($ch, CURLINFO_REDIRECT_COUNT) === $options['max_redirects']) {
             // Headers and redirects completed, time to get the response's body
-            $multi->handlesActivity[$id] = [new FirstChunk()];
+            $multi->handlesActivity[$id][] = new FirstChunk();
 
             if ('destruct' === $waitFor) {
                 return 0;

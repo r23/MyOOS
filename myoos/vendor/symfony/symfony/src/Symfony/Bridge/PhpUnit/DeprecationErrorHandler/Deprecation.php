@@ -27,41 +27,21 @@ class Deprecation
     const TYPE_INDIRECT = 'type_indirect';
     const TYPE_UNDETERMINED = 'type_undetermined';
 
-    /**
-     * @var array
-     */
-    private $trace;
-
-    /**
-     * @var string
-     */
+    private $trace = [];
     private $message;
-
-    /**
-     * @var ?string
-     */
     private $originClass;
-
-    /**
-     * @var ?string
-     */
     private $originMethod;
-
-    /**
-     * @var string
-     */
     private $triggeringFile;
 
-    /** @var string[] absolute paths to vendor directories */
+    /** @var string[] Absolute paths to vendor directories */
     private static $vendors;
 
     /**
-     * @var string[] absolute paths to source or tests of the project. This
-     *               excludes cache directories, because it is based on
-     *               autoloading rules and cache systems typically do not use
-     *               those.
+     * @var string[] Absolute paths to source or tests of the project, cache
+     *               directories exlcuded because it is based on autoloading
+     *               rules and cache systems typically do not use those
      */
-    private static $internalPaths;
+    private static $internalPaths = [];
 
     /**
      * @param string $message
@@ -265,7 +245,7 @@ class Deprecation
     private static function getVendors()
     {
         if (null === self::$vendors) {
-            self::$vendors = [];
+            self::$vendors = $paths = [];
             foreach (get_declared_classes() as $class) {
                 if ('C' === $class[0] && 0 === strpos($class, 'ComposerAutoloaderInit')) {
                     $r = new \ReflectionClass($class);

@@ -349,11 +349,6 @@ class AutowirePassTest extends TestCase
         }
     }
 
-    /**
-     * @group issue-32995
-     *
-     * @runInSeparateProcess https://github.com/symfony/symfony/issues/32995
-     */
     public function testParentClassNotFoundThrowsException()
     {
         $container = new ContainerBuilder();
@@ -573,12 +568,10 @@ class AutowirePassTest extends TestCase
         );
     }
 
-    /**
-     * @exceptedExceptionMessage Invalid service "Symfony\Component\DependencyInjection\Tests\Fixtures\NamedArgumentsDummy": method "setLogger()" does not exist.
-     */
     public function testWithNonExistingSetterAndAutowiring()
     {
         $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Invalid service "Symfony\Component\DependencyInjection\Tests\Fixtures\CaseSensitiveClass": method "setLogger()" does not exist.');
         $container = new ContainerBuilder();
 
         $definition = $container->register(CaseSensitiveClass::class, CaseSensitiveClass::class)->setAutowired(true);
@@ -627,11 +620,6 @@ class AutowirePassTest extends TestCase
         ];
     }
 
-    /**
-     * @group issue-32995
-     *
-     * @runInSeparateProcess https://github.com/symfony/symfony/issues/32995
-     */
     public function testIgnoreServiceWithClassNotExisting()
     {
         $container = new ContainerBuilder();
@@ -834,11 +822,6 @@ class AutowirePassTest extends TestCase
         }
     }
 
-    /**
-     * @group issue-32995
-     *
-     * @runInSeparateProcess https://github.com/symfony/symfony/issues/32995
-     */
     public function testExceptionWhenAliasDoesNotExist()
     {
         $container = new ContainerBuilder();

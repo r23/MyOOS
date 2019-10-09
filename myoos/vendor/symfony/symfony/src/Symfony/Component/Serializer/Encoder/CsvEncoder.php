@@ -35,7 +35,7 @@ class CsvEncoder implements EncoderInterface, DecoderInterface
     private $defaultContext = [
         self::DELIMITER_KEY => ',',
         self::ENCLOSURE_KEY => '"',
-        self::ESCAPE_CHAR_KEY => '\\',
+        self::ESCAPE_CHAR_KEY => '',
         self::ESCAPE_FORMULAS_KEY => false,
         self::HEADERS_KEY => [],
         self::KEY_SEPARATOR_KEY => '.',
@@ -45,7 +45,7 @@ class CsvEncoder implements EncoderInterface, DecoderInterface
     /**
      * @param array $defaultContext
      */
-    public function __construct($defaultContext = [], string $enclosure = '"', string $escapeChar = '\\', string $keySeparator = '.', bool $escapeFormulas = false)
+    public function __construct($defaultContext = [], string $enclosure = '"', string $escapeChar = '', string $keySeparator = '.', bool $escapeFormulas = false)
     {
         if (!\is_array($defaultContext)) {
             @trigger_error('Passing configuration options directly to the constructor is deprecated since Symfony 4.2, use the default context instead.', E_USER_DEPRECATED);
@@ -60,6 +60,10 @@ class CsvEncoder implements EncoderInterface, DecoderInterface
         }
 
         $this->defaultContext = array_merge($this->defaultContext, $defaultContext);
+
+        if (\PHP_VERSION_ID < 70400 && '' === $this->defaultContext[self::ESCAPE_CHAR_KEY]) {
+            $this->defaultContext[self::ESCAPE_CHAR_KEY] = '\\';
+        }
     }
 
     /**
