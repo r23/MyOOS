@@ -260,19 +260,6 @@
       }
     }
 
-
-   /**
-    * Called at various times. This public function calulates the total value of the order that the
-    * credit will be appled aginst. This varies depending on whether the credit class applies
-    * to shipping & tax
-    */
-    public function get_order_total_main($class, $order_total) {
-      global $credit, $oOrder;
-
-      if ($GLOBALS[$class]->include_tax == 'false') $order_total=$order_total-$oOrder->info['tax'];
-      if ($GLOBALS[$class]->include_shipping == 'false') $order_total=$order_total-$oOrder->info['shipping_cost'];
-      return $order_total;
-    }
   }
 
 
