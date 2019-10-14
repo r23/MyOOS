@@ -13,7 +13,6 @@
  *
  * @since 2.1.0
  */
- 
 define( 'DOING_AJAX', true );
 if ( ! defined( 'WP_ADMIN' ) ) {
 	define( 'WP_ADMIN', true );
