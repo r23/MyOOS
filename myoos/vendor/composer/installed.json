@@ -1562,17 +1562,17 @@
     },
     {
         "name": "stripe/stripe-php",
-        "version": "v7.3.1",
-        "version_normalized": "7.3.1.0",
+        "version": "v7.4.0",
+        "version_normalized": "7.4.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/stripe/stripe-php.git",
-            "reference": "8278b83a28dd77deef733276d2301c6f8b424765"
+            "reference": "96c59742329c4a9b3f531e91d64e432c82654b91"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/stripe/stripe-php/zipball/8278b83a28dd77deef733276d2301c6f8b424765",
-            "reference": "8278b83a28dd77deef733276d2301c6f8b424765",
+            "url": "https://api.github.com/repos/stripe/stripe-php/zipball/96c59742329c4a9b3f531e91d64e432c82654b91",
+            "reference": "96c59742329c4a9b3f531e91d64e432c82654b91",
             "shasum": ""
         },
         "require": {
@@ -1588,7 +1588,7 @@
             "squizlabs/php_codesniffer": "^3.3",
             "symfony/process": "~3.4"
         },
-        "time": "2019-10-07T17:24:41+00:00",
+        "time": "2019-10-16T00:23:34+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -2232,17 +2232,17 @@
     },
     {
         "name": "twig/twig",
-        "version": "v2.12.0",
-        "version_normalized": "2.12.0.0",
+        "version": "v2.12.1",
+        "version_normalized": "2.12.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/twigphp/Twig.git",
-            "reference": "c7a85fd08348ca04b4d8f234f49583d9910906aa"
+            "reference": "ddd4134af9bfc6dba4eff7c8447444ecc45b9ee5"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/twigphp/Twig/zipball/c7a85fd08348ca04b4d8f234f49583d9910906aa",
-            "reference": "c7a85fd08348ca04b4d8f234f49583d9910906aa",
+            "url": "https://api.github.com/repos/twigphp/Twig/zipball/ddd4134af9bfc6dba4eff7c8447444ecc45b9ee5",
+            "reference": "ddd4134af9bfc6dba4eff7c8447444ecc45b9ee5",
             "shasum": ""
         },
         "require": {
@@ -2255,7 +2255,7 @@
             "symfony/debug": "^3.4|^4.2",
             "symfony/phpunit-bridge": "^4.4@dev|^5.0"
         },
-        "time": "2019-10-05T16:42:38+00:00",
+        "time": "2019-10-17T07:34:53+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
