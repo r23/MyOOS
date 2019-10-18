@@ -971,7 +971,8 @@
     const OFFSCREEN_CANVAS_SUPPORT_BITMAP = Boolean(self.OffscreenCanvas) &&
         Boolean(self.OffscreenCanvas.prototype.transferToImageBitmap);
     const IS_ANDROID = /android/i.test(navigator.userAgent);
-    const IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !self.MSStream;
+    const IS_IOS = (/iPad|iPhone|iPod/.test(navigator.userAgent) && !self.MSStream) ||
+        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
     const IS_AR_QUICKLOOK_CANDIDATE = (() => {
         const tempAnchor = document.createElement('a');
         return Boolean(tempAnchor.relList && tempAnchor.relList.supports &&
