@@ -1521,16 +1521,16 @@
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v7.4.0",
+            "version": "v7.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "96c59742329c4a9b3f531e91d64e432c82654b91"
+                "reference": "85876d9a2189ef6db03e9d27c1e0bf234ea89e54"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/96c59742329c4a9b3f531e91d64e432c82654b91",
-                "reference": "96c59742329c4a9b3f531e91d64e432c82654b91",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/85876d9a2189ef6db03e9d27c1e0bf234ea89e54",
+                "reference": "85876d9a2189ef6db03e9d27c1e0bf234ea89e54",
                 "shasum": ""
             },
             "require": {
@@ -1574,7 +1574,7 @@
                 "payment processing",
                 "stripe"
             ],
-            "time": "2019-10-16T00:23:34+00:00"
+            "time": "2019-10-18T17:20:19+00:00"
         },
         {
             "name": "symfony/contracts",
