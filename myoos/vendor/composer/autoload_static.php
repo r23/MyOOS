@@ -75,11 +75,6 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
     );
 
     public static $prefixLengthsPsr4 = array (
-        'c' => 
-        array (
-            'chillerlan\\Settings\\' => 20,
-            'chillerlan\\QRCode\\' => 18,
-        ),
         'Z' => 
         array (
             'Zend\\Escaper\\' => 13,
@@ -139,14 +134,6 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
     );
 
     public static $prefixDirsPsr4 = array (
-        'chillerlan\\Settings\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/chillerlan/php-settings-container/src',
-        ),
-        'chillerlan\\QRCode\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/chillerlan/php-qrcode/src',
-        ),
         'Zend\\Escaper\\' => 
         array (
             0 => __DIR__ . '/..' . '/zendframework/zend-escaper/src',
