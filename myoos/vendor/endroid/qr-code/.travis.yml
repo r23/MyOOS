@@ -1,0 +1,25 @@
+language: php
+
+php:
+  - '7.2'
+  - '7.3'
+
+matrix:
+  fast_finish: true
+
+env:
+  - COMPOSER_FLAGS="--prefer-lowest"
+  - COMPOSER_FLAGS=""
+
+before_install:
+  - curl -sS https://getcomposer.org/installer | php -- --filename=composer
+
+install:
+  - composer update --no-interaction --prefer-source $COMPOSER_FLAGS
+
+script:
+  - vendor/bin/test
+
+notifications:
+  email:
+    - info@endroid.nl
