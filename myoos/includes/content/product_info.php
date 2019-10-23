@@ -21,6 +21,12 @@
 /** ensure this file is being required by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
+use Endroid\QrCode\ErrorCorrectionLevel;
+use Endroid\QrCode\LabelAlignment;
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Response\QrCodeResponse;
+
+
 if (isset($_GET['products_id'])) {
 	if (!isset($nProductsID)) $nProductsID = oos_get_product_id($_GET['products_id']);
 } else {
@@ -303,8 +309,53 @@ if (!$product_info_result->RecordCount()) {
 		}
 
 		$smarty->assign('model_viewer_array', $aModelViewer);
-	}
+		
 
+		// qrcode 
+		$detect = new Mobile_Detect;
+		if (isset($_SESSION)) {	
+			if(!$_SESSION['isMobile']){
+				$_SESSION['isMobile'] = $detect->isMobile();
+			}
+		}
+
+		$isMobile = isset($_SESSION['isMobile']) ? oos_var_prep_for_os( $_SESSION['isMobile'] ) : $detect->isMobile();
+		
+		// Any mobile device (phones or tablets).
+		if (!$isMobile ) {
+
+			$name = hash('ripemd160', $product_info['products_name'] . $nProductsID);
+			$filename = $name . '.png';
+			$cache_file = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'qrcode/' . $filename;
+	
+			if (!file_exists($cache_file)) {	
+
+				// Create a basic QR code
+				$qrCode = new QrCode($sCanonical);
+				$qrCode->setSize(300);
+
+				// Set advanced options
+				$qrCode->setWriterByName('png');
+				$qrCode->setMargin(10);
+				$qrCode->setEncoding('UTF-8');
+				$qrCode->setErrorCorrectionLevel(new ErrorCorrectionLevel(ErrorCorrectionLevel::HIGH));
+				$qrCode->setForegroundColor(['r' => 0, 'g' => 0, 'b' => 0, 'a' => 0]);
+				$qrCode->setBackgroundColor(['r' => 255, 'g' => 255, 'b' => 255, 'a' => 0]);
+				# $qrCode->setLabel('Scan the code', 16, __DIR__.'/../assets/fonts/noto_sans.otf', LabelAlignment::CENTER);
+				# $qrCode->setLogoPath(__DIR__.'/../assets/images/symfony.png');
+				# $qrCode->setLogoSize(150, 200);
+				$qrCode->setRoundBlockSize(true);
+				$qrCode->setValidateResult(false);
+				$qrCode->setWriterOptions(['exclude_xml_declaration' => true]);
+
+				// Save it to a file
+				$qrCode->writeFile($cache_file);
+			}
+			$smarty->assign('qrcode', $filename);
+		}
+	}
+	// end AR	
+ 
 
     require_once MYOOS_INCLUDE_PATH . '/includes/modules/products_options.php';
 

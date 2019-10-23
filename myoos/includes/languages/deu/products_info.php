@@ -35,6 +35,7 @@ $aLang['text_close_window'] = 'Fenster schließen [x]';
 $aLang['products_order_qty_text'] = 'Menge';
 $aLang['text_product_notifications'] = 'Ihre Produkt Benachrichtigungen';
 $aLang['text_product_notifications_introduction'] = 'Mit der Benachrichtigungsfunktion ermöglichen wir es Ihnen, über alle unsere Produkte informiert zu sein. Sie erhalten zeitnah die aktuellsten Informationen über unsere Produkte und Sonderangebote.';
+$aLang['text_test_it'] = 'Testen Sie es auf Ihrem mobilen Gerät!';
 
 $aLang['table_heading_image'] = '';
 $aLang['table_heading_model'] = 'Artikel-Nr.';

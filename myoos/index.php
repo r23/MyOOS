@@ -15,7 +15,6 @@
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
-
 /**
  * Set the error reporting level. Unless you have a special need, E_ALL is a
  * good level for error reporting.
@@ -32,8 +31,8 @@ if (function_exists('ini_set')) {
 	// ini_set('display_errors', false);
 }
 
-
 use Symfony\Component\HttpFoundation\Request;
+
 
 $autoloader = require_once __DIR__ . '/vendor/autoload.php';
 $request = Request::createFromGlobals();

@@ -236,7 +236,7 @@
                                 <div class="description_area">
 									{$product_info.products_description}                            
 								</div>
-		                    </div>
+					</div>
                 </div>
             </div>
         </div>							
@@ -260,7 +260,27 @@
 		<script type="module" 
 			src="js/model-viewer/dist/model-viewer.js">
 		</script>
+		
+		
+		{if $qrcode}		
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="product_details_desc clearfix">
+
+							<h2>{$lang.text_test_it}</h2>
+	
+							<div class="relative mb-3">
+								<img class="img-fluid " src="images/qrcode/{$qrcode}" alt="{$product_info.products_name}"  />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>	
+		{/if}
+		
 	{/if}
+
 
 		<div class="container">
             <div class="row">
