@@ -196,8 +196,8 @@
 						</div>					
 					{/if}
 											
-                    </div>
-                </div>
+				</div>
+			</div>
 				
 	
 	{if $products_models_array}
@@ -256,29 +256,32 @@
 						</div>					
 				{/foreach}
 
-		<!-- Loads <model-viewer> only on modern browsers: -->
-		<script type="module" 
-			src="js/model-viewer/dist/model-viewer.js">
-		</script>
+				<!-- Loads <model-viewer> only on modern browsers: -->
+				<script type="module" 
+					src="js/model-viewer/dist/model-viewer.js">
+				</script>
 		
 		
-		{if $qrcode}		
-			<div class="container">
-				<div class="row">
-					<div class="col-12">
-						<div class="product_details_desc clearfix">
+				{if $qrcode}		
+					<div class="container">
+						<div class="row">
+							<div class="col-12">
+								<div class="product_details_desc clearfix">
 
-							<h2>{$lang.text_test_it}</h2>
+									<h2>{$lang.text_test_it}</h2>
 	
-							<div class="relative mb-3">
-								<img class="img-fluid " src="images/qrcode/{$qrcode}" alt="{$product_info.products_name}"  />
+									<div class="relative mb-3">
+										<img class="img-fluid " src="images/qrcode/{$qrcode}" alt="{$product_info.products_name}"  />
+									</div>
+								</div>
 							</div>
 						</div>
-					</div>
+					</div>	
+				{/if}
+				
 				</div>
-			</div>	
-		{/if}
-		
+			</div>
+		</div>		
 	{/if}
 
 
