@@ -90,4 +90,3 @@ class breadcrumb {
 		return $link_output;
     }  
 } 
-
