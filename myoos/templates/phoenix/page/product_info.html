@@ -137,7 +137,7 @@
 						</div>
 						
 					{if $product_info.products_status eq 3 }
-						<form name="cart_quantity" action="{html_get_link}" method="POST" role="form" enctype="multipart/form-data">
+						<form name="cart_quantity" action="{html_get_link}" method="POST" enctype="multipart/form-data">
 							<input type="hidden" name="action" value="add_product">
 							<input type="hidden" name="content" value="{$page_file}">
 						{if $smarty.get.edit}
