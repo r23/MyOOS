@@ -125,7 +125,6 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         'E' => 
         array (
             'Endroid\\QrCode\\' => 15,
-            'Endroid\\Installer\\' => 18,
         ),
         'D' => 
         array (
@@ -262,10 +261,6 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         'Endroid\\QrCode\\' => 
         array (
             0 => __DIR__ . '/..' . '/endroid/qr-code/src',
-        ),
-        'Endroid\\Installer\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/endroid/installer/src',
         ),
         'Doctrine\\Common\\Lexer\\' => 
         array (
