@@ -76,7 +76,7 @@
 						<div class="row">
 							<div class="col-md-6">
 								<label for="search_categories">{$lang.entry_categories}</label>
-								<select class="form-control pointer" name="categories_id">
+								<select id="search_categories" class="form-control pointer" name="categories_id">
 								{foreach item=categorie from=$categoriesID}	
 									<option value="{$categorie.id}">{$categorie.text}</option>
 								{/foreach}								
@@ -86,8 +86,8 @@
 						<div class="row">
 							<div class="col-md-6">
 								<div class="float-right form-check ">
-									<input id="checkbox" class="form-check-input" name="inc_subcat" type="checkbox" checked="checked">
-									<label for="checkbox" class="form-check-label ">{$lang.entry_include_subcategories}</label>
+									<input id="checkbox_categories" class="form-check-input" name="inc_subcat" type="checkbox" checked="checked">
+									<label for="checkbox_categories" class="form-check-label ">{$lang.entry_include_subcategories}</label>
 								</div>
 							</div>
 						</div>
@@ -96,7 +96,7 @@
 						<div class="row">
 							<div class="col-md-6">
 								<label for="search_manufacturers">{$lang.entry_manufacturers}</label>
-								<select class="form-control pointer" name="manufacturers_id">
+								<select id="search_manufacturers" class="form-control pointer" name="manufacturers_id">
 								{foreach item=manufactur from=$manufacturersID}	
 									<option value="{$manufactur.id}">{$manufactur.text}</option>
 								{/foreach}								

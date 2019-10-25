@@ -127,7 +127,7 @@ class nav_menu {
 											<div class="row"><div class="col-md-3"><ul class="list-unstyled"><li>';
 						} else {
 							$this->count+2;							
-							$result .= '<ul class="list-unstyled"><li>';
+							$result .=  '<ul class="list-unstyled"><li>';
 						}
 						break;
 					
@@ -198,7 +198,7 @@ class nav_menu {
 									$result .= '</div><div class="col-md-9 text-right hidden-sm-down">';
 								} elseif ($this->count_col == 2) {
 									$result .= '</div><div class="col-md-6 text-right hidden-sm-down">';
-								} elseif ($this->count_col == 1) {
+								} elseif ($this->count_col == 3) {
 									$result .= '</div><div class="col-md-6 text-right hidden-sm-down">';
 								}									
 								$result .= '<a class="mt-15 block" href="'. $this->banner_link . '">
