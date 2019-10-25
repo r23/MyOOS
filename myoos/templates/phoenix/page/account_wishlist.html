@@ -76,7 +76,7 @@
 										</td>
 										<td class="count-input">
 											{if $myUser.show_price eq 1 }
-												<form name="cart_quantity" action="{html_get_link}" method="POST" role="form">
+												<form name="cart_quantity" action="{html_get_link}" method="POST">
 													<input type="hidden" name="action" value="wishlist_add_product">
 													<input type="hidden" name="content" value="{$page_file}">
 													<input type="hidden" name="page" value="{$page}">

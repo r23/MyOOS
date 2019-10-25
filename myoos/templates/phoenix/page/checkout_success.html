@@ -41,7 +41,7 @@
 						</div>
 					</div>
 				
-					<form name="order" action="{html_get_link}" method="POST" role="form">
+					<form name="order" action="{html_get_link}" method="POST">
 						<input type="hidden" name="content" value="{$filename.checkout_success}">
 						{if $mySystem.sed}
 							<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">

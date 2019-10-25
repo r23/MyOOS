@@ -29,7 +29,7 @@
 				
 				<div class="cartListInner">
 
-					<form name="cart_quantity" action="{html_href_link content=$filename.shopping_cart action=update_product}" method="POST" role="form">
+					<form name="cart_quantity" action="{html_href_link content=$filename.shopping_cart action=update_product}" method="POST">
 					{if $mySystem.sed}
 						<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
 						<input type="hidden" name="formid" value="{$mySystem.formid}">

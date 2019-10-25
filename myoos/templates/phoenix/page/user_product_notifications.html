@@ -38,7 +38,7 @@
 		  
 				<p>{$lang.text_global_product_notifications_description_enabled}</p>
 
-				<form name="global" action="{html_get_link}" method="POST" role="form">
+				<form name="global" action="{html_get_link}" method="POST">
 					<fieldset>
 						<input type="hidden" name="action" value="global_notify">
 						<input type="hidden" name="content" value="{$filename.product_notifications}">
@@ -71,7 +71,7 @@
 			
 				<p>{$lang.text_global_product_notifications_description_disabled}</p>
 	  
-				<form name="global" action="{html_get_link}" method="POST" role="form">
+				<form name="global" action="{html_get_link}" method="POST">
 					<fieldset>
 						<input type="hidden" name="action" value="global_notify">
 						<input type="hidden" name="content" value="{$filename.product_notifications}">
@@ -102,7 +102,7 @@
 				{if	$products_array}
 					<h2>{$lang.heading_product_notifications}</h2>
 					<p>{$lang.text_product_notifications_list}</p>
-					<form name="notifications" action="{html_get_link}" method="POST" role="form">
+					<form name="notifications" action="{html_get_link}" method="POST">
 						<fieldset>
 							<input type="hidden" name="action" value="update_notifications">
 							<input type="hidden" name="content" value="{$filename.product_notifications}">

@@ -161,7 +161,7 @@
 				</ul>
 
 
-				<form action="{html_href_link content=$filename.advanced_search_result}" class="search-global hidden-sm-down" method="GET" role="form">
+				<form action="{html_href_link content=$filename.advanced_search_result}" class="search-global hidden-sm-down" method="GET">
 				{if $mySystem.sed}
 					<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
 					<input type="hidden" name="formid" value="{$mySystem.formid}">
@@ -184,7 +184,7 @@
 						<ul class="list-unstyled mb-0">
 
 							<li class="main-nav-search hidden-md-up">
-								<form action="{html_href_link content=$filename.advanced_search_result}" class="search-global input-group mb-0" method="GET" role="form">
+								<form action="{html_href_link content=$filename.advanced_search_result}" class="search-global input-group mb-0" method="GET">
 								{if $mySystem.sed}
 									<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
 									<input type="hidden" name="formid" value="{$mySystem.formid}">

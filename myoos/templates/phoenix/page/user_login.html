@@ -17,7 +17,7 @@
 				<div class="sign-form">
 					<h3 class="first-child"><i class="fa fa-users" aria-hidden="true"></i> {$lang.heading_title}</h3>
 					<hr>
-					<form name="login" action="{html_get_link}" method="POST" role="form">
+					<form name="login" action="{html_get_link}" method="POST">
 					{if $mySystem.sed}
 						<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
 						<input type="hidden" name="formid" value="{$mySystem.formid}">
