@@ -311,7 +311,7 @@ if (!$product_info_result->RecordCount()) {
 		$smarty->assign('model_viewer_array', $aModelViewer);
 		
 
-		// qrcode 
+		// QR - Code  
 		$detect = new Mobile_Detect;
 		if (isset($_SESSION)) {	
 			if(!$_SESSION['isMobile']){
@@ -330,8 +330,12 @@ if (!$product_info_result->RecordCount()) {
 	
 			if (!file_exists($cache_file)) {	
 
+				$sUrl = $sCanonical;
+				if (strpos($sUrl, '&amp;') !== FALSE) $sUrl = str_replace('&amp;', '&', $sUrl);
+				if (strpos($sUrl, '&&') !== FALSE) $sUrl = str_replace('&&', '&', $sUrl);
+
 				// Create a basic QR code
-				$qrCode = new QrCode($sCanonical);
+				$qrCode = new QrCode($sUrl);
 				$qrCode->setSize(300);
 
 				// Set advanced options
@@ -341,9 +345,6 @@ if (!$product_info_result->RecordCount()) {
 				$qrCode->setErrorCorrectionLevel(new ErrorCorrectionLevel(ErrorCorrectionLevel::HIGH));
 				$qrCode->setForegroundColor(['r' => 0, 'g' => 0, 'b' => 0, 'a' => 0]);
 				$qrCode->setBackgroundColor(['r' => 255, 'g' => 255, 'b' => 255, 'a' => 0]);
-				# $qrCode->setLabel('Scan the code', 16, __DIR__.'/../assets/fonts/noto_sans.otf', LabelAlignment::CENTER);
-				# $qrCode->setLogoPath(__DIR__.'/../assets/images/symfony.png');
-				# $qrCode->setLogoSize(150, 200);
 				$qrCode->setRoundBlockSize(true);
 				$qrCode->setValidateResult(false);
 				$qrCode->setWriterOptions(['exclude_xml_declaration' => true]);
@@ -354,7 +355,7 @@ if (!$product_info_result->RecordCount()) {
 			$smarty->assign('qrcode', $filename);
 		}
 	}
-	// end AR	
+	// End AR	
  
 
     require_once MYOOS_INCLUDE_PATH . '/includes/modules/products_options.php';
