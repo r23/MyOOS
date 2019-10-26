@@ -94,7 +94,8 @@ class Admin extends Base {
 	/**
 	 * Add post type tabs into sitemap option panel
 	 *
-	 * @param  array $tabs Hold tabs for optional panel.
+	 * @param array $tabs Hold tabs for optional panel.
+	 *
 	 * @return array
 	 */
 	public function post_type_settings( $tabs ) {
@@ -146,7 +147,8 @@ class Admin extends Base {
 	/**
 	 * Add taxonomy tabs into sitemap option panel
 	 *
-	 * @param  array $tabs Hold tabs for optional panel.
+	 * @param array $tabs Hold tabs for optional panel.
+	 *
 	 * @return array
 	 */
 	public function taxonomy_settings( $tabs ) {
@@ -198,7 +200,8 @@ class Admin extends Base {
 	/**
 	 * Add Special seprator into sitemap option panel
 	 *
-	 * @param  array $tabs Hold tabs for optional panel.
+	 * @param array $tabs Hold tabs for optional panel.
+	 *
 	 * @return array
 	 */
 	public function special_seprator( $tabs ) {
@@ -251,7 +254,8 @@ class Admin extends Base {
 	/**
 	 * Show field check callback.
 	 *
-	 * @param  CMB2_Field $field The current field.
+	 * @param CMB2_Field $field The current field.
+	 *
 	 * @return boolean
 	 */
 	public function show_on( $field ) {
@@ -269,8 +273,9 @@ class Admin extends Base {
 	/**
 	 * Adds new "exclude from sitemap" checkbox to media popup in the post editor.
 	 *
-	 * @param  array  $form_fields Default form fields.
-	 * @param  object $post        Current post.
+	 * @param array  $form_fields Default form fields.
+	 * @param object $post        Current post.
+	 *
 	 * @return array New form fields
 	 */
 	function media_popup_fields( $form_fields, $post ) {
@@ -286,8 +291,9 @@ class Admin extends Base {
 	/**
 	 * Saves new "exclude from sitemap" field as post meta to attachment.
 	 *
-	 * @param  array $post       Attachment ID.
-	 * @param  array $attachment Attachment data.
+	 * @param array $post       Attachment ID.
+	 * @param array $attachment Attachment data.
+	 *
 	 * @return array Post
 	 */
 	function media_popup_fields_save( $post, $attachment ) {
@@ -307,8 +313,9 @@ class Admin extends Base {
 	 * Adds html attribute data-sitemapexclude to img tag in the post editor
 	 * when necessary.
 	 *
-	 * @param  string $html          Original img HTML tag.
-	 * @param  int    $attachment_id Attachment ID.
+	 * @param string $html          Original img HTML tag.
+	 * @param int    $attachment_id Attachment ID.
+	 *
 	 * @return string New img HTML tag.
 	 */
 	public function media_popup_html( $html, $attachment_id ) {

@@ -52,7 +52,8 @@ class Router {
 	/**
 	 * Stop trailing slashes on sitemap.xml URLs.
 	 *
-	 * @param  string $redirect The redirect URL currently determined.
+	 * @param string $redirect The redirect URL currently determined.
+	 *
 	 * @return boolean|string $redirect
 	 */
 	public function redirect_canonical( $redirect ) {
@@ -125,12 +126,14 @@ class Router {
 	/**
 	 * Create base URL for the sitemap.
 	 *
-	 * @param  string $page Page to append to the base URL.
+	 * @param string $page Page to append to the base URL.
+	 *
 	 * @return string base URL (incl page)
 	 */
 	public static function get_base_url( $page ) {
 		global $wp_rewrite;
 
+		$page = self::get_page_url( $page );
 		$base = $wp_rewrite->using_index_permalinks() ? $wp_rewrite->index . '/' : '/';
 
 		/**
@@ -140,15 +143,30 @@ class Router {
 		 */
 		$base = apply_filters( 'rank_math/sitemap/base_url', $base );
 
-		if ( ! $wp_rewrite->using_permalinks() ) {
-			if ( 'sitemap_index.xml' === $page ) {
-				$page = '?sitemap=1';
-			} else {
-				$page = \preg_replace( '/([^\/]+?)-sitemap([0-9]+)?\.xml$/', '?sitemap=$1&sitemap_n=$2', $page );
-				$page = \preg_replace( '/([a-z]+)?-?sitemap\.xsl$/', '?xsl=$1', $page );
-			}
+		return home_url( $base . $page );
+	}
+
+	/**
+	 * Get page URL for the sitemap.
+	 *
+	 * @param string $page Page to append to the base URL.
+	 *
+	 * @return string
+	 */
+	public static function get_page_url( $page ) {
+		global $wp_rewrite;
+
+		if ( $wp_rewrite->using_permalinks() ) {
+			return $page;
 		}
 
-		return home_url( $base . $page );
+		if ( 'sitemap_index.xml' === $page ) {
+			return '?sitemap=1';
+		}
+
+		$page = \preg_replace( '/([^\/]+?)-sitemap([0-9]+)?\.xml$/', '?sitemap=$1&sitemap_n=$2', $page );
+		$page = \preg_replace( '/([a-z]+)?-?sitemap\.xsl$/', '?xsl=$1', $page );
+
+		return $page;
 	}
 }

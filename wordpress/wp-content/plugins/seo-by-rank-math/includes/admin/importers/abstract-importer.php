@@ -212,9 +212,11 @@ abstract class Plugin_Importer {
 	 */
 	private function format_message( $result, $action, $message ) {
 		if ( 'postmeta' === $action || 'usermeta' === $action ) {
-			$message = sprintf( $message, $result['start'], $result['end'], $result['total_items'] );
-		} elseif ( 'termmeta' === $action || 'redirections' === $action ) {
-			$message = sprintf( $message, $result['count'] );
+			return sprintf( $message, $result['start'], $result['end'], $result['total_items'] );
+		}
+
+		if ( 'termmeta' === $action || 'redirections' === $action ) {
+			return sprintf( $message, $result['count'] );
 		}
 
 		return $message;
@@ -306,10 +308,11 @@ abstract class Plugin_Importer {
 	 * @return string
 	 */
 	protected function convert_bool( $value ) {
-		if ( true === $value || 'true' === $value || '1' === $value || 1 === $value ) {
+		if ( true === boolval( $value ) ) {
 			return 'on';
 		}
-		if ( false === $value || 'false' === $value || '0' === $value || 0 === $value ) {
+
+		if ( false === boolval( $value ) ) {
 			return 'off';
 		}
 

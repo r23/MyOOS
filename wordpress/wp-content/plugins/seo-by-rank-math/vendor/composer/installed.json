@@ -173,96 +173,6 @@
         ]
     },
     {
-        "name": "mythemeshop/wordpress-helpers",
-        "version": "1.0.8",
-        "version_normalized": "1.0.8.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/MyThemeShopTeam/wordpress-helpers.git",
-            "reference": "56bfaf15c5db4ebbe5fb3d2549369309810e9adf"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/MyThemeShopTeam/wordpress-helpers/zipball/56bfaf15c5db4ebbe5fb3d2549369309810e9adf",
-            "reference": "56bfaf15c5db4ebbe5fb3d2549369309810e9adf",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.6"
-        },
-        "time": "2019-07-23T17:39:04+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "MyThemeShop\\Helpers\\": "src/"
-            },
-            "classmap": [
-                "src/"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "MyThemeShop",
-                "email": "info@mythemeshop.com"
-            }
-        ],
-        "description": "Collection of utilities required during development of a plugin or theme for WordPress. Build for developers by developers."
-    },
-    {
-        "name": "psr/log",
-        "version": "1.1.0",
-        "version_normalized": "1.1.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/php-fig/log.git",
-            "reference": "6c001f1daafa3a3ac1d8ff69ee4db8e799a654dd"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/php-fig/log/zipball/6c001f1daafa3a3ac1d8ff69ee4db8e799a654dd",
-            "reference": "6c001f1daafa3a3ac1d8ff69ee4db8e799a654dd",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.0"
-        },
-        "time": "2018-11-20T15:27:04+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.0.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Psr\\Log\\": "Psr/Log/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "PHP-FIG",
-                "homepage": "http://www.php-fig.org/"
-            }
-        ],
-        "description": "Common interface for logging libraries",
-        "homepage": "https://github.com/php-fig/log",
-        "keywords": [
-            "log",
-            "psr",
-            "psr-3"
-        ]
-    },
-    {
         "name": "rollbar/rollbar",
         "version": "v1.8.1",
         "version_normalized": "1.8.1.0",
@@ -322,5 +232,95 @@
             "logging",
             "monitoring"
         ]
+    },
+    {
+        "name": "psr/log",
+        "version": "1.1.1",
+        "version_normalized": "1.1.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/php-fig/log.git",
+            "reference": "bf73deb2b3b896a9d9c75f3f0d88185d2faa27e2"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/php-fig/log/zipball/bf73deb2b3b896a9d9c75f3f0d88185d2faa27e2",
+            "reference": "bf73deb2b3b896a9d9c75f3f0d88185d2faa27e2",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "time": "2019-10-25T08:06:51+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.1.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Psr\\Log\\": "Psr/Log/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "PHP-FIG",
+                "homepage": "http://www.php-fig.org/"
+            }
+        ],
+        "description": "Common interface for logging libraries",
+        "homepage": "https://github.com/php-fig/log",
+        "keywords": [
+            "log",
+            "psr",
+            "psr-3"
+        ]
+    },
+    {
+        "name": "mythemeshop/wordpress-helpers",
+        "version": "1.0.9",
+        "version_normalized": "1.0.9.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/MyThemeShopTeam/wordpress-helpers.git",
+            "reference": "f35b54a6a0649a1cfe577957fdfa962255ef259f"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/MyThemeShopTeam/wordpress-helpers/zipball/f35b54a6a0649a1cfe577957fdfa962255ef259f",
+            "reference": "f35b54a6a0649a1cfe577957fdfa962255ef259f",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.6"
+        },
+        "time": "2019-10-25T19:50:27+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "MyThemeShop\\Helpers\\": "src/"
+            },
+            "classmap": [
+                "src/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "MyThemeShop",
+                "email": "info@mythemeshop.com"
+            }
+        ],
+        "description": "Collection of utilities required during development of a plugin or theme for WordPress. Build for developers by developers."
     }
 ]

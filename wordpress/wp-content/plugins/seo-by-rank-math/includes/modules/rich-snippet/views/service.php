@@ -43,28 +43,3 @@ $cmb->add_field([
 	],
 	'dep'        => $service,
 ]);
-
-$cmb->add_field([
-	'id'         => 'rank_math_snippet_service_rating_value',
-	'name'       => esc_html__( 'Rating', 'rank-math' ),
-	'desc'       => esc_html__( 'Average of all ratings (1-5). Example: 4.7', 'rank-math' ),
-	'type'       => 'text',
-	'dep'        => $service,
-	'classes'    => 'cmb-row-50',
-	'attributes' => [
-		'type' => 'number',
-		'min'  => 1,
-		'max'  => 5,
-		'step' => 'any',
-	],
-]);
-
-$cmb->add_field([
-	'id'         => 'rank_math_snippet_service_rating_count',
-	'name'       => esc_html__( 'Rating Count', 'rank-math' ),
-	'desc'       => esc_html__( 'Number of ratings', 'rank-math' ),
-	'type'       => 'text',
-	'dep'        => $service,
-	'classes'    => 'cmb-row-50',
-	'attributes' => [ 'type' => 'number' ],
-]);

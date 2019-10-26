@@ -14,6 +14,7 @@ use RankMath\Helper;
 use RankMath\Traits\Hooker;
 use RankMath\Traits\Shortcode;
 use MyThemeShop\Helpers\Str;
+use MyThemeShop\Helpers\Param;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -63,6 +64,10 @@ class Snippet_Shortcode {
 			$atts,
 			'rank_math_rich_snippet'
 		);
+
+		if ( 'edit' === Param::get( 'context' ) ) {
+			rank_math()->variables->setup();
+		}
 
 		$post = get_post( $atts['id'] );
 		if ( empty( $post ) ) {
@@ -263,6 +268,9 @@ class Snippet_Shortcode {
 				'course_provider_type' => esc_html__( 'Course Provider', 'rank-math' ),
 				'course_provider'      => esc_html__( 'Course Provider Name', 'rank-math' ),
 				'course_provider_url'  => esc_html__( 'Course Provider URL', 'rank-math' ),
+				'is_rating'            => [
+					'value' => 'course_rating',
+				],
 			],
 			'event'      => [
 				'url'                            => esc_html__( 'URL', 'rank-math' ),
@@ -282,6 +290,9 @@ class Snippet_Shortcode {
 				'event_availability'             => esc_html__( 'Availability', 'rank-math' ),
 				'event_availability_starts_date' => esc_html__( 'Availability Starts', 'rank-math' ),
 				'event_inventory'                => esc_html__( 'Stock Inventory', 'rank-math' ),
+				'is_rating'                      => [
+					'value' => 'event_rating',
+				],
 			],
 			'jobposting' => [
 				'jobposting_salary'          => esc_html__( 'Salary', 'rank-math' ),
@@ -308,6 +319,9 @@ class Snippet_Shortcode {
 				'product_price'       => esc_html__( 'Product Price', 'rank-math' ),
 				'product_price_valid' => esc_html__( 'Price Valid Until', 'rank-math' ),
 				'product_instock'     => esc_html__( 'Product In-Stock', 'rank-math' ),
+				'is_rating'           => [
+					'value' => 'product_rating',
+				],
 			],
 			'recipe'     => [
 				'recipe_type'                => esc_html__( 'Type', 'rank-math' ),
@@ -318,9 +332,6 @@ class Snippet_Shortcode {
 				'recipe_preptime'            => esc_html__( 'Preparation Time', 'rank-math' ),
 				'recipe_cooktime'            => esc_html__( 'Cooking Time', 'rank-math' ),
 				'recipe_totaltime'           => esc_html__( 'Total Time', 'rank-math' ),
-				'recipe_rating'              => esc_html__( 'Rating', 'rank-math' ),
-				'recipe_rating_min'          => esc_html__( 'Rating Minimum', 'rank-math' ),
-				'recipe_rating_max'          => esc_html__( 'Rating Maximum', 'rank-math' ),
 				'recipe_video'               => esc_html__( 'Recipe Video', 'rank-math' ),
 				'recipe_video_thumbnail'     => esc_html__( 'Recipe Video Thumbnail', 'rank-math' ),
 				'recipe_video_name'          => esc_html__( 'Recipe Video Name', 'rank-math' ),
@@ -330,6 +341,9 @@ class Snippet_Shortcode {
 				'recipe_instruction_name'    => esc_html__( 'Recipe Instruction Name', 'rank-math' ),
 				'recipe_single_instructions' => esc_html__( 'Recipe Instructions', 'rank-math' ),
 				'recipe_instructions'        => esc_html__( 'Recipe Instructions', 'rank-math' ),
+				'is_rating'                  => [
+					'value' => 'recipe_rating',
+				],
 			],
 			'restaurant' => [
 				'local_address'             => esc_html__( 'Address', 'rank-math' ),
@@ -363,10 +377,6 @@ class Snippet_Shortcode {
 				'service_type'           => esc_html__( 'Service Type', 'rank-math' ),
 				'service_price'          => esc_html__( 'Price', 'rank-math' ),
 				'service_price_currency' => esc_html__( 'Currency', 'rank-math' ),
-				'is_rating'              => [
-					'value' => 'service_rating_value',
-					'count' => 'service_rating_count',
-				],
 			],
 			'software'   => [
 				'software_price'                => esc_html__( 'Price', 'rank-math' ),
@@ -374,14 +384,16 @@ class Snippet_Shortcode {
 				'software_operating_system'     => esc_html__( 'Operating System', 'rank-math' ),
 				'software_application_category' => esc_html__( 'Application Category', 'rank-math' ),
 				'is_rating'                     => [
-					'value' => 'software_rating_value',
-					'count' => 'software_rating_count',
+					'value' => 'software_rating',
 				],
 			],
 			'book'       => [
 				'url'           => esc_html__( 'URL', 'rank-math' ),
 				'author'        => esc_html__( 'Author', 'rank-math' ),
 				'book_editions' => esc_html__( 'Book Editions', 'rank-math' ),
+				'is_rating'     => [
+					'value' => 'book_rating',
+				],
 			],
 		];
 

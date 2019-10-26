@@ -63,11 +63,11 @@ function rank_math_the_seo_score( $args = [] ) {
  * @codeCoverageIgnore
  *
  * @param  string $var       Variable name, for example %custom%. The '%' signs are optional.
- * @param  mixed  $callback  Replacement callback. Should return value and not output it.
  * @param  array  $args      Array with additional title, description and example values for the variable.
+ * @param  mixed  $callback  Replacement callback. Should return value and not output it.
  *
  * @return bool Replacement was registered successfully or not.
  */
-function rank_math_register_var_replacement( $var, $callback, $args = [] ) {
-	return RankMath\Replace_Vars::register_replacement( $var, $callback, $args );
+function rank_math_register_var_replacement( $var, $args = [], $callback = false ) {
+	return rank_math()->variables->register_replacement( $var, $args, $callback );
 }

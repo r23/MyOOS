@@ -12,13 +12,15 @@
 
 		var after = $( '.nav-tab-wrapper' )
 
-		function addNotice( msg, which, fadeout ) {
+		function addNotice( msg, which, fadeout = 3000 ) {
 			which   = which || 'error'
-			fadeout = fadeout || 3000
 			var notice = $( '<div class="notice notice-' + which + ' is-dismissible"><p>' + msg + '</p></div>' ).hide()
 			after.next( '.notice' ).remove()
 			after.after( notice )
 			notice.slideDown()
+			$('html,body').animate({
+				scrollTop: notice.offset().top - 50
+			}, 'slow');
 			$( document ).trigger( 'wp-updates-notice-added' )
 			if ( fadeout ) {
 				setTimeout( function() {
@@ -51,7 +53,7 @@
 				addNotice( response.statusText )
 			}).done( function( response ) {
 				if ( response ) {
-					addNotice( response, 'success' )
+					addNotice( response, 'success', false )
 					return
 				}
 

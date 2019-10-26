@@ -63,6 +63,7 @@ class Import implements Wizard_Step {
 	public function form( $wizard ) {
 		$detector = new Detector;
 		$plugins  = $detector->detect();
+		$plugins  = $this->set_priority( $plugins );
 
 		$count = 0;
 		foreach ( $plugins as $slug => $plugin ) {
@@ -70,7 +71,7 @@ class Import implements Wizard_Step {
 			$multi_checked = 'multicheck-checked';
 			$choices       = array_keys( $plugin['choices'] );
 
-			if ( ( array_key_exists( 'seopress', $plugins ) && ( in_array( $slug, [ 'yoast', 'yoast-premium', 'aioseo' ], true ) ) ) || ( array_key_exists( 'yoast', $plugins ) || array_key_exists( 'yoast-premium', $plugins ) ) && 'aioseo' === $slug ) {
+			if ( isset( $plugin['checked'] ) && false === $plugin['checked'] ) {
 				$checked       = '';
 				$multi_checked = '';
 				$choices       = [];
@@ -105,6 +106,30 @@ class Import implements Wizard_Step {
 
 			$count++;
 		}
+	}
+
+	/**
+	 * Set plugins priority.
+	 *
+	 * @param array $plugins Array of detected plgins.
+	 *
+	 * @return array
+	 */
+	private function set_priority( $plugins ) {
+		$checked  = false;
+		$priority = array_intersect( [ 'seopress', 'yoast', 'yoast-premium', 'aioseo' ], array_keys( $plugins ) );
+
+		foreach ( $priority as $slug ) {
+			if ( ! $checked ) {
+				$checked                     = true;
+				$plugins[ $slug ]['checked'] = true;
+				continue;
+			}
+
+			$plugins[ $slug ]['checked'] = false;
+		}
+
+		return $plugins;
 	}
 
 	/**

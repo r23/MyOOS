@@ -53,26 +53,28 @@ $cmb->add_field([
 ]);
 
 $cmb->add_field([
-	'id'         => 'rank_math_snippet_software_rating_value',
-	'name'       => esc_html__( 'Rating', 'rank-math' ),
-	'desc'       => esc_html__( 'Average of all ratings (1-5). Example: 4.7', 'rank-math' ),
-	'type'       => 'text',
-	'dep'        => $software,
-	'classes'    => 'cmb-row-50',
-	'attributes' => [
-		'type' => 'number',
-		'min'  => 1,
-		'max'  => 5,
-		'step' => 'any',
-	],
+	'id'      => 'rank_math_snippet_software_rating',
+	'type'    => 'text',
+	'name'    => esc_html__( 'Rating', 'rank-math' ),
+	'desc'    => esc_html__( 'Rating score of the software. Optional.', 'rank-math' ),
+	'classes' => 'cmb-row-33',
+	'dep'     => $software,
 ]);
 
 $cmb->add_field([
-	'id'         => 'rank_math_snippet_software_rating_count',
-	'name'       => esc_html__( 'Rating Count', 'rank-math' ),
-	'desc'       => esc_html__( 'Number of ratings', 'rank-math' ),
-	'type'       => 'text',
-	'dep'        => $software,
-	'classes'    => 'cmb-row-50',
-	'attributes' => [ 'type' => 'number' ],
+	'id'      => 'rank_math_snippet_software_rating_min',
+	'type'    => 'text',
+	'name'    => esc_html__( 'Rating Minimum', 'rank-math' ),
+	'desc'    => esc_html__( 'Rating minimum score of the software.', 'rank-math' ),
+	'classes' => 'cmb-row-33',
+	'dep'     => $software,
+]);
+
+$cmb->add_field([
+	'id'      => 'rank_math_snippet_software_rating_max',
+	'type'    => 'text',
+	'name'    => esc_html__( 'Rating Maximum', 'rank-math' ),
+	'desc'    => esc_html__( 'Rating maximum score of the software.', 'rank-math' ),
+	'classes' => 'cmb-row-33',
+	'dep'     => $software,
 ]);

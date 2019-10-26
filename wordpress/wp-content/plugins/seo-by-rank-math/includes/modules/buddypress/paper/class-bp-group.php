@@ -52,6 +52,20 @@ class BP_Group implements IPaper {
 	}
 
 	/**
+	 * Retrieves the robots.
+	 *
+	 * @return array The advanced robots for the group.
+	 */
+	public function advanced_robots() {
+		$robots = [];
+		if ( Helper::get_settings( 'titles.bp_group_custom_robots' ) ) {
+			$robots = Helper::get_settings( 'titles.bp_group_advanced_robots' );
+		}
+
+		return Paper::advanced_robots_combine( $robots, true );
+	}
+
+	/**
 	 * Retrieves the canonical URL.
 	 *
 	 * @return array

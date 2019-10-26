@@ -66,7 +66,10 @@ class Twitter extends OpenGraph {
 		$this->action( 'rank_math/opengraph/twitter', 'title', 10 );
 		$this->action( 'rank_math/opengraph/twitter', 'description', 11 );
 		$this->action( 'rank_math/opengraph/twitter', 'website', 14 );
-		$this->action( 'rank_math/opengraph/twitter', 'image', 30 );
+
+		if ( ! post_password_required() ) {
+			$this->action( 'rank_math/opengraph/twitter', 'image', 30 );
+		}
 
 		if ( is_singular() ) {
 			$this->action( 'rank_math/opengraph/twitter', 'article_author', 15 );
@@ -94,7 +97,7 @@ class Twitter extends OpenGraph {
 	 */
 	public function type() {
 		$this->determine_card_type();
-		$this->validate_card_type();
+		$this->sanitize_card_type();
 
 		$this->tag( 'twitter:card', $this->type );
 
@@ -104,8 +107,7 @@ class Twitter extends OpenGraph {
 			$this->action( 'rank_math/opengraph/twitter', $this->type, 15 );
 		}
 
-		$is_archive  = is_archive() && ! ( is_author() || is_category() || is_tag() || is_tax() || is_post_type_archive() );
-		$remove_tags = $is_archive && in_array( $this->type, [ 'summary', 'summary_large_image' ], true );
+		$remove_tags = is_date() && in_array( $this->type, [ 'summary', 'summary_large_image' ], true );
 		if ( $remove_tags ) {
 			$this->remove_tags();
 		}
@@ -227,8 +229,8 @@ class Twitter extends OpenGraph {
 	 *
 	 * @link https://dev.twitter.com/cards/types
 	 */
-	private function validate_card_type() {
-		if ( ! in_array( $this->type, array( 'summary', 'summary_large_image', 'app', 'player' ), true ) ) {
+	private function sanitize_card_type() {
+		if ( ! in_array( $this->type, [ 'summary', 'summary_large_image', 'app', 'player' ], true ) ) {
 			$this->type = 'summary';
 		}
 	}
@@ -239,7 +241,8 @@ class Twitter extends OpenGraph {
 	 * Solves issues with filters returning urls and theme's/other plugins also adding a user meta
 	 * twitter field which expects url rather than an id (which is what we expect).
 	 *
-	 * @param  string $id Twitter ID or url.
+	 * @param string $id Twitter ID or url.
+	 *
 	 * @return string|bool Twitter ID or false if it failed to get a valid Twitter ID.
 	 */
 	private function get_twitter_id( $id ) {

@@ -10,7 +10,6 @@
 
 namespace RankMath\BuddyPress;
 
-use RankMath\Helper;
 use RankMath\Traits\Hooker;
 
 defined( 'ABSPATH' ) || exit;
@@ -90,24 +89,26 @@ class BuddyPress {
 	 * Registers variable replacements for WooCommerce products.
 	 */
 	public function register_replacements() {
-		Helper::register_var_replacement(
+		rank_math_register_var_replacement(
 			'group_name',
-			array( $this, 'get_group_name' ),
-			array(
-				'name'    => esc_html__( 'Group name.', 'rank-math' ),
-				'desc'    => esc_html__( 'Group name of the current group', 'rank-math' ),
-				'example' => $this->get_group_name(),
-			)
+			[
+				'name'        => esc_html__( 'Group name.', 'rank-math' ),
+				'description' => esc_html__( 'Group name of the current group', 'rank-math' ),
+				'variable'    => 'group_name',
+				'example'     => $this->get_group_name(),
+			],
+			[ $this, 'get_group_name' ]
 		);
 
-		Helper::register_var_replacement(
+		rank_math_register_var_replacement(
 			'group_desc',
-			array( $this, 'get_group_desc' ),
-			array(
-				'name'    => esc_html__( 'Group Description.', 'rank-math' ),
-				'desc'    => esc_html__( 'Group description of the current group', 'rank-math' ),
-				'example' => $this->get_group_desc(),
-			)
+			[
+				'name'        => esc_html__( 'Group Description.', 'rank-math' ),
+				'description' => esc_html__( 'Group description of the current group', 'rank-math' ),
+				'variable'    => 'group_desc',
+				'example'     => $this->get_group_desc(),
+			],
+			[ $this, 'get_group_desc' ]
 		);
 	}
 

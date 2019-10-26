@@ -38,3 +38,30 @@ $cmb->add_field([
 	],
 	'classes'    => 'nob rank-math-validate-field',
 ]);
+
+$cmb->add_field([
+	'id'      => 'rank_math_snippet_course_rating',
+	'type'    => 'text',
+	'name'    => esc_html__( 'Rating', 'rank-math' ),
+	'desc'    => esc_html__( 'Rating score of the course. Optional.', 'rank-math' ),
+	'classes' => 'cmb-row-33',
+	'dep'     => $course_dep,
+]);
+
+$cmb->add_field([
+	'id'      => 'rank_math_snippet_course_rating_min',
+	'type'    => 'text',
+	'name'    => esc_html__( 'Rating Minimum', 'rank-math' ),
+	'desc'    => esc_html__( 'Rating minimum score of the course.', 'rank-math' ),
+	'classes' => 'cmb-row-33',
+	'dep'     => $course_dep,
+]);
+
+$cmb->add_field([
+	'id'      => 'rank_math_snippet_course_rating_max',
+	'type'    => 'text',
+	'name'    => esc_html__( 'Rating Maximum', 'rank-math' ),
+	'desc'    => esc_html__( 'Rating maximum score of the course.', 'rank-math' ),
+	'classes' => 'cmb-row-33',
+	'dep'     => $course_dep,
+]);

@@ -251,12 +251,13 @@ class Query_Builder {
 	 * @return self The current query builder.
 	 */
 	public function set( $name, $value = null ) {
-
 		if ( is_array( $name ) ) {
 			$this->statements['values'] = $this->statements['values'] + $name;
-		} else {
-			$this->statements['values'][ $name ] = $value;
+
+			return $this;
 		}
+
+		$this->statements['values'][ $name ] = $value;
 
 		return $this;
 	}

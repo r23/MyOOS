@@ -32,7 +32,7 @@ class Search_Console_Common {
 		}
 
 		if ( Helper::has_cap( 'search_console' ) ) {
-			$this->filter( 'rank_math/admin_bar/items', 'admin_bar_items', 11 );
+			$this->action( 'rank_math/admin_bar/items', 'admin_bar_items', 11 );
 		}
 		$this->action( 'rank_math/search_console/get_analytics', 'add_day_crawler' );
 	}
@@ -40,22 +40,18 @@ class Search_Console_Common {
 	/**
 	 * Add admin bar item.
 	 *
-	 * @param array $items Array of admin bar nodes.
-	 *
-	 * @return array
+	 * @param Admin_Bar_Menu $menu Menu class instance.
 	 */
-	public function admin_bar_items( $items ) {
-		// Add link only if connected?
-		$items['search-console'] = [
-			'id'        => 'rank-math-search-console',
-			'title'     => esc_html__( 'Search Console', 'rank-math' ),
-			'href'      => Helper::get_admin_url( 'search-console' ),
-			'parent'    => 'rank-math',
-			'meta'      => [ 'title' => esc_html__( 'Review analytics and sitemaps', 'rank-math' ) ],
-			'_priority' => 50,
-		];
-
-		return $items;
+	public function admin_bar_items( $menu ) {
+		$menu->add_sub_menu(
+			'search-console',
+			[
+				'title'    => esc_html__( 'Search Console', 'rank-math' ),
+				'href'     => Helper::get_admin_url( 'search-console' ),
+				'meta'     => [ 'title' => esc_html__( 'Review analytics and sitemaps', 'rank-math' ) ],
+				'priority' => 50,
+			]
+		);
 	}
 
 	/**

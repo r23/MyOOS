@@ -329,6 +329,7 @@ class Installer {
 			'breadcrumbs_search_format'           => esc_html__( 'Results for %s', 'rank-math' ),
 			'breadcrumbs_404_label'               => esc_html__( '404 Error: page not found', 'rank-math' ),
 			'breadcrumbs_ancestor_categories'     => 'off',
+			'breadcrumbs_blog_page'               => 'off',
 			'404_monitor_mode'                    => 'simple',
 			'404_monitor_limit'                   => 100,
 			'404_monitor_ignore_query_parameters' => 'on',

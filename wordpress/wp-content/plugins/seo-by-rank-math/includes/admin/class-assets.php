@@ -137,15 +137,16 @@ class Assets implements Runner {
 			'wplink',
 			'wpLinkL10n',
 			[
-				'title'          => esc_html__( 'Insert/edit link', 'rank-math' ),
-				'update'         => esc_html__( 'Update', 'rank-math' ),
-				'save'           => esc_html__( 'Add Link', 'rank-math' ),
-				'noTitle'        => esc_html__( '(no title)', 'rank-math' ),
-				'noMatchesFound' => esc_html__( 'No matches found.', 'rank-math' ),
-				'linkSelected'   => esc_html__( 'Link selected.', 'rank-math' ),
-				'linkInserted'   => esc_html__( 'Link inserted.', 'rank-math' ),
-				'relCheckbox'    => __( 'Add <code>rel="nofollow"</code>', 'rank-math' ),
-				'linkTitle'      => esc_html__( 'Link Title', 'rank-math' ),
+				'title'             => esc_html__( 'Insert/edit link', 'rank-math' ),
+				'update'            => esc_html__( 'Update', 'rank-math' ),
+				'save'              => esc_html__( 'Add Link', 'rank-math' ),
+				'noTitle'           => esc_html__( '(no title)', 'rank-math' ),
+				'noMatchesFound'    => esc_html__( 'No matches found.', 'rank-math' ),
+				'linkSelected'      => esc_html__( 'Link selected.', 'rank-math' ),
+				'linkInserted'      => esc_html__( 'Link inserted.', 'rank-math' ),
+				'relCheckbox'       => __( 'Add <code>rel="nofollow"</code>', 'rank-math' ),
+				'sponsoredCheckbox' => __( 'Add <code>rel="sponsored"</code>', 'rank-math' ),
+				'linkTitle'         => esc_html__( 'Link Title', 'rank-math' ),
 			]
 		);
 	}

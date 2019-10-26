@@ -48,3 +48,11 @@ $cmb->add_field([
 	'select_all_button' => false,
 	'dep'               => [ [ 'bp_group_custom_robots', 'on' ] ],
 ]);
+
+$cmb->add_field([
+	'id'              => 'bp_group_advanced_robots',
+	'type'            => 'advanced_robots',
+	'name'            => esc_html__( 'Group Advanced Robots Meta', 'rank-math' ),
+	'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_advanced_robots' ],
+	'dep'             => [ [ 'bp_group_custom_robots', 'on' ] ],
+]);

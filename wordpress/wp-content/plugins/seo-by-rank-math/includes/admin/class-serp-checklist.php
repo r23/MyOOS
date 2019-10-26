@@ -380,6 +380,7 @@ class Serp_Checklist {
 		if ( 'post' === $object ) {
 			$all_tests = array_merge( $all_tests, $tests['title-readability'], $tests['content-readability'] );
 		}
+
 		return 100 - array_sum( array_column( $all_tests, 'score' ) );
 	}
 

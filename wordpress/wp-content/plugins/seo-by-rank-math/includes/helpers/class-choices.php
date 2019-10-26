@@ -455,10 +455,13 @@ trait Choices {
 			'restaurant' => esc_html__( 'Restaurant', 'rank-math' ),
 			'video'      => esc_html__( 'Video', 'rank-math' ),
 			'person'     => esc_html__( 'Person', 'rank-math' ),
-			'review'     => esc_html__( 'Review', 'rank-math' ),
 			'service'    => esc_html__( 'Service', 'rank-math' ),
 			'software'   => esc_html__( 'Software Application', 'rank-math' ),
 		];
+
+		if ( ! empty( self::get_review_posts() ) ) {
+			$types['review'] = esc_html__( 'Review', 'rank-math' );
+		}
 
 		if ( is_string( $none ) ) {
 			$types = [ 'off' => $none ] + $types;
@@ -555,5 +558,28 @@ trait Choices {
 				'post_format' => 'dashicons dashicons-format-image',
 			]
 		);
+	}
+
+	/**
+	 * Function to get posts having review schema type selected.
+	 */
+	public static function get_review_posts() {
+		static $posts = null;
+		if ( null === $posts ) {
+			global $wpdb;
+
+			$meta_query = new \WP_Meta_Query([
+				'relation' => 'AND',
+				[
+					'key'   => 'rank_math_rich_snippet',
+					'value' => 'review',
+				],
+			]);
+
+			$meta_query = $meta_query->get_sql( 'post', $wpdb->posts, 'ID' );
+			$posts = $wpdb->get_col( "SELECT {$wpdb->posts}.ID FROM $wpdb->posts {$meta_query['join']} WHERE 1=1 {$meta_query['where']} AND ({$wpdb->posts}.post_status = 'publish')" ); // phpcs:ignore
+		}
+
+		return $posts;
 	}
 }

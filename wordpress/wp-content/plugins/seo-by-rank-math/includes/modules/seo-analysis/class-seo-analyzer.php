@@ -176,9 +176,10 @@ class SEO_Analyzer {
 			'warning' => 0,
 		];
 		foreach ( $this->results as $id => $result ) {
-			if ( ! is_object( $result ) || 'info' === $result->get_status() || $result->is_excluded() ) {
+			if ( false === $this->can_count_result( $result ) ) {
 				continue;
 			}
+
 			$statuses[ $result->get_status() ]++;
 			$total++;
 
@@ -191,6 +192,17 @@ class SEO_Analyzer {
 		$grade = $this->get_graph_grade( $percent );
 
 		return compact( 'total', 'percent', 'statuses', 'grade' );
+	}
+
+	/**
+	 * Can count result.
+	 *
+	 * @param Result $result Result instance.
+	 *
+	 * @return bool
+	 */
+	private function can_count_result( $result ) {
+		return ( ! is_object( $result ) || 'info' === $result->get_status() || $result->is_excluded() ) ? false : true;
 	}
 
 	/**
@@ -458,9 +470,6 @@ class SEO_Analyzer {
 	private function sort_results_by_category() {
 		$data = [];
 		foreach ( $this->results as $result ) {
-			if ( ! is_object( $result ) ) {
-				continue;
-			}
 			$category = $result->get_category();
 			if ( ! isset( $data[ $category ] ) ) {
 				$data[ $category ] = [];

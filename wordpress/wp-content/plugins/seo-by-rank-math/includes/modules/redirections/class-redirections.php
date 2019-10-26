@@ -35,7 +35,7 @@ class Redirections {
 		}
 
 		if ( Helper::has_cap( 'redirections' ) ) {
-			$this->filter( 'rank_math/admin_bar/items', 'admin_bar_items', 11 );
+			$this->action( 'rank_math/admin_bar/items', 'admin_bar_items', 11 );
 		}
 
 		if ( $this->disable_auto_redirect() ) {
@@ -70,50 +70,50 @@ class Redirections {
 	/**
 	 * Add admin bar item.
 	 *
-	 * @param array $items Array of admin bar nodes.
-	 * @return array
+	 * @param Admin_Bar_Menu $menu Menu class instance.
 	 */
-	public function admin_bar_items( $items ) {
+	public function admin_bar_items( $menu ) {
+		$menu->add_sub_menu(
+			'redirections',
+			[
+				'title'    => esc_html__( 'Redirections', 'rank-math' ),
+				'href'     => Helper::get_admin_url( 'redirections' ),
+				'meta'     => [ 'title' => esc_html__( 'Create and edit redirections', 'rank-math' ) ],
+				'priority' => 50,
+			]
+		);
 
-		$items['redirections'] = [
-			'id'        => 'rank-math-redirections',
-			'title'     => esc_html__( 'Redirections', 'rank-math' ),
-			'href'      => Helper::get_admin_url( 'redirections' ),
-			'parent'    => 'rank-math',
-			'meta'      => [ 'title' => esc_html__( 'Create and edit redirections', 'rank-math' ) ],
-			'_priority' => 50,
-		];
+		$menu->add_sub_menu(
+			'redirections-edit',
+			[
+				'title' => esc_html__( 'Manage Redirections', 'rank-math' ),
+				'href'  => Helper::get_admin_url( 'redirections' ),
+				'meta'  => [ 'title' => esc_html__( 'Create and edit redirections', 'rank-math' ) ],
+			],
+			'redirections'
+		);
 
-		$items['redirections-child'] = [
-			'id'        => 'rank-math-redirections-child',
-			'title'     => esc_html__( 'Manage Redirections', 'rank-math' ),
-			'href'      => Helper::get_admin_url( 'redirections' ),
-			'parent'    => 'rank-math-redirections',
-			'meta'      => [ 'title' => esc_html__( 'Create and edit redirections', 'rank-math' ) ],
-			'_priority' => 51,
-		];
-
-		$items['redirections-settings'] = [
-			'id'        => 'rank-math-redirections-settings',
-			'title'     => esc_html__( 'Redirection Settings', 'rank-math' ),
-			'href'      => Helper::get_admin_url( 'options-general' ) . '#setting-panel-redirections',
-			'parent'    => 'rank-math-redirections',
-			'meta'      => [ 'title' => esc_html__( 'Redirection Settings', 'rank-math' ) ],
-			'_priority' => 52,
-		];
+		$menu->add_sub_menu(
+			'redirections-settings',
+			[
+				'title' => esc_html__( 'Redirection Settings', 'rank-math' ),
+				'href'  => Helper::get_admin_url( 'options-general' ) . '#setting-panel-redirections',
+				'meta'  => [ 'title' => esc_html__( 'Redirection Settings', 'rank-math' ) ],
+			],
+			'redirections'
+		);
 
 		if ( ! is_admin() ) {
-			$items['redirections-redirect-me'] = [
-				'id'        => 'rank-math-redirections-redirect-me',
-				'title'     => esc_html__( '&raquo; Redirect this page', 'rank-math' ),
-				'href'      => add_query_arg( 'url', urlencode( ltrim( Param::server( 'REQUEST_URI' ), '/' ) ), Helper::get_admin_url( 'redirections' ) ),
-				'parent'    => 'rank-math-redirections',
-				'meta'      => [ 'title' => esc_html__( 'Redirect the current URL', 'rank-math' ) ],
-				'_priority' => 53,
-			];
+			$menu->add_sub_menu(
+				'redirections-redirect-me',
+				[
+					'title' => esc_html__( '&raquo; Redirect this page', 'rank-math' ),
+					'href'  => add_query_arg( 'url', urlencode( ltrim( Param::server( 'REQUEST_URI' ), '/' ) ), Helper::get_admin_url( 'redirections' ) ),
+					'meta'  => [ 'title' => esc_html__( 'Redirect the current URL', 'rank-math' ) ],
+				],
+				'redirections'
+			);
 		}
-
-		return $items;
 	}
 
 	/**

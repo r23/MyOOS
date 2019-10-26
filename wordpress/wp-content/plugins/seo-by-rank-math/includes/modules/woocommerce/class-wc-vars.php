@@ -10,8 +10,6 @@
 
 namespace RankMath\WooCommerce;
 
-use RankMath\Helper;
-
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -30,44 +28,48 @@ class WC_Vars extends Opengraph {
 	 * Registers variable replacements for WooCommerce products.
 	 */
 	public function register() {
-		Helper::register_var_replacement(
+		rank_math_register_var_replacement(
 			'wc_price',
-			[ $this, 'get_product_price' ],
 			[
-				'name'    => esc_html__( 'Product\'s price.', 'rank-math' ),
-				'desc'    => esc_html__( 'Product\'s price of the current product', 'rank-math' ),
-				'example' => $this->get_product_price(),
-			]
+				'name'        => esc_html__( 'Product\'s price.', 'rank-math' ),
+				'description' => esc_html__( 'Product\'s price of the current product', 'rank-math' ),
+				'variable'    => 'wc_price',
+				'example'     => $this->get_product_price(),
+			],
+			[ $this, 'get_product_price' ]
 		);
 
-		Helper::register_var_replacement(
+		rank_math_register_var_replacement(
 			'wc_sku',
-			[ $this, 'get_product_sku' ],
 			[
-				'name'    => esc_html__( 'Product\'s SKU.', 'rank-math' ),
-				'desc'    => esc_html__( 'Product\'s SKU of the current product', 'rank-math' ),
-				'example' => $this->get_product_sku(),
-			]
+				'name'        => esc_html__( 'Product\'s SKU.', 'rank-math' ),
+				'description' => esc_html__( 'Product\'s SKU of the current product', 'rank-math' ),
+				'variable'    => 'wc_sku',
+				'example'     => $this->get_product_sku(),
+			],
+			[ $this, 'get_product_sku' ]
 		);
 
-		Helper::register_var_replacement(
+		rank_math_register_var_replacement(
 			'wc_shortdesc',
-			[ $this, 'get_short_description' ],
 			[
-				'name'    => esc_html__( 'Product\'s short description.', 'rank-math' ),
-				'desc'    => esc_html__( 'Product\'s short description of the current product', 'rank-math' ),
-				'example' => $this->get_short_description(),
-			]
+				'name'        => esc_html__( 'Product\'s short description.', 'rank-math' ),
+				'description' => esc_html__( 'Product\'s short description of the current product', 'rank-math' ),
+				'variable'    => 'wc_shortdesc',
+				'example'     => $this->get_short_description(),
+			],
+			[ $this, 'get_short_description' ]
 		);
 
-		Helper::register_var_replacement(
+		rank_math_register_var_replacement(
 			'wc_brand',
-			[ $this, 'get_product_brand' ],
 			[
-				'name'    => esc_html__( 'Product\'s brand.', 'rank-math' ),
-				'desc'    => esc_html__( 'Product\'s brand of the current product', 'rank-math' ),
-				'example' => $this->get_product_brand(),
-			]
+				'name'        => esc_html__( 'Product\'s brand.', 'rank-math' ),
+				'description' => esc_html__( 'Product\'s brand of the current product', 'rank-math' ),
+				'variable'    => 'wc_brand',
+				'example'     => $this->get_product_brand(),
+			],
+			[ $this, 'get_product_brand' ]
 		);
 	}
 

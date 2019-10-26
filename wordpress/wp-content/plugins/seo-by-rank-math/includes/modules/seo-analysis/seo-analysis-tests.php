@@ -134,8 +134,8 @@ function rank_math_analyze_site_description() {
 			'status'  => 'warning',
 			'message' => sprintf(
 				/* translators: 1: link open tag; 2: link close tag. */
-				esc_html__( 'You still have the default WordPress tagline, even an empty one is probably better. %1$sYou can fix this in the customizer%2$s.', 'rank-math' ),
-				'<a href="' . esc_attr( $customize_url ) . '">',
+				esc_html__( 'You have not entered a tagline yet. It is a good idea to choose one. %1$sYou can fix this in the customizer%2$s.', 'rank-math' ),
+				'<a href="' . esc_attr( admin_url( 'customize.php' ) ) . '" target="_blank">',
 				'</a>'
 			),
 		];

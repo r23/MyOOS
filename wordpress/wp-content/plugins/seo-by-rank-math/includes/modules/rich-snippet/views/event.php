@@ -207,3 +207,30 @@ $cmb->add_field([
 	'dep'        => $event,
 	'attributes' => [ 'type' => 'number' ],
 ]);
+
+$cmb->add_field([
+	'id'      => 'rank_math_snippet_event_rating',
+	'type'    => 'text',
+	'name'    => esc_html__( 'Rating', 'rank-math' ),
+	'desc'    => esc_html__( 'Rating score of the event. Optional.', 'rank-math' ),
+	'classes' => 'cmb-row-33',
+	'dep'     => $event,
+]);
+
+$cmb->add_field([
+	'id'      => 'rank_math_snippet_event_rating_min',
+	'type'    => 'text',
+	'name'    => esc_html__( 'Rating Minimum', 'rank-math' ),
+	'desc'    => esc_html__( 'Rating minimum score of the event.', 'rank-math' ),
+	'classes' => 'cmb-row-33',
+	'dep'     => $event,
+]);
+
+$cmb->add_field([
+	'id'      => 'rank_math_snippet_event_rating_max',
+	'type'    => 'text',
+	'name'    => esc_html__( 'Rating Maximum', 'rank-math' ),
+	'desc'    => esc_html__( 'Rating maximum score of the event.', 'rank-math' ),
+	'classes' => 'cmb-row-33',
+	'dep'     => $event,
+]);

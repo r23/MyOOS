@@ -24,6 +24,13 @@ $cmb->add_field( array(
 ) );
 
 $cmb->add_field( array(
+	'id'              => 'rank_math_advanced_robots',
+	'type'            => 'advanced_robots',
+	'name'            => esc_html__( 'Advanced Robots Meta', 'rank-math' ),
+	'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_advanced_robots' ],
+) );
+
+$cmb->add_field( array(
 	'id'   => 'rank_math_canonical_url',
 	'type' => 'text',
 	'name' => esc_html__( 'Canonical URL', 'rank-math' ),

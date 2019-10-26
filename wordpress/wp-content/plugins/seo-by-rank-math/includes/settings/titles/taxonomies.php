@@ -78,6 +78,15 @@ $cmb->add_field([
 ]);
 
 $cmb->add_field([
+	'id'              => 'tax_' . $taxonomy . '_advanced_robots',
+	'type'            => 'advanced_robots',
+	/* translators: taxonomy name */
+	'name'            => sprintf( esc_html__( '%s Archives Advanced Robots Meta', 'rank-math' ), $name ),
+	'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_advanced_robots' ],
+	'dep'             => [ [ 'tax_' . $taxonomy . '_custom_robots', 'on' ] ],
+]);
+
+$cmb->add_field([
 	'id'      => 'tax_' . $taxonomy . '_add_meta_box',
 	'type'    => 'switch',
 	'name'    => esc_html__( 'Add SEO Meta Box', 'rank-math' ),

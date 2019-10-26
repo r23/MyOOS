@@ -18,6 +18,13 @@ $cmb->add_field([
 ]);
 
 $cmb->add_field([
+	'id'              => 'advanced_robots_global',
+	'type'            => 'advanced_robots',
+	'name'            => esc_html__( 'Advanced Robots Meta', 'rank-math' ),
+	'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_advanced_robots' ],
+]);
+
+$cmb->add_field([
 	'id'      => 'noindex_empty_taxonomies',
 	'type'    => 'switch',
 	'name'    => esc_html__( 'Noindex Empty Category and Tag Archives', 'rank-math' ),

@@ -15,7 +15,6 @@ use RankMath\KB;
 use RankMath\CMB2;
 use RankMath\Helper;
 use RankMath\Runner;
-use RankMath\Replace_Vars;
 use RankMath\Traits\Hooker;
 use MyThemeShop\Helpers\Str;
 use MyThemeShop\Helpers\Url;
@@ -63,7 +62,7 @@ class Metabox implements Runner {
 
 		// Styles.
 		CMB2_hookup::enqueue_cmb_css();
-		Replace_Vars::setup_json();
+		rank_math()->variables->setup_json();
 		wp_enqueue_style( 'rank-math-metabox', rank_math()->plugin_url() . '/assets/admin/css/metabox.css', [ 'rank-math-common', 'rank-math-cmb2' ], rank_math()->version );
 
 		// JSON data.
@@ -102,6 +101,8 @@ class Metabox implements Runner {
 			Helper::add_json( 'featuredImageNotice', esc_html__( 'The featured image should be at least 200 by 200 pixels to be picked up by Facebook and other social media sites.', 'rank-math' ) );
 
 			wp_enqueue_script( 'rank-math-post-metabox', $js . 'post-metabox.js', [ 'lodash', 'clipboard', 'rank-math-common', 'rank-math-assessor', 'jquery-tag-editor', 'rank-math-validate', 'wp-hooks' ], rank_math()->version, true );
+
+			$this->analyze_custom_fields();
 		}
 
 		if ( Admin_Helper::is_term_edit() ) {
@@ -509,5 +510,20 @@ class Metabox implements Runner {
 		}
 
 		return empty( $plugins_found ) ? false : $plugins_found;
+	}
+
+	/**
+	 * Enqueue script to analyze custom fields data.
+	 */
+	private function analyze_custom_fields() {
+		global $post;
+
+		$custom_fields = Str::to_arr_no_empty( Helper::get_settings( 'titles.pt_' . $post->post_type . '_analyze_fields' ) );
+		if ( empty( $custom_fields ) ) {
+			return;
+		}
+
+		wp_enqueue_script( 'rank-math-custom-fields', rank_math()->plugin_url() . 'assets/admin/js/custom-fields.js', [ 'rank-math-post-metabox', 'wp-hooks' ], rank_math()->version, true );
+		Helper::add_json( 'analyzeFields', $custom_fields );
 	}
 }

@@ -18,6 +18,7 @@ use RankMath\Helpers\Post_Type;
 use RankMath\Helpers\Options;
 use RankMath\Helpers\Taxonomy;
 use RankMath\Helpers\WordPress;
+use RankMath\Replace_Variables\Replacer;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -31,21 +32,24 @@ class Helper {
 	/**
 	 * Replace `%variables%` with context-dependent value.
 	 *
-	 * @param  string $content The string containing the %variables%.
-	 * @param  array  $args    Context object, can be post, taxonomy or term.
-	 * @param  array  $exclude Excluded variables won't be replaced.
+	 * @param string $content The string containing the %variables%.
+	 * @param array  $args    Context object, can be post, taxonomy or term.
+	 * @param array  $exclude Excluded variables won't be replaced.
+	 *
 	 * @return string
 	 */
 	public static function replace_vars( $content, $args = [], $exclude = [] ) {
-		$replacer = new Replace_Vars();
-
-		return $replacer->replace( $content, $args, $exclude );
+		$replace = new Replacer;
+		return $replace->replace( $content, $args, $exclude );
 	}
 
 	/**
 	 * Register extra %variables%. For developers.
 	 *
 	 * @codeCoverageIgnore
+	 *
+	 * @deprecated 1.0.34 Use rank_math_register_var_replacement()
+	 * @see rank_math_register_var_replacement()
 	 *
 	 * @param  string $var       Variable name, for example %custom%. '%' signs are optional.
 	 * @param  mixed  $callback  Replacement callback. Should return value, not output it.
@@ -54,7 +58,10 @@ class Helper {
 	 * @return bool Replacement was registered successfully or not.
 	 */
 	public static function register_var_replacement( $var, $callback, $args = [] ) {
-		return Replace_Vars::register_replacement( $var, $callback, $args );
+		_deprecated_function( 'RankMath\Helper::register_var_replacement()', '1.0.34', 'rank_math_register_var_replacement()' );
+		$args['description'] = isset( $args['desc'] ) ? $args['desc'] : '';
+		$args['variable']    = $var;
+		return rank_math_register_var_replacement( $var, $args, $callback );
 	}
 
 	/**

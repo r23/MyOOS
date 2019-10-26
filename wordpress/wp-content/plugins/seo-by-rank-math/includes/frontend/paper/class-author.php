@@ -64,6 +64,21 @@ class Author implements IPaper {
 	}
 
 	/**
+	 * Retrieves the advanced robots set in the user metabox.
+	 *
+	 * @return array The advanced robots for the specified user.
+	 */
+	public function advanced_robots() {
+		$robots = Paper::advanced_robots_combine( User::get_meta( 'advanced_robots', get_query_var( 'author' ) ) );
+
+		if ( empty( $robots ) && Helper::get_settings( 'titles.author_custom_robots' ) ) {
+			$robots = Paper::advanced_robots_combine( Helper::get_settings( 'titles.author_advanced_robots' ), true );
+		}
+
+		return $robots;
+	}
+
+	/**
 	 * Retrieves the canonical URL.
 	 *
 	 * @return array

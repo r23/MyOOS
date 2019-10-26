@@ -10,10 +10,15 @@
 
 namespace RankMath\Status;
 
+use RankMath\Helper;
+use RankMath\Traits\Hooker;
+
 /**
  * Tools class.
  */
 class Tools {
+
+	use Hooker;
 
 	/**
 	 * Register tools rest api hooks.
@@ -37,7 +42,7 @@ class Tools {
 					<tr class='<?php echo sanitize_html_class( $id ); ?>'>
 						<th>
 							<strong class='name'><?php echo esc_html( $tool['title'] ); ?></strong>
-							<p class='description'><?php echo esc_html( $tool['description'] ); ?></p>
+							<p class='description'><?php echo $tool['description']; ?></p>
 						</th>
 						<td class='run-tool'>
 							<a href='#' class='button button-large tools-action' data-action='<?php echo esc_attr( $id ); ?>' data-confirm="<?php echo isset( $tool['confirm_text'] ) ? esc_attr( $tool['confirm_text'] ) : 'false'; ?>"><?php echo esc_html( $tool['button_text'] ); ?></a>
@@ -57,7 +62,7 @@ class Tools {
 	 * @return array
 	 */
 	private function get_tools() {
-		return [
+		$tools = [
 			'clear_transients'    => [
 				'title'       => __( 'Rank Math transients', 'rank-math' ),
 				'description' => __( 'This tool will clear all the transients created by the Rank Math.', 'rank-math' ),
@@ -91,6 +96,19 @@ class Tools {
 				'button_text'  => __( 'Delete 404 Log', 'rank-math' ),
 			],
 		];
+
+		if ( ! empty( Helper::get_review_posts() ) ) {
+			$tools['convert_review'] = [
+				'title'        => __( 'Convert Review Schema into Article', 'rank-math' ),
+				/* translators: 1. Google documentation link 2. Filter code */
+				'description'  => sprintf( __( 'Before using this converter, please read our Knowledge Base Article from %s.', 'rank-math' ), '<a href="https://rankmath.com/kb/how-to-fix-review-schema-errors/" target="_blank">' . __( 'here', 'rank-math' ) . '</a>' ),
+				/* translators: Number of posts to update */
+				'confirm_text' => sprintf( __( 'Are you sure you want to covert %s posts with review schema into new schema type? This action is irreversible.', 'rank-math' ), count( Helper::get_review_posts() ) ),
+				'button_text'  => __( 'Convert', 'rank-math' ),
+			];
+		}
+
+		return $tools;
 	}
 
 	/**
@@ -156,5 +174,25 @@ class Tools {
 		$wpdb->query( "TRUNCATE TABLE {$wpdb->prefix}rank_math_redirections_cache;" );
 
 		return __( 'Redirection rules successfully deleted.', 'rank-math' );
+	}
+
+	/**
+	 * Function to convert the Review schema type.
+	 */
+	public function convert_review() {
+		$posts = Helper::get_review_posts();
+		if ( empty( $posts ) ) {
+			return __( 'No review posts found.', 'rank-math' );
+		}
+
+		$count = 0;
+		foreach ( $posts as $post_id ) {
+			update_post_meta( $post_id, 'rank_math_rich_snippet', $this->do_filter( 'convert_review/type', 'article', $post_id ) );
+			update_post_meta( $post_id, 'rank_math_snippet_article_type', $this->do_filter( 'convert_review/article_type', 'BlogPosting', $post_id ) );
+			$count++;
+		}
+		update_option( 'rank_math_review_posts', $posts );
+		/* translators: Number of posts updated */
+		return sprintf( __( '%1$s review Posts updated. You can find the list of all converted posts %2$s.', 'rank-math' ), $count, '<a href="' . esc_url( admin_url( 'edit.php?post_type=post&review_posts=1' ) ) . '" target="_blank">here</a>' );
 	}
 }

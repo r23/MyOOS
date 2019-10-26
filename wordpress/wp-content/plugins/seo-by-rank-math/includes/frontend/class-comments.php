@@ -34,7 +34,6 @@ class Comments {
 	 * Add ugc attribute and remove ?replytocom parameters.
 	 */
 	public function add_attributes() {
-
 		/**
 		 * Enable or disable the feature that adds ugc attribute.
 		 *
