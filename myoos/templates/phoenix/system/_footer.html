@@ -62,7 +62,8 @@
 					<ul class="list-unstyled">
 					{foreach $information as $info}
 						<li><a class="m-color-white-opacity-0_8 m-color-white--hover" href="{html_href_link content=$filename.information information_id=$info.information_id}" title="{$info.information_name}">{$info.information_name}</a></li>
-					{/foreach}	
+					{/foreach}
+						<li><a class="m-color-white-opacity-0_8 m-color-white--hover" href="{html_href_link content=$filename.contact_us}" title="{$lang.block_service_contact}">{$lang.block_service_contact}</a></li>					
 					</ul>
 				</div><!-- .col -->
 					
