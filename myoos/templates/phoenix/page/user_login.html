@@ -50,15 +50,14 @@
 				</div>
 			</div>
 			
-			<div class="col-md-6">
-			
+			<div class="col-md-6">	
 				<div class="sign-form">
 					<h3 class="first-child"><i class="fa fa-users" aria-hidden="true"></i> {$lang.text_new_customer}</h3>
 					<hr>
 						<p>{$lang.text_new_customer_info}</p>
 					<div class="bg-light">
 						<h2 class="text-center">{$lang.text_new_customer}</h2>
-						<a href="{html_href_link content=$filename.create_account}"><button type="button" class="btn btn-primary w-100">{$lang.link_new_customer}</button></a>
+						<a class="btn btn-primary w-100" href="{html_href_link content=$filename.create_account}" role="button">{$lang.link_new_customer}</a>
 					</div>
 				</div>				
 				
@@ -68,7 +67,7 @@
 						<p>{$lang.text_guest_customer_info}</p>
 					<div class="bg-light">
 						<h2 class="text-center">{$lang.text_guest_customer}</h2>
-						<a href="{html_href_link content=$filename.create_account guest=true}"><button type="button" class="btn btn-primary w-100">{$lang.link_guest_customer}</button></a>
+						<a class="btn btn-primary w-100" href="{html_href_link content=$filename.create_account guest=true}" role="button">{$lang.link_guest_customer}</a>
 					</div>
 				</div>				
 			</div>			
