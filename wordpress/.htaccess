@@ -1220,46 +1220,22 @@ FileETag None
 
 # Protect files and directories from prying eyes.
 <FilesMatch "\.(engine|inc|info|install|make|module|profile|test|po|sh|.*sql|theme|tpl(\.php)?|xtmpl)(~|\.sw[op]|\.bak|\.orig|\.save)?$|^(\..*|Entries.*|Repository|Root|Tag|Template)$|^#.*#$|\.php(~|\.sw[op]|\.bak|\.orig\.save)$">
-	<IfModule mod_authz_core.c>
-		Require all denied
-	</IfModule>
-	<IfModule !mod_authz_core.c>
-		Order allow,deny
-		Deny from all
-	</IfModule> 
+	Require all denied 
 </FilesMatch>
 
 # Protect file 
 <files .htaccess>
-	<IfModule mod_authz_core.c>
-		Require all denied
-	</IfModule>
-	<IfModule !mod_authz_core.c>
-		Order allow,deny
-		Deny from all
-	</IfModule>
+	Require all denied
 </files>
 
 # Protect files
 <FilesMatch "(wp-config.php|wp-config-sample.php|liesmich.html|readme.html|readme.txt)">
-	<IfModule mod_authz_core.c>
-		Require all denied
-	</IfModule>
-	<IfModule !mod_authz_core.c>
-		Order allow,deny
-		Deny from all
-	</IfModule>
+	Require all denied
 </FilesMatch> 
 
 
 #<files xmlrpc.php>
-#	<IfModule mod_authz_core.c>
-#		Require all denied
-#	</IfModule>
-#	<IfModule !mod_authz_core.c>
-#		Order allow,deny
-#		Deny from all
-#	</IfModule>
+#	Require all denied
 #</files>
 
 <IfModule mod_setenvif.c>
@@ -1271,32 +1247,10 @@ FileETag None
         BrowserMatch "wp-android" allowed
         BrowserMatch "wp-windowsphone" allowed
 		
-		# Apache < 2.3
-		<IfModule !mod_authz_core.c>
-			Order Deny,Allow
-			Deny from All
-			Allow from env=allowed
-		</IfModule>
-		
-		# Apache ≥ 2.3
-		<IfModule mod_authz_core.c>
-			Require env allowed
-		</IfModule>	
+		Require env allowed
     </Files>
 </IfModule>
 
-# Yoast SEO - XML Sitemap Rewrite Fix
-# https://kb.yoast.com/kb/xml-sitemaps-apache/
-<IfModule mod_rewrite.c>
-	RewriteEngine On
-	RewriteBase /
-	RewriteRule ^sitemap_index.xml$ /index.php?sitemap=1 [L]
-	RewriteRule ^locations.kml$ /index.php?sitemap=wpseo_local_kml [L]
-	RewriteRule ^geo_sitemap.xml$ /index.php?sitemap=geo [L]
-	RewriteRule ^([^/]+?)-sitemap([0-9]+)?.xml$ /index.php?sitemap=$1&sitemap_n=$2 [L]
-	RewriteRule ^([a-z]+)?-?sitemap.xsl$ /index.php?xsl=$1 [L]
-</IfModule>
-# END Yoast SEO - XML Sitemap Rewrite Fix
 
 <IfModule mod_rewrite.c>
 	RewriteEngine On

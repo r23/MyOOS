@@ -19,6 +19,7 @@ Requirements
 
 - PHP version 7.2 or higher.
 - MySQL version 5.6 or higher.
+- Apache version 2.4 or higher.
 - The Apache module mod_rewrite.
 - HTTPS support.
 - A link to oos-shop.de on your website.

@@ -1219,24 +1219,12 @@ FileETag None
 
 # Protect files and directories from prying eyes.
 <FilesMatch "\.(engine|inc|info|install|make|module|profile|test|po|sh|.*sql|theme|tpl(\.php)?|xtmpl)(~|\.sw[op]|\.bak|\.orig|\.save)?$|^(\..*|Entries.*|Repository|Root|Tag|Template)$|^#.*#$|\.php(~|\.sw[op]|\.bak|\.orig\.save)$">
-	<IfModule mod_authz_core.c>
-		Require all denied
-	</IfModule>
-	<IfModule !mod_authz_core.c>
-		Order allow,deny
-		Deny from all
-	</IfModule> 
+	Require all denied
 </FilesMatch>
 
 # Protect file 
 <files .htaccess>
-	<IfModule mod_authz_core.c>
-		Require all denied
-	</IfModule>
-	<IfModule !mod_authz_core.c>
-		Order allow,deny
-		Deny from all
-	</IfModule>
+	Require all denied
 </files>
 
 <IfModule mod_rewrite.c>
@@ -1261,55 +1249,6 @@ FileETag None
 	RewriteCond %{QUERY_STRING} ^.*(127\.0).* [NC,OR]
 	RewriteCond %{QUERY_STRING} ^.*(globals|encode|localhost|loopback).* [NC,OR]
 	RewriteCond %{QUERY_STRING} ^.*(request|concat|insert|union|declare).* [NC]
-	RewriteCond %{HTTP_REFERER} !^http://maps\.googleapis\.com(.*)$
-	RewriteRule ^(.*)$ - [F]
-		
-</IfModule>
-
-# Protect files and directories from prying eyes.
-<FilesMatch "\.(engine|inc|info|install|make|module|profile|test|po|sh|.*sql|theme|tpl(\.php)?|xtmpl)(~|\.sw[op]|\.bak|\.orig|\.save)?$|^(\..*|Entries.*|Repository|Root|Tag|Template)$|^#.*#$|\.php(~|\.sw[op]|\.bak|\.orig\.save)$">
-	<IfModule mod_authz_core.c>
-		Require all denied
-	</IfModule>
-	<IfModule !mod_authz_core.c>
-		Order allow,deny
-		Deny from all
-	</IfModule> 
-</FilesMatch>
-
-# Protect file 
-<files .htaccess>
-	<IfModule mod_authz_core.c>
-		Require all denied
-	</IfModule>
-	<IfModule !mod_authz_core.c>
-		Order allow,deny
-		Deny from all
-	</IfModule>
-</files>
-
-<IfModule mod_rewrite.c>
-	RewriteEngine On
-		
-	# Rules to block unneeded HTTP methods
-	RewriteCond %{REQUEST_METHOD} ^(TRACE|DELETE|TRACK) [NC]
-	RewriteRule ^(.*)$ - [F]
-		
-	# Rules to block suspicious URIs
-	RewriteCond %{QUERY_STRING} \.\.\/ [NC,OR]
-	RewriteCond %{QUERY_STRING} ^.*\.(bash|git|hg|log|svn|swp|cvs) [NC,OR]
-	RewriteCond %{QUERY_STRING} etc/passwd [NC,OR]
-	RewriteCond %{QUERY_STRING} boot\.ini [NC,OR]
-	RewriteCond %{QUERY_STRING} ftp\:  [NC,OR]
-	RewriteCond %{QUERY_STRING} http\:  [NC,OR]
-	RewriteCond %{QUERY_STRING} https\:  [NC,OR]
-	RewriteCond %{QUERY_STRING} (\<|%3C).*script.*(\>|%3E) [NC,OR]
-	RewriteCond %{QUERY_STRING} mosConfig_[a-zA-Z_]{1,21}(=|%3D) [NC,OR]
-	RewriteCond %{QUERY_STRING} base64_encode.*\(.*\) [NC,OR]
-	RewriteCond %{QUERY_STRING} ^.*(%24&x).* [NC,OR]
-	RewriteCond %{QUERY_STRING} ^.*(127\.0).* [NC,OR]
-	RewriteCond %{QUERY_STRING} ^.*(globals|encode|localhost|loopback).* [NC,OR]
-	RewriteCond %{QUERY_STRING} ^.*(request|concat|union|declare).* [NC]
 	RewriteCond %{HTTP_REFERER} !^http://maps\.googleapis\.com(.*)$
 	RewriteRule ^(.*)$ - [F]
 		
