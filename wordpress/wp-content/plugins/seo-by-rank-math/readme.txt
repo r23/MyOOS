@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection
 Tested up to: 5.2.3
 Requires at least: 4.7.0
 Requires PHP: 5.6
-Stable tag: 1.0.34.1
+Stable tag: 1.0.34.2
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -450,6 +450,10 @@ We look forward to helping you.
 
 == Changelog ==
 
+= 1.0.34.2 [Oct 28, 2019] =
+* Fixed an issue where some 3rd party themes were not working properly due to a [bug](https://core.trac.wordpress.org/ticket/9968#comment:18) in the core of WordPress
+* Fixed a small issue with the Redirection importer
+
 = 1.0.34.1 [Oct 26, 2019] =
 * Added tooltip to the newly added robots meta options
 * Fixed errors appearing on BuddyPress user page
@@ -457,11 +461,11 @@ We look forward to helping you.
 * Fixed JS error on some installations where stopwords option was enabled
 
 = 1.0.34 [Oct 24, 2019] =
-* Added a new one-click converter tool to help fix the Review Schema related errors which were appearing in GSC for all the older articles. [Read here](https://rankmath.com/kb/how-to-fix-review-schema-errors/)
+* Added a new one-click converter tool to help fix the Review Schema related errors which were appearing in GSC for all the older articles. Read here
 * Added an option to add any Custom Field to page analysis. No more tinkering with code (Rank Math >> Titles & Meta >> Posts/Pages/Post Type)
 * Added options to set new Robots Meta tags: max-snippet, max-video-preview, max-image-preview (https://i.rankmath.com/8ItIa7)
-* Added `rel="ugc"` attribute to all the links present in the comments and author URLs
-* Added an option to set `rel="sponsored"` attribute (https://i.rankmath.com/YZpWmd)
+* Added rel="ugc" attribute to all the links present in the comments and author URLs
+* Added an option to set rel="sponsored" attribute (https://i.rankmath.com/YZpWmd)
 * Added dedicated Aggregate Rating options in Book, Course, Event, Product, Recipe and Software Schema types
 * Added an option to show Blog Page in Breadcrumbs when Static Page is selected
 * Removed stopwords from Focus Keyword when checking for the FK in URL test
@@ -471,7 +475,7 @@ We look forward to helping you.
 * Fixed the issue where some variables were not showing value in the Preview area
 * Fixed Breadcrumb Shortcode error when Breadcrumbs were disabled in the settings
 * Fixed WooCommerce Opengraph Error
-* Fixed undefined error when editing a post which doesn't has an editor
+* Fixed undefined error when editing a post which doesn’t has an editor
 * Fixed Redirection module not detecting when a term was deleted or changed
 * Fixed links autofill issue
 * Fixed a fatal error with the Role Manager module when all the options were unchecked
@@ -479,7 +483,7 @@ We look forward to helping you.
 * Fixed a compatibility issue with Easy Digital Downloads showing the wrong title in the Preview
 * Fixed an Undefined property error on post type archive page
 * Fixed the working of a filter to remove tests from the content analysis
-* Fixed Optician Schema showing missing `priceRange`, image errors
+* Fixed Optician Schema showing missing priceRange, image errors
 * Fixed missing fields in the Dry Cleaning business type
 * All pesky bugs have been exterminated. Continue as you were
 * Improved the code further for better performance as something huge is coming in one of the upcoming versions

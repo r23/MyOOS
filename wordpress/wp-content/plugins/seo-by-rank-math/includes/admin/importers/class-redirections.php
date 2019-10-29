@@ -88,13 +88,13 @@ class Redirections extends Plugin_Importer {
 	 * @return string
 	 */
 	private function get_url_to( $row ) {
-		if ( is_string( $row->action_data ) ) {
-			return $row->action_data;
+		$data = maybe_unserialize( $row->action_data );
+		if ( is_array( $data ) && ( isset( $data['url'] ) || isset( $data['url_from'] ) ) ) {
+			return isset( $data['url'] ) ? $data['url'] : $data['url_from'];
 		}
 
-		$data = maybe_unserialize( $row->action_data );
-		if ( is_array( $data ) && isset( $data['url'] ) ) {
-			return $data['url'];
+		if ( is_string( $row->action_data ) ) {
+			return $row->action_data;
 		}
 
 		return '/';

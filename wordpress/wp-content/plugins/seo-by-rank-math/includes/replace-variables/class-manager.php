@@ -51,6 +51,13 @@ class Manager extends Post_Variables {
 	public $remove_non_replaced = true;
 
 	/**
+	 * Is variable setup.
+	 *
+	 * @var bool
+	 */
+	private $is_setup = false;
+
+	/**
 	 * Default post data.
 	 *
 	 * @var array
@@ -129,11 +136,12 @@ class Manager extends Post_Variables {
 	 */
 	public function setup() {
 		global $wp_customize;
-		if ( isset( $wp_customize ) ) {
+		if ( isset( $wp_customize ) || $this->is_setup ) {
 			return;
 		}
 
-		$this->remove_action( 'wp', 'setup', 25 );
+		// Variable setuped.
+		$this->is_setup = true;
 
 		// Internal variables.
 		if ( \function_exists( 'get_current_screen' ) ) {
