@@ -33,6 +33,7 @@ class PluginList
      */
     private $corePluginsDisabledByDefault = array(
         'DBStats',
+        'ExamplePlugin',
         'ExampleCommand',
         'ExampleSettingsPlugin',
         'ExampleUI',
@@ -41,6 +42,7 @@ class PluginList
         'ExampleTracker',
         'ExampleLogTables',
         'ExampleReport',
+        'ExampleAPI',
         'MobileAppMeasurable',
         'Provider',
         'TagManager'
@@ -65,7 +67,9 @@ class PluginList
     public function getActivatedPlugins()
     {
         $section = $this->settings->getSection('Plugins');
-        return @$section['Plugins'] ?: array();
+        $plugins = @$section['Plugins'] ?: array();
+
+        return $plugins;
     }
 
     /**
