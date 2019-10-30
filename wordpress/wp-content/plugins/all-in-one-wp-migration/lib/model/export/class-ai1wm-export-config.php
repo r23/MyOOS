@@ -132,13 +132,13 @@ class Ai1wm_Export_Config {
 		$config['Plugin'] = array( 'Version' => AI1WM_VERSION );
 
 		// Set WordPress version and content
-		$config['WordPress'] = array( 'Version' => $wp_version, 'Content' => WP_CONTENT_DIR );
+		$config['WordPress'] = array( 'Version' => $wp_version, 'Content' => WP_CONTENT_DIR, 'Plugins' => WP_PLUGIN_DIR, 'Themes' => get_theme_root(), 'Uploads' => ai1wm_get_uploads_dir() );
 
 		// Set database version
 		$config['Database'] = array( 'Version' => $mysql->version(), 'Charset' => DB_CHARSET, 'Collate' => DB_COLLATE );
 
 		// Set PHP version
-		$config['PHP'] = array( 'Version' => PHP_VERSION );
+		$config['PHP'] = array( 'Version' => PHP_VERSION, 'Integer' => PHP_INT_SIZE );
 
 		// Set active plugins
 		$config['Plugins'] = array_values( array_diff( ai1wm_active_plugins(), ai1wm_active_servmask_plugins() ) );

@@ -997,8 +997,6 @@ function ai1wm_activate_plugins( $plugins ) {
 		}
 	}
 
-	sort( $current );
-
 	return update_option( AI1WM_ACTIVE_PLUGINS, $current );
 }
 
@@ -1076,8 +1074,6 @@ function ai1wm_deactivate_plugins( $plugins ) {
 		}
 	}
 
-	sort( $current );
-
 	return update_option( AI1WM_ACTIVE_PLUGINS, $current );
 }
 
@@ -1096,8 +1092,6 @@ function ai1wm_deactivate_jetpack_modules( $modules ) {
 			unset( $current[ $key ] );
 		}
 	}
-
-	sort( $current );
 
 	return update_option( AI1WM_JETPACK_ACTIVE_MODULES, $current );
 }
@@ -1579,6 +1573,19 @@ function ai1wm_get_filters( $tag ) {
 	}
 
 	return $filters;
+}
+
+/**
+ * Get WordPress uploads directory
+ *
+ * @return string
+ */
+function ai1wm_get_uploads_dir() {
+	if ( ( $upload_dir = wp_upload_dir() ) ) {
+		if ( isset( $upload_dir['basedir'] ) ) {
+			return $upload_dir['basedir'];
+		}
+	}
 }
 
 /**
