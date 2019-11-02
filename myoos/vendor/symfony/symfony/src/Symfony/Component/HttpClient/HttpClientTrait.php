@@ -57,7 +57,7 @@ trait HttpClientTrait
         }
 
         if (!isset($options['normalized_headers']['accept'])) {
-            $options['normalized_headers']['accept'] = [$options['headers'][] = 'Accept: *'];
+            $options['normalized_headers']['accept'] = [$options['headers'][] = 'Accept: */*'];
         }
 
         if (isset($options['body'])) {
@@ -196,7 +196,7 @@ trait HttpClientTrait
         $normalizedHeaders = [];
 
         foreach ($headers as $name => $values) {
-            if (\is_object($values) && method_exists('__toString')) {
+            if (\is_object($values) && method_exists($values, '__toString')) {
                 $values = (string) $values;
             }
 

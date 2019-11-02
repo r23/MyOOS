@@ -303,7 +303,7 @@ class Configuration implements ConfigurationInterface
                                                 ->end()
                                             ->end()
                                             ->scalarNode('property')
-                                                ->defaultValue('marking')
+                                                ->defaultNull() // In Symfony 5.0, set "marking" as default property
                                             ->end()
                                             ->scalarNode('service')
                                                 ->cannotBeEmpty()
@@ -481,6 +481,14 @@ class Configuration implements ConfigurationInterface
                                         return $v;
                                     })
                                 ->end()
+                                ->validate()
+                                    ->ifTrue(function ($v) {
+                                        return isset($v['marking_store']['property'])
+                                            && (!isset($v['marking_store']['type']) || 'method' !== $v['marking_store']['type'])
+                                        ;
+                                    })
+                                    ->thenInvalid('"property" option is only supported by the "method" marking store.')
+                                ->end()
                             ->end()
                         ->end()
                     ->end()
@@ -542,7 +550,7 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('cookie_domain')->end()
                         ->enumNode('cookie_secure')->values([true, false, 'auto'])->end()
                         ->booleanNode('cookie_httponly')->defaultTrue()->end()
-                        ->enumNode('cookie_samesite')->values([null, Cookie::SAMESITE_LAX, Cookie::SAMESITE_STRICT])->defaultNull()->end()
+                        ->enumNode('cookie_samesite')->values([null, Cookie::SAMESITE_LAX, Cookie::SAMESITE_STRICT, Cookie::SAMESITE_NONE])->defaultNull()->end()
                         ->booleanNode('use_cookies')->end()
                         ->scalarNode('gc_divisor')->end()
                         ->scalarNode('gc_probability')->defaultValue(1)->end()

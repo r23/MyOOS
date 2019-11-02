@@ -666,7 +666,7 @@ class FrameworkExtension extends Extension
                 if ('method' === $workflow['marking_store']['type']) {
                     $markingStoreDefinition->setArguments([
                         'state_machine' === $type, //single state
-                        $workflow['marking_store']['property'],
+                        $workflow['marking_store']['property'] ?? 'marking',
                     ]);
                 } else {
                     foreach ($workflow['marking_store']['arguments'] as $argument) {
@@ -996,8 +996,6 @@ class FrameworkExtension extends Extension
     private function registerAssetsConfiguration(array $config, ContainerBuilder $container, XmlFileLoader $loader)
     {
         $loader->load('assets.xml');
-
-        $defaultVersion = null;
 
         if ($config['version_strategy']) {
             $defaultVersion = new Reference($config['version_strategy']);
@@ -1649,6 +1647,7 @@ class FrameworkExtension extends Extension
         $defaultMiddleware = [
             'before' => [
                 ['id' => 'add_bus_name_stamp_middleware'],
+                ['id' => 'reject_redelivered_message_middleware'],
                 ['id' => 'dispatch_after_current_bus'],
                 ['id' => 'failed_message_processing_middleware'],
             ],

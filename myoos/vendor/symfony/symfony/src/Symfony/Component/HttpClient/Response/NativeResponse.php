@@ -174,8 +174,16 @@ final class NativeResponse implements ResponseInterface
             $this->inflate = null;
         }
 
-        $this->multi->openHandles[$this->id] = [$h, $this->buffer, $this->inflate, $this->content, $this->onProgress, &$this->remaining, &$this->info];
         $this->multi->handlesActivity[$this->id] = [new FirstChunk()];
+
+        if ('HEAD' === $context['http']['method'] || \in_array($this->info['http_code'], [204, 304], true)) {
+            $this->multi->handlesActivity[$this->id][] = null;
+            $this->multi->handlesActivity[$this->id][] = null;
+
+            return;
+        }
+
+        $this->multi->openHandles[$this->id] = [$h, $this->buffer, $this->inflate, $this->content, $this->onProgress, &$this->remaining, &$this->info];
     }
 
     /**

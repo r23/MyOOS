@@ -58,7 +58,7 @@ class EntityTypeTest extends BaseTypeTest
      */
     private $emRegistry;
 
-    protected static $supportedFeatureSetVersion = 304;
+    protected static $supportedFeatureSetVersion = 403;
 
     protected function setUp(): void
     {
@@ -187,7 +187,7 @@ class EntityTypeTest extends BaseTypeTest
     public function testConfigureQueryBuilderWithNonQueryBuilderAndNonClosure()
     {
         $this->expectException('Symfony\Component\OptionsResolver\Exception\InvalidOptionsException');
-        $field = $this->factory->createNamed('name', static::TESTED_TYPE, null, [
+        $this->factory->createNamed('name', static::TESTED_TYPE, null, [
             'em' => 'default',
             'class' => self::SINGLE_IDENT_CLASS,
             'query_builder' => new \stdClass(),

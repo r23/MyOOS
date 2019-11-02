@@ -142,7 +142,6 @@ final class CurlResponse implements ResponseInterface
         // Schedule the request in a non-blocking way
         $multi->openHandles[$id] = [$ch, $options];
         curl_multi_add_handle($multi->handle, $ch);
-        self::perform($multi);
     }
 
     /**
@@ -274,6 +273,11 @@ final class CurlResponse implements ResponseInterface
      */
     private static function select(CurlClientState $multi, float $timeout): int
     {
+        if (\PHP_VERSION_ID < 70123 || (70200 <= \PHP_VERSION_ID && \PHP_VERSION_ID < 70211)) {
+            // workaround https://bugs.php.net/76480
+            $timeout = min($timeout, 0.01);
+        }
+
         return curl_multi_select($multi->handle, $timeout);
     }
 
@@ -318,6 +322,7 @@ final class CurlResponse implements ResponseInterface
 
         if (200 > $statusCode = curl_getinfo($ch, CURLINFO_RESPONSE_CODE)) {
             $multi->handlesActivity[$id][] = new InformationalChunk($statusCode, $headers);
+            $location = null;
 
             return \strlen($data);
         }
@@ -341,9 +346,7 @@ final class CurlResponse implements ResponseInterface
             }
         }
 
-        $location = null;
-
-        if ($statusCode < 300 || 400 <= $statusCode || curl_getinfo($ch, CURLINFO_REDIRECT_COUNT) === $options['max_redirects']) {
+        if ($statusCode < 300 || 400 <= $statusCode || null === $location || curl_getinfo($ch, CURLINFO_REDIRECT_COUNT) === $options['max_redirects']) {
             // Headers and redirects completed, time to get the response's body
             $multi->handlesActivity[$id][] = new FirstChunk();
 
@@ -355,6 +358,8 @@ final class CurlResponse implements ResponseInterface
         } elseif (null !== $info['redirect_url'] && $logger) {
             $logger->info(sprintf('Redirecting: "%s %s"', $info['http_code'], $info['redirect_url']));
         }
+
+        $location = null;
 
         return \strlen($data);
     }

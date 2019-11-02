@@ -72,6 +72,31 @@ abstract class HttpClientTestCase extends TestCase
         $response->getContent();
     }
 
+    public function testHeadRequest()
+    {
+        $client = $this->getHttpClient(__FUNCTION__);
+        $response = $client->request('HEAD', 'http://localhost:8057/head', [
+            'headers' => ['Foo' => 'baR'],
+            'user_data' => $data = new \stdClass(),
+            'buffer' => false,
+        ]);
+
+        $this->assertSame([], $response->getInfo('response_headers'));
+        $this->assertSame(200, $response->getStatusCode());
+
+        $info = $response->getInfo();
+        $this->assertSame('HTTP/1.1 200 OK', $info['response_headers'][0]);
+        $this->assertSame('Host: localhost:8057', $info['response_headers'][1]);
+
+        $headers = $response->getHeaders();
+
+        $this->assertSame('localhost:8057', $headers['host'][0]);
+        $this->assertSame(['application/json'], $headers['content-type']);
+        $this->assertTrue(0 < $headers['content-length'][0]);
+
+        $this->assertSame('', $response->getContent());
+    }
+
     public function testNonBufferedGetRequest()
     {
         $client = $this->getHttpClient(__FUNCTION__);
@@ -231,6 +256,18 @@ abstract class HttpClientTestCase extends TestCase
         ]);
 
         $response->getStatusCode();
+    }
+
+    public function test304()
+    {
+        $client = $this->getHttpClient(__FUNCTION__);
+        $response = $client->request('GET', 'http://localhost:8057/304', [
+            'headers' => ['If-Match' => '"abc"'],
+            'buffer' => false,
+        ]);
+
+        $this->assertSame(304, $response->getStatusCode());
+        $this->assertSame('', $response->getContent(false));
     }
 
     public function testRedirects()
@@ -597,9 +634,9 @@ abstract class HttpClientTestCase extends TestCase
     {
         $client = $this->getHttpClient(__FUNCTION__);
         $response = $client->request('GET', 'http://localhost:8057/timeout-header', [
-            'timeout' => 0.5,
+            'timeout' => 0.9,
         ]);
-        usleep(510000);
+        sleep(1);
         $this->assertSame(200, $response->getStatusCode());
     }
 
@@ -669,7 +706,7 @@ abstract class HttpClientTestCase extends TestCase
         $duration = microtime(true) - $start;
 
         $this->assertGreaterThan(1, $duration);
-        $this->assertLessThan(3, $duration);
+        $this->assertLessThan(4, $duration);
     }
 
     public function testProxy()

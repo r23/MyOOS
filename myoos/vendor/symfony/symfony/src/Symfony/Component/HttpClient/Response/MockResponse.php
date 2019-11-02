@@ -176,7 +176,7 @@ class MockResponse implements ResponseInterface
                 try {
                     $offset = 0;
                     $chunk[1]->getStatusCode();
-                    $response->headers = $chunk[1]->getHeaders(false);
+                    $chunk[1]->getHeaders(false);
                     self::readResponse($response, $chunk[0], $chunk[1], $offset);
                     $multi->handlesActivity[$id][] = new FirstChunk();
                 } catch (\Throwable $e) {
@@ -257,7 +257,7 @@ class MockResponse implements ResponseInterface
         $info = $mock->getInfo() ?: [];
         $response->info['http_code'] = ($info['http_code'] ?? 0) ?: $mock->getStatusCode() ?: 200;
         $response->addResponseHeaders($info['response_headers'] ?? [], $response->info, $response->headers);
-        $dlSize = isset($response->headers['content-encoding']) ? 0 : (int) ($response->headers['content-length'][0] ?? 0);
+        $dlSize = isset($response->headers['content-encoding']) || 'HEAD' === $response->info['http_method'] || \in_array($response->info['http_code'], [204, 304], true) ? 0 : (int) ($response->headers['content-length'][0] ?? 0);
 
         $response->info = [
             'start_time' => $response->info['start_time'],
