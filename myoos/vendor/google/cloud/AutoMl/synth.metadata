@@ -1,0 +1,34 @@
+{
+  "updateTime": "2019-10-07T19:39:19.906641Z",
+  "sources": [
+    {
+      "generator": {
+        "name": "artman",
+        "version": "0.38.0",
+        "dockerImage": "googleapis/artman@sha256:0d2f8d429110aeb8d82df6550ef4ede59d40df9062d260a1580fce688b0512bf"
+      }
+    }
+  ],
+  "destinations": [
+    {
+      "client": {
+        "source": "googleapis",
+        "apiName": "automl",
+        "apiVersion": "v1beta1",
+        "language": "php",
+        "generator": "gapic",
+        "config": "google/cloud/automl/artman_automl_v1beta1.yaml"
+      }
+    },
+    {
+      "client": {
+        "source": "googleapis",
+        "apiName": "automl",
+        "apiVersion": "v1",
+        "language": "php",
+        "generator": "gapic",
+        "config": "google/cloud/automl/artman_automl_v1.yaml"
+      }
+    }
+  ]
+}

@@ -44,7 +44,8 @@
 		"paypal/rest-api-sdk-php": "*",
 		"stripe/stripe-php": "^7.0",
 		"slim/slim": "~2.0",
-		"endroid/qr-code": "^3.6"
+		"endroid/qr-code": "^3.6",
+		"google/cloud": "^0.116.0"
     }	
 	
 }
