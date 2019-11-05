@@ -45,7 +45,8 @@
 		"stripe/stripe-php": "^7.0",
 		"slim/slim": "~2.0",
 		"endroid/qr-code": "^3.6",
-		"google/cloud": "^0.116.0"
+		"google/cloud": "^0.116.0",
+		"zendframework/zend-httphandlerrunner": "^1.1"
     }	
 	
 }

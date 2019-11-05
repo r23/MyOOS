@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Zxing\\' => array($vendorDir . '/khanamiryan/qrcode-detector-decoder/lib'),
+    'Zend\\HttpHandlerRunner\\' => array($vendorDir . '/zendframework/zend-httphandlerrunner/src'),
     'Zend\\Escaper\\' => array($vendorDir . '/zendframework/zend-escaper/src'),
     'Twig\\' => array($vendorDir . '/twig/twig/src'),
     'Symfony\\Polyfill\\Php73\\' => array($vendorDir . '/symfony/polyfill-php73'),
@@ -26,6 +27,7 @@ return array(
     'Psr\\SimpleCache\\' => array($vendorDir . '/psr/simple-cache/src'),
     'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
     'Psr\\Link\\' => array($vendorDir . '/psr/link/src'),
+    'Psr\\Http\\Server\\' => array($vendorDir . '/psr/http-server-handler/src'),
     'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-message/src'),
     'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
     'Psr\\Cache\\' => array($vendorDir . '/psr/cache/src'),

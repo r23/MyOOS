@@ -83,6 +83,7 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         'Z' => 
         array (
             'Zxing\\' => 6,
+            'Zend\\HttpHandlerRunner\\' => 23,
             'Zend\\Escaper\\' => 13,
         ),
         'T' => 
@@ -114,6 +115,7 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
             'Psr\\SimpleCache\\' => 16,
             'Psr\\Log\\' => 8,
             'Psr\\Link\\' => 9,
+            'Psr\\Http\\Server\\' => 16,
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Container\\' => 14,
             'Psr\\Cache\\' => 10,
@@ -246,6 +248,10 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         array (
             0 => __DIR__ . '/..' . '/khanamiryan/qrcode-detector-decoder/lib',
         ),
+        'Zend\\HttpHandlerRunner\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/zendframework/zend-httphandlerrunner/src',
+        ),
         'Zend\\Escaper\\' => 
         array (
             0 => __DIR__ . '/..' . '/zendframework/zend-escaper/src',
@@ -321,6 +327,10 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         'Psr\\Link\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/link/src',
+        ),
+        'Psr\\Http\\Server\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/http-server-handler/src',
         ),
         'Psr\\Http\\Message\\' => 
         array (
