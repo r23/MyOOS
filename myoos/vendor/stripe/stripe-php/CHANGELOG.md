@@ -1,5 +1,17 @@
 # Changelog
 
+## 7.10.0 - 2019-11-05
+* [#795](https://github.com/stripe/stripe-php/pull/795) Add support for `Mandate`
+
+## 7.9.0 - 2019-11-05
+* [#794](https://github.com/stripe/stripe-php/pull/794) Add PHPDoc to `ApiResponse`
+* [#792](https://github.com/stripe/stripe-php/pull/792) Use single quotes for `OBJECT_NAME` constants
+
+## 7.8.0 - 2019-11-05
+* [#790](https://github.com/stripe/stripe-php/pull/790) Mark nullable fields in PHPDoc
+* [#788](https://github.com/stripe/stripe-php/pull/788) Early codegen fixes
+* [#787](https://github.com/stripe/stripe-php/pull/787) Use PHPStan in Travis CI
+
 ## 7.7.1 - 2019-10-25
 * [#781](https://github.com/stripe/stripe-php/pull/781) Fix telemetry header
 * [#780](https://github.com/stripe/stripe-php/pull/780) Contributor Convenant

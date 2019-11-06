@@ -8,26 +8,27 @@ namespace Stripe;
  * @property string $id
  * @property string $object
  * @property int $amount
- * @property string $customer_balance_transaction
  * @property int $created
  * @property string $currency
  * @property string $customer
+ * @property string|null $customer_balance_transaction
  * @property string $invoice
  * @property bool $livemode
- * @property string $memo
- * @property StripeObject $metadata
+ * @property string|null $memo
+ * @property \Stripe\StripeObject $metadata
  * @property string $number
  * @property string $pdf
- * @property string $reason
- * @property string $refund
+ * @property string|null $reason
+ * @property string|null $refund
  * @property string $status
  * @property string $type
+ * @property int|null $voided_at
  *
  * @package Stripe
  */
 class CreditNote extends ApiResource
 {
-    const OBJECT_NAME = "credit_note";
+    const OBJECT_NAME = 'credit_note';
 
     use ApiOperations\All;
     use ApiOperations\Create;

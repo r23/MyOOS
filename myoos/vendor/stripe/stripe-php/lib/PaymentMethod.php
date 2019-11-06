@@ -11,18 +11,18 @@ namespace Stripe;
  * @property mixed $card
  * @property mixed $card_present
  * @property int $created
- * @property string $customer
- * @property mixed $ideal
+ * @property string|null $customer
+ * @property mixed|null $ideal
  * @property bool $livemode
- * @property StripeObject $metadata
- * @property mixed $sepa_debit
+ * @property \Stripe\StripeObject $metadata
+ * @property mixed|null $sepa_debit
  * @property string $type
  *
  * @package Stripe
  */
 class PaymentMethod extends ApiResource
 {
-    const OBJECT_NAME = "payment_method";
+    const OBJECT_NAME = 'payment_method';
 
     use ApiOperations\All;
     use ApiOperations\Create;

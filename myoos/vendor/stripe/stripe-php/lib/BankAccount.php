@@ -7,25 +7,25 @@ namespace Stripe;
  *
  * @property string $id
  * @property string $object
- * @property string $account
- * @property string $account_holder_name
- * @property string $account_holder_type
- * @property string $bank_name
+ * @property string|null $account
+ * @property string|null $account_holder_name
+ * @property string|null $account_holder_type
+ * @property string|null $bank_name
  * @property string $country
- * @property string $currency
- * @property string $customer
- * @property bool $default_for_currency
- * @property string $fingerprint
+ * @property string|null $currency
+ * @property string|null $customer
+ * @property bool|null $default_for_currency
+ * @property string|null $fingerprint
  * @property string $last4
- * @property StripeObject $metadata
- * @property string $routing_number
+ * @property \Stripe\StripeObject|null $metadata
+ * @property string|null $routing_number
  * @property string $status
  *
  * @package Stripe
  */
 class BankAccount extends ApiResource
 {
-    const OBJECT_NAME = "bank_account";
+    const OBJECT_NAME = 'bank_account';
 
     use ApiOperations\Delete;
     use ApiOperations\Update;
@@ -97,17 +97,17 @@ class BankAccount extends ApiResource
     }
 
     /**
-      * @param array|null $params
-      * @param array|string|null $options
+     * @param array|null $params
+     * @param array|string|null $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
-      *
-      * @return BankAccount The verified bank account.
-      */
-    public function verify($params = null, $options = null)
+     *
+     * @return BankAccount The verified bank account.
+     */
+    public function verify($params = null, $opts = null)
     {
         $url = $this->instanceUrl() . '/verify';
-        list($response, $opts) = $this->_request('post', $url, $params, $options);
+        list($response, $opts) = $this->_request('post', $url, $params, $opts);
         $this->refreshFrom($response, $opts);
         return $this;
     }

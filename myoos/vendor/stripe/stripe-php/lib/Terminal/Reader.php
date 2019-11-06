@@ -7,20 +7,19 @@ namespace Stripe\Terminal;
  *
  * @property string $id
  * @property string $object
- * @property bool $deleted
- * @property string $device_sw_version
+ * @property string|null $device_sw_version
  * @property string $device_type
- * @property string $ip_address
+ * @property string|null $ip_address
  * @property string $label
- * @property string $location
+ * @property string|null $location
  * @property string $serial_number
- * @property string $status
+ * @property string|null $status
  *
  * @package Stripe\Terminal
  */
 class Reader extends \Stripe\ApiResource
 {
-    const OBJECT_NAME = "terminal.reader";
+    const OBJECT_NAME = 'terminal.reader';
 
     use \Stripe\ApiOperations\All;
     use \Stripe\ApiOperations\Create;

@@ -8,23 +8,24 @@ namespace Stripe\Checkout;
  * @property string $id
  * @property string $object
  * @property string $cancel_url
- * @property string $client_reference_id
- * @property string $customer
- * @property string $customer_email
- * @property mixed $display_items
+ * @property string|null $client_reference_id
+ * @property string|null $customer
+ * @property string|null $customer_email
+ * @property mixed|null $display_items
  * @property bool $livemode
- * @property string $payment_intent
+ * @property string|null $mode
+ * @property string|null $payment_intent
  * @property string[] $payment_method_types
- * @property string $setup_intent
- * @property string $submit_type
- * @property string $subscription
+ * @property string|null $setup_intent
+ * @property string|null $submit_type
+ * @property string|null $subscription
  * @property string $success_url
  *
- * @package Stripe
+ * @package Stripe\Checkout
  */
 class Session extends \Stripe\ApiResource
 {
-    const OBJECT_NAME = "checkout.session";
+    const OBJECT_NAME = 'checkout.session';
 
     use \Stripe\ApiOperations\Create;
     use \Stripe\ApiOperations\Retrieve;

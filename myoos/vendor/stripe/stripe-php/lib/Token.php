@@ -7,9 +7,9 @@ namespace Stripe;
  *
  * @property string $id
  * @property string $object
- * @property BankAccount $bank_account
- * @property Card $card
- * @property string $client_ip
+ * @property \Stripe\BankAccount $bank_account
+ * @property \Stripe\Card $card
+ * @property string|null $client_ip
  * @property int $created
  * @property bool $livemode
  * @property string $type
@@ -19,7 +19,7 @@ namespace Stripe;
  */
 class Token extends ApiResource
 {
-    const OBJECT_NAME = "token";
+    const OBJECT_NAME = 'token';
 
     use ApiOperations\Create;
     use ApiOperations\Retrieve;

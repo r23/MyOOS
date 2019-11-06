@@ -7,24 +7,24 @@ namespace Stripe;
  *
  * @property string $id
  * @property string $object
- * @property string $billing_zip
- * @property string $charge
- * @property string $closed_reason
+ * @property string|null $billing_zip
+ * @property string|null $charge
+ * @property string|null $closed_reason
  * @property int $created
- * @property string $ip_address
- * @property mixed $ip_address_location
+ * @property string|null $ip_address
+ * @property mixed|null $ip_address_location
  * @property bool $livemode
  * @property bool $open
  * @property string $opened_reason
  * @property string $payment_intent
  * @property string $reason
- * @property mixed $session
+ * @property mixed|null $session
  *
  * @package Stripe
  */
 class Review extends ApiResource
 {
-    const OBJECT_NAME = "review";
+    const OBJECT_NAME = 'review';
 
     use ApiOperations\All;
     use ApiOperations\Retrieve;
@@ -43,16 +43,17 @@ class Review extends ApiResource
     const REASON_RULE              = 'rule';
 
     /**
-     * @param array|string|null $options
+     * @param array|null $params
+     * @param array|string|null $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
      *
      * @return Review The approved review.
      */
-    public function approve($params = null, $options = null)
+    public function approve($params = null, $opts = null)
     {
         $url = $this->instanceUrl() . '/approve';
-        list($response, $opts) = $this->_request('post', $url, $params, $options);
+        list($response, $opts) = $this->_request('post', $url, $params, $opts);
         $this->refreshFrom($response, $opts);
         return $this;
     }

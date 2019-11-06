@@ -8,13 +8,13 @@ namespace Stripe;
  * @property string $id
  * @property string $object
  * @property int $created
- * @property string $filename
- * @property Collection $links
+ * @property string|null $filename
+ * @property \Stripe\Collection|null $links
  * @property string $purpose
  * @property int $size
- * @property string $title
- * @property string $type
- * @property string $url
+ * @property string|null $title
+ * @property string|null $type
+ * @property string|null $url
  *
  * @package Stripe
  */
@@ -24,7 +24,7 @@ class File extends ApiResource
     // versions, only `file` is used, but since stripe-php may be used with
     // any API version, we need to support deserializing the older
     // `file_upload` object into the same class.
-    const OBJECT_NAME = "file";
+    const OBJECT_NAME = 'file';
     const OBJECT_NAME_ALT = "file_upload";
 
     use ApiOperations\All;

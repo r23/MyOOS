@@ -7,6 +7,8 @@ namespace Stripe;
  *
  * @property string $id
  * @property string $object
+ * @property string|null $api_version
+ * @property string|null $application
  * @property int $created
  * @property string[] $enabled_events
  * @property bool $livemode
@@ -18,7 +20,7 @@ namespace Stripe;
  */
 class WebhookEndpoint extends ApiResource
 {
-    const OBJECT_NAME = "webhook_endpoint";
+    const OBJECT_NAME = 'webhook_endpoint';
 
     use ApiOperations\All;
     use ApiOperations\Create;

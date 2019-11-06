@@ -8,9 +8,8 @@ namespace Stripe\Issuing;
  * @property string $id
  * @property string $object
  * @property mixed $authorization_controls
- * @property mixed $billing
  * @property string $brand
- * @property Cardholder $cardholder
+ * @property \Stripe\Issuing\Cardholder|null $cardholder
  * @property int $created
  * @property string $currency
  * @property int $exp_month
@@ -19,7 +18,10 @@ namespace Stripe\Issuing;
  * @property bool $livemode
  * @property \Stripe\StripeObject $metadata
  * @property string $name
- * @property mixed $shipping
+ * @property mixed|null $pin
+ * @property string|null $replacement_for
+ * @property string|null $replacement_reason
+ * @property mixed|null $shipping
  * @property string $status
  * @property string $type
  *
@@ -27,7 +29,7 @@ namespace Stripe\Issuing;
  */
 class Card extends \Stripe\ApiResource
 {
-    const OBJECT_NAME = "issuing.card";
+    const OBJECT_NAME = 'issuing.card';
 
     use \Stripe\ApiOperations\All;
     use \Stripe\ApiOperations\Create;
@@ -36,16 +38,16 @@ class Card extends \Stripe\ApiResource
 
     /**
      * @param array|null $params
-     * @param array|string|null $options
+     * @param array|string|null $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
      *
      * @return CardDetails The card details associated with that issuing card.
      */
-    public function details($params = null, $options = null)
+    public function details($params = null, $opts = null)
     {
         $url = $this->instanceUrl() . '/details';
-        list($response, $opts) = $this->_request('get', $url, $params, $options);
+        list($response, $opts) = $this->_request('get', $url, $params, $opts);
         $obj = \Stripe\Util\Util::convertToStripeObject($response, $opts);
         $obj->setLastResponse($response);
         return $obj;

@@ -7,25 +7,30 @@ namespace Stripe;
  *
  * @property string $id
  * @property string $object
- * @property string $application
- * @property string $client_secret
+ * @property string|null $application
+ * @property string|null $cancellation_reason
+ * @property string|null $client_secret
  * @property int $created
- * @property string $customer
- * @property string $description
- * @property mixed $last_setup_error
+ * @property string|null $customer
+ * @property string|null $description
+ * @property mixed|null $last_setup_error
  * @property bool $livemode
- * @property StripeObject $metadata
- * @property mixed $next_action
- * @property string $on_behalf_of
- * @property string $payment_method
+ * @property string|null $mandate
+ * @property \Stripe\StripeObject $metadata
+ * @property mixed|null $next_action
+ * @property string|null $on_behalf_of
+ * @property string|null $payment_method
+ * @property mixed|null $payment_method_options
  * @property string[] $payment_method_types
+ * @property string|null $single_use_mandate
  * @property string $status
+ * @property string $usage
  *
  * @package Stripe
  */
 class SetupIntent extends ApiResource
 {
-    const OBJECT_NAME = "setup_intent";
+    const OBJECT_NAME = 'setup_intent';
 
     use ApiOperations\All;
     use ApiOperations\Create;
@@ -46,32 +51,32 @@ class SetupIntent extends ApiResource
 
     /**
      * @param array|null $params
-     * @param array|string|null $options
+     * @param array|string|null $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
      *
      * @return SetupIntent The canceled setup intent.
      */
-    public function cancel($params = null, $options = null)
+    public function cancel($params = null, $opts = null)
     {
         $url = $this->instanceUrl() . '/cancel';
-        list($response, $opts) = $this->_request('post', $url, $params, $options);
+        list($response, $opts) = $this->_request('post', $url, $params, $opts);
         $this->refreshFrom($response, $opts);
         return $this;
     }
 
     /**
      * @param array|null $params
-     * @param array|string|null $options
+     * @param array|string|null $opts
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
      *
      * @return SetupIntent The confirmed setup intent.
      */
-    public function confirm($params = null, $options = null)
+    public function confirm($params = null, $opts = null)
     {
         $url = $this->instanceUrl() . '/confirm';
-        list($response, $opts) = $this->_request('post', $url, $params, $options);
+        list($response, $opts) = $this->_request('post', $url, $params, $opts);
         $this->refreshFrom($response, $opts);
         return $this;
     }
