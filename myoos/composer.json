@@ -48,7 +48,8 @@
 		"google/cloud": "^0.116.0",
 		"zendframework/zend-httphandlerrunner": "^1.1",
 		"phpseclib/phpseclib": "^2.0",
-		"php-amqplib/php-amqplib": "^2.10"
+		"php-amqplib/php-amqplib": "^2.10",
+		"php-console/php-console": "^3.1"
     }	
 	
 }

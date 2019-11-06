@@ -128,6 +128,7 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
             'PhpOffice\\PhpWord\\' => 18,
             'PhpOffice\\PhpSpreadsheet\\' => 25,
             'PhpOffice\\Common\\' => 17,
+            'PhpConsole\\' => 11,
             'PhpAmqpLib\\' => 11,
         ),
         'M' => 
@@ -369,6 +370,10 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         'PhpOffice\\Common\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpoffice/common/src/Common',
+        ),
+        'PhpConsole\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-console/php-console/src/PhpConsole',
         ),
         'PhpAmqpLib\\' => 
         array (

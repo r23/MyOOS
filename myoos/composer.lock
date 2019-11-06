@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "99797a91e6a8ef95ff0dc60767d5ff8b",
+    "content-hash": "c83713357c6f9254e2b470f7aef8afe2",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -2127,6 +2127,57 @@
                 "rabbitmq"
             ],
             "time": "2019-10-10T13:23:40+00:00"
+        },
+        {
+            "name": "php-console/php-console",
+            "version": "3.1.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/barbushin/php-console.git",
+                "reference": "aa1d71d4ea3dc91e126edc9aa4f3c10eb8559cff"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/barbushin/php-console/zipball/aa1d71d4ea3dc91e126edc9aa4f3c10eb8559cff",
+                "reference": "aa1d71d4ea3dc91e126edc9aa4f3c10eb8559cff",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "ext-mbstring": "*",
+                "phpunit/phpunit": "^4.8",
+                "psr/log": "^1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PhpConsole\\": "src/PhpConsole"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sergey Barbushin",
+                    "email": "barbushin@gmail.com",
+                    "homepage": "http://linkedin.com/in/barbushin"
+                }
+            ],
+            "description": "PHP library for Google Chrome extension \"PHP Console\".",
+            "homepage": "https://github.com/barbushin/php-console",
+            "keywords": [
+                "chrome",
+                "debug",
+                "error handler",
+                "errors",
+                "google chrome",
+                "php"
+            ],
+            "time": "2019-07-25T03:43:28+00:00"
         },
         {
             "name": "phpoffice/common",
