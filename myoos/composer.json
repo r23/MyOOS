@@ -47,7 +47,8 @@
 		"endroid/qr-code": "^3.6",
 		"google/cloud": "^0.116.0",
 		"zendframework/zend-httphandlerrunner": "^1.1",
-		"phpseclib/phpseclib": "^2.0"
+		"phpseclib/phpseclib": "^2.0",
+		"php-amqplib/php-amqplib": "^2.10"
     }	
 	
 }
