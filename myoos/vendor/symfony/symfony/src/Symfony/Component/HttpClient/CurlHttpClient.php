@@ -48,6 +48,8 @@ final class CurlHttpClient implements HttpClientInterface, LoggerAwareInterface
      */
     private $multi;
 
+    private static $curlVersion;
+
     /**
      * @param array $defaultOptions     Default requests' options
      * @param int   $maxHostConnections The maximum number of connections to a single host
@@ -66,6 +68,7 @@ final class CurlHttpClient implements HttpClientInterface, LoggerAwareInterface
         }
 
         $this->multi = $multi = new CurlClientState();
+        self::$curlVersion = self::$curlVersion ?? curl_version();
 
         // Don't enable HTTP/1.1 pipelining: it forces responses to be sent in order
         if (\defined('CURLPIPE_MULTIPLEX')) {
@@ -84,7 +87,7 @@ final class CurlHttpClient implements HttpClientInterface, LoggerAwareInterface
         }
 
         // HTTP/2 push crashes before curl 7.61
-        if (!\defined('CURLMOPT_PUSHFUNCTION') || 0x073d00 > ($v = curl_version())['version_number'] || !(CURL_VERSION_HTTP2 & $v['features'])) {
+        if (!\defined('CURLMOPT_PUSHFUNCTION') || 0x073d00 > self::$curlVersion['version_number'] || !(CURL_VERSION_HTTP2 & self::$curlVersion['features'])) {
             return;
         }
 
@@ -170,7 +173,7 @@ final class CurlHttpClient implements HttpClientInterface, LoggerAwareInterface
             $this->multi->dnsCache->evictions = [];
             $port = parse_url($authority, PHP_URL_PORT) ?: ('http:' === $scheme ? 80 : 443);
 
-            if ($resolve && 0x072a00 > curl_version()['version_number']) {
+            if ($resolve && 0x072a00 > self::$curlVersion['version_number']) {
                 // DNS cache removals require curl 7.42 or higher
                 // On lower versions, we have to create a new multi handle
                 curl_multi_close($this->multi->handle);
@@ -190,7 +193,7 @@ final class CurlHttpClient implements HttpClientInterface, LoggerAwareInterface
             $curlopts[CURLOPT_HTTP_VERSION] = CURL_HTTP_VERSION_1_0;
         } elseif (1.1 === (float) $options['http_version'] || 'https:' !== $scheme) {
             $curlopts[CURLOPT_HTTP_VERSION] = CURL_HTTP_VERSION_1_1;
-        } elseif (\defined('CURL_VERSION_HTTP2') && CURL_VERSION_HTTP2 & curl_version()['features']) {
+        } elseif (\defined('CURL_VERSION_HTTP2') && CURL_VERSION_HTTP2 & self::$curlVersion['features']) {
             $curlopts[CURLOPT_HTTP_VERSION] = CURL_HTTP_VERSION_2_0;
         }
 
@@ -207,8 +210,8 @@ final class CurlHttpClient implements HttpClientInterface, LoggerAwareInterface
             $curlopts[CURLOPT_NOSIGNAL] = true;
         }
 
-        if (!isset($options['normalized_headers']['accept-encoding'])) {
-            $curlopts[CURLOPT_ENCODING] = ''; // Enable HTTP compression
+        if (!isset($options['normalized_headers']['accept-encoding']) && CURL_VERSION_LIBZ & self::$curlVersion['features']) {
+            $curlopts[CURLOPT_ENCODING] = 'gzip'; // Expose only one encoding, some servers mess up when more are provided
         }
 
         foreach ($options['headers'] as $header) {
@@ -298,15 +301,20 @@ final class CurlHttpClient implements HttpClientInterface, LoggerAwareInterface
     public function __destruct()
     {
         $this->multi->pushedResponses = [];
-        if (\defined('CURLMOPT_PUSHFUNCTION')) {
-            curl_multi_setopt($this->multi->handle, CURLMOPT_PUSHFUNCTION, null);
+
+        if (\is_resource($this->multi->handle)) {
+            if (\defined('CURLMOPT_PUSHFUNCTION')) {
+                curl_multi_setopt($this->multi->handle, CURLMOPT_PUSHFUNCTION, null);
+            }
+
+            $active = 0;
+            while (CURLM_CALL_MULTI_PERFORM === curl_multi_exec($this->multi->handle, $active));
         }
 
-        $active = 0;
-        while (CURLM_CALL_MULTI_PERFORM === curl_multi_exec($this->multi->handle, $active));
-
         foreach ($this->multi->openHandles as [$ch]) {
-            curl_setopt($ch, CURLOPT_VERBOSE, false);
+            if (\is_resource($ch)) {
+                curl_setopt($ch, CURLOPT_VERBOSE, false);
+            }
         }
     }
 
