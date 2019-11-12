@@ -2480,13 +2480,6 @@ LitElement['finalized'] = true;
  */
 LitElement.render = render$1;
 
-const defaultScenario = {
-    lighting: '../../../../examples/assets/lightroom_14b.hdr',
-    dimensions: { width: 768, height: 768 },
-    target: { x: 0, y: 0, z: 0 },
-    orbit: { theta: 0, phi: 90, radius: 1 },
-    verticalFoV: 45
-};
 class ConfigReader {
     constructor(config) {
         this.config = config;
@@ -2495,13 +2488,7 @@ class ConfigReader {
         const { scenarios } = this.config;
         for (const scenario of scenarios) {
             if (scenario.name === name) {
-                const output = Object.assign({}, defaultScenario, scenario);
-                output.dimensions =
-                    Object.assign({}, defaultScenario.dimensions, scenario.dimensions);
-                output.target =
-                    Object.assign({}, defaultScenario.target, scenario.target);
-                output.orbit = Object.assign({}, defaultScenario.orbit, scenario.orbit);
-                return output;
+                return scenario;
             }
         }
         return null;

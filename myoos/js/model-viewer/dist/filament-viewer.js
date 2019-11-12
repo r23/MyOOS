@@ -2481,8 +2481,11 @@ LitElement['finalized'] = true;
 LitElement.render = render$1;
 
 const HAS_WEBXR_DEVICE_API = navigator.xr != null &&
-    self.XRSession != null && navigator.xr.supportsSession != null;
+    self.XRSession != null && self.XRDevice != null &&
+    self.XRDevice.prototype.supportsSession != null;
 const HAS_WEBXR_HIT_TEST_API = HAS_WEBXR_DEVICE_API && self.XRSession.prototype.requestHitTest;
+const HAS_FULLSCREEN_API = document.documentElement != null &&
+    document.documentElement.requestFullscreen != null;
 const HAS_RESIZE_OBSERVER = self.ResizeObserver != null;
 const HAS_INTERSECTION_OBSERVER = self.IntersectionObserver != null;
 const IS_MOBILE = (() => {
@@ -2500,8 +2503,7 @@ const HAS_OFFSCREEN_CANVAS = Boolean(self.OffscreenCanvas);
 const OFFSCREEN_CANVAS_SUPPORT_BITMAP = Boolean(self.OffscreenCanvas) &&
     Boolean(self.OffscreenCanvas.prototype.transferToImageBitmap);
 const IS_ANDROID = /android/i.test(navigator.userAgent);
-const IS_IOS = (/iPad|iPhone|iPod/.test(navigator.userAgent) && !self.MSStream) ||
-    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+const IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !self.MSStream;
 const IS_AR_QUICKLOOK_CANDIDATE = (() => {
     const tempAnchor = document.createElement('a');
     return Boolean(tempAnchor.relList && tempAnchor.relList.supports &&
@@ -2537,7 +2539,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var _a$1, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
+var _a$1, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m;
 const fetchFilamentAssets = async (assets) => new Promise((resolve) => {
     self.Filament.fetch(assets, () => resolve(), () => { });
 });
@@ -2557,6 +2559,7 @@ const $renderer = Symbol('renderer');
 const $camera = Symbol('camera');
 const $view = Symbol('view');
 const $canvas = Symbol('canvas');
+const $boundingBox = Symbol('boundingBox');
 const $currentAsset = Symbol('currentAsset');
 const $initialize = Symbol('initialize');
 const $updateScenario = Symbol('scenario');
@@ -2578,6 +2581,7 @@ let FilamentViewer = class FilamentViewer extends LitElement {
         this[_j] = null;
         this[_k] = null;
         this[_l] = null;
+        this[_m] = null;
         self.Filament.init([], () => {
             this[$initialize]();
         });
@@ -2605,7 +2609,7 @@ let FilamentViewer = class FilamentViewer extends LitElement {
     render() {
         return html `<canvas id="canvas"></canvas>`;
     }
-    [(_a$1 = $rendering, _b = $engine, _c = $scene, _d = $renderer, _e = $swapChain, _f = $camera, _g = $view, _h = $ibl, _j = $skybox, _k = $currentAsset, _l = $canvas, $initialize)]() {
+    [(_a$1 = $rendering, _b = $engine, _c = $scene, _d = $renderer, _e = $swapChain, _f = $camera, _g = $view, _h = $ibl, _j = $skybox, _k = $currentAsset, _l = $canvas, _m = $boundingBox, $initialize)]() {
         const { Filament } = self;
         this[$canvas] = this.shadowRoot.querySelector('canvas');
         this[$engine] = Filament.Engine.create(this[$canvas]);
@@ -2616,6 +2620,7 @@ let FilamentViewer = class FilamentViewer extends LitElement {
         this[$view] = this[$engine].createView();
         this[$view].setCamera(this[$camera]);
         this[$view].setScene(this[$scene]);
+        this[$boundingBox] = { min: [-1, -1, -1], max: [1, 1, 1] };
         this[$updateSize]();
     }
     async [$updateScenario](scenario) {
@@ -2649,7 +2654,7 @@ let FilamentViewer = class FilamentViewer extends LitElement {
         await fetchFilamentAssets([modelUrl, iblUrl, skyboxUrl]);
         this[$ibl] = this[$engine].createIblFromKtx(iblUrl);
         this[$scene].setIndirectLight(this[$ibl]);
-        this[$ibl].setIntensity(1.0);
+        this[$ibl].setIntensity(40000);
         this[$ibl].setRotation([0, 0, -1, 0, 1, 0, 1, 0, 0]);
         this[$skybox] = this[$engine].createSkyFromKtx(skyboxUrl);
         this[$scene].setSkybox(this[$skybox]);
@@ -2663,6 +2668,7 @@ let FilamentViewer = class FilamentViewer extends LitElement {
         }));
         finalize();
         loader.delete();
+        this[$boundingBox] = this[$currentAsset].getBoundingBox();
         this[$scene].addEntities(this[$currentAsset].getEntities());
         this[$updateSize]();
         requestAnimationFrame(() => {
@@ -2688,31 +2694,37 @@ let FilamentViewer = class FilamentViewer extends LitElement {
         }
         const Fov = self.Filament.Camera$Fov;
         const canvas = this[$canvas];
-        const { dimensions, target, orbit, verticalFoV } = this.scenario;
+        const { scenario } = this;
         const dpr = resolveDpr();
-        const width = dimensions.width * dpr;
-        const height = dimensions.height * dpr;
+        const width = scenario.dimensions.width * dpr;
+        const height = scenario.dimensions.height * dpr;
         canvas.width = width;
         canvas.height = height;
-        canvas.style.width = `${dimensions.width}px`;
-        canvas.style.height = `${dimensions.height}px`;
+        canvas.style.width = `${scenario.dimensions.width}px`;
+        canvas.style.height = `${scenario.dimensions.height}px`;
         this[$view].setViewport([0, 0, width, height]);
         const aspect = width / height;
-        const center = [target.x, target.y, target.z];
-        const theta = orbit.theta * Math.PI / 180;
-        const phi = orbit.phi * Math.PI / 180;
-        const radiusSinPhi = orbit.radius * Math.sin(phi);
-        const eye = [
-            radiusSinPhi * Math.sin(theta) + target.x,
-            orbit.radius * Math.cos(phi) + target.y,
-            radiusSinPhi * Math.cos(theta) + target.z
-        ];
-        const near = orbit.radius / 10.0;
-        const far = orbit.radius * 10.0;
-        this[$camera].setProjectionFov(verticalFoV, aspect, near, far, Fov.VERTICAL);
+        const target = [0, 0, 0];
+        const eye = [0, 0, 0];
+        const boundingBox = this[$boundingBox];
+        for (let i = 0; i < 3; i++) {
+            target[i] = (boundingBox.min[i] + boundingBox.max[i]) / 2.0;
+            eye[i] = target[i];
+        }
+        const boxHalfX = Math.max(Math.abs(boundingBox.min[0] - target[0]), Math.abs(boundingBox.max[0] - target[0]));
+        const boxHalfZ = Math.max(Math.abs(boundingBox.min[2] - target[2]), Math.abs(boundingBox.max[2] - target[2]));
+        const boxHalfY = Math.max(Math.abs(boundingBox.min[1] - target[1]), Math.abs(boundingBox.max[1] - target[1]));
+        const modelDepth = 2 * Math.max(boxHalfX, boxHalfZ);
+        const framedHeight = Math.max(2 * boxHalfY, modelDepth / aspect);
+        const fov = 45;
+        const framedDistance = (framedHeight / 2) / Math.tan((fov / 2) * Math.PI / 180);
+        const near = framedHeight / 10.0;
+        const far = framedHeight * 10.0;
+        const cameraDistance = framedDistance + modelDepth / 2;
+        this[$camera].setProjectionFov(fov, aspect, near, far, Fov.VERTICAL);
+        eye[2] += cameraDistance;
         const up = [0, 1, 0];
-        this[$camera].lookAt(eye, center, up);
-        this[$camera].setExposure(1.0, 1.2, 100);
+        this[$camera].lookAt(eye, target, up);
     }
 };
 __decorate([
