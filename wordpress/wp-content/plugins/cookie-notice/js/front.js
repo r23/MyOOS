@@ -32,15 +32,13 @@
 						// is cookie notice hidden?
 						if ( ! ( body.hasClass( 'cookies-revoke' ) || body.hasClass( 'cookies-not-set' ) ) ) {
 							// display automatic revoke button?
-							if ( cnArgs.revoke_cookies_opt === 'automatic' ) {
+							if ( cnArgs.revoke_cookies_opt === 'automatic' )
 								notice.showCookieNotice( 3 );
-							} else {
+							else
 								notice.showCookieNotice( 2 );
-							}
 						}
-					} else {
+					} else
 						notice.showCookieNotice( 1 );
-					}
 
 					// update cookie value
 					cookie = $.fn.getCookieNotice();
@@ -54,9 +52,8 @@
 		// cookie is not set
 		if ( typeof cookie === 'undefined' ) {
 			// handle on scroll
-			if ( cnArgs.onScroll === 'yes' ) {
+			if ( cnArgs.onScroll === 'yes' )
 				$( window ).on( 'scroll', handleScroll );
-			}
 
 			notice.showCookieNotice( 0 );
 
@@ -64,9 +61,8 @@
 		// active refuse button?
 		} else if ( cnArgs.refuse === 'yes' ) {
 			if ( cnArgs.revoke_cookies === '1' ) {
-				if ( cnArgs.revoke_cookies_opt === 'automatic' ) {
+				if ( cnArgs.revoke_cookies_opt === 'automatic' )
 					notice.hideCookieNotice( 1 );
-				}
 
 				$.fn.setCookieNoticeBodyClass( 'cookies-set ' + ( cookie === 'true' ? 'cookies-accepted' : 'cookies-refused' ) );
 			}
@@ -92,13 +88,13 @@
 
 	// set Cookie Notice
 	$.fn.setCookieNotice = function ( cookie_value ) {
-		if ( cnArgs.onScroll === 'yes' ) {
+		if ( cnArgs.onScroll === 'yes' )
 			$( window ).off( 'scroll', handleScroll );
-		}
 
 		var date = new Date(),
 			later_date = new Date(),
-			notice = $( '#cookie-notice' );
+			notice = $( '#cookie-notice' ),
+			cookie_before = $.fn.getCookieNotice();
 
 		// set expiry time in seconds
 		later_date.setTime( parseInt( date.getTime() ) + parseInt( cnArgs.cookieTime ) * 1000 );
@@ -118,16 +114,17 @@
 		// add body class
 		$.fn.setCookieNoticeBodyClass( 'cookies-set ' + ( cookie_value === 'true' ? 'cookies-accepted' : 'cookies-refused' ) );
 
-		if ( cnArgs.refuse === 'yes' && cnArgs.revoke_cookies === '1' && cnArgs.revoke_cookies_opt === 'automatic' ) {
+		if ( cnArgs.refuse === 'yes' && cnArgs.revoke_cookies === '1' && cnArgs.revoke_cookies_opt === 'automatic' )
 			notice.hideCookieNotice( 2 );
-		} else {
+		else
 			notice.hideCookieNotice( 0 );
-		}
 
-		if ( cookie_value && cnArgs.redirection === '1' ) {
+		// redirect?
+		if ( cnArgs.redirection === '1' && ( ( cookie_value === 'true' && typeof cookie_before === 'undefined' ) || ( cookie_value !== cookie_before && typeof cookie_before !== 'undefined' ) ) ) {
 			var url = window.location.protocol + '//',
 				hostname = window.location.host + '/' + window.location.pathname;
 
+			// enabled cache?
 			if ( cnArgs.cache === '1' ) {
 				url = url + hostname.replace( '//', '/' ) + ( window.location.search === '' ? '?' : window.location.search + '&' ) + 'cn-reloaded=1' + window.location.hash;
 
@@ -250,23 +247,21 @@
 
 		switch ( type ) {
 			case 0:
-				if ( cnArgs.hideEffect === 'fade' ) {
+				if ( cnArgs.hideEffect === 'fade' )
 					notice.fadeOut( 400 );
-				} else if ( cnArgs.hideEffect === 'slide' ) {
+				else if ( cnArgs.hideEffect === 'slide' )
 					notice.slideUp( 400 );
-				} else {
+				else
 					notice.css( { 'visibility': 'hidden' } );
-				}
 				break;
 
 			case 1:
-				if ( cnArgs.hideEffect === 'fade' ) {
+				if ( cnArgs.hideEffect === 'fade' )
 					notice.find( '.cookie-notice-revoke-container' ).hide().fadeIn( 400 ).css( { 'visibility': 'visible', 'display': 'block' } );
-				} else if ( cnArgs.hideEffect === 'slide' ) {
+				else if ( cnArgs.hideEffect === 'slide' )
 					notice.find( '.cookie-notice-revoke-container' ).hide().slideDown( 400 ).css( { 'visibility': 'visible', 'display': 'block' } );
-				} else {
+				else
 					notice.find( '.cookie-notice-revoke-container' ).css( { 'visibility': 'visible', 'display': 'block' } );
-				}
 				break;
 
 			case 2:

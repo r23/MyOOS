@@ -2,7 +2,7 @@
 /*
 Plugin Name: Cookie Notice
 Description: Cookie Notice allows you to elegantly inform users that your site uses cookies and to comply with the EU cookie law GDPR regulations.
-Version: 1.2.46
+Version: 1.2.48
 Author: dFactory
 Author URI: http://www.dfactory.eu/
 Plugin URI: http://www.dfactory.eu/plugins/cookie-notice/
@@ -34,7 +34,7 @@ include_once( plugin_dir_path( __FILE__ ) . 'includes/upgrade.php' );
  * Cookie Notice class.
  *
  * @class Cookie_Notice
- * @version	1.2.46
+ * @version	1.2.48
  */
 class Cookie_Notice {
 
@@ -43,52 +43,58 @@ class Cookie_Notice {
 	 */
 	private $defaults = array(
 		'general' => array(
-			'position'						=> 'bottom',
-			'message_text'					=> '',
-			'css_style'						=> 'bootstrap',
-			'css_class'						=> 'button',
-			'accept_text'					=> '',
-			'refuse_text'					=> '',
-			'refuse_opt'					=> 'no',
-			'refuse_code'					=> '',
-			'refuse_code_head'				=> '',
-			'revoke_cookies'				=> false,
-			'revoke_cookies_opt'			=> 'automatic',
-			'revoke_text'					=> '',
-			'redirection'					=> false,
-			'see_more'						=> 'no',
-			'link_target'					=> '_blank',
-			'time'							=> 'month',
-			'hide_effect'					=> 'fade',
-			'on_scroll'						=> false,
-			'on_scroll_offset'				=> 100,
+			'position'				=> 'bottom',
+			'message_text'			=> '',
+			'css_style'				=> 'bootstrap',
+			'css_class'				=> 'button',
+			'accept_text'			=> '',
+			'refuse_text'			=> '',
+			'refuse_opt'			=> 'no',
+			'refuse_code'			=> '',
+			'refuse_code_head'		=> '',
+			'revoke_cookies'		=> false,
+			'revoke_cookies_opt'	=> 'automatic',
+			'revoke_text'			=> '',
+			'redirection'			=> false,
+			'see_more'				=> 'no',
+			'link_target'			=> '_blank',
+			'link_position'			=> 'banner',
+			'time'					=> 'month',
+			'hide_effect'			=> 'fade',
+			'on_scroll'				=> false,
+			'on_scroll_offset'		=> 100,
 			'colors' => array(
-				'text'							=> '#fff',
-				'bar'							=> '#000'
+				'text'	=> '#fff',
+				'bar'	=> '#000'
 			),
 			'see_more_opt' => array(
-				'text'						=> '',
-				'link_type'					=> 'page',
-				'id'						=> 'empty',
-				'link'						=> '',
-				'sync'						=> false
+				'text'		=> '',
+				'link_type'	=> 'page',
+				'id'		=> 'empty',
+				'link'		=> '',
+				'sync'		=> false
 			),
-			'script_placement'				=> 'header',
-			'translate'						=> true,
-			'deactivation_delete'			=> 'no'
+			'script_placement'		=> 'header',
+			'translate'				=> true,
+			'deactivation_delete'	=> 'no',
+			'update_version'		=> 1,
+			'update_notice'			=> true,
+			'update_delay_date'		=> 0
 		),
-		'version'							=> '1.2.46'
+		'version'	=> '1.2.48'
 	);
-	private $positions 			= array();
-	private $styles 			= array();
-	private $choices 			= array();
-	private $links 				= array();
-	private $link_target 		= array();
-	private $colors 			= array();
-	private $options 			= array();
-	private $effects 			= array();
-	private $times 				= array();
-	private $script_placements 	= array();
+	private $positions = array();
+	private $styles = array();
+	private $choices = array();
+	private $links = array();
+	private $link_targets = array();
+	private $link_positions = array();
+	private $colors = array();
+	private $options = array();
+	private $effects = array();
+	private $times = array();
+	private $notices = array();
+	private $script_placements = array();
 
 	/**
 	 * Constructor.
@@ -106,9 +112,10 @@ class Cookie_Notice {
 			$this->options['general']['see_more_opt']['sync'] = $this->defaults['general']['see_more_opt']['sync'];
 
 		// actions
-		add_action( 'init', array( $this, 'register_shortcode' ) );
+		add_action( 'init', array( $this, 'register_shortcodes' ) );
 		add_action( 'init', array( $this, 'wpsc_add_cookie' ) );
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
+		add_action( 'admin_init', array( $this, 'update_notice' ) );
 		add_action( 'admin_menu', array( $this, 'admin_menu_options' ) );
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 		add_action( 'after_setup_theme', array( $this, 'load_defaults' ) );
@@ -117,6 +124,7 @@ class Cookie_Notice {
 		add_action( 'wp_head', array( $this, 'wp_print_header_scripts' ) );
 		add_action( 'wp_print_footer_scripts', array( $this, 'wp_print_footer_scripts' ) );
 		add_action( 'wp_footer', array( $this, 'add_cookie_notice' ), 1000 );
+		add_action( 'wp_ajax_cn_dismiss_notice', array( $this, 'dismiss_notice' ) );
 
 		// filters
 		add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 2 );
@@ -152,9 +160,14 @@ class Cookie_Notice {
 			'custom' 			=> __( 'Custom link', 'cookie-notice' )
 		);
 
-		$this->link_target = array(
+		$this->link_targets = array(
 			'_blank',
 			'_self'
+		);
+
+		$this->link_positions = array(
+			'banner'			=> __( 'Banner', 'cookie-notice' ),
+			'message' 			=> __( 'Message', 'cookie-notice' )
 		);
 
 		$this->colors = array(
@@ -211,6 +224,150 @@ class Cookie_Notice {
 	}
 
 	/**
+	 * Update notice.
+	 */
+	public function update_notice() {
+		if ( ! current_user_can( 'install_plugins' ) )
+			return;
+
+		$current_update = 2;
+
+		// get current time
+		$current_time = time();
+
+		if ( $this->options['general']['update_version'] < $current_update ) {
+			// check version, if update version is lower than plugin version, set update notice to true
+			$this->options['general'] = array_merge( $this->options['general'], array( 'update_version' => $current_update, 'update_notice' => true ) );
+
+			update_option( 'cookie_notice_options', $this->options['general'] );
+
+			// set activation date
+			$activation_date = get_option( 'cookie_notice_activation_date' );
+			if ( $activation_date === false )
+				update_option( 'cookie_notice_activation_date', $current_time );
+		}
+
+		// display current version notice
+		if ( $this->options['general']['update_notice'] === true ) {
+			// include notice js, only if needed
+			add_action( 'admin_print_scripts', array( $this, 'admin_inline_js' ), 999 );
+
+			// get activation date
+			$activation_date = get_option( 'cookie_notice_activation_date' );
+
+			if ( (int) $this->options['general']['update_delay_date'] === 0 ) {
+				if ( $activation_date + 1209600 > $current_time )
+					$this->options['general']['update_delay_date'] = $activation_date + 1209600;
+				else
+					$this->options['general']['update_delay_date'] = $current_time;
+
+				update_option( 'cookie_notice_options', $this->options['general'] );
+			}
+
+			if ( ( ! empty( $this->options['general']['update_delay_date'] ) ? (int) $this->options['general']['update_delay_date'] : $current_time ) <= $current_time )
+				$this->add_notice( sprintf( __( "Hey, you've been using <strong>Cookie Notice</strong> for more than %s.", 'cookie-notice' ), human_time_diff( $activation_date, $current_time ) ) . '<br />' . __( 'Could you please do me a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation.', 'cookie-notice' ) . '<br /><br />' . __( 'Your help is much appreciated. Thank you very much', 'cookie-notice' ) . ' ~ <strong>Bartosz Arendt</strong>, ' . sprintf( __( 'founder of <a href="%s" target="_blank">dFactory</a> plugins.', 'cookie-notice' ), 'https://dfactory.eu/' ) . '<br /><br />' . sprintf( __( '<a href="%s" class="cn-dismissible-notice" target="_blank" rel="noopener">Ok, you deserve it</a><br /><a href="javascript:void(0);" class="cn-dismissible-notice cn-delay-notice" rel="noopener">Nope, maybe later</a><br /><a href="javascript:void(0);" class="cn-dismissible-notice" rel="noopener">I already did</a>', 'cookie-notice' ), 'https://wordpress.org/support/plugin/cookie-notice/reviews/?filter=5#new-post' ), 'notice notice-info is-dismissible cn-notice' );
+		}
+	}
+
+	/**
+	 * Add admin notices.
+	 * 
+	 * @param string $html
+	 * @param string $status
+	 * @param bool $paragraph
+	 */
+	public function add_notice( $html = '', $status = 'error', $paragraph = true ) {
+		$this->notices[] = array(
+			'html' 		=> $html,
+			'status' 	=> $status,
+			'paragraph' => $paragraph
+		);
+
+		add_action( 'admin_notices', array( $this, 'display_notice') );
+	}
+
+	/**
+	 * Print admin notices.
+	 * 
+	 * @return mixed
+	 */
+	public function display_notice() {
+		foreach( $this->notices as $notice ) {
+			echo '
+			<div class="' . $notice['status'] . '">
+				' . ( $notice['paragraph'] ? '<p>' : '' ) . '
+				' . $notice['html'] . '
+				' . ( $notice['paragraph'] ? '</p>' : '' ) . '
+			</div>';
+		}
+	}
+
+	/**
+	 * Print admin scripts.
+	 * 
+	 * @return mixed
+	 */
+	public function admin_inline_js() {
+		if ( ! current_user_can( 'install_plugins' ) )
+			return;
+		?>
+		<script type="text/javascript">
+			( function ( $ ) {
+				$( document ).ready( function () {
+					// save dismiss state
+					$( '.cn-notice.is-dismissible' ).on( 'click', '.notice-dismiss, .cn-dismissible-notice', function ( e ) {
+						var notice_action = 'hide';
+						
+						if ( $( e.currentTarget ).hasClass( 'cn-delay-notice' ) ) {
+							notice_action = 'delay'
+						}
+						
+						$.post( ajaxurl, {
+							action: 'cn_dismiss_notice',
+							notice_action: notice_action,
+							url: '<?php echo admin_url( 'admin-ajax.php' ); ?>',
+							nonce: '<?php echo wp_create_nonce( 'cn_dismiss_notice' ); ?>'
+						} );
+					
+						$( e.delegateTarget ).slideUp( 'fast' );
+					} );
+				} );
+			} )( jQuery );
+		</script>
+		<?php
+	}
+
+	/**
+	 * Dismiss notice.
+	 */
+	public function dismiss_notice() {
+		if ( ! current_user_can( 'install_plugins' ) )
+			return;
+
+		if ( wp_verify_nonce( esc_attr( $_REQUEST['nonce'] ), 'cn_dismiss_notice' ) ) {
+			$notice_action = empty( $_REQUEST['notice_action'] ) || $_REQUEST['notice_action'] === 'hide' ? 'hide' : esc_attr( $_REQUEST['notice_action'] );
+
+			switch ( $notice_action ) {
+				// delay notice
+				case 'delay':
+					// set delay period to 1 week from now
+					$this->options['general'] = array_merge( $this->options['general'], array( 'update_delay_date' => time() + 1209600 ) );
+					update_option( 'cookie_notice_options', $this->options['general'] );
+					break;
+
+				// hide notice
+				default:
+					$this->options['general'] = array_merge( $this->options['general'], array( 'update_notice' => false ) );
+					$this->options['general'] = array_merge( $this->options['general'], array( 'update_delay_date' => 0 ) );
+
+					update_option( 'cookie_notice_options', $this->options['general'] );
+			}
+		}
+
+		exit;
+	}
+
+	/**
 	 * Add new body classes.
 	 *
 	 * @param array $classes Body classes
@@ -238,9 +395,10 @@ class Cookie_Notice {
 	 *
 	 * @return void
 	 */
-	public function register_shortcode() {
+	public function register_shortcodes() {
 		add_shortcode( 'cookies_accepted', array( $this, 'cookies_accepted_shortcode' ) );
 		add_shortcode( 'cookies_revoke', array( $this, 'cookies_revoke_shortcode' ) );
+		add_shortcode( 'cookies_policy_link', array( $this, 'cookies_policy_link_shortcode' ) );
 	}
 
 	/**
@@ -289,6 +447,21 @@ class Cookie_Notice {
 		$args['class'] = esc_attr( $args['class'] );
 
 		return '<a href="#" class="cn-revoke-cookie cn-button cn-revoke-inline' . ( $options['css_style'] !== 'none' ? ' ' . $options['css_style'] : '' ) . ( $args['class'] !== '' ? ' ' . $args['class'] : '' ) . '" title="' . esc_html( $args['title'] ) . '">' . esc_html( $args['title'] ) . '</a>';
+	}
+
+	/**
+	 * Register cookies policy link shortcode.
+	 *
+	 * @param array $args
+	 * @param string $content
+	 * @return string
+	 */
+	public function cookies_policy_link_shortcode( $args, $content ) {
+		// active message link position?
+		if ( $this->options['general']['see_more'] === 'yes' && $this->options['general']['link_position'] === 'message' )
+			return '<a href="' . ( $this->options['general']['see_more_opt']['link_type'] === 'custom' ? $this->options['general']['see_more_opt']['link'] : get_permalink( $this->options['general']['see_more_opt']['id'] ) ) . '" target="' . $this->options['general']['link_target'] . '" id="cn-more-info" class="cn-privacy-policy-link cn-link">' . esc_html( $this->options['general']['see_more_opt']['text'] !== '' ? $this->options['general']['see_more_opt']['text'] : '&#x279c;' ) . '</a>';
+
+		return '';
 	}
 
 	/**
@@ -390,7 +563,6 @@ class Cookie_Notice {
 		add_settings_field( 'cn_message_text', __( 'Message', 'cookie-notice' ), array( $this, 'cn_message_text' ), 'cookie_notice_options', 'cookie_notice_configuration' );
 		add_settings_field( 'cn_accept_text', __( 'Button text', 'cookie-notice' ), array( $this, 'cn_accept_text' ), 'cookie_notice_options', 'cookie_notice_configuration' );
 		add_settings_field( 'cn_see_more', __( 'Privacy policy', 'cookie-notice' ), array( $this, 'cn_see_more' ), 'cookie_notice_options', 'cookie_notice_configuration' );
-		add_settings_field( 'cn_link_target', __( 'Link target', 'cookie-notice' ), array( $this, 'cn_link_target' ), 'cookie_notice_options', 'cookie_notice_configuration' );
 		add_settings_field( 'cn_refuse_opt', __( 'Refuse cookies', 'cookie-notice' ), array( $this, 'cn_refuse_opt' ), 'cookie_notice_options', 'cookie_notice_configuration' );
 		add_settings_field( 'cn_revoke_opt', __( 'Revoke cookies', 'cookie-notice' ), array( $this, 'cn_revoke_opt' ), 'cookie_notice_options', 'cookie_notice_configuration' );
 		add_settings_field( 'cn_refuse_code', __( 'Script blocking', 'cookie-notice' ), array( $this, 'cn_refuse_code' ), 'cookie_notice_options', 'cookie_notice_configuration' );
@@ -548,7 +720,6 @@ class Cookie_Notice {
 		echo '
 		<fieldset>
 			<label><input id="cn_see_more" type="checkbox" name="cookie_notice_options[see_more]" value="1" ' . checked( 'yes', $this->options['general']['see_more'], false ) . ' />' . __( 'Enable privacy policy link.', 'cookie-notice' ) . '</label>
-			<p class="description">' . sprintf( __( 'Need a Cookie Policy? Generate one with <a href="%s" target="_blank" title="iubenda">iubenda</a>.', 'cookie-notice' ), 'http://iubenda.refr.cc/MXRWXMP' ) . '</p>
 			<div id="cn_see_more_opt"' . ($this->options['general']['see_more'] === 'no' ? ' style="display: none;"' : '') . '>
 				<input type="text" class="regular-text" name="cookie_notice_options[see_more_opt][text]" value="' . esc_attr( $this->options['general']['see_more_opt']['text'] ) . '" />
 				<p class="description">' . __( 'The text of the privacy policy button.', 'cookie-notice' ) . '</p>
@@ -592,28 +763,26 @@ class Cookie_Notice {
 					<input type="text" class="regular-text" name="cookie_notice_options[see_more_opt][link]" value="' . esc_attr( $this->options['general']['see_more_opt']['link'] ) . '" />
 					<p class="description">' . __( 'Enter the full URL starting with http(s)://', 'cookie-notice' ) . '</p>
 				</div>
-			</div>
-		</fieldset>';
-	}
+				<div id="cn_see_more_link_target">';
 
-	/**
-	 * Link target option.
-	 */
-	public function cn_link_target() {
-		echo '
-		<fieldset>
-			<div id="cn_link_target">
-				<select name="cookie_notice_options[link_target]">';
-
-		foreach ( $this->link_target as $target ) {
+		foreach ( $this->link_targets as $target ) {
 			echo '
-					<option value="' . $target . '" ' . selected( $target, $this->options['general']['link_target'] ) . '>' . esc_html( $target ) . '</option>';
+					<label><input id="cn_see_more_link_target-' . $target . '" type="radio" name="cookie_notice_options[link_target]" value="' . $target . '" ' . checked( $target, $this->options['general']['link_target'], false ) . ' />' . $target . '</label>';
 		}
 
 		echo '
-				</select>
-				<p class="description">' . __( 'Select the privacy policy link target.', 'cookie-notice' ) . '</p>
-			</div>
+					<p class="description">' . esc_html__( 'Select the privacy policy link target.', 'cookie-notice' ) . '</p>
+				</div>
+				<div id="cn_see_more_link_position">';
+
+		foreach ( $this->link_positions as $position => $label ) {
+			echo '
+					<label><input id="cn_see_more_link_position-' . $position . '" type="radio" name="cookie_notice_options[link_position]" value="' . $position . '" ' . checked( $position, $this->options['general']['link_position'], false ) . ' />' . esc_html( $label ) . '</label>';
+		}
+
+		echo '
+					<p class="description">' . esc_html__( 'Select the privacy policy link position.', 'cookie-notice' ) . '</p>
+				</div></div>
 		</fieldset>';
 	}
 
@@ -774,9 +943,6 @@ class Cookie_Notice {
 	 * @return array
 	 */
 	public function validate_options( $input ) {
-		if ( ! check_admin_referer( 'cookie_notice_options-options') )
-			return $input;
-
 		if ( ! current_user_can( apply_filters( 'cn_manage_cookie_notice_cap', 'manage_options' ) ) )
 			return $input;
 
@@ -813,7 +979,14 @@ class Cookie_Notice {
 			$input['css_class'] = sanitize_text_field( isset( $input['css_class'] ) ? $input['css_class'] : $this->defaults['general']['css_class'] );
 
 			// link target
-			$input['link_target'] = sanitize_text_field( isset( $input['link_target'] ) && in_array( $input['link_target'], array_keys( $this->link_target ) ) ? $input['link_target'] : $this->defaults['general']['link_target'] );
+			$input['link_target'] = sanitize_text_field( isset( $input['link_target'] ) && in_array( $input['link_target'], array_keys( $this->link_targets ) ) ? $input['link_target'] : $this->defaults['general']['link_target'] );
+
+			// link target
+			$input['link_position'] = sanitize_text_field( isset( $input['link_position'] ) && in_array( $input['link_position'], array_keys( $this->link_positions ) ) ? $input['link_position'] : $this->defaults['general']['link_position'] );
+
+			// message link position?
+			if ( $input['link_position'] === 'message' && strpos( $input['message_text'], '[cookies_policy_link]' ) === false )
+				$input['message_text'] .= ' [cookies_policy_link]';
 
 			// time
 			$input['time'] = sanitize_text_field( isset( $input['time'] ) && in_array( $input['time'], array_keys( $this->times ) ) ? $input['time'] : $this->defaults['general']['time'] );
@@ -850,6 +1023,9 @@ class Cookie_Notice {
 				if ( $input['see_more_opt']['sync'] )
 					update_option( 'wp_page_for_privacy_policy', $input['see_more_opt']['id'] );
 			}
+
+			$input['update_version'] = $this->options['general']['update_version'];
+			$input['update_notice'] = $this->options['general']['update_notice'];
 
 			$input['translate'] = false;
 
@@ -918,17 +1094,24 @@ class Cookie_Notice {
 				'see_more'			=> $this->options['general']['see_more'],
 				'see_more_opt'		=> $this->options['general']['see_more_opt'],
 				'link_target'		=> $this->options['general']['link_target'],
+				'link_position'		=> $this->options['general']['link_position'],
+				'aria_label'		=> __( 'Cookie Notice', 'cookie-notice' )
 			) );
+
+			if ( $options['see_more'] === 'yes' && $options['link_position'] === 'message' )
+				$options['message_text'] = do_shortcode( wp_kses_post( $options['message_text'] ) );
+			else
+				$options['message_text'] = wp_kses_post( $options['message_text'] );
 
 			$options['css_class'] = esc_attr( $options['css_class'] );
 
 			// message output
 			$output = '
-			<div id="cookie-notice" role="banner" class="cn-' . ( $options['position'] ) . ( $options['css_style'] !== 'none' ? ' ' . $options['css_style'] : '' ) . '" style="color: ' . $options['colors']['text'] . '; background-color: ' . $options['colors']['bar'] . ';">'
+			<div id="cookie-notice" role="banner" class="cn-' . $options['position'] . ( $options['css_style'] !== 'none' ? ' ' . $options['css_style'] : '' ) . '" style="color: ' . $options['colors']['text'] . '; background-color: ' . $options['colors']['bar'] . ';" aria-label="' . $options['aria_label'] . '">'
 				. '<div class="cookie-notice-container"><span id="cn-notice-text">'. $options['message_text'] .'</span>'
 				. '<a href="#" id="cn-accept-cookie" data-cookie-set="accept" class="cn-set-cookie ' . $options['button_class'] . ( $options['css_style'] !== 'none' ? ' ' . $options['css_style'] : '' ) . ( $options['css_class'] !== '' ? ' ' . $options['css_class'] : '' ) . '">' . $options['accept_text'] . '</a>'
 				. ( $options['refuse_opt'] === 'yes' ? '<a href="#" id="cn-refuse-cookie" data-cookie-set="refuse" class="cn-set-cookie ' . $options['button_class'] . ( $options['css_style'] !== 'none' ? ' ' . $options['css_style'] : '' ) . ( $options['css_class'] !== '' ? ' ' . $options['css_class'] : '' ) . '">' . $options['refuse_text'] . '</a>' : '' )
-				. ( $options['see_more'] === 'yes' ? '<a href="' . ( $options['see_more_opt']['link_type'] === 'custom' ? $options['see_more_opt']['link'] : get_permalink( $options['see_more_opt']['id'] ) ) . '" target="' . $options['link_target'] . '" id="cn-more-info" class="cn-more-info ' . $options['button_class'] . ( $options['css_style'] !== 'none' ? ' ' . $options['css_style'] : '' ) . ( $options['css_class'] !== '' ? ' ' . $options['css_class'] : '' ) . '">' . $options['see_more_opt']['text'] . '</a>' : '' ) . '
+				. ( $options['see_more'] === 'yes' && $options['link_position'] === 'banner' ? '<a href="' . ( $options['see_more_opt']['link_type'] === 'custom' ? $options['see_more_opt']['link'] : get_permalink( $options['see_more_opt']['id'] ) ) . '" target="' . $options['link_target'] . '" id="cn-more-info" class="cn-more-info ' . $options['button_class'] . ( $options['css_style'] !== 'none' ? ' ' . $options['css_style'] : '' ) . ( $options['css_class'] !== '' ? ' ' . $options['css_class'] : '' ) . '">' . $options['see_more_opt']['text'] . '</a>' : '' ) . '
 				</div>
 				' . ( $options['refuse_opt'] === 'yes' ? '<div class="cookie-notice-revoke-container"><a href="#" class="cn-revoke-cookie ' . $options['button_class'] . ( $options['css_style'] !== 'none' ? ' ' . $options['css_style'] : '' ) . ( $options['css_class'] !== '' ? ' ' . $options['css_class'] : '' ) . '">' . esc_html( $options['revoke_text'] ) . '</a></div>' : '' ) . '
 			</div>';

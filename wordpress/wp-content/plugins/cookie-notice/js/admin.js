@@ -6,38 +6,34 @@
 
 		// refuse option
 		$( '#cn_refuse_opt' ).change( function () {
-			if ( $( this ).is( ':checked' ) ) {
+			if ( $( this ).is( ':checked' ) )
 				$( '#cn_refuse_opt_container' ).slideDown( 'fast' );
-			} else {
+			else
 				$( '#cn_refuse_opt_container' ).slideUp( 'fast' );
-			}
 		} );
 		
 		// revoke option
 		$( '#cn_revoke_cookies' ).change( function () {
-			if ( $( this ).is( ':checked' ) ) {
+			if ( $( this ).is( ':checked' ) )
 				$( '#cn_revoke_opt_container' ).slideDown( 'fast' );
-			} else {
+			else
 				$( '#cn_revoke_opt_container' ).slideUp( 'fast' );
-			}
 		} );
 
 		// privacy policy option
 		$( '#cn_see_more' ).change( function () {
-			if ( $( this ).is( ':checked' ) ) {
+			if ( $( this ).is( ':checked' ) )
 				$( '#cn_see_more_opt' ).slideDown( 'fast' );
-			} else {
+			else
 				$( '#cn_see_more_opt' ).slideUp( 'fast' );
-			}
 		} );
 
 		// privacy policy option
 		$( '#cn_on_scroll' ).change( function () {
-			if ( $( this ).is( ':checked' ) ) {
+			if ( $( this ).is( ':checked' ) )
 				$( '#cn_on_scroll_offset' ).slideDown( 'fast' );
-			} else {
+			else
 				$( '#cn_on_scroll_offset' ).slideUp( 'fast' );
-			}
 		} );
 
 		// privacy policy link

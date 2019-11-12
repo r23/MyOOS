@@ -4,8 +4,8 @@ Donate link: http://www.dfactory.eu/
 Tags: gdpr, cookie, cookies, notice, notification, notify, cookie, cookie compliance, cookie law, eu cookie, privacy, privacy directive, consent
 Requires at least: 3.3
 Requires PHP: 5.2.4
-Tested up to: 5.0.3
-Stable tag: 1.2.46
+Tested up to: 5.3
+Stable tag: 1.2.48
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
 
@@ -65,6 +65,15 @@ No questions yet.
 1. screenshot-1.png
 
 == Changelog ==
+
+= 1.2.48 =
+* Fix: HTML tags stripped from cookie message
+* Fix: Link target not accepted in inline privacy link
+
+= 1.2.47 =
+* New: Option to select the privacy policy link position
+* Tweak: Do not relad the page on refuse button click
+* Tweak: Added aria-label attribute to cookie notice container
 
 = 1.2.46 =
 * Tweak: Remove WP Super Cache cookie on deactivation
@@ -262,6 +271,6 @@ Initial release
 
 == Upgrade Notice ==
 
-= 1.2.46 =
-* Tweak: Remove WP Super Cache cookie on deactivation
-* Tweak: Remove plugin version from the db on deactivation
+= 1.2.48 =
+* Fix: HTML tags stripped from cookie message
+* Fix: Link target not accepted in inline privacy link
