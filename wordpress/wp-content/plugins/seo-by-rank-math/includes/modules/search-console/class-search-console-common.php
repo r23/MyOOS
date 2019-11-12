@@ -58,7 +58,7 @@ class Search_Console_Common {
 	 * CRON Job.
 	 */
 	public function add_day_crawler() {
-		$crawler = new Data_Fetcher;
+		$crawler = Data_Fetcher::get();
 		$start   = Helper::get_midnight( time() - DAY_IN_SECONDS );
 
 		$crawler->push_to_queue( date_i18n( 'Y-m-d', $start - ( DAY_IN_SECONDS * 2 ) ) );

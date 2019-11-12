@@ -58,26 +58,6 @@ class Manager extends Post_Variables {
 	private $is_setup = false;
 
 	/**
-	 * Default post data.
-	 *
-	 * @var array
-	 */
-	protected $defaults = array(
-		'ID'            => '',
-		'name'          => '',
-		'post_author'   => 'Author Name',
-		'post_content'  => 'Post content',
-		'post_date'     => '',
-		'post_excerpt'  => '',
-		'post_modified' => '',
-		'post_title'    => 'Post Title',
-		'taxonomy'      => '',
-		'term_id'       => '',
-		'term404'       => '',
-		'filename'      => '',
-	);
-
-	/**
 	 * Class constructor.
 	 */
 	public function __construct() {

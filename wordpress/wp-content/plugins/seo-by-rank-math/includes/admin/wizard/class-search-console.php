@@ -12,6 +12,7 @@ namespace RankMath\Wizard;
 
 use RankMath\KB;
 use RankMath\Helper;
+use RankMath\Search_Console\Data_Fetcher;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -127,6 +128,7 @@ class Search_Console implements Wizard_Step {
 		if ( isset( $values['console_profile'] ) ) {
 			$module                                 = 'on';
 			$settings['general']['console_profile'] = $values['console_profile'];
+			Data_Fetcher::get()->clean_start();
 		}
 
 		Helper::update_modules( [ 'search-console' => $module ] );

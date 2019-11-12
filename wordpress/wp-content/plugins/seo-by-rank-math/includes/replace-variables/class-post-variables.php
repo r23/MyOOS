@@ -24,7 +24,7 @@ class Post_Variables extends Advanced_Variables {
 	 * Setup post variables.
 	 */
 	public function setup_post_variables() {
-		$this->args = (object) wp_parse_args( array_filter( (array) $this->get_post() ), $this->defaults );
+		$this->args = (object) wp_parse_args( array_filter( (array) $this->get_post() ), $this->get_defaults() );
 
 		$this->register_replacement(
 			'title',
@@ -364,5 +364,22 @@ class Post_Variables extends Advanced_Variables {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Default post data.
+	 *
+	 * @return array
+	 */
+	private function get_defaults() {
+		$defaults = Replacer::$defaults;
+
+		if ( $this->is_post_edit ) {
+			$defaults['post_author']  = 'Author Name';
+			$defaults['post_content'] = 'Post content';
+			$defaults['post_title']   = 'Post Title';
+		}
+
+		return $defaults;
 	}
 }

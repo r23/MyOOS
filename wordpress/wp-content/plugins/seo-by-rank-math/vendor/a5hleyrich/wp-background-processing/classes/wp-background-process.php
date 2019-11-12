@@ -485,7 +485,6 @@ if ( ! class_exists( 'WP_Background_Process' ) ) {
 
 				wp_clear_scheduled_hook( $this->cron_hook_identifier );
 			}
-
 		}
 
 		/**

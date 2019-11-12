@@ -25,13 +25,6 @@ class Overview {
 	use Hooker;
 
 	/**
-	 * Hold search console api client.
-	 *
-	 * @var Client
-	 */
-	private $client;
-
-	/**
 	 * Hold overview data.
 	 *
 	 * @var array
@@ -40,12 +33,8 @@ class Overview {
 
 	/**
 	 * The Constructor.
-	 *
-	 * @param Client $client Clien object.
 	 */
-	public function __construct( $client ) {
-		$this->client = $client;
-
+	public function __construct() {
 		$this->action( 'admin_init', 'get_overview_data' );
 	}
 

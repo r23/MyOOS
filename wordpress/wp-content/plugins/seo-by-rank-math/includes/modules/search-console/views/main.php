@@ -6,6 +6,7 @@
  */
 
 use RankMath\Helper;
+use RankMath\Search_Console\Client;
 use MyThemeShop\Helpers\Param;
 
 $dir = dirname( __FILE__ ) . '/';
@@ -20,7 +21,7 @@ $tab = Param::get( 'view', 'overview' );
 	<?php
 	Helper::search_console()->display_nav();
 
-	if ( Helper::search_console()->client->is_authorized ) {
+	if ( Client::get()->is_authenticated() ) {
 		$allowed_tabs = [ 'overview', 'analytics', 'tracker' ];
 
 		// phpcs:disable

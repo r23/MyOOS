@@ -24,20 +24,9 @@ class Sitemaps {
 	use Hooker;
 
 	/**
-	 * Hold search console api client.
-	 *
-	 * @var Client
-	 */
-	private $client;
-
-	/**
 	 * The Constructor.
-	 *
-	 * @param Client $client Client object.
 	 */
-	public function __construct( $client ) {
-		$this->client = $client;
-
+	public function __construct() {
 		$this->action( 'admin_init', 'admin_init' );
 	}
 
@@ -77,7 +66,7 @@ class Sitemaps {
 	 * @return array
 	 */
 	public function get_sitemaps( $with_index = false, $force = false ) {
-		return $this->client->get_sitemaps( $with_index, $force );
+		return Client::get()->get_sitemaps( $with_index, $force );
 	}
 
 	/**
@@ -92,7 +81,7 @@ class Sitemaps {
 
 		// Submit it.
 		if ( ! $data['sitemaps_in_list'] ) {
-			$this->client->submit_sitemap( $data['local_sitemap'] );
+			Client::get()->submit_sitemap( $data['local_sitemap'] );
 		}
 
 		if ( empty( $data['delete_sitemaps'] ) ) {
@@ -101,7 +90,7 @@ class Sitemaps {
 
 		// Delete it.
 		foreach ( $data['delete_sitemaps'] as $sitemap ) {
-			$this->client->delete_sitemap( $sitemap );
+			Client::get()->delete_sitemap( $sitemap );
 		}
 	}
 
@@ -113,7 +102,7 @@ class Sitemaps {
 	private function get_sitemap_to_sync() {
 		$delete_sitemaps  = [];
 		$sitemaps_in_list = false;
-		$local_sitemap    = trailingslashit( $this->client->profile ) . 'sitemap_index.xml';
+		$local_sitemap    = trailingslashit( Client::get()->profile ) . 'sitemap_index.xml';
 
 		foreach ( $this->get_sitemaps() as $sitemap ) {
 			if ( $sitemap['path'] === $local_sitemap ) {
@@ -134,13 +123,13 @@ class Sitemaps {
 	 */
 	private function check_selected_site() {
 
-		if ( ! Helper::get_module( 'sitemap' ) || empty( $this->client->profile ) ) {
+		if ( ! Helper::get_module( 'sitemap' ) || empty( Client::get()->profile ) ) {
 			return false;
 		}
 
 		// Normalize URLs.
 		$this_site     = trailingslashit( site_url( '', 'http' ) );
-		$selected_site = trailingslashit( str_replace( 'https://', 'http://', $this->client->profile ) );
+		$selected_site = trailingslashit( str_replace( 'https://', 'http://', Client::get()->profile ) );
 
 		// Check if site URL matches.
 		if ( $this_site !== $selected_site ) {
@@ -157,11 +146,11 @@ class Sitemaps {
 	 */
 	public function selected_site_is_domain_property() {
 
-		if ( ! Helper::get_module( 'sitemap' ) || empty( $this->client->profile ) ) {
+		if ( ! Helper::get_module( 'sitemap' ) || empty( Client::get()->profile ) ) {
 			return false;
 		}
 
-		if ( Str::starts_with( 'sc-domain:', $this->client->profile ) ) {
+		if ( Str::starts_with( 'sc-domain:', Client::get()->profile ) ) {
 			return true;
 		}
 

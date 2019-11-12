@@ -360,7 +360,7 @@ trait WordPress {
 			$robots = Helper::get_settings( "titles.tax_{$screen->taxonomy}_robots", [] );
 		}
 
-		if ( 'profile' === $screen->base && Helper::get_settings( 'titles.author_custom_robots' ) ) {
+		if ( in_array( $screen->base, [ 'profile', 'user-edit' ], true ) && Helper::get_settings( 'titles.author_custom_robots' ) ) {
 			$robots = Helper::get_settings( 'titles.author_robots', [] );
 		}
 

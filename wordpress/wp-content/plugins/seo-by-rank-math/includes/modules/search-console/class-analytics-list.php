@@ -41,8 +41,8 @@ class Analytics_List extends List_Table {
 	public function __construct() {
 		parent::__construct(
 			[
-				'singular' => esc_html__( 'analytic', 'rank-math' ),
-				'plural'   => esc_html__( 'analytics', 'rank-math' ),
+				'singular' => 'analytic',
+				'plural'   => 'analytics',
 				'no_items' => esc_html__( 'No data.', 'rank-math' ),
 			]
 		);

@@ -33,7 +33,7 @@ use MyThemeShop\Helpers\Param;
 </div>
 
 <?php
-if ( 'ready' !== $this->step_slug ) :
+if ( ! in_array( $this->step_slug, [ 'register', 'ready' ], true ) ) :
 	echo sprintf( '<div class="return-to-dashboard"><a href="%s"><i class="dashicons dashicons-arrow-left-alt2"></i> %s</a></div>', esc_url( 'rank-math-registration' === Param::get( 'page' ) ? admin_url( '/' ) : RankMath\Helper::get_dashboard_url() ), esc_html__( 'Return to dashboard', 'rank-math' ) );
 endif;
 ?>

@@ -24,8 +24,8 @@ class Table extends List_Table {
 	 */
 	public function __construct() {
 		parent::__construct([
-			'singular' => esc_html__( 'redirection', 'rank-math' ),
-			'plural'   => esc_html__( 'redirections', 'rank-math' ),
+			'singular' => 'redirection',
+			'plural'   => 'redirections',
 			'no_items' => $this->is_trashed_page() ? esc_html__( 'No redirections found in Trash.', 'rank-math' ) : wp_kses_post( __( 'No redirections added yet. <a href="#" class="rank-math-add-new-redirection">Add New Redirection</a>', 'rank-math' ) ),
 		]);
 	}

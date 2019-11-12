@@ -65,14 +65,6 @@ class Optimization implements Wizard_Step {
 		]);
 
 		$wizard->cmb->add_field([
-			'id'      => 'nofollow_image_links',
-			'type'    => 'switch',
-			'name'    => esc_html__( 'Nofollow Image File Links', 'rank-math' ),
-			'desc'    => wp_kses_post( __( 'Automatically add <code>rel="nofollow"</code> attribute for links pointing to external image files. The attribute is dynamically applied when the content is displayed, and the stored content is not changed.', 'rank-math' ) ),
-			'default' => Helper::get_settings( 'general.nofollow_image_links' ) ? 'on' : 'off',
-		]);
-
-		$wizard->cmb->add_field([
 			'id'      => 'nofollow_external_links',
 			'type'    => 'switch',
 			'name'    => esc_html__( 'Nofollow External Links', 'rank-math' ),
@@ -87,15 +79,6 @@ class Optimization implements Wizard_Step {
 			'desc'    => wp_kses_post( __( 'Automatically add a <code>target="_blank"</code> attribute to external links appearing in your posts, pages, and other post types. The attributes are applied when the content is displayed, which does not change the stored content.', 'rank-math' ) ),
 			'default' => Helper::get_settings( 'general.new_window_external_links' ) ? 'on' : 'off',
 		]);
-
-		$wizard->cmb->add_field([
-			'id'      => 'strip_category_base',
-			'type'    => 'switch',
-			'name'    => esc_html__( 'Strip Category Base', 'rank-math' ),
-			/* translators: Link to kb article */
-			'desc'    => sprintf( wp_kses_post( __( 'Remove /category/ from category archive URLs. <a href="%s" target="_blank">Why do this?</a><br>E.g. <code>example.com/category/my-category/</code> becomes <code>example.com/my-category</code>', 'rank-math' ) ), KB::get( 'remove-category-base' ) ),
-			'default' => Helper::get_settings( 'general.strip_category_base' ) ? 'on' : 'off',
-		]);
 	}
 
 	/**
@@ -109,7 +92,6 @@ class Optimization implements Wizard_Step {
 	public function save( $values, $wizard ) {
 		$settings = rank_math()->settings->all_raw();
 
-		$settings['general']['strip_category_base']     = $values['strip_category_base'];
 		$settings['titles']['noindex_empty_taxonomies'] = $values['noindex_empty_taxonomies'];
 
 		if ( isset( $values['attachment_redirect_urls'] ) && 'on' === $values['attachment_redirect_urls'] ) {
@@ -117,7 +99,6 @@ class Optimization implements Wizard_Step {
 			$settings['general']['attachment_redirect_default'] = $values['attachment_redirect_default'];
 		}
 
-		$settings['general']['nofollow_image_links']      = $values['nofollow_image_links'];
 		$settings['general']['nofollow_external_links']   = $values['nofollow_external_links'];
 		$settings['general']['new_window_external_links'] = $values['new_window_external_links'];
 

@@ -195,6 +195,7 @@ class Watcher {
 
 		$redirection->set_nocache( true );
 		$redirection->add_source( $from_url, 'exact' );
+		$redirection->add_destination( $url_to );
 		$redirection->save();
 
 		// Perform Cache.

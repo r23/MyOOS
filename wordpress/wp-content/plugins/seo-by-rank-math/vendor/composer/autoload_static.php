@@ -343,6 +343,7 @@ class ComposerStaticInite0bd047aa5058f04568aa38dfc5ac000
         'RankMath\\Search_Console\\Client' => __DIR__ . '/../..' . '/includes/modules/search-console/class-client.php',
         'RankMath\\Search_Console\\DB' => __DIR__ . '/../..' . '/includes/modules/search-console/class-db.php',
         'RankMath\\Search_Console\\Data_Fetcher' => __DIR__ . '/../..' . '/includes/modules/search-console/class-data-fetcher.php',
+        'RankMath\\Search_Console\\Google_Api' => __DIR__ . '/../..' . '/includes/modules/search-console/class-google-api.php',
         'RankMath\\Search_Console\\Overview' => __DIR__ . '/../..' . '/includes/modules/search-console/class-overview.php',
         'RankMath\\Search_Console\\Search_Console' => __DIR__ . '/../..' . '/includes/modules/search-console/class-search-console.php',
         'RankMath\\Search_Console\\Search_Console_Common' => __DIR__ . '/../..' . '/includes/modules/search-console/class-search-console-common.php',

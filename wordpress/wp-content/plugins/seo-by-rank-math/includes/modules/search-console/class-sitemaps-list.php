@@ -27,8 +27,8 @@ class Sitemaps_List extends List_Table {
 
 		parent::__construct(
 			[
-				'singular' => esc_html__( 'sitemap', 'rank-math' ),
-				'plural'   => esc_html__( 'sitemaps', 'rank-math' ),
+				'singular' => 'sitemap',
+				'plural'   => 'sitemaps',
 				'no_items' => esc_html__( 'No sitemaps submitted.', 'rank-math' ),
 			]
 		);

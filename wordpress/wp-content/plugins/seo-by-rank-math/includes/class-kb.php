@@ -41,8 +41,8 @@ class KB {
 			'https://rankmath.com/privacy-policy/'
 		],
 		'free-account' => [
-			'https://s.rankmath.com/signup',
-			'https://s.rankmath.com/signup'
+			'https://rankmath.com/#signup',
+			'https://rankmath.com/#signup'
 		],
 		'wp-error-fixes' => [
 			'https://s.rankmath.com/wp-errors-fixes',

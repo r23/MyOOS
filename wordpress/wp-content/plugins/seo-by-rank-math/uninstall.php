@@ -32,6 +32,29 @@ wp_clear_scheduled_hook( 'rank_math_search_console_get_analytics' );
 // Set rank_math_clear_data_on_uninstall to TRUE to delete all data on uninstall.
 if ( true === apply_filters( 'rank_math_clear_data_on_uninstall', false ) ) {
 
+	if ( ! is_multisite() ) {
+		rank_math_remove_data();
+		return;
+	}
+
+	global $wpdb;
+
+	$blog_ids = $wpdb->get_col( "SELECT blog_id FROM $wpdb->blogs WHERE archived = '0' AND spam = '0' AND deleted = '0'" );
+	if ( ! empty( $blog_ids ) ) {
+		foreach ( $blog_ids as $blog_id ) {
+			switch_to_blog( $blog_id );
+			rank_math_remove_data();
+			restore_current_blog();
+		}
+	}
+}
+
+/**
+ * Removes ALL plugin data
+ *
+ * @since 1.0.35
+ */
+function rank_math_remove_data() {
 	// Delete all options.
 	rank_math_delete_options();
 

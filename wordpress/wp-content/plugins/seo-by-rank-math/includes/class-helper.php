@@ -116,40 +116,12 @@ class Helper {
 	}
 
 	/**
-	 * Get RM Search Console API config.
-	 *
-	 * @return array
-	 */
-	public static function get_console_api_config() {
-		return array(
-			'application_name' => 'Rank Math',
-			'client_id'        => '521003500769-n68nimh2rrahq6b4cdcjm03ojgsukr1f.apps.googleusercontent.com',
-			'client_secret'    => 'nPNvFDg-1MHrT1cAFQouaVtK',
-			'redirect_uri'     => 'urn:ietf:wg:oauth:2.0:oob',
-			'scopes'           => array( 'https://www.googleapis.com/auth/webmasters', 'https://www.googleapis.com/auth/analytics', 'https://www.googleapis.com/auth/analytics.edit', 'https://www.googleapis.com/auth/adsense.readonly' ),
-			'token_url'        => 'https://accounts.google.com/o/oauth2/token',
-			'auth_url'         => 'https://accounts.google.com/o/oauth2/auth',
-			'signon_certs_rl'  => 'https://www.googleapis.com/oauth2/v1/certs',
-			'revoke_url'       => 'https://accounts.google.com/o/oauth2/revoke',
-		);
-	}
-
-	/**
 	 * Get Search Console auth url.
 	 *
 	 * @return string
 	 */
 	public static function get_console_auth_url() {
-		$config = self::get_console_api_config();
-
-		$params = array(
-			'response_type' => 'code',
-			'client_id'     => $config['client_id'],
-			'redirect_uri'  => $config['redirect_uri'],
-			'scope'         => implode( ' ', $config['scopes'] ),
-		);
-
-		return add_query_arg( $params, $config['auth_url'] );
+		return \RankMath\Search_Console\Client::get()->get_auth_url();
 	}
 
 	/**

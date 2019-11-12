@@ -297,6 +297,7 @@ return array(
     'RankMath\\Search_Console\\Client' => $baseDir . '/includes/modules/search-console/class-client.php',
     'RankMath\\Search_Console\\DB' => $baseDir . '/includes/modules/search-console/class-db.php',
     'RankMath\\Search_Console\\Data_Fetcher' => $baseDir . '/includes/modules/search-console/class-data-fetcher.php',
+    'RankMath\\Search_Console\\Google_Api' => $baseDir . '/includes/modules/search-console/class-google-api.php',
     'RankMath\\Search_Console\\Overview' => $baseDir . '/includes/modules/search-console/class-overview.php',
     'RankMath\\Search_Console\\Search_Console' => $baseDir . '/includes/modules/search-console/class-search-console.php',
     'RankMath\\Search_Console\\Search_Console_Common' => $baseDir . '/includes/modules/search-console/class-search-console-common.php',

@@ -11,6 +11,7 @@
 namespace RankMath\Search_Console;
 
 use RankMath\Helper;
+use RankMath\Traits\Hooker;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -19,12 +20,14 @@ defined( 'ABSPATH' ) || exit;
  */
 class Client {
 
+	use Hooker;
+
 	/**
-	 * Is client authorized the oAuth2.
+	 * Google Client object.
 	 *
-	 * @var boolean
+	 * @var Google_API
 	 */
-	public $is_authorized = null;
+	private $google_api;
 
 	/**
 	 * Hold data.
@@ -41,164 +44,35 @@ class Client {
 	public $profile;
 
 	/**
-	 * The Constructor.
+	 * Main instance
+	 *
+	 * Ensure only one instance is loaded or can be loaded.
+	 *
+	 * @return Client
 	 */
-	public function __construct() {
-		$this->set_data();
-		$this->maybe_refresh_token();
+	public static function get() {
+		static $instance;
+
+		if ( is_null( $instance ) && ! ( $instance instanceof Client ) ) {
+			$instance = new Client;
+			$instance->set_data();
+			$instance->refresh_auth_token_on_login();
+		}
+
+		return $instance;
 	}
 
 	/**
-	 * Make an HTTP GET request - for retrieving data.
+	 * Gets the google client instance.
 	 *
-	 * @param string $url     URL to do request.
-	 * @param array  $args    Assoc array of arguments (usually your data).
-	 * @param int    $timeout Timeout limit for request in seconds.
-	 *
-	 * @return array|false     Assoc array of API response, decoded from JSON.
+	 * @return Google_Api Google client instance.
 	 */
-	public function get( $url, $args = [], $timeout = 10 ) {
-		return $this->make_request( 'get', $url, $args, $timeout );
-	}
-
-	/**
-	 * Make an HTTP POST request - for creating and updating items.
-	 *
-	 * @param string $url     URL to do request.
-	 * @param array  $args    Assoc array of arguments (usually your data).
-	 * @param int    $timeout Timeout limit for request in seconds.
-	 *
-	 * @return array|false     Assoc array of API response, decoded from JSON.
-	 */
-	public function post( $url, $args = [], $timeout = 10 ) {
-		return $this->make_request( 'post', $url, $args, $timeout );
-	}
-
-	/**
-	 * Make an HTTP PUT request - for creating new items.
-	 *
-	 * @param string $url     URL to do request.
-	 * @param array  $args    Assoc array of arguments (usually your data).
-	 * @param int    $timeout Timeout limit for request in seconds.
-	 *
-	 * @return array|false     Assoc array of API response, decoded from JSON.
-	 */
-	public function put( $url, $args = [], $timeout = 10 ) {
-		return $this->make_request( 'put', $url, $args, $timeout );
-	}
-
-	/**
-	 * Make an HTTP DELETE request - for deleting data.
-	 *
-	 * @param string $url     URL to do request.
-	 * @param array  $args    Assoc array of arguments (usually your data).
-	 * @param int    $timeout Timeout limit for request in seconds.
-	 *
-	 * @return array|false     Assoc array of API response, decoded from JSON.
-	 */
-	public function delete( $url, $args = [], $timeout = 10 ) {
-		return $this->make_request( 'delete', $url, $args, $timeout );
-	}
-
-	/**
-	 * Performs the underlying HTTP request. Not very exciting.
-	 *
-	 * @param string $http_verb The HTTP verb to use: get, post, put, patch, delete.
-	 * @param string $url       URL to do request.
-	 * @param array  $args       Assoc array of parameters to be passed.
-	 * @param int    $timeout    Timeout limit for request in seconds.
-	 *
-	 * @return array|false Assoc array of decoded result.
-	 */
-	private function make_request( $http_verb, $url, $args = [], $timeout = 10 ) {
-		if ( ! isset( $this->data['access_token'] ) ) {
-			return false;
+	public function get_google_client() {
+		if ( ! $this->google_api instanceof Google_Api ) {
+			$this->google_api = new Google_Api;
 		}
 
-		$params = [
-			'timeout' => $timeout,
-			'method'  => $http_verb,
-			'headers' => [ 'Authorization' => 'Bearer ' . $this->data['access_token'] ],
-		];
-
-		if ( 'DELETE' === $http_verb || 'PUT' === $http_verb ) {
-			$params['headers']['Content-Length'] = '0';
-		} elseif ( 'post' === $http_verb && ! empty( $args ) && is_array( $args ) ) {
-			$params['body']                    = wp_json_encode( $args );
-			$params['headers']['Content-Type'] = 'application/json';
-		}
-
-		$response = wp_remote_request( $url, $params );
-
-		return $this->process_response( $response, $http_verb, $url );
-	}
-
-	/**
-	 * Process api response.
-	 *
-	 * @param array  $response  Api response array.
-	 * @param string $http_verb Request http verb.
-	 * @param string $url       Request url.
-	 *
-	 * @return array
-	 */
-	private function process_response( $response, $http_verb = '', $url = '' ) {
-		if ( is_wp_error( $response ) ) {
-			return [
-				'status' => 'fail',
-				'code'   => $response->get_error_code(),
-				'body'   => [ 'error_description' => 'WP_Error: ' . $response->get_error_message() ],
-			];
-		}
-
-		$code = wp_remote_retrieve_response_code( $response );
-		$body = wp_remote_retrieve_body( $response );
-		if ( ! empty( $body ) ) {
-			$body = json_decode( $body, true );
-		}
-
-		if ( in_array( $code, [ 200, 204 ], true ) ) {
-			return [
-				'status' => 'success',
-				'code'   => '200',
-				'body'   => $body,
-			];
-		}
-
-		if ( isset( $body['error_description'] ) && 'Bad Request' === $body['error_description'] ) {
-			$body['error_description'] = esc_html__( 'Bad request. Please check the code.', 'rank-math' );
-		}
-
-		error_log( 'Rank Math GSC API Error: ' . strtoupper( $http_verb ) . ' ' . $url . ' ' . $code . ' | ' . json_encode( $body, JSON_UNESCAPED_SLASHES ) );
-
-		return [
-			'status' => 'fail',
-			'code'   => $code,
-			'body'   => $body,
-		];
-	}
-
-	/**
-	 * Fetch profiles api wrapper.
-	 *
-	 * @return array
-	 */
-	public function get_profiles() {
-		$profiles = [];
-
-		if ( ! $this->is_authorized ) {
-			return $profiles;
-		}
-
-		$response = $this->get( 'https://www.googleapis.com/webmasters/v3/sites' );
-		if ( 'success' === $response['status'] ) {
-			foreach ( $response['body']['siteEntry'] as $site ) {
-				$profiles[ $site['siteUrl'] ] = $site['siteUrl'];
-			}
-			Helper::search_console_data( [ 'profiles' => $profiles ] );
-		}
-
-		return $profiles;
+		return $this->google_api;
 	}
 
 	/**
@@ -209,103 +83,74 @@ class Client {
 	 * @return array
 	 */
 	public function get_access_token( $code ) {
-		$config = Helper::get_console_api_config();
+		$api      = $this->get_google_client();
+		$response = $api->get_access_token( $code );
 
-		$response = wp_remote_post(
-			$config['token_url'],
+		if ( ! $api->is_success() ) {
+			return [
+				'success' => false,
+				'error'   => $api->get_error(),
+			];
+		}
+
+		Helper::search_console_data(
 			[
-				'body'    => [
-					'code'          => $code,
-					'client_id'     => $config['client_id'],
-					'client_secret' => $config['client_secret'],
-					'redirect_uri'  => $config['redirect_uri'],
-					'grant_type'    => 'authorization_code',
-				],
-				'timeout' => 15,
+				'authorized'    => true,
+				'expire'        => time() + $response['expires_in'],
+				'access_token'  => $response['access_token'],
+				'refresh_token' => $response['refresh_token'],
 			]
 		);
 
-		$data = $this->process_response( $response );
-		if ( 'success' === $data['status'] ) {
-			Helper::search_console_data(
-				[
-					'authorized'    => true,
-					'expire'        => time() + $data['body']['expires_in'],
-					'access_token'  => $data['body']['access_token'],
-					'refresh_token' => $data['body']['refresh_token'],
-				]
-			);
-		}
-
 		$this->set_data();
 
-		return $data;
+		return 'Done';
 	}
 
 	/**
-	 * Maybe we need to refresh the token before processing api request.
+	 * Refresh authentication token when user login.
 	 */
-	private function maybe_refresh_token() {
-		if ( ! isset( $this->data['expire'] ) ) {
+	public function refresh_auth_token_on_login() {
+		// Bail if the user is not authenticated at all yet.
+		if ( ! $this->is_authenticated() || ! $this->is_token_expired() ) {
 			return;
 		}
 
-		$expire = $this->data['expire'];
+		$api      = $this->get_google_client();
+		$response = $api->refresh_token( $this->data );
 
-		// If it has expired or does so in the next 30 seconds then refresh token.
-		if ( $expire && time() > ( $expire - 120 ) ) {
-			$new_token = $this->refresh_token();
-		}
-	}
-
-	/**
-	 * Refresh token using saved data.
-	 *
-	 * @return array
-	 */
-	private function refresh_token() {
-		$config = Helper::get_console_api_config();
-
-		$response = wp_remote_post(
-			$config['token_url'],
-			[
-				'body'    => [
-					'refresh_token' => $this->data['refresh_token'],
-					'client_id'     => $config['client_id'],
-					'client_secret' => $config['client_secret'],
-					'grant_type'    => 'refresh_token',
-				],
-				'timeout' => 15,
-			]
-		);
-
-		$data = $this->process_response( $response );
-		if ( 'success' === $data['status'] ) {
-			Helper::search_console_data(
-				[
-					'expire'       => time() + $data['body']['expires_in'],
-					'access_token' => $data['body']['access_token'],
-				]
-			);
+		if ( ! $api->is_success() ) {
+			$this->disconnect();
+			return;
 		}
 
-		return $data;
-	}
-
-	/**
-	 * Disconnect client connection.
-	 */
-	public function disconnect() {
-		Helper::search_console_data( false );
-		add_option(
-			'rank_math_search_console_data',
+		Helper::search_console_data(
 			[
-				'authorized' => false,
-				'profiles'   => [],
+				'expire'       => time() + $response['expires_in'],
+				'access_token' => $response['access_token'],
 			]
 		);
 
 		$this->set_data();
+	}
+
+	/**
+	 * Fetch profiles api wrapper.
+	 *
+	 * @return array
+	 */
+	public function get_profiles() {
+		$profiles = [];
+
+		if ( ! $this->is_authenticated() ) {
+			return $profiles;
+		}
+
+		$api      = $this->get_google_client();
+		$profiles = $api->get_profiles();
+		Helper::search_console_data( [ 'profiles' => $profiles ] );
+
+		return $profiles;
 	}
 
 	/**
@@ -328,15 +173,17 @@ class Client {
 		}
 
 		$with_index = $with_index ? '?sitemapIndex=' . urlencode( trailingslashit( $this->profile ) . 'sitemap_index.xml' ) : '';
-		$response   = $this->get( 'https://www.googleapis.com/webmasters/v3/sites/' . urlencode( $this->profile ) . '/sitemaps' . $with_index );
 
-		if ( 'success' !== $response['status'] ) {
-			Helper::add_notification( $response['body']['error']['message'] );
+		$api      = $this->get_google_client();
+		$response = $api->get( 'https://www.googleapis.com/webmasters/v3/sites/' . urlencode( $this->profile ) . '/sitemaps' . $with_index );
+
+		if ( ! $api->is_success() ) {
+			Helper::add_notification( $response['error']['message'] );
 			return [];
 		}
 
-		$sitemaps = $response['body']['sitemap'];
-		set_transient( $key, $sitemaps, DAY_IN_SECONDS );
+		set_transient( $key, $response['sitemap'], DAY_IN_SECONDS );
+
 		return $sitemaps;
 	}
 
@@ -348,7 +195,7 @@ class Client {
 	 * @return array
 	 */
 	public function submit_sitemap( $sitemap ) {
-		return $this->put( 'https://www.googleapis.com/webmasters/v3/sites/' . urlencode( $this->profile ) . '/sitemaps/' . urlencode( $sitemap ) );
+		return $this->get_google_client()->put( 'https://www.googleapis.com/webmasters/v3/sites/' . urlencode( $this->profile ) . '/sitemaps/' . urlencode( $sitemap ) );
 	}
 
 	/**
@@ -359,21 +206,66 @@ class Client {
 	 * @return array
 	 */
 	public function delete_sitemap( $sitemap ) {
-		return $this->delete( 'https://www.googleapis.com/webmasters/v3/sites/' . urlencode( $this->profile ) . '/sitemaps/' . urlencode( $sitemap ) );
+		return $this->get_google_client()->delete( 'https://www.googleapis.com/webmasters/v3/sites/' . urlencode( $this->profile ) . '/sitemaps/' . urlencode( $sitemap ) );
+	}
+
+	/**
+	 * Revokes authentication along with user options settings.
+	 */
+	public function disconnect() {
+		$this->get_google_client()->revoke_token( $this->data );
+		Helper::search_console_data( false );
+		Helper::search_console_data(
+			[
+				'authorized' => false,
+				'profiles'   => [],
+			]
+		);
+
+		$this->set_data();
+	}
+
+	/**
+	 * Check if the current user is authenticated.
+	 *
+	 * @return boolean True if the user is authenticated, false otherwise.
+	 */
+	public function is_authenticated() {
+		return $this->data['authorized'] && $this->data['access_token'] && $this->data['refresh_token'];
+	}
+
+	/**
+	 * Check if token is expired.
+	 *
+	 * @return boolean
+	 */
+	public function is_token_expired() {
+		return $this->data['expire'] && time() > ( $this->data['expire'] - 120 );
+	}
+
+	/**
+	 * Get Search Console auth url.
+	 *
+	 * @return string
+	 */
+	public function get_auth_url() {
+		return $this->get_google_client()->get_auth_url();
 	}
 
 	/**
 	 * Set data.
 	 */
 	private function set_data() {
-		$this->data          = Helper::search_console_data();
-		$this->is_authorized = $this->data['authorized'] && $this->data['access_token'] && $this->data['refresh_token'];
-		$this->profile       = Helper::get_settings( 'general.console_profile' );
+		$this->data    = Helper::search_console_data();
+		$this->profile = Helper::get_settings( 'general.console_profile' );
 
 		if ( ! $this->profile && ! empty( $this->data['profiles'] ) ) {
 			$this->profile = key( $this->data['profiles'] );
 		}
 		$this->profile_salt = $this->profile ? md5( $this->profile ) : '';
+		if ( isset( $this->data['access_token'] ) ) {
+			$this->get_google_client()->set_token( $this->data['access_token'] );
+		}
 	}
 
 	/**
@@ -384,7 +276,7 @@ class Client {
 	 *
 	 * @return string
 	 */
-	public function generate_key( $what, $args = [] ) {
+	private function generate_key( $what, $args = [] ) {
 		$key = '_rank_math_' . $this->profile_salt . '_sc_' . $what;
 
 		if ( ! empty( $args ) ) {

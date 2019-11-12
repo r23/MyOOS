@@ -8,11 +8,12 @@
 use RankMath\Helper;
 use MyThemeShop\Helpers\Str;
 use RankMath\Search_Console\DB;
+use RankMath\Search_Console\Data_Fetcher;
 
 $data           = Helper::search_console_data();
 $db_info        = DB::info();
 $is_empty       = DB::is_empty();
-$is_queue_empty = Helper::search_console()->crawler->is_empty();
+$is_queue_empty = Data_Fetcher::get()->is_empty();
 
 $primary   = '<button type="button" class="button button-primary">' . ( $data['authorized'] ? esc_html__( 'De-authorize Account', 'rank-math' ) : esc_html__( 'Authorize', 'rank-math' ) ) . '</button>';
 $secondary = '<a href="' . esc_url( Helper::get_console_auth_url() ) . '" class="button button-secondary"' . ( $data['authorized'] ? ' style="display:none;"' : '' ) . '>' . esc_html__( 'Get Authorization Code', 'rank-math' ) . '</a><br />';
@@ -29,6 +30,9 @@ $profile       = Helper::get_settings( 'general.console_profile' );
 $profile_label = str_replace( 'sc-domain:', __( 'Domain Property: ', 'rank-math' ), $profile );
 foreach ( $data['profiles'] as $key => $value ) {
 	$data['profiles'][ $key ] = str_replace( 'sc-domain:', __( 'Domain Property: ', 'rank-math' ), $value );
+}
+if ( ! $data['authorized'] ) {
+	$profile = false;
 }
 
 $cmb->add_field([

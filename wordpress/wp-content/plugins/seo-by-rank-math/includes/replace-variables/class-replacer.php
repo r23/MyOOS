@@ -25,7 +25,7 @@ class Replacer {
 	 *
 	 * @var array
 	 */
-	protected $defaults = array(
+	public static $defaults = array(
 		'ID'            => '',
 		'name'          => '',
 		'post_author'   => '',
@@ -94,7 +94,7 @@ class Replacer {
 	 */
 	private function pre_replace( $args, $exclude ) {
 		// Setup arguments.
-		$this->args = (object) wp_parse_args( $args, $this->defaults );
+		$this->args = (object) wp_parse_args( $args, self::$defaults );
 		if ( ! empty( $this->args->post_content ) ) {
 			$this->args->post_content = WordPress::strip_shortcodes( $this->args->post_content );
 		}

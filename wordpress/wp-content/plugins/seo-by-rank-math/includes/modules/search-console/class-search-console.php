@@ -31,13 +31,6 @@ class Search_Console extends Base {
 	use Ajax;
 
 	/**
-	 * Hold search console api client.
-	 *
-	 * @var Client
-	 */
-	public $client;
-
-	/**
 	 * Hold current tab id.
 	 *
 	 * @var string
@@ -72,8 +65,8 @@ class Search_Console extends Base {
 		);
 		parent::__construct();
 
-		$this->client  = new Client;
-		$this->crawler = new Data_Fetcher;
+		Client::get();
+		Data_Fetcher::get();
 
 		if ( is_admin() ) {
 			if ( Helper::has_cap( 'search_console' ) ) {
@@ -113,13 +106,13 @@ class Search_Console extends Base {
 		$this->get_filters();
 		$this->current_tab = Param::get( 'view', 'overview' );
 
-		if ( ! $this->client->is_authorized ) {
+		if ( ! Client::get()->is_authenticated() ) {
 			return;
 		}
 
 		$class = 'RankMath\Search_Console\\' . ucfirst( $this->current_tab );
 		if ( class_exists( $class ) ) {
-			$this->{$this->current_tab} = new $class( $this->client );
+			$this->{$this->current_tab} = new $class();
 		}
 	}
 
@@ -273,7 +266,7 @@ class Search_Console extends Base {
 			$this->error( esc_html__( 'No authentication code found.', 'rank-math' ) );
 		}
 
-		$this->success( $this->client->get_access_token( $code ) );
+		$this->success( Client::get()->get_access_token( $code ) );
 	}
 
 	/**
@@ -282,8 +275,8 @@ class Search_Console extends Base {
 	public function deauthentication() {
 		check_ajax_referer( 'rank-math-ajax-nonce', 'security' );
 		$this->has_cap_ajax( 'search_console' );
-		$this->client->disconnect();
-		$this->crawler->kill_process();
+		Client::get()->disconnect();
+		Data_Fetcher::get()->kill_process();
 		$this->success( 'done' );
 	}
 
@@ -294,7 +287,7 @@ class Search_Console extends Base {
 		check_ajax_referer( 'rank-math-ajax-nonce', 'security' );
 		$this->has_cap_ajax( 'search_console' );
 
-		$profiles = $this->client->get_profiles();
+		$profiles = Client::get()->get_profiles();
 		if ( empty( $profiles ) ) {
 			$this->error( 'No profiles found.' );
 		}
@@ -360,48 +353,16 @@ class Search_Console extends Base {
 		check_ajax_referer( 'rank-math-ajax-nonce', 'security' );
 		$this->has_cap_ajax( 'search_console' );
 
-		if ( ! $this->client->is_authorized ) {
+		if ( ! Client::get()->is_authenticated() ) {
 			$this->error( esc_html__( 'Google oAuth is not authorized.', 'rank-math' ) );
 		}
 
 		try {
-			$days  = Param::get( 'days', 90, FILTER_VALIDATE_INT );
-			$start = Helper::get_midnight( time() - DAY_IN_SECONDS );
-
-			for ( $current = 1; $current <= $days; $current++ ) {
-				$this->crawler->push_to_queue( date_i18n( 'Y-m-d', $start - ( DAY_IN_SECONDS * $current ) ) );
-			}
-			$this->crawler->save()->dispatch();
+			Data_Fetcher::get()->start_process( Param::get( 'days', 90, FILTER_VALIDATE_INT ) );
 			$this->success( 'Data fetching started in the background.' );
 		} catch ( Exception $error ) {
 			$this->error( $error->getMessage() );
 		}
-	}
-
-	/**
-	 * Get analytics data.
-	 *
-	 * @param string $current Date to fetch data for.
-	 */
-	public function get_analytics_data( $current ) {
-		set_time_limit( 300 );
-		if ( DB::date_exists( $current ) ) {
-			return true;
-		}
-
-		foreach ( [ 'page', 'query', 'date' ] as $metric ) {
-			$rows = $this->query_analytics_data( $current, $current, $metric );
-			foreach ( $rows as $row ) {
-				DB::insert( $row, $current, $metric );
-			}
-		}
-
-		DB::purge_cache();
-
-		// Sleep to not hit 5 QPS Limit.
-		sleep( 2 );
-
-		return true;
 	}
 
 	/**
@@ -442,11 +403,11 @@ class Search_Console extends Base {
 	 * @param array $tabs Array of tabs.
 	 */
 	private function is_sitemap_available( &$tabs ) {
-		if ( ! $this->client->is_authorized ) {
+		if ( ! Client::get()->is_authenticated() ) {
 			return;
 		}
 
-		$this->sitemaps = new Sitemaps( $this->client );
+		$this->sitemaps = new Sitemaps;
 		if ( $this->sitemaps->selected_site_is_domain_property() ) {
 			unset( $tabs['sitemaps'] );
 		}
@@ -474,53 +435,5 @@ class Search_Console extends Base {
 		}
 
 		return $default;
-	}
-
-	/**
-	 * Query analytics data from google client api.
-	 *
-	 * @param string  $start_date Start date.
-	 * @param string  $end_date   End date.
-	 * @param string  $dimension  Dimension of data.
-	 * @param integer $limit      Number of rows.
-	 *
-	 * @return array
-	 */
-	private function query_analytics_data( $start_date, $end_date, $dimension, $limit = 5000 ) {
-		$response = $this->client->post(
-			'https://www.googleapis.com/webmasters/v3/sites/' . urlencode( $this->client->profile ) . '/searchAnalytics/query',
-			[
-				'startDate'  => $start_date,
-				'endDate'    => $end_date,
-				'rowLimit'   => $limit,
-				'dimensions' => [ $dimension ],
-			]
-		);
-
-		$rows = false;
-		if ( 'success' === $response['status'] ) {
-			if ( isset( $response['body']['rows'] ) ) {
-				$rows = $response['body']['rows'];
-				$rows = $this->normalize_analytics_data( $rows );
-			}
-		}
-
-		return $rows ? $rows : [];
-	}
-
-	/**
-	 * Normalize analytics data.
-	 *
-	 * @param array $rows Array of rows.
-	 *
-	 * @return array
-	 */
-	private function normalize_analytics_data( $rows ) {
-		foreach ( $rows as &$row ) {
-			$row['ctr']      = round( $row['ctr'] * 100, 2 );
-			$row['position'] = round( $row['position'], 2 );
-		}
-
-		return $rows;
 	}
 }

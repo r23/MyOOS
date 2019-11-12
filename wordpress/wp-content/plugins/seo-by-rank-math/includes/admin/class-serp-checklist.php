@@ -191,9 +191,9 @@ class Serp_Checklist {
 				'titleHasPowerWords'    => [
 					'ok'      => esc_html__( 'Your title contains {0} power word(s). Booyah!', 'rank-math' ),
 					/* translators: link to kb article */
-					'fail'    => sprintf( esc_html__( 'Your title doesn\'t contain a %s. Add at least one.', 'rank-math' ), '<a href="https://sumo.com/stories/power-words" target="_blank">power word</a>' ),
+					'fail'    => sprintf( esc_html__( 'Your title doesn\'t contain a %s. Add at least one.', 'rank-math' ), '<a href="https://rankmath.com/blog/power-words/" target="_blank">power word</a>' ),
 					/* translators: link to kb article */
-					'empty'   => sprintf( esc_html__( 'Add %s to your title to increase CTR.', 'rank-math' ), '<a href="https://sumo.com/stories/power-words" target="_blank">power words</a>' ),
+					'empty'   => sprintf( esc_html__( 'Add %s to your title to increase CTR.', 'rank-math' ), '<a href="https://rankmath.com/blog/power-words/" target="_blank">power words</a>' ),
 					/* translators: link to registration screen */
 					'tooltip' => esc_html__( 'Power Words are tried-and-true words that copywriters use to attract more clicks.', 'rank-math' ),
 					'score'   => 1,

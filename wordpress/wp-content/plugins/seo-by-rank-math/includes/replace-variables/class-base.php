@@ -10,6 +10,7 @@
 
 namespace RankMath\Replace_Variables;
 
+use RankMath\Post;
 use RankMath\Traits\Hooker;
 use MyThemeShop\Helpers\Str;
 
@@ -140,7 +141,8 @@ class Base {
 		if ( isset( $this->post ) ) {
 			return $this->post;
 		}
-		$this->post = get_post();
+
+		$this->post = get_post( Post::is_shop_page() ? Post::get_shop_page_id() : null );
 
 		if ( is_null( $this->post ) ) {
 			$posts      = get_posts(

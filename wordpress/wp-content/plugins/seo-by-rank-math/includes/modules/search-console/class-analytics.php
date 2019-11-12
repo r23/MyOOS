@@ -22,20 +22,9 @@ class Analytics {
 	use Hooker;
 
 	/**
-	 * Hold search console api client.
-	 *
-	 * @var Client
-	 */
-	private $client;
-
-	/**
 	 * The Constructor.
-	 *
-	 * @param Client $client Clien object.
 	 */
-	public function __construct( $client ) {
-		$this->client = $client;
-
+	public function __construct() {
 		$this->action( 'admin_init', 'admin_init' );
 		$this->action( 'current_screen', 'add_screen_options' );
 		$this->filter( 'set-screen-option', 'set_screen_options', 10, 3 );
