@@ -251,17 +251,17 @@
     },
     {
         "name": "doctrine/collections",
-        "version": "1.6.3",
-        "version_normalized": "1.6.3.0",
+        "version": "1.6.4",
+        "version_normalized": "1.6.4.0",
         "source": {
             "type": "git",
             "url": "https://github.com/doctrine/collections.git",
-            "reference": "037ccc5b1c249275f8f6bb48e35f140fd52fd577"
+            "reference": "6b1e4b2b66f6d6e49983cebfe23a21b7ccc5b0d7"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/doctrine/collections/zipball/037ccc5b1c249275f8f6bb48e35f140fd52fd577",
-            "reference": "037ccc5b1c249275f8f6bb48e35f140fd52fd577",
+            "url": "https://api.github.com/repos/doctrine/collections/zipball/6b1e4b2b66f6d6e49983cebfe23a21b7ccc5b0d7",
+            "reference": "6b1e4b2b66f6d6e49983cebfe23a21b7ccc5b0d7",
             "shasum": ""
         },
         "require": {
@@ -273,7 +273,7 @@
             "phpunit/phpunit": "^7.0",
             "vimeo/psalm": "^3.2.2"
         },
-        "time": "2019-11-04T15:26:07+00:00",
+        "time": "2019-11-13T13:07:11+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1802,17 +1802,17 @@
     },
     {
         "name": "monolog/monolog",
-        "version": "2.0.0",
-        "version_normalized": "2.0.0.0",
+        "version": "2.0.1",
+        "version_normalized": "2.0.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/Seldaek/monolog.git",
-            "reference": "68545165e19249013afd1d6f7485aecff07a2d22"
+            "reference": "f9d56fd2f5533322caccdfcddbb56aedd622ef1c"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Seldaek/monolog/zipball/68545165e19249013afd1d6f7485aecff07a2d22",
-            "reference": "68545165e19249013afd1d6f7485aecff07a2d22",
+            "url": "https://api.github.com/repos/Seldaek/monolog/zipball/f9d56fd2f5533322caccdfcddbb56aedd622ef1c",
+            "reference": "f9d56fd2f5533322caccdfcddbb56aedd622ef1c",
             "shasum": ""
         },
         "require": {
@@ -1851,7 +1851,7 @@
             "rollbar/rollbar": "Allow sending log messages to Rollbar",
             "ruflin/elastica": "Allow sending log messages to an Elastic Search server"
         },
-        "time": "2019-08-30T09:56:44+00:00",
+        "time": "2019-11-13T10:27:43+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -3746,17 +3746,17 @@
     },
     {
         "name": "symfony/symfony",
-        "version": "v4.3.7",
-        "version_normalized": "4.3.7.0",
+        "version": "v4.3.8",
+        "version_normalized": "4.3.8.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/symfony.git",
-            "reference": "fb4065ac95f08ca26ee605936e537ba2cd4a6bb7"
+            "reference": "87fb08703e62882a7a6fdb17672070e0ee12dd65"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/symfony/zipball/fb4065ac95f08ca26ee605936e537ba2cd4a6bb7",
-            "reference": "fb4065ac95f08ca26ee605936e537ba2cd4a6bb7",
+            "url": "https://api.github.com/repos/symfony/symfony/zipball/87fb08703e62882a7a6fdb17672070e0ee12dd65",
+            "reference": "87fb08703e62882a7a6fdb17672070e0ee12dd65",
             "shasum": ""
         },
         "require": {
@@ -3870,7 +3870,7 @@
             "symfony/phpunit-bridge": "^3.4.31|^4.3.4|~5.0",
             "symfony/security-acl": "~2.8|~3.0"
         },
-        "time": "2019-11-11T16:39:14+00:00",
+        "time": "2019-11-13T09:07:48+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
