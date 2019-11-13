@@ -4,7 +4,7 @@ Tags: move, transfer, copy, migrate, backup, clone, restore, db migration, wordp
 Requires at least: 3.3
 Tested up to: 5.3
 Requires PHP: 5.2.17
-Stable tag: 7.9
+Stable tag: 7.10
 License: GPLv2 or later
 
 Move, transfer, copy, migrate, and backup a site with 1-click. Quick, easy, and reliable.
@@ -72,7 +72,6 @@ Mobile device compatible: All in One WP Plugin is the first plugin to offer true
 * Bluehost
 * InMotion
 * Web Hosting Hub
-* Siteground
 * Pagely
 * Dreamhost
 * Justhost
@@ -109,6 +108,11 @@ Alternatively you can download the plugin using the download button on this page
 All-in-One WP Migration **asks for your consent** to collect **requester's email address** when filling plugin's contact form. [GDPR Compliant Privacy Policy](https://www.iubenda.com/privacy-policy/946881)
 
 == Changelog ==
+= 7.10 =
+**Added**
+
+* Better support for WP Engine platform
+
 = 7.9 =
 **Added**
 
