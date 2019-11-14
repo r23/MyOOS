@@ -450,7 +450,7 @@ class Snippet_Shortcode {
 
 		$key      = 'review' === $schema ? 'snippet_review_location' : 'snippet_location';
 		$location = $this->do_filter( 'snippet/review/location', Helper::get_post_meta( $key ) );
-		$location = $location ? $location : 'bottom';
+		$location = $location ? $location : 'custom';
 
 		return 'custom' === $location ? false : $location;
 	}

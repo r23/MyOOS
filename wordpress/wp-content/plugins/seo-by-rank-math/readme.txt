@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection
 Tested up to: 5.3
 Requires at least: 4.7.0
 Requires PHP: 5.6
-Stable tag: 1.0.35.1
+Stable tag: 1.0.35.2
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -449,6 +449,9 @@ We look forward to helping you.
 11. Rank Math Comes with 10+ FREE Module.
 
 == Changelog ==
+
+= 1.0.35.2 [Nov 14, 2019] =
+* Added a condition to prevent the ratings from showing on WooCommerce & Easy Digital Download pages
 
 = 1.0.35.1 [Nov 14, 2019] =
 * Added an option to show Snippet reviews before and after the content on the frontend for the allowed types
