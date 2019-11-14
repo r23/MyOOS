@@ -256,8 +256,17 @@ class Paper {
 		}
 
 		$advanced_robots = $this->paper->advanced_robots();
-		if ( empty( $advanced_robots ) ) {
-			$advanced_robots = self::advanced_robots_combine( Helper::get_settings( 'titles.advanced_robots_global' ) );
+		if ( ! is_array( $advanced_robots ) ) {
+			$advanced_robots = wp_parse_args(
+				Helper::get_settings( 'titles.advanced_robots_global' ),
+				[
+					'max-snippet'       => -1,
+					'max-video-preview' => -1,
+					'max-image-preview' => 'large',
+				]
+			);
+
+			$advanced_robots = self::advanced_robots_combine( $advanced_robots );
 		}
 
 		$this->robots = ! empty( $advanced_robots ) ? $this->robots + $advanced_robots : $this->robots;

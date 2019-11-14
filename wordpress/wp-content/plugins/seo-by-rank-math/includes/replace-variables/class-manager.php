@@ -58,6 +58,13 @@ class Manager extends Post_Variables {
 	private $is_setup = false;
 
 	/**
+	 * Hold arguments.
+	 *
+	 * @var array
+	 */
+	protected $args = [];
+
+	/**
 	 * Class constructor.
 	 */
 	public function __construct() {
@@ -175,6 +182,26 @@ class Manager extends Post_Variables {
 	 */
 	public function get_replacements() {
 		return $this->replacements;
+	}
+
+	/**
+	 * Set arguments.
+	 *
+	 * @param array $args The object some of the replacement values might come from,
+	 *                    could be a post, taxonomy or term.
+	 */
+	public function set_arguments( $args = [] ) {
+		if ( ! empty( $args ) ) {
+			$this->tmp_args = $this->args;
+			$this->args     = $args;
+		}
+	}
+
+	/**
+	 * Reset arguments.
+	 */
+	public function reset_arguments() {
+		$this->args = $this->tmp_args;
 	}
 
 	/**

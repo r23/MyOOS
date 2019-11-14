@@ -53,11 +53,31 @@ $cmb->add_field([
 
 // Common fields.
 $cmb->add_field([
+	'id'      => 'rank_math_snippet_location',
+	'name'    => esc_html__( 'Review Location', 'rank-math' ),
+	'desc'    => esc_html__( 'The review or rating must be displayed on the page to comply with Google\'s Rich Snippet guidelines.', 'rank-math' ),
+	'type'    => 'select',
+	'dep'     => [ [ 'rank_math_rich_snippet', 'book,course,event,product,recipe,software', '=' ] ],
+	'classes' => 'nob',
+	'default' => 'bottom',
+	'options' => [
+		'bottom' => esc_html__( 'Below Content', 'rank-math' ),
+		'top'    => esc_html__( 'Above Content', 'rank-math' ),
+		'both'   => esc_html__( 'Above & Below Content', 'rank-math' ),
+		'custom' => esc_html__( 'Custom (use shortcode)', 'rank-math' ),
+	],
+]);
+
+$cmb->add_field([
 	'id'         => 'rank_math_snippet_shortcode',
 	'name'       => esc_html__( 'Shortcode', 'rank-math' ),
 	'type'       => 'text',
 	'desc'       => esc_html__( 'Copy & paste this shortcode in the content.', 'rank-math' ),
-	'dep'        => [ [ 'rank_math_rich_snippet', 'off,article,review', '!=' ] ],
+	'dep'        => [
+		'relation' => 'or',
+		[ 'rank_math_rich_snippet', 'off,article,review,book,course,event,product,recipe,software', '!=' ],
+		[ 'rank_math_snippet_location', 'custom' ],
+	],
 	'attributes' => [
 		'readonly' => 'readonly',
 		'value'    => '[rank_math_rich_snippet]',
