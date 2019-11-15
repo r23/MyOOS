@@ -37,7 +37,7 @@ if (is_readable('includes/local/configure.php')) {
  * Currently version.
  * use SemVer - https://semver.org
  */
-define('OOS_VERSION', '2.3.11 -dev');
+define('OOS_VERSION', '2.3.12 -dev');
 
 // Complete software name string
 define('OOS_FULL_NAME', 'MyOOS ' . OOS_VERSION);
