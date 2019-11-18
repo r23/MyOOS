@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.3.x - Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-11-11 12:56:53+0000\n"
+"PO-Revision-Date: 2019-11-17 20:46:54+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2121,7 +2121,7 @@ msgstr "Streifen"
 
 #: wp-includes/js/dist/block-library.js:18781
 msgid "Insert a table — perfect for sharing charts and data."
-msgstr "Füge eine Tabelle ein &ndash; ideal um Diagramme und Daten zu teilen."
+msgstr "Füge eine Tabelle ein – ideal um Diagramme und Daten zu teilen."
 
 #: wp-includes/js/dist/block-library.js:18478
 msgid "Fixed width table cells"
@@ -2251,7 +2251,7 @@ msgstr "Farbfüllend"
 
 #: wp-includes/js/dist/block-library.js:15737
 msgid "Give special visual emphasis to a quote from your text."
-msgstr "Hebe das Zitat optisch hervor."
+msgstr "Hebe ein Zitat optisch hervor."
 
 #: wp-includes/js/dist/block-library.js:15736
 msgid "Pullquote"
@@ -2631,7 +2631,7 @@ msgstr "Für kleinere Geräte skalieren"
 #: wp-includes/js/dist/block-library.js:10659
 #: wp-includes/js/dist/block-library.js:11124
 msgid "Media Settings"
-msgstr "Einstellungen &rsaquo; Medien"
+msgstr "Medien-Einstellungen"
 
 #: wp-includes/js/dist/block-library.js:11120
 msgid "Edit URL"
@@ -7153,7 +7153,7 @@ msgstr "Kontakt"
 #: wp-includes/theme.php:2201
 msgctxt "Theme starter content"
 msgid "About"
-msgstr "Über mich"
+msgstr "Über uns"
 
 #: wp-includes/theme.php:2120 wp-includes/theme.php:2193
 msgctxt "Theme starter content"

@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Themes - Twenty Seventeen package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-01-22 14:48:31+0000\n"
+"PO-Revision-Date: 2019-11-15 22:51:02+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -236,7 +236,7 @@ msgstr "Dunkel"
 
 #: inc/back-compat.php:39 inc/back-compat.php:52 inc/back-compat.php:70
 msgid "Twenty Seventeen requires at least WordPress version 4.7. You are running version %s. Please upgrade and try again."
-msgstr "Twenty Sixteen benötigt mindestens WordPress-Version 4.7. Du verwendest Version %s. Bitte aktualisiere und versuche es erneut."
+msgstr "Twenty Sixteen benötigt mindestens WordPress-Version 4.7. Du verwendest Version %s. Bitte aktualisiere WordPress und versuche es nochmal."
 
 #. translators: %s: Name of current post
 #: inc/template-tags.php:117
@@ -319,7 +319,7 @@ msgstr "Nächste Seite"
 
 #. Author of the theme
 msgid "the WordPress team"
-msgstr "dem WordPress-Team"
+msgstr "WordPress-Team"
 
 #. Theme URI of the theme
 msgid "https://wordpress.org/themes/twentyseventeen/"
