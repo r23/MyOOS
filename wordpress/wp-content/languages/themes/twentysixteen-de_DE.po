@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Themes - Twenty Sixteen package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-06-17 08:19:28+0000\n"
+"PO-Revision-Date: 2019-11-19 10:58:04+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,10 +19,6 @@ msgstr "Twenty Sixteen"
 msgid "Twenty Sixteen is a modernized take on an ever-popular WordPress layout — the horizontal masthead with an optional right sidebar that works perfectly for blogs and websites. It has custom color options with beautiful default color schemes, a harmonious fluid grid using a mobile-first approach, and impeccable polish in every detail. Twenty Sixteen will make your WordPress look beautiful everywhere."
 msgstr "Twenty Sixteen ist die moderne Interpretation eines allzeit beliebten WordPress-Layouts – einer horizontalen Kopfzeile mit einer optionalen rechten Seitenleiste, die gleichermaßen bei Blogs wie klassischen Websites perfekt funktioniert. Das Theme bietet Einstellungsmöglichkeiten für individuelle​ Farben mit schönen Standard-Farbvorlagen​, ein harmonisches, flexibles​ Raster mit einem Mobile-First-Ansatz und einem makellosen Schliff in jedem Detail. Twenty Sixteen sorgt für einen tollen Look ​bei​ all deinen WordPress-Websites."
 
-#: functions.php:202
-msgid "Bright Red"
-msgstr "Hellrot"
-
 #: functions.php:197
 msgid "Dark Red"
 msgstr "Dunkelrot"
@@ -34,14 +30,6 @@ msgstr "Mittelbraun"
 #: functions.php:187
 msgid "Dark Brown"
 msgstr "Dunkelbraun"
-
-#: functions.php:182
-msgid "Light Blue"
-msgstr "Hellblau"
-
-#: functions.php:172
-msgid "Blue Gray"
-msgstr "Blaugrau"
 
 #: functions.php:162
 msgid "Light Gray"
@@ -61,7 +49,19 @@ msgstr "Weiß"
 
 #: functions.php:177
 msgid "Bright Blue"
-msgstr "Kräftiges Blau"
+msgstr "Strahlendes Blau"
+
+#: functions.php:182
+msgid "Light Blue"
+msgstr "Helles Blau"
+
+#: functions.php:172
+msgid "Blue Gray"
+msgstr "Blau-Grau"
+
+#: functions.php:202
+msgid "Bright Red"
+msgstr "Helles Rot"
 
 #. translators: %s: Name of current post
 #: template-parts/content.php:29 inc/template-tags.php:194
@@ -359,13 +359,13 @@ msgstr "Wie es aussieht, wurde an dieser Stelle nichts gefunden. Möchtest du ei
 msgid "Oops! That page can&rsquo;t be found."
 msgstr "Die Seite konnte leider nicht gefunden werden."
 
-#. Author of the theme
-msgid "the WordPress team"
-msgstr "dem WordPress-Team"
-
 #. Theme URI of the theme
 msgid "https://wordpress.org/themes/twentysixteen/"
 msgstr "https://de.wordpress.org/themes/twentysixteen/"
+
+#. Author of the theme
+msgid "the WordPress team"
+msgstr "WordPress-Team"
 
 #. Author URI of the theme
 #: footer.php:60

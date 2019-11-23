@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Themes - Twenty Fifteen package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-01-29 05:14:01+0000\n"
+"PO-Revision-Date: 2019-11-19 10:29:30+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,11 +21,11 @@ msgstr "Twenty Fifteen"
 
 #: functions.php:243
 msgid "Light Blue"
-msgstr "Hellblau"
+msgstr "Helles Blau"
 
 #: functions.php:238
 msgid "Bright Blue"
-msgstr "Hellblau"
+msgstr "Strahlendes Blau"
 
 #: functions.php:193
 msgid "Light Gray"
@@ -145,7 +145,7 @@ msgstr "Kommentar-Navigation"
 msgid "Blue"
 msgstr "Blau"
 
-#: functions.php:228 inc/customizer.php:226
+#: inc/customizer.php:226 functions.php:228
 msgid "Purple"
 msgstr "Violett"
 
@@ -153,7 +153,7 @@ msgstr "Violett"
 msgid "Pink"
 msgstr "Pink"
 
-#: functions.php:203 inc/customizer.php:204
+#: inc/customizer.php:204 functions.php:203
 msgid "Yellow"
 msgstr "Gelb"
 
@@ -198,11 +198,11 @@ msgstr "Nächstes Bild"
 msgid "Previous Image"
 msgstr "Vorheriges Bild"
 
-#: header.php:49
+#: header.php:50
 msgid "Menu and widgets"
 msgstr "Menü und Widgets"
 
-#: header.php:26
+#: header.php:27
 msgid "Skip to content"
 msgstr "Springe zum Inhalt"
 
@@ -270,17 +270,17 @@ msgstr "Bereit, um deinen ersten Beitrag zu veröffentlichen? <a href=\"%1$s\">S
 msgid "Nothing Found"
 msgstr "Nichts gefunden"
 
-#: content-link.php:60 content.php:61 image.php:74 content-search.php:28
-#: content-search.php:33 content-page.php:37
+#: content-link.php:60 content-page.php:37 image.php:74 content-search.php:28
+#: content-search.php:33 content.php:61
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: content-link.php:39 content.php:41 image.php:61 content-page.php:26
+#: content-link.php:39 content-page.php:26 image.php:61 content.php:41
 msgid "Pages:"
 msgstr "Seiten:"
 
 #. translators: %s: Name of current post
-#: content-link.php:32 content.php:34 inc/template-tags.php:249
+#: inc/template-tags.php:249 content-link.php:32 content.php:34
 msgid "Continue reading %s"
 msgstr "%s weiterlesen"
 
@@ -304,16 +304,16 @@ msgstr "Zeige alle Beiträge von %s"
 msgid "Published by"
 msgstr "Veröffentlicht von"
 
-#: content-link.php:43 index.php:50 content.php:45 archive.php:53 search.php:43
-#: image.php:65 content-page.php:30
+#: archive.php:53 content-link.php:43 index.php:50 content-page.php:30
+#: image.php:65 content.php:45 search.php:43
 msgid "Page"
 msgstr "Seite"
 
-#: index.php:49 archive.php:52 search.php:42
+#: archive.php:52 index.php:49 search.php:42
 msgid "Next page"
 msgstr "Nächste Seite"
 
-#: index.php:48 archive.php:51 search.php:41
+#: archive.php:51 index.php:48 search.php:41
 msgid "Previous page"
 msgstr "Vorherige Seite"
 
@@ -327,7 +327,7 @@ msgstr "Die Seite konnte nicht gefunden werden."
 
 #. Author of the theme
 msgid "the WordPress team"
-msgstr "dem WordPress-Team"
+msgstr "WordPress-Team"
 
 #. Theme URI of the theme
 msgid "https://wordpress.org/themes/twentyfifteen/"

@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.3.x - Development - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-11-14 11:27:52+0000\n"
+"PO-Revision-Date: 2019-11-23 19:14:46+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,6 +21,11 @@ msgstr "Europe/Berlin"
 msgctxt "start of week"
 msgid "1"
 msgstr "1"
+
+#: wp-admin/includes/media.php:1697 wp-admin/upgrade.php:77
+#: wp-admin/upgrade.php:153
+msgid "Continue"
+msgstr "Weiter"
 
 #: wp-admin/about.php:93
 msgid "Heading blocks now offer controls for text color"
@@ -2139,7 +2144,7 @@ msgstr "Du bist leider nicht berechtigt, das Plugin wiederherzustellen."
 #. translators: %s: WordPress Planet URL.
 #: wp-admin/index.php:87
 msgid "<strong>WordPress Events and News</strong> &mdash; Upcoming events near you as well as the latest news from the official WordPress project and the <a href=\"%s\">WordPress Planet</a>."
-msgstr "<strong>WordPress-Veranstaltungen und Neuigkeiten</strong> &ndash; beinhaltet kommende Veranstaltungen in deiner Nähe sowie die neuesten Nachrichten aus dem offiziellen WordPress-Projekt und dem <a href=\"%s\">WordPress Planet</a>."
+msgstr "<strong>WordPress-Veranstaltungen und Neuigkeiten</strong> &ndash; Beinhaltet kommende Veranstaltungen in deiner Nähe, sowie die neuesten Nachrichten aus dem offiziellen WordPress-Projekt und dem <a href=\"%s\">WordPress Planet</a>."
 
 #. translators: 1: URL to WordPress release notes, 2: WordPress version number
 #. including locale if necessary.
@@ -5971,7 +5976,7 @@ msgstr "https://de.planetwp.org/de/small-feed/feed/"
 
 #: wp-admin/edit-form-advanced.php:291
 msgid "<strong>Post editor</strong> &mdash; Enter the text for your post. There are two modes of editing: Visual and Text. Choose the mode by clicking on the appropriate tab."
-msgstr "<strong>Beitrags-Editor</strong> &mdash; Gib den Text für deinen Beitrag ein. Dafür stehen dir zwei Arten zur Verfügung: ein visueller und ein Text-Modus. Durch Anklicken des entsprechenden Tabs kannst du den Modus auswählen."
+msgstr "<strong>Beitrags-Editor</strong> &ndash; Gib den Text für deinen Beitrag ein. Dafür stehen dir zwei Arten zur Verfügung: ein visueller und ein Text-Modus. Durch Anklicken des entsprechenden Tabs kannst du den Modus auswählen."
 
 #: wp-admin/edit-form-advanced.php:294
 msgid "You can insert media files by clicking the button above the post editor and following the directions. You can align or edit images using the inline formatting toolbar available in Visual mode."
@@ -6310,11 +6315,11 @@ msgstr "https://de.wordpress.org/support/forum/wordpress-deutschland/"
 
 #: wp-admin/index.php:76
 msgid "<strong>At A Glance</strong> &mdash; Displays a summary of the content on your site and identifies which theme and version of WordPress you are using."
-msgstr "<strong>Auf einen Blick</strong> &ndash; zeigt eine Zusammenfassung der Inhalte deiner Website und zeigt, welches Theme du mit welcher WordPress-Version verwendest."
+msgstr "<strong>Auf einen Blick</strong> &ndash; Zeigt eine Zusammenfassung der Inhalte deiner Website und zeigt, welches Theme und welche WordPress-Version du verwendest."
 
 #: wp-admin/index.php:63
 msgid "<strong>Box Controls</strong> &mdash; Click the title bar of the box to expand or collapse it. Some boxes added by plugins may have configurable content, and will show a &#8220;Configure&#8221; link in the title bar if you hover over it."
-msgstr "<strong>Moduleinstellungen</strong> &mdash; Klicke auf die Titelleiste des Moduls, um es aus- oder einzuklappen. Plugins können zusätzliche Module registrieren, welche einen konfigurierbaren Inhalt haben. Bei Mauszeigerkontakt der Titelleiste dieser Module erscheint ein &#8222;Konfigurieren&#8220;-Link mit Optionen."
+msgstr "<strong>Boxeinstellungen</strong> &ndash; Klicke auf die Titelleiste der Box, um sie aus- oder einzuklappen. Plugins können zusätzliche Boxen registrieren, welche einen konfigurierbaren Inhalt haben. Bei Mauszeigerkontakt der Titelleiste dieser Boxen erscheint ein &#8222;Konfigurieren&#8220;-Link mit Optionen."
 
 #: wp-admin/themes.php:43
 msgid "Sorry, you are not allowed to resume this theme."
@@ -6451,7 +6456,7 @@ msgstr "Bei Vorschau auf kleineren Bildschirmen kannst du das Einklapp-Icon unte
 
 #: wp-admin/themes.php:134
 msgid "The theme being previewed is fully interactive &mdash; navigate to different pages to see how the theme handles posts, archives, and other page templates. The settings may differ depending on what theme features the theme being previewed supports. To accept the new settings and activate the theme all in one step, click the Publish &amp; Activate button above the menu."
-msgstr "Das in der Vorschau angezeigte Theme ist völlig interaktiv &mdash; navigiere zu unterschiedlichen Seiten, um dir anzuschauen, wie das Theme mit Beiträgen, Archiven und anderen Seiten-Templates umgeht. Die Einstellungsmöglichkeiten können je nach Theme abweichen, was davon abhängt, welche Funktionen das gezeigte Theme enthält. Um in einem Schwung die neuen Einstellungen zu übernehmen und das Theme zu aktualisieren, klicke über dem Menü auf den Button &#8222;Aktivieren &amp; Veröffentlichen&#8220;."
+msgstr "Das in der Vorschau angezeigte Theme ist völlig interaktiv &ndash; navigiere zu unterschiedlichen Seiten, um dir anzuschauen, wie das Theme mit Beiträgen, Archiven und anderen Seiten-Templates umgeht. Die Einstellungsmöglichkeiten können je nach Theme abweichen, was davon abhängt, welche Funktionen das gezeigte Theme enthält. Um in einem Schwung die neuen Einstellungen zu übernehmen und das Theme zu aktualisieren, klicke über dem Menü auf den Button &#8222;Aktivieren &amp; Veröffentlichen&#8220;."
 
 #: wp-admin/themes.php:133
 msgid "Tap or hover on any theme then click the Live Preview button to see a live preview of that theme and change theme options in a separate, full-screen view. You can also find a Live Preview button at the bottom of the theme details screen. Any installed theme can be previewed and customized in this way."
@@ -6571,15 +6576,15 @@ msgstr ""
 
 #: wp-admin/index.php:82
 msgid "<strong>Quick Draft</strong> &mdash; Allows you to create a new post and save it as a draft. Also displays links to the 3 most recent draft posts you've started."
-msgstr "<strong>Schneller Entwurf</strong> &ndash; ermöglicht dir, neue Beiträge zu erstellen und als Entwurf zu speichern. Außerdem werden dir Links zu den letzten 3 Entwürfen angezeigt, die du begonnen hast."
+msgstr "<strong>Schneller Entwurf</strong> &ndash; Ermöglicht dir, neue Beiträge zu erstellen und als Entwurf zu speichern. Außerdem werden dir Links zu den letzten 3 Entwürfen angezeigt, die du begonnen hast."
 
 #: wp-admin/index.php:79
 msgid "<strong>Activity</strong> &mdash; Shows the upcoming scheduled posts, recently published posts, and the most recent comments on your posts and allows you to moderate them."
-msgstr "<strong>Aktivität</strong> &mdash; Zeigt anstehende, geplante und vor kurzem veröffentlichte Beiträge sowie die jüngsten Kommentare auf deine Beiträge und ermöglicht, diese zu moderieren."
+msgstr "<strong>Aktivität</strong> &ndash; Zeigt anstehende, geplante und vor kurzem veröffentlichte Beiträge, sowie die neuesten Kommentare auf deine Beiträge und ermöglicht dir, diese zu moderieren."
 
 #: wp-admin/index.php:61
 msgid "<strong>Screen Options</strong> &mdash; Use the Screen Options tab to choose which Dashboard boxes to show."
-msgstr "<strong>Ansicht anpassen</strong> &ndash; verwende den Tab &#8222;Ansicht anpassen&#8220;, um auszuwählen, welche Boxen im Dashboard angezeigt werden sollen."
+msgstr "<strong>Ansicht anpassen</strong> &ndash; Verwende den Tab &#8222;Ansicht anpassen&#8220;, um auszuwählen, welche Boxen im Dashboard angezeigt werden sollen."
 
 #: wp-admin/post.php:82
 msgid "Unable to submit this form, please refresh and try again."
@@ -7460,7 +7465,7 @@ msgstr "Wenn du Themes wechselst, gibt es häufig Unterschiede in der Anzahl und
 
 #: wp-admin/edit-tags.php:285
 msgid "<strong>Parent</strong> &mdash; Categories, unlike tags, can have a hierarchy. You might have a Jazz category, and under that have child categories for Bebop and Big Band. Totally optional. To create a subcategory, just choose another category from the Parent dropdown."
-msgstr "<strong>Eltern</strong> &mdash; Das sind übergeordnete Kategorien, die im Gegensatz zu Schlagwörtern hierarchisch angeordnet werden können. Du kannst zum Beispiel eine Kategorie Jazz anlegen sowie die Kategorien Bebop und Big Band. Wie du willst. Da die beiden letzteren Verfeinerungen der Kategorie Jazz darstellen, wähle für beide die Kategorie Jazz als übergeordnete Kategorie aus dem Dropdown-Menü."
+msgstr "<strong>Eltern</strong> &ndash; Das sind übergeordnete Kategorien, die im Gegensatz zu Schlagwörtern hierarchisch angeordnet werden können. Du kannst zum Beispiel eine Kategorie Jazz anlegen sowie die Kategorien Bebop und Big Band. Wie du willst. Da die beiden letzteren Verfeinerungen der Kategorie Jazz darstellen, wähle für beide die Kategorie Jazz als übergeordnete Kategorie aus dem Dropdown-Menü."
 
 #: wp-admin/edit-form-advanced.php:368
 msgid "Several boxes on this screen contain settings for how your content will be published, including:"
@@ -7485,7 +7490,7 @@ msgstr "Um ein Hintergrundbild zu verwenden, lade einfach eins hoch oder wähle 
 #. translators: 1: URL to browser uploader, 2: Additional link attributes.
 #: wp-admin/includes/media.php:2976
 msgid "You are using the multi-file uploader. Problems? Try the <a href=\"%1$s\" %2$s>browser uploader</a> instead."
-msgstr "Du benutzt den Uploader für multiple Dateien. Treten Probleme auf? Benutze stattdessen den <a href=\"%1$s\" %2$s>Browser-Uploader</a>."
+msgstr "Du benutzt den Uploader für mehrere Dateien. Treten Probleme auf? Benutze stattdessen den <a href=\"%1$s\" %2$s>Browser-Uploader</a>."
 
 #: wp-admin/async-upload.php:58
 msgctxt "media item"
@@ -8071,7 +8076,7 @@ msgstr "Hello Dolly"
 
 #: wp-admin/index.php:92
 msgid "<strong>Welcome</strong> &mdash; Shows links for some of the most common tasks when setting up a new site."
-msgstr "<strong>Willkommen</strong> &mdash; Zeigt Links für einige der häufigsten Aufgaben beim Anlegen einer neuen Website."
+msgstr "<strong>Willkommen</strong> &ndash; Zeigt Links für einige der häufigsten Aufgaben beim Anlegen einer neuen Website."
 
 #. translators: 1: Theme name. 2: Theme slug.
 #: wp-admin/includes/class-wp-debug-data.php:899
@@ -8674,7 +8679,7 @@ msgstr "Links löschen"
 
 #: wp-admin/index.php:50
 msgid "Links in the Toolbar at the top of the screen connect your dashboard and the front end of your site, and provide access to your profile and helpful WordPress information."
-msgstr "Die Links in der Leiste in der oberen Bildschirmhälfte verbinden das Dashboard mit der Seitenansicht und bieten Zugang zu deinem Profil und Hilfefunktionen."
+msgstr "Die Links in der Werkzeugleiste oben auf dem Bildschirm verbinden das Dashboard mit der Frontend-Ansicht deiner Website und bieten Zugriff auf dein Profil und hilfreiche WordPress-Informationen."
 
 #: wp-admin/edit-comments.php:197
 msgid "In the <strong>Author</strong> column, in addition to the author&#8217;s name, email address, and blog URL, the commenter&#8217;s IP address is shown. Clicking on this link will show you all the comments made from this IP address."
@@ -8711,7 +8716,7 @@ msgstr "<strong>QuickEdit</strong> öffnet direkt in der Übersicht einen kleine
 
 #: wp-admin/edit.php:243
 msgid "<strong>Trash</strong> removes your post from this list and places it in the trash, from which you can permanently delete it."
-msgstr "<strong>Löschen</strong> verschiebt einen Beitrag in den Papierkorb, womit dieser Beitrag dann nicht mehr auf der Website sichtbar ist. Du kannst Beiträge aus dem Papierkorb zu jeder Zeit wiederherstellen oder auch endgültig aus dem Papierkorb löschen."
+msgstr "<strong>Papierkorb</strong> löscht deinen Beitrag aus dieser Liste und legt ihn in den Papierkorb, aus dem du ihn endgültig löschen kannst."
 
 #: wp-admin/users.php:51
 msgid "Hovering over a row in the users list will display action links that allow you to manage users. You can perform the following actions:"
@@ -8906,7 +8911,7 @@ msgstr "Die folgenden Einstellungsmöglichkeiten kannst du dazu benutzen, die Zu
 
 #: wp-admin/index.php:62
 msgid "<strong>Drag and Drop</strong> &mdash; To rearrange the boxes, drag and drop by clicking on the title bar of the selected box and releasing when you see a gray dotted-line rectangle appear in the location you want to place the box."
-msgstr "<strong>Drag-and-drop</strong> &ndash; um die Boxen neu anzuordnen, klick auf die Titelleiste der ausgewählten Box, halte die Maustaste fest, zieh die Box an die gewünschte Position und lass die Taste los, sobald dort ein grau gepunktetes Rechteck auftaucht."
+msgstr "<strong>Drag-and-drop</strong> &ndash; Um die Boxen neu anzuordnen, klick auf die Titelleiste der ausgewählten Box, halte die Maustaste fest, zieh die Box an die gewünschte Position und lass die Taste los, sobald dort ein grau gepunktetes Rechteck auftaucht."
 
 #: wp-admin/index.php:55
 msgid "Navigation"
@@ -9120,7 +9125,7 @@ msgstr "Über Seiten"
 
 #: wp-admin/options-reading.php:185 wp-admin/install.php:194
 msgid "Note: Neither of these options blocks access to your site &mdash; it is up to search engines to honor your request."
-msgstr "Hinweis: Keine dieser Einstellungen verhindert den Zugang zu deiner Website &mdash; Es obliegt den Suchmaschinen, deiner Bitte nachzukommen."
+msgstr "Hinweis: Keine dieser Einstellungen verhindert den Zugang zu deiner Website &ndash; Es obliegt den Suchmaschinen, deiner Bitte nachzukommen."
 
 #: wp-admin/options-permalink.php:203 wp-admin/options-permalink.php:223
 msgctxt "sample permalink base"
@@ -9415,7 +9420,7 @@ msgstr "Diese Übersichtsseite zeigt alle Benutzer deiner Website an. Jeder Benu
 
 #: wp-admin/index.php:73
 msgid "The boxes on your Dashboard screen are:"
-msgstr "Folgende Module gibt es im Dashboard:"
+msgstr "Folgende Boxen gibt es im Dashboard:"
 
 #: wp-admin/includes/upgrade.php:318
 msgid "Sample Page"
@@ -9794,7 +9799,7 @@ msgstr "Du kannst auf dieser Seite einstellen, welche Größe Bilder maximal hab
 
 #: wp-admin/edit-form-advanced.php:408
 msgid "<strong>Order</strong> &mdash; Pages are usually ordered alphabetically, but you can choose your own order by entering a number (1 for first, etc.) in this field."
-msgstr "<strong>Reihenfolge</strong> &mdash; Falls du nicht die Funktion des individuellen Menüs nutzt, kannst du hier festlegen, in welcher Reihenfolge die Seiten in der Seitenauflistung angezeigt werden sollen. Je größer die Zahl, desto weiter hinten wird die Seite angezeigt. Beachte, dass dies eventuell nicht bei allen Themes funktioniert."
+msgstr "<strong>Reihenfolge</strong> &ndash; Falls du nicht die Funktion des individuellen Menüs nutzt, kannst du hier festlegen, in welcher Reihenfolge die Seiten in der Seitenauflistung angezeigt werden sollen. Je größer die Zahl, desto weiter hinten wird die Seite angezeigt. Beachte, dass dies eventuell nicht bei allen Themes funktioniert."
 
 #: wp-admin/includes/file.php:2124
 msgid "If you do not remember your credentials, you should contact your web host."
@@ -9819,7 +9824,7 @@ msgstr "Hast du bereits ein Theme in einer ZIP-Datei (stelle sicher, dass es von
 
 #: wp-admin/edit-form-advanced.php:395
 msgid "<strong>Send Trackbacks</strong> &mdash; Trackbacks are a way to notify legacy blog systems that you&#8217;ve linked to them. Enter the URL(s) you want to send trackbacks. If you link to other WordPress sites they&#8217;ll be notified automatically using pingbacks, and this field is unnecessary."
-msgstr "<strong>Trackbacks senden</strong> &mdash; Mittels Trackbacks teilst du älteren Blogsystemen mit, dass du diese verlinkt hast. Trage einfach die URLs ein, an die du Trackbacks senden willst. Wenn du im Beitrag einen WordPress-Blog verlinkt hast, so wird automatisch ein Pingback gesendet und du musst das Trackbackfeld nicht mehr ausfüllen."
+msgstr "<strong>Trackbacks senden</strong> &ndash; Mittels Trackbacks teilst du älteren Blogsystemen mit, dass du diese verlinkt hast. Trage einfach die URLs ein, an die du Trackbacks senden willst. Wenn du im Beitrag einen WordPress-Blog verlinkt hast, so wird automatisch ein Pingback gesendet und du musst das Trackbackfeld nicht mehr ausfüllen."
 
 #: wp-admin/link-manager.php:70
 msgid "If you delete a link, it will be removed permanently, as Links do not have a Trash function yet."
@@ -10018,11 +10023,11 @@ msgstr "Hauptseite (keine Übergeordnete)"
 
 #: wp-admin/edit-form-advanced.php:406
 msgid "<strong>Parent</strong> &mdash; You can arrange your pages in hierarchies. For example, you could have an &#8220;About&#8221; page that has &#8220;Life Story&#8221; and &#8220;My Dog&#8221; pages under it. There are no limits to how many levels you can nest pages."
-msgstr "<strong>Eltern</strong> &mdash; Wähle eine andere Seite aus, der diese Seite untergeordnet werden soll, um verschachtelte Seitenstrukturen aufzubauen. Zum Beispiel kannst du eine Seite &#8222;Über mich&#8220; erstellen und dieser anschließend die Seiten &#8222;Mein Haus&#8220;, &#8222;Meine Familie&#8220; und &#8222;Mein Auto&#8220; unterordnen, indem du jeweils &#8222;Über mich&#8220; als Eltern-Seite angibst."
+msgstr "<strong>Eltern</strong> &ndash; Wähle eine andere Seite aus, der diese Seite untergeordnet werden soll, um verschachtelte Seitenstrukturen aufzubauen. Zum Beispiel kannst du eine Seite &#8222;Über mich&#8220; erstellen und dieser anschließend die Seiten &#8222;Mein Haus&#8220;, &#8222;Meine Familie&#8220; und &#8222;Mein Auto&#8220; unterordnen, indem du jeweils &#8222;Über mich&#8220; als Eltern-Seite angibst."
 
 #: wp-admin/edit-form-advanced.php:407
 msgid "<strong>Template</strong> &mdash; Some themes have custom templates you can use for certain pages that might have additional features or custom layouts. If so, you&#8217;ll see them in this dropdown menu."
-msgstr "<strong>Template</strong> &mdash; Manche Themes haben Templates, um einer Seite spezielle Layouts oder Funktionen zuzuweisen. Sind Templates vorhanden, dann findest du diese im Dropdown-Menü."
+msgstr "<strong>Template</strong> &ndash; Manche Themes haben Templates, um einer Seite spezielle Layouts oder Funktionen zuzuweisen. Sind Templates vorhanden, dann findest du diese im Dropdown-Menü."
 
 #: wp-admin/includes/class-bulk-upgrader-skin.php:48
 msgid "All updates have been completed."
@@ -10034,11 +10039,11 @@ msgstr "Wenn du eine neue Kategorie anlegst, musst du folgende Eingabefelder aus
 
 #: wp-admin/edit-tags.php:278
 msgid "<strong>Name</strong> &mdash; The name is how it appears on your site."
-msgstr "<strong>Name</strong> &mdash; Der Name, unter dem das Schlagwort überall angezeigt wird."
+msgstr "<strong>Name</strong> &ndash; Der Name, unter dem das Schlagwort überall angezeigt wird."
 
 #: wp-admin/edit-tags.php:288
 msgid "<strong>Description</strong> &mdash; The description is not prominent by default; however, some themes may display it."
-msgstr "<strong>Beschreibung</strong> &mdash; Die Beschreibung wird normalerweise nicht angezeigt. In manchen Themes kann das aber eventuell der Fall sein."
+msgstr "<strong>Beschreibung</strong> &ndash; Die Beschreibung wird normalerweise nicht angezeigt. In manchen Themes kann das aber eventuell der Fall sein."
 
 #: wp-admin/edit-tags.php:290
 msgid "You can change the display of this screen using the Screen Options tab to set how many items are displayed per screen and to display/hide columns in the table."
@@ -10116,16 +10121,16 @@ msgstr "Zurück zu den WordPress-Aktualisierungen"
 
 #: wp-admin/edit-form-advanced.php:396
 msgid "<strong>Discussion</strong> &mdash; You can turn comments and pings on or off, and if there are comments on the post, you can see them here and moderate them."
-msgstr "<strong>Diskussion</strong> &mdash; Hier kannst du Kommentare und Ping-/Trackbacks für diesen Beitrag aus- oder einschalten. Bereits abgegebene Kommentare werden hier außerdem angezeigt."
+msgstr "<strong>Diskussion</strong> &ndash; Hier kannst du Kommentare und Ping-/Trackbacks für diesen Beitrag aus- oder einschalten. Bereits abgegebene Kommentare werden hier außerdem angezeigt."
 
 #: wp-admin/edit-form-advanced.php:290
 msgid "<strong>Title</strong> &mdash; Enter a title for your post. After you enter a title, you&#8217;ll see the permalink below, which you can edit."
-msgstr "<strong>Titel</strong> &mdash; Im ersten Eingabefeld dieser Seite musst du einen Titel für deinen Beitrag eingeben. Nachdem ein Titel eingetragen wurde, wird unter dem Eingabefeld der Permalink angezeigt, unter dem der Beitrag nach dem Veröffentlichen erreichbar ist."
+msgstr "<strong>Titel</strong> &ndash; Im ersten Eingabefeld dieser Seite musst du einen Titel für deinen Beitrag eingeben. Nachdem ein Titel eingetragen wurde, wird unter dem Eingabefeld der Permalink angezeigt, unter dem der Beitrag nach dem Veröffentlichen erreichbar ist."
 
 #. translators: %s: Featured Image.
 #: wp-admin/edit-form-advanced.php:380
 msgid "<strong>%s</strong> &mdash; This allows you to associate an image with your post without inserting it. This is usually useful only if your theme makes use of the image as a post thumbnail on the home page, a custom header, etc."
-msgstr "<strong>%s</strong> &mdash; Hier kannst du aus der Mediathek ein Bild auswählen oder ein neues hochladen, welches mit dem Beitrag verknüpft wird, ohne es direkt im Beitrag einzubinden. Dies ist jedoch nur dann sinnvoll, wenn das von dir verwendete Theme auch diese Funktion nutzt und beispielsweise ein Beitrags-Vorschaubild anzeigt."
+msgstr "<strong>%s</strong> &ndash; Hier kannst du aus der Mediathek ein Bild auswählen oder ein neues hochladen, welches mit dem Beitrag verknüpft wird, ohne es direkt im Beitrag einzubinden. Dies ist jedoch nur dann sinnvoll, wenn das von dir verwendete Theme auch diese Funktion nutzt und beispielsweise ein Beitrags-Vorschaubild anzeigt."
 
 #: wp-admin/edit.php:239
 msgid "Hovering over a row in the posts list will display action links that allow you to manage your post. You can perform the following actions:"
@@ -10240,7 +10245,7 @@ msgstr "Entferne Benutzer von dieser Website"
 
 #: wp-admin/user-edit.php:423 wp-admin/user-edit.php:425
 msgid "&mdash; No role for this site &mdash;"
-msgstr "&mdash; Keine Benutzerrolle für diese Website &mdash;"
+msgstr "&ndash; Keine Benutzerrolle für diese Website &ndash;"
 
 #: wp-admin/includes/upgrade.php:614
 msgid "New WordPress Site"
@@ -12015,7 +12020,7 @@ msgstr "Oben halten"
 
 #: wp-admin/includes/class-wp-posts-list-table.php:1774
 msgid "Allow Pings"
-msgstr "Erlaube Pings"
+msgstr "Pings erlauben"
 
 #: wp-admin/includes/class-wp-posts-list-table.php:1748
 #: wp-admin/includes/class-wp-posts-list-table.php:1757
@@ -12042,7 +12047,7 @@ msgstr "&ndash; ODER &ndash;"
 #: wp-admin/includes/class-wp-posts-list-table.php:1810
 #: wp-admin/includes/class-wp-posts-list-table.php:1838
 msgid "&mdash; No Change &mdash;"
-msgstr "&mdash; Keine Änderung &mdash;"
+msgstr "&ndash; Keine Änderung &ndash;"
 
 #: wp-admin/includes/class-wp-posts-list-table.php:1528
 msgid "Bulk Edit"
@@ -12384,15 +12389,15 @@ msgstr "Wähle das Ziel für deine Links."
 
 #: wp-admin/includes/meta-boxes.php:1145
 msgid "<code>_none</code> &mdash; same window or tab."
-msgstr "<code>_none</code> – dasselbe Fenster oder derselbe Tab."
+msgstr "<code>_none</code> &ndash; dasselbe Fenster oder derselbe Tab."
 
 #: wp-admin/includes/meta-boxes.php:1142
 msgid "<code>_top</code> &mdash; current window or tab, with no frames."
-msgstr "<code>_top</code> &mdash; aktuelles Fenster oder aktueller Tab, ohne Frames."
+msgstr "<code>_top</code> &ndash; aktuelles Fenster oder aktueller Tab, ohne Frames."
 
 #: wp-admin/includes/meta-boxes.php:1139
 msgid "<code>_blank</code> &mdash; new window or tab."
-msgstr "<code>_blank</code> – neues Fenster oder neuer Tab."
+msgstr "<code>_blank</code> &ndash; neues Fenster oder neuer Tab."
 
 #. translators: %s: Link name.
 #: wp-admin/includes/class-wp-links-list-table.php:332
@@ -13283,11 +13288,6 @@ msgstr "Erneut versuchen"
 #: wp-admin/includes/import.php:183
 msgid "Blogger"
 msgstr "Blogger"
-
-#: wp-admin/includes/media.php:1697 wp-admin/upgrade.php:77
-#: wp-admin/upgrade.php:153
-msgid "Continue"
-msgstr "Weiter"
 
 #: wp-admin/import.php:96
 msgid "No importers are available."
