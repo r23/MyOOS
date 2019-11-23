@@ -1,7 +1,9 @@
 {
     "Version": "36",
     "Names": {
-        "bn": "Bengali",
+        "bn": "Bengali"
+    },
+    "LocalizedNames": {
         "ro_MD": "Moldavian"
     }
 }

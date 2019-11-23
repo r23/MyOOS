@@ -1,15 +1,23 @@
 CHANGELOG
 =========
 
+4.4.0
+-----
+
+ * Added `migrate_from` option to encoders configuration.
+ * Added new `argon2id` encoder, undeprecated the `bcrypt` and `argon2i` ones (using `auto` is still recommended by default.)
+ * Deprecated the usage of "query_string" without a "search_dn" and a "search_password" config key in Ldap factories.
+ * Marked the `SecurityDataCollector` class as `@final`.
+
 4.3.0
 -----
 
+ * Added `anonymous: lazy` mode to firewalls to make them (not) start the session as late as possible
  * Added new encoder types: `auto` (recommended), `native` and `sodium`
  * The normalization of the cookie names configured in the `logout.delete_cookies`
    option is deprecated and will be disabled in Symfony 5.0. This affects to cookies
    with dashes in their names. For example, starting from Symfony 5.0, the `my-cookie`
    name will delete `my-cookie` (with a dash) instead of `my_cookie` (with an underscore).
- * Deprecated configuring encoders using `argon2i` as algorithm, use `auto` instead
 
 4.2.0
 -----

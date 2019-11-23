@@ -443,9 +443,8 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
     /**
      * Adds a compiler pass.
      *
-     * @param CompilerPassInterface $pass     A compiler pass
-     * @param string                $type     The type of compiler pass
-     * @param int                   $priority Used to sort the passes
+     * @param string $type     The type of compiler pass
+     * @param int    $priority Used to sort the passes
      *
      * @return $this
      */
@@ -492,6 +491,10 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
      */
     public function set($id, $service)
     {
+        if (!\is_object($service) && null !== $service) {
+            @trigger_error(sprintf('Non-object services are deprecated since Symfony 4.4, setting the "%s" service to a value of type "%s" should be avoided.', $id, \gettype($service)), E_USER_DEPRECATED);
+        }
+
         $id = (string) $id;
 
         if ($this->isCompiled() && (isset($this->definitions[$id]) && !$this->definitions[$id]->isSynthetic())) {
@@ -552,10 +555,16 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
             return parent::get($id);
         }
 
-        return $this->doGet($id, $invalidBehavior);
+        $service = $this->doGet($id, $invalidBehavior);
+
+        if (!\is_object($service) && null !== $service) {
+            @trigger_error(sprintf('Non-object services are deprecated since Symfony 4.4, please fix the "%s" service which is of type "%s" right now.', $id, \gettype($service)), E_USER_DEPRECATED);
+        }
+
+        return $service;
     }
 
-    private function doGet($id, $invalidBehavior = ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, array &$inlineServices = null, $isConstructorArgument = false)
+    private function doGet(string $id, int $invalidBehavior = ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, array &$inlineServices = null, bool $isConstructorArgument = false)
     {
         if (isset($inlineServices[$id])) {
             return $inlineServices[$id];
@@ -971,8 +980,7 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
     /**
      * Sets a service definition.
      *
-     * @param string     $id         The service identifier
-     * @param Definition $definition A Definition instance
+     * @param string $id The service identifier
      *
      * @return Definition the service definition
      *
@@ -1063,17 +1071,13 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
     /**
      * Creates a service for a service definition.
      *
-     * @param Definition $definition A service definition instance
-     * @param string     $id         The service identifier
-     * @param bool       $tryProxy   Whether to try proxying the service with a lazy proxy
-     *
      * @return mixed The service described by the service definition
      *
      * @throws RuntimeException         When the factory definition is incomplete
      * @throws RuntimeException         When the service is a synthetic service
      * @throws InvalidArgumentException When configure callable is not callable
      */
-    private function createService(Definition $definition, array &$inlineServices, $isConstructorArgument = false, $id = null, $tryProxy = true)
+    private function createService(Definition $definition, array &$inlineServices, bool $isConstructorArgument = false, string $id = null, bool $tryProxy = true)
     {
         if (null === $id && isset($inlineServices[$h = spl_object_hash($definition)])) {
             return $inlineServices[$h];
@@ -1204,7 +1208,7 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
         return $this->doResolveServices($value);
     }
 
-    private function doResolveServices($value, array &$inlineServices = [], $isConstructorArgument = false)
+    private function doResolveServices($value, array &$inlineServices = [], bool $isConstructorArgument = false)
     {
         if (\is_array($value)) {
             foreach ($value as $k => $v) {
@@ -1231,7 +1235,7 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
 
                     yield $k => $this->resolveServices($v);
                 }
-            }, function () use ($value) {
+            }, function () use ($value): int {
                 $count = 0;
                 foreach ($value->getValues() as $v) {
                     foreach (self::getServiceConditionals($v) as $s) {
@@ -1491,11 +1495,9 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
     /**
      * Gets removed binding ids.
      *
-     * @return array
-     *
      * @internal
      */
-    public function getRemovedBindingIds()
+    public function getRemovedBindingIds(): array
     {
         return $this->removedBindingIds;
     }
@@ -1503,11 +1505,9 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
     /**
      * Removes bindings for a service.
      *
-     * @param string $id The service identifier
-     *
      * @internal
      */
-    public function removeBindings($id)
+    public function removeBindings(string $id)
     {
         if ($this->hasDefinition($id)) {
             foreach ($this->getDefinition($id)->getBindings() as $key => $binding) {
@@ -1522,11 +1522,9 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
      *
      * @param mixed $value An array of conditionals to return
      *
-     * @return array An array of Service conditionals
-     *
      * @internal
      */
-    public static function getServiceConditionals($value)
+    public static function getServiceConditionals($value): array
     {
         $services = [];
 
@@ -1546,11 +1544,9 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
      *
      * @param mixed $value An array of conditionals to return
      *
-     * @return array An array of uninitialized conditionals
-     *
      * @internal
      */
-    public static function getInitializedConditionals($value)
+    public static function getInitializedConditionals($value): array
     {
         $services = [];
 
@@ -1611,7 +1607,7 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
         }
     }
 
-    private function callMethod($service, $call, array &$inlineServices)
+    private function callMethod($service, array $call, array &$inlineServices)
     {
         foreach (self::getServiceConditionals($call[1]) as $s) {
             if (!$this->has($s)) {
@@ -1632,10 +1628,9 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
     /**
      * Shares a given service in the container.
      *
-     * @param mixed       $service
-     * @param string|null $id
+     * @param mixed $service
      */
-    private function shareService(Definition $definition, $service, $id, array &$inlineServices)
+    private function shareService(Definition $definition, $service, ?string $id, array &$inlineServices)
     {
         $inlineServices[null !== $id ? $id : spl_object_hash($definition)] = $service;
 
@@ -1645,7 +1640,7 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
         }
     }
 
-    private function getExpressionLanguage()
+    private function getExpressionLanguage(): ExpressionLanguage
     {
         if (null === $this->expressionLanguage) {
             if (!class_exists('Symfony\Component\ExpressionLanguage\ExpressionLanguage')) {
@@ -1657,7 +1652,7 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
         return $this->expressionLanguage;
     }
 
-    private function inVendors($path)
+    private function inVendors(string $path): bool
     {
         if (null === $this->vendors) {
             $resource = new ComposerResource();

@@ -142,8 +142,7 @@ class CookieJar
     /**
      * Updates the cookie jar from a Response object.
      *
-     * @param Response $response A Response object
-     * @param string   $uri      The base URL
+     * @param string $uri The base URL
      */
     public function updateFromResponse(Response $response, $uri = null)
     {

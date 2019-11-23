@@ -21,6 +21,8 @@ use Twig\TwigFunction;
  * SecurityExtension exposes security context features.
  *
  * @author Fabien Potencier <fabien@symfony.com>
+ *
+ * @final since Symfony 4.4
  */
 class SecurityExtension extends AbstractExtension
 {
@@ -50,6 +52,8 @@ class SecurityExtension extends AbstractExtension
 
     /**
      * {@inheritdoc}
+     *
+     * @return TwigFunction[]
      */
     public function getFunctions()
     {

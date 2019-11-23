@@ -17,6 +17,8 @@ use Twig\Node\Node;
 
 /**
  * @author Fabien Potencier <fabien@symfony.com>
+ *
+ * @final since Symfony 4.4
  */
 class FormThemeNode extends Node
 {
@@ -25,6 +27,9 @@ class FormThemeNode extends Node
         parent::__construct(['form' => $form, 'resources' => $resources], ['only' => $only], $lineno, $tag);
     }
 
+    /**
+     * @return void
+     */
     public function compile(Compiler $compiler)
     {
         $compiler

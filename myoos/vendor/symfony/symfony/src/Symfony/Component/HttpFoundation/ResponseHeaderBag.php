@@ -51,7 +51,7 @@ class ResponseHeaderBag extends HeaderBag
     {
         $headers = [];
         foreach ($this->all() as $name => $value) {
-            $headers[isset($this->headerNames[$name]) ? $this->headerNames[$name] : $name] = $value;
+            $headers[$this->headerNames[$name] ?? $name] = $value;
         }
 
         return $headers;
@@ -87,10 +87,19 @@ class ResponseHeaderBag extends HeaderBag
 
     /**
      * {@inheritdoc}
+     *
+     * @param string|null $key The name of the headers to return or null to get them all
      */
-    public function all()
+    public function all(/*string $key = null*/)
     {
         $headers = parent::all();
+
+        if (1 <= \func_num_args() && null !== $key = func_get_arg(0)) {
+            $key = strtr($key, self::UPPER, self::LOWER);
+
+            return 'set-cookie' !== $key ? $headers[$key] ?? [] : array_map('strval', $this->getCookies());
+        }
+
         foreach ($this->getCookies() as $cookie) {
             $headers['set-cookie'][] = (string) $cookie;
         }
@@ -103,7 +112,7 @@ class ResponseHeaderBag extends HeaderBag
      */
     public function set($key, $values, $replace = true)
     {
-        $uniqueKey = str_replace('_', '-', strtolower($key));
+        $uniqueKey = strtr($key, self::UPPER, self::LOWER);
 
         if ('set-cookie' === $uniqueKey) {
             if ($replace) {
@@ -134,7 +143,7 @@ class ResponseHeaderBag extends HeaderBag
      */
     public function remove($key)
     {
-        $uniqueKey = str_replace('_', '-', strtolower($key));
+        $uniqueKey = strtr($key, self::UPPER, self::LOWER);
         unset($this->headerNames[$uniqueKey]);
 
         if ('set-cookie' === $uniqueKey) {
@@ -289,7 +298,7 @@ class ResponseHeaderBag extends HeaderBag
         return $header;
     }
 
-    private function initDate()
+    private function initDate(): void
     {
         $now = \DateTime::createFromFormat('U', time());
         $now->setTimezone(new \DateTimeZone('UTC'));

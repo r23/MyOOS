@@ -85,6 +85,9 @@ class PassConfig
             new InlineServiceDefinitionsPass(new AnalyzeServiceReferencesPass()),
             new AnalyzeServiceReferencesPass(),
             new DefinitionErrorExceptionPass(),
+        ]];
+
+        $this->afterRemovingPasses = [[
             new CheckExceptionOnInvalidReferenceBehaviorPass(),
             new ResolveHotPathPass(),
         ]];
@@ -110,8 +113,8 @@ class PassConfig
     /**
      * Adds a pass.
      *
-     * @param CompilerPassInterface $pass A Compiler pass
-     * @param string                $type The pass type
+     * @param string $type     The pass type
+     * @param int    $priority Used to sort the passes
      *
      * @throws InvalidArgumentException when a pass type doesn't exist
      */
@@ -252,7 +255,7 @@ class PassConfig
      *
      * @return CompilerPassInterface[]
      */
-    private function sortPasses(array $passes)
+    private function sortPasses(array $passes): array
     {
         if (0 === \count($passes)) {
             return [];

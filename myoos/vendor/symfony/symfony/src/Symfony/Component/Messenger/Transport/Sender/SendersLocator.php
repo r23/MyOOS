@@ -15,15 +15,12 @@ use Psr\Container\ContainerInterface;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Exception\RuntimeException;
-use Symfony\Component\Messenger\Exception\UnknownSenderException;
 use Symfony\Component\Messenger\Handler\HandlersLocator;
 
 /**
  * Maps a message to a list of senders.
  *
  * @author Fabien Potencier <fabien@symfony.com>
- *
- * @experimental in 4.3
  */
 class SendersLocator implements SendersLocatorInterface
 {
@@ -80,14 +77,5 @@ class SendersLocator implements SendersLocatorInterface
                 }
             }
         }
-    }
-
-    public function getSenderByAlias(string $alias): SenderInterface
-    {
-        if ($this->sendersLocator->has($alias)) {
-            return $this->sendersLocator->get($alias);
-        }
-
-        throw new UnknownSenderException(sprintf('Unknown sender alias "%s".', $alias));
     }
 }

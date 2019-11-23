@@ -14,13 +14,14 @@ namespace Symfony\Component\Lock\Store;
 use Symfony\Component\Cache\Traits\RedisClusterProxy;
 use Symfony\Component\Cache\Traits\RedisProxy;
 use Symfony\Component\Lock\Exception\InvalidArgumentException;
+use Symfony\Component\Lock\Exception\InvalidTtlException;
 use Symfony\Component\Lock\Exception\LockConflictedException;
 use Symfony\Component\Lock\Exception\NotSupportedException;
 use Symfony\Component\Lock\Key;
 use Symfony\Component\Lock\StoreInterface;
 
 /**
- * RedisStore is a StoreInterface implementation using Redis as store engine.
+ * RedisStore is a PersistingStoreInterface implementation using Redis as store engine.
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
  */
@@ -42,7 +43,7 @@ class RedisStore implements StoreInterface
         }
 
         if ($initialTtl <= 0) {
-            throw new InvalidArgumentException(sprintf('%s() expects a strictly positive TTL. Got %d.', __METHOD__, $initialTtl));
+            throw new InvalidTtlException(sprintf('%s() expects a strictly positive TTL. Got %d.', __METHOD__, $initialTtl));
         }
 
         $this->redis = $redisClient;
@@ -74,9 +75,12 @@ class RedisStore implements StoreInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @deprecated since Symfony 4.4.
      */
     public function waitAndSave(Key $key)
     {
+        @trigger_error(sprintf('%s() is deprecated since Symfony 4.4 and will be removed in Symfony 5.0.', __METHOD__), E_USER_DEPRECATED);
         throw new NotSupportedException(sprintf('The store "%s" does not support blocking locks.', \get_class($this)));
     }
 

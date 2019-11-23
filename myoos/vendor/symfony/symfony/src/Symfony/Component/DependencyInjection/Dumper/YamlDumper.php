@@ -131,14 +131,20 @@ class YamlDumper extends Dumper
             $code .= "        shared: false\n";
         }
 
-        if (null !== $decorated = $definition->getDecoratedService()) {
-            list($decorated, $renamedId, $priority) = $decorated;
+        if (null !== $decoratedService = $definition->getDecoratedService()) {
+            list($decorated, $renamedId, $priority) = $decoratedService;
             $code .= sprintf("        decorates: %s\n", $decorated);
             if (null !== $renamedId) {
                 $code .= sprintf("        decoration_inner_name: %s\n", $renamedId);
             }
             if (0 !== $priority) {
                 $code .= sprintf("        decoration_priority: %s\n", $priority);
+            }
+
+            $decorationOnInvalid = $decoratedService[3] ?? ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE;
+            if (\in_array($decorationOnInvalid, [ContainerInterface::IGNORE_ON_INVALID_REFERENCE, ContainerInterface::NULL_ON_INVALID_REFERENCE])) {
+                $invalidBehavior = ContainerInterface::NULL_ON_INVALID_REFERENCE === $decorationOnInvalid ? 'null' : 'ignore';
+                $code .= sprintf("        decoration_on_invalid: %s\n", $invalidBehavior);
             }
         }
 
@@ -201,6 +207,8 @@ class YamlDumper extends Dumper
      * Dumps callable to YAML format.
      *
      * @param mixed $callable
+     *
+     * @return mixed
      */
     private function dumpCallable($callable)
     {
@@ -217,8 +225,6 @@ class YamlDumper extends Dumper
 
     /**
      * Dumps the value to YAML format.
-     *
-     * @param mixed $value
      *
      * @return mixed
      *
@@ -244,9 +250,12 @@ class YamlDumper extends Dumper
                     if (null !== $tag->getDefaultIndexMethod()) {
                         $content['default_index_method'] = $tag->getDefaultIndexMethod();
                     }
+                    if (null !== $tag->getDefaultPriorityMethod()) {
+                        $content['default_priority_method'] = $tag->getDefaultPriorityMethod();
+                    }
                 }
 
-                return new TaggedValue($value instanceof TaggedIteratorArgument ? 'tagged' : 'tagged_locator', $content);
+                return new TaggedValue($value instanceof TaggedIteratorArgument ? 'tagged_iterator' : 'tagged_locator', $content);
             }
 
             if ($value instanceof IteratorArgument) {
@@ -301,7 +310,7 @@ class YamlDumper extends Dumper
         return sprintf('%%%s%%', $id);
     }
 
-    private function getExpressionCall($expression)
+    private function getExpressionCall(string $expression): string
     {
         return sprintf('@=%s', $expression);
     }

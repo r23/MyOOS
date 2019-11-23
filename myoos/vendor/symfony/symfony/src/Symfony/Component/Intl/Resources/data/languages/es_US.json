@@ -28,7 +28,6 @@
         "lus": "lushai",
         "mga": "irlandés medieval",
         "nan": "nan",
-        "nl_BE": "flamenco",
         "nr": "ndebele meridional",
         "nso": "sotho septentrional",
         "pcm": "pcm",
@@ -38,14 +37,17 @@
         "sma": "sami meridional",
         "ss": "siswati",
         "st": "sesotho meridional",
-        "sw_CD": "swahili del Congo",
         "syr": "siriaco",
         "tet": "tetún",
         "tn": "setchwana",
         "tyv": "tuviniano",
         "wo": "wolof",
         "wuu": "wuu",
-        "xal": "kalmyk",
+        "xal": "kalmyk"
+    },
+    "LocalizedNames": {
+        "nl_BE": "flamenco",
+        "sw_CD": "swahili del Congo",
         "zh_Hans": "chino simplificado",
         "zh_Hant": "chino tradicional"
     }

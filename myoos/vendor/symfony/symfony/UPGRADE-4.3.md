@@ -96,7 +96,7 @@ Form
 ----
 
  * Using the `format` option of `DateType` and `DateTimeType` when the `html5` option is enabled is deprecated.
- * Using names for buttons that do not start with a lowercase letter, a digit, or an underscore is deprecated and will lead to an
+ * Using names for buttons that do not start with a letter, a digit, or an underscore is deprecated and will lead to an
    exception in 5.0.
  * Using names for buttons that do not contain only letters, digits, underscores, hyphens, and colons is deprecated and
    will lead to an exception in 5.0.
@@ -208,11 +208,6 @@ Security
  * The `BCryptPasswordEncoder` class has been deprecated, use `NativePasswordEncoder` instead.
  * Not implementing the methods `__serialize` and `__unserialize` in classes implementing
    the `TokenInterface` is deprecated
-
-SecurityBundle
---------------
-
- * Configuring encoders using `argon2i` or `bcrypt` as algorithm has been deprecated, use `auto` instead.
 
 TwigBridge
 ----------

@@ -18,13 +18,14 @@ use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Loader\ExistsLoaderInterface;
 use Twig\Loader\SourceContextLoaderInterface;
-use Twig\Template;
 
 /**
  * Profiler Templates Manager.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Artur Wielogórski <wodor@wodor.net>
+ *
+ * @internal since Symfony 4.4
  */
 class TemplateManager
 {
@@ -85,7 +86,7 @@ class TemplateManager
                 $template = substr($template, 0, -10);
             }
 
-            if (!$this->templateExists($template.'.html.twig')) {
+            if (!$this->templateExists($template.'.html.twig', false)) {
                 throw new \UnexpectedValueException(sprintf('The profiler template "%s.html.twig" for data collector "%s" does not exist.', $template, $name));
             }
 
@@ -95,9 +96,15 @@ class TemplateManager
         return $templates;
     }
 
-    // to be removed when the minimum required version of Twig is >= 2.0
-    protected function templateExists($template)
+    /**
+     * @deprecated since Symfony 4.4
+     */
+    protected function templateExists($template/*, bool $triggerDeprecation = true */)
     {
+        if (1 === \func_num_args()) {
+            @trigger_error(sprintf('The "%s()" method is deprecated since Symfony 4.4, use the "exists()" method of the Twig loader instead.', __METHOD__), E_USER_DEPRECATED);
+        }
+
         $loader = $this->twig->getLoader();
 
         if (1 === Environment::MAJOR_VERSION && !$loader instanceof ExistsLoaderInterface) {

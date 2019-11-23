@@ -60,7 +60,7 @@ class ContainerConfigurator extends AbstractConfigurator
         $this->container->loadFromExtension($namespace, static::processValue($config));
     }
 
-    final public function import(string $resource, string $type = null, bool $ignoreErrors = false)
+    final public function import(string $resource, string $type = null, $ignoreErrors = false)
     {
         $this->loader->setCurrentDir(\dirname($this->path));
         $this->loader->import($resource, $type, $ignoreErrors, $this->file);
@@ -115,10 +115,22 @@ function iterator(array $values): IteratorArgument
 
 /**
  * Creates a lazy iterator by tag name.
+ *
+ * @deprecated since Symfony 4.4, to be removed in 5.0, use "tagged_iterator" instead.
  */
 function tagged(string $tag, string $indexAttribute = null, string $defaultIndexMethod = null): TaggedIteratorArgument
 {
+    @trigger_error(__NAMESPACE__.'\tagged() is deprecated since Symfony 4.4 and will be removed in 5.0, use '.__NAMESPACE__.'\tagged_iterator() instead.', E_USER_DEPRECATED);
+
     return new TaggedIteratorArgument($tag, $indexAttribute, $defaultIndexMethod);
+}
+
+/**
+ * Creates a lazy iterator by tag name.
+ */
+function tagged_iterator(string $tag, string $indexAttribute = null, string $defaultIndexMethod = null, string $defaultPriorityMethod = null): TaggedIteratorArgument
+{
+    return new TaggedIteratorArgument($tag, $indexAttribute, $defaultIndexMethod, false, $defaultPriorityMethod);
 }
 
 /**

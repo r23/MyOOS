@@ -30,7 +30,7 @@ class LazyLoadingValueHolderGenerator extends BaseGenerator
     /**
      * {@inheritdoc}
      */
-    public function generate(\ReflectionClass $originalClass, ClassGenerator $classGenerator)
+    public function generate(\ReflectionClass $originalClass, ClassGenerator $classGenerator): void
     {
         parent::generate($originalClass, $classGenerator);
 

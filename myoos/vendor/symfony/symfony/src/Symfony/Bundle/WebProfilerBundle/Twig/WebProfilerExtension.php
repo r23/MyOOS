@@ -22,6 +22,8 @@ use Twig\TwigFunction;
  * Twig extension for the profiler.
  *
  * @author Fabien Potencier <fabien@symfony.com>
+ *
+ * @internal since Symfony 4.4
  */
 class WebProfilerExtension extends ProfilerExtension
 {
@@ -46,11 +48,17 @@ class WebProfilerExtension extends ProfilerExtension
         $this->dumper->setOutput($this->output = fopen('php://memory', 'r+b'));
     }
 
+    /**
+     * @return void
+     */
     public function enter(Profile $profile)
     {
         ++$this->stackLevel;
     }
 
+    /**
+     * @return void
+     */
     public function leave(Profile $profile)
     {
         if (0 === --$this->stackLevel) {
@@ -60,6 +68,8 @@ class WebProfilerExtension extends ProfilerExtension
 
     /**
      * {@inheritdoc}
+     *
+     * @return TwigFunction[]
      */
     public function getFunctions()
     {

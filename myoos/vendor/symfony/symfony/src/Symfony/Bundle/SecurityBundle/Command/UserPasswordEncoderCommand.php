@@ -101,7 +101,7 @@ EOF
     /**
      * {@inheritdoc}
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
         $errorIo = $output instanceof ConsoleOutputInterface ? new SymfonyStyle($input, $output->getErrorOutput()) : $io;
@@ -163,7 +163,7 @@ EOF
 
         $errorIo->success('Password encoding succeeded');
 
-        return null;
+        return 0;
     }
 
     /**
@@ -182,12 +182,12 @@ EOF
         })->setHidden(true)->setMaxAttempts(20);
     }
 
-    private function generateSalt()
+    private function generateSalt(): string
     {
         return base64_encode(random_bytes(30));
     }
 
-    private function getUserClass(InputInterface $input, SymfonyStyle $io)
+    private function getUserClass(InputInterface $input, SymfonyStyle $io): string
     {
         if (null !== $userClass = $input->getArgument('user-class')) {
             return $userClass;

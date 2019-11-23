@@ -88,6 +88,8 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
      */
     public const DEEP_OBJECT_TO_POPULATE = 'deep_object_to_populate';
 
+    public const PRESERVE_EMPTY_OBJECTS = 'preserve_empty_objects';
+
     private $propertyTypeExtractor;
     private $typesCache = [];
     private $attributesCache = [];
@@ -204,6 +206,10 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
             }
 
             $data = $this->updateData($data, $attribute, $this->serializer->normalize($attributeValue, $format, $this->createChildContext($context, $attribute, $format)), $class, $format, $context);
+        }
+
+        if (isset($context[self::PRESERVE_EMPTY_OBJECTS]) && !\count($data)) {
+            return new \ArrayObject();
         }
 
         return $data;
@@ -411,6 +417,26 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
                 if (null !== $collectionKeyType = $type->getCollectionKeyType()) {
                     $context['key_type'] = $collectionKeyType;
                 }
+            } elseif ($type->isCollection() && null !== ($collectionValueType = $type->getCollectionValueType()) && Type::BUILTIN_TYPE_ARRAY === $collectionValueType->getBuiltinType()) {
+                // get inner type for any nested array
+                $innerType = $collectionValueType;
+
+                // note that it will break for any other builtinType
+                $dimensions = '[]';
+                while (null !== $innerType->getCollectionValueType() && Type::BUILTIN_TYPE_ARRAY === $innerType->getBuiltinType()) {
+                    $dimensions .= '[]';
+                    $innerType = $innerType->getCollectionValueType();
+                }
+
+                if (null !== $innerType->getClassName()) {
+                    // the builtinType is the inner one and the class is the class followed by []...[]
+                    $builtinType = $innerType->getBuiltinType();
+                    $class = $innerType->getClassName().$dimensions;
+                } else {
+                    // default fallback (keep it as array)
+                    $builtinType = $type->getBuiltinType();
+                    $class = $type->getClassName();
+                }
             } else {
                 $builtinType = $type->getBuiltinType();
                 $class = $type->getClassName();
@@ -466,7 +492,7 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
     /**
      * @return Type[]|null
      */
-    private function getTypes(string $currentClass, string $attribute)
+    private function getTypes(string $currentClass, string $attribute): ?array
     {
         if (null === $this->propertyTypeExtractor) {
             return null;
@@ -563,7 +589,7 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
      *
      * @internal
      */
-    protected function createChildContext(array $parentContext, $attribute/*, ?string $format */)
+    protected function createChildContext(array $parentContext, $attribute/*, ?string $format */): array
     {
         if (\func_num_args() >= 3) {
             $format = func_get_arg(2);

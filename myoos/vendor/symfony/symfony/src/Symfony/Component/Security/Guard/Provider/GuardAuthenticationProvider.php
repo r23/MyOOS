@@ -13,14 +13,17 @@ namespace Symfony\Component\Security\Guard\Provider;
 
 use Symfony\Component\Security\Core\Authentication\Provider\AuthenticationProviderInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\AuthenticationExpiredException;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Guard\AuthenticatorInterface;
+use Symfony\Component\Security\Guard\PasswordAuthenticatedInterface;
 use Symfony\Component\Security\Guard\Token\GuardTokenInterface;
 use Symfony\Component\Security\Guard\Token\PreAuthenticationGuardToken;
 
@@ -39,18 +42,19 @@ class GuardAuthenticationProvider implements AuthenticationProviderInterface
     private $userProvider;
     private $providerKey;
     private $userChecker;
+    private $passwordEncoder;
 
     /**
      * @param iterable|AuthenticatorInterface[] $guardAuthenticators The authenticators, with keys that match what's passed to GuardAuthenticationListener
-     * @param UserProviderInterface             $userProvider        The user provider
      * @param string                            $providerKey         The provider (i.e. firewall) key
      */
-    public function __construct($guardAuthenticators, UserProviderInterface $userProvider, string $providerKey, UserCheckerInterface $userChecker)
+    public function __construct($guardAuthenticators, UserProviderInterface $userProvider, string $providerKey, UserCheckerInterface $userChecker, UserPasswordEncoderInterface $passwordEncoder = null)
     {
         $this->guardAuthenticators = $guardAuthenticators;
         $this->userProvider = $userProvider;
         $this->providerKey = $providerKey;
         $this->userChecker = $userChecker;
+        $this->passwordEncoder = $passwordEncoder;
     }
 
     /**
@@ -95,7 +99,7 @@ class GuardAuthenticationProvider implements AuthenticationProviderInterface
         return $this->authenticateViaGuard($guardAuthenticator, $token);
     }
 
-    private function authenticateViaGuard($guardAuthenticator, PreAuthenticationGuardToken $token)
+    private function authenticateViaGuard(AuthenticatorInterface $guardAuthenticator, PreAuthenticationGuardToken $token): GuardTokenInterface
     {
         // get the user from the GuardAuthenticator
         $user = $guardAuthenticator->getUser($token->getCredentials(), $this->userProvider);
@@ -109,8 +113,15 @@ class GuardAuthenticationProvider implements AuthenticationProviderInterface
         }
 
         $this->userChecker->checkPreAuth($user);
-        if (true !== $guardAuthenticator->checkCredentials($token->getCredentials(), $user)) {
+        if (true !== $checkCredentialsResult = $guardAuthenticator->checkCredentials($token->getCredentials(), $user)) {
+            if (false !== $checkCredentialsResult) {
+                @trigger_error(sprintf('%s::checkCredentials() must return a boolean value. You returned %s. This behavior is deprecated in Symfony 4.4 and will trigger a TypeError in Symfony 5.', \get_class($guardAuthenticator), \is_object($checkCredentialsResult) ? \get_class($checkCredentialsResult) : \gettype($checkCredentialsResult)), E_USER_DEPRECATED);
+            }
+
             throw new BadCredentialsException(sprintf('Authentication failed because %s::checkCredentials() did not return true.', \get_class($guardAuthenticator)));
+        }
+        if ($this->userProvider instanceof PasswordUpgraderInterface && $guardAuthenticator instanceof PasswordAuthenticatedInterface && null !== $this->passwordEncoder && (null !== $password = $guardAuthenticator->getPassword($token->getCredentials())) && method_exists($this->passwordEncoder, 'needsRehash') && $this->passwordEncoder->needsRehash($user)) {
+            $this->userProvider->upgradePassword($user, $this->passwordEncoder->encodePassword($user, $password));
         }
         $this->userChecker->checkPostAuth($user);
 
@@ -123,7 +134,7 @@ class GuardAuthenticationProvider implements AuthenticationProviderInterface
         return $authenticatedToken;
     }
 
-    private function findOriginatingAuthenticator(PreAuthenticationGuardToken $token)
+    private function findOriginatingAuthenticator(PreAuthenticationGuardToken $token): ?AuthenticatorInterface
     {
         // find the *one* GuardAuthenticator that this token originated from
         foreach ($this->guardAuthenticators as $key => $guardAuthenticator) {

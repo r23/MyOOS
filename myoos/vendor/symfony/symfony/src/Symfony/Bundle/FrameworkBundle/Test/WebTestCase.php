@@ -23,6 +23,7 @@ abstract class WebTestCase extends KernelTestCase
 {
     use ForwardCompatTestTrait;
     use WebTestAssertionsTrait;
+    use MailerAssertionsTrait;
 
     private function doTearDown()
     {
@@ -40,6 +41,10 @@ abstract class WebTestCase extends KernelTestCase
      */
     protected static function createClient(array $options = [], array $server = [])
     {
+        if (static::$booted) {
+            @trigger_error(sprintf('Calling "%s()" while a kernel has been booted is deprecated since Symfony 4.4 and will throw in 5.0, ensure the kernel is shut down before calling the method.', __METHOD__), E_USER_DEPRECATED);
+        }
+
         $kernel = static::bootKernel($options);
 
         try {

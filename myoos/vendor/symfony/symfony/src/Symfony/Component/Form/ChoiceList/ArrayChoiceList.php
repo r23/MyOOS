@@ -182,7 +182,7 @@ class ArrayChoiceList implements ChoiceListInterface
      *
      * @internal
      */
-    protected function flatten(array $choices, $value, &$choicesByValues, &$keysByValues, &$structuredValues)
+    protected function flatten(array $choices, callable $value, ?array &$choicesByValues, ?array &$keysByValues, ?array &$structuredValues)
     {
         if (null === $choicesByValues) {
             $choicesByValues = [];
@@ -209,14 +209,8 @@ class ArrayChoiceList implements ChoiceListInterface
      * generating duplicates.
      * This method is responsible for preventing conflict between scalar values
      * and the empty value.
-     *
-     * @param array      $choices The choices
-     * @param array|null $cache   The cache for previously checked entries. Internal
-     *
-     * @return bool returns true if the choices can be cast to strings and
-     *              false otherwise
      */
-    private function castableToString(array $choices, array &$cache = [])
+    private function castableToString(array $choices, array &$cache = []): bool
     {
         foreach ($choices as $choice) {
             if (\is_array($choice)) {

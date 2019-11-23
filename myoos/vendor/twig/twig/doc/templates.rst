@@ -177,11 +177,6 @@ To apply a filter on a section of code, wrap it with the
 Go to the :doc:`filters<filters/index>` page to learn more about built-in
 filters.
 
-.. note::
-
-    The ``apply`` tag was introduced in Twig 2.9; use the ``filter`` tag with
-    previous versions.
-
 Functions
 ---------
 
@@ -780,9 +775,6 @@ inserted into the string:
 
 Whitespace Control
 ------------------
-
-.. versionadded:: 2.8
-    Tag level Line whitespace control was added in Twig 2.8.
 
 The first newline after a template tag is removed automatically (like in PHP).
 Whitespace is not further modified by the template engine, so each whitespace

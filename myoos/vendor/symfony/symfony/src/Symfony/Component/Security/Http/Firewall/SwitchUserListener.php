@@ -120,17 +120,12 @@ class SwitchUserListener implements ListenerInterface
     }
 
     /**
-     * Attempts to switch to another user.
-     *
-     * @param Request $request  A Request instance
-     * @param string  $username
-     *
-     * @return TokenInterface|null The new TokenInterface if successfully switched, null otherwise
+     * Attempts to switch to another user and returns the new token if successfully switched.
      *
      * @throws \LogicException
      * @throws AccessDeniedException
      */
-    private function attemptSwitchUser(Request $request, $username)
+    private function attemptSwitchUser(Request $request, string $username): ?TokenInterface
     {
         $token = $this->tokenStorage->getToken();
         $originalToken = $this->getOriginalToken($token);
@@ -191,13 +186,11 @@ class SwitchUserListener implements ListenerInterface
     }
 
     /**
-     * Attempts to exit from an already switched user.
-     *
-     * @return TokenInterface The original TokenInterface instance
+     * Attempts to exit from an already switched user and returns the original token.
      *
      * @throws AuthenticationCredentialsNotFoundException
      */
-    private function attemptExitUser(Request $request)
+    private function attemptExitUser(Request $request): TokenInterface
     {
         if (null === ($currentToken = $this->tokenStorage->getToken()) || null === $original = $this->getOriginalToken($currentToken)) {
             throw new AuthenticationCredentialsNotFoundException('Could not find original Token object.');

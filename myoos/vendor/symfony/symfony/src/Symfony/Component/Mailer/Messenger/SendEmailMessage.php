@@ -11,13 +11,11 @@
 
 namespace Symfony\Component\Mailer\Messenger;
 
-use Symfony\Component\Mailer\SmtpEnvelope;
+use Symfony\Component\Mailer\Envelope;
 use Symfony\Component\Mime\RawMessage;
 
 /**
  * @author Fabien Potencier <fabien@symfony.com>
- *
- * @experimental in 4.3
  */
 class SendEmailMessage
 {
@@ -27,7 +25,7 @@ class SendEmailMessage
     /**
      * @internal
      */
-    public function __construct(RawMessage $message, SmtpEnvelope $envelope = null)
+    public function __construct(RawMessage $message, Envelope $envelope = null)
     {
         $this->message = $message;
         $this->envelope = $envelope;
@@ -38,7 +36,7 @@ class SendEmailMessage
         return $this->message;
     }
 
-    public function getEnvelope(): ?SmtpEnvelope
+    public function getEnvelope(): ?Envelope
     {
         return $this->envelope;
     }

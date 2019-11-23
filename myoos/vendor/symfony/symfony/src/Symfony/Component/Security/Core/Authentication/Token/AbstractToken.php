@@ -163,7 +163,7 @@ abstract class AbstractToken implements TokenInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @return string
      *
      * @final since Symfony 4.3, use __serialize() instead
      *
@@ -299,7 +299,7 @@ abstract class AbstractToken implements TokenInterface
         return sprintf('%s(user="%s", authenticated=%s, roles="%s")', $class, $this->getUsername(), json_encode($this->authenticated), implode(', ', $roles));
     }
 
-    private function hasUserChanged(UserInterface $user)
+    private function hasUserChanged(UserInterface $user): bool
     {
         if (!($this->user instanceof UserInterface)) {
             throw new \BadMethodCallException('Method "hasUserChanged" should be called when current user class is instance of "UserInterface".');
@@ -314,6 +314,16 @@ abstract class AbstractToken implements TokenInterface
         }
 
         if ($this->user->getSalt() !== $user->getSalt()) {
+            return true;
+        }
+
+        $userRoles = array_map('strval', (array) $user->getRoles());
+
+        if ($this instanceof SwitchUserToken) {
+            $userRoles[] = 'ROLE_PREVIOUS_ADMIN';
+        }
+
+        if (\count($userRoles) !== \count($this->getRoleNames()) || \count($userRoles) !== \count(array_intersect($userRoles, $this->getRoleNames()))) {
             return true;
         }
 

@@ -11,7 +11,7 @@
 
 namespace Symfony\Component\Messenger\Transport\Doctrine;
 
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Common\Persistence\ConnectionRegistry;
 use Symfony\Component\Messenger\Exception\TransportException;
 use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface;
 use Symfony\Component\Messenger\Transport\TransportFactoryInterface;
@@ -19,14 +19,12 @@ use Symfony\Component\Messenger\Transport\TransportInterface;
 
 /**
  * @author Vincent Touzet <vincent.touzet@gmail.com>
- *
- * @experimental in 4.3
  */
 class DoctrineTransportFactory implements TransportFactoryInterface
 {
     private $registry;
 
-    public function __construct(RegistryInterface $registry)
+    public function __construct(ConnectionRegistry $registry)
     {
         $this->registry = $registry;
     }

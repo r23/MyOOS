@@ -1,4 +1,0 @@
-framework:
-    session:
-        handler_id: ~
-        cookie_secure: auto

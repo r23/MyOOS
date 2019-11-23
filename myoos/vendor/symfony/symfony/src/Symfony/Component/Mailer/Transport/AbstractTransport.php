@@ -13,20 +13,16 @@ namespace Symfony\Component\Mailer\Transport;
 
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Mailer\Envelope;
 use Symfony\Component\EventDispatcher\LegacyEventDispatcherProxy;
-use Symfony\Component\Mailer\DelayedSmtpEnvelope;
 use Symfony\Component\Mailer\Event\MessageEvent;
-use Symfony\Component\Mailer\Exception\TransportException;
 use Symfony\Component\Mailer\SentMessage;
-use Symfony\Component\Mailer\SmtpEnvelope;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\RawMessage;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
  * @author Fabien Potencier <fabien@symfony.com>
- *
- * @experimental in 4.3
  */
 abstract class AbstractTransport implements TransportInterface
 {
@@ -56,24 +52,15 @@ abstract class AbstractTransport implements TransportInterface
         return $this;
     }
 
-    public function send(RawMessage $message, SmtpEnvelope $envelope = null): ?SentMessage
+    public function send(RawMessage $message, Envelope $envelope = null): ?SentMessage
     {
         $message = clone $message;
-        if (null !== $envelope) {
-            $envelope = clone $envelope;
-        } else {
-            try {
-                $envelope = new DelayedSmtpEnvelope($message);
-            } catch (\Exception $e) {
-                throw new TransportException('Cannot send message without a valid envelope.', 0, $e);
-            }
-        }
+        $envelope = null !== $envelope ? clone $envelope : Envelope::create($message);
 
         if (null !== $this->dispatcher) {
-            $event = new MessageEvent($message, $envelope);
+            $event = new MessageEvent($message, $envelope, (string) $this);
             $this->dispatcher->dispatch($event);
             $envelope = $event->getEnvelope();
-            $message = $event->getMessage();
         }
 
         if (!$envelope->getRecipients()) {

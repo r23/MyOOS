@@ -29,7 +29,7 @@ final class TestRepositoryFactory implements RepositoryFactory
     /**
      * {@inheritdoc}
      */
-    public function getRepository(EntityManagerInterface $entityManager, $entityName)
+    public function getRepository(EntityManagerInterface $entityManager, $entityName): ObjectRepository
     {
         $repositoryHash = $this->getRepositoryHash($entityManager, $entityName);
 
@@ -40,17 +40,14 @@ final class TestRepositoryFactory implements RepositoryFactory
         return $this->repositoryList[$repositoryHash] = $this->createRepository($entityManager, $entityName);
     }
 
-    public function setRepository(EntityManagerInterface $entityManager, $entityName, ObjectRepository $repository)
+    public function setRepository(EntityManagerInterface $entityManager, string $entityName, ObjectRepository $repository)
     {
         $repositoryHash = $this->getRepositoryHash($entityManager, $entityName);
 
         $this->repositoryList[$repositoryHash] = $repository;
     }
 
-    /**
-     * @return ObjectRepository
-     */
-    private function createRepository(EntityManagerInterface $entityManager, string $entityName)
+    private function createRepository(EntityManagerInterface $entityManager, string $entityName): ObjectRepository
     {
         /* @var $metadata ClassMetadata */
         $metadata = $entityManager->getClassMetadata($entityName);
@@ -59,7 +56,7 @@ final class TestRepositoryFactory implements RepositoryFactory
         return new $repositoryClassName($entityManager, $metadata);
     }
 
-    private function getRepositoryHash(EntityManagerInterface $entityManager, string $entityName)
+    private function getRepositoryHash(EntityManagerInterface $entityManager, string $entityName): string
     {
         return $entityManager->getClassMetadata($entityName)->getName().spl_object_hash($entityManager);
     }

@@ -15,10 +15,8 @@ namespace Symfony\Component\Messenger\Stamp;
  * Stamp applied when a message is sent to the failure transport.
  *
  * @author Ryan Weaver <ryan@symfonycasts.com>
- *
- * @experimental in 4.3
  */
-class SentToFailureTransportStamp implements StampInterface
+final class SentToFailureTransportStamp implements StampInterface
 {
     private $originalReceiverName;
 

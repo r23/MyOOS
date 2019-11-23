@@ -1,6 +1,15 @@
 CHANGELOG
 =========
 
+4.4.0
+-----
+
+* Added `Form::getName()` method.
+* Added `Crawler::matches()` method.
+* Added `Crawler::closest()` method.
+* Added `Crawler::outerHtml()` method.
+* Added an argument to the `Crawler::text()` method to opt-in normalizing whitespaces.
+
 4.3.0
 -----
 

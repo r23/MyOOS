@@ -11,8 +11,11 @@
 
 namespace Symfony\Component\DependencyInjection\Loader;
 
+use Symfony\Component\Config\Exception\FileLocatorFileNotFoundException;
+use Symfony\Component\Config\Exception\LoaderLoadException;
 use Symfony\Component\Config\FileLocatorInterface;
 use Symfony\Component\Config\Loader\FileLoader as BaseFileLoader;
+use Symfony\Component\Config\Loader\Loader;
 use Symfony\Component\Config\Resource\GlobResource;
 use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -26,15 +29,55 @@ use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
  */
 abstract class FileLoader extends BaseFileLoader
 {
+    public const ANONYMOUS_ID_REGEXP = '/^\.\d+_[^~]*+~[._a-zA-Z\d]{7}$/';
+
     protected $container;
     protected $isLoadingInstanceof = false;
     protected $instanceof = [];
+    protected $interfaces = [];
+    protected $singlyImplemented = [];
 
     public function __construct(ContainerBuilder $container, FileLocatorInterface $locator)
     {
         $this->container = $container;
 
         parent::__construct($locator);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @param bool|string          $ignoreErrors Whether errors should be ignored; pass "not_found" to ignore only when the loaded resource is not found
+     * @param string|string[]|null $exclude      Glob patterns to exclude from the import
+     */
+    public function import($resource, $type = null, $ignoreErrors = false, $sourceResource = null/*, $exclude = null*/)
+    {
+        $args = \func_get_args();
+
+        if ($ignoreNotFound = 'not_found' === $ignoreErrors) {
+            $args[2] = false;
+        } elseif (!\is_bool($ignoreErrors)) {
+            @trigger_error(sprintf('Invalid argument $ignoreErrors provided to %s::import(): boolean or "not_found" expected, %s given.', \get_class($this), \gettype($ignoreErrors)), E_USER_DEPRECATED);
+            $args[2] = (bool) $ignoreErrors;
+        }
+
+        try {
+            parent::import(...$args);
+        } catch (LoaderLoadException $e) {
+            if (!$ignoreNotFound || !($prev = $e->getPrevious()) instanceof FileLocatorFileNotFoundException) {
+                throw $e;
+            }
+
+            foreach ($prev->getTrace() as $frame) {
+                if ('import' === ($frame['function'] ?? null) && is_a($frame['class'] ?? '', Loader::class, true)) {
+                    break;
+                }
+            }
+
+            if ($args !== $frame['args']) {
+                throw $e;
+            }
+        }
     }
 
     /**
@@ -57,12 +100,10 @@ abstract class FileLoader extends BaseFileLoader
         $classes = $this->findClasses($namespace, $resource, (array) $exclude);
         // prepare for deep cloning
         $serializedPrototype = serialize($prototype);
-        $interfaces = [];
-        $singlyImplemented = [];
 
         foreach ($classes as $class => $errorMessage) {
             if (interface_exists($class, false)) {
-                $interfaces[] = $class;
+                $this->interfaces[] = $class;
             } else {
                 $this->setDefinition($class, $definition = unserialize($serializedPrototype));
                 if (null !== $errorMessage) {
@@ -71,16 +112,21 @@ abstract class FileLoader extends BaseFileLoader
                     continue;
                 }
                 foreach (class_implements($class, false) as $interface) {
-                    $singlyImplemented[$interface] = isset($singlyImplemented[$interface]) ? false : $class;
+                    $this->singlyImplemented[$interface] = ($this->singlyImplemented[$interface] ?? $class) !== $class ? false : $class;
                 }
             }
         }
-        foreach ($interfaces as $interface) {
-            if (!empty($singlyImplemented[$interface])) {
-                $this->container->setAlias($interface, $singlyImplemented[$interface])
-                    ->setPublic(false);
+    }
+
+    public function registerAliasesForSinglyImplementedInterfaces()
+    {
+        foreach ($this->interfaces as $interface) {
+            if (!empty($this->singlyImplemented[$interface]) && !$this->container->hasAlias($interface)) {
+                $this->container->setAlias($interface, $this->singlyImplemented[$interface])->setPublic(false);
             }
         }
+
+        $this->interfaces = $this->singlyImplemented = [];
     }
 
     /**
@@ -102,7 +148,7 @@ abstract class FileLoader extends BaseFileLoader
         }
     }
 
-    private function findClasses($namespace, $pattern, array $excludePatterns)
+    private function findClasses(string $namespace, string $pattern, array $excludePatterns): array
     {
         $parameterBag = $this->container->getParameterBag();
 

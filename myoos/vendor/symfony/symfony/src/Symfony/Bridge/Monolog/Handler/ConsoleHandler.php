@@ -11,6 +11,7 @@
 
 namespace Symfony\Bridge\Monolog\Handler;
 
+use Monolog\Formatter\FormatterInterface;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger;
@@ -73,6 +74,8 @@ class ConsoleHandler extends AbstractProcessingHandler implements EventSubscribe
 
     /**
      * {@inheritdoc}
+     *
+     * @return bool
      */
     public function isHandling(array $record)
     {
@@ -81,6 +84,8 @@ class ConsoleHandler extends AbstractProcessingHandler implements EventSubscribe
 
     /**
      * {@inheritdoc}
+     *
+     * @return bool
      */
     public function handle(array $record)
     {
@@ -142,6 +147,8 @@ class ConsoleHandler extends AbstractProcessingHandler implements EventSubscribe
 
     /**
      * {@inheritdoc}
+     *
+     * @return void
      */
     protected function write(array $record)
     {
@@ -151,6 +158,8 @@ class ConsoleHandler extends AbstractProcessingHandler implements EventSubscribe
 
     /**
      * {@inheritdoc}
+     *
+     * @return FormatterInterface
      */
     protected function getDefaultFormatter()
     {
@@ -172,7 +181,7 @@ class ConsoleHandler extends AbstractProcessingHandler implements EventSubscribe
      *
      * @return bool Whether the handler is enabled and verbosity is not set to quiet
      */
-    private function updateLevel()
+    private function updateLevel(): bool
     {
         if (null === $this->output) {
             return false;

@@ -34,9 +34,7 @@ class TemplateFinder implements TemplateFinderInterface
     private $templates;
 
     /**
-     * @param KernelInterface             $kernel  A KernelInterface instance
-     * @param TemplateNameParserInterface $parser  A TemplateNameParserInterface instance
-     * @param string                      $rootDir The directory where global templates can be stored
+     * @param string $rootDir The directory where global templates can be stored
      */
     public function __construct(KernelInterface $kernel, TemplateNameParserInterface $parser, string $rootDir)
     {
@@ -70,11 +68,9 @@ class TemplateFinder implements TemplateFinderInterface
     /**
      * Find templates in the given directory.
      *
-     * @param string $dir The folder where to look for templates
-     *
      * @return TemplateReferenceInterface[]
      */
-    private function findTemplatesInFolder($dir)
+    private function findTemplatesInFolder(string $dir): array
     {
         $templates = [];
 
@@ -98,7 +94,7 @@ class TemplateFinder implements TemplateFinderInterface
      *
      * @return TemplateReferenceInterface[]
      */
-    private function findTemplatesInBundle(BundleInterface $bundle)
+    private function findTemplatesInBundle(BundleInterface $bundle): array
     {
         $name = $bundle->getName();
         $templates = array_unique(array_merge(

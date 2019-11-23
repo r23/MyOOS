@@ -17,7 +17,6 @@
         "an": "Aragonees",
         "anp": "Angika",
         "ar": "Arabies",
-        "ar_001": "Moderne Standaardarabies",
         "arc": "Aramees",
         "arn": "Mapuche",
         "arp": "Arapaho",
@@ -87,8 +86,6 @@
         "eka": "Ekajuk",
         "el": "Grieks",
         "en": "Engels",
-        "en_GB": "Engels (VK)",
-        "en_US": "Engels (VSA)",
         "eo": "Esperanto",
         "es": "Spaans",
         "et": "Estnies",
@@ -252,14 +249,12 @@
         "nb": "Boeknoors",
         "nd": "Noord-Ndebele",
         "nds": "Nederduits",
-        "nds_NL": "Nedersaksies",
         "ne": "Nepalees",
         "new": "Newari",
         "ng": "Ndonga",
         "nia": "Nias",
         "niu": "Niueaans",
         "nl": "Nederlands",
-        "nl_BE": "Vlaams",
         "nmg": "Kwasio",
         "nn": "Nuwe Noors",
         "nnh": "Ngiemboon",
@@ -295,7 +290,6 @@
         "rn": "Rundi",
         "ro": "Roemeens",
         "rof": "Rombo",
-        "root": "Root",
         "ru": "Russies",
         "rup": "Aromanies",
         "rw": "Rwandees",
@@ -398,5 +392,12 @@
         "zu": "Zoeloe",
         "zun": "Zuni",
         "zza": "Zaza"
+    },
+    "LocalizedNames": {
+        "ar_001": "Moderne Standaardarabies",
+        "en_GB": "Engels (VK)",
+        "en_US": "Engels (VSA)",
+        "nds_NL": "Nedersaksies",
+        "nl_BE": "Vlaams"
     }
 }

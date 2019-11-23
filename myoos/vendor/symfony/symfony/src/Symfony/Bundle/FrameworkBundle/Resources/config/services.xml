@@ -23,10 +23,6 @@
             <parameter key="Symfony\Component\HttpKernel\Event\ViewEvent">kernel.view</parameter>
             <parameter key="Symfony\Component\HttpKernel\Event\ExceptionEvent">kernel.exception</parameter>
             <parameter key="Symfony\Component\HttpKernel\Event\TerminateEvent">kernel.terminate</parameter>
-            <parameter key="Symfony\Component\Security\Core\Event\AuthenticationSuccessEvent">security.authentication.success</parameter>
-            <parameter key="Symfony\Component\Security\Core\Event\AuthenticationFailureEvent">security.authentication.failure</parameter>
-            <parameter key="Symfony\Component\Security\Http\Event\InteractiveLoginEvent">security.interactive_login</parameter>
-            <parameter key="Symfony\Component\Security\Http\Event\SwitchUserEvent">security.switch_user</parameter>
             <parameter key="Symfony\Component\Workflow\Event\GuardEvent">workflow.guard</parameter>
             <parameter key="Symfony\Component\Workflow\Event\LeaveEvent">workflow.leave</parameter>
             <parameter key="Symfony\Component\Workflow\Event\TransitionEvent">workflow.transition</parameter>
@@ -70,13 +66,13 @@
         <service id="Symfony\Component\HttpFoundation\UrlHelper" alias="url_helper" />
 
         <service id="cache_warmer" class="Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerAggregate" public="true">
-            <argument type="tagged" tag="kernel.cache_warmer" />
+            <argument type="tagged_iterator" tag="kernel.cache_warmer" />
             <argument>%kernel.debug%</argument>
             <argument>%kernel.cache_dir%/%kernel.container_class%Deprecations.log</argument>
         </service>
 
         <service id="cache_clearer" class="Symfony\Component\HttpKernel\CacheClearer\ChainCacheClearer" public="true">
-            <argument type="tagged" tag="kernel.cache_clearer" />
+            <argument type="tagged_iterator" tag="kernel.cache_clearer" />
         </service>
 
         <service id="kernel" synthetic="true" public="true" />
@@ -91,6 +87,7 @@
             <argument type="collection">
                 <argument>%kernel.root_dir%</argument>
             </argument>
+            <argument>false</argument>
         </service>
         <service id="Symfony\Component\HttpKernel\Config\FileLocator" alias="file_locator" />
 
@@ -99,7 +96,7 @@
         </service>
 
         <service id="config_cache_factory" class="Symfony\Component\Config\ResourceCheckerConfigCacheFactory">
-            <argument type="tagged" tag="config_cache.resource_checker" />
+            <argument type="tagged_iterator" tag="config_cache.resource_checker" />
         </service>
 
         <service id="dependency_injection.config.container_parameters_resource_checker" class="Symfony\Component\DependencyInjection\Config\ContainerParametersResourceChecker">
@@ -123,6 +120,12 @@
             <argument type="collection" /> <!-- locale aware services -->
             <argument type="service" id="request_stack" />
             <tag name="kernel.event_subscriber" />
+        </service>
+
+        <service id="container.env_var_processor" class="Symfony\Component\DependencyInjection\EnvVarProcessor">
+            <tag name="container.env_var_processor" />
+            <argument type="service" id="service_container" />
+            <argument type="tagged_iterator" tag="container.env_var_loader" />
         </service>
     </services>
 </container>

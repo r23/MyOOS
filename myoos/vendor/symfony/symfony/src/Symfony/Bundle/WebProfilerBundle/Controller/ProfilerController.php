@@ -17,6 +17,8 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Flash\AutoExpireFlashBag;
+use Symfony\Component\HttpKernel\DataCollector\DumpDataCollector;
+use Symfony\Component\HttpKernel\DataCollector\ExceptionDataCollector;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Profiler\Profiler;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -24,6 +26,8 @@ use Twig\Environment;
 
 /**
  * @author Fabien Potencier <fabien@symfony.com>
+ *
+ * @internal since Symfony 4.4
  */
 class ProfilerController
 {
@@ -62,8 +66,7 @@ class ProfilerController
     /**
      * Renders a profiler panel for the given token.
      *
-     * @param Request $request The current HTTP request
-     * @param string  $token   The profiler token
+     * @param string $token The profiler token
      *
      * @return Response A Response instance
      *
@@ -77,7 +80,7 @@ class ProfilerController
             $this->cspHandler->disableCsp();
         }
 
-        $panel = $request->query->get('panel', 'request');
+        $panel = $request->query->get('panel');
         $page = $request->query->get('page', 'home');
 
         if ('latest' === $token && $latest = current($this->profiler->find(null, null, 1, null, null, null))) {
@@ -86,6 +89,22 @@ class ProfilerController
 
         if (!$profile = $this->profiler->loadProfile($token)) {
             return new Response($this->twig->render('@WebProfiler/Profiler/info.html.twig', ['about' => 'no_token', 'token' => $token, 'request' => $request]), 200, ['Content-Type' => 'text/html']);
+        }
+
+        if (null === $panel) {
+            $panel = 'request';
+
+            foreach ($profile->getCollectors() as $collector) {
+                if ($collector instanceof ExceptionDataCollector && $collector->hasException()) {
+                    $panel = $collector->getName();
+
+                    break;
+                }
+
+                if ($collector instanceof DumpDataCollector && $collector->getDumpsCount() > 0) {
+                    $panel = $collector->getName();
+                }
+            }
         }
 
         if (!$profile->hasCollector($panel)) {
@@ -108,8 +127,7 @@ class ProfilerController
     /**
      * Renders the Web Debug Toolbar.
      *
-     * @param Request $request The current HTTP Request
-     * @param string  $token   The profiler token
+     * @param string $token The profiler token
      *
      * @return Response A Response instance
      *
@@ -121,7 +139,7 @@ class ProfilerController
             throw new NotFoundHttpException('The profiler must be enabled.');
         }
 
-        if ($request->hasSession() && ($session = $request->getSession()) && $session->isStarted() && $session->getFlashBag() instanceof AutoExpireFlashBag) {
+        if ($request->hasSession() && ($session = $request->getSession())->isStarted() && $session->getFlashBag() instanceof AutoExpireFlashBag) {
             // keep current flashes for one more request if using AutoExpireFlashBag
             $session->getFlashBag()->setAll($session->getFlashBag()->peekAll());
         }
@@ -210,8 +228,7 @@ class ProfilerController
     /**
      * Renders the search results.
      *
-     * @param Request $request The current HTTP Request
-     * @param string  $token   The token
+     * @param string $token The token
      *
      * @return Response A Response instance
      *
@@ -380,7 +397,7 @@ class ProfilerController
         $this->profiler->disable();
     }
 
-    private function renderWithCspNonces(Request $request, $template, $variables, $code = 200, $headers = ['Content-Type' => 'text/html'])
+    private function renderWithCspNonces(Request $request, string $template, array $variables, int $code = 200, array $headers = ['Content-Type' => 'text/html']): Response
     {
         $response = new Response('', $code, $headers);
 

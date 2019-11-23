@@ -12,6 +12,7 @@
 namespace Symfony\Bundle\WebServerBundle\Command;
 
 use Monolog\Formatter\FormatterInterface;
+use Monolog\Logger;
 use Symfony\Bridge\Monolog\Formatter\ConsoleFormatter;
 use Symfony\Bridge\Monolog\Handler\ConsoleHandler;
 use Symfony\Component\Console\Command\Command;
@@ -24,6 +25,8 @@ use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 
 /**
  * @author Grégoire Pineau <lyrixx@lyrixx.info>
+ *
+ * @deprecated since Symfony 4.4, to be removed in 5.0; the new Symfony local server has more features, you can use it instead.
  */
 class ServerLogCommand extends Command
 {
@@ -77,6 +80,8 @@ EOF
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        @trigger_error('Using the WebserverBundle is deprecated since Symfony 4.4. The new Symfony local server has more features, you can use it instead.', E_USER_DEPRECATED);
+
         $filter = $input->getOption('filter');
         if ($filter) {
             if (!class_exists(ExpressionLanguage::class)) {
@@ -85,7 +90,9 @@ EOF
             $this->el = new ExpressionLanguage();
         }
 
-        $this->handler = new ConsoleHandler($output);
+        $this->handler = new ConsoleHandler($output, true, [
+            OutputInterface::VERBOSITY_NORMAL => Logger::DEBUG,
+        ]);
 
         $this->handler->setFormatter(new ConsoleFormatter([
             'format' => str_replace('\n', "\n", $input->getOption('format')),
@@ -116,9 +123,11 @@ EOF
 
             $this->displayLog($input, $output, $clientId, $record);
         }
+
+        return 0;
     }
 
-    private function getLogs($socket)
+    private function getLogs($socket): iterable
     {
         $sockets = [(int) $socket => $socket];
         $write = [];
@@ -141,15 +150,13 @@ EOF
         }
     }
 
-    private function displayLog(InputInterface $input, OutputInterface $output, $clientId, array $record)
+    private function displayLog(InputInterface $input, OutputInterface $output, int $clientId, array $record)
     {
-        if ($this->handler->isHandling($record)) {
-            if (isset($record['log_id'])) {
-                $clientId = unpack('H*', $record['log_id'])[1];
-            }
-            $logBlock = sprintf('<bg=%s> </>', self::$bgColor[$clientId % 8]);
-            $output->write($logBlock);
+        if (isset($record['log_id'])) {
+            $clientId = unpack('H*', $record['log_id'])[1];
         }
+        $logBlock = sprintf('<bg=%s> </>', self::$bgColor[$clientId % 8]);
+        $output->write($logBlock);
 
         $this->handler->handle($record);
     }

@@ -19,6 +19,8 @@ use Twig\TwigFilter;
  * Twig extension relate to PHP code and used by the profiler and the default exception templates.
  *
  * @author Fabien Potencier <fabien@symfony.com>
+ *
+ * @final since Symfony 4.4
  */
 class CodeExtension extends AbstractExtension
 {
@@ -40,6 +42,8 @@ class CodeExtension extends AbstractExtension
 
     /**
      * {@inheritdoc}
+     *
+     * @return TwigFilter[]
      */
     public function getFilters()
     {
@@ -232,7 +236,7 @@ class CodeExtension extends AbstractExtension
     /**
      * @internal
      */
-    public function formatLogMessage($message, array $context)
+    public function formatLogMessage(string $message, array $context): string
     {
         if ($context && false !== strpos($message, '{')) {
             $replacements = [];

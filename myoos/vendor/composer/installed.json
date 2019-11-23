@@ -687,62 +687,6 @@
         ]
     },
     {
-        "name": "fig/link-util",
-        "version": "1.0.0",
-        "version_normalized": "1.0.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/php-fig/link-util.git",
-            "reference": "1a07821801a148be4add11ab0603e4af55a72fac"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/php-fig/link-util/zipball/1a07821801a148be4add11ab0603e4af55a72fac",
-            "reference": "1a07821801a148be4add11ab0603e4af55a72fac",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.5.0",
-            "psr/link": "~1.0@dev"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "^5.1",
-            "squizlabs/php_codesniffer": "^2.3.1"
-        },
-        "time": "2016-10-17T18:31:11+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.0.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Fig\\Link\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "PHP-FIG",
-                "homepage": "http://www.php-fig.org/"
-            }
-        ],
-        "description": "Common utility implementations for HTTP links",
-        "keywords": [
-            "http",
-            "http-link",
-            "link",
-            "psr",
-            "psr-13",
-            "rest"
-        ]
-    },
-    {
         "name": "firebase/php-jwt",
         "version": "v5.0.0",
         "version_normalized": "5.0.0.0",
@@ -1802,22 +1746,22 @@
     },
     {
         "name": "monolog/monolog",
-        "version": "2.0.1",
-        "version_normalized": "2.0.1.0",
+        "version": "1.25.2",
+        "version_normalized": "1.25.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/Seldaek/monolog.git",
-            "reference": "f9d56fd2f5533322caccdfcddbb56aedd622ef1c"
+            "reference": "d5e2fb341cb44f7e2ab639d12a1e5901091ec287"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Seldaek/monolog/zipball/f9d56fd2f5533322caccdfcddbb56aedd622ef1c",
-            "reference": "f9d56fd2f5533322caccdfcddbb56aedd622ef1c",
+            "url": "https://api.github.com/repos/Seldaek/monolog/zipball/d5e2fb341cb44f7e2ab639d12a1e5901091ec287",
+            "reference": "d5e2fb341cb44f7e2ab639d12a1e5901091ec287",
             "shasum": ""
         },
         "require": {
-            "php": "^7.2",
-            "psr/log": "^1.0.1"
+            "php": ">=5.3.0",
+            "psr/log": "~1.0"
         },
         "provide": {
             "psr/log-implementation": "1.0.0"
@@ -1825,37 +1769,34 @@
         "require-dev": {
             "aws/aws-sdk-php": "^2.4.9 || ^3.0",
             "doctrine/couchdb": "~1.0@dev",
-            "elasticsearch/elasticsearch": "^6.0",
-            "graylog2/gelf-php": "^1.4.2",
-            "jakub-onderka/php-parallel-lint": "^0.9",
+            "graylog2/gelf-php": "~1.0",
+            "jakub-onderka/php-parallel-lint": "0.9",
             "php-amqplib/php-amqplib": "~2.4",
             "php-console/php-console": "^3.1.3",
-            "phpspec/prophecy": "^1.6.1",
-            "phpunit/phpunit": "^8.3",
-            "predis/predis": "^1.1",
-            "rollbar/rollbar": "^1.3",
+            "phpunit/phpunit": "~4.5",
+            "phpunit/phpunit-mock-objects": "2.3.0",
             "ruflin/elastica": ">=0.90 <3.0",
+            "sentry/sentry": "^0.13",
             "swiftmailer/swiftmailer": "^5.3|^6.0"
         },
         "suggest": {
             "aws/aws-sdk-php": "Allow sending log messages to AWS services like DynamoDB",
             "doctrine/couchdb": "Allow sending log messages to a CouchDB server",
-            "elasticsearch/elasticsearch": "Allow sending log messages to an Elasticsearch server via official client",
             "ext-amqp": "Allow sending log messages to an AMQP server (1.0+ required)",
-            "ext-mbstring": "Allow to work properly with unicode symbols",
-            "ext-mongodb": "Allow sending log messages to a MongoDB server (via driver)",
+            "ext-mongo": "Allow sending log messages to a MongoDB server",
             "graylog2/gelf-php": "Allow sending log messages to a GrayLog2 server",
-            "mongodb/mongodb": "Allow sending log messages to a MongoDB server (via library)",
+            "mongodb/mongodb": "Allow sending log messages to a MongoDB server via PHP Driver",
             "php-amqplib/php-amqplib": "Allow sending log messages to an AMQP server using php-amqplib",
             "php-console/php-console": "Allow sending log messages to Google Chrome",
             "rollbar/rollbar": "Allow sending log messages to Rollbar",
-            "ruflin/elastica": "Allow sending log messages to an Elastic Search server"
+            "ruflin/elastica": "Allow sending log messages to an Elastic Search server",
+            "sentry/sentry": "Allow sending log messages to a Sentry server"
         },
-        "time": "2019-11-13T10:27:43+00:00",
+        "time": "2019-11-13T10:00:05+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "2.x-dev"
+                "dev-master": "2.0.x-dev"
             }
         },
         "installation-source": "dist",
@@ -2126,23 +2067,24 @@
     },
     {
         "name": "php-amqplib/php-amqplib",
-        "version": "v2.10.1",
-        "version_normalized": "2.10.1.0",
+        "version": "v2.11.0",
+        "version_normalized": "2.11.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/php-amqplib/php-amqplib.git",
-            "reference": "6e2b2501e021e994fb64429e5a78118f83b5c200"
+            "reference": "9ee212baced63442ca1ab029acde38e1144a00b8"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/php-amqplib/php-amqplib/zipball/6e2b2501e021e994fb64429e5a78118f83b5c200",
-            "reference": "6e2b2501e021e994fb64429e5a78118f83b5c200",
+            "url": "https://api.github.com/repos/php-amqplib/php-amqplib/zipball/9ee212baced63442ca1ab029acde38e1144a00b8",
+            "reference": "9ee212baced63442ca1ab029acde38e1144a00b8",
             "shasum": ""
         },
         "require": {
-            "ext-bcmath": "*",
+            "ext-mbstring": "*",
             "ext-sockets": "*",
-            "php": ">=5.6"
+            "php": ">=5.6.3",
+            "phpseclib/phpseclib": "^2.0.0"
         },
         "replace": {
             "videlalvaro/php-amqplib": "self.version"
@@ -2153,11 +2095,11 @@
             "phpunit/phpunit": "^5.7|^6.5|^7.0",
             "squizlabs/php_codesniffer": "^2.5"
         },
-        "time": "2019-10-10T13:23:40+00:00",
+        "time": "2019-11-19T15:15:19+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "2.10-dev"
+                "dev-master": "2.11-dev"
             }
         },
         "installation-source": "dist",
@@ -3246,17 +3188,17 @@
     },
     {
         "name": "stripe/stripe-php",
-        "version": "v7.12.0",
-        "version_normalized": "7.12.0.0",
+        "version": "v7.13.0",
+        "version_normalized": "7.13.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/stripe/stripe-php.git",
-            "reference": "0e24d89888e4bf051003c45c447b32e5298df55c"
+            "reference": "140feae4dfd80c0ca820a2ace8873654c5d3926c"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/stripe/stripe-php/zipball/0e24d89888e4bf051003c45c447b32e5298df55c",
-            "reference": "0e24d89888e4bf051003c45c447b32e5298df55c",
+            "url": "https://api.github.com/repos/stripe/stripe-php/zipball/140feae4dfd80c0ca820a2ace8873654c5d3926c",
+            "reference": "140feae4dfd80c0ca820a2ace8873654c5d3926c",
             "shasum": ""
         },
         "require": {
@@ -3272,7 +3214,7 @@
             "squizlabs/php_codesniffer": "^3.3",
             "symfony/process": "~3.4"
         },
-        "time": "2019-11-09T00:23:22+00:00",
+        "time": "2019-11-19T23:07:10+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -3746,40 +3688,40 @@
     },
     {
         "name": "symfony/symfony",
-        "version": "v4.3.8",
-        "version_normalized": "4.3.8.0",
+        "version": "v4.4.0",
+        "version_normalized": "4.4.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/symfony.git",
-            "reference": "87fb08703e62882a7a6fdb17672070e0ee12dd65"
+            "reference": "625a4dbfdafcb8cea8ff90a62b9c24b28694938d"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/symfony/zipball/87fb08703e62882a7a6fdb17672070e0ee12dd65",
-            "reference": "87fb08703e62882a7a6fdb17672070e0ee12dd65",
+            "url": "https://api.github.com/repos/symfony/symfony/zipball/625a4dbfdafcb8cea8ff90a62b9c24b28694938d",
+            "reference": "625a4dbfdafcb8cea8ff90a62b9c24b28694938d",
             "shasum": ""
         },
         "require": {
             "doctrine/event-manager": "~1.0",
             "doctrine/persistence": "~1.0",
             "ext-xml": "*",
-            "fig/link-util": "^1.0",
             "php": "^7.1.3",
             "psr/cache": "~1.0",
             "psr/container": "^1.0",
             "psr/link": "^1.0",
             "psr/log": "~1.0",
-            "symfony/contracts": "^1.1.3",
+            "symfony/contracts": "^1.1.8",
             "symfony/polyfill-ctype": "~1.8",
             "symfony/polyfill-intl-icu": "~1.0",
             "symfony/polyfill-intl-idn": "^1.10",
             "symfony/polyfill-mbstring": "~1.0",
             "symfony/polyfill-php72": "~1.5",
             "symfony/polyfill-php73": "^1.11",
-            "twig/twig": "^1.41|^2.10"
+            "twig/twig": "^1.41|^2.10|^3.0"
         },
         "conflict": {
             "masterminds/html5": "<2.6",
+            "monolog/monolog": ">=2",
             "ocramius/proxy-manager": "<2.1",
             "phpdocumentor/reflection-docblock": "<3.0||>=3.2.0,<3.2.2",
             "phpdocumentor/type-resolver": "<0.3.0",
@@ -3799,6 +3741,7 @@
             "symfony/doctrine-bridge": "self.version",
             "symfony/dom-crawler": "self.version",
             "symfony/dotenv": "self.version",
+            "symfony/error-handler": "self.version",
             "symfony/event-dispatcher": "self.version",
             "symfony/expression-language": "self.version",
             "symfony/filesystem": "self.version",
@@ -3855,26 +3798,32 @@
             "doctrine/collections": "~1.0",
             "doctrine/data-fixtures": "1.0.*",
             "doctrine/dbal": "~2.4",
-            "doctrine/doctrine-bundle": "~1.4",
+            "doctrine/doctrine-bundle": "^1.5|^2.0",
             "doctrine/orm": "~2.4,>=2.4.5",
             "doctrine/reflection": "~1.0",
             "egulias/email-validator": "~1.2,>=1.2.8|~2.0",
+            "guzzlehttp/promises": "^1.3.1",
             "masterminds/html5": "^2.6",
-            "monolog/monolog": "~1.11",
+            "monolog/monolog": "^1.25.1",
             "nyholm/psr7": "^1.0",
             "ocramius/proxy-manager": "^2.1",
+            "paragonie/sodium_compat": "^1.8",
+            "php-http/httplug": "^1.0|^2.0",
             "phpdocumentor/reflection-docblock": "^3.0|^4.0",
             "predis/predis": "~1.1",
             "psr/http-client": "^1.0",
             "psr/simple-cache": "^1.0",
             "symfony/phpunit-bridge": "^3.4.31|^4.3.4|~5.0",
-            "symfony/security-acl": "~2.8|~3.0"
+            "symfony/security-acl": "~2.8|~3.0",
+            "twig/cssinliner-extra": "^2.12",
+            "twig/inky-extra": "^2.12",
+            "twig/markdown-extra": "^2.12"
         },
-        "time": "2019-11-13T09:07:48+00:00",
+        "time": "2019-11-21T07:08:41+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "4.3-dev"
+                "dev-master": "4.4-dev"
             }
         },
         "installation-source": "dist",
@@ -3916,41 +3865,38 @@
     },
     {
         "name": "twig/twig",
-        "version": "v2.12.2",
-        "version_normalized": "2.12.2.0",
+        "version": "v3.0.0",
+        "version_normalized": "3.0.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/twigphp/Twig.git",
-            "reference": "d761fd1f1c6b867ae09a7d8119a6d95d06dc44ed"
+            "reference": "9b58bb8ac7a41d72fbb5a7dc643e07923e5ccc26"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/twigphp/Twig/zipball/d761fd1f1c6b867ae09a7d8119a6d95d06dc44ed",
-            "reference": "d761fd1f1c6b867ae09a7d8119a6d95d06dc44ed",
+            "url": "https://api.github.com/repos/twigphp/Twig/zipball/9b58bb8ac7a41d72fbb5a7dc643e07923e5ccc26",
+            "reference": "9b58bb8ac7a41d72fbb5a7dc643e07923e5ccc26",
             "shasum": ""
         },
         "require": {
-            "php": "^7.0",
+            "php": "^7.2.9",
             "symfony/polyfill-ctype": "^1.8",
             "symfony/polyfill-mbstring": "^1.3"
         },
         "require-dev": {
             "psr/container": "^1.0",
-            "symfony/debug": "^3.4|^4.2",
+            "symfony/debug": "^3.4|^4.2|^5.0",
             "symfony/phpunit-bridge": "^4.4@dev|^5.0"
         },
-        "time": "2019-11-11T16:52:09+00:00",
+        "time": "2019-11-15T20:38:32+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "2.12-dev"
+                "dev-master": "3.0-dev"
             }
         },
         "installation-source": "dist",
         "autoload": {
-            "psr-0": {
-                "Twig_": "lib/"
-            },
             "psr-4": {
                 "Twig\\": "src/"
             }

@@ -57,6 +57,10 @@ class AccessDecisionManager implements AccessDecisionManagerInterface
      */
     public function decide(TokenInterface $token, array $attributes, $object = null)
     {
+        if (\count($attributes) > 1) {
+            @trigger_error(sprintf('Passing more than one Security attribute to %s() is deprecated since Symfony 4.4. Use multiple decide() calls or the expression language (e.g. "has_role(...) or has_role(...)") instead.', __METHOD__), E_USER_DEPRECATED);
+        }
+
         return $this->{$this->strategy}($token, $attributes, $object);
     }
 
@@ -66,7 +70,7 @@ class AccessDecisionManager implements AccessDecisionManagerInterface
      * If all voters abstained from voting, the decision will be based on the
      * allowIfAllAbstainDecisions property value (defaults to false).
      */
-    private function decideAffirmative(TokenInterface $token, array $attributes, $object = null)
+    private function decideAffirmative(TokenInterface $token, array $attributes, $object = null): bool
     {
         $deny = 0;
         foreach ($this->voters as $voter) {
@@ -106,7 +110,7 @@ class AccessDecisionManager implements AccessDecisionManagerInterface
      * If all voters abstained from voting, the decision will be based on the
      * allowIfAllAbstainDecisions property value (defaults to false).
      */
-    private function decideConsensus(TokenInterface $token, array $attributes, $object = null)
+    private function decideConsensus(TokenInterface $token, array $attributes, $object = null): bool
     {
         $grant = 0;
         $deny = 0;
@@ -147,7 +151,7 @@ class AccessDecisionManager implements AccessDecisionManagerInterface
      * If all voters abstained from voting, the decision will be based on the
      * allowIfAllAbstainDecisions property value (defaults to false).
      */
-    private function decideUnanimous(TokenInterface $token, array $attributes, $object = null)
+    private function decideUnanimous(TokenInterface $token, array $attributes, $object = null): bool
     {
         $grant = 0;
         foreach ($this->voters as $voter) {

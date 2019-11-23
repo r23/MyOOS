@@ -1,6 +1,14 @@
 CHANGELOG
 =========
 
+4.4.0
+-----
+
+ * added `DoctrineClearEntityManagerWorkerSubscriber`
+ * deprecated `RegistryInterface`, use `Doctrine\Common\Persistence\ManagerRegistry`
+ * added support for invokable event listeners
+ * added `getMetadataDriverClass` method to deprecate class parameters in service configuration files
+
 4.3.0
 -----
 

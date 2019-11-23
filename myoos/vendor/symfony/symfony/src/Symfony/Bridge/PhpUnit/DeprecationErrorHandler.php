@@ -15,6 +15,7 @@ use PHPUnit\Framework\TestResult;
 use PHPUnit\Util\ErrorHandler;
 use Symfony\Bridge\PhpUnit\DeprecationErrorHandler\Configuration;
 use Symfony\Bridge\PhpUnit\DeprecationErrorHandler\Deprecation;
+use Symfony\Component\ErrorHandler\DebugClassLoader;
 
 /**
  * Catch deprecation notices and print a summary report at the end of the test suite.
@@ -50,7 +51,6 @@ class DeprecationErrorHandler
     ];
 
     private static $isRegistered = false;
-    private static $utilPrefix;
     private static $isAtLeastPhpUnit83;
 
     /**
@@ -75,15 +75,13 @@ class DeprecationErrorHandler
             return;
         }
 
-        self::$utilPrefix = class_exists('PHPUnit_Util_ErrorHandler') ? 'PHPUnit_Util_' : 'PHPUnit\Util\\';
-
         $handler = new self();
         $oldErrorHandler = set_error_handler([$handler, 'handleError']);
 
         if (null !== $oldErrorHandler) {
             restore_error_handler();
 
-            if ($oldErrorHandler instanceof ErrorHandler || [self::$utilPrefix.'ErrorHandler', 'handleError'] === $oldErrorHandler) {
+            if ($oldErrorHandler instanceof ErrorHandler || [ErrorHandler::class, 'handleError'] === $oldErrorHandler) {
                 restore_error_handler();
                 self::register($mode);
             }
@@ -138,7 +136,7 @@ class DeprecationErrorHandler
 
             if (0 !== error_reporting()) {
                 $group = 'unsilenced';
-            } elseif ($deprecation->isLegacy(self::$utilPrefix)) {
+            } elseif ($deprecation->isLegacy()) {
                 $group = 'legacy';
             } else {
                 $group = [
@@ -181,6 +179,9 @@ class DeprecationErrorHandler
             return;
         }
 
+        if (class_exists(DebugClassLoader::class, false)) {
+            DebugClassLoader::checkClasses();
+        }
         $currErrorHandler = set_error_handler('var_dump');
         restore_error_handler();
 
@@ -325,7 +326,7 @@ class DeprecationErrorHandler
             self::$isAtLeastPhpUnit83 = class_exists('PHPUnit\Util\ErrorHandler') && method_exists('PHPUnit\Util\ErrorHandler', '__invoke');
         }
         if (!self::$isAtLeastPhpUnit83) {
-            return (class_exists('PHPUnit_Util_ErrorHandler', false) ? 'PHPUnit_Util_' : 'PHPUnit\Util\\').'ErrorHandler::handleError';
+            return 'PHPUnit\Util\ErrorHandler::handleError';
         }
 
         foreach (debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT | DEBUG_BACKTRACE_IGNORE_ARGS) as $frame) {
@@ -353,6 +354,11 @@ class DeprecationErrorHandler
     private static function hasColorSupport()
     {
         if (!\defined('STDOUT')) {
+            return false;
+        }
+
+        // Follow https://no-color.org/
+        if (isset($_SERVER['NO_COLOR']) || false !== getenv('NO_COLOR')) {
             return false;
         }
 

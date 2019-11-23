@@ -29,6 +29,7 @@ install:
     - echo max_execution_time=1200 >> php.ini-min
     - echo date.timezone="America/Los_Angeles" >> php.ini-min
     - echo extension_dir=ext >> php.ini-min
+    - echo extension=php_xsl.dll >> php.ini-min
     - copy /Y php.ini-min php.ini-max
     - echo zend_extension=php_opcache.dll >> php.ini-max
     - echo opcache.enable_cli=1 >> php.ini-max
@@ -58,7 +59,7 @@ test_script:
     - SET SYMFONY_PHPUNIT_SKIPPED_TESTS=phpunit.skipped
     - copy /Y c:\php\php.ini-min c:\php\php.ini
     - IF %APPVEYOR_REPO_BRANCH% neq master (rm -Rf src\Symfony\Bridge\PhpUnit)
-    - php phpunit src\Symfony --exclude-group benchmark,intl-data || SET X=!errorlevel!
+    - php phpunit src\Symfony --exclude-group tty,benchmark,intl-data || SET X=!errorlevel!
     - copy /Y c:\php\php.ini-max c:\php\php.ini
-    - php phpunit src\Symfony --exclude-group benchmark,intl-data || SET X=!errorlevel!
+    - php phpunit src\Symfony --exclude-group tty,benchmark,intl-data || SET X=!errorlevel!
     - exit %X%

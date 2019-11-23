@@ -11,9 +11,9 @@
 
 namespace Symfony\Bridge\Twig\Extension;
 
-use Fig\Link\GenericLinkProvider;
-use Fig\Link\Link;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\WebLink\GenericLinkProvider;
+use Symfony\Component\WebLink\Link;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -21,6 +21,8 @@ use Twig\TwigFunction;
  * Twig extension for the Symfony WebLink component.
  *
  * @author Kévin Dunglas <dunglas@gmail.com>
+ *
+ * @final since Symfony 4.4
  */
 class WebLinkExtension extends AbstractExtension
 {
@@ -33,6 +35,8 @@ class WebLinkExtension extends AbstractExtension
 
     /**
      * {@inheritdoc}
+     *
+     * @return TwigFunction[]
      */
     public function getFunctions()
     {

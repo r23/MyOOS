@@ -47,9 +47,12 @@ $getEnvVar = function ($name, $default = false) {
     return $default;
 };
 
-if (PHP_VERSION_ID >= 70100) {
+if (PHP_VERSION_ID >= 70200) {
+    // PHPUnit 8 requires PHP 7.2+
+    $PHPUNIT_VERSION = $getEnvVar('SYMFONY_PHPUNIT_VERSION', '8.3');
+} elseif (PHP_VERSION_ID >= 70100) {
     // PHPUnit 7 requires PHP 7.1+
-    $PHPUNIT_VERSION = $getEnvVar('SYMFONY_PHPUNIT_VERSION', '7.4');
+    $PHPUNIT_VERSION = $getEnvVar('SYMFONY_PHPUNIT_VERSION', '7.5');
 } elseif (PHP_VERSION_ID >= 70000) {
     // PHPUnit 6 requires PHP 7.0+
     $PHPUNIT_VERSION = $getEnvVar('SYMFONY_PHPUNIT_VERSION', '6.5');
@@ -59,6 +62,8 @@ if (PHP_VERSION_ID >= 70100) {
 } else {
     $PHPUNIT_VERSION = '4.8';
 }
+
+$PHPUNIT_REMOVE_RETURN_TYPEHINT = filter_var($getEnvVar('SYMFONY_PHPUNIT_REMOVE_RETURN_TYPEHINT', '0'), FILTER_VALIDATE_BOOLEAN);
 
 $COMPOSER_JSON = getenv('COMPOSER') ?: 'composer.json';
 
@@ -94,24 +99,26 @@ foreach ($defaultEnvs as $envName => $envValue) {
 $COMPOSER = file_exists($COMPOSER = $oldPwd.'/composer.phar')
     || ($COMPOSER = rtrim('\\' === DIRECTORY_SEPARATOR ? preg_replace('/[\r\n].*/', '', `where.exe composer.phar`) : `which composer.phar 2> /dev/null`))
     || ($COMPOSER = rtrim('\\' === DIRECTORY_SEPARATOR ? preg_replace('/[\r\n].*/', '', `where.exe composer`) : `which composer 2> /dev/null`))
+    || file_exists($COMPOSER = rtrim('\\' === DIRECTORY_SEPARATOR ? `git rev-parse --show-toplevel 2> NUL` : `git rev-parse --show-toplevel 2> /dev/null`).DIRECTORY_SEPARATOR.'composer.phar')
     ? $PHP.' '.escapeshellarg($COMPOSER)
     : 'composer';
 
 $SYMFONY_PHPUNIT_REMOVE = $getEnvVar('SYMFONY_PHPUNIT_REMOVE', 'phpspec/prophecy'.($PHPUNIT_VERSION < 6.0 ? ' symfony/yaml': ''));
-
-if (!file_exists("$PHPUNIT_DIR/phpunit-$PHPUNIT_VERSION/phpunit") || md5_file(__FILE__)."\n".$SYMFONY_PHPUNIT_REMOVE !== @file_get_contents("$PHPUNIT_DIR/.$PHPUNIT_VERSION.md5")) {
+$configurationHash = md5(implode(PHP_EOL, array(md5_file(__FILE__), $SYMFONY_PHPUNIT_REMOVE, (int) $PHPUNIT_REMOVE_RETURN_TYPEHINT)));
+$PHPUNIT_VERSION_DIR=sprintf('phpunit-%s-%d', $PHPUNIT_VERSION, $PHPUNIT_REMOVE_RETURN_TYPEHINT);
+if (!file_exists("$PHPUNIT_DIR/$PHPUNIT_VERSION_DIR/phpunit") || $configurationHash !== @file_get_contents("$PHPUNIT_DIR/.$PHPUNIT_VERSION_DIR.md5")) {
     // Build a standalone phpunit without symfony/yaml nor prophecy by default
 
     @mkdir($PHPUNIT_DIR, 0777, true);
     chdir($PHPUNIT_DIR);
-    if (file_exists("phpunit-$PHPUNIT_VERSION")) {
-        passthru(sprintf('\\' === DIRECTORY_SEPARATOR ? 'rmdir /S /Q %s > NUL': 'rm -rf %s', "phpunit-$PHPUNIT_VERSION.old"));
-        rename("phpunit-$PHPUNIT_VERSION", "phpunit-$PHPUNIT_VERSION.old");
-        passthru(sprintf('\\' === DIRECTORY_SEPARATOR ? 'rmdir /S /Q %s': 'rm -rf %s', "phpunit-$PHPUNIT_VERSION.old"));
+    if (file_exists("$PHPUNIT_VERSION_DIR")) {
+        passthru(sprintf('\\' === DIRECTORY_SEPARATOR ? 'rmdir /S /Q %s > NUL': 'rm -rf %s', "$PHPUNIT_VERSION_DIR.old"));
+        rename("$PHPUNIT_VERSION_DIR", "$PHPUNIT_VERSION_DIR.old");
+        passthru(sprintf('\\' === DIRECTORY_SEPARATOR ? 'rmdir /S /Q %s': 'rm -rf %s', "$PHPUNIT_VERSION_DIR.old"));
     }
-    passthru("$COMPOSER create-project --no-install --prefer-dist --no-scripts --no-plugins --no-progress --ansi phpunit/phpunit phpunit-$PHPUNIT_VERSION \"$PHPUNIT_VERSION.*\"");
-    @copy("phpunit-$PHPUNIT_VERSION/phpunit.xsd", 'phpunit.xsd');
-    chdir("phpunit-$PHPUNIT_VERSION");
+    passthru("$COMPOSER create-project --no-install --prefer-dist --no-scripts --no-plugins --no-progress --ansi phpunit/phpunit $PHPUNIT_VERSION_DIR \"$PHPUNIT_VERSION.*\"");
+    @copy("$PHPUNIT_VERSION_DIR/phpunit.xsd", 'phpunit.xsd');
+    chdir("$PHPUNIT_VERSION_DIR");
     if ($SYMFONY_PHPUNIT_REMOVE) {
         passthru("$COMPOSER remove --no-update ".$SYMFONY_PHPUNIT_REMOVE);
     }
@@ -138,6 +145,20 @@ if (!file_exists("$PHPUNIT_DIR/phpunit-$PHPUNIT_VERSION/phpunit") || md5_file(__
     if ($exit) {
         exit($exit);
     }
+
+    // Mutate TestCase code
+    $alteredCode = file_get_contents($alteredFile = './src/Framework/TestCase.php');
+    if ($PHPUNIT_REMOVE_RETURN_TYPEHINT) {
+        $alteredCode = preg_replace('/^    ((?:protected|public)(?: static)? function \w+\(\)): void/m', '    $1', $alteredCode);
+    }
+    $alteredCode = preg_replace('/abstract class (?:TestCase|PHPUnit_Framework_TestCase)[^\{]+\{/', '$0 '.PHP_EOL."    use \Symfony\Bridge\PhpUnit\Legacy\PolyfillTestCaseTrait;", $alteredCode, 1);
+    file_put_contents($alteredFile, $alteredCode);
+
+    // Mutate Assert code
+    $alteredCode = file_get_contents($alteredFile = './src/Framework/Assert.php');
+    $alteredCode = preg_replace('/abstract class (?:Assert|PHPUnit_Framework_Assert)[^\{]+\{/', '$0 '.PHP_EOL."    use \Symfony\Bridge\PhpUnit\Legacy\PolyfillAssertTrait;", $alteredCode, 1);
+    file_put_contents($alteredFile, $alteredCode);
+
     file_put_contents('phpunit', <<<'EOPHP'
 <?php
 
@@ -160,9 +181,8 @@ Symfony\Bridge\PhpUnit\TextUI\Command::main();
 EOPHP
     );
     chdir('..');
-    file_put_contents(".$PHPUNIT_VERSION.md5", md5_file(__FILE__)."\n".$SYMFONY_PHPUNIT_REMOVE);
+    file_put_contents(".$PHPUNIT_VERSION_DIR.md5", $configurationHash);
     chdir($oldPwd);
-
 }
 
 global $argv, $argc;
@@ -200,7 +220,7 @@ if (isset($argv[1]) && is_dir($argv[1]) && !file_exists($argv[1].'/phpunit.xml.d
     }
 }
 
-$cmd[0] = sprintf('%s %s --colors=always', $PHP, escapeshellarg("$PHPUNIT_DIR/phpunit-$PHPUNIT_VERSION/phpunit"));
+$cmd[0] = sprintf('%s %s --colors=always', $PHP, escapeshellarg("$PHPUNIT_DIR/$PHPUNIT_VERSION_DIR/phpunit"));
 $cmd = str_replace('%', '%%', implode(' ', $cmd)).' %1$s';
 
 if ('\\' === DIRECTORY_SEPARATOR) {
@@ -268,7 +288,7 @@ if ($components) {
     array_splice($argv, 1, 0, array('--colors=always'));
     $_SERVER['argv'] = $argv;
     $_SERVER['argc'] = ++$argc;
-    include "$PHPUNIT_DIR/phpunit-$PHPUNIT_VERSION/phpunit";
+    include "$PHPUNIT_DIR/$PHPUNIT_VERSION_DIR/phpunit";
 }
 
 exit($exit);

@@ -20,13 +20,11 @@ use Symfony\Component\Mime\RawMessage;
  * Implementations must support synchronous and asynchronous sending.
  *
  * @author Fabien Potencier <fabien@symfony.com>
- *
- * @experimental in 4.3
  */
 interface MailerInterface
 {
     /**
      * @throws TransportExceptionInterface
      */
-    public function send(RawMessage $message, SmtpEnvelope $envelope = null): void;
+    public function send(RawMessage $message, Envelope $envelope = null): void;
 }

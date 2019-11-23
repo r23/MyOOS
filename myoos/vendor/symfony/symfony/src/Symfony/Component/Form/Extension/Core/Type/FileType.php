@@ -148,7 +148,7 @@ class FileType extends AbstractType
         return 'file';
     }
 
-    private function getFileUploadError($errorCode)
+    private function getFileUploadError(int $errorCode)
     {
         $messageParameters = [];
 
@@ -178,10 +178,8 @@ class FileType extends AbstractType
      * Returns the maximum size of an uploaded file as configured in php.ini.
      *
      * This method should be kept in sync with Symfony\Component\HttpFoundation\File\UploadedFile::getMaxFilesize().
-     *
-     * @return int The maximum size of an uploaded file in bytes
      */
-    private static function getMaxFilesize()
+    private static function getMaxFilesize(): int
     {
         $iniMax = strtolower(ini_get('upload_max_filesize'));
 
@@ -217,7 +215,7 @@ class FileType extends AbstractType
      *
      * This method should be kept in sync with Symfony\Component\Validator\Constraints\FileValidator::factorizeSizes().
      */
-    private function factorizeSizes($size, $limit)
+    private function factorizeSizes(int $size, int $limit)
     {
         $coef = self::MIB_BYTES;
         $coefFactor = self::KIB_BYTES;
@@ -248,8 +246,8 @@ class FileType extends AbstractType
     /**
      * This method should be kept in sync with Symfony\Component\Validator\Constraints\FileValidator::moreDecimalsThan().
      */
-    private static function moreDecimalsThan($double, $numberOfDecimals)
+    private static function moreDecimalsThan(string $double, int $numberOfDecimals): bool
     {
-        return \strlen((string) $double) > \strlen(round($double, $numberOfDecimals));
+        return \strlen($double) > \strlen(round($double, $numberOfDecimals));
     }
 }

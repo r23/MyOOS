@@ -42,7 +42,11 @@ class DebugCommand extends Command
     private $filesystemLoaders;
     private $fileLinkFormatter;
 
-    public function __construct(Environment $twig, string $projectDir = null, array $bundlesMetadata = [], string $twigDefaultPath = null, string $rootDir = null, FileLinkFormatter $fileLinkFormatter = null)
+    /**
+     * @param FileLinkFormatter|null $fileLinkFormatter
+     * @param string|null            $rootDir
+     */
+    public function __construct(Environment $twig, string $projectDir = null, array $bundlesMetadata = [], string $twigDefaultPath = null, $fileLinkFormatter = null, $rootDir = null)
     {
         parent::__construct();
 
@@ -50,8 +54,16 @@ class DebugCommand extends Command
         $this->projectDir = $projectDir;
         $this->bundlesMetadata = $bundlesMetadata;
         $this->twigDefaultPath = $twigDefaultPath;
-        $this->rootDir = $rootDir;
-        $this->fileLinkFormatter = $fileLinkFormatter;
+
+        if (\is_string($fileLinkFormatter) || $rootDir instanceof FileLinkFormatter) {
+            @trigger_error(sprintf('Passing a string as "$fileLinkFormatter" 5th argument or an instance of FileLinkFormatter as "$rootDir" 6th argument of the "%s()" method is deprecated since Symfony 4.4, swap the variables position.', __METHOD__), E_USER_DEPRECATED);
+
+            $this->rootDir = $fileLinkFormatter;
+            $this->fileLinkFormatter = $rootDir;
+        } else {
+            $this->fileLinkFormatter = $fileLinkFormatter;
+            $this->rootDir = $rootDir;
+        }
     }
 
     protected function configure()
@@ -99,12 +111,16 @@ EOF
 
         switch ($input->getOption('format')) {
             case 'text':
-                return $name ? $this->displayPathsText($io, $name) : $this->displayGeneralText($io, $filter);
+                $name ? $this->displayPathsText($io, $name) : $this->displayGeneralText($io, $filter);
+                break;
             case 'json':
-                return $name ? $this->displayPathsJson($io, $name) : $this->displayGeneralJson($io, $filter);
+                $name ? $this->displayPathsJson($io, $name) : $this->displayGeneralJson($io, $filter);
+                break;
             default:
                 throw new InvalidArgumentException(sprintf('The format "%s" is not supported.', $input->getOption('format')));
         }
+
+        return 0;
     }
 
     private function displayPathsText(SymfonyStyle $io, string $name)
@@ -236,7 +252,7 @@ EOF
         }
     }
 
-    private function displayGeneralJson(SymfonyStyle $io, $filter)
+    private function displayGeneralJson(SymfonyStyle $io, ?string $filter)
     {
         $decorated = $io->isDecorated();
         $types = ['functions', 'filters', 'tests', 'globals'];
@@ -290,7 +306,7 @@ EOF
         return $loaderPaths;
     }
 
-    private function getMetadata($type, $entity)
+    private function getMetadata(string $type, $entity)
     {
         if ('globals' === $type) {
             return $entity;
@@ -348,7 +364,7 @@ EOF
         return null;
     }
 
-    private function getPrettyMetadata($type, $entity, $decorated)
+    private function getPrettyMetadata(string $type, $entity, bool $decorated): ?string
     {
         if ('tests' === $type) {
             return '';

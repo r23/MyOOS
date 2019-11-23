@@ -143,7 +143,7 @@ class DateTimeNormalizer implements NormalizerInterface, DenormalizerInterface, 
      *
      * @return string[]
      */
-    private function formatDateTimeErrors(array $errors)
+    private function formatDateTimeErrors(array $errors): array
     {
         $formattedErrors = [];
 
@@ -154,7 +154,7 @@ class DateTimeNormalizer implements NormalizerInterface, DenormalizerInterface, 
         return $formattedErrors;
     }
 
-    private function getTimezone(array $context)
+    private function getTimezone(array $context): ?\DateTimeZone
     {
         $dateTimeZone = $context[self::TIMEZONE_KEY] ?? $this->defaultContext[self::TIMEZONE_KEY];
 

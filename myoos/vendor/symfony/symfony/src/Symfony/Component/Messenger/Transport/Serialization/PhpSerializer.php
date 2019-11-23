@@ -17,8 +17,6 @@ use Symfony\Component\Messenger\Stamp\NonSendableStampInterface;
 
 /**
  * @author Ryan Weaver<ryan@symfonycasts.com>
- *
- * @experimental in 4.3
  */
 class PhpSerializer implements SerializerInterface
 {
@@ -50,7 +48,7 @@ class PhpSerializer implements SerializerInterface
         ];
     }
 
-    private function safelyUnserialize($contents)
+    private function safelyUnserialize(string $contents)
     {
         $signalingException = new MessageDecodingFailedException(sprintf('Could not decode message using PHP serialization: %s.', $contents));
         $prevUnserializeHandler = ini_set('unserialize_callback_func', self::class.'::handleUnserializeCallback');

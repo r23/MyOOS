@@ -17,18 +17,15 @@ use Symfony\Component\Messenger\Envelope;
  * Dispatched when a message was received from a transport and handling failed.
  *
  * The event name is the class name.
- *
- * @experimental in 4.3
  */
-class WorkerMessageFailedEvent extends AbstractWorkerMessageEvent
+final class WorkerMessageFailedEvent extends AbstractWorkerMessageEvent
 {
     private $throwable;
-    private $willRetry;
+    private $willRetry = false;
 
-    public function __construct(Envelope $envelope, string $receiverName, \Throwable $error, bool $willRetry)
+    public function __construct(Envelope $envelope, string $receiverName, \Throwable $error)
     {
         $this->throwable = $error;
-        $this->willRetry = $willRetry;
 
         parent::__construct($envelope, $receiverName);
     }
@@ -41,5 +38,10 @@ class WorkerMessageFailedEvent extends AbstractWorkerMessageEvent
     public function willRetry(): bool
     {
         return $this->willRetry;
+    }
+
+    public function setForRetry(): void
+    {
+        $this->willRetry = true;
     }
 }

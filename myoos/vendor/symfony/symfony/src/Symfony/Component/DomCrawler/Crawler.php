@@ -425,6 +425,45 @@ class Crawler implements \Countable, \IteratorAggregate
         return $this->createSubCrawler($this->sibling($this->getNode(0)->parentNode->firstChild));
     }
 
+    public function matches(string $selector): bool
+    {
+        if (!$this->nodes) {
+            return false;
+        }
+
+        $converter = $this->createCssSelectorConverter();
+        $xpath = $converter->toXPath($selector, 'self::');
+
+        return 0 !== $this->filterRelativeXPath($xpath)->count();
+    }
+
+    /**
+     * Return first parents (heading toward the document root) of the Element that matches the provided selector.
+     *
+     * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/closest#Polyfill
+     *
+     * @throws \InvalidArgumentException When current node is empty
+     */
+    public function closest(string $selector): ?self
+    {
+        if (!$this->nodes) {
+            throw new \InvalidArgumentException('The current node list is empty.');
+        }
+
+        $domNode = $this->getNode(0);
+
+        while (XML_ELEMENT_NODE === $domNode->nodeType) {
+            $node = $this->createSubCrawler($domNode);
+            if ($node->matches($selector)) {
+                return $node;
+            }
+
+            $domNode = $node->getNode(0)->parentNode;
+        }
+
+        return null;
+    }
+
     /**
      * Returns the next siblings nodes of the current selection.
      *
@@ -552,15 +591,18 @@ class Crawler implements \Countable, \IteratorAggregate
     }
 
     /**
-     * Returns the node value of the first node of the list.
+     * Returns the text of the first node of the list.
      *
-     * @param string|null $default When not null: the value to return when the current node is empty
+     * Pass true as the second argument to normalize whitespaces.
+     *
+     * @param string|null $default             When not null: the value to return when the current node is empty
+     * @param bool        $normalizeWhitespace Whether whitespaces should be trimmed and normalized to single spaces
      *
      * @return string The node value
      *
      * @throws \InvalidArgumentException When current node is empty
      */
-    public function text(/* string $default = null */)
+    public function text(/* string $default = null, bool $normalizeWhitespace = true */)
     {
         if (!$this->nodes) {
             if (0 < \func_num_args() && null !== func_get_arg(0)) {
@@ -570,7 +612,21 @@ class Crawler implements \Countable, \IteratorAggregate
             throw new \InvalidArgumentException('The current node list is empty.');
         }
 
-        return $this->getNode(0)->nodeValue;
+        $text = $this->getNode(0)->nodeValue;
+
+        if (\func_num_args() <= 1) {
+            if (trim(preg_replace('/(?:\s{2,}+|[^\S ])/', ' ', $text)) !== $text) {
+                @trigger_error(sprintf('"%s()" will normalize whitespaces by default in Symfony 5.0, set the second "$normalizeWhitespace" argument to false to retrieve the non-normalized version of the text.', __METHOD__), E_USER_DEPRECATED);
+            }
+
+            return $text;
+        }
+
+        if (\func_num_args() > 1 && func_get_arg(1)) {
+            return trim(preg_replace('/(?:\s{2,}+|[^\S ])/', ' ', $text));
+        }
+
+        return $text;
     }
 
     /**
@@ -605,6 +661,22 @@ class Crawler implements \Countable, \IteratorAggregate
         }
 
         return $html;
+    }
+
+    public function outerHtml(): string
+    {
+        if (!\count($this)) {
+            throw new \InvalidArgumentException('The current node list is empty.');
+        }
+
+        $node = $this->getNode(0);
+        $owner = $node->ownerDocument;
+
+        if (null !== $this->html5Parser && '<!DOCTYPE html>' === $owner->saveXML($owner->childNodes[0])) {
+            $owner = $this->html5Parser;
+        }
+
+        return $owner->saveHTML($node);
     }
 
     /**
@@ -946,11 +1018,9 @@ class Crawler implements \Countable, \IteratorAggregate
      *
      * The XPath expression should already be processed to apply it in the context of each node.
      *
-     * @param string $xpath
-     *
      * @return static
      */
-    private function filterRelativeXPath($xpath)
+    private function filterRelativeXPath(string $xpath)
     {
         $prefixes = $this->findNamespacePrefixes($xpath);
 

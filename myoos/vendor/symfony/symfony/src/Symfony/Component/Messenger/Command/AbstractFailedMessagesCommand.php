@@ -25,7 +25,6 @@ use Symfony\Component\Messenger\Transport\Receiver\ReceiverInterface;
  * @author Ryan Weaver <ryan@symfonycasts.com>
  *
  * @internal
- * @experimental in 4.3
  */
 abstract class AbstractFailedMessagesCommand extends Command
 {
@@ -40,7 +39,7 @@ abstract class AbstractFailedMessagesCommand extends Command
         parent::__construct();
     }
 
-    protected function getReceiverName()
+    protected function getReceiverName(): string
     {
         return $this->receiverName;
     }
@@ -90,7 +89,7 @@ abstract class AbstractFailedMessagesCommand extends Command
         $redeliveryStamps = $envelope->all(RedeliveryStamp::class);
         $io->writeln(' Message history:');
         foreach ($redeliveryStamps as $redeliveryStamp) {
-            $io->writeln(sprintf('  * Message failed and redelivered to the <info>%s</info> transport at <info>%s</info>', $redeliveryStamp->getSenderClassOrAlias(), $redeliveryStamp->getRedeliveredAt()->format('Y-m-d H:i:s')));
+            $io->writeln(sprintf('  * Message failed at <info>%s</info> and was redelivered', $redeliveryStamp->getRedeliveredAt()->format('Y-m-d H:i:s')));
         }
         $io->newLine();
 

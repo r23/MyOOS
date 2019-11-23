@@ -68,14 +68,10 @@ class EntityType extends DoctrineType
      * We consider two query builders with an equal SQL string and
      * equal parameters to be equal.
      *
-     * @param QueryBuilder $queryBuilder
-     *
-     * @return array
-     *
      * @internal This method is public to be usable as callback. It should not
      *           be used in user code.
      */
-    public function getQueryBuilderPartsForCachingHash($queryBuilder)
+    public function getQueryBuilderPartsForCachingHash(QueryBuilder $queryBuilder): ?array
     {
         return [
             $queryBuilder->getQuery()->getSQL(),
@@ -85,10 +81,8 @@ class EntityType extends DoctrineType
 
     /**
      * Converts a query parameter to an array.
-     *
-     * @return array The array representation of the parameter
      */
-    private function parameterToArray(Parameter $parameter)
+    private function parameterToArray(Parameter $parameter): array
     {
         return [$parameter->getName(), $parameter->getType(), $parameter->getValue()];
     }

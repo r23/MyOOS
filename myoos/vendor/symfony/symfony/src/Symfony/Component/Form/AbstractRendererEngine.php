@@ -126,19 +126,8 @@ abstract class AbstractRendererEngine implements FormRendererEngineInterface
      * Loads the cache with the resource for a specific level of a block hierarchy.
      *
      * @see getResourceForBlockHierarchy()
-     *
-     * @param string   $cacheKey           The cache key used for storing the
-     *                                     resource
-     * @param FormView $view               The form view for finding the applying
-     *                                     themes
-     * @param string[] $blockNameHierarchy The block hierarchy, with the most
-     *                                     specific block name at the end
-     * @param int      $hierarchyLevel     The level in the block hierarchy that
-     *                                     should be loaded
-     *
-     * @return bool True if the resource could be loaded, false otherwise
      */
-    private function loadResourceForBlockNameHierarchy($cacheKey, FormView $view, array $blockNameHierarchy, $hierarchyLevel)
+    private function loadResourceForBlockNameHierarchy(string $cacheKey, FormView $view, array $blockNameHierarchy, $hierarchyLevel): bool
     {
         $blockName = $blockNameHierarchy[$hierarchyLevel];
 

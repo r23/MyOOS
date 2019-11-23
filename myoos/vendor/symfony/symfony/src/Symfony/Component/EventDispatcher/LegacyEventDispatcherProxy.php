@@ -116,7 +116,7 @@ final class LegacyEventDispatcherProxy implements EventDispatcherInterface
     /**
      * {@inheritdoc}
      */
-    public function getListeners($eventName = null)
+    public function getListeners($eventName = null): array
     {
         return $this->dispatcher->getListeners($eventName);
     }
@@ -124,7 +124,7 @@ final class LegacyEventDispatcherProxy implements EventDispatcherInterface
     /**
      * {@inheritdoc}
      */
-    public function getListenerPriority($eventName, $listener)
+    public function getListenerPriority($eventName, $listener): ?int
     {
         return $this->dispatcher->getListenerPriority($eventName, $listener);
     }
@@ -132,7 +132,7 @@ final class LegacyEventDispatcherProxy implements EventDispatcherInterface
     /**
      * {@inheritdoc}
      */
-    public function hasListeners($eventName = null)
+    public function hasListeners($eventName = null): bool
     {
         return $this->dispatcher->hasListeners($eventName);
     }

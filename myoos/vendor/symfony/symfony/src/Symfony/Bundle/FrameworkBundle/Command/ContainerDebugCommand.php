@@ -114,7 +114,7 @@ EOF
     /**
      * {@inheritdoc}
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         if ($input->getOption('show-private')) {
             @trigger_error('The "--show-private" option no longer has any effect and is deprecated since Symfony 4.1.', E_USER_DEPRECATED);
@@ -163,6 +163,10 @@ EOF
 
         try {
             $helper->describe($io, $object, $options);
+
+            if (isset($options['id']) && isset($this->getApplication()->getKernel()->getContainer()->getRemovedIds()[$options['id']])) {
+                $errorIo->note(sprintf('The "%s" service or alias has been removed or inlined when the container was compiled.', $options['id']));
+            }
         } catch (ServiceNotFoundException $e) {
             if ('' !== $e->getId() && '@' === $e->getId()[0]) {
                 throw new ServiceNotFoundException($e->getId(), $e->getSourceId(), null, [substr($e->getId(), 1)]);
@@ -180,6 +184,8 @@ EOF
                 $errorIo->comment('To search for a specific service, re-run this command with a search term. (e.g. <comment>debug:container log</comment>)');
             }
         }
+
+        return 0;
     }
 
     /**
@@ -209,11 +215,9 @@ EOF
     /**
      * Loads the ContainerBuilder from the cache.
      *
-     * @return ContainerBuilder
-     *
      * @throws \LogicException
      */
-    protected function getContainerBuilder()
+    protected function getContainerBuilder(): ContainerBuilder
     {
         if ($this->containerBuilder) {
             return $this->containerBuilder;
@@ -234,7 +238,7 @@ EOF
         return $this->containerBuilder = $container;
     }
 
-    private function findProperServiceName(InputInterface $input, SymfonyStyle $io, ContainerBuilder $builder, string $name, bool $showHidden)
+    private function findProperServiceName(InputInterface $input, SymfonyStyle $io, ContainerBuilder $builder, string $name, bool $showHidden): string
     {
         $name = ltrim($name, '\\');
 
@@ -254,7 +258,7 @@ EOF
         return $io->choice('Select one of the following services to display its information', $matchingServices);
     }
 
-    private function findServiceIdsContaining(ContainerBuilder $builder, string $name, bool $showHidden)
+    private function findServiceIdsContaining(ContainerBuilder $builder, string $name, bool $showHidden): array
     {
         $serviceIds = $builder->getServiceIds();
         $foundServiceIds = $foundServiceIdsIgnoringBackslashes = [];
@@ -276,7 +280,7 @@ EOF
     /**
      * @internal
      */
-    public function filterToServiceTypes($serviceId)
+    public function filterToServiceTypes(string $serviceId): bool
     {
         // filter out things that could not be valid class names
         if (!preg_match('/(?(DEFINE)(?<V>[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*+))^(?&V)(?:\\\\(?&V))*+(?: \$(?&V))?$/', $serviceId)) {

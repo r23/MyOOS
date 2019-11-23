@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+4.4.0
+-----
+
+* The `RouteProcessor` class has been made final
+* Added `ElasticsearchLogstashHandler`
+
 4.3.0
 -----
 

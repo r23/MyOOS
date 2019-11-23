@@ -6,7 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Twig_' => array($vendorDir . '/twig/twig/lib'),
     'Slim' => array($vendorDir . '/slim/slim'),
     'Rize\\UriTemplate' => array($vendorDir . '/rize/uri-template/src'),
     'PayPal' => array($vendorDir . '/paypal/rest-api-sdk-php/lib'),

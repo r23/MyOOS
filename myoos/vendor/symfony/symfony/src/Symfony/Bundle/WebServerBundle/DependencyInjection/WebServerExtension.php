@@ -19,6 +19,8 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
 /**
  * @author Robin Chalas <robin.chalas@gmail.com>
+ *
+ * @deprecated since Symfony 4.4, to be removed in 5.0; the new Symfony local server has more features, you can use it instead.
  */
 class WebServerExtension extends Extension
 {
@@ -42,7 +44,7 @@ class WebServerExtension extends Extension
         }
     }
 
-    private function getPublicDirectory(ContainerBuilder $container)
+    private function getPublicDirectory(ContainerBuilder $container): string
     {
         $kernelProjectDir = $container->getParameter('kernel.project_dir');
         $publicDir = 'public';

@@ -11,6 +11,7 @@
 
 namespace Symfony\Bridge\Monolog\Handler;
 
+use Monolog\Formatter\FormatterInterface;
 use Monolog\Handler\AbstractHandler;
 use Monolog\Logger;
 use Symfony\Bridge\Monolog\Formatter\VarDumperFormatter;
@@ -38,6 +39,8 @@ class ServerLogHandler extends AbstractHandler
 
     /**
      * {@inheritdoc}
+     *
+     * @return bool
      */
     public function handle(array $record)
     {
@@ -77,6 +80,8 @@ class ServerLogHandler extends AbstractHandler
 
     /**
      * {@inheritdoc}
+     *
+     * @return FormatterInterface
      */
     protected function getDefaultFormatter()
     {
@@ -98,7 +103,7 @@ class ServerLogHandler extends AbstractHandler
         return $socket;
     }
 
-    private function formatRecord(array $record)
+    private function formatRecord(array $record): string
     {
         if ($this->processors) {
             foreach ($this->processors as $processor) {

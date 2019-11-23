@@ -18,8 +18,6 @@ use Symfony\Contracts\Service\ResetInterface;
  * Transport that stays in memory. Useful for testing purpose.
  *
  * @author Gary PEGEOT <garypegeot@gmail.com>
- *
- * @experimental in 4.3
  */
 class InMemoryTransport implements TransportInterface, ResetInterface
 {
@@ -39,11 +37,16 @@ class InMemoryTransport implements TransportInterface, ResetInterface
     private $rejected = [];
 
     /**
+     * @var Envelope[]
+     */
+    private $queue = [];
+
+    /**
      * {@inheritdoc}
      */
     public function get(): iterable
     {
-        return $this->sent;
+        return array_values($this->queue);
     }
 
     /**
@@ -52,6 +55,8 @@ class InMemoryTransport implements TransportInterface, ResetInterface
     public function ack(Envelope $envelope): void
     {
         $this->acknowledged[] = $envelope;
+        $id = spl_object_hash($envelope);
+        unset($this->queue[$id]);
     }
 
     /**
@@ -60,6 +65,8 @@ class InMemoryTransport implements TransportInterface, ResetInterface
     public function reject(Envelope $envelope): void
     {
         $this->rejected[] = $envelope;
+        $id = spl_object_hash($envelope);
+        unset($this->queue[$id]);
     }
 
     /**
@@ -68,13 +75,15 @@ class InMemoryTransport implements TransportInterface, ResetInterface
     public function send(Envelope $envelope): Envelope
     {
         $this->sent[] = $envelope;
+        $id = spl_object_hash($envelope);
+        $this->queue[$id] = $envelope;
 
         return $envelope;
     }
 
     public function reset()
     {
-        $this->sent = $this->rejected = $this->acknowledged = [];
+        $this->sent = $this->queue = $this->rejected = $this->acknowledged = [];
     }
 
     /**
@@ -91,5 +100,13 @@ class InMemoryTransport implements TransportInterface, ResetInterface
     public function getRejected(): array
     {
         return $this->rejected;
+    }
+
+    /**
+     * @return Envelope[]
+     */
+    public function getSent(): array
+    {
+        return $this->sent;
     }
 }

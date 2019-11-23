@@ -12,7 +12,7 @@
 namespace Symfony\Bundle\FrameworkBundle\CacheWarmer;
 
 use Psr\Container\ContainerInterface;
-use Symfony\Component\DependencyInjection\ServiceSubscriberInterface;
+use Symfony\Bundle\FrameworkBundle\DependencyInjection\CompatibilityServiceSubscriberInterface as ServiceSubscriberInterface;
 use Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerInterface;
 use Symfony\Component\HttpKernel\CacheWarmer\WarmableInterface;
 use Symfony\Component\Routing\RouterInterface;
@@ -57,7 +57,7 @@ class RouterCacheWarmer implements CacheWarmerInterface, ServiceSubscriberInterf
      *
      * @return bool always true
      */
-    public function isOptional()
+    public function isOptional(): bool
     {
         return true;
     }
@@ -65,7 +65,7 @@ class RouterCacheWarmer implements CacheWarmerInterface, ServiceSubscriberInterf
     /**
      * {@inheritdoc}
      */
-    public static function getSubscribedServices()
+    public static function getSubscribedServices(): array
     {
         return [
             'router' => RouterInterface::class,

@@ -42,6 +42,9 @@ class Collection implements CollectionInterface
         return $this->entries;
     }
 
+    /**
+     * @return int
+     */
     public function count()
     {
         $con = $this->connection->getResource();
@@ -58,6 +61,9 @@ class Collection implements CollectionInterface
         return $count;
     }
 
+    /**
+     * @return \Traversable
+     */
     public function getIterator()
     {
         if (0 === $this->count()) {
@@ -81,6 +87,9 @@ class Collection implements CollectionInterface
         }
     }
 
+    /**
+     * @return bool
+     */
     public function offsetExists($offset)
     {
         $this->toArray();
@@ -109,7 +118,7 @@ class Collection implements CollectionInterface
         unset($this->entries[$offset]);
     }
 
-    private function getSingleEntry($con, $current)
+    private function getSingleEntry($con, $current): Entry
     {
         $attributes = ldap_get_attributes($con, $current);
 
@@ -128,7 +137,7 @@ class Collection implements CollectionInterface
         return new Entry($dn, $attributes);
     }
 
-    private function cleanupAttributes(array $entry)
+    private function cleanupAttributes(array $entry): array
     {
         $attributes = array_diff_key($entry, array_flip(range(0, $entry['count'] - 1)) + [
                 'count' => null,

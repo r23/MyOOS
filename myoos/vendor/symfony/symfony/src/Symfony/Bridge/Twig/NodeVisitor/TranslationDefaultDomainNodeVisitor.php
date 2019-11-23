@@ -27,6 +27,8 @@ use Twig\NodeVisitor\AbstractNodeVisitor;
 
 /**
  * @author Fabien Potencier <fabien@symfony.com>
+ *
+ * @final since Symfony 4.4
  */
 class TranslationDefaultDomainNodeVisitor extends AbstractNodeVisitor
 {
@@ -39,6 +41,8 @@ class TranslationDefaultDomainNodeVisitor extends AbstractNodeVisitor
 
     /**
      * {@inheritdoc}
+     *
+     * @return Node
      */
     protected function doEnterNode(Node $node, Environment $env)
     {
@@ -91,6 +95,8 @@ class TranslationDefaultDomainNodeVisitor extends AbstractNodeVisitor
 
     /**
      * {@inheritdoc}
+     *
+     * @return Node|null
      */
     protected function doLeaveNode(Node $node, Environment $env)
     {
@@ -115,10 +121,7 @@ class TranslationDefaultDomainNodeVisitor extends AbstractNodeVisitor
         return -10;
     }
 
-    /**
-     * @return bool
-     */
-    private function isNamedArguments($arguments)
+    private function isNamedArguments(Node $arguments): bool
     {
         foreach ($arguments as $name => $node) {
             if (!\is_int($name)) {
@@ -129,7 +132,7 @@ class TranslationDefaultDomainNodeVisitor extends AbstractNodeVisitor
         return false;
     }
 
-    private function getVarName()
+    private function getVarName(): string
     {
         return sprintf('__internal_%s', hash('sha256', uniqid(mt_rand(), true), false));
     }

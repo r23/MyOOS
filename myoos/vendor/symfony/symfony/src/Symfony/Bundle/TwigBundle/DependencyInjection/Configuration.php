@@ -34,7 +34,21 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('exception_controller')->defaultValue('twig.controller.exception::showAction')->end()
+                ->scalarNode('exception_controller')
+                    ->defaultValue(static function () {
+                        @trigger_error('The "twig.exception_controller" configuration key has been deprecated in Symfony 4.4, set it to "null" and use "framework.error_controller" configuration key instead.', E_USER_DEPRECATED);
+
+                        return 'twig.controller.exception::showAction';
+                    })
+                    ->validate()
+                        ->ifTrue(static function ($v) { return null !== $v; })
+                        ->then(static function ($v) {
+                            @trigger_error('The "twig.exception_controller" configuration key has been deprecated in Symfony 4.4, set it to "null" and use "framework.error_controller" configuration key instead.', E_USER_DEPRECATED);
+
+                            return $v;
+                        })
+                    ->end()
+                ->end()
             ->end()
         ;
 

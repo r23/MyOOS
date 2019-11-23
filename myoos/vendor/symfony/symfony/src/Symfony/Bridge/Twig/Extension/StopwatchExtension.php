@@ -14,11 +14,14 @@ namespace Symfony\Bridge\Twig\Extension;
 use Symfony\Bridge\Twig\TokenParser\StopwatchTokenParser;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Twig\Extension\AbstractExtension;
+use Twig\TokenParser\TokenParserInterface;
 
 /**
  * Twig extension for the stopwatch helper.
  *
  * @author Wouter J <wouter@wouterj.nl>
+ *
+ * @final since Symfony 4.4
  */
 class StopwatchExtension extends AbstractExtension
 {
@@ -36,6 +39,9 @@ class StopwatchExtension extends AbstractExtension
         return $this->stopwatch;
     }
 
+    /**
+     * @return TokenParserInterface[]
+     */
     public function getTokenParsers()
     {
         return [

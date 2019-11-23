@@ -95,7 +95,7 @@ EOT
     /**
      * {@inheritdoc}
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         /** @var KernelInterface $kernel */
         $kernel = $this->getApplication()->getKernel();
@@ -137,7 +137,7 @@ EOT
         $validAssetDirs = [];
         /** @var BundleInterface $bundle */
         foreach ($kernel->getBundles() as $bundle) {
-            if (!is_dir($originDir = $bundle->getPath().'/Resources/public')) {
+            if (!is_dir($originDir = $bundle->getPath().'/Resources/public') && !is_dir($originDir = $bundle->getPath().'/public')) {
                 continue;
             }
 
@@ -262,7 +262,7 @@ EOT
         return self::METHOD_COPY;
     }
 
-    private function getPublicDirectory(ContainerInterface $container)
+    private function getPublicDirectory(ContainerInterface $container): string
     {
         $defaultPublicDir = 'public';
 

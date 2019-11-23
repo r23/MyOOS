@@ -62,6 +62,10 @@ class Section
      */
     public function get($id)
     {
+        if (null === $id) {
+            @trigger_error(sprintf('Passing "null" as the first argument of the "%s()" method is deprecated since Symfony 4.4, pass a valid child section identifier instead.', __METHOD__), E_USER_DEPRECATED);
+        }
+
         foreach ($this->children as $child) {
             if ($id === $child->getId()) {
                 return $child;
@@ -80,7 +84,7 @@ class Section
      */
     public function open($id)
     {
-        if (null === $session = $this->get($id)) {
+        if (null === $id || null === $session = $this->get($id)) {
             $session = $this->children[] = new self(microtime(true) * 1000, $this->morePrecision);
         }
 

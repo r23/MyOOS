@@ -13,13 +13,12 @@ namespace Symfony\Bridge\Twig\Mime;
 
 use League\HTMLToMarkdown\HtmlConverter;
 use Symfony\Component\Mime\BodyRendererInterface;
+use Symfony\Component\Mime\Exception\InvalidArgumentException;
 use Symfony\Component\Mime\Message;
 use Twig\Environment;
 
 /**
  * @author Fabien Potencier <fabien@symfony.com>
- *
- * @experimental in 4.3
  */
 final class BodyRenderer implements BodyRendererInterface
 {
@@ -46,7 +45,12 @@ final class BodyRenderer implements BodyRendererInterface
             return;
         }
 
-        $vars = array_merge($this->context, $message->getContext(), [
+        $messageContext = $message->getContext();
+        if (isset($messageContext['email'])) {
+            throw new InvalidArgumentException(sprintf('A "%s" context cannot have an "email" entry as this is a reserved variable.', \get_class($message)));
+        }
+
+        $vars = array_merge($this->context, $messageContext, [
             'email' => new WrappedTemplatedEmail($this->twig, $message),
         ]);
 

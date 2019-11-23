@@ -22,8 +22,6 @@ use Symfony\Component\Messenger\Transport\Receiver\ListableReceiverInterface;
 
 /**
  * @author Ryan Weaver <ryan@symfonycasts.com>
- *
- * @experimental in 4.3
  */
 class FailedMessagesShowCommand extends AbstractFailedMessagesCommand
 {
@@ -72,6 +70,8 @@ EOF
         } else {
             $this->showMessage($id, $io);
         }
+
+        return 0;
     }
 
     private function listMessages(SymfonyStyle $io, int $max)
@@ -107,7 +107,7 @@ EOF
         $io->comment('Run <comment>messenger:failed:show {id} -vv</comment> to see message details.');
     }
 
-    private function showMessage($id, SymfonyStyle $io)
+    private function showMessage(string $id, SymfonyStyle $io)
     {
         /** @var ListableReceiverInterface $receiver */
         $receiver = $this->getReceiver();

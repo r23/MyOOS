@@ -13,12 +13,12 @@ namespace Symfony\Bundle\FrameworkBundle\Routing;
 
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
+use Symfony\Bundle\FrameworkBundle\DependencyInjection\CompatibilityServiceSubscriberInterface as ServiceSubscriberInterface;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\Config\ContainerParametersResource;
 use Symfony\Component\DependencyInjection\ContainerInterface as SymfonyContainerInterface;
 use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
 use Symfony\Component\DependencyInjection\Exception\RuntimeException;
-use Symfony\Component\DependencyInjection\ServiceSubscriberInterface;
 use Symfony\Component\HttpKernel\CacheWarmer\WarmableInterface;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouteCollection;
@@ -36,11 +36,7 @@ class Router extends BaseRouter implements WarmableInterface, ServiceSubscriberI
     private $paramFetcher;
 
     /**
-     * @param ContainerInterface      $container  A ContainerInterface instance
-     * @param mixed                   $resource   The main resource to load
-     * @param array                   $options    An array of options
-     * @param RequestContext          $context    The context
-     * @param ContainerInterface|null $parameters A ContainerInterface instance allowing to fetch parameters
+     * @param mixed $resource The main resource to load
      */
     public function __construct(ContainerInterface $container, $resource, array $options = [], RequestContext $context = null, ContainerInterface $parameters = null, LoggerInterface $logger = null, string $defaultLocale = null)
     {

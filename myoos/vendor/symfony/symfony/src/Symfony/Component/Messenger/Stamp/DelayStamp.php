@@ -13,10 +13,8 @@ namespace Symfony\Component\Messenger\Stamp;
 
 /**
  * Apply this stamp to delay delivery of your message on a transport.
- *
- * @experimental in 4.3
  */
-class DelayStamp implements StampInterface
+final class DelayStamp implements StampInterface
 {
     private $delay;
 

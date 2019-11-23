@@ -84,23 +84,12 @@ abstract class Descriptor implements DescriptorInterface
         }
     }
 
-    /**
-     * Returns the output.
-     *
-     * @return OutputInterface The output
-     */
-    protected function getOutput()
+    protected function getOutput(): OutputInterface
     {
         return $this->output;
     }
 
-    /**
-     * Writes content to output.
-     *
-     * @param string $content
-     * @param bool   $decorated
-     */
-    protected function write($content, $decorated = false)
+    protected function write(string $content, bool $decorated = false)
     {
         $this->output->write($content, false, $decorated ? OutputInterface::OUTPUT_NORMAL : OutputInterface::OUTPUT_RAW);
     }
@@ -182,10 +171,8 @@ abstract class Descriptor implements DescriptorInterface
      * Formats a value as string.
      *
      * @param mixed $value
-     *
-     * @return string
      */
-    protected function formatValue($value)
+    protected function formatValue($value): string
     {
         if (\is_object($value)) {
             return sprintf('object(%s)', \get_class($value));
@@ -202,10 +189,8 @@ abstract class Descriptor implements DescriptorInterface
      * Formats a parameter.
      *
      * @param mixed $value
-     *
-     * @return string
      */
-    protected function formatParameter($value)
+    protected function formatParameter($value): string
     {
         if (\is_bool($value) || \is_array($value) || (null === $value)) {
             $jsonString = json_encode($value);
@@ -221,11 +206,9 @@ abstract class Descriptor implements DescriptorInterface
     }
 
     /**
-     * @param string $serviceId
-     *
      * @return mixed
      */
-    protected function resolveServiceDefinition(ContainerBuilder $builder, $serviceId)
+    protected function resolveServiceDefinition(ContainerBuilder $builder, string $serviceId)
     {
         if ($builder->hasDefinition($serviceId)) {
             return $builder->getDefinition($serviceId);
@@ -244,12 +227,7 @@ abstract class Descriptor implements DescriptorInterface
         return $builder->get($serviceId);
     }
 
-    /**
-     * @param bool $showHidden
-     *
-     * @return array
-     */
-    protected function findDefinitionsByTag(ContainerBuilder $builder, $showHidden)
+    protected function findDefinitionsByTag(ContainerBuilder $builder, bool $showHidden): array
     {
         $definitions = [];
         $tags = $builder->findTags();
@@ -287,6 +265,44 @@ abstract class Descriptor implements DescriptorInterface
         asort($serviceIds);
 
         return $serviceIds;
+    }
+
+    protected function sortTaggedServicesByPriority(array $services): array
+    {
+        $maxPriority = [];
+        foreach ($services as $service => $tags) {
+            $maxPriority[$service] = 0;
+            foreach ($tags as $tag) {
+                $currentPriority = $tag['priority'] ?? 0;
+                if ($maxPriority[$service] < $currentPriority) {
+                    $maxPriority[$service] = $currentPriority;
+                }
+            }
+        }
+        uasort($maxPriority, function ($a, $b) {
+            return $b <=> $a;
+        });
+
+        return array_keys($maxPriority);
+    }
+
+    protected function sortTagsByPriority(array $tags): array
+    {
+        $sortedTags = [];
+        foreach ($tags as $tagName => $tag) {
+            $sortedTags[$tagName] = $this->sortByPriority($tag);
+        }
+
+        return $sortedTags;
+    }
+
+    protected function sortByPriority(array $tag): array
+    {
+        usort($tag, function ($a, $b) {
+            return ($b['priority'] ?? 0) <=> ($a['priority'] ?? 0);
+        });
+
+        return $tag;
     }
 
     /**

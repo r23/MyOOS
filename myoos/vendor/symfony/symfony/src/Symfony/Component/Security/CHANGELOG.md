@@ -1,6 +1,20 @@
 CHANGELOG
 =========
 
+4.4.0
+-----
+
+ * Deprecated class `LdapUserProvider`, use `Symfony\Component\Ldap\Security\LdapUserProvider` instead
+ * Added method `needsRehash()` to `PasswordEncoderInterface` and `UserPasswordEncoderInterface`
+ * Added `MigratingPasswordEncoder`
+ * Added and implemented `PasswordUpgraderInterface`, for opportunistic password migrations
+ * Added `Guard\PasswordAuthenticatedInterface`, an optional interface
+   for "guard" authenticators that deal with user passwords
+ * Marked all dispatched event classes as `@final`
+ * Deprecated returning a non-boolean value when implementing `Guard\AuthenticatorInterface::checkCredentials()`.
+ * Deprecated passing more than one attribute to `AccessDecisionManager::decide()` and `AuthorizationChecker::isGranted()`
+ * Added new `argon2id` encoder, undeprecated the `bcrypt` and `argon2i` ones (using `auto` is still recommended by default.)
+
 4.3.0
 -----
 

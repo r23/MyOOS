@@ -13,6 +13,7 @@ namespace Symfony\Component\Messenger\Transport\Doctrine;
 
 use Doctrine\DBAL\Connection as DBALConnection;
 use Doctrine\DBAL\DBALException;
+use Doctrine\DBAL\Driver\ResultStatement;
 use Doctrine\DBAL\Exception\TableNotFoundException;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Schema\Schema;
@@ -26,8 +27,6 @@ use Symfony\Component\Messenger\Exception\TransportException;
  * @author Vincent Touzet <vincent.touzet@gmail.com>
  *
  * @final
- *
- * @experimental in 4.3
  */
 class Connection
 {
@@ -67,7 +66,7 @@ class Connection
         return $this->configuration;
     }
 
-    public static function buildConfiguration($dsn, array $options = [])
+    public static function buildConfiguration(string $dsn, array $options = []): array
     {
         if (false === $components = parse_url($dsn)) {
             throw new InvalidArgumentException(sprintf('The given Doctrine Messenger DSN "%s" is invalid.', $dsn));
@@ -292,7 +291,7 @@ class Connection
             ->from($this->configuration['table_name'], 'm');
     }
 
-    private function executeQuery(string $sql, array $parameters = [], array $types = [])
+    private function executeQuery(string $sql, array $parameters = [], array $types = []): ResultStatement
     {
         try {
             $stmt = $this->driverConnection->executeQuery($sql, $parameters, $types);

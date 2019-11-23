@@ -12,13 +12,14 @@
 namespace Symfony\Component\Lock\Store;
 
 use Symfony\Component\Lock\Exception\InvalidArgumentException;
+use Symfony\Component\Lock\Exception\InvalidTtlException;
 use Symfony\Component\Lock\Exception\LockConflictedException;
 use Symfony\Component\Lock\Exception\NotSupportedException;
 use Symfony\Component\Lock\Key;
 use Symfony\Component\Lock\StoreInterface;
 
 /**
- * MemcachedStore is a StoreInterface implementation using Memcached as store engine.
+ * MemcachedStore is a PersistingStoreInterface implementation using Memcached as store engine.
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
  */
@@ -68,8 +69,14 @@ class MemcachedStore implements StoreInterface
         $this->checkNotExpired($key);
     }
 
+    /**
+     * {@inheritdoc}
+     *
+     * @deprecated since Symfony 4.4.
+     */
     public function waitAndSave(Key $key)
     {
+        @trigger_error(sprintf('%s() is deprecated since Symfony 4.4 and will be removed in Symfony 5.0.', __METHOD__), E_USER_DEPRECATED);
         throw new NotSupportedException(sprintf('The store "%s" does not support blocking locks.', \get_class($this)));
     }
 
@@ -79,7 +86,7 @@ class MemcachedStore implements StoreInterface
     public function putOffExpiration(Key $key, $ttl)
     {
         if ($ttl < 1) {
-            throw new InvalidArgumentException(sprintf('%s() expects a TTL greater or equals to 1 second. Got %s.', __METHOD__, $ttl));
+            throw new InvalidTtlException(sprintf('%s() expects a TTL greater or equals to 1 second. Got %s.', __METHOD__, $ttl));
         }
 
         // Interface defines a float value but Store required an integer.
@@ -154,7 +161,7 @@ class MemcachedStore implements StoreInterface
         return $key->getState(__CLASS__);
     }
 
-    private function getValueAndCas(Key $key)
+    private function getValueAndCas(Key $key): array
     {
         if (null === $this->useExtendedReturn) {
             $this->useExtendedReturn = version_compare(phpversion('memcached'), '2.9.9', '>');

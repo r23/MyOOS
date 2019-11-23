@@ -11,6 +11,7 @@
 
 namespace Symfony\Bridge\PhpUnit\DeprecationErrorHandler;
 
+use PHPUnit\Util\Test;
 use Symfony\Bridge\PhpUnit\Legacy\SymfonyTestsListenerFor;
 
 /**
@@ -132,13 +133,10 @@ class Deprecation
     }
 
     /**
-     * @param string $utilPrefix
-     *
      * @return bool
      */
-    public function isLegacy($utilPrefix)
+    public function isLegacy()
     {
-        $test = $utilPrefix.'Test';
         $class = $this->originatingClass();
         $method = $this->originatingMethod();
 
@@ -146,7 +144,7 @@ class Deprecation
             || 0 === strpos($method, 'provideLegacy')
             || 0 === strpos($method, 'getLegacy')
             || strpos($class, '\Legacy')
-            || \in_array('legacy', $test::getGroups($class, $method), true);
+            || \in_array('legacy', Test::getGroups($class, $method), true);
     }
 
     /**

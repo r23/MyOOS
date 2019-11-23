@@ -17,11 +17,13 @@ use Symfony\Component\Messenger\Handler\HandlerDescriptor;
  * Stamp identifying a message handled by the `HandleMessageMiddleware` middleware
  * and storing the handler returned value.
  *
+ * This is used by synchronous command buses expecting a return value and the retry logic
+ * to only execute handlers that didn't succeed.
+ *
  * @see \Symfony\Component\Messenger\Middleware\HandleMessageMiddleware
+ * @see \Symfony\Component\Messenger\HandleTrait
  *
  * @author Maxime Steinhausser <maxime.steinhausser@gmail.com>
- *
- * @experimental in 4.3
  */
 final class HandledStamp implements StampInterface
 {

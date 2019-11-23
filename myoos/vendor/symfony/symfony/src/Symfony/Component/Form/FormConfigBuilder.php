@@ -107,13 +107,13 @@ class FormConfigBuilder implements FormConfigBuilderInterface
     /**
      * Creates an empty form configuration.
      *
-     * @param string      $name      The form name
+     * @param string|null $name      The form name
      * @param string|null $dataClass The class of the form's data
      *
      * @throws InvalidArgumentException if the data class is not a valid class or if
      *                                  the name contains invalid characters
      */
-    public function __construct($name, ?string $dataClass, EventDispatcherInterface $dispatcher, array $options = [])
+    public function __construct(?string $name, ?string $dataClass, EventDispatcherInterface $dispatcher, array $options = [])
     {
         self::validateName($name);
 
@@ -769,6 +769,8 @@ class FormConfigBuilder implements FormConfigBuilderInterface
      *
      * @throws UnexpectedTypeException  if the name is not a string or an integer
      * @throws InvalidArgumentException if the name contains invalid characters
+     *
+     * @internal since Symfony 4.4
      */
     public static function validateName($name)
     {
@@ -791,11 +793,9 @@ class FormConfigBuilder implements FormConfigBuilderInterface
      *   * contains only letters, digits, numbers, underscores ("_"),
      *     hyphens ("-") and colons (":")
      *
-     * @param string|null $name The tested form name
-     *
-     * @return bool Whether the name is valid
+     * @final since Symfony 4.4
      */
-    public static function isValidName($name)
+    public static function isValidName(?string $name): bool
     {
         return '' === $name || null === $name || preg_match('/^[a-zA-Z0-9_][a-zA-Z0-9_\-:]*$/D', $name);
     }

@@ -28,7 +28,6 @@ use Symfony\Component\Messenger\Stamp\RedeliveryStamp;
  *
  * @author Ryan Weaver <ryan@symfonycasts.com>
  *
- * @experimental in 4.3
  * @final
  */
 class MultiplierRetryStrategy implements RetryStrategyInterface
@@ -39,12 +38,12 @@ class MultiplierRetryStrategy implements RetryStrategyInterface
     private $maxDelayMilliseconds;
 
     /**
-     * @param int   $maxRetries           The maximum number of time to retry (null means indefinitely)
+     * @param int   $maxRetries           The maximum number of times to retry
      * @param int   $delayMilliseconds    Amount of time to delay (or the initial value when multiplier is used)
      * @param float $multiplier           Multiplier to apply to the delay each time a retry occurs
      * @param int   $maxDelayMilliseconds Maximum delay to allow (0 means no maximum)
      */
-    public function __construct(?int $maxRetries = 3, int $delayMilliseconds = 1000, float $multiplier = 1, int $maxDelayMilliseconds = 0)
+    public function __construct(int $maxRetries = 3, int $delayMilliseconds = 1000, float $multiplier = 1, int $maxDelayMilliseconds = 0)
     {
         $this->maxRetries = $maxRetries;
 
@@ -66,10 +65,6 @@ class MultiplierRetryStrategy implements RetryStrategyInterface
 
     public function isRetryable(Envelope $message): bool
     {
-        if (null === $this->maxRetries) {
-            return true;
-        }
-
         $retries = RedeliveryStamp::getRetryCountFromEnvelope($message);
 
         return $retries < $this->maxRetries;

@@ -13,9 +13,10 @@ namespace Symfony\Component\Mailer\Exception;
 
 /**
  * @author Fabien Potencier <fabien@symfony.com>
- *
- * @experimental in 4.3
  */
 interface TransportExceptionInterface extends ExceptionInterface
 {
+    public function getDebug(): string;
+
+    public function appendDebug(string $debug): void;
 }

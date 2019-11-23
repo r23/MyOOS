@@ -132,7 +132,7 @@ class TwigEngine implements EngineInterface, StreamingEngineInterface
         }
 
         try {
-            return $this->environment->loadTemplate((string) $name);
+            return $this->environment->load((string) $name)->unwrap();
         } catch (LoaderError $e) {
             throw new \InvalidArgumentException($e->getMessage(), $e->getCode(), $e);
         }

@@ -43,7 +43,7 @@ class AuthorizationChecker implements AuthorizationCheckerInterface
      *
      * @throws AuthenticationCredentialsNotFoundException when the token storage has no authentication token
      */
-    final public function isGranted($attributes, $subject = null)
+    final public function isGranted($attributes, $subject = null): bool
     {
         if (null === ($token = $this->tokenStorage->getToken())) {
             throw new AuthenticationCredentialsNotFoundException('The token storage contains no authentication token. One possible reason may be that there is no firewall configured for this URL.');
@@ -55,6 +55,8 @@ class AuthorizationChecker implements AuthorizationCheckerInterface
 
         if (!\is_array($attributes)) {
             $attributes = [$attributes];
+        } else {
+            @trigger_error(sprintf('Passing an array of Security attributes to %s() is deprecated since Symfony 4.4. Use multiple isGranted() calls or the expression language (e.g. "has_role(...) or has_role(...)") instead.', __METHOD__), E_USER_DEPRECATED);
         }
 
         return $this->accessDecisionManager->decide($token, $attributes, $subject);

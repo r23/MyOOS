@@ -15,10 +15,8 @@ namespace Symfony\Component\Messenger\Stamp;
  * Added by a sender or receiver to indicate the id of this message in that transport.
  *
  * @author Ryan Weaver <ryan@symfonycasts.com>
- *
- * @experimental in 4.3
  */
-class TransportMessageIdStamp implements StampInterface
+final class TransportMessageIdStamp implements StampInterface
 {
     private $id;
 

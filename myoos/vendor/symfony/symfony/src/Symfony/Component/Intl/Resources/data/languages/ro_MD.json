@@ -1,7 +1,9 @@
 {
     "Version": "36",
     "Names": {
-        "sw_CD": "swahili (R. D. Congo)",
         "wal": "wolaytta"
+    },
+    "LocalizedNames": {
+        "sw_CD": "swahili (R. D. Congo)"
     }
 }

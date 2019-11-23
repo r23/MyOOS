@@ -1,7 +1,6 @@
 {
     "Version": "36",
     "Names": {
-        "ar_001": "modernes Hocharabisch",
         "car": "karibische Sprache",
         "chb": "Chibcha-Sprache",
         "del": "Delawarisch",
@@ -14,5 +13,8 @@
         "pag": "Pangasinensisch",
         "sh": "Serbokroatisch",
         "szl": "Schlesisch"
+    },
+    "LocalizedNames": {
+        "ar_001": "modernes Hocharabisch"
     }
 }

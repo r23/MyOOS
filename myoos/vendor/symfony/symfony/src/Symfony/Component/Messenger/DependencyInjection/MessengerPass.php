@@ -27,8 +27,6 @@ use Symfony\Component\Messenger\Transport\Receiver\ReceiverInterface;
 
 /**
  * @author Samuel Roze <samuel.roze@gmail.com>
- *
- * @experimental in 4.3
  */
 class MessengerPass implements CompilerPassInterface
 {
@@ -72,6 +70,7 @@ class MessengerPass implements CompilerPassInterface
     {
         $definitions = [];
         $handlersByBusAndMessage = [];
+        $handlerToOriginalServiceIdMapping = [];
 
         foreach ($container->findTaggedServiceIds($this->handlerTag, true) as $serviceId => $tags) {
             foreach ($tags as $tag) {
@@ -111,6 +110,10 @@ class MessengerPass implements CompilerPassInterface
                         $options = ['method' => $options];
                     }
 
+                    if (!isset($options['from_transport']) && isset($tag['from_transport'])) {
+                        $options['from_transport'] = $tag['from_transport'];
+                    }
+
                     $priority = $tag['priority'] ?? $options['priority'] ?? 0;
                     $method = $options['method'] ?? '__invoke';
 
@@ -141,6 +144,8 @@ class MessengerPass implements CompilerPassInterface
                     } else {
                         $definitionId = $serviceId;
                     }
+
+                    $handlerToOriginalServiceIdMapping[$definitionId] = $serviceId;
 
                     foreach ($buses as $handlerBus) {
                         $handlersByBusAndMessage[$handlerBus][$message][$priority][] = [$definitionId, $options];
@@ -190,6 +195,12 @@ class MessengerPass implements CompilerPassInterface
             foreach ($busIds as $bus) {
                 if (!isset($debugCommandMapping[$bus])) {
                     $debugCommandMapping[$bus] = [];
+                }
+
+                foreach ($debugCommandMapping[$bus] as $message => $handlers) {
+                    foreach ($handlers as $key => $handler) {
+                        $debugCommandMapping[$bus][$message][$key][0] = $handlerToOriginalServiceIdMapping[$handler[0]];
+                    }
                 }
             }
             $container->getDefinition('console.command.messenger_debug')->replaceArgument(0, $debugCommandMapping);
@@ -265,7 +276,7 @@ class MessengerPass implements CompilerPassInterface
                 $consumeCommandDefinition->replaceArgument(0, new Reference('messenger.routable_message_bus'));
             }
 
-            $consumeCommandDefinition->replaceArgument(3, array_values($receiverNames));
+            $consumeCommandDefinition->replaceArgument(4, array_values($receiverNames));
         }
 
         if ($container->hasDefinition('console.command.messenger_setup_transports')) {

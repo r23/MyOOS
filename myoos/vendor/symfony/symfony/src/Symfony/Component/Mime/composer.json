@@ -22,7 +22,10 @@
     },
     "require-dev": {
         "egulias/email-validator": "^2.1.10",
-        "symfony/dependency-injection": "~3.4|^4.1"
+        "symfony/dependency-injection": "^3.4|^4.1|^5.0"
+    },
+    "conflict": {
+        "symfony/mailer": "<4.4"
     },
     "autoload": {
         "psr-4": { "Symfony\\Component\\Mime\\": "" },
@@ -33,7 +36,7 @@
     "minimum-stability": "dev",
     "extra": {
         "branch-alias": {
-            "dev-master": "4.3-dev"
+            "dev-master": "4.4-dev"
         }
     }
 }

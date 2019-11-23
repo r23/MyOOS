@@ -15,8 +15,6 @@ namespace Symfony\Component\Messenger\Handler;
  * Describes a handler and the possible associated options, such as `from_transport`, `bus`, etc.
  *
  * @author Samuel Roze <samuel.roze@gmail.com>
- *
- * @experimental in 4.3
  */
 final class HandlerDescriptor
 {
@@ -51,7 +49,7 @@ final class HandlerDescriptor
         return $this->options[$option] ?? null;
     }
 
-    private function callableName(callable $handler)
+    private function callableName(callable $handler): string
     {
         if (\is_array($handler)) {
             if (\is_object($handler[0])) {

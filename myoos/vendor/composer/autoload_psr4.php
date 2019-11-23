@@ -124,7 +124,6 @@ return array(
     'GPBMetadata\\Google\\Bigtable\\' => array($vendorDir . '/google/cloud/Bigtable/metadata'),
     'GPBMetadata\\Google\\' => array($vendorDir . '/google/cloud/CommonProtos/metadata', $vendorDir . '/google/common-protos/metadata', $vendorDir . '/google/gax/metadata'),
     'Firebase\\JWT\\' => array($vendorDir . '/firebase/php-jwt/src'),
-    'Fig\\Link\\' => array($vendorDir . '/fig/link-util/src'),
     'Endroid\\QrCode\\' => array($vendorDir . '/endroid/qr-code/src'),
     'Doctrine\\Common\\Lexer\\' => array($vendorDir . '/doctrine/lexer/lib/Doctrine/Common/Lexer'),
     'Doctrine\\Common\\Collections\\' => array($vendorDir . '/doctrine/collections/lib/Doctrine/Common/Collections'),

@@ -22,8 +22,6 @@ use Symfony\Component\Console\Style\SymfonyStyle;
  * A console command to debug Messenger information.
  *
  * @author Roland Franssen <franssen.roland@gmail.com>
- *
- * @experimental in 4.3
  */
 class DebugCommand extends Command
 {
@@ -98,6 +96,8 @@ EOF
                 $io->warning(sprintf('No handled message found in bus "%s".', $bus));
             }
         }
+
+        return 0;
     }
 
     private function formatConditions(array $options): string
