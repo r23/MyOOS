@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.3.x - Development - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-11-23 19:14:46+0000\n"
+"PO-Revision-Date: 2019-11-24 20:10:09+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -367,7 +367,7 @@ msgstr "https://wordpress.org/support/article/giving-wordpress-its-own-directory
 msgid "<a href=\"https://wordpress.org/support/article/settings-general-screen/\">Documentation on General Settings</a>"
 msgstr "<a href=\"https://wordpress.org/support/article/settings-general-screen/\">Dokumentation über die allgemeinen Einstellungen (engl.)</a>"
 
-#: wp-admin/includes/dashboard.php:1820
+#: wp-admin/includes/dashboard.php:1809
 msgid "https://wordpress.org/support/article/first-steps-with-wordpress-b/"
 msgstr "https://wordpress.org/support/article/first-steps-with-wordpress-b/"
 
@@ -5251,7 +5251,7 @@ msgstr "Nur für das gesamte Netzwerk aktivierbar"
 
 #: wp-admin/includes/class-wp-plugins-list-table.php:708
 msgid "Network Active"
-msgstr "Für das gesamte Netzwerk aktiviert"
+msgstr "Netzwerkweit aktiviert"
 
 #: wp-admin/includes/class-wp-list-table.php:731
 msgid "No pending comments"
@@ -6345,11 +6345,11 @@ msgstr "Sichtbarkeit ändern"
 msgid "Edit status"
 msgstr "Status ändern"
 
-#: wp-admin/includes/dashboard.php:1812
+#: wp-admin/includes/dashboard.php:1804
 msgid "Manage menus"
 msgstr "Menüs verwalten"
 
-#: wp-admin/includes/dashboard.php:1810
+#: wp-admin/includes/dashboard.php:1801
 msgid "Manage widgets"
 msgstr "Widgets verwalten"
 
@@ -7454,11 +7454,6 @@ msgstr "Die Bildrotation wird von deinem Webhost nicht unterstützt."
 msgid "If you are looking to use the link manager, please install the <a href=\"%s\">Link Manager</a> plugin."
 msgstr "Falls du den bekannten Linkmanager vermisst, installiere bitte das <a href=\"%s\">Link Manager</a> Plugin."
 
-#. translators: 1: URL to Widgets screen, 2: URL to Menus screen.
-#: wp-admin/includes/dashboard.php:1805
-msgid "Manage <a href=\"%1$s\">widgets</a> or <a href=\"%2$s\">menus</a>"
-msgstr "Verwalten von <a href=\"%1$s\">Widgets</a> oder <a href=\"%2$s\">Menüs</a>"
-
 #: wp-admin/widgets.php:77
 msgid "When changing themes, there is often some variation in the number and setup of widget areas/sidebars and sometimes these conflicts make the transition a bit less smooth. If you changed themes and seem to be missing widgets, scroll down on this screen to the Inactive Widgets area, where all of your widgets and their settings will have been saved."
 msgstr "Wenn du Themes wechselst, gibt es häufig Unterschiede in der Anzahl und Benennung der Widgetbereiche. Dies kann den Übergang etwas schwierig machen. Wenn du nach einem Themewechsel ein Widget vermisst, dann schaue im Bereich <strong>Inaktive Widgets</strong>, wo alle Widgets und ihre Einstellungen gespeichert sind."
@@ -7534,11 +7529,11 @@ msgstr "Du kannst auch eine Hintergrundfarbe auswählen, indem du auf den Button
 msgid "You can choose whether or not your site will be crawled by robots, ping services, and spiders. If you want those services to ignore your site, click the checkbox next to &#8220;Discourage search engines from indexing this site&#8221; and click the Save Changes button at the bottom of the screen. Note that your privacy is not complete; your site is still visible on the web."
 msgstr "Du kannst hier festlegen, ob deine Website von Robots, Ping-Diensten und Spiders gecrawlt wird oder nicht. Wenn du möchtest, dass diese Dienste deine Website ignorieren, aktiviere die Checkbox bei &#8222;Suchmaschinen davon abhalten, diese Website zu indexieren&#8220; und klicke dann auf den „Änderungen speichern“-Button unten am Bildschirm. Beachte, dass deine Privatsphäre nicht umfassend ist; deine Website ist weiterhin im Internet sichtbar."
 
-#: wp-admin/includes/dashboard.php:1820
+#: wp-admin/includes/dashboard.php:1809
 msgid "Learn more about getting started"
 msgstr "Erfahre mehr über den Einstieg"
 
-#: wp-admin/includes/dashboard.php:1818
+#: wp-admin/includes/dashboard.php:1807
 msgid "Turn comments on or off"
 msgstr "Kommentare ein- oder ausschalten"
 
@@ -10039,7 +10034,7 @@ msgstr "Wenn du eine neue Kategorie anlegst, musst du folgende Eingabefelder aus
 
 #: wp-admin/edit-tags.php:278
 msgid "<strong>Name</strong> &mdash; The name is how it appears on your site."
-msgstr "<strong>Name</strong> &ndash; Der Name, unter dem das Schlagwort überall angezeigt wird."
+msgstr "<strong>Name</strong> &ndash; Der Name, unter dem die Kategorie oder das Schlagwort auf der Website angezeigt wird."
 
 #: wp-admin/edit-tags.php:288
 msgid "<strong>Description</strong> &mdash; The description is not prominent by default; however, some themes may display it."
