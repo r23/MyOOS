@@ -456,10 +456,8 @@ class Yoast extends Plugin_Importer {
 			$this->replace_meta( $hash, null, $userid, 'user', 'convert_variables' );
 
 			// Early bail if robots data is set in Rank Math plugin.
-			if ( empty( $this->get_meta( 'user', $userid, 'rank_math_robots' ) ) ) {
-				$noindex_user = get_user_meta( $userid, 'wpseo_noindex_author', true );
-				$noindex_user = $noindex_user ? 'noindex' : 'index';
-				update_user_meta( $userid, 'rank_math_robots', [ $noindex_user ] );
+			if ( empty( $this->get_meta( 'user', $userid, 'rank_math_robots' ) ) && get_user_meta( $userid, 'wpseo_noindex_author', true ) ) {
+				update_user_meta( $userid, 'rank_math_robots', [ 'noindex' ] );
 			}
 		}
 

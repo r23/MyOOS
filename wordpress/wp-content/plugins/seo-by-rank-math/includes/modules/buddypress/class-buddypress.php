@@ -117,7 +117,7 @@ class BuddyPress {
 	 *
 	 * @return string
 	 */
-	private function get_group_name() {
+	public function get_group_name() {
 		$group = $this->get_group();
 		if ( ! is_object( $group ) ) {
 			return '';
@@ -131,7 +131,7 @@ class BuddyPress {
 	 *
 	 * @return string
 	 */
-	private function get_group_desc() {
+	public function get_group_desc() {
 		$group = $this->get_group();
 		if ( ! is_object( $group ) ) {
 			return '';

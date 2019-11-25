@@ -11,7 +11,9 @@
 namespace RankMath\WooCommerce;
 
 use RankMath\Helper;
+use RankMath\Admin\Admin_Helper;
 use RankMath\Module\Base;
+use RankMath\Traits\Hooker;
 use MyThemeShop\Helpers\Arr;
 
 defined( 'ABSPATH' ) || exit;
@@ -20,6 +22,8 @@ defined( 'ABSPATH' ) || exit;
  * Admin class.
  */
 class Admin extends Base {
+
+	use Hooker;
 
 	/**
 	 * The Constructor.
@@ -42,6 +46,20 @@ class Admin extends Base {
 		// Permalink Manager.
 		$this->filter( 'rank_math/settings/general', 'add_general_settings' );
 		$this->filter( 'rank_math/flush_fields', 'flush_fields' );
+
+		$this->action( 'rank_math/admin/enqueue_scripts', 'enqueue' );
+	}
+
+	/**
+	 * Enqueue script to analyze product's short description.
+	 */
+	public function enqueue() {
+		$screen = get_current_screen();
+		if ( ! Admin_Helper::is_post_edit() || 'product' !== $screen->post_type || ! $this->do_filter( 'woocommerce/analyze_short_description', true ) ) {
+			return;
+		}
+
+		wp_enqueue_script( 'rank-math-description-analysis', rank_math()->plugin_url() . 'assets/admin/js/product-description.js', [ 'rank-math-post-metabox' ], rank_math()->version, true );
 	}
 
 	/**

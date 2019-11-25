@@ -43,7 +43,7 @@ class User extends Metadata {
 			return null;
 		}
 
-		if ( isset( self::$objects[ $user ] ) ) {
+		if ( isset( self::$objects[ $user ] ) && 'user' === self::$objects[ $user ]->meta_type ) {
 			return self::$objects[ $user ];
 		}
 

@@ -40,7 +40,7 @@ class Term extends Metadata {
 			return null;
 		}
 
-		if ( isset( self::$objects[ $term ] ) ) {
+		if ( isset( self::$objects[ $term ] ) && 'term' === self::$objects[ $term ]->meta_type ) {
 			return self::$objects[ $term ];
 		}
 

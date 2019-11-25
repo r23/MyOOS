@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection
 Tested up to: 5.3
 Requires at least: 4.7.0
 Requires PHP: 5.6
-Stable tag: 1.0.35.2
+Stable tag: 1.0.35.3
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -450,33 +450,18 @@ We look forward to helping you.
 
 == Changelog ==
 
-= 1.0.35.2 [Nov 14, 2019] =
-* Added a condition to prevent the ratings from showing on WooCommerce & Easy Digital Download pages
-
-= 1.0.35.1 [Nov 14, 2019] =
-* Added an option to show Snippet reviews before and after the content on the frontend for the allowed types
-* Added default Advanced Robots to all the existing/older posts
-* Fixed a JS error when WooCommerce or iTheme Security plugins were active
-* Fixed CMB2 multiple dependencies Array not working since v1.0.35 version
-* Fixed an error in the MedicalClinic Schema related to non-existent of an image on a page
-* Fixed an issue with the Sitemap where it was incorrectly adding a trailing slash on some installations where the URL of the website was left blank in General settings
-* Fixed some PHP warnings
-* Fixed an issue with the fetching of data from Google Search Console on some installations
-* Fixed CSS issues related to WordPress 5.3
-
-= 1.0.35 [Nov 09, 2019] =
-* Improved the Setup Wizard to be more straightforward with lesser options
-* Improved Google Search Console module by adding oAuth 2.0, separate client and API wrappers, etc.
-* Improved the text present on the Tools page to help understand each option better
-* Improved the filter for deleting all the Rank Math related data, upon uninstallation, to work correctly with the multisite setup as well
-* Fixed Google Search Console Authentication Error
-* Fixed empty title issue happening on some installations with older PHP versions
-* Fixed the Global Index option for author archive not working
-* Fixed a problem with the importer where a false warning was getting generated when redirections were not detected
-* Fixed bulk redirections/404 monitor not working with the Persian language
-* Fixed a bug with the auto-post redirection option which was creating an infinite loop if someone deleted a post several times
-* Fixed an issue with the Remove Product base option, so it works as intended
-* Fixed a bug with WooCommerce's variables, showing incorrect title on the category pages
-* Fixed an issue with WooCommerce's shop page where %title%, %excerpt% were showing the data from the first product instead of the page's meta values
+= 1.0.35.3 [Nov 25, 2019] =
+* Added a filter to modify Advanced Robots using a new filter: `rank_math/frontend/advanced_robots`
+* Added a condition to hide Search Console widget from the dashboard if the module is inactive
+* Improved the Shortcode output of various Schema types
+* Improved the translation of German letters with the Rank Math SEO plugin
+* Improved content analysis for WooCommerce to include product's short description
+* Improved WooCommerce Schema's output to exclude MPN values via the Brand value
+* Fixed redirection issues with the `.htaccess` file export with 410 type
+* Fixed an issue where incorrect author Robots values were being imported
+* Fixed an error in BuddyPress's module
+* Fixed an issue where author pages were showing a warning when admin menu bar was enabled
+* Fixed an error with the output of the title of author archive pages
+* Fixed an error of `datePublished` & `dateModified` showing an incorrect time when timezone was not set to UTC
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://s.rankmath.com/changelog)**

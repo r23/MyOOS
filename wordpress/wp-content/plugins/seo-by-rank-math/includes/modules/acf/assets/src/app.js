@@ -7,9 +7,7 @@ class App {
 	analysisTimeout = 0
 
 	constructor() {
-		RankMathApp.registerPlugin( rankMath.acf.pluginName )
-		addFilter( 'rank_math_content', rankMath.acf.pluginName, collect.append.bind( collect ) )
-
+		addFilter( 'rank_math_content', 'rank-math', collect.append.bind( collect ) )
 		if ( rankMath.acf.enableReload ) {
 			this.events()
 		}
@@ -27,7 +25,7 @@ class App {
 		}
 
 		this.analysisTimeout = setTimeout( function() {
-			RankMathApp.reloadPlugin( rankMath.acf.pluginName )
+			RankMathApp.refresh( 'content' )
 		}, rankMath.acf.refreshRate )
 	}
 }
