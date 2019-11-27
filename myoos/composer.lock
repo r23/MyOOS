@@ -1165,16 +1165,16 @@
         },
         {
             "name": "google/protobuf",
-            "version": "v3.10.0",
+            "version": "v3.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/protocolbuffers/protobuf-php.git",
-                "reference": "5dffdd2c84112e6c91fd84f92e3df96649426881"
+                "reference": "360aadcebac83d56aa4c09bca7d1c3bd798119fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/protocolbuffers/protobuf-php/zipball/5dffdd2c84112e6c91fd84f92e3df96649426881",
-                "reference": "5dffdd2c84112e6c91fd84f92e3df96649426881",
+                "url": "https://api.github.com/repos/protocolbuffers/protobuf-php/zipball/360aadcebac83d56aa4c09bca7d1c3bd798119fe",
+                "reference": "360aadcebac83d56aa4c09bca7d1c3bd798119fe",
                 "shasum": ""
             },
             "require": {
@@ -1202,7 +1202,7 @@
             "keywords": [
                 "proto"
             ],
-            "time": "2019-10-03T20:08:37+00:00"
+            "time": "2019-11-26T02:39:29+00:00"
         },
         {
             "name": "grpc/grpc",
@@ -3095,16 +3095,16 @@
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v7.13.0",
+            "version": "v7.14.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "140feae4dfd80c0ca820a2ace8873654c5d3926c"
+                "reference": "3234cce6f9600399a4e8bb07b71d5670a9333f4a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/140feae4dfd80c0ca820a2ace8873654c5d3926c",
-                "reference": "140feae4dfd80c0ca820a2ace8873654c5d3926c",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/3234cce6f9600399a4e8bb07b71d5670a9333f4a",
+                "reference": "3234cce6f9600399a4e8bb07b71d5670a9333f4a",
                 "shasum": ""
             },
             "require": {
@@ -3148,7 +3148,7 @@
                 "payment processing",
                 "stripe"
             ],
-            "time": "2019-11-19T23:07:10+00:00"
+            "time": "2019-11-27T05:11:33+00:00"
         },
         {
             "name": "symfony/contracts",
