@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit278028c9c7055e4f6c73da53e128bfd6
+class ComposerStaticInit8a6aa6adad7e24ac10c69f85ba6d2c59
 {
     public static $files = array (
         '04c6c5c2f7095ccf6c481d3e53e1776f' => __DIR__ . '/..' . '/mustangostang/spyc/Spyc.php',
@@ -577,6 +577,8 @@ class ComposerStaticInit278028c9c7055e4f6c73da53e128bfd6
         'Monolog\\Handler\\FirePHPHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/FirePHPHandler.php',
         'Monolog\\Handler\\FleepHookHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/FleepHookHandler.php',
         'Monolog\\Handler\\FlowdockHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/FlowdockHandler.php',
+        'Monolog\\Handler\\FormattableHandlerInterface' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/FormattableHandlerInterface.php',
+        'Monolog\\Handler\\FormattableHandlerTrait' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/FormattableHandlerTrait.php',
         'Monolog\\Handler\\GelfHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/GelfHandler.php',
         'Monolog\\Handler\\GroupHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/GroupHandler.php',
         'Monolog\\Handler\\HandlerInterface' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/HandlerInterface.php',
@@ -594,6 +596,8 @@ class ComposerStaticInit278028c9c7055e4f6c73da53e128bfd6
         'Monolog\\Handler\\NewRelicHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/NewRelicHandler.php',
         'Monolog\\Handler\\NullHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/NullHandler.php',
         'Monolog\\Handler\\PHPConsoleHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/PHPConsoleHandler.php',
+        'Monolog\\Handler\\ProcessableHandlerInterface' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/ProcessableHandlerInterface.php',
+        'Monolog\\Handler\\ProcessableHandlerTrait' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/ProcessableHandlerTrait.php',
         'Monolog\\Handler\\PsrHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/PsrHandler.php',
         'Monolog\\Handler\\PushoverHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/PushoverHandler.php',
         'Monolog\\Handler\\RavenHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/RavenHandler.php',
@@ -3591,11 +3595,11 @@ class ComposerStaticInit278028c9c7055e4f6c73da53e128bfd6
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit278028c9c7055e4f6c73da53e128bfd6::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit278028c9c7055e4f6c73da53e128bfd6::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit278028c9c7055e4f6c73da53e128bfd6::$prefixesPsr0;
-            $loader->fallbackDirsPsr0 = ComposerStaticInit278028c9c7055e4f6c73da53e128bfd6::$fallbackDirsPsr0;
-            $loader->classMap = ComposerStaticInit278028c9c7055e4f6c73da53e128bfd6::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit8a6aa6adad7e24ac10c69f85ba6d2c59::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit8a6aa6adad7e24ac10c69f85ba6d2c59::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit8a6aa6adad7e24ac10c69f85ba6d2c59::$prefixesPsr0;
+            $loader->fallbackDirsPsr0 = ComposerStaticInit8a6aa6adad7e24ac10c69f85ba6d2c59::$fallbackDirsPsr0;
+            $loader->classMap = ComposerStaticInit8a6aa6adad7e24ac10c69f85ba6d2c59::$classMap;
 
         }, null, ClassLoader::class);
     }

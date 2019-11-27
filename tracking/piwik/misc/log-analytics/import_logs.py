@@ -66,7 +66,11 @@ except ImportError:
 ##
 
 STATIC_EXTENSIONS = set((
-    'gif jpg jpeg png bmp ico svg svgz ttf otf eot woff woff2 class swf css js xml robots.txt webp'
+    'gif jpg jpeg png bmp ico svg svgz ttf otf eot woff woff2 class swf css js xml webp'
+).split())
+
+STATIC_FILES = set((
+    'robots.txt'
 ).split())
 
 DOWNLOAD_EXTENSIONS = set((
@@ -404,7 +408,7 @@ class AmazonCloudFrontFormat(W3cExtendedFormat):
             return '200'
         elif key == 'user_agent':
             user_agent = super(AmazonCloudFrontFormat, self).get(key)
-            return urllib2.unquote(user_agent)
+            return urllib2.unquote(urllib2.unquote(user_agent))  # Value is double quoted!
         else:
             return super(AmazonCloudFrontFormat, self).get(key)
 
@@ -1061,7 +1065,7 @@ class Configuration(object):
                 command.append('--testmode')
 
             hostname = urlparse.urlparse( self.options.matomo_url ).hostname
-            command.append('--piwik-domain=' + hostname )
+            command.append('--matomo-domain=' + hostname )
 
             command = subprocess.list2cmdline(command)
 
@@ -2101,7 +2105,9 @@ class Parser(object):
         return result
 
     def check_static(self, hit):
-        if hit.extension in STATIC_EXTENSIONS:
+        filename = hit.path.split('/')[-1]
+
+        if hit.extension in STATIC_EXTENSIONS or filename in STATIC_FILES:
             if config.options.enable_static:
                 hit.is_download = True
                 return True

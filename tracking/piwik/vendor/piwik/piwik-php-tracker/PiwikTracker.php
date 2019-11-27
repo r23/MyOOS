@@ -12,9 +12,9 @@
  */
 
 /**
- * PiwikTracker implements the Piwik Tracking Web API.
+ * PiwikTracker implements the Matomo Tracking Web API.
  *
- * For more information, see README.md
+ * For more information, see: https://github.com/matomo-org/matomo-php-tracker/
  *
  * @package PiwikTracker
  * @api
@@ -363,7 +363,6 @@ class PiwikTracker
     public function setNewVisitorId()
     {
         $this->randomVisitorId = substr(md5(uniqid(rand(), true)), 0, self::LENGTH_VISITOR_ID);
-        $this->userId = false;
         $this->forcedVisitorId = false;
         $this->cookieVisitorId = false;
         return $this;
@@ -516,7 +515,7 @@ class PiwikTracker
         if (strlen($domain) > 0) {
             $dl = strlen($domain) - 1;
             // remove trailing '.'
-            if ($domain{$dl} === '.') {
+            if ($domain[$dl] === '.') {
                 $domain = substr($domain, 0, $dl);
             }
             // remove leading '*'
@@ -680,6 +679,7 @@ class PiwikTracker
      * @param float|int $price (optional) Individual product price (supports integer and decimal prices)
      * @param int $quantity (optional) Product quantity. If not specified, will default to 1 in the Reports
      * @throws Exception
+     * @return $this
      */
     public function addEcommerceItem($sku, $name = '', $category = '', $price = 0.0, $quantity = 1)
     {
@@ -690,6 +690,7 @@ class PiwikTracker
         $price = $this->forceDotAsSeparatorForDecimalPoint($price);
 
         $this->ecommerceItems[] = array($sku, $name, $category, $price, $quantity);
+        return $this;
     }
 
     /**
@@ -1169,10 +1170,6 @@ class PiwikTracker
      */
     public function setUserId($userId)
     {
-        if ($userId === false) {
-            $this->setNewVisitorId();
-            return $this;
-        }
         if ($userId === '') {
             throw new Exception("User ID cannot be empty.");
         }
@@ -1195,15 +1192,12 @@ class PiwikTracker
 
     /**
      * Forces the requests to be recorded for the specified Visitor ID.
-     * Note: it is recommended to use ->setUserId($userId); instead.
      *
      * Rather than letting Piwik attribute the user with a heuristic based on IP and other user fingeprinting attributes,
      * force the action to be recorded for a particular visitor.
      *
-     * If you use both setVisitorId and setUserId, setUserId will take precedence.
      * If not set, the visitor ID will be fetched from the 1st party cookie, or will be set to a random UUID.
      *
-     * @deprecated We recommend to use  ->setUserId($userId).
      * @param string $visitorId 16 hexadecimal characters visitor ID, eg. "33c31e01394bdc63"
      * @return $this
      * @throws Exception
@@ -1240,9 +1234,6 @@ class PiwikTracker
      */
     public function getVisitorId()
     {
-        if (!empty($this->userId)) {
-            return $this->getUserIdHashed($this->userId);
-        }
         if (!empty($this->forcedVisitorId)) {
             return $this->forcedVisitorId;
         }
@@ -1554,6 +1545,10 @@ class PiwikTracker
                 ),
             );
 
+            if ($method === 'GET') {
+                $options[CURLOPT_FOLLOWLOCATION] = true;
+            }
+
             if (defined('PATH_TO_CERTIFICATES_FILE')) {
                 $options[CURLOPT_CAINFO] = PATH_TO_CERTIFICATES_FILE;
             }
@@ -1675,8 +1670,14 @@ class PiwikTracker
             $customFields = '&' . http_build_query($this->customParameters, '', '&');
         }
 
-        $url = $this->getBaseUrl() .
-            '?idsite=' . $idSite .
+        $baseUrl = $this->getBaseUrl();
+        $start = '?';
+        if (strpos($baseUrl, '?') !== false) {
+            $start = '&';
+        }
+
+        $url = $baseUrl . $start .
+            'idsite=' . $idSite .
             '&rec=1' .
             '&apiv=' . self::VERSION .
             '&r=' . substr(strval(mt_rand()), 2, 6) .
@@ -1687,7 +1688,7 @@ class PiwikTracker
             (!empty($_GET['KEY']) ? '&KEY=' . @urlencode($_GET['KEY']) : '') .
 
             // Only allowed for Admin/Super User, token_auth required,
-            (!empty($this->ip) ? '&cip=' . $this->ip : '') .
+            ((!empty($this->ip) && !empty($this->token_auth)) ? '&cip=' . $this->ip : '') .
             (!empty($this->userId) ? '&uid=' . urlencode($this->userId) : '') .
             (!empty($this->forcedDatetime) ? '&cdt=' . urlencode($this->forcedDatetime) : '') .
             (!empty($this->forcedNewVisit) ? '&new_visit=1' : '') .
