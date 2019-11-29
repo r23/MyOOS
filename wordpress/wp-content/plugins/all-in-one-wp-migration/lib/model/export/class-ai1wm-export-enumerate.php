@@ -48,23 +48,6 @@ class Ai1wm_Export_Enumerate {
 		// Set progress
 		Ai1wm_Status::info( __( 'Retrieving a list of all WordPress files...', AI1WM_PLUGIN_NAME ) );
 
-		if ( isset( $params['options']['no_media'] )
-			&& isset( $params['options']['no_themes'] )
-			&& isset( $params['options']['no_muplugins'] )
-			&& isset( $params['options']['no_plugins'] ) ) {
-
-			// Create map file
-			$filemap = ai1wm_open( ai1wm_filemap_path( $params ), 'w' );
-
-			// Close the filemap file
-			ai1wm_close( $filemap );
-
-			// Set progress
-			Ai1wm_Status::info( __( 'Done retrieving a list of all WordPress files.', AI1WM_PLUGIN_NAME ) );
-
-			return $params;
-		}
-
 		// Set exclude filters
 		$exclude_filters = ai1wm_content_filters();
 
@@ -123,7 +106,7 @@ class Ai1wm_Export_Enumerate {
 		}
 
 		// Exclude selected files
-		if ( isset( $params['options']['exclude_files'] ) && isset( $params['excluded_files'] ) ) {
+		if ( isset( $params['options']['exclude_files'], $params['excluded_files'] ) ) {
 			$excluded_files = explode( ',', $params['excluded_files'] );
 			if ( $excluded_files ) {
 				$exclude_filters = array_merge( $exclude_filters, $excluded_files );
@@ -133,23 +116,27 @@ class Ai1wm_Export_Enumerate {
 		// Create map file
 		$filemap = ai1wm_open( ai1wm_filemap_path( $params ), 'w' );
 
-		// Iterate over content directory
-		$iterator = new Ai1wm_Recursive_Directory_Iterator( WP_CONTENT_DIR );
+		// Enumerate over content directory
+		if ( isset( $params['options']['no_media'], $params['options']['no_themes'], $params['options']['no_muplugins'], $params['options']['no_plugins'] ) === false ) {
 
-		// Exclude uploads, plugins or themes
-		$iterator = new Ai1wm_Recursive_Exclude_Filter( $iterator, apply_filters( 'ai1wm_exclude_content_from_export', $exclude_filters ) );
+			// Iterate over content directory
+			$iterator = new Ai1wm_Recursive_Directory_Iterator( WP_CONTENT_DIR );
 
-		// Recursively iterate over content directory
-		$iterator = new Ai1wm_Recursive_Iterator_Iterator( $iterator, RecursiveIteratorIterator::LEAVES_ONLY, RecursiveIteratorIterator::CATCH_GET_CHILD );
+			// Exclude uploads, plugins or themes
+			$iterator = new Ai1wm_Recursive_Exclude_Filter( $iterator, apply_filters( 'ai1wm_exclude_content_from_export', $exclude_filters ) );
 
-		// Write path line
-		foreach ( $iterator as $item ) {
-			if ( $item->isFile() ) {
-				if ( ai1wm_write( $filemap, $iterator->getSubPathName() . PHP_EOL ) ) {
-					$total_files_count++;
+			// Recursively iterate over content directory
+			$iterator = new Ai1wm_Recursive_Iterator_Iterator( $iterator, RecursiveIteratorIterator::LEAVES_ONLY, RecursiveIteratorIterator::CATCH_GET_CHILD );
 
-					// Add current file size
-					$total_files_size += $iterator->getSize();
+			// Write path line
+			foreach ( $iterator as $item ) {
+				if ( $item->isFile() ) {
+					if ( ai1wm_write( $filemap, $iterator->getSubPathName() . PHP_EOL ) ) {
+						$total_files_count++;
+
+						// Add current file size
+						$total_files_size += $iterator->getSize();
+					}
 				}
 			}
 		}

@@ -1214,12 +1214,15 @@ abstract class Ai1wm_Database {
 		if ( empty( $search ) || empty( $replace ) ) {
 			if ( ! $this->wpdb->has_cap( 'utf8mb4_520' ) ) {
 				if ( ! $this->wpdb->has_cap( 'utf8mb4' ) ) {
-					$search  = array( 'utf8mb4_unicode_520_ci', 'utf8mb4' );
-					$replace = array( 'utf8_unicode_ci', 'utf8' );
+					$search  = array( 'utf8mb4_0900_ai_ci', 'utf8mb4_unicode_520_ci', 'utf8mb4' );
+					$replace = array( 'utf8_unicode_ci', 'utf8_unicode_ci', 'utf8' );
 				} else {
-					$search  = array( 'utf8mb4_unicode_520_ci' );
-					$replace = array( 'utf8mb4_unicode_ci' );
+					$search  = array( 'utf8mb4_0900_ai_ci', 'utf8mb4_unicode_520_ci' );
+					$replace = array( 'utf8mb4_unicode_ci', 'utf8mb4_unicode_ci' );
 				}
+			} else {
+				$search  = array( 'utf8mb4_0900_ai_ci' );
+				$replace = array( 'utf8mb4_unicode_520_ci' );
 			}
 		}
 

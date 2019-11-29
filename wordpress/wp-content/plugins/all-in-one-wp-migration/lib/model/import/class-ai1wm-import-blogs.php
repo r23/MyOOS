@@ -103,19 +103,13 @@ class Ai1wm_Import_Blogs {
 							),
 						);
 					} else {
-						throw new Ai1wm_Import_Exception(
-							__( 'The archive should contain <strong>Single WordPress</strong> site! Please revisit your export settings.', AI1WM_PLUGIN_NAME )
-						);
+						throw new Ai1wm_Import_Exception( __( 'The archive should contain <strong>Single WordPress</strong> site! Please revisit your export settings.', AI1WM_PLUGIN_NAME ) );
 					}
 				} else {
-					throw new Ai1wm_Import_Exception(
-						__( 'At least <strong>one WordPress</strong> site should be presented in the archive.', AI1WM_PLUGIN_NAME )
-					);
+					throw new Ai1wm_Import_Exception( __( 'At least <strong>one WordPress</strong> site should be presented in the archive.', AI1WM_PLUGIN_NAME ) );
 				}
 			} else {
-				throw new Ai1wm_Import_Exception(
-					__( 'Unable to import <strong>WordPress Network</strong> into WordPress <strong>Single</strong> site.', AI1WM_PLUGIN_NAME )
-				);
+				throw new Ai1wm_Import_Exception( __( 'Unable to import <strong>WordPress Network</strong> into WordPress <strong>Single</strong> site.', AI1WM_PLUGIN_NAME ) );
 			}
 		}
 

@@ -33,13 +33,7 @@ class Ai1wm_Import_Validate {
 
 		// Verify file if size > 2GB and PHP = 32-bit
 		if ( ! ai1wm_is_filesize_supported( ai1wm_archive_path( $params ) ) ) {
-			throw new Ai1wm_Import_Exception(
-				__(
-					'Your PHP is 32-bit. In order to import your file, please change your PHP version to 64-bit and try again. ' .
-					'<a href="https://help.servmask.com/knowledgebase/php-32bit/" target="_blank">Technical details</a>',
-					AI1WM_PLUGIN_NAME
-				)
-			);
+			throw new Ai1wm_Import_Exception( __( 'Your PHP is 32-bit. In order to import your file, please change your PHP version to 64-bit and try again. <a href="https://help.servmask.com/knowledgebase/php-32bit/" target="_blank">Technical details</a>', AI1WM_PLUGIN_NAME ) );
 		}
 
 		// Set archive bytes offset
@@ -77,13 +71,7 @@ class Ai1wm_Import_Validate {
 
 		// Validate the archive file consistency
 		if ( ! $archive->is_valid() ) {
-			throw new Ai1wm_Import_Exception(
-				__(
-					'The archive file is corrupted. Follow ' .
-					'<a href="https://help.servmask.com/knowledgebase/corrupted-archive/" target="_blank">this article</a> to resolve the problem.',
-					AI1WM_PLUGIN_NAME
-				)
-			);
+			throw new Ai1wm_Import_Exception( __( 'The archive file is corrupted. Follow <a href="https://help.servmask.com/knowledgebase/corrupted-archive/" target="_blank">this article</a> to resolve the problem.', AI1WM_PLUGIN_NAME ) );
 		}
 
 		// Flag to hold if file data has been processed
@@ -106,13 +94,7 @@ class Ai1wm_Import_Validate {
 
 			// Check package.json file
 			if ( false === is_file( ai1wm_package_path( $params ) ) ) {
-				throw new Ai1wm_Import_Exception(
-					__(
-						'Please make sure that your file was exported using <strong>All-in-One WP Migration</strong> plugin. ' .
-						'<a href="https://help.servmask.com/knowledgebase/invalid-backup-file/" target="_blank">Technical details</a>',
-						AI1WM_PLUGIN_NAME
-					)
-				);
+				throw new Ai1wm_Import_Exception( __( 'Please make sure that your file was exported using <strong>All-in-One WP Migration</strong> plugin. <a href="https://help.servmask.com/knowledgebase/invalid-backup-file/" target="_blank">Technical details</a>', AI1WM_PLUGIN_NAME ) );
 			}
 
 			// Set progress

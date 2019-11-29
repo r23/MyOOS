@@ -697,16 +697,18 @@ class Ai1wm_Import_Database {
 		$old_table_prefixes = array();
 		$new_table_prefixes = array();
 
-		// Set main table prefixes
-		$old_table_prefixes[] = ai1wm_servmask_prefix( 'mainsite' );
-		$new_table_prefixes[] = ai1wm_table_prefix();
-
 		// Set site table prefixes
 		foreach ( $blogs as $blog ) {
 			if ( ai1wm_main_site( $blog['Old']['BlogID'] ) === false ) {
 				$old_table_prefixes[] = ai1wm_servmask_prefix( $blog['Old']['BlogID'] );
 				$new_table_prefixes[] = ai1wm_table_prefix( $blog['New']['BlogID'] );
 			}
+		}
+
+		// Set global table prefixes
+		foreach ( $wpdb->global_tables as $table_name ) {
+			$old_table_prefixes[] = ai1wm_servmask_prefix( 'mainsite' ) . $table_name;
+			$new_table_prefixes[] = ai1wm_table_prefix() . $table_name;
 		}
 
 		// Set base table prefixes
@@ -717,7 +719,7 @@ class Ai1wm_Import_Database {
 			}
 		}
 
-		// Set site table prefixes
+		// Set main table prefixes
 		foreach ( $blogs as $blog ) {
 			if ( ai1wm_main_site( $blog['Old']['BlogID'] ) === true ) {
 				$old_table_prefixes[] = ai1wm_servmask_prefix( $blog['Old']['BlogID'] );
@@ -743,14 +745,6 @@ class Ai1wm_Import_Database {
 			->set_new_replace_values( $new_replace_values )
 			->set_old_replace_raw_values( $old_replace_raw_values )
 			->set_new_replace_raw_values( $new_replace_raw_values );
-
-		// Flush database
-		if ( isset( $config['Plugin']['Version'] ) && ( $version = $config['Plugin']['Version'] ) ) {
-			if ( $version !== 'develop' && version_compare( $version, '4.10', '<' ) ) {
-				$mysql->set_include_table_prefixes( array( ai1wm_table_prefix() ) );
-				$mysql->flush();
-			}
-		}
 
 		// Set atomic tables (do not stop the current request for all listed tables if timeout has been exceeded)
 		$mysql->set_atomic_tables( array( ai1wm_table_prefix() . 'options' ) );

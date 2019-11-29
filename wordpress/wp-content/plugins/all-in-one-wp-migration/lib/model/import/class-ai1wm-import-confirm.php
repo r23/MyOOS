@@ -43,21 +43,29 @@ class Ai1wm_Import_Confirm {
 		// Close handle
 		ai1wm_close( $handle );
 
-		// Set message
-		$messages[] = __(
-			'The import process will overwrite your website including the database, media, plugins, and themes. ' .
-			'Please ensure that you have a backup of your data before proceeding to the next step.',
-			AI1WM_PLUGIN_NAME
-		);
+		// Confirm message
+		if ( defined( 'WP_CLI' ) ) {
+			$messages[] = __(
+				'The import process will overwrite your website including the database, media, plugins, and themes. ' .
+				'Are you sure to proceed?',
+				AI1WM_PLUGIN_NAME
+			);
+		} else {
+			$messages[] = __(
+				'The import process will overwrite your website including the database, media, plugins, and themes. ' .
+				'Please ensure that you have a backup of your data before proceeding to the next step.',
+				AI1WM_PLUGIN_NAME
+			);
+		}
 
 		// Check compatibility of PHP versions
 		if ( isset( $package['PHP']['Version'] ) ) {
 			if ( version_compare( $package['PHP']['Version'], '7.0.0', '<' ) && version_compare( PHP_VERSION, '7.0.0', '>=' ) ) {
-
 				if ( defined( 'WP_CLI' ) ) {
-					WP_CLI::log(
-						__( 'Your backup is from a PHP 5 but the site that you are importing to is PHP 7.', AI1WM_PLUGIN_NAME ) .
-						__( 'This could cause the import to fail. Technical details: https://help.servmask.com/knowledgebase/migrate-wordpress-from-php-5-to-php-7', AI1WM_PLUGIN_NAME )
+					$messages[] = __(
+						'Your backup is from a PHP 5 but the site that you are importing to is PHP 7. ' .
+						'This could cause the import to fail. Technical details: https://help.servmask.com/knowledgebase/migrate-wordpress-from-php-5-to-php-7/',
+						AI1WM_PLUGIN_NAME
 					);
 				} else {
 					$messages[] = __(
@@ -70,16 +78,13 @@ class Ai1wm_Import_Confirm {
 		}
 
 		if ( defined( 'WP_CLI' ) ) {
-			$message = __(
-				'The import process will overwrite your website including the database, media, plugins, and themes. Are you sure to proceed?',
-				AI1WM_PLUGIN_NAME
-			);
-
 			$assoc_args = array();
 			if ( isset( $params['cli_args'] ) ) {
 				$assoc_args = $params['cli_args'];
 			}
-			WP_CLI::confirm( $message, $assoc_args );
+
+			WP_CLI::confirm( implode( $messages ), $assoc_args );
+
 			return $params;
 		}
 

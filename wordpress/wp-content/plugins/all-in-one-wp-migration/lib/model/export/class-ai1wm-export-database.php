@@ -128,6 +128,11 @@ class Ai1wm_Export_Database {
 			}
 		}
 
+		// Include table prefixes (Webba Booking)
+		foreach ( array( 'wbk_services', 'wbk_days_on_off', 'wbk_locked_time_slots', 'wbk_appointments', 'wbk_cancelled_appointments', 'wbk_email_templates', 'wbk_service_categories', 'wbk_gg_calendars', 'wbk_coupons' ) as $table_name ) {
+			$include_table_prefixes[] = $table_name;
+		}
+
 		// Set database options
 		$mysql->set_old_table_prefixes( $old_table_prefixes )
 			->set_new_table_prefixes( $new_table_prefixes )

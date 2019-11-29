@@ -31,24 +31,15 @@ class Ai1wm_Import_Upload {
 
 	private static function validate() {
 		if ( ! array_key_exists( 'upload-file', $_FILES ) || ! is_array( $_FILES['upload-file'] ) ) {
-			throw new Ai1wm_Import_Retry_Exception(
-				__( 'Missing upload file.', AI1WM_PLUGIN_NAME ),
-				400
-			);
+			throw new Ai1wm_Import_Retry_Exception( __( 'Missing upload file.', AI1WM_PLUGIN_NAME ), 400 );
 		}
 
 		if ( ! array_key_exists( 'error', $_FILES['upload-file'] ) ) {
-			throw new Ai1wm_Import_Retry_Exception(
-				__( 'Missing error key in upload file.', AI1WM_PLUGIN_NAME ),
-				400
-			);
+			throw new Ai1wm_Import_Retry_Exception( __( 'Missing error key in upload file.', AI1WM_PLUGIN_NAME ), 400 );
 		}
 
 		if ( ! array_key_exists( 'tmp_name', $_FILES['upload-file'] ) ) {
-			throw new Ai1wm_Import_Retry_Exception(
-				__( 'Missing tmp_name in upload file.', AI1WM_PLUGIN_NAME ),
-				400
-			);
+			throw new Ai1wm_Import_Retry_Exception( __( 'Missing tmp_name in upload file.', AI1WM_PLUGIN_NAME ), 400 );
 		}
 	}
 
@@ -65,47 +56,28 @@ class Ai1wm_Import_Upload {
 					ai1wm_copy( $upload, $archive );
 					ai1wm_unlink( $upload );
 				} catch ( Exception $e ) {
-					throw new Ai1wm_Import_Retry_Exception(
-						sprintf(
-							__( 'Unable to upload the file because %s', AI1WM_PLUGIN_NAME ),
-							$e->getMessage()
-						),
-						400
-					);
+					throw new Ai1wm_Import_Retry_Exception( sprintf( __( 'Unable to upload the file because %s', AI1WM_PLUGIN_NAME ), $e->getMessage() ), 400 );
 				}
 				break;
+
 			case UPLOAD_ERR_INI_SIZE:
 			case UPLOAD_ERR_FORM_SIZE:
 			case UPLOAD_ERR_PARTIAL:
 			case UPLOAD_ERR_NO_FILE:
 				// File is too large
-				throw new Ai1wm_Import_Retry_Exception(
-					__( 'The file is too large for this server.', AI1WM_PLUGIN_NAME ),
-					413
-				);
+				throw new Ai1wm_Import_Retry_Exception( __( 'The file is too large for this server.', AI1WM_PLUGIN_NAME ), 413 );
+
 			case UPLOAD_ERR_NO_TMP_DIR:
-				throw new Ai1wm_Import_Retry_Exception(
-					__( 'Missing a temporary folder.', AI1WM_PLUGIN_NAME ),
-					400
-				);
+				throw new Ai1wm_Import_Retry_Exception( __( 'Missing a temporary folder.', AI1WM_PLUGIN_NAME ), 400 );
+
 			case UPLOAD_ERR_CANT_WRITE:
-				throw new Ai1wm_Import_Retry_Exception(
-					__( 'Failed to write file to disk.', AI1WM_PLUGIN_NAME ),
-					400
-				);
+				throw new Ai1wm_Import_Retry_Exception( __( 'Failed to write file to disk.', AI1WM_PLUGIN_NAME ), 400 );
+
 			case UPLOAD_ERR_EXTENSION:
-				throw new Ai1wm_Import_Retry_Exception(
-					__( 'A PHP extension stopped the file upload.', AI1WM_PLUGIN_NAME ),
-					400
-				);
+				throw new Ai1wm_Import_Retry_Exception( __( 'A PHP extension stopped the file upload.', AI1WM_PLUGIN_NAME ), 400 );
+
 			default:
-				throw new Ai1wm_Import_Retry_Exception(
-					sprintf(
-						__( 'Unrecognized error %s during upload.', AI1WM_PLUGIN_NAME ),
-						$error
-					),
-					400
-				);
+				throw new Ai1wm_Import_Retry_Exception( sprintf( __( 'Unrecognized error %s during upload.', AI1WM_PLUGIN_NAME ), $error ), 400 );
 		}
 
 		echo json_encode( array( 'errors' => array() ) );
