@@ -1104,7 +1104,7 @@ msgstr "Vorschau des Anhangs"
 msgid "Your browser cannot upload files"
 msgstr "Dein Browser kann keine Dateien hochladen"
 
-#: wp-includes/class-wp-xmlrpc-server.php:615 wp-includes/option.php:2081
+#: wp-includes/class-wp-xmlrpc-server.php:615 wp-includes/option.php:2084
 msgid "Allow people to submit comments on new posts."
 msgstr "Erlaube Besuchern, neue Beiträge zu kommentieren."
 
@@ -6551,7 +6551,7 @@ msgid "Featured Image"
 msgstr "Beitragsbild"
 
 #. translators: 1: $sanitize_callback, 2: register_setting()
-#: wp-includes/option.php:2233
+#: wp-includes/option.php:2236
 msgid "%1$s is deprecated. The callback from %2$s is used instead."
 msgstr "%1$s ist veraltet. Stattdessen wird der Callback von %2$s verwendet."
 
@@ -6680,7 +6680,7 @@ msgstr[1] "Dein Theme hat %s weitere Widget-Bereiche, aber diese bestimmte Seite
 msgid "Your theme has 1 other widget area, but this particular page doesn&#8217;t display it."
 msgstr "Dein Theme hat einen weiteren Widget-Bereich, aber diese bestimmte Seite zeigt ihn nicht an."
 
-#: wp-includes/option.php:1955
+#: wp-includes/option.php:1958
 msgid "This address is used for admin purposes, like new user notification."
 msgstr "Diese Adresse wird für administrative Zwecke verwendet, wie Benachrichtigungen über neue Benutzer."
 
@@ -6872,11 +6872,11 @@ msgstr "Die Beschreibung des Anhangs."
 msgid "The attachment caption."
 msgstr "Die Beschriftung des Anhangs."
 
-#: wp-includes/option.php:2032
+#: wp-includes/option.php:2035
 msgid "Default post category."
 msgstr "Standard-Beitragskategorie."
 
-#: wp-includes/option.php:1922
+#: wp-includes/option.php:1925
 msgid "Site tagline."
 msgstr "Website-Untertitel."
 
@@ -8231,48 +8231,48 @@ msgstr "%1$s %2$s vor %3$s (%4$s)"
 
 #. translators: %s: misc
 #. translators: %s: privacy
-#: wp-includes/option.php:2150 wp-includes/option.php:2163
-#: wp-includes/option.php:2203 wp-includes/option.php:2216
+#: wp-includes/option.php:2153 wp-includes/option.php:2166
+#: wp-includes/option.php:2206 wp-includes/option.php:2219
 msgid "The \"%s\" options group has been removed. Use another settings group."
 msgstr "Die Optionsgruppe „%s“ wurde entfernt. Verwende eine andere Einstellungsgruppe."
 
-#: wp-includes/option.php:2067
+#: wp-includes/option.php:2070
 msgid "Allow link notifications from other blogs (pingbacks and trackbacks) on new articles."
 msgstr "Link-Benachrichtigungen von anderen Blogs (Pingbacks und Trackbacks) zu neuen Beiträgen erlauben."
 
-#: wp-includes/option.php:2052
+#: wp-includes/option.php:2055
 msgid "Blog pages show at most."
 msgstr "Maximal angezeigte Beiträge."
 
-#: wp-includes/option.php:2042
+#: wp-includes/option.php:2045
 msgid "Default post format."
 msgstr "Standard-Beitragsformat."
 
-#: wp-includes/option.php:2021
+#: wp-includes/option.php:2024
 msgid "Convert emoticons like :-) and :-P to graphics on display."
 msgstr "Emoticons wie :-) und :-P als Grafiken anzeigen."
 
-#: wp-includes/option.php:2010
+#: wp-includes/option.php:2013
 msgid "WordPress locale code."
 msgstr "WordPress-Ländercode."
 
-#: wp-includes/option.php:1998
+#: wp-includes/option.php:2001
 msgid "A day number of the week that the week should start on."
 msgstr "Die Zahl eines Wochentages, mit dem die Woche beginnen sollte."
 
-#: wp-includes/option.php:1988
+#: wp-includes/option.php:1991
 msgid "A time format for all time strings."
 msgstr "Ein Zeitformat für alle zeitbasierten Zeichenfolgen."
 
-#: wp-includes/option.php:1978
+#: wp-includes/option.php:1981
 msgid "A date format for all date strings."
 msgstr "Ein Zeitformat für alle datumsbasierten Zeichenfolgen."
 
-#: wp-includes/option.php:1968
+#: wp-includes/option.php:1971
 msgid "A city in the same timezone as you."
 msgstr "Eine Stadt in deiner Zeitzone."
 
-#: wp-includes/option.php:1910
+#: wp-includes/option.php:1913
 msgid "Site title."
 msgstr "Website-Titel."
 
@@ -14199,7 +14199,7 @@ msgstr "Du bist leider nicht berechtigt, Beiträge auf dieser Website zu veröff
 msgid "Sorry, you are not allowed to post on this site."
 msgstr "Du bist leider nicht berechtigt, Beiträge auf dieser Website zu schreiben."
 
-#: wp-includes/option.php:1938
+#: wp-includes/option.php:1941
 msgid "Site URL."
 msgstr "Website-URL."
 

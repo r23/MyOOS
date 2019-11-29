@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.3.x - Development - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-11-24 20:10:09+0000\n"
+"PO-Revision-Date: 2019-11-26 16:05:58+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -5253,7 +5253,7 @@ msgstr "Nur für das gesamte Netzwerk aktivierbar"
 msgid "Network Active"
 msgstr "Netzwerkweit aktiviert"
 
-#: wp-admin/includes/class-wp-list-table.php:731
+#: wp-admin/includes/class-wp-list-table.php:734
 msgid "No pending comments"
 msgstr "Keine ausstehenden Kommentare"
 
@@ -5456,32 +5456,32 @@ msgstr "Überall sonst abmelden"
 msgid "You will need this password to log&nbsp;in. Please store it in a secure location."
 msgstr "Du wirst dieses Passwort zum Anmelden brauchen. Bitte bewahre es an einem sicheren Ort auf."
 
-#: wp-admin/includes/class-wp-list-table.php:708
+#: wp-admin/includes/class-wp-list-table.php:711
 msgid "No approved comments"
 msgstr "Keine freigegebenen Kommentare"
 
-#: wp-admin/includes/class-wp-list-table.php:686
-#: wp-admin/includes/class-wp-list-table.php:708
-#: wp-admin/includes/class-wp-list-table.php:731
+#: wp-admin/includes/class-wp-list-table.php:689
+#: wp-admin/includes/class-wp-list-table.php:711
+#: wp-admin/includes/class-wp-list-table.php:734
 msgid "No comments"
 msgstr "Keine Kommentare"
 
 #. translators: %s: Number of comments.
-#: wp-admin/includes/class-wp-list-table.php:678
+#: wp-admin/includes/class-wp-list-table.php:681
 msgid "%s pending comment"
 msgid_plural "%s pending comments"
 msgstr[0] "%s ausstehender Kommentar"
 msgstr[1] "%s ausstehende Kommentare"
 
 #. translators: %s: Number of comments.
-#: wp-admin/includes/class-wp-list-table.php:672
+#: wp-admin/includes/class-wp-list-table.php:675
 msgid "%s approved comment"
 msgid_plural "%s approved comments"
 msgstr[0] "%s freigegebener Kommentar"
 msgstr[1] "%s freigegebene Kommentare"
 
 #. translators: %s: Number of comments.
-#: wp-admin/includes/class-wp-list-table.php:666
+#: wp-admin/includes/class-wp-list-table.php:669
 msgid "%s comment"
 msgid_plural "%s comments"
 msgstr[0] "%s Kommentar"
@@ -5504,7 +5504,7 @@ msgstr "Während du deine %1$s Datei bearbeitest, nimm dir einen Moment Zeit und
 #: wp-admin/includes/update.php:796
 #: wp-admin/includes/class-wp-comments-list-table.php:762
 #: wp-admin/includes/class-wp-list-table.php:528
-#: wp-admin/includes/class-wp-list-table.php:1376
+#: wp-admin/includes/class-wp-list-table.php:1379
 msgid "Show more details"
 msgstr "Mehr Details anzeigen"
 
@@ -5528,11 +5528,11 @@ msgstr[1] "%s Beiträge von diesem Autor"
 msgid "Live Preview &#8220;%s&#8221;"
 msgstr "Live-Vorschau &#8222;%s&#8220;"
 
-#: wp-admin/includes/class-wp-list-table.php:903
+#: wp-admin/includes/class-wp-list-table.php:906
 msgid "Last page"
 msgstr "Letzte Seite"
 
-#: wp-admin/includes/class-wp-list-table.php:851
+#: wp-admin/includes/class-wp-list-table.php:854
 msgid "First page"
 msgstr "Erste Seite"
 
@@ -7922,7 +7922,7 @@ msgstr "<strong>FEHLER</strong>: Bitte gib einen Spitznamen ein."
 msgid "https://wordpress.org/about/"
 msgstr "https://wordpress.org/about/"
 
-#: wp-admin/includes/class-wp-list-table.php:1125
+#: wp-admin/includes/class-wp-list-table.php:1128
 #: wp-admin/includes/nav-menu.php:655 wp-admin/includes/nav-menu.php:884
 #: wp-admin/update-core.php:321 wp-admin/update-core.php:429
 #: wp-admin/update-core.php:471 wp-admin/update-core.php:511
@@ -8087,7 +8087,7 @@ msgstr "%1$s (%2$s)"
 #. 4: Version number.
 #: wp-admin/includes/theme.php:217 wp-admin/includes/update.php:635
 msgid "There is a new version of %1$s available. <a href=\"%2$s\" %3$s>View version %4$s details</a>. <em>Automatic update is unavailable for this theme.</em>"
-msgstr "Eine neue Version von %1$s ist verfügbar <a href=\"%2$s\" %3$s>Details der Version %4$s ansehen</a>. <em>Eine automatische Aktualisierung für dieses Theme nicht verfügbar.</em>"
+msgstr "Eine neue Version von %1$s ist verfügbar <a href=\"%2$s\" %3$s>Details der Version %4$s ansehen</a>. <em>Eine automatische Aktualisierung ist für dieses Theme nicht verfügbar.</em>"
 
 #: wp-admin/install.php:109 wp-admin/install.php:334
 msgctxt "Howdy"
@@ -9372,7 +9372,7 @@ msgid "&larr; Back to Users"
 msgstr "&larr; Zurück zu Benutzer"
 
 #. translators: 1: Current page, 2: Total pages.
-#: wp-admin/includes/class-wp-list-table.php:881
+#: wp-admin/includes/class-wp-list-table.php:884
 msgctxt "paging"
 msgid "%1$s of %2$s"
 msgstr "%1$s von %2$s"
@@ -9656,8 +9656,8 @@ msgstr "Um diese Aktion durchführen zu können, benötigt WordPress Zugriff auf
 msgid "No themes match your request."
 msgstr "Es wurde kein passendes Theme zu deiner Auswahl gefunden."
 
-#: wp-admin/includes/class-wp-list-table.php:869
-#: wp-admin/includes/class-wp-list-table.php:873
+#: wp-admin/includes/class-wp-list-table.php:872
+#: wp-admin/includes/class-wp-list-table.php:876
 msgid "Current Page"
 msgstr "Aktuelle Seite"
 
