@@ -353,7 +353,6 @@ class paypal_api {
 			// Add the above transaction object inside our Execution object.
 			$result = $payment->execute($execution, $apiContext);
 			
-			
 			// return transaction id after execute
 			$transactions = $payment->getTransactions();
 			$resources = $transactions[0]->getRelatedResources();
