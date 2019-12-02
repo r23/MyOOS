@@ -104,6 +104,9 @@ HttpFoundation
 
  * `ApacheRequest` is deprecated, use `Request` class instead.
  * Passing a third argument to `HeaderBag::get()` is deprecated since Symfony 4.4, use method `all()` instead
+ * [BC BREAK] `PdoSessionHandler` with MySQL changed the type of the lifetime column,
+   make sure to run `ALTER TABLE sessions MODIFY sess_lifetime INTEGER UNSIGNED NOT NULL` to
+   update your database.
  * `PdoSessionHandler` now precalculates the expiry timestamp in the lifetime column,
     make sure to run `CREATE INDEX EXPIRY ON sessions (sess_lifetime)` to update your database
     to speed up garbage collection of expired sessions.
@@ -168,6 +171,8 @@ Mailer
 ------
 
  * [BC BREAK] Changed the DSN to use for disabling delivery (using the `NullTransport`) from `smtp://null` to `null://null` (host doesn't matter).
+ * [BC BREAK] Renamed class `SmtpEnvelope` to `Envelope` and `DelayedSmtpEnvelope` to `DelayedEnvelope`.
+ * [BC BREAK] Added a required `string $transport` argument to `MessageEvent::__construct`.
 
 Messenger
 ---------
@@ -217,6 +222,7 @@ Security
  * The `LdapUserProvider` class has been deprecated, use `Symfony\Component\Ldap\Security\LdapUserProvider` instead.
  * Implementations of `PasswordEncoderInterface` and `UserPasswordEncoderInterface` should add a new `needsRehash()` method
  * Deprecated returning a non-boolean value when implementing `Guard\AuthenticatorInterface::checkCredentials()`. Please explicitly return `false` to indicate invalid credentials.
+ * The `ListenerInterface` is deprecated, extend `AbstractListener` instead.
  * Deprecated passing more than one attribute to `AccessDecisionManager::decide()` and `AuthorizationChecker::isGranted()` (and indirectly the `is_granted()` Twig and ExpressionLanguage function)
 
    **Before**
@@ -228,7 +234,7 @@ Security
 
    **After**
    ```php
-   if ($this->authorizationChecker->isGranted(new Expression("has_role('ROLE_USER') or has_role('ROLE_ADMIN')"))) {}
+   if ($this->authorizationChecker->isGranted(new Expression("is_granted('ROLE_USER') or is_granted('ROLE_ADMIN')"))) {}
 
    // or:
    if ($this->authorizationChecker->isGranted('ROLE_USER')
@@ -269,7 +275,17 @@ TwigBridge
 TwigBundle
 ----------
 
- * Deprecated `twig.exception_controller` configuration option, set it to "null" and use `framework.error_controller` instead:
+ * Deprecated `twig.exception_controller` configuration option.
+
+   If you were not using this option previously, set it to `null`:
+
+   After:
+   ```yaml
+   twig:
+       exception_controller: null
+   ```
+
+   If you were using this option previously, set it to `null` and use `framework.error_controller` instead:
 
    Before:
    ```yaml

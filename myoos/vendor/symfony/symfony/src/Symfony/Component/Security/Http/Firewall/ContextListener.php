@@ -32,6 +32,7 @@ use Symfony\Component\Security\Core\Role\SwitchUserRole;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Http\Event\DeauthenticatedEvent;
+use Symfony\Component\Security\Http\RememberMe\RememberMeServicesInterface;
 
 /**
  * ContextListener manages the SecurityContext persistence through a session.
@@ -41,7 +42,7 @@ use Symfony\Component\Security\Http\Event\DeauthenticatedEvent;
  *
  * @final since Symfony 4.3
  */
-class ContextListener implements ListenerInterface
+class ContextListener extends AbstractListener implements ListenerInterface
 {
     use LegacyListenerTrait;
 
@@ -52,6 +53,7 @@ class ContextListener implements ListenerInterface
     private $dispatcher;
     private $registered;
     private $trustResolver;
+    private $rememberMeServices;
     private $sessionTrackerEnabler;
 
     /**
@@ -85,9 +87,17 @@ class ContextListener implements ListenerInterface
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function supports(Request $request): ?bool
+    {
+        return null; // always run authenticate() lazily with lazy firewalls
+    }
+
+    /**
      * Reads the Security Token from the session.
      */
-    public function __invoke(RequestEvent $event)
+    public function authenticate(RequestEvent $event)
     {
         if (!$this->registered && null !== $this->dispatcher && $event->isMasterRequest()) {
             $this->dispatcher->addListener(KernelEvents::RESPONSE, [$this, 'onKernelResponse']);
@@ -128,6 +138,10 @@ class ContextListener implements ListenerInterface
 
         if ($token instanceof TokenInterface) {
             $token = $this->refreshUser($token);
+
+            if (!$token && $this->rememberMeServices) {
+                $this->rememberMeServices->loginFail($request);
+            }
         } elseif (null !== $token) {
             if (null !== $this->logger) {
                 $this->logger->warning('Expected a security token from the session, got something else.', ['key' => $this->sessionKey, 'received' => $token]);
@@ -306,5 +320,10 @@ class ContextListener implements ListenerInterface
     public static function handleUnserializeCallback($class)
     {
         throw new \ErrorException('Class not found: '.$class, 0x37313bc);
+    }
+
+    public function setRememberMeServices(RememberMeServicesInterface $rememberMeServices)
+    {
+        $this->rememberMeServices = $rememberMeServices;
     }
 }
