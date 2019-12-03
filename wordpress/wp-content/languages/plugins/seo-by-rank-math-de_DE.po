@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - WordPress SEO Plugin &#8211; Rank Math - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-11-14 10:47:34+0000\n"
+"PO-Revision-Date: 2019-12-01 21:58:03+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -224,7 +224,7 @@ msgstr "%s Archive Erweiterte Roboter-Meta"
 msgid "%s Advanced Robots Meta"
 msgstr "%s Erweiterte Roboter-Meta"
 
-#: includes/metaboxes/advanced.php:29 includes/settings/titles/global.php:23
+#: includes/settings/titles/global.php:23 includes/metaboxes/advanced.php:29
 msgid "Advanced Robots Meta"
 msgstr "Erweiterte Roboter-Meta"
 
@@ -543,7 +543,7 @@ msgstr "Die Variable wurde bereits registriert."
 msgid "Enable or disable the date archive (_e.g: domain.com/2019/06/_). If this option is disabled, the date archives will be redirected to the homepage."
 msgstr "Aktiviere oder deaktiviere das Datumsarchiv (_z.B.: domain.com/2019/06/_). Wenn diese Option deaktiviert ist, werden die Datumsarchive auf die Homepage umgeleitet."
 
-#: includes/modules/woocommerce/class-admin.php:61
+#: includes/modules/woocommerce/class-admin.php:79
 msgid "Choose how you want Rank Math to handle your WooCommerce SEO. These options help you create cleaner, SEO friendly URLs, and optimize your WooCommerce product pages."
 msgstr "Wähle wie Rank Math deine WooCommerce SEO verwalten soll. Diese Option hilft dir, sauberere, SEO-freundliche URLs zu erstellen und deine WooCommerce-Produktseiten zu optimieren."
 
@@ -644,26 +644,26 @@ msgstr "Schlechteste Bewertung."
 msgid "Settings could not be imported: Upload failed."
 msgstr "Die Einstellungen konnten nicht importiert werden: Upload fehlgeschlagen."
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:307
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:308
 msgid "Posting ID"
 msgstr "Beitrags-ID"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:270
 #: includes/modules/rich-snippet/views/course.php:27
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:272
 msgid "Course Provider Name"
 msgstr "Name des Kursanbieters"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:283
 #: includes/modules/rich-snippet/views/event.php:84
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:285
 msgid "Performer Name"
 msgstr "Name des Künstlers"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:284
 #: includes/modules/rich-snippet/views/event.php:93
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:286
 msgid "Performer URL"
 msgstr "URL des Künstlers"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:212
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:214
 msgid "Format"
 msgstr "Format"
 
@@ -671,8 +671,8 @@ msgstr "Format"
 msgid "Phone number"
 msgstr "Telefonnummer"
 
-#: includes/modules/rich-snippet/views/review.php:49
 #: includes/modules/rich-snippet/views/metabox-options.php:58
+#: includes/modules/rich-snippet/views/review.php:49
 msgid "The review or rating must be displayed on the page to comply with Google's Rich Snippet guidelines."
 msgstr "Die Bewertung muss auf der Seite angezeigt werden, um den Richtlinien von Google Rich Snippet zu entsprechen."
 
@@ -688,7 +688,7 @@ msgstr "Bewertungspunktzahl des Rezepts. Optional."
 msgid "URL pointing to the menu of the restaurant."
 msgstr "URL, die auf das Menü des Restaurants verweist."
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:305
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:306
 msgid "Employment Type "
 msgstr "Beschäftigungsart"
 
@@ -737,7 +737,7 @@ msgstr "Die Beitrags-ID existiert nicht oder wurde gelöscht."
 msgid "Coming Soon"
 msgstr "Bald verfügbar"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:370
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:371
 msgid "Job Title"
 msgstr "Stellenbezeichnung"
 
@@ -745,34 +745,34 @@ msgstr "Stellenbezeichnung"
 msgid "The job title of the person (for example, Financial Manager)."
 msgstr "Die Stellenbeschreibung der Person (zum Beispiel Finanzvorstand)."
 
-#: includes/modules/rich-snippet/views/event.php:171
-#: includes/modules/rich-snippet/views/service.php:42
 #: includes/modules/rich-snippet/views/product.php:34
-#: includes/modules/rich-snippet/views/job-posting.php:36
+#: includes/modules/rich-snippet/views/service.php:42
 #: includes/modules/rich-snippet/views/software.php:32
+#: includes/modules/rich-snippet/views/job-posting.php:36
+#: includes/modules/rich-snippet/views/event.php:171
 msgid "Please use the correct format. Example: EUR"
 msgstr "Bitte verwende das korrekte Format. Beispiel: EUR"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:309
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:310
 msgid "Organization Logo"
 msgstr "Logo des Unternehmens"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:308
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:309
 msgid "Organization URL"
 msgstr "URL des Unternehmens"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:301
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:303
 msgid "Payroll"
 msgstr "Gehaltsabrechnung"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:299
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:301
 msgid "Salary"
 msgstr "Gehalt"
 
-#: includes/modules/rich-snippet/views/event.php:166
 #: includes/modules/rich-snippet/views/service.php:37
-#: includes/modules/rich-snippet/views/job-posting.php:31
 #: includes/modules/rich-snippet/views/software.php:27
+#: includes/modules/rich-snippet/views/job-posting.php:31
+#: includes/modules/rich-snippet/views/event.php:166
 msgid "ISO 4217 Currency code. Example: EUR"
 msgstr "Währung im ISO-4217-Code. Beispiel: EUR"
 
@@ -818,7 +818,7 @@ msgstr "Dieses KML File wird generiert von <a href=\"%s\" target=\"_blank\">Rank
 msgid "Impressions History"
 msgstr "Impressionen Historie"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:306
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:307
 msgid "Hiring Organization "
 msgstr "Einstellungsorganisation"
 
@@ -1166,7 +1166,7 @@ msgstr "SEO ist das Rückgrat jeder Website und ist umso wichtiger für einen Wo
 msgid "Someone types the wrong address"
 msgstr "Jemand gibt die falsche Adresse ein"
 
-#: includes/modules/search-console/class-search-console.php:296
+#: includes/modules/search-console/class-search-console.php:300
 #: includes/modules/search-console/views/options.php:30
 #: includes/modules/search-console/views/options.php:32
 #: includes/admin/wizard/class-search-console.php:92
@@ -1446,41 +1446,41 @@ msgstr "Homepage Link"
 msgid "Your current theme doesn't support title-tag. Enable this option to rewrite page, post, category, search and archive page titles."
 msgstr "Dein aktuelles Design unterstützt kein Titel-Tag. Aktiviere diese Option, um Seitentitel, Beiträge, Kategorien, Such- und Archivierungsseiten neu zu schreiben."
 
-#: includes/modules/rich-snippet/views/review.php:56
 #: includes/modules/rich-snippet/views/metabox-options.php:65
+#: includes/modules/rich-snippet/views/review.php:56
 #: includes/settings/general/others.php:76
 msgid "Above Content"
 msgstr "Oberhalb des Inhalts"
 
-#: includes/modules/rich-snippet/views/review.php:57
 #: includes/modules/rich-snippet/views/metabox-options.php:66
+#: includes/modules/rich-snippet/views/review.php:57
 #: includes/settings/general/others.php:77
 msgid "Above & Below Content"
 msgstr "Ober- und unterhalb des Inhalts"
 
-#: includes/modules/rich-snippet/views/review.php:55
 #: includes/modules/rich-snippet/views/metabox-options.php:64
+#: includes/modules/rich-snippet/views/review.php:55
 #: includes/settings/general/others.php:75
 msgid "Below Content"
 msgstr "Unterhalb des Inhalts"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:237
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:239
 msgid "Editor's Rating:"
 msgstr "Bewertung des Redakteurs:"
 
-#: includes/modules/rich-snippet/views/review.php:58
 #: includes/modules/rich-snippet/views/metabox-options.php:67
+#: includes/modules/rich-snippet/views/review.php:58
 #: includes/settings/general/others.php:78
 msgid "Custom (use shortcode)"
 msgstr "Benutzerdefiniert (Shortcode verwenden)"
 
-#: includes/modules/rich-snippet/views/review.php:48
 #: includes/modules/rich-snippet/views/metabox-options.php:57
+#: includes/modules/rich-snippet/views/review.php:48
 msgid "Review Location"
 msgstr "Standort überprüfen"
 
-#: includes/modules/rich-snippet/views/review.php:67
 #: includes/modules/rich-snippet/views/metabox-options.php:75
+#: includes/modules/rich-snippet/views/review.php:67
 msgid "Copy & paste this shortcode in the content."
 msgstr "Kopiere und füge diese Verknüpfung in den Inhalt ein."
 
@@ -1508,8 +1508,8 @@ msgstr "Du müsst %1$sgo zu deinen Leseeinstellungen%2$s gehen und das Kontrollk
 msgid "Your site may not be visible to search engine."
 msgstr "Deine Website könnte für Suchmaschinen unsichtbar sein."
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:321
 #: includes/modules/rich-snippet/views/product.php:54
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:322
 msgid "Price Valid Until"
 msgstr "Preis gültig bis"
 
@@ -1534,8 +1534,8 @@ msgstr "Wir haben eine Galerie in deinem Inhalt gefunden und sind davon ausgegan
 msgid "A performer at the event"
 msgstr "Ein Darsteller bei der Veranstaltung"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:282
 #: includes/modules/rich-snippet/views/event.php:71
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:284
 msgid "Performer"
 msgstr "Darsteller"
 
@@ -1899,19 +1899,19 @@ msgid "This tab contains snippet options."
 msgstr "Diese Registerkarte enthält Snippet Optionen."
 
 #: includes/modules/buddypress/views/options-titles.php:36
-#: includes/settings/titles/homepage.php:44
 #: includes/settings/titles/author.php:40
 #: includes/settings/titles/post-types.php:160
 #: includes/settings/titles/taxonomies.php:63
+#: includes/settings/titles/homepage.php:44
 msgid "Default"
 msgstr "Standard"
 
+#: includes/modules/redirections/class-form.php:92
 #: includes/modules/local-seo/views/titles-options.php:101
 #: includes/modules/local-seo/views/titles-options.php:148
-#: includes/modules/404-monitor/views/options.php:49
-#: includes/modules/redirections/class-form.php:92
-#: includes/modules/rich-snippet/views/recipe.php:245
 #: includes/modules/rich-snippet/views/book.php:48
+#: includes/modules/rich-snippet/views/recipe.php:245
+#: includes/modules/404-monitor/views/options.php:49
 msgid "Remove"
 msgstr "Entfernen"
 
@@ -1958,10 +1958,10 @@ msgid "Homepage Title for Facebook"
 msgstr "Homepage-Titel für Facebook"
 
 #: includes/modules/buddypress/views/options-titles.php:37
-#: includes/settings/titles/homepage.php:45
 #: includes/settings/titles/author.php:41
 #: includes/settings/titles/post-types.php:161
 #: includes/settings/titles/taxonomies.php:64
+#: includes/settings/titles/homepage.php:45
 msgid "Custom"
 msgstr "Benutzerdefiniert"
 
@@ -2009,15 +2009,17 @@ msgstr "Autor Archivtitel"
 msgid "Author Base"
 msgstr "Autorenbasis"
 
-#: includes/settings/titles/author.php:20 includes/settings/titles/misc.php:19
+#: includes/settings/titles/author.php:20
 #: includes/settings/titles/post-types.php:236
 #: includes/settings/titles/post-types.php:257
+#: includes/settings/titles/misc.php:19
 msgid "Enabled"
 msgstr "Aktiviert"
 
-#: includes/settings/titles/author.php:19 includes/settings/titles/misc.php:20
+#: includes/settings/titles/author.php:19
 #: includes/settings/titles/post-types.php:235
 #: includes/settings/titles/post-types.php:256
+#: includes/settings/titles/misc.php:20
 msgid "Disabled"
 msgstr "Deaktiviert"
 
@@ -2699,8 +2701,8 @@ msgstr "Abgeschlossene Tests"
 msgid "Default values for robots meta tag. These can be changed for individual posts, taxonomies, etc."
 msgstr "Standardwerte für das Robots-Meta Tag. Diese können für einzelne Posts, Taxonomien usw. geändert werden."
 
-#: includes/modules/seo-analysis/class-seo-analyzer.php:122
 #: includes/class-frontend-seo-score.php:166
+#: includes/modules/seo-analysis/class-seo-analyzer.php:122
 msgid "SEO Score"
 msgstr "SEO Punktzahl"
 
@@ -2891,8 +2893,8 @@ msgstr "Eine kommagetrennte Liste von bis zu 5 Börsenticker der Unternehmen, In
 msgid "Ping Search Engines"
 msgstr "Ping Suchmaschinen"
 
-#: includes/modules/seo-analysis/class-seo-analyzer.php:156
 #: includes/modules/seo-analysis/views/main.php:41
+#: includes/modules/seo-analysis/class-seo-analyzer.php:156
 msgid "Start Site-Wide Analysis"
 msgstr "Starten Sie die standortweite Analyse"
 
@@ -2932,35 +2934,35 @@ msgstr "Firmenname"
 msgid "Logo for Google"
 msgstr "Logo für Google"
 
+#: includes/module/class-manager.php:84
+#: includes/modules/404-monitor/class-monitor.php:61
+#: includes/modules/404-monitor/views/help.php:11
 #: includes/modules/404-monitor/class-admin.php:41
 #: includes/modules/404-monitor/class-admin.php:124
 #: includes/modules/404-monitor/class-admin.php:174
-#: includes/modules/404-monitor/class-monitor.php:61
-#: includes/modules/404-monitor/views/help.php:11
 #: includes/admin/wizard/class-monitor-redirection.php:33
 #: includes/admin/wizard/class-monitor-redirection.php:59
-#: includes/module/class-manager.php:84
 msgid "404 Monitor"
 msgstr "404 Monitor"
 
 #: includes/admin/wizard/class-schema-markup.php:41
-#: includes/admin/wizard/class-search-console.php:47
+#: includes/admin/wizard/class-monitor-redirection.php:41
 #: includes/admin/wizard/class-optimization.php:46
 #: includes/admin/wizard/class-role.php:41
-#: includes/admin/wizard/class-sitemap.php:46
+#: includes/admin/wizard/class-search-console.php:47
 #: includes/admin/wizard/views/your-site.php:66
-#: includes/admin/wizard/class-monitor-redirection.php:41
+#: includes/admin/wizard/class-sitemap.php:46
 msgid "Save and Continue"
 msgstr "Speichern und Fortfahren"
 
+#: includes/module/class-manager.php:143
+#: includes/helpers/class-wordpress.php:163
+#: includes/modules/role-manager/class-capability-manager.php:65
 #: includes/modules/role-manager/class-role-manager.php:35
 #: includes/modules/role-manager/class-role-manager.php:66
-#: includes/modules/role-manager/class-capability-manager.php:65
 #: includes/modules/role-manager/views/help.php:11
-#: includes/admin/class-setup-wizard.php:132
 #: includes/admin/wizard/class-role.php:33
-#: includes/helpers/class-wordpress.php:163
-#: includes/module/class-manager.php:143
+#: includes/admin/class-setup-wizard.php:132
 msgid "Role Manager"
 msgstr "Rollenmanager"
 
@@ -2976,10 +2978,10 @@ msgstr "Bereit"
 msgid "Optimization"
 msgstr "Optimierung"
 
-#: includes/admin/class-setup-wizard.php:102
 #: includes/admin/views/import-export/import-panel.php:34
 #: includes/admin/views/import-export/plugins-panel.php:31
 #: includes/admin/views/dashboard-help.php:45
+#: includes/admin/class-setup-wizard.php:102
 msgid "Import"
 msgstr "Importieren"
 
@@ -2993,10 +2995,10 @@ msgstr "Anforderungen"
 msgid "Blog Post"
 msgstr "Blog Beitrag"
 
+#: includes/helpers/class-choices.php:447
 #: includes/modules/rich-snippet/views/article.php:20
 #: includes/admin/wizard/class-schema-markup.php:79
 #: includes/settings/titles/post-types.php:143
-#: includes/helpers/class-choices.php:447
 msgid "Article"
 msgstr "Artikel"
 
@@ -3092,7 +3094,7 @@ msgstr "Mehr"
 msgid "More information"
 msgstr "Weitere Informationen"
 
-#: rank-math.php:423 includes/admin/wizard/views/navigation.php:16
+#: includes/admin/wizard/views/navigation.php:16 rank-math.php:423
 msgid "Getting Started"
 msgstr "Erste Schritte"
 
@@ -3120,11 +3122,11 @@ msgstr "Abgeschlossen"
 msgid "Importing: "
 msgstr "Importieren:"
 
-#. translators: Link to kb article
 #. translators: Link to How to Optimization KB article
+#. translators: Link to kb article
 #: includes/modules/redirections/views/main.php:25
-#: includes/admin/class-option-center.php:55
 #: includes/admin/wizard/class-optimization.php:37
+#: includes/admin/class-option-center.php:55
 msgid "Learn More"
 msgstr "Mehr erfahren"
 
@@ -3132,28 +3134,29 @@ msgstr "Mehr erfahren"
 msgid "Knowledge Base"
 msgstr "Wissensdatenbank"
 
-#: includes/modules/404-monitor/views/main.php:37
 #: includes/modules/redirections/views/main.php:39
+#: includes/modules/404-monitor/views/main.php:37
 #: includes/admin/wizard/views/your-site.php:53
 msgid "Search"
 msgstr "Suche"
 
-#. translators: 1. Link to kb article 2. Link to redirection setting scree
 #. translators: Link to kb article
-#. translators: %s is a Learn More link to the documentation
 #. translators: Learn more link.
 #. translators: %1$s: thing, %2$s: Learn more link.
+#. translators: 1. Link to kb article 2. Link to redirection setting scree
+#. translators: %s is a Learn More link to the documentation
 #. translators: Link to KB article
 #. translators: Redirection page url
-#: includes/modules/404-monitor/class-admin.php:176
 #: includes/modules/redirections/class-admin.php:169
-#: includes/modules/role-manager/views/main.php:21
-#: includes/modules/robots-txt/class-robots-txt.php:69
 #: includes/modules/sitemap/class-admin.php:65
 #: includes/modules/sitemap/class-admin.php:76
 #: includes/modules/sitemap/class-admin.php:132
 #: includes/modules/sitemap/class-admin.php:189
-#: includes/modules/search-console/class-search-console.php:205
+#: includes/modules/404-monitor/class-admin.php:176
+#: includes/modules/search-console/class-search-console.php:209
+#: includes/modules/robots-txt/class-robots-txt.php:69
+#: includes/modules/role-manager/views/main.php:21
+#: includes/admin/wizard/views/ready.php:49
 #: includes/admin/class-option-center.php:61
 #: includes/admin/class-option-center.php:67
 #: includes/admin/class-option-center.php:73
@@ -3172,7 +3175,6 @@ msgstr "Suche"
 #: includes/admin/class-option-center.php:255
 #: includes/admin/class-option-center.php:256
 #: includes/admin/class-option-center.php:257
-#: includes/admin/wizard/views/ready.php:49
 msgid "Learn more"
 msgstr "Mehr erfahren"
 
@@ -3182,19 +3184,19 @@ msgstr "Mehr erfahren"
 msgid "Learn more."
 msgstr "Mehr erfahren."
 
-#: includes/modules/role-manager/class-capability-manager.php:66
-#: includes/modules/search-console/class-search-console.php:61
-#: includes/modules/search-console/class-search-console.php:151
-#: includes/modules/search-console/class-search-console.php:203
+#: includes/module/class-manager.php:152
+#: includes/helpers/class-wordpress.php:164
+#: includes/modules/seo-analysis/seo-analysis-tests.php:98
 #: includes/modules/search-console/class-search-console-common.php:49
+#: includes/modules/search-console/class-search-console.php:61
+#: includes/modules/search-console/class-search-console.php:155
+#: includes/modules/search-console/class-search-console.php:207
 #: includes/modules/search-console/views/help.php:10
 #: includes/modules/search-console/views/options.php:23
-#: includes/modules/seo-analysis/seo-analysis-tests.php:98
-#: includes/admin/class-setup-wizard.php:111
+#: includes/modules/role-manager/class-capability-manager.php:66
 #: includes/admin/wizard/class-search-console.php:67
 #: includes/admin/wizard/class-search-console.php:84
-#: includes/helpers/class-wordpress.php:164
-#: includes/module/class-manager.php:152
+#: includes/admin/class-setup-wizard.php:111
 msgid "Search Console"
 msgstr "Search Console"
 
@@ -3214,10 +3216,10 @@ msgid "Search Console Profile"
 msgstr "Search Console Profil"
 
 #: includes/modules/sitemap/views/help.php:11
-#: includes/modules/search-console/class-search-console.php:222
 #: includes/modules/seo-analysis/seo-analysis-tests.php:115
-#: includes/admin/class-setup-wizard.php:116
+#: includes/modules/search-console/class-search-console.php:226
 #: includes/admin/wizard/class-sitemap.php:62
+#: includes/admin/class-setup-wizard.php:116
 msgid "Sitemaps"
 msgstr "Sitemaps"
 
@@ -3226,11 +3228,11 @@ msgstr "Sitemaps"
 msgid "Refresh Sites"
 msgstr "Seiten aktualisieren"
 
+#: includes/helpers/class-choices.php:453
 #: includes/replace-variables/class-advanced-variables.php:113
 #: includes/modules/rich-snippet/views/metabox-options.php:36
 #: includes/admin/wizard/class-schema-markup.php:161
 #: includes/settings/titles/post-types.php:92
-#: includes/helpers/class-choices.php:453
 msgid "Product"
 msgstr "Produkt"
 
@@ -3246,9 +3248,9 @@ msgstr "Öffentliche Taxonomien"
 msgid "Advance Options"
 msgstr "Erweiterungsoptionen"
 
-#: includes/admin/importers/abstract-importer.php:127
 #: includes/admin/importers/class-wp-schema-pro.php:232
 #: includes/admin/importers/class-aioseo.php:420
+#: includes/admin/importers/abstract-importer.php:127
 #: includes/admin/views/import-export/import-panel.php:12
 msgid "Import Settings"
 msgstr "Importeinstellungen"
@@ -3262,18 +3264,18 @@ msgid "Settings imported successfully."
 msgstr "Einstellungen erfolgreich importiert."
 
 #. translators: 1. Link to kb article 2. Link to redirection setting scree
-#: includes/modules/404-monitor/class-admin.php:176
+#: includes/module/class-manager.php:100
+#: includes/helpers/class-wordpress.php:162
 #: includes/modules/redirections/class-redirections.php:79
+#: includes/modules/redirections/views/help.php:11
 #: includes/modules/redirections/class-admin.php:45
 #: includes/modules/redirections/class-admin.php:111
 #: includes/modules/redirections/class-admin.php:167
-#: includes/modules/redirections/views/help.php:11
+#: includes/modules/404-monitor/class-admin.php:176
 #: includes/modules/role-manager/class-capability-manager.php:64
+#: includes/admin/views/import-export/export-panel.php:24
 #: includes/admin/wizard/class-monitor-redirection.php:69
 #: includes/admin/wizard/class-monitor-redirection.php:75
-#: includes/admin/views/import-export/export-panel.php:24
-#: includes/helpers/class-wordpress.php:162
-#: includes/module/class-manager.php:100
 msgid "Redirections"
 msgstr "Umleitungen"
 
@@ -3285,9 +3287,9 @@ msgstr "Diesmal kann keine Aktion ausgeführt werden."
 msgid "Import Redirections"
 msgstr "Umleitungen importieren"
 
-#: includes/admin/class-option-center.php:137
-#: includes/admin/views/help/local-seo.php:12
 #: includes/admin/views/help-manager.php:24
+#: includes/admin/views/help/local-seo.php:12
+#: includes/admin/class-option-center.php:137
 msgid "Local SEO"
 msgstr "Lokales SEO"
 
@@ -3320,14 +3322,14 @@ msgstr "PHP DOM Erweiterung installiert"
 msgid "WordPress Version: %s"
 msgstr "WordPress Version: %s"
 
-#: includes/admin/views/help/amp.php:12
-#: includes/admin/views/help-manager.php:20
 #: includes/module/class-manager.php:206
+#: includes/admin/views/help-manager.php:20
+#: includes/admin/views/help/amp.php:12
 msgid "AMP"
 msgstr "AMP"
 
-#: includes/admin/views/help/getting-started.php:11
 #: includes/admin/views/help-manager.php:16
+#: includes/admin/views/help/getting-started.php:11
 msgid "Getting started"
 msgstr "Erste Schritte"
 
@@ -3376,8 +3378,8 @@ msgid "Plugin Updates"
 msgstr "Plugin Updates"
 
 #. translators: Link to social setting KB article
-#: includes/admin/class-option-center.php:145
 #: includes/admin/views/plugin-activation.php:56
+#: includes/admin/class-option-center.php:145
 msgid "Click here"
 msgstr "Hier klicken"
 
@@ -3450,9 +3452,9 @@ msgstr "Pfad"
 msgid "Errors"
 msgstr "Fehler"
 
+#: includes/modules/seo-analysis/class-seo-analyzer.php:139
 #: includes/modules/search-console/class-sitemaps-list.php:134
 #: includes/modules/search-console/class-sitemaps-list.php:154
-#: includes/modules/seo-analysis/class-seo-analyzer.php:139
 msgid "Warnings"
 msgstr "Warnhinweise"
 
@@ -3469,23 +3471,23 @@ msgstr "Neuigkeiten"
 msgid "No sitemaps submitted."
 msgstr "Keine Sitemaps eingereicht."
 
-#: includes/modules/search-console/class-search-console.php:266
+#: includes/modules/search-console/class-search-console.php:270
 msgid "No authentication code found."
 msgstr "Kein Authentifizierungscode gefunden."
 
-#: includes/modules/search-console/class-search-console.php:221
+#: includes/modules/search-console/class-search-console.php:225
 msgid "Search Analytics"
 msgstr "Suchanalyse"
 
-#: includes/modules/search-console/class-search-console.php:165
+#: includes/modules/search-console/class-search-console.php:169
 msgid "The Search Analytics tab will give you insights about how your site performs in search engines: you can see the top search queries to find your site and your most popular landing pages."
 msgstr "Die Registerkarte Search Analytics gibt Ihnen einen Einblick in die Leistung Ihrer Website in den Suchmaschinen: Sie können die wichtigsten Suchanfragen sehen, um Ihre Website und Ihre beliebtesten Zielseiten zu finden."
 
-#: includes/modules/search-console/class-search-console.php:139
+#: includes/modules/search-console/class-search-console.php:143
 msgid "Average CTR"
 msgstr "Durchschnittliche CTR"
 
-#: includes/modules/search-console/class-search-console.php:138
+#: includes/modules/search-console/class-search-console.php:142
 msgid "Average Position"
 msgstr "Durchschnittliche Position"
 
@@ -3538,18 +3540,18 @@ msgstr "Steuern Sie, welcher Benutzer Zugriff auf welche Optionen von Rank Math 
 msgid "You are not authorized to perform this action."
 msgstr "Sie sind nicht berechtigt, diese Aktion durchzuführen."
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:378
 #: includes/modules/rich-snippet/views/service.php:13
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:379
 msgid "Service Type"
 msgstr "Servicetyp"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:386
 #: includes/modules/rich-snippet/views/software.php:48
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:387
 msgid "Application Category"
 msgstr "Anwendungskategorie"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:385
 #: includes/modules/rich-snippet/views/software.php:39
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:386
 msgid "Operating System"
 msgstr "Betriebssystem"
 
@@ -3561,8 +3563,8 @@ msgstr "Beste Bewertung"
 msgid "Worst Rating"
 msgstr "Schlechteste Bewertung"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:369
 #: includes/modules/rich-snippet/views/person.php:33
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:370
 msgid "Gender"
 msgstr "Geschlecht"
 
@@ -3570,8 +3572,8 @@ msgstr "Geschlecht"
 msgid "Number of views"
 msgstr "Anzahl der Aufrufe"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:363
 #: includes/modules/rich-snippet/views/video.php:38
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:364
 msgid "Duration"
 msgstr "Dauer"
 
@@ -3579,18 +3581,18 @@ msgstr "Dauer"
 msgid "A URL pointing to the embeddable player for the video."
 msgstr "Eine URL, die auf den einbettbaren Player für das Video verweist."
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:362
 #: includes/modules/rich-snippet/views/video.php:26
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:363
 msgid "Embed URL"
 msgstr "URL einbinden"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:361
 #: includes/modules/rich-snippet/views/video.php:14
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:362
 msgid "Content URL"
 msgstr "Inhalts-URL"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:358
 #: includes/modules/rich-snippet/views/restaurant.php:23
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:359
 msgid "Menu URL"
 msgstr "Menü-URL"
 
@@ -3598,15 +3600,15 @@ msgstr "Menü-URL"
 msgid "Last Downloaded"
 msgstr "Letzter Download"
 
-#: includes/modules/search-console/class-search-console.php:358
+#: includes/modules/search-console/class-search-console.php:362
 msgid "Google oAuth is not authorized."
 msgstr "Google oAuth ist nicht autorisiert."
 
-#: includes/modules/search-console/class-search-console.php:337
+#: includes/modules/search-console/class-search-console.php:341
 msgid "Not a valid settings founds to delete cache."
 msgstr "Es wurde keine gültige Einstellung zum Löschen des Caches gefunden."
 
-#: includes/modules/search-console/class-search-console.php:223
+#: includes/modules/search-console/class-search-console.php:227
 msgid "Keyword Tracker"
 msgstr "Keyword Tracker"
 
@@ -3626,9 +3628,9 @@ msgstr "Zum Beispiel \"Spiel\", \"Multimedia\""
 msgid "For example, \"Windows 7\", \"OSX 10.6\", \"Android 1.6\""
 msgstr "Zum Beispiel \"Windows 7\", \"OSX 10.6\", \"Android 1.6\""
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:384
 #: includes/modules/rich-snippet/views/service.php:36
 #: includes/modules/rich-snippet/views/software.php:26
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:385
 msgid "Price Currency"
 msgstr "Preis Währung"
 
@@ -3636,32 +3638,32 @@ msgstr "Preis Währung"
 msgid "Job title"
 msgstr "Berufsbezeichnung"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:364
 #: includes/modules/rich-snippet/views/video.php:52
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:365
 msgid "Views"
 msgstr "Ansichten"
 
-#: includes/modules/search-console/class-search-console.php:169
+#: includes/modules/search-console/class-search-console.php:173
 msgid "The Sitemaps tab gives you an overview of the sitemaps submitted to the Search Console."
 msgstr "Die Registerkarte Sitemaps gibt Ihnen einen Überblick über die Sitemaps, die an die Search Console übermittelt wurden."
 
-#: includes/modules/search-console/class-search-console.php:137
+#: includes/modules/search-console/class-search-console.php:141
 msgid "Total Impressions"
 msgstr "Gesamtimpressionen"
 
-#: includes/modules/search-console/class-search-console.php:136
+#: includes/modules/search-console/class-search-console.php:140
 msgid "Total Clicks"
 msgstr "Gesamtanzahl an Klicks"
 
-#: includes/modules/search-console/class-search-console.php:135
+#: includes/modules/search-console/class-search-console.php:139
 msgid "Total Pages"
 msgstr "Alle Seiten"
 
-#: includes/modules/search-console/class-search-console.php:134
+#: includes/modules/search-console/class-search-console.php:138
 msgid "Total Keywords"
 msgstr "Keywords insgesamt"
 
-#: includes/modules/search-console/class-search-console.php:132
+#: includes/modules/search-console/class-search-console.php:136
 msgid "Search Console Stats"
 msgstr "Search Console Statistiken "
 
@@ -3693,8 +3695,8 @@ msgstr "Eine URL, die auf die eigentliche Videomediendatei verweist."
 msgid "The type of cuisine we serve. Separated by comma."
 msgstr "Die Art der Küche die wir servieren. Durch Komma getrennt."
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:357
 #: includes/modules/rich-snippet/views/restaurant.php:14
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:358
 msgid "Serves Cuisine"
 msgstr "Serviert die Küche"
 
@@ -3715,10 +3717,10 @@ msgstr "Neue Anweisung hinzufügen"
 msgid "Steps to take, add one instruction per line"
 msgstr "Führen Sie die folgenden Schritte aus, und fügen Sie eine Anweisung pro Zeile hinzu"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:343
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:344
 #: includes/modules/rich-snippet/views/recipe.php:222
 #: includes/modules/rich-snippet/views/recipe.php:238
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:344
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:345
 msgid "Recipe Instructions"
 msgstr "Rezeptanweisungen"
 
@@ -3727,8 +3729,8 @@ msgstr "Rezeptanweisungen"
 msgid "Instruction name of the recipe."
 msgstr "Anweisungsname des Rezepts."
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:342
 #: includes/modules/rich-snippet/views/recipe.php:209
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:343
 msgid "Recipe Instruction Name"
 msgstr "Name der Rezeptanweisung"
 
@@ -3752,8 +3754,8 @@ msgstr "Anweisungstyp"
 msgid "Recipe ingredients, add one item per line"
 msgstr "Rezeptzutaten, fügen Sie einen Artikel pro Zeile hinzu."
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:333
 #: includes/modules/rich-snippet/views/recipe.php:59
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:334
 msgid "Preparation Time"
 msgstr "Vorbereitungszeit"
 
@@ -3761,8 +3763,8 @@ msgstr "Vorbereitungszeit"
 msgid "Quantity produced by the recipe, for example \"4 servings\""
 msgstr "Nach Rezept hergestellte Menge, zum Beispiel \"4 Portionen\""
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:331
 #: includes/modules/rich-snippet/views/recipe.php:41
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:332
 msgid "Recipe Yield"
 msgstr "Rezeptausbeute"
 
@@ -3770,9 +3772,9 @@ msgstr "Rezeptausbeute"
 msgid "Other terms for your recipe such as the season, the holiday, or other descriptors. Separate multiple entries with commas."
 msgstr "Andere Begriffe für Ihr Rezept, wie z.B. die Saison, den Feiertag oder andere Bezeichnungen. Trennen Sie mehrere Einträge durch Kommas."
 
-#: includes/modules/search-console/class-analytics-list.php:122
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:330
 #: includes/modules/rich-snippet/views/recipe.php:32
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:331
+#: includes/modules/search-console/class-analytics-list.php:122
 msgid "Keywords"
 msgstr "Keywords"
 
@@ -3780,8 +3782,8 @@ msgstr "Keywords"
 msgid "The cuisine of the recipe (for example, French or Ethiopian)."
 msgstr "Die Küche des Rezepts (zum Beispiel Französisch oder Äthiopisch)."
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:329
 #: includes/modules/rich-snippet/views/recipe.php:23
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:330
 msgid "Cuisine"
 msgstr "Küche"
 
@@ -3789,28 +3791,28 @@ msgstr "Küche"
 msgid "Type of dish, for example \"appetizer\", or \"dessert\"."
 msgstr "Art des Gerichts, zum Beispiel \"Vorspeise\" oder \"Dessert\"."
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:322
 #: includes/modules/rich-snippet/views/product.php:62
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:323
 msgid "Product In-Stock"
 msgstr "Produkt auf Lager"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:320
 #: includes/modules/rich-snippet/views/product.php:42
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:321
 msgid "Product Price"
 msgstr "Produktpreis"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:319
 #: includes/modules/rich-snippet/views/product.php:28
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:320
 msgid "Product Currency"
 msgstr "Produktwährung"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:318
 #: includes/modules/rich-snippet/views/product.php:21
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:319
 msgid "Product Brand"
 msgstr "Produktmarke"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:317
 #: includes/modules/rich-snippet/views/product.php:14
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:318
 msgid "Product SKU"
 msgstr "Produkt SKU"
 
@@ -3846,7 +3848,6 @@ msgstr "Anstellungsart (empfohlen)"
 msgid "If checked, post status will be changed to Draft and its URL will return a 404 error, as required by the Rich Result guidelines."
 msgstr "Wenn diese Option aktiviert ist, wird der Post-Status in Entwurf geändert und die URL gibt einen 404-Fehler zurück, wie in den Rich Result-Richtlinien gefordert."
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:304
 #: includes/modules/rich-snippet/views/job-posting.php:81
 msgid "Unpublish when expired"
 msgstr "Veröffentlichung bei Ablauf aufheben"
@@ -3855,8 +3856,8 @@ msgstr "Veröffentlichung bei Ablauf aufheben"
 msgid "The date when the job posting will expire. If a job posting never expires, or you do not know when the job will expire, do not include this property."
 msgstr "Das Datum, an dem die Stellenanzeige abläuft. Wenn eine Stellenanzeige niemals abläuft oder Sie nicht wissen, wann der Job abläuft, schließen Sie diese Eigenschaft nicht ein."
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:303
 #: includes/modules/rich-snippet/views/job-posting.php:72
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:305
 msgid "Expiry Posted"
 msgstr "Ablaufdatum gepostet"
 
@@ -3864,8 +3865,8 @@ msgstr "Ablaufdatum gepostet"
 msgid "The original date on which employer posted the job. You can leave it empty to use the post publication date as job posted date."
 msgstr "Das ursprüngliche Datum, an dem der Arbeitgeber die Stelle eingestellt hat. Sie können dieses Feld leer lassen, um das Veröffentlichungsdatum der Stelle als Veröffentlichungsdatum zu verwenden."
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:302
 #: includes/modules/rich-snippet/views/job-posting.php:62
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:304
 msgid "Date Posted"
 msgstr "Datum der Veröffentlichung"
 
@@ -3885,9 +3886,9 @@ msgstr "Wöchentlich"
 msgid "Monthly"
 msgstr "Monatlich"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:290
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:380
 #: includes/modules/rich-snippet/views/event.php:165
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:292
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:381
 msgid "Currency"
 msgstr "Währung"
 
@@ -3895,13 +3896,13 @@ msgstr "Währung"
 msgid "Entry price of the event (optional)"
 msgstr "Eintrittspreis der Veranstaltung (optional)"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:289
 #: includes/modules/rich-snippet/views/event.php:152
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:291
 msgid "Entry Price"
 msgstr "Eintrittspreis"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:288
 #: includes/modules/rich-snippet/views/event.php:140
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:290
 msgid "Ticket URL"
 msgstr "Ticket-URL"
 
@@ -3909,8 +3910,8 @@ msgstr "Ticket-URL"
 msgid "End date and time of the event."
 msgstr "Enddatum und Uhrzeit der Veranstaltung."
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:287
 #: includes/modules/rich-snippet/views/event.php:131
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:289
 msgid "End Date"
 msgstr "Enddatum"
 
@@ -3918,8 +3919,8 @@ msgstr "Enddatum"
 msgid "Date and time of the event."
 msgstr "Datum und Uhrzeit der Veranstaltung."
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:286
 #: includes/modules/rich-snippet/views/event.php:121
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:288
 msgid "Start Date"
 msgstr "Anfangsdatum"
 
@@ -3943,8 +3944,8 @@ msgstr "Geplant"
 msgid "Current status of the event (optional)"
 msgstr "Aktueller Status der Veranstaltung (optional)"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:285
 #: includes/modules/rich-snippet/views/event.php:104
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:287
 msgid "Event Status"
 msgstr "Veranstaltungs Status"
 
@@ -3952,8 +3953,8 @@ msgstr "Veranstaltungs Status"
 msgid "Website URL of the venue"
 msgstr "Website URL des Veranstaltungsortes"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:280
 #: includes/modules/rich-snippet/views/event.php:54
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:282
 msgid "Venue URL"
 msgstr "URL des Veranstaltungsorts"
 
@@ -3961,8 +3962,8 @@ msgstr "URL des Veranstaltungsorts"
 msgid "The venue name."
 msgstr "Der Name des Veranstaltungsortes."
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:279
 #: includes/modules/rich-snippet/views/event.php:45
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:281
 msgid "Venue Name"
 msgstr "Veranstaltungsort Name"
 
@@ -3982,18 +3983,18 @@ msgstr "Geschäftsveranstaltung"
 msgid "Type of the event."
 msgstr "Art der Veranstaltung."
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:278
 #: includes/modules/rich-snippet/views/event.php:14
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:280
 msgid "Event Type"
 msgstr "Veranstaltungstyp"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:271
 #: includes/modules/rich-snippet/views/course.php:34
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:273
 msgid "Course Provider URL"
 msgstr "Kursanbieter-URL"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:269
 #: includes/modules/rich-snippet/views/course.php:14
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:271
 msgid "Course Provider"
 msgstr "Kursanbieter"
 
@@ -4107,10 +4108,10 @@ msgid "Last Accessed"
 msgstr "Letzter Zugriff"
 
 #: includes/modules/redirections/class-table.php:203
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:314
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:328
-#: includes/modules/rich-snippet/views/recipe.php:14
 #: includes/modules/rich-snippet/views/music.php:14
+#: includes/modules/rich-snippet/views/recipe.php:14
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:315
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:329
 msgid "Type"
 msgstr "Typ"
 
@@ -4164,13 +4165,13 @@ msgstr "Deaktivieren"
 msgid "Activate"
 msgstr "Aktivieren"
 
-#: includes/modules/redirections/class-form.php:127
 #: includes/module/class-manager.php:188
+#: includes/modules/redirections/class-form.php:127
 msgid "Status"
 msgstr "Status"
 
-#: includes/modules/redirections/class-form.php:113
 #: includes/modules/redirections/class-metabox.php:72
+#: includes/modules/redirections/class-form.php:113
 msgid "Destination URL"
 msgstr "Ziel-URL"
 
@@ -4182,8 +4183,8 @@ msgstr "Quell-URLs"
 msgid "Add"
 msgstr "Hinzufügen"
 
-#: includes/modules/redirections/class-form.php:119
 #: includes/modules/redirections/class-metabox.php:63
+#: includes/modules/redirections/class-form.php:119
 #: includes/modules/redirections/views/options.php:42
 msgid "Redirection Type"
 msgstr "Umleitungs Typ"
@@ -4227,8 +4228,8 @@ msgid "The price range of the business, for example $$$."
 msgstr "Die Preisspanne des Unternehmens, z.B. $$$$$."
 
 #: includes/modules/local-seo/views/titles-options.php:181
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:353
 #: includes/modules/rich-snippet/views/local.php:37
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:354
 msgid "Price Range"
 msgstr "Preisspanne"
 
@@ -4288,8 +4289,8 @@ msgstr "Der Gehaltsbetrag ist für"
 msgid "Payroll (Recommended)"
 msgstr "Personalabrechnung (empfohlen)"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:300
 #: includes/modules/rich-snippet/views/job-posting.php:30
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:302
 msgid "Salary Currency"
 msgstr "Gehaltswährung"
 
@@ -4305,8 +4306,8 @@ msgstr "Gehalt (empfohlen)"
 msgid "Number of tickets (optional)"
 msgstr "Anzahl der Tickets (optional)"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:293
 #: includes/modules/rich-snippet/views/event.php:204
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:295
 msgid "Stock Inventory"
 msgstr "Lagerbestand"
 
@@ -4314,8 +4315,8 @@ msgstr "Lagerbestand"
 msgid "Date and time when offer is made available. (optional)"
 msgstr "Datum und Uhrzeit der Angebotsabgabe. (optional)"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:292
 #: includes/modules/rich-snippet/views/event.php:195
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:294
 msgid "Availability Starts"
 msgstr "Verfügbarkeit beginnt"
 
@@ -4331,8 +4332,8 @@ msgstr "Ausverkauft"
 msgid "Offer availability"
 msgstr "Verfügbarkeit des Angebots"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:291
 #: includes/modules/rich-snippet/views/event.php:179
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:293
 msgid "Availability"
 msgstr "Verfügbarkeit"
 
@@ -4348,8 +4349,8 @@ msgstr "URL, die für diese Ausgabe spezifisch ist, falls vorhanden."
 msgid "The ISBN of the print book."
 msgstr "Die ISBN des gedruckten Buches."
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:210
 #: includes/modules/rich-snippet/views/book.php:70
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:212
 msgid "ISBN"
 msgstr "ISBN"
 
@@ -4357,8 +4358,8 @@ msgstr "ISBN"
 msgid "The edition of the book."
 msgstr "Die Ausgabe des Buches."
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:207
 #: includes/modules/rich-snippet/views/book.php:63
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:209
 msgid "Edition"
 msgstr "Ausgabe"
 
@@ -4374,14 +4375,14 @@ msgstr "Buchausgabe {#}"
 msgid "Either a specific edition of the written work, or the volume of the work."
 msgstr "Entweder eine bestimmte Ausgabe der schriftlichen Arbeit oder der Umfang der Arbeit."
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:394
 #: includes/modules/rich-snippet/views/book.php:41
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:395
 msgid "Book Editions"
 msgstr "Buchausgaben"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:209
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:393
 #: includes/modules/rich-snippet/views/metabox-options.php:125
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:211
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:394
 msgid "Author"
 msgstr "Autor"
 
@@ -4471,8 +4472,8 @@ msgid "Add number"
 msgstr "Nummer hinzufügen"
 
 #: includes/modules/local-seo/views/titles-options.php:144
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:352
 #: includes/modules/rich-snippet/views/local.php:29
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:353
 msgid "Phone Number"
 msgstr "Telefonnummer"
 
@@ -4563,8 +4564,8 @@ msgstr "Aktivieren Sie diese Option, um alle Abfrageparameter (der Teil nach ein
 msgid "Ignore Query Parameters"
 msgstr "Alle Parameter ignorieren"
 
-#: includes/modules/404-monitor/views/options.php:48
 #: includes/modules/redirections/class-form.php:91
+#: includes/modules/404-monitor/views/options.php:48
 msgid "Add another"
 msgstr "Weitere hinzufügen"
 
@@ -4588,8 +4589,8 @@ msgstr "Einfach"
 msgid "The Simple mode only logs URI and access time, while the Advanced mode creates detailed logs including additional information such as the Referer URL."
 msgstr "Der einfache Modus protokolliert nur URI und Zugriffszeit, während der erweiterte Modus detaillierte Protokolle mit zusätzlichen Informationen wie der Referer-URL erstellt."
 
-#: includes/modules/404-monitor/views/help-tab-actions.php:11
 #: includes/modules/redirections/views/help-tab-actions.php:11
+#: includes/modules/404-monitor/views/help-tab-actions.php:11
 msgid "Hovering over a row in the list will display action links that allow you to manage the item. You can perform the following actions:"
 msgstr "Wenn Sie mit der Maus über eine Zeile in der Liste fahren, werden Aktionslinks angezeigt, mit denen Sie das Element verwalten können. Sie können die folgenden Aktionen durchführen:"
 
@@ -4597,8 +4598,8 @@ msgstr "Wenn Sie mit der Maus über eine Zeile in der Liste fahren, werden Aktio
 msgid "Access Time"
 msgstr "Zugriffszeit"
 
-#: includes/modules/404-monitor/class-table.php:207
 #: includes/modules/redirections/class-table.php:204
+#: includes/modules/404-monitor/class-table.php:207
 msgid "Hits"
 msgstr "Treffer"
 
@@ -4610,9 +4611,9 @@ msgstr "Referer"
 msgid "URI"
 msgstr "URL"
 
+#: includes/modules/redirections/class-metabox.php:56
 #: includes/modules/404-monitor/class-table.php:192
 #: includes/modules/404-monitor/class-table.php:241
-#: includes/modules/redirections/class-metabox.php:56
 msgid "Redirect"
 msgstr "Umleiten"
 
@@ -4632,8 +4633,8 @@ msgstr "Das 404-Fehlerprotokoll ist leer."
 msgid "Log successfully deleted."
 msgstr "Protokoll erfolgreich gelöscht."
 
-#: includes/modules/404-monitor/class-monitor.php:82
 #: includes/modules/redirections/class-admin.php:246
+#: includes/modules/404-monitor/class-monitor.php:82
 msgid "No valid id found."
 msgstr "Keine gültige ID gefunden."
 
@@ -4641,8 +4642,8 @@ msgstr "Keine gültige ID gefunden."
 msgid "Review 404 errors on your site"
 msgstr "Überprüfen Sie 404 Fehler auf Ihrer Website."
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:341
 #: includes/modules/rich-snippet/views/recipe.php:182
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:342
 msgid "Recipe Ingredients"
 msgstr "Rezept-Zutaten"
 
@@ -4650,13 +4651,13 @@ msgstr "Rezept-Zutaten"
 msgid "A recipe video Description."
 msgstr "Ein Rezept Video Beschreibung."
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:340
 #: includes/modules/rich-snippet/views/recipe.php:169
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:341
 msgid "Recipe Video Description"
 msgstr "Rezept Video Beschreibung"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:339
 #: includes/modules/rich-snippet/views/recipe.php:161
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:340
 msgid "Video Upload Date"
 msgstr "Datum des Video-Uploads"
 
@@ -4668,8 +4669,8 @@ msgstr "Ein Rezept Video Name."
 msgid "A recipe video thumbnail URL."
 msgstr "Eine URL für die Miniaturansicht des Rezept Videos."
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:336
 #: includes/modules/rich-snippet/views/recipe.php:128
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:337
 msgid "Recipe Video"
 msgstr "Rezept Video"
 
@@ -4677,12 +4678,12 @@ msgstr "Rezept Video"
 msgid "Rating maximum score of the recipe."
 msgstr "Bewertung der maximalen Punktzahl des Rezeptes."
 
+#: includes/modules/rich-snippet/views/product.php:89
 #: includes/modules/rich-snippet/views/course.php:63
+#: includes/modules/rich-snippet/views/book.php:32
+#: includes/modules/rich-snippet/views/software.php:76
 #: includes/modules/rich-snippet/views/recipe.php:119
 #: includes/modules/rich-snippet/views/event.php:232
-#: includes/modules/rich-snippet/views/book.php:32
-#: includes/modules/rich-snippet/views/product.php:89
-#: includes/modules/rich-snippet/views/software.php:76
 msgid "Rating Maximum"
 msgstr "Maximale Bewertung"
 
@@ -4690,37 +4691,37 @@ msgstr "Maximale Bewertung"
 msgid "Rating minimum score of the recipe."
 msgstr "Bewertung der Mindestpunktzahl des Rezeptes."
 
+#: includes/modules/rich-snippet/views/product.php:80
 #: includes/modules/rich-snippet/views/course.php:54
+#: includes/modules/rich-snippet/views/book.php:23
+#: includes/modules/rich-snippet/views/software.php:67
 #: includes/modules/rich-snippet/views/recipe.php:110
 #: includes/modules/rich-snippet/views/event.php:223
-#: includes/modules/rich-snippet/views/book.php:23
-#: includes/modules/rich-snippet/views/product.php:80
-#: includes/modules/rich-snippet/views/software.php:67
 msgid "Rating Minimum"
 msgstr "Bewertung Minimum"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:335
 #: includes/modules/rich-snippet/views/recipe.php:87
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:336
 msgid "Total Time"
 msgstr "Gesamtzeit"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:334
 #: includes/modules/rich-snippet/views/recipe.php:73
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:335
 msgid "Cooking Time"
 msgstr "Kochzeit"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:356
 #: includes/modules/rich-snippet/views/local.php:66
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:357
 msgid "Open Days"
 msgstr "Tage der offenen Tür"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:355
 #: includes/modules/rich-snippet/views/local.php:58
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:356
 msgid "Closing Time"
 msgstr "Geschäftsschluss"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:354
 #: includes/modules/rich-snippet/views/local.php:50
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:355
 msgid "Opening Time"
 msgstr "Öffnungszeit"
 
@@ -4809,8 +4810,8 @@ msgid "Latitude and longitude values separated by comma."
 msgstr "Breiten- und Längengrade getrennt durch ein Komma."
 
 #: includes/modules/local-seo/views/titles-options.php:226
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:351
 #: includes/modules/rich-snippet/views/local.php:21
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:352
 msgid "Geo Coordinates"
 msgstr "Geo-Koordinaten"
 
@@ -4823,8 +4824,8 @@ msgid "Contact Page"
 msgstr "Kontaktseite"
 
 #: includes/modules/local-seo/views/titles-options.php:53
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:367
 #: includes/modules/rich-snippet/views/person.php:15
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:368
 msgid "Email"
 msgstr "E-Mail"
 
@@ -4834,12 +4835,12 @@ msgstr "Telefon"
 
 #: includes/modules/local-seo/views/titles-options.php:68
 #: includes/modules/sitemap/sitemap-xsl.php:163
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:281
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:350
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:368
+#: includes/modules/rich-snippet/views/local.php:14
 #: includes/modules/rich-snippet/views/event.php:64
 #: includes/modules/rich-snippet/views/person.php:26
-#: includes/modules/rich-snippet/views/local.php:14
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:283
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:351
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:369
 msgid "Address"
 msgstr "﻿Adresse"
 
@@ -4900,11 +4901,11 @@ msgstr "Kartentyp"
 msgid "App Card"
 msgstr "App-Karte"
 
-#: includes/metaboxes/social.php:118 includes/settings/titles/global.php:80
+#: includes/settings/titles/global.php:80 includes/metaboxes/social.php:118
 msgid "Summary Card"
 msgstr "Übersichtskarte"
 
-#: includes/metaboxes/social.php:117 includes/settings/titles/global.php:79
+#: includes/settings/titles/global.php:79 includes/metaboxes/social.php:117
 msgid "Summary Card with Large Image"
 msgstr "Übersichtskarte mit großem Bild"
 
@@ -4966,11 +4967,11 @@ msgstr "Essen Veranstaltung"
 
 #: includes/modules/local-seo/views/titles-options.php:45
 #: includes/modules/sitemap/sitemap-xsl.php:300
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:277
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:313
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:392
-#: includes/modules/rich-snippet/views/book.php:77
 #: includes/modules/rich-snippet/views/metabox-options.php:112
+#: includes/modules/rich-snippet/views/book.php:77
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:279
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:314
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:393
 #: includes/settings/titles/local.php:42
 msgid "URL"
 msgstr "URL"
@@ -4992,13 +4993,13 @@ msgstr "Umleitungsstatistik"
 msgid "URL of the item."
 msgstr "URL des Artikels."
 
-#: includes/metaboxes/social-preview.php:65
 #: includes/modules/seo-analysis/class-seo-analyzer.php:416
+#: includes/metaboxes/social-preview.php:65
 msgid "Twitter"
 msgstr "Twitter"
 
-#: includes/metaboxes/social-preview.php:65
 #: includes/modules/seo-analysis/class-seo-analyzer.php:404
+#: includes/metaboxes/social-preview.php:65
 msgid "Facebook"
 msgstr "Facebook"
 
@@ -5010,10 +5011,11 @@ msgstr "Service"
 msgid "Review"
 msgstr "Rezension"
 
+#: includes/helpers/class-choices.php:457
 #: includes/modules/local-seo/views/titles-options.php:19
 #: includes/modules/rich-snippet/views/course.php:17
 #: includes/modules/rich-snippet/views/event.php:73
-#: includes/settings/titles/local.php:16 includes/helpers/class-choices.php:457
+#: includes/settings/titles/local.php:16
 msgid "Person"
 msgstr "Person"
 
@@ -5037,8 +5039,8 @@ msgstr "Musik"
 msgid "Job Posting"
 msgstr "Stellenausschreibung"
 
-#: includes/modules/rich-snippet/views/event.php:17
 #: includes/helpers/class-choices.php:450
+#: includes/modules/rich-snippet/views/event.php:17
 msgid "Event"
 msgstr "Veranstaltung"
 
@@ -5124,16 +5126,16 @@ msgstr "Ihr Name oder Firmenname"
 
 #: includes/modules/local-seo/views/titles-options.php:29
 #: includes/modules/sitemap/sitemap-xsl.php:162
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:208
 #: includes/modules/rich-snippet/views/recipe.php:257
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:210
 #: includes/settings/titles/local.php:26
 msgid "Name"
 msgstr "Name"
 
-#: includes/modules/404-monitor/class-admin.php:132
 #: includes/modules/redirections/class-admin.php:119
-#: includes/modules/search-console/class-search-console.php:160
-#: includes/modules/search-console/class-search-console.php:220
+#: includes/modules/404-monitor/class-admin.php:132
+#: includes/modules/search-console/class-search-console.php:164
+#: includes/modules/search-console/class-search-console.php:224
 msgid "Overview"
 msgstr "Übersicht"
 
@@ -5193,18 +5195,18 @@ msgstr "Einmal wöchentlich"
 msgid "Documentation"
 msgstr "Dokumentation"
 
-#: includes/modules/search-console/class-analytics.php:57
 #: includes/module/class-base.php:87
+#: includes/modules/search-console/class-analytics.php:57
 msgid "Items per page"
 msgstr "Objekte pro Seite"
 
-#: includes/modules/redirections/class-table.php:259
 #: includes/module/class-manager.php:317
+#: includes/modules/redirections/class-table.php:259
 msgid "Inactive"
 msgstr "Inaktiv"
 
-#: includes/modules/redirections/class-table.php:258
 #: includes/module/class-manager.php:316
+#: includes/modules/redirections/class-table.php:258
 msgid "Active"
 msgstr "Aktiv"
 
@@ -5216,13 +5218,13 @@ msgstr "Status:"
 msgid "Toggle"
 msgstr "Umschalten"
 
-#: rank-math.php:402 includes/modules/redirections/views/main.php:26
 #: includes/module/class-module.php:94
+#: includes/modules/redirections/views/main.php:26 rank-math.php:402
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: includes/settings/general/breadcrumbs.php:47
 #: includes/class-installer.php:325
+#: includes/settings/general/breadcrumbs.php:47
 msgid "Home"
 msgstr "Startseite"
 
@@ -5241,10 +5243,10 @@ msgstr "SEO-Einstellungen für %s"
 msgid "Setup Tutorial"
 msgstr "Einrichtungsanleitung"
 
-#: includes/modules/sitemap/class-admin.php:36
-#: includes/modules/sitemap/sitemap-xsl.php:251
-#: includes/admin/wizard/class-sitemap.php:33
 #: includes/module/class-manager.php:116
+#: includes/modules/sitemap/sitemap-xsl.php:251
+#: includes/modules/sitemap/class-admin.php:36
+#: includes/admin/wizard/class-sitemap.php:33
 msgid "Sitemap"
 msgstr "Sitemap"
 
@@ -5344,15 +5346,15 @@ msgstr "Produkte mit dem Tag &ldquo;%s&rdquo;"
 msgid "Mode"
 msgstr "Modus"
 
-#: includes/modules/404-monitor/class-admin.php:140
 #: includes/modules/redirections/class-admin.php:127
-#: includes/modules/search-console/class-search-console.php:168
+#: includes/modules/404-monitor/class-admin.php:140
+#: includes/modules/search-console/class-search-console.php:172
 msgid "Available Actions"
 msgstr "Verfügbare Aktionen"
 
-#: includes/modules/404-monitor/class-admin.php:136
 #: includes/modules/redirections/class-admin.php:123
-#: includes/modules/search-console/class-search-console.php:164
+#: includes/modules/404-monitor/class-admin.php:136
+#: includes/modules/search-console/class-search-console.php:168
 msgid "Screen Content"
 msgstr "Bildschirminhalt"
 
@@ -5372,13 +5374,13 @@ msgstr "Symbolüberlagerung zur Miniaturansicht hinzufügen"
 msgid "Tweet"
 msgstr "Tweet"
 
-#: includes/modules/role-manager/class-capability-manager.php:62
 #: includes/helpers/class-wordpress.php:160
+#: includes/modules/role-manager/class-capability-manager.php:62
 msgid "404 Monitor Log"
 msgstr "404 Monitorprotokoll"
 
-#: includes/modules/role-manager/class-capability-manager.php:59
 #: includes/helpers/class-wordpress.php:157
+#: includes/modules/role-manager/class-capability-manager.php:59
 msgid "Titles & Meta Settings"
 msgstr "Titel & Meta Einstellungen"
 
@@ -5386,33 +5388,33 @@ msgstr "Titel & Meta Einstellungen"
 msgid "SEO by Rank Math"
 msgstr "SEO von Rank Math"
 
-#: includes/modules/role-manager/class-capability-manager.php:72
 #: includes/helpers/class-wordpress.php:170
+#: includes/modules/role-manager/class-capability-manager.php:72
 msgid "On-Page Social Settings"
 msgstr "On-Page Soziale Einstellungen"
 
-#: includes/modules/role-manager/class-capability-manager.php:71
 #: includes/helpers/class-wordpress.php:169
+#: includes/modules/role-manager/class-capability-manager.php:71
 msgid "On-Page Rich Snippet Settings"
 msgstr "On-Page Rich Snippet Einstellungen"
 
-#: includes/modules/role-manager/class-capability-manager.php:70
 #: includes/helpers/class-wordpress.php:168
+#: includes/modules/role-manager/class-capability-manager.php:70
 msgid "On-Page Advanced Settings"
 msgstr "On-Page Erweiterte Einstellungen"
 
-#: includes/modules/role-manager/class-capability-manager.php:69
 #: includes/helpers/class-wordpress.php:167
+#: includes/modules/role-manager/class-capability-manager.php:69
 msgid "On-Page General Settings"
 msgstr "On-Page Allgemeine Einstellungen"
 
-#: includes/modules/role-manager/class-capability-manager.php:68
 #: includes/helpers/class-wordpress.php:166
+#: includes/modules/role-manager/class-capability-manager.php:68
 msgid "On-Page Analysis"
 msgstr "On-Page Analyse"
 
-#: includes/modules/role-manager/class-capability-manager.php:67
 #: includes/helpers/class-wordpress.php:165
+#: includes/modules/role-manager/class-capability-manager.php:67
 msgid "Site-Wide Analysis"
 msgstr "Standortübergreifende Analyse"
 
@@ -5572,10 +5574,10 @@ msgstr "Beitragstitel der übergeordneten Seite"
 msgid "Title of the current post/page"
 msgstr "Titel des aktuellen Beitrags/Seite"
 
-#: includes/modules/woocommerce/class-admin.php:35
-#: includes/modules/woocommerce/class-admin.php:60
-#: includes/modules/woocommerce/views/help.php:12
 #: includes/module/class-manager.php:235
+#: includes/modules/woocommerce/views/help.php:12
+#: includes/modules/woocommerce/class-admin.php:39
+#: includes/modules/woocommerce/class-admin.php:78
 msgid "WooCommerce"
 msgstr "WooCommerce"
 
@@ -5583,22 +5585,22 @@ msgstr "WooCommerce"
 msgid "AMP plugin"
 msgstr "AMP Plugin"
 
-#: includes/settings/general/breadcrumbs.php:93
 #: includes/class-installer.php:330
+#: includes/settings/general/breadcrumbs.php:93
 msgid "404 Error: page not found"
 msgstr "404 Fehler: Seite nicht gefunden"
 
-#. translators: placeholder
 #. translators: Search query term
-#: includes/settings/general/breadcrumbs.php:84
+#. translators: placeholder
 #: includes/class-installer.php:329
+#: includes/settings/general/breadcrumbs.php:84
 msgid "Results for %s"
 msgstr "Ergebnisse für %s"
 
-#. translators: placeholder
 #. translators: Archive title
-#: includes/settings/general/breadcrumbs.php:74
+#. translators: placeholder
 #: includes/class-installer.php:327
+#: includes/settings/general/breadcrumbs.php:74
 msgid "Archives for %s"
 msgstr "Archiv für %s"
 
@@ -5607,8 +5609,8 @@ msgid "Rank Math WordPress SEO plugin"
 msgstr "Rank Math WordPress SEO Plugin"
 
 #: includes/frontend/paper/class-singular.php:122
-#: includes/frontend/paper/class-error-404.php:26
 #: includes/frontend/paper/class-taxonomy.php:31
+#: includes/frontend/paper/class-error-404.php:26
 msgid "Page not found"
 msgstr "Seite nicht gefunden"
 
@@ -5740,28 +5742,28 @@ msgctxt "in 404 monitor description"
 msgid "monitor"
 msgstr "Monitor"
 
-#: includes/modules/404-monitor/views/help-tab-screen-content.php:17
 #: includes/modules/redirections/views/help-tab-screen-content.php:17
+#: includes/modules/404-monitor/views/help-tab-screen-content.php:17
 msgid "You can reorder the list by clicking on the column headings. "
 msgstr "Sie können die Liste neu anordnen, indem Sie auf die Spaltenüberschriften klicken."
 
-#: includes/modules/404-monitor/views/help-tab-screen-content.php:16
 #: includes/modules/redirections/views/help-tab-screen-content.php:16
+#: includes/modules/404-monitor/views/help-tab-screen-content.php:16
 msgid "You can search items using the search form at the top."
 msgstr "Sie können über das Suchformular oben nach Begriffen suchen."
 
-#: includes/modules/404-monitor/views/help-tab-screen-content.php:15
 #: includes/modules/redirections/views/help-tab-screen-content.php:15
+#: includes/modules/404-monitor/views/help-tab-screen-content.php:15
 msgid "You can decide how many items to list per screen using the Screen Options tab."
 msgstr "Auf der Registerkarte Bildschirmoptionen können Sie festlegen, wie viele Elemente pro Bildschirm aufgelistet werden sollen."
 
-#: includes/modules/404-monitor/views/help-tab-screen-content.php:14
 #: includes/modules/redirections/views/help-tab-screen-content.php:14
+#: includes/modules/404-monitor/views/help-tab-screen-content.php:14
 msgid "You can hide/display columns based on your needs."
 msgstr "Sie können Spalten entsprechend Ihren Anforderungen ein- und ausblenden."
 
-#: includes/modules/404-monitor/views/help-tab-screen-content.php:11
 #: includes/modules/redirections/views/help-tab-screen-content.php:11
+#: includes/modules/404-monitor/views/help-tab-screen-content.php:11
 msgid "You can customize the display of this screen's contents in a number of ways:"
 msgstr "Sie können die Anzeige des Bildschirminhalts auf verschiedene Arten anpassen:"
 
@@ -5801,10 +5803,6 @@ msgstr "Sie können dies als eine präzisere Beschreibung verwenden als das, was
 #: includes/helpers/class-choices.php:508
 msgid "Regex"
 msgstr "Regex"
-
-#: includes/helpers/class-choices.php:507
-msgid "End With"
-msgstr "Ende mit"
 
 #: includes/helpers/class-choices.php:506
 msgid "Starts With"
@@ -5923,13 +5921,13 @@ msgstr "Kommagetrennte Liste der Tags, die dem aktuellen Beitrag zugeordnet sind
 msgid "Post Tags"
 msgstr "Beitragstags"
 
+#: includes/module/class-manager.php:161
+#: includes/modules/seo-analysis/views/help.php:10
+#: includes/modules/seo-analysis/class-seo-analysis.php:51
+#: includes/modules/seo-analysis/class-seo-analysis.php:64
 #: includes/modules/seo-analysis/class-admin.php:35
 #: includes/modules/seo-analysis/class-admin.php:56
 #: includes/modules/seo-analysis/class-admin.php:65
-#: includes/modules/seo-analysis/class-seo-analysis.php:51
-#: includes/modules/seo-analysis/class-seo-analysis.php:64
-#: includes/modules/seo-analysis/views/help.php:10
-#: includes/module/class-manager.php:161
 msgid "SEO Analysis"
 msgstr "SEO-Analyse"
 
@@ -6125,8 +6123,8 @@ msgid "Publication date of the current post/page <strong>OR</strong> specified d
 msgstr "Veröffentlichungsdatum des aktuellen Beitrags/der aktuellen Seite <strong>ODER</strong> angegebenes Datum im Datumsarchiv"
 
 #: includes/replace-variables/class-post-variables.php:85
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:211
 #: includes/modules/rich-snippet/views/book.php:95
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:213
 msgid "Date Published"
 msgstr "Veröffentlichungsdatum"
 
@@ -6150,12 +6148,12 @@ msgstr "Kanonische URL"
 msgid "Custom values for robots meta tag."
 msgstr "Benutzerdefinierte Werte für Roboter-Meta Tags."
 
-#: includes/metaboxes/advanced.php:19 includes/settings/titles/global.php:14
+#: includes/settings/titles/global.php:14 includes/metaboxes/advanced.php:19
 msgid "Robots Meta"
 msgstr "Roboter-Meta"
 
-#: includes/modules/role-manager/class-capability-manager.php:73
 #: includes/helpers/class-wordpress.php:171
+#: includes/modules/role-manager/class-capability-manager.php:73
 msgid "Top Admin Bar"
 msgstr "Obere Admin-Leiste"
 
@@ -6473,9 +6471,9 @@ msgstr "Überprüfen Sie Ihre Website in der Google Search Console und verbinden
 msgid "Let Rank Math analyze your website and your website's content using 70+ different tests to provide tailor-made SEO Analysis to you."
 msgstr "Lassen Sie Rank Math Ihre Website und den Inhalt Ihrer Website mithilfe von über 70 verschiedenen Tests analysieren, um Ihnen eine maßgeschneiderte SEO-Analyse bereitzustellen."
 
-#: includes/modules/search-console/class-search-console.php:161
-#: includes/admin/wizard/class-search-console.php:68
 #: includes/module/class-manager.php:153
+#: includes/modules/search-console/class-search-console.php:165
+#: includes/admin/wizard/class-search-console.php:68
 msgid "Connect Rank Math with Google Search Console to see the most important information from Google directly in your WordPress dashboard."
 msgstr "Verbinden Sie Rank Math mit der Google Search Console, um die wichtigsten Informationen von Google direkt in Ihrem WordPress-Dashboard anzuzeigen."
 
@@ -6487,8 +6485,8 @@ msgstr "Mit dem Rollen-Manager können Sie die internen Rollen von WordPress ver
 msgid "Enable support for the Rich Snippets, which adds metadata to your website, resulting in rich search results and more traffic."
 msgstr "Aktivieren Sie die Unterstützung für die Rich Snippets, mit denen Metadaten zu Ihrer Website hinzugefügt werden, was zu umfangreichen Suchergebnissen und mehr Traffic führt."
 
-#: includes/modules/rich-snippet/views/help.php:11
 #: includes/module/class-manager.php:108
+#: includes/modules/rich-snippet/views/help.php:11
 msgid "Rich Snippets"
 msgstr "Rich Snippets"
 
@@ -6513,16 +6511,12 @@ msgstr "<div class=\"notice notice-alt notice-warning warning inline\"><p>Bitte 
 msgid "404 Monitor Stats"
 msgstr "404 Statistiken überwachen"
 
-#: includes/modules/404-monitor/class-admin.php:195
-msgid "404 Monitor Log Count"
-msgstr "404 Monitor Protokolle"
-
 #: includes/metaboxes/advanced.php:37
 msgid "The canonical URL informs search crawlers which page is the main page if you have double content."
 msgstr "Die kanonische URL informiert Such-Crawler, welche Seite die Hauptseite ist, wenn Sie doppelten Inhalt haben."
 
-#: includes/modules/role-manager/class-capability-manager.php:63
 #: includes/helpers/class-wordpress.php:161
+#: includes/modules/role-manager/class-capability-manager.php:63
 msgid "Link Builder"
 msgstr "Link Builder"
 
@@ -6584,14 +6578,14 @@ msgstr "Geben Sie Ihren Pinterest Verifikation-HTML-Code oder Ihre ID ein. Hier 
 msgid "When a featured image is not set, this image will be used as a thumbnail when your post is shared on Facebook. Recommended image size 1200 x 630 pixels."
 msgstr "Wenn ein Ausgewähltes Bild nicht eingestellt ist, wird dieses Bild als Miniaturbild verwendet, wenn Ihr Beitrag auf Facebook freigegeben wird. Empfohlene Bildgröße 1200x630px."
 
-#: includes/settings/titles/homepage.php:54
 #: includes/settings/titles/post-types.php:171
 #: includes/settings/titles/taxonomies.php:74
+#: includes/settings/titles/homepage.php:54
 msgid "Custom values for robots meta tag on homepage."
 msgstr "Benutzerdefinierte Werte für Roboter-Meta Tag auf der Startseite."
 
-#: includes/admin/class-setup-wizard.php:320
 #: includes/admin/wizard/class-schema-markup.php:40
+#: includes/admin/class-setup-wizard.php:320
 msgid "Skip step"
 msgstr "Schritt überspringen"
 
@@ -6607,13 +6601,13 @@ msgstr "Über Seite"
 msgid "Technical Support"
 msgstr "Technische Unterstützung"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:337
 #: includes/modules/rich-snippet/views/recipe.php:140
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:338
 msgid "Recipe Video Thumbnail"
 msgstr "Miniaturansicht des Rezept Videos"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:338
 #: includes/modules/rich-snippet/views/recipe.php:152
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:339
 msgid "Recipe Video Name"
 msgstr "Rezept Video Name"
 
@@ -6621,8 +6615,8 @@ msgstr "Rezept Video Name"
 msgid "Any"
 msgstr "Irgendwelche"
 
-#: includes/admin/importers/abstract-importer.php:128
 #: includes/admin/importers/class-aioseo.php:421
+#: includes/admin/importers/abstract-importer.php:128
 msgid "Import Post Meta"
 msgstr "Beitrag-Meta importieren"
 
@@ -6697,7 +6691,7 @@ msgstr "Basis aller Kategorien entfernen"
 
 #. translators: this should be an array of stop words for your language,
 #. separated by comma's.
-#: includes/class-common.php:197 includes/modules/redirections/class-db.php:413
+#: includes/modules/redirections/class-db.php:413 includes/class-common.php:197
 msgid "a,about,above,after,again,against,all,am,an,and,any,are,as,at,be,because,been,before,being,below,between,both,but,by,could,did,do,does,doing,down,during,each,few,for,from,further,had,has,have,having,he,he'd,he'll,he's,her,here,here's,hers,herself,him,himself,his,how,how's,i,i'd,i'll,i'm,i've,if,in,into,is,it,it's,its,itself,let's,me,more,most,my,myself,nor,of,on,once,only,or,other,ought,our,ours,ourselves,out,over,own,same,she,she'd,she'll,she's,should,so,some,such,than,that,that's,the,their,theirs,them,themselves,then,there,there's,these,they,they'd,they'll,they're,they've,this,those,through,to,too,under,until,up,very,was,we,we'd,we'll,we're,we've,were,what,what's,when,when's,where,where's,which,while,who,who's,whom,why,why's,with,would,you,you'd,you'll,you're,you've,your,yours,yourself,yourselves"
 msgstr "ab,aber,alle,allem,allen,aller,als,am,an,ans,andere,anderen,anderes,anderer,anderem,auch,auf,aus,bei,beim,beide,beiden,beider,beidem,beides,bevor,bin,bis,bist,da,dadurch,daher,danach,dann,darum,das,dass,dein,deine,deinen,deines,deiner,deinem,dem,den,der,deren,des,deshalb,dessen,die,dies,dieser,dieses,diese,diesen,doch,dort,du,durch,ein,eine,einem,einen,einer,eines,einige,einigen,einiger,er,es,euer,eure,euren,eurer,eures,eurem,ferner,für,fuer,gegen,gewesen,habe,haben,hat,hatte,hatten,hattest,hattet,hier,hinter,hoch,ich,ihnen,ihr,ihre,ihren,ihres,ihrem,im,in,irgend,ist,ja,jede,jedem,jeden,jeder,jedes,jemand,jener,jenes,jetzt,kann,kannst,können,koennen,könnt,koennt,machen,mal,mehr,mein,meine,meinen,meisten,mich,mir,mit,muss,müssen,muessen,musst,nach,nachdem,nein,nicht,nun,nur,oberhalb,oder,runter,sehr,seid,sein,seine,seinen,seines,seiner,seinem,selbe,selben,selber,selbst,sich,sie,sind,so,solche,solchen,solcher,soll,sollen,sollst,sollt,sonst,soweit,sowie,tat,tun,tut,über,ueber,um,und,unser,unsere,unseren,unserer,unseres,unserem,unter,unterhalb,vom,von,vor,während,waehrend,wann,war,waren,warst,warum,was,weil,weiter,weitere,welche,welcher,wenn,wer,werde,werden,werdet,weshalb,wessen,wie,wieder,wieso,wir,wird,wirst,wo,woher,wohin,zu,zum,zur,zwischen,z-B,u-a,usw,etc,mitsamt,samt,inklusive"
 
@@ -6750,7 +6744,7 @@ msgstr "Beitrag-Titel, denen Fokus-Keywords fehlen"
 
 #: includes/replace-variables/class-advanced-variables.php:42
 #: includes/replace-variables/class-advanced-variables.php:45
-#: includes/metaboxes/general.php:54 includes/admin/class-post-columns.php:312
+#: includes/admin/class-post-columns.php:312 includes/metaboxes/general.php:54
 msgid "Focus Keyword"
 msgstr "Fokus-Keyword"
 
@@ -6808,8 +6802,8 @@ msgstr "Fokus-Keyword des aktuellen Beitrags"
 msgid " Remove parent slugs"
 msgstr "Entfernen von Eltern-Slugs"
 
-#: includes/modules/404-monitor/class-admin.php:144
 #: includes/modules/redirections/class-admin.php:131
+#: includes/modules/404-monitor/class-admin.php:144
 msgid "Bulk Actions"
 msgstr "Massen-Aktionen"
 
@@ -7257,7 +7251,7 @@ msgid "Include this post type in the XML sitemap."
 msgstr "Füge diesen Beitrags-Typ in die XML-Sitemap ein."
 
 #. translators: Link to kb article
-#: includes/modules/search-console/class-search-console.php:205
+#: includes/modules/search-console/class-search-console.php:209
 msgid "Connect Rank Math with your Google Search Console profile to see the most important information from Google directly in your WordPress dashboard. %s."
 msgstr "Verbinde Rank Math mit deinem Google Search Console Profil, um die wichtigsten Informationen von Google direkt in deinem WordPress Dashboard anzuzeigen. %s."
 
@@ -7265,28 +7259,36 @@ msgstr "Verbinde Rank Math mit deinem Google Search Console Profil, um die wicht
 msgid "If you don't have an XML sitemap, the best option is to install a plugin that creates sitemaps for you. That way you'll know the sitemap will always be up-to-date. Plugins can also automatically ping the search engines when the XML file is updated. The Rank Math WordPress plugin gives you complete control over your site's XML sitemaps. You can control the settings for each page as you write or edit it, and Rank Math will ping Google as soon as you submit your edits. This results in fast crawls and indexing."
 msgstr "Wenn du keine XML-Sitemap hast, ist die beste Option, ein Plugin zu installieren, das Sitemaps für dich erstellt. Auf diese Weise weisst du, dass die Sitemap immer aktuell ist. Plugins können auch automatisch die Suchmaschinen pingen, wenn die XML-Datei aktualisiert wird. Das Rank Math WordPress Plugin gibt dir die volle Kontrolle über die XML-Sitemaps deiner Website. Du kannst die Einstellungen für jede Seite steuern, während du sie schreibst oder bearbeitest, und Rank Math wird Google an pingen, sobald deine Änderungen übermittelt sind. Dies führt zu schnellen Crawls und Indexierungen."
 
+#: includes/helpers/class-choices.php:507
+msgid "End With"
+msgstr "Endet mit"
+
+#: includes/modules/404-monitor/class-admin.php:195
+msgid "404 Monitor Log Count"
+msgstr "404 Anzahl der Logs"
+
 #: includes/admin/class-serp-checklist.php:149
 msgid "PageRank Sculpting no longer works. Your posts should have a mix of nofollow and DoFollow links."
 msgstr "PageRank Sculpting funktioniert nicht mehr. Deine Beiträge sollten eine Mischung aus nofollow und DoFollow Links haben."
 
-#: includes/metaboxes/social.php:54 includes/metaboxes/social.php:179
 #: includes/modules/rich-snippet/views/metabox-options.php:99
 #: includes/admin/class-metabox.php:257
 #: includes/settings/titles/post-types.php:121
 #: includes/settings/general/rss-vars-table.php:18
+#: includes/metaboxes/social.php:54 includes/metaboxes/social.php:179
 msgid "Description"
 msgstr "Beschreibung"
 
-#: includes/modules/rich-snippet/views/event.php:107
-#: includes/modules/rich-snippet/views/event.php:182
+#: includes/helpers/class-taxonomy.php:152
 #: includes/modules/rich-snippet/views/metabox-options.php:35
 #: includes/modules/rich-snippet/views/metabox-options.php:50
 #: includes/modules/rich-snippet/views/job-posting.php:47
-#: includes/admin/class-cmb2-fields.php:213
-#: includes/admin/wizard/class-schema-markup.php:160
+#: includes/modules/rich-snippet/views/event.php:107
+#: includes/modules/rich-snippet/views/event.php:182
 #: includes/admin/class-admin-helper.php:73
+#: includes/admin/wizard/class-schema-markup.php:160
+#: includes/admin/class-cmb2-fields.php:213
 #: includes/settings/titles/post-types.php:91
-#: includes/helpers/class-taxonomy.php:152
 msgid "None"
 msgstr "Nichts"
 
@@ -7316,11 +7318,12 @@ msgid "Deactivate License"
 msgstr "Lizenz deaktivieren"
 
 #. Author of the plugin
-#: includes/modules/role-manager/class-members.php:46
+#: includes/class-cmb2.php:174
 #: includes/modules/role-manager/class-user-role-editor.php:59
-#: includes/admin/class-admin.php:80 includes/admin/class-registration.php:107
+#: includes/modules/role-manager/class-members.php:46
+#: includes/admin/class-registration.php:107
 #: includes/admin/class-registration.php:108
-#: includes/admin/class-admin-menu.php:52 includes/class-cmb2.php:174
+#: includes/admin/class-admin-menu.php:52 includes/admin/class-admin.php:80
 msgid "Rank Math"
 msgstr "Rank Math"
 
@@ -7359,18 +7362,18 @@ msgstr "Hilfe"
 msgid "Dashboard"
 msgstr "Dashboard"
 
-#: rank-math.php:403 includes/admin/class-setup-wizard.php:235
-#: includes/admin/class-admin.php:368
+#: includes/admin/class-setup-wizard.php:235 includes/admin/class-admin.php:368
+#: rank-math.php:403
 msgid "Setup Wizard"
 msgstr "Einrichtungsassistent"
 
-#: includes/admin/class-cmb2-fields.php:66
 #: includes/class-frontend-seo-score.php:243
+#: includes/admin/class-cmb2-fields.php:66
 msgid "On"
 msgstr "Ein"
 
-#: includes/admin/class-cmb2-fields.php:65
 #: includes/class-frontend-seo-score.php:244
+#: includes/admin/class-cmb2-fields.php:65
 msgid "Off"
 msgstr "Aus"
 
@@ -7384,17 +7387,17 @@ msgstr "Aus"
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: includes/modules/role-manager/class-capability-manager.php:60
-#: includes/admin/class-option-center.php:99
-#: includes/admin/class-options.php:275
-#: includes/admin/views/import-export/export-panel.php:20
 #: includes/helpers/class-wordpress.php:158
+#: includes/modules/role-manager/class-capability-manager.php:60
+#: includes/admin/views/import-export/export-panel.php:20
+#: includes/admin/class-options.php:275
+#: includes/admin/class-option-center.php:99
 msgid "General Settings"
 msgstr "Allgemeine Einstellungen"
 
-#: includes/metaboxes/social.php:47 includes/metaboxes/social.php:171
 #: includes/modules/rich-snippet/views/book.php:56
-#: includes/admin/class-post-columns.php:224
+#: includes/admin/class-post-columns.php:224 includes/metaboxes/social.php:47
+#: includes/metaboxes/social.php:171
 msgid "Title"
 msgstr "Titel"
 
@@ -7406,14 +7409,14 @@ msgstr "Keine Daten gefunden."
 msgid "Activate Rank Math"
 msgstr "Rank Math aktivieren"
 
-#: includes/admin/class-assets.php:81 includes/admin/class-registration.php:137
-#: includes/admin/class-registration.php:151
+#: includes/admin/class-registration.php:137
+#: includes/admin/class-registration.php:151 includes/admin/class-assets.php:81
 msgid "This field is required."
 msgstr "Dieses Feld ist erforderlich."
 
-#: includes/admin/wizard/views/content.php:37
-#: includes/admin/wizard/views/ready.php:68
 #: includes/admin/class-registration.php:64
+#: includes/admin/wizard/views/ready.php:68
+#: includes/admin/wizard/views/content.php:37
 msgid "Return to dashboard"
 msgstr "Zurück zum Dashboard"
 
@@ -7465,8 +7468,8 @@ msgid "Unable to create backup this time."
 msgstr "Diesmal konnte kein Backup erstellt werden."
 
 #. translators: Backup formatted date
-#: includes/admin/class-import-export.php:145
 #: includes/admin/views/import-export/backup-panel.php:25
+#: includes/admin/class-import-export.php:145
 msgid "Backup: %s"
 msgstr "Backup: %s"
 
@@ -7529,12 +7532,12 @@ msgstr "Alle Änderungen speichern"
 msgid "Bulk Edit This Field"
 msgstr "Massenbearbeitung dieses Feldes"
 
-#: includes/modules/role-manager/class-capability-manager.php:61
+#: includes/helpers/class-wordpress.php:159
 #: includes/modules/sitemap/class-admin.php:85
 #: includes/modules/sitemap/class-admin.php:86
-#: includes/admin/class-options.php:277
+#: includes/modules/role-manager/class-capability-manager.php:61
 #: includes/admin/views/import-export/export-panel.php:22
-#: includes/helpers/class-wordpress.php:159
+#: includes/admin/class-options.php:277
 msgid "Sitemap Settings"
 msgstr "Sitemap-Einstellungen"
 
@@ -7542,9 +7545,9 @@ msgstr "Sitemap-Einstellungen"
 msgid "Titles Settings"
 msgstr "Titel-Einstellungen"
 
-#: includes/metaboxes/social.php:22 includes/metaboxes/social.php:29
-#: includes/metaboxes/social.php:104 includes/metaboxes/social.php:360
-#: includes/admin/class-options.php:148
+#: includes/admin/class-options.php:148 includes/metaboxes/social.php:22
+#: includes/metaboxes/social.php:29 includes/metaboxes/social.php:104
+#: includes/metaboxes/social.php:360
 msgid "Panel"
 msgstr "Bedienfeld"
 
@@ -7698,19 +7701,19 @@ msgstr "Daten einfügen von:"
 msgid "Deactivated"
 msgstr "Deaktiviert"
 
+#: includes/modules/rich-snippet/views/product.php:71
 #: includes/modules/rich-snippet/views/course.php:45
+#: includes/modules/rich-snippet/views/book.php:14
+#: includes/modules/rich-snippet/views/software.php:58
+#: includes/modules/rich-snippet/views/review.php:35
 #: includes/modules/rich-snippet/views/recipe.php:101
 #: includes/modules/rich-snippet/views/event.php:214
-#: includes/modules/rich-snippet/views/book.php:14
-#: includes/modules/rich-snippet/views/review.php:35
-#: includes/modules/rich-snippet/views/product.php:71
-#: includes/modules/rich-snippet/views/software.php:58
 #: includes/admin/class-serp-preview.php:368
 msgid "Rating"
 msgstr "Bewertung"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:310
 #: includes/modules/rich-snippet/views/job-posting.php:152
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:311
 #: includes/admin/class-serp-preview.php:361
 msgid "Location"
 msgstr "Standort"
@@ -7724,8 +7727,8 @@ msgstr "Datum"
 msgid "In Stock"
 msgstr "Auf Lager"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:332
 #: includes/modules/rich-snippet/views/recipe.php:50
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:333
 #: includes/admin/class-serp-preview.php:358
 msgid "Calories"
 msgstr "Kalorien"
@@ -7738,10 +7741,10 @@ msgstr "Kochzeit"
 msgid "Price range"
 msgstr "Preisspanne"
 
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:379
-#: includes/modules/rich-snippet/class-snippet-shortcode.php:383
 #: includes/modules/rich-snippet/views/service.php:22
 #: includes/modules/rich-snippet/views/software.php:14
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:380
+#: includes/modules/rich-snippet/class-snippet-shortcode.php:384
 #: includes/admin/class-serp-preview.php:355
 msgid "Price"
 msgstr "Preis"
@@ -7830,8 +7833,8 @@ msgstr "Alternativer Text"
 msgid "Username/Email"
 msgstr "Benutzername/E-Mail"
 
-#: includes/admin/class-import-export.php:52 includes/admin/class-admin.php:374
 #: includes/admin/views/import-export/main.php:14
+#: includes/admin/class-import-export.php:52 includes/admin/class-admin.php:374
 msgid "Import &amp; Export"
 msgstr "Import &amp; Export"
 
