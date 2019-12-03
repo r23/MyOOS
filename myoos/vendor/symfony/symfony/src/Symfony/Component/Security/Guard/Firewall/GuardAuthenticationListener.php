@@ -22,8 +22,6 @@ use Symfony\Component\Security\Guard\AuthenticatorInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Component\Security\Guard\Token\PreAuthenticationGuardToken;
 use Symfony\Component\Security\Http\Firewall\AbstractListener;
-use Symfony\Component\Security\Http\Firewall\LegacyListenerTrait;
-use Symfony\Component\Security\Http\Firewall\ListenerInterface;
 use Symfony\Component\Security\Http\RememberMe\RememberMeServicesInterface;
 
 /**
@@ -32,12 +30,10 @@ use Symfony\Component\Security\Http\RememberMe\RememberMeServicesInterface;
  * @author Ryan Weaver <ryan@knpuniversity.com>
  * @author Amaury Leroux de Lens <amaury@lerouxdelens.com>
  *
- * @final since Symfony 4.3
+ * @final
  */
-class GuardAuthenticationListener extends AbstractListener implements ListenerInterface
+class GuardAuthenticationListener extends AbstractListener
 {
-    use LegacyListenerTrait;
-
     private $guardHandler;
     private $authenticationManager;
     private $providerKey;

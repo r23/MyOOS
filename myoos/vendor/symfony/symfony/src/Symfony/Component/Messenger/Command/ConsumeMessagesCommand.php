@@ -42,18 +42,8 @@ class ConsumeMessagesCommand extends Command
     private $receiverNames;
     private $eventDispatcher;
 
-    /**
-     * @param RoutableMessageBus $routableBus
-     */
-    public function __construct($routableBus, ContainerInterface $receiverLocator, EventDispatcherInterface $eventDispatcher, LoggerInterface $logger = null, array $receiverNames = [])
+    public function __construct(RoutableMessageBus $routableBus, ContainerInterface $receiverLocator, EventDispatcherInterface $eventDispatcher, LoggerInterface $logger = null, array $receiverNames = [])
     {
-        if ($routableBus instanceof ContainerInterface) {
-            @trigger_error(sprintf('Passing a "%s" instance as first argument to "%s()" is deprecated since Symfony 4.4, pass a "%s" instance instead.', ContainerInterface::class, __METHOD__, RoutableMessageBus::class), E_USER_DEPRECATED);
-            $routableBus = new RoutableMessageBus($routableBus);
-        } elseif (!$routableBus instanceof RoutableMessageBus) {
-            throw new \TypeError(sprintf('The first argument must be an instance of "%s".', RoutableMessageBus::class));
-        }
-
         $this->routableBus = $routableBus;
         $this->receiverLocator = $receiverLocator;
         $this->logger = $logger;
@@ -142,12 +132,6 @@ EOF
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        if (false !== strpos($input->getFirstArgument(), ':consume-')) {
-            $message = 'The use of the "messenger:consume-messages" command is deprecated since version 4.3 and will be removed in 5.0. Use "messenger:consume" instead.';
-            @trigger_error($message, E_USER_DEPRECATED);
-            $output->writeln(sprintf('<comment>%s</comment>', $message));
-        }
-
         $receivers = [];
         foreach ($receiverNames = $input->getArgument('receivers') as $receiverName) {
             if (!$this->receiverLocator->has($receiverName)) {

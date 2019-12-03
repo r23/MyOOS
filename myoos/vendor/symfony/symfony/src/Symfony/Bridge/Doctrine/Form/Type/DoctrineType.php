@@ -14,6 +14,7 @@ namespace Symfony\Bridge\Doctrine\Form\Type;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\Form\ChoiceList\DoctrineChoiceLoader;
 use Symfony\Bridge\Doctrine\Form\ChoiceList\EntityLoaderInterface;
 use Symfony\Bridge\Doctrine\Form\ChoiceList\IdReader;
@@ -49,12 +50,10 @@ abstract class DoctrineType extends AbstractType implements ResetInterface
      *
      * For backwards compatibility, objects are cast to strings by default.
      *
-     * @param object $choice The object
-     *
      * @internal This method is public to be usable as callback. It should not
      *           be used in user code.
      */
-    public static function createChoiceLabel($choice): string
+    public static function createChoiceLabel(object $choice): string
     {
         return (string) $choice;
     }
@@ -66,15 +65,14 @@ abstract class DoctrineType extends AbstractType implements ResetInterface
      * a single-column integer ID. In that case, the value of the field is
      * the ID of the object. That ID is also used as field name.
      *
-     * @param object     $choice The object
-     * @param int|string $key    The choice key
-     * @param string     $value  The choice value. Corresponds to the object's
-     *                           ID here.
+     * @param int|string $key   The choice key
+     * @param string     $value The choice value. Corresponds to the object's
+     *                          ID here.
      *
      * @internal This method is public to be usable as callback. It should not
      *           be used in user code.
      */
-    public static function createChoiceName($choice, $key, $value): string
+    public static function createChoiceName(object $choice, $key, string $value): string
     {
         return str_replace('-', '_', (string) $value);
     }
@@ -147,8 +145,7 @@ abstract class DoctrineType extends AbstractType implements ResetInterface
                     $options['em'],
                     $options['class'],
                     $options['id_reader'],
-                    $entityLoader,
-                    false
+                    $entityLoader
                 );
 
                 if (null !== $hash) {
@@ -266,12 +263,9 @@ abstract class DoctrineType extends AbstractType implements ResetInterface
     /**
      * Return the default loader object.
      *
-     * @param mixed  $queryBuilder
-     * @param string $class
-     *
      * @return EntityLoaderInterface
      */
-    abstract public function getLoader(ObjectManager $manager, $queryBuilder, $class);
+    abstract public function getLoader(ObjectManager $manager, QueryBuilder $queryBuilder, string $class);
 
     public function getParent()
     {

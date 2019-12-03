@@ -49,7 +49,7 @@ class PathPackage extends Package
     /**
      * {@inheritdoc}
      */
-    public function getUrl($path)
+    public function getUrl(string $path)
     {
         $versionedPath = parent::getUrl($path);
 

@@ -12,8 +12,6 @@
 namespace Symfony\Component\Validator\Mapping;
 
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Traverse;
 use Symfony\Component\Validator\Constraints\Valid;
 use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
@@ -169,8 +167,6 @@ class GenericMetadata implements MetadataInterface
      */
     public function getConstraints()
     {
-        $this->configureLengthConstraints($this->constraints);
-
         return $this->constraints;
     }
 
@@ -189,12 +185,9 @@ class GenericMetadata implements MetadataInterface
      *
      * Aware of the global group (* group).
      */
-    public function findConstraints($group)
+    public function findConstraints(string $group)
     {
-        $constraints = $this->constraintsByGroup[$group] ?? [];
-        $this->configureLengthConstraints($constraints);
-
-        return $constraints;
+        return $this->constraintsByGroup[$group] ?? [];
     }
 
     /**
@@ -211,27 +204,5 @@ class GenericMetadata implements MetadataInterface
     public function getTraversalStrategy()
     {
         return $this->traversalStrategy;
-    }
-
-    private function configureLengthConstraints(array $constraints): void
-    {
-        $allowEmptyString = true;
-
-        foreach ($constraints as $constraint) {
-            if ($constraint instanceof NotBlank) {
-                $allowEmptyString = false;
-                break;
-            }
-        }
-
-        if ($allowEmptyString) {
-            return;
-        }
-
-        foreach ($constraints as $constraint) {
-            if ($constraint instanceof Length && null === $constraint->allowEmptyString) {
-                $constraint->allowEmptyString = false;
-            }
-        }
     }
 }

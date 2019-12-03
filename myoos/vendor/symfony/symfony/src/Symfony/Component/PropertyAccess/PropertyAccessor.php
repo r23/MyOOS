@@ -842,20 +842,12 @@ class PropertyAccessor implements PropertyAccessorInterface
     /**
      * Creates the APCu adapter if applicable.
      *
-     * @param string $namespace
-     * @param int    $defaultLifetime
-     * @param string $version
-     *
      * @return AdapterInterface
      *
      * @throws \LogicException When the Cache Component isn't available
      */
-    public static function createCache($namespace, $defaultLifetime, $version, LoggerInterface $logger = null)
+    public static function createCache(string $namespace, int $defaultLifetime, string $version, LoggerInterface $logger = null)
     {
-        if (null === $defaultLifetime) {
-            @trigger_error(sprintf('Passing null as "$defaultLifetime" 2nd argument of the "%s()" method is deprecated since Symfony 4.4, pass 0 instead.', __METHOD__), E_USER_DEPRECATED);
-        }
-
         if (!class_exists('Symfony\Component\Cache\Adapter\ApcuAdapter')) {
             throw new \LogicException(sprintf('The Symfony Cache component must be installed to use %s().', __METHOD__));
         }

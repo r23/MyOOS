@@ -16,16 +16,15 @@ use Symfony\Component\Cache\Traits\RedisProxy;
 use Symfony\Component\Lock\Exception\InvalidArgumentException;
 use Symfony\Component\Lock\Exception\InvalidTtlException;
 use Symfony\Component\Lock\Exception\LockConflictedException;
-use Symfony\Component\Lock\Exception\NotSupportedException;
 use Symfony\Component\Lock\Key;
-use Symfony\Component\Lock\StoreInterface;
+use Symfony\Component\Lock\PersistingStoreInterface;
 
 /**
  * RedisStore is a PersistingStoreInterface implementation using Redis as store engine.
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
  */
-class RedisStore implements StoreInterface
+class RedisStore implements PersistingStoreInterface
 {
     use ExpiringStoreTrait;
 
@@ -75,19 +74,8 @@ class RedisStore implements StoreInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @deprecated since Symfony 4.4.
      */
-    public function waitAndSave(Key $key)
-    {
-        @trigger_error(sprintf('%s() is deprecated since Symfony 4.4 and will be removed in Symfony 5.0.', __METHOD__), E_USER_DEPRECATED);
-        throw new NotSupportedException(sprintf('The store "%s" does not support blocking locks.', \get_class($this)));
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function putOffExpiration(Key $key, $ttl)
+    public function putOffExpiration(Key $key, float $ttl)
     {
         $script = '
             if redis.call("GET", KEYS[1]) == ARGV[1] then

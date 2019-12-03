@@ -150,7 +150,7 @@ class Worker
         $this->shouldStop = true;
     }
 
-    private function dispatchEvent($event)
+    private function dispatchEvent(object $event): void
     {
         if (null === $this->eventDispatcher) {
             return;

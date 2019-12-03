@@ -1,6 +1,22 @@
 CHANGELOG
 =========
 
+5.0.0
+-----
+
+ * The `switch_user.stateless` firewall option has been removed.
+ * Removed the ability to configure encoders using `argon2i` or `bcrypt` as algorithm, use `auto` instead
+ * The `simple_form` and `simple_preauth` authentication listeners have been removed,
+   use Guard instead.
+ * The `SimpleFormFactory` and `SimplePreAuthenticationFactory` classes have been removed,
+   use Guard instead.
+ * Removed `LogoutUrlHelper` and `SecurityHelper` templating helpers, use Twig instead
+ * Removed the `logout_on_user_change` firewall option
+ * Removed the `threads` encoder option
+ * Removed the `security.authentication.trust_resolver.anonymous_class` parameter
+ * Removed the `security.authentication.trust_resolver.rememberme_class` parameter
+ * Removed the `security.user.provider.in_memory.user` service.
+
 4.4.0
 -----
 

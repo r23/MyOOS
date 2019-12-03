@@ -82,7 +82,7 @@ class FilesystemLoader extends Loader
      *
      * @return bool true if the template is still fresh, false otherwise
      */
-    public function isFresh(TemplateReferenceInterface $template, $time)
+    public function isFresh(TemplateReferenceInterface $template, int $time)
     {
         if (false === $storage = $this->load($template)) {
             return false;
@@ -94,11 +94,9 @@ class FilesystemLoader extends Loader
     /**
      * Returns true if the file is an existing absolute path.
      *
-     * @param string $file A path
-     *
      * @return bool true if the path exists and is absolute, false otherwise
      */
-    protected static function isAbsolutePath($file)
+    protected static function isAbsolutePath(string $file)
     {
         if ('/' == $file[0] || '\\' == $file[0]
             || (\strlen($file) > 3 && ctype_alpha($file[0])

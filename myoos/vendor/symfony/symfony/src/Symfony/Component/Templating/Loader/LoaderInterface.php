@@ -35,5 +35,5 @@ interface LoaderInterface
      *
      * @return bool
      */
-    public function isFresh(TemplateReferenceInterface $template, $time);
+    public function isFresh(TemplateReferenceInterface $template, int $time);
 }

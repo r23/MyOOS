@@ -118,21 +118,10 @@ abstract class AbstractNormalizer implements NormalizerInterface, DenormalizerIn
 
     protected $defaultContext = [
         self::ALLOW_EXTRA_ATTRIBUTES => true,
+        self::CIRCULAR_REFERENCE_HANDLER => null,
         self::CIRCULAR_REFERENCE_LIMIT => 1,
         self::IGNORED_ATTRIBUTES => [],
     ];
-
-    /**
-     * @deprecated since Symfony 4.2
-     */
-    protected $circularReferenceLimit = 1;
-
-    /**
-     * @deprecated since Symfony 4.2
-     *
-     * @var callable|null
-     */
-    protected $circularReferenceHandler;
 
     /**
      * @var ClassMetadataFactoryInterface|null
@@ -143,21 +132,6 @@ abstract class AbstractNormalizer implements NormalizerInterface, DenormalizerIn
      * @var NameConverterInterface|null
      */
     protected $nameConverter;
-
-    /**
-     * @deprecated since Symfony 4.2
-     */
-    protected $callbacks = [];
-
-    /**
-     * @deprecated since Symfony 4.2
-     */
-    protected $ignoredAttributes = [];
-
-    /**
-     * @deprecated since Symfony 4.2
-     */
-    protected $camelizedAttributes = [];
 
     /**
      * Sets the {@link ClassMetadataFactoryInterface} to use.
@@ -186,81 +160,6 @@ abstract class AbstractNormalizer implements NormalizerInterface, DenormalizerIn
     }
 
     /**
-     * Sets circular reference limit.
-     *
-     * @deprecated since Symfony 4.2
-     *
-     * @param int $circularReferenceLimit Limit of iterations for the same object
-     *
-     * @return self
-     */
-    public function setCircularReferenceLimit($circularReferenceLimit)
-    {
-        @trigger_error(sprintf('The "%s()" method is deprecated since Symfony 4.2, use the "circular_reference_limit" key of the context instead.', __METHOD__), E_USER_DEPRECATED);
-
-        $this->defaultContext[self::CIRCULAR_REFERENCE_LIMIT] = $this->circularReferenceLimit = $circularReferenceLimit;
-
-        return $this;
-    }
-
-    /**
-     * Sets circular reference handler.
-     *
-     * @deprecated since Symfony 4.2
-     *
-     * @return self
-     */
-    public function setCircularReferenceHandler(callable $circularReferenceHandler)
-    {
-        @trigger_error(sprintf('The "%s()" method is deprecated since Symfony 4.2, use the "circular_reference_handler" key of the context instead.', __METHOD__), E_USER_DEPRECATED);
-
-        $this->defaultContext[self::CIRCULAR_REFERENCE_HANDLER] = $this->circularReferenceHandler = $circularReferenceHandler;
-
-        return $this;
-    }
-
-    /**
-     * Sets normalization callbacks.
-     *
-     * @deprecated since Symfony 4.2
-     *
-     * @param callable[] $callbacks Help normalize the result
-     *
-     * @return self
-     *
-     * @throws InvalidArgumentException if a non-callable callback is set
-     */
-    public function setCallbacks(array $callbacks)
-    {
-        @trigger_error(sprintf('The "%s()" method is deprecated since Symfony 4.2, use the "callbacks" key of the context instead.', __METHOD__), E_USER_DEPRECATED);
-
-        foreach ($callbacks as $attribute => $callback) {
-            if (!\is_callable($callback)) {
-                throw new InvalidArgumentException(sprintf('The given callback for attribute "%s" is not callable.', $attribute));
-            }
-        }
-        $this->defaultContext[self::CALLBACKS] = $this->callbacks = $callbacks;
-
-        return $this;
-    }
-
-    /**
-     * Sets ignored attributes for normalization and denormalization.
-     *
-     * @deprecated since Symfony 4.2
-     *
-     * @return self
-     */
-    public function setIgnoredAttributes(array $ignoredAttributes)
-    {
-        @trigger_error(sprintf('The "%s()" method is deprecated since Symfony 4.2, use the "ignored_attributes" key of the context instead.', __METHOD__), E_USER_DEPRECATED);
-
-        $this->defaultContext[self::IGNORED_ATTRIBUTES] = $this->ignoredAttributes = $ignoredAttributes;
-
-        return $this;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function hasCacheableSupportsMethod(): bool
@@ -271,18 +170,15 @@ abstract class AbstractNormalizer implements NormalizerInterface, DenormalizerIn
     /**
      * Detects if the configured circular reference limit is reached.
      *
-     * @param object $object
-     * @param array  $context
-     *
      * @return bool
      *
      * @throws CircularReferenceException
      */
-    protected function isCircularReference($object, &$context)
+    protected function isCircularReference(object $object, array &$context)
     {
         $objectHash = spl_object_hash($object);
 
-        $circularReferenceLimit = $context[self::CIRCULAR_REFERENCE_LIMIT] ?? $this->defaultContext[self::CIRCULAR_REFERENCE_LIMIT] ?? $this->circularReferenceLimit;
+        $circularReferenceLimit = $context[self::CIRCULAR_REFERENCE_LIMIT] ?? $this->defaultContext[self::CIRCULAR_REFERENCE_LIMIT];
         if (isset($context[self::CIRCULAR_REFERENCE_LIMIT_COUNTERS][$objectHash])) {
             if ($context[self::CIRCULAR_REFERENCE_LIMIT_COUNTERS][$objectHash] >= $circularReferenceLimit) {
                 unset($context[self::CIRCULAR_REFERENCE_LIMIT_COUNTERS][$objectHash]);
@@ -304,30 +200,20 @@ abstract class AbstractNormalizer implements NormalizerInterface, DenormalizerIn
      * If a circular reference handler is set, it will be called. Otherwise, a
      * {@class CircularReferenceException} will be thrown.
      *
-     * @final since Symfony 4.2
-     *
-     * @param object      $object
-     * @param string|null $format
-     * @param array       $context
+     * @final
      *
      * @return mixed
      *
      * @throws CircularReferenceException
      */
-    protected function handleCircularReference($object/*, string $format = null, array $context = []*/)
+    protected function handleCircularReference(object $object, string $format = null, array $context = [])
     {
-        if (\func_num_args() < 2 && __CLASS__ !== \get_class($this) && __CLASS__ !== (new \ReflectionMethod($this, __FUNCTION__))->getDeclaringClass()->getName() && !$this instanceof \PHPUnit\Framework\MockObject\MockObject && !$this instanceof \Prophecy\Prophecy\ProphecySubjectInterface) {
-            @trigger_error(sprintf('The "%s()" method will have two new "string $format = null" and "array $context = []" arguments in version 5.0, not defining it is deprecated since Symfony 4.2.', __METHOD__), E_USER_DEPRECATED);
-        }
-        $format = \func_num_args() > 1 ? func_get_arg(1) : null;
-        $context = \func_num_args() > 2 ? func_get_arg(2) : [];
-
-        $circularReferenceHandler = $context[self::CIRCULAR_REFERENCE_HANDLER] ?? $this->defaultContext[self::CIRCULAR_REFERENCE_HANDLER] ?? $this->circularReferenceHandler;
+        $circularReferenceHandler = $context[self::CIRCULAR_REFERENCE_HANDLER] ?? $this->defaultContext[self::CIRCULAR_REFERENCE_HANDLER];
         if ($circularReferenceHandler) {
             return $circularReferenceHandler($object, $format, $context);
         }
 
-        throw new CircularReferenceException(sprintf('A circular reference has been detected when serializing the object of class "%s" (configured limit: %d)', \get_class($object), $this->circularReferenceLimit));
+        throw new CircularReferenceException(sprintf('A circular reference has been detected when serializing the object of class "%s" (configured limit: %d)', \get_class($object), $context[self::CIRCULAR_REFERENCE_LIMIT] ?? $this->defaultContext[self::CIRCULAR_REFERENCE_LIMIT]));
     }
 
     /**
@@ -340,7 +226,7 @@ abstract class AbstractNormalizer implements NormalizerInterface, DenormalizerIn
      *
      * @return string[]|AttributeMetadataInterface[]|bool
      */
-    protected function getAllowedAttributes($classOrObject, array $context, $attributesAsString = false)
+    protected function getAllowedAttributes($classOrObject, array $context, bool $attributesAsString = false)
     {
         $allowExtraAttributes = $context[self::ALLOW_EXTRA_ATTRIBUTES] ?? $this->defaultContext[self::ALLOW_EXTRA_ATTRIBUTES];
         if (!$this->classMetadataFactory) {
@@ -376,14 +262,12 @@ abstract class AbstractNormalizer implements NormalizerInterface, DenormalizerIn
      * Is this attribute allowed?
      *
      * @param object|string $classOrObject
-     * @param string        $attribute
-     * @param string|null   $format
      *
      * @return bool
      */
-    protected function isAllowedAttribute($classOrObject, $attribute, $format = null, array $context = [])
+    protected function isAllowedAttribute($classOrObject, string $attribute, string $format = null, array $context = [])
     {
-        $ignoredAttributes = $context[self::IGNORED_ATTRIBUTES] ?? $this->defaultContext[self::IGNORED_ATTRIBUTES] ?? $this->ignoredAttributes;
+        $ignoredAttributes = $context[self::IGNORED_ATTRIBUTES] ?? $this->defaultContext[self::IGNORED_ATTRIBUTES];
         if (\in_array($attribute, $ignoredAttributes)) {
             return false;
         }
@@ -418,12 +302,11 @@ abstract class AbstractNormalizer implements NormalizerInterface, DenormalizerIn
      * Returns the method to use to construct an object. This method must be either
      * the object constructor or static.
      *
-     * @param string     $class
      * @param array|bool $allowedAttributes
      *
      * @return \ReflectionMethod|null
      */
-    protected function getConstructor(array &$data, $class, array &$context, \ReflectionClass $reflectionClass, $allowedAttributes)
+    protected function getConstructor(array &$data, string $class, array &$context, \ReflectionClass $reflectionClass, $allowedAttributes)
     {
         return $reflectionClass->getConstructor();
     }
@@ -436,7 +319,6 @@ abstract class AbstractNormalizer implements NormalizerInterface, DenormalizerIn
      * is removed from the context before being returned to avoid side effects
      * when recursively normalizing an object graph.
      *
-     * @param string     $class
      * @param array|bool $allowedAttributes
      *
      * @return object
@@ -444,7 +326,7 @@ abstract class AbstractNormalizer implements NormalizerInterface, DenormalizerIn
      * @throws RuntimeException
      * @throws MissingConstructorArgumentsException
      */
-    protected function instantiateObject(array &$data, $class, array &$context, \ReflectionClass $reflectionClass, $allowedAttributes, string $format = null)
+    protected function instantiateObject(array &$data, string $class, array &$context, \ReflectionClass $reflectionClass, $allowedAttributes, string $format = null)
     {
         if (null !== $object = $this->extractObjectToPopulate($class, $context, self::OBJECT_TO_POPULATE)) {
             unset($context[self::OBJECT_TO_POPULATE]);
@@ -519,7 +401,7 @@ abstract class AbstractNormalizer implements NormalizerInterface, DenormalizerIn
     /**
      * @internal
      */
-    protected function denormalizeParameter(\ReflectionClass $class, \ReflectionParameter $parameter, $parameterName, $parameterData, array $context, $format = null)
+    protected function denormalizeParameter(\ReflectionClass $class, \ReflectionParameter $parameter, string $parameterName, $parameterData, array $context, string $format = null)
     {
         try {
             if (null !== $parameter->getClass()) {
@@ -542,15 +424,10 @@ abstract class AbstractNormalizer implements NormalizerInterface, DenormalizerIn
     }
 
     /**
-     * @param string $attribute Attribute name
-     *
      * @internal
      */
-    protected function createChildContext(array $parentContext, $attribute/*, ?string $format */): array
+    protected function createChildContext(array $parentContext, string $attribute, ?string $format): array
     {
-        if (\func_num_args() < 3) {
-            @trigger_error(sprintf('Method "%s::%s()" will have a third "?string $format" argument in version 5.0; not defining it is deprecated since Symfony 4.3.', \get_class($this), __FUNCTION__), E_USER_DEPRECATED);
-        }
         if (isset($parentContext[self::ATTRIBUTES][$attribute])) {
             $parentContext[self::ATTRIBUTES] = $parentContext[self::ATTRIBUTES][$attribute];
         } else {

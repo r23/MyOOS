@@ -15,14 +15,13 @@ use Symfony\Component\Lock\BlockingStoreInterface;
 use Symfony\Component\Lock\Exception\InvalidArgumentException;
 use Symfony\Component\Lock\Exception\LockConflictedException;
 use Symfony\Component\Lock\Key;
-use Symfony\Component\Lock\StoreInterface;
 
 /**
  * SemaphoreStore is a PersistingStoreInterface implementation using Semaphore as store engine.
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
  */
-class SemaphoreStore implements StoreInterface, BlockingStoreInterface
+class SemaphoreStore implements BlockingStoreInterface
 {
     /**
      * Returns whether or not the store is supported.
@@ -99,7 +98,7 @@ class SemaphoreStore implements StoreInterface, BlockingStoreInterface
     /**
      * {@inheritdoc}
      */
-    public function putOffExpiration(Key $key, $ttl)
+    public function putOffExpiration(Key $key, float $ttl)
     {
         // do nothing, the semaphore locks forever.
     }

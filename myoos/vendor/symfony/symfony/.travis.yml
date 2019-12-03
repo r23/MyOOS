@@ -17,7 +17,7 @@ addons:
 
 env:
     global:
-        - MIN_PHP=7.1.3
+        - MIN_PHP=7.2.5
         - SYMFONY_PROCESS_PHP_TEST_BINARY=~/.phpenv/shims/php
         - MESSENGER_AMQP_DSN=amqp://localhost/%2f/messages
         - MESSENGER_REDIS_DSN=redis://127.0.0.1:7006/messages
@@ -25,8 +25,8 @@ env:
 
 matrix:
     include:
-        - php: 7.1
-          env: php_extra="7.2 7.4snapshot"
+        - php: 7.2
+          env: php_extra="7.4snapshot"
         - php: 7.3
           env: deps=high
         - php: 7.4snapshot
@@ -213,7 +213,6 @@ install:
 
       if [[ ! $deps ]]; then
           php .github/build-packages.php HEAD^ src/Symfony/Bridge/PhpUnit src/Symfony/Contracts
-          composer remove --dev --no-update paragonie/sodium_compat
       else
           export SYMFONY_DEPRECATIONS_HELPER=weak &&
           cp composer.json composer.json.orig &&
@@ -248,7 +247,7 @@ install:
     - |
       # Install symfony/flex
       if [[ $deps = low ]]; then
-          export SYMFONY_REQUIRE='>=2.3'
+          export SYMFONY_REQUIRE='>=3.4'
       else
           export SYMFONY_REQUIRE=">=$SYMFONY_VERSION"
       fi
@@ -285,7 +284,7 @@ install:
               (cd src/Symfony/Component/HttpFoundation; mv composer.bak composer.json)
               COMPONENTS=$(git diff --name-only src/ | grep composer.json || true)
 
-              if [[ $COMPONENTS && $LEGACY && $TRAVIS_PULL_REQUEST != false ]]; then
+              if [[ $COMPONENTS && $LEGACY && $TRAVIS_BRANCH != master && $TRAVIS_PULL_REQUEST != false ]]; then
                   export FLIP='🙃'
                   SYMFONY_VERSION=$(echo $SYMFONY_VERSION | awk '{print $1 - 1}')
                   echo -e "\\n\\e[33;1mChecking out Symfony $SYMFONY_VERSION and running tests with patched components as deps\\e[0m"

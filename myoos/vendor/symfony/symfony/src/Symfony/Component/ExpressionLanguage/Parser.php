@@ -85,13 +85,11 @@ class Parser
      * variable 'container' can be used in the expression
      * but the compiled code will use 'this'.
      *
-     * @param array $names An array of valid names
-     *
      * @return Node\Node A node tree
      *
      * @throws SyntaxError
      */
-    public function parse(TokenStream $stream, $names = [])
+    public function parse(TokenStream $stream, array $names = [])
     {
         $this->stream = $stream;
         $this->names = $names;
@@ -104,7 +102,7 @@ class Parser
         return $node;
     }
 
-    public function parseExpression($precedence = 0)
+    public function parseExpression(int $precedence = 0)
     {
         $expr = $this->getPrimary();
         $token = $this->stream->current;
@@ -148,7 +146,7 @@ class Parser
         return $this->parsePrimaryExpression();
     }
 
-    protected function parseConditionalExpression($expr)
+    protected function parseConditionalExpression(Node\Node $expr)
     {
         while ($this->stream->current->test(Token::PUNCTUATION_TYPE, '?')) {
             $this->stream->next();
@@ -301,7 +299,7 @@ class Parser
         return $node;
     }
 
-    public function parsePostfixExpression($node)
+    public function parsePostfixExpression(Node\Node $node)
     {
         $token = $this->stream->current;
         while (Token::PUNCTUATION_TYPE == $token->type) {

@@ -98,12 +98,10 @@ abstract class FormField
 
     /**
      * Sets the value of the field.
-     *
-     * @param string|array|bool|null $value The value of the field
      */
-    public function setValue($value)
+    public function setValue(?string $value)
     {
-        $this->value = (string) $value;
+        $this->value = $value ?? '';
     }
 
     /**

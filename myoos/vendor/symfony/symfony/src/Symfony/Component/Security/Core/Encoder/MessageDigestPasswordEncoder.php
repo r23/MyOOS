@@ -47,7 +47,7 @@ class MessageDigestPasswordEncoder extends BasePasswordEncoder
     /**
      * {@inheritdoc}
      */
-    public function encodePassword($raw, $salt)
+    public function encodePassword(string $raw, ?string $salt)
     {
         if ($this->isPasswordTooLong($raw)) {
             throw new BadCredentialsException('Invalid password.');
@@ -71,7 +71,7 @@ class MessageDigestPasswordEncoder extends BasePasswordEncoder
     /**
      * {@inheritdoc}
      */
-    public function isPasswordValid($encoded, $raw, $salt)
+    public function isPasswordValid(string $encoded, string $raw, ?string $salt)
     {
         if (\strlen($encoded) !== $this->encodedLength || false !== strpos($encoded, '$')) {
             return false;

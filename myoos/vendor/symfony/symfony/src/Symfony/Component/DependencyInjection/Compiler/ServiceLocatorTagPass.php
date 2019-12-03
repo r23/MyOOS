@@ -29,7 +29,7 @@ final class ServiceLocatorTagPass extends AbstractRecursivePass
 {
     use PriorityTaggedServiceTrait;
 
-    protected function processValue($value, $isRoot = false)
+    protected function processValue($value, bool $isRoot = false)
     {
         if ($value instanceof ServiceLocatorArgument) {
             if ($value->getTaggedIteratorArgument()) {

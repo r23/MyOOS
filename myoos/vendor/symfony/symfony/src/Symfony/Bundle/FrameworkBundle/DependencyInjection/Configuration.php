@@ -28,6 +28,7 @@ use Symfony\Component\Lock\Lock;
 use Symfony\Component\Lock\Store\SemaphoreStore;
 use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Notifier\Notifier;
 use Symfony\Component\PropertyInfo\PropertyInfoExtractorInterface;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Translation\Translator;
@@ -100,7 +101,6 @@ class Configuration implements ConfigurationInterface
         $this->addRouterSection($rootNode);
         $this->addSessionSection($rootNode);
         $this->addRequestSection($rootNode);
-        $this->addTemplatingSection($rootNode);
         $this->addAssetsSection($rootNode);
         $this->addTranslatorSection($rootNode);
         $this->addValidationSection($rootNode);
@@ -117,6 +117,7 @@ class Configuration implements ConfigurationInterface
         $this->addHttpClientSection($rootNode);
         $this->addMailerSection($rootNode);
         $this->addSecretsSection($rootNode);
+        $this->addNotifierSection($rootNode);
 
         return $treeBuilder;
     }
@@ -278,15 +279,6 @@ class Configuration implements ConfigurationInterface
                         ->arrayNode('workflows')
                             ->useAttributeAsKey('name')
                             ->prototype('array')
-                                ->beforeNormalization()
-                                    ->always(function ($v) {
-                                        if (isset($v['initial_place'])) {
-                                            $v['initial_marking'] = [$v['initial_place']];
-                                        }
-
-                                        return $v;
-                                    })
-                                ->end()
                                 ->fixXmlConfig('support')
                                 ->fixXmlConfig('place')
                                 ->fixXmlConfig('transition')
@@ -299,43 +291,16 @@ class Configuration implements ConfigurationInterface
                                         ->defaultValue('state_machine')
                                     ->end()
                                     ->arrayNode('marking_store')
-                                        ->fixXmlConfig('argument')
                                         ->children()
                                             ->enumNode('type')
-                                                ->values(['multiple_state', 'single_state', 'method'])
-                                                ->validate()
-                                                    ->ifTrue(function ($v) { return 'method' !== $v; })
-                                                    ->then(function ($v) {
-                                                        @trigger_error('Passing something else than "method" has been deprecated in Symfony 4.3.', E_USER_DEPRECATED);
-
-                                                        return $v;
-                                                    })
-                                                ->end()
-                                            ->end()
-                                            ->arrayNode('arguments')
-                                                ->setDeprecated('The "%path%.%node%" configuration key has been deprecated in Symfony 4.3. Use "property" instead.')
-                                                ->beforeNormalization()
-                                                    ->ifString()
-                                                    ->then(function ($v) { return [$v]; })
-                                                ->end()
-                                                ->requiresAtLeastOneElement()
-                                                ->prototype('scalar')
-                                                ->end()
+                                                ->values(['method'])
                                             ->end()
                                             ->scalarNode('property')
-                                                ->defaultNull() // In Symfony 5.0, set "marking" as default property
+                                                ->defaultValue('marking')
                                             ->end()
                                             ->scalarNode('service')
                                                 ->cannotBeEmpty()
                                             ->end()
-                                        ->end()
-                                        ->validate()
-                                            ->ifTrue(function ($v) { return isset($v['type']) && isset($v['service']); })
-                                            ->thenInvalid('"type" and "service" cannot be used together.')
-                                        ->end()
-                                        ->validate()
-                                            ->ifTrue(function ($v) { return !empty($v['arguments']) && isset($v['service']); })
-                                            ->thenInvalid('"arguments" and "service" cannot be used together.')
                                         ->end()
                                     ->end()
                                     ->arrayNode('supports')
@@ -353,10 +318,6 @@ class Configuration implements ConfigurationInterface
                                     ->end()
                                     ->scalarNode('support_strategy')
                                         ->cannotBeEmpty()
-                                    ->end()
-                                    ->scalarNode('initial_place')
-                                        ->setDeprecated('The "%path%.%node%" configuration key has been deprecated in Symfony 4.3, use the "initial_marking" configuration key instead.')
-                                        ->defaultNull()
                                     ->end()
                                     ->arrayNode('initial_marking')
                                         ->beforeNormalization()->castToArray()->end()
@@ -491,24 +452,6 @@ class Configuration implements ConfigurationInterface
                                     })
                                     ->thenInvalid('"supports" or "support_strategy" should be configured.')
                                 ->end()
-                                ->validate()
-                                    ->ifTrue(function ($v) {
-                                        return 'workflow' === $v['type'] && 'single_state' === ($v['marking_store']['type'] ?? false);
-                                    })
-                                    ->then(function ($v) {
-                                        @trigger_error('Using a workflow with type=workflow and a marking_store=single_state is deprecated since Symfony 4.3. Use type=state_machine instead.', E_USER_DEPRECATED);
-
-                                        return $v;
-                                    })
-                                ->end()
-                                ->validate()
-                                    ->ifTrue(function ($v) {
-                                        return isset($v['marking_store']['property'])
-                                            && (!isset($v['marking_store']['type']) || 'method' !== $v['marking_store']['type'])
-                                        ;
-                                    })
-                                    ->thenInvalid('"property" option is only supported by the "method" marking store.')
-                                ->end()
                             ->end()
                         ->end()
                     ->end()
@@ -613,64 +556,6 @@ class Configuration implements ConfigurationInterface
                                 ->beforeNormalization()->castToArray()->end()
                                 ->prototype('scalar')->end()
                             ->end()
-                        ->end()
-                    ->end()
-                ->end()
-            ->end()
-        ;
-    }
-
-    private function addTemplatingSection(ArrayNodeDefinition $rootNode)
-    {
-        $rootNode
-            ->children()
-                ->arrayNode('templating')
-                    ->info('templating configuration')
-                    ->canBeEnabled()
-                    ->setDeprecated('The "%path%.%node%" configuration is deprecated since Symfony 4.3. Configure the "twig" section provided by the Twig Bundle instead.')
-                    ->beforeNormalization()
-                        ->ifTrue(function ($v) { return false === $v || \is_array($v) && false === $v['enabled']; })
-                        ->then(function () { return ['enabled' => false, 'engines' => false]; })
-                    ->end()
-                    ->children()
-                        ->scalarNode('hinclude_default_template')->setDeprecated('Setting "templating.hinclude_default_template" is deprecated since Symfony 4.3, use "fragments.hinclude_default_template" instead.')->defaultNull()->end()
-                        ->scalarNode('cache')->end()
-                        ->arrayNode('form')
-                            ->addDefaultsIfNotSet()
-                            ->fixXmlConfig('resource')
-                            ->children()
-                                ->arrayNode('resources')
-                                    ->addDefaultChildrenIfNoneSet()
-                                    ->prototype('scalar')->defaultValue('FrameworkBundle:Form')->end()
-                                    ->validate()
-                                        ->ifTrue(function ($v) {return !\in_array('FrameworkBundle:Form', $v); })
-                                        ->then(function ($v) {
-                                            return array_merge(['FrameworkBundle:Form'], $v);
-                                        })
-                                    ->end()
-                                ->end()
-                            ->end()
-                        ->end()
-                    ->end()
-                    ->fixXmlConfig('engine')
-                    ->children()
-                        ->arrayNode('engines')
-                            ->example(['twig'])
-                            ->isRequired()
-                            ->requiresAtLeastOneElement()
-                            ->canBeUnset()
-                            ->beforeNormalization()
-                                ->ifTrue(function ($v) { return !\is_array($v) && false !== $v; })
-                                ->then(function ($v) { return [$v]; })
-                            ->end()
-                            ->prototype('scalar')->end()
-                        ->end()
-                    ->end()
-                    ->fixXmlConfig('loader')
-                    ->children()
-                        ->arrayNode('loaders')
-                            ->beforeNormalization()->castToArray()->end()
-                            ->prototype('scalar')->end()
                         ->end()
                     ->end()
                 ->end()
@@ -805,27 +690,6 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('validation')
                     ->info('validation configuration')
                     ->{!class_exists(FullStack::class) && class_exists(Validation::class) ? 'canBeDisabled' : 'canBeEnabled'}()
-                    ->validate()
-                        ->ifTrue(function ($v) { return isset($v['strict_email']) && isset($v['email_validation_mode']); })
-                        ->thenInvalid('"strict_email" and "email_validation_mode" cannot be used together.')
-                    ->end()
-                    ->beforeNormalization()
-                        ->ifTrue(function ($v) { return isset($v['strict_email']); })
-                        ->then(function ($v) {
-                            @trigger_error('The "framework.validation.strict_email" configuration key has been deprecated in Symfony 4.1. Use the "framework.validation.email_validation_mode" configuration key instead.', E_USER_DEPRECATED);
-
-                            return $v;
-                        })
-                    ->end()
-                    ->beforeNormalization()
-                        ->ifTrue(function ($v) { return isset($v['strict_email']) && !isset($v['email_validation_mode']); })
-                        ->then(function ($v) {
-                            $v['email_validation_mode'] = $v['strict_email'] ? 'strict' : 'loose';
-                            unset($v['strict_email']);
-
-                            return $v;
-                        })
-                    ->end()
                     ->children()
                         ->scalarNode('cache')->end()
                         ->booleanNode('enable_annotations')->{!class_exists(FullStack::class) && class_exists(Annotation::class) ? 'defaultTrue' : 'defaultFalse'}()->end()
@@ -836,7 +700,6 @@ class Configuration implements ConfigurationInterface
                             ->validate()->castToArray()->end()
                         ->end()
                         ->scalarNode('translation_domain')->defaultValue('validators')->end()
-                        ->booleanNode('strict_email')->end()
                         ->enumNode('email_validation_mode')->values(['html5', 'loose', 'strict'])->end()
                         ->arrayNode('mapping')
                             ->addDefaultsIfNotSet()
@@ -1630,6 +1493,55 @@ class Configuration implements ConfigurationInterface
                                         })
                                     ->end()
                                     ->prototype('scalar')->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
+    }
+
+    private function addNotifierSection(ArrayNodeDefinition $rootNode)
+    {
+        $rootNode
+            ->children()
+                ->arrayNode('notifier')
+                    ->info('Notifier configuration')
+                    ->{!class_exists(FullStack::class) && class_exists(Notifier::class) ? 'canBeDisabled' : 'canBeEnabled'}()
+                    ->fixXmlConfig('chatter_transport')
+                    ->children()
+                        ->arrayNode('chatter_transports')
+                            ->useAttributeAsKey('name')
+                            ->prototype('scalar')->end()
+                        ->end()
+                    ->end()
+                    ->fixXmlConfig('texter_transport')
+                    ->children()
+                        ->arrayNode('texter_transports')
+                            ->useAttributeAsKey('name')
+                            ->prototype('scalar')->end()
+                        ->end()
+                    ->end()
+                    ->children()
+                        ->booleanNode('notification_on_failed_messages')->defaultFalse()->end()
+                    ->end()
+                    ->children()
+                        ->arrayNode('channel_policy')
+                            ->useAttributeAsKey('name')
+                            ->prototype('array')
+                                ->beforeNormalization()->ifString()->then(function (string $v) { return [$v]; })->end()
+                                ->prototype('scalar')->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                    ->fixXmlConfig('admin_recipient')
+                    ->children()
+                        ->arrayNode('admin_recipients')
+                            ->prototype('array')
+                                ->children()
+                                    ->scalarNode('email')->cannotBeEmpty()->end()
+                                    ->scalarNode('phone')->defaultValue('')->end()
                                 ->end()
                             ->end()
                         ->end()

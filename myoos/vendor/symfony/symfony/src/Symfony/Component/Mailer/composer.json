@@ -16,10 +16,10 @@
         }
     ],
     "require": {
-        "php": "^7.1.3",
+        "php": "^7.2.5",
         "egulias/email-validator": "^2.1.10",
         "psr/log": "~1.0",
-        "symfony/event-dispatcher": "^4.3",
+        "symfony/event-dispatcher": "^4.4|^5.0",
         "symfony/mime": "^4.4|^5.0",
         "symfony/service-contracts": "^1.1|^2"
     },
@@ -34,8 +34,7 @@
         "symfony/sendgrid-mailer": "^4.4|^5.0"
     },
     "conflict": {
-        "symfony/http-kernel": "<4.4",
-        "symfony/sendgrid-mailer": "<4.4"
+        "symfony/http-kernel": "<4.4"
     },
     "autoload": {
         "psr-4": { "Symfony\\Component\\Mailer\\": "" },
@@ -46,7 +45,7 @@
     "minimum-stability": "dev",
     "extra": {
         "branch-alias": {
-            "dev-master": "4.4-dev"
+            "dev-master": "5.0-dev"
         }
     }
 }

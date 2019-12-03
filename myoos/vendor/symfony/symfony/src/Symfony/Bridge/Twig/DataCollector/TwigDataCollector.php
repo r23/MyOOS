@@ -26,7 +26,7 @@ use Twig\Profiler\Profile;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  *
- * @final since Symfony 4.4
+ * @final
  */
 class TwigDataCollector extends DataCollector implements LateDataCollectorInterface
 {
@@ -42,10 +42,8 @@ class TwigDataCollector extends DataCollector implements LateDataCollectorInterf
 
     /**
      * {@inheritdoc}
-     *
-     * @param \Throwable|null $exception
      */
-    public function collect(Request $request, Response $response/*, \Throwable $exception = null*/)
+    public function collect(Request $request, Response $response, \Throwable $exception = null)
     {
     }
 

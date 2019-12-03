@@ -61,7 +61,7 @@ class InMemoryUserProvider implements UserProviderInterface
     /**
      * {@inheritdoc}
      */
-    public function loadUserByUsername($username)
+    public function loadUserByUsername(string $username)
     {
         $user = $this->getUser($username);
 
@@ -85,7 +85,7 @@ class InMemoryUserProvider implements UserProviderInterface
     /**
      * {@inheritdoc}
      */
-    public function supportsClass($class)
+    public function supportsClass(string $class)
     {
         return 'Symfony\Component\Security\Core\User\User' === $class;
     }

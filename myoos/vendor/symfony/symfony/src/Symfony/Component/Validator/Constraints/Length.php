@@ -41,7 +41,7 @@ class Length extends Constraint
     public $min;
     public $charset = 'UTF-8';
     public $normalizer;
-    public $allowEmptyString;
+    public $allowEmptyString = false;
 
     public function __construct($options = null)
     {

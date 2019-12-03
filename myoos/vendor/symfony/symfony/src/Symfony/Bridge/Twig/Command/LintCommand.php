@@ -85,13 +85,6 @@ EOF
         }
 
         if (!$filenames) {
-            // @deprecated to be removed in 5.0
-            if (0 === ftell(STDIN)) {
-                @trigger_error('Piping content from STDIN to the "lint:twig" command without passing the dash symbol "-" as argument is deprecated since Symfony 4.4.', E_USER_DEPRECATED);
-
-                return $this->display($input, $output, $io, [$this->validate(file_get_contents('php://stdin'), uniqid('sf_', true))]);
-            }
-
             $loader = $this->twig->getLoader();
             if ($loader instanceof FilesystemLoader) {
                 $paths = [];
@@ -144,7 +137,7 @@ EOF
         return $filesInfo;
     }
 
-    protected function findFiles($filename)
+    protected function findFiles(string $filename)
     {
         if (is_file($filename)) {
             return [$filename];

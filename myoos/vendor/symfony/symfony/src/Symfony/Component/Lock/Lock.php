@@ -65,11 +65,11 @@ final class Lock implements LockInterface, LoggerAwareInterface
     /**
      * {@inheritdoc}
      */
-    public function acquire($blocking = false): bool
+    public function acquire(bool $blocking = false): bool
     {
         try {
             if ($blocking) {
-                if (!$this->store instanceof StoreInterface && !$this->store instanceof BlockingStoreInterface) {
+                if (!$this->store instanceof BlockingStoreInterface) {
                     throw new NotSupportedException(sprintf('The store "%s" does not support blocking locks.', \get_class($this->store)));
                 }
                 $this->store->waitAndSave($this->key);
@@ -112,7 +112,7 @@ final class Lock implements LockInterface, LoggerAwareInterface
     /**
      * {@inheritdoc}
      */
-    public function refresh($ttl = null)
+    public function refresh(float $ttl = null)
     {
         if (null === $ttl) {
             $ttl = $this->ttl;

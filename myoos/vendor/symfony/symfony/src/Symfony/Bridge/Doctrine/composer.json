@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "php": "^7.1.3",
+        "php": "^7.2.5",
         "doctrine/event-manager": "~1.0",
         "doctrine/persistence": "~1.0",
         "symfony/polyfill-ctype": "~1.8",
@@ -24,20 +24,20 @@
         "symfony/service-contracts": "^1.1|^2"
     },
     "require-dev": {
-        "symfony/stopwatch": "^3.4|^4.0|^5.0",
-        "symfony/config": "^4.2|^5.0",
-        "symfony/dependency-injection": "^3.4|^4.0|^5.0",
-        "symfony/form": "^4.4|^5.0",
-        "symfony/http-kernel": "^4.3.7",
+        "symfony/stopwatch": "^4.4|^5.0",
+        "symfony/config": "^4.4|^5.0",
+        "symfony/dependency-injection": "^4.4|^5.0",
+        "symfony/form": "^5.0",
+        "symfony/http-kernel": "^5.0",
         "symfony/messenger": "^4.4|^5.0",
-        "symfony/property-access": "^3.4|^4.0|^5.0",
-        "symfony/property-info": "^3.4|^4.0|^5.0",
-        "symfony/proxy-manager-bridge": "^3.4|^4.0|^5.0",
-        "symfony/security-core": "^4.4|^5.0",
-        "symfony/expression-language": "^3.4|^4.0|^5.0",
-        "symfony/validator": "^4.4|^5.0",
-        "symfony/var-dumper": "^3.4|^4.0|^5.0",
-        "symfony/translation": "^3.4|^4.0|^5.0",
+        "symfony/property-access": "^4.4|^5.0",
+        "symfony/property-info": "^5.0",
+        "symfony/proxy-manager-bridge": "^4.4|^5.0",
+        "symfony/security-core": "^5.0",
+        "symfony/expression-language": "^4.4|^5.0",
+        "symfony/validator": "^5.0",
+        "symfony/translation": "^4.4|^5.0",
+        "symfony/var-dumper": "^4.4|^5.0",
         "doctrine/annotations": "~1.7",
         "doctrine/cache": "~1.6",
         "doctrine/collections": "~1.0",
@@ -47,13 +47,15 @@
         "doctrine/reflection": "~1.0"
     },
     "conflict": {
-        "phpunit/phpunit": "<4.8.35|<5.4.3,>=5.0",
-        "symfony/dependency-injection": "<3.4",
-        "symfony/form": "<4.4",
-        "symfony/http-kernel": "<4.3.7",
-        "symfony/messenger": "<4.3",
-        "symfony/security-core": "<4.4",
-        "symfony/validator": "<4.4"
+        "phpunit/phpunit": "<5.4.3",
+        "symfony/dependency-injection": "<4.4",
+        "symfony/form": "<5",
+        "symfony/http-kernel": "<5",
+        "symfony/messenger": "<4.4",
+        "symfony/property-info": "<5",
+        "symfony/security-bundle": "<5",
+        "symfony/security-core": "<5",
+        "symfony/validator": "<5"
     },
     "suggest": {
         "symfony/form": "",
@@ -72,7 +74,7 @@
     "minimum-stability": "dev",
     "extra": {
         "branch-alias": {
-            "dev-master": "4.4-dev"
+            "dev-master": "5.0-dev"
         }
     }
 }

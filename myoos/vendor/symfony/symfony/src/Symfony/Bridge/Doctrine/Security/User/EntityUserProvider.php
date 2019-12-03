@@ -48,7 +48,7 @@ class EntityUserProvider implements UserProviderInterface, PasswordUpgraderInter
     /**
      * {@inheritdoc}
      */
-    public function loadUserByUsername($username)
+    public function loadUserByUsername(string $username)
     {
         $repository = $this->getRepository();
         if (null !== $this->property) {
@@ -106,7 +106,7 @@ class EntityUserProvider implements UserProviderInterface, PasswordUpgraderInter
     /**
      * {@inheritdoc}
      */
-    public function supportsClass($class)
+    public function supportsClass(string $class)
     {
         return $class === $this->getClass() || is_subclass_of($class, $this->getClass());
     }

@@ -1,6 +1,34 @@
 CHANGELOG
 =========
 
+5.0.0
+-----
+
+ * removed support for getting the container from a non-booted kernel
+ * removed the first and second constructor argument of `ConfigDataCollector` 
+ * removed `ConfigDataCollector::getApplicationName()` 
+ * removed `ConfigDataCollector::getApplicationVersion()`
+ * removed support for `Symfony\Component\Templating\EngineInterface` in `HIncludeFragmentRenderer`, use a `Twig\Environment` only
+ * removed `TranslatorListener` in favor of `LocaleAwareListener`
+ * removed `getRootDir()` and `getName()` from `Kernel` and `KernelInterface`
+ * removed `FilterControllerArgumentsEvent`, use `ControllerArgumentsEvent` instead
+ * removed `FilterControllerEvent`, use `ControllerEvent` instead
+ * removed `FilterResponseEvent`, use `ResponseEvent` instead
+ * removed `GetResponseEvent`, use `RequestEvent` instead
+ * removed `GetResponseForControllerResultEvent`, use `ViewEvent` instead
+ * removed `GetResponseForExceptionEvent`, use `ExceptionEvent` instead
+ * removed `PostResponseEvent`, use `TerminateEvent` instead
+ * removed `SaveSessionListener` in favor of `AbstractSessionListener` 
+ * removed `Client`, use `HttpKernelBrowser` instead
+ * added method `getProjectDir()` to `KernelInterface`
+ * removed methods `serialize` and `unserialize` from `DataCollector`, store the serialized state in the data property instead
+ * made `ProfilerStorageInterface` internal
+ * removed the second and third argument of `KernelInterface::locateResource`
+ * removed the second and third argument of `FileLocator::__construct`
+ * removed loading resources from `%kernel.root_dir%/Resources` and `%kernel.root_dir%` as
+   fallback directories.
+ * removed class `ExceptionListener`, use `ErrorListener` instead
+
 4.4.0
 -----
 

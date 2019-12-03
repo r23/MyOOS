@@ -34,10 +34,7 @@ class Security
         $this->container = $container;
     }
 
-    /**
-     * @return UserInterface|null
-     */
-    public function getUser()
+    public function getUser(): ?UserInterface
     {
         if (!$token = $this->getToken()) {
             return null;
@@ -49,8 +46,7 @@ class Security
         }
 
         if (!$user instanceof UserInterface) {
-            @trigger_error(sprintf('Accessing the user object "%s" that is not an instance of "%s" from "%s()" is deprecated since Symfony 4.2, use "getToken()->getUser()" instead.', \get_class($user), UserInterface::class, __METHOD__), E_USER_DEPRECATED);
-            //return null; // 5.0 behavior
+            return null;
         }
 
         return $user;

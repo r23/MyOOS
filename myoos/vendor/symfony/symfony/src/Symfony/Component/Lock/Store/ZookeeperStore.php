@@ -15,16 +15,15 @@ use Symfony\Component\Lock\Exception\InvalidArgumentException;
 use Symfony\Component\Lock\Exception\LockAcquiringException;
 use Symfony\Component\Lock\Exception\LockConflictedException;
 use Symfony\Component\Lock\Exception\LockReleasingException;
-use Symfony\Component\Lock\Exception\NotSupportedException;
 use Symfony\Component\Lock\Key;
-use Symfony\Component\Lock\StoreInterface;
+use Symfony\Component\Lock\PersistingStoreInterface;
 
 /**
  * ZookeeperStore is a PersistingStoreInterface implementation using Zookeeper as store engine.
  *
  * @author Ganesh Chandrasekaran <gchandrasekaran@wayfair.com>
  */
-class ZookeeperStore implements StoreInterface
+class ZookeeperStore implements PersistingStoreInterface
 {
     use ExpiringStoreTrait;
 
@@ -103,19 +102,8 @@ class ZookeeperStore implements StoreInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @deprecated since Symfony 4.4.
      */
-    public function waitAndSave(Key $key)
-    {
-        @trigger_error(sprintf('%s() is deprecated since Symfony 4.4 and will be removed in Symfony 5.0.', __METHOD__), E_USER_DEPRECATED);
-        throw new NotSupportedException();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function putOffExpiration(Key $key, $ttl)
+    public function putOffExpiration(Key $key, float $ttl)
     {
         // do nothing, zookeeper locks forever.
     }

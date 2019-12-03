@@ -23,7 +23,6 @@ use Symfony\Bridge\Monolog\Processor\DebugProcessor;
 use Symfony\Bridge\Twig\Extension\CsrfExtension;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\FrameworkBundle\Routing\AnnotatedRouteControllerLoader;
-use Symfony\Bundle\FrameworkBundle\Routing\RedirectableUrlMatcher;
 use Symfony\Bundle\FrameworkBundle\Routing\RouteLoaderInterface;
 use Symfony\Bundle\FullStack;
 use Symfony\Component\Asset\PackageInterface;
@@ -70,13 +69,11 @@ use Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerInterface;
 use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
 use Symfony\Component\HttpKernel\DataCollector\DataCollectorInterface;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use Symfony\Component\Lock\Factory;
 use Symfony\Component\Lock\Lock;
 use Symfony\Component\Lock\LockFactory;
 use Symfony\Component\Lock\LockInterface;
 use Symfony\Component\Lock\PersistingStoreInterface;
 use Symfony\Component\Lock\Store\StoreFactory;
-use Symfony\Component\Lock\StoreInterface;
 use Symfony\Component\Mailer\Bridge\Amazon\Transport\SesTransportFactory;
 use Symfony\Component\Mailer\Bridge\Google\Transport\GmailTransportFactory;
 use Symfony\Component\Mailer\Bridge\Mailchimp\Transport\MandrillTransportFactory;
@@ -91,6 +88,12 @@ use Symfony\Component\Messenger\Transport\TransportFactoryInterface;
 use Symfony\Component\Messenger\Transport\TransportInterface;
 use Symfony\Component\Mime\MimeTypeGuesserInterface;
 use Symfony\Component\Mime\MimeTypes;
+use Symfony\Component\Notifier\Bridge\Nexmo\NexmoTransportFactory;
+use Symfony\Component\Notifier\Bridge\Slack\SlackTransportFactory;
+use Symfony\Component\Notifier\Bridge\Telegram\TelegramTransportFactory;
+use Symfony\Component\Notifier\Bridge\Twilio\TwilioTransportFactory;
+use Symfony\Component\Notifier\Notifier;
+use Symfony\Component\Notifier\Recipient\AdminRecipient;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 use Symfony\Component\PropertyInfo\PropertyAccessExtractorInterface;
 use Symfony\Component\PropertyInfo\PropertyDescriptionExtractorInterface;
@@ -98,28 +101,21 @@ use Symfony\Component\PropertyInfo\PropertyInfoExtractorInterface;
 use Symfony\Component\PropertyInfo\PropertyInitializableExtractorInterface;
 use Symfony\Component\PropertyInfo\PropertyListExtractorInterface;
 use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
-use Symfony\Component\Routing\Generator\Dumper\PhpGeneratorDumper;
-use Symfony\Component\Routing\Generator\UrlGenerator;
 use Symfony\Component\Routing\Loader\AnnotationDirectoryLoader;
 use Symfony\Component\Routing\Loader\AnnotationFileLoader;
-use Symfony\Component\Routing\Matcher\CompiledUrlMatcher;
-use Symfony\Component\Routing\Matcher\Dumper\PhpMatcherDumper;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Serializer\Encoder\DecoderInterface;
 use Symfony\Component\Serializer\Encoder\EncoderInterface;
-use Symfony\Component\Serializer\Mapping\ClassDiscriminatorFromClassMetadata;
-use Symfony\Component\Serializer\Normalizer\ConstraintViolationListNormalizer;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Translation\Command\XliffLintCommand as BaseXliffLintCommand;
 use Symfony\Component\Translation\Translator;
-use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Mapping\Loader\PropertyInfoLoader;
 use Symfony\Component\Validator\ObjectInitializerInterface;
-use Symfony\Component\Validator\Util\LegacyTranslatorProxy;
 use Symfony\Component\WebLink\HttpHeaderSerializer;
 use Symfony\Component\Workflow;
 use Symfony\Component\Workflow\WorkflowInterface;
@@ -204,6 +200,21 @@ class FrameworkExtension extends Extension
             }
         }
 
+        // If the slugger is used but the String component is not available, we should throw an error
+        if (!interface_exists(SluggerInterface::class)) {
+            $container->register('slugger', 'stdClass')
+                ->addError('You cannot use the "slugger" service since the String component is not installed. Try running "composer require symfony/string".');
+        } else {
+            if (!interface_exists(LocaleAwareInterface::class)) {
+                $container->register('slugger', 'stdClass')
+                    ->addError('You cannot use the "slugger" service since the Translation contracts are not installed. Try running "composer require symfony/translation".');
+            }
+
+            if (!\extension_loaded('intl') && !\defined('PHPUNIT_COMPOSER_INSTALL')) {
+                @trigger_error('Please install the "intl" PHP extension for best performance.', E_USER_DEPRECATED);
+            }
+        }
+
         if (isset($config['secret'])) {
             $container->setParameter('kernel.secret', $config['secret']);
         }
@@ -214,23 +225,20 @@ class FrameworkExtension extends Extension
         $container->setParameter('kernel.error_controller', $config['error_controller']);
 
         if (!$container->hasParameter('debug.file_link_format')) {
-            if (!$container->hasParameter('templating.helper.code.file_link_format')) {
-                $links = [
-                    'textmate' => 'txmt://open?url=file://%%f&line=%%l',
-                    'macvim' => 'mvim://open?url=file://%%f&line=%%l',
-                    'emacs' => 'emacs://open?url=file://%%f&line=%%l',
-                    'sublime' => 'subl://open?url=file://%%f&line=%%l',
-                    'phpstorm' => 'phpstorm://open?file=%%f&line=%%l',
-                    'atom' => 'atom://core/open/file?filename=%%f&line=%%l',
-                    'vscode' => 'vscode://file/%%f:%%l',
-                ];
-                $ide = $config['ide'];
-                // mark any env vars found in the ide setting as used
-                $container->resolveEnvPlaceholders($ide);
+            $links = [
+                'textmate' => 'txmt://open?url=file://%%f&line=%%l',
+                'macvim' => 'mvim://open?url=file://%%f&line=%%l',
+                'emacs' => 'emacs://open?url=file://%%f&line=%%l',
+                'sublime' => 'subl://open?url=file://%%f&line=%%l',
+                'phpstorm' => 'phpstorm://open?file=%%f&line=%%l',
+                'atom' => 'atom://core/open/file?filename=%%f&line=%%l',
+                'vscode' => 'vscode://file/%%f:%%l',
+            ];
+            $ide = $config['ide'];
+            // mark any env vars found in the ide setting as used
+            $container->resolveEnvPlaceholders($ide);
 
-                $container->setParameter('templating.helper.code.file_link_format', str_replace('%', '%%', ini_get('xdebug.file_link_format') ?: get_cfg_var('xdebug.file_link_format')) ?: (isset($links[$ide]) ? $links[$ide] : $ide));
-            }
-            $container->setParameter('debug.file_link_format', '%templating.helper.code.file_link_format%');
+            $container->setParameter('debug.file_link_format', str_replace('%', '%%', ini_get('xdebug.file_link_format') ?: get_cfg_var('xdebug.file_link_format')) ?: (isset($links[$ide]) ? $links[$ide] : $ide));
         }
 
         if (!empty($config['test'])) {
@@ -293,16 +301,6 @@ class FrameworkExtension extends Extension
             $this->registerAssetsConfiguration($config['assets'], $container, $loader);
         }
 
-        if ($this->isConfigEnabled($container, $config['templating'])) {
-            @trigger_error('Enabling the Templating component is deprecated since version 4.3 and will be removed in 5.0; use Twig instead.', E_USER_DEPRECATED);
-
-            if (!class_exists('Symfony\Component\Templating\PhpEngine')) {
-                throw new LogicException('Templating support cannot be enabled as the Templating component is not installed. Try running "composer require symfony/templating".');
-            }
-
-            $this->registerTemplatingConfiguration($config['templating'], $container, $loader);
-        }
-
         if ($this->messengerConfigEnabled = $this->isConfigEnabled($container, $config['messenger'])) {
             $this->registerMessengerConfiguration($config['messenger'], $container, $loader, $config['validation']);
         } else {
@@ -321,6 +319,10 @@ class FrameworkExtension extends Extension
 
         if ($this->mailerConfigEnabled = $this->isConfigEnabled($container, $config['mailer'])) {
             $this->registerMailerConfiguration($config['mailer'], $container, $loader);
+        }
+
+        if ($this->isConfigEnabled($container, $config['notifier'])) {
+            $this->registerNotifierConfiguration($config['notifier'], $container, $loader);
         }
 
         $propertyInfoEnabled = $this->isConfigEnabled($container, $config['property_info']);
@@ -523,9 +525,6 @@ class FrameworkExtension extends Extension
 
             return;
         }
-        if ($container->hasParameter('fragment.renderer.hinclude.global_template') && null !== $container->getParameter('fragment.renderer.hinclude.global_template') && null !== $config['hinclude_default_template']) {
-            throw new \LogicException('You cannot set both "templating.hinclude_default_template" and "fragments.hinclude_default_template", please only use "fragments.hinclude_default_template".');
-        }
 
         $container->setParameter('fragment.renderer.hinclude.global_template', $config['hinclude_default_template']);
 
@@ -680,7 +679,7 @@ class FrameworkExtension extends Extension
 
             // Create places
             $places = array_column($workflow['places'], 'name');
-            $initialMarking = $workflow['initial_marking'] ?? $workflow['initial_place'] ?? [];
+            $initialMarking = $workflow['initial_marking'] ?? [];
 
             // Create a Definition
             $definitionDefinition = new Definition(Workflow\Definition::class);
@@ -696,17 +695,11 @@ class FrameworkExtension extends Extension
 
             // Create MarkingStore
             if (isset($workflow['marking_store']['type'])) {
-                $markingStoreDefinition = new ChildDefinition('workflow.marking_store.'.$workflow['marking_store']['type']);
-                if ('method' === $workflow['marking_store']['type']) {
-                    $markingStoreDefinition->setArguments([
-                        'state_machine' === $type, //single state
-                        $workflow['marking_store']['property'] ?? 'marking',
-                    ]);
-                } else {
-                    foreach ($workflow['marking_store']['arguments'] as $argument) {
-                        $markingStoreDefinition->addArgument($argument);
-                    }
-                }
+                $markingStoreDefinition = new ChildDefinition('workflow.marking_store.method');
+                $markingStoreDefinition->setArguments([
+                    'state_machine' === $type, //single state
+                    $workflow['marking_store']['property'],
+                ]);
             } elseif (isset($workflow['marking_store']['service'])) {
                 $markingStoreDefinition = new Reference($workflow['marking_store']['service']);
             }
@@ -725,26 +718,17 @@ class FrameworkExtension extends Extension
             $container->registerAliasForArgument($workflowId, WorkflowInterface::class, $name.'.'.$type);
 
             // Validate Workflow
-            $validator = null;
-            switch (true) {
-                case 'state_machine' === $workflow['type']:
-                    $validator = new Workflow\Validator\StateMachineValidator();
-                    break;
-                case 'single_state' === ($workflow['marking_store']['type'] ?? null):
-                    $validator = new Workflow\Validator\WorkflowValidator(true);
-                    break;
-                case 'multiple_state' === ($workflow['marking_store']['type'] ?? false):
-                    $validator = new Workflow\Validator\WorkflowValidator(false);
-                    break;
+            if ('state_machine' === $workflow['type']) {
+                $validator = new Workflow\Validator\StateMachineValidator();
+            } else {
+                $validator = new Workflow\Validator\WorkflowValidator();
             }
 
-            if ($validator) {
-                $trs = array_map(function (Reference $ref) use ($container): Workflow\Transition {
-                    return $container->get((string) $ref);
-                }, $transitions);
-                $realDefinition = new Workflow\Definition($places, $trs, $initialMarking);
-                $validator->validate($realDefinition, $name);
-            }
+            $trs = array_map(function (Reference $ref) use ($container): Workflow\Transition {
+                return $container->get((string) $ref);
+            }, $transitions);
+            $realDefinition = new Workflow\Definition($places, $trs, $initialMarking);
+            $validator->validate($realDefinition, $name);
 
             // Add workflow to Registry
             if ($workflow['supports']) {
@@ -855,22 +839,15 @@ class FrameworkExtension extends Extension
         $loader->load('routing.xml');
 
         if ($config['utf8']) {
-            $container->getDefinition('routing.loader')->replaceArgument(2, ['utf8' => true]);
+            $container->getDefinition('routing.loader')->replaceArgument(1, ['utf8' => true]);
         }
 
         $container->setParameter('router.resource', $config['resource']);
-        $container->setParameter('router.cache_class_prefix', $container->getParameter('kernel.container_class')); // deprecated
         $router = $container->findDefinition('router.default');
         $argument = $router->getArgument(2);
         $argument['strict_requirements'] = $config['strict_requirements'];
         if (isset($config['type'])) {
             $argument['resource_type'] = $config['type'];
-        }
-        if (!class_exists(CompiledUrlMatcher::class)) {
-            $argument['matcher_class'] = $argument['matcher_base_class'] = $argument['matcher_base_class'] ?? RedirectableUrlMatcher::class;
-            $argument['matcher_dumper_class'] = PhpMatcherDumper::class;
-            $argument['generator_class'] = $argument['generator_base_class'] = $argument['generator_base_class'] ?? UrlGenerator::class;
-            $argument['generator_dumper_class'] = PhpGeneratorDumper::class;
         }
         $router->replaceArgument(2, $argument);
 
@@ -956,85 +933,6 @@ class FrameworkExtension extends Extension
 
             $listener = $container->getDefinition('request.add_request_formats_listener');
             $listener->replaceArgument(0, $config['formats']);
-        }
-    }
-
-    private function registerTemplatingConfiguration(array $config, ContainerBuilder $container, XmlFileLoader $loader)
-    {
-        $loader->load('templating.xml');
-
-        $container->setParameter('fragment.renderer.hinclude.global_template', $config['hinclude_default_template']);
-
-        if ($container->getParameter('kernel.debug')) {
-            $logger = new Reference('logger', ContainerInterface::IGNORE_ON_INVALID_REFERENCE);
-
-            $container->getDefinition('templating.loader.cache')
-                ->addTag('monolog.logger', ['channel' => 'templating'])
-                ->addMethodCall('setLogger', [$logger]);
-            $container->getDefinition('templating.loader.chain')
-                ->addTag('monolog.logger', ['channel' => 'templating'])
-                ->addMethodCall('setLogger', [$logger]);
-        }
-
-        if (!empty($config['loaders'])) {
-            $loaders = array_map(function ($loader) { return new Reference($loader); }, $config['loaders']);
-
-            // Use a delegation unless only a single loader was registered
-            if (1 === \count($loaders)) {
-                $container->setAlias('templating.loader', (string) reset($loaders))->setPrivate(true);
-            } else {
-                $container->getDefinition('templating.loader.chain')->addArgument($loaders);
-                $container->setAlias('templating.loader', 'templating.loader.chain')->setPrivate(true);
-            }
-        }
-
-        $container->setParameter('templating.loader.cache.path', null);
-        if (isset($config['cache'])) {
-            // Wrap the existing loader with cache (must happen after loaders are registered)
-            $container->setDefinition('templating.loader.wrapped', $container->findDefinition('templating.loader'));
-            $loaderCache = $container->getDefinition('templating.loader.cache');
-            $container->setParameter('templating.loader.cache.path', $config['cache']);
-
-            $container->setDefinition('templating.loader', $loaderCache);
-        }
-
-        $container->setParameter('templating.engines', $config['engines']);
-        $engines = array_map(function ($engine) { return new Reference('templating.engine.'.$engine); }, $config['engines']);
-
-        // Use a delegation unless only a single engine was registered
-        if (1 === \count($engines)) {
-            $container->setAlias('templating', (string) reset($engines))->setPublic(true);
-        } else {
-            $templateEngineDefinition = $container->getDefinition('templating.engine.delegating');
-            foreach ($engines as $engine) {
-                $templateEngineDefinition->addMethodCall('addEngine', [$engine]);
-            }
-            $container->setAlias('templating', 'templating.engine.delegating')->setPublic(true);
-        }
-
-        $container->getDefinition('fragment.renderer.hinclude')
-            ->addTag('kernel.fragment_renderer', ['alias' => 'hinclude'])
-            ->replaceArgument(0, new Reference('templating'))
-        ;
-
-        // configure the PHP engine if needed
-        if (\in_array('php', $config['engines'], true)) {
-            $loader->load('templating_php.xml');
-
-            $container->setParameter('templating.helper.form.resources', $config['form']['resources']);
-
-            if ($container->getParameter('kernel.debug') && class_exists(Stopwatch::class)) {
-                $loader->load('templating_debug.xml');
-
-                $container->setDefinition('templating.engine.php', $container->findDefinition('debug.templating.engine.php'));
-                $container->setAlias('debug.templating.engine.php', 'templating.engine.php')->setPrivate(true);
-            }
-
-            if ($container->has('assets.packages')) {
-                $container->getDefinition('templating.helper.assets')->replaceArgument(0, new Reference('assets.packages'));
-            } else {
-                $container->removeDefinition('templating.helper.assets');
-            }
         }
     }
 
@@ -1164,15 +1062,8 @@ class FrameworkExtension extends Extension
             $dirs[] = $transPaths[] = \dirname($r->getFileName(), 2).'/Resources/translations';
         }
         $defaultDir = $container->getParameterBag()->resolveValue($config['default_path']);
-        $rootDir = $container->getParameter('kernel.root_dir');
         foreach ($container->getParameter('kernel.bundles_metadata') as $name => $bundle) {
             if ($container->fileExists($dir = $bundle['path'].'/Resources/translations') || $container->fileExists($dir = $bundle['path'].'/translations')) {
-                $dirs[] = $dir;
-            } else {
-                $nonExistingDirs[] = $dir;
-            }
-            if ($container->fileExists($dir = $rootDir.sprintf('/Resources/%s/translations', $name))) {
-                @trigger_error(sprintf('Translations directory "%s" is deprecated since Symfony 4.2, use "%s" instead.', $dir, $defaultDir), E_USER_DEPRECATED);
                 $dirs[] = $dir;
             } else {
                 $nonExistingDirs[] = $dir;
@@ -1199,16 +1090,6 @@ class FrameworkExtension extends Extension
             $dirs[] = $defaultDir;
         } else {
             $nonExistingDirs[] = $defaultDir;
-        }
-
-        if ($container->fileExists($dir = $rootDir.'/Resources/translations')) {
-            if ($dir !== $defaultDir) {
-                @trigger_error(sprintf('Translations directory "%s" is deprecated since Symfony 4.2, use "%s" instead.', $dir, $defaultDir), E_USER_DEPRECATED);
-            }
-
-            $dirs[] = $dir;
-        } else {
-            $nonExistingDirs[] = $dir;
         }
 
         // Register translation resources
@@ -1270,12 +1151,6 @@ class FrameworkExtension extends Extension
         $loader->load('validator.xml');
 
         $validatorBuilder = $container->getDefinition('validator.builder');
-
-        if (interface_exists(TranslatorInterface::class) && class_exists(LegacyTranslatorProxy::class)) {
-            $calls = $validatorBuilder->getMethodCalls();
-            $calls[1] = ['setTranslator', [new Definition(LegacyTranslatorProxy::class, [new Reference('translator', ContainerInterface::IGNORE_ON_INVALID_REFERENCE)])]];
-            $validatorBuilder->setMethodCalls($calls);
-        }
 
         $container->setParameter('validator.translation_domain', $config['translation_domain']);
 
@@ -1519,15 +1394,6 @@ class FrameworkExtension extends Extension
     {
         $loader->load('serializer.xml');
 
-        if (!class_exists(ConstraintViolationListNormalizer::class)) {
-            $container->removeDefinition('serializer.normalizer.constraint_violation_list');
-        }
-
-        if (!class_exists(ClassDiscriminatorFromClassMetadata::class)) {
-            $container->removeAlias('Symfony\Component\Serializer\Mapping\ClassDiscriminatorResolverInterface');
-            $container->removeDefinition('serializer.mapping.class_discriminator_resolver');
-        }
-
         $chainLoader = $container->getDefinition('serializer.mapping.chain_loader');
 
         if (!class_exists('Symfony\Component\PropertyAccess\PropertyAccessor')) {
@@ -1681,15 +1547,11 @@ class FrameworkExtension extends Extension
                 $container->setAlias('lock.store', new Alias('lock.'.$resourceName.'.store', false));
                 $container->setAlias('lock.factory', new Alias('lock.'.$resourceName.'.factory', false));
                 $container->setAlias('lock', new Alias('lock.'.$resourceName, false));
-                $container->setAlias(StoreInterface::class, new Alias('lock.store', false));
                 $container->setAlias(PersistingStoreInterface::class, new Alias('lock.store', false));
-                $container->setAlias(Factory::class, new Alias('lock.factory', false));
                 $container->setAlias(LockFactory::class, new Alias('lock.factory', false));
                 $container->setAlias(LockInterface::class, new Alias('lock', false));
             } else {
-                $container->registerAliasForArgument('lock.'.$resourceName.'.store', StoreInterface::class, $resourceName.'.lock.store');
                 $container->registerAliasForArgument('lock.'.$resourceName.'.store', PersistingStoreInterface::class, $resourceName.'.lock.store');
-                $container->registerAliasForArgument('lock.'.$resourceName.'.factory', Factory::class, $resourceName.'.lock.factory');
                 $container->registerAliasForArgument('lock.'.$resourceName.'.factory', LockFactory::class, $resourceName.'.lock.factory');
                 $container->registerAliasForArgument('lock.'.$resourceName, LockInterface::class, $resourceName.'.lock');
             }
@@ -1750,7 +1612,6 @@ class FrameworkExtension extends Extension
             $container->register($busId, MessageBus::class)->addArgument([])->addTag('messenger.bus');
 
             if ($busId === $config['default_bus']) {
-                $container->setAlias('message_bus', $busId)->setPublic(true)->setDeprecated(true, 'The "%alias_id%" service is deprecated, use the "messenger.default_bus" service instead.');
                 $container->setAlias('messenger.default_bus', $busId)->setPublic(true);
                 $container->setAlias(MessageBusInterface::class, $busId);
             } else {
@@ -2044,6 +1905,71 @@ class FrameworkExtension extends Extension
         $envelopeListener = $container->getDefinition('mailer.envelope_listener');
         $envelopeListener->setArgument(0, $sender);
         $envelopeListener->setArgument(1, $recipients);
+    }
+
+    private function registerNotifierConfiguration(array $config, ContainerBuilder $container, XmlFileLoader $loader)
+    {
+        if (!class_exists(Notifier::class)) {
+            throw new LogicException('Notifier support cannot be enabled as the component is not installed. Try running "composer require symfony/notifier".');
+        }
+
+        $loader->load('notifier.xml');
+        $loader->load('notifier_transports.xml');
+
+        if ($config['chatter_transports']) {
+            $container->getDefinition('chatter.transports')->setArgument(0, $config['chatter_transports']);
+        } else {
+            $container->removeDefinition('chatter');
+        }
+        if ($config['texter_transports']) {
+            $container->getDefinition('texter.transports')->setArgument(0, $config['texter_transports']);
+        } else {
+            $container->removeDefinition('texter');
+        }
+
+        if ($this->mailerConfigEnabled) {
+            $sender = $container->getDefinition('mailer.envelope_listener')->getArgument(0);
+            $container->getDefinition('notifier.channel.email')->setArgument(2, $sender);
+        } else {
+            $container->removeDefinition('notifier.channel.email');
+        }
+
+        if ($this->messengerConfigEnabled) {
+            if ($config['notification_on_failed_messages']) {
+                $container->getDefinition('notifier.failed_message_listener')->addTag('kernel.event_subscriber');
+            }
+
+            // as we have a bus, the channels don't need the transports
+            $container->getDefinition('notifier.channel.chat')->setArgument(0, null);
+            if ($container->hasDefinition('notifier.channel.email')) {
+                $container->getDefinition('notifier.channel.email')->setArgument(0, null);
+            }
+            $container->getDefinition('notifier.channel.sms')->setArgument(0, null);
+        }
+
+        $container->getDefinition('notifier.channel_policy')->setArgument(0, $config['channel_policy']);
+
+        $classToServices = [
+            SlackTransportFactory::class => 'notifier.transport_factory.slack',
+            TelegramTransportFactory::class => 'notifier.transport_factory.telegram',
+            NexmoTransportFactory::class => 'notifier.transport_factory.nexmo',
+            TwilioTransportFactory::class => 'notifier.transport_factory.twilio',
+        ];
+
+        foreach ($classToServices as $class => $service) {
+            if (!class_exists($class)) {
+                $container->removeDefinition($service);
+            }
+        }
+
+        if (isset($config['admin_recipients'])) {
+            $notifier = $container->getDefinition('notifier');
+            foreach ($config['admin_recipients'] as $i => $recipient) {
+                $id = 'notifier.admin_recipient.'.$i;
+                $container->setDefinition($id, new Definition(AdminRecipient::class, [$recipient['email'], $recipient['phone']]));
+                $notifier->addMethodCall('addAdminRecipient', [new Reference($id)]);
+            }
+        }
     }
 
     /**

@@ -83,11 +83,6 @@
 
         <service id="file_locator" class="Symfony\Component\HttpKernel\Config\FileLocator">
             <argument type="service" id="kernel" />
-            <argument>%kernel.root_dir%/Resources</argument>
-            <argument type="collection">
-                <argument>%kernel.root_dir%</argument>
-            </argument>
-            <argument>false</argument>
         </service>
         <service id="Symfony\Component\HttpKernel\Config\FileLocator" alias="file_locator" />
 
@@ -127,5 +122,11 @@
             <argument type="service" id="service_container" />
             <argument type="tagged_iterator" tag="container.env_var_loader" />
         </service>
+
+        <service id="slugger" class="Symfony\Component\String\Slugger\AsciiSlugger">
+            <argument>%kernel.default_locale%</argument>
+            <tag name="kernel.locale_aware" />
+        </service>
+        <service id="Symfony\Component\String\Slugger\SluggerInterface" alias="slugger" />
     </services>
 </container>

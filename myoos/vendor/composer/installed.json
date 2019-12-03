@@ -1191,17 +1191,17 @@
     },
     {
         "name": "google/protobuf",
-        "version": "v3.11.0",
-        "version_normalized": "3.11.0.0",
+        "version": "v3.11.1",
+        "version_normalized": "3.11.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/protocolbuffers/protobuf-php.git",
-            "reference": "360aadcebac83d56aa4c09bca7d1c3bd798119fe"
+            "reference": "418f1b96c2020918a11dcd3709b7b6d01dbf025a"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/protocolbuffers/protobuf-php/zipball/360aadcebac83d56aa4c09bca7d1c3bd798119fe",
-            "reference": "360aadcebac83d56aa4c09bca7d1c3bd798119fe",
+            "url": "https://api.github.com/repos/protocolbuffers/protobuf-php/zipball/418f1b96c2020918a11dcd3709b7b6d01dbf025a",
+            "reference": "418f1b96c2020918a11dcd3709b7b6d01dbf025a",
             "shasum": ""
         },
         "require": {
@@ -1213,7 +1213,7 @@
         "suggest": {
             "ext-bcmath": "Need to support JSON deserialization"
         },
-        "time": "2019-11-26T02:39:29+00:00",
+        "time": "2019-12-03T06:32:14+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -1745,22 +1745,22 @@
     },
     {
         "name": "monolog/monolog",
-        "version": "1.25.2",
-        "version_normalized": "1.25.2.0",
+        "version": "2.0.1",
+        "version_normalized": "2.0.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/Seldaek/monolog.git",
-            "reference": "d5e2fb341cb44f7e2ab639d12a1e5901091ec287"
+            "reference": "f9d56fd2f5533322caccdfcddbb56aedd622ef1c"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Seldaek/monolog/zipball/d5e2fb341cb44f7e2ab639d12a1e5901091ec287",
-            "reference": "d5e2fb341cb44f7e2ab639d12a1e5901091ec287",
+            "url": "https://api.github.com/repos/Seldaek/monolog/zipball/f9d56fd2f5533322caccdfcddbb56aedd622ef1c",
+            "reference": "f9d56fd2f5533322caccdfcddbb56aedd622ef1c",
             "shasum": ""
         },
         "require": {
-            "php": ">=5.3.0",
-            "psr/log": "~1.0"
+            "php": "^7.2",
+            "psr/log": "^1.0.1"
         },
         "provide": {
             "psr/log-implementation": "1.0.0"
@@ -1768,34 +1768,37 @@
         "require-dev": {
             "aws/aws-sdk-php": "^2.4.9 || ^3.0",
             "doctrine/couchdb": "~1.0@dev",
-            "graylog2/gelf-php": "~1.0",
-            "jakub-onderka/php-parallel-lint": "0.9",
+            "elasticsearch/elasticsearch": "^6.0",
+            "graylog2/gelf-php": "^1.4.2",
+            "jakub-onderka/php-parallel-lint": "^0.9",
             "php-amqplib/php-amqplib": "~2.4",
             "php-console/php-console": "^3.1.3",
-            "phpunit/phpunit": "~4.5",
-            "phpunit/phpunit-mock-objects": "2.3.0",
+            "phpspec/prophecy": "^1.6.1",
+            "phpunit/phpunit": "^8.3",
+            "predis/predis": "^1.1",
+            "rollbar/rollbar": "^1.3",
             "ruflin/elastica": ">=0.90 <3.0",
-            "sentry/sentry": "^0.13",
             "swiftmailer/swiftmailer": "^5.3|^6.0"
         },
         "suggest": {
             "aws/aws-sdk-php": "Allow sending log messages to AWS services like DynamoDB",
             "doctrine/couchdb": "Allow sending log messages to a CouchDB server",
+            "elasticsearch/elasticsearch": "Allow sending log messages to an Elasticsearch server via official client",
             "ext-amqp": "Allow sending log messages to an AMQP server (1.0+ required)",
-            "ext-mongo": "Allow sending log messages to a MongoDB server",
+            "ext-mbstring": "Allow to work properly with unicode symbols",
+            "ext-mongodb": "Allow sending log messages to a MongoDB server (via driver)",
             "graylog2/gelf-php": "Allow sending log messages to a GrayLog2 server",
-            "mongodb/mongodb": "Allow sending log messages to a MongoDB server via PHP Driver",
+            "mongodb/mongodb": "Allow sending log messages to a MongoDB server (via library)",
             "php-amqplib/php-amqplib": "Allow sending log messages to an AMQP server using php-amqplib",
             "php-console/php-console": "Allow sending log messages to Google Chrome",
             "rollbar/rollbar": "Allow sending log messages to Rollbar",
-            "ruflin/elastica": "Allow sending log messages to an Elastic Search server",
-            "sentry/sentry": "Allow sending log messages to a Sentry server"
+            "ruflin/elastica": "Allow sending log messages to an Elastic Search server"
         },
-        "time": "2019-11-13T10:00:05+00:00",
+        "time": "2019-11-13T10:27:43+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "2.0.x-dev"
+                "dev-master": "2.x-dev"
             }
         },
         "installation-source": "dist",
@@ -2650,6 +2653,54 @@
         ]
     },
     {
+        "name": "psr/event-dispatcher",
+        "version": "1.0.0",
+        "version_normalized": "1.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/php-fig/event-dispatcher.git",
+            "reference": "dbefd12671e8a14ec7f180cab83036ed26714bb0"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/php-fig/event-dispatcher/zipball/dbefd12671e8a14ec7f180cab83036ed26714bb0",
+            "reference": "dbefd12671e8a14ec7f180cab83036ed26714bb0",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=7.2.0"
+        },
+        "time": "2019-01-08T18:20:26+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Psr\\EventDispatcher\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "PHP-FIG",
+                "homepage": "http://www.php-fig.org/"
+            }
+        ],
+        "description": "Standard interfaces for event handling.",
+        "keywords": [
+            "events",
+            "psr",
+            "psr-14"
+        ]
+    },
+    {
         "name": "psr/http-message",
         "version": "1.0.1",
         "version_normalized": "1.0.1.0",
@@ -3251,23 +3302,24 @@
     },
     {
         "name": "symfony/contracts",
-        "version": "v1.1.8",
-        "version_normalized": "1.1.8.0",
+        "version": "v2.0.1",
+        "version_normalized": "2.0.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/contracts.git",
-            "reference": "f51bca9de06b7a25b19a4155da7bebad099a5def"
+            "reference": "b3b9b70bfacfd204d352e7e7350e02c02c0fff78"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/contracts/zipball/f51bca9de06b7a25b19a4155da7bebad099a5def",
-            "reference": "f51bca9de06b7a25b19a4155da7bebad099a5def",
+            "url": "https://api.github.com/repos/symfony/contracts/zipball/b3b9b70bfacfd204d352e7e7350e02c02c0fff78",
+            "reference": "b3b9b70bfacfd204d352e7e7350e02c02c0fff78",
             "shasum": ""
         },
         "require": {
-            "php": "^7.1.3",
+            "php": "^7.2.5",
             "psr/cache": "^1.0",
-            "psr/container": "^1.0"
+            "psr/container": "^1.0",
+            "psr/event-dispatcher": "^1.0"
         },
         "replace": {
             "symfony/cache-contracts": "self.version",
@@ -3280,18 +3332,17 @@
             "symfony/polyfill-intl-idn": "^1.10"
         },
         "suggest": {
-            "psr/event-dispatcher": "When using the EventDispatcher contracts",
             "symfony/cache-implementation": "",
             "symfony/event-dispatcher-implementation": "",
             "symfony/http-client-implementation": "",
             "symfony/service-implementation": "",
             "symfony/translation-implementation": ""
         },
-        "time": "2019-11-07T12:44:51+00:00",
+        "time": "2019-11-26T23:25:11+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "1.1-dev"
+                "dev-master": "2.0-dev"
             }
         },
         "installation-source": "dist",
@@ -3386,6 +3437,68 @@
             "ctype",
             "polyfill",
             "portable"
+        ]
+    },
+    {
+        "name": "symfony/polyfill-intl-grapheme",
+        "version": "v1.13.1",
+        "version_normalized": "1.13.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/polyfill-intl-grapheme.git",
+            "reference": "45c566a1ca16273f7ea6b930e013462e00e14502"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/polyfill-intl-grapheme/zipball/45c566a1ca16273f7ea6b930e013462e00e14502",
+            "reference": "45c566a1ca16273f7ea6b930e013462e00e14502",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.3"
+        },
+        "suggest": {
+            "ext-intl": "For best performance"
+        },
+        "time": "2019-11-27T13:56:44+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.13-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Symfony\\Polyfill\\Intl\\Grapheme\\": ""
+            },
+            "files": [
+                "bootstrap.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Nicolas Grekas",
+                "email": "p@tchwork.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony polyfill for intl's grapheme_* functions",
+        "homepage": "https://symfony.com",
+        "keywords": [
+            "compatibility",
+            "grapheme",
+            "intl",
+            "polyfill",
+            "portable",
+            "shim"
         ]
     },
     {
@@ -3507,6 +3620,71 @@
             "compatibility",
             "idn",
             "intl",
+            "polyfill",
+            "portable",
+            "shim"
+        ]
+    },
+    {
+        "name": "symfony/polyfill-intl-normalizer",
+        "version": "v1.13.1",
+        "version_normalized": "1.13.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/polyfill-intl-normalizer.git",
+            "reference": "cfe6ad557c15f3797f667e9518ce759aa04ae4f3"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/polyfill-intl-normalizer/zipball/cfe6ad557c15f3797f667e9518ce759aa04ae4f3",
+            "reference": "cfe6ad557c15f3797f667e9518ce759aa04ae4f3",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.3"
+        },
+        "suggest": {
+            "ext-intl": "For best performance"
+        },
+        "time": "2019-11-27T13:56:44+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.13-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Symfony\\Polyfill\\Intl\\Normalizer\\": ""
+            },
+            "files": [
+                "bootstrap.php"
+            ],
+            "classmap": [
+                "Resources/stubs"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Nicolas Grekas",
+                "email": "p@tchwork.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony polyfill for intl's Normalizer class and related functions",
+        "homepage": "https://symfony.com",
+        "keywords": [
+            "compatibility",
+            "intl",
+            "normalizer",
             "polyfill",
             "portable",
             "shim"
@@ -3692,42 +3870,43 @@
     },
     {
         "name": "symfony/symfony",
-        "version": "v4.4.1",
-        "version_normalized": "4.4.1.0",
+        "version": "v5.0.1",
+        "version_normalized": "5.0.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/symfony.git",
-            "reference": "04863e4457b0a9b2a34b34fe53e7fd4f1203e1c0"
+            "reference": "b7e90accbc7e0c0825f91d8e936eaee9c4f2e581"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/symfony/zipball/04863e4457b0a9b2a34b34fe53e7fd4f1203e1c0",
-            "reference": "04863e4457b0a9b2a34b34fe53e7fd4f1203e1c0",
+            "url": "https://api.github.com/repos/symfony/symfony/zipball/b7e90accbc7e0c0825f91d8e936eaee9c4f2e581",
+            "reference": "b7e90accbc7e0c0825f91d8e936eaee9c4f2e581",
             "shasum": ""
         },
         "require": {
             "doctrine/event-manager": "~1.0",
             "doctrine/persistence": "~1.0",
             "ext-xml": "*",
-            "php": "^7.1.3",
+            "php": "^7.2.5",
             "psr/cache": "~1.0",
             "psr/container": "^1.0",
+            "psr/event-dispatcher": "^1.0",
             "psr/link": "^1.0",
             "psr/log": "~1.0",
-            "symfony/contracts": "^1.1.8",
+            "symfony/contracts": "^2",
             "symfony/polyfill-ctype": "~1.8",
+            "symfony/polyfill-intl-grapheme": "~1.0",
             "symfony/polyfill-intl-icu": "~1.0",
             "symfony/polyfill-intl-idn": "^1.10",
+            "symfony/polyfill-intl-normalizer": "~1.0",
             "symfony/polyfill-mbstring": "~1.0",
-            "symfony/polyfill-php72": "~1.5",
             "symfony/polyfill-php73": "^1.11",
-            "twig/twig": "^1.41|^2.10|^3.0"
+            "twig/twig": "^2.10|^3.0"
         },
         "conflict": {
             "masterminds/html5": "<2.6",
-            "monolog/monolog": ">=2",
             "ocramius/proxy-manager": "<2.1",
-            "phpdocumentor/reflection-docblock": "<3.0||>=3.2.0,<3.2.2",
+            "phpdocumentor/reflection-docblock": "<3.2.2",
             "phpdocumentor/type-resolver": "<0.3.0",
             "phpunit/phpunit": "<5.4.3"
         },
@@ -3739,7 +3918,6 @@
             "symfony/config": "self.version",
             "symfony/console": "self.version",
             "symfony/css-selector": "self.version",
-            "symfony/debug": "self.version",
             "symfony/debug-bundle": "self.version",
             "symfony/dependency-injection": "self.version",
             "symfony/doctrine-bridge": "self.version",
@@ -3766,6 +3944,7 @@
             "symfony/messenger": "self.version",
             "symfony/mime": "self.version",
             "symfony/monolog-bridge": "self.version",
+            "symfony/notifier": "self.version",
             "symfony/options-resolver": "self.version",
             "symfony/postmark-mailer": "self.version",
             "symfony/process": "self.version",
@@ -3773,7 +3952,6 @@
             "symfony/property-info": "self.version",
             "symfony/proxy-manager-bridge": "self.version",
             "symfony/routing": "self.version",
-            "symfony/security": "self.version",
             "symfony/security-bundle": "self.version",
             "symfony/security-core": "self.version",
             "symfony/security-csrf": "self.version",
@@ -3782,6 +3960,7 @@
             "symfony/sendgrid-mailer": "self.version",
             "symfony/serializer": "self.version",
             "symfony/stopwatch": "self.version",
+            "symfony/string": "self.version",
             "symfony/templating": "self.version",
             "symfony/translation": "self.version",
             "symfony/twig-bridge": "self.version",
@@ -3791,7 +3970,6 @@
             "symfony/var-exporter": "self.version",
             "symfony/web-link": "self.version",
             "symfony/web-profiler-bundle": "self.version",
-            "symfony/web-server-bundle": "self.version",
             "symfony/workflow": "self.version",
             "symfony/yaml": "self.version"
         },
@@ -3808,7 +3986,7 @@
             "egulias/email-validator": "~1.2,>=1.2.8|~2.0",
             "guzzlehttp/promises": "^1.3.1",
             "masterminds/html5": "^2.6",
-            "monolog/monolog": "^1.25.1",
+            "monolog/monolog": "^1.25.1|^2",
             "nyholm/psr7": "^1.0",
             "ocramius/proxy-manager": "^2.1",
             "paragonie/sodium_compat": "^1.8",
@@ -3823,11 +4001,11 @@
             "twig/inky-extra": "^2.12",
             "twig/markdown-extra": "^2.12"
         },
-        "time": "2019-12-01T14:06:54+00:00",
+        "time": "2019-12-01T14:12:07+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "4.4-dev"
+                "dev-master": "5.0-dev"
             }
         },
         "installation-source": "dist",

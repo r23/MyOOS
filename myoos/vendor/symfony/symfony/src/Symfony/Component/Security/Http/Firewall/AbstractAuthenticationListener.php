@@ -12,7 +12,6 @@
 namespace Symfony\Component\Security\Http\Firewall;
 
 use Psr\Log\LoggerInterface;
-use Symfony\Component\EventDispatcher\LegacyEventDispatcherProxy;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -49,10 +48,8 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-abstract class AbstractAuthenticationListener extends AbstractListener implements ListenerInterface
+abstract class AbstractAuthenticationListener extends AbstractListener
 {
-    use LegacyListenerTrait;
-
     protected $options;
     protected $logger;
     protected $authenticationManager;
@@ -93,7 +90,7 @@ abstract class AbstractAuthenticationListener extends AbstractListener implement
             'require_previous_session' => true,
         ], $options);
         $this->logger = $logger;
-        $this->dispatcher = LegacyEventDispatcherProxy::decorate($dispatcher);
+        $this->dispatcher = $dispatcher;
         $this->httpUtils = $httpUtils;
     }
 

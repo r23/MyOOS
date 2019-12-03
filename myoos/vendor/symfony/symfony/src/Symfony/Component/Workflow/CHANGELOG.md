@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+5.0.0
+-----
+
+ * Added argument `$context` to `MarkingStoreInterface::setMarking()`
+
 4.4.0
 -----
 

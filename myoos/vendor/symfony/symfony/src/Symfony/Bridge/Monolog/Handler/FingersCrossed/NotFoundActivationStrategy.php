@@ -34,10 +34,7 @@ class NotFoundActivationStrategy extends ErrorLevelActivationStrategy
         $this->blacklist = '{('.implode('|', $excludedUrls).')}i';
     }
 
-    /**
-     * @return bool
-     */
-    public function isHandlerActivated(array $record)
+    public function isHandlerActivated(array $record): bool
     {
         $isActivated = parent::isHandlerActivated($record);
 

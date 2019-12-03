@@ -7,15 +7,6 @@ if (false === getenv('SYMFONY_PATCH_TYPE_DECLARATIONS')) {
 
 require __DIR__.'/../.phpunit/phpunit-8.3-0/vendor/autoload.php';
 
-file_put_contents(__DIR__.'/../vendor/autoload.php', preg_replace('/^return (Composer.*);/m', <<<'EOTXT'
-$loader = \1;
-$loader->addClassMap(['Symfony\Component\Debug\Exception\FlattenException' => \dirname(__DIR__).'/src/Symfony/Component/Debug/Exception/FlattenException.php']);
-
-return $loader;
-
-EOTXT
-, file_get_contents(__DIR__.'/../vendor/autoload.php')));
-
 $loader = require __DIR__.'/../vendor/autoload.php';
 
 Symfony\Component\ErrorHandler\DebugClassLoader::enable();
@@ -26,7 +17,6 @@ foreach ($loader->getClassMap() as $class => $file) {
         case false !== strpos($file, '/src/Symfony/Bridge/PhpUnit/'):
         case false !== strpos($file, '/src/Symfony/Bundle/FrameworkBundle/Tests/Fixtures/Validation/Article.php'):
         case false !== strpos($file, '/src/Symfony/Component/Config/Tests/Fixtures/BadParent.php'):
-        case false !== strpos($file, '/src/Symfony/Component/Debug/Tests/Fixtures/'):
         case false !== strpos($file, '/src/Symfony/Component/DependencyInjection/Tests/Compiler/OptionalServiceClass.php'):
         case false !== strpos($file, '/src/Symfony/Component/DependencyInjection/Tests/Fixtures/ParentNotExists.php'):
         case false !== strpos($file, '/src/Symfony/Component/DependencyInjection/Tests/Fixtures/Prototype/BadClasses/MissingParent.php'):

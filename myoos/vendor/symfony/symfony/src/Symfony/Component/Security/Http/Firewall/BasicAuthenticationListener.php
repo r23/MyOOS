@@ -27,12 +27,10 @@ use Symfony\Component\Security\Http\Session\SessionAuthenticationStrategyInterfa
  *
  * @author Fabien Potencier <fabien@symfony.com>
  *
- * @final since Symfony 4.3
+ * @final
  */
-class BasicAuthenticationListener extends AbstractListener implements ListenerInterface
+class BasicAuthenticationListener extends AbstractListener
 {
-    use LegacyListenerTrait;
-
     private $tokenStorage;
     private $authenticationManager;
     private $providerKey;

@@ -113,7 +113,7 @@ class ChoiceFormField extends FormField
     /**
      * Sets the value of the field.
      *
-     * @param string|array|bool $value The value of the field
+     * @param string|array|bool|null $value The value of the field
      *
      * @throws \InvalidArgumentException When value type provided is not correct
      */
@@ -268,12 +268,9 @@ class ChoiceFormField extends FormField
     /**
      * Checks whether given value is in the existing options.
      *
-     * @param string $optionValue
-     * @param array  $options
-     *
      * @return bool
      */
-    public function containsOption($optionValue, $options)
+    public function containsOption(string $optionValue, array $options)
     {
         if ($this->validationDisabled) {
             return true;

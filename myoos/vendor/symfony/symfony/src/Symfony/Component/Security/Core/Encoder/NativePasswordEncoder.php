@@ -60,7 +60,7 @@ final class NativePasswordEncoder implements PasswordEncoderInterface, SelfSalti
     /**
      * {@inheritdoc}
      */
-    public function encodePassword($raw, $salt): string
+    public function encodePassword(string $raw, ?string $salt): string
     {
         if (\strlen($raw) > self::MAX_PASSWORD_LENGTH || ((string) PASSWORD_BCRYPT === $this->algo && 72 < \strlen($raw))) {
             throw new BadCredentialsException('Invalid password.');
@@ -74,7 +74,7 @@ final class NativePasswordEncoder implements PasswordEncoderInterface, SelfSalti
     /**
      * {@inheritdoc}
      */
-    public function isPasswordValid($encoded, $raw, $salt): bool
+    public function isPasswordValid(string $encoded, string $raw, ?string $salt): bool
     {
         if (\strlen($raw) > self::MAX_PASSWORD_LENGTH) {
             return false;
