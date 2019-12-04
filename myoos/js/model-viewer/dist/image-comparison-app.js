@@ -2800,6 +2800,9 @@ magnifying-glass {
       cssBuild = window.ShadyCSS.cssBuild;
     }
 
+    /** @type {boolean} */
+    const disableRuntime = Boolean(window.ShadyCSS && window.ShadyCSS.disableRuntime);
+
     if (window.ShadyCSS && window.ShadyCSS.nativeCss !== undefined) {
       nativeCssVariables_ = window.ShadyCSS.nativeCss;
     } else if (window.ShadyCSS) {
@@ -4383,7 +4386,8 @@ magnifying-glass {
 
         nativeCss: nativeCssVariables,
         nativeShadow: nativeShadow,
-        cssBuild: cssBuild
+        cssBuild: cssBuild,
+        disableRuntime: disableRuntime,
       };
 
       if (CustomStyleInterface$$1) {
@@ -4427,7 +4431,7 @@ magnifying-glass {
     */
 
     let CSS_URL_RX = /(url\()([^)]*)(\))/g;
-    let ABS_URL = /(^\/)|(^#)|(^[\w-\d]*:)/;
+    let ABS_URL = /(^\/[^\/])|(^#)|(^[\w-\d]*:)/;
     let workingURL;
     let resolveDoc;
     /**
@@ -4445,6 +4449,9 @@ magnifying-glass {
       if (url && ABS_URL.test(url)) {
         return url;
       }
+      if (url === '//') {
+        return url;
+      }
       // Lazy feature detection.
       if (workingURL === undefined) {
         workingURL = false;
@@ -4460,7 +4467,12 @@ magnifying-glass {
         baseURI = document.baseURI || window.location.href;
       }
       if (workingURL) {
-        return (new URL(url, baseURI)).href;
+        try {
+          return (new URL(url, baseURI)).href;
+        } catch (e) {
+          // Bad url or baseURI structure. Do not attempt to resolve.
+          return url;
+        }
       }
       // Fallback to creating an anchor into a disconnected document.
       if (!resolveDoc) {
@@ -4567,6 +4579,28 @@ magnifying-glass {
      * via dom-module, set this flag to true.
      */
     let allowTemplateFromDomModule = false;
+
+    /**
+     * Setting to skip processing style includes and re-writing urls in css styles.
+     * Normally "included" styles are pulled into the element and all urls in styles
+     * are re-written to be relative to the containing script url.
+     * If no includes or relative urls are used in styles, these steps can be
+     * skipped as an optimization.
+     */
+    let legacyOptimizations = false;
+
+    /**
+     * Setting to perform initial rendering synchronously when running under ShadyDOM.
+     * This matches the behavior of Polymer 1.
+     */
+    let syncInitialRender = false;
+
+    /**
+     * Setting to cancel synthetic click events fired by older mobile browsers. Modern browsers
+     * no longer fire synthetic click events, and the cancellation behavior can interfere
+     * when programmatically clicking on elements.
+     */
+    let cancelSyntheticClickEvents = true;
 
     /**
     @license
@@ -4692,6 +4726,7 @@ magnifying-glass {
      */
     class DomModule extends HTMLElement {
 
+      /** @override */
       static get observedAttributes() { return ['id']; }
 
       /**
@@ -4875,7 +4910,7 @@ magnifying-glass {
      * Returns the `<style>` elements within a given template.
      *
      * @param {!HTMLTemplateElement} template Template to gather styles from
-     * @param {string} baseURI baseURI for style content
+     * @param {string=} baseURI baseURI for style content
      * @return {!Array<!HTMLStyleElement>} Array of styles
      */
     function stylesFromTemplate(template, baseURI) {
@@ -4894,7 +4929,8 @@ magnifying-glass {
             }));
           }
           if (baseURI) {
-            e.textContent = resolveCss(e.textContent, baseURI);
+            e.textContent =
+                resolveCss(e.textContent, /** @type {string} */ (baseURI));
           }
           styles.push(e);
         }
@@ -5028,6 +5064,30 @@ magnifying-glass {
       }
       return cssText;
     }
+
+    /**
+    @license
+    Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
+    This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+    The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+    The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+    Code distributed by Google as part of the polymer project is also
+    subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+    */
+
+    /* eslint-disable valid-jsdoc */
+    /**
+     * Node wrapper to ensure ShadowDOM safe operation regardless of polyfill
+     * presence or mode. Note that with the introduction of `ShadyDOM.noPatch`,
+     * a node wrapper must be used to access ShadowDOM API.
+     * This is similar to using `Polymer.dom` but relies exclusively
+     * on the presence of the ShadyDOM polyfill rather than requiring the loading
+     * of legacy (Polymer.dom) API.
+     * @type {function(Node):Node}
+     */
+    const wrap$1 = (window['ShadyDOM'] && window['ShadyDOM']['noPatch'] && window['ShadyDOM']['wrap']) ?
+      window['ShadyDOM']['wrap'] :
+      (window['ShadyDOM'] ? (n) => ShadyDOM['patch'](n) : (n) => n);
 
     /**
     @license
@@ -5470,6 +5530,9 @@ magnifying-glass {
      * @polymer
      * @summary Element class mixin for reacting to property changes from
      *   generated property accessors.
+     * @template T
+     * @param {function(new:T)} superClass Class to apply mixin to.
+     * @return {function(new:T)} superClass with mixin applied.
      */
     const PropertiesChanged = dedupingMixin(
         /**
@@ -5492,6 +5555,7 @@ magnifying-glass {
          * @param {!Object} props Object whose keys are names of accessors.
          * @return {void}
          * @protected
+         * @nocollapse
          */
         static createProperties(props) {
           const proto = this.prototype;
@@ -5511,6 +5575,7 @@ magnifying-glass {
          * @return {string} Attribute name corresponding to the given property.
          *
          * @protected
+         * @nocollapse
          */
         static attributeNameForProperty(property) {
           return property.toLowerCase();
@@ -5522,6 +5587,7 @@ magnifying-glass {
          * @param {string} name Name of property
          *
          * @protected
+         * @nocollapse
          */
         static typeForProperty(name) { } //eslint-disable-line no-unused-vars
 
@@ -5595,6 +5661,7 @@ magnifying-glass {
 
         constructor() {
           super();
+          /** @type {boolean} */
           this.__dataEnabled = false;
           this.__dataReady = false;
           this.__dataInvalid = false;
@@ -5930,6 +5997,9 @@ magnifying-glass {
          */
         _valueToNodeAttribute(node, value, attribute) {
           const str = this._serializeValue(value);
+          if (attribute === 'class' || attribute === 'name' || attribute === 'slot') {
+            node = /** @type {?Element} */(wrap$1(node));
+          }
           if (str === undefined) {
             node.removeAttribute(attribute);
           } else {
@@ -6053,16 +6123,18 @@ magnifying-glass {
      *
      * For basic usage of this mixin:
      *
-     * -   Declare attributes to observe via the standard `static get observedAttributes()`. Use
-     *     `dash-case` attribute names to represent `camelCase` property names.
+     * -   Declare attributes to observe via the standard `static get
+     *     observedAttributes()`. Use `dash-case` attribute names to represent
+     *     `camelCase` property names.
      * -   Implement the `_propertiesChanged` callback on the class.
-     * -   Call `MyClass.createPropertiesForAttributes()` **once** on the class to generate
-     *     property accessors for each observed attribute. This must be called before the first
-     *     instance is created, for example, by calling it before calling `customElements.define`.
-     *     It can also be called lazily from the element's `constructor`, as long as it's guarded so
-     *     that the call is only made once, when the first instance is created.
-     * -   Call `this._enableProperties()` in the element's `connectedCallback` to enable
-     *     the accessors.
+     * -   Call `MyClass.createPropertiesForAttributes()` **once** on the class to
+     *     generate property accessors for each observed attribute. This must be
+     *     called before the first instance is created, for example, by calling it
+     *     before calling `customElements.define`. It can also be called lazily from
+     *     the element's `constructor`, as long as it's guarded so that the call is
+     *     only made once, when the first instance is created.
+     * -   Call `this._enableProperties()` in the element's `connectedCallback` to
+     *     enable the accessors.
      *
      * Any `observedAttributes` will automatically be
      * deserialized via `attributeChangedCallback` and set to the associated
@@ -6073,12 +6145,14 @@ magnifying-glass {
      * @appliesMixin PropertiesChanged
      * @summary Element class mixin for reacting to property changes from
      *   generated property accessors.
+     * @template T
+     * @param {function(new:T)} superClass Class to apply mixin to.
+     * @return {function(new:T)} superClass with mixin applied.
      */
     const PropertyAccessors = dedupingMixin(superClass => {
 
       /**
        * @constructor
-       * @extends {superClass}
        * @implements {Polymer_PropertiesChanged}
        * @unrestricted
        * @private
@@ -6102,9 +6176,10 @@ magnifying-glass {
          * `camelCase` convention
          *
          * @return {void}
+         * @nocollapse
          */
         static createPropertiesForAttributes() {
-          let a$ = this.observedAttributes;
+          let a$ =  /** @type {?} */ (this).observedAttributes;
           for (let i=0; i < a$.length; i++) {
             this.prototype._createPropertyAccessor(dashToCamelCase(a$[i]));
           }
@@ -6117,6 +6192,7 @@ magnifying-glass {
          * @return {string} Attribute name corresponding to the given property.
          *
          * @protected
+         * @nocollapse
          */
         static attributeNameForProperty(property) {
           return camelToDashCase(property);
@@ -6129,6 +6205,7 @@ magnifying-glass {
          *
          * @return {void}
          * @protected
+         * @override
          */
         _initializeProperties() {
           if (this.__dataProto) {
@@ -6150,6 +6227,7 @@ magnifying-glass {
          *   when creating property accessors.
          * @return {void}
          * @protected
+         * @override
          */
         _initializeProtoProperties(props) {
           for (let p in props) {
@@ -6161,11 +6239,13 @@ magnifying-glass {
          * Ensures the element has the given attribute. If it does not,
          * assigns the given value to the attribute.
          *
-         * @suppress {invalidCasts} Closure can't figure out `this` is infact an element
+         * @suppress {invalidCasts} Closure can't figure out `this` is infact an
+         *     element
          *
          * @param {string} attribute Name of attribute to ensure is set.
          * @param {string} value of the attribute.
          * @return {void}
+         * @override
          */
         _ensureAttribute(attribute, value) {
           const el = /** @type {!HTMLElement} */(this);
@@ -6178,7 +6258,9 @@ magnifying-glass {
          * Overrides PropertiesChanged implemention to serialize objects as JSON.
          *
          * @param {*} value Property value to serialize.
-         * @return {string | undefined} String serialized from the provided property value.
+         * @return {string | undefined} String serialized from the provided property
+         *     value.
+         * @override
          */
         _serializeValue(value) {
           /* eslint-disable no-fallthrough */
@@ -6213,6 +6295,7 @@ magnifying-glass {
          * @param {?string} value Attribute value to deserialize.
          * @param {*=} type Type to deserialize the string to.
          * @return {*} Typed value deserialized from the provided string.
+         * @override
          */
         _deserializeValue(value, type) {
           /**
@@ -6262,6 +6345,7 @@ magnifying-glass {
          * for the values to take effect.
          * @protected
          * @return {void}
+         * @override
          */
         _definePropertyAccessor(property, readOnly) {
           saveAccessorValue(this, property);
@@ -6273,6 +6357,7 @@ magnifying-glass {
          *
          * @param {string} property Property name
          * @return {boolean} True if an accessor was created
+         * @override
          */
         _hasAccessor(property) {
           return this.__dataHasAccessor && this.__dataHasAccessor[property];
@@ -6284,6 +6369,7 @@ magnifying-glass {
          * @param {string} prop Property name
          * @return {boolean} True if property has a pending change
          * @protected
+         * @override
          */
         _isPropertyPending(prop) {
           return Boolean(this.__dataPending && (prop in this.__dataPending));
@@ -6398,6 +6484,9 @@ magnifying-glass {
      * @mixinFunction
      * @polymer
      * @summary Element class mixin that provides basic template parsing and stamping
+     * @template T
+     * @param {function(new:T)} superClass Class to apply mixin to.
+     * @return {function(new:T)} superClass with mixin applied.
      */
     const TemplateStamp = dedupingMixin(
         /**
@@ -6488,20 +6577,33 @@ magnifying-glass {
          * @param {TemplateInfo=} outerTemplateInfo Template metadata from the outer
          *   template, for parsing nested templates
          * @return {!TemplateInfo} Parsed template metadata
+         * @nocollapse
          */
         static _parseTemplate(template, outerTemplateInfo) {
           // since a template may be re-used, memo-ize metadata
           if (!template._templateInfo) {
-            let templateInfo = template._templateInfo = {};
+            // TODO(rictic): fix typing
+            let /** ? */ templateInfo = template._templateInfo = {};
             templateInfo.nodeInfoList = [];
             templateInfo.stripWhiteSpace =
               (outerTemplateInfo && outerTemplateInfo.stripWhiteSpace) ||
               template.hasAttribute('strip-whitespace');
-            this._parseTemplateContent(template, templateInfo, {parent: null});
+             // TODO(rictic): fix typing
+             this._parseTemplateContent(
+                 template, templateInfo, /** @type {?} */ ({parent: null}));
           }
           return template._templateInfo;
         }
 
+        /**
+         * See docs for _parseTemplateNode.
+         *
+         * @param {!HTMLTemplateElement} template .
+         * @param {!TemplateInfo} templateInfo .
+         * @param {!NodeInfo} nodeInfo .
+         * @return {boolean} .
+         * @nocollapse
+         */
         static _parseTemplateContent(template, templateInfo, nodeInfo) {
           return this._parseTemplateNode(template.content, templateInfo, nodeInfo);
         }
@@ -6518,10 +6620,11 @@ magnifying-glass {
          * @param {!NodeInfo} nodeInfo Node metadata for current template.
          * @return {boolean} `true` if the visited node added node-specific
          *   metadata to `nodeInfo`
+         * @nocollapse
          */
         static _parseTemplateNode(node, templateInfo, nodeInfo) {
-          let noted;
-          let element = /** @type {Element} */(node);
+          let noted = false;
+          let element = /** @type {!HTMLTemplateElement} */ (node);
           if (element.localName == 'template' && !element.hasAttribute('preserve-content')) {
             noted = this._parseTemplateNestedTemplate(element, templateInfo, nodeInfo) || noted;
           } else if (element.localName === 'slot') {
@@ -6529,7 +6632,7 @@ magnifying-glass {
             templateInfo.hasInsertionPoint = true;
           }
           if (element.firstChild) {
-            noted = this._parseTemplateChildNodes(element, templateInfo, nodeInfo) || noted;
+            this._parseTemplateChildNodes(element, templateInfo, nodeInfo);
           }
           if (element.hasAttributes && element.hasAttributes()) {
             noted = this._parseTemplateNodeAttributes(element, templateInfo, nodeInfo) || noted;
@@ -6578,9 +6681,10 @@ magnifying-glass {
                 continue;
               }
             }
-            let childInfo = { parentIndex, parentInfo: nodeInfo };
+            let childInfo =
+                /** @type {!NodeInfo} */ ({parentIndex, parentInfo: nodeInfo});
             if (this._parseTemplateNode(node, templateInfo, childInfo)) {
-              childInfo.infoIndex = templateInfo.nodeInfoList.push(/** @type {!NodeInfo} */(childInfo)) - 1;
+              childInfo.infoIndex = templateInfo.nodeInfoList.push(childInfo) - 1;
             }
             // Increment if not removed
             if (node.parentNode) {
@@ -6605,12 +6709,15 @@ magnifying-glass {
          * @param {!NodeInfo} nodeInfo Node metadata for current template.
          * @return {boolean} `true` if the visited node added node-specific
          *   metadata to `nodeInfo`
+         * @nocollapse
          */
         static _parseTemplateNestedTemplate(node, outerTemplateInfo, nodeInfo) {
-          let templateInfo = this._parseTemplate(node, outerTemplateInfo);
+          // TODO(rictic): the type of node should be non-null
+          let element = /** @type {!HTMLTemplateElement} */ (node);
+          let templateInfo = this._parseTemplate(element, outerTemplateInfo);
           let content = templateInfo.content =
-            node.content.ownerDocument.createDocumentFragment();
-          content.appendChild(node.content);
+              element.content.ownerDocument.createDocumentFragment();
+          content.appendChild(element.content);
           nodeInfo.templateInfo = templateInfo;
           return true;
         }
@@ -6620,10 +6727,12 @@ magnifying-glass {
          * for nodes of interest.
          *
          * @param {Element} node Node to parse
-         * @param {TemplateInfo} templateInfo Template metadata for current template
-         * @param {NodeInfo} nodeInfo Node metadata for current template.
+         * @param {!TemplateInfo} templateInfo Template metadata for current
+         *     template
+         * @param {!NodeInfo} nodeInfo Node metadata for current template.
          * @return {boolean} `true` if the visited node added node-specific
          *   metadata to `nodeInfo`
+         * @nocollapse
          */
         static _parseTemplateNodeAttributes(node, templateInfo, nodeInfo) {
           // Make copy of original attribute list, since the order may change
@@ -6650,6 +6759,7 @@ magnifying-glass {
          * @param {string} value Attribute value
          * @return {boolean} `true` if the visited node added node-specific
          *   metadata to `nodeInfo`
+         * @nocollapse
          */
         static _parseTemplateNodeAttribute(node, templateInfo, nodeInfo, name, value) {
           // events (on-*)
@@ -6679,6 +6789,7 @@ magnifying-glass {
          *
          * @param {HTMLTemplateElement} template Template to retrieve `content` for
          * @return {DocumentFragment} Content fragment
+         * @nocollapse
          */
         static _contentForTemplate(template) {
           let templateInfo = /** @type {HTMLTemplateElementWithInfo} */ (template)._templateInfo;
@@ -6786,14 +6897,16 @@ magnifying-glass {
     });
 
     /**
-    @license
-    Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
-    This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-    The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-    The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-    Code distributed by Google as part of the polymer project is also
-    subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
-    */
+     * @fileoverview
+     * @suppress {checkPrototypalTypes}
+     * @license Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
+     * This code may only be used under the BSD style license found at
+     * http://polymer.github.io/LICENSE.txt The complete set of authors may be found
+     * at http://polymer.github.io/AUTHORS.txt The complete set of contributors may
+     * be found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by
+     * Google as part of the polymer project is also subject to an additional IP
+     * rights grant found at http://polymer.github.io/PATENTS.txt
+     */
 
     // Monotonically increasing unique ID used for de-duping effects triggered
     // from multiple properties in the same turn
@@ -6812,7 +6925,7 @@ magnifying-glass {
       READ_ONLY: '__readOnly'
     };
 
-    /** @const {RegExp} */
+    /** @const {!RegExp} */
     const capitalAttributeRegex = /[A-Z]/;
 
     /**
@@ -6860,10 +6973,10 @@ magnifying-glass {
      * Runs all effects of a given type for the given set of property changes
      * on an instance.
      *
-     * @param {!PropertyEffectsType} inst The instance with effects to run
-     * @param {Object} effects Object map of property-to-Array of effects
-     * @param {Object} props Bag of current property changes
-     * @param {Object=} oldProps Bag of previous values for changed properties
+     * @param {!Polymer_PropertyEffects} inst The instance with effects to run
+     * @param {?Object} effects Object map of property-to-Array of effects
+     * @param {?Object} props Bag of current property changes
+     * @param {?Object=} oldProps Bag of previous values for changed properties
      * @param {boolean=} hasPaths True with `props` contains one or more paths
      * @param {*=} extraArgs Additional metadata to pass to effect function
      * @return {boolean} True if an effect ran for this property
@@ -6874,7 +6987,9 @@ magnifying-glass {
         let ran = false;
         let id = dedupeId$1++;
         for (let prop in props) {
-          if (runEffectsForProperty(inst, effects, id, prop, props, oldProps, hasPaths, extraArgs)) {
+          if (runEffectsForProperty(
+                  inst, /** @type {!Object} */ (effects), id, prop, props, oldProps,
+                  hasPaths, extraArgs)) {
             ran = true;
           }
         }
@@ -6886,8 +7001,8 @@ magnifying-glass {
     /**
      * Runs a list of effects for a given property.
      *
-     * @param {!PropertyEffectsType} inst The instance with effects to run
-     * @param {Object} effects Object map of property-to-Array of effects
+     * @param {!Polymer_PropertyEffects} inst The instance with effects to run
+     * @param {!Object} effects Object map of property-to-Array of effects
      * @param {number} dedupeId Counter used for de-duping effects
      * @param {string} prop Name of changed property
      * @param {*} props Changed properties
@@ -6931,15 +7046,15 @@ magnifying-glass {
      * If no trigger is given, the path is deemed to match.
      *
      * @param {string} path Path or property that changed
-     * @param {DataTrigger} trigger Descriptor
+     * @param {?DataTrigger} trigger Descriptor
      * @return {boolean} Whether the path matched the trigger
      */
     function pathMatchesTrigger(path, trigger) {
       if (trigger) {
-        let triggerPath = trigger.name;
+        let triggerPath = /** @type {string} */ (trigger.name);
         return (triggerPath == path) ||
-          (trigger.structured && isAncestor(triggerPath, path)) ||
-          (trigger.wildcard && isDescendant(triggerPath, path));
+            !!(trigger.structured && isAncestor(triggerPath, path)) ||
+            !!(trigger.wildcard && isDescendant(triggerPath, path));
       } else {
         return true;
       }
@@ -6951,7 +7066,7 @@ magnifying-glass {
      * Calls the method with `info.methodName` on the instance, passing the
      * new and old values.
      *
-     * @param {!PropertyEffectsType} inst The instance the effect will be run on
+     * @param {!Polymer_PropertyEffects} inst The instance the effect will be run on
      * @param {string} property Name of property
      * @param {Object} props Bag of current property changes
      * @param {Object} oldProps Bag of previous values for changed properties
@@ -6979,7 +7094,7 @@ magnifying-glass {
      * `notify: true` to ensure object sub-property notifications were
      * sent.
      *
-     * @param {!PropertyEffectsType} inst The instance with effects to run
+     * @param {!Polymer_PropertyEffects} inst The instance with effects to run
      * @param {Object} notifyProps Bag of properties to notify
      * @param {Object} props Bag of current property changes
      * @param {Object} oldProps Bag of previous values for changed properties
@@ -7015,7 +7130,8 @@ magnifying-glass {
      * Dispatches {property}-changed events with path information in the detail
      * object to indicate a sub-path of the property was changed.
      *
-     * @param {!PropertyEffectsType} inst The element from which to fire the event
+     * @param {!Polymer_PropertyEffects} inst The element from which to fire the
+     *     event
      * @param {string} path The path that was changed
      * @param {Object} props Bag of current property changes
      * @return {boolean} Returns true if the path was notified
@@ -7035,11 +7151,13 @@ magnifying-glass {
      * Dispatches {property}-changed events to indicate a property (or path)
      * changed.
      *
-     * @param {!PropertyEffectsType} inst The element from which to fire the event
-     * @param {string} eventName The name of the event to send ('{property}-changed')
+     * @param {!Polymer_PropertyEffects} inst The element from which to fire the
+     *     event
+     * @param {string} eventName The name of the event to send
+     *     ('{property}-changed')
      * @param {*} value The value of the changed property
-     * @param {string | null | undefined} path If a sub-path of this property changed, the path
-     *   that changed (optional).
+     * @param {string | null | undefined} path If a sub-path of this property
+     *     changed, the path that changed (optional).
      * @return {void}
      * @private
      * @suppress {invalidCasts}
@@ -7052,7 +7170,7 @@ magnifying-glass {
       if (path) {
         detail.path = path;
       }
-      /** @type {!HTMLElement} */(inst).dispatchEvent(new CustomEvent(eventName, { detail }));
+      wrap$1(/** @type {!HTMLElement} */(inst)).dispatchEvent(new CustomEvent(eventName, { detail }));
     }
 
     /**
@@ -7061,7 +7179,7 @@ magnifying-glass {
      * Dispatches a non-bubbling event named `info.eventName` on the instance
      * with a detail object containing the new `value`.
      *
-     * @param {!PropertyEffectsType} inst The instance the effect will be run on
+     * @param {!Polymer_PropertyEffects} inst The instance the effect will be run on
      * @param {string} property Name of property
      * @param {Object} props Bag of current property changes
      * @param {Object} oldProps Bag of previous values for changed properties
@@ -7090,7 +7208,8 @@ magnifying-glass {
      * scope's name for that path first.
      *
      * @param {CustomEvent} event Notification event (e.g. '<property>-changed')
-     * @param {!PropertyEffectsType} inst Host element instance handling the notification event
+     * @param {!Polymer_PropertyEffects} inst Host element instance handling the
+     *     notification event
      * @param {string} fromProp Child element property that was bound
      * @param {string} toPath Host property/path that was bound
      * @param {boolean} negate Whether the binding was negated
@@ -7121,7 +7240,7 @@ magnifying-glass {
      *
      * Sets the attribute named `info.attrName` to the given property value.
      *
-     * @param {!PropertyEffectsType} inst The instance the effect will be run on
+     * @param {!Polymer_PropertyEffects} inst The instance the effect will be run on
      * @param {string} property Name of property
      * @param {Object} props Bag of current property changes
      * @param {Object} oldProps Bag of previous values for changed properties
@@ -7147,9 +7266,9 @@ magnifying-glass {
      * computed before other effects (binding propagation, observers, and notify)
      * run.
      *
-     * @param {!PropertyEffectsType} inst The instance the effect will be run on
-     * @param {!Object} changedProps Bag of changed properties
-     * @param {!Object} oldProps Bag of previous values for changed properties
+     * @param {!Polymer_PropertyEffects} inst The instance the effect will be run on
+     * @param {?Object} changedProps Bag of changed properties
+     * @param {?Object} oldProps Bag of previous values for changed properties
      * @param {boolean} hasPaths True with `props` contains one or more paths
      * @return {void}
      * @private
@@ -7159,8 +7278,8 @@ magnifying-glass {
       if (computeEffects) {
         let inputProps = changedProps;
         while (runEffects(inst, computeEffects, inputProps, oldProps, hasPaths)) {
-          Object.assign(oldProps, inst.__dataOld);
-          Object.assign(changedProps, inst.__dataPending);
+          Object.assign(/** @type {!Object} */ (oldProps), inst.__dataOld);
+          Object.assign(/** @type {!Object} */ (changedProps), inst.__dataPending);
           inputProps = inst.__dataPending;
           inst.__dataPending = null;
         }
@@ -7172,10 +7291,10 @@ magnifying-glass {
      * values of the arguments specified in the `info` object and setting the
      * return value to the computed property specified.
      *
-     * @param {!PropertyEffectsType} inst The instance the effect will be run on
+     * @param {!Polymer_PropertyEffects} inst The instance the effect will be run on
      * @param {string} property Name of property
-     * @param {Object} props Bag of current property changes
-     * @param {Object} oldProps Bag of previous values for changed properties
+     * @param {?Object} props Bag of current property changes
+     * @param {?Object} oldProps Bag of previous values for changed properties
      * @param {?} info Effect metadata
      * @return {void}
      * @private
@@ -7194,8 +7313,8 @@ magnifying-glass {
      * Computes path changes based on path links set up using the `linkPaths`
      * API.
      *
-     * @param {!PropertyEffectsType} inst The instance whose props are changing
-     * @param {string | !Array<(string|number)>} path Path that has changed
+     * @param {!Polymer_PropertyEffects} inst The instance whose props are changing
+     * @param {string} path Path that has changed
      * @param {*} value Value of changed path
      * @return {void}
      * @private
@@ -7300,7 +7419,7 @@ magnifying-glass {
      * there is no support for _path_ bindings via custom binding parts,
      * as this is specific to Polymer's path binding syntax.
      *
-     * @param {!PropertyEffectsType} inst The instance the effect will be run on
+     * @param {!Polymer_PropertyEffects} inst The instance the effect will be run on
      * @param {string} path Name of property
      * @param {Object} props Bag of current property changes
      * @param {Object} oldProps Bag of previous values for changed properties
@@ -7337,7 +7456,7 @@ magnifying-glass {
      * Sets the value for an "binding" (binding) effect to a node,
      * either as a property or attribute.
      *
-     * @param {!PropertyEffectsType} inst The instance owning the binding effect
+     * @param {!Polymer_PropertyEffects} inst The instance owning the binding effect
      * @param {Node} node Target node for binding
      * @param {!Binding} binding Binding metadata
      * @param {!BindingPart} part Binding part metadata
@@ -7422,7 +7541,8 @@ magnifying-glass {
      * Setup compound binding storage structures, notify listeners, and dataHost
      * references onto the bound nodeList.
      *
-     * @param {!PropertyEffectsType} inst Instance that bas been previously bound
+     * @param {!Polymer_PropertyEffects} inst Instance that bas been previously
+     *     bound
      * @param {TemplateInfo} templateInfo Template metadata
      * @return {void}
      * @private
@@ -7476,6 +7596,12 @@ magnifying-glass {
         storage[target] = literals;
         // Configure properties with their literal parts
         if (binding.literal && binding.kind == 'property') {
+          // Note, className needs style scoping so this needs wrapping.
+          // We may also want to consider doing this for `textContent` and
+          // `innerHTML`.
+          if (target === 'className') {
+            node = wrap$1(node);
+          }
           node[target] = binding.literal;
         }
       }
@@ -7485,7 +7611,8 @@ magnifying-glass {
      * Adds a 2-way binding notification event listener to the node specified
      *
      * @param {Object} node Child element to add listener to
-     * @param {!PropertyEffectsType} inst Host element instance to handle notification event
+     * @param {!Polymer_PropertyEffects} inst Host element instance to handle
+     *     notification event
      * @param {Binding} binding Binding metadata
      * @return {void}
      * @private
@@ -7549,7 +7676,7 @@ magnifying-glass {
      * functions call this function to invoke the method, then use the return
      * value accordingly.
      *
-     * @param {!PropertyEffectsType} inst The instance the effect will be run on
+     * @param {!Polymer_PropertyEffects} inst The instance the effect will be run on
      * @param {string} property Name of property
      * @param {Object} props Bag of current property changes
      * @param {Object} oldProps Bag of previous values for changed properties
@@ -7719,6 +7846,19 @@ magnifying-glass {
       return a;
     }
 
+    function getArgValue(data, props, path) {
+      let value = get(data, path);
+      // when data is not stored e.g. `splices`, get the value from changedProps
+      // TODO(kschaaf): Note, this can cause a rare issue where the wildcard
+      // info.value could pull a stale value out of changedProps during a reentrant
+      // change that sets the value back to undefined.
+      // https://github.com/Polymer/polymer/issues/5479
+      if (value === undefined) {
+        value = props[path];
+      }
+      return value;
+    }
+
     // data api
 
     /**
@@ -7726,7 +7866,7 @@ magnifying-glass {
      *
      * Note: this implementation only accepts normalized paths
      *
-     * @param {!PropertyEffectsType} inst Instance to send notifications to
+     * @param {!Polymer_PropertyEffects} inst Instance to send notifications to
      * @param {Array} array The array the mutations occurred on
      * @param {string} path The path to the array that was mutated
      * @param {Array} splices Array of splice records
@@ -7734,11 +7874,8 @@ magnifying-glass {
      * @private
      */
     function notifySplices(inst, array, path, splices) {
-      let splicesPath = path + '.splices';
-      inst.notifyPath(splicesPath, { indexSplices: splices });
+      inst.notifyPath(path + '.splices', { indexSplices: splices });
       inst.notifyPath(path + '.length', array.length);
-      // Null here to allow potentially large splice records to be GC'ed.
-      inst.__data[splicesPath] = {indexSplices: null};
     }
 
     /**
@@ -7747,7 +7884,7 @@ magnifying-glass {
      *
      * Note: this implementation only accepts normalized paths
      *
-     * @param {!PropertyEffectsType} inst Instance to send notifications to
+     * @param {!Polymer_PropertyEffects} inst Instance to send notifications to
      * @param {Array} array The array the mutations occurred on
      * @param {string} path The path to the array that was mutated
      * @param {number} index Index at which the array mutation occurred
@@ -7811,12 +7948,14 @@ magnifying-glass {
      * @appliesMixin PropertyAccessors
      * @summary Element class mixin that provides meta-programming for Polymer's
      * template binding and data observation system.
+     * @template T
+     * @param {function(new:T)} superClass Class to apply mixin to.
+     * @return {function(new:T)} superClass with mixin applied.
      */
     const PropertyEffects = dedupingMixin(superClass => {
 
       /**
        * @constructor
-       * @extends {superClass}
        * @implements {Polymer_PropertyAccessors}
        * @implements {Polymer_TemplateStamp}
        * @unrestricted
@@ -7863,7 +8002,7 @@ magnifying-glass {
           this.__dataClientsInitialized;
           /** @type {!Object} */
           this.__data;
-          /** @type {!Object} */
+          /** @type {!Object|null} */
           this.__dataPending;
           /** @type {!Object} */
           this.__dataOld;
@@ -7883,11 +8022,15 @@ magnifying-glass {
           this.__templateInfo;
         }
 
+        /**
+         * @return {!Object<string, string>} Effect prototype property name map.
+         */
         get PROPERTY_EFFECT_TYPES() {
           return TYPES;
         }
 
         /**
+         * @override
          * @return {void}
          */
         _initializeProperties() {
@@ -7946,6 +8089,7 @@ magnifying-glass {
          * an instance to add effects at runtime.  See that method for
          * full API docs.
          *
+         * @override
          * @param {string} property Property that should trigger the effect
          * @param {string} type Effect type, from this.PROPERTY_EFFECT_TYPES
          * @param {Object=} effect Effect metadata object
@@ -7965,6 +8109,7 @@ magnifying-glass {
         /**
          * Removes the given property effect.
          *
+         * @override
          * @param {string} property Property the effect was associated with
          * @param {string} type Effect type, from this.PROPERTY_EFFECT_TYPES
          * @param {Object=} effect Effect metadata object to remove
@@ -7982,9 +8127,11 @@ magnifying-glass {
          * Returns whether the current prototype/instance has a property effect
          * of a certain type.
          *
+         * @override
          * @param {string} property Property name
          * @param {string=} type Effect type, from this.PROPERTY_EFFECT_TYPES
-         * @return {boolean} True if the prototype/instance has an effect of this type
+         * @return {boolean} True if the prototype/instance has an effect of this
+         *     type
          * @protected
          */
         _hasPropertyEffect(property, type) {
@@ -7996,8 +8143,10 @@ magnifying-glass {
          * Returns whether the current prototype/instance has a "read only"
          * accessor for the given property.
          *
+         * @override
          * @param {string} property Property name
-         * @return {boolean} True if the prototype/instance has an effect of this type
+         * @return {boolean} True if the prototype/instance has an effect of this
+         *     type
          * @protected
          */
         _hasReadOnlyEffect(property) {
@@ -8008,8 +8157,10 @@ magnifying-glass {
          * Returns whether the current prototype/instance has a "notify"
          * property effect for the given property.
          *
+         * @override
          * @param {string} property Property name
-         * @return {boolean} True if the prototype/instance has an effect of this type
+         * @return {boolean} True if the prototype/instance has an effect of this
+         *     type
          * @protected
          */
         _hasNotifyEffect(property) {
@@ -8017,11 +8168,13 @@ magnifying-glass {
         }
 
         /**
-         * Returns whether the current prototype/instance has a "reflect to attribute"
-         * property effect for the given property.
+         * Returns whether the current prototype/instance has a "reflect to
+         * attribute" property effect for the given property.
          *
+         * @override
          * @param {string} property Property name
-         * @return {boolean} True if the prototype/instance has an effect of this type
+         * @return {boolean} True if the prototype/instance has an effect of this
+         *     type
          * @protected
          */
         _hasReflectEffect(property) {
@@ -8032,8 +8185,10 @@ magnifying-glass {
          * Returns whether the current prototype/instance has a "computed"
          * property effect for the given property.
          *
+         * @override
          * @param {string} property Property name
-         * @return {boolean} True if the prototype/instance has an effect of this type
+         * @return {boolean} True if the prototype/instance has an effect of this
+         *     type
          * @protected
          */
         _hasComputedEffect(property) {
@@ -8057,6 +8212,7 @@ magnifying-glass {
          * `path` can be a path string or array of path parts as accepted by the
          * public API.
          *
+         * @override
          * @param {string | !Array<number|string>} path Path to set
          * @param {*} value Value to set
          * @param {boolean=} shouldNotify Set to true if this change should
@@ -8091,7 +8247,7 @@ magnifying-glass {
             }
             this.__dataHasPaths = true;
             if (this._setPendingProperty(/**@type{string}*/(path), value, shouldNotify)) {
-              computeLinkedPaths(this, path, value);
+              computeLinkedPaths(this, /**@type{string}*/ (path), value);
               return true;
             }
           } else {
@@ -8119,6 +8275,7 @@ magnifying-glass {
          *
          * Users may override this method to provide alternate approaches.
          *
+         * @override
          * @param {!Node} node The node to set a property on
          * @param {string} prop The property to set
          * @param {*} value The value to set
@@ -8131,6 +8288,10 @@ magnifying-glass {
           // implement a whitelist of tag & property values that should never
           // be reset (e.g. <input>.value && <select>.value)
           if (value !== node[prop] || typeof value == 'object') {
+            // Note, className needs style scoping so this needs wrapping.
+            if (prop === 'className') {
+              node = /** @type {!Node} */(wrap$1(node));
+            }
             node[prop] = value;
           }
         }
@@ -8236,6 +8397,7 @@ magnifying-glass {
          * pending property changes can later be flushed via a call to
          * `_flushClients`.
          *
+         * @override
          * @param {Object} client PropertyEffects client to enqueue
          * @return {void}
          * @protected
@@ -8250,6 +8412,7 @@ magnifying-glass {
         /**
          * Overrides superclass implementation.
          *
+         * @override
          * @return {void}
          * @protected
          */
@@ -8263,6 +8426,7 @@ magnifying-glass {
          * Flushes any clients previously enqueued via `_enqueueClient`, causing
          * their `_flushProperties` method to run.
          *
+         * @override
          * @return {void}
          * @protected
          */
@@ -8311,6 +8475,7 @@ magnifying-glass {
          * `_flushProperties` call on client dom and before any element
          * observers are called.
          *
+         * @override
          * @return {void}
          * @protected
          */
@@ -8325,6 +8490,7 @@ magnifying-glass {
          * Property names must be simple properties, not paths.  Batched
          * path propagation is not supported.
          *
+         * @override
          * @param {Object} props Bag of one or more key-value pairs whose key is
          *   a property and value is the new value to set for that property.
          * @param {boolean=} setReadOnly When true, any private values set in
@@ -8379,6 +8545,7 @@ magnifying-glass {
          * Runs each class of effects for the batch of changed properties in
          * a specific order (compute, propagate, reflect, observe, notify).
          *
+         * @override
          * @param {!Object} currentProps Bag of all current accessor values
          * @param {?Object} changedProps Bag of properties changed since the last
          *   call to `_propertiesChanged`
@@ -8425,6 +8592,7 @@ magnifying-glass {
          * Called to propagate any property changes to stamped template nodes
          * managed by this element.
          *
+         * @override
          * @param {Object} changedProps Bag of changed properties
          * @param {Object} oldProps Bag of previous values for changed properties
          * @param {boolean} hasPaths True with `props` contains one or more paths
@@ -8447,6 +8615,7 @@ magnifying-glass {
          * Aliases one data path as another, such that path notifications from one
          * are routed to the other.
          *
+         * @override
          * @param {string | !Array<string|number>} to Target path to link.
          * @param {string | !Array<string|number>} from Source path to link.
          * @return {void}
@@ -8465,6 +8634,7 @@ magnifying-glass {
          * Note, the path to unlink should be the target (`to`) used when
          * linking the paths.
          *
+         * @override
          * @param {string | !Array<string|number>} path Target path to unlink.
          * @return {void}
          * @public
@@ -8486,8 +8656,10 @@ magnifying-glass {
          *     this.items.splice(1, 1, {name: 'Sam'});
          *     this.items.push({name: 'Bob'});
          *     this.notifySplices('items', [
-         *       { index: 1, removed: [{name: 'Todd'}], addedCount: 1, object: this.items, type: 'splice' },
-         *       { index: 3, removed: [], addedCount: 1, object: this.items, type: 'splice'}
+         *       { index: 1, removed: [{name: 'Todd'}], addedCount: 1,
+         *         object: this.items, type: 'splice' },
+         *       { index: 3, removed: [], addedCount: 1,
+         *         object: this.items, type: 'splice'}
          *     ]);
          *
          * @param {string} path Path that should be notified.
@@ -8503,9 +8675,11 @@ magnifying-glass {
          *   Note that splice records _must_ be normalized such that they are
          *   reported in index order (raw results from `Object.observe` are not
          *   ordered and must be normalized/merged before notifying).
+         *
+         * @override
          * @return {void}
          * @public
-        */
+         */
         notifySplices(path, splices) {
           let info = {path: ''};
           let array = /** @type {Array} */(get(this, path, info));
@@ -8519,6 +8693,7 @@ magnifying-glass {
          * `undefined` (this method does not throw when dereferencing undefined
          * paths).
          *
+         * @override
          * @param {(string|!Array<(string|number)>)} path Path to the value
          *   to read.  The path may be specified as a string (e.g. `foo.bar.baz`)
          *   or an array of path parts (e.g. `['foo.bar', 'baz']`).  Note that
@@ -8543,6 +8718,7 @@ magnifying-glass {
          * this method does nothing (this method does not throw when
          * dereferencing undefined paths).
          *
+         * @override
          * @param {(string|!Array<(string|number)>)} path Path to the value
          *   to write.  The path may be specified as a string (e.g. `'foo.bar.baz'`)
          *   or an array of path parts (e.g. `['foo.bar', 'baz']`).  Note that
@@ -8555,7 +8731,7 @@ magnifying-glass {
          *   When specified, no notification will occur.
          * @return {void}
          * @public
-        */
+         */
         set(path, value, root$$1) {
           if (root$$1) {
             set(root$$1, path, value);
@@ -8577,6 +8753,7 @@ magnifying-glass {
          * This method notifies other paths to the same array that a
          * splice occurred to the array.
          *
+         * @override
          * @param {string | !Array<string|number>} path Path to array.
          * @param {...*} items Items to push onto array
          * @return {number} New length of the array.
@@ -8602,6 +8779,7 @@ magnifying-glass {
          * This method notifies other paths to the same array that a
          * splice occurred to the array.
          *
+         * @override
          * @param {string | !Array<string|number>} path Path to array.
          * @return {*} Item that was removed.
          * @public
@@ -8627,6 +8805,7 @@ magnifying-glass {
          * This method notifies other paths to the same array that a
          * splice occurred to the array.
          *
+         * @override
          * @param {string | !Array<string|number>} path Path to array.
          * @param {number} start Index from which to start removing/inserting.
          * @param {number=} deleteCount Number of items to remove.
@@ -8682,6 +8861,7 @@ magnifying-glass {
          * This method notifies other paths to the same array that a
          * splice occurred to the array.
          *
+         * @override
          * @param {string | !Array<string|number>} path Path to array.
          * @return {*} Item that was removed.
          * @public
@@ -8706,6 +8886,7 @@ magnifying-glass {
          * This method notifies other paths to the same array that a
          * splice occurred to the array.
          *
+         * @override
          * @param {string | !Array<string|number>} path Path to array.
          * @param {...*} items Items to insert info array
          * @return {number} New length of the array.
@@ -8729,11 +8910,12 @@ magnifying-glass {
          *     this.item.user.name = 'Bob';
          *     this.notifyPath('item.user.name');
          *
+         * @override
          * @param {string} path Path that should be notified.
          * @param {*=} value Value at the path (optional).
          * @return {void}
          * @public
-        */
+         */
         notifyPath(path, value) {
           /** @type {string} */
           let propPath;
@@ -8758,6 +8940,7 @@ magnifying-glass {
          * an instance to add effects at runtime.  See that method for
          * full API docs.
          *
+         * @override
          * @param {string} property Property name
          * @param {boolean=} protectedSetter Creates a custom protected setter
          *   when `true`.
@@ -8778,8 +8961,10 @@ magnifying-glass {
          * an instance to add effects at runtime.  See that method for
          * full API docs.
          *
+         * @override
          * @param {string} property Property name
-         * @param {string|function(*,*)} method Function or name of observer method to call
+         * @param {string|function(*,*)} method Function or name of observer method
+         *     to call
          * @param {boolean=} dynamicFn Whether the method name should be included as
          *   a dependency to the effect.
          * @return {void}
@@ -8802,6 +8987,7 @@ magnifying-glass {
          * an instance to add effects at runtime.  See that method for
          * full API docs.
          *
+         * @override
          * @param {string} expression Method expression
          * @param {boolean|Object=} dynamicFn Boolean or object map indicating
          *   whether method names should be included as a dependency to the effect.
@@ -8821,6 +9007,7 @@ magnifying-glass {
          * an instance to add effects at runtime.  See that method for
          * full API docs.
          *
+         * @override
          * @param {string} property Property name
          * @return {void}
          * @protected
@@ -8840,9 +9027,11 @@ magnifying-glass {
          * an instance to add effects at runtime.  See that method for
          * full API docs.
          *
+         * @override
          * @param {string} property Property name
          * @return {void}
          * @protected
+         * @suppress {missingProperties} go/missingfnprops
          */
         _createReflectedProperty(property) {
           let attr = this.constructor.attributeNameForProperty(property);
@@ -8864,6 +9053,7 @@ magnifying-glass {
          * an instance to add effects at runtime.  See that method for
          * full API docs.
          *
+         * @override
          * @param {string} property Name of computed property to set
          * @param {string} expression Method expression
          * @param {boolean|Object=} dynamicFn Boolean or object map indicating
@@ -8894,37 +9084,23 @@ magnifying-glass {
          */
         _marshalArgs(args, path, props) {
           const data = this.__data;
-          let values = [];
+          const values = [];
           for (let i=0, l=args.length; i<l; i++) {
-            let arg = args[i];
-            let name = arg.name;
-            let v;
-            if (arg.literal) {
-              v = arg.value;
-            } else {
-              if (arg.structured) {
-                v = get(data, name);
-                // when data is not stored e.g. `splices`
-                if (v === undefined) {
-                  v = props[name];
-                }
+            let {name, structured, wildcard, value, literal} = args[i];
+            if (!literal) {
+              if (wildcard) {
+                const matches$$1 = isDescendant(name, path);
+                const pathValue = getArgValue(data, props, matches$$1 ? path : name);
+                value = {
+                  path: matches$$1 ? path : name,
+                  value: pathValue,
+                  base: matches$$1 ? get(data, name) : pathValue
+                };
               } else {
-                v = data[name];
+                value = structured ? getArgValue(data, props, name) : data[name];
               }
             }
-            if (arg.wildcard) {
-              // Only send the actual path changed info if the change that
-              // caused the observer to run matched the wildcard
-              let baseChanged = (name.indexOf(path + '.') === 0);
-              let matches$$1 = (path.indexOf(name) === 0 && !baseChanged);
-              values[i] = {
-                path: matches$$1 ? path : name,
-                value: matches$$1 ? props[path] : v,
-                base: v
-              };
-            } else {
-              values[i] = v;
-            }
+            values[i] = value;
           }
           return values;
         }
@@ -8966,6 +9142,7 @@ magnifying-glass {
          * @param {Object=} effect Effect metadata object
          * @return {void}
          * @protected
+         * @nocollapse
          */
         static addPropertyEffect(property, type, effect) {
           this.prototype._addPropertyEffect(property, type, effect);
@@ -8980,6 +9157,7 @@ magnifying-glass {
          *   a dependency to the effect.
          * @return {void}
          * @protected
+         * @nocollapse
          */
         static createPropertyObserver(property, method, dynamicFn) {
           this.prototype._createPropertyObserver(property, method, dynamicFn);
@@ -8997,6 +9175,7 @@ magnifying-glass {
          * @return {void}
          *   whether method names should be included as a dependency to the effect.
          * @protected
+         * @nocollapse
          */
         static createMethodObserver(expression, dynamicFn) {
           this.prototype._createMethodObserver(expression, dynamicFn);
@@ -9009,6 +9188,7 @@ magnifying-glass {
          * @param {string} property Property name
          * @return {void}
          * @protected
+         * @nocollapse
          */
         static createNotifyingProperty(property) {
           this.prototype._createNotifyingProperty(property);
@@ -9029,6 +9209,7 @@ magnifying-glass {
          *   when `true`.
          * @return {void}
          * @protected
+         * @nocollapse
          */
         static createReadOnlyProperty(property, protectedSetter) {
           this.prototype._createReadOnlyProperty(property, protectedSetter);
@@ -9041,6 +9222,7 @@ magnifying-glass {
          * @param {string} property Property name
          * @return {void}
          * @protected
+         * @nocollapse
          */
         static createReflectedProperty(property) {
           this.prototype._createReflectedProperty(property);
@@ -9059,6 +9241,7 @@ magnifying-glass {
          *   method names should be included as a dependency to the effect.
          * @return {void}
          * @protected
+         * @nocollapse
          */
         static createComputedProperty(property, expression, dynamicFn) {
           this.prototype._createComputedProperty(property, expression, dynamicFn);
@@ -9075,6 +9258,7 @@ magnifying-glass {
          *   bindings
          * @return {!TemplateInfo} Template metadata object
          * @protected
+         * @nocollapse
          */
         static bindTemplate(template) {
           return this.prototype._bindTemplate(template);
@@ -9093,6 +9277,7 @@ magnifying-glass {
          * create and link an instance of the template metadata associated with a
          * particular stamping.
          *
+         * @override
          * @param {!HTMLTemplateElement} template Template containing binding
          *   bindings
          * @param {boolean=} instanceBinding When false (default), performs
@@ -9103,6 +9288,7 @@ magnifying-glass {
          * @return {!TemplateInfo} Template metadata object; for `runtimeBinding`,
          *   this is an instance of the prototypical template info
          * @protected
+         * @suppress {missingProperties} go/missingfnprops
          */
         _bindTemplate(template, instanceBinding) {
           let templateInfo = this.constructor._parseTemplate(template);
@@ -9141,6 +9327,7 @@ magnifying-glass {
          * @param {Object=} effect Effect metadata object
          * @return {void}
          * @protected
+         * @nocollapse
          */
         static _addTemplatePropertyEffect(templateInfo, prop, effect) {
           let hostProps = templateInfo.hostProps = templateInfo.hostProps || {};
@@ -9201,6 +9388,7 @@ magnifying-glass {
          * Removes and unbinds the nodes previously contained in the provided
          * DocumentFragment returned from `_stampTemplate`.
          *
+         * @override
          * @param {!StampedTemplate} dom DocumentFragment previously returned
          *   from `_stampTemplate` associated with the nodes to be removed
          * @return {void}
@@ -9237,7 +9425,6 @@ magnifying-glass {
          * with one or more metadata objects capturing the source(s) of the
          * binding.
          *
-         * @override
          * @param {Node} node Node to parse
          * @param {TemplateInfo} templateInfo Template metadata for current template
          * @param {NodeInfo} nodeInfo Node metadata for current template node
@@ -9245,9 +9432,13 @@ magnifying-glass {
          *   metadata to `nodeInfo`
          * @protected
          * @suppress {missingProperties} Interfaces in closure do not inherit statics, but classes do
+         * @nocollapse
          */
         static _parseTemplateNode(node, templateInfo, nodeInfo) {
-          let noted = super._parseTemplateNode(node, templateInfo, nodeInfo);
+          // TODO(https://github.com/google/closure-compiler/issues/3240):
+          //     Change back to just super.methodCall()
+          let noted = propertyEffectsBase._parseTemplateNode.call(
+            this, node, templateInfo, nodeInfo);
           if (node.nodeType === Node.TEXT_NODE) {
             let parts = this._parseBindings(node.textContent, templateInfo);
             if (parts) {
@@ -9270,7 +9461,6 @@ magnifying-glass {
          * with one or more metadata objects capturing the source(s) of the
          * binding.
          *
-         * @override
          * @param {Element} node Node to parse
          * @param {TemplateInfo} templateInfo Template metadata for current template
          * @param {NodeInfo} nodeInfo Node metadata for current template node
@@ -9280,6 +9470,7 @@ magnifying-glass {
          *   metadata to `nodeInfo`
          * @protected
          * @suppress {missingProperties} Interfaces in closure do not inherit statics, but classes do
+         * @nocollapse
          */
         static _parseTemplateNodeAttribute(node, templateInfo, nodeInfo, name, value) {
           let parts = this._parseBindings(value, templateInfo);
@@ -9299,6 +9490,11 @@ magnifying-glass {
             // Initialize attribute bindings with any literal parts
             let literal = literalFromParts(parts);
             if (literal && kind == 'attribute') {
+              // Ensure a ShadyCSS template scoped style is not removed
+              // when a class$ binding's initial literal value is set.
+              if (name == 'class' && node.hasAttribute('class')) {
+                literal += ' ' + node.getAttribute(name);
+              }
               node.setAttribute(name, literal);
             }
             // Clear attribute before removing, since IE won't allow removing
@@ -9320,7 +9516,10 @@ magnifying-glass {
             addBinding(this, templateInfo, nodeInfo, kind, name, parts, literal);
             return true;
           } else {
-            return super._parseTemplateNodeAttribute(node, templateInfo, nodeInfo, name, value);
+            // TODO(https://github.com/google/closure-compiler/issues/3240):
+            //     Change back to just super.methodCall()
+            return propertyEffectsBase._parseTemplateNodeAttribute.call(
+              this, node, templateInfo, nodeInfo, name, value);
           }
         }
 
@@ -9329,7 +9528,6 @@ magnifying-glass {
          * binding the properties that a nested template depends on to the template
          * as `_host_<property>`.
          *
-         * @override
          * @param {Node} node Node to parse
          * @param {TemplateInfo} templateInfo Template metadata for current template
          * @param {NodeInfo} nodeInfo Node metadata for current template node
@@ -9337,9 +9535,13 @@ magnifying-glass {
          *   metadata to `nodeInfo`
          * @protected
          * @suppress {missingProperties} Interfaces in closure do not inherit statics, but classes do
+         * @nocollapse
          */
         static _parseTemplateNestedTemplate(node, templateInfo, nodeInfo) {
-          let noted = super._parseTemplateNestedTemplate(node, templateInfo, nodeInfo);
+          // TODO(https://github.com/google/closure-compiler/issues/3240):
+          //     Change back to just super.methodCall()
+          let noted = propertyEffectsBase._parseTemplateNestedTemplate.call(
+            this, node, templateInfo, nodeInfo);
           // Merge host props into outer template and add bindings
           let hostProps = nodeInfo.templateInfo.hostProps;
           let mode = '{';
@@ -9393,6 +9595,7 @@ magnifying-glass {
          * @param {Object} templateInfo Current template metadata
          * @return {Array<!BindingPart>} Array of binding part metadata
          * @protected
+         * @nocollapse
          */
         static _parseBindings(text, templateInfo) {
           let parts = [];
@@ -9465,8 +9668,8 @@ magnifying-glass {
          * Called to evaluate a previously parsed binding part based on a set of
          * one or more changed dependencies.
          *
-         * @param {this} inst Element that should be used as scope for
-         *   binding dependencies
+         * @param {!Polymer_PropertyEffects} inst Element that should be used as
+         *     scope for binding dependencies
          * @param {BindingPart} part Binding part metadata
          * @param {string} path Property/path that triggered this effect
          * @param {Object} props Bag of current property changes
@@ -9474,6 +9677,7 @@ magnifying-glass {
          * @param {boolean} hasPaths True with `props` contains one or more paths
          * @return {*} Value the binding part evaluated to
          * @protected
+         * @nocollapse
          */
         static _evaluateBinding(inst, part, path, props, oldProps, hasPaths) {
           let value;
@@ -9570,6 +9774,24 @@ magnifying-glass {
     */
 
     /**
+     * Registers a class prototype for telemetry purposes.
+     * @param {!PolymerElementConstructor} prototype Element prototype to register
+     * @protected
+     */
+    function register(prototype) {
+    }
+
+    /**
+    @license
+    Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
+    This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+    The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+    The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+    Code distributed by Google as part of the polymer project is also
+    subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+    */
+
+    /**
      * Creates a copy of `props` with each property normalized such that
      * upgraded it is an object with at least a type property { type: Type}.
      *
@@ -9603,6 +9825,9 @@ magnifying-glass {
      * @appliesMixin PropertiesChanged
      * @summary Mixin that provides a minimal starting point for using
      * the PropertiesChanged mixin by providing a declarative `properties` object.
+     * @template T
+     * @param {function(new:T)} superClass Class to apply mixin to.
+     * @return {function(new:T)} superClass with mixin applied.
      */
     const PropertiesMixin = dedupingMixin(superClass => {
 
@@ -9669,10 +9894,15 @@ magnifying-glass {
         * Implements standard custom elements getter to observes the attributes
         * listed in `properties`.
         * @suppress {missingProperties} Interfaces in closure do not inherit statics, but classes do
+        * @nocollapse
         */
        static get observedAttributes() {
-         const props = this._properties;
-         return props ? Object.keys(props).map(p => this.attributeNameForProperty(p)) : [];
+         if (!this.hasOwnProperty('__observedAttributes')) {
+           register(this.prototype);
+           const props = this._properties;
+           this.__observedAttributes = props ? Object.keys(props).map(p => this.attributeNameForProperty(p)) : [];
+         }
+         return this.__observedAttributes;
        }
 
        /**
@@ -9681,6 +9911,7 @@ magnifying-glass {
         * accessors exist on the element prototype. This method calls
         * `_finalizeClass` to finalize each constructor in the prototype chain.
         * @return {void}
+        * @nocollapse
         */
        static finalize() {
          if (!this.hasOwnProperty(JSCompiler_renameProperty('__finalized', this))) {
@@ -9699,11 +9930,12 @@ magnifying-glass {
         * `finalize` and finalizes the class constructor.
         *
         * @protected
+        * @nocollapse
         */
        static _finalizeClass() {
          const props = ownProperties(/** @type {!PropertiesMixinConstructor} */(this));
          if (props) {
-           this.createProperties(props);
+           /** @type {?} */ (this).createProperties(props);
          }
        }
 
@@ -9714,6 +9946,7 @@ magnifying-glass {
         *
         * @return {Object} Object containing properties for this class
         * @protected
+        * @nocollapse
         */
        static get _properties() {
          if (!this.hasOwnProperty(
@@ -9733,6 +9966,7 @@ magnifying-glass {
         * @return {*} Type to which to deserialize attribute
         *
         * @protected
+        * @nocollapse
         */
        static typeForProperty(name) {
          const info = this._properties[name];
@@ -9784,20 +10018,24 @@ magnifying-glass {
     });
 
     /**
-    @license
-    Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
-    This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-    The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-    The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-    Code distributed by Google as part of the polymer project is also
-    subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
-    */
+     * @fileoverview
+     * @suppress {checkPrototypalTypes}
+     * @license Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
+     * This code may only be used under the BSD style license found at
+     * http://polymer.github.io/LICENSE.txt The complete set of authors may be found
+     * at http://polymer.github.io/AUTHORS.txt The complete set of contributors may
+     * be found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by
+     * Google as part of the polymer project is also subject to an additional IP
+     * rights grant found at http://polymer.github.io/PATENTS.txt
+     */
 
     /**
      * Current Polymer version in Semver notation.
      * @type {string} Semver notation of the current version of Polymer.
      */
-    const version = '3.0.5';
+    const version = '3.3.0';
+
+    const builtCSS = window.ShadyCSS && window.ShadyCSS['cssBuild'];
 
     /**
      * Element class mixin that provides the core API for Polymer's meta-programming
@@ -9866,14 +10104,16 @@ magnifying-glass {
      *   import strategies.
      * @summary Element class mixin that provides the core API for Polymer's
      * meta-programming features.
+     * @template T
+     * @param {function(new:T)} superClass Class to apply mixin to.
+     * @return {function(new:T)} superClass with mixin applied.
      */
     const ElementMixin = dedupingMixin(base => {
-
       /**
        * @constructor
-       * @extends {base}
        * @implements {Polymer_PropertyEffects}
        * @implements {Polymer_PropertiesMixin}
+       * @extends {HTMLElement}
        * @private
        */
       const polymerElementBase = PropertiesMixin(PropertyEffects(base));
@@ -9914,9 +10154,11 @@ magnifying-glass {
       function ownObservers(constructor) {
         if (!constructor.hasOwnProperty(
           JSCompiler_renameProperty('__ownObservers', constructor))) {
-            constructor.__ownObservers =
-            constructor.hasOwnProperty(JSCompiler_renameProperty('observers', constructor)) ?
-            /** @type {PolymerElementConstructor} */ (constructor).observers : null;
+          constructor.__ownObservers =
+              constructor.hasOwnProperty(
+                  JSCompiler_renameProperty('observers', constructor)) ?
+              /** @type {PolymerElementConstructor} */ (constructor).observers :
+              null;
         }
         return constructor.__ownObservers;
       }
@@ -9968,7 +10210,6 @@ magnifying-glass {
        * disables the effect, the setter would fail unexpectedly.
        * Based on feedback, we may want to try to make effects more malleable
        * and/or provide an advanced api for manipulating them.
-       * Also consider adding warnings when an effect cannot be changed.
        *
        * @param {!PolymerElement} proto Element class prototype to add accessors
        *   and effects to
@@ -9990,17 +10231,27 @@ magnifying-glass {
         // setup where multiple triggers for setting a property)
         // While we do have `hasComputedEffect` this is set on the property's
         // dependencies rather than itself.
-        if (info.computed && !proto._hasReadOnlyEffect(name)) {
-          proto._createComputedProperty(name, info.computed, allProps);
+        if (info.computed) {
+          if (proto._hasReadOnlyEffect(name)) {
+            console.warn(`Cannot redefine computed property '${name}'.`);
+          } else {
+            proto._createComputedProperty(name, info.computed, allProps);
+          }
         }
         if (info.readOnly && !proto._hasReadOnlyEffect(name)) {
           proto._createReadOnlyProperty(name, !info.computed);
+        } else if (info.readOnly === false && proto._hasReadOnlyEffect(name)) {
+          console.warn(`Cannot make readOnly property '${name}' non-readOnly.`);
         }
         if (info.reflectToAttribute && !proto._hasReflectEffect(name)) {
           proto._createReflectedProperty(name);
+        } else if (info.reflectToAttribute === false && proto._hasReflectEffect(name)) {
+          console.warn(`Cannot make reflected property '${name}' non-reflected.`);
         }
         if (info.notify && !proto._hasNotifyEffect(name)) {
           proto._createNotifyingProperty(name);
+        } else if (info.notify === false && proto._hasNotifyEffect(name)) {
+          console.warn(`Cannot make notify property '${name}' non-notify.`);
         }
         // always add observer
         if (info.observer) {
@@ -10021,31 +10272,33 @@ magnifying-glass {
        * @private
        */
       function processElementStyles(klass, template, is, baseURI) {
-        const templateStyles = template.content.querySelectorAll('style');
-        const stylesWithImports = stylesFromTemplate(template);
-        // insert styles from <link rel="import" type="css"> at the top of the template
-        const linkedStyles = stylesFromModuleImports(is);
-        const firstTemplateChild = template.content.firstElementChild;
-        for (let idx = 0; idx < linkedStyles.length; idx++) {
-          let s = linkedStyles[idx];
-          s.textContent = klass._processStyleText(s.textContent, baseURI);
-          template.content.insertBefore(s, firstTemplateChild);
-        }
-        // keep track of the last "concrete" style in the template we have encountered
-        let templateStyleIndex = 0;
-        // ensure all gathered styles are actually in this template.
-        for (let i = 0; i < stylesWithImports.length; i++) {
-          let s = stylesWithImports[i];
-          let templateStyle = templateStyles[templateStyleIndex];
-          // if the style is not in this template, it's been "included" and
-          // we put a clone of it in the template before the style that included it
-          if (templateStyle !== s) {
-            s = s.cloneNode(true);
-            templateStyle.parentNode.insertBefore(s, templateStyle);
-          } else {
-            templateStyleIndex++;
+        if (!builtCSS) {
+          const templateStyles = template.content.querySelectorAll('style');
+          const stylesWithImports = stylesFromTemplate(template);
+          // insert styles from <link rel="import" type="css"> at the top of the template
+          const linkedStyles = stylesFromModuleImports(is);
+          const firstTemplateChild = template.content.firstElementChild;
+          for (let idx = 0; idx < linkedStyles.length; idx++) {
+            let s = linkedStyles[idx];
+            s.textContent = klass._processStyleText(s.textContent, baseURI);
+            template.content.insertBefore(s, firstTemplateChild);
           }
-          s.textContent = klass._processStyleText(s.textContent, baseURI);
+          // keep track of the last "concrete" style in the template we have encountered
+          let templateStyleIndex = 0;
+          // ensure all gathered styles are actually in this template.
+          for (let i = 0; i < stylesWithImports.length; i++) {
+            let s = stylesWithImports[i];
+            let templateStyle = templateStyles[templateStyleIndex];
+            // if the style is not in this template, it's been "included" and
+            // we put a clone of it in the template before the style that included it
+            if (templateStyle !== s) {
+              s = s.cloneNode(true);
+              templateStyle.parentNode.insertBefore(s, templateStyle);
+            } else {
+              templateStyleIndex++;
+            }
+            s.textContent = klass._processStyleText(s.textContent, baseURI);
+          }
         }
         if (window.ShadyCSS) {
           window.ShadyCSS.prepareTemplate(template, is);
@@ -10055,8 +10308,8 @@ magnifying-glass {
       /**
        * Look up template from dom-module for element
        *
-       * @param {!string} is Element name to look up
-       * @return {!HTMLTemplateElement} Template found in dom module, or
+       * @param {string} is Element name to look up
+       * @return {?HTMLTemplateElement|undefined} Template found in dom module, or
        *   undefined if not found
        * @protected
        */
@@ -10065,7 +10318,8 @@ magnifying-glass {
         // Under strictTemplatePolicy in 3.x+, dom-module lookup is only allowed
         // when opted-in via allowTemplateFromDomModule
         if (is && (!strictTemplatePolicy || allowTemplateFromDomModule)) {
-          template = DomModule.import(is, 'template');
+          template = /** @type {?HTMLTemplateElement} */ (
+              DomModule.import(is, 'template'));
           // Under strictTemplatePolicy, require any element with an `is`
           // specified to have a dom-module
           if (strictTemplatePolicy && !template) {
@@ -10080,12 +10334,14 @@ magnifying-glass {
        * @mixinClass
        * @unrestricted
        * @implements {Polymer_ElementMixin}
+       * @extends {polymerElementBase}
        */
       class PolymerElement extends polymerElementBase {
 
         /**
          * Current Polymer version in Semver notation.
          * @type {string} Semver notation of the current version of Polymer.
+         * @nocollapse
          */
         static get polymerElementVersion() {
           return version;
@@ -10096,43 +10352,49 @@ magnifying-glass {
          * find the template.
          * @return {void}
          * @protected
-         * @override
          * @suppress {missingProperties} Interfaces in closure do not inherit statics, but classes do
+         * @nocollapse
          */
-       static _finalizeClass() {
-          super._finalizeClass();
-          if (this.hasOwnProperty(
-            JSCompiler_renameProperty('is', this)) &&  this.is) {
-            register(this.prototype);
-          }
+        static _finalizeClass() {
+          // TODO(https://github.com/google/closure-compiler/issues/3240):
+          //     Change back to just super.methodCall()
+          polymerElementBase._finalizeClass.call(this);
           const observers = ownObservers(this);
           if (observers) {
             this.createObservers(observers, this._properties);
           }
+          this._prepareTemplate();
+        }
+
+        /** @nocollapse */
+        static _prepareTemplate() {
           // note: create "working" template that is finalized at instance time
           let template = /** @type {PolymerElementConstructor} */ (this).template;
           if (template) {
             if (typeof template === 'string') {
               console.error('template getter must return HTMLTemplateElement');
               template = null;
-            } else {
+            } else if (!legacyOptimizations) {
               template = template.cloneNode(true);
             }
           }
 
+          /** @override */
           this.prototype._template = template;
         }
 
         /**
          * Override of PropertiesChanged createProperties to create accessors
          * and property effects for all of the properties.
+         * @param {!Object} props .
          * @return {void}
          * @protected
-         * @override
+         * @nocollapse
          */
-         static createProperties(props) {
+        static createProperties(props) {
           for (let p in props) {
-            createPropertyFromConfig(this.prototype, p, props[p], props);
+            createPropertyFromConfig(
+                /** @type {?} */ (this.prototype), p, props[p], props);
           }
         }
 
@@ -10146,6 +10408,7 @@ magnifying-glass {
          *   reference is changed
          * @return {void}
          * @protected
+         * @nocollapse
          */
         static createObservers(observers, dynamicFns) {
           const proto = this.prototype;
@@ -10189,6 +10452,7 @@ magnifying-glass {
          *   }
          *
          * @return {!HTMLTemplateElement|string} Template to be stamped
+         * @nocollapse
          */
         static get template() {
           // Explanation of template-related properties:
@@ -10223,6 +10487,7 @@ magnifying-glass {
          * Set the template.
          *
          * @param {!HTMLTemplateElement|string} value Template to set.
+         * @nocollapse
          */
         static set template(value) {
           this._template = value;
@@ -10246,6 +10511,7 @@ magnifying-glass {
          *
          * @return {string} The import path for this element class
          * @suppress {missingProperties}
+         * @nocollapse
          */
         static get importPath() {
           if (!this.hasOwnProperty(JSCompiler_renameProperty('_importPath', this))) {
@@ -10287,7 +10553,7 @@ magnifying-glass {
          *
          * @return {void}
          * @override
-         * @suppress {invalidCasts}
+         * @suppress {invalidCasts,missingProperties} go/missingfnprops
          */
         _initializeProperties() {
           this.constructor.finalize();
@@ -10330,6 +10596,7 @@ magnifying-glass {
          * @param {string} baseURI Base URI to rebase CSS paths against
          * @return {string} The processed CSS text
          * @protected
+         * @nocollapse
          */
         static _processStyleText(cssText, baseURI) {
           return resolveCss(cssText, baseURI);
@@ -10343,6 +10610,7 @@ magnifying-glass {
         * @param {string} is Tag name (or type extension name) for this element
         * @return {void}
         * @protected
+        * @nocollapse
         */
         static _finalizeTemplate(is) {
           /** @const {HTMLTemplateElement} */
@@ -10365,7 +10633,9 @@ magnifying-glass {
          * flushes any pending properties, and updates shimmed CSS properties
          * when using the ShadyCSS scoping/custom properties polyfill.
          *
-         * @suppress {missingProperties, invalidCasts} Super may or may not implement the callback
+         * @override
+         * @suppress {missingProperties, invalidCasts} Super may or may not
+         *     implement the callback
          * @return {void}
          */
         connectedCallback() {
@@ -10417,19 +10687,24 @@ magnifying-glass {
          * However, this method may be overridden to allow an element
          * to put its dom in another location.
          *
+         * @override
          * @throws {Error}
          * @suppress {missingReturn}
          * @param {StampedTemplate} dom to attach to the element.
          * @return {ShadowRoot} node to which the dom has been attached.
          */
         _attachDom(dom) {
-          if (this.attachShadow) {
+          const n = wrap$1(this);
+          if (n.attachShadow) {
             if (dom) {
-              if (!this.shadowRoot) {
-                this.attachShadow({mode: 'open'});
+              if (!n.shadowRoot) {
+                n.attachShadow({mode: 'open', shadyUpgradeFragment: dom});
+                n.shadowRoot.appendChild(dom);
               }
-              this.shadowRoot.appendChild(dom);
-              return this.shadowRoot;
+              if (syncInitialRender && window.ShadyDOM) {
+                ShadyDOM.flushInitial(n.shadowRoot);
+              }
+              return n.shadowRoot;
             }
             return null;
           } else {
@@ -10456,6 +10731,7 @@ magnifying-glass {
          * Note: This function does not support updating CSS mixins.
          * You can not dynamically change the value of an `@apply`.
          *
+         * @override
          * @param {Object=} properties Bag of custom property key/values to
          *   apply to this element.
          * @return {void}
@@ -10477,6 +10753,7 @@ magnifying-glass {
          * with `/` (absolute URLs) or `#` (hash identifiers).  For general purpose
          * URL resolution, use `window.URL`.
          *
+         * @override
          * @param {string} url URL to resolve.
          * @param {string=} base Optional base URL to resolve against, defaults
          * to the element's `importPath`
@@ -10490,32 +10767,61 @@ magnifying-glass {
         }
 
         /**
-         * Overrides `PropertyAccessors` to add map of dynamic functions on
+         * Overrides `PropertyEffects` to add map of dynamic functions on
          * template info, for consumption by `PropertyEffects` template binding
          * code. This map determines which method templates should have accessors
          * created for them.
          *
-         * @override
+         * @param {!HTMLTemplateElement} template Template
+         * @param {!TemplateInfo} templateInfo Template metadata for current template
+         * @param {!NodeInfo} nodeInfo Node metadata for current template.
+         * @return {boolean} .
          * @suppress {missingProperties} Interfaces in closure do not inherit statics, but classes do
+         * @nocollapse
          */
         static _parseTemplateContent(template, templateInfo, nodeInfo) {
           templateInfo.dynamicFns = templateInfo.dynamicFns || this._properties;
-          return super._parseTemplateContent(template, templateInfo, nodeInfo);
+          // TODO(https://github.com/google/closure-compiler/issues/3240):
+          //     Change back to just super.methodCall()
+          return polymerElementBase._parseTemplateContent.call(
+            this, template, templateInfo, nodeInfo);
+        }
+
+        /**
+         * Overrides `PropertyEffects` to warn on use of undeclared properties in
+         * template.
+         *
+         * @param {Object} templateInfo Template metadata to add effect to
+         * @param {string} prop Property that should trigger the effect
+         * @param {Object=} effect Effect metadata object
+         * @return {void}
+         * @protected
+         * @suppress {missingProperties} Interfaces in closure do not inherit statics, but classes do
+         * @nocollapse
+         */
+        static _addTemplatePropertyEffect(templateInfo, prop, effect) {
+          // Warn if properties are used in template without being declared.
+          // Properties must be listed in `properties` to be included in
+          // `observedAttributes` since CE V1 reads that at registration time, and
+          // since we want to keep template parsing lazy, we can't automatically
+          // add undeclared properties used in templates to `observedAttributes`.
+          // The warning is only enabled in `legacyOptimizations` mode, since
+          // we don't want to spam existing users who might have adopted the
+          // shorthand when attribute deserialization is not important.
+          if (legacyOptimizations && !(prop in this._properties)) {
+            console.warn(`Property '${prop}' used in template but not declared in 'properties'; ` +
+              `attribute will not be observed.`);
+          }
+          // TODO(https://github.com/google/closure-compiler/issues/3240):
+          //     Change back to just super.methodCall()
+          return polymerElementBase._addTemplatePropertyEffect.call(
+            this, templateInfo, prop, effect);
         }
 
       }
 
       return PolymerElement;
     });
-
-    /**
-     * Registers a class prototype for telemetry purposes.
-     * @param {HTMLElement} prototype Element prototype to register
-     * @this {this}
-     * @protected
-     */
-    function register(prototype) {
-    }
 
     /**
     @license
@@ -10550,6 +10856,7 @@ magnifying-glass {
         this._callback = callback;
         this._timer = this._asyncModule.run(() => {
           this._timer = null;
+          debouncerQueue.delete(this);
           this._callback();
         });
       }
@@ -10559,6 +10866,21 @@ magnifying-glass {
        * @return {void}
        */
       cancel() {
+        if (this.isActive()) {
+          this._cancelAsync();
+          // Canceling a debouncer removes its spot from the flush queue,
+          // so if a debouncer is manually canceled and re-debounced, it
+          // will reset its flush order (this is a very minor difference from 1.x)
+          // Re-debouncing via the `debounce` API retains the 1.x FIFO flush order
+          debouncerQueue.delete(this);
+        }
+      }
+      /**
+       * Cancels a debouncer's async callback.
+       *
+       * @return {void}
+       */
+      _cancelAsync() {
         if (this.isActive()) {
           this._asyncModule.cancel(/** @type {number} */(this._timer));
           this._timer = null;
@@ -10619,7 +10941,9 @@ magnifying-glass {
        */
       static debounce(debouncer, asyncModule, callback) {
         if (debouncer instanceof Debouncer) {
-          debouncer.cancel();
+          // Cancel the async callback, but leave in debouncerQueue if it was
+          // enqueued, to maintain 1.x flush order
+          debouncer._cancelAsync();
         } else {
           debouncer = new Debouncer();
         }
@@ -10627,6 +10951,39 @@ magnifying-glass {
         return debouncer;
       }
     }
+
+    let debouncerQueue = new Set();
+
+    /**
+     * Adds a `Debouncer` to a list of globally flushable tasks.
+     *
+     * @param {!Debouncer} debouncer Debouncer to enqueue
+     * @return {void}
+     */
+    const enqueueDebouncer = function(debouncer) {
+      debouncerQueue.add(debouncer);
+    };
+
+    /**
+     * Flushes any enqueued debouncers
+     *
+     * @return {boolean} Returns whether any debouncers were flushed
+     */
+    const flushDebouncers = function() {
+      const didFlush = Boolean(debouncerQueue.size);
+      // If new debouncers are added while flushing, Set.forEach will ensure
+      // newly added ones are also flushed
+      debouncerQueue.forEach(debouncer => {
+        try {
+          debouncer.flush();
+        } catch(e) {
+          setTimeout(() => {
+            throw e;
+          });
+        }
+      });
+      return didFlush;
+    };
 
     /**
     @license
@@ -10784,23 +11141,22 @@ magnifying-glass {
       // disable "ghost clicks"
       if (mouseEvent.type === 'click') {
         let clickFromLabel = false;
-        let path = mouseEvent.composedPath && mouseEvent.composedPath();
-        if (path) {
-          for (let i = 0; i < path.length; i++) {
-            if (path[i].nodeType === Node.ELEMENT_NODE) {
-              if (path[i].localName === 'label') {
-                clickedLabels.push(path[i]);
-              } else if (canBeLabelled(path[i])) {
-                let ownerLabels = matchingLabels(path[i]);
-                // check if one of the clicked labels is labelling this element
-                for (let j = 0; j < ownerLabels.length; j++) {
-                  clickFromLabel = clickFromLabel || clickedLabels.indexOf(ownerLabels[j]) > -1;
-                }
+        let path = getComposedPath(mouseEvent);
+        for (let i = 0; i < path.length; i++) {
+          if (path[i].nodeType === Node.ELEMENT_NODE) {
+            if (path[i].localName === 'label') {
+              clickedLabels.push(/** @type {!HTMLLabelElement} */ (path[i]));
+            } else if (canBeLabelled(/** @type {!HTMLElement} */ (path[i]))) {
+              let ownerLabels =
+                  matchingLabels(/** @type {!HTMLElement} */ (path[i]));
+              // check if one of the clicked labels is labelling this element
+              for (let j = 0; j < ownerLabels.length; j++) {
+                clickFromLabel = clickFromLabel || clickedLabels.indexOf(ownerLabels[j]) > -1;
               }
             }
-            if (path[i] === POINTERSTATE.mouse.target) {
-              return;
-            }
+          }
+          if (path[i] === POINTERSTATE.mouse.target) {
+            return;
           }
         }
         // if one of the clicked labels was labelling the target element,
@@ -10832,6 +11188,9 @@ magnifying-glass {
     }
 
     function ignoreMouse(e) {
+      if (!cancelSyntheticClickEvents) {
+        return;
+      }
       if (!POINTERSTATE.mouse.mouseIgnoreJob) {
         setupTeardownMouseCanceller(true);
       }
@@ -10840,7 +11199,7 @@ magnifying-glass {
         POINTERSTATE.mouse.target = null;
         POINTERSTATE.mouse.mouseIgnoreJob = null;
       };
-      POINTERSTATE.mouse.target = e.composedPath()[0];
+      POINTERSTATE.mouse.target = getComposedPath(e)[0];
       POINTERSTATE.mouse.mouseIgnoreJob = Debouncer.debounce(
             POINTERSTATE.mouse.mouseIgnoreJob
           , timeOut.after(MOUSE_TIMEOUT)
@@ -10914,14 +11273,12 @@ magnifying-glass {
 
     function firstTouchAction(ev) {
       let ta = 'auto';
-      let path = ev.composedPath && ev.composedPath();
-      if (path) {
-        for (let i = 0, n; i < path.length; i++) {
-          n = path[i];
-          if (n[TOUCH_ACTION]) {
-            ta = n[TOUCH_ACTION];
-            break;
-          }
+      let path = getComposedPath(ev);
+      for (let i = 0, n; i < path.length; i++) {
+        n = path[i];
+        if (n[TOUCH_ACTION]) {
+          ta = n[TOUCH_ACTION];
+          break;
         }
       }
       return ta;
@@ -10941,9 +11298,20 @@ magnifying-glass {
       stateObj.upfn = null;
     }
 
-    // use a document-wide touchend listener to start the ghost-click prevention mechanism
-    // Use passive event listeners, if supported, to not affect scrolling performance
-    document.addEventListener('touchend', ignoreMouse, SUPPORTS_PASSIVE ? {passive: true} : false);
+    if (cancelSyntheticClickEvents) {
+      // use a document-wide touchend listener to start the ghost-click prevention mechanism
+      // Use passive event listeners, if supported, to not affect scrolling performance
+      document.addEventListener('touchend', ignoreMouse, SUPPORTS_PASSIVE ? {passive: true} : false);
+    }
+
+    /**
+     * Returns the composedPath for the given event.
+     * @param {Event} event to process
+     * @return {!Array<!EventTarget>} Path of the event
+     */
+    const getComposedPath = window.ShadyDOM && window.ShadyDOM.noPatch ?
+      window.ShadyDOM.composedPath :
+      (event) => event.composedPath && event.composedPath() || [];
 
     /** @type {!Object<string, !GestureRecognizer>} */
     const gestures = {};
@@ -10991,14 +11359,9 @@ magnifying-glass {
      * @return {EventTarget} Returns the event target.
      */
     function _findOriginalTarget(ev) {
-      // shadowdom
-      if (ev.composedPath) {
-        const targets = /** @type {!Array<!EventTarget>} */(ev.composedPath());
-        // It shouldn't be, but sometimes targets is empty (window on Safari).
-        return targets.length > 0 ? targets[0] : ev.target;
-      }
-      // shadydom
-      return ev.target;
+      const path = getComposedPath(/** @type {?Event} */ (ev));
+      // It shouldn't be, but sometimes path is empty (window on Safari).
+      return path.length > 0 ? path[0] : ev.target;
     }
 
     /**
@@ -11268,7 +11631,7 @@ magnifying-glass {
     function _fire(target, type, detail) {
       let ev = new Event(type, { bubbles: true, cancelable: true, composed: true });
       ev.detail = detail;
-      target.dispatchEvent(ev);
+      wrap$1(/** @type {!Node} */(target)).dispatchEvent(ev);
       // forward `preventDefault` in a clean way
       if (ev.defaultPrevented) {
         let preventer = detail.preventer || detail.sourceEvent;
@@ -11681,65 +12044,63 @@ magnifying-glass {
      * @mixinFunction
      * @polymer
      * @summary Element class mixin that provides API for adding Polymer's
-     *   cross-platform
-     * gesture events to nodes
+     *   cross-platform gesture events to nodes
+     * @template T
+     * @param {function(new:T)} superClass Class to apply mixin to.
+     * @return {function(new:T)} superClass with mixin applied.
      */
-    const GestureEventListeners = dedupingMixin(
+    const GestureEventListeners = dedupingMixin((superClass) => {
+      /**
+       * @polymer
+       * @mixinClass
+       * @implements {Polymer_GestureEventListeners}
+       */
+      class GestureEventListeners extends superClass {
         /**
-         * @template T
-         * @param {function(new:T)} superClass Class to apply mixin to.
-         * @return {function(new:T)} superClass with mixin applied.
+         * Add the event listener to the node if it is a gestures event.
+         *
+         * @param {!EventTarget} node Node to add event listener to
+         * @param {string} eventName Name of event
+         * @param {function(!Event):void} handler Listener function to add
+         * @return {void}
+         * @override
          */
-        (superClass) => {
-          /**
-           * @polymer
-           * @mixinClass
-           * @implements {Polymer_GestureEventListeners}
-           */
-          class GestureEventListeners extends superClass {
-            /**
-             * Add the event listener to the node if it is a gestures event.
-             *
-             * @param {!EventTarget} node Node to add event listener to
-             * @param {string} eventName Name of event
-             * @param {function(!Event):void} handler Listener function to add
-             * @return {void}
-             * @override
-             */
-            _addEventListenerToNode(node, eventName, handler) {
-              if (!addListener(node, eventName, handler)) {
-                super._addEventListenerToNode(node, eventName, handler);
-              }
-            }
-
-            /**
-             * Remove the event listener to the node if it is a gestures event.
-             *
-             * @param {!EventTarget} node Node to remove event listener from
-             * @param {string} eventName Name of event
-             * @param {function(!Event):void} handler Listener function to remove
-             * @return {void}
-             * @override
-             */
-            _removeEventListenerFromNode(node, eventName, handler) {
-              if (!removeListener(node, eventName, handler)) {
-                super._removeEventListenerFromNode(node, eventName, handler);
-              }
-            }
+        _addEventListenerToNode(node, eventName, handler) {
+          if (!addListener(node, eventName, handler)) {
+            super._addEventListenerToNode(node, eventName, handler);
           }
+        }
 
-          return GestureEventListeners;
-        });
+        /**
+         * Remove the event listener to the node if it is a gestures event.
+         *
+         * @param {!EventTarget} node Node to remove event listener from
+         * @param {string} eventName Name of event
+         * @param {function(!Event):void} handler Listener function to remove
+         * @return {void}
+         * @override
+         */
+        _removeEventListenerFromNode(node, eventName, handler) {
+          if (!removeListener(node, eventName, handler)) {
+            super._removeEventListenerFromNode(node, eventName, handler);
+          }
+        }
+      }
+
+      return GestureEventListeners;
+    });
 
     /**
-    @license
-    Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
-    This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-    The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-    The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-    Code distributed by Google as part of the polymer project is also
-    subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
-    */
+     * @fileoverview
+     * @suppress {checkPrototypalTypes}
+     * @license Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
+     * This code may only be used under the BSD style license found at
+     * http://polymer.github.io/LICENSE.txt The complete set of authors may be found
+     * at http://polymer.github.io/AUTHORS.txt The complete set of contributors may
+     * be found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by
+     * Google as part of the polymer project is also subject to an additional IP
+     * rights grant found at http://polymer.github.io/PATENTS.txt
+     */
 
     const HOST_DIR = /:host\(:dir\((ltr|rtl)\)\)/g;
     const HOST_DIR_REPLACMENT = ':host([dir="$1"])';
@@ -11747,12 +12108,16 @@ magnifying-glass {
     const EL_DIR = /([\s\w-#\.\[\]\*]*):dir\((ltr|rtl)\)/g;
     const EL_DIR_REPLACMENT = ':host([dir="$2"]) $1';
 
+    const DIR_CHECK = /:dir\((?:ltr|rtl)\)/;
+
+    const SHIM_SHADOW = Boolean(window['ShadyDOM'] && window['ShadyDOM']['inUse']);
+
     /**
      * @type {!Array<!Polymer_DirMixin>}
      */
     const DIR_INSTANCES = [];
 
-    /** @type {MutationObserver} */
+    /** @type {?MutationObserver} */
     let observer = null;
 
     let DOCUMENT_DIR = '';
@@ -11807,18 +12172,22 @@ magnifying-glass {
      * @mixinFunction
      * @polymer
      * @appliesMixin PropertyAccessors
+     * @template T
+     * @param {function(new:T)} superClass Class to apply mixin to.
+     * @return {function(new:T)} superClass with mixin applied.
      */
     const DirMixin = dedupingMixin((base) => {
 
-      if (!observer) {
-        getRTL();
-        observer = new MutationObserver(updateDirection);
-        observer.observe(document.documentElement, {attributes: true, attributeFilter: ['dir']});
+      if (!SHIM_SHADOW) {
+        if (!observer) {
+          getRTL();
+          observer = new MutationObserver(updateDirection);
+          observer.observe(document.documentElement, {attributes: true, attributeFilter: ['dir']});
+        }
       }
 
       /**
        * @constructor
-       * @extends {base}
        * @implements {Polymer_PropertyAccessors}
        * @private
        */
@@ -11832,12 +12201,20 @@ magnifying-glass {
       class Dir extends elementBase {
 
         /**
-         * @override
+         * @param {string} cssText .
+         * @param {string} baseURI .
+         * @return {string} .
          * @suppress {missingProperties} Interfaces in closure do not inherit statics, but classes do
+         * @nocollapse
          */
         static _processStyleText(cssText, baseURI) {
-          cssText = super._processStyleText(cssText, baseURI);
-          cssText = this._replaceDirInCssText(cssText);
+          // TODO(https://github.com/google/closure-compiler/issues/3240):
+          //     Change back to just super.methodCall()
+          cssText = elementBase._processStyleText.call(this, cssText, baseURI);
+          if (!SHIM_SHADOW && DIR_CHECK.test(cssText)) {
+            cssText = this._replaceDirInCssText(cssText);
+            this.__activateDir = true;
+          }
           return cssText;
         }
 
@@ -11846,14 +12223,12 @@ magnifying-glass {
          *
          * @param {string} text CSS text to replace DIR
          * @return {string} Modified CSS
+         * @nocollapse
          */
         static _replaceDirInCssText(text) {
           let replacedText = text;
           replacedText = replacedText.replace(HOST_DIR, HOST_DIR_REPLACMENT);
           replacedText = replacedText.replace(EL_DIR, EL_DIR_REPLACMENT);
-          if (text !== replacedText) {
-            this.__activateDir = true;
-          }
           return replacedText;
         }
 
@@ -11864,7 +12239,9 @@ magnifying-glass {
         }
 
         /**
-         * @suppress {invalidCasts} Closure doesn't understand that `this` is an HTMLElement
+         * @override
+         * @suppress {invalidCasts} Closure doesn't understand that `this` is an
+         *     HTMLElement
          * @return {void}
          */
         ready() {
@@ -11873,7 +12250,9 @@ magnifying-glass {
         }
 
         /**
-         * @suppress {missingProperties} If it exists on elementBase, it can be super'd
+         * @override
+         * @suppress {missingProperties} If it exists on elementBase, it can be
+         *   super'd
          * @return {void}
          */
         connectedCallback() {
@@ -11888,7 +12267,9 @@ magnifying-glass {
         }
 
         /**
-         * @suppress {missingProperties} If it exists on elementBase, it can be super'd
+         * @override
+         * @suppress {missingProperties} If it exists on elementBase, it can be
+         *   super'd
          * @return {void}
          */
         disconnectedCallback() {
@@ -12298,8 +12679,9 @@ magnifying-glass {
      *
      * @summary Class that listens for changes (additions or removals) to
      * "flattened nodes" on a given `node`.
+     * @implements {PolymerDomApi.ObserveHandle}
      */
-    class FlattenedNodesObserver {
+    let FlattenedNodesObserver = class {
 
       /**
        * Returns the list of flattened nodes for the given `node`.
@@ -12315,15 +12697,17 @@ magnifying-glass {
        * @return {!Array<!Node>} The list of flattened nodes for the given `node`.
        * @nocollapse See https://github.com/google/closure-compiler/issues/2763
        */
+      // eslint-disable-next-line
       static getFlattenedNodes(node) {
+        const wrapped = wrap$1(node);
         if (isSlot(node)) {
           node = /** @type {!HTMLSlotElement} */(node); // eslint-disable-line no-self-assign
-          return node.assignedNodes({flatten: true});
+          return wrapped.assignedNodes({flatten: true});
         } else {
-          return Array.from(node.childNodes).map((node) => {
+          return Array.from(wrapped.childNodes).map((node) => {
             if (isSlot(node)) {
               node = /** @type {!HTMLSlotElement} */(node); // eslint-disable-line no-self-assign
-              return node.assignedNodes({flatten: true});
+              return wrap$1(node).assignedNodes({flatten: true});
             } else {
               return [node];
             }
@@ -12336,6 +12720,7 @@ magnifying-glass {
        * @param {?function(this: Element, { target: !HTMLElement, addedNodes: !Array<!Element>, removedNodes: !Array<!Element> }):void} callback Function called when there are additions
        * or removals from the target's list of flattened nodes.
        */
+      // eslint-disable-next-line
       constructor(target, callback) {
         /**
          * @type {MutationObserver}
@@ -12378,9 +12763,9 @@ magnifying-glass {
       connect() {
         if (isSlot(this._target)) {
           this._listenSlots([this._target]);
-        } else if (this._target.children) {
+        } else if (wrap$1(this._target).children) {
           this._listenSlots(
-              /** @type {!NodeList<!Node>} */ (this._target.children));
+              /** @type {!NodeList<!Node>} */ (wrap$1(this._target).children));
           if (window.ShadyDOM) {
             this._shadyChildrenObserver =
               ShadyDOM.observeChildren(this._target, (mutations) => {
@@ -12404,13 +12789,14 @@ magnifying-glass {
        * the observer.
        *
        * @return {void}
+       * @override
        */
       disconnect() {
         if (isSlot(this._target)) {
           this._unlistenSlots([this._target]);
-        } else if (this._target.children) {
+        } else if (wrap$1(this._target).children) {
           this._unlistenSlots(
-              /** @type {!NodeList<!Node>} */ (this._target.children));
+              /** @type {!NodeList<!Node>} */ (wrap$1(this._target).children));
           if (window.ShadyDOM && this._shadyChildrenObserver) {
             ShadyDOM.unobserveChildren(this._shadyChildrenObserver);
             this._shadyChildrenObserver = null;
@@ -12541,7 +12927,7 @@ magnifying-glass {
         }
       }
 
-    }
+    };
 
     /**
     @license
@@ -12552,33 +12938,6 @@ magnifying-glass {
     Code distributed by Google as part of the polymer project is also
     subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
     */
-    /* eslint-enable no-unused-vars */
-
-    let debouncerQueue = [];
-
-    /**
-     * Adds a `Debouncer` to a list of globally flushable tasks.
-     *
-     * @param {!Debouncer} debouncer Debouncer to enqueue
-     * @return {void}
-     */
-    const enqueueDebouncer = function(debouncer) {
-      debouncerQueue.push(debouncer);
-    };
-
-    function flushDebouncers() {
-      const didFlush = Boolean(debouncerQueue.length);
-      while (debouncerQueue.length) {
-        try {
-          debouncerQueue.shift().flush();
-        } catch(e) {
-          setTimeout(() => {
-            throw e;
-          });
-        }
-      }
-      return didFlush;
-    }
 
     /**
      * Forces several classes of asynchronously queued tasks to flush:
@@ -12632,14 +12991,18 @@ magnifying-glass {
     /**
      * Node API wrapper class returned from `Polymer.dom.(target)` when
      * `target` is a `Node`.
-     *
+     * @implements {PolymerDomApi}
+     * @unrestricted
      */
-    class DomApi {
+    class DomApiNative {
 
       /**
        * @param {Node} node Node for which to create a Polymer.dom helper object.
        */
       constructor(node) {
+        if (window['ShadyDOM'] && window['ShadyDOM']['inUse']) {
+          window['ShadyDOM']['patch'](node);
+        }
         this.node = node;
       }
 
@@ -12649,7 +13012,8 @@ magnifying-glass {
        *
        * @param {function(this:HTMLElement, { target: !HTMLElement, addedNodes: !Array<!Element>, removedNodes: !Array<!Element> }):void} callback Called when direct or distributed children
        *   of this element changes
-       * @return {!FlattenedNodesObserver} Observer instance
+       * @return {!PolymerDomApi.ObserveHandle} Observer instance
+       * @override
        */
       observeNodes(callback) {
         return new FlattenedNodesObserver(
@@ -12659,9 +13023,10 @@ magnifying-glass {
       /**
        * Disconnects an observer previously created via `observeNodes`
        *
-       * @param {!FlattenedNodesObserver} observerHandle Observer instance
+       * @param {!PolymerDomApi.ObserveHandle} observerHandle Observer instance
        *   to disconnect.
        * @return {void}
+       * @override
        */
       unobserveNodes(observerHandle) {
         observerHandle.disconnect();
@@ -12681,9 +13046,10 @@ magnifying-glass {
        * @param {Node} node Node to test
        * @return {boolean} Returns true if the given `node` is contained within
        *   this element's light or shadow DOM.
+       * @override
        */
       deepContains(node) {
-        if (this.node.contains(node)) {
+        if (wrap$1(this.node).contains(node)) {
           return true;
         }
         let n = node;
@@ -12691,7 +13057,7 @@ magnifying-glass {
         // walk from node to `this` or `document`
         while (n && n !== doc && n !== this.node) {
           // use logical parentnode, or native ShadowRoot host
-          n = n.parentNode || n.host;
+          n = wrap$1(n).parentNode || wrap$1(n).host;
         }
         return n === this.node;
       }
@@ -12703,9 +13069,10 @@ magnifying-glass {
        * exists. If the node is connected to a document this is either a
        * shadowRoot or the document; otherwise, it may be the node
        * itself or a node or document fragment containing it.
+       * @override
        */
       getOwnerRoot() {
-        return this.node.getRootNode();
+        return wrap$1(this.node).getRootNode();
       }
 
       /**
@@ -12713,10 +13080,11 @@ magnifying-glass {
        * an empty array. It is equivalent to `<slot>.addignedNodes({flatten:true})`.
        *
        * @return {!Array<!Node>} Array of assigned nodes
+       * @override
        */
       getDistributedNodes() {
         return (this.node.localName === 'slot') ?
-          this.node.assignedNodes({flatten: true}) :
+          wrap$1(this.node).assignedNodes({flatten: true}) :
           [];
       }
 
@@ -12724,13 +13092,14 @@ magnifying-glass {
        * Returns an array of all slots this element was distributed to.
        *
        * @return {!Array<!HTMLSlotElement>} Description
+       * @override
        */
       getDestinationInsertionPoints() {
         let ip$ = [];
-        let n = this.node.assignedSlot;
+        let n = wrap$1(this.node).assignedSlot;
         while (n) {
           ip$.push(n);
-          n = n.assignedSlot;
+          n = wrap$1(n).assignedSlot;
         }
         return ip$;
       }
@@ -12746,12 +13115,13 @@ magnifying-glass {
       importNode(node, deep) {
         let doc = this.node instanceof Document ? this.node :
           this.node.ownerDocument;
-        return doc.importNode(node, deep);
+        return wrap$1(doc).importNode(node, deep);
       }
 
       /**
        * @return {!Array<!Node>} Returns a flattened list of all child nodes and
        * nodes assigned to child slots.
+       * @override
        */
       getEffectiveChildNodes() {
         return FlattenedNodesObserver.getFlattenedNodes(
@@ -12764,6 +13134,7 @@ magnifying-glass {
        *
        * @param {string} selector Selector to filter nodes against
        * @return {!Array<!HTMLElement>} List of flattened child elements
+       * @override
        */
       queryDistributedElements(selector) {
         let c$ = this.getEffectiveChildNodes();
@@ -12781,7 +13152,8 @@ magnifying-glass {
        * For shadow roots, returns the currently focused element within this
        * shadow root.
        *
-       * @return {Node|undefined} Currently focused element
+       * return {Node|undefined} Currently focused element
+       * @override
        */
       get activeElement() {
         let node = this.node;
@@ -12793,7 +13165,7 @@ magnifying-glass {
       for (let i=0; i < methods.length; i++) {
         let method = methods[i];
         /* eslint-disable valid-jsdoc */
-        proto[method] = /** @this {DomApi} */ function() {
+        proto[method] = /** @this {DomApiNative} */ function() {
           return this.node[method].apply(this.node, arguments);
         };
         /* eslint-enable */
@@ -12805,7 +13177,7 @@ magnifying-glass {
         let name = properties[i];
         Object.defineProperty(proto, name, {
           get: function() {
-            const domApi = /** @type {DomApi} */(this);
+            const domApi = /** @type {DomApiNative} */(this);
             return domApi.node[name];
           },
           configurable: true
@@ -12818,14 +13190,14 @@ magnifying-glass {
         let name = properties[i];
         Object.defineProperty(proto, name, {
           /**
-           * @this {DomApi}
+           * @this {DomApiNative}
            * @return {*} .
            */
           get: function() {
             return this.node[name];
           },
           /**
-           * @this {DomApi}
+           * @this {DomApiNative}
            * @param {*} value .
            */
           set: function(value) {
@@ -12852,7 +13224,7 @@ magnifying-glass {
        * @return {!EventTarget} The node this event was dispatched to
        */
       get rootTarget() {
-        return this.event.composedPath()[0];
+        return this.path[0];
       }
 
       /**
@@ -12878,105 +13250,166 @@ magnifying-glass {
      * @param {boolean=} deep
      * @return {!Node}
      */
-    DomApi.prototype.cloneNode;
+    DomApiNative.prototype.cloneNode;
     /**
      * @function
      * @param {!Node} node
      * @return {!Node}
      */
-    DomApi.prototype.appendChild;
+    DomApiNative.prototype.appendChild;
     /**
      * @function
      * @param {!Node} newChild
      * @param {Node} refChild
      * @return {!Node}
      */
-    DomApi.prototype.insertBefore;
+    DomApiNative.prototype.insertBefore;
     /**
      * @function
      * @param {!Node} node
      * @return {!Node}
      */
-    DomApi.prototype.removeChild;
+    DomApiNative.prototype.removeChild;
     /**
      * @function
      * @param {!Node} oldChild
      * @param {!Node} newChild
      * @return {!Node}
      */
-    DomApi.prototype.replaceChild;
+    DomApiNative.prototype.replaceChild;
     /**
      * @function
      * @param {string} name
      * @param {string} value
      * @return {void}
      */
-    DomApi.prototype.setAttribute;
+    DomApiNative.prototype.setAttribute;
     /**
      * @function
      * @param {string} name
      * @return {void}
      */
-    DomApi.prototype.removeAttribute;
+    DomApiNative.prototype.removeAttribute;
     /**
      * @function
      * @param {string} selector
      * @return {?Element}
      */
-    DomApi.prototype.querySelector;
+    DomApiNative.prototype.querySelector;
     /**
      * @function
      * @param {string} selector
      * @return {!NodeList<!Element>}
      */
-    DomApi.prototype.querySelectorAll;
+    DomApiNative.prototype.querySelectorAll;
 
     /** @type {?Node} */
-    DomApi.prototype.parentNode;
+    DomApiNative.prototype.parentNode;
     /** @type {?Node} */
-    DomApi.prototype.firstChild;
+    DomApiNative.prototype.firstChild;
     /** @type {?Node} */
-    DomApi.prototype.lastChild;
+    DomApiNative.prototype.lastChild;
     /** @type {?Node} */
-    DomApi.prototype.nextSibling;
+    DomApiNative.prototype.nextSibling;
     /** @type {?Node} */
-    DomApi.prototype.previousSibling;
+    DomApiNative.prototype.previousSibling;
     /** @type {?HTMLElement} */
-    DomApi.prototype.firstElementChild;
+    DomApiNative.prototype.firstElementChild;
     /** @type {?HTMLElement} */
-    DomApi.prototype.lastElementChild;
+    DomApiNative.prototype.lastElementChild;
     /** @type {?HTMLElement} */
-    DomApi.prototype.nextElementSibling;
+    DomApiNative.prototype.nextElementSibling;
     /** @type {?HTMLElement} */
-    DomApi.prototype.previousElementSibling;
+    DomApiNative.prototype.previousElementSibling;
     /** @type {!Array<!Node>} */
-    DomApi.prototype.childNodes;
+    DomApiNative.prototype.childNodes;
     /** @type {!Array<!HTMLElement>} */
-    DomApi.prototype.children;
+    DomApiNative.prototype.children;
     /** @type {?DOMTokenList} */
-    DomApi.prototype.classList;
+    DomApiNative.prototype.classList;
 
     /** @type {string} */
-    DomApi.prototype.textContent;
+    DomApiNative.prototype.textContent;
     /** @type {string} */
-    DomApi.prototype.innerHTML;
+    DomApiNative.prototype.innerHTML;
 
-    forwardMethods(DomApi.prototype, [
-      'cloneNode', 'appendChild', 'insertBefore', 'removeChild',
-      'replaceChild', 'setAttribute', 'removeAttribute',
-      'querySelector', 'querySelectorAll'
-    ]);
+    let DomApiImpl = DomApiNative;
 
-    forwardReadOnlyProperties(DomApi.prototype, [
-      'parentNode', 'firstChild', 'lastChild',
-      'nextSibling', 'previousSibling', 'firstElementChild',
-      'lastElementChild', 'nextElementSibling', 'previousElementSibling',
-      'childNodes', 'children', 'classList'
-    ]);
+    if (window['ShadyDOM'] && window['ShadyDOM']['inUse'] && window['ShadyDOM']['noPatch'] && window['ShadyDOM']['Wrapper']) {
 
-    forwardProperties(DomApi.prototype, [
-      'textContent', 'innerHTML'
-    ]);
+      /**
+       * @private
+       * @extends {HTMLElement}
+       */
+      class Wrapper extends window['ShadyDOM']['Wrapper'] {}
+
+      // copy bespoke API onto wrapper
+      Object.getOwnPropertyNames(DomApiNative.prototype).forEach((prop) => {
+        if (prop != 'activeElement') {
+          Wrapper.prototype[prop] = DomApiNative.prototype[prop];
+        }
+      });
+
+      // Note, `classList` is here only for legacy compatibility since it does not
+      // trigger distribution in v1 Shadow DOM.
+      forwardReadOnlyProperties(Wrapper.prototype, [
+        'classList'
+      ]);
+
+      DomApiImpl = Wrapper;
+
+      Object.defineProperties(EventApi.prototype, {
+
+        // Returns the "lowest" node in the same root as the event's currentTarget.
+        // When in `noPatch` mode, this must be calculated by walking the event's
+        // path.
+        localTarget: {
+          get() {
+            const current = this.event.currentTarget;
+            const currentRoot = current && dom(current).getOwnerRoot();
+            const p$ = this.path;
+            for (let i = 0; i < p$.length; i++) {
+              const e = p$[i];
+              if (dom(e).getOwnerRoot() === currentRoot) {
+                return e;
+              }
+            }
+          },
+          configurable: true
+        },
+
+        path: {
+          get() {
+            return window['ShadyDOM']['composedPath'](this.event);
+          },
+          configurable: true
+        }
+      });
+
+    } else {
+
+      // Methods that can provoke distribution or must return the logical, not
+      // composed tree.
+      forwardMethods(DomApiNative.prototype, [
+        'cloneNode', 'appendChild', 'insertBefore', 'removeChild',
+        'replaceChild', 'setAttribute', 'removeAttribute',
+        'querySelector', 'querySelectorAll'
+      ]);
+
+      // Properties that should return the logical, not composed tree. Note, `classList`
+      // is here only for legacy compatibility since it does not trigger distribution
+      // in v1 Shadow DOM.
+      forwardReadOnlyProperties(DomApiNative.prototype, [
+        'parentNode', 'firstChild', 'lastChild',
+        'nextSibling', 'previousSibling', 'firstElementChild',
+        'lastElementChild', 'nextElementSibling', 'previousElementSibling',
+        'childNodes', 'children', 'classList'
+      ]);
+
+      forwardProperties(DomApiNative.prototype, [
+        'textContent', 'innerHTML', 'className'
+      ]);
+    }
 
     /**
      * Legacy DOM and Event manipulation API wrapper factory used to abstract
@@ -12989,22 +13422,123 @@ magnifying-glass {
      *
      * @summary Legacy DOM and Event manipulation API wrapper factory used to
      * abstract differences between native Shadow DOM and "Shady DOM."
-     * @param {(Node|Event)=} obj Node or event to operate on
-     * @return {!DomApi|!EventApi} Wrapper providing either node API or event API
+     * @param {(Node|Event|DomApiNative|EventApi)=} obj Node or event to operate on
+     * @return {!DomApiNative|!EventApi} Wrapper providing either node API or event API
      */
     const dom = function(obj) {
       obj = obj || document;
-      if (!obj.__domApi) {
-        let helper;
+      if (obj instanceof DomApiImpl) {
+        return /** @type {!DomApi} */(obj);
+      }
+      if (obj instanceof EventApi) {
+        return /** @type {!EventApi} */(obj);
+      }
+      let helper = obj['__domApi'];
+      if (!helper) {
         if (obj instanceof Event) {
           helper = new EventApi(obj);
         } else {
-          helper = new DomApi(obj);
+          helper = new DomApiImpl(/** @type {Node} */(obj));
         }
-        obj.__domApi = helper;
+        obj['__domApi'] = helper;
       }
-      return obj.__domApi;
+      return helper;
     };
+
+    /**
+    @license
+    Copyright (c) 2019 The Polymer Project Authors. All rights reserved.
+    This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+    The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+    The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+    Code distributed by Google as part of the polymer project is also
+    subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+    */
+
+    const ShadyDOM$1 = window.ShadyDOM;
+    const ShadyCSS = window.ShadyCSS;
+
+    /**
+     * Return true if node scope is correct.
+     *
+     * @param {!Element} node Node to check scope
+     * @param {!Node} scope Scope reference
+     * @return {boolean} True if node is in scope
+     */
+    function sameScope(node, scope) {
+      return wrap$1(node).getRootNode() === scope;
+    }
+
+    /**
+     * Ensure that elements in a ShadowDOM container are scoped correctly.
+     * This function is only needed when ShadyDOM is used and unpatched DOM APIs are used in third party code.
+     * This can happen in noPatch mode or when specialized APIs like ranges or tables are used to mutate DOM.
+     *
+     * @param  {!Element} container Container element to scope
+     * @param  {boolean=} shouldObserve if true, start a mutation observer for added nodes to the container
+     * @return {?MutationObserver} Returns a new MutationObserver on `container` if `shouldObserve` is true.
+     */
+    function scopeSubtree(container, shouldObserve = false) {
+      // If using native ShadowDOM, abort
+      if (!ShadyDOM$1 || !ShadyCSS) {
+        return null;
+      }
+      // ShadyCSS handles DOM mutations when ShadyDOM does not handle scoping itself
+      if (!ShadyDOM$1['handlesDynamicScoping']) {
+        return null;
+      }
+      const ScopingShim = ShadyCSS['ScopingShim'];
+      // if ScopingShim is not available, abort
+      if (!ScopingShim) {
+        return null;
+      }
+      // capture correct scope for container
+      const containerScope = ScopingShim['scopeForNode'](container);
+      const root = wrap$1(container).getRootNode();
+
+      const scopify = (node) => {
+        if (!sameScope(node, root)) {
+          return;
+        }
+        // NOTE: native qSA does not honor scoped DOM, but it is faster, and the same behavior as Polymer v1
+        const elements = Array.from(ShadyDOM$1['nativeMethods']['querySelectorAll'].call(node, '*'));
+        elements.push(node);
+        for (let i = 0; i < elements.length; i++) {
+          const el = elements[i];
+          if (!sameScope(el, root)) {
+            continue;
+          }
+          const currentScope = ScopingShim['currentScopeForNode'](el);
+          if (currentScope !== containerScope) {
+            if (currentScope !== '') {
+              ScopingShim['unscopeNode'](el, currentScope);
+            }
+            ScopingShim['scopeNode'](el, containerScope);
+          }
+        }
+      };
+
+      // scope everything in container
+      scopify(container);
+
+      if (shouldObserve) {
+        const mo = new MutationObserver((mxns) => {
+          for (let i = 0; i < mxns.length; i++) {
+            const mxn = mxns[i];
+            for (let j = 0; j < mxn.addedNodes.length; j++) {
+              const addedNode = mxn.addedNodes[j];
+              if (addedNode.nodeType === Node.ELEMENT_NODE) {
+                scopify(addedNode);
+              }
+            }
+          }
+        });
+        mo.observe(container, {childList: true, subtree: true});
+        return mo;
+      } else {
+        return null;
+      }
+    }
 
     /**
     @license
@@ -13033,13 +13567,12 @@ magnifying-glass {
      * @summary Element class mixin that provides Polymer's "legacy" API
      */
     const LegacyElementMixin = dedupingMixin((base) => {
-
       /**
        * @constructor
-       * @extends {base}
        * @implements {Polymer_ElementMixin}
        * @implements {Polymer_GestureEventListeners}
        * @implements {Polymer_DirMixin}
+       * @extends {HTMLElement}
        * @private
        */
       const legacyElementBase = DirMixin(GestureEventListeners(ElementMixin(base)));
@@ -13068,15 +13601,10 @@ magnifying-glass {
           super();
           /** @type {boolean} */
           this.isAttached;
-          /** @type {WeakMap<!Element, !Object<string, !Function>>} */
+          /** @type {?WeakMap<!Element, !Object<string, !Function>>} */
           this.__boundListeners;
-          /** @type {Object<string, Function>} */
+          /** @type {?Object<string, ?Function>} */
           this._debouncers;
-          // Ensure listeners are applied immediately so that they are
-          // added before declarative event listeners. This allows an element to
-          // decorate itself via an event prior to any declarative listeners
-          // seeing the event. Note, this ensures compatibility with 1.x ordering.
-          this._applyListeners();
         }
 
         /**
@@ -13086,6 +13614,7 @@ magnifying-glass {
          * @return {!Object} The `import.meta` object set on the prototype
          * @suppress {missingProperties} `this` is always in the instance in
          *  closure for some reason even in a static method, rather than the class
+         * @nocollapse
          */
         static get importMeta() {
           return this.prototype.importMeta;
@@ -13094,6 +13623,7 @@ magnifying-glass {
         /**
          * Legacy callback called during the `constructor`, for overriding
          * by the user.
+         * @override
          * @return {void}
          */
         created() {}
@@ -13113,6 +13643,7 @@ magnifying-glass {
         /**
          * Legacy callback called during `connectedCallback`, for overriding
          * by the user.
+         * @override
          * @return {void}
          */
         attached() {}
@@ -13132,6 +13663,7 @@ magnifying-glass {
         /**
          * Legacy callback called during `disconnectedCallback`, for overriding
          * by the user.
+         * @override
          * @return {void}
          */
         detached() {}
@@ -13160,6 +13692,7 @@ magnifying-glass {
          * @param {?string} old Old value of attribute.
          * @param {?string} value Current value of attribute.
          * @return {void}
+         * @override
          */
         attributeChanged(name, old, value) {} // eslint-disable-line no-unused-vars
 
@@ -13175,12 +13708,18 @@ magnifying-glass {
         _initializeProperties() {
           let proto = Object.getPrototypeOf(this);
           if (!proto.hasOwnProperty('__hasRegisterFinished')) {
-            proto.__hasRegisterFinished = true;
             this._registered();
+            // backstop in case the `_registered` implementation does not set this
+            proto.__hasRegisterFinished = true;
           }
           super._initializeProperties();
           this.root = /** @type {HTMLElement} */(this);
           this.created();
+          // Ensure listeners are applied immediately so that they are
+          // added before declarative event listeners. This allows an element to
+          // decorate itself via an event prior to any declarative listeners
+          // seeing the event. Note, this ensures compatibility with 1.x ordering.
+          this._applyListeners();
         }
 
         /**
@@ -13190,6 +13729,7 @@ magnifying-glass {
          * only once for the class.
          * @protected
          * @return {void}
+         * @override
          */
         _registered() {}
 
@@ -13215,6 +13755,7 @@ magnifying-glass {
          * setting aria roles and focusability.
          * @protected
          * @return {void}
+         * @override
          */
         _ensureAttributes() {}
 
@@ -13228,6 +13769,7 @@ magnifying-glass {
          * block render.
          * @protected
          * @return {void}
+         * @override
          */
         _applyListeners() {}
 
@@ -13242,6 +13784,7 @@ magnifying-glass {
          *
          * @param {*} value Value to deserialize
          * @return {string | undefined} Serialized value
+         * @override
          */
         serialize(value) {
           return this._serializeValue(value);
@@ -13259,6 +13802,7 @@ magnifying-glass {
          * @param {string} value String to deserialize
          * @param {*} type Type to deserialize the string to
          * @return {*} Returns the deserialized value in the `type` given.
+         * @override
          */
         deserialize(value, type) {
           return this._deserializeValue(value, type);
@@ -13274,6 +13818,7 @@ magnifying-glass {
          * @param {string=} attribute Attribute name to reflect.
          * @param {*=} value Property value to reflect.
          * @return {void}
+         * @override
          */
         reflectPropertyToAttribute(property, attribute, value) {
           this._propertyToAttribute(property, attribute, value);
@@ -13289,6 +13834,7 @@ magnifying-glass {
          * @param {string} attribute Attribute name to serialize to.
          * @param {Element} node Element to set attribute to.
          * @return {void}
+         * @override
          */
         serializeValueToAttribute(value, attribute, node) {
           this._valueToNodeAttribute(/** @type {Element} */ (node || this), value, attribute);
@@ -13301,6 +13847,7 @@ magnifying-glass {
          * @param {Object} prototype Target object to copy properties to.
          * @param {Object} api Source object to copy properties from.
          * @return {Object} prototype object that was passed as first argument.
+         * @override
          */
         extend(prototype, api) {
           if (!(prototype && api)) {
@@ -13326,6 +13873,7 @@ magnifying-glass {
          * @param {!Object} target Target object to copy properties to.
          * @param {!Object} source Source object to copy properties from.
          * @return {!Object} Target object that was passed as first argument.
+         * @override
          */
         mixin(target, source) {
           for (let i in source) {
@@ -13344,6 +13892,7 @@ magnifying-glass {
          * `object`.
          * @return {Object} Returns the given `object` with its prototype set
          * to the given `prototype` object.
+         * @override
          */
         chainObject(object, prototype) {
           if (object && prototype && object !== prototype) {
@@ -13361,7 +13910,9 @@ magnifying-glass {
          * @param {HTMLTemplateElement} template HTML template element to instance.
          * @return {!DocumentFragment} Document fragment containing the imported
          *   template content.
-        */
+         * @override
+         * @suppress {missingProperties} go/missingfnprops
+         */
         instanceTemplate(template) {
           let content = this.constructor._contentForTemplate(template);
           let dom$$1 = /** @type {!DocumentFragment} */
@@ -13379,12 +13930,14 @@ magnifying-glass {
          * @param {string} type Name of event type.
          * @param {*=} detail Detail value containing event-specific
          *   payload.
-         * @param {{ bubbles: (boolean|undefined), cancelable: (boolean|undefined), composed: (boolean|undefined) }=}
+         * @param {{ bubbles: (boolean|undefined), cancelable: (boolean|undefined),
+         *     composed: (boolean|undefined) }=}
          *  options Object specifying options.  These may include:
          *  `bubbles` (boolean, defaults to `true`),
          *  `cancelable` (boolean, defaults to false), and
          *  `node` on which to fire the event (HTMLElement, defaults to `this`).
          * @return {!Event} The new event that was fired.
+         * @override
          */
         fire(type, detail, options) {
           options = options || {};
@@ -13396,7 +13949,7 @@ magnifying-glass {
           });
           event.detail = detail;
           let node = options.node || this;
-          node.dispatchEvent(event);
+          wrap$1(node).dispatchEvent(event);
           return event;
         }
 
@@ -13408,6 +13961,7 @@ magnifying-glass {
          * @param {string} eventName Name of event to listen for.
          * @param {string} methodName Name of handler method on `this` to call.
          * @return {void}
+         * @override
          */
         listen(node, eventName, methodName) {
           node = /** @type {!EventTarget} */ (node || this);
@@ -13421,7 +13975,7 @@ magnifying-glass {
           let key = eventName + methodName;
           if (!bl[key]) {
             bl[key] = this._addMethodEventListenerToNode(
-              node, eventName, methodName, this);
+                /** @type {!Node} */ (node), eventName, methodName, this);
           }
         }
 
@@ -13434,15 +13988,18 @@ magnifying-glass {
          * @param {string} methodName Name of handler method on `this` to not call
          anymore.
          * @return {void}
+         * @override
          */
         unlisten(node, eventName, methodName) {
           node = /** @type {!EventTarget} */ (node || this);
-          let bl = this.__boundListeners && this.__boundListeners.get(node);
+          let bl = this.__boundListeners &&
+              this.__boundListeners.get(/** @type {!Element} */ (node));
           let key = eventName + methodName;
           let handler = bl && bl[key];
           if (handler) {
-            this._removeEventListenerFromNode(node, eventName, handler);
-            bl[key] = null;
+            this._removeEventListenerFromNode(
+                /** @type {!Node} */ (node), eventName, handler);
+            bl[key] = /** @type {?} */ (null);
           }
         }
 
@@ -13460,9 +14017,12 @@ magnifying-glass {
          * @param {Element=} node Element to apply scroll direction setting.
          * Defaults to `this`.
          * @return {void}
+         * @override
          */
         setScrollDirection(direction, node) {
-          setTouchAction(/** @type {Element} */ (node || this), DIRECTION_MAP[direction] || 'auto');
+          setTouchAction(
+              /** @type {!Element} */ (node || this),
+              DIRECTION_MAP[direction] || 'auto');
         }
         /* **** End Events **** */
 
@@ -13473,8 +14033,10 @@ magnifying-glass {
          *
          * @param {string} slctr Selector to run on this local DOM scope
          * @return {Element} Element found by the selector, or null if not found.
+         * @override
          */
         $$(slctr) {
+          // Note, no need to `wrap` this because root is always patched
           return this.root.querySelector(slctr);
         }
 
@@ -13483,9 +14045,12 @@ magnifying-glass {
          * is contained. This is a shorthand for
          * `this.getRootNode().host`.
          * @this {Element}
+         * @return {?Node} The element whose local dom within which this element is
+         * contained.
+         * @override
          */
         get domHost() {
-          let root$$1 = this.getRootNode();
+          let root$$1 = wrap$1(this).getRootNode();
           return (root$$1 instanceof DocumentFragment) ? /** @type {ShadowRoot} */ (root$$1).host : root$$1;
         }
 
@@ -13494,9 +14059,12 @@ magnifying-glass {
          * This should not be necessary as of Polymer 2.0.2 and is provided only
          * for backwards compatibility.
          * @return {void}
+         * @override
          */
         distributeContent() {
-          if (window.ShadyDOM && this.shadowRoot) {
+          const thisEl = /** @type {Element} */ (this);
+          const domApi = /** @type {PolymerDomApi} */(dom(thisEl));
+          if (window.ShadyDOM && domApi.shadowRoot) {
             ShadyDOM.flush();
           }
         }
@@ -13507,11 +14075,13 @@ magnifying-glass {
          * any `<content>` elements are replaced with the list of nodes distributed
          * to the `<content>`, the result of its `getDistributedNodes` method.
          * @return {!Array<!Node>} List of effective child nodes.
-         * @suppress {invalidCasts} LegacyElementMixin must be applied to an HTMLElement
+         * @suppress {invalidCasts} LegacyElementMixin must be applied to an
+         *     HTMLElement
+         * @override
          */
         getEffectiveChildNodes() {
           const thisEl = /** @type {Element} */ (this);
-          const domApi = /** @type {DomApi} */(dom(thisEl));
+          const domApi = /** @type {PolymerDomApi} */ (dom(thisEl));
           return domApi.getEffectiveChildNodes();
         }
 
@@ -13521,11 +14091,13 @@ magnifying-glass {
          * children that are insertion points.
          * @param {string} selector Selector to run.
          * @return {!Array<!Node>} List of distributed elements that match selector.
-         * @suppress {invalidCasts} LegacyElementMixin must be applied to an HTMLElement
+         * @suppress {invalidCasts} LegacyElementMixin must be applied to an
+         * HTMLElement
+         * @override
          */
         queryDistributedElements(selector) {
           const thisEl = /** @type {Element} */ (this);
-          const domApi = /** @type {DomApi} */(dom(thisEl));
+          const domApi = /** @type {PolymerDomApi} */ (dom(thisEl));
           return domApi.queryDistributedElements(selector);
         }
 
@@ -13536,6 +14108,7 @@ magnifying-glass {
          * distributed to the `<content>`.
          *
          * @return {!Array<!Node>} List of effective children.
+         * @override
          */
         getEffectiveChildren() {
           let list = this.getEffectiveChildNodes();
@@ -13550,6 +14123,7 @@ magnifying-glass {
          * returned by <a href="#getEffectiveChildNodes>getEffectiveChildNodes</a>.
          *
          * @return {string} List of effective children.
+         * @override
          */
         getEffectiveTextContent() {
           let cn = this.getEffectiveChildNodes();
@@ -13568,6 +14142,7 @@ magnifying-glass {
          * to children that are insertion points.
          * @param {string} selector Selector to run.
          * @return {Node} First effective child node that matches selector.
+         * @override
          */
         queryEffectiveChildren(selector) {
           let e$ = this.queryDistributedElements(selector);
@@ -13579,7 +14154,9 @@ magnifying-glass {
          * match `selector`. These can be dom child nodes or elements distributed
          * to children that are insertion points.
          * @param {string} selector Selector to run.
-         * @return {!Array<!Node>} List of effective child nodes that match selector.
+         * @return {!Array<!Node>} List of effective child nodes that match
+         *     selector.
+         * @override
          */
         queryAllEffectiveChildren(selector) {
           return this.queryDistributedElements(selector);
@@ -13594,10 +14171,14 @@ magnifying-glass {
          * @param {string=} slctr CSS selector to choose the desired
          *   `<slot>`.  Defaults to `content`.
          * @return {!Array<!Node>} List of distributed nodes for the `<slot>`.
+         * @override
          */
         getContentChildNodes(slctr) {
+          // Note, no need to `wrap` this because root is always
           let content = this.root.querySelector(slctr || 'slot');
-          return content ? /** @type {DomApi} */(dom(content)).getDistributedNodes() : [];
+          return content ?
+              /** @type {PolymerDomApi} */ (dom(content)).getDistributedNodes() :
+              [];
         }
 
         /**
@@ -13614,6 +14195,7 @@ magnifying-glass {
          * @return {!Array<!HTMLElement>} List of distributed nodes for the
          *   `<slot>`.
          * @suppress {invalidCasts}
+         * @override
          */
         getContentChildren(slctr) {
           let children = /** @type {!Array<!HTMLElement>} */(this.getContentChildNodes(slctr).filter(function(n) {
@@ -13627,12 +14209,14 @@ magnifying-glass {
          *
          * @param {?Node} node The element to be checked.
          * @return {boolean} true if node is in this element's light DOM tree.
-         * @suppress {invalidCasts} LegacyElementMixin must be applied to an HTMLElement
+         * @suppress {invalidCasts} LegacyElementMixin must be applied to an
+         * HTMLElement
+         * @override
          */
         isLightDescendant(node) {
           const thisNode = /** @type {Node} */ (this);
-          return thisNode !== node && thisNode.contains(node) &&
-            thisNode.getRootNode() === node.getRootNode();
+          return thisNode !== node && wrap$1(thisNode).contains(node) &&
+            wrap$1(thisNode).getRootNode() === wrap$1(node).getRootNode();
         }
 
         /**
@@ -13640,19 +14224,22 @@ magnifying-glass {
          *
          * @param {!Element} node The element to be checked.
          * @return {boolean} true if node is in this element's local DOM tree.
+         * @override
          */
         isLocalDescendant(node) {
-          return this.root === node.getRootNode();
+          return this.root === wrap$1(node).getRootNode();
         }
 
         /**
          * No-op for backwards compatibility. This should now be handled by
          * ShadyCss library.
-         * @param  {*} container Unused
-         * @param  {*} shouldObserve Unused
-         * @return {void}
+         * @param  {!Element} container Container element to scope
+         * @param  {boolean=} shouldObserve if true, start a mutation observer for added nodes to the container
+         * @return {?MutationObserver} Returns a new MutationObserver on `container` if `shouldObserve` is true.
+         * @override
          */
-        scopeSubtree(container, shouldObserve) { // eslint-disable-line no-unused-vars
+        scopeSubtree(container, shouldObserve = false) {
+          return scopeSubtree(container, shouldObserve);
         }
 
         /**
@@ -13660,7 +14247,9 @@ magnifying-glass {
          * @param {string} property The css property name.
          * @return {string} Returns the computed css property value for the given
          * `property`.
-         * @suppress {invalidCasts} LegacyElementMixin must be applied to an HTMLElement
+         * @suppress {invalidCasts} LegacyElementMixin must be applied to an
+         *     HTMLElement
+         * @override
          */
         getComputedStyleValue(property) {
           return styleInterface.getComputedStyleValue(/** @type {!Element} */(this), property);
@@ -13684,13 +14273,14 @@ magnifying-glass {
          * @param {string} jobName String to identify the debounce job.
          * @param {function():void} callback Function that is called (with `this`
          *   context) when the wait time elapses.
-         * @param {number} wait Optional wait time in milliseconds (ms) after the
+         * @param {number=} wait Optional wait time in milliseconds (ms) after the
          *   last signal that must elapse before invoking `callback`
          * @return {!Object} Returns a debouncer object on which exists the
          * following methods: `isActive()` returns true if the debouncer is
          * active; `cancel()` cancels the debouncer if it is active;
          * `flush()` immediately invokes the debounced callback if the debouncer
          * is active.
+         * @override
          */
         debounce(jobName, callback, wait) {
           this._debouncers = this._debouncers || {};
@@ -13705,6 +14295,7 @@ magnifying-glass {
          *
          * @param {string} jobName The name of the debouncer started with `debounce`
          * @return {boolean} Whether the debouncer is active (has not yet fired).
+         * @override
          */
         isDebouncerActive(jobName) {
           this._debouncers = this._debouncers || {};
@@ -13717,6 +14308,7 @@ magnifying-glass {
          *
          * @param {string} jobName The name of the debouncer started with `debounce`
          * @return {void}
+         * @override
          */
         flushDebouncer(jobName) {
           this._debouncers = this._debouncers || {};
@@ -13731,6 +14323,7 @@ magnifying-glass {
          *
          * @param {string} jobName The name of the debouncer started with `debounce`
          * @return {void}
+         * @override
          */
         cancelDebouncer(jobName) {
           this._debouncers = this._debouncers || {};
@@ -13746,11 +14339,13 @@ magnifying-glass {
          * By default (if no waitTime is specified), async callbacks are run at
          * microtask timing, which will occur before paint.
          *
-         * @param {!Function} callback The callback function to run, bound to `this`.
+         * @param {!Function} callback The callback function to run, bound to
+         *     `this`.
          * @param {number=} waitTime Time to wait before calling the
          *   `callback`.  If unspecified or 0, the callback will be run at microtask
          *   timing (before paint).
          * @return {number} Handle that may be used to cancel the async job.
+         * @override
          */
         async(callback, waitTime) {
           return waitTime > 0 ? timeOut.run(callback.bind(this), waitTime) :
@@ -13763,6 +14358,7 @@ magnifying-glass {
          * @param {number} handle Handle returned from original `async` call to
          *   cancel.
          * @return {void}
+         * @override
          */
         cancelAsync(handle) {
           handle < 0 ? microTask.cancel(~handle) :
@@ -13778,6 +14374,7 @@ magnifying-glass {
          * @param {Object=} props Object of properties to configure on the
          *    instance.
          * @return {!Element} Newly created and configured element.
+         * @override
          */
         create(tag, props) {
           let elt = document.createElement(tag);
@@ -13800,6 +14397,7 @@ magnifying-glass {
          * @param {string} selector Selector to test.
          * @param {!Element=} node Element to test the selector against.
          * @return {boolean} Whether the element matches the selector.
+         * @override
          */
         elementMatches(selector, node) {
           return matchesSelector( (node || this), selector);
@@ -13812,20 +14410,21 @@ magnifying-glass {
          * @param {boolean=} bool Boolean to force the attribute on or off.
          *    When unspecified, the state of the attribute will be reversed.
          * @return {boolean} true if the attribute now exists
+         * @override
          */
         toggleAttribute(name, bool) {
-          let node = /** @type {Element} */ this;
+          let node = /** @type {Element} */(this);
           if (arguments.length === 3) {
-            node = /** @type {Element} */ arguments[2];
+            node = /** @type {Element} */(arguments[2]);
           }
           if (arguments.length == 1) {
             bool = !node.hasAttribute(name);
           }
           if (bool) {
-            node.setAttribute(name, '');
+            wrap$1(node).setAttribute(name, '');
             return true;
           } else {
-            node.removeAttribute(name);
+            wrap$1(node).removeAttribute(name);
             return false;
           }
         }
@@ -13839,6 +14438,7 @@ magnifying-glass {
          *    When unspecified, the state of the class will be reversed.
          * @param {Element=} node Node to target.  Defaults to `this`.
          * @return {void}
+         * @override
          */
         toggleClass(name, bool, node) {
           node = /** @type {Element} */ (node || this);
@@ -13859,6 +14459,7 @@ magnifying-glass {
          * @param {Element=} node Element to apply the transform to.
          * Defaults to `this`
          * @return {void}
+         * @override
          */
         transform(transformText, node) {
           node = /** @type {Element} */ (node || this);
@@ -13870,12 +14471,13 @@ magnifying-glass {
          * Cross-platform helper for setting an element's CSS `translate3d`
          * property.
          *
-         * @param {number} x X offset.
-         * @param {number} y Y offset.
-         * @param {number} z Z offset.
+         * @param {number|string} x X offset.
+         * @param {number|string} y Y offset.
+         * @param {number|string} z Z offset.
          * @param {Element=} node Element to apply the transform to.
          * Defaults to `this`.
          * @return {void}
+         * @override
          */
         translate3d(x, y, z, node) {
           node = /** @type {Element} */ (node || this);
@@ -13892,10 +14494,12 @@ magnifying-glass {
          * If the array is passed directly, **no change
          * notification is generated**.
          *
-         * @param {string | !Array<number|string>} arrayOrPath Path to array from which to remove the item
+         * @param {string | !Array<number|string>} arrayOrPath Path to array from
+         *     which to remove the item
          *   (or the array itself).
          * @param {*} item Item to remove.
          * @return {Array} Array containing item removed.
+         * @override
          */
         arrayDelete(arrayOrPath, item) {
           let index;
@@ -13922,6 +14526,7 @@ magnifying-glass {
          * @param {string} level One of 'log', 'warn', 'error'
          * @param {Array} args Array of strings or objects to log
          * @return {void}
+         * @override
          */
         _logger(level, args) {
           // accept ['foo', 'bar'] and [['foo', 'bar']]
@@ -13941,6 +14546,7 @@ magnifying-glass {
          *
          * @param {...*} args Array of strings or objects to log
          * @return {void}
+         * @override
          */
         _log(...args) {
           this._logger('log', args);
@@ -13951,6 +14557,7 @@ magnifying-glass {
          *
          * @param {...*} args Array of strings or objects to log
          * @return {void}
+         * @override
          */
         _warn(...args) {
           this._logger('warn', args);
@@ -13961,6 +14568,7 @@ magnifying-glass {
          *
          * @param {...*} args Array of strings or objects to log
          * @return {void}
+         * @override
          */
         _error(...args) {
           this._logger('error', args);
@@ -13973,6 +14581,7 @@ magnifying-glass {
          * @param {...*} args Array of strings or objects to log
          * @return {Array} Array with formatting information for `console`
          *   logging.
+         * @override
          */
         _logf(methodName, ...args) {
           return ['[%s::%s]', this.is, methodName, ...args];
@@ -13983,7 +14592,6 @@ magnifying-glass {
       LegacyElement.prototype.is = '';
 
       return LegacyElement;
-
     });
 
     /**
@@ -13996,7 +14604,7 @@ magnifying-glass {
     subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
     */
 
-    let metaProps = {
+    const lifecycleProps = {
       attached: true,
       detached: true,
       ready: true,
@@ -14004,48 +14612,49 @@ magnifying-glass {
       beforeRegister: true,
       registered: true,
       attributeChanged: true,
-      // meta objects
-      behaviors: true
+      listeners: true,
+      hostAttributes: true
     };
 
-    /**
-     * Applies a "legacy" behavior or array of behaviors to the provided class.
-     *
-     * Note: this method will automatically also apply the `LegacyElementMixin`
-     * to ensure that any legacy behaviors can rely on legacy Polymer API on
-     * the underlying element.
-     *
-     * @function
-     * @template T
-     * @param {!Object|!Array<!Object>} behaviors Behavior object or array of behaviors.
-     * @param {function(new:T)} klass Element class.
-     * @return {?} Returns a new Element class extended by the
-     * passed in `behaviors` and also by `LegacyElementMixin`.
-     * @suppress {invalidCasts, checkTypes}
-     */
-    function mixinBehaviors(behaviors, klass) {
-      if (!behaviors) {
-        klass = /** @type {HTMLElement} */(klass); // eslint-disable-line no-self-assign
-        return klass;
+    const excludeOnInfo = {
+      attached: true,
+      detached: true,
+      ready: true,
+      created: true,
+      beforeRegister: true,
+      registered: true,
+      attributeChanged: true,
+      behaviors: true,
+      _noAccessors: true
+    };
+
+    const excludeOnBehaviors = Object.assign({
+      listeners: true,
+      hostAttributes: true,
+      properties: true,
+      observers: true,
+    }, excludeOnInfo);
+
+    function copyProperties(source, target, excludeProps) {
+      const noAccessors = source._noAccessors;
+      const propertyNames = Object.getOwnPropertyNames(source);
+      for (let i = 0; i < propertyNames.length; i++) {
+        let p = propertyNames[i];
+        if (p in excludeProps) {
+          continue;
+        }
+        if (noAccessors) {
+          target[p] = source[p];
+        } else {
+          let pd = Object.getOwnPropertyDescriptor(source, p);
+          if (pd) {
+            // ensure property is configurable so that a later behavior can
+            // re-configure it.
+            pd.configurable = true;
+            Object.defineProperty(target, p, pd);
+          }
+        }
       }
-      // NOTE: ensure the behavior is extending a class with
-      // legacy element api. This is necessary since behaviors expect to be able
-      // to access 1.x legacy api.
-      klass = LegacyElementMixin(klass);
-      if (!Array.isArray(behaviors)) {
-        behaviors = [behaviors];
-      }
-      let superBehaviors = klass.prototype.behaviors;
-      // get flattened, deduped list of behaviors *not* already on super class
-      behaviors = flattenBehaviors(behaviors, null, superBehaviors);
-      // mixin new behaviors
-      klass = _mixinBehaviors(behaviors, klass);
-      if (superBehaviors) {
-        behaviors = superBehaviors.concat(behaviors);
-      }
-      // Set behaviors on prototype for BC...
-      klass.prototype.behaviors = behaviors;
-      return klass;
     }
 
     // NOTE:
@@ -14078,15 +14687,20 @@ magnifying-glass {
     // If lifecycle is called (super then me), order is
     // (1) C.created, (2) A.created, (3) B.created, (4) element.created
     // (again same as 1.x)
-    function _mixinBehaviors(behaviors, klass) {
+    function applyBehaviors(proto, behaviors, lifecycle) {
       for (let i=0; i<behaviors.length; i++) {
-        let b = behaviors[i];
-        if (b) {
-          klass = Array.isArray(b) ? _mixinBehaviors(b, klass) :
-            GenerateClassFromInfo(b, klass);
+        applyInfo(proto, behaviors[i], lifecycle, excludeOnBehaviors);
+      }
+    }
+
+    function applyInfo(proto, info, lifecycle, excludeProps) {
+      copyProperties(info, proto, excludeProps);
+      for (let p in lifecycleProps) {
+        if (info[p]) {
+          lifecycle[p] = lifecycle[p] || [];
+          lifecycle[p].push(info[p]);
         }
       }
-      return klass;
     }
 
     /**
@@ -14116,23 +14730,123 @@ magnifying-glass {
     }
 
     /**
+     * Copies property descriptors from source to target, overwriting all fields
+     * of any previous descriptor for a property *except* for `value`, which is
+     * merged in from the target if it does not exist on the source.
+     *
+     * @param {*} target Target properties object
+     * @param {*} source Source properties object
+     */
+    function mergeProperties(target, source) {
+      for (const p in source) {
+        const targetInfo = target[p];
+        const sourceInfo = source[p];
+        if (!('value' in sourceInfo) && targetInfo && ('value' in targetInfo)) {
+          target[p] = Object.assign({value: targetInfo.value}, sourceInfo);
+        } else {
+          target[p] = sourceInfo;
+        }
+      }
+    }
+
+    /* Note about construction and extension of legacy classes.
+      [Changed in Q4 2018 to optimize performance.]
+
+      When calling `Polymer` or `mixinBehaviors`, the generated class below is
+      made. The list of behaviors was previously made into one generated class per
+      behavior, but this is no longer the case as behaviors are now called
+      manually. Note, there may *still* be multiple generated classes in the
+      element's prototype chain if extension is used with `mixinBehaviors`.
+
+      The generated class is directly tied to the info object and behaviors
+      used to create it. That list of behaviors is filtered so it's only the
+      behaviors not active on the superclass. In order to call through to the
+      entire list of lifecycle methods, it's important to call `super`.
+
+      The element's `properties` and `observers` are controlled via the finalization
+      mechanism provided by `PropertiesMixin`. `Properties` and `observers` are
+      collected by manually traversing the prototype chain and merging.
+
+      To limit changes, the `_registered` method is called via `_initializeProperties`
+      and not `_finalizeClass`.
+
+    */
+    /**
      * @param {!PolymerInit} info Polymer info object
      * @param {function(new:HTMLElement)} Base base class to extend with info object
+     * @param {Object=} behaviors behaviors to copy into the element
      * @return {function(new:HTMLElement)} Generated class
      * @suppress {checkTypes}
      * @private
      */
-    function GenerateClassFromInfo(info, Base) {
+    function GenerateClassFromInfo(info, Base, behaviors) {
+
+      // manages behavior and lifecycle processing (filled in after class definition)
+      let behaviorList;
+      const lifecycle = {};
 
       /** @private */
       class PolymerGenerated extends Base {
 
-        static get properties() {
-          return info.properties;
+        // explicitly not calling super._finalizeClass
+        /** @nocollapse */
+        static _finalizeClass() {
+          // if calling via a subclass that hasn't been generated, pass through to super
+          if (!this.hasOwnProperty(JSCompiler_renameProperty('generatedFrom', this))) {
+            // TODO(https://github.com/google/closure-compiler/issues/3240):
+            //     Change back to just super.methodCall()
+            Base._finalizeClass.call(this);
+          } else {
+            // interleave properties and observers per behavior and `info`
+            if (behaviorList) {
+              for (let i=0, b; i < behaviorList.length; i++) {
+                b = behaviorList[i];
+                if (b.properties) {
+                  this.createProperties(b.properties);
+                }
+                if (b.observers) {
+                  this.createObservers(b.observers, b.properties);
+                }
+              }
+            }
+            if (info.properties) {
+              this.createProperties(info.properties);
+            }
+            if (info.observers) {
+              this.createObservers(info.observers, info.properties);
+            }
+            // make sure to prepare the element template
+            this._prepareTemplate();
+          }
         }
 
+        /** @nocollapse */
+        static get properties() {
+          const properties = {};
+          if (behaviorList) {
+            for (let i=0; i < behaviorList.length; i++) {
+              mergeProperties(properties, behaviorList[i].properties);
+            }
+          }
+          mergeProperties(properties, info.properties);
+          return properties;
+        }
+
+        /** @nocollapse */
         static get observers() {
-          return info.observers;
+          let observers = [];
+          if (behaviorList) {
+            for (let i=0, b; i < behaviorList.length; i++) {
+              b = behaviorList[i];
+              if (b.observers) {
+                observers = observers.concat(b.observers);
+              }
+            }
+          }
+          if (info.observers) {
+            observers = observers.concat(info.observers);
+          }
+          return observers;
         }
 
         /**
@@ -14140,8 +14854,11 @@ magnifying-glass {
          */
         created() {
           super.created();
-          if (info.created) {
-            info.created.call(this);
+          const list = lifecycle.created;
+          if (list) {
+            for (let i=0; i < list.length; i++) {
+              list[i].call(this);
+            }
           }
         }
 
@@ -14149,19 +14866,39 @@ magnifying-glass {
          * @return {void}
          */
         _registered() {
-          super._registered();
           /* NOTE: `beforeRegister` is called here for bc, but the behavior
-           is different than in 1.x. In 1.0, the method was called *after*
-           mixing prototypes together but *before* processing of meta-objects.
-           However, dynamic effects can still be set here and can be done either
-           in `beforeRegister` or `registered`. It is no longer possible to set
-           `is` in `beforeRegister` as you could in 1.x.
+            is different than in 1.x. In 1.0, the method was called *after*
+            mixing prototypes together but *before* processing of meta-objects.
+            However, dynamic effects can still be set here and can be done either
+            in `beforeRegister` or `registered`. It is no longer possible to set
+            `is` in `beforeRegister` as you could in 1.x.
           */
-          if (info.beforeRegister) {
-            info.beforeRegister.call(Object.getPrototypeOf(this));
-          }
-          if (info.registered) {
-            info.registered.call(Object.getPrototypeOf(this));
+          // only proceed if the generated class' prototype has not been registered.
+          const generatedProto = PolymerGenerated.prototype;
+          if (!generatedProto.hasOwnProperty('__hasRegisterFinished')) {
+            generatedProto.__hasRegisterFinished = true;
+            // ensure superclass is registered first.
+            super._registered();
+            // copy properties onto the generated class lazily if we're optimizing,
+            if (legacyOptimizations) {
+              copyPropertiesToProto(generatedProto);
+            }
+            // make sure legacy lifecycle is called on the *element*'s prototype
+            // and not the generated class prototype; if the element has been
+            // extended, these are *not* the same.
+            const proto = Object.getPrototypeOf(this);
+            let list = lifecycle.beforeRegister;
+            if (list) {
+              for (let i=0; i < list.length; i++) {
+                list[i].call(proto);
+              }
+            }
+            list = lifecycle.registered;
+            if (list) {
+              for (let i=0; i < list.length; i++) {
+                list[i].call(proto);
+              }
+            }
           }
         }
 
@@ -14170,9 +14907,15 @@ magnifying-glass {
          */
         _applyListeners() {
           super._applyListeners();
-          if (info.listeners) {
-            for (let l in info.listeners) {
-              this._addMethodEventListenerToNode(this, l, info.listeners[l]);
+          const list = lifecycle.listeners;
+          if (list) {
+            for (let i=0; i < list.length; i++) {
+              const listeners = list[i];
+              if (listeners) {
+                for (let l in listeners) {
+                  this._addMethodEventListenerToNode(this, l, listeners[l]);
+                }
+              }
             }
           }
         }
@@ -14184,9 +14927,13 @@ magnifying-glass {
          * @return {void}
          */
         _ensureAttributes() {
-          if (info.hostAttributes) {
-            for (let a in info.hostAttributes) {
-              this._ensureAttribute(a, info.hostAttributes[a]);
+          const list = lifecycle.hostAttributes;
+          if (list) {
+            for (let i=list.length-1; i >= 0; i--) {
+              const hostAttributes = list[i];
+              for (let a in hostAttributes) {
+                  this._ensureAttribute(a, hostAttributes[a]);
+                }
             }
           }
           super._ensureAttributes();
@@ -14197,8 +14944,11 @@ magnifying-glass {
          */
         ready() {
           super.ready();
-          if (info.ready) {
-            info.ready.call(this);
+          let list = lifecycle.ready;
+          if (list) {
+            for (let i=0; i < list.length; i++) {
+              list[i].call(this);
+            }
           }
         }
 
@@ -14207,8 +14957,11 @@ magnifying-glass {
          */
         attached() {
           super.attached();
-          if (info.attached) {
-            info.attached.call(this);
+          let list = lifecycle.attached;
+          if (list) {
+            for (let i=0; i < list.length; i++) {
+              list[i].call(this);
+            }
           }
         }
 
@@ -14217,8 +14970,11 @@ magnifying-glass {
          */
         detached() {
           super.detached();
-          if (info.detached) {
-            info.detached.call(this);
+          let list = lifecycle.detached;
+          if (list) {
+            for (let i=0; i < list.length; i++) {
+              list[i].call(this);
+            }
           }
         }
 
@@ -14232,25 +14988,44 @@ magnifying-glass {
          * @return {void}
          */
         attributeChanged(name, old, value) {
-          super.attributeChanged(name, old, value);
-          if (info.attributeChanged) {
-            info.attributeChanged.call(this, name, old, value);
-          }
-       }
-      }
-
-      PolymerGenerated.generatedFrom = info;
-
-      for (let p in info) {
-        // NOTE: cannot copy `metaProps` methods onto prototype at least because
-        // `super.ready` must be called and is not included in the user fn.
-        if (!(p in metaProps)) {
-          let pd = Object.getOwnPropertyDescriptor(info, p);
-          if (pd) {
-            Object.defineProperty(PolymerGenerated.prototype, p, pd);
+          super.attributeChanged();
+          let list = lifecycle.attributeChanged;
+          if (list) {
+            for (let i=0; i < list.length; i++) {
+              list[i].call(this, name, old, value);
+            }
           }
         }
       }
+
+      // apply behaviors, note actual copying is done lazily at first instance creation
+      if (behaviors) {
+        // NOTE: ensure the behavior is extending a class with
+        // legacy element api. This is necessary since behaviors expect to be able
+        // to access 1.x legacy api.
+        if (!Array.isArray(behaviors)) {
+          behaviors = [behaviors];
+        }
+        let superBehaviors = Base.prototype.behaviors;
+        // get flattened, deduped list of behaviors *not* already on super class
+        behaviorList = flattenBehaviors(behaviors, null, superBehaviors);
+        PolymerGenerated.prototype.behaviors = superBehaviors ?
+          superBehaviors.concat(behaviors) : behaviorList;
+      }
+
+      const copyPropertiesToProto = (proto) => {
+        if (behaviorList) {
+          applyBehaviors(proto, behaviorList, lifecycle);
+        }
+        applyInfo(proto, info, lifecycle, excludeOnInfo);
+      };
+
+      // copy properties if we're not optimizing
+      if (!legacyOptimizations) {
+        copyPropertiesToProto(PolymerGenerated.prototype);
+      }
+
+      PolymerGenerated.generatedFrom = info;
 
       return PolymerGenerated;
     }
@@ -14327,16 +15102,13 @@ magnifying-glass {
      */
     const Class = function(info, mixin) {
       if (!info) {
-        console.warn(`Polymer's Class function requires \`info\` argument`);
+        console.warn('Polymer.Class requires `info` argument');
       }
-      const baseWithBehaviors = info.behaviors ?
-        // note: mixinBehaviors ensures `LegacyElementMixin`.
-        mixinBehaviors(info.behaviors, HTMLElement) :
-        LegacyElementMixin(HTMLElement);
-      const baseWithMixin = mixin ? mixin(baseWithBehaviors) : baseWithBehaviors;
-      const klass = GenerateClassFromInfo(info, baseWithMixin);
+      let klass = mixin ? mixin(LegacyElementMixin(HTMLElement)) :
+          LegacyElementMixin(HTMLElement);
+      klass = GenerateClassFromInfo(info, klass, info.behaviors);
       // decorate klass with registration info
-      klass.is = info.is;
+      klass.is = klass.prototype.is = info.is;
       return klass;
     };
 
@@ -14452,6 +15224,9 @@ magnifying-glass {
      * @polymer
      * @summary Element class mixin to skip strict dirty-checking for objects
      *   and arrays
+     * @template T
+     * @param {function(new:T)} superClass Class to apply mixin to.
+     * @return {function(new:T)} superClass with mixin applied.
      */
     const MutableData = dedupingMixin(superClass => {
 
@@ -14537,6 +15312,7 @@ magnifying-glass {
        */
       class OptionalMutableData extends superClass {
 
+        /** @nocollapse */
         static get properties() {
           return {
             /**
@@ -14634,10 +15410,14 @@ magnifying-glass {
     /**
      * Base class for TemplateInstance.
      * @constructor
+     * @extends {HTMLElement}
      * @implements {Polymer_PropertyEffects}
      * @private
      */
-    const base = PropertyEffects(class {});
+    const templateInstanceBase = PropertyEffects(
+        // This cast shouldn't be neccessary, but Closure doesn't understand that
+        // "class {}" is a constructor function.
+        /** @type {function(new:Object)} */(class {}));
 
     /**
      * @polymer
@@ -14645,13 +15425,17 @@ magnifying-glass {
      * @appliesMixin PropertyEffects
      * @unrestricted
      */
-    class TemplateInstanceBase extends base {
+    class TemplateInstanceBase extends templateInstanceBase {
       constructor(props) {
         super();
         this._configureProperties(props);
+        /** @type {!StampedTemplate} */
         this.root = this._stampTemplate(this.__dataHost);
         // Save list of stamped children
-        let children = this.children = [];
+        let children = [];
+        /** @suppress {invalidCasts} */
+        this.children = /** @type {!NodeList} */ (children);
+        // Polymer 1.x did not use `Polymer.dom` here so not bothering.
         for (let n = this.root.firstChild; n; n=n.nextSibling) {
           children.push(n);
           n.__templatizeInstance = this;
@@ -14756,11 +15540,11 @@ magnifying-glass {
             } else if (n.localName === 'slot') {
               if (hide) {
                 n.__polymerReplaced__ = document.createComment('hidden-slot');
-                n.parentNode.replaceChild(n.__polymerReplaced__, n);
+                wrap$1(wrap$1(n).parentNode).replaceChild(n.__polymerReplaced__, n);
               } else {
                 const replace = n.__polymerReplaced__;
                 if (replace) {
-                  replace.parentNode.replaceChild(n, replace);
+                  wrap$1(wrap$1(replace).parentNode).replaceChild(n, replace);
                 }
               }
             }
@@ -14828,6 +15612,7 @@ magnifying-glass {
        *
        * @param {Event} event Event to dispatch
        * @return {boolean} Always true.
+       * @override
        */
        dispatchEvent(event) { // eslint-disable-line no-unused-vars
          return true;
@@ -14851,7 +15636,10 @@ magnifying-glass {
      * @implements {Polymer_MutableData}
      * @private
      */
-    const MutableTemplateInstanceBase = MutableData(TemplateInstanceBase);
+    const MutableTemplateInstanceBase = MutableData(
+        // This cast shouldn't be necessary, but Closure doesn't seem to understand
+        // this constructor.
+        /** @type {function(new:TemplateInstanceBase)} */(TemplateInstanceBase));
 
     function findMethodHost(template) {
       // Technically this should be the owner of the outermost template.
@@ -14868,15 +15656,25 @@ magnifying-glass {
      * @suppress {missingProperties} class.prototype is not defined for some reason
      */
     function createTemplatizerClass(template, templateInfo, options) {
-      // Anonymous class created by the templatize
-      let base = options.mutableData ?
-        MutableTemplateInstanceBase : TemplateInstanceBase;
       /**
        * @constructor
-       * @extends {base}
+       * @extends {TemplateInstanceBase}
+       */
+      let templatizerBase = options.mutableData ?
+        MutableTemplateInstanceBase : TemplateInstanceBase;
+
+      // Affordance for global mixins onto TemplatizeInstance
+      if (templatize.mixin) {
+        templatizerBase = templatize.mixin(templatizerBase);
+      }
+
+      /**
+       * Anonymous class created by the templatize
+       * @constructor
        * @private
        */
-      let klass = class extends base { };
+      let klass = class extends templatizerBase { };
+      /** @override */
       klass.prototype.__templatizeOptions = options;
       klass.prototype._bindTemplate(template);
       addNotifyEffects(klass, template, templateInfo, options);
@@ -14884,18 +15682,25 @@ magnifying-glass {
     }
 
     /**
+     * Adds propagate effects from the template to the template instance for
+     * properties that the host binds to the template using the `_host_` prefix.
+     * 
      * @suppress {missingProperties} class.prototype is not defined for some reason
      */
     function addPropagateEffects(template, templateInfo, options) {
       let userForwardHostProp = options.forwardHostProp;
-      if (userForwardHostProp) {
+      if (userForwardHostProp && templateInfo.hasHostProps) {
         // Provide data API and property effects on memoized template class
         let klass = templateInfo.templatizeTemplateClass;
         if (!klass) {
-          let base = options.mutableData ? MutableDataTemplate : DataTemplate;
+          /**
+           * @constructor
+           * @extends {DataTemplate}
+           */
+          let templatizedBase = options.mutableData ? MutableDataTemplate : DataTemplate;
           /** @private */
           klass = templateInfo.templatizeTemplateClass =
-            class TemplatizedTemplate extends base {};
+            class TemplatizedTemplate extends templatizedBase {};
           // Add template - >instances effects
           // and host <- template effects
           let hostProps = templateInfo.hostProps;
@@ -14943,6 +15748,11 @@ magnifying-glass {
       }
       if (options.forwardHostProp && template.__dataHost) {
         for (let hprop in hostProps) {
+          // As we're iterating hostProps in this function, note whether
+          // there were any, for an optimization in addPropagateEffects
+          if (!templateInfo.hasHostProps) {
+            templateInfo.hasHostProps = true;
+          }
           klass.prototype._addPropertyEffect(hprop,
             klass.prototype.PROPERTY_EFFECT_TYPES.NOTIFY,
             {fn: createNotifyHostPropEffect()});
@@ -15038,8 +15848,8 @@ magnifying-glass {
      * @param {Polymer_PropertyEffects=} owner Owner of the template instances;
      *   any optional callbacks will be bound to this owner.
      * @param {Object=} options Options dictionary (see summary for details)
-     * @return {function(new:TemplateInstanceBase)} Generated class bound to the template
-     *   provided
+     * @return {function(new:TemplateInstanceBase, Object=)} Generated class bound
+     *   to the template provided
      * @suppress {invalidCasts}
      */
     function templatize(template, owner, options) {
@@ -15058,6 +15868,10 @@ magnifying-glass {
       let templateInfo = ctor._parseTemplate(template);
       // Get memoized base class for the prototypical template, which
       // includes property effects for binding template & forwarding
+      /**
+       * @constructor
+       * @extends {TemplateInstanceBase}
+       */
       let baseClass = templateInfo.templatizeInstanceClass;
       if (!baseClass) {
         baseClass = createTemplatizerClass(template, templateInfo, options);
@@ -15068,9 +15882,13 @@ magnifying-glass {
       // Subclass base class and add reference for this specific template
       /** @private */
       let klass = class TemplateInstance extends baseClass {};
+      /** @override */
       klass.prototype._methodHost = findMethodHost(template);
-      klass.prototype.__dataHost = template;
-      klass.prototype.__templatizeOwner = owner;
+      /** @override */
+      klass.prototype.__dataHost = /** @type {!DataTemplate} */ (template);
+      /** @override */
+      klass.prototype.__templatizeOwner = /** @type {!Object} */ (owner);
+      /** @override */
       klass.prototype.__hostProps = templateInfo.hostProps;
       klass = /** @type {function(new:TemplateInstanceBase)} */(klass); //eslint-disable-line no-self-assign
       return klass;
@@ -15113,7 +15931,7 @@ magnifying-glass {
         } else {
           // Still in a template scope, keep going up until
           // a __templatizeInstance is found
-          node = node.parentNode;
+          node = wrap$1(node).parentNode;
         }
       }
       return null;
@@ -15128,6 +15946,34 @@ magnifying-glass {
     Code distributed by Google as part of the polymer project is also
     subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
     */
+
+    /**
+    @license
+    Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
+    This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+    The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+    The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+    Code distributed by Google as part of the polymer project is also
+    subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+    */
+
+    let elementsHidden = false;
+
+    /**
+     * @return {boolean} True if elements will be hidden globally
+     */
+    function hideElementsGlobally() {
+      if (legacyOptimizations && !useShadow) {
+        if (!elementsHidden) {
+          elementsHidden = true;
+          const style = document.createElement('style');
+          style.textContent = 'dom-bind,dom-if,dom-repeat{display:none;}';
+          document.head.appendChild(style);
+        }
+        return true;
+      }
+      return false;
+    }
 
     /**
     @license
@@ -15185,11 +16031,16 @@ magnifying-glass {
         this.__children = null;
       }
 
+      /* eslint-disable no-unused-vars */
       /**
        * @override
+       * @param {string} name Name of attribute that changed
+       * @param {?string} old Old attribute value
+       * @param {?string} value New attribute value
+       * @param {?string} namespace Attribute namespace.
        * @return {void}
        */
-      attributeChangedCallback() {
+      attributeChangedCallback(name, old, value, namespace) {
         // assumes only one observed attribute
         this.mutableData = true;
       }
@@ -15199,7 +16050,9 @@ magnifying-glass {
        * @return {void}
        */
       connectedCallback() {
-        this.style.display = 'none';
+        if (!hideElementsGlobally()) {
+          this.style.display = 'none';
+        }
         this.render();
       }
 
@@ -15212,7 +16065,7 @@ magnifying-glass {
       }
 
       __insertChildren() {
-        this.parentNode.insertBefore(this.root, this);
+        wrap$1(wrap$1(this).parentNode).insertBefore(this.root, this);
       }
 
       __removeChildren() {
@@ -15681,7 +16534,7 @@ magnifying-glass {
         this.__sortFn = null;
         this.__filterFn = null;
         this.__observePaths = null;
-        /** @type {?function(new:Polymer.TemplateInstanceBase, *)} */
+        /** @type {?function(new:TemplateInstanceBase, Object=)} */
         this.__ctor = null;
         this.__isDetached = true;
         this.template = null;
@@ -15705,13 +16558,15 @@ magnifying-glass {
        */
       connectedCallback() {
         super.connectedCallback();
-        this.style.display = 'none';
+        if (!hideElementsGlobally()) {
+          this.style.display = 'none';
+        }
         // only perform attachment if the element was previously detached.
         if (this.__isDetached) {
           this.__isDetached = false;
-          let parent = this.parentNode;
+          let wrappedParent = wrap$1(wrap$1(this).parentNode);
           for (let i=0; i<this.__instances.length; i++) {
-            this.__attachInstance(i, parent);
+            this.__attachInstance(i, wrappedParent);
           }
         }
       }
@@ -15767,7 +16622,7 @@ magnifying-glass {
                 if (prop == this.as) {
                   this.items[idx] = value;
                 }
-                let path = translate(this.as, 'items.' + idx, prop);
+                let path = translate(this.as, `${JSCompiler_renameProperty('items', this)}.${idx}`, prop);
                 this.notifyPath(path, value);
               }
             }
@@ -15969,15 +16824,17 @@ magnifying-glass {
 
       __detachInstance(idx) {
         let inst = this.__instances[idx];
+        const wrappedRoot = wrap$1(inst.root);
         for (let i=0; i<inst.children.length; i++) {
           let el = inst.children[i];
-          inst.root.appendChild(el);
+          wrappedRoot.appendChild(el);
         }
         return inst;
       }
 
       __attachInstance(idx, parent) {
         let inst = this.__instances[idx];
+        // Note, this is pre-wrapped as an optimization
         parent.insertBefore(inst.root, this);
       }
 
@@ -16011,7 +16868,7 @@ magnifying-glass {
         }
         let beforeRow = this.__instances[instIdx + 1];
         let beforeNode = beforeRow ? beforeRow.children[0] : this;
-        this.parentNode.insertBefore(inst.root, beforeNode);
+        wrap$1(wrap$1(this).parentNode).insertBefore(inst.root, beforeNode);
         this.__instances[instIdx] = inst;
         return inst;
       }
@@ -16230,9 +17087,9 @@ magnifying-glass {
        */
       disconnectedCallback() {
         super.disconnectedCallback();
-        if (!this.parentNode ||
-            (this.parentNode.nodeType == Node.DOCUMENT_FRAGMENT_NODE &&
-             !this.parentNode.host)) {
+        const parent = wrap$1(this).parentNode;
+        if (!parent || (parent.nodeType == Node.DOCUMENT_FRAGMENT_NODE &&
+            !wrap$1(parent).host)) {
           this.__teardownInstance();
         }
       }
@@ -16243,7 +17100,9 @@ magnifying-glass {
        */
       connectedCallback() {
         super.connectedCallback();
-        this.style.display = 'none';
+        if (!hideElementsGlobally()) {
+          this.style.display = 'none';
+        }
         if (this.if) {
           this.__debounceRender();
         }
@@ -16284,15 +17143,15 @@ magnifying-glass {
       }
 
       __ensureInstance() {
-        let parentNode = this.parentNode;
+        let parentNode = wrap$1(this).parentNode;
         // Guard against element being detached while render was queued
         if (parentNode) {
           if (!this.__ctor) {
-            let template = /** @type {HTMLTemplateElement} */(this.querySelector('template'));
+            let template = /** @type {HTMLTemplateElement} */(wrap$1(this).querySelector('template'));
             if (!template) {
               // Wait until childList changes and template should be there by then
               let observer = new MutationObserver(() => {
-                if (this.querySelector('template')) {
+                if (wrap$1(this).querySelector('template')) {
                   observer.disconnect();
                   this.__render();
                 } else {
@@ -16329,16 +17188,16 @@ magnifying-glass {
           }
           if (!this.__instance) {
             this.__instance = new this.__ctor();
-            parentNode.insertBefore(this.__instance.root, this);
+            wrap$1(parentNode).insertBefore(this.__instance.root, this);
           } else {
             this.__syncHostProperties();
             let c$ = this.__instance.children;
             if (c$ && c$.length) {
               // Detect case where dom-if was re-attached in new position
-              let lastChild = this.previousSibling;
+              let lastChild = wrap$1(this).previousSibling;
               if (lastChild !== c$[c$.length-1]) {
                 for (let i=0, n; (i<c$.length) && (n=c$[i]); i++) {
-                  parentNode.insertBefore(n, this);
+                  wrap$1(parentNode).insertBefore(n, this);
                 }
               }
             }
@@ -16363,10 +17222,11 @@ magnifying-glass {
           let c$ = this.__instance.children;
           if (c$ && c$.length) {
             // use first child parent, for case when dom-if may have been detached
-            let parent = c$[0].parentNode;
-              // Instance children may be disconnected from parents when dom-if
-              // detaches if a tree was innerHTML'ed
-              if (parent) {
+            let parent = wrap$1(c$[0]).parentNode;
+            // Instance children may be disconnected from parents when dom-if
+            // detaches if a tree was innerHTML'ed
+            if (parent) {
+              parent = wrap$1(parent);
               for (let i=0, n; (i<c$.length) && (n=c$[i]); i++) {
                 parent.removeChild(n);
               }
@@ -16430,7 +17290,6 @@ magnifying-glass {
 
       /**
        * @constructor
-       * @extends {superClass}
        * @implements {Polymer_ElementMixin}
        * @private
        */
@@ -16445,7 +17304,6 @@ magnifying-glass {
       class ArraySelectorMixin extends elementBase {
 
         static get properties() {
-
           return {
 
             /**
@@ -16469,31 +17327,22 @@ magnifying-glass {
              * When `multi` is true, this is an array that contains any selected.
              * When `multi` is false, this is the currently selected item, or `null`
              * if no item is selected.
-             * @type {?(Object|Array<!Object>)}
+             * @type {?Object|?Array<!Object>}
              */
-            selected: {
-              type: Object,
-              notify: true
-            },
+            selected: {type: Object, notify: true},
 
             /**
              * When `multi` is false, this is the currently selected item, or `null`
              * if no item is selected.
              * @type {?Object}
              */
-            selectedItem: {
-              type: Object,
-              notify: true
-            },
+            selectedItem: {type: Object, notify: true},
 
             /**
              * When `true`, calling `select` on an item that is already selected
              * will deselect the item.
              */
-            toggle: {
-              type: Boolean,
-              value: false
-            }
+            toggle: {type: Boolean, value: false}
 
           };
         }
@@ -16511,7 +17360,7 @@ magnifying-glass {
 
         __updateSelection(multi, itemsInfo) {
           let path = itemsInfo.path;
-          if (path == 'items') {
+          if (path == JSCompiler_renameProperty('items', this)) {
             // Case 1 - items array changed, so diff against previous array and
             // deselect any removed items and adjust selected indices
             let newItems = itemsInfo.base || [];
@@ -16526,14 +17375,14 @@ magnifying-glass {
             }
             this.__lastItems = newItems;
             this.__lastMulti = multi;
-          } else if (itemsInfo.path == 'items.splices') {
+          } else if (itemsInfo.path == `${JSCompiler_renameProperty('items', this)}.splices`) {
             // Case 2 - got specific splice information describing the array mutation:
             // deselect any removed items and adjust selected indices
             this.__applySplices(itemsInfo.value.indexSplices);
           } else {
             // Case 3 - an array element was changed, so deselect the previous
             // item for that index if it was previously selected
-            let part = path.slice('items.'.length);
+            let part = path.slice(`${JSCompiler_renameProperty('items', this)}.`.length);
             let idx = parseInt(part, 10);
             if ((part.indexOf('.') < 0) && part == idx) {
               this.__deselectChangedIdx(idx);
@@ -16569,7 +17418,7 @@ magnifying-glass {
           selected.forEach((idx, item) => {
             if (idx < 0) {
               if (this.multi) {
-                this.splice('selected', sidx, 1);
+                this.splice(JSCompiler_renameProperty('selected', this), sidx, 1);
               } else {
                 this.selected = this.selectedItem = null;
               }
@@ -16586,19 +17435,26 @@ magnifying-glass {
             let sidx = 0;
             this.__selectedMap.forEach(idx => {
               if (idx >= 0) {
-                this.linkPaths('items.' + idx, 'selected.' + sidx++);
+                this.linkPaths(
+                    `${JSCompiler_renameProperty('items', this)}.${idx}`,
+                    `${JSCompiler_renameProperty('selected', this)}.${sidx++}`);
               }
             });
           } else {
             this.__selectedMap.forEach(idx => {
-              this.linkPaths('selected', 'items.' + idx);
-              this.linkPaths('selectedItem', 'items.' + idx);
+              this.linkPaths(
+                  JSCompiler_renameProperty('selected', this),
+                  `${JSCompiler_renameProperty('items', this)}.${idx}`);
+              this.linkPaths(
+                  JSCompiler_renameProperty('selectedItem', this),
+                  `${JSCompiler_renameProperty('items', this)}.${idx}`);
             });
           }
         }
 
         /**
          * Clears the selection state.
+         * @override
          * @return {void}
          */
         clearSelection() {
@@ -16617,6 +17473,7 @@ magnifying-glass {
         /**
          * Returns whether the item is currently selected.
          *
+         * @override
          * @param {*} item Item from `items` array to test
          * @return {boolean} Whether the item is selected
          */
@@ -16627,6 +17484,7 @@ magnifying-glass {
         /**
          * Returns whether the item is currently selected.
          *
+         * @override
          * @param {number} idx Index from `items` array to test
          * @return {boolean} Whether the item is selected
          */
@@ -16647,15 +17505,16 @@ magnifying-glass {
         }
 
         __selectedIndexForItemIndex(idx) {
-          let selected = this.__dataLinkedPaths['items.' + idx];
+          let selected = this.__dataLinkedPaths[`${JSCompiler_renameProperty('items', this)}.${idx}`];
           if (selected) {
-            return parseInt(selected.slice('selected.'.length), 10);
+            return parseInt(selected.slice(`${JSCompiler_renameProperty('selected', this)}.`.length), 10);
           }
         }
 
         /**
          * Deselects the given item if it is already selected.
          *
+         * @override
          * @param {*} item Item from `items` array to deselect
          * @return {void}
          */
@@ -16669,7 +17528,7 @@ magnifying-glass {
             }
             this.__updateLinks();
             if (this.multi) {
-              this.splice('selected', sidx, 1);
+              this.splice(JSCompiler_renameProperty('selected', this), sidx, 1);
             } else {
               this.selected = this.selectedItem = null;
             }
@@ -16679,6 +17538,7 @@ magnifying-glass {
         /**
          * Deselects the given index if it is already selected.
          *
+         * @override
          * @param {number} idx Index from `items` array to deselect
          * @return {void}
          */
@@ -16690,6 +17550,7 @@ magnifying-glass {
          * Selects the given item.  When `toggle` is true, this will automatically
          * deselect the item if already selected.
          *
+         * @override
          * @param {*} item Item from `items` array to select
          * @return {void}
          */
@@ -16701,6 +17562,7 @@ magnifying-glass {
          * Selects the given index.  When `toggle` is true, this will automatically
          * deselect the item if already selected.
          *
+         * @override
          * @param {number} idx Index from `items` array to select
          * @return {void}
          */
@@ -16713,7 +17575,7 @@ magnifying-glass {
             this.__selectedMap.set(item, idx);
             this.__updateLinks();
             if (this.multi) {
-              this.push('selected', item);
+              this.push(JSCompiler_renameProperty('selected', this), item);
             } else {
               this.selected = this.selectedItem = item;
             }
@@ -16814,6 +17676,7 @@ magnifying-glass {
       // Not needed to find template; can be removed once the analyzer
       // can find the tag name from customElements.define call
       static get is() { return 'array-selector'; }
+      static get template() { return null; }
     }
     customElements.define(ArraySelector.is, ArraySelector);
 
@@ -16887,7 +17750,8 @@ magnifying-glass {
         flushCustomStyles() {},
         nativeCss: nativeCssVariables,
         nativeShadow: nativeShadow,
-        cssBuild: cssBuild
+        cssBuild: cssBuild,
+        disableRuntime: disableRuntime,
       };
     }
 
@@ -16979,6 +17843,7 @@ magnifying-glass {
         const include = style.getAttribute(attr);
         if (include) {
           style.removeAttribute(attr);
+          /** @suppress {deprecated} */
           style.textContent = cssFromModules(include) + style.textContent;
         }
         /*
@@ -19365,7 +20230,7 @@ magnifying-glass {
     <div class="input-wrapper">
       <span class="prefix"><slot name="prefix"></slot></span>
 
-      <div class\$="[[_computeInputContentClass(noLabelFloat,alwaysFloatLabel,focused,invalid,_inputHasContent)]]" id="labelAndInputContainer">
+      <div class$="[[_computeInputContentClass(noLabelFloat,alwaysFloatLabel,focused,invalid,_inputHasContent)]]" id="labelAndInputContainer">
         <slot name="label"></slot>
         <slot name="input"></slot>
       </div>
@@ -19373,12 +20238,12 @@ magnifying-glass {
       <span class="suffix"><slot name="suffix"></slot></span>
     </div>
 
-    <div class\$="[[_computeUnderlineClass(focused,invalid)]]">
+    <div class$="[[_computeUnderlineClass(focused,invalid)]]">
       <div class="unfocused-line"></div>
       <div class="focused-line"></div>
     </div>
 
-    <div class\$="[[_computeAddOnContentClass(focused,invalid)]]">
+    <div class$="[[_computeAddOnContentClass(focused,invalid)]]">
       <slot name="add-on"></slot>
     </div>
 `,
@@ -19729,10 +20594,29 @@ magnifying-glass {
 
       :host([invalid]) {
         visibility: visible;
-      };
+      }
+
+      #a11yWrapper {
+        visibility: hidden;
+      }
+
+      :host([invalid]) #a11yWrapper {
+        visibility: visible;
+      }
     </style>
 
-    <slot></slot>
+    <!--
+    If the paper-input-error element is directly referenced by an
+    \`aria-describedby\` attribute, such as when used as a paper-input add-on,
+    then applying \`visibility: hidden;\` to the paper-input-error element itself
+    does not hide the error.
+
+    For more information, see:
+    https://www.w3.org/TR/accname-1.1/#mapping_additional_nd_description
+    -->
+    <div id="a11yWrapper">
+      <slot></slot>
+    </div>
 `,
 
       is: 'paper-input-error',
@@ -20645,6 +21529,8 @@ magnifying-glass {
          * If you're using PaperInputBehavior to implement your own paper-input-like
          * element, bind this to the `<input is="iron-input">`'s `autocapitalize`
          * property.
+         *
+         * @type {string}
          */
         autocapitalize: {type: String, value: 'none'},
 
@@ -20930,8 +21816,8 @@ magnifying-glass {
     It may include an optional error message or character counter.
 
         <paper-input error-message="Invalid input!" label="Input
-    label"></paper-input> <paper-input char-counter label="Input
-    label"></paper-input>
+        label"></paper-input> <paper-input char-counter label="Input
+        label"></paper-input>
 
     It can also include custom prefix or suffix elements, which are displayed
     before or after the text input itself. In order for an element to be
@@ -21061,15 +21947,15 @@ magnifying-glass {
       }
     </style>
 
-    <paper-input-container id="container" no-label-float="[[noLabelFloat]]" always-float-label="[[_computeAlwaysFloatLabel(alwaysFloatLabel,placeholder)]]" auto-validate\$="[[autoValidate]]" disabled\$="[[disabled]]" invalid="[[invalid]]">
+    <paper-input-container id="container" no-label-float="[[noLabelFloat]]" always-float-label="[[_computeAlwaysFloatLabel(alwaysFloatLabel,placeholder)]]" auto-validate$="[[autoValidate]]" disabled$="[[disabled]]" invalid="[[invalid]]">
 
       <slot name="prefix" slot="prefix"></slot>
 
-      <label hidden\$="[[!label]]" aria-hidden="true" for\$="[[_inputId]]" slot="label">[[label]]</label>
+      <label hidden$="[[!label]]" aria-hidden="true" for$="[[_inputId]]" slot="label">[[label]]</label>
 
       <!-- Need to bind maxlength so that the paper-input-char-counter works correctly -->
-      <iron-input bind-value="{{value}}" slot="input" class="input-element" id\$="[[_inputId]]" maxlength\$="[[maxlength]]" allowed-pattern="[[allowedPattern]]" invalid="{{invalid}}" validator="[[validator]]">
-        <input aria-labelledby\$="[[_ariaLabelledBy]]" aria-describedby\$="[[_ariaDescribedBy]]" disabled\$="[[disabled]]" title\$="[[title]]" type\$="[[type]]" pattern\$="[[pattern]]" required\$="[[required]]" autocomplete\$="[[autocomplete]]" autofocus\$="[[autofocus]]" inputmode\$="[[inputmode]]" minlength\$="[[minlength]]" maxlength\$="[[maxlength]]" min\$="[[min]]" max\$="[[max]]" step\$="[[step]]" name\$="[[name]]" placeholder\$="[[placeholder]]" readonly\$="[[readonly]]" list\$="[[list]]" size\$="[[size]]" autocapitalize\$="[[autocapitalize]]" autocorrect\$="[[autocorrect]]" on-change="_onChange" tabindex\$="[[tabIndex]]" autosave\$="[[autosave]]" results\$="[[results]]" accept\$="[[accept]]" multiple\$="[[multiple]]">
+      <iron-input bind-value="{{value}}" slot="input" class="input-element" id$="[[_inputId]]" maxlength$="[[maxlength]]" allowed-pattern="[[allowedPattern]]" invalid="{{invalid}}" validator="[[validator]]">
+        <input aria-labelledby$="[[_ariaLabelledBy]]" aria-describedby$="[[_ariaDescribedBy]]" disabled$="[[disabled]]" title$="[[title]]" type$="[[type]]" pattern$="[[pattern]]" required$="[[required]]" autocomplete$="[[autocomplete]]" autofocus$="[[autofocus]]" inputmode$="[[inputmode]]" minlength$="[[minlength]]" maxlength$="[[maxlength]]" min$="[[min]]" max$="[[max]]" step$="[[step]]" name$="[[name]]" placeholder$="[[placeholder]]" readonly$="[[readonly]]" list$="[[list]]" size$="[[size]]" autocapitalize$="[[autocapitalize]]" autocorrect$="[[autocorrect]]" on-change="_onChange" tabindex$="[[tabIndex]]" autosave$="[[autosave]]" results$="[[results]]" accept$="[[accept]]" multiple$="[[multiple]]">
       </iron-input>
 
       <slot name="suffix" slot="suffix"></slot>
@@ -24032,7 +24918,7 @@ h2 {
             if (config == null) {
                 return this.src ? html `Loading...` : html `No config specified`;
             }
-            const goldens = config.renderers.map(renderer => (Object.assign({}, renderer, { file: `${renderer.name}-golden.png` })));
+            const goldens = config.renderers.map(renderer => (Object.assign(Object.assign({}, renderer), { file: `${renderer.name}-golden.png` })));
             const scenarios = config.scenarios.map((scenario) => html `
 <rendering-scenario
     .name="${scenario.name}"

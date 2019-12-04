@@ -2481,11 +2481,8 @@ LitElement['finalized'] = true;
 LitElement.render = render$1;
 
 const HAS_WEBXR_DEVICE_API = navigator.xr != null &&
-    self.XRSession != null && self.XRDevice != null &&
-    self.XRDevice.prototype.supportsSession != null;
+    self.XRSession != null && navigator.xr.supportsSession != null;
 const HAS_WEBXR_HIT_TEST_API = HAS_WEBXR_DEVICE_API && self.XRSession.prototype.requestHitTest;
-const HAS_FULLSCREEN_API = document.documentElement != null &&
-    document.documentElement.requestFullscreen != null;
 const HAS_RESIZE_OBSERVER = self.ResizeObserver != null;
 const HAS_INTERSECTION_OBSERVER = self.IntersectionObserver != null;
 const IS_MOBILE = (() => {
@@ -2503,7 +2500,8 @@ const HAS_OFFSCREEN_CANVAS = Boolean(self.OffscreenCanvas);
 const OFFSCREEN_CANVAS_SUPPORT_BITMAP = Boolean(self.OffscreenCanvas) &&
     Boolean(self.OffscreenCanvas.prototype.transferToImageBitmap);
 const IS_ANDROID = /android/i.test(navigator.userAgent);
-const IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !self.MSStream;
+const IS_IOS = (/iPad|iPhone|iPod/.test(navigator.userAgent) && !self.MSStream) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 const IS_AR_QUICKLOOK_CANDIDATE = (() => {
     const tempAnchor = document.createElement('a');
     return Boolean(tempAnchor.relList && tempAnchor.relList.supports &&
@@ -2620,7 +2618,6 @@ let FilamentViewer = class FilamentViewer extends LitElement {
         this[$view] = this[$engine].createView();
         this[$view].setCamera(this[$camera]);
         this[$view].setScene(this[$scene]);
-        this[$boundingBox] = { min: [-1, -1, -1], max: [1, 1, 1] };
         this[$updateSize]();
     }
     async [$updateScenario](scenario) {
@@ -2652,10 +2649,22 @@ let FilamentViewer = class FilamentViewer extends LitElement {
             this[$skybox] = null;
         }
         await fetchFilamentAssets([modelUrl, iblUrl, skyboxUrl]);
-        this[$ibl] = this[$engine].createIblFromKtx(iblUrl);
-        this[$scene].setIndirectLight(this[$ibl]);
-        this[$ibl].setIntensity(40000);
-        this[$ibl].setRotation([0, 0, -1, 0, 1, 0, 1, 0, 0]);
+        if (lightingBaseName === 'spot1Lux') {
+            const light = self.Filament.EntityManager.get().create();
+            self.Filament.LightManager
+                .Builder(self.Filament.LightManager$Type.DIRECTIONAL)
+                .color([1, 1, 1])
+                .intensity(1)
+                .direction([-1, 0, 0])
+                .build(this[$engine], light);
+            this[$scene].addEntity(light);
+        }
+        else {
+            this[$ibl] = this[$engine].createIblFromKtx(iblUrl);
+            this[$scene].setIndirectLight(this[$ibl]);
+            this[$ibl].setIntensity(1.0);
+            this[$ibl].setRotation([0, 0, -1, 0, 1, 0, 1, 0, 0]);
+        }
         this[$skybox] = this[$engine].createSkyFromKtx(skyboxUrl);
         this[$scene].setSkybox(this[$skybox]);
         const loader = this[$engine].createAssetLoader();
@@ -2694,37 +2703,38 @@ let FilamentViewer = class FilamentViewer extends LitElement {
         }
         const Fov = self.Filament.Camera$Fov;
         const canvas = this[$canvas];
-        const { scenario } = this;
+        const { dimensions, target, orbit, verticalFoV } = this.scenario;
         const dpr = resolveDpr();
-        const width = scenario.dimensions.width * dpr;
-        const height = scenario.dimensions.height * dpr;
+        const width = dimensions.width * dpr;
+        const height = dimensions.height * dpr;
         canvas.width = width;
         canvas.height = height;
-        canvas.style.width = `${scenario.dimensions.width}px`;
-        canvas.style.height = `${scenario.dimensions.height}px`;
+        canvas.style.width = `${dimensions.width}px`;
+        canvas.style.height = `${dimensions.height}px`;
         this[$view].setViewport([0, 0, width, height]);
         const aspect = width / height;
-        const target = [0, 0, 0];
-        const eye = [0, 0, 0];
-        const boundingBox = this[$boundingBox];
-        for (let i = 0; i < 3; i++) {
-            target[i] = (boundingBox.min[i] + boundingBox.max[i]) / 2.0;
-            eye[i] = target[i];
+        const center = [target.x, target.y, target.z];
+        const theta = orbit.theta * Math.PI / 180;
+        const phi = orbit.phi * Math.PI / 180;
+        const radiusSinPhi = orbit.radius * Math.sin(phi);
+        const eye = [
+            radiusSinPhi * Math.sin(theta) + target.x,
+            orbit.radius * Math.cos(phi) + target.y,
+            radiusSinPhi * Math.cos(theta) + target.z
+        ];
+        if (orbit.radius <= 0) {
+            center[0] = eye[0] - Math.sin(phi) * Math.sin(theta);
+            center[1] = eye[1] - Math.cos(phi);
+            center[2] = eye[2] - Math.sin(phi) * Math.cos(theta);
         }
-        const boxHalfX = Math.max(Math.abs(boundingBox.min[0] - target[0]), Math.abs(boundingBox.max[0] - target[0]));
-        const boxHalfZ = Math.max(Math.abs(boundingBox.min[2] - target[2]), Math.abs(boundingBox.max[2] - target[2]));
-        const boxHalfY = Math.max(Math.abs(boundingBox.min[1] - target[1]), Math.abs(boundingBox.max[1] - target[1]));
-        const modelDepth = 2 * Math.max(boxHalfX, boxHalfZ);
-        const framedHeight = Math.max(2 * boxHalfY, modelDepth / aspect);
-        const fov = 45;
-        const framedDistance = (framedHeight / 2) / Math.tan((fov / 2) * Math.PI / 180);
-        const near = framedHeight / 10.0;
-        const far = framedHeight * 10.0;
-        const cameraDistance = framedDistance + modelDepth / 2;
-        this[$camera].setProjectionFov(fov, aspect, near, far, Fov.VERTICAL);
-        eye[2] += cameraDistance;
+        const { min, max } = this[$boundingBox];
+        const modelRadius = Math.max(max[0] - min[0], max[1] - min[1], max[2] - min[2]);
+        const far = 2 * Math.max(modelRadius, orbit.radius);
+        const near = far / 1000;
+        this[$camera].setProjectionFov(verticalFoV, aspect, near, far, Fov.VERTICAL);
         const up = [0, 1, 0];
-        this[$camera].lookAt(eye, target, up);
+        this[$camera].lookAt(eye, center, up);
+        this[$camera].setExposureDirect(1.0);
     }
 };
 __decorate([
