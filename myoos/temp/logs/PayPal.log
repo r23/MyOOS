@@ -1,3 +1,0 @@
-[01-10-2019 11:09:16] PayPal\Core\PayPalHttpConnection : INFO: POST https://api.sandbox.paypal.com/v1/oauth2/token
-[01-10-2019 11:09:18] PayPal\Core\PayPalHttpConnection : INFO: Response Status 	: 401
-[01-10-2019 11:09:18] PayPal\Core\PayPalHttpConnection : ERROR: Got Http response code 401 when accessing https://api.sandbox.paypal.com/v1/oauth2/token. {"error":"invalid_client","error_description":"Client Authentication failed"}
