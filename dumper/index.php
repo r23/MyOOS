@@ -16,10 +16,20 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
+/**
+ * Set the error reporting level. Unless you have a special need, E_ALL is a
+ * good level for error reporting.
+ */
+error_reporting(E_ALL);
+// error_reporting(0);
+
+
 define('OOS_VALID_MOD', true);
 
 if (!@ob_start("ob_gzhandler")) @ob_start();
-include ('./inc/functions.php');
+
+include '/includes/functions.php';
+
 $page=(isset($_GET['page'])) ? $_GET['page'] : 'main.php';
 if (!file_exists("./work/config/myoosdumper.php"))
 {
@@ -32,6 +42,8 @@ if (!file_exists("./work/config/myoosdumper.php"))
 <html>
 <head>
 	<meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
 	<meta name="robots" content="noindex,nofollow" />
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
