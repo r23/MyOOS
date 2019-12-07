@@ -1,0 +1,5 @@
+Installation: 
+
+- Envoyer le r�pertoire "mysqldumper" sur votre serveur 
+- D�buter le script en saisissant l'adresse suivante dans votre navigateur (http://example.org/mysqldumper/)
+- Suivez les instructions d'installation du script 
