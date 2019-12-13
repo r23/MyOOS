@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Akismet Anti-Spam - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-10-31 16:12:18+0000\n"
+"PO-Revision-Date: 2019-11-21 17:15:23+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,22 @@ msgstr ""
 "X-Generator: GlotPress/2.4.0-alpha\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Akismet Anti-Spam - Stable (latest release)\n"
+
+#: views/enter.php:8
+msgid "Enter your API key"
+msgstr "Gib deinen API-Schlüssel ein"
+
+#: views/connect-jp.php:66
+msgid "Set up a different account"
+msgstr "Ein weiteres Konto einrichten."
+
+#: views/setup.php:5
+msgid "Set up your Akismet account to enable spam filtering on this site."
+msgstr "Richte dein Akismet-Konto ein, um den Spam-Filter für diese Website zu aktivieren."
+
+#: views/setup.php:1
+msgid "Set Up Akismet"
+msgstr "Akismet einrichten."
 
 #: class.akismet-admin.php:1081
 msgid "Akismet could not recheck your comments for spam."
@@ -29,7 +45,7 @@ msgstr "Konnte Statistiken aktuell nicht abrufen. Bitte nochmal versuchen."
 
 #: class.akismet-cli.php:134
 msgid "API key must be set to fetch stats."
-msgstr "API-Key muss konfiguriert sein, um die Statistiken abzurufen."
+msgstr "API-Schlüssel muss konfiguriert sein, um die Statistiken abzurufen."
 
 #: views/notice.php:144
 msgid "To help your site with transparency under privacy laws like the GDPR, Akismet can display a notice to your users under your comment forms. This feature is disabled by default, however, you can turn it on below."
@@ -151,6 +167,10 @@ msgstr "Du bist als %s verbunden."
 #: views/connect-jp.php:53 views/connect-jp.php:65
 msgid "Connect with Jetpack"
 msgstr "Mit Jetpack verbinden"
+
+#: views/connect-jp.php:12 views/connect-jp.php:25 views/connect-jp.php:48
+msgid "Use your Jetpack connection to set up Akismet."
+msgstr "Verwende deine Jetpack-Verbindung, um Akismet einzurichten."
 
 #: views/title.php:2
 msgid "Eliminate spam from your site"

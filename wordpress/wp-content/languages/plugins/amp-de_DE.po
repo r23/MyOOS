@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - AMP - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-11-28 13:22:15+0000\n"
+"PO-Revision-Date: 2019-12-12 02:32:36+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -15,9 +15,25 @@ msgstr ""
 msgid "Invalid Markup"
 msgstr "Ungültiges Markup"
 
+#: includes/validation/class-amp-validation-error-taxonomy.php:2978
+msgid "CSS property"
+msgstr "CSS-Eigenschaft"
+
+#: includes/validation/class-amp-validation-error-taxonomy.php:2940
+msgid "Illegal CSS !important property"
+msgstr "Ungültige !important CSS-Eigenschaft"
+
+#: includes/validation/class-amp-validation-error-taxonomy.php:2934
+msgid "Illegal CSS property"
+msgstr "Ungültige CSS-Eigenschaft"
+
 #: includes/validation/class-amp-validation-error-taxonomy.php:2932
 msgid "Missing stylesheet file"
 msgstr "Fehlende Stylesheet-Datei"
+
+#: includes/validation/class-amp-validation-error-taxonomy.php:2930
+msgid "CSS parse error"
+msgstr "CSS Parsing-Fehler"
 
 #: includes/validation/class-amp-validation-error-taxonomy.php:2928
 msgid "Unrecognized CSS"
