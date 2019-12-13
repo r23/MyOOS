@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<p>
 		<?php
 		_e(
-			'WordPress Multisite is supported via our All in One WP Migration Multisite Extension. ' .
+			'WordPress Multisite is supported via our All-in-One WP Migration Multisite Extension. ' .
 			'You can get a copy of it here',
 			AI1WM_PLUGIN_NAME
 		);

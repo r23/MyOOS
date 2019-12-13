@@ -237,7 +237,7 @@
 
 = 1.8.1 =
 * Added "Get Support" link in the plugin list page
-* Removed "All in One WP Migration Beta" link from the readme file
+* Removed "All-in-One WP Migration Beta" link from the readme file
 
 = 1.8.0 =
 * Added support for dynamically recognizing Site URL and Home URL on the import page

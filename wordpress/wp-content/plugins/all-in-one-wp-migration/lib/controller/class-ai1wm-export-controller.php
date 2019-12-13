@@ -128,7 +128,7 @@ class Ai1wm_Export_Controller {
 		$active_filters = array();
 		$static_filters = array();
 
-		// All in One WP Migration
+		// All-in-One WP Migration
 		if ( defined( 'AI1WM_PLUGIN_NAME' ) ) {
 			$active_filters[] = apply_filters( 'ai1wm_export_file', Ai1wm_Template::get_content( 'export/button-file' ) );
 		} else {

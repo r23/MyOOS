@@ -26,7 +26,7 @@ if ( defined( 'WP_CLI' ) ) {
 			if ( is_multisite() ) {
 				WP_CLI::error_multi_line(
 					array(
-						__( 'WordPress Multisite is supported via our All in One WP Migration Multisite Extension.', AI1WM_PLUGIN_NAME ),
+						__( 'WordPress Multisite is supported via our All-in-One WP Migration Multisite Extension.', AI1WM_PLUGIN_NAME ),
 						__( 'You can get a copy of it here: https://servmask.com/products/multisite-extension', AI1WM_PLUGIN_NAME ),
 					)
 				);
@@ -35,7 +35,7 @@ if ( defined( 'WP_CLI' ) ) {
 
 			WP_CLI::error_multi_line(
 				array(
-					__( 'WordPress CLI is supported via our All in One WP Migration Unlimited Extension.', AI1WM_PLUGIN_NAME ),
+					__( 'WordPress CLI is supported via our All-in-One WP Migration Unlimited Extension.', AI1WM_PLUGIN_NAME ),
 					__( 'You can get a copy of it here: https://servmask.com/products/unlimited-extension', AI1WM_PLUGIN_NAME ),
 				)
 			);

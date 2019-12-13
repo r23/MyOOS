@@ -101,7 +101,7 @@ class Ai1wm_Main_Controller {
 		// Admin header
 		add_action( 'admin_head', array( $this, 'admin_head' ) );
 
-		// All in One WP Migration
+		// All-in-One WP Migration
 		add_action( 'plugins_loaded', array( $this, 'ai1wm_loaded' ), 10 );
 
 		// Export and import commands
@@ -191,7 +191,7 @@ class Ai1wm_Main_Controller {
 	}
 
 	/**
-	 * All in One WP Migration loaded
+	 * All-in-One WP Migration loaded
 	 *
 	 * @return void
 	 */

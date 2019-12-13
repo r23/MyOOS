@@ -80,6 +80,15 @@ class Ai1wm_Import_Controller {
 								echo json_encode( array( 'errors' => array( array( 'code' => $e->getCode(), 'message' => $e->getMessage() ) ) ) );
 							}
 							exit;
+						} catch ( Ai1wm_Database_Exception $e ) {
+							if ( defined( 'WP_CLI' ) ) {
+								WP_CLI::error( sprintf( __( 'Unable to import. Error code: %s. %s', AI1WM_PLUGIN_NAME ), $e->getCode(), $e->getMessage() ) );
+							} else {
+								status_header( $e->getCode() );
+								echo json_encode( array( 'errors' => array( array( 'code' => $e->getCode(), 'message' => $e->getMessage() ) ) ) );
+							}
+							Ai1wm_Directory::delete( ai1wm_storage_path( $params ) );
+							exit;
 						} catch ( Exception $e ) {
 							if ( defined( 'WP_CLI' ) ) {
 								WP_CLI::error( sprintf( __( 'Unable to import: %s', AI1WM_PLUGIN_NAME ), $e->getMessage() ) );
@@ -136,7 +145,7 @@ class Ai1wm_Import_Controller {
 		$active_filters = array();
 		$static_filters = array();
 
-		// All in One WP Migration
+		// All-in-One WP Migration
 		if ( defined( 'AI1WM_PLUGIN_NAME' ) ) {
 			$active_filters[] = apply_filters( 'ai1wm_import_file', Ai1wm_Template::get_content( 'import/button-file' ) );
 		} else {
