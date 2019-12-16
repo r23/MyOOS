@@ -128,6 +128,7 @@ return array(
     'GPBMetadata\\Google\\' => array($vendorDir . '/google/cloud/CommonProtos/metadata', $vendorDir . '/google/common-protos/metadata', $vendorDir . '/google/gax/metadata'),
     'Firebase\\JWT\\' => array($vendorDir . '/firebase/php-jwt/src'),
     'Endroid\\QrCode\\' => array($vendorDir . '/endroid/qr-code/src'),
+    'Doctrine\\Persistence\\' => array($vendorDir . '/doctrine/persistence/lib/Doctrine/Persistence'),
     'Doctrine\\Common\\Lexer\\' => array($vendorDir . '/doctrine/lexer/lib/Doctrine/Common/Lexer'),
     'Doctrine\\Common\\Collections\\' => array($vendorDir . '/doctrine/collections/lib/Doctrine/Common/Collections'),
     'Doctrine\\Common\\Cache\\' => array($vendorDir . '/doctrine/cache/lib/Doctrine/Common/Cache'),

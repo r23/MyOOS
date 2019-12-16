@@ -237,6 +237,7 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         ),
         'D' => 
         array (
+            'Doctrine\\Persistence\\' => 21,
             'Doctrine\\Common\\Lexer\\' => 22,
             'Doctrine\\Common\\Collections\\' => 28,
             'Doctrine\\Common\\Cache\\' => 22,
@@ -745,6 +746,10 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         'Endroid\\QrCode\\' => 
         array (
             0 => __DIR__ . '/..' . '/endroid/qr-code/src',
+        ),
+        'Doctrine\\Persistence\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/persistence/lib/Doctrine/Persistence',
         ),
         'Doctrine\\Common\\Lexer\\' => 
         array (
