@@ -1,5 +1,5 @@
 /*!
- * MyOOS v2.3.9
+ * MyOOS v2.3.13
  *
  * Author: r23
  * Website: https://oos-shop.de
@@ -8,14 +8,14 @@
  * Released under the GNU General Public License
  */
 
-@import "base/fonts";
+@import "app/base/fonts";
 
 
 //
 // Settings
 //
 
-@import "settings/variables";
+@import "app/settings/variables";
 
 
 
@@ -23,10 +23,10 @@
 // Tools
 //
 
-@import "tools/resets";
-@import "tools/mixins";
+@import "app/tools/resets";
+@import "app/tools/mixins";
 // Block Components
-@import "tools/button-sizes";
+@import "app/tools/button-sizes";
 
 
 
@@ -34,75 +34,75 @@
 // Core
 //
 
-@import "core/style";
-@import "core/typo-font-sizes";
-@import "core/bar-rating";
-@import "core/sub-nav";
-@import "core/table";
+@import "app/core/style";
+@import "app/core/typo-font-sizes";
+@import "app/core/bar-rating";
+@import "app/core/sub-nav";
+@import "app/core/table";
 
 //
 // Components
 //
 
-@import "base/price";
-@import "base/alerts";
-@import "base/arrows";
+@import "app/base/price";
+@import "app/base/alerts";
+@import "app/base/arrows";
 
 // Badges
-@import "base/badges";
+@import "app/base/badges";
 
 // Dividers
-@import "base/dividers";
+@import "app/base/dividers";
 
 // Headers
-@import "base/headers";
-@import "base/main-nav";
-@import "base/submenu";
+@import "app/base/headers";
+@import "app/base/main-nav";
+@import "app/base/submenu";
 
 //Footer
-@import "base/dropdown";
+@import "app/base/dropdown";
 
 // Cart
-@import "base/cart";
+@import "app/base/cart";
 
 // page header
-@import "base/page_header";
+@import "app/base/page_header";
 
 // Buttons
-@import "base/buttons";
+@import "app/base/buttons";
 
 
 // User Profile
-@import "base/user-profile";
+@import "app/base/user-profile";
 
 
 //
 // Globals
 //
 
-@import "globals/colors";
-@import "globals/bg-colors";
+@import "app/globals/colors";
+@import "app/globals/bg-colors";
 
 // Spaces (Margins & Paddings)
-@import "globals/paddings";
-@import "globals/margin";
+@import "app/globals/paddings";
+@import "app/globals/margin";
 
 
 //
 // Layout / Pages
 //
 //
-@import "layout/403";
-@import "layout/404";
-@import "layout/home";
-@import "layout/layout";
-@import "layout/product_info";
-@import "layout/product_new";
-@import "layout/product_list";
-@import "layout/shopping_cart";
-@import "layout/steps";
-@import "layout/success";
-@import "layout/wishlist";
+@import "app/layout/403";
+@import "app/layout/404";
+@import "app/layout/home";
+@import "app/layout/layout";
+@import "app/layout/product_info";
+@import "app/layout/product_new";
+@import "app/layout/product_list";
+@import "app/layout/shopping_cart";
+@import "app/layout/steps";
+@import "app/layout/success";
+@import "app/layout/wishlist";
 
 //
 // Plugins
