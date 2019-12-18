@@ -564,21 +564,40 @@ trait Choices {
 	 * Function to get posts having review schema type selected.
 	 */
 	public static function get_review_posts() {
+		global $wpdb;
+
 		static $posts = null;
-		if ( null === $posts ) {
-			global $wpdb;
 
-			$meta_query = new \WP_Meta_Query([
-				'relation' => 'AND',
-				[
-					'key'   => 'rank_math_rich_snippet',
-					'value' => 'review',
-				],
-			]);
-
-			$meta_query = $meta_query->get_sql( 'post', $wpdb->posts, 'ID' );
-			$posts = $wpdb->get_col( "SELECT {$wpdb->posts}.ID FROM $wpdb->posts {$meta_query['join']} WHERE 1=1 {$meta_query['where']} AND ({$wpdb->posts}.post_status = 'publish')" ); // phpcs:ignore
+		if ( true === boolval( get_option( 'rank_math_review_posts_converted' ) ) ) {
+			return false;
 		}
+
+		if ( ! is_null( $posts ) ) {
+			return $posts;
+		}
+
+		$posts = get_transient( 'rank_math_any_review_posts' );
+		if ( false !== $posts ) {
+			return $posts;
+		}
+
+		$meta_query = new \WP_Meta_Query([
+			'relation' => 'AND',
+			[
+				'key'   => 'rank_math_rich_snippet',
+				'value' => 'review',
+			],
+		]);
+
+		$meta_query = $meta_query->get_sql( 'post', $wpdb->posts, 'ID' );
+		$posts = $wpdb->get_col( "SELECT {$wpdb->posts}.ID FROM $wpdb->posts {$meta_query['join']} WHERE 1=1 {$meta_query['where']} AND ({$wpdb->posts}.post_status = 'publish')" ); // phpcs:ignore
+
+		if ( 0 === count( $posts ) ) {
+			update_option( 'rank_math_review_posts_converted', true );
+			return false;
+		}
+
+		set_transient( 'rank_math_any_review_posts', $posts, DAY_IN_SECONDS );
 
 		return $posts;
 	}

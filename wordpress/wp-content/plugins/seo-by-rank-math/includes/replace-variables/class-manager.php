@@ -219,7 +219,7 @@ class Manager extends Post_Variables {
 
 		$json = [];
 		foreach ( $metas as $meta_key => $meta_value ) {
-			if ( substr( $meta_key, 0, 1 ) === '_' ) {
+			if ( Str::starts_with( '_', $meta_key ) || Str::starts_with( 'rank_math_', $meta_key ) ) {
 				continue;
 			}
 

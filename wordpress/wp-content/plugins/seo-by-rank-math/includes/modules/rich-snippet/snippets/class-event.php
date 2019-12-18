@@ -28,9 +28,10 @@ class Event implements Snippet {
 	 * @return array
 	 */
 	public function process( $data, $jsonld ) {
+		$type   = Helper::get_post_meta( 'snippet_event_type' );
 		$entity = [
 			'@context'    => 'https://schema.org',
-			'@type'       => Helper::get_post_meta( 'snippet_event_type' ),
+			'@type'       => $type ? $type : 'Event',
 			'name'        => $jsonld->parts['title'],
 			'description' => $jsonld->parts['desc'],
 			'url'         => $jsonld->parts['url'],
@@ -48,10 +49,10 @@ class Event implements Snippet {
 		];
 
 		if ( $start_date = Helper::get_post_meta( 'snippet_event_startdate' ) ) { // phpcs:ignore
-			$entity['startDate'] = str_replace( ' ', 'T', date_i18n( 'Y-m-d H:i', $start_date ) );
+			$entity['startDate'] = str_replace( ' ', 'T', Helper::convert_date( $start_date ) );
 		}
 		if ( $end_date = Helper::get_post_meta( 'snippet_event_enddate' ) ) { // phpcs:ignore
-			$entity['endDate'] = str_replace( ' ', 'T', date_i18n( 'Y-m-d H:i', $end_date ) );
+			$entity['endDate'] = str_replace( ' ', 'T', Helper::convert_date( $end_date ) );
 		}
 
 		$jsonld->add_ratings( 'event', $entity );
@@ -67,7 +68,7 @@ class Event implements Snippet {
 		], $entity['offers'] );
 
 		if ( ! empty( $entity['offers']['validFrom'] ) ) {
-			$entity['offers']['validFrom'] = str_replace( ' ', 'T', date_i18n( 'Y-m-d H:i', $entity['offers']['validFrom'] ) );
+			$entity['offers']['validFrom'] = str_replace( ' ', 'T', Helper::convert_date( $entity['offers']['validFrom'] ) );
 		}
 
 		if ( empty( $entity['offers']['price'] ) ) {

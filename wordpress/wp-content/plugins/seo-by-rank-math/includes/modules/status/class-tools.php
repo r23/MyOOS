@@ -45,7 +45,7 @@ class Tools {
 							<p class='description'><?php echo $tool['description']; ?></p>
 						</th>
 						<td class='run-tool'>
-							<a href='#' class='button button-large tools-action' data-action='<?php echo esc_attr( $id ); ?>' data-confirm="<?php echo isset( $tool['confirm_text'] ) ? esc_attr( $tool['confirm_text'] ) : 'false'; ?>"><?php echo esc_html( $tool['button_text'] ); ?></a>
+							<a href='#' class='button button-large button-link-delete tools-action' data-action='<?php echo esc_attr( $id ); ?>' data-confirm="<?php echo isset( $tool['confirm_text'] ) ? esc_attr( $tool['confirm_text'] ) : 'false'; ?>"><?php echo esc_html( $tool['button_text'] ); ?></a>
 						</td>
 					</tr>
 				<?php endforeach; ?>
@@ -191,7 +191,9 @@ class Tools {
 			update_post_meta( $post_id, 'rank_math_snippet_article_type', $this->do_filter( 'convert_review/article_type', 'BlogPosting', $post_id ) );
 			$count++;
 		}
-		update_option( 'rank_math_review_posts', $posts );
+
+		update_option( 'rank_math_review_posts_converted', true );
+
 		/* translators: Number of posts updated */
 		return sprintf( __( '%1$s review Posts updated. You can find the list of all converted posts %2$s.', 'rank-math' ), $count, '<a href="' . esc_url( admin_url( 'edit.php?post_type=post&review_posts=1' ) ) . '" target="_blank">here</a>' );
 	}

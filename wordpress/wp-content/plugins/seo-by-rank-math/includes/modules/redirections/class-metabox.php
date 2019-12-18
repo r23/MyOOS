@@ -87,6 +87,14 @@ class Metabox {
 			'save_field' => false,
 			'default'    => $url,
 		]);
+
+		Helper::add_json(
+			'assessor',
+			[
+				'redirection'           => $redirection,
+				'autoCreateRedirection' => Helper::get_settings( 'general.redirections_post_redirect' ),
+			]
+		);
 	}
 
 	/**
@@ -101,16 +109,22 @@ class Metabox {
 				DB::delete( $cmb->data_to_save['redirection_id'] );
 				Helper::add_notification( esc_html__( 'Redirection successfully deleted.', 'rank-math' ), [ 'type' => 'info' ] );
 			}
-			return;
+			return [
+				'action'  => 'delete',
+				'message' => esc_html__( 'Redirection successfully deleted.', 'rank-math' ),
+			];
 		}
 
 		// Check if no change bail!!
 		if ( ! $this->can_update( $cmb->data_to_save ) ) {
-			return;
+			return [
+				'action'  => 'cant_update',
+				'message' => esc_html__( 'Can\'t update redirection.', 'rank-math' ),
+			];
 		}
 
 		$values = [
-			'id'          => $cmb->data_to_save['redirection_id'],
+			'id'          => isset( $cmb->data_to_save['redirection_id'] ) ? $cmb->data_to_save['redirection_id'] : '',
 			'url_to'      => $cmb->data_to_save['redirection_url_to'],
 			'sources'     => [
 				[
@@ -122,8 +136,17 @@ class Metabox {
 		];
 
 		$redirection_id = DB::update_iff( $values );
+		$response       = [
+			'action'  => 'update',
+			'message' => esc_html__( 'Redirection updated successfully.', 'rank-math' ),
+		];
 		if ( ! isset( $values['id'] ) ) {
 			Helper::add_notification( esc_html__( 'New redirection created.', 'rank-math' ) );
+			$response = [
+				'id'      => $redirection_id,
+				'action'  => 'new',
+				'message' => esc_html__( 'New redirection created.', 'rank-math' ),
+			];
 		}
 
 		Cache::add([
@@ -131,6 +154,8 @@ class Metabox {
 			'redirection_id' => $redirection_id,
 			'object_id'      => $cmb->object_id,
 		]);
+
+		return $response;
 	}
 
 	/**

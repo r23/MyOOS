@@ -32,10 +32,7 @@ class Book implements Snippet {
 			'@context' => 'https://schema.org',
 			'@type'    => 'Book',
 			'name'     => $jsonld->parts['title'],
-			'author'   => [
-				'@type' => 'Person',
-				'name'  => $jsonld->parts['author'],
-			],
+			'author'   => $this->get_author_parts( $jsonld->parts['author'] ),
 			'url'      => $jsonld->parts['url'],
 			'hasPart'  => [],
 		];
@@ -46,6 +43,28 @@ class Book implements Snippet {
 		}
 
 		return $entity;
+	}
+
+	/**
+	 * Get authors.
+	 *
+	 * @param string $authors Comma seperated author string.
+	 *
+	 * @return array
+	 */
+	private function get_author_parts( $authors ) {
+		$parts   = [];
+		$authors = explode( ', ', $authors );
+		$authors = array_map( 'trim', $authors );
+
+		foreach ( $authors as $author ) {
+			$parts[] = [
+				'@type' => 'Person',
+				'name'  => $author,
+			];
+		}
+
+		return $parts;
 	}
 
 	/**
@@ -65,7 +84,7 @@ class Book implements Snippet {
 		$fields = [ 'isbn', 'name', 'author', 'url' ];
 		foreach ( $fields as $field ) {
 			if ( ! empty( $edition[ $field ] ) ) {
-				$work[ $field ] = $edition[ $field ];
+				$work[ $field ] = 'author' === $field ? $this->get_author_parts( $edition[ $field ] ) : $edition[ $field ];
 			}
 		}
 

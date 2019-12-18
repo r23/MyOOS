@@ -41,7 +41,8 @@ class Admin_Helper {
 	/**
 	 * Get tooltip HTML.
 	 *
-	 * @param  string $message Message to show in tooltip.
+	 * @param string $message Message to show in tooltip.
+	 *
 	 * @return string
 	 */
 	public static function get_tooltip( $message ) {
@@ -51,7 +52,8 @@ class Admin_Helper {
 	/**
 	 * Get admin view file.
 	 *
-	 * @param  string $view View filename.
+	 * @param string $view View filename.
+	 *
 	 * @return string Complete path to view
 	 */
 	public static function get_view( $view ) {
@@ -62,6 +64,7 @@ class Admin_Helper {
 	 * Get taxonomies as choices.
 	 *
 	 * @param array $args (Optional) Arguments passed to filter list.
+	 *
 	 * @return array|bool
 	 */
 	public static function get_taxonomies_options( $args = [] ) {
@@ -77,6 +80,7 @@ class Admin_Helper {
 	 * Registration data get/update.
 	 *
 	 * @param array|bool|null $data Array of data to save.
+	 *
 	 * @return array
 	 */
 	public static function get_registration_data( $data = null ) {
@@ -98,50 +102,11 @@ class Admin_Helper {
 	}
 
 	/**
-	 * Register product routine.
-	 *
-	 * @param  string $username Username for registration.
-	 * @param  string $password Password for registration.
-	 * @return bool
-	 */
-	public static function register_product( $username, $password ) {
-		$error = false;
-
-		if ( empty( $username ) ) {
-			$error = true;
-			Helper::add_notification( esc_html__( 'Username is not entered.', 'rank-math' ), [ 'type' => 'error' ] );
-		}
-
-		if ( empty( $password ) ) {
-			$error = true;
-			Helper::add_notification( esc_html__( 'Password is not entered.', 'rank-math' ), [ 'type' => 'error' ] );
-		}
-
-		if ( $error ) {
-			return false;
-		}
-
-		$body = self::authenticate_user( $username, $password );
-
-		if ( false !== $body && isset( $body['token'] ) ) {
-			self::get_registration_data([
-				'username'  => $body['login'],
-				'api_key'   => $body['token'],
-				'connected' => true,
-			]);
-			Helper::add_notification( esc_html__( 'Thank you for connecting your Rank Math account.', 'rank-math' ), 'success' );
-
-			return true;
-		}
-
-		return false;
-	}
-
-	/**
 	 * Authenticate user on RankMath.com.
 	 *
-	 * @param  string $username Username for registration.
-	 * @param  string $password Password for registration.
+	 * @param string $username Username for registration.
+	 * @param string $password Password for registration.
+	 *
 	 * @return bool
 	 */
 	private static function authenticate_user( $username, $password ) {
@@ -184,9 +149,10 @@ class Admin_Helper {
 	/**
 	 * Compare values.
 	 *
-	 * @param  integer $value1     Old value.
-	 * @param  integer $value2     New Value.
-	 * @param  bool    $percentage Treat as percentage.
+	 * @param integer $value1     Old value.
+	 * @param integer $value2     New Value.
+	 * @param bool    $percentage Treat as percentage.
+	 *
 	 * @return float
 	 */
 	public static function compare_values( $value1, $value2, $percentage = false ) {
@@ -209,6 +175,28 @@ class Admin_Helper {
 	}
 
 	/**
+	 * Check if current page is media list page.
+	 *
+	 * @return bool
+	 */
+	public static function is_media_library() {
+		global $pagenow;
+
+		return 'upload.php' === $pagenow;
+	}
+
+	/**
+	 * Check if current page is post list page.
+	 *
+	 * @return bool
+	 */
+	public static function is_post_list() {
+		global $pagenow;
+
+		return 'edit.php' === $pagenow;
+	}
+
+	/**
 	 * Check if current page is post create/edit screen.
 	 *
 	 * @return bool
@@ -216,7 +204,7 @@ class Admin_Helper {
 	public static function is_post_edit() {
 		global $pagenow;
 
-		return in_array( $pagenow, [ 'post.php', 'post-new.php' ], true );
+		return 'post.php' === $pagenow || 'post-new.php' === $pagenow;
 	}
 
 	/**
@@ -226,6 +214,7 @@ class Admin_Helper {
 	 */
 	public static function is_term_edit() {
 		global $pagenow;
+
 		return 'term.php' === $pagenow;
 	}
 
@@ -237,7 +226,7 @@ class Admin_Helper {
 	public static function is_user_edit() {
 		global $pagenow;
 
-		return in_array( $pagenow, [ 'profile.php', 'user-edit.php' ], true );
+		return 'profile.php' === $pagenow || 'user-edit.php' === $pagenow;
 	}
 
 	/**
@@ -248,7 +237,7 @@ class Admin_Helper {
 	public static function is_term_profile_page() {
 		global $pagenow;
 
-		return in_array( $pagenow, [ 'term.php', 'profile.php', 'user-edit.php' ], true );
+		return self::is_term_edit() || self::is_user_edit();
 	}
 
 	/**
@@ -288,5 +277,33 @@ class Admin_Helper {
 			</a>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Get product activation URL.
+	 *
+	 * @param string $redirect_to Redirecto url.
+	 *
+	 * @return string Activate URL.
+	 */
+	public static function get_activate_url( $redirect_to = null ) {
+		if ( empty( $redirect_to ) ) {
+			$redirect_to = add_query_arg(
+				[
+					'page' => 'rank-math',
+					'view' => 'help',
+				],
+				admin_url( 'admin.php' )
+			);
+		}
+
+		$activate_args = [
+			'site' => urlencode( home_url() ),
+			'r'    => urlencode( $redirect_to ),
+		];
+		$activate_url  = add_query_arg( $activate_args, 'https://rankmath.com/auth/' );
+		$activate_url  = apply_filters( 'rank_math/license/activate_url', $activate_url, $activate_args );
+
+		return $activate_url;
 	}
 }

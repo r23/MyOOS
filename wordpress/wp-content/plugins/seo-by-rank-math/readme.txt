@@ -2,10 +2,10 @@
 Contributors: rankmath
 Plugin link: https://s.rankmath.com/homepage
 Tags: seo, sitemap, google search console, schema, redirection
-Tested up to: 5.3
-Requires at least: 4.7.0
+Tested up to: 5.3.1
+Requires at least: 4.9.0
 Requires PHP: 5.6
-Stable tag: 1.0.35.3
+Stable tag: 1.0.36.1
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -37,8 +37,8 @@ Rank Math practically configures itself. Rank Math features a step-by-step insta
 * **Google Schema Markup aka Rich Snippets Integrated**
 Configuring Google Schema Markup aka Rich Snippets is now easy, thanks to Rank Math. With support for 14 types of rich snippets, you’ll be able to optimize your posts in just a few clicks.
 
-* **Optimize Upto 5 Keywords**
-Unlike other plugins, Rank Math lets you optimize your posts for 5 focus keywords per post.
+* **Optimize Unlimited Keywords**
+Unlike other plugins, Rank Math lets you optimize your posts for unlimited focus keywords per post. (5 by default. Increase by adding this [filter](https://rankmath.com/kb/filters-hooks-api-developer/#unlimited-keywords))
 
 * **Google Search Console Integration**
 Rank Math saves you a ton of time by integrating with Google Search Console and displaying important information about your website right inside WordPress.
@@ -436,32 +436,49 @@ We look forward to helping you.
 
 == Screenshots ==
 
-1. Optimize Content without any hassle.
-2. Analyze your website's SEO with one click and fix the issues.
-3. Simple Setup Wizard with 1-Click Importer.
-4. Support for 12+ Rich Snippet types.
-5. No need to pay any service when you can track keyword ranking change from our own Search Console.
-6. Comes with in-built options for social media optimization.
-7. Rank Math Comes with 404 monitor and easy to use Redirection Manager.
-8. Comes with 1-Click Importer for many SEO plugins.
-9. Powerful XML Sitemap.
-10. Role Manager gives you full control. Useful for multi-author sites.
-11. Rank Math Comes with 10+ FREE Module.
+1. Fully integrated with the Gutenberg aka New Editor.
+2. Optimize Content without any hassle and works with the Classic Editor.
+3. Analyze your website's SEO with one click and fix the issues.
+4. Simple Setup Wizard with 1-Click Importer.
+5. Support for 12+ Rich Snippet types.
+6. No need to pay any service when you can track keyword ranking change from our own Search Console.
+7. Comes with in-built options for social media optimization.
+8. Rank Math Comes with 404 monitor and easy to use Redirection Manager.
+9. Comes with 1-Click Importer for many SEO plugins.
+10. Powerful XML Sitemap.
+11. Role Manager gives you full control. Useful for multi-author sites.
+12. Rank Math Comes with 10+ FREE Module.
 
 == Changelog ==
 
-= 1.0.35.3 [Nov 25, 2019] =
-* Added a filter to modify Advanced Robots using a new filter: `rank_math/frontend/advanced_robots`
-* Added a condition to hide Search Console widget from the dashboard if the module is inactive
-* Improved the Shortcode output of various Schema types
-* Improved the translation of German letters with the Rank Math SEO plugin
-* Improved content analysis for WooCommerce to include product's short description
-* Improved WooCommerce Schema's output to exclude MPN values via the Brand value
-* Fixed redirection issues with the `.htaccess` file export with 410 type
-* Fixed an issue where incorrect author Robots values were being imported
-* Fixed an error in BuddyPress's module
-* Fixed an issue where author pages were showing a warning when admin menu bar was enabled
-* Fixed an error with the output of the title of author archive pages
-* Fixed an error of `datePublished` & `dateModified` showing an incorrect time when timezone was not set to UTC
+= 1.0.36.1 [Dec 19, 2019] =
+* Fixed "Cannot read property 'snippetType' of undefined" error on some installations
+* Removed the notice to re-connect the account. You can do so by heading to Rank Math > Dashboard > Help Tab
+
+= 1.0.36 [Dec 18, 2019] =
+* [HUGE!] Added complete Gutenberg support. The new editor will be [shown in the sidebar](https://i.rankmath.com/U44EB5)
+* [HUGE!] Added a filter to add unlimited Focus keywords. [Here's the code](https://rankmath.com/kb/filters-hooks-api-developer/#unlimited-keywords)
+* Added [Nofollow, & Sponsored options](https://i.rankmath.com/6khs6N) for the links in the Gutenberg/new editor as well
+* Added a filter to bring the old Rank Math box in the new editor area. [Here's the code](https://rankmath.com/kb/filters-hooks-api-developer/#disable-gutenberg-sidebar)
+* Added ACF integration in the sidebar edition of Rank Math as well
+* Added a new smoother way to connect the Rank Math account. PLEASE RECONNECT your account from inside the plugin
+* Added an email notification to be sent every time Rank Math gets auto-updated
+* Added Elementor's compatibility with the Sitemap module of Rank Math to make it efficient
+* Added a clear warning of unsupported Review Schema type. Please convert to the new system by [following this guide](https://rankmath.com/kb/how-to-fix-review-schema-errors/) (if you haven't already)
+* Removed 'Flesch Reading Score' test
+* Improved the performance of the post editor area to load faster
+* Improved the Review Schema of the supported Schema types to include single-author rating instead of aggregateRating. Props to [Matthew](https://www.matthewwoodward.co.uk/)
+* Improved Rich Snippet Shortcode's output
+* Improved the integration with WooCommerce
+* Improved the analysis of a focus keyword. Now the keywords with a comma are treated separately
+* Improved Power Words library to fix some typos
+* Fixed an incompatibility with PHP 7.4
+* Fixed an error with the Schema Markup becoming unreadable in some cases
+* Fixed the missing fields in the Dentist Schema markup
+* Fixed an error where users were unable to access the setup wizard in some cases
+* Fixed small issues detected by Rollbar to make the plugin more performant
+* Fixed an issue where the Rank Math's admin toolbar JS was running even if the admin bar was disabled by an admin
+* Fixed many minor styling issues in the backend
+* Please note that the minimum version to run Rank Math is now WordPress 4.9
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://s.rankmath.com/changelog)**

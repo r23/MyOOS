@@ -79,7 +79,7 @@ $cmb->add_field([
 	'sanitization_cb' => false,
 ]);
 
-if ( 'product' === $post_type || 'download' === $post_type ) {
+if ( ( class_exists( 'WooCommerce' ) && 'product' === $post_type ) || ( class_exists( 'Easy_Digital_Downloads' ) && 'download' === $post_type ) ) {
 
 	$cmb->add_field([
 		'id'      => 'pt_' . $post_type . '_default_rich_snippet',

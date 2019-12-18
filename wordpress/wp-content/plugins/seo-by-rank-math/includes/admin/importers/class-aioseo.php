@@ -331,9 +331,7 @@ class AIOSEO extends Plugin_Importer {
 		}
 
 		$og_thumb = ! empty( $opengraph_meta['aioseop_opengraph_settings_customimg'] ) ? $opengraph_meta['aioseop_opengraph_settings_customimg'] : ( ! empty( $opengraph_meta['aioseop_opengraph_settings_image'] ) ? $opengraph_meta['aioseop_opengraph_settings_image'] : '' );
-		if ( ! empty( $og_thumb ) ) {
-			$this->replace_image( $og_thumb, 'post', 'rank_math_facebook_image', 'rank_math_facebook_image_id', $post_id );
-		}
+		$this->replace_image( $og_thumb, 'post', 'rank_math_facebook_image', 'rank_math_facebook_image_id', $post_id );
 
 		if ( ! empty( $opengraph_meta['aioseop_opengraph_settings_setcard'] ) ) {
 			$twitter_card_type = 'summary' === $opengraph_meta['aioseop_opengraph_settings_setcard'] ? 'summary_card' : 'summary_large_image';

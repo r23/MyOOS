@@ -28,14 +28,16 @@ class Updates implements Runner {
 	 * @var array
 	 */
 	private static $updates = [
-		'0.9.8'  => 'updates/update-0.9.8.php',
-		'0.10.0' => 'updates/update-0.10.0.php',
-		'1.0.14' => 'updates/update-1.0.14.php',
-		'1.0.15' => 'updates/update-1.0.15.php',
-		'1.0.18' => 'updates/update-1.0.18.php',
-		'1.0.24' => 'updates/update-1.0.24.php',
-		'1.0.28' => 'updates/update-1.0.28.php',
-		'1.0.30' => 'updates/update-1.0.30.php',
+		'0.9.8'    => 'updates/update-0.9.8.php',
+		'0.10.0'   => 'updates/update-0.10.0.php',
+		'1.0.14'   => 'updates/update-1.0.14.php',
+		'1.0.15'   => 'updates/update-1.0.15.php',
+		'1.0.18'   => 'updates/update-1.0.18.php',
+		'1.0.24'   => 'updates/update-1.0.24.php',
+		'1.0.28'   => 'updates/update-1.0.28.php',
+		'1.0.30'   => 'updates/update-1.0.30.php',
+		'1.0.36'   => 'updates/update-1.0.36.php',
+		'1.0.36.1' => 'updates/update-1.0.36.1.php',
 	];
 
 	/**

@@ -36,13 +36,14 @@ class Advanced_Variables extends Author_Variables {
 			[ $this, 'get_id' ]
 		);
 
+		$keyword = $this->get_focus_keyword();
 		$this->register_replacement(
 			'focuskw',
 			[
 				'name'        => esc_html__( 'Focus Keyword', 'rank-math' ),
 				'description' => esc_html__( 'Focus Keyword of the current post', 'rank-math' ),
 				'variable'    => 'focuskw',
-				'example'     => esc_html__( 'Focus Keyword', 'rank-math' ),
+				'example'     => \is_null( $keyword ) ? '' : $keyword,
 			],
 			[ $this, 'get_focus_keyword' ]
 		);

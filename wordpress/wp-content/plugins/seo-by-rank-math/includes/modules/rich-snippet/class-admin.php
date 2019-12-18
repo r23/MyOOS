@@ -10,10 +10,12 @@
 
 namespace RankMath\RichSnippet;
 
+use RankMath\KB;
 use RankMath\Helper;
 use RankMath\Module\Base;
 use RankMath\Admin\Admin_Helper;
 use MyThemeShop\Helpers\Arr;
+use MyThemeShop\Helpers\Str;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -38,6 +40,7 @@ class Admin extends Base {
 		]);
 		parent::__construct();
 
+		$this->action( 'cmb2_admin_init', 'enqueue', 50 );
 		$this->filter( 'rank_math/metabox/tabs', 'add_metabox_tab' );
 		$this->action( 'rank_math/metabox/process_fields', 'save_advanced_meta' );
 	}
@@ -100,5 +103,84 @@ class Admin extends Base {
 		}
 
 		return isset( $cmb->data_to_save['rank_math_snippet_recipe_instructions'] ) ? $cmb->data_to_save['rank_math_snippet_recipe_instructions'] : [];
+	}
+
+	/**
+	 * Enqueue Styles and Scripts required for metabox.
+	 */
+	public function enqueue() {
+		$values = [];
+		$cmb    = $this->get_metabox();
+		if ( false === $cmb ) {
+			return;
+		}
+
+		foreach ( $cmb->prop( 'fields' ) as $id => $field_args ) {
+			$type = $field_args['type'];
+			if ( $this->can_exclude( $id, $type ) ) {
+				continue;
+			}
+
+			$values[ $this->camelize( $id ) ] = 'group' === $type ? $cmb->get_field( $id )->value :
+				$cmb->get_field( $id )->escaped_value();
+		}
+
+		$values['snippetType'] = $cmb->get_field( 'rank_math_rich_snippet' )->escaped_value();
+
+		// Default values.
+		$post_type                    = \RankMath\CMB2::current_object_type();
+		$values['defaultName']        = Helper::get_settings( "titles.pt_{$post_type}_default_snippet_name", '' );
+		$values['defaultDescription'] = Helper::get_settings( "titles.pt_{$post_type}_default_snippet_desc", '' );
+		$values['knowledgegraphType'] = Helper::get_settings( 'titles.knowledgegraph_type' );
+
+		Helper::add_json( 'richSnippets', $values );
+		Helper::add_json(
+			'assessor',
+			[
+				'articleKBLink'      => KB::get( 'article' ),
+				'richSnippetsKBLink' => KB::get( 'rich-snippets' ),
+			]
+		);
+	}
+
+	/**
+	 * Get metabox
+	 *
+	 * @return bool|CMB2
+	 */
+	private function get_metabox() {
+		if ( Admin_Helper::is_term_profile_page() ) {
+			return false;
+		}
+
+		return cmb2_get_metabox( 'rank_math_metabox' );
+	}
+
+	/**
+	 * Can exclude field.
+	 *
+	 * @param string $id   Field id.
+	 * @param string $type Field type.
+	 *
+	 * @return bool
+	 */
+	private function can_exclude( $id, $type ) {
+		$exclude = [ 'meta_tab_container_open', 'tab_container_open', 'tab_container_close', 'tab', 'raw', 'notice' ];
+		return in_array( $type, $exclude, true ) || ! Str::starts_with( 'rank_math_snippet_', $id );
+	}
+
+	/**
+	 * Convert string to camel case.
+	 *
+	 * @param string $str String to convert.
+	 *
+	 * @return string
+	 */
+	private function camelize( $str ) {
+		$sep = '_';
+		$str = str_replace( 'rank_math_snippet_', '', $str );
+		$str = str_replace( $sep, '', ucwords( $str, $sep ) );
+
+		return lcfirst( $str );
 	}
 }

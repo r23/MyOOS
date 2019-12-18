@@ -243,7 +243,8 @@ class Yoast extends Plugin_Importer {
 			}
 
 			$this->set_post_robots( $post_id );
-			$this->set_post_social_media( $post_id );
+			$this->replace_image( get_post_meta( $post_id, '_yoast_wpseo_opengraph-image', true ), 'post', 'rank_math_facebook_image', 'rank_math_facebook_image_id', $post_id );
+			$this->replace_image( get_post_meta( $post_id, '_yoast_wpseo_twitter-image', true ), 'post', 'rank_math_twitter_image', 'rank_math_twitter_image_id', $post_id );
 			$this->set_post_focus_keyword( $post_id );
 			$this->is_twitter_using_facebook( 'post', $post_id );
 		}
@@ -300,23 +301,6 @@ class Yoast extends Plugin_Importer {
 		}
 
 		return 1 === $robots_noindex ? 'noindex' : 'index';
-	}
-
-	/**
-	 * Set post social media.
-	 *
-	 * @param int $post_id Post id.
-	 */
-	private function set_post_social_media( $post_id ) {
-		$og_thumb = get_post_meta( $post_id, '_yoast_wpseo_opengraph-image', true );
-		if ( ! empty( $og_thumb ) ) {
-			$this->replace_image( $og_thumb, 'post', 'rank_math_facebook_image', 'rank_math_facebook_image_id', $post_id );
-		}
-
-		$twitter_thumb = get_post_meta( $post_id, '_yoast_wpseo_twitter-image', true );
-		if ( ! empty( $twitter_thumb ) ) {
-			$this->replace_image( $twitter_thumb, 'post', 'rank_math_twitter_image', 'rank_math_twitter_image_id', $post_id );
-		}
 	}
 
 	/**

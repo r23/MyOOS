@@ -72,9 +72,15 @@ class JsonLD {
 		 * @param array  $unsigned An array of data to output in json-ld.
 		 * @param JsonLD $unsigned JsonLD instance.
 		 */
-		$data = $this->do_filter( 'json_ld', [], $this );
-		if ( is_array( $data ) && ! empty( $data ) ) {
-			echo '<script type="application/ld+json">' . wp_json_encode( array_values( array_filter( $data ) ) ) . '</script>' . "\n";
+		$json = $this->do_filter( 'json_ld', [], $this );
+		if ( is_array( $json ) && ! empty( $json ) ) {
+			foreach ( $json as $context => $data ) {
+				if ( empty( $data ) ) {
+					continue;
+				}
+
+				echo '<script type="application/ld+json">' . wp_json_encode( $data ) . '</script>' . "\n";
+			}
 		}
 	}
 
@@ -212,12 +218,19 @@ class JsonLD {
 			return;
 		}
 
-		$entity['aggregateRating'] = [
-			'@type'       => 'AggregateRating',
-			'ratingValue' => $rating,
-			'bestRating'  => Helper::get_post_meta( "snippet_{$schema}_rating_max" ),
-			'worstRating' => Helper::get_post_meta( "snippet_{$schema}_rating_min" ),
-			'ratingCount' => 1,
+		$entity['review'] = [
+			'author'        => [
+				'@type' => 'Person',
+				'name'  => get_the_author_meta( 'display_name' ),
+			],
+			'datePublished' => get_post_time( 'Y-m-d\TH:i:sP', false ),
+			'dateModified'  => get_post_modified_time( 'Y-m-d\TH:i:sP', false ),
+			'reviewRating'  => [
+				'@type'       => 'Rating',
+				'ratingValue' => $rating,
+				'bestRating'  => Helper::get_post_meta( "snippet_{$schema}_rating_max" ),
+				'worstRating' => Helper::get_post_meta( "snippet_{$schema}_rating_min" ),
+			],
 		];
 	}
 

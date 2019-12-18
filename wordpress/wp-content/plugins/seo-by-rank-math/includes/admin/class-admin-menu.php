@@ -40,7 +40,7 @@ class Admin_Menu implements Runner {
 	 * Register admin pages for plugin.
 	 */
 	public function register_pages() {
-		$this->check_registration();
+		$this->maybe_deregister();
 
 		if ( Helper::is_invalid_registration() && ! is_network_admin() ) {
 			return;
@@ -134,23 +134,10 @@ class Admin_Menu implements Runner {
 	}
 
 	/**
-	 * Check for registration.
+	 * Check for deactivation.
 	 */
-	private function check_registration() {
-		$what = Param::post( 'registration-action' );
-		if ( false === $what ) {
-			return;
-		}
-
-		if ( 'register' === $what ) {
-			Admin_Helper::allow_tracking();
-			Admin_Helper::register_product(
-				Param::post( 'connect-username' ),
-				Param::post( 'connect-password' )
-			);
-		}
-
-		if ( 'deregister' === $what ) {
+	private function maybe_deregister() {
+		if ( 'deregister' === Param::post( 'registration-action' ) ) {
 			Admin_Helper::get_registration_data( false );
 		}
 	}

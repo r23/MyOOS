@@ -31,7 +31,10 @@ class Snippet_Shortcode {
 	public function __construct() {
 		$this->add_shortcode( 'rank_math_rich_snippet', 'rich_snippet' );
 		$this->add_shortcode( 'rank_math_review_snippet', 'rich_snippet' );
-		$this->filter( 'the_content', 'add_review_to_content', 11 );
+
+		if ( ! is_admin() ) {
+			$this->filter( 'the_content', 'add_review_to_content', 11 );
+		}
 
 		if ( ! function_exists( 'register_block_type' ) ) {
 			return;
@@ -164,7 +167,7 @@ class Snippet_Shortcode {
 				return;
 			}
 
-			$value = in_array( $id, [ 'jobposting_startdate', 'jobposting_expirydate', 'event_startdate', 'event_enddate' ], true ) ? date_i18n( 'Y-m-d H:i', $value ) : $value;
+			$value = in_array( $id, [ 'jobposting_startdate', 'jobposting_expirydate', 'event_startdate', 'event_enddate' ], true ) ? Helper::convert_date( $value ) : $value;
 
 			echo is_array( $value ) ? implode( ', ', $value ) : esc_html( $value );
 			?>
@@ -230,9 +233,11 @@ class Snippet_Shortcode {
 	 * @param array $field   Array of review value and count field.
 	 */
 	public function show_ratings( $post_id, $field ) {
+		$rating = isset( $field['value'] ) ? (float) Helper::get_post_meta( "snippet_{$field['value']}", $post_id ) : 0;
+		if ( empty( $rating ) ) {
+			return;
+		}
 		wp_enqueue_style( 'font-awesome', rank_math()->plugin_url() . 'assets/vendor/font-awesome/css/font-awesome.min.css', null, '4.7.0' );
-		$rating = isset( $field['value'] ) ? (float) Helper::get_post_meta( "snippet_{$field['value']}", $post_id ) : '';
-		$count  = isset( $field['count'] ) ? Helper::get_post_meta( $field['count'], $post_id ) : '';
 		?>
 		<div class="rank-math-total-wrapper">
 
@@ -267,6 +272,12 @@ class Snippet_Shortcode {
 	 */
 	public function get_fields( $type ) {
 		$fields = [
+			'restaurant' => $this->get_restaurant_fields(),
+			'software'   => $this->get_software_fields(),
+			'event'      => $this->get_event_fields(),
+			'recipe'     => $this->get_recipe_fields(),
+			'jobposting' => $this->get_job_posting_fields(),
+			'product'    => $this->get_product_fields(),
 			'course'     => [
 				'course_provider_type' => esc_html__( 'Course Provider', 'rank-math' ),
 				'course_provider'      => esc_html__( 'Course Provider Name', 'rank-math' ),
@@ -275,88 +286,9 @@ class Snippet_Shortcode {
 					'value' => 'course_rating',
 				],
 			],
-			'event'      => [
-				'url'                            => esc_html__( 'URL', 'rank-math' ),
-				'event_type'                     => esc_html__( 'Event Type', 'rank-math' ),
-				'event_venue'                    => esc_html__( 'Venue Name', 'rank-math' ),
-				'event_venue_url'                => esc_html__( 'Venue URL', 'rank-math' ),
-				'event_address'                  => esc_html__( 'Address', 'rank-math' ),
-				'event_performer_type'           => esc_html__( 'Performer', 'rank-math' ),
-				'event_performer'                => esc_html__( 'Performer Name', 'rank-math' ),
-				'event_performer_url'            => esc_html__( 'Performer URL', 'rank-math' ),
-				'event_status'                   => esc_html__( 'Event Status', 'rank-math' ),
-				'event_startdate_date'           => esc_html__( 'Start Date', 'rank-math' ),
-				'event__enddate'                 => esc_html__( 'End Date', 'rank-math' ),
-				'event_ticketurl'                => esc_html__( 'Ticket URL', 'rank-math' ),
-				'event_price'                    => esc_html__( 'Entry Price', 'rank-math' ),
-				'event_currency'                 => esc_html__( 'Currency', 'rank-math' ),
-				'event_availability'             => esc_html__( 'Availability', 'rank-math' ),
-				'event_availability_starts_date' => esc_html__( 'Availability Starts', 'rank-math' ),
-				'event_inventory'                => esc_html__( 'Stock Inventory', 'rank-math' ),
-				'is_rating'                      => [
-					'value' => 'event_rating',
-				],
-			],
-			'jobposting' => [
-				'jobposting_salary'          => esc_html__( 'Salary', 'rank-math' ),
-				'jobposting_currency'        => esc_html__( 'Salary Currency', 'rank-math' ),
-				'jobposting_payroll'         => esc_html__( 'Payroll', 'rank-math' ),
-				'jobposting_startdate'       => esc_html__( 'Date Posted', 'rank-math' ),
-				'jobposting_expirydate'      => esc_html__( 'Expiry Posted', 'rank-math' ),
-				'jobposting_employment_type' => esc_html__( 'Employment Type ', 'rank-math' ),
-				'jobposting_organization'    => esc_html__( 'Hiring Organization ', 'rank-math' ),
-				'jobposting_id'              => esc_html__( 'Posting ID', 'rank-math' ),
-				'jobposting_url'             => esc_html__( 'Organization URL', 'rank-math' ),
-				'jobposting_logo'            => esc_html__( 'Organization Logo', 'rank-math' ),
-				'jobposting_address'         => esc_html__( 'Location', 'rank-math' ),
-			],
 			'music'      => [
 				'url'        => esc_html__( 'URL', 'rank-math' ),
 				'music_type' => esc_html__( 'Type', 'rank-math' ),
-			],
-			'product'    => [
-				'product_sku'         => esc_html__( 'Product SKU', 'rank-math' ),
-				'product_brand'       => esc_html__( 'Product Brand', 'rank-math' ),
-				'product_currency'    => esc_html__( 'Product Currency', 'rank-math' ),
-				'product_price'       => esc_html__( 'Product Price', 'rank-math' ),
-				'product_price_valid' => esc_html__( 'Price Valid Until', 'rank-math' ),
-				'product_instock'     => esc_html__( 'Product In-Stock', 'rank-math' ),
-				'is_rating'           => [
-					'value' => 'product_rating',
-				],
-			],
-			'recipe'     => [
-				'recipe_type'                => esc_html__( 'Type', 'rank-math' ),
-				'recipe_cuisine'             => esc_html__( 'Cuisine', 'rank-math' ),
-				'recipe_keywords'            => esc_html__( 'Keywords', 'rank-math' ),
-				'recipe_yield'               => esc_html__( 'Recipe Yield', 'rank-math' ),
-				'recipe_calories'            => esc_html__( 'Calories', 'rank-math' ),
-				'recipe_preptime'            => esc_html__( 'Preparation Time', 'rank-math' ),
-				'recipe_cooktime'            => esc_html__( 'Cooking Time', 'rank-math' ),
-				'recipe_totaltime'           => esc_html__( 'Total Time', 'rank-math' ),
-				'recipe_video'               => esc_html__( 'Recipe Video', 'rank-math' ),
-				'recipe_video_thumbnail'     => esc_html__( 'Recipe Video Thumbnail', 'rank-math' ),
-				'recipe_video_name'          => esc_html__( 'Recipe Video Name', 'rank-math' ),
-				'recipe_video_date'          => esc_html__( 'Video Upload Date', 'rank-math' ),
-				'recipe_video_description'   => esc_html__( 'Recipe Video Description', 'rank-math' ),
-				'recipe_ingredients'         => esc_html__( 'Recipe Ingredients', 'rank-math' ),
-				'recipe_instruction_name'    => esc_html__( 'Recipe Instruction Name', 'rank-math' ),
-				'recipe_single_instructions' => esc_html__( 'Recipe Instructions', 'rank-math' ),
-				'recipe_instructions'        => esc_html__( 'Recipe Instructions', 'rank-math' ),
-				'is_rating'                  => [
-					'value' => 'recipe_rating',
-				],
-			],
-			'restaurant' => [
-				'local_address'             => esc_html__( 'Address', 'rank-math' ),
-				'local_geo'                 => esc_html__( 'Geo Coordinates', 'rank-math' ),
-				'local_phone'               => esc_html__( 'Phone Number', 'rank-math' ),
-				'local_price_range'         => esc_html__( 'Price Range', 'rank-math' ),
-				'local_opens'               => esc_html__( 'Opening Time', 'rank-math' ),
-				'local_closes'              => esc_html__( 'Closing Time', 'rank-math' ),
-				'local_opendays'            => esc_html__( 'Open Days', 'rank-math' ),
-				'restaurant_serves_cuisine' => esc_html__( 'Serves Cuisine', 'rank-math' ),
-				'restaurant_menu'           => esc_html__( 'Menu URL', 'rank-math' ),
 			],
 			'video'      => [
 				'video_url'       => esc_html__( 'Content URL', 'rank-math' ),
@@ -380,15 +312,6 @@ class Snippet_Shortcode {
 				'service_price'          => esc_html__( 'Price', 'rank-math' ),
 				'service_price_currency' => esc_html__( 'Currency', 'rank-math' ),
 			],
-			'software'   => [
-				'software_price'                => esc_html__( 'Price', 'rank-math' ),
-				'software_price_currency'       => esc_html__( 'Price Currency', 'rank-math' ),
-				'software_operating_system'     => esc_html__( 'Operating System', 'rank-math' ),
-				'software_application_category' => esc_html__( 'Application Category', 'rank-math' ),
-				'is_rating'                     => [
-					'value' => 'software_rating',
-				],
-			],
 			'book'       => [
 				'url'           => esc_html__( 'URL', 'rank-math' ),
 				'author'        => esc_html__( 'Author', 'rank-math' ),
@@ -400,6 +323,144 @@ class Snippet_Shortcode {
 		];
 
 		return isset( $fields[ $type ] ) ? apply_filters( 'rank_math/snippet/fields', $fields[ $type ] ) : false;
+	}
+
+	/**
+	 * Get product fields
+	 *
+	 * @return array
+	 */
+	private function get_product_fields() {
+		return [
+			'product_sku'         => esc_html__( 'Product SKU', 'rank-math' ),
+			'product_brand'       => esc_html__( 'Product Brand', 'rank-math' ),
+			'product_currency'    => esc_html__( 'Product Currency', 'rank-math' ),
+			'product_price'       => esc_html__( 'Product Price', 'rank-math' ),
+			'product_price_valid' => esc_html__( 'Price Valid Until', 'rank-math' ),
+			'product_instock'     => esc_html__( 'Product In-Stock', 'rank-math' ),
+			'is_rating'           => [
+				'value' => 'product_rating',
+			],
+		];
+	}
+
+	/**
+	 * Get job_posting fields
+	 *
+	 * @return array
+	 */
+	private function get_job_posting_fields() {
+		return [
+			'jobposting_salary'          => esc_html__( 'Salary', 'rank-math' ),
+			'jobposting_currency'        => esc_html__( 'Salary Currency', 'rank-math' ),
+			'jobposting_payroll'         => esc_html__( 'Payroll', 'rank-math' ),
+			'jobposting_startdate'       => esc_html__( 'Date Posted', 'rank-math' ),
+			'jobposting_expirydate'      => esc_html__( 'Expiry Posted', 'rank-math' ),
+			'jobposting_unpublish'       => esc_html__( 'Unpublish when expired', 'rank-math' ),
+			'jobposting_employment_type' => esc_html__( 'Employment Type ', 'rank-math' ),
+			'jobposting_organization'    => esc_html__( 'Hiring Organization ', 'rank-math' ),
+			'jobposting_id'              => esc_html__( 'Posting ID', 'rank-math' ),
+			'jobposting_url'             => esc_html__( 'Organization URL', 'rank-math' ),
+			'jobposting_logo'            => esc_html__( 'Organization Logo', 'rank-math' ),
+			'jobposting_address'         => esc_html__( 'Location', 'rank-math' ),
+		];
+	}
+
+	/**
+	 * Get recipe fields
+	 *
+	 * @return array
+	 */
+	private function get_recipe_fields() {
+		return [
+			'recipe_type'                => esc_html__( 'Type', 'rank-math' ),
+			'recipe_cuisine'             => esc_html__( 'Cuisine', 'rank-math' ),
+			'recipe_keywords'            => esc_html__( 'Keywords', 'rank-math' ),
+			'recipe_yield'               => esc_html__( 'Recipe Yield', 'rank-math' ),
+			'recipe_calories'            => esc_html__( 'Calories', 'rank-math' ),
+			'recipe_preptime'            => esc_html__( 'Preparation Time', 'rank-math' ),
+			'recipe_cooktime'            => esc_html__( 'Cooking Time', 'rank-math' ),
+			'recipe_totaltime'           => esc_html__( 'Total Time', 'rank-math' ),
+			'recipe_video'               => esc_html__( 'Recipe Video', 'rank-math' ),
+			'recipe_video_thumbnail'     => esc_html__( 'Recipe Video Thumbnail', 'rank-math' ),
+			'recipe_video_name'          => esc_html__( 'Recipe Video Name', 'rank-math' ),
+			'recipe_video_date'          => esc_html__( 'Video Upload Date', 'rank-math' ),
+			'recipe_video_description'   => esc_html__( 'Recipe Video Description', 'rank-math' ),
+			'recipe_ingredients'         => esc_html__( 'Recipe Ingredients', 'rank-math' ),
+			'recipe_instruction_name'    => esc_html__( 'Recipe Instruction Name', 'rank-math' ),
+			'recipe_single_instructions' => esc_html__( 'Recipe Instructions', 'rank-math' ),
+			'recipe_instructions'        => esc_html__( 'Recipe Instructions', 'rank-math' ),
+			'is_rating'                  => [
+				'value' => 'recipe_rating',
+			],
+		];
+	}
+
+	/**
+	 * Get event fields
+	 *
+	 * @return array
+	 */
+	private function get_event_fields() {
+		return [
+			'url'                            => esc_html__( 'URL', 'rank-math' ),
+			'event_type'                     => esc_html__( 'Event Type', 'rank-math' ),
+			'event_venue'                    => esc_html__( 'Venue Name', 'rank-math' ),
+			'event_venue_url'                => esc_html__( 'Venue URL', 'rank-math' ),
+			'event_address'                  => esc_html__( 'Address', 'rank-math' ),
+			'event_performer_type'           => esc_html__( 'Performer', 'rank-math' ),
+			'event_performer'                => esc_html__( 'Performer Name', 'rank-math' ),
+			'event_performer_url'            => esc_html__( 'Performer URL', 'rank-math' ),
+			'event_status'                   => esc_html__( 'Event Status', 'rank-math' ),
+			'event_startdate_date'           => esc_html__( 'Start Date', 'rank-math' ),
+			'event__enddate'                 => esc_html__( 'End Date', 'rank-math' ),
+			'event_ticketurl'                => esc_html__( 'Ticket URL', 'rank-math' ),
+			'event_price'                    => esc_html__( 'Entry Price', 'rank-math' ),
+			'event_currency'                 => esc_html__( 'Currency', 'rank-math' ),
+			'event_availability'             => esc_html__( 'Availability', 'rank-math' ),
+			'event_availability_starts_date' => esc_html__( 'Availability Starts', 'rank-math' ),
+			'event_inventory'                => esc_html__( 'Stock Inventory', 'rank-math' ),
+			'is_rating'                      => [
+				'value' => 'event_rating',
+			],
+		];
+	}
+
+	/**
+	 * Get restaurant fields
+	 *
+	 * @return array
+	 */
+	private function get_restaurant_fields() {
+		return [
+			'local_address'             => esc_html__( 'Address', 'rank-math' ),
+			'local_geo'                 => esc_html__( 'Geo Coordinates', 'rank-math' ),
+			'local_phone'               => esc_html__( 'Phone Number', 'rank-math' ),
+			'local_price_range'         => esc_html__( 'Price Range', 'rank-math' ),
+			'local_opens'               => esc_html__( 'Opening Time', 'rank-math' ),
+			'local_closes'              => esc_html__( 'Closing Time', 'rank-math' ),
+			'local_opendays'            => esc_html__( 'Open Days', 'rank-math' ),
+			'restaurant_serves_cuisine' => esc_html__( 'Serves Cuisine', 'rank-math' ),
+			'restaurant_menu'           => esc_html__( 'Menu URL', 'rank-math' ),
+		];
+	}
+
+	/**
+	 * Get Software fields
+	 *
+	 * @return array
+	 */
+	private function get_software_fields() {
+		return [
+			'software_price'                => esc_html__( 'Price', 'rank-math' ),
+			'software_price_currency'       => esc_html__( 'Price Currency', 'rank-math' ),
+			'software_operating_system'     => esc_html__( 'Operating System', 'rank-math' ),
+			'software_application_category' => esc_html__( 'Application Category', 'rank-math' ),
+			'is_rating'                     => [
+				'value' => 'software_rating_value',
+				'count' => 'software_rating_count',
+			],
+		];
 	}
 
 	/**

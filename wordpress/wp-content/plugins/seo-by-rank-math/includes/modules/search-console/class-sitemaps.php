@@ -104,6 +104,11 @@ class Sitemaps {
 		$sitemaps_in_list = false;
 		$local_sitemap    = trailingslashit( Client::get()->profile ) . 'sitemap_index.xml';
 
+		// Early Bail if there are no sitemaps.
+		if ( empty( $this->get_sitemaps() ) ) {
+			return compact( 'delete_sitemaps', 'sitemaps_in_list', 'local_sitemap' );
+		}
+
 		foreach ( $this->get_sitemaps() as $sitemap ) {
 			if ( $sitemap['path'] === $local_sitemap ) {
 				$sitemaps_in_list = true;

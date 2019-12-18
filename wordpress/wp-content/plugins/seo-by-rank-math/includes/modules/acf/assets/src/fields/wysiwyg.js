@@ -1,4 +1,8 @@
 /*global tinyMCE*/
+/**
+ * External dependencies
+ */
+import { map } from 'lodash'
 
 /**
  * Check if is TinyMCEAvailable
@@ -31,8 +35,8 @@ const isTinyMCEAvailable = function( editorID ) {
 const getContentTinyMCE = function( field ) {
 	const textarea = field.$el.find( 'textarea' )[ 0 ]
 	const editorID = textarea.id
-	let val = textarea.value
 
+	let val = textarea.value
 	if ( isTinyMCEAvailable( editorID ) ) {
 		val = ( tinyMCE.get( editorID ) && tinyMCE.get( editorID ).getContent() ) || ''
 	}
@@ -40,8 +44,15 @@ const getContentTinyMCE = function( field ) {
 	return val
 }
 
-export default function( fields ) {
-	fields = _.map( fields, function( field ) {
+/**
+ * Parse tinyMCE editor fields.
+ *
+ * @param {Array} fields Array of fields.
+ *
+ * @return {Array} Array of fields with content.
+ */
+export default ( fields ) => {
+	fields = map( fields, ( field ) => {
 		if ( 'wysiwyg' !== field.type ) {
 			return field
 		}

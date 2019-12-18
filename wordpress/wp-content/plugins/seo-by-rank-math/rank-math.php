@@ -9,7 +9,7 @@
  *
  * @wordpress-plugin
  * Plugin Name:       Rank Math SEO
- * Version:           1.0.35.3
+ * Version:           1.0.36.1
  * Plugin URI:        https://s.rankmath.com/home
  * Description:       Rank Math is a revolutionary SEO product that combines the features of many SEO tools and lets you multiply your traffic in the easiest way possible.
  * Author:            Rank Math
@@ -34,7 +34,7 @@ final class RankMath {
 	 *
 	 * @var string
 	 */
-	public $version = '1.0.35.3';
+	public $version = '1.0.36.1';
 
 	/**
 	 * Rank Math database version.
@@ -48,7 +48,7 @@ final class RankMath {
 	 *
 	 * @var string
 	 */
-	private $wordpress_version = '4.6';
+	private $wordpress_version = '4.9';
 
 	/**
 	 * Minimum version of PHP required to run Rank Math.
@@ -362,7 +362,7 @@ final class RankMath {
 		if ( $this->container['registration']->invalid ) {
 			return;
 		}
-		new \RankMath\Admin\Engine;
+		new \RankMath\Admin\Admin_Init;
 	}
 
 	/**
@@ -397,11 +397,20 @@ final class RankMath {
 	 * @return array
 	 */
 	public function plugin_action_links( $links ) {
-
-		$plugin_links = [
-			'<a href="' . RankMath\Helper::get_admin_url( 'options-general' ) . '">' . esc_html__( 'Settings', 'rank-math' ) . '</a>',
-			'<a href="' . RankMath\Helper::get_admin_url( 'wizard' ) . '">' . esc_html__( 'Setup Wizard', 'rank-math' ) . '</a>',
+		$options = [
+			'options-general' => esc_html__( 'Settings', 'rank-math' ),
+			'wizard'          => esc_html__( 'Setup Wizard', 'rank-math' ),
 		];
+
+		if ( $this->container['registration']->invalid ) {
+			$options = [
+				'registration' => esc_html__( 'Setup Wizard', 'rank-math' ),
+			];
+		}
+
+		foreach ( $options as $link => $label ) {
+			$plugin_links[] = '<a href="' . RankMath\Helper::get_admin_url( $link ) . '">' . $label . '</a>';
+		}
 
 		return array_merge( $links, $plugin_links );
 	}
@@ -446,7 +455,7 @@ final class RankMath {
 		}
 		load_plugin_textdomain( 'rank-math', false, rank_math()->plugin_dir() . '/languages/' );
 
-		if ( is_user_logged_in() ) {
+		if ( is_user_logged_in() && is_admin_bar_showing() ) {
 			$this->container['json']->add( 'version', $this->version, 'rankMath' );
 			$this->container['json']->add( 'ajaxurl', admin_url( 'admin-ajax.php' ), 'rankMath' );
 			$this->container['json']->add( 'adminurl', admin_url( 'admin.php' ), 'rankMath' );

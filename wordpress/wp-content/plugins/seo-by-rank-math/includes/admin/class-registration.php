@@ -11,7 +11,6 @@
 namespace RankMath\Admin;
 
 use RankMath\KB;
-use RankMath\CMB2;
 use RankMath\Helper;
 use RankMath\Traits\Hooker;
 use RankMath\Admin\Admin_Helper;
@@ -48,13 +47,6 @@ class Registration {
 	public $invalid = false;
 
 	/**
-	 * CMB2 object
-	 *
-	 * @var \CMB2
-	 */
-	public $cmb = null;
-
-	/**
 	 * The Constructor.
 	 */
 	public function __construct() {
@@ -71,11 +63,87 @@ class Registration {
 		if ( $this->invalid ) {
 			$this->action( 'admin_menu', 'admin_menu' );
 			$this->action( 'admin_init', 'redirect_to_welcome' );
-			$this->action( 'cmb2_admin_init', 'registration_form' );
 			$this->action( 'admin_post_rank_math_save_registration', 'save_registration' );
 			$this->action( 'admin_post_rank_math_skip_wizard', 'skip_wizard' );
 			$this->action( 'admin_init', 'render_page', 30 );
 		}
+
+		$this->action( 'init', 'handle_registration' );
+	}
+
+	/**
+	 * Check for activation.
+	 */
+	public function handle_registration() {
+		$status = Param::get( 'rankmath_connect' );
+		if ( $status && $redirect_to = $this->get_registration_url( $status ) ) { //phpcs:ignore
+			\wp_safe_redirect( $redirect_to );
+			exit;
+		}
+	}
+
+	/**
+	 * Handle activation.
+	 *
+	 * @param  string $status Status parameter.
+	 */
+	private function get_registration_url( $status ) {
+		if ( 'cancel' === $status ) {
+			// User canceled activation.
+			Helper::add_notification( __( 'Rank Math plugin could not be connected.', 'rank-math' ), [ 'type' => 'error' ] );
+			return remove_query_arg( array( 'rankmath_connect', 'rankmath_auth' ) );
+		}
+
+		if ( 'banned' === $status ) {
+			// User or site banned.
+			Helper::add_notification( __( 'Unable to connect Rank Math.', 'rank-math' ), [ 'type' => 'error' ] );
+			return remove_query_arg( array( 'rankmath_connect', 'rankmath_auth' ) );
+		}
+
+		if ( 'ok' === $status && $auth_data = $this->get_registration_params() ) { // phpcs:ignore
+			Admin_Helper::get_registration_data(
+				[
+					'username'  => $auth_data['username'],
+					'email'     => $auth_data['email'],
+					'api_key'   => $auth_data['api_key'],
+					'connected' => true,
+				]
+			);
+
+			// Redirect to the wizard is registration successful.
+			if ( Param::get( 'page' ) === 'rank-math-registration' ) {
+				return Helper::get_admin_url( 'wizard' );
+			}
+
+			return remove_query_arg( array( 'rankmath_connect', 'rankmath_auth' ) );
+		}
+
+		return false;
+	}
+
+	/**
+	 * Check if 'rankmath_auth' contains all the data we need, in the
+	 * correct format.
+	 *
+	 * @return bool|array Whether the input is valid.
+	 */
+	private function get_registration_params() {
+		$params = Param::get( 'rankmath_auth' );
+		if ( false === $params ) {
+			return false;
+		}
+
+		$params = json_decode( base64_decode( $params ), true );
+		if (
+			! is_array( $params ) ||
+			! isset( $params['username'] ) ||
+			! isset( $params['email'] ) ||
+			! isset( $params['api_key'] )
+		) {
+			return false;
+		}
+
+		return $params;
 	}
 
 	/**
@@ -110,57 +178,6 @@ class Registration {
 			$this->slug,
 			[ $this, 'render_page' ]
 		);
-	}
-
-	/**
-	 * Register registration form.
-	 */
-	public function registration_form() {
-		$this->cmb = new_cmb2_box([
-			'id'           => 'rank-math-wizard',
-			'object_types' => [ 'options-page' ],
-			'option_key'   => 'rank-math-wizard',
-			'hookup'       => false,
-			'save_fields'  => false,
-		]);
-
-		$this->cmb->add_field([
-			'id'         => 'username',
-			'type'       => 'text',
-			'name'       => esc_html__( 'Username/Email', 'rank-math' ),
-			'classes'    => 'nob nopb rank-math-validate-field',
-			'attributes' => [
-				'data-rule-required' => 'true',
-				'required'           => '',
-				'autocomplete'       => 'off',
-			],
-			'after'      => '<label id="username-error" class="invalid" for="username" style="display:none;">' . esc_html__( 'This field is required.', 'rank-math' ) . '</label>',
-		]);
-
-		$this->cmb->add_field([
-			'id'         => 'validation_code',
-			'type'       => 'text',
-			'name'       => esc_html__( 'Password', 'rank-math' ),
-			'classes'    => 'nob nopb rank-math-validate-field',
-			'attributes' => [
-				'data-rule-required' => 'true',
-				'autocomplete'       => 'off',
-				'required'           => '',
-				'type'               => 'password',
-			],
-			'after'      => '<label id="validation_code-error" class="invalid" for="validation_code" style="display:none;">' . esc_html__( 'This field is required.', 'rank-math' ) . '</label>',
-		]);
-
-		$this->cmb->add_field([
-			'id'      => 'rank-math-usage-tracking',
-			'type'    => 'checkbox',
-			/* translators: Link to Rank Math privay policy */
-			'name'    => sprintf( __( 'Gathering usage data helps us make Rank Math SEO plugin better - for you. By understanding how you use Rank Math, we can introduce new features and find out if existing features are working well for you. If you don’t want us to collect data from your website, uncheck the tickbox. Please note that licensing information may still be sent back to us for authentication. We collect data anonymously, read more %s.', 'rank-math' ), '<a href="' . KB::get( 'rm-privacy' ) . '" target="_blank">here</a>' ),
-			'classes' => 'nob nopb',
-			'default' => Helper::get_settings( 'general.usage_tracking' ) ? 'on' : '',
-		]);
-
-		CMB2::pre_init( $this->cmb );
 	}
 
 	/**
@@ -218,15 +235,34 @@ class Registration {
 
 		<?php rank_math()->notification->display(); ?>
 
-		<?php $this->cmb->show_form(); ?>
+		<?php $this->show_connect_button(); ?>
 
 		<footer class="form-footer wp-core-ui rank-math-ui">
-			<button type="submit" class="button button-<?php echo $this->invalid ? 'primary alignright' : 'secondary'; ?>"><?php echo $this->invalid ? esc_html__( 'Activate Rank Math', 'rank-math' ) : esc_html__( 'Deactivate License', 'rank-math' ); ?></button>
 			<button type="submit" class="button button-<?php echo $this->invalid ? 'secondary' : 'primary alignright'; ?>" formnovalidate id="skip-registration" style="margin-right:15px"><?php echo $this->invalid ? esc_html__( 'Skip Now', 'rank-math' ) : esc_html__( 'Next', 'rank-math' ); ?></button>
 		</footer>
 
 		<?php
 		$this->print_script();
+	}
+
+	/**
+	 * Output connect button (instead of the old connect form).
+	 */
+	private function show_connect_button() {
+		?>
+		<div class="text-center wp-core-ui rank-math-ui" style="margin-bottom: 30px;">
+			<input type="submit" class="button button-primary button-xlarge" name="rank_math_activate" value="<?php echo esc_attr__( 'Activate Rank Math', 'rank-math' ); ?>">
+		</div>
+		<label for="rank-math-usage-tracking" class="cmb2-id-rank-math-usage-tracking">
+			<div>
+				<div class="alignleft" style="height: 80px; margin-right: 4px;">
+					<input type="checkbox" name="rank-math-usage-tracking" id="rank-math-usage-tracking" value="on" <?php checked( Helper::get_settings( 'general.usage_tracking' ) ); ?>>
+				</div>
+				<?php // translators: placeholder is a link to the Knowledge Base. ?>
+				<p class="description"><?php printf( __( 'Gathering usage data helps us make Rank Math SEO plugin better - for you. By understanding how you use Rank Math, we can introduce new features and find out if existing features are working well for you. If you don’t want us to collect data from your website, uncheck the tickbox. Please note that licensing information may still be sent back to us for authentication. We collect data anonymously, read more %s.', 'rank-math' ), '<a href="' . KB::get( 'rm-privacy' ) . '" target="_blank">here</a>' ); ?><p>
+			</div>
+		</label>
+		<?php
 	}
 
 	/**
@@ -269,10 +305,7 @@ class Registration {
 
 		Admin_Helper::allow_tracking();
 
-		$show_content = $this->register_handler( $this->cmb->get_sanitized_values( $_POST ) );
-		$redirect     = true === $show_content ? Helper::get_admin_url( 'wizard' ) : $referer;
-		wp_safe_redirect( $redirect );
-		exit;
+		$this->redirect_to_connect( $_POST );
 	}
 
 	/**
@@ -291,22 +324,16 @@ class Registration {
 	 *
 	 * @param array $values Array of values for the step to process.
 	 */
-	private function register_handler( $values ) {
+	private function redirect_to_connect( $values ) {
 
-		if ( ! isset( $values['username'] ) ) {
+		if ( ! isset( $values['rank_math_activate'] ) ) {
 			delete_option( 'rank_math_connect_data' );
 			return;
 		}
 
-		$values = wp_parse_args(
-			$values,
-			[
-				'username'        => '',
-				'validation_code' => '',
-			]
-		);
-
-		return Admin_Helper::register_product( $values['username'], $values['validation_code'] );
+		$url = Admin_Helper::get_activate_url( Helper::get_admin_url( 'registration' ) );
+		wp_redirect( $url );
+		die();
 	}
 
 	/**
@@ -352,31 +379,7 @@ class Registration {
 			$(function() {
 				$( '#skip-registration' ).on( 'click', function( event ) {
 					$('[name="action"]').val( 'rank_math_skip_wizard' );
-					$( this ).closest( '.cmb-form' );
 				});
-
-				$( '.cmb-form' ).on( 'keyup keypress', function( event ) {
-					var isValid = event.currentTarget.checkValidity();
-
-					var keyCode = event.keyCode || event.which;
-					if ( ! isValid && 13 === keyCode ) {
-						event.preventDefault();
-						return false;
-					}
-				});
-
-				// Required Field
-				$( '.required, [required]' ).on( 'input invalid', function( event ) {
-					event.preventDefault();
-
-					var input = $( this );
-					if ( ! event.target.validity.valid ) {
-						input.addClass( 'invalid animated shake' );
-					} else {
-						input.removeClass( 'invalid animated shake' );
-					}
-				});
-
 			});
 		})(jQuery);
 		</script>

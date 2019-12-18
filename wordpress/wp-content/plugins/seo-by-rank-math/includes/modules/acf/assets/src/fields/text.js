@@ -1,5 +1,10 @@
+/**
+ * External dependencies
+ */
+import { find, map } from 'lodash'
+
 const isHeadline = function( field ) {
-	let level = _.find( rankMath.acf.headlines, ( value, key ) => field.key === key )
+	let level = find( rankMath.acf.headlines, ( value, key ) => field.key === key )
 
 	// It has to be an integer
 	if ( level ) {
@@ -17,17 +22,21 @@ const isHeadline = function( field ) {
 const wrapInHeadline = function( field ) {
 	const level = isHeadline( field )
 
-	if ( level ) {
-		field.content = '<h' + level + '>' + field.content + '</h' + level + '>'
-	} else {
-		field.content = '<p>' + field.content + '</p>'
-	}
+	field.content = level ? '<h' + level + '>' + field.content + '</h' + level + '>' :
+		'<p>' + field.content + '</p>'
 
 	return field
 }
 
-export default function( fields ) {
-	fields = _.map( fields, function( field ) {
+/**
+ * Parse text fields.
+ *
+ * @param {Array} fields Array of fields.
+ *
+ * @return {Array} Array of fields with content.
+ */
+export default ( fields ) => {
+	fields = map( fields, ( field ) => {
 		if ( 'text' !== field.type ) {
 			return field
 		}

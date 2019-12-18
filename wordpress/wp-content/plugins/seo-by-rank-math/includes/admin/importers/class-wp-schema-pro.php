@@ -241,6 +241,12 @@ class WP_Schema_Pro extends Plugin_Importer {
 	 */
 	private function get_schema_types() {
 		return [
+			'event'                => $this->get_event_fields(),
+			'job-posting'          => $this->get_job_posting_fields(),
+			'product'              => $this->get_product_fields(),
+			'recipe'               => $this->get_recipe_fields(),
+			'software-application' => $this->get_software_fields(),
+			'video-object'         => $this->get_event_fields(),
 			'article'              => [
 				'name'        => 'name',
 				'description' => 'desc',
@@ -256,54 +262,6 @@ class WP_Schema_Pro extends Plugin_Importer {
 				'name'             => 'name',
 				'description'      => 'desc',
 				'orgnization-name' => 'provider',
-			],
-			'event'                => [
-				'name'           => 'name',
-				'description'    => 'desc',
-				'ticket-buy-url' => 'event_ticketurl',
-				'location'       => 'event_venue',
-				'start-date'     => 'event_startdate',
-				'end-date'       => 'event_enddate',
-				'price'          => 'event_price',
-				'currency'       => 'event_currency',
-				'avail'          => 'event_availability',
-			],
-			'job-posting'          => [
-				'title'                   => 'name',
-				'description'             => 'desc',
-				'salary'                  => 'jobposting_salary',
-				'salary-currency'         => 'jobposting_currency',
-				'salary-unit'             => 'jobposting_payroll',
-				'job-type'                => 'jobposting_employment_type',
-				'jobposting_organization' => 'orgnization-name',
-				'jobposting_url'          => 'jobposting_url',
-			],
-			'product'              => [
-				'brand-name' => 'product_brand',
-				'name'       => 'name',
-				'price'      => 'product_currency',
-				'currency'   => 'product_price',
-				'avail'      => 'product_instock',
-			],
-			'recipe'               => [
-				'name'              => 'name',
-				'description'       => 'desc',
-				'recipe-category'   => 'recipe_type',
-				'recipe-cuisine'    => 'recipe_cuisine',
-				'recipe-keywords'   => 'recipe_keywords',
-				'nutrition'         => 'recipe_calories',
-				'preperation-time'  => 'recipe_preptime',
-				'cook-time'         => 'recipe_cooktime',
-				'recipes_totaltime' => 'recipe_totaltime',
-				'ingredients'       => 'recipe_ingredients',
-			],
-			'video-object'         => [
-				'name'              => 'name',
-				'description'       => 'desc',
-				'content-url'       => 'video_url',
-				'embed-url'         => 'video_embed_url',
-				'duration'          => 'video_duration',
-				'interaction-count' => 'video_views',
 			],
 			'review'               => [
 				'item'        => 'name',
@@ -324,15 +282,111 @@ class WP_Schema_Pro extends Plugin_Importer {
 				'rating'       => 'service_rating_value',
 				'review-count' => 'service_rating_count',
 			],
-			'software-application' => [
-				'name'             => 'name',
-				'rating'           => 'software_rating_value',
-				'review-count'     => 'software_rating_count',
-				'price'            => 'software_price',
-				'currency'         => 'software_price_currency',
-				'operating-system' => 'software_operating_system',
-				'category'         => 'software_application_category',
-			],
+		];
+	}
+
+	/**
+	 * Get event fields.
+	 *
+	 * @return array
+	 */
+	private function get_event_fields() {
+		return [
+			'name'           => 'name',
+			'description'    => 'desc',
+			'ticket-buy-url' => 'event_ticketurl',
+			'location'       => 'event_venue',
+			'start-date'     => 'event_startdate',
+			'end-date'       => 'event_enddate',
+			'price'          => 'event_price',
+			'currency'       => 'event_currency',
+			'avail'          => 'event_availability',
+		];
+	}
+
+	/**
+	 * Get job_posting fields.
+	 *
+	 * @return array
+	 */
+	private function get_job_posting_fields() {
+		return [
+			'title'                   => 'name',
+			'description'             => 'desc',
+			'salary'                  => 'jobposting_salary',
+			'salary-currency'         => 'jobposting_currency',
+			'salary-unit'             => 'jobposting_payroll',
+			'job-type'                => 'jobposting_employment_type',
+			'jobposting_organization' => 'orgnization-name',
+			'jobposting_url'          => 'jobposting_url',
+		];
+	}
+
+	/**
+	 * Get product fields.
+	 *
+	 * @return array
+	 */
+	private function get_product_fields() {
+		return [
+			'brand-name' => 'product_brand',
+			'name'       => 'name',
+			'price'      => 'product_currency',
+			'currency'   => 'product_price',
+			'avail'      => 'product_instock',
+		];
+	}
+
+	/**
+	 * Get recipe fields.
+	 *
+	 * @return array
+	 */
+	private function get_recipe_fields() {
+		return [
+			'name'              => 'name',
+			'description'       => 'desc',
+			'recipe-category'   => 'recipe_type',
+			'recipe-cuisine'    => 'recipe_cuisine',
+			'recipe-keywords'   => 'recipe_keywords',
+			'nutrition'         => 'recipe_calories',
+			'preperation-time'  => 'recipe_preptime',
+			'cook-time'         => 'recipe_cooktime',
+			'recipes_totaltime' => 'recipe_totaltime',
+			'ingredients'       => 'recipe_ingredients',
+		];
+	}
+
+	/**
+	 * Get software fields.
+	 *
+	 * @return array
+	 */
+	private function get_software_fields() {
+		return [
+			'name'             => 'name',
+			'rating'           => 'software_rating_value',
+			'review-count'     => 'software_rating_count',
+			'price'            => 'software_price',
+			'currency'         => 'software_price_currency',
+			'operating-system' => 'software_operating_system',
+			'category'         => 'software_application_category',
+		];
+	}
+
+	/**
+	 * Get video fields.
+	 *
+	 * @return array
+	 */
+	private function get_video_fields() {
+		return [
+			'name'              => 'name',
+			'description'       => 'desc',
+			'content-url'       => 'video_url',
+			'embed-url'         => 'video_embed_url',
+			'duration'          => 'video_duration',
+			'interaction-count' => 'video_views',
 		];
 	}
 }

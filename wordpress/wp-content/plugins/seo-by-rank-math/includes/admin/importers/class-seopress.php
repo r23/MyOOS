@@ -182,17 +182,8 @@ class SEOPress extends Plugin_Importer {
 			$this->replace_meta( $hash, null, $post_id, 'post', 'convert_variables' );
 			delete_post_meta( $post_id, 'rank_math_permalink' );
 
-			// Facebook Image.
-			$og_thumb = get_post_meta( $post_id, '_seopress_social_fb_img', true );
-			if ( ! empty( $og_thumb ) ) {
-				$this->replace_image( $og_thumb, 'post', 'rank_math_facebook_image', 'rank_math_facebook_image_id', $post_id );
-			}
-
-			// Twitter Image.
-			$twitter_thumb = get_post_meta( $post_id, '_seopress_social_twitter_img', true );
-			if ( ! empty( $twitter_thumb ) ) {
-				$this->replace_image( $twitter_thumb, 'post', 'rank_math_twitter_image', 'rank_math_twitter_image_id', $post_id );
-			}
+			$this->replace_image( get_post_meta( $post_id, '_seopress_social_fb_img', true ), 'post', 'rank_math_facebook_image', 'rank_math_facebook_image_id', $post_id );
+			$this->replace_image( get_post_meta( $post_id, '_seopress_social_twitter_img', true ), 'post', 'rank_math_twitter_image', 'rank_math_twitter_image_id', $post_id );
 
 			$this->is_twitter_using_facebook( 'post', $post_id );
 			$this->set_object_robots( $post_id, 'post' );

@@ -28,7 +28,8 @@ $cmb->add_field( array(
 $cmb->add_field( array(
 	'name' => esc_html__( 'Panel', 'rank-math' ),
 	'id'   => 'setting-panel-social-facebook',
-	'type' => 'tab_open',
+	'type' => 'tab',
+	'open' => true,
 ) );
 
 $cmb->add_field( array(
@@ -90,7 +91,7 @@ if ( Admin_Helper::is_user_edit() ) {
 
 $cmb->add_field( array(
 	'id'   => 'setting-panel-social-facebook-close',
-	'type' => 'tab_close',
+	'type' => 'tab',
 ) );
 
 /**
@@ -103,7 +104,8 @@ $dep = array(
 $cmb->add_field( array(
 	'name' => esc_html__( 'Panel', 'rank-math' ),
 	'id'   => 'setting-panel-social-twitter',
-	'type' => 'tab_open',
+	'type' => 'tab',
+	'open' => true,
 ) );
 
 $cmb->add_field( array(
@@ -353,7 +355,7 @@ if ( ! Admin_Helper::is_term_profile_page() ) {
 
 $cmb->add_field( array(
 	'id'   => 'setting-panel-social-twitter-close',
-	'type' => 'tab_close',
+	'type' => 'tab',
 ) );
 
 $cmb->add_field( array(

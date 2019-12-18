@@ -10,6 +10,7 @@
 
 namespace RankMath\Admin;
 
+use RankMath\Helper;
 use RankMath\Traits\Ajax;
 use RankMath\Traits\Hooker;
 use MyThemeShop\Helpers\Arr;
@@ -27,6 +28,7 @@ class Ask_Review {
 	 * Register hooks.
 	 */
 	public function hooks() {
+		Helper::add_json( 'showReviewTab', true );
 		$this->ajax( 'already_reviewed', 'already_reviewed' );
 		$this->filter( 'rank_math/metabox/tabs', 'add_metabox_tab' );
 	}

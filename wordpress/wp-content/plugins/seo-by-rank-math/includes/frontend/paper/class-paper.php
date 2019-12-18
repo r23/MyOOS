@@ -231,10 +231,11 @@ class Paper {
 	 */
 	private function validate_robots() {
 		if ( empty( $this->robots ) || ! is_array( $this->robots ) ) {
-			return [
+			$this->robots = [
 				'index'  => 'index',
 				'follow' => 'follow',
 			];
+			return;
 		}
 
 		// Add Index and Follow.

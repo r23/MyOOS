@@ -40,8 +40,8 @@ class Post_Filters implements Runner {
 		}
 
 		$this->filter( 'pre_get_posts', 'posts_by_seo_filters' );
-		$this->filter( 'parse_query', 'filter_by_focus_keywords' );
-		$this->filter( 'restrict_manage_posts', 'add_seo_filter', 11 );
+		$this->filter( 'parse_query', 'posts_by_focus_keywords' );
+		$this->filter( 'restrict_manage_posts', 'add_seo_filters', 11 );
 
 		foreach ( Helper::get_allowed_post_types() as $post_type ) {
 			$this->filter( "views_edit-$post_type", 'add_pillar_content_filter_link' );
@@ -87,7 +87,7 @@ class Post_Filters implements Runner {
 	 *
 	 * @param \WP_Query $query The wp_query instance.
 	 */
-	public function filter_by_focus_keywords( $query ) {
+	public function posts_by_focus_keywords( $query ) {
 		if ( ! $this->can_fk_filter() ) {
 			return;
 		}
@@ -99,7 +99,7 @@ class Post_Filters implements Runner {
 		}
 
 		$query->set( 'post_status', 'publish' );
-		if ( $ids = $this->fk_in_title() ) { // phpcs:ignore
+		if ( $ids = $this->has_fk_in_title() ) { // phpcs:ignore
 			$query->set( 'post__in', $ids );
 			return;
 		}
@@ -153,9 +153,9 @@ class Post_Filters implements Runner {
 	}
 
 	/**
-	 * Add columns for SEO title, description and focus keywords.
+	 * Add SEO filters.
 	 */
-	public function add_seo_filter() {
+	public function add_seo_filters() {
 		global $post_type;
 
 		if ( 'attachment' === $post_type || ! in_array( $post_type, Helper::get_allowed_post_types(), true ) ) {
@@ -218,11 +218,7 @@ class Post_Filters implements Runner {
 	 */
 	private function can_seo_filters() {
 		$screen = get_current_screen();
-		if (
-			is_null( $screen ) ||
-			'edit' !== $screen->base ||
-			! in_array( $screen->post_type, Helper::get_allowed_post_types(), true )
-		) {
+		if ( is_null( $screen ) || ! in_array( $screen->post_type, Helper::get_allowed_post_types(), true ) ) {
 			return false;
 		}
 
@@ -280,7 +276,15 @@ class Post_Filters implements Runner {
 	 */
 	private function can_fk_filter() {
 		$screen = get_current_screen();
-		if ( is_null( $screen ) || 'edit' !== $screen->base || ( ! isset( $_GET['focus_keyword'] ) && ! isset( $_GET['fk_in_title'] ) && ! isset( $_GET['review_posts'] ) ) ) {
+		if (
+			is_null( $screen ) ||
+			'edit' !== $screen->base ||
+			(
+				! isset( $_GET['focus_keyword'] ) &&
+				! isset( $_GET['fk_in_title'] ) &&
+				! isset( $_GET['review_posts'] )
+			)
+		) {
 			return false;
 		}
 
@@ -292,15 +296,14 @@ class Post_Filters implements Runner {
 	 *
 	 * @return bool|array
 	 */
-	private function fk_in_title() {
+	private function has_fk_in_title() {
 		global $wpdb;
 
-		$screen      = get_current_screen();
-		$fk_in_title = Param::get( 'fk_in_title' );
-		if ( ! $fk_in_title ) {
+		if ( ! Param::get( 'fk_in_title' ) ) {
 			return false;
 		}
 
+		$screen     = get_current_screen();
 		$meta_query = new \WP_Meta_Query([
 			[
 				'key'     => 'rank_math_focus_keyword',
@@ -337,6 +340,6 @@ class Post_Filters implements Runner {
 			return false;
 		}
 
-		return get_option( 'rank_math_review_posts', false );
+		return ! get_option( 'rank_math_review_posts_converted', false );
 	}
 }

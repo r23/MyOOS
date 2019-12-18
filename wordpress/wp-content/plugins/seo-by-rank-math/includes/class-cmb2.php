@@ -34,7 +34,7 @@ class CMB2 {
 			$type  = $field_args['type'];
 			$field = $cmb->get_field( $id );
 
-			if ( in_array( $type, [ 'meta_tab_container_open', 'tab_container_open', 'tab_container_close', 'tab_open', 'tab_close', 'raw' ], true ) ) {
+			if ( in_array( $type, [ 'meta_tab_container_open', 'tab_container_open', 'tab_container_close', 'tab', 'raw' ], true ) ) {
 				$field->args['save_field']    = false;
 				$field->args['render_row_cb'] = [ '\RankMath\CMB2', "render_{$type}" ];
 			}
@@ -206,29 +206,18 @@ class CMB2 {
 	}
 
 	/**
-	 * Render tab content opening <div>.
+	 * Render tab content opening <div> and closing </div>.
 	 *
 	 * @param array      $field_args Array of field arguments.
 	 * @param CMB2_Field $field      The field object.
 	 *
 	 * @return CMB2_Field
 	 */
-	public static function render_tab_open( $field_args, $field ) {
-		echo '<div id="' . $field->prop( 'id' ) . '" class="rank-math-tab">';
-
-		return $field;
-	}
-
-	/**
-	 * Render tab content closing <div>.
-	 *
-	 * @param array      $field_args Array of field arguments.
-	 * @param CMB2_Field $field      The field object.
-	 *
-	 * @return CMB2_Field
-	 */
-	public static function render_tab_close( $field_args, $field ) {
-		echo '</div><!-- /#' . $field->prop( 'id' ) . ' -->';
+	public static function render_tab( $field_args, $field ) {
+		printf(
+			true === $field->prop( 'open' ) ? '<div id="%1$s" class="rank-math-tab">' : '</div><!-- /#%1$s -->',
+			$field->prop( 'id' )
+		);
 
 		return $field;
 	}

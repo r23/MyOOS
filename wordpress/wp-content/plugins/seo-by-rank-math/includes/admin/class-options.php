@@ -147,7 +147,8 @@ class Options {
 				[
 					'name' => esc_html__( 'Panel', 'rank-math' ),
 					'id'   => 'setting-panel-' . $id,
-					'type' => 'tab_open',
+					'type' => 'tab',
+					'open' => true,
 				]
 			);
 
@@ -167,7 +168,7 @@ class Options {
 			$cmb->add_field(
 				[
 					'id'   => 'setting-panel-' . $id . '-close',
-					'type' => 'tab_close',
+					'type' => 'tab',
 				]
 			);
 		}

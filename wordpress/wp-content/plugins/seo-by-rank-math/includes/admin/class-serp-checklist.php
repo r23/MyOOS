@@ -73,7 +73,7 @@ class Serp_Checklist {
 					'fail'    => esc_html__( 'Focus Keyword does not appear in the SEO title.', 'rank-math' ),
 					'empty'   => esc_html__( 'Add Focus Keyword to the SEO title.', 'rank-math' ),
 					'tooltip' => esc_html__( 'Make sure the focus keyword appears in the SEO post title too.', 'rank-math' ),
-					'score'   => 'en' === substr( get_locale(), 0, 2 ) ? 30 : 32,
+					'score'   => 'en' === substr( get_locale(), 0, 2 ) ? 36 : 38,
 				],
 				'keywordInMetaDescription' => [
 					'ok'      => esc_html__( 'Focus Keyword used inside SEO Meta Description.', 'rank-math' ),
@@ -215,14 +215,6 @@ class Serp_Checklist {
 					'empty'   => esc_html__( 'Use Table of Content to break-down your text.', 'rank-math' ),
 					'tooltip' => esc_html__( ' Table of Contents help break down content into smaller, digestible chunks. It makes reading easier which in turn results in better rankings.', 'rank-math' ),
 					'score'   => 2,
-				],
-				'calculateFleschReading'    => [
-					/* translators: Link to kb article */
-					'ok'      => esc_html__( 'Your Flesch Readability score is {1} and is regarded as {0}', 'rank-math' ),
-					'fail'    => esc_html__( 'Your Flesch Readability score is {1} and is regarded as {0}.', 'rank-math' ),
-					'empty'   => esc_html__( 'Add some content to calculate Flesch Readability score.', 'rank-math' ),
-					'tooltip' => esc_html__( 'Try to make shorter sentences, using less difficult words to improve readability.', 'rank-math' ),
-					'score'   => 6,
 				],
 				'contentHasShortParagraphs' => [
 					'ok'      => esc_html__( 'Kudos! You are using short paragraphs.', 'rank-math' ),

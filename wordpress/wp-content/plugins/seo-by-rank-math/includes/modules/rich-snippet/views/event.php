@@ -223,6 +223,7 @@ $cmb->add_field([
 	'name'    => esc_html__( 'Rating Minimum', 'rank-math' ),
 	'desc'    => esc_html__( 'Rating minimum score of the event.', 'rank-math' ),
 	'classes' => 'cmb-row-33',
+	'default' => 1,
 	'dep'     => $event,
 ]);
 
@@ -232,5 +233,6 @@ $cmb->add_field([
 	'name'    => esc_html__( 'Rating Maximum', 'rank-math' ),
 	'desc'    => esc_html__( 'Rating maximum score of the event.', 'rank-math' ),
 	'classes' => 'cmb-row-33',
+	'default' => 5,
 	'dep'     => $event,
 ]);

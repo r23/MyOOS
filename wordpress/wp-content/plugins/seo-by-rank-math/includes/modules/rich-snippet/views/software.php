@@ -67,6 +67,7 @@ $cmb->add_field([
 	'name'    => esc_html__( 'Rating Minimum', 'rank-math' ),
 	'desc'    => esc_html__( 'Rating minimum score of the software.', 'rank-math' ),
 	'classes' => 'cmb-row-33',
+	'default' => 1,
 	'dep'     => $software,
 ]);
 
@@ -76,5 +77,6 @@ $cmb->add_field([
 	'name'    => esc_html__( 'Rating Maximum', 'rank-math' ),
 	'desc'    => esc_html__( 'Rating maximum score of the software.', 'rank-math' ),
 	'classes' => 'cmb-row-33',
+	'default' => 5,
 	'dep'     => $software,
 ]);

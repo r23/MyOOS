@@ -123,7 +123,7 @@ class Admin extends Base {
 
 			/* translators: Post Type label */
 			$thing = isset( $things[ $post_type ] ) ? $things[ $post_type ] : sprintf( __( 'single %s', 'rank-math' ), $name );
-			$url   = isset( $urls[ $post_type ] ) ? $urls[ $post_type ] : in_array( $name, [ 'post', 'page' ], true ) ? KB::get( "sitemap-{$name}" ) : '';
+			$url   = isset( $urls[ $post_type ] ) ? $urls[ $post_type ] : ( in_array( $name, [ 'post', 'page' ], true ) ? KB::get( "sitemap-{$name}" ) : '' );
 
 			$tabs[ 'sitemap-post-type-' . $object->name ] = array(
 				'title'     => $object->label,

@@ -74,7 +74,7 @@ class Result {
 			<div class="row-content">
 
 				<?php if ( $this->has_fix() ) : ?>
-				<a href="#" class="result-action"><?php esc_html_e( 'How to fix', 'rank-math' ); ?></a>
+				<a href="#" class="button button-secondary result-action"><?php esc_html_e( 'How to fix', 'rank-math' ); ?></a>
 				<?php endif; ?>
 
 				<?php echo wp_kses_post( $this->result['message'] ); ?>

@@ -216,7 +216,7 @@ class Manager {
 		$modules['bbpress'] = [
 			'title'         => esc_html__( 'bbPress', 'rank-math' ),
 			'desc'          => esc_html__( 'Add proper Meta tags to your bbPress forum posts, categories, profiles, etc. Get more options to take control of what search engines see and how they see it.', 'rank-math' ),
-			'icon'          => 'dashicons-cart',
+			'icon'          => 'dashicons-buddicons-bbpress-logo',
 			'disabled'      => ( ! function_exists( 'is_bbpress' ) ),
 			'disabled_text' => esc_html__( 'Please activate bbPress plugin to use this module.', 'rank-math' ),
 			'only'          => 'skip',
@@ -224,8 +224,8 @@ class Manager {
 
 		$modules['buddypress'] = [
 			'title'         => esc_html__( 'BuddyPress', 'rank-math' ),
-			'desc'          => esc_html__( 'Add proper Meta tags to your BuddyPress pages.', 'rank-math' ),
-			'icon'          => 'dashicons-cart',
+			'desc'          => esc_html__( 'Enable the BuddyPress module for Rank Math SEO to make your BuddyPress forum SEO friendly by adding proper meta tags to all forum pages.', 'rank-math' ),
+			'icon'          => 'dashicons-buddicons-buddypress-logo',
 			'class'         => 'RankMath\BuddyPress\BuddyPress',
 			'disabled'      => ! class_exists( 'BuddyPress' ),
 			'disabled_text' => esc_html__( 'Please activate BuddyPress plugin to use this module.', 'rank-math' ),

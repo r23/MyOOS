@@ -370,4 +370,19 @@ trait WordPress {
 
 		return $robots;
 	}
+
+	/**
+	 * Convert timestamp and ISO to date.
+	 *
+	 * @param string $value Value to convert.
+	 *
+	 * @return string
+	 */
+	public static function convert_date( $value ) {
+		if ( Str::contains( 'T', $value ) ) {
+			$value = \strtotime( $value );
+		}
+
+		return date_i18n( 'Y-m-d H:i', $value );
+	}
 }

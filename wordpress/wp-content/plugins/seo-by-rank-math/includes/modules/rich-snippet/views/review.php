@@ -64,6 +64,7 @@ $cmb->add_field([
 	'name'       => ' ',
 	'type'       => 'text',
 	'classes'    => 'nopt',
+	'save_field' => false,
 	'desc'       => esc_html__( 'Copy & paste this shortcode in the content.', 'rank-math' ),
 	'dep'        => [
 		'relation' => 'and',

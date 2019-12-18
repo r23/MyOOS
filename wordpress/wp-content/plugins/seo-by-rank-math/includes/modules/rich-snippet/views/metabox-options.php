@@ -6,8 +6,8 @@
  * @subpackage RankMath\RichSnippet
  */
 
-use RankMath\Helper;
 use RankMath\KB;
+use RankMath\Helper;
 use MyThemeShop\Helpers\WordPress;
 
 if ( ! Helper::has_cap( 'onpage_snippet' ) ) {
@@ -41,6 +41,8 @@ if ( ( class_exists( 'WooCommerce' ) && 'product' === $post_type ) || ( class_ex
 	return;
 }
 
+$has_reviews = Helper::get_review_posts();
+
 $cmb->add_field([
 	'id'      => 'rank_math_rich_snippet',
 	'type'    => 'select',
@@ -51,6 +53,15 @@ $cmb->add_field([
 	'default' => Helper::get_settings( "titles.pt_{$post_type}_default_rich_snippet" ),
 ]);
 
+if ( $has_reviews ) {
+	$cmb->add_field([
+		'id'      => 'rank_math_review_schema_notice',
+		'type'    => 'notice',
+		'what'    => 'error',
+		'content' => sprintf( wp_kses_post( __( 'Google does not support this Schema typ anymore, Please use <a href="%s" target="_blank">this tool</a> to convert all the old posts.', 'rank-math' ) ), Helper::get_admin_url( 'status', 'view=tools' ) ),
+	]);
+}
+
 // Common fields.
 $cmb->add_field([
 	'id'      => 'rank_math_snippet_location',
@@ -59,7 +70,7 @@ $cmb->add_field([
 	'type'    => 'select',
 	'dep'     => [ [ 'rank_math_rich_snippet', 'book,course,event,product,recipe,software', '=' ] ],
 	'classes' => 'nob',
-	'default' => 'bottom',
+	'default' => 'custom',
 	'options' => [
 		'bottom' => esc_html__( 'Below Content', 'rank-math' ),
 		'top'    => esc_html__( 'Above Content', 'rank-math' ),
@@ -73,9 +84,10 @@ $cmb->add_field([
 	'name'       => esc_html__( 'Shortcode', 'rank-math' ),
 	'type'       => 'text',
 	'desc'       => esc_html__( 'Copy & paste this shortcode in the content.', 'rank-math' ),
+	'save_field' => false,
 	'dep'        => [
-		'relation' => 'or',
-		[ 'rank_math_rich_snippet', 'off,article,review,book,course,event,product,recipe,software', '!=' ],
+		'relation' => 'and',
+		[ 'rank_math_rich_snippet', 'book,course,event,product,recipe,software' ],
 		[ 'rank_math_snippet_location', 'custom' ],
 	],
 	'attributes' => [

@@ -183,6 +183,7 @@ class Singular implements IPaper {
 
 		$keywords     = Post::get_meta( 'focus_keyword', $object->ID );
 		$post_content = $this->should_apply_shortcode() ? do_shortcode( $object->post_content ) : $object->post_content;
+		$post_content = \preg_replace( '/<!--[\s\S]*?-->/iu', '', $post_content );
 		$post_content = wpautop( WordPress::strip_shortcodes( $post_content ) );
 		$post_content = wp_kses( $post_content, [ 'p' => [] ] );
 

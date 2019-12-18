@@ -174,28 +174,14 @@ class AIO_Rich_Snippet extends Plugin_Importer {
 	 */
 	private function get_metakeys( $type ) {
 		$hash = [
-			'review'   => [
-				'item_reviewer' => 'name',
-				'item_name'     => 'desc',
-				'rating'        => 'review_rating_value',
-			],
+			'event'    => $this->get_event_fields(),
+			'product'  => $this->get_product_fields(),
+			'recipe'   => $this->get_recipe_fields(),
+			'software' => $this->get_software_fields(),
+			'video'    => $this->get_video_fields(),
 			'article'  => [
 				'article_name' => 'name',
 				'article_desc' => 'desc',
-			],
-			'event'    => [
-				'event_title'        => 'name',
-				'event_organization' => 'addressCountry',
-				'event_street'       => 'streetAddress',
-				'event_local'        => 'addressLocality',
-				'event_region'       => 'addressRegion',
-				'event_postal_code'  => 'postalCode',
-				'event_desc'         => 'desc',
-				'event_start_date'   => 'event_startdate',
-				'event_end_date'     => 'event_enddate',
-				'event_price'        => 'event_price',
-				'event_cur'          => 'event_currency',
-				'event_ticket_url'   => 'event_ticketurl',
 			],
 			'person'   => [
 				'people_fn'        => 'name',
@@ -206,35 +192,10 @@ class AIO_Rich_Snippet extends Plugin_Importer {
 				'people_region'    => 'addressRegion',
 				'people_postal'    => 'postalCode',
 			],
-			'product'  => [
-				'product_brand' => 'product_brand',
-				'product_name'  => 'name',
-				'product_price' => 'product_price',
-				'product_cur'   => 'product_currency',
-			],
-			'recipe'   => [
-				'recipes_name'       => 'name',
-				'recipes_preptime'   => 'recipe_preptime',
-				'recipes_cooktime'   => 'recipe_cooktime',
-				'recipes_totaltime'  => 'recipe_totaltime',
-				'recipes_desc'       => 'desc',
-				'recipes_ingredient' => 'recipe_ingredients',
-			],
-			'software' => [
-				'software_rating' => 'software_rating_value',
-				'software_price'  => 'software_price',
-				'software_cur'    => 'software_price_currency',
-				'software_name'   => 'name',
-				'software_os'     => 'software_operating_system',
-				'software_cat'    => 'software_application_category',
-			],
-			'video'    => [
-				'video_title'    => 'name',
-				'video_desc'     => 'desc',
-				'video_thumb'    => 'rank_math_twitter_title',
-				'video_url'      => 'video_url',
-				'video_emb_url'  => 'video_embed_url',
-				'video_duration' => 'video_duration',
+			'review'   => [
+				'item_reviewer' => 'name',
+				'item_name'     => 'desc',
+				'rating'        => 'review_rating_value',
 			],
 			'service'  => [
 				'service_type' => 'service_type',
@@ -243,5 +204,89 @@ class AIO_Rich_Snippet extends Plugin_Importer {
 		];
 
 		return isset( $hash[ $type ] ) ? $hash[ $type ] : false;
+	}
+
+	/**
+	 * Get event fields.
+	 *
+	 * @return array
+	 */
+	private function get_event_fields() {
+		return [
+			'event_title'        => 'name',
+			'event_organization' => 'addressCountry',
+			'event_street'       => 'streetAddress',
+			'event_local'        => 'addressLocality',
+			'event_region'       => 'addressRegion',
+			'event_postal_code'  => 'postalCode',
+			'event_desc'         => 'desc',
+			'event_start_date'   => 'event_startdate',
+			'event_end_date'     => 'event_enddate',
+			'event_price'        => 'event_price',
+			'event_cur'          => 'event_currency',
+			'event_ticket_url'   => 'event_ticketurl',
+		];
+	}
+
+	/**
+	 * Get product fields.
+	 *
+	 * @return array
+	 */
+	private function get_product_fields() {
+		return [
+			'product_brand' => 'product_brand',
+			'product_name'  => 'name',
+			'product_price' => 'product_price',
+			'product_cur'   => 'product_currency',
+		];
+	}
+
+	/**
+	 * Get recipe fields.
+	 *
+	 * @return array
+	 */
+	private function get_recipe_fields() {
+		return [
+			'recipes_name'       => 'name',
+			'recipes_preptime'   => 'recipe_preptime',
+			'recipes_cooktime'   => 'recipe_cooktime',
+			'recipes_totaltime'  => 'recipe_totaltime',
+			'recipes_desc'       => 'desc',
+			'recipes_ingredient' => 'recipe_ingredients',
+		];
+	}
+
+	/**
+	 * Get software fields.
+	 *
+	 * @return array
+	 */
+	private function get_software_fields() {
+		return [
+			'software_rating' => 'software_rating_value',
+			'software_price'  => 'software_price',
+			'software_cur'    => 'software_price_currency',
+			'software_name'   => 'name',
+			'software_os'     => 'software_operating_system',
+			'software_cat'    => 'software_application_category',
+		];
+	}
+
+	/**
+	 * Get video fields.
+	 *
+	 * @return array
+	 */
+	private function get_video_fields() {
+		return [
+			'video_title'    => 'name',
+			'video_desc'     => 'desc',
+			'video_thumb'    => 'rank_math_twitter_title',
+			'video_url'      => 'video_url',
+			'video_emb_url'  => 'video_embed_url',
+			'video_duration' => 'video_duration',
+		];
 	}
 }

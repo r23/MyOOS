@@ -37,13 +37,18 @@ class Assets implements Runner {
 		$this->action( 'admin_enqueue_scripts', 'register' );
 		$this->action( 'admin_enqueue_scripts', 'enqueue' );
 		$this->action( 'admin_enqueue_scripts', 'overwrite_wplink', 99 );
+
+		if ( 'elementor' === \MyThemeShop\Helpers\Param::get( 'action' ) ) {
+			$this->action( 'elementor/editor/before_enqueue_scripts', 'register' );
+			$this->action( 'elementor/editor/before_enqueue_scripts', 'enqueue' );
+			$this->action( 'elementor/editor/before_enqueue_scripts', 'overwrite_wplink', 99 );
+		}
 	}
 
 	/**
 	 * Register styles and scripts.
 	 */
 	public function register() {
-
 		$js     = rank_math()->plugin_url() . 'assets/admin/js/';
 		$css    = rank_math()->plugin_url() . 'assets/admin/css/';
 		$vendor = rank_math()->plugin_url() . 'assets/vendor/';
@@ -66,7 +71,9 @@ class Assets implements Runner {
 		wp_register_style( 'select2-rm', $vendor . 'select2/select2.min.css', null, '4.0.6-rc.1' );
 		wp_register_script( 'select2-rm', $vendor . 'select2/select2.min.js', null, '4.0.6-rc.1', true );
 
-		Helper::add_json( 'hasPremium', \class_exists( '\\RankMath\\Premium' ) );
+		// Tagify.
+		wp_register_script( 'tagify', $vendor . 'tagify/tagify.min.js', null, '2.31.6', true );
+
 		Helper::add_json(
 			'api',
 			[
@@ -74,6 +81,7 @@ class Assets implements Runner {
 				'nonce' => ( wp_installing() && ! is_multisite() ) ? '' : wp_create_nonce( 'wp_rest' ),
 			]
 		);
+
 		Helper::add_json(
 			'validationl10n',
 			[
@@ -104,9 +112,6 @@ class Assets implements Runner {
 		// Add thank you.
 		$this->filter( 'admin_footer_text', 'admin_footer_text' );
 
-		Helper::add_json( 'maxTags', 5 );
-		Helper::add_json( 'showScore', Helper::is_score_enabled() );
-
 		/**
 		 * Allow other plugins to enqueue/dequeue admin styles or scripts after plugin assets.
 		 */
@@ -131,7 +136,7 @@ class Assets implements Runner {
 	public function overwrite_wplink() {
 
 		wp_deregister_script( 'wplink' );
-		wp_register_script( 'wplink', rank_math()->plugin_url() . 'assets/admin/js/wplink.js', [ 'jquery', 'wpdialogs' ], null, true );
+		wp_register_script( 'wplink', rank_math()->plugin_url() . 'assets/admin/js/wplink.js', [ 'jquery', 'wpdialogs' ], rank_math()->version, true );
 
 		wp_localize_script(
 			'wplink',

@@ -143,7 +143,7 @@ trait Post_Type {
 		 *
 		 * @api array $accessible_post_types The post types.
 		 */
-		$accessible_post_types = apply_filters( 'rank_math/sitemap/excluded_post_types', $accessible_post_types );
+		$accessible_post_types = apply_filters( 'rank_math/excluded_post_types', $accessible_post_types );
 
 		if ( ! is_array( $accessible_post_types ) ) {
 			$accessible_post_types = [];

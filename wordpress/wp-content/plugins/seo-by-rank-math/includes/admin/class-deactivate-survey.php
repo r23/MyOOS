@@ -122,7 +122,7 @@ class Deactivate_Survey implements Runner {
 
 					<footer>
 
-						<button type="submit" class="button button-primary button-large button-submit"><?php esc_html_e( 'Submit & Deactivate', 'rank-math' ); ?></button>
+						<button type="submit" class="button button-primary default button-large button-submit"><?php esc_html_e( 'Submit & Deactivate', 'rank-math' ); ?></button>
 
 						<button type="button" class="button button-link alignright button-skip"><?php esc_html_e( 'Skip & Deactivate', 'rank-math' ); ?></button>
 

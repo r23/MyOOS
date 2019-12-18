@@ -10,6 +10,15 @@ use RankMath\Sitemap\Router;
 use RankMath\Frontend\Breadcrumbs;
 
 /**
+ * Is Gutenberg enabled.
+ *
+ * @return bool
+ */
+function rank_math_is_gutenberg() {
+	return apply_filters( 'rank_math/gutenberg/enabled', true );
+}
+
+/**
  * Get breadcrumbs.
  *
  * @param array $args Array of arguments.

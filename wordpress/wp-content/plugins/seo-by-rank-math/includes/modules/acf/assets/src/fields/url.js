@@ -1,5 +1,17 @@
-export default function( fields ) {
-	fields = _.map( fields, function( field ) {
+/**
+ * External dependencies
+ */
+import { map } from 'lodash'
+
+/**
+ * Parse url fields.
+ *
+ * @param {Array} fields Array of fields.
+ *
+ * @return {Array} Array of fields with content.
+ */
+export default ( fields ) => {
+	fields = map( fields, ( field ) => {
 		if ( 'url' !== field.type ) {
 			return field
 		}

@@ -152,7 +152,7 @@ class Base {
 					'post_type'      => [ 'post', 'page' ],
 				]
 			);
-			$this->post = $posts[0];
+			$this->post = isset( $posts[0] ) ? $posts[0] : null;
 		}
 
 		if ( is_null( $this->post ) ) {

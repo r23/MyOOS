@@ -82,7 +82,7 @@ class JobPosting implements Snippet {
 	private function get_posted_date( $default = '' ) {
 		$posted = $default;
 		if ( $start_date = Helper::get_post_meta( 'snippet_jobposting_startdate' ) ) { // phpcs:ignore
-			$posted = str_replace( ' ', 'T', date_i18n( 'Y-m-d H:i', $start_date ) );
+			$posted = str_replace( ' ', 'T', Helper::convert_date( $start_date ) );
 		}
 
 		return $posted;
@@ -100,7 +100,7 @@ class JobPosting implements Snippet {
 			return;
 		}
 
-		$entity['validThrough'] = str_replace( ' ', 'T', date_i18n( 'Y-m-d H:i', $end_date ) );
+		$entity['validThrough'] = str_replace( ' ', 'T', Helper::convert_date( $end_date ) );
 		if ( date_create( 'now' )->getTimestamp() < $end_date ) {
 			return;
 		}

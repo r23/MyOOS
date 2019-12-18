@@ -337,7 +337,7 @@ class Facebook extends OpenGraph {
 		$this->tag( 'product:brand', Helper::get_post_meta( 'snippet_product_brand' ) );
 		$this->tag( 'product:price:amount', Helper::get_post_meta( 'snippet_product_price' ) );
 		$this->tag( 'product:price:currency', Helper::get_post_meta( 'snippet_product_currency' ) );
-		if ( Helper::get_post_meta( 'snippet_product_instock', false ) ) {
+		if ( Helper::get_post_meta( 'snippet_product_instock' ) ) {
 			$this->tag( 'product:availability', 'instock' );
 		}
 	}

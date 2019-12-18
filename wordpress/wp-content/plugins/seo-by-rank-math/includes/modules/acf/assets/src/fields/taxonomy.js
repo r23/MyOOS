@@ -1,6 +1,19 @@
 /*global acf*/
-export default function( fields ) {
-	fields = _.map( fields, function( field ) {
+
+/**
+ * External dependencies
+ */
+import { map, pluck } from 'lodash'
+
+/**
+ * Parse taxonomy fields.
+ *
+ * @param {Array} fields Array of fields.
+ *
+ * @return {Array} Array of fields with content.
+ */
+export default ( fields ) => {
+	fields = map( fields, ( field ) => {
 		if ( 'taxonomy' !== field.type ) {
 			return field
 		}
@@ -10,16 +23,16 @@ export default function( fields ) {
 		if ( field.$el.find( '.acf-taxonomy-field[data-type="multi_select"]' ).length > 0 ) {
 			const select2Target = ( acf.select2.version >= 4 ) ? 'select' : 'input'
 
-			terms = _.pluck( field.$el.find( '.acf-taxonomy-field[data-type="multi_select"] ' + select2Target ).select2( 'data' ), 'text' )
+			terms = pluck( field.$el.find( '.acf-taxonomy-field[data-type="multi_select"] ' + select2Target ).select2( 'data' ), 'text' )
 		} else if ( field.$el.find( '.acf-taxonomy-field[data-type="checkbox"]' ).length > 0 ) {
-			terms = _.pluck( field.$el.find( '.acf-taxonomy-field[data-type="checkbox"] input[type="checkbox"]:checked' ).next(), 'textContent' )
+			terms = pluck( field.$el.find( '.acf-taxonomy-field[data-type="checkbox"] input[type="checkbox"]:checked' ).next(), 'textContent' )
 		} else if ( field.$el.find( 'input[type=checkbox]:checked' ).length > 0 ) {
-			terms = _.pluck( field.$el.find( 'input[type=checkbox]:checked' ).parent(), 'textContent' )
+			terms = pluck( field.$el.find( 'input[type=checkbox]:checked' ).parent(), 'textContent' )
 		} else if ( field.$el.find( 'select option:checked' ).length > 0 ) {
-			terms = _.pluck( field.$el.find( 'select option:checked' ), 'textContent' )
+			terms = pluck( field.$el.find( 'select option:checked' ), 'textContent' )
 		}
 
-		terms = _.map( terms, ( term ) => term.trim() )
+		terms = map( terms, ( term ) => term.trim() )
 
 		if ( terms.length > 0 ) {
 			field.content = '<ul>\n<li>' + terms.join( '</li>\n<li>' ) + '</li>\n</ul>'

@@ -1,10 +1,24 @@
-import attachmentCache from './attachmentCache'
-import getAttachmentContent from './getAttachmentContent'
+/**
+ * External dependencies
+ */
+import { map } from 'lodash'
 
-export default function( fields ) {
+/**
+ * Internal dependencies
+ */
+import { attachmentCache } from '../attachmentCache'
+
+/**
+ * Parse image fields.
+ *
+ * @param {Array} fields Array of fields.
+ *
+ * @return {Array} Array of fields with content.
+ */
+export default ( fields ) => {
 	const attachments = []
 
-	fields = _.map( fields, function( field ) {
+	fields = map( fields, ( field ) => {
 		if ( 'image' !== field.type ) {
 			return field
 		}
@@ -13,9 +27,9 @@ export default function( fields ) {
 
 		const attachmentID = field.$el.find( 'input[type=hidden]' ).val()
 		attachments.push( attachmentID )
-		if ( attachmentCache.get( attachmentID, 'attachment' ) ) {
-			field.content += getAttachmentContent( attachmentID )
-		}
+
+		// If we have the attachment data in the cache we can return a useful value
+		field.content += attachmentCache.getAttachmentContent( attachmentID )
 
 		return field
 	} )
