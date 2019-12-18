@@ -299,6 +299,10 @@ require_once AI1WM_IMPORT_PATH .
 
 require_once AI1WM_IMPORT_PATH .
 			DIRECTORY_SEPARATOR .
+			'class-ai1wm-import-plugins.php';
+
+require_once AI1WM_IMPORT_PATH .
+			DIRECTORY_SEPARATOR .
 			'class-ai1wm-import-done.php';
 
 require_once AI1WM_IMPORT_PATH .

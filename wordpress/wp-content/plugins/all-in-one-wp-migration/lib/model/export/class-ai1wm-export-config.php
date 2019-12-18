@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Ai1wm_Export_Config {
 
 	public static function execute( $params ) {
-		global $wp_version, $wpdb;
+		global $table_prefix, $wp_version, $wpdb;
 
 		// Set progress
 		Ai1wm_Status::info( __( 'Preparing configuration file...', AI1WM_PLUGIN_NAME ) );
@@ -135,10 +135,10 @@ class Ai1wm_Export_Config {
 		$config['WordPress'] = array( 'Version' => $wp_version, 'Content' => WP_CONTENT_DIR, 'Plugins' => WP_PLUGIN_DIR, 'Themes' => get_theme_root(), 'Uploads' => ai1wm_get_uploads_dir() );
 
 		// Set database version
-		$config['Database'] = array( 'Version' => $mysql->version(), 'Charset' => DB_CHARSET, 'Collate' => DB_COLLATE );
+		$config['Database'] = array( 'Version' => $mysql->version(), 'Charset' => DB_CHARSET, 'Collate' => DB_COLLATE, 'Prefix' => $table_prefix );
 
 		// Set PHP version
-		$config['PHP'] = array( 'Version' => PHP_VERSION, 'Integer' => PHP_INT_SIZE );
+		$config['PHP'] = array( 'Version' => PHP_VERSION, 'System' => PHP_OS, 'Integer' => PHP_INT_SIZE );
 
 		// Set active plugins
 		$config['Plugins'] = array_values( array_diff( ai1wm_active_plugins(), ai1wm_active_servmask_plugins() ) );

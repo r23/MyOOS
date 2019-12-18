@@ -1234,23 +1234,30 @@ function ai1wm_validate_theme_basename( $basename ) {
  * @return void
  */
 function ai1wm_cache_flush() {
-	// Initialize WP cache
 	wp_cache_init();
-
-	// Flush WP cache
 	wp_cache_flush();
 
-	// Set WP cache
+	// Reset WP options cache
 	wp_cache_set( 'alloptions', array(), 'options' );
 	wp_cache_set( 'notoptions', array(), 'options' );
 
-	// Delete WP cache
+	// Reset WP sitemeta cache
+	wp_cache_set( '1:notoptions', array(), 'site-options' );
+	wp_cache_set( '1:ms_files_rewriting', false, 'site-options' );
+	wp_cache_set( '1:active_sitewide_plugins', false, 'site-options' );
+
+	// Delete WP options cache
 	wp_cache_delete( 'alloptions', 'options' );
 	wp_cache_delete( 'notoptions', 'options' );
 
-	// Remove WP filters
-	remove_all_filters( 'sanitize_option_siteurl' );
+	// Delete WP sitemeta cache
+	wp_cache_delete( '1:notoptions', 'site-options' );
+	wp_cache_delete( '1:ms_files_rewriting', 'site-options' );
+	wp_cache_delete( '1:active_sitewide_plugins', 'site-options' );
+
+	// Remove WP options filter
 	remove_all_filters( 'sanitize_option_home' );
+	remove_all_filters( 'sanitize_option_siteurl' );
 }
 
 /**
