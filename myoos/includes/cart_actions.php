@@ -394,6 +394,8 @@ switch ($action) {
 				if (!isset($_SESSION['navigation'])) {
 					$_SESSION['navigation'] = new navigationHistory();
 				}
+
+				$_SESSION['info_message'] = $aLang['info_login_for_wichlist'];
 		
 				$aPage = array();
 				$aPage['content'] = $sContent;

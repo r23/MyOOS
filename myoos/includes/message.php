@@ -81,6 +81,14 @@ if (isset($_SESSION)) {
 					'text' => (string)$_SESSION['success_message']);
 		unset($_SESSION['success_message']);
 	}
+
+	if (isset($_SESSION['info_message']) && !empty($_SESSION['info_message'])) {
+		$aInfoMessage[] = array('type' => 'info',
+					'title' => $aLang['info'],
+					'text' => (string)$_SESSION['info_message']);
+		unset($_SESSION['info_message']);
+	}
+
 	
 	if (isset($_SESSION['error_message']) && !empty($_SESSION['error_message'])) {
 		$aInfoMessage[] = array('type' => 'danger',

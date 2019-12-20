@@ -60,7 +60,7 @@ $aLang = [
 'welcome_msg'           => 'Willkommen bei %s!',
 'danger'                => 'Oh nein! Es ist ein Fehler aufgetreten!',
 'warning'               => 'Warnung!',
-
+'info'               	=> 'Anmeldung!',
 
 // theme/system/_header.html
 'header_title_create_account'  => 'Neues Konto',
@@ -366,6 +366,7 @@ $aLang = [
 'warning_config_file_writeable'              => 'Warnung: MyOOS [Shopsystem] kann in die Konfigurationsdatei schreiben: ' . dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/includes/configure.php. Das stellt ein mögliches Sicherheitsrisiko dar - bitte korrigieren Sie die Benutzerberechtigungen zu dieser Datei!',
 'warning_download_directory_non_existent'    => 'Warnung: Das Verzeichnis für den Artikel Download existiert nicht: ' . OOS_DOWNLOAD_PATH . '. Diese Funktion wird nicht funktionieren bis das Verzeichnis erstellt wurde!',
 
+'info_login_for_wichlist' 			=> 'Sie möchten Ihre Artikel dauerhaft speichern und alle Funktionen des Merkzettels nutzen? Dann melden Sie sich bitte an und wir speichern Ihre Artikel auf Ihrem Merkzettel im Kundenkonto.',
 
 'text_ccval_error_invalid_date'         => 'Das \'Gültig bis\' Datum ist ungültig.<br>Bitte korrigieren Sie Ihre Angaben.',
 'text_ccval_error_invalid_number'       => 'Die \'KreditkarteNummer\', die Sie angegeben haben, ist ungültig.<br>Bitte korrigieren Sie Ihre Angaben.',

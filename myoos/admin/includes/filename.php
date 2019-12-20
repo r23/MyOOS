@@ -94,7 +94,7 @@ $aContents['zones'] = $prefix_filename . 'zones.php';
 //catalogLink
 
 $prefix_catalog_filename = '';
-if (!$prefix_catalog_filename == '') $prefix_catalog_filename =$prefix_catalog_filename . '_';
+if (!$prefix_catalog_filename == '') $prefix_catalog_filename = $prefix_catalog_filename . '_';
 
 $aCatalog = array();
 $aCatalog['account_history_info'] = $prefix_catalog_filename . 'account_history_info';
