@@ -1187,7 +1187,7 @@ class FrameworkExtension extends Extension
         }
 
         $container->setParameter('validator.auto_mapping', $config['auto_mapping']);
-        if (!$propertyInfoEnabled || !$config['auto_mapping'] || !class_exists(PropertyInfoLoader::class)) {
+        if (!$propertyInfoEnabled || !class_exists(PropertyInfoLoader::class)) {
             $container->removeDefinition('validator.property_info_loader');
         }
 
@@ -1353,7 +1353,9 @@ class FrameworkExtension extends Extension
 
         $container->getDefinition('secrets.vault')->replaceArgument(0, $config['vault_directory']);
 
-        if (!$config['local_dotenv_file']) {
+        if ($config['local_dotenv_file']) {
+            $container->getDefinition('secrets.local_vault')->replaceArgument(0, $config['local_dotenv_file']);
+        } else {
             $container->removeDefinition('secrets.local_vault');
         }
 

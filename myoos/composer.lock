@@ -1206,16 +1206,16 @@
         },
         {
             "name": "grpc/grpc",
-            "version": "1.25.0",
+            "version": "1.26.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/grpc/grpc-php.git",
-                "reference": "bdb165d6712db0cfcc35edae2d14fb2b00cabc88"
+                "reference": "22ce4b5919dda95b9978d1ba289f4c9e10d1099a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/grpc/grpc-php/zipball/bdb165d6712db0cfcc35edae2d14fb2b00cabc88",
-                "reference": "bdb165d6712db0cfcc35edae2d14fb2b00cabc88",
+                "url": "https://api.github.com/repos/grpc/grpc-php/zipball/22ce4b5919dda95b9978d1ba289f4c9e10d1099a",
+                "reference": "22ce4b5919dda95b9978d1ba289f4c9e10d1099a",
                 "shasum": ""
             },
             "require": {
@@ -1243,7 +1243,7 @@
             "keywords": [
                 "rpc"
             ],
-            "time": "2019-11-07T00:47:40+00:00"
+            "time": "2019-12-19T19:34:44+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -3757,21 +3757,21 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v5.0.1",
+            "version": "v5.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "b7e90accbc7e0c0825f91d8e936eaee9c4f2e581"
+                "reference": "c94e669fb16c280ad7346287d21a36f02481c54f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/b7e90accbc7e0c0825f91d8e936eaee9c4f2e581",
-                "reference": "b7e90accbc7e0c0825f91d8e936eaee9c4f2e581",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/c94e669fb16c280ad7346287d21a36f02481c54f",
+                "reference": "c94e669fb16c280ad7346287d21a36f02481c54f",
                 "shasum": ""
             },
             "require": {
                 "doctrine/event-manager": "~1.0",
-                "doctrine/persistence": "~1.0",
+                "doctrine/persistence": "^1.3",
                 "ext-xml": "*",
                 "php": "^7.2.5",
                 "psr/cache": "~1.0",
@@ -3928,7 +3928,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2019-12-01T14:12:07+00:00"
+            "time": "2019-12-19T18:35:20+00:00"
         },
         {
             "name": "twig/twig",

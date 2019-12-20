@@ -12,9 +12,8 @@
 namespace Symfony\Bridge\Doctrine\Form\Type;
 
 use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Persistence\ManagerRegistry;
-use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\ORM\QueryBuilder;
+use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Bridge\Doctrine\Form\ChoiceList\DoctrineChoiceLoader;
 use Symfony\Bridge\Doctrine\Form\ChoiceList\EntityLoaderInterface;
 use Symfony\Bridge\Doctrine\Form\ChoiceList\IdReader;
@@ -185,7 +184,6 @@ abstract class DoctrineType extends AbstractType implements ResetInterface
         };
 
         $emNormalizer = function (Options $options, $em) {
-            /* @var ManagerRegistry $registry */
             if (null !== $em) {
                 if ($em instanceof ObjectManager) {
                     return $em;
@@ -257,15 +255,17 @@ abstract class DoctrineType extends AbstractType implements ResetInterface
         $resolver->setNormalizer('query_builder', $queryBuilderNormalizer);
         $resolver->setNormalizer('id_reader', $idReaderNormalizer);
 
-        $resolver->setAllowedTypes('em', ['null', 'string', 'Doctrine\Common\Persistence\ObjectManager']);
+        $resolver->setAllowedTypes('em', ['null', 'string', ObjectManager::class]);
     }
 
     /**
      * Return the default loader object.
      *
+     * @param mixed $queryBuilder
+     *
      * @return EntityLoaderInterface
      */
-    abstract public function getLoader(ObjectManager $manager, QueryBuilder $queryBuilder, string $class);
+    abstract public function getLoader(ObjectManager $manager, $queryBuilder, string $class);
 
     public function getParent()
     {

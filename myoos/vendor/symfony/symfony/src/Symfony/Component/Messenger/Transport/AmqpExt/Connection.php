@@ -230,6 +230,7 @@ class Connection
     {
         $attributes = $amqpStamp ? $amqpStamp->getAttributes() : [];
         $attributes['headers'] = array_merge($attributes['headers'] ?? [], $headers);
+        $attributes['delivery_mode'] = $attributes['delivery_mode'] ?? 2;
 
         $exchange->publish(
             $body,
@@ -322,7 +323,7 @@ class Connection
             }
         } catch (\AMQPQueueException $e) {
             if (404 === $e->getCode() && $this->shouldSetup()) {
-                // If we get a 404 for the queue, it means we need to setup the exchange & queue.
+                // If we get a 404 for the queue, it means we need to set up the exchange & queue.
                 $this->setupExchangeAndQueues();
 
                 return $this->get();
