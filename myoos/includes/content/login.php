@@ -134,7 +134,6 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 	}
 }
 
-
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['login']));
 $sCanonical = oos_href_link($aContents['login'], '', FALSE, TRUE);

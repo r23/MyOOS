@@ -28,7 +28,11 @@ if (!isset($_SESSION['customer_id'])) {
   	// navigation history
 	if (!isset($_SESSION['navigation'])) {
 		$_SESSION['navigation'] = new navigationHistory();
-	} 
+	}
+
+	$_SESSION['info_message'] = $aLang['info_login_for_wichlist'];
+	$_SESSION['guest_login'] = 'off';
+	
     $_SESSION['navigation']->set_snapshot();
     oos_redirect(oos_href_link($aContents['login']));
 }  

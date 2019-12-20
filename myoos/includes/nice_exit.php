@@ -39,5 +39,8 @@ if (isset($_SESSION)) {
 	if (isset($_SESSION['new_products_id_in_cart'])) {
 		unset($_SESSION['new_products_id_in_cart']);
 	}
+	if (isset($_SESSION['guest_login'])) {
+		unset($_SESSION['guest_login']);
+	}	
 }
 

@@ -396,7 +396,8 @@ switch ($action) {
 				}
 
 				$_SESSION['info_message'] = $aLang['info_login_for_wichlist'];
-		
+				$_SESSION['guest_login'] = 'off';
+				
 				$aPage = array();
 				$aPage['content'] = $sContent;
 				$aPage['get'] = 'products_id=' . rawurlencode($wishlist_products_id) . '&amp;action=add_wishlist';
