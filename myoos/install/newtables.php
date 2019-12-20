@@ -1276,21 +1276,6 @@ dosql($table, $flds);
 
 
 
-
-$table = $prefix_table . 'whos_online';
-$flds = "
-  customer_id I,
-  full_name C(64) NOTNULL,
-  session_id C(128) NOTNULL,
-  ip_address C(15) NOTNULL,
-  time_entry C(14) NOTNULL,
-  time_last_click C(14) NOTNULL,
-  last_page_url C(64) NOTNULL
-";
-dosql($table, $flds);
-
-
-
 $table = $prefix_table . 'zones';
 $flds = "
   zone_id I NOTNULL AUTO PRIMARY,

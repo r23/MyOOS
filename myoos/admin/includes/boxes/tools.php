@@ -40,10 +40,5 @@ $aBlocks[] = array(
 			'title' => BOX_TOOLS_NEWSLETTER_MANAGER,
 			'link' => oos_admin_files_boxes('newsletters', 'selected_box=tools')
 		),
-		array(
-			'code' => $aContents['whos_online'],		
-			'title' => BOX_TOOLS_WHOS_ONLINE,
-			'link' => oos_admin_files_boxes('whos_online', 'selected_box=tools')
-		),	
 	),
 );

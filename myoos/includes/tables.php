@@ -111,5 +111,4 @@ $oostable['tax_class'] = $prefix_table . 'tax_class';
 $oostable['tax_rates'] = $prefix_table . 'tax_rates';
 $oostable['geo_zones'] = $prefix_table . 'geo_zones';
 $oostable['zones_to_geo_zones'] = $prefix_table . 'zones_to_geo_zones';
-$oostable['whos_online'] = $prefix_table . 'whos_online';
 $oostable['zones'] = $prefix_table . 'zones';
