@@ -43,6 +43,7 @@ class Admin extends Base {
 		$this->action( 'cmb2_admin_init', 'enqueue', 50 );
 		$this->filter( 'rank_math/metabox/tabs', 'add_metabox_tab' );
 		$this->action( 'rank_math/metabox/process_fields', 'save_advanced_meta' );
+		$this->action( 'rank_math/post/column/seo_details', 'display_schema_type' );
 	}
 
 	/**
@@ -88,6 +89,27 @@ class Admin extends Base {
 			}
 		}
 		$cmb->data_to_save['rank_math_snippet_recipe_instructions'] = $instructions;
+	}
+
+	/**
+	 * Display schema type for post
+	 *
+	 * @param int $post_id The current post ID.
+	 */
+	public function display_schema_type( $post_id ) {
+		$schema = get_post_meta( $post_id, 'rank_math_rich_snippet', true );
+		if ( ! $schema ) {
+			$post_type = get_post_type( $post_id );
+			$schema    = Helper::get_settings( "titles.pt_{$post_type}_default_rich_snippet" );
+		}
+
+		if ( $schema ) : ?>
+			<span class="rank-math-column-display schema-type">
+				<strong><?php _e( 'Schema', 'rank-math' ); ?>:</strong>
+				<?php echo ucfirst( $schema ); ?>
+			</span>
+			<?php
+		endif;
 	}
 
 	/**

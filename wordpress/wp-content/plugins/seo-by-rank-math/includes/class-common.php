@@ -48,6 +48,7 @@ class Common {
 		// Auto-update the plugin.
 		if ( Helper::get_settings( 'general.enable_auto_update' ) ) {
 			$this->filter( 'auto_update_plugin', 'auto_update_plugin', 10, 2 );
+			new Auto_Updater;
 		}
 
 		new Admin_Bar_Menu;

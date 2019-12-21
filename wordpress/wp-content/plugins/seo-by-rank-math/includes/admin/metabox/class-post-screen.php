@@ -77,7 +77,7 @@ class Post_Screen implements IScreen {
 			true
 		);
 
-		$is_block_editor = get_current_screen()->is_block_editor() && \rank_math_is_gutenberg();
+		$is_block_editor = Helper::is_block_editor() && \rank_math_is_gutenberg();
 		$is_elementor    = 'elementor' === \MyThemeShop\Helpers\Param::get( 'action' );
 		if ( $is_block_editor || $is_elementor ) {
 			$this->enqueue_commons();
@@ -93,7 +93,7 @@ class Post_Screen implements IScreen {
 		}
 
 		// Classic.
-		if ( get_current_screen()->is_block_editor() ) {
+		if ( Helper::is_block_editor() ) {
 			wp_enqueue_script( 'rank-math-formats' );
 			wp_enqueue_script( 'rank-math-primary-term', rank_math()->plugin_url() . 'assets/admin/js/gutenberg-primary-term.js', [], rank_math()->version, true );
 		}
@@ -166,7 +166,7 @@ class Post_Screen implements IScreen {
 			'keywordInTitle'            => true,
 			'keywordInMetaDescription'  => true,
 			'keywordInPermalink'        => true,
-			'keywordIn10Content'        => true,
+			'keywordIn10Percent'        => true,
 			'keywordInContent'          => true,
 			'keywordInSubheadings'      => true,
 			'keywordInImageAlt'         => true,
@@ -214,7 +214,7 @@ class Post_Screen implements IScreen {
 			return;
 		}
 
-		$file = get_current_screen()->is_block_editor() ? 'glue-custom-fields.js' : 'custom-fields.js';
+		$file = Helper::is_block_editor() ? 'glue-custom-fields.js' : 'custom-fields.js';
 
 		wp_enqueue_script( 'rank-math-custom-fields', rank_math()->plugin_url() . 'assets/admin/js/' . $file, [ 'wp-hooks' ], rank_math()->version, true );
 		Helper::add_json( 'analyzeFields', $custom_fields );
@@ -245,6 +245,8 @@ class Post_Screen implements IScreen {
 			rank_math()->version,
 			true
 		);
+
+		wp_set_script_translations( 'rank-math-gutenberg', 'rank-math', rank_math()->plugin_dir() . '/languages/' );
 	}
 
 	/**

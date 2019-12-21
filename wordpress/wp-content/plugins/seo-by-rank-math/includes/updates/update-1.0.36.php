@@ -15,6 +15,6 @@ use RankMath\Admin\Admin_Helper;
  * Clear SEO Analysis result.
  */
 function rank_math_1_0_36_reset_options() {
-	delete_option( 'rank_math_connect_data' );
+	Admin_Helper::get_registration_data( false );
 }
 rank_math_1_0_36_reset_options();

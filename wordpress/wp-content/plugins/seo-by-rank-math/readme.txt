@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection
 Tested up to: 5.3.1
 Requires at least: 4.9.0
 Requires PHP: 5.6
-Stable tag: 1.0.36.1
+Stable tag: 1.0.36.2
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -450,6 +450,13 @@ We look forward to helping you.
 12. Rank Math Comes with 10+ FREE Module.
 
 == Changelog ==
+
+= 1.0.36.2 [Dec 21, 2019] =
+* Improved the scoring mechanism to work in sync with the Classic Editor
+* Fixed an issue with WordPress 4.9 where the Rank Math plugin was refusing to load on some installations
+* Fixed a bug where new Meta Data was not getting saved on category pages
+* Removed `rankMathApi.js` file as the plugin was never using it. Rank Math was using the `rank-math.php` file instead all the time
+* Made Pillar Content icon show up in the SEO Column of posts and pages
 
 = 1.0.36.1 [Dec 19, 2019] =
 * Fixed "Cannot read property 'snippetType' of undefined" error on some installations

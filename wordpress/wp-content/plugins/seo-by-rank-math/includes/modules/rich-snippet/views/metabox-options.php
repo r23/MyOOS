@@ -53,14 +53,14 @@ $cmb->add_field([
 	'default' => Helper::get_settings( "titles.pt_{$post_type}_default_rich_snippet" ),
 ]);
 
-if ( $has_reviews ) {
+/* if ( $has_reviews ) {
 	$cmb->add_field([
 		'id'      => 'rank_math_review_schema_notice',
 		'type'    => 'notice',
 		'what'    => 'error',
-		'content' => sprintf( wp_kses_post( __( 'Google does not support this Schema typ anymore, Please use <a href="%s" target="_blank">this tool</a> to convert all the old posts.', 'rank-math' ) ), Helper::get_admin_url( 'status', 'view=tools' ) ),
+		'content' => sprintf( wp_kses_post( __( 'Google does not support this Schema type anymore, Please use <a href="%s" target="_blank">this tool</a> to convert all the old posts.', 'rank-math' ) ), Helper::get_admin_url( 'status', 'view=tools' ) ),
 	]);
-}
+} */
 
 // Common fields.
 $cmb->add_field([

@@ -172,6 +172,7 @@ return array(
     'RankMath\\Admin\\Setup_Wizard' => $baseDir . '/includes/admin/class-setup-wizard.php',
     'RankMath\\Admin\\Watcher' => $baseDir . '/includes/admin/watcher/class-watcher.php',
     'RankMath\\Admin_Bar_Menu' => $baseDir . '/includes/admin/class-admin-bar-menu.php',
+    'RankMath\\Auto_Updater' => $baseDir . '/includes/class-auto-updater.php',
     'RankMath\\BuddyPress\\Admin' => $baseDir . '/includes/modules/buddypress/class-admin.php',
     'RankMath\\BuddyPress\\BuddyPress' => $baseDir . '/includes/modules/buddypress/class-buddypress.php',
     'RankMath\\CLI\\Commands' => $baseDir . '/includes/cli/class-commands.php',

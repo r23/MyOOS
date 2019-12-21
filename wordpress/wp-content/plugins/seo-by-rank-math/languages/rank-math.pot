@@ -535,9 +535,6 @@ msgstr ""
 msgid "Not Set"
 msgstr ""
 
-msgid "Schema"
-msgstr ""
-
 msgid "All Posts"
 msgstr ""
 
@@ -2919,6 +2916,9 @@ msgid "Extend the functionality of WordPress by creating redirects in our plugin
 msgstr ""
 
 msgid "This tab contains snippet options."
+msgstr ""
+
+msgid "Schema"
 msgstr ""
 
 msgid "Post ID does not exists or was deleted."

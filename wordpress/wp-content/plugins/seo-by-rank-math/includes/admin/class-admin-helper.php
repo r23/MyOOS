@@ -215,7 +215,7 @@ class Admin_Helper {
 	public static function is_term_edit() {
 		global $pagenow;
 
-		return 'term.php' === $pagenow;
+		return 'term.php' === $pagenow || 'edit-tags.php' === $pagenow;
 	}
 
 	/**

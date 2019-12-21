@@ -218,6 +218,7 @@ class ComposerStaticInite0bd047aa5058f04568aa38dfc5ac000
         'RankMath\\Admin\\Setup_Wizard' => __DIR__ . '/../..' . '/includes/admin/class-setup-wizard.php',
         'RankMath\\Admin\\Watcher' => __DIR__ . '/../..' . '/includes/admin/watcher/class-watcher.php',
         'RankMath\\Admin_Bar_Menu' => __DIR__ . '/../..' . '/includes/admin/class-admin-bar-menu.php',
+        'RankMath\\Auto_Updater' => __DIR__ . '/../..' . '/includes/class-auto-updater.php',
         'RankMath\\BuddyPress\\Admin' => __DIR__ . '/../..' . '/includes/modules/buddypress/class-admin.php',
         'RankMath\\BuddyPress\\BuddyPress' => __DIR__ . '/../..' . '/includes/modules/buddypress/class-buddypress.php',
         'RankMath\\CLI\\Commands' => __DIR__ . '/../..' . '/includes/cli/class-commands.php',

@@ -72,7 +72,7 @@ class Metabox implements Runner {
 		$this->screen->localize();
 		rank_math()->variables->setup_json();
 
-		$is_gutenberg = $screen->is_block_editor() && \rank_math_is_gutenberg();
+		$is_gutenberg = Helper::is_block_editor() && \rank_math_is_gutenberg();
 		$is_elementor = 'elementor' === Param::get( 'action' );
 
 		if ( ! $is_gutenberg && ! $is_elementor ) {

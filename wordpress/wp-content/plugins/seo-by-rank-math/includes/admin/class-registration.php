@@ -327,7 +327,7 @@ class Registration {
 	private function redirect_to_connect( $values ) {
 
 		if ( ! isset( $values['rank_math_activate'] ) ) {
-			delete_option( 'rank_math_connect_data' );
+			Admin_Helper::get_registration_data( false );
 			return;
 		}
 

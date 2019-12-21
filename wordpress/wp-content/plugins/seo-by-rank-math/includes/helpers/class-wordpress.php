@@ -385,4 +385,54 @@ trait WordPress {
 
 		return date_i18n( 'Y-m-d H:i', $value );
 	}
+
+	/**
+	 * Id block editor enabled.
+	 *
+	 * @return bool
+	 */
+	public static function is_block_editor() {
+		$screen = get_current_screen();
+		if ( method_exists( $screen, 'is_block_editor' ) ) {
+			return $screen->is_block_editor();
+		}
+
+		if ( 'post' === $screen->base ) {
+			return self::use_block_editor_for_post_type( $screen->post_type );
+		}
+
+		return false;
+	}
+
+	/**
+	 * Return whether a post type is compatible with the block editor.
+	 *
+	 * @param string $post_type The post type.
+	 *
+	 * @return bool Whether the post type can be edited with the block editor.
+	 */
+	private static function use_block_editor_for_post_type( $post_type ) {
+		if ( ! post_type_exists( $post_type ) ) {
+			return false;
+		}
+
+		if ( ! post_type_supports( $post_type, 'editor' ) ) {
+			return false;
+		}
+
+		$post_type_object = get_post_type_object( $post_type );
+		if ( $post_type_object && ! $post_type_object->show_in_rest ) {
+			return false;
+		}
+
+		/**
+		 * Filter whether a post is able to be edited in the block editor.
+		 *
+		 * @since 5.0.0
+		 *
+		 * @param bool   $use_block_editor  Whether the post type can be edited or not. Default true.
+		 * @param string $post_type         The post type being checked.
+		 */
+		return apply_filters( 'use_block_editor_for_post_type', true, $post_type );
+	}
 }

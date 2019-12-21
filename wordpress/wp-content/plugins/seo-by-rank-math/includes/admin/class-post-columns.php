@@ -295,7 +295,6 @@ class Post_Columns implements Runner {
 		$keyword   = get_post_meta( $post_id, 'rank_math_focus_keyword', true );
 		$keyword   = explode( ',', $keyword )[0];
 		$is_pillar = get_post_meta( $post_id, 'rank_math_pillar_content', true );
-		$schema    = get_post_meta( $post_id, 'rank_math_rich_snippet', true );
 		$score     = $score ? $score : 0;
 		$class     = $this->get_seo_score_class( $score );
 
@@ -307,7 +306,7 @@ class Post_Columns implements Runner {
 		?>
 		<span class="rank-math-column-display seo-score <?php echo $class; ?> <?php echo ! $score ? 'disabled' : ''; ?>">
 			<strong><?php echo $score; ?></strong>
-			<?php if ( $is_pillar ) : ?>
+			<?php if ( 'on' === $is_pillar ) : ?>
 				<img class="is-pillar" src="<?php echo esc_url( rank_math()->plugin_url() . 'assets/admin/img/pillar.svg' ); ?>" alt="<?php _e( 'Is Pillar', 'rank-math' ); ?>" title="<?php _e( 'Is Pillar', 'rank-math' ); ?>" width="25" />
 			<?php endif; ?>
 		</span>
@@ -322,12 +321,7 @@ class Post_Columns implements Runner {
 			<span><?php echo $keyword; ?></span>
 		</span>
 
-		<?php if ( $schema ) : ?>
-			<span class="rank-math-column-display schema-type">
-				<strong><?php _e( 'Schema', 'rank-math' ); ?>:</strong>
-				<?php echo ucfirst( $schema ); ?>
-			</span>
-		<?php endif; ?>
+		<?php $this->do_action( 'post/column/seo_details', $post_id ); ?>
 
 		<div class="rank-math-column-edit">
 			<a href="#" class="rank-math-column-save"><?php esc_html_e( 'Save', 'rank-math' ); ?></a>
