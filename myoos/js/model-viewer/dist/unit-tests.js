@@ -80,7 +80,7 @@ const debounce = (fn, ms) => {
 const step = (edge, value) => {
     return value < edge ? 0 : 1;
 };
-const clamp = (value, lowerLimit, upperLimit) => Math.max(lowerLimit === -Infinity ? value : lowerLimit, Math.min(upperLimit === Infinity ? value : upperLimit, value));
+const clamp = (value, lowerLimit, upperLimit) => Math.max(lowerLimit, Math.min(upperLimit, value));
 const CAPPED_DEVICE_PIXEL_RATIO = 1;
 const resolveDpr = (() => {
     const HAS_META_VIEWPORT_TAG = (() => {
@@ -2487,6 +2487,8 @@ canvas.show {
   width: 100%;
   height: 100%;
   position: absolute;
+  border: none;
+  padding: 0;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -2641,7 +2643,7 @@ canvas.show {
         will have their <slot> elements removed by ShadyCSS -->
   <div class="slot poster">
     <slot name="poster">
-      <div id="default-poster" aria-hidden="true" aria-label="Activate to view in 3D!"></div>
+      <button type="button" id="default-poster" aria-hidden="true" aria-label="Activate to view in 3D!"></button>
     </slot>
   </div>
 
@@ -51945,6 +51947,634 @@ if ( typeof __THREE_DEVTOOLS__ !== 'undefined' ) {
 }
 
 /**
+ * @author Don McCurdy / https://www.donmccurdy.com
+ */
+
+var DRACOLoader = function ( manager ) {
+
+	Loader.call( this, manager );
+
+	this.decoderPath = '';
+	this.decoderConfig = {};
+	this.decoderBinary = null;
+	this.decoderPending = null;
+
+	this.workerLimit = 4;
+	this.workerPool = [];
+	this.workerNextTaskID = 1;
+	this.workerSourceURL = '';
+
+	this.defaultAttributeIDs = {
+		position: 'POSITION',
+		normal: 'NORMAL',
+		color: 'COLOR',
+		uv: 'TEX_COORD'
+	};
+	this.defaultAttributeTypes = {
+		position: 'Float32Array',
+		normal: 'Float32Array',
+		color: 'Float32Array',
+		uv: 'Float32Array'
+	};
+
+};
+
+DRACOLoader.prototype = Object.assign( Object.create( Loader.prototype ), {
+
+	constructor: DRACOLoader,
+
+	setDecoderPath: function ( path ) {
+
+		this.decoderPath = path;
+
+		return this;
+
+	},
+
+	setDecoderConfig: function ( config ) {
+
+		this.decoderConfig = config;
+
+		return this;
+
+	},
+
+	setWorkerLimit: function ( workerLimit ) {
+
+		this.workerLimit = workerLimit;
+
+		return this;
+
+	},
+
+	/** @deprecated */
+	setVerbosity: function () {
+
+		console.warn( 'THREE.DRACOLoader: The .setVerbosity() method has been removed.' );
+
+	},
+
+	/** @deprecated */
+	setDrawMode: function () {
+
+		console.warn( 'THREE.DRACOLoader: The .setDrawMode() method has been removed.' );
+
+	},
+
+	/** @deprecated */
+	setSkipDequantization: function () {
+
+		console.warn( 'THREE.DRACOLoader: The .setSkipDequantization() method has been removed.' );
+
+	},
+
+	load: function ( url, onLoad, onProgress, onError ) {
+
+		var loader = new FileLoader( this.manager );
+
+		loader.setPath( this.path );
+		loader.setResponseType( 'arraybuffer' );
+
+		if ( this.crossOrigin === 'use-credentials' ) {
+
+			loader.setWithCredentials( true );
+
+		}
+
+		loader.load( url, ( buffer ) => {
+
+			var taskConfig = {
+				attributeIDs: this.defaultAttributeIDs,
+				attributeTypes: this.defaultAttributeTypes,
+				useUniqueIDs: false
+			};
+
+			this.decodeGeometry( buffer, taskConfig )
+				.then( onLoad )
+				.catch( onError );
+
+		}, onProgress, onError );
+
+	},
+
+	/** @deprecated Kept for backward-compatibility with previous DRACOLoader versions. */
+	decodeDracoFile: function ( buffer, callback, attributeIDs, attributeTypes ) {
+
+		var taskConfig = {
+			attributeIDs: attributeIDs || this.defaultAttributeIDs,
+			attributeTypes: attributeTypes || this.defaultAttributeTypes,
+			useUniqueIDs: !! attributeIDs
+		};
+
+		this.decodeGeometry( buffer, taskConfig ).then( callback );
+
+	},
+
+	decodeGeometry: function ( buffer, taskConfig ) {
+
+		var worker;
+		var taskID = this.workerNextTaskID ++;
+		var taskCost = buffer.byteLength;
+
+		// TODO: For backward-compatibility, support 'attributeTypes' objects containing
+		// references (rather than names) to typed array constructors. These must be
+		// serialized before sending them to the worker.
+		for ( var attribute in taskConfig.attributeTypes ) {
+
+			var type = taskConfig.attributeTypes[ attribute ];
+
+			if ( type.BYTES_PER_ELEMENT !== undefined ) {
+
+				taskConfig.attributeTypes[ attribute ] = type.name;
+
+			}
+
+		}
+
+		// Obtain a worker and assign a task, and construct a geometry instance
+		// when the task completes.
+		var geometryPending = this._getWorker( taskID, taskCost )
+			.then( ( _worker ) => {
+
+				worker = _worker;
+
+				return new Promise( ( resolve, reject ) => {
+
+					worker._callbacks[ taskID ] = { resolve, reject };
+
+					worker.postMessage( { type: 'decode', id: taskID, taskConfig, buffer }, [ buffer ] );
+
+					// this.debug();
+
+				} );
+
+			} )
+			.then( ( message ) => this._createGeometry( message.geometry ) );
+
+		// Remove task from the task list.
+		geometryPending
+			.finally( () => {
+
+				if ( worker && taskID ) {
+
+					this._releaseTask( worker, taskID );
+
+					// this.debug();
+
+				}
+
+			} );
+
+		return geometryPending;
+
+	},
+
+	_createGeometry: function ( geometryData ) {
+
+		var geometry = new BufferGeometry();
+
+		if ( geometryData.index ) {
+
+			geometry.setIndex( new BufferAttribute( geometryData.index.array, 1 ) );
+
+		}
+
+		for ( var i = 0; i < geometryData.attributes.length; i ++ ) {
+
+			var attribute = geometryData.attributes[ i ];
+			var name = attribute.name;
+			var array = attribute.array;
+			var itemSize = attribute.itemSize;
+
+			geometry.setAttribute( name, new BufferAttribute( array, itemSize ) );
+
+		}
+
+		return geometry;
+
+	},
+
+	_loadLibrary: function ( url, responseType ) {
+
+		var loader = new FileLoader( this.manager );
+		loader.setPath( this.decoderPath );
+		loader.setResponseType( responseType );
+
+		return new Promise( ( resolve, reject ) => {
+
+			loader.load( url, resolve, undefined, reject );
+
+		} );
+
+	},
+
+	_initDecoder: function () {
+
+		if ( this.decoderPending ) return this.decoderPending;
+
+		var useJS = typeof WebAssembly !== 'object' || this.decoderConfig.type === 'js';
+		var librariesPending = [];
+
+		if ( useJS ) {
+
+			librariesPending.push( this._loadLibrary( 'draco_decoder.js', 'text' ) );
+
+		} else {
+
+			librariesPending.push( this._loadLibrary( 'draco_wasm_wrapper.js', 'text' ) );
+			librariesPending.push( this._loadLibrary( 'draco_decoder.wasm', 'arraybuffer' ) );
+
+		}
+
+		this.decoderPending = Promise.all( librariesPending )
+			.then( ( libraries ) => {
+
+				var jsContent = libraries[ 0 ];
+
+				if ( ! useJS ) {
+
+					this.decoderConfig.wasmBinary = libraries[ 1 ];
+
+				}
+
+				var fn = DRACOLoader.DRACOWorker.toString();
+
+				var body = [
+					'/* draco decoder */',
+					jsContent,
+					'',
+					'/* worker */',
+					fn.substring( fn.indexOf( '{' ) + 1, fn.lastIndexOf( '}' ) )
+				].join( '\n' );
+
+				this.workerSourceURL = URL.createObjectURL( new Blob( [ body ] ) );
+
+			} );
+
+		return this.decoderPending;
+
+	},
+
+	_getWorker: function ( taskID, taskCost ) {
+
+		return this._initDecoder().then( () => {
+
+			if ( this.workerPool.length < this.workerLimit ) {
+
+				var worker = new Worker( this.workerSourceURL );
+
+				worker._callbacks = {};
+				worker._taskCosts = {};
+				worker._taskLoad = 0;
+
+				worker.postMessage( { type: 'init', decoderConfig: this.decoderConfig } );
+
+				worker.onmessage = function ( e ) {
+
+					var message = e.data;
+
+					switch ( message.type ) {
+
+						case 'decode':
+							worker._callbacks[ message.id ].resolve( message );
+							break;
+
+						case 'error':
+							worker._callbacks[ message.id ].reject( message );
+							break;
+
+						default:
+							console.error( 'THREE.DRACOLoader: Unexpected message, "' + message.type + '"' );
+
+					}
+
+				};
+
+				this.workerPool.push( worker );
+
+			} else {
+
+				this.workerPool.sort( function ( a, b ) {
+
+					return a._taskLoad > b._taskLoad ? - 1 : 1;
+
+				} );
+
+			}
+
+			var worker = this.workerPool[ this.workerPool.length - 1 ];
+			worker._taskCosts[ taskID ] = taskCost;
+			worker._taskLoad += taskCost;
+			return worker;
+
+		} );
+
+	},
+
+	_releaseTask: function ( worker, taskID ) {
+
+		worker._taskLoad -= worker._taskCosts[ taskID ];
+		delete worker._callbacks[ taskID ];
+		delete worker._taskCosts[ taskID ];
+
+	},
+
+	debug: function () {
+
+		console.log( 'Task load: ', this.workerPool.map( ( worker ) => worker._taskLoad ) );
+
+	},
+
+	dispose: function () {
+
+		for ( var i = 0; i < this.workerPool.length; ++ i ) {
+
+			this.workerPool[ i ].terminate();
+
+		}
+
+		this.workerPool.length = 0;
+
+		return this;
+
+	}
+
+} );
+
+/* WEB WORKER */
+
+DRACOLoader.DRACOWorker = function () {
+
+	var decoderConfig;
+	var decoderPending;
+
+	onmessage = function ( e ) {
+
+		var message = e.data;
+
+		switch ( message.type ) {
+
+			case 'init':
+				decoderConfig = message.decoderConfig;
+				decoderPending = new Promise( function ( resolve/*, reject*/ ) {
+
+					decoderConfig.onModuleLoaded = function ( draco ) {
+
+						// Module is Promise-like. Wrap before resolving to avoid loop.
+						resolve( { draco: draco } );
+
+					};
+
+					DracoDecoderModule( decoderConfig );
+
+				} );
+				break;
+
+			case 'decode':
+				var buffer = message.buffer;
+				var taskConfig = message.taskConfig;
+				decoderPending.then( ( module ) => {
+
+					var draco = module.draco;
+					var decoder = new draco.Decoder();
+					var decoderBuffer = new draco.DecoderBuffer();
+					decoderBuffer.Init( new Int8Array( buffer ), buffer.byteLength );
+
+					try {
+
+						var geometry = decodeGeometry( draco, decoder, decoderBuffer, taskConfig );
+
+						var buffers = geometry.attributes.map( ( attr ) => attr.array.buffer );
+
+						if ( geometry.index ) buffers.push( geometry.index.array.buffer );
+
+						self.postMessage( { type: 'decode', id: message.id, geometry }, buffers );
+
+					} catch ( error ) {
+
+						console.error( error );
+
+						self.postMessage( { type: 'error', id: message.id, error: error.message } );
+
+					} finally {
+
+						draco.destroy( decoderBuffer );
+						draco.destroy( decoder );
+
+					}
+
+				} );
+				break;
+
+		}
+
+	};
+
+	function decodeGeometry( draco, decoder, decoderBuffer, taskConfig ) {
+
+		var attributeIDs = taskConfig.attributeIDs;
+		var attributeTypes = taskConfig.attributeTypes;
+
+		var dracoGeometry;
+		var decodingStatus;
+
+		var geometryType = decoder.GetEncodedGeometryType( decoderBuffer );
+
+		if ( geometryType === draco.TRIANGULAR_MESH ) {
+
+			dracoGeometry = new draco.Mesh();
+			decodingStatus = decoder.DecodeBufferToMesh( decoderBuffer, dracoGeometry );
+
+		} else if ( geometryType === draco.POINT_CLOUD ) {
+
+			dracoGeometry = new draco.PointCloud();
+			decodingStatus = decoder.DecodeBufferToPointCloud( decoderBuffer, dracoGeometry );
+
+		} else {
+
+			throw new Error( 'THREE.DRACOLoader: Unexpected geometry type.' );
+
+		}
+
+		if ( ! decodingStatus.ok() || dracoGeometry.ptr === 0 ) {
+
+			throw new Error( 'THREE.DRACOLoader: Decoding failed: ' + decodingStatus.error_msg() );
+
+		}
+
+		var geometry = { index: null, attributes: [] };
+
+		// Gather all vertex attributes.
+		for ( var attributeName in attributeIDs ) {
+
+			var attributeType = self[ attributeTypes[ attributeName ] ];
+
+			var attribute;
+			var attributeID;
+
+			// A Draco file may be created with default vertex attributes, whose attribute IDs
+			// are mapped 1:1 from their semantic name (POSITION, NORMAL, ...). Alternatively,
+			// a Draco file may contain a custom set of attributes, identified by known unique
+			// IDs. glTF files always do the latter, and `.drc` files typically do the former.
+			if ( taskConfig.useUniqueIDs ) {
+
+				attributeID = attributeIDs[ attributeName ];
+				attribute = decoder.GetAttributeByUniqueId( dracoGeometry, attributeID );
+
+			} else {
+
+				attributeID = decoder.GetAttributeId( dracoGeometry, draco[ attributeIDs[ attributeName ] ] );
+
+				if ( attributeID === - 1 ) continue;
+
+				attribute = decoder.GetAttribute( dracoGeometry, attributeID );
+
+			}
+
+			geometry.attributes.push( decodeAttribute( draco, decoder, dracoGeometry, attributeName, attributeType, attribute ) );
+
+		}
+
+		// Add index.
+		if ( geometryType === draco.TRIANGULAR_MESH ) {
+
+			// Generate mesh faces.
+			var numFaces = dracoGeometry.num_faces();
+			var numIndices = numFaces * 3;
+			var index = new Uint32Array( numIndices );
+			var indexArray = new draco.DracoInt32Array();
+
+			for ( var i = 0; i < numFaces; ++ i ) {
+
+				decoder.GetFaceFromMesh( dracoGeometry, i, indexArray );
+
+				for ( var j = 0; j < 3; ++ j ) {
+
+					index[ i * 3 + j ] = indexArray.GetValue( j );
+
+				}
+
+			}
+
+			geometry.index = { array: index, itemSize: 1 };
+
+			draco.destroy( indexArray );
+
+		}
+
+		draco.destroy( dracoGeometry );
+
+		return geometry;
+
+	}
+
+	function decodeAttribute( draco, decoder, dracoGeometry, attributeName, attributeType, attribute ) {
+
+		var numComponents = attribute.num_components();
+		var numPoints = dracoGeometry.num_points();
+		var numValues = numPoints * numComponents;
+		var dracoArray;
+
+		var array;
+
+		switch ( attributeType ) {
+
+			case Float32Array:
+				dracoArray = new draco.DracoFloat32Array();
+				decoder.GetAttributeFloatForAllPoints( dracoGeometry, attribute, dracoArray );
+				array = new Float32Array( numValues );
+				break;
+
+			case Int8Array:
+				dracoArray = new draco.DracoInt8Array();
+				decoder.GetAttributeInt8ForAllPoints( dracoGeometry, attribute, dracoArray );
+				array = new Int8Array( numValues );
+				break;
+
+			case Int16Array:
+				dracoArray = new draco.DracoInt16Array();
+				decoder.GetAttributeInt16ForAllPoints( dracoGeometry, attribute, dracoArray );
+				array = new Int16Array( numValues );
+				break;
+
+			case Int32Array:
+				dracoArray = new draco.DracoInt32Array();
+				decoder.GetAttributeInt32ForAllPoints( dracoGeometry, attribute, dracoArray );
+				array = new Int32Array( numValues );
+				break;
+
+			case Uint8Array:
+				dracoArray = new draco.DracoUInt8Array();
+				decoder.GetAttributeUInt8ForAllPoints( dracoGeometry, attribute, dracoArray );
+				array = new Uint8Array( numValues );
+				break;
+
+			case Uint16Array:
+				dracoArray = new draco.DracoUInt16Array();
+				decoder.GetAttributeUInt16ForAllPoints( dracoGeometry, attribute, dracoArray );
+				array = new Uint16Array( numValues );
+				break;
+
+			case Uint32Array:
+				dracoArray = new draco.DracoUInt32Array();
+				decoder.GetAttributeUInt32ForAllPoints( dracoGeometry, attribute, dracoArray );
+				array = new Uint32Array( numValues );
+				break;
+
+			default:
+				throw new Error( 'THREE.DRACOLoader: Unexpected attribute type.' );
+
+		}
+
+		for ( var i = 0; i < numValues; i ++ ) {
+
+			array[ i ] = dracoArray.GetValue( i );
+
+		}
+
+		draco.destroy( dracoArray );
+
+		return {
+			name: attributeName,
+			array: array,
+			itemSize: numComponents
+		};
+
+	}
+
+};
+
+/** Deprecated static methods */
+
+/** @deprecated */
+DRACOLoader.setDecoderPath = function () {
+
+	console.warn( 'THREE.DRACOLoader: The .setDecoderPath() method has been removed. Use instance methods.' );
+
+};
+
+/** @deprecated */
+DRACOLoader.setDecoderConfig = function () {
+
+	console.warn( 'THREE.DRACOLoader: The .setDecoderConfig() method has been removed. Use instance methods.' );
+
+};
+
+/** @deprecated */
+DRACOLoader.releaseDecoderModule = function () {
+
+	console.warn( 'THREE.DRACOLoader: The .releaseDecoderModule() method has been removed. Use instance methods.' );
+
+};
+
+/** @deprecated */
+DRACOLoader.getDecoderModule = function () {
+
+	console.warn( 'THREE.DRACOLoader: The .getDecoderModule() method has been removed. Use instance methods.' );
+
+};
+
+/**
  * @author Rich Tibbett / https://github.com/richtr
  * @author mrdoob / http://mrdoob.com/
  * @author Tony Parisi / http://www.tonyparisi.com/
@@ -55835,7 +56465,11 @@ vec4 RGBDToLinear( in vec4 value, in float maxRange ) {
 vec4 LinearToRGBD( in vec4 value, in float maxRange ) {
 	float maxRGB = max( value.r, max( value.g, value.b ) );
 	float D = max( maxRange / maxRGB, 1.0 );
-	D = min( floor( D ) / 255.0, 1.0 );
+	// NOTE: The implementation with min causes the shader to not compile on
+	// a common Alcatel A502DL in Chrome 78/Android 8.1. Some research suggests 
+	// that the chipset is Mediatek MT6739 w/ IMG PowerVR GE8100 GPU.
+	// D = min(floor(D)/255.0, 1.0);
+	D = clamp(floor(D)/255.0, 0.0, 1.0);
 	return vec4( value.rgb * ( D * ( 255.0 / maxRange ) ), D );
 }
 
@@ -56145,33 +56779,30 @@ const updateShader = (shader) => {
             .replace('#include <lights_physical_fragment>', lightsChunk);
 };
 const cloneGltf = (gltf) => {
-    const hasScene = gltf.scene != null;
-    const clone = Object.assign(Object.assign({}, gltf), { scene: hasScene ? SkeletonUtils.clone(gltf.scene) : null });
-    if (hasScene) {
-        const specularGlossiness = gltf.parser.extensions['KHR_materials_pbrSpecularGlossiness'];
-        const cloneAndPatchMaterial = (material) => {
-            const clone = material.isGLTFSpecularGlossinessMaterial ?
-                specularGlossiness.cloneMaterial(material) :
-                material.clone();
-            clone.onBeforeCompile = updateShader;
-            if (!clone.vertexTangents && clone.normalScale) {
-                clone.normalScale.y *= -1;
-            }
-            return clone;
-        };
-        clone.scene.traverse((node) => {
-            node.renderOrder = 1000;
-            if (specularGlossiness != null && node.isMesh) {
-                node.onBeforeRender = specularGlossiness.refreshUniforms;
-            }
-            if (Array.isArray(node.material)) {
-                node.material = node.material.map(cloneAndPatchMaterial);
-            }
-            else if (node.material != null) {
-                node.material = cloneAndPatchMaterial(node.material);
-            }
-        });
-    }
+    const clone = Object.assign(Object.assign({}, gltf), { scene: SkeletonUtils.clone(gltf.scene) });
+    const specularGlossiness = gltf.parser.extensions['KHR_materials_pbrSpecularGlossiness'];
+    const cloneAndPatchMaterial = (material) => {
+        const clone = material.isGLTFSpecularGlossinessMaterial ?
+            specularGlossiness.cloneMaterial(material) :
+            material.clone();
+        clone.onBeforeCompile = updateShader;
+        if (!clone.vertexTangents && clone.normalScale) {
+            clone.normalScale.y *= -1;
+        }
+        return clone;
+    };
+    clone.scene.traverse((node) => {
+        node.renderOrder = 1000;
+        if (specularGlossiness != null && node.isMesh) {
+            node.onBeforeRender = specularGlossiness.refreshUniforms;
+        }
+        if (Array.isArray(node.material)) {
+            node.material = node.material.map(cloneAndPatchMaterial);
+        }
+        else if (node.material != null) {
+            node.material = cloneAndPatchMaterial(node.material);
+        }
+    });
     return clone;
 };
 const moveChildren = (from, to) => {
@@ -56464,7 +57095,7 @@ class ARRenderer extends EventDispatcher {
         this[_e] = null;
         this[_f] = null;
         this.threeRenderer = renderer.threeRenderer;
-        this.inputContext = renderer.context;
+        this.inputContext = renderer.context3D;
         this.camera.matrixAutoUpdate = false;
         this.scene.add(this.reticle);
         this.scene.add(this.dolly);
@@ -57182,7 +57813,7 @@ class EnvironmentScene extends Scene {
         super();
         this.position.y = -3.5;
         const geometry = new BoxBufferGeometry();
-        geometry.removeAttribute('uv');
+        geometry.deleteAttribute('uv');
         const roomMaterial = new MeshStandardMaterial({ metalness: 0, side: BackSide });
         const boxMaterial = new MeshStandardMaterial({ metalness: 0 });
         const mainLight = new PointLight(0xffffff, 500.0, 28, 2);
@@ -57338,9 +57969,9 @@ class PMREMGenerator {
                 faceIndex.set(fill, faceIndexSize * vertices * face);
             }
             const planes = new BufferGeometry();
-            planes.addAttribute('position', new BufferAttribute(position, positionSize));
-            planes.addAttribute('uv', new BufferAttribute(uv, uvSize));
-            planes.addAttribute('faceIndex', new BufferAttribute(faceIndex, faceIndexSize));
+            planes.setAttribute('position', new BufferAttribute(position, positionSize));
+            planes.setAttribute('uv', new BufferAttribute(uv, uvSize));
+            planes.setAttribute('faceIndex', new BufferAttribute(faceIndex, faceIndexSize));
             this[$lodPlanes].push(planes);
             if (lod > LOD_MIN) {
                 lod--;
@@ -57774,14 +58405,14 @@ class Renderer extends EventDispatcher {
         if (IS_WEBXR_AR_CANDIDATE) {
             Object.assign(webGlOptions, { alpha: true, preserveDrawingBuffer: true });
         }
-        this.canvas = document.createElement('canvas');
-        this.canvas.addEventListener('webglcontextlost', this[$webGLContextLostHandler]);
+        this.canvas3D = document.createElement('canvas');
+        this.canvas3D.addEventListener('webglcontextlost', this[$webGLContextLostHandler]);
         try {
-            this.context = getContext(this.canvas, webGlOptions);
-            applyExtensionCompatibility(this.context);
+            this.context3D = getContext(this.canvas3D, webGlOptions);
+            applyExtensionCompatibility(this.context3D);
             this.threeRenderer = new WebGLRenderer({
-                canvas: this.canvas,
-                context: this.context,
+                canvas: this.canvas3D,
+                context: this.context3D,
             });
             this.threeRenderer.autoClear = false;
             this.threeRenderer.gammaOutput = true;
@@ -57797,7 +58428,7 @@ class Renderer extends EventDispatcher {
             this.threeRenderer.toneMapping = ACESFilmicToneMapping;
         }
         catch (error) {
-            this.context = null;
+            this.context3D = null;
             console.warn(error);
         }
         this[$arRenderer] = new ARRenderer(this);
@@ -57814,7 +58445,7 @@ class Renderer extends EventDispatcher {
         this[$singleton] = new Renderer({ debug: isDebugMode() });
     }
     get canRender() {
-        return this.threeRenderer != null && this.context != null;
+        return this.threeRenderer != null && this.context3D != null;
     }
     setRendererSize(width, height) {
         if (this.canRender) {
@@ -57902,7 +58533,7 @@ class Renderer extends EventDispatcher {
             this.threeRenderer.render(scene, camera);
             const widthDPR = width * dpr;
             const heightDPR = height * dpr;
-            context.drawImage(this.threeRenderer.domElement, 0, this.canvas.height - heightDPR, widthDPR, heightDPR, 0, 0, widthDPR, heightDPR);
+            context.drawImage(this.threeRenderer.domElement, 0, this.canvas3D.height - heightDPR, widthDPR, heightDPR, 0, 0, widthDPR, heightDPR);
             scene.isDirty = false;
         }
         this.lastTick = t;
@@ -57917,7 +58548,7 @@ class Renderer extends EventDispatcher {
         this.textureUtils = null;
         this.threeRenderer = null;
         this.scenes.clear();
-        this.canvas.removeEventListener('webglcontextlost', this[$webGLContextLostHandler]);
+        this.canvas3D.removeEventListener('webglcontextlost', this[$webGLContextLostHandler]);
     }
     [(_a$7 = $singleton, _b$6 = $webGLContextLostHandler, $onWebGLContextLost)](event) {
         this.dispatchEvent({ type: 'contextlost', sourceEvent: event });
@@ -58054,7 +58685,7 @@ void main() {
     }
 }
 
-var _a$9;
+var _a$9, _b$8;
 const loadWithLoader = (url, loader, progressCallback = () => { }) => {
     const onProgress = (event) => {
         progressCallback(event.loaded / event.total);
@@ -58067,10 +58698,21 @@ const $releaseFromCache = Symbol('releaseFromCache');
 const cache = new Map();
 const preloaded = new Map();
 const $evictionPolicy = Symbol('evictionPolicy');
+let dracoDecoderLocation;
+const dracoLoader = new DRACOLoader();
+const $loader = Symbol('loader');
 class CachingGLTFLoader {
     constructor() {
-        this.loader = new GLTFLoader();
+        this[_b$8] = new GLTFLoader();
         this.roughnessMipmapper = new RoughnessMipmapper();
+        this[$loader].setDRACOLoader(dracoLoader);
+    }
+    static setDRACODecoderLocation(url) {
+        dracoDecoderLocation = url;
+        dracoLoader.setDecoderPath(url);
+    }
+    static getDRACODecoderLocation() {
+        return dracoDecoderLocation;
     }
     static get cache() {
         return cache;
@@ -58109,12 +58751,12 @@ class CachingGLTFLoader {
     static hasFinishedLoading(url) {
         return !!preloaded.get(url);
     }
-    get [(_a$9 = $evictionPolicy, $evictionPolicy)]() {
+    get [(_a$9 = $evictionPolicy, _b$8 = $loader, $evictionPolicy)]() {
         return this.constructor[$evictionPolicy];
     }
     async preload(url, progressCallback = () => { }) {
         if (!cache.has(url)) {
-            cache.set(url, loadWithLoader(url, this.loader, (progress) => {
+            cache.set(url, loadWithLoader(url, this[$loader], (progress) => {
                 progressCallback(progress * 0.9);
             }));
         }
@@ -58177,15 +58819,16 @@ class CachingGLTFLoader {
 }
 CachingGLTFLoader[_a$9] = new CacheEvictionPolicy(CachingGLTFLoader);
 
-var _a$a;
+var _a$a, _b$9;
 const $cancelPendingSourceChange = Symbol('cancelPendingSourceChange');
 const $currentScene = Symbol('currentScene');
 const DEFAULT_FOV_DEG = 45;
+const $loader$1 = Symbol('loader');
 class Model extends Object3D {
     constructor() {
         super();
         this[_a$a] = null;
-        this.loader = new CachingGLTFLoader();
+        this[_b$9] = new CachingGLTFLoader();
         this.mixer = new AnimationMixer(null);
         this.animations = [];
         this.animationsByName = new Map();
@@ -58201,6 +58844,9 @@ class Model extends Object3D {
         this.name = 'Model';
         this.modelContainer.name = 'ModelContainer';
         this.add(this.modelContainer);
+    }
+    get loader() {
+        return this[$loader$1];
     }
     hasModel() {
         return !!this.modelContainer.children.length;
@@ -58376,7 +59022,7 @@ class Model extends Object3D {
         this.add(this.modelContainer);
     }
 }
-_a$a = $currentScene;
+_a$a = $currentScene, _b$9 = $loader$1;
 
 const OFFSET = 0.001;
 const BASE_OPACITY = 0.1;
@@ -58394,21 +59040,17 @@ class Shadow extends DirectionalLight {
         this.intensity = 0;
         this.castShadow = true;
         this.floor = new Mesh(new PlaneBufferGeometry, this.shadowMaterial);
+        this.floor.rotateX(-Math.PI / 2);
         this.floor.receiveShadow = true;
         this.floor.castShadow = false;
         this.add(this.floor);
+        this.shadow.camera.up.set(0, 0, 1);
         this.target = target;
         this.setModel(model, softness);
-    }
-    updateModel(model, softness) {
-        if (this.model !== model) {
-            this.setModel(model, softness);
-        }
     }
     setModel(model, softness) {
         this.model = model;
         const { camera } = this.shadow;
-        this.floor.rotateX(-Math.PI / 2);
         this.boundingBox.copy(model.boundingBox);
         this.size.copy(model.size);
         const { boundingBox, size } = this;
@@ -58423,7 +59065,6 @@ class Shadow extends DirectionalLight {
         this.position.y = boundingBox.max.y + shadowOffset;
         boundingBox.getCenter(this.floor.position);
         this.floor.position.y -= size.y / 2 + this.position.y - 2 * shadowOffset;
-        this.up.set(0, 0, 1);
         camera.near = 0;
         camera.far = size.y;
         this.setSoftness(softness);
@@ -58434,8 +59075,12 @@ class Shadow extends DirectionalLight {
         this.setMapSize(resolution);
     }
     setMapSize(maxMapSize) {
-        const { camera, mapSize } = this.shadow;
+        const { camera, mapSize, map } = this.shadow;
         const { boundingBox, size } = this;
+        if (map != null) {
+            map.dispose();
+            this.shadow.map = null;
+        }
         if (this.model.animationNames.length > 0) {
             maxMapSize *= ANIMATION_SCALING;
         }
@@ -58574,7 +59219,7 @@ class ModelScene extends Scene {
         this.frameModel();
         this.setShadowIntensity(this.shadowIntensity);
         if (this.shadow != null) {
-            this.shadow.updateModel(this.model, this.shadowSoftness);
+            this.shadow.setModel(this.model, this.shadowSoftness);
         }
         this.element[$needsRender]();
         this.dispatchEvent({ type: 'model-load', url: event.url });
@@ -58597,8 +59242,8 @@ class ModelScene extends Scene {
     }
     createSkyboxMesh() {
         const geometry = new BoxBufferGeometry(1, 1, 1);
-        geometry.removeAttribute('normal');
-        geometry.removeAttribute('uv');
+        geometry.deleteAttribute('normal');
+        geometry.deleteAttribute('uv');
         const material = new ShaderMaterial({
             uniforms: { envMap: { value: null }, opacity: { value: 1.0 } },
             vertexShader: ShaderLib.cube.vertexShader,
@@ -58663,7 +59308,7 @@ const dataUrlToBlob = async (base64DataUrl) => {
     });
 };
 
-var _a$c, _b$8;
+var _a$c, _b$a;
 const $ongoingActivities = Symbol('ongoingActivities');
 const $announceTotalProgress = Symbol('announceTotalProgress');
 const $eventDelegate = Symbol('eventDelegate');
@@ -58674,7 +59319,7 @@ class ProgressTracker {
         this.addEventListener = (...args) => this[$eventDelegate].addEventListener(...args);
         this.removeEventListener = (...args) => this[$eventDelegate].removeEventListener(...args);
         this.dispatchEvent = (...args) => this[$eventDelegate].dispatchEvent(...args);
-        this[_b$8] = new Set();
+        this[_b$a] = new Set();
     }
     get ongoingActivityCount() {
         return this[$ongoingActivities].size;
@@ -58695,7 +59340,7 @@ class ProgressTracker {
             return activity.progress;
         };
     }
-    [(_a$c = $eventDelegate, _b$8 = $ongoingActivities, $announceTotalProgress)]() {
+    [(_a$c = $eventDelegate, _b$a = $ongoingActivities, $announceTotalProgress)]() {
         let totalProgress = 0;
         let statusCount = 0;
         let completedActivities = 0;
@@ -58721,7 +59366,7 @@ var __decorate$1 = (undefined && undefined.__decorate) || function (decorators, 
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var _a$d, _b$9, _c$5, _d$4, _e$2, _f$2, _g$1, _h, _j, _k;
+var _a$d, _b$b, _c$5, _d$4, _e$2, _f$2, _g$1, _h, _j, _k;
 const CLEAR_MODEL_TIMEOUT_MS = 1000;
 const FALLBACK_SIZE_UPDATE_THRESHOLD_MS = 50;
 const UNSIZED_MEDIA_WIDTH = 300;
@@ -58760,7 +59405,7 @@ class ModelViewerElementBase extends UpdatingElement {
         this.alt = null;
         this.src = null;
         this[_a$d] = false;
-        this[_b$9] = false;
+        this[_b$b] = false;
         this[_c$5] = 0;
         this[_d$4] = resolveDpr();
         this[_e$2] = null;
@@ -58858,7 +59503,7 @@ class ModelViewerElementBase extends UpdatingElement {
     get loaded() {
         return this[$getLoaded]();
     }
-    get [(_a$d = $isInRenderTree, _b$9 = $loaded, _c$5 = $loadedTime, _d$4 = $lastDpr, _e$2 = $clearModelTimeout, _f$2 = $fallbackResizeHandler, _g$1 = $resizeObserver, _h = $intersectionObserver, _j = $progressTracker, _k = $contextLostHandler, $renderer)]() {
+    get [(_a$d = $isInRenderTree, _b$b = $loaded, _c$5 = $loadedTime, _d$4 = $lastDpr, _e$2 = $clearModelTimeout, _f$2 = $fallbackResizeHandler, _g$1 = $resizeObserver, _h = $intersectionObserver, _j = $progressTracker, _k = $contextLostHandler, $renderer)]() {
         return Renderer.singleton;
     }
     get modelIsVisible() {
@@ -58907,11 +59552,7 @@ class ModelViewerElementBase extends UpdatingElement {
             (this.src == null || this.src !== this[$scene$1].model.url)) {
             this[$loaded] = false;
             this[$loadedTime] = 0;
-            (async () => {
-                const updateSourceProgress = this[$progressTracker].beginActivity();
-                await this[$updateSource]((progress) => updateSourceProgress(progress * 0.9));
-                updateSourceProgress(1.0);
-            })();
+            this[$updateSource]();
         }
         if (changedProperties.has('alt')) {
             const ariaLabel = this.alt == null ? this[$defaultAriaLabel] : this.alt;
@@ -59006,15 +59647,19 @@ class ModelViewerElementBase extends UpdatingElement {
     [$onContextLost](event) {
         this.dispatchEvent(new CustomEvent('error', { detail: { type: 'webglcontextlost', sourceError: event.sourceEvent } }));
     }
-    async [$updateSource](progressCallback = () => { }) {
+    async [$updateSource]() {
+        const updateSourceProgress = this[$progressTracker].beginActivity();
         const source = this.src;
         try {
             this[$canvas].classList.add('show');
-            await this[$scene$1].setModelSource(source, progressCallback);
+            await this[$scene$1].setModelSource(source, (progress) => updateSourceProgress(progress * 0.9));
         }
         catch (error) {
             this[$canvas].classList.remove('show');
             this.dispatchEvent(new CustomEvent('error', { detail: error }));
+        }
+        finally {
+            updateSourceProgress(1.0);
         }
     }
 }
@@ -59686,7 +60331,7 @@ suite('ARRenderer', () => {
     });
 });
 
-var _a$e, _b$a, _c$6, _d$5, _e$3, _f$3, _g$2, _h$1, _j$1, _k$1, _l, _m, _o, _p, _q, _r;
+var _a$e, _b$c, _c$6, _d$5, _e$3, _f$3, _g$2, _h$1, _j$1, _k$1, _l, _m, _o, _p, _q, _r;
 const DEFAULT_OPTIONS = Object.freeze({
     minimumRadius: 0,
     maximumRadius: Infinity,
@@ -59797,7 +60442,7 @@ class SmoothControls extends EventDispatcher {
         super();
         this.camera = camera;
         this.element = element;
-        this[_b$a] = false;
+        this[_b$c] = false;
         this[_c$6] = false;
         this[_d$5] = new Spherical();
         this[_e$3] = new Spherical();
@@ -59873,11 +60518,8 @@ class SmoothControls extends EventDispatcher {
     applyOptions(options) {
         Object.assign(this[$options], options);
         this.setOrbit();
-        if (this[$isStationary]()) {
-            return;
-        }
-        this[$spherical].copy(this[$goalSpherical]);
-        this[$moveCamera]();
+        this.setFieldOfView(Math.exp(this[$goalLogFov]));
+        this.jumpToGoal();
     }
     updateNearFar(nearPlane, farPlane) {
         this.camera.near = Math.max(nearPlane, farPlane / 1000);
@@ -59962,7 +60604,7 @@ class SmoothControls extends EventDispatcher {
         this[$target].z = this[$targetDamperZ].update(this[$target].z, this[$goalTarget].z, delta, maximumRadius);
         this[$moveCamera]();
     }
-    [(_b$a = $interactionEnabled, _c$6 = $isUserChange, _d$5 = $spherical, _e$3 = $goalSpherical, _f$3 = $thetaDamper, _g$2 = $phiDamper, _h$1 = $radiusDamper, _j$1 = $fovDamper, _k$1 = $target, _l = $goalTarget, _m = $targetDamperX, _o = $targetDamperY, _p = $targetDamperZ, _q = $pointerIsDown, _r = $lastPointerPosition, $isStationary)]() {
+    [(_b$c = $interactionEnabled, _c$6 = $isUserChange, _d$5 = $spherical, _e$3 = $goalSpherical, _f$3 = $thetaDamper, _g$2 = $phiDamper, _h$1 = $radiusDamper, _j$1 = $fovDamper, _k$1 = $target, _l = $goalTarget, _m = $targetDamperX, _o = $targetDamperY, _p = $targetDamperZ, _q = $pointerIsDown, _r = $lastPointerPosition, $isStationary)]() {
         return this[$goalSpherical].theta === this[$spherical].theta &&
             this[$goalSpherical].phi === this[$spherical].phi &&
             this[$goalSpherical].radius === this[$spherical].radius &&
@@ -61541,6 +62183,17 @@ const fieldOfViewIntrinsics = (element) => {
         keywords: { auto: [null] }
     };
 };
+const minFieldOfViewIntrinsics = {
+    basis: [degreesToRadians(numberNode(10, 'deg'))],
+    keywords: { auto: [null] }
+};
+const maxFieldOfViewIntrinsics = (element) => {
+    const scene = element[$scene$1];
+    return {
+        basis: [degreesToRadians(numberNode(45, 'deg'))],
+        keywords: { auto: [numberNode(scene.framedFieldOfView, 'deg')] }
+    };
+};
 const cameraOrbitIntrinsics = (() => {
     const defaultTerms = parseExpressions(DEFAULT_CAMERA_ORBIT)[0]
         .terms;
@@ -61554,6 +62207,22 @@ const cameraOrbitIntrinsics = (() => {
         };
     };
 })();
+const minCameraOrbitIntrinsics = {
+    basis: [
+        numberNode(-Infinity, 'rad'),
+        numberNode(Math.PI / 8, 'rad'),
+        numberNode(0, 'm')
+    ],
+    keywords: { auto: [null, null, null] }
+};
+const maxCameraOrbitIntrinsics = {
+    basis: [
+        numberNode(Infinity, 'rad'),
+        numberNode(Math.PI - Math.PI / 8, 'rad'),
+        numberNode(Infinity, 'm')
+    ],
+    keywords: { auto: [null, null, null] }
+};
 const cameraTargetIntrinsics = (element) => {
     const center = element[$scene$1].model.boundingBox.getCenter(new Vector3);
     return {
@@ -61597,6 +62266,10 @@ const $jumpCamera = Symbol('jumpCamera');
 const $syncCameraOrbit = Symbol('syncCameraOrbit');
 const $syncFieldOfView = Symbol('syncFieldOfView');
 const $syncCameraTarget = Symbol('syncCameraTarget');
+const $syncMinCameraOrbit = Symbol('syncMinCameraOrbit');
+const $syncMaxCameraOrbit = Symbol('syncMaxCameraOrbit');
+const $syncMinFieldOfView = Symbol('syncMinFieldOfView');
+const $syncMaxFieldOfView = Symbol('syncMaxFieldOfView');
 const ControlsMixin = (ModelViewerElement) => {
     var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q;
     class ControlsModelViewerElement extends ModelViewerElement {
@@ -61606,6 +62279,10 @@ const ControlsMixin = (ModelViewerElement) => {
             this.cameraOrbit = DEFAULT_CAMERA_ORBIT;
             this.cameraTarget = DEFAULT_CAMERA_TARGET;
             this.fieldOfView = DEFAULT_FIELD_OF_VIEW;
+            this.minCameraOrbit = 'auto';
+            this.maxCameraOrbit = 'auto';
+            this.minFieldOfView = 'auto';
+            this.maxFieldOfView = 'auto';
             this.interactionPromptThreshold = DEFAULT_INTERACTION_PROMPT_THRESHOLD;
             this.interactionPromptStyle = InteractionPromptStyle.WIGGLE;
             this.interactionPrompt = InteractionPromptStrategy.AUTO;
@@ -61700,6 +62377,26 @@ const ControlsMixin = (ModelViewerElement) => {
             this[$updateCameraForRadius](style$$1[2]);
             this[$controls].setOrbit(style$$1[0], style$$1[1], style$$1[2]);
         }
+        [$syncMinCameraOrbit](style$$1) {
+            this[$controls].applyOptions({
+                minimumAzimuthalAngle: style$$1[0],
+                minimumPolarAngle: style$$1[1],
+                minimumRadius: style$$1[2]
+            });
+        }
+        [$syncMaxCameraOrbit](style$$1) {
+            this[$controls].applyOptions({
+                maximumAzimuthalAngle: style$$1[0],
+                maximumPolarAngle: style$$1[1],
+                maximumRadius: style$$1[2]
+            });
+        }
+        [$syncMinFieldOfView](style$$1) {
+            this[$controls].applyOptions({ minimumFieldOfView: style$$1[0] * 180 / Math.PI });
+        }
+        [$syncMaxFieldOfView](style$$1) {
+            this[$controls].applyOptions({ maximumFieldOfView: style$$1[0] * 180 / Math.PI });
+        }
         [$syncCameraTarget](style$$1) {
             const [x, y, z] = style$$1;
             const scene = this[$scene$1];
@@ -61787,21 +62484,20 @@ const ControlsMixin = (ModelViewerElement) => {
             const newFramedFieldOfView = this[$scene$1].framedFieldOfView;
             const zoom = controls.getFieldOfView() / oldFramedFieldOfView;
             this[$zoomAdjustedFieldOfView] = newFramedFieldOfView * zoom;
-            controls.applyOptions({ maximumFieldOfView: newFramedFieldOfView });
             controls.updateAspect(this[$scene$1].aspect);
+            this.requestUpdate('maxFieldOfView', this.maxFieldOfView);
             this.requestUpdate('fieldOfView', this.fieldOfView);
-            controls.jumpToGoal();
+            this.jumpCameraToGoal();
         }
         [$onModelLoad](event) {
             super[$onModelLoad](event);
-            const controls = this[$controls];
             const { framedFieldOfView } = this[$scene$1];
             this[$zoomAdjustedFieldOfView] = framedFieldOfView;
-            controls.applyOptions({ maximumFieldOfView: framedFieldOfView });
+            this.requestUpdate('maxFieldOfView', this.maxFieldOfView);
             this.requestUpdate('fieldOfView', this.fieldOfView);
             this.requestUpdate('cameraOrbit', this.cameraOrbit);
             this.requestUpdate('cameraTarget', this.cameraTarget);
-            controls.jumpToGoal();
+            this.jumpCameraToGoal();
         }
         [$onFocus]() {
             const { canvas } = this[$scene$1];
@@ -61859,6 +62555,34 @@ const ControlsMixin = (ModelViewerElement) => {
         }),
         property({ type: String, attribute: 'field-of-view', hasChanged: () => true })
     ], ControlsModelViewerElement.prototype, "fieldOfView", void 0);
+    __decorate$4([
+        style({
+            intrinsics: minCameraOrbitIntrinsics,
+            updateHandler: $syncMinCameraOrbit
+        }),
+        property({ type: String, attribute: 'min-camera-orbit', hasChanged: () => true })
+    ], ControlsModelViewerElement.prototype, "minCameraOrbit", void 0);
+    __decorate$4([
+        style({
+            intrinsics: maxCameraOrbitIntrinsics,
+            updateHandler: $syncMaxCameraOrbit
+        }),
+        property({ type: String, attribute: 'max-camera-orbit', hasChanged: () => true })
+    ], ControlsModelViewerElement.prototype, "maxCameraOrbit", void 0);
+    __decorate$4([
+        style({
+            intrinsics: minFieldOfViewIntrinsics,
+            updateHandler: $syncMinFieldOfView
+        }),
+        property({ type: String, attribute: 'min-field-of-view', hasChanged: () => true })
+    ], ControlsModelViewerElement.prototype, "minFieldOfView", void 0);
+    __decorate$4([
+        style({
+            intrinsics: maxFieldOfViewIntrinsics,
+            updateHandler: $syncMaxFieldOfView
+        }),
+        property({ type: String, attribute: 'max-field-of-view', hasChanged: () => true })
+    ], ControlsModelViewerElement.prototype, "maxFieldOfView", void 0);
     __decorate$4([
         property({ type: Number, attribute: 'interaction-prompt-threshold' })
     ], ControlsModelViewerElement.prototype, "interactionPromptThreshold", void 0);
@@ -62029,6 +62753,72 @@ suite('ModelViewerElementBase with ControlsMixin', () => {
                     orbit.theta = Math.round(orbit.theta * 10000) / 10000;
                     expect$n(`${orbit.theta}rad ${orbit.phi}rad ${orbit.radius}m`)
                         .to.equal(cameraOrbit);
+                });
+            });
+            suite('min/max extents', () => {
+                setup(async () => {
+                    element.cameraOrbit = `0deg 90deg 1.5m`;
+                    await timePasses();
+                    settleControls(controls);
+                });
+                test('defaults maxFieldOfView to ideal value', async () => {
+                    const scene = element[$scene$1];
+                    element.fieldOfView = '180deg';
+                    await timePasses();
+                    settleControls(controls);
+                    expect$n(element.getFieldOfView())
+                        .to.be.closeTo(scene.framedFieldOfView, 0.001);
+                });
+                test('jumps to maxCameraOrbit when outside', async () => {
+                    element.maxCameraOrbit = `-2rad 1rad 1m`;
+                    await timePasses();
+                    const orbit = element.getCameraOrbit();
+                    expect$n(`${orbit.theta}rad ${orbit.phi}rad ${orbit.radius}m`)
+                        .to.equal(element.maxCameraOrbit);
+                });
+                test('jumps to minCameraOrbit when outside', async () => {
+                    element.minCameraOrbit = `2rad 2rad 2m`;
+                    await timePasses();
+                    const orbit = element.getCameraOrbit();
+                    expect$n(`${orbit.theta}rad ${orbit.phi}rad ${orbit.radius}m`)
+                        .to.equal(element.minCameraOrbit);
+                });
+                test('jumps to maxFieldOfView when outside', async () => {
+                    element.maxFieldOfView = `30deg`;
+                    await timePasses();
+                    const fov = Math.round(element.getFieldOfView());
+                    expect$n(`${fov}deg`).to.equal(element.maxFieldOfView);
+                });
+                test('jumps to minFieldOfView when outside', async () => {
+                    element.minFieldOfView = `60deg`;
+                    await timePasses();
+                    const fov = Math.round(element.getFieldOfView());
+                    expect$n(`${fov}deg`).to.equal(element.minFieldOfView);
+                });
+                suite('when configured before model loads', () => {
+                    let initiallyUnloadedElement;
+                    let controls;
+                    setup(() => {
+                        initiallyUnloadedElement = new ModelViewerElement();
+                        controls =
+                            initiallyUnloadedElement[$controls];
+                    });
+                    teardown(() => {
+                        if (initiallyUnloadedElement.parentNode != null) {
+                            initiallyUnloadedElement.parentNode.removeChild(initiallyUnloadedElement);
+                        }
+                    });
+                    test('respects user-configured maxFieldOfView', async () => {
+                        document.body.appendChild(initiallyUnloadedElement);
+                        initiallyUnloadedElement.maxFieldOfView = '100deg';
+                        initiallyUnloadedElement.src = ASTRONAUT_GLB_PATH$2;
+                        await waitForEvent(initiallyUnloadedElement, 'load');
+                        initiallyUnloadedElement.fieldOfView = '100deg';
+                        await timePasses();
+                        settleControls(controls);
+                        expect$n(initiallyUnloadedElement.getFieldOfView())
+                            .to.be.closeTo(100, 0.001);
+                    });
                 });
             });
         });
@@ -62241,7 +63031,7 @@ const EnvironmentMixin = (ModelViewerElement) => {
         constructor() {
             super(...arguments);
             this.environmentImage = null;
-            this.backgroundImage = null;
+            this.skyboxImage = null;
             this.backgroundColor = DEFAULT_BACKGROUND_COLOR;
             this.shadowIntensity = DEFAULT_SHADOW_INTENSITY;
             this.shadowSoftness = DEFAULT_SHADOW_SOFTNESS;
@@ -62264,7 +63054,7 @@ const EnvironmentMixin = (ModelViewerElement) => {
                 this[$needsRender]();
             }
             if (changedProperties.has('environmentImage') ||
-                changedProperties.has('backgroundImage') ||
+                changedProperties.has('skyboxImage') ||
                 changedProperties.has('backgroundColor') ||
                 changedProperties.has('experimentalPmrem') ||
                 changedProperties.has($isInRenderTree)) {
@@ -62281,7 +63071,7 @@ const EnvironmentMixin = (ModelViewerElement) => {
             if (!this[$isInRenderTree]) {
                 return;
             }
-            const { backgroundImage, backgroundColor, environmentImage } = this;
+            const { skyboxImage, backgroundColor, environmentImage } = this;
             this[$container].style.backgroundColor = backgroundColor;
             if (this[$cancelEnvironmentUpdate] != null) {
                 this[$cancelEnvironmentUpdate]();
@@ -62293,7 +63083,7 @@ const EnvironmentMixin = (ModelViewerElement) => {
             }
             try {
                 const { environmentMap, skybox } = await new Promise(async (resolve, reject) => {
-                    const texturesLoad = textureUtils.generateEnvironmentMapAndSkybox(backgroundImage, environmentImage, { progressTracker: this[$progressTracker] });
+                    const texturesLoad = textureUtils.generateEnvironmentMapAndSkybox(skyboxImage, environmentImage, { progressTracker: this[$progressTracker] });
                     this[$cancelEnvironmentUpdate] = () => reject(texturesLoad);
                     resolve(await texturesLoad);
                 });
@@ -62343,10 +63133,10 @@ const EnvironmentMixin = (ModelViewerElement) => {
     __decorate$5([
         property({
             type: String,
-            attribute: 'background-image',
+            attribute: 'skybox-image',
             converter: { fromAttribute: deserializeUrl }
         })
-    ], EnvironmentModelViewerElement.prototype, "backgroundImage", void 0);
+    ], EnvironmentModelViewerElement.prototype, "skyboxImage", void 0);
     __decorate$5([
         property({ type: String, attribute: 'background-color' })
     ], EnvironmentModelViewerElement.prototype, "backgroundColor", void 0);
@@ -62440,10 +63230,10 @@ suite('ModelViewerElementBase with EnvironmentMixin', () => {
     });
     teardown(() => element.parentNode && element.parentNode.removeChild(element));
     BasicSpecTemplate(() => ModelViewerElement, () => tagName);
-    test('has default background if no background-image or background-color', () => {
+    test('has default background if no skybox-image or background-color', () => {
         expect$o(backgroundHasColor(scene, 'ffffff')).to.be.equal(true);
     });
-    test('has default background if no background-image or background-color when in DOM', async () => {
+    test('has default background if no skybox-image or background-color when in DOM', async () => {
         document.body.appendChild(element);
         await timePasses();
         expect$o(backgroundHasColor(scene, 'ffffff')).to.be.equal(true);
@@ -62461,7 +63251,7 @@ suite('ModelViewerElementBase with EnvironmentMixin', () => {
         expect$o(environmentChangeCount).to.be.equal(1);
         element.removeEventListener('environment-change', environmentChangeHandler);
     });
-    suite('with no background-image property', () => {
+    suite('with no skybox-image property', () => {
         let environmentChanges = 0;
         suite('and a src property', () => {
             setup(async () => {
@@ -62490,12 +63280,12 @@ suite('ModelViewerElementBase with EnvironmentMixin', () => {
             });
         });
     });
-    suite('with a background-image property', () => {
+    suite('with a skybox-image property', () => {
         suite('and a src property', () => {
             setup(async () => {
                 let onLoad = waitForLoadAndEnvMap(scene, element, { url: BG_IMAGE_URL });
                 element.src = MODEL_URL;
-                element.backgroundImage = BG_IMAGE_URL;
+                element.skyboxImage = BG_IMAGE_URL;
                 document.body.appendChild(element);
                 await onLoad;
             });
@@ -62503,11 +63293,11 @@ suite('ModelViewerElementBase with EnvironmentMixin', () => {
                 document.body.removeChild(element);
             });
             test('displays background with the correct map', async function () {
-                expect$o(backgroundHasMap(scene, element.backgroundImage)).to.be.ok;
+                expect$o(backgroundHasMap(scene, element.skyboxImage)).to.be.ok;
             });
             test('applies the image as an environment map', async function () {
                 expect$o(modelUsingEnvMap(scene, {
-                    url: element.backgroundImage
+                    url: element.skyboxImage
                 })).to.be.ok;
             });
             suite('and a background-color property', () => {
@@ -62538,7 +63328,7 @@ suite('ModelViewerElementBase with EnvironmentMixin', () => {
                 });
                 test('applies environment map on model with multi-material meshes', async function () {
                     expect$o(modelUsingEnvMap(scene, {
-                        url: element.backgroundImage
+                        url: element.skyboxImage
                     })).to.be.ok;
                 });
             });
@@ -62648,23 +63438,23 @@ suite('ModelViewerElementBase with EnvironmentMixin', () => {
             });
         });
     });
-    suite('with background-color and background-image properties', () => {
+    suite('with background-color and skybox-image properties', () => {
         setup(async () => {
             let onLoad = waitForLoadAndEnvMap(scene, element, { url: HDR_BG_IMAGE_URL });
             element.setAttribute('src', MODEL_URL);
             element.setAttribute('background-color', '#ff0077');
-            element.setAttribute('background-image', HDR_BG_IMAGE_URL);
+            element.setAttribute('skybox-image', HDR_BG_IMAGE_URL);
             document.body.appendChild(element);
             await onLoad;
         });
         teardown(() => {
             document.body.removeChild(element);
         });
-        test('displays background with background-image', async function () {
-            expect$o(backgroundHasMap(scene, element.backgroundImage)).to.be.ok;
+        test('displays background with skybox-image', async function () {
+            expect$o(backgroundHasMap(scene, element.skyboxImage)).to.be.ok;
         });
-        test('applies background-image environment map on model', async function () {
-            expect$o(modelUsingEnvMap(scene, { url: element.backgroundImage })).to.be.ok;
+        test('applies skybox-image environment map on model', async function () {
+            expect$o(modelUsingEnvMap(scene, { url: element.skyboxImage })).to.be.ok;
         });
         suite('with an environment-image', () => {
             setup(async () => {
@@ -62681,14 +63471,14 @@ suite('ModelViewerElementBase with EnvironmentMixin', () => {
                     element.removeAttribute('environment-image');
                     await environmentChanged;
                 });
-                test('uses background-image as environment map', () => {
+                test('uses skybox-image as environment map', () => {
                     expect$o(modelUsingEnvMap(scene, { url: HDR_BG_IMAGE_URL })).to.be.ok;
                 });
             });
-            suite('and background-image subsequently removed', () => {
+            suite('and skybox-image subsequently removed', () => {
                 setup(async () => {
                     const environmentChanged = waitForEvent(element, 'environment-change');
-                    element.removeAttribute('background-image');
+                    element.removeAttribute('skybox-image');
                     await environmentChanged;
                 });
                 test('continues using environment-image as environment map', () => {
@@ -62699,10 +63489,10 @@ suite('ModelViewerElementBase with EnvironmentMixin', () => {
                 });
             });
         });
-        suite('and background-image subsequently removed', () => {
+        suite('and skybox-image subsequently removed', () => {
             setup(async () => {
                 let envMapChanged = waitForEnvMap(scene.model, { url: null });
-                element.removeAttribute('background-image');
+                element.removeAttribute('skybox-image');
                 await envMapChanged;
             });
             test('displays background with background-color', async function () {
@@ -62715,7 +63505,7 @@ suite('ModelViewerElementBase with EnvironmentMixin', () => {
     });
 });
 
-var _a$f, _b$b;
+var _a$f, _b$d;
 const INITIAL_STATUS_ANNOUNCEMENT = 'This page includes one or more 3D models that are loading';
 const FINISHED_LOADING_ANNOUNCEMENT = 'All 3D models in the page have loaded';
 const UPDATE_STATUS_DEBOUNCE_MS = 100;
@@ -62729,7 +63519,7 @@ class LoadingStatusAnnouncer extends EventDispatcher {
         this.loadingPromises = [];
         this.statusElement = document.createElement('p');
         this.statusUpdateInProgress = false;
-        this[_b$b] = debounce(() => this.updateStatus(), UPDATE_STATUS_DEBOUNCE_MS);
+        this[_b$d] = debounce(() => this.updateStatus(), UPDATE_STATUS_DEBOUNCE_MS);
         const { statusElement } = this;
         const { style } = statusElement;
         statusElement.setAttribute('role', 'status');
@@ -62812,7 +63602,7 @@ class LoadingStatusAnnouncer extends EventDispatcher {
         this.dispatchEvent({ type: 'finished-loading-announced' });
     }
 }
-_a$f = $modelViewerStatusInstance, _b$b = $updateStatus;
+_a$f = $modelViewerStatusInstance, _b$d = $updateStatus;
 
 var __decorate$6 = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -62824,6 +63614,7 @@ const POSTER_TRANSITION_TIME = 300;
 const PROGRESS_BAR_UPDATE_THRESHOLD = 100;
 const PROGRESS_MASK_BASE_OPACITY = 0.2;
 const ANNOUNCE_MODEL_VISIBILITY_DEBOUNCE_THRESHOLD = 0;
+const DEFAULT_DRACO_DECODER_LOCATION = 'https://www.gstatic.com/draco/versioned/decoders/1.3.5/';
 const SPACE_KEY = 32;
 const ENTER_KEY = 13;
 const RevealStrategy = {
@@ -62862,8 +63653,8 @@ const $onProgress = Symbol('onProgress');
 const LoadingMixin = (ModelViewerElement) => {
     var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q;
     class LoadingModelViewerElement extends ModelViewerElement {
-        constructor() {
-            super(...arguments);
+        constructor(...args) {
+            super(...args);
             this.poster = null;
             this.reveal = RevealStrategy.AUTO;
             this.preload = false;
@@ -62902,6 +63693,16 @@ const LoadingMixin = (ModelViewerElement) => {
                     }
                 });
             }, PROGRESS_BAR_UPDATE_THRESHOLD);
+            const ModelViewerElement = self.ModelViewerElement || {};
+            const dracoDecoderLocation = ModelViewerElement.dracoDecoderLocation ||
+                DEFAULT_DRACO_DECODER_LOCATION;
+            CachingGLTFLoader.setDRACODecoderLocation(dracoDecoderLocation);
+        }
+        static set dracoDecoderLocation(value) {
+            CachingGLTFLoader.setDRACODecoderLocation(value);
+        }
+        static get dracoDecoderLocation() {
+            return CachingGLTFLoader.getDRACODecoderLocation();
         }
         dismissPoster() {
             this[$posterDismissalSource] = PosterDismissalSource.INTERACTION;
@@ -62928,9 +63729,11 @@ const LoadingMixin = (ModelViewerElement) => {
                     `url(${this.poster})`;
             }
             if (changedProperties.has('src')) {
+                if (!this[$modelIsReadyForReveal]) {
+                    this[$lastReportedProgress] = 0;
+                }
                 this[$posterDismissalSource] = null;
                 this[$preloadAttempted] = false;
-                this[$lastReportedProgress] = 0;
                 this[$sourceUpdated] = false;
             }
             if (changedProperties.has('alt')) {
@@ -62997,10 +63800,7 @@ const LoadingMixin = (ModelViewerElement) => {
                 }
             }
             if (this[$modelIsReadyForReveal]) {
-                if (!this[$sourceUpdated]) {
-                    this[$updateSource]();
-                    this[$hidePoster]();
-                }
+                await this[$updateSource]();
             }
             else {
                 this[$showPoster]();
@@ -63010,7 +63810,7 @@ const LoadingMixin = (ModelViewerElement) => {
             const posterContainerElement = this[$posterContainerElement];
             const defaultPosterElement = this[$defaultPosterElement];
             const posterContainerOpacity = parseFloat(self.getComputedStyle(posterContainerElement).opacity);
-            defaultPosterElement.tabIndex = 1;
+            defaultPosterElement.removeAttribute('tabindex');
             defaultPosterElement.removeAttribute('aria-hidden');
             posterContainerElement.classList.add('show');
             if (posterContainerOpacity < 1.0) {
@@ -63035,7 +63835,7 @@ const LoadingMixin = (ModelViewerElement) => {
                             this[$canvas].focus();
                         }
                         defaultPosterElement.setAttribute('aria-hidden', 'true');
-                        defaultPosterElement.removeAttribute('tabindex');
+                        defaultPosterElement.tabIndex = -1;
                     });
                 }, { once: true });
             }
@@ -63049,9 +63849,10 @@ const LoadingMixin = (ModelViewerElement) => {
                 !!(src && CachingGLTFLoader.hasFinishedLoading(src));
         }
         async [$updateSource]() {
-            if (this[$modelIsReadyForReveal]) {
+            if (this[$modelIsReadyForReveal] && !this[$sourceUpdated]) {
                 this[$sourceUpdated] = true;
                 await super[$updateSource]();
+                this[$hidePoster]();
             }
         }
     }
@@ -63123,6 +63924,32 @@ suite('ModelViewerElementBase with LoadingMixin', () => {
                 element.removeEventListener('preload', preloadHandler);
                 expect$p(loadDispatched).to.be.false;
                 expect$p(preloadDispatched).to.be.false;
+            });
+            suite('load', () => {
+                suite('when a model src changes after loading', () => {
+                    setup(async () => {
+                        element.src = ASTRONAUT_GLB_PATH$3;
+                        await waitForEvent(element, 'load');
+                    });
+                    test('only dispatches load once per src change', async () => {
+                        let loadCount = 0;
+                        const onLoad = () => {
+                            loadCount++;
+                        };
+                        element.addEventListener('load', onLoad);
+                        try {
+                            element.src = HORSE_GLB_PATH;
+                            await waitForEvent(element, 'load');
+                            element.src = ASTRONAUT_GLB_PATH$3;
+                            await waitForEvent(element, 'load');
+                            await timePasses(300);
+                            expect$p(loadCount).to.be.equal(2);
+                        }
+                        finally {
+                            element.removeEventListener('load', onLoad);
+                        }
+                    });
+                });
             });
             suite('preload', () => {
                 suite('src changes quickly', () => {
@@ -63370,7 +64197,7 @@ const $hideMlModel = Symbol('hideMlModel');
 const $isHeliosBrowser = Symbol('isHeliosBrowser');
 const $mlModel = Symbol('mlModel');
 const DEFAULT_HOLOGRAM_INLINE_SCALE = 0.65;
-const DEFAULT_HOLOGRAM_Z_OFFSET = '500px';
+const DEFAULT_HOLOGRAM_Z_OFFSET = '150px';
 const MagicLeapMixin = (ModelViewerElement) => {
     var _a, _b;
     class MagicLeapModelViewerElement extends ModelViewerElement {
@@ -63414,11 +64241,10 @@ const MagicLeapMixin = (ModelViewerElement) => {
                 this[$mlModel] = document.createElement('ml-model');
                 this[$mlModel].setAttribute('style', 'display: block; top: 0; left: 0; width: 100%; height: 100%');
                 this[$mlModel].setAttribute('model-scale', `${DEFAULT_HOLOGRAM_INLINE_SCALE} ${DEFAULT_HOLOGRAM_INLINE_SCALE} ${DEFAULT_HOLOGRAM_INLINE_SCALE}`);
-                this[$mlModel].setAttribute('scrollable', 'true');
                 this[$mlModel].setAttribute('z-offset', DEFAULT_HOLOGRAM_Z_OFFSET);
                 this[$mlModel].setAttribute('extractable', 'true');
                 this[$mlModel].setAttribute('extracted-scale', '1');
-                this[$mlModel].setAttribute('environment-lighting', 'color-intensity: 2;');
+                this[$mlModel].setAttribute('environment-lighting', 'color-intensity: 5;');
                 if (this.src != null) {
                     this[$mlModel].setAttribute('src', this.src);
                 }
@@ -63532,7 +64358,7 @@ const openSceneViewer = (() => {
     const linkOrTitle = /(link|title)(=|&)|(\?|&)(link|title)$/;
     const noArViewerSigil = '#model-viewer-no-ar-fallback';
     let fallbackInvoked = false;
-    return (gltfSrc, title) => {
+    return (gltfSrc, title, arScale) => {
         if (fallbackInvoked) {
             return;
         }
@@ -63552,6 +64378,9 @@ const openSceneViewer = (() => {
         modelUrl.protocol = 'intent://';
         modelUrl.search +=
             (modelUrl.search ? '&' : '') + `link=${link}&title=${title}`;
+        if (arScale === 'fixed') {
+            modelUrl.search += `&resizable=false`;
+        }
         const intent = `${modelUrl.toString()}#Intent;scheme=${scheme};package=com.google.ar.core;action=android.intent.action.VIEW;S.browser_fallback_url=${encodeURIComponent(locationUrl.toString())};end;`;
         const undoHashChange = () => {
             if (self.location.hash === noArViewerSigil && !fallbackInvoked) {
@@ -63593,6 +64422,7 @@ const ARMixin = (ModelViewerElement) => {
         constructor() {
             super(...arguments);
             this.ar = false;
+            this.arScale = 'auto';
             this.unstableWebxr = false;
             this.iosSrc = null;
             this.quickLookBrowsers = 'safari';
@@ -63619,7 +64449,7 @@ const ARMixin = (ModelViewerElement) => {
                     await this[$enterARWithWebXR]();
                     break;
                 case ARMode.AR_VIEWER:
-                    openSceneViewer(this.src, this.alt || '');
+                    openSceneViewer(this.src, this.alt || '', this.arScale);
                     break;
                 default:
                     console.warn('No AR Mode can be activated. This is probably due to missing \
@@ -63735,6 +64565,9 @@ configuration or device capabilities');
         property({ type: Boolean, attribute: 'ar' })
     ], ARModelViewerElement.prototype, "ar", void 0);
     __decorate$8([
+        property({ type: String, attribute: 'ar-scale' })
+    ], ARModelViewerElement.prototype, "arScale", void 0);
+    __decorate$8([
         property({ type: Boolean, attribute: 'unstable-webxr' })
     ], ARModelViewerElement.prototype, "unstableWebxr", void 0);
     __decorate$8([
@@ -63770,7 +64603,7 @@ suite('ModelViewerElementBase with ARMixin', () => {
                         intentUrls.push(this.href);
                     }
                 });
-                openSceneViewer('https://example.com/model.gltf?token=foo', 'Example model');
+                openSceneViewer('https://example.com/model.gltf?token=foo', 'Example model', 'auto');
                 expect$s(intentUrls.length).to.be.equal(1);
                 const url = new URL(intentUrls[0]);
                 expect$s(url.search).to.match(/[\?&]token=foo(&|$)/);

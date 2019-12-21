@@ -2537,7 +2537,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var _a$1, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m;
+var _a$1, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o;
 const fetchFilamentAssets = async (assets) => new Promise((resolve) => {
     self.Filament.fetch(assets, () => resolve(), () => { });
 });
@@ -2559,6 +2559,7 @@ const $view = Symbol('view');
 const $canvas = Symbol('canvas');
 const $boundingBox = Symbol('boundingBox');
 const $currentAsset = Symbol('currentAsset');
+const $directionalLight = Symbol('this[$directionalLight]');
 const $initialize = Symbol('initialize');
 const $updateScenario = Symbol('scenario');
 const $updateSize = Symbol('updateSize');
@@ -2580,6 +2581,7 @@ let FilamentViewer = class FilamentViewer extends LitElement {
         this[_k] = null;
         this[_l] = null;
         this[_m] = null;
+        this[_o] = null;
         self.Filament.init([], () => {
             this[$initialize]();
         });
@@ -2607,7 +2609,7 @@ let FilamentViewer = class FilamentViewer extends LitElement {
     render() {
         return html `<canvas id="canvas"></canvas>`;
     }
-    [(_a$1 = $rendering, _b = $engine, _c = $scene, _d = $renderer, _e = $swapChain, _f = $camera, _g = $view, _h = $ibl, _j = $skybox, _k = $currentAsset, _l = $canvas, _m = $boundingBox, $initialize)]() {
+    [(_a$1 = $rendering, _b = $engine, _c = $scene, _d = $renderer, _e = $swapChain, _f = $camera, _g = $view, _h = $ibl, _j = $skybox, _k = $currentAsset, _l = $directionalLight, _m = $canvas, _o = $boundingBox, $initialize)]() {
         const { Filament } = self;
         this[$canvas] = this.shadowRoot.querySelector('canvas');
         this[$engine] = Filament.Engine.create(this[$canvas]);
@@ -2641,6 +2643,7 @@ let FilamentViewer = class FilamentViewer extends LitElement {
             this[$currentAsset] = null;
         }
         if (this[$ibl] != null) {
+            this[$scene].setIndirectLight(null);
             this[$engine].destroyIndirectLight(this[$ibl]);
             this[$ibl] = null;
         }
@@ -2648,25 +2651,40 @@ let FilamentViewer = class FilamentViewer extends LitElement {
             this[$engine].destroySkybox(this[$skybox]);
             this[$skybox] = null;
         }
-        await fetchFilamentAssets([modelUrl, iblUrl, skyboxUrl]);
+        if (this[$directionalLight] != null) {
+            this[$scene].remove(this[$directionalLight]);
+            this[$engine].destroyEntity(this[$directionalLight]);
+            this[$directionalLight] = null;
+        }
+        await fetchFilamentAssets([modelUrl]);
         if (lightingBaseName === 'spot1Lux') {
-            const light = self.Filament.EntityManager.get().create();
+            this[$directionalLight] = self.Filament.EntityManager.get().create();
+            const x = 597;
+            const y = 213;
+            const theta = (x + 0.5) * Math.PI / 512;
+            const phi = (y + 0.5) * Math.PI / 512;
+            const lightDirection = [
+                Math.sin(phi) * Math.cos(theta),
+                -Math.cos(phi),
+                Math.sin(phi) * Math.sin(theta)
+            ];
             self.Filament.LightManager
                 .Builder(self.Filament.LightManager$Type.DIRECTIONAL)
                 .color([1, 1, 1])
                 .intensity(1)
-                .direction([-1, 0, 0])
-                .build(this[$engine], light);
-            this[$scene].addEntity(light);
+                .direction(lightDirection)
+                .build(this[$engine], this[$directionalLight]);
+            this[$scene].addEntity(this[$directionalLight]);
         }
         else {
+            await fetchFilamentAssets([iblUrl, skyboxUrl]);
             this[$ibl] = this[$engine].createIblFromKtx(iblUrl);
             this[$scene].setIndirectLight(this[$ibl]);
             this[$ibl].setIntensity(1.0);
             this[$ibl].setRotation([0, 0, -1, 0, 1, 0, 1, 0, 0]);
+            this[$skybox] = this[$engine].createSkyFromKtx(skyboxUrl);
+            this[$scene].setSkybox(this[$skybox]);
         }
-        this[$skybox] = this[$engine].createSkyFromKtx(skyboxUrl);
-        this[$scene].setSkybox(this[$skybox]);
         const loader = this[$engine].createAssetLoader();
         this[$currentAsset] = IS_BINARY_RE.test(modelUrl) ?
             loader.createAssetFromBinary(modelUrl) :
