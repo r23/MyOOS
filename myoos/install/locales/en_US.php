@@ -112,7 +112,7 @@ define('OOSUPGRADE_1', 'MyOOS [Shopsystem]');
 define('OOSUPGRADE_2', 'If you use the MyOOS [Shopsystem] 1.0.1, click please up <samp>OOS 1.0.1</samp>');
 define('OOSUPGRADE_3', 'MyOOS [Shopsystem]');
 define('OOSUPGRADE_4', 'If you use the MyOOS [Shopsystem] 1.0.2, click please up <samp>OOS 1.0.2</samp>');
-define('OOSUPGRADE_5', 'Its MyOOS [Shopsystem] Version can see you in the File <samp>~/shop/includes/oos_version.php</samp>.');
+define('OOSUPGRADE_5', 'Its MyOOS [Shopsystem] Version can see you in the File <samp>~/shop/includes/version.php</samp>.');
 
 define('MADE', ' provided.');
 define('MAKE_DB_1', 'Database could not be provided');

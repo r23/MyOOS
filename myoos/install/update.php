@@ -52,7 +52,10 @@
 
 // Set the level of error reporting
 error_reporting(E_ALL & ~E_NOTICE);
+
 define('OOS_VALID_MOD', true);
+// Version information
+define('OOS_VERSION', '2.4.0 -dev');
 
 // Set the local configuration parameters - mainly for developers
 if (is_readable('../includes/local/configure.php')) {
@@ -70,8 +73,6 @@ if (OOS_DB_TYPE == '') {
 	exit;
 }
 
-echo 'Es steht kein Update zur Verfügung!<br>There is no update available!';
-exit;
 
 if(!defined('MYOOS_INCLUDE_PATH')) {
 	define('MYOOS_INCLUDE_PATH', OOS_ABSOLUTE_PATH);
@@ -79,13 +80,13 @@ if(!defined('MYOOS_INCLUDE_PATH')) {
 
 $autoloader = require_once MYOOS_INCLUDE_PATH . '/vendor/autoload.php';
 
-require_once '../includes/functions/function_kernel.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_kernel.php';
 
 // require the database functions
-require_once '../includes/lib/adodb/adodb-errorhandler.inc.php';
-require_once '../includes/lib/adodb/adodb.inc.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/lib/adodb/adodb-errorhandler.inc.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/lib/adodb/adodb.inc.php';
 
-require_once '../includes/classes/class_template.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
 
   require 'modify_configure.php';
   require 'upgrade.php';

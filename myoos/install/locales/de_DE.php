@@ -118,7 +118,7 @@ define('OOSUPGRADE_1', 'MyOOS [Shopsystem]');
 define('OOSUPGRADE_2', 'Wenn Sie den MyOOS [Shopsystem] 1.0.1 verwenden, klicken Sie bitte auf <samp>OOS 1.0.1</samp>');
 define('OOSUPGRADE_3', 'MyOOS [Shopsystem]');
 define('OOSUPGRADE_4', 'Wenn Sie den MyOOS [Shopsystem] 1.0.2 verwenden, klicken Sie bitte auf <samp>OOS 1.0.2</samp>');
-define('OOSUPGRADE_5', 'Ihre MyOOS [Shopsystem] Version können Sie in der Datei <samp>~/shop/includes/oos_version.php</samp> ersehen.');
+define('OOSUPGRADE_5', 'Ihre MyOOS [Shopsystem] Version können Sie in der Datei <samp>~/shop/includes/version.php</samp> ersehen.');
 
 define('MADE', ' erstellt.');
 define('MAKE_DB_1', 'Datenbank konnte nicht erstellt werden');

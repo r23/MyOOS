@@ -33,14 +33,7 @@ if (is_readable('includes/local/configure.php')) {
     require_once MYOOS_INCLUDE_PATH . '/includes/configure.php';
 }
 
-/**
- * Currently version.
- * use SemVer - https://semver.org
- */
-define('OOS_VERSION', '2.4.0 -dev');
-
-// Complete software name string
-define('OOS_FULL_NAME', 'MyOOS ' . OOS_VERSION);
+require_once MYOOS_INCLUDE_PATH . '/includes/version.php';
 
 // require Shop parameters
 require_once MYOOS_INCLUDE_PATH . '/includes/define.php';
