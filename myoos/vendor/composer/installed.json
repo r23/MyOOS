@@ -1235,17 +1235,17 @@
     },
     {
         "name": "grpc/grpc",
-        "version": "1.26.0",
-        "version_normalized": "1.26.0.0",
+        "version": "1.26.1",
+        "version_normalized": "1.26.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/grpc/grpc-php.git",
-            "reference": "22ce4b5919dda95b9978d1ba289f4c9e10d1099a"
+            "reference": "6b22409ff46a1c245a28efd16867870b13c3cbcc"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/grpc/grpc-php/zipball/22ce4b5919dda95b9978d1ba289f4c9e10d1099a",
-            "reference": "22ce4b5919dda95b9978d1ba289f4c9e10d1099a",
+            "url": "https://api.github.com/repos/grpc/grpc-php/zipball/6b22409ff46a1c245a28efd16867870b13c3cbcc",
+            "reference": "6b22409ff46a1c245a28efd16867870b13c3cbcc",
             "shasum": ""
         },
         "require": {
@@ -1258,7 +1258,7 @@
             "ext-protobuf": "For better performance, install the protobuf C extension.",
             "google/protobuf": "To get started using grpc quickly, install the native protobuf library."
         },
-        "time": "2019-12-19T19:34:44+00:00",
+        "time": "2019-12-21T02:28:51+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -1278,17 +1278,17 @@
     },
     {
         "name": "guzzlehttp/guzzle",
-        "version": "6.5.0",
-        "version_normalized": "6.5.0.0",
+        "version": "6.5.1",
+        "version_normalized": "6.5.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/guzzle/guzzle.git",
-            "reference": "dbc2bc3a293ed6b1ae08a3651e2bfd213d19b6a5"
+            "reference": "0274c05370a7bc9bb3a33838858253418bd7d14b"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/guzzle/guzzle/zipball/dbc2bc3a293ed6b1ae08a3651e2bfd213d19b6a5",
-            "reference": "dbc2bc3a293ed6b1ae08a3651e2bfd213d19b6a5",
+            "url": "https://api.github.com/repos/guzzle/guzzle/zipball/0274c05370a7bc9bb3a33838858253418bd7d14b",
+            "reference": "0274c05370a7bc9bb3a33838858253418bd7d14b",
             "shasum": ""
         },
         "require": {
@@ -1306,7 +1306,7 @@
             "ext-intl": "Required for Internationalized Domain Name (IDN) support",
             "psr/log": "Required for using the Log middleware"
         },
-        "time": "2019-12-07T18:20:45+00:00",
+        "time": "2019-12-21T08:51:15+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
