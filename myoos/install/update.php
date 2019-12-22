@@ -109,6 +109,14 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
     $dbpass = OOS_DB_PASSWORD;
   }
 
+  if (isset($_POST)) {
+    foreach ($_POST as $k=>$v) {
+      $$k = oos_prepare_input($v);
+    }
+  }
+
+
+
   installer_get_language();
 
   require 'header.php';
@@ -123,9 +131,9 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
       print_oosFinish();
       break;
 
-    case "OOS 1.6.0":
+    case "OOS 2.3.12":
       oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
-      oosDoUpgrade160($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
+      oosDoUpgrade2312($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
       print_Next();
     break;
 

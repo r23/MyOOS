@@ -40,12 +40,13 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
 
 
-function oosDoUpgrade160 ($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype) {
+
+function oosDoUpgrade2312 ($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype) {
     global $db, $currentlang, $update;
-    include("oos160.php");
+    include("oos2312.php");
 }
 
 
@@ -55,11 +56,11 @@ function print_SelectOOS() {
   echo '<font class="oos-title">' . OOSUPGRADE_1 . ':</font><br /><br />' . "\n" .
        '<font class="oos-error">' . UPGRADE_INFO . '</font><br /><br />' . "\n" .
        '<form name="oos updrade" action="update.php" method="post">' . "\n" .
-       '<input type="hidden" name="aupdate" value="oos160">' . "\n";
+       '<input type="hidden" name="aupdate" value="oos2312">' . "\n";
   print_FormHidden();
   echo '<table width="50%" align="center">' . "\n" .
        ' <tr>' . "\n" .
-       '  <td><input type="submit"  name ="op" value="OOS 1.6.0"></td>' . "\n" .
+       '  <td><input type="submit"  name ="op" value="OOS 2.3.12"></td>' . "\n" .
        '</tr></table></form>' . "\n" .
        '<font class="oos-normal">' . OOSUPGRADE_5 . '</font><br /><br />' . "\n";
 

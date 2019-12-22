@@ -64,6 +64,7 @@ if (!empty($action)) {
 		
 					$sql_data_array = array('products_id' => intval($products_id),
 											'model_viewer_background_color' => oos_db_prepare_input($_POST['model_viewer_background_color'][$i]),
+											'model_viewer_scale' => oos_db_prepare_input($_POST['model_viewer_scale'][$i]),
 											'model_viewer_auto_rotate' => oos_db_prepare_input($_POST['model_viewer_auto_rotate'][$i]),
 											'model_viewer_hdr' => oos_db_prepare_input($_POST['model_viewer_hdr'][$i])
 											);
@@ -253,7 +254,7 @@ if ($action == 'edit_3d') {
 		$products_model_viewer_descriptiontable = $oostable['products_model_viewer_description'];
 		$products_models_result = $dbconn->Execute("SELECT m.model_viewer_id, m.products_id, md.model_viewer_title, md.model_viewer_description,
 													m.model_viewer_glb, m.model_viewer_usdz, m.model_viewer_background_color,
-													m.model_viewer_auto_rotate, m.model_viewer_hdr
+													m.model_viewer_auto_rotate, m.model_viewer_scale, m.model_viewer_hdr
                                             FROM $products_model_viewertable m,
                                                  $products_model_viewer_descriptiontable md
                                            WHERE m.products_id = '" . intval($product['products_id']) . "' AND
@@ -265,6 +266,7 @@ if ($action == 'edit_3d') {
 											'model_viewer_glb' => '',
 											'model_viewer_usdz' => '',
 											'model_viewer_background_color' => '',
+											'model_viewer_scale' => 'auto',
 											'model_viewer_auto_rotate' => 'true',
 											'model_viewer_hdr' => 'venice_sunset_2k.hdr');
 
@@ -275,6 +277,7 @@ if ($action == 'edit_3d') {
 											'model_viewer_glb' => $products_models['model_viewer_glb'],
 											'model_viewer_usdz' => $products_models['model_viewer_usdz'],
 											'model_viewer_background_color' => $products_models['model_viewer_background_color'],
+											'model_viewer_scale' => $products_models['model_viewer_scale'],
 											'model_viewer_auto_rotate' => $products_models['model_viewer_auto_rotate'],
 											'model_viewer_hdr' => $products_models['model_viewer_hdr']);
 				// Move that ADOdb pointer!
@@ -517,6 +520,41 @@ if ($action == 'edit_3d') {
 								</div>
                            </div>					   
                         </fieldset>
+
+                       <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_OBJECT_SCALING; ?></label>
+
+								<div class="col-lg-2">
+									<div class="c-radio c-radio-nofont">
+										<label>
+										<?php
+											echo '<input type="radio" name="model_viewer_scale['. $nCounter . ']" value="auto"'; 
+											if ($models['model_viewer_scale'] == 'auto') echo ' checked="checked"';
+											echo  '>&nbsp;';
+									   ?>
+											<span class="badge badge-success float-right">auto</span>
+										</label>
+									</div>
+								<div class="c-radio c-radio-nofont">
+									<label>
+										<?php
+											echo '<input type="radio" name="model_viewer_scale['. $nCounter . ']" value="fixed"'; 
+											if ($models['model_viewer_scale'] == 'fixed') echo ' checked="checked"';
+											echo  '>&nbsp;';
+									   ?>
+										<span class="badge badge-danger float-right">fixed</span>
+									</label>
+								</div>
+							</div>
+							
+							<div class="col-lg-8">
+									<p><?php echo TEXT_MODELS_OBJECT_SCALING_HELP; ?></p>
+							</div>							
+						</div>							  
+                        </fieldset>		
+
+
 
 
                        <fieldset>

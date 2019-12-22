@@ -1076,6 +1076,7 @@ $flds = "
   model_viewer_usdz C(255) NULL,
   model_viewer_background_color C(8) DEFAULT '#222',  
   model_viewer_auto_rotate C(5) DEFAULT 'true',
+  model_viewer_scale C(5) DEFAULT 'auto',
   model_viewer_hdr C(255) NULL,
   model_viewer_date_added T,
   model_viewer_last_modified T 

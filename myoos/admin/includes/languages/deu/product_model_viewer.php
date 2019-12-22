@@ -33,6 +33,8 @@ define('TEXT_MODELS_TITLE', 'Alternativtext für ALT-Attribut:');
 define('TEXT_MODELS_DESCRIPTION', '3D-Modellbeschreibung:');
 define('TEXT_MODELS_BACKGROUND_COLOR', 'Hintergrundfarbe:');
 define('TEXT_MODELS_HDR', 'Panorama Hintergrundbild:');
+define('TEXT_MODELS_OBJECT_SCALING', 'Skalierungsverhalten:');
+define('TEXT_MODELS_OBJECT_SCALING_HELP', 'Steuert das Skalierungsverhalten im AR-Modus im Scene Viewer. Setzen Sie auf "fixed", um die Skalierung des Modells zu deaktivieren, wodurch das Modell immer auf 100 % Maßstab gesetzt wird. Auf "auto" gesetzt, was eine Größenänderung des Modells ermöglicht.');
 define('TEXT_MODELS_OBJECT_ROTATION', 'Objekt-Rotation:');
 
 

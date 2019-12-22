@@ -270,7 +270,7 @@ if (!$product_info_result->RecordCount()) {
 	$products_model_viewer_descriptiontable = $oostable['products_model_viewer_description'];
 	$products_model_viewer_sql = "SELECT m.model_viewer_id, m.products_id, m.model_viewer_glb,
 										m.model_viewer_usdz, m.model_viewer_background_color, 
-										m.model_viewer_auto_rotate, m.model_viewer_hdr,
+										m.model_viewer_auto_rotate, m.model_viewer_scale, m.model_viewer_hdr,
 										md.model_viewer_title, md.model_viewer_description
 								FROM $products_model_viewertable m,
 										$products_model_viewer_descriptiontable md
@@ -299,6 +299,7 @@ if (!$product_info_result->RecordCount()) {
 						   'url_glb' => $url,
                            'model_viewer_usdz' => $model_viewer['model_viewer_usdz'],
                            'model_viewer_background_color' => $model_viewer['model_viewer_background_color'],
+						   'model_viewer_scale' => $model_viewer['model_viewer_scale'],
 						   'model_viewer_auto_rotate' => $model_viewer['model_viewer_auto_rotate'],
 						   'model_viewer_hdr' => $model_viewer['model_viewer_hdr'],						   
 						   'model_viewer_title' => $model_viewer['model_viewer_title'],
