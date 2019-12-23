@@ -30,6 +30,7 @@ if (!isset($_SESSION['customer_id'])) {
 		$_SESSION['navigation'] = new navigationHistory();
 	}   
     $_SESSION['navigation']->set_snapshot();
+	$_SESSION['guest_login'] = 'off';
     oos_redirect(oos_href_link($aContents['login']));
 }
 
