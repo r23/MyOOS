@@ -615,16 +615,16 @@
         },
         {
             "name": "endroid/qr-code",
-            "version": "3.7.3",
+            "version": "3.7.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/endroid/qr-code.git",
-                "reference": "a19e3fef5fa5b92d94219947a63944ecf2493e4b"
+                "reference": "c9097df3a107649c8347d2470c1bc984a4f6123a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/endroid/qr-code/zipball/a19e3fef5fa5b92d94219947a63944ecf2493e4b",
-                "reference": "a19e3fef5fa5b92d94219947a63944ecf2493e4b",
+                "url": "https://api.github.com/repos/endroid/qr-code/zipball/c9097df3a107649c8347d2470c1bc984a4f6123a",
+                "reference": "c9097df3a107649c8347d2470c1bc984a4f6123a",
                 "shasum": ""
             },
             "require": {
@@ -633,7 +633,7 @@
                 "khanamiryan/qrcode-detector-decoder": "^1.0.2",
                 "myclabs/php-enum": "^1.5",
                 "php": ">=7.2",
-                "symfony/http-foundation": "^3.4||^4.0||^5.0",
+                "symfony/http-foundation": "^3.4||^4.2.12||^5.0",
                 "symfony/options-resolver": "^3.4||^4.0||^5.0",
                 "symfony/property-access": "^3.4||^4.0||^5.0"
             },
@@ -671,7 +671,7 @@
                 "qr",
                 "qrcode"
             ],
-            "time": "2019-11-23T10:53:01+00:00"
+            "time": "2019-12-22T18:55:19+00:00"
         },
         {
             "name": "firebase/php-jwt",

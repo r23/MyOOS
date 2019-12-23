@@ -1,6 +1,6 @@
 name: CI
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   build:
@@ -25,4 +25,9 @@ jobs:
         run: |
           composer update --prefer-lowest
           vendor/bin/unit-test
-          vendor/bin/functional-test
+          vendor/bin/functional-test ^3.4
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v1
+        with:
+          name: coverage
+          path: tests/coverage
