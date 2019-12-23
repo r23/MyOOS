@@ -41,6 +41,7 @@ class Admin extends Base {
 		parent::__construct();
 
 		$this->action( 'cmb2_admin_init', 'enqueue', 50 );
+		$this->action( 'cmb2_admin_init', 'add_kb_links', 50 );
 		$this->filter( 'rank_math/metabox/tabs', 'add_metabox_tab' );
 		$this->action( 'rank_math/metabox/process_fields', 'save_advanced_meta' );
 		$this->action( 'rank_math/post/column/seo_details', 'display_schema_type' );
@@ -131,6 +132,10 @@ class Admin extends Base {
 	 * Enqueue Styles and Scripts required for metabox.
 	 */
 	public function enqueue() {
+		if ( ! Helper::has_cap( 'onpage_snippet' ) ) {
+			return;
+		}
+
 		$values = [];
 		$cmb    = $this->get_metabox();
 		if ( false === $cmb ) {
@@ -156,6 +161,12 @@ class Admin extends Base {
 		$values['knowledgegraphType'] = Helper::get_settings( 'titles.knowledgegraph_type' );
 
 		Helper::add_json( 'richSnippets', $values );
+	}
+
+	/**
+	 * KB Links for gutenberg
+	 */
+	public function add_kb_links() {
 		Helper::add_json(
 			'assessor',
 			[

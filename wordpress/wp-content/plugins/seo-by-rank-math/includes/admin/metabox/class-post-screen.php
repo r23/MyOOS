@@ -98,7 +98,7 @@ class Post_Screen implements IScreen {
 			wp_enqueue_script( 'rank-math-primary-term', rank_math()->plugin_url() . 'assets/admin/js/gutenberg-primary-term.js', [], rank_math()->version, true );
 		}
 
-		wp_enqueue_script( 'rank-math-post-metabox', rank_math()->plugin_url() . 'assets/admin/js/post-metabox.js', [ 'clipboard', 'rank-math-common', 'rank-math-analyzer', 'jquery-tag-editor', 'rank-math-validate' ], rank_math()->version, true );
+		wp_enqueue_script( 'rank-math-post-metabox', rank_math()->plugin_url() . 'assets/admin/js/post-metabox.js', [ 'clipboard', 'wp-hooks', 'rank-math-common', 'rank-math-analyzer', 'jquery-tag-editor', 'rank-math-validate' ], rank_math()->version, true );
 	}
 
 	/**
@@ -122,17 +122,16 @@ class Post_Screen implements IScreen {
 			],
 			'siteFavIcon'            => $this->get_site_icon(),
 			'assessor'               => [
-				'hasTOCPlugin'      => $this->has_toc_plugin(),
-				'sentimentKbLink'   => KB::get( 'sentiments' ),
-				'focusKeywordLink'  => admin_url( 'edit.php?focus_keyword=%focus_keyword%&post_type=%post_type%' ),
-				'registrationUrl'   => Helper::get_connect_url(),
-				'hasOnpageAnalysis' => Helper::has_cap( 'onpage_analysis' ),
-				'hasBreadcrumb'     => Helper::get_settings( 'general.breadcrumbs' ),
-				'hasRedirection'    => Helper::is_module_active( 'redirections' ),
-				'isUserEdit'        => Admin_Helper::is_user_edit(),
-				'socialPanelLink'   => Helper::get_admin_url( 'options-titles#setting-panel-social' ),
-				'primaryTaxonomy'   => $this->get_primary_taxonomy(),
-				'stopwords'         => Helper::get_settings( 'general.url_strip_stopwords' ) ? $this->get_stopwords() : false,
+				'hasTOCPlugin'     => $this->has_toc_plugin(),
+				'sentimentKbLink'  => KB::get( 'sentiments' ),
+				'focusKeywordLink' => admin_url( 'edit.php?focus_keyword=%focus_keyword%&post_type=%post_type%' ),
+				'registrationUrl'  => Helper::get_connect_url(),
+				'hasBreadcrumb'    => Helper::get_settings( 'general.breadcrumbs' ),
+				'hasRedirection'   => Helper::is_module_active( 'redirections' ),
+				'isUserEdit'       => Admin_Helper::is_user_edit(),
+				'socialPanelLink'  => Helper::get_admin_url( 'options-titles#setting-panel-social' ),
+				'primaryTaxonomy'  => $this->get_primary_taxonomy(),
+				'stopwords'        => Helper::get_settings( 'general.url_strip_stopwords' ) ? $this->get_stopwords() : false,
 			],
 		];
 	}
@@ -246,7 +245,9 @@ class Post_Screen implements IScreen {
 			true
 		);
 
-		wp_set_script_translations( 'rank-math-gutenberg', 'rank-math', rank_math()->plugin_dir() . '/languages/' );
+		if ( function_exists( 'wp_set_script_translations' ) ) {
+			wp_set_script_translations( 'rank-math-gutenberg', 'rank-math', rank_math()->plugin_dir() . '/languages/' );
+		}
 	}
 
 	/**

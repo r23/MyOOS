@@ -48,7 +48,7 @@ $cmb->add_field([
 
 $cmb->add_field([
 	'id'      => 'frontend_seo_score_template',
-	'type'    => 'switch',
+	'type'    => 'radio_inline',
 	'name'    => esc_html__( 'SEO Score Template', 'rank-math' ),
 	'desc'    => sprintf( esc_html__( 'Change the styling for the front end SEO score badge.', 'rank-math' ), '<code>nofollow</code>' ),
 	'options' => [
@@ -61,7 +61,7 @@ $cmb->add_field([
 
 $cmb->add_field([
 	'id'      => 'frontend_seo_score_position',
-	'type'    => 'switch',
+	'type'    => 'radio_inline',
 	'name'    => esc_html__( 'SEO Score Position', 'rank-math' ),
 	'desc'    => sprintf(
 		/* translators: %1$s is the shortcode */

@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection
 Tested up to: 5.3.1
 Requires at least: 4.9.0
 Requires PHP: 5.6
-Stable tag: 1.0.36.2
+Stable tag: 1.0.36.3
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -450,6 +450,15 @@ We look forward to helping you.
 12. Rank Math Comes with 10+ FREE Module.
 
 == Changelog ==
+
+= 1.0.36.3 [Dec 23, 2019] =
+* Added Role Manager support for new Gutenberg Sidebar Editor
+* Fixed SEO meta not saving if Custom Fields section is enabled in the single post editor
+* Fixed show unsupported schema notice only if old 'Review Schema' type is selected
+* Fixed page builder shortcodes not rendering in the description tag
+* Fixed `SEO: Not Available` issue happening on some installations
+* Fixed `wp_set_script_translations()` related error happening on some installations which are using WP v4.9 or less
+* Fixed a rare `escaped_value()` related error happening with the Role Manager
 
 = 1.0.36.2 [Dec 21, 2019] =
 * Improved the scoring mechanism to work in sync with the Classic Editor

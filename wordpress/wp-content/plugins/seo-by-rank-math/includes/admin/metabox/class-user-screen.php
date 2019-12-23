@@ -54,7 +54,7 @@ class User_Screen implements IScreen {
 	 */
 	public function enqueue() {
 		$js = rank_math()->plugin_url() . 'assets/admin/js/';
-		wp_enqueue_script( 'rank-math-user-metabox', $js . 'user-metabox.js', [ 'rank-math-common', 'rank-math-analyzer', 'jquery-tag-editor' ], rank_math()->version, true );
+		wp_enqueue_script( 'rank-math-user-metabox', $js . 'user-metabox.js', [ 'wp-hooks', 'rank-math-common', 'rank-math-analyzer', 'jquery-tag-editor' ], rank_math()->version, true );
 	}
 
 	/**

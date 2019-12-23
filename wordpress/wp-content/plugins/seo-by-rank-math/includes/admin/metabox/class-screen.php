@@ -124,6 +124,13 @@ class Screen implements IScreen {
 				'isUserRegistered' => Helper::is_site_connected(),
 				'maxTags'          => apply_filters( 'rank_math/focus_keyword/maxtags', 5 ),
 				'showScore'        => Helper::is_score_enabled(),
+				'canUser'          => [
+					'general'  => Helper::has_cap( 'onpage_general' ),
+					'advanced' => Helper::has_cap( 'onpage_advanced' ),
+					'snippet'  => Helper::has_cap( 'onpage_snippet' ),
+					'social'   => Helper::has_cap( 'onpage_social' ),
+					'analysis' => Helper::has_cap( 'onpage_analysis' ),
+				],
 				'assessor'         => [
 					'serpData'         => $this->get_object_values(),
 					'powerWords'       => $this->power_words(),

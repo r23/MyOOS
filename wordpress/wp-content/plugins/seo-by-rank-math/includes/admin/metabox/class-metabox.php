@@ -17,6 +17,7 @@ use RankMath\Runner;
 use RankMath\Traits\Hooker;
 use RankMath\Admin\Admin_Helper;
 use MyThemeShop\Helpers\Param;
+use MyThemeShop\Helpers\Str;
 use MyThemeShop\Helpers\Conditional;
 
 defined( 'ABSPATH' ) || exit;
@@ -55,6 +56,10 @@ class Metabox implements Runner {
 			$this->action( 'cmb2_admin_init', 'add_main_metabox', 30 );
 			$this->action( 'cmb2_admin_init', 'add_link_suggestion_metabox', 30 );
 			$this->action( 'rank_math/admin/enqueue_scripts', 'enqueue' );
+
+			if ( 'post' === $this->screen->get_object_type() ) {
+				$this->filter( 'is_protected_meta', 'hide_rank_math_meta', 10, 2 );
+			}
 		}
 
 		$this->action( 'cmb2_' . CMB2::current_object_type() . '_process_fields_' . $this->metabox_id, 'save_meta' );
@@ -84,15 +89,19 @@ class Metabox implements Runner {
 			wp_enqueue_script( 'rank-math-analyzer', $js . 'assessor.js', [ 'lodash' ], rank_math()->version, true );
 		}
 
-		if ( ! wp_script_is( 'wp-hooks', 'registered' ) ) {
-			wp_register_script( 'wp-hooks', rank_math()->plugin_url() . 'assets/vendor/hooks.js', [], rank_math()->version, true );
-		}
-
-		if ( ! wp_script_is( 'lodash', 'registered' ) ) {
-			wp_register_script( 'lodash', rank_math()->plugin_url() . 'assets/vendor/lodash.js', [], rank_math()->version );
-		}
-
 		$this->do_action( 'enqueue_scripts/assessor' );
+	}
+
+	/**
+	 * Hide rank math meta keys
+	 *
+	 * @param bool   $protected Whether the key is considered protected.
+	 * @param string $meta_key  Meta key.
+	 *
+	 * @return bool
+	 */
+	public function hide_rank_math_meta( $protected, $meta_key ) {
+		return Str::starts_with( 'rank_math_', $meta_key ) ? true : $protected;
 	}
 
 	/**

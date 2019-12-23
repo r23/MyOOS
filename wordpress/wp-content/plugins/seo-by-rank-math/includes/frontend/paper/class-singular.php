@@ -182,7 +182,7 @@ class Singular implements IPaper {
 		}
 
 		$keywords     = Post::get_meta( 'focus_keyword', $object->ID );
-		$post_content = $this->should_apply_shortcode() ? do_shortcode( $object->post_content ) : $object->post_content;
+		$post_content = Paper::should_apply_shortcode() ? do_shortcode( $object->post_content ) : $object->post_content;
 		$post_content = \preg_replace( '/<!--[\s\S]*?-->/iu', '', $post_content );
 		$post_content = wpautop( WordPress::strip_shortcodes( $post_content ) );
 		$post_content = wp_kses( $post_content, [ 'p' => [] ] );
@@ -250,20 +250,5 @@ class Singular implements IPaper {
 		}
 
 		return $robots;
-	}
-
-	/**
-	 * Should apply shortcode on content.
-	 *
-	 * @return bool
-	 */
-	private function should_apply_shortcode() {
-		$is_woocommerce_page = Post::is_woocommerce_page();
-		$is_wcfm_page        = function_exists( 'is_wcfm_page' ) && is_wcfm_page();
-		if ( $is_woocommerce_page || $is_wcfm_page ) {
-			return false;
-		}
-
-		return apply_filters( 'rank_math/paper/auto_generated_description/apply_shortcode', false );
 	}
 }

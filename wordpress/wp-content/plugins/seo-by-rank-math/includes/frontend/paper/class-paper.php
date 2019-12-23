@@ -503,4 +503,20 @@ class Paper {
 		}
 		return $robots;
 	}
+
+	/**
+	 * Should apply shortcode on content.
+	 *
+	 * @return bool
+	 */
+	public static function should_apply_shortcode() {
+		if (
+			Post::is_woocommerce_page() ||
+			( function_exists( 'is_wcfm_page' ) && is_wcfm_page() )
+		) {
+			return false;
+		}
+
+		return apply_filters( 'rank_math/paper/auto_generated_description/apply_shortcode', false );
+	}
 }

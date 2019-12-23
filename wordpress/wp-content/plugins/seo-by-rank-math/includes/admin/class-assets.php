@@ -74,6 +74,14 @@ class Assets implements Runner {
 		// Tagify.
 		wp_register_script( 'tagify', $vendor . 'tagify/tagify.min.js', null, '2.31.6', true );
 
+		if ( ! wp_script_is( 'wp-hooks', 'registered' ) ) {
+			wp_register_script( 'wp-hooks', rank_math()->plugin_url() . 'assets/vendor/hooks.js', [], rank_math()->version, true );
+		}
+
+		if ( ! wp_script_is( 'lodash', 'registered' ) ) {
+			wp_register_script( 'lodash', rank_math()->plugin_url() . 'assets/vendor/lodash.js', [], rank_math()->version );
+		}
+
 		Helper::add_json(
 			'api',
 			[

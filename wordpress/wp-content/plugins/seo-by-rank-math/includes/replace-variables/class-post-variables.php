@@ -11,6 +11,7 @@
 namespace RankMath\Replace_Variables;
 
 use RankMath\Post;
+use RankMath\Paper\Paper;
 use MyThemeShop\Helpers\Str;
 
 defined( 'ABSPATH' ) || exit;
@@ -243,7 +244,8 @@ class Post_Variables extends Advanced_Variables {
 		}
 
 		if ( '' !== $this->args->post_content ) {
-			$content = wp_strip_all_tags( $this->args->post_content );
+			$content = Paper::should_apply_shortcode() ? do_shortcode( $this->args->post_content ) : $this->args->post_content;
+			$content = wp_strip_all_tags( $content );
 			return wp_html_excerpt( $content, 155 );
 		}
 

@@ -38,11 +38,11 @@ class ACF {
 	 */
 	public function enqueue() {
 		if ( Admin_Helper::is_post_edit() ) {
-			wp_enqueue_script( 'rank-math-acf-post-analysis', rank_math()->plugin_url() . 'assets/admin/js/acf-analysis.js', [ 'rank-math-analyzer' ], rank_math()->version, true );
+			wp_enqueue_script( 'rank-math-acf-post-analysis', rank_math()->plugin_url() . 'assets/admin/js/acf-analysis.js', [ 'wp-hooks', 'rank-math-analyzer' ], rank_math()->version, true );
 		}
 
 		if ( Admin_Helper::is_term_edit() ) {
-			wp_enqueue_script( 'rank-math-acf-term-analysis', rank_math()->plugin_url() . 'assets/admin/js/acf-analysis.js', [ 'rank-math-term-metabox' ], rank_math()->version, true );
+			wp_enqueue_script( 'rank-math-acf-term-analysis', rank_math()->plugin_url() . 'assets/admin/js/acf-analysis.js', [ 'wp-hooks', 'rank-math-term-metabox' ], rank_math()->version, true );
 		}
 
 		Helper::add_json( 'acf', $this->get_config() );
