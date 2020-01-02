@@ -16,6 +16,7 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
         'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
+        '7e9bd612cc444b3eed788ebbe46263a0' => __DIR__ . '/..' . '/laminas/laminas-zendframework-bridge/src/autoload.php',
         'a9ed0d27b5a698798a89181429f162c5' => __DIR__ . '/..' . '/khanamiryan/qrcode-detector-decoder/lib/Common/customFunctions.php',
         'abede361264e2ae69ec1eee813a101af' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/abs.php',
         '21a5860fbef5be28db5ddfbc3cca67c4' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/acos.php',
@@ -90,8 +91,6 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         'Z' => 
         array (
             'Zxing\\' => 6,
-            'Zend\\HttpHandlerRunner\\' => 23,
-            'Zend\\Escaper\\' => 13,
         ),
         'T' => 
         array (
@@ -141,6 +140,12 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
             'MyCLabs\\Enum\\' => 13,
             'Monolog\\' => 8,
             'Matrix\\' => 7,
+        ),
+        'L' => 
+        array (
+            'Laminas\\ZendFrameworkBridge\\' => 28,
+            'Laminas\\HttpHandlerRunner\\' => 26,
+            'Laminas\\Escaper\\' => 16,
         ),
         'G' => 
         array (
@@ -263,14 +268,6 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         'Zxing\\' => 
         array (
             0 => __DIR__ . '/..' . '/khanamiryan/qrcode-detector-decoder/lib',
-        ),
-        'Zend\\HttpHandlerRunner\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/zendframework/zend-httphandlerrunner/src',
-        ),
-        'Zend\\Escaper\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/zendframework/zend-escaper/src',
         ),
         'Twig\\' => 
         array (
@@ -407,6 +404,18 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         'Matrix\\' => 
         array (
             0 => __DIR__ . '/..' . '/markbaker/matrix/classes/src',
+        ),
+        'Laminas\\ZendFrameworkBridge\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laminas/laminas-zendframework-bridge/src',
+        ),
+        'Laminas\\HttpHandlerRunner\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laminas/laminas-httphandlerrunner/src',
+        ),
+        'Laminas\\Escaper\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laminas/laminas-escaper/src',
         ),
         'GuzzleHttp\\Psr7\\' => 
         array (
