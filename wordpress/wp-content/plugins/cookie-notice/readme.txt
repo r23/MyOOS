@@ -1,38 +1,40 @@
-=== Cookie Notice for GDPR ===
+=== Cookie Notice for GDPR & CCPA ===
 Contributors: dfactory
 Donate link: http://www.dfactory.eu/
-Tags: gdpr, cookie, cookies, notice, notification, notify, cookie, cookie compliance, cookie law, eu cookie, privacy, privacy directive, consent
+Tags: gdpr, ccpa, cookie, cookies, notice, notification, notify, cookie, cookie law, privacy, policy, consent, law
 Requires at least: 3.3
 Requires PHP: 5.2.4
-Tested up to: 5.3
-Stable tag: 1.2.48
+Tested up to: 5.3.2
+Stable tag: 1.2.49
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
 
-Cookie Notice allows you to elegantly inform users that your site uses cookies and to comply with the EU cookie law GDPR regulations.
+Cookie Notice allows you to elegantly inform users that your site uses cookies and to comply with the EU GDPR cookie law and CCPA regulations.
 
 == Description ==
 
-[Cookie Notice](http://www.dfactory.eu/plugins/cookie-notice/) allows you to elegantly inform users that your site uses cookies and to comply with the EU cookie law GDPR regulations.
+[Cookie Notice](http://www.dfactory.eu/plugins/cookie-notice/) allows you to elegantly inform users that your site uses cookies and to comply with the EU GDPR cookie law and CCPA regulations.
 
 For more information, check out plugin page at [dFactory](http://www.dfactory.eu/) or plugin [support forum](http://www.dfactory.eu/support/forum/cookie-notice/).
 
 = Features include: =
 
-* Customizable cookie message
-* Redirects users to specified page for more cookie information
+* Customizable message
+* Redirects users to specified page for more information
 * Multiple cookie expiry options
 * Link to Privacy Policy page
 * WordPress Privacy Policy page synchronization
-* Option to accept cookies on scroll
+* Option to accept the notice on scroll
 * Option to set on scroll offset
-* Option to refuse functional cookies
-* Option to revoke the user consent
+* Option to accept the notice with any page click
+* Option to refuse the consent
+* Option to revoke the consent
 * Option to manually block scripts
-* Option to reload the page after cookies are accepted
-* Select the position of the cookie message box
-* Animate the message box after cookie is accepted
-* Select bottons style from None, WordPress and Bootstrap
+* Option to reload the page after accepting the notice
+* Select the position of the notice container
+* Select the position of the privacy policy link
+* Animate the container after notice is accepted
+* Select from 3 buttons style
 * Set the text and bar background colors
 * WPML and Polylang compatible
 * SEO friendly
@@ -65,6 +67,12 @@ No questions yet.
 1. screenshot-1.png
 
 == Changelog ==
+
+= 1.2.49 =
+* New: Option to accept the notice with any page click
+* Tweak: Remove jQuery dependency
+* Tweak: Swtich from jQuery to CSS3 animations
+* Tweak: Improve the CSS and HTML structure
 
 = 1.2.48 =
 * Fix: HTML tags stripped from cookie message
@@ -271,6 +279,5 @@ Initial release
 
 == Upgrade Notice ==
 
-= 1.2.48 =
-* Fix: HTML tags stripped from cookie message
-* Fix: Link target not accepted in inline privacy link
+= 1.2.49 =
+* New: Option to accept the notice with any page click
