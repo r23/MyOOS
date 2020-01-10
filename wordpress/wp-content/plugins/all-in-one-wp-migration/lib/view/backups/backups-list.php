@@ -93,7 +93,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<i class="ai1wm-icon-arrow-down"></i>
 							<span><?php _e( 'Download', AI1WM_PLUGIN_NAME ); ?></span>
 						</a>
-						<a href="#" data-archive="<?php echo esc_attr( $backup['filename'] ); ?>" class="ai1wm-button-gray ai1wm-backup-restore" aria-label="<?php _e( 'Restore backup', AI1WM_PLUGIN_NAME ); ?>">
+						<a href="#" data-archive="<?php echo esc_attr( $backup['filename'] ); ?>" class="ai1wm-button-gray ai1wm-backup-restore" data-size="<?php echo esc_attr( $backup['size'] ); ?>" aria-label="<?php _e( 'Restore backup', AI1WM_PLUGIN_NAME ); ?>">
 							<i class="ai1wm-icon-cloud-upload"></i>
 							<span><?php _e( 'Restore', AI1WM_PLUGIN_NAME ); ?></span>
 						</a>

@@ -814,6 +814,16 @@ class Ai1wm_Main_Controller {
 
 		wp_localize_script(
 			'ai1wm_import',
+			'ai1wm_disk_space',
+			array(
+				'free'   => disk_free_space( AI1WM_STORAGE_PATH ),
+				'factor' => AI1WM_DISK_SPACE_FACTOR,
+				'extra'  => AI1WM_DISK_SPACE_EXTRA,
+			)
+		);
+
+		wp_localize_script(
+			'ai1wm_import',
 			'ai1wm_locale',
 			array(
 				'stop_importing_your_website'         => __( 'You are about to stop importing your website, are you sure?', AI1WM_PLUGIN_NAME ),
@@ -828,6 +838,7 @@ class Ai1wm_Main_Controller {
 				'finish_import'                       => __( 'Finish', AI1WM_PLUGIN_NAME ),
 				'stop_import'                         => __( 'Stop import', AI1WM_PLUGIN_NAME ),
 				'confirm_import'                      => __( 'Proceed', AI1WM_PLUGIN_NAME ),
+				'confirm_disk_space'                  => __( 'I have enough disk space', AI1WM_PLUGIN_NAME ),
 				'continue_import'                     => __( 'Continue', AI1WM_PLUGIN_NAME ),
 				'please_do_not_close_this_browser'    => __( 'Please do not close this browser window or your import will fail', AI1WM_PLUGIN_NAME ),
 				'leave_feedback'                      => __( 'Leave plugin developers any feedback here', AI1WM_PLUGIN_NAME ),
@@ -863,6 +874,11 @@ class Ai1wm_Main_Controller {
 						AI1WM_PLUGIN_NAME
 					),
 					'512MB'
+				),
+				'out_of_disk_space'                   => __(
+					'There is not enough space available on the disk.<br />' .
+					'Free up %s of disk space.',
+					AI1WM_PLUGIN_NAME
 				),
 			)
 		);
@@ -972,6 +988,16 @@ class Ai1wm_Main_Controller {
 
 		wp_localize_script(
 			'ai1wm_backups',
+			'ai1wm_disk_space',
+			array(
+				'free'   => disk_free_space( AI1WM_STORAGE_PATH ),
+				'factor' => AI1WM_DISK_SPACE_FACTOR,
+				'extra'  => AI1WM_DISK_SPACE_EXTRA,
+			)
+		);
+
+		wp_localize_script(
+			'ai1wm_backups',
 			'ai1wm_locale',
 			array(
 				'stop_exporting_your_website'         => __( 'You are about to stop exporting your website, are you sure?', AI1WM_PLUGIN_NAME ),
@@ -995,6 +1021,7 @@ class Ai1wm_Main_Controller {
 				'close_import'                        => __( 'Close', AI1WM_PLUGIN_NAME ),
 				'stop_import'                         => __( 'Stop import', AI1WM_PLUGIN_NAME ),
 				'confirm_import'                      => __( 'Proceed', AI1WM_PLUGIN_NAME ),
+				'confirm_disk_space'                  => __( 'I have enough disk space', AI1WM_PLUGIN_NAME ),
 				'continue_import'                     => __( 'Continue', AI1WM_PLUGIN_NAME ),
 				'please_do_not_close_this_browser'    => __( 'Please do not close this browser window or your import will fail', AI1WM_PLUGIN_NAME ),
 				'leave_feedback'                      => __( 'Leave plugin developers any feedback here', AI1WM_PLUGIN_NAME ),
@@ -1004,6 +1031,11 @@ class Ai1wm_Main_Controller {
 				'want_to_delete_this_file'            => __( 'Are you sure you want to delete this file?', AI1WM_PLUGIN_NAME ),
 				'unlimited'                           => __( 'Restoring a backup is available via Unlimited extension. <a href="https://servmask.com/products/unlimited-extension" target="_blank">Get it here</a>', AI1WM_PLUGIN_NAME ),
 				'restore_from_file'                   => __( '"Restore" functionality is available in a <a href="https://servmask.com/products/unlimited-extension" target="_blank">paid extension</a>.<br />You could also download the backup and then use "Import from file".', AI1WM_PLUGIN_NAME ),
+				'out_of_disk_space'                   => __(
+					'There is not enough space available on the disk.<br />' .
+					'Free up %s of disk space.',
+					AI1WM_PLUGIN_NAME
+				),
 			)
 		);
 	}

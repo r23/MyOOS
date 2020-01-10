@@ -42,9 +42,6 @@ class Ai1wm_Import_Compatibility {
 			return $params;
 		}
 
-		// Enable notifications
-		add_filter( 'ai1wm_notification_error_toggle', '__return_true', 20 );
-
 		// Error message
 		throw new Ai1wm_Compatibility_Exception( implode( $messages ) );
 	}

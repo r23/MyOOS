@@ -41,6 +41,10 @@ class Ai1wm_Status {
 		self::log( array( 'type' => 'download', 'message' => $message ) );
 	}
 
+	public static function disk_space_confirm( $message ) {
+		self::log( array( 'type' => 'disk_space_confirm', 'message' => $message ) );
+	}
+
 	public static function confirm( $message ) {
 		self::log( array( 'type' => 'confirm', 'message' => $message ) );
 	}
