@@ -543,6 +543,20 @@ function move_topics($topic_ids, $forum_id, $auto_sync = true)
 		$topic_ids = array($topic_ids);
 	}
 
+	/**
+	 * Perform additional actions before topics move
+	 *
+	 * @event core.move_topics_before
+	 * @var	array	topic_ids	Array of the moved topic ids
+	 * @var	string	forum_id	The forum id from where the topics are moved
+	 * @since 3.2.9-RC1
+	 */
+	$vars = array(
+		'topic_ids',
+		'forum_id',
+	);
+	extract($phpbb_dispatcher->trigger_event('core.move_topics_before', compact($vars)));
+
 	$sql = 'DELETE FROM ' . TOPICS_TABLE . '
 		WHERE ' . $db->sql_in_set('topic_moved_id', $topic_ids) . '
 			AND forum_id = ' . $forum_id;
@@ -592,6 +606,22 @@ function move_topics($topic_ids, $forum_id, $auto_sync = true)
 		$db->sql_query($sql);
 	}
 	unset($table_ary);
+
+	/**
+	 * Perform additional actions after topics move
+	 *
+	 * @event core.move_topics_after
+	 * @var	array	topic_ids	Array of the moved topic ids
+	 * @var	string	forum_id	The forum id from where the topics were moved
+	 * @var	array	forum_ids	Array of the forums where the topics were moved (includes also forum_id)
+	 * @since 3.2.9-RC1
+	 */
+	$vars = array(
+		'topic_ids',
+		'forum_id',
+		'forum_ids',
+	);
+	extract($phpbb_dispatcher->trigger_event('core.move_topics_after', compact($vars)));
 
 	if ($auto_sync)
 	{
@@ -1161,28 +1191,6 @@ function delete_posts($where_type, $where_ids, $auto_sync = true, $posted_sync =
 }
 
 /**
-* Delete Attachments
-*
-* @deprecated 3.2.0-a1 (To be removed: 3.4.0)
-*
-* @param string $mode can be: post|message|topic|attach|user
-* @param mixed $ids can be: post_ids, message_ids, topic_ids, attach_ids, user_ids
-* @param bool $resync set this to false if you are deleting posts or topics
-*/
-function delete_attachments($mode, $ids, $resync = true)
-{
-	global $phpbb_container;
-
-	/** @var \phpbb\attachment\manager $attachment_manager */
-	$attachment_manager = $phpbb_container->get('attachment.manager');
-	$num_deleted = $attachment_manager->delete($mode, $ids, $resync);
-
-	unset($attachment_manager);
-
-	return $num_deleted;
-}
-
-/**
 * Deletes shadow topics pointing to a specified forum.
 *
 * @param int		$forum_id		The forum id
@@ -1294,23 +1302,6 @@ function update_posted_info(&$topic_ids)
 }
 
 /**
-* Delete attached file
-*
-* @deprecated 3.2.0-a1 (To be removed: 3.4.0)
-*/
-function phpbb_unlink($filename, $mode = 'file', $entry_removed = false)
-{
-	global $phpbb_container;
-
-	/** @var \phpbb\attachment\manager $attachment_manager */
-	$attachment_manager = $phpbb_container->get('attachment.manager');
-	$unlink = $attachment_manager->unlink($filename, $mode, $entry_removed);
-	unset($attachment_manager);
-
-	return $unlink;
-}
-
-/**
 * All-encompasing sync function
 *
 * Exaples:
@@ -1393,7 +1384,6 @@ function sync($mode, $where_type = '', $where_ids = '', $resync_parents = false,
 			$db->sql_transaction('begin');
 			switch ($db->get_sql_layer())
 			{
-				case 'mysql4':
 				case 'mysqli':
 					$sql = 'DELETE FROM ' . TOPICS_TABLE . '
 						USING ' . TOPICS_TABLE . ' t1, ' . TOPICS_TABLE . " t2
@@ -2692,8 +2682,7 @@ function phpbb_update_foes($db, $auth, $group_id = false, $user_id = false)
 		switch ($db->get_sql_layer())
 		{
 			case 'mysqli':
-			case 'mysql4':
-				$sql = 'DELETE ' . (($db->get_sql_layer() === 'mysqli' || version_compare($db->sql_server_info(true), '4.1', '>=')) ? 'z.*' : ZEBRA_TABLE) . '
+				$sql = 'DELETE z.*
 					FROM ' . ZEBRA_TABLE . ' z, ' . USER_GROUP_TABLE . ' ug
 					WHERE z.zebra_id = ug.user_id
 						AND z.foe = 1
@@ -2849,8 +2838,6 @@ function get_database_size()
 	// This code is heavily influenced by a similar routine in phpMyAdmin 2.2.0
 	switch ($db->get_sql_layer())
 	{
-		case 'mysql':
-		case 'mysql4':
 		case 'mysqli':
 			$sql = 'SELECT VERSION() AS mysql_version';
 			$result = $db->sql_query($sql);

@@ -52,9 +52,29 @@ function generate_smilies($mode, $forum_id)
 
 		page_header($user->lang['SMILIES']);
 
-		$sql = 'SELECT COUNT(smiley_id) AS item_count
-			FROM ' . SMILIES_TABLE . '
-			GROUP BY smiley_url';
+		$sql_ary = [
+			'SELECT'	=> 'COUNT(s.smiley_id) AS item_count',
+			'FROM'		=> [
+				SMILIES_TABLE => 's',
+			],
+			'GROUP_BY'	=> 's.smiley_url',
+		];
+
+		/**
+		* Modify SQL query that fetches the total number of smilies in window mode
+		*
+		* @event core.generate_smilies_count_sql_before
+		* @var int		forum_id	Forum where smilies are generated
+		* @var array	sql_ary		Array with the SQL query
+		* @since 3.2.9-RC1
+		*/
+		$vars = [
+			'forum_id',
+			'sql_ary',
+		];
+		extract($phpbb_dispatcher->trigger_event('core.generate_smilies_count_sql_before', compact($vars)));
+
+		$sql = $db->sql_build_query('SELECT', $sql_ary);
 		$result = $db->sql_query($sql, 3600);
 
 		$smiley_count = 0;
@@ -113,6 +133,22 @@ function generate_smilies($mode, $forum_id)
 		}
 	}
 	$db->sql_freeresult($result);
+
+	/**
+	* Modify smilies before they are assigned to the template
+	*
+	* @event core.generate_smilies_modify_rowset
+	* @var string	mode		Smiley mode, either window or inline
+	* @var int		forum_id	Forum where smilies are generated
+	* @var array	smilies		Smiley rows fetched from the database
+	* @since 3.2.9-RC1
+	*/
+	$vars = [
+		'mode',
+		'forum_id',
+		'smilies',
+	];
+	extract($phpbb_dispatcher->trigger_event('core.generate_smilies_modify_rowset', compact($vars)));
 
 	if (count($smilies))
 	{
@@ -397,34 +433,6 @@ function posting_gen_topic_types($forum_id, $cur_topic_type = POST_NORMAL)
 //
 // Attachment related functions
 //
-
-/**
-* Upload Attachment - filedata is generated here
-* Uses upload class
-*
-* @deprecated 3.2.0-a1 (To be removed: 3.4.0)
-*
-* @param string			$form_name		The form name of the file upload input
-* @param int			$forum_id		The id of the forum
-* @param bool			$local			Whether the file is local or not
-* @param string			$local_storage	The path to the local file
-* @param bool			$is_message		Whether it is a PM or not
-* @param array			$local_filedata	A filespec object created for the local file
-*
-* @return array File data array
-*/
-function upload_attachment($form_name, $forum_id, $local = false, $local_storage = '', $is_message = false, $local_filedata = false)
-{
-	global $phpbb_container;
-
-	/** @var \phpbb\attachment\manager $attachment_manager */
-	$attachment_manager = $phpbb_container->get('attachment.manager');
-	$file = $attachment_manager->upload($form_name, $forum_id, $local, $local_storage, $is_message, $local_filedata);
-	unset($attachment_manager);
-
-	return $file;
-}
-
 /**
 * Calculate the needed size for Thumbnail
 */
@@ -639,12 +647,6 @@ function create_thumbnail($source, $destination, $mimetype)
 				@imagesavealpha($new_image, true);
 
 				imagecopyresampled($new_image, $image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
-			}
-
-			// If we are in safe mode create the destination file prior to using the gd functions to circumvent a PHP bug
-			if (@ini_get('safe_mode') || @strtolower(ini_get('safe_mode')) == 'on')
-			{
-				@touch($destination);
 			}
 
 			switch ($type['format'])

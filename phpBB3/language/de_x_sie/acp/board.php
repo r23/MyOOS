@@ -55,6 +55,8 @@ $lang = array_merge($lang, array(
 	'DISABLE_BOARD_EXPLAIN'			=> 'Hiermit sperren Sie das Board für alle Benutzer, die weder Administrator noch Moderator sind. Wenn Sie möchten, können Sie eine kurze Nachricht (bis zu 255 Zeichen) angeben.',
 	'DISPLAY_LAST_SUBJECT'			=> 'Betreff des letzten Beitrags in Foren-Liste anzeigen',
 	'DISPLAY_LAST_SUBJECT_EXPLAIN'	=> 'Der Betreff des zuletzt erstellten Beitrags wird in der Foren-Liste angezeigt und mit dem Beitrag verlinkt. Der Betreff von Beiträgen in passwortgeschützten Foren und solchen, die der Benutzer nicht lesen darf, werden nicht angezeigt.',
+	'DISPLAY_UNAPPROVED_POSTS'		=> 'Zeige dem Autor nicht freigegebene Beiträge an',
+	'DISPLAY_UNAPPROVED_POSTS_EXPLAIN'	=> 'Nicht freigegebene Beiträge werden dem Autor angezeigt. Gilt nicht für Gästebeiträge.',
 	'GUEST_STYLE'					=> 'Style für Gäste',
 	'GUEST_STYLE_EXPLAIN'			=> 'Der Style des Boards für Gäste.',
 	'OVERRIDE_STYLE'				=> 'Benutzer-Style überschreiben',
@@ -440,7 +442,7 @@ $lang = array_merge($lang, array(
 	'AUTH_PROVIDER_OAUTH_TITLE'					=> 'OAuth',
 	'AUTH_PROVIDER_OAUTH_SECRET'				=> 'Secret',
 
-	'APACHE_SETUP_BEFORE_USE'	=> 'Sie müssen die Apache-Authentifizierung konfigurieren, bevor diese Methode in phpBB eingestellt wird. Beachten Sie, dass der Benutzername der Apache-Authentifizierung Ihrem phpBB-Benutzernamen entsprechen muss. Die Apache-Authentifizierung kann nur mit mod_php (nicht mit der CGI-Version) und deaktiviertem safe_mode verwendet werden.',
+	'APACHE_SETUP_BEFORE_USE'	=> 'Sie müssen die Apache-Authentifizierung konfigurieren, bevor diese Methode in phpBB eingestellt wird. Beachten Sie, dass der Benutzername der Apache-Authentifizierung Ihrem phpBB-Benutzernamen entsprechen muss. Die Apache-Authentifizierung kann nur mit mod_php (nicht mit einer CGI-Version) verwendet werden.',
 
 	'LDAP'							=> 'LDAP',
 	'LDAP_DN'						=> 'LDAP-Basis <var>DN</var>',
@@ -593,7 +595,7 @@ $lang = array_merge($lang, array(
 	'SMTP_PORT'						=> 'SMTP-Server-Port',
 	'SMTP_PORT_EXPLAIN'				=> 'Ändern Sie diese Einstellung nur, wenn Sie wissen, dass Ihr SMTP-Server einen anderen Port nutzt.',
 	'SMTP_SERVER'					=> 'SMTP-Server-Adresse',
-	'SMTP_SERVER_EXPLAIN'			=> 'Geben Sie kein Protokoll (<samp>ssl://</samp> oder <samp>tsl://</samp>) an, sofern Sie Ihr E-Mail-Provider nicht informiert hat, eines anzugeben.',
+	'SMTP_SERVER_EXPLAIN'			=> 'Geben Sie kein Protokoll (<samp>ssl://</samp> oder <samp>tls://</samp>) an, sofern Sie Ihr E-Mail-Provider nicht informiert hat, eines anzugeben.',
 	'SMTP_SETTINGS'					=> 'SMTP-Einstellungen',
 	'SMTP_USERNAME'					=> 'SMTP-Benutzername',
 	'SMTP_USERNAME_EXPLAIN'			=> 'Geben Sie nur einen Benutzernamen ein, wenn Ihr SMTP-Server dies erfordert.',

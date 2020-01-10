@@ -18,7 +18,7 @@ define('SPHINX_CONNECT_RETRIES', 3);
 define('SPHINX_CONNECT_WAIT_TIME', 300);
 
 /**
-* Fulltext search based on the sphinx search deamon
+* Fulltext search based on the sphinx search daemon
 */
 class fulltext_sphinx
 {
@@ -210,11 +210,11 @@ class fulltext_sphinx
 	/**
 	* Checks permissions and paths, if everything is correct it generates the config file
 	*
-	* @return string|bool Language key of the error/incompatiblity encountered, or false if successful
+	* @return string|bool Language key of the error/incompatibility encountered, or false if successful
 	*/
 	public function init()
 	{
-		if ($this->db->get_sql_layer() != 'mysql' && $this->db->get_sql_layer() != 'mysql4' && $this->db->get_sql_layer() != 'mysqli' && $this->db->get_sql_layer() != 'postgres')
+		if ($this->db->get_sql_layer() != 'mysqli' && $this->db->get_sql_layer() != 'postgres')
 		{
 			return $this->user->lang['FULLTEXT_SPHINX_WRONG_DATABASE'];
 		}
@@ -233,7 +233,7 @@ class fulltext_sphinx
 	protected function config_generate()
 	{
 		// Check if Database is supported by Sphinx
-		if ($this->db->get_sql_layer() =='mysql' || $this->db->get_sql_layer() == 'mysql4' || $this->db->get_sql_layer() == 'mysqli')
+		if ($this->db->get_sql_layer() == 'mysqli')
 		{
 			$this->dbtype = 'mysql';
 		}
@@ -335,6 +335,7 @@ class fulltext_sphinx
 				array('charset_table',				'U+FF10..U+FF19->0..9, 0..9, U+FF41..U+FF5A->a..z, U+FF21..U+FF3A->a..z, A..Z->a..z, a..z, U+0149, U+017F, U+0138, U+00DF, U+00FF, U+00C0..U+00D6->U+00E0..U+00F6, U+00E0..U+00F6, U+00D8..U+00DE->U+00F8..U+00FE, U+00F8..U+00FE, U+0100->U+0101, U+0101, U+0102->U+0103, U+0103, U+0104->U+0105, U+0105, U+0106->U+0107, U+0107, U+0108->U+0109, U+0109, U+010A->U+010B, U+010B, U+010C->U+010D, U+010D, U+010E->U+010F, U+010F, U+0110->U+0111, U+0111, U+0112->U+0113, U+0113, U+0114->U+0115, U+0115, U+0116->U+0117, U+0117, U+0118->U+0119, U+0119, U+011A->U+011B, U+011B, U+011C->U+011D, U+011D, U+011E->U+011F, U+011F, U+0130->U+0131, U+0131, U+0132->U+0133, U+0133, U+0134->U+0135, U+0135, U+0136->U+0137, U+0137, U+0139->U+013A, U+013A, U+013B->U+013C, U+013C, U+013D->U+013E, U+013E, U+013F->U+0140, U+0140, U+0141->U+0142, U+0142, U+0143->U+0144, U+0144, U+0145->U+0146, U+0146, U+0147->U+0148, U+0148, U+014A->U+014B, U+014B, U+014C->U+014D, U+014D, U+014E->U+014F, U+014F, U+0150->U+0151, U+0151, U+0152->U+0153, U+0153, U+0154->U+0155, U+0155, U+0156->U+0157, U+0157, U+0158->U+0159, U+0159, U+015A->U+015B, U+015B, U+015C->U+015D, U+015D, U+015E->U+015F, U+015F, U+0160->U+0161, U+0161, U+0162->U+0163, U+0163, U+0164->U+0165, U+0165, U+0166->U+0167, U+0167, U+0168->U+0169, U+0169, U+016A->U+016B, U+016B, U+016C->U+016D, U+016D, U+016E->U+016F, U+016F, U+0170->U+0171, U+0171, U+0172->U+0173, U+0173, U+0174->U+0175, U+0175, U+0176->U+0177, U+0177, U+0178->U+00FF, U+00FF, U+0179->U+017A, U+017A, U+017B->U+017C, U+017C, U+017D->U+017E, U+017E, U+0410..U+042F->U+0430..U+044F, U+0430..U+044F, U+4E00..U+9FFF'),
 				array('min_prefix_len',				'0'),
 				array('min_infix_len',				'0'),
+				array('html_strip',					'1'),
 			),
 			'index index_phpbb_' . $this->id . '_delta : index_phpbb_' . $this->id . '_main' => array(
 				array('path',						$this->config['fulltext_sphinx_data_path'] . 'index_phpbb_' . $this->id . '_delta'),
@@ -644,7 +645,7 @@ class fulltext_sphinx
 
 		$this->sphinx->SetFilter('deleted', array(0));
 
-		$this->sphinx->SetLimits((int) $start, (int) $per_page, SPHINX_MAX_MATCHES);
+		$this->sphinx->SetLimits((int) $start, (int) $per_page, max(SPHINX_MAX_MATCHES, (int) $start + $per_page));
 		$result = $this->sphinx->Query($search_query_prefix . $this->sphinx->EscapeString(str_replace('&quot;', '"', $this->search_query)), $this->indexes);
 
 		// Could be connection to localhost:9312 failed (errno=111,
@@ -675,7 +676,7 @@ class fulltext_sphinx
 		{
 			$start = floor(($result_count - 1) / $per_page) * $per_page;
 
-			$this->sphinx->SetLimits((int) $start, (int) $per_page, SPHINX_MAX_MATCHES);
+			$this->sphinx->SetLimits((int) $start, (int) $per_page, max(SPHINX_MAX_MATCHES, (int) $start + $per_page));
 			$result = $this->sphinx->Query($search_query_prefix . $this->sphinx->EscapeString(str_replace('&quot;', '"', $this->search_query)), $this->indexes);
 
 			// Could be connection to localhost:9312 failed (errno=111,

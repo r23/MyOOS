@@ -42,7 +42,7 @@ $lang = array_merge($lang, array(
 	'ACP_BBCODES_EXPLAIN'		=> 'BBCode is a special implementation of HTML offering greater control over what and how something is displayed. From this page you can add, remove and edit custom BBCodes.',
 	'ADD_BBCODE'				=> 'Add a new BBCode',
 
-	'BBCODE_DANGER'				=> 'The BBCode you are trying to add seems to use a {TEXT} token inside a HTML attribute. This is a possible XSS security issue. Try using the more restrictive {SIMPLETEXT} or {INTTEXT} types instead. Only proceed if you understand the risks involved and you consider the use of {TEXT} absolutely unavoidable.',
+	'BBCODE_DANGER'				=> 'The BBCode you are trying to add seems unsafe. If the BBCode uses a {TEXT} token in a sensitive context, try using a more restrictive type instead. Only proceed if you understand the risks involved.',
 	'BBCODE_DANGER_PROCEED'		=> 'Proceed', //'I understand the risk',
 
 	'BBCODE_ADDED'				=> 'BBCode added successfully.',
@@ -56,7 +56,7 @@ $lang = array_merge($lang, array(
 
 	'BBCODE_INVALID_TAG_NAME'	=> 'The BBCode tag name that you selected already exists.',
 	'BBCODE_INVALID'			=> 'Your BBCode is constructed in an invalid form.',
-	'BBCODE_OPEN_ENDED_TAG'		=> 'Your custom BBCode must contain both an opening and a closing tag.',
+	'BBCODE_INVALID_TEMPLATE'	=> 'Your BBCode’s template is invalid.',
 	'BBCODE_TAG'				=> 'Tag',
 	'BBCODE_TAG_TOO_LONG'		=> 'The tag name you selected is too long.',
 	'BBCODE_TAG_DEF_TOO_LONG'	=> 'The tag definition that you have entered is too long, please shorten your tag definition.',
@@ -78,13 +78,13 @@ $lang = array_merge($lang, array(
 	'TOO_MANY_BBCODES'		=> 'You cannot create any more BBCodes. Please remove one or more BBCodes then try again.',
 
 	'tokens'	=>	array(
-		'TEXT'			=> 'Any text, including foreign characters, numbers, etc… You should not use this token in HTML tags. Instead try to use IDENTIFIER, INTTEXT or SIMPLETEXT.',
+		'TEXT'			=> 'Any text, including foreign characters, numbers, etc…',
 		'SIMPLETEXT'	=> 'Characters from the latin alphabet (A-Z), numbers, spaces, commas, dots, minus, plus, hyphen and underscore',
 		'INTTEXT'		=> 'Unicode letter characters, numbers, spaces, commas, dots, minus, plus, hyphen, underscore and whitespaces.',
 		'IDENTIFIER'	=> 'Characters from the latin alphabet (A-Z), numbers, hyphen and underscore',
 		'NUMBER'		=> 'Any series of digits',
 		'EMAIL'			=> 'A valid email address',
-		'URL'			=> 'A valid URL using any protocol (http, ftp, etc… cannot be used for javascript exploits). If none is given, “http://” is prefixed to the string.',
+		'URL'			=> 'A valid URL using any allowed protocol (http, ftp, etc… cannot be used for javascript exploits). If none is given, “http://” is prefixed to the string.',
 		'LOCAL_URL'		=> 'A local URL. The URL must be relative to the topic page and cannot contain a server name or protocol, as links are prefixed with “%s”',
 		'RELATIVE_URL'	=> 'A relative URL. You can use this to match parts of a URL, but be careful: a full URL is a valid relative URL. When you want to use relative URLs of your board, use the LOCAL_URL token.',
 		'COLOR'			=> 'A HTML colour, can be either in the numeric form <samp>#FF1234</samp> or a <a href="http://www.w3.org/TR/CSS21/syndata.html#value-def-color">CSS colour keyword</a> such as <samp>fuchsia</samp> or <samp>InactiveBorder</samp>',

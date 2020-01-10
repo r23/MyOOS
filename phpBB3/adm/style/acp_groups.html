@@ -36,10 +36,12 @@
 		<dl>
 			<dt><label for="group_type">{L_GROUP_TYPE}{L_COLON}</label><br /><span>{L_GROUP_TYPE_EXPLAIN}</span></dt>
 			<dd>
+				{% EVENT acp_group_types_prepend %}
 				<label><input name="group_type" type="radio" class="radio" id="group_type" value="{GROUP_TYPE_FREE}"{GROUP_FREE} /> {L_GROUP_OPEN}</label>
 				<label><input name="group_type" type="radio" class="radio" value="{GROUP_TYPE_OPEN}"{GROUP_OPEN} /> {L_GROUP_REQUEST}</label>
 				<label><input name="group_type" type="radio" class="radio" value="{GROUP_TYPE_CLOSED}"{GROUP_CLOSED} /> {L_GROUP_CLOSED}</label>
 				<label><input name="group_type" type="radio" class="radio" value="{GROUP_TYPE_HIDDEN}"{GROUP_HIDDEN} /> {L_GROUP_HIDDEN}</label>
+				{% EVENT acp_group_types_append %}
 			</dd>
 		</dl>
 	<!-- ELSE -->
@@ -98,7 +100,7 @@
 			<input name="group_colour" type="text" id="group_colour" value="{GROUP_COLOUR}" size="6" maxlength="6" />
 			<!-- IF GROUP_COLOUR -->&nbsp;<span style="background-color: #{GROUP_COLOUR}">&nbsp; &nbsp;</span><!-- ENDIF -->&nbsp;&nbsp;<span>
 			[ <a href="#" id="color_palette_toggle">{L_COLOUR_SWATCH}</a> ]</span>
-			<div id="color_palette_placeholder" style="display: none;" data-orientation="h" data-height="12" data-width="15" data-target="#group_colour"></div>
+			<div id="color_palette_placeholder" style="display: none;" data-color-palette="h" data-height="12" data-width="15" data-target="#group_colour"></div>
 		</dd>
 	</dl>
 	<dl>

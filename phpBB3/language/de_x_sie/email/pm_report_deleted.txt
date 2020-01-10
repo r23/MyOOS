@@ -1,6 +1,6 @@
 Subject: Meldung gelöscht — „{PM_SUBJECT}“
 
-Hallo {USERNAME},
+Guten Tag {USERNAME},
 
 Sie erhalten diese Nachricht, weil Ihre Meldung zur Privaten Nachricht „{PM_SUBJECT}“ auf „{SITENAME}“ von einem Moderator oder Administrator gelöscht wurde.
 

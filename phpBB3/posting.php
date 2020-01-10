@@ -40,7 +40,7 @@ $load		= (isset($_POST['load'])) ? true : false;
 $confirm	= $request->is_set_post('confirm');
 $cancel		= (isset($_POST['cancel']) && !isset($_POST['save'])) ? true : false;
 
-$refresh	= (isset($_POST['add_file']) || isset($_POST['delete_file']) || isset($_POST['cancel_unglobalise']) || $save || $load || $preview);
+$refresh	= (isset($_POST['add_file']) || isset($_POST['delete_file']) || $save || $load || $preview);
 $submit = $request->is_set_post('post') && !$refresh && !$preview;
 $mode		= $request->variable('mode', '');
 
@@ -256,12 +256,6 @@ if ($mode == 'popup')
 
 $user->setup(array('posting', 'mcp', 'viewtopic'), $post_data['forum_style']);
 
-if ($config['enable_post_confirm'] && !$user->data['is_registered'])
-{
-	$captcha = $phpbb_container->get('captcha.factory')->get_instance($config['captcha_plugin']);
-	$captcha->init(CONFIRM_POST);
-}
-
 // Use post_row values in favor of submitted ones...
 $forum_id	= (!empty($post_data['forum_id'])) ? (int) $post_data['forum_id'] : (int) $forum_id;
 $topic_id	= (!empty($post_data['topic_id'])) ? (int) $post_data['topic_id'] : (int) $topic_id;
@@ -425,6 +419,12 @@ if (!$is_authed || !empty($error))
 	}
 
 	login_box('', $message);
+}
+
+if ($config['enable_post_confirm'] && !$user->data['is_registered'])
+{
+	$captcha = $phpbb_container->get('captcha.factory')->get_instance($config['captcha_plugin']);
+	$captcha->init(CONFIRM_POST);
 }
 
 // Is the user able to post within this forum?
@@ -1181,12 +1181,27 @@ if ($submit || $preview || $refresh)
 		$error[] = $user->lang['EMPTY_SUBJECT'];
 	}
 
-	// Check for out-of-bounds characters that are currently
-	// not supported by utf8_bin in MySQL
-	if (preg_match_all('/[\x{10000}-\x{10FFFF}]/u', $post_data['post_subject'], $matches))
+	/**
+	 * Replace Emojis and other 4bit UTF-8 chars not allowed by MySQL to UCR/NCR.
+	 * Using their Numeric Character Reference's Hexadecimal notation.
+	 * Check the permissions for posting Emojis first.
+	 */
+	if ($auth->acl_get('u_emoji'))
 	{
-		$character_list = implode('<br />', $matches[0]);
-		$error[] = $user->lang('UNSUPPORTED_CHARACTERS_SUBJECT', $character_list);
+		$post_data['post_subject'] = utf8_encode_ucr($post_data['post_subject']);
+	}
+	else
+	{
+		/**
+		 * Check for out-of-bounds characters that are currently
+		 * not supported by utf8_bin in MySQL
+		 */
+		if (preg_match_all('/[\x{10000}-\x{10FFFF}]/u', $post_data['post_subject'], $matches))
+		{
+			$character_list = implode('<br>', $matches[0]);
+
+			$error[] = $user->lang('UNSUPPORTED_CHARACTERS_SUBJECT', $character_list);
+		}
 	}
 
 	$post_data['poll_last_vote'] = (isset($post_data['poll_last_vote'])) ? $post_data['poll_last_vote'] : 0;

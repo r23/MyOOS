@@ -1,6 +1,6 @@
 Subject: phpBB ist für den E-Mail-Versand konfiguriert
 
-Hallo {USERNAME},
+Guten Tag {USERNAME},
 
 Herzlichen Glückwunsch. Wenn Sie diese Nachricht erhalten, ist phpBB richtig für den E-Mail-Versand konfiguriert.
 

@@ -82,6 +82,7 @@ $lang = array_merge($lang, array(
 	'ACL_U_SAVEDRAFTS'	=> 'Kann Entwürfe speichern',
 	'ACL_U_CHGCENSORS'	=> 'Kann Wortzensur umgehen',
 	'ACL_U_SIG'			=> 'Kann Signatur verwenden',
+	'ACL_U_EMOJI'		=> 'Kann Emojis und Rich-Text-Zeichen in Thementiteln verwenden',
 
 	'ACL_U_SENDPM'		=> 'Kann Private Nachrichten verschicken',
 	'ACL_U_MASSPM'		=> 'Kann PNs an mehrere Benutzer verschicken',
