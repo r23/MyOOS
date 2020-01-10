@@ -3,6 +3,7 @@
 return [
     // NEVER REWRITE
     'zendframework/zendframework' => 'zendframework/zendframework',
+    'zend-developer-tools/toolbar/doctrine' => 'zend-developer-tools/toolbar/doctrine',
 
     // NAMESPACES
     // Zend Framework components
@@ -434,6 +435,9 @@ return [
 
     // CONFIG KEYS, SCRIPT NAMES, ETC
     // ZF components
+    '::fromZend' => '::fromLaminas', // psr7bridge
+    '::toZend' => '::toLaminas', // psr7bridge
+    'use_zend_loader' => 'use_laminas_loader', // zend-modulemanager
     'zend-config' => 'laminas-config',
     'zend-developer-tools/' => 'laminas-developer-tools/',
     'zend-tag-cloud' => 'laminas-tag-cloud',
