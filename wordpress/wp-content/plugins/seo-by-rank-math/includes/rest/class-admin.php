@@ -148,6 +148,19 @@ class Admin extends WP_REST_Controller {
 		$object_type = $request->get_param( 'objectType' );
 		$meta        = $request->get_param( 'meta' );
 
+		$new_slug = true;
+		if ( isset( $meta['permalink'] ) && ! empty( $meta['permalink'] ) ) {
+			$post     = get_post( $object_id );
+			$new_slug = wp_unique_post_slug( $meta['permalink'], $post->ID, $post->post_status, $post->post_type, $post->post_parent );
+			wp_update_post(
+				[
+					'ID'        => $object_id,
+					'post_name' => $new_slug,
+				]
+			);
+			unset( $meta['permalink'] );
+		}
+
 		foreach ( $meta as $meta_key => $meta_value ) {
 			if ( empty( $meta_value ) ) {
 				delete_metadata( $object_type, $object_id, $meta_key );
@@ -157,7 +170,7 @@ class Admin extends WP_REST_Controller {
 			update_metadata( $object_type, $object_id, $meta_key, $meta_value );
 		}
 
-		return true;
+		return $new_slug;
 	}
 
 	/**

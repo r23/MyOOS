@@ -168,6 +168,10 @@ class DB {
 	 * @return bool
 	 */
 	private static function compare_sources( $sources, $uri ) {
+		if ( ! is_array( $sources ) || empty( $sources ) ) {
+			return false;
+		}
+
 		foreach ( $sources as $source ) {
 			if ( Str::comparison( self::get_clean_pattern( $source['pattern'], $source['comparison'] ), $uri, $source['comparison'] ) ) {
 				return true;

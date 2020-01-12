@@ -281,6 +281,8 @@ class Installer {
 			'sitemap',
 			'rich-snippet',
 			'woocommerce',
+			'buddypress',
+			'bbpress',
 			'acf',
 		];
 
@@ -422,8 +424,8 @@ class Installer {
 			$titles[ 'pt_' . $post_type . '_custom_robots' ]        = $defaults['is_custom'];
 			$titles[ 'pt_' . $post_type . '_default_rich_snippet' ] = $defaults['rich_snippet'];
 			$titles[ 'pt_' . $post_type . '_default_article_type' ] = $defaults['article_type'];
-			$titles[ 'pt_' . $post_type . '_default_snippet_name' ] = '%title%';
-			$titles[ 'pt_' . $post_type . '_default_snippet_desc' ] = '%excerpt%';
+			$titles[ 'pt_' . $post_type . '_default_snippet_name' ] = '%seo_title%';
+			$titles[ 'pt_' . $post_type . '_default_snippet_desc' ] = '%seo_description%';
 
 			if ( $this->has_archive( $post_type ) ) {
 				$titles[ 'pt_' . $post_type . '_archive_title' ] = '%title% %page% %sep% %sitename%';

@@ -110,9 +110,9 @@ trait Conditional {
 	/**
 	 * Check if the AMP module is active.
 	 *
-	 * @return bool
-	 *
 	 * @since 1.0.24
+	 *
+	 * @return bool
 	 */
 	public static function is_amp_active() {
 		if ( ! self::is_module_active( 'amp' ) ) {
@@ -129,9 +129,9 @@ trait Conditional {
 	/**
 	 * Check if editing the file is allowed.
 	 *
-	 * @return bool
-	 *
 	 * @since 1.0.32
+	 *
+	 * @return bool
 	 */
 	public static function is_edit_allowed() {
 		return ( ! defined( 'DISALLOW_FILE_EDIT' ) || ! DISALLOW_FILE_EDIT ) && ( ! defined( 'DISALLOW_FILE_MODS' ) || ! DISALLOW_FILE_MODS );
@@ -140,8 +140,9 @@ trait Conditional {
 	/**
 	 * Check whether to show SEO score.
 	 *
-	 * @return boolean
 	 * @since 1.0.32
+	 *
+	 * @return boolean
 	 */
 	public static function is_score_enabled() {
 		/**
@@ -150,5 +151,16 @@ trait Conditional {
 		 * @param bool Enable SEO Score.
 		 */
 		return apply_filters( 'rank_math/show_score', true );
+	}
+
+	/**
+	 * Is on elementor editor.
+	 *
+	 * @since 1.0.37
+	 *
+	 * @return boolean
+	 */
+	public static function is_elementor_editor() {
+		return 'elementor' === \MyThemeShop\Helpers\Param::get( 'action' );
 	}
 }

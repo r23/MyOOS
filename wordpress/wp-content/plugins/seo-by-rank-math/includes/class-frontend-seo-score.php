@@ -52,7 +52,7 @@ class Frontend_SEO_Score {
 	 */
 	public function __construct() {
 		$this->filter( 'the_content', 'insert_score' );
-		$this->action( 'rank_math/metabox/settings/advanced', 'metabox_settings_advanced', 9 );
+		$this->action( 'rank_math/metabox/settings/advanced', 'metabox_settings_advanced', 11 );
 
 		$this->add_shortcode( 'rank_math_seo_score', 'shortcode' );
 	}
@@ -221,11 +221,10 @@ class Frontend_SEO_Score {
 	 * @return boolean
 	 */
 	public static function show_on( $field = array() ) {
-		$post_type     = get_post_type();
-		$score_enabled = Helper::get_settings( 'general.frontend_seo_score' )
-			&& in_array( $post_type, (array) Helper::get_settings( 'general.frontend_seo_score_post_types' ), true );
+		$post_type = get_post_type();
 
-		return $score_enabled;
+		return Helper::get_settings( 'general.frontend_seo_score' ) &&
+			in_array( $post_type, (array) Helper::get_settings( 'general.frontend_seo_score_post_types' ), true );
 	}
 
 	/**
@@ -237,11 +236,10 @@ class Frontend_SEO_Score {
 		$cmb->add_field( array(
 			'id'         => 'rank_math_dont_show_seo_score',
 			'type'       => 'switch',
-			'name'       => esc_html__( 'Front End SEO Score', 'rank-math' ),
-			'desc'       => esc_html__( 'Show the SEO Score on the front end for this post.', 'rank-math' ),
+			'name'       => esc_html__( 'Show SEO Score on Front-end', 'rank-math' ),
 			'options'    => [
-				'off' => esc_html__( 'On', 'rank-math' ),
 				'on'  => esc_html__( 'Off', 'rank-math' ),
+				'off' => esc_html__( 'On', 'rank-math' ),
 			],
 			'show_on_cb' => [ $this, 'show_on' ],
 			'default'    => 'off',

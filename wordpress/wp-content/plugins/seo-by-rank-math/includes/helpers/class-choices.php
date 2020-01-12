@@ -460,7 +460,7 @@ trait Choices {
 		];
 
 		if ( ! empty( self::get_review_posts() ) ) {
-			$types['review'] = esc_html__( 'Review', 'rank-math' );
+			$types['review'] = esc_html__( 'Review (Unsupported)', 'rank-math' );
 		}
 
 		if ( is_string( $none ) ) {

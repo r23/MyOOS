@@ -94,7 +94,10 @@ class Admin_Menu implements Runner {
 			return;
 		}
 
-		if ( current_user_can( 'manage_options' ) && 'Rank Math' === $submenu['rank-math'][0][0] ) {
+		if (
+			current_user_can( 'manage_options' ) &&
+			'Rank Math' === $submenu['rank-math'][0][0]
+		) {
 			$submenu['rank-math'][0][0] = esc_html__( 'Dashboard', 'rank-math' );
 		} else {
 			unset( $submenu['rank-math'][0] );

@@ -161,6 +161,7 @@ class Admin extends Base {
 		$values['knowledgegraphType'] = Helper::get_settings( 'titles.knowledgegraph_type' );
 
 		Helper::add_json( 'richSnippets', $values );
+		Helper::add_json( 'hasReviewPosts', ! empty( Helper::get_review_posts() ) );
 	}
 
 	/**
@@ -170,8 +171,9 @@ class Admin extends Base {
 		Helper::add_json(
 			'assessor',
 			[
-				'articleKBLink'      => KB::get( 'article' ),
-				'richSnippetsKBLink' => KB::get( 'rich-snippets' ),
+				'articleKBLink'       => KB::get( 'article' ),
+				'reviewConverterLink' => Helper::get_admin_url( 'status', 'view=tools' ),
+				'richSnippetsKBLink'  => KB::get( 'rich-snippets' ),
 			]
 		);
 	}

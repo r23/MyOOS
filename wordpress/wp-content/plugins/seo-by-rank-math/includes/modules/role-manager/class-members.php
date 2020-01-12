@@ -54,7 +54,7 @@ class Members {
 	 * Registers caps.
 	 */
 	public function register_caps() {
-		$caps = Helper::get_capabilities();
+		$caps = Capability_Manager::get()->get_capabilities();
 		if ( 'administrator' === Param::get( 'role' ) ) {
 			$caps['rank_math_edit_htaccess'] = esc_html__( 'Edit .htaccess', 'rank-math' );
 		}

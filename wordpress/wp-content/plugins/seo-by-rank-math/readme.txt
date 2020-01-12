@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection
 Tested up to: 5.3.1
 Requires at least: 4.9.0
 Requires PHP: 5.6
-Stable tag: 1.0.36.3
+Stable tag: 1.0.37.1
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -96,6 +96,8 @@ Even with significantly more features than other plugins, Rank Math still consis
 * **Super Fast SEO Plugin** — Even after packing so many features, Rank Math has a negligible load on your server.
 
 * **New SEO Analyzer** — Rank Math's built-in SEO analysis will give you SEO recommendations that you'd normally spend hundreds of dollars to get.
+
+* **[Elementor SEO](https://rankmath.com/blog/elementor-seo/)** - Deep integration with the Elementor Page builder. Now, you don't need to go back and forth between tabs to configure your page's SEO. Everything related to SEO can be configured in the visual editor.
 
 * **Optimize 5 Keywords At Once** — You can optimize your post for up to 5 different keywords with Rank Math.
 
@@ -451,50 +453,42 @@ We look forward to helping you.
 
 == Changelog ==
 
-= 1.0.36.3 [Dec 23, 2019] =
-* Added Role Manager support for new Gutenberg Sidebar Editor
-* Fixed SEO meta not saving if Custom Fields section is enabled in the single post editor
-* Fixed show unsupported schema notice only if old 'Review Schema' type is selected
-* Fixed page builder shortcodes not rendering in the description tag
-* Fixed `SEO: Not Available` issue happening on some installations
-* Fixed `wp_set_script_translations()` related error happening on some installations which are using WP v4.9 or less
-* Fixed a rare `escaped_value()` related error happening with the Role Manager
+= 1.0.37.1 [Jan 12, 2019] =
+* Fixed Keyword Density test not working in the Classic Editor
+* Fixed wrong option status showing for the `nofollow` & `sponsored` option in the Classic Editor
+* Fixed translation not working for the sidebar tests
+* Fixed 'Event Status' option value not saving in the Gutenberg Editor
+* Removed SEO options for users from the multisite network root
 
-= 1.0.36.2 [Dec 21, 2019] =
-* Improved the scoring mechanism to work in sync with the Classic Editor
-* Fixed an issue with WordPress 4.9 where the Rank Math plugin was refusing to load on some installations
-* Fixed a bug where new Meta Data was not getting saved on category pages
-* Removed `rankMathApi.js` file as the plugin was never using it. Rank Math was using the `rank-math.php` file instead all the time
-* Made Pillar Content icon show up in the SEO Column of posts and pages
-
-= 1.0.36.1 [Dec 19, 2019] =
-* Fixed "Cannot read property 'snippetType' of undefined" error on some installations
-* Removed the notice to re-connect the account. You can do so by heading to Rank Math > Dashboard > Help Tab
-
-= 1.0.36 [Dec 18, 2019] =
-* [HUGE!] Added complete Gutenberg support. The new editor will be [shown in the sidebar](https://i.rankmath.com/U44EB5)
-* [HUGE!] Added a filter to add unlimited Focus keywords. [Here's the code](https://rankmath.com/kb/filters-hooks-api-developer/#unlimited-keywords)
-* Added [Nofollow, & Sponsored options](https://i.rankmath.com/6khs6N) for the links in the Gutenberg/new editor as well
-* Added a filter to bring the old Rank Math box in the new editor area. [Here's the code](https://rankmath.com/kb/filters-hooks-api-developer/#disable-gutenberg-sidebar)
-* Added ACF integration in the sidebar edition of Rank Math as well
-* Added a new smoother way to connect the Rank Math account. PLEASE RECONNECT your account from inside the plugin
-* Added an email notification to be sent every time Rank Math gets auto-updated
-* Added Elementor's compatibility with the Sitemap module of Rank Math to make it efficient
-* Added a clear warning of unsupported Review Schema type. Please convert to the new system by [following this guide](https://rankmath.com/kb/how-to-fix-review-schema-errors/) (if you haven't already)
-* Removed 'Flesch Reading Score' test
-* Improved the performance of the post editor area to load faster
-* Improved the Review Schema of the supported Schema types to include single-author rating instead of aggregateRating. Props to [Matthew](https://www.matthewwoodward.co.uk/)
-* Improved Rich Snippet Shortcode's output
-* Improved the integration with WooCommerce
-* Improved the analysis of a focus keyword. Now the keywords with a comma are treated separately
-* Improved Power Words library to fix some typos
-* Fixed an incompatibility with PHP 7.4
-* Fixed an error with the Schema Markup becoming unreadable in some cases
-* Fixed the missing fields in the Dentist Schema markup
-* Fixed an error where users were unable to access the setup wizard in some cases
-* Fixed small issues detected by Rollbar to make the plugin more performant
-* Fixed an issue where the Rank Math's admin toolbar JS was running even if the admin bar was disabled by an admin
-* Fixed many minor styling issues in the backend
-* Please note that the minimum version to run Rank Math is now WordPress 4.9
+= 1.0.37 [Jan 10, 2019] =
+* [HUGE!] Added enhanced **[Elementor SEO](https://rankmath.com/blog/elementor-seo/)** integration so everything related to the Rank Math SEO could be set while using the Elementor's editor
+* Added support for Elementor's new Table of Content widget
+* Added Star Rating in the preview area for all the, [supported Schema types](https://rankmath.com/kb/how-to-fix-review-schema-errors/#here-is-the-list-of-rank-maths-schema-types-which-supports-rating-options)
+* Added frontend SEO Score option in the Gutenberg sidebar
+* Added Rank Math's SEO column in the Easy Digital Downloads products area
+* Added a warning if "Delete Rank Math data filter" is present in the theme [https://i.rankmath.com/C2k2O2](https://i.rankmath.com/C2k2O2)
+* Added cache flushing of the Sitemap when a post or page is set to `noindex` from the Top Admin Bar on the frontend
+* Improved output of the SEO Description for the pages with the page builders using shortcodes, like Divi
+* Improved Schema Markup's Title and Description output to use the data from the General SEO tab by default
+* Improved the obsolete Review Schema type by adding 'Unsupported' word in the dropdown so users would, [use the converter to fix the Review Schema errors](https://rankmath.com/kb/how-to-fix-review-schema-errors/)
+* Improved BuddyPress integration, now the module automatically activates after BuddyPress' activation
+* Updated locale list supported by Facebook for the OG tags
+* Removed TOC test support for CM Table Of Contents, Easy Table of Contents, f(x) TOC, HM Content TOC, Shortcodes Ultimate, Simple TOC, Table of content, Table of Contents Plus, Thrive Architect, Fixed TOC. These and other plugins can add the support for the Rank Math plugin by using [this filter](https://rankmath.com/kb/filters-hooks-api-developer/#add-toc-plugin)
+* Fixed Bulk editing not working after the Gutenberg's release
+* Fixed Block Editor aka Gutenberg's Sidebar translation not working
+* Fixed Focus Keyword not recognizing words with diacritics in Gutenberg (German words etc.)
+* Fixed Focus Keyword not getting detected when it had HTML tags in it
+* Fixed a browser console error when `++` was used in the Focus Keyword field
+* Fixed Primary Term option not working with the new Gutenberg sidebar design
+* Fixed "Rich Snippet" Block not appearing in the block list
+* Fixed Schema type set in the global settings not applying to the newly created posts
+* Fixed disconnect account issue happening on some installations
+* Fixed `lodash` conflict happening with few plugins
+* Fixed an issue where WooCommerce's short description and tag variables were not working in the Global settings
+* Fixed Global Description Meta template not applying to the single Product Previews in WooCommerce
+* Fixed an issue which was preventing to select the Employment type in the JobPosting Schema in the sidebar design
+* Fixed an issue where Date variable was showing incorrect value on the archive pages
+* Fixed few Role Manager related issues. Everything with the Role Manager should be working as intended
+* Added various CSS enhancements, bug fixes, and general stability improvements
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://s.rankmath.com/changelog)**

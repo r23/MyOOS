@@ -12,6 +12,7 @@ namespace RankMath\Wizard;
 
 use RankMath\Helper;
 use MyThemeShop\Helpers\WordPress;
+use RankMath\Role_Manager\Capability_Manager;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -52,7 +53,8 @@ class Role implements Wizard_Step {
 	 */
 	public function form( $wizard ) {
 		$defaults  = Helper::get_roles_capabilities();
-		$cap_count = count( Helper::get_capabilities() );
+		$caps      = Capability_Manager::get()->get_capabilities();
+		$cap_count = count( $caps );
 
 		foreach ( WordPress::get_roles() as $role => $label ) {
 			$default = isset( $defaults[ $role ] ) ? $defaults[ $role ] : [];
@@ -60,7 +62,7 @@ class Role implements Wizard_Step {
 				'id'      => esc_attr( $role ),
 				'type'    => 'multicheck_inline',
 				'name'    => translate_user_role( $label ),
-				'options' => Helper::get_capabilities(),
+				'options' => $caps,
 				'default' => $default,
 				'classes' => 'cmb-big-labels' . ( count( $default ) === $cap_count ? ' multicheck-checked' : '' ),
 			]);

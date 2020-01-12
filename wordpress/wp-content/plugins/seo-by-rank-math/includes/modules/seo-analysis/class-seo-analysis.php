@@ -36,7 +36,9 @@ class SEO_Analysis {
 			$this->admin = new Admin;
 		}
 
-		$this->action( 'rank_math/admin_bar/items', 'admin_bar_items', 11 );
+		if ( Helper::has_cap( 'rank_math_site_analysis' ) ) {
+			$this->action( 'rank_math/admin_bar/items', 'admin_bar_items', 11 );
+		}
 	}
 
 	/**

@@ -1,0 +1,133 @@
+<?php
+/**
+ * The routes for post related functionality
+ *
+ * Defines the functionality loaded on admin.
+ *
+ * @since      1.0.15
+ * @package    RankMath
+ * @subpackage RankMath\Rest
+ * @author     Rank Math <support@rankmath.com>
+ */
+
+namespace RankMath\Rest;
+
+use WP_Error;
+use WP_REST_Server;
+use WP_REST_Request;
+use WP_REST_Controller;
+use RankMath\Helper;
+use RankMath\Rest\Helper as RestHelper;
+
+defined( 'ABSPATH' ) || exit;
+
+/**
+ * Post class.
+ */
+class Post extends WP_REST_Controller {
+
+	/**
+	 * Constructor.
+	 */
+	public function __construct() {
+		$this->namespace = RestHelper::BASE;
+	}
+
+	/**
+	 * Registers the routes for the objects of the controller.
+	 */
+	public function register_routes() {
+		register_rest_route(
+			$this->namespace,
+			'/updateMetaBulk',
+			[
+				'methods'             => WP_REST_Server::CREATABLE,
+				'permission_callback' => function() {
+					return Helper::has_cap( 'onpage_general' );
+				},
+				'callback'            => [ $this, 'update_bulk_meta' ],
+				'args'                => $this->get_update_metadata_args(),
+			]
+		);
+	}
+
+	/**
+	 * Update bulk metadata.
+	 *
+	 * @param WP_REST_Request $request Full details about the request.
+	 *
+	 * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
+	 */
+	public function update_bulk_meta( WP_REST_Request $request ) {
+		$rows = $request->get_param( 'rows' );
+
+		foreach ( $rows as $post_id => $data ) {
+			$post_id = absint( $post_id );
+			if ( ! $post_id ) {
+				continue;
+			}
+
+			$this->save_row( $post_id, $data );
+		}
+
+		return [ 'success' => true ];
+	}
+
+	/**
+	 * Save single row.
+	 *
+	 * @param int   $post_id Post id.
+	 * @param array $data    Post data.
+	 */
+	private function save_row( $post_id, $data ) {
+		foreach ( $data as $key => $value ) {
+			$this->save_column( $post_id, $key, $value );
+		}
+	}
+
+	/**
+	 * Save row columns.
+	 *
+	 * @param int    $post_id Post id.
+	 * @param string $column  Column name.
+	 * @param string $value   Column value.
+	 */
+	private function save_column( $post_id, $column, $value ) {
+		if ( ! in_array( $column, [ 'focus_keyword', 'title', 'description', 'image_alt', 'image_title' ], true ) ) {
+			return;
+		}
+
+		if ( 'image_title' === $column ) {
+			wp_update_post([
+				'ID'         => $post_id,
+				'post_title' => $value,
+			]);
+			return;
+		}
+
+		if ( 'focus_keyword' === $column ) {
+			$focus_keyword    = get_post_meta( $post_id, 'rank_math_' . $column, true );
+			$focus_keyword    = explode( ',', $focus_keyword );
+			$focus_keyword[0] = $value;
+			$value            = implode( ',', $focus_keyword );
+		}
+
+		$column = 'image_alt' === $column ? '_wp_attachment_image_alt' : 'rank_math_' . $column;
+		update_post_meta( $post_id, $column, $value );
+	}
+
+	/**
+	 * Get update metadta endpoint arguments.
+	 *
+	 * @return array
+	 */
+	private function get_update_metadata_args() {
+		return [
+			'rows' => [
+				'required'          => true,
+				'description'       => esc_html__( 'No meta rows found to update.', 'rank-math' ),
+				'validate_callback' => [ '\\RankMath\\Rest\\Helper', 'is_param_empty' ],
+			],
+		];
+	}
+}

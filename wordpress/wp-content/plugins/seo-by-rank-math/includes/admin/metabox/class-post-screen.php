@@ -13,6 +13,7 @@ namespace RankMath\Admin\Metabox;
 use RankMath\KB;
 use RankMath\Helper;
 use RankMath\Traits\Hooker;
+use RankMath\Frontend_SEO_Score;
 use RankMath\Admin\Admin_Helper;
 use MyThemeShop\Helpers\Str;
 use MyThemeShop\Helpers\Url;
@@ -67,7 +68,12 @@ class Post_Screen implements IScreen {
 	 * Enqueue Styles and Scripts required for screen.
 	 */
 	public function enqueue() {
-		$this->enqueue_custom_fields();
+		$is_block_editor = Helper::is_block_editor() && \rank_math_is_gutenberg();
+		$is_elementor    = Helper::is_elementor_editor();
+
+		if ( ! $is_elementor ) {
+			$this->enqueue_custom_fields();
+		}
 
 		wp_register_script(
 			'rank-math-formats',
@@ -77,8 +83,6 @@ class Post_Screen implements IScreen {
 			true
 		);
 
-		$is_block_editor = Helper::is_block_editor() && \rank_math_is_gutenberg();
-		$is_elementor    = 'elementor' === \MyThemeShop\Helpers\Param::get( 'action' );
 		if ( $is_block_editor || $is_elementor ) {
 			$this->enqueue_commons();
 		}
@@ -121,6 +125,8 @@ class Post_Screen implements IScreen {
 				'useFocusKeyword' => 'focus_keywords' === Helper::get_settings( 'titles.pt_' . $screen->post_type . '_ls_use_fk' ),
 			],
 			'siteFavIcon'            => $this->get_site_icon(),
+			'frontEndScore'          => Frontend_SEO_Score::show_on(),
+			'postName'               => get_post_field( 'post_name', get_post() ),
 			'assessor'               => [
 				'hasTOCPlugin'     => $this->has_toc_plugin(),
 				'sentimentKbLink'  => KB::get( 'sentiments' ),
@@ -149,6 +155,7 @@ class Post_Screen implements IScreen {
 			'authorName'          => get_the_author_meta( 'display_name' ),
 			'titleTemplate'       => Helper::get_settings( "titles.pt_{$post->post_type}_title", '%%title%% %%sep%% %%sitename%%' ),
 			'descriptionTemplate' => Helper::get_settings( "titles.pt_{$post->post_type}_description", '' ),
+			'showScoreFrontend'   => ! Helper::get_post_meta( 'dont_show_seo_score', $this->get_object_id() ),
 		];
 	}
 
@@ -246,8 +253,28 @@ class Post_Screen implements IScreen {
 		);
 
 		if ( function_exists( 'wp_set_script_translations' ) ) {
-			wp_set_script_translations( 'rank-math-gutenberg', 'rank-math', rank_math()->plugin_dir() . '/languages/' );
+			$this->filter( 'load_script_translation_file', 'load_script_translation_file', 10, 3 );
+			wp_set_script_translations( 'rank-math-analyzer', 'rank-math', rank_math()->plugin_dir() . 'languages/' );
+			wp_set_script_translations( 'rank-math-gutenberg', 'rank-math', rank_math()->plugin_dir() . 'languages/' );
 		}
+	}
+
+	/**
+	 * Function to replace domain with seo-by-rank-math in translation file.
+	 *
+	 * @param string|false $file   Path to the translation file to load. False if there isn't one.
+	 * @param string       $handle Name of the script to register a translation domain to.
+	 * @param string       $domain The text domain.
+	 */
+	public function load_script_translation_file( $file, $handle, $domain ) {
+		if ( 'rank-math' !== $domain ) {
+			return $file;
+		}
+
+		$data                       = explode( '/', $file );
+		$data[ count( $data ) - 1 ] = preg_replace( '/rank-math/', 'seo-by-rank-math', $data[ count( $data ) - 1 ], 1 );
+
+		return implode( '/', $data );
 	}
 
 	/**
@@ -256,6 +283,10 @@ class Post_Screen implements IScreen {
 	 * @return bool
 	 */
 	private function has_toc_plugin() {
+		if ( \defined( 'ELEMENTOR_PRO_VERSION' ) ) {
+			return true;
+		}
+
 		$plugins_found  = [];
 		$active_plugins = get_option( 'active_plugins' );
 
@@ -265,18 +296,8 @@ class Post_Screen implements IScreen {
 		 * @param array TOC plugins.
 		 */
 		$toc_plugins = $this->do_filter( 'researches/toc_plugins', [
-			'cm-table-of-content/cm-table-of-content.php' => 'CM Table Of Contents',
-			'easy-table-of-contents/easy-table-of-contents.php' => 'Easy Table of Contents',
-			'fx-toc/fx-toc.php'                           => 'f(x) TOC',
-			'hm-content-toc/hm-content-toc.php'           => 'HM Content TOC',
-			'shortcodes-ultimate/shortcodes-ultimate.php' => 'Shortcodes Ultimate',
-			'bainternet-simple-toc/simple-toc.php'        => 'Simple TOC',
-			'content-table/content-table.php'             => 'Table of content',
-			'table-of-contents-plus/toc.php'              => 'Table of Contents Plus',
-			'wp-shortcode/wp-shortcode.php'               => 'WP Shortcode by MyThemeShop',
-			'wp-shortcode-pro/wp-shortcode-pro.php'       => 'WP Shortcode Pro by MyThemeShop',
-			'thrive-visual-editor/thrive-visual-editor.php' => 'Thrive Architect',
-			'fixed-toc/fixed-toc.php'                     => 'Fixed TOC',
+			'wp-shortcode/wp-shortcode.php'         => 'WP Shortcode by MyThemeShop',
+			'wp-shortcode-pro/wp-shortcode-pro.php' => 'WP Shortcode Pro by MyThemeShop',
 		] );
 
 		foreach ( $toc_plugins as $plugin_slug => $plugin_name ) {
@@ -346,9 +367,9 @@ class Post_Screen implements IScreen {
 			return 0;
 		}
 
-		$id = Helper::get_post_meta( 'rank_math_primary_' . $taxonomy['name'], $this->get_object_id() );
+		$id = Helper::get_post_meta( 'primary_' . $taxonomy['name'], $this->get_object_id() );
 
-		return $id ? $id : 0;
+		return $id ? absint( $id ) : 0;
 	}
 
 	/**

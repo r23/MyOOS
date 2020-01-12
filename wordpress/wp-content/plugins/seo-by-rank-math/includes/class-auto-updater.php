@@ -94,7 +94,7 @@ class Auto_Updater {
 			$to_address = $registered['email'];
 		}
 
-		$subject    = sprintf( __( '[%1$s] Rank Math has been updated to %2$s', 'rank-math' ), wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES ), $version );
+		$subject    = sprintf( __( '(!) [%1$s] Rank Math SEO has been updated to %2$s', 'rank-math' ), wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES ), $version );
 		$body       = sprintf( __( 'Hi! The Rank Math plugin installed on %1$s has been automatically updated to version %2$s.', 'rank-math' ), home_url(), $version );
 		$body      .= "\n\n";
 		$body      .= sprintf( __( 'No further action is needed on your part. For more on version %1$s, see the official changelog: https://rankmath.com/changelog/', 'rank-math' ), $version );

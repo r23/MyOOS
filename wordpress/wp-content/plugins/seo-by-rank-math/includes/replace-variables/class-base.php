@@ -57,7 +57,9 @@ class Base {
 	private function get_queried_term_object() {
 		if ( is_category() || is_tag() || is_tax() ) {
 			$term = $GLOBALS['wp_query']->get_queried_object();
-			return $term->name;
+			if ( is_object( $term ) && isset( $term->name ) ) {
+				return $term->name;
+			}
 		}
 
 		return '';

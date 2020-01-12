@@ -59,7 +59,7 @@ if ( $has_reviews ) {
 		'type'    => 'notice',
 		'what'    => 'error',
 		'classes' => 'hidden',
-		'content' => sprintf( wp_kses_post( __( 'Google does not support this Schema type anymore, Please use <a href="%s" target="_blank">this tool</a> to convert all the old posts.', 'rank-math' ) ), Helper::get_admin_url( 'status', 'view=tools' ) ),
+		'content' => sprintf( wp_kses_post( __( 'Google does not support this Schema type anymore, please use different type or use <a href="%s" target="_blank">this tool</a> to convert all the old posts.', 'rank-math' ) ), Helper::get_admin_url( 'status', 'view=tools' ) ),
 	]);
 }
 

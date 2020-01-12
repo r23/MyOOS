@@ -59,6 +59,8 @@ class Cache_Watcher {
 		$this->action( 'user_register', 'invalidate_author' );
 		$this->action( 'profile_update', 'invalidate_author' );
 
+		$this->action( 'rank_math/sitemap/invalidate_object_type', 'invalidate_object_type', 10, 2 );
+
 		add_action( 'shutdown', array( __CLASS__, 'clear_queued' ) );
 		add_action( 'update_option', array( __CLASS__, 'clear_on_option_update' ) );
 		add_action( 'deleted_term_relationships', array( __CLASS__, 'invalidate' ) );
@@ -247,6 +249,31 @@ class Cache_Watcher {
 
 		if ( $user && ! is_null( $user->roles ) && ! in_array( 'subscriber', $user->roles, true ) ) {
 			self::invalidate( 'author' );
+		}
+	}
+
+	/**
+	 * Function to clear Sitemap Cache.
+	 *
+	 * @param string $object_type Object type for destination where to save.
+	 * @param int    $object_id   Object id for destination where to save.
+	 *
+	 * @return void
+	 */
+	public static function invalidate_object_type( $object_type, $object_id ) {
+		if ( 'post' === $object_type ) {
+			self::invalidate_post( $object_id );
+			return;
+		}
+
+		if ( 'user' === $object_type ) {
+			self::invalidate_author( $object_id );
+			return;
+		}
+
+		if ( 'term' === $object_type ) {
+			$term = get_term( $object_id );
+			self::invalidate_term( $object_id, $term->taxonomy );
 		}
 	}
 

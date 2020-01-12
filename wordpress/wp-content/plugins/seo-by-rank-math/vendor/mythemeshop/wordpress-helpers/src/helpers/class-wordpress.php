@@ -165,6 +165,6 @@ class WordPress {
 			return $content;
 		}
 
-		return preg_replace( '~(?:\[/?)[^/\]]+/?\]~s', '', $content );
+		return preg_replace( '~\[\/?.*?\]~s', '', $content );
 	}
 }

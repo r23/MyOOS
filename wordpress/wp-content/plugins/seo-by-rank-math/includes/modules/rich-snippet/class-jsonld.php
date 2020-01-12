@@ -522,6 +522,7 @@ class JsonLD {
 
 		// Description.
 		$desc = Helper::get_post_meta( 'snippet_desc' );
+
 		if ( ! $desc ) {
 			$desc = Helper::replace_vars( Helper::get_settings( "titles.pt_{$this->post->post_type}_default_snippet_desc" ), $this->post );
 		}
@@ -542,6 +543,7 @@ class JsonLD {
 	 */
 	public function get_post_title( $post_id = 0 ) {
 		$title = Helper::get_post_meta( 'snippet_name', $post_id );
+
 		if ( ! $title && ! empty( $this->post ) ) {
 			$title = Helper::replace_vars( Helper::get_settings( "titles.pt_{$this->post->post_type}_default_snippet_name" ), $this->post );
 		}

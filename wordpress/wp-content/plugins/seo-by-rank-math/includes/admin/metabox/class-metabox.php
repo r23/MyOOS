@@ -54,8 +54,11 @@ class Metabox implements Runner {
 		$this->screen = new Screen;
 		if ( $this->screen->is_loaded() ) {
 			$this->action( 'cmb2_admin_init', 'add_main_metabox', 30 );
-			$this->action( 'cmb2_admin_init', 'add_link_suggestion_metabox', 30 );
 			$this->action( 'rank_math/admin/enqueue_scripts', 'enqueue' );
+
+			if ( Helper::has_cap( 'link_builder' ) ) {
+				$this->action( 'cmb2_admin_init', 'add_link_suggestion_metabox', 30 );
+			}
 
 			if ( 'post' === $this->screen->get_object_type() ) {
 				$this->filter( 'is_protected_meta', 'hide_rank_math_meta', 10, 2 );
@@ -359,6 +362,7 @@ class Metabox implements Runner {
 	 */
 	private function dont_load() {
 		return Conditional::is_heartbeat() || Conditional::is_ajax() ||
-			( class_exists( 'Vc_Manager' ) && \MyThemeShop\Helpers\Param::get( 'vc_action' ) );
+			( class_exists( 'Vc_Manager' ) && \MyThemeShop\Helpers\Param::get( 'vc_action' ) ) ||
+			is_network_admin();
 	}
 }

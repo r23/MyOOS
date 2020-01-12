@@ -86,10 +86,12 @@ class Capability_Manager {
 	/**
 	 * Returns the list of registered capabilitities.
 	 *
+	 * @param bool $caps Capabilities as keys.
+	 *
 	 * @return string[] Registered capabilities.
 	 */
-	public function get_capabilities() {
-		return array_keys( $this->capabilities );
+	public function get_capabilities( $caps = false ) {
+		return $caps ? array_keys( $this->capabilities ) : $this->capabilities;
 	}
 
 	/**
@@ -110,7 +112,7 @@ class Capability_Manager {
 	 * Remove capabilities on uninstall.
 	 */
 	public function remove_capabilities() {
-		$capabilities = $this->get_capabilities();
+		$capabilities = $this->get_capabilities( true );
 		foreach ( WordPress::get_roles() as $slug => $role ) {
 			$role = get_role( $slug );
 			if ( ! $role ) {
@@ -143,7 +145,7 @@ class Capability_Manager {
 	private function get_default_capabilities_by_role( $role ) {
 
 		if ( 'administrator' === $role ) {
-			return $this->get_capabilities();
+			return $this->get_capabilities( true );
 		}
 
 		if ( 'editor' === $role ) {

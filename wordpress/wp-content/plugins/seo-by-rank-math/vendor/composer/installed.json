@@ -154,47 +154,6 @@
         ]
     },
     {
-        "name": "mythemeshop/wordpress-helpers",
-        "version": "1.0.9",
-        "version_normalized": "1.0.9.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/MyThemeShopTeam/wordpress-helpers.git",
-            "reference": "f35b54a6a0649a1cfe577957fdfa962255ef259f"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/MyThemeShopTeam/wordpress-helpers/zipball/f35b54a6a0649a1cfe577957fdfa962255ef259f",
-            "reference": "f35b54a6a0649a1cfe577957fdfa962255ef259f",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.6"
-        },
-        "time": "2019-10-25T19:50:27+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "MyThemeShop\\Helpers\\": "src/"
-            },
-            "classmap": [
-                "src/"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "MyThemeShop",
-                "email": "info@mythemeshop.com"
-            }
-        ],
-        "description": "Collection of utilities required during development of a plugin or theme for WordPress. Build for developers by developers."
-    },
-    {
         "name": "psr/log",
         "version": "1.1.2",
         "version_normalized": "1.1.2.0",
@@ -245,17 +204,17 @@
     },
     {
         "name": "monolog/monolog",
-        "version": "1.25.2",
-        "version_normalized": "1.25.2.0",
+        "version": "1.25.3",
+        "version_normalized": "1.25.3.0",
         "source": {
             "type": "git",
             "url": "https://github.com/Seldaek/monolog.git",
-            "reference": "d5e2fb341cb44f7e2ab639d12a1e5901091ec287"
+            "reference": "fa82921994db851a8becaf3787a9e73c5976b6f1"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Seldaek/monolog/zipball/d5e2fb341cb44f7e2ab639d12a1e5901091ec287",
-            "reference": "d5e2fb341cb44f7e2ab639d12a1e5901091ec287",
+            "url": "https://api.github.com/repos/Seldaek/monolog/zipball/fa82921994db851a8becaf3787a9e73c5976b6f1",
+            "reference": "fa82921994db851a8becaf3787a9e73c5976b6f1",
             "shasum": ""
         },
         "require": {
@@ -291,7 +250,7 @@
             "ruflin/elastica": "Allow sending log messages to an Elastic Search server",
             "sentry/sentry": "Allow sending log messages to a Sentry server"
         },
-        "time": "2019-11-13T10:00:05+00:00",
+        "time": "2019-12-20T14:15:16+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -322,5 +281,46 @@
             "logging",
             "psr-3"
         ]
+    },
+    {
+        "name": "mythemeshop/wordpress-helpers",
+        "version": "1.0.10",
+        "version_normalized": "1.0.10.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/MyThemeShopTeam/wordpress-helpers.git",
+            "reference": "168c3e7a88fd5d002abe9afcb0f77456c47bb6c8"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/MyThemeShopTeam/wordpress-helpers/zipball/168c3e7a88fd5d002abe9afcb0f77456c47bb6c8",
+            "reference": "168c3e7a88fd5d002abe9afcb0f77456c47bb6c8",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.6"
+        },
+        "time": "2020-01-08T20:39:34+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "MyThemeShop\\Helpers\\": "src/"
+            },
+            "classmap": [
+                "src/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "MyThemeShop",
+                "email": "info@mythemeshop.com"
+            }
+        ],
+        "description": "Collection of utilities required during development of a plugin or theme for WordPress. Build for developers by developers."
     }
 ]

@@ -49,6 +49,7 @@ $cmb->add_field([
 	/* translators: post type name */
 	'desc'            => sprintf( esc_html__( 'Default description for single %s pages. This can be changed on a per-post basis on the post editor screen.', 'rank-math' ), $name ),
 	'classes'         => 'rank-math-supports-variables rank-math-description',
+	'default'         => '%excerpt%',
 	'sanitization_cb' => true,
 	'attributes'      => [
 		'class'             => 'cmb2-textarea-small wp-exclude-emoji',
@@ -111,7 +112,7 @@ if ( ( class_exists( 'WooCommerce' ) && 'product' === $post_type ) || ( class_ex
 		'name'            => esc_html__( 'Headline', 'rank-math' ),
 		'dep'             => [ [ 'pt_' . $post_type . '_default_rich_snippet', 'off', '!=' ] ],
 		'classes'         => 'rank-math-supports-variables',
-		'default'         => '%title%',
+		'default'         => '%seo_title%',
 		'sanitization_cb' => false,
 	]);
 
@@ -125,9 +126,9 @@ if ( ( class_exists( 'WooCommerce' ) && 'product' === $post_type ) || ( class_ex
 			'data-autoresize' => true,
 		],
 		'classes'         => 'rank-math-supports-variables',
+		'default'         => '%seo_description%',
 		'dep'             => [ [ 'pt_' . $post_type . '_default_rich_snippet', 'off,book,local', '!=' ] ],
 		'sanitization_cb' => false,
-		'default'         => '%excerpt%',
 	]);
 }
 

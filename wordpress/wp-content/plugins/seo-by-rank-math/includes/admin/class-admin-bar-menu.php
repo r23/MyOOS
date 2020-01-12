@@ -79,6 +79,11 @@ class Admin_Bar_Menu {
 			$robots = array_unique( $robots );
 
 			$this->update_meta( $object_type, $object_id, 'rank_math_robots', $robots );
+
+			if ( 'noindex' === $what ) {
+				$this->do_action( 'sitemap/invalidate_object_type', $object_type, $object_id );
+			}
+
 			die( '1' );
 		}
 

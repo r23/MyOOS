@@ -64,11 +64,12 @@ class Role_Manager extends Base {
 		$uri = untrailingslashit( plugin_dir_url( __FILE__ ) );
 
 		$this->page = new Page( 'rank-math-role-manager', esc_html__( 'Role Manager', 'rank-math' ), [
-			'position' => 11,
-			'parent'   => 'rank-math',
-			'render'   => $this->directory . '/views/main.php',
-			'classes'  => [ 'rank-math-page' ],
-			'assets'   => [
+			'position'   => 11,
+			'parent'     => 'rank-math',
+			'capability' => 'rank_math_role_manager',
+			'render'     => $this->directory . '/views/main.php',
+			'classes'    => [ 'rank-math-page' ],
+			'assets'     => [
 				'styles' => [
 					'rank-math-common'       => '',
 					'rank-math-cmb2'         => '',
@@ -91,12 +92,14 @@ class Role_Manager extends Base {
 			'save_fields'  => false,
 		]);
 
+		$caps = Capability_Manager::get()->get_capabilities();
+
 		foreach ( WordPress::get_roles() as $role => $label ) {
 			$cmb->add_field([
 				'id'                => esc_attr( $role ),
 				'type'              => 'multicheck_inline',
 				'name'              => translate_user_role( $label ),
-				'options'           => Helper::get_capabilities(),
+				'options'           => $caps,
 				'select_all_button' => false,
 				'classes'           => 'cmb-big-labels',
 			]);

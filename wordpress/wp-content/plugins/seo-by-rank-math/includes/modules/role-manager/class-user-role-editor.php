@@ -43,7 +43,7 @@ class User_Role_Editor {
 		$this->filter( 'ure_capabilities_groups_tree', 'register_group' );
 		$this->filter( 'ure_custom_capability_groups', 'register_capability_groups', 10, 2 );
 
-		$this->caps = Helper::get_capabilities();
+		$this->caps = Capability_Manager::get()->get_capabilities();
 	}
 
 	/**

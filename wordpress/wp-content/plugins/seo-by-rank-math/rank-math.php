@@ -9,7 +9,7 @@
  *
  * @wordpress-plugin
  * Plugin Name:       Rank Math SEO
- * Version:           1.0.36.3
+ * Version:           1.0.37.1
  * Plugin URI:        https://s.rankmath.com/home
  * Description:       Rank Math is a revolutionary SEO product that combines the features of many SEO tools and lets you multiply your traffic in the easiest way possible.
  * Author:            Rank Math
@@ -34,7 +34,7 @@ final class RankMath {
 	 *
 	 * @var string
 	 */
-	public $version = '1.0.36.3';
+	public $version = '1.0.37.1';
 
 	/**
 	 * Rank Math database version.
@@ -305,6 +305,7 @@ final class RankMath {
 
 		// Frontend SEO Score.
 		$this->container['frontend_seo_score'] = new \RankMath\Frontend_SEO_Score;
+		$this->load_3rd_party();
 	}
 
 	/**
@@ -347,6 +348,7 @@ final class RankMath {
 		$controllers = [
 			new \RankMath\Rest\Admin,
 			new \RankMath\Rest\Front,
+			new \RankMath\Rest\Post,
 		];
 
 		foreach ( $controllers as $controller ) {
@@ -374,6 +376,16 @@ final class RankMath {
 			return;
 		}
 		$this->container['frontend'] = new \RankMath\Frontend\Frontend;
+	}
+
+	/**
+	 * Load 3rd party modules.
+	 */
+	private function load_3rd_party() {
+
+		if ( defined( 'ELEMENTOR_VERSION' ) ) {
+			new \RankMath\Elementor\Elementor;
+		}
 	}
 
 	/**
@@ -459,7 +471,9 @@ final class RankMath {
 			$this->container['json']->add( 'version', $this->version, 'rankMath' );
 			$this->container['json']->add( 'ajaxurl', admin_url( 'admin-ajax.php' ), 'rankMath' );
 			$this->container['json']->add( 'adminurl', admin_url( 'admin.php' ), 'rankMath' );
+			$this->container['json']->add( 'endpoint', esc_url_raw( rest_url( 'rankmath/v1' ) ), 'rankMath' );
 			$this->container['json']->add( 'security', wp_create_nonce( 'rank-math-ajax-nonce' ), 'rankMath' );
+			$this->container['json']->add( 'restNonce', ( wp_installing() && ! is_multisite() ) ? '' : wp_create_nonce( 'wp_rest' ), 'rankMath' );
 		}
 	}
 

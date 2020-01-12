@@ -1,4 +1,4 @@
-# Copyright (C) 2019 rank-math
+# Copyright (C) 2020 rank-math
 # This file is distributed under the same license as the rank-math package.
 msgid ""
 msgstr ""
@@ -245,6 +245,10 @@ msgstr ""
 msgid "Quick Feedback"
 msgstr ""
 
+#. translators: 1. Bold text 2. Bold text
+msgid "%1$s A filter to remove the Rank Math data from the database is present in your theme. Deactivating this plugin will remove everything related to the Rank Math plugin. %2$s"
+msgstr ""
+
 msgid "If you have a moment, please share why you are deactivating Rank Math:"
 msgstr ""
 
@@ -488,9 +492,6 @@ msgid "Save Changes"
 msgstr ""
 
 msgid "Reset Options"
-msgstr ""
-
-msgid "No data found."
 msgstr ""
 
 msgid "Bulk Edit This Field"
@@ -1787,7 +1788,7 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-msgid "[%1$s] Rank Math has been updated to %2$s"
+msgid "(!) [%1$s] Rank Math SEO has been updated to %2$s"
 msgstr ""
 
 msgid "Hi! The Rank Math plugin installed on %1$s has been automatically updated to version %2$s."
@@ -1809,10 +1810,7 @@ msgstr ""
 msgid "SEO Score"
 msgstr ""
 
-msgid "Front End SEO Score"
-msgstr ""
-
-msgid "Show the SEO Score on the front end for this post."
+msgid "Show SEO Score on Front-end"
 msgstr ""
 
 msgid "Home"
@@ -1929,7 +1927,7 @@ msgstr ""
 msgid "Software Application"
 msgstr ""
 
-msgid "Review"
+msgid "Review (Unsupported)"
 msgstr ""
 
 msgid "301 Permanent Move"
@@ -1960,36 +1958,6 @@ msgid "End With"
 msgstr ""
 
 msgid "Regex"
-msgstr ""
-
-msgid "Titles & Meta Settings"
-msgstr ""
-
-msgid "404 Monitor Log"
-msgstr ""
-
-msgid "Link Builder"
-msgstr ""
-
-msgid "Site-Wide Analysis"
-msgstr ""
-
-msgid "On-Page Analysis"
-msgstr ""
-
-msgid "On-Page General Settings"
-msgstr ""
-
-msgid "On-Page Advanced Settings"
-msgstr ""
-
-msgid "On-Page Rich Snippet Settings"
-msgstr ""
-
-msgid "On-Page Social Settings"
-msgstr ""
-
-msgid "Top Admin Bar"
 msgstr ""
 
 msgid "Index"
@@ -3472,7 +3440,7 @@ msgstr ""
 msgid "Rich Snippets help you stand out in SERPs. <a href=\"%s\" target=\"_blank\">Learn more</a>."
 msgstr ""
 
-msgid "Google does not support this Schema typ anymore, Please use <a href=\"%s\" target=\"_blank\">this tool</a> to convert all the old posts."
+msgid "Google does not support this Schema type anymore, please use different type or use <a href=\"%s\" target=\"_blank\">this tool</a> to convert all the old posts."
 msgstr ""
 
 msgid "Review Location"
@@ -3669,6 +3637,36 @@ msgid "Contents are locked because robots.txt file is present in the root folder
 msgstr ""
 
 msgid "<strong>Warning:</strong> your site's search engine visibility is set to Hidden in <a href=\"%1$s\" target=\"_blank\">Settings > Reading</a>. This means that the changes you make here will not take effect. Set the search engine visibility to Public to be able to change the robots.txt content."
+msgstr ""
+
+msgid "Titles & Meta Settings"
+msgstr ""
+
+msgid "404 Monitor Log"
+msgstr ""
+
+msgid "Link Builder"
+msgstr ""
+
+msgid "Site-Wide Analysis"
+msgstr ""
+
+msgid "On-Page Analysis"
+msgstr ""
+
+msgid "On-Page General Settings"
+msgstr ""
+
+msgid "On-Page Advanced Settings"
+msgstr ""
+
+msgid "On-Page Rich Snippet Settings"
+msgstr ""
+
+msgid "On-Page Social Settings"
+msgstr ""
+
+msgid "Top Admin Bar"
 msgstr ""
 
 msgid "You are not authorized to perform this action."
@@ -4945,6 +4943,15 @@ msgstr ""
 msgid "Post Excerpt Only"
 msgstr ""
 
+msgid "Custom or Generated SEO Title of the current post/page"
+msgstr ""
+
+msgid "SEO Description"
+msgstr ""
+
+msgid "Custom or Generated SEO Description of the current post/page"
+msgstr ""
+
 msgid "Publication date of the current post/page <strong>OR</strong> specified date on date archives"
 msgstr ""
 
@@ -5082,6 +5089,9 @@ msgid "Site token"
 msgstr ""
 
 msgid "Sorry, field is empty which is not allowed."
+msgstr ""
+
+msgid "No meta rows found to update."
 msgstr ""
 
 msgid "Enable breadcrumbs function"
@@ -5268,9 +5278,6 @@ msgid "Help make Rank Math even more powerful by allowing us to collect non-sens
 msgstr ""
 
 msgid "Find out more."
-msgstr ""
-
-msgid "Show me the data"
 msgstr ""
 
 msgid "Auto Update"

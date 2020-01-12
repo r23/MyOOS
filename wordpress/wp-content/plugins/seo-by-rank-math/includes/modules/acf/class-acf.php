@@ -37,6 +37,10 @@ class ACF {
 	 * Enqueue styles and scripts for the metabox.
 	 */
 	public function enqueue() {
+		if ( Helper::is_elementor_editor() ) {
+			return;
+		}
+
 		if ( Admin_Helper::is_post_edit() ) {
 			wp_enqueue_script( 'rank-math-acf-post-analysis', rank_math()->plugin_url() . 'assets/admin/js/acf-analysis.js', [ 'wp-hooks', 'rank-math-analyzer' ], rank_math()->version, true );
 		}

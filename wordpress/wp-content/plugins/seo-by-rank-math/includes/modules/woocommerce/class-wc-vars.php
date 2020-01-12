@@ -118,7 +118,7 @@ class WC_Vars extends Opengraph {
 	 * @return string
 	 */
 	public function get_short_description( $product = null ) {
-		if ( is_null( $product ) ) {
+		if ( empty( $product ) ) {
 			$product = $this->get_product();
 		}
 

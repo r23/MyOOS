@@ -93,6 +93,7 @@ class Admin_Helper {
 				return delete_option( $key );
 			}
 
+			update_option( 'rank_math_registration_skip', 1 );
 			return update_option( $key, $data );
 		}
 

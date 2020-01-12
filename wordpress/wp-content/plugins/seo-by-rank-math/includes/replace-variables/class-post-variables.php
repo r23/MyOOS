@@ -71,6 +71,28 @@ class Post_Variables extends Advanced_Variables {
 			[ $this, 'get_excerpt_only' ]
 		);
 
+		$this->register_replacement(
+			'seo_title',
+			[
+				'name'        => esc_html__( 'SEO Title', 'rank-math' ),
+				'description' => esc_html__( 'Custom or Generated SEO Title of the current post/page', 'rank-math' ),
+				'variable'    => 'seo_title',
+				'example'     => $this->get_title(),
+			],
+			[ $this, 'get_seo_title' ]
+		);
+
+		$this->register_replacement(
+			'seo_description',
+			[
+				'name'        => esc_html__( 'SEO Description', 'rank-math' ),
+				'description' => esc_html__( 'Custom or Generated SEO Description of the current post/page', 'rank-math' ),
+				'variable'    => 'seo_description',
+				'example'     => $this->get_excerpt(),
+			],
+			[ $this, 'get_seo_description' ]
+		);
+
 		$this->setup_post_dates_variables();
 		$this->setup_post_category_variables();
 		$this->setup_post_tags_variables();
@@ -221,6 +243,24 @@ class Post_Variables extends Advanced_Variables {
 	}
 
 	/**
+	 * Custom or Generated SEO Title
+	 *
+	 * @return string
+	 */
+	public function get_seo_title() {
+		return Paper::get()->get_title();
+	}
+
+	/**
+	 * Custom or Generated SEO Description
+	 *
+	 * @return string
+	 */
+	public function get_seo_description() {
+		return Paper::get()->get_description();
+	}
+
+	/**
 	 * Get the parent page title of the current page/CPT to use as a replacement.
 	 *
 	 * @return string|null
@@ -270,12 +310,16 @@ class Post_Variables extends Advanced_Variables {
 	 * @return string|null
 	 */
 	public function get_date( $format = '' ) {
+		if ( is_array( $format ) && empty( $format ) ) {
+			$format = '';
+		}
+
 		if ( '' !== $this->args->post_date ) {
 			$format = $format ? $format : get_option( 'date_format' );
 			return mysql2date( $format, $this->args->post_date, true );
 		}
 
-		if ( Str::is_non_empty( get_query_var( 'day' ) ) ) {
+		if ( ! empty( get_query_var( 'day' ) ) ) {
 			return get_the_date( $format );
 		}
 
@@ -284,7 +328,7 @@ class Post_Variables extends Advanced_Variables {
 			return $replacement;
 		}
 
-		return Str::is_non_empty( get_query_var( 'year' ) ) ? get_query_var( 'year' ) : null;
+		return ! empty( get_query_var( 'year' ) ) ? get_query_var( 'year' ) : null;
 	}
 
 	/**
