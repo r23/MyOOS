@@ -12,6 +12,7 @@
 namespace Symfony\Component\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Argument\IteratorArgument;
+use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Exception\EnvNotFoundException;
@@ -166,7 +167,7 @@ final class CheckTypeDeclarationsPass extends AbstractRecursivePass
                 return;
             }
 
-            if ('callable' === $type && method_exists($class, '__invoke')) {
+            if ('callable' === $type && (\Closure::class === $class || method_exists($class, '__invoke'))) {
                 return;
             }
 
@@ -216,6 +217,10 @@ final class CheckTypeDeclarationsPass extends AbstractRecursivePass
         }
 
         if ('callable' === $type && \is_array($value) && isset($value[0]) && ($value[0] instanceof Reference || $value[0] instanceof Definition)) {
+            return;
+        }
+
+        if (\in_array($type, ['callable', 'Closure'], true) && $value instanceof ServiceClosureArgument) {
             return;
         }
 

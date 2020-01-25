@@ -243,6 +243,7 @@ FrameworkBundle
  * Removed `routing.loader.service`.
  * Added support for PHPUnit 8. A `void` return-type was added to the `KernelTestCase::tearDown()` and `WebTestCase::tearDown()` method.
  * Removed the `lock.store.flock`, `lock.store.semaphore`, `lock.store.memcached.abstract` and `lock.store.redis.abstract` services.
+ * Removed the `router.cache_class_prefix` parameter.
 
 HttpClient
 ----------
@@ -392,7 +393,7 @@ Routing
 -------
 
  * The `generator_base_class`, `generator_cache_class`, `matcher_base_class`, and `matcher_cache_class` router
-   options have been removed.
+   options have been removed. If you are using multiple Router instances and need separate caches for them, set a unique `cache_dir` per Router instance instead.
  * `Serializable` implementing methods for `Route` and `CompiledRoute` are final.
    Instead of overwriting them, use `__serialize` and `__unserialize` as extension points which are forward compatible
    with the new serialization methods in PHP 7.4.
@@ -601,7 +602,7 @@ Workflow
  * `ClassInstanceSupportStrategy` has been removed, use `InstanceOfSupportStrategy` instead.
  * `WorkflowInterface::apply()` has a third argument: `array $context = []`.
  * `MarkingStoreInterface::setMarking()` has a third argument: `array $context = []`.
- * Removed support of `initial_place`. Use `initial_places` instead.
+ * Removed support of `initial_place`. Use `initial_marking` instead.
  * `MultipleStateMarkingStore` has been removed. Use `MethodMarkingStore` instead.
  * `DefinitionBuilder::setInitialPlace()` has been removed, use `DefinitionBuilder::setInitialPlaces()` instead.
 
