@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.3.x - Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-12-03 13:57:52+0000\n"
+"PO-Revision-Date: 2020-01-24 17:29:56+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -780,7 +780,7 @@ msgstr "Navigations-Menüpositionen müssen aus Zeichenfolgen bestehen."
 #. translators: %s: The currently used PHP version.
 #: wp-includes/class-wp-recovery-mode-email-service.php:346
 msgid "PHP version %s"
-msgstr "PHP-Version&nbsp;%s"
+msgstr "PHP-Version %s"
 
 #. translators: 1: The failing plugins name. 2: The failing plugins version.
 #: wp-includes/class-wp-recovery-mode-email-service.php:338
@@ -794,7 +794,7 @@ msgstr "Aktuelles Theme: %1$s (Version %2$s)"
 
 #: wp-includes/class-wp-recovery-mode-email-service.php:324
 msgid "WordPress version %s"
-msgstr "WordPress-Version&nbsp;%s"
+msgstr "WordPress-Version %s"
 
 #: wp-includes/ms-load.php:495
 msgid "https://wordpress.org/support/article/debugging-a-wordpress-network/"
@@ -1179,9 +1179,9 @@ msgstr ""
 "Um deine Website zu schützen, läuft dieser Link in ###EXPIRES### ab. Aber keine Sorge: Ein neuer Link wird dir per E-Mail zugeschickt, wenn der Fehler nach Ablauf der Frist erneut auftritt.\n"
 "\n"
 "Wenn du Hilfe bei diesem Problem suchst, wirst du möglicherweise nach einigen der folgenden Informationen gefragt:\n"
-"####DEBUG######\n"
+"###DEBUG###\n"
 "\n"
-"####DETAILS#######"
+"###DETAILS###"
 
 #: wp-includes/class-wp-recovery-mode-email-service.php:139
 msgid "Please contact your host for assistance with investigating this issue further."

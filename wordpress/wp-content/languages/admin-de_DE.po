@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.3.x - Development - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2019-12-02 11:14:14+0000\n"
+"PO-Revision-Date: 2020-01-22 19:40:29+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1718,7 +1718,7 @@ msgstr "Theme-Funktionen"
 
 #: wp-admin/includes/class-wp-debug-data.php:941
 msgid "Parent theme"
-msgstr "Eltern-Theme"
+msgstr "Übergeordnetes Theme"
 
 #: wp-admin/includes/class-wp-debug-data.php:936
 #: wp-admin/includes/class-wp-debug-data.php:995
