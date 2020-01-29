@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2014-2019 ServMask Inc.
+ * Copyright (C) 2014-2020 ServMask Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -371,7 +371,7 @@ function ai1wm_archive_file( $blog_id = null ) {
 	$name[] = date( 'His' );
 
 	// Add unique identifier
-	$name[] = rand( 100, 999 );
+	$name[] = ai1wm_generate_random_string( 6, false );
 
 	return sprintf( '%s.wpress', strtolower( implode( '-', $name ) ) );
 }
@@ -521,6 +521,37 @@ function ai1wm_archive_share( $blog_id = null ) {
 }
 
 /**
+ * Generate random string
+ *
+ * @param  integer $length              String length
+ * @param  boolean $mixed_chars         Whether to include mixed characters
+ * @param  boolean $special_chars       Whether to include special characters
+ * @param  boolean $extra_special_chars Whether to include extra special characters
+ * @return string
+ */
+function ai1wm_generate_random_string( $length = 12, $mixed_chars = true, $special_chars = false, $extra_special_chars = false ) {
+	$chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+	if ( $mixed_chars ) {
+		$chars .= 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	}
+
+	if ( $special_chars ) {
+		$chars .= '!@#$%^&*()';
+	}
+
+	if ( $extra_special_chars ) {
+		$chars .= '-_ []{}<>~`+=,.;:/?|';
+	}
+
+	$str = '';
+	for ( $i = 0; $i < $length; $i++ ) {
+		$str .= substr( $chars, wp_rand( 0, strlen( $chars ) - 1 ), 1 );
+	}
+
+	return $str;
+}
+
+/**
  * Get storage folder name
  *
  * @return string
@@ -540,20 +571,6 @@ function ai1wm_main_site( $blog_id = null ) {
 }
 
 /**
- * Get sites absolute path by blog ID
- *
- * @param  integer $blog_id Blog ID
- * @return string
- */
-function ai1wm_sites_path( $blog_id = null ) {
-	if ( ai1wm_main_site( $blog_id ) ) {
-		return AI1WM_UPLOADS_PATH;
-	}
-
-	return AI1WM_SITES_PATH . DIRECTORY_SEPARATOR . $blog_id;
-}
-
-/**
  * Get files absolute path by blog ID
  *
  * @param  integer $blog_id Blog ID
@@ -561,10 +578,10 @@ function ai1wm_sites_path( $blog_id = null ) {
  */
 function ai1wm_files_path( $blog_id = null ) {
 	if ( ai1wm_main_site( $blog_id ) ) {
-		return AI1WM_UPLOADS_PATH;
+		return 'uploads';
 	}
 
-	return AI1WM_BLOGSDIR_PATH . DIRECTORY_SEPARATOR . $blog_id . DIRECTORY_SEPARATOR . 'files';
+	return 'blogs.dir' . DIRECTORY_SEPARATOR . $blog_id . DIRECTORY_SEPARATOR . 'files';
 }
 
 /**
@@ -574,6 +591,34 @@ function ai1wm_files_path( $blog_id = null ) {
  * @return string
  */
 function ai1wm_blogsdir_path( $blog_id = null ) {
+	if ( ai1wm_main_site( $blog_id ) ) {
+		return 'uploads';
+	}
+
+	return 'blogs.dir' . DIRECTORY_SEPARATOR . $blog_id;
+}
+
+/**
+ * Get sites absolute path by blog ID
+ *
+ * @param  integer $blog_id Blog ID
+ * @return string
+ */
+function ai1wm_sites_path( $blog_id = null ) {
+	if ( ai1wm_main_site( $blog_id ) ) {
+		return 'uploads';
+	}
+
+	return 'uploads' . DIRECTORY_SEPARATOR . 'sites' . DIRECTORY_SEPARATOR . $blog_id;
+}
+
+/**
+ * Get files URL by blog ID
+ *
+ * @param  integer $blog_id Blog ID
+ * @return string
+ */
+function ai1wm_files_url( $blog_id = null ) {
 	if ( ai1wm_main_site( $blog_id ) ) {
 		return '/wp-content/uploads/';
 	}
@@ -589,38 +634,24 @@ function ai1wm_blogsdir_path( $blog_id = null ) {
  */
 function ai1wm_blogsdir_url( $blog_id = null ) {
 	if ( ai1wm_main_site( $blog_id ) ) {
-		return get_site_url( $blog_id, '/wp-content/uploads/' );
+		return '/wp-content/uploads/';
 	}
 
-	return get_site_url( $blog_id, "/wp-content/blogs.dir/{$blog_id}/files/" );
+	return "/wp-content/blogs.dir/{$blog_id}/";
 }
 
 /**
- * Get uploads absolute path by blog ID
+ * Get sites URL by blog ID
  *
  * @param  integer $blog_id Blog ID
  * @return string
  */
-function ai1wm_uploads_path( $blog_id = null ) {
+function ai1wm_sites_url( $blog_id = null ) {
 	if ( ai1wm_main_site( $blog_id ) ) {
 		return '/wp-content/uploads/';
 	}
 
 	return "/wp-content/uploads/sites/{$blog_id}/";
-}
-
-/**
- * Get uploads URL by blog ID
- *
- * @param  integer $blog_id Blog ID
- * @return string
- */
-function ai1wm_uploads_url( $blog_id = null ) {
-	if ( ai1wm_main_site( $blog_id ) ) {
-		return get_site_url( $blog_id, '/wp-content/uploads/' );
-	}
-
-	return get_site_url( $blog_id, "/wp-content/uploads/sites/{$blog_id}/" );
 }
 
 /**
@@ -630,7 +661,6 @@ function ai1wm_uploads_url( $blog_id = null ) {
  * @return string
  */
 function ai1wm_servmask_prefix( $blog_id = null ) {
-	// Set base table prefix
 	if ( ai1wm_main_site( $blog_id ) ) {
 		return AI1WM_TABLE_PREFIX;
 	}
@@ -1173,6 +1203,19 @@ function ai1wm_deactivate_revolution_slider( $basename ) {
 }
 
 /**
+ * Initial DB version
+ *
+ * @return boolean
+ */
+function ai1wm_initial_db_version() {
+	if ( ! get_option( AI1WM_DB_VERSION ) ) {
+		return update_option( AI1WM_DB_VERSION, get_option( AI1WM_INITIAL_DB_VERSION ) );
+	}
+
+	return false;
+}
+
+/**
  * Discover plugin basename
  *
  * @param  string $basename Plugin basename
@@ -1258,6 +1301,7 @@ function ai1wm_cache_flush() {
 	// Remove WP options filter
 	remove_all_filters( 'sanitize_option_home' );
 	remove_all_filters( 'sanitize_option_siteurl' );
+	remove_all_filters( 'default_site_option_ms_files_rewriting' );
 }
 
 /**

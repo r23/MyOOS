@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2014-2019 ServMask Inc.
+ * Copyright (C) 2014-2020 ServMask Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -84,5 +84,41 @@ class Ai1wm_Updater_Controller {
 				update_option( $extensions[ $extension ]['key'], $uuid );
 			}
 		}
+	}
+
+	public static function upgrader_process_complete( $upgrader_object, $options ) {
+		if ( ! isset( $options['action'], $options['type'], $options['plugins'] ) ) {
+			return;
+		}
+
+		if ( $options['action'] !== 'update' ) {
+			return;
+		}
+
+		if ( $options['type'] !== 'plugin' ) {
+			return;
+		}
+
+		// Check if base plugin is updated
+		if ( ! in_array( AI1WM_PLUGIN_BASENAME, $options['plugins'] ) ) {
+			return;
+		}
+
+		// Check if storage folder is created
+		if ( ! is_dir( AI1WM_STORAGE_PATH ) ) {
+			Ai1wm_Directory::create( AI1WM_STORAGE_PATH );
+		}
+
+		// Check if backups folder is created
+		if ( ! is_dir( AI1WM_BACKUPS_PATH ) ) {
+			Ai1wm_Directory::create( AI1WM_BACKUPS_PATH );
+		}
+
+		Ai1wm_File_Index::create( AI1WM_STORAGE_INDEX_PHP );
+		Ai1wm_File_Index::create( AI1WM_STORAGE_INDEX_HTML );
+		Ai1wm_File_Index::create( AI1WM_BACKUPS_INDEX_PHP );
+		Ai1wm_File_Index::create( AI1WM_BACKUPS_INDEX_HTML );
+		Ai1wm_File_Htaccess::create( AI1WM_BACKUPS_HTACCESS );
+		Ai1wm_File_Webconfig::create( AI1WM_BACKUPS_WEBCONFIG );
 	}
 }

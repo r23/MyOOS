@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2014-2019 ServMask Inc.
+ * Copyright (C) 2014-2020 ServMask Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -201,7 +201,7 @@ class Ai1wm_Extensions {
 				'about'    => AI1WMME_PLUGIN_ABOUT,
 				'basename' => AI1WMME_PLUGIN_BASENAME,
 				'version'  => AI1WMME_VERSION,
-				'requires' => '3.82',
+				'requires' => '3.88',
 				'short'    => AI1WMME_PLUGIN_SHORT,
 			);
 		}

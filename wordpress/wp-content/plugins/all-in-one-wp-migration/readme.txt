@@ -4,7 +4,7 @@ Tags: move, transfer, copy, migrate, backup, clone, restore, db migration, wordp
 Requires at least: 3.3
 Tested up to: 5.3
 Requires PHP: 5.2.17
-Stable tag: 7.14
+Stable tag: 7.15
 License: GPLv2 or later
 
 Move, transfer, copy, migrate, and backup a site with 1-click. Quick, easy, and reliable.
@@ -15,7 +15,7 @@ Upload your site to a different location with a drag and drop in to WordPress.
 There is an option to apply an unlimited number of find and replace operations on your database during the export process. The plugin will also fix any
 serialisation problems that occur during the find/replace operation.
 
-Mobile device compatible: All in One WP Plugin is the first plugin to offer true mobile experience on WordPress versions 3.3 and up.
+Mobile device compatible: All-in-One WP Migration is the first plugin to offer true mobile experience on WordPress versions 3.3 and up.
 
 = No limitations on host or operating system =
 * We have tested the plugin on the major Linux distributions, MacOS and Microsoft Windows.
@@ -108,6 +108,15 @@ Alternatively you can download the plugin using the download button on this page
 All-in-One WP Migration **asks for your consent** to collect **requester's email address** when filling plugin's contact form. [GDPR Compliant Privacy Policy](https://www.iubenda.com/privacy-policy/946881)
 
 == Changelog ==
+= 7.15 =
+**Added**
+
+* Exclude web.config and .htaccess direct access from each other
+
+**Fixed**
+
+* Long backup names break download button layout
+
 = 7.14 =
 **Added**
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2014-2019 ServMask Inc.
+ * Copyright (C) 2014-2020 ServMask Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,7 +38,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				'<a href="mailto:support@servmask.com">support@servmask.com</a> for assistance.',
 				AI1WM_PLUGIN_NAME
 			),
-			AI1WM_STORAGE_INDEX
+			AI1WM_STORAGE_INDEX_PHP
 		)
 		?>
 	</p>

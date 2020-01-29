@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2014-2019 ServMask Inc.
+ * Copyright (C) 2014-2020 ServMask Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -53,6 +53,13 @@ class Ai1wm_File_Webconfig {
 					'</defaultDocument>',
 					'<directoryBrowse enabled="false" />',
 					'</system.webServer>',
+					'<location path=".htaccess">',
+					'<system.web>',
+					'<authorization>',
+					'<deny users="*" />',
+					'</authorization>',
+					'</system.web>',
+					'</location>',
 					'</configuration>',
 				)
 			)

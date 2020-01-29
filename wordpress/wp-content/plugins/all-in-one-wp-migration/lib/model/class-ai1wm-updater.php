@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2014-2019 ServMask Inc.
+ * Copyright (C) 2014-2020 ServMask Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -176,28 +176,11 @@ class Ai1wm_Updater {
 				// Get updater URL
 				$updater_url = add_query_arg( array( 'ai1wm_check_for_updates' => 1, 'ai1wm_nonce' => wp_create_nonce( 'ai1wm_check_for_updates' ) ), network_admin_url( 'plugins.php' ) );
 
-				// Check Purchase ID
+				// Check purchase ID
 				if ( get_option( $extension['key'] ) ) {
-
-					// Add "Check for updates" link
-					$links[] = Ai1wm_Template::get_content(
-						'updater/check',
-						array(
-							'url' => $updater_url,
-						)
-					);
-
+					$links[] = Ai1wm_Template::get_content( 'updater/check', array( 'url' => $updater_url ) );
 				} else {
-
-					// Add modal
-					$links[] = Ai1wm_Template::get_content(
-						'updater/modal',
-						array(
-							'url'   => $updater_url,
-							'modal' => $modal_index,
-						)
-					);
-
+					$links[] = Ai1wm_Template::get_content( 'updater/modal', array( 'url' => $updater_url, 'modal' => $modal_index ) );
 				}
 			}
 		}

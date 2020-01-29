@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2014-2019 ServMask Inc.
+ * Copyright (C) 2014-2020 ServMask Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -88,6 +88,9 @@ class Ai1wm_Import_Done {
 			// Flush Elementor cache
 			ai1wm_elementor_cache_flush();
 
+			// Initial DB version
+			ai1wm_initial_db_version();
+
 		} else {
 
 			// Check package.json file
@@ -156,6 +159,9 @@ class Ai1wm_Import_Done {
 
 				// Flush Elementor cache
 				ai1wm_elementor_cache_flush();
+
+				// Initial DB version
+				ai1wm_initial_db_version();
 			}
 		}
 
@@ -228,6 +234,9 @@ class Ai1wm_Import_Done {
 
 				// Flush Elementor cache
 				ai1wm_elementor_cache_flush();
+
+				// Initial DB version
+				ai1wm_initial_db_version();
 			}
 		}
 

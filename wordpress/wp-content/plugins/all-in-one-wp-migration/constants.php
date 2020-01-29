@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2014-2019 ServMask Inc.
+ * Copyright (C) 2014-2020 ServMask Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,17 +35,12 @@ define( 'AI1WM_DEBUG', false );
 // ==================
 // = Plugin Version =
 // ==================
-define( 'AI1WM_VERSION', '7.14' );
+define( 'AI1WM_VERSION', '7.15' );
 
 // ===============
 // = Plugin Name =
 // ===============
 define( 'AI1WM_PLUGIN_NAME', 'all-in-one-wp-migration' );
-
-// ============================
-// = Directory index.php File =
-// ============================
-define( 'AI1WM_DIRECTORY_INDEX', 'index.php' );
 
 // ================
 // = Storage Path =
@@ -292,6 +287,21 @@ define( 'AI1WM_ACTIVE_TEMPLATE', 'template' );
 // =====================
 define( 'AI1WM_ACTIVE_STYLESHEET', 'stylesheet' );
 
+// ==============
+// = DB Version =
+// ==============
+define( 'AI1WM_DB_VERSION', 'db_version' );
+
+// ======================
+// = Initial DB Version =
+// ======================
+define( 'AI1WM_INITIAL_DB_VERSION', 'initial_db_version' );
+
+// ============
+// = Cron Key =
+// ============
+define( 'AI1WM_CRON', 'cron' );
+
 // ===================
 // = Backups Labels  =
 // ===================
@@ -301,11 +311,6 @@ define( 'AI1WM_BACKUPS_LABELS', 'ai1wm_backups_labels' );
 // = Sites Links =
 // ===============
 define( 'AI1WM_SITES_LINKS', 'ai1wm_sites_links' );
-
-// ============
-// = Cron Key =
-// ============
-define( 'AI1WM_CRON', 'cron' );
 
 // ===============
 // = Updater Key =
@@ -375,21 +380,6 @@ if ( ! defined( 'WP_CONTENT_DIR' ) ) {
 }
 
 // ================
-// = Uploads Path =
-// ================
-define( 'AI1WM_UPLOADS_PATH', 'uploads' );
-
-// ==============
-// = Blogs Path =
-// ==============
-define( 'AI1WM_BLOGSDIR_PATH', 'blogs.dir' );
-
-// ==============
-// = Sites Path =
-// ==============
-define( 'AI1WM_SITES_PATH', AI1WM_UPLOADS_PATH . DIRECTORY_SEPARATOR . 'sites' );
-
-// ================
 // = Backups Path =
 // ================
 define( 'AI1WM_BACKUPS_PATH', WP_CONTENT_DIR . DIRECTORY_SEPARATOR . 'ai1wm-backups' );
@@ -397,12 +387,22 @@ define( 'AI1WM_BACKUPS_PATH', WP_CONTENT_DIR . DIRECTORY_SEPARATOR . 'ai1wm-back
 // ==========================
 // = Storage index.php File =
 // ==========================
-define( 'AI1WM_STORAGE_INDEX', AI1WM_STORAGE_PATH . DIRECTORY_SEPARATOR . 'index.php' );
+define( 'AI1WM_STORAGE_INDEX_PHP', AI1WM_STORAGE_PATH . DIRECTORY_SEPARATOR . 'index.php' );
+
+// ===========================
+// = Storage index.html File =
+// ===========================
+define( 'AI1WM_STORAGE_INDEX_HTML', AI1WM_STORAGE_PATH . DIRECTORY_SEPARATOR . 'index.html' );
 
 // ==========================
 // = Backups index.php File =
 // ==========================
-define( 'AI1WM_BACKUPS_INDEX', AI1WM_BACKUPS_PATH . DIRECTORY_SEPARATOR . 'index.php' );
+define( 'AI1WM_BACKUPS_INDEX_PHP', AI1WM_BACKUPS_PATH . DIRECTORY_SEPARATOR . 'index.php' );
+
+// ===========================
+// = Backups index.html File =
+// ===========================
+define( 'AI1WM_BACKUPS_INDEX_HTML', AI1WM_BACKUPS_PATH . DIRECTORY_SEPARATOR . 'index.html' );
 
 // ==========================
 // = Backups .htaccess File =
