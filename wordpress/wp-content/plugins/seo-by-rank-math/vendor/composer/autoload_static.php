@@ -238,6 +238,7 @@ class ComposerStaticInite0bd047aa5058f04568aa38dfc5ac000
         'RankMath\\Helpers\\Attachment' => __DIR__ . '/../..' . '/includes/helpers/class-attachment.php',
         'RankMath\\Helpers\\Choices' => __DIR__ . '/../..' . '/includes/helpers/class-choices.php',
         'RankMath\\Helpers\\Conditional' => __DIR__ . '/../..' . '/includes/helpers/class-conditional.php',
+        'RankMath\\Helpers\\Locale' => __DIR__ . '/../..' . '/includes/helpers/class-locale.php',
         'RankMath\\Helpers\\Options' => __DIR__ . '/../..' . '/includes/helpers/class-options.php',
         'RankMath\\Helpers\\Post_Type' => __DIR__ . '/../..' . '/includes/helpers/class-post-type.php',
         'RankMath\\Helpers\\Taxonomy' => __DIR__ . '/../..' . '/includes/helpers/class-taxonomy.php',

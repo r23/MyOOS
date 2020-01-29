@@ -193,7 +193,7 @@ class Admin extends Base {
 		<h3><?php esc_html_e( '404 Monitor Stats', 'rank-math' ); ?></h3>
 		<ul>
 			<li><span><?php esc_html_e( '404 Monitor Log Count', 'rank-math' ); ?></span><?php echo Str::human_number( $data->total ); ?></li>
-			<li><span><?php esc_html_e( '404 URI Hits', 'rank-math' ); ?></span><?php echo Str::human_number( $data->hits ); ?></li>
+			<li><span><?php esc_html_e( '404 URL Hits', 'rank-math' ); ?></span><?php echo Str::human_number( $data->hits ); ?></li>
 		</ul>
 		<?php
 	}

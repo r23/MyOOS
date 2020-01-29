@@ -2,10 +2,10 @@
 Contributors: rankmath
 Plugin link: https://s.rankmath.com/homepage
 Tags: seo, sitemap, google search console, schema, redirection
-Tested up to: 5.3.1
+Tested up to: 5.3.2
 Requires at least: 4.9.0
 Requires PHP: 5.6
-Stable tag: 1.0.37.1
+Stable tag: 1.0.37.2
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -453,42 +453,18 @@ We look forward to helping you.
 
 == Changelog ==
 
-= 1.0.37.1 [Jan 12, 2019] =
-* Fixed Keyword Density test not working in the Classic Editor
-* Fixed wrong option status showing for the `nofollow` & `sponsored` option in the Classic Editor
-* Fixed translation not working for the sidebar tests
-* Fixed 'Event Status' option value not saving in the Gutenberg Editor
-* Removed SEO options for users from the multisite network root
+= 1.0.37.2 [Jan 20, 2019] =
+* Added NEW & better Auto-Generator for the descriptions. Search Engines are going to love the auto-generated descriptions from the Rank Math plugin if a focus keyword is set
+* Added [power words](https://rankmath.com/blog/power-words/) for the Dutch language. Thanks to [John Bernadis](http://www.masbernadis.eu/)
+* Improved Elementor's integration by hiding the SEO tab while creating custom sections in the Elementor builder
+* Hiding Power Words and Sentiment Analysis tests from non-English sites [Gutenberg & Elementor]
+* Fixed an issue with the Elementor where Rank Math wasn't reading the content from certain pages & CPTs
+* Fixed a problem with the SEO tab, showing in the Elementor even if the metabox option was disabled in the backend
+* Fixed the `%category%` tag not showing primary category in the backend's preview
+* Fixed a problem where `noindex` blog pages were sometimes showing in the post_sitemap on some installations
+* Fixed content analysis not working if taxonomy field was used in the ACF plugin
+* Fixed a PHP 5.6 error when editing the post (please update to at least PHP 7. Ask your hosting 🙏)
+* Fixed wrong description showing up in the BuddyPress Titles & Meta settings tab
+* Fixed an issue where Focus Keyword in the URL test was failing if stop word was present in the URL
 
-= 1.0.37 [Jan 10, 2019] =
-* [HUGE!] Added enhanced **[Elementor SEO](https://rankmath.com/blog/elementor-seo/)** integration so everything related to the Rank Math SEO could be set while using the Elementor's editor
-* Added support for Elementor's new Table of Content widget
-* Added Star Rating in the preview area for all the, [supported Schema types](https://rankmath.com/kb/how-to-fix-review-schema-errors/#here-is-the-list-of-rank-maths-schema-types-which-supports-rating-options)
-* Added frontend SEO Score option in the Gutenberg sidebar
-* Added Rank Math's SEO column in the Easy Digital Downloads products area
-* Added a warning if "Delete Rank Math data filter" is present in the theme [https://i.rankmath.com/C2k2O2](https://i.rankmath.com/C2k2O2)
-* Added cache flushing of the Sitemap when a post or page is set to `noindex` from the Top Admin Bar on the frontend
-* Improved output of the SEO Description for the pages with the page builders using shortcodes, like Divi
-* Improved Schema Markup's Title and Description output to use the data from the General SEO tab by default
-* Improved the obsolete Review Schema type by adding 'Unsupported' word in the dropdown so users would, [use the converter to fix the Review Schema errors](https://rankmath.com/kb/how-to-fix-review-schema-errors/)
-* Improved BuddyPress integration, now the module automatically activates after BuddyPress' activation
-* Updated locale list supported by Facebook for the OG tags
-* Removed TOC test support for CM Table Of Contents, Easy Table of Contents, f(x) TOC, HM Content TOC, Shortcodes Ultimate, Simple TOC, Table of content, Table of Contents Plus, Thrive Architect, Fixed TOC. These and other plugins can add the support for the Rank Math plugin by using [this filter](https://rankmath.com/kb/filters-hooks-api-developer/#add-toc-plugin)
-* Fixed Bulk editing not working after the Gutenberg's release
-* Fixed Block Editor aka Gutenberg's Sidebar translation not working
-* Fixed Focus Keyword not recognizing words with diacritics in Gutenberg (German words etc.)
-* Fixed Focus Keyword not getting detected when it had HTML tags in it
-* Fixed a browser console error when `++` was used in the Focus Keyword field
-* Fixed Primary Term option not working with the new Gutenberg sidebar design
-* Fixed "Rich Snippet" Block not appearing in the block list
-* Fixed Schema type set in the global settings not applying to the newly created posts
-* Fixed disconnect account issue happening on some installations
-* Fixed `lodash` conflict happening with few plugins
-* Fixed an issue where WooCommerce's short description and tag variables were not working in the Global settings
-* Fixed Global Description Meta template not applying to the single Product Previews in WooCommerce
-* Fixed an issue which was preventing to select the Employment type in the JobPosting Schema in the sidebar design
-* Fixed an issue where Date variable was showing incorrect value on the archive pages
-* Fixed few Role Manager related issues. Everything with the Role Manager should be working as intended
-* Added various CSS enhancements, bug fixes, and general stability improvements
-
-Full changelog can be found here - **[Rank Math SEO changelog](https://s.rankmath.com/changelog)**
+Full changelog can be found here - **[Rank Math SEO changelog](https://rankmath.com/changelog/)**

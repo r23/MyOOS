@@ -13,6 +13,7 @@ namespace RankMath\Admin\Metabox;
 use RankMath\KB;
 use RankMath\Helper;
 use RankMath\Traits\Meta;
+use RankMath\Helpers\Locale;
 use RankMath\Admin\Admin_Helper;
 
 defined( 'ABSPATH' ) || exit;
@@ -116,7 +117,7 @@ class Screen implements IScreen {
 			[
 				'objectID'         => $this->get_object_id(),
 				'objectType'       => $this->get_object_type(),
-				'locale'           => substr( get_locale(), 0, 2 ),
+				'locale'           => Locale::get_site_language(),
 				'localeFull'       => get_locale(),
 				'overlayImages'    => Helper::choices_overlay_images(),
 				'defautOgImage'    => Helper::get_settings( 'titles.open_graph_image', '' ),
@@ -248,8 +249,14 @@ class Screen implements IScreen {
 	 * @return array
 	 */
 	private function power_words() {
-		$words = include_once rank_math()->plugin_dir() . 'assets/vendor/powerwords.php';
-		return apply_filters( 'rank_math/metabox/power_words', $words );
+		$locale = Locale::get_site_language();
+		$file   = rank_math()->plugin_dir() . 'assets/vendor/powerwords/' . $locale . '.php';
+		if ( ! file_exists( $file ) ) {
+			return false;
+		}
+
+		$words = include_once $file;
+		return apply_filters( 'rank_math/metabox/power_words', array_map( 'strtolower', $words ), $locale );
 	}
 
 	/**

@@ -43,6 +43,9 @@ class Common {
 		$this->filter( 'post_type_link', 'post_type_link', 9, 2 );
 		$this->filter( 'post_link_category', 'post_link_category', 10, 3 );
 
+		// Reorder categories listing: put primary at the beginning.
+		$this->filter( 'get_the_terms', 'reorder_the_terms', 10, 3 );
+
 		add_action( 'wp_ajax_nopriv_rank_math_overlay_thumb', [ $this, 'generate_overlay_thumbnail' ] );
 
 		// Auto-update the plugin.
@@ -195,6 +198,50 @@ class Common {
 		}
 
 		return $update;
+	}
+
+	/**
+	 * Reorder terms for a post to put primary category to the beginning.
+	 *
+	 * @param array|WP_Error $terms    List of attached terms, or WP_Error on failure.
+	 * @param int            $post_id  Post ID.
+	 * @param string         $taxonomy Name of the taxonomy.
+	 *
+	 * @return array
+	 */
+	public function reorder_the_terms( $terms, $post_id, $taxonomy ) {
+		/**
+		 * Filter: Allow disabling the primary term feature.
+		 *
+		 * @param bool $return True to disable.
+		 */
+		if ( true === $this->do_filter( 'primary_term', false ) ) {
+			return $terms;
+		}
+
+		$post_id = empty( $post_id ) ? $GLOBALS['post']->ID : $post_id;
+
+		// Get Primary Term.
+		$primary = absint( Helper::get_post_meta( "primary_{$taxonomy}", $post_id ) );
+		if ( ! $primary ) {
+			return $terms;
+		}
+
+		if ( empty( $terms ) || is_wp_error( $terms ) ) {
+			return [ $primary ];
+		}
+
+		$primary_term = null;
+		foreach ( $terms as $index => $term ) {
+			if ( $primary === $term->term_id ) {
+				$primary_term = $term;
+				unset( $terms[ $index ] );
+				array_unshift( $terms, $primary_term );
+				break;
+			}
+		}
+
+		return $terms;
 	}
 
 	/**

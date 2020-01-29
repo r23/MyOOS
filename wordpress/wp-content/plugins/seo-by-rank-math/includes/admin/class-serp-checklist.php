@@ -13,6 +13,7 @@ namespace RankMath\Admin;
 use RankMath\KB;
 use RankMath\CMB2;
 use RankMath\Helper;
+use RankMath\Helpers\Locale;
 use RankMath\Traits\Hooker;
 
 defined( 'ABSPATH' ) || exit;
@@ -73,7 +74,7 @@ class Serp_Checklist {
 					'fail'    => esc_html__( 'Focus Keyword does not appear in the SEO title.', 'rank-math' ),
 					'empty'   => esc_html__( 'Add Focus Keyword to the SEO title.', 'rank-math' ),
 					'tooltip' => esc_html__( 'Make sure the focus keyword appears in the SEO post title too.', 'rank-math' ),
-					'score'   => 'en' === substr( get_locale(), 0, 2 ) ? 36 : 38,
+					'score'   => 'en' === Locale::get_site_language() ? 36 : 38,
 				],
 				'keywordInMetaDescription' => [
 					'ok'      => esc_html__( 'Focus Keyword used inside SEO Meta Description.', 'rank-math' ),
@@ -415,7 +416,9 @@ class Serp_Checklist {
 	 * @return bool
 	 */
 	private function is_invalid( $id ) {
-		return 'en' !== substr( get_locale(), 0, 2 ) && in_array( $id, [ 'titleSentiment', 'titleHasPowerWords' ], true );
+		$locale = Locale::get_site_language();
+		return ( ! in_array( $locale, [ 'en', 'de' ], true ) && in_array( $id, [ 'titleSentiment', 'titleHasPowerWords' ], true ) ) ||
+			( 'de' === $locale && 'titleSentiment' === $id );
 	}
 
 	/**

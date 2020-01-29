@@ -281,11 +281,11 @@ class Post_Type implements Provider {
 			$links[]       = array( 'loc' => $this->get_home_url() );
 		} elseif ( $this->get_page_on_front_id() && 'post' === $post_type && $this->get_page_for_posts_id() ) {
 			$needs_archive = false;
-			$links[]       = array( 'loc' => get_permalink( $this->get_page_for_posts_id() ) );
+			$links[]       = Helper::is_post_indexable( $this->get_page_for_posts_id() ) ? array( 'loc' => get_permalink( $this->get_page_for_posts_id() ) ) : '';
 		}
 
 		if ( ! $needs_archive ) {
-			return $links;
+			return array_filter( $links );
 		}
 
 		$archive_url = $this->get_post_type_archive_link( $post_type );

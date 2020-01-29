@@ -192,6 +192,7 @@ return array(
     'RankMath\\Helpers\\Attachment' => $baseDir . '/includes/helpers/class-attachment.php',
     'RankMath\\Helpers\\Choices' => $baseDir . '/includes/helpers/class-choices.php',
     'RankMath\\Helpers\\Conditional' => $baseDir . '/includes/helpers/class-conditional.php',
+    'RankMath\\Helpers\\Locale' => $baseDir . '/includes/helpers/class-locale.php',
     'RankMath\\Helpers\\Options' => $baseDir . '/includes/helpers/class-options.php',
     'RankMath\\Helpers\\Post_Type' => $baseDir . '/includes/helpers/class-post-type.php',
     'RankMath\\Helpers\\Taxonomy' => $baseDir . '/includes/helpers/class-taxonomy.php',

@@ -16,7 +16,6 @@ use WP_Error;
 use WP_REST_Server;
 use WP_REST_Request;
 use WP_REST_Controller;
-use RankMath\Helper;
 use RankMath\Rest\Helper as RestHelper;
 
 defined( 'ABSPATH' ) || exit;
@@ -43,7 +42,7 @@ class Post extends WP_REST_Controller {
 			[
 				'methods'             => WP_REST_Server::CREATABLE,
 				'permission_callback' => function() {
-					return Helper::has_cap( 'onpage_general' );
+					return \RankMath\Helper::has_cap( 'onpage_general' );
 				},
 				'callback'            => [ $this, 'update_bulk_meta' ],
 				'args'                => $this->get_update_metadata_args(),

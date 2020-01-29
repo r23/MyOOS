@@ -3,7 +3,7 @@
 /**
  * External dependencies
  */
-import { map, pluck } from 'lodash'
+import { map } from 'lodash'
 
 /**
  * Parse taxonomy fields.
@@ -23,13 +23,13 @@ export default ( fields ) => {
 		if ( field.$el.find( '.acf-taxonomy-field[data-type="multi_select"]' ).length > 0 ) {
 			const select2Target = ( acf.select2.version >= 4 ) ? 'select' : 'input'
 
-			terms = pluck( field.$el.find( '.acf-taxonomy-field[data-type="multi_select"] ' + select2Target ).select2( 'data' ), 'text' )
+			terms = map( field.$el.find( '.acf-taxonomy-field[data-type="multi_select"] ' + select2Target ).select2( 'data' ), 'text' )
 		} else if ( field.$el.find( '.acf-taxonomy-field[data-type="checkbox"]' ).length > 0 ) {
-			terms = pluck( field.$el.find( '.acf-taxonomy-field[data-type="checkbox"] input[type="checkbox"]:checked' ).next(), 'textContent' )
+			terms = map( field.$el.find( '.acf-taxonomy-field[data-type="checkbox"] input[type="checkbox"]:checked' ).next(), 'textContent' )
 		} else if ( field.$el.find( 'input[type=checkbox]:checked' ).length > 0 ) {
-			terms = pluck( field.$el.find( 'input[type=checkbox]:checked' ).parent(), 'textContent' )
+			terms = map( field.$el.find( 'input[type=checkbox]:checked' ).parent(), 'textContent' )
 		} else if ( field.$el.find( 'select option:checked' ).length > 0 ) {
-			terms = pluck( field.$el.find( 'select option:checked' ), 'textContent' )
+			terms = map( field.$el.find( 'select option:checked' ), 'textContent' )
 		}
 
 		terms = map( terms, ( term ) => term.trim() )

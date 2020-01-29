@@ -163,9 +163,9 @@ class Singular implements IPaper {
 
 		// 3. Description template set in the Titles & Meta.
 		$post_type   = isset( $object->post_type ) ? $object->post_type : $object->query_var;
-		$description = Paper::get_from_options( "pt_{$post_type}_description", $object );
+		$description = '%excerpt%' !== Helper::get_settings( "titles.pt_{$post_type}_description" ) ? Paper::get_from_options( "pt_{$post_type}_description", $object ) : '';
 
-		return '' !== $description ? $description : $this->get_post_description_auto_generated( $object );
+		return '' !== $description ? $description : wp_html_excerpt( $this->get_post_description_auto_generated( $object ), 160 );
 	}
 
 	/**

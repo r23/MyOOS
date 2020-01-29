@@ -46,7 +46,7 @@ class Admin {
 		$tabs['buddypress-groups'] = [
 			'icon'  => 'dashicons dashicons-groups',
 			'title' => esc_html__( 'Groups', 'rank-math' ),
-			'desc'  => esc_html__( 'The WooCommerce lets you see the URLs where visitors and search engine crawlers run into 404 not found errors on your site. Turn on Redirections too to redirect the faulty URLs easily.', 'rank-math' ),
+			'desc'  => esc_html__( 'This tab contains SEO options for BuddyPress Group pages.', 'rank-math' ),
 			'file'  => dirname( __FILE__ ) . '/views/options-titles.php',
 		];
 
