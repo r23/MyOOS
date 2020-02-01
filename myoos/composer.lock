@@ -3313,16 +3313,16 @@
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v7.21.1",
+            "version": "v7.22.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "6c23253581928c35322616c527d0a97e47267ec3"
+                "reference": "44021812c0c368ff37259f7b18155a2b3d4c15b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/6c23253581928c35322616c527d0a97e47267ec3",
-                "reference": "6c23253581928c35322616c527d0a97e47267ec3",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/44021812c0c368ff37259f7b18155a2b3d4c15b3",
+                "reference": "44021812c0c368ff37259f7b18155a2b3d4c15b3",
                 "shasum": ""
             },
             "require": {
@@ -3366,7 +3366,7 @@
                 "payment processing",
                 "stripe"
             ],
-            "time": "2020-01-29T20:14:55+00:00"
+            "time": "2020-01-31T18:06:21+00:00"
         },
         {
             "name": "symfony/contracts",
@@ -3920,16 +3920,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v5.0.3",
+            "version": "v5.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "fe34099ef413a6ed60126e1971c929ec382370ea"
+                "reference": "03e6126338b0e37c4dd6481ed0f517ed3de99110"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/fe34099ef413a6ed60126e1971c929ec382370ea",
-                "reference": "fe34099ef413a6ed60126e1971c929ec382370ea",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/03e6126338b0e37c4dd6481ed0f517ed3de99110",
+                "reference": "03e6126338b0e37c4dd6481ed0f517ed3de99110",
                 "shasum": ""
             },
             "require": {
@@ -4091,7 +4091,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2020-01-21T13:30:18+00:00"
+            "time": "2020-01-31T12:49:53+00:00"
         },
         {
             "name": "twig/twig",

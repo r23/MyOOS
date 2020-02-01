@@ -68,11 +68,11 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
 
     private static $freshCache = [];
 
-    const VERSION = '5.0.3';
-    const VERSION_ID = 50003;
+    const VERSION = '5.0.4';
+    const VERSION_ID = 50004;
     const MAJOR_VERSION = 5;
     const MINOR_VERSION = 0;
-    const RELEASE_VERSION = 3;
+    const RELEASE_VERSION = 4;
     const EXTRA_VERSION = '';
 
     const END_OF_MAINTENANCE = '07/2020';
@@ -553,7 +553,10 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
         }
 
         $this->dumpContainer($cache, $container, $class, $this->getContainerBaseClass());
-        $cache->release();
+        if (method_exists($cache, 'release')) {
+            $cache->release();
+        }
+
         $this->container = require $cachePath;
         $this->container->set('kernel', $this);
 
