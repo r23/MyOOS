@@ -36,6 +36,10 @@ class Ai1wm_Directory {
 	 * @return boolean
 	 */
 	public static function create( $path ) {
+		if ( @is_dir( $path ) ) {
+			return true;
+		}
+
 		return @mkdir( $path, 0777, true );
 	}
 

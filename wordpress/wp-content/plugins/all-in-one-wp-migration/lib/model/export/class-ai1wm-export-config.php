@@ -149,6 +149,9 @@ class Ai1wm_Export_Config {
 		// Set active stylesheet
 		$config['Stylesheet'] = ai1wm_active_stylesheet();
 
+		// Set upload path
+		$config['Uploads'] = get_option( 'upload_path' );
+
 		// Save package.json file
 		$handle = ai1wm_open( ai1wm_package_path( $params ), 'w' );
 		ai1wm_write( $handle, json_encode( $config ) );

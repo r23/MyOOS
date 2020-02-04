@@ -48,19 +48,13 @@ class Ai1wm_Main_Controller {
 	 * @return void
 	 */
 	public function activation_hook() {
-		if ( is_dir( AI1WM_BACKUPS_PATH ) ) {
-			$this->create_backups_htaccess( AI1WM_BACKUPS_HTACCESS );
-			$this->create_backups_webconfig( AI1WM_BACKUPS_WEBCONFIG );
-			$this->create_backups_index_php( AI1WM_BACKUPS_INDEX_PHP );
-			$this->create_backups_index_html( AI1WM_BACKUPS_INDEX_HTML );
-		}
-
 		if ( extension_loaded( 'litespeed' ) ) {
 			$this->create_litespeed_htaccess( AI1WM_WORDPRESS_HTACCESS );
 		}
 
-		$this->setup_folders();
-		$this->create_secret_key();
+		$this->setup_backups_folder();
+		$this->setup_storage_folder();
+		$this->setup_secret_key();
 	}
 
 	/**
@@ -84,11 +78,14 @@ class Ai1wm_Main_Controller {
 		// Router
 		add_action( 'admin_init', array( $this, 'router' ) );
 
-		// Setup folders
-		add_action( 'admin_init', array( $this, 'setup_folders' ) );
+		// Setup backups folder
+		add_action( 'admin_init', array( $this, 'setup_backups_folder' ) );
 
-		// Create secret key
-		add_action( 'admin_init', array( $this, 'create_secret_key' ) );
+		// Setup storage folder
+		add_action( 'admin_init', array( $this, 'setup_storage_folder' ) );
+
+		// Setup secret key
+		add_action( 'admin_init', array( $this, 'setup_secret_key' ) );
 
 		// Check user role capability
 		add_action( 'admin_init', array( $this, 'check_user_role_capability' ) );
@@ -211,9 +208,6 @@ class Ai1wm_Main_Controller {
 		// Add automatic plugins update
 		add_action( 'wp_maybe_auto_update', 'Ai1wm_Updater_Controller::check_for_updates' );
 
-		// Add updater process complete
-		add_action( 'upgrader_process_complete', 'Ai1wm_Updater_Controller::upgrader_process_complete', 10, 2 );
-
 		// Add HTTP export headers
 		add_filter( 'ai1wm_http_export_headers', 'Ai1wm_Export_Controller::http_export_headers' );
 
@@ -251,50 +245,27 @@ class Ai1wm_Main_Controller {
 	}
 
 	/**
-	 * Create folders and files needed for plugin operation, if they don't exist
+	 * Create backups folder with index.php, index.html, .htaccess and web.config files
 	 *
 	 * @return void
 	 */
-	public function setup_folders() {
-		// Check if storage folder is created
-		if ( ! is_dir( AI1WM_STORAGE_PATH ) ) {
-			$this->create_storage_folder( AI1WM_STORAGE_PATH );
-		}
+	public function setup_backups_folder() {
+		$this->create_backups_folder( AI1WM_BACKUPS_PATH );
+		$this->create_backups_htaccess( AI1WM_BACKUPS_HTACCESS );
+		$this->create_backups_webconfig( AI1WM_BACKUPS_WEBCONFIG );
+		$this->create_backups_index_php( AI1WM_BACKUPS_INDEX_PHP );
+		$this->create_backups_index_html( AI1WM_BACKUPS_INDEX_HTML );
+	}
 
-		// Check if backups folder is created
-		if ( ! is_dir( AI1WM_BACKUPS_PATH ) ) {
-			$this->create_backups_folder( AI1WM_BACKUPS_PATH );
-		}
-
-		// Check if index.php is created in storage folder
-		if ( ! is_file( AI1WM_STORAGE_INDEX_PHP ) ) {
-			$this->create_storage_index_php( AI1WM_STORAGE_INDEX_PHP );
-		}
-
-		// Check if index.html is created in storage folder
-		if ( ! is_file( AI1WM_STORAGE_INDEX_HTML ) ) {
-			$this->create_storage_index_html( AI1WM_STORAGE_INDEX_HTML );
-		}
-
-		// Check if index.php is created in backups folder
-		if ( ! is_file( AI1WM_BACKUPS_INDEX_PHP ) ) {
-			$this->create_backups_index_php( AI1WM_BACKUPS_INDEX_PHP );
-		}
-
-		// Check if index.html is created in backups folder
-		if ( ! is_file( AI1WM_BACKUPS_INDEX_HTML ) ) {
-			$this->create_backups_index_html( AI1WM_BACKUPS_INDEX_HTML );
-		}
-
-		// Check if .htaccess is created in backups folder
-		if ( ! is_file( AI1WM_BACKUPS_HTACCESS ) ) {
-			$this->create_backups_htaccess( AI1WM_BACKUPS_HTACCESS );
-		}
-
-		// Check if web.config is created in backups folder
-		if ( ! is_file( AI1WM_BACKUPS_WEBCONFIG ) ) {
-			$this->create_backups_webconfig( AI1WM_BACKUPS_WEBCONFIG );
-		}
+	/**
+	 * Create storage folder with index.php and index.html files
+	 *
+	 * @return void
+	 */
+	public function setup_storage_folder() {
+		$this->create_storage_folder( AI1WM_STORAGE_PATH );
+		$this->create_storage_index_php( AI1WM_STORAGE_INDEX_PHP );
+		$this->create_storage_index_html( AI1WM_STORAGE_INDEX_HTML );
 	}
 
 	/**
@@ -302,7 +273,7 @@ class Ai1wm_Main_Controller {
 	 *
 	 * @return void
 	 */
-	public function create_secret_key() {
+	public function setup_secret_key() {
 		if ( ! get_option( AI1WM_SECRET_KEY ) ) {
 			update_option( AI1WM_SECRET_KEY, ai1wm_generate_random_string( 12 ) );
 		}
@@ -331,15 +302,11 @@ class Ai1wm_Main_Controller {
 	 * @return void
 	 */
 	public function schedule_crons() {
-		// Delete old cleanup cronjob
-		if ( Ai1wm_Cron::exists( 'ai1wm_cleanup_cron' ) ) {
-			Ai1wm_Cron::clear( 'ai1wm_cleanup_cron' );
-		}
-
-		// Schedule a new daily cleanup
 		if ( ! Ai1wm_Cron::exists( 'ai1wm_storage_cleanup' ) ) {
 			Ai1wm_Cron::add( 'ai1wm_storage_cleanup', 'daily', time() );
 		}
+
+		Ai1wm_Cron::clear( 'ai1wm_cleanup_cron' );
 	}
 
 	/**
