@@ -55,7 +55,6 @@ class Product_WooCommerce {
 		$entity['sku']         = $product->get_sku() ? $product->get_sku() : '';
 		$entity['category']    = Product::get_category( $product->get_id(), 'product_cat' );
 
-		$this->set_related_products( $product->get_id(), $entity );
 		$this->set_upsell_products( $product, $entity );
 		$this->set_weight( $product, $entity );
 		$this->set_dimensions( $product, $entity );
@@ -74,27 +73,6 @@ class Product_WooCommerce {
 
 		// Remaining Attributes.
 		$this->attributes->assign_remaining( $entity );
-	}
-
-	/**
-	 * Set related products.
-	 *
-	 * @param int   $product_id Product ID.
-	 * @param array $entity     Array of json-ld entity.
-	 */
-	private function set_related_products( $product_id, &$entity ) {
-		$related_products = wc_get_related_products( $product_id, 5 );
-		if ( empty( $related_products ) ) {
-			return;
-		}
-
-		foreach ( $related_products as $related_id ) {
-			$entity['isRelatedTo'][] = [
-				'@type' => 'Product',
-				'url'   => get_permalink( $related_id ),
-				'name'  => get_the_title( $related_id ),
-			];
-		}
 	}
 
 	/**
@@ -283,12 +261,15 @@ class Product_WooCommerce {
 			'@type'           => 'Offer',
 			'price'           => $product->get_price() ? $product->get_price() : '0',
 			'priceCurrency'   => get_woocommerce_currency(),
+			'priceValidUntil' => ! empty( $product->get_date_on_sale_to() ) ? date_i18n( 'Y-m-d', strtotime( $product->get_date_on_sale_to() ) ) : '',
 			'availability'    => $product->is_in_stock() ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
 			'itemCondition'   => 'NewCondition',
-			'seller'          => $seller,
 			'url'             => $product->get_permalink(),
-			'priceValidUntil' => ! empty( $product->get_date_on_sale_to() ) ? date_i18n( 'Y-m-d', strtotime( $product->get_date_on_sale_to() ) ) : '',
+			'seller'          => $seller,
 		];
+
+		// Set Price Specification.
+		$this->set_price_specification( $product->get_price(), $offer );
 
 		$this->attributes->assign_property( $offer, 'itemCondition' );
 		$entity['offers'] = $offer;
@@ -324,6 +305,9 @@ class Product_WooCommerce {
 				'url'             => $permalink,
 			];
 
+			// Set Price Specification.
+			$this->set_price_specification( $variation['display_price'], $offer );
+
 			// Generate a unique variation ID.
 			$this->set_variation_unique_id( $variation, $offer, $permalink );
 
@@ -333,6 +317,24 @@ class Product_WooCommerce {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Set price specification.
+	 *
+	 * @param object $price  Product price.
+	 * @param array  $entity Array of offer entity.
+	 */
+	private function set_price_specification( $price, &$entity ) {
+		if ( ! wc_tax_enabled() ) {
+			return;
+		}
+
+		$entity['priceSpecification'] = [
+			'price'                 => $price ? $price : '0',
+			'priceCurrency'         => get_woocommerce_currency(),
+			'valueAddedTaxIncluded' => wc_prices_include_tax() ? 'true' : 'false',
+		];
 	}
 
 	/**

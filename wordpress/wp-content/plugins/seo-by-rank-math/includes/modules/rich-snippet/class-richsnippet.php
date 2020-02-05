@@ -1,6 +1,6 @@
 <?php
 /**
- * The Rich Snippet Module
+ * The Schema Module
  *
  * @since      0.9.0
  * @package    RankMath

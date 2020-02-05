@@ -45,7 +45,9 @@ class Shop extends Singular {
 	 */
 	public function description() {
 		$post = Post::get( Post::get_shop_page_id() );
-		return $this->get_post_description( $post->get_object() );
+		$desc = $this->get_post_description( $post->get_object() );
+
+		return '' !== $desc ? $desc : Paper::get_from_options( 'pt_product_archive_description', [], '%pt_plural% Archive %page% %sep% %sitename%' );
 	}
 
 	/**
@@ -76,16 +78,5 @@ class Shop extends Singular {
 	 */
 	public function keywords() {
 		return Post::get_meta( 'focus_keyword', Post::get_shop_page_id() );
-	}
-
-	/**
-	 * Auto-generate description.
-	 *
-	 * @param object|null $object Object to retrieve the description from.
-	 *
-	 * @return string
-	 */
-	protected function get_post_description_auto_generated( $object ) {
-		return Paper::get_from_options( 'pt_product_archive_description', [], '%pt_plural% Archive %page% %sep% %sitename%' );
 	}
 }

@@ -15,9 +15,9 @@ use WP_Error;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Helper class.
+ * Rest_Helper class.
  */
-class Helper {
+class Rest_Helper {
 
 	/**
 	 * REST namespace.

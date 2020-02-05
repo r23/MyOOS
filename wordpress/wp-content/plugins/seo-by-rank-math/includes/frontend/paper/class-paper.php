@@ -447,6 +447,16 @@ class Paper {
 	 */
 	public static function get_from_options( $id, $source = [], $default = '' ) {
 		$value = Helper::get_settings( "titles.$id" );
+
+		// Break loop.
+		if ( ! Str::ends_with( 'default_snippet_name', $value ) && ! Str::ends_with( 'default_snippet_desc', $value ) ) {
+			$value = \str_replace(
+				[ '%seo_title%', '%seo_description%' ],
+				[ '%title%', '%excerpt%' ],
+				$value
+			);
+		}
+
 		return '' !== $value ? Helper::replace_vars( $value, $source ) : $default;
 	}
 

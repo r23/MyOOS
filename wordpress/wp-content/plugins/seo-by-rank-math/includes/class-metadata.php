@@ -134,6 +134,12 @@ abstract class Metadata {
 			return false;
 		}
 
+		$value = \str_replace(
+			[ '%seo_title%', '%seo_description%' ],
+			[ '%title%', '%excerpt%' ],
+			$value
+		);
+
 		return Helper::replace_vars( $value, $object );
 	}
 }

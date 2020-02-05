@@ -31,7 +31,7 @@ class Schema_Markup implements Wizard_Step {
 		?>
 		<header>
 			<h1><?php esc_html_e( 'Schema Markup ', 'rank-math' ); ?> </h1>
-			<p><?php esc_html_e( 'Rich Snippets adds metadata to your website, resulting in rich search results and more traffic.', 'rank-math' ); ?></p>
+			<p><?php esc_html_e( 'Schema adds metadata to your website, resulting in rich search results and more traffic.', 'rank-math' ); ?></p>
 		</header>
 
 		<?php $wizard->cmb->show_form(); ?>
@@ -54,7 +54,7 @@ class Schema_Markup implements Wizard_Step {
 		$wizard->cmb->add_field([
 			'id'      => 'rich_snippet',
 			'type'    => 'switch',
-			'name'    => esc_html__( 'Rich Snippet', 'rank-math' ),
+			'name'    => esc_html__( 'Schema Type', 'rank-math' ),
 			'desc'    => esc_html__( 'Use automatic structured data to mark up content, to help Google better understand your content\'s context for display in Search. You can set different defaults for your posts here.', 'rank-math' ),
 			'default' => Helper::is_module_active( 'rich-snippet' ) ? 'on' : 'off',
 		]);
@@ -99,10 +99,7 @@ class Schema_Markup implements Wizard_Step {
 		$settings = rank_math()->settings->all_raw();
 		Helper::update_modules( [ 'rich-snippet' => $values['rich_snippet'] ] );
 
-		// General.
-		$settings['general']['add_img_alt'] = $values['add_img_alt'];
-
-		// Rich Snippet.
+		// Schema.
 		if ( 'on' === $values['rich_snippet'] ) {
 			$this->save_rich_snippet( $settings, $values );
 		}
@@ -143,7 +140,7 @@ class Schema_Markup implements Wizard_Step {
 		$field_id = 'pt_' . $post_type . '_default_rich_snippet';
 
 		/* translators: Post type name */
-		$field_name = sprintf( esc_html__( 'Rich Snippet Type for %s', 'rank-math' ), $object->label );
+		$field_name = sprintf( esc_html__( 'Schema Type for %s', 'rank-math' ), $object->label );
 
 		$richsnp_default = [
 			'post'    => 'article',

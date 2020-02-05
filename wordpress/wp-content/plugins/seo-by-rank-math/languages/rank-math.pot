@@ -378,18 +378,18 @@ msgstr ""
 msgid "Here you can enter verification codes for various third-party webmaster tools. %s You can safely paste the full HTML tags, or just the ID codes."
 msgstr ""
 
-msgid "Edit .htaccess"
-msgstr ""
-
-#. translators: Link to kb article
-msgid "Here you can edit the contents of your .htaccess file. This file is mainly used by WordPress to control permalinks and redirections, but it may be useful to edit it in a number of cases. %s."
-msgstr ""
-
 msgid "Others"
 msgstr ""
 
 #. translators: Link to kb article
 msgid "Control how your plugin communicates with Rank Math and change how your RSS content looks. %s."
+msgstr ""
+
+msgid "Edit .htaccess"
+msgstr ""
+
+#. translators: Link to kb article
+msgid "Here you can edit the contents of your .htaccess file. This file is mainly used by WordPress to control permalinks and redirections, but it may be useful to edit it in a number of cases. %s."
 msgstr ""
 
 msgid "SEO Settings"
@@ -454,6 +454,9 @@ msgid "Titles &amp; Meta"
 msgstr ""
 
 msgid "Post Types:"
+msgstr ""
+
+msgid "Attachments"
 msgstr ""
 
 #. translators: 1. post type name 2. link
@@ -1040,7 +1043,7 @@ msgstr ""
 msgid "Unable to perform action this time."
 msgstr ""
 
-msgid "Import Rich Snippets"
+msgid "Import Schemas"
 msgstr ""
 
 msgid "Import all Schema data for Posts, Pages, and custom post types."
@@ -1469,10 +1472,10 @@ msgstr ""
 msgid "Schema Markup "
 msgstr ""
 
-msgid "Rich Snippets adds metadata to your website, resulting in rich search results and more traffic."
+msgid "Schema adds metadata to your website, resulting in rich search results and more traffic."
 msgstr ""
 
-msgid "Rich Snippet"
+msgid "Schema Type"
 msgstr ""
 
 msgid "Use automatic structured data to mark up content, to help Google better understand your content's context for display in Search. You can set different defaults for your posts here."
@@ -1497,7 +1500,7 @@ msgid "News Article"
 msgstr ""
 
 #. translators: Post type name
-msgid "Rich Snippet Type for %s"
+msgid "Schema Type for %s"
 msgstr ""
 
 #. translators: link to title setting screen
@@ -2217,7 +2220,7 @@ msgstr ""
 msgid "404 Monitor Log Count"
 msgstr ""
 
-msgid "404 URI Hits"
+msgid "404 URL Hits"
 msgstr ""
 
 msgid "Review 404 errors on your site"
@@ -2382,7 +2385,7 @@ msgstr ""
 msgid "Groups"
 msgstr ""
 
-msgid "The WooCommerce lets you see the URLs where visitors and search engine crawlers run into 404 not found errors on your site. Turn on Redirections too to redirect the faulty URLs easily."
+msgid "This tab contains SEO options for BuddyPress Group pages."
 msgstr ""
 
 msgid "Group name."
@@ -2883,10 +2886,10 @@ msgstr ""
 msgid "Extend the functionality of WordPress by creating redirects in our plugin when you change the slug of a post, page, category or a CPT. You can modify the redirection further according to your needs."
 msgstr ""
 
-msgid "This tab contains snippet options."
+msgid "Schema"
 msgstr ""
 
-msgid "Schema"
+msgid "This tab contains snippet options."
 msgstr ""
 
 msgid "Post ID does not exists or was deleted."
@@ -3300,7 +3303,7 @@ msgstr ""
 msgid "Rating maximum score of the event."
 msgstr ""
 
-msgid "Rich Snippets"
+msgid "Schema (Structured Data)"
 msgstr ""
 
 msgid "Google has changed over the years. They've made their results pages more interesting and more useful at the same time. New kinds of content were added."
@@ -3318,13 +3321,13 @@ msgstr ""
 msgid "These were \"authorship\" snippets - they were displayed whenever Google recognized the author of an article. Google has dropped support for authorship, but there are other enhancements that it does support today."
 msgstr ""
 
-msgid "For instance, there are \"rich snippets\" for articles, videos, businesses, events, products, and recipes."
+msgid "For instance, there are \"schemas\" for articles, videos, businesses, events, products, and recipes."
 msgstr ""
 
 msgid "These snippets look different - which makes them stand out. They also tend to rank higher - above the fold (in the top 4 results)."
 msgstr ""
 
-msgid "Both of these benefits make Rich Snippets extremely attractive. But Google can't display rich snippets unless it understands your content type. And it needs your help."
+msgid "Both of these benefits make Rich Snippets extremely attractive. But Google can't display rich results unless it understands your content type. And it needs your help."
 msgstr ""
 
 msgid "Google needs you to include special meta-data in your markup to describe what your content is. You need to use a special format called Schema.org, and it has to be perfectly valid."
@@ -3333,7 +3336,7 @@ msgstr ""
 msgid "Rank Math can format the Schema.org markup for you - that's what the Rich Snippet tab does for you."
 msgstr ""
 
-msgid "Click here to read full Rich Snippet tutorial"
+msgid "Click here to read full Schema tutorial"
 msgstr ""
 
 msgid "Salary (Recommended)"
@@ -3429,15 +3432,12 @@ msgstr ""
 msgid "Insert $ / $$ / $$$ / $$$$."
 msgstr ""
 
-msgid "Rank Math automatically inserts additional Rich Snippet meta data for WooCommerce products. You can set the Rich Snippet Type to \"None\" to disable this feature and just use the default data added by WooCommerce."
-msgstr ""
-
-msgid "Rich Snippet Type"
+msgid "Rank Math automatically inserts additional Schema meta data for WooCommerce products. You can set the Schema Type to \"None\" to disable this feature and just use the default data added by WooCommerce."
 msgstr ""
 
 #. translators: link to title setting screen
 #. translators: link to title setting screen
-msgid "Rich Snippets help you stand out in SERPs. <a href=\"%s\" target=\"_blank\">Learn more</a>."
+msgid "Schema help you stand out in SERPs. <a href=\"%s\" target=\"_blank\">Learn more</a>."
 msgstr ""
 
 msgid "Google does not support this Schema type anymore, please use different type or use <a href=\"%s\" target=\"_blank\">this tool</a> to convert all the old posts."
@@ -3446,7 +3446,7 @@ msgstr ""
 msgid "Review Location"
 msgstr ""
 
-msgid "The review or rating must be displayed on the page to comply with Google's Rich Snippet guidelines."
+msgid "The review or rating must be displayed on the page to comply with Google's Schema guidelines."
 msgstr ""
 
 msgid "Below Content"
@@ -3590,6 +3590,9 @@ msgstr ""
 msgid "Final rating of the item."
 msgstr ""
 
+msgid "The review or rating must be displayed on the page to comply with Google's Rich Snippet guidelines."
+msgstr ""
+
 msgid "The type of service being offered, e.g. veterans' benefits, emergency relief, etc."
 msgstr ""
 
@@ -3660,7 +3663,7 @@ msgstr ""
 msgid "On-Page Advanced Settings"
 msgstr ""
 
-msgid "On-Page Rich Snippet Settings"
+msgid "On-Page Schema Settings"
 msgstr ""
 
 msgid "On-Page Social Settings"
@@ -4678,7 +4681,7 @@ msgstr ""
 msgid "Redirect non-existent content easily with 301 and 302 status code. This can help reduce errors and improve your site ranking."
 msgstr ""
 
-msgid "Enable support for the Rich Snippets, which adds metadata to your website, resulting in rich search results and more traffic."
+msgid "Enable support for the structured data, which adds metadata to your website, resulting in rich search results and more traffic."
 msgstr ""
 
 msgid "Enable Rank Math's sitemap feature, which helps search engines index your website's content effectively."
@@ -5088,10 +5091,10 @@ msgstr ""
 msgid "Site token"
 msgstr ""
 
-msgid "Sorry, field is empty which is not allowed."
+msgid "No meta rows found to update."
 msgstr ""
 
-msgid "No meta rows found to update."
+msgid "Sorry, field is empty which is not allowed."
 msgstr ""
 
 msgid "Enable breadcrumbs function"
@@ -5232,7 +5235,7 @@ msgstr ""
 msgid "Redirect all attachment page URLs to the post they appear in. For more advanced redirection control, use the built-in %s."
 msgstr ""
 
-msgid "Redirect Orphan Media"
+msgid "Redirect Orphan Attachments"
 msgstr ""
 
 msgid "Redirect attachments without a parent post to this URL. Leave empty for no redirection."

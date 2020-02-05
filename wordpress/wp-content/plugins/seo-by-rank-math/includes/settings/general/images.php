@@ -25,6 +25,7 @@ $cmb->add_field([
 	'default'         => '%title% %count(alt)%',
 	'dep'             => [ [ 'add_img_alt', 'on' ] ],
 	'sanitization_cb' => false,
+	'attributes'      => [ 'data-exclude-variables' => 'seo_title,seo_description' ],
 ]);
 
 $cmb->add_field([
@@ -44,4 +45,5 @@ $cmb->add_field([
 	'default'         => '%title% %count(title)%',
 	'dep'             => [ [ 'add_img_title', 'on' ] ],
 	'sanitization_cb' => false,
+	'attributes'      => [ 'data-exclude-variables' => 'seo_title,seo_description' ],
 ]);

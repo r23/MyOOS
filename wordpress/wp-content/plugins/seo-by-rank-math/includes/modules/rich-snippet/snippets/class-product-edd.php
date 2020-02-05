@@ -52,10 +52,12 @@ class Product_Edd {
 					'description'   => $variation['name'],
 					'price'         => $variation['amount'],
 					'priceCurrency' => edd_get_currency(),
-					'seller'        => $seller,
 					'url'           => $permalink,
+					'seller'        => $seller,
 				];
 
+				// Set Price Specification.
+				$this->set_price_specification( $variation['amount'], $offer );
 				$entity['offers'][] = $offer;
 			}
 
@@ -69,6 +71,27 @@ class Product_Edd {
 			'priceCurrency' => edd_get_currency(),
 			'seller'        => $seller,
 			'url'           => $permalink,
+		];
+
+		// Set Price Specification.
+		$this->set_price_specification( $product->get_price(), $entity['offers'] );
+	}
+
+	/**
+	 * Set price specification.
+	 *
+	 * @param object $price  Product price.
+	 * @param array  $entity Array of offer entity.
+	 */
+	private function set_price_specification( $price, &$entity ) {
+		if ( ! edd_use_taxes() ) {
+			return;
+		}
+
+		$entity['priceSpecification'] = [
+			'price'                 => $price ? $price : '0',
+			'priceCurrency'         => edd_get_currency(),
+			'valueAddedTaxIncluded' => edd_prices_include_tax() ? 'true' : 'false',
 		];
 	}
 

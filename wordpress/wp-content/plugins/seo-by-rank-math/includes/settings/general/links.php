@@ -36,7 +36,7 @@ $cmb->add_field([
 $cmb->add_field([
 	'id'      => 'attachment_redirect_default',
 	'type'    => 'text',
-	'name'    => esc_html__( 'Redirect Orphan Media', 'rank-math' ),
+	'name'    => esc_html__( 'Redirect Orphan Attachments', 'rank-math' ),
 	'desc'    => esc_html__( 'Redirect attachments without a parent post to this URL. Leave empty for no redirection.', 'rank-math' ),
 	'default' => get_home_url(),
 	'dep'     => [ [ 'attachment_redirect_urls', 'on' ] ],

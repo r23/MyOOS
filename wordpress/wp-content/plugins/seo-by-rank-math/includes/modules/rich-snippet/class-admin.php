@@ -1,6 +1,6 @@
 <?php
 /**
- * The Rich Snippet Module
+ * The Schema Module
  *
  * @since      0.9.0
  * @package    RankMath
@@ -34,7 +34,7 @@ class Admin extends Base {
 			'id'        => 'rich-snippet',
 			'directory' => $directory,
 			'help'      => [
-				'title' => esc_html__( 'Rich Snippet', 'rank-math' ),
+				'title' => esc_html__( 'Schema Markup', 'rank-math' ),
 				'view'  => $directory . '/views/help.php',
 			],
 		]);
@@ -63,7 +63,7 @@ class Admin extends Base {
 		Arr::insert( $tabs, [
 			'richsnippet' => [
 				'icon'       => 'dashicons',
-				'title'      => esc_html__( 'Rich Snippet', 'rank-math' ),
+				'title'      => esc_html__( 'Schema', 'rank-math' ),
 				'desc'       => esc_html__( 'This tab contains snippet options.', 'rank-math' ),
 				'file'       => $this->directory . '/views/metabox-options.php',
 				'capability' => 'onpage_snippet',

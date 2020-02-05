@@ -35,6 +35,7 @@ $cmb->add_field([
 	'classes'         => 'rank-math-supports-variables rank-math-title',
 	'default'         => '%term% Archives %page% %sep% %sitename%',
 	'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_textfield' ],
+	'attributes'      => [ 'data-exclude-variables' => 'seo_title,seo_description' ],
 ]);
 
 $cmb->add_field([
@@ -46,8 +47,9 @@ $cmb->add_field([
 	'desc'            => sprintf( esc_html__( 'Description for %s archives', 'rank-math' ), $name ),
 	'classes'         => 'rank-math-supports-variables rank-math-description',
 	'attributes'      => [
-		'class'             => 'cmb2-textarea-small wp-exclude-emoji',
-		'data-gramm_editor' => 'false',
+		'class'                  => 'cmb2-textarea-small wp-exclude-emoji',
+		'data-gramm_editor'      => 'false',
+		'data-exclude-variables' => 'seo_title,seo_description',
 	],
 	'sanitization_cb' => true,
 ]);

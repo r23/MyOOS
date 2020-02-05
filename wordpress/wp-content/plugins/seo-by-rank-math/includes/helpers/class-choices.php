@@ -435,7 +435,7 @@ trait Choices {
 	}
 
 	/**
-	 * Get Rich Snippet types as choices.
+	 * Get Schema types as choices.
 	 *
 	 * @codeCoverageIgnore
 	 *
@@ -468,9 +468,9 @@ trait Choices {
 		}
 
 		/**
-		 * Allow developers to add/remove Rich Snippet type choices.
+		 * Allow developers to add/remove Schema type choices.
 		 *
-		 * @param array $types Rich Snippet types.
+		 * @param array $types Schema types.
 		 */
 		return apply_filters( 'rank_math/settings/snippet/types', $types );
 	}

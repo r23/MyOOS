@@ -1,6 +1,6 @@
 <?php
 /**
- * The Rich Snippet Shortcode
+ * The Schema Shortcode
  *
  * @since      1.0.24
  * @package    RankMath
@@ -55,7 +55,7 @@ class Snippet_Shortcode {
 	}
 
 	/**
-	 * Rich Snippet shortcode.
+	 * Schema shortcode.
 	 *
 	 * @param  array $atts Optional. Shortcode arguments - currently only 'show'
 	 *                     parameter, which is a comma-separated list of elements to show.

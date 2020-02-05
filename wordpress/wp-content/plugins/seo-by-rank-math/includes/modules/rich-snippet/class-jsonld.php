@@ -538,7 +538,12 @@ class JsonLD {
 	/**
 	 * Get post title.
 	 *
-	 * @param  int $post_id Post ID to get title for.
+	 * Retrieves the title in this order.
+	 *  1. Custom post meta set in rich snippet
+	 *  2. Headline template set in Titles & Meta
+	 *
+	 * @param int $post_id Post ID to get title for.
+	 *
 	 * @return string
 	 */
 	public function get_post_title( $post_id = 0 ) {
@@ -548,7 +553,7 @@ class JsonLD {
 			$title = Helper::replace_vars( Helper::get_settings( "titles.pt_{$this->post->post_type}_default_snippet_name" ), $this->post );
 		}
 
-		return $title ? $title : ( 0 === $post_id ? Paper::get()->get_title() : get_the_title( $post_id ) );
+		return $title ? $title : Paper::get()->get_title();
 	}
 
 	/**

@@ -16,6 +16,7 @@ $cmb->add_field([
 	'classes'         => 'rank-math-supports-variables rank-math-title',
 	'default'         => '',
 	'sanitization_cb' => false,
+	'attributes'      => [ 'data-exclude-variables' => 'seo_title,seo_description' ],
 ]);
 
 $cmb->add_field([
@@ -25,6 +26,7 @@ $cmb->add_field([
 	'desc'            => esc_html__( 'BuddyPress group description', 'rank-math' ),
 	'classes'         => 'rank-math-supports-variables rank-math-description',
 	'sanitization_cb' => false,
+	'attributes'      => [ 'data-exclude-variables' => 'seo_title,seo_description' ],
 ]);
 
 $cmb->add_field([

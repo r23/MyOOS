@@ -29,7 +29,7 @@ class Robots_Txt {
 	 */
 	public function __construct() {
 
-		if ( is_admin() ) {
+		if ( is_super_admin() ) {
 			$this->filter( 'rank_math/settings/general', 'add_settings' );
 		}
 

@@ -74,21 +74,41 @@ class Singular implements Snippet {
 	 * @return boolean|string
 	 */
 	private function can_add_schema( $jsonld ) {
-		$pages = array_map( 'absint', array_filter( [ Helper::get_settings( 'titles.local_seo_about_page' ), Helper::get_settings( 'titles.local_seo_contact_page' ) ] ) );
-		if ( ! empty( $jsonld->post_id ) && in_array( $jsonld->post_id, $pages, true ) ) {
+		if ( empty( $jsonld->post_id ) ) {
 			return false;
 		}
 
-		$schema = Helper::get_post_meta( 'rich_snippet' );
-		if (
-			! $schema &&
-			! metadata_exists( 'post', $jsonld->post_id, 'rank_math_rich_snippet' ) &&
-			$schema = Helper::get_settings( "titles.pt_{$jsonld->post->post_type}_default_rich_snippet" ) // phpcs:ignore
-		) {
-			$schema = Conditional::is_woocommerce_active() && is_product() ? $schema : ( 'article' === $schema ? $schema : '' );
+		$pages = array_map( 'absint', array_filter( [ Helper::get_settings( 'titles.local_seo_about_page' ), Helper::get_settings( 'titles.local_seo_contact_page' ) ] ) );
+		if ( in_array( $jsonld->post_id, $pages, true ) ) {
+			return false;
 		}
 
-		return $schema;
+		if ( metadata_exists( 'post', $jsonld->post_id, 'rank_math_rich_snippet' ) ) {
+			return Helper::get_post_meta( 'rich_snippet' );
+		}
+
+		return $this->get_default_schema( $jsonld );
+	}
+
+	/**
+	 * Get Default Rich Snippet type from Settings.
+	 *
+	 * @param JsonLD $jsonld JsonLD Instance.
+	 *
+	 * @return string
+	 */
+	private function get_default_schema( $jsonld ) {
+
+		$schema = Helper::get_settings( "titles.pt_{$jsonld->post->post_type}_default_rich_snippet" );
+		if ( ! $schema ) {
+			return '';
+		}
+
+		$use_default = Conditional::is_woocommerce_active() && is_product() ||
+					Conditional::is_edd_active() && is_singular( 'download' ) ||
+					'article' === $schema;
+
+		return $use_default ? $schema : '';
 	}
 
 	/**

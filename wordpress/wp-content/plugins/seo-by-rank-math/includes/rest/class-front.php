@@ -29,7 +29,7 @@ class Front extends WP_REST_Controller {
 	 * Constructor.
 	 */
 	public function __construct() {
-		$this->namespace = \RankMath\Rest\Helper::BASE;
+		$this->namespace = \RankMath\Rest\Rest_Helper::BASE;
 	}
 
 	/**
@@ -91,7 +91,7 @@ class Front extends WP_REST_Controller {
 				'type'              => 'string',
 				'required'          => true,
 				'description'       => esc_html__( 'Site token', 'rank-math' ),
-				'validate_callback' => [ '\\RankMath\\Rest\\Helper', 'is_param_empty' ],
+				'validate_callback' => [ '\\RankMath\\Rest\\Rest_Helper', 'is_param_empty' ],
 			],
 		];
 	}

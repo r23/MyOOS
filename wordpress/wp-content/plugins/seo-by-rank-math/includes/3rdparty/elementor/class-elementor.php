@@ -10,8 +10,9 @@
 
 namespace RankMath\Elementor;
 
-use RankMath\Traits\Hooker;
 use RankMath\Helper;
+use RankMath\Traits\Hooker;
+use RankMath\Helpers\Editor;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -26,6 +27,13 @@ class Elementor {
 	 * Class constructor.
 	 */
 	public function __construct() {
+		$this->action( 'init', 'init' );
+	}
+
+	/**
+	 * Intialize.
+	 */
+	public function init() {
 		if ( ! $this->can_add_seo_tab() ) {
 			return;
 		}
@@ -34,6 +42,7 @@ class Elementor {
 		add_action( 'elementor/editor/footer', [ rank_math()->json, 'output' ], 0 );
 		$this->action( 'elementor/editor/footer', 'start_capturing', 0 );
 		$this->action( 'elementor/editor/footer', 'end_capturing', 999 );
+		$this->action( 'rank_math/sitemap/content_before_parse_html_images', 'apply_builder_in_content', 10, 2 );
 	}
 
 	/**
@@ -49,7 +58,7 @@ class Elementor {
 	public function end_capturing() {
 		$output  = \ob_get_clean();
 		$search  = '/(<div class="elementor-component-tab elementor-panel-navigation-tab" data-tab="global">.*<\/div>)/m';
-		$replace = '${1}<div class="elementor-component-tab elementor-panel-navigation-tab" data-tab="rankMath">SEO</div>';
+		$replace = '${1}<div class="elementor-component-tab elementor-panel-navigation-tab" data-tab="rank-math">SEO</div>';
 		echo \preg_replace(
 			$search,
 			$replace,
@@ -74,11 +83,37 @@ class Elementor {
 			'elementor-common-modules',
 		];
 
+		$mode = \Elementor\Core\Settings\Manager::get_settings_managers( 'editorPreferences' )->get_model()->get_settings( 'ui_theme' );
+		wp_deregister_style( 'rank-math-post-metabox' );
+
 		wp_enqueue_style( 'wp-components' );
-		wp_enqueue_style( 'rank-math-post-metabox', rank_math()->plugin_url() . 'assets/admin/css/elementor.css', [], rank_math()->version );
+		wp_enqueue_style( 'rank-math-elementor', rank_math()->plugin_url() . 'assets/admin/css/elementor.css', [], rank_math()->version );
+
+		if ( 'light' !== $mode ) {
+			$media_query = 'auto' === $mode ? '(prefers-color-scheme: dark)' : 'all';
+			wp_enqueue_style( 'rank-math-elementor-dark', rank_math()->plugin_url() . 'assets/admin/css/elementor-dark.css', [], rank_math()->version, $media_query );
+		}
+
+		Helper::add_json( 'elementorDarkMode', rank_math()->plugin_url() . 'assets/admin/css/elementor-dark.css' );
+
 		wp_enqueue_script( 'rank-math-elementor', rank_math()->plugin_url() . 'assets/admin/js/elementor.js', $deps, rank_math()->version, true );
 		rank_math()->variables->setup();
 		rank_math()->variables->setup_json();
+	}
+
+	/**
+	 * Filters the post content before it is parsed for Sitmeap images..
+	 * Used to apply the Elementor page editor on the post content.
+	 *
+	 * @since 1.0.38
+	 *
+	 * @param string $content The post content.
+	 * @param int    $post_id The post ID.
+	 *
+	 * @return string The post content.
+	 */
+	public function apply_builder_in_content( $content, $post_id ) {
+		return \Elementor\Plugin::$instance->frontend->get_builder_content( $post_id );
 	}
 
 	/**
@@ -92,6 +127,6 @@ class Elementor {
 			return false;
 		}
 
-		return true;
+		return Editor::can_add_editor();
 	}
 }

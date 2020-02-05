@@ -72,12 +72,6 @@ class Option_Center implements Runner {
 				/* translators: Link to kb article */
 				'desc'  => sprintf( esc_html__( 'Here you can enter verification codes for various third-party webmaster tools. %s You can safely paste the full HTML tags, or just the ID codes.', 'rank-math' ), '<a href="' . KB::get( 'webmaster-tools' ) . '" target="_blank">' . esc_html__( 'Learn more', 'rank-math' ) . '</a>.<br />' ),
 			],
-			'htaccess'    => [
-				'icon'  => 'fa fa-file',
-				'title' => esc_html__( 'Edit .htaccess', 'rank-math' ),
-				/* translators: Link to kb article */
-				'desc'  => sprintf( esc_html__( 'Here you can edit the contents of your .htaccess file. This file is mainly used by WordPress to control permalinks and redirections, but it may be useful to edit it in a number of cases. %s.', 'rank-math' ), '<a href="' . KB::get( 'edit-htaccess' ) . '" target="_blank">' . esc_html__( 'Learn more', 'rank-math' ) . '</a>' ),
-			],
 			'others'      => [
 				'icon'  => 'fa fa-dot-circle-o',
 				'title' => esc_html__( 'Others', 'rank-math' ),
@@ -85,6 +79,21 @@ class Option_Center implements Runner {
 				'desc'  => sprintf( esc_html__( 'Control how your plugin communicates with Rank Math and change how your RSS content looks. %s.', 'rank-math' ), '<a href="' . KB::get( 'other-settings' ) . '" target="_blank">' . esc_html__( 'Learn more', 'rank-math' ) . '</a>' ),
 			],
 		];
+
+		if ( is_super_admin() ) {
+			Arr::insert(
+				$tabs,
+				[
+					'htaccess' => [
+						'icon'  => 'fa fa-file',
+						'title' => esc_html__( 'Edit .htaccess', 'rank-math' ),
+						/* translators: Link to kb article */
+						'desc'  => sprintf( esc_html__( 'Here you can edit the contents of your .htaccess file. This file is mainly used by WordPress to control permalinks and redirections, but it may be useful to edit it in a number of cases. %s.', 'rank-math' ), '<a href="' . KB::get( 'edit-htaccess' ) . '" target="_blank">' . esc_html__( 'Learn more', 'rank-math' ) . '</a>' ),
+					],
+				],
+				5
+			);
+		}
 
 		/**
 		 * Allow developers to add new sections in the General Settings.
@@ -223,7 +232,7 @@ class Option_Center implements Runner {
 			$obj_name = isset( $names[ $obj->name ] ) ? sprintf( $names[ $obj->name ], $obj->name ) : $obj->name;
 
 			$tabs[ 'post-type-' . $obj->name ] = [
-				'title'     => $obj->label,
+				'title'     => 'attachment' === $post_type ? esc_html__( 'Attachments', 'rank-math' ) : $obj->label,
 				'icon'      => isset( $icons[ $obj->name ] ) ? $icons[ $obj->name ] : $icons['default'],
 				/* translators: 1. post type name 2. link */
 				'desc'      => sprintf( esc_html__( 'This tab contains SEO options for %1$s. %2$s', 'rank-math' ), $obj_name, $link ),

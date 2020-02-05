@@ -17,7 +17,6 @@ use WP_REST_Server;
 use WP_REST_Request;
 use WP_REST_Controller;
 use RankMath\Helper;
-use RankMath\Rest\Helper as RestHelper;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -30,7 +29,7 @@ class Admin extends WP_REST_Controller {
 	 * Constructor.
 	 */
 	public function __construct() {
-		$this->namespace = RestHelper::BASE;
+		$this->namespace = \RankMath\Rest\Rest_Helper::BASE;
 	}
 
 	/**
@@ -44,7 +43,7 @@ class Admin extends WP_REST_Controller {
 			[
 				'methods'             => WP_REST_Server::EDITABLE,
 				'callback'            => [ $this, 'save_module' ],
-				'permission_callback' => [ '\\RankMath\\Rest\\Helper', 'can_manage_options' ],
+				'permission_callback' => [ '\\RankMath\\Rest\\Rest_Helper', 'can_manage_options' ],
 				'args'                => $this->get_save_module_args(),
 			]
 		);
@@ -64,7 +63,7 @@ class Admin extends WP_REST_Controller {
 			[
 				'methods'             => WP_REST_Server::EDITABLE,
 				'callback'            => [ $this, 'auto_update' ],
-				'permission_callback' => [ '\\RankMath\\Rest\\Helper', 'can_manage_options' ],
+				'permission_callback' => [ '\\RankMath\\Rest\\Rest_Helper', 'can_manage_options' ],
 			]
 		);
 
@@ -74,7 +73,7 @@ class Admin extends WP_REST_Controller {
 			[
 				'methods'             => WP_REST_Server::EDITABLE,
 				'callback'            => [ $this, 'tools_actions' ],
-				'permission_callback' => [ '\\RankMath\\Rest\\Helper', 'can_manage_options' ],
+				'permission_callback' => [ '\\RankMath\\Rest\\Rest_Helper', 'can_manage_options' ],
 			]
 		);
 
@@ -91,7 +90,7 @@ class Admin extends WP_REST_Controller {
 			[
 				'methods'             => WP_REST_Server::EDITABLE,
 				'callback'            => [ $this, 'enable_score' ],
-				'permission_callback' => [ '\\RankMath\\Rest\\Helper', 'can_manage_options' ],
+				'permission_callback' => [ '\\RankMath\\Rest\\Rest_Helper', 'can_manage_options' ],
 			]
 		);
 
@@ -161,13 +160,14 @@ class Admin extends WP_REST_Controller {
 			unset( $meta['permalink'] );
 		}
 
+		$sanitizer = Sanitize::get();
 		foreach ( $meta as $meta_key => $meta_value ) {
 			if ( empty( $meta_value ) ) {
 				delete_metadata( $object_type, $object_id, $meta_key );
 				continue;
 			}
 
-			update_metadata( $object_type, $object_id, $meta_key, $meta_value );
+			update_metadata( $object_type, $object_id, $meta_key, $sanitizer->sanitize( $meta_key, $meta_value ) );
 		}
 
 		return $new_slug;
@@ -184,18 +184,18 @@ class Admin extends WP_REST_Controller {
 				'type'              => 'string',
 				'required'          => true,
 				'description'       => esc_html__( 'Object Type i.e. post, term, user', 'rank-math' ),
-				'validate_callback' => [ '\\RankMath\\Rest\\Helper', 'is_param_empty' ],
+				'validate_callback' => [ '\\RankMath\\Rest\\Rest_Helper', 'is_param_empty' ],
 			],
 			'objectID'   => [
 				'type'              => 'integer',
 				'required'          => true,
 				'description'       => esc_html__( 'Object unique id', 'rank-math' ),
-				'validate_callback' => [ '\\RankMath\\Rest\\Helper', 'is_param_empty' ],
+				'validate_callback' => [ '\\RankMath\\Rest\\Rest_Helper', 'is_param_empty' ],
 			],
 			'meta'       => [
 				'required'          => true,
 				'description'       => esc_html__( 'Meta to add or update data.', 'rank-math' ),
-				'validate_callback' => [ '\\RankMath\\Rest\\Helper', 'is_param_empty' ],
+				'validate_callback' => [ '\\RankMath\\Rest\\Rest_Helper', 'is_param_empty' ],
 			],
 		];
 	}
@@ -262,13 +262,13 @@ class Admin extends WP_REST_Controller {
 				'type'              => 'string',
 				'required'          => true,
 				'description'       => esc_html__( 'Module slug', 'rank-math' ),
-				'validate_callback' => [ '\\RankMath\\Rest\\Helper', 'is_param_empty' ],
+				'validate_callback' => [ '\\RankMath\\Rest\\Rest_Helper', 'is_param_empty' ],
 			],
 			'state'  => [
 				'type'              => 'string',
 				'required'          => true,
 				'description'       => esc_html__( 'Module state either on or off', 'rank-math' ),
-				'validate_callback' => [ '\\RankMath\\Rest\\Helper', 'is_param_empty' ],
+				'validate_callback' => [ '\\RankMath\\Rest\\Rest_Helper', 'is_param_empty' ],
 			],
 		];
 	}

@@ -38,6 +38,7 @@ $cmb->add_field([
 	'desc'            => sprintf( esc_html__( 'Default title tag for single %s pages. This can be changed on a per-post basis on the post editor screen.', 'rank-math' ), $name ),
 	'classes'         => 'rank-math-supports-variables rank-math-title',
 	'default'         => '%title% %page% %sep% %sitename%',
+	'attributes'      => [ 'data-exclude-variables' => 'seo_title,seo_description' ],
 	'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_textfield' ],
 ]);
 
@@ -52,8 +53,9 @@ $cmb->add_field([
 	'default'         => '%excerpt%',
 	'sanitization_cb' => true,
 	'attributes'      => [
-		'class'             => 'cmb2-textarea-small wp-exclude-emoji',
-		'data-gramm_editor' => 'false',
+		'class'                  => 'cmb2-textarea-small wp-exclude-emoji',
+		'data-gramm_editor'      => 'false',
+		'data-exclude-variables' => 'seo_title,seo_description',
 	],
 ]);
 
@@ -67,6 +69,7 @@ $cmb->add_field([
 	'classes'         => 'rank-math-supports-variables rank-math-title',
 	'default'         => '%title% %page% %sep% %sitename%',
 	'sanitization_cb' => false,
+	'attributes'      => [ 'data-exclude-variables' => 'seo_title,seo_description' ],
 ]);
 
 $cmb->add_field([
@@ -78,6 +81,7 @@ $cmb->add_field([
 	'desc'            => sprintf( esc_html__( 'Description for %s archive pages.', 'rank-math' ), $name ),
 	'classes'         => 'rank-math-supports-variables rank-math-description',
 	'sanitization_cb' => false,
+	'attributes'      => [ 'data-exclude-variables' => 'seo_title,seo_description' ],
 ]);
 
 if ( ( class_exists( 'WooCommerce' ) && 'product' === $post_type ) || ( class_exists( 'Easy_Digital_Downloads' ) && 'download' === $post_type ) ) {
@@ -85,7 +89,7 @@ if ( ( class_exists( 'WooCommerce' ) && 'product' === $post_type ) || ( class_ex
 	$cmb->add_field([
 		'id'      => 'pt_' . $post_type . '_default_rich_snippet',
 		'type'    => 'radio_inline',
-		'name'    => esc_html__( 'Rich Snippet Type', 'rank-math' ),
+		'name'    => esc_html__( 'Schema Type', 'rank-math' ),
 		/* translators: link to title setting screen */
 		'desc'    => __( 'Default rich snippet selected when creating a new product.', 'rank-math' ),
 		'options' => [
@@ -99,7 +103,7 @@ if ( ( class_exists( 'WooCommerce' ) && 'product' === $post_type ) || ( class_ex
 	$cmb->add_field([
 		'id'      => 'pt_' . $post_type . '_default_rich_snippet',
 		'type'    => 'select',
-		'name'    => esc_html__( 'Rich Snippet Type', 'rank-math' ),
+		'name'    => esc_html__( 'Schema Type', 'rank-math' ),
 		'desc'    => esc_html__( 'Default rich snippet selected when creating a new post of this type. ', 'rank-math' ),
 		'options' => Helper::choices_rich_snippet_types( esc_html__( 'None (Click here to set one)', 'rank-math' ) ),
 		'default' => $this->do_filter( 'settings/snippet/type', isset( $richsnp_default[ $post_type ] ) ? $richsnp_default[ $post_type ] : 'off', $post_type ),

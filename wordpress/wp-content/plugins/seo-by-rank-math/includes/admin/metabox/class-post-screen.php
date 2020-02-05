@@ -13,6 +13,7 @@ namespace RankMath\Admin\Metabox;
 use RankMath\KB;
 use RankMath\Helper;
 use RankMath\Traits\Hooker;
+use RankMath\Helpers\Editor;
 use RankMath\Frontend_SEO_Score;
 use RankMath\Admin\Admin_Helper;
 use MyThemeShop\Helpers\Str;
@@ -68,8 +69,8 @@ class Post_Screen implements IScreen {
 	 * Enqueue Styles and Scripts required for screen.
 	 */
 	public function enqueue() {
-		$is_block_editor = Helper::is_block_editor() && \rank_math_is_gutenberg();
 		$is_elementor    = Helper::is_elementor_editor();
+		$is_block_editor = Helper::is_block_editor() && \rank_math_is_gutenberg();
 
 		if ( ! $is_elementor ) {
 			$this->enqueue_custom_fields();
@@ -87,7 +88,7 @@ class Post_Screen implements IScreen {
 			$this->enqueue_commons();
 		}
 
-		if ( $is_block_editor && ! $is_elementor ) {
+		if ( $is_block_editor && ! $is_elementor && Editor::can_add_editor() ) {
 			$this->enqueue_for_gutenberg();
 			return;
 		}

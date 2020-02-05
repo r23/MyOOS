@@ -463,9 +463,10 @@ class Installer {
 	 */
 	private function get_post_type_defaults( $post_type ) {
 		$rich_snippets = [
-			'post'    => 'article',
-			'page'    => 'article',
-			'product' => 'product',
+			'post'     => 'article',
+			'page'     => 'article',
+			'product'  => 'product',
+			'download' => 'product',
 		];
 
 		$defaults = [

@@ -1,6 +1,6 @@
 <?php
 /**
- * Metabox - Rich Snippet Tab
+ * Metabox - Schema Tab
  *
  * @package    RankMath
  * @subpackage RankMath\RichSnippet
@@ -22,15 +22,15 @@ if ( ( class_exists( 'WooCommerce' ) && 'product' === $post_type ) || ( class_ex
 		'id'      => 'rank_math_woocommerce_notice',
 		'type'    => 'notice',
 		'what'    => 'info',
-		'content' => '<span class="dashicons dashicons-yes"></span> ' . esc_html__( 'Rank Math automatically inserts additional Rich Snippet meta data for WooCommerce products. You can set the Rich Snippet Type to "None" to disable this feature and just use the default data added by WooCommerce.', 'rank-math' ),
+		'content' => '<span class="dashicons dashicons-yes"></span> ' . esc_html__( 'Rank Math automatically inserts additional Schema meta data for WooCommerce products. You can set the Schema Type to "None" to disable this feature and just use the default data added by WooCommerce.', 'rank-math' ),
 	]);
 
 	$cmb->add_field([
 		'id'      => 'rank_math_rich_snippet',
 		'type'    => 'radio_inline',
-		'name'    => esc_html__( 'Rich Snippet Type', 'rank-math' ),
+		'name'    => esc_html__( 'Schema Type', 'rank-math' ),
 		/* translators: link to title setting screen */
-		'desc'    => sprintf( wp_kses_post( __( 'Rich Snippets help you stand out in SERPs. <a href="%s" target="_blank">Learn more</a>.', 'rank-math' ) ), KB::get( 'rich-snippets' ) ),
+		'desc'    => sprintf( wp_kses_post( __( 'Schema help you stand out in SERPs. <a href="%s" target="_blank">Learn more</a>.', 'rank-math' ) ), KB::get( 'rich-snippets' ) ),
 		'options' => [
 			'off'     => esc_html__( 'None', 'rank-math' ),
 			'product' => esc_html__( 'Product', 'rank-math' ),
@@ -46,9 +46,9 @@ $has_reviews = Helper::get_review_posts();
 $cmb->add_field([
 	'id'      => 'rank_math_rich_snippet',
 	'type'    => 'select',
-	'name'    => esc_html__( 'Rich Snippet Type', 'rank-math' ),
+	'name'    => esc_html__( 'Schema Type', 'rank-math' ),
 	/* translators: link to title setting screen */
-	'desc'    => sprintf( wp_kses_post( __( 'Rich Snippets help you stand out in SERPs. <a href="%s" target="_blank">Learn more</a>.', 'rank-math' ) ), KB::get( 'rich-snippets' ) ),
+	'desc'    => sprintf( wp_kses_post( __( 'Schema help you stand out in SERPs. <a href="%s" target="_blank">Learn more</a>.', 'rank-math' ) ), KB::get( 'rich-snippets' ) ),
 	'options' => Helper::choices_rich_snippet_types( esc_html__( 'None', 'rank-math' ) ),
 	'default' => Helper::get_settings( "titles.pt_{$post_type}_default_rich_snippet" ),
 ]);
@@ -67,7 +67,7 @@ if ( $has_reviews ) {
 $cmb->add_field([
 	'id'      => 'rank_math_snippet_location',
 	'name'    => esc_html__( 'Review Location', 'rank-math' ),
-	'desc'    => esc_html__( 'The review or rating must be displayed on the page to comply with Google\'s Rich Snippet guidelines.', 'rank-math' ),
+	'desc'    => esc_html__( 'The review or rating must be displayed on the page to comply with Google\'s Schema guidelines.', 'rank-math' ),
 	'type'    => 'select',
 	'dep'     => [ [ 'rank_math_rich_snippet', 'book,course,event,product,recipe,software', '=' ] ],
 	'classes' => 'nob',

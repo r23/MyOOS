@@ -1,6 +1,6 @@
 <?php
 /**
- * The AIO Rich Snippet Import Class
+ * The AIO Schema Rich Snippets Import Class
  *
  * @since      0.9.0
  * @package    RankMath
@@ -116,7 +116,7 @@ class AIO_Rich_Snippet extends Plugin_Importer {
 	 */
 	public function get_choices() {
 		return [
-			'postmeta' => esc_html__( 'Import Rich Snippets', 'rank-math' ) . Admin_Helper::get_tooltip( esc_html__( 'Import all Schema data for Posts, Pages, and custom post types.', 'rank-math' ) ),
+			'postmeta' => esc_html__( 'Import Schemas', 'rank-math' ) . Admin_Helper::get_tooltip( esc_html__( 'Import all Schema data for Posts, Pages, and custom post types.', 'rank-math' ) ),
 		];
 	}
 

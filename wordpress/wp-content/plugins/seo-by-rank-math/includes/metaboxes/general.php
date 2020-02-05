@@ -23,8 +23,9 @@ $cmb->add_field( array(
 	'classes'         => 'rank-math-supports-variables',
 	'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_textfield' ],
 	'attributes'      => array(
-		'class'             => 'regular-text wp-exclude-emoji',
-		'data-gramm_editor' => 'false',
+		'class'                  => 'regular-text wp-exclude-emoji',
+		'data-gramm_editor'      => 'false',
+		'data-exclude-variables' => 'seo_title,seo_description',
 	),
 ) );
 
@@ -41,10 +42,11 @@ $cmb->add_field( array(
 	'classes'         => 'rank-math-supports-variables',
 	'sanitization_cb' => true,
 	'attributes'      => array(
-		'class'             => 'cmb2_textarea wp-exclude-emoji',
-		'rows'              => 2,
-		'data-autoresize'   => true,
-		'data-gramm_editor' => 'false',
+		'class'                  => 'cmb2_textarea wp-exclude-emoji',
+		'rows'                   => 2,
+		'data-autoresize'        => true,
+		'data-gramm_editor'      => 'false',
+		'data-exclude-variables' => 'seo_title,seo_description',
 	),
 ) );
 

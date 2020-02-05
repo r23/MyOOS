@@ -223,7 +223,7 @@ class Screen implements IScreen {
 		// Username, avatar & Name.
 		$twitter_username           = Helper::get_settings( 'titles.twitter_author_names' );
 		$data['twitterAuthor']      = $twitter_username ? $twitter_username : esc_html__( 'username', 'rank-math' );
-		$data['twitterUseFacebook'] = '' === $data['twitterUseFacebook'] ? true : $data['twitterUseFacebook'];
+		$data['twitterUseFacebook'] = 'off' === $data['twitterUseFacebook'] ? false : true;
 
 		return wp_parse_args( $this->screen->get_object_values(), $data );
 	}

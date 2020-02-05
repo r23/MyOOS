@@ -50,7 +50,7 @@ class WooCommerce extends WC_Vars {
 			new Admin;
 		}
 
-		$this->integrations();
+		$this->action( 'init', 'integrations' );
 
 		if ( $this->remove_product_base ) {
 			$this->filter( 'post_type_link', 'product_post_type_link', 1, 2 );
@@ -79,7 +79,10 @@ class WooCommerce extends WC_Vars {
 			return;
 		}
 		// Permalink Manager.
-		if ( $this->remove_product_base || $this->remove_category_base || $this->remove_parent_slugs ) {
+		if (
+			( is_product() && $this->remove_product_base ) ||
+			( is_product_category() && ( $this->remove_category_base || $this->remove_parent_slugs ) )
+		) {
 			$this->action( 'request', 'request' );
 		}
 
