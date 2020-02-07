@@ -12,7 +12,7 @@ namespace Stripe;
  * @property string $account
  * @property bool $requested
  * @property int $requested_at
- * @property mixed $requirements
+ * @property \Stripe\StripeObject $requirements
  * @property string $status
  */
 class Capability extends ApiResource
@@ -48,8 +48,8 @@ class Capability extends ApiResource
         $account = Util\Util::utf8($account);
 
         $base = Account::classUrl();
-        $accountExtn = urlencode($account);
-        $extn = urlencode($id);
+        $accountExtn = \urlencode($account);
+        $extn = \urlencode($id);
         return "$base/$accountExtn/capabilities/$extn";
     }
 

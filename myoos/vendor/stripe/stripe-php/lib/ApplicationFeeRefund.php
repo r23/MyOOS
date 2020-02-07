@@ -12,7 +12,7 @@ namespace Stripe;
  * @property int $created
  * @property string $currency
  * @property string $fee
- * @property StripeObject $metadata
+ * @property \Stripe\StripeObject $metadata
  *
  * @package Stripe
  */
@@ -42,8 +42,8 @@ class ApplicationFeeRefund extends ApiResource
         $fee = Util\Util::utf8($fee);
 
         $base = ApplicationFee::classUrl();
-        $feeExtn = urlencode($fee);
-        $extn = urlencode($id);
+        $feeExtn = \urlencode($fee);
+        $extn = \urlencode($id);
         return "$base/$feeExtn/refunds/$extn";
     }
 

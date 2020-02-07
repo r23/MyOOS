@@ -7,13 +7,13 @@ namespace Stripe;
  *
  * @property string $id
  * @property string $object
- * @property string|null $account
+ * @property string|\Stripe\Account|null $account
  * @property string|null $account_holder_name
  * @property string|null $account_holder_type
  * @property string|null $bank_name
  * @property string $country
  * @property string $currency
- * @property string|null $customer
+ * @property string|\Stripe\Customer|null $customer
  * @property bool|null $default_for_currency
  * @property string|null $fingerprint
  * @property string $last4
@@ -58,8 +58,8 @@ class BankAccount extends ApiResource
             $msg = "Bank accounts cannot be accessed without a customer ID or account ID.";
             throw new Exception\UnexpectedValueException($msg, null);
         }
-        $parentExtn = urlencode(Util\Util::utf8($parent));
-        $extn = urlencode(Util\Util::utf8($this['id']));
+        $parentExtn = \urlencode(Util\Util::utf8($parent));
+        $extn = \urlencode(Util\Util::utf8($this['id']));
         return "$base/$parentExtn/$path/$extn";
     }
 

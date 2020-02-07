@@ -17,24 +17,24 @@ namespace Stripe;
  * @property int $created
  * @property int $current_period_end
  * @property int $current_period_start
- * @property string $customer
+ * @property string|\Stripe\Customer $customer
  * @property int|null $days_until_due
- * @property string|null $default_payment_method
- * @property string|null $default_source
+ * @property string|\Stripe\PaymentMethod|null $default_payment_method
+ * @property string|\Stripe\StripeObject|null $default_source
  * @property \Stripe\TaxRate[]|null $default_tax_rates
  * @property \Stripe\Discount|null $discount
  * @property int|null $ended_at
  * @property \Stripe\Collection $items
- * @property string|null $latest_invoice
+ * @property string|\Stripe\Invoice|null $latest_invoice
  * @property bool $livemode
  * @property \Stripe\StripeObject $metadata
  * @property int|null $next_pending_invoice_item_invoice
  * @property \Stripe\StripeObject|null $pending_invoice_item_interval
- * @property string|null $pending_setup_intent
+ * @property string|\Stripe\SetupIntent|null $pending_setup_intent
  * @property \Stripe\StripeObject|null $pending_update
  * @property \Stripe\Plan|null $plan
  * @property int|null $quantity
- * @property string|null $schedule
+ * @property string|\Stripe\SubscriptionSchedule|null $schedule
  * @property int $start_date
  * @property string $status
  * @property float|null $tax_percent
@@ -49,9 +49,6 @@ class Subscription extends ApiResource
 
     use ApiOperations\All;
     use ApiOperations\Create;
-    use ApiOperations\Delete {
-        delete as protected _delete;
-    }
     use ApiOperations\Retrieve;
     use ApiOperations\Update;
 
@@ -67,6 +64,10 @@ class Subscription extends ApiResource
     const STATUS_UNPAID             = 'unpaid';
     const STATUS_INCOMPLETE         = 'incomplete';
     const STATUS_INCOMPLETE_EXPIRED = 'incomplete_expired';
+
+    use ApiOperations\Delete {
+        delete as protected _delete;
+      }
 
     public static function getSavedNestedResources()
     {
@@ -85,7 +86,7 @@ class Subscription extends ApiResource
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
      *
-     * @return Subscription The deleted subscription.
+     * @return \Stripe\Subscription The deleted subscription.
      */
     public function cancel($params = null, $opts = null)
     {
@@ -98,7 +99,7 @@ class Subscription extends ApiResource
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
      *
-     * @return Subscription The updated subscription.
+     * @return \Stripe\Subscription The updated subscription.
      */
     public function deleteDiscount($params = null, $opts = null)
     {

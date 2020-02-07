@@ -12,7 +12,7 @@ namespace Stripe;
  * @property int $created
  * @property string $currency
  * @property string $destination_payment_refund
- * @property StripeObject $metadata
+ * @property \Stripe\StripeObject $metadata
  * @property string $source_refund
  * @property string $transfer
  *
@@ -44,8 +44,8 @@ class TransferReversal extends ApiResource
         $transfer = Util\Util::utf8($transfer);
 
         $base = Transfer::classUrl();
-        $transferExtn = urlencode($transfer);
-        $extn = urlencode($id);
+        $transferExtn = \urlencode($transfer);
+        $extn = \urlencode($id);
         return "$base/$transferExtn/reversals/$extn";
     }
 

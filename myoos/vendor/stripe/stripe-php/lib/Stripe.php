@@ -58,7 +58,7 @@ class Stripe
     // @var float Initial delay between retries, in seconds
     private static $initialNetworkRetryDelay = 0.5;
 
-    const VERSION = '7.22.0';
+    const VERSION = '7.23.0';
 
     /**
      * @return string The API key used for requests.
@@ -139,7 +139,7 @@ class Stripe
      */
     private static function getDefaultCABundlePath()
     {
-        return realpath(dirname(__FILE__) . '/../data/ca-certificates.crt');
+        return \realpath(\dirname(__FILE__) . '/../data/ca-certificates.crt');
     }
 
     /**

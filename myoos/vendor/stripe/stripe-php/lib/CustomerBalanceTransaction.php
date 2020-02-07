@@ -18,7 +18,7 @@ namespace Stripe;
  * @property int $ending_balance
  * @property string $invoice
  * @property bool $livemode
- * @property StripeObject $metadata
+ * @property \Stripe\StripeObject $metadata
  * @property string $type
  */
 class CustomerBalanceTransaction extends ApiResource
@@ -54,8 +54,8 @@ class CustomerBalanceTransaction extends ApiResource
         $customer = Util\Util::utf8($customer);
 
         $base = Customer::classUrl();
-        $customerExtn = urlencode($customer);
-        $extn = urlencode($id);
+        $customerExtn = \urlencode($customer);
+        $extn = \urlencode($id);
         return "$base/$customerExtn/balance_transactions/$extn";
     }
 

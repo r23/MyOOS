@@ -20,18 +20,20 @@ namespace Stripe;
  */
 class File extends ApiResource
 {
+    const OBJECT_NAME = 'file';
+
+    use ApiOperations\All;
+    use ApiOperations\Retrieve;
+
     // This resource can have two different object names. In latter API
     // versions, only `file` is used, but since stripe-php may be used with
     // any API version, we need to support deserializing the older
     // `file_upload` object into the same class.
-    const OBJECT_NAME = 'file';
-    const OBJECT_NAME_ALT = "file_upload";
+    const OBJECT_NAME_ALT = 'file_upload';
 
-    use ApiOperations\All;
     use ApiOperations\Create {
         create as protected _create;
     }
-    use ApiOperations\Retrieve;
 
     public static function classUrl()
     {
@@ -49,12 +51,12 @@ class File extends ApiResource
     public static function create($params = null, $opts = null)
     {
         $opts = \Stripe\Util\RequestOptions::parse($opts);
-        if (is_null($opts->apiBase)) {
+        if (\is_null($opts->apiBase)) {
             $opts->apiBase = Stripe::$apiUploadBase;
         }
         // Manually flatten params, otherwise curl's multipart encoder will
         // choke on nested arrays.
-        $flatParams = array_column(\Stripe\Util\Util::flattenParams($params), 1, 0);
+        $flatParams = \array_column(\Stripe\Util\Util::flattenParams($params), 1, 0);
         return static::_create($flatParams, $opts);
     }
 }

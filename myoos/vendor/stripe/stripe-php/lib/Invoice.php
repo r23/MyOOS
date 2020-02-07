@@ -17,12 +17,12 @@ namespace Stripe;
  * @property bool $attempted
  * @property bool $auto_advance
  * @property string|null $billing_reason
- * @property string|null $charge
+ * @property string|\Stripe\Charge|null $charge
  * @property string|null $collection_method
  * @property int $created
  * @property string $currency
  * @property \Stripe\StripeObject[]|null $custom_fields
- * @property string $customer
+ * @property string|\Stripe\Customer $customer
  * @property \Stripe\StripeObject|null $customer_address
  * @property string|null $customer_email
  * @property string|null $customer_name
@@ -30,8 +30,8 @@ namespace Stripe;
  * @property \Stripe\StripeObject|null $customer_shipping
  * @property string|null $customer_tax_exempt
  * @property \Stripe\StripeObject[]|null $customer_tax_ids
- * @property string|null $default_payment_method
- * @property string|null $default_source
+ * @property string|\Stripe\PaymentMethod|null $default_payment_method
+ * @property string|\Stripe\StripeObject|null $default_source
  * @property \Stripe\TaxRate[]|null $default_tax_rates
  * @property string|null $description
  * @property \Stripe\Discount|null $discount
@@ -46,7 +46,7 @@ namespace Stripe;
  * @property int|null $next_payment_attempt
  * @property string|null $number
  * @property bool $paid
- * @property string|null $payment_intent
+ * @property string|\Stripe\PaymentIntent|null $payment_intent
  * @property int $period_end
  * @property int $period_start
  * @property int $post_payment_credit_notes_amount
@@ -56,7 +56,7 @@ namespace Stripe;
  * @property string|null $statement_descriptor
  * @property string|null $status
  * @property \Stripe\StripeObject $status_transitions
- * @property string|null $subscription
+ * @property string|\Stripe\Subscription|null $subscription
  * @property int $subscription_proration_date
  * @property int $subtotal
  * @property int|null $tax
@@ -77,6 +77,7 @@ class Invoice extends ApiResource
     use ApiOperations\Delete;
     use ApiOperations\Retrieve;
     use ApiOperations\Update;
+
     use ApiOperations\NestedResource;
 
     /**
@@ -117,6 +118,37 @@ class Invoice extends ApiResource
     const BILLING_SEND_INVOICE         = 'send_invoice';
 
     const PATH_LINES = '/lines';
+
+    /**
+     * @param array|null $params
+     * @param array|string|null $opts
+     *
+     * @throws \Stripe\Exception\ApiErrorException if the request fails
+     *
+     * @return \Stripe\Invoice The upcoming invoice.
+     */
+    public static function upcoming($params = null, $opts = null)
+    {
+        $url = static::classUrl() . '/upcoming';
+        list($response, $opts) = static::_staticRequest('get', $url, $params, $opts);
+        $obj = Util\Util::convertToStripeObject($response->json, $opts);
+        $obj->setLastResponse($response);
+        return $obj;
+    }
+
+    /**
+     * @param string $id The ID of the invoice on which to retrieve the lines.
+     * @param array|null $params
+     * @param array|string|null $opts
+     *
+     * @throws StripeExceptionApiErrorException if the request fails
+     *
+     * @return \Stripe\Collection The list of lines (InvoiceLineItem).
+     */
+    public static function allLines($id, $params = null, $opts = null)
+    {
+        return self::_allNestedResources($id, static::PATH_LINES, $params, $opts);
+    }
 
     /**
      * @param array|null $params
@@ -188,23 +220,6 @@ class Invoice extends ApiResource
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
      *
-     * @return \Stripe\Invoice The upcoming invoice.
-     */
-    public static function upcoming($params = null, $opts = null)
-    {
-        $url = static::classUrl() . '/upcoming';
-        list($response, $opts) = static::_staticRequest('get', $url, $params, $opts);
-        $obj = Util\Util::convertToStripeObject($response->json, $opts);
-        $obj->setLastResponse($response);
-        return $obj;
-    }
-
-    /**
-     * @param array|null $params
-     * @param array|string|null $opts
-     *
-     * @throws \Stripe\Exception\ApiErrorException if the request fails
-     *
      * @return Invoice The voided invoice.
      */
     public function voidInvoice($params = null, $opts = null)
@@ -213,19 +228,5 @@ class Invoice extends ApiResource
         list($response, $opts) = $this->_request('post', $url, $params, $opts);
         $this->refreshFrom($response, $opts);
         return $this;
-    }
-
-    /**
-     * @param string $id The ID of the invoice on which to retrieve the lines.
-     * @param array|null $params
-     * @param array|string|null $opts
-     *
-     * @throws \Stripe\Exception\ApiErrorException if the request fails
-     *
-     * @return \Stripe\Collection The list of lines (InvoiceLineItem).
-     */
-    public static function allLines($id, $params = null, $opts = null)
-    {
-        return self::_allNestedResources($id, static::PATH_LINES, $params, $opts);
     }
 }

@@ -11,10 +11,10 @@ namespace Stripe;
  * @property int|null $amount_returned
  * @property string|null $application
  * @property int|null $application_fee
- * @property string|null $charge
+ * @property string|\Stripe\Charge|null $charge
  * @property int $created
  * @property string $currency
- * @property string|null $customer
+ * @property string|\Stripe\Customer|null $customer
  * @property string|null $email
  * @property string $external_coupon_code
  * @property \Stripe\OrderItem[] $items
@@ -46,14 +46,13 @@ class Order extends ApiResource
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
      *
-     * @return Order The paid order.
+     * @return \Stripe\OrderReturn The newly created return.
      */
-    public function pay($params = null, $opts = null)
+    public function returnOrder($params = null, $opts = null)
     {
-        $url = $this->instanceUrl() . '/pay';
+        $url = $this->instanceUrl() . '/returns';
         list($response, $opts) = $this->_request('post', $url, $params, $opts);
-        $this->refreshFrom($response, $opts);
-        return $this;
+        return Util\Util::convertToStripeObject($response, $opts);
     }
 
     /**
@@ -62,12 +61,13 @@ class Order extends ApiResource
      *
      * @throws \Stripe\Exception\ApiErrorException if the request fails
      *
-     * @return \Stripe\OrderReturn The newly created return.
+     * @return Order The paid order.
      */
-    public function returnOrder($params = null, $opts = null)
+    public function pay($params = null, $opts = null)
     {
-        $url = $this->instanceUrl() . '/returns';
+        $url = $this->instanceUrl() . '/pay';
         list($response, $opts) = $this->_request('post', $url, $params, $opts);
-        return Util\Util::convertToStripeObject($response, $opts);
+        $this->refreshFrom($response, $opts);
+        return $this;
     }
 }

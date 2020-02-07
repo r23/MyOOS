@@ -11,9 +11,9 @@ namespace Stripe;
  * @property int|null $completed_at
  * @property int $created
  * @property \Stripe\StripeObject|null $current_phase
- * @property string $customer
+ * @property string|\Stripe\Customer $customer
+ * @property \Stripe\StripeObject $default_settings
  * @property string $end_behavior
- * @property mixed|null $invoice_settings
  * @property bool $livemode
  * @property \Stripe\StripeObject|null $metadata
  * @property \Stripe\StripeObject[] $phases
@@ -21,7 +21,7 @@ namespace Stripe;
  * @property string|null $released_subscription
  * @property \Stripe\StripeObject|null $renewal_interval
  * @property string $status
- * @property string|null $subscription
+ * @property string|\Stripe\Subscription|null $subscription
  *
  * @package Stripe
  */

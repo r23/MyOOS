@@ -9,17 +9,17 @@ namespace Stripe;
  * @property string $object
  * @property int $amount
  * @property int $amount_reversed
- * @property string|null $balance_transaction
+ * @property string|\Stripe\BalanceTransaction|null $balance_transaction
  * @property int $created
  * @property string $currency
  * @property string|null $description
- * @property string|null $destination
- * @property string $destination_payment
+ * @property string|\Stripe\Account|null $destination
+ * @property string|\Stripe\Charge $destination_payment
  * @property bool $livemode
  * @property \Stripe\StripeObject $metadata
  * @property \Stripe\Collection $reversals
  * @property bool $reversed
- * @property string|null $source_transaction
+ * @property string|\Stripe\Charge|null $source_transaction
  * @property string|null $source_type
  * @property string|null $transfer_group
  *
@@ -34,8 +34,6 @@ class Transfer extends ApiResource
     use ApiOperations\NestedResource;
     use ApiOperations\Retrieve;
     use ApiOperations\Update;
-
-    const PATH_REVERSALS = '/reversals';
 
     /**
      * Possible string representations of the source type of the transfer.
@@ -61,6 +59,8 @@ class Transfer extends ApiResource
         $this->refreshFrom($response, $opts);
         return $this;
     }
+
+    const PATH_REVERSALS = '/reversals';
 
     /**
      * @param string $id The ID of the transfer on which to retrieve the transfer reversals.
