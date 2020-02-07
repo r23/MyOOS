@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection
 Tested up to: 5.3.2
 Requires at least: 4.9.0
 Requires PHP: 5.6
-Stable tag: 1.0.37.3
+Stable tag: 1.0.37.4
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -460,7 +460,11 @@ We look forward to helping you.
 
 == Changelog ==
 
-= 1.0.37.3 [Feb 05, 2019] =
+= 1.0.37.4 [Feb 06, 2020] =
+* Fixed: Minor JS error in the browser console
+* Fixed: WooCommerce Product pages throwing 404 error on some installations
+
+= 1.0.37.3 [Feb 05, 2020] =
 * New: Added `valueAddedTaxIncluded` Schema field when Tax is enabled in the WooCommerce
 * New: Treat Easy Digital Downloads single posts as a product page. Better Schema markup output for EDD users
 * Improved: Removed 'isRelated' Schema code from WooCommerce Products to avoid unnecessary warnings in GSC
