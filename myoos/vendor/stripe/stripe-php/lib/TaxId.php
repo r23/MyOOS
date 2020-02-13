@@ -25,7 +25,8 @@ class TaxId extends ApiResource
 
     /**
      * Possible string representations of a tax id's type.
-     * @link https://stripe.com/docs/api/customer_tax_ids/object#tax_id_object-type
+     *
+     * @see https://stripe.com/docs/api/customer_tax_ids/object#tax_id_object-type
      */
     const TYPE_AU_ABN  = 'au_abn';
     const TYPE_CA_BN   = 'ca_bn';
@@ -46,7 +47,8 @@ class TaxId extends ApiResource
 
     /**
      * Possible string representations of the verification status.
-     * @link https://stripe.com/docs/api/customer_tax_ids/object#tax_id_object-verification
+     *
+     * @see https://stripe.com/docs/api/customer_tax_ids/object#tax_id_object-verification
      */
     const VERIFICATION_STATUS_PENDING     = 'pending';
     const VERIFICATION_STATUS_UNAVAILABLE = 'unavailable';
@@ -62,7 +64,7 @@ class TaxId extends ApiResource
         $customer = $this['customer'];
         if (!$id) {
             throw new Exception\UnexpectedValueException(
-                "Could not determine which URL to request: class instance has invalid ID: $id"
+                "Could not determine which URL to request: class instance has invalid ID: {$id}"
             );
         }
         $id = Util\Util::utf8($id);
@@ -71,7 +73,7 @@ class TaxId extends ApiResource
         $base = Customer::classUrl();
         $customerExtn = \urlencode($customer);
         $extn = \urlencode($id);
-        return "$base/$customerExtn/tax_ids/$extn";
+        return "{$base}/{$customerExtn}/tax_ids/{$extn}";
     }
 
     /**

@@ -21,14 +21,14 @@ abstract class ApiResource extends StripeObject
     public static function getSavedNestedResources()
     {
         static $savedNestedResources = null;
-        if ($savedNestedResources === null) {
+        if (null === $savedNestedResources) {
             $savedNestedResources = new Util\Set();
         }
         return $savedNestedResources;
     }
 
     /**
-     * @var boolean A flag that can be set a behavior that will cause this
+     * @var bool A flag that can be set a behavior that will cause this
      * resource to be encoded and sent up along with an update of its parent
      * resource. This is usually not desirable because resources are updated
      * individually on their own endpoints, but there are certain cases,
@@ -48,9 +48,9 @@ abstract class ApiResource extends StripeObject
     }
 
     /**
-     * @return ApiResource The refreshed resource.
-     *
      * @throws Exception\ApiErrorException
+     *
+     * @return ApiResource The refreshed resource.
      */
     public function refresh()
     {
@@ -84,24 +84,28 @@ abstract class ApiResource extends StripeObject
         // Replace dots with slashes for namespaced resources, e.g. if the object's name is
         // "foo.bar", then its URL will be "/v1/foo/bars".
         $base = \str_replace('.', '/', static::OBJECT_NAME);
-        return "/v1/${base}s";
+        return "/v1/{$base}s";
     }
 
     /**
+     * @param string|null $id the ID of the resource
+     *
+     * @throws Exception\UnexpectedValueException if $id is null
+     *
      * @return string The instance endpoint URL for the given class.
      */
     public static function resourceUrl($id)
     {
-        if ($id === null) {
+        if (null === $id) {
             $class = \get_called_class();
             $message = "Could not determine which URL to request: "
-               . "$class instance has invalid ID: $id";
+               . "{$class} instance has invalid ID: {$id}";
             throw new Exception\UnexpectedValueException($message);
         }
         $id = Util\Util::utf8($id);
         $base = static::classUrl();
         $extn = \urlencode($id);
-        return "$base/$extn";
+        return "{$base}/{$extn}";
     }
 
     /**

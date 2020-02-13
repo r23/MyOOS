@@ -37,6 +37,7 @@ class RequestOptions
     /**
      * Unpacks an options array and merges it into the existing RequestOptions
      * object.
+     *
      * @param array|string|null $options a key => value array
      *
      * @return RequestOptions
@@ -44,10 +45,10 @@ class RequestOptions
     public function merge($options)
     {
         $other_options = self::parse($options);
-        if ($other_options->apiKey === null) {
+        if (null === $other_options->apiKey) {
             $other_options->apiKey = $this->apiKey;
         }
-        if ($other_options->apiBase === null) {
+        if (null === $other_options->apiBase) {
             $other_options->apiBase = $this->apiBase;
         }
         $other_options->headers = \array_merge($this->headers, $other_options->headers);
@@ -60,7 +61,7 @@ class RequestOptions
     public function discardNonPersistentHeaders()
     {
         foreach ($this->headers as $k => $v) {
-            if (!\in_array($k, self::$HEADERS_TO_PERSIST)) {
+            if (!\in_array($k, self::$HEADERS_TO_PERSIST, true)) {
                 unset($this->headers[$k]);
             }
         }
@@ -68,6 +69,7 @@ class RequestOptions
 
     /**
      * Unpacks an options array into an RequestOptions object
+     *
      * @param array|string|null $options a key => value array
      *
      * @return RequestOptions
@@ -78,7 +80,7 @@ class RequestOptions
             return $options;
         }
 
-        if (\is_null($options)) {
+        if (null === $options) {
             return new RequestOptions(null, [], null);
         }
 

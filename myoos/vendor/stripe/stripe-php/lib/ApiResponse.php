@@ -15,7 +15,7 @@ class ApiResponse
      * @var array|CaseInsensitiveArray|null
      */
     public $headers;
-    
+
     /**
      * @var string
      */
@@ -33,7 +33,7 @@ class ApiResponse
 
     /**
      * @param string $body
-     * @param integer $code
+     * @param int $code
      * @param array|CaseInsensitiveArray|null $headers
      * @param array|null $json
      */

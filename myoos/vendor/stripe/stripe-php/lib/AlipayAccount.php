@@ -8,7 +8,7 @@ namespace Stripe;
  * @package Stripe
  *
  * @deprecated Alipay accounts are deprecated. Please use the sources API instead.
- * @link https://stripe.com/docs/sources/alipay
+ * @see https://stripe.com/docs/sources/alipay
  */
 class AlipayAccount extends ApiResource
 {
@@ -33,7 +33,7 @@ class AlipayAccount extends ApiResource
         }
         $parentExtn = \urlencode(Util\Util::utf8($parent));
         $extn = \urlencode(Util\Util::utf8($this['id']));
-        return "$base/$parentExtn/$path/$extn";
+        return "{$base}/{$parentExtn}/{$path}/{$extn}";
     }
 
     /**
@@ -43,7 +43,7 @@ class AlipayAccount extends ApiResource
      * @throws \Stripe\Exception\BadMethodCallException
      *
      * @deprecated Alipay accounts are deprecated. Please use the sources API instead.
-     * @link https://stripe.com/docs/sources/alipay
+     * @see https://stripe.com/docs/sources/alipay
      */
     public static function retrieve($_id, $_opts = null)
     {
@@ -61,7 +61,7 @@ class AlipayAccount extends ApiResource
      * @throws \Stripe\Exception\BadMethodCallException
      *
      * @deprecated Alipay accounts are deprecated. Please use the sources API instead.
-     * @link https://stripe.com/docs/sources/alipay
+     * @see https://stripe.com/docs/sources/alipay
      */
     public static function update($_id, $_params = null, $_options = null)
     {

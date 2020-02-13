@@ -53,13 +53,12 @@ class Collection extends StripeObject implements \IteratorAggregate
     {
         if (\is_string($k)) {
             return parent::offsetGet($k);
-        } else {
-            $msg = "You tried to access the {$k} index, but Collection " .
+        }
+        $msg = "You tried to access the {$k} index, but Collection " .
                    "types only support string keys. (HINT: List calls " .
                    "return an object with a `data` (which is the data " .
                    "array). You likely want to call ->data[{$k}])";
-            throw new Exception\InvalidArgumentException($msg);
-        }
+        throw new Exception\InvalidArgumentException($msg);
     }
 
     public function all($params = null, $opts = null)
@@ -96,7 +95,7 @@ class Collection extends StripeObject implements \IteratorAggregate
         $extn = \urlencode($id);
         list($response, $opts) = $this->_request(
             'get',
-            "$url/$extn",
+            "{$url}/{$extn}",
             $params,
             $opts
         );
@@ -158,6 +157,7 @@ class Collection extends StripeObject implements \IteratorAggregate
      * behavior of the API when it attempts to return a page beyond the last.
      *
      * @param array|string|null $opts
+     *
      * @return Collection
      */
     public static function emptyCollection($opts = null)
@@ -168,7 +168,7 @@ class Collection extends StripeObject implements \IteratorAggregate
     /**
      * Returns true if the page object contains no element.
      *
-     * @return boolean
+     * @return bool
      */
     public function isEmpty()
     {
@@ -183,6 +183,7 @@ class Collection extends StripeObject implements \IteratorAggregate
      *
      * @param array|null $params
      * @param array|string|null $opts
+     *
      * @return Collection
      */
     public function nextPage($params = null, $opts = null)
@@ -210,6 +211,7 @@ class Collection extends StripeObject implements \IteratorAggregate
      *
      * @param array|null $params
      * @param array|string|null $opts
+     *
      * @return Collection
      */
     public function previousPage($params = null, $opts = null)
@@ -233,7 +235,7 @@ class Collection extends StripeObject implements \IteratorAggregate
     {
         $url = \parse_url($this->url);
         if (!isset($url['path'])) {
-            throw new Exception\UnexpectedValueException("Could not parse list url into parts: $url");
+            throw new Exception\UnexpectedValueException("Could not parse list url into parts: {$url}");
         }
 
         if (isset($url['query'])) {

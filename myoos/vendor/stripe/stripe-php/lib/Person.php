@@ -42,14 +42,16 @@ class Person extends ApiResource
 
     /**
      * Possible string representations of a person's gender.
-     * @link https://stripe.com/docs/api/persons/object#person_object-gender
+     *
+     * @see https://stripe.com/docs/api/persons/object#person_object-gender
      */
     const GENDER_MALE   = 'male';
     const GENDER_FEMALE = 'female';
 
     /**
      * Possible string representations of a person's verification status.
-     * @link https://stripe.com/docs/api/persons/object#person_object-verification-status
+     *
+     * @see https://stripe.com/docs/api/persons/object#person_object-verification-status
      */
     const VERIFICATION_STATUS_PENDING    = 'pending';
     const VERIFICATION_STATUS_UNVERIFIED = 'unverified';
@@ -65,7 +67,7 @@ class Person extends ApiResource
         if (!$id) {
             throw new Exception\UnexpectedValueException(
                 "Could not determine which URL to request: " .
-                "class instance has invalid ID: $id",
+                "class instance has invalid ID: {$id}",
                 null
             );
         }
@@ -75,7 +77,7 @@ class Person extends ApiResource
         $base = Account::classUrl();
         $accountExtn = \urlencode($account);
         $extn = \urlencode($id);
-        return "$base/$accountExtn/persons/$extn";
+        return "{$base}/{$accountExtn}/persons/{$extn}";
     }
 
     /**

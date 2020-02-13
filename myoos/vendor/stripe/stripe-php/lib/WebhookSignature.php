@@ -17,7 +17,9 @@ abstract class WebhookSignature
      * @param string $secret secret used to generate the signature.
      * @param int $tolerance maximum difference allowed between the header's
      *  timestamp and the current time
+     *
      * @throws Exception\SignatureVerificationException if the verification fails.
+     *
      * @return bool
      */
     public static function verifyHeader($payload, $header, $secret, $tolerance = null)
@@ -25,7 +27,7 @@ abstract class WebhookSignature
         // Extract timestamp and signatures from header
         $timestamp = self::getTimestamp($header);
         $signatures = self::getSignatures($header, self::EXPECTED_SCHEME);
-        if ($timestamp == -1) {
+        if (-1 === $timestamp) {
             throw Exception\SignatureVerificationException::factory(
                 "Unable to extract timestamp and signatures from header",
                 $payload,
@@ -42,7 +44,7 @@ abstract class WebhookSignature
 
         // Check if expected signature is found in list of signatures from
         // header
-        $signedPayload = "$timestamp.$payload";
+        $signedPayload = "{$timestamp}.{$payload}";
         $expectedSignature = self::computeSignature($signedPayload, $secret);
         $signatureFound = false;
         foreach ($signatures as $signature) {
@@ -75,6 +77,7 @@ abstract class WebhookSignature
      * Extracts the timestamp in a signature header.
      *
      * @param string $header the signature header
+     *
      * @return int the timestamp contained in the header, or -1 if no valid
      *  timestamp is found
      */
@@ -84,11 +87,11 @@ abstract class WebhookSignature
 
         foreach ($items as $item) {
             $itemParts = \explode("=", $item, 2);
-            if ($itemParts[0] == "t") {
+            if ("t" === $itemParts[0]) {
                 if (!\is_numeric($itemParts[1])) {
                     return -1;
                 }
-                return \intval($itemParts[1]);
+                return (int) ($itemParts[1]);
             }
         }
 
@@ -100,6 +103,7 @@ abstract class WebhookSignature
      *
      * @param string $header the signature header
      * @param string $scheme the signature scheme to look for.
+     *
      * @return array the list of signatures matching the provided scheme.
      */
     private static function getSignatures($header, $scheme)
@@ -109,7 +113,7 @@ abstract class WebhookSignature
 
         foreach ($items as $item) {
             $itemParts = \explode("=", $item, 2);
-            if ($itemParts[0] == $scheme) {
+            if ($itemParts[0] === $scheme) {
                 \array_push($signatures, $itemParts[1]);
             }
         }
@@ -124,6 +128,7 @@ abstract class WebhookSignature
      *
      * @param string $payload the payload to sign.
      * @param string $secret the secret used to generate the signature.
+     *
      * @return string the signature as a string.
      */
     private static function computeSignature($payload, $secret)
