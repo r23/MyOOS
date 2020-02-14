@@ -53,13 +53,6 @@ class Ai1wm_File_Webconfig {
 					'</defaultDocument>',
 					'<directoryBrowse enabled="false" />',
 					'</system.webServer>',
-					'<location path=".htaccess">',
-					'<system.web>',
-					'<authorization>',
-					'<deny users="*" />',
-					'</authorization>',
-					'</system.web>',
-					'</location>',
 					'</configuration>',
 				)
 			)

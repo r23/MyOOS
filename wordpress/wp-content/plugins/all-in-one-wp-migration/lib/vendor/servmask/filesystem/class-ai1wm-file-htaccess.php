@@ -50,10 +50,6 @@ class Ai1wm_File_Htaccess {
 					'<IfModule mod_autoindex.c>',
 					'Options -Indexes',
 					'</IfModule>',
-					'<Files web.config>',
-					'Order allow,deny',
-					'Deny from all',
-					'</Files>',
 				)
 			)
 		);
