@@ -32,7 +32,9 @@ class Import_Export implements Runner {
 	 * Register hooks.
 	 */
 	public function hooks() {
-		$this->action( 'init', 'register_page', 1 );
+		$this->action( 'admin_init', 'handler' );
+		$this->action( 'admin_enqueue_scripts', 'enqueue', 1 );
+		$this->filter( 'rank_math/tools/pages', 'add_status_page', 30 );
 		$this->filter( 'rank_math/export/settings', 'export_other_panels', 10, 2 );
 		$this->action( 'rank_math/import/settings/pre_import', 'run_backup', 10, 0 );
 
@@ -44,8 +46,53 @@ class Import_Export implements Runner {
 	}
 
 	/**
+	 * Add subpage to Status & Tools screen.
+	 *
+	 * @param array $pages Pages.
+	 * @return array       New pages.
+	 */
+	public function add_status_page( $pages ) {
+		$pages['import_export'] = [
+			'url'   => 'status',
+			'args'  => 'view=import_export',
+			'cap'   => 'install_plugins',
+			'title' => __( 'Import & Export', 'rank-math' ),
+			'class' => '\\RankMath\\Admin\\Import_Export',
+		];
+
+		return $pages;
+	}
+
+	/**
+	 * Display Import/Export tools.
+	 *
+	 * @return void
+	 */
+	public function display() {
+		include( Admin_Helper::get_view( 'import-export/main' ) );
+	}
+
+	/**
+	 * Add JSON.
+	 *
+	 * @return void
+	 */
+	public function enqueue() {
+		wp_enqueue_script( 'rank-math-import-export', rank_math()->plugin_url() . 'assets/admin/js/import-export.js' );
+		wp_enqueue_style( 'cmb2-styles' );
+		wp_enqueue_style( 'rank-math-common' );
+		wp_enqueue_style( 'rank-math-cmb2' );
+
+		Helper::add_json( 'importConfirm', esc_html__( 'Are you sure you want to import settings into Rank Math? Don\'t worry, your current configuration will be saved as a backup.', 'rank-math' ) );
+		Helper::add_json( 'restoreConfirm', esc_html__( 'Are you sure you want to restore this backup? Your current configuration will be overwritten.', 'rank-math' ) );
+		Helper::add_json( 'deleteBackupConfirm', esc_html__( 'Are you sure you want to delete this backup?', 'rank-math' ) );
+		Helper::add_json( 'cleanPluginConfirm', esc_html__( 'Are you sure you want erase traces of plugin?', 'rank-math' ) );
+	}
+
+	/**
 	 * Register admin pages for plugin.
 	 */
+	/*
 	public function register_page() {
 		new Page(
 			'rank-math-import-export',
@@ -72,6 +119,7 @@ class Import_Export implements Runner {
 		Helper::add_json( 'deleteBackupConfirm', esc_html__( 'Are you sure you want to delete this backup?', 'rank-math' ) );
 		Helper::add_json( 'cleanPluginConfirm', esc_html__( 'Are you sure you want erase traces of plugin?', 'rank-math' ) );
 	}
+	*/
 
 	/**
 	 * Handle import or export.

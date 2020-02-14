@@ -12,10 +12,11 @@
 use RankMath\Helper;
 use MyThemeShop\Helpers\Param;
 
-$module  = Helper::get_module( 'status' );
-$current = Param::get( 'view', 'status' );
+$default_tab = apply_filters( 'rank_math/tools/default_tab', 'status' );
+$module      = Helper::get_module( 'status' );
+$current     = Param::get( 'view', $default_tab );
 ?>
-<div class='wrap rank-math-status-wrap'>
+<div class='wrap rank-math-wrap rank-math-status-wrap'>
 
 	<span class='wp-header-end'></span>
 

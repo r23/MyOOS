@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection
 Tested up to: 5.3.2
 Requires at least: 4.9.0
 Requires PHP: 5.6
-Stable tag: 1.0.37.4
+Stable tag: 1.0.38
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -460,34 +460,13 @@ We look forward to helping you.
 
 == Changelog ==
 
-= 1.0.37.4 [Feb 06, 2020] =
-* Fixed: Minor JS error in the browser console
-* Fixed: WooCommerce Product pages throwing 404 error on some installations
-
-= 1.0.37.3 [Feb 05, 2020] =
-* New: Added `valueAddedTaxIncluded` Schema field when Tax is enabled in the WooCommerce
-* New: Treat Easy Digital Downloads single posts as a product page. Better Schema markup output for EDD users
-* Improved: Removed 'isRelated' Schema code from WooCommerce Products to avoid unnecessary warnings in GSC
-* Improved: Changed references of 'Rich Snippet' to Schema across the plugin for consistency
-* Improved: Changed 'Media' tab name to 'Attachments' in the Titles & Meta Settings page
-* Improved: Only super admins are now allowed to edit `.htaccess` and `robots.txt` files in the Multisite network
-* Fixed: Websites were breaking when `%seo_title%` or `%seo_description%` variables were used in the General tab. These variables are built for the Schema tab only.
-* Fixed: Cron to update the internal links was not working
-* Fixed: Removed Rank Math's score button from the new Block & Elementor editors for the roles that don't have Rank Math's access
-* Fixed: Conflict with the beta version of Elementor page builder
-* Fixed: Sitemap not adding images added using the WordPress widget in the Elementor page builder
-* Fixed: Elementor showing content changed notification even without making any changes in the content
-* Fixed: Elementor's dark mode not working if the manual dark mode was selected and the system was using a light mode
-* Fixed: Notification text color in the Elementor page builder. Should be easy to read now
-* Fixed: "Unpublish when expired" option was not working in the JobPosting Schema in Gutenberg and Elementor
-* Fixed: "Use Data from Facebook Tab" option was not working in the Gutenberg and Elementor
-* Fixed: WooCommerce's product pages were not redirecting to the new base when 'Remove Category Base' option was enabled
-* Fixed: Category description was not updating or truncating in the Rank Math's Preview
-* Fixed: Pages with only H tags won't pick up the heading tags in the auto-generated descriptions but the content inside those tags
-* Fixed: Unable to select Module title & description in the dashboard page
-* Fixed: Fatal error related to the Helper class
-* Fixed: `splitText` error happening in the content analysis of Classic Editor in some cases
-* Fixed: `undefined index` error in the Schema Section of Setup Wizard
-* Fixed: Link insertion adding an extra link in the Classic block of Gutenberg Editor
+= 1.0.38 [Feb 10, 2020] =
+* Added: Version Control, if you face any issue(s) with the future updates, you can now rollback to the previous version with an inbuilt tool, [more info](https://rankmath.com/kb/version-control/).
+* Added: Beta Opt-in. Now anyone can take part in shaping the Rank Math by test-driving the newest features before anyone else
+* Added: The System Status page now shows in-depth system stats along with a one-click copy option for all the stats
+* Improved: Minor UI changes and improvements
+* Moved: Auto Update option in the Version Control tab
+* Moved: Import & Export tab in the Status & Tools page
+* Fixed: Minor bugs and prepared the plugin's base for a Great upcoming feature
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://rankmath.com/changelog/)**

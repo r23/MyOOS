@@ -184,6 +184,12 @@ class Manager {
 			'class' => 'RankMath\Robots_Txt',
 		];
 
+		$modules['version-control'] = [
+			'title' => esc_html__( 'Version Control', 'rank-math' ),
+			'only'  => 'internal',
+			'class' => 'RankMath\Version_Control',
+		];
+
 		$modules['status'] = [
 			'title' => esc_html__( 'Status', 'rank-math' ),
 			'only'  => 'internal',
@@ -295,7 +301,7 @@ class Manager {
 
 							<h3><?php echo $module->get( 'title' ); ?></h3>
 
-							<p><em><?php echo $module->get( 'desc' ); ?></em></p>
+							<p><?php echo $module->get( 'desc' ); ?></p>
 
 							<?php $module->the_link(); ?>
 

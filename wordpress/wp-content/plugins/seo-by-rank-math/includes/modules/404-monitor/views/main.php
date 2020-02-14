@@ -16,12 +16,6 @@ $monitor->table->prepare_items();
 
 	<h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
 
-	<style>
-	#doaction, #doaction2 { margin: 0 }
-	.column-times_accessed { width: 14% }
-	.rank-math-clear-logs { color: #a00 !important; margin-bottom: 1px !important}
-	.rank-math-clear-logs:hover { border-color: #a00 !important }
-	</style>
 	<p>
 		<?php
 		printf(

@@ -31,7 +31,6 @@ $tabs = apply_filters( 'rank_math/help/tabs', array(
 	<span class="wp-header-end"></span>
 
 	<h1 class="page-title"><?php esc_html_e( 'Help &amp; Support', 'rank-math' ); ?></h1>
-	<br>
 
 	<div id="rank-math-help-wrapper" class="rank-math-tabs">
 

@@ -79,7 +79,7 @@ class Table extends List_Table {
 		}
 		?>
 		<div class="alignleft actions">
-			<input type="button" class="button action rank-math-clear-logs" value="<?php esc_attr_e( 'Clear Log', 'rank-math' ); ?>">
+			<input type="button" class="button button-link-delete action rank-math-clear-logs" value="<?php esc_attr_e( 'Clear Log', 'rank-math' ); ?>">
 		</div>
 		<?php
 	}

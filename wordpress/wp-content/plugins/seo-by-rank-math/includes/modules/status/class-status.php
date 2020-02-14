@@ -87,6 +87,7 @@ class Status extends Base {
 	 * Display dashabord tabs.
 	 */
 	public function display_nav() {
+		$default_tab = apply_filters( 'rank_math/tools/default_tab', 'status' );
 		?>
 		<h2 class="nav-tab-wrapper">
 			<?php
@@ -95,7 +96,7 @@ class Status extends Base {
 					continue;
 				}
 				?>
-			<a class="nav-tab<?php echo Param::get( 'view', 'status' ) === sanitize_html_class( $id ) ? ' nav-tab-active' : ''; ?>" href="<?php echo esc_url( Helper::get_admin_url( $link['url'], $link['args'] ) ); ?>" title="<?php echo esc_attr( $link['title'] ); ?>"><?php echo esc_html( $link['title'] ); ?></a>
+			<a class="nav-tab<?php echo Param::get( 'view', $default_tab ) === sanitize_html_class( $id ) ? ' nav-tab-active' : ''; ?>" href="<?php echo esc_url( Helper::get_admin_url( $link['url'], $link['args'] ) ); ?>" title="<?php echo esc_attr( $link['title'] ); ?>"><?php echo esc_html( $link['title'] ); ?></a>
 			<?php endforeach; ?>
 		</h2>
 		<?php
@@ -118,21 +119,21 @@ class Status extends Base {
 	 * @return array
 	 */
 	private function get_page_views() {
-		return [
-			'status' => [
-				'url'   => 'status',
-				'args'  => '',
-				'cap'   => 'manage_options',
-				'title' => __( 'System Status', 'rank-math' ),
-				'class' => '\\RankMath\\Status\\System_Status',
-			],
+		return apply_filters( 'rank_math/tools/pages', [
 			'tools'  => [
 				'url'   => 'status',
 				'args'  => 'view=tools',
 				'cap'   => 'manage_options',
-				'title' => __( 'Tools', 'rank-math' ),
+				'title' => __( 'Database Tools', 'rank-math' ),
 				'class' => '\\RankMath\\Status\\Tools',
 			],
-		];
+			'status' => [
+				'url'   => 'status',
+				'args'  => 'view=status',
+				'cap'   => 'manage_options',
+				'title' => __( 'System Status', 'rank-math' ),
+				'class' => '\\RankMath\\Status\\System_Status',
+			],
+		] );
 	}
 }

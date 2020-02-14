@@ -49,7 +49,7 @@ class Common {
 		add_action( 'wp_ajax_nopriv_rank_math_overlay_thumb', [ $this, 'generate_overlay_thumbnail' ] );
 
 		// Auto-update the plugin.
-		if ( Helper::get_settings( 'general.enable_auto_update' ) ) {
+		if ( Helper::get_settings( 'general.enable_auto_update' ) && false === boolval( get_option( 'rank_math_rollback_version', false ) ) ) {
 			$this->filter( 'auto_update_plugin', 'auto_update_plugin', 10, 2 );
 			new Auto_Updater;
 		}

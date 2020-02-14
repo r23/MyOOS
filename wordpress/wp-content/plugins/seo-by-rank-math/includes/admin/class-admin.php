@@ -368,9 +368,9 @@ class Admin implements Runner {
 				'title' => esc_html__( 'Setup Wizard', 'rank-math' ),
 			],
 			'import-export' => [
-				'url'   => 'import-export',
-				'args'  => '',
-				'cap'   => 'manage_options',
+				'url'   => 'status',
+				'args'  => 'view=import_export',
+				'cap'   => 'install_plugins',
 				'title' => esc_html__( 'Import &amp; Export', 'rank-math' ),
 			],
 		];

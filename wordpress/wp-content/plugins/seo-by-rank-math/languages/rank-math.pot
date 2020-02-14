@@ -279,6 +279,9 @@ msgstr ""
 msgid "Please share the reason"
 msgstr ""
 
+msgid "Import & Export"
+msgstr ""
+
 msgid "Are you sure you want to import settings into Rank Math? Don't worry, your current configuration will be saved as a backup."
 msgstr ""
 
@@ -4425,34 +4428,19 @@ msgstr ""
 msgid "Status & Tools"
 msgstr ""
 
+msgid "Database Tools"
+msgstr ""
+
 msgid "System Status"
 msgstr ""
 
-msgid "Tools"
+msgid "System Info"
 msgstr ""
 
-msgid "Rank Math database version"
+msgid "Copy System Info to Clipboard"
 msgstr ""
 
-msgid "Table Prefix"
-msgstr ""
-
-msgid "Database Data Size"
-msgstr ""
-
-msgid "Database Index Size"
-msgstr ""
-
-msgid "Total Database Size"
-msgstr ""
-
-msgid "Database"
-msgstr ""
-
-msgid "Tables"
-msgstr ""
-
-msgid "Missing"
+msgid "Copied!"
 msgstr ""
 
 msgid "Remove Rank Math Transients"
@@ -4543,6 +4531,104 @@ msgstr ""
 
 #. translators: Number of posts updated
 msgid "%1$s review Posts updated. You can find the list of all converted posts %2$s."
+msgstr ""
+
+msgid "This update will install a beta version of Rank Math."
+msgstr ""
+
+msgid "Rollback Plugin"
+msgstr ""
+
+msgid "Plugin rollback successful."
+msgstr ""
+
+msgid "Installing the rollback version&#8230;"
+msgstr ""
+
+#. translators: Placeholder is version number.
+msgid "Are you sure you want to install version %s?"
+msgstr ""
+
+msgid "Version Control"
+msgstr ""
+
+msgid "Auto Update"
+msgstr ""
+
+msgid "Turn on auto-updates to automatically update to stable versions of Rank Math as soon as they are released. The beta versions will never install automatically."
+msgstr ""
+
+msgid "Auto Update Plugin"
+msgstr ""
+
+msgid "Rank Math will not auto-update because you have rolled back to a previous version. Update to the latest version manually to make this option work again."
+msgstr ""
+
+msgid "Beta Opt-in"
+msgstr ""
+
+msgid "You can take part in shaping Rank Math by test-driving the newest features and letting us know what you think. Turn on the Beta Tester feature to get notified about new beta releases. The beta version will not install automatically and you always have the option to ignore it."
+msgstr ""
+
+#. translators: Warning.
+msgid "%s It is not recommended to use the beta version on live production sites."
+msgstr ""
+
+msgid "Warning: "
+msgstr ""
+
+msgid "Beta Tester"
+msgstr ""
+
+msgid "Rollback to Previous Version"
+msgstr ""
+
+msgid "If you are facing issues after an update, you can reinstall a previous version with this tool."
+msgstr ""
+
+#. translators: placeholder is the word "warning".
+msgid "%s Previous versions may not be secure or stable. Proceed with caution and always create a backup."
+msgstr ""
+
+msgid "Your Version"
+msgstr ""
+
+#. translators: placeholder is "Rolled Back Version:".
+msgid "%s Auto updates will not work, please update the plugin manually."
+msgstr ""
+
+msgid "Rolled Back Version: "
+msgstr ""
+
+msgid "You are using the latest version of the plugin."
+msgstr ""
+
+msgid "This is the version you are using on this site."
+msgstr ""
+
+msgid "Latest Stable Version"
+msgstr ""
+
+msgid "Update Now"
+msgstr ""
+
+msgid "This is the latest version of the plugin."
+msgstr ""
+
+msgid "Rollback Version"
+msgstr ""
+
+msgid "Roll back to this version."
+msgstr ""
+
+#. translators: Version number.
+msgid "Install Version %s"
+msgstr ""
+
+msgid "Install Selected Version"
+msgstr ""
+
+msgid "Reinstalling, please wait..."
 msgstr ""
 
 msgid "WooCommerce"
@@ -5281,9 +5367,6 @@ msgid "Help make Rank Math even more powerful by allowing us to collect non-sens
 msgstr ""
 
 msgid "Find out more."
-msgstr ""
-
-msgid "Auto Update"
 msgstr ""
 
 msgid "Show SEO Score"

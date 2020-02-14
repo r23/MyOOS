@@ -18,14 +18,6 @@ $cmb->add_field([
 ]);
 
 $cmb->add_field([
-	'id'      => 'enable_auto_update',
-	'type'    => 'switch',
-	'name'    => esc_html__( 'Auto Update', 'rank-math' ),
-	'desc'    => esc_html__( 'Enable auto update of the plugin', 'rank-math' ),
-	'default' => 'off',
-]);
-
-$cmb->add_field([
 	'id'      => 'frontend_seo_score',
 	'type'    => 'switch',
 	'name'    => esc_html__( 'Show SEO Score', 'rank-math' ),

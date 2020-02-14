@@ -20,99 +20,82 @@ class System_Status {
 	 */
 	public function display() {
 		$this->prepare_info();
-		$this->display_database_data();
-		$this->display_tables_data();
+
+		$this->display_system_info();
 	}
 
 	/**
-	 * Display Database Details.
+	 * Display system details.
 	 */
-	private function display_database_data() {
-		$hash = [
-			'database_version' => __( 'Rank Math database version', 'rank-math' ),
-			'table_prefix'     => __( 'Table Prefix', 'rank-math' ),
-			'data_size'        => __( 'Database Data Size', 'rank-math' ),
-			'index_size'       => __( 'Database Index Size', 'rank-math' ),
-			'total_size'       => __( 'Total Database Size', 'rank-math' ),
-		];
+	private function display_system_info() {
 		?>
-		<table class='rank-math-status-table striped widefat'>
-			<thead>
-				<tr>
-					<th colspan='2'><h2><?php echo esc_html__( 'Database', 'rank-math' ); ?></h2></th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php foreach ( $hash as $key => $label ) { ?>
-					<tr>
-						<td><?php echo esc_html( $label ); ?></td>
-						<td><?php echo esc_html( $this->info[ $key ] ); ?></td>
-					</tr>
-				<?php } ?>
-			</tbody>
-		</table>
+		<h3>
+			<?php esc_html_e( 'System Info', 'rank-math' ); ?>
+		</h3>
+
+		<div class="site-health-copy-buttons">
+			<div class="copy-button-wrapper">
+				<button type="button" class="button copy-button" data-clipboard-text="<?php echo esc_attr( \WP_Debug_Data::format( $this->wp_info, 'debug' ) ); ?>">
+					<?php esc_html_e( 'Copy System Info to Clipboard', 'rank-math' ); ?>
+				</button>
+				<span class="success" aria-hidden="true"><?php esc_html_e( 'Copied!', 'rank-math' ); ?></span>
+			</div>
+		</div>
+
+		<div id="health-check-debug" class="health-check-accordion">
+			<?php $this->display_system_info_list(); ?>
+		</div>
 		<?php
 	}
 
 	/**
-	 * Display Table details.
+	 * Display list for system info.
+	 *
+	 * @return void
 	 */
-	private function display_tables_data() {
-		?>
-		<table class='rank-math-status-table striped widefat'>
-			<thead>
-				<tr>
-					<th colspan='2'><h2><?php echo esc_html__( 'Tables', 'rank-math' ); ?></h2></th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php foreach ( $this->info['tables'] as $table_name => $data ) { ?>
-					<tr>
-						<td><?php echo esc_html( $table_name ); ?></td>
-						<td>
-							<?php echo 'Data: ' . $data['data']; ?> +
-							<?php echo 'Index: ' . $data['index']; ?> +
-							<?php echo 'Engine: ' . $data['engine']; ?>
-						</td>
-					</tr>
-				<?php } ?>
+	private function display_system_info_list() {
+		$directory = dirname( __FILE__ );
+		foreach ( $this->wp_info as $section => $details ) {
+			if ( ! isset( $details['fields'] ) || empty( $details['fields'] ) ) {
+				continue;
+			}
 
-				<?php $this->missing_tables(); ?>
-			</tbody>
-		</table>
-		<?php
+			include( $directory . '/views/system-status-accordion.php' );
+		}
 	}
 
 	/**
-	 * Missing Tables Details.
+	 * Display individual fields for the system info.
+	 *
+	 * @param  array $fields Fields array.
+	 * @return void
 	 */
-	private function missing_tables() {
-		$core_tables = [
-			'rank_math_404_logs',
-			'rank_math_redirections',
-			'rank_math_redirections_cache',
-			'rank_math_internal_links',
-			'rank_math_internal_meta',
-			'rank_math_sc_analytics',
-		];
+	private function display_system_info_fields( $fields ) {
+		foreach ( $fields as $field_name => $field ) {
+			$values = $this->system_info_value( $field_name, $field['value'] );
+			printf( '<tr><td>%s</td><td>%s</td></tr>', esc_html( $field['label'] ), $values );
+		}
+	}
 
-		$core_tables    = array_map( [ $this, 'add_db_table_prefix' ], $core_tables );
-		$missing_tables = array_diff( $core_tables, array_keys( $this->info['tables'] ) );
+	/**
+	 * Get individual values for the system info.
+	 *
+	 * @param  string $field_name  Field name.
+	 * @param  mixed  $field_value Field value.
+	 * @return string              Output HTML.
+	 */
+	private function system_info_value( $field_name, $field_value ) {
+		if ( is_array( $field_value ) ) {
+			$values = '<ul>';
+			foreach ( $field_value as $name => $value ) {
+				$values .= sprintf( '<li>%s: %s</li>', esc_html( $name ), esc_html( $value ) );
+			}
+			$values .= '</ul>';
 
-		if ( empty( $missing_tables ) ) {
-			return;
+			return $values;
 		}
 
-		foreach ( $missing_tables as $table_name ) {
-			?>
-			<tr>
-				<td><?php echo esc_html( $table_name ); ?></td>
-				<td>
-					<span style="color:red;"><?php echo __( 'Missing', 'rank-math' ); ?></span>
-				</td>
-			</tr>
-			<?php
-		}
+		return esc_html( $field_value );
 	}
 
 	/**
@@ -161,6 +144,15 @@ class System_Status {
 			'index_size'       => $db_index_size . 'MB',
 			'total_size'       => $db_data_size + $db_index_size . 'MB',
 		];
+
+		// Core debug data.
+		if ( ! class_exists( 'WP_Debug_Data' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/class-wp-debug-data.php';
+		}
+		wp_enqueue_style( 'site-health' );
+		wp_enqueue_script( 'site-health' );
+		$this->wp_info = \WP_Debug_Data::debug_data();
+		unset( $this->wp_info['wp-paths-sizes'] );
 	}
 
 	/**

@@ -42,7 +42,7 @@ class Tools {
 					<tr class='<?php echo sanitize_html_class( $id ); ?>'>
 						<th>
 							<strong class='name'><?php echo esc_html( $tool['title'] ); ?></strong>
-							<p class='description'><?php echo $tool['description']; ?></p>
+							<p><?php echo $tool['description']; ?></p>
 						</th>
 						<td class='run-tool'>
 							<a href='#' class='button button-large button-link-delete tools-action' data-action='<?php echo esc_attr( $id ); ?>' data-confirm="<?php echo isset( $tool['confirm_text'] ) ? esc_attr( $tool['confirm_text'] ) : 'false'; ?>"><?php echo esc_html( $tool['button_text'] ); ?></a>
