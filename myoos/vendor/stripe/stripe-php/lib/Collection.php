@@ -3,16 +3,14 @@
 namespace Stripe;
 
 /**
- * Class Collection
+ * Class Collection.
  *
  * @property string $object
  * @property string $url
  * @property bool $has_more
  * @property \Stripe\StripeObject[] $data
- *
- * @package Stripe
  */
-class Collection extends StripeObject implements \IteratorAggregate
+class Collection extends StripeObject implements \Countable, \IteratorAggregate
 {
     const OBJECT_NAME = 'list';
 
@@ -22,7 +20,7 @@ class Collection extends StripeObject implements \IteratorAggregate
     protected $filters = [];
 
     /**
-     * @return string The base URL for the given class.
+     * @return string the base URL for the given class
      */
     public static function baseUrl()
     {
@@ -32,7 +30,7 @@ class Collection extends StripeObject implements \IteratorAggregate
     /**
      * Returns the filters.
      *
-     * @return array The filters.
+     * @return array the filters
      */
     public function getFilters()
     {
@@ -42,7 +40,7 @@ class Collection extends StripeObject implements \IteratorAggregate
     /**
      * Sets the filters, removing paging options.
      *
-     * @param array $filters The filters.
+     * @param array $filters the filters
      */
     public function setFilters($filters)
     {
@@ -55,9 +53,10 @@ class Collection extends StripeObject implements \IteratorAggregate
             return parent::offsetGet($k);
         }
         $msg = "You tried to access the {$k} index, but Collection " .
-                   "types only support string keys. (HINT: List calls " .
-                   "return an object with a `data` (which is the data " .
+                   'types only support string keys. (HINT: List calls ' .
+                   'return an object with a `data` (which is the data ' .
                    "array). You likely want to call ->data[{$k}])";
+
         throw new Exception\InvalidArgumentException($msg);
     }
 
@@ -74,6 +73,7 @@ class Collection extends StripeObject implements \IteratorAggregate
             );
         }
         $obj->setFilters($params);
+
         return $obj;
     }
 
@@ -83,6 +83,7 @@ class Collection extends StripeObject implements \IteratorAggregate
         list($url, $params) = $this->extractPathAndUpdateParams($params);
 
         list($response, $opts) = $this->_request('post', $url, $params, $opts);
+
         return Util\Util::convertToStripeObject($response, $opts);
     }
 
@@ -99,12 +100,21 @@ class Collection extends StripeObject implements \IteratorAggregate
             $params,
             $opts
         );
+
         return Util\Util::convertToStripeObject($response, $opts);
     }
 
     /**
-     * @return \ArrayIterator An iterator that can be used to iterate
-     *    across objects in the current page.
+     * @return int the number of objects in the current page
+     */
+    public function count()
+    {
+        return \count($this->data);
+    }
+
+    /**
+     * @return \ArrayIterator an iterator that can be used to iterate
+     *    across objects in the current page
      */
     public function getIterator()
     {
@@ -112,8 +122,8 @@ class Collection extends StripeObject implements \IteratorAggregate
     }
 
     /**
-     * @return \ArrayIterator An iterator that can be used to iterate
-     *    backwards across objects in the current page.
+     * @return \ArrayIterator an iterator that can be used to iterate
+     *    backwards across objects in the current page
      */
     public function getReverseIterator()
     {
@@ -156,7 +166,7 @@ class Collection extends StripeObject implements \IteratorAggregate
      * when we know that there isn't a next page in order to replicate the
      * behavior of the API when it attempts to return a page beyond the last.
      *
-     * @param array|string|null $opts
+     * @param null|array|string $opts
      *
      * @return Collection
      */
@@ -181,8 +191,8 @@ class Collection extends StripeObject implements \IteratorAggregate
      * This method will try to respect the limit of the current page. If none
      * was given, the default limit will be fetched again.
      *
-     * @param array|null $params
-     * @param array|string|null $opts
+     * @param null|array $params
+     * @param null|array|string $opts
      *
      * @return Collection
      */
@@ -209,8 +219,8 @@ class Collection extends StripeObject implements \IteratorAggregate
      * This method will try to respect the limit of the current page. If none
      * was given, the default limit will be fetched again.
      *
-     * @param array|null $params
-     * @param array|string|null $opts
+     * @param null|array $params
+     * @param null|array|string $opts
      *
      * @return Collection
      */
