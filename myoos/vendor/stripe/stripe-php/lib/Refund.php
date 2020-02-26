@@ -3,7 +3,11 @@
 namespace Stripe;
 
 /**
- * Class Refund.
+ * <code>Refund</code> objects allow you to refund a charge that has previously
+ * been created but not yet refunded. Funds will be refunded to the credit or debit
+ * card that was originally charged.
+ *
+ * Related guide: <a href="https://stripe.com/docs/refunds">Refunds</a>.
  *
  * @property string $id Unique identifier for the object.
  * @property string $object String representing the object's type. Objects of the same type share the same value.
@@ -32,31 +36,21 @@ class Refund extends ApiResource
     use ApiOperations\Retrieve;
     use ApiOperations\Update;
 
-    /**
-     * Possible string representations of the failure reason.
-     *
-     * @see https://stripe.com/docs/api/refunds/object#refund_object-failure_reason
-     */
-    const FAILURE_REASON = 'expired_or_canceled_card';
+    const FAILURE_REASON_EXPIRED_OR_CANCELED_CARD = 'expired_or_canceled_card';
     const FAILURE_REASON_LOST_OR_STOLEN_CARD = 'lost_or_stolen_card';
     const FAILURE_REASON_UNKNOWN = 'unknown';
 
-    /**
-     * Possible string representations of the refund reason.
-     *
-     * @see https://stripe.com/docs/api/refunds/object#refund_object-reason
-     */
     const REASON_DUPLICATE = 'duplicate';
     const REASON_FRAUDULENT = 'fraudulent';
     const REASON_REQUESTED_BY_CUSTOMER = 'requested_by_customer';
 
-    /**
-     * Possible string representations of the refund status.
-     *
-     * @see https://stripe.com/docs/api/refunds/object#refund_object-status
-     */
     const STATUS_CANCELED = 'canceled';
     const STATUS_FAILED = 'failed';
     const STATUS_PENDING = 'pending';
     const STATUS_SUCCEEDED = 'succeeded';
+
+    /**
+     * @deprecated use FAILURE_REASON_EXPIRED_OR_CANCELED_CARD instead
+     */
+    const FAILURE_REASON = 'expired_or_canceled_card';
 }

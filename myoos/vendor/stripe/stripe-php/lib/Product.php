@@ -3,7 +3,17 @@
 namespace Stripe;
 
 /**
- * Class Product.
+ * Store representations of products you sell in <code>Product</code> objects, used
+ * in conjunction with <a href="https://stripe.com/docs/api#skus">SKUs</a>.
+ * Products may be physical goods, to be shipped, or digital.
+ *
+ * Documentation on <code>Product</code>s for use with <code>Subscription</code>s
+ * can be found at <a
+ * href="https://stripe.com/docs/api#service_products">Subscription Products</a>.
+ *
+ * Related guide: <a
+ * href="https://stripe.com/docs/orders#define-products-skus">Define products and
+ * SKUs</a>
  *
  * @property string $id Unique identifier for the object.
  * @property string $object String representing the object's type. Objects of the same type share the same value.
@@ -35,11 +45,6 @@ class Product extends ApiResource
     use ApiOperations\Retrieve;
     use ApiOperations\Update;
 
-    /**
-     * Possible string representations of the type of product.
-     *
-     * @see https://stripe.com/docs/api/service_products/object#service_product_object-type
-     */
     const TYPE_GOOD = 'good';
     const TYPE_SERVICE = 'service';
 }

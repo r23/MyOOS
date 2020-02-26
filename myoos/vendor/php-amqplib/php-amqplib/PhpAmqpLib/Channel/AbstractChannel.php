@@ -53,7 +53,7 @@ abstract class AbstractChannel
     /** @var \PhpAmqpLib\Helper\DebugHelper */
     protected $debug;
 
-    /** @var \PhpAmqpLib\Connection\AbstractConnection */
+    /** @var null|AbstractConnection */
     protected $connection;
 
     /** @var string */
@@ -62,16 +62,16 @@ abstract class AbstractChannel
     /** @var int */
     protected $maxBodySize;
 
-    /** @var \PhpAmqpLib\Helper\Protocol\Protocol080|\PhpAmqpLib\Helper\Protocol\Protocol091 */
+    /** @var Protocol080|Protocol091 */
     protected $protocolWriter;
 
-    /** @var \PhpAmqpLib\Helper\Protocol\Wait080|\PhpAmqpLib\Helper\Protocol\Wait091 */
+    /** @var Wait080|Wait091 */
     protected $waitHelper;
 
-    /** @var \PhpAmqpLib\Helper\Protocol\MethodMap080|\PhpAmqpLib\Helper\Protocol\MethodMap091 */
+    /** @var MethodMap080|MethodMap091 */
     protected $methodMap;
 
-    /** @var string */
+    /** @var int */
     protected $channel_id;
 
     /** @var AMQPReader */
@@ -85,7 +85,7 @@ abstract class AbstractChannel
 
     /**
      * @param AbstractConnection $connection
-     * @param string $channel_id
+     * @param int $channel_id
      * @throws \PhpAmqpLib\Exception\AMQPRuntimeException
      */
     public function __construct(AbstractConnection $connection, $channel_id)
@@ -525,7 +525,7 @@ abstract class AbstractChannel
      * @param callable $handler
      * @param array $arguments
      */
-    protected function dispatch_to_handler($handler, array $arguments)
+    protected function dispatch_to_handler($handler, array $arguments = [])
     {
         if (is_callable($handler)) {
             call_user_func_array($handler, $arguments);

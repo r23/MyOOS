@@ -3,7 +3,12 @@
 namespace Stripe\Radar;
 
 /**
- * Class EarlyFraudWarning.
+ * An early fraud warning indicates that the card issuer has notified us that a
+ * charge may be fraudulent.
+ *
+ * Related guide: <a
+ * href="https://stripe.com/docs/disputes/measuring#early-fraud-warnings">Early
+ * Fraud Warnings</a>.
  *
  * @property string $id Unique identifier for the object.
  * @property string $object String representing the object's type. Objects of the same type share the same value.
@@ -20,11 +25,6 @@ class EarlyFraudWarning extends \Stripe\ApiResource
     use \Stripe\ApiOperations\All;
     use \Stripe\ApiOperations\Retrieve;
 
-    /**
-     * Possible string representations of an early fraud warning's fraud type.
-     *
-     * @see https://stripe.com/docs/api/early_fraud_warnings/object#early_fraud_warning_object-fraud_type
-     */
     const FRAUD_TYPE_CARD_NEVER_RECEIVED = 'card_never_received';
     const FRAUD_TYPE_FRAUDULENT_CARD_APPLICATION = 'fraudulent_card_application';
     const FRAUD_TYPE_MADE_WITH_COUNTERFEIT_CARD = 'made_with_counterfeit_card';

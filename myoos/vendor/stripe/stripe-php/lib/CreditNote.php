@@ -3,7 +3,11 @@
 namespace Stripe;
 
 /**
- * Class CreditNote.
+ * Issue a credit note to adjust an invoice's amount after the invoice is
+ * finalized.
+ *
+ * Related guide: <a
+ * href="https://stripe.com/docs/billing/invoices/credit-notes">Credit Notes</a>.
  *
  * @property string $id Unique identifier for the object.
  * @property string $object String representing the object's type. Objects of the same type share the same value.
@@ -40,29 +44,14 @@ class CreditNote extends ApiResource
     use ApiOperations\Retrieve;
     use ApiOperations\Update;
 
-    /**
-     * Possible string representations of the credit note reason.
-     *
-     * @see https://stripe.com/docs/api/credit_notes/object#credit_note_object-reason
-     */
     const REASON_DUPLICATE = 'duplicate';
     const REASON_FRAUDULENT = 'fraudulent';
     const REASON_ORDER_CHANGE = 'order_change';
     const REASON_PRODUCT_UNSATISFACTORY = 'product_unsatisfactory';
 
-    /**
-     * Possible string representations of the credit note status.
-     *
-     * @see https://stripe.com/docs/api/credit_notes/object#credit_note_object-status
-     */
     const STATUS_ISSUED = 'issued';
     const STATUS_VOID = 'void';
 
-    /**
-     * Possible string representations of the credit note type.
-     *
-     * @see https://stripe.com/docs/api/credit_notes/object#credit_note_object-status
-     */
     const TYPE_POST_PAYMENT = 'post_payment';
     const TYPE_PRE_PAYMENT = 'pre_payment';
 

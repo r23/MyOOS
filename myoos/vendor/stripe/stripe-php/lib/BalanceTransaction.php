@@ -3,7 +3,13 @@
 namespace Stripe;
 
 /**
- * Class BalanceTransaction.
+ * Balance transactions represent funds moving through your Stripe account. They're
+ * created for every type of transaction that comes into or flows out of your
+ * Stripe account balance.
+ *
+ * Related guide: <a
+ * href="https://stripe.com/docs/reports/balance-transaction-types">Balance
+ * Transaction Types</a>.
  *
  * @property string $id Unique identifier for the object.
  * @property string $object String representing the object's type. Objects of the same type share the same value.
@@ -28,11 +34,6 @@ class BalanceTransaction extends ApiResource
     use ApiOperations\All;
     use ApiOperations\Retrieve;
 
-    /**
-     * Possible string representations of the type of balance transaction.
-     *
-     * @see https://stripe.com/docs/api/balance/balance_transaction#balance_transaction_object-type
-     */
     const TYPE_ADJUSTMENT = 'adjustment';
     const TYPE_ADVANCE = 'advance';
     const TYPE_ADVANCE_FUNDING = 'advance_funding';

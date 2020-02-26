@@ -2242,17 +2242,17 @@
     },
     {
         "name": "php-amqplib/php-amqplib",
-        "version": "v2.11.0",
-        "version_normalized": "2.11.0.0",
+        "version": "v2.11.1",
+        "version_normalized": "2.11.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/php-amqplib/php-amqplib.git",
-            "reference": "9ee212baced63442ca1ab029acde38e1144a00b8"
+            "reference": "cfbfaf6262cd8d017f29862164f75e265d832434"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/php-amqplib/php-amqplib/zipball/9ee212baced63442ca1ab029acde38e1144a00b8",
-            "reference": "9ee212baced63442ca1ab029acde38e1144a00b8",
+            "url": "https://api.github.com/repos/php-amqplib/php-amqplib/zipball/cfbfaf6262cd8d017f29862164f75e265d832434",
+            "reference": "cfbfaf6262cd8d017f29862164f75e265d832434",
             "shasum": ""
         },
         "require": {
@@ -2260,6 +2260,9 @@
             "ext-sockets": "*",
             "php": ">=5.6.3",
             "phpseclib/phpseclib": "^2.0.0"
+        },
+        "conflict": {
+            "php": "7.4.0 - 7.4.1"
         },
         "replace": {
             "videlalvaro/php-amqplib": "self.version"
@@ -2270,7 +2273,7 @@
             "phpunit/phpunit": "^5.7|^6.5|^7.0",
             "squizlabs/php_codesniffer": "^2.5"
         },
-        "time": "2019-11-19T15:15:19+00:00",
+        "time": "2020-02-24T17:37:52+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -2634,17 +2637,17 @@
     },
     {
         "name": "phpseclib/phpseclib",
-        "version": "2.0.23",
-        "version_normalized": "2.0.23.0",
+        "version": "2.0.25",
+        "version_normalized": "2.0.25.0",
         "source": {
             "type": "git",
             "url": "https://github.com/phpseclib/phpseclib.git",
-            "reference": "c78eb5058d5bb1a183133c36d4ba5b6675dfa099"
+            "reference": "c18159618ed7cd7ff721ac1a8fec7860a475d2f0"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/c78eb5058d5bb1a183133c36d4ba5b6675dfa099",
-            "reference": "c78eb5058d5bb1a183133c36d4ba5b6675dfa099",
+            "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/c18159618ed7cd7ff721ac1a8fec7860a475d2f0",
+            "reference": "c18159618ed7cd7ff721ac1a8fec7860a475d2f0",
             "shasum": ""
         },
         "require": {
@@ -2662,7 +2665,7 @@
             "ext-mcrypt": "Install the Mcrypt extension in order to speed up a few other cryptographic operations.",
             "ext-openssl": "Install the OpenSSL extension in order to speed up a wide variety of cryptographic operations."
         },
-        "time": "2019-09-17T03:41:22+00:00",
+        "time": "2020-02-25T04:16:50+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -3416,17 +3419,17 @@
     },
     {
         "name": "stripe/stripe-php",
-        "version": "v7.25.0",
-        "version_normalized": "7.25.0.0",
+        "version": "v7.26.0",
+        "version_normalized": "7.26.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/stripe/stripe-php.git",
-            "reference": "b73fb353b89ccbeb99baf1c5b518ba48cccf47be"
+            "reference": "14163c10e1edb0e7720c9c295a1e7c7a0bf48e75"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/stripe/stripe-php/zipball/b73fb353b89ccbeb99baf1c5b518ba48cccf47be",
-            "reference": "b73fb353b89ccbeb99baf1c5b518ba48cccf47be",
+            "url": "https://api.github.com/repos/stripe/stripe-php/zipball/14163c10e1edb0e7720c9c295a1e7c7a0bf48e75",
+            "reference": "14163c10e1edb0e7720c9c295a1e7c7a0bf48e75",
             "shasum": ""
         },
         "require": {
@@ -3442,7 +3445,7 @@
             "squizlabs/php_codesniffer": "^3.3",
             "symfony/process": "~3.4"
         },
-        "time": "2020-02-14T22:29:50+00:00",
+        "time": "2020-02-26T19:59:00+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {

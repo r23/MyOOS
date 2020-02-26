@@ -3,7 +3,13 @@
 namespace Stripe;
 
 /**
- * Class Charge.
+ * To charge a credit or a debit card, you create a <code>Charge</code> object. You
+ * can retrieve and refund individual charges as well as list all charges. Charges
+ * are identified by a unique, random ID.
+ *
+ * Related guide: <a
+ * href="https://stripe.com/docs/payments/accept-a-payment-charges">Accept a
+ * payment with the Charges API</a>.
  *
  * @property string $id Unique identifier for the object.
  * @property string $object String representing the object's type. Objects of the same type share the same value.
@@ -60,6 +66,10 @@ class Charge extends ApiResource
     use ApiOperations\Retrieve;
     use ApiOperations\Update;
 
+    const STATUS_FAILED = 'failed';
+    const STATUS_PENDING = 'pending';
+    const STATUS_SUCCEEDED = 'succeeded';
+
     /**
      * Possible string representations of decline codes.
      * These strings are applicable to the decline_code property of the \Stripe\Exception\CardException exception.
@@ -112,15 +122,6 @@ class Charge extends ApiResource
     const DECLINED_TRANSACTION_NOT_ALLOWED = 'transaction_not_allowed';
     const DECLINED_TRY_AGAIN_LATER = 'try_again_later';
     const DECLINED_WITHDRAWAL_COUNT_LIMIT_EXCEEDED = 'withdrawal_count_limit_exceeded';
-
-    /**
-     * Possible string representations of the status of the charge.
-     *
-     * @see https://stripe.com/docs/api/charges/object#charge_object-status
-     */
-    const STATUS_FAILED = 'failed';
-    const STATUS_PENDING = 'pending';
-    const STATUS_SUCCEEDED = 'succeeded';
 
     /**
      * @param null|array $params
