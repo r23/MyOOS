@@ -133,8 +133,10 @@ class Version_Control {
 		$this->filter( 'rank_math/tools/default_tab', 'change_default_tab' );
 		$this->action( 'admin_enqueue_scripts', 'enqueue', 20 );
 
-		/* translators: Placeholder is version number. */
-		Helper::add_json( 'rollbackConfirm', esc_html__( 'Are you sure you want to install version %s?', 'rank-math' ) );
+		if ( is_admin() && Param::get( 'page' ) === 'rank-math-status' ) {
+			/* translators: Placeholder is version number. */
+			Helper::add_json( 'rollbackConfirm', esc_html__( 'Are you sure you want to install version %s?', 'rank-math' ) );
+		}
 	}
 
 	/**
@@ -171,9 +173,13 @@ class Version_Control {
 	/**
 	 * Enqueue CSS & JS.
 	 *
+	 * @param string $hook Page hook name.
 	 * @return void
 	 */
-	public function enqueue() {
+	public function enqueue( $hook ) {
+		if ( 'rank-math_page_rank-math-status' !== $hook ) {
+			return;
+		}
 		$uri = untrailingslashit( plugin_dir_url( __FILE__ ) );
 		wp_enqueue_style( 'rank-math-cmb2' );
 		wp_enqueue_style( 'rank-math-version-control', $uri . '/assets/version-control.css', array(), rank_math()->version );

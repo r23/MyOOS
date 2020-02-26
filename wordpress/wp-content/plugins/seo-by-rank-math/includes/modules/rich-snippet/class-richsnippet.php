@@ -31,6 +31,7 @@ class RichSnippet {
 		}
 		$this->action( 'wp', 'integrations' );
 
+		new Blocks;
 		new Snippet_Shortcode;
 	}
 

@@ -99,6 +99,10 @@ class SEO_Analyzer {
 			return;
 		}
 
+		if ( count( $this->results ) < 30 ) {
+			return;
+		}
+
 		$this->display_graphs();
 		$this->display_results();
 	}
@@ -281,6 +285,8 @@ class SEO_Analyzer {
 	 * Analyze page.
 	 */
 	public function analyze_me() {
+		$success = true;
+		$directory = dirname( __FILE__ );
 		check_ajax_referer( 'rank-math-ajax-nonce', 'security' );
 		$this->has_cap_ajax( 'site_analysis' );
 
@@ -288,7 +294,10 @@ class SEO_Analyzer {
 			error_log( $this->api_error );
 			Rollbar::log( Level::WARNING, $this->api_error );
 			/* translators: API error */
-			echo '<div class="notice notice-error is-dismissible"><p>' . sprintf( __( '<strong>API Error:</strong> %s', 'rank-math' ), $this->api_error ) . '</p></div>';
+			echo '<div class="notice notice-error is-dismissible notice-seo-analysis-error"><p>' . sprintf( __( '<strong>API Error:</strong> %s', 'rank-math' ), $this->api_error ) . '</p></div>';
+			$success = false;
+			delete_option( 'rank_math_seo_analysis_results' );
+			die;
 		}
 
 		if ( ! $this->analyse_subpage ) {
@@ -299,6 +308,7 @@ class SEO_Analyzer {
 
 		$this->build_results();
 		$this->display();
+
 		die;
 	}
 
@@ -355,7 +365,7 @@ class SEO_Analyzer {
 			$this->api_url
 		);
 
-		$request = wp_remote_get( $api_url, [ 'timeout' => 20 ] );
+		$request = wp_remote_get( $api_url, [ 'timeout' => 30 ] );
 		if ( is_wp_error( $request ) ) {
 			$this->api_error = strip_tags( $request->get_error_message() );
 			return false;

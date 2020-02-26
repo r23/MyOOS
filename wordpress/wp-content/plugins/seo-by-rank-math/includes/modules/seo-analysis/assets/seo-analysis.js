@@ -26,21 +26,21 @@
 				var self = this
 
 				this.wrap.on( 'click', '.rank-math-recheck', function( event ) {
+					var recheck_button = $( this )
 					event.preventDefault()
 
 					self.wrap.addClass( 'is-loading' ).removeClass( 'is-loaded' )
 					self.results.empty()
 
-					$( this ).hide()
+					recheck_button.hide()
 
-					var fadeOut = function( notice ) {
+					var showError = function( notice ) {
+						$( '.notice-seo-analysis-error' ).remove()
+						if ( notice.length === 0 ) {
+							return;
+						}
 						self.wrap.find( '> h2' ).after( notice )
 						notice.slideDown()
-						setTimeout( function() {
-							notice.slideUp( function() {
-								notice.remove()
-							})
-						}, 3000 )
 					}
 
 					$.ajax({
@@ -61,16 +61,23 @@
 							self.counter.html( '100%' )
 						},
 						error: function() {
-							var notice = $( '<div class="notice notice-error is-dismissible"><p>An error occured.</p></div>' ).hide()
-							fadeOut( notice )
+							var notice = $( '<div class="notice notice-error is-dismissible notice-seo-analysis-error"><p>An error occured.</p></div>' ).hide()
+							showError( notice )
 							self.wrap.addClass( 'is-loaded' ).removeClass( 'is-loading' )
 						},
 						success: function( results ) {
 							self.results.html( results )
 							var notice = self.results.find( '.notice' )
-							self.wrap.addClass( 'is-loaded' ).removeClass( 'is-loading' )
-							self.graphs()
-							fadeOut( notice )
+							if ( $( results ).find( '.rank-math-result-graphs' ).length !== 0 ) {
+								self.wrap.addClass( 'is-loaded' ).removeClass( 'is-loading' )
+								self.graphs()
+							} else {
+								recheck_button.show()
+								self.wrap.removeClass( 'is-loaded is-loading' )
+								self.progress.css( 'width', '0%' )
+								self.counter.html( '0%' )
+							}
+							showError( notice )
 						}
 					})
 				})

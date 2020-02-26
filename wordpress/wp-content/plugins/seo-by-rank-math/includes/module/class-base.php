@@ -12,6 +12,7 @@
 
 namespace RankMath\Module;
 
+use RankMath\Helper;
 use RankMath\Traits\Hooker;
 
 defined( 'ABSPATH' ) || exit;
@@ -60,9 +61,32 @@ class Base {
 	 * @return array
 	 */
 	public function add_help_section( $tabs ) {
+		if ( ! $this->can_add_tab() ) {
+			return $tabs;
+		}
+
 		$tabs[ $this->id ] = $this->help;
 
 		return $tabs;
+	}
+
+	/**
+	 * Can add Module Tab on help page.
+	 *
+	 * @return bool
+	 */
+	private function can_add_tab() {
+		$caps = [
+			'404-monitor'    => '404_monitor',
+			'redirect'       => 'redirections',
+			'rich-snippet'   => 'onpage_snippet',
+			'role-manager'   => 'role_manager',
+			'search-console' => 'search_console',
+			'seo-analysis'   => 'site_analysis',
+			'sitemap'        => 'sitemap',
+		];
+
+		return Helper::has_cap( $caps[ $this->id ] );
 	}
 
 	/**

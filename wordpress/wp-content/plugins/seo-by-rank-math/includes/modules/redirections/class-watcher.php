@@ -94,17 +94,13 @@ class Watcher {
 		// Check for permalink change.
 		if ( 'publish_to_publish' === $transition && $this->has_permalink_changed( $before_permalink, $after_permalink ) ) {
 			$redirection_id = $this->create_redirection( $before_permalink, $after_permalink, 301, $post->ID, 'post' );
-			Helper::add_notification(
-				sprintf(
-					// translators: %1$s: post type label, %2$s: edit redirection URL.
-					__( 'SEO Notice: you just changed the slug of a %1$s and Rank Math has automatically created a redirection. You can edit the redirection by <a href="%2$s">clicking here</a>.', 'rank-math' ),
-					Helper::get_post_type_label( $post->post_type, true ), $this->get_edit_redirection_url( $redirection_id )
-				),
-				[
-					'type'    => 'warning',
-					'classes' => 'is-dismissible',
-				]
+
+			$message = sprintf(
+				// translators: %1$s: post type label, %2$s: edit redirection URL.
+				__( 'SEO Notice: you just changed the slug of a %1$s and Rank Math has automatically created a redirection. You can edit the redirection by <a href="%2$s">clicking here</a>.', 'rank-math' ),
+				Helper::get_post_type_label( $post->post_type, true ), $this->get_edit_redirection_url( $redirection_id )
 			);
+			$this->add_notification( $message, true );
 
 			// Update the meta value as well.
 			if ( 'edit-post' === Param::post( 'screen' ) ) {
@@ -148,17 +144,12 @@ class Watcher {
 			$term           = get_term_by( 'id', $term_id, $taxonomy );
 			$redirection_id = $this->create_redirection( $before_permalink, $after_permalink, 301, $term->term_id, 'term' );
 
-			Helper::add_notification(
-				sprintf(
-					// translators: %1$s: term name, %2$s: edit redirection URL.
-					__( 'SEO Notice: you just changed the slug of a %1$s and Rank Math has automatically created a redirection. You can edit the redirection by <a href="%2$s">clicking here</a>.', 'rank-math' ),
-					$term->name, $this->get_edit_redirection_url( $redirection_id )
-				),
-				[
-					'type'    => 'warning',
-					'classes' => 'is-dismissible',
-				]
+			$message = sprintf(
+				// translators: %1$s: term name, %2$s: edit redirection URL.
+				__( 'SEO Notice: you just changed the slug of a %1$s and Rank Math has automatically created a redirection. You can edit the redirection by <a href="%2$s">clicking here</a>.', 'rank-math' ),
+				$term->name, $this->get_edit_redirection_url( $redirection_id )
 			);
+			$this->add_notification( $message, true );
 
 			$this->do_action( 'redirection/term_updated', $redirection_id );
 		}
@@ -292,7 +283,7 @@ class Watcher {
 
 		if ( $this->can_display_suggestion( $post ) ) {
 			$url = get_permalink( $post_id );
-			$this->add_notification( $url, 'post' );
+			$this->add_invalid_notification( $url, 'post' );
 		}
 	}
 
@@ -317,7 +308,7 @@ class Watcher {
 	 */
 	public function invalidate_term( $term ) {
 		$url = get_term_link( $term );
-		$this->add_notification( $url, 'term' );
+		$this->add_invalid_notification( $url, 'term' );
 		Cache::purge_by_object_id( $term, 'term' );
 	}
 
@@ -350,11 +341,29 @@ class Watcher {
 	 * @param url    $url  Deleted object url.
 	 * @param string $type Deleted object type.
 	 */
-	private function add_notification( $url, $type ) {
+	private function add_invalid_notification( $url, $type ) {
 		$admin_url = Helper::get_admin_url( 'redirections', [ 'url' => trim( set_url_scheme( $url, 'relative' ), '/' ) ] );
 
 		/* translators: 1. url to new screen, 2. old trashed post permalink */
 		$message = sprintf( wp_kses_post( __( '<strong>SEO Notice:</strong> A previously published %1$s has been moved to trash. You may redirect it <code>%2$s</code> to <a href="%3$s">new url</a>.', 'rank-math' ) ), $type, $url, $admin_url );
-		Helper::add_notification( $message, [ 'type' => 'warning' ] );
+
+		$this->add_notification( $message );
+	}
+
+	/**
+	 * Show Delete Post/Term notification
+	 *
+	 * @param string  $message        Notification message.
+	 * @param boolean $is_dismissible Is notification dismissible.
+	 */
+	private function add_notification( $message, $is_dismissible = false ) {
+		if ( ! Helper::has_cap( 'redirections' ) ) {
+			return;
+		}
+
+		Helper::add_notification( $message, [
+			'type'    => 'warning',
+			'classes' => $is_dismissible ? 'is-dismissible' : '',
+		] );
 	}
 }

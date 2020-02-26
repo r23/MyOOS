@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection
 Tested up to: 5.3.2
 Requires at least: 4.9.0
 Requires PHP: 5.6
-Stable tag: 1.0.38
+Stable tag: 1.0.39
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -35,7 +35,7 @@ See the features which are exclusive to Rank Math SEO plugin and to understand w
 Rank Math practically configures itself. Rank Math features a step-by-step installation and configuration wizard that sets up SEO for WordPress perfectly.
 
 * **Google Schema Markup aka Rich Snippets Integrated**
-Configuring Google Schema Markup, aka Rich Snippets, is now easy, thanks to Rank Math. With support for 13+ types of Schema Markups, aka Rich Snippets, including the Rating Schema, you’ll be able to optimize your posts in just a few clicks.
+Configuring Google Schema Markup, aka Rich Snippets, is now easy, thanks to Rank Math. With support for 13+ types of Schema Markups, aka Rich Snippets, including the Rating Schema, you'll be able to optimize your posts in just a few clicks. It also includes the [FAQ Schema aka FAQPage Schema Block in the plugin](https://rankmath.com/blog/faq-schema/).
 
 * **Optimize Unlimited Keywords**
 Unlike other plugins, Rank Math lets you optimize your posts for unlimited focus keywords per post. (5 by default. Increase by adding this [filter](https://rankmath.com/kb/filters-hooks-api-developer/#unlimited-keywords))
@@ -460,13 +460,28 @@ We look forward to helping you.
 
 == Changelog ==
 
-= 1.0.38 [Feb 10, 2020] =
-* Added: Version Control, if you face any issue(s) with the future updates, you can now rollback to the previous version with an inbuilt tool, [more info](https://rankmath.com/kb/version-control/).
-* Added: Beta Opt-in. Now anyone can take part in shaping the Rank Math by test-driving the newest features before anyone else
-* Added: The System Status page now shows in-depth system stats along with a one-click copy option for all the stats
-* Improved: Minor UI changes and improvements
-* Moved: Auto Update option in the Version Control tab
-* Moved: Import & Export tab in the Status & Tools page
-* Fixed: Minor bugs and prepared the plugin's base for a Great upcoming feature
+= 1.0.39 [Feb 24, 2020] =
+* Added: [HUGE!] A way to [add FAQ Schema to a WordPress website](https://rankmath.com/kb/faq-schema-block/) using the new Block aka Gutenberg editor
+* Added: A [filter to remove SEO Tab in the Elementor Panel](https://rankmath.com/kb/filters-hooks-api-developer/#remove-seo-panel-elementor)
+* Improved: Site-Wide SEO Analysis code to work smoothly and error-free now. We will be adding more improvements to it in the near future
+* Improved: Recognize accented letters in the ALT description of an image
+* Improved: By default, added `%term_description%` variable in the term description fields of the general settings to improve the auto-generation of SEO description in the pages like categories or tag pages
+* Improved: Color contrast of the yellow Focus Keyword in the Classic Editor
+* Improved: Author description output in the Schema code by stripping out HTML tags
+* Fixed: Sitemap's Cache folder permission so it could be accessed while backing up a site
+* Fixed: Variables printing as it is in the single CPT titles on the frontend unless someone updated the settings in the General tab
+* Fixed: The link text field not appearing in the Classic Editor
+* Fixed: Auto-generated descriptions not working as intended when content was starting with an image
+* Fixed: Category in the permalink wasn't updating unless someone set the Primary Category
+* Fixed: A JavaScript error when creating a new Post Tag from Tags page
+* Fixed: An issue where Version Control's JS code was loading on the front end
+* Fixed: An issue where Version Control's assets were loading on all the admin pages
+* Fixed: Help menu showing in the backend sidebar even after disabling all the caps in the Role Manager
+* Fixed: TGMPA CSS's conflict
+* Fixed: "Make" Theme's compatibility issues
+* Fixed: A bug where the color coding on the focus keyword wasn't changing if diacritic characters were used
+* Fixed: A PHP error appearing in the Elementor's Theme Builder tabs if there are no templates present
+* Fixed: A bug with Elementor where `Content Area Was Not Found in Your Page Error` was appearing
+* Fixed: 404 monitor not able to detect the 404 pages created using Elementor
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://rankmath.com/changelog/)**

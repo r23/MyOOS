@@ -114,8 +114,16 @@ class Common {
 	 */
 	public function post_link_category( $term, $terms, $post ) {
 		$primary_term = $this->get_primary_term( $term->taxonomy, $post->ID );
+		if ( false === $primary_term ) {
+			return $term;
+		}
 
-		return false === $primary_term ? $term : $primary_term;
+		$term_ids = array_column( $terms, 'term_id' );
+		if ( ! in_array( $primary_term->term_id, $term_ids, true ) ) {
+			return $term;
+		}
+
+		return $primary_term;
 	}
 
 	/**

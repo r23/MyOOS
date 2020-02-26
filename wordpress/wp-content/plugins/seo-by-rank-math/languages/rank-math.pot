@@ -4151,6 +4151,24 @@ msgstr ""
 msgid "Your site is accessible by search engine."
 msgstr ""
 
+msgid "Selected page: %s"
+msgstr ""
+
+msgid "Change URL"
+msgstr ""
+
+msgid "Start Page Analysis"
+msgstr ""
+
+msgid "Analysing Page&hellip;"
+msgstr ""
+
+msgid "Analysing Website&hellip;"
+msgstr ""
+
+msgid "Complete"
+msgstr ""
+
 msgid "In this section, we're going to introduce the SEO analysis tool. As the name suggests, it analyzes your site's SEO and points out what you're doing right and the issues you need to fix."
 msgstr ""
 
@@ -4179,24 +4197,6 @@ msgid "Click here to read full SEO Analysis tutorial"
 msgstr ""
 
 msgid "What is this?"
-msgstr ""
-
-msgid "Selected page: %s"
-msgstr ""
-
-msgid "Change URL"
-msgstr ""
-
-msgid "Start Page Analysis"
-msgstr ""
-
-msgid "Analysing Page&hellip;"
-msgstr ""
-
-msgid "Analysing Website&hellip;"
-msgstr ""
-
-msgid "Complete"
 msgstr ""
 
 msgid "Analyze your site by <a href=\"%1$s\" target=\"_blank\">linking your Rank Math account"
@@ -4443,6 +4443,18 @@ msgstr ""
 msgid "Copied!"
 msgstr ""
 
+msgid "Yoast Block Converter"
+msgstr ""
+
+msgid "Convert FAQ Blocks created using Yoast. Use this option to easily move your previous FAQ Blocks into Rank Math."
+msgstr ""
+
+msgid "Are you sure you want to covert Yoast blocks into Rank Math blocks? This action is irreversible."
+msgstr ""
+
+msgid "Convert Blocks"
+msgstr ""
+
 msgid "Remove Rank Math Transients"
 msgstr ""
 
@@ -4531,6 +4543,9 @@ msgstr ""
 
 #. translators: Number of posts updated
 msgid "%1$s review Posts updated. You can find the list of all converted posts %2$s."
+msgstr ""
+
+msgid "No posts found to convert."
 msgstr ""
 
 msgid "This update will install a beta version of Rank Math."

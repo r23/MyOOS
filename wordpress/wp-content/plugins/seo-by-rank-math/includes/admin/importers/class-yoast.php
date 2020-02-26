@@ -249,6 +249,10 @@ class Yoast extends Plugin_Importer {
 			$this->is_twitter_using_facebook( 'post', $post_id );
 		}
 
+		// Convert blocks if any.
+		$converter = new Yoast_Blocks;
+		$converter->run();
+
 		return $this->get_pagination_arg();
 	}
 

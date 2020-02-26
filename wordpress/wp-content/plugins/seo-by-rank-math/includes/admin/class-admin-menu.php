@@ -46,6 +46,13 @@ class Admin_Menu implements Runner {
 			return;
 		}
 
+		$current_user = wp_get_current_user();
+		$capabilities = array_keys( Helper::get_roles_capabilities() );
+
+		if ( empty( array_intersect( $current_user->roles, $capabilities ) ) ) {
+			return;
+		}
+
 		// Dashboard / Welcome / About.
 		new Page(
 			'rank-math',

@@ -292,6 +292,9 @@ class Post_Variables extends Advanced_Variables {
 		$post_content = wpautop( WordPress::strip_shortcodes( $post_content ) );
 		$post_content = wp_kses( $post_content, [ 'p' => [] ] );
 
+		// Remove empty paragraph tags.
+		$post_content = preg_replace( '/<p[^>]*>[\s|&nbsp;]*<\/p>/', '', $post_content );
+
 		// 4. Paragraph with the focus keyword.
 		if ( ! empty( $keywords ) ) {
 			$regex = '/<p>(.*' . str_replace( [ ',', ' ', '/' ], [ '|', '.', '\/' ], $keywords ) . '.*)<\/p>/iu';

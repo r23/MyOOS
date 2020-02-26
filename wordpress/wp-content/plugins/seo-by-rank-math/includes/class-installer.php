@@ -515,6 +515,7 @@ class Installer {
 			$titles[ 'tax_' . $taxonomy . '_robots' ]        = $defaults['robots'];
 			$titles[ 'tax_' . $taxonomy . '_add_meta_box' ]  = $defaults['metabox'];
 			$titles[ 'tax_' . $taxonomy . '_custom_robots' ] = $defaults['is_custom'];
+			$titles[ 'tax_' . $taxonomy . '_description' ]   = '%term_description%';
 
 			$sitemap[ 'tax_' . $taxonomy . '_sitemap' ] = 'category' === $taxonomy ? 'on' : 'off';
 		}

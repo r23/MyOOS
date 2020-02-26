@@ -51,6 +51,7 @@ $cmb->add_field([
 		'data-gramm_editor'      => 'false',
 		'data-exclude-variables' => 'seo_title,seo_description',
 	],
+	'default'         => '%term_description%',
 	'sanitization_cb' => true,
 ]);
 

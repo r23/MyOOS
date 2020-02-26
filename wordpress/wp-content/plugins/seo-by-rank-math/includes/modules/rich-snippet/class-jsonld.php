@@ -52,6 +52,7 @@ class JsonLD {
 	public function __construct() {
 		$this->action( 'rank_math/head', 'json_ld', 90 );
 		$this->action( 'rank_math/json_ld', 'add_context_data' );
+		new Block_Parser;
 	}
 
 	/**
@@ -434,7 +435,7 @@ class JsonLD {
 		];
 
 		if ( get_the_author_meta( 'description' ) ) {
-			$author['description'] = get_the_author_meta( 'description' );
+			$author['description'] = wp_strip_all_tags( get_the_author_meta( 'description' ), true );
 		}
 
 		if ( version_compare( get_bloginfo( 'version' ), '4.2', '>=' ) ) {

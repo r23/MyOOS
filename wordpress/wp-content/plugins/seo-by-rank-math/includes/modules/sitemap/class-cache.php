@@ -193,7 +193,7 @@ class Cache {
 
 		if ( is_null( $type ) ) {
 			$wp_filesystem->delete( $directory, true );
-			$wp_filesystem->mkdir( $directory, FS_CHMOD_FILE );
+			wp_mkdir_p( $directory );
 			self::clear_transients();
 			self::cached_files( false );
 			Helper::clear_cache();

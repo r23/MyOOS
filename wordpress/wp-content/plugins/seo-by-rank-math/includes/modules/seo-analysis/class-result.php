@@ -46,6 +46,9 @@ class Result {
 	 * @param bool   $is_subpage Is sub-page result.
 	 */
 	public function __construct( $id, $data, $is_subpage ) {
+		if ( is_a( $data, 'RankMath\\SEO_Analysis\\Result' ) ) {
+			$data = $data->result;
+		}
 		$this->id         = $id;
 		$this->result     = $data;
 		$this->is_subpage = $is_subpage;
@@ -115,7 +118,7 @@ class Result {
 	 * @return string
 	 */
 	public function get_category() {
-		return isset( $this->result['category'] ) ? $this->result['category'] : '';
+		return is_array( $this->result ) && isset( $this->result['category'] ) ? $this->result['category'] : '';
 	}
 
 	/**
@@ -124,7 +127,7 @@ class Result {
 	 * @return string
 	 */
 	public function get_status() {
-		return isset( $this->result['status'] ) ? $this->result['status'] : '';
+		return is_array( $this->result ) && isset( $this->result['status'] ) ? $this->result['status'] : '';
 	}
 
 	/**
@@ -133,13 +136,17 @@ class Result {
 	 * @return bool
 	 */
 	private function has_fix() {
-		return in_array( $this->result['status'], [ 'fail', 'warning' ], true ) && ! empty( $this->result['fix'] );
+		return is_array( $this->result ) && in_array( $this->result['status'], [ 'fail', 'warning' ], true ) && ! empty( $this->result['fix'] );
 	}
 
 	/**
 	 * Output test result status.
 	 */
 	private function the_status() {
+		if ( ! is_array( $this->result ) ) {
+			return;
+		}
+
 		$status = $this->result['status'];
 		if ( ! empty( $this->result['is_info'] ) ) {
 			$status = 'info';
@@ -171,6 +178,10 @@ class Result {
 	 * Output test data
 	 */
 	private function the_content() {
+		if ( ! is_array( $this->result ) ) {
+			return;
+		}
+
 		$data = $this->result['data'];
 
 		if ( 'common_keywords' === $this->id ) {

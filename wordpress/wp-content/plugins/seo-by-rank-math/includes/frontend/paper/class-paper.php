@@ -457,7 +457,7 @@ class Paper {
 			);
 		}
 
-		return '' !== $value ? Helper::replace_vars( $value, $source ) : $default;
+		return Helper::replace_vars( '' !== $value ? $value : $default, $source );
 	}
 
 	/**

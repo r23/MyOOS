@@ -60,7 +60,7 @@ class Redirections {
 	 * Do redirection on frontend.
 	 */
 	public function do_redirection() {
-		if ( is_customize_preview() || Conditional::is_ajax() || ! isset( $_SERVER['REQUEST_URI'] ) || empty( $_SERVER['REQUEST_URI'] ) || $this->is_script_uri_or_http_x() ) {
+		if ( is_customize_preview() || Conditional::is_ajax() || ! isset( $_SERVER['REQUEST_URI'] ) || empty( $_SERVER['REQUEST_URI'] ) || $this->is_script_uri_or_http_x() || isset( $_GET['elementor-preview'] ) ) {
 			return;
 		}
 
