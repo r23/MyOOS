@@ -49,18 +49,27 @@ function oosDoUpgrade2312 ($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $
     include("oos2312.php");
 }
 
+function oosDoUpgrade241 ($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype) {
+    global $db, $currentlang, $update;
+    include("oos241.php");
+}
 
 function print_SelectOOS() {
   global $update;
 
   echo '<font class="oos-title">' . OOSUPGRADE_1 . ':</font><br /><br />' . "\n" .
        '<font class="oos-error">' . UPGRADE_INFO . '</font><br /><br />' . "\n" .
-       '<form name="oos updrade" action="update.php" method="post">' . "\n" .
-       '<input type="hidden" name="aupdate" value="oos2312">' . "\n";
+       '<form name="oos updrade" action="update.php" method="post">' . "\n" .	   
+	   '<fieldset>' . "\n" .
+ 	   '   <input type="radio" id="23" name="op" value="myOOS 2.3.12">' . "\n" .
+	   '    <label for=23"> myOOS 2.3.12</label> ' . "\n" .
+	   '    <input type="radio" id="241" name="op" value="myOOS 2.4.1" checked="checked">' . "\n" .
+ 	   '   <label for="241"> myOOS 2.4.1</label> ' . "\n" .
+ 	   ' </fieldset>' . "\n";
   print_FormHidden();
   echo '<table width="50%" align="center">' . "\n" .
        ' <tr>' . "\n" .
-       '  <td><input type="submit"  name ="op" value="OOS 2.3.12"></td>' . "\n" .
+       '  <td><input type="submit" value="' . BTN_CONTINUE . '"></td>' . "\n" .
        '</tr></table></form>' . "\n" .
        '<font class="oos-normal">' . OOSUPGRADE_5 . '</font><br /><br />' . "\n";
 
