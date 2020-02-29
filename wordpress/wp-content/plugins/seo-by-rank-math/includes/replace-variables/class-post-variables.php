@@ -249,7 +249,23 @@ class Post_Variables extends Advanced_Variables {
 	 * @return string
 	 */
 	public function get_seo_title() {
-		return Paper::get()->get_title();
+		if ( is_singular() ) {
+			return Paper::get()->get_title();
+		}
+
+		$object = $this->args;
+
+		// Early Bail!
+		if ( empty( $object ) || empty( $object->ID ) ) {
+			return '';
+		}
+
+		$title = Post::get_meta( 'title', $object->ID );
+		if ( '' !== $title ) {
+			return $title;
+		}
+
+		return Paper::get_from_options( "pt_{$object->post_type}_title", $object, '%title% %sep% %sitename%' );
 	}
 
 	/**

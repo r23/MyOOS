@@ -26,9 +26,13 @@ class Yoast_Blocks {
 	private $faq_converter;
 
 	/**
-	 * Run all
+	 * Run all.
 	 */
 	public function run() {
+		// This will solve the timeout issue on _some_ servers.
+		ini_set( 'max_execution_time', 120 ); // 5 miutes
+		set_time_limit( 120 );
+
 		$posts = $this->find_posts();
 		if ( empty( $posts ) ) {
 			return esc_html__( 'No posts found to convert.', 'rank-math' );
@@ -52,7 +56,8 @@ class Yoast_Blocks {
 			}
 		}
 
-		return $count . ' post converted';
+		// translators: placeholder is the number of posts.
+		return sprintf( __( '%d posts converted.', 'rank-math' ), $count );
 	}
 
 	/**
@@ -67,7 +72,7 @@ class Yoast_Blocks {
 	}
 
 	/**
-	 * Parse blocks to get data
+	 * Parse blocks to get data.
 	 *
 	 * @param string $content Post content to parse.
 	 *

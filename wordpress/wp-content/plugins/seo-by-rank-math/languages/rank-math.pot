@@ -4206,7 +4206,7 @@ msgid "This tab contains settings related to the XML sitemaps."
 msgstr ""
 
 #. translators: sitemap url
-msgid "When sitemaps are enabled, your sitemap index can be found here: %s"
+msgid "Your sitemap index can be found here: %s"
 msgstr ""
 
 #. translators: Learn more link.

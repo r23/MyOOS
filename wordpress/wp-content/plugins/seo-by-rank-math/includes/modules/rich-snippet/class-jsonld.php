@@ -261,7 +261,6 @@ class JsonLD {
 		}
 
 		wp_reset_query();
-
 		return $collection;
 	}
 
@@ -272,17 +271,32 @@ class JsonLD {
 	 * @param array $data       Array of json-ld data.
 	 */
 	public function get_post_collection_item( &$collection, $data ) {
-		$post_id = get_the_ID();
-		$schema  = Helper::get_post_meta( 'rich_snippet', $post_id );
+		$post_id   = get_the_ID();
+		$post_type = get_post_type();
+
+		$schema         = Helper::get_post_meta( 'rich_snippet', $post_id );
+		$default_schema = Helper::get_settings( "titles.pt_{$post_type}_default_rich_snippet" );
+
+		$article_type         = Helper::get_post_meta( 'snippet_article_type', $post_id );
+		$default_article_type = Helper::get_settings( "titles.pt_{$post_type}_default_article_type" );
+
+		if ( ! $schema ) {
+			$schema = $default_schema;
+		}
 		if ( ! $schema || 'article' !== $schema ) {
 			return;
 		}
+		if ( ! $article_type ) {
+			$article_type = $default_article_type ? $default_article_type : 'Article';
+		}
+
+		$this->post = get_post( $post_id );
 
 		$title = $this->get_post_title( $post_id );
 		$url   = $this->get_post_url( $post_id );
 
 		$part = [
-			'@type'            => isset( $data['schema'] ) ? $data['schema'] : Helper::get_post_meta( 'snippet_article_type', $post_id ),
+			'@type'            => ! empty( $data['schema'] ) ? $data['schema'] : $article_type,
 			'headline'         => $title,
 			'name'             => $title,
 			'url'              => $url,
@@ -551,7 +565,7 @@ class JsonLD {
 		$title = Helper::get_post_meta( 'snippet_name', $post_id );
 
 		if ( ! $title && ! empty( $this->post ) ) {
-			$title = Helper::replace_vars( Helper::get_settings( "titles.pt_{$this->post->post_type}_default_snippet_name" ), $this->post );
+			$title = Helper::replace_vars( Helper::get_settings( "titles.pt_{$this->post->post_type}_default_snippet_name", '%seo_title%' ), $this->post );
 		}
 
 		return $title ? $title : Paper::get()->get_title();

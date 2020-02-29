@@ -431,7 +431,7 @@ class Post_Type implements Provider {
 			$url['mod'] = $modified;
 		}
 
-		$canonical = Helper::get_post_meta( 'canonical', $post->ID );
+		$canonical = Helper::get_post_meta( 'canonical_url', $post->ID );
 		if ( '' !== $canonical && $canonical !== $url['loc'] ) {
 			/*
 			 * Let's assume that if a canonical is set for this page and it's different from

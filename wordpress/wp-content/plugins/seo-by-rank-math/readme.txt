@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection
 Tested up to: 5.3.2
 Requires at least: 4.9.0
 Requires PHP: 5.6
-Stable tag: 1.0.39
+Stable tag: 1.0.39.1
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -459,6 +459,12 @@ We look forward to helping you.
 12. Rank Math Comes with 10+ FREE Module.
 
 == Changelog ==
+
+= 1.0.39.1 [Feb 27th, 2020] =
+* Fixed: HTML formatting & SEO fields not working in the Taxonomy editing area
+* Fixed: Sitemap having all non-canonical URLs listed in it. They should not appear now
+* Fixed: Incorrect headline & name values for `hasPart` Schema on the archive pages. Props: [Ben @ StoreGear](https://www.storegear.com).
+* Fixed: An error in the `hasPart` Schema when no Article type was set on the archive pages. Props: Ben @ ActorGear
 
 = 1.0.39 [Feb 24, 2020] =
 * Added: [HUGE!] A way to [add FAQ Schema to a WordPress website](https://rankmath.com/kb/faq-schema-block/) using the new Block aka Gutenberg editor
