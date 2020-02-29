@@ -145,6 +145,7 @@ return array(
     'DASPRiD\\Enum\\' => array($vendorDir . '/dasprid/enum/src'),
     'Complex\\' => array($vendorDir . '/markbaker/complex/classes/src'),
     'BaconQrCode\\' => array($vendorDir . '/bacon/bacon-qr-code/src'),
+    'Aws\\Sns\\' => array($vendorDir . '/aws/aws-php-sns-message-validator/src'),
     'Aws\\' => array($vendorDir . '/aws/aws-sdk-php/src'),
     '' => array($vendorDir . '/google/grpc-gcp/src/generated'),
 );

@@ -275,6 +275,7 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         ),
         'A' => 
         array (
+            'Aws\\Sns\\' => 8,
             'Aws\\' => 4,
         ),
     );
@@ -840,6 +841,10 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         'BaconQrCode\\' => 
         array (
             0 => __DIR__ . '/..' . '/bacon/bacon-qr-code/src',
+        ),
+        'Aws\\Sns\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/aws/aws-php-sns-message-validator/src',
         ),
         'Aws\\' => 
         array (
