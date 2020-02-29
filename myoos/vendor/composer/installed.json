@@ -777,26 +777,26 @@
     },
     {
         "name": "firebase/php-jwt",
-        "version": "v5.0.0",
-        "version_normalized": "5.0.0.0",
+        "version": "v5.1.0",
+        "version_normalized": "5.1.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/firebase/php-jwt.git",
-            "reference": "9984a4d3a32ae7673d6971ea00bae9d0a1abba0e"
+            "reference": "4566062c68f76f43d44f1643f4970fe89757d4c6"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/firebase/php-jwt/zipball/9984a4d3a32ae7673d6971ea00bae9d0a1abba0e",
-            "reference": "9984a4d3a32ae7673d6971ea00bae9d0a1abba0e",
+            "url": "https://api.github.com/repos/firebase/php-jwt/zipball/4566062c68f76f43d44f1643f4970fe89757d4c6",
+            "reference": "4566062c68f76f43d44f1643f4970fe89757d4c6",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.0"
         },
         "require-dev": {
-            "phpunit/phpunit": " 4.8.35"
+            "phpunit/phpunit": "^4.8|^5"
         },
-        "time": "2017-06-27T22:17:23+00:00",
+        "time": "2020-02-24T23:15:03+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -3940,17 +3940,17 @@
     },
     {
         "name": "stripe/stripe-php",
-        "version": "v7.26.0",
-        "version_normalized": "7.26.0.0",
+        "version": "v7.27.0",
+        "version_normalized": "7.27.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/stripe/stripe-php.git",
-            "reference": "14163c10e1edb0e7720c9c295a1e7c7a0bf48e75"
+            "reference": "a49e144ab6ddaaaca68a2f7521c8caf7001324d9"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/stripe/stripe-php/zipball/14163c10e1edb0e7720c9c295a1e7c7a0bf48e75",
-            "reference": "14163c10e1edb0e7720c9c295a1e7c7a0bf48e75",
+            "url": "https://api.github.com/repos/stripe/stripe-php/zipball/a49e144ab6ddaaaca68a2f7521c8caf7001324d9",
+            "reference": "a49e144ab6ddaaaca68a2f7521c8caf7001324d9",
             "shasum": ""
         },
         "require": {
@@ -3966,7 +3966,7 @@
             "squizlabs/php_codesniffer": "^3.3",
             "symfony/process": "~3.4"
         },
-        "time": "2020-02-26T19:59:00+00:00",
+        "time": "2020-02-28T17:06:16+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -4567,17 +4567,17 @@
     },
     {
         "name": "symfony/symfony",
-        "version": "v5.0.4",
-        "version_normalized": "5.0.4.0",
+        "version": "v5.0.5",
+        "version_normalized": "5.0.5.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/symfony.git",
-            "reference": "03e6126338b0e37c4dd6481ed0f517ed3de99110"
+            "reference": "28a7546601e16bb40384c8f4c8fcbdda6b5ee24a"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/symfony/zipball/03e6126338b0e37c4dd6481ed0f517ed3de99110",
-            "reference": "03e6126338b0e37c4dd6481ed0f517ed3de99110",
+            "url": "https://api.github.com/repos/symfony/symfony/zipball/28a7546601e16bb40384c8f4c8fcbdda6b5ee24a",
+            "reference": "28a7546601e16bb40384c8f4c8fcbdda6b5ee24a",
             "shasum": ""
         },
         "require": {
@@ -4698,7 +4698,7 @@
             "twig/inky-extra": "^2.12",
             "twig/markdown-extra": "^2.12"
         },
-        "time": "2020-01-31T12:49:53+00:00",
+        "time": "2020-02-29T10:41:46+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {

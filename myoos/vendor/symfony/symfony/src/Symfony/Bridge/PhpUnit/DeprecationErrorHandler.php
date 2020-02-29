@@ -99,7 +99,16 @@ class DeprecationErrorHandler
                 return \call_user_func(self::getPhpUnitErrorHandler(), $type, $msg, $file, $line, $context);
             }
 
-            $deprecations[] = [error_reporting(), $msg, $file];
+            $filesStack = [];
+            foreach (debug_backtrace() as $frame) {
+                if (!isset($frame['file']) || \in_array($frame['function'], ['require', 'require_once', 'include', 'include_once'], true)) {
+                    continue;
+                }
+
+                $filesStack[] = $frame['file'];
+            }
+
+            $deprecations[] = [error_reporting(), $msg, $file, $filesStack];
 
             return null;
         });

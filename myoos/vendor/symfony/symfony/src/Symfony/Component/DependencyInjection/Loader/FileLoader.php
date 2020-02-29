@@ -57,7 +57,7 @@ abstract class FileLoader extends BaseFileLoader
         if ($ignoreNotFound = 'not_found' === $ignoreErrors) {
             $args[2] = false;
         } elseif (!\is_bool($ignoreErrors)) {
-            throw new \TypeError(sprintf('Invalid argument $ignoreErrors provided to %s::import(): boolean or "not_found" expected, %s given.', \get_class($this), \gettype($ignoreErrors)));
+            throw new \TypeError(sprintf('Invalid argument $ignoreErrors provided to %s::import(): boolean or "not_found" expected, %s given.', static::class, \gettype($ignoreErrors)));
         }
 
         try {
@@ -159,7 +159,7 @@ abstract class FileLoader extends BaseFileLoader
         $excludePrefix = null;
         $excludePatterns = $parameterBag->unescapeValue($parameterBag->resolveValue($excludePatterns));
         foreach ($excludePatterns as $excludePattern) {
-            foreach ($this->glob($excludePattern, true, $resource, false, true) as $path => $info) {
+            foreach ($this->glob($excludePattern, true, $resource, true, true) as $path => $info) {
                 if (null === $excludePrefix) {
                     $excludePrefix = $resource->getPrefix();
                 }

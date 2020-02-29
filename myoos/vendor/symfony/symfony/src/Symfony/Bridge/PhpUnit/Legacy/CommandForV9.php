@@ -11,24 +11,30 @@
 
 namespace Symfony\Bridge\PhpUnit\Legacy;
 
+use PHPUnit\TextUI\Command as BaseCommand;
+use PHPUnit\TextUI\Configuration\Configuration;
+use PHPUnit\TextUI\Configuration\Registry;
+use PHPUnit\TextUI\TestRunner as BaseRunner;
+use Symfony\Bridge\PhpUnit\SymfonyTestsListener;
+
 /**
  * {@inheritdoc}
  *
  * @internal
  */
-class CommandForV5 extends \PHPUnit_TextUI_Command
+class CommandForV9 extends BaseCommand
 {
     /**
      * {@inheritdoc}
      */
-    protected function createRunner()
+    protected function createRunner(): BaseRunner
     {
         $this->arguments['listeners'] = isset($this->arguments['listeners']) ? $this->arguments['listeners'] : [];
 
         $registeredLocally = false;
 
         foreach ($this->arguments['listeners'] as $registeredListener) {
-            if ($registeredListener instanceof SymfonyTestsListenerForV5) {
+            if ($registeredListener instanceof SymfonyTestsListener) {
                 $registeredListener->globalListenerDisabled();
                 $registeredLocally = true;
                 break;
@@ -37,11 +43,11 @@ class CommandForV5 extends \PHPUnit_TextUI_Command
 
         if (isset($this->arguments['configuration'])) {
             $configuration = $this->arguments['configuration'];
-            if (!$configuration instanceof \PHPUnit_Util_Configuration) {
-                $configuration = \PHPUnit_Util_Configuration::getInstance($this->arguments['configuration']);
+            if (!$configuration instanceof Configuration) {
+                $configuration = Registry::getInstance()->get($this->arguments['configuration']);
             }
-            foreach ($configuration->getListenerConfiguration() as $registeredListener) {
-                if ('Symfony\Bridge\PhpUnit\SymfonyTestsListener' === ltrim($registeredListener['class'], '\\')) {
+            foreach ($configuration->listeners() as $registeredListener) {
+                if ('Symfony\Bridge\PhpUnit\SymfonyTestsListener' === ltrim($registeredListener->className(), '\\')) {
                     $registeredLocally = true;
                     break;
                 }
@@ -49,7 +55,7 @@ class CommandForV5 extends \PHPUnit_TextUI_Command
         }
 
         if (!$registeredLocally) {
-            $this->arguments['listeners'][] = new SymfonyTestsListenerForV5();
+            $this->arguments['listeners'][] = new SymfonyTestsListener();
         }
 
         return parent::createRunner();
