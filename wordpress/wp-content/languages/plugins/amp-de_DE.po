@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - AMP - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-02-14 07:55:00+0000\n"
+"PO-Revision-Date: 2020-02-23 10:47:40+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,10 @@ msgstr ""
 "X-Generator: GlotPress/2.4.0-alpha\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - AMP - Stable (latest release)\n"
+
+#: includes/options/class-amp-options-manager.php:608
+msgid "The Stories experience is being extracted into a standalone plugin which will be available soon."
+msgstr "Die Stories-Erfahrung wurde in ein eigenständiges Plugin ausgelagert, das bald verfügbar sein wird."
 
 #: includes/admin/class-amp-admin-pointers.php:81
 msgid "Back up your Stories!"
@@ -20,10 +24,6 @@ msgstr "Sichere deine Stories!"
 msgid "To use Stories, you must be running WordPress %1$s, or have a version between %2$s and %3$s of the %4$s plugin activated."
 msgstr "Um Stories zu benutzen, musst du WordPress %1$s einsetzen oder eine Version zwischen %2$s und %3$s des %4$s-Plugins aktiviert haben."
 
-#: includes/options/class-amp-options-manager.php:608
-msgid "The Stories experience has been removed from the AMP plugin. This beta feature is being split into a separate standalone plugin which will be available for installation soon."
-msgstr "Die Stories-Erfahrung wurde aus dem AMP-Plugin entfernt. Diese Beta-Funktion ist in ein separat erhältliches Plugin ausgelagert worden, das bald für zur Installation verfügbar ist."
-
 #: includes/options/class-amp-options-manager.php:602
 #: includes/options/class-amp-options-manager.php:634
 #: includes/admin/class-amp-admin-pointers.php:89
@@ -33,8 +33,8 @@ msgstr "Sieh dir an, wie du deine Stories exportieren kannst"
 #: includes/options/class-amp-options-manager.php:598
 #: includes/options/class-amp-options-manager.php:633
 #: includes/admin/class-amp-admin-pointers.php:85
-msgid "The Stories experience is being extracted from the AMP plugin into a separate standalone plugin which will be available soon. Please back up or export your existing Stories as they will not be available in the next version of the AMP plugin."
-msgstr "Die Stories-Erfahrung wurde aus dem AMP-Plugin in ein neues Plugin extrahiert und wird bald erhältlich sein. Bitte sichere oder exportiere deine vorhandenen Stories, da sie in der nächsten Version des AMP-Plugins nicht mehr verfügbar sein werden."
+msgid "The Stories experience is being extracted into a standalone plugin which will be available soon. Please back up or export your existing Stories as they will not be available in the next version of the AMP plugin."
+msgstr "Die Stories-Erfahrung wurde in ein eigenständiges Plugin extrahiert, das bald verfügbar sein wird. Bitte sichere oder exportiere deine vorhandenen Stories, da sie in der nächsten Version des AMP-Plugins nicht mehr verfügbar sein werden."
 
 #: includes/validation/class-amp-validation-manager.php:1968
 msgid "Failed to fetch URL to validate."
@@ -275,8 +275,8 @@ msgstr "Aktion abgebrochen. Nur ein Block dieses Typs ist pro Seite erlaubt."
 
 #. translators: 1: Documentation URL, 2: Documentation URL, 3: !important
 #: includes/validation/class-amp-validation-error-taxonomy.php:2073
-msgid "AMP allows you to <a href=\"%1$s\">style your pages using CSS</a> in much the same way as regular HTML pages, however there are some <a href=\"%2$s\">restrictions</a>. Nevertheless, the AMP plugin automatically inlines external stylesheets, transforms %3$s qualifiers, and uses tree shaking to remove the majority of CSS rules that do not apply to the current page. Nevertheless, AMP does have a 50KB limit and tree shaking cannot always reduce the amount of CSS under this limit; when this happens an excessive CSS error will result."
-msgstr "AMP erlaubt dir, <a href=\"%1$s\">die Darstellung deiner Seite mit CSS</a> in fast derselben Art wie normale HTML-Seiten zu ändern, allerdings gibt es ein paar <a href=\"%2$s\">Einschränkungen</a>. Nichtsdestotrotz fügt das AMP-Plugin automatisch externes CSS inline ein, transformiert %3$s und benutzt Tree Shaking, um den Großteil der CSS-Regeln zu entfernen, die nicht auf der aktuellen Seite verwendet werden. Dennoch hat AMP ein 50-KB-Limit und Tree Shaking kann nicht immer die Menge des CSS unter dieses Limit bringen. Wenn das passiert, wird es einen Fehler wegen zu viel CSS geben."
+msgid "AMP allows you to <a href=\"%1$s\">style your pages using CSS</a> in much the same way as regular HTML pages, however there are some <a href=\"%2$s\">restrictions</a>. Nevertheless, the AMP plugin automatically inlines external stylesheets, transforms %3$s qualifiers, and uses tree shaking to remove the majority of CSS rules that do not apply to the current page. Nevertheless, AMP does have a 75KB limit and tree shaking cannot always reduce the amount of CSS under this limit; when this happens an excessive CSS error will result."
+msgstr "AMP erlaubt dir, <a href=\"%1$s\">die Darstellung deiner Seiten mit CSS</a> in fast derselben Art wie normale HTML-Seiten zu ändern, allerdings gibt es ein paar <a href=\"%2$s\">Einschränkungen</a>. Nichtsdestotrotz fügt das AMP-Plugin automatisch externes CSS inline ein, transformiert %3$s und benutzt Tree Shaking, um den Großteil der CSS-Regeln zu entfernen, die nicht auf der aktuellen Seite verwendet werden. Dennoch hat AMP ein 75-KB-Limit und Tree Shaking kann nicht immer die Menge des CSS unter dieses Limit bringen. Wenn das passiert, wird es einen Fehler wegen zu viel CSS geben."
 
 #. translators: 1: script,  2: Documentation URL, 3: Documentation URL, 4:
 #. Documentation URL, 5: onclick, 6: Documentation URL, 7: amp-bind, 8:
@@ -794,12 +794,12 @@ msgstr "Partner ID (erforderlich)"
 
 #. translators: 1: the recommended max MB per second for videos. 2: the actual
 #. MB per second of the video.
-#: assets/js/amp-block-editor.js:15 assets/js/amp-stories-editor.js:27
+#: assets/js/amp-stories-editor.js:27 assets/js/amp-block-editor.js:15
 msgid "A video size of less than %1$s MB per second is recommended. The selected video is %2$s MB per second."
 msgstr "Es ist empfohlen, dass die Videogröße weniger als %1$s MB pro Sekunde beträgt. Das ausgewählte Video ist %2$s MB pro Sekunde groß."
 
 #. translators: 1: the selected file type.
-#: assets/js/amp-block-editor.js:13 assets/js/amp-stories-editor.js:25
+#: assets/js/amp-stories-editor.js:25 assets/js/amp-block-editor.js:13
 msgid "The selected file mime type, %1$s, is not allowed."
 msgstr "Der ausgewählte Dateityp, %1$s ist nicht erlaubt."
 
@@ -1157,18 +1157,18 @@ msgstr "Halb-abgerundet"
 msgid "Rounded"
 msgstr "Abgerundet"
 
-#: assets/js/amp-block-editor.js:5 assets/js/amp-stories-editor.js:15
+#: assets/js/amp-stories-editor.js:15 assets/js/amp-block-editor.js:5
 msgid "Choose image"
 msgstr "Bild auswählen"
 
-#: assets/js/amp-block-editor.js:5 assets/js/amp-stories-editor.js:15
-#: assets/js/amp-stories-editor.js:27
+#: assets/js/amp-stories-editor.js:15 assets/js/amp-stories-editor.js:27
+#: assets/js/amp-block-editor.js:5
 msgid "Select"
 msgstr "Auswählen"
 
 #. translators: 1: image width in pixels. 2: image height in pixels. 3:
 #. required minimum width in pixels. 4: required minimum height in pixels.
-#: assets/js/amp-block-editor.js:11 assets/js/amp-stories-editor.js:23
+#: assets/js/amp-stories-editor.js:23 assets/js/amp-block-editor.js:11
 msgid "The selected image is too small (%1$s by %2$s pixels). It should have a size of at least %3$s by %4$s pixels."
 msgstr "Das ausgewählte Bild ist zu klein (%1$s x %2$s Pixel). Es sollte mindestens eine Größe von %3$s mal %4$s Pixel besitzen."
 
@@ -1229,7 +1229,7 @@ msgstr "Absatz"
 msgid "Select text type"
 msgstr "Textart auswählen"
 
-#: assets/js/amp-block-editor.js:9 assets/js/amp-stories-editor.js:15
+#: assets/js/amp-stories-editor.js:15 assets/js/amp-block-editor.js:9
 #: assets/js/amp-block-validation.js:1
 msgid "Automatically fit text to container"
 msgstr "Text automatisch an Container anpassen"
@@ -1392,20 +1392,20 @@ msgid "Animation Type"
 msgstr "Animationsart"
 
 #. translators: 1: minimum width, 2: minimum height.
-#: assets/js/amp-block-editor.js:9 assets/js/amp-stories-editor.js:8
+#: assets/js/amp-stories-editor.js:8 assets/js/amp-block-editor.js:9
 msgid "The featured image should have a size of at least %1$s by %2$s pixels."
 msgstr "Das Beitragsbild sollte mindestens eine Größe von %1$s x %2$s Pixel besitzen."
 
 #. translators: 1: .jpg, 2: .png. 3: .gif
-#: assets/js/amp-block-editor.js:7 assets/js/amp-stories-editor.js:6
+#: assets/js/amp-stories-editor.js:6 assets/js/amp-block-editor.js:7
 msgid "The featured image must be in %1$s, %2$s, or %3$s format."
 msgstr "Das Beitragsbild muss das Format %1$s, %2$s, oder %3$s haben."
 
-#: assets/js/amp-block-editor.js:5 assets/js/amp-stories-editor.js:4
+#: assets/js/amp-stories-editor.js:4 assets/js/amp-block-editor.js:5
 msgid "Selecting a featured image is recommended for an optimal user experience."
 msgstr "Für ein optimales Nutzererlebnis ist es empfehlenswert, ein Beitragsbild auszuwählen."
 
-#: assets/js/amp-block-editor.js:5 assets/js/amp-stories-editor.js:4
+#: assets/js/amp-stories-editor.js:4 assets/js/amp-block-editor.js:5
 msgid "Selecting a featured image is required."
 msgstr "Die Auswahl eines Beitragsbildes ist zwingend erforderlich."
 
@@ -1725,8 +1725,8 @@ msgstr "Beitragsbild festlegen"
 
 #. translators: 1: the recommended max MB per second for videos. 2: the actual
 #. MB per second of the video.
-#: includes/class-amp-story-post-type.php:151 assets/js/amp-block-editor.js:15
-#: assets/js/amp-stories-editor.js:27
+#: includes/class-amp-story-post-type.php:151
+#: assets/js/amp-stories-editor.js:27 assets/js/amp-block-editor.js:15
 msgid "Featured Image"
 msgstr "Beitragsbild"
 
@@ -1900,8 +1900,8 @@ msgid "The %1$s is deprecated when adding amp theme support in favor of declarat
 msgstr "%1$s in Kombination mit AMP-Theme-Unterstützung ist zugunsten der %2$s-Einstellung veraltet."
 
 #. translators: 1: embed handler. 2: AMP_Embed_Handler
-#: includes/class-amp-theme-support.php:1168
 #: includes/templates/class-amp-content.php:174
+#: includes/class-amp-theme-support.php:1168
 msgid "Embed Handler (%1$s) must extend `%2$s`"
 msgstr "Embed Handler (%1$s) muss `%2$s` erweitern"
 
@@ -2202,19 +2202,19 @@ msgstr "URL befindet sich auf externer Domain: %s"
 msgid "File does not have an allowed file extension for filesystem access (%s)."
 msgstr "Datei hat eine unerlaubte Dateiendung (%s)"
 
-#: includes/sanitizers/class-amp-nav-menu-dropdown-sanitizer.php:152
 #: includes/sanitizers/class-amp-core-theme-sanitizer.php:336
 #: includes/sanitizers/class-amp-core-theme-sanitizer.php:362
 #: includes/sanitizers/class-amp-core-theme-sanitizer.php:378
 #: includes/sanitizers/class-amp-core-theme-sanitizer.php:394
+#: includes/sanitizers/class-amp-nav-menu-dropdown-sanitizer.php:152
 msgid "collapse child menu"
 msgstr "Untermenü einklappen"
 
-#: includes/sanitizers/class-amp-nav-menu-dropdown-sanitizer.php:149
 #: includes/sanitizers/class-amp-core-theme-sanitizer.php:335
 #: includes/sanitizers/class-amp-core-theme-sanitizer.php:361
 #: includes/sanitizers/class-amp-core-theme-sanitizer.php:377
 #: includes/sanitizers/class-amp-core-theme-sanitizer.php:393
+#: includes/sanitizers/class-amp-nav-menu-dropdown-sanitizer.php:149
 msgid "expand child menu"
 msgstr "Untermenü ausklappen"
 
@@ -2810,8 +2810,8 @@ msgstr[1] "AMP ist noch nicht verfügbar wegen %s Validierungsfehlern."
 msgid "However, there was an error when checking the AMP validity for your site."
 msgstr "Es gab jedoch ein Fehler bei der AMP-Validierung deiner Website."
 
-#: includes/sanitizers/class-amp-form-sanitizer.php:252
 #: includes/options/class-amp-options-manager.php:519
+#: includes/sanitizers/class-amp-form-sanitizer.php:252
 msgid "Learn More"
 msgstr "Mehr erfahren"
 
@@ -2901,9 +2901,8 @@ msgid "Settings"
 msgstr "Einstellungen"
 
 #. translators: %s: the human-readable time difference.
-#: back-compat/templates-v0-3/meta-time.php:15
+#: back-compat/templates-v0-3/meta-time.php:15 templates/meta-time.php:28
 #: includes/validation/class-amp-validation-error-taxonomy.php:1911
-#: templates/meta-time.php:28
 msgid "%s ago"
 msgstr "vor %s"
 
@@ -3493,10 +3492,10 @@ msgstr "AMP ist für die aktuelle Seite nicht verfügbar."
 msgid "Sorry, you do not have the necessary permissions to perform this action"
 msgstr "Entschuldige, du hast nicht die erforderliche Berechtigungen, um diese Aktion auszuführen."
 
-#: includes/validation/class-amp-validation-manager.php:2033
 #: includes/validation/class-amp-validated-url-post-type.php:1290
 #: includes/validation/class-amp-validated-url-post-type.php:1321
 #: includes/validation/class-amp-validated-url-post-type.php:1343
+#: includes/validation/class-amp-validation-manager.php:2033
 msgid "Dismiss this notice."
 msgstr "Hinweis ausblenden."
 
@@ -3608,12 +3607,12 @@ msgstr "Automatisch"
 
 #. Plugin Name of the plugin
 #: includes/amp-helper-functions.php:1293
-#: includes/validation/class-amp-validation-manager.php:436
 #: includes/options/class-amp-options-menu.php:60
+#: includes/validation/class-amp-validation-manager.php:436
 #: includes/admin/class-amp-admin-pointers.php:65
 #: includes/admin/class-amp-admin-pointers.php:80
-#: includes/admin/class-amp-customizer.php:95 includes/admin/functions.php:111
-#: includes/admin/functions.php:112
+#: includes/admin/functions.php:111 includes/admin/functions.php:112
+#: includes/admin/class-amp-customizer.php:95
 msgid "AMP"
 msgstr "AMP"
 
