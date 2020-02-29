@@ -51,7 +51,8 @@
 		"php-console/php-console": "^3.1",
 		"laminas/laminas-escaper": "^2.6",
 		"laminas/laminas-httphandlerrunner": "^1.1",
-		"league/flysystem": "^1.0"
+		"league/flysystem": "^1.0",
+		"spatie/flysystem-dropbox": "^1.2"
     }	
 	
 }
