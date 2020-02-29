@@ -52,7 +52,8 @@
 		"laminas/laminas-escaper": "^2.6",
 		"laminas/laminas-httphandlerrunner": "^1.1",
 		"league/flysystem": "^1.0",
-		"spatie/flysystem-dropbox": "^1.2"
+		"spatie/flysystem-dropbox": "^1.2",
+		"league/flysystem-aws-s3-v3": "^1.0"
     }	
 	
 }
