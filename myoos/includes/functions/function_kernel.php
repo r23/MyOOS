@@ -799,6 +799,28 @@ function oos_round($number, $precision) {
 }
 
 
+function get_options_values_price( $nProductsId) {
+
+    // Get database information
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
+
+
+	$ADODB_GETONE_EOF = "-1";
+
+	$products_optionstable = $oostable['products_options'];
+	$products_attributestable = $oostable['products_attributes'];
+	$options_name_sql = "SELECT MIN(patrib.options_values_price)
+                           FROM $products_optionstable popt,
+                                $products_attributestable patrib
+                           WHERE patrib.products_id='" . intval($nProductsId) . "'
+                             AND patrib.options_id = popt.products_options_id
+							 AND popt.products_options_type = 3";
+	return $dbconn->GetOne($options_name_sql);
+
+}
+
+
 function oos_get_categories($aCategories = '', $parent_id = '0', $indent = '') {
 
     $parent_id = oos_db_prepare_input($parent_id);
@@ -931,6 +953,7 @@ function oos_get_parent_categories(&$categories, $categories_id) {
 
     return $sParameters;
   }
+
 
 
  /**

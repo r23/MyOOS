@@ -583,6 +583,69 @@
       return $attributes_price;
     }
 
+
+    public function attributes_model($products_id) {
+
+      $attributes_model = '';
+
+      if (isset($this->contents[$products_id]['attributes'])) {
+        reset($this->contents[$products_id]['attributes']);
+
+        // Get database information
+        $dbconn =& oosDBGetConn();
+        $oostable =& oosDBGetTables();
+
+		foreach ($this->contents[$products_id]['attributes'] as $option => $value) {
+          $products_attributestable = $oostable['products_attributes'];
+          $attribute_model_sql = "SELECT options_values_model
+                                  FROM $products_attributestable
+                                  WHERE products_id = '" . intval($products_id) . "'
+                                  AND options_id = '" . intval($option) . "'
+                                  AND options_values_id = '" . intval($value) . "'";
+          $attribute_model = $dbconn->GetRow($attribute_model_sql);
+
+          if ($attribute_model['options_values_model'] != '') {
+            $attributes_model = $attribute_model['options_values_model'];
+          }
+        }
+      }
+
+      return $attributes_model;
+    }
+
+
+    public function attributes_image($products_id) {
+
+      $attributes_image = '';
+
+      if (isset($this->contents[$products_id]['attributes'])) {
+        reset($this->contents[$products_id]['attributes']);
+
+        // Get database information
+        $dbconn =& oosDBGetConn();
+        $oostable =& oosDBGetTables();
+
+		foreach ($this->contents[$products_id]['attributes'] as $option => $value) {
+          $products_attributestable = $oostable['products_attributes'];
+          $attributes_image_sql = "SELECT options_values_image
+                                  FROM $products_attributestable
+                                  WHERE products_id = '" . intval($products_id) . "'
+                                  AND options_id = '" . intval($option) . "'
+                                  AND options_values_id = '" . intval($value) . "'";
+          $attribute_image = $dbconn->GetRow($attributes_image_sql);
+
+          if ($attribute_image['options_values_image'] != '') {
+            $attributes_image = $attribute_image['options_values_image'];
+          }
+        }
+      }
+
+      return $attributes_image;
+    }
+
+
+
+
     public function get_products() {
       global $aUser;
 	
@@ -629,20 +692,43 @@
             $products_price = $specials['specials_new_products_price'];
           }
 
-          $attributes_price = $this->attributes_price($products_id);
-		  
+			$attributes_model = '';
+			if (isset($this->contents[$products_id]['attributes'])) {
+				$attributes_model = $this->attributes_model($products_id);
+			}
+
+			if ($attributes_model != ''){
+				$model = $attributes_model;
+			} else {
+				$model = $products['products_model'];
+			}
+
+			$attributes_image = '';
+			if (isset($this->contents[$products_id]['attributes'])) {
+				$attributes_image = $this->attributes_image($products_id);
+			}
+
+
+			if ($attributes_image != ''){
+				$image = $attributes_image;
+			} else {
+				$image = $products['products_image'];
+			}
+
+			$final_price = $products_price + $this->attributes_price($products_id);
+			
           $aProducts[] = array('id' => $products_id,
                                     'name' => $products['products_name'],
 									'essential_characteristics' => $products['products_essential_characteristics'],
-                                    'model' => $products['products_model'],
-                                    'image' => $products['products_image'],
+                                    'model' => $model,
+                                    'image' => $image,
                                     'ean' => $products['products_ean'],
                                     'price' => $products_price,	
                                     'spezial' => $bSpezialPrice,
                                     'quantity' => $this->contents[$products_id]['qty'],
 									'stock' => $products['products_quantity'],
                                     'weight' => $products['products_weight'],
-                                    'final_price' => ($products_price + $attributes_price),
+                                    'final_price' => $final_price,
                                     'tax_class_id' => $products['products_tax_class_id'],
                                     'attributes' => (isset($this->contents[$products_id]['attributes']) ? $this->contents[$products_id]['attributes'] : ''),
                                     'attributes_values' => (isset($this->contents[$products_id]['attributes_values']) ? $this->contents[$products_id]['attributes_values'] : ''),
