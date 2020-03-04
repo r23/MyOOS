@@ -61,16 +61,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.133.27",
+            "version": "3.133.29",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "5527195465ac42cb5127a60b84eb2d8dc3b0d5c9"
+                "reference": "ec8f628041e0d1de4fad76ac041c6025bd38d2da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/5527195465ac42cb5127a60b84eb2d8dc3b0d5c9",
-                "reference": "5527195465ac42cb5127a60b84eb2d8dc3b0d5c9",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/ec8f628041e0d1de4fad76ac041c6025bd38d2da",
+                "reference": "ec8f628041e0d1de4fad76ac041c6025bd38d2da",
                 "shasum": ""
             },
             "require": {
@@ -141,7 +141,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2020-03-02T19:20:19+00:00"
+            "time": "2020-03-04T19:10:59+00:00"
         },
         {
             "name": "bacon/bacon-qr-code",
@@ -3876,16 +3876,16 @@
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v7.27.0",
+            "version": "v7.27.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "a49e144ab6ddaaaca68a2f7521c8caf7001324d9"
+                "reference": "6e973221ac6f7a94be31c48390c1e750dba7e9ba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/a49e144ab6ddaaaca68a2f7521c8caf7001324d9",
-                "reference": "a49e144ab6ddaaaca68a2f7521c8caf7001324d9",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/6e973221ac6f7a94be31c48390c1e750dba7e9ba",
+                "reference": "6e973221ac6f7a94be31c48390c1e750dba7e9ba",
                 "shasum": ""
             },
             "require": {
@@ -3929,7 +3929,7 @@
                 "payment processing",
                 "stripe"
             ],
-            "time": "2020-02-28T17:06:16+00:00"
+            "time": "2020-03-04T03:43:39+00:00"
         },
         {
             "name": "symfony/contracts",
