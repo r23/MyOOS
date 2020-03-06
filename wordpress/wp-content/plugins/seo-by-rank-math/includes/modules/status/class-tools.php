@@ -213,7 +213,13 @@ class Tools {
 	 * @return string
 	 */
 	public function yoast_blocks() {
-		$converter = new Yoast_Blocks;
-		return $converter->run();
+		$posts = Yoast_Blocks::get()->find_posts();
+		if ( empty( $posts ) ) {
+			return esc_html__( 'No posts found to convert.', 'rank-math' );
+		}
+
+		Yoast_Blocks::get()->start( $posts );
+
+		return __( 'Background Process started', 'rank-math' );
 	}
 }

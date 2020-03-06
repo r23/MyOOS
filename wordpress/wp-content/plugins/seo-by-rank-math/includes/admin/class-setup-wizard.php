@@ -326,7 +326,7 @@ class Setup_Wizard {
 	 */
 	private function set_current_step() {
 		if ( $this->maybe_remove_import() ) {
-			unset( $this->steps['import'] );
+			//unset( $this->steps['import'] );
 		}
 
 		if ( ! Helper::is_module_active( 'role-manager' ) ) {

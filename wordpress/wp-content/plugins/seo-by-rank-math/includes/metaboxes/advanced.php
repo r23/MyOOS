@@ -32,7 +32,7 @@ $cmb->add_field( array(
 
 $cmb->add_field( array(
 	'id'   => 'rank_math_canonical_url',
-	'type' => 'text',
+	'type' => 'text_url',
 	'name' => esc_html__( 'Canonical URL', 'rank-math' ),
 	'desc' => esc_html__( 'The canonical URL informs search crawlers which page is the main page if you have double content.', 'rank-math' ),
 ) );

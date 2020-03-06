@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection
 Tested up to: 5.3.2
 Requires at least: 4.9.0
 Requires PHP: 5.6
-Stable tag: 1.0.39.1
+Stable tag: 1.0.39.2
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -459,6 +459,17 @@ We look forward to helping you.
 12. Rank Math Comes with 10+ FREE Module.
 
 == Changelog ==
+
+= 1.0.39.2 [Mar 5, 2020] =
+* Added: Indonesian Power Words. Thanks to [Kenny Purnomo](https://bravomotor.id)
+* Replaced: "German" [power words](https://rankmath.com/blog/power-words/) were Dutch power words. Sorry for the mismatch
+* Improved: SEO Analysis score circle styling which broke in the last update
+* Improved: Yoast's Block importer for [FAQ Schema](https://rankmath.com/blog/faq-schema/)
+* Fixed: Output of encoded URLs from the Canonical field was printing incorrectly. Props to [Shahram Rahbari](https://shahram.in/) for reporting. PLEASE re-save the posts where Canonical URLs were changed manually. It does not apply to the sites with the English language
+* Fixed: 404 errors getting misreported due to a recent change made in the plugin to handle the 404s coming from Elementor's scripts
+* Fixed: 404 monitor reporting redirected URLs in the log
+* Fixed: Network admin wasn't able to access the Rank Math Settings on a subsite
+* Fixed: A PHP notice when rolling back to a previous version using [version control](https://rankmath.com/kb/version-control/)
 
 = 1.0.39.1 [Feb 27th, 2020] =
 * Fixed: HTML formatting & SEO fields not working in the Taxonomy editing area

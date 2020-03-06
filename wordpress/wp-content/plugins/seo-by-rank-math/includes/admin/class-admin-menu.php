@@ -49,7 +49,7 @@ class Admin_Menu implements Runner {
 		$current_user = wp_get_current_user();
 		$capabilities = array_keys( Helper::get_roles_capabilities() );
 
-		if ( empty( array_intersect( $current_user->roles, $capabilities ) ) ) {
+		if ( empty( array_intersect( $current_user->roles, $capabilities ) ) && ! current_user_can( 'setup_network' ) ) {
 			return;
 		}
 

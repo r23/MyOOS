@@ -50,7 +50,13 @@
 			}).always( function() {
 				$this.removeAttr( 'disabled' )
 			}).fail( function( response ) {
-				addNotice( response.statusText )
+				if ( response ) {
+					if ( response.responseJSON && response.responseJSON.message ) {
+						addNotice( response.responseJSON.message )
+					} else {
+						addNotice( response.statusText )
+					}
+				}
 			}).done( function( response ) {
 				if ( response ) {
 					addNotice( response, 'success', false )

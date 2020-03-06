@@ -68,7 +68,7 @@
 						success: function( results ) {
 							self.results.html( results )
 							var notice = self.results.find( '.notice' )
-							if ( $( results ).find( '.rank-math-result-graphs' ).length !== 0 ) {
+							if ( $( results ).find( '#rank-math-circle-progress' ).length !== 0 ) {
 								self.wrap.addClass( 'is-loaded' ).removeClass( 'is-loading' )
 								self.graphs()
 							} else {

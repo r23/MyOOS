@@ -14,6 +14,7 @@ use RankMath\Helper;
 use MyThemeShop\Helpers\DB;
 use MyThemeShop\Helpers\WordPress;
 use RankMath\Redirections\Redirection;
+use RankMath\Status\Yoast_Blocks;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -48,7 +49,7 @@ class Yoast extends Plugin_Importer {
 	 *
 	 * @var array
 	 */
-	protected $choices = [ 'settings', 'postmeta', 'termmeta', 'usermeta', 'redirections' ];
+	protected $choices = [ 'settings', 'postmeta', 'termmeta', 'usermeta', 'redirections', 'blocks' ];
 
 	/**
 	 * Table names to drop while cleaning.
@@ -774,5 +775,44 @@ class Yoast extends Plugin_Importer {
 			'rssafter'  => 'rss_after_content',
 		];
 		$this->replace( $hash, $yoast_rss, $this->settings, 'convert_variables' );
+	}
+
+	/**
+	 * Import/convert blocks of plugin.
+	 *
+	 * @return array
+	 */
+	protected function blocks() {
+		$posts = $this->get_block_posts();
+		if ( empty( $posts['posts'] ) ) {
+			return __( 'No post found.', 'rank-math' );
+		}
+
+		$this->set_pagination( $posts['count'] );
+
+		Yoast_Blocks::get()->wizard( array_slice( $posts['posts'], ( $this->items_per_page * ( $this->get_pagination_arg( 'page' ) - 1 ) ), $this->items_per_page ) );
+
+		return $this->get_pagination_arg();
+	}
+
+	/**
+	 * Get block posts from storage.
+	 *
+	 * @return array?boolean
+	 */
+	private function get_block_posts() {
+		$posts = get_option( 'rank_math_yoast_block_posts' );
+		if ( false === $posts ) {
+			$posts = Yoast_Blocks::get()->find_posts();
+			$count = count( $posts );
+
+			$posts = [
+				'posts' => $posts,
+				'count' => $count,
+			];
+			update_option( 'rank_math_yoast_block_posts', $posts );
+		}
+
+		return $posts;
 	}
 }

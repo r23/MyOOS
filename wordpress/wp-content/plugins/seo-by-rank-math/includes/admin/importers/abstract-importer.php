@@ -129,6 +129,7 @@ abstract class Plugin_Importer {
 				'termmeta'     => esc_html__( 'Import Term Meta', 'rank-math' ) . Admin_Helper::get_tooltip( esc_html__( 'Import data like category, tag, and CPT meta data from SEO.', 'rank-math' ) ),
 				'usermeta'     => esc_html__( 'Import Author Meta', 'rank-math' ) . Admin_Helper::get_tooltip( esc_html__( 'Import meta information like titles, descriptions, focus keyword, robots meta, etc., of your author archive pages.', 'rank-math' ) ),
 				'redirections' => esc_html__( 'Import Redirections', 'rank-math' ) . Admin_Helper::get_tooltip( esc_html__( 'Import all the redirections you have already set up in.', 'rank-math' ) ),
+				'blocks'       => esc_html__( 'Import Blocks', 'rank-math' ) . Admin_Helper::get_tooltip( esc_html__( 'Import and convert all compatible blocks in post contents.', 'rank-math' ) ),
 			],
 			array_combine(
 				$this->choices,
@@ -212,7 +213,7 @@ abstract class Plugin_Importer {
 	 * @return mixed
 	 */
 	private function format_message( $result, $action, $message ) {
-		if ( 'postmeta' === $action || 'usermeta' === $action ) {
+		if ( 'postmeta' === $action || 'usermeta' === $action || 'blocks' === $action ) {
 			return sprintf( $message, $result['start'], $result['end'], $result['total_items'] );
 		}
 

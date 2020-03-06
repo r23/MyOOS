@@ -41,7 +41,7 @@ $cmb->add_field([
 
 $cmb->add_field([
 	'id'      => 'url',
-	'type'    => 'text',
+	'type'    => 'text_url',
 	'name'    => esc_html__( 'URL', 'rank-math' ),
 	'desc'    => esc_html__( 'URL of the item.', 'rank-math' ),
 	'default' => site_url(),

@@ -31,7 +31,7 @@ class Yoast_FAQ_Converter {
 			'attrs'     => [
 				'listStyle'         => '',
 				'textAlign'         => 'left',
-				'titleWrapper'      => 'h2',
+				'titleWrapper'      => 'h3',
 				'listCssClasses'    => '',
 				'titleCssClasses'   => '',
 				'contentCssClasses' => '',

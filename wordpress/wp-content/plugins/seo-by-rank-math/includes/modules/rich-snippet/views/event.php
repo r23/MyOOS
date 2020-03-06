@@ -89,7 +89,7 @@ $cmb->add_field([
 
 $cmb->add_field([
 	'id'         => 'rank_math_snippet_event_performer_url',
-	'type'       => 'text',
+	'type'       => 'text_url',
 	'name'       => esc_html__( 'Performer URL', 'rank-math' ),
 	'attributes' => [
 		'data-rule-url' => 'true',
@@ -136,7 +136,7 @@ $cmb->add_field([
 
 $cmb->add_field([
 	'id'         => 'rank_math_snippet_event_ticketurl',
-	'type'       => 'text',
+	'type'       => 'text_url',
 	'name'       => esc_html__( 'Ticket URL', 'rank-math' ),
 	'desc'       => esc_html__( 'A URL where visitors can purchase tickets for the event.', 'rank-math' ),
 	'classes'    => 'cmb-row-33 rank-math-validate-field',

@@ -417,8 +417,8 @@ class Serp_Checklist {
 	 */
 	private function is_invalid( $id ) {
 		$locale = Locale::get_site_language();
-		return ( ! in_array( $locale, [ 'en', 'de' ], true ) && in_array( $id, [ 'titleSentiment', 'titleHasPowerWords' ], true ) ) ||
-			( 'de' === $locale && 'titleSentiment' === $id );
+		return ( ! in_array( $locale, [ 'en', 'nl', 'id' ], true ) && in_array( $id, [ 'titleSentiment', 'titleHasPowerWords' ], true ) ) ||
+			( in_array( $locale, [ 'nl', 'id' ], true ) && 'titleSentiment' === $id );
 	}
 
 	/**

@@ -8,7 +8,7 @@
 
 $cmb->add_field([
 	'id'   => 'social_url_facebook',
-	'type' => 'text',
+	'type' => 'text_url',
 	'name' => esc_html__( 'Facebook Page URL', 'rank-math' ),
 	'desc' => esc_html__( 'Enter your complete Facebook page URL here. eg:', 'rank-math' ) .
 		'<br><code>' . htmlspecialchars( 'https://www.facebook.com/RankMath/' ) . '</code>',
@@ -16,7 +16,7 @@ $cmb->add_field([
 
 $cmb->add_field([
 	'id'   => 'facebook_author_urls',
-	'type' => 'text',
+	'type' => 'text_url',
 	'name' => esc_html__( 'Facebook Authorship', 'rank-math' ),
 	'desc' => esc_html__( 'Insert personal Facebook profile URL to show Facebook Authorship when your articles are being shared on Facebook. eg:', 'rank-math' ) .
 		'<br><code>' . htmlspecialchars( 'https://www.facebook.com/zuck' ) . '</code>',
@@ -49,7 +49,7 @@ $cmb->add_field([
 
 $cmb->add_field([
 	'id'   => 'social_url_twitter',
-	'type' => 'text',
+	'type' => 'text_url',
 	'name' => esc_html__( 'Twitter Profile URL', 'rank-math' ),
 	'desc' => esc_html__( 'Enter your complete Twitter Profile URL here. eg:', 'rank-math' ) .
 		'<br><code>' . htmlspecialchars( 'https://twitter.com/RankMathSEO/' ) . '</code>',
@@ -64,7 +64,7 @@ $cmb->add_field([
 
 $cmb->add_field([
 	'id'   => 'social_url_google_places',
-	'type' => 'text',
+	'type' => 'text_url',
 	'name' => esc_html__( 'Google Places', 'rank-math' ),
 	/* translators: How to find it? link */
 	'desc' => sprintf( esc_html__( 'Enter full URL of your Google Places listing here. %s', 'rank-math' ), '<a href="https://developers.google.com/maps/documentation/urls/guide?utm_campaign=Rank+Math" target="_blank">How to find it?</a>' ),
@@ -72,7 +72,7 @@ $cmb->add_field([
 
 $cmb->add_field([
 	'id'   => 'social_url_yelp',
-	'type' => 'text',
+	'type' => 'text_url',
 	'name' => esc_html__( 'Yelp Page URL', 'rank-math' ),
 	'desc' => wp_kses_post( __( 'Enter your Yelp Listing\'s full URL here. eg:', 'rank-math' ) ) .
 		'<br><code>' . htmlspecialchars( 'https://www.yelp.com/biz/the-house-san-francisco' ) . '</code>',
@@ -80,7 +80,7 @@ $cmb->add_field([
 
 $cmb->add_field([
 	'id'   => 'social_url_foursquare',
-	'type' => 'text',
+	'type' => 'text_url',
 	'name' => esc_html__( 'FourSquare Page URL', 'rank-math' ),
 	'desc' => wp_kses_post( __( 'Enter your FourSquare Page\'s full URL here.', 'rank-math' ) ) .
 		'<br><code>' . htmlspecialchars( 'https://foursquare.com/v/lands-end/49bacd63f964a520b0531fe3' ) . '</code>',
@@ -88,7 +88,7 @@ $cmb->add_field([
 
 $cmb->add_field([
 	'id'   => 'social_url_flickr',
-	'type' => 'text',
+	'type' => 'text_url',
 	'name' => esc_html__( 'Flickr Page URL', 'rank-math' ),
 	'desc' => wp_kses_post( __( 'Enter your Flickr Page or Profile URL here. eg:', 'rank-math' ) ) .
 		'<br><code>' . htmlspecialchars( 'https://www.flickr.com/photos/albertdros/' ) . '</code>',
@@ -96,7 +96,7 @@ $cmb->add_field([
 
 $cmb->add_field([
 	'id'   => 'social_url_reddit',
-	'type' => 'text',
+	'type' => 'text_url',
 	'name' => esc_html__( 'Reddit Page URL', 'rank-math' ),
 	'desc' => wp_kses_post( __( 'Enter your domain\'s Reddit URL here. eg:', 'rank-math' ) ) .
 		'<br><code>' . htmlspecialchars( 'https://www.reddit.com/domain/rankmath.com/' ) . '</code>',
@@ -104,7 +104,7 @@ $cmb->add_field([
 
 $cmb->add_field([
 	'id'   => 'social_url_linkedin',
-	'type' => 'text',
+	'type' => 'text_url',
 	'name' => esc_html__( 'LinkedIn Page URL', 'rank-math' ),
 	'desc' => wp_kses_post( __( 'Enter your LinkedIn profile URL (for personal blogs) or your company URL (for business blogs). eg:', 'rank-math' ) ) .
 		'<br><code>' . htmlspecialchars( 'https://www.linkedin.com/company/rankmath/' ) . '</code>',
@@ -112,7 +112,7 @@ $cmb->add_field([
 
 $cmb->add_field([
 	'id'   => 'social_url_instagram',
-	'type' => 'text',
+	'type' => 'text_url',
 	'name' => esc_html__( 'Instagram Page URL', 'rank-math' ),
 	'desc' => wp_kses_post( __( 'Enter your Instagram profile URL here. e.g: ', 'rank-math' ) ) .
 		'<br><code>' . htmlspecialchars( 'https://www.instagram.com/mkbhd/' ) . '</code>',
@@ -120,7 +120,7 @@ $cmb->add_field([
 
 $cmb->add_field([
 	'id'   => 'social_url_youtube',
-	'type' => 'text',
+	'type' => 'text_url',
 	'name' => esc_html__( 'Youtube Channel URL', 'rank-math' ),
 	'desc' => wp_kses_post( __( 'Enter your YouTube Channel\'s URL here. e.g', 'rank-math' ) ) .
 		'<br><code>' . htmlspecialchars( 'https://www.youtube.com/channel/UC2t2B_nKC5jg1Ix5rU0Bz7A' ) . '</code>',
@@ -128,7 +128,7 @@ $cmb->add_field([
 
 $cmb->add_field([
 	'id'   => 'social_url_pinterest',
-	'type' => 'text',
+	'type' => 'text_url',
 	'name' => esc_html__( 'Pinterest Page URL', 'rank-math' ),
 	'desc' => wp_kses_post( __( 'Enter your Pinterest Profile URL here. eg:', 'rank-math' ) ) .
 		'<br><code>' . htmlspecialchars( 'https://in.pinterest.com/rankmath/' ) . '</code>',
@@ -136,7 +136,7 @@ $cmb->add_field([
 
 $cmb->add_field([
 	'id'   => 'social_url_soundcloud',
-	'type' => 'text',
+	'type' => 'text_url',
 	'name' => esc_html__( 'SoundClound Page URL', 'rank-math' ),
 	'desc' => wp_kses_post( __( 'Enter your SoundCloud URL here. eg:', 'rank-math' ) ) .
 		'<br><code>' . htmlspecialchars( 'https://soundcloud.com/rankmath' ) . '</code>',
@@ -144,7 +144,7 @@ $cmb->add_field([
 
 $cmb->add_field([
 	'id'   => 'social_url_tumblr',
-	'type' => 'text',
+	'type' => 'text_url',
 	'name' => esc_html__( 'Tumblr Page URL', 'rank-math' ),
 	'desc' => wp_kses_post( __( 'Enter your Tumblr URL here. eg:', 'rank-math' ) ) .
 		'<br><code>' . htmlspecialchars( 'https://rankmath.tumblr.com' ) . '</code>',
@@ -152,7 +152,7 @@ $cmb->add_field([
 
 $cmb->add_field([
 	'id'   => 'social_url_myspace',
-	'type' => 'text',
+	'type' => 'text_url',
 	'name' => esc_html__( 'Myspace Page URL', 'rank-math' ),
 	'desc' => wp_kses_post( __( ' Enter your MySpace profile here. e.g: ', 'rank-math' ) ) .
 		'<br><code>' . htmlspecialchars( 'https://myspace.com/katyperry' ) . '</code>',

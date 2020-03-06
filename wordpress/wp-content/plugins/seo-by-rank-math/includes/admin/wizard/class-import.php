@@ -141,6 +141,7 @@ class Import implements Wizard_Step {
 	 * @return bool
 	 */
 	public function save( $values, $wizard ) {
+		delete_option( 'rank_math_yoast_block_posts' );
 		return true;
 	}
 

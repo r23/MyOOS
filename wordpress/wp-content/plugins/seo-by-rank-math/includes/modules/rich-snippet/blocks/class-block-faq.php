@@ -143,14 +143,13 @@ class Block_FAQ {
 
 			$out[] = sprintf(
 				'<%1$s class="rank-math-question %2$s">%3$s</%1$s>',
-				$attributes['titleWrapper'],
+				apply_filters( 'rank_math/blocks/faq/title_wrapper', $attributes['titleWrapper'] ),
 				$attributes['titleCssClasses'],
 				$question['title']
 			);
 
 			$out[] = sprintf(
-				'<div class="rank-math-answer %2$s">%4$s%3$s</div>',
-				$attributes['titleWrapper'],
+				'<div class="rank-math-answer %1$s">%3$s%2$s</div>',
 				$attributes['contentCssClasses'],
 				wpautop( $question['content'] ),
 				$this->get_image( $question, $attributes['sizeSlug'] )

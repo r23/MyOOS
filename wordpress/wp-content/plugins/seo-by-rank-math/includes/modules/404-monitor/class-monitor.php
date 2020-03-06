@@ -41,7 +41,7 @@ class Monitor {
 			$this->ajax( 'delete_log', 'delete_log' );
 		}
 
-		$this->action( 'wp', 'capture_404' );
+		$this->action( 'get_header', 'capture_404' );
 		if ( Helper::has_cap( '404_monitor' ) ) {
 			$this->action( 'rank_math/admin_bar/items', 'admin_bar_items', 11 );
 		}

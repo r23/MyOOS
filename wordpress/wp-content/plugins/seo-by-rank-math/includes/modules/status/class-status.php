@@ -31,6 +31,8 @@ class Status extends Base {
 			return;
 		}
 
+		Yoast_Blocks::get();
+
 		if ( Conditional::is_rest() ) {
 			$tools = $this->get_page_views();
 			$tools = new $tools['tools']['class'];

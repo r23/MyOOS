@@ -21,13 +21,6 @@ class Rollback_Version {
 	use Hooker;
 
 	/**
-	 * Selected Version.
-	 *
-	 * @var string
-	 */
-	private $selected_version;
-
-	/**
 	 * Rollback version option key.
 	 *
 	 * @var string
@@ -68,8 +61,6 @@ class Rollback_Version {
 	 * @return boolean Whether the installation was successful.
 	 */
 	public function rollback() {
-		$this->selected_version = $version;
-
 		$title        = __( 'Rollback Plugin', 'rank-math' );
 		$parent_file  = 'plugins.php';
 		$submenu_file = 'plugins.php';

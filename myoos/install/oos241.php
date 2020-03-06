@@ -30,6 +30,11 @@ if (!$prefix_table == '') $prefix_table = $prefix_table . '_';
 $table = $prefix_table . 'products_model_viewer';
 $result = $db->Execute("ALTER TABLE " . $table . " ADD `model_viewer_scale` VARCHAR(5) NOT NULL DEFAULT 'auto' AFTER `model_viewer_auto_rotate`");
 
+
+$table = $prefix_table . 'products_attributes';
+$result = $db->Execute("ALTER TABLE " . $table . "  ADD `options_values_status` VARCHAR(1) NOT NULL DEFAULT '1' AFTER `options_values_model`");
+
+
 if ($result === false) {
   echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
 } else {

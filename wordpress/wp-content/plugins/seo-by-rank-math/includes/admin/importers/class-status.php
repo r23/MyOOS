@@ -115,6 +115,8 @@ class Status {
 			'usermeta'     => esc_html__( 'Imported user meta for users %1$s - %2$s out of %3$s ', 'rank-math' ),
 			/* translators: total */
 			'redirections' => esc_html__( 'Imported %s redirections.', 'rank-math' ),
+			/* translators: start, end, total */
+			'blocks'       => esc_html__( 'Imported blocks from posts %1$s - %2$s out of %3$s ', 'rank-math' ),
 		];
 
 		if ( false === $this->is_success() ) {
@@ -124,6 +126,7 @@ class Status {
 				'termmeta'     => esc_html__( 'Term meta import failed.', 'rank-math' ),
 				'usermeta'     => esc_html__( 'User meta import failed.', 'rank-math' ),
 				'redirections' => esc_html__( 'There are no redirection to import.', 'rank-math' ),
+				'blocks'       => esc_html__( 'Blocks import failed.', 'rank-math' ),
 			];
 		}
 
