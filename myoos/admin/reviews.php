@@ -311,9 +311,9 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                 <td class="text-center">
  <?php   
 		if ($reviews['reviews_status'] == '1') {
-			echo '<i class="fa fa-circle text-success" title="' . IMAGE_ICON_STATUS_GREEN . '"></i>&nbsp;<a href="' . oos_href_link_admin($aContents['reviews'], 'action=setflag&flag=0&rID=' . $reviews['reviews_id'] . '&page=' . $nPage) . '"><i class="fa fa-circle-o text-danger" title="' . IMAGE_ICON_STATUS_RED_LIGHT . '"></i></a>';
+			echo '<i class="fa fa-circle text-success" title="' . IMAGE_ICON_STATUS_GREEN . '"></i>&nbsp;<a href="' . oos_href_link_admin($aContents['reviews'], 'action=setflag&flag=0&rID=' . $reviews['reviews_id'] . '&page=' . $nPage) . '"><i class="fa fa-circle-notch text-danger" title="' . IMAGE_ICON_STATUS_RED_LIGHT . '"></i></a>';
 		} else {
-			echo '<a href="' . oos_href_link_admin($aContents['reviews'], 'action=setflag&flag=1&rID=' . $reviews['reviews_id'] . '&page=' . $nPage). '"><i class="fa fa-circle-o text-success" title="' . IMAGE_ICON_STATUS_GREEN_LIGHT . '"></i></a>&nbsp;<i class="fa fa-circle text-danger" title="' . IMAGE_ICON_STATUS_RED . '"></i>';
+			echo '<a href="' . oos_href_link_admin($aContents['reviews'], 'action=setflag&flag=1&rID=' . $reviews['reviews_id'] . '&page=' . $nPage). '"><i class="fa fa-circle-notch text-success" title="' . IMAGE_ICON_STATUS_GREEN_LIGHT . '"></i></a>&nbsp;<i class="fa fa-circle text-danger" title="' . IMAGE_ICON_STATUS_RED . '"></i>';
 		}
 ?></td>				
                 <td class="text-right"><?php echo oos_date_short($reviews['date_added']); ?></td>
