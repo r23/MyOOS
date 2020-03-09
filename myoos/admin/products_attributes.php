@@ -19,9 +19,12 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  define('OOS_VALID_MOD', 'yes');
-  require 'includes/main.php';
-  require 'includes/functions/function_products_attributes.php';
+	define('OOS_VALID_MOD', 'yes');
+	require 'includes/oos_main.php';
+
+	require 'includes/functions/function_categories.php';
+	require 'includes/functions/function_products_attributes.php';
+//	require 'includes/functions/function_image_resize.php';
 
   $languages = oos_get_languages();
 
@@ -79,14 +82,80 @@
         break;
 
       case 'add_product_attributes':
+	  
+          if ( ($_POST['options_values_image'] != 'none') && (isset($_FILES['options_values_image'])) ) {		  
+				$options_values_image = oos_get_uploaded_file('options_values_image');
+				$image_directory = oos_get_local_path(OOS_ABSOLUTE_PATH . OOS_IMAGES);
+          }
+          if (is_uploaded_file($options_values_image['tmp_name'])) {
+				$options_values_image = oos_copy_uploaded_file($options_values_image, $image_directory);
+          } else {
+				$options_values_image = '';
+          }		  
+	  
+        if (OOS_PRICE_IS_BRUTTO == 'true'){
+          $tax_ratestable = $oostable['tax_rates'];
+          $productstable = $oostable['products'];
+          $sql = "SELECT tr.tax_rate
+                  FROM $tax_ratestable tr,
+                       $productstable p
+                  WHERE tr.tax_class_id = p.products_tax_class_id
+                    AND p.products_id = '".$_POST['products_id']."' ";
+          $tax_result = $dbconn->Execute($sql);
+          $tax = $tax_result->fields;
+          $_POST['value_price'] = ($_POST['value_price']/($tax[tax_rate]+100)*100);
+        }
+		$_POST['value_price'] = str_replace(',', '.', $_POST['value_price']);
+		
         $products_optionstable = $oostable['products_options'];
         $products_options_result = $dbconn->Execute("SELECT products_options_type FROM $products_optionstable WHERE products_options_id = '" . intval($_POST['options_id']) . "'");
         $products_options_array = $products_options_result->fields;
         $values_id = (($products_options_array['products_options_type'] == PRODUCTS_OPTIONS_TYPE_TEXT) or ($products_options_array['products_options_type'] == PRODUCTS_OPTIONS_TYPE_FILE)) ? PRODUCTS_OPTIONS_VALUE_TEXT_ID : $_POST['values_id'];
 
+		if (isset($_POST['options_values_base_price']) ) {
+            $options_values_base_price = oos_db_prepare_input($_POST['options_values_base_price']);
+            $products_product_quantity = oos_db_prepare_input($_POST['products_product_quantity']);
+            $options_values_base_quantity = oos_db_prepare_input($_POST['options_values_base_quantity']);
+            $options_values_base_unit = oos_db_prepare_input($_POST['options_values_base_unit']);
+		} else {
+            $options_values_base_price = 1.0;
+            $products_product_quantity = 1.0;
+            $options_values_base_quantity = 1.0;
+            $options_values_base_unit = '';
+		}
+
         $products_attributestable = $oostable['products_attributes'];
-        $dbconn->Execute("INSERT INTO $products_attributestable VALUES ('', '" . intval($_POST['products_id']) . "', '" . intval($_POST['options_id']) . "', '" . intval($_POST['values_id']) . "', '" . oos_db_input($_POST['value_price']) . "', '" . oos_db_input($_POST['price_prefix']). "', '" . oos_db_input($_POST['sort_order']) . "')");
-        $products_attributes_id = $dbconn->Insert_ID();
+		$dbconn->Execute("INSERT INTO $products_attributestable 
+						(products_attributes_id, 
+						products_id,
+						options_id,
+						options_values_model,
+						options_values_image,
+						options_values_id,
+						options_values_price,
+						options_values_base_price,
+						products_product_quantity,
+						options_values_base_quantity,
+						options_values_base_unit,
+						price_prefix,
+						options_sort_order) 
+						VALUES ('', 
+								'" . oos_db_prepare_input($_POST['products_id']) . "', 
+								'" . oos_db_prepare_input($_POST['options_id']) . "', 
+								'" . oos_db_prepare_input($_POST['options_values_model']) . "', 
+								'" . oos_db_prepare_input($options_values_image) . "',
+								'" . oos_db_prepare_input($_POST['values_id']) . "', 
+								'" . oos_db_prepare_input($_POST['value_price']) . "', 
+								'" . oos_db_prepare_input($options_values_base_price) . "',
+								'" . oos_db_prepare_input($products_product_quantity) . "',
+								'" . oos_db_prepare_input($options_values_base_quantity) . "',
+								'" . oos_db_prepare_input($options_values_base_unit) . "', 
+								'" . oos_db_prepare_input($_POST['price_prefix']) . "', 
+								'" . oos_db_prepare_input($_POST['sort_order']) . "')");
+        
+		
+		
+		$products_attributes_id = $dbconn->Insert_ID();
         if ((DOWNLOAD_ENABLED == 'true') && $_POST['products_attributes_filename'] != '') {
           $products_attributes_downloadtable = $oostable['products_attributes_download'];
           $dbconn->Execute("INSERT INTO $products_attributes_downloadtable VALUES (" . $products_attributes_id . ", '" . $_POST['products_attributes_filename'] . "', '" . oos_db_input($_POST['products_attributes_maxdays']) . "', '" . oos_db_input($_POST['products_attributes_maxcount']) . "')");
@@ -130,6 +199,35 @@
         break;
 
       case 'update_product_attribute':
+          if ( ($_POST['options_values_image'] != 'none') && (isset($_FILES['options_values_image'])) ) {
+				$options_values_image = oos_get_uploaded_file('options_values_image');
+				$image_directory = oos_get_local_path(OOS_ABSOLUTE_PATH . OOS_IMAGES);
+          }
+          if (is_uploaded_file($options_values_image['tmp_name'])) {
+				$options_values_image = oos_copy_uploaded_file($options_values_image, $image_directory);
+          } else {
+				$options_values_image = oos_db_prepare_input($_POST['products_previous_image']);
+          }	  
+	  
+          if ( ($_POST['delete_image'] == 'yes') || ($_POST['remove_image'] == 'yes') ) {
+				$options_values_image = '';
+          }
+
+		  
+        if (OOS_PRICE_IS_BRUTTO == 'true'){
+          $tax_ratestable = $oostable['tax_rates'];
+          $productstable = $oostable['products'];
+          $sql = "SELECT tr.tax_rate
+                   FROM $tax_ratestable tr,
+                        $productstable p
+                  WHERE tr.tax_class_id = p.products_tax_class_id 
+                    AND p.products_id = '".$_POST['products_id']."' ";
+          $tax_result = $dbconn->Execute($sql);
+          $tax = $tax_result->fields;
+          $_POST['value_price'] = ($_POST['value_price']/($tax[tax_rate]+100)*100);
+        }
+		$_POST['value_price'] = str_replace(',', '.', $_POST['value_price']);
+
 
         $products_optionstable = $oostable['products_options'];
         $products_options_result = $dbconn->Execute("SELECT products_options_type FROM $products_optionstable WHERE products_options_id = '" . intval($_POST['options_id']) . "'");
@@ -143,8 +241,35 @@
             $values_id = oos_db_prepare_input($_POST['values_id']);
         }
 
+
+		if (isset($_POST['options_values_base_price']) ) {
+            $options_values_base_price = oos_db_prepare_input($_POST['options_values_base_price']);
+            $products_product_quantity = oos_db_prepare_input($_POST['products_product_quantity']);
+            $options_values_base_quantity = oos_db_prepare_input($_POST['options_values_base_quantity']);
+            $options_values_base_unit = oos_db_prepare_input($_POST['options_values_base_unit']);
+		} else {
+            $options_values_base_price = 1.0;
+            $products_product_quantity = 1.0;
+            $options_values_base_quantity = 1.0;
+            $options_values_base_unit = '';
+		}
+
+
         $products_attributestable = $oostable['products_attributes'];
-        $dbconn->Execute("UPDATE $products_attributestable SET products_id = '" . intval($_POST['products_id']) . "', options_id = '" . intval($_POST['options_id']) . "', options_values_id = '" . intval($_POST['values_id']) . "', options_values_price = '" . oos_db_input($_POST['value_price']) . "', price_prefix = '" . oos_db_input($_POST['price_prefix']). "', options_sort_order = '" . oos_db_input($_POST['sort_order']) . "' WHERE products_attributes_id = '" . oos_db_input($_POST['attribute_id']) . "'");
+		$dbconn->Execute("UPDATE $products_attributestable 
+						SET products_id = '" . oos_db_prepare_input($_POST['products_id']) . "',
+						options_id = '" . oos_db_prepare_input($_POST['options_id']) . "',
+						options_values_model = '" . oos_db_prepare_input($_POST['options_values_model']) . "',
+						options_values_image  = '" . oos_db_prepare_input($options_values_image) . "',
+						options_values_id = '" . oos_db_prepare_input($_POST['values_id']) . "',
+						options_values_price = '" . oos_db_prepare_input($_POST['value_price']) . "',
+						options_values_base_price= '" . oos_db_prepare_input($options_values_base_price) . "',
+						products_product_quantity= '" . oos_db_prepare_input($products_product_quantity) . "',
+						options_values_base_quantity= '" . oos_db_prepare_input($options_values_base_quantity) . "',
+						options_values_base_unit= '" . oos_db_prepare_input($options_values_base_unit) . "',
+						price_prefix = '" . oos_db_prepare_input($_POST['price_prefix']) . "',
+						 options_sort_order = '" . oos_db_prepare_input($_POST['sort_order']) . "' WHERE products_attributes_id = '" . oos_db_prepare_input($_POST['attribute_id']) . "'");
+
 
         if ((DOWNLOAD_ENABLED == 'true') && $_POST['products_attributes_filename'] != '') {
           $products_attributes_downloadtable = $oostable['products_attributes_download'];
@@ -184,9 +309,9 @@
 
   $products_options_types_list = array();
   $products_options_typestable = $oostable['products_options_types'];
-  $products_options_types_sql = "SELECT products_options_types_id, products_options_types_name 
+  $products_options_types_sql = "SELECT products_options_types_id, products_options_types_name
                                  FROM $products_options_typestable
-                                 WHERE products_options_types_languages_id = '" . intval($_SESSION['language_id']) . "' 
+                                 WHERE products_options_types_languages_id = '" . intval($_SESSION['language_id']) . "'
                                  ORDER BY products_options_types_id";
   $products_options_types_result = $dbconn->Execute($products_options_types_sql);
   while ($products_options_type_array = $products_options_types_result->fields) {
@@ -199,7 +324,7 @@
   if (!isset($value_page)) $value_page = 1;
   if (!isset($attribute_page)) $attribute_page = 1;
 
-  
+
   require 'includes/header.php';
 ?>
 <script language="javascript"><!--
@@ -225,12 +350,12 @@ function go_option() {
 		</div>
 		<!-- END Sidebar (left) //-->
 	</aside>
-	
+
 	<!-- Main section //-->
 	<section>
 		<!-- Page content //-->
 		<div class="content-wrapper">
-		
+
 				<div class="row">
 					<div class="col-lg-12">
 <!-- body_text //-->
@@ -255,7 +380,7 @@ function go_option() {
               <tr>
                 <td>
 
-				<table class="table table-striped w-100">	
+				<table class="table table-striped w-100">
 <?php
     $productstable = $oostable['products'];
     $products_options_valuestable = $oostable['products_options_values'];
@@ -265,7 +390,7 @@ function go_option() {
     if ($products->RecordCount()) {
 ?>
 					<thead class="thead-dark">
-						<tr>	
+						<tr>
 							<th class="text-center">&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</th>
 							<th>&nbsp;<?php echo TABLE_HEADING_PRODUCT; ?>&nbsp;</th>
 							<th>&nbsp;<?php echo TABLE_HEADING_OPT_VALUE; ?>&nbsp;</th>
@@ -375,7 +500,7 @@ function go_option() {
 							<th>&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</th>
 							<th>&nbsp;<?php echo TABLE_HEADING_OPT_TYPE; ?>&nbsp;</th>
 							<th class="text-center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>
-						</tr>	
+						</tr>
 					</thead>
 <?php
     $next_id = 1;
@@ -466,8 +591,8 @@ function go_option() {
               </tr>
               <tr>
                 <td>
-				
-				<table class="table table-striped w-100">			
+
+				<table class="table table-striped w-100">
 <?php
     $productstable = $oostable['products'];
     $products_attributestable = $oostable['products_attributes'];
@@ -481,7 +606,7 @@ function go_option() {
 							<th class="text-center">&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</th>
 							<th>&nbsp;<?php echo TABLE_HEADING_PRODUCT; ?>&nbsp;</th>
 							<th>&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</th>
-						</tr>	
+						</tr>
 					</thead>
 <?php
       $rows = 0;
@@ -578,14 +703,14 @@ function go_option() {
 ?>
                 </td>
               </tr>
-			  
+
 					<thead class="thead-dark">
 						<tr>
 							<th>&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</th>
 							<th>&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</th>
 							<th>&nbsp;<?php echo TABLE_HEADING_OPT_VALUE; ?>&nbsp;</th>
 							<th class="text-center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>
-						</tr>	
+						</tr>
 					</thead>
 <?php
     $next_id = 1;
@@ -616,7 +741,7 @@ function go_option() {
         $options = $dbconn->Execute("SELECT products_options_id, products_options_name FROM $products_optionstable WHERE products_options_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY products_options_name");
         while ($options_values = $options->fields) {
           echo "\n" . '<option name="' . $options_values['products_options_name'] . '" value="' . $options_values['products_options_id'] . '"';
-          if ($values_values['products_options_id'] == $options_values['products_options_id']) { 
+          if ($values_values['products_options_id'] == $options_values['products_options_id']) {
             echo ' selected';
           }
           echo '>' . $options_values['products_options_name'] . '</option>';
@@ -695,7 +820,7 @@ function go_option() {
           </tr>
         </table></td>
 <!-- option value eof //-->
-      </tr> 
+      </tr>
 <!-- products_attributes //-->
       <tr>
         <td width="100%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
@@ -713,7 +838,26 @@ function go_option() {
       $form_action = 'add_product_attributes';
     }
 ?>
-        <td><form name="attributes" action="<?php echo oos_href_link_admin($aContents['products_attributes'], 'action=' . $form_action . '&option_page=' . $option_page . '&value_page=' . $value_page . '&attribute_page=' . $attribute_page); ?>" method="post"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+<script language="javascript"><!--
+
+function doRound(x, places) {
+  return Math.round(x * Math.pow(10, places)) / Math.pow(10, places);
+}
+
+function calcBasePriceFactor() {
+  var pqty = document.forms["attributes"].products_product_quantity.value;
+  var bqty = document.forms["attributes"].options_values_base_quantity.value;
+
+  if ((pqty != 0) || (bqty != 0)) {
+     document.forms["attributes"].options_values_base_price.value = doRound(bqty / pqty, 6);
+  } else {
+     document.forms["attributes"].options_values_base_price.value = 1.000000;
+  }
+
+}
+//--></script>
+
+        <td><form name="attributes" action="<?php echo oos_href_link_admin($aFilename['products_attributes'], 'action=' . $form_action . '&option_page=' . $option_page . '&value_page=' . $value_page . '&attribute_page=' . $attribute_page); ?>" method="post" enctype="multipart/form-data"><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
             <td colspan="8" class="smallText">
 <?php
@@ -761,19 +905,25 @@ function go_option() {
   }
 ?>
             </td>
-          </tr>  
-					<thead class="thead-dark">
-						<tr>
-							<th>&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</th>
-							<th>&nbsp;<?php echo TABLE_HEADING_PRODUCT; ?>&nbsp;</th>
-							<th>&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</th>
-							<th>&nbsp;<?php echo TABLE_HEADING_OPT_VALUE; ?>&nbsp;</th>
-							<th>&nbsp;<?php echo TABLE_HEADING_SORT_ORDER_VALUE; ?>&nbsp;</th>
-							<th class="text-right">&nbsp;<?php echo TABLE_HEADING_OPT_PRICE; ?>&nbsp;</th>
-							<th class="text-center">&nbsp;<?php echo TABLE_HEADING_OPT_PRICE_PREFIX; ?>&nbsp;</th>
-							<th class="text-center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>
-						</tr>	
-					</thead>
+          </tr>
+          <tr>
+            <td colspan="10"><?php echo oos_black_line(); ?></td>
+          </tr>
+          <tr class="dataTableHeadingRow">
+            <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</td>
+			<td class="dataTableHeadingContent">&nbsp;Bild&nbsp;</td>
+            <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_PRODUCT; ?>&nbsp;</td>
+			<td class="dataTableHeadingContent">&nbsp;Artikelnummer&nbsp;</td>
+            <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</td>
+            <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_OPT_VALUE; ?>&nbsp;</td>
+            <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_SORT_ORDER_VALUE; ?>&nbsp;</td>
+            <td class="dataTableHeadingContent" align="right">&nbsp;<?php echo TABLE_HEADING_OPT_PRICE; ?>&nbsp;</td>
+            <td class="dataTableHeadingContent" align="center">&nbsp;<?php echo TABLE_HEADING_OPT_PRICE_PREFIX; ?>&nbsp;</td>
+            <td class="dataTableHeadingContent" align="center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
+          </tr>
+          <tr>
+            <td colspan="10"><?php echo oos_black_line(); ?></td>
+          </tr>
 <?php
   $next_id = 1;
   $rows = 0;
@@ -844,16 +994,58 @@ function go_option() {
             <td align="right" class="smallText">&nbsp;<input type="text" name="sort_order" value="<?php echo $attributes_values['options_sort_order']; ?>" size="4">&nbsp;</td>
 
 <?php
-      $in_price = $attributes_values['options_values_price'];
+      $in_price= $attributes_values['options_values_price'];
+      if (OOS_PRICE_IS_BRUTTO == 'true') {
+        $in_price_netto = round($in_price, TAX_DECIMAL_PLACES);
+        $tax_ratestable = $oostable['tax_rates'];
+        $productstable = $oostable['products'];
+        $sql = "SELECT tr.tax_rate  FROM  $tax_ratestable tr,  $productstable p  WHERE  tr.tax_class_id = p.products_tax_class_id  AND  p.products_id = '". $attributes_values['products_id'] . "'";
+        $tax_result = $dbconn->Execute($sql);
+        $tax = $tax_result->fields;
+        $in_price= ($in_price*($tax[tax_rate]+100)/100);  
+      }
       $in_price = round ($in_price,TAX_DECIMAL_PLACES);
 ?>
-            <td align="right" class="smallText">&nbsp;<input type="text" name="value_price" value="<?php echo $in_price; ?>" size="6"><?php echo $in_price; ?>&nbsp;</td>
+            <td align="right" class="smallText">&nbsp;<input type="text" name="value_price" value="<?php echo $in_price; ?>" size="6">
+<?php
+      if (OOS_PRICE_IS_BRUTTO == 'true') echo " - " . TEXT_TAX_INFO . $in_price_netto;
+      echo '&nbsp;</td>';
+?>
             <td align="center" class="smallText">&nbsp;<input type="text" name="price_prefix" value="<?php echo $attributes_values['price_prefix']; ?>" size="2">&nbsp;</td>
-            <td align="center" class="smallText">&nbsp;<?php echo oos_submit_button(IMAGE_UPDATE); ?>&nbsp;<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], '&attribute_page=' . $attribute_page) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></a>&nbsp;</td>
+			<td align="center" class="smallText">&nbsp;<?php echo oos_submit_button(IMAGE_UPDATE); ?>&nbsp;<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], '&attribute_page=' . $attribute_page) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></a>&nbsp;</td>
+          </tr>
+<?php // grundpreis ?>
+		<tr class="<?php echo (!($rows % 2)? 'attributes-even' : 'attributes-odd');?>">
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td colspan="8">
+	<table border=0>
+          <tr class="<?php echo (!($rows % 2)? 'attributes-even' : 'attributes-odd');?>">
+            <td class="main"><?php echo TEXT_PRODUCTS_BASE_PRICE_FACTOR; ?></td>
+            <td class="main"><table border="0">
+                <tr>
+                  <td class="main"><br /><?php echo oos_draw_input_field('options_values_base_price', $attributes_values['options_values_base_price']); ?></td>
+                  <td class="main"><br /> <- </td>
+                  <td class="main"><?php echo TEXT_PRODUCTS_PRODUCT_QUANTITY . '<br />' . oos_draw_input_field('products_product_quantity', $attributes_values['products_product_quantity'], 'OnKeyUp="calcBasePriceFactor()"'); ?></td>
+                  <td class="main"><?php echo TEXT_PRODUCTS_BASE_QUANTITY . '<br />' . oos_draw_input_field('options_values_base_quantity', $attributes_values['options_values_base_quantity'], 'OnKeyUp="calcBasePriceFactor()"'); ?></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+             <td class="main"><?php echo TEXT_PRODUCTS_BASE_UNIT; ?></td>
+             <td class="main"><?php echo oos_draw_input_field('options_values_base_unit', $attributes_values['options_values_base_unit']); ?></td>
+           </tr>
+        </table>
+            </td>
+            <td>&nbsp;</td>
+          </tr>	
+
+
 <?php
       if (DOWNLOAD_ENABLED == 'true') {
         $products_attributes_downloadtable = $oostable['products_attributes_download'];
-        $download_result_raw ="SELECT products_attributes_filename, products_attributes_maxdays, products_attributes_maxcount 
+        $download_result_raw ="SELECT products_attributes_filename, products_attributes_maxdays, products_attributes_maxcount
                               FROM $products_attributes_downloadtable
                               WHERE products_attributes_id = '" . $attributes_values['products_attributes_id'] . "'";
         $download_result = $dbconn->Execute($download_result_raw);
@@ -903,12 +1095,22 @@ function go_option() {
             <td class="smallText">&nbsp;<?php echo $values_name; ?>&nbsp;</td>
             <td align="right" class="smallText">&nbsp;<b><?php echo $attributes_values["options_sort_order"]; ?></td>
 <?php
-      $in_price = $attributes_values['options_values_price'];
-      $in_price = round($in_price,TAX_DECIMAL_PLACES);
+      $in_price= $attributes_values['options_values_price'];
+      if (OOS_PRICE_IS_BRUTTO == 'true') {
+        $in_price_netto = round($in_price,TAX_DECIMAL_PLACES);
+        $tax_ratestable = $oostable['tax_rates'];
+        $productstable = $oostable['products'];
+        $sql = "SELECT tr.tax_rate FROM $tax_ratestable tr, $productstable p  WHERE tr.tax_class_id = p.products_tax_class_id  AND p.products_id = '". $attributes_values['products_id'] . "' ";
+        $tax_result = $dbconn->Execute($sql);
+        $tax = $tax_result->fields;
+        $in_price = ($in_price*($tax[tax_rate]+100)/100); 
+      }
+      $in_price= round($in_price,TAX_DECIMAL_PLACES);
 ?>
             <td align="right" class="smallText">&nbsp;
-<?php 
+<?php
         echo $in_price;
+        if (OOS_PRICE_IS_BRUTTO == 'true') echo " - ". TEXT_TAX_INFO . $in_price_netto;
 ?>&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<?php echo $attributes_values["price_prefix"]; ?>&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<?php echo '<a href="' . oos_href_link_admin($aContents['products_attributes'], 'action=update_attribute&attribute_id=' . $attributes_values['products_attributes_id'] . '&attribute_page=' . $attribute_page) . '">'; ?><?php echo oos_button(IMAGE_UPDATE); ?></a>&nbsp;&nbsp;<?php echo '<a href="' . oos_href_link_admin($aContents['products_attributes'], 'action=delete_product_attribute&attribute_id=' . $attributes_values['products_attributes_id'] . '&attribute_page=' . $attribute_page) , '">'; ?><?php echo oos_button( BUTTON_DELETE); ?></a>&nbsp;</td>
@@ -932,6 +1134,7 @@ function go_option() {
           </tr>
           <tr class="<?php echo (floor($rows/2) == ($rows/2) ? 'attributes-even' : 'attributes-odd'); ?>">
             <td class="smallText">&nbsp;<?php echo $next_id; ?>&nbsp;</td>
+			<td class="smallText"><?php echo '&nbsp;' . oos_draw_file_field('options_values_image'); ?></td>
             <td class="smallText">&nbsp;<select name="products_id">
 <?php
     $productstable = $oostable['products'];
@@ -945,6 +1148,7 @@ function go_option() {
     }
 ?>
             </select>&nbsp;</td>
+			<td class="smallText"><?php echo oos_draw_input_field('options_values_model', $attributes_values['options_values_model']); ?></td>
             <td class="smallText">&nbsp;<select name="options_id">
 <?php
     $products_optionstable = $oostable['products_options'];
@@ -974,6 +1178,39 @@ function go_option() {
             <td align="right" class="smallText">&nbsp;<input type="text" name="price_prefix" size="2" value="+">&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<?php echo oos_submit_button(BUTTON_INSERT); ?>&nbsp;</td>
           </tr>
+<?php // grundpreis 
+
+ if ($attributes_values['options_values_base_price'] != '') {
+	 $options_values_base_price = $attributes_values['options_values_base_price'];
+ } else {
+	$options_values_base_price = 1;
+ }
+?>
+		<tr class="<?php echo (!($rows % 2)? 'attributes-even' : 'attributes-odd');?>">
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td colspan="8">
+	<table border=0>
+          <tr class="<?php echo (!($rows % 2)? 'attributes-even' : 'attributes-odd');?>">
+            <td class="main"><?php echo TEXT_PRODUCTS_BASE_PRICE_FACTOR; ?></td>
+            <td class="main"><table border="0">
+                <tr>
+                  <td class="main"><br /><?php echo oos_draw_input_field('options_values_base_price', $options_values_base_price); ?></td>
+                  <td class="main"><br /> <- </td>
+                  <td class="main"><?php echo TEXT_PRODUCTS_PRODUCT_QUANTITY . '<br />' . oos_draw_input_field('products_product_quantity', 1, 'OnKeyUp="calcBasePriceFactor()"'); ?></td>
+                  <td class="main"><?php echo TEXT_PRODUCTS_BASE_QUANTITY . '<br />' . oos_draw_input_field('options_values_base_quantity', 1, 'OnKeyUp="calcBasePriceFactor()"'); ?></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+             <td class="main"><?php echo TEXT_PRODUCTS_BASE_UNIT; ?></td>
+             <td class="main"><?php echo oos_draw_input_field('options_values_base_unit', $attributes_values['options_values_base_unit']); ?></td>
+           </tr>
+        </table>
+            </td>
+            <td>&nbsp;</td>
+          </tr>		
 <?php
       if (DOWNLOAD_ENABLED == 'true') {
         $products_attributes_maxdays  = DOWNLOAD_MAX_DAYS;
@@ -1004,7 +1241,7 @@ function go_option() {
   }
 ?>
           <tr>
-            <td colspan="8"><?php echo oos_black_line(); ?></td>
+            <td colspan="10"><?php echo oos_black_line(); ?></td>
           </tr>
         </table></form></td>
       </tr>
@@ -1022,7 +1259,7 @@ function go_option() {
 	</footer>
 </div>
 
-<?php 
+<?php
 	require 'includes/bottom.php';
 	require 'includes/nice_exit.php';
 ?>

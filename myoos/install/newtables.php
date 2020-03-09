@@ -977,9 +977,15 @@ $flds = "
   products_attributes_id I NOTNULL AUTO PRIMARY,
   products_id I NOTNULL,
   options_id I NOTNULL,
+  options_values_model C(12) NULL,
+  options_values_image C(255) NULL,
   options_values_id I NOTNULL,
+  options_values_status C(1) NOTNULL DEFAULT '1',
   options_values_price N '10.4'  NOTNULL,
-  price_prefix C(1) NOTNULL,
+  options_values_base_price N '10.4' NOTNULL DEFAULT '1.0000',
+  options_values_base_quantity N '10.2' NOT NULL DEFAULT '1.00',
+  options_values_base_unit C(12) DEFAULT NULL,  
+  price_prefix C(1) NOTNULL DEFAULT '+',
   options_sort_order I1 DEFAULT '0'
 ";
 dosql($table, $flds);
