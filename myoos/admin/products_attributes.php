@@ -26,6 +26,33 @@
 	require 'includes/functions/function_products_attributes.php';
 //	require 'includes/functions/function_image_resize.php';
 
+
+  function oos_set_attributes_status($products_attributes_id, $status) {
+
+    // Get database information
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
+
+    $products_attributestable = $oostable['products_attributes'];
+    if ($status == '1') {
+      $query = "UPDATE $products_attributestable
+                SET options_values_status = '1'
+                WHERE products_attributes_id = '" . intval($products_attributes_id) . "'";
+      $result =& $dbconn->Execute($query);
+      return;
+    } elseif ($status == '0') {
+      $query = "UPDATE $products_attributestable
+                SET options_values_status = '0'
+                WHERE products_attributes_id = '" . intval($products_attributes_id) . "'";
+      $result =& $dbconn->Execute($query);
+
+      return;
+    } else {
+      return false;
+    }
+
+  }
+
   $languages = oos_get_languages();
 
   $page_info = '';
@@ -77,8 +104,15 @@
         }
 
         $products_options_values_to_products_optionstable = $oostable['products_options_values_to_products_options'];
-        $dbconn->Execute("INSERT INTO $products_options_values_to_products_optionstable (products_options_id, products_options_values_id) VALUES ('" . intval($_POST['option_id']) . "', '" . intval($_POST['value_id']) . "')");
-        oos_redirect_admin(oos_href_link_admin($aContents['products_attributes'], $page_info));
+        $dbconn->Execute("INSERT INTO $products_options_values_to_products_optionstable (products_options_id, products_options_values_id) VALUES ('" . $_POST['option_id'] . "', '" . $_POST['value_id'] . "')");
+        oos_redirect_admin(oos_href_link_admin($aFilename['products_attributes'], $page_info));
+        break;
+
+      case 'setflag':
+		if (isset($_GET['aID'])) {
+			oos_set_attributes_status($_GET['aID'], $_GET['flag']);
+          }
+        oos_redirect_admin(oos_href_link_admin($aFilename['products_attributes'], $page_info));
         break;
 
       case 'add_product_attributes':
@@ -917,6 +951,7 @@ function calcBasePriceFactor() {
             <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</td>
             <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_OPT_VALUE; ?>&nbsp;</td>
             <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_SORT_ORDER_VALUE; ?>&nbsp;</td>
+			<td class="dataTableHeadingContent">&nbsp;Status&nbsp;</td>
             <td class="dataTableHeadingContent" align="right">&nbsp;<?php echo TABLE_HEADING_OPT_PRICE; ?>&nbsp;</td>
             <td class="dataTableHeadingContent" align="center">&nbsp;<?php echo TABLE_HEADING_OPT_PRICE_PREFIX; ?>&nbsp;</td>
             <td class="dataTableHeadingContent" align="center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
@@ -939,6 +974,13 @@ function calcBasePriceFactor() {
     if (($action == 'update_attribute') && ($_GET['attribute_id'] == $attributes_values['products_attributes_id'])) {
 ?>
             <td class="smallText">&nbsp;<?php echo $attributes_values['products_attributes_id']; ?><input type="hidden" name="attribute_id" value="<?php echo $attributes_values['products_attributes_id']; ?>">&nbsp;</td>
+			<td class="smallText">
+			&nbsp;<?php echo oos_info_image($attributes_values['options_values_image'], $products_name_only, SMALL_IMAGE_WIDTH, ''); ?><br><p><?php echo $attributes_values['options_values_image']; ?></p>
+			<?php if ($attributes_values['options_values_image'] != '') {  ?>
+			<br />&nbsp;<?php echo oos_draw_checkbox_field('delete_image', 'yes') . TEXT_PRODUCTS_IMAGE_DELETE; ?><br />
+			<?php } ?>
+			<br><br>		
+			<?php echo '&nbsp;' . oos_draw_file_field('options_values_image') . oos_draw_hidden_field('products_previous_image',  $attributes_values['options_values_image']); ?></td>
             <td class="smallText">&nbsp;<select name="products_id">
 <?php
       $productstable = $oostable['products'];
@@ -956,6 +998,7 @@ function calcBasePriceFactor() {
       }
 ?>
             </select>&nbsp;</td>
+			<td class="smallText"><?php echo oos_draw_input_field('options_values_model', $attributes_values['options_values_model']); ?></td>
             <td class="smallText">&nbsp;<select name="options_id">
 <?php
       $products_optionstable = $oostable['products_options'];
@@ -991,7 +1034,8 @@ function calcBasePriceFactor() {
       }
 ?>
             </select>&nbsp;</td>
-            <td align="right" class="smallText">&nbsp;<input type="text" name="sort_order" value="<?php echo $attributes_values['options_sort_order']; ?>" size="4">&nbsp;</td>
+            <td align="right" class="smallText">&nbsp;<input type="text" name="sort_order" value="<?php echo $attributes_values['options_sort_order']; ?>" size="2">&nbsp;</td>
+			<td class="smallText">&nbsp;<?php echo $attributes_values['options_values_status']; ?></td>
 
 <?php
       $in_price= $attributes_values['options_values_price'];
@@ -1078,10 +1122,13 @@ function calcBasePriceFactor() {
     } elseif (($action == 'delete_product_attribute') && ($_GET['attribute_id'] == $attributes_values['products_attributes_id'])) {
 ?>
             <td class="smallText">&nbsp;<b><?php echo $attributes_values["products_attributes_id"]; ?></b>&nbsp;</td>
+			<td class="smallText">&nbsp;<?php echo oos_info_image($attributes_values['options_values_image'], $products_name_only, SMALL_IMAGE_WIDTH, ''); ?><br>&nbsp;<?php echo $attributes_values['options_values_image']; ?>&nbsp;</td>
             <td class="smallText">&nbsp;<b><?php echo $products_name_only; ?></b>&nbsp;</td>
+			<td class="smallText">&nbsp;<?php echo $attributes_values['options_values_model']; ?>&nbsp;</td>
             <td class="smallText">&nbsp;<b><?php echo $options_name; ?></b>&nbsp;</td>
             <td class="smallText">&nbsp;<b><?php echo $values_name; ?></b>&nbsp;</td>
-            <td align="right" class="smallText">&nbsp;<b><?php echo $attributes_values["options_sort_order"]; ?></td>
+            <td align="right" class="smallText">&nbsp;<b><?php echo $attributes_values["options_sort_order"]; ?></b></td>
+			<td class="smallText">&nbsp;<?php echo $attributes_values['options_values_status']; ?></td>
             <td align="right" class="smallText">&nbsp;<b><?php echo $attributes_values["options_values_price"]; ?></b>&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<b><?php echo $attributes_values["price_prefix"]; ?></b>&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<b><?php echo '<a href="' . oos_href_link_admin($aContents['products_attributes'], 'action=delete_attribute&attribute_id=' . $_GET['attribute_id']) . '">'; ?><?php echo oos_button(IMAGE_CONFIRM); ?></a>&nbsp;&nbsp;<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], '&option_page=' . $option_page . '&value_page=' . $value_page . '&attribute_page=' . $attribute_page) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></a>&nbsp;</b></td>
@@ -1090,10 +1137,20 @@ function calcBasePriceFactor() {
     } else {
 ?>
             <td class="smallText">&nbsp;<?php echo $attributes_values["products_attributes_id"]; ?>&nbsp;</td>
+			<td class="smallText">&nbsp;<?php echo oos_info_image($attributes_values['options_values_image'], $products_name_only, SMALL_IMAGE_WIDTH, ''); ?><br>&nbsp;<?php echo $attributes_values['options_values_image']; ?>&nbsp;</td>
             <td class="smallText">&nbsp;<?php echo $products_name_only; ?>&nbsp;</td>
+			<td class="smallText">&nbsp;<?php echo $attributes_values['options_values_model']; ?>&nbsp;</td>
             <td class="smallText">&nbsp;<?php echo $options_name; ?>&nbsp;</td>
             <td class="smallText">&nbsp;<?php echo $values_name; ?>&nbsp;</td>
             <td align="right" class="smallText">&nbsp;<b><?php echo $attributes_values["options_sort_order"]; ?></td>
+			<td class="smallText">&nbsp;
+<?php
+	if ($attributes_values['options_values_status'] == '1') {
+		echo '<a href="' . oos_href_link_admin($aFilename['products_attributes'], 'action=setflag&flag=0&aID=' . $attributes_values['products_attributes_id'] . '&attribute_page=' . $attribute_page) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
+	} else {
+		echo '<a href="' . oos_href_link_admin($aFilename['products_attributes'], 'action=setflag&flag=1&aID=' . $attributes_values['products_attributes_id'] . '&attribute_page=' . $attribute_page) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
+	}
+?></td>
 <?php
       $in_price= $attributes_values['options_values_price'];
       if (OOS_PRICE_IS_BRUTTO == 'true') {
@@ -1174,6 +1231,7 @@ function calcBasePriceFactor() {
 ?>
             </select>&nbsp;</td>
             <td align="right" class="smallText">&nbsp;<input type="text" name="sort_order" value="<?php echo $attributes_values['options_sort_order']; ?>" size="4">&nbsp;</td>
+			<td class="smallText">&nbsp;</td>
             <td align="right" class="smallText">&nbsp;<input type="text" name="value_price" size="6">&nbsp;</td>
             <td align="right" class="smallText">&nbsp;<input type="text" name="price_prefix" size="2" value="+">&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<?php echo oos_submit_button(BUTTON_INSERT); ?>&nbsp;</td>
