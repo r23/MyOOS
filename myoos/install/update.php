@@ -115,10 +115,6 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
     }
   }
 
-
-echo $op;
-echo 'ralf';
-
   installer_get_language();
 
   require 'header.php';
