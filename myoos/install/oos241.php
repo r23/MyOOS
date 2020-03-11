@@ -27,48 +27,37 @@ global $db, $prefix_table, $currentlang;
 
 if (!$prefix_table == '') $prefix_table = $prefix_table . '_';
 
+// products_model_viewer
 $table = $prefix_table . 'products_model_viewer';
 $result = $db->Execute("ALTER TABLE " . $table . " ADD `model_viewer_scale` VARCHAR(5) NOT NULL DEFAULT 'auto' AFTER `model_viewer_auto_rotate`");
 
 
+// products_attributes
 $table = $prefix_table . 'products_attributes';
 $result = $db->Execute("ALTER TABLE " . $table . " ADD `options_values_model` VARCHAR(12) NULL AFTER `options_id`");
 if ($result === false) {
   echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
-} else {
-  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
-}
-
+} 
 
 $result = $db->Execute("ALTER TABLE " . $table . " ADD `options_values_image` VARCHAR(255) NULL AFTER `options_values_model`");
 if ($result === false) {
   echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
-} else {
-  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
-}
-
+} 
 
 $result = $db->Execute("ALTER TABLE " . $table . "  ADD `options_values_base_price` DECIMAL(10,4) NOT NULL AFTER `options_values_price`");
 if ($result === false) {
   echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
-} else {
-  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
-}
-
+} 
 
 $result = $db->Execute("ALTER TABLE " . $table . "  ADD `options_values_base_quantity` DECIMAL(10,2) NOT NULL DEFAULT '1.00' AFTER `options_values_base_price`");
 if ($result === false) {
   echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
-} else {
-  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
-}
+} 
 
 $result = $db->Execute("ALTER TABLE " . $table . "  ADD `options_values_status` VARCHAR(1) NOT NULL DEFAULT '1' AFTER `options_values_id`");
 if ($result === false) {
   echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
-} else {
-  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
-}
+} 
 
 $result = $db->Execute("ALTER TABLE " . $table . "  ADD `options_values_base_unit` VARCHAR(12) DEFAULT NULL AFTER `options_values_base_quantity`");
 if ($result === false) {

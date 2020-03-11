@@ -116,6 +116,8 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
   }
 
 
+echo $op;
+echo 'ralf';
 
   installer_get_language();
 
@@ -131,7 +133,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
       print_oosFinish();
       break;
 
-    case "OOS 2.4.1":
+    case "myOOS 2.4.1":
       oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
       oosDoUpgrade241($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
       print_Next();
