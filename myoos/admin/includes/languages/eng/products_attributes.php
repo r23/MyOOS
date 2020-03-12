@@ -26,12 +26,15 @@ define('HEADING_TITLE_VAL', 'Option Values');
 define('HEADING_TITLE_ATRIB', 'Products Attributes');
 
 define('TABLE_HEADING_ID', 'ID');
+define('TABLE_HEADING_MODEL', 'Products Model');
+define('TABLE_HEADING_IMAGE', 'Image');
 define('TABLE_HEADING_PRODUCT', 'Product Name');
 define('TABLE_HEADING_OPT_NAME', 'Option Name');
 define('TABLE_HEADING_OPT_VALUE', 'Option Value');
 define('TABLE_HEADING_OPT_PRICE', 'Value Price');
 define('TABLE_HEADING_OPT_TYPE', 'Optionstype');
 define('TABLE_HEADING_SORT_ORDER_VALUE', 'Sort Order');
+define('TABLE_HEADING_STATUS', 'Status');
 define('TABLE_HEADING_OPT_PRICE_PREFIX', 'Prefix');
 define('TABLE_HEADING_ACTION', 'Action');
 define('TABLE_HEADING_DOWNLOAD', 'Downloadable products:');

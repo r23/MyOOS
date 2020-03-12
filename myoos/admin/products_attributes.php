@@ -945,13 +945,13 @@ function calcBasePriceFactor() {
           </tr>
           <tr class="dataTableHeadingRow">
             <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</td>
-			<td class="dataTableHeadingContent">&nbsp;Bild&nbsp;</td>
+			<td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_IMAGE; ?>&nbsp;</td>
             <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_PRODUCT; ?>&nbsp;</td>
-			<td class="dataTableHeadingContent">&nbsp;Artikelnummer&nbsp;</td>
+			<td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_MODEL; ?>&nbsp;</td>
             <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_OPT_NAME; ?>&nbsp;</td>
             <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_OPT_VALUE; ?>&nbsp;</td>
             <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_SORT_ORDER_VALUE; ?>&nbsp;</td>
-			<td class="dataTableHeadingContent">&nbsp;Status&nbsp;</td>
+			<td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_STATUS; ?>&nbsp;</td>
             <td class="dataTableHeadingContent" align="right">&nbsp;<?php echo TABLE_HEADING_OPT_PRICE; ?>&nbsp;</td>
             <td class="dataTableHeadingContent" align="center">&nbsp;<?php echo TABLE_HEADING_OPT_PRICE_PREFIX; ?>&nbsp;</td>
             <td class="dataTableHeadingContent" align="center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
@@ -1014,8 +1014,6 @@ function calcBasePriceFactor() {
         $options->MoveNext();
       }
 
-      // Close result set
-      $options->Close();
 ?>
             </select>&nbsp;</td>
             <td class="smallText">&nbsp;<select name="values_id">

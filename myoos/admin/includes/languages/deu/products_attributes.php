@@ -25,11 +25,14 @@ define('HEADING_TITLE_VAL', 'Optionswert');
 define('HEADING_TITLE_ATRIB', 'Artikelmerkmale');
 
 define('TABLE_HEADING_ID', 'ID');
+define('TABLE_HEADING_MODEL', 'Artikel-Nr.');
+define('TABLE_HEADING_IMAGE', 'Bild');
 define('TABLE_HEADING_PRODUCT', 'Artikelname');
 define('TABLE_HEADING_OPT_NAME', 'Optionsname');
 define('TABLE_HEADING_OPT_VALUE', 'Optionswert');
 define('TABLE_HEADING_OPT_TYPE', 'Optionstype');
 define('TABLE_HEADING_SORT_ORDER_VALUE', 'Reihenfolge');
+define('TABLE_HEADING_STATUS', 'Status');
 define('TABLE_HEADING_OPT_PRICE', 'Preis');
 define('TABLE_HEADING_OPT_PRICE_PREFIX', 'Vorzeichen (+/-)');
 define('TABLE_HEADING_ACTION', 'Aktion');
