@@ -49,6 +49,11 @@ if ($result === false) {
   echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
 } 
 
+$result = $db->Execute("ALTER TABLE " . $table . "  ADD `options_values_quantity` DECIMAL(10,2) NOT NULL DEFAULT '1.00' `options_values_price`");
+if ($result === false) {
+  echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+} 
+
 $result = $db->Execute("ALTER TABLE " . $table . "  ADD `options_values_base_quantity` DECIMAL(10,2) NOT NULL DEFAULT '1.00' AFTER `options_values_base_price`");
 if ($result === false) {
   echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';

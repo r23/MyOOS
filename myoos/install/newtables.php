@@ -982,6 +982,7 @@ $flds = "
   options_values_id I NOTNULL,
   options_values_status C(1) NOTNULL DEFAULT '1',
   options_values_price N '10.4'  NOTNULL,
+  options_values_quantity I2 NOTNULL DEFAULT '1', 
   options_values_base_price N '10.4' NOTNULL DEFAULT '1.0000',
   options_values_base_quantity N '10.2' NOT NULL DEFAULT '1.00',
   options_values_base_unit C(12) DEFAULT NULL,  
