@@ -97,4 +97,34 @@ function oos_options_type_name($opt_type) {
     return isset($products_options_types_list[$opt_type]) ? $products_options_types_list[$opt_type] : 'Error ' . $opt_type;
 }
 
- 
+
+/*
+* changes the status
+*
+* 0 = not visible
+* 1 = visible
+*/
+function oos_set_attributes_status($products_attributes_id, $status) {
+
+	// Get database information
+	$dbconn =& oosDBGetConn();
+	$oostable =& oosDBGetTables();
+
+	$products_attributestable = $oostable['products_attributes'];
+	if ($status == 1) {
+		$query = "UPDATE $products_attributestable
+				SET options_values_status = '1'
+				WHERE products_attributes_id = '" . intval($products_attributes_id) . "'";
+		$result = $dbconn->Execute($query);
+		return;
+	} elseif ($status == '0') {
+		$query = "UPDATE $products_attributestable
+				SET options_values_status = '0'
+				WHERE products_attributes_id = '" . intval($products_attributes_id) . "'";
+		$result =& $dbconn->Execute($query);
+		return;
+	} else {
+		return false;
+	}
+
+}

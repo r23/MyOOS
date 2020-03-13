@@ -19,62 +19,41 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-	define('OOS_VALID_MOD', 'yes');
-	require 'includes/oos_main.php';
+define('OOS_VALID_MOD', 'yes');
+require 'includes/main.php';
 
-	require 'includes/functions/function_categories.php';
-	require 'includes/functions/function_products_attributes.php';
-//	require 'includes/functions/function_image_resize.php';
+require 'includes/functions/function_categories.php';
+require 'includes/functions/function_products_attributes.php';
+require 'includes/classes/class_upload.php';
 
 
-  function oos_set_attributes_status($products_attributes_id, $status) {
+$languages = oos_get_languages();
 
-    // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+$page_info = '';
+if (isset($_GET['option_page'])) {
+	$option_page = intval($_GET['option_page']);
+	$page_info .= 'option_page=' . $option_page . '&';
+}
 
-    $products_attributestable = $oostable['products_attributes'];
-    if ($status == '1') {
-      $query = "UPDATE $products_attributestable
-                SET options_values_status = '1'
-                WHERE products_attributes_id = '" . intval($products_attributes_id) . "'";
-      $result =& $dbconn->Execute($query);
-      return;
-    } elseif ($status == '0') {
-      $query = "UPDATE $products_attributestable
-                SET options_values_status = '0'
-                WHERE products_attributes_id = '" . intval($products_attributes_id) . "'";
-      $result =& $dbconn->Execute($query);
+if (isset($_GET['value_page'])) {
+	$value_page =  intval($_GET['value_page']);
+	$page_info .= 'value_page=' . $value_page . '&';
+}
 
-      return;
-    } else {
-      return false;
-    }
+if (isset($_GET['attribute_page'])) {
+	$attribute_page = intval($_GET['attribute_page']);
+	$page_info .= 'attribute_page=' . $attribute_page . '&';
+}
+ 
+if (oos_is_not_null($page_info)) {
+	$page_info = substr($page_info, 0, -1);
+}
 
-  }
 
-  $languages = oos_get_languages();
 
-  $page_info = '';
-  if (isset($_GET['option_page'])) {
-    $option_page = intval($_GET['option_page']);
-    $page_info .= 'option_page=' . $option_page . '&';
-  }
-  if (isset($_GET['value_page'])) {
-    $value_page =  intval($_GET['value_page']);
-    $page_info .= 'value_page=' . $value_page . '&';
-  }
-  if (isset($_GET['attribute_page'])) {
-    $attribute_page = intval($_GET['attribute_page']);
-    $page_info .= 'attribute_page=' . $attribute_page . '&';
-  }
-  if (oos_is_not_null($page_info)) {
-    $page_info = substr($page_info, 0, -1);
-  }
+$action = (isset($_GET['action']) ? $_GET['action'] : '');
 
-  $action = (isset($_GET['action']) ? $_GET['action'] : '');
-
-  if (!empty($action)) {
+if (!empty($action)) {
     switch ($action) {
       case 'add_product_options':
         for ($i = 0, $n = count($languages); $i < $n; $i ++) {
@@ -148,13 +127,13 @@
 
 		if (isset($_POST['options_values_base_price']) ) {
             $options_values_base_price = oos_db_prepare_input($_POST['options_values_base_price']);
-            $products_product_quantity = oos_db_prepare_input($_POST['products_product_quantity']);
+            $options_values_quantity = oos_db_prepare_input($_POST['options_values_quantity']);
             $options_values_base_quantity = oos_db_prepare_input($_POST['options_values_base_quantity']);
             $options_values_base_unit = oos_db_prepare_input($_POST['options_values_base_unit']);
 		} else {
-            $options_values_base_price = 1.0;
-            $products_product_quantity = 1.0;
-            $options_values_base_quantity = 1.0;
+            $options_values_base_price = 1;
+            $options_values_quantity = 1;
+            $options_values_base_quantity = 1;
             $options_values_base_unit = '';
 		}
 
@@ -168,7 +147,7 @@
 						options_values_id,
 						options_values_price,
 						options_values_base_price,
-						products_product_quantity,
+						options_values_quantity,
 						options_values_base_quantity,
 						options_values_base_unit,
 						price_prefix,
@@ -181,7 +160,7 @@
 								'" . oos_db_prepare_input($_POST['values_id']) . "', 
 								'" . oos_db_prepare_input($_POST['value_price']) . "', 
 								'" . oos_db_prepare_input($options_values_base_price) . "',
-								'" . oos_db_prepare_input($products_product_quantity) . "',
+								'" . oos_db_prepare_input($options_values_quantity) . "',
 								'" . oos_db_prepare_input($options_values_base_quantity) . "',
 								'" . oos_db_prepare_input($options_values_base_unit) . "', 
 								'" . oos_db_prepare_input($_POST['price_prefix']) . "', 
@@ -278,13 +257,13 @@
 
 		if (isset($_POST['options_values_base_price']) ) {
             $options_values_base_price = oos_db_prepare_input($_POST['options_values_base_price']);
-            $products_product_quantity = oos_db_prepare_input($_POST['products_product_quantity']);
+            $options_values_quantity = oos_db_prepare_input($_POST['options_values_quantity']);
             $options_values_base_quantity = oos_db_prepare_input($_POST['options_values_base_quantity']);
             $options_values_base_unit = oos_db_prepare_input($_POST['options_values_base_unit']);
 		} else {
-            $options_values_base_price = 1.0;
-            $products_product_quantity = 1.0;
-            $options_values_base_quantity = 1.0;
+            $options_values_base_price = 1;
+            $options_values_quantity = 1;
+            $options_values_base_quantity = 1;
             $options_values_base_unit = '';
 		}
 
@@ -298,7 +277,7 @@
 						options_values_id = '" . oos_db_prepare_input($_POST['values_id']) . "',
 						options_values_price = '" . oos_db_prepare_input($_POST['value_price']) . "',
 						options_values_base_price= '" . oos_db_prepare_input($options_values_base_price) . "',
-						products_product_quantity= '" . oos_db_prepare_input($products_product_quantity) . "',
+						options_values_quantity= '" . oos_db_prepare_input($options_values_quantity) . "',
 						options_values_base_quantity= '" . oos_db_prepare_input($options_values_base_quantity) . "',
 						options_values_base_unit= '" . oos_db_prepare_input($options_values_base_unit) . "',
 						price_prefix = '" . oos_db_prepare_input($_POST['price_prefix']) . "',
@@ -879,19 +858,19 @@ function doRound(x, places) {
 }
 
 function calcBasePriceFactor() {
-  var pqty = document.forms["attributes"].products_product_quantity.value;
+  var pqty = document.forms["attributes"].options_values_quantity.value;
   var bqty = document.forms["attributes"].options_values_base_quantity.value;
 
   if ((pqty != 0) || (bqty != 0)) {
      document.forms["attributes"].options_values_base_price.value = doRound(bqty / pqty, 6);
   } else {
-     document.forms["attributes"].options_values_base_price.value = 1.000000;
+     document.forms["attributes"].options_values_base_price.value = 100000;
   }
 
 }
 //--></script>
 
-        <td><form name="attributes" action="<?php echo oos_href_link_admin($aFilename['products_attributes'], 'action=' . $form_action . '&option_page=' . $option_page . '&value_page=' . $value_page . '&attribute_page=' . $attribute_page); ?>" method="post" enctype="multipart/form-data"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <td><form name="attributes" action="<?php echo oos_href_link_admin($aContents['products_attributes'], 'action=' . $form_action . '&option_page=' . $option_page . '&value_page=' . $value_page . '&attribute_page=' . $attribute_page); ?>" method="post" enctype="multipart/form-data"><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
             <td colspan="8" class="smallText">
 <?php
@@ -941,7 +920,7 @@ function calcBasePriceFactor() {
             </td>
           </tr>
           <tr>
-            <td colspan="10"><?php echo oos_black_line(); ?></td>
+            <td colspan="11"><?php echo oos_black_line(); ?></td>
           </tr>
           <tr class="dataTableHeadingRow">
             <td class="dataTableHeadingContent">&nbsp;<?php echo TABLE_HEADING_ID; ?>&nbsp;</td>
@@ -957,7 +936,7 @@ function calcBasePriceFactor() {
             <td class="dataTableHeadingContent" align="center">&nbsp;<?php echo TABLE_HEADING_ACTION; ?>&nbsp;</td>
           </tr>
           <tr>
-            <td colspan="10"><?php echo oos_black_line(); ?></td>
+            <td colspan="11"><?php echo oos_black_line(); ?></td>
           </tr>
 <?php
   $next_id = 1;
@@ -1068,7 +1047,7 @@ function calcBasePriceFactor() {
                 <tr>
                   <td class="main"><br /><?php echo oos_draw_input_field('options_values_base_price', $attributes_values['options_values_base_price']); ?></td>
                   <td class="main"><br /> <- </td>
-                  <td class="main"><?php echo TEXT_PRODUCTS_PRODUCT_QUANTITY . '<br />' . oos_draw_input_field('products_product_quantity', $attributes_values['products_product_quantity'], 'OnKeyUp="calcBasePriceFactor()"'); ?></td>
+                  <td class="main"><?php echo TEXT_PRODUCTS_QUANTITY . '<br />' . oos_draw_input_field('options_values_quantity', $attributes_values['options_values_quantity'], 'OnKeyUp="calcBasePriceFactor()"'); ?></td>
                   <td class="main"><?php echo TEXT_PRODUCTS_BASE_QUANTITY . '<br />' . oos_draw_input_field('options_values_base_quantity', $attributes_values['options_values_base_quantity'], 'OnKeyUp="calcBasePriceFactor()"'); ?></td>
                 </tr>
               </table>
@@ -1144,9 +1123,9 @@ function calcBasePriceFactor() {
 			<td class="smallText">&nbsp;
 <?php
 	if ($attributes_values['options_values_status'] == '1') {
-		echo '<a href="' . oos_href_link_admin($aFilename['products_attributes'], 'action=setflag&flag=0&aID=' . $attributes_values['products_attributes_id'] . '&attribute_page=' . $attribute_page) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
+		echo '<i class="fa fa-circle text-success" title="' . IMAGE_ICON_STATUS_GREEN . '"></i>&nbsp;<a href="' . oos_href_link_admin($aFilename['products_attributes'], 'action=setflag&flag=0&aID=' . $attributes_values['products_attributes_id'] . '&attribute_page=' . $attribute_page) . '"><i class="fa fa-circle-notch text-danger" title="' . IMAGE_ICON_STATUS_RED_LIGHT . '"></i></a>';
 	} else {
-		echo '<a href="' . oos_href_link_admin($aFilename['products_attributes'], 'action=setflag&flag=1&aID=' . $attributes_values['products_attributes_id'] . '&attribute_page=' . $attribute_page) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
+		echo '<a href="' . oos_href_link_admin($aFilename['products_attributes'], 'action=setflag&flag=1&aID=' . $attributes_values['products_attributes_id'] . '&attribute_page=' . $attribute_page) . '"><i class="fa fa-circle-notch text-success" title="' . IMAGE_ICON_STATUS_GREEN_LIGHT . '"></i></a>&nbsp;<i class="fa fa-circle text-danger" title="' . IMAGE_ICON_STATUS_RED . '"></i>';
 	}
 ?></td>
 <?php
@@ -1185,7 +1164,7 @@ function calcBasePriceFactor() {
   if ($action != 'update_attribute') {
 ?>
           <tr>
-            <td colspan="8"><?php echo oos_black_line(); ?></td>
+            <td colspan="11"><?php echo oos_black_line(); ?></td>
           </tr>
           <tr class="<?php echo (floor($rows/2) == ($rows/2) ? 'attributes-even' : 'attributes-odd'); ?>">
             <td class="smallText">&nbsp;<?php echo $next_id; ?>&nbsp;</td>
@@ -1253,7 +1232,7 @@ function calcBasePriceFactor() {
                 <tr>
                   <td class="main"><br /><?php echo oos_draw_input_field('options_values_base_price', $options_values_base_price); ?></td>
                   <td class="main"><br /> <- </td>
-                  <td class="main"><?php echo TEXT_PRODUCTS_PRODUCT_QUANTITY . '<br />' . oos_draw_input_field('products_product_quantity', 1, 'OnKeyUp="calcBasePriceFactor()"'); ?></td>
+                  <td class="main"><?php echo TEXT_PRODUCTS_QUANTITY . '<br />' . oos_draw_input_field('options_values_quantity', 1, 'OnKeyUp="calcBasePriceFactor()"'); ?></td>
                   <td class="main"><?php echo TEXT_PRODUCTS_BASE_QUANTITY . '<br />' . oos_draw_input_field('options_values_base_quantity', 1, 'OnKeyUp="calcBasePriceFactor()"'); ?></td>
                 </tr>
               </table>
@@ -1297,7 +1276,7 @@ function calcBasePriceFactor() {
   }
 ?>
           <tr>
-            <td colspan="10"><?php echo oos_black_line(); ?></td>
+            <td colspan="11"><?php echo oos_black_line(); ?></td>
           </tr>
         </table></form></td>
       </tr>
