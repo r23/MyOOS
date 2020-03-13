@@ -30,7 +30,6 @@ class Software implements Snippet {
 	public function process( $data, $jsonld ) {
 		$price  = Helper::get_post_meta( 'snippet_software_price' );
 		$entity = [
-			'@context'            => 'https://schema.org',
 			'@type'               => 'SoftwareApplication',
 			'name'                => $jsonld->parts['title'],
 			'description'         => $jsonld->parts['desc'],

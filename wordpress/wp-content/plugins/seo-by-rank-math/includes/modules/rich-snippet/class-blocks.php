@@ -26,10 +26,9 @@ class Blocks {
 	 * The Constructor.
 	 */
 	public function __construct() {
-		$this->action( 'enqueue_block_assets', 'block_assets' ); // Frontend.
-		$this->action( 'enqueue_block_editor_assets', 'editor_assets' ); // Backend.
-		$this->filter( 'block_categories', 'block_categories' );
 		$this->action( 'init', 'init' );
+		$this->filter( 'block_categories', 'block_categories' );
+		$this->action( 'enqueue_block_editor_assets', 'editor_assets' ); // Backend.
 	}
 
 	/**
@@ -41,6 +40,7 @@ class Blocks {
 		}
 
 		new Block_FAQ;
+		new Block_HowTo;
 	}
 
 	/**
@@ -61,12 +61,6 @@ class Blocks {
 				],
 			]
 		);
-	}
-
-	/**
-	 * Enqueue Styles and Scripts required for blocks at frontend.
-	 */
-	public function block_assets() {
 	}
 
 	/**
@@ -91,6 +85,13 @@ class Blocks {
 			[],
 			rank_math()->version,
 			true
+		);
+
+		wp_register_style(
+			'rank-math-block-admin',
+			rank_math()->plugin_url() . 'assets/admin/css/blocks.css',
+			null,
+			rank_math()->version
 		);
 	}
 

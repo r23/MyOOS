@@ -29,7 +29,6 @@ class Local implements Snippet {
 	 */
 	public function process( $data, $jsonld ) {
 		$entity = [
-			'@context'                  => 'https://schema.org',
 			'@type'                     => 'LocalBusiness',
 			'name'                      => $jsonld->parts['title'],
 			'url'                       => $jsonld->parts['url'],

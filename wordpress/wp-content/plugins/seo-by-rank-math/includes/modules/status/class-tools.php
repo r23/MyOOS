@@ -219,7 +219,17 @@ class Tools {
 		}
 
 		Yoast_Blocks::get()->start( $posts );
+		$stored = get_option( 'rank_math_yoast_block_posts' );
+		if ( false === $stored ) {
+			$count = count( $posts );
 
-		return __( 'Background Process started', 'rank-math' );
+			$posts = [
+				'posts' => $posts,
+				'count' => $count,
+			];
+			update_option( 'rank_math_yoast_block_posts', $posts );
+		}
+
+		return __( 'Conversion started. A success message will be shown here once the process completes.', 'rank-math' );
 	}
 }

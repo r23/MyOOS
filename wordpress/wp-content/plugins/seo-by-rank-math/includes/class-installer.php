@@ -127,6 +127,9 @@ class Installer {
 	 * Runs on activation of the plugin.
 	 */
 	private function activate() {
+		// Init to use the common filters.
+		new \RankMath\Defaults;
+
 		$current_version    = get_option( 'rank_math_version', null );
 		$current_db_version = get_option( 'rank_math_db_version', null );
 

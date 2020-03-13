@@ -26,6 +26,13 @@ class Yoast_Blocks extends \WP_Background_Process {
 	private $faq_converter;
 
 	/**
+	 * FAQ Converter.
+	 *
+	 * @var Yoast_HowTo_Converter
+	 */
+	private $howto_converter;
+
+	/**
 	 * Action.
 	 *
 	 * @var string
@@ -64,6 +71,26 @@ class Yoast_Blocks extends \WP_Background_Process {
 	}
 
 	/**
+	 * Complete.
+	 *
+	 * Override if applicable, but ensure that the below actions are
+	 * performed, or, call parent::complete().
+	 */
+	protected function complete() {
+		$posts = get_option( 'rank_math_yoast_block_posts' );
+		delete_option( 'rank_math_yoast_block_posts' );
+		Helper::add_notification(
+			sprintf( 'Converted %d posts successfully.', $posts['count'] ),
+			[
+				'type' => 'success',
+				'id'   => 'rank_math_yoast_block_posts',
+			]
+		);
+
+		parent::complete();
+	}
+
+	/**
 	 * Task to perform
 	 *
 	 * @param string $posts Posts to process.
@@ -81,7 +108,9 @@ class Yoast_Blocks extends \WP_Background_Process {
 	 */
 	protected function task( $posts ) {
 		try {
-			$this->faq_converter = new Yoast_FAQ_Converter;
+			remove_filter( 'pre_kses', 'wp_pre_kses_block_attributes', 10 );
+			$this->faq_converter   = new Yoast_FAQ_Converter;
+			$this->howto_converter = new Yoast_HowTo_Converter;
 			foreach ( $posts as $post_id ) {
 				$post = get_post( $post_id );
 				$this->convert( $post );
@@ -107,6 +136,11 @@ class Yoast_Blocks extends \WP_Background_Process {
 			$content = $this->faq_converter->replace( $post->post_content, $blocks['yoast/faq-block'] );
 		}
 
+		if ( isset( $blocks['yoast/how-to-block'] ) && ! empty( $blocks['yoast/how-to-block'] ) ) {
+			$dirty   = true;
+			$content = $this->howto_converter->replace( $post->post_content, $blocks['yoast/how-to-block'] );
+		}
+
 		if ( $dirty ) {
 			$post->post_content = $content;
 			wp_update_post( $post );
@@ -119,16 +153,21 @@ class Yoast_Blocks extends \WP_Background_Process {
 	 * @return array
 	 */
 	public function find_posts() {
-		$args  = [
+		// FAQs Posts.
+		$args = [
 			's'             => 'wp:yoast/faq-block',
 			'post_status'   => 'any',
 			'numberposts'   => -1,
 			'fields'        => 'ids',
 			'no_found_rows' => true,
 		];
-		$posts = get_posts( $args );
+		$faqs = get_posts( $args );
 
-		return $posts;
+		// HowTo Posts.
+		$args['s'] = 'wp:yoast/how-to-block';
+		$howto     = get_posts( $args );
+
+		return array_merge( $faqs, $howto );
 	}
 
 	/**
@@ -152,43 +191,21 @@ class Yoast_Blocks extends \WP_Background_Process {
 				$blocks[ $name ] = [];
 			}
 
+			if ( ! isset( $block['innerContent'] ) ) {
+				$block['innerContent'] = [];
+			}
+
 			if ( 'yoast/faq-block' === $name ) {
 				$block             = $this->faq_converter->convert( $block );
-				$blocks[ $name ][] = $this->serialize_block( $block );
+				$blocks[ $name ][] = \serialize_block( $block );
+			}
+
+			if ( 'yoast/how-to-block' === $name ) {
+				$block             = $this->howto_converter->convert( $block );
+				$blocks[ $name ][] = \serialize_block( $block );
 			}
 		}
 
 		return $blocks;
-	}
-
-	/**
-	 * Serializes a block.
-	 *
-	 * @param array $block Block object.
-	 *
-	 * @return string String representing the block.
-	 */
-	private function serialize_block( $block ) {
-		if ( ! isset( $block['blockName'] ) ) {
-			return false;
-		}
-
-		$name = $block['blockName'];
-
-		$opening_tag_suffix = '';
-		if ( ! empty( $block['attrs'] ) ) {
-			$opening_tag_suffix = ' ' . wp_json_encode( array_filter( $block['attrs'] ) );
-		}
-
-		if ( ! isset( $block['innerHTML'] ) ) {
-			$block['innerHTML'] = '';
-		}
-
-		return sprintf(
-			'<!-- wp:%1$s%2$s -->%3$s<!-- /wp:%1$s -->',
-			$name,
-			$opening_tag_suffix,
-			$block['innerHTML']
-		);
 	}
 }

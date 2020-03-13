@@ -121,7 +121,6 @@ $cmb->add_group_field( $opening_hours, [
 $cmb->add_group_field( $opening_hours, [
 	'id'         => 'time',
 	'type'       => 'text',
-	'default'    => '09:00-17:00',
 	'attributes' => [ 'placeholder' => esc_html__( 'e.g. 09:00-17:00', 'rank-math' ) ],
 ]);
 

@@ -251,11 +251,13 @@ class Post_Filters implements Runner {
 				'key'     => 'rank_math_seo_score',
 				'value'   => [ 51, 80 ],
 				'compare' => 'BETWEEN',
+				'type'    => 'numeric',
 			],
 			'great-seo' => [
 				'key'     => 'rank_math_seo_score',
 				'value'   => 80,
 				'compare' => '>',
+				'type'    => 'numeric',
 			],
 			'noindexed' => [
 				'key'     => 'rank_math_robots',

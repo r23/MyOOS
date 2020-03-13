@@ -40,7 +40,7 @@ class Yoast_FAQ_Converter {
 			],
 		];
 
-		$new_block['innerHTML'] = $this->get_html( $new_block['attrs'] );
+		$new_block['innerContent'][] = $this->get_html( $new_block['attrs'] );
 
 		return $new_block;
 	}

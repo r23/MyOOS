@@ -25,7 +25,21 @@ class Beta_Optin {
 	 *
 	 * @var string
 	 */
-	const BETA_CHANGELOG_URL = 'https://rankmath.com/beta-changelog.txt';
+	const BETA_CHANGELOG_URL = 'https://rankmath.com/changelog/#beta';
+
+	/**
+	 * Placeholder for opening tag inserted with JS.
+	 *
+	 * @var string
+	 */
+	const NOTICE_START_MARKER = '&#x25B7;';
+
+	/**
+	 * Placeholder for closing tag inserted with JS.
+	 *
+	 * @var string
+	 */
+	const NOTICE_END_MARKER = '&#x25C1;';
 
 	/**
 	 * Actions and filters.
@@ -36,6 +50,7 @@ class Beta_Optin {
 		$this->filter( 'site_transient_update_plugins', 'transient_update_plugins' );
 		$this->action( 'in_plugin_update_message-seo-by-rank-math/rank-math.php', 'plugin_update_message', 10, 2 );
 		$this->action( 'install_plugins_pre_plugin-information', 'beta_plugin_information' );
+		$this->action( 'admin_footer', 'beta_changelog_link_js' );
 	}
 
 	/**
@@ -48,11 +63,8 @@ class Beta_Optin {
 
 		$transient = get_site_transient( 'update_plugins' );
 		if ( self::is_beta_update( $transient ) ) {
-			$changelog_request = wp_remote_get( self::BETA_CHANGELOG_URL, [ 'timeout' => 15 ] );
-			if ( ! is_array( $changelog_request ) || is_wp_error( $changelog_request ) ) {
-				return;
-			}
-			echo '<html><head></head><body><pre>' . esc_html( $changelog_request['body'] ) . '</pre></body></html>';
+			// No-js fallback.
+			echo '<html><head></head><body style="margin: 0;"><iframe src="' . esc_attr( self::BETA_CHANGELOG_URL ) . '" style="width: 100%; height: 100%;"></body></html>';
 			exit;
 		}
 	}
@@ -189,7 +201,8 @@ class Beta_Optin {
 			$value->response['seo-by-rank-math/rank-math.php']->{$prop_key} = $prop_value;
 		}
 
-		$value->response['seo-by-rank-math/rank-math.php']->is_beta = true;
+		$value->response['seo-by-rank-math/rank-math.php']->is_beta        = true;
+		$value->response['seo-by-rank-math/rank-math.php']->upgrade_notice = self::NOTICE_START_MARKER . ' ' . __( '[WARNING] This update will install a beta version of Rank Math.', 'rank-math' ) . ' ' . self::NOTICE_END_MARKER;
 
 		if ( empty( $value->no_update ) ) {
 			$value->no_update = [];
@@ -216,5 +229,55 @@ class Beta_Optin {
 			'</p><p class="rank-math-beta-update-notice">%s',
 			esc_html__( 'This update will install a beta version of Rank Math.', 'rank-math' )
 		);
+	}
+
+	/**
+	 * Add Javascript to open beta changelog link in a new tab instead of the modal.
+	 *
+	 * @return void
+	 */
+	public function beta_changelog_link_js() {
+		$screen = get_current_screen();
+		if ( 'update-core' !== $screen->base && 'plugins' !== $screen->base ) {
+			return;
+		}
+
+		$transient = get_site_transient( 'update_plugins' );
+		if ( ! self::is_beta_update( $transient ) ) {
+			return;
+		}
+		?>
+		<script type="text/javascript">
+			jQuery( document ).ready( function( $ ) {
+				// Change our link.
+				$('.open-plugin-details-modal').each( function( index, element ) {
+					if ( element.href.indexOf( 'plugin=seo-by-rank-math&section=changelog' ) !== -1 ) {
+						// Found our link.
+						$( element )
+							.removeClass( 'open-plugin-details-modal thickbox' )
+							.attr( 'href', '<?php echo esc_js( self::BETA_CHANGELOG_URL ); ?>' )
+							.attr( 'target', '_blank' );
+						return false;
+					}
+				} );
+
+				// Change our notice.
+				<?php if ( 'update-core' === $screen->base ) { ?>
+					$('td.plugin-title').each( function( index, element ) {
+						var contents = $( element ).html();
+						if ( contents.indexOf( '<?php echo esc_js( html_entity_decode( self::NOTICE_START_MARKER ) ); ?>' ) !== -1 && contents.indexOf( '<?php echo esc_js( html_entity_decode( self::NOTICE_END_MARKER ) ); ?>' ) !== -1 ) {
+							contents = contents
+								.replace( '<?php echo esc_js( html_entity_decode( self::NOTICE_START_MARKER ) ); ?>', '</p><div class="update-message notice inline notice-warning notice-alt" style="margin-top: 20px;"><p>' )
+								.replace( '<?php echo esc_js( html_entity_decode( self::NOTICE_END_MARKER ) ); ?>', '</p></div><p style="display: none;">' );
+
+							$( element ).html( contents );
+
+							return false;
+						}
+					} );
+				<?php } ?>
+			} );
+		</script>
+		<?php
 	}
 }

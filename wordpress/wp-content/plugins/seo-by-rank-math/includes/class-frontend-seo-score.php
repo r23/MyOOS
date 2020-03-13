@@ -101,6 +101,7 @@ class Frontend_SEO_Score {
 		$post_type     = get_post_type();
 		$post_id       = get_the_ID();
 		$score_enabled = Helper::get_settings( 'general.frontend_seo_score' )
+			&& Helper::is_score_enabled()
 			&& in_array( $post_type, (array) Helper::get_settings( 'general.frontend_seo_score_post_types' ), true )
 			&& get_post_meta( $post_id, 'rank_math_dont_show_seo_score', true ) !== 'on';
 
@@ -136,7 +137,7 @@ class Frontend_SEO_Score {
 
 		// If template is empty we output $score value directly.
 		$html     = $score;
-		$backlink = '<a href="https://rankmath.com" target="_blank" rel="nofollow noopener">Rank Math SEO</a>';
+		$backlink = '<a href="https://rankmath.com" target="_blank" rel="noopener">Rank Math SEO</a>';
 		if ( ! empty( $args['template'] ) ) {
 			ob_start();
 

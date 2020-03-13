@@ -29,7 +29,6 @@ class Person implements Snippet {
 	 */
 	public function process( $data, $jsonld ) {
 		$entity = [
-			'@context'    => 'https://schema.org',
 			'@type'       => 'Person',
 			'name'        => $jsonld->parts['title'],
 			'description' => $jsonld->parts['desc'],

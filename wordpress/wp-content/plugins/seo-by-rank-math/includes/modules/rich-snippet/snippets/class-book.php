@@ -29,12 +29,11 @@ class Book implements Snippet {
 	 */
 	public function process( $data, $jsonld ) {
 		$entity = [
-			'@context' => 'https://schema.org',
-			'@type'    => 'Book',
-			'name'     => $jsonld->parts['title'],
-			'author'   => $this->get_author_parts( $jsonld->parts['author'] ),
-			'url'      => $jsonld->parts['url'],
-			'hasPart'  => [],
+			'@type'   => 'Book',
+			'name'    => $jsonld->parts['title'],
+			'author'  => $this->get_author_parts( $jsonld->parts['author'] ),
+			'url'     => $jsonld->parts['url'],
+			'hasPart' => [],
 		];
 
 		$jsonld->add_ratings( 'book', $entity );

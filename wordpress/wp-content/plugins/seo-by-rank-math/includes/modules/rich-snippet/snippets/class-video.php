@@ -29,7 +29,6 @@ class Video implements Snippet {
 	 */
 	public function process( $data, $jsonld ) {
 		$entity = [
-			'@context'    => 'https://schema.org',
 			'@type'       => 'VideoObject',
 			'name'        => $jsonld->parts['title'],
 			'description' => $jsonld->parts['desc'],

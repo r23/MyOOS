@@ -208,6 +208,12 @@ class Post_Screen implements IScreen {
 	private function enqueue_commons() {
 		wp_register_style( 'rank-math-post-metabox', rank_math()->plugin_url() . 'assets/admin/css/sidebar.css', [], rank_math()->version );
 		wp_register_script( 'rank-math-analyzer', rank_math()->plugin_url() . 'assets/admin/js/analyzer.js', [ 'lodash' ], rank_math()->version, true );
+
+		if ( function_exists( 'wp_set_script_translations' ) ) {
+			$this->filter( 'load_script_translation_file', 'load_script_translation_file', 10, 3 );
+			wp_set_script_translations( 'rank-math-analyzer', 'rank-math', rank_math()->plugin_dir() . 'languages/' );
+			wp_set_script_translations( 'rank-math-gutenberg', 'rank-math', rank_math()->plugin_dir() . 'languages/' );
+		}
 	}
 
 	/**
@@ -252,12 +258,6 @@ class Post_Screen implements IScreen {
 			rank_math()->version,
 			true
 		);
-
-		if ( function_exists( 'wp_set_script_translations' ) ) {
-			$this->filter( 'load_script_translation_file', 'load_script_translation_file', 10, 3 );
-			wp_set_script_translations( 'rank-math-analyzer', 'rank-math', rank_math()->plugin_dir() . 'languages/' );
-			wp_set_script_translations( 'rank-math-gutenberg', 'rank-math', rank_math()->plugin_dir() . 'languages/' );
-		}
 	}
 
 	/**

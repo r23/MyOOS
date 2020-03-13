@@ -30,7 +30,6 @@ class Service implements Snippet {
 	public function process( $data, $jsonld ) {
 		$price  = Helper::get_post_meta( 'snippet_service_price' );
 		$entity = [
-			'@context'    => 'https://schema.org',
 			'@type'       => 'Service',
 			'name'        => $jsonld->parts['title'],
 			'description' => $jsonld->parts['desc'],

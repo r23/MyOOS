@@ -55,7 +55,7 @@ class Import_Export implements Runner {
 		$pages['import_export'] = [
 			'url'   => 'status',
 			'args'  => 'view=import_export',
-			'cap'   => 'install_plugins',
+			'cap'   => 'manage_options',
 			'title' => __( 'Import & Export', 'rank-math' ),
 			'class' => '\\RankMath\\Admin\\Import_Export',
 		];

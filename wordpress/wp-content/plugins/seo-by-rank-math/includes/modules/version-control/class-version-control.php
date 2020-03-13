@@ -129,14 +129,100 @@ class Version_Control {
 			$beta_optin->hooks();
 		}
 
-		$this->filter( 'rank_math/tools/pages', 'add_status_page', 20 );
-		$this->filter( 'rank_math/tools/default_tab', 'change_default_tab' );
+		if ( ! Helper::is_plugin_active_for_network() || current_user_can( 'setup_network' ) ) {
+			$this->filter( 'rank_math/tools/pages', 'add_status_page', 20 );
+			$this->filter( 'rank_math/tools/default_tab', 'change_default_tab' );
+		}
+		$this->filter( 'rank_math/admin/get_view', 'network_admin_view', 10, 2 );
+		$this->filter( 'rank_math/admin/dashboard_nav_links', 'network_admin_dashboard_tabs' );
 		$this->action( 'admin_enqueue_scripts', 'enqueue', 20 );
 
-		if ( is_admin() && Param::get( 'page' ) === 'rank-math-status' ) {
+		if ( $this->should_add_json() ) {
 			/* translators: Placeholder is version number. */
 			Helper::add_json( 'rollbackConfirm', esc_html__( 'Are you sure you want to install version %s?', 'rank-math' ) );
 		}
+	}
+
+	/**
+	 * Check if JSON for confirmation l10n needs to be added.
+	 *
+	 * @return bool Whether the data needs to be added.
+	 */
+	private function should_add_json() {
+		if ( ! is_admin() ) {
+			return false;
+		}
+
+		if ( is_network_admin() && Helper::is_plugin_active_for_network() ) {
+			return Param::get( 'page' ) === 'rank-math';
+		}
+
+		return Param::get( 'page' ) === 'rank-math-status';
+	}
+
+	/**
+	 * Check if assets should be enqueued on current admin page.
+	 *
+	 * @param  string $hook Page hook name.
+	 * @return bool         Whether we should proceed with the enqueue functions.
+	 */
+	private function should_enqueue( $hook ) {
+		if ( is_network_admin() && Helper::is_plugin_active_for_network() ) {
+			return 'toplevel_page_rank-math' === $hook;
+		}
+
+		return 'rank-math_page_rank-math-status' === $hook;
+	}
+
+	/**
+	 * Replace Admin_Helper::get_view() output for the network admin tab.
+	 *
+	 * @param  string $file File path.
+	 * @param  string $view Requested view.
+	 * @return string       New file path.
+	 */
+	public function network_admin_view( $file, $view ) {
+		if ( 'dashboard-version_control' !== $view ) {
+			return $file;
+		}
+		if ( is_network_admin() && Helper::is_plugin_active_for_network() ) {
+			return dirname( __FILE__ ) . '/display.php';
+		}
+
+		return $file;
+	}
+
+	/**
+	 * Filter top nav links in the dashboard.
+	 *
+	 * @param  array $nav_links Nav links.
+	 * @return array            New nav links.
+	 */
+	public function network_admin_dashboard_tabs( $nav_links ) {
+		if ( ! is_network_admin() ) {
+			return $nav_links;
+		}
+
+		if ( empty( $nav_links ) ) {
+			$nav_links = [
+				'help' => [
+					'id'    => 'help',
+					'url'   => '',
+					'args'  => '',
+					'cap'   => 'manage_options',
+					'title' => esc_html__( 'Dashboard', 'rank-math' ),
+				],
+			];
+		}
+
+		$nav_links['version_control'] = [
+			'id'    => 'version_control',
+			'url'   => '',
+			'args'  => 'view=version_control',
+			'cap'   => 'manage_options',
+			'title' => esc_html__( 'Version Control', 'rank-math' ),
+		];
+		return $nav_links;
 	}
 
 	/**
@@ -167,6 +253,9 @@ class Version_Control {
 	 * @return string         New default tab.
 	 */
 	public function change_default_tab( $default ) {
+		if ( is_multisite() && ! current_user_can( 'setup_network' ) ) {
+			return $default;
+		}
 		return 'version_control';
 	}
 
@@ -177,7 +266,7 @@ class Version_Control {
 	 * @return void
 	 */
 	public function enqueue( $hook ) {
-		if ( 'rank-math_page_rank-math-status' !== $hook ) {
+		if ( ! $this->should_enqueue( $hook ) ) {
 			return;
 		}
 		$uri = untrailingslashit( plugin_dir_url( __FILE__ ) );
@@ -241,23 +330,8 @@ class Version_Control {
 	 * Display forms.
 	 */
 	public function display() {
-		if ( Rollback_Version::should_rollback() ) {
-			$rollback = new Rollback_Version();
-			$rollback->rollback();
-			return;
-		}
-
-		$directory       = dirname( __FILE__ );
-		$beta_optin      = boolval( Helper::get_settings( 'general.beta_optin' ) );
-		$auto_update     = boolval( Helper::get_settings( 'general.enable_auto_update' ) );
-		$versions        = array_reverse( array_keys( Beta_Optin::get_available_versions( $beta_optin ) ) );
-		$current_version = rank_math()->version;
-		$latest_version  = Beta_Optin::get_latest_version();
-		array_splice( $versions, 10 );
-
-		include_once( $directory . '/views/version-control-panel.php' );
-		include_once( $directory . '/views/beta-optin-panel.php' );
-		include_once( $directory . '/views/auto-update-panel.php' );
+		$directory = dirname( __FILE__ );
+		include_once( $directory . '/display.php' );
 	}
 
 }

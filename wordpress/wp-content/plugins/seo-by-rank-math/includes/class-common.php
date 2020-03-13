@@ -36,8 +36,6 @@ class Common {
 	public function __construct() {
 		$this->action( 'loginout', 'nofollow_link' );
 		$this->filter( 'register', 'nofollow_link' );
-		$this->filter( 'rank_math/excluded_taxonomies', 'exclude_taxonomies' );
-		$this->filter( 'rank_math/excluded_post_types', 'excluded_post_types' );
 
 		// Change Permalink for primary term.
 		$this->filter( 'post_type_link', 'post_type_link', 9, 2 );
@@ -54,6 +52,9 @@ class Common {
 			new Auto_Updater;
 		}
 
+		$this->filter( 'is_protected_meta', 'hide_rank_math_meta', 10, 2 );
+
+		new Defaults;
 		new Admin_Bar_Menu;
 	}
 
@@ -70,37 +71,6 @@ class Common {
 			return $link;
 		}
 		return str_replace( '<a ', '<a rel="nofollow" ', $link );
-	}
-
-	/**
-	 * Exclude taxonomies.
-	 *
-	 * @param array $taxonomies Excluded taxonomies.
-	 *
-	 * @return array
-	 */
-	public function exclude_taxonomies( $taxonomies ) {
-		if ( ! current_theme_supports( 'post-formats' ) ) {
-			unset( $taxonomies['post_format'] );
-		}
-		unset( $taxonomies['product_shipping_class'] );
-
-		return $taxonomies;
-	}
-
-	/**
-	 * Exclude post_types.
-	 *
-	 * @param array $post_types Excluded post_types.
-	 *
-	 * @return array
-	 */
-	public function excluded_post_types( $post_types ) {
-		if ( isset( $post_types['elementor_library'] ) ) {
-			unset( $post_types['elementor_library'] );
-		}
-
-		return $post_types;
 	}
 
 	/**
@@ -250,6 +220,18 @@ class Common {
 		}
 
 		return $terms;
+	}
+
+	/**
+	 * Hide rank math meta keys
+	 *
+	 * @param bool   $protected Whether the key is considered protected.
+	 * @param string $meta_key  Meta key.
+	 *
+	 * @return bool
+	 */
+	public function hide_rank_math_meta( $protected, $meta_key ) {
+		return Str::starts_with( 'rank_math_', $meta_key ) ? true : $protected;
 	}
 
 	/**

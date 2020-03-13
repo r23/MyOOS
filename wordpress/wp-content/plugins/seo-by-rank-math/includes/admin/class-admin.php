@@ -95,18 +95,8 @@ class Admin implements Runner {
 	 * Display dashabord tabs.
 	 */
 	public function display_dashboard_nav() {
-		?>
-		<h2 class="nav-tab-wrapper">
-			<?php
-			foreach ( $this->get_nav_links() as $id => $link ) :
-				if ( isset( $link['cap'] ) && ! current_user_can( $link['cap'] ) ) {
-					continue;
-				}
-				?>
-			<a class="nav-tab<?php echo Param::get( 'view', 'modules' ) === sanitize_html_class( $id ) ? ' nav-tab-active' : ''; ?>" href="<?php echo esc_url( Helper::get_admin_url( $link['url'], $link['args'] ) ); ?>" title="<?php echo esc_attr( $link['title'] ); ?>"><?php echo esc_html( $link['title'] ); ?></a>
-			<?php endforeach; ?>
-		</h2>
-		<?php
+		$nav_tabs = new Admin_Dashboard_Nav();
+		$nav_tabs->display();
 	}
 
 	/**
@@ -340,45 +330,5 @@ class Admin implements Runner {
 
 		Importers\Detector::deactivate_all();
 		die( '1' );
-	}
-
-	/**
-	 * Get dashbaord navigation links
-	 *
-	 * @return array
-	 */
-	private function get_nav_links() {
-		$links = [
-			'modules'       => [
-				'url'   => '',
-				'args'  => 'view=modules',
-				'cap'   => 'manage_options',
-				'title' => esc_html__( 'Modules', 'rank-math' ),
-			],
-			'help'          => [
-				'url'   => '',
-				'args'  => 'view=help',
-				'cap'   => 'manage_options',
-				'title' => esc_html__( 'Help', 'rank-math' ),
-			],
-			'wizard'        => [
-				'url'   => 'wizard',
-				'args'  => '',
-				'cap'   => 'manage_options',
-				'title' => esc_html__( 'Setup Wizard', 'rank-math' ),
-			],
-			'import-export' => [
-				'url'   => 'status',
-				'args'  => 'view=import_export',
-				'cap'   => 'install_plugins',
-				'title' => esc_html__( 'Import &amp; Export', 'rank-math' ),
-			],
-		];
-
-		if ( Helper::is_plugin_active_for_network() ) {
-			unset( $links['help'] );
-		}
-
-		return $links;
 	}
 }

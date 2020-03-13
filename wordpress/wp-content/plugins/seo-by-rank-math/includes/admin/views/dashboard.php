@@ -12,23 +12,23 @@ use RankMath\Admin\System_Info;
 $is_network_admin  = is_network_admin();
 $is_network_active = RankMath\Helper::is_plugin_active_for_network();
 $current_tab       = $is_network_active && $is_network_admin ? 'help' : ( isset( $_GET['view'] ) ? filter_input( INPUT_GET, 'view' ) : 'modules' );
+if ( $is_network_active && $is_network_admin && 'version_control' === filter_input( INPUT_GET, 'view' ) ) {
+	$current_tab = 'version_control';
+}
 ?>
 <div class="wrap rank-math-wrap">
 
 	<span class="wp-header-end"></span>
 
-	<h1><?php esc_html_e( 'Welcome to Rank Math!', 'rank-math' ); ?></h1>
+	<?php if ( in_array( $current_tab, [ 'modules', 'help' ] ) ) { ?>
+		<h1><?php esc_html_e( 'Welcome to Rank Math!', 'rank-math' ); ?></h1>
 
-	<div class="rank-math-text">
-		<?php esc_html_e( 'The most complete WordPress SEO plugin to convert your website into a traffic generating machine.', 'rank-math' ); ?>
-	</div>
+		<div class="rank-math-text">
+			<?php esc_html_e( 'The most complete WordPress SEO plugin to convert your website into a traffic generating machine.', 'rank-math' ); ?>
+		</div>
+	<?php } ?>
 
-
-	<?php
-	if ( ! ( $is_network_active && $is_network_admin ) ) {
-		rank_math()->admin->display_dashboard_nav();
-	}
-	?>
+	<?php rank_math()->admin->display_dashboard_nav(); ?>
 
 	<?php
 	if ( $is_network_active && ! $is_network_admin && 'help' === $current_tab ) {

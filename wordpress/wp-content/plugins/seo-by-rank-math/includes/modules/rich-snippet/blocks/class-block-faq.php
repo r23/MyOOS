@@ -18,14 +18,12 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Block_FAQ class.
  */
-class Block_FAQ {
+class Block_FAQ extends Block {
 
 	/**
 	 * The Constructor.
 	 */
 	public function __construct() {
-		wp_register_style( 'rank-math-block-admin', rank_math()->plugin_url() . 'assets/admin/css/blocks.css', null, rank_math()->version );
-
 		register_block_type(
 			'rank-math/faq-block',
 			[
@@ -88,12 +86,12 @@ class Block_FAQ {
 
 		if ( ! isset( $data['faqs'] ) ) {
 			$data['faqs'] = [
-				'@context'   => 'https://schema.org',
 				'@type'      => 'FAQPage',
 				'mainEntity' => [],
 			];
 		}
 
+		$permalink = get_permalink() . '#';
 		foreach ( $block['attrs']['questions'] as $question ) {
 			if ( empty( $question['title'] ) || empty( $question['content'] ) || empty( $question['visible'] ) ) {
 				continue;
@@ -101,10 +99,11 @@ class Block_FAQ {
 
 			$data['faqs']['mainEntity'][] = [
 				'@type'          => 'Question',
+				'url'            => $permalink . $question['id'],
 				'name'           => wp_strip_all_tags( $question['title'] ),
 				'acceptedAnswer' => [
 					'@type' => 'Answer',
-					'text'  => strip_tags( $question['content'], '<h1><h2><h3><h4><h5><h6><br><ol><ul><li><a><p><b><strong><i><em>' ),
+					'text'  => $this->clean_text( $question['content'] ),
 				],
 			];
 		}
@@ -139,7 +138,7 @@ class Block_FAQ {
 				continue;
 			}
 
-			$out[] = sprintf( '<%1$s class="rank-math-list-item">', $item_tag );
+			$out[] = sprintf( '<%1$s id="%2$s" class="rank-math-list-item">', $item_tag, $question['id'] );
 
 			$out[] = sprintf(
 				'<%1$s class="rank-math-question %2$s">%3$s</%1$s>',
@@ -162,80 +161,6 @@ class Block_FAQ {
 		$out[] = '</div>';
 
 		return join( "\n", $out );
-	}
-
-	/**
-	 * [get_image description]
-	 *
-	 * @param array  $question [description].
-	 * @param string $size     [description].
-	 *
-	 * @return [type]           [description]
-	 */
-	private function get_image( $question, $size = 'thumbnail' ) {
-		if ( ! isset( $question['imageID'] ) ) {
-			return '';
-		}
-
-		$image_id = absint( $question['imageID'] );
-		if ( ! ( $image_id > 0 ) ) {
-			return '';
-		}
-
-		$html = wp_get_attachment_image( $image_id, $size, false, 'class=alignright' );
-
-		return $html ? $html : wp_get_attachment_image( $image_id, 'full', false, 'class=alignright' );
-	}
-
-	/**
-	 * Get styles
-	 *
-	 * @param array $attributes Array of attributes.
-	 *
-	 * @return string
-	 */
-	private function get_styles( $attributes ) {
-		$out = [];
-
-		if ( ! empty( $attributes['textAlign'] ) && 'left' !== $attributes['textAlign'] ) {
-			$out[] = 'text-align:' . $attributes['textAlign'];
-		}
-
-		return empty( $out ) ? '' : ' style="' . join( ';', $out ) . '"';
-	}
-
-	/**
-	 * Get list style
-	 *
-	 * @param string $style Style.
-	 *
-	 * @return string
-	 */
-	private function get_list_style( $style ) {
-		if ( 'numbered' === $style ) {
-			return 'ol';
-		}
-
-		if ( 'unordered' === $style ) {
-			return 'ul';
-		}
-
-		return 'div';
-	}
-
-	/**
-	 * Get list item style
-	 *
-	 * @param string $style Style.
-	 *
-	 * @return string
-	 */
-	private function get_list_item_style( $style ) {
-		if ( 'numbered' === $style || 'unordered' === $style ) {
-			return 'li';
-		}
-
-		return 'div';
 	}
 
 	/**

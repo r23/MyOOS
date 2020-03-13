@@ -43,7 +43,6 @@ class Collection_Page implements Snippet {
 		}
 
 		$data['CollectionPage'] = [
-			'@context'    => 'https://schema.org/',
 			'@type'       => 'CollectionPage',
 			'headline'    => single_term_title( '', false ),
 			'description' => strip_tags( term_description() ),

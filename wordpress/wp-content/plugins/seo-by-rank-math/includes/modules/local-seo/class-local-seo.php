@@ -102,12 +102,11 @@ class Local_Seo {
 		}
 
 		$entity = [
-			'@context' => 'https://schema.org',
-			'@type'    => '',
-			'@id'      => '',
-			'name'     => '',
-			'url'      => get_home_url(),
-			'sameAs'   => $this->get_social_profiles(),
+			'@type'  => '',
+			'@id'    => '',
+			'name'   => '',
+			'url'    => get_home_url(),
+			'sameAs' => $this->get_social_profiles(),
 		];
 
 		$json_ld->add_prop( 'email', $entity );

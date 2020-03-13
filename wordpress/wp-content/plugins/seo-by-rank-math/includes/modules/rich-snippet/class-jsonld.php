@@ -73,15 +73,13 @@ class JsonLD {
 		 * @param array  $unsigned An array of data to output in json-ld.
 		 * @param JsonLD $unsigned JsonLD instance.
 		 */
-		$json = $this->do_filter( 'json_ld', [], $this );
-		if ( is_array( $json ) && ! empty( $json ) ) {
-			foreach ( $json as $context => $data ) {
-				if ( empty( $data ) ) {
-					continue;
-				}
-
-				echo '<script type="application/ld+json">' . wp_json_encode( $data ) . '</script>' . "\n";
-			}
+		$data = $this->do_filter( 'json_ld', [], $this );
+		if ( is_array( $data ) && ! empty( $data ) ) {
+			$json = [
+				'@context' => 'https://schema.org',
+				'@graph'   => array_values( array_filter( $data ) ),
+			];
+			echo '<script type="application/ld+json">' . wp_json_encode( $json ) . '</script>' . "\n";
 		}
 	}
 

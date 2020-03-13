@@ -326,7 +326,7 @@ class Setup_Wizard {
 	 */
 	private function set_current_step() {
 		if ( $this->maybe_remove_import() ) {
-			//unset( $this->steps['import'] );
+			unset( $this->steps['import'] );
 		}
 
 		if ( ! Helper::is_module_active( 'role-manager' ) ) {
@@ -355,6 +355,11 @@ class Setup_Wizard {
 	 * @return bool
 	 */
 	private function maybe_remove_import() {
+		$pre = $this->do_filter( 'wizard/pre_remove_import_step', null );
+		if ( ! is_null( $pre ) ) {
+			return $pre;
+		}
+
 		if ( false === get_option( 'rank_math_is_configured' ) ) {
 			$detector = new Detector;
 			$plugins  = $detector->detect();

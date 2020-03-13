@@ -97,7 +97,7 @@ class Head {
 				continue;
 			}
 
-			printf( '<meta name="%1$s" content="%2$s">' . "\n", esc_attr( $name ), esc_attr( $content ) );
+			printf( '<meta name="%1$s" content="%2$s" />' . "\n", esc_attr( $name ), esc_attr( $content ) );
 		}
 	}
 
@@ -188,7 +188,7 @@ class Head {
 	 */
 	public function robots() {
 		$robots    = Paper::get()->get_robots();
-		$robotsstr = join( ',', $robots );
+		$robotsstr = join( ', ', $robots );
 		if ( Str::is_non_empty( $robotsstr ) ) {
 			echo '<meta name="robots" content="', esc_attr( $robotsstr ), '"/>', "\n";
 		}

@@ -33,7 +33,6 @@ class Article implements Snippet {
 		}
 
 		$entity = [
-			'@context'         => 'https://schema.org',
 			'@type'            => $type,
 			'headline'         => $jsonld->parts['title'],
 			'description'      => $jsonld->parts['desc'],

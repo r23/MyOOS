@@ -57,7 +57,7 @@ class Admin_Helper {
 	 * @return string Complete path to view
 	 */
 	public static function get_view( $view ) {
-		return rank_math()->admin_dir() . "views/{$view}.php";
+		return apply_filters( 'rank_math/admin/get_view', rank_math()->admin_dir() . "views/{$view}.php", $view );
 	}
 
 	/**

@@ -36,7 +36,6 @@ class Breadcrumbs implements Snippet {
 		}
 
 		$entity = [
-			'@context'        => 'https://schema.org',
 			'@type'           => 'BreadcrumbList',
 			'itemListElement' => [],
 		];

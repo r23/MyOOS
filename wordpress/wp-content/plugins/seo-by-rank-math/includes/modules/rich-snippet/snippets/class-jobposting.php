@@ -29,7 +29,6 @@ class JobPosting implements Snippet {
 	 */
 	public function process( $data, $jsonld ) {
 		$entity = [
-			'@context'       => 'https://schema.org',
 			'@type'          => 'JobPosting',
 			'title'          => $jsonld->parts['title'],
 			'description'    => $jsonld->parts['desc'] ? $jsonld->parts['desc'] : get_the_content(),

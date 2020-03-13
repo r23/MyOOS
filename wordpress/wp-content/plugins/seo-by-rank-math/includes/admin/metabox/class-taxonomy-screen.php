@@ -135,7 +135,6 @@ class Taxonomy_Screen implements IScreen {
 					[
 						'textarea_name' => 'description',
 						'textarea_rows' => 5,
-						'quicktags'     => false,
 					]
 				);
 				?>

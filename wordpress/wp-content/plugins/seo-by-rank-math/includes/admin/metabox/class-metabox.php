@@ -59,10 +59,6 @@ class Metabox implements Runner {
 			if ( Helper::has_cap( 'link_builder' ) ) {
 				$this->action( 'cmb2_admin_init', 'add_link_suggestion_metabox', 30 );
 			}
-
-			if ( 'post' === $this->screen->get_object_type() ) {
-				$this->filter( 'is_protected_meta', 'hide_rank_math_meta', 10, 2 );
-			}
 		}
 
 		$this->action( 'cmb2_' . CMB2::current_object_type() . '_process_fields_' . $this->metabox_id, 'save_meta' );
@@ -93,18 +89,6 @@ class Metabox implements Runner {
 		}
 
 		$this->do_action( 'enqueue_scripts/assessor' );
-	}
-
-	/**
-	 * Hide rank math meta keys
-	 *
-	 * @param bool   $protected Whether the key is considered protected.
-	 * @param string $meta_key  Meta key.
-	 *
-	 * @return bool
-	 */
-	public function hide_rank_math_meta( $protected, $meta_key ) {
-		return Str::starts_with( 'rank_math_', $meta_key ) ? true : $protected;
 	}
 
 	/**

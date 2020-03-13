@@ -185,7 +185,7 @@ class WooCommerce extends WC_Vars {
 
 		$permalink_structure  = wc_get_permalink_structure();
 		$category_base        = trailingslashit( $permalink_structure['category_rewrite_slug'] );
-		$is_language_switcher = ( class_exists( 'Sitepress' ) && strpos( $original_link, 'lang=' ) );
+		$is_language_switcher = ( class_exists( 'Sitepress' ) && strpos( $link, 'lang=' ) );
 
 		if ( $this->remove_category_base ) {
 			$link          = str_replace( $category_base, '', $link );

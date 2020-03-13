@@ -309,7 +309,7 @@ class Breadcrumbs {
 
 		$this->add_crumbs_post_type_archive( $post_type );
 
-		if ( ! isset( $post->ID ) ) {
+		if ( ! isset( $post->ID ) || empty( $post->ID ) ) {
 			return;
 		}
 

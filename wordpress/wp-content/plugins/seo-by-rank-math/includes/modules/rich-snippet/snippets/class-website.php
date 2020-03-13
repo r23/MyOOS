@@ -29,11 +29,10 @@ class Website implements Snippet {
 	 */
 	public function process( $data, $jsonld ) {
 		$data['WebSite'] = [
-			'@context' => 'https://schema.org',
-			'@type'    => 'WebSite',
-			'@id'      => home_url( '/#website' ),
-			'url'      => get_home_url(),
-			'name'     => $jsonld->get_website_name(),
+			'@type' => 'WebSite',
+			'@id'   => home_url( '/#website' ),
+			'url'   => get_home_url(),
+			'name'  => $jsonld->get_website_name(),
 		];
 
 		/**

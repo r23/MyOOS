@@ -276,7 +276,7 @@ class Shortcodes {
 			$number = esc_html( $phone['number'] );
 			?>
 			<div class="rank-math-phone-number type-<?php echo sanitize_html_class( $phone['type'] ); ?>">
-				<label><?php echo ucwords( $phone['type'] ); ?>:</label> <span><?php echo isset( $phone['number'] ) ? '<a href="tel://' . $number . '">' . $number . '</a>' : ''; ?></span>
+				<label><?php esc_html_e( ucwords( $phone['type'] ) ); ?>:</label> <span><?php echo isset( $phone['number'] ) ? '<a href="tel://' . $number . '">' . $number . '</a>' : ''; ?></span>
 			</div>
 			<?php
 		endforeach;

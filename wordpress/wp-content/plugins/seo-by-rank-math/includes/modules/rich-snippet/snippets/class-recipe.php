@@ -30,7 +30,6 @@ class Recipe implements Snippet {
 	 */
 	public function process( $data, $jsonld ) {
 		$entity = [
-			'@context'         => 'https://schema.org/',
 			'@type'            => 'Recipe',
 			'name'             => $jsonld->parts['title'],
 			'description'      => $jsonld->parts['desc'],

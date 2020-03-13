@@ -2,10 +2,10 @@
 Contributors: rankmath
 Plugin link: https://s.rankmath.com/homepage
 Tags: seo, sitemap, google search console, schema, redirection
-Tested up to: 5.3.2
+Tested up to: 5.4
 Requires at least: 4.9.0
 Requires PHP: 5.6
-Stable tag: 1.0.39.2
+Stable tag: 1.0.40
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -460,45 +460,31 @@ We look forward to helping you.
 
 == Changelog ==
 
-= 1.0.39.2 [Mar 5, 2020] =
-* Added: Indonesian Power Words. Thanks to [Kenny Purnomo](https://bravomotor.id)
-* Replaced: "German" [power words](https://rankmath.com/blog/power-words/) were Dutch power words. Sorry for the mismatch
-* Improved: SEO Analysis score circle styling which broke in the last update
-* Improved: Yoast's Block importer for [FAQ Schema](https://rankmath.com/blog/faq-schema/)
-* Fixed: Output of encoded URLs from the Canonical field was printing incorrectly. Props to [Shahram Rahbari](https://shahram.in/) for reporting. PLEASE re-save the posts where Canonical URLs were changed manually. It does not apply to the sites with the English language
-* Fixed: 404 errors getting misreported due to a recent change made in the plugin to handle the 404s coming from Elementor's scripts
-* Fixed: 404 monitor reporting redirected URLs in the log
-* Fixed: Network admin wasn't able to access the Rank Math Settings on a subsite
-* Fixed: A PHP notice when rolling back to a previous version using [version control](https://rankmath.com/kb/version-control/)
-
-= 1.0.39.1 [Feb 27th, 2020] =
-* Fixed: HTML formatting & SEO fields not working in the Taxonomy editing area
-* Fixed: Sitemap having all non-canonical URLs listed in it. They should not appear now
-* Fixed: Incorrect headline & name values for `hasPart` Schema on the archive pages. Props: [Ben @ StoreGear](https://www.storegear.com).
-* Fixed: An error in the `hasPart` Schema when no Article type was set on the archive pages. Props: Ben @ ActorGear
-
-= 1.0.39 [Feb 24, 2020] =
-* Added: [HUGE!] A way to [add FAQ Schema to a WordPress website](https://rankmath.com/kb/faq-schema-block/) using the new Block aka Gutenberg editor
-* Added: A [filter to remove SEO Tab in the Elementor Panel](https://rankmath.com/kb/filters-hooks-api-developer/#remove-seo-panel-elementor)
-* Improved: Site-Wide SEO Analysis code to work smoothly and error-free now. We will be adding more improvements to it in the near future
-* Improved: Recognize accented letters in the ALT description of an image
-* Improved: By default, added `%term_description%` variable in the term description fields of the general settings to improve the auto-generation of SEO description in the pages like categories or tag pages
-* Improved: Color contrast of the yellow Focus Keyword in the Classic Editor
-* Improved: Author description output in the Schema code by stripping out HTML tags
-* Fixed: Sitemap's Cache folder permission so it could be accessed while backing up a site
-* Fixed: Variables printing as it is in the single CPT titles on the frontend unless someone updated the settings in the General tab
-* Fixed: The link text field not appearing in the Classic Editor
-* Fixed: Auto-generated descriptions not working as intended when content was starting with an image
-* Fixed: Category in the permalink wasn't updating unless someone set the Primary Category
-* Fixed: A JavaScript error when creating a new Post Tag from Tags page
-* Fixed: An issue where Version Control's JS code was loading on the front end
-* Fixed: An issue where Version Control's assets were loading on all the admin pages
-* Fixed: Help menu showing in the backend sidebar even after disabling all the caps in the Role Manager
-* Fixed: TGMPA CSS's conflict
-* Fixed: "Make" Theme's compatibility issues
-* Fixed: A bug where the color coding on the focus keyword wasn't changing if diacritic characters were used
-* Fixed: A PHP error appearing in the Elementor's Theme Builder tabs if there are no templates present
-* Fixed: A bug with Elementor where `Content Area Was Not Found in Your Page Error` was appearing
-* Fixed: 404 monitor not able to detect the 404 pages created using Elementor
+= 1.0.40 [Mar 13, 2020] =
+* Added: [NEW!] A block to add [HowTo Schema](https://rankmath.com/blog/howto-schema/) to a WordPress website using the new Block editor aka Gutenberg
+* Added: A HTML tab in the Category/Term description field
+* Added: A warning about the [beta version](https://rankmath.com/kb/version-control/#beta-updates) on the plugins' update page
+* Added: Compatibility needed for WordPress 5.4
+* Improved: On a multisite, moved the [Version Control's](https://rankmath.com/kb/version-control/) options to the network admin and now only the super admins can access it
+* Improved: Removed default values from the Opening Hours in the [Local SEO](https://rankmath.com/kb/titles-and-meta/#local-seo) tab & the Redirect Orphan Attachment option
+* Improved: Used `@graph` to combine multiple Schema types in a single JSON-LD tag
+* Improved: Added IDs to the Schema output of FAQ Block
+* Improved: Notice's styling and changed beta changelog link to Rank Math's changelog page
+* Changed: The default behavior of Powered by link inside the SEO score option to a follow link due to Google's recent changes on how they see a NoFollow link. One can [change the content of the link by using these filters](https://rankmath.com/kb/filters-hooks-api-developer/#seo-score). This is especially useful for agency owners. The option is turned off by default
+* Fixed: Rank Math not working with the standalone Gutenberg plugin
+* Fixed: Import/Export tab missing for the subsite owners in the Multisite installation
+* Fixed: FAQ Schema not printing when FAQ block was added in the Columns as an InnerBlock
+* Fixed: Block Editor crashing when someone clicked on the Rank Math Toolbar button while the page was loading on certain web hosts
+* Fixed: Sort by SEO Score not working in the Posts lists page
+* Fixed: Import step was showing in the setup wizard even after the import was completed
+* Fixed: Filter to hide the SEO Score in the frontend not working properly
+* Fixed: The protected meta was showing in the frontend if `the_meta` function was used
+* Fixed: The Bing verification option not working
+* Fixed: Missing yellow background in the SEO Score of the Classic editor area
+* Fixed: An undefined variable error in a WooCommerce file
+* Fixed: A bug that was preventing the translations from showing up inside the Elementor editor
+* Fixed: Elementor's save button was greyed out even after changing values in the SEO tab of Rank Math
+* Fixed: Made Local SEO phone number field translation-ready
+* Fixed: [SEO tab showing in the Elementor](https://rankmath.com/blog/elementor-seo/) templates for some old installations
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://rankmath.com/changelog/)**

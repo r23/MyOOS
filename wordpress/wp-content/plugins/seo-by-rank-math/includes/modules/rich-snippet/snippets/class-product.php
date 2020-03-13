@@ -42,7 +42,6 @@ class Product implements Snippet {
 		$sku        = Helper::get_post_meta( 'snippet_product_sku' );
 		$price      = Helper::get_post_meta( 'snippet_product_price' );
 		$entity     = [
-			'@context'    => 'https://schema.org/',
 			'@type'       => 'Product',
 			'sku'         => $sku ? $sku : '',
 			'name'        => $jsonld->parts['title'],

@@ -31,7 +31,6 @@ class Blog implements Snippet {
 		$is_front       = is_front_page();
 		$data['schema'] = 'BlogPosting';
 		$data['Blog']   = [
-			'@context'    => 'https://schema.org/',
 			'@type'       => 'Blog',
 			'url'         => $is_front ? home_url() : get_permalink( get_option( 'page_for_posts' ) ),
 			'headline'    => $is_front ? $jsonld->get_website_name() : get_the_title( get_option( 'page_for_posts' ) ),

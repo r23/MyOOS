@@ -66,7 +66,6 @@ class BuddyPress {
 		$user_id = bp_displayed_user_id();
 
 		$data['ProfilePage'] = [
-			'@context' => 'https://schema.org',
 			'@type'    => 'ProfilePage',
 			'headline' => sprintf( 'About %s', get_the_author_meta( 'display_name', $user_id ) ),
 			'about'    => [

@@ -89,7 +89,7 @@ class Status extends Base {
 	 * Display dashabord tabs.
 	 */
 	public function display_nav() {
-		$default_tab = apply_filters( 'rank_math/tools/default_tab', 'status' );
+		$default_tab = apply_filters( 'rank_math/tools/default_tab', 'tools' );
 		?>
 		<h2 class="nav-tab-wrapper">
 			<?php

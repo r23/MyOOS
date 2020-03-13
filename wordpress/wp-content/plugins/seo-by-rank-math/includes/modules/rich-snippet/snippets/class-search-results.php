@@ -29,8 +29,7 @@ class Search_Results implements Snippet {
 	 */
 	public function process( $data, $jsonld ) {
 		$data['SearchResultsPage'] = [
-			'@context' => 'https://schema.org',
-			'@type'    => 'SearchResultsPage',
+			'@type' => 'SearchResultsPage',
 		];
 
 		return $data;

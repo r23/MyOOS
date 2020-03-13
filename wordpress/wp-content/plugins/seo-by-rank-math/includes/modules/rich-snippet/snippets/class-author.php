@@ -29,7 +29,6 @@ class Author implements Snippet {
 	 */
 	public function process( $data, $jsonld ) {
 		$data['ProfilePage'] = [
-			'@context'      => 'https://schema.org',
 			'@type'         => 'ProfilePage',
 			'headline'      => sprintf( 'About %s', get_the_author() ),
 			'datePublished' => get_the_date( 'Y-m-d' ),

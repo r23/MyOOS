@@ -32,7 +32,6 @@ class Review implements Snippet {
 	 */
 	public function process( $data, $jsonld ) {
 		$entity = [
-			'@context'      => 'https://schema.org',
 			'@type'         => 'Review',
 			'author'        => [
 				'@type' => 'Person',

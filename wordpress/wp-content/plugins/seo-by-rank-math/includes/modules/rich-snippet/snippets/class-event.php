@@ -30,7 +30,6 @@ class Event implements Snippet {
 	public function process( $data, $jsonld ) {
 		$type   = Helper::get_post_meta( 'snippet_event_type' );
 		$entity = [
-			'@context'    => 'https://schema.org',
 			'@type'       => $type ? $type : 'Event',
 			'name'        => $jsonld->parts['title'],
 			'description' => $jsonld->parts['desc'],
