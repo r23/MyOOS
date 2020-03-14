@@ -95,7 +95,20 @@ if (!empty($action)) {
         break;
 
       case 'add_product_attributes':
-	  
+			if (isset($_FILES['files'])) {
+				foreach ($_FILES['files']['name'] as $key => $name) {
+					if (empty($name)) {
+						// purge empty slots
+						unset($_FILES['files']['name'][$key]);
+						unset($_FILES['files']['type'][$key]);
+						unset($_FILES['files']['tmp_name'][$key]);
+						unset($_FILES['files']['error'][$key]);
+						unset($_FILES['files']['size'][$key]);
+					}
+				}
+			}
+
+			
           if ( ($_POST['options_values_image'] != 'none') && (isset($_FILES['options_values_image'])) ) {		  
 				$options_values_image = oos_get_uploaded_file('options_values_image');
 				$image_directory = oos_get_local_path(OOS_ABSOLUTE_PATH . OOS_IMAGES);
@@ -212,6 +225,20 @@ if (!empty($action)) {
         break;
 
       case 'update_product_attribute':
+			if (isset($_FILES['files'])) {
+				foreach ($_FILES['files']['name'] as $key => $name) {
+					if (empty($name)) {
+						// purge empty slots
+						unset($_FILES['files']['name'][$key]);
+						unset($_FILES['files']['type'][$key]);
+						unset($_FILES['files']['tmp_name'][$key]);
+						unset($_FILES['files']['error'][$key]);
+						unset($_FILES['files']['size'][$key]);
+					}
+				}
+			}	  
+	  
+	  
           if ( ($_POST['options_values_image'] != 'none') && (isset($_FILES['options_values_image'])) ) {
 				$options_values_image = oos_get_uploaded_file('options_values_image');
 				$image_directory = oos_get_local_path(OOS_ABSOLUTE_PATH . OOS_IMAGES);
