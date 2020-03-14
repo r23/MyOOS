@@ -49,8 +49,6 @@ if (oos_is_not_null($page_info)) {
 	$page_info = substr($page_info, 0, -1);
 }
 
-
-
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
 if (!empty($action)) {
@@ -119,18 +117,6 @@ if (!empty($action)) {
 				$options_values_image = '';
           }		  
 	  
-        if (OOS_PRICE_IS_BRUTTO == 'true'){
-          $tax_ratestable = $oostable['tax_rates'];
-          $productstable = $oostable['products'];
-          $sql = "SELECT tr.tax_rate
-                  FROM $tax_ratestable tr,
-                       $productstable p
-                  WHERE tr.tax_class_id = p.products_tax_class_id
-                    AND p.products_id = '".$_POST['products_id']."' ";
-          $tax_result = $dbconn->Execute($sql);
-          $tax = $tax_result->fields;
-          $_POST['value_price'] = ($_POST['value_price']/($tax[tax_rate]+100)*100);
-        }
 		$_POST['value_price'] = str_replace(',', '.', $_POST['value_price']);
 		
         $products_optionstable = $oostable['products_options'];
@@ -254,18 +240,6 @@ if (!empty($action)) {
           }
 
 		  
-        if (OOS_PRICE_IS_BRUTTO == 'true'){
-          $tax_ratestable = $oostable['tax_rates'];
-          $productstable = $oostable['products'];
-          $sql = "SELECT tr.tax_rate
-                   FROM $tax_ratestable tr,
-                        $productstable p
-                  WHERE tr.tax_class_id = p.products_tax_class_id 
-                    AND p.products_id = '".$_POST['products_id']."' ";
-          $tax_result = $dbconn->Execute($sql);
-          $tax = $tax_result->fields;
-          $_POST['value_price'] = ($_POST['value_price']/($tax[tax_rate]+100)*100);
-        }
 		$_POST['value_price'] = str_replace(',', '.', $_POST['value_price']);
 
 
@@ -1043,22 +1017,9 @@ function calcBasePriceFactor() {
 
 <?php
       $in_price= $attributes_values['options_values_price'];
-      if (OOS_PRICE_IS_BRUTTO == 'true') {
-        $in_price_netto = round($in_price, TAX_DECIMAL_PLACES);
-        $tax_ratestable = $oostable['tax_rates'];
-        $productstable = $oostable['products'];
-        $sql = "SELECT tr.tax_rate  FROM  $tax_ratestable tr,  $productstable p  WHERE  tr.tax_class_id = p.products_tax_class_id  AND  p.products_id = '". $attributes_values['products_id'] . "'";
-        $tax_result = $dbconn->Execute($sql);
-        $tax = $tax_result->fields;
-        $in_price= ($in_price*($tax[tax_rate]+100)/100);  
-      }
       $in_price = round ($in_price,TAX_DECIMAL_PLACES);
 ?>
-            <td align="right" class="smallText">&nbsp;<input type="text" name="value_price" value="<?php echo $in_price; ?>" size="6">
-<?php
-      if (OOS_PRICE_IS_BRUTTO == 'true') echo " - " . TEXT_TAX_INFO . $in_price_netto;
-      echo '&nbsp;</td>';
-?>
+            <td align="right" class="smallText">&nbsp;<input type="text" name="value_price" value="<?php echo $in_price; ?>" size="6">&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<input type="text" name="price_prefix" value="<?php echo $attributes_values['price_prefix']; ?>" size="2">&nbsp;</td>
 			<td align="center" class="smallText">&nbsp;<?php echo oos_submit_button(IMAGE_UPDATE); ?>&nbsp;<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], '&attribute_page=' . $attribute_page) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></a>&nbsp;</td>
           </tr>
@@ -1157,22 +1118,9 @@ function calcBasePriceFactor() {
 ?></td>
 <?php
       $in_price= $attributes_values['options_values_price'];
-      if (OOS_PRICE_IS_BRUTTO == 'true') {
-        $in_price_netto = round($in_price,TAX_DECIMAL_PLACES);
-        $tax_ratestable = $oostable['tax_rates'];
-        $productstable = $oostable['products'];
-        $sql = "SELECT tr.tax_rate FROM $tax_ratestable tr, $productstable p  WHERE tr.tax_class_id = p.products_tax_class_id  AND p.products_id = '". $attributes_values['products_id'] . "' ";
-        $tax_result = $dbconn->Execute($sql);
-        $tax = $tax_result->fields;
-        $in_price = ($in_price*($tax[tax_rate]+100)/100); 
-      }
       $in_price= round($in_price,TAX_DECIMAL_PLACES);
 ?>
-            <td align="right" class="smallText">&nbsp;
-<?php
-        echo $in_price;
-        if (OOS_PRICE_IS_BRUTTO == 'true') echo " - ". TEXT_TAX_INFO . $in_price_netto;
-?>&nbsp;</td>
+            <td align="right" class="smallText">&nbsp;<?php echo $in_price;?>&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<?php echo $attributes_values["price_prefix"]; ?>&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<?php echo '<a href="' . oos_href_link_admin($aContents['products_attributes'], 'action=update_attribute&attribute_id=' . $attributes_values['products_attributes_id'] . '&attribute_page=' . $attribute_page) . '">'; ?><?php echo oos_button(IMAGE_UPDATE); ?></a>&nbsp;&nbsp;<?php echo '<a href="' . oos_href_link_admin($aContents['products_attributes'], 'action=delete_product_attribute&attribute_id=' . $attributes_values['products_attributes_id'] . '&attribute_page=' . $attribute_page) , '">'; ?><?php echo oos_button( BUTTON_DELETE); ?></a>&nbsp;</td>
 <?php
