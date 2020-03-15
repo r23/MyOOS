@@ -1036,7 +1036,7 @@ updateWithTax();
 
                      </div>
 
-					<div class="tab-pane active" id="social" role="tabpanel">
+					<div class="tab-pane" id="social" role="tabpanel">
 
 						<div class="col-12 mt-3">
 							<h2><?php echo TEXT_HEADER_FACEBOOK; ?></h2>
