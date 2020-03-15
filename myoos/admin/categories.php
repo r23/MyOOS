@@ -796,33 +796,33 @@ if ($action == 'new_category' || $action == 'edit_category') {
 
 
 <?php
-		for ($i=0; $i < count($aLanguages); $i++) {
+		for ($i = 0; $i < count($aLanguages); $i++) {
 ?>
 					<fieldset>
 						<div class="form-group row">
 							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_EDIT_CATEGORIES_NAME; ?></label>
 							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
 							<div class="col-lg-9">
-								<?php echo oos_draw_input_field('categories_name[' . $aLanguages[$i]['id'] . ']', (empty($cInfo->categories_id) ? '' : oos_get_category_name($cInfo->categories_id, $aLanguages[$i]['id'])), '', FALSE, 'text', TRUE, FALSE, TEXT_EDIT_CATEGORIES_NAME); ?>
+								<?php echo oos_draw_input_field('categories_name[' . $aLanguages[$i]['id'] . ']', (empty($cInfo->categories_id) ? '' : oos_get_category_name($cInfo->categories_id, $aLanguages[$i]['id'])), '', FALSE, 'text', TRUE, FALSE, ''); ?>
 							</div>
 						</div>
 					</fieldset>
 <?php
 		}
-		for ($i=0; $i < count($aLanguages); $i++) {
+		for ($i = 0; $i < count($aLanguages); $i++) {
 ?>
 					<fieldset>
 						<div class="form-group row">
 							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_EDIT_CATEGORIES_PAGE_TITLE; ?></label>
 							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
 							<div class="col-lg-9">
-								<?php echo oos_draw_input_field('categories_page_title[' . $aLanguages[$i]['id'] . ']', (empty($cInfo->categories_id) ? '' : oos_get_categories_page_title($cInfo->categories_id, $aLanguages[$i]['id']))); ?>
+								<?php echo oos_draw_input_field('categories_page_title[' . $aLanguages[$i]['id'] . ']', (empty($cInfo->categories_id) ? '' : oos_get_categories_page_title($cInfo->categories_id, $aLanguages[$i]['id'])), '', FALSE, 'text', TRUE, FALSE,  ''); ?>
 							</div>
 						</div>
 					</fieldset>
 <?php
 		}
-		for ($i=0; $i < count($aLanguages); $i++) {
+		for ($i = 0; $i < count($aLanguages); $i++) {
 ?>
 					<fieldset>
 						<div class="form-group row">
@@ -835,7 +835,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 					</fieldset>
 <?php
 		}		
-		for ($i=0; $i < count($aLanguages); $i++) {
+		for ($i = 0; $i < count($aLanguages); $i++) {
 ?>
 					<fieldset>
 						<div class="form-group row">
@@ -851,7 +851,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 			</script>
 <?php
 		}
-		for ($i=0; $i < count($aLanguages); $i++) {
+		for ($i = 0; $i < count($aLanguages); $i++) {
 ?>
 					<fieldset>
 						<div class="form-group row">
@@ -943,7 +943,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 						
                      </div>
 					 
-					<div class="tab-pane active" id="social" role="tabpanel">
+					<div class="tab-pane" id="social" role="tabpanel">
 
 						<div class="col-12 mt-3">
 							<h2><?php echo TEXT_HEADER_FACEBOOK; ?></h2>
@@ -951,7 +951,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 
 
 <?php
-		for ($i=0; $i < count($aLanguages); $i++) {
+		for ($i = 0; $i < count($aLanguages); $i++) {
 ?>
 					<fieldset>
 						<div class="form-group row">
@@ -964,7 +964,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 					</fieldset>
 <?php
 		}
-		for ($i=0; $i < count($aLanguages); $i++) {
+		for ($i = 0; $i < count($aLanguages); $i++) {
 ?>
 					<fieldset>
 						<div class="form-group row">
@@ -1003,7 +1003,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 						</div>
 
 <?php
-		for ($i=0; $i < count($aLanguages); $i++) {
+		for ($i = 0; $i < count($aLanguages); $i++) {
 ?>
 					<fieldset>
 						<div class="form-group row">
@@ -1016,7 +1016,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 					</fieldset>
 <?php
 		}
-		for ($i=0; $i < count($aLanguages); $i++) {
+		for ($i = 0; $i < count($aLanguages); $i++) {
 ?>
 					<fieldset>
 						<div class="form-group row">
