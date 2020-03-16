@@ -20,6 +20,8 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
+define('HEADING_TITLE', 'Artikelmerkmale');
+
 define('HEADING_TITLE_OPT', 'Artikelmerkmale');
 define('HEADING_TITLE_VAL', 'Optionswert');
 define('HEADING_TITLE_ATRIB', 'Artikelmerkmale');
@@ -59,6 +61,3 @@ define('TEXT_PRODUCTS_QUANTITY', 'Artikelmenge:');
 define('TEXT_IMAGE_NONEXISTENT', 'BILD EXISTIERT NICHT');
 define('TEXT_PRODUCTS_IMAGE_DELETE',  '<b>Entfernen</b> des Bildes vom Artikel?');
 
-
-
-?>

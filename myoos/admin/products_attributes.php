@@ -27,7 +27,9 @@ require 'includes/functions/function_products_attributes.php';
 require 'includes/classes/class_upload.php';
 
 
-$languages = oos_get_languages();
+$aLanguages = oos_get_languages();
+$nLanguages = count($aLanguages);
+
 
 $page_info = '';
 if (isset($_GET['option_page'])) {
@@ -54,12 +56,12 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 if (!empty($action)) {
     switch ($action) {
       case 'add_product_options':
-        for ($i = 0, $n = count($languages); $i < $n; $i ++) {
+        for ($i = 0, $n = count($aLanguages); $i < $n; $i ++) {
           $option_name =  oos_db_prepare_input($_POST['option_name']);
           $option_type = oos_db_prepare_input($_POST['option_type']);
 
           $products_optionstable = $oostable['products_options'];
-          $dbconn->Execute("INSERT INTO $products_optionstable (products_options_id, products_options_name, products_options_languages_id,products_options_type) VALUES ('" . intval($_POST['products_options_id']) . "', '" . oos_db_input($option_name[$languages[$i]['id']]) . "', '" . oos_db_input($languages[$i]['id']) . "', '" . oos_db_input($option_type) . "')");
+          $dbconn->Execute("INSERT INTO $products_optionstable (products_options_id, products_options_name, products_options_languages_id,products_options_type) VALUES ('" . intval($_POST['products_options_id']) . "', '" . oos_db_input($option_name[$aLanguages[$i]['id']]) . "', '" . oos_db_input($aLanguages[$i]['id']) . "', '" . oos_db_input($option_type) . "')");
         }
         switch ($option_type) {
           case PRODUCTS_OPTIONS_TYPE_TEXT:
@@ -73,11 +75,11 @@ if (!empty($action)) {
         break;
 
       case 'add_product_option_values':
-        for ($i = 0, $n = count($languages); $i < $n; $i ++) {
+        for ($i = 0, $n = count($aLanguages); $i < $n; $i ++) {
           $value_name = oos_db_prepare_input($_POST['value_name']);
 
           $products_options_valuestable = $oostable['products_options_values'];
-          $dbconn->Execute("INSERT INTO $products_options_valuestable (products_options_values_id, products_options_values_languages_id, products_options_values_name) VALUES ('" . intval($_POST['value_id']) . "', '" . intval($languages[$i]['id']) . "', '" . oos_db_input($value_name[$languages[$i]['id']]) . "')");
+          $dbconn->Execute("INSERT INTO $products_options_valuestable (products_options_values_id, products_options_values_languages_id, products_options_values_name) VALUES ('" . intval($_POST['value_id']) . "', '" . intval($aLanguages[$i]['id']) . "', '" . oos_db_input($value_name[$aLanguages[$i]['id']]) . "')");
         }
 
         $products_options_values_to_products_optionstable = $oostable['products_options_values_to_products_options'];
@@ -176,11 +178,11 @@ if (!empty($action)) {
         break;
 
       case 'update_option_name':
-        for ($i = 0, $n = count($languages); $i < $n; $i ++) {
+        for ($i = 0, $n = count($aLanguages); $i < $n; $i ++) {
           $option_name = oos_db_prepare_input($_POST['option_name']);
           $option_type = oos_db_prepare_input($_POST['option_type']);
           $products_optionstable = $oostable['products_options'];
-          $dbconn->Execute("UPDATE $products_optionstable SET products_options_name = '" . $option_name[$languages[$i]['id']] . "', products_options_type = '" . $option_type . "' WHERE products_options_id = '" . intval($_POST['option_id']) . "' AND products_options_languages_id = '" . $languages[$i]['id'] . "'");
+          $dbconn->Execute("UPDATE $products_optionstable SET products_options_name = '" . $option_name[$aLanguages[$i]['id']] . "', products_options_type = '" . $option_type . "' WHERE products_options_id = '" . intval($_POST['option_id']) . "' AND products_options_languages_id = '" . $aLanguages[$i]['id'] . "'");
         }
         switch ($option_type) {
           case PRODUCTS_OPTIONS_TYPE_TEXT:
@@ -196,11 +198,11 @@ if (!empty($action)) {
         break;
 
       case 'update_value':
-        for ($i = 0, $n = count($languages); $i < $n; $i ++) {
+        for ($i = 0, $n = count($aLanguages); $i < $n; $i ++) {
           $value_name = oos_db_prepare_input($_POST['value_name']);
 
           $products_options_valuestable = $oostable['products_options_values'];
-          $dbconn->Execute("UPDATE $products_options_valuestable SET products_options_values_name = '" . $value_name[$languages[$i]['id']] . "' WHERE products_options_values_id = '" . intval($_POST['value_id']) . "' AND  products_options_values_languages_id= '" . $languages[$i]['id'] . "'");
+          $dbconn->Execute("UPDATE $products_options_valuestable SET products_options_values_name = '" . $value_name[$aLanguages[$i]['id']] . "' WHERE products_options_values_id = '" . intval($_POST['value_id']) . "' AND  products_options_values_languages_id= '" . $aLanguages[$i]['id'] . "'");
         }
 
         $products_options_values_to_products_optionstable = $oostable['products_options_values_to_products_options'];
@@ -528,10 +530,11 @@ function go_option() {
       if (($action == 'update_option') && ($_GET['option_id'] == $options_values['products_options_id'])) {
         echo '<form name="option" action="' . oos_href_link_admin($aContents['products_attributes'], 'action=update_option_name') . '" method="post">';
         $inputs = '';
-        for ($i = 0, $n = count($languages); $i < $n; $i ++) {
-          $option_name = $dbconn->Execute("SELECT products_options_name FROM " . $oostable['products_options'] . " WHERE products_options_id = '" . $options_values['products_options_id'] . "' AND  products_options_languages_id = '" . $languages[$i]['id'] . "'");
+        for ($i = 0, $n = count($aLanguages); $i < $n; $i ++) {
+          $option_name = $dbconn->Execute("SELECT products_options_name FROM " . $oostable['products_options'] . " WHERE products_options_id = '" . $options_values['products_options_id'] . "' AND  products_options_languages_id = '" . $aLanguages[$i]['id'] . "'");
           $option_name = $option_name->fields;
-          $inputs .= $languages[$i]['id'] . ':&nbsp;<input type="text" name="option_name[' . $languages[$i]['id'] . ']" size="20" value="' . $option_name['products_options_name'] . '">&nbsp;<br />';
+			if ($nLanguages > 1) $inputs .= oos_flag_icon($aLanguages[$i]);
+          $inputs .= $aLanguages[$i]['id'] . ':&nbsp;<input type="text" name="option_name[' . $aLanguages[$i]['id'] . ']" size="20" value="' . $option_name['products_options_name'] . '">&nbsp;<br />';
         }
 ?>
                 <td align="center" class="smallText">&nbsp;<?php echo $options_values['products_options_id']; ?><input type="hidden" name="option_id" value="<?php echo $options_values['products_options_id']; ?>">&nbsp;</td>
@@ -570,8 +573,9 @@ function go_option() {
 <?php
       echo '<form name="options" action="' . oos_href_link_admin($aContents['products_attributes'], 'action=add_product_options&option_page=' . $option_page) . '" method="post"><input type="hidden" name="products_options_id" value="' . $next_id . '">';
       $inputs = '';
-      for ($i = 0, $n = count($languages); $i < $n; $i ++) {
-        $inputs .= $languages[$i]['id'] . ':&nbsp;<input type="text" name="option_name[' . $languages[$i]['id'] . ']" size="20">&nbsp;<br />';
+      for ($i = 0, $n = count($aLanguages); $i < $n; $i ++) {
+		if ($nLanguages > 1) $inputs .= oos_flag_icon($aLanguages[$i]);
+        $inputs .= ':&nbsp;<input type="text" name="option_name[' . $aLanguages[$i]['id'] . ']" size="20">&nbsp;<br />';
       }
 ?>
                 <td align="center" class="smallText">&nbsp;<?php echo $next_id; ?>&nbsp;</td>
@@ -741,11 +745,12 @@ function go_option() {
       if (($action == 'update_option_value') && ($_GET['value_id'] == $values_values['products_options_values_id'])) {
         echo '<form name="values" action="' . oos_href_link_admin($aContents['products_attributes'], 'action=update_value') . '" method="post">';
         $inputs = '';
-        for ($i = 0, $n = count($languages); $i < $n; $i ++) {
+        for ($i = 0, $n = count($aLanguages); $i < $n; $i ++) {
           $products_options_valuestable = $oostable['products_options_values'];
-          $value_name = $dbconn->Execute("SELECT products_options_values_name FROM $products_options_valuestable WHERE products_options_values_id = '" . $values_values['products_options_values_id'] . "' AND products_options_values_languages_id= '" . $languages[$i]['id'] . "'");
+          $value_name = $dbconn->Execute("SELECT products_options_values_name FROM $products_options_valuestable WHERE products_options_values_id = '" . $values_values['products_options_values_id'] . "' AND products_options_values_languages_id= '" . $aLanguages[$i]['id'] . "'");
           $value_name = $value_name->fields;
-          $inputs .= $languages[$i]['id'] . ':&nbsp;<input type="text" name="value_name[' . $languages[$i]['id'] . ']" size="15" value="' . $value_name['products_options_values_name'] . '">&nbsp;<br />';
+			if ($nLanguages > 1) $inputs .= oos_flag_icon($aLanguages[$i]);
+          $inputs .= $aLanguages[$i]['id'] . ':&nbsp;<input type="text" name="value_name[' . $aLanguages[$i]['id'] . ']" size="15" value="' . $value_name['products_options_values_name'] . '">&nbsp;<br />';
         }
 ?>
                 <td align="center" class="smallText">&nbsp;<?php echo $values_values['products_options_values_id']; ?><input type="hidden" name="value_id" value="<?php echo $values_values['products_options_values_id']; ?>">&nbsp;</td>
@@ -812,8 +817,9 @@ function go_option() {
       }
 
       $inputs = '';
-      for ($i = 0, $n = count($languages); $i < $n; $i ++) {
-        $inputs .= $languages[$i]['id'] . ':&nbsp;<input type="text" name="value_name[' . $languages[$i]['id'] . ']" size="15">&nbsp;<br />';
+      for ($i = 0, $n = count($aLanguages); $i < $n; $i ++) {
+		if ($nLanguages > 1) $inputs .= oos_flag_icon($aLanguages[$i]);
+        $inputs .= $aLanguages[$i]['id'] . ':&nbsp;<input type="text" name="value_name[' . $aLanguages[$i]['id'] . ']" size="15">&nbsp;<br />';
       }
 ?>
                 </select>&nbsp;</td>
@@ -1023,7 +1029,9 @@ function calcBasePriceFactor() {
             <td align="center" class="smallText">&nbsp;<input type="text" name="price_prefix" value="<?php echo $attributes_values['price_prefix']; ?>" size="2">&nbsp;</td>
 			<td align="center" class="smallText">&nbsp;<?php echo oos_submit_button(IMAGE_UPDATE); ?>&nbsp;<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], '&attribute_page=' . $attribute_page) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></a>&nbsp;</td>
           </tr>
-<?php // grundpreis ?>
+<?php
+	if (BASE_PRICE == 'true') {
+?>
 		<tr class="<?php echo (!($rows % 2)? 'attributes-even' : 'attributes-odd');?>">
 			<td>&nbsp;</td>
 			<td>&nbsp;</td>
@@ -1049,9 +1057,9 @@ function calcBasePriceFactor() {
             </td>
             <td>&nbsp;</td>
           </tr>	
-
-
 <?php
+	}
+  
       if (DOWNLOAD_ENABLED == 'true') {
         $products_attributes_downloadtable = $oostable['products_attributes_download'];
         $download_result_raw ="SELECT products_attributes_filename, products_attributes_maxdays, products_attributes_maxcount
@@ -1188,13 +1196,14 @@ function calcBasePriceFactor() {
             <td align="right" class="smallText">&nbsp;<input type="text" name="price_prefix" size="2" value="+">&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<?php echo oos_submit_button(BUTTON_INSERT); ?>&nbsp;</td>
           </tr>
-<?php // grundpreis 
+<?php
+	if (BASE_PRICE == 'true') {
 
- if ($attributes_values['options_values_base_price'] != '') {
-	 $options_values_base_price = $attributes_values['options_values_base_price'];
- } else {
-	$options_values_base_price = 1;
- }
+		if ($attributes_values['options_values_base_price'] != '') {
+			$options_values_base_price = $attributes_values['options_values_base_price'];
+		} else {
+			$options_values_base_price = 1;
+		}
 ?>
 		<tr class="<?php echo (!($rows % 2)? 'attributes-even' : 'attributes-odd');?>">
 			<td>&nbsp;</td>
@@ -1222,6 +1231,8 @@ function calcBasePriceFactor() {
             <td>&nbsp;</td>
           </tr>		
 <?php
+	}
+
       if (DOWNLOAD_ENABLED == 'true') {
         $products_attributes_maxdays  = DOWNLOAD_MAX_DAYS;
         $products_attributes_maxcount = DOWNLOAD_MAX_COUNT;
