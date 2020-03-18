@@ -581,6 +581,9 @@ abstract class Ai1wm_Database {
 	public function get_tables() {
 		$tables = array();
 
+		// Get lower case table names
+		$lower_case_table_names = $this->get_lower_case_table_names();
+
 		// Get base tables and views
 		foreach ( array_merge( $this->get_base_tables(), $this->get_views() ) as $table_name ) {
 
@@ -590,9 +593,16 @@ abstract class Ai1wm_Database {
 
 				// Check table prefixes
 				foreach ( $this->get_include_table_prefixes() as $prefix ) {
-					if ( stripos( $table_name, $prefix ) === 0 ) {
-						$include = true;
-						break;
+					if ( $lower_case_table_names ) {
+						if ( stripos( $table_name, $prefix ) === 0 ) {
+							$include = true;
+							break;
+						}
+					} else {
+						if ( strpos( $table_name, $prefix ) === 0 ) {
+							$include = true;
+							break;
+						}
 					}
 				}
 
@@ -608,9 +618,16 @@ abstract class Ai1wm_Database {
 
 				// Check table prefixes
 				foreach ( $this->get_exclude_table_prefixes() as $prefix ) {
-					if ( stripos( $table_name, $prefix ) === 0 ) {
-						$exclude = true;
-						break;
+					if ( $lower_case_table_names ) {
+						if ( stripos( $table_name, $prefix ) === 0 ) {
+							$exclude = true;
+							break;
+						}
+					} else {
+						if ( strpos( $table_name, $prefix ) === 0 ) {
+							$exclude = true;
+							break;
+						}
 					}
 				}
 
@@ -1067,6 +1084,24 @@ abstract class Ai1wm_Database {
 	}
 
 	/**
+	 * Get MySQL lower case table names
+	 *
+	 * @return integer
+	 */
+	protected function get_lower_case_table_names() {
+		$result = $this->query( "SHOW VARIABLES LIKE 'lower_case_table_names'" );
+		$row    = $this->fetch_assoc( $result );
+
+		// Close result cursor
+		$this->free_result( $result );
+
+		// Get lower case table names
+		if ( isset( $row['Value'] ) ) {
+			return $row['Value'];
+		}
+	}
+
+	/**
 	 * Get MySQL collation name
 	 *
 	 * @param  string $collation_name Collation name
@@ -1098,7 +1133,7 @@ abstract class Ai1wm_Database {
 		// Close result cursor
 		$this->free_result( $result );
 
-		// Get create table
+		// Get create view
 		if ( isset( $row['Create View'] ) ) {
 			return $row['Create View'];
 		}
