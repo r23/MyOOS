@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2019 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -94,7 +94,7 @@
   * @param $uprid
   * @return string
   */
-  function oos_get_product_id($uprid) {
+function oos_get_product_id($uprid) {
     $pieces = explode('{', $uprid);
 
     if (is_numeric($pieces[0])) {

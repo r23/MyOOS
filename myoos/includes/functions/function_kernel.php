@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2019 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -799,27 +799,6 @@ function oos_round($number, $precision) {
 }
 
 
-function get_options_values_price( $nProductsId) {
-
-    // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
-
-
-	$ADODB_GETONE_EOF = "-1";
-
-	$products_optionstable = $oostable['products_options'];
-	$products_attributestable = $oostable['products_attributes'];
-	$options_name_sql = "SELECT MIN(patrib.options_values_price)
-                           FROM $products_optionstable popt,
-                                $products_attributestable patrib
-                           WHERE patrib.products_id='" . intval($nProductsId) . "'
-                             AND patrib.options_id = popt.products_options_id
-							 AND popt.products_options_type = 3";
-	return $dbconn->GetOne($options_name_sql);
-
-}
-
 
 function oos_get_categories($aCategories = '', $parent_id = '0', $indent = '') {
 
@@ -963,6 +942,67 @@ function oos_get_parent_categories(&$categories, $categories_id) {
   * @param $parameters
   * @return string
   */
+////
+// Return a product ID with attributes
+  function tep_get_uprid($prid, $params) {
+    if (is_numeric($prid)) {
+      $uprid = (int)$prid;
+
+      if (is_array($params) && (sizeof($params) > 0)) {
+        $attributes_check = true;
+        $attributes_ids = '';
+
+        reset($params);
+        while (list($option, $value) = each($params)) {
+          if (is_numeric($option) && is_numeric($value)) {
+            $attributes_ids .= '{' . (int)$option . '}' . (int)$value;
+          } else {
+            $attributes_check = false;
+            break;
+          }
+        }
+
+        if ($attributes_check == true) {
+          $uprid .= $attributes_ids;
+        }
+      }
+    } else {
+      $uprid = tep_get_prid($prid);
+
+      if (is_numeric($uprid)) {
+        if (strpos($prid, '{') !== false) {
+          $attributes_check = true;
+          $attributes_ids = '';
+
+// strpos()+1 to remove up to and including the first { which would create an empty array element in explode()
+          $attributes = explode('{', substr($prid, strpos($prid, '{')+1));
+
+          for ($i=0, $n=sizeof($attributes); $i<$n; $i++) {
+            $pair = explode('}', $attributes[$i]);
+
+            if (is_numeric($pair[0]) && is_numeric($pair[1])) {
+              $attributes_ids .= '{' . (int)$pair[0] . '}' . (int)$pair[1];
+            } else {
+              $attributes_check = false;
+              break;
+            }
+          }
+
+          if ($attributes_check == true) {
+            $uprid .= $attributes_ids;
+          }
+        }
+      } else {
+        return false;
+      }
+    }
+
+    return $uprid;
+  }  
+
+  
+  
+  
   function oos_get_uprid($prid, $parameters) {
     if (is_numeric($prid)) {
       $uprid = $prid;
@@ -1026,9 +1066,9 @@ function oos_get_parent_categories(&$categories, $categories_id) {
   * @param $products_id
   * @return boolean
   */
-  function oos_has_product_attributes($products_id) {
+function oos_has_product_attributes($sProductsId) {
 
-    $products_id = oos_get_product_id($products_id);
+    $nProductID = oos_get_product_id($sProductsId);
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -1037,14 +1077,44 @@ function oos_get_parent_categories(&$categories, $categories_id) {
     $products_attributestable = $oostable['products_attributes'];
     $query = "SELECT COUNT(*) AS total
               FROM $products_attributestable
-              WHERE products_id = '" . intval($products_id) . "'";
+              WHERE products_id = '" . intval($nProductID) . "'";
     $attributes = $dbconn->Execute($query);
     if ($attributes->fields['total'] > 0) {
-      return TRUE;
+		return TRUE;
     } else {
-      return FALSE;
+		return FALSE;
     }
-  }
+}
+
+
+ /**
+  * Check if product has attributes
+  *
+  * @param $products_id
+  * @return boolean
+  */
+function get_options_values_price( $nProductsId) {
+
+    // Get database information
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
+
+	$ADODB_GETONE_EOF = "-1";
+
+	$products_optionstable = $oostable['products_options'];
+	$products_attributestable = $oostable['products_attributes'];
+	$options_name_sql = "SELECT MIN(patrib.options_values_price)
+                           FROM $products_optionstable popt,
+                                $products_attributestable patrib
+                           WHERE patrib.products_id='" . intval($nProductsId) . "'
+                             AND patrib.options_id = popt.products_options_id
+							 AND popt.products_options_type = 3";
+	return $dbconn->GetOne($options_name_sql);
+
+}
+
+
+
 
 
   function oos_count_modules($modules = '') {

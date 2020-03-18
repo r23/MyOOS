@@ -1,0 +1,1 @@
+(2020-03-18 21:50:38) mysqli error: [1062: Duplicate entry '1-1' for key 'PRIMARY'] in EXECUTE("INSERT INTO edtq_products_options_values (products_options_values_id, products_options_values_languages_id, products_options_values_name) VALUES ('1', '1', 'grün')")

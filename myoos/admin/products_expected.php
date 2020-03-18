@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2019 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -144,7 +144,7 @@ $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GE
 	</section>
 	<!-- Page footer //-->
 	<footer>
-		<span>&copy; 2019 - <a href="https://www.oos-shop.de" target="_blank" rel="noopener">MyOOS [Shopsystem]</a></span>
+		<span>&copy; 2020 - <a href="https://www.oos-shop.de" target="_blank" rel="noopener">MyOOS [Shopsystem]</a></span>
 	</footer>
 </div>
 
