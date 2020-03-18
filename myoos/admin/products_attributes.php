@@ -51,6 +51,65 @@ if (oos_is_not_null($page_info)) {
 	$page_info = substr($page_info, 0, -1);
 }
 
+$options = array(
+	'image_versions' => array(				
+		// The empty image version key defines options for the original image.
+		// Keep in mind: these image manipulations are inherited by all other image versions from this point onwards. 
+		// Also note that the property 'no_cache' is not inherited, since it's not a manipulation.
+		'' => array(
+			// Automatically rotate images based on EXIF meta data:
+			'auto_orient' => TRUE
+		),
+		'large' => array(
+				// 'auto_orient' => TRUE,
+				// 'crop' => TRUE,
+				// 'jpeg_quality' => 82,
+				// 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+				// 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+				'max_width' => 1200, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+				'max_height' => 1200, // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
+		),
+		'medium_large' => array(
+				// 'auto_orient' => TRUE,
+				// 'crop' => TRUE,
+				// 'jpeg_quality' => 82,
+				// 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+				// 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+				'max_width' => 600, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+				'max_height' => 600 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
+		),					
+		'medium' => array(
+				// 'auto_orient' => TRUE,
+				// 'crop' => TRUE,
+				// 'jpeg_quality' => 82,
+				// 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+				// 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+				'max_width' => 420, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+				'max_height' => 455 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
+		),				
+		'small' => array(
+				// 'auto_orient' => TRUE,
+				// 'crop' => TRUE,
+				// 'jpeg_quality' => 82,
+				// 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+				// 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+				'max_width' => 150, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+				'max_height' => 150 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
+		),
+		'min' => array(
+				// 'auto_orient' => TRUE,
+				// 'crop' => TRUE,
+				// 'jpeg_quality' => 82,
+				// 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
+				// 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
+				'max_width' => 45, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+				'max_height' => 45 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
+		),				
+	),
+);
+
+
+
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
 if (!empty($action)) {
@@ -84,14 +143,14 @@ if (!empty($action)) {
 
         $products_options_values_to_products_optionstable = $oostable['products_options_values_to_products_options'];
         $dbconn->Execute("INSERT INTO $products_options_values_to_products_optionstable (products_options_id, products_options_values_id) VALUES ('" . $_POST['option_id'] . "', '" . $_POST['value_id'] . "')");
-        oos_redirect_admin(oos_href_link_admin($aFilename['products_attributes'], $page_info));
+        oos_redirect_admin(oos_href_link_admin($aContents['products_attributes'], $page_info));
         break;
 
       case 'setflag':
 		if (isset($_GET['aID'])) {
 			oos_set_attributes_status($_GET['aID'], $_GET['flag']);
           }
-        oos_redirect_admin(oos_href_link_admin($aFilename['products_attributes'], $page_info));
+        oos_redirect_admin(oos_href_link_admin($aContents['products_attributes'], $page_info));
         break;
 
       case 'add_product_attributes':
@@ -107,24 +166,26 @@ if (!empty($action)) {
 					}
 				}
 			}
-
 			
-          if ( ($_POST['options_values_image'] != 'none') && (isset($_FILES['options_values_image'])) ) {		  
-				$options_values_image = oos_get_uploaded_file('options_values_image');
-				$image_directory = oos_get_local_path(OOS_ABSOLUTE_PATH . OOS_IMAGES);
-          }
-          if (is_uploaded_file($options_values_image['tmp_name'])) {
-				$options_values_image = oos_copy_uploaded_file($options_values_image, $image_directory);
-          } else {
+			$oProductImage = new upload('options_values_image', $options);
+			
+			$dir_fs_catalog_images = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/';
+			$oProductImage->set_destination($dir_fs_catalog_images);
+
+			if ($oProductImage->parse() && oos_is_not_null($oProductImage->filename)) {		
+				$options_values_image = $oProductImage->filename;				
+			} else {
 				$options_values_image = '';
-          }		  
+			}		  
 	  
-		$_POST['value_price'] = str_replace(',', '.', $_POST['value_price']);
-		
+			$_POST['value_price'] = str_replace(',', '.', $_POST['value_price']);
+	
+		/*	
         $products_optionstable = $oostable['products_options'];
         $products_options_result = $dbconn->Execute("SELECT products_options_type FROM $products_optionstable WHERE products_options_id = '" . intval($_POST['options_id']) . "'");
         $products_options_array = $products_options_result->fields;
         $values_id = (($products_options_array['products_options_type'] == PRODUCTS_OPTIONS_TYPE_TEXT) or ($products_options_array['products_options_type'] == PRODUCTS_OPTIONS_TYPE_FILE)) ? PRODUCTS_OPTIONS_VALUE_TEXT_ID : $_POST['values_id'];
+		*/
 
 		if (isset($_POST['options_values_base_price']) ) {
             $options_values_base_price = oos_db_prepare_input($_POST['options_values_base_price']);
@@ -225,7 +286,17 @@ if (!empty($action)) {
 					}
 				}
 			}	  
-	  
+
+			$oProductImage = new upload('options_values_image', $options);
+			
+			$dir_fs_catalog_images = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/';
+			$oProductImage->set_destination($dir_fs_catalog_images);
+
+			if ($oProductImage->parse() && oos_is_not_null($oProductImage->filename)) {		
+				$options_values_image = $oProductImage->filename;				
+			} else {
+				$options_values_image = '';
+			}			  
 	  
           if ( ($_POST['options_values_image'] != 'none') && (isset($_FILES['options_values_image'])) ) {
 				$options_values_image = oos_get_uploaded_file('options_values_image');
@@ -534,7 +605,7 @@ function go_option() {
           $option_name = $dbconn->Execute("SELECT products_options_name FROM " . $oostable['products_options'] . " WHERE products_options_id = '" . $options_values['products_options_id'] . "' AND  products_options_languages_id = '" . $aLanguages[$i]['id'] . "'");
           $option_name = $option_name->fields;
 			if ($nLanguages > 1) $inputs .= oos_flag_icon($aLanguages[$i]);
-          $inputs .= $aLanguages[$i]['id'] . ':&nbsp;<input type="text" name="option_name[' . $aLanguages[$i]['id'] . ']" size="20" value="' . $option_name['products_options_name'] . '">&nbsp;<br />';
+          $inputs .= ':&nbsp;<input type="text" name="option_name[' . $aLanguages[$i]['id'] . ']" size="20" value="' . $option_name['products_options_name'] . '">&nbsp;<br />';
         }
 ?>
                 <td align="center" class="smallText">&nbsp;<?php echo $options_values['products_options_id']; ?><input type="hidden" name="option_id" value="<?php echo $options_values['products_options_id']; ?>">&nbsp;</td>
@@ -648,7 +719,7 @@ function go_option() {
                     <td class="main" colspan="3"><br /><?php echo TEXT_WARNING_OF_DELETE; ?></td>
                   </tr>
                   <tr>
-                    <td class="main" align="right" colspan="3"><br /><?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'value_page=' . $value_page . '&attribute_page=' . $attribute_page) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></a>&nbsp;</td>
+                    <td class="main" align="right" colspan="3"><br /><?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'value_page=' . $value_page . '&attribute_page=' . $attribute_page) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?>&nbsp;</td>
                   </tr>
 <?php
     } else {
@@ -750,7 +821,7 @@ function go_option() {
           $value_name = $dbconn->Execute("SELECT products_options_values_name FROM $products_options_valuestable WHERE products_options_values_id = '" . $values_values['products_options_values_id'] . "' AND products_options_values_languages_id= '" . $aLanguages[$i]['id'] . "'");
           $value_name = $value_name->fields;
 			if ($nLanguages > 1) $inputs .= oos_flag_icon($aLanguages[$i]);
-          $inputs .= $aLanguages[$i]['id'] . ':&nbsp;<input type="text" name="value_name[' . $aLanguages[$i]['id'] . ']" size="15" value="' . $value_name['products_options_values_name'] . '">&nbsp;<br />';
+          $inputs .= ':&nbsp;<input type="text" name="value_name[' . $aLanguages[$i]['id'] . ']" size="15" value="' . $value_name['products_options_values_name'] . '">&nbsp;<br />';
         }
 ?>
                 <td align="center" class="smallText">&nbsp;<?php echo $values_values['products_options_values_id']; ?><input type="hidden" name="value_id" value="<?php echo $values_values['products_options_values_id']; ?>">&nbsp;</td>
@@ -819,7 +890,7 @@ function go_option() {
       $inputs = '';
       for ($i = 0, $n = count($aLanguages); $i < $n; $i ++) {
 		if ($nLanguages > 1) $inputs .= oos_flag_icon($aLanguages[$i]);
-        $inputs .= $aLanguages[$i]['id'] . ':&nbsp;<input type="text" name="value_name[' . $aLanguages[$i]['id'] . ']" size="15">&nbsp;<br />';
+        $inputs .= ':&nbsp;<input type="text" name="value_name[' . $aLanguages[$i]['id'] . ']" size="15">&nbsp;<br />';
       }
 ?>
                 </select>&nbsp;</td>
@@ -871,7 +942,7 @@ function calcBasePriceFactor() {
   if ((pqty != 0) || (bqty != 0)) {
      document.forms["attributes"].options_values_base_price.value = doRound(bqty / pqty, 6);
   } else {
-     document.forms["attributes"].options_values_base_price.value = 100000;
+     document.forms["attributes"].options_values_base_price.value = 1.00000;
   }
 
 }
@@ -1095,7 +1166,7 @@ function calcBasePriceFactor() {
     } elseif (($action == 'delete_product_attribute') && ($_GET['attribute_id'] == $attributes_values['products_attributes_id'])) {
 ?>
             <td class="smallText">&nbsp;<b><?php echo $attributes_values["products_attributes_id"]; ?></b>&nbsp;</td>
-			<td class="smallText">&nbsp;<?php echo oos_info_image($attributes_values['options_values_image'], $products_name_only, SMALL_IMAGE_WIDTH, ''); ?><br>&nbsp;<?php echo $attributes_values['options_values_image']; ?>&nbsp;</td>
+			<td class="smallText">&nbsp;<?php echo  product_info_image($attributes_values['options_values_image'], $products_name_only, 'small'); ?><br>&nbsp;<?php echo $attributes_values['options_values_image']; ?>&nbsp;</td>
             <td class="smallText">&nbsp;<b><?php echo $products_name_only; ?></b>&nbsp;</td>
 			<td class="smallText">&nbsp;<?php echo $attributes_values['options_values_model']; ?>&nbsp;</td>
             <td class="smallText">&nbsp;<b><?php echo $options_name; ?></b>&nbsp;</td>
@@ -1110,7 +1181,7 @@ function calcBasePriceFactor() {
     } else {
 ?>
             <td class="smallText">&nbsp;<?php echo $attributes_values["products_attributes_id"]; ?>&nbsp;</td>
-			<td class="smallText">&nbsp;<?php echo oos_info_image($attributes_values['options_values_image'], $products_name_only, SMALL_IMAGE_WIDTH, ''); ?><br>&nbsp;<?php echo $attributes_values['options_values_image']; ?>&nbsp;</td>
+			<td class="smallText">&nbsp;<?php echo product_info_image($attributes_values['options_values_image'], $products_name_only, 'small'); ?><br>&nbsp;<?php echo $attributes_values['options_values_image']; ?>&nbsp;</td>
             <td class="smallText">&nbsp;<?php echo $products_name_only; ?>&nbsp;</td>
 			<td class="smallText">&nbsp;<?php echo $attributes_values['options_values_model']; ?>&nbsp;</td>
             <td class="smallText">&nbsp;<?php echo $options_name; ?>&nbsp;</td>
@@ -1119,9 +1190,9 @@ function calcBasePriceFactor() {
 			<td class="smallText">&nbsp;
 <?php
 	if ($attributes_values['options_values_status'] == '1') {
-		echo '<i class="fa fa-circle text-success" title="' . IMAGE_ICON_STATUS_GREEN . '"></i>&nbsp;<a href="' . oos_href_link_admin($aFilename['products_attributes'], 'action=setflag&flag=0&aID=' . $attributes_values['products_attributes_id'] . '&attribute_page=' . $attribute_page) . '"><i class="fa fa-circle-notch text-danger" title="' . IMAGE_ICON_STATUS_RED_LIGHT . '"></i></a>';
+		echo '<i class="fa fa-circle text-success" title="' . IMAGE_ICON_STATUS_GREEN . '"></i>&nbsp;<a href="' . oos_href_link_admin($aContents['products_attributes'], 'action=setflag&flag=0&aID=' . $attributes_values['products_attributes_id'] . '&attribute_page=' . $attribute_page) . '"><i class="fa fa-circle-notch text-danger" title="' . IMAGE_ICON_STATUS_RED_LIGHT . '"></i></a>';
 	} else {
-		echo '<a href="' . oos_href_link_admin($aFilename['products_attributes'], 'action=setflag&flag=1&aID=' . $attributes_values['products_attributes_id'] . '&attribute_page=' . $attribute_page) . '"><i class="fa fa-circle-notch text-success" title="' . IMAGE_ICON_STATUS_GREEN_LIGHT . '"></i></a>&nbsp;<i class="fa fa-circle text-danger" title="' . IMAGE_ICON_STATUS_RED . '"></i>';
+		echo '<a href="' . oos_href_link_admin($aContents['products_attributes'], 'action=setflag&flag=1&aID=' . $attributes_values['products_attributes_id'] . '&attribute_page=' . $attribute_page) . '"><i class="fa fa-circle-notch text-success" title="' . IMAGE_ICON_STATUS_GREEN_LIGHT . '"></i></a>&nbsp;<i class="fa fa-circle text-danger" title="' . IMAGE_ICON_STATUS_RED . '"></i>';
 	}
 ?></td>
 <?php
