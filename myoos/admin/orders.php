@@ -281,7 +281,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
             <td class="pageHeading" align="right"></td>
             <td class="pageHeading" align="right">
             <?php echo '<a href="' . oos_href_link_admin($aContents['edit_orders'], oos_get_all_get_params(array('action'))) . '">' . oos_button(BUTTON_EDIT) . '</a> &nbsp; '; ?>
-            <?php echo '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('action'))) . '">' . oos_button(IMAGE_BACK) . '</a>'; ?>
+            <?php echo '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('action'))) . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . BUTTON_BACK . '</strong></a>'; ?>
             </td>
           </tr>
         </table></td>
@@ -481,7 +481,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         </table></td>
       </form></tr>
       <tr>
-        <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['invoice'], 'oID=' . $_GET['oID']) . '" TARGET="_blank">' . oos_button(IMAGE_ORDERS_INVOICE) . '</a> <a href="' . oos_href_link_admin($aContents['packingslip'], 'oID=' . $_GET['oID']) . '" TARGET="_blank">' . oos_button(IMAGE_ORDERS_PACKINGSLIP) . '</a> <a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('action'))) . '">' . oos_button(IMAGE_BACK) . '</a>'; ?></td>
+        <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['invoice'], 'oID=' . $_GET['oID']) . '" TARGET="_blank">' . oos_button(IMAGE_ORDERS_INVOICE) . '</a> <a href="' . oos_href_link_admin($aContents['packingslip'], 'oID=' . $_GET['oID']) . '" TARGET="_blank">' . oos_button(IMAGE_ORDERS_PACKINGSLIP) . '</a> <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('action'))) . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . BUTTON_BACK . '</strong></a>'; ?></td>
       </tr>
 	      </table>
 <?php

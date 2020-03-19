@@ -238,13 +238,13 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     $nInfo = new objectInfo($newsletter);
 ?>
       <tr>
-        <td class="text-right"><?php echo '<a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $_GET['nID']) . '">' . oos_button(IMAGE_BACK) . '</a>'; ?></td>
+        <td class="text-right"><?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $_GET['nID']) . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . BUTTON_BACK . '</strong></a>'; ?></td>
       </tr>
       <tr>
         <td><tt><?php echo nl2br($nInfo->content); ?></tt></td>
       </tr>
       <tr>
-        <td class="text-right"><?php echo '<a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $_GET['nID']) . '">' . oos_button(IMAGE_BACK) . '</a>'; ?></td>
+        <td class="text-right"><?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $_GET['nID']) . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . BUTTON_BACK . '</strong></a>'; ?></td>
       </tr>
 <?php
   } elseif ($action == 'send') {
@@ -319,7 +319,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         <td></td>
       </tr>
       <tr>
-        <td><?php echo '<a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $_GET['nID']) . '">' . oos_button(IMAGE_BACK) . '</a>'; ?></td>
+        <td><?php echo '<a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $_GET['nID']) . '">' . oos_button(BUTTON_BACK) . '</a>'; ?></td>
       </tr>
 <?php
   } else {

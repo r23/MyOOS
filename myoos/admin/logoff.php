@@ -49,7 +49,7 @@ require 'includes/header.php';
 
 				<div class="form-group text-right m-t-20">
 					<div class="col-xs-12">
-						<?php echo '<a href="' . oos_href_link_admin($aContents['login']) . '">'; ?><button class="btn btn-primary btn-custom w-md" type="submit"><?php echo IMAGE_BACK; ?></button></a>
+						<?php echo '<a href="' . oos_href_link_admin($aContents['login']) . '">'; ?><button class="btn btn-primary btn-custom w-md" type="submit"><?php echo BUTTON_BACK; ?></button></a>
 					</div>
 				</div>	
 				

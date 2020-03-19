@@ -301,7 +301,7 @@ $currencies = new currencies();
 ?>
                 <table border="0" width="100%" cellpadding="0" cellspacing="2">
                   <tr>
-                    <td><?php echo oos_submit_button('back', IMAGE_BACK, 'name="back"'); ?></td>
+                    <td><?php echo oos_submit_button('back', BUTTON_BACK, 'name="back"'); ?></td>
                     <td class="text-right"><?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['gv_mail']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>' . oos_submit_button(IMAGE_SEND_EMAIL); ?></td>
                   </tr>
                 </table></td>

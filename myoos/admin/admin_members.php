@@ -338,7 +338,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
   }
 ?>
               <tr>
-                <td colspan="2" valign="top" align="right"><?php if ($_GET['gPath'] != 1) { echo  '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['admin_members'], 'gID=' . $_GET['gPath']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>' . oos_submit_button(BUTTON_INSERT); } else { echo oos_submit_button('back', IMAGE_BACK); } ?>&nbsp;</td>
+                <td colspan="2" valign="top" align="right"><?php if ($_GET['gPath'] != 1) { echo  '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['admin_members'], 'gID=' . $_GET['gPath']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>' . oos_submit_button(BUTTON_INSERT); } else { echo oos_submit_button(BUTTON_BACK); } ?>&nbsp;</td>
               </tr>
             </table></form>
 <?php
@@ -384,7 +384,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                 <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
                     <td class="smallText" valign="top"><?php echo TEXT_COUNT_GROUPS . $count_groups; ?></td>
-                    <td class="smallText" valign="top" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['admin_members']) . '">' . oos_button(IMAGE_BACK) . '</a> <a href="' . oos_href_link_admin($aContents['admin_members'], 'gID=' . $gInfo->admin_groups_id . '&action=new_group') . '">' . oos_button(IMAGE_NEW_GROUP) . '</a>'; ?>&nbsp;</td>
+                    <td class="smallText" valign="top" align="right"><?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['admin_members']) . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . BUTTON_BACK . '</strong></a> <a href="' . oos_href_link_admin($aContents['admin_members'], 'gID=' . $gInfo->admin_groups_id . '&action=new_group') . '">' . oos_button(IMAGE_NEW_GROUP) . '</a>'; ?>&nbsp;</td>
                   </tr>
                 </table></td>
               </tr>
@@ -511,7 +511,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     case 'del_member':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE . '</b>');
       if ($mInfo->admin_id == 1 || $mInfo->admin_email_address == STORE_OWNER_EMAIL_ADDRESS) {
-        $contents[] = array('align' => 'center', 'text' => '<br /><a href="' . oos_href_link_admin($aContents['admin_members'], 'page=' . $nPage . '&mID=' . $mInfo->admin_id) . '">' . oos_button(IMAGE_BACK) . '</a><br />&nbsp;');
+        $contents[] = array('align' => 'center', 'text' => '<br /><a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['admin_members'], 'page=' . $nPage . '&mID=' . $mInfo->admin_id) . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . BUTTON_BACK . '</strong></a></a><br />&nbsp;');
       } else {
         $contents = array('form' => oos_draw_form('id', 'edit', $aContents['admin_members'], 'action=member_delete&page=' . $nPage . '&mID=' . $admin['admin_id'], 'post', FALSE, 'enctype="multipart/form-data"'));
         $contents[] = array('text' => oos_draw_hidden_field('admin_id', $mInfo->admin_id));
@@ -556,7 +556,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       $contents = array('form' => oos_draw_form('id', 'delete_group', $aContents['admin_members'], 'action=group_delete&gID=' . $gInfo->admin_groups_id, 'post', FALSE, 'enctype="multipart/form-data"'));
       if ($gInfo->admin_groups_id == 1) {
         $contents[] = array('align' => 'center', 'text' => sprintf(TEXT_INFO_DELETE_GROUPS_INTRO_NOT, $gInfo->admin_groups_name));
-        $contents[] = array('align' => 'center', 'text' => '<br /><a href="' . oos_href_link_admin($aContents['admin_members'], 'gID=' . $_GET['gID']) . '">' . oos_button(IMAGE_BACK) . '</a><br />&nbsp;');
+        $contents[] = array('align' => 'center', 'text' => '<br /><a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['admin_members'], 'gID=' . $_GET['gID']) . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . BUTTON_BACK . '</strong></a><br />&nbsp;');
       } else {
         $contents[] = array('text' => oos_draw_hidden_field('set_groups_id', substr($del_groups_prepare, 4)) );
         $contents[] = array('align' => 'center', 'text' => sprintf(TEXT_INFO_DELETE_GROUPS_INTRO, $gInfo->admin_groups_name));

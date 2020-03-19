@@ -206,7 +206,7 @@
                 </td>
               </tr>
               <tr>
-                <td><table width="100%" border="0" cellspacing="0" cellpadding="3"><tr><td class="smallText" valign="top"><?php echo TEXT_INFO_MODIFIED . $myAccount['admin_modified']; ?></td><td class="text-right"><?php if ($action == 'edit_process') { echo '<a href="' . oos_href_link_admin($aContents['admin_account']) . '">' . oos_button(IMAGE_BACK) . '</a> '; if (isset($_SESSION['confirm_account'])) { echo oos_submit_button(IMAGE_SAVE); } } elseif ($action == 'check_account') { echo '&nbsp;'; } else { echo oos_submit_button(BUTTON_EDIT); } ?></td><tr></table></td>
+                <td><table width="100%" border="0" cellspacing="0" cellpadding="3"><tr><td class="smallText" valign="top"><?php echo TEXT_INFO_MODIFIED . $myAccount['admin_modified']; ?></td><td class="text-right"><?php if ($action == 'edit_process') { echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['admin_account']) . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . BUTTON_BACK . '</strong></a> '; if (isset($_SESSION['confirm_account'])) { echo oos_submit_button(IMAGE_SAVE); } } elseif ($action == 'check_account') { echo '&nbsp;'; } else { echo oos_submit_button(BUTTON_EDIT); } ?></td><tr></table></td>
               </tr>
             </table>
             </td>
@@ -229,7 +229,7 @@
         $contents[] = array('text' => '&nbsp;' . TEXT_INFO_INTRO_CONFIRM_PASSWORD_ERROR);
       }
       $contents[] = array('align' => 'center', 'text' => oos_draw_password_field('password_confirmation'));
-      $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['admin_account']) . '">' . oos_button(IMAGE_BACK) . '</a> ' . oos_submit_button(IMAGE_CONFIRM) . '<br />&nbsp');
+      $contents[] = array('align' => 'center', 'text' => '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['admin_account']) . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . BUTTON_BACK . '</strong></a> ' . oos_submit_button(IMAGE_CONFIRM) . '<br />&nbsp');
       break;
 
     default:

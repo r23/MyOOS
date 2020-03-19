@@ -70,7 +70,7 @@
 
 						<div class="form-group text-right m-t-20">
 							<div class="col-xs-12">
-								<?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">'; ?><button class="btn btn-primary btn-custom w-md"><?php echo IMAGE_BACK; ?></button></a>
+								<?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">'; ?><button class="btn btn-primary btn-custom w-md"><?php echo BUTTON_BACK; ?></button></a>
 							</div>
 						</div>	
 				

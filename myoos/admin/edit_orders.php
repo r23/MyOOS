@@ -514,7 +514,7 @@ $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " .
           <tr>
             <td class="pageHeading"><?php echo HEADING_TITLE; ?> #<?php echo $oID; ?></td>
             <td class="pageHeading" align="right"></td>
-            <td class="pageHeading" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('action'))) . '">' . oos_button(IMAGE_BACK) . '</a>'; ?></td>
+            <td class="pageHeading" align="right"><?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('action'))) . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . BUTTON_BACK . '</strong></a>'; ?></td>
           </tr>
         </table></td>
       </tr>
@@ -925,7 +925,7 @@ if($action == "add_product") {
           <tr>
             <td class="pageHeading"><?php echo ADDING_TITLE; ?> #<?php echo $oID; ?></td>
             <td class="pageHeading" align="right"></td>
-            <td class="pageHeading" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('action'))) . '">' . oos_button(IMAGE_BACK) . '</a>'; ?></td>
+            <td class="pageHeading" align="right"><?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('action'))) . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . BUTTON_BACK . '</strong></a>'; ?></td>
           </tr>
         </table></td>
       </tr>
