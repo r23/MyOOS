@@ -26,7 +26,6 @@ use Endroid\QrCode\LabelAlignment;
 use Endroid\QrCode\QrCode;
 use Endroid\QrCode\Response\QrCodeResponse;
 
-
 if (isset($_GET['products_id'])) {
 	if (!isset($nProductsID)) $nProductsID = oos_get_product_id($_GET['products_id']);
 } else {
@@ -140,7 +139,176 @@ if (!$product_info_result->RecordCount()) {
     $info_product_price_list = 0;
 	$schema_product_price = NULL;
 	$base_product_price = $product_info['products_price'];
+##
 
+	// Selector 
+	$bTypeRadio = FALSE;
+	$aSelector = array();
+
+    $products_optionstable = $oostable['products_options'];
+    $products_attributestable = $oostable['products_attributes'];
+    $attributes_sql = "SELECT COUNT(*) AS total
+                       FROM $products_optionstable popt,
+                            $products_attributestable patrib
+                       WHERE patrib.products_id = '" . intval($nProductsId) . "'
+                         AND patrib.options_id = popt.products_options_id
+                         AND popt.products_options_languages_id = '" . intval($nLanguageID) . "'";
+    $products_attributes = $dbconn->Execute($attributes_sql);
+    if ($products_attributes->fields['total'] > 0) {
+
+		$products_optionstable = $oostable['products_options'];
+		$products_attributestable = $oostable['products_attributes'];
+		$options_name_sql = "SELECT DISTINCT popt.products_options_id, popt.products_options_name,
+                                  popt.products_options_type, popt.products_options_length,
+                                  popt.products_options_comment
+                           FROM $products_optionstable popt,
+                                $products_attributestable patrib
+                           WHERE patrib.products_id='" . intval($nProductsId) . "'
+                             AND patrib.options_id = popt.products_options_id
+                             AND popt.products_options_languages_id = '" . intval($nLanguageID) . "' 
+                           ORDER BY popt.products_options_name";
+		$products_options_name_result = $dbconn->Execute($options_name_sql);
+		while ($products_options_name = $products_options_name_result->fields) {
+
+			switch ($products_options_name['products_options_type']) {
+				case PRODUCTS_OPTIONS_TYPE_RADIO:
+					$bTypeRadio = TRUE;
+
+					$products_attributestable = $oostable['products_attributes'];
+					$products_options_valuestable = $oostable['products_options_values'];
+					$products_options_sql = "SELECT pov.products_options_values_id, pov.products_options_values_name,
+											pa.options_values_model, pa.options_values_image, pa.options_values_base_price,
+											pa.products_product_quantity, pa.options_values_base_quantity, pa.options_values_base_unit,	
+                                            pa.options_values_price, pa.price_prefix, pa.options_sort_order
+                                     FROM $products_attributestable pa,
+                                          $products_options_valuestable pov
+                                     WHERE pa.products_id = '" . intval($nProductsId) . "' 
+                                       AND pa.options_id = '" . $products_options_name['products_options_id'] . "' 
+									   AND pa.options_values_status = 1
+                                       AND pa.options_values_id = pov.products_options_values_id 
+                                       AND pov.products_options_values_languages_id = '" . intval($nLanguageID) . "'  
+                                   ORDER BY pa.options_sort_order, pa.options_values_price";
+					$products_options_result = $dbconn->Execute($products_options_sql);
+
+					$row = 0;
+					while ($products_options_array = $products_options_result->fields) {
+						$row++;
+
+						$options_values_price = '';
+						$option_base = '';
+						$sChecked = '';
+						
+						$checked = FALSE;
+						if ($row == 1) {
+							$checked = TRUE;
+						}
+						
+						if ($_SESSION['cart']->contents[$_GET['products_id']]['attributes'][$products_options_name['products_options_id']] == $products_options_array['products_options_values_id']) {
+							$checked = TRUE;
+						}
+						
+						if ($checked == TRUE) {
+
+							if ($aUser['show_price'] == 1 ) {
+								if ($products_options_array['options_values_price'] > '0') {
+									$product_info['products_price'] = $products_options_array['options_values_price'];
+									if ($products_options_array['options_values_base_price'] != 1) {
+											$product_info['products_base_price'] = $products_options_array['options_values_base_price'];
+											$product_info['products_base_unit'] = $products_options_array['options_values_base_unit'];
+									} else {
+										$product_info['products_base_price'] = $products_options_array['options_values_base_price'];
+										$product_info['products_base_unit'] = $products_options_array['options_values_base_unit'];									
+									}
+								}
+							}
+
+							if ($products_options_array['options_values_model'] != '') {
+								$product_info['products_model'] = $products_options_array['options_values_model'];
+							} 
+
+
+							if ($products_options_array['options_values_image'] != '') {
+								$product_info['products_image'] = $products_options_array['options_values_image'];
+							} 							
+						}
+											
+						$sName = 'id[' . $products_options_name['products_options_id'] . ']';
+						
+						$sValue = $products_options_array['products_options_values_id'];
+
+
+						if ( ($checked === true) || ( isset($GLOBALS[$name]) && is_string($GLOBALS[$name]) && ( ($GLOBALS[$name] == 'on') || (isset($value) && (stripslashes($GLOBALS[$name]) == $value)) ) ) ) {
+							$sChecked = ' checked="checked"';
+						}
+					
+						if ($aUser['show_price'] == 1 ) {			
+							if ($products_options_array['options_values_price'] > '0') {
+								$options_values_price = $oCurrencies->display_price($products_options_array['options_values_price'], oos_get_tax_rate($product_info['products_tax_class_id']));
+							}
+						
+							if ($products_options_array['options_values_base_price'] != 1) {
+								$option_base_product_price = $oCurrencies->display_price($products_options_array['options_values_price'] * $products_options_array['options_values_base_price'], oos_get_tax_rate($product_info['products_tax_class_id']));
+								$option_base = $products_options_array['options_values_base_unit'] . ' = ' . $option_base_product_price . '"';							
+							}
+						}
+						
+						// Image
+						if ($products_options_array['options_values_image'] != '') {
+							$values_image = $products_options_array['options_values_image'];
+						} else {
+							$values_image = $product_info['products_image'];
+						}
+						$change_image = ' change-image="images/images_big/' . $values_image . '"';						
+
+						// Model
+						if ($products_options_array['options_values_model'] != '') {
+							$sModel = $products_options_array['options_values_model'];
+						} else {
+							$sModel = $product_info['products_model'];
+						}
+						$change_model = ' change-model="' . $sModel . '"';	
+
+
+						
+						$options .= $products_options_array['products_options_values_name'];
+						$options .= $products_options_name['products_options_comment'];
+						
+						$aSelector[] = array('name' => $sName,
+											 'value' => $sValue,
+											 'checked' => $sChecked,
+											 'image' => $change_image,
+											 'change_model' => $change_model,
+											'options_values_price' 	=> $options_values_price,
+											'option_base' => $option_base,
+											'options_values_model' => $products_options_array['options_values_model']);
+
+						// Move that ADOdb pointer!
+						$products_options_result->MoveNext();
+					}
+
+					break;
+				}
+				
+				// Move that ADOdb pointer!
+				$products_options_name_result->MoveNext();
+	#		}
+			}
+			$options .= '</table></fieldset>';
+	}
+
+	$smarty->assign('selector', $aSelector);
+
+
+
+
+
+
+
+
+
+
+
+##
 	$info_product_price = $oCurrencies->display_price($product_info['products_price'], oos_get_tax_rate($product_info['products_tax_class_id']));
 	$schema_product_price = $oCurrencies->schema_price($product_info['products_price'], oos_get_tax_rate($product_info['products_tax_class_id']), 1, FALSE);
 
@@ -337,7 +505,7 @@ if (!$product_info_result->RecordCount()) {
 
 				// Create a basic QR code
 				$qrCode = new QrCode($sUrl);
-				$qrCode->setSize(300);
+				$qrCode->setSize(200);
 
 				// Set advanced options
 				$qrCode->setWriterByName('png');
@@ -359,7 +527,7 @@ if (!$product_info_result->RecordCount()) {
 	// End AR	
  
 
-    require_once MYOOS_INCLUDE_PATH . '/includes/modules/products_options.php';
+
 
     // assign Smarty variables;
     $smarty->assign(
