@@ -139,7 +139,6 @@ if (!$product_info_result->RecordCount()) {
     $info_product_price_list = 0;
 	$schema_product_price = NULL;
 	$base_product_price = $product_info['products_price'];
-##
 
 	// Selector 
 	$bTypeRadio = FALSE;
@@ -150,7 +149,7 @@ if (!$product_info_result->RecordCount()) {
     $attributes_sql = "SELECT COUNT(*) AS total
                        FROM $products_optionstable popt,
                             $products_attributestable patrib
-                       WHERE patrib.products_id = '" . intval($nProductsId) . "'
+                       WHERE patrib.products_id = '" . intval($nProductsID) . "'
                          AND patrib.options_id = popt.products_options_id
                          AND popt.products_options_languages_id = '" . intval($nLanguageID) . "'";
     $products_attributes = $dbconn->Execute($attributes_sql);
@@ -163,7 +162,7 @@ if (!$product_info_result->RecordCount()) {
                                   popt.products_options_comment
                            FROM $products_optionstable popt,
                                 $products_attributestable patrib
-                           WHERE patrib.products_id='" . intval($nProductsId) . "'
+                           WHERE patrib.products_id='" . intval($nProductsID) . "'
                              AND patrib.options_id = popt.products_options_id
                              AND popt.products_options_languages_id = '" . intval($nLanguageID) . "' 
                            ORDER BY popt.products_options_name";
@@ -178,11 +177,11 @@ if (!$product_info_result->RecordCount()) {
 					$products_options_valuestable = $oostable['products_options_values'];
 					$products_options_sql = "SELECT pov.products_options_values_id, pov.products_options_values_name,
 											pa.options_values_model, pa.options_values_image, pa.options_values_base_price,
-											pa.products_product_quantity, pa.options_values_base_quantity, pa.options_values_base_unit,	
+											pa.options_values_quantity, pa.options_values_base_quantity, pa.options_values_base_unit,	
                                             pa.options_values_price, pa.price_prefix, pa.options_sort_order
                                      FROM $products_attributestable pa,
                                           $products_options_valuestable pov
-                                     WHERE pa.products_id = '" . intval($nProductsId) . "' 
+                                     WHERE pa.products_id = '" . intval($nProductsID) . "' 
                                        AND pa.options_id = '" . $products_options_name['products_options_id'] . "' 
 									   AND pa.options_values_status = 1
                                        AND pa.options_values_id = pov.products_options_values_id 
@@ -267,11 +266,6 @@ if (!$product_info_result->RecordCount()) {
 							$sModel = $product_info['products_model'];
 						}
 						$change_model = ' change-model="' . $sModel . '"';	
-
-
-						
-						$options .= $products_options_array['products_options_values_name'];
-						$options .= $products_options_name['products_options_comment'];
 						
 						$aSelector[] = array('name' => $sName,
 											 'value' => $sValue,
@@ -280,6 +274,8 @@ if (!$product_info_result->RecordCount()) {
 											 'change_model' => $change_model,
 											'options_values_price' 	=> $options_values_price,
 											'option_base' => $option_base,
+											'products_options_values_name' => $products_options_array['products_options_values_name'],
+											'products_options_comment' => $products_options_name['products_options_comment'],
 											'options_values_model' => $products_options_array['options_values_model']);
 
 						// Move that ADOdb pointer!
@@ -291,12 +287,14 @@ if (!$product_info_result->RecordCount()) {
 				
 				// Move that ADOdb pointer!
 				$products_options_name_result->MoveNext();
-	#		}
-			}
-			$options .= '</table></fieldset>';
+		}
 	}
 
-	$smarty->assign('selector', $aSelector);
+echo '<pre>';
+print_r($aSelector);
+echo '</pre>';
+
+	$smarty->assign('selector_array', $aSelector);
 
 
 
