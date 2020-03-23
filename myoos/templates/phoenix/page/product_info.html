@@ -155,63 +155,24 @@
 											Configurator
 								</h6>
 
-										<div class="form-group row">
-											<label class="col-sm-10 form-radio form-radio-primary">												
-												<input type="radio" name="id[6]" value="438" checked="checked" 
-													data-option-value="14,50 EUR" 
-													data-option-base="Liter = 29,00 EUR" 
-													data-change-image="images/images_big/nass-versiegelung_glanz-lackschutz_petzoldts_500_neu.jpg" 
-													data-change-model="94940">
-												<i></i> 0,5-l-Pumpsprühflasche
-											</label>
-											<label class="col-sm-2 col-form-label">14,50 EUR</label>											
-										</div>
-
-							{foreach $selector_array as $i}	
-
-				<!-- item -->
+								{foreach $selector_array as $i}	
+								<!-- item -->
 								<div class="form-group row">
 									<label class="col-sm-10 form-radio form-radio-primary">												
 												<input type="radio" name="{$i.name}" value="{$i.value}" 
-													data-option-value="14,50 EUR" 
-													data-option-base="Liter = 29,00 EUR" 
+													data-option-value="{$i.options_values_price}" 
+													data-option-base="{$i.option_base}" 
 													data-change-image="{$i.image}" 
-													data-change-model="{$i.change_model}" {$i.checked}>
-												<i></i> 0,5-l-Pumpsprühflasche
+													data-change-model="{$i.change_model}" 
+													{if $i.status == 0}disabled {else}{$i.checked}{/if}>
+												<i></i> {if $i.status == 0}<del>{$i.products_options_values_name}</del> <span class="font-weight-light">(out of stock)</span>{else}{$i.products_options_values_name}{/if}
 											</label>
-									<label class="col-sm-2 col-form-label">14,50 EUR</label>											
+									<label class="col-sm-2 col-form-label">{$i.options_values_price}</label>											
 								</div>				
-							{/foreach}	
+								{/foreach}	
 
-
-						$aSelector[] = array('name' => $sName,
-											 'value' => $sValue,
-											 'checked' => $sChecked,
-											 'image' => $change_image,
-											 'change_model' => $change_model,
-											'options_values_price' 	=> $options_values_price,
-											'option_base' => $option_base,
-											'products_options_values_name' => $products_options_array['products_options_values_name'],
-											'products_options_comment' => $products_options_name['products_options_comment'],
-											'options_values_model' => $products_options_array['options_values_model']);
-
-
-										<div>
-											<label class="form-checkbox form-checkbox-primary">
-												<input type="radio" name="radio"
-													data-count-target=".item-price" 
-													data-count-math="5.99" disabled>
-												<i></i> + <del>out of stock</del> <span class="font-weight-light">(out of stock)</span>
-											</label>
-										</div>
-
-
-									</div>
-{/if}
-
-
-
-
+							</div>
+						{/if}
 
 	
                         <div class="widget color mb-15">

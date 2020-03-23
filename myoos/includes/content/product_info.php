@@ -178,12 +178,11 @@ if (!$product_info_result->RecordCount()) {
 					$products_options_sql = "SELECT pov.products_options_values_id, pov.products_options_values_name,
 											pa.options_values_model, pa.options_values_image, pa.options_values_base_price,
 											pa.options_values_quantity, pa.options_values_base_quantity, pa.options_values_base_unit,	
-                                            pa.options_values_price, pa.price_prefix, pa.options_sort_order
+                                            pa.options_values_price, pa.options_values_status, pa.price_prefix, pa.options_sort_order
                                      FROM $products_attributestable pa,
                                           $products_options_valuestable pov
                                      WHERE pa.products_id = '" . intval($nProductsID) . "' 
                                        AND pa.options_id = '" . $products_options_name['products_options_id'] . "' 
-									   AND pa.options_values_status = 1
                                        AND pa.options_values_id = pov.products_options_values_id 
                                        AND pov.products_options_values_languages_id = '" . intval($nLanguageID) . "'  
                                    ORDER BY pa.options_sort_order, pa.options_values_price";
@@ -206,6 +205,12 @@ if (!$product_info_result->RecordCount()) {
 							$checked = TRUE;
 						}
 						
+						if ($checked == TRUE) {
+							if ($products_options_array['options_values_status'] == 0){
+								$checked = FALSE;
+								$row = ($row == 1) ? 0 : $row;
+							}
+						}
 						if ($checked == TRUE) {
 
 							if ($aUser['show_price'] == 1 ) {
@@ -236,8 +241,8 @@ if (!$product_info_result->RecordCount()) {
 						$sValue = $products_options_array['products_options_values_id'];
 
 
-						if ( ($checked === true) || ( isset($GLOBALS[$name]) && is_string($GLOBALS[$name]) && ( ($GLOBALS[$name] == 'on') || (isset($value) && (stripslashes($GLOBALS[$name]) == $value)) ) ) ) {
-							$sChecked = ' checked="checked"';
+						if ( ($checked === TRUE) || ( isset($GLOBALS[$name]) && is_string($GLOBALS[$name]) && ( ($GLOBALS[$name] == 'on') || (isset($value) && (stripslashes($GLOBALS[$name]) == $value)) ) ) ) {
+							$sChecked = 'checked="checked"';
 						}
 					
 						if ($aUser['show_price'] == 1 ) {			
@@ -257,7 +262,7 @@ if (!$product_info_result->RecordCount()) {
 						} else {
 							$values_image = $product_info['products_image'];
 						}
-						$change_image = ' change-image="images/images_big/' . $values_image . '"';						
+						$change_image = 'images/images_big/' . $values_image;						
 
 						// Model
 						if ($products_options_array['options_values_model'] != '') {
@@ -265,7 +270,7 @@ if (!$product_info_result->RecordCount()) {
 						} else {
 							$sModel = $product_info['products_model'];
 						}
-						$change_model = ' change-model="' . $sModel . '"';	
+						$change_model = $sModel;	
 						
 						$aSelector[] = array('name' => $sName,
 											 'value' => $sValue,
@@ -276,7 +281,7 @@ if (!$product_info_result->RecordCount()) {
 											'option_base' => $option_base,
 											'products_options_values_name' => $products_options_array['products_options_values_name'],
 											'products_options_comment' => $products_options_name['products_options_comment'],
-											'options_values_model' => $products_options_array['options_values_model']);
+											'status' => $products_options_array['options_values_status']);
 
 						// Move that ADOdb pointer!
 						$products_options_result->MoveNext();
