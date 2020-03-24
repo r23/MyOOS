@@ -522,7 +522,8 @@ var tax_rates = new Array();
 ?>
 
 function doRound(x, places) {
-  return Math.round(x * Math.pow(10, places)) / Math.pow(10, places);
+  num = Math.round(x * Math.pow(10, places)) / Math.pow(10, places);
+  return num.toFixed(places);    
 }
 
 function getTaxRate() {
@@ -833,7 +834,7 @@ function calcBasePriceFactor() {
                         </fieldset>
                         <fieldset>
                            <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_LIST_PRICE; ?></label>
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_LIST_PRICE_WITH_TAX; ?></label>
                               <div class="col-lg-10">
                                 <?php
 									$sPriceList = number_format($pInfo->products_price_list, TAX_DECIMAL_PLACES, '.', '');
