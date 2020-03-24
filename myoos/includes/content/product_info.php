@@ -295,23 +295,9 @@ if (!$product_info_result->RecordCount()) {
 		}
 	}
 
-echo '<pre>';
-print_r($aSelector);
-echo '</pre>';
-
 	$smarty->assign('selector_array', $aSelector);
 
 
-
-
-
-
-
-
-
-
-
-##
 	$info_product_price = $oCurrencies->display_price($product_info['products_price'], oos_get_tax_rate($product_info['products_tax_class_id']));
 	$schema_product_price = $oCurrencies->schema_price($product_info['products_price'], oos_get_tax_rate($product_info['products_tax_class_id']), 1, FALSE);
 

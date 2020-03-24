@@ -670,8 +670,6 @@ function calcBasePriceFactor() {
                         </fieldset>						
 <?php
     }
-?>
-<?php
     for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
 ?>
                         <fieldset>

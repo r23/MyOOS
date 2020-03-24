@@ -1089,7 +1089,7 @@ function calcBasePriceFactor() {
 
 <?php
       $in_price= $attributes_values['options_values_price'];
-      $in_price = round ($in_price,TAX_DECIMAL_PLACES);
+      $in_price = number_format($in_price,TAX_DECIMAL_PLACES , '.', '');	  
 ?>
             <td align="right" class="smallText">&nbsp;<input type="text" name="value_price" value="<?php echo $in_price; ?>" size="6">&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<input type="text" name="price_prefix" value="<?php echo $attributes_values['price_prefix']; ?>" size="2">&nbsp;</td>
@@ -1191,8 +1191,8 @@ function calcBasePriceFactor() {
 	}
 ?></td>
 <?php
-      $in_price= $attributes_values['options_values_price'];
-      $in_price= round($in_price,TAX_DECIMAL_PLACES);
+      $in_price = $attributes_values['options_values_price'];
+      $in_price = number_format($in_price,TAX_DECIMAL_PLACES , '.', '');	
 ?>
             <td align="right" class="smallText">&nbsp;<?php echo $in_price;?>&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<?php echo $attributes_values["price_prefix"]; ?>&nbsp;</td>
