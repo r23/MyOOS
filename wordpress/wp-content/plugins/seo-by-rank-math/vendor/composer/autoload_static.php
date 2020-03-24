@@ -229,6 +229,7 @@ class ComposerStaticInite0bd047aa5058f04568aa38dfc5ac000
         'RankMath\\Compatibility' => __DIR__ . '/../..' . '/includes/class-compatibility.php',
         'RankMath\\Defaults' => __DIR__ . '/../..' . '/includes/class-defaults.php',
         'RankMath\\Elementor\\Elementor' => __DIR__ . '/../..' . '/includes/3rdparty/elementor/class-elementor.php',
+        'RankMath\\Elementor\\constructor' => __DIR__ . '/../..' . '/includes/3rdparty/elementor/class-elementor.php',
         'RankMath\\Frontend\\Add_Attributes' => __DIR__ . '/../..' . '/includes/frontend/class-add-attributes.php',
         'RankMath\\Frontend\\Breadcrumbs' => __DIR__ . '/../..' . '/includes/frontend/class-breadcrumbs.php',
         'RankMath\\Frontend\\Comments' => __DIR__ . '/../..' . '/includes/frontend/class-comments.php',

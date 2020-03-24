@@ -118,6 +118,7 @@ class Admin extends WP_REST_Controller {
 
 		$cmb->object_id    = $request->get_param( 'objectID' );
 		$cmb->data_to_save = [
+			'has_redirect'            => $request->get_param( 'hasRedirect' ),
 			'redirection_id'          => $request->get_param( 'redirectionID' ),
 			'redirection_url_to'      => $request->get_param( 'redirectionUrl' ),
 			'redirection_sources'     => \str_replace( home_url( '/' ), '', $request->get_param( 'redirectionSources' ) ),

@@ -183,6 +183,7 @@ return array(
     'RankMath\\Compatibility' => $baseDir . '/includes/class-compatibility.php',
     'RankMath\\Defaults' => $baseDir . '/includes/class-defaults.php',
     'RankMath\\Elementor\\Elementor' => $baseDir . '/includes/3rdparty/elementor/class-elementor.php',
+    'RankMath\\Elementor\\constructor' => $baseDir . '/includes/3rdparty/elementor/class-elementor.php',
     'RankMath\\Frontend\\Add_Attributes' => $baseDir . '/includes/frontend/class-add-attributes.php',
     'RankMath\\Frontend\\Breadcrumbs' => $baseDir . '/includes/frontend/class-breadcrumbs.php',
     'RankMath\\Frontend\\Comments' => $baseDir . '/includes/frontend/class-comments.php',

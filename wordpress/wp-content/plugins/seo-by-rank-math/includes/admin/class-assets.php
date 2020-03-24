@@ -92,6 +92,13 @@ class Assets implements Runner {
 		);
 
 		Helper::add_json(
+			'keywordsApi',
+			[
+				'url' => 'https://rankmathapi.com/ltkw/v1/',
+			]
+		);
+
+		Helper::add_json(
 			'validationl10n',
 			[
 				'regexErrorDefault'    => __( 'Please use the correct format.', 'rank-math' ),

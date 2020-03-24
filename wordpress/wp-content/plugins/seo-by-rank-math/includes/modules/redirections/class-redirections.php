@@ -12,6 +12,7 @@ namespace RankMath\Redirections;
 
 use RankMath\Helper;
 use RankMath\Traits\Hooker;
+use MyThemeShop\Helpers\Str;
 use MyThemeShop\Helpers\Param;
 use MyThemeShop\Helpers\Conditional;
 

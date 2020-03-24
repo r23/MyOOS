@@ -40,12 +40,60 @@ $cmb->add_field([
 ]);
 
 $cmb->add_field([
+	'id'      => 'rank_math_snippet_event_status',
+	'type'    => 'select',
+	'name'    => esc_html__( 'Event Status', 'rank-math' ),
+	'desc'    => esc_html__( 'Current status of the event (optional)', 'rank-math' ),
+	'options' => [
+		''                 => esc_html__( 'None', 'rank-math' ),
+		'EventScheduled'   => esc_html__( 'Scheduled', 'rank-math' ),
+		'EventCancelled'   => esc_html__( 'Cancelled', 'rank-math' ),
+		'EventPostponed'   => esc_html__( 'Postponed', 'rank-math' ),
+		'EventRescheduled' => esc_html__( 'Rescheduled', 'rank-math' ),
+		'EventMovedOnline' => esc_html__( 'Moved Online', 'rank-math' ),
+	],
+	'classes' => 'cmb-row-33',
+	'dep'     => $event,
+]);
+
+$cmb->add_field([
+	'id'      => 'rank_math_snippet_event_attendance_mode',
+	'type'    => 'select',
+	'name'    => esc_html__( 'Event Attendance Mode', 'rank-math' ),
+	'desc'    => esc_html__( 'Indicates whether the event occurs online, offline at a physical location, or a mix of both online and offline.', 'rank-math' ),
+	'options' => [
+		'offline' => esc_html__( 'Offline', 'rank-math' ),
+		'online'  => esc_html__( 'Online', 'rank-math' ),
+		'both'    => esc_html__( 'Online + Offline', 'rank-math' ),
+	],
+	'classes' => 'cmb-row-33',
+	'dep'     => $event,
+]);
+
+$cmb->add_field([
+	'id'      => 'rank_math_snippet_online_event_url',
+	'type'    => 'text_url',
+	'name'    => esc_html__( 'Online Event URL', 'rank-math' ),
+	'desc'    => esc_html__( 'The URL of the online event, where people can join. This property is required if your event is happening online.', 'rank-math' ),
+	'dep'     => [
+		'relation' => 'and',
+		[ 'rank_math_rich_snippet', 'event' ],
+		[ 'rank_math_snippet_event_attendance_mode', 'online, both' ],
+	],
+	'classes' => 'rank-math-validate-field',
+]);
+
+$cmb->add_field([
 	'id'      => 'rank_math_snippet_event_venue',
 	'type'    => 'text',
 	'name'    => esc_html__( 'Venue Name', 'rank-math' ),
 	'desc'    => esc_html__( 'The venue name.', 'rank-math' ),
 	'classes' => 'cmb-row-50',
-	'dep'     => $event,
+	'dep'     => [
+		'relation' => 'and',
+		[ 'rank_math_rich_snippet', 'event' ],
+		[ 'rank_math_snippet_event_attendance_mode', 'offline, both' ],
+	],
 ]);
 
 $cmb->add_field([
@@ -53,16 +101,24 @@ $cmb->add_field([
 	'type'       => 'text_url',
 	'name'       => esc_html__( 'Venue URL', 'rank-math' ),
 	'desc'       => esc_html__( 'Website URL of the venue', 'rank-math' ),
-	'classes'    => 'rank-math-validate-field',
+	'classes'    => 'rank-math-validate-field cmb-row-50',
 	'attributes' => [ 'data-rule-url' => 'true' ],
-	'dep'        => $event,
+	'dep'        => [
+		'relation' => 'and',
+		[ 'rank_math_rich_snippet', 'event' ],
+		[ 'rank_math_snippet_event_attendance_mode', 'offline, both' ],
+	],
 ]);
 
 $cmb->add_field([
 	'id'   => 'rank_math_snippet_event_address',
 	'type' => 'address',
 	'name' => esc_html__( 'Address', 'rank-math' ),
-	'dep'  => $event,
+	'dep'  => [
+		'relation' => 'and',
+		[ 'rank_math_rich_snippet', 'event' ],
+		[ 'rank_math_snippet_event_attendance_mode', 'offline, both' ],
+	],
 ]);
 
 $cmb->add_field([
@@ -83,7 +139,7 @@ $cmb->add_field([
 	'type'    => 'text',
 	'name'    => esc_html__( 'Performer Name', 'rank-math' ),
 	'desc'    => esc_html__( 'A performer at the event', 'rank-math' ),
-	'classes' => 'cmb-row-50',
+	'classes' => 'cmb-row-33',
 	'dep'     => $event,
 ]);
 
@@ -94,24 +150,8 @@ $cmb->add_field([
 	'attributes' => [
 		'data-rule-url' => 'true',
 	],
-	'classes'    => 'rank-math-validate-field',
+	'classes'    => 'rank-math-validate-field cmb-row-33',
 	'dep'        => $event,
-]);
-
-$cmb->add_field([
-	'id'      => 'rank_math_snippet_event_status',
-	'type'    => 'select',
-	'name'    => esc_html__( 'Event Status', 'rank-math' ),
-	'desc'    => esc_html__( 'Current status of the event (optional)', 'rank-math' ),
-	'options' => [
-		''                 => esc_html__( 'None', 'rank-math' ),
-		'EventScheduled'   => esc_html__( 'Scheduled', 'rank-math' ),
-		'EventCancelled'   => esc_html__( 'Cancelled', 'rank-math' ),
-		'EventPostponed'   => esc_html__( 'Postponed', 'rank-math' ),
-		'EventRescheduled' => esc_html__( 'Rescheduled', 'rank-math' ),
-	],
-	'classes' => 'cmb-row-33',
-	'dep'     => $event,
 ]);
 
 $cmb->add_field([
@@ -120,7 +160,7 @@ $cmb->add_field([
 	'date_format' => 'Y-m-d',
 	'name'        => esc_html__( 'Start Date', 'rank-math' ),
 	'desc'        => esc_html__( 'Date and time of the event.', 'rank-math' ),
-	'classes'     => 'cmb-row-33',
+	'classes'     => 'cmb-row-50',
 	'dep'         => $event,
 ]);
 
@@ -130,7 +170,7 @@ $cmb->add_field([
 	'date_format' => 'Y-m-d',
 	'name'        => esc_html__( 'End Date', 'rank-math' ),
 	'desc'        => esc_html__( 'End date and time of the event.', 'rank-math' ),
-	'classes'     => 'cmb-row-33',
+	'classes'     => 'cmb-row-50',
 	'dep'         => $event,
 ]);
 

@@ -271,6 +271,10 @@ class DB {
 			'updated'     => current_time( 'mysql' ),
 		]);
 
+		if ( in_array( $args['header_code'], [ 410, 451 ] ) ) {
+			$args['url_to'] = '';
+		}
+
 		$args['sources'] = maybe_serialize( $args['sources'] );
 
 		return self::table()->insert( $args, [ '%s', '%s', '%d', '%d', '%s', '%s', '%s' ] );
@@ -304,6 +308,10 @@ class DB {
 
 		$args['sources'] = maybe_serialize( $args['sources'] );
 		unset( $args['id'] );
+
+		if ( in_array( $args['header_code'], [ 410, 451 ] ) ) {
+			$args['url_to'] = '';
+		}
 
 		Cache::purge( $id );
 		return self::table()->set( $args )->where( 'id', $id )->update();

@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection
 Tested up to: 5.4
 Requires at least: 4.9.0
 Requires PHP: 5.6
-Stable tag: 1.0.40
+Stable tag: 1.0.40.2
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -460,13 +460,22 @@ We look forward to helping you.
 
 == Changelog ==
 
+= 1.0.40.2 [Mar 24, 2020] =
+* Fixed: Focus Keyword suggestions not working for the connected users
+* Fixed: Removed destination field from the 410 and 451 Redirection types
+
+= 1.0.40.1 [Mar 21, 2020] =
+* Added: Given the current global situation, more events are going virtual, being postponed, and being canceled every single day. We want to acknowledge that we're all being affected by COVID-19 (aka Coronavirus disease) in different ways. Our thoughts and prayers go out to everyone affected, especially those who are in quarantine and have lost loved ones. Let's [follow these precautions religiously](https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public). And, on that note, we're releasing support for the [new Structured Data properties as per Google's latest announcement](https://webmasters.googleblog.com/2020/03/new-properties-virtual-or-canceled-events.html). The Events that are getting canceled and moving online can now be marked using Rank Math's [Event Schema](https://rankmath.com/kb/rich-snippets/#event).
+* Added: An Option to set 'Event Attendance Mode' in the Event Schema [Offline/Online/Offline+Online]
+* Added: German [Power words](https://rankmath.com/blog/power-words/). Props to [Peter Schieche](https://www.peter-auf-tour.de/)
+
 = 1.0.40 [Mar 13, 2020] =
 * Added: [NEW!] A block to add [HowTo Schema](https://rankmath.com/blog/howto-schema/) to a WordPress website using the new Block editor aka Gutenberg
 * Added: A HTML tab in the Category/Term description field
-* Added: A warning about the [beta version](https://rankmath.com/kb/version-control/#beta-updates) on the plugins' update page
+* Added: A warning about [beta version](https://rankmath.com/kb/version-control/#beta-updates) on the plugins' update page
 * Added: Compatibility needed for WordPress 5.4
 * Improved: On a multisite, moved the [Version Control's](https://rankmath.com/kb/version-control/) options to the network admin and now only the super admins can access it
-* Improved: Removed default values from the Opening Hours in the [Local SEO](https://rankmath.com/kb/titles-and-meta/#local-seo) tab & the Redirect Orphan Attachment option
+* Improved: Removed default values from the Opening Hours in the [Local SEO](https://rankmath.com/kb/rich-snippets/) tab & the Redirect Orphan Attachment option
 * Improved: Used `@graph` to combine multiple Schema types in a single JSON-LD tag
 * Improved: Added IDs to the Schema output of FAQ Block
 * Improved: Notice's styling and changed beta changelog link to Rank Math's changelog page

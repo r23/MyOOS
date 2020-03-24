@@ -129,7 +129,7 @@ $cmb->add_field([
 		'data-rule-url'   => true,
 	],
 	'classes'    => 'rank-math-validate-field',
-	'dep'        => [ [ 'rank_math_rich_snippet', 'book,event,local,music' ] ],
+	'dep'        => [ [ 'rank_math_rich_snippet', 'book,local,music' ] ],
 ]);
 
 $cmb->add_field([

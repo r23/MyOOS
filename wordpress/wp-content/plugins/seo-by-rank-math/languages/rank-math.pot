@@ -2964,6 +2964,15 @@ msgstr ""
 msgid "Editor's Rating:"
 msgstr ""
 
+msgid "Online"
+msgstr ""
+
+msgid "Offline"
+msgstr ""
+
+msgid "Online + Offline"
+msgstr ""
+
 msgid "Course Provider"
 msgstr ""
 
@@ -3096,10 +3105,19 @@ msgstr ""
 msgid "Event Type"
 msgstr ""
 
+msgid "Event Attendance Mode"
+msgstr ""
+
+msgid "Event Status"
+msgstr ""
+
 msgid "Venue Name"
 msgstr ""
 
 msgid "Venue URL"
+msgstr ""
+
+msgid "Online Event URL"
 msgstr ""
 
 msgid "Performer"
@@ -3109,9 +3127,6 @@ msgid "Performer Name"
 msgstr ""
 
 msgid "Performer URL"
-msgstr ""
-
-msgid "Event Status"
 msgstr ""
 
 msgid "Start Date"
@@ -3285,15 +3300,6 @@ msgstr ""
 msgid "Visual Arts Event"
 msgstr ""
 
-msgid "The venue name."
-msgstr ""
-
-msgid "Website URL of the venue"
-msgstr ""
-
-msgid "A performer at the event"
-msgstr ""
-
 msgid "Current status of the event (optional)"
 msgstr ""
 
@@ -3307,6 +3313,24 @@ msgid "Postponed"
 msgstr ""
 
 msgid "Rescheduled"
+msgstr ""
+
+msgid "Moved Online"
+msgstr ""
+
+msgid "Indicates whether the event occurs online, offline at a physical location, or a mix of both online and offline."
+msgstr ""
+
+msgid "The URL of the online event, where people can join. This property is required if your event is happening online."
+msgstr ""
+
+msgid "The venue name."
+msgstr ""
+
+msgid "Website URL of the venue"
+msgstr ""
+
+msgid "A performer at the event"
 msgstr ""
 
 msgid "Date and time of the event."

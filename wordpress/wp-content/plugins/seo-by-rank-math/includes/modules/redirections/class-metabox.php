@@ -71,6 +71,7 @@ class Metabox {
 			'type'       => 'text',
 			'name'       => esc_html__( 'Destination URL', 'rank-math' ),
 			'save_field' => false,
+			'dep'             => [ [ 'redirection_header_code', '410,451', '!=' ] ],
 			'default'    => isset( $redirection['url_to'] ) ? $redirection['url_to'] : '',
 		]);
 
@@ -103,7 +104,7 @@ class Metabox {
 	 * @param CMB2 $cmb CMB2 instance.
 	 */
 	public function save_advanced_meta( $cmb ) {
-		if ( empty( $cmb->data_to_save['redirection_url_to'] ) ) {
+		if ( $this->can_delete( $cmb->data_to_save ) ) {
 			// Delete.
 			if ( ! empty( $cmb->data_to_save['redirection_id'] ) ) {
 				DB::delete( $cmb->data_to_save['redirection_id'] );
@@ -140,6 +141,7 @@ class Metabox {
 			'action'  => 'update',
 			'message' => esc_html__( 'Redirection updated successfully.', 'rank-math' ),
 		];
+
 		if ( ! isset( $values['id'] ) ) {
 			Helper::add_notification( esc_html__( 'New redirection created.', 'rank-math' ) );
 			$response = [
@@ -159,9 +161,31 @@ class Metabox {
 	}
 
 	/**
+	 * Check if can delete.
+	 *
+	 * @param array $values Values.
+	 *
+	 * @return boolean
+	 */
+	private function can_delete( $values ) {
+		if ( isset( $values['has_redirect'] ) && empty( $values['has_redirect'] ) ) {
+			return true;
+		}
+
+		if ( false === in_array( $values['redirection_header_code'], [ 410, 451 ] ) ) {
+			if ( empty( $values['redirection_url_to'] ) ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
 	 * Check if update is required.
 	 *
-	 * @param  array $values Values.
+	 * @param array $values Values.
+	 *
 	 * @return boolean
 	 */
 	private function can_update( $values ) {
@@ -169,7 +193,7 @@ class Metabox {
 			return false;
 		}
 
-		if ( empty( $values['redirection_id'] ) ) {
+		if ( empty( $values['redirection_id'] ) || in_array( $values['redirection_header_code'], [ 410, 451 ] ) ) {
 			return true;
 		}
 

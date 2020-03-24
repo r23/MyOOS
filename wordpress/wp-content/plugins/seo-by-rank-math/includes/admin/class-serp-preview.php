@@ -41,7 +41,7 @@ class Serp_Preview {
 		$desktop_preview = isset( $snippet_preview['desktop'] ) ? $snippet_preview['desktop'] : '';
 		$mobile_preview  = isset( $snippet_preview['mobile'] ) ? $snippet_preview['mobile'] : '';
 		?>
-		<div class="serp-preview desktop-preview">
+		<div class="serp-preview desktop-preview serp-<?php echo esc_attr( $snippet_type ); ?>">
 
 			<div class="serp-preview-title" data-title="<?php esc_attr_e( 'Preview', 'rank-math' ); ?>" data-desktop="<?php esc_attr_e( 'Desktop Preview', 'rank-math' ); ?>" data-mobile="<?php esc_attr_e( 'Mobile Preview', 'rank-math' ); ?>">
 				<div class="alignright">
