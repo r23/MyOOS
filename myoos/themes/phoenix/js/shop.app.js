@@ -909,7 +909,7 @@
 	};
 
 
-$(document).ready(function() {
+	$(document).ready(function() {
 
 		// RADIO OPTION
 		$('input[type=radio]').on('change', updateRadioOption);
@@ -929,4 +929,4 @@ $(document).ready(function() {
 			}
 			
 		}
-})
+	})
