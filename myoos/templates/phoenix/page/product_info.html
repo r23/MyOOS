@@ -17,8 +17,8 @@
 			<div class="col-12 col-md-4">		
 				<div class="thumbnail relative mb-3">
 					<figure id="zoom-primary" class="zoom" data-mode="{$smarty.const.IMAGE_ZOOM|default:'mouseover'}">
-						<a class="lightbox {$smarty.const.ZOOM_BUTTON|default:'bottom-right'}" href="{product_image_link dir=large image=$product_info.products_image}" data-plugin-options='{literal}{"type":"image"}{/literal}'><i class="fa fa-search" aria-hidden="true"></i></a>					
-						{product_image dir=large image=$product_info.products_image alt=$product_info.products_name}
+						<a id="item_zoom" class="lightbox {$smarty.const.ZOOM_BUTTON|default:'bottom-right'}" href="{product_image_link dir=large image=$product_info.products_image}" data-plugin-options='{literal}{"type":"image"}{/literal}'><i class="fa fa-search" aria-hidden="true"></i></a>					
+						{product_image dir=large image=$product_info.products_image alt=$product_info.products_name id=item_image}
 					</figure>
 				</div>
 				{if $products_images}				
@@ -114,12 +114,14 @@
 		{if $price_discount}
 			{$lang.price_from} {$price_discount}<br>
 		{else}
-			<h4 class="price">{$info_product_price}</h4>
-			<span itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-				<meta itemprop="price" content="{$schema_product_price}"/>
-				<meta itemprop="priceCurrency" content="{$currency}"/>
-				<meta itemprop="itemCondition" content="https://schema.org/NewCondition"/>
-			</span>				
+			<div id="item_price">
+				<h4 class="price">{$info_product_price}</h4>
+				<span itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+					<meta itemprop="price" content="{$schema_product_price}"/>
+					<meta itemprop="priceCurrency" content="{$currency}"/>
+					<meta itemprop="itemCondition" content="https://schema.org/NewCondition"/>
+				</span>
+			</div>
 		{/if}
 	{/if}
 

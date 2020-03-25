@@ -907,26 +907,3 @@
 	        return (isMobile.iOS() || isMobile.Android() || isMobile.BlackBerry() || isMobile.Opera() || isMobile.Windows());
 	    }
 	};
-
-
-	$(document).ready(function() {
-
-		// RADIO OPTION
-		$('input[type=radio]').on('change', updateRadioOption);
-
-		function updateRadioOption() {
-			var option_value = $(this).attr('data-option-value');
-			var option_base = $(this).attr('data-option-base');
-			var change_image = $(this).attr('data-change-image');
-			var change_model = $(this).attr('data-change-model');
-
-			$("#item_price h4").text(option_value);
-			$("#item_base span").text(option_base);
-			$("#item_model").text(change_model);
-			
-			if (change_image != null && change_image != '' && change_image != undefined) {
-				$("#item_image").attr("src", change_image);
-			}
-			
-		}
-	})

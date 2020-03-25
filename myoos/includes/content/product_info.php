@@ -262,7 +262,7 @@ if (!$product_info_result->RecordCount()) {
 						} else {
 							$values_image = $product_info['products_image'];
 						}
-						$change_image = 'images/images_big/' . $values_image;						
+						$change_image = 'images/product/large/' . $values_image;						
 
 						// Model
 						if ($products_options_array['options_values_model'] != '') {

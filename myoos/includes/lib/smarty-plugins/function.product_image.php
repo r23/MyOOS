@@ -37,6 +37,7 @@ function smarty_function_product_image($params, &$smarty)
     $alt = '';
     $image = '';
     $extra = '';
+	$id = '';
 
     foreach($params as $_key => $_val) {
       switch($_key) {
@@ -45,6 +46,7 @@ function smarty_function_product_image($params, &$smarty)
 		case 'dir':
         case 'alt':
 		case 'class':
+		case 'id':
            if (!is_array($_val)) {
              $$_key = smarty_function_escape_special_chars($_val);
            } else {
@@ -76,7 +78,7 @@ function smarty_function_product_image($params, &$smarty)
         }
     }	
 	
-	return '<img class="img-fluid ' . $class . '" src="' . $image . '" alt="' . strip_tags($alt) . '" ' . $extra . ' />';
+	return '<img id="' . $id . '" class="img-fluid ' . $class . '" src="' . $image . '" alt="' . strip_tags($alt) . '" ' . $extra . ' />';
 
 }
 
