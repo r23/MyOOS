@@ -56,17 +56,17 @@
     },
     {
         "name": "aws/aws-sdk-php",
-        "version": "3.133.43",
-        "version_normalized": "3.133.43.0",
+        "version": "3.133.44",
+        "version_normalized": "3.133.44.0",
         "source": {
             "type": "git",
             "url": "https://github.com/aws/aws-sdk-php.git",
-            "reference": "7c8211d403614f83ce499ee217248660456d2f46"
+            "reference": "00df425deebdde3f3bebfde446a4250695dc47e4"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/7c8211d403614f83ce499ee217248660456d2f46",
-            "reference": "7c8211d403614f83ce499ee217248660456d2f46",
+            "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/00df425deebdde3f3bebfde446a4250695dc47e4",
+            "reference": "00df425deebdde3f3bebfde446a4250695dc47e4",
             "shasum": ""
         },
         "require": {
@@ -101,7 +101,7 @@
             "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
             "ext-sockets": "To use client-side monitoring"
         },
-        "time": "2020-03-24T18:18:11+00:00",
+        "time": "2020-03-25T18:15:47+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -832,26 +832,26 @@
     },
     {
         "name": "firebase/php-jwt",
-        "version": "v5.1.0",
-        "version_normalized": "5.1.0.0",
+        "version": "v5.2.0",
+        "version_normalized": "5.2.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/firebase/php-jwt.git",
-            "reference": "4566062c68f76f43d44f1643f4970fe89757d4c6"
+            "reference": "feb0e820b8436873675fd3aca04f3728eb2185cb"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/firebase/php-jwt/zipball/4566062c68f76f43d44f1643f4970fe89757d4c6",
-            "reference": "4566062c68f76f43d44f1643f4970fe89757d4c6",
+            "url": "https://api.github.com/repos/firebase/php-jwt/zipball/feb0e820b8436873675fd3aca04f3728eb2185cb",
+            "reference": "feb0e820b8436873675fd3aca04f3728eb2185cb",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.0"
         },
         "require-dev": {
-            "phpunit/phpunit": "^4.8|^5"
+            "phpunit/phpunit": ">=4.8 <=9"
         },
-        "time": "2020-02-24T23:15:03+00:00",
+        "time": "2020-03-25T18:49:23+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -876,7 +876,11 @@
             }
         ],
         "description": "A simple library to encode and decode JSON Web Tokens (JWT) in PHP. Should conform to the current spec.",
-        "homepage": "https://github.com/firebase/php-jwt"
+        "homepage": "https://github.com/firebase/php-jwt",
+        "keywords": [
+            "jwt",
+            "php"
+        ]
     },
     {
         "name": "google/auth",
