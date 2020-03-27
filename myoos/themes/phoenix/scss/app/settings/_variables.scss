@@ -307,3 +307,13 @@ $g-color-instagram: #3f729b !default;
 $g-color-instagram-dark-v1: darken($g-color-instagram, 5%) !default;
 $g-color-instagram-dark-v2: darken($g-color-instagram, 10%) !default;
 $g-color-instagram-light-v1: lighten($g-color-instagram, 5%) !default;
+
+// Product gallery
+$product-gallery-thumb-width:                   4.5rem !default;
+$product-gallery-thumb-video-caption-font-size: .75rem !default;
+$product-gallery-thumb-video-caption-bg:        #fff !default;
+$product-gallery-thumb-video-caption-color:     #222 !default;
+$product-gallery-thumb-margin:                  .75rem !default;
+$product-gallery-thumb-opacity:                 .5 !default;
+$product-gallery-thumb-active-opacity:          1 !default;
+$product-gallery-thumb-transition:              opacity .25s !default;
