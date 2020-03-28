@@ -68,11 +68,11 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
 
     private static $freshCache = [];
 
-    const VERSION = '5.0.5';
-    const VERSION_ID = 50005;
+    const VERSION = '5.0.6';
+    const VERSION_ID = 50006;
     const MAJOR_VERSION = 5;
     const MINOR_VERSION = 0;
-    const RELEASE_VERSION = 5;
+    const RELEASE_VERSION = 6;
     const EXTRA_VERSION = '';
 
     const END_OF_MAINTENANCE = '07/2020';
@@ -221,7 +221,7 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
             $class = static::class;
             $class = 'c' === $class[0] && 0 === strpos($class, "class@anonymous\0") ? get_parent_class($class).'@anonymous' : $class;
 
-            throw new \InvalidArgumentException(sprintf('Bundle "%s" does not exist or it is not enabled. Maybe you forgot to add it in the registerBundles() method of your %s.php file?', $name, $class));
+            throw new \InvalidArgumentException(sprintf('Bundle "%s" does not exist or it is not enabled. Maybe you forgot to add it in the "registerBundles()" method of your "%s.php" file?', $name, $class));
         }
 
         return $this->bundles[$name];
@@ -369,7 +369,7 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
         foreach ($this->registerBundles() as $bundle) {
             $name = $bundle->getName();
             if (isset($this->bundles[$name])) {
-                throw new \LogicException(sprintf('Trying to register two bundles with the same name "%s"', $name));
+                throw new \LogicException(sprintf('Trying to register two bundles with the same name "%s".', $name));
             }
             $this->bundles[$name] = $bundle;
         }
@@ -449,47 +449,20 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
         try {
             is_dir($cacheDir) ?: mkdir($cacheDir, 0777, true);
 
-            if ($lock = fopen($cachePath, 'w')) {
-                chmod($cachePath, 0666 & ~umask());
+            if ($lock = fopen($cachePath.'.lock', 'w')) {
                 flock($lock, LOCK_EX | LOCK_NB, $wouldBlock);
 
                 if (!flock($lock, $wouldBlock ? LOCK_SH : LOCK_EX)) {
                     fclose($lock);
-                } else {
-                    $cache = new class($cachePath, $this->debug) extends ConfigCache {
-                        public $lock;
+                    $lock = null;
+                } elseif (!\is_object($this->container = include $cachePath)) {
+                    $this->container = null;
+                } elseif (!$oldContainer || \get_class($this->container) !== $oldContainer->name) {
+                    flock($lock, LOCK_UN);
+                    fclose($lock);
+                    $this->container->set('kernel', $this);
 
-                        public function write(string $content, array $metadata = null)
-                        {
-                            rewind($this->lock);
-                            ftruncate($this->lock, 0);
-                            fwrite($this->lock, $content);
-
-                            if (null !== $metadata) {
-                                file_put_contents($this->getPath().'.meta', serialize($metadata));
-                                @chmod($this->getPath().'.meta', 0666 & ~umask());
-                            }
-
-                            if (\function_exists('opcache_invalidate') && filter_var(ini_get('opcache.enable'), FILTER_VALIDATE_BOOLEAN)) {
-                                @opcache_invalidate($this->getPath(), true);
-                            }
-                        }
-
-                        public function release()
-                        {
-                            flock($this->lock, LOCK_UN);
-                            fclose($this->lock);
-                        }
-                    };
-                    $cache->lock = $lock;
-
-                    if (!\is_object($this->container = include $cachePath)) {
-                        $this->container = null;
-                    } elseif (!$oldContainer || \get_class($this->container) !== $oldContainer->name) {
-                        $this->container->set('kernel', $this);
-
-                        return;
-                    }
+                    return;
                 }
             }
         } catch (\Throwable $e) {
@@ -553,8 +526,10 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
         }
 
         $this->dumpContainer($cache, $container, $class, $this->getContainerBaseClass());
-        if (method_exists($cache, 'release')) {
-            $cache->release();
+
+        if ($lock) {
+            flock($lock, LOCK_UN);
+            fclose($lock);
         }
 
         $this->container = require $cachePath;
@@ -624,10 +599,10 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
         foreach (['cache' => $this->warmupDir ?: $this->getCacheDir(), 'logs' => $this->getLogDir()] as $name => $dir) {
             if (!is_dir($dir)) {
                 if (false === @mkdir($dir, 0777, true) && !is_dir($dir)) {
-                    throw new \RuntimeException(sprintf("Unable to create the %s directory (%s)\n", $name, $dir));
+                    throw new \RuntimeException(sprintf('Unable to create the "%s" directory (%s).', $name, $dir));
                 }
             } elseif (!is_writable($dir)) {
-                throw new \RuntimeException(sprintf("Unable to write in the %s directory (%s)\n", $name, $dir));
+                throw new \RuntimeException(sprintf('Unable to write in the "%s" directory (%s).', $name, $dir));
             }
         }
 
@@ -716,6 +691,7 @@ abstract class Kernel implements KernelInterface, RebootableInterface, Terminabl
             'as_files' => true,
             'debug' => $this->debug,
             'build_time' => $container->hasParameter('kernel.container_build_time') ? $container->getParameter('kernel.container_build_time') : time(),
+            'preload_classes' => array_map('get_class', $this->bundles),
         ]);
 
         $rootCode = array_pop($content);

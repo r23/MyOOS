@@ -17,6 +17,11 @@ use Symfony\Component\HttpFoundation\Session\Storage\Handler\StrictSessionHandle
 use Symfony\Component\HttpFoundation\Session\Storage\Proxy\AbstractProxy;
 use Symfony\Component\HttpFoundation\Session\Storage\Proxy\SessionHandlerProxy;
 
+// Help opcache.preload discover always-needed symbols
+class_exists(MetadataBag::class);
+class_exists(StrictSessionHandler::class);
+class_exists(SessionHandlerProxy::class);
+
 /**
  * This provides a base class for session attribute storage.
  *
@@ -149,7 +154,7 @@ class NativeSessionStorage implements SessionStorageInterface
 
         // ok to try and start the session
         if (!session_start()) {
-            throw new \RuntimeException('Failed to start the session');
+            throw new \RuntimeException('Failed to start the session.');
         }
 
         if (null !== $this->emulateSameSite) {
@@ -311,7 +316,7 @@ class NativeSessionStorage implements SessionStorageInterface
     public function getBag(string $name)
     {
         if (!isset($this->bags[$name])) {
-            throw new \InvalidArgumentException(sprintf('The SessionBagInterface %s is not registered.', $name));
+            throw new \InvalidArgumentException(sprintf('The SessionBagInterface "%s" is not registered.', $name));
         }
 
         if (!$this->started && $this->saveHandler->isActive()) {

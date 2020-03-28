@@ -81,12 +81,12 @@ class PdoStore implements PersistingStoreInterface
             throw new InvalidArgumentException(sprintf('"%s" requires gcProbability between 0 and 1, "%f" given.', __METHOD__, $gcProbability));
         }
         if ($initialTtl < 1) {
-            throw new InvalidTtlException(sprintf('%s() expects a strictly positive TTL, "%d" given.', __METHOD__, $initialTtl));
+            throw new InvalidTtlException(sprintf('"%s()" expects a strictly positive TTL, "%d" given.', __METHOD__, $initialTtl));
         }
 
         if ($connOrDsn instanceof \PDO) {
             if (\PDO::ERRMODE_EXCEPTION !== $connOrDsn->getAttribute(\PDO::ATTR_ERRMODE)) {
-                throw new InvalidArgumentException(sprintf('"%s" requires PDO error mode attribute be set to throw Exceptions (i.e. $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION))', __METHOD__));
+                throw new InvalidArgumentException(sprintf('"%s" requires PDO error mode attribute be set to throw Exceptions (i.e. $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION)).', __METHOD__));
             }
 
             $this->conn = $connOrDsn;
@@ -146,7 +146,7 @@ class PdoStore implements PersistingStoreInterface
     public function putOffExpiration(Key $key, float $ttl)
     {
         if ($ttl < 1) {
-            throw new InvalidTtlException(sprintf('%s() expects a TTL greater or equals to 1 second. Got %s.', __METHOD__, $ttl));
+            throw new InvalidTtlException(sprintf('"%s()" expects a TTL greater or equals to 1 second. Got %s.', __METHOD__, $ttl));
         }
 
         $key->reduceLifetime($ttl);
