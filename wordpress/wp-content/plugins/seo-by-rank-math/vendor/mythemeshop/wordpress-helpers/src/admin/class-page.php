@@ -162,7 +162,7 @@ class Page {
 				'callback'  => 'enqueue',
 				'condition' => ! empty( $this->assets ),
 			],
-			'contextual_help'       => [
+			'admin_head'            => [
 				'callback'  => 'contextual_help',
 				'condition' => ! empty( $this->help ),
 			],

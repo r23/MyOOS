@@ -251,8 +251,8 @@ class Setup_Wizard {
 		}
 
 		// Enqueue styles.
-		\CMB2_hookup::enqueue_cmb_css();
-		\CMB2_hookup::enqueue_cmb_js();
+		\CMB2_Hookup::enqueue_cmb_css();
+		\CMB2_Hookup::enqueue_cmb_js();
 		rank_math()->admin_assets->register();
 		wp_enqueue_style( 'rank-math-wizard', rank_math()->plugin_url() . 'assets/admin/css/setup-wizard.css', [ 'wp-admin', 'buttons', 'cmb2-styles', 'select2-rm', 'rank-math-common', 'rank-math-cmb2' ], rank_math()->version );
 

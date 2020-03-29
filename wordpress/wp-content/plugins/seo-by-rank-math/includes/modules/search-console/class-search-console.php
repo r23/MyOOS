@@ -99,6 +99,13 @@ class Search_Console extends Base {
 	 * Set current tab field.
 	 */
 	private function set_current_tab() {
+		$this->tabs = [
+			'overview'  => esc_html__( 'Overview', 'rank-math' ),
+			'analytics' => esc_html__( 'Search Analytics', 'rank-math' ),
+			'sitemaps'  => esc_html__( 'Sitemaps', 'rank-math' ),
+			'tracker'   => esc_html__( 'Keyword Tracker', 'rank-math' ),
+		];
+
 		if ( ! $this->page->is_current_page() ) {
 			return;
 		}
@@ -107,6 +114,10 @@ class Search_Console extends Base {
 		$this->current_tab = Param::get( 'view', 'overview' );
 
 		if ( ! Client::get()->is_authenticated() ) {
+			return;
+		}
+
+		if ( ! array_key_exists( $this->current_tab, $this->tabs ) ) {
 			return;
 		}
 
@@ -220,12 +231,7 @@ class Search_Console extends Base {
 	 * Display tabs.
 	 */
 	public function display_nav() {
-		$tabs = [
-			'overview'  => esc_html__( 'Overview', 'rank-math' ),
-			'analytics' => esc_html__( 'Search Analytics', 'rank-math' ),
-			'sitemaps'  => esc_html__( 'Sitemaps', 'rank-math' ),
-			'tracker'   => esc_html__( 'Keyword Tracker', 'rank-math' ),
-		];
+		$tabs = $this->tabs;
 
 		$this->is_sitemap_available( $tabs );
 		$filters = $this->get_filters();
@@ -247,10 +253,10 @@ class Search_Console extends Base {
 				<?php endif; ?>
 				<span class="input-group">
 					<span class="dashicons dashicons-calendar-alt"></span>
-					<input type="text" id="rank-math-date-selector" value="<?php echo $filters['picker']; ?>">
+					<input type="text" id="rank-math-date-selector" value="<?php echo esc_attr( $filters['picker'] ); ?>">
 				</span>
-				<input type="hidden" id="rank-math-start-date" name="start_date" value="<?php echo $filters['start']; ?>">
-				<input type="hidden" id="rank-math-end-date" name="end_date" value="<?php echo $filters['end']; ?>">
+				<input type="hidden" id="rank-math-start-date" name="start_date" value="<?php echo esc_attr( $filters['start'] ); ?>">
+				<input type="hidden" id="rank-math-end-date" name="end_date" value="<?php echo esc_attr( $filters['end'] ); ?>">
 			</form>
 			<?php endif; ?>
 		</div>
@@ -380,6 +386,8 @@ class Search_Console extends Base {
 			return $this->filters;
 		}
 
+		$this->filter_names = [ 'dimension', 'diff', 'picker', 'today', 'start', 'end', 'start_date', 'end_date', 'prev_start_date', 'prev_end_date' ];
+
 		$today     = Helper::get_midnight( time() );
 		$end       = $this->get_filter_data( 'end_date', ( $today - ( DAY_IN_SECONDS * 1 ) ) );
 		$start     = $this->get_filter_data( 'start_date', ( $today - ( DAY_IN_SECONDS * 30 ) ) );
@@ -397,7 +405,7 @@ class Search_Console extends Base {
 
 		// Difference.
 		$diff          = abs( $start - $end ) / DAY_IN_SECONDS;
-		$this->filters = compact( 'dimension', 'diff', 'picker', 'today', 'start', 'end', 'start_date', 'end_date', 'prev_start_date', 'prev_end_date' );
+		$this->filters = compact( $this->filter_names );
 
 		return $this->filters;
 	}
@@ -427,11 +435,14 @@ class Search_Console extends Base {
 	 * @return mixed
 	 */
 	private function get_filter_data( $filter, $default ) {
-		$cookie_key = 'rank_math_sc_' . $filter;
-		if ( isset( $_POST[ $filter ] ) && ! empty( $_POST[ $filter ] ) ) {
-			$value = Param::post( $filter );
-			setcookie( $cookie_key, $value, time() + ( HOUR_IN_SECONDS * 30 ), COOKIEPATH, COOKIE_DOMAIN );
-			return $value;
+		if ( ! in_array( $filter, $this->filter_names ) ) {
+			return $default;
+		}
+		$cookie_key       = 'rank_math_sc_' . sanitize_title( $filter );
+		$set_filter_value = sanitize_title( Param::post( $filter ) );
+		if ( $set_filter_value ) {
+			setcookie( $cookie_key, $set_filter_value, time() + ( HOUR_IN_SECONDS * 30 ), COOKIEPATH, COOKIE_DOMAIN );
+			return $set_filter_value;
 		}
 
 		if ( ! empty( $_COOKIE[ $cookie_key ] ) ) {

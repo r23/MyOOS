@@ -11,6 +11,7 @@
 namespace RankMath\Sitemap;
 
 use RankMath\Helper;
+use RankMath\Helpers\Sitepress;
 use RankMath\Traits\Hooker;
 use MyThemeShop\Helpers\Str;
 
@@ -90,18 +91,14 @@ class Sitemap {
 	 * @return string
 	 */
 	public function rank_math_build_sitemap_filter( $type ) {
-		global $sitepress, $sitepress_settings;
+		global $sitepress_settings;
 		// Before to build the sitemap and as we are on front-end just make sure the links won't be translated. The setting should not be updated in DB.
 		$sitepress_settings['auto_adjust_ids'] = 0;
 
-		if ( WPML_LANGUAGE_NEGOTIATION_TYPE_DOMAIN === (int) $sitepress->get_setting( 'language_negotiation_type' ) ) {
-			remove_filter( 'terms_clauses', array( $sitepress, 'terms_clauses' ) );
-		}
-
-		remove_filter( 'category_link', array( $sitepress, 'category_link_adjust_id' ), 1 );
-		remove_filter( 'get_terms_args', array( $sitepress, 'get_terms_args_filter' ) );
-		remove_filter( 'get_term', array( $sitepress, 'get_term_adjust_id' ) );
-		remove_filter( 'terms_clauses', array( $sitepress, 'terms_clauses' ) );
+		/**
+		 * Remove WPML filters while getting terms, to get all languages
+		 */
+		Sitepress::get()->remove_term_filters();
 
 		return $type;
 	}

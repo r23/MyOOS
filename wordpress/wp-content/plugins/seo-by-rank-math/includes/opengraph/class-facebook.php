@@ -75,15 +75,15 @@ class Facebook extends OpenGraph {
 	 * @return array
 	 */
 	public function facebook_filter( $meta_tags ) {
-		$meta_tags['http://ogp.me/ns#type']  = $this->type( false );
-		$meta_tags['http://ogp.me/ns#title'] = $this->title( false );
+		$meta_tags['https://ogp.me/ns#type']  = $this->type( false );
+		$meta_tags['https://ogp.me/ns#title'] = $this->title( false );
 
 		// Filter the locale too because the Facebook plugin locale code is not as good as ours.
-		$meta_tags['http://ogp.me/ns#locale'] = $this->locale( false );
+		$meta_tags['https://ogp.me/ns#locale'] = $this->locale( false );
 
 		$desc = $this->description( false );
 		if ( ! empty( $desc ) ) {
-			$meta_tags['http://ogp.me/ns#description'] = $desc;
+			$meta_tags['https://ogp.me/ns#description'] = $desc;
 		}
 
 		return $meta_tags;
@@ -96,7 +96,7 @@ class Facebook extends OpenGraph {
 	 * @return string
 	 */
 	public function add_namespace( $input ) {
-		return $input . ' prefix="og: http://ogp.me/ns#"';
+		return $input . ' prefix="og: https://ogp.me/ns#"';
 	}
 
 	/**

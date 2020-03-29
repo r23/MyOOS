@@ -11,7 +11,6 @@
 namespace RankMath\Admin;
 
 use WP_Http;
-use CMB2_hookup;
 use RankMath\CMB2;
 use RankMath\Helper;
 use RankMath\Traits\Hooker;
@@ -233,7 +232,7 @@ class Options {
 			return;
 		}
 
-		CMB2_hookup::enqueue_cmb_css();
+		\CMB2_Hookup::enqueue_cmb_css();
 		rank_math()->variables->setup_json();
 		wp_enqueue_style( 'font-awesome', rank_math()->plugin_url() . 'assets/vendor/font-awesome/css/font-awesome.min.css', null, '4.7.0' );
 		wp_enqueue_style( 'rank-math-options', rank_math()->plugin_url() . 'assets/admin/css/option-panel.css', [ 'select2-rm', 'rank-math-common', 'rank-math-cmb2' ], rank_math()->version );

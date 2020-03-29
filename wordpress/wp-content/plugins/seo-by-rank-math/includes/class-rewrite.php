@@ -11,6 +11,7 @@
 namespace RankMath;
 
 use RankMath\Traits\Hooker;
+use RankMath\Helpers\Sitepress;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -244,18 +245,19 @@ class Rewrite {
 	 * @return array
 	 */
 	private function get_categories() {
-		// WPML is present: temporary disable terms_clauses filter to get all categories for rewrite.
-		if ( class_exists( 'Sitepress' ) ) {
-			global $sitepress;
+		/**
+		 * Remove WPML filters while getting terms, to get all languages
+		 */
+		Sitepress::get()->remove_term_filters();
 
-			remove_filter( 'terms_clauses', [ $sitepress, 'terms_clauses' ] );
-			$categories = get_categories( [ 'hide_empty' => false ] );
-			add_filter( 'terms_clauses', [ $sitepress, 'terms_clauses' ], 10, 4 );
+		$categories = get_categories( [ 'hide_empty' => false ] );
 
-			return $categories;
-		}
+		/**
+		 * Register WPML filters back
+		 */
+		Sitepress::get()->restore_term_filters();
 
-		return get_categories( [ 'hide_empty' => false ] );
+		return $categories;
 	}
 
 	/**

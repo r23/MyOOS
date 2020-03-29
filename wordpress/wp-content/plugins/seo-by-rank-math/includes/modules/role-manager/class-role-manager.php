@@ -43,7 +43,7 @@ class Role_Manager extends Base {
 		$this->action( 'admin_post_rank_math_save_capabilities', 'save_capabilities' );
 
 		if ( $this->page->is_current_page() ) {
-			add_action( 'admin_enqueue_scripts', [ 'CMB2_hookup', 'enqueue_cmb_css' ], 25 );
+			add_action( 'admin_enqueue_scripts', [ 'CMB2_Hookup', 'enqueue_cmb_css' ], 25 );
 		}
 
 		// Members plugin integration.

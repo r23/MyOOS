@@ -244,11 +244,11 @@ class Post_Columns implements Runner {
 		<label><?php _e( 'Focus Keyword', 'rank-math' ); ?>:</label>
 		<span class="rank-math-column-display">
 			<strong title="Focus Keyword"><?php _e( 'Keyword', 'rank-math' ); ?>:</strong>
-			<span><?php echo $keyword ? $keyword : esc_html__( 'Not Set', 'rank-math' ); ?></span>
+			<span><?php echo $keyword ? esc_html( $keyword ) : esc_html__( 'Not Set', 'rank-math' ); ?></span>
 		</span>
 
 		<span class="rank-math-column-value" data-field="focus_keyword" contenteditable="true" tabindex="11">
-			<span><?php echo $keyword; ?></span>
+			<span><?php echo esc_html( $keyword ); ?></span>
 		</span>
 
 		<?php $this->do_action( 'post/column/seo_details', $post_id ); ?>
@@ -270,8 +270,8 @@ class Post_Columns implements Runner {
 		if ( 'rank_math_image_title' === $column_name ) {
 			$title = get_the_title( $post_id );
 			?>
-			<span class="rank-math-column-display"><?php echo $title; ?></span>
-			<span class="rank-math-column-value" data-field="image_title" contenteditable="true" tabindex="11"><?php echo $title; ?></span>
+			<span class="rank-math-column-display"><?php echo esc_html( $title ); ?></span>
+			<span class="rank-math-column-value" data-field="image_title" contenteditable="true" tabindex="11"><?php echo esc_html( $title ); ?></span>
 			<div class="rank-math-column-edit">
 				<a href="#" class="rank-math-column-save"><?php esc_html_e( 'Save', 'rank-math' ); ?></a>
 				<a href="#" class="button-link-delete rank-math-column-cancel"><?php esc_html_e( 'Cancel', 'rank-math' ); ?></a>
@@ -283,8 +283,8 @@ class Post_Columns implements Runner {
 		if ( 'rank_math_image_alt' === $column_name ) {
 			$alt = get_post_meta( $post_id, '_wp_attachment_image_alt', true );
 			?>
-			<span class="rank-math-column-display"><?php echo $alt; ?></span>
-			<span class="rank-math-column-value" data-field="image_alt" contenteditable="true" tabindex="11"><?php echo $alt; ?></span>
+			<span class="rank-math-column-display"><?php echo esc_html( $alt ); ?></span>
+			<span class="rank-math-column-value" data-field="image_alt" contenteditable="true" tabindex="11"><?php esc_html( $alt ); ?></span>
 			<div class="rank-math-column-edit">
 				<a href="#" class="rank-math-column-save"><?php esc_html_e( 'Save', 'rank-math' ); ?></a>
 				<a href="#" class="button-link-delete rank-math-column-cancel"><?php esc_html_e( 'Cancel', 'rank-math' ); ?></a>

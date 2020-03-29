@@ -15,6 +15,7 @@ use RankMath\Helper;
 use RankMath\Module\Base;
 use RankMath\Admin\Options;
 use MyThemeShop\Helpers\Str;
+use MyThemeShop\Helpers\Param;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -64,7 +65,7 @@ class Admin extends Base {
 				'file'  => $this->directory . '/settings/general.php',
 				'desc'  => esc_html__( 'This tab contains settings related to the XML sitemaps.', 'rank-math' ) . ' <a href="' . KB::get( 'sitemap-general' ) . '" target="_blank">' . esc_html__( 'Learn more', 'rank-math' ) . '</a>',
 				/* translators: sitemap url */
-				'after' => $this->get_notice_start() . sprintf( esc_html__( 'Your sitemap index can be found here: %s', 'rank-math' ), '<a href="' . $sitemap_url . '" target="_blank">' . $sitemap_url . '</a>' ) . '</p></div>',
+				'after' => $this->get_notice_start() . sprintf( esc_html__( 'Your sitemap index can be found here: %s', 'rank-math' ), '<a href="' . $sitemap_url . '" target="_blank">' . $sitemap_url . '</a>' ) . '</p></div>' . $this->get_nginx_notice(),
 			),
 		);
 
@@ -333,5 +334,34 @@ class Admin extends Base {
 	 */
 	private function get_notice_start() {
 		return '<div class="cmb-row notice notice-alt notice-info info inline" style="border:0;margin:15px 0 -10px;padding: 1px 12px"><p>';
+	}
+
+	/**
+	 * Get nginx notice.
+	 *
+	 * @since 1.0.41
+	 *
+	 * @return string
+	 */
+	private function get_nginx_notice() {
+		if ( empty( Param::server( 'SERVER_SOFTWARE' ) ) ) {
+			return '';
+		}
+
+		$server_software = explode( '/', Param::server( 'SERVER_SOFTWARE' ) );
+		if ( ! in_array( 'nginx', array_map( 'strtolower', $server_software ), true ) ) {
+			return '';
+		}
+
+		return '<div class="sitemap-nginx-notice notice-warning">
+		<p>' . sprintf( __( 'Since you are using NGINX, add this code to your NGINX %s <strong>if your Sitemap pages are not loading</strong> or you can ask your hosting support to add it.', 'rank-math' ), '<a href="https://help.dreamhost.com/hc/en-us/articles/216455077-Nginx-configuration-file-locations/?utm_campaign=Rank+Math" target="_blank">' . __( 'configuration file', 'rank-math' ) . '</a>' ) . '
+		<a href="#"><span class="show">' . __( 'Click here to see the code.', 'rank-math' ) . '</span><span class="hide">' . __( 'Hide', 'rank-math' ) . '</span></a></p>
+<pre>
+# START Nginx Rewrites for Rank Math Sitemaps
+rewrite ^/sitemap_index.xml$ /index.php?sitemap=1 last;
+rewrite ^/([^/]+?)-sitemap([0-9]+)?.xml$ /index.php?sitemap=$1&sitemap_n=$2 last;
+# END Nginx Rewrites for Rank Math Sitemaps
+</pre>
+		</div>';
 	}
 }

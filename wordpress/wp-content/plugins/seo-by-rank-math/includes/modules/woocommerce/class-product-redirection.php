@@ -78,8 +78,9 @@ class Product_Redirection {
 			return false;
 		}
 
+		$is_product          = is_product();
 		$permalink_structure = wc_get_permalink_structure();
-		$base                = is_product_category() ? $permalink_structure['category_base'] : $permalink_structure['product_base'];
+		$base                = $is_product ? $permalink_structure['product_base'] : $permalink_structure['category_base'];
 
 		$base     = explode( '/', ltrim( $base, '/' ) );
 		$new_link = $uri;
@@ -89,7 +90,13 @@ class Product_Redirection {
 			return false;
 		}
 
-		foreach ( $base as $remove ) {
+		// On Single product page redirect base with shop and product.
+		if ( $is_product ) {
+			$base[] = 'product';
+			$base[] = 'shop';
+		}
+
+		foreach ( array_unique( $base ) as $remove ) {
 			if ( '%product_cat%' === $remove ) {
 				continue;
 			}

@@ -112,7 +112,7 @@ class Post_Screen implements IScreen {
 	 * @return array
 	 */
 	public function get_values() {
-		$screen = get_current_screen();
+		$post_type = $this->get_current_post_type();
 		return [
 			'homeUrl'                => home_url(),
 			'parentDomain'           => Url::get_domain( home_url() ),
@@ -122,8 +122,8 @@ class Post_Screen implements IScreen {
 			'featuredImageNotice'    => esc_html__( 'The featured image should be at least 200 by 200 pixels to be picked up by Facebook and other social media sites.', 'rank-math' ),
 			'pluginReviewed'         => $this->plugin_reviewed(),
 			'postSettings'           => [
-				'linkSuggestions' => Helper::get_settings( 'titles.pt_' . $screen->post_type . '_link_suggestions' ),
-				'useFocusKeyword' => 'focus_keywords' === Helper::get_settings( 'titles.pt_' . $screen->post_type . '_ls_use_fk' ),
+				'linkSuggestions' => Helper::get_settings( 'titles.pt_' . $post_type . '_link_suggestions' ),
+				'useFocusKeyword' => 'focus_keywords' === Helper::get_settings( 'titles.pt_' . $post_type . '_ls_use_fk' ),
 			],
 			'siteFavIcon'            => $this->get_site_icon(),
 			'frontEndScore'          => Frontend_SEO_Score::show_on(),
@@ -279,6 +279,20 @@ class Post_Screen implements IScreen {
 	}
 
 	/**
+	 * Get current post type.
+	 *
+	 * @return string
+	 */
+	private function get_current_post_type() {
+		if ( function_exists( 'get_current_screen' ) ) {
+			$screen = get_current_screen();
+			return $screen->post_type;
+		}
+
+		return get_post_type();
+	}
+
+	/**
 	 * Check if any TOC plugin detected
 	 *
 	 * @return bool
@@ -329,8 +343,8 @@ class Post_Screen implements IScreen {
 			return $this->primary_taxonomy;
 		}
 
-		$taxonomy = false;
-		$screen   = get_current_screen();
+		$taxonomy  = false;
+		$post_type = $this->get_current_post_type();
 
 		/**
 		 * Allow disabling the primary term feature.
@@ -338,7 +352,7 @@ class Post_Screen implements IScreen {
 		 * @param bool $return True to disable.
 		 */
 		if ( false === apply_filters( 'rank_math/primary_term', false ) ) {
-			$taxonomy = Helper::get_settings( 'titles.pt_' . $screen->post_type . '_primary_taxonomy', false );
+			$taxonomy = Helper::get_settings( 'titles.pt_' . $post_type . '_primary_taxonomy', false );
 		}
 
 		if ( ! $taxonomy ) {

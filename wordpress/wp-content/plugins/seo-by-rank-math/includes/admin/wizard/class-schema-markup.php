@@ -80,7 +80,7 @@ class Schema_Markup implements Wizard_Step {
 					'BlogPosting' => esc_html__( 'Blog Post', 'rank-math' ),
 					'NewsArticle' => esc_html__( 'News Article', 'rank-math' ),
 				],
-				'default' => 'post' === $post_type ? 'BlogPosting' : 'Article',
+				'default' => Helper::get_settings( 'titles.pt_' . $post_type . '_default_article_type', 'post' === $post_type ? 'BlogPosting' : 'Article' ),
 				'dep'     => $article_dep,
 				'desc'    => $article_desc,
 			]);

@@ -25,13 +25,6 @@ class WooCommerce extends WC_Vars {
 	use Hooker;
 
 	/**
-	 * Hold product categories.
-	 *
-	 * @var array
-	 */
-	private $categories;
-
-	/**
 	 * Hold product.
 	 *
 	 * @var WC_Product
@@ -52,22 +45,11 @@ class WooCommerce extends WC_Vars {
 
 		$this->integrations();
 
-		if ( $this->remove_product_base ) {
-			$this->filter( 'post_type_link', 'product_post_type_link', 1, 2 );
-		}
-
-		if ( $this->remove_category_base || $this->remove_parent_slugs ) {
-			$this->filter( 'term_link', 'product_term_link', 1, 3 );
-			add_action( 'created_product_cat', 'RankMath\\Helper::schedule_flush_rewrite' );
-			add_action( 'delete_product_cat', 'RankMath\\Helper::schedule_flush_rewrite' );
-			add_action( 'edited_product_cat', 'RankMath\\Helper::schedule_flush_rewrite' );
-		}
-
 		if ( $this->remove_product_base || $this->remove_category_base ) {
 			new Product_Redirection;
 		}
 
-		$this->filter( 'rewrite_rules_array', 'add_rewrite_rules', 99 );
+		new Permalink_Watcher;
 		parent::__construct();
 	}
 
@@ -78,9 +60,10 @@ class WooCommerce extends WC_Vars {
 		if ( is_admin() ) {
 			return;
 		}
+
 		// Permalink Manager.
-		if ( $this->remove_product_base || $this->remove_category_base || $this->remove_parent_slugs ) {
-			$this->action( 'request', 'request' );
+		if ( $this->remove_product_base ) {
+			$this->action( 'request', 'request', 11 );
 		}
 
 		if ( Helper::get_settings( 'general.wc_remove_generator' ) ) {
@@ -114,7 +97,8 @@ class WooCommerce extends WC_Vars {
 		$slug    = array_pop( $url );
 
 		if ( 'feed' === $slug ) {
-			return $request;
+			$replace['feed'] = $slug;
+			$slug            = array_pop( $url );
 		}
 
 		if ( 'amp' === $slug ) {
@@ -139,76 +123,6 @@ class WooCommerce extends WC_Vars {
 		}
 
 		return $request;
-	}
-
-	/**
-	 * Replace product permalink according to settings.
-	 *
-	 * @param string  $permalink The existing permalink URL.
-	 * @param WP_Post $post WP_Post object.
-	 *
-	 * @return string
-	 */
-	public function product_post_type_link( $permalink, $post ) {
-		if ( $this->can_change_link( 'product', $post->post_type ) ) {
-			return $permalink;
-		}
-
-		$permalink_structure = wc_get_permalink_structure();
-		$product_base        = $permalink_structure['product_rewrite_slug'];
-		$product_base        = explode( '/', ltrim( $product_base, '/' ) );
-
-		$link = $permalink;
-		foreach ( $product_base as $remove ) {
-			if ( '%product_cat%' === $remove ) {
-				continue;
-			}
-			$link = preg_replace( "#{$remove}/#i", '', $link, 1 );
-		}
-
-		return $link;
-	}
-
-	/**
-	 * Replace category permalink according to settings.
-	 *
-	 * @param string $link     Term link URL.
-	 * @param object $term     Term object.
-	 * @param string $taxonomy Taxonomy slug.
-	 *
-	 * @return string
-	 */
-	public function product_term_link( $link, $term, $taxonomy ) {
-		if ( $this->can_change_link( 'product_cat', $taxonomy ) ) {
-			return $link;
-		}
-
-		$permalink_structure  = wc_get_permalink_structure();
-		$category_base        = trailingslashit( $permalink_structure['category_rewrite_slug'] );
-		$is_language_switcher = ( class_exists( 'Sitepress' ) && strpos( $link, 'lang=' ) );
-
-		if ( $this->remove_category_base ) {
-			$link          = str_replace( $category_base, '', $link );
-			$category_base = '';
-		}
-
-		if ( $this->remove_parent_slugs && ! $is_language_switcher ) {
-			$link = home_url( trailingslashit( $category_base . $term->slug ) );
-		}
-
-		return $link;
-	}
-
-	/**
-	 * Can change link
-	 *
-	 * @param string $check   Check string.
-	 * @param string $against Against this.
-	 *
-	 * @return bool
-	 */
-	private function can_change_link( $check, $against ) {
-		return $check !== $against || ! get_option( 'permalink_structure' );
 	}
 
 	/**
@@ -282,89 +196,6 @@ class WooCommerce extends WC_Vars {
 		}
 
 		return null;
-	}
-
-	/**
-	 * Add rewrite rules for wp.
-	 *
-	 * @param array $rules The compiled array of rewrite rules.
-	 *
-	 * @return array
-	 */
-	public function add_rewrite_rules( $rules ) {
-		global $wp_rewrite;
-		wp_cache_flush();
-
-		$permalink_structure = wc_get_permalink_structure();
-		$category_base       = $this->remove_category_base ? '' : $permalink_structure['category_rewrite_slug'];
-		$use_parent_slug     = Str::contains( '%product_cat%', $permalink_structure['product_rewrite_slug'] );
-
-		$product_rules  = [];
-		$category_rules = [];
-		foreach ( $this->get_categories() as $category ) {
-			$category_path = $this->get_category_fullpath( $category );
-			$category_slug = $this->remove_parent_slugs ? $category['slug'] : $category_path;
-
-			$category_rules[ $category_base . $category_slug . '/?$' ]                                    = 'index.php?product_cat=' . $category['slug'];
-			$category_rules[ $category_base . $category_slug . '/(?:feed/)?(feed|rdf|rss|rss2|atom)/?$' ] = 'index.php?product_cat=' . $category['slug'] . '&feed=$matches[1]';
-			$category_rules[ $category_base . $category_slug . '/' . $wp_rewrite->pagination_base . '/?([0-9]{1,})/?$' ] = 'index.php?product_cat=' . $category['slug'] . '&paged=$matches[1]';
-
-			if ( $this->remove_product_base && $use_parent_slug ) {
-				$product_rules[ $category_path . '/([^/]+)/?$' ] = 'index.php?product=$matches[1]';
-				$product_rules[ $category_path . '/([^/]+)/' . $wp_rewrite->comments_pagination_base . '-([0-9]{1,})/?$' ] = 'index.php?product=$matches[1]&cpage=$matches[2]';
-			}
-		}
-
-		$rules = empty( $rules ) ? [] : $rules;
-		return $category_rules + $product_rules + $rules;
-	}
-
-	/**
-	 * Returns categories array.
-	 *
-	 * ['category id' => ['slug' => 'category slug', 'parent' => 'parent category id']]
-	 *
-	 * @return array
-	 */
-	protected function get_categories() {
-		if ( is_null( $this->categories ) ) {
-			$categories = get_categories(
-				[
-					'taxonomy'   => 'product_cat',
-					'hide_empty' => false,
-				]
-			);
-
-			$slugs = [];
-			foreach ( $categories as $category ) {
-				$slugs[ $category->term_id ] = [
-					'parent' => $category->parent,
-					'slug'   => $category->slug,
-				];
-			}
-
-			$this->categories = $slugs;
-		}
-
-		return $this->categories;
-	}
-
-	/**
-	 * Recursively builds category full path.
-	 *
-	 * @param object $category Term object.
-	 *
-	 * @return string
-	 */
-	protected function get_category_fullpath( $category ) {
-		$categories = $this->get_categories();
-		$parent     = $category['parent'];
-
-		if ( $parent > 0 && array_key_exists( $parent, $categories ) ) {
-			return $this->get_category_fullpath( $categories[ $parent ] ) . '/' . $category['slug'];
-		}
-
-		return $category['slug'];
 	}
 
 	/**

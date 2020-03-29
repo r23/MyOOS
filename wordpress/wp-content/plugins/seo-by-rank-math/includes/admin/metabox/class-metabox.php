@@ -10,7 +10,6 @@
 
 namespace RankMath\Admin\Metabox;
 
-use CMB2_hookup;
 use RankMath\CMB2;
 use RankMath\Helper;
 use RankMath\Runner;
@@ -80,11 +79,12 @@ class Metabox implements Runner {
 		$is_elementor = 'elementor' === Param::get( 'action' );
 
 		if ( ! $is_gutenberg && ! $is_elementor ) {
-			CMB2_hookup::enqueue_cmb_css();
+			\CMB2_Hookup::enqueue_cmb_css();
 			wp_enqueue_style( 'rank-math-metabox', rank_math()->plugin_url() . 'assets/admin/css/metabox.css', [ 'rank-math-common', 'rank-math-cmb2' ], rank_math()->version );
 
-			wp_enqueue_script( 'jquery-caret', rank_math()->plugin_url() . 'assets/vendor/jquery.caret.min.js', [ 'jquery' ], '1.3.3', true );
-			wp_enqueue_script( 'jquery-tag-editor', $js . 'jquery.tag-editor.js', [ 'jquery-ui-autocomplete', 'jquery-caret' ], '1.0.21', true );
+			$caret_handle = class_exists( 'BuddyPress' ) ? 'rank-math-caret' : 'jquery-caret';
+			wp_enqueue_script( $caret_handle, rank_math()->plugin_url() . 'assets/vendor/jquery.caret.min.js', [ 'jquery' ], '1.3.3', true );
+			wp_enqueue_script( 'jquery-tag-editor', $js . 'jquery.tag-editor.js', [ 'jquery-ui-autocomplete', $caret_handle ], '1.0.21', true );
 			wp_enqueue_script( 'rank-math-analyzer', $js . 'assessor.js', [ 'lodash' ], rank_math()->version, true );
 		}
 

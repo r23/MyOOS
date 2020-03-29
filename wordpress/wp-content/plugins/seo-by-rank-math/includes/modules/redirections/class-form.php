@@ -104,12 +104,17 @@ class Form {
 					'type'    => 'select',
 					'options' => Helper::choices_comparison_types(),
 				],
+				[
+					'id'   => 'ignore',
+					'type' => 'checkbox',
+					'desc' => esc_html__( 'Ignore Case', 'rank-math' ),
+				],
 			],
 		]);
 
 		$cmb->add_field([
 			'id'   => 'url_to',
-			'type' => 'text',
+			'type' => 'text_url',
 			'name' => esc_html__( 'Destination URL', 'rank-math' ),
 		]);
 

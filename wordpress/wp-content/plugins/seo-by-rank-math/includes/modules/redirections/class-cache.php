@@ -47,7 +47,7 @@ class Cache {
 	 * @return object
 	 */
 	public static function get_by_url( $url ) {
-		return empty( $url ) ? false : self::table()->where( 'from_url', $url )->one();
+		return empty( $url ) ? false : self::table()->where( 'BINARY from_url', $url )->one();
 	}
 
 	/**

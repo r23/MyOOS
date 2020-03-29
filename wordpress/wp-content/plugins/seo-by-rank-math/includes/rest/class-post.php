@@ -16,6 +16,7 @@ use WP_Error;
 use WP_REST_Server;
 use WP_REST_Request;
 use WP_REST_Controller;
+use RankMath\Helper;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -61,7 +62,7 @@ class Post extends WP_REST_Controller {
 
 		foreach ( $rows as $post_id => $data ) {
 			$post_id = absint( $post_id );
-			if ( ! $post_id ) {
+			if ( ! $post_id || ! Helper::is_post_type_accessible( get_post_type( $post_id ) ) ) {
 				continue;
 			}
 
@@ -97,10 +98,12 @@ class Post extends WP_REST_Controller {
 
 		$sanitizer = Sanitize::get();
 		if ( 'image_title' === $column ) {
-			wp_update_post([
-				'ID'         => $post_id,
-				'post_title' => $sanitizer->sanitize( 'image_title', $value ),
-			]);
+			wp_update_post(
+				[
+					'ID'         => $post_id,
+					'post_title' => $sanitizer->sanitize( 'image_title', $value ),
+				]
+			);
 			return;
 		}
 

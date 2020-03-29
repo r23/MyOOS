@@ -38,122 +38,6 @@
         "description": "WP Background Processing can be used to fire off non-blocking asynchronous requests or as a background processing tool, allowing you to queue tasks."
     },
     {
-        "name": "cmb2/cmb2",
-        "version": "v2.6.0",
-        "version_normalized": "2.6.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/CMB2/CMB2.git",
-            "reference": "008d9b83263d971d6bd41c27e31113db852d5ef3"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/CMB2/CMB2/zipball/008d9b83263d971d6bd41c27e31113db852d5ef3",
-            "reference": "008d9b83263d971d6bd41c27e31113db852d5ef3",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">5.2.4"
-        },
-        "require-dev": {
-            "apigen/apigen": "4.1.2",
-            "nette/utils": "2.5.3",
-            "phpunit/phpunit": "6.5.13"
-        },
-        "suggest": {
-            "composer/installers": "~1.0"
-        },
-        "time": "2019-01-21T04:30:08+00:00",
-        "type": "wordpress-plugin",
-        "installation-source": "dist",
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "GPL-2.0-or-later"
-        ],
-        "authors": [
-            {
-                "name": "WebDevStudios",
-                "email": "contact@webdevstudios.com",
-                "homepage": "https://github.com/WebDevStudios",
-                "role": "Developer"
-            },
-            {
-                "name": "Justin Sternberg",
-                "email": "justin@dsgnwrks.pro",
-                "homepage": "https://dsgnwrks.pro",
-                "role": "Developer"
-            }
-        ],
-        "description": "CMB2 is a metabox, custom fields, and forms library for WordPress that will blow your mind.",
-        "homepage": "https://github.com/CMB2/CMB2",
-        "keywords": [
-            "metabox",
-            "plugin",
-            "wordpress"
-        ]
-    },
-    {
-        "name": "rollbar/rollbar",
-        "version": "v1.8.1",
-        "version_normalized": "1.8.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/rollbar/rollbar-php.git",
-            "reference": "8a57ad9574d85bd818eaedfc8049fdcb16795f31"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/rollbar/rollbar-php/zipball/8a57ad9574d85bd818eaedfc8049fdcb16795f31",
-            "reference": "8a57ad9574d85bd818eaedfc8049fdcb16795f31",
-            "shasum": ""
-        },
-        "require": {
-            "ext-curl": "*",
-            "monolog/monolog": "^1",
-            "psr/log": "^1"
-        },
-        "require-dev": {
-            "codeclimate/php-test-reporter": "dev-master",
-            "mockery/mockery": "0.9.*",
-            "packfire/php5.3-compat": "*",
-            "phpmd/phpmd": "@stable",
-            "phpunit/phpunit": "4.8.*",
-            "squizlabs/php_codesniffer": "2.*"
-        },
-        "suggest": {
-            "fluent/logger": "Needed to use the 'fluent' handler for fluentd support",
-            "packfire/php5.3-compat": "for backward compatibility with PHP 5.3"
-        },
-        "time": "2019-05-06T11:31:11+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Rollbar\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Rollbar, Inc.",
-                "email": "support@rollbar.com",
-                "role": "Developer"
-            }
-        ],
-        "description": "Monitors errors and exceptions and reports them to Rollbar",
-        "homepage": "http://github.com/rollbar/rollbar-php",
-        "keywords": [
-            "debugging",
-            "errors",
-            "exceptions",
-            "logging",
-            "monitoring"
-        ]
-    },
-    {
         "name": "psr/log",
         "version": "1.1.2",
         "version_normalized": "1.1.2.0",
@@ -284,23 +168,23 @@
     },
     {
         "name": "mythemeshop/wordpress-helpers",
-        "version": "1.0.10",
-        "version_normalized": "1.0.10.0",
+        "version": "1.0.11",
+        "version_normalized": "1.0.11.0",
         "source": {
             "type": "git",
             "url": "https://github.com/MyThemeShopTeam/wordpress-helpers.git",
-            "reference": "168c3e7a88fd5d002abe9afcb0f77456c47bb6c8"
+            "reference": "2af7db7ac995636c5216006e42b455b71da8449f"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/MyThemeShopTeam/wordpress-helpers/zipball/168c3e7a88fd5d002abe9afcb0f77456c47bb6c8",
-            "reference": "168c3e7a88fd5d002abe9afcb0f77456c47bb6c8",
+            "url": "https://api.github.com/repos/MyThemeShopTeam/wordpress-helpers/zipball/2af7db7ac995636c5216006e42b455b71da8449f",
+            "reference": "2af7db7ac995636c5216006e42b455b71da8449f",
             "shasum": ""
         },
         "require": {
             "php": ">=5.6"
         },
-        "time": "2020-01-08T20:39:34+00:00",
+        "time": "2020-03-16T16:53:38+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -322,5 +206,121 @@
             }
         ],
         "description": "Collection of utilities required during development of a plugin or theme for WordPress. Build for developers by developers."
+    },
+    {
+        "name": "rollbar/rollbar",
+        "version": "v2.0.0",
+        "version_normalized": "2.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/rollbar/rollbar-php.git",
+            "reference": "245670b32d8e6072d6b364eda242f245879cdee9"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/rollbar/rollbar-php/zipball/245670b32d8e6072d6b364eda242f245879cdee9",
+            "reference": "245670b32d8e6072d6b364eda242f245879cdee9",
+            "shasum": ""
+        },
+        "require": {
+            "ext-curl": "*",
+            "monolog/monolog": "^1 || ^2",
+            "psr/log": "^1"
+        },
+        "require-dev": {
+            "codeclimate/php-test-reporter": "dev-master",
+            "mockery/mockery": "0.9.*",
+            "packfire/php5.3-compat": "*",
+            "phpmd/phpmd": "@stable",
+            "phpunit/phpunit": "4.8.* || ^5",
+            "squizlabs/php_codesniffer": "2.*"
+        },
+        "suggest": {
+            "fluent/logger": "Needed to use the 'fluent' handler for fluentd support",
+            "packfire/php5.3-compat": "for backward compatibility with PHP 5.3"
+        },
+        "time": "2019-10-02T06:24:31+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Rollbar\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Rollbar, Inc.",
+                "email": "support@rollbar.com",
+                "role": "Developer"
+            }
+        ],
+        "description": "Monitors errors and exceptions and reports them to Rollbar",
+        "homepage": "http://github.com/rollbar/rollbar-php",
+        "keywords": [
+            "debugging",
+            "errors",
+            "exceptions",
+            "logging",
+            "monitoring"
+        ]
+    },
+    {
+        "name": "cmb2/cmb2",
+        "version": "v2.7.0",
+        "version_normalized": "2.7.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/CMB2/CMB2.git",
+            "reference": "438c26dda7ac110d0741448d65614b3ec6379034"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/CMB2/CMB2/zipball/438c26dda7ac110d0741448d65614b3ec6379034",
+            "reference": "438c26dda7ac110d0741448d65614b3ec6379034",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">5.2.4"
+        },
+        "require-dev": {
+            "apigen/apigen": "4.1.2",
+            "nette/utils": "2.5.3",
+            "phpunit/phpunit": "6.5.13"
+        },
+        "suggest": {
+            "composer/installers": "~1.0"
+        },
+        "time": "2020-01-21T17:49:50+00:00",
+        "type": "wordpress-plugin",
+        "installation-source": "dist",
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "GPL-2.0-or-later"
+        ],
+        "authors": [
+            {
+                "name": "Justin Sternberg",
+                "email": "justin@dsgnwrks.pro",
+                "homepage": "https://dsgnwrks.pro",
+                "role": "Developer"
+            },
+            {
+                "name": "WebDevStudios",
+                "email": "contact@webdevstudios.com",
+                "homepage": "https://github.com/WebDevStudios",
+                "role": "Developer"
+            }
+        ],
+        "description": "CMB2 is a metabox, custom fields, and forms library for WordPress that will blow your mind.",
+        "homepage": "https://github.com/CMB2/CMB2",
+        "keywords": [
+            "metabox",
+            "plugin",
+            "wordpress"
+        ]
     }
 ]

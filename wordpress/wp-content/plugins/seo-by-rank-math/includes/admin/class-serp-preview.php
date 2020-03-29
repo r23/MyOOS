@@ -184,12 +184,25 @@ class Serp_Preview {
 			$termlink         = $this->get_termlink( $termlink, $term->taxonomy );
 			$slugs[]          = '%postname%';
 			$termlink         = str_replace( "%$term->taxonomy%", implode( '/', $slugs ), $termlink );
-			$permalink_format = home_url( user_trailingslashit( $termlink, 'category' ) );
+			$permalink_format = $this->get_home_url() . user_trailingslashit( $termlink, 'category' );
 		}
 
 		$url = untrailingslashit( esc_url( $permalink ) );
 
 		return compact( 'title_format', 'desc_format', 'url', 'permalink', 'permalink_format' );
+	}
+
+	/**
+	 * Get Home URL based on the language if Polylang plugin is active.
+	 *
+	 * @return string
+	 */
+	private function get_home_url() {
+		if ( ! function_exists( 'pll_home_url' ) ) {
+			return home_url();
+		}
+
+		return untrailingslashit( pll_home_url() );
 	}
 
 	/**

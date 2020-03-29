@@ -191,7 +191,7 @@ class Redirection {
 	public function add_sources( $sources ) {
 		foreach ( $sources as $key => $value ) {
 			$value['comparison'] = empty( $value['comparison'] ) ? 'exact' : $value['comparison'];
-			$this->add_source( $value['pattern'], $value['comparison'] );
+			$this->add_source( $value['pattern'], $value['comparison'], isset( $value['ignore'] ) ? 'case' : '' );
 		}
 	}
 
@@ -200,8 +200,9 @@ class Redirection {
 	 *
 	 * @param string $pattern    Pattern to add.
 	 * @param string $comparison Comparison for pattern.
+	 * @param string $ignore     Ignore flag.
 	 */
-	public function add_source( $pattern, $comparison ) {
+	public function add_source( $pattern, $comparison, $ignore ) {
 		$pattern = trim( $pattern );
 		if ( empty( $pattern ) ) {
 			return;
@@ -213,6 +214,7 @@ class Redirection {
 		}
 
 		$this->data['sources'][] = [
+			'ignore'     => $ignore,
 			'pattern'    => $pattern,
 			'comparison' => $comparison,
 		];
@@ -231,7 +233,7 @@ class Redirection {
 			$processed = site_url( $processed );
 		}
 
-		$this->data['url_to'] = urldecode( $processed );
+		$this->data['url_to'] = $processed;
 	}
 
 	/**

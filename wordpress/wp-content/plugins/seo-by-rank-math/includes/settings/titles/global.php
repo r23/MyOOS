@@ -29,7 +29,7 @@ $cmb->add_field([
 	'type'    => 'switch',
 	'name'    => esc_html__( 'Noindex Empty Category and Tag Archives', 'rank-math' ),
 	'desc'    => wp_kses_post( __( 'Setting empty archives to <code>noindex</code> is useful for avoiding indexation of thin content pages and dilution of page rank. As soon as a post is added, the page is updated to <code>index</code>.', 'rank-math' ) ),
-	'default' => Helper::get_settings( 'titles.noindex_empty_taxonomies' ) ? 'on' : 'off',
+	'default' => 'on',
 ]);
 
 $cmb->add_field([

@@ -12,7 +12,7 @@ use MyThemeShop\Helpers\Param;
 $dir = dirname( __FILE__ ) . '/';
 $tab = Param::get( 'view', 'overview' );
 ?>
-<div class="wrap rank-math-wrap rank-math-search-console rank-math-search-console-<?php echo $tab; ?>">
+<div class="wrap rank-math-wrap rank-math-search-console rank-math-search-console-<?php echo esc_attr( $tab ); ?>">
 
 	<br>
 

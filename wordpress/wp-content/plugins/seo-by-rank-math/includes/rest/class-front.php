@@ -67,11 +67,13 @@ class Front extends WP_REST_Controller {
 			);
 		}
 
-		Admin_Helper::get_registration_data([
-			'username'  => $data['username'],
-			'api_key'   => $data['api_key'],
-			'connected' => false,
-		]);
+		Admin_Helper::get_registration_data(
+			[
+				'username'  => $data['username'],
+				'api_key'   => $data['api_key'],
+				'connected' => false,
+			]
+		);
 
 		return [
 			'code'    => 'site_disconnected',

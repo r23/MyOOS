@@ -10,7 +10,6 @@
 
 namespace RankMath\Redirections;
 
-use CMB2_hookup;
 use RankMath\Helper;
 use RankMath\Module\Base;
 use RankMath\Traits\Ajax;
@@ -68,7 +67,7 @@ class Admin extends Base {
 		if ( $this->page->is_current_page() ) {
 			new Export;
 			$this->action( 'init', 'init' );
-			add_action( 'admin_enqueue_scripts', [ 'CMB2_hookup', 'enqueue_cmb_css' ] );
+			add_action( 'admin_enqueue_scripts', [ 'CMB2_Hookup', 'enqueue_cmb_css' ] );
 			Helper::add_json( 'maintenanceMode', esc_html__( 'Maintenance Code', 'rank-math' ) );
 			Helper::add_json( 'emptyError', __( 'This field must not be empty.', 'rank-math' ) );
 		}

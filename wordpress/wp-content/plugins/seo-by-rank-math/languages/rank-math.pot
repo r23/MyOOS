@@ -2677,6 +2677,9 @@ msgstr ""
 msgid "Source URLs"
 msgstr ""
 
+msgid "Ignore Case"
+msgstr ""
+
 msgid "Destination URL"
 msgstr ""
 
@@ -3816,6 +3819,12 @@ msgstr ""
 msgid "Review analytics and sitemaps"
 msgstr ""
 
+msgid "Search Analytics"
+msgstr ""
+
+msgid "Keyword Tracker"
+msgstr ""
+
 msgid "Search Console Stats"
 msgstr ""
 
@@ -3845,12 +3854,6 @@ msgstr ""
 
 #. translators: Link to kb article
 msgid "Connect Rank Math with your Google Search Console profile to see the most important information from Google directly in your WordPress dashboard. %s."
-msgstr ""
-
-msgid "Search Analytics"
-msgstr ""
-
-msgid "Keyword Tracker"
 msgstr ""
 
 msgid "No authentication code found."
@@ -4338,6 +4341,15 @@ msgid "A comma-separated list of up to 5 stock tickers of the companies, mutual 
 msgstr ""
 
 msgid "Exclude this image from sitemap"
+msgstr ""
+
+msgid "Since you are using NGINX, add this code to your NGINX %s <strong>if your Sitemap pages are not loading</strong> or you can ask your hosting support to add it."
+msgstr ""
+
+msgid "configuration file"
+msgstr ""
+
+msgid "Click here to see the code."
 msgstr ""
 
 #. translators: post names
@@ -5268,6 +5280,21 @@ msgid "Site token"
 msgstr ""
 
 msgid "No meta rows found to update."
+msgstr ""
+
+msgid "Sorry, you are not allowed to create/update redirection."
+msgstr ""
+
+msgid "Sorry, you are not allowed to edit this post type."
+msgstr ""
+
+msgid "Sorry, you are not allowed to edit this post."
+msgstr ""
+
+msgid "Sorry, you are not allowed to update posts as this user."
+msgstr ""
+
+msgid "Invalid post ID."
 msgstr ""
 
 msgid "Sorry, field is empty which is not allowed."

@@ -40,7 +40,7 @@ class Opengraph extends Sitemap {
 	 */
 	public function og_product_namespace( $input ) {
 		if ( is_singular( 'product' ) ) {
-			$input = preg_replace( '/prefix="([^"]+)"/', 'prefix="$1 product: http://ogp.me/ns/product#"', $input );
+			$input = preg_replace( '/prefix="([^"]+)"/', 'prefix="$1 product: https://ogp.me/ns/product#"', $input );
 		}
 
 		return $input;

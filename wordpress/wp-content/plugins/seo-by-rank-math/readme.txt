@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection
 Tested up to: 5.4
 Requires at least: 4.9.0
 Requires PHP: 5.6
-Stable tag: 1.0.40.2
+Stable tag: 1.0.41.1
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -460,40 +460,28 @@ We look forward to helping you.
 
 == Changelog ==
 
-= 1.0.40.2 [Mar 24, 2020] =
-* Fixed: Focus Keyword suggestions not working for the connected users
-* Fixed: Removed destination field from the 410 and 451 Redirection types
+= 1.0.41.1 [Mar 26, 2020] =
+* Fixed: CMB2 errors throwing up on some installations
 
-= 1.0.40.1 [Mar 21, 2020] =
-* Added: Given the current global situation, more events are going virtual, being postponed, and being canceled every single day. We want to acknowledge that we're all being affected by COVID-19 (aka Coronavirus disease) in different ways. Our thoughts and prayers go out to everyone affected, especially those who are in quarantine and have lost loved ones. Let's [follow these precautions religiously](https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public). And, on that note, we're releasing support for the [new Structured Data properties as per Google's latest announcement](https://webmasters.googleblog.com/2020/03/new-properties-virtual-or-canceled-events.html). The Events that are getting canceled and moving online can now be marked using Rank Math's [Event Schema](https://rankmath.com/kb/rich-snippets/#event).
-* Added: An Option to set 'Event Attendance Mode' in the Event Schema [Offline/Online/Offline+Online]
-* Added: German [Power words](https://rankmath.com/blog/power-words/). Props to [Peter Schieche](https://www.peter-auf-tour.de/)
-
-= 1.0.40 [Mar 13, 2020] =
-* Added: [NEW!] A block to add [HowTo Schema](https://rankmath.com/blog/howto-schema/) to a WordPress website using the new Block editor aka Gutenberg
-* Added: A HTML tab in the Category/Term description field
-* Added: A warning about [beta version](https://rankmath.com/kb/version-control/#beta-updates) on the plugins' update page
-* Added: Compatibility needed for WordPress 5.4
-* Improved: On a multisite, moved the [Version Control's](https://rankmath.com/kb/version-control/) options to the network admin and now only the super admins can access it
-* Improved: Removed default values from the Opening Hours in the [Local SEO](https://rankmath.com/kb/rich-snippets/) tab & the Redirect Orphan Attachment option
-* Improved: Used `@graph` to combine multiple Schema types in a single JSON-LD tag
-* Improved: Added IDs to the Schema output of FAQ Block
-* Improved: Notice's styling and changed beta changelog link to Rank Math's changelog page
-* Changed: The default behavior of Powered by link inside the SEO score option to a follow link due to Google's recent changes on how they see a NoFollow link. One can [change the content of the link by using these filters](https://rankmath.com/kb/filters-hooks-api-developer/#seo-score). This is especially useful for agency owners. The option is turned off by default
-* Fixed: Rank Math not working with the standalone Gutenberg plugin
-* Fixed: Import/Export tab missing for the subsite owners in the Multisite installation
-* Fixed: FAQ Schema not printing when FAQ block was added in the Columns as an InnerBlock
-* Fixed: Block Editor crashing when someone clicked on the Rank Math Toolbar button while the page was loading on certain web hosts
-* Fixed: Sort by SEO Score not working in the Posts lists page
-* Fixed: Import step was showing in the setup wizard even after the import was completed
-* Fixed: Filter to hide the SEO Score in the frontend not working properly
-* Fixed: The protected meta was showing in the frontend if `the_meta` function was used
-* Fixed: The Bing verification option not working
-* Fixed: Missing yellow background in the SEO Score of the Classic editor area
-* Fixed: An undefined variable error in a WooCommerce file
-* Fixed: A bug that was preventing the translations from showing up inside the Elementor editor
-* Fixed: Elementor's save button was greyed out even after changing values in the SEO tab of Rank Math
-* Fixed: Made Local SEO phone number field translation-ready
-* Fixed: [SEO tab showing in the Elementor](https://rankmath.com/blog/elementor-seo/) templates for some old installations
+= 1.0.41 [Mar 26, 2020] =
+* Added: [NEW!] A way for users to connect their [Google API App](https://rankmath.com/kb/create-a-google-api-project/) to Rank Math for fetching the data from the Google Search Console
+* Added: A notice to NGINX server users, showing a code to be added in the [configuration file](https://help.dreamhost.com/hc/en-us/articles/216455077-Nginx-configuration-file-locations/?utm_campaign=Rank+Math) if the Sitemaps were not opening
+* Added: 3 new English [Power words](https://rankmath.com/blog/power-words/) into the list
+* Added: The left sidebar's menu items appear instantly when a new module is activated from the Rank Math's dashboard area
+* Added: An option to ignore cases when creating a new redirection
+* Improved: The scoring system in the plugin. You might notice a minor mismatch in the scores. You can revisit your posts/pages and follow this updated [guide to score better points](https://rankmath.com/kb/score-100-in-tests/)
+* Improved: Removed URL decoding to allow special characters in the redirection's destination field
+* Improved: Synced all the default values for the Setup Wizard Options with the Options Panel
+* Enhanced: If the 'Rich Media', 'Keyword Density' & 'Length of Content' tests do not reach 100%, they will now show different colors so users would know these tests need more work. One can read more about these test in this [scoring guide](https://rankmath.com/kb/score-100-in-tests/)
+* Enhanced: Streamlined editing workflow for the SEO title using variables while editing posts/pages/CPTs. Previously, when you'd start entering a new meta title, the pre-defined variables would be removed, which made it difficult for some to make changes. This has now been changed so that this is no longer the case
+* Fixed: Authorization issues when connecting Google Search Console due to permission related inconsistencies
+* FIXED: A couple of REST API security issues reported by [Wordfence team](https://www.wordfence.com/?utm_campaign=Rank+Math)
+* Fixed: WooCommerce's Product page was not getting redirected to the new base when `Remove Category Base` option was enabled
+* Fixed: URLs with Cyrillic characters were not showing correctly in the permalink field
+* Fixed: An issue where they were a score mismatch between the Classic & the new Block editor
+* Fixed: [Filter to remove the Rank Math's tests](https://rankmath.com/kb/filters-hooks-api-developer/#remove-content-analysis) work with the new Block/Gutenberg editor as well
+* Fixed: Polylang's SERP preview URL was not showing language code in term's edit page
+* Fixed: A redirection issue on a sub-directory installation, where Rank Math was throwing a 404 error when a user tried to access the admin from the main domain. Fixed it following [WordPress's guidelines](https://wordpress.org/support/article/giving-wordpress-its-own-directory/)
+* Fixed: A WooCommerce issue where a trailing slash was getting added incorrectly to the product category pages when the 'Remove Category Base' & 'Remove Parent slug' options were enabled. Though, the Canonical URLs were working fine
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://rankmath.com/changelog/)**

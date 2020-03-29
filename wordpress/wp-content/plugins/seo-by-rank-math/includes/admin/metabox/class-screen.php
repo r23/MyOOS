@@ -261,19 +261,21 @@ class Screen implements IScreen {
 
 	/**
 	 * Load required screen.
+	 *
+	 * @param string $manual To load any screen manually.
 	 */
-	private function load_screen() {
-		if ( Admin_Helper::is_post_edit() ) {
+	private function load_screen( $manual = '' ) {
+		if ( Admin_Helper::is_post_edit() || 'post' === $manual ) {
 			$this->screen = new Post_Screen;
 			return;
 		}
 
-		if ( Admin_Helper::is_term_edit() ) {
+		if ( Admin_Helper::is_term_edit() || 'term' === $manual ) {
 			$this->screen = new Taxonomy_Screen;
 			return;
 		}
 
-		if ( User_Screen::is_enable() ) {
+		if ( User_Screen::is_enable() || 'user' === $manual ) {
 			$this->screen = new User_Screen;
 			return;
 		}
