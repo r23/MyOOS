@@ -296,7 +296,10 @@ if (!$product_info_result->RecordCount()) {
 	}
 
 	$smarty->assign('selector_array', $aSelector);
-
+	
+	// Product gallery
+	$sImageLink = oos_href_link($aContents['product_info'], 'products_id='. $nProductsID, TRUE, TRUE);	
+	$smarty->assign('image_link', $sImageLink);
 
 	$info_product_price = $oCurrencies->display_price($product_info['products_price'], oos_get_tax_rate($product_info['products_tax_class_id']));
 	$schema_product_price = $oCurrencies->schema_price($product_info['products_price'], oos_get_tax_rate($product_info['products_tax_class_id']), 1, FALSE);

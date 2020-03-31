@@ -219,7 +219,7 @@
 </div>
 
 <!-- Core --> 
-<script src="js/jquery/jquery-3.2.1.min.js"></script>
+<script src="js/jquery/jquery-3.4.1.min.js"></script>
 <script src="js/plugins/popper/popper.min.js"></script>  
 <script src="js/bootstrap/bootstrap.min.js"></script>
 {$javascript}
@@ -251,9 +251,16 @@
 {/literal}
 <!-- Plugins  -->
 <script src="js/plugins/viewport-checker/viewportchecker.min.js"></script> 
-<script src="js/plugins/owl-carousel/owl.carousel.min.js"></script> 
+
 <script src="js/plugins/magnific-popup/jquery.magnific-popup.min.js"></script> 
-<script src="js/plugins/image-zoom/jquery.zoom.min.js"></script>
+
+
+<script src="js/plugins/fancybox/jquery.fancybox.min.js"></script>
+<script src="js/plugins/owl-carousel/owl.carousel.min.js"></script>
+
+	<script src="http://localhost/ent/image/dist/js/vendor2.min.js"></script>
+    <script src="http://localhost/ent/image/dist/js/theme.min.js"></script>
+<script src="{$theme}/js/shop.app.js"></script>
 {literal}
 <script>
 /* <![CDATA[ */
@@ -262,7 +269,7 @@ var cnArgs = {/literal}{$cookiearray|@json_encode nofilter};{literal}
 </script>
 {/literal}
 <script src="js/plugins/cookie-notice/js/front.min.js"></script>
-<script src="{$theme}/js/shop.app.js"></script>
+
 
 <!-- HTML5 shim and Respond.js IE support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
@@ -270,6 +277,7 @@ var cnArgs = {/literal}{$cookiearray|@json_encode nofilter};{literal}
 	<script src="{$theme}/crossbrowserjs/respond.min.js"></script>
 	<script src="{$theme}/crossbrowserjs/excanvas.min.js"></script>
 <![endif]-->
+
 
 </body>
 </html>

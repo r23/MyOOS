@@ -61,16 +61,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.133.46",
+            "version": "3.134.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "98d359e61b365f3040ca61c66ae8883334cf5d74"
+                "reference": "480d4df4b7974666fa7c5e3df564d01f4f29663f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/98d359e61b365f3040ca61c66ae8883334cf5d74",
-                "reference": "98d359e61b365f3040ca61c66ae8883334cf5d74",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/480d4df4b7974666fa7c5e3df564d01f4f29663f",
+                "reference": "480d4df4b7974666fa7c5e3df564d01f4f29663f",
                 "shasum": ""
             },
             "require": {
@@ -141,7 +141,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2020-03-27T18:15:32+00:00"
+            "time": "2020-03-31T18:12:13+00:00"
         },
         {
             "name": "bacon/bacon-qr-code",
@@ -4487,16 +4487,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v5.0.6",
+            "version": "v5.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "358bbaec07b61f4413f6fe6147b7e460a8fe682e"
+                "reference": "93313a03cfdb3b9c994ae8e414267efcc010262d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/358bbaec07b61f4413f6fe6147b7e460a8fe682e",
-                "reference": "358bbaec07b61f4413f6fe6147b7e460a8fe682e",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/93313a03cfdb3b9c994ae8e414267efcc010262d",
+                "reference": "93313a03cfdb3b9c994ae8e414267efcc010262d",
                 "shasum": ""
             },
             "require": {
@@ -4658,7 +4658,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2020-03-27T16:20:34+00:00"
+            "time": "2020-03-30T15:05:17+00:00"
         },
         {
             "name": "twig/twig",

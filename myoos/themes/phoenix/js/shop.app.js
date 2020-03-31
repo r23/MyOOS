@@ -37,7 +37,7 @@
 		}
 		_owl_carousel();
 		_lightbox();
-		_zoom();
+		_product_gallery();
 
 	}
 	
@@ -653,70 +653,40 @@
 	}	
 
 
-/** Image Zoom
+/** Product gallery
  **************************************************************** **/
-	function _zoom() {
-		var _container = jQuery('figure.zoom');
-		
-		if(_container.length > 0) {
-		
-				
-				if(jQuery().zoom) {
-				
-					_container.each(function() {
-						var _t 		= jQuery(this),
-							_mode 	= _t.attr('data-mode'),
-							_id		= _t.attr('id');
+	function _product_gallery() {
 
-						if(_mode == 'grab') {
-							_t.zoom({ on:'grab' });
-						} else
-
-						if(_mode == 'click') {
-							_t.zoom({ on:'click' });
-						} else
-
-						if(_mode == 'toggle') {
-							_t.zoom({ on:'toggle' });
-						} else {
-							_t.zoom();
-						}
-
-						if(isMobile.any())  {
-							_t.zoom({ on:'toggle' });
-						}
-
-						// Thumbnails
-						if(_id) {
-							jQuery('.zoom-more[data-for='+_id+'] a').bind("click", function(e) {
-								e.preventDefault();
-
-								var _href = jQuery(this).attr('href');
-								
-								if(_href != "#") {
-									jQuery('.zoom-more[data-for='+_id+'] a').removeClass('active');
-									jQuery(this).addClass('active');
-
-									jQuery('figure#'+_id + '>.lightbox').attr('href', _href);
-
-									jQuery('figure#'+_id + '>img').fadeOut(0, function() {
-										jQuery('figure#'+_id + '>img').attr('src', _href);
-									}).fadeIn(500);
+		var _container = jQuery(".product-carousel");
 
 
-								}
-							});
-						}
-
-					});
-
-				}
-			
-		
+		function activeHash(e) {
+			var i = e.item.index;
+			var $activeHash = $('.owl-item').eq(i).find('[data-hash]').attr('data-hash');
+			$('.product-thumbnails li').removeClass('active');
+			$('[aria-controls="' + $activeHash + '"]').parent().addClass("active");
+			$('[data-hash="' + $activeHash + '"]').parent().addClass('active');
 		}
 
-	}
+		if(_container.length > 0) {
+			// Carousel init
+			// $(_container).owlCarousel({
+			_container.each(function() {
+				var owlCarousel = {			
+				items: 1,
+				loop: false,
+				dots: false,
+				nav: true,
+				margin: 12,
+				autoHeight: true,
+				URLhashListener: true,
+				startPosition: 'URLHash',
+				onTranslate: activeHash
+					}
 
+				});
+		}
+	}
 
 /** OWL Carousel
  **************************************************************** **/
@@ -736,11 +706,14 @@
 					// Progress Bar
 					var $opt = eval('(' + options + ')');  // convert text to json
 
-					if($opt.progressBar == 'true') {
-						var afterInit = progressBar;
-					} else {
-						var afterInit = false;
-					}
+					// if($opt.progressBar == 'true') {
+					//	var afterInit = progressBar;
+					// } else {
+					//	var afterInit = false;
+					// }
+					
+					var afterInit = false;
+
 
 					var defaults = {
 						items: 					5,
