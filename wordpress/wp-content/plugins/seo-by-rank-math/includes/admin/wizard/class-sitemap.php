@@ -162,7 +162,6 @@ class Sitemap implements Wizard_Step {
 				$t_defaults[] = $taxonomy;
 			}
 		}
-		$t_defaults = ! empty( $t_defaults ) ? $t_defaults : [ 'category' ];
 
 		return [
 			'defaults'   => $t_defaults,

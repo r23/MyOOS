@@ -121,6 +121,56 @@ function rank_math_register_seo_analysis_advance_tests( $tests ) {
 	return $tests;
 }
 
+add_filter( 'rank_math/seo_analysis/tests', 'rank_math_register_seo_analysis_auto_update_test', 20 );
+/**
+ * Register test for auto update option.
+ *
+ * @param array $tests Array of tests.
+ *
+ * @return array
+ */
+function rank_math_register_seo_analysis_auto_update_test( $tests ) {
+	$new_tests = [
+		'auto_update' => [
+			'category'    => 'priority',
+			'title'       => esc_html__( 'Automatic Updates', 'rank-math' ),
+			'description' => esc_html__( 'Enable automatic updates to ensure you are always using the latest version of Rank Math.', 'rank-math' ),
+			'callback'    => 'rank_math_analyze_auto_update',
+		],
+	];
+
+	// Move to top.
+	$tests = array_merge( $new_tests, $tests );
+
+	return $tests;
+}
+
+/**
+ * Checks if auto update is enabled.
+ *
+ * @return array
+ */
+function rank_math_analyze_auto_update() {
+	if ( Helper::get_settings( 'general.enable_auto_update' ) ) {
+		return [
+			'status'  => 'ok',
+			'message' => __( 'Rank Math auto-update option is enabled on your site.', 'rank-math' ),
+		];
+	}
+
+	return [
+		'status'  => 'warning',
+		'message' => '<div class="auto-update-disabled">' . sprintf(
+			// Translators: placeholder is an activate button.
+			__( 'Automatic updates are not enabled on your site. Click here to activate it now: %s', 'rank-math' ),
+			'<a href="#" class="button button-secondary enable-auto-update">' . __( 'Enable Auto Updates', 'rank-math' ) . '</a>'
+		) . '</div>' .
+		'<div class="auto-update-enabled hidden">' .
+		esc_html__( 'Rank Math auto-update option is enabled on your site.', 'rank-math' ) .
+		'</div>',
+	];
+}
+
 /**
  * Checks if site description is empty or set to default.
  *

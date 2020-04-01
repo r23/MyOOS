@@ -96,23 +96,18 @@ class Rest_Helper {
 
 		$post_type = get_post_type_object( $post->post_type );
 
-		if ( ! current_user_can( $post_type->cap->edit_post, $post->ID ) ) {
-			return new WP_Error(
-				'rest_cannot_edit',
-				__( 'Sorry, you are not allowed to edit this post.', 'rank-math' ),
-				[ 'status' => rest_authorization_required_code() ]
-			);
+		if (
+			current_user_can( $post_type->cap->edit_post, $post->ID ) ||
+			current_user_can( $post_type->cap->edit_others_posts )
+		) {
+			return true;
 		}
 
-		if ( ! current_user_can( $post_type->cap->edit_others_posts ) ) {
-			return new WP_Error(
-				'rest_cannot_edit_others',
-				__( 'Sorry, you are not allowed to update posts as this user.', 'rank-math' ),
-				[ 'status' => rest_authorization_required_code() ]
-			);
-		}
-
-		return true;
+		return new WP_Error(
+			'rest_cannot_edit',
+			__( 'Sorry, you are not allowed to edit this post.', 'rank-math' ),
+			[ 'status' => rest_authorization_required_code() ]
+		);
 	}
 
 	/**

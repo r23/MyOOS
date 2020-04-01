@@ -25,7 +25,7 @@ $analyzer = Helper::get_module( 'seo-analysis' )->admin->analyzer;
 	</h2>
 
 	<?php if ( Helper::is_site_connected() ) : ?>
-		<?php include 'form.php'; ?>
+		<?php include dirname( __FILE__ ) . '/form.php'; ?>
 	<?php // phpcs:disable ?>
 
 	<?php if ( ! $analyzer->analyse_subpage ) : ?>

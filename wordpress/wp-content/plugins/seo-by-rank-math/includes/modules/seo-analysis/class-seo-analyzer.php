@@ -89,6 +89,7 @@ class SEO_Analyzer {
 		}
 
 		$this->ajax( 'analyze', 'analyze_me' );
+		$this->ajax( 'enable_auto_update', 'enable_auto_update' );
 	}
 
 	/**
@@ -114,55 +115,8 @@ class SEO_Analyzer {
 		$data = $this->get_graph_metrices();
 		extract( $data ); // phpcs:ignore
 		$max = max( $statuses['ok'], $statuses['warning'], $statuses['fail'] );
-		?>
-		<div class="rank-math-result-graphs">
 
-			<div class="two-col">
-
-				<div class="graphs-main">
-					<div id="rank-math-circle-progress" data-result="<?php echo ( $percent / 100 ); ?>"><strong class="score-<?php echo $grade; ?>"><?php echo $percent; ?></strong></div>
-					<div class="result-score">
-						<strong><?php echo $percent; ?>/100</strong>
-						<label><?php esc_html_e( 'SEO Score', 'rank-math' ); ?></label>
-					</div>
-				</div>
-
-				<div class="graphs-side">
-					<ul class="chart">
-						<li class="chart-bar-good">
-							<span style="height:<?php echo round( $statuses['ok'] / $max * 100 ); ?>%"></span>
-							<div class="result-score">
-								<strong><?php echo $statuses['ok'] . '/' . $total; ?></strong>
-								<label><?php esc_html_e( 'Passed Tests', 'rank-math' ); ?></label>
-							</div>
-						</li>
-						<li class="chart-bar-average">
-							<span style="height:<?php echo round( $statuses['warning'] / $max * 100 ); ?>%"></span>
-							<div class="result-score">
-								<strong><?php echo $statuses['warning'] . '/' . $total; ?></strong>
-								<label><?php esc_html_e( 'Warnings', 'rank-math' ); ?></label>
-							</div>
-						</li>
-						<li class="chart-bar-bad">
-							<span style="height:<?php echo round( $statuses['fail'] / $max * 100 ); ?>%"></span>
-							<div class="result-score">
-								<strong><?php echo $statuses['fail'] . '/' . $total; ?></strong>
-								<label><?php esc_html_e( 'Failed Tests', 'rank-math' ); ?></label>
-							</div>
-						</li>
-					</ul>
-				</div>
-
-			</div>
-
-			<?php if ( ! $this->analyse_subpage ) : ?>
-			<footer class="rank-math-ui">
-				<button data-what="website" class="button button-primary button-xlarge rank-math-recheck"><?php esc_html_e( 'Start Site-Wide Analysis', 'rank-math' ); ?></button>
-			</footer>
-			<?php endif; ?>
-
-		</div>
-		<?php
+		include dirname( __FILE__ ) . '/views/graphs.php';
 	}
 
 	/**
@@ -276,9 +230,26 @@ class SEO_Analyzer {
 			return;
 		}
 
+		$this->move_priority_results_to_top();
+
 		foreach ( $this->results as $id => $result ) {
 			$this->results[ $id ] = new Result( $id, $result, $this->analyse_subpage );
 		}
+	}
+
+	/**
+	 * Move all tests in "priority" category to top.
+	 */
+	private function move_priority_results_to_top() {
+		$priority = [];
+		foreach ( $this->results as $id => $result ) {
+			if ( is_array( $result ) && $result['category'] === 'priority' ) {
+				$priority[ $id ] = $result;
+				unset( $this->results[ $id ] );
+			}
+		}
+
+		$this->results = array_replace( $priority, $this->results );
 	}
 
 	/**
@@ -310,6 +281,35 @@ class SEO_Analyzer {
 		$this->display();
 
 		die;
+	}
+
+	/**
+	 * Enable auto update ajax handler.
+	 */
+	public function enable_auto_update() {
+		$settings                       = get_option( 'rank-math-options-general', array() );
+		$settings['enable_auto_update'] = '1';
+		rank_math()->settings->set( 'general', 'enable_auto_update', true );
+		update_option( 'rank-math-options-general', $settings );
+
+		$this->enable_auto_update_in_stored_data();
+
+		echo '1';
+		die;
+	}
+
+	/**
+	 * Edit SEO analysis stored data.
+	 */
+	public function enable_auto_update_in_stored_data() {
+		$results = get_option( 'rank_math_seo_analysis_results' );
+		if ( ! isset( $results['auto_update'] ) ) {
+			return;
+		}
+
+		$results['auto_update']['status']  = 'ok';
+		$results['auto_update']['message'] = __( 'Rank Math auto-update option is enabled on your site.', 'rank-math' );
+		update_option( 'rank_math_seo_analysis_results', $results );
 	}
 
 	/**
@@ -358,7 +358,6 @@ class SEO_Analyzer {
 		$api_url = add_query_arg(
 			[
 				'u'          => $this->analyse_url,
-				'ak'         => $this->get_api_key(),
 				'locale'     => get_locale(),
 				'is_subpage' => $this->analyse_subpage,
 			],
@@ -498,6 +497,7 @@ class SEO_Analyzer {
 	 */
 	private function get_category_label( $category ) {
 		$category_map = [
+			'priority'    => esc_html__( 'Priority', 'rank-math' ),
 			'advanced'    => esc_html__( 'Advanced SEO', 'rank-math' ),
 			'basic'       => esc_html__( 'Basic SEO', 'rank-math' ),
 			'performance' => esc_html__( 'Performance', 'rank-math' ),
@@ -506,14 +506,5 @@ class SEO_Analyzer {
 		];
 
 		return isset( $category_map[ $category ] ) ? $category_map[ $category ] : '';
-	}
-
-	/**
-	 * Get api key for rank math api.
-	 *
-	 * @return string
-	 */
-	private function get_api_key() {
-		return 'xxx-xxxx-xxxxxxxxx';
 	}
 }

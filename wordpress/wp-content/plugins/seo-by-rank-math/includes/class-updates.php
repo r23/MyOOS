@@ -85,6 +85,11 @@ class Updates implements Runner {
 			update_option( 'rank_math_install_date', current_time( 'timestamp' ) );
 		}
 
+		// Clear rollback option if necessary.
+		if ( rank_math()->version !== get_option( 'rank_math_rollback_version' ) ) {
+			delete_option( 'rank_math_rollback_version' );
+		}
+
 		update_option( 'rank_math_version', rank_math()->version );
 		update_option( 'rank_math_db_version', rank_math()->db_version );
 	}

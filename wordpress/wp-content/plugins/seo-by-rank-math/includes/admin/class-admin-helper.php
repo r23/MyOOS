@@ -29,6 +29,9 @@ class Admin_Helper {
 	 * @return array
 	 */
 	public static function get_htaccess_data() {
+		if ( ! function_exists( 'get_home_path' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+		}
 		$wp_filesystem = WordPress::get_filesystem();
 		$htaccess_file = get_home_path() . '.htaccess';
 

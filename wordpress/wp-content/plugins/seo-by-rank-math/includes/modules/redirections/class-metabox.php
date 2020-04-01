@@ -51,10 +51,12 @@ class Metabox {
 			esc_html__( 'Create new redirection for the URL of this post.', 'rank-math' );
 
 		$cmb->add_field([
-			'id'   => 'redirection_heading',
-			'type' => 'title',
-			'name' => esc_html__( 'Redirect', 'rank-math' ),
-			'desc' => $message . ' ' . esc_html__( 'Publish or update the post to save the redirection.', 'rank-math' ),
+			'id'         => 'rank_math_enable_redirection',
+			'type'       => 'switch',
+			'name'       => esc_html__( 'Redirection', 'rank-math' ),
+			'desc'       => $message . ' ' . esc_html__( 'Publish or update the post to save the redirection.', 'rank-math' ),
+			'default'    => empty( $redirection['id'] ) ? 'off' : 'on',
+			'save_field' => false,
 		]);
 
 		$cmb->add_field([
@@ -64,6 +66,7 @@ class Metabox {
 			'options'    => Helper::choices_redirection_types(),
 			'default'    => isset( $redirection['header_code'] ) ? $redirection['header_code'] : '',
 			'save_field' => false,
+			'dep'        => [ [ 'rank_math_enable_redirection', 'on' ] ],
 		]);
 
 		$cmb->add_field([
@@ -71,7 +74,11 @@ class Metabox {
 			'type'       => 'text',
 			'name'       => esc_html__( 'Destination URL', 'rank-math' ),
 			'save_field' => false,
-			'dep'             => [ [ 'redirection_header_code', '410,451', '!=' ] ],
+			'dep'        => [
+				'relation' => 'and',
+				[ 'rank_math_enable_redirection', 'on' ],
+				[ 'redirection_header_code', '410,451', '!=' ],
+			],
 			'default'    => isset( $redirection['url_to'] ) ? $redirection['url_to'] : '',
 		]);
 
@@ -168,6 +175,10 @@ class Metabox {
 	 * @return boolean
 	 */
 	private function can_delete( $values ) {
+		if ( 'off' === $values['rank_math_enable_redirection'] ) {
+			return true;
+		}
+
 		if ( isset( $values['has_redirect'] ) && empty( $values['has_redirect'] ) ) {
 			return true;
 		}

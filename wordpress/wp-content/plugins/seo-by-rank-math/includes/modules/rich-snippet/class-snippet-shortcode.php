@@ -357,7 +357,7 @@ class Snippet_Shortcode {
 			return true;
 		}
 
-		$mode = Helper::get_post_meta( 'snippet_event_attendance_mode', $post->ID );
+		$mode = Helper::get_post_meta( 'snippet_event_attendance_mode', $post_id );
 		if ( 'online' === $mode && in_array( $meta_key, [ 'event_venue', 'event_venue_url', 'event_address' ], true ) ) {
 			return false;
 		}
@@ -502,8 +502,7 @@ class Snippet_Shortcode {
 			'software_operating_system'     => esc_html__( 'Operating System', 'rank-math' ),
 			'software_application_category' => esc_html__( 'Application Category', 'rank-math' ),
 			'is_rating'                     => [
-				'value' => 'software_rating_value',
-				'count' => 'software_rating_count',
+				'value' => 'software_rating',
 			],
 		];
 	}

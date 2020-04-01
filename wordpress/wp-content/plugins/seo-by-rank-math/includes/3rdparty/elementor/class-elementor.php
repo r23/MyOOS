@@ -78,6 +78,7 @@ class Elementor {
 			'wp-element',
 			'wp-data',
 			'wp-api-fetch',
+			'wp-media-utils',
 			'rank-math-analyzer',
 			'backbone-marionette',
 			'elementor-common-modules',

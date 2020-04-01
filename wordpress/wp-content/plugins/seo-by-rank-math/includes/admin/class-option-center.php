@@ -80,7 +80,7 @@ class Option_Center implements Runner {
 			],
 		];
 
-		if ( is_super_admin() ) {
+		if ( is_super_admin() && 'rank-math-options-general' === Param::get( 'page' ) ) {
 			Arr::insert(
 				$tabs,
 				[

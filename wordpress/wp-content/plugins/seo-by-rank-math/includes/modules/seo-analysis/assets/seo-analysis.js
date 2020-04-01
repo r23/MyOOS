@@ -86,6 +86,26 @@
 					event.preventDefault()
 					$( this ).parent( 'div' ).toggleClass( 'expanded' )
 				})
+
+				self.wrap.on( 'click', '.enable-auto-update', function( event ) {
+					event.preventDefault()
+					$.ajax({
+						url: ajaxurl,
+						type: 'POST',
+						data: {
+							action: 'rank_math_enable_auto_update',
+							security: rankMath.security,
+						},
+					})
+					$( this ).closest( '.auto-update-disabled' )
+						.addClass( 'hidden' )
+						.siblings( '.auto-update-enabled' )
+						.removeClass( 'hidden' )
+						.closest( '.row-description' )
+						.find( '.status-icon' )
+						.removeClass( 'status-warning dashicons-warning' )
+						.addClass( 'status-ok dashicons-yes' );
+				})
 			},
 
 			renderProgressBar: function() {

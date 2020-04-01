@@ -202,7 +202,7 @@ class Redirection {
 	 * @param string $comparison Comparison for pattern.
 	 * @param string $ignore     Ignore flag.
 	 */
-	public function add_source( $pattern, $comparison, $ignore ) {
+	public function add_source( $pattern, $comparison, $ignore = '' ) {
 		$pattern = trim( $pattern );
 		if ( empty( $pattern ) ) {
 			return;

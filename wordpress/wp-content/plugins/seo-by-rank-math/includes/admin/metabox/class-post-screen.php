@@ -86,6 +86,7 @@ class Post_Screen implements IScreen {
 
 		if ( $is_block_editor || $is_elementor ) {
 			$this->enqueue_commons();
+			Helper::add_json( 'postType', get_post_type() );
 		}
 
 		if ( $is_block_editor && ! $is_elementor && Editor::can_add_editor() ) {

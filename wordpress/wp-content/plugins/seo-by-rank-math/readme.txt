@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection
 Tested up to: 5.4
 Requires at least: 4.9.0
 Requires PHP: 5.6
-Stable tag: 1.0.41.1
+Stable tag: 1.0.41.2
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -460,28 +460,23 @@ We look forward to helping you.
 
 == Changelog ==
 
-= 1.0.41.1 [Mar 26, 2020] =
-* Fixed: CMB2 errors throwing up on some installations
-
-= 1.0.41 [Mar 26, 2020] =
-* Added: [NEW!] A way for users to connect their [Google API App](https://rankmath.com/kb/create-a-google-api-project/) to Rank Math for fetching the data from the Google Search Console
-* Added: A notice to NGINX server users, showing a code to be added in the [configuration file](https://help.dreamhost.com/hc/en-us/articles/216455077-Nginx-configuration-file-locations/?utm_campaign=Rank+Math) if the Sitemaps were not opening
-* Added: 3 new English [Power words](https://rankmath.com/blog/power-words/) into the list
-* Added: The left sidebar's menu items appear instantly when a new module is activated from the Rank Math's dashboard area
-* Added: An option to ignore cases when creating a new redirection
-* Improved: The scoring system in the plugin. You might notice a minor mismatch in the scores. You can revisit your posts/pages and follow this updated [guide to score better points](https://rankmath.com/kb/score-100-in-tests/)
-* Improved: Removed URL decoding to allow special characters in the redirection's destination field
-* Improved: Synced all the default values for the Setup Wizard Options with the Options Panel
-* Enhanced: If the 'Rich Media', 'Keyword Density' & 'Length of Content' tests do not reach 100%, they will now show different colors so users would know these tests need more work. One can read more about these test in this [scoring guide](https://rankmath.com/kb/score-100-in-tests/)
-* Enhanced: Streamlined editing workflow for the SEO title using variables while editing posts/pages/CPTs. Previously, when you'd start entering a new meta title, the pre-defined variables would be removed, which made it difficult for some to make changes. This has now been changed so that this is no longer the case
-* Fixed: Authorization issues when connecting Google Search Console due to permission related inconsistencies
-* FIXED: A couple of REST API security issues reported by [Wordfence team](https://www.wordfence.com/?utm_campaign=Rank+Math)
-* Fixed: WooCommerce's Product page was not getting redirected to the new base when `Remove Category Base` option was enabled
-* Fixed: URLs with Cyrillic characters were not showing correctly in the permalink field
-* Fixed: An issue where they were a score mismatch between the Classic & the new Block editor
-* Fixed: [Filter to remove the Rank Math's tests](https://rankmath.com/kb/filters-hooks-api-developer/#remove-content-analysis) work with the new Block/Gutenberg editor as well
-* Fixed: Polylang's SERP preview URL was not showing language code in term's edit page
-* Fixed: A redirection issue on a sub-directory installation, where Rank Math was throwing a 404 error when a user tried to access the admin from the main domain. Fixed it following [WordPress's guidelines](https://wordpress.org/support/article/giving-wordpress-its-own-directory/)
-* Fixed: A WooCommerce issue where a trailing slash was getting added incorrectly to the product category pages when the 'Remove Category Base' & 'Remove Parent slug' options were enabled. Though, the Canonical URLs were working fine
+= 1.0.41.2 [Mar 31, 2020] =
+* Added: A new auto-update test in the SEO Analyzer tool
+* Improved: The performance of the option to edit the `.htaccess` file inside the WordPress admin area
+* Improved: It should now be easier to locate the tests that require further improvements. Such tests would now display an orange color
+* Improved: Removed rotating effect from the beta warning. Now users can manually update to a beta version if they rolled back to an older version
+* Improved: Removed 'Schema Type' select dropdown from the Elementor Editor for WooCommerce products
+* Improved: 'Category' taxonomy in the Sitemap step of the Setup Wizard now shows the correct state, matching the value from the database
+* Fixed: Newly published posts showing 404 error on some installations due to default value set in the Global Redirections setting
+* Fixed: Social image was not getting fetched by Facebook on some installations
+* Fixed: 'Author' role was unable to save/edit Focus Keywords in the Gutenberg and Elementor editor
+* Fixed: Social tab not working in the Elementor editor
+* Fixed: Missing Schema tab icon in the Block editor when `No Schema` type was selected in the global settings
+* Fixed: Permalink field was not accepting a hyphen or space in the Block Editor and Elementor
+* Fixed: The `%category%` variable was not working in the new Block Editor
+* Fixed: `Software Application Schema's` rating was not displaying on the frontend
+* Fixed: A problem with the `Auto Post redirect` option where it was throwing an error
+* Fixed: A glitch with the rolled-back versions where an update notice was showing even if someone was on the latest version of the plugin
+* Fixed: An edge-case where forcing an update check inside WordPress was throwing a warning on some servers
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://rankmath.com/changelog/)**

@@ -72,6 +72,10 @@ class Rollback_Version {
 		if ( ! class_exists( '\Plugin_Upgrader' ) ) {
 			require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
 		}
+
+		update_option( self::ROLLBACK_VERSION_OPTION, Param::post( 'rm_rollback_version' ) );
+		update_option( 'rank_math_version', Param::post( 'rm_rollback_version' ) );
+
 		add_filter( 'pre_site_transient_update_plugins', [ $this, 'pre_transient_update_plugins' ], 20 );
 		add_filter( 'gettext', [ $this, 'change_updater_strings' ], 20, 3 );
 		$upgrader = new \Plugin_Upgrader( new \Plugin_Upgrader_Skin( compact( 'title', 'nonce', 'url', 'plugin' ) ) );
@@ -80,7 +84,7 @@ class Rollback_Version {
 		echo '</div>';
 		remove_filter( 'pre_site_transient_update_plugins', [ $this, 'pre_transient_update_plugins' ], 20 );
 		remove_filter( 'gettext', [ $this, 'change_updater_strings' ], 20 );
-		update_option( self::ROLLBACK_VERSION_OPTION, Param::post( 'rm_rollback_version' ) );
+
 		return true;
 	}
 

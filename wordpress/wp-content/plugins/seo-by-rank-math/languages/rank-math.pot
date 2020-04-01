@@ -2704,6 +2704,9 @@ msgstr ""
 msgid "Create new redirection for the URL of this post."
 msgstr ""
 
+msgid "Redirection"
+msgstr ""
+
 msgid "Publish or update the post to save the redirection."
 msgstr ""
 
@@ -4001,17 +4004,11 @@ msgstr ""
 msgid "SEO Analysis for this page"
 msgstr ""
 
-msgid "Passed Tests"
-msgstr ""
-
-msgid "Failed Tests"
-msgstr ""
-
-msgid "Start Site-Wide Analysis"
-msgstr ""
-
 #. translators: API error
 msgid "<strong>API Error:</strong> %s"
+msgstr ""
+
+msgid "Rank Math auto-update option is enabled on your site."
 msgstr ""
 
 msgid "Facebook Connected"
@@ -4047,6 +4044,9 @@ msgid "Your website has a %s page connected to it."
 msgstr ""
 
 msgid "Your website has no %s connected to it."
+msgstr ""
+
+msgid "Priority"
 msgstr ""
 
 msgid "Advanced SEO"
@@ -4167,6 +4167,19 @@ msgstr ""
 msgid "If you don't have an XML sitemap, the best option is to install a plugin that creates sitemaps for you. That way you'll know the sitemap will always be up-to-date. Plugins can also automatically ping the search engines when the XML file is updated. The Rank Math WordPress plugin gives you complete control over your site's XML sitemaps. You can control the settings for each page as you write or edit it, and Rank Math will ping Google as soon as you submit your edits. This results in fast crawls and indexing."
 msgstr ""
 
+msgid "Automatic Updates"
+msgstr ""
+
+msgid "Enable automatic updates to ensure you are always using the latest version of Rank Math."
+msgstr ""
+
+#. translators: placeholder is an activate button.
+msgid "Automatic updates are not enabled on your site. Click here to activate it now: %s"
+msgstr ""
+
+msgid "Enable Auto Updates"
+msgstr ""
+
 #. translators: 1: link open tag; 2: link close tag.
 msgid "You have not entered a tagline yet. It is a good idea to choose one. %1$sYou can fix this in the customizer%2$s."
 msgstr ""
@@ -4235,10 +4248,19 @@ msgstr ""
 msgid "Analysing Page&hellip;"
 msgstr ""
 
+msgid "Start Site-Wide Analysis"
+msgstr ""
+
 msgid "Analysing Website&hellip;"
 msgstr ""
 
 msgid "Complete"
+msgstr ""
+
+msgid "Passed Tests"
+msgstr ""
+
+msgid "Failed Tests"
 msgstr ""
 
 msgid "In this section, we're going to introduce the SEO analysis tool. As the name suggests, it analyzes your site's SEO and points out what you're doing right and the issues you need to fix."
@@ -5289,9 +5311,6 @@ msgid "Sorry, you are not allowed to edit this post type."
 msgstr ""
 
 msgid "Sorry, you are not allowed to edit this post."
-msgstr ""
-
-msgid "Sorry, you are not allowed to update posts as this user."
 msgstr ""
 
 msgid "Invalid post ID."
