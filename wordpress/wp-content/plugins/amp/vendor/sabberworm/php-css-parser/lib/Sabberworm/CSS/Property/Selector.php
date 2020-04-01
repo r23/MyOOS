@@ -2,6 +2,8 @@
 
 namespace Sabberworm\CSS\Property;
 
+use Sabberworm\CSS\Parsing\UnexpectedTokenException;
+
 /**
  * Class representing a single CSS selector. Selectors have to be split by the comma prior to being passed into this class.
  */
@@ -38,7 +40,14 @@ class Selector {
 	private $sSelector;
 	private $iSpecificity;
 
+	public static function isValid($sSelector) {
+		return preg_match("/^([a-zA-Z0-9,@\\\x{00A0}-\x{FFFF}_\^\$\|\*\=\"\'\~\[\]\(\)\-\s\.:#\+\>]*|\s*?[\+-]?\d+\%\s*)$/u", $sSelector);
+	}
+
 	public function __construct($sSelector, $bCalculateSpecificity = false) {
+		if (!Selector::isValid($sSelector)) {
+			throw new UnexpectedTokenException("Selector did not match '/^([a-zA-Z0-9,@\\\x{00A0}-\x{FFFF}_\^\$\|\*\=\"\'\~\[\]\(\)\-\s\.:#\+\>]*|\s*?[\+-]?\d+\%\s*)$/u'.", $sSelector, "custom");
+		}
 		$this->setSelector($sSelector);
 		if ($bCalculateSpecificity) {
 			$this->getSpecificity();
