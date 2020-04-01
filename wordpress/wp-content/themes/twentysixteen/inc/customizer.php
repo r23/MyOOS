@@ -103,7 +103,7 @@ if ( ! function_exists( 'twentysixteen_header_style' ) ) :
 		</style>
 		<?php
 	}
-endif; // twentysixteen_header_style
+endif; // twentysixteen_header_style()
 
 /**
  * Adds postMessage support for site title and description for the Customizer.
@@ -385,7 +385,7 @@ if ( ! function_exists( 'twentysixteen_get_color_scheme' ) ) :
 
 		return $color_schemes['default']['colors'];
 	}
-endif; // twentysixteen_get_color_scheme
+endif; // twentysixteen_get_color_scheme()
 
 if ( ! function_exists( 'twentysixteen_get_color_scheme_choices' ) ) :
 	/**
@@ -408,7 +408,7 @@ if ( ! function_exists( 'twentysixteen_get_color_scheme_choices' ) ) :
 
 		return $color_scheme_control_options;
 	}
-endif; // twentysixteen_get_color_scheme_choices
+endif; // twentysixteen_get_color_scheme_choices()
 
 
 if ( ! function_exists( 'twentysixteen_sanitize_color_scheme' ) ) :
@@ -432,7 +432,7 @@ if ( ! function_exists( 'twentysixteen_sanitize_color_scheme' ) ) :
 
 		return $value;
 	}
-endif; // twentysixteen_sanitize_color_scheme
+endif; // twentysixteen_sanitize_color_scheme()
 
 /**
  * Enqueues front-end CSS for color scheme.
@@ -484,7 +484,7 @@ add_action( 'wp_enqueue_scripts', 'twentysixteen_color_scheme_css' );
  * @since Twenty Sixteen 1.0
  */
 function twentysixteen_customize_control_js() {
-	wp_enqueue_script( 'color-scheme-control', get_template_directory_uri() . '/js/color-scheme-control.js', array( 'customize-controls', 'iris', 'underscore', 'wp-util' ), '20160816', true );
+	wp_enqueue_script( 'color-scheme-control', get_template_directory_uri() . '/js/color-scheme-control.js', array( 'customize-controls', 'iris', 'underscore', 'wp-util' ), '20170530', true );
 	wp_localize_script( 'color-scheme-control', 'colorScheme', twentysixteen_get_color_schemes() );
 }
 add_action( 'customize_controls_enqueue_scripts', 'twentysixteen_customize_control_js' );
@@ -495,7 +495,7 @@ add_action( 'customize_controls_enqueue_scripts', 'twentysixteen_customize_contr
  * @since Twenty Sixteen 1.0
  */
 function twentysixteen_customize_preview_js() {
-	wp_enqueue_script( 'twentysixteen-customize-preview', get_template_directory_uri() . '/js/customize-preview.js', array( 'customize-preview' ), '20160816', true );
+	wp_enqueue_script( 'twentysixteen-customize-preview', get_template_directory_uri() . '/js/customize-preview.js', array( 'customize-preview' ), '20170530', true );
 }
 add_action( 'customize_preview_init', 'twentysixteen_customize_preview_js' );
 
