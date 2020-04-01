@@ -121,3 +121,5 @@ prepros-6.config
 /dumper/nbproject/private/
 /dumper/nbproject
 /wordpress/wp-content/themes/twentytwenty/package-lock.json
+/wordpress/wp-content/themes/twentynineteen/package.json
+/wordpress/wp-content/themes/twentynineteen/package-lock.json
