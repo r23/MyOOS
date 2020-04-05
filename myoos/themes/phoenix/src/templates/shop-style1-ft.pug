@@ -1,0 +1,727 @@
+extends partials/layout
+
+//- Override default config variables
+append config
+  - var pageTitle = 'Shop style 1 <span class="lead font-weight-semibold text-muted">(Filters on top)</span>'
+  - var parentMenu = 'Shop'
+  - var breadcrumbs = [{'title': 'Home', 'link': 'index.html'}, {'title': 'Shop', 'link': '#'}]
+
+//- Page Content
+block content
+
+  //- modal-quickview.pug template
+  include partials/modal-quickview
+
+  //- toast-shop.pug template
+  include partials/toast-shop
+
+  .container.pb-5.mb-4
+
+    // Toolbar / filters
+    .pb-2
+      .d-flex.flex-wrap.justify-content-center.justify-content-sm-between.pb-2
+        .d-flex.flex-wrap
+          .form-inline.flex-nowrap.mr-3.mr-sm-4.pb-3
+            label(for='sorting').text-nowrap.mr-2.d-none.d-sm-block Sort by:
+            select(id='sorting').form-control.custom-select
+              option Popularity
+              option Low - Hight Price
+              option High - Low Price
+              option Average Rating
+              option A - Z Order
+              option Z - A Order
+          .form-inline.flex-nowrap.mr-3.pb-3
+            label(for='number').mr-2.d-none.d-sm-block Show:
+            select(id='number').form-control.custom-select.mr-sm-2
+              option 12
+              option 24
+              option 48
+              option 96
+            small.form-text.text-muted.text-nowrap.d-none.d-sm-block from 860
+        .dropdown
+          a(href='#shop-filters' data-toggle='collapse').btn.btn-outline-secondary.dropdown-toggle
+            i(data-feather='filter').mr-1
+            | Filters
+      #shop-filters.collapse
+        .border.pt-4.px-4.mb-3
+          .row
+            .col-lg-3.col-sm-6
+              // Categories
+              .widget.widget-categories.mb-4
+                h3.widget-title Shop categories
+                ul#shopCategories
+                  li.has-children
+                    a(href='#shoes' data-toggle='collapse')
+                      i(data-feather='chevron-down').widget-categories-indicator
+                      | Shoes
+                      span.badge.text-muted.ml-1 (1138)
+                    ul#shoes.collapse.show(data-parent='#shopCategories')
+                      li
+                        a(href='#')
+                          | Women's shoes
+                          span.badge.text-muted.ml-1 (508)
+                        ul
+                          li: a(href='#') Sneakers
+                          li: a(href='#') Heels
+                      li
+                        a(href='#')
+                          | Men's shoes
+                          span.badge.text-muted.ml-1 (423)
+                        ul
+                          li: a(href='#') Boots
+                          li: a(href='#') Oxfords
+                      li
+                        a(href='#')
+                          | Boy's shoes
+                          span.badge.text-muted.ml-1 (97)
+                      li
+                        a(href='#')
+                          | Girl's shoes
+                          span.badge.text-muted.ml-1 (110)
+                  li.has-children
+                    a(href='#clothing' data-toggle='collapse').collapsed
+                      i(data-feather='chevron-down').widget-categories-indicator
+                      | Clothing
+                      span.badge.text-muted.ml-1 (2356)
+                    ul#clothing.collapse(data-parent='#shopCategories')
+                      li
+                        a(href='#')
+                          | Women's clothing
+                          span.badge.text-muted.ml-1 (1032)
+                        ul
+                          li: a(href='#') Dresses
+                          li: a(href='#') Shirts &amp; Tops
+                          li: a(href='#') Swimwear
+                          li: a(href='#') Shorts
+                      li
+                        a(href='#')
+                          | Men's clothing
+                          span.badge.text-muted.ml-1 (937)
+                        ul
+                          li: a(href='#') Shirts &amp; Tops
+                          li: a(href='#') Shorts
+                          li: a(href='#') Swimwear
+                          li: a(href='#') Pants
+                      li
+                        a(href='#')
+                          | Kid's shoes
+                          span.badge.text-muted.ml-1 (386)
+                  li.has-children
+                    a(href='#bags' data-toggle='collapse').collapsed
+                      i(data-feather='chevron-down').widget-categories-indicator
+                      | Bags
+                      span.badge.text-muted.ml-1 (420)
+                    ul#bags.collapse(data-parent='#shopCategories')
+                      li
+                        a(href='#')
+                          | Handbags
+                          span.badge.text-muted.ml-1 (180)
+                      li
+                        a(href='#')
+                          | Backpacks
+                          span.badge.text-muted.ml-1 (132)
+                      li
+                        a(href='#')
+                          | Wallets &amp; Accessories
+                          span.badge.text-muted.ml-1 (47)
+                      li
+                        a(href='#')
+                          | Luggage
+                          span.badge.text-muted.ml-1 (61)
+                  li.has-children
+                    a(href='#accessories' data-toggle='collapse').collapsed
+                      i(data-feather='chevron-down').widget-categories-indicator
+                      | Accessories
+                      span.badge.text-muted.ml-1 (874)
+                    ul#accessories.collapse(data-parent='#shopCategories')
+                      li
+                        a(href='#')
+                          | Sunglasses
+                          span.badge.text-muted.ml-1 (211)
+                      li
+                        a(href='#')
+                          | Hats
+                          span.badge.text-muted.ml-1 (195)
+                      li
+                        a(href='#')
+                          | Watches
+                          span.badge.text-muted.ml-1 (159)
+                      li
+                        a(href='#')
+                          | Jewelry
+                          span.badge.text-muted.ml-1 (203)
+                      li
+                        a(href='#')
+                          | Belts
+                          span.badge.text-muted.ml-1 (106)
+            .col-lg-3.col-sm-6
+              // Price range
+              .widget.mb-4.pb-3
+                h3.widget-title Price range
+                form(data-start-min='250' data-start-max='650' data-min='0' data-max='1000' data-step='1').range-slider
+                  .ui-range-slider
+                  footer.ui-range-slider-footer
+                    .column
+                      button(type='submit').btn.btn-outline-primary.btn-sm Filter
+                    .column
+                      .ui-range-values
+                        .ui-range-label Price:
+                        .ui-range-value-min
+                          | $<span></span>
+                          input(type='hidden')
+                        | &nbsp;&ndash;&nbsp;
+                        .ui-range-value-max
+                          | $<span></span>
+                          input(type='hidden')
+              .widget.mb-4
+                h3.widget-title Filter by price
+                .d-flex.align-items-center
+                  div
+                    label(for='from-price') From
+                    .input-group
+                      .input-group-prepend
+                        span.input-group-text.px-2
+                          i(data-feather='dollar-sign')
+                      input(type='text' id='from-price').form-control
+                  div.mx-2.pt-4 &ndash;
+                  div
+                    label(for='to-price') To
+                    .input-group
+                      .input-group-prepend
+                        span.input-group-text.px-2
+                          i(data-feather='dollar-sign')
+                      input(type='text' id='to-price').form-control
+            .col-lg-3.col-sm-6
+              // Brand filter    
+              .widget.mb-4.pb-1
+                h3.widget-title Filter by brand
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='adidas').custom-control-input
+                  label(for='adidas').custom-control-label
+                    | Adidas
+                    span.text-muted.ml-1 (254)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='bilabong').custom-control-input
+                  label(for='bilabong').custom-control-label
+                    | Bilabong
+                    span.text-muted.ml-1 (39)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='brooks').custom-control-input
+                  label(for='brooks').custom-control-label
+                    | Brooks
+                    span.text-muted.ml-1 (205)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='klein').custom-control-input
+                  label(for='klein').custom-control-label
+                    | Calvin Klein
+                    span.text-muted.ml-1 (128)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='haan').custom-control-input
+                  label(for='haan').custom-control-label
+                    | Cole Haan
+                    span.text-muted.ml-1 (104)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='columbia').custom-control-input
+                  label(for='columbia').custom-control-label
+                    | Columbia
+                    span.text-muted.ml-1 (217)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='nb').custom-control-input
+                  label(for='nb').custom-control-label
+                    | New Balance
+                    span.text-muted.ml-1 (95)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='nike').custom-control-input
+                  label(for='nike').custom-control-label
+                    | Nike
+                    span.text-muted.ml-1 (310)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='nw').custom-control-input
+                  label(for='nw').custom-control-label
+                    | Nine West
+                    span.text-muted.ml-1 (134)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='oakley').custom-control-input
+                  label(for='oakley').custom-control-label
+                    | Oakley
+                    span.text-muted.ml-1 (73)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='puma').custom-control-input
+                  label(for='puma').custom-control-label
+                    | Puma
+                    span.text-muted.ml-1 (446)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='bahama').custom-control-input
+                  label(for='bahama').custom-control-label
+                    | Tommy Bahama
+                    span.text-muted.ml-1 (46)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='valentino').custom-control-input
+                  label(for='valentino').custom-control-label
+                    | Valentino
+                    span.text-muted.ml-1 (68)
+            .col-lg-3.col-sm-6
+              // Size filter    
+              .widget.mb-4.pb-1
+                h3.widget-title Filter by size
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='xl').custom-control-input
+                  label(for='xl').custom-control-label
+                    | XL
+                    span.text-muted.ml-1 (208)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='l').custom-control-input
+                  label(for='l').custom-control-label
+                    | L
+                    span.text-muted.ml-1 (311)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='m').custom-control-input
+                  label(for='m').custom-control-label
+                    | M
+                    span.text-muted.ml-1 (485)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='s').custom-control-input
+                  label(for='s').custom-control-label
+                    | S
+                    span.text-muted.ml-1 (213)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='xs').custom-control-input
+                  label(for='xs').custom-control-label
+                    | XS
+                    span.text-muted.ml-1 (197)
+              // Color filter    
+              .widget.mb-4
+                h3.widget-title Filter by color
+                .custom-control.custom-option.mb-2
+                  input(type='checkbox' id='cf-red').custom-control-input
+                  label(for='cf-red').custom-option-label.align-middle
+                    span(style='background-color: #c53b4b;').custom-option-color
+                  span.d-inline-block.font-size-sm.ml-2 Red
+                .custom-control.custom-option.mb-2
+                  input(type='checkbox' id='cf-blue').custom-control-input
+                  label(for='cf-blue').custom-option-label.align-middle
+                    span(style='background-color: #4e5392;').custom-option-color
+                  span.d-inline-block.font-size-sm.ml-2 Dark blue
+                .custom-control.custom-option.mb-2
+                  input(type='checkbox' id='cf-beige').custom-control-input
+                  label(for='cf-beige').custom-option-label.align-middle
+                    span(style='background-color: #e5ddd5;').custom-option-color
+                  span.d-inline-block.font-size-sm.ml-2 Beige
+                .custom-control.custom-option.mb-2
+                  input(type='checkbox' id='cf-green').custom-control-input
+                  label(for='cf-green').custom-option-label.align-middle
+                    span(style='background-color: #8ab5be;').custom-option-color
+                  span.d-inline-block.font-size-sm.ml-2 Green
+
+    // Products grid
+    .row
+
+      // Product
+      .col-lg-3.col-md-4.col-sm-6
+        .product-card.mb-4
+          .product-thumb
+            a(href='shop-single-apparel.html').product-thumb-link
+            span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+              i(data-feather='heart')
+            img(src='img/shop/apparel/01.jpg' alt='Product')
+          .product-card-body.text-center
+            a(href='#').product-meta Men's jeans
+            h3.product-card-title
+              a(href='shop-single-apparel.html') Gues Slim Taper Fit Jeans
+            span.text-primary $124.99
+          .product-card-body.body-hidden
+            .pb-2.text-center
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='size-1' id='xl-1').custom-control-input
+                label(for='xl-1').custom-option-label XL
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='size-1' id='l-1' checked).custom-control-input
+                label(for='l-1').custom-option-label L
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='size-1' id='m-1').custom-control-input
+                label(for='m-1').custom-option-label M
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='size-1' id='s-1').custom-control-input
+                label(for='s-1').custom-option-label S
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='size-1' id='xs-1').custom-control-input
+                label(for='xs-1').custom-option-label XS
+            button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+            a(href='#quick-view' data-toggle='modal').quick-view-btn
+              i(data-feather='eye').mr-1
+              | Quick view
+      
+      // Product
+      .col-lg-3.col-md-4.col-sm-6
+        .product-card.mb-4
+          .product-thumb
+            a(href='shop-single-apparel.html').product-thumb-link
+            span.badge.badge-danger.rounded-0 Sale -15%
+            span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+              i(data-feather='heart')
+            img(src='img/shop/apparel/02.jpg' alt='Product')
+          .product-card-body.text-center
+            a(href='#').product-meta Backpacks
+            h3.product-card-title
+              a(href='shop-single-apparel.html') JanSport Hatchet Special Edition
+            span.text-primary
+              del.text-muted.mr-1 $70.00
+              | $58.90
+          .product-card-body.body-hidden
+            .pb-2.text-center
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='color-1' id='blue-1').custom-control-input
+                label(for='blue-1').custom-option-label
+                  span(style='background-color: #193481;').custom-option-color
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='color-1' id='gray-1' checked).custom-control-input
+                label(for='gray-1').custom-option-label
+                  span(style='background-color: #cdc7c7;').custom-option-color
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='color-1' id='terracote-1').custom-control-input
+                label(for='terracote-1').custom-option-label
+                  span(style='background-color: #c46652;').custom-option-color
+            button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+            a(href='#quick-view' data-toggle='modal').quick-view-btn
+              i(data-feather='eye').mr-1
+              | Quick view
+      
+      // Product
+      .col-lg-3.col-md-4.col-sm-6
+        .product-card.mb-4
+          .product-thumb
+            a(href='shop-single-apparel.html').product-thumb-link
+            span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+              i(data-feather='heart')
+            img(src='img/shop/apparel/03.jpg' alt='Product')
+          .product-card-body.text-center
+            a(href='#').product-meta Men's shoes
+            h3.product-card-title
+              a(href='shop-single-apparel.html') Calvin Klein Jeans Keds
+            span.text-primary $125.00
+          .product-card-body.body-hidden
+            .pb-2.text-center
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='size-2' id='s-10').custom-control-input
+                label(for='s-10').custom-option-label 10
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='size-2' id='s-95' checked).custom-control-input
+                label(for='s-95').custom-option-label 9.5
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='size-2' id='s-9').custom-control-input
+                label(for='s-9').custom-option-label 9
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='size-2' id='s-85').custom-control-input
+                label(for='s-85').custom-option-label 8.5
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='size-2' id='s-8').custom-control-input
+                label(for='s-8').custom-option-label 8
+            button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+            a(href='#quick-view' data-toggle='modal').quick-view-btn
+              i(data-feather='eye').mr-1
+              | Quick view
+      
+      // Product
+      .col-lg-3.col-md-4.col-sm-6
+        .product-card.mb-4
+          .product-thumb
+            a(href='shop-single-apparel.html').product-thumb-link
+            span.badge.badge-success.rounded-0 &starf; Popular
+            span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+              i(data-feather='heart')
+            img(src='img/shop/apparel/04.jpg' alt='Product')
+          .product-card-body.text-center
+            a(href='#').product-meta Hats &amp; Caps
+            h3.product-card-title
+              a(href='shop-single-apparel.html') 47Brand Denim Cap
+            span.text-primary $21.50
+          .product-card-body.body-hidden
+            .pb-2.text-center
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='color-2' id='red-2').custom-control-input
+                label(for='red-2').custom-option-label
+                  span(style='background-color: #c53b4b;').custom-option-color
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='color-2' id='blue-2' checked).custom-control-input
+                label(for='blue-2').custom-option-label
+                  span(style='background-color: #4e5392;').custom-option-color
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='color-2' id='white-2').custom-control-input
+                label(for='white-2').custom-option-label
+                  span(style='background-color: #e5ddd5;').custom-option-color
+            button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+            a(href='#quick-view' data-toggle='modal').quick-view-btn
+              i(data-feather='eye').mr-1
+              | Quick view
+      
+      // Product
+      .col-lg-3.col-md-4.col-sm-6
+        .product-card.mb-4
+          .product-thumb
+            a(href='shop-single-apparel.html').product-thumb-link
+            span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+              i(data-feather='heart')
+            img(src='img/shop/apparel/05.jpg' alt='Product')
+          .product-card-body.text-center
+            a(href='#').product-meta Hoodies &amp; Sweatshirts
+            h3.product-card-title
+              a(href='shop-single-apparel.html') Nike Tech Fleece Hoodie
+            span.text-primary $130.00
+          .product-card-body.body-hidden
+            .pb-2.text-center
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='size-3' id='xl-3').custom-control-input
+                label(for='xl-3').custom-option-label XL
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='size-3' id='l-3' checked).custom-control-input
+                label(for='l-3').custom-option-label L
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='size-3' id='m-3').custom-control-input
+                label(for='m-3').custom-option-label M
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='size-3' id='s-3').custom-control-input
+                label(for='s-3').custom-option-label S
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='size-3' id='xs-3').custom-control-input
+                label(for='xs-3').custom-option-label XS
+            button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+            a(href='#quick-view' data-toggle='modal').quick-view-btn
+              i(data-feather='eye').mr-1
+              | Quick view
+      
+      // Product
+      .col-lg-3.col-md-4.col-sm-6
+        .product-card.mb-4
+          .product-thumb
+            a(href='shop-single-apparel.html').product-thumb-link
+            span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+              i(data-feather='heart')
+            img(src='img/shop/apparel/06.jpg' alt='Product')
+          .product-card-body.text-center
+            a(href='#').product-meta Sunglasses
+            h3.product-card-title
+              a(href='shop-single-apparel.html') Medicine Chameleon Sunglasses
+            span.text-muted Out of stock
+          .product-card-body.body-hidden
+            .pb-2.text-center
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='color-3' id='brown-3' checked).custom-control-input
+                label(for='brown-3').custom-option-label
+                  span(style='background-color: #ba7764;').custom-option-color
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='color-3' id='black-3').custom-control-input
+                label(for='black-3').custom-option-label
+                  span(style='background-color: #222;').custom-option-color
+            a(href='shop-single-apparel.html').btn.btn-primary.btn-sm.btn-block Pre-order
+            a(href='#quick-view' data-toggle='modal').quick-view-btn
+              i(data-feather='eye').mr-1
+              | Quick view
+      
+      // Product
+      .col-lg-3.col-md-4.col-sm-6
+        .product-card.mb-4
+          .product-thumb
+            a(href='shop-single-apparel.html').product-thumb-link
+            span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+              i(data-feather='heart')
+            img(src='img/shop/apparel/07.jpg' alt='Product')
+          .product-card-body.text-center
+            a(href='#').product-meta Dresses
+            h3.product-card-title
+              a(href='shop-single-apparel.html') Floral Printed Maxi Dress
+            span.text-primary $47.99
+          .product-card-body.body-hidden
+            .pb-2.text-center
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='size-4' id='l-4').custom-control-input
+                label(for='l-4').custom-option-label L
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='size-4' id='m-4' checked).custom-control-input
+                label(for='m-4').custom-option-label M
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='size-4' id='s-4').custom-control-input
+                label(for='s-4').custom-option-label S
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='size-4' id='xs-4').custom-control-input
+                label(for='xs-4').custom-option-label XS
+            button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+            a(href='#quick-view' data-toggle='modal').quick-view-btn
+              i(data-feather='eye').mr-1
+              | Quick view
+      
+      // Product
+      .col-lg-3.col-md-4.col-sm-6
+        .product-card.mb-4
+          .product-thumb
+            a(href='shop-single-apparel.html').product-thumb-link
+            span.badge.badge-danger.rounded-0 Sale -10%
+            span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+              i(data-feather='heart')
+            img(src='img/shop/apparel/08.jpg' alt='Product')
+          .product-card-body.text-center
+            a(href='#').product-meta Women's sneakers
+            h3.product-card-title
+              a(href='shop-single-apparel.html') Reebok Classic Sneakers Pyro
+            span.text-primary
+              del.text-muted.mr-1 $105.00
+              | $94.50
+          .product-card-body.body-hidden
+            .pb-2.text-center
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='size-5' id='s-5-95').custom-control-input
+                label(for='s-5-95').custom-option-label 9.5
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='size-5' id='s-5-9' checked).custom-control-input
+                label(for='s-5-9').custom-option-label 9
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='size-5' id='s-5-85').custom-control-input
+                label(for='s-5-85').custom-option-label 8.5
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='size-5' id='s-5-8').custom-control-input
+                label(for='s-5-8').custom-option-label 8
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='size-5' id='s-5-75').custom-control-input
+                label(for='s-5-75').custom-option-label 7.5
+            button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+            a(href='#quick-view' data-toggle='modal').quick-view-btn
+              i(data-feather='eye').mr-1
+              | Quick view
+      
+      // Product
+      .col-lg-3.col-md-4.col-sm-6
+        .product-card.mb-4
+          .product-thumb
+            a(href='shop-single-apparel.html').product-thumb-link
+            span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+              i(data-feather='heart')
+            img(src='img/shop/apparel/09.jpg' alt='Product')
+          .product-card-body.text-center
+            a(href='#').product-meta Handbags
+            h3.product-card-title
+              a(href='shop-single-apparel.html') Roxy Cotton Handbag
+            span.text-primary $52.00
+          .product-card-body.body-hidden
+            .pb-2.text-center
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='color-4' id='cyan-4').custom-control-input
+                label(for='cyan-4').custom-option-label
+                  span(style='background-color: #8ab5be;').custom-option-color
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='color-4' id='blue-4' checked).custom-control-input
+                label(for='blue-4').custom-option-label
+                  span(style='background-color: #4e5392;').custom-option-color
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='color-4' id='beige-4').custom-control-input
+                label(for='beige-4').custom-option-label
+                  span(style='background-color: #fccec2;').custom-option-color
+            button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+            a(href='#quick-view' data-toggle='modal').quick-view-btn
+              i(data-feather='eye').mr-1
+              | Quick view
+      
+      // Product
+      .col-lg-3.col-md-4.col-sm-6
+        .product-card.mb-4
+          .product-thumb
+            a(href='shop-single-apparel.html').product-thumb-link
+            span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+              i(data-feather='heart')
+            img(src='img/shop/apparel/10.jpg' alt='Product')
+          .product-card-body.text-center
+            a(href='#').product-meta Men's sandals
+            h3.product-card-title
+              a(href='shop-single-apparel.html') Big Star Flip Tops
+            span.text-primary $10.60
+          .product-card-body.body-hidden
+            .pb-2.text-center
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='size-6' id='s-6-10').custom-control-input
+                label(for='s-6-10').custom-option-label 10
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='size-6' id='s-6-95' checked).custom-control-input
+                label(for='s-6-95').custom-option-label 9.5
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='size-6' id='s-6-9').custom-control-input
+                label(for='s-6-9').custom-option-label 9
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='size-6' id='s-6-85').custom-control-input
+                label(for='s-6-85').custom-option-label 8.5
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='size-6' id='s-6-8').custom-control-input
+                label(for='s-6-8').custom-option-label 8
+            button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+            a(href='#quick-view' data-toggle='modal').quick-view-btn
+              i(data-feather='eye').mr-1
+              | Quick view
+      
+      // Product
+      .col-lg-3.col-md-4.col-sm-6
+        .product-card.mb-4
+          .product-thumb
+            a(href='shop-single-apparel.html').product-thumb-link
+            span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+              i(data-feather='heart')
+            img(src='img/shop/apparel/11.jpg' alt='Product')
+          .product-card-body.text-center
+            a(href='#').product-meta Men's tshirts
+            h3.product-card-title
+              a(href='shop-single-apparel.html') Medicine Tshirt Sailor Spirit
+            span.text-primary $17.00
+          .product-card-body.body-hidden
+            .pb-2.text-center
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='size-7' id='xl-7').custom-control-input
+                label(for='xl-7').custom-option-label XL
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='size-7' id='l-7' checked).custom-control-input
+                label(for='l-7').custom-option-label L
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='size-7' id='m-7').custom-control-input
+                label(for='m-7').custom-option-label M
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='size-7' id='s-7').custom-control-input
+                label(for='s-7').custom-option-label S
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='size-7' id='xs-7').custom-control-input
+                label(for='xs-7').custom-option-label XS
+            button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+            a(href='#quick-view' data-toggle='modal').quick-view-btn
+              i(data-feather='eye').mr-1
+              | Quick view
+      
+      // Product
+      .col-lg-3.col-md-4.col-sm-6
+        .product-card.mb-4
+          .product-thumb
+            a(href='shop-single-apparel.html').product-thumb-link
+            span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+              i(data-feather='heart')
+            img(src='img/shop/apparel/12.jpg' alt='Product')
+          .product-card-body.text-center
+            a(href='#').product-meta Men's belts
+            h3.product-card-title
+              a(href='shop-single-apparel.html') Diesel Leather Belt
+            span.text-primary $109.00
+          .product-card-body.body-hidden
+            .pb-2.text-center
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='color-5' id='black-5' checked).custom-control-input
+                label(for='black-5').custom-option-label
+                  span(style='background-color: #222;').custom-option-color
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='color-5' id='orange-5').custom-control-input
+                label(for='orange-5').custom-option-label
+                  span(style='background-color: #dc6442;').custom-option-color
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='color-5' id='gray-5').custom-control-input
+                label(for='gray-5').custom-option-label
+                  span(style='background-color: #ccc;').custom-option-color
+            button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+            a(href='#quick-view' data-toggle='modal').quick-view-btn
+              i(data-feather='eye').mr-1
+              | Quick view
+
+    hr.pb-4.mb-2
+
+    //- pagination.pug template
+    include partials/pagination

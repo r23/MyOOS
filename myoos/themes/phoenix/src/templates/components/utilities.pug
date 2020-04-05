@@ -1,0 +1,585 @@
+extends ../partials/layout-components
+
+//- Override default config variables
+append config
+  - var pageTitle = 'Utilities'
+  - var pageSubTitle = '&mdash;&nbsp; Some of the classes with a purpose to reduce the frequency of highly repetitive declarations. For more utilities, please visit <a href="https://getbootstrap.com/docs/4.3/utilities/borders/" target="_blank">Bootstrap documentation</a>.'
+  - var isNestedFile = true
+  - var isCodeHighlighting = true
+  - var breadcrumbs = [{'title': 'Home', 'link': '../index.html'}, {'title': 'Components', 'link': '#'}]
+
+//- Page Content
+block content
+
+  // Text color
+  h2.h5.mb-3 Text color
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result1' data-toggle='tab' role='tab' aria-controls='result1' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html1' data-toggle='tab' role='tab' aria-controls='html1' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug1' data-toggle='tab' role='tab' aria-controls='pug1' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result1.tab-pane.fade.show.active(role='tabpanel')
+          p.text-primary.mb-2 .text-primary
+          p.text-success.mb-2 .text-success
+          p.text-danger.mb-2 .text-danger
+          p.text-warning.mb-2 .text-warning
+          p.text-info.mb-2 .text-info
+          p.text-light.bg-dark.p-2.mb-2 .text-light
+          p.text-dark.mb-2 .text-dark
+          p.text-body.mb-2 .text-body
+          p.text-muted.mb-2 .text-muted
+          p.text-white.bg-dark.p-2.mb-2 .text-white
+          p.text-black-50.mb-2 .text-black-50
+          p.text-white-50.bg-dark.p-2.mb-0 .text-white-50
+        #html1.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Text color --&gt;
+              &lt;p class=&quot;text-primary&quot;&gt;.text-primary&lt;/p&gt;
+              &lt;p class=&quot;text-success&quot;&gt;.text-success&lt;/p&gt;
+              &lt;p class=&quot;text-danger&quot;&gt;.text-danger&lt;/p&gt;
+              &lt;p class=&quot;text-warning&quot;&gt;.text-warning&lt;/p&gt;
+              &lt;p class=&quot;text-info&quot;&gt;.text-info&lt;/p&gt;
+              &lt;p class=&quot;text-light bg-dark p-2&quot;&gt;.text-light&lt;/p&gt;
+              &lt;p class=&quot;text-body&quot;&gt;.text-body&lt;/p&gt;
+              &lt;p class=&quot;text-dark&quot;&gt;.text-dark&lt;/p&gt;
+              &lt;p class=&quot;text-body&quot;&gt;.text-body&lt;/p&gt;
+              &lt;p class=&quot;text-muted&quot;&gt;.text-muted&lt;/p&gt;
+              &lt;p class=&quot;text-white bg-dark p-2&quot;&gt;.text-white&lt;/p&gt;
+              &lt;p class=&quot;text-black-50&quot;&gt;.text-black-50&lt;/p&gt;
+              &lt;p class=&quot;text-white-50 bg-dark p-2&quot;&gt;.text-white-50&lt;/p&gt;
+        #pug1.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Text color
+              p.text-primary .text-primary
+              p.text-success .text-success
+              p.text-danger .text-danger
+              p.text-warning .text-warning
+              p.text-info .text-info
+              p.text-light.bg-dark.p-2 .text-light
+              p.text-dark .text-dark
+              p.text-body .text-body
+              p.text-muted .text-muted
+              p.text-white.bg-dark.p-2 .text-white
+              p.text-black-50 .text-black-50
+              p.text-white-50.bg-dark.p-2 .text-white-50
+
+  // Background color
+  h2.h5.pt-5.mb-3 Background color
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result2' data-toggle='tab' role='tab' aria-controls='result2' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html2' data-toggle='tab' role='tab' aria-controls='html2' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug2' data-toggle='tab' role='tab' aria-controls='pug2' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result2.tab-pane.fade.show.active(role='tabpanel')
+          .p-3.mb-2.bg-primary.text-white .bg-primary
+          .p-3.mb-2.bg-secondary .bg-secondary
+          .p-3.mb-2.bg-success.text-white .bg-success
+          .p-3.mb-2.bg-danger.text-white .bg-danger
+          .p-3.mb-2.bg-warning.text-white .bg-warning
+          .p-3.mb-2.bg-info.text-white .bg-info
+          .p-3.mb-2.bg-light .bg-light
+          .p-3.mb-2.bg-dark.text-white .bg-dark
+          .p-3.mb-2.bg-white .bg-white
+          .p-3.mb-2.bg-transparent .bg-transparent
+        #html2.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Background color --&gt;
+              &lt;div class=&quot;p-3 mb-2 bg-primary text-white&quot;&gt;.bg-primary&lt;/div&gt;
+              &lt;div class=&quot;p-3 mb-2 bg-secondary text-white&quot;&gt;.bg-secondary&lt;/div&gt;
+              &lt;div class=&quot;p-3 mb-2 bg-success text-white&quot;&gt;.bg-success&lt;/div&gt;
+              &lt;div class=&quot;p-3 mb-2 bg-danger text-white&quot;&gt;.bg-danger&lt;/div&gt;
+              &lt;div class=&quot;p-3 mb-2 bg-warning text-white&quot;&gt;.bg-warning&lt;/div&gt;
+              &lt;div class=&quot;p-3 mb-2 bg-info text-white&quot;&gt;.bg-info&lt;/div&gt;
+              &lt;div class=&quot;p-3 mb-2 bg-light&quot;&gt;.bg-light&lt;/div&gt;
+              &lt;div class=&quot;p-3 mb-2 bg-dark text-white&quot;&gt;.bg-dark&lt;/div&gt;
+              &lt;div class=&quot;p-3 mb-2 bg-white&quot;&gt;.bg-white&lt;/div&gt;
+              &lt;div class=&quot;p-3 mb-2 bg-transparent&quot;&gt;.bg-transparent&lt;/div&gt;
+        #pug2.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Background color
+              .p-3.mb-2.bg-primary.text-white .bg-primary
+              .p-3.mb-2.bg-secondary .bg-secondary
+              .p-3.mb-2.bg-success.text-white .bg-success
+              .p-3.mb-2.bg-danger.text-white .bg-danger
+              .p-3.mb-2.bg-warning.text-white .bg-warning
+              .p-3.mb-2.bg-info.text-white .bg-info
+              .p-3.mb-2.bg-light .bg-light
+              .p-3.mb-2.bg-dark.text-white .bg-dark
+              .p-3.mb-2.bg-white .bg-white
+              .p-3.mb-2.bg-transparent .bg-transparent
+
+  // Faded background color
+  h2.h5.pt-5.mb-3 Faded background color
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result3' data-toggle='tab' role='tab' aria-controls='result3' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html3' data-toggle='tab' role='tab' aria-controls='html3' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug3' data-toggle='tab' role='tab' aria-controls='pug3' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result3.tab-pane.fade.show.active(role='tabpanel')
+          .p-3.mb-2.bg-faded-primary.text-primary .bg-faded-primary
+          .p-3.mb-2.bg-faded-success.text-success .bg-faded-success
+          .p-3.mb-2.bg-faded-danger.text-danger .bg-faded-danger
+          .p-3.mb-2.bg-faded-warning.text-warning .bg-faded-warning
+          .p-3.mb-2.bg-faded-info.text-info .bg-faded-info
+          .p-3.bg-dark.mb-2
+            .p-3.bg-faded-light.text-white .bg-faded-light
+          .p-3.mb-2.bg-faded-dark.text-dark .bg-faded-dark
+          .p-3.bg-dark
+            .p-3.bg-faded-white.text-white .bg-faded-white
+        #html3.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Faded background color --&gt;
+              &lt;div class=&quot;p-3 mb-2 bg-faded-primary text-primary&quot;&gt;.bg-faded-primary&lt;/div&gt;
+              &lt;div class=&quot;p-3 mb-2 bg-faded-success text-success&quot;&gt;.bg-faded-success&lt;/div&gt;
+              &lt;div class=&quot;p-3 mb-2 bg-faded-danger text-danger&quot;&gt;.bg-faded-danger&lt;/div&gt;
+              &lt;div class=&quot;p-3 mb-2 bg-faded-warning text-warning&quot;&gt;.bg-faded-warning&lt;/div&gt;
+              &lt;div class=&quot;p-3 mb-2 bg-faded-info text-info&quot;&gt;.bg-faded-info&lt;/div&gt;
+              &lt;div class=&quot;p-3 mb-2 bg-faded-light text-white&quot;&gt;.bg-faded-light&lt;/div&gt;
+              &lt;div class=&quot;p-3 mb-2 bg-faded-dark text-dark&quot;&gt;.bg-faded-dark&lt;/div&gt;
+              &lt;div class=&quot;p-3 mb-2 bg-faded-white text-white&quot;&gt;.bg-faded-white&lt;/div&gt;
+        #pug3.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Faded background color
+              .p-3.mb-2.bg-faded-primary.text-primary .bg-faded-primary
+              .p-3.mb-2.bg-faded-success.text-success .bg-faded-success
+              .p-3.mb-2.bg-faded-danger.text-danger .bg-faded-danger
+              .p-3.mb-2.bg-faded-warning.text-warning .bg-faded-warning
+              .p-3.mb-2.bg-faded-info.text-info .bg-faded-info
+              .p-3.mb-2.bg-faded-light.text-white .bg-faded-light
+              .p-3.mb-2.bg-faded-dark.text-dark .bg-faded-dark
+              .p-3.mb-2.bg-faded-white.text-white .bg-faded-white
+
+  // Opacity
+  h2.h5.pt-5.mb-3 Opacity
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result4' data-toggle='tab' role='tab' aria-controls='result4' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html4' data-toggle='tab' role='tab' aria-controls='html4' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug4' data-toggle='tab' role='tab' aria-controls='pug4' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result4.tab-pane.fade.show.active(role='tabpanel')
+          .d-inline-block.text-dark.opacity-25.mr-3.mb-2 Opacity 25%
+          .d-inline-block.text-dark.opacity-50.mr-3.mb-2 Opacity 50%
+          .d-inline-block.text-dark.opacity-60.mr-3.mb-2 Opacity 60%
+          .d-inline-block.text-dark.opacity-70.mr-3.mb-2 Opacity 70%
+          .d-inline-block.text-dark.opacity-75.mr-3.mb-2 Opacity 75%
+          .d-inline-block.text-dark.opacity-80.mr-3.mb-2 Opacity 80%
+          .d-inline-block.text-dark.opacity-90 Opacity 90%
+        #html4.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Opacity --&gt;
+              &lt;div class=&quot;text-dark opacity-25&quot;&gt;Opacity 25%&lt;/div&gt;
+              &lt;div class=&quot;text-dark opacity-50&quot;&gt;Opacity 50%&lt;/div&gt;
+              &lt;div class=&quot;text-dark opacity-60&quot;&gt;Opacity 60%&lt;/div&gt;
+              &lt;div class=&quot;text-dark opacity-70&quot;&gt;Opacity 70%&lt;/div&gt;
+              &lt;div class=&quot;text-dark opacity-75&quot;&gt;Opacity 75%&lt;/div&gt;
+              &lt;div class=&quot;text-dark opacity-80&quot;&gt;Opacity 80%&lt;/div&gt;
+              &lt;div class=&quot;text-dark opacity-90&quot;&gt;Opacity 90%&lt;/div&gt;
+        #pug4.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Opacity
+              .text-dark.opacity-25 Opacity 25%
+              .text-dark.opacity-50 Opacity 50%
+              .text-dark.opacity-60 Opacity 60%
+              .text-dark.opacity-70 Opacity 70%
+              .text-dark.opacity-75 Opacity 75%
+              .text-dark.opacity-80 Opacity 80%
+              .text-dark.opacity-90 Opacity 90%
+
+  // Text alignment
+  h2.h5.pt-5.mb-3 Text alignment
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result5' data-toggle='tab' role='tab' aria-controls='result5' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html5' data-toggle='tab' role='tab' aria-controls='html5' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug5' data-toggle='tab' role='tab' aria-controls='pug5' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result5.tab-pane.fade.show.active(role='tabpanel')
+          .text-left.mb-3
+            | Left aligned text on all viewport sizes.
+          .text-center.mb-3
+           | Center aligned text on all viewport sizes.
+          .text-right.mb-3
+            | Right aligned text on all viewport sizes.
+          .text-justify
+            | Ambitioni dedisse scripsisse iudicaretur. Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus. Praeterea iter est quasdam res quas ex communi. At nos hinc posthac, sitientis piros Afros. Petierunt uti sibi concilium totius Galliae in diem certam indicere. Cras mattis iudicium purus sit amet fermentum.
+        #html5.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Text alignment --&gt;
+              &lt;div class=&quot;text-left mb-3&quot;&gt;Left aligned text on all viewport sizes.&lt;/div&gt;
+              &lt;div class=&quot;text-center mb-3&quot;&gt;Center aligned text on all viewport sizes.&lt;/div&gt;
+              &lt;div class=&quot;text-right mb-3&quot;&gt;Right aligned text on all viewport sizes.&lt;/div&gt;
+              &lt;div class=&quot;text-justify&quot;&gt;Ambitioni dedisse scripsisse iudicaretur. Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus. Praeterea iter est quasdam res quas ex communi. At nos hinc posthac, sitientis piros Afros. Petierunt uti sibi concilium totius Galliae in diem certam indicere. Cras mattis iudicium purus sit amet fermentum.&lt;/div&gt;
+        #pug5.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Text alignment
+              .text-left.mb-3
+                | Left aligned text on all viewport sizes.
+              .text-center.mb-3
+              | Center aligned text on all viewport sizes.
+              .text-right.mb-3
+                | Right aligned text on all viewport sizes.
+              .text-justify
+                | Ambitioni dedisse scripsisse iudicaretur. Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus. Praeterea iter est quasdam res quas ex communi. At nos hinc posthac, sitientis piros Afros. Petierunt uti sibi concilium totius Galliae in diem certam indicere. Cras mattis iudicium purus sit amet fermentum.
+
+  // Text wrapping and overflow
+  h2.h5.pt-5.mb-3 Text wrapping and overflow
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result6' data-toggle='tab' role='tab' aria-controls='result6' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html6' data-toggle='tab' role='tab' aria-controls='html6' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug6' data-toggle='tab' role='tab' aria-controls='pug6' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result6.tab-pane.fade.show.active(role='tabpanel')
+          button(type='button' style='width: 9rem;').btn.btn-primary.text-wrap.mb-4 This text should wrap.
+          p.bg-secondary.border.p-2.text-nowrap(style='width: 8rem;') This text should overflow the parent.
+          span.d-inline-block.text-truncate(style='width: 9rem;') Praeterea iter est quasdam res quas ex communi.
+        #html6.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Force text wrapping --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-primary text-wrap mb-4&quot; style=&quot;width: 9rem;&quot;&gt;
+                This text should wrap.
+              &lt;/button&gt;
+
+              &lt;!-- Text no wrap --&gt;
+              &lt;p class=&quot;bg-secondary border p-2 text-nowrap&quot; style=&quot;width: 8rem;&quot;&gt;
+                This text should overflow the parent.
+              &lt;/p&gt;
+
+              &lt;!-- Truncated text --&gt;
+              &lt;span class=&quot;d-inline-block text-truncate&quot; style=&quot;width: 9rem;&quot;&gt;
+                Praeterea iter est quasdam res quas ex communi.
+              &lt;/span&gt;
+        #pug6.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Force text wrapping
+              button.btn.btn-primary.text-wrap.mb-4(type=&quot;button&quot;, style=&quot;width: 9rem;&quot;)
+                | This text should wrap.
+              
+              // Text no wrap
+              p.bg-secondary.border.p-2.text-nowrap(style=&quot;width: 8rem;&quot;)
+                | This text should overflow the parent.
+              
+              // Truncated text
+              span.d-inline-block.text-truncate(style=&quot;width: 9rem;&quot;)
+                | Praeterea iter est quasdam res quas ex communi.
+
+  // Word break
+  h2.h5.pt-5.mb-3 Word break
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result7' data-toggle='tab' role='tab' aria-controls='result7' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html7' data-toggle='tab' role='tab' aria-controls='html7' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug7' data-toggle='tab' role='tab' aria-controls='pug7' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result7.tab-pane.fade.show.active(role='tabpanel')
+          p.text-break.mb-0 MStroreMStroreMStroreMStroreMStroreMStroreMStroreMStroreMStroreMStroreMStroreMStroreMStroreMStroreMStroreMStroreMStroreMStroreMStrore
+        #html7.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Word break --&gt;
+              &lt;p class=&quot;text-break&quot;&gt;
+                MStroreMStroreMStroreMStroreMStroreMStroreMStroreMStroreMStroreMStroreMStroreMStroreMStroreMStroreMStroreMStroreMStroreMStroreMStrore
+              &lt;/p&gt;
+        #pug7.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Word break
+              p.text-break MStroreMStroreMStroreMStroreMStroreMStroreMStroreMStroreMStroreMStroreMStroreMStroreMStroreMStroreMStroreMStroreMStroreMStroreMStrore
+
+  // Text transform
+  h2.h5.pt-5.mb-3 Text transform
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result8' data-toggle='tab' role='tab' aria-controls='result8' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html8' data-toggle='tab' role='tab' aria-controls='html8' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug8' data-toggle='tab' role='tab' aria-controls='pug8' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result8.tab-pane.fade.show.active(role='tabpanel')
+          p.text-lowercase Lowercased text.
+          p.text-uppercase Uppercased text.
+          p.text-capitalize.mb-1 Capitalized text goes here.
+        #html8.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Text transform --&gt;
+              &lt;p class=&quot;text-lowercase&quot;&gt;Lowercased text.&lt;/p&gt;
+              &lt;p class=&quot;text-uppercase&quot;&gt;Uppercased text.&lt;/p&gt;
+              &lt;p class=&quot;text-capitalize&quot;&gt;Capitalized text goes here.&lt;/p&gt;
+        #pug8.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Text transform
+              p.text-lowercase Lowercased text.
+              p.text-uppercase Uppercased text.
+              p.text-capitalize.mb-1 Capitalized text goes here.
+
+  // Font weight and italics
+  h2.h5.pt-5.mb-3 Font weight and italics
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result9' data-toggle='tab' role='tab' aria-controls='result9' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html9' data-toggle='tab' role='tab' aria-controls='html9' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug9' data-toggle='tab' role='tab' aria-controls='pug9' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result9.tab-pane.fade.show.active(role='tabpanel')
+          p.font-weight-bold Bold text.
+          p.font-weight-semibold Semi-bold text.
+          p.font-weight-normal Normal weight text.
+          p.font-weight-light Light weight text.
+          p.font-italic.mb-1 Italic text.
+        #html9.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Font weight and italics --&gt;
+              &lt;p class=&quot;font-weight-bold&quot;&gt;Bold text.&lt;/p&gt;
+              &lt;p class=&quot;font-weight-semibold&quot;&gt;Semi-bold text.&lt;/p&gt;
+              &lt;p class=&quot;font-weight-normal&quot;&gt;Normal weight text.&lt;/p&gt;
+              &lt;p class=&quot;font-weight-light&quot;&gt;Light weight text.&lt;/p&gt;
+              &lt;p class=&quot;font-italic&quot;&gt;Italic text.&lt;/p&gt;
+        #pug9.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Font weight and italics
+              p.font-weight-bold Bold text.
+              p.font-weight-semibold Semi-bold text.
+              p.font-weight-normal Normal weight text.
+              p.font-weight-light Light weight text.
+              p.font-italic.mb-1 Italic text.
+
+  // Border: Additive
+  h2.h5.pt-5.mb-3 Border: Additive
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result10' data-toggle='tab' role='tab' aria-controls='result10' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html10' data-toggle='tab' role='tab' aria-controls='html10' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug10' data-toggle='tab' role='tab' aria-controls='pug10' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result10.tab-pane.fade.show.active(role='tabpanel')
+          .d-inline-block.bg-secondary.border.border-dark.mr-2.mb-2(style='width: 5rem; height: 5rem;')
+          .d-inline-block.bg-secondary.border-top.border-dark.mr-2.mb-2(style='width: 5rem; height: 5rem;')
+          .d-inline-block.bg-secondary.border-right.border-dark.mr-2.mb-2(style='width: 5rem; height: 5rem;')
+          .d-inline-block.bg-secondary.border-bottom.border-dark.mr-2.mb-2(style='width: 5rem; height: 5rem;')
+          .d-inline-block.bg-secondary.border-left.border-dark.mr-2.mb-2(style='width: 5rem; height: 5rem;')
+        #html10.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Border: Additive --&gt;
+              &lt;span class=&quot;border&quot;&gt;&lt;/span&gt;
+              &lt;span class=&quot;border-top&quot;&gt;&lt;/span&gt;
+              &lt;span class=&quot;border-right&quot;&gt;&lt;/span&gt;
+              &lt;span class=&quot;border-bottom&quot;&gt;&lt;/span&gt;
+              &lt;span class=&quot;border-left&quot;&gt;&lt;/span&gt;
+        #pug10.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Border: Additive
+              span.border
+              span.border-top
+              span.border-right
+              span.border-bottom
+              span.border-left
+
+  // Border: Subtractive
+  h2.h5.pt-5.mb-3 Border: Subtractive
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result11' data-toggle='tab' role='tab' aria-controls='result11' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html11' data-toggle='tab' role='tab' aria-controls='html11' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug11' data-toggle='tab' role='tab' aria-controls='pug11' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result11.tab-pane.fade.show.active(role='tabpanel')
+          .d-inline-block.bg-secondary.border-0.border-dark.mr-2.mb-2(style='width: 5rem; height: 5rem;')
+          .d-inline-block.bg-secondary.border.border-top-0.border-dark.mr-2.mb-2(style='width: 5rem; height: 5rem;')
+          .d-inline-block.bg-secondary.border.border-right-0.border-dark.mr-2.mb-2(style='width: 5rem; height: 5rem;')
+          .d-inline-block.bg-secondary.border.border-bottom-0.border-dark.mr-2.mb-2(style='width: 5rem; height: 5rem;')
+          .d-inline-block.bg-secondary.border.border-left-0.border-dark.mr-2.mb-2(style='width: 5rem; height: 5rem;')
+        #html11.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Border: Subtractive --&gt;
+              &lt;span class=&quot;border-0&quot;&gt;&lt;/span&gt;
+              &lt;span class=&quot;border-top-0&quot;&gt;&lt;/span&gt;
+              &lt;span class=&quot;border-right-0&quot;&gt;&lt;/span&gt;
+              &lt;span class=&quot;border-bottom-0&quot;&gt;&lt;/span&gt;
+              &lt;span class=&quot;border-left-0&quot;&gt;&lt;/span&gt;
+        #pug11.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Border: Subtractive
+              span.border-0
+              span.border-top-0
+              span.border-right-0
+              span.border-bottom-0
+              span.border-left-0
+
+  // Border: Colors
+  h2.h5.pt-5.mb-3 Border: Colors
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result12' data-toggle='tab' role='tab' aria-controls='result12' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html12' data-toggle='tab' role='tab' aria-controls='html12' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug12' data-toggle='tab' role='tab' aria-controls='pug12' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result12.tab-pane.fade.show.active(role='tabpanel')
+          .d-inline-block.align-middle.border.mr-2.mb-2(style='width: 4.5rem; height: 4.5rem;')
+          .d-inline-block.align-middle.border.border-primary.mr-2.mb-2(style='width: 4.5rem; height: 4.5rem;')
+          .d-inline-block.align-middle.border.border-success.mr-2.mb-2(style='width: 4.5rem; height: 4.5rem;')
+          .d-inline-block.align-middle.border.border-danger.mr-2.mb-2(style='width: 4.5rem; height: 4.5rem;')
+          .d-inline-block.align-middle.border.border-warning.mr-2.mb-2(style='width: 4.5rem; height: 4.5rem;')
+          .d-inline-block.align-middle.border.border-info.mr-2.mb-2(style='width: 4.5rem; height: 4.5rem;')
+          .d-inline-block.align-middle.p-3.bg-dark.mr-2.mb-2
+            .border.border-light(style='width: 4.5rem; height: 4.5rem;')
+          .d-inline-block.align-middle.border.border-dark.mr-2(style='width: 4.5rem; height: 4.5rem;')
+          .d-inline-block.align-middle.p-3.bg-dark.mb-2
+            .border.border-white(style='width: 4.5rem; height: 4.5rem;')
+        #html12.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Border: Colors --&gt;
+              &lt;span class=&quot;border&quot;&gt;&lt;/span&gt;
+              &lt;span class=&quot;border border-primary&quot;&gt;&lt;/span&gt;
+              &lt;span class=&quot;border border-secondary&quot;&gt;&lt;/span&gt;
+              &lt;span class=&quot;border border-success&quot;&gt;&lt;/span&gt;
+              &lt;span class=&quot;border border-danger&quot;&gt;&lt;/span&gt;
+              &lt;span class=&quot;border border-warning&quot;&gt;&lt;/span&gt;
+              &lt;span class=&quot;border border-info&quot;&gt;&lt;/span&gt;
+              &lt;span class=&quot;border border-light&quot;&gt;&lt;/span&gt;
+              &lt;span class=&quot;border border-dark&quot;&gt;&lt;/span&gt;
+              &lt;span class=&quot;border border-white&quot;&gt;&lt;/span&gt;
+        #pug12.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Border: Colors
+              span.border
+              span.border.border-primary
+              span.border.border-secondary
+              span.border.border-success
+              span.border.border-danger
+              span.border.border-warning
+              span.border.border-info
+              span.border.border-light
+              span.border.border-dark
+              span.border.border-white
+
+  // Border: Radius
+  h2.h5.pt-5.mb-3 Border: Radius
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result13' data-toggle='tab' role='tab' aria-controls='result13' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html13' data-toggle='tab' role='tab' aria-controls='html13' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug13' data-toggle='tab' role='tab' aria-controls='pug13' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result13.tab-pane.fade.show.active(role='tabpanel')
+          img(src='../img/components/utilities/01.png' width='72' height='72' alt='Image').d-inline-block.rounded.mr-2.mb-2
+          img(src='../img/components/utilities/01.png' width='72' height='72' alt='Image').d-inline-block.rounded-top.mr-2.mb-2
+          img(src='../img/components/utilities/01.png' width='72' height='72' alt='Image').d-inline-block.rounded-right.mr-2.mb-2
+          img(src='../img/components/utilities/01.png' width='72' height='72' alt='Image').d-inline-block.rounded-bottom.mr-2.mb-2
+          img(src='../img/components/utilities/01.png' width='72' height='72' alt='Image').d-inline-block.rounded-left.mr-2.mb-2
+          img(src='../img/components/utilities/01.png' width='72' height='72' alt='Image').d-inline-block.rounded-circle.mr-2.mb-2
+          img(src='../img/components/utilities/02.png' width='144' height='72' alt='Image').d-inline-block.rounded-pill.mr-2.mb-2
+          img(src='../img/components/utilities/01.png' width='72' height='72' alt='Image').d-inline-block.rounded-0.mr-2.mb-2
+        #html13.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Border: Colors --&gt;
+              &lt;img src=&quot;path-to-image&quot; class=&quot;rounded&quot; alt=&quot;Image&quot;&gt;
+              &lt;img src=&quot;path-to-image&quot; class=&quot;rounded-top&quot; alt=&quot;Image&quot;&gt;
+              &lt;img src=&quot;path-to-image&quot; class=&quot;rounded-right&quot; alt=&quot;Image&quot;&gt;
+              &lt;img src=&quot;path-to-image&quot; class=&quot;rounded-bottom&quot; alt=&quot;Image&quot;&gt;
+              &lt;img src=&quot;path-to-image&quot; class=&quot;rounded-left&quot; alt=&quot;Image&quot;&gt;
+              &lt;img src=&quot;path-to-image&quot; class=&quot;rounded-circle&quot; alt=&quot;Image&quot;&gt;
+              &lt;img src=&quot;path-to-image&quot; class=&quot;rounded-pill&quot; alt=&quot;Image&quot;&gt;
+              &lt;img src=&quot;path-to-image&quot; class=&quot;rounded-0&quot; alt=&quot;Image&quot;&gt;
+        #pug13.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Border: Colors
+              img(src=&quot;path-to-image&quot;, alt=&quot;Image&quot;).rounded
+              img(src=&quot;path-to-image&quot;, alt=&quot;Image&quot;).rounded-top
+              img(src=&quot;path-to-image&quot;, alt=&quot;Image&quot;).rounded-right
+              img(src=&quot;path-to-image&quot;, alt=&quot;Image&quot;).rounded-bottom
+              img(src=&quot;path-to-image&quot;, alt=&quot;Image&quot;).rounded-left
+              img(src=&quot;path-to-image&quot;, alt=&quot;Image&quot;).rounded-circle
+              img(src=&quot;path-to-image&quot;, alt=&quot;Image&quot;).rounded-pill
+              img(src=&quot;path-to-image&quot;, alt=&quot;Image&quot;).rounded-0

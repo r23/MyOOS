@@ -1,0 +1,195 @@
+extends partials/layout
+
+//- Override default config variables
+append config
+  - var isPageTitle = false
+  - var parentMenu = 'Pages'
+  - var isModalTicket = true
+  
+//- Page Content
+block content
+
+  .container.pt-lg-3.pb-5.mb-sm-3
+
+    //- toast-shop.pug template
+    include partials/toast-shop
+
+    .row.pt-5
+
+      // Sidebar
+      .col-xl-3.col-lg-4
+
+        // Customer picture
+        a(href='#' style='max-width: 18.75rem;').gallery-item.mb-grid-gutter.mx-auto
+          img(src='img/account/customer-lg.jpg' alt='Daniel Adams')
+          .gallery-caption
+            .gallery-indicator
+              i(data-feather='refresh-ccw').gallery-indicator-icon
+            | Change profile picture
+        
+        // Technical support + Tickets (visible Desktop)
+        .d-none.d-lg-block
+          h6.font-size-sm.mb-3.pb-2.border-bottom Technical support
+          ul.list-unstyled
+            li.font-size-sm.mb-2
+              i(data-feather='mail' style='width: .875rem; height: .875rem;').text-muted.mr-2
+              a(href='mailto:support@example.com').nav-link-inline support@example.com
+            li.font-size-sm.mb-2
+              i(data-feather='phone' style='width: .875rem; height: .875rem;').text-muted.mr-2
+              a(href='tel:+100331697720').nav-link-inline +1 00 33 169 7720
+            li.font-size-sm.mb-2
+              i(data-feather='clock' style='width: .875rem; height: .875rem;').text-muted.mr-2
+              | 1-2 business days
+          .pt-2
+            a(href='account-tickets.html').btn.btn-outline-secondary.btn-sm.btn-block
+              i(data-feather='tag').mr-1
+              | My tickets (1)
+            a(href='account-tickets.html' data-toggle='modal' data-target='#open-ticket').btn.btn-success.btn-sm.btn-block Submit new ticket
+      
+      // Main content
+      .col-lg-8.offset-xl-1
+
+        // Customer details
+        .d-flex.flex-wrap.justify-content-between.pb-4
+          .pt-3.mr-3
+            h3.mb-0 Daniel Adams
+            span.font-size-sm.text-warning d.adams@example.com
+          .pt-3
+            a(href='account-signin.html').btn.btn-outline-primary.btn-sm
+              i(data-feather='log-out').mr-1
+              | Sign Out
+        ul.list-unstyled.border.p-3.mb-4
+          li.pb-1
+            span.opacity-80 &ndash; Joined:
+            span.font-weight-semibold.ml-1 Jan 13, 2018
+          li.pb-1
+            span.opacity-80 &ndash; Total orders:
+            span.font-weight-semibold.ml-1 15
+          li.pb-1
+            span.opacity-80 &ndash; Total spent:
+            span.font-weight-semibold.ml-1 $5,864
+          li
+            span.opacity-80 &ndash; Reward points:
+            span.font-weight-semibold.ml-1 586
+        
+        // Navigation (visible sm-up)
+        ul.nav.nav-tabs.d-none.d-sm-flex
+          li.nav-item
+            a(href='account-orders.html').nav-link
+              i(data-feather='shopping-bag')
+              | &nbsp;My orders
+              span.badge.badge-pill.badge-secondary.bg-0.border.ml-2
+                span.text-primary 1
+          li.nav-item
+            a(href='account-wishlist.html').nav-link
+              i(data-feather='heart')
+              | &nbsp;Wishlist
+              span.badge.badge-pill.badge-secondary.bg-0.border.ml-2
+                span.text-primary 3
+          li.nav-item.dropdown
+            a(href='#' data-toggle='dropdown').nav-link.dropdown-toggle.active
+              i(data-feather='settings')
+              | &nbsp;Account settings
+            .dropdown-menu
+              a(href='account-profile.html').dropdown-item Profile info
+              .dropdown-divider
+              a(href='account-address.html').dropdown-item.active Addresses
+              .dropdown-divider
+              a(href='account-payment.html').dropdown-item Payment methods
+        
+        // Navigation (visible sm-down)
+        .d-sm-none.pb-4
+          button(type='button' data-toggle='collapse' data-target='#account-menu').btn.btn-primary.btn-block.mb-2
+            i(data-feather='menu').mr-2
+            | Menu
+          #account-menu.collapse
+            .list-group
+              a(href='account-orders.html').list-group-item.list-group-item-action
+                i(data-feather='shopping-bag' style='width: 1rem; height: 1rem;').mr-2
+                | My orders
+                span.badge.badge-pill.badge-secondary.bg-0.border.ml-2
+                  span.text-primary 1
+              a(href='account-wishlist.html').list-group-item.list-group-item-action
+                i(data-feather='heart' style='width: 1rem; height: 1rem;').mr-2
+                | Wishlist
+                span.badge.badge-pill.badge-secondary.bg-0.border.ml-2
+                  span.text-primary 3
+              a(href='account-profile.html').list-group-item.list-group-item-action
+                i(data-feather='user' style='width: 1rem; height: 1rem;').mr-2
+                | Profile info
+              a(href='account-address.html').list-group-item.list-group-item-action.active
+                i(data-feather='map-pin' style='width: 1rem; height: 1rem;').mr-2
+                | Addresses
+              a(href='account-payment.html').list-group-item.list-group-item-action
+                i(data-feather='credit-card' style='width: 1rem; height: 1rem;').mr-2
+                | Payment methods
+        
+        // Contact address
+        h5.mb-4.pt-sm-3 Contact address
+        form.row
+          .col-md-6
+            .form-group
+              label(for='account-company') Company
+              input(type='text' id='account-company' value='Bets Company Ltd.').form-control
+          .col-md-6
+            .form-group
+              label(for='account-country') Country
+              select(id='account-country').form-control.custom-select
+                option Choose country
+                option Australia
+                option Canada
+                option France
+                option Germany
+                option Switzerland
+                option(selected) United States
+          .col-md-6
+            .form-group
+              label(for='account-city') City
+              select(id='account-city').form-control.custom-select
+                option Choose city
+                option Amsterdam
+                option Berlin
+                option Geneve
+                option(selected) New York
+                option Paris
+          .col-md-6
+            .form-group
+              label(for='account-zip') ZIP Code
+              input(type='text' id='account-zip' value='10005' required).form-control
+          .col-md-6
+            .form-group
+              label(for='account-address1') Address 1
+              input(type='text' id='account-address1' value='396 Lillian Blvd, Holbrook' required).form-control
+          .col-md-6
+            .form-group
+              label(for='account-address2') Address 2
+              input(type='text' id='account-address2').form-control
+        hr.mt-2.pb-2
+
+        // Shipping address
+        h5.mb-4.pt-sm-3 Shipping address
+        .custom-control.custom-checkbox.d-block
+          input(type='checkbox' id='same_address' checked).custom-control-input
+          label(for='same_address').custom-control-label Same as Contact Address
+        hr.mt-3.pb-3
+        .text-sm-right
+          button(type='button' class='btn btn-primary' data-toggle='toast' data-target='#address-toast') Update address
+        
+        // Technical support + Tickets (visible Mobile)
+        .d-lg-none.bg-secondary.px-3.py-4.mt-5
+          h6.font-size-sm.mb-3.pb-2.border-bottom Technical support
+          ul.list-unstyled
+            li.font-size-sm.mb-2
+              i(data-feather='mail' style='width: .875rem; height: .875rem;').text-muted.mr-2
+              a(href='mailto:support@example.com').nav-link-inline support@example.com
+            li.font-size-sm.mb-2
+              i(data-feather='phone' style='width: .875rem; height: .875rem;').text-muted.mr-2
+              a(href='tel:+100331697720').nav-link-inline +1 00 33 169 7720
+            li.font-size-sm.mb-2
+              i(data-feather='clock' style='width: .875rem; height: .875rem;').text-muted.mr-2
+              | 1-2 business days
+          .pt-2
+            a(href='account-tickets.html').btn.btn-outline-secondary.btn-sm.btn-block
+              i(data-feather='tag').mr-1
+              | My tickets (1)
+            a(href='account-tickets.html' data-toggle='modal' data-target='#open-ticket').btn.btn-success.btn-sm.btn-block Submit new ticket

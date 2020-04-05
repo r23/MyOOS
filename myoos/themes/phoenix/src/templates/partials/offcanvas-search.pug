@@ -1,0 +1,14 @@
+// Off-canvas search
+#offcanvas-search.offcanvas.offcanvas-reverse
+  .offcanvas-header.d-flex.justify-content-between.align-items-center
+    h3.offcanvas-title Search site
+    button(type='button' class='close' data-dismiss='offcanvas' aria-label='Close')
+      span(aria-hidden='true') &times;
+  .offcanvas-body
+    .offcanvas-body-inner
+      .input-group.pt-3
+        .input-group-prepend
+          span#search-icon.input-group-text
+            i(data-feather='search')
+        input(type='text' id='site-search' placeholder='Search site' aria-label='Search site' aria-describedby='search-icon').form-control
+      small.form-text.pt-1 Type A or C to see suggestions. Powered by Easy autocomplete plugin via separate JSON file.

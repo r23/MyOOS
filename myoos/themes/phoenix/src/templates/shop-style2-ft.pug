@@ -1,0 +1,858 @@
+extends partials/layout
+
+//- Override default config variables
+append config
+  - var pageTitle = 'Shop style 2 <span class="lead font-weight-semibold text-muted">(Filters on top)</span>'
+  - var parentMenu = 'Shop'
+  - var breadcrumbs = [{'title': 'Home', 'link': 'index.html'}, {'title': 'Shop', 'link': '#'}]
+  - var navbarTemplate = 'navbar-multilevel'
+
+//- Page Content
+block content
+
+  //- toast-shop.pug template
+  include partials/toast-shop
+
+  .container.pb-5.mb-4
+
+    // Toolbar / filters
+    .pb-2
+      .d-flex.flex-wrap.justify-content-center.justify-content-sm-between.pb-2
+        .d-flex.flex-wrap
+          .form-inline.flex-nowrap.mr-3.mr-sm-4.pb-3
+            label(for='sorting').text-nowrap.mr-2.d-none.d-sm-block Sort by:
+            select(id='sorting').form-control.custom-select
+              option Popularity
+              option Low - Hight Price
+              option High - Low Price
+              option Average Rating
+              option A - Z Order
+              option Z - A Order
+          .form-inline.flex-nowrap.mr-3.pb-3
+            label(for='number').mr-2.d-none.d-sm-block Show:
+            select(id='number').form-control.custom-select.mr-sm-2
+              option 12
+              option 24
+              option 48
+              option 96
+            small.form-text.text-muted.text-nowrap.d-none.d-sm-block from 860
+        .dropdown
+          a(href='#shop-filters' data-toggle='collapse').btn.btn-outline-secondary.dropdown-toggle
+            i(data-feather='filter').mr-1
+            | Filters
+      #shop-filters.collapse
+        .border.pt-4.px-4.mb-3
+          .row
+            .col-lg-3.col-sm-6
+              // Categories
+              .widget.widget-categories.mb-4
+                h3.widget-title Shop categories
+                ul#shopCategories
+                  li.has-children
+                    a(href='#computers' data-toggle='collapse')
+                      i(data-feather='chevron-down').widget-categories-indicator
+                      | Computers &amp; Accessories
+                      span.badge.text-muted.ml-1 (1138)
+                    ul#computers.collapse.show(data-parent='#shopCategories')
+                      li
+                        a(href='#')
+                          | Desktop PCs
+                          span.badge.text-muted.ml-1 (508)
+                        ul
+                          li: a(href='#') Office PC
+                          li: a(href='#') Gaming PC
+                          li: a(href='#') PC for Learning
+                      li
+                        a(href='#')
+                          | Laptops
+                          span.badge.text-muted.ml-1 (423)
+                        ul
+                          li: a(href='#') 15' Screens
+                          li: a(href='#') 13' Screens
+                          li: a(href='#') Touch Screens
+                      li
+                        a(href='#')
+                          | Nettops
+                          span.badge.text-muted.ml-1 (97)
+                      li
+                        a(href='#')
+                          | PC Accessories
+                          span.badge.text-muted.ml-1 (110)
+                  li.has-children
+                    a(href='#smartphones' data-toggle='collapse').collapsed
+                      i(data-feather='chevron-down').widget-categories-indicator
+                      | Smartphones &amp; Tablets
+                      span.badge.text-muted.ml-1 (2356)
+                    ul#smartphones.collapse(data-parent='#shopCategories')
+                      li
+                        a(href='#')
+                          | Smartphones
+                          span.badge.text-muted.ml-1 (1032)
+                        ul
+                          li: a(href='#') Android
+                          li: a(href='#') iOS
+                          li: a(href='#') QHD Screen
+                          li: a(href='#') WQHD Screen
+                          li: a(href='#') Full HD Screen
+                          li: a(href='#') Super Amoled
+                      li
+                        a(href='#')
+                          | Tablets
+                          span.badge.text-muted.ml-1 (937)
+                        ul
+                          li: a(href='#') WiFi only
+                          li: a(href='#') WiFi + 4G
+                          li: a(href='#') Android
+                          li: a(href='#') iOS
+                      li
+                        a(href='#')
+                          | Phablets
+                          span.badge.text-muted.ml-1 (386)
+                  li.has-children
+                    a(href='#tv' data-toggle='collapse').collapsed
+                      i(data-feather='chevron-down').widget-categories-indicator
+                      | TV, Video &amp; Audio
+                      span.badge.text-muted.ml-1 (420)
+                    ul#tv.collapse(data-parent='#shopCategories')
+                      li
+                        a(href='#')
+                          | Smart TV Sets
+                          span.badge.text-muted.ml-1 (180)
+                      li
+                        a(href='#')
+                          | Blue-Ray Players
+                          span.badge.text-muted.ml-1 (132)
+                      li
+                        a(href='#')
+                          | Sound Systems
+                          span.badge.text-muted.ml-1 (47)
+                      li
+                        a(href='#')
+                          | Home Theaters
+                          span.badge.text-muted.ml-1 (61)
+                  li.has-children
+                    a(href='#cameras' data-toggle='collapse').collapsed
+                      i(data-feather='chevron-down').widget-categories-indicator
+                      | Cameras, Photo &amp; Video
+                      span.badge.text-muted.ml-1 (874)
+                    ul#cameras.collapse(data-parent='#shopCategories')
+                      li
+                        a(href='#')
+                          | Photo Cameras
+                          span.badge.text-muted.ml-1 (211)
+                      li
+                        a(href='#')
+                          | Video Cameras
+                          span.badge.text-muted.ml-1 (195)
+                      li
+                        a(href='#')
+                          | Action Cameras
+                          span.badge.text-muted.ml-1 (159)
+                      li
+                        a(href='#')
+                          | Tripods &amp; Stands
+                          span.badge.text-muted.ml-1 (203)
+                      li
+                        a(href='#')
+                          | Lenses
+                          span.badge.text-muted.ml-1 (106)
+                  li.has-children
+                    a(href='#headphones' data-toggle='collapse').collapsed
+                      i(data-feather='chevron-down').widget-categories-indicator
+                      | Headphones
+                      span.badge.text-muted.ml-1 (1239)
+                    ul#headphones.collapse(data-parent='#shopCategories')
+                      li
+                        a(href='#')
+                          | Earbud Headphones
+                          span.badge.text-muted.ml-1 (752)
+                      li
+                        a(href='#')
+                          | Over-Ear Headphones
+                          span.badge.text-muted.ml-1 (487)
+                      li
+                        a(href='#')
+                          | Bluetooth Headphones
+                          span.badge.text-muted.ml-1 (205)
+                      li
+                        a(href='#')
+                          | Sports &amp; Fitness Headphones
+                          span.badge.text-muted.ml-1 (96)
+                      li
+                        a(href='#')
+                          | Noise-Cancelling Headphone
+                          span.badge.text-muted.ml-1 (113)
+                  li.has-children
+                    a(href='#wearables' data-toggle='collapse').collapsed
+                      i(data-feather='chevron-down').widget-categories-indicator
+                      | Wearable Electronics
+                      span.badge.text-muted.ml-1 (340)
+                    ul#wearables.collapse(data-parent='#shopCategories')
+                      li
+                        a(href='#')
+                          | Smart Watches
+                          span.badge.text-muted.ml-1 (175)
+                      li
+                        a(href='#')
+                          | Fitness Trackers
+                          span.badge.text-muted.ml-1 (123)
+                      li
+                        a(href='#')
+                          | Smart Glasses
+                          span.badge.text-muted.ml-1 (42)
+                  li.has-children
+                    a(href='#printers' data-toggle='collapse').collapsed
+                      i(data-feather='chevron-down').widget-categories-indicator
+                      | Printers &amp; Ink
+                      span.badge.text-muted.ml-1 (512)
+                    ul#printers.collapse(data-parent='#shopCategories')
+                      li
+                        a(href='#')
+                          | All-In-One
+                          span.badge.text-muted.ml-1 (304)
+                      li
+                        a(href='#')
+                          | Copying
+                          span.badge.text-muted.ml-1 (115)
+                      li
+                        a(href='#')
+                          | Faxing
+                          span.badge.text-muted.ml-1 (211)
+                      li
+                        a(href='#')
+                          | Photo Printing
+                          span.badge.text-muted.ml-1 (68)
+                      li
+                        a(href='#')
+                          | Printing Only
+                          span.badge.text-muted.ml-1 (143)
+                      li
+                        a(href='#')
+                          | Scanning
+                          span.badge.text-muted.ml-1 (122)
+                  li.has-children
+                    a(href='#games' data-toggle='collapse').collapsed
+                      i(data-feather='chevron-down').widget-categories-indicator
+                      | Video Games
+                      span.badge.text-muted.ml-1 (656)
+                    ul#games.collapse(data-parent='#shopCategories')
+                      li
+                        a(href='#')
+                          | PlayStation 4
+                          span.badge.text-muted.ml-1 (100)
+                      li
+                        a(href='#')
+                          | Xbox One
+                          span.badge.text-muted.ml-1 (92)
+                      li
+                        a(href='#')
+                          | Nintendo Switch
+                          span.badge.text-muted.ml-1 (19)
+                      li
+                        a(href='#')
+                          | Games
+                          span.badge.text-muted.ml-1 (397)
+                      li
+                        a(href='#')
+                          | Accessories
+                          span.badge.text-muted.ml-1 (48)
+            .col-lg-3.col-sm-6
+              // Price range
+              .widget.mb-4.pb-3
+                h3.widget-title Price range
+                form(data-start-min='250' data-start-max='650' data-min='0' data-max='1000' data-step='1').range-slider
+                  .ui-range-slider
+                  footer.ui-range-slider-footer
+                    .column
+                      button(type='submit').btn.btn-outline-primary.btn-sm Filter
+                    .column
+                      .ui-range-values
+                        .ui-range-label Price:
+                        .ui-range-value-min
+                          | $<span></span>
+                          input(type='hidden')
+                        | &nbsp;&ndash;&nbsp;
+                        .ui-range-value-max
+                          | $<span></span>
+                          input(type='hidden')
+              .widget.mb-4
+                h3.widget-title Filter by price
+                .d-flex.align-items-center
+                  div
+                    label(for='from-price') From
+                    .input-group
+                      .input-group-prepend
+                        span.input-group-text.px-2
+                          i(data-feather='dollar-sign')
+                      input(type='text' id='from-price').form-control
+                  div.mx-2.pt-4 &ndash;
+                  div
+                    label(for='to-price') To
+                    .input-group
+                      .input-group-prepend
+                        span.input-group-text.px-2
+                          i(data-feather='dollar-sign')
+                      input(type='text' id='to-price').form-control
+                .pt-4
+                  .custom-control.custom-checkbox.mb-1
+                    input(type='checkbox' id='price-1').custom-control-input
+                    label(for='price-1').custom-control-label
+                      | $10 - $50
+                      span.text-muted.ml-1 (208)
+                  .custom-control.custom-checkbox.mb-1
+                    input(type='checkbox' id='price-2').custom-control-input
+                    label(for='price-2').custom-control-label
+                      | $50 - $100
+                      span.text-muted.ml-1 (311)
+                  .custom-control.custom-checkbox.mb-1
+                    input(type='checkbox' id='price-3').custom-control-input
+                    label(for='price-3').custom-control-label
+                      | $100 - $500
+                      span.text-muted.ml-1 (485)
+                  .custom-control.custom-checkbox.mb-1
+                    input(type='checkbox' id='price-4').custom-control-input
+                    label(for='price-4').custom-control-label
+                      | $500 - $1,000
+                      span.text-muted.ml-1 (213)
+                  .custom-control.custom-checkbox.mb-1
+                    input(type='checkbox' id='xs').custom-control-input
+                    label(for='xs').custom-control-label
+                      | $1,000 - $5,000
+                      span.text-muted.ml-1 (197)
+            .col-lg-3.col-sm-6
+              // Brand filter    
+              .widget.mb-4.pb-1
+                h3.widget-title Filter by brand
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='apple').custom-control-input
+                  label(for='apple').custom-control-label
+                    | Apple
+                    span.text-muted.ml-1 (254)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='bosh').custom-control-input
+                  label(for='bosh').custom-control-label
+                    | Bosh
+                    span.text-muted.ml-1 (39)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='braun').custom-control-input
+                  label(for='braun').custom-control-label
+                    | Braun
+                    span.text-muted.ml-1 (26)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='canon').custom-control-input
+                  label(for='canon').custom-control-label
+                    | Canon Inc.
+                    span.text-muted.ml-1 (128)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='dell').custom-control-input
+                  label(for='dell').custom-control-label
+                    | Dell
+                    span.text-muted.ml-1 (310)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='ibm').custom-control-input
+                  label(for='ibm').custom-control-label
+                    | IBM
+                    span.text-muted.ml-1 (104)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='hp').custom-control-input
+                  label(for='hp').custom-control-label
+                    | Hewlett-Packard
+                    span.text-muted.ml-1 (46)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='hitachi').custom-control-input
+                  label(for='hitachi').custom-control-label
+                    | Hitachi
+                    span.text-muted.ml-1 (217)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='lenovo').custom-control-input
+                  label(for='lenovo').custom-control-label
+                    | Lenovo
+                    span.text-muted.ml-1 (95)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='lg').custom-control-input
+                  label(for='lg').custom-control-label
+                    | LG Electronics
+                    span.text-muted.ml-1 (310)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='microsoft').custom-control-input
+                  label(for='microsoft').custom-control-label
+                    | Microsoft
+                    span.text-muted.ml-1 (17)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='nikon').custom-control-input
+                  label(for='nikon').custom-control-label
+                    | Nikon
+                    span.text-muted.ml-1 (28)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='nokia').custom-control-input
+                  label(for='nokia').custom-control-label
+                    | Nokia
+                    span.text-muted.ml-1 (136)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='panasonic').custom-control-input
+                  label(for='panasonic').custom-control-label
+                    | Panasonic
+                    span.text-muted.ml-1 (74)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='samsung').custom-control-input
+                  label(for='samsung').custom-control-label
+                    | Samsung Electronics
+                    span.text-muted.ml-1 (1146)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='siemens').custom-control-input
+                  label(for='siemens').custom-control-label
+                    | Siemens
+                    span.text-muted.ml-1 (87)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='sharp').custom-control-input
+                  label(for='sharp').custom-control-label
+                    | Sharp Corporation
+                    span.text-muted.ml-1 (41)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='sony').custom-control-input
+                  label(for='sony').custom-control-label
+                    | Sony
+                    span.text-muted.ml-1 (235)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='toshiba').custom-control-input
+                  label(for='toshiba').custom-control-label
+                    | Toshiba
+                    span.text-muted.ml-1 (62)
+            .col-lg-3.col-sm-6
+              // Type filter    
+              .widget.mb-4.pb-1
+                h3.widget-title Filter by type
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='all-in-one').custom-control-input
+                  label(for='all-in-one').custom-control-label
+                    | All-In-One
+                    span.text-muted.ml-1 (208)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='copying').custom-control-input
+                  label(for='copying').custom-control-label
+                    | Copying
+                    span.text-muted.ml-1 (311)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='faxing').custom-control-input
+                  label(for='faxing').custom-control-label
+                    | Faxing
+                    span.text-muted.ml-1 (485)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='photo').custom-control-input
+                  label(for='photo').custom-control-label
+                    | Photo Printing
+                    span.text-muted.ml-1 (213)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='printing').custom-control-input
+                  label(for='printing').custom-control-label
+                    | Printing Only
+                    span.text-muted.ml-1 (197)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='scanning').custom-control-input
+                  label(for='scanning').custom-control-label
+                    | Scanning
+                    span.text-muted.ml-1 (122)
+              // Color filter    
+              .widget.mb-4
+                h3.widget-title Filter by color
+                .custom-control.custom-option.mb-2
+                  input(type='checkbox' id='cf-red').custom-control-input
+                  label(for='cf-red').custom-option-label.align-middle
+                    span(style='background-color: #c53b4b;').custom-option-color
+                  span.d-inline-block.font-size-sm.ml-2 Red
+                .custom-control.custom-option.mb-2
+                  input(type='checkbox' id='cf-blue').custom-control-input
+                  label(for='cf-blue').custom-option-label.align-middle
+                    span(style='background-color: #4e5392;').custom-option-color
+                  span.d-inline-block.font-size-sm.ml-2 Dark blue
+                .custom-control.custom-option.mb-2
+                  input(type='checkbox' id='cf-beige').custom-control-input
+                  label(for='cf-beige').custom-option-label.align-middle
+                    span(style='background-color: #e5ddd5;').custom-option-color
+                  span.d-inline-block.font-size-sm.ml-2 Beige
+                .custom-control.custom-option.mb-2
+                  input(type='checkbox' id='cf-green').custom-control-input
+                  label(for='cf-green').custom-option-label.align-middle
+                    span(style='background-color: #8ab5be;').custom-option-color
+                  span.d-inline-block.font-size-sm.ml-2 Green
+
+    // Products grid
+    .row.no-gutters
+
+      // Product
+      .col-lg-3.col-sm-4.col-6.border.border-collapse
+        .product-card
+          .product-thumb
+            a(href='shop-single-electronics.html').product-thumb-link
+            span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+              i(data-feather='heart')
+            img(src='img/shop/electronics/01.jpg' alt='Product')
+          .product-card-body
+            .d-flex.flex-wrap.justify-content-between.pb-1
+              a(href='#').product-meta Headphones
+              +star-rating-short(4.7)
+            h3.product-card-title
+              a(href='shop-single-electronics.html') Sony WH-CH700N Wireless Noise Canceling Headphones, Black
+            span.text-primary $198.00
+          .product-card-body.body-hidden.pt-2
+            button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+            a(href='#' data-toggle='toast' data-target='#compare-toast').quick-view-btn
+              i(data-feather='repeat').mr-1
+              | Compare
+            ul.font-size-sm.opacity-80.pl-4.pt-2.mb-2
+              li Digital noise cancelling
+              li AI powered
+              li Hands free calling
+              li Long battery life
+              li Wireless bluetooth
+
+      // Product
+      .col-lg-3.col-sm-4.col-6.border.border-collapse
+        .product-card
+          .product-thumb
+            a(href='shop-single-electronics.html').product-thumb-link
+            span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+              i(data-feather='heart')
+            img(src='img/shop/electronics/02.jpg' alt='Product')
+          .product-card-body
+            .d-flex.flex-wrap.justify-content-between.pb-1
+              a(href='#').product-meta Computers
+              +star-rating-short(3.9)
+            h3.product-card-title
+              a(href='shop-single-electronics.html') Apple AirPort Extreme Base Station ME918LL (Refurbished)
+            span.text-primary $129.00
+          .product-card-body.body-hidden.pt-2
+            button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+            a(href='#' data-toggle='toast' data-target='#compare-toast').quick-view-btn
+              i(data-feather='repeat').mr-1
+              | Compare
+            ul.font-size-sm.opacity-80.pl-4.pt-2.mb-2
+              li Ultrafast 802.11ac Wi-Fi
+              li Easy setup for iOS and OS X
+              li Share your hard drive
+              li Compatibility and security
+
+      // Product
+      .col-lg-3.col-sm-4.col-6.border.border-collapse
+        .product-card
+          .product-thumb
+            a(href='shop-single-electronics.html').product-thumb-link
+            span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+              i(data-feather='heart')
+            img(src='img/shop/electronics/03.jpg' alt='Product')
+          .product-card-body
+            .d-flex.flex-wrap.justify-content-between.pb-1
+              a(href='#').product-meta Cameras
+            h3.product-card-title
+              a(href='shop-single-electronics.html') Samsung Gear 360 SM-R210 (2017 Edition) Spherical Cam 360 degree 4K Camera
+            span.text-primary $107.95
+          .product-card-body.body-hidden.pt-2
+            button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+            a(href='#' data-toggle='toast' data-target='#compare-toast').quick-view-btn
+              i(data-feather='repeat').mr-1
+              | Compare
+            ul.font-size-sm.opacity-80.pl-4.pt-2.mb-2
+              li 4096x2048@24fps 360 video/ 15MP
+              li 360 still image
+              li Dual CMOS 8.4MP, Dual F2.2 
+              li Built-in 1,160mAh
+
+      // Product
+      .col-lg-3.col-sm-4.col-6.border.border-collapse
+        .product-card
+          .product-thumb
+            a(href='shop-single-electronics.html').product-thumb-link
+            span.badge.badge-danger.rounded-0 Sale -40%
+            span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+              i(data-feather='heart')
+            img(src='img/shop/electronics/04.jpg' alt='Product')
+          .product-card-body
+            .d-flex.flex-wrap.justify-content-between.pb-1
+              a(href='#').product-meta Smart home
+              +star-rating-short(4.2)
+            h3.product-card-title
+              a(href='shop-single-electronics.html') All-new Echo Dot (3rd Gen) - Smart speaker with Alexa - Charcoal
+            span.text-primary
+              del.text-muted.mr-1 $49.99
+              | $29.99
+          .product-card-body.body-hidden.pt-2
+            button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+            a(href='#' data-toggle='toast' data-target='#compare-toast').quick-view-btn
+              i(data-feather='repeat').mr-1
+              | Compare
+            ul.font-size-sm.opacity-80.pl-4.pt-2.mb-2
+              li 4096x2048@24fps 360 video/ 15MP
+              li 360 still image
+              li Dual CMOS 8.4MP, Dual F2.2 
+              li Built-in 1,160mAh
+
+      // Product
+      .col-lg-3.col-sm-4.col-6.border.border-collapse
+        .product-card
+          .product-thumb
+            a(href='shop-single-electronics.html').product-thumb-link
+            span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+              i(data-feather='heart')
+            img(src='img/shop/electronics/05.jpg' alt='Product')
+          .product-card-body
+            .d-flex.flex-wrap.justify-content-between.pb-1
+              a(href='#').product-meta Wearable electronics
+              +star-rating-short(3.6)
+            h3.product-card-title
+              a(href='shop-single-electronics.html') Fitbit Ionic GPS Smart Watch, Charcoal/Smoke Gray, One Size
+            span.text-primary $317.40
+          .product-card-body.body-hidden.pt-2
+            button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+            a(href='#' data-toggle='toast' data-target='#compare-toast').quick-view-btn
+              i(data-feather='repeat').mr-1
+              | Compare
+            ul.font-size-sm.opacity-80.pl-4.pt-2.mb-2
+              li Track your all-day activity
+              li Use 15+ exercise modes
+              li Access your favorite apps for sport
+              li Get call, text, calendar notifications
+
+      // Product
+      .col-lg-3.col-sm-4.col-6.border.border-collapse
+        .product-card
+          .product-thumb
+            a(href='shop-single-electronics.html').product-thumb-link
+            span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+              i(data-feather='heart')
+            img(src='img/shop/electronics/06.jpg' alt='Product')
+          .product-card-body
+            .d-flex.flex-wrap.justify-content-between.pb-1
+              a(href='#').product-meta Smartphones
+              +star-rating-short(4.5)
+            h3.product-card-title
+              a(href='shop-single-electronics.html') Apple - iPhone XS 128GB - Space Gray
+            span.text-primary $1,049.99
+          .product-card-body.body-hidden.pt-2
+            button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+            a(href='#' data-toggle='toast' data-target='#compare-toast').quick-view-btn
+              i(data-feather='repeat').mr-1
+              | Compare
+            ul.font-size-sm.opacity-80.pl-4.pt-2.mb-2
+              li 5.8-inch Super Retina display 
+              li IP68 dust and water resistant
+              li 12MP dual cameras
+              li A12 Bionic with next-generation Neural Engine
+
+      // Product
+      .col-lg-3.col-sm-4.col-6.border.border-collapse
+        .product-card
+          .product-thumb
+            a(href='shop-single-electronics.html').product-thumb-link
+            span.badge.badge-success.rounded-0 &starf; Top seller
+            span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+              i(data-feather='heart')
+            img(src='img/shop/electronics/07.jpg' alt='Product')
+          .product-card-body
+            .d-flex.flex-wrap.justify-content-between.pb-1
+              a(href='#').product-meta Wearable electronics
+              +star-rating-short(4.3)
+            h3.product-card-title
+              a(href='shop-single-electronics.html') Apple Watch Series 4 (GPS, 44mm) - Silver Aluminium Case
+            span.text-primary $399.00
+          .product-card-body.body-hidden.pt-2
+            button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+            a(href='#' data-toggle='toast' data-target='#compare-toast').quick-view-btn
+              i(data-feather='repeat').mr-1
+              | Compare
+            ul.font-size-sm.opacity-80.pl-4.pt-2.mb-2
+              li GPS
+              li Over 30% larger display
+              li Electrical and optical heart sensors
+              li Digital Crown with haptic feedback
+
+      // Product
+      .col-lg-3.col-sm-4.col-6.border.border-collapse
+        .product-card
+          .product-thumb
+            a(href='shop-single-electronics.html').product-thumb-link
+            span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+              i(data-feather='heart')
+            img(src='img/shop/electronics/08.jpg' alt='Product')
+          .product-card-body
+            .d-flex.flex-wrap.justify-content-between.pb-1
+              a(href='#').product-meta Computers
+            h3.product-card-title
+              a(href='shop-single-electronics.html') Acer R11 11.6" Convertible 2-in-1 HD Touchscreen (2019)
+            span.text-primary $339.00
+          .product-card-body.body-hidden.pt-2
+            button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+            a(href='#' data-toggle='toast' data-target='#compare-toast').quick-view-btn
+              i(data-feather='repeat').mr-1
+              | Compare
+            ul.font-size-sm.opacity-80.pl-4.pt-2.mb-2
+              li 4GB DD3; 32 GB eMMC
+              li 11.6" HD Widescreen LED-backlit Display
+              li Multi-touch screen
+              li Intel Celeron N3150 Quad-Core Processor 1.6GHz
+
+      // Product
+      .col-lg-3.col-sm-4.col-6.border.border-collapse
+        .product-card
+          .product-thumb
+            a(href='shop-single-electronics.html').product-thumb-link
+            span.badge.badge-danger.rounded-0 Sale -24%
+            span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+              i(data-feather='heart')
+            img(src='img/shop/electronics/09.jpg' alt='Product')
+          .product-card-body
+            .d-flex.flex-wrap.justify-content-between.pb-1
+              a(href='#').product-meta TV, Video &amp; Audio
+              +star-rating-short(4.1)
+            h3.product-card-title
+              a(href='shop-single-electronics.html') Xiaomi Mi Box S with Google Assistant Remote Official International
+            span.text-primary
+              del.text-muted.mr-1 $90.43
+              | $68.99
+          .product-card-body.body-hidden.pt-2
+            button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+            a(href='#' data-toggle='toast' data-target='#compare-toast').quick-view-btn
+              i(data-feather='repeat').mr-1
+              | Compare
+            ul.font-size-sm.opacity-80.pl-4.pt-2.mb-2
+              li Quad Core Cortex-A53 64bit 2.0GH
+              li 8GB eMMC5.0 high speed flash memory
+              li Low Power Bluetooth 4.1
+              li Android TV 7.1
+
+      // Product
+      .col-lg-3.col-sm-4.col-6.border.border-collapse
+        .product-card
+          .product-thumb
+            a(href='shop-single-electronics.html').product-thumb-link
+            span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+              i(data-feather='heart')
+            img(src='img/shop/electronics/10.jpg' alt='Product')
+          .product-card-body
+            .d-flex.flex-wrap.justify-content-between.pb-1
+              a(href='#').product-meta Printers &amp; Ink
+              +star-rating-short(4.8)
+            h3.product-card-title
+              a(href='shop-single-electronics.html') HP Laserjet Pro M281fdw All in One Wireless Color Laser Printer
+            span.text-primary $428.60
+          .product-card-body.body-hidden.pt-2
+            button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+            a(href='#' data-toggle='toast' data-target='#compare-toast').quick-view-btn
+              i(data-feather='repeat').mr-1
+              | Compare
+            ul.font-size-sm.opacity-80.pl-4.pt-2.mb-2
+              li Big performance in a small package
+              li Fast print speeds
+              li Print from mobile device
+              li Wireless connectivity
+      
+      // Promo banner
+      a(href='#' style='background-image: url(img/shop/banner02.jpg);').col-lg-6.col-sm-8.promo-banner.border.border-collapse.bg-size-cover.bg-position-center.d-none.d-sm-block
+
+      // Product
+      .col-lg-3.col-sm-4.col-6.border.border-collapse
+        .product-card
+          .product-thumb
+            a(href='shop-single-electronics.html').product-thumb-link
+            span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+              i(data-feather='heart')
+            img(src='img/shop/electronics/11.jpg' alt='Product')
+          .product-card-body
+            .d-flex.flex-wrap.justify-content-between.pb-1
+              a(href='#').product-meta TV, Video &amp; Audio
+            h3.product-card-title
+              a(href='shop-single-electronics.html') SONY Smart TV LED 49" Ultra HD 4K
+            span.text-muted Out of stock
+          .product-card-body.body-hidden.pt-2
+            a(href='shop-single-electronics.html').btn.btn-primary.btn-sm.btn-block Pre-order
+            a(href='#' data-toggle='toast' data-target='#compare-toast').quick-view-btn
+              i(data-feather='repeat').mr-1
+              | Compare
+            ul.font-size-sm.opacity-80.pl-4.pt-2.mb-2
+              li Beyond high definition: 4K HDTV
+              li X1 Extreme Processor
+              li Voice assistant
+              li Multiple inputs: 4 HDMI, 2 USB2.0, 1 USB3.0
+
+      // Product
+      .col-lg-3.col-sm-4.col-6.border.border-collapse
+        .product-card
+          .product-thumb
+            a(href='shop-single-electronics.html').product-thumb-link
+            span.badge.badge-danger.rounded-0 Sale -10%
+            span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+              i(data-feather='heart')
+            img(src='img/shop/electronics/12.jpg' alt='Product')
+          .product-card-body
+            .d-flex.flex-wrap.justify-content-between.pb-1
+              a(href='#').product-meta Video games
+              +star-rating-short(4.5)
+            h3.product-card-title
+              a(href='shop-single-electronics.html') PS4 Controller Charger, Dual Shock USB Charger Charging Docking Station
+            span.text-primary
+              del.text-muted.mr-1 $16.47
+              | $14.97
+          .product-card-body.body-hidden.pt-2
+            button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+            a(href='#' data-toggle='toast' data-target='#compare-toast').quick-view-btn
+              i(data-feather='repeat').mr-1
+              | Compare
+            ul.font-size-sm.opacity-80.pl-4.pt-2.mb-2
+              li Quad Core Cortex-A53 64bit 2.0GH
+              li 8GB eMMC5.0 high speed flash memory
+              li Low Power Bluetooth 4.1
+              li Android TV 7.1
+
+      // Product
+      .col-lg-3.col-sm-4.col-6.border.border-collapse
+        .product-card
+          .product-thumb
+            a(href='shop-single-electronics.html').product-thumb-link
+            span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+              i(data-feather='heart')
+            img(src='img/shop/electronics/13.jpg' alt='Product')
+          .product-card-body
+            .d-flex.flex-wrap.justify-content-between.pb-1
+              a(href='#').product-meta Computers
+            h3.product-card-title
+              a(href='shop-single-electronics.html') Apple iMac (27-inch Retina 5K display: 3.8GHz quad-core Intel Core i5, 8GB RAM, 2TB)
+            span.text-primary $1,949.00
+          .product-card-body.body-hidden.pt-2
+            button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+            a(href='#' data-toggle='toast' data-target='#compare-toast').quick-view-btn
+              i(data-feather='repeat').mr-1
+              | Compare
+            ul.font-size-sm.opacity-80.pl-4.pt-2.mb-2
+              li 27-Inch 5120-by-2880 Retina 5K display
+              li Quad-core Intel Core i5 Processor
+              li Two Thunderbolt 3 (USB-C) ports
+
+      // Product
+      .col-lg-3.col-sm-4.col-6.border.border-collapse
+        .product-card
+          .product-thumb
+            a(href='shop-single-electronics.html').product-thumb-link
+            span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+              i(data-feather='heart')
+            img(src='img/shop/electronics/14.jpg' alt='Product')
+          .product-card-body
+            .d-flex.flex-wrap.justify-content-between.pb-1
+              a(href='#').product-meta Cameras
+              +star-rating-short(4.2)
+            h3.product-card-title
+              a(href='shop-single-electronics.html') Nikon COOLPIX B500 Digital Camera (Plum)
+            span.text-primary $249.00
+          .product-card-body.body-hidden.pt-2
+            button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+            a(href='#' data-toggle='toast' data-target='#compare-toast').quick-view-btn
+              i(data-feather='repeat').mr-1
+              | Compare
+            ul.font-size-sm.opacity-80.pl-4.pt-2.mb-2
+              li 16MP 1/2.3" BSI CMOS Sensor
+              li 22.5-900mm (35mm Equivalent)
+              li 3" 921k-Dot Tilting LCD
+              li Bluetooth (BLE), Wi-Fi, NFC Connectivity
+
+    .pb-4.mb-2
+
+    //- pagination.pug template
+    include partials/pagination

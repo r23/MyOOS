@@ -1,0 +1,235 @@
+extends ../partials/layout-components
+
+//- Override default config variables
+append config
+  - var pageTitle = 'Code'
+  - var pageSubTitle = '&mdash;&nbsp; Displaying inline and multiline blocks of code. <a href="https://getbootstrap.com/docs/4.3/content/code/" target="_blank">See Bootstrap documentation</a>.'
+  - var isNestedFile = true
+  - var isCodeHighlighting = true
+  - var breadcrumbs = [{'title': 'Home', 'link': '../index.html'}, {'title': 'Components', 'link': '#'}]
+
+//- Page Content
+block content
+
+  // Inline code
+  h2.h5.mb-3 Inline code
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result1' data-toggle='tab' role='tab' aria-controls='result1' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html1' data-toggle='tab' role='tab' aria-controls='html1' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug1' data-toggle='tab' role='tab' aria-controls='pug1' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result1.tab-pane.fade.show.active(role='tabpanel')
+          p Wrap inline snippets of code with <code>&lt;code&gt;</code>. Be sure to escape HTML angle brackets.
+        #html1.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;p&gt;Wrap inline snippets of code with &lt;code&gt;&amp;lt;code&amp;gt;&lt;/code&gt;.&lt;/p&gt;
+        #pug1.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              p Wrap inline snippets of code with &lt;code&gt;&amp;lt;code&amp;gt;&lt;/code&gt;.
+
+  // User input
+  h2.h5.pt-5.mb-3 User input
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result2' data-toggle='tab' role='tab' aria-controls='result2' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html2' data-toggle='tab' role='tab' aria-controls='html2' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug2' data-toggle='tab' role='tab' aria-controls='pug2' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result2.tab-pane.fade.show.active(role='tabpanel')
+          p To switch directories, type <kbd>cd</kbd> followed by the name of the directory.<br> To edit settings, press <kbd><kbd>ctrl</kbd> + <kbd>,</kbd></kbd>
+        #html2.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;p&gt;
+                To switch directories, type &lt;kbd&gt;cd&lt;/kbd&gt; followed by the name of the directory.
+                To edit settings, press &lt;kbd&gt;&lt;kbd&gt;ctrl&lt;/kbd&gt; + &lt;kbd&gt;,&lt;/kbd&gt;&lt;/kbd&gt;
+              &lt;/p&gt;
+        #pug2.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              p
+                | To switch directories, type &lt;kbd&gt;cd&lt;/kbd&gt; followed by the name of the directory.
+                | To edit settings, press &lt;kbd&gt;&lt;kbd&gt;ctrl&lt;/kbd&gt; + &lt;kbd&gt;,&lt;/kbd&gt;&lt;/kbd&gt;
+
+  // Variables
+  h2.h5.pt-5.mb-3 Variables
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result3' data-toggle='tab' role='tab' aria-controls='result3' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html3' data-toggle='tab' role='tab' aria-controls='html3' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug3' data-toggle='tab' role='tab' aria-controls='pug3' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result3.tab-pane.fade.show.active(role='tabpanel')
+          var y 
+          | =
+          var mx 
+          | + 
+          var b
+        #html3.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;var&gt;y&lt;/var&gt; = &lt;var&gt;mx&lt;/var&gt; + &lt;var&gt;b&lt;/var&gt;
+        #pug3.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              var y 
+              | =
+              var mx 
+              | + 
+              var b
+
+  // Code block
+  h2.h5.pt-5.mb-3 Code block
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result4' data-toggle='tab' role='tab' aria-controls='result4' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html4' data-toggle='tab' role='tab' aria-controls='html4' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug4' data-toggle='tab' role='tab' aria-controls='pug4' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result4.tab-pane.fade.show.active(role='tabpanel')
+          pre: code &lt;p&gt;Sample text here...&lt;/p&gt;<br>&lt;p&gt;And another line of sample text here...&lt;/p&gt;
+        #html4.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;pre&gt;
+                &lt;code&gt;&amp;lt;p&amp;gt;Sample text here...&amp;lt;/p&amp;gt;
+                &amp;lt;p&amp;gt;And another line of sample text here...&amp;lt;/p&amp;gt;&lt;/code&gt;
+              &lt;/pre&gt;
+        #pug4.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              pre
+                code
+                  &amp;lt;p&amp;gt;Sample text here...&amp;lt;/p&amp;gt;
+                  &amp;lt;p&amp;gt;And another line of sample text here...&amp;lt;/p&amp;gt;
+
+  // Code block scrollable
+  h2.h5.pt-5.mb-3 Code block scrollable
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result5' data-toggle='tab' role='tab' aria-controls='result5' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html5' data-toggle='tab' role='tab' aria-controls='html5' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug5' data-toggle='tab' role='tab' aria-controls='pug5' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result5.tab-pane.fade.show.active(role='tabpanel')
+          pre.pre-scrollable
+            code.
+              &lt;div class=&quot;team-card mx-auto&quot;&gt;
+                &lt;div class=&quot;team-card-inner&quot;&gt;
+                  &lt;div class=&quot;team-thumb&quot;&gt;
+                    &lt;img src=&quot;path-to-image.jpg&quot; alt=&quot;Team Member Picture&quot;/&gt;
+                  &lt;/div&gt;
+                  &lt;div class=&quot;team-social-bar text-center&quot;&gt;
+                    &lt;a class=&quot;social-btn sb-twitter&quot; href=&quot;#&quot;&gt;&lt;i class=&quot;icon-twitter&quot;&gt;&lt;/i&gt;&lt;/a&gt;
+                    &lt;a class=&quot;social-btn sb-github&quot; href=&quot;#&quot;&gt;&lt;i class=&quot;icon-github&quot;&gt;&lt;/i&gt;&lt;/a&gt;
+                    &lt;a class=&quot;social-btn sb-stackoverflow&quot; href=&quot;#&quot;&gt;&lt;i class=&quot;icon-stackoverflow&quot;&gt;&lt;/i&gt;&lt;/a&gt;
+                    &lt;a class=&quot;social-btn sb-skype&quot; href=&quot;#&quot;&gt;&lt;i class=&quot;icon-skype&quot;&gt;&lt;/i&gt;&lt;/a&gt;
+                  &lt;/div&gt;
+                  &lt;a class=&quot;team-contact-link&quot; href=&quot;tel:+19871625346&quot;&gt;
+                    &lt;i class=&quot;fe-icon-phone&quot;&gt;&lt;/i&gt;
+                    &amp;nbsp;+1 (987) 162 53 46
+                  &lt;/a&gt;
+                  &lt;a class=&quot;team-contact-link&quot; href=&quot;mailto:info@example.com&quot;&gt;
+                    &lt;i class=&quot;fe-icon-mail&quot;&gt;&lt;/i&gt;
+                    &amp;nbsp;info@example.com
+                  &lt;/a&gt;
+                &lt;/div&gt;
+                &lt;span class=&quot;team-position&quot;&gt;Lead Programmer&lt;/span&gt;
+                &lt;h4 class=&quot;team-name&quot;&gt;William Smith&lt;/h4&gt;
+              &lt;/div&gt;
+        #html5.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;pre class=&quot;pre-scrollable&quot;&gt;
+                &lt;code&gt;
+                  Code goes here...
+                &lt;/code&gt;
+              &lt;/pre&gt;
+        #pug5.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              pre.pre-scrollable
+                code.
+                  | Code goes here...
+
+  // Code highlighting
+  h2.h5.pt-5.mb-3 Code highlighting
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result6' data-toggle='tab' role='tab' aria-controls='result6' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html6' data-toggle='tab' role='tab' aria-controls='html6' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug6' data-toggle='tab' role='tab' aria-controls='pug6' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result6.tab-pane.fade.show.active(role='tabpanel')
+          pre.line-numbers
+            code.lang-html.
+              &lt;div class=&quot;team-card mx-auto&quot;&gt;
+                &lt;div class=&quot;team-card-inner&quot;&gt;
+                  &lt;div class=&quot;team-thumb&quot;&gt;
+                    &lt;img src=&quot;path-to-image.jpg&quot; alt=&quot;Team Member Picture&quot;/&gt;
+                  &lt;/div&gt;
+                  &lt;div class=&quot;team-social-bar text-center&quot;&gt;
+                    &lt;a class=&quot;social-btn sb-twitter&quot; href=&quot;#&quot;&gt;&lt;i class=&quot;icon-twitter&quot;&gt;&lt;/i&gt;&lt;/a&gt;
+                    &lt;a class=&quot;social-btn sb-github&quot; href=&quot;#&quot;&gt;&lt;i class=&quot;icon-github&quot;&gt;&lt;/i&gt;&lt;/a&gt;
+                    &lt;a class=&quot;social-btn sb-stackoverflow&quot; href=&quot;#&quot;&gt;&lt;i class=&quot;icon-stackoverflow&quot;&gt;&lt;/i&gt;&lt;/a&gt;
+                    &lt;a class=&quot;social-btn sb-skype&quot; href=&quot;#&quot;&gt;&lt;i class=&quot;icon-skype&quot;&gt;&lt;/i&gt;&lt;/a&gt;
+                  &lt;/div&gt;
+                  &lt;a class=&quot;team-contact-link&quot; href=&quot;tel:+19871625346&quot;&gt;
+                    &lt;i class=&quot;fe-icon-phone&quot;&gt;&lt;/i&gt;
+                    &amp;nbsp;+1 (987) 162 53 46
+                  &lt;/a&gt;
+                  &lt;a class=&quot;team-contact-link&quot; href=&quot;mailto:info@example.com&quot;&gt;
+                    &lt;i class=&quot;fe-icon-mail&quot;&gt;&lt;/i&gt;
+                    &amp;nbsp;info@example.com
+                  &lt;/a&gt;
+                &lt;/div&gt;
+                &lt;span class=&quot;team-position&quot;&gt;Lead Programmer&lt;/span&gt;
+                &lt;h4 class=&quot;team-name&quot;&gt;William Smith&lt;/h4&gt;
+              &lt;/div&gt;
+        #html6.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;pre class=&quot;line-numbers&quot;&gt;
+                &lt;code class=&quot;lang-html&quot;&gt;
+                  Code goes here...
+                &lt;/code&gt;
+              &lt;/pre&gt;
+        #pug6.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              pre.line-numbers
+                code.lang-html.
+                  | Code goes here...

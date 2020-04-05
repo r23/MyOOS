@@ -1,0 +1,318 @@
+// Shop sidebar
+.offcanvas-sidebar
+  .offcanvas-sidebar-toggle
+    span.toggle-knob
+      i(data-feather='chevrons-right')
+      | Sidebar
+  .offcanvas-sidebar-body
+    .offcanvas-sidebar-body-inner
+
+      // Categories
+      .widget.widget-categories.mb-4.py-1
+        h3.widget-title Shop categories
+        ul#shopCategories
+          li.has-children
+            a(href='#computers' data-toggle='collapse')
+              i(data-feather='chevron-down').widget-categories-indicator
+              | Computers &amp; Accessories
+              span.badge.text-muted.ml-1 (1138)
+            ul#computers.collapse.show(data-parent='#shopCategories')
+              li
+                a(href='#')
+                  | Desktop PCs
+                  span.badge.text-muted.ml-1 (508)
+                ul
+                  li: a(href='#') Office PC
+                  li: a(href='#') Gaming PC
+                  li: a(href='#') PC for Learning
+              li
+                a(href='#')
+                  | Laptops
+                  span.badge.text-muted.ml-1 (423)
+                ul
+                  li: a(href='#') 15' Screens
+                  li: a(href='#') 13' Screens
+                  li: a(href='#') Touch Screens
+              li
+                a(href='#')
+                  | Nettops
+                  span.badge.text-muted.ml-1 (97)
+              li
+                a(href='#')
+                  | PC Accessories
+                  span.badge.text-muted.ml-1 (110)
+          li.has-children
+            a(href='#smartphones' data-toggle='collapse').collapsed
+              i(data-feather='chevron-down').widget-categories-indicator
+              | Smartphones &amp; Tablets
+              span.badge.text-muted.ml-1 (2356)
+            ul#smartphones.collapse(data-parent='#shopCategories')
+              li
+                a(href='#')
+                  | Smartphones
+                  span.badge.text-muted.ml-1 (1032)
+                ul
+                  li: a(href='#') Android
+                  li: a(href='#') iOS
+                  li: a(href='#') QHD Screen
+                  li: a(href='#') WQHD Screen
+                  li: a(href='#') Full HD Screen
+                  li: a(href='#') Super Amoled
+              li
+                a(href='#')
+                  | Tablets
+                  span.badge.text-muted.ml-1 (937)
+                ul
+                  li: a(href='#') WiFi only
+                  li: a(href='#') WiFi + 4G
+                  li: a(href='#') Android
+                  li: a(href='#') iOS
+              li
+                a(href='#')
+                  | Phablets
+                  span.badge.text-muted.ml-1 (386)
+          li.has-children
+            a(href='#tv' data-toggle='collapse').collapsed
+              i(data-feather='chevron-down').widget-categories-indicator
+              | TV, Video &amp; Audio
+              span.badge.text-muted.ml-1 (420)
+            ul#tv.collapse(data-parent='#shopCategories')
+              li
+                a(href='#')
+                  | Smart TV Sets
+                  span.badge.text-muted.ml-1 (180)
+              li
+                a(href='#')
+                  | Blue-Ray Players
+                  span.badge.text-muted.ml-1 (132)
+              li
+                a(href='#')
+                  | Sound Systems
+                  span.badge.text-muted.ml-1 (47)
+              li
+                a(href='#')
+                  | Home Theaters
+                  span.badge.text-muted.ml-1 (61)
+          li.has-children
+            a(href='#cameras' data-toggle='collapse').collapsed
+              i(data-feather='chevron-down').widget-categories-indicator
+              | Cameras, Photo &amp; Video
+              span.badge.text-muted.ml-1 (874)
+            ul#cameras.collapse(data-parent='#shopCategories')
+              li
+                a(href='#')
+                  | Photo Cameras
+                  span.badge.text-muted.ml-1 (211)
+              li
+                a(href='#')
+                  | Video Cameras
+                  span.badge.text-muted.ml-1 (195)
+              li
+                a(href='#')
+                  | Action Cameras
+                  span.badge.text-muted.ml-1 (159)
+              li
+                a(href='#')
+                  | Tripods &amp; Stands
+                  span.badge.text-muted.ml-1 (203)
+              li
+                a(href='#')
+                  | Lenses
+                  span.badge.text-muted.ml-1 (106)
+          li.has-children
+            a(href='#headphones' data-toggle='collapse').collapsed
+              i(data-feather='chevron-down').widget-categories-indicator
+              | Headphones
+              span.badge.text-muted.ml-1 (1239)
+            ul#headphones.collapse(data-parent='#shopCategories')
+              li
+                a(href='#')
+                  | Earbud Headphones
+                  span.badge.text-muted.ml-1 (752)
+              li
+                a(href='#')
+                  | Over-Ear Headphones
+                  span.badge.text-muted.ml-1 (487)
+              li
+                a(href='#')
+                  | Bluetooth Headphones
+                  span.badge.text-muted.ml-1 (205)
+              li
+                a(href='#')
+                  | Sports &amp; Fitness Headphones
+                  span.badge.text-muted.ml-1 (96)
+              li
+                a(href='#')
+                  | Noise-Cancelling Headphones
+                  span.badge.text-muted.ml-1 (113)
+          li.has-children
+            a(href='#wearables' data-toggle='collapse').collapsed
+              i(data-feather='chevron-down').widget-categories-indicator
+              | Wearable Electronics
+              span.badge.text-muted.ml-1 (340)
+            ul#wearables.collapse(data-parent='#shopCategories')
+              li
+                a(href='#')
+                  | Smart Watches
+                  span.badge.text-muted.ml-1 (175)
+              li
+                a(href='#')
+                  | Fitness Trackers
+                  span.badge.text-muted.ml-1 (123)
+              li
+                a(href='#')
+                  | Smart Glasses
+                  span.badge.text-muted.ml-1 (42)
+          li.has-children
+            a(href='#printers' data-toggle='collapse').collapsed
+              i(data-feather='chevron-down').widget-categories-indicator
+              | Printers &amp; Ink
+              span.badge.text-muted.ml-1 (512)
+            ul#printers.collapse(data-parent='#shopCategories')
+              li
+                a(href='#')
+                  | All-In-One
+                  span.badge.text-muted.ml-1 (304)
+              li
+                a(href='#')
+                  | Copying
+                  span.badge.text-muted.ml-1 (115)
+              li
+                a(href='#')
+                  | Faxing
+                  span.badge.text-muted.ml-1 (211)
+              li
+                a(href='#')
+                  | Photo Printing
+                  span.badge.text-muted.ml-1 (68)
+              li
+                a(href='#')
+                  | Printing Only
+                  span.badge.text-muted.ml-1 (143)
+              li
+                a(href='#')
+                  | Scanning
+                  span.badge.text-muted.ml-1 (122)
+          li.has-children
+            a(href='#games' data-toggle='collapse').collapsed
+              i(data-feather='chevron-down').widget-categories-indicator
+              | Video Games
+              span.badge.text-muted.ml-1 (656)
+            ul#games.collapse(data-parent='#shopCategories')
+              li
+                a(href='#')
+                  | PlayStation 4
+                  span.badge.text-muted.ml-1 (100)
+              li
+                a(href='#')
+                  | Xbox One
+                  span.badge.text-muted.ml-1 (92)
+              li
+                a(href='#')
+                  | Nintendo Switch
+                  span.badge.text-muted.ml-1 (19)
+              li
+                a(href='#')
+                  | Video Games
+                  span.badge.text-muted.ml-1 (397)
+              li
+                a(href='#')
+                  | Accessories
+                  span.badge.text-muted.ml-1 (48)
+      
+      // Price range
+      .widget.mb-4.pb-3
+        h3.widget-title Price range
+        form(data-start-min='250' data-start-max='650' data-min='0' data-max='1000' data-step='1').range-slider
+          .ui-range-slider
+          footer.ui-range-slider-footer
+            .column
+              button(type='submit').btn.btn-outline-primary.btn-sm Filter
+            .column
+              .ui-range-values
+                .ui-range-label Price:
+                .ui-range-value-min
+                  | $<span></span>
+                  input(type='hidden')
+                | &nbsp;&ndash;&nbsp;
+                .ui-range-value-max
+                  | $<span></span>
+                  input(type='hidden')
+
+      // Price filter    
+      .widget.mb-4.pb-1
+        h3.widget-title Filter by price
+        .custom-control.custom-checkbox.mb-1
+          input(type='checkbox' id='price-1').custom-control-input
+          label(for='price-1').custom-control-label
+            | $10 - $50
+            span.text-muted.ml-1 (208)
+        .custom-control.custom-checkbox.mb-1
+          input(type='checkbox' id='price-2').custom-control-input
+          label(for='price-2').custom-control-label
+            | $50 - $100
+            span.text-muted.ml-1 (311)
+        .custom-control.custom-checkbox.mb-1
+          input(type='checkbox' id='price-3').custom-control-input
+          label(for='price-3').custom-control-label
+            | $100 - $500
+            span.text-muted.ml-1 (485)
+        .custom-control.custom-checkbox.mb-1
+          input(type='checkbox' id='price-4').custom-control-input
+          label(for='price-4').custom-control-label
+            | $500 - $1,000
+            span.text-muted.ml-1 (213)
+        .custom-control.custom-checkbox.mb-1
+          input(type='checkbox' id='xs').custom-control-input
+          label(for='xs').custom-control-label
+            | $1,000 - $5,000
+            span.text-muted.ml-1 (197)
+
+      // Brand filter    
+      .widget.mb-4.pb-1
+        h3.widget-title Filter by brand
+        .custom-control.custom-checkbox.mb-1
+          input(type='checkbox' id='apple').custom-control-input
+          label(for='apple').custom-control-label
+            | Apple
+            span.text-muted.ml-1 (254)
+        .custom-control.custom-checkbox.mb-1
+          input(type='checkbox' id='bosh').custom-control-input
+          label(for='bosh').custom-control-label
+            | Bosh
+            span.text-muted.ml-1 (39)
+        .custom-control.custom-checkbox.mb-1
+          input(type='checkbox' id='canon').custom-control-input
+          label(for='canon').custom-control-label
+            | Canon Inc.
+            span.text-muted.ml-1 (128)
+        .custom-control.custom-checkbox.mb-1
+          input(type='checkbox' id='dell').custom-control-input
+          label(for='dell').custom-control-label
+            | Dell
+            span.text-muted.ml-1 (310)
+        .custom-control.custom-checkbox.mb-1
+          input(type='checkbox' id='hp').custom-control-input
+          label(for='hp').custom-control-label
+            | Hewlett-Packard
+            span.text-muted.ml-1 (46)
+        .custom-control.custom-checkbox.mb-1
+          input(type='checkbox' id='hitachi').custom-control-input
+          label(for='hitachi').custom-control-label
+            | Hitachi
+            span.text-muted.ml-1 (217)
+        .custom-control.custom-checkbox.mb-1
+          input(type='checkbox' id='lg').custom-control-input
+          label(for='lg').custom-control-label
+            | LG Electronics
+            span.text-muted.ml-1 (310)
+        .custom-control.custom-checkbox.mb-1
+          input(type='checkbox' id='panasonic').custom-control-input
+          label(for='panasonic').custom-control-label
+            | Panasonic
+            span.text-muted.ml-1 (74)
+        .custom-control.custom-checkbox.mb-1
+          input(type='checkbox' id='sony').custom-control-input
+          label(for='sony').custom-control-label
+            | Sony
+            span.text-muted.ml-1 (235)

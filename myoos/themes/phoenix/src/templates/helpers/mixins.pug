@@ -1,0 +1,67 @@
+//- Image
+mixin image(link, alt)
+  - var imgAttrs = isNestedFile ? {'src': '../' + link, 'alt': alt} : {'src': link, 'alt': alt}
+  img(width!=attributes.width height!=attributes.height class!=attributes.class)&attributes(imgAttrs)
+
+//- Star rating
+mixin star-rating(number)
+  .star-rating
+    case number
+      when 0
+        - break
+      when 1
+        i(data-feather='star').sr-star.active
+        i(data-feather='star').sr-star
+        i(data-feather='star').sr-star
+        i(data-feather='star').sr-star
+        i(data-feather='star').sr-star
+        - break
+      when 2
+        i(data-feather='star').sr-star.active
+        i(data-feather='star').sr-star.active
+        i(data-feather='star').sr-star
+        i(data-feather='star').sr-star
+        i(data-feather='star').sr-star
+        - break
+      when 3
+        i(data-feather='star').sr-star.active
+        i(data-feather='star').sr-star.active
+        i(data-feather='star').sr-star.active
+        i(data-feather='star').sr-star
+        i(data-feather='star').sr-star
+        - break
+      when 4
+        i(data-feather='star').sr-star.active
+        i(data-feather='star').sr-star.active
+        i(data-feather='star').sr-star.active
+        i(data-feather='star').sr-star.active
+        i(data-feather='star').sr-star
+        - break
+      when 5
+        i(data-feather='star').sr-star.active
+        i(data-feather='star').sr-star.active
+        i(data-feather='star').sr-star.active
+        i(data-feather='star').sr-star.active
+        i(data-feather='star').sr-star.active
+        - break
+      default
+        i(data-feather='star').sr-star
+        i(data-feather='star').sr-star
+        i(data-feather='star').sr-star
+        i(data-feather='star').sr-star
+        i(data-feather='star').sr-star
+
+mixin star-rating-short(number)
+  .star-rating
+    span.sr-label.mr-1= number
+    i(data-feather='star').sr-star.active
+
+//- Components Menu
+mixin components-menu(items, isActive)
+  nav.list-group
+    each item in items
+      - var activeClass = (isActive === item.title) ? 'active' : ''
+      - var linkAttrs = {'href': item.link, 'class': ['list-group-item', 'list-group-item-action', 'border-top-0', 'border-right-0', 'border-bottom-0 py-2', activeClass]}
+      a()&attributes(linkAttrs)
+        i(class='text-muted' data-feather='chevron-right' style='width: .875rem; height: .875rem; margin-top: -.1rem; margin-right: .25rem;')
+        span= item.title

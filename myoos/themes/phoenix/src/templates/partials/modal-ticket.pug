@@ -1,0 +1,44 @@
+// Open Ticket Modal
+form(method='post' id='open-ticket' tabindex='-1' novalidate).needs-validation.modal.fade
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        h4.modal-title Submit new ticket
+        button(type='button' class='close' data-dismiss='modal' aria-label='Close')
+          span(aria-hidden='true') &times;
+      .modal-body
+        p.text-muted We normally respond tickets within 2 business days.
+        .form-group
+          label(for='ticket-subject') Subject
+          input(type='text' id='ticket-subject' required).form-control
+          .invalid-feedback Please fill in the subject line!
+        .row
+          .col-sm-6
+            .form-group
+              label(for='ticket-type') Type
+              select(id='ticket-type' required).form-control.custom-select
+                option(value) Choose type
+                option(value='Website problem') Website problem
+                option(value='Partner request') Partner request
+                option(value='Complaint') Complaint
+                option(value='Info inquiry') Info inquiry
+              .invalid-feedback Please choose ticket type!
+          .col-sm-6
+            .form-group
+              label(for='ticket-priority') Priority
+              select(id='ticket-priority' required).form-control.custom-select
+                option(value) How urgent is your issue?
+                option(value='Urgent') Urgent
+                option(value='High') High
+                option(value='Medium') Medium
+                option(value='Low') Low
+              .invalid-feedback Please choose how urgent your ticket is!
+        .form-group
+          label(for='ticket-description') Describe your issue
+          textarea(id='ticket-description' rows='8' required).form-control
+          .invalid-feedback Please provide ticket description!
+        .custom-file.mb-3
+          input(type='file' id='file-input').custom-file-input
+          label(for='file-input').custom-file-label Choose file...
+      .modal-footer
+        button(type='submit' class='btn btn-primary') Submit Ticket

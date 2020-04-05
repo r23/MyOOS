@@ -1,4 +1,23 @@
+/**
+ *
+ *	
+ *
+ **/
+;(function ($) {
+	'use strict';
 
+	/**
+	 *
+	 *	@vars
+	 *
+	 *
+	 **/
+	var _v = '1.0.0';
+	var BODY = 'body';
+	var WINDOW = window;
+	var DOCUMENT = 'document';
+  
+  
 	window.width 	= jQuery(window).width();
 	window.height 	= jQuery(window).height();
 
@@ -37,6 +56,7 @@
 		}
 		_owl_carousel();
 		_lightbox();
+		_product_gallery();
 
 	}
 	
@@ -652,6 +672,37 @@
 	}	
 
 
+/** Product gallery
+ **************************************************************** **/
+	function _product_gallery() {
+
+		var _container = jQuery(".product-carousel");
+		
+      function activeHash(e) {
+        var i = e.item.index;
+        var $activeHash = $('.owl-item').eq(i).find('[data-hash]').attr('data-hash');
+        $('.product-thumbnails li').removeClass('active');
+        $('[aria-controls="' + $activeHash + '"]').parent().addClass('active');
+        $('[data-hash="' + $activeHash + '"]').parent().addClass('active');
+      }
+
+      if($(_container).length) {
+        // Carousel init
+        $(_container).owlCarousel({
+          items: 1,
+          loop: false,
+          dots: false,
+          nav: true,
+          margin: 12,
+          autoHeight: true,
+          URLhashListener: true,
+          startPosition: 'URLHash',
+          onTranslate: activeHash
+        });
+      }
+    },
+	}
+
 /** OWL Carousel
  **************************************************************** **/
 	function _owl_carousel() {
@@ -844,28 +895,14 @@
 	        return (isMobile.iOS() || isMobile.Android() || isMobile.BlackBerry() || isMobile.Opera() || isMobile.Windows());
 	    }
 	};
-	
-	$(document).ready(function() {
 
-		// RADIO OPTION
-		$('input[type=radio]').on('change', updateRadioOption);
 
-		function updateRadioOption() {
-			var option_value = $(this).attr('data-option-value');
-			var option_base = $(this).attr('data-option-base');
-			var change_image = $(this).attr('data-change-image');
-			var change_model = $(this).attr('data-change-model');
 
-			$("#item_price h4").text(option_value);
-			$("#item_base span").text(option_base);
-			$("#item_model").text(change_model);
-			
-			if (change_image != null && change_image != '' && change_image != undefined) {
-				$("#item_image").attr("src", change_image);
-				$("#item_zoom").attr("href", change_image);
-			}
-			
-		}
-	})	
-	
-	
+  /**
+   * Init theme core on document.ready
+  */
+  $(function() {
+    theme.init();
+  });
+
+})(jQuery);

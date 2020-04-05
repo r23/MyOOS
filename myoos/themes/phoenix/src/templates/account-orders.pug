@@ -1,0 +1,206 @@
+extends partials/layout
+
+//- Override default config variables
+append config
+  - var isPageTitle = false
+  - var parentMenu = 'Pages'
+  - var isModalOrder = true
+  - var isModalTicket = true
+  
+//- Page Content
+block content
+
+  .container.pt-lg-3.pb-5.mb-sm-4
+    .row.pt-5
+
+      // Sidebar
+      .col-xl-3.col-lg-4
+
+        // Customer picture
+        a(href='#' style='max-width: 18.75rem;').gallery-item.mb-grid-gutter.mx-auto
+          img(src='img/account/customer-lg.jpg' alt='Daniel Adams')
+          .gallery-caption
+            .gallery-indicator
+              i(data-feather='refresh-ccw').gallery-indicator-icon
+            | Change profile picture
+        
+        // Technical support + Tickets (visible Desktop)
+        .d-none.d-lg-block
+          h6.font-size-sm.mb-3.pb-2.border-bottom Technical support
+          ul.list-unstyled
+            li.font-size-sm.mb-2
+              i(data-feather='mail' style='width: .875rem; height: .875rem;').text-muted.mr-2
+              a(href='mailto:support@example.com').nav-link-inline support@example.com
+            li.font-size-sm.mb-2
+              i(data-feather='phone' style='width: .875rem; height: .875rem;').text-muted.mr-2
+              a(href='tel:+100331697720').nav-link-inline +1 00 33 169 7720
+            li.font-size-sm.mb-2
+              i(data-feather='clock' style='width: .875rem; height: .875rem;').text-muted.mr-2
+              | 1-2 business days
+          .pt-2
+            a(href='account-tickets.html').btn.btn-outline-secondary.btn-sm.btn-block
+              i(data-feather='tag').mr-1
+              | My tickets (1)
+            a(href='account-tickets.html' data-toggle='modal' data-target='#open-ticket').btn.btn-success.btn-sm.btn-block Submit new ticket
+      
+      // Main content
+      .col-lg-8.offset-xl-1
+
+        // Customer details
+        .d-flex.flex-wrap.justify-content-between.pb-4
+          .pt-3.mr-3
+            h3.mb-0 Daniel Adams
+            span.font-size-sm.text-warning d.adams@example.com
+          .pt-3
+            a(href='account-signin.html').btn.btn-outline-primary.btn-sm
+              i(data-feather='log-out').mr-1
+              | Sign Out
+        ul.list-unstyled.border.p-3.mb-4
+          li.pb-1
+            span.opacity-80 &ndash; Joined:
+            span.font-weight-semibold.ml-1 Jan 13, 2018
+          li.pb-1
+            span.opacity-80 &ndash; Total orders:
+            span.font-weight-semibold.ml-1 15
+          li.pb-1
+            span.opacity-80 &ndash; Total spent:
+            span.font-weight-semibold.ml-1 $5,864
+          li
+            span.opacity-80 &ndash; Reward points:
+            span.font-weight-semibold.ml-1 586
+        
+        // Navigation (visible sm-up)
+        ul.nav.nav-tabs.d-none.d-sm-flex
+          li.nav-item
+            a(href='account-orders.html').nav-link.active
+              i(data-feather='shopping-bag')
+              | &nbsp;My orders
+              span.badge.badge-pill.badge-secondary.bg-0.border.ml-2
+                span.text-primary 1
+          li.nav-item
+            a(href='account-wishlist.html').nav-link
+              i(data-feather='heart')
+              | &nbsp;Wishlist
+              span.badge.badge-pill.badge-secondary.bg-0.border.ml-2
+                span.text-primary 3
+          li.nav-item.dropdown
+            a(href='#' data-toggle='dropdown').nav-link.dropdown-toggle
+              i(data-feather='settings')
+              | &nbsp;Account settings
+            .dropdown-menu
+              a(href='account-profile.html').dropdown-item Profile info
+              .dropdown-divider
+              a(href='account-address.html').dropdown-item Addresses
+              .dropdown-divider
+              a(href='account-payment.html').dropdown-item Payment methods
+        
+        // Navigation (visible sm-down)
+        .d-sm-none.pb-4
+          button(type='button' data-toggle='collapse' data-target='#account-menu').btn.btn-primary.btn-block.mb-2
+            i(data-feather='menu').mr-2
+            | Menu
+          #account-menu.collapse
+            .list-group
+              a(href='account-orders.html').list-group-item.list-group-item-action.active
+                i(data-feather='shopping-bag' style='width: 1rem; height: 1rem;').mr-2
+                | My orders
+                span.badge.badge-pill.badge-secondary.bg-0.border.ml-2
+                  span.text-primary 1
+              a(href='account-wishlist.html').list-group-item.list-group-item-action
+                i(data-feather='heart' style='width: 1rem; height: 1rem;').mr-2
+                | Wishlist
+                span.badge.badge-pill.badge-secondary.bg-0.border.ml-2
+                  span.text-primary 3
+              a(href='account-profile.html').list-group-item.list-group-item-action
+                i(data-feather='user' style='width: 1rem; height: 1rem;').mr-2
+                | Profile info
+              a(href='account-address.html').list-group-item.list-group-item-action
+                i(data-feather='map-pin' style='width: 1rem; height: 1rem;').mr-2
+                | Addresses
+              a(href='account-payment.html').list-group-item.list-group-item-action
+                i(data-feather='credit-card' style='width: 1rem; height: 1rem;').mr-2
+                | Payment methods
+        
+        // Orders table
+        .d-flex.justify-content-end.pb-3
+          .form-inline
+            label(for='order-sort').mr-3 Sort Orders
+            select#order-sort.form-control.custom-select
+              option All
+              option Delivered
+              option In Progress
+              option Delayed
+              option Canceled
+        .table-responsive.font-size-sm
+          table.table.table-hover.mb-0
+            thead
+              tr
+                th Order #
+                th Date Purchased
+                th Status
+                th Total
+            tbody
+              tr
+                td
+                  a(href='#order-details' data-toggle='modal').nav-link-inline 34VB5540K83
+                td May 21, 2019
+                td
+                  span.badge.badge-info.m-0 In Progress
+                td $358.75
+              tr
+                td
+                  a(href='#order-details' data-toggle='modal').nav-link-inline 78A643CD409
+                td December 09, 2018
+                td
+                  span.badge.badge-danger.m-0 Canceled
+                td
+                  span $760.50
+              tr
+                td
+                  a(href='#order-details' data-toggle='modal').nav-link-inline 112P45A90V2
+                td October 15, 2018
+                td
+                  span.badge.badge-warning.m-0 Delayed
+                td $1,264.00
+              tr
+                td
+                  a(href='#order-details' data-toggle='modal').nav-link-inline 28BA67U0981
+                td July 19, 2018
+                td
+                  span.badge.badge-success.m-0 Delivered
+                td $198.35
+              tr
+                td
+                  a(href='#order-details' data-toggle='modal').nav-link-inline 502TR872W2
+                td April 04, 2018
+                td
+                  span.badge.badge-success.m-0 Delivered
+                td $2,133.90
+              tr
+                td
+                  a(href='#order-details' data-toggle='modal').nav-link-inline 47H76G09F33
+                td March 30, 2018
+                td
+                  span.badge.badge-success.m-0 Delivered
+                td $86.40
+        hr.pb-4
+        include partials/pagination
+        
+        // Technical support + Tickets (visible Mobile)
+        .d-lg-none.bg-secondary.px-3.py-4.mt-5
+          h6.font-size-sm.mb-3.pb-2.border-bottom Technical support
+          ul.list-unstyled
+            li.font-size-sm.mb-2
+              i(data-feather='mail' style='width: .875rem; height: .875rem;').text-muted.mr-2
+              a(href='mailto:support@example.com').nav-link-inline support@example.com
+            li.font-size-sm.mb-2
+              i(data-feather='phone' style='width: .875rem; height: .875rem;').text-muted.mr-2
+              a(href='tel:+100331697720').nav-link-inline +1 00 33 169 7720
+            li.font-size-sm.mb-2
+              i(data-feather='clock' style='width: .875rem; height: .875rem;').text-muted.mr-2
+              | 1-2 business days
+          .pt-2
+            a(href='account-tickets.html').btn.btn-outline-secondary.btn-sm.btn-block
+              i(data-feather='tag').mr-1
+              | My tickets (1)
+            a(href='account-tickets.html' data-toggle='modal' data-target='#open-ticket').btn.btn-success.btn-sm.btn-block Submit new ticket

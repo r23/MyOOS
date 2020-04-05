@@ -1,0 +1,84 @@
+// Blog sidebar
+.offcanvas-sidebar
+  .offcanvas-sidebar-toggle
+    span.toggle-knob
+      i(data-feather='chevrons-right')
+      | Sidebar
+  .offcanvas-sidebar-body
+    .offcanvas-sidebar-body-inner
+
+      // Categories
+      .widget.widget-categories.mb-4.py-1
+        h3.widget-title Top categories
+        ul
+          li
+            a(href='#')
+              i(data-feather='chevron-right').widget-categories-indicator
+              | Editor's choise
+              span.badge.text-muted.ml-1 (25)
+          li
+            a(href='#')
+              i(data-feather='chevron-right').widget-categories-indicator
+              | Online shopping
+              span.badge.text-muted.ml-1 (13)
+          li
+            a(href='#')
+              i(data-feather='chevron-right').widget-categories-indicator
+              | Clothing design
+              span.badge.text-muted.ml-1 (9)
+          li
+            a(href='#')
+              i(data-feather='chevron-right').widget-categories-indicator
+              | Electronics
+              span.badge.text-muted.ml-1 (34)
+          li
+            a(href='#')
+              i(data-feather='chevron-right').widget-categories-indicator
+              | Smart gadgets
+              span.badge.text-muted.ml-1 (28)
+          li
+            a(href='#')
+              i(data-feather='chevron-right').widget-categories-indicator
+              | Lifestyle
+              span.badge.text-muted.ml-1 (16)
+      
+      // Featured posts
+      .widget.widget-featured-entries.mb-4.pb-2
+        h3.widget-title Featured posts
+        .media
+          a(href='#').featured-entry-thumb
+            img(src='img/blog/widget/01.jpg' width='64' alt='Post thumb')
+          .media-body
+            h6.featured-entry-title
+              a(href='#') Retro cameras are trending. Why so popular?
+            p.featured-entry-meta.text-muted by Andy Williams
+        .media
+          a(href='#').featured-entry-thumb
+            img(src='img/blog/widget/02.jpg' width='64' alt='Post thumb')
+          .media-body
+            h6.featured-entry-title
+              a(href='#') New trends in suburban fashion
+            p.featured-entry-meta.text-muted by Susan Mayer
+        .media
+          a(href='#').featured-entry-thumb
+            img(src='img/blog/widget/03.jpg' width='64' alt='Post thumb')
+          .media-body
+            h6.featured-entry-title
+              a(href='#') Augmented reality - game changing technology
+            p.featured-entry-meta.text-muted by John Doe
+
+      // Tags      
+      .widget.mb-4.pb-1
+        h3.widget-title Popular tags
+        a.tag-link.mr-2.mb-2(href='#') #accessories
+        a.tag-link.mr-2.mb-2(href='#') #smart devices
+        a.tag-link.mr-2.mb-2(href='#') #apparel
+        a.tag-link.mr-2.mb-2(href='#') #handbags
+        a.tag-link.mb-2(href='#') #IoT
+
+      // Promo banner
+      a(href='#' style='background-image: url(img/blog/promo-bg.jpg);').d-block.position-relative.text-decoration-0.bg-size-cover.bg-position-center.py-3
+        span.bg-overlay
+        .bg-overlay-content.text-center.py-5.px-3
+          h5.text-white <span class='d-block font-weight-normal'>New 2019</span>Sunglasses Collection
+          .btn.btn-primary.btn-pill.btn-sm Shop now

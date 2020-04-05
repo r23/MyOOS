@@ -1,0 +1,200 @@
+extends partials/layout
+
+//- Override default config variables
+append config
+  - var pageTitle = 'Checkout'
+  - var isPageTitleDivider = false
+  - var parentMenu = 'Shop'
+  - var breadcrumbs = [{'title': 'Home', 'link': 'index.html'}, {'title': 'Shop', 'link': '#'}]
+
+//- Page Content
+block content
+
+  .container.pb-5.mb-sm-4.mt-n2.mt-md-n3
+
+    // Steps (wizard)
+    .steps
+      .steps-body
+        a(href='cart.html').step.step-completed
+          span.step-indicator
+            i(data-feather='check')
+          span.step-icon
+            i(data-feather='shopping-cart')
+          | 1. Shopping cart
+        a(href='checkout-details.html').step.step-completed
+          span.step-indicator
+            i(data-feather='check')
+          span.step-icon
+            i(data-feather='user')
+          | 2. Your details
+        a(href='checkout-shipping.html').step.step-active
+          span.step-icon
+            i(data-feather='truck')
+          | 3. Shipping
+        a(href='checkout-payment.html').step
+          span.step-icon
+            i(data-feather='credit-card')
+          | 4. Payment
+        a(href='checkout-review.html').step
+          span.step-icon
+            i(data-feather='check-circle')
+          | 5. Final review
+
+    .row.pt-4.mt-2
+
+      // Content
+      .col-xl-9.col-md-8
+        h2.h6.px-4.py-3.bg-secondary.mb-4 Choose shipping method
+        .table-responsive
+          table.table.table-hover
+            thead
+              tr
+                th.align-middle
+                th.align-middle Shipping method
+                th.align-middle Delivery time
+                th.align-middle Handling fee
+            tbody
+              tr
+                td
+                  .custom-control.custom-radio.mb-4
+                    input(type='radio' id='courier' name='shipping-method' checked).custom-control-input
+                    label(for='courier').custom-control-label
+                td.align-middle
+                  span.text-dark Courier
+                  br
+                  span.text-muted.font-size-sm All addresses (default zone), United States &amp; Canada
+                td.align-middle 2 - 4 days
+                td.align-middle $26.50
+              tr
+                td
+                  .custom-control.custom-radio.mb-4
+                    input(type='radio' id='local' name='shipping-method').custom-control-input
+                    label(for='local').custom-control-label
+                td.align-middle
+                  span.text-dark Local Shipping
+                  br
+                  span.text-muted.font-size-sm All addresses (default zone), United States &amp; Canada
+                td.align-middle up to one week
+                td.align-middle $10.00
+              tr
+                td
+                  .custom-control.custom-radio.mb-4
+                    input(type='radio' id='flat' name='shipping-method').custom-control-input
+                    label(for='flat').custom-control-label
+                td.align-middle
+                  span.text-darkm Flat Rate
+                  br
+                  span.text-muted.font-size-sm All addresses (default zone)
+                td.align-middle 5 - 7 days
+                td.align-middle $33.85
+              tr
+                td
+                  .custom-control.custom-radio.mb-4
+                    input(type='radio' id='ups' name='shipping-method').custom-control-input
+                    label(for='ups').custom-control-label
+                td.align-middle
+                  span.text-dark UPS Ground Shipping
+                  br
+                  span.text-muted.font-size-sm All addresses (default zone)
+                td.align-middle 4 - 6 days
+                td.align-middle $18.00
+              tr
+                td
+                  .custom-control.custom-radio.mb-4
+                    input(type='radio' id='pickup' name='shipping-method').custom-control-input
+                    label(for='pickup').custom-control-label
+                td.align-middle
+                  span.text-dark Local Pickup from store
+                  br
+                  span.text-muted.font-size-sm All addresses (default zone)
+                td.align-middle &mdash;
+                td.align-middle $0.00
+              tr
+                td
+                  .custom-control.custom-radio.mb-4
+                    input(type='radio' id='locker' name='shipping-method').custom-control-input
+                    label(for='locker').custom-control-label
+                td.align-middle
+                  span.text-dark Pick Up at MStore Locker
+                  br
+                  span.text-muted.font-size-sm All addresses (default zone), United States &amp; Canada
+                td.align-middle &mdash;
+                td.align-middle $9.99
+              tr
+                td
+                  .custom-control.custom-radio.mb-4
+                    input(type='radio' id='global' name='shipping-method').custom-control-input
+                    label(for='global').custom-control-label
+                td.align-middle
+                  span.text-dark MStore Global Export
+                  br
+                  span.text-muted.font-size-sm All addresses (default zone), outside United States
+                td.align-middle 3 - 4 days
+                td.align-middle $25.00
+              tr
+                td
+                  .custom-control.custom-radio.mb-4
+                    input(type='radio' id='same-day' name='shipping-method').custom-control-input
+                    label(for='same-day').custom-control-label
+                td.align-middle
+                  span.text-dark Same-Day Delivery
+                  br
+                  span.text-muted.font-size-sm Only United States
+                td.align-middle &mdash;
+                td.align-middle $34.00
+              tr
+                td
+                  .custom-control.custom-radio.mb-4
+                    input(type='radio' id='international' name='shipping-method').custom-control-input
+                    label(for='international').custom-control-label
+                td.align-middle
+                  span.text-dark International Shipping
+                  br
+                  span.text-muted.font-size-sm All addresses (default zone)
+                td.align-middle up to 15 days
+                td.align-middle $27.00
+
+        // Navigation
+        .d-flex.pt-2
+          .w-50.pr-3
+            a(href='checkout-details.html').btn.btn-outline-secondary.btn-block
+              i(data-feather='chevron-left').mr-1
+              | Back
+          .w-50.pl-2
+            a(href='checkout-payment.html').btn.btn-primary.btn-block
+              span.d-none.d-sm-inline Proceed to payment
+              span.d-inline.d-sm-none Next
+              i(data-feather='chevron-right').ml-1
+          
+
+      // Sidebar
+      .col-xl-3.col-md-4.pt-4.mt-3.pt-md-0.mt-md-0
+        h2.h6.px-4.py-3.bg-secondary.text-center Order summary
+        .font-size-sm.border-bottom.pt-2.pb-3
+          .d-flex.justify-content-between.mb-2
+            span Subtotal:
+            span $325.00
+          .d-flex.justify-content-between.mb-2
+            span Shipping:
+            span $26.50
+          .d-flex.justify-content-between.mb-2
+            span Taxes:
+            span $7.25
+          .d-flex.justify-content-between
+            span Discount:
+            span &mdash;
+        .h3.font-weight-semibold.text-center.py-3 $358.75
+        form(novalidate).needs-validation
+          .form-group
+            input(type='text' id='cart-promocode' placeholder='Promo code' required).form-control
+            .invalid-feedback Please provide a valid promo code!
+          button(type='submit').btn.btn-outline-primary.btn-block Apply promo code
+        
+        // Promo banner
+        a(href='#' style='max-width: 277px;').d-block.text-decoration-0.mt-4.mx-auto.pt-2
+          .bg-secondary
+            .px-3.pt-4.text-center
+              h4.font-size-sm.font-weight-normal.pt-1.mb-2 2019 Spring / Summer
+              h4.h5.pb-2 Hoodie Collection
+              .btn.btn-primary.btn-sm Shop now
+            img(src='img/shop/banner01.jpg' alt='Promo banner')

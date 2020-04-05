@@ -1,0 +1,124 @@
+extends partials/layout
+
+//- Override default config variables
+append config
+  - var pageTitle = 'Submit a request'
+  - var parentMenu = 'Pages'
+  - var breadcrumbs = [{'title': 'Home', 'link': 'index.html'}, {'title': 'Help center', 'link': 'help-topics.html'}]
+
+//- Page Content
+block content
+  .container.pb-5.mb-4
+    .row
+      .col-xl-3.col-lg-4
+
+        // Help links sidebar
+        .offcanvas-sidebar
+          .offcanvas-sidebar-toggle
+            span.toggle-knob
+              i(data-feather='chevrons-right')
+              | Sidebar
+          .offcanvas-sidebar-body
+            .widget.widget-links
+              h3.widget-title Read this first
+              ul
+                li
+                  a(href='#')
+                    i(data-feather='chevron-right').widget-categories-indicator
+                    | Managing account
+                li
+                  a(href='#')
+                    i(data-feather='chevron-right').widget-categories-indicator
+                    | Working with dashboard
+                li
+                  a(href='#')
+                    i(data-feather='chevron-right').widget-categories-indicator
+                    | Available payment methods
+                li
+                  a(href='#')
+                    i(data-feather='chevron-right').widget-categories-indicator
+                    | Delivery information
+                li
+                  a(href='#')
+                    i(data-feather='chevron-right').widget-categories-indicator
+                    | Order tracking instructions
+                li
+                  a(href='#')
+                    i(data-feather='chevron-right').widget-categories-indicator
+                    | Refund policy
+                li
+                  a(href='#')
+                    i(data-feather='chevron-right').widget-categories-indicator
+                    | Offers and discounts
+                li
+                  a(href='#')
+                    i(data-feather='chevron-right').widget-categories-indicator
+                    | Reward points
+                li
+                  a(href='#')
+                    i(data-feather='chevron-right').widget-categories-indicator
+                    | Affiliate program
+                li
+                  a(href='#')
+                    i(data-feather='chevron-right').widget-categories-indicator
+                    | After purchase support
+                li
+                  a(href='#')
+                    i(data-feather='chevron-right').widget-categories-indicator
+                    | Service terms &amp; conditions
+                li
+                  a(href='#')
+                    i(data-feather='chevron-right').widget-categories-indicator
+                    | Most popular questions
+
+      .col-xl-9.col-lg-8
+        .alert.alert-info.alert-with-icon.font-size-sm.mb-4(role='alert')
+          .alert-icon-box
+            i(data-feather='info').alert-icon
+          | Our friendly Support team is always here to help you. Begin by selecting a topic we can help you with.
+        form(novalidate).wizard-body.needs-validation
+          .row
+            .col-sm-6
+              .form-group
+                label(for='help-topic') Select a topic <strong class='text-danger'>*</strong>
+                select(required)#help-topic.form-control.custom-select
+                  option(value) —
+                  option(value='Managing Account') Managing Account
+                  option(value='Working with Dashboard') Working with Dashboard
+                  option(value='Payment Methods') Payment Methods
+                  option(value='Delivery Information') Delivery Information
+                  option(value='Refund Policy') Refund Policy
+                  option(value='Affiliate Program') Affiliate Program
+                .invalid-feedback Please choose a topic!
+            .col-sm-6
+              .form-group
+                label(for='help-subject') Request Subject 
+                input(type='text')#help-subject.form-control
+          .form-group
+            label(for='help-message') Request Message <strong class='text-danger'>*</strong>
+            textarea(rows='6' required)#help-message.form-control
+            .invalid-feedback Please provide a detailed description of your problem!
+          .row
+            .col-sm-6
+              .form-group
+                label(for='help-name') Your Name <strong class='text-danger'>*</strong>
+                input(type='text' required)#help-name.form-control
+                .invalid-feedback Please enter your name!
+            .col-sm-6
+              .form-group
+                label(for='help-email') Your Email <strong class='text-danger'>*</strong>
+                input(type='email' required)#help-email.form-control
+                .invalid-feedback Please enter valid email address!
+          .row
+            .col-sm-6
+              .form-group
+                label(for='help-url') Include a relevant URL
+                input(type='text')#help-url.form-control
+            .col-sm-6
+              .form-group
+                label(for='help-file') Attachments
+                .custom-file
+                  input(type='file' id='help-file').custom-file-input
+                  label(for='help-file').custom-file-label Choose file...
+          button(type='submit').btn.btn-primary.mr-4 Submit a request
+          a(href='#').nav-link-inline.d-inline-block.align-middle.font-size-sm.py-2 Privacy policy

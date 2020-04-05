@@ -1,0 +1,170 @@
+extends partials/layout
+
+//- Override default config variables
+append config
+  - var pageTitle = 'Checkout'
+  - var isPageTitleDivider = false
+  - var parentMenu = 'Shop'
+  - var breadcrumbs = [{'title': 'Home', 'link': 'index.html'}, {'title': 'Shop', 'link': '#'}]
+
+//- Page Content
+block content
+
+  .container.pb-5.mb-sm-4.mt-n2.mt-md-n3
+
+    // Steps (wizard)
+    .steps
+      .steps-body
+        a(href='cart.html').step.step-completed
+          span.step-indicator
+            i(data-feather='check')
+          span.step-icon
+            i(data-feather='shopping-cart')
+          | 1. Shopping cart
+        a(href='checkout-details.html').step.step-active
+          span.step-icon
+            i(data-feather='user')
+          | 2. Your details
+        a(href='checkout-shipping.html').step
+          span.step-icon
+            i(data-feather='truck')
+          | 3. Shipping
+        a(href='checkout-payment.html').step
+          span.step-icon
+            i(data-feather='credit-card')
+          | 4. Payment
+        a(href='checkout-review.html').step
+          span.step-icon
+            i(data-feather='check-circle')
+          | 5. Final review
+
+    .row.pt-4.mt-2
+
+      // Content
+      .col-xl-9.col-md-8
+        .d-sm-flex.justify-content-between.bg-secondary.px-4.py-3.mb-4
+          .media
+            img(src='img/account/customer.jpg' width='95' alt='Daniel Adams').img-thumbnail.rounded-circle.mr-3
+            .media-body.align-self-center
+              h6.mb-1 Daniel Adams
+              .font-size-sm
+                span.text-warning d.adams@example.com
+              .font-size-sm.opacity-75
+                span.mr-1 Reward points:
+                span.font-weight-semibold 586
+          .pt-3.pl-sm-2.text-right
+            a(href='account-profile.html').btn.btn-light.btn-sm
+              i(data-feather='edit').mr-2
+              | Edit profile
+
+        h6.mb-3.pt-2.pb-3.border-bottom Shipping adress
+        .row
+          .col-sm-6
+            .form-group
+              label(for='checkout-fn') First Name
+              input(type='text')#checkout-fn.form-control
+          .col-sm-6
+            .form-group
+              label(for='checkout-ln') Last Name
+              input(type='text')#checkout-ln.form-control
+        .row
+          .col-sm-6
+            .form-group
+              label(for='checkout-email') E-mail Address
+              input(type='email')#checkout-email.form-control
+          .col-sm-6
+            .form-group
+              label(for='checkout-phone') Phone Number
+              input(type='text')#checkout-phone.form-control
+        .row
+          .col-sm-6
+            .form-group
+              label(for='checkout-company') Company
+              input(type='text')#checkout-company.form-control
+          .col-sm-6
+            .form-group
+              label(for='checkout-country') Country
+              select#checkout-country.form-control.custom-select
+                option Choose country
+                option Australia
+                option Canada
+                option France
+                option Germany
+                option Switzerland
+                option USA
+        .row
+          .col-sm-6
+            .form-group
+              label(for='checkout-city') Country
+              select#checkout-city.form-control.custom-select
+                option Choose city
+                option Amsterdam
+                option Berlin
+                option Geneve
+                option New York
+                option Paris
+          .col-sm-6
+            .form-group
+              label(for='checkout-zip') ZIP Code
+              input(type='text')#checkout-zip.form-control
+        .row
+          .col-sm-6
+            .form-group
+              label(for='checkout-address-1') Address 1
+              input(type='text')#checkout-address-1.form-control
+          .col-sm-6
+            .form-group
+              label(for='checkout-address-2') Address 2
+              input(type='text')#checkout-address-2.form-control
+
+        h6.mb-3.pt-4.pb-3.border-bottom Billing adress
+        .custom-control.custom-checkbox
+          input(type='checkbox' checked)#same-address.custom-control-input
+          label(for='same-address').custom-control-label Same as shipping address
+
+        
+        // Navigation
+        .d-flex.pt-4.mt-3
+          .w-50.pr-3
+            a(href='cart.html').btn.btn-outline-secondary.btn-block
+              i(data-feather='chevron-left').mr-1
+              span.d-none.d-sm-inline Back to cart
+              span.d-inline.d-sm-none Back
+          .w-50.pl-2
+            a(href='checkout-shipping.html').btn.btn-primary.btn-block
+              span.d-none.d-sm-inline Proceed to shipping
+              span.d-inline.d-sm-none Next
+              i(data-feather='chevron-right').ml-1
+            
+      
+      // Sidebar
+      .col-xl-3.col-md-4.pt-4.mt-3.pt-md-0.mt-md-0
+        h2.h6.px-4.py-3.bg-secondary.text-center Order summary
+        .font-size-sm.border-bottom.pt-2.pb-3
+          .d-flex.justify-content-between.mb-2
+            span Subtotal:
+            span $325.00
+          .d-flex.justify-content-between.mb-2
+            span Shipping:
+            span &mdash;
+          .d-flex.justify-content-between.mb-2
+            span Taxes:
+            span $7.25
+          .d-flex.justify-content-between
+            span Discount:
+            span &mdash;
+        .h3.font-weight-semibold.text-center.py-3 $332.25
+        form(novalidate).needs-validation
+          .form-group
+            input(type='text' id='cart-promocode' placeholder='Promo code' required).form-control
+            .invalid-feedback Please provide a valid promo code!
+          button(type='submit').btn.btn-outline-primary.btn-block Apply promo code
+        
+        // Promo banner
+        a(href='#' style='max-width: 277px;').d-block.text-decoration-0.mt-4.mx-auto.pt-2
+          .bg-secondary
+            .px-3.pt-4.text-center
+              h4.font-size-sm.font-weight-normal.pt-1.mb-2 2019 Spring / Summer
+              h4.h5.pb-2 Hoodie Collection
+              .btn.btn-primary.btn-sm Shop now
+            img(src='img/shop/banner01.jpg' alt='Promo banner')

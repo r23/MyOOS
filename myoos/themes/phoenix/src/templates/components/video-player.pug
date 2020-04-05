@@ -1,0 +1,92 @@
+extends ../partials/layout-components
+
+//- Override default config variables
+append config
+  - var pageTitle = 'Video player'
+  - var pageSubTitle = '&mdash;&nbsp; Responsive YouTube and Vimeo video players inside lightbox triggered by specially styled button.'
+  - var isNestedFile = true
+  - var isCodeHighlighting = true
+  - var breadcrumbs = [{'title': 'Home', 'link': '../index.html'}, {'title': 'Components', 'link': '#'}]
+
+//- Page Content
+block content
+
+  // Play button with label
+  h2.h5.mb-3 Play button with label
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result1' data-toggle='tab' role='tab' aria-controls='result1' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html1' data-toggle='tab' role='tab' aria-controls='html1' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug1' data-toggle='tab' role='tab' aria-controls='pug1' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result1.tab-pane.fade.show.active(role='tabpanel')
+          a(href='https://player.vimeo.com/video/93641234?color=5c77fc&title=0&byline=0&portrait=0' data-fancybox data-width='1000' data-height='563').video-player-btn.my-3.mr-3
+            i(data-feather='play')
+          span.video-player-label Click me to watch video!
+        #html1.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Play button triggers lightbox with video player --&gt;
+              &lt;a href=&quot;https://player.vimeo.com/video/VIDEO_ID?color=5c77fc&amp;title=0&amp;byline=0&amp;portrait=0&quot; class=&quot;video-player-btn my-3 mr-3&quot; data-fancybox data-width=&quot;1000&quot; data-height=&quot;563&quot;&gt;
+                &lt;i data-feather=&quot;play&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              &lt;span class=&quot;video-player-label&quot;&gt;Click me to watch video!&lt;/span&gt;
+        #pug1.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Play button triggers lightbox with video player
+              a(href=&quot;https://player.vimeo.com/video/93641234?color=5c77fc&amp;title=0&amp;byline=0&amp;portrait=0&quot;, data-fancybox, data-width=&quot;1000&quot;, data-height=&quot;563&quot;).video-player-btn.my-3.mr-3
+                i(data-feather=&quot;play&quot;)
+              span.video-player-label Click me to watch video!
+
+  // On top of the image
+  h2.h5.pt-5.mb-3 On top of the image
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result2' data-toggle='tab' role='tab' aria-controls='result2' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html2' data-toggle='tab' role='tab' aria-controls='html2' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug2' data-toggle='tab' role='tab' aria-controls='pug2' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result2.tab-pane.fade.show.active(role='tabpanel')
+          .position-relative.bg-size-cover.bg-position-center.text-center.py-5(style='background-image: url(../img/components/jumbotron/jumbotron-bg.jpg);')
+            span.bg-overlay(style='opacity: .1;')
+            .bg-overlay-content.px-3.py-5.my-sm-5
+              a(href='https://player.vimeo.com/video/93641234?color=5c77fc&title=0&byline=0&portrait=0' data-fancybox data-width='1000' data-height='563').video-player-btn.my-2.mr-3
+                i(data-feather='play')
+              br
+              span.video-player-label.text-white.opacity-90 Click me to watch video!
+        #html2.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Play button on top of the image --&gt;
+              &lt;div class=&quot;position-relative bg-size-cover bg-position-center text-center py-5&quot; style=&quot;background-image: url(path-to-image);&quot;&gt;
+                &lt;span class=&quot;bg-overlay&quot; style=&quot;opacity: .1;&quot;&gt;&lt;/span&gt;
+                &lt;div class=&quot;bg-overlay-content px-3 py-5 my-sm-5&quot;&gt;
+                  &lt;a href=&quot;https://player.vimeo.com/video/VIDEO_ID?color=5c77fc&amp;title=0&amp;byline=0&amp;portrait=0&quot; class=&quot;video-player-btn my-3 mr-3&quot; data-fancybox data-width=&quot;1000&quot; data-height=&quot;563&quot;&gt;
+                    &lt;i data-feather=&quot;play&quot;&gt;&lt;/i&gt;
+                  &lt;/a&gt;
+                  &lt;br&gt;
+                  &lt;span class=&quot;video-player-label text-white opacity-90&quot;&gt;Click me to watch video!&lt;/span&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+        #pug2.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Play button on top of the image
+              .position-relative.bg-size-cover.bg-position-center.text-center.py-5(style=&quot;background-image: url(path-to-image);&quot;)
+                span.bg-overlay(style=&quot;opacity: .1;&quot;)
+                .bg-overlay-content.px-3.py-5.my-sm-5
+                  a(href=&quot;https://player.vimeo.com/video/VIDEO_ID?color=5c77fc&amp;title=0&amp;byline=0&amp;portrait=0&quot;, data-fancybox, data-width=&quot;1000&quot;, data-height=&quot;563&quot;).video-player-btn.my-2.mr-3
+                    i(data-feather=&quot;play&quot;)
+                  br
+                  span.video-player-label.text-white.opacity-90 Click me to watch video!

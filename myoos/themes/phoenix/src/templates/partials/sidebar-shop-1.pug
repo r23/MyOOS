@@ -1,0 +1,203 @@
+// Shop sidebar
+.offcanvas-sidebar
+  .offcanvas-sidebar-toggle
+    span.toggle-knob
+      i(data-feather='chevrons-right')
+      | Sidebar
+  .offcanvas-sidebar-body
+    .offcanvas-sidebar-body-inner
+
+      // Categories
+      .widget.widget-categories.mb-4.py-1
+        h3.widget-title Shop categories
+        ul#shopCategories
+          li.has-children
+            a(href='#shoes' data-toggle='collapse')
+              i(data-feather='chevron-down').widget-categories-indicator
+              | Shoes
+              span.badge.text-muted.ml-1 (1138)
+            ul#shoes.collapse.show(data-parent='#shopCategories')
+              li
+                a(href='#')
+                  | Women's shoes
+                  span.badge.text-muted.ml-1 (508)
+                ul
+                  li: a(href='#') Sneakers
+                  li: a(href='#') Heels
+              li
+                a(href='#')
+                  | Men's shoes
+                  span.badge.text-muted.ml-1 (423)
+                ul
+                  li: a(href='#') Boots
+                  li: a(href='#') Oxfords
+              li
+                a(href='#')
+                  | Boy's shoes
+                  span.badge.text-muted.ml-1 (97)
+              li
+                a(href='#')
+                  | Girl's shoes
+                  span.badge.text-muted.ml-1 (110)
+          li.has-children
+            a(href='#clothing' data-toggle='collapse').collapsed
+              i(data-feather='chevron-down').widget-categories-indicator
+              | Clothing
+              span.badge.text-muted.ml-1 (2356)
+            ul#clothing.collapse(data-parent='#shopCategories')
+              li
+                a(href='#')
+                  | Women's clothing
+                  span.badge.text-muted.ml-1 (1032)
+                ul
+                  li: a(href='#') Dresses
+                  li: a(href='#') Shirts &amp; Tops
+                  li: a(href='#') Swimwear
+                  li: a(href='#') Shorts
+              li
+                a(href='#')
+                  | Men's clothing
+                  span.badge.text-muted.ml-1 (937)
+                ul
+                  li: a(href='#') Shirts &amp; Tops
+                  li: a(href='#') Shorts
+                  li: a(href='#') Swimwear
+                  li: a(href='#') Pants
+              li
+                a(href='#')
+                  | Kid's shoes
+                  span.badge.text-muted.ml-1 (386)
+          li.has-children
+            a(href='#bags' data-toggle='collapse').collapsed
+              i(data-feather='chevron-down').widget-categories-indicator
+              | Bags
+              span.badge.text-muted.ml-1 (420)
+            ul#bags.collapse(data-parent='#shopCategories')
+              li
+                a(href='#')
+                  | Handbags
+                  span.badge.text-muted.ml-1 (180)
+              li
+                a(href='#')
+                  | Backpacks
+                  span.badge.text-muted.ml-1 (132)
+              li
+                a(href='#')
+                  | Wallets &amp; Accessories
+                  span.badge.text-muted.ml-1 (47)
+              li
+                a(href='#')
+                  | Luggage
+                  span.badge.text-muted.ml-1 (61)
+          li.has-children
+            a(href='#accessories' data-toggle='collapse').collapsed
+              i(data-feather='chevron-down').widget-categories-indicator
+              | Accessories
+              span.badge.text-muted.ml-1 (874)
+            ul#accessories.collapse(data-parent='#shopCategories')
+              li
+                a(href='#')
+                  | Sunglasses
+                  span.badge.text-muted.ml-1 (211)
+              li
+                a(href='#')
+                  | Hats
+                  span.badge.text-muted.ml-1 (195)
+              li
+                a(href='#')
+                  | Watches
+                  span.badge.text-muted.ml-1 (159)
+              li
+                a(href='#')
+                  | Jewelry
+                  span.badge.text-muted.ml-1 (203)
+              li
+                a(href='#')
+                  | Belts
+                  span.badge.text-muted.ml-1 (106)
+      
+      // Price range
+      .widget.mb-4.pb-3
+        h3.widget-title Price range
+        form(data-start-min='250' data-start-max='650' data-min='0' data-max='1000' data-step='1').range-slider
+          .ui-range-slider
+          footer.ui-range-slider-footer
+            .column
+              button(type='submit').btn.btn-outline-primary.btn-sm Filter
+            .column
+              .ui-range-values
+                .ui-range-label Price:
+                .ui-range-value-min
+                  | $<span></span>
+                  input(type='hidden')
+                | &nbsp;&ndash;&nbsp;
+                .ui-range-value-max
+                  | $<span></span>
+                  input(type='hidden')
+
+      // Brand filter    
+      .widget.mb-4.pb-1
+        h3.widget-title Filter by brand
+        .custom-control.custom-checkbox.mb-1
+          input(type='checkbox' id='adidas').custom-control-input
+          label(for='adidas').custom-control-label
+            | Adidas
+            span.text-muted.ml-1 (254)
+        .custom-control.custom-checkbox.mb-1
+          input(type='checkbox' id='bilabong').custom-control-input
+          label(for='bilabong').custom-control-label
+            | Bilabong
+            span.text-muted.ml-1 (39)
+        .custom-control.custom-checkbox.mb-1
+          input(type='checkbox' id='klein').custom-control-input
+          label(for='klein').custom-control-label
+            | Calvin Klein
+            span.text-muted.ml-1 (128)
+        .custom-control.custom-checkbox.mb-1
+          input(type='checkbox' id='nike').custom-control-input
+          label(for='nike').custom-control-label
+            | Nike
+            span.text-muted.ml-1 (310)
+        .custom-control.custom-checkbox.mb-1
+          input(type='checkbox' id='bahama').custom-control-input
+          label(for='bahama').custom-control-label
+            | Tommy Bahama
+            span.text-muted.ml-1 (46)
+
+      // Size filter    
+      .widget.mb-4.pb-1
+        h3.widget-title Filter by size
+        .custom-control.custom-checkbox.mb-1
+          input(type='checkbox' id='xl').custom-control-input
+          label(for='xl').custom-control-label
+            | XL
+            span.text-muted.ml-1 (208)
+        .custom-control.custom-checkbox.mb-1
+          input(type='checkbox' id='l').custom-control-input
+          label(for='l').custom-control-label
+            | L
+            span.text-muted.ml-1 (311)
+        .custom-control.custom-checkbox.mb-1
+          input(type='checkbox' id='m').custom-control-input
+          label(for='m').custom-control-label
+            | M
+            span.text-muted.ml-1 (485)
+        .custom-control.custom-checkbox.mb-1
+          input(type='checkbox' id='s').custom-control-input
+          label(for='s').custom-control-label
+            | S
+            span.text-muted.ml-1 (213)
+        .custom-control.custom-checkbox.mb-1
+          input(type='checkbox' id='xs').custom-control-input
+          label(for='xs').custom-control-label
+            | XS
+            span.text-muted.ml-1 (197)
+
+      // Promo banner
+      a(href='#').d-block.text-decoration-0
+        .bg-secondary
+          .px-3.pt-4.text-center
+            h4.font-size-sm.font-weight-normal.pt-1.mb-2 2019 Spring / Summer
+            h4.h5.pb-2 Hoodie Collection
+            .btn.btn-primary.btn-sm Shop now
+          img(src='img/shop/banner01.jpg' alt='Promo banner')

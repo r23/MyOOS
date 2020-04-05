@@ -1,0 +1,25 @@
+//
+// Close
+// --------------------------------------------------
+
+.close {
+  transition: $close-transition;
+  opacity: 1;
+  &:focus { outline: none; }
+}
+
+// Inside Off-canvas header
+.offcanvas-header .close {
+  width: $offcanvas-close-size;
+  min-width: $offcanvas-close-size;
+  height: $offcanvas-close-size;
+  margin-right: -.25rem;
+  background-color: $offcanvas-close-bg;
+  border-radius: 50%;
+  line-height: $offcanvas-close-size;
+  text-align: center;
+  > span {
+    display: block;
+    margin-top: -.25rem;
+  }
+}

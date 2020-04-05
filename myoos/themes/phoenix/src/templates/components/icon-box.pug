@@ -1,0 +1,265 @@
+extends ../partials/layout-components
+
+//- Override default config variables
+append config
+  - var pageTitle = 'Icon box'
+  - var pageSubTitle = '&mdash;&nbsp; Choose a font icon or an image, add title and description to it. Best for displaying features or process.'
+  - var isNestedFile = true
+  - var isCodeHighlighting = true
+  - var breadcrumbs = [{'title': 'Home', 'link': '../index.html'}, {'title': 'Components', 'link': '#'}]
+
+//- Page Content
+block content
+
+  // Vector icon or image
+  h2.h5.mb-3 Vector icon or image
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result1' data-toggle='tab' role='tab' aria-controls='result1' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html1' data-toggle='tab' role='tab' aria-controls='html1' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug1' data-toggle='tab' role='tab' aria-controls='pug1' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result1.tab-pane.fade.show.active(role='tabpanel')
+          .row 
+            .col-sm-6
+              .icon-box.mb-5.mb-sm-0
+                .icon-box-icon
+                  i(data-feather='truck')
+                h3.icon-box-title Free local delivery
+                p.icon-box-text Free delivery for all orders over $100
+            .col-sm-6
+              .icon-box.mb-2
+                .icon-box-icon
+                  img(src='../img/components/icon-box/01.jpg' alt='Image').rounded-circle
+                h3.icon-box-title Taylor Jackson
+                p.icon-box-text Co-founder, CEO at Company Ltd.
+        #html1.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Vector icon --&gt;
+              &lt;div class=&quot;icon-box&quot;&gt;
+                &lt;div class=&quot;icon-box-icon&quot;&gt;
+                  &lt;i data-feather=&quot;truck&quot;&gt;&lt;/i&gt;
+                &lt;/div&gt;
+                &lt;h3 class=&quot;icon-box-title&quot;&gt;Free local delivery&lt;/h3&gt;
+                &lt;p class=&quot;icon-box-text&quot;&gt;Free delivery for all orders over $100&lt;/p&gt;
+              &lt;/div&gt;
+
+              &lt;!-- Image --&gt;
+              &lt;div class=&quot;icon-box&quot;&gt;
+                &lt;div class=&quot;icon-box-icon&quot;&gt;
+                  &lt;img src=&quot;path-to-image&quot; class=&quot;rounded-circle&quot; alt=&quot;Image&quot;&gt;
+                &lt;/div&gt;
+                &lt;h3 class=&quot;icon-box-title&quot;&gt;Taylor Jackson&lt;/h3&gt;
+                &lt;p class=&quot;icon-box-text&quot;&gt;Co-founder, CEO at Company Ltd.&lt;/p&gt;
+              &lt;/div&gt;
+        #pug1.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Vector icon
+              .icon-box
+                .icon-box-icon
+                  i(data-feather=&quot;truck&quot;)
+                h3.icon-box-title Free local delivery
+                p.icon-box-text Free delivery for all orders over $100
+
+              // Image
+              .icon-box
+                .icon-box-icon
+                  img(src=&quot;path-to-image&quot;, alt=&quot;Image&quot;).rounded-circle
+                h3.icon-box-title Taylor Jackson
+                p.icon-box-text Co-founder, CEO at Company Ltd.
+
+  // Alignment
+  h2.h5.pt-5.mb-3 Alignment
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result2' data-toggle='tab' role='tab' aria-controls='result2' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html2' data-toggle='tab' role='tab' aria-controls='html2' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug2' data-toggle='tab' role='tab' aria-controls='pug2' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result2.tab-pane.fade.show.active(role='tabpanel')
+          .row 
+            .col-sm-6
+              .icon-box.text-center.mb-5.mb-sm-0
+                .icon-box-icon
+                  i(data-feather='credit-card')
+                h3.icon-box-title Secure online payment
+                p.icon-box-text We posess SSL / Secure Certificate
+            .col-sm-6
+              .icon-box.text-right.mb-2
+                .icon-box-icon
+                  i(data-feather='refresh-cw')
+                h3.icon-box-title Money back guarantee
+                p.icon-box-text We return money within 30 days
+        #html2.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Center aligned --&gt;
+              &lt;div class=&quot;icon-box text-center&quot;&gt;
+                &lt;div class=&quot;icon-box-icon&quot;&gt;
+                  &lt;i data-feather=&quot;credit-card&quot;&gt;&lt;/i&gt;
+                &lt;/div&gt;
+                &lt;h3 class=&quot;icon-box-title&quot;&gt;Secure online payment&lt;/h3&gt;
+                &lt;p class=&quot;icon-box-text&quot;&gt;We posess SSL / Secure Certificate&lt;/p&gt;
+              &lt;/div&gt;
+
+              &lt;!-- Right aligned --&gt;
+              &lt;div class=&quot;icon-box text-right&quot;&gt;
+                &lt;div class=&quot;icon-box-icon&quot;&gt;
+                  &lt;i data-feather=&quot;refresh-cw&quot;&gt;&lt;/i&gt;
+                &lt;/div&gt;
+                &lt;h3 class=&quot;icon-box-title&quot;&gt;Money back guarantee&lt;/h3&gt;
+                &lt;p class=&quot;icon-box-text&quot;&gt;We return money within 30 days&lt;/p&gt;
+              &lt;/div&gt;
+        #pug2.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              //  Center aligned
+              .icon-box.text-center
+                .icon-box-icon
+                  i(data-feather=&quot;credit-card&quot;)
+                h3.icon-box-title Secure online payment
+                p.icon-box-text We posess SSL / Secure Certificate
+
+              // Right aligned
+              .icon-box.text-right
+                .icon-box-icon
+                  i(data-feather=&quot;refresh-cw&quot;)
+                h3.icon-box-title Money back guarantee
+                p.icon-box-text We return money within 30 days
+
+  // Horizontal layout
+  h2.h5.pt-5.mb-3 Horizontal layout
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result3' data-toggle='tab' role='tab' aria-controls='result3' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html3' data-toggle='tab' role='tab' aria-controls='html3' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug3' data-toggle='tab' role='tab' aria-controls='pug3' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result3.tab-pane.fade.show.active(role='tabpanel')
+          .row 
+            .col-md-6
+              .icon-box.d-flex.align-items-center.mb-5.mb-sm-0
+                .icon-box-icon.my-4.mr-3
+                  i(data-feather='truck')
+                .icon-box-body
+                  h3.icon-box-title Free local delivery
+                  p.icon-box-text Free delivery for all orders over $100
+            .col-md-6
+              .icon-box.d-flex.align-items-center.text-right.mb-2
+                .icon-box-body
+                  h3.icon-box-title Secure online payment
+                  p.icon-box-text We posess SSL / Secure Certificate
+                .icon-box-icon.my-4.ml-3
+                  i(data-feather='credit-card')
+        #html3.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Icon on the left --&gt;
+              &lt;div class=&quot;icon-box d-flex align-items-center text-center&quot;&gt;
+                &lt;div class=&quot;icon-box-icon my-4 mr-3&quot;&gt;
+                  &lt;i data-feather=&quot;truck&quot;&gt;&lt;/i&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;icon-box-body&quot;&gt;
+                  &lt;h3 class=&quot;icon-box-title&quot;&gt;Free local delivery&lt;/h3&gt;
+                  &lt;p class=&quot;icon-box-text&quot;&gt;Free delivery for all orders over $100&lt;/p&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+
+              &lt;!-- Icon on the right --&gt;
+              &lt;div class=&quot;icon-box d-flex align-items-center text-right&quot;&gt;
+                &lt;div class=&quot;icon-box-body&quot;&gt;
+                  &lt;h3 class=&quot;icon-box-title&quot;&gt;Secure online payment&lt;/h3&gt;
+                  &lt;p class=&quot;icon-box-text&quot;&gt;We posess SSL / Secure Certificate&lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;icon-box-icon my-4 ml-3&quot;&gt;
+                  &lt;i data-feather=&quot;credit-card&quot;&gt;&lt;/i&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+        #pug3.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              //  Icon on the left
+              .icon-box.d-flex.align-items-center
+                .icon-box-icon.my-4.mr-3
+                  i(data-feather=&quot;truck&quot;)
+                .icon-box-body
+                  h3.icon-box-title Free local delivery
+                  p.icon-box-text Free delivery for all orders over $100
+
+              // Icon on the right
+              .icon-box.d-flex.align-items-center.text-right
+                .icon-box-body
+                  h3.icon-box-title Secure online payment
+                  p.icon-box-text We posess SSL / Secure Certificate
+                .icon-box-icon.my-4.ml-3
+                  i(data-feather=&quot;credit-card&quot;)
+
+  // Inside card
+  h2.h5.pt-5.mb-3 Inside card
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result4' data-toggle='tab' role='tab' aria-controls='result4' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html4' data-toggle='tab' role='tab' aria-controls='html4' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug4' data-toggle='tab' role='tab' aria-controls='pug4' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result4.tab-pane.fade.show.active(role='tabpanel')
+          .row 
+            .col-md-6.col-sm-8
+              .card
+                .card-body
+                  .icon-box.text-center
+                    .icon-box-icon
+                      i(data-feather='upload-cloud')
+                    h3.icon-box-title Cloud files storage
+                    p.icon-box-text.pb-3 Proin nec turpis vel tortor venenatis tempus. Sed mollis vel arcu in tempor. Mauris enim purus, laoreet nec elit non euismod tempur.
+                    a(href='#').btn.btn-pill.btn-outline-primary.btn-sm Learn more
+        #html4.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Inside card --&gt;
+              &lt;div class=&quot;card&quot;&gt;
+                &lt;div class=&quot;card-body&quot;&gt;
+                  &lt;div class=&quot;icon-box text-center&quot;&gt;
+                    &lt;div class=&quot;icon-box-icon&quot;&gt;
+                      &lt;i data-feather=&quot;upload-cloud&quot;&gt;&lt;/i&gt;
+                    &lt;/div&gt;
+                    &lt;h3 class=&quot;icon-box-title&quot;&gt;Cloud files storage&lt;/h3&gt;
+                    &lt;p class=&quot;icon-box-text&quot;&gt;Proin nec turpis vel tortor venenatis tempus. Sed mollis vel arcu in tempor. Mauris enim purus, laoreet nec elit non euismod tempur.&lt;/p&gt;
+                    &lt;a href=&quot;#&quot; class=&quot;btn btn-pill btn-outline-primary btn-sm&quot;&gt;Learn more&lt;/a&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+        #pug4.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              //  Inside card
+              .card
+                .card-body
+                  .icon-box.text-center
+                    .icon-box-icon
+                      i(data-feather=&quot;upload-cloud&quot;)
+                    h3.icon-box-title Cloud files storage
+                    p.icon-box-text.pb-3 Proin nec turpis vel tortor venenatis tempus. Sed mollis vel arcu in tempor. Mauris enim purus, laoreet nec elit non euismod tempur.
+                    a.btn.btn-pill.btn-outline-primary.btn-sm(href=&quot;#&quot;) Learn more

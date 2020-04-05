@@ -1,0 +1,111 @@
+extends ../partials/layout-components
+
+//- Override default config variables
+append config
+  - var pageTitle = 'Tooltips'
+  - var pageSubTitle = '&mdash;&nbsp; Custom tooltips for local title storage. <a href="https://getbootstrap.com/docs/4.3/components/tooltips/" target="_blank">See Bootstrap documentation</a>.'
+  - var isNestedFile = true
+  - var isCodeHighlighting = true
+  - var breadcrumbs = [{'title': 'Home', 'link': '../index.html'}, {'title': 'Components', 'link': '#'}]
+
+//- Page Content
+block content
+
+  // Static tooltips
+  h2.h5.mb-3 Static tooltips
+  .card
+    .card-body
+      //-- Styles For Demo purpose only
+      style.
+        .example-tooltip .tooltip {
+          display: inline-block;
+          position: relative;
+          margin: .625rem 1.25rem;
+          opacity: .9;
+        }
+        .example-tooltip .tooltip.bs-tooltip-top .arrow,
+        .example-tooltip .tooltip.bs-tooltip-bottom .arrow {
+          left: 50%;
+          margin-left: -.375rem;
+        }
+        .example-tooltip .tooltip.bs-tooltip-right .arrow,
+        .example-tooltip .tooltip.bs-tooltip-left .arrow {
+          top: 50%;
+          margin-top: -.375rem;
+        }
+      //-- End of styles
+      .example-tooltip
+        .tooltip.bs-tooltip-top(role='tooltip')
+          .arrow
+          .tooltip-inner Tooltip on the top
+        .tooltip.bs-tooltip-right(role='tooltip')
+          .arrow
+          .tooltip-inner Tooltip on the right
+        .tooltip.bs-tooltip-bottom(role='tooltip')
+          .arrow
+          .tooltip-inner Tooltip on the bottom
+        .tooltip.bs-tooltip-left(role='tooltip')
+          .arrow
+          .tooltip-inner Tooltip on the left
+        .tooltip.bs-tooltip-top(role='tooltip')
+          .arrow
+          .tooltip-inner <i>Tooltip</i> <u>with</u> <strong>HTML</strong>
+
+  // Live demo
+  h2.h5.pt-5.mb-3 Live demo
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result2' data-toggle='tab' role='tab' aria-controls='result2' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html2' data-toggle='tab' role='tab' aria-controls='html2' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug2' data-toggle='tab' role='tab' aria-controls='pug2' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result2.tab-pane.fade.show.active(role='tabpanel')
+          button(type='button' class='btn btn-outline-secondary mr-2 mb-3' data-toggle='tooltip' data-placement='top' title='Tooltip on top') Tooltip on top
+          button(type='button' class='btn btn-outline-secondary mr-2 mb-3' data-toggle='tooltip' data-placement='right' title='Tooltip on right') Tooltip on right
+          button(type='button' class='btn btn-outline-secondary mr-2 mb-3' data-toggle='tooltip' data-placement='bottom' title='Tooltip on bottom') Tooltip on bottom
+          button(type='button' class='btn btn-outline-secondary mr-2 mb-3' data-toggle='tooltip' data-placement='left' title='Tooltip on left') Tooltip on left
+          button(type='button' class='btn btn-outline-secondary mb-3' data-toggle='tooltip' data-placement='top' data-html='true' title='<i>Tooltip</i> <u>with</u> <strong>HTML</strong>') Tooltip with HTML
+        #html2.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Tooltip on top --&gt;
+              &lt;button class=&quot;btn btn-outline-secondary&quot; type=&quot;button&quot; data-toggle=&quot;tooltip&quot; data-placement=&quot;top&quot; title=&quot;Tooltip on top&quot;&gt;Tooltip on top&lt;/button&gt;
+
+              &lt;!-- Tooltip on right --&gt;
+              &lt;button class=&quot;btn btn-outline-secondary&quot; type=&quot;button&quot; data-toggle=&quot;tooltip&quot; data-placement=&quot;right&quot; title=&quot;Tooltip on right&quot;&gt;Tooltip on right&lt;/button&gt;
+
+              &lt;!-- Tooltip on bottom --&gt;
+              &lt;button class=&quot;btn btn-outline-secondary&quot; type=&quot;button&quot; data-toggle=&quot;tooltip&quot; data-placement=&quot;bottom&quot; title=&quot;Tooltip on bottom&quot;&gt;Tooltip on bottom&lt;/button&gt;
+
+              &lt;!-- Tooltip on left --&gt;
+              &lt;button class=&quot;btn btn-outline-secondary&quot; type=&quot;button&quot; data-toggle=&quot;tooltip&quot; data-placement=&quot;left&quot; title=&quot;Tooltip on left&quot;&gt;Tooltip on left&lt;/button&gt;
+
+              &lt;!-- Tooltip with HTML --&gt;
+              &lt;button class=&quot;btn btn-outline-secondary&quot; type=&quot;button&quot; data-toggle=&quot;tooltip&quot; data-placement=&quot;top&quot; data-html=&quot;true&quot; title=&quot;&lt;i&gt;Tooltip&lt;/i&gt; &lt;u&gt;with&lt;/u&gt; &lt;strong&gt;HTML&lt;/strong&gt;&quot;&gt;Tooltip with HTML&lt;/button&gt;
+        #pug2.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Tooltip on top
+              button(type=&quot;button&quot;, class=&quot;btn btn-outline-secondary&quot;, data-toggle=&quot;tooltip&quot;, data-placement=&quot;top&quot;, title=&quot;Tooltip on top&quot;)
+                | Tooltip on top
+              
+              // Tooltip on right
+              button(type=&quot;button&quot;, class=&quot;btn btn-outline-secondary&quot;, data-toggle=&quot;tooltip&quot;, data-placement=&quot;right&quot;, title=&quot;Tooltip on right&quot;)
+                | Tooltip on right
+
+              // Tooltip on bottom
+              button(type=&quot;button&quot;, class=&quot;btn btn-outline-secondary&quot;, data-toggle=&quot;tooltip&quot;, data-placement=&quot;bottom&quot;, title=&quot;Tooltip on bottom&quot;)
+                | Tooltip on bottom
+
+              // Tooltip on left
+              button(type=&quot;button&quot;, class=&quot;btn btn-outline-secondary&quot;, data-toggle=&quot;tooltip&quot;, data-placement=&quot;left&quot;, title=&quot;Tooltip on left&quot;)
+                | Tooltip on left
+
+              // Tooltip with HTML
+              button(type=&quot;button&quot;, class=&quot;btn btn-outline-secondary&quot;, data-toggle=&quot;tooltip&quot;, data-placement=&quot;top&quot;, data-html=&quot;true&quot;, title=&quot;&lt;i&gt;Tooltip&lt;/i&gt; &lt;u&gt;with&lt;/u&gt; &lt;strong&gt;HTML&lt;/strong&gt;&quot;)
+                | Tooltip with HTML

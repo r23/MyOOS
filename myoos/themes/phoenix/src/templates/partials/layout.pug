@@ -1,0 +1,80 @@
+//- Include config.pug file that holds all variables
+block config
+  include ../helpers/config
+
+//- Mixins - reusable code snippets
+include ../helpers/mixins
+
+doctype html
+html(lang="en")
+
+  //- head.pug template
+  include head 
+  
+  // Body
+  body
+
+    if isTagManager
+      // Google Tag Manager (noscript)
+      noscript
+        iframe(src='//www.googletagmanager.com/ns.html?id=GTM-PVV9F7F' height='0' width='0' style='display: none; visibility: hidden;')
+
+    //- modal-example.pug template
+    if isModalExample
+      include modal-example
+      
+    //- modal-sizes.pug template
+    if isModalSizes
+      include modal-sizes
+      
+    //- modal-order.pug template
+    if isModalOrder
+      include modal-order
+      
+    //- modal-ticket.pug template
+    if isModalTicket
+      include modal-ticket
+      
+    //- modal-payment.pug template
+    if isModalPayment
+      include modal-payment
+
+    //- modal-review.pug template
+    if isModalReview
+      include modal-review
+      
+    //- navbar-{name}.pug template
+    if (navbarTemplate === 'navbar-light')
+      include navbar-light
+    else if (navbarTemplate === 'navbar-dark')
+      include navbar-dark
+    else if (navbarTemplate === 'navbar-multilevel')
+      include navbar-multilevel
+    else
+      include navbar-light
+
+    //- page-title.pug template
+    if isPageTitle
+      include page-title
+
+    // Page Content
+    block content
+
+    //- footer-{version}.pug template
+    if isFooter
+      if (footerTemplate === 'footer-light')
+        include footer-light
+      else
+        include footer-dark
+    
+    // Back To Top Button
+    a(href='#').scroll-to-top-btn
+      i(data-feather='chevron-up').scroll-to-top-btn-icon    
+    
+    // JavaScript (jQuery) libraries, plugins and custom scripts
+    script()&attributes(isNestedFile ? {'src': '../js/vendor.min.js'} : {'src': 'js/vendor.min.js'})
+    if isCardScript
+      script()&attributes(isNestedFile ? {'src': '../js/card.min.js'} : {'src': 'js/card.min.js'})
+    if isCodeHighlighting
+      script()&attributes(isNestedFile ? {'src': '../js/prism.min.js'} : {'src': 'js/prism.min.js'})
+    script()&attributes(isNestedFile ? {'src': '../js/theme.min.js'} : {'src': 'js/theme.min.js'})

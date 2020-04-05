@@ -1,0 +1,70 @@
+// Top left
+.toast-container.toast-top-left
+  #default-toast.toast(data-delay='5000' role='alert' aria-live='assertive' aria-atomic='true')
+    .toast-header
+      .d-inline-block.align-middle.bg-primary.rounded-circle.mr-2(style='width: 1.25rem; height: 1.25rem;')
+      span.text-body.font-weight-semibold.mr-auto Bootstrap
+      small 11 mins ago
+      button(type='button' data-dismiss='toast' aria-label='Close').close.ml-2.mb-1
+        span(aria-hidden='true') &times;
+    .toast-body Hello, world! This is a toast message.
+
+  #primary-toast.toast.mb-3(data-delay='5000' role='alert' aria-live='assertive' aria-atomic='true')
+    .toast-header.bg-primary.text-white
+      i(data-feather='bell' style='width: 1.25rem; height: 1.25rem;').mr-2
+      span.font-weight-semibold.mr-auto Primary toast
+      button(type='button' data-dismiss='toast' aria-label='Close').close.text-white.ml-2.mb-1
+        span(aria-hidden='true') &times;
+    .toast-body.text-primary Hello, world! This is a toast message.
+
+
+// Top center
+.toast-container.toast-top-center
+  #success-toast.toast.mb-3(data-delay='5000' role='alert' aria-live='assertive' aria-atomic='true')
+    .toast-header.bg-success.text-white
+      i(data-feather='check-circle' style='width: 1.25rem; height: 1.25rem;').mr-2
+      span.font-weight-semibold.mr-auto Success toast
+      button(type='button' data-dismiss='toast' aria-label='Close').close.text-white.ml-2.mb-1
+        span(aria-hidden='true') &times;
+    .toast-body.text-success Hello, world! This is a toast message.
+
+
+// Top right
+.toast-container.toast-top-right
+  #danger-toast.toast.mb-3(data-delay='5000' role='alert' aria-live='assertive' aria-atomic='true')
+    .toast-header.bg-danger.text-white
+      i(data-feather='slash' style='width: 1.25rem; height: 1.25rem;').mr-2
+      span.font-weight-semibold.mr-auto Danger toast
+      button(type='button' data-dismiss='toast' aria-label='Close').close.text-white.ml-2.mb-1
+        span(aria-hidden='true') &times;
+    .toast-body.text-danger Hello, world! This is a toast message.
+
+// Bottom left
+.toast-container.toast-bottom-left
+  #warning-toast.toast.mb-3(data-delay='5000' role='alert' aria-live='assertive' aria-atomic='true')
+    .toast-header.bg-warning.text-white
+      i(data-feather='alert-circle' style='width: 1.25rem; height: 1.25rem;').mr-2
+      span.font-weight-semibold.mr-auto Warning toast
+      button(type='button' data-dismiss='toast' aria-label='Close').close.text-white.ml-2.mb-1
+        span(aria-hidden='true') &times;
+    .toast-body.text-warning Hello, world! This is a toast message.
+
+// Bottom center
+.toast-container.toast-bottom-center
+  #info-toast.toast.mb-3(data-delay='5000' role='alert' aria-live='assertive' aria-atomic='true')
+    .toast-header.bg-info.text-white
+      i(data-feather='info' style='width: 1.25rem; height: 1.25rem;').mr-2
+      span.font-weight-semibold.mr-auto Info toast
+      button(type='button' data-dismiss='toast' aria-label='Close').close.text-white.ml-2.mb-1
+        span(aria-hidden='true') &times;
+    .toast-body.text-info Hello, world! This is a toast message.
+
+// Bottom right
+.toast-container.toast-bottom-right
+  #dark-toast.toast.mb-3(data-delay='5000' role='alert' aria-live='assertive' aria-atomic='true')
+    .toast-header.bg-dark.text-white
+      i(data-feather='clock' style='width: 1.25rem; height: 1.25rem;').mr-2
+      span.font-weight-semibold.mr-auto Dark toast
+      button(type='button' data-dismiss='toast' aria-label='Close').close.text-white.ml-2.mb-1
+        span(aria-hidden='true') &times;
+    .toast-body.text-dark Hello, world! This is a toast message.

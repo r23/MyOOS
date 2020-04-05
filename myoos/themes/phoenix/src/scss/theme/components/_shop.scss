@@ -1,0 +1,325 @@
+//
+// Shop related styles
+// --------------------------------------------------
+
+
+// Star rating
+
+.star-rating {
+  display: inline-block;
+  white-space: nowrap;
+  line-height: 1;
+  vertical-align: middle;
+  .sr-star {
+    display: inline-block;
+    width: $star-rating-star-size;
+    height: $star-rating-star-size;
+    margin-right: .125rem;
+    color: $star-rating-star-color;
+    vertical-align: middle;
+    &.active {
+      color: $star-rating-star-active-color;
+    }
+  }
+  .sr-label {
+    display: inline-block;
+    margin-top: .0625rem;
+    font-size: $star-rating-label-font-size;
+    vertical-align: middle;
+  }
+}
+
+
+// Wishlist button
+
+.product-wishlist-btn {
+  display: block;
+  width: $wishlist-btn-size;
+  height: $wishlist-btn-size;
+  padding-top: .25rem;
+  border: $shop-border-width solid $shop-border-color;
+  border-radius: 50%;
+  background-color: $wishlist-btn-bg;
+  color: $wishlist-btn-icon-color;
+  font-size: $wishlist-btn-icon-size;
+  text-decoration: none;
+  text: {
+    align: center;
+    decoration: none;
+  }
+  cursor: pointer;
+  > .feather {
+    width: $wishlist-btn-icon-size;
+    height: $wishlist-btn-icon-size;
+  }
+  &:hover {
+    color: $wishlist-btn-icon-hover-color;
+  }
+}
+
+
+// Quick view button
+.quick-view-btn {
+  display: block;
+  padding: {
+    top: 1rem;
+    bottom: .5rem;
+  }
+  color: $quick-view-btn-color;
+  font: {
+    size: $quick-view-btn-font-size;
+    weight: $quick-view-btn-font-weight;
+  }
+  text: {
+    align: center;
+    decoration: none;
+  }
+  &:hover {
+    text-decoration: none;
+  }
+  > .feather {
+    width: $quick-view-btn-font-size;
+    height: $quick-view-btn-font-size;
+  }
+}
+
+
+
+// Product card
+
+.product-card {
+  position: relative;
+  width: 100%;
+  max-width: $product-card-max-width;
+  margin: {
+    right: auto;
+    left: auto;
+  }
+  background-color: $product-card-bg;
+
+  .product-wishlist-btn {
+    position: absolute;
+    top: $spacer / 2;
+    right: $spacer / 2;
+    z-index: 5;
+  }
+
+  .badge {
+    position: absolute;
+    top: $spacer / 1.6;
+    left: $spacer / 1.6;
+  }
+}
+
+.product-thumb {
+  position: relative;
+  > img {
+    display: block;
+    width: 100%;
+  }
+  .product-thumb-link {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.product-card-body {
+  position: relative;
+  padding: $product-card-body-padding-y $product-card-body-padding-x;
+  background-color: $product-card-bg;
+  z-index: 5;
+  &.body-hidden {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    margin-top: -($product-card-body-padding-y * 2 + 1.4rem);
+    visibility: hidden;
+    opacity: 0;
+    z-index: 6;
+  }
+}
+
+.product-card-title {
+  display: block;
+  margin-bottom: .75rem;
+  padding-bottom: .875rem;
+  border-bottom: $shop-border-width dashed darken($shop-border-color, 2%);
+  font: {
+    size: $product-card-title-font-size;
+    weight: $product-card-title-font-weight;
+  }
+  > a {
+    color: $product-card-title-color;
+  }
+}
+
+
+// Product meta
+
+.product-meta {
+  display: inline-block;
+  margin-bottom: .25rem;
+  transition: $product-meta-transition;
+  color: $product-meta-color;
+  font-size: $product-meta-font-size;
+  &:hover {
+    color: $product-meta-hover-color;
+    text-decoration: none;
+  }
+}
+
+
+// Product card hover state
+
+@include media-breakpoint-up(md) {
+  .product-card:hover {
+    z-index: 10;
+    .product-thumb,
+    .product-card-body {
+      transition: $product-card-transition;
+      box-shadow: $product-card-hover-box-shadow;
+    }
+    .product-card-body.body-hidden {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}
+
+
+// Item remove button
+
+.item-remove-btn {
+  display: inline-block;
+  width: $item-remove-btn-size;
+  height: $item-remove-btn-size;
+  border-radius: 50%;
+  background-color: $item-remove-btn-bg;
+  color: $item-remove-btn-color;
+  font-size: $item-remove-btn-icon-size;
+  line-height: $item-remove-btn-size;
+  text: {
+    align: center;
+    decoration: none;
+  }
+  cursor: pointer;
+  > .feather {
+    display: inline-block;
+    width: $item-remove-btn-icon-size;
+    height: $item-remove-btn-size;
+    vertical-align: top;
+  }
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+
+// Cart
+
+.cart-item-thumb {
+  display: block;
+  width: $cart-item-thumb-width;
+  > img {
+    display: block;
+    width: 100%;
+  }
+}
+
+
+// Interactive credit card
+
+.card-wrapper {
+  margin: 1.875rem -.9375rem;
+  @include media-breakpoint-down(xs) {
+    .jp-card-container { width: 16.25rem !important; }
+    .jp-card { min-width: 15.625rem !important; }
+  }
+}
+
+
+// Product gallery
+
+.product-gallery {
+  position: relative;
+  padding-left: $product-gallery-thumb-width + $product-gallery-thumb-margin;
+
+  .badge {
+    position: absolute;
+    top: 1rem;
+    z-index: 10;
+  }
+
+  .product-carousel a {
+    display: block;
+    cursor: url(../img/gallery-cursor.png) 0 0, pointer;
+    cursor: -webkit-image-set(url(../img/gallery-cursor.png) 1x, url(../img/gallery-cursor@2x.png) 2x) 0 0, pointer;
+    > img {
+      display: block;
+      width: 100%;
+    }
+  }
+
+  .product-thumbnails {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    li {
+      display: block;
+      margin-bottom: $product-gallery-thumb-margin;
+      > a {
+        display: block;
+        width: $product-gallery-thumb-width;
+        transition: $product-gallery-thumb-transition;
+        opacity: $product-gallery-thumb-opacity;
+        > img {
+          display: block;
+          width: 100%;
+        }
+      }
+      &.active > a {
+        opacity: $product-gallery-thumb-active-opacity;
+      }
+      &.video-thumbnail > a {
+        position: relative;
+        > .thumb-caption {
+          display: block;
+          position: absolute;
+          top: 50%;
+          left: 0;
+          width: 100%;
+          padding: .25rem;
+          transform: translateY(-50%);
+          background-color: $product-gallery-thumb-video-caption-bg;
+          color: $product-gallery-thumb-video-caption-color;
+          font: {
+            size: $product-gallery-thumb-video-caption-font-size;
+            weight: $font-weight-semibold;
+          }
+          text: {
+            align: center;
+            transform: uppercase;
+          }
+          line-height: 1;
+          z-index: 10;
+        }
+      }
+    }
+  }
+  
+  @include media-breakpoint-down(xs) {
+    padding-left: 0;
+    .product-thumbnails {
+      display: none;
+    }
+  }
+}

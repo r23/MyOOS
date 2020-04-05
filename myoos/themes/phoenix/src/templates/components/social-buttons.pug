@@ -1,0 +1,909 @@
+extends ../partials/layout-components
+
+//- Override default config variables
+append config
+  - var pageTitle = 'Social buttons'
+  - var pageSubTitle = '&mdash;&nbsp; Display links to your social network accounts with these icon buttons.'
+  - var isNestedFile = true
+  - var isCodeHighlighting = true
+  - var breadcrumbs = [{'title': 'Home', 'link': '../index.html'}, {'title': 'Components', 'link': '#'}]
+
+//- Page Content
+block content
+
+  // Basic example
+  h2.h5.mb-3 Basic example
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result1' data-toggle='tab' role='tab' aria-controls='result1' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html1' data-toggle='tab' role='tab' aria-controls='html1' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug1' data-toggle='tab' role='tab' aria-controls='pug1' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result1.tab-pane.fade.show.active(role='tabpanel')
+          a(href='#' data-toggle='tooltip' title='Behance').social-btn.sb-behance.mr-3.mb-3
+            i.flaticon-behance
+          a(href='#' data-toggle='tooltip' title='Blogger').social-btn.sb-blogger.mr-3.mb-3
+            i.flaticon-blogger
+          a(href='#' data-toggle='tooltip' title='Digg').social-btn.sb-digg.mr-3.mb-3
+            i.flaticon-digg
+          a(href='#' data-toggle='tooltip' title='Dribbble').social-btn.sb-dribbble.mr-3.mb-3
+            i.flaticon-dribbble
+          a(href='#' data-toggle='tooltip' title='Dropbox').social-btn.sb-dropbox.mr-3.mb-3
+            i.flaticon-dropbox
+          a(href='#' data-toggle='tooltip' title='Envato').social-btn.sb-envato.mr-3.mb-3
+            i.flaticon-envato
+          a(href='#' data-toggle='tooltip' title='Facebook').social-btn.sb-facebook.mr-3.mb-3
+            i.flaticon-facebook
+          a(href='#' data-toggle='tooltip' title='Flickr').social-btn.sb-flickr.mr-3.mb-3
+            i.flaticon-flickr
+          a(href='#' data-toggle='tooltip' title='Foursquare').social-btn.sb-foursquare.mr-3.mb-3
+            i.flaticon-foursquare
+          a(href='#' data-toggle='tooltip' title='GitHub').social-btn.sb-github.mr-3.mb-3
+            i.flaticon-github
+          a(href='#' data-toggle='tooltip' title='Google Drive').social-btn.sb-google-drive.mr-3.mb-3
+            i.flaticon-google-drive
+          a(href='#' data-toggle='tooltip' title='Google Plus').social-btn.sb-google-plus.mr-3.mb-3
+            i.flaticon-google-plus
+          a(href='#' data-toggle='tooltip' title='Hangouts').social-btn.sb-hangouts.mr-3.mb-3
+            i.flaticon-hangouts
+          a(href='#' data-toggle='tooltip' title='Instagram').social-btn.sb-instagram.mr-3.mb-3
+            i.flaticon-instagram
+          a(href='#' data-toggle='tooltip' title='Kickstarter').social-btn.sb-kickstarter.mr-3.mb-3
+            i.flaticon-kickstarter
+          a(href='#' data-toggle='tooltip' title='LastFM').social-btn.sb-lastfm.mr-3.mb-3
+            i.flaticon-lastfm
+          a(href='#' data-toggle='tooltip' title='LinkedIn').social-btn.sb-linkedin.mr-3.mb-3
+            i.flaticon-linkedin
+          a(href='#' data-toggle='tooltip' title='Messenger').social-btn.sb-messenger.mr-3.mb-3
+            i.flaticon-messenger
+          a(href='#' data-toggle='tooltip' title='MySpace').social-btn.sb-myspace.mr-3.mb-3
+            i.flaticon-myspace
+          a(href='#' data-toggle='tooltip' title='Picasa').social-btn.sb-picasa.mr-3.mb-3
+            i.flaticon-picasa
+          a(href='#' data-toggle='tooltip' title='Pinterest').social-btn.sb-pinterest.mr-3.mb-3
+            i.flaticon-pinterest
+          a(href='#' data-toggle='tooltip' title='Reddit').social-btn.sb-reddit.mr-3.mb-3
+            i.flaticon-reddit
+          a(href='#' data-toggle='tooltip' title='RSS').social-btn.sb-rss.mr-3.mb-3
+            i.flaticon-rss
+          a(href='#' data-toggle='tooltip' title='Skype').social-btn.sb-skype.mr-3.mb-3
+            i.flaticon-skype
+          a(href='#' data-toggle='tooltip' title='Snapchat').social-btn.sb-snapchat.mr-3.mb-3
+            i.flaticon-snapchat
+          a(href='#' data-toggle='tooltip' title='SoundCloud').social-btn.sb-soundcloud.mr-3.mb-3
+            i.flaticon-soundcloud
+          a(href='#' data-toggle='tooltip' title='Spotify').social-btn.sb-spotify.mr-3.mb-3
+            i.flaticon-spotify
+          a(href='#' data-toggle='tooltip' title='StumbleUpon').social-btn.sb-stumbleupon.mr-3.mb-3
+            i.flaticon-stumbleupon
+          a(href='#' data-toggle='tooltip' title='Tumblr').social-btn.sb-tumblr.mr-3.mb-3
+            i.flaticon-tumblr
+          a(href='#' data-toggle='tooltip' title='Twitch').social-btn.sb-twitch.mr-3.mb-3
+            i.flaticon-twitch
+          a(href='#' data-toggle='tooltip' title='Twitter').social-btn.sb-twitter.mr-3.mb-3
+            i.flaticon-twitter
+          a(href='#' data-toggle='tooltip' title='Vimeo').social-btn.sb-vimeo.mr-3.mb-3
+            i.flaticon-vimeo
+          a(href='#' data-toggle='tooltip' title='Vine').social-btn.sb-vine.mr-3.mb-3
+            i.flaticon-vine
+          a(href='#' data-toggle='tooltip' title='Vkontakte').social-btn.sb-vk.mr-3.mb-3
+            i.flaticon-vk
+          a(href='#' data-toggle='tooltip' title='WhatsApp').social-btn.sb-whatsapp.mr-3.mb-3
+            i.flaticon-whatsapp
+          a(href='#' data-toggle='tooltip' title='WordPress').social-btn.sb-wordpress.mr-3.mb-3
+            i.flaticon-wordpress
+          a(href='#' data-toggle='tooltip' title='Xing').social-btn.sb-xing.mr-3.mb-3
+            i.flaticon-xing
+          a(href='#' data-toggle='tooltip' title='Yahoo!').social-btn.sb-yahoo.mr-3.mb-3
+            i.flaticon-yahoo
+          a(href='#' data-toggle='tooltip' title='YouTube').social-btn.sb-youtube.mr-3.mb-3
+            i.flaticon-youtube
+        #html1.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Behance button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-behance&quot; data-toggle=&quot;tooltip&quot; title=&quot;Behance&quot;&gt;
+                &lt;i class=&quot;flaticon-behance&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+
+              &lt;!-- Blogger button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-blogger&quot; data-toggle=&quot;tooltip&quot; title=&quot;Blogger&quot;&gt;
+                &lt;i class=&quot;flaticon-blogger&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+
+              &lt;!-- Digg button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-digg&quot; data-toggle=&quot;tooltip&quot; title=&quot;Digg&quot;&gt;
+                &lt;i class=&quot;flaticon-digg&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+
+              &lt;!-- Dribbble button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-dribbble&quot; data-toggle=&quot;tooltip&quot; title=&quot;Dribbble&quot;&gt;
+                &lt;i class=&quot;flaticon-dribbble&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+
+              &lt;!-- Dropbox button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-dropbox&quot; data-toggle=&quot;tooltip&quot; title=&quot;Dropbox&quot;&gt;
+                &lt;i class=&quot;flaticon-dropbox&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+
+              &lt;!-- Envato button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-envato&quot; data-toggle=&quot;tooltip&quot; title=&quot;Envato&quot;&gt;
+                &lt;i class=&quot;flaticon-envato&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- Facebook button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-facebook&quot; data-toggle=&quot;tooltip&quot; title=&quot;Facebook&quot;&gt;
+                &lt;i class=&quot;flaticon-facebook&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- Flickr button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-flickr&quot; data-toggle=&quot;tooltip&quot; title=&quot;Flickr&quot;&gt;
+                &lt;i class=&quot;flaticon-flickr&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+
+              &lt;!-- Foursquare button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-foursquare&quot; data-toggle=&quot;tooltip&quot; title=&quot;Foursquare&quot;&gt;
+                &lt;i class=&quot;flaticon-foursquare&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- GitHub button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-github&quot; data-toggle=&quot;tooltip&quot; title=&quot;GitHub&quot;&gt;
+                &lt;i class=&quot;flaticon-github&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+
+              &lt;!-- Google Drive button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-google-drive&quot; data-toggle=&quot;tooltip&quot; title=&quot;Google Drive&quot;&gt;
+                &lt;i class=&quot;flaticon-google-drive&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- Google Plus button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-google-plus&quot; data-toggle=&quot;tooltip&quot; title=&quot;Google Plus&quot;&gt;
+                &lt;i class=&quot;flaticon-google-plus&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+
+              &lt;!-- Hangouts button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-hangouts&quot; data-toggle=&quot;tooltip&quot; title=&quot;Hangouts&quot;&gt;
+                &lt;i class=&quot;flaticon-hangouts&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- Instagram button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-instagram&quot; data-toggle=&quot;tooltip&quot; title=&quot;Instagram&quot;&gt;
+                &lt;i class=&quot;flaticon-instagram&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- Kickstarter button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-kickstarter&quot; data-toggle=&quot;tooltip&quot; title=&quot;Kickstarter&quot;&gt;
+                &lt;i class=&quot;flaticon-kickstarter&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- LastFM button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-lastfm&quot; data-toggle=&quot;tooltip&quot; title=&quot;LastFM&quot;&gt;
+                &lt;i class=&quot;flaticon-lastfm&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- LinkedIn button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-linkedin&quot; data-toggle=&quot;tooltip&quot; title=&quot;LinkedIn&quot;&gt;
+                &lt;i class=&quot;flaticon-linkedin&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+
+              &lt;!-- Messenger button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-messenger&quot; data-toggle=&quot;tooltip&quot; title=&quot;Messenger&quot;&gt;
+                &lt;i class=&quot;flaticon-messenger&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+
+              &lt;!-- MySpace button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-myspace&quot; data-toggle=&quot;tooltip&quot; title=&quot;MySpace&quot;&gt;
+                &lt;i class=&quot;flaticon-myspace&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- Picasa button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-picasa&quot; data-toggle=&quot;tooltip&quot; title=&quot;Picasa&quot;&gt;
+                &lt;i class=&quot;flaticon-picasa&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+
+              &lt;!-- Pinterest button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-pinterest&quot; data-toggle=&quot;tooltip&quot; title=&quot;Pinterest&quot;&gt;
+                &lt;i class=&quot;flaticon-pinterest&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- Reddit button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-reddit&quot; data-toggle=&quot;tooltip&quot; title=&quot;Reddit&quot;&gt;
+                &lt;i class=&quot;flaticon-reddit&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- RSS button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-rss&quot; data-toggle=&quot;tooltip&quot; title=&quot;RSS&quot;&gt;
+                &lt;i class=&quot;flaticon-rss&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- Skype button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-skype&quot; data-toggle=&quot;tooltip&quot; title=&quot;Skype&quot;&gt;
+                &lt;i class=&quot;flaticon-skype&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- Snapchat button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-snapchat&quot; data-toggle=&quot;tooltip&quot; title=&quot;Snapchat&quot;&gt;
+                &lt;i class=&quot;flaticon-snapchat&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- SoundCloud button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-soundcloud&quot; data-toggle=&quot;tooltip&quot; title=&quot;SoundCloud&quot;&gt;
+                &lt;i class=&quot;flaticon-soundcloud&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- Spotify button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-spotify&quot; data-toggle=&quot;tooltip&quot; title=&quot;Spotify&quot;&gt;
+                &lt;i class=&quot;flaticon-spotify&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- StumbleUpon button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-stumbleupon&quot; data-toggle=&quot;tooltip&quot; title=&quot;StumbleUpon&quot;&gt;
+                &lt;i class=&quot;flaticon-stumbleupon&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- Tumblr button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-tumblr&quot; data-toggle=&quot;tooltip&quot; title=&quot;Tumblr&quot;&gt;
+                &lt;i class=&quot;flaticon-tumblr&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+
+              &lt;!-- Twitch button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-twitch&quot; data-toggle=&quot;tooltip&quot; title=&quot;Twitch&quot;&gt;
+                &lt;i class=&quot;flaticon-twitch&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- Twitter button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-twitter&quot; data-toggle=&quot;tooltip&quot; title=&quot;Twitter&quot;&gt;
+                &lt;i class=&quot;flaticon-twitter&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- Vimeo button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-vimeo&quot; data-toggle=&quot;tooltip&quot; title=&quot;Vimeo&quot;&gt;
+                &lt;i class=&quot;flaticon-vimeo&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- Vine button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-vine&quot; data-toggle=&quot;tooltip&quot; title=&quot;Vine&quot;&gt;
+                &lt;i class=&quot;flaticon-vine&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- Vkontakte button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-vk&quot; data-toggle=&quot;tooltip&quot; title=&quot;Vkontakte&quot;&gt;
+                &lt;i class=&quot;flaticon-vk&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+
+              &lt;!-- WhatsApp button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-whatsapp&quot; data-toggle=&quot;tooltip&quot; title=&quot;WhatsApp&quot;&gt;
+                &lt;i class=&quot;flaticon-whatsapp&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+
+              &lt;!-- WordPress button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-wordpress&quot; data-toggle=&quot;tooltip&quot; title=&quot;WordPress&quot;&gt;
+                &lt;i class=&quot;flaticon-wordpress&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+
+              &lt;!-- Xing button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-xing&quot; data-toggle=&quot;tooltip&quot; title=&quot;Xing&quot;&gt;
+                &lt;i class=&quot;flaticon-xing&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- Yahoo! button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-yahoo&quot; data-toggle=&quot;tooltip&quot; title=&quot;Yahoo!&quot;&gt;
+                &lt;i class=&quot;flaticon-yahoo&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- YouTube button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-youtube&quot; data-toggle=&quot;tooltip&quot; title=&quot;YouTube&quot;&gt;
+                &lt;i class=&quot;flaticon-youtube&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+        #pug1.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Behance button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Behance&quot;).social-btn.sb-behance
+                i.flaticon-behance
+
+              // Blogger button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Blogger&quot;).social-btn.sb-blogger
+                i.flaticon-blogger
+
+              // Digg button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Digg&quot;).social-btn.sb-digg
+                i.flaticon-digg
+
+              // Dribbble button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Dribbble&quot;).social-btn.sb-dribbble
+                i.flaticon-dribbble
+
+              // Dropbox button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Dropbox&quot;).social-btn.sb-dropbox
+                i.flaticon-dropbox
+
+              // Envato button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Envato&quot;).social-btn.sb-envato
+                i.flaticon-envato
+              
+              // Facebook button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Facebook&quot;).social-btn.sb-facebook
+                i.flaticon-facebook
+              
+              // Flickr button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Flickr&quot;).social-btn.sb-flickr
+                i.flaticon-flickr
+
+              // Foursquare button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Foursquare&quot;).social-btn.sb-foursquare
+                i.flaticon-foursquare
+              
+              // GitHub button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;GitHub&quot;).social-btn.sb-github
+                i.flaticon-github
+
+              // Google Drive button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Google Drive&quot;).social-btn.sb-google-drive
+                i.flaticon-google-drive
+              
+              // Google Plus button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Google Plus&quot;).social-btn.sb-google-plus
+                i.flaticon-google-plus
+
+              // Hangouts button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Hangouts&quot;).social-btn.sb-hangouts
+                i.flaticon-hangouts
+              
+              // Instagram button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Instagram&quot;).social-btn.sb-instagram
+                i.flaticon-instagram
+              
+              // Kickstarter button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Kickstarter&quot;).social-btn.sb-kickstarter
+                i.flaticon-kickstarter
+              
+              // LastFM button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;LastFM&quot;).social-btn.sb-lastfm
+                i.flaticon-lastfm
+              
+              // LinkedIn button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;LinkedIn&quot;).social-btn.sb-linkedin
+                i.flaticon-linkedin
+
+              // Messenger button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Messenger&quot;).social-btn.sb-messenger
+                i.flaticon-messenger
+
+              // MySpace button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;MySpace&quot;).social-btn.sb-myspace
+                i.flaticon-myspace
+              
+              // Picasa button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Picasa&quot;).social-btn.sb-picasa
+                i.flaticon-picasa
+
+              // Pinterest button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Pinterest&quot;).social-btn.sb-pinterest
+                i.flaticon-pinterest
+              
+              // Reddit button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Reddit&quot;).social-btn.sb-reddit
+                i.flaticon-reddit
+              
+              // RSS button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;RSS&quot;).social-btn.sb-rss
+                i.flaticon-rss
+              
+              // Skype button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Skype&quot;).social-btn.sb-skype
+                i.flaticon-skype
+              
+              // Snapchat button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Snapchat&quot;).social-btn.sb-snapchat
+                i.flaticon-snapchat
+              
+              // SoundCloud button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;SoundCloud&quot;).social-btn.sb-soundcloud
+                i.flaticon-soundcloud
+              
+              // Spotify button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Spotify&quot;).social-btn.sb-spotify
+                i.flaticon-spotify
+              
+              // StumbleUpon button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;StumbleUpon&quot;).social-btn.sb-stumbleupon
+                i.flaticon-stumbleupon
+              
+              // Tumblr button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Tumblr&quot;).social-btn.sb-tumblr
+                i.flaticon-tumblr
+
+              // Twitch button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Twitch&quot;).social-btn.sb-twitch
+                i.flaticon-twitch
+              
+              // Twitter button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Twitter&quot;).social-btn.sb-twitter
+                i.flaticon-twitter
+              
+              // Vimeo button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Vimeo&quot;).social-btn.sb-vimeo
+                i.flaticon-vimeo
+              
+              // Vine button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Vine&quot;).social-btn.sb-vine
+                i.flaticon-vine
+              
+              // Vkontakte button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Vkontakte&quot;).social-btn.sb-vk
+                i.flaticon-vk
+
+              // WhatsApp button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;WhatsApp&quot;).social-btn.sb-whatsapp
+                i.flaticon-whatsapp
+
+              // WordPress button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;WordPress&quot;).social-btn.sb-wordpress
+                i.flaticon-wordpress
+
+              // Xing button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Xing&quot;).social-btn.sb-xing
+                i.flaticon-xing
+              
+              // Yahoo! button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Yahoo!&quot;).social-btn.sb-yahoo
+                i.flaticon-yahoo
+              
+              // YouTube button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;YouTube&quot;).social-btn.sb-youtube
+                i.flaticon-youtube
+
+  // Light version
+  h2.h5.pt-5.mb-3 Light version
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result2' data-toggle='tab' role='tab' aria-controls='result2' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html2' data-toggle='tab' role='tab' aria-controls='html2' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug2' data-toggle='tab' role='tab' aria-controls='pug2' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result2.tab-pane.fade.show.active(role='tabpanel')
+          .bg-dark.pt-4.px-4.pb-3
+            a(href='#' data-toggle='tooltip' title='Behance').social-btn.sb-behance.sb-light.mr-3.mb-3
+              i.flaticon-behance
+            a(href='#' data-toggle='tooltip' title='Blogger').social-btn.sb-blogger.sb-light.mr-3.mb-3
+              i.flaticon-blogger
+            a(href='#' data-toggle='tooltip' title='Digg').social-btn.sb-digg.sb-light.mr-3.mb-3
+              i.flaticon-digg
+            a(href='#' data-toggle='tooltip' title='Dribbble').social-btn.sb-dribbble.sb-light.mr-3.mb-3
+              i.flaticon-dribbble
+            a(href='#' data-toggle='tooltip' title='Dropbox').social-btn.sb-dropbox.sb-light.mr-3.mb-3
+              i.flaticon-dropbox
+            a(href='#' data-toggle='tooltip' title='Envato').social-btn.sb-envato.sb-light.mr-3.mb-3
+              i.flaticon-envato
+            a(href='#' data-toggle='tooltip' title='Facebook').social-btn.sb-facebook.sb-light.mr-3.mb-3
+              i.flaticon-facebook
+            a(href='#' data-toggle='tooltip' title='Flickr').social-btn.sb-flickr.sb-light.mr-3.mb-3
+              i.flaticon-flickr
+            a(href='#' data-toggle='tooltip' title='Foursquare').social-btn.sb-foursquare.sb-light.mr-3.mb-3
+              i.flaticon-foursquare
+            a(href='#' data-toggle='tooltip' title='GitHub').social-btn.sb-github.sb-light.mr-3.mb-3
+              i.flaticon-github
+            a(href='#' data-toggle='tooltip' title='Google Drive').social-btn.sb-google-drive.sb-light.mr-3.mb-3
+              i.flaticon-google-drive
+            a(href='#' data-toggle='tooltip' title='Google Plus').social-btn.sb-google-plus.sb-light.mr-3.mb-3
+              i.flaticon-google-plus
+            a(href='#' data-toggle='tooltip' title='Hangouts').social-btn.sb-hangouts.sb-light.mr-3.mb-3
+              i.flaticon-hangouts
+            a(href='#' data-toggle='tooltip' title='Instagram').social-btn.sb-instagram.sb-light.mr-3.mb-3
+              i.flaticon-instagram
+            a(href='#' data-toggle='tooltip' title='Kickstarter').social-btn.sb-kickstarter.sb-light.mr-3.mb-3
+              i.flaticon-kickstarter
+            a(href='#' data-toggle='tooltip' title='LastFM').social-btn.sb-lastfm.sb-light.mr-3.mb-3
+              i.flaticon-lastfm
+            a(href='#' data-toggle='tooltip' title='LinkedIn').social-btn.sb-linkedin.sb-light.mr-3.mb-3
+              i.flaticon-linkedin
+            a(href='#' data-toggle='tooltip' title='Messenger').social-btn.sb-messenger.sb-light.mr-3.mb-3
+              i.flaticon-messenger
+            a(href='#' data-toggle='tooltip' title='MySpace').social-btn.sb-myspace.sb-light.mr-3.mb-3
+              i.flaticon-myspace
+            a(href='#' data-toggle='tooltip' title='Picasa').social-btn.sb-picasa.sb-light.mr-3.mb-3
+              i.flaticon-picasa
+            a(href='#' data-toggle='tooltip' title='Pinterest').social-btn.sb-pinterest.sb-light.mr-3.mb-3
+              i.flaticon-pinterest
+            a(href='#' data-toggle='tooltip' title='Reddit').social-btn.sb-reddit.sb-light.mr-3.mb-3
+              i.flaticon-reddit
+            a(href='#' data-toggle='tooltip' title='RSS').social-btn.sb-rss.sb-light.mr-3.mb-3
+              i.flaticon-rss
+            a(href='#' data-toggle='tooltip' title='Skype').social-btn.sb-skype.sb-light.mr-3.mb-3
+              i.flaticon-skype
+            a(href='#' data-toggle='tooltip' title='Snapchat').social-btn.sb-snapchat.sb-light.mr-3.mb-3
+              i.flaticon-snapchat
+            a(href='#' data-toggle='tooltip' title='SoundCloud').social-btn.sb-soundcloud.sb-light.mr-3.mb-3
+              i.flaticon-soundcloud
+            a(href='#' data-toggle='tooltip' title='Spotify').social-btn.sb-spotify.sb-light.mr-3.mb-3
+              i.flaticon-spotify
+            a(href='#' data-toggle='tooltip' title='StumbleUpon').social-btn.sb-stumbleupon.sb-light.mr-3.mb-3
+              i.flaticon-stumbleupon
+            a(href='#' data-toggle='tooltip' title='Tumblr').social-btn.sb-tumblr.sb-light.mr-3.mb-3
+              i.flaticon-tumblr
+            a(href='#' data-toggle='tooltip' title='Twitch').social-btn.sb-twitch.sb-light.mr-3.mb-3
+              i.flaticon-twitch
+            a(href='#' data-toggle='tooltip' title='Twitter').social-btn.sb-twitter.sb-light.mr-3.mb-3
+              i.flaticon-twitter
+            a(href='#' data-toggle='tooltip' title='Vimeo').social-btn.sb-vimeo.sb-light.mr-3.mb-3
+              i.flaticon-vimeo
+            a(href='#' data-toggle='tooltip' title='Vine').social-btn.sb-vine.sb-light.mr-3.mb-3
+              i.flaticon-vine
+            a(href='#' data-toggle='tooltip' title='Vkontakte').social-btn.sb-vk.sb-light.mr-3.mb-3
+              i.flaticon-vk
+            a(href='#' data-toggle='tooltip' title='WhatsApp').social-btn.sb-whatsapp.sb-light.mr-3.mb-3
+              i.flaticon-whatsapp
+            a(href='#' data-toggle='tooltip' title='WordPress').social-btn.sb-wordpress.sb-light.mr-3.mb-3
+              i.flaticon-wordpress
+            a(href='#' data-toggle='tooltip' title='Xing').social-btn.sb-xing.sb-light.mr-3.mb-3
+              i.flaticon-xing
+            a(href='#' data-toggle='tooltip' title='Yahoo!').social-btn.sb-yahoo.sb-light.mr-3.mb-3
+              i.flaticon-yahoo
+            a(href='#' data-toggle='tooltip' title='YouTube').social-btn.sb-youtube.sb-light.mr-3.mb-3
+              i.flaticon-youtube
+        #html2.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Behance light button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-behance&quot; data-toggle=&quot;tooltip&quot; title=&quot;Behance&quot;&gt;
+                &lt;i class=&quot;flaticon-behance&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+
+              &lt;!-- Blogger light button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-blogger&quot; data-toggle=&quot;tooltip&quot; title=&quot;Blogger&quot;&gt;
+                &lt;i class=&quot;flaticon-blogger&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+
+              &lt;!-- Digg light button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-digg&quot; data-toggle=&quot;tooltip&quot; title=&quot;Digg&quot;&gt;
+                &lt;i class=&quot;flaticon-digg&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+
+              &lt;!-- Dribbble light button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-dribbble&quot; data-toggle=&quot;tooltip&quot; title=&quot;Dribbble&quot;&gt;
+                &lt;i class=&quot;flaticon-dribbble&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+
+              &lt;!-- Dropbox light button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-dropbox&quot; data-toggle=&quot;tooltip&quot; title=&quot;Dropbox&quot;&gt;
+                &lt;i class=&quot;flaticon-dropbox&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+
+              &lt;!-- Envato light button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-envato&quot; data-toggle=&quot;tooltip&quot; title=&quot;Envato&quot;&gt;
+                &lt;i class=&quot;flaticon-envato&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- Facebook light button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-facebook&quot; data-toggle=&quot;tooltip&quot; title=&quot;Facebook&quot;&gt;
+                &lt;i class=&quot;flaticon-facebook&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- Flickr light button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-flickr&quot; data-toggle=&quot;tooltip&quot; title=&quot;Flickr&quot;&gt;
+                &lt;i class=&quot;flaticon-flickr&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+
+              &lt;!-- Foursquare light button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-foursquare&quot; data-toggle=&quot;tooltip&quot; title=&quot;Foursquare&quot;&gt;
+                &lt;i class=&quot;flaticon-foursquare&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- GitHub light button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-github&quot; data-toggle=&quot;tooltip&quot; title=&quot;GitHub&quot;&gt;
+                &lt;i class=&quot;flaticon-github&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+
+              &lt;!-- Google Drive light button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-google-drive&quot; data-toggle=&quot;tooltip&quot; title=&quot;Google Drive&quot;&gt;
+                &lt;i class=&quot;flaticon-google-drive&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- Google Plus light button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-google-plus&quot; data-toggle=&quot;tooltip&quot; title=&quot;Google Plus&quot;&gt;
+                &lt;i class=&quot;flaticon-google-plus&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+
+              &lt;!-- Hangouts light button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-hangouts&quot; data-toggle=&quot;tooltip&quot; title=&quot;Hangouts&quot;&gt;
+                &lt;i class=&quot;flaticon-hangouts&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- Instagram light button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-instagram&quot; data-toggle=&quot;tooltip&quot; title=&quot;Instagram&quot;&gt;
+                &lt;i class=&quot;flaticon-instagram&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- Kickstarter light button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-kickstarter&quot; data-toggle=&quot;tooltip&quot; title=&quot;Kickstarter&quot;&gt;
+                &lt;i class=&quot;flaticon-kickstarter&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- LastFM light button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-lastfm&quot; data-toggle=&quot;tooltip&quot; title=&quot;LastFM&quot;&gt;
+                &lt;i class=&quot;flaticon-lastfm&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- LinkedIn light button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-linkedin&quot; data-toggle=&quot;tooltip&quot; title=&quot;LinkedIn&quot;&gt;
+                &lt;i class=&quot;flaticon-linkedin&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+
+              &lt;!-- Messenger light button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-messenger&quot; data-toggle=&quot;tooltip&quot; title=&quot;Messenger&quot;&gt;
+                &lt;i class=&quot;flaticon-messenger&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+
+              &lt;!-- MySpace light button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-myspace&quot; data-toggle=&quot;tooltip&quot; title=&quot;MySpace&quot;&gt;
+                &lt;i class=&quot;flaticon-myspace&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- Picasa light button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-picasa&quot; data-toggle=&quot;tooltip&quot; title=&quot;Picasa&quot;&gt;
+                &lt;i class=&quot;flaticon-picasa&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+
+              &lt;!-- Pinterest light button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-pinterest&quot; data-toggle=&quot;tooltip&quot; title=&quot;Pinterest&quot;&gt;
+                &lt;i class=&quot;flaticon-pinterest&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- Reddit light button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-reddit&quot; data-toggle=&quot;tooltip&quot; title=&quot;Reddit&quot;&gt;
+                &lt;i class=&quot;flaticon-reddit&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- RSS light button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-rss&quot; data-toggle=&quot;tooltip&quot; title=&quot;RSS&quot;&gt;
+                &lt;i class=&quot;flaticon-rss&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- Skype light button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-skype&quot; data-toggle=&quot;tooltip&quot; title=&quot;Skype&quot;&gt;
+                &lt;i class=&quot;flaticon-skype&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- Snapchat light button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-snapchat&quot; data-toggle=&quot;tooltip&quot; title=&quot;Snapchat&quot;&gt;
+                &lt;i class=&quot;flaticon-snapchat&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- SoundCloud light button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-soundcloud&quot; data-toggle=&quot;tooltip&quot; title=&quot;SoundCloud&quot;&gt;
+                &lt;i class=&quot;flaticon-soundcloud&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- Spotify light button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-spotify&quot; data-toggle=&quot;tooltip&quot; title=&quot;Spotify&quot;&gt;
+                &lt;i class=&quot;flaticon-spotify&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- StumbleUpon light button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-stumbleupon&quot; data-toggle=&quot;tooltip&quot; title=&quot;StumbleUpon&quot;&gt;
+                &lt;i class=&quot;flaticon-stumbleupon&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- Tumblr light button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-tumblr&quot; data-toggle=&quot;tooltip&quot; title=&quot;Tumblr&quot;&gt;
+                &lt;i class=&quot;flaticon-tumblr&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+
+              &lt;!-- Twitch light button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-twitch&quot; data-toggle=&quot;tooltip&quot; title=&quot;Twitch&quot;&gt;
+                &lt;i class=&quot;flaticon-twitch&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- Twitter light button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-twitter&quot; data-toggle=&quot;tooltip&quot; title=&quot;Twitter&quot;&gt;
+                &lt;i class=&quot;flaticon-twitter&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- Vimeo light button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-vimeo&quot; data-toggle=&quot;tooltip&quot; title=&quot;Vimeo&quot;&gt;
+                &lt;i class=&quot;flaticon-vimeo&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- Vine light button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-vine&quot; data-toggle=&quot;tooltip&quot; title=&quot;Vine&quot;&gt;
+                &lt;i class=&quot;flaticon-vine&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- Vkontakte light button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-vk&quot; data-toggle=&quot;tooltip&quot; title=&quot;Vkontakte&quot;&gt;
+                &lt;i class=&quot;flaticon-vk&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+
+              &lt;!-- WhatsApp light button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-whatsapp&quot; data-toggle=&quot;tooltip&quot; title=&quot;WhatsApp&quot;&gt;
+                &lt;i class=&quot;flaticon-whatsapp&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+
+              &lt;!-- WordPress light button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-wordpress&quot; data-toggle=&quot;tooltip&quot; title=&quot;WordPress&quot;&gt;
+                &lt;i class=&quot;flaticon-wordpress&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+
+              &lt;!-- Xing light button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-xing&quot; data-toggle=&quot;tooltip&quot; title=&quot;Xing&quot;&gt;
+                &lt;i class=&quot;flaticon-xing&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- Yahoo! light button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-yahoo&quot; data-toggle=&quot;tooltip&quot; title=&quot;Yahoo!&quot;&gt;
+                &lt;i class=&quot;flaticon-yahoo&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+              
+              &lt;!-- YouTube light button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;social-btn sb-youtube&quot; data-toggle=&quot;tooltip&quot; title=&quot;YouTube&quot;&gt;
+                &lt;i class=&quot;flaticon-youtube&quot;&gt;&lt;/i&gt;
+              &lt;/a&gt;
+        #pug2.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Behance light button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Behance&quot;).social-btn.sb-behance
+                i.flaticon-behance
+
+              // Blogger light button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Blogger&quot;).social-btn.sb-blogger
+                i.flaticon-blogger
+
+              // Digg light button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Digg&quot;).social-btn.sb-digg
+                i.flaticon-digg
+
+              // Dribbble light button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Dribbble&quot;).social-btn.sb-dribbble
+                i.flaticon-dribbble
+
+              // Dropbox light button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Dropbox&quot;).social-btn.sb-dropbox
+                i.flaticon-dropbox
+
+              // Envato light button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Envato&quot;).social-btn.sb-envato
+                i.flaticon-envato
+              
+              // Facebook light button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Facebook&quot;).social-btn.sb-facebook
+                i.flaticon-facebook
+              
+              // Flickr light button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Flickr&quot;).social-btn.sb-flickr
+                i.flaticon-flickr
+
+              // Foursquare light button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Foursquare&quot;).social-btn.sb-foursquare
+                i.flaticon-foursquare
+              
+              // GitHub light button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;GitHub&quot;).social-btn.sb-github
+                i.flaticon-github
+
+              // Google Drive light button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Google Drive&quot;).social-btn.sb-google-drive
+                i.flaticon-google-drive
+              
+              // Google Plus light button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Google Plus&quot;).social-btn.sb-google-plus
+                i.flaticon-google-plus
+
+              // Hangouts light button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Hangouts&quot;).social-btn.sb-hangouts
+                i.flaticon-hangouts
+              
+              // Instagram light button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Instagram&quot;).social-btn.sb-instagram
+                i.flaticon-instagram
+              
+              // Kickstarter light button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Kickstarter&quot;).social-btn.sb-kickstarter
+                i.flaticon-kickstarter
+              
+              // LastFM light button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;LastFM&quot;).social-btn.sb-lastfm
+                i.flaticon-lastfm
+              
+              // LinkedIn light button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;LinkedIn&quot;).social-btn.sb-linkedin
+                i.flaticon-linkedin
+
+              // Messenger light button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Messenger&quot;).social-btn.sb-messenger
+                i.flaticon-messenger
+
+              // MySpace light button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;MySpace&quot;).social-btn.sb-myspace
+                i.flaticon-myspace
+              
+              // Picasa light button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Picasa&quot;).social-btn.sb-picasa
+                i.flaticon-picasa
+
+              // Pinterest light button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Pinterest&quot;).social-btn.sb-pinterest
+                i.flaticon-pinterest
+              
+              // Reddit light button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Reddit&quot;).social-btn.sb-reddit
+                i.flaticon-reddit
+              
+              // RSS light button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;RSS&quot;).social-btn.sb-rss
+                i.flaticon-rss
+              
+              // Skype light button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Skype&quot;).social-btn.sb-skype
+                i.flaticon-skype
+              
+              // Snapchat light button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Snapchat&quot;).social-btn.sb-snapchat
+                i.flaticon-snapchat
+              
+              // SoundCloud light button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;SoundCloud&quot;).social-btn.sb-soundcloud
+                i.flaticon-soundcloud
+              
+              // Spotify light button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Spotify&quot;).social-btn.sb-spotify
+                i.flaticon-spotify
+              
+              // StumbleUpon light button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;StumbleUpon&quot;).social-btn.sb-stumbleupon
+                i.flaticon-stumbleupon
+              
+              // Tumblr light button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Tumblr&quot;).social-btn.sb-tumblr
+                i.flaticon-tumblr
+
+              // Twitch light button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Twitch&quot;).social-btn.sb-twitch
+                i.flaticon-twitch
+              
+              // Twitter light button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Twitter&quot;).social-btn.sb-twitter
+                i.flaticon-twitter
+              
+              // Vimeo light button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Vimeo&quot;).social-btn.sb-vimeo
+                i.flaticon-vimeo
+              
+              // Vine light button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Vine&quot;).social-btn.sb-vine
+                i.flaticon-vine
+              
+              // Vkontakte light button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Vkontakte&quot;).social-btn.sb-vk
+                i.flaticon-vk
+
+              // WhatsApp light button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;WhatsApp&quot;).social-btn.sb-whatsapp
+                i.flaticon-whatsapp
+
+              // WordPress light button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;WordPress&quot;).social-btn.sb-wordpress
+                i.flaticon-wordpress
+
+              // Xing light button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Xing&quot;).social-btn.sb-xing
+                i.flaticon-xing
+              
+              // Yahoo! light button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Yahoo!&quot;).social-btn.sb-yahoo
+                i.flaticon-yahoo
+              
+              // YouTube light button
+              a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;YouTube&quot;).social-btn.sb-youtube
+                i.flaticon-youtube

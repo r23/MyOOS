@@ -1,0 +1,1410 @@
+extends ../partials/layout-components
+
+//- Override default config variables
+append config
+  - var pageTitle = 'Widgets'
+  - var pageSubTitle = '&mdash;&nbsp; Collection of tiny components to use inside sidebar area.'
+  - var isNestedFile = true
+  - var isCodeHighlighting = true
+  - var breadcrumbs = [{'title': 'Home', 'link': '../index.html'}, {'title': 'Components', 'link': '#'}]
+
+//- Page Content
+block content
+
+  // Categories
+  h2.h5.mb-3 Categories
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result1' data-toggle='tab' role='tab' aria-controls='result1' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html1' data-toggle='tab' role='tab' aria-controls='html1' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug1' data-toggle='tab' role='tab' aria-controls='pug1' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result1.tab-pane.fade.show.active(role='tabpanel')
+          .row.pt-2
+            .col-lg-5.col-md-6.col-sm-7
+              .widget.widget-categories
+                h3.widget-title Shop categories
+                ul#shopCategories
+                  li.has-children
+                    a(href='#shoes' data-toggle='collapse')
+                      i(data-feather='chevron-down').widget-categories-indicator
+                      | Shoes
+                      span.badge.text-muted.ml-1 (1138)
+                    ul#shoes.collapse.show(data-parent='#shopCategories')
+                      li
+                        a(href='#')
+                          | Women's shoes
+                          span.badge.text-muted.ml-1 (508)
+                        ul
+                          li: a(href='#') Sneakers
+                          li: a(href='#') Heels
+                      li
+                        a(href='#')
+                          | Men's shoes
+                          span.badge.text-muted.ml-1 (423)
+                        ul
+                          li: a(href='#') Boots
+                          li: a(href='#') Oxfords
+                      li
+                        a(href='#')
+                          | Boy's shoes
+                          span.badge.text-muted.ml-1 (97)
+                      li
+                        a(href='#')
+                          | Girl's shoes
+                          span.badge.text-muted.ml-1 (110)
+                  li.has-children
+                    a(href='#clothing' data-toggle='collapse').collapsed
+                      i(data-feather='chevron-down').widget-categories-indicator
+                      | Clothing
+                      span.badge.text-muted.ml-1 (2356)
+                    ul#clothing.collapse(data-parent='#shopCategories')
+                      li
+                        a(href='#')
+                          | Women's clothing
+                          span.badge.text-muted.ml-1 (1032)
+                        ul
+                          li: a(href='#') Dresses
+                          li: a(href='#') Shirts &amp; Tops
+                          li: a(href='#') Swimwear
+                          li: a(href='#') Shorts
+                      li
+                        a(href='#')
+                          | Men's clothing
+                          span.badge.text-muted.ml-1 (937)
+                        ul
+                          li: a(href='#') Shirts &amp; Tops
+                          li: a(href='#') Shorts
+                          li: a(href='#') Swimwear
+                          li: a(href='#') Pants
+                      li
+                        a(href='#')
+                          | Kid's shoes
+                          span.badge.text-muted.ml-1 (386)
+                  li.has-children
+                    a(href='#bags' data-toggle='collapse').collapsed
+                      i(data-feather='chevron-down').widget-categories-indicator
+                      | Bags
+                      span.badge.text-muted.ml-1 (420)
+                    ul#bags.collapse(data-parent='#shopCategories')
+                      li
+                        a(href='#')
+                          | Handbags
+                          span.badge.text-muted.ml-1 (180)
+                      li
+                        a(href='#')
+                          | Backpacks
+                          span.badge.text-muted.ml-1 (132)
+                      li
+                        a(href='#')
+                          | Wallets &amp; Accessories
+                          span.badge.text-muted.ml-1 (47)
+                      li
+                        a(href='#')
+                          | Luggage
+                          span.badge.text-muted.ml-1 (61)
+                  li.has-children
+                    a(href='#accessories' data-toggle='collapse').collapsed
+                      i(data-feather='chevron-down').widget-categories-indicator
+                      | Accessories
+                      span.badge.text-muted.ml-1 (874)
+                    ul#accessories.collapse(data-parent='#shopCategories')
+                      li
+                        a(href='#')
+                          | Sunglasses
+                          span.badge.text-muted.ml-1 (211)
+                      li
+                        a(href='#')
+                          | Hats
+                          span.badge.text-muted.ml-1 (195)
+                      li
+                        a(href='#')
+                          | Watches
+                          span.badge.text-muted.ml-1 (159)
+                      li
+                        a(href='#')
+                          | Jewelry
+                          span.badge.text-muted.ml-1 (203)
+                      li
+                        a(href='#')
+                          | Belts
+                          span.badge.text-muted.ml-1 (106)
+        #html1.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Categories widget --&gt;
+              &lt;div class=&quot;widget widget-categories&quot;&gt;
+                &lt;h3 class=&quot;widget-title&quot;&gt;Shop categories&lt;/h3&gt;
+                &lt;ul id=&quot;shopCategories&quot;&gt;
+
+                  &lt;li class=&quot;has-children&quot;&gt;
+                    &lt;a href=&quot;#shoes&quot; data-toggle=&quot;collapse&quot;&gt;
+                      &lt;i class=&quot;widget-categories-indicator&quot; data-feather=&quot;chevron-down&quot;&gt;&lt;/i&gt;
+                      Shoes
+                      &lt;span class=&quot;badge text-muted ml-1&quot;&gt;(1138)&lt;/span&gt;
+                    &lt;/a&gt;
+                    &lt;ul id=&quot;shoes&quot; class=&quot;collapse show&quot; data-parent=&quot;#shopCategories&quot;&gt;
+                      &lt;li&gt;
+                        &lt;a href=&quot;#&quot;&gt;Women's shoes&lt;span class=&quot;badge text-muted ml-1&quot;&gt;(508)&lt;/span&gt;&lt;/a&gt;
+                        &lt;ul&gt;
+                          &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Sneakers&lt;/a&gt;&lt;/li&gt;
+                          &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Heels&lt;/a&gt;&lt;/li&gt;
+                        &lt;/ul&gt;
+                      &lt;/li&gt;
+                      &lt;li&gt;
+                        &lt;a href=&quot;#&quot;&gt;Men's shoes&lt;span class=&quot;badge text-muted ml-1&quot;&gt;(423)&lt;/span&gt;&lt;/a&gt;
+                        &lt;ul&gt;
+                          &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Boots&lt;/a&gt;&lt;/li&gt;
+                          &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Oxfords&lt;/a&gt;&lt;/li&gt;
+                        &lt;/ul&gt;
+                      &lt;/li&gt;
+                      &lt;li&gt;
+                        &lt;a href=&quot;#&quot;&gt;Boy's shoes&lt;span class=&quot;badge text-muted ml-1&quot;&gt;(97)&lt;/span&gt;&lt;/a&gt;
+                      &lt;/li&gt;
+                      &lt;li&gt;
+                        &lt;a href=&quot;#&quot;&gt;Girl's shoes&lt;span class=&quot;badge text-muted ml-1&quot;&gt;(110)&lt;/span&gt;&lt;/a&gt;
+                      &lt;/li&gt;
+                    &lt;/ul&gt;
+                  &lt;/li&gt;
+
+                  &lt;li class=&quot;has-children&quot;&gt;
+                    &lt;a href=&quot;#clothing&quot; data-toggle=&quot;collapse&quot;&gt;
+                      &lt;i class=&quot;widget-categories-indicator&quot; data-feather=&quot;chevron-down&quot;&gt;&lt;/i&gt;
+                      Clothing
+                      &lt;span class=&quot;badge text-muted ml-1&quot;&gt;(2356)&lt;/span&gt;
+                    &lt;/a&gt;
+                    &lt;ul id=&quot;clothing&quot; class=&quot;collapse show&quot; data-parent=&quot;#shopCategories&quot;&gt;
+                      &lt;li&gt;
+                        &lt;a href=&quot;#&quot;&gt;Women's clothing&lt;span class=&quot;badge text-muted ml-1&quot;&gt;(1032)&lt;/span&gt;&lt;/a&gt;
+                        &lt;ul&gt;
+                          &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Dresses&lt;/a&gt;&lt;/li&gt;
+                          &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Shirts &amp; Tops&lt;/a&gt;&lt;/li&gt;
+                          &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Swimwear&lt;/a&gt;&lt;/li&gt;
+                          &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Shorts&lt;/a&gt;&lt;/li&gt;
+                        &lt;/ul&gt;
+                      &lt;/li&gt;
+                      &lt;li&gt;
+                        &lt;a href=&quot;#&quot;&gt;Men's clothing&lt;span class=&quot;badge text-muted ml-1&quot;&gt;(937)&lt;/span&gt;&lt;/a&gt;
+                        &lt;ul&gt;
+                          &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Shirts &amp; Tops&lt;/a&gt;&lt;/li&gt;
+                          &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Shorts&lt;/a&gt;&lt;/li&gt;
+                          &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Swimwear&lt;/a&gt;&lt;/li&gt;
+                          &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Pants&lt;/a&gt;&lt;/li&gt;
+                        &lt;/ul&gt;
+                      &lt;/li&gt;
+                      &lt;li&gt;
+                        &lt;a href=&quot;#&quot;&gt;Kid's clothing&lt;span class=&quot;badge text-muted ml-1&quot;&gt;(386)&lt;/span&gt;&lt;/a&gt;
+                      &lt;/li&gt;
+                    &lt;/ul&gt;
+                  &lt;/li&gt;
+
+                  &lt;li class=&quot;has-children&quot;&gt;
+                    &lt;a href=&quot;#bags&quot; data-toggle=&quot;collapse&quot;&gt;
+                      &lt;i class=&quot;widget-categories-indicator&quot; data-feather=&quot;chevron-down&quot;&gt;&lt;/i&gt;
+                      Bags
+                      &lt;span class=&quot;badge text-muted ml-1&quot;&gt;(420)&lt;/span&gt;
+                    &lt;/a&gt;
+                    &lt;ul id=&quot;bags&quot; class=&quot;collapse show&quot; data-parent=&quot;#shopCategories&quot;&gt;
+                      &lt;li&gt;
+                        &lt;a href=&quot;#&quot;&gt;Handbags&lt;span class=&quot;badge text-muted ml-1&quot;&gt;(180)&lt;/span&gt;&lt;/a&gt;
+                      &lt;/li&gt;
+                      &lt;li&gt;
+                        &lt;a href=&quot;#&quot;&gt;Backpacks&lt;span class=&quot;badge text-muted ml-1&quot;&gt;(132)&lt;/span&gt;&lt;/a&gt;
+                      &lt;/li&gt;
+                      &lt;li&gt;
+                        &lt;a href=&quot;#&quot;&gt;Wallets &amp; Accessories&lt;span class=&quot;badge text-muted ml-1&quot;&gt;(47)&lt;/span&gt;&lt;/a&gt;
+                      &lt;/li&gt;
+                      &lt;li&gt;
+                        &lt;a href=&quot;#&quot;&gt;Luggage&lt;span class=&quot;badge text-muted ml-1&quot;&gt;(61)&lt;/span&gt;&lt;/a&gt;
+                      &lt;/li&gt;
+                    &lt;/ul&gt;
+                  &lt;/li&gt;
+
+                  &lt;li class=&quot;has-children&quot;&gt;
+                    &lt;a href=&quot;#accessories&quot; data-toggle=&quot;collapse&quot;&gt;
+                      &lt;i class=&quot;widget-categories-indicator&quot; data-feather=&quot;chevron-down&quot;&gt;&lt;/i&gt;
+                      Accessories
+                      &lt;span class=&quot;badge text-muted ml-1&quot;&gt;(874)&lt;/span&gt;
+                    &lt;/a&gt;
+                    &lt;ul id=&quot;accessories&quot; class=&quot;collapse show&quot; data-parent=&quot;#shopCategories&quot;&gt;
+                      &lt;li&gt;
+                        &lt;a href=&quot;#&quot;&gt;Sunglasses&lt;span class=&quot;badge text-muted ml-1&quot;&gt;(211)&lt;/span&gt;&lt;/a&gt;
+                      &lt;/li&gt;
+                      &lt;li&gt;
+                        &lt;a href=&quot;#&quot;&gt;Hats&lt;span class=&quot;badge text-muted ml-1&quot;&gt;(195)&lt;/span&gt;&lt;/a&gt;
+                      &lt;/li&gt;
+                      &lt;li&gt;
+                        &lt;a href=&quot;#&quot;&gt;Watches&lt;span class=&quot;badge text-muted ml-1&quot;&gt;(159)&lt;/span&gt;&lt;/a&gt;
+                      &lt;/li&gt;
+                      &lt;li&gt;
+                        &lt;a href=&quot;#&quot;&gt;Jewelry&lt;span class=&quot;badge text-muted ml-1&quot;&gt;(203)&lt;/span&gt;&lt;/a&gt;
+                      &lt;/li&gt;
+                      &lt;li&gt;
+                        &lt;a href=&quot;#&quot;&gt;Belts&lt;span class=&quot;badge text-muted ml-1&quot;&gt;(106)&lt;/span&gt;&lt;/a&gt;
+                      &lt;/li&gt;
+                    &lt;/ul&gt;
+                  &lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/div&gt;
+        #pug1.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Categories widget
+              .widget.widget-categories
+                h3.widget-title Shop categories
+                ul#shopCategories
+                  li.has-children
+                    a(href=&quot;#shoes&quot;, data-toggle=&quot;collapse&quot;)
+                      i(data-feather=&quot;chevron-down&quot;).widget-categories-indicator
+                      | Shoes
+                      span.badge.text-muted.ml-1 (1138)
+                    ul#shoes.collapse.show(data-parent=&quot;#shopCategories&quot;)
+                      li
+                        a(href=&quot;#&quot;)
+                          | Women's shoes
+                          span.badge.text-muted.ml-1 (508)
+                        ul
+                          li: a(href=&quot;#&quot;) Sneakers
+                          li: a(href=&quot;#&quot;) Heels
+                      li
+                        a(href=&quot;#&quot;)
+                          | Men's shoes
+                          span.badge.text-muted.ml-1 (423)
+                        ul
+                          li: a(href=&quot;#&quot;) Boots
+                          li: a(href=&quot;#&quot;) Oxfords
+                      li
+                        a(href=&quot;#&quot;)
+                          | Boy's shoes
+                          span.badge.text-muted.ml-1 (97)
+                      li
+                        a(href=&quot;#&quot;)
+                          | Girl's shoes
+                          span.badge.text-muted.ml-1 (110)
+                  li.has-children
+                    a(href=&quot;#clothing&quot;, data-toggle=&quot;collapse&quot;).collapsed
+                      i(data-feather=&quot;chevron-down&quot;).widget-categories-indicator
+                      | Clothing
+                      span.badge.text-muted.ml-1 (2356)
+                    ul#clothing.collapse(data-parent=&quot;#shopCategories&quot;)
+                      li
+                        a(href=&quot;#&quot;)
+                          | Women's clothing
+                          span.badge.text-muted.ml-1 (1032)
+                        ul
+                          li: a(href=&quot;#&quot;) Dresses
+                          li: a(href=&quot;#&quot;) Shirts &amp; Tops
+                          li: a(href=&quot;#&quot;) Swimwear
+                          li: a(href=&quot;#&quot;) Shorts
+                      li
+                        a(href=&quot;#&quot;)
+                          | Men's clothing
+                          span.badge.text-muted.ml-1 (937)
+                        ul
+                          li: a(href=&quot;#&quot;) Shirts &amp; Tops
+                          li: a(href=&quot;#&quot;) Shorts
+                          li: a(href=&quot;#&quot;) Swimwear
+                          li: a(href=&quot;#&quot;) Pants
+                      li
+                        a(href=&quot;#&quot;)
+                          | Kid's clothing
+                          span.badge.text-muted.ml-1 (386)
+                  li.has-children
+                    a(href=&quot;#bags&quot;, data-toggle=&quot;collapse&quot;).collapsed
+                      i(data-feather=&quot;chevron-down&quot;).widget-categories-indicator
+                      | Bags
+                      span.badge.text-muted.ml-1 (420)
+                    ul#bags.collapse(data-parent=&quot;#shopCategories&quot;)
+                      li
+                        a(href=&quot;#&quot;)
+                          | Handbags
+                          span.badge.text-muted.ml-1 (180)
+                      li
+                        a(href=&quot;#&quot;)
+                          | Backpacks
+                          span.badge.text-muted.ml-1 (132)
+                      li
+                        a(href=&quot;#&quot;)
+                          | Wallets &amp; Accessories
+                          span.badge.text-muted.ml-1 (47)
+                      li
+                        a(href=&quot;#&quot;)
+                          | Luggage
+                          span.badge.text-muted.ml-1 (61)
+                  li.has-children
+                    a(href=&quot;#accessories&quot;, data-toggle=&quot;collapse&quot;).collapsed
+                      i(data-feather=&quot;chevron-down&quot;).widget-categories-indicator
+                      | Accessories
+                      span.badge.text-muted.ml-1 (874)
+                    ul#accessories.collapse(data-parent=&quot;#shopCategories&quot;)
+                      li
+                        a(href=&quot;#&quot;)
+                          | Sunglasses
+                          span.badge.text-muted.ml-1 (211)
+                      li
+                        a(href=&quot;#&quot;)
+                          | Hats
+                          span.badge.text-muted.ml-1 (195)
+                      li
+                        a(href=&quot;#&quot;)
+                          | Watches
+                          span.badge.text-muted.ml-1 (159)
+                      li
+                        a(href=&quot;#&quot;)
+                          | Jewelry
+                          span.badge.text-muted.ml-1 (203)
+                      li
+                        a(href=&quot;#&quot;)
+                          | Belts
+                          span.badge.text-muted.ml-1 (106)
+
+  // Links
+  h2.h5.pt-5.mb-3 Links
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result2' data-toggle='tab' role='tab' aria-controls='result2' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html2' data-toggle='tab' role='tab' aria-controls='html2' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug2' data-toggle='tab' role='tab' aria-controls='pug2' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result2.tab-pane.fade.show.active(role='tabpanel')
+          .row.pt-2
+            .col-lg-5.col-md-6.col-sm-7
+              .widget.widget-links
+                h3.widget-title Useful links
+                ul
+                  li
+                    a(href='#')
+                      i(data-feather='chevron-right').widget-categories-indicator
+                      | Your account
+                  li
+                    a(href='#')
+                      i(data-feather='chevron-right').widget-categories-indicator
+                      | Shipping rates &amp; policies
+                  li
+                    a(href='#')
+                      i(data-feather='chevron-right').widget-categories-indicator
+                      | Refunds &amp; replacements
+                  li
+                    a(href='#')
+                      i(data-feather='chevron-right').widget-categories-indicator
+                      | Taxes
+                  li
+                    a(href='#')
+                      i(data-feather='chevron-right').widget-categories-indicator
+                      | Delivery info
+                  li
+                    a(href='#')
+                      i(data-feather='chevron-right').widget-categories-indicator
+                      | Affiliate program
+        #html2.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Links widget --&gt;
+              &lt;div class=&quot;widget widget-categories&quot;&gt;
+                &lt;h3 class=&quot;widget-title&quot;&gt;Useful links&lt;/h3&gt;
+                &lt;ul id=&quot;shopCategories&quot;&gt;
+                  &lt;li&gt;
+                    &lt;a href=&quot;#&quot;&gt;
+                      &lt;i class=&quot;widget-categories-indicator&quot; data-feather=&quot;chevron-right&quot;&gt;&lt;/i&gt;
+                      Your account
+                    &lt;/a&gt;
+                  &lt;/li&gt;
+                  &lt;li&gt;
+                    &lt;a href=&quot;#&quot;&gt;
+                      &lt;i class=&quot;widget-categories-indicator&quot; data-feather=&quot;chevron-right&quot;&gt;&lt;/i&gt;
+                      Shipping rates &amp; policies
+                    &lt;/a&gt;
+                  &lt;/li&gt;
+                  &lt;li&gt;
+                    &lt;a href=&quot;#&quot;&gt;
+                      &lt;i class=&quot;widget-categories-indicator&quot; data-feather=&quot;chevron-right&quot;&gt;&lt;/i&gt;
+                      Refunds &amp; replacements
+                    &lt;/a&gt;
+                  &lt;/li&gt;
+                  &lt;li&gt;
+                    &lt;a href=&quot;#&quot;&gt;
+                      &lt;i class=&quot;widget-categories-indicator&quot; data-feather=&quot;chevron-right&quot;&gt;&lt;/i&gt;
+                      Taxes
+                    &lt;/a&gt;
+                  &lt;/li&gt;
+                  &lt;li&gt;
+                    &lt;a href=&quot;#&quot;&gt;
+                      &lt;i class=&quot;widget-categories-indicator&quot; data-feather=&quot;chevron-right&quot;&gt;&lt;/i&gt;
+                      Delivery info
+                    &lt;/a&gt;
+                  &lt;/li&gt;
+                  &lt;li&gt;
+                    &lt;a href=&quot;#&quot;&gt;
+                      &lt;i class=&quot;widget-categories-indicator&quot; data-feather=&quot;chevron-right&quot;&gt;&lt;/i&gt;
+                      Affiliate program
+                    &lt;/a&gt;
+                  &lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/div&gt;
+        #pug2.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Links widget
+              .widget.widget-links
+                h3.widget-title Useful links
+                ul
+                  li
+                    a(href=&quot;#&quot;)
+                      i(data-feather=&quot;chevron-right&quot;).widget-categories-indicator
+                      | Your account
+                  li
+                    a(href=&quot;#&quot;)
+                      i(data-feather=&quot;chevron-right&quot;).widget-categories-indicator
+                      | Shipping rates &amp; policies
+                  li
+                    a(href=&quot;#&quot;)
+                      i(data-feather=&quot;chevron-right&quot;).widget-categories-indicator
+                      | Refunds &amp; replacements
+                  li
+                    a(href=&quot;#&quot;)
+                      i(data-feather=&quot;chevron-right&quot;).widget-categories-indicator
+                      | Taxes
+                  li
+                    a(href=&quot;#&quot;)
+                      i(data-feather=&quot;chevron-right&quot;).widget-categories-indicator
+                      | Delivery info
+                  li
+                    a(href=&quot;#&quot;)
+                      i(data-feather=&quot;chevron-right&quot;).widget-categories-indicator
+                      | Affiliate program
+
+  // Price range
+  h2.h5.pt-5.mb-3 Price range
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result3' data-toggle='tab' role='tab' aria-controls='result3' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html3' data-toggle='tab' role='tab' aria-controls='html3' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug3' data-toggle='tab' role='tab' aria-controls='pug3' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result3.tab-pane.fade.show.active(role='tabpanel')
+          .row.py-2
+            .col-lg-5.col-md-6.col-sm-7
+              .widget
+                h3.widget-title Price range
+                form(data-start-min='250' data-start-max='650' data-min='0' data-max='1000' data-step='1').range-slider
+                  .ui-range-slider
+                  footer.ui-range-slider-footer
+                    .column
+                      button(type='submit').btn.btn-outline-primary.btn-sm Filter
+                    .column
+                      .ui-range-values
+                        .ui-range-label Price:
+                        .ui-range-value-min
+                          | $<span></span>
+                          input(type='hidden')
+                        | &nbsp;&ndash;&nbsp;
+                        .ui-range-value-max
+                          | $<span></span>
+                          input(type='hidden')
+        #html3.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Price range widget --&gt;
+              &lt;div class=&quot;widget&quot;&gt;
+                &lt;h3 class=&quot;widget-title&quot;&gt;Price range&lt;/h3&gt;
+                &lt;form class=&quot;range-slider&quot; data-start-min=&quot;250&quot; data-start-max=&quot;650&quot; data-min=&quot;0&quot; data-max=&quot;1000&quot; data-step=&quot;1&quot;&gt;
+                  &lt;div class=&quot;ui-range-slider&quot;&gt;&lt;/div&gt;
+                  &lt;footer class=&quot;ui-range-slider-footer&quot;&gt;
+                    &lt;div class=&quot;column&quot;&gt;
+                      &lt;button type=&quot;submit&quot; class=&quot;btn btn-outline-primary btn-sm&quot;&gt;Filter&lt;/button&gt;
+                    &lt;/div&gt;
+                    &lt;div class=&quot;column&quot;&gt;
+                      &lt;div class=&quot;ui-range-label&quot;&gt;Price:&lt;/div&gt;
+                      &lt;div class=&quot;ui-range-value-min&quot;&gt;
+                        $&lt;span&gt;&lt;/span&gt;
+                        &lt;input type=&quot;hidden&quot;&gt;
+                      &lt;/div&gt;
+                      &amp;nbsp;&amp;ndash;&amp;nbsp;
+                      &lt;div class=&quot;ui-range-value-max&quot;&gt;
+                        $&lt;span&gt;&lt;/span&gt;
+                        &lt;input type=&quot;hidden&quot;&gt;
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                  &lt;/footer&gt;
+                &lt;/form&gt;
+              &lt;/div&gt;
+        #pug3.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Price range widget
+              .widget
+                h3.widget-title Price range
+                form(data-start-min=&quot;250&quot;, data-start-max=&quot;650&quot;, data-min=&quot;0&quot;, data-max=&quot;1000&quot;, data-step=&quot;1&quot;).range-slider
+                  .ui-range-slider
+                  footer.ui-range-slider-footer
+                    .column
+                      button.btn.btn-outline-primary.btn-sm(type=&quot;submit&quot;) Filter
+                    .column
+                      .ui-range-values
+                        .ui-range-label Price:
+                        .ui-range-value-min
+                          | $&lt;span&gt;&lt;/span&gt;
+                          input(type=&quot;hidden&quot;)
+                        | &amp;nbsp;&amp;ndash;&amp;nbsp;
+                        .ui-range-value-max
+                          | $&lt;span&gt;&lt;/span&gt;
+                          input(type=&quot;hidden&quot;)
+
+  // Featured products
+  h2.h5.pt-5.mb-3 Featured products
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result4' data-toggle='tab' role='tab' aria-controls='result4' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html4' data-toggle='tab' role='tab' aria-controls='html4' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug4' data-toggle='tab' role='tab' aria-controls='pug4' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result4.tab-pane.fade.show.active(role='tabpanel')
+          .row.py-2
+            .col-lg-5.col-sm-6
+              .widget.widget-featured-entries.mb-5.mb-sm-0
+                h3.widget-title Featured products
+                .media
+                  a(href='#').featured-entry-thumb
+                    img(src='../img/shop/widget/01.jpg' width='64' alt='Product thumb')
+                  .media-body
+                    h6.featured-entry-title
+                      a(href='#') Keds - Kickstart Pom Pom
+                    p.featured-entry-meta $42.99
+                .media
+                  a(href='#').featured-entry-thumb
+                    img(src='../img/shop/widget/02.jpg' width='64' alt='Product thumb')
+                  .media-body
+                    h6.featured-entry-title
+                      a(href='#') Nike - Brasilia Medium Backpack
+                    p.featured-entry-meta $27.99
+                .media
+                  a(href='#').featured-entry-thumb
+                    img(src='../img/shop/widget/03.jpg' width='64' alt='Product thumb')
+                  .media-body
+                    h6.featured-entry-title
+                      a(href='#') Guess - GU7295
+                    p.featured-entry-meta $38.00
+            .col-lg-5.col-sm-6
+              .widget.widget-featured-entries
+                h3.widget-title Featured products with rating
+                .media
+                  a(href='#').featured-entry-thumb
+                    img(src='../img/shop/widget/04.jpg' width='64' alt='Product thumb')
+                  .media-body
+                    h6.featured-entry-title
+                      a(href='#') Sennheiser HD 650 Pro
+                    +star-rating(4)
+                    p.featured-entry-meta $259.99
+                .media
+                  a(href='#').featured-entry-thumb
+                    img(src='../img/shop/widget/05.jpg' width='64' alt='Product thumb')
+                  .media-body
+                    h6.featured-entry-title
+                      a(href='#') Amazon Cloud Cam Security
+                    +star-rating(3)
+                    p.featured-entry-meta $119.99
+                .media
+                  a(href='#').featured-entry-thumb
+                    img(src='../img/shop/widget/06.jpg' width='64' alt='Product thumb')
+                  .media-body
+                    h6.featured-entry-title
+                      a(href='#') Samsung Galaxy S10 128GB
+                    +star-rating(5)
+                    p.featured-entry-meta $799.00
+        #html4.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Featured products --&gt;
+              &lt;div class=&quot;widget widget-featured-entries&quot;&gt;
+                &lt;h3 class=&quot;widget-title&quot;&gt;Featured products&lt;/h3&gt;
+                &lt;div class=&quot;media&quot;&gt;
+                  &lt;a href=&quot;#&quot; class=&quot;featured-entry-thumb&quot;&gt;
+                    &lt;img src=&quot;path-to-image&quot; width=&quot;64&quot; alt=&quot;Product thumb&quot;&gt;
+                  &lt;/a&gt;
+                  &lt;div class=&quot;media-body&quot;&gt;
+                    &lt;h6 class=&quot;featured-entry-title&quot;&gt;
+                      &lt;a href=&quot;#&quot;&gt;Keds - Kickstart Pom Pom&lt;/a&gt;
+                    &lt;/h6&gt;
+                    &lt;p class=&quot;featured-entry-meta&quot;&gt;$42.99&lt;/p&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;media&quot;&gt;
+                  &lt;a href=&quot;#&quot; class=&quot;featured-entry-thumb&quot;&gt;
+                    &lt;img src=&quot;path-to-image&quot; width=&quot;64&quot; alt=&quot;Product thumb&quot;&gt;
+                  &lt;/a&gt;
+                  &lt;div class=&quot;media-body&quot;&gt;
+                    &lt;h6 class=&quot;featured-entry-title&quot;&gt;
+                      &lt;a href=&quot;#&quot;&gt;Nike - Brasilia Medium Backpack&lt;/a&gt;
+                    &lt;/h6&gt;
+                    &lt;p class=&quot;featured-entry-meta&quot;&gt;$27.99&lt;/p&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;media&quot;&gt;
+                  &lt;a href=&quot;#&quot; class=&quot;featured-entry-thumb&quot;&gt;
+                    &lt;img src=&quot;path-to-image&quot; width=&quot;64&quot; alt=&quot;Product thumb&quot;&gt;
+                  &lt;/a&gt;
+                  &lt;div class=&quot;media-body&quot;&gt;
+                    &lt;h6 class=&quot;featured-entry-title&quot;&gt;
+                      &lt;a href=&quot;#&quot;&gt;Guess - GU7295&lt;/a&gt;
+                    &lt;/h6&gt;
+                    &lt;p class=&quot;featured-entry-meta&quot;&gt;$38.00&lt;/p&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+
+              &lt;!-- Featured products with rating --&gt;
+              &lt;div class=&quot;widget widget-featured-entries&quot;&gt;
+                &lt;h3 class=&quot;widget-title&quot;&gt;Featured products with rating&lt;/h3&gt;
+                &lt;div class=&quot;media&quot;&gt;
+                  &lt;a href=&quot;#&quot; class=&quot;featured-entry-thumb&quot;&gt;
+                    &lt;img src=&quot;path-to-image&quot; width=&quot;64&quot; alt=&quot;Product thumb&quot;&gt;
+                  &lt;/a&gt;
+                  &lt;div class=&quot;media-body&quot;&gt;
+                    &lt;h6 class=&quot;featured-entry-title&quot;&gt;
+                      &lt;a href=&quot;#&quot;&gt;Sennheiser HD 650 Pro&lt;/a&gt;
+                    &lt;/h6&gt;
+                    &lt;div class=&quot;star-rating&quot;&gt;
+                      &lt;i class=&quot;sr-star active&quot; data-feather=&quot;star&quot;&gt;&lt;/i&gt;
+                      &lt;i class=&quot;sr-star active&quot; data-feather=&quot;star&quot;&gt;&lt;/i&gt;
+                      &lt;i class=&quot;sr-star active&quot; data-feather=&quot;star&quot;&gt;&lt;/i&gt;
+                      &lt;i class=&quot;sr-star active&quot; data-feather=&quot;star&quot;&gt;&lt;/i&gt;
+                      &lt;i class=&quot;sr-star&quot; data-feather=&quot;star&quot;&gt;&lt;/i&gt;
+                    &lt;/div&gt;
+                    &lt;p class=&quot;featured-entry-meta&quot;&gt;$259.99&lt;/p&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div href=&quot;#&quot; class=&quot;media&quot;&gt;
+                  &lt;a class=&quot;featured-entry-thumb&quot;&gt;
+                    &lt;img src=&quot;path-to-image&quot; width=&quot;64&quot; alt=&quot;Product thumb&quot;&gt;
+                  &lt;/a&gt;
+                  &lt;div class=&quot;media-body&quot;&gt;
+                    &lt;h6 class=&quot;featured-entry-title&quot;&gt;
+                      &lt;a href=&quot;#&quot;&gt;Amazon Cloud Cam Security&lt;/a&gt;
+                    &lt;/h6&gt;
+                    &lt;div class=&quot;star-rating&quot;&gt;
+                      &lt;i class=&quot;sr-star active&quot; data-feather=&quot;star&quot;&gt;&lt;/i&gt;
+                      &lt;i class=&quot;sr-star active&quot; data-feather=&quot;star&quot;&gt;&lt;/i&gt;
+                      &lt;i class=&quot;sr-star active&quot; data-feather=&quot;star&quot;&gt;&lt;/i&gt;
+                      &lt;i class=&quot;sr-star&quot; data-feather=&quot;star&quot;&gt;&lt;/i&gt;
+                      &lt;i class=&quot;sr-star&quot; data-feather=&quot;star&quot;&gt;&lt;/i&gt;
+                    &lt;/div&gt;
+                    &lt;p class=&quot;featured-entry-meta&quot;&gt;$119.99&lt;/p&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;media&quot;&gt;
+                  &lt;a href=&quot;#&quot; class=&quot;featured-entry-thumb&quot;&gt;
+                    &lt;img src=&quot;path-to-image&quot; width=&quot;64&quot; alt=&quot;Product thumb&quot;&gt;
+                  &lt;/a&gt;
+                  &lt;div class=&quot;media-body&quot;&gt;
+                    &lt;h6 class=&quot;featured-entry-title&quot;&gt;
+                      &lt;a href=&quot;#&quot;&gt;Samsung Galaxy S10 128GB&lt;/a&gt;
+                    &lt;/h6&gt;
+                    &lt;div class=&quot;star-rating&quot;&gt;
+                      &lt;i class=&quot;sr-star active&quot; data-feather=&quot;star&quot;&gt;&lt;/i&gt;
+                      &lt;i class=&quot;sr-star active&quot; data-feather=&quot;star&quot;&gt;&lt;/i&gt;
+                      &lt;i class=&quot;sr-star active&quot; data-feather=&quot;star&quot;&gt;&lt;/i&gt;
+                      &lt;i class=&quot;sr-star active&quot; data-feather=&quot;star&quot;&gt;&lt;/i&gt;
+                      &lt;i class=&quot;sr-star active&quot; data-feather=&quot;star&quot;&gt;&lt;/i&gt;
+                    &lt;/div&gt;
+                    &lt;p class=&quot;featured-entry-meta&quot;&gt;$799.00&lt;/p&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+        #pug4.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Fetured products widget
+              .widget.widget-featured-entries
+                h3.widget-title Featured products
+                .media
+                  a(href=&quot;#&quot;).featured-entry-thumb
+                    img(src=&quot;path-to-image&quot;, width=&quot;64&quot;, alt=&quot;Product thumb&quot;)
+                  .media-body
+                    h6.featured-entry-title
+                      a(href=&quot;#&quot;) Keds - Kickstart Pom Pom
+                    p.featured-entry-meta $42.99
+                .media
+                  a(href=&quot;#&quot;).featured-entry-thumb
+                    img(src=&quot;path-to-image&quot;, width=&quot;64&quot;, alt=&quot;Product thumb&quot;)
+                  .media-body
+                    h6.featured-entry-title
+                      a(href=&quot;#&quot;) Nike - Brasilia Medium Backpack
+                    p.featured-entry-meta $27.99
+                .media
+                  a(href=&quot;#&quot;).featured-entry-thumb
+                    img(src=&quot;path-to-image&quot;, width=&quot;64&quot;, alt=&quot;Product thumb&quot;)
+                  .media-body
+                    h6.featured-entry-title
+                      a(href=&quot;#&quot;) Guess - GU7295
+                    p.featured-entry-meta $38.00
+
+              // Featured products with rating
+              .widget.widget-featured-entries
+                h3.widget-title Featured products with rating
+                .media
+                  a(href=&quot;#&quot;).featured-entry-thumb
+                    img(src=&quot;path-to-image&quot;, width=&quot;64&quot;, alt=&quot;Product thumb&quot;)
+                  .media-body
+                    h6.featured-entry-title
+                      a(href=&quot;#&quot;) Sennheiser HD 650 Pro
+                    +star-rating(4)
+                    p.featured-entry-meta $259.99
+                .media
+                  a(href=&quot;#&quot;).featured-entry-thumb
+                    img(src=&quot;path-to-image&quot;, width=&quot;64&quot;, alt=&quot;Product thumb&quot;)
+                  .media-body
+                    h6.featured-entry-title
+                      a(href=&quot;#&quot;) Amazon Cloud Cam Security
+                    +star-rating(3)
+                    p.featured-entry-meta $119.99
+                .media
+                  a(href=&quot;#&quot;).featured-entry-thumb
+                    img(src=&quot;path-to-image&quot;, width=&quot;64&quot;, alt=&quot;Product thumb&quot;)
+                  .media-body
+                    h6.featured-entry-title
+                      a(href=&quot;#&quot;) Samsung Galaxy S10 128GB
+                    +star-rating(5)
+                    p.featured-entry-meta $799.00
+
+  // Featured products carousel
+  h2.h5.pt-5.mb-3 Featured products carousel
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result5' data-toggle='tab' role='tab' aria-controls='result5' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html5' data-toggle='tab' role='tab' aria-controls='html5' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug5' data-toggle='tab' role='tab' aria-controls='pug5' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result5.tab-pane.fade.show.active(role='tabpanel')
+          .row.py-2
+            .col-lg-5.col-sm-6
+              .widget.widget-featured-entries
+                h3.widget-title Featured products
+                .owl-carousel(data-owl-carousel='{ "nav": false, "dots": true, "loop": true, "margin": 30 }')
+                  .media
+                    a(href='#').featured-entry-thumb
+                      img(src='../img/shop/widget/04.jpg' width='64' alt='Product thumb')
+                    .media-body
+                      h6.featured-entry-title
+                        a(href='#') Sennheiser HD 650 Pro
+                      +star-rating(4)
+                      p.featured-entry-meta $259.99
+                  .media
+                    a(href='#').featured-entry-thumb
+                      img(src='../img/shop/widget/05.jpg' width='64' alt='Product thumb')
+                    .media-body
+                      h6.featured-entry-title
+                        a(href='#') Amazon Cloud Cam Security
+                      +star-rating(3)
+                      p.featured-entry-meta $119.99
+                  .media
+                    a(href='#').featured-entry-thumb
+                      img(src='../img/shop/widget/06.jpg' width='64' alt='Product thumb')
+                    .media-body
+                      h6.featured-entry-title
+                        a(href='#') Samsung Galaxy S10 128GB
+                      +star-rating(5)
+                      p.featured-entry-meta $799.00
+        #html5.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Featured products carousel --&gt;
+              &lt;div class=&quot;widget widget-featured-entries&quot;&gt;
+                &lt;h3 class=&quot;widget-title&quot;&gt;Featured products&lt;/h3&gt;
+                &lt;div class=&quot;owl-carousel&quot; data-owl-carousel='{ &quot;nav&quot;: false, &quot;dots&quot;: true, &quot;loop&quot;: true, &quot;margin&quot;: 30 }'&gt;
+                  &lt;div class=&quot;media&quot;&gt;
+                    &lt;a href=&quot;#&quot; class=&quot;featured-entry-thumb&quot;&gt;
+                      &lt;img src=&quot;path-to-image&quot; width=&quot;64&quot; alt=&quot;Product thumb&quot;&gt;
+                    &lt;/a&gt;
+                    &lt;div class=&quot;media-body&quot;&gt;
+                      &lt;h6 class=&quot;featured-entry-title&quot;&gt;
+                        &lt;a href=&quot;#&quot;&gt;Sennheiser HD 650 Pro&lt;/a&gt;
+                      &lt;/h6&gt;
+                      &lt;div class=&quot;star-rating&quot;&gt;
+                        &lt;i class=&quot;sr-star active&quot; data-feather=&quot;star&quot;&gt;&lt;/i&gt;
+                        &lt;i class=&quot;sr-star active&quot; data-feather=&quot;star&quot;&gt;&lt;/i&gt;
+                        &lt;i class=&quot;sr-star active&quot; data-feather=&quot;star&quot;&gt;&lt;/i&gt;
+                        &lt;i class=&quot;sr-star active&quot; data-feather=&quot;star&quot;&gt;&lt;/i&gt;
+                        &lt;i class=&quot;sr-star&quot; data-feather=&quot;star&quot;&gt;&lt;/i&gt;
+                      &lt;/div&gt;
+                      &lt;p class=&quot;featured-entry-meta&quot;&gt;$259.99&lt;/p&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                  &lt;div href=&quot;#&quot; class=&quot;media&quot;&gt;
+                    &lt;a class=&quot;featured-entry-thumb&quot;&gt;
+                      &lt;img src=&quot;path-to-image&quot; width=&quot;64&quot; alt=&quot;Product thumb&quot;&gt;
+                    &lt;/a&gt;
+                    &lt;div class=&quot;media-body&quot;&gt;
+                      &lt;h6 class=&quot;featured-entry-title&quot;&gt;
+                        &lt;a href=&quot;#&quot;&gt;Amazon Cloud Cam Security&lt;/a&gt;
+                      &lt;/h6&gt;
+                      &lt;div class=&quot;star-rating&quot;&gt;
+                        &lt;i class=&quot;sr-star active&quot; data-feather=&quot;star&quot;&gt;&lt;/i&gt;
+                        &lt;i class=&quot;sr-star active&quot; data-feather=&quot;star&quot;&gt;&lt;/i&gt;
+                        &lt;i class=&quot;sr-star active&quot; data-feather=&quot;star&quot;&gt;&lt;/i&gt;
+                        &lt;i class=&quot;sr-star&quot; data-feather=&quot;star&quot;&gt;&lt;/i&gt;
+                        &lt;i class=&quot;sr-star&quot; data-feather=&quot;star&quot;&gt;&lt;/i&gt;
+                      &lt;/div&gt;
+                      &lt;p class=&quot;featured-entry-meta&quot;&gt;$119.99&lt;/p&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                  &lt;div class=&quot;media&quot;&gt;
+                    &lt;a href=&quot;#&quot; class=&quot;featured-entry-thumb&quot;&gt;
+                      &lt;img src=&quot;path-to-image&quot; width=&quot;64&quot; alt=&quot;Product thumb&quot;&gt;
+                    &lt;/a&gt;
+                    &lt;div class=&quot;media-body&quot;&gt;
+                      &lt;h6 class=&quot;featured-entry-title&quot;&gt;
+                        &lt;a href=&quot;#&quot;&gt;Samsung Galaxy S10 128GB&lt;/a&gt;
+                      &lt;/h6&gt;
+                      &lt;div class=&quot;star-rating&quot;&gt;
+                        &lt;i class=&quot;sr-star active&quot; data-feather=&quot;star&quot;&gt;&lt;/i&gt;
+                        &lt;i class=&quot;sr-star active&quot; data-feather=&quot;star&quot;&gt;&lt;/i&gt;
+                        &lt;i class=&quot;sr-star active&quot; data-feather=&quot;star&quot;&gt;&lt;/i&gt;
+                        &lt;i class=&quot;sr-star active&quot; data-feather=&quot;star&quot;&gt;&lt;/i&gt;
+                        &lt;i class=&quot;sr-star active&quot; data-feather=&quot;star&quot;&gt;&lt;/i&gt;
+                      &lt;/div&gt;
+                      &lt;p class=&quot;featured-entry-meta&quot;&gt;$799.00&lt;/p&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+        #pug5.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Featured products carousel
+              .widget.widget-featured-entries
+                h3.widget-title Featured products
+                .owl-carousel(data-owl-carousel='{ &quot;nav&quot;: false, &quot;dots&quot;: true, &quot;loop&quot;: true, &quot;margin&quot;: 30 }')
+                  .media
+                    a(href=&quot;#&quot;).featured-entry-thumb
+                      img(src=&quot;path-to-image&quot;, width=&quot;64&quot;, alt=&quot;Product thumb&quot;)
+                    .media-body
+                      h6.featured-entry-title
+                        a(href=&quot;#&quot;) Sennheiser HD 650 Pro
+                      +star-rating(4)
+                      p.featured-entry-meta $259.99
+                  .media
+                    a(href=&quot;#&quot;).featured-entry-thumb
+                      img(src=&quot;path-to-image&quot;, width=&quot;64&quot;, alt=&quot;Product thumb&quot;)
+                    .media-body
+                      h6.featured-entry-title
+                        a(href=&quot;#&quot;) Amazon Cloud Cam Security
+                      +star-rating(3)
+                      p.featured-entry-meta $119.99
+                  .media
+                    a(href=&quot;#&quot;).featured-entry-thumb
+                      img(src=&quot;path-to-image&quot;, width=&quot;64&quot;, alt=&quot;Product thumb&quot;)
+                    .media-body
+                      h6.featured-entry-title
+                        a(href=&quot;#&quot;) Samsung Galaxy S10 128GB
+                      +star-rating(5)
+                      p.featured-entry-meta $799.00
+
+  // Shopping cart
+  h2.h5.pt-5.mb-3 Shopping cart
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result6' data-toggle='tab' role='tab' aria-controls='result6' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html6' data-toggle='tab' role='tab' aria-controls='html6' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug6' data-toggle='tab' role='tab' aria-controls='pug6' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result6.tab-pane.fade.show.active(role='tabpanel')
+          .row.py-2
+            .col-lg-5.col-sm-6
+              .widget.widget-featured-entries
+                h3.widget-title Your cart
+                .media
+                  .featured-entry-thumb.mr-3
+                    a(href='#')
+                      img(src='../img/shop/widget/07.jpg' width='64' alt='Product thumb')
+                    span.item-remove-btn
+                      i(data-feather='x')
+                  .media-body
+                    h6.featured-entry-title
+                      a(href='#') Calvin Klein Jeans Keds
+                    p.featured-entry-meta 1 <span class='text-muted'>x</span> $125.00
+                .media
+                  .featured-entry-thumb.mr-3
+                    a(href='#')
+                      img(src='../img/shop/widget/08.jpg' width='64' alt='Product thumb')
+                    span.item-remove-btn
+                      i(data-feather='x')
+                  .media-body
+                    h6.featured-entry-title
+                      a(href='#') The North Face Hoodie
+                    p.featured-entry-meta 1 <span class='text-muted'>x</span> $134.00
+                .media
+                  .featured-entry-thumb.mr-3
+                    a(href='#')
+                      img(src='../img/shop/widget/09.jpg' width='64' alt='Product thumb')
+                    span.item-remove-btn
+                      i(data-feather='x')
+                  .media-body
+                    h6.featured-entry-title
+                      a(href='#') Medicine Chameleon Sunglasses
+                    p.featured-entry-meta 1 <span class='text-muted'>x</span> $47.00
+                hr
+                .d-flex.justify-content-between.align-items-center.py-3
+                  .font-size-sm 
+                    span.mr-2 Subtotal:
+                    span.font-weight-semibold.text-dark $306.00
+                  a(href='#').btn.btn-outline-secondary.btn-sm
+                    | Expand cart
+                    i(data-feather='chevron-right').mr-n2
+                a(href='#').btn.btn-primary.btn-sm.btn-block
+                  i(data-feather='credit-card').mr-1
+                  | Checkout
+        #html6.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Shopping cart --&gt;
+              &lt;div class=&quot;widget widget-featured-entries&quot;&gt;
+                &lt;h3 class=&quot;widget-title&quot;&gt;Your cart&lt;/h3&gt;
+
+                &lt;!-- Item --&gt;
+                &lt;div class=&quot;media&quot;&gt;
+                  &lt;div class=&quot;featured-entry-thumb mr-3&quot;&gt;
+                    &lt;a href=&quot;#&quot;&gt;
+                      &lt;img src=&quot;path-to-image&quot; width=&quot;64&quot; alt=&quot;Product thumb&quot;&gt;
+                    &lt;/a&gt;
+                    &lt;span class=&quot;item-remove-btn&quot;&gt;
+                      &lt;i data-feather=&quot;x&quot;&gt;&lt;/i&gt;
+                    &lt;/span&gt;
+                  &lt;/div&gt;
+                  &lt;div class=&quot;media-body&quot;&gt;
+                    &lt;h6 class=&quot;featured-entry-title&quot;&gt;
+                      &lt;a href=&quot;#&quot;&gt;Calvin Klein Jeans Keds&lt;/a&gt;
+                    &lt;/h6&gt;
+                    &lt;p class=&quot;featured-entry-meta&quot;&gt;1 &lt;span class=&quot;text-muted&quot;&gt;x&lt;/span&gt; $125.00&lt;/p&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+
+                &lt;!-- Item --&gt;
+                &lt;div class=&quot;media&quot;&gt;
+                  &lt;div class=&quot;featured-entry-thumb mr-3&quot;&gt;
+                    &lt;a href=&quot;#&quot;&gt;
+                      &lt;img src=&quot;path-to-image&quot; width=&quot;64&quot; alt=&quot;Product thumb&quot;&gt;
+                    &lt;/a&gt;
+                    &lt;span class=&quot;item-remove-btn&quot;&gt;
+                      &lt;i data-feather=&quot;x&quot;&gt;&lt;/i&gt;
+                    &lt;/span&gt;
+                  &lt;/div&gt;
+                  &lt;div class=&quot;media-body&quot;&gt;
+                    &lt;h6 class=&quot;featured-entry-title&quot;&gt;
+                      &lt;a href=&quot;#&quot;&gt;The North Face Hoodie&lt;/a&gt;
+                    &lt;/h6&gt;
+                    &lt;p class=&quot;featured-entry-meta&quot;&gt;1 &lt;span class=&quot;text-muted&quot;&gt;x&lt;/span&gt; $134.00&lt;/p&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+
+                &lt;!-- Footer --&gt;
+                &lt;hr&gt;
+                &lt;div class=&quot;d-flex justify-content-between align-items-center py-3&quot;&gt;
+                  &lt;div class=&quot;font-size-sm&quot;&gt;
+                    &lt;span class=&quot;mr-2&quot;&gt;Subtotal:&lt;/span&gt;
+                    &lt;span class=&quot;font-weight-semibold text-dark&quot;&gt;$306.00&lt;/span&gt;
+                  &lt;/div&gt;
+                  &lt;a href=&quot;#&quot; class=&quot;btn btn-outline-secondary btn-sm&quot;&gt;
+                    Expand cart
+                    &lt;i data-feather=&quot;chevron-right&quot; class=&quot;mr-n2&quot;&gt;&lt;/i&gt;
+                  &lt;/a&gt;
+                &lt;/div&gt;
+                &lt;a href=&quot;#&quot; class=&quot;btn btn-primary btn-sm btn-block&quot;&gt;
+                  &lt;i data-feather=&quot;credit-card&quot; class=&quot;mr-1&quot;&gt;&lt;/i&gt;
+                  Checkout
+                &lt;/a&gt;
+              &lt;/div&gt;
+        #pug6.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Shopping cart
+              .widget.widget-featured-entries
+                h3.widget-title Your cart
+                .media
+                  .featured-entry-thumb.mr-3
+                    a(href=&quot;#&quot;)
+                      img(src=&quot;path-to-image&quot;, width=&quot;64&quot;, alt=&quot;Product thumb&quot;)
+                    span.item-remove-btn
+                      i(data-feather=&quot;x&quot;)
+                  .media-body
+                    h6.featured-entry-title
+                      a(href=&quot;#&quot;) Calvin Klein Jeans Keds
+                    p.featured-entry-meta 1 &lt;span class=&quot;text-muted&quot;&gt;x&lt;/span&gt; $125.00
+                .media
+                  .featured-entry-thumb.mr-3
+                    a(href=&quot;#&quot;)
+                      img(src=&quot;path-to-image&quot;, width=&quot;64&quot;, alt=&quot;Product thumb&quot;')
+                    span.item-remove-btn
+                      i(data-feather=&quot;x&quot;)
+                  .media-body
+                    h6.featured-entry-title
+                      a(href=&quot;#&quot;) The North Face Hoodie
+                    p.featured-entry-meta 1 &lt;span class=&quot;text-muted&quot;&gt;x&lt;/span&gt; $134.00
+                hr
+                .d-flex.justify-content-between.align-items-center.py-3
+                  .font-size-sm 
+                    span.mr-2 Subtotal:
+                    span.font-weight-semibold.text-dark $306.00
+                  a(href=&quot;#&quot;).btn.btn-outline-secondary.btn-sm
+                    | Expand cart
+                    i(data-feather=&quot;chevron-right&quot;).mr-n2
+                a(href=&quot;#&quot;).btn.btn-primary.btn-sm.btn-block
+                  i(data-feather=&quot;credit-card&quot;).mr-1
+                  | Checkout
+
+  // Tag cloud
+  h2.h5.pt-5.mb-3 Tag cloud
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result7' data-toggle='tab' role='tab' aria-controls='result7' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html7' data-toggle='tab' role='tab' aria-controls='html7' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug7' data-toggle='tab' role='tab' aria-controls='pug7' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result7.tab-pane.fade.show.active(role='tabpanel')
+          .row.pt-2
+            .col-lg-5.col-sm-6
+              .widget
+                h3.widget-title Popular tags
+                a.tag-link.mr-2.mb-2(href='#') #accessories
+                a.tag-link.mr-2.mb-2(href='#') #smart devices
+                a.tag-link.active.mr-2.mb-2(href='#') #active tag
+                a.tag-link.mr-2.mb-2(href='#') #apparel
+                a.tag-link.mr-2.mb-2(href='#') #handbags
+                a.tag-link.mb-2(href='#') #sunglasses
+        #html7.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Tag cloud --&gt;
+              &lt;div class=&quot;widget&quot;&gt;
+                &lt;h3 class=&quot;widget-title&quot;&gt;Popular tags&lt;/h3&gt;
+                &lt;a href=&quot;#&quot; class=&quot;tag-link mr-2 mb-2&quot;&gt;#accessories&lt;/a&gt;
+                &lt;a href=&quot;#&quot; class=&quot;tag-link mr-2 mb-2&quot;&gt;#smart devices&lt;/a&gt;
+                &lt;a href=&quot;#&quot; class=&quot;tag-link active mr-2 mb-2&quot;&gt;#active tag&lt;/a&gt;
+                &lt;a href=&quot;#&quot; class=&quot;tag-link mr-2 mb-2&quot;&gt;#apparel&lt;/a&gt;
+                &lt;a href=&quot;#&quot; class=&quot;tag-link mr-2 mb-2&quot;&gt;#handbags&lt;/a&gt;
+                &lt;a href=&quot;#&quot; class=&quot;tag-link mr-2 mb-2&quot;&gt;#sunglasses&lt;/a&gt;
+              &lt;/div&gt;
+        #pug7.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Tag cloud
+              .widget
+                h3.widget-title Popular tags
+                a.tag-link.mr-2.mb-2(href=&quot;#&quot;) #accessories
+                a.tag-link.mr-2.mb-2(href=&quot;#&quot;) #smart devices
+                a.tag-link.active.mr-2.mb-2(href=&quot;#&quot;) #active tag
+                a.tag-link.mr-2.mb-2(href=&quot;#&quot;) #apparel
+                a.tag-link.mr-2.mb-2(href=&quot;#&quot;) #handbags
+                a.tag-link.mb-2(href=&quot;#&quot;) #sunglasses
+
+  // Filter
+  h2.h5.pt-5.mb-3 Filter
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result8' data-toggle='tab' role='tab' aria-controls='result8' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html8' data-toggle='tab' role='tab' aria-controls='html8' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug8' data-toggle='tab' role='tab' aria-controls='pug8' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result8.tab-pane.fade.show.active(role='tabpanel')
+          .row.pt-2
+            .col-lg-5.col-sm-6
+              .widget.mb-5.mb-sm-0
+                h3.widget-title Filter by brand
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='adidas').custom-control-input
+                  label(for='adidas').custom-control-label
+                    | Adidas
+                    span.text-muted.ml-1 (254)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='bilabong').custom-control-input
+                  label(for='bilabong').custom-control-label
+                    | Bilabong
+                    span.text-muted.ml-1 (39)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='klein').custom-control-input
+                  label(for='klein').custom-control-label
+                    | Calvin Klein
+                    span.text-muted.ml-1 (128)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='nike').custom-control-input
+                  label(for='nike').custom-control-label
+                    | Nike
+                    span.text-muted.ml-1 (310)
+                .custom-control.custom-checkbox.mb-1
+                  input(type='checkbox' id='bahama').custom-control-input
+                  label(for='bahama').custom-control-label
+                    | Tommy Bahama
+                    span.text-muted.ml-1 (46)
+            .col-lg-5.col-sm-6
+              .widget
+                h3.widget-title Filter by price
+                .d-flex.align-items-center
+                  div
+                    label(for='from-price') From
+                    .input-group
+                      .input-group-prepend
+                        span.input-group-text.px-2
+                          i(data-feather='dollar-sign')
+                      input(type='text' id='from-price').form-control
+                  div.mx-2.pt-4 &ndash;
+                  div
+                    label(for='to-price') To
+                    .input-group
+                      .input-group-prepend
+                        span.input-group-text.px-2
+                          i(data-feather='dollar-sign')
+                      input(type='text' id='to-price').form-control
+        #html8.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Filter by brand (checkboxes) --&gt;
+              &lt;div class=&quot;widget&quot;&gt;
+                &lt;h3 class=&quot;widget-title&quot;&gt;Filter by brand&lt;/h3&gt;
+                &lt;div class=&quot;custom-control custom-checkbox&quot;&gt;
+                  &lt;input class=&quot;custom-control-input&quot; type=&quot;checkbox&quot; id=&quot;adidas&quot;&gt;
+                  &lt;label class=&quot;custom-control-label&quot; for=&quot;adidas&quot;&gt;
+                    Adidas
+                    &lt;span class=&quot;text-muted ml-1&quot;&gt;(254)&lt;/span&gt;
+                  &lt;/label&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;custom-control custom-checkbox&quot;&gt;
+                  &lt;input class=&quot;custom-control-input&quot; type=&quot;checkbox&quot; id=&quot;bilabong&quot;&gt;
+                  &lt;label class=&quot;custom-control-label&quot; for=&quot;bilabong&quot;&gt;
+                    Bilabong
+                    &lt;span class=&quot;text-muted ml-1&quot;&gt;(39)&lt;/span&gt;
+                  &lt;/label&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;custom-control custom-checkbox&quot;&gt;
+                  &lt;input class=&quot;custom-control-input&quot; type=&quot;checkbox&quot; id=&quot;klein&quot;&gt;
+                  &lt;label class=&quot;custom-control-label&quot; for=&quot;klein&quot;&gt;
+                    Calvin Klein
+                    &lt;span class=&quot;text-muted ml-1&quot;&gt;(128)&lt;/span&gt;
+                  &lt;/label&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;custom-control custom-checkbox&quot;&gt;
+                  &lt;input class=&quot;custom-control-input&quot; type=&quot;checkbox&quot; id=&quot;nike&quot;&gt;
+                  &lt;label class=&quot;custom-control-label&quot; for=&quot;nike&quot;&gt;
+                    Nike
+                    &lt;span class=&quot;text-muted ml-1&quot;&gt;(310)&lt;/span&gt;
+                  &lt;/label&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;custom-control custom-checkbox&quot;&gt;
+                  &lt;input class=&quot;custom-control-input&quot; type=&quot;checkbox&quot; id=&quot;bahama&quot;&gt;
+                  &lt;label class=&quot;custom-control-label&quot; for=&quot;bahama&quot;&gt;
+                    Tommy Bahama
+                    &lt;span class=&quot;text-muted ml-1&quot;&gt;(46)&lt;/span&gt;
+                  &lt;/label&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+
+              &lt;!-- Filter by price (input groups) --&gt;
+              &lt;div class=&quot;widget&quot;&gt;
+                &lt;h3 class=&quot;widget-title&quot;&gt;Filter by price&lt;/h3&gt;
+                &lt;div class=&quot;d-flex align-items-center&quot;&gt;
+                  &lt;div&gt;
+                    &lt;label for=&quot;from-price&quot;&gt;From&lt;/label&gt;
+                    &lt;div class=&quot;input-group&quot;&gt;
+                      &lt;div class=&quot;input-group-prepend&quot;&gt;
+                        &lt;span class=&quot;input-group-text&quot;&gt;
+                          &lt;i data-feather=&quot;dollar-sign&quot;&gt;&lt;/i&gt;
+                        &lt;/span&gt;
+                      &lt;/div&gt;
+                      &lt;input type=&quot;text&quot; class=&quot;form-control&quot; id=&quot;from-price&quot;&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                  &lt;div class=&quot;mx-2 pt-4&quot;&gt;&amp;ndash;&lt;/div&gt;
+                  &lt;div&gt;
+                    &lt;label for=&quot;to-price&quot;&gt;To&lt;/label&gt;
+                    &lt;div class=&quot;input-group&quot;&gt;
+                      &lt;div class=&quot;input-group-prepend&quot;&gt;
+                        &lt;span class=&quot;input-group-text&quot;&gt;
+                          &lt;i data-feather=&quot;dollar-sign&quot;&gt;&lt;/i&gt;
+                        &lt;/span&gt;
+                      &lt;/div&gt;
+                      &lt;input type=&quot;text&quot; class=&quot;form-control&quot; id=&quot;to-price&quot;&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+        #pug8.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Filter by brand (checkboxes)
+              .widget.mb-5.mb-sm-0
+                h3.widget-title Filter by brand
+                .custom-control.custom-checkbox.mb-1
+                  input(type=&quot;checkbox&quot;, id=&quot;adidas&quot;).custom-control-input
+                  label(for=&quot;adidas&quot;).custom-control-label
+                    | Adidas
+                    span.text-muted.ml-1 (254)
+                .custom-control.custom-checkbox.mb-1
+                  input(type=&quot;checkbox&quot;, id=&quot;bilabong&quot;).custom-control-input
+                  label(for=&quot;bilabong&quot;).custom-control-label
+                    | Bilabong
+                    span.text-muted.ml-1 (39)
+                .custom-control.custom-checkbox.mb-1
+                  input(type=&quot;checkbox&quot;, id=&quot;klein&quot;).custom-control-input
+                  label(for=&quot;klein&quot;).custom-control-label
+                    | Calvin Klein
+                    span.text-muted.ml-1 (128)
+                .custom-control.custom-checkbox.mb-1
+                  input(type=&quot;checkbox&quot;, id=&quot;nike&quot;).custom-control-input
+                  label(for=&quot;nike&quot;).custom-control-label
+                    | Nike
+                    span.text-muted.ml-1 (310)
+                .custom-control.custom-checkbox.mb-1
+                  input(type=&quot;checkbox&quot;, id=&quot;bahama&quot;).custom-control-input
+                  label(for=&quot;bahama&quot;).custom-control-label
+                    | Tommy Bahama
+                    span.text-muted.ml-1 (46)
+
+              // Filter by price (input groups)
+              .widget
+                h3.widget-title Filter by price
+                .d-flex.align-items-center
+                  div
+                    label(for=&quot;from-price&quot;) From
+                    .input-group
+                      .input-group-prepend
+                        span.input-group-text.px-2
+                          i(data-feather=&quot;dollar-sign&quot;)
+                      input(type=&quot;text&quot;, id=&quot;from-price&quot;).form-control
+                  div.mx-2.pt-4 &amp;ndash;
+                  div
+                    label(for=&quot;to-price&quot;) To
+                    .input-group
+                      .input-group-prepend
+                        span.input-group-text.px-2
+                          i(data-feather=&quot;dollar-sign&quot;)
+                      input(type=&quot;text&quot;, id=&quot;to-price&quot;).form-control
+
+  // Contact details
+  h2.h5.pt-5.mb-3 Contact details
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result9' data-toggle='tab' role='tab' aria-controls='result9' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html9' data-toggle='tab' role='tab' aria-controls='html9' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug9' data-toggle='tab' role='tab' aria-controls='pug9' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content.pt-1
+        #result9.tab-pane.fade.show.active(role='tabpanel')
+          .row
+            .col-md-5.col-sm-7
+              ul.contact-list
+                li
+                  .contact-icon
+                    i(data-feather='map-pin')
+                  .contact-details
+                    span.contact-label Find us
+                    a(href='#').contact-link 769, Industrial Dr, West Chicago, IL 60185, USA
+                li
+                  .contact-icon
+                    i(data-feather='phone')
+                  .contact-details
+                    span.contact-label Call us
+                    a(href='tel:+184725276533').contact-link +1 (847) 252 765 33
+                li
+                  .contact-icon
+                    i(data-feather='mail')
+                  .contact-details
+                    span.contact-label Write us
+                    a(href='mailto:email@example.com').contact-link email@example.com
+        #html9.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Contacts details widget --&gt;
+              &lt;ul class=&quot;contact-list&quot;&gt;
+                &lt;li&gt;
+                  &lt;div class=&quot;contact-icon&quot;&gt;
+                    &lt;i data-feather=&quot;map-pin&quot;&gt;&lt;/i&gt;
+                  &lt;/div&gt;
+                  &lt;div class=&quot;contact-details&quot;&gt;
+                    &lt;span&gt;Find us&lt;/span&gt;
+                    &lt;a href=&quot;link-to-google-map&quot; class=&quot;contact-link&quot;&gt;769, Industrial Dr, West Chicago, IL 60185, USA&lt;/a&gt;
+                  &lt;/div&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;div class=&quot;contact-icon&quot;&gt;
+                    &lt;i data-feather=&quot;phone&quot;&gt;&lt;/i&gt;
+                  &lt;/div&gt;
+                  &lt;div class=&quot;contact-details&quot;&gt;
+                    &lt;span&gt;Call us&lt;/span&gt;
+                    &lt;a href=&quot;tel:+184725276533&quot; class=&quot;contact-link&quot;&gt;+1 (847) 252 765 33&lt;/a&gt;
+                  &lt;/div&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;div class=&quot;contact-icon&quot;&gt;
+                    &lt;i data-feather=&quot;mail&quot;&gt;&lt;/i&gt;
+                  &lt;/div&gt;
+                  &lt;div class=&quot;contact-details&quot;&gt;
+                    &lt;span&gt;Write us&lt;/span&gt;
+                    &lt;a href=&quot;mailto:email@example.com&quot; class=&quot;contact-link&quot;&gt;email@example.com&lt;/a&gt;
+                  &lt;/div&gt;
+                &lt;/li&gt;
+              &lt;/ul&gt;
+        #pug9.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Contacts details widget
+              ul.contact-list
+                li
+                  .contact-icon
+                    i(data-feather=&quot;map-pin&quot;)
+                  .contact-details
+                    span.contact-label Find us
+                    a.contact-link(href=&quot;link-to-google-map&quot;) 769, Industrial Dr, West Chicago, IL 60185, USA
+                li
+                  .contact-icon
+                    i(data-feather=&quot;phone&quot;)
+                  .contact-details
+                    span.contact-label Call us
+                    a.contact-link(href=&quot;tel:+184725276533&quot;) +1 (847) 252 765 33
+                li
+                  .contact-icon
+                    i(data-feather=&quot;mail&quot;)
+                  .contact-details
+                    span.contact-label Write us
+                    a.contact-link(href=&quot;mailto:email@example.com&quot;) email@example.com

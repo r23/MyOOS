@@ -1,0 +1,140 @@
+extends ../partials/layout-components
+
+//- Override default config variables
+append config
+  - var pageTitle = 'Breadcrumb'
+  - var pageSubTitle = '&mdash;&nbsp; Indicate the current page’s location within a navigational hierarchy. <a href="https://getbootstrap.com/docs/4.3/components/breadcrumb/" target="_blank">See Bootstrap documentation</a>.'
+  - var isNestedFile = true
+  - var isCodeHighlighting = true
+  - var breadcrumbs = [{'title': 'Home', 'link': '../index.html'}, {'title': 'Components', 'link': '#'}]
+
+//- Page Content
+block content
+
+  // Breadcrumb example
+  h2.h5.mb-3 Breadcrumb example
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result1' data-toggle='tab' role='tab' aria-controls='result1' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html1' data-toggle='tab' role='tab' aria-controls='html1' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug1' data-toggle='tab' role='tab' aria-controls='pug1' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result1.tab-pane.fade.show.active(role='tabpanel')
+          nav(aria-label='breadcrumb').mb-3
+            ol.breadcrumb
+              li.breadcrumb-item: a(href='#') Home
+              li.breadcrumb-item: a(href='#') Library
+              li(aria-current='page').breadcrumb-item.active Data
+          nav(aria-label='breadcrumb')
+            ol.breadcrumb
+              li.mt-n1.mr-1: i(data-feather='home')
+              li.breadcrumb-item: a(href='#') Home
+              li.breadcrumb-item: a(href='#') Library
+              li(aria-current='page').breadcrumb-item.active Data
+        #html1.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Basic example --&gt;
+              &lt;nav aria-label=&quot;breadcrumb&quot;&gt;
+                &lt;ol class=&quot;breadcrumb&quot;&gt;
+                  &lt;li class=&quot;breadcrumb-item&quot;&gt;&lt;a href=&quot;#&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;
+                  &lt;li class=&quot;breadcrumb-item&quot;&gt;&lt;a href=&quot;#&quot;&gt;Library&lt;/a&gt;&lt;/li&gt;
+                  &lt;li class=&quot;breadcrumb-item active&quot; aria-current=&quot;page&quot;&gt;Data&lt;/li&gt;
+                &lt;/ol&gt;
+              &lt;/nav&gt;
+
+              &lt;!-- Home icon --&gt;
+              &lt;nav aria-label=&quot;breadcrumb&quot;&gt;
+                &lt;ol class=&quot;breadcrumb&quot;&gt;
+                  &lt;li class=&quot;mt-n1 mr-1&quot;&gt;&lt;i data-feather=&quot;home&quot;&gt;&lt;/i&gt;&lt;/li&gt;
+                  &lt;li class=&quot;breadcrumb-item&quot;&gt;&lt;a href=&quot;#&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;
+                  &lt;li class=&quot;breadcrumb-item&quot;&gt;&lt;a href=&quot;#&quot;&gt;Library&lt;/a&gt;&lt;/li&gt;
+                  &lt;li class=&quot;breadcrumb-item active&quot; aria-current=&quot;page&quot;&gt;Data&lt;/li&gt;
+                &lt;/ol&gt;
+              &lt;/nav&gt;
+        #pug1.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Basic example
+              nav(aria-label=&quot;breadcrumb&quot;).mb-3
+                ol.breadcrumb
+                  li.breadcrumb-item
+                    a(href=&quot;#&quot;) Home
+                  li.breadcrumb-item
+                    a(href=&quot;#&quot;) Library
+                  li(aria-current=&quot;page&quot;).breadcrumb-item.active
+                    | Data
+
+              // Home icon
+              nav(aria-label=&quot;breadcrumb&quot;)
+                ol.breadcrumb
+                  li.mt-n1.mr-1: i(data-feather=&quot;home&quot;)
+                  li.breadcrumb-item
+                    a(href=&quot;#&quot;) Home
+                  li.breadcrumb-item
+                    a(href=&quot;#&quot;) Library
+                  li(aria-current=&quot;page&quot;).breadcrumb-item.active
+                    | Data
+
+  // Along with page title
+  h2.h5.pt-5.mb-3 Along with page title
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result2' data-toggle='tab' role='tab' aria-controls='result2' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html2' data-toggle='tab' role='tab' aria-controls='html2' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug2' data-toggle='tab' role='tab' aria-controls='pug2' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result2.tab-pane.fade.show.active(role='tabpanel')
+          .page-title-wrapper.py-4(aria-label='Page title')
+            .container
+              nav(aria-label='breadcrumb')
+                ol.breadcrumb
+                  li.mt-n1.mr-1: i(data-feather='home')
+                  li.breadcrumb-item: a(href='#') Home
+                  li.breadcrumb-item: a(href='#') Library
+              h1.page-title Page title
+              span.d-block.mt-2.text-muted Page subtitle text goes here
+              hr.mt-4
+        #html2.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;div class=&quot;page-title-wrapper&quot; aria-label=&quot;Page title&quot;&gt;
+                &lt;div class=&quot;container&quot;&gt;
+                  &lt;nav aria-label=&quot;breadcrumb&quot;&gt;
+                    &lt;ol class=&quot;breadcrumb&quot;&gt;
+                      &lt;li class=&quot;mt-n1 mr-1&quot;&gt;&lt;i data-feather=&quot;home&quot;&gt;&lt;/i&gt;&lt;/li&gt;
+                      &lt;li class=&quot;breadcrumb-item&quot;&gt;&lt;a href=&quot;#&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;
+                      &lt;li class=&quot;breadcrumb-item&quot;&gt;&lt;a href=&quot;#&quot;&gt;Library&lt;/a&gt;&lt;/li&gt;
+                    &lt;/ol&gt;
+                  &lt;/nav&gt;
+                  &lt;h1&gt;Page title&lt;/h1&gt;
+                  &lt;span class=&quot;d-block mt-2 text-muted&quot;&gt;Page subtitle text goes here&lt;/span&gt;
+                  &lt;hr class=&quot;mt-4&quot;&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+        #pug2.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              .page-title-wrapper(aria-label=&quot;Page title&quot;)
+                .container
+                  nav(aria-label=&quot;breadcrumb&quot;)
+                    ol.breadcrumb
+                      li.mt-n1.mr-1
+                        i(data-feather=&quot;home&quot;)
+                      li.breadcrumb-item
+                        a(href=&quot;#&quot;) Home
+                      li.breadcrumb-item
+                        a(href=&quot;#&quot;) Library
+                  h1.page-title Page title
+                  span.d-block.mt-2.text-muted Page subtitle text goes here
+                  hr.mt-4

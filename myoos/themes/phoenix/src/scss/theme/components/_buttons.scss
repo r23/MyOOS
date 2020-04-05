@@ -1,0 +1,103 @@
+//
+// Buttons
+// --------------------------------------------------
+
+
+// Override button global settings
+
+.btn {
+  white-space: nowrap;
+  > .feather:not([style*='width']) {
+    width: $btn-icon-size;
+    height: $btn-icon-size;
+    margin-top: -.125rem;
+  }
+}
+.btn-primary, .btn-success,
+.btn-danger, .btn-warning,
+.btn-info, .btn-dark,
+.btn-outline-warning:hover,
+.btn-outline-warning:active {
+  color: $btn-dark-color !important;
+}
+.btn-secondary,
+.btn-outline-secondary,
+.btn-light {
+  &, &:hover {
+    color: $btn-light-color !important;
+  }
+}
+.btn-outline-light:hover {
+  color: $btn-light-color !important;
+}
+.btn-secondary,
+.btn-outline-secondary {
+  border-color: $border-color;
+}
+.btn-light:hover,
+.btn-light:not(:disabled):not(.disabled):active, .btn-light:not(:disabled):not(.disabled).active, .show>.btn-light.dropdown-toggle {
+ border-color: theme-color('light');
+ background-color: theme-color('light');
+}
+
+
+// Adding box-shadow to all solid buttons except secondary
+
+.btn:not([class*="btn-outline"]):not(.btn-secondary) {
+  box-shadow: $btn-box-shadow;
+  &:hover, &.active,
+  &:active, &:disabled,
+  &.disabled { box-shadow: none; }
+}
+
+
+// Pill buttons
+
+.btn-pill,
+.form-control-pill {
+  border-radius: $btn-pill-border-radius;
+  &.btn-sm,
+  &.form-control-sm {
+    border-radius: $btn-pill-border-radius-sm;
+  }
+  &.btn-lg,
+  &.form-control-lg {
+    border-radius: $btn-pill-border-radius-lg;
+  }
+}
+
+
+// Scroll to top button
+
+.scroll-to-top-btn {
+  display: block;
+  position: fixed;
+  right: -($scroll-top-btn-padding-x * 2 + $scroll-top-btn-icon-size);
+  bottom: $spacer;
+  transition: $scroll-top-btn-transition;
+  padding: $scroll-top-btn-padding-y $scroll-top-btn-padding-x;
+  @include border-radius($btn-border-radius);
+  background-color: $scroll-top-btn-bg;
+  color: $scroll-top-btn-color;
+  opacity: 0;
+  z-index: $zindex-scroll-top-btn;
+  > .scroll-to-top-btn-icon {
+    width: $scroll-top-btn-icon-size;
+    height: $scroll-top-btn-icon-size;
+    margin-top: -.25rem;
+  }
+
+  &:hover {
+    background-color: $scroll-top-btn-hover-bg;
+    color: $scroll-top-btn-hover-color;
+  }
+
+  &.show {
+    right: $spacer;
+    opacity: 1;
+  }
+
+  @include media-breakpoint-down(sm) {
+    padding: ($scroll-top-btn-padding-y / 1.5) ($scroll-top-btn-padding-x / 1.5);
+  }
+}

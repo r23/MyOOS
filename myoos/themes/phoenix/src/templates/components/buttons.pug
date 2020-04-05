@@ -1,0 +1,725 @@
+extends ../partials/layout-components
+
+//- Override default config variables
+append config
+  - var pageTitle = 'Buttons'
+  - var pageSubTitle = '&mdash;&nbsp; Custom button styles for actions in forms, dialogs, etc.. <a href="https://getbootstrap.com/docs/4.3/components/buttons/" target="_blank">See Bootstrap documentation</a>.'
+  - var isNestedFile = true
+  - var isCodeHighlighting = true
+  - var breadcrumbs = [{'title': 'Home', 'link': '../index.html'}, {'title': 'Components', 'link': '#'}]
+
+//- Page Content
+block content
+
+  // Solid (default) buttons
+  h2.h5.mb-3 Solid (default) buttons
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result1' data-toggle='tab' role='tab' aria-controls='result1' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html1' data-toggle='tab' role='tab' aria-controls='html1' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug1' data-toggle='tab' role='tab' aria-controls='pug1' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result1.tab-pane.fade.show.active(role='tabpanel')
+          button(type='button').btn.btn-primary.mb-2.mr-1 Primary
+          button(type='button').btn.btn-secondary.mb-2.mr-1 Secondary
+          button(type='button').btn.btn-success.mb-2.mr-1 Success
+          button(type='button').btn.btn-danger.mb-2.mr-1 Danger
+          button(type='button').btn.btn-warning.mb-2.mr-1 Warning
+          button(type='button').btn.btn-info.mb-2.mr-1 Info
+          button(type='button').btn.btn-light.mb-2.mr-1 Light
+          button(type='button').btn.btn-dark.mb-2 Dark
+        #html1.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Primary button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot;&gt;Primary&lt;/button&gt;
+
+              &lt;!-- Secondary button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-secondary&quot;&gt;Secondary&lt;/button&gt;
+
+              &lt;!-- Success button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-success&quot;&gt;Success&lt;/button&gt;
+
+              &lt;!-- Danger button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-danger&quot;&gt;Danger&lt;/button&gt;
+
+              &lt;!-- Warning button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-warning&quot;&gt;Warning&lt;/button&gt;
+
+              &lt;!-- Info button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-info&quot;&gt;Info&lt;/button&gt;
+
+              &lt;!-- Light button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-light&quot;&gt;Info&lt;/button&gt;
+
+              &lt;!-- Dark button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-dark&quot;&gt;Dark&lt;/button&gt;
+        #pug1.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Primary button
+              button(type=&quot;button&quot;).btn.btn-primary
+                | Primary
+
+              // Secondary button
+              button(type=&quot;button&quot;).btn.btn-secondary
+                | Secondary
+
+              // Success button
+              button(type=&quot;button&quot;).btn.btn-success
+                | Success
+
+              // Danger button
+              button(type=&quot;button&quot;).btn.btn-danger
+                | Danger
+
+              // Warning button
+              button(type=&quot;button&quot;).btn.btn-warning
+                | Warning
+
+              // Info button
+              button(type=&quot;button&quot;).btn.btn-info
+                | Info
+
+              // Light button
+              button(type=&quot;button&quot;).btn.btn-light
+                | Light
+
+              // Dark button
+              button(type=&quot;button&quot;).btn.btn-dark
+                | Dark
+
+  // Outline buttons
+  h2.h5.pt-5.mb-3 Outline buttons
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result2' data-toggle='tab' role='tab' aria-controls='result2' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html2' data-toggle='tab' role='tab' aria-controls='html2' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug2' data-toggle='tab' role='tab' aria-controls='pug2' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result2.tab-pane.fade.show.active(role='tabpanel')
+          button(type='button').btn.btn-outline-primary.mb-2.mr-1 Primary
+          button(type='button').btn.btn-outline-secondary.mb-2.mr-1 Secondary
+          button(type='button').btn.btn-outline-success.mb-2.mr-1 Success
+          button(type='button').btn.btn-outline-danger.mb-2.mr-1 Danger
+          button(type='button').btn.btn-outline-warning.mb-2.mr-1 Warning
+          button(type='button').btn.btn-outline-info.mb-2.mr-1 Info
+          .d-inline-block.align-middle.bg-dark.p-2.mr-1.mb-2
+            button(type='button').btn.btn-outline-light Light
+          button(type='button').btn.btn-outline-dark.mb-2 Dark
+        #html2.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Primary button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-outline-primary&quot;&gt;Primary&lt;/button&gt;
+
+              &lt;!-- Secondary button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-outline-secondary&quot;&gt;Secondary&lt;/button&gt;
+
+              &lt;!-- Success button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-outline-success&quot;&gt;Success&lt;/button&gt;
+
+              &lt;!-- Danger button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-outline-danger&quot;&gt;Danger&lt;/button&gt;
+
+              &lt;!-- Warning button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-outline-warning&quot;&gt;Warning&lt;/button&gt;
+
+              &lt;!-- Info button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-outline-info&quot;&gt;Info&lt;/button&gt;
+
+              &lt;!-- Light button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-outline-light&quot;&gt;Info&lt;/button&gt;
+
+              &lt;!-- Dark button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-outline-dark&quot;&gt;Dark&lt;/button&gt;
+        #pug2.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Primary button
+              button(type=&quot;button&quot;).btn.btn-outline-primary
+                | Primary
+
+              // Secondary button
+              button(type=&quot;button&quot;).btn.btn-outline-secondary
+                | Secondary
+
+              // Success button
+              button(type=&quot;button&quot;).btn.btn-outline-success
+                | Success
+
+              // Danger button
+              button(type=&quot;button&quot;).btn.btn-outline-danger
+                | Danger
+
+              // Warning button
+              button(type=&quot;button&quot;).btn.btn-outline-warning
+                | Warning
+
+              // Info button
+              button(type=&quot;button&quot;).btn.btn-outline-info
+                | Info
+
+              // Light button
+              button(type=&quot;button&quot;).btn.btn-outline-light
+                | Light
+
+              // Dark button
+              button(type=&quot;button&quot;).btn.btn-outline-dark
+                | Dark
+
+  // Rounded solid buttons
+  h2.h5.pt-5.mb-3 Rounded solid buttons
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result3' data-toggle='tab' role='tab' aria-controls='result3' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html3' data-toggle='tab' role='tab' aria-controls='html3' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug3' data-toggle='tab' role='tab' aria-controls='pug3' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result3.tab-pane.fade.show.active(role='tabpanel')
+          button(type='button').btn.btn-primary.rounded.mb-2.mr-1 Primary
+          button(type='button').btn.btn-secondary.rounded.mb-2.mr-1 Secondary
+          button(type='button').btn.btn-success.rounded.mb-2.mr-1 Success
+          button(type='button').btn.btn-danger.rounded.mb-2.mr-1 Danger
+          button(type='button').btn.btn-warning.rounded.mb-2.mr-1 Warning
+          button(type='button').btn.btn-info.rounded.mb-2.mr-1 Info
+          .d-inline-block.align-middle.bg-dark.p-2.mr-1.mb-2
+            button(type='button').btn.btn-light.rounded Light
+          button(type='button').btn.btn-dark.rounded.mb-2 Dark
+        #html3.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Primary button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-primary rounded&quot;&gt;Primary&lt;/button&gt;
+
+              &lt;!-- Secondary button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-secondary rounded&quot;&gt;Secondary&lt;/button&gt;
+
+              &lt;!-- Success button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-success rounded&quot;&gt;Success&lt;/button&gt;
+
+              &lt;!-- Danger button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-danger rounded&quot;&gt;Danger&lt;/button&gt;
+
+              &lt;!-- Warning button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-warning rounded&quot;&gt;Warning&lt;/button&gt;
+
+              &lt;!-- Info button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-info rounded&quot;&gt;Info&lt;/button&gt;
+
+              &lt;!-- Light button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-light rounded&quot;&gt;Info&lt;/button&gt;
+
+              &lt;!-- Dark button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-dark rounded&quot;&gt;Dark&lt;/button&gt;
+        #pug3.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Primary button
+              button(type=&quot;button&quot;).btn.btn-primary.rounded
+                | Primary
+
+              // Secondary button
+              button(type=&quot;button&quot;).btn.btn-secondary.rounded
+                | Secondary
+
+              // Success button
+              button(type=&quot;button&quot;).btn.btn-success.rounded
+                | Success
+
+              // Danger button
+              button(type=&quot;button&quot;).btn.btn-danger.rounded
+                | Danger
+
+              // Warning button
+              button(type=&quot;button&quot;).btn.btn-warning.rounded
+                | Warning
+
+              // Info button
+              button(type=&quot;button&quot;).btn.btn-info.rounded
+                | Info
+
+              // Light button
+              button(type=&quot;button&quot;).btn.btn-light.rounded
+                | Light
+
+              // Dark button
+              button(type=&quot;button&quot;).btn.btn-dark.rounded
+                | Dark
+
+  // Rounded outline buttons
+  h2.h5.pt-5.mb-3 Rounded outline buttons
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result4' data-toggle='tab' role='tab' aria-controls='result4' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html4' data-toggle='tab' role='tab' aria-controls='html4' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug4' data-toggle='tab' role='tab' aria-controls='pug4' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result4.tab-pane.fade.show.active(role='tabpanel')
+          button(type='button').btn.btn-outline-primary.rounded.mb-2.mr-1 Primary
+          button(type='button').btn.btn-outline-secondary.rounded.mb-2.mr-1 Secondary
+          button(type='button').btn.btn-outline-success.rounded.mb-2.mr-1 Success
+          button(type='button').btn.btn-outline-danger.rounded.mb-2.mr-1 Danger
+          button(type='button').btn.btn-outline-warning.rounded.mb-2.mr-1 Warning
+          button(type='button').btn.btn-outline-info.rounded.mb-2.mr-1 Info
+          .d-inline-block.align-middle.bg-dark.p-2.mr-1.mb-2
+            button(type='button').btn.btn-outline-light.rounded Light
+          button(type='button').btn.btn-outline-dark.rounded.mb-2 Dark
+        #html4.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Primary button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-outline-primary rounded&quot;&gt;Primary&lt;/button&gt;
+
+              &lt;!-- Secondary button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-outline-secondary rounded&quot;&gt;Secondary&lt;/button&gt;
+
+              &lt;!-- Success button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-outline-success rounded&quot;&gt;Success&lt;/button&gt;
+
+              &lt;!-- Danger button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-outline-danger rounded&quot;&gt;Danger&lt;/button&gt;
+
+              &lt;!-- Warning button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-outline-warning rounded&quot;&gt;Warning&lt;/button&gt;
+
+              &lt;!-- Info button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-outline-info rounded&quot;&gt;Info&lt;/button&gt;
+
+              &lt;!-- Light button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-outline-light rounded&quot;&gt;Info&lt;/button&gt;
+
+              &lt;!-- Dark button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-outline-dark rounded&quot;&gt;Dark&lt;/button&gt;
+        #pug4.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Primary button
+              button(type=&quot;button&quot;).btn.btn-outline-primary.rounded
+                | Primary
+
+              // Secondary button
+              button(type=&quot;button&quot;).btn.btn-outline-secondary.rounded
+                | Secondary
+
+              // Success button
+              button(type=&quot;button&quot;).btn.btn-outline-success.rounded
+                | Success
+
+              // Danger button
+              button(type=&quot;button&quot;).btn.btn-outline-danger.rounded
+                | Danger
+
+              // Warning button
+              button(type=&quot;button&quot;).btn.btn-outline-warning.rounded
+                | Warning
+
+              // Info button
+              button(type=&quot;button&quot;).btn.btn-outline-info.rounded
+                | Info
+
+              // Light button
+              button(type=&quot;button&quot;).btn.btn-outline-light.rounded
+                | Light
+
+              // Dark button
+              button(type=&quot;button&quot;).btn.btn-outline-dark.rounded
+                | Dark
+
+  // Pill solid buttons
+  h2.h5.pt-5.mb-3 Pill solid buttons
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result5' data-toggle='tab' role='tab' aria-controls='result5' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html5' data-toggle='tab' role='tab' aria-controls='html5' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug3' data-toggle='tab' role='tab' aria-controls='pug5' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result5.tab-pane.fade.show.active(role='tabpanel')
+          button(type='button').btn.btn-pill.btn-primary.mb-2.mr-1 Primary
+          button(type='button').btn.btn-pill.btn-secondary.mb-2.mr-1 Secondary
+          button(type='button').btn.btn-pill.btn-success.mb-2.mr-1 Success
+          button(type='button').btn.btn-pill.btn-danger.mb-2.mr-1 Danger
+          button(type='button').btn.btn-pill.btn-warning.mb-2.mr-1 Warning
+          button(type='button').btn.btn-pill.btn-info.mb-2.mr-1 Info
+          button(type='button').btn.btn-pill.btn-light.mb-2.mr-1 Light
+          button(type='button').btn.btn-pill.btn-dark.mb-2 Dark
+        #html5.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Primary button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-pill btn-primary&quot;&gt;Primary&lt;/button&gt;
+
+              &lt;!-- Secondary button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-pill btn-secondary&quot;&gt;Secondary&lt;/button&gt;
+
+              &lt;!-- Success button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-pill btn-success&quot;&gt;Success&lt;/button&gt;
+
+              &lt;!-- Danger button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-pill btn-danger&quot;&gt;Danger&lt;/button&gt;
+
+              &lt;!-- Warning button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-pill btn-warning&quot;&gt;Warning&lt;/button&gt;
+
+              &lt;!-- Info button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-pill btn-info&quot;&gt;Info&lt;/button&gt;
+
+              &lt;!-- Light button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-pill btn-light&quot;&gt;Info&lt;/button&gt;
+
+              &lt;!-- Dark button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-pill btn-dark&quot;&gt;Dark&lt;/button&gt;
+        #pug5.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Primary button
+              button(type=&quot;button&quot;).btn.btn-pill.btn-primary
+                | Primary
+
+              // Secondary button
+              button(type=&quot;button&quot;).btn.btn-pill.btn-secondary
+                | Secondary
+
+              // Success button
+              button(type=&quot;button&quot;).btn.btn-pill.btn-success
+                | Success
+
+              // Danger button
+              button(type=&quot;button&quot;).btn.btn-pill.btn-danger
+                | Danger
+
+              // Warning button
+              button(type=&quot;button&quot;).btn.btn-pill.btn-warning
+                | Warning
+
+              // Info button
+              button(type=&quot;button&quot;).btn.btn-pill.btn-info
+                | Info
+
+              // Light button
+              button(type=&quot;button&quot;).btn.btn-pill.btn-light
+                | Light
+
+              // Dark button
+              button(type=&quot;button&quot;).btn.btn-pill.btn-dark
+                | Dark
+
+  // Pill outline buttons
+  h2.h5.pt-5.mb-3 Pill outline buttons
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result6' data-toggle='tab' role='tab' aria-controls='result6' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html6' data-toggle='tab' role='tab' aria-controls='html6' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug6' data-toggle='tab' role='tab' aria-controls='pug6' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result6.tab-pane.fade.show.active(role='tabpanel')
+          button(type='button').btn.btn-pill.btn-outline-primary.mb-2.mr-1 Primary
+          button(type='button').btn.btn-pill.btn-outline-secondary.mb-2.mr-1 Secondary
+          button(type='button').btn.btn-pill.btn-outline-success.mb-2.mr-1 Success
+          button(type='button').btn.btn-pill.btn-outline-danger.mb-2.mr-1 Danger
+          button(type='button').btn.btn-pill.btn-outline-warning.mb-2.mr-1 Warning
+          button(type='button').btn.btn-pill.btn-outline-info.mb-2.mr-1 Info
+          .d-inline-block.align-middle.bg-dark.p-2.mr-1.mb-2
+            button(type='button').btn.btn-pill.btn-outline-light Light
+          button(type='button').btn.btn-pill.btn-outline-dark.mb-2 Dark
+        #html6.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Primary button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-pill btn-outline-primary&quot;&gt;Primary&lt;/button&gt;
+
+              &lt;!-- Secondary button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-pill btn-outline-secondary&quot;&gt;Secondary&lt;/button&gt;
+
+              &lt;!-- Success button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-pill btn-outline-success&quot;&gt;Success&lt;/button&gt;
+
+              &lt;!-- Danger button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-pill btn-outline-danger&quot;&gt;Danger&lt;/button&gt;
+
+              &lt;!-- Warning button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-pill btn-outline-warning&quot;&gt;Warning&lt;/button&gt;
+
+              &lt;!-- Info button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-pill btn-outline-info&quot;&gt;Info&lt;/button&gt;
+
+              &lt;!-- Light button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-pill btn-outline-light&quot;&gt;Info&lt;/button&gt;
+
+              &lt;!-- Dark button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-pill btn-outline-dark&quot;&gt;Dark&lt;/button&gt;
+        #pug6.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Primary button
+              button(type=&quot;button&quot;).btn.btn-pill.btn-outline-primary
+                | Primary
+
+              // Secondary button
+              button(type=&quot;button&quot;).btn.btn-pill.btn-outline-secondary
+                | Secondary
+
+              // Success button
+              button(type=&quot;button&quot;).btn.btn-pill.btn-outline-success
+                | Success
+
+              // Danger button
+              button(type=&quot;button&quot;).btn.btn-pill.btn-outline-danger
+                | Danger
+
+              // Warning button
+              button(type=&quot;button&quot;).btn.btn-pill.btn-outline-warning
+                | Warning
+
+              // Info button
+              button(type=&quot;button&quot;).btn.btn-pill.btn-outline-info
+                | Info
+
+              // Light button
+              button(type=&quot;button&quot;).btn.btn-pill.btn-outline-light
+                | Light
+
+              // Dark button
+              button(type=&quot;button&quot;).btn.btn-pill.btn-outline-dark
+                | Dark
+
+  // Sizes
+  h2.h5.pt-5.mb-3 Sizes
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result7' data-toggle='tab' role='tab' aria-controls='result7' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html7' data-toggle='tab' role='tab' aria-controls='html7' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug7' data-toggle='tab' role='tab' aria-controls='pug7' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result7.tab-pane.fade.show.active(role='tabpanel')
+          button(type='button').btn.btn-primary.btn-lg.mb-2.mr-1 Large button
+          button(type='button').btn.btn-outline-primary.btn-lg.mb-2.mr-1 Large button
+          button(type='button').btn.btn-pill.btn-primary.btn-lg.mb-2.mr-1 Large button
+          button(type='button').btn.btn-pill.btn-outline-primary.btn-lg.mb-2.mr-1 Large button
+          .pb-3
+          button(type='button').btn.btn-primary.btn-sm.mb-2.mr-1 Small button
+          button(type='button').btn.btn-outline-primary.btn-sm.mb-2.mr-1 Small button
+          button(type='button').btn.btn-pill.btn-primary.btn-sm.mb-2.mr-1 Small button
+          button(type='button').btn.btn-pill.btn-outline-primary.btn-sm.mb-2.mr-1 Small button
+        #html7.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Large solid button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-primary btn-lg&quot;&gt;Large button&lt;/button&gt;
+
+              &lt;!-- Large outline button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-outline-primary btn-lg&quot;&gt;Large button&lt;/button&gt;
+
+              &lt;!-- Large pill solid button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-pill btn-primary btn-lg&quot;&gt;Large button&lt;/button&gt;
+
+              &lt;!-- Large pill outline button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-pill btn-outline-primary btn-lg&quot;&gt;Large button&lt;/button&gt;
+
+              &lt;!-- Small solid button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-primary btn-sm&quot;&gt;Large button&lt;/button&gt;
+
+              &lt;!-- Small outline button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-outline-primary btn-sm&quot;&gt;Large button&lt;/button&gt;
+
+              &lt;!-- Small pill solid button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-pill btn-primary btn-sm&quot;&gt;Large button&lt;/button&gt;
+
+              &lt;!-- Small pill outline button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-pill btn-outline-primary btn-sm&quot;&gt;Large button&lt;/button&gt;
+        #pug7.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Large solid button
+              button(type='button').btn.btn-primary.btn-lg
+                | Large button
+
+              // Large outline button
+              button(type='button').btn.btn-outline-primary.btn-lg
+                | Large button
+
+              // Large pill solid button
+              button(type='button').btn.btn-pill.btn-primary.btn-lg
+                | Large button
+
+              // Large pill outline button
+              button(type='button').btn.btn-pill.btn-outline-primary.btn-lg
+                | Large button
+
+              // Small solid button
+              button(type='button').btn.btn-primary.btn-sm
+                | Small button
+
+              // Small outline button
+              button(type='button').btn.btn-outline-primary.btn-sm
+                | Small button
+
+              // Small pill solid button
+              button(type='button').btn.btn-pill.btn-primary.btn-sm
+                | Small button
+
+              // Small pill outline button
+              button(type='button').btn.btn-pill.btn-outline-primary.btn-sm
+                | Small button
+
+  // Block level button
+  h2.h5.pt-5.mb-3 Block level button
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result8' data-toggle='tab' role='tab' aria-controls='result8' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html8' data-toggle='tab' role='tab' aria-controls='html8' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug8' data-toggle='tab' role='tab' aria-controls='pug8' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result8.tab-pane.fade.show.active(role='tabpanel')
+          .row
+            .col-sm-6.mb-3
+              button(type='button').btn.btn-primary.btn-block Block level button
+            .col-sm-6.mb-3
+              button(type='button').btn.btn-outline-primary.btn-block Block level button
+          .row
+            .col-sm-6.mb-3
+              button(type='button').btn.btn-pill.btn-primary.btn-block Block level button
+            .col-sm-6.mb-3
+              button(type='button').btn.btn-pill.btn-outline-primary.btn-block Block level button
+        #html8.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Solid block level button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-primary btn-block&quot;&gt;Block level button&lt;/button&gt;
+
+              &lt;!-- Outline block level button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-outline-primary btn-block&quot;&gt;Block level button&lt;/button&gt;
+
+              &lt;!-- Pill solid block level button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-pill btn-primary btn-block&quot;&gt;Block level button&lt;/button&gt;
+
+              &lt;!-- Pill outline block level button --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-pill btn-outline-primary btn-block&quot;&gt;Block level button&lt;/button&gt;
+        #pug8.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Solid block level button
+              button(type='button').btn.btn-primary.btn-block
+                | Block level button
+
+              // Outline block level button
+              button(type='button').btn.btn-outline-primary.btn-block
+                | Block level button
+
+              // Pill solid block level button
+              button(type='button').btn.btn-pill.btn-primary.btn-block
+                | Block level button
+
+              // Pill outline block level button
+              button(type='button').btn.btn-pill.btn-outline-primary.btn-block
+                | Block level button
+
+  // Active state
+  h2.h5.pt-5.mb-3 Active state
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result9' data-toggle='tab' role='tab' aria-controls='result9' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html9' data-toggle='tab' role='tab' aria-controls='html9' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug9' data-toggle='tab' role='tab' aria-controls='pug9' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result9.tab-pane.fade.show.active(role='tabpanel')
+          a(href='#' role='button' aria-pressed='true').btn.btn-primary.active.mb-2.mr-2 Primary button
+          a(href='#' role='button' aria-pressed='true').btn.btn-secondary.active.mb-2 Secondary button
+        #html9.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Active primary button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;btn btn-primary active&quot; role=&quot;button&quot; aria-pressed=&quot;true&quot;&gt;Primary button&lt;/a&gt;
+
+              &lt;!-- Active secondary button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;btn btn-secondary active&quot; role=&quot;button&quot; aria-pressed=&quot;true&quot;&gt;Secondary button&lt;/a&gt;
+        #pug9.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Active primary button
+              a(href=&quot;#&quot;, role=&quot;button&quot;, aria-pressed=&quot;true&quot;).btn.btn-primary.active
+                | Primary button
+
+              // Active secondary button
+              a(href=&quot;#&quot;, role=&quot;button&quot;, aria-pressed=&quot;true&quot;).btn.btn-secondary.active
+                | Secondary button
+
+  // Disabled state
+  h2.h5.pt-5.mb-3 Disabled state
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result10' data-toggle='tab' role='tab' aria-controls='result10' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html10' data-toggle='tab' role='tab' aria-controls='html10' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug10' data-toggle='tab' role='tab' aria-controls='pug10' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result10.tab-pane.fade.show.active(role='tabpanel')
+          a(href='#' tabindex='-1' role='button' aria-disabled='true').btn.btn-primary.disabled.mb-2.mr-2 Primary button
+          a(href='#' tabindex='-1' role='button' aria-disabled='true').btn.btn-secondary.disabled.mb-2 Secondary button
+        #html10.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Disabled primary button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;btn btn-primary disabled&quot; role=&quot;button&quot; aria-disabled=&quot;true&quot;&gt;Primary button&lt;/a&gt;
+
+              &lt;!-- Disabled secondary button --&gt;
+              &lt;a href=&quot;#&quot; class=&quot;btn btn-secondary disabled&quot; role=&quot;button&quot; aria-disabled=&quot;true&quot;&gt;Secondary button&lt;/a&gt;
+        #pug10.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Disabled primary button
+              a(href=&quot;#&quot;, role=&quot;button&quot;, aria-disabled=&quot;true&quot;).btn.btn-primary.disabled
+                | Primary button
+
+              // Disabled secondary button
+              a(href=&quot;#&quot;, role=&quot;button&quot;, aria-disabled=&quot;true&quot;).btn.btn-secondary.disabled
+                | Secondary button

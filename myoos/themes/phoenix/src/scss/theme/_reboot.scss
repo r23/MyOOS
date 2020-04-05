@@ -1,0 +1,50 @@
+//
+// Reboot
+// --------------------------------------------------
+
+//Import Google Fonts (Roboto)
+@import url('https://fonts.googleapis.com/css?family=Muli:300,400,600,700,800');
+
+html * {
+  @include font-smoothing;
+}
+
+// Links
+a:focus { outline: none; }
+
+// Images
+// Responsive images (ensure images don't scale beyond their parents)
+img,
+figure {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+svg { max-width: 100%; }
+
+// Responsive iframes
+iframe {
+  width: 100%;
+  border: 0;
+}
+
+// Feather icons
+.feather {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+// Horizontal rule
+hr {
+  margin: 0;
+  border: 0;
+  border-top: 1px solid $border-color;
+}
+
+// Text Selection Color
+::selection {
+  background: rgba($primary, .25);
+}
+::-moz-selection {
+  background: rgba($primary, .25);
+}

@@ -1,0 +1,46 @@
+//
+// Team
+// --------------------------------------------------
+
+
+// Avatar
+
+.team-avatar {
+  display: inline-block;
+  flex-shrink: 0;
+  width: $team-avatar-size;
+  margin-bottom: $spacer;
+  img {
+    display: block;
+    width: 100%;
+  }
+}
+
+
+// Title (member name)
+
+.team-title {
+  margin-bottom: $spacer * .5;
+  font-size: $team-title-font-size;
+}
+
+
+// Text (member position/info)
+
+.team-text {
+  color: $team-text-color;
+  font-size: $team-text-font-size;
+}
+
+
+// Style 2 (inside card)
+.card.team-member {
+  margin-top: ($team-avatar-size / 2);
+  .team-avatar {
+    width: $team-avatar-size + .125rem;
+    border: $border-width solid $border-color;
+    border-radius: 50%;
+    margin-top: -($card-spacer-x + ($team-avatar-size / 2));
+    overflow: hidden;
+  }
+}

@@ -1,0 +1,21 @@
+extends ../partials/layout-docs
+
+//- Override default config variables
+append config
+  - var pageTitle = 'Using Pug & Sass'
+  - var isNestedFile = true
+  - var breadcrumbs = [{'title': 'Home', 'link': '../index.html'}, {'title': 'Docs', 'link': '#'}]
+
+//- Page Content
+block content
+  .pb-5.mb-2
+    dl
+      dt Sass (Syntactically Awesome Style Sheets)
+      dd Sass is a scripting language that is interpreted or compiled into Cascading Style Sheets (CSS). It is the most mature, stable, and powerful professional grade CSS extension language in the world. Sass gives you the power of variables, mixins, functions, etc.
+      dt Pug (former Jade)
+      dd.mb-4 Pug is a high performance Node.js Templating Engine. Just like SASS, Pug is a prepocessor and, as such it helps you accomplishing tasks like wrapping away repetitive work by providing features not available in plain HTML like variables, includes, mixins, functions, etc.
+      
+    h2.h4.pt-3 Compiling Sass and Pug
+    p.mb-4 Again, if you are not using Node.js and Gulp setup, don't like command line interface there is another way to work with preprocessors. There is a popular software (GUI) for compiling Sass and Pug called <strong>"Prepross"</strong>. Visit it's website at <a href='https://prepros.io/' class='font-weight-medium' target='_blank'>https://prepros.io/</a>. Basic version is completely free and available for Mac and Windows.
+    img(src='../img/docs/prepros.png' alt='Prepros').d-block.img-thumbnail.mb-4
+    

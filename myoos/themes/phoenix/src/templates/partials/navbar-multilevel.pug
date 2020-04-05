@@ -1,0 +1,134 @@
+//- offcanvas-account.pug template
+include offcanvas-account
+
+//- offcanvas-cart.pug template
+include offcanvas-cart
+
+// Navbar Multilevel
+// First line: Topbar
+.navbar.bg-dark.py-2.px-0
+  .container.px-3
+
+    // contact info
+    ul.list-inline.mb-0.d-none.d-lg-inline-block
+      li.list-inline-item.opacity-75.mr-2
+        i(data-feather='phone' style='width: 13px; height: 13px;').text-light.mr-2
+        a(href='tel:00331697720').text-light.font-size-sm.py-1.pl-0.pr-2 00 33 169 7720
+      li.list-inline-item.opacity-75.mr-2
+        i(data-feather='mail' style='width: 13px; height: 13px;').text-light.mr-2
+        a(href='mailto:info@example.com').text-light.font-size-sm.py-1.pl-0.pr-2 info@example.com
+    
+    // links collapsed (moblie)
+    .dropdown.d-inline-block.d-lg-none
+      a(href='#' data-toggle='dropdown').dropdown-toggle.text-light.opacity-75.font-size-sm.py-1 Useful links
+      .dropdown-menu
+        a(href='#').dropdown-item About us
+        a(href='#').dropdown-item Help center
+        a(href='#').dropdown-item Delivery info
+        .dropdown-divider
+        a(href='tel:00331697720').dropdown-item
+          i(data-feather='phone' style='width: 13px; height: 13px;').mr-2
+          | 00 33 169 7720
+        a(href='mailto:info@example.com').dropdown-item
+          i(data-feather='mail' style='width: 13px; height: 13px;').mr-2
+          | info@example.com
+
+    .d-flex
+
+      // topbar menu
+      ul.list-inline.mb-0.d-none.d-lg-block
+        li.list-inline-item.mr-2
+          a(href='#').text-light.font-size-sm.opacity-75.py-1.pl-0.pr-2.border-right.border-light About us
+        li.list-inline-item.mr-2
+          a(href='#').text-light.font-size-sm.opacity-75.py-1.pl-0.pr-2.border-right.border-light Help center
+        li.list-inline-item.mr-2
+          a(href='#').text-light.font-size-sm.opacity-75.py-1.pl-0.pr-2 Delivery info
+      
+      // social bar  
+      .d-flex.flex-nowrap
+        a(href='#').social-btn.sb-facebook.sb-light.sb-sm.ml-2
+          i.flaticon-facebook
+          span.sr-only Facebook
+        a(href='#').social-btn.sb-twitter.sb-light.sb-sm.ml-2
+          i.flaticon-twitter
+          span.sr-only Twitter
+        a(href='#').social-btn.sb-instagram.sb-light.sb-sm.ml-2
+          i.flaticon-instagram
+          span.sr-only Instagram
+        a(href='#').social-btn.sb-pinterest.sb-light.sb-sm.ml-2
+          i.flaticon-pinterest
+          span.sr-only Pinterest
+
+// Second line
+header.navbar.navbar-expand-lg.navbar-light.bg-light.px-0
+  .container.flex-sm-nowrap.px-3
+
+    // navbar brand
+    a(class='navbar-brand mr-0 mr-sm-4' style='min-width: 100px;')&attributes(isNestedFile ? {'href': '../index.html'} : {'href': 'index.html'})
+      +image('img/logo-dark.png', 'MStore')(width='100')
+
+    // navbar buttons
+    .navbar-btns.d-flex.position-relative.order-sm-3
+      div(data-toggle='collapse' data-target='#menu').navbar-toggler.navbar-btn.collapsed.bg-0.border-left-0.my-3
+        i(data-feather='menu').mx-auto.mb-2
+        | Menu
+      a(href='product-comparison.html').navbar-btn.bg-0.my-3.border-left-0.navbar-collapse-hidden
+        span.d-block.position-relative
+          span.navbar-btn-badge.bg-secondary.border 3
+          i(data-feather='repeat').mx-auto.mb-1
+          | Compare
+      a(href='#offcanvas-account' data-toggle='offcanvas').navbar-btn.bg-0.my-3
+        i(data-feather='log-in').mx-auto.mb-1
+        | Sign In/Up
+      a(href='#offcanvas-cart' data-toggle='offcanvas').navbar-btn.bg-0.my-3
+        span.d-block.position-relative
+          span.navbar-btn-badge.bg-primary.text-light 4
+          i(data-feather='shopping-cart').mx-auto.mb-1
+          | $325.00
+
+    // search-box
+    .flex-grow-1.pb-3.pt-sm-3.my-1.px-sm-2.pr-lg-4.order-sm-2
+      .input-group.flex-nowrap
+        .input-group-prepend
+          span#search-icon.input-group-text.rounded-left
+            i(data-feather='search')
+        input(type='text' id='site-search' placeholder='Search site' aria-label='Search site' aria-describedby='search-icon').form-control.rounded-right
+          
+
+
+// Third line: Navigation
+.navbar.navbar-expand-lg.navbar-light.bg-light.px-0
+  .container.px-3
+
+    // navbar collapse area
+    #menu.collapse.navbar-collapse
+
+      // language/currency switcher
+      .navbar-lang-switcher.dropdown.pr-2
+        div(data-toggle='dropdown').dropdown-toggle
+          +image('img/flags/en.png', 'English')(width='20')
+          span USD
+        ul.dropdown-menu.dropdown-menu-left
+          li.dropdown-item
+            select.custom-select.custom-select-sm
+              option(value='usd') $ USD
+              option(value='usd') € EUR
+              option(value='usd') £ UKP
+              option(value='usd') ¥ JPY
+          li
+            a(href='index.html').dropdown-item
+              +image('img/flags/fr.png', 'Français')(class='mr-2' width='20')
+              | Français
+          li.dropdown-divider
+          li
+            a(href='#').dropdown-item
+              +image('img/flags/de.png', 'Deutsch')(class='mr-2' width='20')
+              | Deutsch
+          li.dropdown-divider
+          li
+            a(href='#').dropdown-item
+              +image('img/flags/it.png', 'Italiano')(class='mr-2' width='20')
+              | Italiano
+      
+      //- menu.pug template
+      include menu

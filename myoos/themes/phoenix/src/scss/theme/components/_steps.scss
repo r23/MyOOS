@@ -1,0 +1,144 @@
+//
+// Steps
+// --------------------------------------------------
+
+// Container
+.steps {
+  border: $steps-border-width solid $steps-border-color;
+  @include border-radius($steps-border-radius);
+}
+
+// Steps header
+.steps-header {
+  padding: ($steps-padding-x / 2);
+  border-bottom: $steps-border-width solid $steps-border-color;
+  .progress {
+    height: $steps-progress-var-height;
+  }
+}
+
+// Steps body
+.steps-body {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+}
+
+// Individual step
+.step {
+  display: table-cell;
+  position: relative;
+  padding: $steps-padding-y $steps-padding-x;
+  transition: $steps-transition;
+  border-right: $steps-border-width dashed darken($steps-border-color, 3%);
+  color: $steps-color;
+  font-weight: $steps-font-weight;
+  text: {
+    align: center;
+    decoration: none;
+  }
+  &:last-child {
+    border-right: 0;
+  }
+}
+
+// Step indicator
+.step-indicator {
+  display: block;
+  position: absolute;
+  top: $steps-padding-x;
+  left: $steps-padding-x;
+  width: $steps-indicator-size;
+  height: $steps-indicator-size;
+  border: $steps-border-width solid $steps-border-color;
+  border-radius: 50%;
+  background-color: $steps-indicator-bg;
+  font-size: $steps-indicator-font-size;
+  line-height: $steps-indicator-size - .125rem;
+}
+.has-indicator {
+  padding-right: $steps-indicator-size;
+  padding-left: $steps-padding-x + $steps-indicator-size + .125rem;
+  .step-indicator {
+    top: 50%;
+    margin-top: -($steps-indicator-size / 2);
+  }
+}
+
+// Step icon
+.step-icon {
+  display: block;
+  width: $steps-indicator-size;
+  height: $steps-indicator-size;
+  margin: 0 auto;
+  margin-bottom: .75rem;
+  transition: $steps-transition;
+  color: $steps-icon-color;
+}
+
+// Hover state
+.step:hover {
+  color: $steps-hover-color;
+  text-decoration: none;
+  .step-indicator {
+    transition: $steps-transition;
+    border-color: transparent;
+    background-color: $steps-hover-indicator-bg;
+  }
+  .step-icon {
+    color: $steps-hover-icon-color;
+  }
+}
+
+// Active state
+.step-active,
+.step-active:hover {
+  color: $steps-active-color;
+  pointer-events: none;
+  cursor: default;
+  .step-indicator {
+    border-color: transparent;
+    background-color: $steps-active-indicator-bg;
+    color: $steps-active-indicator-color;
+  }
+  .step-icon {
+    color: $steps-active-icon-color;
+  }
+}
+
+// Completed state
+.step-completed,
+.step-completed:hover {
+  .step-indicator {
+    border-color: transparent;
+    background-color: $steps-completed-indicator-bg;
+    color: $steps-completed-indicator-color;
+    line-height: $steps-indicator-size - .25rem;
+    .feather {
+      width: $steps-indicator-font-size;
+      height: $steps-indicator-font-size;
+    }
+  }
+}
+
+@include media-breakpoint-down(xs) {
+  .steps-header { display: none; }
+  .steps-body,
+  .step { display: block; }
+  .step {
+    border-right: 0;
+    border-bottom: $steps-border-width dashed $steps-border-color;
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
+  .has-indicator {
+    padding: $steps-padding-y $steps-padding-x;
+    .step-indicator {
+      display: inline-block;
+      position: static;
+      margin: 0;
+      margin-right: 0.75rem;
+    }
+  }
+}

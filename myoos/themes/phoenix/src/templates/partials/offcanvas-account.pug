@@ -1,0 +1,72 @@
+// Off-canvas account
+#offcanvas-account.offcanvas.offcanvas-reverse
+  .offcanvas-header.d-flex.justify-content-between.align-items-center
+    h3.offcanvas-title Sign in / Create account
+    button(type='button' class='close' data-dismiss='offcanvas' aria-label='Close')
+      span(aria-hidden='true') &times;
+  .offcanvas-body
+    .offcanvas-body-inner
+      ul(role='tablist').nav.nav-tabs.nav-justified
+        li.nav-item
+          a(href='#signin' data-toggle='tab' role='tab').nav-link.active
+            i(data-feather='log-in')
+            | &nbsp;Sign In
+        li.nav-item
+          a(href='#signup' data-toggle='tab' role='tab').nav-link
+            i(data-feather='user')
+            | &nbsp;Sign Up
+      .tab-content.pt-1
+        div(id='signin' role='tabpanel').tab-pane.fade.show.active
+          form(novalidate).needs-validation
+            .form-group
+              label(for='signin-email').sr-only Email
+              .input-group
+                .input-group-prepend
+                  span#signin-email-icon.input-group-text
+                    i(data-feather='mail')
+                input(type='email' id='signin-email' placeholder='Email' aria-label='Email' aria-describedby='signin-email-icon' required).form-control
+                .invalid-feedback Please provide email address.
+            .form-group
+              label(for='signin-password').sr-only Password
+              .input-group
+                .input-group-prepend
+                  span#signin-password-icon.input-group-text
+                    i(data-feather='lock')
+                input(type='password' id='signin-password' placeholder='Password' aria-label='Password' aria-describedby='signin-password-icon' required).form-control
+                .invalid-feedback Please enter a password.
+            .custom-control.custom-checkbox.mb-3
+              input(type='checkbox' id='remember-me' checked).custom-control-input
+              label(for='remember-me').custom-control-label Remember me
+            button(type='submit').btn.btn-primary.btn-block Sign In
+
+        div(id='signup' role='tabpanel').tab-pane.fade
+          form(novalidate).needs-validation
+            .form-group
+              label(for='signup-name').sr-only Full name
+              input(type='text' id='signup-name' placeholder='Full name' aria-label='Full name' required).form-control
+              .invalid-feedback Please enter your full name.
+            .form-group
+              label(for='signup-email').sr-only Email address
+              input(type='email' id='signup-email' placeholder='Email address' aria-label='Email address' required).form-control
+              .invalid-feedback Please provide a valid email address.
+            .form-group
+              label(for='signup-password').sr-only Password
+              input(type='password' id='signup-password' placeholder='Password' aria-label='Password' required).form-control
+              .invalid-feedback Please enter a password.
+            .form-group
+              label(for='signup-password-confirm').sr-only Confirm password
+              input(type='password' id='signup-password-confirm' placeholder='Confirm password' aria-label='Confirm password' required).form-control
+              .invalid-feedback Please confirm password.
+            button(type='submit').btn.btn-primary.btn-block Sign Up
+          
+      .d-flex.align-items-center.pt-5
+        hr.w-100
+        .px-3.w-100.text-nowrap.font-weight-semibold Or sign in via
+        hr.w-100
+      .text-center.pt-4
+        a(href='#' data-toggle='tooltip' title='Facebook').social-btn.sb-facebook.mx-2.mb-3
+          i.flaticon-facebook
+        a(href='#' data-toggle='tooltip' title='Google').social-btn.sb-google-plus.mx-2.mb-3
+          i.flaticon-google-plus
+        a(href='#' data-toggle='tooltip' title='Twitter').social-btn.sb-twitter.mx-2.mb-3
+          i.flaticon-twitter

@@ -1,0 +1,42 @@
+//
+// Blog related styles
+// --------------------------------------------------
+
+
+// Post meta
+
+.post-meta {
+  color: $post-meta-color;
+  font-size: $post-meta-font-size;
+  a {
+    transition: $post-meta-transition;
+    color: $post-meta-color;
+    &:hover {
+      color: $post-meta-hover-color;
+      text-decoration: none;
+    }
+  }
+  .meta-divider {
+    display: inline-block;
+    width: $border-width;
+    height: .75rem;
+    margin: 0 .5rem;
+    background-color: $post-meta-divider-color;
+    vertical-align: middle;
+  }
+  .feather {
+    width: $post-meta-icon-size;
+    height: $post-meta-icon-size;
+  }
+}
+
+
+// Post title
+
+.post-title {
+  color: $post-title-color;
+  font-weight: $post-title-font-weight;
+  &:hover {
+    color: $post-title-hover-color;
+  }
+}

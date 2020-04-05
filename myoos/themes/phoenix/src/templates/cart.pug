@@ -1,0 +1,192 @@
+extends partials/layout
+
+//- Override default config variables
+append config
+  - var pageTitle = 'Your cart'
+  - var isPageTitleDivider = false
+  - var parentMenu = 'Shop'
+  - var breadcrumbs = [{'title': 'Home', 'link': 'index.html'}, {'title': 'Shop', 'link': '#'}]
+
+//- Page Content
+block content
+
+  .container.pb-5.mt-n2.mt-md-n3
+    .row
+      .col-xl-9.col-md-8
+        h2.h6.d-flex.flex-wrap.justify-content-between.align-items-center.px-4.py-3.bg-secondary
+          span Products
+          a(href='shop-style1-ls.html').font-size-sm
+            i(data-feather='chevron-left' style='width: 1rem; height: 1rem;')
+            | Continue shopping
+
+        // Item
+        .d-sm-flex.justify-content-between.my-4.pb-4.border-bottom
+          .media.d-block.d-sm-flex.text-center.text-sm-left
+            a(href='shop-single-apparel.html').cart-item-thumb.mx-auto.mr-sm-4
+              img(src='img/shop/apparel/cart/01.jpg' alt='Product')
+            .media-body.pt-3
+              h3.product-card-title.font-weight-semibold.border-0.pb-0
+                a(href='shop-single-apparel.html') Calvin Klein Jeans Keds
+              .font-size-sm
+                span.text-muted.mr-2 Size:
+                | 8.5
+              .font-size-sm
+                span.text-muted.mr-2 Color:
+                | Black
+              .font-size-lg.text-primary.pt-2 $125.00
+          .pt-2.pt-sm-0.pl-sm-3.mx-auto.mx-sm-0.text-center.text-sm-left(style='max-width: 10rem;')
+            .form-group.mb-2
+              label(for='quantity1') Quantity
+              input(type='number' id='quantity1' value='1').form-control.form-control-sm
+            button(type='button').btn.btn-outline-secondary.btn-sm.btn-block.mb-2
+              i(data-feather='refresh-cw').mr-1
+              | Update cart
+            button(type='button').btn.btn-outline-danger.btn-sm.btn-block.mb-2
+              i(data-feather='trash-2').mr-1
+              | Remove
+
+        // Item
+        .d-sm-flex.justify-content-between.my-4.pb-4.border-bottom
+          .media.d-block.d-sm-flex.text-center.text-sm-left
+            a(href='shop-single-apparel.html').cart-item-thumb.mx-auto.mr-sm-4
+              img(src='img/shop/apparel/cart/02.jpg' alt='Product')
+            .media-body.pt-3
+              h3.product-card-title.font-weight-semibold.border-0.pb-0
+                a(href='shop-single-apparel.html') The North Face Hoodie
+              .font-size-sm
+                span.text-muted.mr-2 Size:
+                | XL
+              .font-size-sm
+                span.text-muted.mr-2 Color:
+                | Gray
+              .font-size-lg.text-primary.pt-2 $134.00
+          .pt-2.pt-sm-0.pl-sm-3.mx-auto.mx-sm-0.text-center.text-sm-left(style='max-width: 10rem;')
+            .form-group.mb-2
+              label(for='quantity2') Quantity
+              input(type='number' id='quantity2' value='1').form-control.form-control-sm
+            button(type='button').btn.btn-outline-secondary.btn-sm.btn-block.mb-2
+              i(data-feather='refresh-cw').mr-1
+              | Update cart
+            button(type='button').btn.btn-outline-danger.btn-sm.btn-block.mb-2
+              i(data-feather='trash-2').mr-1
+              | Remove
+
+        // Item
+        .d-sm-flex.justify-content-between.my-4.pb-4.border-bottom
+          .media.d-block.d-sm-flex.text-center.text-sm-left
+            a(href='shop-single-apparel.html').cart-item-thumb.mx-auto.mr-sm-4
+              img(src='img/shop/apparel/cart/03.jpg' alt='Product')
+            .media-body.pt-3
+              h3.product-card-title.font-weight-semibold.border-0.pb-0
+                a(href='shop-single-apparel.html') Medicine Chameleon Sunglasses
+              .font-size-sm
+                span.text-muted.mr-2 Lenses:
+                | Chameleon
+              .font-size-sm
+                span.text-muted.mr-2 Frame:
+                | Gray / Black
+              .font-size-lg.text-primary.pt-2 $47.00
+          .pt-2.pt-sm-0.pl-sm-3.mx-auto.mx-sm-0.text-center.text-sm-left(style='max-width: 10rem;')
+            .form-group.mb-2
+              label(for='quantity3') Quantity
+              input(type='number' id='quantity3' value='1').form-control.form-control-sm
+            button(type='button').btn.btn-outline-secondary.btn-sm.btn-block.mb-2
+              i(data-feather='refresh-cw').mr-1
+              | Update cart
+            button(type='button').btn.btn-outline-danger.btn-sm.btn-block.mb-2
+              i(data-feather='trash-2').mr-1
+              | Remove
+
+        // Item
+        .d-sm-flex.justify-content-between.my-4
+          .media.d-block.d-sm-flex.text-center.text-sm-left
+            a(href='shop-single-apparel.html').cart-item-thumb.mx-auto.mr-sm-4
+              img(src='img/shop/apparel/cart/04.jpg' alt='Product')
+            .media-body.pt-3
+              h3.product-card-title.font-weight-semibold.border-0.pb-0
+                a(href='shop-single-apparel.html') Adidas Performance Hat
+              .font-size-sm
+                span.text-muted.mr-2 Material:
+                | Acrylic
+              .font-size-sm
+                span.text-muted.mr-2 Color:
+                | Pink / Dark green
+              .font-size-lg.text-primary.pt-2 $19.00
+          .pt-2.pt-sm-0.pl-sm-3.mx-auto.mx-sm-0.text-center.text-sm-left(style='max-width: 10rem;')
+            .form-group.mb-2
+              label(for='quantity4') Quantity
+              input(type='number' id='quantity4' value='1').form-control.form-control-sm
+            button(type='button').btn.btn-outline-secondary.btn-sm.btn-block.mb-2
+              i(data-feather='refresh-cw').mr-1
+              | Update cart
+            button(type='button').btn.btn-outline-danger.btn-sm.btn-block.mb-2
+              i(data-feather='trash-2').mr-1
+              | Remove
+            
+      
+      // Sidebar
+      .col-xl-3.col-md-4.pt-3.pt-md-0
+        h2.h6.px-4.py-3.bg-secondary.text-center Subtotal
+        .h3.font-weight-semibold.text-center.py-3 $325.00
+        hr
+        h3.h6.pt-4.font-weight-semibold
+          span.badge.badge-success.mr-2 Note
+          | Additional comments
+        textarea(id="order-comments" rows="5").form-control.mb-3
+        a(href='checkout-details.html').btn.btn-primary.btn-block
+          i(data-feather='credit-card').mr-2
+          | Proceed to Checkout
+        .pt-4
+          #cart-accordion.accordion
+            .card
+              .card-header
+                h3.accordion-heading.font-weight-semibold
+                  a(href='#promocode' role='button' data-toggle='collapse' aria-expanded='true' aria-controls='promocode')
+                    | Apply promo code
+                    span.accordion-indicator
+                      i(data-feather='chevron-up')
+              #promocode.collapse.show(data-parent='#cart-accordion')
+                .card-body
+                  form(novalidate).needs-validation
+                    .form-group
+                      input(type='text' id='cart-promocode' placeholder='Promo code' required).form-control
+                      .invalid-feedback Please provide a valid promo code!
+                    button(type='submit').btn.btn-outline-primary.btn-block Apply promo code
+            .card
+              .card-header
+                h3.accordion-heading.font-weight-semibold
+                  a(href='#shipping' role='button' data-toggle='collapse' aria-expanded='true' aria-controls='shipping').collapsed
+                    | Shipping estimates
+                    span.accordion-indicator
+                      i(data-feather='chevron-up')
+              #shipping.collapse(data-parent='#cart-accordion')
+                .card-body
+                  form(novalidate).needs-validation
+                    .form-group
+                      select(required).form-control.custom-select
+                        option(value='') Choose your country
+                        option(value='Australia') Australia
+                        option(value='Belgium') Belgium
+                        option(value='Canada') Canada
+                        option(value='Finland') Finland
+                        option(value='Mexico') Mexico
+                        option(value='New Zealand') New Zealand
+                        option(value='Switzerland') Switzerland
+                        option(value='United States') United States
+                      .invalid-feedback Please choose your country!
+                    .form-group
+                      select(required).form-control.custom-select
+                        option(value='') Choose your city
+                        option(value='Bern') Bern
+                        option(value='Brussels') Brussels
+                        option(value='Canberra') Canberra
+                        option(value='Helsinki') Helsinki
+                        option(value='Mexico City') Mexico City
+                        option(value='Ottawa') Ottawa
+                        option(value='Washington D.C.') Washington D.C.
+                        option(value='Wellington') Wellington
+                      .invalid-feedback Please choose your city!
+                    .form-group
+                      input(type='text' placeholder='ZIP / Postal code' required).form-control
+                      .invalid-feedback Please provide a valid zip!
+                    button(type='submit').btn.btn-outline-primary.btn-block Calculate shipping

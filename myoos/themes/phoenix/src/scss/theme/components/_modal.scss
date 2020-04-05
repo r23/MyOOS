@@ -1,0 +1,25 @@
+//
+// Modal
+// --------------------------------------------------
+
+// Add box-shadow to modal
+.modal-content {
+  box-shadow: $modal-content-box-shadow-sm-up;
+}
+
+// Workaround for displaying carousel inside modal
+.modal {
+  .owl-carousel {
+    max-height: 735px;
+    overflow: hidden;
+  }
+}
+.modal-quick-view {
+  padding: {
+    right: $spacer !important;
+    left: $spacer !important;
+  }
+  .modal-dialog {
+    max-width: $modal-xl !important;
+  }
+}

@@ -1,0 +1,71 @@
+//
+// Dropdown
+// --------------------------------------------------
+
+// Caret
+.dropdown, .dropup,
+.dropleft, .dropright {
+  .dropdown-toggle::after {
+    margin-left: .3rem;
+    vertical-align: middle;
+  }
+}
+
+// Dropdown menu
+.dropdown-menu {
+  width: $dropdown-width;
+  box-shadow: $dropdown-box-shadow;
+}
+
+// Dropdown header
+.dropdown-header {
+  padding: {
+    top: $dropdown-item-padding-y;
+    bottom: $dropdown-item-padding-y;
+  }
+  border-bottom: $dropdown-border-width solid $dropdown-border-color;
+  font-weight: $font-weight-semibold;
+}
+
+// Dropdown divider
+.dropdown-divider { margin: 0; }
+
+// Dropdown item
+.dropdown-item {
+  width: 100%;
+  transition: $nav-link-transition;
+  font: {
+    size: $dropdown-item-font-size;
+    weight: $nav-link-font-weight;
+  }
+  white-space: normal;
+  > .feather {
+    margin: {
+      top: -.125rem;
+      right: .375rem;
+    }
+    width: $dropdown-item-icon-size;
+    height: $dropdown-item-icon-size;
+  }
+}
+
+// Dropdown menu animation
+.dropdown-menu.show {
+  animation: fade-in .25s ease-in-out;
+}
+
+// Dropdown component animations
+@keyframes fade-in  {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slide-up {
+  from {
+    transform: translateY(.5rem);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

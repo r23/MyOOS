@@ -1,0 +1,22 @@
+/*
+ * MStore | Modern Bootstrap E-Commerce Template
+ * Copyright 2019 Createx Studio
+ * Theme Styles
+ */
+
+// Theme Helpers: Variables, Mixins and Placeholders
+@import 'theme/helpers';
+
+// Custom Variables
+@import 'user-variables';
+
+// Bootstrap Core
+@import 'bootstrap/bootstrap';
+
+// Theme Core
+@import 'theme/reboot';
+@import 'theme/components';
+@import 'theme/utilities';
+
+// Custom Core
+@import 'user';

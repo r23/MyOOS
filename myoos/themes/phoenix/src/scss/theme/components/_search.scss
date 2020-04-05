@@ -1,0 +1,45 @@
+//
+// Search autocomplete
+// --------------------------------------------------
+
+.easy-autocomplete {
+  flex: 1 1 auto;
+  width: 1% !important;
+}
+.easy-autocomplete-container {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  margin-top: .0625rem;
+  > ul {
+    display: none;
+    margin: 0;
+    padding: 0;
+    padding-top: $spacer;
+    background-color: $search-result-bg;
+    list-style: none;
+    li { margin: 0; }
+  }
+}
+.eac-item > a {
+  display: inline-block;
+  padding: .3125rem 0;
+  color: $search-result-link-color;
+  font-size: $font-size-sm;
+  text-decoration: none;
+  &:hover > .ac-title {
+    color: $search-result-link-hover-color;
+    text-decoration: underline;
+  }
+}
+
+// Inside navbar
+.navbar .easy-autocomplete-container ul {
+  padding: {
+    right: $spacer;
+    bottom: $spacer;
+    left: $spacer;
+  }
+  box-shadow: $search-result-box-shadow;
+}

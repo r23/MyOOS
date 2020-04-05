@@ -1,0 +1,24 @@
+// Toolbar
+.d-flex.flex-wrap.justify-content-center.justify-content-sm-between.pb-3
+  .d-flex.flex-wrap
+    .form-inline.flex-nowrap.mr-3.mr-sm-4.pb-3
+      label(for='sorting').text-nowrap.mr-2.d-none.d-sm-block Sort by:
+      select(id='sorting').form-control.custom-select
+        option Popularity
+        option Low - Hight Price
+        option High - Low Price
+        option Average Rating
+        option A - Z Order
+        option Z - A Order
+    .form-inline.flex-nowrap.pb-3
+      label(for='number').mr-2.d-none.d-sm-block Show:
+      select(id='number').form-control.custom-select.mr-sm-2
+        option 12
+        option 24
+        option 48
+        option 96
+      small.form-text.text-muted.text-nowrap.d-none.d-sm-block from 860
+  .form-inline.d-none.d-md-flex.flex-nowrap.pb-3
+    label(for='pager').mr-2 Page:
+    input(type='number' id='pager' value='2' style='width: 4rem;').form-control.mr-2
+    span.form-text / 30

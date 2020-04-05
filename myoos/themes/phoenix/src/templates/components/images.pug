@@ -1,0 +1,150 @@
+extends ../partials/layout-components
+
+//- Override default config variables
+append config
+  - var pageTitle = 'Images & figures'
+  - var pageSubTitle = '&mdash;&nbsp; Image styles and figure component for displaying images and text. <a href="https://getbootstrap.com/docs/4.3/content/images/" target="_blank">Bootstrap images docs</a>, <a href="https://getbootstrap.com/docs/4.3/content/figures/" target="_blank">Bootstrap figures docs</a>.'
+  - var isNestedFile = true
+  - var isCodeHighlighting = true
+  - var breadcrumbs = [{'title': 'Home', 'link': '../index.html'}, {'title': 'Components', 'link': '#'}]
+
+//- Page Content
+block content
+
+  // Image shapes
+  h2.h5.mb-3 Image shapes
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result1' data-toggle='tab' role='tab' aria-controls='result1' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html1' data-toggle='tab' role='tab' aria-controls='html1' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug1' data-toggle='tab' role='tab' aria-controls='pug1' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result1.tab-pane.fade.show.active(role='tabpanel')
+          .row
+            .col-sm-4.mb-3
+              img(src='../img/components/images/01.jpg' alt='Square image').d-block.mx-auto
+            .col-sm-4.mb-3
+              img(src='../img/components/images/02.jpg' alt='Rounded image').d-block.rounded.mx-auto
+            .col-sm-4.mb-3
+              img(src='../img/components/images/03.jpg' alt='Circle image').d-block.rounded-circle.mx-auto
+        #html1.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Square image (default) --&gt;
+              &lt;img src=&quot;path-to-image&quot; alt=&quot;Square image&quot;&gt;
+
+              &lt;!-- Rounded image --&gt;
+              &lt;img src=&quot;path-to-image&quot; class=&quot;rounded&quot; alt=&quot;Rounded image&quot;&gt;
+
+              &lt;!-- Circle image --&gt;
+              &lt;img src=&quot;path-to-image&quot; class=&quot;rounded-circle&quot; alt=&quot;Circle image&quot;&gt;
+        #pug1.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Square image (default)
+              img(src=&quot;path-to-image&quot;, alt=&quot;Square image&quot;)
+
+              // Rounded image
+              img(src=&quot;path-to-image&quot;, alt=&quot;Rounded image&quot;).rounded
+
+              // Circle image
+              img(src=&quot;path-to-image&quot;, alt=&quot;Circle image&quot;).rounded-circle
+
+  // Thumbnails
+  h2.h5.pt-5.mb-3 Thumbnails
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result2' data-toggle='tab' role='tab' aria-controls='result2' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html2' data-toggle='tab' role='tab' aria-controls='html2' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug2' data-toggle='tab' role='tab' aria-controls='pug2' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result2.tab-pane.fade.show.active(role='tabpanel')
+          .row
+            .col-sm-4.mb-3
+              img(src='../img/components/images/01.jpg' alt='Square thumbnail').d-block.img-thumbnail.mx-auto
+            .col-sm-4.mb-3
+              img(src='../img/components/images/02.jpg' alt='Rounded thumbnail').d-block.img-thumbnail.rounded.mx-auto
+            .col-sm-4.mb-3
+              img(src='../img/components/images/03.jpg' alt='Circle thumbnail').d-block.img-thumbnail.rounded-circle.mx-auto
+        #html2.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Square thumbnail --&gt;
+              &lt;img src=&quot;path-to-image&quot; class=&quot;img-thumbnail&quot; alt=&quot;Square image&quot;&gt;
+
+              &lt;!-- Rounded thumbnail --&gt;
+              &lt;img src=&quot;path-to-image&quot; class=&quot;img-thumbnail rounded&quot; alt=&quot;Rounded image&quot;&gt;
+
+              &lt;!-- Circle thumbnail --&gt;
+              &lt;img src=&quot;path-to-image&quot; class=&quot;img-thumbnail rounded-circle&quot; alt=&quot;Circle image&quot;&gt;
+        #pug2.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Square tumbnail
+              img(src=&quot;path-to-image&quot;, alt=&quot;Square image&quot;).img-thumbnail
+
+              // Rounded tumbnail
+              img(src=&quot;path-to-image&quot;, alt=&quot;Rounded image&quot;).img-thumbnail.rounded
+
+              // Circle tumbnail
+              img(src=&quot;path-to-image&quot;, alt=&quot;Circle image&quot;).img-thumbnail.rounded-circle
+
+  // Figures with caption
+  h2.h5.pt-5.mb-3 Figures with caption
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result3' data-toggle='tab' role='tab' aria-controls='result3' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html3' data-toggle='tab' role='tab' aria-controls='html3' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug3' data-toggle='tab' role='tab' aria-controls='pug3' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result3.tab-pane.fade.show.active(role='tabpanel')
+          .row
+            .col-sm-4.mb-2
+              figure.figure
+                img(src='../img/components/images/03.jpg' alt='Figure with caption').figure-img
+                figcaption.figure-caption Caption on the left
+            .col-sm-4.mb-2
+              figure.figure
+                img(src='../img/components/images/01.jpg' alt='Figure with caption').figure-img
+                figcaption.figure-caption.text-center Caption in the center
+            .col-sm-4.mb-2
+              figure.figure
+                img(src='../img/components/images/02.jpg' alt='Figure with caption').figure-img
+                figcaption.figure-caption.text-right Caption on the right
+        #html3.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Caption on the left --&gt;
+              &lt;img src=&quot;path-to-image&quot; class=&quot;img-thumbnail&quot; alt=&quot;Square image&quot;&gt;
+
+              &lt;!-- Caption in the center --&gt;
+              &lt;img src=&quot;path-to-image&quot; class=&quot;img-thumbnail rounded&quot; alt=&quot;Rounded image&quot;&gt;
+
+              &lt;!-- Caption on the right --&gt;
+              &lt;img src=&quot;path-to-image&quot; class=&quot;img-thumbnail rounded-circle&quot; alt=&quot;Circle image&quot;&gt;
+        #pug3.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Caption on the left
+              img(src=&quot;path-to-image&quot;, alt=&quot;Square image&quot;).img-thumbnail
+
+              // Caption in the center
+              img(src=&quot;path-to-image&quot;, alt=&quot;Rounded image&quot;).img-thumbnail.rounded
+
+              // Caption on the right
+              img(src=&quot;path-to-image&quot;, alt=&quot;Circle image&quot;).img-thumbnail.rounded-circle

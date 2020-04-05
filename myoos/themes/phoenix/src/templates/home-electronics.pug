@@ -1,0 +1,568 @@
+extends partials/layout
+
+//- Override default config variables
+append config
+  - var isPageTitle = false
+  - var pageTitle = 'MStore | Home Electronics Store'
+  - var parentMenu = 'Home'
+  - var navbarTemplate = 'navbar-multilevel'
+
+//- Page Content
+block content
+
+  // Hero slider + Promo list
+  section.container.px-3
+    .mt-4.pt-lg-2.mb-4.mb-md-5
+      .row
+
+        // Categories
+        .col-lg-4.d-none.d-lg-block
+          .border.px-4.py-4
+            ul.list-unstyled.mb-0
+              li.border-bottom
+                a(href='#' data-toggle='popover' data-placement='right' data-trigger='hover' data-html='true' data-content='<img src="img/shop/electronics/categories/01.jpg" class="d-block mt-n2" alt="Computers & Accessories"><div class="text-center font-size-sm font-weight-semibold mt-n2 pb-3">Starting from $149.80</div>').d-flex.align-items-center.nav-link-inline.pb-3
+                  i(data-feather='hard-drive' style='width: 1.25rem; height: 1.25rem;').text-primary.opacity-60.mr-2.mt-1
+                  span
+                    | Computers &amp; Accessories
+                    i(data-feather='chevron-right' style='width: 1rem; height: 1rem;').ml-1
+              li.border-bottom
+                a(href='#' data-toggle='popover' data-placement='right' data-trigger='hover' data-html='true' data-content='<img src="img/shop/electronics/categories/02.jpg" class="d-block mt-n2" alt="TV, Video & Audio"><div class="text-center font-size-sm font-weight-semibold pb-3">Starting from $78.00</div>').d-flex.align-items-center.nav-link-inline.py-3
+                  i(data-feather='monitor' style='width: 1.25rem; height: 1.25rem;').text-primary.opacity-60.mr-2.mt-1
+                  span
+                    | TV, Video &amp; Audio
+                    i(data-feather='chevron-right' style='width: 1rem; height: 1rem;').ml-1
+              li.border-bottom
+                a(href='#' data-toggle='popover' data-placement='right' data-trigger='hover' data-html='true' data-content='<img src="img/shop/electronics/categories/03.jpg" class="d-block mt-n2" alt="Smartphones & Tablets"><div class="text-center font-size-sm font-weight-semibold pb-3">Starting from $127.00</div>').d-flex.align-items-center.nav-link-inline.py-3
+                  i(data-feather='smartphone' style='width: 1.25rem; height: 1.25rem;').text-primary.opacity-60.mr-2.mt-1
+                  span
+                    | Smartphones &amp; Tablets
+                    i(data-feather='chevron-right' style='width: 1rem; height: 1rem;').ml-1
+              li.border-bottom
+                a(href='#' data-toggle='popover' data-placement='right' data-trigger='hover' data-html='true' data-content='<img src="img/shop/electronics/categories/04.jpg" class="d-block mt-n2" alt="Photo Cameras"><div class="text-center font-size-sm font-weight-semibold pb-3">Starting from $210.00</div>').d-flex.align-items-center.nav-link-inline.py-3
+                  i(data-feather='camera' style='width: 1.25rem; height: 1.25rem;').text-primary.opacity-60.mr-2.mt-1
+                  span
+                    | Photo Cameras
+                    i(data-feather='chevron-right' style='width: 1rem; height: 1rem;').ml-1
+              li.border-bottom
+                a(href='#' data-toggle='popover' data-placement='right' data-trigger='hover' data-html='true' data-content='<img src="img/shop/electronics/categories/09.jpg" class="d-block mt-n2" alt="Video Cameras"><div class="text-center font-size-sm font-weight-semibold mt-n1 pb-3">Starting from $185.00</div>').d-flex.align-items-center.nav-link-inline.py-3
+                  i(data-feather='video' style='width: 1.25rem; height: 1.25rem;').text-primary.opacity-60.mr-2.mt-1
+                  span
+                    | Video Cameras
+                    i(data-feather='chevron-right' style='width: 1rem; height: 1rem;').ml-1
+              li.border-bottom
+                a(href='#' data-toggle='popover' data-placement='right' data-trigger='hover' data-html='true' data-content='<img src="img/shop/electronics/categories/05.jpg" class="d-block mt-n2" alt="Headphones"><div class="text-center font-size-sm font-weight-semibold pt-2 pb-3">Starting from $35.99</div>').d-flex.align-items-center.nav-link-inline.py-3
+                  i(data-feather='headphones' style='width: 1.25rem; height: 1.25rem;').text-primary.opacity-60.mr-2.mt-1
+                  span
+                    | Headphones
+                    i(data-feather='chevron-right' style='width: 1rem; height: 1rem;').ml-1
+              li.border-bottom
+                a(href='#' data-toggle='popover' data-placement='right' data-trigger='hover' data-html='true' data-content='<img src="img/shop/electronics/categories/06.jpg" class="d-block mt-n2" alt="Wearable Electronics"><div class="text-center font-size-sm font-weight-semibold pt-2 pb-3">Starting from $79.50</div>').d-flex.align-items-center.nav-link-inline.py-3
+                  i(data-feather='watch' style='width: 1.25rem; height: 1.25rem;').text-primary.opacity-60.mr-2.mt-1
+                  span
+                    | Wearable Electronics
+                    i(data-feather='chevron-right' style='width: 1rem; height: 1rem;').ml-1
+              li.border-bottom
+                a(href='#' data-toggle='popover' data-placement='right' data-trigger='hover' data-html='true' data-content='<img src="img/shop/electronics/categories/07.jpg" class="d-block mt-n2" alt="Printers & Ink"><div class="text-center font-size-sm font-weight-semibold pt-2 pb-3">Starting from $54.00</div>').d-flex.align-items-center.nav-link-inline.py-3
+                  i(data-feather='printer' style='width: 1.25rem; height: 1.25rem;').text-primary.opacity-60.mr-2.mt-1
+                  span
+                    | Printers &amp; Ink
+                    i(data-feather='chevron-right' style='width: 1rem; height: 1rem;').ml-1
+              li.border-bottom
+                a(href='#' data-toggle='popover' data-placement='right' data-trigger='hover' data-html='true' data-content='<img src="img/shop/electronics/categories/08.jpg" class="d-block mt-n2" alt="Video Games"><div class="text-center font-size-sm font-weight-semibold pt-2 pb-3">Starting from $19.00</div>').d-flex.align-items-center.nav-link-inline.py-3
+                  i(data-feather='crosshair' style='width: 1.25rem; height: 1.25rem;').text-primary.opacity-60.mr-2.mt-1
+                  span
+                    | Video Games
+                    i(data-feather='chevron-right' style='width: 1rem; height: 1rem;').ml-1
+              li.border-bottom
+                a(href='#' data-toggle='popover' data-placement='right' data-trigger='hover' data-html='true' data-content='<img src="img/shop/electronics/categories/11.jpg" class="d-block" alt="Speakers & Home Music"><div class="text-center font-size-sm font-weight-semibold pt-2 pb-3">Starting from $63.00</div>').d-flex.align-items-center.nav-link-inline.py-3
+                  i(data-feather='speaker' style='width: 1.25rem; height: 1.25rem;').text-primary.opacity-60.mr-2.mt-1
+                  span
+                    | Speakers &amp; Home Music
+                    i(data-feather='chevron-right' style='width: 1rem; height: 1rem;').ml-1
+              li
+                a(href='#' data-toggle='popover' data-placement='right' data-trigger='hover' data-html='true' data-content='<img src="img/shop/electronics/categories/10.jpg" class="d-block mt-n2" alt="HDD / SSD Data Storage"><div class="text-center font-size-sm font-weight-semibold pt-2 pb-3">Starting from $24.60</div>').d-flex.align-items-center.nav-link-inline.pt-3
+                  i(data-feather='server' style='width: 1.25rem; height: 1.25rem;').text-primary.opacity-60.mr-2.mt-1
+                  span
+                    | HDD / SSD Data Storage
+                    i(data-feather='chevron-right' style='width: 1rem; height: 1rem;').ml-1
+
+        .col-lg-8
+
+          // Hero slider
+          .bg-secondary.bg-size-cover.mb-grid-gutter(style='background-image: url(img/home/electronics/hero-main-bg.jpg);')
+            .owl-carousel.trigger-carousel(data-owl-carousel='{ "nav": true, "dots": false, "loop": true, "autoHeight": true, "autoplay": true, "autoplayTimeout": 5500 }')
+              .row.align-items-center.py-5
+                .col-md-5
+                  .pl-3.pr-3.pl-md-5.pr-md-0.pt-4.pt-lg-5.pb-5.text-center.text-md-left
+                    h3.mb-1 Google Home Smart Speaker
+                    h4.font-weight-light.opacity-70.pb-3 starting at $129.00
+                    a(href='shop-style2-ls.html').btn.btn-primary
+                      | Shop now
+                      i(data-feather='arrow-right').ml-2
+                .col-md-7
+                  img(src='img/home/electronics/hero-slide01.png' alt='Smart Speaker').d-block.mx-auto
+              .row.align-items-center.py-5
+                .col-md-5
+                  .pl-3.pr-3.pl-md-5.pr-md-0.pt-4.pt-lg-5.pb-5.text-center.text-md-left
+                    h3.mb-1 Modern Powerful Vaio Laptop
+                    h4.font-weight-light.opacity-70.pb-3 for only $1,459.99
+                    a(href='shop-style2-ls.html').btn.btn-primary
+                      | Shop now
+                      i(data-feather='arrow-right').ml-2
+                .col-md-7
+                  img(src='img/home/electronics/hero-slide02.png' alt='Vaio Laptop').d-block.mx-auto
+              .row.align-items-center.py-5
+                .col-md-5
+                  .pl-3.pr-3.pl-md-5.pr-md-0.pt-4.pt-lg-5.pb-5.text-center.text-md-left
+                    h3.mb-1 Wireless Beats Studio by Dr.Dre
+                    h4.font-weight-light.opacity-70.pb-3 starting at $349.50
+                    a(href='shop-style2-ls.html').btn.btn-primary
+                      | Shop now
+                      i(data-feather='arrow-right').ml-2
+                .col-md-7
+                  img(src='img/home/electronics/hero-slide03.png' alt='Wireless Beats').d-block.mx-auto
+
+          // Offers carousel
+          .owl-carousel(data-owl-carousel='{ "nav": false, "dots": true, "margin": 30, "responsive": {"0":{"items":1},"565":{"items":2},"850":{"items":3},"992":{"items":2},"1200":{"items":3}} }')
+            a(href='shop-style2-ls.html').media.align-items-center.bg-faded-info.text-decoration-0
+              img(src='img/home/electronics/banner-sm01.png' width='125' alt='Banner').mr-1
+              .media-body.py-2.pr-2
+                h5.text-body.mb-1
+                  span.font-weight-light Next Gen <strong>Video</strong> with <strong>360 Cam</strong>
+                span.text-info.font-size-sm.font-weight-semibold
+                  | Shop now
+                  i(data-feather='chevron-right' style='width: 1rem; height: 1rem;')
+            a(href='shop-style2-ls.html').media.align-items-center.bg-faded-warning.text-decoration-0
+              img(src='img/home/electronics/banner-sm02.png' width='125' alt='Banner').mr-1
+              .media-body.py-2.pr-2
+                h5.text-body.mb-1
+                  span.font-weight-light Top Rated <strong>Gadgets</strong> are on <strong>Sale</strong>
+                span.text-warning.font-size-sm.font-weight-semibold
+                  | Shop now
+                  i(data-feather='chevron-right' style='width: 1rem; height: 1rem;')
+            a(href='shop-style2-ls.html').media.align-items-center.bg-faded-success.text-decoration-0
+              img(src='img/home/electronics/banner-sm03.png' width='125' alt='Banner').mr-1
+              .media-body.py-2.pr-2
+                h5.text-body.mb-1
+                  span.font-weight-light Catch Big <strong>Deals</strong> on <strong>Earbuds</strong>
+                span.text-success.font-size-sm.font-weight-semibold
+                  | Shop now
+                  i(data-feather='chevron-right' style='width: 1rem; height: 1rem;')
+    hr.mt-4
+
+  // Featured products grid
+  section.container.px-3.pt-4.mt-3
+    .d-flex.flex-wrap.justify-content-between.align-items-center.pb-2
+      h2.h3.mb-3 Featured products
+      a(href='shop-style2-ls.html').btn.btn-outline-primary.btn-sm.border-0.mb-3
+        | More products
+        i(data-feather='chevron-right').ml-1.mr-n2
+    .row.no-gutters
+
+      // Product
+      .col-lg-3.col-sm-4.col-6.border.border-collapse
+        .product-card
+          .product-thumb
+            a(href='shop-single-electronics.html').product-thumb-link
+            span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+              i(data-feather='heart')
+            img(src='img/shop/electronics/01.jpg' alt='Product')
+          .product-card-body
+            .d-flex.flex-wrap.justify-content-between.pb-1
+              a(href='#').product-meta Headphones
+              +star-rating-short(4.7)
+            h3.product-card-title
+              a(href='shop-single-electronics.html') Sony WH-CH700N Wireless Noise Canceling Headphones, Black
+            span.text-primary $198.00
+          .product-card-body.body-hidden.pt-2
+            button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+            a(href='#' data-toggle='toast' data-target='#compare-toast').quick-view-btn
+              i(data-feather='repeat').mr-1
+              | Compare
+            ul.font-size-sm.opacity-80.pl-4.pt-2.mb-2
+              li Digital noise cancelling
+              li AI powered
+              li Hands free calling
+              li Long battery life
+              li Wireless bluetooth
+
+      // Product
+      .col-lg-3.col-sm-4.col-6.border.border-collapse
+        .product-card
+          .product-thumb
+            a(href='shop-single-electronics.html').product-thumb-link
+            span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+              i(data-feather='heart')
+            img(src='img/shop/electronics/02.jpg' alt='Product')
+          .product-card-body
+            .d-flex.flex-wrap.justify-content-between.pb-1
+              a(href='#').product-meta Computers
+              +star-rating-short(3.9)
+            h3.product-card-title
+              a(href='shop-single-electronics.html') Apple AirPort Extreme Base Station ME918LL (Refurbished)
+            span.text-primary $129.00
+          .product-card-body.body-hidden.pt-2
+            button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+            a(href='#' data-toggle='toast' data-target='#compare-toast').quick-view-btn
+              i(data-feather='repeat').mr-1
+              | Compare
+            ul.font-size-sm.opacity-80.pl-4.pt-2.mb-2
+              li Ultrafast 802.11ac Wi-Fi
+              li Easy setup for iOS and OS X
+              li Share your hard drive
+              li Compatibility and security
+
+      // Product
+      .col-lg-3.col-sm-4.col-6.border.border-collapse
+        .product-card
+          .product-thumb
+            a(href='shop-single-electronics.html').product-thumb-link
+            span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+              i(data-feather='heart')
+            img(src='img/shop/electronics/11.jpg' alt='Product')
+          .product-card-body
+            .d-flex.flex-wrap.justify-content-between.pb-1
+              a(href='#').product-meta TV, Video &amp; Audio
+            h3.product-card-title
+              a(href='shop-single-electronics.html') SONY Smart TV LED 49" Ultra HD 4K
+            span.text-muted Out of stock
+          .product-card-body.body-hidden.pt-2
+            a(href='shop-single-electronics.html').btn.btn-primary.btn-sm.btn-block Pre-order
+            a(href='#' data-toggle='toast' data-target='#compare-toast').quick-view-btn
+              i(data-feather='repeat').mr-1
+              | Compare
+            ul.font-size-sm.opacity-80.pl-4.pt-2.mb-2
+              li Beyond high definition: 4K HDTV
+              li X1 Extreme Processor
+              li Voice assistant
+              li Multiple inputs: 4 HDMI, 2 USB2.0, 1 USB3.0
+
+
+      // Product
+      .col-lg-3.col-sm-4.col-6.border.border-collapse
+        .product-card
+          .product-thumb
+            a(href='shop-single-electronics.html').product-thumb-link
+            span.badge.badge-danger.rounded-0 Sale -40%
+            span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+              i(data-feather='heart')
+            img(src='img/shop/electronics/04.jpg' alt='Product')
+          .product-card-body
+            .d-flex.flex-wrap.justify-content-between.pb-1
+              a(href='#').product-meta Smart home
+              +star-rating-short(4.2)
+            h3.product-card-title
+              a(href='shop-single-electronics.html') All-new Echo Dot (3rd Gen) - Smart speaker with Alexa - Charcoal
+            span.text-primary
+              del.text-muted.mr-1 $49.99
+              | $29.99
+          .product-card-body.body-hidden.pt-2
+            button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+            a(href='#' data-toggle='toast' data-target='#compare-toast').quick-view-btn
+              i(data-feather='repeat').mr-1
+              | Compare
+            ul.font-size-sm.opacity-80.pl-4.pt-2.mb-2
+              li 4096x2048@24fps 360 video/ 15MP
+              li 360 still image
+              li Dual CMOS 8.4MP, Dual F2.2 
+              li Built-in 1,160mAh
+
+      // Product
+      .col-lg-3.col-sm-4.col-6.border.border-collapse
+        .product-card
+          .product-thumb
+            a(href='shop-single-electronics.html').product-thumb-link
+            span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+              i(data-feather='heart')
+            img(src='img/shop/electronics/05.jpg' alt='Product')
+          .product-card-body
+            .d-flex.flex-wrap.justify-content-between.pb-1
+              a(href='#').product-meta Wearable electronics
+              +star-rating-short(3.6)
+            h3.product-card-title
+              a(href='shop-single-electronics.html') Fitbit Ionic GPS Smart Watch, Charcoal/Smoke Gray, One Size
+            span.text-primary $317.40
+          .product-card-body.body-hidden.pt-2
+            button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+            a(href='#' data-toggle='toast' data-target='#compare-toast').quick-view-btn
+              i(data-feather='repeat').mr-1
+              | Compare
+            ul.font-size-sm.opacity-80.pl-4.pt-2.mb-2
+              li Track your all-day activity
+              li Use 15+ exercise modes
+              li Access your favorite apps for sport
+              li Get call, text, calendar notifications
+
+      // Product
+      .col-lg-3.col-sm-4.col-6.border.border-collapse
+        .product-card
+          .product-thumb
+            a(href='shop-single-electronics.html').product-thumb-link
+            span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+              i(data-feather='heart')
+            img(src='img/shop/electronics/06.jpg' alt='Product')
+          .product-card-body
+            .d-flex.flex-wrap.justify-content-between.pb-1
+              a(href='#').product-meta Smartphones
+              +star-rating-short(4.5)
+            h3.product-card-title
+              a(href='shop-single-electronics.html') Apple - iPhone XS 128GB - Space Gray
+            span.text-primary $1,049.99
+          .product-card-body.body-hidden.pt-2
+            button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+            a(href='#' data-toggle='toast' data-target='#compare-toast').quick-view-btn
+              i(data-feather='repeat').mr-1
+              | Compare
+            ul.font-size-sm.opacity-80.pl-4.pt-2.mb-2
+              li 5.8-inch Super Retina display 
+              li IP68 dust and water resistant
+              li 12MP dual cameras
+              li A12 Bionic with next-generation Neural Engine
+
+      // Product
+      .col-lg-3.col-sm-4.col-6.border.border-collapse
+        .product-card
+          .product-thumb
+            a(href='shop-single-electronics.html').product-thumb-link
+            span.badge.badge-success.rounded-0 &starf; Top seller
+            span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+              i(data-feather='heart')
+            img(src='img/shop/electronics/07.jpg' alt='Product')
+          .product-card-body
+            .d-flex.flex-wrap.justify-content-between.pb-1
+              a(href='#').product-meta Wearable electronics
+              +star-rating-short(4.3)
+            h3.product-card-title
+              a(href='shop-single-electronics.html') Apple Watch Series 4 (GPS, 44mm) - Silver Aluminium Case
+            span.text-primary $399.00
+          .product-card-body.body-hidden.pt-2
+            button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+            a(href='#' data-toggle='toast' data-target='#compare-toast').quick-view-btn
+              i(data-feather='repeat').mr-1
+              | Compare
+            ul.font-size-sm.opacity-80.pl-4.pt-2.mb-2
+              li GPS
+              li Over 30% larger display
+              li Electrical and optical heart sensors
+              li Digital Crown with haptic feedback
+      // Product
+      .col-lg-3.col-sm-4.col-6.border.border-collapse
+        .product-card
+          .product-thumb
+            a(href='shop-single-electronics.html').product-thumb-link
+            span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+              i(data-feather='heart')
+            img(src='img/shop/electronics/08.jpg' alt='Product')
+          .product-card-body
+            .d-flex.flex-wrap.justify-content-between.pb-1
+              a(href='#').product-meta Computers
+            h3.product-card-title
+              a(href='shop-single-electronics.html') Acer R11 11.6" Convertible 2-in-1 HD Touchscreen (2019)
+            span.text-primary $339.00
+          .product-card-body.body-hidden.pt-2
+            button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+            a(href='#' data-toggle='toast' data-target='#compare-toast').quick-view-btn
+              i(data-feather='repeat').mr-1
+              | Compare
+            ul.font-size-sm.opacity-80.pl-4.pt-2.mb-2
+              li 4GB DD3; 32 GB eMMC
+              li 11.6" HD Widescreen LED-backlit Display
+              li Multi-touch screen
+              li Intel Celeron N3150 Quad-Core Processor 1.6GHz
+
+  // Promo banner
+  section.container.py-4.my-3.px-3
+    .bg-faded-info.position-relative.py-4
+      .row.align-items-center
+        .col-md-5
+          span.badge.badge-danger.ml-5 Limited offer
+          .pt-4.pl-4.pl-sm-5
+            h3.font-family-body.font-weight-light.mb-2 All new
+            h2.mb-2.pb-1 iPad Pro 2019
+            h5.font-family-body.font-weight-light.mb-3 at discounted price. Hurry up!
+            .countdown.h4(data-date-time='10/10/2020 12:00' data-labels='{"label-day": "d", "label-hour": "h", "label-minute": "m", "label-second": "s"}').mb-4
+            a(href='shop-style2-ls.html').btn.btn-primary
+              | View offers
+              i(data-feather='arrow-right').ml-2
+        .col-md-7
+          img(src='img/home/electronics/offer.jpg' alt='Promo banner').mx-auto
+  
+  // Brands carousel
+  section.container.px-3.pb-4
+    .owl-carousel.border-right(data-owl-carousel='{ "nav": false, "dots": false, "autoplay": true, "autoplayTimeout": 3500, "loop": true, "responsive": {"0":{"items":1},"360":{"items":2},"600":{"items":3},"991":{"items":4},"1200":{"items":4}} }')
+      a(href='#' style='margin-right: -.0625rem;').d-block.bg-white.border.py-4.py-sm-5.px-2
+        img(src='img/shop/electronics/brands/01.png' style='width: 165px;' alt='Brand').d-block.mx-auto
+      a(href='#' style='margin-right: -.0625rem;').d-block.bg-white.border.py-4.py-sm-5.px-2
+        img(src='img/shop/electronics/brands/02.png' style='width: 165px;' alt='Brand').d-block.mx-auto
+      a(href='#' style='margin-right: -.0625rem;').d-block.bg-white.border.py-4.py-sm-5.px-2
+        img(src='img/shop/electronics/brands/05.png' style='width: 165px;' alt='Brand').d-block.mx-auto
+      a(href='#' style='margin-right: -.0625rem;').d-block.bg-white.border.py-4.py-sm-5.px-2
+        img(src='img/shop/electronics/brands/04.png' style='width: 165px;' alt='Brand').d-block.mx-auto
+      a(href='#' style='margin-right: -.0625rem;').d-block.bg-white.border.py-4.py-sm-5.px-2
+        img(src='img/shop/electronics/brands/03.png' style='width: 165px;' alt='Brand').d-block.mx-auto
+      a(href='#' style='margin-right: -.0625rem;').d-block.bg-white.border.py-4.py-sm-5.px-2
+        img(src='img/shop/electronics/brands/06.png' style='width: 165px;' alt='Brand').d-block.mx-auto
+      a(href='#' style='margin-right: -.0625rem;').d-block.bg-white.border.py-4.py-sm-5.px-2
+        img(src='img/shop/electronics/brands/07.png' style='width: 165px;' alt='Brand').d-block.mx-auto
+      a(href='#' style='margin-right: -.0625rem;').d-block.bg-white.border.py-4.py-sm-5.px-2
+        img(src='img/shop/electronics/brands/08.png' style='width: 165px;' alt='Brand').d-block.mx-auto
+
+  // Product widgets
+  section.container.px-3.pt-2.pb-4.mb-md-2
+    .row
+      .col-md-4.col-sm-6.mb-2.py-3
+        .widget.widget-featured-entries
+          h3.widget-title.font-size-lg Best sellers
+          .media
+            a(href="#").featured-entry-thumb
+              img(src='img/shop/widget/04.jpg' width='64' alt='Product thumb')
+            .media-body
+              h6.featured-entry-title
+                a(href="#") Sennheiser HD 650 Pro
+              +star-rating(4)
+              p.featured-entry-meta $259.99
+          .media
+            a(href="#").featured-entry-thumb
+              img(src='img/shop/widget/05.jpg' width='64' alt='Product thumb')
+            .media-body
+              h6.featured-entry-title
+                a(href="#") Amazon Cloud Cam Security
+              +star-rating(3)
+              p.featured-entry-meta $119.99
+          .media
+            a(href="#").featured-entry-thumb
+              img(src='img/shop/widget/06.jpg' width='64' alt='Product thumb')
+            .media-body
+              h6.featured-entry-title
+                a(href="#") Samsung Galaxy S10 128GB
+              +star-rating(5)
+              p.featured-entry-meta $799.00
+          .media
+            a(href="#").featured-entry-thumb
+              img(src='img/shop/widget/14.jpg' width='64' alt='Product thumb')
+            .media-body
+              h6.featured-entry-title
+                a(href="#") Xiaomi Mi Box S TV Box
+              +star-rating(4)
+              p.featured-entry-meta
+                del.text-muted.mr-1 90.43
+                | $68.99
+      .col-md-4.col-sm-6.mb-2.py-3
+        .widget.widget-featured-entries
+          h3.widget-title.font-size-lg New arrivals
+          .media
+            a(href='#').featured-entry-thumb
+              img(src='img/shop/widget/15.jpg' width='64' alt='Product thumb')
+            .media-body
+              h6.featured-entry-title
+                a(href='#') Apple iMac (27-inch Retina 5K
+              p.featured-entry-meta $1,949.00
+          .media
+            a(href='#').featured-entry-thumb
+              img(src='img/shop/widget/17.jpg' width='64' alt='Product thumb')
+            .media-body
+              h6.featured-entry-title
+                a(href='#') HP Laserjet Pro All in One
+              p.featured-entry-meta $428.60
+          .media
+            a(href="#").featured-entry-thumb
+              img(src='img/shop/widget/16.jpg' width='64' alt='Product thumb')
+            .media-body
+              h6.featured-entry-title
+                a(href="#") PS4 Dual Shock Controller Charger
+              p.featured-entry-meta
+                del.text-muted.mr-1 16.47
+                | $14.97
+          .media
+            a(href='#').featured-entry-thumb
+              img(src='img/shop/widget/18.jpg' width='64' alt='Product thumb')
+            .media-body
+              h6.featured-entry-title
+                a(href='#') Apple Watch Series 4 Silver
+              p.featured-entry-meta $399.00
+      .col-md-4.col-sm-6.mb-2.py-3
+        .widget.widget-featured-entries
+          h3.widget-title.font-size-lg Top rated
+          .media
+            a(href="#").featured-entry-thumb
+              img(src='img/shop/widget/19.jpg' width='64' alt='Product thumb')
+            .media-body
+              h6.featured-entry-title
+                a(href="#") Samsung Galaxy S9 Plus 128GB
+              +star-rating(5)
+              p.featured-entry-meta
+                del.text-muted.mr-1 859.99
+                | $749.99
+          .media
+            a(href="#").featured-entry-thumb
+              img(src='img/shop/widget/21.jpg' width='64' alt='Product thumb')
+            .media-body
+              h6.featured-entry-title
+                a(href="#") Edifier Bluetooth Headphones
+              +star-rating(5)
+              p.featured-entry-meta $98.75
+          .media
+            a(href="#").featured-entry-thumb
+              img(src='img/shop/widget/20.jpg' width='64' alt='Product thumb')
+            .media-body
+              h6.featured-entry-title
+                a(href="#") Samsung Gear 360 (2017 Edition)
+              +star-rating(5)
+              p.featured-entry-meta $107.95
+          .media
+            a(href="#").featured-entry-thumb
+              img(src='img/shop/widget/22.jpg' width='64' alt='Product thumb')
+            .media-body
+              h6.featured-entry-title
+                a(href="#") Nikon COOLPIX Digital Camera
+              +star-rating(5)
+              p.featured-entry-meta
+                del.text-muted.mr-1 249.00
+                | $210.00
+  
+  // YouTube feed
+  section.container.px-3.pb-5.mb-md-2
+    .border.p-3
+      .row
+        .col-md-4.mb-3.mb-md-0
+          .bg-secondary.p-5.text-center
+            img(src='img/home/electronics/yt-logo.png' width='120' alt='YouTube').d-block.mb-4.mx-auto
+            .media.justify-content-center.align-items-center.mb-4
+              img(src='img/home/electronics/yt-subscribers.png' width='126' alt='YouTube Subscribers').mr-2
+              span.font-size-sm.font-weight-semibold 350k+
+            a(href='#').btn.btn-danger.btn-sm.mb-3
+              i(data-feather='user-plus').mr-2
+              | Subscribe*
+            p.font-size-sm.mb-0 *View latest gadgets reviews available for purchase in our store.
+        .col-md-8
+          .d-flex.flex-wrap.justify-content-between.align-items-center.pt-3.pb-2
+            h2.h4.mb-3 Latest videos from MStore channel
+            a(href='#').btn.btn-outline-primary.btn-sm.border-0.mb-3
+              | More videos
+              i(data-feather='chevron-right').ml-1.mr-n2
+          .row.no-gutters
+            .col-lg-4.col-6.mb-3
+              a(href='https://www.youtube.com/embed/vS93u75NnPo' data-fancybox='videos' data-width="1000" data-height="563" data-options='{"caption": "5 New Cool Gadgets You Must See on Amazon 2019 - Cheap Budget"}').d-block.text-decoration-0.px-2
+                .video-cover.mb-2
+                  span.badge.badge-dark 6:16
+                  img(src='img/home/electronics/video-cover01.jpg' alt='Video cover').w-100
+                h6.font-size-sm.font-weight-bold.pt-1 5 New Cool Gadgets You Must See on Amazon 2019 - Cheap Budget
+            .col-lg-4.col-6.mb-3
+              a(href='https://www.youtube.com/embed/B6LaYgGogf0' data-fancybox='videos' data-width="1000" data-height="563" data-options='{"caption": "5 Super Useful Gadgets on Amazon You Must Have in 2019"}').d-block.text-decoration-0.px-2
+                .video-cover.mb-2
+                  span.badge.badge-dark 7:27
+                  img(src='img/home/electronics/video-cover02.jpg' alt='Video cover').w-100
+                h6.font-size-sm.font-weight-bold.pt-1 5 Super Useful Gadgets on Amazon You Must Have in 2019
+            .col-lg-4.col-6.mb-3
+              a(href='https://www.youtube.com/embed/kB-ROfRS9V4' data-fancybox='videos' data-width="1000" data-height="563" data-options='{"caption": "Top 5 New Amazing Gadgets on Amazon You Must See 2019"}').d-block.text-decoration-0.px-2
+                .video-cover.mb-2
+                  span.badge.badge-dark 6:20
+                  img(src='img/home/electronics/video-cover03.jpg' alt='Video cover').w-100
+                h6.font-size-sm.font-weight-bold.pt-1 Top 5 New Amazing Gadgets on Amazon You Must See 2019
+            .col-lg-4.col-6.mb-3.d-lg-none
+              a(href='https://www.youtube.com/embed/sJK67XXE_Rg' data-fancybox='videos' data-width="1000" data-height="563" data-options='{"caption": "5 Amazing Construction Inventions and Working Tools Available..."}').d-block.text-decoration-0.px-2
+                .video-cover.mb-2
+                  span.badge.badge-dark 6:11
+                  img(src='img/home/electronics/video-cover04.jpg' alt='Video cover').w-100
+                h6.font-size-sm.font-weight-bold.pt-1 5 Amazing Construction Inventions and Working Tools Available...
+

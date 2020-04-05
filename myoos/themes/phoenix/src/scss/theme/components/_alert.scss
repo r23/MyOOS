@@ -1,0 +1,77 @@
+//
+// Alert
+// --------------------------------------------------
+
+.alert-secondary {
+  border-color: $border-color;
+  background-color: $gray-100;
+}
+.alert-secondary,
+.alert-light {
+  color: $body-color;
+  a { color: $body-color !important; }
+}
+.alert-dark {
+  border-color: theme-color('dark');
+  background-color: theme-color('dark');
+  color: $white;
+  > *,
+  a { color: $white !important; }
+}
+
+// Alert close
+.alert .close {
+  margin-top: -.125rem;
+  &:hover { color: inherit; }
+}
+
+// Dismissible alerts
+.alert-dismissible {
+  padding-right: $close-font-size + $alert-padding-x;
+}
+
+// Alert with icon
+.alert-with-icon {
+  padding-left: ($alert-icon-padding-x * 3) + $alert-icon-size;
+}
+.alert-icon-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: ($alert-icon-padding-x * 2) + $alert-icon-size;
+  height: 100%;
+  padding: 0 $alert-icon-padding-x;
+  > .alert-icon {
+    position: absolute;
+    top: 50%;
+    margin-top: -($alert-icon-size / 2) !important;
+    @include feather-icon-size($alert-icon-size);
+  }
+}
+@each $color, $value in $theme-colors {
+  .alert-#{$color} {
+    .alert-icon-box {
+      background-color: theme-color-level($color, $alert-icon-bg-level);
+    }
+  }
+}
+.alert-secondary .alert-icon-box {
+  background-color: $gray-200;
+}
+.alert-light .alert-icon-box {
+  background-color: $gray-100;
+}
+.alert-dark .alert-icon-box {
+  background-color: darken(theme-color('dark'), 5%);
+}
+
+// Alert with background image
+.alert-bg-image {
+  border: 0;
+  background: {
+    position: center;
+    repeat: no-repeat;
+    size: cover;
+    clip: padding-box;
+  }
+}

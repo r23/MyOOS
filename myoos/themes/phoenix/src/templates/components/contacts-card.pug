@@ -1,0 +1,327 @@
+extends ../partials/layout-components
+
+//- Override default config variables
+append config
+  - var pageTitle = 'Contacts card'
+  - var pageSubTitle = '&mdash;&nbsp; Contacts details like address, phone, email inside card. Can be mixed with image or map.'
+  - var isNestedFile = true
+  - var isCodeHighlighting = true
+  - var breadcrumbs = [{'title': 'Home', 'link': '../index.html'}, {'title': 'Components', 'link': '#'}]
+
+//- Page Content
+block content
+
+  // Basic example
+  h2.h5.mb-3 Basic example
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result1' data-toggle='tab' role='tab' aria-controls='result1' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html1' data-toggle='tab' role='tab' aria-controls='html1' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug1' data-toggle='tab' role='tab' aria-controls='pug1' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result1.tab-pane.fade.show.active(role='tabpanel')
+          .row
+            .col-lg-6.col-md-7.col-sm-9
+              .card
+                .card-body
+                  h5.font-size-lg.card-title.mb-3.py-1 Chicago, USA
+                  ul.contact-list
+                    li
+                      .contact-icon
+                        i(data-feather='map-pin')
+                      .contact-details
+                        span.contact-label Find us
+                        a(href='#').contact-link 769, Industrial Dr, West Chicago, IL 60185, USA
+                    li
+                      .contact-icon
+                        i(data-feather='phone')
+                      .contact-details
+                        span.contact-label Call us
+                        a(href='tel:+184725276533').contact-link +1 (847) 252 765 33
+                    li
+                      .contact-icon
+                        i(data-feather='mail')
+                      .contact-details
+                        span.contact-label Write us
+                        a(href='mailto:email@example.com').contact-link email@example.com
+        #html1.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Basic contact card --&gt;
+              &lt;div class=&quot;card&quot;&gt;
+                &lt;div class=&quot;card-body&quot;&gt;
+                  &lt;h5 class=&quot;font-size-lg card-title mb-3 py-1&quot;&gt;Chicago, USA&lt;/h5&gt;
+                  &lt;ul class=&quot;contact-list&quot;&gt;
+                    &lt;li&gt;
+                      &lt;div class=&quot;contact-icon&quot;&gt;
+                        &lt;i data-feather=&quot;map-pin&quot;&gt;&lt;/i&gt;
+                      &lt;/div&gt;
+                      &lt;div class=&quot;contact-details&quot;&gt;
+                        &lt;span&gt;Find us&lt;/span&gt;
+                        &lt;a href=&quot;link-to-google-map&quot; class=&quot;contact-link&quot;&gt;769, Industrial Dr, West Chicago, IL 60185, USA&lt;/a&gt;
+                      &lt;/div&gt;
+                    &lt;/li&gt;
+                    &lt;li&gt;
+                      &lt;div class=&quot;contact-icon&quot;&gt;
+                        &lt;i data-feather=&quot;phone&quot;&gt;&lt;/i&gt;
+                      &lt;/div&gt;
+                      &lt;div class=&quot;contact-details&quot;&gt;
+                        &lt;span&gt;Call us&lt;/span&gt;
+                        &lt;a href=&quot;tel:+184725276533&quot; class=&quot;contact-link&quot;&gt;+1 (847) 252 765 33&lt;/a&gt;
+                      &lt;/div&gt;
+                    &lt;/li&gt;
+                    &lt;li&gt;
+                      &lt;div class=&quot;contact-icon&quot;&gt;
+                        &lt;i data-feather=&quot;mail&quot;&gt;&lt;/i&gt;
+                      &lt;/div&gt;
+                      &lt;div class=&quot;contact-details&quot;&gt;
+                        &lt;span&gt;Write us&lt;/span&gt;
+                        &lt;a href=&quot;mailto:email@example.com&quot; class=&quot;contact-link&quot;&gt;email@example.com&lt;/a&gt;
+                      &lt;/div&gt;
+                    &lt;/li&gt;
+                  &lt;/ul&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+        #pug1.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Basic contact card
+              .card
+                .card-body
+                  h5.font-size-lg.card-title.mb-3.py-1 Chicago, USA
+                  ul.contact-list
+                    li
+                      .contact-icon
+                        i(data-feather=&quot;map-pin&quot;)
+                      .contact-details
+                        span.contact-label Find us
+                        a.contact-link(href=&quot;link-to-google-map&quot;) 769, Industrial Dr, West Chicago, IL 60185, USA
+                    li
+                      .contact-icon
+                        i(data-feather=&quot;phone&quot;)
+                      .contact-details
+                        span.contact-label Call us
+                        a.contact-link(href=&quot;tel:+184725276533&quot;) +1 (847) 252 765 33
+                    li
+                      .contact-icon
+                        i(data-feather=&quot;mail&quot;)
+                      .contact-details
+                        span.contact-label Write us
+                        a.contact-link(href=&quot;mailto:email@example.com&quot;) email@example.com
+
+  // With image
+  h2.h5.pt-5.mb-3 With image
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result2' data-toggle='tab' role='tab' aria-controls='result2' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html2' data-toggle='tab' role='tab' aria-controls='html2' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug2' data-toggle='tab' role='tab' aria-controls='pug2' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result2.tab-pane.fade.show.active(role='tabpanel')
+          .row
+            .col-lg-6.col-md-7
+              .card
+                +image('img/contacts/chicago.jpg', 'Chicago')(class='card-img-top')
+                .card-body
+                  h5.font-size-lg.card-title.mb-3.py-1 Chicago, USA
+                  ul.contact-list
+                    li
+                      .contact-icon
+                        i(data-feather='map-pin')
+                      .contact-details
+                        span.contact-label Find us
+                        a(href='#').contact-link 769, Industrial Dr, West Chicago, IL 60185, USA
+                    li
+                      .contact-icon
+                        i(data-feather='phone')
+                      .contact-details
+                        span.contact-label Call us
+                        a(href='tel:+184725276533').contact-link +1 (847) 252 765 33
+                    li
+                      .contact-icon
+                        i(data-feather='mail')
+                      .contact-details
+                        span.contact-label Write us
+                        a(href='mailto:email@example.com').contact-link email@example.com
+        #html2.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Contact card with image --&gt;
+              &lt;div class=&quot;card&quot;&gt;
+                &lt;img src=&quot;path-to-image&quot; class=&quot;card-img-top&quot; alt=&quot;Chicago&quot;&gt;
+                &lt;div class=&quot;card-body&quot;&gt;
+                  &lt;h5 class=&quot;font-size-lg card-title mb-3 py-1&quot;&gt;Chicago, USA&lt;/h5&gt;
+                  &lt;ul class=&quot;contact-list&quot;&gt;
+                    &lt;li&gt;
+                      &lt;div class=&quot;contact-icon&quot;&gt;
+                        &lt;i data-feather=&quot;map-pin&quot;&gt;&lt;/i&gt;
+                      &lt;/div&gt;
+                      &lt;div class=&quot;contact-details&quot;&gt;
+                        &lt;span&gt;Find us&lt;/span&gt;
+                        &lt;a href=&quot;link-to-google-map&quot; class=&quot;contact-link&quot;&gt;769, Industrial Dr, West Chicago, IL 60185, USA&lt;/a&gt;
+                      &lt;/div&gt;
+                    &lt;/li&gt;
+                    &lt;li&gt;
+                      &lt;div class=&quot;contact-icon&quot;&gt;
+                        &lt;i data-feather=&quot;phone&quot;&gt;&lt;/i&gt;
+                      &lt;/div&gt;
+                      &lt;div class=&quot;contact-details&quot;&gt;
+                        &lt;span&gt;Call us&lt;/span&gt;
+                        &lt;a href=&quot;tel:+184725276533&quot; class=&quot;contact-link&quot;&gt;+1 (847) 252 765 33&lt;/a&gt;
+                      &lt;/div&gt;
+                    &lt;/li&gt;
+                    &lt;li&gt;
+                      &lt;div class=&quot;contact-icon&quot;&gt;
+                        &lt;i data-feather=&quot;mail&quot;&gt;&lt;/i&gt;
+                      &lt;/div&gt;
+                      &lt;div class=&quot;contact-details&quot;&gt;
+                        &lt;span&gt;Write us&lt;/span&gt;
+                        &lt;a href=&quot;mailto:email@example.com&quot; class=&quot;contact-link&quot;&gt;email@example.com&lt;/a&gt;
+                      &lt;/div&gt;
+                    &lt;/li&gt;
+                  &lt;/ul&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+        #pug2.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Contact card with image
+              .card
+                +image(&quot;path-to-image&quot;, &quot;Chicago&quot;)(class=&quot;card-img-top&quot;)
+                .card-body
+                  h5.font-size-lg.card-title.mb-3.py-1 Chicago, USA
+                  ul.contact-list
+                    li
+                      .contact-icon
+                        i(data-feather=&quot;map-pin&quot;)
+                      .contact-details
+                        span.contact-label Find us
+                        a.contact-link(href=&quot;link-to-google-map&quot;) 769, Industrial Dr, West Chicago, IL 60185, USA
+                    li
+                      .contact-icon
+                        i(data-feather=&quot;phone&quot;)
+                      .contact-details
+                        span.contact-label Call us
+                        a.contact-link(href=&quot;tel:+184725276533&quot;) +1 (847) 252 765 33
+                    li
+                      .contact-icon
+                        i(data-feather=&quot;mail&quot;)
+                      .contact-details
+                        span.contact-label Write us
+                        a.contact-link(href=&quot;mailto:email@example.com&quot;) email@example.com
+
+  // With map
+  h2.h5.pt-5.mb-3 With map
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result3' data-toggle='tab' role='tab' aria-controls='result3' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html3' data-toggle='tab' role='tab' aria-controls='html3' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug3' data-toggle='tab' role='tab' aria-controls='pug3' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result3.tab-pane.fade.show.active(role='tabpanel')
+          .row
+            .col-lg-6.col-md-7
+              .card
+                iframe(width="600" height="250" id="gmap_canvas" src="https://maps.google.com/maps?q=769%2C%20Industrial%20Dr%2C%20West%20Chicago%2C%20IL%2060185%2C%20USA&t=&z=7&ie=UTF8&iwloc=&output=embed")
+                .card-body
+                  h5.font-size-lg.card-title.mb-3.py-1 Chicago, USA
+                  ul.contact-list
+                    li
+                      .contact-icon
+                        i(data-feather='map-pin')
+                      .contact-details
+                        span.contact-label Find us
+                        a(href='#').contact-link 769, Industrial Dr, West Chicago, IL 60185, USA
+                    li
+                      .contact-icon
+                        i(data-feather='phone')
+                      .contact-details
+                        span.contact-label Call us
+                        a(href='tel:+184725276533').contact-link +1 (847) 252 765 33
+                    li
+                      .contact-icon
+                        i(data-feather='mail')
+                      .contact-details
+                        span.contact-label Write us
+                        a(href='mailto:email@example.com').contact-link email@example.com
+        #html3.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Contact card with Google map --&gt;
+              &lt;div class=&quot;card&quot;&gt;
+                &lt;iframe width=&quot;600&quot; height=&quot;250&quot; id=&quot;gmap_canvas&quot; src=&quot;link-to-map&quot;&gt;&lt;/iframe&gt;
+                &lt;div class=&quot;card-body&quot;&gt;
+                  &lt;h5 class=&quot;font-size-lg card-title mb-3 py-1&quot;&gt;Chicago, USA&lt;/h5&gt;
+                  &lt;ul class=&quot;contact-list&quot;&gt;
+                    &lt;li&gt;
+                      &lt;div class=&quot;contact-icon&quot;&gt;
+                        &lt;i data-feather=&quot;map-pin&quot;&gt;&lt;/i&gt;
+                      &lt;/div&gt;
+                      &lt;div class=&quot;contact-details&quot;&gt;
+                        &lt;span&gt;Find us&lt;/span&gt;
+                        &lt;a href=&quot;link-to-google-map&quot; class=&quot;contact-link&quot;&gt;769, Industrial Dr, West Chicago, IL 60185, USA&lt;/a&gt;
+                      &lt;/div&gt;
+                    &lt;/li&gt;
+                    &lt;li&gt;
+                      &lt;div class=&quot;contact-icon&quot;&gt;
+                        &lt;i data-feather=&quot;phone&quot;&gt;&lt;/i&gt;
+                      &lt;/div&gt;
+                      &lt;div class=&quot;contact-details&quot;&gt;
+                        &lt;span&gt;Call us&lt;/span&gt;
+                        &lt;a href=&quot;tel:+184725276533&quot; class=&quot;contact-link&quot;&gt;+1 (847) 252 765 33&lt;/a&gt;
+                      &lt;/div&gt;
+                    &lt;/li&gt;
+                    &lt;li&gt;
+                      &lt;div class=&quot;contact-icon&quot;&gt;
+                        &lt;i data-feather=&quot;mail&quot;&gt;&lt;/i&gt;
+                      &lt;/div&gt;
+                      &lt;div class=&quot;contact-details&quot;&gt;
+                        &lt;span&gt;Write us&lt;/span&gt;
+                        &lt;a href=&quot;mailto:email@example.com&quot; class=&quot;contact-link&quot;&gt;email@example.com&lt;/a&gt;
+                      &lt;/div&gt;
+                    &lt;/li&gt;
+                  &lt;/ul&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+        #pug3.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Contact card with Google map
+              .card
+                iframe(width=&quot;600&quot;, height=&quot;250&quot;, id=&quot;gmap_canvas&quot;, src=&quot;link-to-map&quot;)
+                .card-body
+                  h5.font-size-lg.card-title.mb-3.py-1 Chicago, USA
+                  ul.contact-list
+                    li
+                      .contact-icon
+                        i(data-feather=&quot;map-pin&quot;)
+                      .contact-details
+                        span.contact-label Find us
+                        a.contact-link(href=&quot;link-to-google-map&quot;) 769, Industrial Dr, West Chicago, IL 60185, USA
+                    li
+                      .contact-icon
+                        i(data-feather=&quot;phone&quot;)
+                      .contact-details
+                        span.contact-label Call us
+                        a.contact-link(href=&quot;tel:+184725276533&quot;) +1 (847) 252 765 33
+                    li
+                      .contact-icon
+                        i(data-feather=&quot;mail&quot;)
+                      .contact-details
+                        span.contact-label Write us
+                        a.contact-link(href=&quot;mailto:email@example.com&quot;) email@example.com

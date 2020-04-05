@@ -1,0 +1,190 @@
+extends ../partials/layout-components
+
+//- Override default config variables
+append config
+  - var pageTitle = 'Modal'
+  - var pageSubTitle = "&mdash;&nbsp; Add dialogs to your site for lightboxes, user notifications, etc. <a href='https://getbootstrap.com/docs/4.3/components/modal/' target='_blank'>See Bootstrap documentation</a>."
+  - var isNestedFile = true
+  - var isModalExample = true
+  - var isCodeHighlighting = true
+  - var breadcrumbs = [{'title': 'Home', 'link': '../index.html'}, {'title': 'Components', 'link': '#'}]
+
+//- Page Content
+block content
+
+  // Modal markup
+  h2.h5.mb-3 Modal markup
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result1' data-toggle='tab' role='tab' aria-controls='result1' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html1' data-toggle='tab' role='tab' aria-controls='html1' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug1' data-toggle='tab' role='tab' aria-controls='pug1' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result1.tab-pane.fade.show.active(role='tabpanel')
+          //-- Styles For Demo purpose only
+          style.
+            .example-modal .modal {
+              display: block;
+              position: relative;
+              top: auto;
+              right: auto;
+              bottom: auto;
+              left: auto;
+              z-index: 1;
+            }
+          //-- End of styles
+          .example-modal
+            .modal(tabindex='-1' role='dialog')
+              .modal-dialog(role='document')
+                .modal-content
+                  .modal-header
+                    h5.modal-title Modal title
+                    button(type='button' class='close' data-dismiss='modal' aria-label='Close')
+                      span(aria-hidden='true') &times;
+                  .modal-body
+                    p Modal body text goes here.
+                  .modal-footer
+                    button(type='button' class='btn btn-secondary btn-sm' data-dismiss='modal') Close
+                    button(type='button' class='btn btn-primary btn-sm') Save changes
+        #html1.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Modal markup --&gt;
+              &lt;div class=&quot;modal&quot; tabindex=&quot;-1&quot; role=&quot;dialog&quot;&gt;
+                &lt;div class=&quot;modal-dialog&quot; role=&quot;document&quot;&gt;
+                  &lt;div class=&quot;modal-content&quot;&gt;
+                    &lt;div class=&quot;modal-header&quot;&gt;
+                      &lt;h5 class=&quot;modal-title&quot;&gt;Modal title&lt;/h5&gt;
+                      &lt;button type=&quot;button&quot; class=&quot;close&quot; data-dismiss=&quot;modal&quot; aria-label=&quot;Close&quot;&gt;
+                        &lt;span aria-hidden=&quot;true&quot;&gt;&amp;times;&lt;/span&gt;
+                      &lt;/button&gt;
+                    &lt;/div&gt;
+                    &lt;div class=&quot;modal-body&quot;&gt;
+                      &lt;p&gt;Modal body text goes here.&lt;/p&gt;
+                    &lt;/div&gt;
+                    &lt;div class=&quot;modal-footer&quot;&gt;
+                      &lt;button type=&quot;button&quot; class=&quot;btn btn-secondary btn-sm&quot; data-dismiss=&quot;modal&quot;&gt;Close&lt;/button&gt;
+                      &lt;button type=&quot;button&quot; class=&quot;btn btn-primary btn-sm&quot;&gt;Save changes&lt;/button&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+        #pug1.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Modal markup
+              .modal(tabindex=&quot;-1&quot;, role=&quot;dialog&quot;)
+                .modal-dialog(role=&quot;document&quot;)
+                  .modal-content
+                    .modal-header
+                      h5.modal-title
+                        | Modal title
+                      button(type=&quot;button&quot;, class=&quot;close&quot;, data-dismiss=&quot;modal&quot;, aria-label=&quot;Close&quot;)
+                        span(aria-hidden=&quot;true&quot;)
+                          | &amp;times;
+                    .modal-body
+                      p
+                        | Modal body text goes here.
+                    .modal-footer
+                      button(type=&quot;button&quot;, class=&quot;btn btn-secondary btn-sm&quot;, data-dismiss=&quot;modal&quot;)
+                        | Close
+                    button(type=&quot;button&quot;, class=&quot;btn btn-primary btn-sm&quot;)
+                      | Save changes
+
+  // Live demos
+  h2.h5.pt-5.mb-3 Live demos
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result2' data-toggle='tab' role='tab' aria-controls='result2' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html2' data-toggle='tab' role='tab' aria-controls='html2' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug2' data-toggle='tab' role='tab' aria-controls='pug2' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result2.tab-pane.fade.show.active(role='tabpanel')
+          button(type='button' class='btn btn-outline-secondary mr-2 mb-3' data-toggle='modal' data-target='#modalSmall') Small modal
+          button(type='button' class='btn btn-outline-secondary mr-2 mb-3' data-toggle='modal' data-target='#modalDefault') Default modal
+          button(type='button' class='btn btn-outline-secondary mr-2 mb-3' data-toggle='modal' data-target='#modalLarge') Large modal
+          button(type='button' class='btn btn-outline-secondary mr-2 mb-3' data-toggle='modal' data-target='#modalXL') Extra large modal
+          button(type='button' class='btn btn-outline-secondary mr-2 mb-3' data-toggle='modal' data-target='#modalLong') Long modal
+          button(type='button' class='btn btn-outline-secondary mr-2 mb-3' data-toggle='modal' data-target='#modalScroll') Srolling content
+          button(type='button' class='btn btn-outline-secondary mb-3' data-toggle='modal' data-target='#modalCentered') Vertically centered modal
+        #html2.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Make sure the actual modal markup is present on the page and has the right id --&gt;
+
+              &lt;!-- Launch small modal --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-outline-secondary&quot; data-toggle=&quot;modal&quot; data-target=&quot;#modalSmall&quot;&gt;
+                Small modal
+              &lt;/button&gt;
+
+              &lt;!-- Launch default modal --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-outline-secondary&quot; data-toggle=&quot;modal&quot; data-target=&quot;#modalDefault&quot;&gt;
+                Default modal
+              &lt;/button&gt;
+
+              &lt;!-- Launch large modal --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-outline-secondary&quot; data-toggle=&quot;modal&quot; data-target=&quot;#modalLarge&quot;&gt;
+                Large modal
+              &lt;/button&gt;
+
+              &lt;!-- Launch extra large modal --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-outline-secondary&quot; data-toggle=&quot;modal&quot; data-target=&quot;#modalXL&quot;&gt;
+                Extra large modal
+              &lt;/button&gt;
+
+              &lt;!-- Launch long modal --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-outline-secondary&quot; data-toggle=&quot;modal&quot; data-target=&quot;#modalLong&quot;&gt;
+                Long modal
+              &lt;/button&gt;
+
+              &lt;!-- Launch modal with srolling content --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-outline-secondary&quot; data-toggle=&quot;modal&quot; data-target=&quot;#modalScroll&quot;&gt;
+                Srolling content
+              &lt;/button&gt;
+
+              &lt;!-- Launch vertically centered modal --&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-outline-secondary&quot; data-toggle=&quot;modal&quot; data-target=&quot;#modalCentered&quot;&gt;
+                Vertically centered modal
+              &lt;/button&gt;
+        #pug2.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              //  Make sure the actual modal markup is present on the page and has the right id
+
+              // Launch small modal
+              button(type=&quot;button&quot;, class=&quot;btn btn-outline-secondary&quot;, data-toggle=&quot;modal&quot;, data-target=&quot;#modalSmall&quot;)
+                | Small modal
+
+              // Launch default modal
+              button(type=&quot;button&quot;, class=&quot;btn btn-outline-secondary&quot;, data-toggle=&quot;modal&quot;, data-target=&quot;#modalDefault&quot;)
+                | Default modal
+
+              // Launch large modal
+              button(type=&quot;button&quot;, class=&quot;btn btn-outline-secondary&quot;, data-toggle=&quot;modal&quot;, data-target=&quot;#modalLarge&quot;)
+                | Large modal
+
+              // Launch extra large modal
+              button(type=&quot;button&quot;, class=&quot;btn btn-outline-secondary&quot;, data-toggle=&quot;modal&quot;, data-target=&quot;#modalXL&quot;)
+                | Extra large modal
+
+              // Launch long modal
+              button(type=&quot;button&quot;, class=&quot;btn btn-outline-secondary&quot;, data-toggle=&quot;modal&quot;, data-target=&quot;#modalLong&quot;)
+                | Long modal
+
+              // Launch modal with srolling content
+              button(type=&quot;button&quot;, class=&quot;btn btn-outline-secondary&quot;, data-toggle=&quot;modal&quot;, data-target=&quot;#modalScroll&quot;)
+                | Srolling content
+
+              // Launch vertically centered modal
+              button(type=&quot;button&quot;, class=&quot;btn btn-outline-secondary&quot;, data-toggle=&quot;modal&quot;, data-target=&quot;#modalCentered&quot;)
+                | Vertically centered modal

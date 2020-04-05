@@ -1,0 +1,647 @@
+extends ../partials/layout-components
+
+//- Override default config variables
+append config
+  - var pageTitle = 'Shop components'
+  - var pageSubTitle = '&mdash;&nbsp; Components related to the e-commerce: product cards, shop category cards, promo banners.'
+  - var isNestedFile = true
+  - var isCodeHighlighting = true
+  - var breadcrumbs = [{'title': 'Home', 'link': '../index.html'}, {'title': 'Components', 'link': '#'}]
+
+//- Page Content
+block content
+
+  // Product cards (style 1)
+  h2.h5.mb-3 Product cards (style 1)
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result1' data-toggle='tab' role='tab' aria-controls='result1' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html1' data-toggle='tab' role='tab' aria-controls='html1' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug1' data-toggle='tab' role='tab' aria-controls='pug1' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result1.tab-pane.fade.show.active(role='tabpanel')
+          .row.pt-2
+            .col-xl-4.col-lg-5.col-md-4.col-sm-6
+              .product-card.mb-4
+                .product-thumb
+                  a(href='#').product-thumb-link
+                  span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+                    i(data-feather='heart')
+                  img(src='../img/shop/apparel/01.jpg' alt='Product')
+                .product-card-body.text-center
+                  a(href='#').product-meta Men's jeans
+                  h3.product-card-title
+                    a(href='#') Gues Slim Taper Fit Jeans
+                  span.text-primary $124.99
+                .product-card-body.body-hidden
+                  .pb-2.text-center
+                    .custom-control.custom-option.custom-control-inline.mb-2
+                      input(type='radio' name='size-1' id='xl-1').custom-control-input
+                      label(for='xl-1').custom-option-label XL
+                    .custom-control.custom-option.custom-control-inline.mb-2
+                      input(type='radio' name='size-1' id='l-1' checked).custom-control-input
+                      label(for='l-1').custom-option-label L
+                    .custom-control.custom-option.custom-control-inline.mb-2
+                      input(type='radio' name='size-1' id='m-1').custom-control-input
+                      label(for='m-1').custom-option-label M
+                    .custom-control.custom-option.custom-control-inline.mb-2
+                      input(type='radio' name='size-1' id='s-1').custom-control-input
+                      label(for='s-1').custom-option-label S
+                    .custom-control.custom-option.custom-control-inline.mb-2
+                      input(type='radio' name='size-1' id='xs-1').custom-control-input
+                      label(for='xs-1').custom-option-label XS
+                  button(type='button').btn.btn-primary.btn-sm.btn-block Add to cart
+                  a(href='#quick-view' data-toggle='modal').quick-view-btn
+                    i(data-feather='eye').mr-1
+                    | Quick view
+            .col-xl-4.col-lg-5.col-md-4.col-sm-6
+              .product-card.mb-4
+                .product-thumb
+                  a(href='#').product-thumb-link
+                  span.badge.badge-danger.rounded-0 Sale -15%
+                  span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+                    i(data-feather='heart')
+                  img(src='../img/shop/apparel/02.jpg' alt='Product')
+                .product-card-body.text-center
+                  a(href='#').product-meta Backpacks
+                  h3.product-card-title
+                    a(href='#') JanSport Hatchet Special Edition
+                  span.text-primary
+                    del.text-muted.mr-1 $70.00
+                    | $58.90
+                .product-card-body.body-hidden
+                  .pb-2.text-center
+                    .custom-control.custom-option.custom-control-inline.mb-2
+                      input(type='radio' name='color-1' id='blue-1').custom-control-input
+                      label(for='blue-1').custom-option-label
+                        span(style='background-color: #193481;').custom-option-color
+                    .custom-control.custom-option.custom-control-inline.mb-2
+                      input(type='radio' name='color-1' id='gray-1' checked).custom-control-input
+                      label(for='gray-1').custom-option-label
+                        span(style='background-color: #cdc7c7;').custom-option-color
+                    .custom-control.custom-option.custom-control-inline.mb-2
+                      input(type='radio' name='color-1' id='terracote-1').custom-control-input
+                      label(for='terracote-1').custom-option-label
+                        span(style='background-color: #c46652;').custom-option-color
+                  button(type='button').btn.btn-primary.btn-sm.btn-block Add to cart
+                  a(href='#quick-view' data-toggle='modal').quick-view-btn
+                    i(data-feather='eye').mr-1
+                    | Quick view
+        #html1.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Example 1 --&gt;
+              &lt;div class=&quot;product-card mb-4&quot;&gt;
+                &lt;div class=&quot;product-thumb&quot;&gt;
+                  &lt;a href=&quot;#&quot; class=&quot;product-thumb-link&quot;&gt;&lt;/a&gt;
+                  &lt;span class=&quot;product-wishlist-btn&quot; data-toggle=&quot;tooltip&quot; data-placement=&quot;left&quot; title=&quot;Add to wishlist&quot;&gt;
+                    &lt;i data-feather=&quot;heart&quot;&gt;&lt;/i&gt;
+                  &lt;/span&gt;
+                  &lt;img src=&quot;path-to-product-image&quot; alt=&quot;Product&quot;&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;product-card-body text-center&quot;&gt;
+                  &lt;a href=&quot;#&quot; class=&quot;product-meta&quot;&gt;Men's jeans&lt;/a&gt;
+                  &lt;h3 class=&quot;product-card-title&quot;&gt;&lt;a href=&quot;#&quot;&gt;Gues Slim Taper Fit Jeans&lt;/a&gt;&lt;/h3&gt;
+                  &lt;span class=&quot;text-primary&quot;&gt;$124.99&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;product-card-body body-hidden&quot;&gt;
+                  &lt;div class=&quot;pb-2 text-center&quot;&gt;
+                    &lt;div class=&quot;custom-control custom-option custom-control-inline mb-2&quot;&gt;
+                      &lt;input type=&quot;radio&quot; class=&quot;custom-control-input&quot; name=&quot;size-1&quot; id=&quot;xl-1&quot;&gt;
+                      &lt;label for=&quot;xl-1&quot; class=&quot;custom-option-label&quot;&gt;XL&lt;/label&gt;
+                    &lt;/div&gt;
+                    &lt;div class=&quot;custom-control custom-option custom-control-inline mb-2&quot;&gt;
+                      &lt;input type=&quot;radio&quot; class=&quot;custom-control-input&quot; name=&quot;size-1&quot; id=&quot;l-1&quot; checked&gt;
+                      &lt;label for=&quot;l-1&quot; class=&quot;custom-option-label&quot;&gt;L&lt;/label&gt;
+                    &lt;/div&gt;
+                    &lt;div class=&quot;custom-control custom-option custom-control-inline mb-2&quot;&gt;
+                      &lt;input type=&quot;radio&quot; class=&quot;custom-control-input&quot; name=&quot;size-1&quot; id=&quot;m-1&quot;&gt;
+                      &lt;label for=&quot;m-1&quot; class=&quot;custom-option-label&quot;&gt;M&lt;/label&gt;
+                    &lt;/div&gt;
+                    &lt;div class=&quot;custom-control custom-option custom-control-inline mb-2&quot;&gt;
+                      &lt;input type=&quot;radio&quot; class=&quot;custom-control-input&quot; name=&quot;size-1&quot; id=&quot;s-1&quot;&gt;
+                      &lt;label for=&quot;s-1&quot; class=&quot;custom-option-label&quot;&gt;S&lt;/label&gt;
+                    &lt;/div&gt;
+                    &lt;div class=&quot;custom-control custom-option custom-control-inline mb-2&quot;&gt;
+                      &lt;input type=&quot;radio&quot; class=&quot;custom-control-input&quot; name=&quot;size-1&quot; id=&quot;xs-1&quot;&gt;
+                      &lt;label for=&quot;xs-1&quot; class=&quot;custom-option-label&quot;&gt;XS&lt;/label&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                  &lt;button type=&quot;button&quot; class=&quot;btn btn-primary btn-sm btn-block&quot;&gt;Add to cart&lt;/button&gt;
+                  &lt;a href=&quot;#quick-view&quot; class=&quot;quick-view-btn&quot; data-toggle=&quot;modal&quot;&gt;
+                    &lt;i data-feather=&quot;eye&quot; class=&quot;mr-1&quot;&gt;&lt;/i&gt;
+                    Quick view
+                  &lt;/a&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+
+              &lt;!-- Example 2 --&gt;
+              &lt;div class=&quot;product-card mb-4&quot;&gt;
+                &lt;div class=&quot;product-thumb&quot;&gt;
+                  &lt;a href=&quot;#&quot; class=&quot;product-thumb-link&quot;&gt;&lt;/a&gt;
+                  &lt;span class=&quot;badge badge-danger rounded-0&quot;&gt;Sale -15%&lt;/span&gt;
+                  &lt;span class=&quot;product-wishlist-btn&quot; data-toggle=&quot;tooltip&quot; data-placement=&quot;left&quot; title=&quot;Add to wishlist&quot;&gt;
+                    &lt;i data-feather=&quot;heart&quot;&gt;&lt;/i&gt;
+                  &lt;/span&gt;
+                  &lt;img src=&quot;path-to-product-image&quot; alt=&quot;Product&quot;&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;product-card-body text-center&quot;&gt;
+                  &lt;a href=&quot;#&quot; class=&quot;product-meta&quot;&gt;Backpacks&lt;/a&gt;
+                  &lt;h3 class=&quot;product-card-title&quot;&gt;&lt;a href=&quot;#&quot;&gt;JanSport Hatchet Special Edition&lt;/a&gt;&lt;/h3&gt;
+                  &lt;span class=&quot;text-primary&quot;&gt;
+                    &lt;del class=&quot;text-muted mr-1&quot;&gt;$70.00&lt;/del&gt;
+                    $58.90
+                  &lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;product-card-body body-hidden&quot;&gt;
+                  &lt;div class=&quot;pb-2 text-center&quot;&gt;
+                    &lt;div class=&quot;custom-control custom-option custom-control-inline mb-2&quot;&gt;
+                      &lt;input type=&quot;radio&quot; class=&quot;custom-control-input&quot; name=&quot;color-1&quot; id=&quot;blue-1&quot;&gt;
+                      &lt;label for=&quot;blue-1&quot; class=&quot;custom-option-label&quot;&gt;
+                        &lt;span class=&quot;custom-option-color&quot; style=&quot;background-color: #193481;&quot;&gt;&lt;/span&gt;
+                      &lt;/label&gt;
+                    &lt;/div&gt;
+                    &lt;div class=&quot;custom-control custom-option custom-control-inline mb-2&quot;&gt;
+                      &lt;input type=&quot;radio&quot; class=&quot;custom-control-input&quot; name=&quot;color-1&quot; id=&quot;gray-1&quot; checked&gt;
+                      &lt;label for=&quot;gray-1&quot; class=&quot;custom-option-label&quot;&gt;
+                        &lt;span class=&quot;custom-option-color&quot; style=&quot;background-color: #cdc7c7;&quot;&gt;&lt;/span&gt;
+                      &lt;/label&gt;
+                    &lt;/div&gt;
+                    &lt;div class=&quot;custom-control custom-option custom-control-inline mb-2&quot;&gt;
+                      &lt;input type=&quot;radio&quot; class=&quot;custom-control-input&quot; name=&quot;color-1&quot; id=&quot;terracote-1&quot;&gt;
+                      &lt;label for=&quot;terracote-1&quot; class=&quot;custom-option-label&quot;&gt;
+                        &lt;span class=&quot;custom-option-color&quot; style=&quot;background-color: #c46652;&quot;&gt;&lt;/span&gt;
+                      &lt;/label&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                  &lt;button type=&quot;button&quot; class=&quot;btn btn-primary btn-sm btn-block&quot;&gt;Add to cart&lt;/button&gt;
+                  &lt;a href=&quot;#quick-view&quot; class=&quot;quick-view-btn&quot; data-toggle=&quot;modal&quot;&gt;
+                    &lt;i data-feather=&quot;eye&quot; class=&quot;mr-1&quot;&gt;&lt;/i&gt;
+                    Quick view
+                  &lt;/a&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+        #pug1.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Example 1
+              .product-card.mb-4
+                .product-thumb
+                  a(href=&quot;#&quot;).product-thumb-link
+                  span.product-wishlist-btn(data-toggle=&quot;tooltip&quot;, data-placement=&quot;left&quot;, title=&quot;Add to wishlist&quot;)
+                    i(data-feather=&quot;heart&quot;)
+                  img(src=&quot;path-to-product-image&quot;, alt=&quot;Product&quot;)
+                .product-card-body.text-center
+                  a.product-meta(href=&quot;#&quot;) Men's jeans
+                  h3.product-card-title
+                    a(href=&quot;#&quot;) Gues Slim Taper Fit Jeans
+                  span.text-primary $124.99
+                .product-card-body.body-hidden
+                  .pb-2.text-center
+                    .custom-control.custom-option.custom-control-inline.mb-2
+                      input(type=&quot;radio&quot;, name=&quot;size-1&quot;, id=&quot;xl-1&quot;).custom-control-input
+                      label.custom-option-label(for=&quot;xl-1&quot;) XL
+                    .custom-control.custom-option.custom-control-inline.mb-2
+                      input(type=&quot;radio&quot;, name=&quot;size-1&quot;, id=&quot;l-1&quot; checked).custom-control-input
+                      label.custom-option-label(for=&quot;l-1&quot;) L
+                    .custom-control.custom-option.custom-control-inline.mb-2
+                      input(type=&quot;radio&quot;, name=&quot;size-1&quot;, id=&quot;m-1&quot;).custom-control-input
+                      label.custom-option-label(for=&quot;m-1&quot;) M
+                    .custom-control.custom-option.custom-control-inline.mb-2
+                      input(type=&quot;radio&quot;, name=&quot;size-1&quot;, id=&quot;s-1&quot;).custom-control-input
+                      label.custom-option-label(for=&quot;s-1&quot;) S
+                    .custom-control.custom-option.custom-control-inline.mb-2
+                      input(type=&quot;radio&quot;, name=&quot;size-1&quot;, id=&quot;xs-1&quot;).custom-control-input
+                      label.custom-option-label(for=&quot;xs-1&quot;) XS
+                  button.btn.btn-primary.btn-sm.btn-block(type=&quot;button&quot;) Add to cart
+                  a(href=&quot;#quick-view&quot;, data-toggle=&quot;modal&quot;).quick-view-btn
+                    i(data-feather=&quot;eye&quot;).mr-1
+                    | Quick view
+
+              // Example 2
+              .product-card.mb-4
+                .product-thumb
+                  a(href=&quot;#&quot;).product-thumb-link
+                  span.badge.badge-danger.rounded-0 Sale -15%
+                  span.product-wishlist-btn(data-toggle=&quot;tooltip&quot;, data-placement=&quot;left&quot;, title=&quot;Add to wishlist&quot;)
+                    i(data-feather=&quot;heart&quot;)
+                  img(src=&quot;path-to-product-image&quot;, alt=&quot;Product&quot;)
+                .product-card-body.text-center
+                  a.product-meta(href=&quot;#&quot;) Backpacks
+                  h3.product-card-title
+                    a(href=&quot;#&quot;) JanSport Hatchet Special Edition
+                  span.text-primary
+                    del.text-muted.mr-1 $70.00
+                    | $58.90
+                .product-card-body.body-hidden
+                  .pb-2.text-center
+                    .custom-control.custom-option.custom-control-inline.mb-2
+                      input(type=&quot;radio&quot;, name=&quot;color-1&quot;, id=&quot;blue-1&quot;).custom-control-input
+                      label(for=&quot;blue-1&quot;).custom-option-label
+                        span(style=&quot;background-color: #193481;&quot;).custom-option-color
+                    .custom-control.custom-option.custom-control-inline.mb-2
+                      input(type=&quot;radio&quot;, name=&quot;color-1&quot;, id=&quot;gray-1&quot;, checked).custom-control-input
+                      label(for=&quot;gray-1&quot;).custom-option-label
+                        span(style=&quot;background-color: #cdc7c7;&quot;).custom-option-color
+                    .custom-control.custom-option.custom-control-inline.mb-2
+                      input(type=&quot;radio&quot;, name=&quot;color-1&quot;, id=&quot;terracote-1&quot;).custom-control-input
+                      label(for=&quot;terracote-1&quot;).custom-option-label
+                        span(style=&quot;background-color: #c46652;&quot;).custom-option-color
+                  button.btn.btn-primary.btn-sm.btn-block(type=&quot;button&quot;) Add to cart
+                  a(href=&quot;#quick-view&quot;, data-toggle=&quot;modal&quot;).quick-view-btn
+                    i(data-feather=&quot;eye&quot;).mr-1
+                    | Quick view
+
+  // Product cards (style 2)
+  h2.h5.pt-5.mb-3 Product cards (style 2)
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result2' data-toggle='tab' role='tab' aria-controls='result2' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html2' data-toggle='tab' role='tab' aria-controls='html2' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug2' data-toggle='tab' role='tab' aria-controls='pug2' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result2.tab-pane.fade.show.active(role='tabpanel')
+          .row.no-gutters.py-2
+            .col-xl-4.col-lg-5.col-md-4.col-sm-6.border.border-collapse
+              .product-card
+                .product-thumb
+                  a(href='#').product-thumb-link
+                  span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+                    i(data-feather='heart')
+                  img(src='../img/shop/electronics/03.jpg' alt='Product')
+                .product-card-body
+                  .d-flex.flex-wrap.justify-content-between.pb-1
+                    a(href='#').product-meta Cameras
+                  h3.product-card-title
+                    a(href='#') Samsung Gear 360 SM-R210 (2017 Edition) Spherical Cam 360 degree 4K Camera
+                  span.text-primary $107.95
+                .product-card-body.body-hidden.pt-2
+                  button(type='button').btn.btn-primary.btn-sm.btn-block Add to cart
+                  a(href='#').quick-view-btn
+                    i(data-feather='repeat').mr-1
+                    | Compare
+                  ul.font-size-sm.opacity-80.pl-4.pt-2.mb-2
+                    li 4096x2048@24fps 360 video
+                    li 360 still image
+                    li Dual CMOS 8.4MP, Dual F2.2 
+                    li Built-in 1,160mAh
+            .col-xl-4.col-lg-5.col-md-4.col-sm-6.border.border-collapse
+              .product-card
+                .product-thumb
+                  a(href='#').product-thumb-link
+                  span.badge.badge-danger.rounded-0 Sale -40%
+                  span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+                    i(data-feather='heart')
+                  img(src='../img/shop/electronics/04.jpg' alt='Product')
+                .product-card-body
+                  .d-flex.flex-wrap.justify-content-between.pb-1
+                    a(href='#').product-meta Smart home
+                    +star-rating-short(4.2)
+                  h3.product-card-title
+                    a(href='#') All-new Echo Dot (3rd Gen) - Smart speaker with Alexa - Charcoal
+                  span.text-primary
+                    del.text-muted.mr-1 $49.99
+                    | $29.99
+                .product-card-body.body-hidden.pt-2
+                  button(type='button').btn.btn-primary.btn-sm.btn-block Add to cart
+                  a(href='#').quick-view-btn
+                    i(data-feather='repeat').mr-1
+                    | Compare
+                  ul.font-size-sm.opacity-80.pl-4.pt-2.mb-2
+                    li 4096x2048@24fps 360 video
+                    li 360 still image
+                    li Dual CMOS 8.4MP, Dual F2.2 
+                    li Built-in 1,160mAh
+        #html2.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Row without gutters --&gt;
+              &lt;div class=&quot;row no-gutters&quot;&gt;
+
+                &lt;!-- Product card (inside column) --&gt;
+                &lt;div class=&quot;col-lg-3 col-md-4 col-sm-6 border border-collapse&quot;&gt;
+                  &lt;div class=&quot;product-card&quot;&gt;
+                    &lt;div class=&quot;product-thumb&quot;&gt;
+                      &lt;a href=&quot;#&quot; class=&quot;product-thumb-link&quot;&gt;&lt;/a&gt;
+                      &lt;span class=&quot;product-wishlist-btn&quot; data-toggle=&quot;tooltip&quot; data-placement=&quot;left&quot; title=&quot;Add to wishlist&quot;&gt;
+                        &lt;i data-feather=&quot;heart&quot;&gt;&lt;/i&gt;
+                      &lt;/span&gt;
+                      &lt;img src=&quot;path-to-product-image&quot; alt=&quot;Product&quot;&gt;
+                    &lt;/div&gt;
+                    &lt;div class=&quot;product-card-body&quot;&gt;
+                      &lt;div class=&quot;d-flex flex-wrap justify-content-between pb-1&quot;&gt;
+                        &lt;a href=&quot;#&quot; class=&quot;product-meta&quot;&gt;Cameras&lt;/a&gt;
+                      &lt;/div&gt;
+                      &lt;h3 class=&quot;product-card-title&quot;&gt;
+                        &lt;a href=&quot;#&quot;&gt;Samsung Gear 360 SM-R210 (2017 Edition) Spherical Cam 360 degree 4K Camera&lt;/a&gt;
+                      &lt;/h3&gt;
+                      &lt;span class=&quot;text-primary&quot;&gt;$107.95&lt;/span&gt;
+                    &lt;/div&gt;
+                    &lt;div class=&quot;product-card-body body-hidden pt-2&quot;&gt;
+                      &lt;button type=&quot;button&quot; class=&quot;btn btn-primary btn-sm btn-block&quot;&gt;Add to cart&lt;/buttoni&gt;
+                      &lt;a href=&quot;#&quot; class=&quot;quick-view-btn&quot;&gt;
+                        &lt;i class=&quot;mr-1&quot; data-feather=&quot;repeat&quot;&gt;&lt;/i&gt;
+                        Compare
+                      &lt;/a&gt;
+                      &lt;ul class=&quot;font-size-sm opacity-80 pl-4 pt-2 mb-2&quot;&gt;
+                        &lt;li&gt;4096x2048@24fps 360 video&lt;/li&gt;
+                        &lt;li&gt;360 still image&lt;/li&gt;
+                        &lt;li&gt;Dual CMOS 8.4MP, Dual F2.2&lt;/li&gt;
+                        &lt;li&gt;Built-in 1,160mAh&lt;/li&gt;
+                      &lt;/ul&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+                
+                &lt;!-- Product card (inside column) --&gt;
+                &lt;div class=&quot;col-lg-3 col-md-4 col-sm-6 border border-collapse&quot;&gt;
+                  &lt;div class=&quot;product-card&quot;&gt;
+                    &lt;div class=&quot;product-thumb&quot;&gt;
+                      &lt;a href=&quot;#&quot; class=&quot;product-thumb-link&quot;&gt;&lt;/a&gt;
+                      &lt;span class=&quot;badge badge-danger rounded-0&quot;&gt;Sale -40%&lt;/span&gt;
+                      &lt;span class=&quot;product-wishlist-btn&quot; data-toggle=&quot;tooltip&quot; data-placement=&quot;left&quot; title=&quot;Add to wishlist&quot;&gt;
+                        &lt;i data-feather=&quot;heart&quot;&gt;&lt;/i&gt;
+                      &lt;/span&gt;
+                      &lt;img src=&quot;path-to-product-image&quot; alt=&quot;Product&quot;&gt;
+                    &lt;/div&gt;
+                    &lt;div class=&quot;product-card-body&quot;&gt;
+                      &lt;div class=&quot;d-flex flex-wrap justify-content-between pb-1&quot;&gt;
+                        &lt;a href=&quot;#&quot; class=&quot;product-meta&quot;&gt;Smart home&lt;/a&gt;
+                        &lt;div class=&quot;star-rating&quot;&gt;
+                          &lt;span class=&quot;sr-label mr-1&quot;&gt;4.2&lt;/span&gt;
+                          &lt;i class=&quot;sr-star active&quot; data-feather=&quot;star&quot;&gt;&lt;/i&gt;
+                        &lt;/div&gt;
+                      &lt;/div&gt;
+                      &lt;h3 class=&quot;product-card-title&quot;&gt;
+                        &lt;a href=&quot;#&quot;&gt;All-new Echo Dot (3rd Gen) - Smart speaker with Alexa - Charcoal&lt;/a&gt;
+                      &lt;/h3&gt;
+                      &lt;span class=&quot;text-primary&quot;&gt;
+                        &lt;del class=&quot;text-muted mr-1&quot;&gt;$49.99&lt;/del&gt;
+                        $29.99
+                      &lt;/span&gt;
+                    &lt;/div&gt;
+                    &lt;div class=&quot;product-card-body body-hidden pt-2&quot;&gt;
+                      &lt;button type=&quot;button&quot; class=&quot;btn btn-primary btn-sm btn-block&quot;&gt;Add to cart&lt;/buttoni&gt;
+                      &lt;a href=&quot;#&quot; class=&quot;quick-view-btn&quot;&gt;
+                        &lt;i class=&quot;mr-1&quot; data-feather=&quot;repeat&quot;&gt;&lt;/i&gt;
+                        Compare
+                      &lt;/a&gt;
+                      &lt;ul class=&quot;font-size-sm opacity-80 pl-4 pt-2 mb-2&quot;&gt;
+                        &lt;li&gt;4096x2048@24fps 360 video&lt;/li&gt;
+                        &lt;li&gt;360 still image&lt;/li&gt;
+                        &lt;li&gt;Dual CMOS 8.4MP, Dual F2.2&lt;/li&gt;
+                        &lt;li&gt;Built-in 1,160mAh&lt;/li&gt;
+                      &lt;/ul&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+        #pug2.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Row without gutters
+              .row.no-gutters
+                
+                // Product card (inside column)
+                .col-lg-3.col-md-4.col-sm-6.border.border-collapse
+                  .product-card
+                    .product-thumb
+                      a(href=&quot;#&quot;).product-thumb-link
+                      span.product-wishlist-btn(data-toggle=&quot;tooltip&quot;, data-placement=&quot;left&quot;, title=&quot;Add to wishlist&quot;)
+                        i(data-feather=&quot;heart&quot;)
+                      img(src=&quot;path-to-product-image&quot;, alt=&quot;Product&quot;)
+                    .product-card-body
+                      .d-flex.flex-wrap.justify-content-between.pb-1
+                        a.product-meta(href=&quot;#&quot;) Cameras
+                      h3.product-card-title
+                        a(href=&quot;#&quot;) Samsung Gear 360 SM-R210 (2017 Edition) Spherical Cam 360 degree 4K Camera
+                      span.text-primary $107.95
+                    .product-card-body.body-hidden.pt-2
+                      button.btn.btn-primary.btn-sm.btn-block(type=&quot;button&quot;) Add to cart
+                      a(href=&quot;#&quot;).quick-view-btn
+                        i(data-feather=&quot;repeat&quot;).mr-1
+                        | Compare
+                      ul.font-size-sm.opacity-80.pl-4.pt-2.mb-2
+                        li 4096x2048@24fps 360 video
+                        li 360 still image
+                        li Dual CMOS 8.4MP, Dual F2.2 
+                        li Built-in 1,160mAh
+                
+                // Product card (inside column)
+                .col-lg-3.col-md-4.col-sm-6.border.border-collapse
+                  .product-card
+                    .product-thumb
+                      a(href=&quot;#&quot;).product-thumb-link
+                      span.badge.badge-danger.rounded-0 Sale -40%
+                      span.product-wishlist-btn(data-toggle=&quot;tooltip&quot;, data-placement=&quot;left&quot;, title=&quot;Add to wishlist&quot;)
+                        i(data-feather=&quot;heart&quot;)
+                      img(src=&quot;path-to-product-image&quot;, alt=&quot;Product&quot;)
+                    .product-card-body
+                      .d-flex.flex-wrap.justify-content-between.pb-1
+                        a.product-meta(href=&quot;#&quot;) Smart home
+                        +star-rating-short(4.2)
+                      h3.product-card-title
+                        a(href=&quot;#&quot;) All-new Echo Dot (3rd Gen) - Smart speaker with Alexa - Charcoal
+                      span.text-primary
+                        del.text-muted.mr-1 $49.99
+                        | $29.99
+                    .product-card-body.body-hidden.pt-2
+                      button.btn.btn-primary.btn-sm.btn-block(type=&quot;button&quot;) Add to cart
+                      a(href=&quot;#&quot;).quick-view-btn
+                        i(data-feather=&quot;repeat&quot;).mr-1
+                        | Compare
+                      ul.font-size-sm.opacity-80.pl-4.pt-2.mb-2
+                        li 4096x2048@24fps 360 video
+                        li 360 still image
+                        li Dual CMOS 8.4MP, Dual F2.2 
+                        li Built-in 1,160mAh
+
+  // Category card (style 1)
+  h2.h5.pt-5.mb-3 Category card (style 1)
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result3' data-toggle='tab' role='tab' aria-controls='result3' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html3' data-toggle='tab' role='tab' aria-controls='html3' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug3' data-toggle='tab' role='tab' aria-controls='pug3' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result3.tab-pane.fade.show.active(role='tabpanel')
+          .row.py-2
+            .col-md-6.col-sm-7
+              .card.border-0
+                a(href='#').card-img-tiles
+                  .main-img
+                    img(src='../img/shop/apparel/categories/01.jpg' alt='Clothing')
+                  .thumblist
+                    img(src='../img/shop/apparel/categories/02.jpg' alt='Clothing')
+                    img(src='../img/shop/apparel/categories/03.jpg' alt='Clothing')
+                .card-body.border.mt-n1.py-4.text-center
+                  h2.h5.mb-1 Clothing
+                  span.d-block.mb-3.font-size-xs.text-muted Starting from <span class='font-weight-semibold'>$49.99</span>
+                  a(href='#').btn.btn-pill.btn-outline-primary.btn-sm Shop clothing
+        #html3.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Category card (style 1) --&gt;
+              &lt;div class=&quot;card border-0&quot;&gt;
+                &lt;a href=&quot;#&quot; class=&quot;card-img-tiles&quot;&gt;
+                  &lt;div class=&quot;main-img&quot;&gt;
+                    &lt;img src=&quot;path-to-main-image&quot; alt=&quot;Clothing&quot;&gt;
+                  &lt;/div&gt;
+                  &lt;div class=&quot;thumblist&quot;&gt;
+                    &lt;img src=&quot;path-to-thumbnail&quot; alt=&quot;Clothing&quot;&gt;
+                    &lt;img src=&quot;path-to-thumbnail&quot; alt=&quot;Clothing&quot;&gt;
+                  &lt;/div&gt;
+                &lt;/a&gt;
+                &lt;div class=&quot;card-body border mt-n1 py-4 text-center&quot;&gt;
+                  &lt;h2 class=&quot;h5 mb-1&quot;&gt;Clothing&lt;/h2&gt;
+                  &lt;span class=&quot;d-block mb-3 font-size-xs text-muted&quot;&gt;
+                    Starting from&amp;nbsp;
+                    &lt;span class=&quot;font-weight-semibold&quot;&gt;$49.99&lt;/span&gt;
+                  &lt;/span&gt;
+                  &lt;a href=&quot;#&quot; class=&quot;btn btn-pill btn-outline-primary btn-sm&quot;&gt;Shop clothing&lt;/a&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+        #pug3.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Category card (style 1)
+              .card.border-0
+                a(href=&quot;#&quot;).card-img-tiles
+                  .main-img
+                    img(src=&quot;path-to-main-image&quot;, alt=&quot;Clothing&quot;)
+                  .thumblist
+                    img(src=&quot;path-to-thumbnail&quot;, alt=&quot;Clothing&quot;)
+                    img(src=&quot;path-to-thumbnail&quot;, alt=&quot;Clothing&quot;)
+                .card-body.border.mt-n1.py-4.text-center
+                  h2.h5.mb-1 Clothing
+                  span.d-block.mb-3.font-size-xs.text-muted
+                    | Starting from&amp;nbsp;
+                    span.font-weight-semibold $49.99
+                  a(href=&quot;#&quot;).btn.btn-pill.btn-outline-primary.btn-sm
+                    | Shop clothing
+
+  // Category card (style 2)
+  h2.h5.pt-5.mb-3 Category card (style 2)
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result4' data-toggle='tab' role='tab' aria-controls='result4' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html4' data-toggle='tab' role='tab' aria-controls='html4' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug4' data-toggle='tab' role='tab' aria-controls='pug4' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result4.tab-pane.fade.show.active(role='tabpanel')
+          .row.no-gutters.py-2
+            .col-md-5.col-sm-7.category-card.border.border-collapse
+              .card.border-0
+                a(href='#').d-block
+                  img(src='../img/shop/electronics/categories/01.jpg' alt='Computers & Accessories').d-block
+                .card-body.pb-2
+                  h2.h6.mb-2 Computers &amp; Accessories
+                  span.d-block.mb-3.font-size-xs.text-muted Starting from <span class='font-weight-semibold'>$149.80</span>
+                  .list-group.list-group-flush.font-size-sm
+                    a(href='#').list-group-item.list-group-item-action
+                      | Laptops &amp; Tablets
+                      i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+                    a(href='#').list-group-item.list-group-item-action
+                      | Desktop Computers
+                      i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+                    a(href='#').list-group-item.list-group-item-action
+                      | Computer Accessories
+                      i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+                    a(href='#').list-group-item.list-group-item-action
+                      | Computer Components
+                      i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+                    a(href='#').list-group-item.list-group-item-action
+                      | Networking Products
+                      i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+        #html4.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Row without gutters --&gt;
+              &lt;div class=&quot;row no-gutters&quot;&gt;
+              
+                &lt;!-- Category card (style 2 inside column) --&gt;
+                &lt;div class=&quot;col-lg-3 col-sm-4 col-6 category-card border border-collapse&quot;&gt;
+                  &lt;div class=&quot;card border-0&quot;&gt;
+                    &lt;a href=&quot;#&quot; class=&quot;d-block&quot;&gt;
+                      &lt;img src=&quot;path-to-category-image&quot; alt=&quot;Computers &amp; Accessories&quot;&gt;
+                    &lt;/a&gt;
+                    &lt;div class=&quot;card-body pb-2&quot;&gt;
+                      &lt;h2 class=&quot;h6 mb-2&quot;&gt;Computers &amp; Accessories&lt;/h2&gt;
+                      &lt;span class=&quot;d-block mb-3 font-size-xs text-muted&quot;&gt;
+                        Starting from&amp;nbsp;
+                        &lt;span class=&quot;font-weight-semibold&quot;&gt;$149.80&lt;/span&gt;
+                      &lt;/span&gt;
+                      &lt;div class=&quot;list-group list-group-flush font-size-sm&quot;&gt;
+                        &lt;a href=&quot;#&quot; class=&quot;list-group-item list-group-item-action&quot;&gt;
+                          Laptops &amp; Tablets
+                          &lt;i data-feather=&quot;chevron-right&quot; class=&quot;ml-1&quot; style=&quot;width: .875rem; height: .875rem;&quot;&gt;&lt;/i&gt;
+                        &lt;/a&gt;
+                        &lt;a href=&quot;#&quot; class=&quot;list-group-item list-group-item-action&quot;&gt;
+                          Desktop Computers
+                          &lt;i data-feather=&quot;chevron-right&quot; class=&quot;ml-1&quot; style=&quot;width: .875rem; height: .875rem;&quot;&gt;&lt;/i&gt;
+                        &lt;/a&gt;
+                        &lt;a href=&quot;#&quot; class=&quot;list-group-item list-group-item-action&quot;&gt;
+                          Computer Accessories
+                          &lt;i data-feather=&quot;chevron-right&quot; class=&quot;ml-1&quot; style=&quot;width: .875rem; height: .875rem;&quot;&gt;&lt;/i&gt;
+                        &lt;/a&gt;
+                        &lt;a href=&quot;#&quot; class=&quot;list-group-item list-group-item-action&quot;&gt;
+                          Networking Products
+                          &lt;i data-feather=&quot;chevron-right&quot; class=&quot;ml-1&quot; style=&quot;width: .875rem; height: .875rem;&quot;&gt;&lt;/i&gt;
+                        &lt;/a&gt;
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+        #pug4.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Row without gutters
+              .row.no-gutters
+
+                // Category card (style 2 inside column)
+                .col-lg-3.col-sm-4.col-6.category-card.border.border-collapse
+                  .card.border-0
+                    a(href=&quot;#&quot;).d-block
+                      img(src=&quot;path-to-category-image&quot;, alt=&quot;Computers &amp; Accessories&quot;).d-block
+                    .card-body.pb-2
+                      h2.h6.mb-2 Computers &amp; Accessories
+                      span.d-block.mb-3.font-size-xs.text-muted
+                        | Starting from&amp;nbsp;
+                        span.font-weight-semibold $149.80
+                      .list-group.list-group-flush.font-size-sm
+                        a(href=&quot;#&quot;).list-group-item.list-group-item-action
+                          | Laptops &amp; Tablets
+                          i(data-feather=&quot;chevron-right&quot;, style=&quot;width: .875rem; height: .875rem;&quot;).ml-1
+                        a(href=&quot;#&quot;).list-group-item.list-group-item-action
+                          | Desktop Computers
+                          i(data-feather=&quot;chevron-right&quot;, style=&quot;width: .875rem; height: .875rem;&quot;).ml-1
+                        a(href=&quot;#&quot;).list-group-item.list-group-item-action
+                          | Computer Accessories
+                          i(data-feather=&quot;chevron-right&quot;, style=&quot;width: .875rem; height: .875rem;&quot;).ml-1
+                        a(href=&quot;#&quot;).list-group-item.list-group-item-action
+                          | Computer Components
+                          i(data-feather=&quot;chevron-right&quot;, style=&quot;width: .875rem; height: .875rem;&quot;).ml-1
+                        a(href=&quot;#&quot;).list-group-item.list-group-item-action
+                          | Networking Products
+                          i(data-feather=&quot;chevron-right&quot;, style=&quot;width: .875rem; height: .875rem;&quot;).ml-1

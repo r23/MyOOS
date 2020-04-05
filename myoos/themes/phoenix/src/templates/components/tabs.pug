@@ -1,0 +1,459 @@
+extends ../partials/layout-components
+
+//- Override default config variables
+append config
+  - var pageTitle = 'Tabs'
+  - var pageSubTitle = '&mdash;&nbsp; Horizontally stacked list of items. When clicked each item switch content in the tab pane.  <a href="https://getbootstrap.com/docs/4.3/components/navs/#tabs" target="_blank">See Bootstrap documentation</a>.'
+  - var isNestedFile = true
+  - var isCodeHighlighting = true
+  - var breadcrumbs = [{'title': 'Home', 'link': '../index.html'}, {'title': 'Components', 'link': '#'}]
+
+//- Page Content
+block content
+
+  // Basic example
+  h2.h5.mb-3 Basic example
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result1' data-toggle='tab' role='tab' aria-controls='result1' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html1' data-toggle='tab' role='tab' aria-controls='html1' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug1' data-toggle='tab' role='tab' aria-controls='pug1' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result1.tab-pane.fade.show.active(role='tabpanel')
+          ul(class='nav nav-tabs' role='tablist')
+            li.nav-item
+              a(href='#home1' class='nav-link active' data-toggle='tab' role='tab')
+                i(data-feather='home')
+                | &nbsp;Home
+            li.nav-item
+              a(href='#profile1' class='nav-link' data-toggle='tab' role='tab')
+                i(data-feather='user')
+                | &nbsp;Profile
+            li.nav-item.dropdown
+              a(href='#' class='nav-link dropdown-toggle' data-toggle='dropdown' role='button') Dropdown
+              .dropdown-menu
+                a(href='#messages1' class='dropdown-item' data-toggle='tab' role='tab') Messages
+                a(href='#settings1' class='dropdown-item' data-toggle='tab' role='tab') Settings
+          .tab-content
+            div(id='home1' class='tab-pane fade show active' role='tabpanel')
+              p.font-size-sm Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui. Excepteur sint occaecat cupidatat non proident.
+            div(id='profile1' class='tab-pane fade' role='tabpanel')
+              p.font-size-sm Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente.
+            div(id='messages1' class='tab-pane fade' role='tabpanel')
+              p.font-size-sm Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.
+            div(id='settings1' class='tab-pane fade' role='tabpanel')
+              p.font-size-sm Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral, mustache readymade thundercats keffiyeh craft beer marfa ethical. Wolf salvia freegan.
+        #html1.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Nav tabs --&gt;
+              &lt;ul class=&quot;nav nav-tabs&quot; role=&quot;tablist&quot;&gt;
+                &lt;li class=&quot;nav-item&quot;&gt;
+                  &lt;a href=&quot;#home1&quot; class=&quot;nav-link active&quot; data-toggle=&quot;tab&quot; role=&quot;tab&quot;&gt;
+                    &lt;i data-feather=&quot;home&quot;&gt;&lt;/i&gt;
+                    &amp;nbsp;Home
+                  &lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li class=&quot;nav-item&quot;&gt;
+                  &lt;a href=&quot;#profile1&quot; class=&quot;nav-link&quot; data-toggle=&quot;tab&quot; role=&quot;tab&quot;&gt;
+                    &lt;i data-feather=&quot;user&quot;&gt;&lt;/i&gt;
+                    &amp;nbsp;Profile
+                  &lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li class=&quot;nav-item dropdown&quot;&gt;
+                  &lt;a href=&quot;#&quot; class=&quot;nav-link dropdown-toggle&quot; data-toggle=&quot;dropdown&quot; role=&quot;button&quot;&gt;Dropdown&lt;/a&gt;
+                  &lt;div class=&quot;dropdown-menu&quot;&gt;
+                    &lt;a href=&quot;#messages1&quot; class=&quot;dropdown-item&quot; data-toggle=&quot;tab&quot; role=&quot;tab&quot;&gt;Messages&lt;/a&gt;
+                    &lt;a href=&quot;#settings1&quot; class=&quot;dropdown-item&quot; data-toggle=&quot;tab&quot; role=&quot;tab&quot;&gt;Settings&lt;/a&gt;
+                  &lt;/div&gt;
+                &lt;/li&gt;
+              &lt;/ul&gt;
+
+              &lt;!-- Tabs content --&gt;
+              &lt;div class=&quot;tab-content&quot;&gt;
+                &lt;div class=&quot;tab-pane fade show active&quot; id=&quot;home1&quot; role=&quot;tabpanel&quot;&gt;
+                  &lt;p class=&quot;font-size-sm&quot;&gt;Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui. Excepteur sint occaecat cupidatat non proident.&lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;tab-pane fade&quot; id=&quot;profile1&quot; role=&quot;tabpanel&quot;&gt;
+                  &lt;p class=&quot;font-size-sm&quot;&gt;Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente.&lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;tab-pane fade&quot; id=&quot;messages1&quot; role=&quot;tabpanel&quot;&gt;
+                  &lt;p class=&quot;font-size-sm&quot;&gt;Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.&lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;tab-pane fade&quot; id=&quot;settings1&quot; role=&quot;tabpanel&quot;&gt;
+                  &lt;p class=&quot;font-size-sm&quot;&gt;Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral, mustache readymade thundercats keffiyeh craft beer marfa ethical. Wolf salvia freegan.&lt;/p&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+        #pug1.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              //  Nav tabs
+              ul(class=&quot;nav nav-tabs&quot;, role=&quot;tablist&quot;)
+                li.nav-item
+                  a(href=&quot;#home1&quot;, class=&quot;nav-link active&quot;, data-toggle=&quot;tab&quot;, role=&quot;tab&quot;)
+                    i(data-feather=&quot;home&quot;)
+                    | &amp;nbsp;Home
+                li.nav-item
+                  a(href=&quot;#profile1&quot;, class=&quot;nav-link&quot;, data-toggle=&quot;tab&quot;, role=&quot;tab&quot;)
+                    i(data-feather=&quot;user&quot;)
+                    | &amp;nbsp;Profile
+                li.nav-item.dropdown
+                  a(href=&quot;#&quot;, class=&quot;nav-link dropdown-toggle&quot;, data-toggle=&quot;dropdown&quot;, role=&quot;button&quot;)
+                    | Dropdown
+                  .dropdown-menu
+                    a(href=&quot;#messages1&quot;, class=&quot;dropdown-item&quot;, data-toggle=&quot;tab&quot;, role=&quot;tab&quot;)
+                      | Messages
+                    a(href=&quot;#settings1&quot;, class=&quot;dropdown-item&quot;, data-toggle=&quot;tab&quot;, role=&quot;tab&quot;)
+                      | Settings
+
+              // Tabs content
+              .tab-content
+                div(id=&quot;home1&quot;, class=&quot;tab-pane fade show active&quot;, role=&quot;tabpanel&quot;)
+                  p.font-size-sm
+                    | Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui. Excepteur sint occaecat cupidatat non proident.
+                div(id=&quot;profile1&quot;, class=&quot;tab-pane fade&quot;, role=&quot;tabpanel&quot;)
+                  p.font-size-sm
+                    | Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente.
+                div(id=&quot;messages1&quot;, class=&quot;tab-pane fade&quot;, role=&quot;tabpanel&quot;)
+                  p.font-size-sm
+                    | Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.
+                div(id=&quot;settings1&quot;, class=&quot;tab-pane fade&quot;, role=&quot;tabpanel&quot;)
+                  p.font-size-sm
+                    | Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral, mustache readymade thundercats keffiyeh craft beer marfa ethical. Wolf salvia freegan.
+
+  // Center aligned
+  h2.h5.pt-5.mb-3 Center aligned
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result2' data-toggle='tab' role='tab' aria-controls='result2' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html2' data-toggle='tab' role='tab' aria-controls='html2' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug2' data-toggle='tab' role='tab' aria-controls='pug2' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result2.tab-pane.fade.show.active(role='tabpanel')
+          ul(class='nav nav-tabs justify-content-center' role='tablist')
+            li.nav-item
+              a(href='#home2' class='nav-link active' data-toggle='tab' role='tab')
+                i(data-feather='home')
+                | &nbsp;Home
+            li.nav-item
+              a(href='#profile2' class='nav-link' data-toggle='tab' role='tab')
+                i(data-feather='user')
+                | &nbsp;Profile
+            li.nav-item.dropdown
+              a(href='#' class='nav-link dropdown-toggle' data-toggle='dropdown' role='button') Dropdown
+              .dropdown-menu
+                a(href='#messages2' class='dropdown-item' data-toggle='tab' role='tab') Messages
+                a(href='#settings2' class='dropdown-item' data-toggle='tab' role='tab') Settings
+          .tab-content
+            div(id='home2' class='tab-pane fade show active' role='tabpanel')
+              p.font-size-sm Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui. Excepteur sint occaecat cupidatat non proident.
+            div(id='profile2' class='tab-pane fade' role='tabpanel')
+              p.font-size-sm Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente.
+            div(id='messages2' class='tab-pane fade' role='tabpanel')
+              p.font-size-sm Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.
+            div(id='settings2' class='tab-pane fade' role='tabpanel')
+              p.font-size-sm Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral, mustache readymade thundercats keffiyeh craft beer marfa ethical. Wolf salvia freegan.
+        #html2.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Nav tabs --&gt;
+              &lt;ul class=&quot;nav nav-tabs justify-content-center&quot; role=&quot;tablist&quot;&gt;
+                &lt;li class=&quot;nav-item&quot;&gt;
+                  &lt;a href=&quot;#home2&quot; class=&quot;nav-link active&quot; data-toggle=&quot;tab&quot; role=&quot;tab&quot;&gt;
+                    &lt;i data-feather=&quot;home&quot;&gt;&lt;/i&gt;
+                    &amp;nbsp;Home
+                  &lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li class=&quot;nav-item&quot;&gt;
+                  &lt;a href=&quot;#profile2&quot; class=&quot;nav-link&quot; data-toggle=&quot;tab&quot; role=&quot;tab&quot;&gt;
+                    &lt;i data-feather=&quot;user&quot;&gt;&lt;/i&gt;
+                    &amp;nbsp;Profile
+                  &lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li class=&quot;nav-item dropdown&quot;&gt;
+                  &lt;a href=&quot;#&quot; class=&quot;nav-link dropdown-toggle&quot; data-toggle=&quot;dropdown&quot; role=&quot;button&quot;&gt;Dropdown&lt;/a&gt;
+                  &lt;div class=&quot;dropdown-menu&quot;&gt;
+                    &lt;a href=&quot;#messages2&quot; class=&quot;dropdown-item&quot; data-toggle=&quot;tab&quot; role=&quot;tab&quot;&gt;Messages&lt;/a&gt;
+                    &lt;a href=&quot;#settings2&quot; class=&quot;dropdown-item&quot; data-toggle=&quot;tab&quot; role=&quot;tab&quot;&gt;Settings&lt;/a&gt;
+                  &lt;/div&gt;
+                &lt;/li&gt;
+              &lt;/ul&gt;
+
+              &lt;!-- Tabs content --&gt;
+              &lt;div class=&quot;tab-content&quot;&gt;
+                &lt;div class=&quot;tab-pane fade show active&quot; id=&quot;home2&quot; role=&quot;tabpanel&quot;&gt;
+                  ...
+                &lt;/div&gt;
+                &lt;div class=&quot;tab-pane fade&quot; id=&quot;profile2&quot; role=&quot;tabpanel&quot;&gt;
+                  ...
+                &lt;/div&gt;
+                &lt;div class=&quot;tab-pane fade&quot; id=&quot;messages2&quot; role=&quot;tabpanel&quot;&gt;
+                  ...
+                &lt;/div&gt;
+                &lt;div class=&quot;tab-pane fade&quot; id=&quot;settings2&quot; role=&quot;tabpanel&quot;&gt;
+                  ...
+                &lt;/div&gt;
+              &lt;/div&gt;
+        #pug2.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              //  Nav tabs
+              ul(class=&quot;nav nav-tabs justify-content-center&quot;, role=&quot;tablist&quot;)
+                li.nav-item
+                  a(href=&quot;#home2&quot;, class=&quot;nav-link active&quot;, data-toggle=&quot;tab&quot;, role=&quot;tab&quot;)
+                    i(data-feather=&quot;home&quot;)
+                    | &amp;nbsp;Home
+                li.nav-item
+                  a(href=&quot;#profile2&quot;, class=&quot;nav-link&quot;, data-toggle=&quot;tab&quot;, role=&quot;tab&quot;)
+                    i(data-feather=&quot;user&quot;)
+                    | &amp;nbsp;Profile
+                li.nav-item.dropdown
+                  a(href=&quot;#&quot;, class=&quot;nav-link dropdown-toggle&quot;, data-toggle=&quot;dropdown&quot;, role=&quot;button&quot;)
+                    | Dropdown
+                  .dropdown-menu
+                    a(href=&quot;#messages2&quot;, class=&quot;dropdown-item&quot;, data-toggle=&quot;tab&quot;, role=&quot;tab&quot;)
+                      | Messages
+                    a(href=&quot;#settings2&quot;, class=&quot;dropdown-item&quot;, data-toggle=&quot;tab&quot;, role=&quot;tab&quot;)
+                      | Settings
+
+              // Tabs content
+              .tab-content
+                div(id=&quot;home2&quot;, class=&quot;tab-pane fade show active&quot;, role=&quot;tabpanel&quot;)
+                  | ...
+                div(id=&quot;profile2&quot;, class=&quot;tab-pane fade&quot;, role=&quot;tabpanel&quot;)
+                  | ...
+                div(id=&quot;messages2&quot;, class=&quot;tab-pane fade&quot;, role=&quot;tabpanel&quot;)
+                  | ...
+                div(id=&quot;settings2&quot;, class=&quot;tab-pane fade&quot;, role=&quot;tabpanel&quot;)
+
+  // Right aligned
+  h2.h5.pt-5.mb-3 Right aligned
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result3' data-toggle='tab' role='tab' aria-controls='result3' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html3' data-toggle='tab' role='tab' aria-controls='html3' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug3' data-toggle='tab' role='tab' aria-controls='pug3' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result3.tab-pane.fade.show.active(role='tabpanel')
+          ul(class='nav nav-tabs justify-content-end' role='tablist')
+            li.nav-item
+              a(href='#home3' class='nav-link active' data-toggle='tab' role='tab')
+                i(data-feather='home')
+                | &nbsp;Home
+            li.nav-item
+              a(href='#profile3' class='nav-link' data-toggle='tab' role='tab')
+                i(data-feather='user')
+                | &nbsp;Profile
+            li.nav-item.dropdown
+              a(href='#' class='nav-link dropdown-toggle' data-toggle='dropdown' role='button') Dropdown
+              .dropdown-menu
+                a(href='#messages3' class='dropdown-item' data-toggle='tab' role='tab') Messages
+                a(href='#settings3' class='dropdown-item' data-toggle='tab' role='tab') Settings
+          .tab-content
+            div(id='home3' class='tab-pane fade show active' role='tabpanel')
+              p.font-size-sm Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui. Excepteur sint occaecat cupidatat non proident.
+            div(id='profile3' class='tab-pane fade' role='tabpanel')
+              p.font-size-sm Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente.
+            div(id='messages3' class='tab-pane fade' role='tabpanel')
+              p.font-size-sm Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.
+            div(id='settings3' class='tab-pane fade' role='tabpanel')
+              p.font-size-sm Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral, mustache readymade thundercats keffiyeh craft beer marfa ethical. Wolf salvia freegan.
+        #html3.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Nav tabs --&gt;
+              &lt;ul class=&quot;nav nav-tabs justify-content-end&quot; role=&quot;tablist&quot;&gt;
+                &lt;li class=&quot;nav-item&quot;&gt;
+                  &lt;a href=&quot;#home3&quot; class=&quot;nav-link active&quot; data-toggle=&quot;tab&quot; role=&quot;tab&quot;&gt;
+                    &lt;i data-feather=&quot;home&quot;&gt;&lt;/i&gt;
+                    &amp;nbsp;Home
+                  &lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li class=&quot;nav-item&quot;&gt;
+                  &lt;a href=&quot;#profile3&quot; class=&quot;nav-link&quot; data-toggle=&quot;tab&quot; role=&quot;tab&quot;&gt;
+                    &lt;i data-feather=&quot;user&quot;&gt;&lt;/i&gt;
+                    &amp;nbsp;Profile
+                  &lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li class=&quot;nav-item dropdown&quot;&gt;
+                  &lt;a href=&quot;#&quot; class=&quot;nav-link dropdown-toggle&quot; data-toggle=&quot;dropdown&quot; role=&quot;button&quot;&gt;Dropdown&lt;/a&gt;
+                  &lt;div class=&quot;dropdown-menu&quot;&gt;
+                    &lt;a href=&quot;#messages3&quot; class=&quot;dropdown-item&quot; data-toggle=&quot;tab&quot; role=&quot;tab&quot;&gt;Messages&lt;/a&gt;
+                    &lt;a href=&quot;#settings3&quot; class=&quot;dropdown-item&quot; data-toggle=&quot;tab&quot; role=&quot;tab&quot;&gt;Settings&lt;/a&gt;
+                  &lt;/div&gt;
+                &lt;/li&gt;
+              &lt;/ul&gt;
+
+              &lt;!-- Tabs content --&gt;
+              &lt;div class=&quot;tab-content&quot;&gt;
+                &lt;div class=&quot;tab-pane fade show active&quot; id=&quot;home3&quot; role=&quot;tabpanel&quot;&gt;
+                  ...
+                &lt;/div&gt;
+                &lt;div class=&quot;tab-pane fade&quot; id=&quot;profile3&quot; role=&quot;tabpanel&quot;&gt;
+                  ...
+                &lt;/div&gt;
+                &lt;div class=&quot;tab-pane fade&quot; id=&quot;messages3&quot; role=&quot;tabpanel&quot;&gt;
+                  ...
+                &lt;/div&gt;
+                &lt;div class=&quot;tab-pane fade&quot; id=&quot;settings3&quot; role=&quot;tabpanel&quot;&gt;
+                  ...
+                &lt;/div&gt;
+              &lt;/div&gt;
+        #pug3.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              //  Nav tabs
+              ul(class=&quot;nav nav-tabs justify-content-center&quot;, role=&quot;tablist&quot;)
+                li.nav-item
+                  a(href=&quot;#home3&quot;, class=&quot;nav-link active&quot;, data-toggle=&quot;tab&quot;, role=&quot;tab&quot;)
+                    i(data-feather=&quot;home&quot;)
+                    | &amp;nbsp;Home
+                li.nav-item
+                  a(href=&quot;#profile3&quot;, class=&quot;nav-link&quot;, data-toggle=&quot;tab&quot;, role=&quot;tab&quot;)
+                    i(data-feather=&quot;user&quot;)
+                    | &amp;nbsp;Profile
+                li.nav-item.dropdown
+                  a(href=&quot;#&quot;, class=&quot;nav-link dropdown-toggle&quot;, data-toggle=&quot;dropdown&quot;, role=&quot;button&quot;)
+                    | Dropdown
+                  .dropdown-menu
+                    a(href=&quot;#messages3&quot;, class=&quot;dropdown-item&quot;, data-toggle=&quot;tab&quot;, role=&quot;tab&quot;)
+                      | Messages
+                    a(href=&quot;#settings3&quot;, class=&quot;dropdown-item&quot;, data-toggle=&quot;tab&quot;, role=&quot;tab&quot;)
+                      | Settings
+
+              // Tabs content
+              .tab-content
+                div(id=&quot;home3&quot;, class=&quot;tab-pane fade show active&quot;, role=&quot;tabpanel&quot;)
+                  | ...
+                div(id=&quot;profile3&quot;, class=&quot;tab-pane fade&quot;, role=&quot;tabpanel&quot;)
+                  | ...
+                div(id=&quot;messages3&quot;, class=&quot;tab-pane fade&quot;, role=&quot;tabpanel&quot;)
+                  | ...
+                div(id=&quot;settings3&quot;, class=&quot;tab-pane fade&quot;, role=&quot;tabpanel&quot;)
+                  | ...
+
+  // Fill and justify
+  h2.h5.pt-5.mb-3 Fill and justify
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result4' data-toggle='tab' role='tab' aria-controls='result4' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html4' data-toggle='tab' role='tab' aria-controls='html4' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug4' data-toggle='tab' role='tab' aria-controls='pug4' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result4.tab-pane.fade.show.active(role='tabpanel')
+          ul(class='nav nav-tabs nav-fill' role='tablist')
+            li.nav-item
+              a(href='#home4' class='nav-link active' data-toggle='tab' role='tab')
+                i(data-feather='home')
+                | &nbsp;Home
+            li.nav-item
+              a(href='#profile4' class='nav-link' data-toggle='tab' role='tab')
+                i(data-feather='user')
+                | &nbsp;Profile
+            li.nav-item.dropdown
+              a(href='#' class='nav-link dropdown-toggle' data-toggle='dropdown' role='button') Dropdown
+              .dropdown-menu
+                a(href='#messages4' class='dropdown-item' data-toggle='tab' role='tab') Messages
+                a(href='#settings4' class='dropdown-item' data-toggle='tab' role='tab') Settings
+          .tab-content
+            div(id='home4' class='tab-pane fade show active' role='tabpanel')
+              p.font-size-sm Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui. Excepteur sint occaecat cupidatat non proident.
+            div(id='profile4' class='tab-pane fade' role='tabpanel')
+              p.font-size-sm Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente.
+            div(id='messages4' class='tab-pane fade' role='tabpanel')
+              p.font-size-sm Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.
+            div(id='settings4' class='tab-pane fade' role='tabpanel')
+              p.font-size-sm Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral, mustache readymade thundercats keffiyeh craft beer marfa ethical. Wolf salvia freegan.
+        #html4.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Nav tabs --&gt;
+              &lt;ul class=&quot;nav nav-tabs nav-fill&quot; role=&quot;tablist&quot;&gt;
+                &lt;li class=&quot;nav-item&quot;&gt;
+                  &lt;a href=&quot;#home4&quot; class=&quot;nav-link active&quot; data-toggle=&quot;tab&quot; role=&quot;tab&quot;&gt;
+                    &lt;i data-feather=&quot;home&quot;&gt;&lt;/i&gt;
+                    &amp;nbsp;Home
+                  &lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li class=&quot;nav-item&quot;&gt;
+                  &lt;a href=&quot;#profile4&quot; class=&quot;nav-link&quot; data-toggle=&quot;tab&quot; role=&quot;tab&quot;&gt;
+                    &lt;i data-feather=&quot;user&quot;&gt;&lt;/i&gt;
+                    &amp;nbsp;Profile
+                  &lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li class=&quot;nav-item dropdown&quot;&gt;
+                  &lt;a href=&quot;#&quot; class=&quot;nav-link dropdown-toggle&quot; data-toggle=&quot;dropdown&quot; role=&quot;button&quot;&gt;Dropdown&lt;/a&gt;
+                  &lt;div class=&quot;dropdown-menu&quot;&gt;
+                    &lt;a href=&quot;#messages4&quot; class=&quot;dropdown-item&quot; data-toggle=&quot;tab&quot; role=&quot;tab&quot;&gt;Messages&lt;/a&gt;
+                    &lt;a href=&quot;#settings4&quot; class=&quot;dropdown-item&quot; data-toggle=&quot;tab&quot; role=&quot;tab&quot;&gt;Settings&lt;/a&gt;
+                  &lt;/div&gt;
+                &lt;/li&gt;
+              &lt;/ul&gt;
+
+              &lt;!-- Tabs content --&gt;
+              &lt;div class=&quot;tab-content&quot;&gt;
+                &lt;div class=&quot;tab-pane fade show active&quot; id=&quot;home4&quot; role=&quot;tabpanel&quot;&gt;
+                  ...
+                &lt;/div&gt;
+                &lt;div class=&quot;tab-pane fade&quot; id=&quot;profile4&quot; role=&quot;tabpanel&quot;&gt;
+                  ...
+                &lt;/div&gt;
+                &lt;div class=&quot;tab-pane fade&quot; id=&quot;messages4&quot; role=&quot;tabpanel&quot;&gt;
+                  ...
+                &lt;/div&gt;
+                &lt;div class=&quot;tab-pane fade&quot; id=&quot;settings4&quot; role=&quot;tabpanel&quot;&gt;
+                  ...
+                &lt;/div&gt;
+              &lt;/div&gt;
+        #pug4.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              //  Nav tabs
+              ul(class=&quot;nav nav-tabs nav-fill&quot;, role=&quot;tablist&quot;)
+                li.nav-item
+                  a(href=&quot;#home4&quot;, class=&quot;nav-link active&quot;, data-toggle=&quot;tab&quot;, role=&quot;tab&quot;)
+                    i(data-feather=&quot;home&quot;)
+                    | &amp;nbsp;Home
+                li.nav-item
+                  a(href=&quot;#profile4&quot;, class=&quot;nav-link&quot;, data-toggle=&quot;tab&quot;, role=&quot;tab&quot;)
+                    i(data-feather=&quot;user&quot;)
+                    | &amp;nbsp;Profile
+                li.nav-item.dropdown
+                  a(href=&quot;#&quot;, class=&quot;nav-link dropdown-toggle&quot;, data-toggle=&quot;dropdown&quot;, role=&quot;button&quot;)
+                    | Dropdown
+                  .dropdown-menu
+                    a(href=&quot;#messages4&quot;, class=&quot;dropdown-item&quot;, data-toggle=&quot;tab&quot;, role=&quot;tab&quot;)
+                      | Messages
+                    a(href=&quot;#settings4&quot;, class=&quot;dropdown-item&quot;, data-toggle=&quot;tab&quot;, role=&quot;tab&quot;)
+                      | Settings
+
+              // Tabs content
+              .tab-content
+                div(id=&quot;home4&quot;, class=&quot;tab-pane fade show active&quot;, role=&quot;tabpanel&quot;)
+                  | ...
+                div(id=&quot;profile4&quot;, class=&quot;tab-pane fade&quot;, role=&quot;tabpanel&quot;)
+                  | ...
+                div(id=&quot;messages4&quot;, class=&quot;tab-pane fade&quot;, role=&quot;tabpanel&quot;)
+                  | ...
+                div(id=&quot;settings4&quot;, class=&quot;tab-pane fade&quot;, role=&quot;tabpanel&quot;)
+                  | ...

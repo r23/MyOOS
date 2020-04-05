@@ -1,0 +1,23 @@
+// Pagination
+nav(aria-label='Page navigation')
+  ul.pagination.justify-content-center.justify-content-sm-start.mb-0
+    li.page-item
+      a(href='#').page-link Prev
+    li.page-item.d-sm-none
+      span.page-link.page-link-static 2 / 5
+    li.page-item.d-none.d-sm-block
+      a(href='#').page-link 1
+    li.page-item.active(aria-current='page').d-none.d-sm-block
+      span.page-link
+        | 2
+        span.sr-only (current)
+    li.page-item.d-none.d-sm-block
+      a(href='#').page-link 3
+    li.page-item.d-none.d-sm-block
+      a(href='#').page-link 4
+    li.page-item.d-none.d-sm-block
+      | ...
+    li.page-item.d-none.d-sm-block
+      a(href='#').page-link 10
+    li.page-item
+      a(href='#').page-link Next

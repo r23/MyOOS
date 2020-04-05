@@ -1,0 +1,24 @@
+//
+// Badge
+// --------------------------------------------------
+
+.badge {
+  padding-bottom: $badge-padding-y + .05em;
+  border-radius: $badge-border-radius;
+  line-height: .9;
+}
+.badge-pill {
+  border-radius: $badge-pill-border-radius;
+}
+.badge-primary, .badge-success,
+.badge-info, .badge-warning,
+.badge-danger, .badge-dark {
+  color: $white;
+  @include hover-focus {
+    color: $white !important;
+  }
+}
+.badge-secondary,
+.badge-light {
+  color: $headings-color;
+}

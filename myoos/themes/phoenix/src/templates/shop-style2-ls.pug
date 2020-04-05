@@ -1,0 +1,407 @@
+extends partials/layout
+
+//- Override default config variables
+append config
+  - var pageTitle = 'Shop style 2 <span class="lead font-weight-semibold text-muted">(Left sidebar)</span>'
+  - var parentMenu = 'Shop'
+  - var breadcrumbs = [{'title': 'Home', 'link': 'index.html'}, {'title': 'Shop', 'link': '#'}]
+  - var navbarTemplate = 'navbar-multilevel'
+
+//- Page Content
+block content
+
+  //- toast-shop.pug template
+  include partials/toast-shop
+
+  .container.pb-5.mb-4
+    .row
+
+      .col-lg-3
+        //- sidebar-shop-1.pug template
+        include partials/sidebar-shop-2
+      
+      .col-lg-9
+
+        //- toolbar-shop.pug template
+        include partials/toolbar-shop
+
+        // Products grid
+        .row.no-gutters
+
+          // Product
+          .col-xl-3.col-sm-4.col-6.border.border-collapse
+            .product-card
+              .product-thumb
+                a(href='shop-single-electronics.html').product-thumb-link
+                span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+                  i(data-feather='heart')
+                img(src='img/shop/electronics/01.jpg' alt='Product')
+              .product-card-body
+                .d-flex.flex-wrap.justify-content-between.pb-1
+                  a(href='#').product-meta Headphones
+                  +star-rating-short(4.7)
+                h3.product-card-title
+                  a(href='shop-single-electronics.html') Sony WH-CH700N Wireless Noise Canceling Headphones, Black
+                span.text-primary $198.00
+              .product-card-body.body-hidden.pt-2
+                button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+                a(href='#' data-toggle='toast' data-target='#compare-toast').quick-view-btn
+                  i(data-feather='repeat').mr-1
+                  | Compare
+                ul.font-size-sm.opacity-80.pl-4.pt-2.mb-2
+                  li Digital noise cancelling
+                  li AI powered
+                  li Hands free calling
+                  li Long battery life
+                  li Wireless bluetooth
+
+          // Product
+          .col-xl-3.col-sm-4.col-6.border.border-collapse
+            .product-card
+              .product-thumb
+                a(href='shop-single-electronics.html').product-thumb-link
+                span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+                  i(data-feather='heart')
+                img(src='img/shop/electronics/02.jpg' alt='Product')
+              .product-card-body
+                .d-flex.flex-wrap.justify-content-between.pb-1
+                  a(href='#').product-meta Computers
+                  +star-rating-short(3.9)
+                h3.product-card-title
+                  a(href='shop-single-electronics.html') Apple AirPort Extreme Base Station ME918LL (Refurbished)
+                span.text-primary $129.00
+              .product-card-body.body-hidden.pt-2
+                button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+                a(href='#' data-toggle='toast' data-target='#compare-toast').quick-view-btn
+                  i(data-feather='repeat').mr-1
+                  | Compare
+                ul.font-size-sm.opacity-80.pl-4.pt-2.mb-2
+                  li Ultrafast 802.11ac Wi-Fi
+                  li Easy setup for iOS and OS X
+                  li Share your hard drive
+                  li Compatibility and security
+
+          // Product
+          .col-xl-3.col-sm-4.col-6.border.border-collapse
+            .product-card
+              .product-thumb
+                a(href='shop-single-electronics.html').product-thumb-link
+                span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+                  i(data-feather='heart')
+                img(src='img/shop/electronics/03.jpg' alt='Product')
+              .product-card-body
+                .d-flex.flex-wrap.justify-content-between.pb-1
+                  a(href='#').product-meta Cameras
+                h3.product-card-title
+                  a(href='shop-single-electronics.html') Samsung Gear 360 SM-R210 (2017 Edition) Spherical Cam 360 degree 4K Camera
+                span.text-primary $107.95
+              .product-card-body.body-hidden.pt-2
+                button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+                a(href='#' data-toggle='toast' data-target='#compare-toast').quick-view-btn
+                  i(data-feather='repeat').mr-1
+                  | Compare
+                ul.font-size-sm.opacity-80.pl-4.pt-2.mb-2
+                  li 4096x2048@24fps 360 video/ 15MP
+                  li 360 still image
+                  li Dual CMOS 8.4MP, Dual F2.2 
+                  li Built-in 1,160mAh
+
+          // Product
+          .col-xl-3.col-sm-4.col-6.border.border-collapse
+            .product-card
+              .product-thumb
+                a(href='shop-single-electronics.html').product-thumb-link
+                span.badge.badge-danger.rounded-0 Sale -40%
+                span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+                  i(data-feather='heart')
+                img(src='img/shop/electronics/04.jpg' alt='Product')
+              .product-card-body
+                .d-flex.flex-wrap.justify-content-between.pb-1
+                  a(href='#').product-meta Smart home
+                  +star-rating-short(4.2)
+                h3.product-card-title
+                  a(href='shop-single-electronics.html') All-new Echo Dot (3rd Gen) - Smart speaker with Alexa - Charcoal
+                span.text-primary
+                  del.text-muted.mr-1 $49.99
+                  | $29.99
+              .product-card-body.body-hidden.pt-2
+                button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+                a(href='#' data-toggle='toast' data-target='#compare-toast').quick-view-btn
+                  i(data-feather='repeat').mr-1
+                  | Compare
+                ul.font-size-sm.opacity-80.pl-4.pt-2.mb-2
+                  li 4096x2048@24fps 360 video/ 15MP
+                  li 360 still image
+                  li Dual CMOS 8.4MP, Dual F2.2 
+                  li Built-in 1,160mAh
+
+          // Product
+          .col-xl-3.col-sm-4.col-6.border.border-collapse
+            .product-card
+              .product-thumb
+                a(href='shop-single-electronics.html').product-thumb-link
+                span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+                  i(data-feather='heart')
+                img(src='img/shop/electronics/05.jpg' alt='Product')
+              .product-card-body
+                .d-flex.flex-wrap.justify-content-between.pb-1
+                  a(href='#').product-meta Wearable electronics
+                  +star-rating-short(3.6)
+                h3.product-card-title
+                  a(href='shop-single-electronics.html') Fitbit Ionic GPS Smart Watch, Charcoal/Smoke Gray, One Size
+                span.text-primary $317.40
+              .product-card-body.body-hidden.pt-2
+                button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+                a(href='#' data-toggle='toast' data-target='#compare-toast').quick-view-btn
+                  i(data-feather='repeat').mr-1
+                  | Compare
+                ul.font-size-sm.opacity-80.pl-4.pt-2.mb-2
+                  li Track your all-day activity
+                  li Use 15+ exercise modes
+                  li Access your favorite apps for sport
+                  li Get call, text, calendar notifications
+
+          // Product
+          .col-xl-3.col-sm-4.col-6.border.border-collapse
+            .product-card
+              .product-thumb
+                a(href='shop-single-electronics.html').product-thumb-link
+                span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+                  i(data-feather='heart')
+                img(src='img/shop/electronics/06.jpg' alt='Product')
+              .product-card-body
+                .d-flex.flex-wrap.justify-content-between.pb-1
+                  a(href='#').product-meta Smartphones
+                  +star-rating-short(4.5)
+                h3.product-card-title
+                  a(href='shop-single-electronics.html') Apple - iPhone XS 128GB - Space Gray
+                span.text-primary $1,049.99
+              .product-card-body.body-hidden.pt-2
+                button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+                a(href='#' data-toggle='toast' data-target='#compare-toast').quick-view-btn
+                  i(data-feather='repeat').mr-1
+                  | Compare
+                ul.font-size-sm.opacity-80.pl-4.pt-2.mb-2
+                  li 5.8-inch Super Retina display 
+                  li IP68 dust and water resistant
+                  li 12MP dual cameras
+                  li A12 Bionic with next-generation Neural Engine
+
+          // Product
+          .col-xl-3.col-sm-4.col-6.border.border-collapse
+            .product-card
+              .product-thumb
+                a(href='shop-single-electronics.html').product-thumb-link
+                span.badge.badge-success.rounded-0 &starf; Top seller
+                span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+                  i(data-feather='heart')
+                img(src='img/shop/electronics/07.jpg' alt='Product')
+              .product-card-body
+                .d-flex.flex-wrap.justify-content-between.pb-1
+                  a(href='#').product-meta Wearable electronics
+                  +star-rating-short(4.3)
+                h3.product-card-title
+                  a(href='shop-single-electronics.html') Apple Watch Series 4 (GPS, 44mm) - Silver Aluminium Case
+                span.text-primary $399.00
+              .product-card-body.body-hidden.pt-2
+                button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+                a(href='#' data-toggle='toast' data-target='#compare-toast').quick-view-btn
+                  i(data-feather='repeat').mr-1
+                  | Compare
+                ul.font-size-sm.opacity-80.pl-4.pt-2.mb-2
+                  li GPS
+                  li Over 30% larger display
+                  li Electrical and optical heart sensors
+                  li Digital Crown with haptic feedback
+
+          // Product
+          .col-xl-3.col-sm-4.col-6.border.border-collapse
+            .product-card
+              .product-thumb
+                a(href='shop-single-electronics.html').product-thumb-link
+                span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+                  i(data-feather='heart')
+                img(src='img/shop/electronics/08.jpg' alt='Product')
+              .product-card-body
+                .d-flex.flex-wrap.justify-content-between.pb-1
+                  a(href='#').product-meta Computers
+                h3.product-card-title
+                  a(href='shop-single-electronics.html') Acer R11 11.6" Convertible 2-in-1 HD Touchscreen (2019)
+                span.text-primary $339.00
+              .product-card-body.body-hidden.pt-2
+                button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+                a(href='#' data-toggle='toast' data-target='#compare-toast').quick-view-btn
+                  i(data-feather='repeat').mr-1
+                  | Compare
+                ul.font-size-sm.opacity-80.pl-4.pt-2.mb-2
+                  li 4GB DD3; 32 GB eMMC
+                  li 11.6" HD Widescreen LED-backlit Display
+                  li Multi-touch screen
+                  li Intel Celeron N3150 Quad-Core Processor 1.6GHz
+
+          // Product
+          .col-xl-3.col-sm-4.col-6.border.border-collapse
+            .product-card
+              .product-thumb
+                a(href='shop-single-electronics.html').product-thumb-link
+                span.badge.badge-danger.rounded-0 Sale -24%
+                span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+                  i(data-feather='heart')
+                img(src='img/shop/electronics/09.jpg' alt='Product')
+              .product-card-body
+                .d-flex.flex-wrap.justify-content-between.pb-1
+                  a(href='#').product-meta TV, Video &amp; Audio
+                  +star-rating-short(4.1)
+                h3.product-card-title
+                  a(href='shop-single-electronics.html') Xiaomi Mi Box S with Google Assistant Remote Official International
+                span.text-primary
+                  del.text-muted.mr-1 $90.43
+                  | $68.99
+              .product-card-body.body-hidden.pt-2
+                button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+                a(href='#' data-toggle='toast' data-target='#compare-toast').quick-view-btn
+                  i(data-feather='repeat').mr-1
+                  | Compare
+                ul.font-size-sm.opacity-80.pl-4.pt-2.mb-2
+                  li Quad Core Cortex-A53 64bit 2.0GH
+                  li 8GB eMMC5.0 high speed flash memory
+                  li Low Power Bluetooth 4.1
+                  li Android TV 7.1
+
+          // Product
+          .col-xl-3.col-sm-4.col-6.border.border-collapse
+            .product-card
+              .product-thumb
+                a(href='shop-single-electronics.html').product-thumb-link
+                span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+                  i(data-feather='heart')
+                img(src='img/shop/electronics/10.jpg' alt='Product')
+              .product-card-body
+                .d-flex.flex-wrap.justify-content-between.pb-1
+                  a(href='#').product-meta Printers &amp; Ink
+                  +star-rating-short(4.8)
+                h3.product-card-title
+                  a(href='shop-single-electronics.html') HP Laserjet Pro M281fdw All in One Wireless Color Laser Printer
+                span.text-primary $428.60
+              .product-card-body.body-hidden.pt-2
+                button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+                a(href='#' data-toggle='toast' data-target='#compare-toast').quick-view-btn
+                  i(data-feather='repeat').mr-1
+                  | Compare
+                ul.font-size-sm.opacity-80.pl-4.pt-2.mb-2
+                  li Big performance in a small package
+                  li Fast print speeds
+                  li Print from mobile device
+                  li Wireless connectivity
+          
+          // Promo banner
+          a(href='#' style='background-image: url(img/shop/banner02.jpg);').col-xl-6.col-sm-8.promo-banner.border.border-collapse.bg-size-cover.bg-position-center.d-none.d-sm-block
+
+          // Product
+          .col-xl-3.col-sm-4.col-6.border.border-collapse
+            .product-card
+              .product-thumb
+                a(href='shop-single-electronics.html').product-thumb-link
+                span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+                  i(data-feather='heart')
+                img(src='img/shop/electronics/11.jpg' alt='Product')
+              .product-card-body
+                .d-flex.flex-wrap.justify-content-between.pb-1
+                  a(href='#').product-meta TV, Video &amp; Audio
+                h3.product-card-title
+                  a(href='shop-single-electronics.html') SONY Smart TV LED 49" Ultra HD 4K
+                span.text-muted Out of stock
+              .product-card-body.body-hidden.pt-2
+                a(href='shop-single-electronics.html').btn.btn-primary.btn-sm.btn-block Pre-order
+                a(href='#' data-toggle='toast' data-target='#compare-toast').quick-view-btn
+                  i(data-feather='repeat').mr-1
+                  | Compare
+                ul.font-size-sm.opacity-80.pl-4.pt-2.mb-2
+                  li Beyond high definition: 4K HDTV
+                  li X1 Extreme Processor
+                  li Voice assistant
+                  li Multiple inputs: 4 HDMI, 2 USB2.0, 1 USB3.0
+
+          // Product
+          .col-xl-3.col-sm-4.col-6.border.border-collapse
+            .product-card
+              .product-thumb
+                a(href='shop-single-electronics.html').product-thumb-link
+                span.badge.badge-danger.rounded-0 Sale -10%
+                span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+                  i(data-feather='heart')
+                img(src='img/shop/electronics/12.jpg' alt='Product')
+              .product-card-body
+                .d-flex.flex-wrap.justify-content-between.pb-1
+                  a(href='#').product-meta Video games
+                  +star-rating-short(4.5)
+                h3.product-card-title
+                  a(href='shop-single-electronics.html') PS4 Controller Charger, Dual Shock USB Charger Charging Docking Station
+                span.text-primary
+                  del.text-muted.mr-1 $16.47
+                  | $14.97
+              .product-card-body.body-hidden.pt-2
+                button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+                a(href='#' data-toggle='toast' data-target='#compare-toast').quick-view-btn
+                  i(data-feather='repeat').mr-1
+                  | Compare
+                ul.font-size-sm.opacity-80.pl-4.pt-2.mb-2
+                  li Quad Core Cortex-A53 64bit 2.0GH
+                  li 8GB eMMC5.0 high speed flash memory
+                  li Low Power Bluetooth 4.1
+                  li Android TV 7.1
+
+          // Product
+          .col-xl-3.col-sm-4.col-6.border.border-collapse
+            .product-card
+              .product-thumb
+                a(href='shop-single-electronics.html').product-thumb-link
+                span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+                  i(data-feather='heart')
+                img(src='img/shop/electronics/13.jpg' alt='Product')
+              .product-card-body
+                .d-flex.flex-wrap.justify-content-between.pb-1
+                  a(href='#').product-meta Computers
+                h3.product-card-title
+                  a(href='shop-single-electronics.html') Apple iMac (27-inch Retina 5K display: 3.8GHz quad-core Intel Core i5, 8GB RAM, 2TB)
+                span.text-primary $1,949.00
+              .product-card-body.body-hidden.pt-2
+                button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+                a(href='#' data-toggle='toast' data-target='#compare-toast').quick-view-btn
+                  i(data-feather='repeat').mr-1
+                  | Compare
+                ul.font-size-sm.opacity-80.pl-4.pt-2.mb-2
+                  li 27-Inch 5120-by-2880 Retina 5K display
+                  li Quad-core Intel Core i5 Processor
+                  li Two Thunderbolt 3 (USB-C) ports
+
+          // Product
+          .col-xl-3.col-sm-4.col-6.border.border-collapse
+            .product-card
+              .product-thumb
+                a(href='shop-single-electronics.html').product-thumb-link
+                span.product-wishlist-btn(data-toggle='tooltip' data-placement='left' title='Add to wishlist')
+                  i(data-feather='heart')
+                img(src='img/shop/electronics/14.jpg' alt='Product')
+              .product-card-body
+                .d-flex.flex-wrap.justify-content-between.pb-1
+                  a(href='#').product-meta Cameras
+                  +star-rating-short(4.2)
+                h3.product-card-title
+                  a(href='shop-single-electronics.html') Nikon COOLPIX B500 Digital Camera (Plum)
+                span.text-primary $249.00
+              .product-card-body.body-hidden.pt-2
+                button(type='button' data-toggle='toast' data-target='#cart-toast').btn.btn-primary.btn-sm.btn-block Add to cart
+                a(href='#' data-toggle='toast' data-target='#compare-toast').quick-view-btn
+                  i(data-feather='repeat').mr-1
+                  | Compare
+                ul.font-size-sm.opacity-80.pl-4.pt-2.mb-2
+                  li 16MP 1/2.3" BSI CMOS Sensor
+                  li 22.5-900mm (35mm Equivalent)
+                  li 3" 921k-Dot Tilting LCD
+                  li Bluetooth (BLE), Wi-Fi, NFC Connectivity
+
+        .pb-4.mb-2
+
+        //- pagination.pug template
+        include partials/pagination

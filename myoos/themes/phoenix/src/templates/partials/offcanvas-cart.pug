@@ -1,0 +1,64 @@
+// Off-canvas cart
+#offcanvas-cart.offcanvas.offcanvas-reverse
+  .offcanvas-header.d-flex.justify-content-between.align-items-center
+    h3.offcanvas-title Your cart
+    button(type='button' class='close' data-dismiss='offcanvas' aria-label='Close')
+      span(aria-hidden='true') &times;
+  .offcanvas-body
+    .offcanvas-body-inner
+      .text-right
+        a(href='#').text-danger.btn-sm.pr-0
+          i(data-feather='x' style='width: .85rem; height: .85rem;').mr-1
+          | Clear cart
+      .widget.widget-featured-entries.pt-3
+        .media
+          .featured-entry-thumb.mr-3
+            a(href='#')
+              img(src='img/shop/widget/07.jpg' width='64' alt='Product thumb')
+            span.item-remove-btn
+              i(data-feather='x')
+          .media-body
+            h6.featured-entry-title
+              a(href='#') Calvin Klein Jeans Keds
+            p.featured-entry-meta 1 <span class='text-muted'>x</span> $125.00
+        .media
+          .featured-entry-thumb.mr-3
+            a(href='#')
+              img(src='img/shop/widget/08.jpg' width='64' alt='Product thumb')
+            span.item-remove-btn
+              i(data-feather='x')
+          .media-body
+            h6.featured-entry-title
+              a(href='#') The North Face Hoodie
+            p.featured-entry-meta 1 <span class='text-muted'>x</span> $134.00
+        .media
+          .featured-entry-thumb.mr-3
+            a(href='#')
+              img(src='img/shop/widget/09.jpg' width='64' alt='Product thumb')
+            span.item-remove-btn
+              i(data-feather='x')
+          .media-body
+            h6.featured-entry-title
+              a(href='#') Medicine Chameleon Sunglasses
+            p.featured-entry-meta 1 <span class='text-muted'>x</span> $47.00
+        .media
+          .featured-entry-thumb.mr-3
+            a(href='#')
+              img(src='img/shop/widget/10.jpg' width='64' alt='Product thumb')
+            span.item-remove-btn
+              i(data-feather='x')
+          .media-body
+            h6.featured-entry-title
+              a(href='#') Adidas Performance Hat
+            p.featured-entry-meta 1 <span class='text-muted'>x</span> $19.00
+        hr
+        .d-flex.justify-content-between.align-items-center.py-3
+          .font-size-sm 
+            span.mr-2 Subtotal:
+            span.font-weight-semibold.text-dark $325.00
+          a(href='cart.html').btn.btn-outline-secondary.btn-sm
+            | Expand cart
+            i(data-feather='chevron-right').mr-n2
+        a(href='checkout-details.html').btn.btn-primary.btn-sm.btn-block
+          i(data-feather='credit-card').mr-1
+          | Checkout

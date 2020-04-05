@@ -1,0 +1,23 @@
+extends ../partials/layout-docs
+
+//- Override default config variables
+append config
+  - var pageTitle = 'MailChimp'
+  - var isNestedFile = true
+  - var breadcrumbs = [{'title': 'Home', 'link': '../index.html'}, {'title': 'Docs', 'link': '#'}]
+
+//- Page Content
+block content
+  .pb-5.mb-2
+    p.font-weight-semibold
+      | In order to use <a href='https://mailchimp.com/' target='_blank'>MailChimp</a> subscription form (shown in the image below) you need to follow these steps:
+    ol.pb-3
+      li Register MailChip account if you don't have one already.
+      li Create Signup form following the MailChimp instructions. Choose Embedded form and then Condensed.
+      li Copy the <strong>form action attribute</strong> from the code snippet.
+      li Next step is to replace the existing form action attribute (provided with the template) with your own.
+      li <strong>IMPORTANT:</strong> Change <code>post?</code> part to <code>post-json?</code>. And change <code>method</code> from <strong>post</strong> to <strong>get</strong>. This is necessary to enable the form submission via Ajax (without redirecting or page reload).
+    figure.figure
+      figcaption.figure-caption.pb-2.font-weight-semibold MailChimp subscription form in Footer
+      img(src='../img/docs/mailchimp01.png' 'MailChimp').figure-img.mb-0
+

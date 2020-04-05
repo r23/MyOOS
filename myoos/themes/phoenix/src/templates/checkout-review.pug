@@ -1,0 +1,211 @@
+extends partials/layout
+
+//- Override default config variables
+append config
+  - var pageTitle = 'Checkout'
+  - var isPageTitleDivider = false
+  - var parentMenu = 'Shop'
+  - var breadcrumbs = [{'title': 'Home', 'link': 'index.html'}, {'title': 'Shop', 'link': '#'}]
+
+//- Page Content
+block content
+
+  .container.pb-5.mb-sm-4.mt-n2.mt-md-n3
+
+    // Steps (wizard)
+    .steps
+      .steps-body
+        a(href='cart.html').step.step-completed
+          span.step-indicator
+            i(data-feather='check')
+          span.step-icon
+            i(data-feather='shopping-cart')
+          | 1. Shopping cart
+        a(href='checkout-details.html').step.step-completed
+          span.step-indicator
+            i(data-feather='check')
+          span.step-icon
+            i(data-feather='user')
+          | 2. Your details
+        a(href='checkout-shipping.html').step.step-completed
+          span.step-indicator
+            i(data-feather='check')
+          span.step-icon
+            i(data-feather='truck')
+          | 3. Shipping
+        a(href='checkout-payment.html').step.step-completed
+          span.step-indicator
+            i(data-feather='check')
+          span.step-icon
+            i(data-feather='credit-card')
+          | 4. Payment
+        a(href='checkout-review.html').step.step-active
+          span.step-icon
+            i(data-feather='check-circle')
+          | 5. Final review
+
+    .row.pt-4.mt-2
+
+      // Content
+      .col-xl-9.col-md-8
+        h2.h6.px-4.py-3.bg-secondary.mb-4 Review your order
+
+        // Item
+        .d-sm-flex.justify-content-between.my-4.pb-4.border-bottom
+          .media.d-block.d-sm-flex.text-center.text-sm-left
+            a(href='shop-single-apparel.html').cart-item-thumb.mx-auto.mr-sm-4
+              img(src='img/shop/apparel/cart/01.jpg' alt='Product')
+            .media-body.pt-3
+              h3.product-card-title.font-weight-semibold.border-0.pb-0
+                a(href='shop-single-apparel.html') Calvin Klein Jeans Keds
+              .font-size-sm
+                span.text-muted.mr-2 Size:
+                | 8.5
+              .font-size-sm
+                span.text-muted.mr-2 Color:
+                | Black
+              .font-size-lg.text-primary.pt-2 $125.00
+          .pt-2.pl-sm-3.mx-auto.mx-sm-0.text-center.text-sm-left(style='max-width: 10rem;')
+            .font-size-sm.mb-3
+              span.text-muted.mr-2 Quantity:
+              span.font-weight-semibold 1
+            button(type='button').btn.btn-outline-secondary.btn-sm.btn-block.mb-2
+              i(data-feather='edit-2').mr-1
+              | Edit
+
+        // Item
+        .d-sm-flex.justify-content-between.my-4.pb-4.border-bottom
+          .media.d-block.d-sm-flex.text-center.text-sm-left
+            a(href='shop-single-apparel.html').cart-item-thumb.mx-auto.mr-sm-4
+              img(src='img/shop/apparel/cart/02.jpg' alt='Product')
+            .media-body.pt-3
+              h3.product-card-title.font-weight-semibold.border-0.pb-0
+                a(href='shop-single-apparel.html') The North Face Hoodie
+              .font-size-sm
+                span.text-muted.mr-2 Size:
+                | XL
+              .font-size-sm
+                span.text-muted.mr-2 Color:
+                | Gray
+              .font-size-lg.text-primary.pt-2 $134.00
+          .pt-2.pl-sm-3.mx-auto.mx-sm-0.text-center.text-sm-left(style='max-width: 10rem;')
+            .font-size-sm.mb-3
+              span.text-muted.mr-2 Quantity:
+              span.font-weight-semibold 1
+            button(type='button').btn.btn-outline-secondary.btn-sm.btn-block.mb-2
+              i(data-feather='edit-2').mr-1
+              | Edit
+
+        // Item
+        .d-sm-flex.justify-content-between.my-4.pb-4.border-bottom
+          .media.d-block.d-sm-flex.text-center.text-sm-left
+            a(href='shop-single-apparel.html').cart-item-thumb.mx-auto.mr-sm-4
+              img(src='img/shop/apparel/cart/03.jpg' alt='Product')
+            .media-body.pt-3
+              h3.product-card-title.font-weight-semibold.border-0.pb-0
+                a(href='shop-single-apparel.html') Medicine Chameleon Sunglasses
+              .font-size-sm
+                span.text-muted.mr-2 Lenses:
+                | Chameleon
+              .font-size-sm
+                span.text-muted.mr-2 Frame:
+                | Gray / Black
+              .font-size-lg.text-primary.pt-2 $47.00
+          .pt-2.pl-sm-3.mx-auto.mx-sm-0.text-center.text-sm-left(style='max-width: 10rem;')
+            .font-size-sm.mb-3
+              span.text-muted.mr-2 Quantity:
+              span.font-weight-semibold 1
+            button(type='button').btn.btn-outline-secondary.btn-sm.btn-block.mb-2
+              i(data-feather='edit-2').mr-1
+              | Edit
+
+        // Item
+        .d-sm-flex.justify-content-between.my-4
+          .media.d-block.d-sm-flex.text-center.text-sm-left
+            a(href='shop-single-apparel.html').cart-item-thumb.mx-auto.mr-sm-4
+              img(src='img/shop/apparel/cart/04.jpg' alt='Product')
+            .media-body.pt-3
+              h3.product-card-title.font-weight-semibold.border-0.pb-0
+                a(href='shop-single-apparel.html') Adidas Performance Hat
+              .font-size-sm
+                span.text-muted.mr-2 Material:
+                | Acrylic
+              .font-size-sm
+                span.text-muted.mr-2 Color:
+                | Pink / Dark green
+              .font-size-lg.text-primary.pt-2 $19.00
+          .pt-2.pl-sm-3.mx-auto.mx-sm-0.text-center.text-sm-left(style='max-width: 10rem;')
+            .font-size-sm.mb-3
+              span.text-muted.mr-2 Quantity:
+              span.font-weight-semibold 1
+            button(type='button').btn.btn-outline-secondary.btn-sm.btn-block.mb-2
+              i(data-feather='edit-2').mr-1
+              | Edit
+        
+        // Client details
+        .bg-secondary.px-4.pt-4.pb-2
+          .row
+            .col-sm-6
+              h4.h6 Shipping to:
+              ul.list-unstyled
+                li
+                  span.text-muted Client:&nbsp;
+                  | Daniel Adams
+                li
+                  span.text-muted Address:&nbsp;
+                  | 44 Shirley Ave. West Chicago, IL 60185, USA
+                li
+                  span.text-muted Phone:&nbsp;
+                  | +1 (808) 764 554 330
+            .col-sm-6
+              h4.h6 Payment method:
+              ul.list-unstyled
+                li
+                  span.text-muted Credit Card:&nbsp;
+                  | **** **** **** 5300
+
+
+        // Navigation
+        .d-flex.pt-4
+          .w-50.pr-3
+            a(href='checkout-payment.html').btn.btn-outline-secondary.btn-block
+              i(data-feather='chevron-left').mr-1
+              | Back
+          .w-50.pl-2
+            a(href='checkout-complete.html').btn.btn-primary.btn-block
+              span.d-none.d-sm-inline Complete order
+              span.d-inline.d-sm-none Complete
+              i(data-feather='chevron-right').ml-1
+          
+
+      // Sidebar
+      .col-xl-3.col-md-4.pt-4.mt-3.pt-md-0.mt-md-0
+        h2.h6.px-4.py-3.bg-secondary.text-center Order summary
+        .font-size-sm.border-bottom.pt-2.pb-3
+          .d-flex.justify-content-between.mb-2
+            span Subtotal:
+            span $325.00
+          .d-flex.justify-content-between.mb-2
+            span Shipping:
+            span $26.50
+          .d-flex.justify-content-between.mb-2
+            span Taxes:
+            span $7.25
+          .d-flex.justify-content-between
+            span Discount:
+            span &mdash;
+        .h3.font-weight-semibold.text-center.py-3 $358.75
+        form(novalidate).needs-validation
+          .form-group
+            input(type='text' id='cart-promocode' placeholder='Promo code' required).form-control
+            .invalid-feedback Please provide a valid promo code!
+          button(type='submit').btn.btn-outline-primary.btn-block Apply promo code
+        
+        // Promo banner
+        a(href='#' style='max-width: 277px;').d-block.text-decoration-0.mt-4.mx-auto.pt-2
+          .bg-secondary
+            .px-3.pt-4.text-center
+              h4.font-size-sm.font-weight-normal.pt-1.mb-2 2019 Spring / Summer
+              h4.h5.pb-2 Hoodie Collection
+              .btn.btn-primary.btn-sm Shop now
+            img(src='img/shop/banner01.jpg' alt='Promo banner')

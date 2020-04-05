@@ -1,0 +1,160 @@
+extends partials/layout
+
+//- Override default config variables
+append config
+  - var pageTitle = 'Checkout'
+  - var isPageTitleDivider = false
+  - var parentMenu = 'Shop'
+  - var breadcrumbs = [{'title': 'Home', 'link': 'index.html'}, {'title': 'Shop', 'link': '#'}]
+  - var isCardScript = true
+
+//- Page Content
+block content
+
+  .container.pb-5.mb-sm-4.mt-n2.mt-md-n3
+
+    // Steps (wizard)
+    .steps
+      .steps-body
+        a(href='cart.html').step.step-completed
+          span.step-indicator
+            i(data-feather='check')
+          span.step-icon
+            i(data-feather='shopping-cart')
+          | 1. Shopping cart
+        a(href='checkout-details.html').step.step-completed
+          span.step-indicator
+            i(data-feather='check')
+          span.step-icon
+            i(data-feather='user')
+          | 2. Your details
+        a(href='checkout-shipping.html').step.step-completed
+          span.step-indicator
+            i(data-feather='check')
+          span.step-icon
+            i(data-feather='truck')
+          | 3. Shipping
+        a(href='checkout-payment.html').step.step-active
+          span.step-icon
+            i(data-feather='credit-card')
+          | 4. Payment
+        a(href='checkout-review.html').step
+          span.step-icon
+            i(data-feather='check-circle')
+          | 5. Final review
+
+    .row.pt-4.mt-2
+
+      // Content
+      .col-xl-9.col-md-8
+        h2.h6.px-4.py-3.bg-secondary.mb-4 Choose payment method
+        div(id='payment-method' class='accordion' role='tablist').mb-4
+          .card
+            .card-header(role='tab')
+              h3.accordion-heading
+                a(href='#card' data-toggle='collapse')
+                  i(data-feather='credit-card' style='width: 1.25rem; height: 1.25rem;').mr-2.mt-n1
+                  | Pay with Credit Card
+                  span.accordion-indicator
+                    i(data-feather='chevron-up')
+            div(id='card' class='collapse show' data-parent='#payment-method' role='tabpanel')
+              .card-body
+                p
+                  | We accept following credit cards:&nbsp;&nbsp;
+                  img(src='img/cards.png' style='width: 187px;' alt='Cerdit Cards').d-inline-block.align-middle
+                .card-wrapper
+                form.interactive-credit-card.row
+                  .form-group.col-sm-6
+                    input(type='text' name='number' placeholder='Card Number' required).form-control
+                  .form-group.col-sm-6
+                    input(type='text' name='name' placeholder='Full Name' required).form-control
+                  .form-group.col-sm-3
+                    input(type='text' name='expiry' placeholder='MM/YY' required).form-control
+                  .form-group.col-sm-3
+                    input(type='text' name='cvc' placeholder='CVC' required).form-control
+                  .col-sm-6
+                    button(type='submit').btn.btn-outline-primary.btn-block.mt-0 Submit
+          .card
+            .card-header(role='tab')
+              h3.accordion-heading
+                a(href='#paypal' class='collapsed' data-toggle='collapse')
+                  i.icon-paypal.mr-2
+                  | Pay with PayPal
+                  span.accordion-indicator
+                    i(data-feather='chevron-up')
+            div(id='paypal' class='collapse' data-parent='#payment-method' role='tabpanel')
+              .card-body
+                p <strong>PayPal</strong> - the safer, easier way to pay
+                form(method='post').row
+                  .col-sm-6
+                    .form-group
+                      input(type='email' placeholder='E-mail' required).form-control
+                  .col-sm-6
+                    .form-group
+                      input(type='password' placeholder='Password' required).form-control
+                  .col-12
+                    .d-flex.flex-wrap.justify-content-between.align-items-center
+                      a(href='#').navi-link Forgot password?
+                      button(type='submit').btn.btn-primary.btn-sm Log In
+          .card
+            .card-header(role='tab')
+              h3.accordion-heading
+                a(href='#points' class='collapsed' data-toggle='collapse')
+                  i(data-feather='award' style='width: 1.25rem; height: 1.25rem;').mr-2
+                  | Redeem Reward Points
+                  span.accordion-indicator
+                    i(data-feather='chevron-up')
+            div(id='points' class='collapse' data-parent='#payment-method' role='tabpanel')
+              .card-body
+                p
+                  | You currently have
+                  strong &nbsp;586
+                  | &nbsp;Reward Points to spend.
+                .custom-control.custom-checkbox.d-block
+                  input(type='checkbox' id='use_points').custom-control-input
+                  label(for='use_points').custom-control-label Use my Reward Points to pay for this order.
+
+        // Navigation
+        .d-flex.pt-2
+          .w-50.pr-3
+            a(href='checkout-shipping.html').btn.btn-outline-secondary.btn-block
+              i(data-feather='chevron-left').mr-1
+              | Back
+          .w-50.pl-2
+            a(href='checkout-review.html').btn.btn-primary.btn-block
+              span.d-none.d-sm-inline Review your order
+              span.d-inline.d-sm-none Next
+              i(data-feather='chevron-right').ml-1
+          
+
+      // Sidebar
+      .col-xl-3.col-md-4.pt-4.mt-3.pt-md-0.mt-md-0
+        h2.h6.px-4.py-3.bg-secondary.text-center Order summary
+        .font-size-sm.border-bottom.pt-2.pb-3
+          .d-flex.justify-content-between.mb-2
+            span Subtotal:
+            span $325.00
+          .d-flex.justify-content-between.mb-2
+            span Shipping:
+            span $26.50
+          .d-flex.justify-content-between.mb-2
+            span Taxes:
+            span $7.25
+          .d-flex.justify-content-between
+            span Discount:
+            span &mdash;
+        .h3.font-weight-semibold.text-center.py-3 $358.75
+        form(novalidate).needs-validation
+          .form-group
+            input(type='text' id='cart-promocode' placeholder='Promo code' required).form-control
+            .invalid-feedback Please provide a valid promo code!
+          button(type='submit').btn.btn-outline-primary.btn-block Apply promo code
+        
+        // Promo banner
+        a(href='#' style='max-width: 277px;').d-block.text-decoration-0.mt-4.mx-auto.pt-2
+          .bg-secondary
+            .px-3.pt-4.text-center
+              h4.font-size-sm.font-weight-normal.pt-1.mb-2 2019 Spring / Summer
+              h4.h5.pb-2 Hoodie Collection
+              .btn.btn-primary.btn-sm Shop now
+            img(src='img/shop/banner01.jpg' alt='Promo banner')

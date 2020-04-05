@@ -1,0 +1,325 @@
+extends ../partials/layout-components
+
+//- Override default config variables
+append config
+  - var pageTitle = 'Team'
+  - var pageSubTitle = '&mdash;&nbsp; Component to display team members on the website.'
+  - var isNestedFile = true
+  - var isCodeHighlighting = true
+  - var breadcrumbs = [{'title': 'Home', 'link': '../index.html'}, {'title': 'Components', 'link': '#'}]
+
+//- Page Content
+block content
+
+  // Style 1
+  h2.h5.mb-3 Style 1
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result1' data-toggle='tab' role='tab' aria-controls='result1' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html1' data-toggle='tab' role='tab' aria-controls='html1' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug1' data-toggle='tab' role='tab' aria-controls='pug1' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result1.tab-pane.fade.show.active(role='tabpanel')
+          .row.pt-2
+            .col-sm-6
+              .team-member.mb-5.mb-sm-0
+                .team-avatar
+                  img(src='../img/components/team/01.jpg' alt='Team member avatar').rounded-circle
+                h3.team-title William Smith
+                p.team-text CEO, Co-founder at Company Ltd.
+                a(href='#' data-toggle='tooltip' title='Facebook').social-btn.sb-facebook.mr-2
+                  i.flaticon-facebook
+                a(href='#' data-toggle='tooltip' title='Twitter').social-btn.sb-twitter.mr-2
+                  i.flaticon-twitter
+                a(href='#' data-toggle='tooltip' title='LinkedIn').social-btn.sb-linkedin.mr-2
+                  i.flaticon-linkedin
+                a(href='#' data-toggle='tooltip' title='Google Plus').social-btn.sb-google-plus
+                  i.flaticon-google-plus
+            .col-sm-6
+              .team-member.text-center
+                .team-avatar
+                  img(src='../img/components/team/02.jpg' alt='Team member avatar').rounded-circle
+                h3.team-title Amanda Gallaher
+                p.team-text Chief of Marketing at Company Ltd.
+                a(href='#' data-toggle='tooltip' title='Twitter').social-btn.sb-twitter.mx-1
+                  i.flaticon-twitter
+                a(href='#' data-toggle='tooltip' title='Messenger').social-btn.sb-messenger.mx-1
+                  i.flaticon-messenger
+                a(href='#' data-toggle='tooltip' title='Facebook').social-btn.sb-facebook.mx-1
+                  i.flaticon-facebook
+        #html1.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Left aligned --&gt;
+              &lt;div class=&quot;team-member&quot;&gt;
+                &lt;div class=&quot;team-avatar&quot;&gt;
+                  &lt;img src=&quot;path-to-image&quot; class=&quot;rounded-circle&quot; alt=&quot;Team member avatar&quot;&gt;
+                &lt;/div&gt;
+                &lt;h3 class=&quot;team-title&quot;&gt;William Smith&lt;/h3&gt;
+                &lt;p class=&quot;team-text&quot;&gt;CEO, Co-founder at Company Ltd.&lt;/p&gt;
+                &lt;a href=&quot;#&quot; class=&quot;social-btn sb-facebook mr-2&quot; data-toggle=&quot;tooltip&quot; title=&quot;Facebook&quot;&gt;
+                  &lt;i class=&quot;flaticon-facebook&quot;&gt;&lt;/i&gt;
+                &lt;/a&gt;
+                &lt;a href=&quot;#&quot; class=&quot;social-btn sb-twitter mr-2&quot; data-toggle=&quot;tooltip&quot; title=&quot;Twitter&quot;&gt;
+                  &lt;i class=&quot;flaticon-twitter&quot;&gt;&lt;/i&gt;
+                &lt;/a&gt;
+                &lt;a href=&quot;#&quot; class=&quot;social-btn sb-linkedin&quot; data-toggle=&quot;tooltip&quot; title=&quot;LinkedIn&quot;&gt;
+                  &lt;i class=&quot;flaticon-linkedin&quot;&gt;&lt;/i&gt;
+                &lt;/a&gt;
+              &lt;/div&gt;
+
+              &lt;!-- Center aligned --&gt;
+              &lt;div class=&quot;team-member text-center&quot;&gt;
+                &lt;div class=&quot;team-avatar&quot;&gt;
+                  &lt;img src=&quot;path-to-image&quot; class=&quot;rounded-circle&quot; alt=&quot;Team member avatar&quot;&gt;
+                &lt;/div&gt;
+                &lt;h3 class=&quot;team-title&quot;&gt;Amanda Gallaher&lt;/h3&gt;
+                &lt;p class=&quot;team-text&quot;&gt;Chief of Marketing at Company Ltd.&lt;/p&gt;
+                &lt;a href=&quot;#&quot; class=&quot;social-btn sb-twitter mx-1&quot; data-toggle=&quot;tooltip&quot; title=&quot;Twitter&quot;&gt;
+                  &lt;i class=&quot;flaticon-twitter&quot;&gt;&lt;/i&gt;
+                &lt;/a&gt;
+                &lt;a href=&quot;#&quot; class=&quot;social-btn sb-messenger mx-1&quot; data-toggle=&quot;tooltip&quot; title=&quot;Messenger&quot;&gt;
+                  &lt;i class=&quot;flaticon-messenger&quot;&gt;&lt;/i&gt;
+                &lt;/a&gt;
+                &lt;a href=&quot;#&quot; class=&quot;social-btn sb-facebook mx-1&quot; data-toggle=&quot;tooltip&quot; title=&quot;Facebook&quot;&gt;
+                  &lt;i class=&quot;flaticon-facebook&quot;&gt;&lt;/i&gt;
+                &lt;/a&gt;
+              &lt;/div&gt;
+        #pug1.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Left aligned
+              .team-member
+                .team-avatar
+                  img.rounded-circle(src=&quot;path-to-image&quot;, alt=&quot;Team member avatar&quot;)
+                h3.team-title William Smith
+                p.team-text CEO, Co-founder at Company Ltd.
+                a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Facebook&quot;).social-btn.sb-facebook.mr-2
+                  i.flaticon-facebook
+                a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Twitter&quot;).social-btn.sb-twitter.mr-2
+                  i.flaticon-twitter
+                a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;LinkedIn&quot;).social-btn.sb-linkedin
+                  i.flaticon-linkedin
+
+              // Center aligned
+              .team-member.text-center
+                .team-avatar
+                  img.rounded-circle(src=&quot;path-to-image&quot;, alt=&quot;Team member avatar&quot;)
+                h3.team-title Amanda Gallaher
+                p.team-text Chief of Marketing at Company Ltd.
+                a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Twitter&quot;).social-btn.sb-twitter.mx-1
+                  i.flaticon-twitter
+                a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Messenger&quot;).social-btn.sb-messenger.mx-1
+                  i.flaticon-messenger
+                a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Facebook&quot;).social-btn.sb-facebook.mx-1
+                  i.flaticon-facebook
+
+  // Style 1 horizontal
+  h2.h5.pt-5.mb-3 Style 1 horizontal
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result2' data-toggle='tab' role='tab' aria-controls='result2' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html2' data-toggle='tab' role='tab' aria-controls='html2' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug2' data-toggle='tab' role='tab' aria-controls='pug2' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result2.tab-pane.fade.show.active(role='tabpanel')
+          .row.pt-2
+            .col-md-6
+              .team-member.d-flex.mb-5.mb-md-0
+                .team-avatar.mr-3
+                  img(src='../img/components/team/01.jpg' alt='Team member avatar').rounded-circle
+                .team-body.pt-2
+                  h3.team-title William Smith
+                  p.team-text CEO, Co-founder at Company Ltd.
+                  a(href='#' data-toggle='tooltip' title='Facebook').social-btn.sb-facebook.mr-2
+                    i.flaticon-facebook
+                  a(href='#' data-toggle='tooltip' title='Twitter').social-btn.sb-twitter.mr-2
+                    i.flaticon-twitter
+                  a(href='#' data-toggle='tooltip' title='Google Plus').social-btn.sb-google-plus
+                    i.flaticon-google-plus
+            .col-md-6
+              .team-member.d-flex.text-right
+                .team-body.pt-2
+                  h3.team-title Amanda Gallaher
+                  p.team-text Chief of Marketing at Company Ltd.
+                  a(href='#' data-toggle='tooltip' title='Twitter').social-btn.sb-twitter.mx-1
+                    i.flaticon-twitter
+                  a(href='#' data-toggle='tooltip' title='Messenger').social-btn.sb-messenger.mx-1
+                    i.flaticon-messenger
+                  a(href='#' data-toggle='tooltip' title='Facebook').social-btn.sb-facebook.mx-1
+                    i.flaticon-facebook
+                .team-avatar.ml-3
+                  img(src='../img/components/team/02.jpg' alt='Team member avatar').rounded-circle
+        #html2.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Avatar on the left --&gt;
+              &lt;div class=&quot;team-member d-flex&quot;&gt;
+                &lt;div class=&quot;team-avatar mr-3&quot;&gt;
+                  &lt;img src=&quot;path-to-image&quot; class=&quot;rounded-circle&quot; alt=&quot;Team member avatar&quot;&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;team-body pt-2&quot;&gt;
+                  &lt;h3 class=&quot;team-title&quot;&gt;William Smith&lt;/h3&gt;
+                  &lt;p class=&quot;team-text&quot;&gt;CEO, Co-founder at Company Ltd.&lt;/p&gt;
+                  &lt;a href=&quot;#&quot; class=&quot;social-btn sb-facebook mr-2&quot; data-toggle=&quot;tooltip&quot; title=&quot;Facebook&quot;&gt;
+                    &lt;i class=&quot;flaticon-facebook&quot;&gt;&lt;/i&gt;
+                  &lt;/a&gt;
+                  &lt;a href=&quot;#&quot; class=&quot;social-btn sb-twitter mr-2&quot; data-toggle=&quot;tooltip&quot; title=&quot;Twitter&quot;&gt;
+                    &lt;i class=&quot;flaticon-twitter&quot;&gt;&lt;/i&gt;
+                  &lt;/a&gt;
+                  &lt;a href=&quot;#&quot; class=&quot;social-btn sb-google-plus&quot; data-toggle=&quot;tooltip&quot; title=&quot;Google Plus&quot;&gt;
+                    &lt;i class=&quot;flaticon-google-plus&quot;&gt;&lt;/i&gt;
+                  &lt;/a&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+
+              &lt;!-- Avatar on the right --&gt;
+              &lt;div class=&quot;team-member d-flex text-right&quot;&gt;
+                &lt;div class=&quot;team-body pt-2&quot;&gt;
+                  &lt;h3 class=&quot;team-title&quot;&gt;Amanda Gallaher&lt;/h3&gt;
+                  &lt;p class=&quot;team-text&quot;&gt;Chief of Marketing at Company Ltd.&lt;/p&gt;
+                  &lt;a href=&quot;#&quot; class=&quot;social-btn sb-twitter mx-1&quot; data-toggle=&quot;tooltip&quot; title=&quot;Twitter&quot;&gt;
+                    &lt;i class=&quot;flaticon-twitter&quot;&gt;&lt;/i&gt;
+                  &lt;/a&gt;
+                  &lt;a href=&quot;#&quot; class=&quot;social-btn sb-messenger mx-1&quot; data-toggle=&quot;tooltip&quot; title=&quot;Messenger&quot;&gt;
+                    &lt;i class=&quot;flaticon-messenger&quot;&gt;&lt;/i&gt;
+                  &lt;/a&gt;
+                  &lt;a href=&quot;#&quot; class=&quot;social-btn sb-facebook mx-1&quot; data-toggle=&quot;tooltip&quot; title=&quot;Facebook&quot;&gt;
+                    &lt;i class=&quot;flaticon-facebook&quot;&gt;&lt;/i&gt;
+                  &lt;/a&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;team-avatar ml-3&quot;&gt;
+                  &lt;img src=&quot;path-to-image&quot; class=&quot;rounded-circle&quot; alt=&quot;Team member avatar&quot;&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+        #pug2.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Avatar on the left
+              .team-member.d-flex
+                .team-avatar.mr-3
+                  img.rounded-circle(src=&quot;path-to-image&quot;, alt=&quot;Team member avatar&quot;)
+                .team-body.pt-2
+                  h3.team-title William Smith
+                  p.team-text CEO, Co-founder at Company Ltd.
+                  a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Facebook&quot;).social-btn.sb-facebook.mr-2
+                    i.flaticon-facebook
+                  a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Twitter&quot;).social-btn.sb-twitter.mr-2
+                    i.flaticon-twitter
+                  a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Google Plus&quot;).social-btn.sb-google-plus
+                    i.flaticon-google-plus
+
+              // Avatar on the right
+              .team-member.d-flex.text-right
+                .team-body.pt-2
+                  h3.team-title Amanda Gallaher
+                  p.team-text Chief of Marketing at Company Ltd.
+                  a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Twitter&quot;).social-btn.sb-twitter.mx-1
+                    i.flaticon-twitter
+                  a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Messenger&quot;).social-btn.sb-messenger.mx-1
+                    i.flaticon-messenger
+                  a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Facebook&quot;).social-btn.sb-facebook.mx-1
+                    i.flaticon-facebook
+                .team-avatar.ml-3
+                  img.rounded-circle(src=&quot;path-to-image&quot;, alt=&quot;Team member avatar&quot;)
+
+  // Style 2 (inside card)
+  h2.h5.pt-5.mb-3 Style 2 (inside card)
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result3' data-toggle='tab' role='tab' aria-controls='result3' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html3' data-toggle='tab' role='tab' aria-controls='html3' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug3' data-toggle='tab' role='tab' aria-controls='pug3' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result3.tab-pane.fade.show.active(role='tabpanel')
+          .row.pt-2
+            .col-xl-5.col-md-6.col-sm-7
+              .card.team-member
+                .card-body.text-center
+                  .team-avatar
+                    img(src='../img/components/team/03.jpg' alt='Team member avatar').rounded-circle
+                  h3.team-title Benjamin Miller
+                  p.team-text.mb-2 Lead Accountant at Company Ltd.
+                  ul.list-unstyled.pb-2
+                    li.font-size-sm
+                      i.text-muted.mr-1(data-feather='phone' style='width: 14px; height: 14px;')
+                      a(href='tel:00331697720').nav-link-inline 00 33 169 7720
+                    li.font-size-sm
+                      i.text-muted.mr-1(data-feather='mail' style='width: 14px; height: 14px;')
+                      a(href='mailto:ben.miller@example.com').nav-link-inline ben.miller@example.com
+                  a(href='#' data-toggle='tooltip' title='Facebook').social-btn.sb-facebook.mx-1
+                    i.flaticon-facebook
+                  a(href='#' data-toggle='tooltip' title='Twitter').social-btn.sb-twitter.mx-1
+                    i.flaticon-twitter
+                  a(href='#' data-toggle='tooltip' title='Skype').social-btn.sb-skype.mx-1
+                    i.flaticon-skype
+        #html3.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Style 2 (inside card) --&gt;
+              &lt;div class=&quot;card team-member&quot;&gt;
+                &lt;div class=&quot;card-body text-center&quot;&gt;
+                  &lt;div class=&quot;team-avatar&quot;&gt;
+                    &lt;img src=&quot;path-to-image&quot; class=&quot;rounded-circle&quot; alt=&quot;Team member avatar&quot;&gt;
+                  &lt;/div&gt;
+                  &lt;h3 class=&quot;team-title&quot;&gt;Benjamin Miller&lt;/h3&gt;
+                  &lt;p class=&quot;team-text mb-2&quot;&gt;Lead Accountant at Company Ltd.&lt;/p&gt;
+                  &lt;ul class=&quot;list-unstyled pb-2&quot;&gt;
+                    &lt;li class=&quot;font-size-sm&quot;&gt;
+                      &lt;i class=&quot;text-muted mr-1&quot; data-feather=&quot;phone&quot; style=&quot;width: 14px; height: 14px;&quot;&gt;&lt;/i&gt;
+                      &lt;a href=&quot;tel:00331697720&quot; class=&quot;nav-link-inline&quot;&gt;00 33 169 7720&lt;/a&gt;
+                    &lt;/li&gt;
+                    &lt;li class=&quot;font-size-sm&quot;&gt;
+                      &lt;i class=&quot;text-muted mr-1&quot; data-feather=&quot;mail&quot; style=&quot;width: 14px; height: 14px;&quot;&gt;&lt;/i&gt;
+                      &lt;a href=&quot;mailto:ben.miller@example.com&quot; class=&quot;nav-link-inline&quot;&gt;ben.miller@example.com&lt;/a&gt;
+                    &lt;/li&gt;
+                  &lt;/ul&gt;
+                  &lt;a href=&quot;#&quot; class=&quot;social-btn sb-facebook mx-1&quot; data-toggle=&quot;tooltip&quot; title=&quot;Facebook&quot;&gt;
+                    &lt;i class=&quot;flaticon-facebook&quot;&gt;&lt;/i&gt;
+                  &lt;/a&gt;
+                  &lt;a href=&quot;#&quot; class=&quot;social-btn sb-twitter mx-1&quot; data-toggle=&quot;tooltip&quot; title=&quot;Twitter&quot;&gt;
+                    &lt;i class=&quot;flaticon-twitter&quot;&gt;&lt;/i&gt;
+                  &lt;/a&gt;
+                  &lt;a href=&quot;#&quot; class=&quot;social-btn sb-skype mx-1&quot; data-toggle=&quot;tooltip&quot; title=&quot;Skype&quot;&gt;
+                    &lt;i class=&quot;flaticon-skype&quot;&gt;&lt;/i&gt;
+                  &lt;/a&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+        #pug3.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Style 2 (inside card)
+              .card.team-member
+                .card-body.text-center
+                  .team-avatar
+                    img(src=&quot;path-to-image&quot;, alt=&quot;Team member avatar&quot;).rounded-circle
+                  h3.team-title Benjamin Miller
+                  p.team-text.mb-2 Lead Accountant at Company Ltd.
+                  ul.list-unstyled.pb-2
+                    li.font-size-sm
+                      i.text-muted.mr-1(data-feather=&quot;phone&quot;, style=&quot;width: 14px; height: 14px;&quot;)
+                      a.nav-link-inline(href=&quot;tel:00331697720&quot;) 00 33 169 7720
+                    li.font-size-sm
+                      i.text-muted.mr-1(data-feather=&quot;mail&quot;, style=&quot;width: 14px; height: 14px;&quot;)
+                      a.nav-link-inline(href=&quot;mailto:ben.miller@example.com&quot;) ben.miller@example.com
+                  a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Facebook&quot;).social-btn.sb-facebook.mx-1
+                    i.flaticon-facebook
+                  a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Twitter&quot;).social-btn.sb-twitter.mx-1
+                    i.flaticon-twitter
+                  a(href=&quot;#&quot;, data-toggle=&quot;tooltip&quot;, title=&quot;Skype&quot;).social-btn.sb-skype.mx-1
+                    i.flaticon-skype

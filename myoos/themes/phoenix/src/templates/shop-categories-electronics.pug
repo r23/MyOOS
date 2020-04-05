@@ -1,0 +1,230 @@
+extends partials/layout
+
+//- Override default config variables
+append config
+  - var pageTitle = 'Categories - Electronics'
+  - var parentMenu = 'Shop'
+  - var breadcrumbs = [{'title': 'Home', 'link': 'index.html'}, {'title': 'Shop', 'link': '#'}]
+  - var navbarTemplate = 'navbar-multilevel'
+
+//- Page Content
+block content
+
+  .container.pb-5.mb-sm-2
+
+    // Categories grid
+    .row.no-gutters
+
+      // Category
+      .col-lg-3.col-sm-4.col-6.category-card.border.border-collapse
+        .card.border-0
+          a(href='shop-style2-ls.html').d-block
+            img(src='img/shop/electronics/categories/01.jpg' alt='Computers & Accessories').d-block
+          .card-body.pb-2
+            h2.h6.mb-2 Computers &amp; Accessories
+            span.d-block.mb-3.font-size-xs.text-muted Starting from <span class='font-weight-semibold'>$149.80</span>
+            .list-group.list-group-flush.font-size-sm
+              a(href='shop-style2-ls.html').list-group-item.list-group-item-action
+                | Laptops &amp; Tablets
+                i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+              a(href='shop-style2-ls.html').list-group-item.list-group-item-action
+                | Desktop Computers
+                i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+              a(href='shop-style2-ls.html').list-group-item.list-group-item-action
+                | Computer Accessories
+                i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+              a(href='shop-style2-ls.html').list-group-item.list-group-item-action
+                | Computer Components
+                i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+              a(href='shop-style2-ls.html').list-group-item.list-group-item-action
+                | Networking Products
+                i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+
+      // Category
+      .col-lg-3.col-sm-4.col-6.category-card.border.border-collapse
+        .card.border-0
+          a(href='shop-style2-ls.html').d-block
+            img(src='img/shop/electronics/categories/02.jpg' alt='TV, Video & Audio').d-block
+          .card-body.pb-2
+            h2.h6.mb-2 TV, Video &amp; Audio
+            span.d-block.mb-3.font-size-xs.text-muted Starting from <span class='font-weight-semibold'>$78.00</span>
+            .list-group.list-group-flush.font-size-sm
+              a(href='shop-style2-ls.html').list-group-item.list-group-item-action
+                | Smart TV Sets
+                i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+              a(href='shop-style2-ls.html').list-group-item.list-group-item-action
+                | Blue-Ray Players
+                i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+              a(href='shop-style2-ls.html').list-group-item.list-group-item-action
+                | Sound Systems
+                i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+              a(href='shop-style2-ls.html').list-group-item.list-group-item-action
+                | Home Theaters
+                i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+
+      // Category
+      .col-lg-3.col-sm-4.col-6.category-card.border.border-collapse
+        .card.border-0
+          a(href='shop-style2-ls.html').d-block
+            img(src='img/shop/electronics/categories/03.jpg' alt='Smartphones & Tablets').d-block
+          .card-body.pb-2
+            h2.h6.mb-2 Smartphones &amp; Tablets
+            span.d-block.mb-3.font-size-xs.text-muted Starting from <span class='font-weight-semibold'>$127.00</span>
+            .list-group.list-group-flush.font-size-sm
+              a(href='shop-style2-ls.html').list-group-item.list-group-item-action
+                | Apple iPhones
+                i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+              a(href='shop-style2-ls.html').list-group-item.list-group-item-action
+                | Android Smartphones
+                i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+              a(href='shop-style2-ls.html').list-group-item.list-group-item-action
+                | Apple iPads
+                i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+              a(href='shop-style2-ls.html').list-group-item.list-group-item-action
+                | Android Tablets
+                i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+              a(href='shop-style2-ls.html').list-group-item.list-group-item-action
+                | Phablets
+                i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+
+      // Category
+      .col-lg-3.col-sm-4.col-6.category-card.border.border-collapse
+        .card.border-0
+          a(href='shop-style2-ls.html').d-block
+            img(src='img/shop/electronics/categories/04.jpg' alt='Cameras, Photo & Videos').d-block
+          .card-body.pb-2
+            h2.h6.mb-2 Cameras, Photo &amp; Video
+            span.d-block.mb-3.font-size-xs.text-muted Starting from <span class='font-weight-semibold'>$210.00</span>
+            .list-group.list-group-flush.font-size-sm
+              a(href='shop-style2-ls.html').list-group-item.list-group-item-action
+                | Photo Cameras
+                i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+              a(href='shop-style2-ls.html').list-group-item.list-group-item-action
+                | Video Cameras
+                i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+              a(href='shop-style2-ls.html').list-group-item.list-group-item-action
+                | Action Cameras
+                i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+              a(href='shop-style2-ls.html').list-group-item.list-group-item-action
+                | Tripods &amp; Stands
+                i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+              a(href='shop-style2-ls.html').list-group-item.list-group-item-action
+                | Lenses
+                i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+
+      // Category
+      .col-lg-3.col-sm-4.col-6.category-card.border.border-collapse
+        .card.border-0
+          a(href='shop-style2-ls.html').d-block
+            img(src='img/shop/electronics/categories/05.jpg' alt='Headphones').d-block
+          .card-body.pb-2
+            h2.h6.mb-2 Headphones
+            span.d-block.mb-3.font-size-xs.text-muted Starting from <span class='font-weight-semibold'>$35.99</span>
+            .list-group.list-group-flush.font-size-sm
+              a(href='shop-style2-ls.html').list-group-item.list-group-item-action
+                | Earbud Headphones
+                i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+              a(href='shop-style2-ls.html').list-group-item.list-group-item-action
+                | Over-Ear Headphones
+                i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+              a(href='shop-style2-ls.html').list-group-item.list-group-item-action
+                | Bluetooth Headphones
+                i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+              a(href='shop-style2-ls.html').list-group-item.list-group-item-action
+                | Sports &amp; Fitness Headphones
+                i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+              a(href='shop-style2-ls.html').list-group-item.list-group-item-action
+                | Noise-Cancelling Headphones
+                i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+
+      // Category
+      .col-lg-3.col-sm-4.col-6.category-card.border.border-collapse
+        .card.border-0
+          a(href='shop-style2-ls.html').d-block
+            img(src='img/shop/electronics/categories/06.jpg' alt='Wearable Electronics').d-block
+          .card-body.pb-2
+            h2.h6.mb-2 Wearable Electronics
+            span.d-block.mb-3.font-size-xs.text-muted Starting from <span class='font-weight-semibold'>$79.50</span>
+            .list-group.list-group-flush.font-size-sm
+              a(href='shop-style2-ls.html').list-group-item.list-group-item-action
+                | Smart Watches
+                i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+              a(href='shop-style2-ls.html').list-group-item.list-group-item-action
+                | Fitness Trackers
+                i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+              a(href='shop-style2-ls.html').list-group-item.list-group-item-action
+                | Smart Glasses
+                i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+
+      // Category
+      .col-lg-3.col-sm-4.col-6.category-card.border.border-collapse
+        .card.border-0
+          a(href='shop-style2-ls.html').d-block
+            img(src='img/shop/electronics/categories/07.jpg' alt='Printers & Ink').d-block
+          .card-body.pb-2
+            h2.h6.mb-2 Printers &amp; Ink
+            span.d-block.mb-3.font-size-xs.text-muted Starting from <span class='font-weight-semibold'>$54.00</span>
+            .list-group.list-group-flush.font-size-sm
+              a(href='shop-style2-ls.html').list-group-item.list-group-item-action
+                | All-In-One
+                i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+              a(href='shop-style2-ls.html').list-group-item.list-group-item-action
+                | Copying
+                i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+              a(href='shop-style2-ls.html').list-group-item.list-group-item-action
+                | Faxing
+                i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+              a(href='shop-style2-ls.html').list-group-item.list-group-item-action
+                | Photo Printing
+                i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+              a(href='shop-style2-ls.html').list-group-item.list-group-item-action
+                | Printing Only
+                i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+              a(href='shop-style2-ls.html').list-group-item.list-group-item-action
+                | Scanning
+                i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+
+      // Category
+      .col-lg-3.col-sm-4.col-6.category-card.border.border-collapse
+        .card.border-0
+          a(href='shop-style2-ls.html').d-block
+            img(src='img/shop/electronics/categories/08.jpg' alt='Video Games').d-block
+          .card-body.pb-2
+            h2.h6.mb-2 Video Games
+            span.d-block.mb-3.font-size-xs.text-muted Starting from <span class='font-weight-semibold'>$19.00</span>
+            .list-group.list-group-flush.font-size-sm
+              a(href='shop-style2-ls.html').list-group-item.list-group-item-action
+                | PlayStation 4
+                i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+              a(href='shop-style2-ls.html').list-group-item.list-group-item-action
+                | Xbox One
+                i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+              a(href='shop-style2-ls.html').list-group-item.list-group-item-action
+                | Nintendo Switch
+                i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+              a(href='shop-style2-ls.html').list-group-item.list-group-item-action
+                | Video Games
+                i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+              a(href='shop-style2-ls.html').list-group-item.list-group-item-action
+                | Accessories
+                i(data-feather='chevron-right' style='width: .875rem; height: .875rem;').ml-1
+
+    // Popular brands carousel
+    h2.h3.pt-5.mt-3.text-center Popular brands
+    .owl-carousel.carousel-flush.pt-4(data-owl-carousel='{ "nav": false, "dots": true, "autoplay": true, "autoplayTimeout": 3500, "loop": true, "responsive": {"0":{"items":1},"360":{"items":2},"600":{"items":3},"991":{"items":4},"1200":{"items":4}} }')
+      a(href='#').d-block.bg-white.border.py-4.py-sm-5.px-2.mb-3
+        img(src='img/shop/electronics/brands/01.png' style='width: 165px;' alt='Brand').d-block.mx-auto
+      a(href='#').d-block.bg-white.border.py-4.py-sm-5.px-2.mb-3
+        img(src='img/shop/electronics/brands/02.png' style='width: 165px;' alt='Brand').d-block.mx-auto
+      a(href='#').d-block.bg-white.border.py-4.py-sm-5.px-2.mb-3
+        img(src='img/shop/electronics/brands/05.png' style='width: 165px;' alt='Brand').d-block.mx-auto
+      a(href='#').d-block.bg-white.border.py-4.py-sm-5.px-2.mb-3
+        img(src='img/shop/electronics/brands/04.png' style='width: 165px;' alt='Brand').d-block.mx-auto
+      a(href='#').d-block.bg-white.border.py-4.py-sm-5.px-2.mb-3
+        img(src='img/shop/electronics/brands/03.png' style='width: 165px;' alt='Brand').d-block.mx-auto
+      a(href='#').d-block.bg-white.border.py-4.py-sm-5.px-2.mb-3
+        img(src='img/shop/electronics/brands/06.png' style='width: 165px;' alt='Brand').d-block.mx-auto
+      a(href='#').d-block.bg-white.border.py-4.py-sm-5.px-2.mb-3
+        img(src='img/shop/electronics/brands/07.png' style='width: 165px;' alt='Brand').d-block.mx-auto
+      a(href='#').d-block.bg-white.border.py-4.py-sm-5.px-2.mb-3
+        img(src='img/shop/electronics/brands/08.png' style='width: 165px;' alt='Brand').d-block.mx-auto

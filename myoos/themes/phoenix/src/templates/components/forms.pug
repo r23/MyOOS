@@ -1,0 +1,1370 @@
+extends ../partials/layout-components
+
+//- Override default config variables
+append config
+  - var pageTitle = 'Forms'
+  - var pageSubTitle = "&mdash;&nbsp; Form control styles, layout options, and custom components. <a href='https://getbootstrap.com/docs/4.3/components/forms/' target='_blank'>See Bootstrap documentation</a>."
+  - var isNestedFile = true
+  - var isCodeHighlighting = true
+  - var breadcrumbs = [{'title': 'Home', 'link': '../index.html'}, {'title': 'Components', 'link': '#'}]
+
+//- Page Content
+block content
+
+  // Supported input types
+  h2.h5.mb-3 Supported input types
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result1' data-toggle='tab' role='tab' aria-controls='result1' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html1' data-toggle='tab' role='tab' aria-controls='html1' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug1' data-toggle='tab' role='tab' aria-controls='pug1' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result1.tab-pane.fade.show.active(role='tabpanel')
+          .form-group.row.align-items-center
+            label(for='text-input').col-md-2.col-form-label Text
+            .col-md-10
+              input(type='text' id='text-input' value='Artisanal kale').form-control
+          .form-group.row.align-items-center
+            label(for='search-input').col-md-2.col-form-label Search
+            .col-md-10
+              input(type='search' id='search-input' value='How do I shoot web').form-control
+          .form-group.row.align-items-center
+            label(for='email-input').col-md-2.col-form-label Email
+            .col-md-10
+              input(type='email' id='email-input' value='email@example.com').form-control
+          .form-group.row.align-items-center
+            label(for='url-input').col-md-2.col-form-label URL
+            .col-md-10
+              input(type='url' id='url-input' value='https://getbootstrap.com').form-control
+          .form-group.row.align-items-center
+            label(for='tel-input').col-md-2.col-form-label Phone
+            .col-md-10
+              input(type='tel' id='tel-input' value='1-(770)-334-2518').form-control
+          .form-group.row.align-items-center
+            label(for='pass-input').col-md-2.col-form-label Password
+            .col-md-10
+              input(type='password' id='pass-input' value='mypasswordexample').form-control
+          .form-group.row
+            label(for='textarea-input').col-md-2.col-form-label Textarea
+            .col-md-10
+              textarea(id='textarea-input' rows='5').form-control Hello World!
+          .form-group.row.align-items-center
+            label(for='select-input').col-md-2.col-form-label Select
+            .col-md-10
+              select(id='select-input').form-control.custom-select
+                option Choose option...
+                option Option item 1
+                option Option item 2
+                option Option item 3
+          .form-group.row.align-items-center
+            label(for='multiselect-input').col-md-2.col-form-label Multiselect
+            .col-md-10
+              select(id='multiselect-input' size='3' multiple).form-control
+                option Option item 1
+                option Option item 2
+                option Option item 3
+                option Option item 4
+                option Option item 5
+                option Option item 6
+          .form-group.row.align-items-center
+            label(for='file-input').col-md-2.col-form-label File
+            .col-md-10
+              .custom-file
+                input(type='file' id='file-input').custom-file-input
+                label(for='file-input').custom-file-label Choose file...
+          .form-group.row.align-items-center
+            label(for='number-input').col-md-2.col-form-label Number
+            .col-md-10
+              input(type='number' id='number-input' value='37').form-control
+          .form-group.row.align-items-center
+            label(for='date-time-input').col-md-2.col-form-label Date and time
+            .col-md-10
+              input(type='datetime-local' id='date-time-input').form-control
+          .form-group.row.align-items-center
+            label(for='date-input').col-md-2.col-form-label Date
+            .col-md-10
+              input(type='date' id='date-input' value='2018-06-13').form-control
+          .form-group.row.align-items-center
+            label(for='month-input').col-md-2.col-form-label Month
+            .col-md-10
+              input(type='month' id='month-input' value='2018-06').form-control
+          .form-group.row.align-items-center
+            label(for='week-input').col-md-2.col-form-label Week
+            .col-md-10
+              input(type='week' id='week-input' value='2018-W33').form-control
+          .form-group.row.align-items-center
+            label(for='time-input').col-md-2.col-form-label Time
+            .col-md-10
+              input(type='time' id='time-input' value='14:45:00').form-control
+          .form-group.row.align-items-center
+            label(for='color-input').col-md-2.col-form-label Color
+            .col-md-10
+              input(type='color' id='color-input' value='#f5f5f5').form-control
+        #html1.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Text input --&gt;
+              &lt;div class=&quot;form-group&quot;&gt;
+                &lt;label for=&quot;text-input&quot;&gt;Text&lt;/label&gt;
+                &lt;input class=&quot;form-control&quot; type=&quot;text&quot; id=&quot;text-input&quot; value=&quot;Artisanal kale&quot;&gt;
+              &lt;/div&gt;
+
+              &lt;!-- Search input --&gt;
+              &lt;div class=&quot;form-group&quot;&gt;
+                &lt;label for=&quot;search-input&quot;&gt;Search&lt;/label&gt;
+                &lt;input class=&quot;form-control&quot; type=&quot;search&quot; id=&quot;search-input&quot; value=&quot;How do I shoot web&quot;&gt;
+              &lt;/div&gt;
+              
+              &lt;!-- Email input --&gt;
+              &lt;div class=&quot;form-group&quot;&gt;
+                &lt;label for=&quot;email-input&quot;&gt;Email&lt;/label&gt;
+                &lt;input class=&quot;form-control&quot; type=&quot;email&quot; id=&quot;email-input&quot; value=&quot;email@example.com&quot;&gt;
+              &lt;/div&gt;
+              
+              &lt;!-- URL Input --&gt;
+              &lt;div class=&quot;form-group&quot;&gt;
+                &lt;label for=&quot;url-input&quot;&gt;URL&lt;/label&gt;
+                &lt;input class=&quot;form-control&quot; type=&quot;url&quot; id=&quot;url-input&quot; value=&quot;https://getbootstrap.com&quot;&gt;
+              &lt;/div&gt;
+              
+              &lt;!-- Phone Input --&gt;
+              &lt;div class=&quot;form-group&quot;&gt;
+                &lt;label for=&quot;tel-input&quot;&gt;Phone&lt;/label&gt;
+                &lt;input class=&quot;form-control&quot; type=&quot;tel&quot; id=&quot;tel-input&quot; value=&quot;1-(770)-334-2518&quot;&gt;
+              &lt;/div&gt;
+
+              &lt;!-- Password Input --&gt;
+              &lt;div class=&quot;form-group&quot;&gt;
+                &lt;label for=&quot;pass-input&quot;&gt;Password&lt;/label&gt;
+                &lt;input class=&quot;form-control&quot; type=&quot;password&quot; id=&quot;pass-input&quot; value=&quot;mypasswordexample&quot;&gt;
+              &lt;/div&gt;
+
+              &lt;!-- Textarea --&gt;
+              &lt;div class=&quot;form-group&quot;&gt;
+                &lt;label for=&quot;textarea-input&quot;&gt;Textarea&lt;/label&gt;
+                &lt;textarea class=&quot;form-control&quot; id=&quot;textarea-input&quot; rows=&quot;5&quot;&gt;Hello World!&lt;/textarea&gt;
+              &lt;/div&gt;
+              
+              &lt;!-- Select --&gt;
+              &lt;div class=&quot;form-group&quot;&gt;
+                &lt;label for=&quot;select-input&quot;&gt;Select&lt;/label&gt;
+                &lt;select class=&quot;form-control custom-select&quot; id=&quot;select-input&quot;&gt;
+                  &lt;option&gt;Choose option...&lt;/option&gt;
+                  &lt;option&gt;Option item 1&lt;/option&gt;
+                  &lt;option&gt;Option item 2&lt;/option&gt;
+                  &lt;option&gt;Option item 3&lt;/option&gt;
+                &lt;/select&gt;
+              &lt;/div&gt;
+              
+              &lt;!-- Multiselect --&gt;
+              &lt;div class=&quot;form-group&quot;&gt;
+                &lt;label for=&quot;multiselect-input&quot;&gt;Multiselect&lt;/label&gt;
+                &lt;select class=&quot;form-control&quot; id=&quot;multiselect-input&quot; size=&quot;3&quot; multiple&gt;
+                  &lt;option&gt;Option item 1&lt;/option&gt;
+                  &lt;option&gt;Option item 2&lt;/option&gt;
+                  &lt;option&gt;Option item 3&lt;/option&gt;
+                  &lt;option&gt;Option item 4&lt;/option&gt;
+                  &lt;option&gt;Option item 5&lt;/option&gt;
+                  &lt;option&gt;Option item 6&lt;/option&gt;
+                &lt;/select&gt;
+              &lt;/div&gt;
+              
+              &lt;!-- File input --&gt;
+              &lt;div class=&quot;form-group&quot;&gt;
+                &lt;label for=&quot;file-input&quot;&gt;File&lt;/label&gt;
+                &lt;div class=&quot;custom-file&quot;&gt;
+                  &lt;input class=&quot;custom-file-input&quot; type=&quot;file&quot; id=&quot;file-input&quot;&gt;
+                  &lt;label class=&quot;custom-file-label&quot; for=&quot;file-input&quot;&gt;Choose file...&lt;/label&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+              
+              &lt;!-- Number input --&gt;
+              &lt;div class=&quot;form-group&quot;&gt;
+                &lt;label for=&quot;number-input&quot;&gt;Number&lt;/label&gt;
+                &lt;input class=&quot;form-control&quot; type=&quot;number&quot; id=&quot;number-input&quot; value=&quot;37&quot;&gt;
+              &lt;/div&gt;
+              
+              &lt;!-- Date time input --&gt;
+              &lt;div class=&quot;form-group&quot;&gt;
+                &lt;label for=&quot;date-time-input&quot;&gt;Date and time&lt;/label&gt;
+                &lt;input class=&quot;form-control&quot; type=&quot;datetime-local&quot; id=&quot;date-time-input&quot;&gt;
+              &lt;/div&gt;
+              
+              &lt;!-- Date input --&gt;
+              &lt;div class=&quot;form-group&quot;&gt;
+                &lt;label for=&quot;date-input&quot;&gt;Date&lt;/label&gt;
+                &lt;input class=&quot;form-control&quot; type=&quot;date&quot; id=&quot;date-input&quot; value=&quot;2018-06-13&quot;&gt;
+              &lt;/div&gt;
+              
+              &lt;!-- Month input --&gt;
+              &lt;div class=&quot;form-group&quot;&gt;
+                &lt;label for=&quot;month-input&quot;&gt;Month&lt;/label&gt;
+                &lt;input class=&quot;form-control&quot; type=&quot;month&quot; id=&quot;month-input&quot; value=&quot;2018-06&quot;&gt;
+              &lt;/div&gt;
+              
+              &lt;!-- Week input --&gt;
+              &lt;div class=&quot;form-group&quot;&gt;
+                &lt;label for=&quot;week-input&quot;&gt;Week&lt;/label&gt;
+                &lt;input class=&quot;form-control&quot; type=&quot;week&quot; id=&quot;week-input&quot; value=&quot;2018-W33&quot;&gt;
+              &lt;/div&gt;
+              
+              &lt;!-- Time input --&gt;
+              &lt;div class=&quot;form-group&quot;&gt;
+                &lt;label for=&quot;time-input&quot;&gt;Time&lt;/label&gt;
+                &lt;input class=&quot;form-control&quot; type=&quot;time&quot; id=&quot;time-input&quot; value=&quot;14:45:00&quot;&gt;
+              &lt;/div&gt;
+              
+              &lt;!-- Color input --&gt;
+              &lt;div class=&quot;form-group&quot;&gt;
+                &lt;label for=&quot;color-input&quot;&gt;Color&lt;/label&gt;
+                &lt;input class=&quot;form-control&quot; type=&quot;color&quot; id=&quot;color-input&quot; value=&quot;#f5f5f5&quot;&gt;
+              &lt;/div&gt;
+        #pug1.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Text input
+              .form-group
+                label(for=&quot;text-input&quot;) Text
+                input(type=&quot;text&quot;, id=&quot;text-input&quot;, value=&quot;Artisanal kale&quot;).form-control
+
+              // Search input
+              .form-group
+                label(for=&quot;search-input&quot;) Search
+                input(type=&quot;search&quot;, id=&quot;search-input&quot;, value=&quot;How do I shoot web&quot;).form-control
+
+              // Email input
+              .form-group
+                label(for=&quot;email-input&quot;) Email
+                input(type=&quot;email&quot;, id=&quot;email-input&quot;, value=&quot;email@example.com&quot;).form-control
+              
+              // URL input
+              .form-group
+                label(for=&quot;url-input&quot;) URL
+                input(type=&quot;url&quot;, id=&quot;url-input&quot;, value=&quot;https://getbootstrap.com&quot;).form-control
+              
+              // Phone input
+              .form-group
+                label(for=&quot;tel-input&quot;) Phone
+                input(type=&quot;tel&quot;, id=&quot;tel-input&quot;, value=&quot;1-(770)-334-2518&quot;).form-control
+              
+              // Password input
+              .form-group
+                label(for=&quot;pass-input&quot;) Password
+                input(type=&quot;password&quot;, id=&quot;pass-input&quot;, value=&quot;mypasswordexample&quot;).form-control
+              
+              // Textarea
+              .form-group
+                label(for=&quot;textarea-input&quot;) Textarea
+                textarea(id=&quot;textarea-input&quot;, rows=&quot;5&quot;).form-control Hello World!
+              
+              // Select
+              .form-group
+                label(for=&quot;select-input&quot;) Select
+                select(id=&quot;select-input&quot;).form-control.custom-select
+                  option Choose option...
+                  option Option item 1
+                  option Option item 2
+                  option Option item 3
+              
+              // Multiselect
+              .form-group
+                label(for=&quot;multiselect-input&quot;) Multiselect
+                select(id=&quot;multiselect-input&quot;, size=&quot;3&quot;, multiple).form-control
+                  option Option item 1
+                  option Option item 2
+                  option Option item 3
+                  option Option item 4
+                  option Option item 5
+                  option Option item 6
+
+              // File input
+              .form-group
+                label(for=&quot;file-input&quot;) File
+                .custom-file
+                  input(type=&quot;file&quot;, id=&quot;file-input&quot;).custom-file-input
+                  label.custom-file-label(for=&quot;file-input&quot;) Choose file...
+
+              // Number input
+              .form-group
+                label(for=&quot;number-input&quot;) Number
+                input(type=&quot;number&quot;, id=&quot;number-input&quot;, value=&quot;37&quot;).form-control
+              
+              // Date time input
+              .form-group
+                label(for=&quot;date-time-input&quot;) Date and time
+                input(type=&quot;datetime-local&quot;, id=&quot;date-time-input&quot;).form-control
+              
+              // Date input
+              .form-group
+                label(for=&quot;date-input&quot;) Date
+                input(type=&quot;date&quot;, id=&quot;date-input&quot;, value=&quot;2017-06-13&quot;).form-control
+              
+              // Month input
+              .form-group
+                label(for=&quot;month-input&quot;) Month
+                input(type=&quot;month&quot;, id=&quot;month-input&quot;, value=&quot;2017-06&quot;).form-control
+              
+              // Week input
+              .form-group
+                label(for=&quot;week-input&quot;) Week
+                input(type=&quot;week&quot;, id=&quot;week-input&quot;, value=&quot;2017-W33&quot;).form-control
+              
+              // Time input
+              .form-group
+                label(for=&quot;time-input&quot;) Time
+                input(type=&quot;time&quot;, id=&quot;time-input&quot;, value=&quot;14:45:00&quot;).form-control
+              
+              // Color input
+              .form-group
+                label(for=&quot;color-input&quot;) Color
+                input(type=&quot;color&quot;, id=&quot;color-input&quot;, value=&quot;#f5f5f5&quot;).form-control
+
+  // Rounded and pill inputs
+  h2.h5.pt-5.mb-3 Rounded and pill input <small class='text-muted'>Applicable to all input-types</small>
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result2' data-toggle='tab' role='tab' aria-controls='result2' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html2' data-toggle='tab' role='tab' aria-controls='html2' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug2' data-toggle='tab' role='tab' aria-controls='pug2' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result2.tab-pane.fade.show.active(role='tabpanel')
+          .form-group
+            label(for='text-input-rounded') Rounded input
+            input(type='text' id='text-input-rounded' placeholder='Apply class .rounded to .form-control').form-control.rounded
+          .form-group
+            label(for='text-input-pill') Pill input
+            input(type='text' id='text-input-pill' placeholder='Apply class .form-control-pill to .form-control').form-control.form-control-pill
+        #html2.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Rounded input --&gt;
+              &lt;div class=&quot;form-group&quot;&gt;
+                &lt;label for=&quot;text-input-rounded&quot;&gt;Rounded input&lt;/label&gt;
+                &lt;input class=&quot;form-control rounded&quot; type=&quot;text&quot; id=&quot;text-input-rounded&quot; placeholder=&quot;Apply class .rounded to .form-control&quot;&gt;
+              &lt;/div&gt;
+
+              &lt;!-- Pill input --&gt;
+              &lt;div class=&quot;form-group&quot;&gt;
+                &lt;label for=&quot;text-input-pill&quot;&gt;Pill input&lt;/label&gt;
+                &lt;input class=&quot;form-control form-control-pill&quot; type=&quot;text&quot; id=&quot;text-input-pill&quot; placeholder=&quot;Apply class .form-control-pill to .form-control&quot;&gt;
+              &lt;/div&gt;
+        #pug2.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Rounded input
+              .form-group
+                label(for=&quot;text-input-rounded&quot;) Rounded input
+                input(type=&quot;text&quot;, id=&quot;text-input-rounded&quot;, placeholder=&quot;Apply class .rounded to .form-control&quot;).form-control.rounded
+              
+              // Pill input
+              .form-group
+                label(for=&quot;text-input-pill&quot;) Pill input
+                input(type=&quot;text&quot;, id=&quot;text-input-pill&quot;, placeholder=&quot;Apply class .form-control-pill to .form-control&quot;).form-control.form-control-pill
+
+  // Checkboxes
+  h2.h5.pt-5.mb-3 Checkboxes
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result3' data-toggle='tab' role='tab' aria-controls='result3' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html3' data-toggle='tab' role='tab' aria-controls='html3' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug3' data-toggle='tab' role='tab' aria-controls='pug3' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result3.tab-pane.fade.show.active(role='tabpanel')
+          .custom-control.custom-checkbox.mb-1
+            input(type='checkbox' id='ex-check-1').custom-control-input
+            label(for='ex-check-1').custom-control-label Check this checkbox
+          .custom-control.custom-checkbox.mb-1
+            input(type='checkbox' id='ex-check-2' checked).custom-control-input
+            label(for='ex-check-2').custom-control-label Uncheck this checkbox
+          .custom-control.custom-checkbox.mb-1
+            input(type='checkbox' id='ex-check-3' disabled).custom-control-input
+            label(for='ex-check-3').custom-control-label Disabled checkbox
+          .pt-3
+            .custom-control.custom-checkbox.custom-control-inline
+              input(type='checkbox' id='ex-check-4').custom-control-input
+              label(for='ex-check-4').custom-control-label Check this checkbox
+            .custom-control.custom-checkbox.custom-control-inline
+              input(type='checkbox' id='ex-check-5' checked).custom-control-input
+              label(for='ex-check-5').custom-control-label Uncheck this checkbox
+            .custom-control.custom-checkbox.custom-control-inline
+              input(type='checkbox' id='ex-check-6' disabled).custom-control-input
+              label(for='ex-check-6').custom-control-label Disabled checkbox
+        #html3.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Stacked checkboxes --&gt;
+              &lt;div class=&quot;custom-control custom-checkbox&quot;&gt;
+                &lt;input class=&quot;custom-control-input&quot; type=&quot;checkbox&quot; id=&quot;ex-check-1&quot;&gt;
+                &lt;label class=&quot;custom-control-label&quot; for=&quot;ex-check-1&quot;&gt;Check this checkbox&lt;/label&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;custom-control custom-checkbox&quot;&gt;
+                &lt;input class=&quot;custom-control-input&quot; type=&quot;checkbox&quot; id=&quot;ex-check-2&quot; checked&gt;
+                &lt;label class=&quot;custom-control-label&quot; for=&quot;ex-check-2&quot;&gt;Uncheck this checkbox&lt;/label&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;custom-control custom-checkbox&quot;&gt;
+                &lt;input class=&quot;custom-control-input&quot; type=&quot;checkbox&quot; id=&quot;ex-check-3&quot; disabled&gt;
+                &lt;label class=&quot;custom-control-label&quot; for=&quot;ex-check-3&quot;&gt;Disabled checkbox&lt;/label&gt;
+              &lt;/div&gt;
+
+              &lt;!-- Inline checkboxes --&gt;
+              &lt;div class=&quot;custom-control custom-checkbox custom-control-inline&quot;&gt;
+                &lt;input class=&quot;custom-control-input&quot; type=&quot;checkbox&quot; id=&quot;ex-check-4&quot;&gt;
+                &lt;label class=&quot;custom-control-label&quot; for=&quot;ex-check-4&quot;&gt;Check this checkbox&lt;/label&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;custom-control custom-checkbox custom-control-inline&quot;&gt;
+                &lt;input class=&quot;custom-control-input&quot; type=&quot;checkbox&quot; id=&quot;ex-check-5&quot; checked&gt;
+                &lt;label class=&quot;custom-control-label&quot; for=&quot;ex-check-5&quot;&gt;Uncheck this checkbox&lt;/label&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;custom-control custom-checkbox custom-control-inline&quot;&gt;
+                &lt;input class=&quot;custom-control-input&quot; type=&quot;checkbox&quot; id=&quot;ex-check-6&quot; disabled&gt;
+                &lt;label class=&quot;custom-control-label&quot; for=&quot;ex-check-6&quot;&gt;Disabled checkbox&lt;/label&gt;
+              &lt;/div&gt;
+        #pug3.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Stacked checkboxes
+              .custom-control.custom-checkbox
+                input(type=&quot;checkbox&quot;, id=&quot;ex-check-1&quot;).custom-control-input
+                label.custom-control-label(for=&quot;ex-check-1&quot;) Check this checkbox
+              .custom-control.custom-checkbox
+                input(type=&quot;checkbox&quot;, id=&quot;ex-check-2&quot;, checked).custom-control-input
+                label.custom-control-label(for=&quot;ex-check-2&quot;) Uncheck this checkbox
+              .custom-control.custom-checkbox
+                input(type=&quot;checkbox&quot;, id=&quot;ex-check-3&quot;, disabled).custom-control-input
+                label.custom-control-label(for=&quot;ex-check-3&quot;) Disabled checkbox
+              
+              // Inline checkboxes
+              .custom-control.custom-checkbox.custom-control-inline
+                input(type=&quot;checkbox&quot;, id=&quot;ex-check-4&quot;).custom-control-input
+                label.custom-control-label(for=&quot;ex-check-4&quot;) Check this checkbox
+              .custom-control.custom-checkbox.custom-control-inline
+                input(type=&quot;checkbox&quot; id=&quot;ex-check-5&quot;, checked).custom-control-input
+                label.custom-control-label(for=&quot;ex-check-5&quot;) Uncheck this checkbox
+              .custom-control.custom-checkbox.custom-control-inline
+                input(type=&quot;checkbox&quot;, id=&quot;ex-check-6&quot;, disabled).custom-control-input
+                label.custom-control-label(for=&quot;ex-check-6&quot;) Disabled checkbox
+
+  // Radio buttons
+  h2.h5.pt-5.mb-3 Radio buttons
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result4' data-toggle='tab' role='tab' aria-controls='result4' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html4' data-toggle='tab' role='tab' aria-controls='html4' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug4' data-toggle='tab' role='tab' aria-controls='pug4' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result4.tab-pane.fade.show.active(role='tabpanel')
+          .custom-control.custom-radio.mb-1
+            input(type='radio' id='ex-radio-1' name='radio').custom-control-input
+            label(for='ex-radio-1').custom-control-label Toggle this radio
+          .custom-control.custom-radio.mb-1
+            input(type='radio' id='ex-radio-2' name='radio' checked).custom-control-input
+            label(for='ex-radio-2').custom-control-label Toggle this radio
+          .custom-control.custom-radio.mb-1
+            input(type='radio' id='ex-radio-3' name='radio' disabled).custom-control-input
+            label(for='ex-radio-3').custom-control-label Disabled radio
+          .pt-3
+            .custom-control.custom-radio.custom-control-inline
+              input(type='radio' id='ex-radio-4' name='radio2').custom-control-input
+              label(for='ex-radio-4').custom-control-label Toggle this radio
+            .custom-control.custom-radio.custom-control-inline
+              input(type='radio' id='ex-radio-5' name='radio2' checked).custom-control-input
+              label(for='ex-radio-5').custom-control-label Toggle this radio
+            .custom-control.custom-radio.custom-control-inline
+              input(type='radio' id='ex-radio-6' name='radio2' disabled).custom-control-input
+              label(for='ex-radio-6').custom-control-label Disabled radio
+        #html4.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Stacked radio buttons --&gt;
+              &lt;div class=&quot;custom-control custom-radio&quot;&gt;
+                &lt;input class=&quot;custom-control-input&quot; type=&quot;radio&quot; id=&quot;ex-radio-1&quot; name=&quot;radio&quot;&gt;
+                &lt;label class=&quot;custom-control-label&quot; for=&quot;ex-radio-1&quot;&gt;Toggle this radio&lt;/label&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;custom-control custom-radio&quot;&gt;
+                &lt;input class=&quot;custom-control-input&quot; type=&quot;radio&quot; id=&quot;ex-radio-2&quot; name=&quot;radio&quot; checked&gt;
+                &lt;label class=&quot;custom-control-label&quot; for=&quot;ex-radio-2&quot;&gt;Toggle this radio&lt;/label&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;custom-control custom-radio&quot;&gt;
+                &lt;input class=&quot;custom-control-input&quot; type=&quot;radio&quot; id=&quot;ex-radio-3&quot; name=&quot;radio&quot; disabled&gt;
+                &lt;label class=&quot;custom-control-label&quot; for=&quot;ex-radio-3&quot;&gt;Disabled radio&lt;/label&gt;
+              &lt;/div&gt;
+
+              &lt;!-- Inline radio buttons --&gt;
+              &lt;div class=&quot;custom-control custom-radio custom-control-inline&quot;&gt;
+                &lt;input class=&quot;custom-control-input&quot; type=&quot;radio&quot; id=&quot;ex-radio-4&quot; name=&quot;radio2&quot;&gt;
+                &lt;label class=&quot;custom-control-label&quot; for=&quot;ex-radio-4&quot;&gt;Toggle this radio&lt;/label&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;custom-control custom-radio custom-control-inline&quot;&gt;
+                &lt;input class=&quot;custom-control-input&quot; type=&quot;radio&quot; id=&quot;ex-radio-5&quot; name=&quot;radio2&quot; checked&gt;
+                &lt;label class=&quot;custom-control-label&quot; for=&quot;ex-radio-5&quot;&gt;Toggle this radio&lt;/label&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;custom-control custom-radio custom-control-inline&quot;&gt;
+                &lt;input class=&quot;custom-control-input&quot; type=&quot;radio&quot; id=&quot;ex-radio-6&quot; name=&quot;radio2&quot; disabled&gt;
+                &lt;label class=&quot;custom-control-label&quot; for=&quot;ex-radio-6&quot;&gt;Disabled radio&lt;/label&gt;
+              &lt;/div&gt;
+        #pug4.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Stacked radio buttons
+              .custom-control.custom-radio
+                input(type=&quot;radio&quot;, id=&quot;ex-radio-1&quot;, name=&quot;radio&quot;).custom-control-input
+                label.custom-control-label(for=&quot;ex-radio-1&quot;) Toggle this radio
+              .custom-control.custom-radio
+                input(type=&quot;radio&quot;, id=&quot;ex-radio-2&quot;, name=&quot;radio&quot;, checked).custom-control-input
+                label.custom-control-label(for=&quot;ex-radio-2&quot;) Toggle this radio
+              .custom-control.custom-radio
+                input(type=&quot;radio&quot;, id=&quot;ex-radio-3&quot;, name=&quot;radio&quot;, disabled).custom-control-input
+                label.custom-control-label(for=&quot;ex-radio-3&quot;) Disabled radio
+              
+              // Inline radio buttons
+              .custom-control.custom-radio.custom-control-inline
+                input(type=&quot;radio&quot;, id=&quot;ex-radio-4&quot;, name=&quot;radio2&quot;).custom-control-input
+                label.custom-control-label(for=&quot;ex-radio-4&quot;) Toggle this radio
+              .custom-control.custom-radio.custom-control-inline
+                input(type=&quot;radio&quot;, id=&quot;ex-radio-5&quot;, name=&quot;radio2&quot;, checked).custom-control-input
+                label.custom-control-label(for=&quot;ex-radio-5&quot;) Toggle this radio
+              .custom-control.custom-radio.custom-control-inline
+                input(type=&quot;radio&quot;, id=&quot;ex-radio-6&quot;, name=&quot;radio2&quot;, disabled).custom-control-input
+                label.custom-control-label(for=&quot;ex-radio-6&quot;) Disabled radio
+
+  // Switches
+  h2.h5.pt-5.mb-3 Switches
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result5' data-toggle='tab' role='tab' aria-controls='result5' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html5' data-toggle='tab' role='tab' aria-controls='html5' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug5' data-toggle='tab' role='tab' aria-controls='pug5' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result5.tab-pane.fade.show.active(role='tabpanel')
+          .custom-control.custom-switch.mb-1
+            input(type='checkbox' id='customSwitch1').custom-control-input
+            label(for='customSwitch1').custom-control-label Toggle this switch element
+          .custom-control.custom-switch.mb-1
+            input(type='checkbox' id='customSwitch2' checked).custom-control-input
+            label(for='customSwitch2').custom-control-label Toggle this switch element
+          .custom-control.custom-switch
+            input(type='checkbox' id='customSwitch3' disabled).custom-control-input
+            label(for='customSwitch3').custom-control-label Disabled switch element
+        #html5.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Switch --&gt;
+              &lt;div class=&quot;custom-control custom-switch&quot;&gt;
+                &lt;input type=&quot;checkbox&quot; class=&quot;custom-control-input&quot; id=&quot;customSwitch1&quot;&gt;
+                &lt;label class=&quot;custom-control-label&quot; for=&quot;customSwitch1&quot;&gt;Toggle this switch element&lt;/label&gt;
+              &lt;/div&gt;
+
+              &lt;!-- Checked switch --&gt;
+              &lt;div class=&quot;custom-control custom-switch&quot;&gt;
+                &lt;input type=&quot;checkbox&quot; class=&quot;custom-control-input&quot; id=&quot;customSwitch2&quot; checked&gt;
+                &lt;label class=&quot;custom-control-label&quot; for=&quot;customSwitch2&quot;&gt;Toggle this switch element&lt;/label&gt;
+              &lt;/div&gt;
+
+              &lt;!-- Disabled switch --&gt;
+              &lt;div class=&quot;custom-control custom-switch&quot;&gt;
+                &lt;input type=&quot;checkbox&quot; class=&quot;custom-control-input&quot; id=&quot;customSwitch3&quot; disabled&gt;
+                &lt;label class=&quot;custom-control-label&quot; for=&quot;customSwitch3&quot;&gt;Disabled switch element&lt;/label&gt;
+              &lt;/div&gt;
+        #pug5.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Switch
+              .custom-control.custom-switch
+                input(type=&quot;checkbox&quot;, id=&quot;customSwitch1&quot;).custom-control-input
+                label.custom-control-label(for=&quot;customSwitch1&quot;) Toggle this switch element
+
+              // Checked switch
+              .custom-control.custom-switch
+                input(type=&quot;checkbox&quot;, id=&quot;customSwitch1&quot;, checked).custom-control-input
+                label.custom-control-label(for=&quot;customSwitch2&quot;) Toggle this switch element
+
+              // Disabled switch
+              .custom-control.custom-switch
+                input(type=&quot;checkbox&quot;, id=&quot;customSwitch1&quot;, disabled).custom-control-input
+                label.custom-control-label(for=&quot;customSwitch3&quot;) Disabled switch element
+
+  // Size / color options
+  h2.h5.pt-5.mb-3 Size / color options
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result6' data-toggle='tab' role='tab' aria-controls='result6' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html6' data-toggle='tab' role='tab' aria-controls='html6' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug6' data-toggle='tab' role='tab' aria-controls='pug6' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content.pt-1
+        #result6.tab-pane.fade.show.active(role='tabpanel')
+          .row
+            .col-sm-6
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='size' id='xl' checked).custom-control-input
+                label(for='xl').custom-option-label XL
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='size' id='l').custom-control-input
+                label(for='l').custom-option-label L
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='size' id='m').custom-control-input
+                label(for='m').custom-option-label M
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='size' id='s').custom-control-input
+                label(for='s').custom-option-label S
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='size' id='xs').custom-control-input
+                label(for='xs').custom-option-label XS
+            .col-sm-6.pt-2.pt-sm-0
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='color' id='blue' checked).custom-control-input
+                label(for='blue').custom-option-label
+                  span(style='background-color: #93c4ef;').custom-option-color
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='color' id='green').custom-control-input
+                label(for='green').custom-option-label
+                  span(style='background-color: #a7c04d;').custom-option-color
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='color' id='red').custom-control-input
+                label(for='red').custom-option-label
+                  span(style='background-color: #ef0568;').custom-option-color
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='color' id='yellow').custom-control-input
+                label(for='yellow').custom-option-label
+                  span(style='background-color: #ffce2b;').custom-option-color
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type='radio' name='color' id='brown').custom-control-input
+                label(for='brown').custom-option-label
+                  span(style='background-color: #b5651d;').custom-option-color
+        #html6.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Size options (radio buttons) --&gt;
+              &lt;div class=&quot;custom-control custom-option custom-control-inline mb-2&quot;&gt;
+                &lt;input type=&quot;radio&quot; class=&quot;custom-control-input&quot; id=&quot;xl&quot; name=&quot;size&quot; checked&gt;
+                &lt;label for=&quot;xl&quot; class=&quot;custom-option-label&quot;&gt;XL&lt;/label&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;custom-control custom-option custom-control-inline mb-2&quot;&gt;
+                &lt;input type=&quot;radio&quot; class=&quot;custom-control-input&quot; id=&quot;l&quot; name=&quot;size&quot; checked&gt;
+                &lt;label for=&quot;l&quot; class=&quot;custom-option-label&quot;&gt;L&lt;/label&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;custom-control custom-option custom-control-inline mb-2&quot;&gt;
+                &lt;input type=&quot;radio&quot; class=&quot;custom-control-input&quot; id=&quot;m&quot; name=&quot;size&quot; checked&gt;
+                &lt;label for=&quot;m&quot; class=&quot;custom-option-label&quot;&gt;M&lt;/label&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;custom-control custom-option custom-control-inline mb-2&quot;&gt;
+                &lt;input type=&quot;radio&quot; class=&quot;custom-control-input&quot; id=&quot;s&quot; name=&quot;size&quot; checked&gt;
+                &lt;label for=&quot;s&quot; class=&quot;custom-option-label&quot;&gt;S&lt;/label&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;custom-control custom-option custom-control-inline mb-2&quot;&gt;
+                &lt;input type=&quot;radio&quot; class=&quot;custom-control-input&quot; id=&quot;xs&quot; name=&quot;size&quot; checked&gt;
+                &lt;label for=&quot;xs&quot; class=&quot;custom-option-label&quot;&gt;XS&lt;/label&gt;
+              &lt;/div&gt;
+
+              &lt;!-- Color options (radio buttons) --&gt;
+              &lt;div class=&quot;custom-control custom-option custom-control-inline mb-2&quot;&gt;
+                &lt;input type=&quot;radio&quot; class=&quot;custom-control-input&quot; id=&quot;blue&quot; name=&quot;size&quot; checked&gt;
+                &lt;label for=&quot;blue&quot; class=&quot;custom-option-label&quot;&gt;
+                  &lt;span class=&quot;custom-option-color&quot; style=&quot;background-color: #93c4ef;&quot;&gt;&lt;/span&gt;
+                &lt;/label&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;custom-control custom-option custom-control-inline mb-2&quot;&gt;
+                &lt;input type=&quot;radio&quot; class=&quot;custom-control-input&quot; id=&quot;green&quot; name=&quot;size&quot; checked&gt;
+                &lt;label for=&quot;green&quot; class=&quot;custom-option-label&quot;&gt;
+                  &lt;span class=&quot;custom-option-color&quot; style=&quot;background-color: #a7c04d;&quot;&gt;&lt;/span&gt;
+                &lt;/label&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;custom-control custom-option custom-control-inline mb-2&quot;&gt;
+                &lt;input type=&quot;radio&quot; class=&quot;custom-control-input&quot; id=&quot;red&quot; name=&quot;size&quot; checked&gt;
+                &lt;label for=&quot;red&quot; class=&quot;custom-option-label&quot;&gt;
+                  &lt;span class=&quot;custom-option-color&quot; style=&quot;background-color: #ef0568;&quot;&gt;&lt;/span&gt;
+                &lt;/label&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;custom-control custom-option custom-control-inline mb-2&quot;&gt;
+                &lt;input type=&quot;radio&quot; class=&quot;custom-control-input&quot; id=&quot;yellow&quot; name=&quot;size&quot; checked&gt;
+                &lt;label for=&quot;yellow&quot; class=&quot;custom-option-label&quot;&gt;
+                  &lt;span class=&quot;custom-option-color&quot; style=&quot;background-color: #ffce2b;&quot;&gt;&lt;/span&gt;
+                &lt;/label&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;custom-control custom-option custom-control-inline mb-2&quot;&gt;
+                &lt;input type=&quot;radio&quot; class=&quot;custom-control-input&quot; id=&quot;brown&quot; name=&quot;size&quot; checked&gt;
+                &lt;label for=&quot;brown&quot; class=&quot;custom-option-label&quot;&gt;
+                  &lt;span class=&quot;custom-option-color&quot; style=&quot;background-color: #b5651d;&quot;&gt;&lt;/span&gt;
+                &lt;/label&gt;
+              &lt;/div&gt;
+        #pug6.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Size options (radio buttons)
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type=&quot;radio&quot;, name=&quot;size&quot;, id=&quot;xl&quot; checked).custom-control-input
+                label.custom-option-label(for=&quot;xl&quot;) XL
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type=&quot;radio&quot;, name=&quot;size&quot;, id=&quot;l&quot;).custom-control-input
+                label.custom-option-label(for=&quot;l&quot;) L
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type=&quot;radio&quot;, name=&quot;size&quot;, id=&quot;m&quot;).custom-control-input
+                label.custom-option-label(for=&quot;m&quot;) M
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type=&quot;radio&quot;, name=&quot;size&quot;, id=&quot;s&quot;).custom-control-input
+                label.custom-option-label(for=&quot;s&quot;) S
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type=&quot;radio&quot;, name=&quot;size&quot;, id=&quot;xs&quot;).custom-control-input
+                label.custom-option-label(for=&quot;xs&quot;) XS
+
+              // Color options (radio buttons)
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type=&quot;radio&quot;, name=&quot;color&quot;, id=&quot;blue&quot;, checked).custom-control-input
+                label(for=&quot;blue&quot;).custom-option-label
+                  span(style=&quot;background-color: #93c4ef;&quot;).custom-option-color
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type=&quot;radio&quot;, name=&quot;color&quot;, id=&quot;green&quot;).custom-control-input
+                label(for=&quot;green&quot;).custom-option-label
+                  span(style=&quot;background-color: #a7c04d;&quot;).custom-option-color
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type=&quot;radio&quot;, name=&quot;color&quot;, id=&quot;red&quot;).custom-control-input
+                label(for=&quot;red&quot;).custom-option-label
+                  span(style=&quot;background-color: #ef0568;&quot;).custom-option-color
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type=&quot;radio&quot;, name=&quot;color&quot;, id=&quot;yellow&quot;).custom-control-input
+                label(for=&quot;yellow&quot;).custom-option-label
+                  span(style=&quot;background-color: #ffce2b;&quot;).custom-option-color
+              .custom-control.custom-option.custom-control-inline.mb-2
+                input(type=&quot;radio&quot;, name=&quot;color&quot;, id=&quot;brown&quot;).custom-control-input
+                label(for=&quot;brown&quot;).custom-option-label
+                  span(style=&quot;background-color: #b5651d;&quot;).custom-option-color
+
+  // Sizing
+  h2.h5.pt-5.mb-3 Sizing
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result7' data-toggle='tab' role='tab' aria-controls='result7' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html7' data-toggle='tab' role='tab' aria-controls='html7' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug7' data-toggle='tab' role='tab' aria-controls='pug7' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result7.tab-pane.fade.show.active(role='tabpanel')
+          .form-group
+            label(for='large-input') Large input
+            input(type='text' id='large-input' placeholder='Large input placeholder').form-control.form-control-lg
+          .form-group
+            label(for='normal-input') Normal input
+            input(type='text' id='normal-input' placeholder='Normal input placeholder').form-control
+          .form-group
+            label(for='small-input') Small input
+            input(type='text' id='small-input' placeholder='Small input placeholder').form-control.form-control-sm
+        #html7.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Large input --&gt;
+              &lt;div class=&quot;form-group&quot;&gt;
+                &lt;label for=&quot;large-input&quot;&gt;Large input&lt;/label&gt;
+                &lt;input class=&quot;form-control form-control-lg&quot; type=&quot;text&quot; id=&quot;large-input&quot; placeholder=&quot;Large input placeholder&quot;&gt;
+              &lt;/div&gt;
+
+              &lt;!-- Normal input --&gt;
+              &lt;div class=&quot;form-group&quot;&gt;
+                &lt;label for=&quot;normal-input&quot;&gt;Normal input&lt;/label&gt;
+                &lt;input class=&quot;form-control&quot; type=&quot;text&quot; id=&quot;normal-input&quot; placeholder=&quot;Normal input placeholder&quot;&gt;
+              &lt;/div&gt;
+
+              &lt;!-- Small input --&gt;
+              &lt;div class=&quot;form-group&quot;&gt;
+                &lt;label for=&quot;small-input&quot;&gt;Small input&lt;/label&gt;
+                &lt;input class=&quot;form-control form-control-sm&quot; type=&quot;text&quot; id=&quot;small-input&quot; placeholder=&quot;Small input placeholder&quot;&gt;
+              &lt;/div&gt;
+        #pug7.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Large input
+              .form-group
+                label(for=&quot;large-input&quot;) Large input
+                input(type=&quot;text&quot;, id=&quot;large-input&quot;, placeholder=&quot;Large input placeholder&quot;).form-control.form-control-lg
+
+              //- Normal input
+              .form-group
+                label(for=&quot;normal-input&quot;) Normal input
+                input(type=&quot;text&quot;, id=&quot;normal-input&quot;, placeholder=&quot;Normal input placeholder&quot;).form-control
+              
+              // Small input
+              .form-group
+                label(for=&quot;small-input&quot;) Small input
+                input(type=&quot;text&quot;, id=&quot;small-input&quot;, placeholder=&quot;Small input placeholder&quot;).form-control.form-control-sm
+
+  // Readonly & disabled
+  h2.h5.pt-5.mb-3 Readonly &amp; disabled
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result8' data-toggle='tab' role='tab' aria-controls='result8' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html8' data-toggle='tab' role='tab' aria-controls='html8' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug8' data-toggle='tab' role='tab' aria-controls='pug8' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result8.tab-pane.fade.show.active(role='tabpanel')
+          .form-group
+            input(type='text' placeholder='Readonly input here...' readonly).form-control
+          .form-group
+            input(type='text' id='disabled-input' placeholder='Disabled input here...' disabled).form-control
+          .form-group
+            select(id='disabled-select-input' disabled).form-control.custom-select
+              option Disabled select here...
+              option Option item 1
+              option Option item 2
+              option Option item 3
+        #html8.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Readonly input --&gt;
+              &lt;input class=&quot;form-control&quot; type=&quot;text&quot; placeholder=&quot;Readonly input here...&quot; readonly&gt;
+
+              &lt;!-- Disabled input --&gt;
+              &lt;input class=&quot;form-control&quot; type=&quot;text&quot; placeholder=&quot;Disabled input here...&quot; disabled&gt;
+
+              &lt;!-- Disabled select --&gt;
+              &lt;select class=&quot;form-control custom-select&quot; disabled&gt;
+                &lt;option&gt;Disabled select here...&lt;/option&gt;
+                &lt;option&gt;Option item 1&lt;/option&gt;
+                &lt;option&gt;Option item 2&lt;/option&gt;
+                &lt;option&gt;Option item 3&lt;/option&gt;
+              &lt;/select&gt;
+        #pug8.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Readonly input
+              input(type=&quot;text&quot;, placeholder=&quot;Readonly input here...&quot;, readonly).form-control
+              
+              // Disabled input
+              input(type=&quot;text&quot;, placeholder=&quot;Disabled input here...&quot;, disabled).form-control
+              
+              // Disabled select
+              select(disabled).form-control.custom-select
+                option Disabled select here...
+                option Option item 1
+                option Option item 2
+                option Option item 3
+
+  // Inline form
+  h2.h5.pt-5.mb-3 Inline form
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result9' data-toggle='tab' role='tab' aria-controls='result9' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html9' data-toggle='tab' role='tab' aria-controls='html9' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug9' data-toggle='tab' role='tab' aria-controls='pug9' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result9.tab-pane.fade.show.active(role='tabpanel')
+          form.form-inline.pt-2
+            label.sr-only(for='inline-form-input-name') Name
+            input(type='text' id='inline-form-input-name' placeholder='John Doe').form-control.mb-3.mr-sm-4
+            label.sr-only(for='inline-form-input-username') Username
+            .input-group.mb-3.mr-sm-4
+              .input-group-prepend
+                .input-group-text @
+              input(type='text' id='inline-form-input-username' placeholder='Username').form-control
+            .custom-control.custom-checkbox.mb-3.mr-4
+              input(type='checkbox' id='inline-form-check-1').custom-control-input
+              label(for='inline-form-check-1').custom-control-label Remember me
+            button(type='submit').btn.btn-primary.mb-3 Submit
+        #html9.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Inline form --&gt;
+              &lt;form class=&quot;form-inline&quot;&gt;
+                &lt;label class=&quot;sr-only&quot;&gt;Name&lt;/label&gt;
+                &lt;input class=&quot;form-control mb-3 mr-sm-4&quot; type=&quot;text&quot; placeholder=&quot;John Doe&quot;&gt;
+                &lt;label class=&quot;sr-only&quot;&gt;Username&lt;/label&gt;
+                &lt;div class=&quot;input-group mb-3 mr-sm-4&quot;&gt;
+                  &lt;div class=&quot;input-group-prepend&quot;&gt;
+                    &lt;div class=&quot;input-group-text&quot;&gt;@&lt;/div&gt;
+                  &lt;/div&gt;
+                  &lt;input class=&quot;form-control&quot; type=&quot;text&quot; placeholder=&quot;Username&quot;&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;custom-control custom-checkbox mb-3 mr-4&quot;&gt;
+                  &lt;input class=&quot;custom-control-input&quot; type=&quot;checkbox&quot; id=&quot;inline-form-check-1&quot;&gt;
+                  &lt;label class=&quot;custom-control-label&quot; for=&quot;inline-form-check-1&quot;&gt;Remember me&lt;/label&gt;
+                &lt;/div&gt;
+                &lt;button class=&quot;btn btn-primary mb-3&quot; type=&quot;submit&quot;&gt;Submit&lt;/button&gt;
+              &lt;/form&gt;
+        #pug9.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Inline form
+              form.form-inline.pt-2
+                label.sr-only(for=&quot;inline-form-input-name&quot;) Name
+                input(type=&quot;text&quot;, id=&quot;inline-form-input-name&quot;, placeholder=&quot;John Doe&quot;).form-control.mb-3.mr-sm-4
+                label.sr-only(for=&quot;inline-form-input-username&quot;) Username
+                .input-group.mb-3.mr-sm-4
+                  .input-group-prepend
+                    .input-group-text @
+                  input(type=&quot;text&quot;, id=&quot;inline-form-input-username&quot;, placeholder=&quot;Username&quot;).form-control
+                .custom-control.custom-checkbox.mb-3.mr-4
+                  input(type=&quot;checkbox&quot;, id=&quot;inline-form-check-1&quot;).custom-control-input
+                  label.custom-control-label(for=&quot;inline-form-check-1&quot;) Remember me
+                button.btn.btn-primary.mb-3(type='submit') Submit
+
+  // Help text
+  h2.h5.pt-5.mb-3 Help text
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result10' data-toggle='tab' role='tab' aria-controls='result10' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html10' data-toggle='tab' role='tab' aria-controls='html10' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug10' data-toggle='tab' role='tab' aria-controls='pug10' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result10.tab-pane.fade.show.active(role='tabpanel')
+          .form-group
+            label(for='help-text-input') Password
+            input(type='password' id='help-text-input' placeholder='Your password here').form-control
+            small.form-text.text-muted Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+        #html10.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Form help text --&gt;
+              &lt;div class=&quot;form-group&quot;&gt;
+                &lt;label for=&quot;help-text-input&quot;&gt;Password&lt;/label&gt;
+                &lt;input class=&quot;form-control&quot; type=&quot;password&quot; id=&quot;help-text-input&quot; placeholder=&quot;Your password here&quot;&gt;
+                &lt;small class=&quot;form-text text-muted&quot;&gt;Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.&lt;/small&gt;
+              &lt;/div&gt;
+        #pug10.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Form help text
+              .form-group
+                label(for=&quot;help-text-input&quot;) Password
+                input(type=&quot;password&quot;, id=&quot;help-text-input&quot;, placeholder=&quot;Your password here&quot;).form-control
+                small.form-text.text-muted
+                  | Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+
+  // Validation: status text
+  h2.h5.pt-5.mb-3 Validation: status text
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result11' data-toggle='tab' role='tab' aria-controls='result11' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html11' data-toggle='tab' role='tab' aria-controls='html11' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug11' data-toggle='tab' role='tab' aria-controls='pug11' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result11.tab-pane.fade.show.active(role='tabpanel')
+          form(novalidate).needs-validation
+            .row
+              .col-md-4.form-group
+                label(for='validationCustom01') First name
+                input(type='text' id='validationCustom01' placeholder='First name' value='John' required).form-control
+                .valid-feedback Looks good!
+              .col-md-4.form-group
+                label(for='validationCustom02') Last name
+                input(type='text' id='validationCustom02' placeholder='Last name' value='Doe' required).form-control
+                .valid-feedback Looks good!
+              .col-md-4.form-group
+                label(for='validationCustomUsername') Username
+                input(type='text' id='validationCustomUsername' placeholder='Username' required).form-control
+                .invalid-feedback Please choose a username.
+                .valid-feedback Looks good!
+            .row
+              .col-md-6.form-group
+                label(for='validationCustom03') City
+                select(id='validationCustom03' required).form-control.custom-select
+                  option(value='') Choose city...
+                  option(value='Dallas') Dallas
+                  option(value='Houston') Houston
+                  option(value='Los Angeles') Los Angeles
+                  option(value='Miami') Miami
+                  option(value='New York') New York
+                .invalid-feedback Please provide a valid city.
+                .valid-feedback Looks good!
+              .col-md-3.form-group
+                label(for='validationCustom04') State
+                select(id='validationCustom04' required).form-control.custom-select
+                  option(value='') Choose state...
+                  option(value='Arizona') Arizona
+                  option(value='Colorado') Colorado
+                  option(value='Florida') Florida
+                  option(value='Indiana') Indiana
+                  option(value='Kentucky') Kentucky
+                  option(value='Texas') Texas
+                .invalid-feedback Please provide a valid state.
+                .valid-feedback Looks good!
+              .col-md-3.form-group
+                label(for='validationCustom05') Zip
+                input(type='text' id='validationCustom05' placeholder='Zip' required).form-control
+                .invalid-feedback Please provide a valid zip.
+                .valid-feedback Looks good!
+            .form-group
+              .custom-control.custom-checkbox
+                input(type='checkbox' id='invalidCheck' required).custom-control-input
+                label(for='invalidCheck').custom-control-label Agree to terms and conditions
+                .invalid-feedback You must agree before submitting.
+            button(type='submit').btn.btn-primary Submit Form
+        #html11.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Forms validation: status text --&gt;
+              &lt;form class=&quot;needs-validation&quot; novalidate&gt;
+                &lt;div class=&quot;row&quot;&gt;
+                  &lt;div class=&quot;col-md-4 form-group&quot;&gt;
+                    &lt;label for=&quot;validationCustom01&quot;&gt;First name&lt;/label&gt;
+                    &lt;input class=&quot;form-control&quot; type=&quot;text&quot; id=&quot;validationCustom01&quot; placeholder=&quot;First name&quot; value=&quot;John&quot; required&gt;
+                    &lt;div class=&quot;valid-feedback&quot;&gt;Looks good!&lt;/div&gt;
+                  &lt;/div&gt;
+                  &lt;div class=&quot;col-md-4 form-group&quot;&gt;
+                    &lt;label for=&quot;validationCustom02&quot;&gt;Last name&lt;/label&gt;
+                    &lt;input class=&quot;form-control&quot; type=&quot;text&quot; id=&quot;validationCustom02&quot; placeholder=&quot;Last name&quot; value=&quot;Doe&quot; required&gt;
+                    &lt;div class=&quot;valid-feedback&quot;&gt;Looks good!&lt;/div&gt;
+                  &lt;/div&gt;
+                  &lt;div class=&quot;col-md-4 form-group&quot;&gt;
+                    &lt;label for=&quot;validationCustomUsername&quot;&gt;Username&lt;/label&gt;
+                    &lt;input class=&quot;form-control&quot; type=&quot;text&quot; id=&quot;validationCustomUsername&quot; placeholder=&quot;Username&quot; required&gt;
+                    &lt;div class=&quot;invalid-feedback&quot;&gt;Please choose a username.&lt;/div&gt;
+                    &lt;div class=&quot;valid-feedback&quot;&gt;Looks good!&lt;/div&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;row&quot;&gt;
+                  &lt;div class=&quot;col-md-6 form-group&quot;&gt;
+                    &lt;label for=&quot;validationCustom03&quot;&gt;City&lt;/label&gt;
+                    &lt;select class=&quot;form-control custom-select&quot; id=&quot;validationCustom03&quot; required&gt;
+                      &lt;option value=&quot;&quot;&gt;Choose city...&lt;/option&gt;
+                      &lt;option value=&quot;Dallas&quot;&gt;Dallas&lt;/option&gt;
+                      &lt;option value=&quot;Houston&quot;&gt;Houston&lt;/option&gt;
+                      &lt;option value=&quot;Los Angeles&quot;&gt;Los Angeles&lt;/option&gt;
+                      &lt;option value=&quot;Miami&quot;&gt;Miami&lt;/option&gt;
+                      &lt;option value=&quot;New York&quot;&gt;New York&lt;/option&gt;
+                    &lt;/select&gt;
+                    &lt;div class=&quot;invalid-feedback&quot;&gt;Please provide a valid city.&lt;/div&gt;
+                    &lt;div class=&quot;valid-feedback&quot;&gt;Looks good!&lt;/div&gt;
+                  &lt;/div&gt;
+                  &lt;div class=&quot;col-md-3 form-group&quot;&gt;
+                    &lt;label for=&quot;validationCustom04&quot;&gt;State&lt;/label&gt;
+                    &lt;select class=&quot;form-control custom-select&quot; id=&quot;validationCustom04&quot; required&gt;
+                      &lt;option value=&quot;&quot;&gt;Choose state...&lt;/option&gt;
+                      &lt;option value=&quot;Arizona&quot;&gt;Arizona&lt;/option&gt;
+                      &lt;option value=&quot;Colorado&quot;&gt;Colorado&lt;/option&gt;
+                      &lt;option value=&quot;Florida&quot;&gt;Florida&lt;/option&gt;
+                      &lt;option value=&quot;Indiana&quot;&gt;Indiana&lt;/option&gt;
+                      &lt;option value=&quot;Kentucky&quot;&gt;Kentucky&lt;/option&gt;
+                      &lt;option value=&quot;Texas&quot;&gt;Texas&lt;/option&gt;
+                    &lt;/select&gt;
+                    &lt;div class=&quot;invalid-feedback&quot;&gt;Please provide a valid state.&lt;/div&gt;
+                    &lt;div class=&quot;valid-feedback&quot;&gt;Looks good!&lt;/div&gt;
+                  &lt;/div&gt;
+                  &lt;div class=&quot;col-md-3 form-group&quot;&gt;
+                    &lt;label for=&quot;validationCustom05&quot;&gt;Zip&lt;/label&gt;
+                    &lt;input class=&quot;form-control&quot; type=&quot;text&quot; id=&quot;validationCustom05&quot; placeholder=&quot;Zip&quot; required&gt;
+                    &lt;div class=&quot;invalid-feedback&quot;&gt;Please provide a valid zip.&lt;/div&gt;
+                    &lt;div class=&quot;valid-feedback&quot;&gt;Looks good!&lt;/div&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;form-group&quot;&gt;
+                  &lt;div class=&quot;custom-control custom-checkbox&quot;&gt;
+                    &lt;input class=&quot;custom-control-input&quot; type=&quot;checkbox&quot; id=&quot;invalidCheck&quot; required&gt;
+                    &lt;label class=&quot;custom-control-label&quot; for=&quot;invalidCheck&quot;&gt;Agree to terms and conditions&lt;/label&gt;
+                    &lt;div class=&quot;invalid-feedback&quot;&gt;You must agree before submitting.&lt;/div&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;button class=&quot;btn btn-primary&quot; type=&quot;submit&quot;&gt;Submit Form&lt;/button&gt;
+              &lt;/form&gt;
+        #pug11.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Forms validation: status text
+              form(novalidate).needs-validation
+                .row
+                  .col-md-4.form-group
+                    label(for=&quot;validationCustom01&quot;) First name
+                    input(type=&quot;text&quot;, id=&quot;validationCustom01&quot;, placeholder=&quot;First name&quot;, value=&quot;John&quot;, required).form-control
+                    .valid-feedback
+                      | Looks good!
+                  .col-md-4.form-group
+                    label(for=&quot;validationCustom02&quot;) Last name
+                    input(type=&quot;text&quot;, id=&quot;validationCustom02&quot;, placeholder=&quot;Last name&quot;, value=&quot;Doe&quot;, required).form-control
+                    .valid-feedback
+                      | Looks good!
+                  .col-md-4.form-group
+                    label(for=&quot;validationCustomUsername&quot;) Username
+                    input(type=&quot;text&quot;, id=&quot;validationCustomUsername&quot;, placeholder=&quot;Username&quot;, required).form-control
+                    .invalid-feedback
+                      | Please choose a username.
+                    .valid-feedback
+                      | Looks good!
+                .row
+                  .col-md-6.form-group
+                    label(for=&quot;validationCustom03&quot;) City
+                    select(id=&quot;validationCustom03&quot; required).form-control.custom-select
+                      option(value=&quot;&quot;) Choose city...
+                      option(value=&quot;Dallas&quot;) Dallas
+                      option(value=&quot;Houston&quot;) Houston
+                      option(value=&quot;Los Angeles&quot;) Los Angeles
+                      option(value=&quot;Miami&quot;) Miami
+                      option(value=&quot;New York&quot;) New York
+                    .invalid-feedback
+                      | Please provide a valid city.
+                    .valid-feedback
+                      | Looks good!
+                  .col-md-3.form-group
+                    label(for=&quot;validationCustom04&quot;) State
+                    select(id=&quot;validationCustom04&quot; required).form-control.custom-select
+                      option(value=&quot;&quot;) Choose state...
+                      option(value=&quot;Arizona&quot;) Arizona
+                      option(value=&quot;Colorado&quot;) Colorado
+                      option(value=&quot;Florida&quot;) Florida
+                      option(value=&quot;Indiana&quot;) Indiana
+                      option(value=&quot;Kentucky&quot;) Kentucky
+                      option(value=&quot;Texas&quot;) Texas
+                    .invalid-feedback
+                      | Please provide a valid state.
+                    .valid-feedback
+                      | Looks good!
+                  .col-md-3.form-group
+                    label(for=&quot;validationCustom05&quot;) Zip
+                    input(type=&quot;text&quot;, id=&quot;validationCustom05&quot;, placeholder=&quot;Zip&quot;, required).form-control
+                    .invalid-feedback
+                      | Please provide a valid zip.
+                    .valid-feedback
+                      | Looks good!
+                .form-group
+                  .custom-control.custom-checkbox
+                    input(type=&quot;checkbox&quot; id=&quot;invalidCheck&quot; required).custom-control-input
+                    label.custom-control-label(for=&quot;invalidCheck&quot;) Agree to terms and conditions
+                    .invalid-feedback
+                      | You must agree before submitting.
+                button.btn.btn-primary(type=&quot;submit&quot;) Submit Form
+
+  // Validation: status tooltips
+  h2.h5.pt-5.mb-3 Validation: status tooltips
+  .card
+    .card-header
+      ul(role='tablist').nav.nav-tabs.card-header-tabs
+        li.nav-item
+          a(href='#result12' data-toggle='tab' role='tab' aria-controls='result12' aria-selected='true').nav-link.active Result
+        li.nav-item
+          a(href='#html12' data-toggle='tab' role='tab' aria-controls='html12' aria-selected='false').nav-link HTML
+        li.nav-item
+          a(href='#pug12' data-toggle='tab' role='tab' aria-controls='pug12' aria-selected='false').nav-link Pug
+    .card-body
+      .tab-content
+        #result12.tab-pane.fade.show.active(role='tabpanel')
+          form(novalidate).needs-validation
+            .row
+              .col-md-4.form-group
+                label(for='validationTooltip01') First name
+                input(type='text' id='validationTooltip01' placeholder='First name' value='John' required).form-control
+                .valid-tooltip Looks good!
+              .col-md-4.form-group
+                label(for='validationTooltip02') Last name
+                input(type='text' id='validationTooltip02' placeholder='Last name' value='Doe' required).form-control
+                .valid-tooltip Looks good!
+              .col-md-4.form-group
+                label(for='validationTooltipUsername') Username
+                input(type='text' id='validationTooltipUsername' placeholder='Username' required).form-control
+                .invalid-tooltip Please choose a username.
+                .valid-tooltip Looks good!
+            .row
+              .col-md-6.form-group
+                label(for='validationTooltip03') City
+                select(id='validationTooltip03' required).form-control.custom-select
+                  option(value='') Choose city...
+                  option(value='Dallas') Dallas
+                  option(value='Houston') Houston
+                  option(value='Los Angeles') Los Angeles
+                  option(value='Miami') Miami
+                  option(value='New York') New York
+                .invalid-tooltip Please provide a valid city.
+                .valid-tooltip Looks good!
+              .col-md-3.form-group
+                label(for='validationTooltip04') State
+                select(id='validationTooltip04' required).form-control.custom-select
+                  option(value='') Choose state...
+                  option(value='Arizona') Arizona
+                  option(value='Colorado') Colorado
+                  option(value='Florida') Florida
+                  option(value='Indiana') Indiana
+                  option(value='Kentucky') Kentucky
+                  option(value='Texas') Texas
+                .invalid-tooltip Please provide a valid state.
+                .valid-tooltip Looks good!
+              .col-md-3.form-group
+                label(for='validationTooltip05') Zip
+                input(type='text' id='validationTooltip05' placeholder='Zip' required).form-control
+                .invalid-tooltip Please provide a valid zip.
+                .valid-tooltip Looks good!
+            .form-group
+              .custom-control.custom-checkbox
+                input(type='checkbox' id='invalidCheck01' required).custom-control-input
+                label(for='invalidCheck01').custom-control-label Agree to terms and conditions
+                .invalid-tooltip You must agree before submitting.
+            button(type='submit').btn.btn-primary Submit Form
+        #html12.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-html').
+              &lt;!-- Forms validation: status tooltips --&gt;
+              &lt;form class=&quot;needs-validation&quot; novalidate&gt;
+                &lt;div class=&quot;row&quot;&gt;
+                  &lt;div class=&quot;col-md-4 form-group&quot;&gt;
+                    &lt;label for=&quot;validationTooltip01&quot;&gt;First name&lt;/label&gt;
+                    &lt;input class=&quot;form-control&quot; type=&quot;text&quot; id=&quot;validationTooltip01&quot; placeholder=&quot;First name&quot; value=&quot;John&quot; required&gt;
+                    &lt;div class=&quot;valid-tooltip&quot;&gt;Looks good!&lt;/div&gt;
+                  &lt;/div&gt;
+                  &lt;div class=&quot;col-md-4 form-group&quot;&gt;
+                    &lt;label for=&quot;validationTooltip02&quot;&gt;Last name&lt;/label&gt;
+                    &lt;input class=&quot;form-control&quot; type=&quot;text&quot; id=&quot;validationTooltip02&quot; placeholder=&quot;Last name&quot; value=&quot;Doe&quot; required&gt;
+                    &lt;div class=&quot;valid-tooltip&quot;&gt;Looks good!&lt;/div&gt;
+                  &lt;/div&gt;
+                  &lt;div class=&quot;col-md-4 form-group&quot;&gt;
+                    &lt;label for=&quot;validationTooltipUsername&quot;&gt;Username&lt;/label&gt;
+                    &lt;input class=&quot;form-control&quot; type=&quot;text&quot; id=&quot;validationTooltipUsername&quot; placeholder=&quot;Username&quot; required&gt;
+                    &lt;div class=&quot;invalid-tooltip&quot;&gt;Please choose a username.&lt;/div&gt;
+                    &lt;div class=&quot;valid-tooltip&quot;&gt;Looks good!&lt;/div&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;row&quot;&gt;
+                  &lt;div class=&quot;col-md-6 form-group&quot;&gt;
+                    &lt;label for=&quot;validationTooltip03&quot;&gt;City&lt;/label&gt;
+                    &lt;select class=&quot;form-control custom-select&quot; id=&quot;validationTooltip03&quot; required&gt;
+                      &lt;option value=&quot;&quot;&gt;Choose city...&lt;/option&gt;
+                      &lt;option value=&quot;Dallas&quot;&gt;Dallas&lt;/option&gt;
+                      &lt;option value=&quot;Houston&quot;&gt;Houston&lt;/option&gt;
+                      &lt;option value=&quot;Los Angeles&quot;&gt;Los Angeles&lt;/option&gt;
+                      &lt;option value=&quot;Miami&quot;&gt;Miami&lt;/option&gt;
+                      &lt;option value=&quot;New York&quot;&gt;New York&lt;/option&gt;
+                    &lt;/select&gt;
+                    &lt;div class=&quot;invalid-tooltip&quot;&gt;Please provide a valid city.&lt;/div&gt;
+                    &lt;div class=&quot;valid-tooltip&quot;&gt;Looks good!&lt;/div&gt;
+                  &lt;/div&gt;
+                  &lt;div class=&quot;col-md-3 form-group&quot;&gt;
+                    &lt;label for=&quot;validationTooltip04&quot;&gt;State&lt;/label&gt;
+                    &lt;select class=&quot;form-control custom-select&quot; id=&quot;validationTooltip04&quot; required&gt;
+                      &lt;option value=&quot;&quot;&gt;Choose state...&lt;/option&gt;
+                      &lt;option value=&quot;Arizona&quot;&gt;Arizona&lt;/option&gt;
+                      &lt;option value=&quot;Colorado&quot;&gt;Colorado&lt;/option&gt;
+                      &lt;option value=&quot;Florida&quot;&gt;Florida&lt;/option&gt;
+                      &lt;option value=&quot;Indiana&quot;&gt;Indiana&lt;/option&gt;
+                      &lt;option value=&quot;Kentucky&quot;&gt;Kentucky&lt;/option&gt;
+                      &lt;option value=&quot;Texas&quot;&gt;Texas&lt;/option&gt;
+                    &lt;/select&gt;
+                    &lt;div class=&quot;invalid-tooltip&quot;&gt;Please provide a valid state.&lt;/div&gt;
+                    &lt;div class=&quot;valid-tooltip&quot;&gt;Looks good!&lt;/div&gt;
+                  &lt;/div&gt;
+                  &lt;div class=&quot;col-md-3 form-group&quot;&gt;
+                    &lt;label for=&quot;validationTooltip05&quot;&gt;Zip&lt;/label&gt;
+                    &lt;input class=&quot;form-control&quot; type=&quot;text&quot; id=&quot;validationTooltip05&quot; placeholder=&quot;Zip&quot; required&gt;
+                    &lt;div class=&quot;invalid-tooltip&quot;&gt;Please provide a valid zip.&lt;/div&gt;
+                    &lt;div class=&quot;valid-tooltip&quot;&gt;Looks good!&lt;/div&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;form-group&quot;&gt;
+                  &lt;div class=&quot;custom-control custom-checkbox&quot;&gt;
+                    &lt;input class=&quot;custom-control-input&quot; type=&quot;checkbox&quot; id=&quot;invalidCheck01&quot; required&gt;
+                    &lt;label class=&quot;custom-control-label&quot; for=&quot;invalidCheck01&quot;&gt;Agree to terms and conditions&lt;/label&gt;
+                    &lt;div class=&quot;invalid-tooltip&quot;&gt;You must agree before submitting.&lt;/div&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;button class=&quot;btn btn-primary&quot; type=&quot;submit&quot;&gt;Submit Form&lt;/button&gt;
+              &lt;/form&gt;
+        #pug12.tab-pane.fade(role='tabpanel')
+          pre.line-numbers
+            code(class='lang-pug').
+              // Forms validation: status tooltips
+              form(novalidate).needs-validation
+                .row
+                  .col-md-4.form-group
+                    label(for=&quot;validationTooltip01&quot;) First name
+                    input(type=&quot;text&quot; id=&quot;validationTooltip01&quot; placeholder=&quot;First name&quot; value=&quot;John&quot; required).form-control
+                    .valid-tooltip
+                      | Looks good!
+                  .col-md-4.form-group
+                    label(for=&quot;validationTooltip02&quot;) Last name
+                    input(type=&quot;text&quot; id=&quot;validationTooltip02&quot; placeholder=&quot;Last name&quot; value=&quot;Doe&quot; required).form-control
+                    .valid-tooltip
+                      | Looks good!
+                  .col-md-4.form-group
+                    label(for=&quot;validationTooltipUsername&quot;) Username
+                    input(type=&quot;text&quot; id=&quot;validationTooltipUsername&quot; placeholder=&quot;Username&quot; required).form-control
+                    .invalid-tooltip
+                      | Please choose a username.
+                    .valid-tooltip
+                      | Looks good!
+                .row
+                  .col-md-6.form-group
+                    label(for=&quot;validationTooltip03&quot;) City
+                    select(id=&quot;validationTooltip03&quot; required).form-control.custom-select
+                      option(value=&quot;&quot;) Choose city...
+                      option(value=&quot;Dallas&quot;) Dallas
+                      option(value=&quot;Houston&quot;) Houston
+                      option(value=&quot;Los Angeles&quot;) Los Angeles
+                      option(value=&quot;Miami&quot;) Miami
+                      option(value=&quot;New York&quot;) New York
+                    .invalid-tooltip
+                      | Please provide a valid city.
+                    .valid-tooltip
+                      | Looks good!
+                  .col-md-3.form-group
+                    label(for=&quot;validationTooltip04&quot;) State
+                    select(id=&quot;validationTooltip04&quot; required).form-control.custom-select
+                      option(value=&quot;&quot;) Choose state...
+                      option(value=&quot;Arizona&quot;) Arizona
+                      option(value=&quot;Colorado&quot;) Colorado
+                      option(value=&quot;Florida&quot;) Florida
+                      option(value=&quot;Indiana&quot;) Indiana
+                      option(value=&quot;Kentucky&quot;) Kentucky
+                      option(value=&quot;Texas&quot;) Texas
+                    .invalid-tooltip
+                      | Please provide a valid state.
+                    .valid-tooltip
+                      | Looks good!
+                  .col-md-3.form-group
+                    label(for=&quot;validationTooltip05&quot;) Zip
+                    input(type=&quot;text&quot; id=&quot;validationTooltip05&quot; placeholder=&quot;Zip&quot; required).form-control
+                    .invalid-tooltip
+                      | Please provide a valid zip.
+                    .valid-tooltip
+                      | Looks good!
+                .form-group
+                  .custom-control.custom-checkbox
+                    input(type=&quot;checkbox&quot; id=&quot;invalidCheck01&quot; required).custom-control-input
+                    label(for=&quot;invalidCheck01&quot;).custom-control-label Agree to terms and conditions
+                    .invalid-tooltip
+                      | You must agree before submitting.
+                button.btn.btn-primary(type=&quot;submit&quot;) Submit Form

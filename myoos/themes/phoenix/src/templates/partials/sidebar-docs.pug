@@ -1,0 +1,29 @@
+// Components sidebar
+#docs-menu-collapse.docs-side-menu.collapse.mt-n2
+  .docs-side-menu-inner
+    .row.no-gutters.d-lg-none.px-3.mb-3.border-bottom
+      .col-sm-4.px-2
+        a(href='../index.html').btn.btn-secondary.btn-block.mb-3 Live preview
+      .col-sm-4.px-2
+        a(href='../components/alerts.html').btn.btn-secondary.btn-block.mb-3
+          i(data-feather='grid').mr-1
+          | Components
+      .col-sm-4.px-2
+        a(href='#').btn.btn-primary.btn-block.mb-3
+          i(data-feather='shopping-cart').mr-1
+          | Buy now
+
+    +components-menu([
+      {'link': 'dev-setup.html', 'title': 'Dev Environment Setup'},
+      {'link': 'working-with-gulp.html', 'title': 'Working with Gulp'},
+      {'link': 'project-structure.html', 'title': 'Project Structure'},
+      {'link': 'using-preprocessors.html', 'title': 'Using Pug & Sass'},
+      {'link': 'autoprefixer.html', 'title': 'Browser Support'},
+      {'link': 'global-colors.html', 'title': 'Global Colors'},
+      {'link': 'components.html', 'title': 'Components'},
+      {'link': 'utilities.html', 'title': 'Utility Classes'},
+      {'link': 'ui-icons.html', 'title': 'UI Icons'},
+      {'link': 'mailchimp.html', 'title': 'MailChimp'},
+      {'link': 'credits.html', 'title': 'Sources and Credits'},
+      {'link': 'changelog.html', 'title': 'Changelog'}
+    ], pageTitle)
