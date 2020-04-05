@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit20f0c5143d9e0b410d96fea3786c662b
+class ComposerStaticInit0c4a9bc9296b6e3c5b3991f4494de9ef
 {
     public static $files = array (
         '6f5653f9af3eab04254ad2c7f20515c8' => __DIR__ . '/../..' . '/back-compat/back-compat.php',
@@ -151,8 +151,8 @@ class ComposerStaticInit20f0c5143d9e0b410d96fea3786c662b
         'AmpProject\\AmpWP\\HasActivation' => __DIR__ . '/../..' . '/src/HasActivation.php',
         'AmpProject\\AmpWP\\HasDeactivation' => __DIR__ . '/../..' . '/src/HasDeactivation.php',
         'AmpProject\\AmpWP\\Option' => __DIR__ . '/../..' . '/src/Option.php',
-        'AmpProject\\AmpWP\\RemoteRequest\\CachedData' => __DIR__ . '/../..' . '/src/RemoteRequest/CachedData.php',
         'AmpProject\\AmpWP\\RemoteRequest\\CachedRemoteGetRequest' => __DIR__ . '/../..' . '/src/RemoteRequest/CachedRemoteGetRequest.php',
+        'AmpProject\\AmpWP\\RemoteRequest\\CachedResponse' => __DIR__ . '/../..' . '/src/RemoteRequest/CachedResponse.php',
         'AmpProject\\AmpWP\\RemoteRequest\\WpHttpRemoteGetRequest' => __DIR__ . '/../..' . '/src/RemoteRequest/WpHttpRemoteGetRequest.php',
         'AmpProject\\AmpWP\\Service' => __DIR__ . '/../..' . '/src/Service.php',
         'AmpProject\\AmpWP\\Services' => __DIR__ . '/../..' . '/src/Services.php',
@@ -163,6 +163,8 @@ class ComposerStaticInit20f0c5143d9e0b410d96fea3786c662b
         'AmpProject\\DevMode' => __DIR__ . '/..' . '/ampproject/common/src/DevMode.php',
         'AmpProject\\Dom\\Document' => __DIR__ . '/..' . '/ampproject/common/src/Dom/Document.php',
         'AmpProject\\Exception\\AmpException' => __DIR__ . '/..' . '/ampproject/common/src/Exception/AmpException.php',
+        'AmpProject\\Exception\\FailedRemoteRequest' => __DIR__ . '/..' . '/ampproject/common/src/Exception/FailedRemoteRequest.php',
+        'AmpProject\\Exception\\FailedToGetCachedResponse' => __DIR__ . '/..' . '/ampproject/common/src/Exception/FailedToGetCachedResponse.php',
         'AmpProject\\Exception\\FailedToGetFromRemoteUrl' => __DIR__ . '/..' . '/ampproject/common/src/Exception/FailedToGetFromRemoteUrl.php',
         'AmpProject\\Extension' => __DIR__ . '/..' . '/ampproject/common/src/Extension.php',
         'AmpProject\\Fonts' => __DIR__ . '/..' . '/ampproject/common/src/Fonts.php',
@@ -253,10 +255,10 @@ class ComposerStaticInit20f0c5143d9e0b410d96fea3786c662b
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit20f0c5143d9e0b410d96fea3786c662b::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit20f0c5143d9e0b410d96fea3786c662b::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit20f0c5143d9e0b410d96fea3786c662b::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit20f0c5143d9e0b410d96fea3786c662b::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit0c4a9bc9296b6e3c5b3991f4494de9ef::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit0c4a9bc9296b6e3c5b3991f4494de9ef::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit0c4a9bc9296b6e3c5b3991f4494de9ef::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit0c4a9bc9296b6e3c5b3991f4494de9ef::$classMap;
 
         }, null, ClassLoader::class);
     }
