@@ -35,7 +35,7 @@ define( 'AI1WM_DEBUG', false );
 // ==================
 // = Plugin Version =
 // ==================
-define( 'AI1WM_VERSION', '7.18' );
+define( 'AI1WM_VERSION', '7.19' );
 
 // ===============
 // = Plugin Name =
@@ -152,10 +152,15 @@ define( 'AI1WM_SETTINGS_NAME', 'settings.json' );
 // ==========================
 define( 'AI1WM_MULTIPART_NAME', 'multipart.list' );
 
-// ========================
-// = Archive Filemap Name =
-// ========================
-define( 'AI1WM_FILEMAP_NAME', 'filemap.list' );
+// =============================
+// = Archive Content List Name =
+// =============================
+define( 'AI1WM_CONTENT_LIST_NAME', 'content.list' );
+
+// ===========================
+// = Archive Media List Name =
+// ===========================
+define( 'AI1WM_MEDIA_LIST_NAME', 'media.list' );
 
 // =================================
 // = Archive Must-Use Plugins Name =
@@ -256,6 +261,16 @@ define( 'AI1WM_SITE_URL', 'siteurl' );
 // = Home URL =
 // ============
 define( 'AI1WM_HOME_URL', 'home' );
+
+// ================
+// = Uploads Path =
+// ================
+define( 'AI1WM_UPLOADS_PATH', 'upload_path' );
+
+// ====================
+// = Uploads URL Path =
+// ====================
+define( 'AI1WM_UPLOADS_URL_PATH', 'upload_url_path' );
 
 // ==================
 // = Active Plugins =

@@ -35,7 +35,6 @@ class Ai1wm_Compressor extends Ai1wm_Archiver {
 	 * @param string $file_name File to use as archive
 	 */
 	public function __construct( $file_name ) {
-		// Call parent, to initialize variables
 		parent::__construct( $file_name, true );
 	}
 
@@ -57,10 +56,10 @@ class Ai1wm_Compressor extends Ai1wm_Archiver {
 		$file_written = 0;
 
 		// Replace forward slash with current directory separator in file name
-		$file_name = $this->replace_forward_slash_with_directory_separator( $file_name );
+		$file_name = ai1wm_replace_forward_slash_with_directory_separator( $file_name );
 
 		// Escape Windows directory separator in file name
-		$file_name = $this->escape_windows_directory_separator( $file_name );
+		$file_name = ai1wm_escape_windows_directory_separator( $file_name );
 
 		// Flag to hold if file data has been processed
 		$completed = true;
@@ -185,9 +184,9 @@ class Ai1wm_Compressor extends Ai1wm_Archiver {
 
 			// Replace current directory separator with backward slash in file path
 			if ( empty( $new_file_name ) ) {
-				$path = $this->replace_directory_separator_with_forward_slash( ai1wm_dirname( $file_name ) );
+				$path = ai1wm_replace_directory_separator_with_forward_slash( ai1wm_dirname( $file_name ) );
 			} else {
-				$path = $this->replace_directory_separator_with_forward_slash( ai1wm_dirname( $new_file_name ) );
+				$path = ai1wm_replace_directory_separator_with_forward_slash( ai1wm_dirname( $new_file_name ) );
 			}
 
 			// Concatenate block format parts

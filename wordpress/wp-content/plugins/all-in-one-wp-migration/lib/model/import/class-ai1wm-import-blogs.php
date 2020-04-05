@@ -79,6 +79,26 @@ class Ai1wm_Import_Blogs {
 							$subsite['Stylesheet'] = null;
 						}
 
+						// Set uploads path (backward compatibility)
+						if ( empty( $subsite['Uploads'] ) ) {
+							$subsite['Uploads'] = null;
+						}
+
+						// Set uploads URL path (backward compatibility)
+						if ( empty( $subsite['UploadsURL'] ) ) {
+							$subsite['UploadsURL'] = null;
+						}
+
+						// Set uploads path (backward compatibility)
+						if ( empty( $subsite['WordPress']['Uploads'] ) ) {
+							$subsite['WordPress']['Uploads'] = null;
+						}
+
+						// Set uploads URL path (backward compatibility)
+						if ( empty( $subsite['WordPress']['UploadsURL'] ) ) {
+							$subsite['WordPress']['UploadsURL'] = null;
+						}
+
 						// Set blog items
 						$blogs[] = array(
 							'Old' => array(
@@ -90,6 +110,9 @@ class Ai1wm_Import_Blogs {
 								'Plugins'         => $subsite['Plugins'],
 								'Template'        => $subsite['Template'],
 								'Stylesheet'      => $subsite['Stylesheet'],
+								'Uploads'         => $subsite['Uploads'],
+								'UploadsURL'      => $subsite['UploadsURL'],
+								'WordPress'       => $subsite['WordPress'],
 							),
 							'New' => array(
 								'BlogID'          => null,
@@ -100,6 +123,11 @@ class Ai1wm_Import_Blogs {
 								'Plugins'         => $subsite['Plugins'],
 								'Template'        => $subsite['Template'],
 								'Stylesheet'      => $subsite['Stylesheet'],
+								'Uploads'         => get_option( 'upload_path' ),
+								'UploadsURL'      => get_option( 'upload_url_path' ),
+								'WordPress'       => array(
+									'UploadsURL' => ai1wm_get_uploads_url(),
+								),
 							),
 						);
 					} else {

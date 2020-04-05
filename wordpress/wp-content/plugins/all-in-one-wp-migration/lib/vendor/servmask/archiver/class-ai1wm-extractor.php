@@ -169,7 +169,7 @@ class Ai1wm_Extractor extends Ai1wm_Archiver {
 		}
 
 		// Replace forward slash with current directory separator in location
-		$location = $this->replace_forward_slash_with_directory_separator( $location );
+		$location = ai1wm_replace_forward_slash_with_directory_separator( $location );
 
 		// Flag to hold if file data has been processed
 		$completed = true;
@@ -215,7 +215,7 @@ class Ai1wm_Extractor extends Ai1wm_Archiver {
 
 					// Should we skip this file by name?
 					for ( $i = 0; $i < count( $exclude_files ); $i++ ) {
-						if ( strpos( $file_name . DIRECTORY_SEPARATOR, $exclude_files[ $i ] . DIRECTORY_SEPARATOR ) === 0 ) {
+						if ( strpos( $file_name . DIRECTORY_SEPARATOR, ai1wm_replace_forward_slash_with_directory_separator( $exclude_files[ $i ] ) . DIRECTORY_SEPARATOR ) === 0 ) {
 							$should_exclude_file = true;
 							break;
 						}
@@ -234,18 +234,26 @@ class Ai1wm_Extractor extends Ai1wm_Archiver {
 
 						// Replace extract paths
 						for ( $i = 0; $i < count( $old_paths ); $i++ ) {
-							if ( strpos( $file_path . DIRECTORY_SEPARATOR, $old_paths[ $i ] . DIRECTORY_SEPARATOR ) === 0 ) {
-								$file_name = substr_replace( $file_name, $new_paths[ $i ], 0, strlen( $old_paths[ $i ] ) );
-								$file_path = substr_replace( $file_path, $new_paths[ $i ], 0, strlen( $old_paths[ $i ] ) );
+							if ( strpos( $file_path . DIRECTORY_SEPARATOR, ai1wm_replace_forward_slash_with_directory_separator( $old_paths[ $i ] ) . DIRECTORY_SEPARATOR ) === 0 ) {
+								$file_name = substr_replace( $file_name, ai1wm_replace_forward_slash_with_directory_separator( $new_paths[ $i ] ), 0, strlen( ai1wm_replace_forward_slash_with_directory_separator( $old_paths[ $i ] ) ) );
+								$file_path = substr_replace( $file_path, ai1wm_replace_forward_slash_with_directory_separator( $new_paths[ $i ] ), 0, strlen( ai1wm_replace_forward_slash_with_directory_separator( $old_paths[ $i ] ) ) );
 								break;
 							}
 						}
 
 						// Escape Windows directory separator in file path
-						$file_path = $this->escape_windows_directory_separator( $location . DIRECTORY_SEPARATOR . $file_path );
+						if ( path_is_absolute( $file_path ) ) {
+							$file_path = ai1wm_escape_windows_directory_separator( $file_path );
+						} else {
+							$file_path = ai1wm_escape_windows_directory_separator( $location . DIRECTORY_SEPARATOR . $file_path );
+						}
 
 						// Escape Windows directory separator in file name
-						$file_name = $this->escape_windows_directory_separator( $location . DIRECTORY_SEPARATOR . $file_name );
+						if ( path_is_absolute( $file_name ) ) {
+							$file_name = ai1wm_escape_windows_directory_separator( $file_name );
+						} else {
+							$file_name = ai1wm_escape_windows_directory_separator( $location . DIRECTORY_SEPARATOR . $file_name );
+						}
 
 						// Check if location doesn't exist, then create it
 						if ( false === is_dir( $file_path ) ) {
@@ -293,7 +301,7 @@ class Ai1wm_Extractor extends Ai1wm_Archiver {
 		}
 
 		// Replace forward slash with current directory separator in location
-		$location = $this->replace_forward_slash_with_directory_separator( $location );
+		$location = ai1wm_replace_forward_slash_with_directory_separator( $location );
 
 		// Flag to hold if file data has been processed
 		$completed = true;
@@ -342,7 +350,7 @@ class Ai1wm_Extractor extends Ai1wm_Archiver {
 
 					// Should we extract this file by name?
 					for ( $i = 0; $i < count( $include_files ); $i++ ) {
-						if ( strpos( $file_name . DIRECTORY_SEPARATOR, $include_files[ $i ] . DIRECTORY_SEPARATOR ) === 0 ) {
+						if ( strpos( $file_name . DIRECTORY_SEPARATOR, ai1wm_replace_forward_slash_with_directory_separator( $include_files[ $i ] ) . DIRECTORY_SEPARATOR ) === 0 ) {
 							$should_include_file = true;
 							break;
 						}
@@ -350,7 +358,7 @@ class Ai1wm_Extractor extends Ai1wm_Archiver {
 
 					// Should we skip this file name?
 					for ( $i = 0; $i < count( $exclude_files ); $i++ ) {
-						if ( strpos( $file_name . DIRECTORY_SEPARATOR, $exclude_files[ $i ] . DIRECTORY_SEPARATOR ) === 0 ) {
+						if ( strpos( $file_name . DIRECTORY_SEPARATOR, ai1wm_replace_forward_slash_with_directory_separator( $exclude_files[ $i ] ) . DIRECTORY_SEPARATOR ) === 0 ) {
 							$should_include_file = false;
 							break;
 						}
@@ -368,10 +376,10 @@ class Ai1wm_Extractor extends Ai1wm_Archiver {
 					if ( $should_include_file === true ) {
 
 						// Escape Windows directory separator in file path
-						$file_path = $this->escape_windows_directory_separator( $location . DIRECTORY_SEPARATOR . $file_path );
+						$file_path = ai1wm_escape_windows_directory_separator( $location . DIRECTORY_SEPARATOR . $file_path );
 
 						// Escape Windows directory separator in file name
-						$file_name = $this->escape_windows_directory_separator( $location . DIRECTORY_SEPARATOR . $file_name );
+						$file_name = ai1wm_escape_windows_directory_separator( $location . DIRECTORY_SEPARATOR . $file_name );
 
 						// Check if location doesn't exist, then create it
 						if ( false === is_dir( $file_path ) ) {
@@ -540,10 +548,10 @@ class Ai1wm_Extractor extends Ai1wm_Archiver {
 			$data['path'] = ( $data['path'] === '.' ? '' : $data['path'] );
 
 			// Replace forward slash with current directory separator in file name
-			$data['filename'] = $this->replace_forward_slash_with_directory_separator( $data['filename'] );
+			$data['filename'] = ai1wm_replace_forward_slash_with_directory_separator( $data['filename'] );
 
 			// Replace forward slash with current directory separator in file path
-			$data['path'] = $this->replace_forward_slash_with_directory_separator( $data['path'] );
+			$data['path'] = ai1wm_replace_forward_slash_with_directory_separator( $data['path'] );
 		}
 
 		return $data;

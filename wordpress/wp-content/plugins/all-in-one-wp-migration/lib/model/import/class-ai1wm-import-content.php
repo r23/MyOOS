@@ -99,65 +99,68 @@ class Ai1wm_Import_Content {
 
 		// Set extract paths
 		foreach ( $blogs as $blog ) {
-			if ( ai1wm_main_site( $blog['Old']['BlogID'] ) === false ) {
+			if ( ai1wm_is_mainsite( $blog['Old']['BlogID'] ) === false ) {
 				if ( defined( 'UPLOADBLOGSDIR' ) ) {
 					// Old files dir style
-					$old_paths[] = ai1wm_files_path( $blog['Old']['BlogID'] );
-					$new_paths[] = ai1wm_files_path( $blog['New']['BlogID'] );
+					$old_paths[] = ai1wm_blog_files_relpath( $blog['Old']['BlogID'] );
+					$new_paths[] = ai1wm_blog_files_abspath( $blog['New']['BlogID'] );
 
 					// Old blogs.dir style
-					$old_paths[] = ai1wm_blogsdir_path( $blog['Old']['BlogID'] );
-					$new_paths[] = ai1wm_blogsdir_path( $blog['New']['BlogID'] );
+					$old_paths[] = ai1wm_blog_blogsdir_relpath( $blog['Old']['BlogID'] );
+					$new_paths[] = ai1wm_blog_blogsdir_abspath( $blog['New']['BlogID'] );
 
 					// New sites dir style
-					$old_paths[] = ai1wm_sites_path( $blog['Old']['BlogID'] );
-					$new_paths[] = ai1wm_files_path( $blog['New']['BlogID'] );
+					$old_paths[] = ai1wm_blog_sites_relpath( $blog['Old']['BlogID'] );
+					$new_paths[] = ai1wm_blog_files_abspath( $blog['New']['BlogID'] );
 				} else {
 					// Old files dir style
-					$old_paths[] = ai1wm_files_path( $blog['Old']['BlogID'] );
-					$new_paths[] = ai1wm_sites_path( $blog['New']['BlogID'] );
+					$old_paths[] = ai1wm_blog_files_relpath( $blog['Old']['BlogID'] );
+					$new_paths[] = ai1wm_blog_sites_abspath( $blog['New']['BlogID'] );
 
 					// Old blogs.dir style
-					$old_paths[] = ai1wm_blogsdir_path( $blog['Old']['BlogID'] );
-					$new_paths[] = ai1wm_sites_path( $blog['New']['BlogID'] );
+					$old_paths[] = ai1wm_blog_blogsdir_relpath( $blog['Old']['BlogID'] );
+					$new_paths[] = ai1wm_blog_sites_abspath( $blog['New']['BlogID'] );
 
 					// New sites dir style
-					$old_paths[] = ai1wm_sites_path( $blog['Old']['BlogID'] );
-					$new_paths[] = ai1wm_sites_path( $blog['New']['BlogID'] );
+					$old_paths[] = ai1wm_blog_sites_relpath( $blog['Old']['BlogID'] );
+					$new_paths[] = ai1wm_blog_sites_abspath( $blog['New']['BlogID'] );
 				}
 			}
 		}
 
 		// Set base site extract paths (should be added at the end of arrays)
 		foreach ( $blogs as $blog ) {
-			if ( ai1wm_main_site( $blog['Old']['BlogID'] ) === true ) {
+			if ( ai1wm_is_mainsite( $blog['Old']['BlogID'] ) === true ) {
 				if ( defined( 'UPLOADBLOGSDIR' ) ) {
 					// Old files dir style
-					$old_paths[] = ai1wm_files_path( $blog['Old']['BlogID'] );
-					$new_paths[] = ai1wm_files_path( $blog['New']['BlogID'] );
+					$old_paths[] = ai1wm_blog_files_relpath( $blog['Old']['BlogID'] );
+					$new_paths[] = ai1wm_blog_files_abspath( $blog['New']['BlogID'] );
 
 					// Old blogs.dir style
-					$old_paths[] = ai1wm_blogsdir_path( $blog['Old']['BlogID'] );
-					$new_paths[] = ai1wm_blogsdir_path( $blog['New']['BlogID'] );
+					$old_paths[] = ai1wm_blog_blogsdir_relpath( $blog['Old']['BlogID'] );
+					$new_paths[] = ai1wm_blog_blogsdir_abspath( $blog['New']['BlogID'] );
 
 					// New sites dir style
-					$old_paths[] = ai1wm_sites_path( $blog['Old']['BlogID'] );
-					$new_paths[] = ai1wm_files_path( $blog['New']['BlogID'] );
+					$old_paths[] = ai1wm_blog_sites_relpath( $blog['Old']['BlogID'] );
+					$new_paths[] = ai1wm_blog_files_abspath( $blog['New']['BlogID'] );
 				} else {
 					// Old files dir style
-					$old_paths[] = ai1wm_files_path( $blog['Old']['BlogID'] );
-					$new_paths[] = ai1wm_sites_path( $blog['New']['BlogID'] );
+					$old_paths[] = ai1wm_blog_files_relpath( $blog['Old']['BlogID'] );
+					$new_paths[] = ai1wm_blog_sites_abspath( $blog['New']['BlogID'] );
 
 					// Old blogs.dir style
-					$old_paths[] = ai1wm_blogsdir_path( $blog['Old']['BlogID'] );
-					$new_paths[] = ai1wm_sites_path( $blog['New']['BlogID'] );
+					$old_paths[] = ai1wm_blog_blogsdir_relpath( $blog['Old']['BlogID'] );
+					$new_paths[] = ai1wm_blog_sites_abspath( $blog['New']['BlogID'] );
 
 					// New sites dir style
-					$old_paths[] = ai1wm_sites_path( $blog['Old']['BlogID'] );
-					$new_paths[] = ai1wm_sites_path( $blog['New']['BlogID'] );
+					$old_paths[] = ai1wm_blog_sites_relpath( $blog['Old']['BlogID'] );
+					$new_paths[] = ai1wm_blog_sites_abspath( $blog['New']['BlogID'] );
 				}
 			}
 		}
+
+		$old_paths[] = ai1wm_blog_sites_relpath();
+		$new_paths[] = ai1wm_blog_sites_abspath();
 
 		while ( $archive->has_not_reached_eof() ) {
 			$file_bytes_written = 0;
