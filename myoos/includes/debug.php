@@ -23,14 +23,6 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
  */
 set_error_handler('oos_error_log_handler');
 
-if (function_exists('ini_set')) {
-	ini_set('allow_call_time_pass_reference',1);
-	ini_set('track_errors',1);
-	ini_set('error_reporting',E_ALL & ~E_NOTICE);
-	ini_set('display_errors',1);
-	ini_set('log_errors',0);
-}
-
  
 /**
  * Error log handler

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /* ----------------------------------------------------------------------
 
    MyOOS [Shopsystem]
@@ -20,3 +20,4 @@ define('OOS_VERSION', '2.4.4 -dev');
 
 // Complete software name string
 define('OOS_FULL_NAME', 'MyOOS ' . OOS_VERSION);
+
