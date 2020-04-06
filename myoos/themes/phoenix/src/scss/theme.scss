@@ -20,9 +20,10 @@
 @import 'bootstrap/bootstrap';
 
 // Theme Core
-// @import 'theme/reboot';
-// @import 'theme/components';
-// @import 'theme/utilities';
+@import 'theme/components/fonts';
+@import 'theme/reboot';
+@import 'theme/components';
+@import 'theme/utilities';
 
 // Custom Core
 @import 'custom';
