@@ -1742,7 +1742,7 @@ msgstr "Hinzugefügt:"
 msgid "Whether posts of this status may have floating published dates."
 msgstr "Ob Beiträge mit diesem Status variable Veröffentlichungsdaten haben können."
 
-#: wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php:392
+#: wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php:415
 msgid "Sorry, you are not allowed to delete revisions of this post."
 msgstr "Du bist leider nicht berechtigt, Revisionen dieses Beitrags zu löschen."
 
